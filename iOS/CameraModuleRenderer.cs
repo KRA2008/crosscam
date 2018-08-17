@@ -4,6 +4,7 @@ using CustomRenderer;
 using CustomRenderer.iOS;
 using Foundation;
 using System;
+using System.ComponentModel;
 using System.Linq;
 using UIKit;
 using Xamarin.Forms;
@@ -12,7 +13,7 @@ using Xamarin.Forms.Platform.iOS;
 [assembly:ExportRenderer (typeof(CameraModule), typeof(CameraModuleRenderer))]
 namespace CustomRenderer.iOS
 {
-	public class CameraModuleRenderer : VisualElementRenderer<ContentView>
+	public class CameraModuleRenderer : ViewRenderer<ContentView, UIView>
 	{
 		private AVCaptureSession _captureSession;
 	    private AVCaptureDeviceInput _captureDeviceInput;
@@ -21,6 +22,30 @@ namespace CustomRenderer.iOS
 	    private UIButton _takePhotoButton;
 	    private UIButton _toggleCameraButton;
 	    private UIButton _toggleFlashButton;
+	    private ContentView _contentView;
+
+	    protected override void OnElementPropertyChanged(object sender, PropertyChangedEventArgs e)
+	    {
+	        base.OnElementPropertyChanged(sender, e);
+
+	        if (e.PropertyName == nameof(ContentView.Width))
+	        {
+	            NativeView.Bounds = new CGRect(0, 0, _contentView.Width, NativeView.Bounds.Height);
+	        }
+	        else if (e.PropertyName == nameof(ContentView.Height))
+	        {
+	            NativeView.Bounds = new CGRect(0, 0, NativeView.Bounds.Width, _contentView.Height);
+            }
+
+	        if (NativeView.Bounds.Width > 0 && NativeView.Bounds.Height > 0)
+	        {
+
+	            SetupUserInterface();
+	            SetupEventHandlers();
+	            SetupLiveCameraStream();
+	            AuthorizeCameraUse();
+            }
+	    }
 
 	    protected override void OnElementChanged(ElementChangedEventArgs<ContentView> e)
 		{
@@ -30,14 +55,7 @@ namespace CustomRenderer.iOS
 				return;
 			}
 
-			try {
-				SetupUserInterface ();
-				SetupEventHandlers ();
-				SetupLiveCameraStream ();
-				AuthorizeCameraUse ();
-			} catch (Exception ex) {
-				System.Diagnostics.Debug.WriteLine($"\t\t\tERROR: {ex.Message}");
-			}
+		    _contentView = e.NewElement;
 		}
 
 		protected override void Dispose(bool disposing)
@@ -69,9 +87,9 @@ namespace CustomRenderer.iOS
 			base.Dispose(disposing);
 		}
 
-		void SetupUserInterface ()
-		{
-		    var view = ViewController.View;
+	    private void SetupUserInterface ()
+	    {
+	        var view = NativeView;
 			var centerButtonX = view.Bounds.GetMidX () - 35f;
 			var topLeftX = view.Bounds.X + 25;
 			var topRightX = view.Bounds.Right - 65;
@@ -109,7 +127,7 @@ namespace CustomRenderer.iOS
 		    view.Add (_toggleFlashButton);
 		}
 
-		void SetupEventHandlers ()
+	    private void SetupEventHandlers ()
 		{
 			_takePhotoButton.TouchUpInside += (sender, e) => {
 				CapturePhoto ();

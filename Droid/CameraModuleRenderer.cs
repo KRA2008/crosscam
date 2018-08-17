@@ -41,17 +41,10 @@ namespace CustomRenderer.Droid
             {
                 return;
             }
-
-            try
-            {
-                SetupUserInterface();
-                SetupEventHandlers();
-                AddView(_view);
-            }
-            catch (Exception ex)
-            {
-                System.Diagnostics.Debug.WriteLine(@"			ERROR: ", ex.Message);
-            }
+            
+            SetupUserInterface();
+            SetupEventHandlers();
+            AddView(_view);
         }
 
         private void SetupUserInterface()
