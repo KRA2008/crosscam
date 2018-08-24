@@ -28,18 +28,14 @@ namespace CustomRenderer.iOS
 	    {
 	        base.OnElementPropertyChanged(sender, e);
 
-	        if (e.PropertyName == nameof(ContentView.Width))
+            if (e.PropertyName == nameof(ContentView.Height) || 
+                e.PropertyName == nameof(ContentView.Width))
 	        {
-	            NativeView.Bounds = new CGRect(0, 0, _contentView.Width, NativeView.Bounds.Height);
-	        }
-	        else if (e.PropertyName == nameof(ContentView.Height))
-	        {
-	            NativeView.Bounds = new CGRect(0, 0, NativeView.Bounds.Width, _contentView.Height);
+	            NativeView.Bounds = new CGRect(0, 0, _contentView.Width, _contentView.Height);
             }
 
 	        if (NativeView.Bounds.Width > 0 && NativeView.Bounds.Height > 0)
 	        {
-
 	            SetupUserInterface();
 	            SetupEventHandlers();
 	            SetupLiveCameraStream();
@@ -100,7 +96,7 @@ namespace CustomRenderer.iOS
 
 			_liveCameraStream = new UIView
 			{
-				Frame = new CGRect (0f, 0f, view.Bounds.Width, view.Bounds.Height)
+				Frame = new CGRect (0, 0, view.Bounds.Width, view.Bounds.Height)
 			};
 
 			_takePhotoButton = new UIButton
@@ -203,7 +199,7 @@ namespace CustomRenderer.iOS
 		}
 
 	    private void SetupLiveCameraStream ()
-		{
+	    {
 			_captureSession = new AVCaptureSession ();
 
 			var viewLayer = _liveCameraStream.Layer;

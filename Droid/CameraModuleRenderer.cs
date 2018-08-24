@@ -30,9 +30,8 @@ namespace CustomRenderer.Droid
 
         private bool _flashOn;
 
-        public CameraModuleRenderer(Context context) : base(context)
-        {
-        }
+        public CameraModuleRenderer(Context context) : base(context) {}
+
         protected override void OnElementChanged(ElementChangedEventArgs<View> e)
         {
             base.OnElementChanged(e);

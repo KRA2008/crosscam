@@ -8,7 +8,7 @@ namespace CustomRenderer
 	{
 		public App ()
 		{
-			MainPage = new NavigationPage (new CameraPage());
+			MainPage = new CameraPage();
 		}
 
 		protected override void OnStart ()
