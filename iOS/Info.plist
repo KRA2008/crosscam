@@ -28,7 +28,6 @@
 		<string>UIInterfaceOrientationPortrait</string>
 		<string>UIInterfaceOrientationPortraitUpsideDown</string>
 		<string>UIInterfaceOrientationLandscapeLeft</string>
-		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
 	<key>UISupportedInterfaceOrientations~ipad</key>
 	<array>
@@ -66,5 +65,7 @@
 	<string>This app is using the camera</string>
 	<key>NSPhotoLibraryAddUsageDescription</key>
 	<string>This app is saving photo to the library</string>
+	<key>UIStatusBarHidden</key>
+	<true/>
 </dict>
 </plist>

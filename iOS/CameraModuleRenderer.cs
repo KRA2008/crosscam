@@ -17,7 +17,6 @@ namespace CustomRenderer.iOS
         private AVCaptureDeviceInput _captureDeviceInput;
         private UIView _liveCameraStream;
         private AVCaptureStillImageOutput _stillImageOutput;
-        private UIButton _takePhotoButton;
         private CameraModule _cameraModule;
         private bool _isInitialized;
 
@@ -46,7 +45,6 @@ namespace CustomRenderer.iOS
                 !_isInitialized)
             {
                 SetupUserInterface();
-                SetupEventHandlers();
                 AuthorizeCameraUse();
                 SetupLiveCameraStream();
                 _isInitialized = true;
@@ -63,6 +61,14 @@ namespace CustomRenderer.iOS
                     StopPreview();
                 }
             }
+
+            //if (e.PropertyName == nameof(_cameraModule.CaptureTrigger))
+            //{
+            //    if (_cameraModule.IsVisible)
+            //    {
+            //        CapturePhoto();
+            //    }
+            //}
         }
 
         private static async void AuthorizeCameraUse()
@@ -147,33 +153,13 @@ namespace CustomRenderer.iOS
 
         private void SetupUserInterface()
         {
-            var view = NativeView;
-            var centerButtonX = view.Bounds.GetMidX() - 35f;
-            var bottomButtonY = view.Bounds.Bottom - 85;
-            const int BUTTON_WIDTH = 70;
-            const int BUTTON_HEIGHT = 70;
-
             _liveCameraStream = new UIView
             {
-                Frame = new CGRect(view.Bounds.Width/-2f, 0, view.Bounds.Width*2f, view.Bounds.Height)
+                Frame = new CGRect(NativeView.Bounds.Width/-2f, 0, NativeView.Bounds.Width*2f, NativeView.Bounds.Height)
             };
 
-            _takePhotoButton = new UIButton
-            {
-                Frame = new CGRect(centerButtonX, bottomButtonY, BUTTON_WIDTH, BUTTON_HEIGHT)
-            };
-            _takePhotoButton.SetBackgroundImage(UIImage.FromFile("TakePhotoButton.png"), UIControlState.Normal);
-
-            view.Add(_liveCameraStream);
-            view.Add(_takePhotoButton);
-            view.ClipsToBounds = true;
-        }
-
-        private void SetupEventHandlers()
-        {
-            _takePhotoButton.TouchUpInside += (sender, e) => {
-                CapturePhoto();
-            };
+            NativeView.Add(_liveCameraStream);
+            NativeView.ClipsToBounds = true;
         }
     }
 }

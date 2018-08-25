@@ -5,11 +5,11 @@ using Xamarin.Forms.Xaml;
 
 namespace CustomRenderer.ValueConverters
 {
-    public sealed class IsNullConverter : IValueConverter, IMarkupExtension
+    public sealed class IsNotNullConverter : IValueConverter, IMarkupExtension
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            return value == null;
+            return value != null;
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)

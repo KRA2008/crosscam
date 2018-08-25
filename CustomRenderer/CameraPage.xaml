@@ -12,8 +12,9 @@
 			 Title="Camera Page">
     <Grid ColumnSpacing="0"
           RowSpacing="0"
-          VerticalOptions="FillAndExpand"
-          HorizontalOptions="FillAndExpand">
+          VerticalOptions="Fill"
+          HorizontalOptions="Fill"
+          BackgroundColor="Black">
         <Grid.RowDefinitions>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
@@ -25,17 +26,53 @@
                Grid.Row="0"
                Aspect="AspectFill"
                Source="{Binding LeftImageSource}"/>
+        <Image Grid.Column="0"
+               Grid.Row="0"
+               HorizontalOptions="Center"
+               VerticalOptions="End"
+               Source="camera"
+               IsVisible="{Binding LeftByteArray, Converter={vc:IsNotNullConverter}}">
+            <Image.GestureRecognizers>
+                <TapGestureRecognizer Command="{Binding RetakeLeftCommand}"/>
+            </Image.GestureRecognizers>
+        </Image>
         <customRenderer:CameraModule Grid.Column="0"
                                      Grid.Row="0"
                                      IsVisible="{Binding IsLeftCameraVisible}"
                                      CapturedImage="{Binding LeftByteArray}"/>
+        <Label Grid.Column="1"
+               Grid.Row="0"
+               Text="Take the left photo and then move to the left. The final picture will not be this skinny."
+               TextColor="DarkRed"
+               VerticalOptions="Center"
+               Margin="10"/>
         <Image Grid.Column="1"
                Grid.Row="0"
                Aspect="AspectFill"
                Source="{Binding RightImageSource}"/>
+        <Image Grid.Column="1"
+               Grid.Row="0"
+               HorizontalOptions="Center"
+               VerticalOptions="End"
+               Source="camera"
+               IsVisible="{Binding RightByteArray, Converter={vc:IsNotNullConverter}}">
+            <Image.GestureRecognizers>
+                <TapGestureRecognizer Command="{Binding RetakeRightCommand}"/>
+            </Image.GestureRecognizers>
+        </Image>
         <customRenderer:CameraModule Grid.Column="1"
                                      Grid.Row="0"
                                      IsVisible="{Binding IsRightCameraVisible}"
                                      CapturedImage="{Binding RightByteArray}"/>
+        <Image Grid.Column="0"
+               Grid.ColumnSpan="2"
+               Grid.Row="0"
+               HorizontalOptions="CenterAndExpand"
+               VerticalOptions="End"
+               Source="aperture">
+            <Image.GestureRecognizers>
+                <TapGestureRecognizer Command="{Binding CapturePictureCommand}"/>
+            </Image.GestureRecognizers>
+        </Image>
     </Grid>
 </ContentPage>
