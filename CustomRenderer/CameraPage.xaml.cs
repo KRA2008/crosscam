@@ -2,10 +2,11 @@
 {
 	public partial class CameraPage
 	{
-		public CameraPage ()
+	    public CameraPage ()
 		{
-			InitializeComponent ();
-		}
-	}
+		    BindingContext = new CameraPageViewModel();
+            InitializeComponent ();
+        }
+    }
 }
 

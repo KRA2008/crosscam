@@ -1,257 +1,164 @@
-﻿using AVFoundation;
+﻿using System.ComponentModel;
 using CoreGraphics;
-using CustomRenderer;
-using CustomRenderer.iOS;
-using Foundation;
-using System;
-using System.ComponentModel;
-using System.Linq;
-using UIKit;
 using Xamarin.Forms;
 using Xamarin.Forms.Platform.iOS;
 
-[assembly:ExportRenderer (typeof(CameraModule), typeof(CameraModuleRenderer))]
+using AVFoundation;
+using CustomRenderer;
+using CustomRenderer.iOS;
+using Foundation;
+using UIKit;
+
+[assembly: ExportRenderer(typeof(CameraModule), typeof(CameraModuleRenderer))]
 namespace CustomRenderer.iOS
 {
-	public class CameraModuleRenderer : ViewRenderer<ContentView, UIView>
-	{
-		private AVCaptureSession _captureSession;
-	    private AVCaptureDeviceInput _captureDeviceInput;
-	    private AVCaptureStillImageOutput _stillImageOutput;
-	    private UIView _liveCameraStream;
-	    private UIButton _takePhotoButton;
-	    private UIButton _toggleCameraButton;
-	    private UIButton _toggleFlashButton;
-	    private ContentView _contentView;
+    public class CameraModuleRenderer : ViewRenderer<CameraModule, UIView>
+    {
+        private AVCaptureSession _captureSession;
+        private AVCaptureDeviceInput _captureDeviceInput;
+        private UIView _liveCameraStream;
+        private AVCaptureStillImageOutput _stillImageOutput;
+        private UIButton _takePhotoButton;
+        private CameraModule _cameraModule;
 
-	    protected override void OnElementPropertyChanged(object sender, PropertyChangedEventArgs e)
-	    {
-	        base.OnElementPropertyChanged(sender, e);
+        protected override void OnElementChanged(ElementChangedEventArgs<CameraModule> e)
+        {
+            base.OnElementChanged(e);
 
-            if (e.PropertyName == nameof(ContentView.Height) || 
-                e.PropertyName == nameof(ContentView.Width))
-	        {
-	            NativeView.Bounds = new CGRect(0, 0, _contentView.Width, _contentView.Height);
+            if (e.NewElement != null)
+            {
+                _cameraModule = e.NewElement;
             }
+        }
 
-	        if (NativeView.Bounds.Width > 0 && NativeView.Bounds.Height > 0)
-	        {
-	            SetupUserInterface();
-	            SetupEventHandlers();
-	            SetupLiveCameraStream();
-	            AuthorizeCameraUse();
+        protected override void OnElementPropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+            base.OnElementPropertyChanged(sender, e);
+
+            if (e.PropertyName == nameof(_cameraModule.Width) ||
+                e.PropertyName == nameof(_cameraModule.Height))
+            {
+                NativeView.Bounds = new CGRect(0, 0, _cameraModule.Width, _cameraModule.Height);
             }
-	    }
+            
+            if (_cameraModule.Width > 0 &&
+                _cameraModule.Height > 0)
+            {
+                SetupUserInterface();
+                SetupEventHandlers();
+                AuthorizeCameraUse();
+                SetupLiveCameraStream();
+            }
+        }
 
-	    protected override void OnElementChanged(ElementChangedEventArgs<ContentView> e)
-		{
-			base.OnElementChanged (e);
+        private static async void AuthorizeCameraUse()
+        {
+            var authorizationStatus = AVCaptureDevice.GetAuthorizationStatus(AVMediaType.Video);
 
-			if (e.OldElement != null || Element == null) {
-				return;
-			}
+            if (authorizationStatus != AVAuthorizationStatus.Authorized)
+            {
+                await AVCaptureDevice.RequestAccessForMediaTypeAsync(AVMediaType.Video);
+            }
+        }
 
-		    _contentView = e.NewElement;
-		}
+        private void SetupLiveCameraStream()
+        {
+            _captureSession = new AVCaptureSession();
 
-		protected override void Dispose(bool disposing)
-		{
-			if (_captureDeviceInput != null)
-			{
-				_captureSession?.RemoveInput(_captureDeviceInput);
-			}
+            var viewLayer = _liveCameraStream.Layer;
+            var videoPreviewLayer = new AVCaptureVideoPreviewLayer(_captureSession)
+            {
+                Frame = _liveCameraStream.Bounds
+            };
+            _liveCameraStream.Layer.AddSublayer(videoPreviewLayer);
+            
+            var captureDevice = AVCaptureDevice.GetDefaultDevice(AVMediaTypes.Video);
+            ConfigureCameraForDevice(captureDevice);
+            _captureDeviceInput = AVCaptureDeviceInput.FromDevice(captureDevice);
 
-			if(_captureDeviceInput != null)
-			{
-				_captureDeviceInput.Dispose();
-				_captureDeviceInput = null;
-			}
+            _stillImageOutput = new AVCaptureStillImageOutput
+            {
+                OutputSettings = new NSDictionary()
+            };
 
-			if(_captureSession != null)
-			{
-				_captureSession.StopRunning();
-				_captureSession.Dispose();
-				_captureSession = null;
-			}
+            _captureSession.AddOutput(_stillImageOutput);
+            _captureSession.AddInput(_captureDeviceInput);
+            _captureSession.StartRunning();
+        }
 
-			if (_stillImageOutput != null)
-			{
-				_stillImageOutput.Dispose();
-				_stillImageOutput = null;
-			}
+        private async void CapturePhoto()
+        {
+            var videoConnection = _stillImageOutput.ConnectionFromMediaType(AVMediaType.Video);
+            var sampleBuffer = await _stillImageOutput.CaptureStillImageTaskAsync(videoConnection);
 
-			base.Dispose(disposing);
-		}
+            // var jpegImageAsBytes = AVCaptureStillImageOutput.JpegStillToNSData (sampleBuffer).ToArray ();
+            var jpegImageAsNsData = AVCaptureStillImageOutput.JpegStillToNSData(sampleBuffer);
+            // var image = new UIImage (jpegImageAsNsData);
+            // var image2 = new UIImage (image.CGImage, image.CurrentScale, UIImageOrientation.UpMirrored);
+            // var data = image2.AsJPEG ().ToArray ();
 
-	    private void SetupUserInterface ()
-	    {
-	        var view = NativeView;
-			var centerButtonX = view.Bounds.GetMidX () - 35f;
-			var topLeftX = view.Bounds.X + 25;
-			var topRightX = view.Bounds.Right - 65;
-			var bottomButtonY = view.Bounds.Bottom - 150;
-			var topButtonY = view.Bounds.Top + 15;
-			const int BUTTON_WIDTH = 70;
-			const int BUTTON_HEIGHT = 70;
+            // SendPhoto (data);
+            _cameraModule.CapturedImage = jpegImageAsNsData.ToArray();
+            _cameraModule.CapturedImage = null;
+        }
 
-			_liveCameraStream = new UIView
-			{
-				Frame = new CGRect (0, 0, view.Bounds.Width, view.Bounds.Height)
-			};
+        private static void ConfigureCameraForDevice(AVCaptureDevice device)
+        {
+            var error = new NSError();
+            
+            device.LockForConfiguration(out error);
+            device.FlashMode = AVCaptureFlashMode.Off;
+            device.UnlockForConfiguration();
 
-			_takePhotoButton = new UIButton
-			{
-				Frame = new CGRect (centerButtonX, bottomButtonY, BUTTON_WIDTH, BUTTON_HEIGHT)
-			};
-		    _takePhotoButton.SetBackgroundImage(UIImage.FromFile("TakePhotoButton.png"), UIControlState.Normal);
+            if (device.IsFocusModeSupported(AVCaptureFocusMode.ContinuousAutoFocus))
+            {
+                device.LockForConfiguration(out error);
+                device.FocusMode = AVCaptureFocusMode.ContinuousAutoFocus;
+                device.UnlockForConfiguration();
+            }
+            else if (device.IsExposureModeSupported(AVCaptureExposureMode.ContinuousAutoExposure))
+            {
+                device.LockForConfiguration(out error);
+                device.ExposureMode = AVCaptureExposureMode.ContinuousAutoExposure;
+                device.UnlockForConfiguration();
+            }
+            else if (device.IsWhiteBalanceModeSupported(AVCaptureWhiteBalanceMode.ContinuousAutoWhiteBalance))
+            {
+                device.LockForConfiguration(out error);
+                device.WhiteBalanceMode = AVCaptureWhiteBalanceMode.ContinuousAutoWhiteBalance;
+                device.UnlockForConfiguration();
+            }
+        }
 
-			_toggleCameraButton = new UIButton
-			{
-				Frame = new CGRect (topRightX, topButtonY + 5, 35, 26)
-			};
-		    _toggleCameraButton.SetBackgroundImage(UIImage.FromFile("ToggleCameraButton.png"), UIControlState.Normal);
+        private void SetupUserInterface()
+        {
+            var view = NativeView;
+            var centerButtonX = view.Bounds.GetMidX() - 35f;
+            var bottomButtonY = view.Bounds.Bottom - 85;
+            const int BUTTON_WIDTH = 70;
+            const int BUTTON_HEIGHT = 70;
 
-			_toggleFlashButton = new UIButton
-			{
-				Frame = new CGRect (topLeftX, topButtonY, 37, 37)
-			};
-		    _toggleFlashButton.SetBackgroundImage(UIImage.FromFile("NoFlashButton.png"), UIControlState.Normal);
+            _liveCameraStream = new UIView
+            {
+                Frame = new CGRect(view.Bounds.Width/-2f, 0, view.Bounds.Width*2f, view.Bounds.Height) // TODO: is that overflow going to mess up the picture?
+            };
 
-		    view.Add (_liveCameraStream);
-		    view.Add (_takePhotoButton);
-		    view.Add (_toggleCameraButton);
-		    view.Add (_toggleFlashButton);
-		}
+            _takePhotoButton = new UIButton
+            {
+                Frame = new CGRect(centerButtonX, bottomButtonY, BUTTON_WIDTH, BUTTON_HEIGHT)
+            };
+            _takePhotoButton.SetBackgroundImage(UIImage.FromFile("TakePhotoButton.png"), UIControlState.Normal);
 
-	    private void SetupEventHandlers ()
-		{
-			_takePhotoButton.TouchUpInside += (sender, e) => {
-				CapturePhoto ();
-			};
+            view.Add(_liveCameraStream);
+            view.Add(_takePhotoButton);
+            view.ClipsToBounds = true;
+        }
 
-			_toggleCameraButton.TouchUpInside += (sender, e) => {
-				ToggleFrontBackCamera ();
-			};
-
-			_toggleFlashButton.TouchUpInside += (sender, e) => {
-				ToggleFlash ();
-			};
-		}
-
-	    private async void CapturePhoto ()
-		{
-			var videoConnection = _stillImageOutput.ConnectionFromMediaType(AVMediaType.Video);
-			var sampleBuffer = await _stillImageOutput.CaptureStillImageTaskAsync(videoConnection);
-			var jpegImage = AVCaptureStillImageOutput.JpegStillToNSData(sampleBuffer);
-
-			var photo = new UIImage(jpegImage);
-			photo.SaveToPhotosAlbum((image, error) =>
-			{
-				if (!string.IsNullOrEmpty(error?.LocalizedDescription))
-				{
-					Console.Error.WriteLine($"\t\t\tError: {error.LocalizedDescription}");
-				}
-			});
-		}
-
-	    private void ToggleFrontBackCamera ()
-		{
-			var devicePosition = _captureDeviceInput.Device.Position;
-		    devicePosition = devicePosition == AVCaptureDevicePosition.Front
-		        ? AVCaptureDevicePosition.Back
-		        : AVCaptureDevicePosition.Front;
-
-			var device = GetCameraForOrientation (devicePosition);
-			ConfigureCameraForDevice (device);
-
-			_captureSession.BeginConfiguration ();
-			_captureSession.RemoveInput (_captureDeviceInput);
-			_captureDeviceInput = AVCaptureDeviceInput.FromDevice (device);
-			_captureSession.AddInput (_captureDeviceInput);
-			_captureSession.CommitConfiguration ();
-		}
-
-	    private void ToggleFlash ()
-		{
-			var device = _captureDeviceInput.Device;
-
-			var error = new NSError ();
-			if (device.HasFlash) {
-				if (device.FlashMode == AVCaptureFlashMode.On) {
-					device.LockForConfiguration (out error);
-					device.FlashMode = AVCaptureFlashMode.Off;
-					device.UnlockForConfiguration ();
-				    _toggleFlashButton.SetBackgroundImage(UIImage.FromFile("NoFlashButton.png"), UIControlState.Normal);
-				} else {
-					device.LockForConfiguration (out error);
-					device.FlashMode = AVCaptureFlashMode.On;
-					device.UnlockForConfiguration ();
-				    _toggleFlashButton.SetBackgroundImage(UIImage.FromFile("FlashButton.png"), UIControlState.Normal);
-				}
-			}
-		}
-
-	    private static AVCaptureDevice GetCameraForOrientation (AVCaptureDevicePosition orientation)
-		{
-			var devices = AVCaptureDevice.DevicesWithMediaType (AVMediaType.Video);
-
-		    return devices.FirstOrDefault(device => device.Position == orientation);
-		}
-
-	    private void SetupLiveCameraStream ()
-	    {
-			_captureSession = new AVCaptureSession ();
-
-			var viewLayer = _liveCameraStream.Layer;
-			var videoPreviewLayer = new AVCaptureVideoPreviewLayer (_captureSession) {
-				Frame = _liveCameraStream.Bounds
-			};
-			_liveCameraStream.Layer.AddSublayer (videoPreviewLayer);
-
-			var captureDevice = AVCaptureDevice.GetDefaultDevice(AVMediaType.Video);
-			ConfigureCameraForDevice (captureDevice);
-			_captureDeviceInput = AVCaptureDeviceInput.FromDevice (captureDevice);
-
-		    using (var dictionary = new NSMutableDictionary())
-		    {
-		        dictionary [AVVideo.CodecKey] = new NSNumber ((int)AVVideoCodec.JPEG);
-		    }
-
-		    _stillImageOutput = new AVCaptureStillImageOutput
-		    {
-				OutputSettings = new NSDictionary ()
-			};
-
-			_captureSession.AddOutput (_stillImageOutput);
-			_captureSession.AddInput (_captureDeviceInput);
-			_captureSession.StartRunning ();
-		}
-
-	    private static void ConfigureCameraForDevice (AVCaptureDevice device)
-		{
-			var error = new NSError ();
-			if (device.IsFocusModeSupported (AVCaptureFocusMode.ContinuousAutoFocus)) {
-				device.LockForConfiguration (out error);
-				device.FocusMode = AVCaptureFocusMode.ContinuousAutoFocus;
-				device.UnlockForConfiguration ();
-			} else if (device.IsExposureModeSupported (AVCaptureExposureMode.ContinuousAutoExposure)) {
-				device.LockForConfiguration (out error);
-				device.ExposureMode = AVCaptureExposureMode.ContinuousAutoExposure;
-				device.UnlockForConfiguration ();
-			} else if (device.IsWhiteBalanceModeSupported (AVCaptureWhiteBalanceMode.ContinuousAutoWhiteBalance)) {
-				device.LockForConfiguration (out error);
-				device.WhiteBalanceMode = AVCaptureWhiteBalanceMode.ContinuousAutoWhiteBalance;
-				device.UnlockForConfiguration ();
-			}
-		}
-
-	    private static async void AuthorizeCameraUse ()
-		{
-			var authorizationStatus = AVCaptureDevice.GetAuthorizationStatus (AVMediaType.Video);
-			if (authorizationStatus != AVAuthorizationStatus.Authorized) {
-				await AVCaptureDevice.RequestAccessForMediaTypeAsync (AVMediaType.Video);
-			}
-		}
-	}
+        private void SetupEventHandlers()
+        {
+            _takePhotoButton.TouchUpInside += (sender, e) => {
+                CapturePhoto();
+            };
+        }
+    }
 }
-

@@ -5,9 +5,15 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:customRenderer="clr-namespace:CustomRenderer;assembly=CustomRenderer"
              mc:Ignorable="d" 
+             
+             d:DataContext="{d:DesignInstance Type=customRenderer:CameraPageViewModel, IsDesignTimeCreatable=False}"
 			 x:Class="CustomRenderer.CameraPage"
 			 Title="Camera Page">
-    <Grid>
+    <Grid x:Name="_grid"
+          ColumnSpacing="0"
+          RowSpacing="0"
+          VerticalOptions="FillAndExpand"
+          HorizontalOptions="FillAndExpand">
         <Grid.RowDefinitions>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
@@ -15,7 +21,17 @@
             <ColumnDefinition Width="*"/>
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
-        <customRenderer:CameraModule Grid.Column="0"
-                                     Grid.Row="0"/>
+        <Image Grid.Column="0"
+               Grid.Row="0"
+               Source="{Binding LeftImageSource}"
+               Aspect="AspectFill"/>
+        <customRenderer:CameraModule Grid.Column="{Binding CameraModuleColumn}"
+                                     Grid.Row="0"
+                                     IsVisible="{Binding IsCameraModuleVisible}"
+                                     CapturedImage="{Binding IncomingByteArray}"/>
+        <Image Grid.Column="1"
+               Grid.Row="0"
+               Source="{Binding RightImageSource}"
+               Aspect="AspectFill"/>
     </Grid>
 </ContentPage>
