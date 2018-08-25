@@ -9,32 +9,27 @@ namespace CustomRenderer
         public event PropertyChangedEventHandler PropertyChanged;
 
         public ImageSource LeftImageSource { get; set; }
-        private byte[] LeftByteArray { get; set; }
+        public byte[] LeftByteArray { get; set; }
+        public bool IsLeftCameraVisible { get; set; }
         public ImageSource RightImageSource { get; set; }
-        private byte[] RightByteArray { get; set; }
-        public byte[] IncomingByteArray { get; set; }
-        public int CameraModuleColumn { get; set; }
-        public bool IsCameraModuleVisible { get; set; }
+        public byte[] RightByteArray { get; set; }
+        public bool IsRightCameraVisible { get; set; }
 
         public CameraPageViewModel()
         {
-            IsCameraModuleVisible = true;
+            IsLeftCameraVisible = true;
             PropertyChanged += (sender, args) =>
             {
-                if (args.PropertyName == nameof(IncomingByteArray) && IncomingByteArray != null)
+                if (args.PropertyName == nameof(LeftByteArray))
                 {
-                    if (CameraModuleColumn == 0)
-                    {
-                        LeftByteArray = IncomingByteArray;
-                        LeftImageSource = ImageSource.FromStream(() => new MemoryStream(LeftByteArray));
-                        CameraModuleColumn = 1;
-                    }
-                    else if (CameraModuleColumn == 1)
-                    {
-                        RightByteArray = IncomingByteArray;
-                        RightImageSource = ImageSource.FromStream(() => new MemoryStream(RightByteArray));
-                        IsCameraModuleVisible = false;
-                    }
+                    LeftImageSource = ImageSource.FromStream(() => new MemoryStream(LeftByteArray));
+                    IsLeftCameraVisible = false;
+                    IsRightCameraVisible = true;
+                }
+                else if (args.PropertyName == nameof(RightByteArray))
+                {
+                    RightImageSource = ImageSource.FromStream(() => new MemoryStream(RightByteArray));
+                    IsRightCameraVisible = false;
                 }
             };
         }

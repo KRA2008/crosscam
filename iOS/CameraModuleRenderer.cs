@@ -2,7 +2,6 @@
 using CoreGraphics;
 using Xamarin.Forms;
 using Xamarin.Forms.Platform.iOS;
-
 using AVFoundation;
 using CustomRenderer;
 using CustomRenderer.iOS;
@@ -20,6 +19,7 @@ namespace CustomRenderer.iOS
         private AVCaptureStillImageOutput _stillImageOutput;
         private UIButton _takePhotoButton;
         private CameraModule _cameraModule;
+        private bool _isInitialized;
 
         protected override void OnElementChanged(ElementChangedEventArgs<CameraModule> e)
         {
@@ -42,12 +42,26 @@ namespace CustomRenderer.iOS
             }
             
             if (_cameraModule.Width > 0 &&
-                _cameraModule.Height > 0)
+                _cameraModule.Height > 0 &&
+                !_isInitialized)
             {
                 SetupUserInterface();
                 SetupEventHandlers();
                 AuthorizeCameraUse();
                 SetupLiveCameraStream();
+                _isInitialized = true;
+            }
+
+            if (_isInitialized)
+            {
+                if (_cameraModule.IsVisible)
+                {
+                    StartPreview();
+                }
+                else
+                {
+                    StopPreview();
+                }
             }
         }
 
@@ -65,7 +79,6 @@ namespace CustomRenderer.iOS
         {
             _captureSession = new AVCaptureSession();
 
-            var viewLayer = _liveCameraStream.Layer;
             var videoPreviewLayer = new AVCaptureVideoPreviewLayer(_captureSession)
             {
                 Frame = _liveCameraStream.Bounds
@@ -83,23 +96,25 @@ namespace CustomRenderer.iOS
 
             _captureSession.AddOutput(_stillImageOutput);
             _captureSession.AddInput(_captureDeviceInput);
+        }
+
+        private void StartPreview()
+        {
             _captureSession.StartRunning();
+        }
+
+        private void StopPreview()
+        {
+            _captureSession.StopRunning();
         }
 
         private async void CapturePhoto()
         {
             var videoConnection = _stillImageOutput.ConnectionFromMediaType(AVMediaType.Video);
             var sampleBuffer = await _stillImageOutput.CaptureStillImageTaskAsync(videoConnection);
-
-            // var jpegImageAsBytes = AVCaptureStillImageOutput.JpegStillToNSData (sampleBuffer).ToArray ();
+            
             var jpegImageAsNsData = AVCaptureStillImageOutput.JpegStillToNSData(sampleBuffer);
-            // var image = new UIImage (jpegImageAsNsData);
-            // var image2 = new UIImage (image.CGImage, image.CurrentScale, UIImageOrientation.UpMirrored);
-            // var data = image2.AsJPEG ().ToArray ();
-
-            // SendPhoto (data);
             _cameraModule.CapturedImage = jpegImageAsNsData.ToArray();
-            _cameraModule.CapturedImage = null;
         }
 
         private static void ConfigureCameraForDevice(AVCaptureDevice device)
@@ -140,7 +155,7 @@ namespace CustomRenderer.iOS
 
             _liveCameraStream = new UIView
             {
-                Frame = new CGRect(view.Bounds.Width/-2f, 0, view.Bounds.Width*2f, view.Bounds.Height) // TODO: is that overflow going to mess up the picture?
+                Frame = new CGRect(view.Bounds.Width/-2f, 0, view.Bounds.Width*2f, view.Bounds.Height)
             };
 
             _takePhotoButton = new UIButton

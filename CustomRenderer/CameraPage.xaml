@@ -4,13 +4,13 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:customRenderer="clr-namespace:CustomRenderer;assembly=CustomRenderer"
+             xmlns:vc="clr-namespace:CustomRenderer.ValueConverters;assembly=CustomRenderer"
              mc:Ignorable="d" 
              
              d:DataContext="{d:DesignInstance Type=customRenderer:CameraPageViewModel, IsDesignTimeCreatable=False}"
 			 x:Class="CustomRenderer.CameraPage"
 			 Title="Camera Page">
-    <Grid x:Name="_grid"
-          ColumnSpacing="0"
+    <Grid ColumnSpacing="0"
           RowSpacing="0"
           VerticalOptions="FillAndExpand"
           HorizontalOptions="FillAndExpand">
@@ -23,15 +23,19 @@
         </Grid.ColumnDefinitions>
         <Image Grid.Column="0"
                Grid.Row="0"
-               Source="{Binding LeftImageSource}"
-               Aspect="AspectFill"/>
-        <customRenderer:CameraModule Grid.Column="{Binding CameraModuleColumn}"
+               Aspect="AspectFill"
+               Source="{Binding LeftImageSource}"/>
+        <customRenderer:CameraModule Grid.Column="0"
                                      Grid.Row="0"
-                                     IsVisible="{Binding IsCameraModuleVisible}"
-                                     CapturedImage="{Binding IncomingByteArray}"/>
+                                     IsVisible="{Binding IsLeftCameraVisible}"
+                                     CapturedImage="{Binding LeftByteArray}"/>
         <Image Grid.Column="1"
                Grid.Row="0"
-               Source="{Binding RightImageSource}"
-               Aspect="AspectFill"/>
+               Aspect="AspectFill"
+               Source="{Binding RightImageSource}"/>
+        <customRenderer:CameraModule Grid.Column="1"
+                                     Grid.Row="0"
+                                     IsVisible="{Binding IsRightCameraVisible}"
+                                     CapturedImage="{Binding RightByteArray}"/>
     </Grid>
 </ContentPage>
