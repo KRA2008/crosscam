@@ -1,13 +1,11 @@
-﻿using System.ComponentModel;
-using System.IO;
+﻿using System.IO;
+using FreshMvvm;
 using Xamarin.Forms;
 
-namespace CustomRenderer
+namespace CustomRenderer.ViewModel
 {
-    public sealed class CameraPageViewModel : INotifyPropertyChanged
+    public sealed class CameraViewModel : FreshBasePageModel
     {
-        public event PropertyChangedEventHandler PropertyChanged;
-
         public ImageSource LeftImageSource { get; set; }
         public byte[] LeftByteArray { get; set; }
         public bool IsLeftCameraVisible { get; set; }
@@ -21,7 +19,10 @@ namespace CustomRenderer
         public Command CapturePictureCommand { get; set; }
         public bool CapturePictureTrigger { get; set; }
 
-        public CameraPageViewModel()
+        public bool IsCaptureComplete { get; set; }
+        public Command SaveCaptures { get; set; }
+
+        public CameraViewModel()
         {
             IsLeftCameraVisible = true;
 
@@ -35,11 +36,16 @@ namespace CustomRenderer
                     {
                         IsRightCameraVisible = true;
                     }
+                    else
+                    {
+                        IsCaptureComplete = true;
+                    }
                 }
                 else if (args.PropertyName == nameof(RightByteArray))
                 {
                     RightImageSource = ImageSource.FromStream(() => new MemoryStream(RightByteArray));
                     IsRightCameraVisible = false;
+                    IsCaptureComplete = true;
                 }
             };
 
@@ -48,6 +54,7 @@ namespace CustomRenderer
                 if (!IsRightCameraVisible)
                 {
                     IsLeftCameraVisible = true;
+                    IsCaptureComplete = false;
                 }
             });
 
@@ -56,12 +63,18 @@ namespace CustomRenderer
                 if (!IsLeftCameraVisible)
                 {
                     IsRightCameraVisible = true;
+                    IsCaptureComplete = false;
                 }
             });
 
             CapturePictureCommand = new Command(() =>
             {
-                CapturePictureTrigger = true;
+                CapturePictureTrigger = !CapturePictureTrigger;
+            });
+
+            SaveCaptures = new Command(async () =>
+            {
+                await CoreMethods.PushPageModel<RenderViewModel>(new[] {LeftByteArray, RightByteArray});
             });
         }
     }

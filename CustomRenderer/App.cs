@@ -1,4 +1,6 @@
-﻿using Xamarin.Forms;
+﻿using CustomRenderer.ViewModel;
+using FreshMvvm;
+using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
 [assembly: XamlCompilation(XamlCompilationOptions.Compile)]
@@ -8,7 +10,7 @@ namespace CustomRenderer
 	{
 		public App ()
 		{
-			MainPage = new CameraPage();
+		    MainPage = new FreshNavigationContainer(FreshPageModelResolver.ResolvePageModel<CameraViewModel>());
 		}
 
 		protected override void OnStart ()

@@ -1,19 +1,19 @@
 ﻿using System;
 using System.IO;
-using Xamarin.Forms;
-using Xamarin.Forms.Platform.Android;
-using CustomRenderer;
-using CustomRenderer.Droid;
 using Android.App;
 using Android.Content;
+using Android.Graphics;
 using Android.Hardware;
 using Android.Views;
-using Android.Graphics;
 using Android.Widget;
+using CustomRenderer.Droid.CustomRenderer;
+using Xamarin.Forms;
+using Xamarin.Forms.Platform.Android;
+using CameraModule = CustomRenderer.CustomElement.CameraModule;
 using View = Xamarin.Forms.View;
 
 [assembly: ExportRenderer(typeof(CameraModule), typeof(CameraModuleRenderer))]
-namespace CustomRenderer.Droid
+namespace CustomRenderer.Droid.CustomRenderer
 {
     public class CameraModuleRenderer : ViewRenderer, TextureView.ISurfaceTextureListener
     {

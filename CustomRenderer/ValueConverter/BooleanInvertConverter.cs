@@ -3,18 +3,18 @@ using System.Globalization;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
-namespace CustomRenderer.ValueConverters
+namespace CustomRenderer.ValueConverter
 {
-    public sealed class IsNotNullConverter : IValueConverter, IMarkupExtension
+    public class BooleanInvertConverter : IValueConverter, IMarkupExtension
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            return value != null;
+            return !(bool)value;
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            throw new NotSupportedException();
+            throw new NotImplementedException();
         }
 
         public object ProvideValue(IServiceProvider serviceProvider)

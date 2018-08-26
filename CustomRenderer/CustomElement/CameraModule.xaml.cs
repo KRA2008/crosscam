@@ -1,6 +1,6 @@
 ﻿using Xamarin.Forms;
 
-namespace CustomRenderer
+namespace CustomRenderer.CustomElement
 {
 	public sealed partial class CameraModule
 	{
@@ -12,8 +12,8 @@ namespace CustomRenderer
 	    public static readonly BindableProperty CapturedImageProperty = BindableProperty.Create(nameof(CapturedImage),
 	        typeof(byte[]), typeof(CameraModule), defaultBindingMode: BindingMode.TwoWay);
 
-        //public static readonly BindableProperty CaptureTriggerProperty = BindableProperty.Create(nameof(CaptureTrigger),
-        //    typeof(bool), typeof(CameraModule), defaultBindingMode: BindingMode.TwoWay);
+        public static readonly BindableProperty CaptureTriggerProperty = BindableProperty.Create(nameof(CaptureTrigger),
+            typeof(bool), typeof(CameraModule), false, BindingMode.TwoWay);
 
         public byte[] CapturedImage
         {
@@ -21,10 +21,10 @@ namespace CustomRenderer
             set => SetValue(CapturedImageProperty, value);
         }
 
-	    //public bool CaptureTrigger
-	    //{
-	    //    get => (bool)GetValue(CaptureTriggerProperty);
-     //       set => SetValue(CaptureTriggerProperty, value);
-	    //}
+        public bool CaptureTrigger
+        {
+            get => (bool)GetValue(CaptureTriggerProperty);
+            set => SetValue(CaptureTriggerProperty, value);
+        }
     }
 }

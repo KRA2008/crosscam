@@ -69,6 +69,9 @@
     <AppExtensionDebugBundleId />
   </PropertyGroup>
   <ItemGroup>
+    <PackageReference Include="FreshMvvm">
+      <Version>2.2.4</Version>
+    </PackageReference>
     <PackageReference Include="Xamarin.Forms" Version="3.1.0.583944" />
   </ItemGroup>
   <ItemGroup>
@@ -110,7 +113,7 @@
   <ItemGroup>
     <Compile Include="Main.cs" />
     <Compile Include="AppDelegate.cs" />
-    <Compile Include="CameraModuleRenderer.cs" />
+    <Compile Include="CustomRenderer\CameraModuleRenderer.cs" />
   </ItemGroup>
   <ItemGroup>
     <ITunesArtwork Include="ITunesArtwork" />
@@ -123,16 +126,16 @@
     <BundleResource Include="Resources\aperture%402x.png" />
   </ItemGroup>
   <ItemGroup>
-    <BundleResource Include="Resources\camera.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <BundleResource Include="Resources\camera%402x.png" />
-  </ItemGroup>
-  <ItemGroup>
     <BundleResource Include="Resources\checkmark.png" />
   </ItemGroup>
   <ItemGroup>
     <BundleResource Include="Resources\checkmark%402x.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\cancel.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\cancel%402x.png" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

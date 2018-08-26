@@ -1,15 +1,15 @@
 ﻿using System.ComponentModel;
-using CoreGraphics;
-using Xamarin.Forms;
-using Xamarin.Forms.Platform.iOS;
 using AVFoundation;
-using CustomRenderer;
-using CustomRenderer.iOS;
+using CoreGraphics;
+using CustomRenderer.iOS.CustomRenderer;
 using Foundation;
 using UIKit;
+using Xamarin.Forms;
+using Xamarin.Forms.Platform.iOS;
+using CameraModule = CustomRenderer.CustomElement.CameraModule;
 
 [assembly: ExportRenderer(typeof(CameraModule), typeof(CameraModuleRenderer))]
-namespace CustomRenderer.iOS
+namespace CustomRenderer.iOS.CustomRenderer
 {
     public class CameraModuleRenderer : ViewRenderer<CameraModule, UIView>
     {
@@ -62,13 +62,13 @@ namespace CustomRenderer.iOS
                 }
             }
 
-            //if (e.PropertyName == nameof(_cameraModule.CaptureTrigger))
-            //{
-            //    if (_cameraModule.IsVisible)
-            //    {
-            //        CapturePhoto();
-            //    }
-            //}
+            if (e.PropertyName == nameof(_cameraModule.CaptureTrigger))
+            {
+                if (_cameraModule.IsVisible)
+                {
+                    CapturePhoto();
+                }
+            }
         }
 
         private static async void AuthorizeCameraUse()

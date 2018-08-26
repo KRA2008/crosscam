@@ -1,15 +1,16 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
-<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+<fresh:FreshBaseContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-             xmlns:customRenderer="clr-namespace:CustomRenderer;assembly=CustomRenderer"
-             xmlns:vc="clr-namespace:CustomRenderer.ValueConverters;assembly=CustomRenderer"
-             mc:Ignorable="d" 
+             xmlns:fresh="clr-namespace:FreshMvvm;assembly=FreshMvvm"
+             xmlns:vm="clr-namespace:CustomRenderer.ViewModel;assembly=CustomRenderer"
+             xmlns:ce="clr-namespace:CustomRenderer.CustomElement;assembly=CustomRenderer"
+             xmlns:vc="clr-namespace:CustomRenderer.ValueConverter;assembly=CustomRenderer"
+             mc:Ignorable="d"
              
-             d:DataContext="{d:DesignInstance Type=customRenderer:CameraPageViewModel, IsDesignTimeCreatable=False}"
-			 x:Class="CustomRenderer.CameraPage"
-			 Title="Camera Page">
+             d:DataContext="{d:DesignInstance Type=vm:CameraViewModel, IsDesignTimeCreatable=False}"
+			 x:Class="CustomRenderer.Page.CameraPage">
     <Grid ColumnSpacing="0"
           RowSpacing="0"
           VerticalOptions="Fill"
@@ -30,20 +31,22 @@
                Grid.Row="0"
                HorizontalOptions="Center"
                VerticalOptions="End"
-               Source="camera"
+               Source="cancel"
+               Margin="10"
                IsVisible="{Binding LeftByteArray, Converter={vc:IsNotNullConverter}}">
             <Image.GestureRecognizers>
                 <TapGestureRecognizer Command="{Binding RetakeLeftCommand}"/>
             </Image.GestureRecognizers>
         </Image>
-        <customRenderer:CameraModule Grid.Column="0"
-                                     Grid.Row="0"
-                                     IsVisible="{Binding IsLeftCameraVisible}"
-                                     CapturedImage="{Binding LeftByteArray}"/>
+        <ce:CameraModule Grid.Column="0"
+                         Grid.Row="0"
+                         CaptureTrigger="{Binding CapturePictureTrigger}"
+                         IsVisible="{Binding IsLeftCameraVisible}"
+                         CapturedImage="{Binding LeftByteArray}"/>
         <Label Grid.Column="1"
                Grid.Row="0"
                Text="Take the left photo and then move to the left. The final picture will not be this skinny."
-               TextColor="DarkRed"
+               TextColor="White"
                VerticalOptions="Center"
                Margin="10"/>
         <Image Grid.Column="1"
@@ -54,25 +57,44 @@
                Grid.Row="0"
                HorizontalOptions="Center"
                VerticalOptions="End"
-               Source="camera"
+               Source="cancel"
+               Margin="10"
                IsVisible="{Binding RightByteArray, Converter={vc:IsNotNullConverter}}">
             <Image.GestureRecognizers>
                 <TapGestureRecognizer Command="{Binding RetakeRightCommand}"/>
             </Image.GestureRecognizers>
         </Image>
-        <customRenderer:CameraModule Grid.Column="1"
-                                     Grid.Row="0"
-                                     IsVisible="{Binding IsRightCameraVisible}"
-                                     CapturedImage="{Binding RightByteArray}"/>
+        <ce:CameraModule Grid.Column="1"
+                         Grid.Row="0"
+                         CaptureTrigger="{Binding CapturePictureTrigger}"
+                         IsVisible="{Binding IsRightCameraVisible}"
+                         CapturedImage="{Binding RightByteArray}"/>
         <Image Grid.Column="0"
                Grid.ColumnSpan="2"
                Grid.Row="0"
                HorizontalOptions="CenterAndExpand"
                VerticalOptions="End"
-               Source="aperture">
+               Source="aperture"
+               Margin="10"
+               IsVisible="{Binding IsCaptureComplete, Converter={vc:BooleanInvertConverter}}">
             <Image.GestureRecognizers>
                 <TapGestureRecognizer Command="{Binding CapturePictureCommand}"/>
             </Image.GestureRecognizers>
         </Image>
+        <Image Grid.Column="0"
+               Grid.ColumnSpan="2"
+               Grid.Row="0"
+               HorizontalOptions="CenterAndExpand"
+               VerticalOptions="End"
+               Source="checkmark"
+               Margin="10"
+               IsVisible="{Binding IsCaptureComplete}">
+            <Image.GestureRecognizers>
+                <TapGestureRecognizer Command="{Binding SaveCaptures}"/>
+            </Image.GestureRecognizers>
+        </Image>
     </Grid>
-</ContentPage>
+</fresh:FreshBaseContentPage>
+
+
+

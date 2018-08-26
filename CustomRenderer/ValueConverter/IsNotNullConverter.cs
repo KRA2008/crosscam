@@ -1,0 +1,25 @@
+﻿using System;
+using System.Globalization;
+using Xamarin.Forms;
+using Xamarin.Forms.Xaml;
+
+namespace CustomRenderer.ValueConverter
+{
+    public sealed class IsNotNullConverter : IValueConverter, IMarkupExtension
+    {
+        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            return value != null;
+        }
+
+        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            throw new NotSupportedException();
+        }
+
+        public object ProvideValue(IServiceProvider serviceProvider)
+        {
+            return this;
+        }
+    }
+}
