@@ -72,6 +72,9 @@
     <PackageReference Include="FreshMvvm">
       <Version>2.2.4</Version>
     </PackageReference>
+    <PackageReference Include="Xamarin.FFImageLoading.Forms">
+      <Version>2.4.3.840</Version>
+    </PackageReference>
     <PackageReference Include="Xamarin.Forms" Version="3.1.0.583944" />
   </ItemGroup>
   <ItemGroup>
@@ -107,7 +110,9 @@
     <InterfaceDefinition Include="Resources\LaunchScreen.storyboard" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Info.plist" />
+    <None Include="Info.plist">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="Entitlements.plist" />
   </ItemGroup>
   <ItemGroup>

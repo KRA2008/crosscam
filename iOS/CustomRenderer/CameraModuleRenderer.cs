@@ -87,7 +87,8 @@ namespace CustomRenderer.iOS.CustomRenderer
 
             var videoPreviewLayer = new AVCaptureVideoPreviewLayer(_captureSession)
             {
-                Frame = _liveCameraStream.Bounds
+                Frame = _liveCameraStream.Bounds,
+                Orientation = AVCaptureVideoOrientation.LandscapeRight
             };
             _liveCameraStream.Layer.AddSublayer(videoPreviewLayer);
             

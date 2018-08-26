@@ -52,7 +52,7 @@ namespace CustomRenderer.Page
 	            {
 	                using (var leftStream = new MemoryStream(viewModel.LeftImage))
 	                {
-	                    _leftBitmap = ReorientVertically(SKBitmap.Decode(leftStream));
+	                    _leftBitmap = SKBitmap.Decode(leftStream);
 	                }
 	            }
 
@@ -60,12 +60,13 @@ namespace CustomRenderer.Page
 	            {
 	                using (var rightStream = new MemoryStream(viewModel.RightImage))
 	                {
-	                    _rightBitmap = ReorientVertically(SKBitmap.Decode(rightStream));
+	                    _rightBitmap = SKBitmap.Decode(rightStream);
 	                }
 	            }
 	        }
         }
 
+        //TODO: these orientation corrects are platform and orientation specific, apparently.
 	    private static SKBitmap ReorientVertically(SKBitmap originalBitmap)
 	    {
 	        var rotated = new SKBitmap(originalBitmap.Height, originalBitmap.Width);

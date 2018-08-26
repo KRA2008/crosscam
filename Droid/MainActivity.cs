@@ -1,6 +1,7 @@
 ﻿using Android.App;
 using Android.Content.PM;
 using Android.OS;
+using FFImageLoading.Forms.Droid;
 
 namespace CustomRenderer.Droid
 {
@@ -17,6 +18,7 @@ namespace CustomRenderer.Droid
             base.OnCreate(bundle);
             Instance = this;
             global::Xamarin.Forms.Forms.Init(this, bundle);
+            CachedImageRenderer.Init(true);
             LoadApplication(new App());
         }
     }
