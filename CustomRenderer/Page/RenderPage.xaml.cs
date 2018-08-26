@@ -2,6 +2,7 @@
 using CustomRenderer.ViewModel;
 using SkiaSharp;
 using SkiaSharp.Views.Forms;
+using Xamarin.Forms;
 
 namespace CustomRenderer.Page
 {
@@ -11,13 +12,33 @@ namespace CustomRenderer.Page
 	    private SKBitmap _leftBitmap;
 	    private SKBitmap _rightBitmap;
 
-        public RenderPage ()
-        {
-            var canvasView = new SKCanvasView();
-            canvasView.PaintSurface += OnCanvasViewPaintSurface;
-            Content = canvasView;
-            InitializeComponent();
-		}
+	    public RenderPage()
+	    {
+	        var canvasView = new SKCanvasView
+	        {
+                VerticalOptions = LayoutOptions.FillAndExpand
+	        };
+	        canvasView.PaintSurface += OnCanvasViewPaintSurface;
+	        var button = new Button
+	        {
+                Text = "Save",
+                TextColor = Color.White,
+                Margin = 10,
+	            Command = new Command(() =>
+	            {
+
+	            })
+	        };
+	        Content = new StackLayout
+	        {
+	            Children =
+	            {
+	                canvasView,
+                    button
+	            }
+	        };
+	        InitializeComponent();
+	    }
 
 	    protected override void OnBindingContextChanged()
 	    {
@@ -31,7 +52,7 @@ namespace CustomRenderer.Page
 	            {
 	                using (var leftStream = new MemoryStream(viewModel.LeftImage))
 	                {
-	                    _leftBitmap = Reorient180(SKBitmap.Decode(leftStream));
+	                    _leftBitmap = ReorientVertically(SKBitmap.Decode(leftStream));
 	                }
 	            }
 
@@ -39,7 +60,7 @@ namespace CustomRenderer.Page
 	            {
 	                using (var rightStream = new MemoryStream(viewModel.RightImage))
 	                {
-	                    _rightBitmap = Reorient180(SKBitmap.Decode(rightStream));
+	                    _rightBitmap = ReorientVertically(SKBitmap.Decode(rightStream));
 	                }
 	            }
 	        }
@@ -78,17 +99,38 @@ namespace CustomRenderer.Page
 
 	        canvas.Clear();
 
-	        var aspectRatio = _leftBitmap.Height / (_leftBitmap.Width*1f);
-	        var scaledHeight = aspectRatio * info.Width;
-	        var margin = info.Height - scaledHeight * 2;
+	        float aspectRatio;
+	        float scaledHeight;
+	        float margin;
 
-	        if (_leftBitmap != null &&
-	            _rightBitmap != null)
+	        var doWeHaveAutomaticOrientation = false;
+	        if (doWeHaveAutomaticOrientation)
 	        {
-	            canvas.DrawBitmap(_leftBitmap, new SKRect(0, margin / 2, info.Width, scaledHeight + margin / 2));
-	            canvas.DrawBitmap(_rightBitmap,
-	                new SKRect(0, scaledHeight + margin / 2, info.Width, scaledHeight * 2 + margin / 2));
-	        }
+	            aspectRatio = _leftBitmap.Height / (_leftBitmap.Width * 1f);
+	            scaledHeight = aspectRatio * info.Width;
+	            margin = info.Height - scaledHeight * 2;
+
+	            if (_leftBitmap != null &&
+	                _rightBitmap != null)
+	            {
+	                canvas.DrawBitmap(_leftBitmap, new SKRect(0, margin / 2f, info.Width, scaledHeight + margin / 2f));
+	                canvas.DrawBitmap(_rightBitmap,
+	                    new SKRect(0, scaledHeight + margin / 2f, info.Width, scaledHeight * 2f + margin / 2f));
+	            }
+            }
+	        else
+	        {
+                aspectRatio = _leftBitmap.Height / (_leftBitmap.Width * 1f);
+                scaledHeight = aspectRatio * info.Width / 2f;
+	            margin = (info.Height - scaledHeight) / 2;
+	            if (_leftBitmap != null &&
+	                _rightBitmap != null)
+	            {
+	                canvas.DrawBitmap(_leftBitmap, new SKRect(0, margin, info.Width / 2f, scaledHeight + margin));
+	                canvas.DrawBitmap(_rightBitmap,
+	                    new SKRect(info.Width / 2f, margin, info.Width, scaledHeight + margin));
+	            }
+            }
         }
 	}
 }

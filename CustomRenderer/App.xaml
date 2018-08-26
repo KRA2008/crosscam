@@ -2,11 +2,13 @@
 <Application xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="CustomRenderer.App">
-    <ContentPage.Content>
-        <StackLayout>
-            <Label Text="Welcome to Xamarin.Forms!"
-                VerticalOptions="CenterAndExpand" 
-                HorizontalOptions="CenterAndExpand" />
-        </StackLayout>
-    </ContentPage.Content>
+    <Application.Resources>
+        <ResourceDictionary>
+            <Style TargetType="NavigationPage">
+                <Setter Property="BarTextColor" Value="White"/>
+                <Setter Property="BarBackgroundColor" Value="Black"/>
+                <Setter Property="BackgroundColor" Value="Black"/>
+            </Style>
+        </ResourceDictionary>
+    </Application.Resources>
 </Application>

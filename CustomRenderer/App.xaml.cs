@@ -10,7 +10,12 @@ namespace CustomRenderer
     {
         public App()
         {
-            MainPage = new FreshNavigationContainer(FreshPageModelResolver.ResolvePageModel<CameraViewModel>());
+            MainPage = new FreshNavigationContainer(FreshPageModelResolver.ResolvePageModel<CameraViewModel>())
+            {
+                BarBackgroundColor = Color.Black,
+                BackgroundColor = Color.Black,
+                BarTextColor = Color.White
+            };
         }
 
         protected override void OnStart()
