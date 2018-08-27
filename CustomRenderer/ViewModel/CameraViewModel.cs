@@ -75,6 +75,7 @@ namespace CustomRenderer.ViewModel
             SaveCaptures = new Command(async () =>
             {
                 await CoreMethods.PushPageModel<RenderViewModel>(new[] {LeftByteArray, RightByteArray});
+                //TODO: make it combine them and save it with skiasharp
             });
         }
     }
