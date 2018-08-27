@@ -7,6 +7,8 @@
              xmlns:vm="clr-namespace:CustomRenderer.ViewModel;assembly=CustomRenderer"
              xmlns:ce="clr-namespace:CustomRenderer.CustomElement;assembly=CustomRenderer"
              xmlns:vc="clr-namespace:CustomRenderer.ValueConverter;assembly=CustomRenderer"
+             xmlns:ffImage="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
+             xmlns:ffImageTransforms="clr-namespace:FFImageLoading.Transformations;assembly=FFImageLoading.Transformations"
              mc:Ignorable="d"
              
              d:DataContext="{d:DesignInstance Type=vm:CameraViewModel, IsDesignTimeCreatable=False}"
@@ -23,11 +25,11 @@
             <ColumnDefinition Width="*"/>
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
-        <Image Grid.Column="0"
-               Grid.Row="0"
-               Rotation="-90"
-               Aspect="AspectFill"
-               Source="{Binding LeftImageSource}"/>
+        <ffImage:CachedImage Grid.Column="0"
+                             Grid.Row="0"
+                             Aspect="AspectFill"
+                             Source="{Binding LeftImageSource}">
+        </ffImage:CachedImage>
         <Image Grid.Column="0"
                Grid.Row="0"
                HorizontalOptions="Center"
@@ -50,11 +52,11 @@
                TextColor="White"
                VerticalOptions="Center"
                Margin="10"/>
-        <Image Grid.Column="1"
-               Grid.Row="0"
-               Rotation="-90"
-               Aspect="AspectFill"
-               Source="{Binding RightImageSource}"/>
+        <ffImage:CachedImage Grid.Column="1"
+                             Grid.Row="0"
+                             Aspect="AspectFill"
+                             Source="{Binding RightImageSource}">
+        </ffImage:CachedImage>
         <Image Grid.Column="1"
                Grid.Row="0"
                HorizontalOptions="Center"

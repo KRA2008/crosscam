@@ -1,4 +1,5 @@
-﻿using Foundation;
+﻿using FFImageLoading.Forms.Touch;
+using Foundation;
 using UIKit;
 
 namespace CustomRenderer.iOS
@@ -9,6 +10,7 @@ namespace CustomRenderer.iOS
 		public override bool FinishedLaunching (UIApplication app, NSDictionary options)
 		{
 			Xamarin.Forms.Forms.Init ();
+		    CachedImageRenderer.Init();
 
             LoadApplication (new App ());
 

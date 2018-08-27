@@ -98,7 +98,7 @@ namespace CustomRenderer.iOS.CustomRenderer
 
             _stillImageOutput = new AVCaptureStillImageOutput
             {
-                OutputSettings = new NSDictionary()
+                OutputSettings = new NSDictionary(),
             };
 
             _captureSession.AddOutput(_stillImageOutput);
@@ -121,7 +121,10 @@ namespace CustomRenderer.iOS.CustomRenderer
             var sampleBuffer = await _stillImageOutput.CaptureStillImageTaskAsync(videoConnection);
 
             var jpegImageAsNsData = AVCaptureStillImageOutput.JpegStillToNSData(sampleBuffer);
-            _cameraModule.CapturedImage = jpegImageAsNsData.ToArray();
+            var image = UIImage.LoadFromData(jpegImageAsNsData);                //
+            var cgImage = image.CGImage;                                        // TODO: WHY THE HELL DO I HAVE TO DO THIS
+            image = UIImage.FromImage(cgImage, 1, UIImageOrientation.Up);       //
+            _cameraModule.CapturedImage = image.AsJPEG().ToArray();
         }
 
         private static void ConfigureCameraForDevice(AVCaptureDevice device)
