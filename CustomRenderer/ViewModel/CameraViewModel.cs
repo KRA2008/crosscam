@@ -43,7 +43,6 @@ namespace CustomRenderer.ViewModel
                 }
                 else if (args.PropertyName == nameof(RightByteArray))
                 {
-                    var portraitSource = ImageSource.FromStream(() => new MemoryStream(RightByteArray));
                     RightImageSource = ImageSource.FromStream(() => new MemoryStream(RightByteArray));
                     IsRightCameraVisible = false;
                     IsCaptureComplete = true;

@@ -25,6 +25,7 @@
         </Grid.ColumnDefinitions>
         <Image Grid.Column="0"
                Grid.Row="0"
+               Rotation="-90"
                Aspect="AspectFill"
                Source="{Binding LeftImageSource}"/>
         <Image Grid.Column="0"
@@ -51,6 +52,7 @@
                Margin="10"/>
         <Image Grid.Column="1"
                Grid.Row="0"
+               Rotation="-90"
                Aspect="AspectFill"
                Source="{Binding RightImageSource}"/>
         <Image Grid.Column="1"

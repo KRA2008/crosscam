@@ -119,7 +119,7 @@ namespace CustomRenderer.iOS.CustomRenderer
         {
             var videoConnection = _stillImageOutput.ConnectionFromMediaType(AVMediaType.Video);
             var sampleBuffer = await _stillImageOutput.CaptureStillImageTaskAsync(videoConnection);
-            
+
             var jpegImageAsNsData = AVCaptureStillImageOutput.JpegStillToNSData(sampleBuffer);
             _cameraModule.CapturedImage = jpegImageAsNsData.ToArray();
         }

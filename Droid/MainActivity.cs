@@ -1,12 +1,11 @@
 ﻿using Android.App;
 using Android.Content.PM;
 using Android.OS;
-using FFImageLoading.Forms.Droid;
 
 namespace CustomRenderer.Droid
 {
     [Activity(Label = "CustomRenderer.Droid", Icon = "@drawable/icon", Theme = "@style/MainTheme", MainLauncher = true, ConfigurationChanges = ConfigChanges.ScreenSize, ScreenOrientation = ScreenOrientation.Portrait)]
-    public class MainActivity : global::Xamarin.Forms.Platform.Android.FormsAppCompatActivity
+    public class MainActivity : Xamarin.Forms.Platform.Android.FormsAppCompatActivity
     {
         internal static MainActivity Instance { get; private set; }
 
@@ -17,8 +16,7 @@ namespace CustomRenderer.Droid
 
             base.OnCreate(bundle);
             Instance = this;
-            global::Xamarin.Forms.Forms.Init(this, bundle);
-            CachedImageRenderer.Init(true);
+            Xamarin.Forms.Forms.Init(this, bundle);
             LoadApplication(new App());
         }
     }
