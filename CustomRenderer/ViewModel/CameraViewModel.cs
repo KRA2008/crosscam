@@ -57,11 +57,9 @@ namespace CustomRenderer.ViewModel
 
             RetakeLeftCommand = new Command(() =>
             {
-                if (!IsRightCameraVisible)
-                {
-                    IsLeftCameraVisible = true;
-                    IsCaptureComplete = false;
-                }
+                IsRightCameraVisible = false;
+                IsLeftCameraVisible = true;
+                IsCaptureComplete = false;
             });
 
             RetakeRightCommand = new Command(() =>
