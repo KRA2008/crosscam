@@ -20,6 +20,11 @@ namespace CustomRenderer.iOS.CustomRenderer
         private CameraModule _cameraModule;
         private bool _isInitialized;
 
+        public CameraModuleRenderer()
+        {
+            MessagingCenter.Subscribe<AppDelegate>(this, "orientationChanged", FixOrientation);
+        }
+
         protected override void OnElementChanged(ElementChangedEventArgs<CameraModule> e)
         {
             base.OnElementChanged(e);
@@ -85,10 +90,21 @@ namespace CustomRenderer.iOS.CustomRenderer
         {
             _captureSession = new AVCaptureSession();
 
+            AVCaptureVideoOrientation videoOrientation;
+            switch (UIDevice.CurrentDevice.Orientation)
+            {
+                case UIDeviceOrientation.LandscapeRight:
+                    videoOrientation = AVCaptureVideoOrientation.LandscapeLeft;
+                    break;
+                default:
+                    videoOrientation = AVCaptureVideoOrientation.LandscapeRight;
+                    break;
+            }
+
             var videoPreviewLayer = new AVCaptureVideoPreviewLayer(_captureSession)
             {
                 Frame = _liveCameraStream.Bounds,
-                Orientation = AVCaptureVideoOrientation.LandscapeRight
+                Orientation = videoOrientation
             };
             _liveCameraStream.Layer.AddSublayer(videoPreviewLayer);
             
@@ -120,10 +136,21 @@ namespace CustomRenderer.iOS.CustomRenderer
             var videoConnection = _stillImageOutput.ConnectionFromMediaType(AVMediaType.Video);
             var sampleBuffer = await _stillImageOutput.CaptureStillImageTaskAsync(videoConnection);
 
+            UIImageOrientation imageOrientation;
+            switch (UIDevice.CurrentDevice.Orientation)
+            {
+                case UIDeviceOrientation.LandscapeRight:
+                    imageOrientation = UIImageOrientation.Down;
+                    break;
+                default:
+                    imageOrientation = UIImageOrientation.Up;
+                    break;
+            }
+
             var jpegImageAsNsData = AVCaptureStillImageOutput.JpegStillToNSData(sampleBuffer);
-            var image = UIImage.LoadFromData(jpegImageAsNsData);                //
-            var cgImage = image.CGImage;                                        // TODO: WHY THE HELL DO I HAVE TO DO THIS
-            image = UIImage.FromImage(cgImage, 1, UIImageOrientation.Up);       //
+            var image = UIImage.LoadFromData(jpegImageAsNsData);           //
+            var cgImage = image.CGImage;                                   // TODO: WHY THE HELL DO I HAVE TO DO THIS
+            image = UIImage.FromImage(cgImage, 1, imageOrientation);       //
             _cameraModule.CapturedImage = image.AsJPEG().ToArray();
             image.Dispose();
             cgImage.Dispose();
@@ -166,6 +193,19 @@ namespace CustomRenderer.iOS.CustomRenderer
 
             NativeView.Add(_liveCameraStream);
             NativeView.ClipsToBounds = true;
+        }
+
+        private void FixOrientation(AppDelegate appDelegate)
+        {
+            if (_isInitialized)
+            {
+                StopPreview();
+                SetupLiveCameraStream();
+                if (_cameraModule.IsVisible)
+                {
+                    StartPreview();
+                }
+            }
         }
     }
 }

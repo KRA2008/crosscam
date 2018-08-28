@@ -10,6 +10,5 @@ namespace CustomRenderer.Page
             InitializeComponent();
 		    NavigationPage.SetHasNavigationBar(this, false);
         }
-    }
+	}
 }
-

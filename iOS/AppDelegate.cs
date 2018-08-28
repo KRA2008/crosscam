@@ -1,5 +1,6 @@
 ﻿using Foundation;
 using UIKit;
+using Xamarin.Forms;
 
 namespace CustomRenderer.iOS
 {
@@ -8,12 +9,27 @@ namespace CustomRenderer.iOS
 	{
 		public override bool FinishedLaunching (UIApplication app, NSDictionary options)
 		{
-			Xamarin.Forms.Forms.Init ();
+			Forms.Init();
 
-            LoadApplication (new App ());
+            LoadApplication(new App());
 
-            return base.FinishedLaunching (app, options);
-		}
-	}
+		    NSNotificationCenter.DefaultCenter.AddObserver(new NSString("UIDeviceOrientationDidChangeNotification"), DeviceRotated);
+
+		    return base.FinishedLaunching(app, options);
+        }
+
+	    private void DeviceRotated(NSNotification notification)
+	    {
+	        switch (UIDevice.CurrentDevice.Orientation)
+	        {
+	            case UIDeviceOrientation.LandscapeRight:
+	                MessagingCenter.Send(this, "orientationChanged");
+	                break;
+	            case UIDeviceOrientation.LandscapeLeft:
+	                MessagingCenter.Send(this, "orientationChanged");
+	                break;
+	        }
+	    }
+    }
 }
 
