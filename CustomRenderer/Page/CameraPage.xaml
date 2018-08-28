@@ -11,91 +11,106 @@
              
              d:DataContext="{d:DesignInstance Type=vm:CameraViewModel, IsDesignTimeCreatable=False}"
 			 x:Class="CustomRenderer.Page.CameraPage">
-    <Grid ColumnSpacing="0"
-          RowSpacing="0"
-          VerticalOptions="Fill"
-          HorizontalOptions="Fill"
-          BackgroundColor="Black">
-        <Grid.RowDefinitions>
-            <RowDefinition Height="*"/>
-        </Grid.RowDefinitions>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="*"/>
-        </Grid.ColumnDefinitions>
-        <Image Grid.Column="0"
-               Grid.Row="0"
-               Aspect="AspectFill"
-               Source="{Binding LeftImageSource}">
-        </Image>
-        <Image Grid.Column="0"
-               Grid.Row="0"
-               HorizontalOptions="Center"
-               VerticalOptions="End"
-               Source="cancel"
-               Margin="10"
-               IsVisible="{Binding LeftByteArray, Converter={vc:IsNotNullConverter}}">
-            <Image.GestureRecognizers>
-                <TapGestureRecognizer Command="{Binding RetakeLeftCommand}"/>
-            </Image.GestureRecognizers>
-        </Image>
-        <ce:CameraModule Grid.Column="0"
-                         Grid.Row="0"
-                         CaptureTrigger="{Binding CapturePictureTrigger}"
-                         IsVisible="{Binding IsLeftCameraVisible}"
-                         CapturedImage="{Binding LeftByteArray}"/>
-        <Label Grid.Column="1"
-               Grid.Row="0"
-               Text="Take the left photo and then move to the left. The final picture will not be this skinny."
+    <AbsoluteLayout>
+        <Grid AbsoluteLayout.LayoutFlags="All"
+              AbsoluteLayout.LayoutBounds="0,0,1,1"
+              ColumnSpacing="0"
+              RowSpacing="0"
+              VerticalOptions="Fill"
+              HorizontalOptions="Fill"
+              BackgroundColor="Black">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Image Grid.Column="0"
+                   Grid.Row="0"
+                   Aspect="AspectFill"
+                   Source="{Binding LeftImageSource}">
+            </Image>
+            <Image Grid.Column="0"
+                   Grid.Row="0"
+                   HorizontalOptions="Center"
+                   VerticalOptions="End"
+                   Source="cancel"
+                   Margin="10"
+                   IsVisible="{Binding LeftByteArray, Converter={vc:IsNotNullConverter}}">
+                <Image.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding RetakeLeftCommand}"/>
+                </Image.GestureRecognizers>
+            </Image>
+            <ce:CameraModule Grid.Column="0"
+                             Grid.Row="0"
+                             CaptureTrigger="{Binding CapturePictureTrigger}"
+                             IsVisible="{Binding IsLeftCameraVisible}"
+                             CapturedImage="{Binding LeftByteArray}"/>
+            <Label Grid.Column="1"
+                   Grid.Row="0"
+                   Text="Take the left photo and move to the left for cross view, or move to the right for VR/parallel view"
+                   TextColor="White"
+                   VerticalOptions="Center"
+                   Margin="10"/>
+            <Image Grid.Column="1"
+                   Grid.Row="0"
+                   Aspect="AspectFill"
+                   Source="{Binding RightImageSource}">
+            </Image>
+            <Image Grid.Column="1"
+                   Grid.Row="0"
+                   HorizontalOptions="Center"
+                   VerticalOptions="End"
+                   Source="cancel"
+                   Margin="10"
+                   IsVisible="{Binding RightByteArray, Converter={vc:IsNotNullConverter}}">
+                <Image.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding RetakeRightCommand}"/>
+                </Image.GestureRecognizers>
+            </Image>
+            <ce:CameraModule Grid.Column="1"
+                             Grid.Row="0"
+                             CaptureTrigger="{Binding CapturePictureTrigger}"
+                             IsVisible="{Binding IsRightCameraVisible}"
+                             CapturedImage="{Binding RightByteArray}"/>
+            <Image Grid.Column="0"
+                   Grid.ColumnSpan="2"
+                   Grid.Row="0"
+                   HorizontalOptions="CenterAndExpand"
+                   VerticalOptions="End"
+                   Source="aperture"
+                   Margin="10"
+                   IsVisible="{Binding IsCaptureComplete, Converter={vc:BooleanInvertConverter}}">
+                <Image.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding CapturePictureCommand}"/>
+                </Image.GestureRecognizers>
+            </Image>
+            <Image Grid.Column="0"
+                   Grid.ColumnSpan="2"
+                   Grid.Row="0"
+                   HorizontalOptions="CenterAndExpand"
+                   VerticalOptions="End"
+                   Source="checkmark"
+                   Margin="10"
+                   IsVisible="{Binding IsCaptureComplete}">
+                <Image.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding SaveCaptures}"/>
+                </Image.GestureRecognizers>
+            </Image>
+        </Grid>
+        <Label AbsoluteLayout.LayoutFlags="All"
+               AbsoluteLayout.LayoutBounds="0.5,0.85,1,0.5"
+               HorizontalOptions="CenterAndExpand"
+               VerticalOptions="CenterAndExpand"
                TextColor="White"
-               VerticalOptions="Center"
-               Margin="10"/>
-        <Image Grid.Column="1"
-               Grid.Row="0"
-               Aspect="AspectFill"
-               Source="{Binding RightImageSource}">
-        </Image>
-        <Image Grid.Column="1"
-               Grid.Row="0"
-               HorizontalOptions="Center"
-               VerticalOptions="End"
-               Source="cancel"
-               Margin="10"
-               IsVisible="{Binding RightByteArray, Converter={vc:IsNotNullConverter}}">
-            <Image.GestureRecognizers>
-                <TapGestureRecognizer Command="{Binding RetakeRightCommand}"/>
-            </Image.GestureRecognizers>
-        </Image>
-        <ce:CameraModule Grid.Column="1"
-                         Grid.Row="0"
-                         CaptureTrigger="{Binding CapturePictureTrigger}"
-                         IsVisible="{Binding IsRightCameraVisible}"
-                         CapturedImage="{Binding RightByteArray}"/>
-        <Image Grid.Column="0"
-               Grid.ColumnSpan="2"
-               Grid.Row="0"
-               HorizontalOptions="CenterAndExpand"
-               VerticalOptions="End"
-               Source="aperture"
-               Margin="10"
-               IsVisible="{Binding IsCaptureComplete, Converter={vc:BooleanInvertConverter}}">
-            <Image.GestureRecognizers>
-                <TapGestureRecognizer Command="{Binding CapturePictureCommand}"/>
-            </Image.GestureRecognizers>
-        </Image>
-        <Image Grid.Column="0"
-               Grid.ColumnSpan="2"
-               Grid.Row="0"
-               HorizontalOptions="CenterAndExpand"
-               VerticalOptions="End"
-               Source="checkmark"
-               Margin="10"
-               IsVisible="{Binding IsCaptureComplete}">
-            <Image.GestureRecognizers>
-                <TapGestureRecognizer Command="{Binding SaveCaptures}"/>
-            </Image.GestureRecognizers>
-        </Image>
-    </Grid>
+               FontSize="24"
+               Text="Saved!">
+            <Label.Behaviors>
+                <ce:FadeInAndOutBehavior Trigger="{Binding SuccessFadeTrigger}"/>
+            </Label.Behaviors>
+        </Label>
+    </AbsoluteLayout>
 </fresh:FreshBaseContentPage>
 
 

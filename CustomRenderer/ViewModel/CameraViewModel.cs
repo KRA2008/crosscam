@@ -1,5 +1,7 @@
 ﻿using System.IO;
+using CustomRenderer.CustomElement;
 using FreshMvvm;
+using SkiaSharp;
 using Xamarin.Forms;
 
 namespace CustomRenderer.ViewModel
@@ -21,14 +23,17 @@ namespace CustomRenderer.ViewModel
 
         public bool IsCaptureComplete { get; set; }
         public Command SaveCaptures { get; set; }
+        public bool SuccessFadeTrigger { get; set; }
 
         public CameraViewModel()
         {
+            var photoSaver = DependencyService.Get<IPhotoSaver>();
             IsLeftCameraVisible = true;
 
             PropertyChanged += (sender, args) =>
             {
-                if (args.PropertyName == nameof(LeftByteArray))
+                if (args.PropertyName == nameof(LeftByteArray) &&
+                    LeftByteArray != null)
                 {
                     LeftImageSource = ImageSource.FromStream(() => new MemoryStream(LeftByteArray));
                     IsLeftCameraVisible = false;
@@ -41,7 +46,8 @@ namespace CustomRenderer.ViewModel
                         IsCaptureComplete = true;
                     }
                 }
-                else if (args.PropertyName == nameof(RightByteArray))
+                else if (args.PropertyName == nameof(RightByteArray) &&
+                         RightByteArray != null)
                 {
                     RightImageSource = ImageSource.FromStream(() => new MemoryStream(RightByteArray));
                     IsRightCameraVisible = false;
@@ -72,10 +78,56 @@ namespace CustomRenderer.ViewModel
                 CapturePictureTrigger = !CapturePictureTrigger;
             });
 
-            SaveCaptures = new Command(async () =>
+            SaveCaptures = new Command(() =>
             {
-                await CoreMethods.PushPageModel<RenderViewModel>(new[] {LeftByteArray, RightByteArray});
-                //TODO: make it combine them and save it with skiasharp
+                SKBitmap leftBitmap = null;
+                SKBitmap rightBitmap = null;
+                try
+                {
+                    leftBitmap = SKBitmap.Decode(LeftByteArray);
+                    rightBitmap = SKBitmap.Decode(RightByteArray);
+                    
+                    var width = leftBitmap.Width;
+                    var halfWidth = width / 2f;
+                    var height = leftBitmap.Height;
+                    var quarterInterval = width / 4f;
+
+                    SKImage finalImage;
+                    using (var tempSurface = SKSurface.Create(new SKImageInfo(width, height)))
+                    {
+                        var canvas = tempSurface.Canvas;
+                        
+                        canvas.Clear(SKColors.Transparent);
+
+                        canvas.DrawBitmap(leftBitmap, 
+                            SKRect.Create(quarterInterval, 0, halfWidth, height), 
+                            SKRect.Create(0, 0, halfWidth, height));
+                        canvas.DrawBitmap(rightBitmap,
+                            SKRect.Create(quarterInterval, 0, halfWidth, height),
+                            SKRect.Create(halfWidth, 0, halfWidth, height));
+                        
+                        finalImage = tempSurface.Snapshot();
+                    }
+                    
+                    using (var encoded = finalImage.Encode(SKEncodedImageFormat.Jpeg, 100))
+                    {
+                        photoSaver.SavePhoto(encoded.AsStream());
+                        SuccessFadeTrigger = !SuccessFadeTrigger;
+                    }
+                }
+                finally
+                {
+                    leftBitmap?.Dispose();
+                    rightBitmap?.Dispose();
+                }
+
+                LeftImageSource = null;
+                LeftByteArray = null;
+                RightImageSource = null;
+                RightByteArray = null;
+                IsCaptureComplete = false;
+                IsRightCameraVisible = false;
+                IsLeftCameraVisible = true;
             });
         }
     }

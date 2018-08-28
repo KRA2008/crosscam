@@ -125,6 +125,8 @@ namespace CustomRenderer.iOS.CustomRenderer
             var cgImage = image.CGImage;                                        // TODO: WHY THE HELL DO I HAVE TO DO THIS
             image = UIImage.FromImage(cgImage, 1, UIImageOrientation.Up);       //
             _cameraModule.CapturedImage = image.AsJPEG().ToArray();
+            image.Dispose();
+            cgImage.Dispose();
         }
 
         private static void ConfigureCameraForDevice(AVCaptureDevice device)

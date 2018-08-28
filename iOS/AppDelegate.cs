@@ -12,7 +12,7 @@ namespace CustomRenderer.iOS
 
             LoadApplication (new App ());
 
-			return base.FinishedLaunching (app, options);
+            return base.FinishedLaunching (app, options);
 		}
 	}
 }

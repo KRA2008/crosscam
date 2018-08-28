@@ -57,9 +57,9 @@
 	<key>CFBundleName</key>
 	<string>CustomRenderer</string>
 	<key>NSCameraUsageDescription</key>
-	<string>This app is using the camera</string>
+	<string>This app uses the camera to take 3D pictures</string>
 	<key>NSPhotoLibraryAddUsageDescription</key>
-	<string>This app is saving photo to the library</string>
+	<string>This app saves the 3D pictures you make to your photo library</string>
 	<key>UIStatusBarHidden</key>
 	<true/>
 	<key>UIRequiresFullScreen</key>
