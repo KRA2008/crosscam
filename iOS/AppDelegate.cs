@@ -13,23 +13,8 @@ namespace CustomRenderer.iOS
 
             LoadApplication(new App());
 
-		    NSNotificationCenter.DefaultCenter.AddObserver(new NSString("UIDeviceOrientationDidChangeNotification"), DeviceRotated);
-
 		    return base.FinishedLaunching(app, options);
         }
-
-	    private void DeviceRotated(NSNotification notification)
-	    {
-	        switch (UIDevice.CurrentDevice.Orientation)
-	        {
-	            case UIDeviceOrientation.LandscapeRight:
-	                MessagingCenter.Send(this, "orientationChanged");
-	                break;
-	            case UIDeviceOrientation.LandscapeLeft:
-	                MessagingCenter.Send(this, "orientationChanged");
-	                break;
-	        }
-	    }
     }
 }
 

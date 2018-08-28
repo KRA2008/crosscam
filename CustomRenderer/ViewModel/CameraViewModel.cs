@@ -97,13 +97,13 @@ namespace CustomRenderer.ViewModel
                         
                         canvas.Clear(SKColors.Transparent);
 
-                        canvas.DrawBitmap(leftBitmap, 
-                            SKRect.Create(quarterInterval, 0, halfWidth, height), 
+                        canvas.DrawBitmap(leftBitmap,
+                            SKRect.Create(quarterInterval, 0, halfWidth, height),
                             SKRect.Create(0, 0, halfWidth, height));
                         canvas.DrawBitmap(rightBitmap,
                             SKRect.Create(quarterInterval, 0, halfWidth, height),
                             SKRect.Create(halfWidth, 0, halfWidth, height));
-                        
+
                         finalImage = tempSurface.Snapshot();
                     }
                     

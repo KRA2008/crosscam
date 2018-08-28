@@ -13,10 +13,17 @@ namespace CustomRenderer.iOS.CustomRenderer
         public void SavePhoto(Stream image)
         {
             var uiImage = UIImage.LoadFromData(NSData.FromStream(image));
+            if (UIDevice.CurrentDevice.Orientation == UIDeviceOrientation.LandscapeRight)
+            {
+                var cgImage = uiImage.CGImage;
+                uiImage = UIImage.FromImage(cgImage, 1, UIImageOrientation.Down);
+                cgImage.Dispose();
+            }
             uiImage.SaveToPhotosAlbum((image1, error) =>
             {
                 //uhm.
             });
+            uiImage.Dispose();
         }
     }
 }

@@ -22,7 +22,7 @@ namespace CustomRenderer.iOS.CustomRenderer
 
         public CameraModuleRenderer()
         {
-            MessagingCenter.Subscribe<AppDelegate>(this, "orientationChanged", FixOrientation);
+            NSNotificationCenter.DefaultCenter.AddObserver(new NSString("UIDeviceOrientationDidChangeNotification"), FixOrientation);
         }
 
         protected override void OnElementChanged(ElementChangedEventArgs<CameraModule> e)
@@ -188,14 +188,14 @@ namespace CustomRenderer.iOS.CustomRenderer
         {
             _liveCameraStream = new UIView
             {
-                Frame = new CGRect(NativeView.Bounds.Width/-2f, 0, NativeView.Bounds.Width*2f, NativeView.Bounds.Height)
+                Frame = new CGRect(NativeView.Bounds.Width / -2f, 0, NativeView.Bounds.Width * 2f, NativeView.Bounds.Height)
             };
 
             NativeView.Add(_liveCameraStream);
             NativeView.ClipsToBounds = true;
         }
 
-        private void FixOrientation(AppDelegate appDelegate)
+        private void FixOrientation(NSNotification notification)
         {
             if (_isInitialized)
             {
