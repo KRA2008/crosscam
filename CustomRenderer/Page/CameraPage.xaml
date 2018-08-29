@@ -29,19 +29,18 @@
             <Image Grid.Column="0"
                    Grid.Row="0"
                    Aspect="AspectFill"
-                   Source="{Binding LeftImageSource}">
-            </Image>
-            <Image Grid.Column="0"
-                   Grid.Row="0"
-                   HorizontalOptions="Center"
-                   VerticalOptions="End"
-                   Source="cancel"
-                   Margin="10"
-                   IsVisible="{Binding LeftByteArray, Converter={vc:IsNotNullConverter}}">
-                <Image.GestureRecognizers>
+                   Source="{Binding LeftImageSource}"/>
+            <ContentView Grid.Column="0"
+                         Grid.Row="0"
+                         Padding="10"
+                         HorizontalOptions="Center"
+                         VerticalOptions="End"
+                         IsVisible="{Binding LeftByteArray, Converter={vc:IsNotNullConverter}}">
+                <ContentView.GestureRecognizers>
                     <TapGestureRecognizer Command="{Binding RetakeLeftCommand}"/>
-                </Image.GestureRecognizers>
-            </Image>
+                </ContentView.GestureRecognizers>
+                <Image Source="cancel"/>
+            </ContentView>
             <ce:CameraModule Grid.Column="0"
                              Grid.Row="0"
                              CaptureTrigger="{Binding CapturePictureTrigger}"
@@ -69,19 +68,18 @@
             <Image Grid.Column="1"
                    Grid.Row="0"
                    Aspect="AspectFill"
-                   Source="{Binding RightImageSource}">
-            </Image>
-            <Image Grid.Column="1"
-                   Grid.Row="0"
-                   HorizontalOptions="Center"
-                   VerticalOptions="End"
-                   Source="cancel"
-                   Margin="10"
-                   IsVisible="{Binding RightByteArray, Converter={vc:IsNotNullConverter}}">
-                <Image.GestureRecognizers>
+                   Source="{Binding RightImageSource}"/>
+            <ContentView Grid.Column="1"
+                         Grid.Row="0"
+                         HorizontalOptions="Center"
+                         VerticalOptions="End"
+                         Padding="10"
+                         IsVisible="{Binding RightByteArray, Converter={vc:IsNotNullConverter}}">
+                <ContentView.GestureRecognizers>
                     <TapGestureRecognizer Command="{Binding RetakeRightCommand}"/>
-                </Image.GestureRecognizers>
-            </Image>
+                </ContentView.GestureRecognizers>
+                <Image Source="cancel"/>
+            </ContentView>
             <ce:CameraModule Grid.Column="1"
                              Grid.Row="0"
                              CaptureTrigger="{Binding CapturePictureTrigger}"
@@ -95,30 +93,30 @@
                      VerticalOptions="CenterAndExpand"
                      BackgroundColor="White"
                      IsVisible="{Binding IsCaptureComplete, Converter={vc:BooleanInvertConverter}}"/>
-            <Image Grid.Column="0"
-                   Grid.ColumnSpan="2"
-                   Grid.Row="0"
-                   HorizontalOptions="CenterAndExpand"
-                   VerticalOptions="End"
-                   Source="aperture"
-                   Margin="10"
-                   IsVisible="{Binding IsCaptureComplete, Converter={vc:BooleanInvertConverter}}">
-                <Image.GestureRecognizers>
+            <ContentView Grid.Column="0"
+                         Grid.ColumnSpan="2"
+                         Grid.Row="0"
+                         Padding="10"
+                         HorizontalOptions="Center"
+                         VerticalOptions="End"
+                         IsVisible="{Binding IsCaptureComplete, Converter={vc:BooleanInvertConverter}}">
+                <ContentView.GestureRecognizers>
                     <TapGestureRecognizer Command="{Binding CapturePictureCommand}"/>
-                </Image.GestureRecognizers>
-            </Image>
-            <Image Grid.Column="0"
-                   Grid.ColumnSpan="2"
-                   Grid.Row="0"
-                   HorizontalOptions="CenterAndExpand"
-                   VerticalOptions="End"
-                   Source="checkmark"
-                   Margin="10"
-                   IsVisible="{Binding IsCaptureComplete}">
-                <Image.GestureRecognizers>
+                </ContentView.GestureRecognizers>
+                <Image Source="aperture"/>
+            </ContentView>
+            <ContentView Grid.Column="0"
+                         Grid.ColumnSpan="2"
+                         Grid.Row="0"
+                         HorizontalOptions="Center"
+                         VerticalOptions="End"
+                         Padding="10"
+                         IsVisible="{Binding IsCaptureComplete}">
+                <ContentView.GestureRecognizers>
                     <TapGestureRecognizer Command="{Binding SaveCaptures}"/>
-                </Image.GestureRecognizers>
-            </Image>
+                </ContentView.GestureRecognizers>
+                <Image Source="checkmark"/>
+            </ContentView>
         </Grid>
         <Label AbsoluteLayout.LayoutFlags="All"
                AbsoluteLayout.LayoutBounds="0.5,0.85,1,0.5"
