@@ -1,5 +1,4 @@
-﻿using System;
-using System.ComponentModel;
+﻿using System.ComponentModel;
 using System.IO;
 using Android.App;
 using Android.Content;
@@ -25,6 +24,9 @@ namespace CustomRenderer.Droid.CustomRenderer
         private TextureView _textureView;
         private SurfaceTexture _surfaceTexture;
         private CameraModule _cameraModule;
+        
+        private bool _isRunning;
+        private bool _isSurfaceAvailable;
 
         public CameraModuleRenderer(Context context) : base(context) {}
 
@@ -50,22 +52,20 @@ namespace CustomRenderer.Droid.CustomRenderer
         {
             base.OnElementPropertyChanged(sender, e);
 
-            if (e.PropertyName == nameof(_cameraModule.Width) ||
-                e.PropertyName == nameof(_cameraModule.Height))
-            {
-            }
-
             if (e.PropertyName == nameof(_cameraModule.IsVisible))
             {
                 if (_camera != null)
                 {
-                    if (_cameraModule.IsVisible)
+                    if (!_cameraModule.IsVisible)
                     {
-                        PrepareAndStartCamera();
+                        StopCamera();
                     }
                     else
                     {
-                        StopCamera();
+                        if (_isSurfaceAvailable)
+                        {
+                            PrepareAndStartCamera();
+                        }
                     }
                 }
             }
@@ -102,42 +102,51 @@ namespace CustomRenderer.Droid.CustomRenderer
 
         public void OnSurfaceTextureUpdated(SurfaceTexture surface)
         {
-
         }
 
         public void OnSurfaceTextureAvailable(SurfaceTexture surface, int width, int height)
         {
             _textureView.LayoutParameters = new FrameLayout.LayoutParams(width, height);
             _surfaceTexture = surface;
+            _isSurfaceAvailable = true;
 
-            PrepareAndStartCamera();
+            PrepareAndStartCamera(surface);
         }
 
         public bool OnSurfaceTextureDestroyed(SurfaceTexture surface)
         {
+            _isSurfaceAvailable = false;
             StopCamera();
             return true;
         }
 
         private void StopCamera()
         {
-            if (_camera != null)
+            if (_isRunning)
             {
-                _camera.StopPreview();
-                _camera.Release();
+                if (_camera != null)
+                {
+                    _camera.StopPreview();
+                    _camera.Release();
+                }
+
+                _isRunning = false;
             }
         }
 
         public void OnSurfaceTextureSizeChanged(SurfaceTexture surface, int width, int height)
         {
-            PrepareAndStartCamera();
         }
 
-        private void PrepareAndStartCamera()
+        private void PrepareAndStartCamera(SurfaceTexture surface = null)
         {
-            _camera = Android.Hardware.Camera.Open((int)_cameraType);
-            _camera.SetPreviewTexture(_surfaceTexture);
-            
+            _camera = Android.Hardware.Camera.Open((int) _cameraType);
+
+            if (surface != null)
+            {
+                _surfaceTexture = surface;
+            }
+
             var parameters = _camera.GetParameters();
             parameters.FlashMode = Android.Hardware.Camera.Parameters.FlashModeOff;
             _camera.SetParameters(parameters);
@@ -155,6 +164,8 @@ namespace CustomRenderer.Droid.CustomRenderer
             }
 
             _camera.StartPreview();
+
+            _isRunning = true;
         }
 
         private async void TakePhotoButtonTapped()
