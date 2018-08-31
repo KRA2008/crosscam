@@ -148,12 +148,13 @@ namespace CustomRenderer.iOS.CustomRenderer
             }
 
             var jpegImageAsNsData = AVCaptureStillImageOutput.JpegStillToNSData(sampleBuffer);
-            var image = UIImage.LoadFromData(jpegImageAsNsData);           //
-            var cgImage = image.CGImage;                                   // TODO: WHY THE HELL DO I HAVE TO DO THIS
-            image = UIImage.FromImage(cgImage, 1, imageOrientation);       //
-            _cameraModule.CapturedImage = image.AsJPEG().ToArray();
+            var image = UIImage.LoadFromData(jpegImageAsNsData);
+            using (var cgImage = image.CGImage)     // TODO: WHY THE HELL DO I HAVE TO DO THIS
+            {
+                image = UIImage.FromImage(cgImage, 1, imageOrientation);
+                _cameraModule.CapturedImage = image.AsJPEG().ToArray();
+            }
             image.Dispose();
-            cgImage.Dispose();
         }
 
         private static void ConfigureCameraForDevice(AVCaptureDevice device)

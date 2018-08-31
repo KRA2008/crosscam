@@ -1,9 +1,7 @@
-﻿using System.IO;
-
-namespace CustomRenderer.CustomElement
+﻿namespace CustomRenderer.CustomElement
 {
     public interface IPhotoSaver
     {
-        void SavePhoto(Stream image);
+        void SavePhoto(byte[] image);
     }
 }

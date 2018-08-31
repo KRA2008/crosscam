@@ -4,7 +4,13 @@ using Android.OS;
 
 namespace CustomRenderer.Droid
 {
-    [Activity(Label = "CustomRenderer.Droid", Icon = "@drawable/icon", Theme = "@style/MainTheme", MainLauncher = true, ConfigurationChanges = ConfigChanges.ScreenSize, ScreenOrientation = ScreenOrientation.Portrait)]
+    [Activity(
+        Label = "CustomRenderer.Droid", 
+        Icon = "@drawable/icon", 
+        Theme = "@style/MainTheme", 
+        MainLauncher = true,
+        ConfigurationChanges = ConfigChanges.ScreenSize, 
+        ScreenOrientation = ScreenOrientation.Landscape)]
     public class MainActivity : Xamarin.Forms.Platform.Android.FormsAppCompatActivity
     {
         internal static MainActivity Instance { get; private set; }

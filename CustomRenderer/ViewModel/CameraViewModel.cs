@@ -80,6 +80,7 @@ namespace CustomRenderer.ViewModel
             {
                 SKBitmap leftBitmap = null;
                 SKBitmap rightBitmap = null;
+                SKImage finalImage = null;
                 try
                 {
                     leftBitmap = SKBitmap.Decode(LeftByteArray);
@@ -90,7 +91,6 @@ namespace CustomRenderer.ViewModel
                     var height = leftBitmap.Height;
                     var quarterInterval = width / 4f;
 
-                    SKImage finalImage;
                     using (var tempSurface = SKSurface.Create(new SKImageInfo(width, height)))
                     {
                         var canvas = tempSurface.Canvas;
@@ -109,12 +109,13 @@ namespace CustomRenderer.ViewModel
                     
                     using (var encoded = finalImage.Encode(SKEncodedImageFormat.Jpeg, 100))
                     {
-                        photoSaver.SavePhoto(encoded.AsStream());
+                        photoSaver.SavePhoto(encoded.ToArray());
                         SuccessFadeTrigger = !SuccessFadeTrigger;
                     }
                 }
                 finally
                 {
+                    finalImage?.Dispose();
                     leftBitmap?.Dispose();
                     rightBitmap?.Dispose();
                 }
