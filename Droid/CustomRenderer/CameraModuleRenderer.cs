@@ -1,5 +1,7 @@
-﻿using System.ComponentModel;
+﻿using System;
+using System.ComponentModel;
 using System.IO;
+using System.Linq;
 using Android.App;
 using Android.Content;
 using Android.Graphics;
@@ -9,14 +11,16 @@ using Android.Widget;
 using CustomRenderer.Droid.CustomRenderer;
 using Xamarin.Forms;
 using Xamarin.Forms.Platform.Android;
+using Camera = Android.Hardware.Camera;
 using CameraModule = CustomRenderer.CustomElement.CameraModule;
+#pragma warning disable 618
 
 [assembly: ExportRenderer(typeof(CameraModule), typeof(CameraModuleRenderer))]
 namespace CustomRenderer.Droid.CustomRenderer
 {
     public class CameraModuleRenderer : ViewRenderer<CameraModule, Android.Views.View>, TextureView.ISurfaceTextureListener
     {
-        private Android.Hardware.Camera _camera;
+        private Camera _camera;
         private Android.Views.View _view;
 
         private Activity _activity;
@@ -24,6 +28,9 @@ namespace CustomRenderer.Droid.CustomRenderer
         private TextureView _textureView;
         private SurfaceTexture _surfaceTexture;
         private CameraModule _cameraModule;
+
+        private static Camera.Size _previewSize;
+        private static Camera.Size _pictureSize;
         
         private bool _isRunning;
         private bool _isSurfaceAvailable;
@@ -140,7 +147,7 @@ namespace CustomRenderer.Droid.CustomRenderer
 
         private void PrepareAndStartCamera(SurfaceTexture surface = null)
         {
-            _camera = Android.Hardware.Camera.Open((int) _cameraType);
+            _camera = Camera.Open((int) _cameraType);
 
             if (surface != null)
             {
@@ -148,7 +155,51 @@ namespace CustomRenderer.Droid.CustomRenderer
             }
 
             var parameters = _camera.GetParameters();
-            parameters.FlashMode = Android.Hardware.Camera.Parameters.FlashModeOff;
+            parameters.FlashMode = Camera.Parameters.FlashModeOff;
+
+            if (_pictureSize == null ||
+                _previewSize == null)
+            {
+                var landscapePictureDescendingSizes = parameters
+                    .SupportedPictureSizes
+                    .Where(p => p.Width > p.Height)
+                    .OrderByDescending(p => p.Width * p.Height)
+                    .ToList();
+                var landscapePreviewDescendingSizes = parameters
+                    .SupportedPreviewSizes
+                    .Where(p => p.Width > p.Height)
+                    .OrderByDescending(p => p.Width * p.Height)
+                    .ToList();
+
+                foreach (var pictureSize in landscapePictureDescendingSizes)
+                {
+                    foreach (var previewSize in landscapePreviewDescendingSizes)
+                    {
+                        if (Math.Abs((double)pictureSize.Width / pictureSize.Height - (double)previewSize.Width / previewSize.Height) < 0.0001)
+                        {
+                            _pictureSize = pictureSize;
+                            _previewSize = previewSize;
+                            break;
+                        }
+                    }
+
+                    if (_pictureSize != null)
+                    {
+                        break;
+                    }
+                }
+
+                if (_pictureSize == null ||
+                    _previewSize == null)
+                {
+                    _pictureSize = landscapePictureDescendingSizes.First();
+                    _previewSize = landscapePreviewDescendingSizes.First();
+                }
+            }
+
+            parameters.SetPictureSize(_pictureSize.Width, _pictureSize.Height);
+            parameters.SetPreviewSize(_previewSize.Width, _previewSize.Height);
+
             _camera.SetParameters(parameters);
             _camera.SetPreviewTexture(_surfaceTexture);
 
