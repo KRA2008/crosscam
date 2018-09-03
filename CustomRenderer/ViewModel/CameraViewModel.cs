@@ -104,36 +104,47 @@ namespace CustomRenderer.ViewModel
 
                     var screenHeightToPictureHeightRatio = (float)screenHeight / leftBitmap.Height;
 
-                    var imageDesiredWidth = screenHeightToPictureHeightRatio * leftBitmap.Width;
-                    var imageLeftTrimWidth = leftBitmap.Width - imageDesiredWidth / 2f;
+                    var imageRealisticCropWidth = screenHeightToPictureHeightRatio * leftBitmap.Width;
+                    var imageLeftTrimWidth = leftBitmap.Width - imageRealisticCropWidth / 2f;
 
-                    using (var tempSurface = SKSurface.Create(new SKImageInfo(screenWidth, screenHeight)))
+                    var finalImageWidth = imageRealisticCropWidth * 2;
+                    var halfFinalImageWidth = finalImageWidth / 2f;
+
+                    using (var tempSurface = SKSurface.Create(new SKImageInfo((int)finalImageWidth, leftBitmap.Height)))
                     {
                         var canvas = tempSurface.Canvas;
                         
                         canvas.Clear(SKColors.Transparent);
 
                         canvas.DrawBitmap(leftBitmap,
-                            SKRect.Create(imageLeftTrimWidth, 0, imageDesiredWidth, screenHeight),
-                            SKRect.Create(0, 0, halfScreenWidth, screenHeight));
+                            SKRect.Create(imageLeftTrimWidth, 0, imageRealisticCropWidth, leftBitmap.Height),
+                            SKRect.Create(0, 0, halfFinalImageWidth, leftBitmap.Height));
                         canvas.DrawBitmap(rightBitmap,
-                            SKRect.Create(imageLeftTrimWidth, 0, imageDesiredWidth, screenHeight),
-                            SKRect.Create(halfScreenWidth, 0, halfScreenWidth, screenHeight));
+                            SKRect.Create(imageLeftTrimWidth, 0, imageRealisticCropWidth, leftBitmap.Height),
+                            SKRect.Create(halfFinalImageWidth, 0, halfFinalImageWidth, leftBitmap.Height));
 
                         finalImage = tempSurface.Snapshot();
                     }
-                    
+
+                    byte[] finalImageByteArray;
                     using (var encoded = finalImage.Encode(SKEncodedImageFormat.Jpeg, 100))
                     {
-                        photoSaver.SavePhoto(encoded.ToArray());
-                        SuccessFadeTrigger = !SuccessFadeTrigger;
+                        finalImageByteArray = encoded.ToArray();
                     }
+
+                    finalImage.Dispose();
+                    leftBitmap.Dispose();
+                    rightBitmap.Dispose();
+
+                    photoSaver.SavePhoto(finalImageByteArray);
+                    SuccessFadeTrigger = !SuccessFadeTrigger;
                 }
-                finally
+                catch
                 {
                     finalImage?.Dispose();
                     leftBitmap?.Dispose();
                     rightBitmap?.Dispose();
+                    throw;
                 }
 
                 LeftImageSource = null;

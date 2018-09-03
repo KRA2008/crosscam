@@ -226,11 +226,7 @@ namespace CustomRenderer.Droid.CustomRenderer
 
         private void TakePhotoButtonTapped()
         {
-            //_camera.StopPreview();
-
             _camera.TakePicture(this, this, this, this);
-
-            //_camera.StartPreview();
         }
 
         public void OnShutter()
