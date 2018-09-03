@@ -18,7 +18,7 @@ using Camera = Android.Hardware.Camera;
 [assembly: ExportRenderer(typeof(CameraModule), typeof(CameraModuleRenderer))]
 namespace CustomRenderer.Droid.CustomRenderer
 {
-    public class CameraModuleRenderer : ViewRenderer<CameraModule, Android.Views.View>, TextureView.ISurfaceTextureListener
+    public class CameraModuleRenderer : ViewRenderer<CameraModule, Android.Views.View>, TextureView.ISurfaceTextureListener, Camera.IShutterCallback, Camera.IPictureCallback
     {
         private Camera _camera;
         private Android.Views.View _view;
@@ -224,16 +224,22 @@ namespace CustomRenderer.Droid.CustomRenderer
             _isRunning = true;
         }
 
-        private async void TakePhotoButtonTapped()
+        private void TakePhotoButtonTapped()
         {
-            _camera.StopPreview();
+            //_camera.StopPreview();
 
-            var image = _textureView.Bitmap;
-            var stream = new MemoryStream();
-            await image.CompressAsync(Bitmap.CompressFormat.Jpeg, 100, stream);
-            _cameraModule.CapturedImage = stream.ToArray();
+            _camera.TakePicture(this, this, this, this);
 
-            _camera.StartPreview();
+            //_camera.StartPreview();
+        }
+
+        public void OnShutter()
+        {
+        }
+
+        public void OnPictureTaken(byte[] data, Camera camera)
+        {
+            _cameraModule.CapturedImage = data;
         }
     }
 }

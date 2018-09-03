@@ -1,4 +1,5 @@
-﻿using System.IO;
+﻿using System;
+using System.IO;
 using CustomRenderer.CustomElement;
 using FreshMvvm;
 using SkiaSharp;
@@ -87,23 +88,37 @@ namespace CustomRenderer.ViewModel
                     leftBitmap = SKBitmap.Decode(LeftByteArray);
                     rightBitmap = SKBitmap.Decode(RightByteArray);
                     
-                    var width = leftBitmap.Width;
-                    var halfWidth = width / 2f;
-                    var height = leftBitmap.Height;
-                    var quarterInterval = width / 4f;
+                    var screenWidth = (int)Application.Current.MainPage.Width;
+                    var halfScreenWidth = screenWidth / 2f;
+                    var screenHeight = (int)Application.Current.MainPage.Height;
 
-                    using (var tempSurface = SKSurface.Create(new SKImageInfo(width, height)))
+                    if (Device.RuntimePlatform == Device.Android)
+                    {
+                        screenWidth *= 2; //TODO: why is this needed?
+                        halfScreenWidth = screenWidth / 2f;
+                        screenHeight *= 2;
+                    }
+
+                    //TODO: image width and heights could be huge, much larger than screen (or smaller I guess)
+                    //TODO: image aspect ratio could be very different from screen
+
+                    var screenHeightToPictureHeightRatio = (float)screenHeight / leftBitmap.Height;
+
+                    var imageDesiredWidth = screenHeightToPictureHeightRatio * leftBitmap.Width;
+                    var imageLeftTrimWidth = leftBitmap.Width - imageDesiredWidth / 2f;
+
+                    using (var tempSurface = SKSurface.Create(new SKImageInfo(screenWidth, screenHeight)))
                     {
                         var canvas = tempSurface.Canvas;
                         
                         canvas.Clear(SKColors.Transparent);
 
                         canvas.DrawBitmap(leftBitmap,
-                            SKRect.Create(quarterInterval, 0, halfWidth, height),
-                            SKRect.Create(0, 0, halfWidth, height));
+                            SKRect.Create(imageLeftTrimWidth, 0, imageDesiredWidth, screenHeight),
+                            SKRect.Create(0, 0, halfScreenWidth, screenHeight));
                         canvas.DrawBitmap(rightBitmap,
-                            SKRect.Create(quarterInterval, 0, halfWidth, height),
-                            SKRect.Create(halfWidth, 0, halfWidth, height));
+                            SKRect.Create(imageLeftTrimWidth, 0, imageDesiredWidth, screenHeight),
+                            SKRect.Create(halfScreenWidth, 0, halfScreenWidth, screenHeight));
 
                         finalImage = tempSurface.Snapshot();
                     }
