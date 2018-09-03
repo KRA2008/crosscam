@@ -3,6 +3,7 @@ using CustomRenderer.CustomElement;
 using FreshMvvm;
 using SkiaSharp;
 using Xamarin.Forms;
+using Xamarin.Forms.Internals;
 
 namespace CustomRenderer.ViewModel
 {

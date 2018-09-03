@@ -11,9 +11,9 @@ using Android.Widget;
 using CustomRenderer.Droid.CustomRenderer;
 using Xamarin.Forms;
 using Xamarin.Forms.Platform.Android;
-using Camera = Android.Hardware.Camera;
 using CameraModule = CustomRenderer.CustomElement.CameraModule;
 #pragma warning disable 618
+using Camera = Android.Hardware.Camera;
 
 [assembly: ExportRenderer(typeof(CameraModule), typeof(CameraModuleRenderer))]
 namespace CustomRenderer.Droid.CustomRenderer
@@ -196,6 +196,11 @@ namespace CustomRenderer.Droid.CustomRenderer
                     _previewSize = landscapePreviewDescendingSizes.First();
                 }
             }
+
+            var aspectRatio = (double) _previewSize.Width / _previewSize.Height;
+            _textureView.LayoutParameters = new FrameLayout.LayoutParams(
+                (int) (Math.Round(_cameraModule.Height * aspectRatio) * 2), (int) (_cameraModule.Height * 2)); // TODO: why does this need a *2?
+            _textureView.SetX((int)(-0.5*_cameraModule.Width));                                                // TODO: and yet this needs a *0.5?
 
             parameters.SetPictureSize(_pictureSize.Width, _pictureSize.Height);
             parameters.SetPreviewSize(_previewSize.Width, _previewSize.Height);
