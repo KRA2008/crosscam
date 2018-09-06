@@ -88,14 +88,10 @@ namespace CustomRenderer.ViewModel
                     leftBitmap = SKBitmap.Decode(LeftByteArray);
                     rightBitmap = SKBitmap.Decode(RightByteArray);
                     
-                    var screenWidth = (int)Application.Current.MainPage.Width;
-                    var halfScreenWidth = screenWidth / 2f;
                     var screenHeight = (int)Application.Current.MainPage.Height;
 
                     if (Device.RuntimePlatform == Device.Android)
                     {
-                        screenWidth *= 2; //TODO: why is this needed?
-                        halfScreenWidth = screenWidth / 2f;
                         screenHeight *= 2;
                     }
 
@@ -135,6 +131,10 @@ namespace CustomRenderer.ViewModel
                     finalImage.Dispose();
                     leftBitmap.Dispose();
                     rightBitmap.Dispose();
+                    LeftByteArray = null;
+                    RightByteArray = null;
+                    LeftImageSource = null;
+                    RightImageSource = null;
 
                     photoSaver.SavePhoto(finalImageByteArray);
                     SuccessFadeTrigger = !SuccessFadeTrigger;
