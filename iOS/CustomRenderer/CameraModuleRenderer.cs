@@ -11,12 +11,12 @@ using CameraModule = CustomRenderer.CustomElement.CameraModule;
 [assembly: ExportRenderer(typeof(CameraModule), typeof(CameraModuleRenderer))]
 namespace CustomRenderer.iOS.CustomRenderer
 {
-    public class CameraModuleRenderer : ViewRenderer<CameraModule, UIView>
+    public class CameraModuleRenderer : ViewRenderer<CameraModule, UIView>, IAVCapturePhotoCaptureDelegate
     {
         private AVCaptureSession _captureSession;
         private AVCaptureDeviceInput _captureDeviceInput;
         private UIView _liveCameraStream;
-        private AVCaptureStillImageOutput _stillImageOutput;
+        private AVCapturePhotoOutput _photoOutput;
         private CameraModule _cameraModule;
         private bool _isInitialized;
 
@@ -88,7 +88,10 @@ namespace CustomRenderer.iOS.CustomRenderer
 
         private void SetupLiveCameraStream()
         {
-            _captureSession = new AVCaptureSession();
+            _captureSession = new AVCaptureSession
+            {
+                SessionPreset = AVCaptureSession.PresetPhoto
+            };
 
             AVCaptureVideoOrientation videoOrientation;
             switch (UIDevice.CurrentDevice.Orientation)
@@ -112,12 +115,12 @@ namespace CustomRenderer.iOS.CustomRenderer
             ConfigureCameraForDevice(captureDevice);
             _captureDeviceInput = AVCaptureDeviceInput.FromDevice(captureDevice);
 
-            _stillImageOutput = new AVCaptureStillImageOutput
+            _photoOutput = new AVCapturePhotoOutput
             {
-                OutputSettings = new NSDictionary(),
+                IsHighResolutionCaptureEnabled = true
             };
 
-            _captureSession.AddOutput(_stillImageOutput);
+            _captureSession.AddOutput(_photoOutput);
             _captureSession.AddInput(_captureDeviceInput);
         }
 
@@ -131,11 +134,16 @@ namespace CustomRenderer.iOS.CustomRenderer
             _captureSession.StopRunning();
         }
 
-        private async void CapturePhoto()
+        private void CapturePhoto()
         {
-            var videoConnection = _stillImageOutput.ConnectionFromMediaType(AVMediaType.Video);
-            var sampleBuffer = await _stillImageOutput.CaptureStillImageTaskAsync(videoConnection);
+            var photoSettings = AVCapturePhotoSettings.Create();
+            photoSettings.IsHighResolutionPhotoEnabled = true;
+            _photoOutput.CapturePhoto(photoSettings, this);
+        }
 
+        [Export("captureOutput:didFinishProcessingPhoto:error:")]
+        private void PhotoCaptureComplete(AVCapturePhotoOutput photoOutput, AVCapturePhoto photo, NSError error)
+        {
             UIImageOrientation imageOrientation;
             switch (UIDevice.CurrentDevice.Orientation)
             {
@@ -147,14 +155,11 @@ namespace CustomRenderer.iOS.CustomRenderer
                     break;
             }
 
-            var jpegImageAsNsData = AVCaptureStillImageOutput.JpegStillToNSData(sampleBuffer);
-            var image = UIImage.LoadFromData(jpegImageAsNsData);
-            using (var cgImage = image.CGImage)     // TODO: WHY THE HELL DO I HAVE TO DO THIS
+            using (var cgImage = photo.CGImageRepresentation)
             {
-                image = UIImage.FromImage(cgImage, 1, imageOrientation);
-                _cameraModule.CapturedImage = image.AsJPEG().ToArray();
+                var uiImage = UIImage.FromImage(cgImage, 1, imageOrientation);// TODO: WHY THE HELL DO I HAVE TO DO THIS
+                _cameraModule.CapturedImage = uiImage.AsJPEG().ToArray();
             }
-            image.Dispose();
         }
 
         private static void ConfigureCameraForDevice(AVCaptureDevice device)
@@ -187,9 +192,12 @@ namespace CustomRenderer.iOS.CustomRenderer
 
         private void SetupUserInterface()
         {
+            var sideHeight = NativeView.Bounds.Height;
+            var sideWidth = NativeView.Bounds.Width;
+            var streamWidth = sideHeight * 4 / 3f;
             _liveCameraStream = new UIView
             {
-                Frame = new CGRect(NativeView.Bounds.Width / -2f, 0, NativeView.Bounds.Width * 2f, NativeView.Bounds.Height)
+                Frame = new CGRect((sideWidth - streamWidth) / 2f, 0, streamWidth, sideHeight)
             };
 
             NativeView.Add(_liveCameraStream);

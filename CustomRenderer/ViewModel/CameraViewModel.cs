@@ -92,14 +92,8 @@ namespace CustomRenderer.ViewModel
                     leftBitmap = SKBitmap.Decode(LeftByteArray);
                     rightBitmap = SKBitmap.Decode(RightByteArray);
                     
-                    var screenHeight = (int)Application.Current.MainPage.Height;
-                    var screenWidth = (int) Application.Current.MainPage.Width;
-
-                    if (Device.RuntimePlatform == Device.Android)
-                    {
-                        screenHeight *= 2;
-                        screenWidth *= 2;
-                    }
+                    var screenHeight = (int)Application.Current.MainPage.Height * 2; //TODO: why are these half what they should be
+                    var screenWidth = (int) Application.Current.MainPage.Width * 2;
 
                     var pictureHeightToScreenHeightRatio = (float) leftBitmap.Height / screenHeight;
 
