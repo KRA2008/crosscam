@@ -1,6 +1,5 @@
 ﻿using System;
 using System.ComponentModel;
-using System.IO;
 using System.Linq;
 using Android.App;
 using Android.Content;
@@ -185,6 +184,7 @@ namespace CustomRenderer.Droid.CustomRenderer
                 {
                     foreach (var previewSize in landscapePreviewDescendingSizes)
                     {
+                        //TODO: the screen might be really long and not have a perfect picture/preview ratio match
                         if (Math.Abs((double)pictureSize.Width / pictureSize.Height - (double)previewSize.Width / previewSize.Height) < 0.0001)
                         {
                             _pictureSize = pictureSize;

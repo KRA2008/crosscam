@@ -101,9 +101,6 @@ namespace CustomRenderer.ViewModel
                         screenWidth *= 2;
                     }
 
-                    //TODO: image width and heights could be huge, much larger than screen (or smaller I guess)
-                    //TODO: image aspect ratio could be very different from screen
-
                     var pictureHeightToScreenHeightRatio = (float) leftBitmap.Height / screenHeight;
 
                     var eachSideWidth = screenWidth * pictureHeightToScreenHeightRatio / 2f;
