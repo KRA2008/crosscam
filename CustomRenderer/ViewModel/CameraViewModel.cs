@@ -1,10 +1,9 @@
-﻿using System;
-using System.IO;
+﻿using System.IO;
+using System.Threading.Tasks;
 using CustomRenderer.CustomElement;
 using FreshMvvm;
 using SkiaSharp;
 using Xamarin.Forms;
-using Xamarin.Forms.Internals;
 
 namespace CustomRenderer.ViewModel
 {
@@ -25,7 +24,10 @@ namespace CustomRenderer.ViewModel
 
         public bool IsCaptureComplete { get; set; }
         public Command SaveCaptures { get; set; }
+
+        public bool FailFadeTrigger { get; set; }
         public bool SuccessFadeTrigger { get; set; }
+        public bool IsSaving { get; set; }
 
         public CameraViewModel()
         {
@@ -78,8 +80,10 @@ namespace CustomRenderer.ViewModel
                 CapturePictureTrigger = !CapturePictureTrigger;
             });
 
-            SaveCaptures = new Command(() =>
+            SaveCaptures = new Command(async () =>
             {
+                IsSaving = true;
+
                 SKBitmap leftBitmap = null;
                 SKBitmap rightBitmap = null;
                 SKImage finalImage = null;
@@ -89,22 +93,23 @@ namespace CustomRenderer.ViewModel
                     rightBitmap = SKBitmap.Decode(RightByteArray);
                     
                     var screenHeight = (int)Application.Current.MainPage.Height;
+                    var screenWidth = (int) Application.Current.MainPage.Width;
 
                     if (Device.RuntimePlatform == Device.Android)
                     {
                         screenHeight *= 2;
+                        screenWidth *= 2;
                     }
 
                     //TODO: image width and heights could be huge, much larger than screen (or smaller I guess)
                     //TODO: image aspect ratio could be very different from screen
 
-                    var screenHeightToPictureHeightRatio = (float)screenHeight / leftBitmap.Height;
+                    var pictureHeightToScreenHeightRatio = (float) leftBitmap.Height / screenHeight;
 
-                    var imageRealisticCropWidth = screenHeightToPictureHeightRatio * leftBitmap.Width;
-                    var imageLeftTrimWidth = leftBitmap.Width - imageRealisticCropWidth / 2f;
+                    var eachSideWidth = screenWidth * pictureHeightToScreenHeightRatio / 2f;
+                    var imageLeftTrimWidth = (leftBitmap.Width - eachSideWidth) / 2f;
 
-                    var finalImageWidth = imageRealisticCropWidth * 2;
-                    var halfFinalImageWidth = finalImageWidth / 2f;
+                    var finalImageWidth = eachSideWidth * 2;
 
                     using (var tempSurface = SKSurface.Create(new SKImageInfo((int)finalImageWidth, leftBitmap.Height)))
                     {
@@ -113,11 +118,11 @@ namespace CustomRenderer.ViewModel
                         canvas.Clear(SKColors.Transparent);
 
                         canvas.DrawBitmap(leftBitmap,
-                            SKRect.Create(imageLeftTrimWidth, 0, imageRealisticCropWidth, leftBitmap.Height),
-                            SKRect.Create(0, 0, halfFinalImageWidth, leftBitmap.Height));
+                            SKRect.Create(imageLeftTrimWidth, 0, eachSideWidth, leftBitmap.Height),
+                            SKRect.Create(0, 0, eachSideWidth, leftBitmap.Height));
                         canvas.DrawBitmap(rightBitmap,
-                            SKRect.Create(imageLeftTrimWidth, 0, imageRealisticCropWidth, leftBitmap.Height),
-                            SKRect.Create(halfFinalImageWidth, 0, halfFinalImageWidth, leftBitmap.Height));
+                            SKRect.Create(imageLeftTrimWidth, 0, eachSideWidth, leftBitmap.Height),
+                            SKRect.Create(eachSideWidth, 0, eachSideWidth, leftBitmap.Height));
 
                         finalImage = tempSurface.Snapshot();
                     }
@@ -136,21 +141,27 @@ namespace CustomRenderer.ViewModel
                     LeftImageSource = null;
                     RightImageSource = null;
 
-                    photoSaver.SavePhoto(finalImageByteArray);
-                    SuccessFadeTrigger = !SuccessFadeTrigger;
+                    await Task.Delay(1000); // breathing room for screen to update
+
+                    var didSave = await photoSaver.SavePhoto(finalImageByteArray);
+                    IsSaving = false;
+
+                    if (didSave)
+                    {
+                        SuccessFadeTrigger = !SuccessFadeTrigger;
+                    }
+                    else
+                    {
+                        FailFadeTrigger = !FailFadeTrigger;
+                    }
                 }
                 catch
                 {
                     finalImage?.Dispose();
                     leftBitmap?.Dispose();
                     rightBitmap?.Dispose();
-                    throw;
                 }
-
-                LeftImageSource = null;
-                LeftByteArray = null;
-                RightImageSource = null;
-                RightByteArray = null;
+                
                 IsCaptureComplete = false;
                 IsRightCameraVisible = false;
                 IsLeftCameraVisible = true;

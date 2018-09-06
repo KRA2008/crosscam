@@ -1,7 +1,9 @@
-﻿namespace CustomRenderer.CustomElement
+﻿using System.Threading.Tasks;
+
+namespace CustomRenderer.CustomElement
 {
     public interface IPhotoSaver
     {
-        void SavePhoto(byte[] image);
+        Task<bool> SavePhoto(byte[] image);
     }
 }

@@ -149,6 +149,16 @@ namespace CustomRenderer.Droid.CustomRenderer
         {
             _camera = Camera.Open((int) _cameraType);
 
+            for (var ii = 0; ii < Camera.NumberOfCameras - 1; ii++)
+            {
+                var info = new Camera.CameraInfo();
+                Camera.GetCameraInfo(ii, info);
+                if (info.CanDisableShutterSound)
+                {
+                    _camera.EnableShutterSound(false);
+                }
+            }
+
             if (surface != null)
             {
                 _surfaceTexture = surface;

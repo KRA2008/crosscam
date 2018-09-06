@@ -1,4 +1,5 @@
-﻿using Android.Content;
+﻿using System.Threading.Tasks;
+using Android.Content;
 using Android.Graphics;
 using Android.Provider;
 using CustomRenderer.CustomElement;
@@ -11,25 +12,40 @@ namespace CustomRenderer.Droid.CustomRenderer
 {
     public class PhotoSaver : IPhotoSaver
     {
-        public void SavePhoto(byte[] image)
+        public Task<bool> SavePhoto(byte[] image)
         {
-            var contentResolver = Android.App.Application.Context.ContentResolver;
-            var values = new ContentValues();
-            values.Put(MediaStore.Images.Media.InterfaceConsts.MimeType, "image/jpeg");
+            var taskCompletionSource = new TaskCompletionSource<bool>();
 
-            var currentTimeSeconds = JavaSystem.CurrentTimeMillis()/1000;
-            values.Put(MediaStore.Images.Media.InterfaceConsts.DateAdded, currentTimeSeconds);
-            values.Put(MediaStore.Images.Media.InterfaceConsts.DateModified, currentTimeSeconds);
-
-            var url = contentResolver.Insert(MediaStore.Images.Media.ExternalContentUri, values);
-
-            using (var imageOut = contentResolver.OpenOutputStream(url))
+            Task.Run(() =>
             {
-                using (var bitmap = BitmapFactory.DecodeByteArray(image, 0, image.Length))
+                try
                 {
-                    bitmap.Compress(Bitmap.CompressFormat.Jpeg, 100, imageOut);
+                    var contentResolver = Android.App.Application.Context.ContentResolver;
+                    var values = new ContentValues();
+                    values.Put(MediaStore.Images.Media.InterfaceConsts.MimeType, "image/jpeg");
+
+                    var currentTimeSeconds = JavaSystem.CurrentTimeMillis() / 1000;
+                    values.Put(MediaStore.Images.Media.InterfaceConsts.DateAdded, currentTimeSeconds);
+                    values.Put(MediaStore.Images.Media.InterfaceConsts.DateModified, currentTimeSeconds);
+
+                    var url = contentResolver.Insert(MediaStore.Images.Media.ExternalContentUri, values);
+
+                    using (var imageOut = contentResolver.OpenOutputStream(url))
+                    {
+                        using (var bitmap = BitmapFactory.DecodeByteArray(image, 0, image.Length))
+                        {
+                            bitmap.Compress(Bitmap.CompressFormat.Jpeg, 100, imageOut);
+                        }
+                    }
                 }
-            }
+                catch (Exception e)
+                {
+                    taskCompletionSource.SetResult(false);
+                }
+                taskCompletionSource.SetResult(true);
+            });
+
+            return taskCompletionSource.Task;
         }
     }
 }

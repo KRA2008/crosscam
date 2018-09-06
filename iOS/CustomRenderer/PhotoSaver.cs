@@ -1,4 +1,5 @@
-﻿using CustomRenderer.CustomElement;
+﻿using System.Threading.Tasks;
+using CustomRenderer.CustomElement;
 using CustomRenderer.iOS.CustomRenderer;
 using Foundation;
 using UIKit;
@@ -9,9 +10,10 @@ namespace CustomRenderer.iOS.CustomRenderer
 {
     public class PhotoSaver : IPhotoSaver
     {
-        public void SavePhoto(byte[] image)
+        public Task<bool> SavePhoto(byte[] image)
         {
-            var uiImage = UIImage.LoadFromData(NSData.FromArray(image));
+            var taskCompletionSource = new TaskCompletionSource<bool>();
+            var uiImage = new UIImage(NSData.FromArray(image));
             if (UIDevice.CurrentDevice.Orientation == UIDeviceOrientation.LandscapeRight)
             {
                 using (var cgImage = uiImage.CGImage)
@@ -21,9 +23,9 @@ namespace CustomRenderer.iOS.CustomRenderer
             }
             uiImage.SaveToPhotosAlbum((image1, error) =>
             {
-                //uhm.
+                taskCompletionSource.SetResult(error == null);
             });
-            uiImage.Dispose();
+            return taskCompletionSource.Task;
         }
     }
 }

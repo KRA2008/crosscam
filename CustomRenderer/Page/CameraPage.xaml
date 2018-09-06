@@ -129,5 +129,24 @@
                 <ce:FadeInAndOutBehavior Trigger="{Binding SuccessFadeTrigger}"/>
             </Label.Behaviors>
         </Label>
+        <Label AbsoluteLayout.LayoutFlags="All"
+               AbsoluteLayout.LayoutBounds="0.5,0.85,1,0.5"
+               HorizontalOptions="CenterAndExpand"
+               VerticalOptions="CenterAndExpand"
+               TextColor="White"
+               FontSize="24"
+               Text="Save failed. :(">
+            <Label.Behaviors>
+                <ce:FadeInAndOutBehavior Trigger="{Binding FailFadeTrigger}"/>
+            </Label.Behaviors>
+        </Label>
+        <Label AbsoluteLayout.LayoutFlags="All"
+               AbsoluteLayout.LayoutBounds="0.5,0.85,1,0.5"
+               HorizontalOptions="CenterAndExpand"
+               VerticalOptions="CenterAndExpand"
+               TextColor="White"
+               FontSize="24"
+               Text="Saving..."
+               IsVisible="{Binding IsSaving}"/>
     </AbsoluteLayout>
 </fresh:FreshBaseContentPage>
