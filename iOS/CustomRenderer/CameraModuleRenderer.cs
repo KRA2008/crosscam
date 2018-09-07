@@ -194,7 +194,7 @@ namespace CustomRenderer.iOS.CustomRenderer
         {
             var sideHeight = NativeView.Bounds.Height;
             var sideWidth = NativeView.Bounds.Width;
-            var streamWidth = sideHeight * 4 / 3f;
+            var streamWidth = sideHeight * 4 / 3f; //iPhones do 4:3 pictures
             _liveCameraStream = new UIView
             {
                 Frame = new CGRect((sideWidth - streamWidth) / 2f, 0, streamWidth, sideHeight)

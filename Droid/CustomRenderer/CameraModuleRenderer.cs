@@ -1,10 +1,15 @@
 ﻿using System;
 using System.ComponentModel;
 using System.Linq;
+using Android;
 using Android.App;
 using Android.Content;
+using Android.Content.PM;
 using Android.Graphics;
 using Android.Hardware;
+using Android.Support.V4.App;
+using Android.Support.V4.Content;
+using Android.Util;
 using Android.Views;
 using Android.Widget;
 using CustomRenderer.Droid.CustomRenderer;
@@ -146,7 +151,12 @@ namespace CustomRenderer.Droid.CustomRenderer
 
         private void PrepareAndStartCamera(SurfaceTexture surface = null)
         {
-            _camera = Camera.Open((int) _cameraType);
+            if (ContextCompat.CheckSelfPermission(Forms.Context, Manifest.Permission.Camera) != (int)Permission.Granted)
+            {
+                ActivityCompat.RequestPermissions(MainActivity.Instance, new[] { Manifest.Permission.Camera }, 50);
+            }
+
+            _camera = Camera.Open((int)_cameraType);
 
             for (var ii = 0; ii < Camera.NumberOfCameras - 1; ii++)
             {
@@ -184,7 +194,6 @@ namespace CustomRenderer.Droid.CustomRenderer
                 {
                     foreach (var previewSize in landscapePreviewDescendingSizes)
                     {
-                        //TODO: the screen might be really long and not have a perfect picture/preview ratio match
                         if (Math.Abs((double)pictureSize.Width / pictureSize.Height - (double)previewSize.Width / previewSize.Height) < 0.0001)
                         {
                             _pictureSize = pictureSize;
@@ -206,11 +215,17 @@ namespace CustomRenderer.Droid.CustomRenderer
                     _previewSize = landscapePreviewDescendingSizes.First();
                 }
             }
+            
+            var metrics = new DisplayMetrics();
+            Display.GetMetrics(metrics);
 
-            var aspectRatio = (double) _previewSize.Width / _previewSize.Height;
-            _textureView.LayoutParameters = new FrameLayout.LayoutParams(
-                (int) (Math.Round(_cameraModule.Height * aspectRatio) * 2), (int) (_cameraModule.Height * 2)); // TODO: why does this need a *2?
-            _textureView.SetX((int)(-0.5*_cameraModule.Width));                                                // TODO: and yet this needs a *0.5?
+            var moduleHeight = _cameraModule.Height * metrics.Density;
+            var moduleWidth = _cameraModule.Width * metrics.Density;
+            var proportionalPreviewWidth = _previewSize.Width * moduleHeight / _previewSize.Height;
+            _textureView.LayoutParameters = new FrameLayout.LayoutParams((int) Math.Round(proportionalPreviewWidth), 
+                (int) Math.Round(moduleHeight));
+            var leftTrim = (proportionalPreviewWidth - moduleWidth) / 2;
+            _textureView.SetX((float) (-1 * leftTrim));
 
             parameters.SetPictureSize(_pictureSize.Width, _pictureSize.Height);
             parameters.SetPreviewSize(_previewSize.Width, _previewSize.Height);
