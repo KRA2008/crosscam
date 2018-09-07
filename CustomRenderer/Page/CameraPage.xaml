@@ -39,17 +39,39 @@
                              Grid.Row="0"
                              CaptureTrigger="{Binding CapturePictureTrigger}"
                              IsVisible="{Binding IsLeftCameraVisible}"
-                             CapturedImage="{Binding LeftByteArray}"/>
+                             CapturedImage="{Binding LeftByteArray}"
+                             CaptureSuccess="{Binding LeftCaptureSuccess}"/>
+            <AbsoluteLayout Grid.Column="0"
+                            Grid.Row="0">
+                <AbsoluteLayout.Behaviors>
+                    <ce:FadeInAndOutBehavior Trigger="{Binding LeftCaptureSuccess}"
+                                             InTimeMs="250"
+                                             OutTimeMs="250"
+                                             VisibleTimeMs="0"/>
+                </AbsoluteLayout.Behaviors>
+                <BoxView AbsoluteLayout.LayoutFlags="PositionProportional,HeightProportional"
+                         AbsoluteLayout.LayoutBounds="0,0,10,1"
+                         BackgroundColor="White"/>
+                <BoxView AbsoluteLayout.LayoutFlags="PositionProportional,WidthProportional"
+                         AbsoluteLayout.LayoutBounds="0,0,1,10"
+                         BackgroundColor="White"/>
+                <BoxView AbsoluteLayout.LayoutFlags="PositionProportional,HeightProportional"
+                         AbsoluteLayout.LayoutBounds="1,1,10,1"
+                         BackgroundColor="White"/>
+                <BoxView AbsoluteLayout.LayoutFlags="PositionProportional,WidthProportional"
+                         AbsoluteLayout.LayoutBounds="1,1,1,10"
+                         BackgroundColor="White"/>
+            </AbsoluteLayout>
             <Frame Grid.Column="0"
                    Grid.Row="0"
                    CornerRadius="5"
                    Padding="5"
-                   Margin="5 "
+                   Margin="5"
                    WidthRequest="2"
                    HeightRequest="2"
+                   HasShadow="False"
                    BorderColor="White"
                    BackgroundColor="Transparent"
-                   HasShadow="False"
                    HorizontalOptions="CenterAndExpand"
                    VerticalOptions="CenterAndExpand"
                    IsVisible="{Binding IsCaptureComplete, Converter={vc:BooleanInvertConverter}}"/>
@@ -58,7 +80,8 @@
                    Text="Take the left photo and move to the left for cross view, or move to the right for VR/parallel view"
                    TextColor="White"
                    VerticalOptions="Center"
-                   Margin="10"/>
+                   Margin="10"
+                   IsVisible="{Binding IsSaving, Converter={vc:BooleanInvertConverter}}"/>
             <Image Grid.Column="1"
                    Grid.Row="0"
                    Aspect="AspectFill"
@@ -67,7 +90,29 @@
                              Grid.Row="0"
                              CaptureTrigger="{Binding CapturePictureTrigger}"
                              IsVisible="{Binding IsRightCameraVisible}"
-                             CapturedImage="{Binding RightByteArray}"/>
+                             CapturedImage="{Binding RightByteArray}"
+                             CaptureSuccess="{Binding RightCaptureSuccess}"/>
+            <AbsoluteLayout Grid.Column="1"
+                            Grid.Row="0">
+                <AbsoluteLayout.Behaviors>
+                    <ce:FadeInAndOutBehavior Trigger="{Binding RightCaptureSuccess}"
+                                             InTimeMs="250"
+                                             OutTimeMs="250"
+                                             VisibleTimeMs="0"/>
+                </AbsoluteLayout.Behaviors>
+                <BoxView AbsoluteLayout.LayoutFlags="PositionProportional,HeightProportional"
+                         AbsoluteLayout.LayoutBounds="0,0,10,1"
+                         BackgroundColor="White"/>
+                <BoxView AbsoluteLayout.LayoutFlags="PositionProportional,WidthProportional"
+                         AbsoluteLayout.LayoutBounds="0,0,1,10"
+                         BackgroundColor="White"/>
+                <BoxView AbsoluteLayout.LayoutFlags="PositionProportional,HeightProportional"
+                         AbsoluteLayout.LayoutBounds="1,1,10,1"
+                         BackgroundColor="White"/>
+                <BoxView AbsoluteLayout.LayoutFlags="PositionProportional,WidthProportional"
+                         AbsoluteLayout.LayoutBounds="1,1,1,10"
+                         BackgroundColor="White"/>
+            </AbsoluteLayout>
             <BoxView Grid.Column="1"
                      Grid.Row="0"
                      WidthRequest="3"
@@ -99,10 +144,12 @@
                      AbsoluteLayout.LayoutBounds="{DynamicResource _captureRectangle}"
                      Padding="{DynamicResource _capturePadding}"
                      IsVisible="{Binding IsCaptureComplete}">
-            <ContentView.GestureRecognizers>
-                <TapGestureRecognizer Command="{Binding SaveCaptures}"/>
-            </ContentView.GestureRecognizers>
-            <Image Source="checkmark"/>
+            <ContentView IsVisible="{Binding IsSaving, Converter={vc:BooleanInvertConverter}}">
+                <ContentView.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding SaveCaptures}"/>
+                </ContentView.GestureRecognizers>
+                <Image Source="checkmark"/>
+            </ContentView>
         </ContentView>
         <ContentView AbsoluteLayout.LayoutFlags="All"
                      AbsoluteLayout.LayoutBounds="{DynamicResource _captureRectangle}"
@@ -121,7 +168,10 @@
                FontSize="24"
                Text="Saved!">
             <Label.Behaviors>
-                <ce:FadeInAndOutBehavior Trigger="{Binding SuccessFadeTrigger}"/>
+                <ce:FadeInAndOutBehavior Trigger="{Binding SuccessFadeTrigger}"
+                                         InTimeMs="250"
+                                         OutTimeMs="250"
+                                         VisibleTimeMs="2000"/>
             </Label.Behaviors>
         </Label>
         <Label AbsoluteLayout.LayoutFlags="All"
@@ -132,7 +182,10 @@
                FontSize="24"
                Text="Save failed. :(">
             <Label.Behaviors>
-                <ce:FadeInAndOutBehavior Trigger="{Binding FailFadeTrigger}"/>
+                <ce:FadeInAndOutBehavior Trigger="{Binding FailFadeTrigger}"
+                                         InTimeMs="250"
+                                         OutTimeMs="250"
+                                         VisibleTimeMs="2000"/>
             </Label.Behaviors>
         </Label>
         <Label AbsoluteLayout.LayoutFlags="All"

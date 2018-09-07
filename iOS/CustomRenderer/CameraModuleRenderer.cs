@@ -139,6 +139,7 @@ namespace CustomRenderer.iOS.CustomRenderer
             var photoSettings = AVCapturePhotoSettings.Create();
             photoSettings.IsHighResolutionPhotoEnabled = true;
             _photoOutput.CapturePhoto(photoSettings, this);
+            _cameraModule.CaptureSuccess = !_cameraModule.CaptureSuccess;
         }
 
         [Export("captureOutput:didFinishProcessingPhoto:error:")]

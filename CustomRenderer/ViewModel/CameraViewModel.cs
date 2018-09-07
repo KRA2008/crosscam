@@ -13,11 +13,13 @@ namespace CustomRenderer.ViewModel
         public byte[] LeftByteArray { get; set; }
         public bool IsLeftCameraVisible { get; set; }
         public Command RetakeLeftCommand { get; set; }
+        public bool LeftCaptureSuccess { get; set; }
 
         public ImageSource RightImageSource { get; set; }
         public byte[] RightByteArray { get; set; }
         public bool IsRightCameraVisible { get; set; }
         public Command RetakeRightCommand { get; set; }
+        public bool RightCaptureSuccess { get; set; }
 
         public Command CapturePictureCommand { get; set; }
         public bool CapturePictureTrigger { get; set; }
