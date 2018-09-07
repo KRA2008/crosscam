@@ -45,8 +45,8 @@
                             Grid.Row="0">
                 <AbsoluteLayout.Behaviors>
                     <ce:FadeInAndOutBehavior Trigger="{Binding LeftCaptureSuccess}"
-                                             InTimeMs="250"
-                                             OutTimeMs="250"
+                                             InTimeMs="125"
+                                             OutTimeMs="125"
                                              VisibleTimeMs="0"/>
                 </AbsoluteLayout.Behaviors>
                 <BoxView AbsoluteLayout.LayoutFlags="PositionProportional,HeightProportional"
@@ -96,8 +96,8 @@
                             Grid.Row="0">
                 <AbsoluteLayout.Behaviors>
                     <ce:FadeInAndOutBehavior Trigger="{Binding RightCaptureSuccess}"
-                                             InTimeMs="250"
-                                             OutTimeMs="250"
+                                             InTimeMs="125"
+                                             OutTimeMs="125"
                                              VisibleTimeMs="0"/>
                 </AbsoluteLayout.Behaviors>
                 <BoxView AbsoluteLayout.LayoutFlags="PositionProportional,HeightProportional"
