@@ -64,6 +64,8 @@ namespace CustomRenderer.ViewModel
                 IsRightCameraVisible = false;
                 IsLeftCameraVisible = true;
                 IsCaptureComplete = false;
+                LeftByteArray = null;
+                LeftImageSource = null;
             });
 
             RetakeRightCommand = new Command(() =>
@@ -72,6 +74,8 @@ namespace CustomRenderer.ViewModel
                 {
                     IsRightCameraVisible = true;
                     IsCaptureComplete = false;
+                    RightByteArray = null;
+                    RightImageSource = null;
                 }
             });
 

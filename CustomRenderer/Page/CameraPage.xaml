@@ -11,13 +11,18 @@
              
              d:DataContext="{d:DesignInstance Type=vm:CameraViewModel, IsDesignTimeCreatable=False}"
 			 x:Class="CustomRenderer.Page.CameraPage">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <Thickness x:Key="_capturePadding">20,20,20,10</Thickness>
+            <Rectangle x:Key="_captureRectangle">0.5,1,0.25,0.33</Rectangle>
+            <Thickness x:Key="_cancelPadding">20,20,20,10</Thickness>
+        </ResourceDictionary>
+    </ContentPage.Resources>
     <AbsoluteLayout>
         <Grid AbsoluteLayout.LayoutFlags="All"
               AbsoluteLayout.LayoutBounds="0,0,1,1"
               ColumnSpacing="0"
               RowSpacing="0"
-              VerticalOptions="Fill"
-              HorizontalOptions="Fill"
               BackgroundColor="Black">
             <Grid.RowDefinitions>
                 <RowDefinition Height="*"/>
@@ -30,17 +35,6 @@
                    Grid.Row="0"
                    Aspect="AspectFill"
                    Source="{Binding LeftImageSource}"/>
-            <ContentView Grid.Column="0"
-                         Grid.Row="0"
-                         Padding="10"
-                         HorizontalOptions="Center"
-                         VerticalOptions="End"
-                         IsVisible="{Binding LeftByteArray, Converter={vc:IsNotNullConverter}}">
-                <ContentView.GestureRecognizers>
-                    <TapGestureRecognizer Command="{Binding RetakeLeftCommand}"/>
-                </ContentView.GestureRecognizers>
-                <Image Source="cancel"/>
-            </ContentView>
             <ce:CameraModule Grid.Column="0"
                              Grid.Row="0"
                              CaptureTrigger="{Binding CapturePictureTrigger}"
@@ -69,17 +63,6 @@
                    Grid.Row="0"
                    Aspect="AspectFill"
                    Source="{Binding RightImageSource}"/>
-            <ContentView Grid.Column="1"
-                         Grid.Row="0"
-                         HorizontalOptions="Center"
-                         VerticalOptions="End"
-                         Padding="10"
-                         IsVisible="{Binding RightByteArray, Converter={vc:IsNotNullConverter}}">
-                <ContentView.GestureRecognizers>
-                    <TapGestureRecognizer Command="{Binding RetakeRightCommand}"/>
-                </ContentView.GestureRecognizers>
-                <Image Source="cancel"/>
-            </ContentView>
             <ce:CameraModule Grid.Column="1"
                              Grid.Row="0"
                              CaptureTrigger="{Binding CapturePictureTrigger}"
@@ -93,31 +76,43 @@
                      VerticalOptions="CenterAndExpand"
                      BackgroundColor="White"
                      IsVisible="{Binding IsCaptureComplete, Converter={vc:BooleanInvertConverter}}"/>
-            <ContentView Grid.Column="0"
-                         Grid.ColumnSpan="2"
-                         Grid.Row="0"
-                         Padding="10"
-                         HorizontalOptions="Center"
-                         VerticalOptions="End"
-                         IsVisible="{Binding IsCaptureComplete, Converter={vc:BooleanInvertConverter}}">
-                <ContentView.GestureRecognizers>
-                    <TapGestureRecognizer Command="{Binding CapturePictureCommand}"/>
-                </ContentView.GestureRecognizers>
-                <Image Source="aperture"/>
-            </ContentView>
-            <ContentView Grid.Column="0"
-                         Grid.ColumnSpan="2"
-                         Grid.Row="0"
-                         HorizontalOptions="Center"
-                         VerticalOptions="End"
-                         Padding="10"
-                         IsVisible="{Binding IsCaptureComplete}">
-                <ContentView.GestureRecognizers>
-                    <TapGestureRecognizer Command="{Binding SaveCaptures}"/>
-                </ContentView.GestureRecognizers>
-                <Image Source="checkmark"/>
-            </ContentView>
         </Grid>
+        <ContentView AbsoluteLayout.LayoutFlags="All"
+                     AbsoluteLayout.LayoutBounds="0, 1, 0.5, 0.25"
+                     Padding="{DynamicResource _cancelPadding}"
+                     IsVisible="{Binding LeftByteArray, Converter={vc:IsNotNullConverter}}">
+            <ContentView.GestureRecognizers>
+                <TapGestureRecognizer Command="{Binding RetakeLeftCommand}"/>
+            </ContentView.GestureRecognizers>
+            <Image Source="cancel"/>
+        </ContentView>
+        <ContentView AbsoluteLayout.LayoutFlags="All"
+                     AbsoluteLayout.LayoutBounds="1, 1, 0.5, 0.25"
+                     Padding="{DynamicResource _cancelPadding}"
+                     IsVisible="{Binding RightByteArray, Converter={vc:IsNotNullConverter}}">
+            <ContentView.GestureRecognizers>
+                <TapGestureRecognizer Command="{Binding RetakeRightCommand}"/>
+            </ContentView.GestureRecognizers>
+            <Image Source="cancel"/>
+        </ContentView>
+        <ContentView AbsoluteLayout.LayoutFlags="All"
+                     AbsoluteLayout.LayoutBounds="{DynamicResource _captureRectangle}"
+                     Padding="{DynamicResource _capturePadding}"
+                     IsVisible="{Binding IsCaptureComplete}">
+            <ContentView.GestureRecognizers>
+                <TapGestureRecognizer Command="{Binding SaveCaptures}"/>
+            </ContentView.GestureRecognizers>
+            <Image Source="checkmark"/>
+        </ContentView>
+        <ContentView AbsoluteLayout.LayoutFlags="All"
+                     AbsoluteLayout.LayoutBounds="{DynamicResource _captureRectangle}"
+                     Padding="{DynamicResource _capturePadding}"
+                     IsVisible="{Binding IsCaptureComplete, Converter={vc:BooleanInvertConverter}}">
+            <ContentView.GestureRecognizers>
+                <TapGestureRecognizer Command="{Binding CapturePictureCommand}"/>
+            </ContentView.GestureRecognizers>
+            <Image Source="aperture"/>
+        </ContentView>
         <Label AbsoluteLayout.LayoutFlags="All"
                AbsoluteLayout.LayoutBounds="0.5,0.85,1,0.5"
                HorizontalOptions="CenterAndExpand"
