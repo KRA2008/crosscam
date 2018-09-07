@@ -126,19 +126,23 @@
                      AbsoluteLayout.LayoutBounds="0, 1, 0.5, 0.25"
                      Padding="{DynamicResource _cancelPadding}"
                      IsVisible="{Binding LeftByteArray, Converter={vc:IsNotNullConverter}}">
-            <ContentView.GestureRecognizers>
-                <TapGestureRecognizer Command="{Binding RetakeLeftCommand}"/>
-            </ContentView.GestureRecognizers>
-            <Image Source="cancel"/>
+            <ContentView IsVisible="{Binding IsSaving, Converter={vc:BooleanInvertConverter}}">
+                <ContentView.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding RetakeLeftCommand}"/>
+                </ContentView.GestureRecognizers>
+                <Image Source="cancel"/>
+            </ContentView>
         </ContentView>
         <ContentView AbsoluteLayout.LayoutFlags="All"
                      AbsoluteLayout.LayoutBounds="1, 1, 0.5, 0.25"
                      Padding="{DynamicResource _cancelPadding}"
                      IsVisible="{Binding RightByteArray, Converter={vc:IsNotNullConverter}}">
-            <ContentView.GestureRecognizers>
-                <TapGestureRecognizer Command="{Binding RetakeRightCommand}"/>
-            </ContentView.GestureRecognizers>
-            <Image Source="cancel"/>
+            <ContentView IsVisible="{Binding IsSaving, Converter={vc:BooleanInvertConverter}}">
+                <ContentView.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding RetakeRightCommand}"/>
+                </ContentView.GestureRecognizers>
+                <Image Source="cancel"/>
+            </ContentView>
         </ContentView>
         <ContentView AbsoluteLayout.LayoutFlags="All"
                      AbsoluteLayout.LayoutBounds="{DynamicResource _captureRectangle}"

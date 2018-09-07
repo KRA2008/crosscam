@@ -89,6 +89,10 @@ namespace CustomRenderer.ViewModel
             SaveCaptures = new Command(async () =>
             {
                 IsSaving = true;
+                LeftImageSource = null;
+                RightImageSource = null;
+
+                await Task.Delay(500); // breathing room for screen to update
 
                 SKBitmap leftBitmap = null;
                 SKBitmap rightBitmap = null;
@@ -96,8 +100,11 @@ namespace CustomRenderer.ViewModel
                 try
                 {
                     leftBitmap = SKBitmap.Decode(LeftByteArray);
+                    LeftByteArray = null;
+
                     rightBitmap = SKBitmap.Decode(RightByteArray);
-                    
+                    RightByteArray = null;
+
                     var screenHeight = (int)Application.Current.MainPage.Height;
                     var screenWidth = (int)Application.Current.MainPage.Width;
 
@@ -133,12 +140,6 @@ namespace CustomRenderer.ViewModel
                     finalImage.Dispose();
                     leftBitmap.Dispose();
                     rightBitmap.Dispose();
-                    LeftByteArray = null;
-                    RightByteArray = null;
-                    LeftImageSource = null;
-                    RightImageSource = null;
-
-                    await Task.Delay(1000); // breathing room for screen to update
 
                     var didSave = await photoSaver.SavePhoto(finalImageByteArray);
                     IsSaving = false;
