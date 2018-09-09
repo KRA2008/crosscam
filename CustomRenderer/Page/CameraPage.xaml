@@ -123,7 +123,7 @@
                      IsVisible="{Binding IsCaptureComplete, Converter={vc:BooleanInvertConverter}}"/>
         </Grid>
         <ContentView AbsoluteLayout.LayoutFlags="All"
-                     AbsoluteLayout.LayoutBounds="0.17, 1, 0.25, 0.25"
+                     AbsoluteLayout.LayoutBounds="0.16667, 1, 0.25, 0.25"
                      Padding="{DynamicResource _cancelPadding}"
                      IsVisible="{Binding LeftByteArray, Converter={vc:IsNotNullConverter}}">
             <ContentView IsVisible="{Binding IsSaving, Converter={vc:BooleanInvertConverter}}">
@@ -136,7 +136,7 @@
             </ContentView>
         </ContentView>
         <ContentView AbsoluteLayout.LayoutFlags="All"
-                     AbsoluteLayout.LayoutBounds="0.83, 1, 0.25, 0.25"
+                     AbsoluteLayout.LayoutBounds="0.83333, 1, 0.25, 0.25"
                      Padding="{DynamicResource _cancelPadding}"
                      IsVisible="{Binding RightByteArray, Converter={vc:IsNotNullConverter}}">
             <ContentView IsVisible="{Binding IsSaving, Converter={vc:BooleanInvertConverter}}">
