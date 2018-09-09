@@ -200,7 +200,7 @@
                VerticalOptions="CenterAndExpand"
                TextColor="White"
                FontSize="24"
-               Text="Saved!">
+               Text="Saved to Photos!">
             <Label.Behaviors>
                 <ce:FadeInAndOutBehavior Trigger="{Binding SuccessFadeTrigger}"
                                          InTimeMs="250"
