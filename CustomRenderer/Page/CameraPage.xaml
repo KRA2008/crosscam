@@ -123,25 +123,29 @@
                      IsVisible="{Binding IsCaptureComplete, Converter={vc:BooleanInvertConverter}}"/>
         </Grid>
         <ContentView AbsoluteLayout.LayoutFlags="All"
-                     AbsoluteLayout.LayoutBounds="0, 1, 0.5, 0.25"
+                     AbsoluteLayout.LayoutBounds="0.17, 1, 0.25, 0.25"
                      Padding="{DynamicResource _cancelPadding}"
                      IsVisible="{Binding LeftByteArray, Converter={vc:IsNotNullConverter}}">
             <ContentView IsVisible="{Binding IsSaving, Converter={vc:BooleanInvertConverter}}">
-                <ContentView.GestureRecognizers>
-                    <TapGestureRecognizer Command="{Binding RetakeLeftCommand}"/>
-                </ContentView.GestureRecognizers>
-                <Image Source="cancel"/>
+                <ContentView IsVisible="{Binding IsViewMode, Converter={vc:BooleanInvertConverter}}">
+                    <ContentView.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding RetakeLeftCommand}"/>
+                    </ContentView.GestureRecognizers>
+                    <Image Source="cancel"/>
+                </ContentView>
             </ContentView>
         </ContentView>
         <ContentView AbsoluteLayout.LayoutFlags="All"
-                     AbsoluteLayout.LayoutBounds="1, 1, 0.5, 0.25"
+                     AbsoluteLayout.LayoutBounds="0.83, 1, 0.25, 0.25"
                      Padding="{DynamicResource _cancelPadding}"
                      IsVisible="{Binding RightByteArray, Converter={vc:IsNotNullConverter}}">
             <ContentView IsVisible="{Binding IsSaving, Converter={vc:BooleanInvertConverter}}">
-                <ContentView.GestureRecognizers>
-                    <TapGestureRecognizer Command="{Binding RetakeRightCommand}"/>
-                </ContentView.GestureRecognizers>
-                <Image Source="cancel"/>
+                <ContentView IsVisible="{Binding IsViewMode, Converter={vc:BooleanInvertConverter}}">
+                    <ContentView.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding RetakeRightCommand}"/>
+                    </ContentView.GestureRecognizers>
+                    <Image Source="cancel"/>
+                </ContentView>
             </ContentView>
         </ContentView>
         <ContentView AbsoluteLayout.LayoutFlags="All"
@@ -149,20 +153,46 @@
                      Padding="{DynamicResource _capturePadding}"
                      IsVisible="{Binding IsCaptureComplete}">
             <ContentView IsVisible="{Binding IsSaving, Converter={vc:BooleanInvertConverter}}">
-                <ContentView.GestureRecognizers>
-                    <TapGestureRecognizer Command="{Binding SaveCaptures}"/>
-                </ContentView.GestureRecognizers>
-                <Image Source="checkmark"/>
+                <ContentView IsVisible="{Binding IsViewMode, Converter={vc:BooleanInvertConverter}}">
+                    <ContentView.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding SaveCapturesCommand}"/>
+                    </ContentView.GestureRecognizers>
+                    <Image Source="checkmark"/>
+                </ContentView>
             </ContentView>
         </ContentView>
         <ContentView AbsoluteLayout.LayoutFlags="All"
                      AbsoluteLayout.LayoutBounds="{DynamicResource _captureRectangle}"
                      Padding="{DynamicResource _capturePadding}"
                      IsVisible="{Binding IsCaptureComplete, Converter={vc:BooleanInvertConverter}}">
-            <ContentView.GestureRecognizers>
-                <TapGestureRecognizer Command="{Binding CapturePictureCommand}"/>
-            </ContentView.GestureRecognizers>
-            <Image Source="aperture"/>
+            <ContentView IsVisible="{Binding IsViewMode, Converter={vc:BooleanInvertConverter}}">
+                <ContentView.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding CapturePictureCommand}"/>
+                </ContentView.GestureRecognizers>
+                <Image Source="aperture"/>
+            </ContentView>
+        </ContentView>
+        <ContentView AbsoluteLayout.LayoutFlags="All"
+                     AbsoluteLayout.LayoutBounds="0.5,0.5,0.15,0.2"
+                     Padding="10"
+                     IsVisible="{Binding IsCaptureComplete}">
+            <ContentView IsVisible="{Binding IsViewMode, Converter={vc:BooleanInvertConverter}}">
+                <ContentView.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding ToggleViewModeCommand}"/>
+                </ContentView.GestureRecognizers>
+                <Image Source="eye"/>
+            </ContentView>
+        </ContentView>
+        <ContentView AbsoluteLayout.LayoutFlags="All"
+                     AbsoluteLayout.LayoutBounds="0.5,0,0.15,0.2"
+                     Padding="10"
+                     IsVisible="{Binding IsCaptureComplete}">
+            <ContentView IsVisible="{Binding IsViewMode, Converter={vc:BooleanInvertConverter}}">
+                <ContentView.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding ClearCapturesCommand}"/>
+                </ContentView.GestureRecognizers>
+                <Image Source="clear"/>
+            </ContentView>
         </ContentView>
         <Label AbsoluteLayout.LayoutFlags="All"
                AbsoluteLayout.LayoutBounds="0.5,0.85,1,0.5"
@@ -200,5 +230,12 @@
                FontSize="24"
                Text="Saving..."
                IsVisible="{Binding IsSaving}"/>
+        <ContentView AbsoluteLayout.LayoutFlags="All"
+                     AbsoluteLayout.LayoutBounds="0,0,1,1"
+                     IsVisible="{Binding IsViewMode}">
+            <ContentView.GestureRecognizers>
+                <TapGestureRecognizer Command="{Binding ToggleViewModeCommand}"/>
+            </ContentView.GestureRecognizers>
+        </ContentView>
     </AbsoluteLayout>
 </fresh:FreshBaseContentPage>

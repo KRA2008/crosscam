@@ -25,7 +25,12 @@ namespace CustomRenderer.ViewModel
         public bool CapturePictureTrigger { get; set; }
 
         public bool IsCaptureComplete { get; set; }
-        public Command SaveCaptures { get; set; }
+        public Command SaveCapturesCommand { get; set; }
+
+        public Command ToggleViewModeCommand { get; set; }
+        public bool IsViewMode { get; set; }
+
+        public Command ClearCapturesCommand { get; set; }
 
         public bool FailFadeTrigger { get; set; }
         public bool SuccessFadeTrigger { get; set; }
@@ -81,12 +86,19 @@ namespace CustomRenderer.ViewModel
                 }
             });
 
+            ClearCapturesCommand = new Command(ClearCaptures);
+
             CapturePictureCommand = new Command(() =>
             {
                 CapturePictureTrigger = !CapturePictureTrigger;
             });
 
-            SaveCaptures = new Command(async () =>
+            ToggleViewModeCommand = new Command(() =>
+            {
+                IsViewMode = !IsViewMode;
+            });
+
+            SaveCapturesCommand = new Command(async () =>
             {
                 IsSaving = true;
                 LeftImageSource = null;
@@ -159,11 +171,20 @@ namespace CustomRenderer.ViewModel
                     leftBitmap?.Dispose();
                     rightBitmap?.Dispose();
                 }
-                
-                IsCaptureComplete = false;
-                IsRightCameraVisible = false;
-                IsLeftCameraVisible = true;
+
+                ClearCaptures();
             });
+        }
+
+        private void ClearCaptures()
+        {
+            LeftByteArray = null;
+            RightByteArray = null;
+            LeftImageSource = null;
+            RightImageSource = null;
+            IsCaptureComplete = false;
+            IsRightCameraVisible = false;
+            IsLeftCameraVisible = true;
         }
     }
 }
