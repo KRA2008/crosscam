@@ -176,22 +176,26 @@
                      AbsoluteLayout.LayoutBounds="0.5,0.5,0.15,0.2"
                      Padding="10"
                      IsVisible="{Binding IsCaptureComplete}">
-            <ContentView IsVisible="{Binding IsViewMode, Converter={vc:BooleanInvertConverter}}">
-                <ContentView.GestureRecognizers>
-                    <TapGestureRecognizer Command="{Binding ToggleViewModeCommand}"/>
-                </ContentView.GestureRecognizers>
-                <Image Source="eye"/>
+            <ContentView IsVisible="{Binding IsSaving, Converter={vc:BooleanInvertConverter}}">
+                <ContentView IsVisible="{Binding IsViewMode, Converter={vc:BooleanInvertConverter}}">
+                    <ContentView.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding ToggleViewModeCommand}"/>
+                    </ContentView.GestureRecognizers>
+                    <Image Source="eye"/>
+                </ContentView>
             </ContentView>
         </ContentView>
         <ContentView AbsoluteLayout.LayoutFlags="All"
                      AbsoluteLayout.LayoutBounds="0.5,0,0.15,0.2"
                      Padding="10"
                      IsVisible="{Binding IsCaptureComplete}">
-            <ContentView IsVisible="{Binding IsViewMode, Converter={vc:BooleanInvertConverter}}">
-                <ContentView.GestureRecognizers>
-                    <TapGestureRecognizer Command="{Binding ClearCapturesCommand}"/>
-                </ContentView.GestureRecognizers>
-                <Image Source="clear"/>
+            <ContentView IsVisible="{Binding IsSaving, Converter={vc:BooleanInvertConverter}}">
+                <ContentView IsVisible="{Binding IsViewMode, Converter={vc:BooleanInvertConverter}}">
+                    <ContentView.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding ClearCapturesCommand}"/>
+                    </ContentView.GestureRecognizers>
+                    <Image Source="clear"/>
+                </ContentView>
             </ContentView>
         </ContentView>
         <Label AbsoluteLayout.LayoutFlags="All"
