@@ -36,17 +36,14 @@ namespace CustomRenderer.ViewModel
         public bool SuccessFadeTrigger { get; set; }
         public bool IsSaving { get; set; }
 
-        public string HelpText => "1) Put the donut on a recognizable point (drag it around if you wish)" +
-                                  "\n2) Take the left picture" +
-                                  "\n3) Start cross viewing" +
+        public string HelpText => "1) Drag the lines to frame up something in the picture" +
+                                  "\n2) Drag the donut to a recognizable point in the background" +
+                                  "\n3) Take the left picture" +
                                   "\n4) Move left" +
-                                  "\n5) Adjust the depth by moving more or less" +
-                                  "\n6) Align by putting the dot in the donut while cross viewing" +
-                                  "\n7) Take the right picture" +
-                                  "\n\nTips:" +
-                                  "\n - keep the camera level" +
-                                  "\n - keep the camera at the same height" +
-                                  "\n - some would say to put the donut on a background point";
+                                  "\n5) Maintain the frame made by the lines" +
+                                  "\n6) Start cross viewing" +
+                                  "\n7) Put the dot in the donut while cross viewing" +
+                                  "\n8) Take the right picture";
 
         public CameraViewModel()
         {
