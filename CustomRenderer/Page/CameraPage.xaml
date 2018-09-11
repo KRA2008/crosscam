@@ -16,7 +16,7 @@
             <Thickness x:Key="_capturePadding">20,20,20,10</Thickness>
             <Rectangle x:Key="_captureRectangle">0.5,1,0.25,0.33</Rectangle>
             <Thickness x:Key="_cancelPadding">10,10,10,10</Thickness>
-            <Thickness x:Key="_crossHairPadding">10</Thickness>
+            <Thickness x:Key="_reticlePadding">10</Thickness>
         </ResourceDictionary>
     </ContentPage.Resources>
     <AbsoluteLayout>
@@ -131,20 +131,20 @@
                 </ContentView>
             </ContentView>
         </ContentView>
-        <ContentView x:Name="_leftCrossHair"
+        <ContentView x:Name="_leftReticle"
                      AbsoluteLayout.LayoutFlags="All"
                      AbsoluteLayout.LayoutBounds="0.2297, 0.5, 0.075, 0.075"
-                     Padding="{DynamicResource _crossHairPadding}"
+                     Padding="{DynamicResource _reticlePadding}"
                      IsVisible="{Binding IsCaptureComplete, Converter={vc:BooleanInvertConverter}}">
             <ContentView.GestureRecognizers>
-                <PanGestureRecognizer PanUpdated="CrossHairPanned"/>
+                <PanGestureRecognizer PanUpdated="ReticlePanned"/>
             </ContentView.GestureRecognizers>
             <Image Source="squareOuter"/>
         </ContentView>
-        <ContentView x:Name="_rightCrossHair"
+        <ContentView x:Name="_rightReticle"
                      AbsoluteLayout.LayoutFlags="All"
                      AbsoluteLayout.LayoutBounds="0.7703, 0.5, 0.075, 0.075"
-                     Padding="{DynamicResource _crossHairPadding}"
+                     Padding="{DynamicResource _reticlePadding}"
                      IsVisible="{Binding IsCaptureComplete, Converter={vc:BooleanInvertConverter}}">
             <Image Source="squareInner"/>
         </ContentView>

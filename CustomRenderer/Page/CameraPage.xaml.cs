@@ -17,29 +17,29 @@ namespace CustomRenderer.Page
 	    private double _originalAbsoluteY;
 	    private double _originalProportionalWidth;
 
-	    private void CrossHairPanned(object sender, PanUpdatedEventArgs e)
+	    private void ReticlePanned(object sender, PanUpdatedEventArgs e)
 	    {
             //TODO: handle boundaries
 
 	        if (!_isInitialized || e.StatusType == GestureStatus.Completed)
 	        {
-	            var originalBounds = AbsoluteLayout.GetLayoutBounds(_leftCrossHair);
-	            _originalAbsoluteLeftX = _leftCrossHair.X;
-	            _originalAbsoluteY = _leftCrossHair.Y;
-	            _originalAbsoluteRightX = _rightCrossHair.X;
+	            var originalBounds = AbsoluteLayout.GetLayoutBounds(_leftReticle);
+	            _originalAbsoluteLeftX = _leftReticle.X;
+	            _originalAbsoluteY = _leftReticle.Y;
+	            _originalAbsoluteRightX = _rightReticle.X;
 	            _originalProportionalWidth = originalBounds.Width;
 	            _isInitialized = true;
 	        }
 
-            AbsoluteLayout.SetLayoutFlags(_leftCrossHair, AbsoluteLayoutFlags.SizeProportional);
-            AbsoluteLayout.SetLayoutBounds(_leftCrossHair, new Rectangle(
+            AbsoluteLayout.SetLayoutFlags(_leftReticle, AbsoluteLayoutFlags.SizeProportional);
+            AbsoluteLayout.SetLayoutBounds(_leftReticle, new Rectangle(
                 _originalAbsoluteLeftX + e.TotalX,
                 _originalAbsoluteY + e.TotalY,
                 _originalProportionalWidth,
                 _originalProportionalWidth));
 
-	        AbsoluteLayout.SetLayoutFlags(_rightCrossHair, AbsoluteLayoutFlags.SizeProportional);
-            AbsoluteLayout.SetLayoutBounds(_rightCrossHair, new Rectangle(
+	        AbsoluteLayout.SetLayoutFlags(_rightReticle, AbsoluteLayoutFlags.SizeProportional);
+            AbsoluteLayout.SetLayoutBounds(_rightReticle, new Rectangle(
                 _originalAbsoluteRightX + e.TotalX,
                 _originalAbsoluteY + e.TotalY,
                 _originalProportionalWidth,

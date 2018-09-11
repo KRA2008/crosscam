@@ -175,6 +175,8 @@ namespace CustomRenderer.Droid.CustomRenderer
 
             var parameters = _camera.GetParameters();
             parameters.FlashMode = Camera.Parameters.FlashModeOff;
+            parameters.VideoStabilization = false;
+            parameters.JpegQuality = 100;
 
             if (_pictureSize == null ||
                 _previewSize == null)
