@@ -16,6 +16,7 @@
             <Thickness x:Key="_capturePadding">20,20,20,10</Thickness>
             <Rectangle x:Key="_captureRectangle">0.5,1,0.25,0.33</Rectangle>
             <Thickness x:Key="_cancelPadding">10,10,10,10</Thickness>
+            <Thickness x:Key="_crossHairPadding">10</Thickness>
         </ResourceDictionary>
     </ContentPage.Resources>
     <AbsoluteLayout>
@@ -62,13 +63,14 @@
                          AbsoluteLayout.LayoutBounds="1,1,1,10"
                          BackgroundColor="White"/>
             </AbsoluteLayout>
-            <Label Grid.Column="1"
-                   Grid.Row="0"
-                   Text="Take the left photo and move to the left for cross view, or move to the right for VR/parallel view"
-                   TextColor="White"
-                   VerticalOptions="Center"
-                   Margin="10"
-                   IsVisible="{Binding IsSaving, Converter={vc:BooleanInvertConverter}}"/>
+            <ScrollView Grid.Column="1"
+                        Grid.Row="0"
+                        Padding="10"
+                        IsVisible="{Binding IsSaving, Converter={vc:BooleanInvertConverter}}">
+                <Label Text="{Binding HelpText}"
+                       FontSize="Small"
+                       TextColor="White"/>
+            </ScrollView>
             <Image Grid.Column="1"
                    Grid.Row="0"
                    Aspect="AspectFill"
@@ -110,7 +112,8 @@
                     <ContentView.GestureRecognizers>
                         <TapGestureRecognizer Command="{Binding RetakeLeftCommand}"/>
                     </ContentView.GestureRecognizers>
-                    <Image Source="cancel"/>
+                    <Image Source="cancel"
+                           Opacity="0.5"/>
                 </ContentView>
             </ContentView>
         </ContentView>
@@ -123,14 +126,15 @@
                     <ContentView.GestureRecognizers>
                         <TapGestureRecognizer Command="{Binding RetakeRightCommand}"/>
                     </ContentView.GestureRecognizers>
-                    <Image Source="cancel"/>
+                    <Image Source="cancel"
+                           Opacity="0.5"/>
                 </ContentView>
             </ContentView>
         </ContentView>
         <ContentView x:Name="_leftCrossHair"
                      AbsoluteLayout.LayoutFlags="All"
-                     AbsoluteLayout.LayoutBounds="0.2368, 0.5, 0.05, 0.05"
-                     Padding="5"
+                     AbsoluteLayout.LayoutBounds="0.2297, 0.5, 0.075, 0.075"
+                     Padding="{DynamicResource _crossHairPadding}"
                      IsVisible="{Binding IsCaptureComplete, Converter={vc:BooleanInvertConverter}}">
             <ContentView.GestureRecognizers>
                 <PanGestureRecognizer PanUpdated="CrossHairPanned"/>
@@ -139,8 +143,8 @@
         </ContentView>
         <ContentView x:Name="_rightCrossHair"
                      AbsoluteLayout.LayoutFlags="All"
-                     AbsoluteLayout.LayoutBounds="0.7632, 0.5, 0.05, 0.05"
-                     Padding="5"
+                     AbsoluteLayout.LayoutBounds="0.7703, 0.5, 0.075, 0.075"
+                     Padding="{DynamicResource _crossHairPadding}"
                      IsVisible="{Binding IsCaptureComplete, Converter={vc:BooleanInvertConverter}}">
             <Image Source="squareInner"/>
         </ContentView>
@@ -153,7 +157,8 @@
                     <ContentView.GestureRecognizers>
                         <TapGestureRecognizer Command="{Binding SaveCapturesCommand}"/>
                     </ContentView.GestureRecognizers>
-                    <Image Source="checkmark"/>
+                    <Image Source="checkmark"
+                           Opacity="0.5"/>
                 </ContentView>
             </ContentView>
         </ContentView>
@@ -165,7 +170,8 @@
                 <ContentView.GestureRecognizers>
                     <TapGestureRecognizer Command="{Binding CapturePictureCommand}"/>
                 </ContentView.GestureRecognizers>
-                <Image Source="aperture"/>
+                <Image Source="aperture"
+                       Opacity="0.5"/>
             </ContentView>
         </ContentView>
         <ContentView AbsoluteLayout.LayoutFlags="All"
@@ -177,7 +183,8 @@
                     <ContentView.GestureRecognizers>
                         <TapGestureRecognizer Command="{Binding ToggleViewModeCommand}"/>
                     </ContentView.GestureRecognizers>
-                    <Image Source="eye"/>
+                    <Image Source="eye"
+                           Opacity="0.5"/>
                 </ContentView>
             </ContentView>
         </ContentView>
@@ -190,7 +197,8 @@
                     <ContentView.GestureRecognizers>
                         <TapGestureRecognizer Command="{Binding ClearCapturesCommand}"/>
                     </ContentView.GestureRecognizers>
-                    <Image Source="clear"/>
+                    <Image Source="clear"
+                           Opacity="0.5"/>
                 </ContentView>
             </ContentView>
         </ContentView>
