@@ -39,7 +39,13 @@ namespace CustomRenderer.Droid.CustomRenderer
         private bool _isRunning;
         private bool _isSurfaceAvailable;
 
-        public CameraModuleRenderer(Context context) : base(context) {}
+        public CameraModuleRenderer(Context context) : base(context)
+        {
+            MainActivity.Instance.OrientationHelper.OrientationChanged += (sender, args) =>
+            {
+                SetCameraOrientation();
+            };
+        }
 
         protected override void OnElementChanged(ElementChangedEventArgs<CameraModule> e)
         {
@@ -232,23 +238,36 @@ namespace CustomRenderer.Droid.CustomRenderer
             parameters.SetPictureSize(_pictureSize.Width, _pictureSize.Height);
             parameters.SetPreviewSize(_previewSize.Width, _previewSize.Height);
 
+
             _camera.SetParameters(parameters);
             _camera.SetPreviewTexture(_surfaceTexture);
 
-            var display = _activity.WindowManager.DefaultDisplay;
-            if (display.Rotation == SurfaceOrientation.Rotation0)
-            {
-                _camera.SetDisplayOrientation(90);
-            }
-
-            if (display.Rotation == SurfaceOrientation.Rotation270)
-            {
-                _camera.SetDisplayOrientation(180);
-            }
+            _isRunning = true;
+            SetCameraOrientation();
 
             _camera.StartPreview();
+        }
 
-            _isRunning = true;
+        private void SetCameraOrientation()
+        {
+            if (_isRunning)
+            {
+                var parameters = _camera.GetParameters();
+
+                var display = _activity.WindowManager.DefaultDisplay;
+                if (display.Rotation == SurfaceOrientation.Rotation90)
+                {
+                    _camera.SetDisplayOrientation(0);
+                    parameters.SetRotation(0);
+                }
+                else if (display.Rotation == SurfaceOrientation.Rotation270)
+                {
+                    _camera.SetDisplayOrientation(180);
+                    parameters.SetRotation(180);
+                }
+
+                _camera.SetParameters(parameters);
+            }
         }
 
         private void TakePhotoButtonTapped()
@@ -259,6 +278,7 @@ namespace CustomRenderer.Droid.CustomRenderer
 
         public void OnShutter()
         {
+            //TODO: do success flash thing here?
         }
 
         public void OnPictureTaken(byte[] data, Camera camera)

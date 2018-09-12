@@ -8,12 +8,13 @@ namespace CustomRenderer.Droid
     [Activity(
         Label = "CustomRenderer.Droid", 
         Icon = "@drawable/icon", 
-        Theme = "@style/MainTheme", 
+        Theme = "@style/MainTheme",
         MainLauncher = true,
-        ConfigurationChanges = ConfigChanges.ScreenSize, 
-        ScreenOrientation = ScreenOrientation.Landscape)]
+        ScreenOrientation = ScreenOrientation.SensorLandscape)]
     public class MainActivity : Xamarin.Forms.Platform.Android.FormsAppCompatActivity
     {
+        public OrientationHelper OrientationHelper;
+
         internal static MainActivity Instance { get; private set; }
 
         protected override void OnCreate(Bundle bundle)
@@ -22,6 +23,9 @@ namespace CustomRenderer.Droid
 
             Window.AddFlags(WindowManagerFlags.Fullscreen);
             Window.ClearFlags(WindowManagerFlags.ForceNotFullscreen);
+
+            OrientationHelper = new OrientationHelper(this, WindowManager);
+            OrientationHelper.Enable();
 
             Instance = this;
             Xamarin.Forms.Forms.Init(this, bundle);
