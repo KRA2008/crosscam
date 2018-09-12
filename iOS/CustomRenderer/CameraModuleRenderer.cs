@@ -139,7 +139,6 @@ namespace CustomRenderer.iOS.CustomRenderer
             var photoSettings = AVCapturePhotoSettings.Create();
             photoSettings.IsHighResolutionPhotoEnabled = true;
             _photoOutput.CapturePhoto(photoSettings, this);
-            _cameraModule.CaptureSuccess = !_cameraModule.CaptureSuccess;
         }
 
         [Export("captureOutput:didFinishProcessingPhoto:error:")]
@@ -161,6 +160,12 @@ namespace CustomRenderer.iOS.CustomRenderer
                 var uiImage = UIImage.FromImage(cgImage, 1, imageOrientation);// TODO: WHY THE HELL DO I HAVE TO DO THIS
                 _cameraModule.CapturedImage = uiImage.AsJPEG().ToArray();
             }
+        }
+
+        [Export("captureOutput:didCapturePhotoForResolvedSettings:")]
+        private void PhotoJustGotCaptured(AVCapturePhotoOutput photoOutput, AVCaptureResolvedPhotoSettings settings)
+        {
+            _cameraModule.CaptureSuccess = !_cameraModule.CaptureSuccess;
         }
 
         private static void ConfigureCameraForDevice(AVCaptureDevice device)

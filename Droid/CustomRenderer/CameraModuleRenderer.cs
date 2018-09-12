@@ -273,12 +273,11 @@ namespace CustomRenderer.Droid.CustomRenderer
         private void TakePhotoButtonTapped()
         {
             _camera.TakePicture(this, this, this, this);
-            _cameraModule.CaptureSuccess = !_cameraModule.CaptureSuccess;
         }
 
         public void OnShutter()
         {
-            //TODO: do success flash thing here?
+            _cameraModule.CaptureSuccess = !_cameraModule.CaptureSuccess;
         }
 
         public void OnPictureTaken(byte[] data, Camera camera)
