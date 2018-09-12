@@ -42,13 +42,13 @@ namespace CustomRenderer.ViewModel
         public bool ShouldEyeBeVisible => IsCaptureComplete && !IsSaving && !IsViewMode;
         public bool ShouldClearBeVisible => IsCaptureComplete && !IsSaving && !IsViewMode;
 
-        public string HelpText => "1) Drag the lines to frame up something in the picture" +
+        public string HelpText => "1) Drag the lines to frame up something in the scene" +
                                   "\n2) Drag the donut to a recognizable point in the background" +
                                   "\n3) Take the left picture (but finish reading this first)" +
                                   "\n4) Move left" +
                                   "\n5) Maintain the frame made by the lines" +
                                   "\n6) Start cross viewing" +
-                                  "\n7) Put the dot in the donut while cross viewing" +
+                                  "\n7) Aim so the dot goes in the donut while cross viewing" +
                                   "\n8) Take the right picture";
 
         public CameraViewModel()
