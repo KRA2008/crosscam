@@ -1,4 +1,4 @@
-﻿namespace CustomRenderer.CustomElement
+﻿namespace CrossCam.CustomElement
 {
 	public partial class CameraCaptureOutline
 	{

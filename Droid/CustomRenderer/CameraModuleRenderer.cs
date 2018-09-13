@@ -15,7 +15,7 @@ using Android.Widget;
 using CustomRenderer.Droid.CustomRenderer;
 using Xamarin.Forms;
 using Xamarin.Forms.Platform.Android;
-using CameraModule = CustomRenderer.CustomElement.CameraModule;
+using CameraModule = CrossCam.CustomElement.CameraModule;
 #pragma warning disable 618
 using Camera = Android.Hardware.Camera;
 

@@ -2,7 +2,7 @@
 using System.Threading.Tasks;
 using Xamarin.Forms;
 
-namespace CustomRenderer.CustomElement
+namespace CrossCam.CustomElement
 {
     // ReSharper disable once UnusedMember.Global
     public sealed class FadeInAndOutBehavior : Behavior<VisualElement>

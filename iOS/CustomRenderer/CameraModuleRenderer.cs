@@ -6,7 +6,7 @@ using Foundation;
 using UIKit;
 using Xamarin.Forms;
 using Xamarin.Forms.Platform.iOS;
-using CameraModule = CustomRenderer.CustomElement.CameraModule;
+using CameraModule = CrossCam.CustomElement.CameraModule;
 
 [assembly: ExportRenderer(typeof(CameraModule), typeof(CameraModuleRenderer))]
 namespace CustomRenderer.iOS.CustomRenderer

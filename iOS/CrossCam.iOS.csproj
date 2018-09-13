@@ -81,9 +81,9 @@
     <Reference Include="Xamarin.iOS" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\CustomRenderer\CustomRenderer.csproj">
+    <ProjectReference Include="..\CustomRenderer\CrossCam.csproj">
       <Project>{40272DDB-4E7A-4988-B62A-38B4458F2510}</Project>
-      <Name>CustomRenderer</Name>
+      <Name>CrossCam</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

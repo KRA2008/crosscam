@@ -1,6 +1,6 @@
 ﻿using Xamarin.Forms;
 
-namespace CustomRenderer.CustomElement
+namespace CrossCam.CustomElement
 {
 	public sealed partial class CameraModule
 	{

@@ -1,11 +1,11 @@
 ﻿using System.IO;
 using System.Threading.Tasks;
-using CustomRenderer.CustomElement;
+using CrossCam.CustomElement;
 using FreshMvvm;
 using SkiaSharp;
 using Xamarin.Forms;
 
-namespace CustomRenderer.ViewModel
+namespace CrossCam.ViewModel
 {
     public sealed class CameraViewModel : FreshBasePageModel
     {

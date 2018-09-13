@@ -1,10 +1,10 @@
-﻿using CustomRenderer.ViewModel;
+﻿using CrossCam.ViewModel;
 using FreshMvvm;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
 [assembly: XamlCompilation(XamlCompilationOptions.Compile)]
-namespace CustomRenderer
+namespace CrossCam
 {
     public partial class App
     {

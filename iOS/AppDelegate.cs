@@ -11,7 +11,7 @@ namespace CustomRenderer.iOS
 		{
 			Forms.Init();
 
-            LoadApplication(new App());
+            LoadApplication(new CrossCam.App());
 
 		    return base.FinishedLaunching(app, options);
         }

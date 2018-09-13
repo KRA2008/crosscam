@@ -29,7 +29,7 @@ namespace CustomRenderer.Droid
 
             Instance = this;
             Xamarin.Forms.Forms.Init(this, bundle);
-            LoadApplication(new App());
+            LoadApplication(new CrossCam.App());
         }
     }
 }

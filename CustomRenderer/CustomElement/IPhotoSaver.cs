@@ -1,6 +1,6 @@
 ﻿using System.Threading.Tasks;
 
-namespace CustomRenderer.CustomElement
+namespace CrossCam.CustomElement
 {
     public interface IPhotoSaver
     {

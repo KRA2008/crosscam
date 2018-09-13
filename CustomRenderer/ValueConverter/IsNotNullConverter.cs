@@ -3,7 +3,7 @@ using System.Globalization;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
-namespace CustomRenderer.ValueConverter
+namespace CrossCam.ValueConverter
 {
     public sealed class IsNotNullConverter : IValueConverter, IMarkupExtension
     {
