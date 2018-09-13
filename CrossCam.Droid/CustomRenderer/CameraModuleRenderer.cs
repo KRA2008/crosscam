@@ -12,7 +12,7 @@ using Android.Support.V4.Content;
 using Android.Util;
 using Android.Views;
 using Android.Widget;
-using CustomRenderer.Droid.CustomRenderer;
+using CrossCam.Droid.CustomRenderer;
 using Xamarin.Forms;
 using Xamarin.Forms.Platform.Android;
 using CameraModule = CrossCam.CustomElement.CameraModule;
@@ -20,7 +20,7 @@ using CameraModule = CrossCam.CustomElement.CameraModule;
 using Camera = Android.Hardware.Camera;
 
 [assembly: ExportRenderer(typeof(CameraModule), typeof(CameraModuleRenderer))]
-namespace CustomRenderer.Droid.CustomRenderer
+namespace CrossCam.Droid.CustomRenderer
 {
     public class CameraModuleRenderer : ViewRenderer<CameraModule, Android.Views.View>, TextureView.ISurfaceTextureListener, Camera.IShutterCallback, Camera.IPictureCallback
     {

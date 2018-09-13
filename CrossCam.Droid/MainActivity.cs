@@ -3,7 +3,7 @@ using Android.Content.PM;
 using Android.OS;
 using Android.Views;
 
-namespace CustomRenderer.Droid
+namespace CrossCam.Droid
 {
     [Activity(
         Label = "CustomRenderer.Droid", 
@@ -29,7 +29,7 @@ namespace CustomRenderer.Droid
 
             Instance = this;
             Xamarin.Forms.Forms.Init(this, bundle);
-            LoadApplication(new CrossCam.App());
+            LoadApplication(new App());
         }
     }
 }

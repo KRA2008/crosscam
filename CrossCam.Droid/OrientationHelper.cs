@@ -4,7 +4,7 @@ using Android.Hardware;
 using Android.Runtime;
 using Android.Views;
 
-namespace CustomRenderer.Droid
+namespace CrossCam.Droid
 {
     public sealed class OrientationHelper : OrientationEventListener
     {

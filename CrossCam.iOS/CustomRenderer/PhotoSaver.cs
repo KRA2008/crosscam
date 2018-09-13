@@ -1,12 +1,12 @@
 ﻿using System.Threading.Tasks;
 using CrossCam.CustomElement;
-using CustomRenderer.iOS.CustomRenderer;
+using CrossCam.iOS.CustomRenderer;
 using Foundation;
 using UIKit;
 using Xamarin.Forms;
 
 [assembly: Dependency(typeof(PhotoSaver))]
-namespace CustomRenderer.iOS.CustomRenderer
+namespace CrossCam.iOS.CustomRenderer
 {
     public class PhotoSaver : IPhotoSaver
     {

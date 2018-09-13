@@ -6,9 +6,9 @@
     <ProjectTypeGuids>{FEACFBD2-3405-455C-9665-78FE426C6842};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <ProjectGuid>{169D5C20-8FDA-48FC-96AF-2F6E09BB9B4F}</ProjectGuid>
     <OutputType>Exe</OutputType>
-    <RootNamespace>CustomRenderer.iOS</RootNamespace>
+    <RootNamespace>CrossCam.iOS</RootNamespace>
     <IPhoneResourcePrefix>Resources</IPhoneResourcePrefix>
-    <AssemblyName>CustomRendereriOS</AssemblyName>
+    <AssemblyName>CrossCam.iOS</AssemblyName>
     <NuGetPackageImportStamp />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|iPhoneSimulator' ">
@@ -72,19 +72,15 @@
     <PackageReference Include="FreshMvvm">
       <Version>2.2.4</Version>
     </PackageReference>
-    <PackageReference Include="Xamarin.Forms" Version="3.1.0.583944" />
+    <PackageReference Include="Xamarin.Forms">
+      <Version>3.1.0.697729</Version>
+    </PackageReference>
   </ItemGroup>
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Xml" />
     <Reference Include="System.Core" />
     <Reference Include="Xamarin.iOS" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\CustomRenderer\CrossCam.csproj">
-      <Project>{40272DDB-4E7A-4988-B62A-38B4458F2510}</Project>
-      <Name>CrossCam</Name>
-    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <BundleResource Include="Resources\Default.png" />
@@ -163,6 +159,12 @@
   </ItemGroup>
   <ItemGroup>
     <BundleResource Include="Resources\squareOuter.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\CrossCam\CrossCam.csproj">
+      <Project>{c67dad12-9b8d-4ae3-b7b2-5f84e4e26ea8}</Project>
+      <Name>CrossCam</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

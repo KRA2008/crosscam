@@ -2,7 +2,7 @@
 using UIKit;
 using Xamarin.Forms;
 
-namespace CustomRenderer.iOS
+namespace CrossCam.iOS
 {
 	[Register ("AppDelegate")]
 	public partial class AppDelegate : Xamarin.Forms.Platform.iOS.FormsApplicationDelegate
@@ -11,7 +11,7 @@ namespace CustomRenderer.iOS
 		{
 			Forms.Init();
 
-            LoadApplication(new CrossCam.App());
+            LoadApplication(new App());
 
 		    return base.FinishedLaunching(app, options);
         }

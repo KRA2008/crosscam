@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel;
 using AVFoundation;
 using CoreGraphics;
-using CustomRenderer.iOS.CustomRenderer;
+using CrossCam.iOS.CustomRenderer;
 using Foundation;
 using UIKit;
 using Xamarin.Forms;
@@ -9,7 +9,7 @@ using Xamarin.Forms.Platform.iOS;
 using CameraModule = CrossCam.CustomElement.CameraModule;
 
 [assembly: ExportRenderer(typeof(CameraModule), typeof(CameraModuleRenderer))]
-namespace CustomRenderer.iOS.CustomRenderer
+namespace CrossCam.iOS.CustomRenderer
 {
     public class CameraModuleRenderer : ViewRenderer<CameraModule, UIView>, IAVCapturePhotoCaptureDelegate
     {
@@ -142,6 +142,7 @@ namespace CustomRenderer.iOS.CustomRenderer
         }
 
         [Export("captureOutput:didFinishProcessingPhoto:error:")]
+        // ReSharper disable once UnusedMember.Local
         private void PhotoCaptureComplete(AVCapturePhotoOutput photoOutput, AVCapturePhoto photo, NSError error)
         {
             UIImageOrientation imageOrientation;
@@ -163,6 +164,7 @@ namespace CustomRenderer.iOS.CustomRenderer
         }
 
         [Export("captureOutput:didCapturePhotoForResolvedSettings:")]
+        // ReSharper disable once UnusedMember.Local
         private void PhotoJustGotCaptured(AVCapturePhotoOutput photoOutput, AVCaptureResolvedPhotoSettings settings)
         {
             _cameraModule.CaptureSuccess = !_cameraModule.CaptureSuccess;

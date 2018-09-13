@@ -3,12 +3,12 @@ using Android.Content;
 using Android.Graphics;
 using Android.Provider;
 using CrossCam.CustomElement;
-using CustomRenderer.Droid.CustomRenderer;
+using CrossCam.Droid.CustomRenderer;
 using Java.Lang;
 using Xamarin.Forms;
 
 [assembly: Dependency(typeof(PhotoSaver))]
-namespace CustomRenderer.Droid.CustomRenderer
+namespace CrossCam.Droid.CustomRenderer
 {
     public class PhotoSaver : IPhotoSaver
     {
@@ -38,7 +38,7 @@ namespace CustomRenderer.Droid.CustomRenderer
                         }
                     }
                 }
-                catch (Exception e)
+                catch
                 {
                     taskCompletionSource.SetResult(false);
                 }

@@ -1,6 +1,6 @@
 ﻿using UIKit;
 
-namespace CustomRenderer.iOS
+namespace CrossCam.iOS
 {
 	public class Application
 	{
