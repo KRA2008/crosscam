@@ -217,7 +217,7 @@
     </ImageAsset>
   </ItemGroup>
   <ItemGroup>
-    <BundleResource Include="Resources\appicon.png" />
+    <BundleResource Include="Resources\Icon.png" />
   </ItemGroup>
   <ItemGroup>
     <BundleResource Include="Media.xcassets\AppIcons.appiconset\appicon120.png" />
@@ -277,16 +277,16 @@
     <BundleResource Include="Media.xcassets\LaunchImages.launchimage\launch7681024.png" />
   </ItemGroup>
   <ItemGroup>
-    <BundleResource Include="Resources\appicon120.png" />
+    <BundleResource Include="Resources\Icon-60%402x.png" />
   </ItemGroup>
   <ItemGroup>
-    <BundleResource Include="Resources\appicon152.png" />
+    <BundleResource Include="Resources\Icon-76%402x.png" />
   </ItemGroup>
   <ItemGroup>
-    <BundleResource Include="Resources\appicon167.png" />
+    <BundleResource Include="Resources\Icon-167.png" />
   </ItemGroup>
   <ItemGroup>
-    <BundleResource Include="Resources\appicon76.png" />
+    <BundleResource Include="Resources\Icon-76.png" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
