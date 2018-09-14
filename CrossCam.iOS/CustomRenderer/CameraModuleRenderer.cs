@@ -174,9 +174,12 @@ namespace CrossCam.iOS.CustomRenderer
         {
             var error = new NSError();
             
-            device.LockForConfiguration(out error);
-            device.FlashMode = AVCaptureFlashMode.Off;
-            device.UnlockForConfiguration();
+            if (device.IsFlashModeSupported(AVCaptureFlashMode.Off))
+            {
+                device.LockForConfiguration(out error);
+                device.FlashMode = AVCaptureFlashMode.Off;
+                device.UnlockForConfiguration();
+            }
 
             if (device.IsFocusModeSupported(AVCaptureFocusMode.ContinuousAutoFocus))
             {
@@ -184,13 +187,15 @@ namespace CrossCam.iOS.CustomRenderer
                 device.FocusMode = AVCaptureFocusMode.ContinuousAutoFocus;
                 device.UnlockForConfiguration();
             }
-            else if (device.IsExposureModeSupported(AVCaptureExposureMode.ContinuousAutoExposure))
+
+            if (device.IsExposureModeSupported(AVCaptureExposureMode.ContinuousAutoExposure))
             {
                 device.LockForConfiguration(out error);
                 device.ExposureMode = AVCaptureExposureMode.ContinuousAutoExposure;
                 device.UnlockForConfiguration();
             }
-            else if (device.IsWhiteBalanceModeSupported(AVCaptureWhiteBalanceMode.ContinuousAutoWhiteBalance))
+
+            if (device.IsWhiteBalanceModeSupported(AVCaptureWhiteBalanceMode.ContinuousAutoWhiteBalance))
             {
                 device.LockForConfiguration(out error);
                 device.WhiteBalanceMode = AVCaptureWhiteBalanceMode.ContinuousAutoWhiteBalance;
