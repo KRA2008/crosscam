@@ -34,9 +34,12 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <CodesignEntitlements>Entitlements.plist</CodesignEntitlements>
-    <MtouchArch>ARM64</MtouchArch>
+    <MtouchArch>ARMv7, ARM64</MtouchArch>
     <ConsolePause>false</ConsolePause>
-    <CodesignKey>iPhone Developer</CodesignKey>
+    <CodesignKey>iPhone Distribution</CodesignKey>
+    <MtouchUseLlvm>true</MtouchUseLlvm>
+    <OptimizePNGs>true</OptimizePNGs>
+    <BuildIpa>true</BuildIpa>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|iPhoneSimulator' ">
     <DebugType>full</DebugType>
@@ -64,6 +67,9 @@
     <MtouchDebug>true</MtouchDebug>
     <CodesignProvision />
     <IpaPackageName />
+    <MtouchFastDev>true</MtouchFastDev>
+    <DeviceSpecificBuild>true</DeviceSpecificBuild>
+    <OptimizePNGs>true</OptimizePNGs>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(RunConfiguration)' == 'Default' ">
     <AppExtensionDebugBundleId />
@@ -90,6 +96,8 @@
       <SubType>Designer</SubType>
     </None>
     <None Include="Entitlements.plist" />
+    <BundleResource Include="Media.xcassets\AppIcons.appiconset\Contents.json" />
+    <BundleResource Include="Media.xcassets\LaunchImages.launchimage\Contents.json" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CustomRenderer\PhotoSaver.cs" />
@@ -210,6 +218,75 @@
   </ItemGroup>
   <ItemGroup>
     <BundleResource Include="Resources\appicon.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Media.xcassets\AppIcons.appiconset\appicon120.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Media.xcassets\AppIcons.appiconset\appicon152.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Media.xcassets\AppIcons.appiconset\appicon167.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Media.xcassets\AppIcons.appiconset\appicon180.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Media.xcassets\AppIcons.appiconset\appicon20.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Media.xcassets\AppIcons.appiconset\appicon29.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Media.xcassets\AppIcons.appiconset\appicon40.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Media.xcassets\AppIcons.appiconset\appicon58.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Media.xcassets\AppIcons.appiconset\appicon60.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Media.xcassets\AppIcons.appiconset\appicon76.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Media.xcassets\AppIcons.appiconset\appicon80.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Media.xcassets\AppIcons.appiconset\appicon87.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Media.xcassets\AppIcons.appiconset\icon.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Media.xcassets\LaunchImages.launchimage\launch1024768.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Media.xcassets\LaunchImages.launchimage\launch15362048.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Media.xcassets\LaunchImages.launchimage\launch20481536.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Media.xcassets\LaunchImages.launchimage\launch6401136.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Media.xcassets\LaunchImages.launchimage\launch640960.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Media.xcassets\LaunchImages.launchimage\launch7681024.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\appicon120.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\appicon152.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\appicon167.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\appicon76.png" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
