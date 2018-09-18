@@ -10,13 +10,13 @@ namespace CrossCam
     {
         public App()
         {
+            InitializeComponent();
             MainPage = new FreshNavigationContainer(FreshPageModelResolver.ResolvePageModel<CameraViewModel>())
             {
                 BarBackgroundColor = Color.Black,
                 BackgroundColor = Color.Black,
                 BarTextColor = Color.White
             };
-            InitializeComponent();
         }
 
         protected override void OnStart()

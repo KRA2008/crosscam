@@ -1,4 +1,5 @@
-﻿using Foundation;
+﻿using AVFoundation;
+using Foundation;
 using UIKit;
 using Xamarin.Forms;
 
@@ -12,9 +13,20 @@ namespace CrossCam.iOS
 			Forms.Init();
 
             LoadApplication(new App());
+            var success = base.FinishedLaunching(app, options);
+            AuthorizeCameraUse();
+		    return success;
+		}
 
-		    return base.FinishedLaunching(app, options);
-        }
+	    private static async void AuthorizeCameraUse()
+	    {
+	        var authorizationStatus = AVCaptureDevice.GetAuthorizationStatus(AVMediaType.Video);
+
+	        if (authorizationStatus != AVAuthorizationStatus.Authorized)
+	        {
+	            await AVCaptureDevice.RequestAccessForMediaTypeAsync(AVMediaType.Video);
+	        }
+	    }
     }
 }
 

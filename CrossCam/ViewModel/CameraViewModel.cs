@@ -38,6 +38,8 @@ namespace CrossCam.ViewModel
 
         public Settings Settings { get; set; }
 
+        public bool IsPortrait { get; set; }
+
         public bool FailFadeTrigger { get; set; }
         public bool SuccessFadeTrigger { get; set; }
         public bool IsSaving { get; set; }
@@ -145,18 +147,15 @@ namespace CrossCam.ViewModel
                     rightBitmap = SKBitmap.Decode(RightByteArray);
                     RightByteArray = null;
 
-                    var screenHeight = Application.Current.MainPage.Height;
-                    var screenWidth = Application.Current.MainPage.Width;
-
                     double eachSideWidth;
-                    if (screenWidth < screenHeight) //portrait
+                    if (IsPortrait)
                     {
                         eachSideWidth = leftBitmap.Width;
                     }
                     else
                     {
-                        var pictureHeightToScreenHeightRatio = leftBitmap.Height / screenHeight;
-                        eachSideWidth = screenWidth * pictureHeightToScreenHeightRatio / 2d;
+                        var pictureHeightToScreenHeightRatio = leftBitmap.Height / Application.Current.MainPage.Height;
+                        eachSideWidth = Application.Current.MainPage.Width * pictureHeightToScreenHeightRatio / 2d;
                     }
 
                     var imageLeftTrimWidth = (leftBitmap.Width - eachSideWidth) / 2d;

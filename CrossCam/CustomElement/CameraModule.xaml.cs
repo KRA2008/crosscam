@@ -18,6 +18,9 @@ namespace CrossCam.CustomElement
 	    public static readonly BindableProperty CaptureSuccessProperty = BindableProperty.Create(nameof(CaptureSuccess),
 	        typeof(bool), typeof(CameraModule), false, BindingMode.TwoWay);
 
+	    public static readonly BindableProperty IsPortraitProperty = BindableProperty.Create(nameof(IsPortrait),
+	        typeof(bool), typeof(CameraModule), false, BindingMode.TwoWay);
+
         public byte[] CapturedImage
         {
             get => (byte[])GetValue(CapturedImageProperty);
@@ -34,6 +37,12 @@ namespace CrossCam.CustomElement
 	    {
 	        get => (bool)GetValue(CaptureSuccessProperty);
 	        set => SetValue(CaptureSuccessProperty, value);
+	    }
+
+	    public bool IsPortrait
+	    {
+	        get => (bool)GetValue(IsPortraitProperty);
+	        set => SetValue(IsPortraitProperty, value);
 	    }
     }
 }

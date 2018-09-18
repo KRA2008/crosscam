@@ -38,6 +38,7 @@
                    Source="{Binding LeftImageSource}"/>
             <ce:CameraModule Grid.Column="0"
                              Grid.Row="0"
+                             IsPortrait="{Binding IsPortrait}"
                              CaptureTrigger="{Binding CapturePictureTrigger}"
                              IsVisible="{Binding IsLeftCameraVisible}"
                              CapturedImage="{Binding LeftByteArray}"
@@ -54,11 +55,12 @@
             <ScrollView Grid.Column="1"
                         Grid.Row="0"
                         IsVisible="{Binding IsSaving, Converter={vc:BooleanInvertConverter}}">
-                <StackLayout Padding="10">
-                    <Label Text="(Landscape mode is strongly suggested)"
-                           IsVisible="{Binding ., Converter={vc:IsDeviceInPortraitModeConverter}}"/>
-                    <Label Text="(Your final picture will not be this narrow)"
-                           IsVisible="{Binding ., Converter={vc:IsDeviceInPortraitModeConverter}}"/>
+                <StackLayout Padding="10"
+                             Spacing="0">
+                    <Label Text="~Landscape mode is strongly suggested~"
+                           IsVisible="{Binding IsPortrait}"/>
+                    <Label Text="~Your final picture will be full width~"
+                           IsVisible="{Binding IsPortrait}"/>
                     <Label Text="{Binding HelpText}"/>
                 </StackLayout>
             </ScrollView>
