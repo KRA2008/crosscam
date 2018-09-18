@@ -43,7 +43,7 @@ namespace CrossCam.Droid.CustomRenderer
         {
             MainActivity.Instance.OrientationHelper.OrientationChanged += (sender, args) =>
             {
-                SetCameraOrientation();
+                SetOrientation();
             };
         }
 
@@ -223,42 +223,65 @@ namespace CrossCam.Droid.CustomRenderer
                     _previewSize = landscapePreviewDescendingSizes.First();
                 }
             }
-            
-            var metrics = new DisplayMetrics();
-            Display.GetMetrics(metrics);
-
-            var moduleHeight = _cameraModule.Height * metrics.Density;
-            var moduleWidth = _cameraModule.Width * metrics.Density;
-            var proportionalPreviewWidth = _previewSize.Width * moduleHeight / _previewSize.Height;
-            _textureView.LayoutParameters = new FrameLayout.LayoutParams((int) Math.Round(proportionalPreviewWidth), 
-                (int) Math.Round(moduleHeight));
-            var leftTrim = (proportionalPreviewWidth - moduleWidth) / 2;
-            _textureView.SetX((float) (-1 * leftTrim));
 
             parameters.SetPictureSize(_pictureSize.Width, _pictureSize.Height);
             parameters.SetPreviewSize(_previewSize.Width, _previewSize.Height);
-
 
             _camera.SetParameters(parameters);
             _camera.SetPreviewTexture(_surfaceTexture);
 
             _isRunning = true;
-            SetCameraOrientation();
+            SetOrientation();
 
             _camera.StartPreview();
         }
 
-        private void SetCameraOrientation()
+        private void SetOrientation()
         {
             if (_isRunning)
             {
+                var metrics = new DisplayMetrics();
+                Display.GetMetrics(metrics);
+
+                var moduleHeight = _cameraModule.Height * metrics.Density;
+                var moduleWidth = _cameraModule.Width * metrics.Density;
+                double proportionalPreviewWidth;
+                double leftTrim;
+                switch (Display.Rotation)
+                {
+                    case SurfaceOrientation.Rotation0: //portraits
+                    case SurfaceOrientation.Rotation180:
+                        proportionalPreviewWidth = _previewSize.Height * moduleHeight / _previewSize.Width;
+                        leftTrim = (proportionalPreviewWidth - moduleWidth) / 2;
+                        break;
+                    default: //landscapes
+                        proportionalPreviewWidth = _previewSize.Width * moduleHeight / _previewSize.Height;
+                        leftTrim = (proportionalPreviewWidth - moduleWidth) / 2;
+                        break;
+                }
+
+                _textureView.SetX((float)(-1 * leftTrim));
+
+                _textureView.LayoutParameters = new FrameLayout.LayoutParams((int)Math.Round(proportionalPreviewWidth),
+                    (int)Math.Round(moduleHeight));
+
                 var parameters = _camera.GetParameters();
 
                 var display = _activity.WindowManager.DefaultDisplay;
-                if (display.Rotation == SurfaceOrientation.Rotation90)
+                if (display.Rotation == SurfaceOrientation.Rotation0) // portrait
+                {
+                    _camera.SetDisplayOrientation(90);
+                    parameters.SetRotation(90);
+                }
+                else if (display.Rotation == SurfaceOrientation.Rotation90)
                 {
                     _camera.SetDisplayOrientation(0);
                     parameters.SetRotation(0);
+                }
+                else if (display.Rotation == SurfaceOrientation.Rotation180) // portrait
+                {
+                    _camera.SetDisplayOrientation(270);
+                    parameters.SetRotation(270);
                 }
                 else if (display.Rotation == SurfaceOrientation.Rotation270)
                 {

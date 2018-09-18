@@ -53,8 +53,8 @@ namespace CrossCam.ViewModel
                                   "\n2) Place your feet shoulder-width apart and lean towards your right foot" +
                                   "\n3) Drag the horizontal guide lines over some recognizable features of the subject" +
                                   "\n4) Take the left picture (but finish reading these directions first)" +
-                                  "\n5) Start cross viewing" + 
-                                  "\n6) While keeping the horizontal guide lines over the same features on the right as they are on the left, begin shifting your weight to lean towards your left foot" +
+                                  "\n5) A preview for the right picture will take the place of this text => start cross viewing" + 
+                                  "\n6) While keeping the subject centered on the screen and the horizontal guide lines over the same features on the right as they are on the left, begin shifting your weight to lean towards your left foot" +
                                   "\n7) Take the right picture when the desired level of 3D is achieved";
 
         public CameraViewModel()
