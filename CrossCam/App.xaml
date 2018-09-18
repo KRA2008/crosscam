@@ -4,6 +4,10 @@
              x:Class="CrossCam.App">
     <Application.Resources>
         <ResourceDictionary>
+            <Style TargetType="Label">
+                <Setter Property="TextColor"
+                        Value="White"/>
+            </Style>
             <Style TargetType="NavigationPage">
                 <Setter Property="BarTextColor" Value="White"/>
                 <Setter Property="BarBackgroundColor" Value="Black"/>

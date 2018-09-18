@@ -16,6 +16,7 @@ namespace CrossCam
                 BackgroundColor = Color.Black,
                 BarTextColor = Color.White
             };
+            InitializeComponent();
         }
 
         protected override void OnStart()

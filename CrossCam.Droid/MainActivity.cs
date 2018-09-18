@@ -6,7 +6,7 @@ using Android.Views;
 namespace CrossCam.Droid
 {
     [Activity(
-        Label = "CustomRenderer.Droid", 
+        Label = "CrossCam", 
         Icon = "@drawable/icon", 
         Theme = "@style/MainTheme",
         MainLauncher = true,

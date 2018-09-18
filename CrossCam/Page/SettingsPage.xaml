@@ -1,0 +1,93 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<fresh:FreshBaseContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+                            xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                            xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+                            xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                            xmlns:fresh="clr-namespace:FreshMvvm;assembly=FreshMvvm"
+                            xmlns:vm="clr-namespace:CrossCam.ViewModel;assembly=CrossCam"
+                            mc:Ignorable="d"
+
+                            d:DataContext="{d:DesignInstance Type=vm:SettingsViewModel, IsDesignTimeCreatable=False}"
+                            x:Class="CrossCam.Page.SettingsPage"
+                            Title="Settings"
+                            BackgroundColor="Black">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <Style TargetType="BoxView">
+                <Setter Property="Color"
+                        Value="White"/>
+                <Setter Property="HeightRequest"
+                        Value="1"/>
+            </Style>
+            <Style TargetType="Label">
+                <Setter Property="Margin"
+                        Value="10"/>
+                <Setter Property="VerticalTextAlignment"
+                        Value="Center"/>
+            </Style>
+            <Style TargetType="Switch">
+                <Setter Property="Margin"
+                        Value="10"/>
+            </Style>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    <ScrollView VerticalOptions="StartAndExpand">
+        <Grid RowSpacing="0"
+              ColumnSpacing="0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+            <BoxView Grid.Row="0"
+                     Grid.Column="0"
+                     Grid.ColumnSpan="2"/>
+            <Label Grid.Row="1"
+                   Grid.Column="0"
+                   Text="Guide lines visible"/>
+            <Switch Grid.Row="1"
+                    Grid.Column="1"
+                    IsToggled="{Binding Settings.AreGuideLinesVisible}"/>
+            <BoxView Grid.Row="2"
+                     Grid.Column="0"
+                     Grid.ColumnSpan="2"/>
+            <Label Grid.Row="3"
+                   Grid.Column="0"
+                   Text="Guide donut/dot visible"/>
+            <Switch Grid.Row="3"
+                    Grid.Column="1"
+                    IsToggled="{Binding Settings.IsGuideDonutVisible}"/>
+            <BoxView Grid.Row="4"
+                     Grid.Column="0"
+                     Grid.ColumnSpan="2"/>
+            <Label Grid.Row="5"
+                   Grid.Column="0"
+                   Text="Save sides separately"/>
+            <Switch Grid.Row="5"
+                    Grid.Column="1"
+                    IsToggled="{Binding Settings.SaveSidesSeparately}"/>
+            <BoxView Grid.Row="6"
+                     Grid.Column="0"
+                     Grid.ColumnSpan="2"/>
+            <Label Grid.Row="7"
+                   Grid.Column="0"
+                   Text="Save landscape sides with full width"/>
+            <Switch Grid.Row="7"
+                    Grid.Column="1"
+                    IsToggled="{Binding Settings.SaveLandscapeFullWidth}"/>
+            <BoxView Grid.Row="8"
+                     Grid.Column="0"
+                     Grid.ColumnSpan="2"/>
+        </Grid>
+    </ScrollView>
+</fresh:FreshBaseContentPage>

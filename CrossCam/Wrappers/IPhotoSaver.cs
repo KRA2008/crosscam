@@ -1,6 +1,6 @@
 ﻿using System.Threading.Tasks;
 
-namespace CrossCam.CustomElement
+namespace CrossCam.Wrappers
 {
     public interface IPhotoSaver
     {

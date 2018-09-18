@@ -1,6 +1,8 @@
-﻿using System.IO;
+﻿using System;
+using System.IO;
 using System.Threading.Tasks;
-using CrossCam.CustomElement;
+using CrossCam.Model;
+using CrossCam.Wrappers;
 using FreshMvvm;
 using SkiaSharp;
 using Xamarin.Forms;
@@ -32,29 +34,35 @@ namespace CrossCam.ViewModel
 
         public Command ClearCapturesCommand { get; set; }
 
+        public Command NavigateToSettingsCommand { get; set; }
+
+        public Settings Settings { get; set; }
+
         public bool FailFadeTrigger { get; set; }
         public bool SuccessFadeTrigger { get; set; }
         public bool IsSaving { get; set; }
 
         public bool ShouldLeftRetakeBeVisible => LeftByteArray != null && !IsSaving && !IsViewMode;
         public bool ShouldRightRetakeBeVisible => RightByteArray != null && !IsSaving && !IsViewMode;
-        public bool ShouldSaveBeVisible => IsCaptureComplete && !IsSaving && !IsViewMode;
-        public bool ShouldEyeBeVisible => IsCaptureComplete && !IsSaving && !IsViewMode;
-        public bool ShouldClearBeVisible => IsCaptureComplete && !IsSaving && !IsViewMode;
+        public bool ShouldEndButtonsBeVisible => IsCaptureComplete && !IsSaving && !IsViewMode;
+        public bool ShouldSettingsBeVisible => LeftByteArray == null && RightByteArray == null && !IsSaving && !IsViewMode;
+        public bool ShouldLineGuidesBeVisible => !IsCaptureComplete && Settings.AreGuideLinesVisible;
+        public bool ShouldDonutGuideBeVisible => !IsCaptureComplete && Settings.IsGuideDonutVisible;
 
-        public string HelpText => "1) Drag the lines to frame up something in the scene" +
-                                  "\n2) Drag the donut to a recognizable point in the background" +
-                                  "\n3) Take the left picture (but finish reading this first)" +
-                                  "\n4) Move left" +
-                                  "\n5) Maintain the frame made by the lines" +
-                                  "\n6) Start cross viewing" +
-                                  "\n7) Aim so the dot goes in the donut while cross viewing" +
-                                  "\n8) Take the right picture";
+        public string HelpText => "1) Face your subject straight on and frame it up in the center of the screen" + 
+                                  "\n2) Place your feet shoulder-width apart and lean towards your right foot" +
+                                  "\n3) Drag the horizontal guide lines over some recognizable features of the subject" +
+                                  "\n4) Take the left picture (but finish reading these directions first)" +
+                                  "\n5) Start cross viewing" + 
+                                  "\n6) While keeping the horizontal guide lines over the same features on the right as they are on the left, begin shifting your weight to lean towards your left foot" +
+                                  "\n7) Take the right picture when the desired level of 3D is achieved";
 
         public CameraViewModel()
         {
             var photoSaver = DependencyService.Get<IPhotoSaver>();
             IsLeftCameraVisible = true;
+
+            Settings = PersistentStorage.LoadOrDefault(PersistentStorage.SETTINGS_KEY, new Settings());
 
             PropertyChanged += (sender, args) =>
             {
@@ -111,6 +119,11 @@ namespace CrossCam.ViewModel
             ToggleViewModeCommand = new Command(() =>
             {
                 IsViewMode = !IsViewMode;
+            });
+
+            NavigateToSettingsCommand = new Command(async () =>
+            {
+                await CoreMethods.PushPageModel<SettingsViewModel>(Settings);
             });
 
             SaveCapturesCommand = new Command(async () =>
@@ -189,6 +202,13 @@ namespace CrossCam.ViewModel
 
                 ClearCaptures();
             });
+        }
+
+        protected override void ViewIsAppearing(object sender, EventArgs e)
+        {
+            base.ViewIsAppearing(sender, e);
+            RaisePropertyChanged(nameof(ShouldLineGuidesBeVisible));
+            RaisePropertyChanged(nameof(ShouldDonutGuideBeVisible));
         }
 
         private void ClearCaptures()

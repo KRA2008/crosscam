@@ -2,8 +2,8 @@
 using Android.Content;
 using Android.Graphics;
 using Android.Provider;
-using CrossCam.CustomElement;
 using CrossCam.Droid.CustomRenderer;
+using CrossCam.Wrappers;
 using Java.Lang;
 using Xamarin.Forms;
 

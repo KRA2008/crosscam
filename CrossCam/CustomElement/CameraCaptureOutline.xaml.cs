@@ -2,9 +2,9 @@
 {
 	public partial class CameraCaptureOutline
 	{
-		public CameraCaptureOutline ()
+		public CameraCaptureOutline()
 		{
-			InitializeComponent ();
+			InitializeComponent();
 		}
 	}
 }
