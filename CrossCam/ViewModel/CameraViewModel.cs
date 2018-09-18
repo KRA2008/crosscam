@@ -145,13 +145,21 @@ namespace CrossCam.ViewModel
                     rightBitmap = SKBitmap.Decode(RightByteArray);
                     RightByteArray = null;
 
-                    var screenHeight = (int)Application.Current.MainPage.Height;
-                    var screenWidth = (int)Application.Current.MainPage.Width;
+                    var screenHeight = Application.Current.MainPage.Height;
+                    var screenWidth = Application.Current.MainPage.Width;
 
-                    var pictureHeightToScreenHeightRatio = (float) leftBitmap.Height / screenHeight;
+                    double eachSideWidth;
+                    if (screenWidth < screenHeight) //portrait
+                    {
+                        eachSideWidth = leftBitmap.Width;
+                    }
+                    else
+                    {
+                        var pictureHeightToScreenHeightRatio = leftBitmap.Height / screenHeight;
+                        eachSideWidth = screenWidth * pictureHeightToScreenHeightRatio / 2d;
+                    }
 
-                    var eachSideWidth = screenWidth * pictureHeightToScreenHeightRatio / 2f;
-                    var imageLeftTrimWidth = (leftBitmap.Width - eachSideWidth) / 2f;
+                    var imageLeftTrimWidth = (leftBitmap.Width - eachSideWidth) / 2d;
 
                     var finalImageWidth = eachSideWidth * 2;
 
@@ -161,12 +169,15 @@ namespace CrossCam.ViewModel
                         
                         canvas.Clear(SKColors.Transparent);
 
+                        var floatedTrim = (float)imageLeftTrimWidth;
+                        var floatedWidth = (float)eachSideWidth;
+
                         canvas.DrawBitmap(leftBitmap,
-                            SKRect.Create(imageLeftTrimWidth, 0, eachSideWidth, leftBitmap.Height),
-                            SKRect.Create(0, 0, eachSideWidth, leftBitmap.Height));
+                            SKRect.Create(floatedTrim, 0, floatedWidth, leftBitmap.Height),
+                            SKRect.Create(0, 0, floatedWidth, leftBitmap.Height));
                         canvas.DrawBitmap(rightBitmap,
-                            SKRect.Create(imageLeftTrimWidth, 0, eachSideWidth, leftBitmap.Height),
-                            SKRect.Create(eachSideWidth, 0, eachSideWidth, leftBitmap.Height));
+                            SKRect.Create(floatedTrim, 0, floatedWidth, leftBitmap.Height),
+                            SKRect.Create(floatedWidth, 0, floatedWidth, leftBitmap.Height));
 
                         finalImage = tempSurface.Snapshot();
                     }

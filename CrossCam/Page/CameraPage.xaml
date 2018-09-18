@@ -53,10 +53,14 @@
             </ce:CameraCaptureOutline>
             <ScrollView Grid.Column="1"
                         Grid.Row="0"
-                        Padding="10"
                         IsVisible="{Binding IsSaving, Converter={vc:BooleanInvertConverter}}">
-                <Label Text="{Binding HelpText}"
-                       FontSize="Small"/>
+                <StackLayout Padding="10">
+                    <Label Text="(Landscape mode is strongly suggested)"
+                           IsVisible="{Binding ., Converter={vc:IsDeviceInPortraitModeConverter}}"/>
+                    <Label Text="(Your final picture will not be this narrow)"
+                           IsVisible="{Binding ., Converter={vc:IsDeviceInPortraitModeConverter}}"/>
+                    <Label Text="{Binding HelpText}"/>
+                </StackLayout>
             </ScrollView>
             <Image Grid.Column="1"
                    Grid.Row="0"
