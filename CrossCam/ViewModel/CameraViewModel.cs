@@ -43,7 +43,7 @@ namespace CrossCam.ViewModel
         public bool SuccessFadeTrigger { get; set; }
         public bool IsSaving { get; set; }
 
-        public Aspect PreviewAspect => Settings.FillScreenPreview ? Aspect.AspectFill : Aspect.AspectFit;
+        public Aspect PreviewAspect => Settings.FillScreenPreview && !(IsViewMode && IsPortrait) ? Aspect.AspectFill : Aspect.AspectFit;
 
         public bool IsCaptureComplete => LeftByteArray != null && RightByteArray != null;
         public bool IsNothingCaptured => LeftByteArray == null && RightByteArray == null;
