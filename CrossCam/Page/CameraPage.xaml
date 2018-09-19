@@ -39,7 +39,7 @@
                    Source="{Binding LeftImageSource}"/>
             <ce:CameraModule Grid.Column="0"
                              Grid.Row="0"
-                             IsPortrait="{Binding IsPortrait}"
+                             IsPortrait="{Binding IsViewPortrait}"
                              CaptureTrigger="{Binding CapturePictureTrigger}"
                              IsVisible="{Binding IsLeftCameraVisible}"
                              CapturedImage="{Binding LeftByteArray}"

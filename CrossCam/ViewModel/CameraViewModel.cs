@@ -37,13 +37,14 @@ namespace CrossCam.ViewModel
 
         public Settings Settings { get; set; }
 
-        public bool IsPortrait { get; set; }
+        public bool IsViewPortrait { get; set; }
+        public bool WasLeftCapturePortrait { get; set; }
 
         public bool FailFadeTrigger { get; set; }
         public bool SuccessFadeTrigger { get; set; }
         public bool IsSaving { get; set; }
 
-        public Aspect PreviewAspect => Settings.FillScreenPreview && !(IsViewMode && IsPortrait) ? Aspect.AspectFill : Aspect.AspectFit;
+        public Aspect PreviewAspect => Settings.FillScreenPreview && !(IsViewMode && IsViewPortrait) ? Aspect.AspectFill : Aspect.AspectFit;
 
         public bool IsCaptureComplete => LeftByteArray != null && RightByteArray != null;
         public bool IsNothingCaptured => LeftByteArray == null && RightByteArray == null;
@@ -54,7 +55,7 @@ namespace CrossCam.ViewModel
         public bool ShouldSettingsBeVisible => IsNothingCaptured && !IsSaving && !IsViewMode;
         public bool ShouldLineGuidesBeVisible => !IsCaptureComplete && Settings.AreGuideLinesVisible;
         public bool ShouldDonutGuideBeVisible => !IsCaptureComplete && Settings.IsGuideDonutVisible;
-        public bool ShouldPortraitWarningBeVisible => ShouldHelpTextBeVisible && IsPortrait;
+        public bool ShouldPortraitWarningBeVisible => ShouldHelpTextBeVisible && IsViewPortrait;
 
         public string HelpText => "1) Face your subject straight on and frame it up in the center of the screen" + 
                                   "\n2) Place your feet shoulder-width apart and lean towards your right foot" +
@@ -78,6 +79,7 @@ namespace CrossCam.ViewModel
                 {
                     LeftImageSource = ImageSource.FromStream(() => new MemoryStream(LeftByteArray));
                     IsLeftCameraVisible = false;
+                    WasLeftCapturePortrait = IsViewPortrait;
                     if (RightByteArray == null)
                     {
                         IsRightCameraVisible = true;
@@ -139,7 +141,7 @@ namespace CrossCam.ViewModel
                 SKImage finalImage = null;
                 try
                 {
-                    if (IsPortrait &&
+                    if (WasLeftCapturePortrait &&
                         Device.RuntimePlatform == Device.iOS)
                     {
                         leftBitmap = BitmapRotate90(SKBitmap.Decode(LeftByteArray));
@@ -158,7 +160,7 @@ namespace CrossCam.ViewModel
                     }
 
                     double eachSideWidth;
-                    if (IsPortrait || !Settings.ClipLandscapeToFilledScreenPreview)
+                    if (WasLeftCapturePortrait || !Settings.ClipLandscapeToFilledScreenPreview)
                     {
                         eachSideWidth = leftBitmap.Width;
                     }
@@ -254,6 +256,7 @@ namespace CrossCam.ViewModel
             RightImageSource = null;
             IsRightCameraVisible = false;
             IsLeftCameraVisible = true;
+            WasLeftCapturePortrait = false;
         }
     }
 }

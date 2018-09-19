@@ -52,7 +52,6 @@ namespace CrossCam.iOS.CustomRenderer
                 !_isInitialized)
             {
                 SetupUserInterface();
-                SetupLiveCameraStream();
                 _isInitialized = true;
             }
 
@@ -60,6 +59,7 @@ namespace CrossCam.iOS.CustomRenderer
             {
                 if (_cameraModule.IsVisible)
                 {
+                    SetupLiveCameraStream();
                     StartPreview();
                 }
                 else
@@ -78,38 +78,37 @@ namespace CrossCam.iOS.CustomRenderer
 
             if (e.PropertyName == nameof(_cameraModule.IsFullScreenPreview))
             {
-                SetPreviewFrame();
+                SetupLiveCameraStream();
             }
         }
 
         private void SetupLiveCameraStream()
         {
-            _captureSession = new AVCaptureSession
+            if (_captureSession == null)
             {
-                SessionPreset = AVCaptureSession.PresetPhoto
-            };
+                _captureSession = new AVCaptureSession
+                {
+                    SessionPreset = AVCaptureSession.PresetPhoto
+                };
+            }
 
-            _avCaptureVideoPreviewLayer = new AVCaptureVideoPreviewLayer(_captureSession)
-            {
-                Frame = _liveCameraStream.Bounds
-            };
-            _liveCameraStream.Layer.AddSublayer(_avCaptureVideoPreviewLayer);
-
-            SetPreviewFrame();
+            SetPreviewSizing();
+            
             SetPreviewOrientation();
-            
-            var captureDevice = AVCaptureDevice.GetDefaultDevice(AVMediaTypes.Video);
-            ConfigureCameraForDevice(captureDevice);
-            
-            _photoOutput = new AVCapturePhotoOutput
+
+            if (_photoOutput == null)
             {
-                IsHighResolutionCaptureEnabled = true
-            };
+                var captureDevice = AVCaptureDevice.GetDefaultDevice(AVMediaTypes.Video);
+                ConfigureCameraForDevice(captureDevice);
 
-            _captureSession.AddOutput(_photoOutput);
-            _captureSession.AddInput(AVCaptureDeviceInput.FromDevice(captureDevice));
+                _photoOutput = new AVCapturePhotoOutput
+                {
+                    IsHighResolutionCaptureEnabled = true
+                };
 
-            _isInitialized = true;
+                _captureSession.AddOutput(_photoOutput);
+                _captureSession.AddInput(AVCaptureDeviceInput.FromDevice(captureDevice));
+            }
         }
 
         private void StartPreview()
@@ -199,7 +198,7 @@ namespace CrossCam.iOS.CustomRenderer
 
         private void SetupUserInterface()
         {
-            SetPreviewFrame();
+            SetupLiveCameraStream();
             NativeView.Add(_liveCameraStream);
             NativeView.ClipsToBounds = true;
         }
@@ -217,8 +216,7 @@ namespace CrossCam.iOS.CustomRenderer
                         if (_previousValidOrientation != UIDevice.CurrentDevice.Orientation)
                         {
                             StopPreview();
-                            SetPreviewOrientation();
-                            SetPreviewFrame();
+                            SetupLiveCameraStream();
                             switch (UIDevice.CurrentDevice.Orientation)
                             {
                                 case UIDeviceOrientation.PortraitUpsideDown:
@@ -256,43 +254,13 @@ namespace CrossCam.iOS.CustomRenderer
             }
         }
 
-        private void SetPreviewOrientation()
-        {
-            AVCaptureVideoOrientation videoOrientation = 0;
-            switch (UIDevice.CurrentDevice.Orientation)
-            {
-                case UIDeviceOrientation.Portrait:
-                    videoOrientation = AVCaptureVideoOrientation.Portrait;
-                    break;
-                case UIDeviceOrientation.LandscapeRight:
-                    videoOrientation = AVCaptureVideoOrientation.LandscapeLeft;
-                    break;
-                case UIDeviceOrientation.PortraitUpsideDown:
-                    videoOrientation = AVCaptureVideoOrientation.PortraitUpsideDown;
-                    break;
-                case UIDeviceOrientation.LandscapeLeft:
-                    videoOrientation = AVCaptureVideoOrientation.LandscapeRight;
-                    break;
-            }
-
-            if (videoOrientation != 0)
-            {
-                _avCaptureVideoPreviewLayer.Orientation = videoOrientation;
-            }
-        }
-
-        private void SetPreviewFrame()
+        private void SetPreviewSizing()
         {
             var sideHeight = NativeView.Bounds.Height;
             var sideWidth = NativeView.Bounds.Width;
 
             nfloat leftTrim;
             nfloat streamWidth = 0;
-
-            if (_liveCameraStream == null)
-            {
-                _liveCameraStream = new UIView();
-            }
 
             if (_cameraModule.IsFullScreenPreview)
             {
@@ -319,10 +287,46 @@ namespace CrossCam.iOS.CustomRenderer
                 streamWidth = sideWidth;
             }
 
-            _liveCameraStream.Frame = new CGRect(leftTrim, 0, streamWidth, sideHeight);
-            if (_avCaptureVideoPreviewLayer != null)
+            if (_liveCameraStream == null)
             {
-                _avCaptureVideoPreviewLayer.Frame = _liveCameraStream.Bounds;
+                _liveCameraStream = new UIView(new CGRect(leftTrim, 0, streamWidth, sideHeight));
+            }
+            else
+            {
+                _liveCameraStream.Frame = new CGRect(leftTrim, 0, streamWidth, sideHeight);
+            }
+
+            if (_avCaptureVideoPreviewLayer == null)
+            {
+                _avCaptureVideoPreviewLayer = new AVCaptureVideoPreviewLayer(_captureSession);
+                _liveCameraStream.Layer.AddSublayer(_avCaptureVideoPreviewLayer);
+            }
+
+            _avCaptureVideoPreviewLayer.Frame = _liveCameraStream.Bounds;
+        }
+
+        private void SetPreviewOrientation()
+        {
+            AVCaptureVideoOrientation videoOrientation = 0;
+            switch (UIDevice.CurrentDevice.Orientation)
+            {
+                case UIDeviceOrientation.Portrait:
+                    videoOrientation = AVCaptureVideoOrientation.Portrait;
+                    break;
+                case UIDeviceOrientation.LandscapeRight:
+                    videoOrientation = AVCaptureVideoOrientation.LandscapeLeft;
+                    break;
+                case UIDeviceOrientation.PortraitUpsideDown:
+                    videoOrientation = AVCaptureVideoOrientation.PortraitUpsideDown;
+                    break;
+                case UIDeviceOrientation.LandscapeLeft:
+                    videoOrientation = AVCaptureVideoOrientation.LandscapeRight;
+                    break;
+            }
+
+            if (videoOrientation != 0)
+            {
+                _avCaptureVideoPreviewLayer.Orientation = videoOrientation;
             }
         }
     }
