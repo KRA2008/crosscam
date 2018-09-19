@@ -56,8 +56,7 @@ namespace CrossCam.iOS.CustomRenderer
                 _isInitialized = true;
             }
 
-            if (_isInitialized && 
-                e.PropertyName == nameof(_cameraModule.IsVisible))
+            if (_isInitialized)
             {
                 if (_cameraModule.IsVisible)
                 {
@@ -90,6 +89,9 @@ namespace CrossCam.iOS.CustomRenderer
                 Frame = _liveCameraStream.Bounds
             };
             _liveCameraStream.Layer.AddSublayer(_avCaptureVideoPreviewLayer);
+
+            SetPreviewFrame();
+            SetPreviewOrientation();
             
             var captureDevice = AVCaptureDevice.GetDefaultDevice(AVMediaTypes.Video);
             ConfigureCameraForDevice(captureDevice);
@@ -101,6 +103,8 @@ namespace CrossCam.iOS.CustomRenderer
 
             _captureSession.AddOutput(_photoOutput);
             _captureSession.AddInput(AVCaptureDeviceInput.FromDevice(captureDevice));
+
+            _isInitialized = true;
         }
 
         private void StartPreview()
