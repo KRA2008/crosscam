@@ -141,11 +141,23 @@ namespace CrossCam.ViewModel
                 SKImage finalImage = null;
                 try
                 {
-                    leftBitmap = SKBitmap.Decode(LeftByteArray);
-                    LeftByteArray = null;
+                    if (IsPortrait &&
+                        Device.RuntimePlatform == Device.iOS)
+                    {
+                        leftBitmap = BitmapRotate90(SKBitmap.Decode(LeftByteArray));
+                        LeftByteArray = null;
 
-                    rightBitmap = SKBitmap.Decode(RightByteArray);
-                    RightByteArray = null;
+                        rightBitmap = BitmapRotate90(SKBitmap.Decode(RightByteArray));
+                        RightByteArray = null;
+                    }
+                    else
+                    {
+                        leftBitmap = SKBitmap.Decode(LeftByteArray);
+                        LeftByteArray = null;
+
+                        rightBitmap = SKBitmap.Decode(RightByteArray);
+                        RightByteArray = null;
+                    }
 
                     double eachSideWidth;
                     if (IsPortrait)
@@ -212,6 +224,20 @@ namespace CrossCam.ViewModel
 
                 ClearCaptures();
             });
+        }
+
+        private static SKBitmap BitmapRotate90(SKBitmap originalBitmap)
+        {
+            var rotated = new SKBitmap(originalBitmap.Height, originalBitmap.Width);
+
+            using (var surface = new SKCanvas(rotated))
+            {
+                surface.Translate(rotated.Width, 0);
+                surface.RotateDegrees(90);
+                surface.DrawBitmap(originalBitmap, 0, 0);
+            }
+
+            return rotated;
         }
 
         protected override void ViewIsAppearing(object sender, EventArgs e)
