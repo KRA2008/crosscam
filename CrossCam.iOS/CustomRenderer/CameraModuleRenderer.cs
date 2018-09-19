@@ -75,6 +75,11 @@ namespace CrossCam.iOS.CustomRenderer
                     CapturePhoto();
                 }
             }
+
+            if (e.PropertyName == nameof(_cameraModule.IsFullScreenPreview))
+            {
+                SetPreviewFrame();
+            }
         }
 
         private void SetupLiveCameraStream()
