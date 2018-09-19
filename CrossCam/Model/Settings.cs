@@ -7,14 +7,16 @@ namespace CrossCam.Model
         public bool AreGuideLinesVisible { get; set; }
         public bool IsGuideDonutVisible { get; set; }
         public bool SaveSidesSeparately { get; set; }
-        public bool SaveLandscapeFullWidth { get; set; }
+        public bool FillScreenPreview { get; set; }
+        public bool ClipLandscapeToFilledScreenPreview { get; set; }
 
         public Settings()
         {
             AreGuideLinesVisible = true;
             IsGuideDonutVisible = false;
             SaveSidesSeparately = false;
-            SaveLandscapeFullWidth = false;
+            FillScreenPreview = false;
+            ClipLandscapeToFilledScreenPreview = false;
         }
 
         public event PropertyChangedEventHandler PropertyChanged;

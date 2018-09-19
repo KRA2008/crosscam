@@ -44,6 +44,8 @@
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="*"/>
                 <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="Auto"/>
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
@@ -81,11 +83,21 @@
                      Grid.ColumnSpan="2"/>
             <Label Grid.Row="7"
                    Grid.Column="0"
-                   Text="Save landscape sides with full width"/>
+                   Text="Fill screen with preview"/>
             <Switch Grid.Row="7"
                     Grid.Column="1"
-                    IsToggled="{Binding Settings.SaveLandscapeFullWidth}"/>
+                    IsToggled="{Binding Settings.FillScreenPreview}"/>
             <BoxView Grid.Row="8"
+                     Grid.Column="0"
+                     Grid.ColumnSpan="2"/>
+            <Label Grid.Row="9"
+                   Grid.Column="0"
+                   Text="Clip pictures to filled screen preview width (landscape only)"/>
+            <Switch Grid.Row="9"
+                    Grid.Column="1"
+                    IsEnabled="{Binding Settings.FillScreenPreview}"
+                    IsToggled="{Binding Settings.ClipLandscapeToFilledScreenPreview}"/>
+            <BoxView Grid.Row="10"
                      Grid.Column="0"
                      Grid.ColumnSpan="2"/>
         </Grid>

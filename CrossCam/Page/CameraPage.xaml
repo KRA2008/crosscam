@@ -34,7 +34,8 @@
             </Grid.ColumnDefinitions>
             <Image Grid.Column="0"
                    Grid.Row="0"
-                   Aspect="AspectFill"
+                   HorizontalOptions="EndAndExpand"
+                   Aspect="{Binding PreviewAspect}"
                    Source="{Binding LeftImageSource}"/>
             <ce:CameraModule Grid.Column="0"
                              Grid.Row="0"
@@ -42,7 +43,8 @@
                              CaptureTrigger="{Binding CapturePictureTrigger}"
                              IsVisible="{Binding IsLeftCameraVisible}"
                              CapturedImage="{Binding LeftByteArray}"
-                             CaptureSuccess="{Binding LeftCaptureSuccess}"/>
+                             CaptureSuccess="{Binding LeftCaptureSuccess}"
+                             IsFullScreenPreview="{Binding Settings.FillScreenPreview}"/>
             <ce:CameraCaptureOutline Grid.Column="0"
                                      Grid.Row="0">
                 <ce:CameraCaptureOutline.Behaviors>
@@ -57,23 +59,24 @@
                         IsVisible="{Binding IsSaving, Converter={vc:BooleanInvertConverter}}">
                 <StackLayout Padding="10"
                              Spacing="0">
-                    <Label Text="~Landscape mode is strongly suggested~"
-                           IsVisible="{Binding IsPortrait}"/>
-                    <Label Text="~Your final picture will be full width~"
-                           IsVisible="{Binding IsPortrait}"/>
-                    <Label Text="{Binding HelpText}"/>
+                    <Label Text="~Are you sure you don't want landscape mode?~"
+                           IsVisible="{Binding ShouldPortraitWarningBeVisible}"/>
+                    <Label Text="{Binding HelpText}"
+                           IsVisible="{Binding ShouldHelpTextBeVisible}"/>
                 </StackLayout>
             </ScrollView>
             <Image Grid.Column="1"
                    Grid.Row="0"
-                   Aspect="AspectFill"
+                   HorizontalOptions="StartAndExpand"
+                   Aspect="{Binding PreviewAspect}"
                    Source="{Binding RightImageSource}"/>
             <ce:CameraModule Grid.Column="1"
                              Grid.Row="0"
                              CaptureTrigger="{Binding CapturePictureTrigger}"
                              IsVisible="{Binding IsRightCameraVisible}"
                              CapturedImage="{Binding RightByteArray}"
-                             CaptureSuccess="{Binding RightCaptureSuccess}"/>
+                             CaptureSuccess="{Binding RightCaptureSuccess}"
+                             IsFullScreenPreview="{Binding Settings.FillScreenPreview}"/>
             <ce:CameraCaptureOutline Grid.Column="1"
                                      Grid.Row="0">
                 <ce:CameraCaptureOutline.Behaviors>

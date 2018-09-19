@@ -25,6 +25,10 @@ namespace CrossCam.ViewModel
 
         private void SaveSettings(object sender, PropertyChangedEventArgs e)
         {
+            if (!Settings.FillScreenPreview)
+            {
+                Settings.ClipLandscapeToFilledScreenPreview = false;
+            }
             PersistentStorage.Save(PersistentStorage.SETTINGS_KEY, Settings);
         }
     }

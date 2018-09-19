@@ -25,8 +25,7 @@ namespace CrossCam.ViewModel
 
         public Command CapturePictureCommand { get; set; }
         public bool CapturePictureTrigger { get; set; }
-
-        public bool IsCaptureComplete { get; set; }
+        
         public Command SaveCapturesCommand { get; set; }
 
         public Command ToggleViewModeCommand { get; set; }
@@ -44,12 +43,18 @@ namespace CrossCam.ViewModel
         public bool SuccessFadeTrigger { get; set; }
         public bool IsSaving { get; set; }
 
+        public Aspect PreviewAspect => Settings.FillScreenPreview ? Aspect.AspectFill : Aspect.AspectFit;
+
+        public bool IsCaptureComplete => LeftByteArray != null && RightByteArray != null;
+        public bool IsNothingCaptured => LeftByteArray == null && RightByteArray == null;
+        public bool ShouldHelpTextBeVisible => IsNothingCaptured && !IsSaving && !IsViewMode;
         public bool ShouldLeftRetakeBeVisible => LeftByteArray != null && !IsSaving && !IsViewMode;
         public bool ShouldRightRetakeBeVisible => RightByteArray != null && !IsSaving && !IsViewMode;
         public bool ShouldEndButtonsBeVisible => IsCaptureComplete && !IsSaving && !IsViewMode;
-        public bool ShouldSettingsBeVisible => LeftByteArray == null && RightByteArray == null && !IsSaving && !IsViewMode;
+        public bool ShouldSettingsBeVisible => IsNothingCaptured && !IsSaving && !IsViewMode;
         public bool ShouldLineGuidesBeVisible => !IsCaptureComplete && Settings.AreGuideLinesVisible;
         public bool ShouldDonutGuideBeVisible => !IsCaptureComplete && Settings.IsGuideDonutVisible;
+        public bool ShouldPortraitWarningBeVisible => ShouldHelpTextBeVisible && IsPortrait;
 
         public string HelpText => "1) Face your subject straight on and frame it up in the center of the screen" + 
                                   "\n2) Place your feet shoulder-width apart and lean towards your right foot" +
@@ -77,17 +82,12 @@ namespace CrossCam.ViewModel
                     {
                         IsRightCameraVisible = true;
                     }
-                    else
-                    {
-                        IsCaptureComplete = true;
-                    }
                 }
                 else if (args.PropertyName == nameof(RightByteArray) &&
                          RightByteArray != null)
                 {
                     RightImageSource = ImageSource.FromStream(() => new MemoryStream(RightByteArray));
                     IsRightCameraVisible = false;
-                    IsCaptureComplete = true;
                 }
             };
 
@@ -95,7 +95,6 @@ namespace CrossCam.ViewModel
             {
                 IsRightCameraVisible = false;
                 IsLeftCameraVisible = true;
-                IsCaptureComplete = false;
                 LeftByteArray = null;
                 LeftImageSource = null;
             });
@@ -105,7 +104,6 @@ namespace CrossCam.ViewModel
                 if (!IsLeftCameraVisible)
                 {
                     IsRightCameraVisible = true;
-                    IsCaptureComplete = false;
                     RightByteArray = null;
                     RightImageSource = null;
                 }
@@ -160,7 +158,7 @@ namespace CrossCam.ViewModel
                     }
 
                     double eachSideWidth;
-                    if (IsPortrait)
+                    if (IsPortrait || !Settings.ClipLandscapeToFilledScreenPreview)
                     {
                         eachSideWidth = leftBitmap.Width;
                     }
@@ -243,8 +241,9 @@ namespace CrossCam.ViewModel
         protected override void ViewIsAppearing(object sender, EventArgs e)
         {
             base.ViewIsAppearing(sender, e);
-            RaisePropertyChanged(nameof(ShouldLineGuidesBeVisible));
+            RaisePropertyChanged(nameof(ShouldLineGuidesBeVisible)); //TODO: figure out how to have Fody do this
             RaisePropertyChanged(nameof(ShouldDonutGuideBeVisible));
+            RaisePropertyChanged(nameof(PreviewAspect));
         }
 
         private void ClearCaptures()
@@ -253,7 +252,6 @@ namespace CrossCam.ViewModel
             RightByteArray = null;
             LeftImageSource = null;
             RightImageSource = null;
-            IsCaptureComplete = false;
             IsRightCameraVisible = false;
             IsLeftCameraVisible = true;
         }

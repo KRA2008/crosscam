@@ -281,31 +281,38 @@ namespace CrossCam.iOS.CustomRenderer
             var sideHeight = NativeView.Bounds.Height;
             var sideWidth = NativeView.Bounds.Width;
 
-            const double IPHONE_PICTURE_ASPECT_RATIO = 4 / 3d; //iPhones do 4:3 pictures
+            nfloat leftTrim;
             nfloat streamWidth = 0;
-            switch (UIDevice.CurrentDevice.Orientation)
-            {
-                case UIDeviceOrientation.PortraitUpsideDown:
-                case UIDeviceOrientation.Portrait:
-                    _cameraModule.IsPortrait = true;
-                    streamWidth = (nfloat) (sideHeight / IPHONE_PICTURE_ASPECT_RATIO);
-                    break;
-                case UIDeviceOrientation.LandscapeLeft:
-                case UIDeviceOrientation.LandscapeRight:
-                    _cameraModule.IsPortrait = false;
-                    streamWidth = (nfloat) (sideHeight * IPHONE_PICTURE_ASPECT_RATIO); 
-                    break;
-            }
 
             if (_liveCameraStream == null)
             {
-                _liveCameraStream = new UIView()
-                {
-                    ContentMode = UIViewContentMode.Redraw
-                };
+                _liveCameraStream = new UIView();
             }
 
-            var leftTrim = (sideWidth - streamWidth) / 2f;
+            if (_cameraModule.IsFullScreenPreview)
+            {
+                const double IPHONE_PICTURE_ASPECT_RATIO = 4 / 3d; //iPhones do 4:3 pictures
+                switch (UIDevice.CurrentDevice.Orientation)
+                {
+                    case UIDeviceOrientation.PortraitUpsideDown:
+                    case UIDeviceOrientation.Portrait:
+                        _cameraModule.IsPortrait = true;
+                        streamWidth = (nfloat)(sideHeight / IPHONE_PICTURE_ASPECT_RATIO);
+                        break;
+                    case UIDeviceOrientation.LandscapeLeft:
+                    case UIDeviceOrientation.LandscapeRight:
+                        _cameraModule.IsPortrait = false;
+                        streamWidth = (nfloat)(sideHeight * IPHONE_PICTURE_ASPECT_RATIO);
+                        break;
+                }
+
+                leftTrim = (sideWidth - streamWidth) / 2f;
+            }
+            else
+            {
+                leftTrim = 0;
+                streamWidth = sideWidth;
+            }
 
             _liveCameraStream.Frame = new CGRect(leftTrim, 0, streamWidth, sideHeight);
             if (_avCaptureVideoPreviewLayer != null)
