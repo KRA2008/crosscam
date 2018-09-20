@@ -9,7 +9,7 @@
 	<key>CFBundleShortVersionString</key>
 	<string>1.0</string>
 	<key>CFBundleVersion</key>
-	<string>1.0</string>
+	<string>1.1</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 	<key>MinimumOSVersion</key>
@@ -23,13 +23,15 @@
 	<array>
 		<string>still-camera</string>
 	</array>
-	<key>CFBundleIconFiles</key>
-	<array>
-		<string>Icon-60@2x</string>
-		<string>Icon-76</string>
-		<string>Icon-76@2x</string>
-		<string>Icon-167</string>
-	</array>
+  <key>CFBundleIconFiles</key>
+  <array>
+    <string>Icon-60@2x</string>
+    <string>Icon-76</string>
+    <string>Icon-76@2x</string>
+    <string>Icon-167</string>
+  </array>
+  <key>CFBundleIconName</key>
+	  <string>appicon</string>
 	<key>UISupportedInterfaceOrientations</key>
 	<array>
 		<string>UIInterfaceOrientationPortrait</string>
