@@ -5,6 +5,7 @@ using Android.Content.PM;
 using Android.OS;
 using Android.Support.V4.App;
 using Android.Support.V4.Content;
+using Android.Support.V7.Widget;
 using Android.Views;
 using Java.Lang;
 using Xamarin.Forms;
