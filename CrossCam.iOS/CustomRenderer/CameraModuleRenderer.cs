@@ -21,6 +21,8 @@ namespace CrossCam.iOS.CustomRenderer
         private bool _isInitialized;
         private AVCaptureVideoPreviewLayer _avCaptureVideoPreviewLayer;
         private UIDeviceOrientation? _previousValidOrientation;
+        private nfloat _leftTrim;
+        private nfloat _streamWidth;
 
         public CameraModuleRenderer()
         {
@@ -259,41 +261,50 @@ namespace CrossCam.iOS.CustomRenderer
             var sideHeight = NativeView.Bounds.Height;
             var sideWidth = NativeView.Bounds.Width;
 
-            nfloat leftTrim;
-            nfloat streamWidth = 0;
+            var orientationForSizing = UIDeviceOrientation.Portrait;
+            if (UIDevice.CurrentDevice.Orientation == UIDeviceOrientation.Portrait ||
+                UIDevice.CurrentDevice.Orientation == UIDeviceOrientation.PortraitUpsideDown ||
+                UIDevice.CurrentDevice.Orientation == UIDeviceOrientation.LandscapeLeft ||
+                UIDevice.CurrentDevice.Orientation == UIDeviceOrientation.LandscapeRight)
+            {
+                orientationForSizing = UIDevice.CurrentDevice.Orientation;
+            } else if (_previousValidOrientation.HasValue)
+            {
+                orientationForSizing = _previousValidOrientation.Value;
+            }
 
             if (_cameraModule.IsFullScreenPreview)
             {
                 const double IPHONE_PICTURE_ASPECT_RATIO = 4 / 3d; //iPhones do 4:3 pictures
-                switch (UIDevice.CurrentDevice.Orientation)
+                switch (orientationForSizing)
                 {
                     case UIDeviceOrientation.PortraitUpsideDown:
                     case UIDeviceOrientation.Portrait:
                         _cameraModule.IsPortrait = true;
-                        streamWidth = (nfloat)(sideHeight / IPHONE_PICTURE_ASPECT_RATIO);
+                        _streamWidth = (nfloat)(sideHeight / IPHONE_PICTURE_ASPECT_RATIO);
                         break;
                     case UIDeviceOrientation.LandscapeLeft:
                     case UIDeviceOrientation.LandscapeRight:
                         _cameraModule.IsPortrait = false;
-                        streamWidth = (nfloat)(sideHeight * IPHONE_PICTURE_ASPECT_RATIO);
+                        _streamWidth = (nfloat)(sideHeight * IPHONE_PICTURE_ASPECT_RATIO);
                         break;
                 }
 
-                leftTrim = (sideWidth - streamWidth) / 2f;
+                _leftTrim = (sideWidth - _streamWidth) / 2f;
             }
             else
             {
-                leftTrim = 0;
-                streamWidth = sideWidth;
+                _leftTrim = 0;
+                _streamWidth = sideWidth;
             }
 
             if (_liveCameraStream == null)
             {
-                _liveCameraStream = new UIView(new CGRect(leftTrim, 0, streamWidth, sideHeight));
+                _liveCameraStream = new UIView(new CGRect(_leftTrim, 0, _streamWidth, sideHeight));
             }
             else
             {
-                _liveCameraStream.Frame = new CGRect(leftTrim, 0, streamWidth, sideHeight);
+                _liveCameraStream.Frame = new CGRect(_leftTrim, 0, _streamWidth, sideHeight);
             }
 
             if (_avCaptureVideoPreviewLayer == null)
