@@ -17,6 +17,9 @@
             <Rectangle x:Key="_captureRectangle">0.5,1,0.25,0.33</Rectangle>
             <Thickness x:Key="_cancelPadding">10,10,10,10</Thickness>
             <Thickness x:Key="_reticlePadding">10</Thickness>
+            <Thickness x:Key="_linePadding">0,10,0,10</Thickness>
+            <Rectangle x:Key="_upperLineBounds">0,0.25,1,21</Rectangle>
+            <Rectangle x:Key="_lowerLineBounds">0,0.75,1,21</Rectangle>
         </ResourceDictionary>
     </ContentPage.Resources>
     <AbsoluteLayout>
@@ -118,16 +121,15 @@
         </ContentView>
         <BoxView x:Name="_upperLine" 
                      AbsoluteLayout.LayoutFlags="YProportional,WidthProportional"
-                     AbsoluteLayout.LayoutBounds="0, 0.25, 1, 15"
-                     Margin="0, 7, 0, 7"
-                     Opacity="0.5"
-                     InputTransparent="True" 
+                     AbsoluteLayout.LayoutBounds="{DynamicResource _upperLineBounds}"
+                     Margin="{DynamicResource _linePadding}"
+                     InputTransparent="True"
                      BackgroundColor="White"
                      IsVisible="{Binding ShouldLineGuidesBeVisible}"/>
-        <ContentView x:Name="_upperLinePanner" 
+        <ContentView x:Name="_upperLinePanner"
                      AbsoluteLayout.LayoutFlags="YProportional,WidthProportional"
-                     AbsoluteLayout.LayoutBounds="0, 0.25, 1, 15"
-                     Padding="0, 7, 0, 7"
+                     AbsoluteLayout.LayoutBounds="{DynamicResource _upperLineBounds}"
+                     Padding="{DynamicResource _linePadding}"
                      IsVisible="{Binding ShouldLineGuidesBeVisible}">
             <ContentView.GestureRecognizers>
                 <PanGestureRecognizer PanUpdated="UpperLinePanned"/>
@@ -135,15 +137,15 @@
         </ContentView>
         <BoxView x:Name="_lowerLine"
                  AbsoluteLayout.LayoutFlags="YProportional,WidthProportional"
-                 AbsoluteLayout.LayoutBounds="0, 0.75, 1, 15"
-                 BackgroundColor="White" 
-                 Margin="0, 7, 0, 7"
-                 Opacity="0.5"
+                 AbsoluteLayout.LayoutBounds="{DynamicResource _lowerLineBounds}"
+                 InputTransparent="True"
+                 BackgroundColor="White"
+                 Margin="{DynamicResource _linePadding}"
                  IsVisible="{Binding ShouldLineGuidesBeVisible}"/>
         <ContentView x:Name="_lowerLinePanner"
                      AbsoluteLayout.LayoutFlags="YProportional,WidthProportional"
-                     AbsoluteLayout.LayoutBounds="0, 0.75, 1, 15"
-                     Padding="0, 7, 0, 7"
+                     AbsoluteLayout.LayoutBounds="{DynamicResource _lowerLineBounds}"
+                     Padding="{DynamicResource _linePadding}"
                      IsVisible="{Binding ShouldLineGuidesBeVisible}">
             <ContentView.GestureRecognizers>
                 <PanGestureRecognizer PanUpdated="LowerLinePanned"/>
