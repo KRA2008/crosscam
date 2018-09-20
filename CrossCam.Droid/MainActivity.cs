@@ -41,37 +41,57 @@ namespace CrossCam.Droid
 
             Forms.Init(this, bundle);
 
-            if (ContextCompat.CheckSelfPermission(Forms.Context, Manifest.Permission.Camera) != (int)Permission.Granted)
+            if (Build.VERSION.SdkInt >= BuildVersionCodes.M)
             {
-                ActivityCompat.RequestPermissions(Instance, new[] { Manifest.Permission.Camera }, CAMERA_PERMISSION_REQUEST_CODE);
-            }
-        }
-
-        public override void OnRequestPermissionsResult(int requestCode, string[] permissions, Permission[] grantResults)
-        {
-            base.OnRequestPermissionsResult(requestCode, permissions, grantResults);
-            if (requestCode == CAMERA_PERMISSION_REQUEST_CODE && 
-                grantResults.Contains(Permission.Granted))
-            {
-                if (ContextCompat.CheckSelfPermission(Forms.Context, Manifest.Permission.WriteExternalStorage) != (int)Permission.Granted)
+                if (ContextCompat.CheckSelfPermission(Forms.Context, Manifest.Permission.Camera) != (int)Permission.Granted)
                 {
-                    ActivityCompat.RequestPermissions(Instance, new[] { Manifest.Permission.WriteExternalStorage }, WRITE_TO_STORAGE_REQUEST_CODE);
+                    ActivityCompat.RequestPermissions(Instance, new[] { Manifest.Permission.Camera }, CAMERA_PERMISSION_REQUEST_CODE);
                 }
                 else
                 {
                     LoadApplication(new App());
                 }
             }
-            else if (requestCode == WRITE_TO_STORAGE_REQUEST_CODE && 
-                     grantResults.Contains(Permission.Granted))
+            else
             {
                 LoadApplication(new App());
             }
-            else
+        }
+
+        public override void OnRequestPermissionsResult(int requestCode, string[] permissions, Permission[] grantResults)
+        {
+            base.OnRequestPermissionsResult(requestCode, permissions, grantResults);
+            if (requestCode == CAMERA_PERMISSION_REQUEST_CODE)
             {
-                JavaSystem.Exit(0);
+                if (grantResults.Contains(Permission.Granted))
+                {
+                    if (ContextCompat.CheckSelfPermission(Forms.Context, Manifest.Permission.WriteExternalStorage) !=
+                        (int) Permission.Granted)
+                    {
+                        ActivityCompat.RequestPermissions(Instance, new[] {Manifest.Permission.WriteExternalStorage},
+                            WRITE_TO_STORAGE_REQUEST_CODE);
+                    }
+                    else
+                    {
+                        LoadApplication(new App());
+                    }
+                }
+                else
+                {
+                    JavaSystem.Exit(0);
+                }
+            }
+            else if (requestCode == WRITE_TO_STORAGE_REQUEST_CODE)
+            {
+                if (grantResults.Contains(Permission.Granted))
+                {
+                    LoadApplication(new App());
+                }
+                else
+                {
+                    JavaSystem.Exit(0);
+                }
             }
         }
     }
 }
-

@@ -120,12 +120,12 @@
                    Opacity="0.5"/>
         </ContentView>
         <BoxView x:Name="_upperLine" 
-                     AbsoluteLayout.LayoutFlags="YProportional,WidthProportional"
-                     AbsoluteLayout.LayoutBounds="{DynamicResource _upperLineBounds}"
-                     Margin="{DynamicResource _linePadding}"
-                     InputTransparent="True"
-                     BackgroundColor="White"
-                     IsVisible="{Binding ShouldLineGuidesBeVisible}"/>
+                 AbsoluteLayout.LayoutFlags="YProportional,WidthProportional"
+                 AbsoluteLayout.LayoutBounds="{DynamicResource _upperLineBounds}"
+                 Margin="{DynamicResource _linePadding}"
+                 InputTransparent="True"
+                 BackgroundColor="White"
+                 IsVisible="{Binding ShouldLineGuidesBeVisible}"/>
         <ContentView x:Name="_upperLinePanner"
                      AbsoluteLayout.LayoutFlags="YProportional,WidthProportional"
                      AbsoluteLayout.LayoutBounds="{DynamicResource _upperLineBounds}"
@@ -152,12 +152,12 @@
             </ContentView.GestureRecognizers>
         </ContentView>
         <Image x:Name="_leftReticle"
-                   AbsoluteLayout.LayoutFlags="All"
-                   AbsoluteLayout.LayoutBounds="0.2297, 0.5, 0.075, 0.075"
-                   Margin="{DynamicResource _reticlePadding}"
-                   InputTransparent="True" 
-                   Source="squareOuter"
-                   IsVisible="{Binding ShouldDonutGuideBeVisible}"/>
+               AbsoluteLayout.LayoutFlags="All"
+               AbsoluteLayout.LayoutBounds="0.2297, 0.5, 0.075, 0.075"
+               Margin="{DynamicResource _reticlePadding}"
+               InputTransparent="True" 
+               Source="squareOuter"
+               IsVisible="{Binding ShouldDonutGuideBeVisible}"/>
         <ContentView x:Name="_leftReticlePanner"
                      AbsoluteLayout.LayoutFlags="All"
                      AbsoluteLayout.LayoutBounds="0.2297, 0.5, 0.075, 0.075"
