@@ -59,7 +59,7 @@ namespace CrossCam.iOS.CustomRenderer
             {
                 if (_cameraModule.IsVisible)
                 {
-                    SetupLiveCameraStream();
+                    SetupCamera();
                     StartPreview();
                 }
                 else
@@ -78,11 +78,11 @@ namespace CrossCam.iOS.CustomRenderer
 
             if (e.PropertyName == nameof(_cameraModule.IsFullScreenPreview))
             {
-                SetupLiveCameraStream();
+                SetupCamera();
             }
         }
 
-        private void SetupLiveCameraStream()
+        private void SetupCamera()
         {
             if (_captureSession == null)
             {
@@ -198,7 +198,7 @@ namespace CrossCam.iOS.CustomRenderer
 
         private void SetupUserInterface()
         {
-            SetupLiveCameraStream();
+            SetupCamera();
             NativeView.Add(_liveCameraStream);
             NativeView.ClipsToBounds = true;
         }
@@ -216,7 +216,7 @@ namespace CrossCam.iOS.CustomRenderer
                         if (_previousValidOrientation != UIDevice.CurrentDevice.Orientation)
                         {
                             StopPreview();
-                            SetupLiveCameraStream();
+                            SetupCamera();
                             switch (UIDevice.CurrentDevice.Orientation)
                             {
                                 case UIDeviceOrientation.PortraitUpsideDown:

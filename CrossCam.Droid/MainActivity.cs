@@ -1,7 +1,11 @@
-﻿using Android.App;
+﻿using Android;
+using Android.App;
 using Android.Content.PM;
 using Android.OS;
+using Android.Support.V4.App;
+using Android.Support.V4.Content;
 using Android.Views;
+using Xamarin.Forms;
 
 namespace CrossCam.Droid
 {
@@ -29,7 +33,13 @@ namespace CrossCam.Droid
             OrientationHelper.Enable();
 
             Instance = this;
-            Xamarin.Forms.Forms.Init(this, bundle);
+
+            Forms.Init(this, bundle);
+
+            if (ContextCompat.CheckSelfPermission(Forms.Context, Manifest.Permission.Camera) != (int)Permission.Granted)
+            {
+                ActivityCompat.RequestPermissions(Instance, new[] { Manifest.Permission.Camera }, 50);
+            }
             LoadApplication(new App());
         }
     }

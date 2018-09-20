@@ -1,14 +1,10 @@
 ﻿using System;
 using System.ComponentModel;
 using System.Linq;
-using Android;
 using Android.App;
 using Android.Content;
-using Android.Content.PM;
 using Android.Graphics;
 using Android.Hardware;
-using Android.Support.V4.App;
-using Android.Support.V4.Content;
 using Android.Util;
 using Android.Views;
 using Android.Widget;
@@ -35,15 +31,15 @@ namespace CrossCam.Droid.CustomRenderer
 
         private static Camera.Size _previewSize;
         private static Camera.Size _pictureSize;
-        
-        private bool _isRunning;
+
         private bool _isSurfaceAvailable;
+        private bool _isRunning;
 
         public CameraModuleRenderer(Context context) : base(context)
         {
             MainActivity.Instance.OrientationHelper.OrientationChanged += (sender, args) =>
             {
-                SetOrientation();
+                OrientationChanged();
             };
         }
 
@@ -71,20 +67,24 @@ namespace CrossCam.Droid.CustomRenderer
 
             if (e.PropertyName == nameof(_cameraModule.IsVisible))
             {
-                if (_camera != null)
+                if (!_cameraModule.IsVisible)
                 {
-                    if (!_cameraModule.IsVisible)
+                    StopCamera();
+                }
+                else
+                {
+                    if (_isSurfaceAvailable)
                     {
-                        StopCamera();
-                    }
-                    else
-                    {
-                        if (_isSurfaceAvailable)
-                        {
-                            PrepareAndStartCamera();
-                        }
+                        SetupCamera();
+                        StartCamera();
                     }
                 }
+            }
+
+            if (e.PropertyName == nameof(_cameraModule.Width) ||
+                e.PropertyName == nameof(_cameraModule.Height))
+            {
+                OrientationChanged();
             }
 
             if (e.PropertyName == nameof(_cameraModule.CaptureTrigger))
@@ -92,6 +92,14 @@ namespace CrossCam.Droid.CustomRenderer
                 if (_cameraModule.IsVisible)
                 {
                     TakePhotoButtonTapped();
+                }
+            }
+
+            if (e.PropertyName == nameof(_cameraModule.IsFullScreenPreview))
+            {
+                if (_isSurfaceAvailable && _isRunning)
+                {
+                    SetupCamera();
                 }
             }
         }
@@ -125,9 +133,10 @@ namespace CrossCam.Droid.CustomRenderer
         {
             _textureView.LayoutParameters = new FrameLayout.LayoutParams(width, height);
             _surfaceTexture = surface;
-            _isSurfaceAvailable = true;
 
-            PrepareAndStartCamera(surface);
+            SetupCamera(surface);
+            _isSurfaceAvailable = true;
+            StartCamera();
         }
 
         public bool OnSurfaceTextureDestroyed(SurfaceTexture surface)
@@ -145,9 +154,19 @@ namespace CrossCam.Droid.CustomRenderer
                 {
                     _camera.StopPreview();
                     _camera.Release();
+                    _camera = null;
                 }
 
                 _isRunning = false;
+            }
+        }
+
+        private void StartCamera()
+        {
+            if (!_isRunning)
+            {
+                _camera?.StartPreview();
+                _isRunning = true;
             }
         }
 
@@ -155,38 +174,27 @@ namespace CrossCam.Droid.CustomRenderer
         {
         }
 
-        private void PrepareAndStartCamera(SurfaceTexture surface = null)
+        private void SetupCamera(SurfaceTexture surface = null)
         {
-            if (ContextCompat.CheckSelfPermission(Forms.Context, Manifest.Permission.Camera) != (int)Permission.Granted)
+            if (_camera == null)
             {
-                ActivityCompat.RequestPermissions(MainActivity.Instance, new[] { Manifest.Permission.Camera }, 50);
-            }
+                _camera = Camera.Open((int)_cameraType);
 
-            _camera = Camera.Open((int)_cameraType);
-
-            for (var ii = 0; ii < Camera.NumberOfCameras - 1; ii++)
-            {
-                var info = new Camera.CameraInfo();
-                Camera.GetCameraInfo(ii, info);
-                if (info.CanDisableShutterSound)
+                for (var ii = 0; ii < Camera.NumberOfCameras - 1; ii++)
                 {
-                    _camera.EnableShutterSound(false);
+                    var info = new Camera.CameraInfo();
+                    Camera.GetCameraInfo(ii, info);
+                    if (info.CanDisableShutterSound)
+                    {
+                        _camera.EnableShutterSound(false);
+                    }
                 }
-            }
 
-            if (surface != null)
-            {
-                _surfaceTexture = surface;
-            }
+                var parameters = _camera.GetParameters();
+                parameters.FlashMode = Camera.Parameters.FlashModeOff;
+                parameters.VideoStabilization = false;
+                parameters.JpegQuality = 100;
 
-            var parameters = _camera.GetParameters();
-            parameters.FlashMode = Camera.Parameters.FlashModeOff;
-            parameters.VideoStabilization = false;
-            parameters.JpegQuality = 100;
-
-            if (_pictureSize == null ||
-                _previewSize == null)
-            {
                 var landscapePictureDescendingSizes = parameters
                     .SupportedPictureSizes
                     .Where(p => p.Width > p.Height)
@@ -222,77 +230,110 @@ namespace CrossCam.Droid.CustomRenderer
                     _pictureSize = landscapePictureDescendingSizes.First();
                     _previewSize = landscapePreviewDescendingSizes.First();
                 }
+
+                parameters.SetPictureSize(_pictureSize.Width, _pictureSize.Height);
+                parameters.SetPreviewSize(_previewSize.Width, _previewSize.Height);
+
+                _camera.SetParameters(parameters);
+                _camera.SetPreviewTexture(_surfaceTexture);
             }
 
-            parameters.SetPictureSize(_pictureSize.Width, _pictureSize.Height);
-            parameters.SetPreviewSize(_previewSize.Width, _previewSize.Height);
-
-            _camera.SetParameters(parameters);
-            _camera.SetPreviewTexture(_surfaceTexture);
-
-            _isRunning = true;
+            if (surface != null)
+            {
+                _surfaceTexture = surface;
+            }
+            
             SetOrientation();
+        }
 
-            _camera.StartPreview();
+        private void OrientationChanged()
+        {
+            if (_isSurfaceAvailable && _isRunning)
+            {
+                SetOrientation();
+            }
         }
 
         private void SetOrientation()
         {
-            if (_isRunning)
-            {
-                var metrics = new DisplayMetrics();
-                Display.GetMetrics(metrics);
+            var metrics = new DisplayMetrics();
+            Display.GetMetrics(metrics);
+            
+            var moduleWidth = _cameraModule.Width * metrics.Density;
+            var moduleHeight = _cameraModule.Height * metrics.Density;
 
-                var moduleHeight = _cameraModule.Height * metrics.Density;
-                var moduleWidth = _cameraModule.Width * metrics.Density;
+            if (_cameraModule.IsFullScreenPreview)
+            {
                 double proportionalPreviewWidth;
-                double leftTrim;
                 switch (Display.Rotation)
                 {
                     case SurfaceOrientation.Rotation0: //portraits
                     case SurfaceOrientation.Rotation180:
                         _cameraModule.IsPortrait = true;
                         proportionalPreviewWidth = _previewSize.Height * moduleHeight / _previewSize.Width;
-                        leftTrim = (proportionalPreviewWidth - moduleWidth) / 2;
                         break;
                     default: //landscapes
                         _cameraModule.IsPortrait = false;
                         proportionalPreviewWidth = _previewSize.Width * moduleHeight / _previewSize.Height;
-                        leftTrim = (proportionalPreviewWidth - moduleWidth) / 2;
+                        break;
+                }
+                var leftTrim = (proportionalPreviewWidth - moduleWidth) / 2f;
+
+                _textureView.SetX((float)(-1f * leftTrim));
+                _textureView.SetY(0);
+                _textureView.LayoutParameters = new FrameLayout.LayoutParams((int)Math.Round(proportionalPreviewWidth),
+                    (int)Math.Round(moduleHeight));
+            }
+            else
+            {
+                double proportionalPreviewHeight;
+                switch (Display.Rotation)
+                {
+                    case SurfaceOrientation.Rotation0: //portraits
+                    case SurfaceOrientation.Rotation180:
+                        _cameraModule.IsPortrait = true;
+                        proportionalPreviewHeight = _previewSize.Width * moduleWidth / _previewSize.Height;
+                        break;
+                    default: //landscapes
+                        _cameraModule.IsPortrait = false;
+                        proportionalPreviewHeight = _previewSize.Height * moduleWidth / _previewSize.Width;
                         break;
                 }
 
-                _textureView.SetX((float)(-1 * leftTrim));
+                var verticalOffset = (moduleHeight - proportionalPreviewHeight) / 2f;
 
-                _textureView.LayoutParameters = new FrameLayout.LayoutParams((int)Math.Round(proportionalPreviewWidth),
-                    (int)Math.Round(moduleHeight));
+                _textureView.SetX(0);
+                _textureView.SetY((float)verticalOffset);
 
-                var parameters = _camera.GetParameters();
-
-                var display = _activity.WindowManager.DefaultDisplay;
-                if (display.Rotation == SurfaceOrientation.Rotation0) // portrait
-                {
-                    _camera.SetDisplayOrientation(90);
-                    parameters.SetRotation(90);
-                }
-                else if (display.Rotation == SurfaceOrientation.Rotation90)
-                {
-                    _camera.SetDisplayOrientation(0);
-                    parameters.SetRotation(0);
-                }
-                else if (display.Rotation == SurfaceOrientation.Rotation180) // portrait
-                {
-                    _camera.SetDisplayOrientation(270);
-                    parameters.SetRotation(270);
-                }
-                else if (display.Rotation == SurfaceOrientation.Rotation270)
-                {
-                    _camera.SetDisplayOrientation(180);
-                    parameters.SetRotation(180);
-                }
-
-                _camera.SetParameters(parameters);
+                _textureView.LayoutParameters = new FrameLayout.LayoutParams((int) Math.Round(moduleWidth),
+                    (int)Math.Round(proportionalPreviewHeight));
             }
+
+            var parameters = _camera.GetParameters();
+
+            var display = _activity.WindowManager.DefaultDisplay;
+            if (display.Rotation == SurfaceOrientation.Rotation0) // portrait
+            {
+                _camera.SetDisplayOrientation(90);
+                parameters.SetRotation(90);
+            }
+            else if (display.Rotation == SurfaceOrientation.Rotation90)
+            {
+                _camera.SetDisplayOrientation(0);
+                parameters.SetRotation(0);
+            }
+            else if (display.Rotation == SurfaceOrientation.Rotation180) // portrait
+            {
+                _camera.SetDisplayOrientation(270);
+                parameters.SetRotation(270);
+            }
+            else if (display.Rotation == SurfaceOrientation.Rotation270)
+            {
+                _camera.SetDisplayOrientation(180);
+                parameters.SetRotation(180);
+            }
+
+            _camera.SetParameters(parameters);
         }
 
         private void TakePhotoButtonTapped()
