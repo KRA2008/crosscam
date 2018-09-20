@@ -15,10 +15,10 @@ namespace CrossCam.Droid
         Label = "CrossCam", 
         Icon = "@drawable/icon", 
         Theme = "@style/MainTheme",
-        MainLauncher = true,
+        MainLauncher = false,
         ConfigurationChanges = ConfigChanges.ScreenSize | ConfigChanges.Orientation,
         ScreenOrientation = ScreenOrientation.Sensor)]
-    public class MainActivity : Xamarin.Forms.Platform.Android.FormsAppCompatActivity, ActivityCompat.IOnRequestPermissionsResultCallback
+    public class MainActivity : Xamarin.Forms.Platform.Android.FormsAppCompatActivity
     {
         public OrientationHelper OrientationHelper;
 
