@@ -57,13 +57,12 @@ namespace CrossCam.ViewModel
         public bool ShouldDonutGuideBeVisible => !IsCaptureComplete && Settings.IsGuideDonutVisible;
         public bool ShouldPortraitWarningBeVisible => ShouldHelpTextBeVisible && IsViewPortrait;
 
-        public string HelpText => "1) Face your subject straight on and frame it up in the center of the screen" + 
-                                  "\n2) Place your feet shoulder-width apart and lean towards your right foot" +
-                                  "\n3) Drag the horizontal guide lines over some recognizable features of the subject" +
-                                  "\n4) Take the left picture (but finish reading these directions first)" +
-                                  "\n5) A preview for the right picture will take the place of this text => start cross viewing" + 
-                                  "\n6) While keeping the subject centered on the screen and the horizontal guide lines over the same features on the right as they are on the left, begin shifting your weight to lean towards your left foot" +
-                                  "\n7) Take the right picture when the desired level of 3D is achieved";
+        public string HelpText => "1) Frame up your subject in the center of the screen" + 
+                                  "\n2) Drag the horizontal guide lines over some recognizable features of the subject" +
+                                  "\n3) Take the left picture (but finish reading these directions first)" +
+                                  "\n4) A preview for the right picture will take the place of this text => start cross viewing" + 
+                                  "\n5) While keeping the subject centered on the screen and the horizontal guide lines over the same features on the right as they are on the left, begin moving left" +
+                                  "\n6) Take the right picture when the desired level of 3D is achieved";
 
         public CameraViewModel()
         {
