@@ -48,13 +48,14 @@ namespace CrossCam.ViewModel
 
         public bool IsCaptureComplete => LeftByteArray != null && RightByteArray != null;
         public bool IsNothingCaptured => LeftByteArray == null && RightByteArray == null;
+        public bool ShouldCaptureButtonBeVisible => !IsCaptureComplete && !IsSaving && !IsViewMode;
         public bool ShouldHelpTextBeVisible => IsNothingCaptured && !IsSaving && !IsViewMode;
         public bool ShouldLeftRetakeBeVisible => LeftByteArray != null && !IsSaving && !IsViewMode;
         public bool ShouldRightRetakeBeVisible => RightByteArray != null && !IsSaving && !IsViewMode;
         public bool ShouldEndButtonsBeVisible => IsCaptureComplete && !IsSaving && !IsViewMode;
         public bool ShouldSettingsBeVisible => IsNothingCaptured && !IsSaving && !IsViewMode;
-        public bool ShouldLineGuidesBeVisible => !IsCaptureComplete && Settings.AreGuideLinesVisible;
-        public bool ShouldDonutGuideBeVisible => !IsCaptureComplete && Settings.IsGuideDonutVisible;
+        public bool ShouldLineGuidesBeVisible => !IsCaptureComplete && Settings.AreGuideLinesVisible && !IsSaving && !IsViewMode;
+        public bool ShouldDonutGuideBeVisible => !IsCaptureComplete && Settings.IsGuideDonutVisible && !IsSaving && !IsViewMode;
         public bool ShouldPortraitWarningBeVisible => ShouldHelpTextBeVisible && IsViewPortrait;
 
         public string HelpText => "1) Frame up your subject in the center of the screen" + 
@@ -137,7 +138,12 @@ namespace CrossCam.ViewModel
 
                 SKBitmap leftBitmap = null;
                 SKBitmap rightBitmap = null;
+                SKImage leftSkImage = null;
+                SKImage rightSkImage = null;
                 SKImage finalImage = null;
+                byte[] finalJoinedImageBytes;
+                byte[] rightFinalImageBytes;
+                byte[] leftFinalImageBytes;
                 try
                 {
                     if (WasLeftCapturePortrait &&
@@ -182,38 +188,87 @@ namespace CrossCam.ViewModel
 
                     var imageLeftTrimWidth = (leftBitmap.Width - eachSideWidth) / 2d;
 
-                    var finalImageWidth = eachSideWidth * 2;
+                    var floatedTrim = (float)imageLeftTrimWidth;
+                    var floatedWidth = (float)eachSideWidth;
 
-                    using (var tempSurface = SKSurface.Create(new SKImageInfo((int)finalImageWidth, leftBitmap.Height)))
+                    bool didSave;
+
+                    if (!Settings.SaveSidesSeparately)
                     {
-                        var canvas = tempSurface.Canvas;
-                        
-                        canvas.Clear(SKColors.Transparent);
+                        var finalImageWidth = eachSideWidth * 2;
 
-                        var floatedTrim = (float)imageLeftTrimWidth;
-                        var floatedWidth = (float)eachSideWidth;
+                        using (var tempSurface = SKSurface.Create(new SKImageInfo((int)finalImageWidth, leftBitmap.Height)))
+                        {
+                            var canvas = tempSurface.Canvas;
 
-                        canvas.DrawBitmap(leftBitmap,
-                            SKRect.Create(floatedTrim, 0, floatedWidth, leftBitmap.Height),
-                            SKRect.Create(0, 0, floatedWidth, leftBitmap.Height));
-                        canvas.DrawBitmap(rightBitmap,
-                            SKRect.Create(floatedTrim, 0, floatedWidth, leftBitmap.Height),
-                            SKRect.Create(floatedWidth, 0, floatedWidth, leftBitmap.Height));
+                            canvas.Clear(SKColors.Transparent);
 
-                        finalImage = tempSurface.Snapshot();
+                            canvas.DrawBitmap(leftBitmap,
+                                SKRect.Create(floatedTrim, 0, floatedWidth, leftBitmap.Height),
+                                SKRect.Create(0, 0, floatedWidth, leftBitmap.Height));
+                            canvas.DrawBitmap(rightBitmap,
+                                SKRect.Create(floatedTrim, 0, floatedWidth, leftBitmap.Height),
+                                SKRect.Create(floatedWidth, 0, floatedWidth, leftBitmap.Height));
+
+                            finalImage = tempSurface.Snapshot();
+                        }
+
+                        leftBitmap.Dispose();
+                        rightBitmap.Dispose();
+
+                        using (var encoded = finalImage.Encode(SKEncodedImageFormat.Jpeg, 100))
+                        {
+                            finalJoinedImageBytes = encoded.ToArray();
+                        }
+
+                        finalImage.Dispose();
+
+                        didSave = await photoSaver.SavePhoto(finalJoinedImageBytes);
+                    }
+                    else
+                    {
+                        using (var tempsurface =
+                            SKSurface.Create(new SKImageInfo((int) floatedWidth, leftBitmap.Height)))
+                        {
+                            var canvas = tempsurface.Canvas;
+
+                            canvas.Clear(SKColors.Transparent);
+
+                            canvas.DrawBitmap(leftBitmap,
+                                SKRect.Create(floatedTrim, 0, floatedWidth, leftBitmap.Height),
+                                SKRect.Create(0, 0, floatedWidth, leftBitmap.Height));
+
+                            leftSkImage = tempsurface.Snapshot();
+
+                            canvas.Clear(SKColors.Transparent);
+
+                            canvas.DrawBitmap(rightBitmap,
+                                SKRect.Create(floatedTrim, 0, floatedWidth, rightBitmap.Height),
+                                SKRect.Create(0, 0, floatedWidth, rightBitmap.Height));
+
+                            rightSkImage = tempsurface.Snapshot();
+
+                        }
+                        rightBitmap.Dispose();
+                        leftBitmap.Dispose();
+
+                        using (var encoded = leftSkImage.Encode(SKEncodedImageFormat.Jpeg, 100))
+                        {
+                            leftFinalImageBytes = encoded.ToArray();
+                        }
+
+                        didSave = await photoSaver.SavePhoto(leftFinalImageBytes);
+                        leftFinalImageBytes = null; //TODO: need these? and the others?
+
+                        using (var encoded = rightSkImage.Encode(SKEncodedImageFormat.Jpeg, 100))
+                        {
+                            rightFinalImageBytes = encoded.ToArray();
+                        }
+
+                        didSave = didSave && await photoSaver.SavePhoto(rightFinalImageBytes);
+                        rightFinalImageBytes = null;
                     }
 
-                    byte[] finalImageByteArray;
-                    using (var encoded = finalImage.Encode(SKEncodedImageFormat.Jpeg, 100))
-                    {
-                        finalImageByteArray = encoded.ToArray();
-                    }
-
-                    finalImage.Dispose();
-                    leftBitmap.Dispose();
-                    rightBitmap.Dispose();
-
-                    var didSave = await photoSaver.SavePhoto(finalImageByteArray);
                     IsSaving = false;
 
                     if (didSave)
@@ -227,9 +282,17 @@ namespace CrossCam.ViewModel
                 }
                 catch
                 {
+                    rightFinalImageBytes = null;
+                    leftFinalImageBytes = null;
+                    finalJoinedImageBytes = null;
+                    rightSkImage?.Dispose();
+                    leftSkImage?.Dispose();
                     finalImage?.Dispose();
                     leftBitmap?.Dispose();
                     rightBitmap?.Dispose();
+
+                    IsSaving = false;
+                    FailFadeTrigger = !FailFadeTrigger;
                 }
 
                 ClearCaptures();

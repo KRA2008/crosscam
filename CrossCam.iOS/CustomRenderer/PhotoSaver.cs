@@ -13,19 +13,28 @@ namespace CrossCam.iOS.CustomRenderer
         public Task<bool> SavePhoto(byte[] image)
         {
             var taskCompletionSource = new TaskCompletionSource<bool>();
-            var uiImage = new UIImage(NSData.FromArray(image));
-            if (UIDevice.CurrentDevice.Orientation == UIDeviceOrientation.LandscapeRight)
+            try
             {
-                using (var cgImage = uiImage.CGImage)
+                var uiImage = new UIImage(NSData.FromArray(image));
+                if (UIDevice.CurrentDevice.Orientation == UIDeviceOrientation.LandscapeRight)
                 {
-                    uiImage = UIImage.FromImage(cgImage, 1, UIImageOrientation.Down);
+                    using (var cgImage = uiImage.CGImage)
+                    {
+                        uiImage = UIImage.FromImage(cgImage, 1, UIImageOrientation.Down);
+                    }
                 }
+
+                uiImage.SaveToPhotosAlbum((image1, error) =>
+                {
+                    taskCompletionSource.SetResult(error == null);
+                });
+                return taskCompletionSource.Task;
             }
-            uiImage.SaveToPhotosAlbum((image1, error) =>
+            catch
             {
-                taskCompletionSource.SetResult(error == null);
-            });
-            return taskCompletionSource.Task;
+                taskCompletionSource.SetResult(false);
+                return taskCompletionSource.Task;
+            }
         }
     }
 }

@@ -196,7 +196,7 @@
         <ContentView AbsoluteLayout.LayoutFlags="All"
                      AbsoluteLayout.LayoutBounds="{DynamicResource _captureRectangle}"
                      Padding="{DynamicResource _capturePadding}"
-                     IsVisible="{Binding IsCaptureComplete, Converter={vc:BooleanInvertConverter}}">
+                     IsVisible="{Binding ShouldCaptureButtonBeVisible}">
             <ContentView.GestureRecognizers>
                 <TapGestureRecognizer Command="{Binding CapturePictureCommand}"/>
             </ContentView.GestureRecognizers>

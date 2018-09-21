@@ -1,9 +1,14 @@
 ﻿using Android.App;
 using Android.Content;
+using Android.Content.PM;
 
 namespace CrossCam.Droid
 {
-    [Activity(Theme = "@style/SplashTheme", MainLauncher = true, NoHistory = true)]
+    [Activity(Theme = "@style/SplashTheme", 
+        ScreenOrientation = ScreenOrientation.Sensor,
+        ConfigurationChanges = ConfigChanges.ScreenSize | ConfigChanges.Orientation,
+        MainLauncher = true, 
+        NoHistory = true)]
     public class SplashActivity : Activity
     {
         protected override void OnResume()
