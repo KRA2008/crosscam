@@ -18,6 +18,21 @@
             <Thickness x:Key="_cancelPadding">10,10,10,10</Thickness>
             <Thickness x:Key="_reticlePadding">10</Thickness>
             <Thickness x:Key="_linePadding">0,10,0,10</Thickness>
+            <Style TargetType="Label"
+                   x:Key="_savingFeedback">
+                <Setter Property="FontAttributes"
+                        Value="Bold"/>
+                <Setter Property="FontSize"
+                        Value="24"/>
+                <Setter Property="HorizontalOptions"
+                        Value="CenterAndExpand"/>
+                <Setter Property="VerticalOptions"
+                        Value="CenterAndExpand"/>
+                <Setter Property="AbsoluteLayout.LayoutFlags"
+                        Value="All"/>
+                <Setter Property="AbsoluteLayout.LayoutBounds"
+                        Value="1,1,1,0.5"/>
+            </Style>
         </ResourceDictionary>
     </ContentPage.Resources>
     <AbsoluteLayout>
@@ -221,11 +236,7 @@
             <Image Source="clear"
                    Opacity="0.75"/>
         </ContentView>
-        <Label AbsoluteLayout.LayoutFlags="All"
-               AbsoluteLayout.LayoutBounds="0.5,0.85,1,0.5"
-               HorizontalOptions="CenterAndExpand"
-               VerticalOptions="CenterAndExpand"
-               FontSize="24"
+        <Label Style="{DynamicResource _savingFeedback}"
                Text="Saved to Photos!">
             <Label.Behaviors>
                 <ce:FadeInAndOutBehavior Trigger="{Binding SuccessFadeTrigger}"
@@ -234,11 +245,7 @@
                                          VisibleTimeMs="2000"/>
             </Label.Behaviors>
         </Label>
-        <Label AbsoluteLayout.LayoutFlags="All"
-               AbsoluteLayout.LayoutBounds="0.5,0.85,1,0.5"
-               HorizontalOptions="CenterAndExpand"
-               VerticalOptions="CenterAndExpand"
-               FontSize="24"
+        <Label Style="{DynamicResource _savingFeedback}"
                Text="Save failed. :(">
             <Label.Behaviors>
                 <ce:FadeInAndOutBehavior Trigger="{Binding FailFadeTrigger}"
@@ -253,12 +260,8 @@
                VerticalOptions="CenterAndExpand"
                Color="White"
                IsRunning="{Binding IsSaving}"/>
-        <Label AbsoluteLayout.LayoutFlags="All"
-               AbsoluteLayout.LayoutBounds="1,1,1,0.5"
-               HorizontalOptions="CenterAndExpand"
-               VerticalOptions="CenterAndExpand"
-               FontSize="24"
-               Text="Saving..."
+        <Label Text="Saving..."
+               Style="{DynamicResource _savingFeedback}"
                IsVisible="{Binding IsSaving}"/>
         <ContentView AbsoluteLayout.LayoutFlags="All"
                      AbsoluteLayout.LayoutBounds="0,0,1,1"
