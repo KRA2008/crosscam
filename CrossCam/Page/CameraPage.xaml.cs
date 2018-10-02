@@ -1,16 +1,71 @@
-﻿using Xamarin.Forms;
+﻿using System.ComponentModel;
+using CrossCam.ViewModel;
+using Xamarin.Forms;
 
 namespace CrossCam.Page
 {
     // ReSharper disable once UnusedMember.Global
 	public partial class CameraPage
 	{
-	    public CameraPage()
+	    private CameraViewModel _viewModel;
+        private readonly Rectangle _upperLineBoundsLandscape = new Rectangle(0, 0.33, 1, 21);
+	    private readonly Rectangle _lowerLineBoundsLandscape = new Rectangle(0, 0.67, 1, 21);
+	    private readonly Rectangle _upperLineBoundsPortrait = new Rectangle(0, 0.4, 1, 21);
+	    private readonly Rectangle _lowerLinesBoundsPortrait = new Rectangle(0, 0.6, 1, 21);
+
+        public CameraPage()
 		{
             InitializeComponent();
+            ResetGuideLines();
 		    NavigationPage.SetHasNavigationBar(this, false);
         }
-        
+
+	    protected override void OnBindingContextChanged()
+	    {
+	        base.OnBindingContextChanged();
+	        if (BindingContext != null)
+	        {
+	            _viewModel = (CameraViewModel) BindingContext;
+	            _viewModel.PropertyChanged += ViewModelPropertyChanged;
+	        }
+	    }
+
+	    private void ViewModelPropertyChanged(object sender, PropertyChangedEventArgs e)
+	    {
+	        if (e.PropertyName == nameof(CameraViewModel.IsViewPortrait))
+	        {
+                ResetGuideLines();
+	        }
+	    }
+
+	    private void ResetGuideLines()
+        {
+            if (_viewModel == null || _viewModel.IsViewPortrait)
+            {
+                AbsoluteLayout.SetLayoutFlags(_upperLine, AbsoluteLayoutFlags.YProportional | AbsoluteLayoutFlags.WidthProportional);
+                AbsoluteLayout.SetLayoutBounds(_upperLine, _upperLineBoundsPortrait);
+                AbsoluteLayout.SetLayoutFlags(_upperLinePanner, AbsoluteLayoutFlags.YProportional | AbsoluteLayoutFlags.WidthProportional);
+                AbsoluteLayout.SetLayoutBounds(_upperLinePanner, _upperLineBoundsPortrait);
+
+                AbsoluteLayout.SetLayoutFlags(_lowerLine, AbsoluteLayoutFlags.YProportional | AbsoluteLayoutFlags.WidthProportional);
+                AbsoluteLayout.SetLayoutBounds(_lowerLine, _lowerLinesBoundsPortrait);
+                AbsoluteLayout.SetLayoutFlags(_lowerLinePanner, AbsoluteLayoutFlags.YProportional | AbsoluteLayoutFlags.WidthProportional);
+                AbsoluteLayout.SetLayoutBounds(_lowerLinePanner, _lowerLinesBoundsPortrait);
+            }
+            else
+            {
+                AbsoluteLayout.SetLayoutFlags(_upperLine, AbsoluteLayoutFlags.YProportional | AbsoluteLayoutFlags.WidthProportional);
+                AbsoluteLayout.SetLayoutBounds(_upperLine, _upperLineBoundsLandscape);
+                AbsoluteLayout.SetLayoutFlags(_upperLinePanner, AbsoluteLayoutFlags.YProportional | AbsoluteLayoutFlags.WidthProportional);
+                AbsoluteLayout.SetLayoutBounds(_upperLinePanner, _upperLineBoundsLandscape);
+
+                AbsoluteLayout.SetLayoutFlags(_lowerLine, AbsoluteLayoutFlags.YProportional | AbsoluteLayoutFlags.WidthProportional);
+                AbsoluteLayout.SetLayoutBounds(_lowerLine, _lowerLineBoundsLandscape);
+                AbsoluteLayout.SetLayoutFlags(_lowerLinePanner, AbsoluteLayoutFlags.YProportional | AbsoluteLayoutFlags.WidthProportional);
+                AbsoluteLayout.SetLayoutBounds(_lowerLinePanner, _lowerLineBoundsLandscape);
+            }
+        }
+
 	    private double _reticleLeftX;
 	    private double _reticleRightX;
 	    private double _reticleY;
