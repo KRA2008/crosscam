@@ -134,7 +134,7 @@ namespace CrossCam.ViewModel
                 LeftImageSource = null;
                 RightImageSource = null;
 
-                await Task.Delay(500); // breathing room for screen to update
+                await Task.Delay(1); // take a break to go update the screen
 
                 SKBitmap leftBitmap = null;
                 SKBitmap rightBitmap = null;
