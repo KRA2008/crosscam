@@ -247,8 +247,14 @@
                                          VisibleTimeMs="2000"/>
             </Label.Behaviors>
         </Label>
+        <ActivityIndicator AbsoluteLayout.LayoutFlags="All"
+               AbsoluteLayout.LayoutBounds="0.5,0.5,1,0.5"
+               HorizontalOptions="CenterAndExpand"
+               VerticalOptions="CenterAndExpand"
+               Color="White"
+               IsRunning="{Binding IsSaving}"/>
         <Label AbsoluteLayout.LayoutFlags="All"
-               AbsoluteLayout.LayoutBounds="0.5,0.85,1,0.5"
+               AbsoluteLayout.LayoutBounds="1,1,1,0.5"
                HorizontalOptions="CenterAndExpand"
                VerticalOptions="CenterAndExpand"
                FontSize="24"
