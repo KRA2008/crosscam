@@ -8,15 +8,30 @@ namespace CrossCam.Page
 	public partial class CameraPage
 	{
 	    private CameraViewModel _viewModel;
+
         private readonly Rectangle _upperLineBoundsLandscape = new Rectangle(0, 0.33, 1, 21);
 	    private readonly Rectangle _lowerLineBoundsLandscape = new Rectangle(0, 0.67, 1, 21);
 	    private readonly Rectangle _upperLineBoundsPortrait = new Rectangle(0, 0.4, 1, 21);
 	    private readonly Rectangle _lowerLinesBoundsPortrait = new Rectangle(0, 0.6, 1, 21);
 
+        private readonly Rectangle _leftReticleBounds = new Rectangle(0.2297, 0.5, 0.075, 0.075);
+        private readonly Rectangle _rightReticleBounds = new Rectangle(0.7703, 0.5, 0.075, 0.075);
+
+	    private double _reticleLeftX;
+	    private double _reticleRightX;
+	    private double _reticleY;
+	    private double _reticleWidth;
+
+	    private double _upperLineY;
+	    private double _upperLineHeight;
+
+	    private double _lowerLineY;
+	    private double _lowerLineHeight;
+
         public CameraPage()
 		{
             InitializeComponent();
-            ResetGuideLines();
+            ResetGuides();
 		    NavigationPage.SetHasNavigationBar(this, false);
         }
 
@@ -34,11 +49,11 @@ namespace CrossCam.Page
 	    {
 	        if (e.PropertyName == nameof(CameraViewModel.IsViewPortrait))
 	        {
-                ResetGuideLines();
+                ResetGuides();
 	        }
 	    }
 
-	    private void ResetGuideLines()
+	    private void ResetGuides()
         {
             if (_viewModel == null || _viewModel.IsViewPortrait)
             {
@@ -64,18 +79,17 @@ namespace CrossCam.Page
                 AbsoluteLayout.SetLayoutFlags(_lowerLinePanner, AbsoluteLayoutFlags.YProportional | AbsoluteLayoutFlags.WidthProportional);
                 AbsoluteLayout.SetLayoutBounds(_lowerLinePanner, _lowerLineBoundsLandscape);
             }
-        }
 
-	    private double _reticleLeftX;
-	    private double _reticleRightX;
-	    private double _reticleY;
-	    private double _reticleWidth;
-        
-	    private double _upperLineY;
-	    private double _upperLineHeight;
-        
-	    private double _lowerLineY;
-	    private double _lowerLineHeight;
+            AbsoluteLayout.SetLayoutFlags(_leftReticle, AbsoluteLayoutFlags.All);
+            AbsoluteLayout.SetLayoutBounds(_leftReticle, _leftReticleBounds);
+            AbsoluteLayout.SetLayoutFlags(_leftReticlePanner, AbsoluteLayoutFlags.All);
+            AbsoluteLayout.SetLayoutBounds(_leftReticlePanner, _leftReticleBounds);
+
+            AbsoluteLayout.SetLayoutFlags(_rightReticle, AbsoluteLayoutFlags.All);
+            AbsoluteLayout.SetLayoutBounds(_rightReticle, _rightReticleBounds);
+            AbsoluteLayout.SetLayoutFlags(_rightReticlePanner, AbsoluteLayoutFlags.All);
+            AbsoluteLayout.SetLayoutBounds(_rightReticlePanner, _rightReticleBounds);
+        }
 
         private void ReticlePanned(object sender, PanUpdatedEventArgs e)
 	    {
