@@ -54,15 +54,15 @@ namespace CrossCam.ViewModel
         public bool ShouldRightRetakeBeVisible => RightByteArray != null && !IsSaving && !IsViewMode;
         public bool ShouldEndButtonsBeVisible => IsCaptureComplete && !IsSaving && !IsViewMode;
         public bool ShouldSettingsBeVisible => IsNothingCaptured && !IsSaving && !IsViewMode;
-        public bool ShouldLineGuidesBeVisible => !IsCaptureComplete && Settings.AreGuideLinesVisible && !IsSaving && !IsViewMode;
-        public bool ShouldDonutGuideBeVisible => !IsCaptureComplete && Settings.IsGuideDonutVisible && !IsSaving && !IsViewMode;
+        public bool ShouldLineGuidesBeVisible => LeftByteArray == null ^ RightByteArray == null && Settings.AreGuideLinesVisible && !IsSaving && !IsViewMode;
+        public bool ShouldDonutGuideBeVisible => LeftByteArray == null ^ RightByteArray == null && Settings.IsGuideDonutVisible && !IsSaving && !IsViewMode;
         public bool ShouldPortraitWarningBeVisible => ShouldHelpTextBeVisible && IsViewPortrait;
 
-        public string HelpText => "1) Frame up your subject in the center of the screen" + 
-                                  "\n2) Drag the horizontal guide lines over some recognizable features of the subject" +
-                                  "\n3) Take the left picture (but finish reading these directions first)" +
-                                  "\n4) A preview for the right picture will take the place of this text => start cross viewing" + 
-                                  "\n5) While keeping the subject centered on the screen and the horizontal guide lines over the same features on the right as they are on the left, begin moving left" +
+        public string HelpText => "1) Frame up your subject in the center of the preview area" +
+                                  "\n2) Take the left picture (but finish reading these directions first)" +
+                                  "\n3) Start cross viewing with the preview that will have taken the place of these instructions" + 
+                                  "\n4) Move left as though the camera were mounted on a rail, with as little rotation as convenient on any axis" +
+                                  "\n5) Guide lines will have appeared, align the right picture so the guide lines and the 3D image itself appear clear and sharp (you can drag the lines around if you wish)" +
                                   "\n6) Take the right picture when the desired level of 3D is achieved";
 
         public CameraViewModel()
