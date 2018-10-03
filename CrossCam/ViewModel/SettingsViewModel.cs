@@ -34,6 +34,10 @@ namespace CrossCam.ViewModel
             {
                 Settings.ClipLandscapeToFilledScreenPreview = false;
             }
+            if (!Settings.AreGuideLinesVisible)
+            {
+                Settings.ShowGuideLinesWithFirstCapture = false;
+            }
             PersistentStorage.Save(PersistentStorage.SETTINGS_KEY, Settings);
         }
     }
