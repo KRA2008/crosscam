@@ -14,7 +14,9 @@
     <ContentPage.Resources>
         <ResourceDictionary>
             <Thickness x:Key="_capturePadding">20,20,20,10</Thickness>
-            <Rectangle x:Key="_captureRectangle">0.5,1,0.25,0.33</Rectangle>
+            <Rectangle x:Key="_captureRectangle">0.5,1,0.33,0.33</Rectangle>
+            <Rectangle x:Key="_clearRectangle">0.5,0,0.15,0.2</Rectangle>
+            <Rectangle x:Key="_viewRectangle">0.5,0.5,0.15,0.2</Rectangle>
             <Thickness x:Key="_cancelPadding">10,10,10,10</Thickness>
             <Thickness x:Key="_reticlePadding">10</Thickness>
             <Thickness x:Key="_linePadding">0,10,0,10</Thickness>
@@ -217,7 +219,7 @@
                    Opacity="0.5"/>
         </ContentView>
         <ContentView AbsoluteLayout.LayoutFlags="All"
-                     AbsoluteLayout.LayoutBounds="0.5,0.5,0.15,0.2"
+                     AbsoluteLayout.LayoutBounds="{DynamicResource _viewRectangle}"
                      Padding="10"
                      IsVisible="{Binding ShouldEndButtonsBeVisible}">
             <ContentView.GestureRecognizers>
@@ -227,7 +229,7 @@
                    Opacity="0.75"/>
         </ContentView>
         <ContentView AbsoluteLayout.LayoutFlags="All"
-                     AbsoluteLayout.LayoutBounds="0.5,0,0.15,0.2"
+                     AbsoluteLayout.LayoutBounds="{DynamicResource _clearRectangle}"
                      Padding="10"
                      IsVisible="{Binding ShouldEndButtonsBeVisible}">
             <ContentView.GestureRecognizers>
