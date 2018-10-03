@@ -24,9 +24,6 @@ namespace CrossCam.CustomElement
 	    public static readonly BindableProperty IsFullScreenPreviewProperty = BindableProperty.Create(nameof(IsFullScreenPreview),
 	        typeof(bool), typeof(CameraModule), false, BindingMode.TwoWay);
 
-	    public static readonly BindableProperty WasCaptureReverseLandscapeProperty = BindableProperty.Create(nameof(WasCaptureReverseLandscape),
-	        typeof(bool), typeof(CameraModule), false, BindingMode.TwoWay);
-
         public byte[] CapturedImage
         {
             get => (byte[])GetValue(CapturedImageProperty);
@@ -55,12 +52,6 @@ namespace CrossCam.CustomElement
 	    {
 	        get => (bool)GetValue(IsFullScreenPreviewProperty);
 	        set => SetValue(IsFullScreenPreviewProperty, value);
-	    }
-
-	    public bool WasCaptureReverseLandscape
-        {
-	        get => (bool)GetValue(WasCaptureReverseLandscapeProperty);
-	        set => SetValue(WasCaptureReverseLandscapeProperty, value);
 	    }
     }
 }

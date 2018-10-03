@@ -231,8 +231,6 @@ namespace CrossCam.iOS.CustomRenderer
                                     break;
                             }
 
-                            _cameraModule.WasCaptureReverseLandscape = UIDevice.CurrentDevice.Orientation == UIDeviceOrientation.LandscapeRight;
-
                             if (_cameraModule.IsVisible)
                             {
                                 StartPreview();

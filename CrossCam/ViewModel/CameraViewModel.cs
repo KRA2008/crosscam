@@ -38,8 +38,6 @@ namespace CrossCam.ViewModel
         public Settings Settings { get; set; }
 
         public bool IsViewPortrait { get; set; }
-        public bool WasLeftCapturePortrait { get; set; }
-        public bool WasLeftCaptureReverseLandscape { get; set; }
 
         public bool FailFadeTrigger { get; set; }
         public bool SuccessFadeTrigger { get; set; }
@@ -80,7 +78,6 @@ namespace CrossCam.ViewModel
                 {
                     LeftImageSource = ImageSource.FromStream(() => new MemoryStream(LeftByteArray));
                     IsLeftCameraVisible = false;
-                    WasLeftCapturePortrait = IsViewPortrait;
                     if (RightByteArray == null)
                     {
                         IsRightCameraVisible = true;
@@ -145,47 +142,40 @@ namespace CrossCam.ViewModel
                 byte[] finalJoinedImageBytes;
                 byte[] rightFinalImageBytes;
                 byte[] leftFinalImageBytes;
+                var needs180Flip = false;
                 try
                 {
-                    if (WasLeftCapturePortrait &&
-                        Device.RuntimePlatform == Device.iOS)
+                    SKCodecOrigin origin;
+
+                    using (var stream = new MemoryStream(LeftByteArray))
+                    using (var data = SKData.Create(stream))
+                    using (var codec = SKCodec.Create(data))
                     {
-                        if (IsViewPortrait)
-                        {
+                        origin = codec.Origin;
+                    }
+
+                    switch (origin)
+                    {
+                        case SKCodecOrigin.BottomRight:
+                            leftBitmap = BitmapRotate180(SKBitmap.Decode(LeftByteArray));
+                            rightBitmap = BitmapRotate180(SKBitmap.Decode(RightByteArray));
+                            needs180Flip = true;
+                            break;
+                        case SKCodecOrigin.RightTop:
                             leftBitmap = BitmapRotate90(SKBitmap.Decode(LeftByteArray));
-                            LeftByteArray = null;
-
                             rightBitmap = BitmapRotate90(SKBitmap.Decode(RightByteArray));
-                            RightByteArray = null;
-                        }
-                        else
-                        {
-                            leftBitmap = BitmapRotateNegative90(SKBitmap.Decode(LeftByteArray));
-                            LeftByteArray = null;
-
-                            rightBitmap = BitmapRotateNegative90(SKBitmap.Decode(RightByteArray));
-                            RightByteArray = null;
-                        }
+                            break;
+                        default:
+                            leftBitmap = SKBitmap.Decode(LeftByteArray);
+                            rightBitmap = SKBitmap.Decode(RightByteArray);
+                            break;
                     }
-                    else if (WasLeftCaptureReverseLandscape)
-                    {
-                        leftBitmap = BitmapRotate180(SKBitmap.Decode(LeftByteArray));
-                        LeftByteArray = null;
+                    LeftByteArray = null;
+                    RightByteArray = null;
 
-                        rightBitmap = BitmapRotate180(SKBitmap.Decode(RightByteArray));
-                        RightByteArray = null;
-                    }
-                    else
-                    {
-                        leftBitmap = SKBitmap.Decode(LeftByteArray);
-                        LeftByteArray = null;
-
-                        rightBitmap = SKBitmap.Decode(RightByteArray);
-                        RightByteArray = null;
-                    }
 
                     double eachSideWidth;
-                    if (WasLeftCapturePortrait || !Settings.ClipLandscapeToFilledScreenPreview)
+                    if (leftBitmap.Height > leftBitmap.Width || !Settings.ClipLandscapeToFilledScreenPreview)
                     {
                         eachSideWidth = leftBitmap.Width;
                     }
@@ -212,7 +202,7 @@ namespace CrossCam.ViewModel
 
                             canvas.Clear(SKColors.Transparent);
 
-                            if (WasLeftCaptureReverseLandscape)
+                            if (needs180Flip)
                             {
                                 canvas.RotateDegrees(180);
                                 canvas.Translate((float)(-1 * finalImageWidth), -1 * leftBitmap.Height);
@@ -373,7 +363,6 @@ namespace CrossCam.ViewModel
             RightImageSource = null;
             IsRightCameraVisible = false;
             IsLeftCameraVisible = true;
-            WasLeftCapturePortrait = false;
         }
     }
 }

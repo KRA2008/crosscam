@@ -62,7 +62,6 @@
                              IsVisible="{Binding IsLeftCameraVisible}"
                              CapturedImage="{Binding LeftByteArray}"
                              CaptureSuccess="{Binding LeftCaptureSuccess}"
-                             WasCaptureReverseLandscape="{Binding WasLeftCaptureReverseLandscape}"
                              IsFullScreenPreview="{Binding Settings.FillScreenPreview}"/>
             <ce:CameraCaptureOutline Grid.Column="0"
                                      Grid.Row="0">
