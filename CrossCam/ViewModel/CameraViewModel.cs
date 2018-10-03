@@ -39,6 +39,7 @@ namespace CrossCam.ViewModel
 
         public bool IsViewPortrait { get; set; }
         public bool WasLeftCapturePortrait { get; set; }
+        public bool WasLeftCaptureReverseLandscape { get; set; }
 
         public bool FailFadeTrigger { get; set; }
         public bool SuccessFadeTrigger { get; set; }
@@ -147,23 +148,31 @@ namespace CrossCam.ViewModel
                 try
                 {
                     if (WasLeftCapturePortrait &&
-                        IsViewPortrait &&
                         Device.RuntimePlatform == Device.iOS)
                     {
-                        leftBitmap = BitmapRotate90(SKBitmap.Decode(LeftByteArray));
-                        LeftByteArray = null;
+                        if (IsViewPortrait)
+                        {
+                            leftBitmap = BitmapRotate90(SKBitmap.Decode(LeftByteArray));
+                            LeftByteArray = null;
 
-                        rightBitmap = BitmapRotate90(SKBitmap.Decode(RightByteArray));
-                        RightByteArray = null;
+                            rightBitmap = BitmapRotate90(SKBitmap.Decode(RightByteArray));
+                            RightByteArray = null;
+                        }
+                        else
+                        {
+                            leftBitmap = BitmapRotateNegative90(SKBitmap.Decode(LeftByteArray));
+                            LeftByteArray = null;
+
+                            rightBitmap = BitmapRotateNegative90(SKBitmap.Decode(RightByteArray));
+                            RightByteArray = null;
+                        }
                     }
-                    else if (WasLeftCapturePortrait &&
-                             !IsViewPortrait &&
-                             Device.RuntimePlatform == Device.iOS)
+                    else if (WasLeftCaptureReverseLandscape)
                     {
-                        leftBitmap = BitmapRotateNegative90(SKBitmap.Decode(LeftByteArray));
+                        leftBitmap = BitmapRotate180(SKBitmap.Decode(LeftByteArray));
                         LeftByteArray = null;
 
-                        rightBitmap = BitmapRotateNegative90(SKBitmap.Decode(RightByteArray));
+                        rightBitmap = BitmapRotate180(SKBitmap.Decode(RightByteArray));
                         RightByteArray = null;
                     }
                     else
@@ -203,12 +212,19 @@ namespace CrossCam.ViewModel
 
                             canvas.Clear(SKColors.Transparent);
 
+                            if (WasLeftCaptureReverseLandscape)
+                            {
+                                canvas.RotateDegrees(180);
+                                canvas.Translate((float)(-1 * finalImageWidth), -1 * leftBitmap.Height);
+                            }
+
                             canvas.DrawBitmap(leftBitmap,
                                 SKRect.Create(floatedTrim, 0, floatedWidth, leftBitmap.Height),
                                 SKRect.Create(0, 0, floatedWidth, leftBitmap.Height));
                             canvas.DrawBitmap(rightBitmap,
                                 SKRect.Create(floatedTrim, 0, floatedWidth, leftBitmap.Height),
                                 SKRect.Create(floatedWidth, 0, floatedWidth, leftBitmap.Height));
+
 
                             finalImage = tempSurface.Snapshot();
                         }
@@ -321,6 +337,20 @@ namespace CrossCam.ViewModel
             {
                 surface.Translate(0, rotated.Height);
                 surface.RotateDegrees(-90);
+                surface.DrawBitmap(originalBitmap, 0, 0);
+            }
+
+            return rotated;
+        }
+
+        private static SKBitmap BitmapRotate180(SKBitmap originalBitmap)
+        {
+            var rotated = new SKBitmap(originalBitmap.Width, originalBitmap.Height);
+
+            using (var surface = new SKCanvas(rotated))
+            {
+                surface.Translate(rotated.Width, rotated.Height);
+                surface.RotateDegrees(180);
                 surface.DrawBitmap(originalBitmap, 0, 0);
             }
 

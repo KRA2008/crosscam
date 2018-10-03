@@ -231,6 +231,8 @@ namespace CrossCam.iOS.CustomRenderer
                                     break;
                             }
 
+                            _cameraModule.WasCaptureReverseLandscape = UIDevice.CurrentDevice.Orientation == UIDeviceOrientation.LandscapeRight;
+
                             if (_cameraModule.IsVisible)
                             {
                                 StartPreview();
@@ -268,7 +270,8 @@ namespace CrossCam.iOS.CustomRenderer
                 UIDevice.CurrentDevice.Orientation == UIDeviceOrientation.LandscapeRight)
             {
                 orientationForSizing = UIDevice.CurrentDevice.Orientation;
-            } else if (_previousValidOrientation.HasValue)
+            }
+            else if (_previousValidOrientation.HasValue)
             {
                 orientationForSizing = _previousValidOrientation.Value;
             }
