@@ -61,8 +61,8 @@ namespace CrossCam.ViewModel
 
         public string HelpText => "1) Frame up your subject in the center of the preview area" +
                                   "\n2) Take the left picture (but finish reading these directions first)" +
-                                  "\n3) Start cross viewing with the preview that will have taken the place of these instructions" + 
-                                  "\n4) Move left as though the camera were mounted on a rail, with as little rotation as convenient on any axis" +
+                                  "\n3) Move left as though the camera were mounted on a rail, with as little rotation as convenient on any axis" +
+                                  "\n4) Start cross viewing with the preview that will have taken the place of these instructions" +
                                   "\n5) Guide lines will have appeared, align the right picture so the guide lines and the 3D image itself appear clear and sharp (you can drag the lines around if you wish)" +
                                   "\n6) Take the right picture when the desired level of 3D is achieved";
 
