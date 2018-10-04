@@ -1,5 +1,6 @@
 ﻿using System;
 using System.ComponentModel;
+using System.IO;
 using System.Linq;
 using Android.App;
 using Android.Content;
@@ -9,6 +10,8 @@ using Android.Util;
 using Android.Views;
 using Android.Widget;
 using CrossCam.Droid.CustomRenderer;
+using ExifLib;
+using Java.IO;
 using Xamarin.Forms;
 using Xamarin.Forms.Platform.Android;
 using CameraModule = CrossCam.CustomElement.CameraModule;
@@ -338,7 +341,46 @@ namespace CrossCam.Droid.CustomRenderer
 
         public void OnPictureTaken(byte[] data, Camera camera)
         {
-            _cameraModule.CapturedImage = data;
+            if (data != null)
+            {
+                JpegInfo jpegInfo;
+                using (var imageStream = new MemoryStream(data))
+                {
+                    jpegInfo = ExifReader.ReadJpeg(imageStream);
+                }
+                float rotateDegrees;
+                switch (jpegInfo.Orientation)
+                {
+                    case ExifOrientation.BottomRight:
+                        rotateDegrees = 180;
+                        break;
+                    case ExifOrientation.TopRight:
+                        rotateDegrees = 90;
+                        break;
+                    case ExifOrientation.BottomLeft:
+                        rotateDegrees = 270;
+                        break;
+                    default:
+                        _cameraModule.CapturedImage = data;
+                        return;
+                }
+
+                var originalBitmap = BitmapFactory.DecodeByteArray(data, 0, data.Length);
+                using (var matrix = new Matrix())
+                {
+                    matrix.PostRotate(rotateDegrees);
+                    originalBitmap = Bitmap.CreateBitmap(originalBitmap, 0, 0, originalBitmap.Width, originalBitmap.Height, matrix, true);
+                }
+
+                var saveStream = new MemoryStream();
+                originalBitmap.Compress(Bitmap.CompressFormat.Jpeg, 100, saveStream);
+                var byteArray = saveStream.ToArray();
+                originalBitmap.Recycle();
+                originalBitmap.Dispose();
+                saveStream.Dispose();
+
+                _cameraModule.CapturedImage = byteArray;
+            }
         }
     }
 }

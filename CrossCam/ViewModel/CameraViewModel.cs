@@ -319,20 +319,6 @@ namespace CrossCam.ViewModel
             return rotated;
         }
 
-        private static SKBitmap BitmapRotateNegative90(SKBitmap originalBitmap)
-        {
-            var rotated = new SKBitmap(originalBitmap.Height, originalBitmap.Width);
-
-            using (var surface = new SKCanvas(rotated))
-            {
-                surface.Translate(0, rotated.Height);
-                surface.RotateDegrees(-90);
-                surface.DrawBitmap(originalBitmap, 0, 0);
-            }
-
-            return rotated;
-        }
-
         private static SKBitmap BitmapRotate180(SKBitmap originalBitmap)
         {
             var rotated = new SKBitmap(originalBitmap.Width, originalBitmap.Height);

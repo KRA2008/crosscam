@@ -153,7 +153,7 @@ namespace CrossCam.iOS.CustomRenderer
 
             using (var cgImage = photo.CGImageRepresentation)
             {
-                var uiImage = UIImage.FromImage(cgImage, 1, imageOrientation);// TODO: WHY THE HELL DO I HAVE TO DO THIS
+                var uiImage = UIImage.FromImage(cgImage, 1, imageOrientation);
                 _cameraModule.CapturedImage = uiImage.AsJPEG().ToArray();
             }
         }
