@@ -135,7 +135,8 @@ namespace CrossCam.iOS.CustomRenderer
         private void PhotoCaptureComplete(AVCapturePhotoOutput photoOutput, AVCapturePhoto photo, NSError error)
         {
             UIImageOrientation imageOrientation;
-            switch (UIDevice.CurrentDevice.Orientation)
+            var orientationTarget = _previousValidOrientation ?? UIDevice.CurrentDevice.Orientation;
+            switch (orientationTarget)
             {
                 case UIDeviceOrientation.LandscapeRight:
                     imageOrientation = UIImageOrientation.Down;
@@ -336,6 +337,7 @@ namespace CrossCam.iOS.CustomRenderer
                     break;
             }
 
+            var previousOrientation = _avCaptureVideoPreviewLayer.Orientation;
             if (videoOrientation != 0)
             {
                 _avCaptureVideoPreviewLayer.Orientation = videoOrientation;
