@@ -75,9 +75,6 @@
     <AppExtensionDebugBundleId />
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="ExifLib.PCL">
-      <Version>1.0.1</Version>
-    </PackageReference>
     <PackageReference Include="FreshMvvm">
       <Version>2.2.4</Version>
     </PackageReference>

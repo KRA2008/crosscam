@@ -10,8 +10,7 @@ using Android.Util;
 using Android.Views;
 using Android.Widget;
 using CrossCam.Droid.CustomRenderer;
-using ExifLib;
-using Java.IO;
+using SkiaSharp;
 using Xamarin.Forms;
 using Xamarin.Forms.Platform.Android;
 using CameraModule = CrossCam.CustomElement.CameraModule;
@@ -303,6 +302,7 @@ namespace CrossCam.Droid.CustomRenderer
             }
 
             var parameters = _camera.GetParameters();
+            parameters.JpegQuality = 100;
 
             var display = _activity.WindowManager.DefaultDisplay;
             if (display.Rotation == SurfaceOrientation.Rotation0) // portrait
@@ -343,43 +343,68 @@ namespace CrossCam.Droid.CustomRenderer
         {
             if (data != null)
             {
-                JpegInfo jpegInfo;
-                using (var imageStream = new MemoryStream(data))
+                SKCodecOrigin origin;
+
+                using (var stream = new MemoryStream(data))
+                using (var skData = SKData.Create(stream))
+                using (var codec = SKCodec.Create(skData))
                 {
-                    jpegInfo = ExifReader.ReadJpeg(imageStream);
-                }
-                float rotateDegrees;
-                switch (jpegInfo.Orientation)
-                {
-                    case ExifOrientation.BottomRight:
-                        rotateDegrees = 180;
-                        break;
-                    case ExifOrientation.TopRight:
-                        rotateDegrees = 90;
-                        break;
-                    case ExifOrientation.BottomLeft:
-                        rotateDegrees = 270;
-                        break;
-                    default:
-                        _cameraModule.CapturedImage = data;
-                        return;
+                    origin = codec.Origin;
                 }
 
-                var originalBitmap = BitmapFactory.DecodeByteArray(data, 0, data.Length);
-                using (var matrix = new Matrix())
+                if (origin != SKCodecOrigin.BottomRight &&
+                    origin != SKCodecOrigin.RightTop)
                 {
-                    matrix.PostRotate(rotateDegrees);
-                    originalBitmap = Bitmap.CreateBitmap(originalBitmap, 0, 0, originalBitmap.Width, originalBitmap.Height, matrix, true);
+                    _cameraModule.CapturedImage = data;
+                    return;
                 }
 
-                var saveStream = new MemoryStream();
-                originalBitmap.Compress(Bitmap.CompressFormat.Jpeg, 100, saveStream);
-                var byteArray = saveStream.ToArray();
-                originalBitmap.Recycle();
-                originalBitmap.Dispose();
-                saveStream.Dispose();
+                var correctedWidth = 0;
+                var correctedHeight = 0;
+                var correctDy = 0;
+                float correctRotateDegrees = 0;
 
-                _cameraModule.CapturedImage = byteArray;
+                var originalBitmap = SKBitmap.Decode(data);
+
+                switch (origin)
+                {
+                    case SKCodecOrigin.BottomRight:
+                        correctedWidth = originalBitmap.Width;
+                        correctedHeight = originalBitmap.Height;
+                        correctDy = correctedHeight;
+                        correctRotateDegrees = 180;
+                        break;
+                    case SKCodecOrigin.RightTop:
+                        correctedWidth = originalBitmap.Height;
+                        correctedHeight = originalBitmap.Width;
+                        correctDy = 0;
+                        correctRotateDegrees = 90;
+                        break;
+                }
+
+                SKImage correctedImage;
+                using (var tempSurface = SKSurface.Create(new SKImageInfo(correctedWidth, correctedHeight)))
+                {
+                    var canvas = tempSurface.Canvas;
+
+                    canvas.Clear(SKColors.Transparent);
+
+                    canvas.Translate(correctedWidth, correctDy);
+                    canvas.RotateDegrees(correctRotateDegrees);
+                    canvas.DrawBitmap(originalBitmap, 0, 0);
+                    originalBitmap.Dispose();
+
+                    correctedImage = tempSurface.Snapshot();
+                }
+
+                byte[] correctedBytes;
+                using (var encoded = correctedImage.Encode(SKEncodedImageFormat.Jpeg, 100))
+                {
+                    correctedBytes = encoded.ToArray();
+                    correctedImage.Dispose();
+                }
+
+                _cameraModule.CapturedImage = correctedBytes;
             }
         }
     }
