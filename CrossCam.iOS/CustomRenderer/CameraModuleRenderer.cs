@@ -134,28 +134,32 @@ namespace CrossCam.iOS.CustomRenderer
         // ReSharper disable once UnusedMember.Local
         private void PhotoCaptureComplete(AVCapturePhotoOutput photoOutput, AVCapturePhoto photo, NSError error)
         {
-            UIImageOrientation imageOrientation;
-            var orientationTarget = _previousValidOrientation ?? UIDevice.CurrentDevice.Orientation;
-            switch (orientationTarget)
+            if (photo != null && 
+                error == null)
             {
-                case UIDeviceOrientation.LandscapeRight:
-                    imageOrientation = UIImageOrientation.Down;
-                    break;
-                case UIDeviceOrientation.PortraitUpsideDown:
-                    imageOrientation = UIImageOrientation.Left;
-                    break;
-                case UIDeviceOrientation.Portrait:
-                    imageOrientation = UIImageOrientation.Right;
-                    break;
-                default:
-                    imageOrientation = UIImageOrientation.Up;
-                    break;
-            }
+                UIImageOrientation imageOrientation;
+                var orientationTarget = _previousValidOrientation ?? UIDevice.CurrentDevice.Orientation;
+                switch (orientationTarget)
+                {
+                    case UIDeviceOrientation.LandscapeRight:
+                        imageOrientation = UIImageOrientation.Down;
+                        break;
+                    case UIDeviceOrientation.PortraitUpsideDown:
+                        imageOrientation = UIImageOrientation.Left;
+                        break;
+                    case UIDeviceOrientation.Portrait:
+                        imageOrientation = UIImageOrientation.Right;
+                        break;
+                    default:
+                        imageOrientation = UIImageOrientation.Up;
+                        break;
+                }
 
-            using (var cgImage = photo.CGImageRepresentation)
-            {
-                var uiImage = UIImage.FromImage(cgImage, 1, imageOrientation);
-                _cameraModule.CapturedImage = uiImage.AsJPEG().ToArray();
+                using (var cgImage = photo.CGImageRepresentation)
+                {
+                    var uiImage = UIImage.FromImage(cgImage, 1, imageOrientation);
+                    _cameraModule.CapturedImage = uiImage.AsJPEG().ToArray();
+                }
             }
         }
 
