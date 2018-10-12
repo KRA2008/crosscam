@@ -23,7 +23,7 @@
     <EmbeddedResource Update="App.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Update="CustomElement\CameraCaptureOutline.xaml">
+    <EmbeddedResource Update="CustomElement\CameraSuccessOutline.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
     <EmbeddedResource Update="CustomElement\CameraModule.xaml">
@@ -38,6 +38,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Compile Update="CustomElement\CameraSuccessOutline.xaml.cs">
+      <DependentUpon>CameraSuccessOutline.xaml</DependentUpon>
+    </Compile>
     <Compile Update="Page\CameraPage.xaml.cs">
       <DependentUpon>CameraPage.xaml</DependentUpon>
     </Compile>

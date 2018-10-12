@@ -1,8 +1,8 @@
 ﻿namespace CrossCam.CustomElement
 {
-	public partial class CameraCaptureOutline
+	public partial class CameraSuccessOutline
 	{
-		public CameraCaptureOutline()
+		public CameraSuccessOutline()
 		{
 			InitializeComponent();
 		}

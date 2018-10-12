@@ -13,15 +13,18 @@ namespace CrossCam.ViewModel
     {
         public ImageSource LeftImageSource { get; set; }
         public byte[] LeftByteArray { get; set; }
-        public bool IsLeftCameraVisible { get; set; }
         public Command RetakeLeftCommand { get; set; }
         public bool LeftCaptureSuccess { get; set; }
 
         public ImageSource RightImageSource { get; set; }
         public byte[] RightByteArray { get; set; }
-        public bool IsRightCameraVisible { get; set; }
         public Command RetakeRightCommand { get; set; }
         public bool RightCaptureSuccess { get; set; }
+
+        public bool IsCameraVisible { get; set; }
+        public byte[] CapturedImageBytes { get; set; }
+        public bool CaptureSuccess { get; set; }
+        public int CameraColumn { get; set; }
 
         public Command CapturePictureCommand { get; set; }
         public bool CapturePictureTrigger { get; set; }
@@ -67,46 +70,61 @@ namespace CrossCam.ViewModel
         public CameraViewModel()
         {
             var photoSaver = DependencyService.Get<IPhotoSaver>();
-            IsLeftCameraVisible = true;
+            IsCameraVisible = true;
 
             Settings = PersistentStorage.LoadOrDefault(PersistentStorage.SETTINGS_KEY, new Settings());
 
             PropertyChanged += (sender, args) =>
             {
-                if (args.PropertyName == nameof(LeftByteArray) &&
-                    LeftByteArray != null)
+                if (args.PropertyName == nameof(CaptureSuccess))
                 {
-                    LeftImageSource = ImageSource.FromStream(() => new MemoryStream(LeftByteArray));
-                    IsLeftCameraVisible = false;
-                    if (RightByteArray == null)
+                    if (LeftByteArray == null)
                     {
-                        IsRightCameraVisible = true;
+                        LeftCaptureSuccess = !LeftCaptureSuccess;
+                    }
+                    else
+                    {
+                        RightCaptureSuccess = !RightCaptureSuccess;
                     }
                 }
-                else if (args.PropertyName == nameof(RightByteArray) &&
-                         RightByteArray != null)
+                else if (args.PropertyName == nameof(CapturedImageBytes) &&
+                    LeftByteArray == null)
                 {
+                    LeftByteArray = CapturedImageBytes;
+                    LeftImageSource = ImageSource.FromStream(() => new MemoryStream(LeftByteArray));
+                    if (RightByteArray == null)
+                    {
+                        CameraColumn = 1;
+                    }
+                    else
+                    {
+                        IsCameraVisible = false;
+                    }
+                }
+                else if (args.PropertyName == nameof(CapturedImageBytes) &&
+                         RightByteArray == null)
+                {
+                    RightByteArray = CapturedImageBytes;
                     RightImageSource = ImageSource.FromStream(() => new MemoryStream(RightByteArray));
-                    IsRightCameraVisible = false;
+                    CameraColumn = 0;
+                    IsCameraVisible = false;
                 }
             };
 
             RetakeLeftCommand = new Command(() =>
             {
-                IsRightCameraVisible = false;
-                IsLeftCameraVisible = true;
+                CameraColumn = 0;
+                IsCameraVisible = true;
                 LeftByteArray = null;
                 LeftImageSource = null;
             });
 
             RetakeRightCommand = new Command(() =>
             {
-                if (!IsLeftCameraVisible)
-                {
-                    IsRightCameraVisible = true;
-                    RightByteArray = null;
-                    RightImageSource = null;
-                }
+                CameraColumn = 1;
+                IsCameraVisible = true;
+                RightByteArray = null;
+                RightImageSource = null;
             });
 
             ClearCapturesCommand = new Command(ClearCaptures);
@@ -132,7 +150,7 @@ namespace CrossCam.ViewModel
                 LeftImageSource = null;
                 RightImageSource = null;
 
-                await Task.Delay(1); // take a break to go update the screen
+                await Task.Delay(100); // take a break to go update the screen
 
                 SKBitmap leftBitmap = null;
                 SKBitmap rightBitmap = null;
@@ -347,8 +365,7 @@ namespace CrossCam.ViewModel
             RightByteArray = null;
             LeftImageSource = null;
             RightImageSource = null;
-            IsRightCameraVisible = false;
-            IsLeftCameraVisible = true;
+            IsCameraVisible = true;
         }
     }
 }

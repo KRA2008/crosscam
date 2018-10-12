@@ -343,6 +343,8 @@ namespace CrossCam.Droid.CustomRenderer
         {
             if (data != null)
             {
+                _camera.StartPreview();
+
                 SKCodecOrigin origin;
 
                 using (var stream = new MemoryStream(data))
