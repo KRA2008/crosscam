@@ -89,7 +89,7 @@ namespace CrossCam.ViewModel
             {
                 if (args.PropertyName == nameof(CaptureSuccess))
                 {
-                    if (LeftByteArray == null)
+                    if (CameraColumn == 0)
                     {
                         LeftCaptureSuccess = !LeftCaptureSuccess;
                     }
@@ -154,7 +154,14 @@ namespace CrossCam.ViewModel
                 CameraColumn = 0;
                 IsCameraVisible = true;
                 LeftByteArray = null;
-                FirstImageSource = null;
+                if (IsCaptureLeftFirst)
+                {
+                    FirstImageSource = null;
+                }
+                else
+                {
+                    SecondImageSource = null;
+                }
             });
 
             RetakeRightCommand = new Command(() =>
@@ -162,7 +169,14 @@ namespace CrossCam.ViewModel
                 CameraColumn = 1;
                 IsCameraVisible = true;
                 RightByteArray = null;
-                SecondImageSource = null;
+                if (IsCaptureLeftFirst)
+                {
+                    SecondImageSource = null;
+                }
+                else
+                {
+                    FirstImageSource = null;
+                }
             });
 
             ClearCapturesCommand = new Command(ClearCaptures);
