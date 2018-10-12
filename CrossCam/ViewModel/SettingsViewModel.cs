@@ -38,6 +38,11 @@ namespace CrossCam.ViewModel
             {
                 Settings.ShowGuideLinesWithFirstCapture = false;
             }
+            if (!Settings.IsGuideDonutVisible)
+            {
+                Settings.ShowGuideDonutWithFirstCapture = false;
+            }
+
             PersistentStorage.Save(PersistentStorage.SETTINGS_KEY, Settings);
         }
     }

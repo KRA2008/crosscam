@@ -48,6 +48,8 @@
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="*"/>
                 <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="Auto"/>
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
@@ -86,30 +88,40 @@
                      Grid.ColumnSpan="2"/>
             <Label Grid.Row="7"
                    Grid.Column="0"
-                   Text="Save sides separately"/>
+                   Text="Guide donut/dot visible before first capture"/>
             <Switch Grid.Row="7"
                     Grid.Column="1"
-                    IsToggled="{Binding Settings.SaveSidesSeparately}"/>
+                    IsEnabled="{Binding Settings.IsGuideDonutVisible}"
+                    IsToggled="{Binding Settings.ShowGuideDonutWithFirstCapture}"/>
             <BoxView Grid.Row="8"
                      Grid.Column="0"
                      Grid.ColumnSpan="2"/>
             <Label Grid.Row="9"
                    Grid.Column="0"
-                   Text="Fill screen with preview"/>
+                   Text="Save sides separately"/>
             <Switch Grid.Row="9"
                     Grid.Column="1"
-                    IsToggled="{Binding Settings.FillScreenPreview}"/>
+                    IsToggled="{Binding Settings.SaveSidesSeparately}"/>
             <BoxView Grid.Row="10"
                      Grid.Column="0"
                      Grid.ColumnSpan="2"/>
             <Label Grid.Row="11"
                    Grid.Column="0"
-                   Text="Clip pictures to filled screen preview width (landscape only)"/>
+                   Text="Fill screen with preview"/>
             <Switch Grid.Row="11"
+                    Grid.Column="1"
+                    IsToggled="{Binding Settings.FillScreenPreview}"/>
+            <BoxView Grid.Row="12"
+                     Grid.Column="0"
+                     Grid.ColumnSpan="2"/>
+            <Label Grid.Row="13"
+                   Grid.Column="0"
+                   Text="Clip pictures to filled screen preview width (landscape only)"/>
+            <Switch Grid.Row="13"
                     Grid.Column="1"
                     IsEnabled="{Binding Settings.FillScreenPreview}"
                     IsToggled="{Binding Settings.ClipLandscapeToFilledScreenPreview}"/>
-            <BoxView Grid.Row="12"
+            <BoxView Grid.Row="14"
                      Grid.Column="0"
                      Grid.ColumnSpan="2"/>
         </Grid>
