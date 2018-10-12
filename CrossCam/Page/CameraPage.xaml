@@ -50,11 +50,10 @@
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
-            <Image Grid.Column="0"
+            <Image Grid.Column="{Binding FirstImageColumn}"
                    Grid.Row="0"
-                   HorizontalOptions="EndAndExpand"
                    Aspect="{Binding PreviewAspect}"
-                   Source="{Binding LeftImageSource}"/>
+                   Source="{Binding FirstImageSource}"/>
             <ce:CameraModule Grid.Column="{Binding CameraColumn}"
                              Grid.Row="0"
                              IsPortrait="{Binding IsViewPortrait}"
@@ -72,22 +71,22 @@
                                              VisibleTimeMs="0"/>
                 </ce:CameraSuccessOutline.Behaviors>
             </ce:CameraSuccessOutline>
-            <ScrollView Grid.Column="1"
+            <ScrollView Grid.Column="{Binding HelpTextColumn}"
                         Grid.Row="0"
                         IsVisible="{Binding IsSaving, Converter={vc:BooleanInvertConverter}}">
                 <StackLayout Padding="10"
-                             Spacing="0">
+                             Spacing="0"
+                             VerticalOptions="CenterAndExpand">
                     <Label Text="~Are you sure you don't want landscape mode?~"
                            IsVisible="{Binding ShouldPortraitWarningBeVisible}"/>
                     <Label Text="{Binding HelpText}"
                            IsVisible="{Binding ShouldHelpTextBeVisible}"/>
                 </StackLayout>
             </ScrollView>
-            <Image Grid.Column="1"
+            <Image Grid.Column="{Binding SecondImageColumn}"
                    Grid.Row="0"
-                   HorizontalOptions="StartAndExpand"
                    Aspect="{Binding PreviewAspect}"
-                   Source="{Binding RightImageSource}"/>
+                   Source="{Binding SecondImageSource}"/>
             <ce:CameraSuccessOutline Grid.Column="1"
                                      Grid.Row="0">
                 <ce:CameraSuccessOutline.Behaviors>
@@ -208,9 +207,15 @@
             <ContentView.GestureRecognizers>
                 <TapGestureRecognizer Command="{Binding CapturePictureCommand}"/>
             </ContentView.GestureRecognizers>
-            <Image Source="aperture"
-                   Opacity="0.5"/>
         </ContentView>
+        <Image AbsoluteLayout.LayoutFlags="All"
+               AbsoluteLayout.LayoutBounds="{DynamicResource _captureRectangle}"
+               Source="aperture"
+               Opacity="0.5"
+               VerticalOptions="EndAndExpand"
+               InputTransparent="True"
+               Margin="{DynamicResource _capturePadding}"
+               IsVisible="{Binding ShouldCaptureButtonBeVisible}"/>
         <ContentView AbsoluteLayout.LayoutFlags="All"
                      AbsoluteLayout.LayoutBounds="{DynamicResource _viewRectangle}"
                      Padding="10"
@@ -220,6 +225,16 @@
             </ContentView.GestureRecognizers>
             <Image Source="eye"
                    Opacity="0.75"/>
+        </ContentView>
+        <ContentView AbsoluteLayout.LayoutFlags="All"
+                     AbsoluteLayout.LayoutBounds="{DynamicResource _clearRectangle}"
+                     Padding="10"                     
+                     IsVisible="{Binding ShouldCaptureButtonBeVisible}">
+            <ContentView.GestureRecognizers>
+                <TapGestureRecognizer Command="{Binding SwapSidesCommand}"/>
+            </ContentView.GestureRecognizers>
+            <Image Source="swap"
+                   Opacity="0.5"/>
         </ContentView>
         <ContentView AbsoluteLayout.LayoutFlags="All"
                      AbsoluteLayout.LayoutBounds="{DynamicResource _clearRectangle}"

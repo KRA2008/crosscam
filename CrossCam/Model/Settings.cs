@@ -10,10 +10,12 @@ namespace CrossCam.Model
         public bool FillScreenPreview { get; set; }
         public bool ClipLandscapeToFilledScreenPreview { get; set; }
         public bool ShowGuideLinesWithFirstCapture { get; set; }
+        public bool IsCaptureLeftFirst { get; set; }
 
         public Settings()
         {
             AreGuideLinesVisible = true;
+            IsCaptureLeftFirst = true;
         }
 
         public event PropertyChangedEventHandler PropertyChanged;

@@ -297,6 +297,12 @@
   <ItemGroup>
     <BundleResource Include="Resources\Icon.png" />
   </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\swap.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\swap%402x.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup />

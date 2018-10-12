@@ -11,15 +11,18 @@ namespace CrossCam.ViewModel
 {
     public sealed class CameraViewModel : FreshBasePageModel
     {
-        public ImageSource LeftImageSource { get; set; }
         public byte[] LeftByteArray { get; set; }
         public Command RetakeLeftCommand { get; set; }
         public bool LeftCaptureSuccess { get; set; }
 
-        public ImageSource RightImageSource { get; set; }
         public byte[] RightByteArray { get; set; }
         public Command RetakeRightCommand { get; set; }
         public bool RightCaptureSuccess { get; set; }
+
+        public ImageSource FirstImageSource { get; set; }
+        public int FirstImageColumn => IsCaptureLeftFirst ? 0 : 1;
+        public ImageSource SecondImageSource { get; set; }
+        public int SecondImageColumn => IsCaptureLeftFirst ? 1 : 0;
 
         public bool IsCameraVisible { get; set; }
         public byte[] CapturedImageBytes { get; set; }
@@ -38,9 +41,12 @@ namespace CrossCam.ViewModel
 
         public Command NavigateToSettingsCommand { get; set; }
 
+        public Command SwapSidesCommand { get; set; }
+
         public Settings Settings { get; set; }
 
         public bool IsViewPortrait { get; set; }
+        public bool IsCaptureLeftFirst { get; set; }
 
         public bool FailFadeTrigger { get; set; }
         public bool SuccessFadeTrigger { get; set; }
@@ -61,11 +67,13 @@ namespace CrossCam.ViewModel
         public bool ShouldPortraitWarningBeVisible => ShouldHelpTextBeVisible && IsViewPortrait;
 
         public string HelpText => "1) Frame up your subject in the center of the preview area" +
-                                  "\n2) Take the left picture (but finish reading these directions first)" +
-                                  "\n3) Move left as though the camera were mounted on a rail, with as little rotation as convenient on any axis" +
+                                  "\n2) Take the first picture (but finish reading these directions first)" +
+                                  "\n3) Move " + SlideDirection + " as though the camera were mounted on a rail, with as little rotation as convenient on any axis" +
                                   "\n4) Start cross viewing with the preview that will have taken the place of these instructions" +
-                                  "\n5) Guide lines will have appeared, align the right picture so the guide lines and the 3D image itself appear clear and sharp (you can drag the lines around if you wish)" +
-                                  "\n6) Take the right picture when the desired level of 3D is achieved";
+                                  "\n5) Guide lines will have appeared, align the second picture so the guide lines and the 3D image itself appear clear and sharp (you can drag the lines around if you wish)" +
+                                  "\n6) Take the second picture when the desired level of 3D is achieved";
+        public string SlideDirection => IsCaptureLeftFirst ? "LEFT" : "RIGHT";
+        public int HelpTextColumn => IsCaptureLeftFirst ? 1 : 0;
 
         public CameraViewModel()
         {
@@ -73,6 +81,9 @@ namespace CrossCam.ViewModel
             IsCameraVisible = true;
 
             Settings = PersistentStorage.LoadOrDefault(PersistentStorage.SETTINGS_KEY, new Settings());
+
+            IsCaptureLeftFirst = Settings.IsCaptureLeftFirst;
+            CameraColumn = IsCaptureLeftFirst ? 0 : 1;
 
             PropertyChanged += (sender, args) =>
             {
@@ -87,27 +98,54 @@ namespace CrossCam.ViewModel
                         RightCaptureSuccess = !RightCaptureSuccess;
                     }
                 }
-                else if (args.PropertyName == nameof(CapturedImageBytes) &&
-                    LeftByteArray == null)
+                else if (args.PropertyName == nameof(CapturedImageBytes))
                 {
-                    LeftByteArray = CapturedImageBytes;
-                    LeftImageSource = ImageSource.FromStream(() => new MemoryStream(LeftByteArray));
-                    if (RightByteArray == null)
+                    if (CameraColumn == 0)
                     {
-                        CameraColumn = 1;
+                        LeftByteArray = CapturedImageBytes;
+
+                        if (IsCaptureLeftFirst)
+                        {
+                            FirstImageSource = ImageSource.FromStream(() => new MemoryStream(LeftByteArray));
+                        }
+                        else
+                        {
+                            SecondImageSource = ImageSource.FromStream(() => new MemoryStream(LeftByteArray));
+                        }
+
+                        if (RightByteArray == null)
+                        {
+                            CameraColumn = 1;
+                        }
+                        else
+                        {
+                            CameraColumn = IsCaptureLeftFirst ? 0 : 1;
+                            IsCameraVisible = false;
+                        }
                     }
                     else
                     {
-                        IsCameraVisible = false;
+                        RightByteArray = CapturedImageBytes;
+
+                        if (IsCaptureLeftFirst)
+                        {
+                            SecondImageSource = ImageSource.FromStream(() => new MemoryStream(RightByteArray));
+                        }
+                        else
+                        {
+                            FirstImageSource = ImageSource.FromStream(() => new MemoryStream(RightByteArray));
+                        }
+
+                        if (LeftByteArray == null)
+                        {
+                            CameraColumn = 0;
+                        }
+                        else
+                        {
+                            CameraColumn = IsCaptureLeftFirst ? 0 : 1;
+                            IsCameraVisible = false;
+                        }
                     }
-                }
-                else if (args.PropertyName == nameof(CapturedImageBytes) &&
-                         RightByteArray == null)
-                {
-                    RightByteArray = CapturedImageBytes;
-                    RightImageSource = ImageSource.FromStream(() => new MemoryStream(RightByteArray));
-                    CameraColumn = 0;
-                    IsCameraVisible = false;
                 }
             };
 
@@ -116,7 +154,7 @@ namespace CrossCam.ViewModel
                 CameraColumn = 0;
                 IsCameraVisible = true;
                 LeftByteArray = null;
-                LeftImageSource = null;
+                FirstImageSource = null;
             });
 
             RetakeRightCommand = new Command(() =>
@@ -124,7 +162,7 @@ namespace CrossCam.ViewModel
                 CameraColumn = 1;
                 IsCameraVisible = true;
                 RightByteArray = null;
-                RightImageSource = null;
+                SecondImageSource = null;
             });
 
             ClearCapturesCommand = new Command(ClearCaptures);
@@ -144,11 +182,24 @@ namespace CrossCam.ViewModel
                 await CoreMethods.PushPageModel<SettingsViewModel>(Settings);
             });
 
+            SwapSidesCommand = new Command(() =>
+            {
+                IsCaptureLeftFirst = !IsCaptureLeftFirst;
+
+                if (IsCameraVisible)
+                {
+                    CameraColumn = CameraColumn == 0 ? 1 : 0;
+                }
+
+                Settings.IsCaptureLeftFirst = IsCaptureLeftFirst;
+                PersistentStorage.Save(PersistentStorage.SETTINGS_KEY, Settings);
+            });
+
             SaveCapturesCommand = new Command(async () =>
             {
                 IsSaving = true;
-                LeftImageSource = null;
-                RightImageSource = null;
+                FirstImageSource = null;
+                SecondImageSource = null;
 
                 await Task.Delay(100); // take a break to go update the screen
 
@@ -363,8 +414,8 @@ namespace CrossCam.ViewModel
         {
             LeftByteArray = null;
             RightByteArray = null;
-            LeftImageSource = null;
-            RightImageSource = null;
+            FirstImageSource = null;
+            SecondImageSource = null;
             IsCameraVisible = true;
         }
     }
