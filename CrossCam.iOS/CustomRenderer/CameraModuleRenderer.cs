@@ -12,12 +12,14 @@ using CameraModule = CrossCam.CustomElement.CameraModule;
 [assembly: ExportRenderer(typeof(CameraModule), typeof(CameraModuleRenderer))]
 namespace CrossCam.iOS.CustomRenderer
 {
-    public class CameraModuleRenderer : ViewRenderer<CameraModule, UIView>, IAVCapturePhotoCaptureDelegate
+    public class CameraModuleRenderer : ViewRenderer<CameraModule, UIView>, IAVCapturePhotoCaptureDelegate, IUIGestureRecognizerDelegate
     {
         private AVCaptureSession _captureSession;
         private UIView _liveCameraStream;
+        private UIGestureRecognizer _tapper;
         private AVCapturePhotoOutput _photoOutput;
         private CameraModule _cameraModule;
+        private AVCaptureDevice _device;
         private bool _isInitialized;
         private AVCaptureVideoPreviewLayer _avCaptureVideoPreviewLayer;
         private UIDeviceOrientation? _previousValidOrientation;
@@ -100,8 +102,8 @@ namespace CrossCam.iOS.CustomRenderer
 
             if (_photoOutput == null)
             {
-                var captureDevice = AVCaptureDevice.GetDefaultDevice(AVMediaTypes.Video);
-                ConfigureCameraForDevice(captureDevice);
+                _device = AVCaptureDevice.GetDefaultDevice(AVMediaTypes.Video);
+                ConfigureCameraForDevice(_device);
 
                 _photoOutput = new AVCapturePhotoOutput
                 {
@@ -109,7 +111,7 @@ namespace CrossCam.iOS.CustomRenderer
                 };
 
                 _captureSession.AddOutput(_photoOutput);
-                _captureSession.AddInput(AVCaptureDeviceInput.FromDevice(captureDevice));
+                _captureSession.AddInput(AVCaptureDeviceInput.FromDevice(_device));
             }
         }
 
@@ -168,6 +170,53 @@ namespace CrossCam.iOS.CustomRenderer
         private void PhotoJustGotCaptured(AVCapturePhotoOutput photoOutput, AVCaptureResolvedPhotoSettings settings)
         {
             _cameraModule.CaptureSuccess = !_cameraModule.CaptureSuccess;
+        }
+
+        [Export("gestureRecognizer:shouldReceiveTouch:")]
+        // ReSharper disable once UnusedMember.Local
+        private void PreviewWasTapped(UIGestureRecognizer recognizer, UITouch touch)
+        {
+            var touchLocation = touch.LocationInView(touch.View);
+
+            var focusPoint = new CGPoint();
+
+            if (_previousValidOrientation == UIDeviceOrientation.Portrait &&
+                !_cameraModule.IsFullScreenPreview) //portrait non fill
+            {
+                var translatedPoint = _avCaptureVideoPreviewLayer.CaptureDevicePointOfInterestForPoint(touchLocation);
+                focusPoint.X = translatedPoint.Y;
+                focusPoint.Y = translatedPoint.X;
+
+                focusPoint.X = 1 - focusPoint.X;
+
+                if (focusPoint.Y < 0)
+                {
+                    focusPoint.Y = 0;
+                }
+
+                if (focusPoint.Y > 1)
+                {
+                    focusPoint.Y = 1;
+                }
+            }
+
+            //landscape non fill
+            //portrait fill
+            //landscape fill
+            var error = new NSError();
+            _device.LockForConfiguration(out error);
+            if (_device.FocusPointOfInterestSupported &&
+                _device.IsFocusModeSupported(AVCaptureFocusMode.ContinuousAutoFocus))
+            {
+                _device.FocusPointOfInterest = focusPoint;
+                _device.FocusMode = AVCaptureFocusMode.AutoFocus;
+            }
+            if (_device.ExposurePointOfInterestSupported)
+            {
+                _device.ExposurePointOfInterest = touchLocation;
+                _device.ExposureMode = AVCaptureExposureMode.AutoExpose;
+            }
+            _device.UnlockForConfiguration();
         }
 
         private static void ConfigureCameraForDevice(AVCaptureDevice device)
@@ -307,6 +356,8 @@ namespace CrossCam.iOS.CustomRenderer
             if (_liveCameraStream == null)
             {
                 _liveCameraStream = new UIView(new CGRect(_leftTrim, 0, _streamWidth, sideHeight));
+                _tapper = new UIGestureRecognizer {Delegate = this};
+                _liveCameraStream.AddGestureRecognizer(_tapper);
             }
             else
             {
@@ -340,8 +391,7 @@ namespace CrossCam.iOS.CustomRenderer
                     videoOrientation = AVCaptureVideoOrientation.LandscapeRight;
                     break;
             }
-
-            var previousOrientation = _avCaptureVideoPreviewLayer.Orientation;
+            
             if (videoOrientation != 0)
             {
                 _avCaptureVideoPreviewLayer.Orientation = videoOrientation;
