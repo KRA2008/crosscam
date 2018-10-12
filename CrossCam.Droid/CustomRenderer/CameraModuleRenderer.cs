@@ -182,6 +182,16 @@ namespace CrossCam.Droid.CustomRenderer
             {
                 _camera = Camera.Open((int)_cameraType);
 
+                for (var ii = 0; ii < Camera.NumberOfCameras - 1; ii++)
+                {
+                    var info = new Camera.CameraInfo();
+                    Camera.GetCameraInfo(ii, info);
+                    if (info.CanDisableShutterSound)
+                    {
+                        _camera.EnableShutterSound(false);
+                    }
+                }
+
                 var parameters = _camera.GetParameters();
                 parameters.FlashMode = Camera.Parameters.FlashModeOff;
                 parameters.VideoStabilization = false;
@@ -302,7 +312,6 @@ namespace CrossCam.Droid.CustomRenderer
             }
 
             var parameters = _camera.GetParameters();
-            parameters.JpegQuality = 100;
 
             var display = _activity.WindowManager.DefaultDisplay;
             if (display.Rotation == SurfaceOrientation.Rotation0) // portrait
