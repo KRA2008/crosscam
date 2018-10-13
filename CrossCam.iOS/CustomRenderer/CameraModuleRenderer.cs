@@ -144,9 +144,6 @@ namespace CrossCam.iOS.CustomRenderer
                     case UIDeviceOrientation.LandscapeRight:
                         imageOrientation = UIImageOrientation.Down;
                         break;
-                    case UIDeviceOrientation.PortraitUpsideDown:
-                        imageOrientation = UIImageOrientation.Left;
-                        break;
                     case UIDeviceOrientation.Portrait:
                         imageOrientation = UIImageOrientation.Right;
                         break;
@@ -216,7 +213,6 @@ namespace CrossCam.iOS.CustomRenderer
             {
                 switch (UIDevice.CurrentDevice.Orientation)
                 {
-                    case UIDeviceOrientation.PortraitUpsideDown:
                     case UIDeviceOrientation.Portrait:
                     case UIDeviceOrientation.LandscapeLeft:
                     case UIDeviceOrientation.LandscapeRight:
@@ -226,7 +222,6 @@ namespace CrossCam.iOS.CustomRenderer
                             SetupCamera();
                             switch (UIDevice.CurrentDevice.Orientation)
                             {
-                                case UIDeviceOrientation.PortraitUpsideDown:
                                 case UIDeviceOrientation.Portrait:
                                     _cameraModule.IsPortrait = true;
                                     break;
@@ -268,7 +263,6 @@ namespace CrossCam.iOS.CustomRenderer
 
             var orientationForSizing = UIDeviceOrientation.Portrait;
             if (UIDevice.CurrentDevice.Orientation == UIDeviceOrientation.Portrait ||
-                UIDevice.CurrentDevice.Orientation == UIDeviceOrientation.PortraitUpsideDown ||
                 UIDevice.CurrentDevice.Orientation == UIDeviceOrientation.LandscapeLeft ||
                 UIDevice.CurrentDevice.Orientation == UIDeviceOrientation.LandscapeRight)
             {
@@ -284,7 +278,6 @@ namespace CrossCam.iOS.CustomRenderer
                 const double IPHONE_PICTURE_ASPECT_RATIO = 4 / 3d; //iPhones do 4:3 pictures
                 switch (orientationForSizing)
                 {
-                    case UIDeviceOrientation.PortraitUpsideDown:
                     case UIDeviceOrientation.Portrait:
                         _cameraModule.IsPortrait = true;
                         _streamWidth = (nfloat)(sideHeight / IPHONE_PICTURE_ASPECT_RATIO);
@@ -332,9 +325,6 @@ namespace CrossCam.iOS.CustomRenderer
                     break;
                 case UIDeviceOrientation.LandscapeRight:
                     videoOrientation = AVCaptureVideoOrientation.LandscapeLeft;
-                    break;
-                case UIDeviceOrientation.PortraitUpsideDown:
-                    videoOrientation = AVCaptureVideoOrientation.PortraitUpsideDown;
                     break;
                 case UIDeviceOrientation.LandscapeLeft:
                     videoOrientation = AVCaptureVideoOrientation.LandscapeRight;
