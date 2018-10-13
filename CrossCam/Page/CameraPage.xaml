@@ -50,10 +50,25 @@
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
+            <StackLayout Grid.Column="{Binding HelpTextColumn}"
+                         Grid.Row="0"
+                         IsVisible="{Binding IsSaving, Converter={vc:BooleanInvertConverter}}"
+                         Padding="10"
+                         Spacing="0"
+                         VerticalOptions="CenterAndExpand">
+                <Label Text="~Are you sure you don't want landscape mode?~"
+                           IsVisible="{Binding ShouldPortraitWarningBeVisible}"/>
+                <Label Text="{Binding HelpText}"
+                           IsVisible="{Binding ShouldHelpTextBeVisible}"/>
+            </StackLayout>
             <Image Grid.Column="{Binding FirstImageColumn}"
                    Grid.Row="0"
                    Aspect="{Binding PreviewAspect}"
                    Source="{Binding FirstImageSource}"/>
+            <Image Grid.Column="{Binding SecondImageColumn}"
+                   Grid.Row="0"
+                   Aspect="{Binding PreviewAspect}"
+                   Source="{Binding SecondImageSource}"/>
             <ce:CameraModule Grid.Column="{Binding CameraColumn}"
                              Grid.Row="0"
                              IsPortrait="{Binding IsViewPortrait}"
@@ -71,22 +86,6 @@
                                              VisibleTimeMs="0"/>
                 </ce:CameraSuccessOutline.Behaviors>
             </ce:CameraSuccessOutline>
-            <ScrollView Grid.Column="{Binding HelpTextColumn}"
-                        Grid.Row="0"
-                        IsVisible="{Binding IsSaving, Converter={vc:BooleanInvertConverter}}">
-                <StackLayout Padding="10"
-                             Spacing="0"
-                             VerticalOptions="CenterAndExpand">
-                    <Label Text="~Are you sure you don't want landscape mode?~"
-                           IsVisible="{Binding ShouldPortraitWarningBeVisible}"/>
-                    <Label Text="{Binding HelpText}"
-                           IsVisible="{Binding ShouldHelpTextBeVisible}"/>
-                </StackLayout>
-            </ScrollView>
-            <Image Grid.Column="{Binding SecondImageColumn}"
-                   Grid.Row="0"
-                   Aspect="{Binding PreviewAspect}"
-                   Source="{Binding SecondImageSource}"/>
             <ce:CameraSuccessOutline Grid.Column="1"
                                      Grid.Row="0">
                 <ce:CameraSuccessOutline.Behaviors>

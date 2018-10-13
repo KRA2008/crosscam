@@ -146,9 +146,6 @@ namespace CrossCam.iOS.CustomRenderer
                     case UIDeviceOrientation.LandscapeRight:
                         imageOrientation = UIImageOrientation.Down;
                         break;
-                    case UIDeviceOrientation.PortraitUpsideDown:
-                        imageOrientation = UIImageOrientation.Left;
-                        break;
                     case UIDeviceOrientation.Portrait:
                         imageOrientation = UIImageOrientation.Right;
                         break;
@@ -177,17 +174,45 @@ namespace CrossCam.iOS.CustomRenderer
         private void PreviewWasTapped(UIGestureRecognizer recognizer, UITouch touch)
         {
             var touchLocation = touch.LocationInView(touch.View);
+            var taps = touch.TapCount;
 
-            var focusPoint = new CGPoint();
+            _device.LockForConfiguration(out var error);
+            if (error != null) return;
 
-            if (_previousValidOrientation == UIDeviceOrientation.Portrait &&
-                !_cameraModule.IsFullScreenPreview) //portrait non fill
+            if (taps > 1)
             {
-                var translatedPoint = _avCaptureVideoPreviewLayer.CaptureDevicePointOfInterestForPoint(touchLocation);
-                focusPoint.X = translatedPoint.Y;
-                focusPoint.Y = translatedPoint.X;
+                if (_device.IsFocusModeSupported(AVCaptureFocusMode.ContinuousAutoFocus))
+                {
+                    _device.FocusMode = AVCaptureFocusMode.ContinuousAutoFocus;
+                }
+                if (_device.IsExposureModeSupported(AVCaptureExposureMode.ContinuousAutoExposure))
+                {
+                    _device.ExposureMode = AVCaptureExposureMode.ContinuousAutoExposure;
+                }
+            }
+            else
+            {
+                var focusPoint = new CGPoint();
 
-                focusPoint.X = 1 - focusPoint.X;
+                if (_previousValidOrientation == UIDeviceOrientation.Portrait)
+                {
+                    var translatedPoint = _avCaptureVideoPreviewLayer.CaptureDevicePointOfInterestForPoint(touchLocation);
+                    focusPoint.X = translatedPoint.Y;
+                    focusPoint.Y = translatedPoint.X;
+
+                    focusPoint.X = 1 - focusPoint.X;
+                }
+                else if (_previousValidOrientation == UIDeviceOrientation.LandscapeLeft)
+                {
+                    focusPoint = _avCaptureVideoPreviewLayer.CaptureDevicePointOfInterestForPoint(touchLocation);
+                }
+                else if (_previousValidOrientation == UIDeviceOrientation.LandscapeRight)
+                {
+                    var translatedPoint = _avCaptureVideoPreviewLayer.CaptureDevicePointOfInterestForPoint(touchLocation);
+
+                    focusPoint.X = 1 - translatedPoint.X;
+                    focusPoint.Y = 1 - translatedPoint.Y;
+                }
 
                 if (focusPoint.Y < 0)
                 {
@@ -198,57 +223,64 @@ namespace CrossCam.iOS.CustomRenderer
                 {
                     focusPoint.Y = 1;
                 }
+
+                if (_device.FocusPointOfInterestSupported &&
+                    _device.IsFocusModeSupported(AVCaptureFocusMode.AutoFocus))
+                {
+                    _device.FocusPointOfInterest = focusPoint;
+                    _device.FocusMode = AVCaptureFocusMode.AutoFocus;
+                }
+                if (_device.ExposurePointOfInterestSupported &&
+                    _device.IsExposureModeSupported(AVCaptureExposureMode.AutoExpose))
+                {
+                    _device.ExposurePointOfInterest = touchLocation;
+                    _device.ExposureMode = AVCaptureExposureMode.AutoExpose;
+                }
             }
 
-            //landscape non fill
-            //portrait fill
-            //landscape fill
-            var error = new NSError();
-            _device.LockForConfiguration(out error);
-            if (_device.FocusPointOfInterestSupported &&
-                _device.IsFocusModeSupported(AVCaptureFocusMode.ContinuousAutoFocus))
-            {
-                _device.FocusPointOfInterest = focusPoint;
-                _device.FocusMode = AVCaptureFocusMode.AutoFocus;
-            }
-            if (_device.ExposurePointOfInterestSupported)
-            {
-                _device.ExposurePointOfInterest = touchLocation;
-                _device.ExposureMode = AVCaptureExposureMode.AutoExpose;
-            }
             _device.UnlockForConfiguration();
         }
 
         private static void ConfigureCameraForDevice(AVCaptureDevice device)
         {
-            var error = new NSError();
-            
             if (device.IsFlashModeSupported(AVCaptureFlashMode.Off))
             {
-                device.LockForConfiguration(out error);
-                device.FlashMode = AVCaptureFlashMode.Off;
-                device.UnlockForConfiguration();
+                device.LockForConfiguration(out var error);
+                if (error == null)
+                {
+                    device.FlashMode = AVCaptureFlashMode.Off;
+                    device.UnlockForConfiguration();
+                }
             }
 
             if (device.IsFocusModeSupported(AVCaptureFocusMode.ContinuousAutoFocus))
             {
-                device.LockForConfiguration(out error);
-                device.FocusMode = AVCaptureFocusMode.ContinuousAutoFocus;
-                device.UnlockForConfiguration();
+                device.LockForConfiguration(out var error);
+                if (error == null)
+                {
+                    device.FocusMode = AVCaptureFocusMode.ContinuousAutoFocus;
+                    device.UnlockForConfiguration();
+                }
             }
 
             if (device.IsExposureModeSupported(AVCaptureExposureMode.ContinuousAutoExposure))
             {
-                device.LockForConfiguration(out error);
-                device.ExposureMode = AVCaptureExposureMode.ContinuousAutoExposure;
-                device.UnlockForConfiguration();
+                device.LockForConfiguration(out var error);
+                if (error == null)
+                {
+                    device.ExposureMode = AVCaptureExposureMode.ContinuousAutoExposure;
+                    device.UnlockForConfiguration();
+                }
             }
 
             if (device.IsWhiteBalanceModeSupported(AVCaptureWhiteBalanceMode.ContinuousAutoWhiteBalance))
             {
-                device.LockForConfiguration(out error);
-                device.WhiteBalanceMode = AVCaptureWhiteBalanceMode.ContinuousAutoWhiteBalance;
-                device.UnlockForConfiguration();
+                device.LockForConfiguration(out var error);
+                if (error == null)
+                {
+                    device.WhiteBalanceMode = AVCaptureWhiteBalanceMode.ContinuousAutoWhiteBalance;
+                    device.UnlockForConfiguration();
+                }
             }
         }
 
@@ -265,7 +297,6 @@ namespace CrossCam.iOS.CustomRenderer
             {
                 switch (UIDevice.CurrentDevice.Orientation)
                 {
-                    case UIDeviceOrientation.PortraitUpsideDown:
                     case UIDeviceOrientation.Portrait:
                     case UIDeviceOrientation.LandscapeLeft:
                     case UIDeviceOrientation.LandscapeRight:
@@ -275,7 +306,6 @@ namespace CrossCam.iOS.CustomRenderer
                             SetupCamera();
                             switch (UIDevice.CurrentDevice.Orientation)
                             {
-                                case UIDeviceOrientation.PortraitUpsideDown:
                                 case UIDeviceOrientation.Portrait:
                                     _cameraModule.IsPortrait = true;
                                     break;
@@ -317,7 +347,6 @@ namespace CrossCam.iOS.CustomRenderer
 
             var orientationForSizing = UIDeviceOrientation.Portrait;
             if (UIDevice.CurrentDevice.Orientation == UIDeviceOrientation.Portrait ||
-                UIDevice.CurrentDevice.Orientation == UIDeviceOrientation.PortraitUpsideDown ||
                 UIDevice.CurrentDevice.Orientation == UIDeviceOrientation.LandscapeLeft ||
                 UIDevice.CurrentDevice.Orientation == UIDeviceOrientation.LandscapeRight)
             {
@@ -333,7 +362,6 @@ namespace CrossCam.iOS.CustomRenderer
                 const double IPHONE_PICTURE_ASPECT_RATIO = 4 / 3d; //iPhones do 4:3 pictures
                 switch (orientationForSizing)
                 {
-                    case UIDeviceOrientation.PortraitUpsideDown:
                     case UIDeviceOrientation.Portrait:
                         _cameraModule.IsPortrait = true;
                         _streamWidth = (nfloat)(sideHeight / IPHONE_PICTURE_ASPECT_RATIO);
@@ -383,9 +411,6 @@ namespace CrossCam.iOS.CustomRenderer
                     break;
                 case UIDeviceOrientation.LandscapeRight:
                     videoOrientation = AVCaptureVideoOrientation.LandscapeLeft;
-                    break;
-                case UIDeviceOrientation.PortraitUpsideDown:
-                    videoOrientation = AVCaptureVideoOrientation.PortraitUpsideDown;
                     break;
                 case UIDeviceOrientation.LandscapeLeft:
                     videoOrientation = AVCaptureVideoOrientation.LandscapeRight;
