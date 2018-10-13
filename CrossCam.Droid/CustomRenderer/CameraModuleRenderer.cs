@@ -1,4 +1,4 @@
-﻿using System;
+﻿using System.Collections.Generic;
 using System.ComponentModel;
 using System.IO;
 using System.Linq;
@@ -10,17 +10,21 @@ using Android.Util;
 using Android.Views;
 using Android.Widget;
 using CrossCam.Droid.CustomRenderer;
+using Java.Lang;
 using SkiaSharp;
 using Xamarin.Forms;
 using Xamarin.Forms.Platform.Android;
 using CameraModule = CrossCam.CustomElement.CameraModule;
+using Exception = System.Exception;
+using Math = System.Math;
+using View = Android.Views.View;
 #pragma warning disable 618
 using Camera = Android.Hardware.Camera;
 
 [assembly: ExportRenderer(typeof(CameraModule), typeof(CameraModuleRenderer))]
 namespace CrossCam.Droid.CustomRenderer
 {
-    public class CameraModuleRenderer : ViewRenderer<CameraModule, Android.Views.View>, TextureView.ISurfaceTextureListener, Camera.IShutterCallback, Camera.IPictureCallback
+    public class CameraModuleRenderer : ViewRenderer<CameraModule, Android.Views.View>, TextureView.ISurfaceTextureListener, Camera.IShutterCallback, Camera.IPictureCallback, View.IOnTouchListener, Camera.IAutoFocusCallback
     {
         private Camera _camera;
         private Android.Views.View _view;
@@ -114,6 +118,7 @@ namespace CrossCam.Droid.CustomRenderer
 
             _textureView = _view.FindViewById<TextureView>(Resource.Id.textureView);
             _textureView.SurfaceTextureListener = this;
+            _textureView.SetOnTouchListener(this);
         }
 
         protected override void OnLayout(bool changed, int l, int t, int r, int b)
@@ -196,6 +201,10 @@ namespace CrossCam.Droid.CustomRenderer
                 parameters.FlashMode = Camera.Parameters.FlashModeOff;
                 parameters.VideoStabilization = false;
                 parameters.JpegQuality = 100;
+                if (parameters.SupportedFocusModes.Contains(Camera.Parameters.FocusModeContinuousPicture))
+                {
+                    parameters.FocusMode = Camera.Parameters.FocusModeContinuousPicture;
+                }
 
                 var landscapePictureDescendingSizes = parameters
                     .SupportedPictureSizes
@@ -417,6 +426,75 @@ namespace CrossCam.Droid.CustomRenderer
 
                 _cameraModule.CapturedImage = correctedBytes;
             }
+        }
+
+        private const int MAX_DOUBLE_TAP_DURATION = 200;
+        private long _tapStartTime;
+
+        public bool OnTouch(View v, MotionEvent e)
+        {
+            if (_camera != null)
+            {
+                var parameters = _camera.GetParameters();
+
+                if (JavaSystem.CurrentTimeMillis() - _tapStartTime <= MAX_DOUBLE_TAP_DURATION)
+                { //double tap
+                    if (parameters.SupportedFocusModes.Contains(Camera.Parameters.FocusModeContinuousPicture))
+                    {
+                        parameters.FocusMode = Camera.Parameters.FocusModeContinuousPicture;
+                    }
+                }
+                else
+                { //single tap
+                    _tapStartTime = JavaSystem.CurrentTimeMillis();
+
+                    var focusRect = CalculateTapArea(e.GetX(), e.GetY(), 1f);
+                    var meteringRect = CalculateTapArea(e.GetX(), e.GetY(), 1.5f);
+
+                    if (parameters.MaxNumFocusAreas > 0 &&
+                        parameters.SupportedFocusModes.Contains(Camera.Parameters.FocusModeFixed))
+                    {
+                        parameters.FocusAreas = new List<Camera.Area> { new Camera.Area(focusRect, 1000) };
+                        parameters.FocusMode = Camera.Parameters.FocusModeFixed;
+                    }
+
+                    if (parameters.MaxNumMeteringAreas > 0)
+                    {
+                        parameters.MeteringAreas = new List<Camera.Area> { new Camera.Area(meteringRect, 1000) };
+                    }
+
+                }
+
+                _camera.SetParameters(parameters);
+            }
+
+            return false;
+        }
+
+        private Rect CalculateTapArea(float x, float y, float coefficient)
+        {
+            var areaSize = Float.ValueOf(100 * coefficient).IntValue();
+
+            var left = Clamp((int)x - areaSize / 2, 0, _textureView.Width - areaSize);
+            var top = Clamp((int)y - areaSize / 2, 0, _textureView.Height - areaSize);
+
+            var rectF = new RectF(left, top, left + areaSize, top + areaSize);
+            Matrix.MapRect(rectF);
+
+            return new Rect((int)(rectF.Left+0.5), (int)(rectF.Top + 0.5), (int)(rectF.Right + 0.5), (int)(rectF.Bottom + 0.5));
+        }
+
+        private static int Clamp(int x, int min, int max)
+        {
+            if (x > max)
+            {
+                return max;
+            }
+            return x < min ? min : x;
+        }
+
+        public void OnAutoFocus(bool success, Camera camera)
+        {
         }
     }
 }
