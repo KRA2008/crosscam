@@ -71,7 +71,8 @@ namespace CrossCam.ViewModel
                                   "\n3) Move " + SlideDirection + " as though the camera were mounted on a rail, with as little rotation as convenient on any axis" +
                                   "\n4) Start cross viewing with the preview that will have taken the place of these instructions" +
                                   "\n5) Guide lines will have appeared, align the second picture so the guide lines and the 3D image itself appear clear and sharp (you can drag the lines around if you wish)" +
-                                  "\n6) Take the second picture when the desired level of 3D is achieved";
+                                  "\n6) Take the second picture when the desired level of 3D is achieved" +
+                                  "\n ~ tap => point focus, double tap => area focus";
         public string SlideDirection => IsCaptureLeftFirst ? "LEFT" : "RIGHT";
         public int HelpTextColumn => IsCaptureLeftFirst ? 1 : 0;
 

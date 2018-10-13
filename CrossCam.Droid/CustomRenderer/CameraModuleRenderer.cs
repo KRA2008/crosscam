@@ -454,8 +454,8 @@ namespace CrossCam.Droid.CustomRenderer
                     if (parameters.MaxNumFocusAreas > 0 &&
                         parameters.SupportedFocusModes.Contains(Camera.Parameters.FocusModeFixed))
                     {
-                        parameters.FocusAreas = new List<Camera.Area> { new Camera.Area(focusRect, 1000) };
                         parameters.FocusMode = Camera.Parameters.FocusModeFixed;
+                        parameters.FocusAreas = new List<Camera.Area> { new Camera.Area(focusRect, 1000) };
                     }
 
                     if (parameters.MaxNumMeteringAreas > 0)
