@@ -266,8 +266,14 @@ namespace CrossCam.ViewModel
                     }
                     else
                     {
-                        var pictureHeightToScreenHeightRatio = leftBitmap.Height / Application.Current.MainPage.Height;
-                        eachSideWidth = Application.Current.MainPage.Width * pictureHeightToScreenHeightRatio / 2d;
+                        var flippableHeight = IsViewPortrait
+                            ? Application.Current.MainPage.Height
+                            : Application.Current.MainPage.Width;
+                        var flippableWidth = IsViewPortrait
+                            ? Application.Current.MainPage.Width
+                            : Application.Current.MainPage.Height;
+                        var pictureHeightToScreenHeightRatio = leftBitmap.Height / flippableHeight;
+                        eachSideWidth = flippableWidth * pictureHeightToScreenHeightRatio / 2d;
                     }
 
                     var imageLeftTrimWidth = (leftBitmap.Width - eachSideWidth) / 2d;
