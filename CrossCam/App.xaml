@@ -10,7 +10,7 @@
                 <Setter Property="FontSize"
                         Value="Small"/>
             </Style>
-            <Style TargetType="NavigationPage">
+            <Style TargetType="NavigationPage" ApplyToDerivedTypes="True">
                 <Setter Property="BarTextColor" Value="White"/>
                 <Setter Property="BarBackgroundColor" Value="Black"/>
                 <Setter Property="BackgroundColor" Value="Black"/>

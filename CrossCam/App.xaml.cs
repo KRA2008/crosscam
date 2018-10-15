@@ -1,6 +1,5 @@
 ﻿using CrossCam.ViewModel;
 using FreshMvvm;
-using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
 [assembly: XamlCompilation(XamlCompilationOptions.Compile)]
@@ -11,12 +10,7 @@ namespace CrossCam
         public App()
         {
             InitializeComponent();
-            MainPage = new FreshNavigationContainer(FreshPageModelResolver.ResolvePageModel<CameraViewModel>())
-            {
-                BarBackgroundColor = Color.Black,
-                BackgroundColor = Color.Black,
-                BarTextColor = Color.White
-            };
+            MainPage = new FreshNavigationContainer(FreshPageModelResolver.ResolvePageModel<CameraViewModel>());
         }
 
         protected override void OnStart()
