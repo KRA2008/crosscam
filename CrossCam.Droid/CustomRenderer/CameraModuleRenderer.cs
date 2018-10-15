@@ -23,7 +23,7 @@ using Camera = Android.Hardware.Camera;
 [assembly: ExportRenderer(typeof(CameraModule), typeof(CameraModuleRenderer))]
 namespace CrossCam.Droid.CustomRenderer
 {
-    public class CameraModuleRenderer : ViewRenderer<CameraModule, View>, TextureView.ISurfaceTextureListener, Camera.IShutterCallback, Camera.IPictureCallback, View.IOnTouchListener, Camera.IAutoFocusCallback
+    public class CameraModuleRenderer : ViewRenderer<CameraModule, View>, TextureView.ISurfaceTextureListener, Camera.IShutterCallback, Camera.IPictureCallback, View.IOnTouchListener
     {
         private Camera _camera;
         private View _view;
@@ -511,10 +511,6 @@ namespace CrossCam.Droid.CustomRenderer
                 return max;
             }
             return x < min ? min : x;
-        }
-
-        public void OnAutoFocus(bool success, Camera camera)
-        {
         }
     }
 }
