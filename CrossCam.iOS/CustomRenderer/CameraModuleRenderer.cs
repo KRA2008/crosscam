@@ -84,6 +84,35 @@ namespace CrossCam.iOS.CustomRenderer
             {
                 SetupCamera();
             }
+
+            if (e.PropertyName == nameof(_cameraModule.IsTapToFocusEnabled) &&
+                !_cameraModule.IsTapToFocusEnabled)
+            {
+                TurnOnContinuousFocus();
+            }
+
+            if (e.PropertyName == nameof(_cameraModule.SwitchToContinuousFocusTrigger) &&
+                _cameraModule.IsTapToFocusEnabled)
+            {
+                TurnOnContinuousFocus();
+            }
+        }
+
+        private void TurnOnContinuousFocus()
+        {
+            _device.LockForConfiguration(out var error);
+            if (error != null) return;
+
+            if (_device.IsFocusModeSupported(AVCaptureFocusMode.ContinuousAutoFocus))
+            {
+                _device.FocusMode = AVCaptureFocusMode.ContinuousAutoFocus;
+            }
+            if (_device.IsExposureModeSupported(AVCaptureExposureMode.ContinuousAutoExposure))
+            {
+                _device.ExposureMode = AVCaptureExposureMode.ContinuousAutoExposure;
+            }
+
+            _device.UnlockForConfiguration();
         }
 
         private void SetupCamera()
@@ -176,112 +205,93 @@ namespace CrossCam.iOS.CustomRenderer
             var touchLocation = touch.LocationInView(touch.View);
             var taps = touch.TapCount;
 
-            _device.LockForConfiguration(out var error);
-            if (error != null) return;
-
             if (taps > 1)
             {
-                if (_device.IsFocusModeSupported(AVCaptureFocusMode.ContinuousAutoFocus))
-                {
-                    _device.FocusMode = AVCaptureFocusMode.ContinuousAutoFocus;
-                }
-                if (_device.IsExposureModeSupported(AVCaptureExposureMode.ContinuousAutoExposure))
-                {
-                    _device.ExposureMode = AVCaptureExposureMode.ContinuousAutoExposure;
-                }
+                TurnOnContinuousFocus();
             }
             else
             {
-                var focusPoint = new CGPoint();
+                if (_cameraModule.IsTapToFocusEnabled)
+                {
+                    var focusPoint = new CGPoint();
 
-                if (_previousValidOrientation == UIDeviceOrientation.Portrait)
-                {
-                    var translatedPoint = _avCaptureVideoPreviewLayer.CaptureDevicePointOfInterestForPoint(touchLocation);
-                    focusPoint.X = translatedPoint.Y;
-                    focusPoint.Y = translatedPoint.X;
+                    if (_previousValidOrientation == UIDeviceOrientation.Portrait)
+                    {
+                        var translatedPoint = _avCaptureVideoPreviewLayer.CaptureDevicePointOfInterestForPoint(touchLocation);
+                        focusPoint.X = translatedPoint.Y;
+                        focusPoint.Y = translatedPoint.X;
 
-                    focusPoint.X = 1 - focusPoint.X;
-                }
-                else if (_previousValidOrientation == UIDeviceOrientation.LandscapeLeft)
-                {
-                    focusPoint = _avCaptureVideoPreviewLayer.CaptureDevicePointOfInterestForPoint(touchLocation);
-                }
-                else if (_previousValidOrientation == UIDeviceOrientation.LandscapeRight)
-                {
-                    var translatedPoint = _avCaptureVideoPreviewLayer.CaptureDevicePointOfInterestForPoint(touchLocation);
+                        focusPoint.X = 1 - focusPoint.X;
+                    }
+                    else if (_previousValidOrientation == UIDeviceOrientation.LandscapeLeft)
+                    {
+                        focusPoint = _avCaptureVideoPreviewLayer.CaptureDevicePointOfInterestForPoint(touchLocation);
+                    }
+                    else if (_previousValidOrientation == UIDeviceOrientation.LandscapeRight)
+                    {
+                        var translatedPoint = _avCaptureVideoPreviewLayer.CaptureDevicePointOfInterestForPoint(touchLocation);
 
-                    focusPoint.X = 1 - translatedPoint.X;
-                    focusPoint.Y = 1 - translatedPoint.Y;
-                }
+                        focusPoint.X = 1 - translatedPoint.X;
+                        focusPoint.Y = 1 - translatedPoint.Y;
+                    }
 
-                if (focusPoint.Y < 0)
-                {
-                    focusPoint.Y = 0;
-                }
+                    if (focusPoint.Y < 0)
+                    {
+                        focusPoint.Y = 0;
+                    }
 
-                if (focusPoint.Y > 1)
-                {
-                    focusPoint.Y = 1;
-                }
+                    if (focusPoint.Y > 1)
+                    {
+                        focusPoint.Y = 1;
+                    }
 
-                if (_device.FocusPointOfInterestSupported &&
-                    _device.IsFocusModeSupported(AVCaptureFocusMode.AutoFocus))
-                {
-                    _device.FocusPointOfInterest = focusPoint;
-                    _device.FocusMode = AVCaptureFocusMode.AutoFocus;
-                }
-                if (_device.ExposurePointOfInterestSupported &&
-                    _device.IsExposureModeSupported(AVCaptureExposureMode.AutoExpose))
-                {
-                    _device.ExposurePointOfInterest = touchLocation;
-                    _device.ExposureMode = AVCaptureExposureMode.AutoExpose;
+                    _device.LockForConfiguration(out var error);
+                    if (error != null) return;
+
+                    if (_device.FocusPointOfInterestSupported &&
+                        _device.IsFocusModeSupported(AVCaptureFocusMode.AutoFocus))
+                    {
+                        _device.FocusPointOfInterest = focusPoint;
+                        _device.FocusMode = AVCaptureFocusMode.AutoFocus;
+                    }
+                    if (_device.ExposurePointOfInterestSupported &&
+                        _device.IsExposureModeSupported(AVCaptureExposureMode.AutoExpose))
+                    {
+                        _device.ExposurePointOfInterest = touchLocation;
+                        _device.ExposureMode = AVCaptureExposureMode.AutoExpose;
+                    }
+
+                    _device.UnlockForConfiguration();
                 }
             }
-
-            _device.UnlockForConfiguration();
         }
 
         private static void ConfigureCameraForDevice(AVCaptureDevice device)
         {
+            device.LockForConfiguration(out var error);
+            if (error != null) return;
+
             if (device.IsFlashModeSupported(AVCaptureFlashMode.Off))
             {
-                device.LockForConfiguration(out var error);
-                if (error == null)
-                {
-                    device.FlashMode = AVCaptureFlashMode.Off;
-                    device.UnlockForConfiguration();
-                }
+                device.FlashMode = AVCaptureFlashMode.Off;
             }
 
             if (device.IsFocusModeSupported(AVCaptureFocusMode.ContinuousAutoFocus))
             {
-                device.LockForConfiguration(out var error);
-                if (error == null)
-                {
-                    device.FocusMode = AVCaptureFocusMode.ContinuousAutoFocus;
-                    device.UnlockForConfiguration();
-                }
+                device.FocusMode = AVCaptureFocusMode.ContinuousAutoFocus;
             }
 
             if (device.IsExposureModeSupported(AVCaptureExposureMode.ContinuousAutoExposure))
             {
-                device.LockForConfiguration(out var error);
-                if (error == null)
-                {
-                    device.ExposureMode = AVCaptureExposureMode.ContinuousAutoExposure;
-                    device.UnlockForConfiguration();
-                }
+                device.ExposureMode = AVCaptureExposureMode.ContinuousAutoExposure;
             }
 
             if (device.IsWhiteBalanceModeSupported(AVCaptureWhiteBalanceMode.ContinuousAutoWhiteBalance))
             {
-                device.LockForConfiguration(out var error);
-                if (error == null)
-                {
-                    device.WhiteBalanceMode = AVCaptureWhiteBalanceMode.ContinuousAutoWhiteBalance;
-                    device.UnlockForConfiguration();
-                }
+                device.WhiteBalanceMode = AVCaptureWhiteBalanceMode.ContinuousAutoWhiteBalance;
             }
+
+            device.UnlockForConfiguration();
         }
 
         private void SetupUserInterface()

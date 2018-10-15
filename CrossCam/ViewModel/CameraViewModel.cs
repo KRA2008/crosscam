@@ -52,6 +52,8 @@ namespace CrossCam.ViewModel
         public bool SuccessFadeTrigger { get; set; }
         public bool IsSaving { get; set; }
 
+        public bool SwitchToContinuousFocusTrigger { get; set; }
+
         public Aspect PreviewAspect => Settings.FillScreenPreview && !(IsViewMode && IsViewPortrait) ? Aspect.AspectFill : Aspect.AspectFit;
 
         public bool IsCaptureComplete => LeftByteArray != null && RightByteArray != null;
@@ -71,8 +73,7 @@ namespace CrossCam.ViewModel
                                   "\n3) Move " + SlideDirection + " as though the camera were mounted on a rail, with as little rotation as convenient on any axis" +
                                   "\n4) Start cross viewing with the preview that will have taken the place of these instructions" +
                                   "\n5) Guide lines will have appeared, align the second picture so the guide lines and the 3D image itself appear clear and sharp (you can drag the lines around if you wish)" +
-                                  "\n6) Take the second picture when the desired level of 3D is achieved" +
-                                  "\n ~ tap => point focus, double tap => area focus";
+                                  "\n6) Take the second picture when the desired level of 3D is achieved";
         public string SlideDirection => IsCaptureLeftFirst ? "LEFT" : "RIGHT";
         public int HelpTextColumn => IsCaptureLeftFirst ? 1 : 0;
 
@@ -254,10 +255,10 @@ namespace CrossCam.ViewModel
                             rightBitmap = SKBitmap.Decode(RightByteArray);
                             break;
                     }
+
                     LeftByteArray = null;
                     RightByteArray = null;
-
-
+                    
                     double eachSideWidth;
                     if (leftBitmap.Height > leftBitmap.Width || !Settings.ClipLandscapeToFilledScreenPreview)
                     {
@@ -271,8 +272,8 @@ namespace CrossCam.ViewModel
 
                     var imageLeftTrimWidth = (leftBitmap.Width - eachSideWidth) / 2d;
 
-                    var floatedTrim = (float)imageLeftTrimWidth;
-                    var floatedWidth = (float)eachSideWidth;
+                    var floatedTrim = (float) imageLeftTrimWidth;
+                    var floatedWidth = (float) eachSideWidth;
 
                     bool didSave;
 
@@ -280,7 +281,8 @@ namespace CrossCam.ViewModel
                     {
                         var finalImageWidth = eachSideWidth * 2;
 
-                        using (var tempSurface = SKSurface.Create(new SKImageInfo((int)finalImageWidth, leftBitmap.Height)))
+                        using (var tempSurface =
+                            SKSurface.Create(new SKImageInfo((int) finalImageWidth, leftBitmap.Height)))
                         {
                             var canvas = tempSurface.Canvas;
 
@@ -289,7 +291,7 @@ namespace CrossCam.ViewModel
                             if (needs180Flip)
                             {
                                 canvas.RotateDegrees(180);
-                                canvas.Translate((float)(-1 * finalImageWidth), -1 * leftBitmap.Height);
+                                canvas.Translate((float) (-1 * finalImageWidth), -1 * leftBitmap.Height);
                             }
 
                             canvas.DrawBitmap(leftBitmap,
@@ -339,6 +341,7 @@ namespace CrossCam.ViewModel
                             rightSkImage = tempsurface.Snapshot();
 
                         }
+
                         rightBitmap.Dispose();
                         leftBitmap.Dispose();
 
@@ -372,6 +375,12 @@ namespace CrossCam.ViewModel
                 }
                 catch
                 {
+                    IsSaving = false;
+
+                    FailFadeTrigger = !FailFadeTrigger;
+                }
+                finally
+                {
                     rightFinalImageBytes = null;
                     leftFinalImageBytes = null;
                     finalJoinedImageBytes = null;
@@ -381,11 +390,8 @@ namespace CrossCam.ViewModel
                     leftBitmap?.Dispose();
                     rightBitmap?.Dispose();
 
-                    IsSaving = false;
-                    FailFadeTrigger = !FailFadeTrigger;
+                    ClearCaptures();
                 }
-
-                ClearCaptures();
             });
         }
 
@@ -432,6 +438,11 @@ namespace CrossCam.ViewModel
             FirstImageSource = null;
             SecondImageSource = null;
             IsCameraVisible = true;
+
+            if (Settings.IsTapToFocusEnabled)
+            {
+                SwitchToContinuousFocusTrigger = !SwitchToContinuousFocusTrigger;
+            }
         }
     }
 }

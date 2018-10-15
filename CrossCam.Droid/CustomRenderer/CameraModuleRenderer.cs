@@ -108,6 +108,28 @@ namespace CrossCam.Droid.CustomRenderer
                     SetupCamera();
                 }
             }
+
+            if (e.PropertyName == nameof(_cameraModule.IsTapToFocusEnabled) &&
+                !_cameraModule.IsTapToFocusEnabled)
+            {
+                TurnOnContinuousFocus();
+            }
+
+            if (e.PropertyName == nameof(_cameraModule.SwitchToContinuousFocusTrigger) &&
+                _cameraModule.IsTapToFocusEnabled)
+            {
+                TurnOnContinuousFocus();
+            }
+        }
+
+        private void TurnOnContinuousFocus()
+        {
+            var parameters = _camera.GetParameters();
+            if (parameters.SupportedFocusModes.Contains(Camera.Parameters.FocusModeContinuousPicture))
+            {
+                parameters.FocusMode = Camera.Parameters.FocusModeContinuousPicture;
+            }
+            _camera.SetParameters(parameters);
         }
 
         private void SetupUserInterface()
@@ -435,37 +457,36 @@ namespace CrossCam.Droid.CustomRenderer
         {
             if (_camera != null)
             {
-                var parameters = _camera.GetParameters();
 
                 if (JavaSystem.CurrentTimeMillis() - _tapStartTime <= MAX_DOUBLE_TAP_DURATION)
                 { //double tap
-                    if (parameters.SupportedFocusModes.Contains(Camera.Parameters.FocusModeContinuousPicture))
-                    {
-                        parameters.FocusMode = Camera.Parameters.FocusModeContinuousPicture;
-                    }
+                    TurnOnContinuousFocus();
                 }
                 else
                 { //single tap
                     _tapStartTime = JavaSystem.CurrentTimeMillis();
 
-                    var focusRect = CalculateTapArea(e.GetX(), e.GetY(), 1f);
-                    var meteringRect = CalculateTapArea(e.GetX(), e.GetY(), 1.5f);
-
-                    if (parameters.MaxNumFocusAreas > 0 &&
-                        parameters.SupportedFocusModes.Contains(Camera.Parameters.FocusModeFixed))
+                    if (_cameraModule.IsTapToFocusEnabled)
                     {
-                        parameters.FocusMode = Camera.Parameters.FocusModeFixed;
-                        parameters.FocusAreas = new List<Camera.Area> { new Camera.Area(focusRect, 1000) };
-                    }
+                        var parameters = _camera.GetParameters();
+                        var focusRect = CalculateTapArea(e.GetX(), e.GetY(), 1f);
+                        var meteringRect = CalculateTapArea(e.GetX(), e.GetY(), 1.5f);
 
-                    if (parameters.MaxNumMeteringAreas > 0)
-                    {
-                        parameters.MeteringAreas = new List<Camera.Area> { new Camera.Area(meteringRect, 1000) };
-                    }
+                        if (parameters.MaxNumFocusAreas > 0 &&
+                            parameters.SupportedFocusModes.Contains(Camera.Parameters.FocusModeAuto))
+                        {
+                            parameters.FocusMode = Camera.Parameters.FocusModeAuto;
+                            parameters.FocusAreas = new List<Camera.Area> { new Camera.Area(focusRect, 1000) };
+                        }
 
+                        if (parameters.MaxNumMeteringAreas > 0)
+                        {
+                            parameters.MeteringAreas = new List<Camera.Area> { new Camera.Area(meteringRect, 1000) };
+                        }
+                        _camera.SetParameters(parameters);
+                    }
                 }
 
-                _camera.SetParameters(parameters);
             }
 
             return false;

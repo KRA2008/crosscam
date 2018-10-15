@@ -71,6 +71,8 @@
                    Source="{Binding SecondImageSource}"/>
             <ce:CameraModule Grid.Column="{Binding CameraColumn}"
                              Grid.Row="0"
+                             SwitchToContinuousFocusTrigger="{Binding SwitchToContinuousFocusTrigger}"
+                             IsTapToFocusEnabled="{Binding Settings.IsTapToFocusEnabled}"
                              IsPortrait="{Binding IsViewPortrait}"
                              CaptureTrigger="{Binding CapturePictureTrigger}"
                              IsVisible="{Binding IsCameraVisible}"
