@@ -59,7 +59,7 @@ namespace CrossCam.ViewModel
         public bool IsCaptureComplete => LeftByteArray != null && RightByteArray != null;
         public bool IsNothingCaptured => LeftByteArray == null && RightByteArray == null;
         public bool ShouldCaptureButtonBeVisible => !IsCaptureComplete && !IsSaving && !IsViewMode;
-        public bool ShouldHelpTextBeVisible => IsNothingCaptured && !IsSaving && !IsViewMode;
+        public bool ShouldHelpTextBeVisible => IsNothingCaptured && !IsSaving && !IsViewMode && HelpTextColumn != CameraColumn;
         public bool ShouldLeftRetakeBeVisible => LeftByteArray != null && !IsSaving && !IsViewMode;
         public bool ShouldRightRetakeBeVisible => RightByteArray != null && !IsSaving && !IsViewMode;
         public bool ShouldEndButtonsBeVisible => IsCaptureComplete && !IsSaving && !IsViewMode;
