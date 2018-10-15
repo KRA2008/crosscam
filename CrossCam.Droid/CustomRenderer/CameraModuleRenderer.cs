@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.IO;
 using System.Linq;
@@ -40,12 +41,38 @@ namespace CrossCam.Droid.CustomRenderer
         private bool _isSurfaceAvailable;
         private bool _isRunning;
 
+        private bool _wasCameraRunningBeforeMinimize;
+
         public CameraModuleRenderer(Context context) : base(context)
         {
-            MainActivity.Instance.OrientationHelper.OrientationChanged += (sender, args) =>
+            MainActivity.Instance.LifecycleEventListener.OrientationChanged += (sender, args) =>
             {
                 OrientationChanged();
             };
+            MainActivity.Instance.LifecycleEventListener.AppMaximized += AppWasMaximized;
+            MainActivity.Instance.LifecycleEventListener.AppMinimized += AppWasMinimized;
+        }
+
+        private void AppWasMinimized(object obj, EventArgs args)
+        {
+            if (_isRunning)
+            {
+                StopCamera();
+                _wasCameraRunningBeforeMinimize = true;
+            }
+            else
+            {
+                _wasCameraRunningBeforeMinimize = false;
+            }
+        }
+
+        private void AppWasMaximized(object obj, EventArgs args)
+        {
+            if (!_isRunning &&
+                _wasCameraRunningBeforeMinimize)
+            {
+                SetupAndStartCamera();
+            }
         }
 
         protected override void OnElementChanged(ElementChangedEventArgs<CameraModule> e)
@@ -72,16 +99,11 @@ namespace CrossCam.Droid.CustomRenderer
 
             if (e.PropertyName == nameof(_cameraModule.IsVisible))
             {
-                if (!_cameraModule.IsVisible)
-                {
-                    StopCamera();
-                }
-                else
+                if (_cameraModule.IsVisible)
                 {
                     if (_isSurfaceAvailable)
                     {
-                        SetupCamera();
-                        StartCamera();
+                        SetupAndStartCamera();
                     }
                 }
             }
@@ -104,7 +126,7 @@ namespace CrossCam.Droid.CustomRenderer
             {
                 if (_isSurfaceAvailable && _isRunning)
                 {
-                    SetupCamera();
+                    SetupAndStartCamera();
                 }
             }
 
@@ -162,8 +184,8 @@ namespace CrossCam.Droid.CustomRenderer
             _textureView.LayoutParameters = new FrameLayout.LayoutParams(width, height);
             _surfaceTexture = surface;
 
-            SetupCamera(surface);
             _isSurfaceAvailable = true;
+            SetupAndStartCamera(surface);
             StartCamera();
         }
 
@@ -178,13 +200,9 @@ namespace CrossCam.Droid.CustomRenderer
         {
             if (_isRunning)
             {
-                if (_camera != null)
-                {
-                    _camera.StopPreview();
-                    _camera.Release();
-                    _camera = null;
-                }
-
+                _camera?.StopPreview();
+                _camera?.Release();
+                _camera = null;
                 _isRunning = false;
             }
         }
@@ -202,80 +220,84 @@ namespace CrossCam.Droid.CustomRenderer
         {
         }
 
-        private void SetupCamera(SurfaceTexture surface = null)
+        private void SetupAndStartCamera(SurfaceTexture surface = null)
         {
-            if (_camera == null)
+            if (_isSurfaceAvailable)
             {
-                _camera = Camera.Open((int)_cameraType);
-
-                for (var ii = 0; ii < Camera.NumberOfCameras - 1; ii++)
+                if (_camera == null)
                 {
-                    var info = new Camera.CameraInfo();
-                    Camera.GetCameraInfo(ii, info);
-                    if (info.CanDisableShutterSound)
+                    _camera = Camera.Open((int)_cameraType);
+
+                    for (var ii = 0; ii < Camera.NumberOfCameras - 1; ii++)
                     {
-                        _camera.EnableShutterSound(false);
-                    }
-                }
-
-                var parameters = _camera.GetParameters();
-                parameters.FlashMode = Camera.Parameters.FlashModeOff;
-                parameters.VideoStabilization = false;
-                parameters.JpegQuality = 100;
-                if (parameters.SupportedFocusModes.Contains(Camera.Parameters.FocusModeContinuousPicture))
-                {
-                    parameters.FocusMode = Camera.Parameters.FocusModeContinuousPicture;
-                }
-
-                var landscapePictureDescendingSizes = parameters
-                    .SupportedPictureSizes
-                    .Where(p => p.Width > p.Height)
-                    .OrderByDescending(p => p.Width * p.Height)
-                    .ToList();
-                var landscapePreviewDescendingSizes = parameters
-                    .SupportedPreviewSizes
-                    .Where(p => p.Width > p.Height)
-                    .OrderByDescending(p => p.Width * p.Height)
-                    .ToList();
-
-                foreach (var pictureSize in landscapePictureDescendingSizes)
-                {
-                    foreach (var previewSize in landscapePreviewDescendingSizes)
-                    {
-                        if (Math.Abs((double)pictureSize.Width / pictureSize.Height - (double)previewSize.Width / previewSize.Height) < 0.0001)
+                        var info = new Camera.CameraInfo();
+                        Camera.GetCameraInfo(ii, info);
+                        if (info.CanDisableShutterSound)
                         {
-                            _pictureSize = pictureSize;
-                            _previewSize = previewSize;
+                            _camera.EnableShutterSound(false);
+                        }
+                    }
+
+                    var parameters = _camera.GetParameters();
+                    parameters.FlashMode = Camera.Parameters.FlashModeOff;
+                    parameters.VideoStabilization = false;
+                    parameters.JpegQuality = 100;
+                    if (parameters.SupportedFocusModes.Contains(Camera.Parameters.FocusModeContinuousPicture))
+                    {
+                        parameters.FocusMode = Camera.Parameters.FocusModeContinuousPicture;
+                    }
+
+                    var landscapePictureDescendingSizes = parameters
+                        .SupportedPictureSizes
+                        .Where(p => p.Width > p.Height)
+                        .OrderByDescending(p => p.Width * p.Height)
+                        .ToList();
+                    var landscapePreviewDescendingSizes = parameters
+                        .SupportedPreviewSizes
+                        .Where(p => p.Width > p.Height)
+                        .OrderByDescending(p => p.Width * p.Height)
+                        .ToList();
+
+                    foreach (var pictureSize in landscapePictureDescendingSizes)
+                    {
+                        foreach (var previewSize in landscapePreviewDescendingSizes)
+                        {
+                            if (Math.Abs((double)pictureSize.Width / pictureSize.Height - (double)previewSize.Width / previewSize.Height) < 0.0001)
+                            {
+                                _pictureSize = pictureSize;
+                                _previewSize = previewSize;
+                                break;
+                            }
+                        }
+
+                        if (_pictureSize != null)
+                        {
                             break;
                         }
                     }
 
-                    if (_pictureSize != null)
+                    if (_pictureSize == null ||
+                        _previewSize == null)
                     {
-                        break;
+                        _pictureSize = landscapePictureDescendingSizes.First();
+                        _previewSize = landscapePreviewDescendingSizes.First();
                     }
+
+                    parameters.SetPictureSize(_pictureSize.Width, _pictureSize.Height);
+                    parameters.SetPreviewSize(_previewSize.Width, _previewSize.Height);
+
+                    _camera.SetParameters(parameters);
+                    _camera.SetPreviewTexture(_surfaceTexture);
                 }
 
-                if (_pictureSize == null ||
-                    _previewSize == null)
+                if (surface != null)
                 {
-                    _pictureSize = landscapePictureDescendingSizes.First();
-                    _previewSize = landscapePreviewDescendingSizes.First();
+                    _surfaceTexture = surface;
                 }
-
-                parameters.SetPictureSize(_pictureSize.Width, _pictureSize.Height);
-                parameters.SetPreviewSize(_previewSize.Width, _previewSize.Height);
-
-                _camera.SetParameters(parameters);
-                _camera.SetPreviewTexture(_surfaceTexture);
+                
+                SetOrientation();
+                StartCamera();
             }
-
-            if (surface != null)
-            {
-                _surfaceTexture = surface;
-            }
-            
-            SetOrientation();
         }
 
         private void OrientationChanged()

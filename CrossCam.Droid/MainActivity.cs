@@ -6,6 +6,7 @@ using Android.OS;
 using Android.Support.V4.App;
 using Android.Support.V4.Content;
 using Android.Views;
+using CrossCam.Droid.CustomRenderer;
 using Java.Lang;
 using Xamarin.Forms;
 
@@ -20,7 +21,7 @@ namespace CrossCam.Droid
         ScreenOrientation = ScreenOrientation.Sensor)]
     public class MainActivity : Xamarin.Forms.Platform.Android.FormsAppCompatActivity
     {
-        public OrientationHelper OrientationHelper;
+        public LifecycleEventListener LifecycleEventListener;
 
         internal static MainActivity Instance { get; private set; }
 
@@ -34,8 +35,8 @@ namespace CrossCam.Droid
             Window.AddFlags(WindowManagerFlags.Fullscreen);
             Window.ClearFlags(WindowManagerFlags.ForceNotFullscreen);
 
-            OrientationHelper = new OrientationHelper(this, WindowManager);
-            OrientationHelper.Enable();
+            LifecycleEventListener = new LifecycleEventListener(this, WindowManager);
+            LifecycleEventListener.Enable();
 
             Instance = this;
 
@@ -56,6 +57,18 @@ namespace CrossCam.Droid
             {
                 LoadApplication(new App());
             }
+        }
+        
+        protected override void OnPause()
+        {
+            base.OnPause();
+            LifecycleEventListener.OnAppMinimized();
+        }
+
+        protected override void OnResume()
+        {
+            base.OnResume();
+            LifecycleEventListener.OnAppMaximized();
         }
 
         public override void OnRequestPermissionsResult(int requestCode, string[] permissions, Permission[] grantResults)
