@@ -15,7 +15,6 @@ using SkiaSharp;
 using Xamarin.Forms;
 using Xamarin.Forms.Platform.Android;
 using CameraModule = CrossCam.CustomElement.CameraModule;
-using Exception = System.Exception;
 using Math = System.Math;
 using View = Android.Views.View;
 #pragma warning disable 618
@@ -24,10 +23,10 @@ using Camera = Android.Hardware.Camera;
 [assembly: ExportRenderer(typeof(CameraModule), typeof(CameraModuleRenderer))]
 namespace CrossCam.Droid.CustomRenderer
 {
-    public class CameraModuleRenderer : ViewRenderer<CameraModule, Android.Views.View>, TextureView.ISurfaceTextureListener, Camera.IShutterCallback, Camera.IPictureCallback, View.IOnTouchListener, Camera.IAutoFocusCallback
+    public class CameraModuleRenderer : ViewRenderer<CameraModule, View>, TextureView.ISurfaceTextureListener, Camera.IShutterCallback, Camera.IPictureCallback, View.IOnTouchListener, Camera.IAutoFocusCallback
     {
         private Camera _camera;
-        private Android.Views.View _view;
+        private View _view;
 
         private Activity _activity;
         private CameraFacing _cameraType;

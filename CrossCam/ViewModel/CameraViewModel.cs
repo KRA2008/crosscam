@@ -394,7 +394,7 @@ namespace CrossCam.ViewModel
                 }
             });
         }
-
+        
         private static SKBitmap BitmapRotate90(SKBitmap originalBitmap)
         {
             var rotated = new SKBitmap(originalBitmap.Height, originalBitmap.Width);
