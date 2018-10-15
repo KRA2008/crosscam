@@ -24,6 +24,12 @@ namespace CrossCam.CustomElement
 	    public static readonly BindableProperty IsFullScreenPreviewProperty = BindableProperty.Create(nameof(IsFullScreenPreview),
 	        typeof(bool), typeof(CameraModule), false, BindingMode.TwoWay);
 
+	    public static readonly BindableProperty IsTapToFocusEnabledProperty = BindableProperty.Create(nameof(IsTapToFocusEnabled),
+	        typeof(bool), typeof(CameraModule), false, BindingMode.TwoWay);
+
+	    public static readonly BindableProperty SwitchToContinuousFocusTriggerProperty = BindableProperty.Create(nameof(SwitchToContinuousFocusTrigger),
+	        typeof(bool), typeof(CameraModule), false, BindingMode.TwoWay);
+
         public byte[] CapturedImage
         {
             get => (byte[])GetValue(CapturedImageProperty);
@@ -52,6 +58,18 @@ namespace CrossCam.CustomElement
 	    {
 	        get => (bool)GetValue(IsFullScreenPreviewProperty);
 	        set => SetValue(IsFullScreenPreviewProperty, value);
+	    }
+
+	    public bool IsTapToFocusEnabled
+	    {
+	        get => (bool)GetValue(IsTapToFocusEnabledProperty);
+	        set => SetValue(IsTapToFocusEnabledProperty, value);
+	    }
+
+	    public bool SwitchToContinuousFocusTrigger
+        {
+	        get => (bool)GetValue(SwitchToContinuousFocusTriggerProperty);
+	        set => SetValue(SwitchToContinuousFocusTriggerProperty, value);
 	    }
     }
 }

@@ -50,6 +50,8 @@
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="*"/>
                 <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="Auto"/>
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
@@ -122,6 +124,15 @@
                     IsEnabled="{Binding Settings.FillScreenPreview}"
                     IsToggled="{Binding Settings.ClipLandscapeToFilledScreenPreview}"/>
             <BoxView Grid.Row="14"
+                     Grid.Column="0"
+                     Grid.ColumnSpan="2"/>
+            <Label Grid.Row="15"
+                   Grid.Column="0"
+                   Text="Tap to point focus, double tap to switch back to continuous focus (or save or clear)"/>
+            <Switch Grid.Row="15"
+                    Grid.Column="1"
+                    IsToggled="{Binding Settings.IsTapToFocusEnabled}"/>
+            <BoxView Grid.Row="16"
                      Grid.Column="0"
                      Grid.ColumnSpan="2"/>
         </Grid>

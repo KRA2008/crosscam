@@ -12,12 +12,14 @@ using CameraModule = CrossCam.CustomElement.CameraModule;
 [assembly: ExportRenderer(typeof(CameraModule), typeof(CameraModuleRenderer))]
 namespace CrossCam.iOS.CustomRenderer
 {
-    public class CameraModuleRenderer : ViewRenderer<CameraModule, UIView>, IAVCapturePhotoCaptureDelegate
+    public class CameraModuleRenderer : ViewRenderer<CameraModule, UIView>, IAVCapturePhotoCaptureDelegate, IUIGestureRecognizerDelegate
     {
         private AVCaptureSession _captureSession;
         private UIView _liveCameraStream;
+        private UIGestureRecognizer _tapper;
         private AVCapturePhotoOutput _photoOutput;
         private CameraModule _cameraModule;
+        private AVCaptureDevice _device;
         private bool _isInitialized;
         private AVCaptureVideoPreviewLayer _avCaptureVideoPreviewLayer;
         private UIDeviceOrientation? _previousValidOrientation;
@@ -82,6 +84,35 @@ namespace CrossCam.iOS.CustomRenderer
             {
                 SetupCamera();
             }
+
+            if (e.PropertyName == nameof(_cameraModule.IsTapToFocusEnabled) &&
+                !_cameraModule.IsTapToFocusEnabled)
+            {
+                TurnOnContinuousFocus();
+            }
+
+            if (e.PropertyName == nameof(_cameraModule.SwitchToContinuousFocusTrigger) &&
+                _cameraModule.IsTapToFocusEnabled)
+            {
+                TurnOnContinuousFocus();
+            }
+        }
+
+        private void TurnOnContinuousFocus()
+        {
+            _device.LockForConfiguration(out var error);
+            if (error != null) return;
+
+            if (_device.IsFocusModeSupported(AVCaptureFocusMode.ContinuousAutoFocus))
+            {
+                _device.FocusMode = AVCaptureFocusMode.ContinuousAutoFocus;
+            }
+            if (_device.IsExposureModeSupported(AVCaptureExposureMode.ContinuousAutoExposure))
+            {
+                _device.ExposureMode = AVCaptureExposureMode.ContinuousAutoExposure;
+            }
+
+            _device.UnlockForConfiguration();
         }
 
         private void SetupCamera()
@@ -100,8 +131,8 @@ namespace CrossCam.iOS.CustomRenderer
 
             if (_photoOutput == null)
             {
-                var captureDevice = AVCaptureDevice.GetDefaultDevice(AVMediaTypes.Video);
-                ConfigureCameraForDevice(captureDevice);
+                _device = AVCaptureDevice.GetDefaultDevice(AVMediaTypes.Video);
+                ConfigureCameraForDevice(_device);
 
                 _photoOutput = new AVCapturePhotoOutput
                 {
@@ -109,7 +140,7 @@ namespace CrossCam.iOS.CustomRenderer
                 };
 
                 _captureSession.AddOutput(_photoOutput);
-                _captureSession.AddInput(AVCaptureDeviceInput.FromDevice(captureDevice));
+                _captureSession.AddInput(AVCaptureDeviceInput.FromDevice(_device));
             }
         }
 
@@ -167,37 +198,100 @@ namespace CrossCam.iOS.CustomRenderer
             _cameraModule.CaptureSuccess = !_cameraModule.CaptureSuccess;
         }
 
+        [Export("gestureRecognizer:shouldReceiveTouch:")]
+        // ReSharper disable once UnusedMember.Local
+        private void PreviewWasTapped(UIGestureRecognizer recognizer, UITouch touch)
+        {
+            var touchLocation = touch.LocationInView(touch.View);
+            var taps = touch.TapCount;
+
+            if (taps > 1)
+            {
+                TurnOnContinuousFocus();
+            }
+            else
+            {
+                if (_cameraModule.IsTapToFocusEnabled)
+                {
+                    var focusPoint = new CGPoint();
+
+                    if (_previousValidOrientation == UIDeviceOrientation.Portrait)
+                    {
+                        var translatedPoint = _avCaptureVideoPreviewLayer.CaptureDevicePointOfInterestForPoint(touchLocation);
+                        focusPoint.X = translatedPoint.Y;
+                        focusPoint.Y = translatedPoint.X;
+
+                        focusPoint.X = 1 - focusPoint.X;
+                    }
+                    else if (_previousValidOrientation == UIDeviceOrientation.LandscapeLeft)
+                    {
+                        focusPoint = _avCaptureVideoPreviewLayer.CaptureDevicePointOfInterestForPoint(touchLocation);
+                    }
+                    else if (_previousValidOrientation == UIDeviceOrientation.LandscapeRight)
+                    {
+                        var translatedPoint = _avCaptureVideoPreviewLayer.CaptureDevicePointOfInterestForPoint(touchLocation);
+
+                        focusPoint.X = 1 - translatedPoint.X;
+                        focusPoint.Y = 1 - translatedPoint.Y;
+                    }
+
+                    if (focusPoint.Y < 0)
+                    {
+                        focusPoint.Y = 0;
+                    }
+
+                    if (focusPoint.Y > 1)
+                    {
+                        focusPoint.Y = 1;
+                    }
+
+                    _device.LockForConfiguration(out var error);
+                    if (error != null) return;
+
+                    if (_device.FocusPointOfInterestSupported &&
+                        _device.IsFocusModeSupported(AVCaptureFocusMode.AutoFocus))
+                    {
+                        _device.FocusPointOfInterest = focusPoint;
+                        _device.FocusMode = AVCaptureFocusMode.AutoFocus;
+                    }
+                    if (_device.ExposurePointOfInterestSupported &&
+                        _device.IsExposureModeSupported(AVCaptureExposureMode.AutoExpose))
+                    {
+                        _device.ExposurePointOfInterest = touchLocation;
+                        _device.ExposureMode = AVCaptureExposureMode.AutoExpose;
+                    }
+
+                    _device.UnlockForConfiguration();
+                }
+            }
+        }
+
         private static void ConfigureCameraForDevice(AVCaptureDevice device)
         {
-            var error = new NSError();
-            
+            device.LockForConfiguration(out var error);
+            if (error != null) return;
+
             if (device.IsFlashModeSupported(AVCaptureFlashMode.Off))
             {
-                device.LockForConfiguration(out error);
                 device.FlashMode = AVCaptureFlashMode.Off;
-                device.UnlockForConfiguration();
             }
 
             if (device.IsFocusModeSupported(AVCaptureFocusMode.ContinuousAutoFocus))
             {
-                device.LockForConfiguration(out error);
                 device.FocusMode = AVCaptureFocusMode.ContinuousAutoFocus;
-                device.UnlockForConfiguration();
             }
 
             if (device.IsExposureModeSupported(AVCaptureExposureMode.ContinuousAutoExposure))
             {
-                device.LockForConfiguration(out error);
                 device.ExposureMode = AVCaptureExposureMode.ContinuousAutoExposure;
-                device.UnlockForConfiguration();
             }
 
             if (device.IsWhiteBalanceModeSupported(AVCaptureWhiteBalanceMode.ContinuousAutoWhiteBalance))
             {
-                device.LockForConfiguration(out error);
                 device.WhiteBalanceMode = AVCaptureWhiteBalanceMode.ContinuousAutoWhiteBalance;
-                device.UnlockForConfiguration();
             }
+
+            device.UnlockForConfiguration();
         }
 
         private void SetupUserInterface()
@@ -300,6 +394,8 @@ namespace CrossCam.iOS.CustomRenderer
             if (_liveCameraStream == null)
             {
                 _liveCameraStream = new UIView(new CGRect(_leftTrim, 0, _streamWidth, sideHeight));
+                _tapper = new UIGestureRecognizer {Delegate = this};
+                _liveCameraStream.AddGestureRecognizer(_tapper);
             }
             else
             {
@@ -330,8 +426,7 @@ namespace CrossCam.iOS.CustomRenderer
                     videoOrientation = AVCaptureVideoOrientation.LandscapeRight;
                     break;
             }
-
-            var previousOrientation = _avCaptureVideoPreviewLayer.Orientation;
+            
             if (videoOrientation != 0)
             {
                 _avCaptureVideoPreviewLayer.Orientation = videoOrientation;

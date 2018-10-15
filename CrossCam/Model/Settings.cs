@@ -12,6 +12,7 @@ namespace CrossCam.Model
         public bool FillScreenPreview { get; set; }
         public bool ClipLandscapeToFilledScreenPreview { get; set; }
         public bool IsCaptureLeftFirst { get; set; }
+        public bool IsTapToFocusEnabled { get; set; }
 
         public Settings()
         {
