@@ -9,8 +9,7 @@
 
                             d:DataContext="{d:DesignInstance Type=vm:SettingsViewModel, IsDesignTimeCreatable=False}"
                             x:Class="CrossCam.Page.SettingsPage"
-                            Title="Settings"
-                            BackgroundColor="Black">
+                            Title="Settings">
     <ContentPage.Resources>
         <ResourceDictionary>
             <Style TargetType="BoxView">

@@ -1,0 +1,45 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<fresh:FreshBaseContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:vm="clr-namespace:CrossCam.ViewModel;assembly=CrossCam"
+             xmlns:fresh="clr-namespace:FreshMvvm;assembly=FreshMvvm"
+             mc:Ignorable="d"
+             
+             d:DataContext="{d:DesignInstance Type=vm:InfoViewModel, IsDesignTimeCreatable=False}"
+             x:Class="CrossCam.Page.InfoPage"
+             Title="Info">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <Style TargetType="Button">
+                <Setter Property="TextColor"
+                        Value="Black"/>
+                <Setter Property="BackgroundColor"
+                        Value="White"/>
+                <Setter Property="BorderColor"
+                        Value="White"/>
+            </Style>
+            <Style TargetType="BoxView">
+                <Setter Property="Color"
+                        Value="White"/>
+                <Setter Property="HeightRequest"
+                        Value="1"/>
+            </Style>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    <ContentPage.Content>
+        <StackLayout>
+            <BoxView/>
+            <Button Text="What is this app?"
+                    HorizontalOptions="Center"/>
+            <BoxView/>
+            <Button Text="Tips"
+                    HorizontalOptions="Center"/>
+            <BoxView/>
+            <Button Text="Feedback/Contact"
+                    HorizontalOptions="Center"/>
+            <BoxView/>
+        </StackLayout>
+    </ContentPage.Content>
+</fresh:FreshBaseContentPage>

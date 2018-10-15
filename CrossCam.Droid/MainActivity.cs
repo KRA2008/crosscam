@@ -6,7 +6,6 @@ using Android.OS;
 using Android.Support.V4.App;
 using Android.Support.V4.Content;
 using Android.Views;
-using CrossCam.Droid.CustomRenderer;
 using Java.Lang;
 using Xamarin.Forms;
 

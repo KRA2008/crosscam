@@ -11,9 +11,16 @@
                         Value="Small"/>
             </Style>
             <Style TargetType="NavigationPage" ApplyToDerivedTypes="True">
-                <Setter Property="BarTextColor" Value="White"/>
-                <Setter Property="BarBackgroundColor" Value="Black"/>
-                <Setter Property="BackgroundColor" Value="Black"/>
+                <Setter Property="BarTextColor" 
+                        Value="White"/>
+                <Setter Property="BarBackgroundColor" 
+                        Value="Black"/>
+                <Setter Property="BackgroundColor" 
+                        Value="Black"/>
+            </Style>
+            <Style TargetType="ContentPage" ApplyToDerivedTypes="True">
+                <Setter Property="BackgroundColor"
+                        Value="Black"/>
             </Style>
         </ResourceDictionary>
     </Application.Resources>

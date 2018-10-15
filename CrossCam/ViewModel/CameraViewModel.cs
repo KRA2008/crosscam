@@ -40,6 +40,7 @@ namespace CrossCam.ViewModel
         public Command ClearCapturesCommand { get; set; }
 
         public Command NavigateToSettingsCommand { get; set; }
+        public Command NavigateToInfoCommand { get; set; }
 
         public Command SwapSidesCommand { get; set; }
 
@@ -63,7 +64,7 @@ namespace CrossCam.ViewModel
         public bool ShouldLeftRetakeBeVisible => LeftByteArray != null && !IsSaving && !IsViewMode;
         public bool ShouldRightRetakeBeVisible => RightByteArray != null && !IsSaving && !IsViewMode;
         public bool ShouldEndButtonsBeVisible => IsCaptureComplete && !IsSaving && !IsViewMode;
-        public bool ShouldSettingsBeVisible => IsNothingCaptured && !IsSaving && !IsViewMode;
+        public bool ShouldSettingsAndInfoBeVisible => IsNothingCaptured && !IsSaving && !IsViewMode;
         public bool ShouldLineGuidesBeVisible => (LeftByteArray == null ^ RightByteArray == null || Settings.ShowGuideLinesWithFirstCapture && !IsCaptureComplete) && Settings.AreGuideLinesVisible && !IsSaving && !IsViewMode;
         public bool ShouldDonutGuideBeVisible => (LeftByteArray == null ^ RightByteArray == null || Settings.ShowGuideDonutWithFirstCapture && !IsCaptureComplete) && Settings.IsGuideDonutVisible && !IsSaving && !IsViewMode;
         public bool ShouldPortraitWarningBeVisible => ShouldHelpTextBeVisible && IsViewPortrait;
@@ -196,6 +197,11 @@ namespace CrossCam.ViewModel
             NavigateToSettingsCommand = new Command(async () =>
             {
                 await CoreMethods.PushPageModel<SettingsViewModel>(Settings);
+            });
+
+            NavigateToInfoCommand = new Command(async () =>
+            {
+                await CoreMethods.PushPageModel<InfoViewModel>();
             });
 
             SwapSidesCommand = new Command(() =>

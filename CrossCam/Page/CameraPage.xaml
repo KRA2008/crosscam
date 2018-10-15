@@ -41,8 +41,7 @@
         <Grid AbsoluteLayout.LayoutFlags="All"
               AbsoluteLayout.LayoutBounds="0,0,1,1"
               ColumnSpacing="0"
-              RowSpacing="0"
-              BackgroundColor="Black">
+              RowSpacing="0">
             <Grid.RowDefinitions>
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
@@ -99,9 +98,18 @@
             </ce:CameraSuccessOutline>
         </Grid>
         <ContentView AbsoluteLayout.LayoutFlags="All"
+                     AbsoluteLayout.LayoutBounds="1,0,0.15,0.20"
+                     Padding="10"
+                     IsVisible="{Binding ShouldSettingsAndInfoBeVisible}">
+            <ContentView.GestureRecognizers>
+                <TapGestureRecognizer Command="{Binding NavigateToInfoCommand}"/>
+            </ContentView.GestureRecognizers>
+            <Image Source="info"/>
+        </ContentView>
+        <ContentView AbsoluteLayout.LayoutFlags="All"
                      AbsoluteLayout.LayoutBounds="1,1,0.15,0.20"
                      Padding="10"
-                     IsVisible="{Binding ShouldSettingsBeVisible}">
+                     IsVisible="{Binding ShouldSettingsAndInfoBeVisible}">
             <ContentView.GestureRecognizers>
                 <TapGestureRecognizer Command="{Binding NavigateToSettingsCommand}"/>
             </ContentView.GestureRecognizers>
