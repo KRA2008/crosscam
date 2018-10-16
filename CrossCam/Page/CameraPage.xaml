@@ -60,12 +60,16 @@
                 <Label Text="{Binding HelpText}"
                            IsVisible="{Binding ShouldHelpTextBeVisible}"/>
             </StackLayout>
-            <Image Grid.Column="{Binding FirstImageColumn}"
+            <Image x:Name="_firstImage"
+                   Grid.Column="{Binding FirstImageColumn}"
                    Grid.Row="0"
+                   HorizontalOptions="EndAndExpand"
                    Aspect="{Binding PreviewAspect}"
                    Source="{Binding FirstImageSource}"/>
-            <Image Grid.Column="{Binding SecondImageColumn}"
+            <Image x:Name="_secondImage"
+                   Grid.Column="{Binding SecondImageColumn}"
                    Grid.Row="0"
+                   HorizontalOptions="StartAndExpand"
                    Aspect="{Binding PreviewAspect}"
                    Source="{Binding SecondImageSource}"/>
             <ce:CameraModule Grid.Column="{Binding CameraColumn}"

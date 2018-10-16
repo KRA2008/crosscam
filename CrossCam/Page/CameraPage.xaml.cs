@@ -42,6 +42,8 @@ namespace CrossCam.Page
 	        {
 	            _viewModel = (CameraViewModel) BindingContext;
 	            _viewModel.PropertyChanged += ViewModelPropertyChanged;
+                SetFirstImageHorizontalOptions(); //would be great to do this by data binding but the image doesn't appear when horizontal options is data bound
+                SetSecondImageHorizontalOptions();
 	        }
 	    }
 
@@ -51,7 +53,25 @@ namespace CrossCam.Page
 	        {
                 ResetGuides();
 	        }
+            else if (e.PropertyName == nameof(CameraViewModel.FirstImageColumn))
+	        {
+                SetFirstImageHorizontalOptions();
+	        }
+            else if (e.PropertyName == nameof(CameraViewModel.SecondImageColumn))
+	        {
+                SetSecondImageHorizontalOptions();
+            }
 	    }
+
+	    private void SetFirstImageHorizontalOptions()
+	    {
+	        _firstImage.HorizontalOptions = _viewModel.FirstImageColumn == 0 ? LayoutOptions.EndAndExpand : LayoutOptions.StartAndExpand;
+        }
+
+	    private void SetSecondImageHorizontalOptions()
+	    {
+	        _secondImage.HorizontalOptions = _viewModel.SecondImageColumn == 0 ? LayoutOptions.EndAndExpand : LayoutOptions.StartAndExpand;
+        }
 
 	    private void ResetGuides()
         {

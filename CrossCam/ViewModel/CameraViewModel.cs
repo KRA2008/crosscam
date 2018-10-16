@@ -155,6 +155,11 @@ namespace CrossCam.ViewModel
                         }
                     }
                 }
+                else if (args.PropertyName == nameof(FirstImageSource) ||
+                         args.PropertyName == nameof(SecondImageSource))
+                {
+                    RaisePropertyChanged();
+                }
             };
 
             RetakeLeftCommand = new Command(() =>
