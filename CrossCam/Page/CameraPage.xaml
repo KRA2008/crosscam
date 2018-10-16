@@ -288,7 +288,9 @@
                HorizontalOptions="CenterAndExpand"
                VerticalOptions="CenterAndExpand"
                Color="White"
-               IsRunning="{Binding IsSaving}"/>
+               IsVisible="{Binding IsSaving}"
+               IsRunning="{Binding IsSaving}"
+               InputTransparent="True"/>
         <Label Text="Saving..."
                Style="{DynamicResource _savingFeedback}"
                IsVisible="{Binding IsSaving}"/>
