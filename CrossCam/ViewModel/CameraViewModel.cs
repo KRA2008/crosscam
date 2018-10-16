@@ -208,6 +208,10 @@ namespace CrossCam.ViewModel
             {
                 IsCaptureLeftFirst = !IsCaptureLeftFirst;
 
+                var tempArray = LeftByteArray;
+                LeftByteArray = RightByteArray;
+                RightByteArray = tempArray;
+
                 if (IsCameraVisible)
                 {
                     CameraColumn = CameraColumn == 0 ? 1 : 0;
