@@ -221,7 +221,6 @@
                AbsoluteLayout.LayoutBounds="{DynamicResource _captureRectangle}"
                Source="aperture"
                Opacity="0.5"
-               VerticalOptions="EndAndExpand"
                InputTransparent="True"
                Margin="{DynamicResource _capturePadding}"
                IsVisible="{Binding ShouldCaptureButtonBeVisible}"/>
