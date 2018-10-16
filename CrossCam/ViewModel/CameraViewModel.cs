@@ -230,6 +230,18 @@ namespace CrossCam.ViewModel
                     CameraColumn = CameraColumn == 0 ? 1 : 0;
                 }
 
+                if (LeftByteArray != null &&
+                    RightByteArray == null)
+                {
+                    MoveLeftTrigger = !MoveLeftTrigger;
+                }
+
+                if (LeftByteArray == null &&
+                    RightByteArray != null)
+                {
+                    MoveRightTrigger = !MoveRightTrigger;
+                }
+
                 Settings.IsCaptureLeftFirst = IsCaptureLeftFirst;
                 PersistentStorage.Save(PersistentStorage.SETTINGS_KEY, Settings);
             });
