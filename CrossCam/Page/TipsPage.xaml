@@ -1,0 +1,20 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<fresh:FreshBaseContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+                            xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                            xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+                            xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                            xmlns:vm="clr-namespace:CrossCam.ViewModel;assembly=CrossCam"
+                            xmlns:fresh="clr-namespace:FreshMvvm;assembly=FreshMvvm"
+                            mc:Ignorable="d"
+             
+                            d:DataContext="{d:DesignInstance Type=vm:TipsViewModel, IsDesignTimeCreatable=False}"
+                            Title="Tips"
+                            x:Class="CrossCam.Page.TipsPage">
+    <ContentPage.Content>
+        <StackLayout Padding="10">
+            <Label Text="When you slide over, try to minimize the rotation that takes place on any axis, including the natural tendency to turn towards the subject as you move to the side. Some rotation will be necessary sometimes, but try to minimize it. Imagine the phone is mounted on a straight horizontal rail and can only slide."/>
+            <Label Text="If all the movement makes you sick or makes it too difficult to cross view, just move over a little bit and align the pictures using the horizontal lines without cross viewing and then start cross viewing once aligned and holding still."/>
+            <Label Text="You can drag the alignment lines around if you want."/>
+        </StackLayout>
+    </ContentPage.Content>
+</fresh:FreshBaseContentPage>

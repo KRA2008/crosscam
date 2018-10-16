@@ -1,0 +1,28 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<fresh:FreshBaseContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+                            xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                            xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+                            xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                            xmlns:vm="clr-namespace:CrossCam.ViewModel;assembly=CrossCam"
+                            xmlns:fresh="clr-namespace:FreshMvvm;assembly=FreshMvvm"
+                            mc:Ignorable="d"
+             
+                            d:DataContext="{d:DesignInstance Type=vm:AppExplanationViewModel, IsDesignTimeCreatable=False}"
+                            Title="What is this app?"
+                            x:Class="CrossCam.Page.AppExplanationPage">
+    <ContentPage.Content>
+        <StackLayout>
+            <BoxView/>
+            <Label Text="This app helps you make autostereograms, which are 3D pictures. Because the autostereograms this app makes are viewed by crossing one's eyes, sometimes they are called &quot;cross views&quot;."
+                   Margin="10"/>
+            <Button Text="What's an autostereogram?"
+                    Command="{Binding WikipediaCommand}"
+                    HorizontalOptions="Center"/>
+            <BoxView/>
+            <Button Text="How do I look at them?"
+                    Command="{Binding HowToViewCommand}"
+                    HorizontalOptions="Center"/>
+            <BoxView/>
+        </StackLayout>
+    </ContentPage.Content>
+</fresh:FreshBaseContentPage>

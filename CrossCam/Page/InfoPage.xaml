@@ -10,34 +10,19 @@
              d:DataContext="{d:DesignInstance Type=vm:InfoViewModel, IsDesignTimeCreatable=False}"
              x:Class="CrossCam.Page.InfoPage"
              Title="Info">
-    <ContentPage.Resources>
-        <ResourceDictionary>
-            <Style TargetType="Button">
-                <Setter Property="TextColor"
-                        Value="Black"/>
-                <Setter Property="BackgroundColor"
-                        Value="White"/>
-                <Setter Property="BorderColor"
-                        Value="White"/>
-            </Style>
-            <Style TargetType="BoxView">
-                <Setter Property="Color"
-                        Value="White"/>
-                <Setter Property="HeightRequest"
-                        Value="1"/>
-            </Style>
-        </ResourceDictionary>
-    </ContentPage.Resources>
     <ContentPage.Content>
         <StackLayout>
             <BoxView/>
             <Button Text="What is this app?"
+                    Command="{Binding NavigateToAppExplanationPage}"
                     HorizontalOptions="Center"/>
             <BoxView/>
             <Button Text="Tips"
+                    Command="{Binding NavigateToTipsPage}"
                     HorizontalOptions="Center"/>
             <BoxView/>
             <Button Text="Feedback/Contact"
+                    Command="{Binding NavigateToContactPage}"
                     HorizontalOptions="Center"/>
             <BoxView/>
         </StackLayout>
