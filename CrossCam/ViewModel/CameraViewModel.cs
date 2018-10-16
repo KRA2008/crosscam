@@ -31,6 +31,9 @@ namespace CrossCam.ViewModel
 
         public Command CapturePictureCommand { get; set; }
         public bool CapturePictureTrigger { get; set; }
+
+        public bool MoveLeftTrigger { get; set; }
+        public bool MoveRightTrigger { get; set; }
         
         public Command SaveCapturesCommand { get; set; }
 
@@ -118,6 +121,7 @@ namespace CrossCam.ViewModel
 
                         if (RightByteArray == null)
                         {
+                            MoveLeftTrigger = !MoveLeftTrigger;
                             CameraColumn = 1;
                         }
                         else
@@ -141,6 +145,7 @@ namespace CrossCam.ViewModel
 
                         if (LeftByteArray == null)
                         {
+                            MoveRightTrigger = !MoveRightTrigger;
                             CameraColumn = 0;
                         }
                         else
@@ -165,6 +170,10 @@ namespace CrossCam.ViewModel
                 {
                     SecondImageSource = null;
                 }
+                if (RightByteArray != null)
+                {
+                    MoveRightTrigger = !MoveRightTrigger;
+                }
             });
 
             RetakeRightCommand = new Command(() =>
@@ -179,6 +188,10 @@ namespace CrossCam.ViewModel
                 else
                 {
                     FirstImageSource = null;
+                }
+                if (LeftByteArray != null)
+                {
+                    MoveLeftTrigger = !MoveLeftTrigger;
                 }
             });
 

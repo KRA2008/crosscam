@@ -82,8 +82,8 @@
                                      Grid.Row="0">
                 <ce:CameraSuccessOutline.Behaviors>
                     <ce:FadeInAndOutBehavior Trigger="{Binding LeftCaptureSuccess}"
-                                             InTimeMs="125"
-                                             OutTimeMs="125"
+                                             InTimeMs="0"
+                                             OutTimeMs="250"
                                              VisibleTimeMs="0"/>
                 </ce:CameraSuccessOutline.Behaviors>
             </ce:CameraSuccessOutline>
@@ -91,8 +91,8 @@
                                      Grid.Row="0">
                 <ce:CameraSuccessOutline.Behaviors>
                     <ce:FadeInAndOutBehavior Trigger="{Binding RightCaptureSuccess}"
-                                             InTimeMs="125"
-                                             OutTimeMs="125"
+                                             InTimeMs="0"
+                                             OutTimeMs="250"
                                              VisibleTimeMs="0"/>
                 </ce:CameraSuccessOutline.Behaviors>
             </ce:CameraSuccessOutline>
@@ -104,7 +104,8 @@
             <ContentView.GestureRecognizers>
                 <TapGestureRecognizer Command="{Binding NavigateToInfoCommand}"/>
             </ContentView.GestureRecognizers>
-            <Image Source="info"/>
+            <Image Source="info"
+                   InputTransparent="True"/>
         </ContentView>
         <ContentView AbsoluteLayout.LayoutFlags="All"
                      AbsoluteLayout.LayoutBounds="1,1,0.15,0.20"
@@ -113,7 +114,8 @@
             <ContentView.GestureRecognizers>
                 <TapGestureRecognizer Command="{Binding NavigateToSettingsCommand}"/>
             </ContentView.GestureRecognizers>
-            <Image Source="gear"/>
+            <Image Source="gear"
+                   InputTransparent="True"/>
         </ContentView>
         <ContentView AbsoluteLayout.LayoutFlags="All"
                      AbsoluteLayout.LayoutBounds="0.15, 1, 0.125, 0.125"
@@ -123,6 +125,7 @@
                 <TapGestureRecognizer Command="{Binding RetakeLeftCommand}"/>
             </ContentView.GestureRecognizers>
             <Image Source="cancel"
+                   InputTransparent="True"
                    Opacity="0.5"/>
         </ContentView>
         <ContentView AbsoluteLayout.LayoutFlags="All"
@@ -133,6 +136,7 @@
                 <TapGestureRecognizer Command="{Binding RetakeRightCommand}"/>
             </ContentView.GestureRecognizers>
             <Image Source="cancel"
+                   InputTransparent="True"
                    Opacity="0.5"/>
         </ContentView>
         <BoxView x:Name="_upperLine" 
@@ -207,6 +211,7 @@
                 <TapGestureRecognizer Command="{Binding SaveCapturesCommand}"/>
             </ContentView.GestureRecognizers>
             <Image Source="checkmark"
+                   InputTransparent="True"
                    Opacity="0.75"/>
         </ContentView>
         <ContentView AbsoluteLayout.LayoutFlags="All"
@@ -232,6 +237,7 @@
                 <TapGestureRecognizer Command="{Binding ToggleViewModeCommand}"/>
             </ContentView.GestureRecognizers>
             <Image Source="eye"
+                   InputTransparent="True"
                    Opacity="0.75"/>
         </ContentView>
         <ContentView AbsoluteLayout.LayoutFlags="All"
@@ -252,6 +258,7 @@
                 <TapGestureRecognizer Command="{Binding ClearCapturesCommand}"/>
             </ContentView.GestureRecognizers>
             <Image Source="clear"
+                   InputTransparent="True"
                    Opacity="0.75"/>
         </ContentView>
         <Label Style="{DynamicResource _savingFeedback}"
@@ -288,5 +295,41 @@
                 <TapGestureRecognizer Command="{Binding ToggleViewModeCommand}"/>
             </ContentView.GestureRecognizers>
         </ContentView>
+        <StackLayout AbsoluteLayout.LayoutFlags="All"
+                     AbsoluteLayout.LayoutBounds="0.5,0.5,0.5,0.5">
+            <StackLayout.Behaviors>
+                <ce:FadeInAndOutBehavior Trigger="{Binding MoveLeftTrigger}"
+                                         InTimeMs="0"
+                                         OutTimeMs="500"
+                                         VisibleTimeMs="1500"/>
+            </StackLayout.Behaviors>
+            <Image Source="left"
+                   Aspect="AspectFit"
+                   HorizontalOptions="Center"
+                   VerticalOptions="EndAndExpand"/>
+            <Label Text="MOVE LEFT"
+                   FontSize="Large"
+                   FontAttributes="Bold"
+                   HorizontalOptions="Center"
+                   VerticalOptions="StartAndExpand"/>
+        </StackLayout>
+        <StackLayout AbsoluteLayout.LayoutFlags="All"
+                     AbsoluteLayout.LayoutBounds="0.5,0.5,0.5,0.5">
+            <StackLayout.Behaviors>
+                <ce:FadeInAndOutBehavior Trigger="{Binding MoveRightTrigger}"
+                                         InTimeMs="0"
+                                         OutTimeMs="500"
+                                         VisibleTimeMs="1500"/>
+            </StackLayout.Behaviors>
+            <Image Source="right"
+                   Aspect="AspectFit"
+                   HorizontalOptions="Center"
+                   VerticalOptions="EndAndExpand"/>
+            <Label Text="MOVE RIGHT"
+                   FontSize="Large"
+                   FontAttributes="Bold"
+                   HorizontalOptions="Center"
+                   VerticalOptions="StartAndExpand"/>
+        </StackLayout>
     </AbsoluteLayout>
 </fresh:FreshBaseContentPage>
