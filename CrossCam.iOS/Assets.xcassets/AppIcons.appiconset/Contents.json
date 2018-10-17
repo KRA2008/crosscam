@@ -40,7 +40,7 @@
       "scale": "2x",
       "size": "60x60",
       "idiom": "iphone",
-      "filename": "appicon120.png"
+      "filename": "appicon1201.png"
     },
     {
       "scale": "3x",
@@ -58,7 +58,7 @@
       "scale": "2x",
       "size": "20x20",
       "idiom": "ipad",
-      "filename": "appicon40.png"
+      "filename": "appicon401.png"
     },
     {
       "scale": "1x",
@@ -70,19 +70,19 @@
       "scale": "2x",
       "size": "29x29",
       "idiom": "ipad",
-      "filename": "appicon58.png"
+      "filename": "appicon581.png"
     },
     {
       "scale": "1x",
       "size": "40x40",
       "idiom": "ipad",
-      "filename": "appicon40.png"
+      "filename": "appicon402.png"
     },
     {
       "scale": "2x",
       "size": "40x40",
       "idiom": "ipad",
-      "filename": "appicon80.png"
+      "filename": "appicon801.png"
     },
     {
       "scale": "1x",
@@ -106,7 +106,7 @@
       "scale": "1x",
       "size": "1024x1024",
       "idiom": "ios-marketing",
-      "filename": "icon.png"
+      "filename": "iTunesArtwork@2x.png"
     }
   ],
   "properties": {},
