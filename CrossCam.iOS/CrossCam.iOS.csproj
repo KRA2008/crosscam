@@ -104,10 +104,6 @@
     <Compile Include="CustomRenderer\CameraModuleRenderer.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ITunesArtwork Include="ITunesArtwork" />
-    <ITunesArtwork Include="ITunesArtwork%402x" />
-  </ItemGroup>
-  <ItemGroup>
     <BundleResource Include="Resources\aperture.png" />
   </ItemGroup>
   <ItemGroup>
@@ -150,28 +146,13 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <BundleResource Include="Resources\appicon.png" />
-  </ItemGroup>
-  <ItemGroup>
     <BundleResource Include="Resources\gear.png" />
   </ItemGroup>
   <ItemGroup>
     <BundleResource Include="Resources\gear%402x.png" />
   </ItemGroup>
   <ItemGroup>
-    <BundleResource Include="Resources\Icon-167.png" />
-  </ItemGroup>
-  <ItemGroup>
     <BundleResource Include="Resources\Icon-60%402x.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <BundleResource Include="Resources\Icon-76.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <BundleResource Include="Resources\Icon-76%402x.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <BundleResource Include="Resources\Icon.png" />
   </ItemGroup>
   <ItemGroup>
     <BundleResource Include="Resources\swap.png" />
