@@ -14,7 +14,7 @@ namespace CrossCam.ViewModel
         {
             WikipediaCommand = new Command(() =>
             {
-                Device.OpenUri(new Uri("https://en.wikipedia.org/wiki/Autostereogram"));
+                Device.OpenUri(new Uri("https://en.wikipedia.org/wiki/Stereoscopy#Side-by-side"));
             });
 
             HowToViewCommand = new Command(() =>
