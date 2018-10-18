@@ -21,7 +21,7 @@ namespace CrossCam.ViewModel
 
             GithubCommand = new Command(() =>
             {
-                Device.OpenUri(new Uri("https://github.com/KRA2008/crosscam"));
+                Device.OpenUri(new Uri("https://github.com/KRA2008/crosscam/issues"));
             });
 
             CrossViewSubredditCommand = new Command(() =>
