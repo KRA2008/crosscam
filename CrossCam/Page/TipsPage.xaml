@@ -27,6 +27,8 @@
             <BoxView/>
             <Label Text="You can drag the alignment lines around if you want."/>
             <BoxView/>
+            <Label Text="There is an experimental &quot;guide donut/dot&quot; on the settings page you can turn on which may help you keep your perspectives parallel for a large scene. Ideally you would drag it onto the horizon, sky, or other very distant point. Be careful, using it on smaller scenes will make things painful."/>
+            <BoxView/>
         </StackLayout>
     </ContentPage.Content>
 </fresh:FreshBaseContentPage>
