@@ -25,6 +25,10 @@
                     Command="{Binding NavigateToContactPage}"
                     HorizontalOptions="Center"/>
             <BoxView/>
+            <Button Text="Privacy Policy"
+                    Command="{Binding PrivacyPolicyCommand}"
+                    HorizontalOptions="Center"/>
+            <BoxView/>
         </StackLayout>
     </ContentPage.Content>
 </fresh:FreshBaseContentPage>

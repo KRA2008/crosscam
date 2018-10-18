@@ -1,4 +1,5 @@
-﻿using FreshMvvm;
+﻿using System;
+using FreshMvvm;
 using Xamarin.Forms;
 
 namespace CrossCam.ViewModel
@@ -10,6 +11,8 @@ namespace CrossCam.ViewModel
         public Command NavigateToTipsPage { get; set; }
 
         public Command NavigateToContactPage { get; set; }
+
+        public Command PrivacyPolicyCommand { get; set; }
 
         public InfoViewModel()
         {
@@ -26,6 +29,11 @@ namespace CrossCam.ViewModel
             NavigateToContactPage = new Command(async () =>
             {
                 await  CoreMethods.PushPageModel<ContactViewModel>();
+            });
+
+            PrivacyPolicyCommand = new Command(() =>
+            {
+                Device.OpenUri(new Uri("http://kra2008.com/crosscam/privacypolicy.html"));
             });
         }
     }
