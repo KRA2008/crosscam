@@ -236,7 +236,7 @@
         <ContentView AbsoluteLayout.LayoutFlags="All"
                      AbsoluteLayout.LayoutBounds="{DynamicResource _viewRectangle}"
                      Padding="10"
-                     IsVisible="{Binding ShouldEndButtonsBeVisible}">
+                     IsVisible="{Binding ShouldViewButtonBeVisible}">
             <ContentView.GestureRecognizers>
                 <TapGestureRecognizer Command="{Binding ToggleViewModeCommand}"/>
             </ContentView.GestureRecognizers>

@@ -67,6 +67,7 @@ namespace CrossCam.ViewModel
         public bool ShouldLeftRetakeBeVisible => LeftByteArray != null && !IsSaving && !IsViewMode;
         public bool ShouldRightRetakeBeVisible => RightByteArray != null && !IsSaving && !IsViewMode;
         public bool ShouldEndButtonsBeVisible => IsCaptureComplete && !IsSaving && !IsViewMode;
+        public bool ShouldViewButtonBeVisible => ShouldEndButtonsBeVisible && (!IsViewPortrait || Settings.FillScreenPreview);
         public bool ShouldSettingsAndInfoBeVisible => IsNothingCaptured && !IsSaving && !IsViewMode;
         public bool ShouldLineGuidesBeVisible => (LeftByteArray == null ^ RightByteArray == null || Settings.ShowGuideLinesWithFirstCapture && !IsCaptureComplete) && Settings.AreGuideLinesVisible && !IsSaving && !IsViewMode;
         public bool ShouldDonutGuideBeVisible => (LeftByteArray == null ^ RightByteArray == null || Settings.ShowGuideDonutWithFirstCapture && !IsCaptureComplete) && Settings.IsGuideDonutVisible && !IsSaving && !IsViewMode;
