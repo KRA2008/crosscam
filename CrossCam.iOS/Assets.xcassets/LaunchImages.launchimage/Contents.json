@@ -5,7 +5,7 @@
       "extent": "full-screen",
       "minimum-system-version": "7.0",
       "scale": "2x",
-      "size": "0x0",
+      "size": "640x960",
       "idiom": "iphone",
       "filename": "launch640960.png"
     },
@@ -15,7 +15,7 @@
       "minimum-system-version": "7.0",
       "subtype": "retina4",
       "scale": "2x",
-      "size": "0x0",
+      "size": "640x1136",
       "idiom": "iphone",
       "filename": "launch6401136.png"
     },
@@ -24,7 +24,7 @@
       "extent": "full-screen",
       "minimum-system-version": "7.0",
       "scale": "1x",
-      "size": "0x0",
+      "size": "768x1024",
       "idiom": "ipad",
       "filename": "launch7681024.png"
     },
@@ -33,7 +33,7 @@
       "extent": "full-screen",
       "minimum-system-version": "7.0",
       "scale": "1x",
-      "size": "0x0",
+      "size": "1024x768",
       "idiom": "ipad",
       "filename": "launch1024768.png"
     },
@@ -42,7 +42,7 @@
       "extent": "full-screen",
       "minimum-system-version": "7.0",
       "scale": "2x",
-      "size": "0x0",
+      "size": "1536x2048",
       "idiom": "ipad",
       "filename": "launch15362048.png"
     },
@@ -51,7 +51,7 @@
       "extent": "full-screen",
       "minimum-system-version": "7.0",
       "scale": "2x",
-      "size": "0x0",
+      "size": "2048x1536",
       "idiom": "ipad",
       "filename": "launch20481536.png"
     }
