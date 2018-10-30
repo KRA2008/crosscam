@@ -16,6 +16,7 @@ using SkiaSharp;
 using Xamarin.Forms;
 using Xamarin.Forms.Platform.Android;
 using CameraModule = CrossCam.CustomElement.CameraModule;
+using Exception = Java.Lang.Exception;
 using Math = System.Math;
 using View = Android.Views.View;
 #pragma warning disable 618
@@ -186,7 +187,6 @@ namespace CrossCam.Droid.CustomRenderer
 
             _isSurfaceAvailable = true;
             SetupAndStartCamera(surface);
-            StartCamera();
         }
 
         public bool OnSurfaceTextureDestroyed(SurfaceTexture surface)
@@ -222,81 +222,89 @@ namespace CrossCam.Droid.CustomRenderer
 
         private void SetupAndStartCamera(SurfaceTexture surface = null)
         {
-            if (_isSurfaceAvailable)
+            try
             {
-                if (_camera == null)
+                if (_isSurfaceAvailable)
                 {
-                    _camera = Camera.Open((int)_cameraType);
-
-                    for (var ii = 0; ii < Camera.NumberOfCameras - 1; ii++)
+                    if (_camera == null)
                     {
-                        var info = new Camera.CameraInfo();
-                        Camera.GetCameraInfo(ii, info);
-                        if (info.CanDisableShutterSound)
+                        _camera = Camera.Open((int) _cameraType);
+
+                        for (var ii = 0; ii < Camera.NumberOfCameras - 1; ii++)
                         {
-                            _camera.EnableShutterSound(false);
-                        }
-                    }
-
-                    var parameters = _camera.GetParameters();
-                    parameters.FlashMode = Camera.Parameters.FlashModeOff;
-                    parameters.VideoStabilization = false;
-                    parameters.JpegQuality = 100;
-                    if (parameters.SupportedFocusModes.Contains(Camera.Parameters.FocusModeContinuousPicture))
-                    {
-                        parameters.FocusMode = Camera.Parameters.FocusModeContinuousPicture;
-                    }
-
-                    var landscapePictureDescendingSizes = parameters
-                        .SupportedPictureSizes
-                        .Where(p => p.Width > p.Height)
-                        .OrderByDescending(p => p.Width * p.Height)
-                        .ToList();
-                    var landscapePreviewDescendingSizes = parameters
-                        .SupportedPreviewSizes
-                        .Where(p => p.Width > p.Height)
-                        .OrderByDescending(p => p.Width * p.Height)
-                        .ToList();
-
-                    foreach (var pictureSize in landscapePictureDescendingSizes)
-                    {
-                        foreach (var previewSize in landscapePreviewDescendingSizes)
-                        {
-                            if (Math.Abs((double)pictureSize.Width / pictureSize.Height - (double)previewSize.Width / previewSize.Height) < 0.0001)
+                            var info = new Camera.CameraInfo();
+                            Camera.GetCameraInfo(ii, info);
+                            if (info.CanDisableShutterSound)
                             {
-                                _pictureSize = pictureSize;
-                                _previewSize = previewSize;
+                                _camera.EnableShutterSound(false);
+                            }
+                        }
+
+                        var parameters = _camera.GetParameters();
+                        parameters.FlashMode = Camera.Parameters.FlashModeOff;
+                        parameters.VideoStabilization = false;
+                        parameters.JpegQuality = 100;
+                        if (parameters.SupportedFocusModes.Contains(Camera.Parameters.FocusModeContinuousPicture))
+                        {
+                            parameters.FocusMode = Camera.Parameters.FocusModeContinuousPicture;
+                        }
+
+                        var landscapePictureDescendingSizes = parameters
+                            .SupportedPictureSizes
+                            .Where(p => p.Width > p.Height)
+                            .OrderByDescending(p => p.Width * p.Height)
+                            .ToList();
+                        var landscapePreviewDescendingSizes = parameters
+                            .SupportedPreviewSizes
+                            .Where(p => p.Width > p.Height)
+                            .OrderByDescending(p => p.Width * p.Height)
+                            .ToList();
+
+                        foreach (var pictureSize in landscapePictureDescendingSizes)
+                        {
+                            foreach (var previewSize in landscapePreviewDescendingSizes)
+                            {
+                                if (Math.Abs((double) pictureSize.Width / pictureSize.Height -
+                                             (double) previewSize.Width / previewSize.Height) < 0.0001)
+                                {
+                                    _pictureSize = pictureSize;
+                                    _previewSize = previewSize;
+                                    break;
+                                }
+                            }
+
+                            if (_pictureSize != null)
+                            {
                                 break;
                             }
                         }
 
-                        if (_pictureSize != null)
+                        if (_pictureSize == null ||
+                            _previewSize == null)
                         {
-                            break;
+                            _pictureSize = landscapePictureDescendingSizes.First();
+                            _previewSize = landscapePreviewDescendingSizes.First();
                         }
+
+                        parameters.SetPictureSize(_pictureSize.Width, _pictureSize.Height);
+                        parameters.SetPreviewSize(_previewSize.Width, _previewSize.Height);
+
+                        _camera.SetParameters(parameters);
+                        _camera.SetPreviewTexture(_surfaceTexture);
                     }
 
-                    if (_pictureSize == null ||
-                        _previewSize == null)
+                    if (surface != null)
                     {
-                        _pictureSize = landscapePictureDescendingSizes.First();
-                        _previewSize = landscapePreviewDescendingSizes.First();
+                        _surfaceTexture = surface;
                     }
 
-                    parameters.SetPictureSize(_pictureSize.Width, _pictureSize.Height);
-                    parameters.SetPreviewSize(_previewSize.Width, _previewSize.Height);
-
-                    _camera.SetParameters(parameters);
-                    _camera.SetPreviewTexture(_surfaceTexture);
+                    SetOrientation();
+                    StartCamera();
                 }
-
-                if (surface != null)
-                {
-                    _surfaceTexture = surface;
-                }
-                
-                SetOrientation();
-                StartCamera();
+            }
+            catch (Exception e)
+            {
+                _cameraModule.ErrorMessage = e.ToString();
             }
         }
 
@@ -404,70 +412,77 @@ namespace CrossCam.Droid.CustomRenderer
         {
             if (data != null)
             {
-                _camera.StartPreview();
-
-                SKCodecOrigin origin;
-
-                using (var stream = new MemoryStream(data))
-                using (var skData = SKData.Create(stream))
-                using (var codec = SKCodec.Create(skData))
+                try
                 {
-                    origin = codec.Origin;
-                }
+                    _camera.StartPreview();
 
-                if (origin != SKCodecOrigin.BottomRight &&
-                    origin != SKCodecOrigin.RightTop)
+                    SKCodecOrigin origin;
+
+                    using (var stream = new MemoryStream(data))
+                    using (var skData = SKData.Create(stream))
+                    using (var codec = SKCodec.Create(skData))
+                    {
+                        origin = codec.Origin;
+                    }
+
+                    if (origin != SKCodecOrigin.BottomRight &&
+                        origin != SKCodecOrigin.RightTop)
+                    {
+                        _cameraModule.CapturedImage = data;
+                        return;
+                    }
+
+                    var correctedWidth = 0;
+                    var correctedHeight = 0;
+                    var correctDy = 0;
+                    float correctRotateDegrees = 0;
+
+                    var originalBitmap = SKBitmap.Decode(data);
+
+                    switch (origin)
+                    {
+                        case SKCodecOrigin.BottomRight:
+                            correctedWidth = originalBitmap.Width;
+                            correctedHeight = originalBitmap.Height;
+                            correctDy = correctedHeight;
+                            correctRotateDegrees = 180;
+                            break;
+                        case SKCodecOrigin.RightTop:
+                            correctedWidth = originalBitmap.Height;
+                            correctedHeight = originalBitmap.Width;
+                            correctDy = 0;
+                            correctRotateDegrees = 90;
+                            break;
+                    }
+
+                    SKImage correctedImage;
+                    using (var tempSurface = SKSurface.Create(new SKImageInfo(correctedWidth, correctedHeight)))
+                    {
+                        var canvas = tempSurface.Canvas;
+
+                        canvas.Clear(SKColors.Transparent);
+
+                        canvas.Translate(correctedWidth, correctDy);
+                        canvas.RotateDegrees(correctRotateDegrees);
+                        canvas.DrawBitmap(originalBitmap, 0, 0);
+                        originalBitmap.Dispose();
+
+                        correctedImage = tempSurface.Snapshot();
+                    }
+
+                    byte[] correctedBytes;
+                    using (var encoded = correctedImage.Encode(SKEncodedImageFormat.Jpeg, 100))
+                    {
+                        correctedBytes = encoded.ToArray();
+                        correctedImage.Dispose();
+                    }
+
+                    _cameraModule.CapturedImage = correctedBytes;
+                }
+                catch (Exception e)
                 {
-                    _cameraModule.CapturedImage = data;
-                    return;
+                    _cameraModule.ErrorMessage = e.ToString();
                 }
-
-                var correctedWidth = 0;
-                var correctedHeight = 0;
-                var correctDy = 0;
-                float correctRotateDegrees = 0;
-
-                var originalBitmap = SKBitmap.Decode(data);
-
-                switch (origin)
-                {
-                    case SKCodecOrigin.BottomRight:
-                        correctedWidth = originalBitmap.Width;
-                        correctedHeight = originalBitmap.Height;
-                        correctDy = correctedHeight;
-                        correctRotateDegrees = 180;
-                        break;
-                    case SKCodecOrigin.RightTop:
-                        correctedWidth = originalBitmap.Height;
-                        correctedHeight = originalBitmap.Width;
-                        correctDy = 0;
-                        correctRotateDegrees = 90;
-                        break;
-                }
-
-                SKImage correctedImage;
-                using (var tempSurface = SKSurface.Create(new SKImageInfo(correctedWidth, correctedHeight)))
-                {
-                    var canvas = tempSurface.Canvas;
-
-                    canvas.Clear(SKColors.Transparent);
-
-                    canvas.Translate(correctedWidth, correctDy);
-                    canvas.RotateDegrees(correctRotateDegrees);
-                    canvas.DrawBitmap(originalBitmap, 0, 0);
-                    originalBitmap.Dispose();
-
-                    correctedImage = tempSurface.Snapshot();
-                }
-
-                byte[] correctedBytes;
-                using (var encoded = correctedImage.Encode(SKEncodedImageFormat.Jpeg, 100))
-                {
-                    correctedBytes = encoded.ToArray();
-                    correctedImage.Dispose();
-                }
-
-                _cameraModule.CapturedImage = correctedBytes;
             }
         }
 

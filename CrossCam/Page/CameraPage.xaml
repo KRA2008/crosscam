@@ -81,6 +81,7 @@
                              IsVisible="{Binding IsCameraVisible}"
                              CapturedImage="{Binding CapturedImageBytes}"
                              CaptureSuccess="{Binding CaptureSuccess}"
+                             ErrorMessage="{Binding ErrorMessage}"
                              IsFullScreenPreview="{Binding Settings.FillScreenPreview}"/>
             <ce:CameraSuccessOutline Grid.Column="0"
                                      Grid.Row="0">

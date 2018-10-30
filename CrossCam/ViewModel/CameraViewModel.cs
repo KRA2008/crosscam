@@ -34,7 +34,7 @@ namespace CrossCam.ViewModel
 
         public bool MoveLeftTrigger { get; set; }
         public bool MoveRightTrigger { get; set; }
-        
+
         public Command SaveCapturesCommand { get; set; }
 
         public Command ToggleViewModeCommand { get; set; }
@@ -46,6 +46,9 @@ namespace CrossCam.ViewModel
         public Command NavigateToInfoCommand { get; set; }
 
         public Command SwapSidesCommand { get; set; }
+
+        public Command PromptForPermissionAndSendErrorEmailCommand { get; set; }
+        public string ErrorMessage { get; set; }
 
         public Settings Settings { get; set; }
 
@@ -156,10 +159,12 @@ namespace CrossCam.ViewModel
                         }
                     }
                 }
-                else if (args.PropertyName == nameof(FirstImageSource) ||
-                         args.PropertyName == nameof(SecondImageSource))
+                else if (args.PropertyName == nameof(ErrorMessage))
                 {
-                    RaisePropertyChanged();
+                    if (ErrorMessage != null)
+                    {
+                        PromptForPermissionAndSendErrorEmailCommand.Execute(null);
+                    }
                 }
             };
 
@@ -420,8 +425,10 @@ namespace CrossCam.ViewModel
                         FailFadeTrigger = !FailFadeTrigger;
                     }
                 }
-                catch
+                catch (Exception e)
                 {
+                    ErrorMessage = e.ToString();
+
                     IsSaving = false;
 
                     FailFadeTrigger = !FailFadeTrigger;
@@ -439,6 +446,19 @@ namespace CrossCam.ViewModel
 
                     ClearCaptures();
                 }
+            });
+
+            PromptForPermissionAndSendErrorEmailCommand = new Command(async () =>
+            {
+                var sendReport = await CoreMethods.DisplayAlert("Error",
+                    "An error has occurred. Would you like to send an error report?", "Yes", "No");
+                if (sendReport)
+                {
+                    Device.OpenUri(new Uri("mailto:me@kra2008.com?subject=CrossCam%20error%20report&body=" +
+                                           ErrorMessage));
+                }
+
+                ErrorMessage = null;
             });
         }
         

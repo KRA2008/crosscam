@@ -117,30 +117,37 @@ namespace CrossCam.iOS.CustomRenderer
 
         private void SetupCamera()
         {
-            if (_captureSession == null)
+            try
             {
-                _captureSession = new AVCaptureSession
+                if (_captureSession == null)
                 {
-                    SessionPreset = AVCaptureSession.PresetPhoto
-                };
+                    _captureSession = new AVCaptureSession
+                    {
+                        SessionPreset = AVCaptureSession.PresetPhoto
+                    };
+                }
+
+                SetPreviewSizing();
+
+                SetPreviewOrientation();
+
+                if (_photoOutput == null)
+                {
+                    _device = AVCaptureDevice.GetDefaultDevice(AVMediaTypes.Video);
+                    ConfigureCameraForDevice(_device);
+
+                    _photoOutput = new AVCapturePhotoOutput
+                    {
+                        IsHighResolutionCaptureEnabled = true
+                    };
+
+                    _captureSession.AddOutput(_photoOutput);
+                    _captureSession.AddInput(AVCaptureDeviceInput.FromDevice(_device));
+                }
             }
-
-            SetPreviewSizing();
-            
-            SetPreviewOrientation();
-
-            if (_photoOutput == null)
+            catch (Exception e)
             {
-                _device = AVCaptureDevice.GetDefaultDevice(AVMediaTypes.Video);
-                ConfigureCameraForDevice(_device);
-
-                _photoOutput = new AVCapturePhotoOutput
-                {
-                    IsHighResolutionCaptureEnabled = true
-                };
-
-                _captureSession.AddOutput(_photoOutput);
-                _captureSession.AddInput(AVCaptureDeviceInput.FromDevice(_device));
+                _cameraModule.ErrorMessage = e.ToString();
             }
         }
 
@@ -165,29 +172,36 @@ namespace CrossCam.iOS.CustomRenderer
         // ReSharper disable once UnusedMember.Local
         private void PhotoCaptureComplete(AVCapturePhotoOutput photoOutput, AVCapturePhoto photo, NSError error)
         {
-            if (photo != null && 
-                error == null)
+            try
             {
-                UIImageOrientation imageOrientation;
-                var orientationTarget = _previousValidOrientation ?? UIDevice.CurrentDevice.Orientation;
-                switch (orientationTarget)
+                if (photo != null &&
+                    error == null)
                 {
-                    case UIDeviceOrientation.LandscapeRight:
-                        imageOrientation = UIImageOrientation.Down;
-                        break;
-                    case UIDeviceOrientation.Portrait:
-                        imageOrientation = UIImageOrientation.Right;
-                        break;
-                    default:
-                        imageOrientation = UIImageOrientation.Up;
-                        break;
-                }
+                    UIImageOrientation imageOrientation;
+                    var orientationTarget = _previousValidOrientation ?? UIDevice.CurrentDevice.Orientation;
+                    switch (orientationTarget)
+                    {
+                        case UIDeviceOrientation.LandscapeRight:
+                            imageOrientation = UIImageOrientation.Down;
+                            break;
+                        case UIDeviceOrientation.Portrait:
+                            imageOrientation = UIImageOrientation.Right;
+                            break;
+                        default:
+                            imageOrientation = UIImageOrientation.Up;
+                            break;
+                    }
 
-                using (var cgImage = photo.CGImageRepresentation)
-                {
-                    var uiImage = UIImage.FromImage(cgImage, 1, imageOrientation);
-                    _cameraModule.CapturedImage = uiImage.AsJPEG().ToArray();
+                    using (var cgImage = photo.CGImageRepresentation)
+                    {
+                        var uiImage = UIImage.FromImage(cgImage, 1, imageOrientation);
+                        _cameraModule.CapturedImage = uiImage.AsJPEG().ToArray();
+                    }
                 }
+            }
+            catch (Exception e)
+            {
+                _cameraModule.ErrorMessage = e.ToString();
             }
         }
 
