@@ -19,7 +19,7 @@
                     Command="{Binding WikipediaCommand}"
                     HorizontalOptions="Center"/>
             <BoxView/>
-            <Button Text="How do I look at stereograms?"
+            <Button Text="How do I view stereograms?"
                     Command="{Binding HowToViewCommand}"
                     HorizontalOptions="Center"/>
             <BoxView/>
