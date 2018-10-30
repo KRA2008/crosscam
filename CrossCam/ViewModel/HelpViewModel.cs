@@ -4,7 +4,7 @@ using Xamarin.Forms;
 
 namespace CrossCam.ViewModel
 {
-    public class InfoViewModel : FreshBasePageModel
+    public class HelpViewModel : FreshBasePageModel
     {
         public Command NavigateToAppExplanationPage { get; set; }
 
@@ -14,7 +14,7 @@ namespace CrossCam.ViewModel
 
         public Command PrivacyPolicyCommand { get; set; }
 
-        public InfoViewModel()
+        public HelpViewModel()
         {
             NavigateToAppExplanationPage = new Command(async () =>
             {

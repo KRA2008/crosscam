@@ -43,7 +43,7 @@ namespace CrossCam.ViewModel
         public Command ClearCapturesCommand { get; set; }
 
         public Command NavigateToSettingsCommand { get; set; }
-        public Command NavigateToInfoCommand { get; set; }
+        public Command NavigateToHelpCommand { get; set; }
 
         public Command SwapSidesCommand { get; set; }
 
@@ -223,9 +223,9 @@ namespace CrossCam.ViewModel
                 await CoreMethods.PushPageModel<SettingsViewModel>(Settings);
             });
 
-            NavigateToInfoCommand = new Command(async () =>
+            NavigateToHelpCommand = new Command(async () =>
             {
-                await CoreMethods.PushPageModel<InfoViewModel>();
+                await CoreMethods.PushPageModel<HelpViewModel>();
             });
 
             SwapSidesCommand = new Command(() =>

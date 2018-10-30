@@ -38,7 +38,7 @@
     <EmbeddedResource Update="Page\ContactPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Update="Page\InfoPage.xaml">
+    <EmbeddedResource Update="Page\HelpPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
     <EmbeddedResource Update="Page\SettingsPage.xaml">
@@ -55,6 +55,9 @@
     </Compile>
     <Compile Update="Page\CameraPage.xaml.cs">
       <DependentUpon>CameraPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Page\HelpPage.xaml.cs">
+      <DependentUpon>HelpPage.xaml</DependentUpon>
     </Compile>
   </ItemGroup>
 

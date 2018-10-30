@@ -19,16 +19,20 @@
         </ResourceDictionary>
     </fresh:FreshBaseContentPage.Resources>
     <ContentPage.Content>
-        <StackLayout Spacing="0">
-            <BoxView/>
-            <Label Text="When you slide over, try to minimize the rotation that takes place on any axis, including the natural tendency to turn towards the subject as you move to the side. Some rotation will be necessary sometimes, but try to minimize it. Imagine the phone is mounted on a straight horizontal rail and can only slide."/>
-            <BoxView/>
-            <Label Text="If all the movement makes you sick or makes it too difficult to cross view, just move over a little bit and align the pictures using the horizontal lines without cross viewing and then start cross viewing once aligned and holding still."/>
-            <BoxView/>
-            <Label Text="You can drag the alignment lines around if you want."/>
-            <BoxView/>
-            <Label Text="There is an experimental &quot;guide donut/dot&quot; on the settings page you can turn on which may help you keep your perspectives parallel for a large scene. Ideally you would drag it onto the horizon, sky, or other very distant point. Be careful, using it on smaller scenes will make things painful."/>
-            <BoxView/>
-        </StackLayout>
+        <ScrollView>
+            <StackLayout Spacing="0">
+                <BoxView/>
+                <Label Text="When you slide over, try to minimize the rotation that takes place on any axis, including the natural tendency to turn towards the subject as you move to the side. Some rotation will be necessary sometimes, but try to minimize it. Imagine the phone is mounted on a straight horizontal rail and can only slide."/>
+                <BoxView/>
+                <Label Text="If all the movement makes you sick or makes it too difficult to cross view, just move over a little bit and align the pictures using the horizontal lines without cross viewing and then start cross viewing once aligned and holding still."/>
+                <BoxView/>
+                <Label Text="You can drag the alignment lines around if you want."/>
+                <BoxView/>
+                <Label Text="If you want to take the pictures in the reverse order or you run out of space on one side, push the arrows button on top to switch sides and direction."/>
+                <BoxView/>
+                <Label Text="There is an experimental &quot;guide donut/dot&quot; on the settings page you can turn on which may help you keep your perspectives parallel for a large scene. Ideally you would drag it onto the horizon, sky, or other very distant point. Be careful, using it on smaller scenes will make things painful."/>
+                <BoxView/>
+            </StackLayout>
+        </ScrollView>
     </ContentPage.Content>
 </fresh:FreshBaseContentPage>

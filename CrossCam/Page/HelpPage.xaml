@@ -7,9 +7,9 @@
              xmlns:fresh="clr-namespace:FreshMvvm;assembly=FreshMvvm"
              mc:Ignorable="d"
              
-             d:DataContext="{d:DesignInstance Type=vm:InfoViewModel, IsDesignTimeCreatable=False}"
-             x:Class="CrossCam.Page.InfoPage"
-             Title="Info">
+             d:DataContext="{d:DesignInstance Type=vm:HelpViewModel, IsDesignTimeCreatable=False}"
+             x:Class="CrossCam.Page.HelpPage"
+             Title="Help">
     <ContentPage.Content>
         <StackLayout>
             <BoxView/>

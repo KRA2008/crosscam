@@ -1,8 +1,8 @@
 ﻿namespace CrossCam.Page
 {
-	public partial class InfoPage
+	public partial class HelpPage
 	{
-		public InfoPage ()
+		public HelpPage()
 		{
 			InitializeComponent ();
 		}

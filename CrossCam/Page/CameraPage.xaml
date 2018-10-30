@@ -107,9 +107,9 @@
                      Padding="10"
                      IsVisible="{Binding ShouldSettingsAndInfoBeVisible}">
             <ContentView.GestureRecognizers>
-                <TapGestureRecognizer Command="{Binding NavigateToInfoCommand}"/>
+                <TapGestureRecognizer Command="{Binding NavigateToHelpCommand}"/>
             </ContentView.GestureRecognizers>
-            <Image Source="info"
+            <Image Source="help"
                    InputTransparent="True"/>
         </ContentView>
         <ContentView AbsoluteLayout.LayoutFlags="All"
