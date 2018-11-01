@@ -45,6 +45,8 @@
 	<string>This app uses the camera to take 3D pictures</string>
 	<key>NSPhotoLibraryAddUsageDescription</key>
 	<string>This app saves the 3D pictures you make to your photo library</string>
+  <key>NSPhotoLibraryUsageDescription</key>
+  <string>This app saves the 3D pictures you make to your photo library</string>
 	<key>UIMainStoryboardFile</key>
 	<string>LaunchScreen</string>
 	<key>UIViewControllerBasedStatusBarAppearance</key>

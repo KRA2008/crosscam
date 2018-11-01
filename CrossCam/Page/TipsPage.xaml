@@ -30,6 +30,8 @@
                 <BoxView/>
                 <Label Text="If you want to take the pictures in the reverse order or you run out of space on one side, push the arrows button on top to switch sides and direction."/>
                 <BoxView/>
+                <Label Text="If you want to save your captures as separate pictures without them stitched together (for easier post-processing) you can turn that on in the settings (gear icon on the bottom right of the camera page)."/>
+                <BoxView/>
                 <Label Text="There is an experimental &quot;guide donut/dot&quot; on the settings page you can turn on which may help you keep your perspectives parallel for a large scene. Ideally you would drag it onto the horizon, sky, or other very distant point. Be careful, using it on smaller scenes will make things painful."/>
                 <BoxView/>
             </StackLayout>

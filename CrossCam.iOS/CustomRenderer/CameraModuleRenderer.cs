@@ -2,6 +2,7 @@
 using System.ComponentModel;
 using AVFoundation;
 using CoreGraphics;
+using CoreMedia;
 using CrossCam.iOS.CustomRenderer;
 using Foundation;
 using UIKit;
@@ -168,41 +169,78 @@ namespace CrossCam.iOS.CustomRenderer
             _photoOutput.CapturePhoto(photoSettings, this);
         }
 
-        [Export("captureOutput:didFinishProcessingPhoto:error:")]
+        [Export("captureOutput:didFinishProcessingPhotoSampleBuffer:previewPhotoSampleBuffer:resolvedSettings:bracketSettings:error:")]
         // ReSharper disable once UnusedMember.Local
-        private void PhotoCaptureComplete(AVCapturePhotoOutput photoOutput, AVCapturePhoto photo, NSError error)
+        private void PhotoCaptureComplete(AVCapturePhotoOutput captureOutput, CMSampleBuffer finishedPhotoBuffer, CMSampleBuffer previewPhotoBuffer, AVCaptureResolvedPhotoSettings resolvedSettings, AVCaptureBracketedStillImageSettings bracketSettings, NSError error)
         {
             try
             {
-                if (photo != null &&
-                    error == null)
+                if (error != null)
                 {
-                    UIImageOrientation imageOrientation;
-                    var orientationTarget = _previousValidOrientation ?? UIDevice.CurrentDevice.Orientation;
-                    switch (orientationTarget)
-                    {
-                        case UIDeviceOrientation.LandscapeRight:
-                            imageOrientation = UIImageOrientation.Down;
-                            break;
-                        case UIDeviceOrientation.Portrait:
-                            imageOrientation = UIImageOrientation.Right;
-                            break;
-                        default:
-                            imageOrientation = UIImageOrientation.Up;
-                            break;
-                    }
-
-                    using (var cgImage = photo.CGImageRepresentation)
-                    {
-                        var uiImage = UIImage.FromImage(cgImage, 1, imageOrientation);
-                        _cameraModule.CapturedImage = uiImage.AsJPEG().ToArray();
-                    }
+                    _cameraModule.ErrorMessage = error.ToString();
+                }
+                else if (finishedPhotoBuffer != null)
+                {
+                    var image = AVCapturePhotoOutput.GetJpegPhotoDataRepresentation(finishedPhotoBuffer, previewPhotoBuffer);
+                    var imgDataProvider = new CGDataProvider(image);
+                    image.Dispose();
+                    var cgImage = CGImage.FromJPEG(imgDataProvider, null, false, CGColorRenderingIntent.Default);
+                    imgDataProvider.Dispose();
+                    var uiImage = UIImage.FromImage(cgImage, 1, GetOrientationForCorrection());
+                    cgImage.Dispose();
+                    _cameraModule.CapturedImage = uiImage.AsJPEG().ToArray();
+                    uiImage.Dispose();
                 }
             }
             catch (Exception e)
             {
                 _cameraModule.ErrorMessage = e.ToString();
             }
+        }
+
+        [Export("captureOutput:didFinishProcessingPhoto:error:")]
+        // ReSharper disable once UnusedMember.Local
+        private void PhotoCaptureComplete(AVCapturePhotoOutput captureOutput, AVCapturePhoto photo, NSError error)
+        {
+            try
+            {
+                if (error != null)
+                {
+                    _cameraModule.ErrorMessage = error.ToString();
+                }
+                else if (photo != null)
+                {
+                    var cgImage = photo.CGImageRepresentation;
+                    var uiImage = UIImage.FromImage(cgImage, 1, GetOrientationForCorrection());
+                    cgImage.Dispose();
+                    _cameraModule.CapturedImage = uiImage.AsJPEG().ToArray();
+                    uiImage.Dispose();
+                }
+            }
+            catch (Exception e)
+            {
+                _cameraModule.ErrorMessage = e.ToString();
+            }
+        }
+
+        private UIImageOrientation GetOrientationForCorrection()
+        {
+            UIImageOrientation imageOrientation;
+            var orientationTarget = _previousValidOrientation ?? UIDevice.CurrentDevice.Orientation;
+            switch (orientationTarget)
+            {
+                case UIDeviceOrientation.LandscapeRight:
+                    imageOrientation = UIImageOrientation.Down;
+                    break;
+                case UIDeviceOrientation.Portrait:
+                    imageOrientation = UIImageOrientation.Right;
+                    break;
+                default:
+                    imageOrientation = UIImageOrientation.Up;
+                    break;
+            }
+
+            return imageOrientation;
         }
 
         [Export("captureOutput:didCapturePhotoForResolvedSettings:")]
