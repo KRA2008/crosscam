@@ -25,7 +25,7 @@ using Camera = Android.Hardware.Camera;
 [assembly: ExportRenderer(typeof(CameraModule), typeof(CameraModuleRenderer))]
 namespace CrossCam.Droid.CustomRenderer
 {
-    public class CameraModuleRenderer : ViewRenderer<CameraModule, View>, TextureView.ISurfaceTextureListener, Camera.IShutterCallback, Camera.IPictureCallback, View.IOnTouchListener
+    public class CameraModuleRenderer : ViewRenderer<CameraModule, View>, TextureView.ISurfaceTextureListener, Camera.IShutterCallback, Camera.IPictureCallback, View.IOnTouchListener, Camera.IErrorCallback
     {
         private Camera _camera;
         private View _view;
@@ -229,6 +229,7 @@ namespace CrossCam.Droid.CustomRenderer
                     if (_camera == null)
                     {
                         _camera = Camera.Open((int) _cameraType);
+                        _camera.SetErrorCallback(this);
 
                         for (var ii = 0; ii < Camera.NumberOfCameras - 1; ii++)
                         {
@@ -414,7 +415,16 @@ namespace CrossCam.Droid.CustomRenderer
             {
                 try
                 {
-                    _camera.StartPreview();
+                    var wasPreviewRestarted = false;
+                    try
+                    {
+                        _camera.StartPreview();
+                        wasPreviewRestarted = true;
+                    }
+                    catch
+                    {
+                        // restarting preview failed, try again later, some devices are just weird
+                    }
 
                     SKCodecOrigin origin;
 
@@ -478,6 +488,11 @@ namespace CrossCam.Droid.CustomRenderer
                     }
 
                     _cameraModule.CapturedImage = correctedBytes;
+
+                    if (!wasPreviewRestarted)
+                    {
+                        _camera.StartPreview();
+                    }
                 }
                 catch (Exception e)
                 {
@@ -548,6 +563,11 @@ namespace CrossCam.Droid.CustomRenderer
                 return max;
             }
             return x < min ? min : x;
+        }
+
+        public void OnError(CameraError error, Camera camera)
+        {
+            _cameraModule.ErrorMessage = error.ToString();
         }
     }
 }
