@@ -1,6 +1,7 @@
 ﻿using System;
 using System.IO;
 using System.Threading.Tasks;
+using System.Web;
 using CrossCam.Model;
 using CrossCam.Wrappers;
 using FreshMvvm;
@@ -454,8 +455,12 @@ namespace CrossCam.ViewModel
                     "An error has occurred. Would you like to send an error report?", "Yes", "No");
                 if (sendReport)
                 {
+                    var appVersionProvider = DependencyService.Get<IAppVersionProvider>();
+                    var errorMessage = appVersionProvider.GetAppVersion() + 
+                                       "\n" + 
+                                       ErrorMessage;
                     Device.OpenUri(new Uri("mailto:me@kra2008.com?subject=CrossCam%20error%20report&body=" +
-                                           ErrorMessage));
+                                           HttpUtility.UrlEncode(errorMessage)));
                 }
 
                 ErrorMessage = null;

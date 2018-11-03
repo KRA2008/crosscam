@@ -1,8 +1,15 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<manifest xmlns:android="http://schemas.android.com/apk/res/android" android:versionCode="4" android:versionName="1.2" package="com.kra2008.crosscam" android:installLocation="auto">
-	<uses-sdk android:minSdkVersion="15" android:targetSdkVersion="28" />
-	<uses-feature android:required="true" android:name="android.hardware.camera" />
-	<uses-feature android:required="true" android:name="android.hardware.camera.autofocus" />
+<manifest xmlns:android="http://schemas.android.com/apk/res/android" 
+          android:versionCode="4" 
+          android:versionName="1.2" 
+          package="com.kra2008.crosscam" 
+          android:installLocation="auto">
+	<uses-sdk android:minSdkVersion="15" 
+	          android:targetSdkVersion="28" />
+	<uses-feature android:required="true" 
+	              android:name="android.hardware.camera" />
+	<uses-feature android:required="true" 
+	              android:name="android.hardware.camera.autofocus" />
 	<uses-permission android:name="android.permission.CAMERA" />
 	<uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 	<application android:label="CrossCam" />
