@@ -109,7 +109,8 @@
                 <TapGestureRecognizer Command="{Binding NavigateToHelpCommand}"/>
             </ContentView.GestureRecognizers>
             <Image Source="help"
-                   InputTransparent="True"/>
+                   InputTransparent="True"
+                   Opacity="0.5"/>
         </ContentView>
         <ContentView AbsoluteLayout.LayoutFlags="All"
                      AbsoluteLayout.LayoutBounds="1,1,0.15,0.20"
@@ -119,7 +120,8 @@
                 <TapGestureRecognizer Command="{Binding NavigateToSettingsCommand}"/>
             </ContentView.GestureRecognizers>
             <Image Source="gear"
-                   InputTransparent="True"/>
+                   InputTransparent="True"
+                   Opacity="0.5"/>
         </ContentView>
         <ContentView AbsoluteLayout.LayoutFlags="All"
                      AbsoluteLayout.LayoutBounds="0.15, 1, 0.125, 0.125"
@@ -229,7 +231,7 @@
         <Image AbsoluteLayout.LayoutFlags="All"
                AbsoluteLayout.LayoutBounds="{DynamicResource _captureRectangle}"
                Source="aperture"
-               Opacity="0.5"
+               Opacity="0.75"
                InputTransparent="True"
                Margin="{DynamicResource _capturePadding}"
                IsVisible="{Binding ShouldCaptureButtonBeVisible}"/>
