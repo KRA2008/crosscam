@@ -55,8 +55,6 @@
                          Padding="10"
                          Spacing="0"
                          VerticalOptions="CenterAndExpand">
-                <Label Text="~Are you sure you don't want landscape mode?~"
-                           IsVisible="{Binding ShouldPortraitWarningBeVisible}"/>
                 <Label Text="{Binding HelpText}"
                            IsVisible="{Binding ShouldHelpTextBeVisible}"/>
             </StackLayout>
