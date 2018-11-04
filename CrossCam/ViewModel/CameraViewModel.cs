@@ -351,7 +351,7 @@ namespace CrossCam.ViewModel
                     var floatedTrim = (float) imageLeftTrimWidth;
                     var floatedWidth = (float) eachSideWidth;
 
-                    var didSave = false;
+                    var didSave = true;
 
                     byte[] finalBytesToSave;
                     if (Settings.SaveSidesSeparately)
@@ -427,6 +427,7 @@ namespace CrossCam.ViewModel
                             didSave = await photoSaver.SavePhoto(finalBytesToSave);
                         }
 
+                        //cross view save
                         var finalImageWidth = eachSideWidth * 2;
 
                         using (var tempSurface =
@@ -453,18 +454,65 @@ namespace CrossCam.ViewModel
                             finalImage = tempSurface.Snapshot();
                         }
 
-                        leftBitmap.Dispose();
-                        rightBitmap.Dispose();
+                        if (!Settings.SaveForParallel)
+                        {
+                            leftBitmap.Dispose();
+                            rightBitmap.Dispose();
+                        }
 
                         using (var encoded = finalImage.Encode(SKEncodedImageFormat.Jpeg, 100))
                         {
                             finalBytesToSave = encoded.ToArray();
                         }
 
-                        finalImage.Dispose();
+                        if (!Settings.SaveForParallel)
+                        {
+                            finalImage.Dispose();
+                        }
 
-                        var joinedSave = await photoSaver.SavePhoto(finalBytesToSave);
-                        didSave = didSave && joinedSave;
+                        var crossJoinedSave = await photoSaver.SavePhoto(finalBytesToSave);
+                        didSave = didSave && crossJoinedSave;
+
+                        if (Settings.SaveForParallel)
+                        {
+                            //TODO: consider extracting this to method but not sure if really cleaner
+                            using (var tempSurface =
+                                SKSurface.Create(new SKImageInfo((int)finalImageWidth, leftBitmap.Height)))
+                            {
+                                var canvas = tempSurface.Canvas;
+
+                                canvas.Clear(SKColors.Transparent);
+
+                                if (needs180Flip)
+                                {
+                                    canvas.RotateDegrees(180);
+                                    canvas.Translate((float)(-1 * finalImageWidth), -1 * leftBitmap.Height);
+                                }
+
+                                canvas.DrawBitmap(rightBitmap,
+                                    SKRect.Create(floatedTrim, 0, floatedWidth, leftBitmap.Height),
+                                    SKRect.Create(0, 0, floatedWidth, leftBitmap.Height));
+                                canvas.DrawBitmap(leftBitmap,
+                                    SKRect.Create(floatedTrim, 0, floatedWidth, leftBitmap.Height),
+                                    SKRect.Create(floatedWidth, 0, floatedWidth, leftBitmap.Height));
+
+
+                                finalImage = tempSurface.Snapshot();
+                            }
+
+                            leftBitmap.Dispose();
+                            rightBitmap.Dispose();
+
+                            using (var encoded = finalImage.Encode(SKEncodedImageFormat.Jpeg, 100))
+                            {
+                                finalBytesToSave = encoded.ToArray();
+                            }
+
+                            finalImage.Dispose();
+
+                            var parallelJoinedSave = await photoSaver.SavePhoto(finalBytesToSave);
+                            didSave = didSave && parallelJoinedSave;
+                        }
                     }
 
                     IsSaving = false;

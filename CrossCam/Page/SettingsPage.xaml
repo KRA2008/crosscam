@@ -72,12 +72,17 @@
             <Label Text="Saving"
                    Style="{DynamicResource header}"/>
             <StackLayout Orientation="Horizontal">
-                <Label Text="Save sides separately"/>
+                <Label Text="Save sides separately (for easier post processing)"/>
                 <Switch IsToggled="{Binding Settings.SaveSidesSeparately}"/>
             </StackLayout>
             <StackLayout Orientation="Horizontal">
                 <Label Text="Save redundant first side alone (for sharing with flat view people)"/>
                 <Switch IsToggled="{Binding Settings.SaveRedundantFirstSide}"
+                        IsEnabled="{Binding Settings.SaveSidesSeparately, Converter={vc:BooleanInvertConverter}}"/>
+            </StackLayout>
+            <StackLayout Orientation="Horizontal">
+                <Label Text="Also save a parallel view/VR version"/>
+                <Switch IsToggled="{Binding Settings.SaveForParallel}"
                         IsEnabled="{Binding Settings.SaveSidesSeparately, Converter={vc:BooleanInvertConverter}}"/>
             </StackLayout>
             <BoxView/>

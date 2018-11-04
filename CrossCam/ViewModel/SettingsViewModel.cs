@@ -56,6 +56,7 @@ namespace CrossCam.ViewModel
             if (Settings.SaveSidesSeparately)
             {
                 Settings.SaveRedundantFirstSide = false;
+                Settings.SaveForParallel = false;
             }
 
             PersistentStorage.Save(PersistentStorage.SETTINGS_KEY, Settings);
