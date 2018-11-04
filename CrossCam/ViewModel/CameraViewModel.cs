@@ -55,6 +55,7 @@ namespace CrossCam.ViewModel
 
         public bool IsViewPortrait { get; set; }
         public bool IsCaptureLeftFirst { get; set; }
+        public bool WasCapturePortrait { get; set; }
 
         public bool FailFadeTrigger { get; set; }
         public bool SuccessFadeTrigger { get; set; }
@@ -68,8 +69,9 @@ namespace CrossCam.ViewModel
         public bool IsNothingCaptured => LeftByteArray == null && RightByteArray == null;
         public bool ShouldCaptureButtonBeVisible => !IsCaptureComplete && !IsSaving && !IsViewMode;
         public bool ShouldHelpTextBeVisible => IsNothingCaptured && !IsSaving && !IsViewMode && HelpTextColumn != CameraColumn;
-        public bool ShouldLeftRetakeBeVisible => LeftByteArray != null && !IsSaving && !IsViewMode;
-        public bool ShouldRightRetakeBeVisible => RightByteArray != null && !IsSaving && !IsViewMode;
+        public bool ShouldLeftRetakeBeVisible => LeftByteArray != null && !IsSaving && !IsViewMode && (!IsCaptureComplete || IsCaptureComplete && DoesCaptureOrientationMatchViewOrientation);
+        public bool ShouldRightRetakeBeVisible => RightByteArray != null && !IsSaving && !IsViewMode && (!IsCaptureComplete || IsCaptureComplete && DoesCaptureOrientationMatchViewOrientation);
+        public bool DoesCaptureOrientationMatchViewOrientation => WasCapturePortrait == IsViewPortrait;
         public bool ShouldEndButtonsBeVisible => IsCaptureComplete && !IsSaving && !IsViewMode;
         public bool ShouldViewButtonBeVisible => ShouldEndButtonsBeVisible && (!IsViewPortrait || Settings.FillScreenPreview);
         public bool ShouldSettingsAndInfoBeVisible => IsNothingCaptured && !IsSaving && !IsViewMode;

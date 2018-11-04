@@ -426,6 +426,20 @@ namespace CrossCam.Droid.CustomRenderer
                         // restarting preview failed, try again later, some devices are just weird
                     }
 
+
+                    var display = _activity.WindowManager.DefaultDisplay.Rotation;
+                    switch (display)
+                    {
+                        case SurfaceOrientation.Rotation0:
+                        case SurfaceOrientation.Rotation180:
+                            _cameraModule.WasCapturePortrait = true;
+                            break;
+                        case SurfaceOrientation.Rotation270:
+                        case SurfaceOrientation.Rotation90:
+                            _cameraModule.WasCapturePortrait = false;
+                            break;
+                    }
+
                     SKCodecOrigin origin;
 
                     using (var stream = new MemoryStream(data))

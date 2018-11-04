@@ -230,12 +230,15 @@ namespace CrossCam.iOS.CustomRenderer
             switch (orientationTarget)
             {
                 case UIDeviceOrientation.LandscapeRight:
+                    _cameraModule.WasCapturePortrait = false;
                     imageOrientation = UIImageOrientation.Down;
                     break;
                 case UIDeviceOrientation.Portrait:
+                    _cameraModule.WasCapturePortrait = true;
                     imageOrientation = UIImageOrientation.Right;
                     break;
                 default:
+                    _cameraModule.WasCapturePortrait = false;
                     imageOrientation = UIImageOrientation.Up;
                     break;
             }
