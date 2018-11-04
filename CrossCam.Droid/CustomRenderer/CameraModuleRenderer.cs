@@ -426,7 +426,6 @@ namespace CrossCam.Droid.CustomRenderer
                         // restarting preview failed, try again later, some devices are just weird
                     }
 
-
                     var display = _activity.WindowManager.DefaultDisplay.Rotation;
                     switch (display)
                     {
@@ -505,7 +504,14 @@ namespace CrossCam.Droid.CustomRenderer
 
                     if (!wasPreviewRestarted)
                     {
-                        _camera.StartPreview();
+                        try
+                        {
+                            _camera.StartPreview();
+                        }
+                        catch
+                        {
+                            // shoot. weird androids. sorry. i hope it worked out anyway.
+                        }
                     }
                 }
                 catch (Exception e)
@@ -522,7 +528,6 @@ namespace CrossCam.Droid.CustomRenderer
         {
             if (_camera != null)
             {
-
                 if (JavaSystem.CurrentTimeMillis() - _tapStartTime <= MAX_DOUBLE_TAP_DURATION)
                 { //double tap
                     TurnOnContinuousFocus();
@@ -551,7 +556,6 @@ namespace CrossCam.Droid.CustomRenderer
                         _camera.SetParameters(parameters);
                     }
                 }
-
             }
 
             return false;
