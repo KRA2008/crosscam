@@ -63,20 +63,40 @@ namespace CrossCam.ViewModel
 
         public bool SwitchToContinuousFocusTrigger { get; set; }
 
-        public Aspect PreviewAspect => Settings.FillScreenPreview && !(IsViewMode && IsViewPortrait) ? Aspect.AspectFill : Aspect.AspectFit;
+        public Aspect PreviewAspect => Settings.FillScreenPreview && !(IsViewMode && IsViewPortrait)
+            ? Aspect.AspectFill
+            : Aspect.AspectFit;
 
         public bool IsCaptureComplete => LeftByteArray != null && RightByteArray != null;
         public bool IsNothingCaptured => LeftByteArray == null && RightByteArray == null;
         public bool ShouldCaptureButtonBeVisible => !IsCaptureComplete && !IsSaving && !IsViewMode;
-        public bool ShouldHelpTextBeVisible => IsNothingCaptured && !IsSaving && !IsViewMode && HelpTextColumn != CameraColumn;
-        public bool ShouldLeftRetakeBeVisible => LeftByteArray != null && !IsSaving && !IsViewMode && (!IsCaptureComplete || IsCaptureComplete && DoesCaptureOrientationMatchViewOrientation);
-        public bool ShouldRightRetakeBeVisible => RightByteArray != null && !IsSaving && !IsViewMode && (!IsCaptureComplete || IsCaptureComplete && DoesCaptureOrientationMatchViewOrientation);
+
+        public bool ShouldHelpTextBeVisible =>
+            IsNothingCaptured && !IsSaving && !IsViewMode && HelpTextColumn != CameraColumn;
+
+        public bool ShouldLeftRetakeBeVisible => LeftByteArray != null && !IsSaving && !IsViewMode &&
+                                                 (!IsCaptureComplete || IsCaptureComplete &&
+                                                  DoesCaptureOrientationMatchViewOrientation);
+
+        public bool ShouldRightRetakeBeVisible => RightByteArray != null && !IsSaving && !IsViewMode &&
+                                                  (!IsCaptureComplete || IsCaptureComplete &&
+                                                   DoesCaptureOrientationMatchViewOrientation);
         public bool DoesCaptureOrientationMatchViewOrientation => WasCapturePortrait == IsViewPortrait;
         public bool ShouldEndButtonsBeVisible => IsCaptureComplete && !IsSaving && !IsViewMode;
-        public bool ShouldViewButtonBeVisible => ShouldEndButtonsBeVisible && (!IsViewPortrait || Settings.FillScreenPreview);
+
+        public bool ShouldViewButtonBeVisible =>
+            ShouldEndButtonsBeVisible && (!IsViewPortrait || Settings.FillScreenPreview);
         public bool ShouldSettingsAndInfoBeVisible => IsNothingCaptured && !IsSaving && !IsViewMode;
-        public bool ShouldLineGuidesBeVisible => (LeftByteArray == null ^ RightByteArray == null || Settings.ShowGuideLinesWithFirstCapture && !IsCaptureComplete) && Settings.AreGuideLinesVisible && !IsSaving && !IsViewMode;
-        public bool ShouldDonutGuideBeVisible => (LeftByteArray == null ^ RightByteArray == null || Settings.ShowGuideDonutWithFirstCapture && !IsCaptureComplete) && Settings.IsGuideDonutVisible && !IsSaving && !IsViewMode;
+
+        public bool ShouldLineGuidesBeVisible =>
+            (LeftByteArray == null ^ RightByteArray == null ||
+             Settings.ShowGuideLinesWithFirstCapture && !IsCaptureComplete) && Settings.AreGuideLinesVisible &&
+            !IsSaving && !IsViewMode;
+
+        public bool ShouldDonutGuideBeVisible =>
+            (LeftByteArray == null ^ RightByteArray == null ||
+             Settings.ShowGuideDonutWithFirstCapture && !IsCaptureComplete) && Settings.IsGuideDonutVisible &&
+            !IsSaving && !IsViewMode;
 
         public string HelpText => "1) Frame up your subject" +
                                   "\n2) Take the first picture (but finish reading these directions first)" +
@@ -86,6 +106,11 @@ namespace CrossCam.ViewModel
                                   "\n6) Take the second picture when the desired level of 3D is achieved";
         public string SlideDirection => IsCaptureLeftFirst ? "LEFT" : "RIGHT";
         public int HelpTextColumn => IsCaptureLeftFirst ? 1 : 0;
+
+        public ImageSource LeftReticleImage => ImageSource.FromFile("squareOuter");
+        public ImageSource RightReticleImage => Settings.IsGuideDonutBothDonuts
+            ? ImageSource.FromFile("squareOuter")
+            : ImageSource.FromFile("squareInner");
 
         public CameraViewModel()
         {
@@ -502,6 +527,7 @@ namespace CrossCam.ViewModel
             RaisePropertyChanged(nameof(ShouldLineGuidesBeVisible)); //TODO: figure out how to have Fody do this
             RaisePropertyChanged(nameof(ShouldDonutGuideBeVisible));
             RaisePropertyChanged(nameof(PreviewAspect));
+            RaisePropertyChanged(nameof(RightReticleImage));
         }
 
         private void ClearCaptures()

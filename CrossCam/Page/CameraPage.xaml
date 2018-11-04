@@ -182,7 +182,7 @@
                AbsoluteLayout.LayoutBounds="0, 0, 0, 0"
                Margin="{DynamicResource _reticlePadding}"
                InputTransparent="True" 
-               Source="squareOuter"
+               Source="{Binding LeftReticleImage}"
                IsVisible="{Binding ShouldDonutGuideBeVisible}"/>
         <ContentView x:Name="_leftReticlePanner"
                      AbsoluteLayout.LayoutFlags="All"
@@ -198,7 +198,7 @@
                AbsoluteLayout.LayoutBounds="0, 0, 0, 0"
                Margin="{DynamicResource _reticlePadding}"
                InputTransparent="True" 
-               Source="squareInner"
+               Source="{Binding RightReticleImage}"
                IsVisible="{Binding ShouldDonutGuideBeVisible}"/>
         <ContentView x:Name="_rightReticlePanner"
                      AbsoluteLayout.LayoutFlags="All"

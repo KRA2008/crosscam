@@ -3,12 +3,22 @@ using System.ComponentModel;
 using CrossCam.Model;
 using CrossCam.Wrappers;
 using FreshMvvm;
+using Xamarin.Forms;
 
 namespace CrossCam.ViewModel
 {
     public class SettingsViewModel : FreshBasePageModel
     {
         public Settings Settings { get; set; }
+        public Command ResetToDefaults { get; set; }
+
+        public SettingsViewModel()
+        {
+            ResetToDefaults = new Command(() =>
+            {
+                Settings.ResetToDefaults();
+            });
+        }
 
         public override void Init(object initData)
         {
@@ -41,6 +51,7 @@ namespace CrossCam.ViewModel
             if (!Settings.IsGuideDonutVisible)
             {
                 Settings.ShowGuideDonutWithFirstCapture = false;
+                Settings.IsGuideDonutBothDonuts = false;
             }
 
             PersistentStorage.Save(PersistentStorage.SETTINGS_KEY, Settings);

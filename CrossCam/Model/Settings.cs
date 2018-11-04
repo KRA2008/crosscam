@@ -8,6 +8,7 @@ namespace CrossCam.Model
         public bool ShowGuideLinesWithFirstCapture { get; set; }
         public bool IsGuideDonutVisible { get; set; }
         public bool ShowGuideDonutWithFirstCapture { get; set; }
+        public bool IsGuideDonutBothDonuts { get; set; }
         public bool SaveSidesSeparately { get; set; }
         public bool FillScreenPreview { get; set; }
         public bool ClipLandscapeToFilledScreenPreview { get; set; }
@@ -16,8 +17,22 @@ namespace CrossCam.Model
 
         public Settings()
         {
+            ResetToDefaults();
+        }
+
+        public void ResetToDefaults()
+        {
             AreGuideLinesVisible = true;
             IsCaptureLeftFirst = true;
+
+            ShowGuideLinesWithFirstCapture = false;
+            IsGuideDonutVisible = false;
+            ShowGuideDonutWithFirstCapture = false;
+            IsGuideDonutBothDonuts = false;
+            SaveSidesSeparately = false;
+            FillScreenPreview = false;
+            ClipLandscapeToFilledScreenPreview = false;
+            IsTapToFocusEnabled = false;
         }
 
         public event PropertyChangedEventHandler PropertyChanged;

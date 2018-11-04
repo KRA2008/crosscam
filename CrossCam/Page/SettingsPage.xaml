@@ -23,6 +23,15 @@
                         Value="10"/>
                 <Setter Property="VerticalTextAlignment"
                         Value="Center"/>
+                <Setter Property="HorizontalOptions"
+                        Value="StartAndExpand"/>
+            </Style>
+            <Style TargetType="Label" 
+                   x:Key="header">
+                <Setter Property="FontSize"
+                        Value="Large"/>
+                <Setter Property="FontAttributes"
+                        Value="Bold"/>
             </Style>
             <Style TargetType="Switch">
                 <Setter Property="Margin"
@@ -31,109 +40,60 @@
         </ResourceDictionary>
     </ContentPage.Resources>
     <ScrollView VerticalOptions="StartAndExpand">
-        <Grid RowSpacing="0"
-              ColumnSpacing="0">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="*"/>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="*"/>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="*"/>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="*"/>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="*"/>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="*"/>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="*"/>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="*"/>
-                <RowDefinition Height="Auto"/>
-            </Grid.RowDefinitions>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="Auto"/>
-            </Grid.ColumnDefinitions>
-            <BoxView Grid.Row="0"
-                     Grid.Column="0"
-                     Grid.ColumnSpan="2"/>
-            <Label Grid.Row="1"
-                   Grid.Column="0"
-                   Text="Guide lines visible"/>
-            <Switch Grid.Row="1"
-                    Grid.Column="1"
-                    IsToggled="{Binding Settings.AreGuideLinesVisible}"/>
-            <BoxView Grid.Row="2"
-                     Grid.Column="0"
-                     Grid.ColumnSpan="2"/>
-            <Label Grid.Row="3"
-                   Grid.Column="0"
-                   Text="Guide lines visible before first capture"/>
-            <Switch Grid.Row="3"
-                    Grid.Column="1"
-                    IsEnabled="{Binding Settings.AreGuideLinesVisible}"
-                    IsToggled="{Binding Settings.ShowGuideLinesWithFirstCapture}"/>
-            <BoxView Grid.Row="4"
-                     Grid.Column="0"
-                     Grid.ColumnSpan="2"/>
-            <Label Grid.Row="5"
-                   Grid.Column="0"
-                   Text="Guide donut/dot visible"/>
-            <Switch Grid.Row="5"
-                    Grid.Column="1"
-                    IsToggled="{Binding Settings.IsGuideDonutVisible}"/>
-            <BoxView Grid.Row="6"
-                     Grid.Column="0"
-                     Grid.ColumnSpan="2"/>
-            <Label Grid.Row="7"
-                   Grid.Column="0"
-                   Text="Guide donut/dot visible before first capture"/>
-            <Switch Grid.Row="7"
-                    Grid.Column="1"
-                    IsEnabled="{Binding Settings.IsGuideDonutVisible}"
-                    IsToggled="{Binding Settings.ShowGuideDonutWithFirstCapture}"/>
-            <BoxView Grid.Row="8"
-                     Grid.Column="0"
-                     Grid.ColumnSpan="2"/>
-            <Label Grid.Row="9"
-                   Grid.Column="0"
-                   Text="Save sides separately"/>
-            <Switch Grid.Row="9"
-                    Grid.Column="1"
-                    IsToggled="{Binding Settings.SaveSidesSeparately}"/>
-            <BoxView Grid.Row="10"
-                     Grid.Column="0"
-                     Grid.ColumnSpan="2"/>
-            <Label Grid.Row="11"
-                   Grid.Column="0"
-                   Text="Fill screen with preview"/>
-            <Switch Grid.Row="11"
-                    Grid.Column="1"
-                    IsToggled="{Binding Settings.FillScreenPreview}"/>
-            <BoxView Grid.Row="12"
-                     Grid.Column="0"
-                     Grid.ColumnSpan="2"/>
-            <Label Grid.Row="13"
-                   Grid.Column="0"
-                   Text="Clip pictures to filled screen preview width (landscape only)"/>
-            <Switch Grid.Row="13"
-                    Grid.Column="1"
-                    IsEnabled="{Binding Settings.FillScreenPreview}"
-                    IsToggled="{Binding Settings.ClipLandscapeToFilledScreenPreview}"/>
-            <BoxView Grid.Row="14"
-                     Grid.Column="0"
-                     Grid.ColumnSpan="2"/>
-            <Label Grid.Row="15"
-                   Grid.Column="0"
-                   Text="Tap to point focus, double tap to switch back to continuous focus (or save or clear)"/>
-            <Switch Grid.Row="15"
-                    Grid.Column="1"
-                    IsToggled="{Binding Settings.IsTapToFocusEnabled}"/>
-            <BoxView Grid.Row="16"
-                     Grid.Column="0"
-                     Grid.ColumnSpan="2"/>
-        </Grid>
+        <StackLayout>
+            <BoxView/>
+            <Label Text="Guides"
+                   Style="{DynamicResource header}"/>
+            <StackLayout Orientation="Horizontal">
+                <Label Text="Lines visible"/>
+                <Switch IsToggled="{Binding Settings.AreGuideLinesVisible}"/>
+            </StackLayout>
+            <StackLayout Orientation="Horizontal">
+                <Label Text="Lines visible before first capture"/>
+                <Switch IsEnabled="{Binding Settings.AreGuideLinesVisible}"
+                        IsToggled="{Binding Settings.ShowGuideLinesWithFirstCapture}"/>
+            </StackLayout>
+            <StackLayout Orientation="Horizontal">
+                <Label Text="Donut/dot visible"/>
+                <Switch IsToggled="{Binding Settings.IsGuideDonutVisible}"/>
+            </StackLayout>
+            <StackLayout Orientation="Horizontal">
+                <Label Text="Donut/dot visible before first capture"/>
+                <Switch IsEnabled="{Binding Settings.IsGuideDonutVisible}"
+                        IsToggled="{Binding Settings.ShowGuideDonutWithFirstCapture}"/>
+            </StackLayout>
+            <StackLayout Orientation="Horizontal">
+                <Label Text="Both sides donut"/>
+                <Switch IsEnabled="{Binding Settings.IsGuideDonutVisible}"
+                        IsToggled="{Binding Settings.IsGuideDonutBothDonuts}"/>
+            </StackLayout>
+            <BoxView/>
+            <Label Text="Saving"
+                   Style="{DynamicResource header}"/>
+            <StackLayout Orientation="Horizontal">
+                <Label Text="Save sides separately"/>
+                <Switch IsToggled="{Binding Settings.SaveSidesSeparately}"/>
+            </StackLayout>
+            <BoxView/>
+            <Label Text="Camera"
+                   Style="{DynamicResource header}"/>
+            <StackLayout Orientation="Horizontal">
+                <Label Text="Fill screen with preview"/>
+                <Switch IsToggled="{Binding Settings.FillScreenPreview}"/>
+            </StackLayout>
+            <StackLayout Orientation="Horizontal">
+                <Label Text="Clip pictures to filled screen preview width (landscape only)"/>
+                <Switch IsEnabled="{Binding Settings.FillScreenPreview}"
+                        IsToggled="{Binding Settings.ClipLandscapeToFilledScreenPreview}"/>
+            </StackLayout>
+            <StackLayout Orientation="Horizontal">
+                <Label Text="Tap to point focus, double tap to switch back to continuous focus (or save or clear)"/>
+                <Switch IsToggled="{Binding Settings.IsTapToFocusEnabled}"/>
+            </StackLayout>
+            <BoxView/>
+            <Button Text="Reset to Defaults"
+                    HorizontalOptions="CenterAndExpand"
+                    Command="{Binding ResetToDefaults}"/>
+        </StackLayout>
     </ScrollView>
 </fresh:FreshBaseContentPage>
