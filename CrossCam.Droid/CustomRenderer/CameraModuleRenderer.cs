@@ -448,8 +448,7 @@ namespace CrossCam.Droid.CustomRenderer
                         origin = codec.Origin;
                     }
 
-                    if (origin != SKCodecOrigin.BottomRight &&
-                        origin != SKCodecOrigin.RightTop)
+                    if (origin == SKCodecOrigin.TopLeft)
                     {
                         _cameraModule.CapturedImage = data;
                         return;
@@ -458,6 +457,7 @@ namespace CrossCam.Droid.CustomRenderer
                     var correctedWidth = 0;
                     var correctedHeight = 0;
                     var correctDy = 0;
+                    var correctDx = 0;
                     float correctRotateDegrees = 0;
 
                     var originalBitmap = SKBitmap.Decode(data);
@@ -468,13 +468,22 @@ namespace CrossCam.Droid.CustomRenderer
                             correctedWidth = originalBitmap.Width;
                             correctedHeight = originalBitmap.Height;
                             correctDy = correctedHeight;
+                            correctDx = correctedWidth;
                             correctRotateDegrees = 180;
                             break;
                         case SKCodecOrigin.RightTop:
                             correctedWidth = originalBitmap.Height;
                             correctedHeight = originalBitmap.Width;
                             correctDy = 0;
+                            correctDx = correctedWidth;
                             correctRotateDegrees = 90;
+                            break;
+                        case SKCodecOrigin.LeftBottom:
+                            correctedWidth = originalBitmap.Height;
+                            correctedHeight = originalBitmap.Width;
+                            correctDy = correctedHeight;
+                            correctDx = 0;
+                            correctRotateDegrees = 270;
                             break;
                     }
 
@@ -485,7 +494,7 @@ namespace CrossCam.Droid.CustomRenderer
 
                         canvas.Clear(SKColors.Transparent);
 
-                        canvas.Translate(correctedWidth, correctDy);
+                        canvas.Translate(correctDx, correctDy);
                         canvas.RotateDegrees(correctRotateDegrees);
                         canvas.DrawBitmap(originalBitmap, 0, 0);
                         originalBitmap.Dispose();

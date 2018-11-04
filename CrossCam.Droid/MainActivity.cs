@@ -17,7 +17,7 @@ namespace CrossCam.Droid
         Theme = "@style/MainTheme",
         MainLauncher = false,
         ConfigurationChanges = ConfigChanges.ScreenSize | ConfigChanges.Orientation,
-        ScreenOrientation = ScreenOrientation.Sensor)]
+        ScreenOrientation = ScreenOrientation.FullUser)]
     public class MainActivity : Xamarin.Forms.Platform.Android.FormsAppCompatActivity
     {
         public LifecycleEventListener LifecycleEventListener;
