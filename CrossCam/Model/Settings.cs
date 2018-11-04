@@ -14,6 +14,7 @@ namespace CrossCam.Model
         public bool ClipLandscapeToFilledScreenPreview { get; set; }
         public bool IsCaptureLeftFirst { get; set; }
         public bool IsTapToFocusEnabled { get; set; }
+        public bool SaveRedundantFirstSide { get; set; }
 
         public Settings()
         {
@@ -33,6 +34,7 @@ namespace CrossCam.Model
             FillScreenPreview = false;
             ClipLandscapeToFilledScreenPreview = false;
             IsTapToFocusEnabled = false;
+            SaveRedundantFirstSide = false;
         }
 
         public event PropertyChangedEventHandler PropertyChanged;

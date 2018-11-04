@@ -5,6 +5,7 @@
                             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
                             xmlns:fresh="clr-namespace:FreshMvvm;assembly=FreshMvvm"
                             xmlns:vm="clr-namespace:CrossCam.ViewModel;assembly=CrossCam"
+                            xmlns:vc="clr-namespace:CrossCam.ValueConverter;assembly=CrossCam"
                             mc:Ignorable="d"
 
                             d:DataContext="{d:DesignInstance Type=vm:SettingsViewModel, IsDesignTimeCreatable=False}"
@@ -73,6 +74,11 @@
             <StackLayout Orientation="Horizontal">
                 <Label Text="Save sides separately"/>
                 <Switch IsToggled="{Binding Settings.SaveSidesSeparately}"/>
+            </StackLayout>
+            <StackLayout Orientation="Horizontal">
+                <Label Text="Save redundant first side alone (for sharing with flat view people)"/>
+                <Switch IsToggled="{Binding Settings.SaveRedundantFirstSide}"
+                        IsEnabled="{Binding Settings.SaveSidesSeparately, Converter={vc:BooleanInvertConverter}}"/>
             </StackLayout>
             <BoxView/>
             <Label Text="Camera"

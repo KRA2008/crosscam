@@ -53,6 +53,10 @@ namespace CrossCam.ViewModel
                 Settings.ShowGuideDonutWithFirstCapture = false;
                 Settings.IsGuideDonutBothDonuts = false;
             }
+            if (Settings.SaveSidesSeparately)
+            {
+                Settings.SaveRedundantFirstSide = false;
+            }
 
             PersistentStorage.Save(PersistentStorage.SETTINGS_KEY, Settings);
         }
