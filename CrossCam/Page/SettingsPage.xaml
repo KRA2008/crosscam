@@ -103,7 +103,6 @@
             </StackLayout>
             <BoxView/>
             <Button Text="Reset to Defaults"
-                    HorizontalOptions="CenterAndExpand"
                     Command="{Binding ResetToDefaults}"/>
         </StackLayout>
     </ScrollView>
