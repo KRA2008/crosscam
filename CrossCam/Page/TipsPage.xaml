@@ -38,6 +38,8 @@
                 <BoxView/>
                 <Label Text="There is an experimental &quot;guide donut/dot&quot; on the settings page you can turn on which may help you keep your perspectives parallel for a large scene. Ideally you would drag it onto the horizon, sky, or other very distant point. Be careful, using it on smaller scenes will make things painful."/>
                 <BoxView/>
+                <Label Text="If you move in the opposite direction from what you're &quot;supposed&quot; to do you'll produce a parallel view/VR picture. You could also go to the settings page which has a setting to allow you to save a parallel view/VR version in addition to your cross view (sides switched)."/>
+                <BoxView/>
             </StackLayout>
         </ScrollView>
     </ContentPage.Content>
