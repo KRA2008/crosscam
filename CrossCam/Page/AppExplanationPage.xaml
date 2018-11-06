@@ -16,12 +16,10 @@
             <Label Text="This app helps you perform stereoscopic photography in order to make stereograms, which are 3D pictures. Because the stereograms this app makes are viewed by crossing one's eyes, sometimes they are called &quot;cross views&quot;."
                    Margin="10"/>
             <Button Text="What's a stereogram?"
-                    Command="{Binding WikipediaCommand}"
-                    HorizontalOptions="Center"/>
+                    Command="{Binding WikipediaCommand}"/>
             <BoxView/>
             <Button Text="How do I view stereograms?"
-                    Command="{Binding HowToViewCommand}"
-                    HorizontalOptions="Center"/>
+                    Command="{Binding HowToViewCommand}"/>
             <BoxView/>
         </StackLayout>
     </ContentPage.Content>

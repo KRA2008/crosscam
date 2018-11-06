@@ -14,16 +14,13 @@
         <StackLayout>
             <BoxView/>
             <Button Text="Send me an email"
-                    Command="{Binding EmailCommand}"
-                    HorizontalOptions="Center"/>
+                    Command="{Binding EmailCommand}"/>
             <BoxView/>
             <Button Text="Request a feature or report a bug"
-                    Command="{Binding GithubCommand}"
-                    HorizontalOptions="Center"/>
+                    Command="{Binding GithubCommand}"/>
             <BoxView/>
             <Button Text="Check out the cross view subreddit"
-                    Command="{Binding CrossViewSubredditCommand}"
-                    HorizontalOptions="Center"/>
+                    Command="{Binding CrossViewSubredditCommand}"/>
             <BoxView/>
         </StackLayout>
     </ContentPage.Content>

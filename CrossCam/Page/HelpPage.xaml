@@ -14,20 +14,16 @@
         <StackLayout>
             <BoxView/>
             <Button Text="What is this app?"
-                    Command="{Binding NavigateToAppExplanationPage}"
-                    HorizontalOptions="Center"/>
+                    Command="{Binding NavigateToAppExplanationPage}"/>
             <BoxView/>
             <Button Text="Tips"
-                    Command="{Binding NavigateToTipsPage}"
-                    HorizontalOptions="Center"/>
+                    Command="{Binding NavigateToTipsPage}"/>
             <BoxView/>
             <Button Text="Feedback/Contact"
-                    Command="{Binding NavigateToContactPage}"
-                    HorizontalOptions="Center"/>
+                    Command="{Binding NavigateToContactPage}"/>
             <BoxView/>
             <Button Text="Privacy Policy"
-                    Command="{Binding PrivacyPolicyCommand}"
-                    HorizontalOptions="Center"/>
+                    Command="{Binding PrivacyPolicyCommand}"/>
             <BoxView/>
         </StackLayout>
     </ContentPage.Content>
