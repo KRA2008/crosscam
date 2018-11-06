@@ -22,17 +22,19 @@
         <ScrollView>
             <StackLayout Spacing="0">
                 <BoxView/>
-                <Label Text="When you slide over, try to minimize the rotation that takes place on any axis, including the natural tendency to turn towards the subject as you move to the side. Some rotation will be necessary sometimes, but try to minimize it. Imagine the phone is mounted on a straight horizontal rail and can only slide."/>
-                <BoxView/>
                 <Label Text="If all the movement makes you sick or makes it too difficult to cross view, just move over a little bit and align the pictures using the horizontal lines without cross viewing and then start cross viewing once aligned and holding still."/>
+                <BoxView/>
+                <Label Text="When you slide over, try to minimize the rotation that takes place on any axis, including the natural tendency to turn towards the subject as you move to the side. Some rotation will be necessary sometimes, but try to minimize it. Imagine the phone is mounted on a straight horizontal rail and can only slide."/>
                 <BoxView/>
                 <Label Text="You can drag the alignment lines around if you want."/>
                 <BoxView/>
                 <Label Text="CrossCam has full landscape and portrait support, just rotate your phone. After capturing both sides in portrait, rotating to landscape can give you a better view of the picture as a whole."/>
                 <BoxView/>
-                <Label Text="If you want to take the pictures in the reverse order or you run out of space on one side, push the arrows button on top to switch sides and direction."/>
+                <Label Text="If you want to take the pictures in the reverse order or you run out of space on one side, tap the arrows button on top of the main screen to switch sides and direction."/>
                 <BoxView/>
-                <Label Text="If you want to save your captures as separate pictures without them stitched together (for easier post-processing) you can turn that on in the settings (gear icon on the bottom right of the camera page)."/>
+                <Label Text="Tap the gear icon on the bottom right of the main screen to get to the settings page. It's full of interesting stuff!"/>
+                <BoxView/>
+                <Label Text="If you want to save your captures as separate pictures without them stitched together (for easier post-processing) you can turn that on in the settings."/>
                 <BoxView/>
                 <Label Text="There is an experimental &quot;guide donut/dot&quot; on the settings page you can turn on which may help you keep your perspectives parallel for a large scene. Ideally you would drag it onto the horizon, sky, or other very distant point. Be careful, using it on smaller scenes will make things painful."/>
                 <BoxView/>
