@@ -48,14 +48,15 @@ namespace CrossCam.ViewModel
 
         public Settings Settings { get; set; }
 
-        public Command IncreaseLLCrop => new Command(() => { LeftImageLeftCrop++; });
-        public Command DecreaseLLCrop => new Command(() => { LeftImageLeftCrop--; });
-        public Command IncreaseLRCrop => new Command(() => { LeftImageRightCrop++; });
-        public Command DecreaseLRCrop => new Command(() => { LeftImageRightCrop--; });
-        public Command IncreaseRLCrop => new Command(() => { RightImageLeftCrop++; });
-        public Command DecreaseRLCrop => new Command(() => { RightImageLeftCrop--; });
-        public Command IncreaseRRCrop => new Command(() => { RightImageRightCrop++; });
-        public Command DecreaseRRCrop => new Command(() => { RightImageRightCrop--; });
+        private const int CROP_SPEED = 5;
+        public Command IncreaseLLCrop => new Command(() => { LeftImageLeftCrop += CROP_SPEED; });
+        public Command DecreaseLLCrop => new Command(() => { LeftImageLeftCrop -= CROP_SPEED; });
+        public Command IncreaseLRCrop => new Command(() => { LeftImageRightCrop += CROP_SPEED; });
+        public Command DecreaseLRCrop => new Command(() => { LeftImageRightCrop -= CROP_SPEED; });
+        public Command IncreaseRLCrop => new Command(() => { RightImageLeftCrop += CROP_SPEED; });
+        public Command DecreaseRLCrop => new Command(() => { RightImageLeftCrop -= CROP_SPEED; });
+        public Command IncreaseRRCrop => new Command(() => { RightImageRightCrop += CROP_SPEED; });
+        public Command DecreaseRRCrop => new Command(() => { RightImageRightCrop -= CROP_SPEED; });
 
         public int LeftImageLeftCrop { get; set; }
         public int LeftImageRightCrop { get; set; }
@@ -568,6 +569,10 @@ namespace CrossCam.ViewModel
             LeftByteArray = null;
             RightByteArray = null;
             IsCameraVisible = true;
+            LeftImageLeftCrop = 0;
+            LeftImageRightCrop = 0;
+            RightImageLeftCrop = 0;
+            RightImageRightCrop = 0;
 
             if (Settings.IsTapToFocusEnabled)
             {

@@ -59,16 +59,11 @@
                 <Label Text="{Binding HelpText}"
                        IsVisible="{Binding ShouldHelpTextBeVisible}"/>
             </StackLayout>
-            <ce:CanvasView x:Name="_canvasView"
+            <forms:SKCanvasView x:Name="_canvasView"
                            Grid.Column="0"
                            Grid.Row="0"
                            Grid.ColumnSpan="2"
-                           PaintSurface="OnPaintSurface"
-                           BorderThickness="{Binding BorderThickness}"
-                           LeftImageLeftCrop="{Binding LeftImageLeftCrop}"
-                           LeftImageRightCrop="{Binding LeftImageRightCrop}"
-                           RightImageLeftCrop="{Binding RightImageLeftCrop}"
-                           RightImageRightCrop="{Binding RightImageRightCrop}"/>
+                           PaintSurface="OnPaintSurface"/>
             <ce:CameraModule Grid.Column="{Binding CameraColumn}"
                              Grid.Row="0"
                              SwitchToContinuousFocusTrigger="{Binding SwitchToContinuousFocusTrigger}"
@@ -267,7 +262,7 @@
                    Opacity="0.75"/>
         </ContentView>
         <StackLayout AbsoluteLayout.LayoutFlags="All"
-                     AbsoluteLayout.LayoutBounds="0, 0.5, 0.1, 0.1"
+                     AbsoluteLayout.LayoutBounds="0.1, 0.3, 0.1, 0.1"
                      IsVisible="{Binding ShouldEndButtonsBeVisible}">
             <Image Source="chevronLeft">
                 <Image.GestureRecognizers>
@@ -281,7 +276,7 @@
             </Image>
         </StackLayout>
         <StackLayout AbsoluteLayout.LayoutFlags="All"
-                     AbsoluteLayout.LayoutBounds="0.4, 0.5, 0.1, 0.1"
+                     AbsoluteLayout.LayoutBounds="0.3, 0.3, 0.1, 0.1"
                      IsVisible="{Binding ShouldEndButtonsBeVisible}">
             <Image Source="chevronLeft">
                 <Image.GestureRecognizers>
@@ -295,7 +290,7 @@
             </Image>
         </StackLayout>
         <StackLayout AbsoluteLayout.LayoutFlags="All"
-                     AbsoluteLayout.LayoutBounds="0.6, 0.5, 0.1, 0.1"
+                     AbsoluteLayout.LayoutBounds="0.7, 0.3, 0.1, 0.1"
                      IsVisible="{Binding ShouldEndButtonsBeVisible}">
             <Image Source="chevronLeft">
                 <Image.GestureRecognizers>
@@ -309,7 +304,7 @@
             </Image>
         </StackLayout>
         <StackLayout AbsoluteLayout.LayoutFlags="All"
-                     AbsoluteLayout.LayoutBounds="1, 0.5, 0.1, 0.1"
+                     AbsoluteLayout.LayoutBounds="0.9, 0.3, 0.1, 0.1"
                      IsVisible="{Binding ShouldEndButtonsBeVisible}">
             <Image Source="chevronLeft">
                 <Image.GestureRecognizers>

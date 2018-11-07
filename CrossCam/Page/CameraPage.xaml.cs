@@ -76,13 +76,14 @@ namespace CrossCam.Page
 
 	        if (_viewModel.LeftByteArray != null)
 	        {
-	            DrawTool.DrawImageOnCanvas(e.Info, e.Surface.Canvas, _viewModel.LeftByteArray, true, _canvasView.BorderThickness,
-	                _canvasView.);
+	            DrawTool.DrawImageOnCanvas(e.Info, e.Surface.Canvas, _viewModel.LeftByteArray, true, _viewModel.BorderThickness,
+	                _viewModel.LeftImageLeftCrop, _viewModel.LeftImageRightCrop);
 	        }
 
 	        if (_viewModel.RightByteArray != null)
 	        {
-	            DrawTool.DrawImageOnCanvas(e.Info, e.Surface.Canvas, _viewModel.RightByteArray, false, _canvasView.BorderThickness);
+	            DrawTool.DrawImageOnCanvas(e.Info, e.Surface.Canvas, _viewModel.RightByteArray, false, _viewModel.BorderThickness,
+	                _viewModel.RightImageLeftCrop, _viewModel.RightImageRightCrop);
 	        }
         }
 

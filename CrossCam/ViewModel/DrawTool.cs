@@ -5,8 +5,7 @@ namespace CrossCam.ViewModel
 {
     public class DrawTool
     {
-        public static void DrawImageOnCanvas(SKImageInfo info, SKCanvas canvas, byte[] byteArray, bool isLeft, int border,
-            int leftImageLeftCrop, int leftImageRightCrop, int rightImageLeftCrop, int rightImageRightCrop)
+        public static void DrawImageOnCanvas(SKImageInfo info, SKCanvas canvas, byte[] byteArray, bool isLeft, int border, int leftCrop, int rightCrop)
         {
             var bitmap = GetBitmapAndCorrectOrientation(byteArray);
             var imageAspectRatio = bitmap.Height / (1f * bitmap.Width);
@@ -41,13 +40,19 @@ namespace CrossCam.ViewModel
                 }
             }
 
+
+            var x = (isLeft ? previewX : screenWidth / 2f) + border;
+            var y = previewY + border;
+            var width = previewWidth - border * 2;
+            var height = previewHeight - border * 2;
+
+            var xCropRatio = bitmap.Width / width;
+            var leftConvertedCrop = xCropRatio * leftCrop;
+            var rightConvertedCrop = xCropRatio * rightCrop;
+
             canvas.DrawBitmap(bitmap,
-                SKRect.Create(0, 0, bitmap.Width, bitmap.Height),
-                SKRect.Create(
-                    (isLeft ? previewX : screenWidth / 2f) + border,
-                    previewY + border,
-                    previewWidth - border * 2,
-                    previewHeight - border * 2));
+                SKRect.Create(leftConvertedCrop + rightConvertedCrop, 0, bitmap.Width - leftConvertedCrop - rightConvertedCrop, bitmap.Height),
+                SKRect.Create(x + leftCrop + rightCrop, y, width - leftCrop - rightCrop, height));
             bitmap.Dispose();
         }
 
