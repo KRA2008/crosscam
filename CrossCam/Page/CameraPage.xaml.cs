@@ -1,7 +1,5 @@
 ﻿using System.ComponentModel;
-using System.IO;
 using CrossCam.ViewModel;
-using SkiaSharp;
 using SkiaSharp.Views.Forms;
 using Xamarin.Forms;
 
@@ -56,17 +54,18 @@ namespace CrossCam.Page
 	                ResetGuides();
 	                break;
 	            case nameof(CameraViewModel.LeftByteArray):
-	                DrawCaptureOnCanvas();
-	                break;
+	                _canvasView.InvalidateSurface();
+                    break;
 	            case nameof(CameraViewModel.RightByteArray):
-	                DrawCaptureOnCanvas();
+	                _canvasView.InvalidateSurface();
+                    break;
+                case nameof(CameraViewModel.LeftImageLeftCrop):
+                case nameof(CameraViewModel.LeftImageRightCrop):
+                case nameof(CameraViewModel.RightImageLeftCrop):
+                case nameof(CameraViewModel.RightImageRightCrop):
+                    _canvasView.InvalidateSurface();
                     break;
 	        }
-	    }
-
-	    private void DrawCaptureOnCanvas()
-	    {
-            _canvasView.InvalidateSurface();
 	    }
 
 	    private void OnPaintSurface(object sender, SKPaintSurfaceEventArgs e)
@@ -77,14 +76,13 @@ namespace CrossCam.Page
 
 	        if (_viewModel.LeftByteArray != null)
 	        {
-	            var withBorder = _viewModel.RightByteArray != null;
-	            DrawTool.DrawImageOnCanvas(e.Info, e.Surface.Canvas, _viewModel.LeftByteArray, true, withBorder);
+	            DrawTool.DrawImageOnCanvas(e.Info, e.Surface.Canvas, _viewModel.LeftByteArray, true, _canvasView.BorderThickness,
+	                _canvasView.);
 	        }
 
 	        if (_viewModel.RightByteArray != null)
 	        {
-	            var withBorder = _viewModel.LeftByteArray != null;
-	            DrawTool.DrawImageOnCanvas(e.Info, e.Surface.Canvas, _viewModel.RightByteArray, false, withBorder);
+	            DrawTool.DrawImageOnCanvas(e.Info, e.Surface.Canvas, _viewModel.RightByteArray, false, _canvasView.BorderThickness);
 	        }
         }
 

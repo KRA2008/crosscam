@@ -5,9 +5,8 @@ namespace CrossCam.ViewModel
 {
     public class DrawTool
     {
-        private const int BORDER_WIDTH = 10;
-
-        public static void DrawImageOnCanvas(SKImageInfo info, SKCanvas canvas, byte[] byteArray, bool isLeft, bool withBorder)
+        public static void DrawImageOnCanvas(SKImageInfo info, SKCanvas canvas, byte[] byteArray, bool isLeft, int border,
+            int leftImageLeftCrop, int leftImageRightCrop, int rightImageLeftCrop, int rightImageRightCrop)
         {
             var bitmap = GetBitmapAndCorrectOrientation(byteArray);
             var imageAspectRatio = bitmap.Height / (1f * bitmap.Width);
@@ -45,10 +44,10 @@ namespace CrossCam.ViewModel
             canvas.DrawBitmap(bitmap,
                 SKRect.Create(0, 0, bitmap.Width, bitmap.Height),
                 SKRect.Create(
-                    (isLeft ? previewX : screenWidth / 2f) + (withBorder ? BORDER_WIDTH : 0),
-                    previewY + (withBorder ? BORDER_WIDTH : 0),
-                    previewWidth - (withBorder ? BORDER_WIDTH * 2 : 0),
-                    previewHeight - (withBorder ? BORDER_WIDTH * 2 : 0)));
+                    (isLeft ? previewX : screenWidth / 2f) + border,
+                    previewY + border,
+                    previewWidth - border * 2,
+                    previewHeight - border * 2));
             bitmap.Dispose();
         }
 

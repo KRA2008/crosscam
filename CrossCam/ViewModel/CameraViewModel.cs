@@ -20,11 +20,6 @@ namespace CrossCam.ViewModel
         public Command RetakeRightCommand { get; set; }
         public bool RightCaptureSuccess { get; set; }
 
-        //public ImageSource FirstImageSource { get; set; }
-        //public int FirstImageColumn => IsCaptureLeftFirst ? 0 : 1;
-        //public ImageSource SecondImageSource { get; set; }
-        //public int SecondImageColumn => IsCaptureLeftFirst ? 1 : 0;
-
         public bool IsCameraVisible { get; set; }
         public byte[] CapturedImageBytes { get; set; }
         public bool CaptureSuccess { get; set; }
@@ -53,6 +48,21 @@ namespace CrossCam.ViewModel
 
         public Settings Settings { get; set; }
 
+        public Command IncreaseLLCrop => new Command(() => { LeftImageLeftCrop++; });
+        public Command DecreaseLLCrop => new Command(() => { LeftImageLeftCrop--; });
+        public Command IncreaseLRCrop => new Command(() => { LeftImageRightCrop++; });
+        public Command DecreaseLRCrop => new Command(() => { LeftImageRightCrop--; });
+        public Command IncreaseRLCrop => new Command(() => { RightImageLeftCrop++; });
+        public Command DecreaseRLCrop => new Command(() => { RightImageLeftCrop--; });
+        public Command IncreaseRRCrop => new Command(() => { RightImageRightCrop++; });
+        public Command DecreaseRRCrop => new Command(() => { RightImageRightCrop--; });
+
+        public int LeftImageLeftCrop { get; set; }
+        public int LeftImageRightCrop { get; set; }
+        public int RightImageLeftCrop { get; set; }
+        public int RightImageRightCrop { get; set; }
+        public int BorderThickness => IsCaptureComplete ? 10 : 0;
+
         public bool IsViewPortrait { get; set; }
         public bool IsCaptureLeftFirst { get; set; }
         public bool WasCapturePortrait { get; set; }
@@ -64,39 +74,27 @@ namespace CrossCam.ViewModel
         public bool SwitchToContinuousFocusTrigger { get; set; }
 
         public Aspect PreviewAspect => Settings.FillScreenPreview && !(IsViewMode && IsViewPortrait)
-            ? Aspect.AspectFill
-            : Aspect.AspectFit;
-
+            ? Aspect.AspectFill : Aspect.AspectFit;
         public bool IsCaptureComplete => LeftByteArray != null && RightByteArray != null;
         public bool IsNothingCaptured => LeftByteArray == null && RightByteArray == null;
         public bool ShouldCaptureButtonBeVisible => !IsCaptureComplete && !IsSaving && !IsViewMode;
-
-        public bool ShouldHelpTextBeVisible =>
-            IsNothingCaptured && !IsSaving && !IsViewMode && HelpTextColumn != CameraColumn;
-
+        public bool ShouldHelpTextBeVisible => IsNothingCaptured && !IsSaving && !IsViewMode && 
+                                               HelpTextColumn != CameraColumn;
         public bool ShouldLeftRetakeBeVisible => LeftByteArray != null && !IsSaving && !IsViewMode &&
-                                                 (!IsCaptureComplete || IsCaptureComplete &&
-                                                  DoesCaptureOrientationMatchViewOrientation);
-
+            (!IsCaptureComplete || IsCaptureComplete && DoesCaptureOrientationMatchViewOrientation);
         public bool ShouldRightRetakeBeVisible => RightByteArray != null && !IsSaving && !IsViewMode &&
-                                                  (!IsCaptureComplete || IsCaptureComplete &&
-                                                   DoesCaptureOrientationMatchViewOrientation);
+            (!IsCaptureComplete || IsCaptureComplete && DoesCaptureOrientationMatchViewOrientation);
         public bool DoesCaptureOrientationMatchViewOrientation => WasCapturePortrait == IsViewPortrait;
         public bool ShouldEndButtonsBeVisible => IsCaptureComplete && !IsSaving && !IsViewMode;
-
-        public bool ShouldViewButtonBeVisible =>
-            ShouldEndButtonsBeVisible && (!IsViewPortrait || Settings.FillScreenPreview);
+        public bool ShouldViewButtonBeVisible => ShouldEndButtonsBeVisible && (!IsViewPortrait || 
+                                                                               Settings.FillScreenPreview);
         public bool ShouldSettingsAndInfoBeVisible => IsNothingCaptured && !IsSaving && !IsViewMode;
-
-        public bool ShouldLineGuidesBeVisible =>
-            (LeftByteArray == null ^ RightByteArray == null ||
-             Settings.ShowGuideLinesWithFirstCapture && !IsCaptureComplete) && Settings.AreGuideLinesVisible &&
-            !IsSaving && !IsViewMode;
-
-        public bool ShouldDonutGuideBeVisible =>
-            (LeftByteArray == null ^ RightByteArray == null ||
-             Settings.ShowGuideDonutWithFirstCapture && !IsCaptureComplete) && Settings.IsGuideDonutVisible &&
-            !IsSaving && !IsViewMode;
+        public bool ShouldLineGuidesBeVisible => 
+            (LeftByteArray == null ^ RightByteArray == null || Settings.ShowGuideLinesWithFirstCapture && !IsCaptureComplete) && 
+            Settings.AreGuideLinesVisible && !IsSaving && !IsViewMode;
+        public bool ShouldDonutGuideBeVisible => 
+            (LeftByteArray == null ^ RightByteArray == null || Settings.ShowGuideDonutWithFirstCapture && !IsCaptureComplete) && 
+            Settings.IsGuideDonutVisible && !IsSaving && !IsViewMode;
 
         public string HelpText => "1) Frame up your subject" +
                                   "\n2) Take the first picture (but finish reading these directions first)" +
@@ -141,15 +139,6 @@ namespace CrossCam.ViewModel
                     {
                         LeftByteArray = CapturedImageBytes;
 
-                        if (IsCaptureLeftFirst)
-                        {
-                            //FirstImageSource = ImageSource.FromStream(() => new MemoryStream(LeftByteArray));
-                        }
-                        else
-                        {
-                            //SecondImageSource = ImageSource.FromStream(() => new MemoryStream(LeftByteArray));
-                        }
-
                         if (RightByteArray == null)
                         {
                             MoveLeftTrigger = !MoveLeftTrigger;
@@ -164,15 +153,6 @@ namespace CrossCam.ViewModel
                     else
                     {
                         RightByteArray = CapturedImageBytes;
-
-                        if (IsCaptureLeftFirst)
-                        {
-                            //SecondImageSource = ImageSource.FromStream(() => new MemoryStream(RightByteArray));
-                        }
-                        else
-                        {
-                            //FirstImageSource = ImageSource.FromStream(() => new MemoryStream(RightByteArray));
-                        }
 
                         if (LeftByteArray == null)
                         {
@@ -200,14 +180,6 @@ namespace CrossCam.ViewModel
                 CameraColumn = 0;
                 IsCameraVisible = true;
                 LeftByteArray = null;
-                if (IsCaptureLeftFirst)
-                {
-                    //FirstImageSource = null;
-                }
-                else
-                {
-                    //SecondImageSource = null;
-                }
                 if (RightByteArray != null)
                 {
                     MoveRightTrigger = !MoveRightTrigger;
@@ -219,14 +191,6 @@ namespace CrossCam.ViewModel
                 CameraColumn = 1;
                 IsCameraVisible = true;
                 RightByteArray = null;
-                if (IsCaptureLeftFirst)
-                {
-                    //SecondImageSource = null;
-                }
-                else
-                {
-                    //FirstImageSource = null;
-                }
                 if (LeftByteArray != null)
                 {
                     MoveLeftTrigger = !MoveLeftTrigger;
@@ -287,8 +251,6 @@ namespace CrossCam.ViewModel
             SaveCapturesCommand = new Command(async () =>
             {
                 IsSaving = true;
-                //FirstImageSource = null;
-                //SecondImageSource = null;
 
                 await Task.Delay(100); // take a break to go update the screen
 
@@ -605,8 +567,6 @@ namespace CrossCam.ViewModel
         {
             LeftByteArray = null;
             RightByteArray = null;
-            //FirstImageSource = null;
-            //SecondImageSource = null;
             IsCameraVisible = true;
 
             if (Settings.IsTapToFocusEnabled)

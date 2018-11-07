@@ -57,13 +57,18 @@
                          Spacing="0"
                          VerticalOptions="CenterAndExpand">
                 <Label Text="{Binding HelpText}"
-                           IsVisible="{Binding ShouldHelpTextBeVisible}"/>
+                       IsVisible="{Binding ShouldHelpTextBeVisible}"/>
             </StackLayout>
-            <forms:SKCanvasView x:Name="_canvasView"
-                                Grid.Column="0"
-                                Grid.Row="0"
-                                Grid.ColumnSpan="2"
-                                PaintSurface="OnPaintSurface"/>
+            <ce:CanvasView x:Name="_canvasView"
+                           Grid.Column="0"
+                           Grid.Row="0"
+                           Grid.ColumnSpan="2"
+                           PaintSurface="OnPaintSurface"
+                           BorderThickness="{Binding BorderThickness}"
+                           LeftImageLeftCrop="{Binding LeftImageLeftCrop}"
+                           LeftImageRightCrop="{Binding LeftImageRightCrop}"
+                           RightImageLeftCrop="{Binding RightImageLeftCrop}"
+                           RightImageRightCrop="{Binding RightImageRightCrop}"/>
             <ce:CameraModule Grid.Column="{Binding CameraColumn}"
                              Grid.Row="0"
                              SwitchToContinuousFocusTrigger="{Binding SwitchToContinuousFocusTrigger}"
@@ -261,6 +266,62 @@
                    InputTransparent="True"
                    Opacity="0.75"/>
         </ContentView>
+        <StackLayout AbsoluteLayout.LayoutFlags="All"
+                     AbsoluteLayout.LayoutBounds="0, 0.5, 0.1, 0.1"
+                     IsVisible="{Binding ShouldEndButtonsBeVisible}">
+            <Image Source="chevronLeft">
+                <Image.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding DecreaseLLCrop}"/>
+                </Image.GestureRecognizers>
+            </Image>
+            <Image Source="chevronRight">
+                <Image.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding IncreaseLLCrop}"/>
+                </Image.GestureRecognizers>
+            </Image>
+        </StackLayout>
+        <StackLayout AbsoluteLayout.LayoutFlags="All"
+                     AbsoluteLayout.LayoutBounds="0.4, 0.5, 0.1, 0.1"
+                     IsVisible="{Binding ShouldEndButtonsBeVisible}">
+            <Image Source="chevronLeft">
+                <Image.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding IncreaseLRCrop}"/>
+                </Image.GestureRecognizers>
+            </Image>
+            <Image Source="chevronRight">
+                <Image.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding DecreaseLRCrop}"/>
+                </Image.GestureRecognizers>
+            </Image>
+        </StackLayout>
+        <StackLayout AbsoluteLayout.LayoutFlags="All"
+                     AbsoluteLayout.LayoutBounds="0.6, 0.5, 0.1, 0.1"
+                     IsVisible="{Binding ShouldEndButtonsBeVisible}">
+            <Image Source="chevronLeft">
+                <Image.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding DecreaseRLCrop}"/>
+                </Image.GestureRecognizers>
+            </Image>
+            <Image Source="chevronRight">
+                <Image.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding IncreaseRLCrop}"/>
+                </Image.GestureRecognizers>
+            </Image>
+        </StackLayout>
+        <StackLayout AbsoluteLayout.LayoutFlags="All"
+                     AbsoluteLayout.LayoutBounds="1, 0.5, 0.1, 0.1"
+                     IsVisible="{Binding ShouldEndButtonsBeVisible}">
+            <Image Source="chevronLeft">
+                <Image.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding IncreaseRRCrop}"/>
+                </Image.GestureRecognizers>
+            </Image>
+            <Image Source="chevronRight">
+                <Image.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding DecreaseRRCrop}"/>
+                </Image.GestureRecognizers>
+            </Image>
+        </StackLayout>
         <Label Style="{DynamicResource _savingFeedback}"
                Text="Saved to Photos!">
             <Label.Behaviors>
