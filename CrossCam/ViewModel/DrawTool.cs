@@ -51,8 +51,16 @@ namespace CrossCam.ViewModel
             var rightConvertedCrop = xCropRatio * rightCrop;
 
             canvas.DrawBitmap(bitmap,
-                SKRect.Create(leftConvertedCrop + rightConvertedCrop, 0, bitmap.Width - leftConvertedCrop - rightConvertedCrop, bitmap.Height),
-                SKRect.Create(x + leftCrop + rightCrop, y, width - leftCrop - rightCrop, height));
+                SKRect.Create(
+                    leftConvertedCrop, 
+                    0, 
+                    bitmap.Width - leftConvertedCrop - rightConvertedCrop, 
+                    bitmap.Height),
+                SKRect.Create(
+                    x + (isLeft ? leftCrop+rightCrop : 0), 
+                    y, 
+                    width - leftCrop - rightCrop, 
+                    height));
             bitmap.Dispose();
         }
 

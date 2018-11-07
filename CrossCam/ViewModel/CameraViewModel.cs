@@ -50,13 +50,13 @@ namespace CrossCam.ViewModel
 
         private const int CROP_SPEED = 5;
         public Command IncreaseLLCrop => new Command(() => { LeftImageLeftCrop += CROP_SPEED; });
-        public Command DecreaseLLCrop => new Command(() => { LeftImageLeftCrop -= CROP_SPEED; });
+        public Command DecreaseLLCrop => new Command(() => { LeftImageLeftCrop -= LeftImageLeftCrop >= 0 ? CROP_SPEED : 0; });
         public Command IncreaseLRCrop => new Command(() => { LeftImageRightCrop += CROP_SPEED; });
-        public Command DecreaseLRCrop => new Command(() => { LeftImageRightCrop -= CROP_SPEED; });
+        public Command DecreaseLRCrop => new Command(() => { LeftImageRightCrop -= LeftImageRightCrop >= 0 ? CROP_SPEED : 0; });
         public Command IncreaseRLCrop => new Command(() => { RightImageLeftCrop += CROP_SPEED; });
-        public Command DecreaseRLCrop => new Command(() => { RightImageLeftCrop -= CROP_SPEED; });
+        public Command DecreaseRLCrop => new Command(() => { RightImageLeftCrop -= RightImageLeftCrop >= 0 ? CROP_SPEED : 0; });
         public Command IncreaseRRCrop => new Command(() => { RightImageRightCrop += CROP_SPEED; });
-        public Command DecreaseRRCrop => new Command(() => { RightImageRightCrop -= CROP_SPEED; });
+        public Command DecreaseRRCrop => new Command(() => { RightImageRightCrop -= RightImageRightCrop >= 0 ? CROP_SPEED : 0; });
 
         public int LeftImageLeftCrop { get; set; }
         public int LeftImageRightCrop { get; set; }
@@ -87,8 +87,6 @@ namespace CrossCam.ViewModel
             (!IsCaptureComplete || IsCaptureComplete && DoesCaptureOrientationMatchViewOrientation);
         public bool DoesCaptureOrientationMatchViewOrientation => WasCapturePortrait == IsViewPortrait;
         public bool ShouldEndButtonsBeVisible => IsCaptureComplete && !IsSaving && !IsViewMode;
-        public bool ShouldViewButtonBeVisible => ShouldEndButtonsBeVisible && (!IsViewPortrait || 
-                                                                               Settings.FillScreenPreview);
         public bool ShouldSettingsAndInfoBeVisible => IsNothingCaptured && !IsSaving && !IsViewMode;
         public bool ShouldLineGuidesBeVisible => 
             (LeftByteArray == null ^ RightByteArray == null || Settings.ShowGuideLinesWithFirstCapture && !IsCaptureComplete) && 
