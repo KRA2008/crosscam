@@ -20,10 +20,10 @@ namespace CrossCam.ViewModel
         public Command RetakeRightCommand { get; set; }
         public bool RightCaptureSuccess { get; set; }
 
-        public ImageSource FirstImageSource { get; set; }
-        public int FirstImageColumn => IsCaptureLeftFirst ? 0 : 1;
-        public ImageSource SecondImageSource { get; set; }
-        public int SecondImageColumn => IsCaptureLeftFirst ? 1 : 0;
+        //public ImageSource FirstImageSource { get; set; }
+        //public int FirstImageColumn => IsCaptureLeftFirst ? 0 : 1;
+        //public ImageSource SecondImageSource { get; set; }
+        //public int SecondImageColumn => IsCaptureLeftFirst ? 1 : 0;
 
         public bool IsCameraVisible { get; set; }
         public byte[] CapturedImageBytes { get; set; }
@@ -143,11 +143,11 @@ namespace CrossCam.ViewModel
 
                         if (IsCaptureLeftFirst)
                         {
-                            FirstImageSource = ImageSource.FromStream(() => new MemoryStream(LeftByteArray));
+                            //FirstImageSource = ImageSource.FromStream(() => new MemoryStream(LeftByteArray));
                         }
                         else
                         {
-                            SecondImageSource = ImageSource.FromStream(() => new MemoryStream(LeftByteArray));
+                            //SecondImageSource = ImageSource.FromStream(() => new MemoryStream(LeftByteArray));
                         }
 
                         if (RightByteArray == null)
@@ -167,11 +167,11 @@ namespace CrossCam.ViewModel
 
                         if (IsCaptureLeftFirst)
                         {
-                            SecondImageSource = ImageSource.FromStream(() => new MemoryStream(RightByteArray));
+                            //SecondImageSource = ImageSource.FromStream(() => new MemoryStream(RightByteArray));
                         }
                         else
                         {
-                            FirstImageSource = ImageSource.FromStream(() => new MemoryStream(RightByteArray));
+                            //FirstImageSource = ImageSource.FromStream(() => new MemoryStream(RightByteArray));
                         }
 
                         if (LeftByteArray == null)
@@ -202,11 +202,11 @@ namespace CrossCam.ViewModel
                 LeftByteArray = null;
                 if (IsCaptureLeftFirst)
                 {
-                    FirstImageSource = null;
+                    //FirstImageSource = null;
                 }
                 else
                 {
-                    SecondImageSource = null;
+                    //SecondImageSource = null;
                 }
                 if (RightByteArray != null)
                 {
@@ -221,11 +221,11 @@ namespace CrossCam.ViewModel
                 RightByteArray = null;
                 if (IsCaptureLeftFirst)
                 {
-                    SecondImageSource = null;
+                    //SecondImageSource = null;
                 }
                 else
                 {
-                    FirstImageSource = null;
+                    //FirstImageSource = null;
                 }
                 if (LeftByteArray != null)
                 {
@@ -287,8 +287,8 @@ namespace CrossCam.ViewModel
             SaveCapturesCommand = new Command(async () =>
             {
                 IsSaving = true;
-                FirstImageSource = null;
-                SecondImageSource = null;
+                //FirstImageSource = null;
+                //SecondImageSource = null;
 
                 await Task.Delay(100); // take a break to go update the screen
 
@@ -605,8 +605,8 @@ namespace CrossCam.ViewModel
         {
             LeftByteArray = null;
             RightByteArray = null;
-            FirstImageSource = null;
-            SecondImageSource = null;
+            //FirstImageSource = null;
+            //SecondImageSource = null;
             IsCameraVisible = true;
 
             if (Settings.IsTapToFocusEnabled)

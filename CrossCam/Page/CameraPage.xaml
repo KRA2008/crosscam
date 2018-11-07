@@ -7,6 +7,7 @@
              xmlns:vm="clr-namespace:CrossCam.ViewModel;assembly=CrossCam"
              xmlns:ce="clr-namespace:CrossCam.CustomElement;assembly=CrossCam"
              xmlns:vc="clr-namespace:CrossCam.ValueConverter;assembly=CrossCam"
+             xmlns:forms="clr-namespace:SkiaSharp.Views.Forms;assembly=SkiaSharp.Views.Forms"
              mc:Ignorable="d"
              
              d:DataContext="{d:DesignInstance Type=vm:CameraViewModel, IsDesignTimeCreatable=False}"
@@ -58,18 +59,11 @@
                 <Label Text="{Binding HelpText}"
                            IsVisible="{Binding ShouldHelpTextBeVisible}"/>
             </StackLayout>
-            <Image x:Name="_firstImage"
-                   Grid.Column="{Binding FirstImageColumn}"
-                   Grid.Row="0"
-                   HorizontalOptions="EndAndExpand"
-                   Aspect="{Binding PreviewAspect}"
-                   Source="{Binding FirstImageSource}"/>
-            <Image x:Name="_secondImage"
-                   Grid.Column="{Binding SecondImageColumn}"
-                   Grid.Row="0"
-                   HorizontalOptions="StartAndExpand"
-                   Aspect="{Binding PreviewAspect}"
-                   Source="{Binding SecondImageSource}"/>
+            <forms:SKCanvasView x:Name="_canvasView"
+                                Grid.Column="0"
+                                Grid.Row="0"
+                                Grid.ColumnSpan="2"
+                                PaintSurface="OnPaintSurface"/>
             <ce:CameraModule Grid.Column="{Binding CameraColumn}"
                              Grid.Row="0"
                              SwitchToContinuousFocusTrigger="{Binding SwitchToContinuousFocusTrigger}"

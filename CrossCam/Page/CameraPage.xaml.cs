@@ -1,5 +1,8 @@
 ﻿using System.ComponentModel;
+using System.IO;
 using CrossCam.ViewModel;
+using SkiaSharp;
+using SkiaSharp.Views.Forms;
 using Xamarin.Forms;
 
 namespace CrossCam.Page
@@ -42,38 +45,139 @@ namespace CrossCam.Page
 	        {
 	            _viewModel = (CameraViewModel) BindingContext;
 	            _viewModel.PropertyChanged += ViewModelPropertyChanged;
-                SetFirstImageHorizontalOptions(); //would be great to do this by data binding but the image doesn't appear when horizontal options is data bound
-                SetSecondImageHorizontalOptions();
 	        }
 	    }
 
 	    private void ViewModelPropertyChanged(object sender, PropertyChangedEventArgs e)
 	    {
-	        if (e.PropertyName == nameof(CameraViewModel.IsViewPortrait))
+	        switch (e.PropertyName)
 	        {
-                ResetGuides();
+	            case nameof(CameraViewModel.IsViewPortrait):
+	                ResetGuides();
+	                break;
+	            case nameof(CameraViewModel.LeftByteArray):
+	                DrawCaptureOnCanvas();
+	                break;
+	            case nameof(CameraViewModel.RightByteArray):
+	                DrawCaptureOnCanvas();
+                    break;
 	        }
-            else if (e.PropertyName == nameof(CameraViewModel.FirstImageColumn))
-	        {
-                SetFirstImageHorizontalOptions();
-	        }
-            else if (e.PropertyName == nameof(CameraViewModel.SecondImageColumn))
-	        {
-                SetSecondImageHorizontalOptions();
-            }
 	    }
 
-	    private void SetFirstImageHorizontalOptions()
+	    private void DrawCaptureOnCanvas()
 	    {
-	        _firstImage.HorizontalOptions = _viewModel.FirstImageColumn == 0 ? LayoutOptions.EndAndExpand : LayoutOptions.StartAndExpand;
+            _canvasView.InvalidateSurface();
+	    }
+
+	    private void OnPaintSurface(object sender, SKPaintSurfaceEventArgs e)
+	    {
+	        var canvas = e.Surface.Canvas;
+
+	        canvas.Clear();
+
+	        if (_viewModel.LeftByteArray != null)
+	        {
+	            DrawImageOnCanvas(e, _viewModel.LeftByteArray, true);
+	        }
+
+	        if (_viewModel.RightByteArray != null)
+	        {
+	            DrawImageOnCanvas(e, _viewModel.RightByteArray, false);
+	        }
         }
 
-	    private void SetSecondImageHorizontalOptions()
+	    private static void DrawImageOnCanvas(SKPaintSurfaceEventArgs e, byte[] byteArray, bool isLeft)
 	    {
-	        _secondImage.HorizontalOptions = _viewModel.SecondImageColumn == 0 ? LayoutOptions.EndAndExpand : LayoutOptions.StartAndExpand;
+	        var bitmap = GetBitmapAndCorrectOrientation(byteArray);
+	        var imageAspectRatio = bitmap.Height / (1f * bitmap.Width);
+	        var screenWidth = e.Info.Width;
+	        var screenHeight = e.Info.Height;
+	        float previewHeight;
+	        float previewWidth;
+	        float previewX;
+	        float previewY;
+	        if (screenHeight > screenWidth) // screen portrait
+	        {
+	            previewWidth = screenWidth / 2f;
+	            previewHeight = imageAspectRatio * previewWidth;
+	            previewX = 0;
+	            previewY = (screenHeight - previewHeight) / 2f;
+	        }
+	        else // screen landscape
+	        {
+	            if (bitmap.Height > bitmap.Width) // image portrait
+	            {
+	                previewHeight = screenHeight;
+	                previewWidth = previewHeight / imageAspectRatio;
+	                previewX = screenWidth / 2f - previewWidth;
+	                previewY = 0;
+	            }
+	            else // image landscape
+	            {
+	                previewWidth = screenWidth / 2f;
+	                previewHeight = previewWidth * imageAspectRatio;
+	                previewX = 0;
+	                previewY = (screenHeight - previewHeight) / 2f;
+	            }
+	        }
+
+	        e.Surface.Canvas.DrawBitmap(bitmap,
+	            SKRect.Create(0, 0, bitmap.Width, bitmap.Height),
+	            SKRect.Create(isLeft ? previewX : screenWidth / 2f, previewY, previewWidth, previewHeight));
+            bitmap.Dispose();
         }
 
-	    private void ResetGuides()
+	    private static SKBitmap GetBitmapAndCorrectOrientation(byte[] byteArray)
+	    {
+	        SKCodecOrigin origin;
+
+	        using (var stream = new MemoryStream(byteArray))
+	        using (var data = SKData.Create(stream))
+	        using (var codec = SKCodec.Create(data))
+	        {
+	            origin = codec.Origin;
+	        }
+
+	        switch (origin)
+	        {
+	            case SKCodecOrigin.BottomRight:
+	                return BitmapRotate180(SKBitmap.Decode(byteArray));
+	            case SKCodecOrigin.RightTop:
+	                return BitmapRotate90(SKBitmap.Decode(byteArray));
+	            default:
+	                return SKBitmap.Decode(byteArray);
+	        }
+        }
+
+	    private static SKBitmap BitmapRotate90(SKBitmap originalBitmap)
+	    {
+	        var rotated = new SKBitmap(originalBitmap.Height, originalBitmap.Width);
+
+	        using (var surface = new SKCanvas(rotated))
+	        {
+	            surface.Translate(rotated.Width, 0);
+	            surface.RotateDegrees(90);
+	            surface.DrawBitmap(originalBitmap, 0, 0);
+	        }
+
+	        return rotated;
+	    }
+
+	    private static SKBitmap BitmapRotate180(SKBitmap originalBitmap)
+	    {
+	        var rotated = new SKBitmap(originalBitmap.Width, originalBitmap.Height);
+
+	        using (var surface = new SKCanvas(rotated))
+	        {
+	            surface.Translate(rotated.Width, rotated.Height);
+	            surface.RotateDegrees(180);
+	            surface.DrawBitmap(originalBitmap, 0, 0);
+	        }
+
+	        return rotated;
+	    }
+
+        private void ResetGuides()
         {
             if (_viewModel == null || _viewModel.IsViewPortrait)
             {
