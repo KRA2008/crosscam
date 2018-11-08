@@ -1,13 +1,11 @@
-﻿using System.IO;
-using SkiaSharp;
+﻿using SkiaSharp;
 
-namespace CrossCam.ViewModel
+namespace CrossCam.Page
 {
     public class DrawTool
     {
-        public static void DrawImageOnCanvas(SKImageInfo info, SKCanvas canvas, byte[] byteArray, bool isLeft, int border, int leftCrop, int rightCrop)
+        public static void DrawImageOnCanvas(SKImageInfo info, SKCanvas canvas, SKBitmap bitmap, bool isLeft, int border, int leftCrop, int rightCrop)
         {
-            var bitmap = GetBitmapAndCorrectOrientation(byteArray);
             var imageAspectRatio = bitmap.Height / (1f * bitmap.Width);
             var screenWidth = info.Width;
             var screenHeight = info.Height;
@@ -40,7 +38,6 @@ namespace CrossCam.ViewModel
                 }
             }
 
-
             var x = (isLeft ? previewX : screenWidth / 2f) + border;
             var y = previewY + border;
             var width = previewWidth - border * 2;
@@ -61,57 +58,6 @@ namespace CrossCam.ViewModel
                     y, 
                     width - leftCrop - rightCrop, 
                     height));
-            bitmap.Dispose();
-        }
-
-        private static SKBitmap GetBitmapAndCorrectOrientation(byte[] byteArray)
-        {
-            SKCodecOrigin origin;
-
-            using (var stream = new MemoryStream(byteArray))
-            using (var data = SKData.Create(stream))
-            using (var codec = SKCodec.Create(data))
-            {
-                origin = codec.Origin;
-            }
-
-            switch (origin)
-            {
-                case SKCodecOrigin.BottomRight:
-                    return BitmapRotate180(SKBitmap.Decode(byteArray));
-                case SKCodecOrigin.RightTop:
-                    return BitmapRotate90(SKBitmap.Decode(byteArray));
-                default:
-                    return SKBitmap.Decode(byteArray);
-            }
-        }
-
-        private static SKBitmap BitmapRotate90(SKBitmap originalBitmap)
-        {
-            var rotated = new SKBitmap(originalBitmap.Height, originalBitmap.Width);
-
-            using (var surface = new SKCanvas(rotated))
-            {
-                surface.Translate(rotated.Width, 0);
-                surface.RotateDegrees(90);
-                surface.DrawBitmap(originalBitmap, 0, 0);
-            }
-
-            return rotated;
-        }
-
-        private static SKBitmap BitmapRotate180(SKBitmap originalBitmap)
-        {
-            var rotated = new SKBitmap(originalBitmap.Width, originalBitmap.Height);
-
-            using (var surface = new SKCanvas(rotated))
-            {
-                surface.Translate(rotated.Width, rotated.Height);
-                surface.RotateDegrees(180);
-                surface.DrawBitmap(originalBitmap, 0, 0);
-            }
-
-            return rotated;
         }
     }
 }

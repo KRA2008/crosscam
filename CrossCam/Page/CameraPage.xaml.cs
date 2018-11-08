@@ -53,10 +53,10 @@ namespace CrossCam.Page
 	            case nameof(CameraViewModel.IsViewPortrait):
 	                ResetGuides();
 	                break;
-	            case nameof(CameraViewModel.LeftByteArray):
+	            case nameof(CameraViewModel.LeftBitmap):
 	                _canvasView.InvalidateSurface();
                     break;
-	            case nameof(CameraViewModel.RightByteArray):
+	            case nameof(CameraViewModel.RightBitmap):
 	                _canvasView.InvalidateSurface();
                     break;
                 case nameof(CameraViewModel.LeftImageLeftCrop):
@@ -74,15 +74,15 @@ namespace CrossCam.Page
 
 	        canvas.Clear();
 
-	        if (_viewModel.LeftByteArray != null)
+	        if (_viewModel.LeftBitmap != null)
 	        {
-	            DrawTool.DrawImageOnCanvas(e.Info, e.Surface.Canvas, _viewModel.LeftByteArray, true, _viewModel.BorderThickness,
+	            DrawTool.DrawImageOnCanvas(e.Info, canvas, _viewModel.LeftBitmap, true, _viewModel.BorderThickness,
 	                _viewModel.LeftImageLeftCrop, _viewModel.LeftImageRightCrop);
 	        }
 
-	        if (_viewModel.RightByteArray != null)
+	        if (_viewModel.RightBitmap != null)
 	        {
-	            DrawTool.DrawImageOnCanvas(e.Info, e.Surface.Canvas, _viewModel.RightByteArray, false, _viewModel.BorderThickness,
+	            DrawTool.DrawImageOnCanvas(e.Info, canvas, _viewModel.RightBitmap, false, _viewModel.BorderThickness,
 	                _viewModel.RightImageLeftCrop, _viewModel.RightImageRightCrop);
 	        }
         }

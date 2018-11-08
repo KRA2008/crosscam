@@ -12,13 +12,15 @@ namespace CrossCam.ViewModel
 {
     public sealed class CameraViewModel : FreshBasePageModel
     {
-        public byte[] LeftByteArray { get; set; }
+        public SKBitmap LeftBitmap { get; set; }
         public Command RetakeLeftCommand { get; set; }
         public bool LeftCaptureSuccess { get; set; }
-
-        public byte[] RightByteArray { get; set; }
+        
+        public SKBitmap RightBitmap { get; set; }
         public Command RetakeRightCommand { get; set; }
         public bool RightCaptureSuccess { get; set; }
+
+        private bool _needs180Flip { get; set; }
 
         public bool IsCameraVisible { get; set; }
         public byte[] CapturedImageBytes { get; set; }
@@ -43,6 +45,11 @@ namespace CrossCam.ViewModel
 
         public Command SwapSidesCommand { get; set; }
 
+        public Command ShowCropButtonsCommand { get; set; }
+        public Command HideCropButtonsCommand { get; set; }
+
+        public Command ClearCropsCommand { get; set; }
+
         public Command PromptForPermissionAndSendErrorEmailCommand { get; set; }
         public string ErrorMessage { get; set; }
 
@@ -50,13 +57,13 @@ namespace CrossCam.ViewModel
 
         private const int CROP_SPEED = 5;
         public Command IncreaseLLCrop => new Command(() => { LeftImageLeftCrop += CROP_SPEED; });
-        public Command DecreaseLLCrop => new Command(() => { LeftImageLeftCrop -= LeftImageLeftCrop >= 0 ? CROP_SPEED : 0; });
+        public Command DecreaseLLCrop => new Command(() => { LeftImageLeftCrop -= LeftImageLeftCrop > 0 ? CROP_SPEED : 0; });
         public Command IncreaseLRCrop => new Command(() => { LeftImageRightCrop += CROP_SPEED; });
-        public Command DecreaseLRCrop => new Command(() => { LeftImageRightCrop -= LeftImageRightCrop >= 0 ? CROP_SPEED : 0; });
+        public Command DecreaseLRCrop => new Command(() => { LeftImageRightCrop -= LeftImageRightCrop > 0 ? CROP_SPEED : 0; });
         public Command IncreaseRLCrop => new Command(() => { RightImageLeftCrop += CROP_SPEED; });
-        public Command DecreaseRLCrop => new Command(() => { RightImageLeftCrop -= RightImageLeftCrop >= 0 ? CROP_SPEED : 0; });
+        public Command DecreaseRLCrop => new Command(() => { RightImageLeftCrop -= RightImageLeftCrop > 0 ? CROP_SPEED : 0; });
         public Command IncreaseRRCrop => new Command(() => { RightImageRightCrop += CROP_SPEED; });
-        public Command DecreaseRRCrop => new Command(() => { RightImageRightCrop -= RightImageRightCrop >= 0 ? CROP_SPEED : 0; });
+        public Command DecreaseRRCrop => new Command(() => { RightImageRightCrop -= RightImageRightCrop > 0 ? CROP_SPEED : 0; });
 
         public int LeftImageLeftCrop { get; set; }
         public int LeftImageRightCrop { get; set; }
@@ -76,24 +83,25 @@ namespace CrossCam.ViewModel
 
         public Aspect PreviewAspect => Settings.FillScreenPreview && !(IsViewMode && IsViewPortrait)
             ? Aspect.AspectFill : Aspect.AspectFit;
-        public bool IsCaptureComplete => LeftByteArray != null && RightByteArray != null;
-        public bool IsNothingCaptured => LeftByteArray == null && RightByteArray == null;
-        public bool ShouldCaptureButtonBeVisible => !IsCaptureComplete && !IsSaving && !IsViewMode;
+        public bool IsCaptureComplete => LeftBitmap != null && RightBitmap != null;
+        public bool IsNothingCaptured => LeftBitmap == null && RightBitmap == null;
+        public bool ShouldCaptureButtonBeVisible => !IsCaptureComplete && !IsSaving && !IsViewMode && !ShouldCropButtonsBeVisible;
         public bool ShouldHelpTextBeVisible => IsNothingCaptured && !IsSaving && !IsViewMode && 
-                                               HelpTextColumn != CameraColumn;
-        public bool ShouldLeftRetakeBeVisible => LeftByteArray != null && !IsSaving && !IsViewMode &&
-            (!IsCaptureComplete || IsCaptureComplete && DoesCaptureOrientationMatchViewOrientation);
-        public bool ShouldRightRetakeBeVisible => RightByteArray != null && !IsSaving && !IsViewMode &&
-            (!IsCaptureComplete || IsCaptureComplete && DoesCaptureOrientationMatchViewOrientation);
+                                               HelpTextColumn != CameraColumn && !ShouldCropButtonsBeVisible;
+        public bool ShouldLeftRetakeBeVisible => LeftBitmap != null && !IsSaving && !IsViewMode &&
+            (!IsCaptureComplete || IsCaptureComplete && DoesCaptureOrientationMatchViewOrientation) && !ShouldCropButtonsBeVisible;
+        public bool ShouldRightRetakeBeVisible => RightBitmap != null && !IsSaving && !IsViewMode &&
+            (!IsCaptureComplete || IsCaptureComplete && DoesCaptureOrientationMatchViewOrientation) && !ShouldCropButtonsBeVisible;
         public bool DoesCaptureOrientationMatchViewOrientation => WasCapturePortrait == IsViewPortrait;
-        public bool ShouldEndButtonsBeVisible => IsCaptureComplete && !IsSaving && !IsViewMode;
+        public bool ShouldEndButtonsBeVisible => IsCaptureComplete && !IsSaving && !IsViewMode && !ShouldCropButtonsBeVisible;
         public bool ShouldSettingsAndInfoBeVisible => IsNothingCaptured && !IsSaving && !IsViewMode;
         public bool ShouldLineGuidesBeVisible => 
-            (LeftByteArray == null ^ RightByteArray == null || Settings.ShowGuideLinesWithFirstCapture && !IsCaptureComplete) && 
-            Settings.AreGuideLinesVisible && !IsSaving && !IsViewMode;
+            (LeftBitmap == null ^ RightBitmap == null || Settings.ShowGuideLinesWithFirstCapture && !IsCaptureComplete) && 
+            Settings.AreGuideLinesVisible && !IsSaving && !IsViewMode && !ShouldCropButtonsBeVisible;
         public bool ShouldDonutGuideBeVisible => 
-            (LeftByteArray == null ^ RightByteArray == null || Settings.ShowGuideDonutWithFirstCapture && !IsCaptureComplete) && 
-            Settings.IsGuideDonutVisible && !IsSaving && !IsViewMode;
+            (LeftBitmap == null ^ RightBitmap == null || Settings.ShowGuideDonutWithFirstCapture && !IsCaptureComplete) && 
+            Settings.IsGuideDonutVisible && !IsSaving && !IsViewMode && !ShouldCropButtonsBeVisible;
+        public bool ShouldCropButtonsBeVisible { get; set; }
 
         public string HelpText => "1) Frame up your subject" +
                                   "\n2) Take the first picture (but finish reading these directions first)" +
@@ -136,9 +144,9 @@ namespace CrossCam.ViewModel
                 {
                     if (CameraColumn == 0)
                     {
-                        LeftByteArray = CapturedImageBytes;
+                        LeftBitmap = GetBitmapAndCorrectOrientation(CapturedImageBytes);
 
-                        if (RightByteArray == null)
+                        if (RightBitmap == null)
                         {
                             MoveLeftTrigger = !MoveLeftTrigger;
                             CameraColumn = 1;
@@ -151,9 +159,9 @@ namespace CrossCam.ViewModel
                     }
                     else
                     {
-                        RightByteArray = CapturedImageBytes;
+                        RightBitmap = GetBitmapAndCorrectOrientation(CapturedImageBytes);
 
-                        if (LeftByteArray == null)
+                        if (LeftBitmap == null)
                         {
                             MoveRightTrigger = !MoveRightTrigger;
                             CameraColumn = 0;
@@ -178,8 +186,8 @@ namespace CrossCam.ViewModel
             {
                 CameraColumn = 0;
                 IsCameraVisible = true;
-                LeftByteArray = null;
-                if (RightByteArray != null)
+                LeftBitmap = null;
+                if (RightBitmap != null)
                 {
                     MoveRightTrigger = !MoveRightTrigger;
                 }
@@ -189,12 +197,18 @@ namespace CrossCam.ViewModel
             {
                 CameraColumn = 1;
                 IsCameraVisible = true;
-                RightByteArray = null;
-                if (LeftByteArray != null)
+                RightBitmap = null;
+                if (LeftBitmap != null)
                 {
                     MoveLeftTrigger = !MoveLeftTrigger;
                 }
             });
+
+            ShowCropButtonsCommand = new Command(() => { ShouldCropButtonsBeVisible = true; });
+
+            HideCropButtonsCommand = new Command(() => { ShouldCropButtonsBeVisible = false; });
+
+            ClearCropsCommand = new Command(ClearCrops);
 
             ClearCapturesCommand = new Command(ClearCaptures);
 
@@ -222,23 +236,23 @@ namespace CrossCam.ViewModel
             {
                 IsCaptureLeftFirst = !IsCaptureLeftFirst;
 
-                var tempArray = LeftByteArray;
-                LeftByteArray = RightByteArray;
-                RightByteArray = tempArray;
+                var tempArray = LeftBitmap;
+                LeftBitmap = RightBitmap;
+                RightBitmap = tempArray;
 
                 if (IsCameraVisible)
                 {
                     CameraColumn = CameraColumn == 0 ? 1 : 0;
                 }
 
-                if (LeftByteArray != null &&
-                    RightByteArray == null)
+                if (LeftBitmap != null &&
+                    RightBitmap == null)
                 {
                     MoveLeftTrigger = !MoveLeftTrigger;
                 }
 
-                if (LeftByteArray == null &&
-                    RightByteArray != null)
+                if (LeftBitmap == null &&
+                    RightBitmap != null)
                 {
                     MoveRightTrigger = !MoveRightTrigger;
                 }
@@ -253,42 +267,15 @@ namespace CrossCam.ViewModel
 
                 await Task.Delay(100); // take a break to go update the screen
 
-                SKBitmap leftBitmap = null;
-                SKBitmap rightBitmap = null;
+                var leftBitmap = LeftBitmap;
+                var rightBitmap = RightBitmap;
                 SKImage leftSkImage = null;
                 SKImage rightSkImage = null;
                 SKImage finalImage = null;
-                var needs180Flip = false;
                 try
                 {
-                    SKCodecOrigin origin;
-
-                    using (var stream = new MemoryStream(LeftByteArray))
-                    using (var data = SKData.Create(stream))
-                    using (var codec = SKCodec.Create(data))
-                    {
-                        origin = codec.Origin;
-                    }
-
-                    switch (origin)
-                    {
-                        case SKCodecOrigin.BottomRight:
-                            leftBitmap = BitmapRotate180(SKBitmap.Decode(LeftByteArray));
-                            rightBitmap = BitmapRotate180(SKBitmap.Decode(RightByteArray));
-                            needs180Flip = true;
-                            break;
-                        case SKCodecOrigin.RightTop:
-                            leftBitmap = BitmapRotate90(SKBitmap.Decode(LeftByteArray));
-                            rightBitmap = BitmapRotate90(SKBitmap.Decode(RightByteArray));
-                            break;
-                        default:
-                            leftBitmap = SKBitmap.Decode(LeftByteArray);
-                            rightBitmap = SKBitmap.Decode(RightByteArray);
-                            break;
-                    }
-
-                    LeftByteArray = null;
-                    RightByteArray = null;
+                    LeftBitmap = null;
+                    RightBitmap = null;
                     
                     double eachSideWidth;
                     if (leftBitmap.Height > leftBitmap.Width || !Settings.ClipLandscapeToFilledScreenPreview)
@@ -367,7 +354,7 @@ namespace CrossCam.ViewModel
                                 var canvas = tempSurface.Canvas;
                                 canvas.Clear(SKColors.Transparent);
 
-                                if (needs180Flip)
+                                if (_needs180Flip)
                                 {
                                     canvas.RotateDegrees(180);
                                     canvas.Translate(-1 * leftBitmap.Width, -1 * leftBitmap.Height);
@@ -398,7 +385,7 @@ namespace CrossCam.ViewModel
 
                             canvas.Clear(SKColors.Transparent);
 
-                            if (needs180Flip)
+                            if (_needs180Flip)
                             {
                                 canvas.RotateDegrees(180);
                                 canvas.Translate((float)(-1 * finalImageWidth), -1 * leftBitmap.Height);
@@ -444,7 +431,7 @@ namespace CrossCam.ViewModel
 
                                 canvas.Clear(SKColors.Transparent);
 
-                                if (needs180Flip)
+                                if (_needs180Flip)
                                 {
                                     canvas.RotateDegrees(180);
                                     canvas.Translate((float)(-1 * finalImageWidth), -1 * leftBitmap.Height);
@@ -524,7 +511,32 @@ namespace CrossCam.ViewModel
                 ErrorMessage = null;
             });
         }
-        
+
+        private SKBitmap GetBitmapAndCorrectOrientation(byte[] byteArray)
+        {
+            SKCodecOrigin origin;
+
+            using (var stream = new MemoryStream(byteArray))
+            using (var data = SKData.Create(stream))
+            using (var codec = SKCodec.Create(data))
+            {
+                origin = codec.Origin;
+            }
+
+            switch (origin)
+            {
+                case SKCodecOrigin.BottomRight:
+                    _needs180Flip = true;
+                    return BitmapRotate180(SKBitmap.Decode(byteArray));
+                case SKCodecOrigin.RightTop:
+                    _needs180Flip = false;
+                    return BitmapRotate90(SKBitmap.Decode(byteArray));
+                default:
+                    _needs180Flip = false;
+                    return SKBitmap.Decode(byteArray);
+            }
+        }
+
         private static SKBitmap BitmapRotate90(SKBitmap originalBitmap)
         {
             var rotated = new SKBitmap(originalBitmap.Height, originalBitmap.Width);
@@ -562,15 +574,20 @@ namespace CrossCam.ViewModel
             RaisePropertyChanged(nameof(RightReticleImage));
         }
 
-        private void ClearCaptures()
+        private void ClearCrops()
         {
-            LeftByteArray = null;
-            RightByteArray = null;
-            IsCameraVisible = true;
             LeftImageLeftCrop = 0;
             LeftImageRightCrop = 0;
             RightImageLeftCrop = 0;
             RightImageRightCrop = 0;
+        }
+
+        private void ClearCaptures()
+        {
+            LeftBitmap = null;
+            RightBitmap = null;
+            IsCameraVisible = true;
+            ClearCrops();
 
             if (Settings.IsTapToFocusEnabled)
             {
