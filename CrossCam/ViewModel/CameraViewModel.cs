@@ -64,11 +64,17 @@ namespace CrossCam.ViewModel
         public Command DecreaseRLCrop => new Command(() => { RightImageLeftCrop -= RightImageLeftCrop > 0 ? CROP_SPEED : 0; });
         public Command IncreaseRRCrop => new Command(() => { RightImageRightCrop += CROP_SPEED; });
         public Command DecreaseRRCrop => new Command(() => { RightImageRightCrop -= RightImageRightCrop > 0 ? CROP_SPEED : 0; });
+        public Command IncreaseTopCrop => new Command(() => { TopCrop += CROP_SPEED; });
+        public Command DecreaseTopCrop => new Command(() => { TopCrop -= TopCrop > 0 ? CROP_SPEED : 0; });
+        public Command IncreaseBottomCrop => new Command(() => { BottomCrop += CROP_SPEED; });
+        public Command DecreaseBottomCrop => new Command(() => { BottomCrop -= BottomCrop > 0 ? CROP_SPEED : 0; });
 
         public int LeftImageLeftCrop { get; set; }
         public int LeftImageRightCrop { get; set; }
         public int RightImageLeftCrop { get; set; }
         public int RightImageRightCrop { get; set; }
+        public int TopCrop { get; set; }
+        public int BottomCrop { get; set; }
         public int BorderThickness => IsCaptureComplete ? 10 : 0;
 
         public bool IsViewPortrait { get; set; }
@@ -580,6 +586,8 @@ namespace CrossCam.ViewModel
             LeftImageRightCrop = 0;
             RightImageLeftCrop = 0;
             RightImageRightCrop = 0;
+            TopCrop = 0;
+            BottomCrop = 0;
         }
 
         private void ClearCaptures()

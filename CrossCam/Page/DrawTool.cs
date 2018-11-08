@@ -4,7 +4,7 @@ namespace CrossCam.Page
 {
     public class DrawTool
     {
-        public static void DrawImageOnCanvas(SKImageInfo info, SKCanvas canvas, SKBitmap bitmap, bool isLeft, int border, int leftCrop, int rightCrop)
+        public static void DrawImageOnCanvas(SKImageInfo info, SKCanvas canvas, SKBitmap bitmap, bool isLeft, int border, int leftCrop, int topCrop, int rightCrop, int bottomCrop)
         {
             var imageAspectRatio = bitmap.Height / (1f * bitmap.Width);
             var screenWidth = info.Width;
@@ -46,18 +46,21 @@ namespace CrossCam.Page
             var xCropRatio = bitmap.Width / width;
             var leftConvertedCrop = xCropRatio * leftCrop;
             var rightConvertedCrop = xCropRatio * rightCrop;
+            var yCropRatio = bitmap.Height / height;
+            var topConvertedCrop = yCropRatio * topCrop;
+            var bottomConvertedCrop = yCropRatio * bottomCrop;
 
             canvas.DrawBitmap(bitmap,
                 SKRect.Create(
                     leftConvertedCrop, 
-                    0, 
+                    topConvertedCrop, 
                     bitmap.Width - leftConvertedCrop - rightConvertedCrop, 
-                    bitmap.Height),
+                    bitmap.Height - topConvertedCrop - bottomConvertedCrop),
                 SKRect.Create(
                     x + (isLeft ? leftCrop+rightCrop : 0), 
-                    y, 
+                    y + topCrop, 
                     width - leftCrop - rightCrop, 
-                    height));
+                    height - topCrop - bottomCrop));
         }
     }
 }

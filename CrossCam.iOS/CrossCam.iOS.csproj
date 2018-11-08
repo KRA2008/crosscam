@@ -307,6 +307,30 @@
   <ItemGroup>
     <BundleResource Include="Resources\x%402x.png" />
   </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\bottomScissor.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\bottomScissor%402x.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\topScissor.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\topScissor%402x.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\chevronUp%402x.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\chevronUp.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\chevronDown%402x.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\chevronDown.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup />
