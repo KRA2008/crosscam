@@ -100,7 +100,7 @@ namespace CrossCam.ViewModel
             (!IsCaptureComplete || IsCaptureComplete && DoesCaptureOrientationMatchViewOrientation) && !ShouldCropButtonsBeVisible;
         public bool DoesCaptureOrientationMatchViewOrientation => WasCapturePortrait == IsViewPortrait;
         public bool ShouldEndButtonsBeVisible => IsCaptureComplete && !IsSaving && !IsViewMode && !ShouldCropButtonsBeVisible;
-        public bool ShouldSettingsAndInfoBeVisible => IsNothingCaptured && !IsSaving && !IsViewMode;
+        public bool ShouldSettingsAndHelpBeVisible => !IsSaving && !IsViewMode;
         public bool ShouldLineGuidesBeVisible => 
             (LeftBitmap == null ^ RightBitmap == null || Settings.ShowGuideLinesWithFirstCapture && !IsCaptureComplete) && 
             Settings.AreGuideLinesVisible && !IsSaving && !IsViewMode && !ShouldCropButtonsBeVisible;
@@ -190,6 +190,7 @@ namespace CrossCam.ViewModel
 
             RetakeLeftCommand = new Command(() =>
             {
+                ClearCrops();
                 CameraColumn = 0;
                 IsCameraVisible = true;
                 LeftBitmap = null;
@@ -201,6 +202,7 @@ namespace CrossCam.ViewModel
 
             RetakeRightCommand = new Command(() =>
             {
+                ClearCrops();
                 CameraColumn = 1;
                 IsCameraVisible = true;
                 RightBitmap = null;

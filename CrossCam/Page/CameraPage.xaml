@@ -94,10 +94,10 @@
                 </ce:CameraSuccessOutline.Behaviors>
             </ce:CameraSuccessOutline>
         </Grid>
-        <ContentView AbsoluteLayout.LayoutFlags="All"
-                     AbsoluteLayout.LayoutBounds="1,0,0.15,0.20"
-                     Padding="10"
-                     IsVisible="{Binding ShouldSettingsAndInfoBeVisible}">
+        <ContentView AbsoluteLayout.LayoutFlags="PositionProportional"
+                     AbsoluteLayout.LayoutBounds="0.2,0,75,75"
+                     Padding="20"
+                     IsVisible="{Binding ShouldSettingsAndHelpBeVisible}">
             <ContentView.GestureRecognizers>
                 <TapGestureRecognizer Command="{Binding NavigateToHelpCommand}"/>
             </ContentView.GestureRecognizers>
@@ -105,10 +105,10 @@
                    InputTransparent="True"
                    Opacity="0.5"/>
         </ContentView>
-        <ContentView AbsoluteLayout.LayoutFlags="All"
-                     AbsoluteLayout.LayoutBounds="1,1,0.15,0.20"
-                     Padding="10"
-                     IsVisible="{Binding ShouldSettingsAndInfoBeVisible}">
+        <ContentView AbsoluteLayout.LayoutFlags="PositionProportional"
+                     AbsoluteLayout.LayoutBounds="0.8,0,75,75"
+                     Padding="20"
+                     IsVisible="{Binding ShouldSettingsAndHelpBeVisible}">
             <ContentView.GestureRecognizers>
                 <TapGestureRecognizer Command="{Binding NavigateToSettingsCommand}"/>
             </ContentView.GestureRecognizers>
