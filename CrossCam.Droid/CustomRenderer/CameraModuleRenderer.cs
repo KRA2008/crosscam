@@ -439,77 +439,7 @@ namespace CrossCam.Droid.CustomRenderer
                             break;
                     }
 
-                    SKCodecOrigin origin;
-
-                    using (var stream = new MemoryStream(data))
-                    using (var skData = SKData.Create(stream))
-                    using (var codec = SKCodec.Create(skData))
-                    {
-                        origin = codec.Origin;
-                    }
-
-                    if (origin == SKCodecOrigin.TopLeft)
-                    {
-                        _cameraModule.CapturedImage = data;
-                        return;
-                    }
-
-                    var correctedWidth = 0;
-                    var correctedHeight = 0;
-                    var correctDy = 0;
-                    var correctDx = 0;
-                    float correctRotateDegrees = 0;
-
-                    var originalBitmap = SKBitmap.Decode(data);
-
-                    switch (origin)
-                    {
-                        case SKCodecOrigin.BottomRight:
-                            correctedWidth = originalBitmap.Width;
-                            correctedHeight = originalBitmap.Height;
-                            correctDy = correctedHeight;
-                            correctDx = correctedWidth;
-                            correctRotateDegrees = 180;
-                            break;
-                        case SKCodecOrigin.RightTop:
-                            correctedWidth = originalBitmap.Height;
-                            correctedHeight = originalBitmap.Width;
-                            correctDy = 0;
-                            correctDx = correctedWidth;
-                            correctRotateDegrees = 90;
-                            break;
-                        case SKCodecOrigin.LeftBottom:
-                            correctedWidth = originalBitmap.Height;
-                            correctedHeight = originalBitmap.Width;
-                            correctDy = correctedHeight;
-                            correctDx = 0;
-                            correctRotateDegrees = 270;
-                            break;
-                    }
-
-                    SKImage correctedImage;
-                    using (var tempSurface = SKSurface.Create(new SKImageInfo(correctedWidth, correctedHeight)))
-                    {
-                        var canvas = tempSurface.Canvas;
-
-                        canvas.Clear(SKColors.Transparent);
-
-                        canvas.Translate(correctDx, correctDy);
-                        canvas.RotateDegrees(correctRotateDegrees);
-                        canvas.DrawBitmap(originalBitmap, 0, 0);
-                        originalBitmap.Dispose();
-
-                        correctedImage = tempSurface.Snapshot();
-                    }
-
-                    byte[] correctedBytes;
-                    using (var encoded = correctedImage.Encode(SKEncodedImageFormat.Jpeg, 100))
-                    {
-                        correctedBytes = encoded.ToArray();
-                        correctedImage.Dispose();
-                    }
-
-                    _cameraModule.CapturedImage = correctedBytes;
+                    _cameraModule.CapturedImage = data;
 
                     if (!wasPreviewRestarted)
                     {

@@ -56,7 +56,7 @@ namespace CrossCam.ViewModel
 
         public Settings Settings { get; set; }
 
-        private const float CROP_SPEED = 0.004f;
+        private const float CROP_SPEED = 0.0065f;
         public Command IncreaseLLCrop => new Command(() => { LeftImageLeftCrop += CROP_SPEED; });
         public Command DecreaseLLCrop => new Command(() => { LeftImageLeftCrop -= LeftImageLeftCrop > 0 ? CROP_SPEED : 0; });
         public Command IncreaseLRCrop => new Command(() => { LeftImageRightCrop += CROP_SPEED; });

@@ -181,15 +181,13 @@ namespace CrossCam.iOS.CustomRenderer
                 }
                 else if (finishedPhotoBuffer != null)
                 {
-                    var image = AVCapturePhotoOutput.GetJpegPhotoDataRepresentation(finishedPhotoBuffer, previewPhotoBuffer);
-                    var imgDataProvider = new CGDataProvider(image);
-                    image.Dispose();
-                    var cgImage = CGImage.FromJPEG(imgDataProvider, null, false, CGColorRenderingIntent.Default);
-                    imgDataProvider.Dispose();
-                    var uiImage = UIImage.FromImage(cgImage, 1, GetOrientationForCorrection());
-                    cgImage.Dispose();
-                    _cameraModule.CapturedImage = uiImage.AsJPEG().ToArray();
-                    uiImage.Dispose();
+                    using (var image = AVCapturePhotoOutput.GetJpegPhotoDataRepresentation(finishedPhotoBuffer, previewPhotoBuffer))
+                    using (var imgDataProvider = new CGDataProvider(image))
+                    using (var cgImage = CGImage.FromJPEG(imgDataProvider, null, false, CGColorRenderingIntent.Default))
+                    using (var uiImage = UIImage.FromImage(cgImage, 1, GetOrientationForCorrection()))
+                    {
+                        _cameraModule.CapturedImage = uiImage.AsJPEG().ToArray();
+                    }
                 }
             }
             catch (Exception e)
@@ -210,11 +208,11 @@ namespace CrossCam.iOS.CustomRenderer
                 }
                 else if (photo != null)
                 {
-                    var cgImage = photo.CGImageRepresentation;
-                    var uiImage = UIImage.FromImage(cgImage, 1, GetOrientationForCorrection());
-                    cgImage.Dispose();
-                    _cameraModule.CapturedImage = uiImage.AsJPEG().ToArray();
-                    uiImage.Dispose();
+                    using (var cgImage = photo.CGImageRepresentation)
+                    using (var uiImage = UIImage.FromImage(cgImage, 1, GetOrientationForCorrection()))
+                    {
+                        _cameraModule.CapturedImage = uiImage.AsJPEG().ToArray();
+                    }
                 }
             }
             catch (Exception e)
