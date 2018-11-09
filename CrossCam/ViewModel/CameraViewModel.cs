@@ -45,8 +45,9 @@ namespace CrossCam.ViewModel
 
         public Command SwapSidesCommand { get; set; }
 
-        public Command ShowCropButtonsCommand { get; set; }
-        public Command HideCropButtonsCommand { get; set; }
+        public Command EnterCropModeCommand { get; set; }
+        public Command LeaveCropModeCommand { get; set; }
+        public bool InCropMode { get; set; }
 
         public Command ClearCropsCommand { get; set; }
 
@@ -87,27 +88,19 @@ namespace CrossCam.ViewModel
 
         public bool SwitchToContinuousFocusTrigger { get; set; }
 
-        public Aspect PreviewAspect => Settings.FillScreenPreview && !(IsViewMode && IsViewPortrait)
-            ? Aspect.AspectFill : Aspect.AspectFit;
+        public Aspect PreviewAspect => Settings.FillScreenPreview && !(IsViewMode && IsViewPortrait) ? Aspect.AspectFill : Aspect.AspectFit;
         public bool IsCaptureComplete => LeftBitmap != null && RightBitmap != null;
         public bool IsNothingCaptured => LeftBitmap == null && RightBitmap == null;
-        public bool ShouldCaptureButtonBeVisible => !IsCaptureComplete && !IsSaving && !IsViewMode && !ShouldCropButtonsBeVisible;
-        public bool ShouldHelpTextBeVisible => IsNothingCaptured && !IsSaving && !IsViewMode && 
-                                               HelpTextColumn != CameraColumn && !ShouldCropButtonsBeVisible;
-        public bool ShouldLeftRetakeBeVisible => LeftBitmap != null && !IsSaving && !IsViewMode &&
-            (!IsCaptureComplete || IsCaptureComplete && DoesCaptureOrientationMatchViewOrientation) && !ShouldCropButtonsBeVisible;
-        public bool ShouldRightRetakeBeVisible => RightBitmap != null && !IsSaving && !IsViewMode &&
-            (!IsCaptureComplete || IsCaptureComplete && DoesCaptureOrientationMatchViewOrientation) && !ShouldCropButtonsBeVisible;
+        public bool ShouldCaptureButtonBeVisible => !IsCaptureComplete && !IsSaving && !IsViewMode && !InCropMode;
+        public bool ShouldHelpTextBeVisible => IsNothingCaptured && !IsSaving && !IsViewMode && HelpTextColumn != CameraColumn && !InCropMode;
+        public bool ShouldLeftRetakeBeVisible => LeftBitmap != null && !IsSaving && !IsViewMode && (!IsCaptureComplete || IsCaptureComplete && DoesCaptureOrientationMatchViewOrientation) && !InCropMode;
+        public bool ShouldRightRetakeBeVisible => RightBitmap != null && !IsSaving && !IsViewMode && (!IsCaptureComplete || IsCaptureComplete && DoesCaptureOrientationMatchViewOrientation) && !InCropMode;
         public bool DoesCaptureOrientationMatchViewOrientation => WasCapturePortrait == IsViewPortrait;
-        public bool ShouldEndButtonsBeVisible => IsCaptureComplete && !IsSaving && !IsViewMode && !ShouldCropButtonsBeVisible;
+        public bool ShouldEndButtonsBeVisible => IsCaptureComplete && !IsSaving && !IsViewMode && !InCropMode;
         public bool ShouldSettingsAndHelpBeVisible => !IsSaving && !IsViewMode;
-        public bool ShouldLineGuidesBeVisible => 
-            (LeftBitmap == null ^ RightBitmap == null || Settings.ShowGuideLinesWithFirstCapture && !IsCaptureComplete) && 
-            Settings.AreGuideLinesVisible && !IsSaving && !IsViewMode && !ShouldCropButtonsBeVisible;
-        public bool ShouldDonutGuideBeVisible => 
-            (LeftBitmap == null ^ RightBitmap == null || Settings.ShowGuideDonutWithFirstCapture && !IsCaptureComplete) && 
-            Settings.IsGuideDonutVisible && !IsSaving && !IsViewMode && !ShouldCropButtonsBeVisible;
-        public bool ShouldCropButtonsBeVisible { get; set; }
+        public bool ShouldLineGuidesBeVisible => (LeftBitmap == null ^ RightBitmap == null || Settings.ShowGuideLinesWithFirstCapture && !IsCaptureComplete) && Settings.AreGuideLinesVisible && !IsSaving && !IsViewMode && !InCropMode;
+        public bool ShouldDonutGuideBeVisible => (LeftBitmap == null ^ RightBitmap == null || Settings.ShowGuideDonutWithFirstCapture && !IsCaptureComplete) && Settings.IsGuideDonutVisible && !IsSaving && !IsViewMode && !InCropMode;
+        public bool ShouldCropButtonsBeVisible => InCropMode && !IsViewMode;
 
         public string HelpText => "1) Frame up your subject" +
                                   "\n2) Take the first picture (but finish reading these directions first)" +
@@ -212,9 +205,15 @@ namespace CrossCam.ViewModel
                 }
             });
 
-            ShowCropButtonsCommand = new Command(() => { ShouldCropButtonsBeVisible = true; });
+            EnterCropModeCommand = new Command(() =>
+            {
+                InCropMode = true;
+            });
 
-            HideCropButtonsCommand = new Command(() => { ShouldCropButtonsBeVisible = false; });
+            LeaveCropModeCommand = new Command(() =>
+            {
+                InCropMode = false;
+            });
 
             ClearCropsCommand = new Command(ClearCrops);
 

@@ -237,7 +237,7 @@
                      Padding="10"
                      IsVisible="{Binding ShouldEndButtonsBeVisible}">
             <ContentView.GestureRecognizers>
-                <TapGestureRecognizer Command="{Binding ShowCropButtonsCommand}"/>
+                <TapGestureRecognizer Command="{Binding EnterCropModeCommand}"/>
             </ContentView.GestureRecognizers>
             <Image Source="scissor"
                    Opacity="0.75"/>
@@ -280,14 +280,14 @@
                      Padding="20"
                      IsVisible="{Binding ShouldCropButtonsBeVisible}">
             <ContentView.GestureRecognizers>
-                <TapGestureRecognizer Command="{Binding HideCropButtonsCommand}"/>
+                <TapGestureRecognizer Command="{Binding LeaveCropModeCommand}"/>
             </ContentView.GestureRecognizers>
             <Image Source="check"
                    Opacity="0.75"/>
         </ContentView>
 
         <StackLayout AbsoluteLayout.LayoutFlags="PositionProportional"
-                     AbsoluteLayout.LayoutBounds="0.2, 0.5, 50, 150"
+                     AbsoluteLayout.LayoutBounds="0.15, 0.5, 50, 150"
                      IsVisible="{Binding ShouldCropButtonsBeVisible}"
                      Spacing="0">
             <Image Source="chevronLeft"
@@ -306,7 +306,7 @@
             </Image>
         </StackLayout>
         <StackLayout AbsoluteLayout.LayoutFlags="PositionProportional"
-                     AbsoluteLayout.LayoutBounds="0.4, 0.5, 50, 150"
+                     AbsoluteLayout.LayoutBounds="0.3, 0.5, 50, 150"
                      IsVisible="{Binding ShouldCropButtonsBeVisible}"
                      Spacing="0">
             <Image Source="chevronRight"
@@ -325,7 +325,7 @@
             </Image>
         </StackLayout>
         <StackLayout AbsoluteLayout.LayoutFlags="PositionProportional"
-                     AbsoluteLayout.LayoutBounds="0.6, 0.5, 50, 150"
+                     AbsoluteLayout.LayoutBounds="0.7, 0.5, 50, 150"
                      Spacing="0"
                      IsVisible="{Binding ShouldCropButtonsBeVisible}">
             <Image Source="chevronLeft"
@@ -344,7 +344,7 @@
             </Image>
         </StackLayout>
         <StackLayout AbsoluteLayout.LayoutFlags="PositionProportional"
-                     AbsoluteLayout.LayoutBounds="0.8, 0.5, 50, 150"
+                     AbsoluteLayout.LayoutBounds="0.85, 0.5, 50, 150"
                      IsVisible="{Binding ShouldCropButtonsBeVisible}"
                      Spacing="0">
             <Image Source="chevronRight"
@@ -403,6 +403,17 @@
                 </Image.GestureRecognizers>
             </Image>
         </StackLayout>
+
+        <ContentView AbsoluteLayout.LayoutFlags="PositionProportional"
+                     AbsoluteLayout.LayoutBounds="0.5, 0.5, 75, 75"
+                     Padding="10"
+                     IsVisible="{Binding ShouldCropButtonsBeVisible}">
+            <ContentView.GestureRecognizers>
+                <TapGestureRecognizer Command="{Binding ToggleViewModeCommand}"/>
+            </ContentView.GestureRecognizers>
+            <Image Source="eye"
+                   Opacity="0.75"/>
+        </ContentView>
 
         <Label Style="{DynamicResource _savingFeedback}"
                Text="Saved to Photos!">
