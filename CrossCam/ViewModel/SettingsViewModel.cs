@@ -35,15 +35,6 @@ namespace CrossCam.ViewModel
 
         private void SaveSettings(object sender, PropertyChangedEventArgs e)
         {
-            if (e.PropertyName == nameof(Settings.FillScreenPreview) &&
-                Settings.FillScreenPreview)
-            {
-                Settings.ClipLandscapeToFilledScreenPreview = true;
-            }
-            if (!Settings.FillScreenPreview)
-            {
-                Settings.ClipLandscapeToFilledScreenPreview = false;
-            }
             if (!Settings.AreGuideLinesVisible)
             {
                 Settings.ShowGuideLinesWithFirstCapture = false;

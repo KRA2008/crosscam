@@ -81,11 +81,6 @@ namespace CrossCam.iOS.CustomRenderer
                 }
             }
 
-            if (e.PropertyName == nameof(_cameraModule.IsFullScreenPreview))
-            {
-                SetupCamera();
-            }
-
             if (e.PropertyName == nameof(_cameraModule.IsTapToFocusEnabled) &&
                 !_cameraModule.IsTapToFocusEnabled)
             {
@@ -408,41 +403,8 @@ namespace CrossCam.iOS.CustomRenderer
             var sideHeight = NativeView.Bounds.Height;
             var sideWidth = NativeView.Bounds.Width;
 
-            var orientationForSizing = UIDeviceOrientation.Portrait;
-            if (UIDevice.CurrentDevice.Orientation == UIDeviceOrientation.Portrait ||
-                UIDevice.CurrentDevice.Orientation == UIDeviceOrientation.LandscapeLeft ||
-                UIDevice.CurrentDevice.Orientation == UIDeviceOrientation.LandscapeRight)
-            {
-                orientationForSizing = UIDevice.CurrentDevice.Orientation;
-            }
-            else if (_previousValidOrientation.HasValue)
-            {
-                orientationForSizing = _previousValidOrientation.Value;
-            }
-
-            if (_cameraModule.IsFullScreenPreview)
-            {
-                const double IPHONE_PICTURE_ASPECT_RATIO = 4 / 3d; //iPhones do 4:3 pictures
-                switch (orientationForSizing)
-                {
-                    case UIDeviceOrientation.Portrait:
-                        _cameraModule.IsPortrait = true;
-                        _streamWidth = (nfloat)(sideHeight / IPHONE_PICTURE_ASPECT_RATIO);
-                        break;
-                    case UIDeviceOrientation.LandscapeLeft:
-                    case UIDeviceOrientation.LandscapeRight:
-                        _cameraModule.IsPortrait = false;
-                        _streamWidth = (nfloat)(sideHeight * IPHONE_PICTURE_ASPECT_RATIO);
-                        break;
-                }
-
-                _leftTrim = (sideWidth - _streamWidth) / 2f;
-            }
-            else
-            {
-                _leftTrim = 0;
-                _streamWidth = sideWidth;
-            }
+            _leftTrim = 0;
+            _streamWidth = sideWidth;
 
             if (_liveCameraStream == null)
             {

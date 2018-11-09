@@ -10,8 +10,6 @@ namespace CrossCam.Model
         public bool ShowGuideDonutWithFirstCapture { get; set; }
         public bool IsGuideDonutBothDonuts { get; set; }
         public bool SaveSidesSeparately { get; set; }
-        public bool FillScreenPreview { get; set; }
-        public bool ClipLandscapeToFilledScreenPreview { get; set; }
         public bool IsCaptureLeftFirst { get; set; }
         public bool IsTapToFocusEnabled { get; set; }
         public bool SaveRedundantFirstSide { get; set; }
@@ -32,8 +30,6 @@ namespace CrossCam.Model
             ShowGuideDonutWithFirstCapture = false;
             IsGuideDonutBothDonuts = false;
             SaveSidesSeparately = false;
-            FillScreenPreview = false;
-            ClipLandscapeToFilledScreenPreview = false;
             IsTapToFocusEnabled = false;
             SaveRedundantFirstSide = false;
             SaveForParallel = false;

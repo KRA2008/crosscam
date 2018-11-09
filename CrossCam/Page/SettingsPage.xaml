@@ -55,7 +55,7 @@
                         IsToggled="{Binding Settings.ShowGuideLinesWithFirstCapture}"/>
             </StackLayout>
             <StackLayout Orientation="Horizontal">
-                <Label Text="Donut/dot visible"/>
+                <Label Text="Donut/dot visible (generally only useful for very large scenes)"/>
                 <Switch IsToggled="{Binding Settings.IsGuideDonutVisible}"/>
             </StackLayout>
             <StackLayout Orientation="Horizontal">
@@ -64,7 +64,7 @@
                         IsToggled="{Binding Settings.ShowGuideDonutWithFirstCapture}"/>
             </StackLayout>
             <StackLayout Orientation="Horizontal">
-                <Label Text="Both sides donut"/>
+                <Label Text="Both sides donut (probably not helpful, but interesting)"/>
                 <Switch IsEnabled="{Binding Settings.IsGuideDonutVisible}"
                         IsToggled="{Binding Settings.IsGuideDonutBothDonuts}"/>
             </StackLayout>
@@ -88,15 +88,6 @@
             <BoxView/>
             <Label Text="Camera"
                    Style="{DynamicResource header}"/>
-            <StackLayout Orientation="Horizontal">
-                <Label Text="Fill screen with preview"/>
-                <Switch IsToggled="{Binding Settings.FillScreenPreview}"/>
-            </StackLayout>
-            <StackLayout Orientation="Horizontal">
-                <Label Text="Clip pictures to filled screen preview width (landscape only)"/>
-                <Switch IsEnabled="{Binding Settings.FillScreenPreview}"
-                        IsToggled="{Binding Settings.ClipLandscapeToFilledScreenPreview}"/>
-            </StackLayout>
             <StackLayout Orientation="Horizontal">
                 <Label Text="Tap to point focus, double tap to switch back to continuous focus (or save or clear)"/>
                 <Switch IsToggled="{Binding Settings.IsTapToFocusEnabled}"/>

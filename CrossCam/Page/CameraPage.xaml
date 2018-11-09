@@ -73,7 +73,6 @@
                              CapturedImage="{Binding CapturedImageBytes}"
                              CaptureSuccess="{Binding CaptureSuccess}"
                              ErrorMessage="{Binding ErrorMessage}"
-                             IsFullScreenPreview="{Binding Settings.FillScreenPreview}"
                              WasCapturePortrait="{Binding WasCapturePortrait}"/>
             <ce:CameraSuccessOutline Grid.Column="0"
                                      Grid.Row="0">

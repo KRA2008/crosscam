@@ -21,9 +21,6 @@ namespace CrossCam.CustomElement
 	    public static readonly BindableProperty IsPortraitProperty = BindableProperty.Create(nameof(IsPortrait),
 	        typeof(bool), typeof(CameraModule), false, BindingMode.TwoWay);
 
-	    public static readonly BindableProperty IsFullScreenPreviewProperty = BindableProperty.Create(nameof(IsFullScreenPreview),
-	        typeof(bool), typeof(CameraModule), false, BindingMode.TwoWay);
-
 	    public static readonly BindableProperty IsTapToFocusEnabledProperty = BindableProperty.Create(nameof(IsTapToFocusEnabled),
 	        typeof(bool), typeof(CameraModule), false, BindingMode.TwoWay);
 
@@ -58,12 +55,6 @@ namespace CrossCam.CustomElement
 	    {
 	        get => (bool)GetValue(IsPortraitProperty);
 	        set => SetValue(IsPortraitProperty, value);
-	    }
-
-	    public bool IsFullScreenPreview
-	    {
-	        get => (bool)GetValue(IsFullScreenPreviewProperty);
-	        set => SetValue(IsFullScreenPreviewProperty, value);
 	    }
 
 	    public bool IsTapToFocusEnabled

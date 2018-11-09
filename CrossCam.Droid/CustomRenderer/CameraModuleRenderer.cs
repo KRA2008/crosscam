@@ -123,14 +123,6 @@ namespace CrossCam.Droid.CustomRenderer
                 }
             }
 
-            if (e.PropertyName == nameof(_cameraModule.IsFullScreenPreview))
-            {
-                if (_isSurfaceAvailable && _isRunning)
-                {
-                    SetupAndStartCamera();
-                }
-            }
-
             if (e.PropertyName == nameof(_cameraModule.IsTapToFocusEnabled) &&
                 !_cameraModule.IsTapToFocusEnabled)
             {
@@ -325,52 +317,27 @@ namespace CrossCam.Droid.CustomRenderer
             var moduleWidth = _cameraModule.Width * metrics.Density;
             var moduleHeight = _cameraModule.Height * metrics.Density;
 
-            if (_cameraModule.IsFullScreenPreview)
+            double proportionalPreviewHeight;
+            switch (Display.Rotation)
             {
-                double proportionalPreviewWidth;
-                switch (Display.Rotation)
-                {
-                    case SurfaceOrientation.Rotation0: //portraits
-                    case SurfaceOrientation.Rotation180:
-                        _cameraModule.IsPortrait = true;
-                        proportionalPreviewWidth = _previewSize.Height * moduleHeight / _previewSize.Width;
-                        break;
-                    default: //landscapes
-                        _cameraModule.IsPortrait = false;
-                        proportionalPreviewWidth = _previewSize.Width * moduleHeight / _previewSize.Height;
-                        break;
-                }
-                var leftTrim = (proportionalPreviewWidth - moduleWidth) / 2f;
-
-                _textureView.SetX((float)(-1f * leftTrim));
-                _textureView.SetY(0);
-                _textureView.LayoutParameters = new FrameLayout.LayoutParams((int)Math.Round(proportionalPreviewWidth),
-                    (int)Math.Round(moduleHeight));
+                case SurfaceOrientation.Rotation0: //portraits
+                case SurfaceOrientation.Rotation180:
+                    _cameraModule.IsPortrait = true;
+                    proportionalPreviewHeight = _previewSize.Width * moduleWidth / _previewSize.Height;
+                    break;
+                default: //landscapes
+                    _cameraModule.IsPortrait = false;
+                    proportionalPreviewHeight = _previewSize.Height * moduleWidth / _previewSize.Width;
+                    break;
             }
-            else
-            {
-                double proportionalPreviewHeight;
-                switch (Display.Rotation)
-                {
-                    case SurfaceOrientation.Rotation0: //portraits
-                    case SurfaceOrientation.Rotation180:
-                        _cameraModule.IsPortrait = true;
-                        proportionalPreviewHeight = _previewSize.Width * moduleWidth / _previewSize.Height;
-                        break;
-                    default: //landscapes
-                        _cameraModule.IsPortrait = false;
-                        proportionalPreviewHeight = _previewSize.Height * moduleWidth / _previewSize.Width;
-                        break;
-                }
 
-                var verticalOffset = (moduleHeight - proportionalPreviewHeight) / 2f;
+            var verticalOffset = (moduleHeight - proportionalPreviewHeight) / 2f;
 
-                _textureView.SetX(0);
-                _textureView.SetY((float)verticalOffset);
+            _textureView.SetX(0);
+            _textureView.SetY((float)verticalOffset);
 
-                _textureView.LayoutParameters = new FrameLayout.LayoutParams((int) Math.Round(moduleWidth),
-                    (int)Math.Round(proportionalPreviewHeight));
-            }
+            _textureView.LayoutParameters = new FrameLayout.LayoutParams((int) Math.Round(moduleWidth),
+                (int)Math.Round(proportionalPreviewHeight));
 
             var parameters = _camera.GetParameters();
 

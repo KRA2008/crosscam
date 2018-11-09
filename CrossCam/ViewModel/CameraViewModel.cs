@@ -87,8 +87,7 @@ namespace CrossCam.ViewModel
         public bool IsSaving { get; set; }
 
         public bool SwitchToContinuousFocusTrigger { get; set; }
-
-        public Aspect PreviewAspect => Settings.FillScreenPreview && !(IsViewMode && IsViewPortrait) ? Aspect.AspectFill : Aspect.AspectFit;
+        
         public bool IsCaptureComplete => LeftBitmap != null && RightBitmap != null;
         public bool IsNothingCaptured => LeftBitmap == null && RightBitmap == null;
         public bool ShouldCaptureButtonBeVisible => !IsCaptureComplete && !IsSaving && !IsViewMode && !InCropMode;
@@ -285,7 +284,7 @@ namespace CrossCam.ViewModel
                     RightBitmap = null;
                     
                     double eachSideWidth;
-                    if (leftBitmap.Height > leftBitmap.Width || !Settings.ClipLandscapeToFilledScreenPreview)
+                    if (leftBitmap.Height > leftBitmap.Width)
                     {
                         eachSideWidth = leftBitmap.Width;
                     }
@@ -577,7 +576,6 @@ namespace CrossCam.ViewModel
             base.ViewIsAppearing(sender, e);
             RaisePropertyChanged(nameof(ShouldLineGuidesBeVisible)); //TODO: figure out how to have Fody do this
             RaisePropertyChanged(nameof(ShouldDonutGuideBeVisible));
-            RaisePropertyChanged(nameof(PreviewAspect));
             RaisePropertyChanged(nameof(RightReticleImage));
         }
 
