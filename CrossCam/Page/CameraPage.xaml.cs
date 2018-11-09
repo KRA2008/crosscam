@@ -75,18 +75,11 @@ namespace CrossCam.Page
 	        var canvas = e.Surface.Canvas;
 
 	        canvas.Clear();
-
-	        if (_viewModel.LeftBitmap != null)
-	        {
-	            DrawTool.DrawImageOnCanvas(e.Info, canvas, _viewModel.LeftBitmap, true, _viewModel.BorderThickness,
-	                _viewModel.LeftImageLeftCrop, _viewModel.TopCrop, _viewModel.LeftImageRightCrop, _viewModel.BottomCrop);
-	        }
-
-	        if (_viewModel.RightBitmap != null)
-	        {
-	            DrawTool.DrawImageOnCanvas(e.Info, canvas, _viewModel.RightBitmap, false, _viewModel.BorderThickness,
-	                _viewModel.RightImageLeftCrop, _viewModel.TopCrop, _viewModel.RightImageRightCrop, _viewModel.BottomCrop);
-	        }
+            
+	        DrawTool.DrawImagesOnCanvas(
+	            e.Info, canvas, _viewModel.LeftBitmap, _viewModel.RightBitmap, _viewModel.BorderThickness,
+	            _viewModel.LeftImageLeftCrop, _viewModel.LeftImageRightCrop, _viewModel.RightImageLeftCrop, _viewModel.RightImageRightCrop, 
+	            _viewModel.TopCrop, _viewModel.BottomCrop);
         }
 
         private void ResetGuides()
