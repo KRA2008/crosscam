@@ -56,7 +56,7 @@ namespace CrossCam.ViewModel
 
         public Settings Settings { get; set; }
 
-        private const int CROP_SPEED = 5;
+        private const float CROP_SPEED = 0.002f;
         public Command IncreaseLLCrop => new Command(() => { LeftImageLeftCrop += CROP_SPEED; });
         public Command DecreaseLLCrop => new Command(() => { LeftImageLeftCrop -= LeftImageLeftCrop > 0 ? CROP_SPEED : 0; });
         public Command IncreaseLRCrop => new Command(() => { LeftImageRightCrop += CROP_SPEED; });
@@ -70,13 +70,13 @@ namespace CrossCam.ViewModel
         public Command IncreaseBottomCrop => new Command(() => { BottomCrop += CROP_SPEED; });
         public Command DecreaseBottomCrop => new Command(() => { BottomCrop -= BottomCrop > 0 ? CROP_SPEED : 0; });
 
-        public int LeftImageLeftCrop { get; set; }
-        public int LeftImageRightCrop { get; set; }
-        public int RightImageLeftCrop { get; set; }
-        public int RightImageRightCrop { get; set; }
-        public int TopCrop { get; set; }
-        public int BottomCrop { get; set; }
-        public int BorderThickness => IsCaptureComplete ? 10 : 0;
+        public float LeftImageLeftCrop { get; set; }
+        public float LeftImageRightCrop { get; set; }
+        public float RightImageLeftCrop { get; set; }
+        public float RightImageRightCrop { get; set; }
+        public float TopCrop { get; set; }
+        public float BottomCrop { get; set; }
+        public float BorderThickness => IsCaptureComplete ? 0.01f : 0f;
 
         public bool IsViewPortrait { get; set; }
         public bool IsCaptureLeftFirst { get; set; }
