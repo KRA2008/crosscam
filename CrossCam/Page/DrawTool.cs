@@ -5,114 +5,109 @@ namespace CrossCam.Page
     public class DrawTool
     {
         public static void DrawImagesOnCanvas(
-            SKImageInfo info, SKCanvas canvas, SKBitmap leftBitmap, SKBitmap rightBitmap, float border, 
+            SKImageInfo info, SKCanvas canvas, SKBitmap leftBitmap, SKBitmap rightBitmap, float borderThickness,
             float leftLeftCrop, float leftRightCrop, float rightLeftCrop, float rightRightCrop,
             float topCrop, float bottomCrop)
         {
-            float imageAspectRatio;
-            float bitmapHeight;
-            if (leftBitmap != null)
-            {
-                imageAspectRatio = leftBitmap.Height / (1f * leftBitmap.Width);
-                bitmapHeight = leftBitmap.Height;
-            }
-            else if (rightBitmap != null)
-            {
-                imageAspectRatio = rightBitmap.Height / (1f * rightBitmap.Width);
-                bitmapHeight = rightBitmap.Height;
-            }
-            else
-            {
-                return;
-            }
+            if (leftBitmap == null && rightBitmap == null) return;
 
             var screenWidth = info.Width;
             var screenHeight = info.Height;
 
-            var orientationRegulatedBorder = border * screenWidth;
+            var orientationRegulatedBorder = borderThickness * screenWidth;
 
-            float previewHeight;
-            float previewWidth;
-            float previewX;
-            float previewY;
-            if (screenHeight > screenWidth) // screen portrait
-            {
-                previewWidth = screenWidth / 2f;
-                previewHeight = imageAspectRatio * previewWidth;
-                previewX = 0;
-                previewY = (screenHeight - previewHeight) / 2f;
-            }
-            else // screen landscape
-            {
-                if (imageAspectRatio > 1) // image portrait
-                {
-                    previewHeight = screenHeight;
-                    previewWidth = previewHeight / imageAspectRatio;
-                    previewX = screenWidth / 2f - previewWidth;
-                    previewY = 0;
-                }
-                else // image landscape
-                {
-                    previewWidth = screenWidth / 2f;
-                    previewHeight = previewWidth * imageAspectRatio;
-                    previewX = 0;
-                    previewY = (screenHeight - previewHeight) / 2f;
-                }
-            }
-
-            var leftX = previewX + orientationRegulatedBorder;
-            var rightX = screenWidth / 2f + orientationRegulatedBorder;
-            var y = previewY + orientationRegulatedBorder;
-            var width = previewWidth - orientationRegulatedBorder * 2;
-            var height = previewHeight - orientationRegulatedBorder * 2;
-
-            var screenTopCrop = topCrop * height;
-            var screenBottomCrop = bottomCrop * height;
-
-            var topConvertedCrop = topCrop * bitmapHeight;
-            var bottomConvertedCrop = bottomCrop * bitmapHeight;
-
-            float screenLeftCrop;
-            float screenRightCrop;
-            float leftConvertedCrop;
-            float rightConvertedCrop;
+            var sideWidthLessBorder = screenWidth / 2f - 2 * orientationRegulatedBorder;
+            var sideHeightLessBorder = screenHeight - 2 * orientationRegulatedBorder;
+            
+            float leftBitmapWidthLessCrop = 0;
+            float rightBitmapWidthLessCrop = 0;
+            float bitmapHeightLessCrop = 0;
+            float leftWidthRatio = 0;
+            float rightWidthRatio = 0;
+            float heightRatio = 0;
+            float topConvertedCrop = 0;
 
             if (leftBitmap != null)
             {
-                screenLeftCrop = leftLeftCrop * width;
-                screenRightCrop = leftRightCrop * width;
-                leftConvertedCrop = leftLeftCrop * leftBitmap.Width;
-                rightConvertedCrop = leftRightCrop * leftBitmap.Width;
-                canvas.DrawBitmap(leftBitmap,
-                    SKRect.Create(
-                        leftConvertedCrop,
-                        topConvertedCrop,
-                        leftBitmap.Width - leftConvertedCrop - rightConvertedCrop,
-                        leftBitmap.Height - topConvertedCrop - bottomConvertedCrop),
-                    SKRect.Create(
-                        leftX + screenLeftCrop + screenRightCrop,
-                        y + screenTopCrop,
-                        width - screenLeftCrop - screenRightCrop,
-                        height - screenTopCrop - screenBottomCrop));
+                leftBitmapWidthLessCrop = leftBitmap.Width * (1 - (leftLeftCrop + leftRightCrop));
+                leftWidthRatio = leftBitmapWidthLessCrop / sideWidthLessBorder;
+                bitmapHeightLessCrop = leftBitmap.Height * (1 - (topCrop + bottomCrop));
+                heightRatio = bitmapHeightLessCrop / sideHeightLessBorder;
+                topConvertedCrop = leftBitmap.Height * topCrop;
             }
 
             if (rightBitmap != null)
             {
-                screenLeftCrop = rightLeftCrop * width;
-                screenRightCrop = rightRightCrop * width;
-                leftConvertedCrop = rightLeftCrop * rightBitmap.Width;
-                rightConvertedCrop = rightRightCrop * rightBitmap.Width;
-                canvas.DrawBitmap(rightBitmap,
+                rightBitmapWidthLessCrop = rightBitmap.Width * (1 - (rightLeftCrop + rightRightCrop));
+                rightWidthRatio = rightBitmapWidthLessCrop / sideWidthLessBorder;
+                if (leftBitmap == null)
+                {
+                    bitmapHeightLessCrop = rightBitmap.Height * (1 - (topCrop + bottomCrop));
+                    heightRatio = bitmapHeightLessCrop / sideHeightLessBorder;
+                    topConvertedCrop = rightBitmap.Height * topCrop;
+                }
+            }
+
+            float scalingRatio = 0;
+            if (leftBitmap != null &&
+                rightBitmap == null) // left only
+            {
+                scalingRatio = leftWidthRatio >= heightRatio ? leftWidthRatio : heightRatio;
+            }
+            else if (leftBitmap == null) //right only
+            {
+                scalingRatio = rightWidthRatio >= heightRatio ? rightWidthRatio : heightRatio;
+            }
+            else if (leftWidthRatio >= rightWidthRatio &&
+                     leftWidthRatio >= heightRatio) // both!
+            {
+                scalingRatio = leftWidthRatio;
+            }
+            else if (rightWidthRatio >= leftWidthRatio &&
+                     rightWidthRatio >= heightRatio) // both!
+            {
+                scalingRatio = rightWidthRatio;
+            }
+            else if (heightRatio >= leftWidthRatio &&
+                     heightRatio >= rightWidthRatio) // both!
+            {
+                scalingRatio = heightRatio;
+            }
+
+            var previewHeight = bitmapHeightLessCrop / scalingRatio;
+
+            if (leftBitmap != null)
+            {
+                var leftPreviewWidth = leftBitmapWidthLessCrop / scalingRatio;
+                canvas.DrawBitmap(
+                    leftBitmap,
                     SKRect.Create(
-                        leftConvertedCrop,
+                        leftLeftCrop * leftBitmap.Width,
                         topConvertedCrop,
-                        rightBitmap.Width - leftConvertedCrop - rightConvertedCrop,
-                        rightBitmap.Height - topConvertedCrop - bottomConvertedCrop),
+                        leftBitmapWidthLessCrop,
+                        bitmapHeightLessCrop),
                     SKRect.Create(
-                        rightX,
-                        y + screenTopCrop,
-                        width - screenLeftCrop - screenRightCrop,
-                        height - screenTopCrop - screenBottomCrop));
+                        screenWidth / 2f - orientationRegulatedBorder - leftPreviewWidth,
+                        (screenHeight - previewHeight) / 2f,
+                        leftPreviewWidth,
+                        previewHeight));
+            }
+
+            if (rightBitmap != null)
+            {
+                var rightPreviewWidth = rightBitmapWidthLessCrop / scalingRatio;
+                canvas.DrawBitmap(
+                    rightBitmap,
+                    SKRect.Create(
+                        rightLeftCrop * rightBitmap.Width,
+                        topConvertedCrop,
+                        rightBitmapWidthLessCrop,
+                        bitmapHeightLessCrop),
+                    SKRect.Create(
+                        screenWidth / 2f + orientationRegulatedBorder,
+                        (screenHeight - previewHeight) / 2f,
+                        rightPreviewWidth,
+                        previewHeight));
             }
         }
     }
