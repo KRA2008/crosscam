@@ -57,19 +57,19 @@ namespace CrossCam.ViewModel
 
         public Settings Settings { get; set; }
 
-        private const int CROP_SPEED = 10;
-        public Command IncreaseLLCrop => new Command(() => { LeftImageLeftCrop += CROP_SPEED; });
-        public Command DecreaseLLCrop => new Command(() => { LeftImageLeftCrop -= LeftImageLeftCrop > 0 ? CROP_SPEED : 0; });
-        public Command IncreaseLRCrop => new Command(() => { LeftImageRightCrop += CROP_SPEED; });
-        public Command DecreaseLRCrop => new Command(() => { LeftImageRightCrop -= LeftImageRightCrop > 0 ? CROP_SPEED : 0; });
-        public Command IncreaseRLCrop => new Command(() => { RightImageLeftCrop += CROP_SPEED; });
-        public Command DecreaseRLCrop => new Command(() => { RightImageLeftCrop -= RightImageLeftCrop > 0 ? CROP_SPEED : 0; });
-        public Command IncreaseRRCrop => new Command(() => { RightImageRightCrop += CROP_SPEED; });
-        public Command DecreaseRRCrop => new Command(() => { RightImageRightCrop -= RightImageRightCrop > 0 ? CROP_SPEED : 0; });
-        public Command IncreaseTopCrop => new Command(() => { TopCrop += CROP_SPEED; });
-        public Command DecreaseTopCrop => new Command(() => { TopCrop -= TopCrop > 0 ? CROP_SPEED : 0; });
-        public Command IncreaseBottomCrop => new Command(() => { BottomCrop += CROP_SPEED; });
-        public Command DecreaseBottomCrop => new Command(() => { BottomCrop -= BottomCrop > 0 ? CROP_SPEED : 0; });
+        public int CropSpeed { get; set; }
+        public Command IncreaseLLCrop => new Command(() => { LeftImageLeftCrop += CropSpeed; });
+        public Command DecreaseLLCrop => new Command(() => { LeftImageLeftCrop -= LeftImageLeftCrop > 0 ? CropSpeed : 0; });
+        public Command IncreaseLRCrop => new Command(() => { LeftImageRightCrop += CropSpeed; });
+        public Command DecreaseLRCrop => new Command(() => { LeftImageRightCrop -= LeftImageRightCrop > 0 ? CropSpeed : 0; });
+        public Command IncreaseRLCrop => new Command(() => { RightImageLeftCrop += CropSpeed; });
+        public Command DecreaseRLCrop => new Command(() => { RightImageLeftCrop -= RightImageLeftCrop > 0 ? CropSpeed : 0; });
+        public Command IncreaseRRCrop => new Command(() => { RightImageRightCrop += CropSpeed; });
+        public Command DecreaseRRCrop => new Command(() => { RightImageRightCrop -= RightImageRightCrop > 0 ? CropSpeed : 0; });
+        public Command IncreaseTopCrop => new Command(() => { TopCrop += CropSpeed; });
+        public Command DecreaseTopCrop => new Command(() => { TopCrop -= TopCrop > 0 ? CropSpeed : 0; });
+        public Command IncreaseBottomCrop => new Command(() => { BottomCrop += CropSpeed; });
+        public Command DecreaseBottomCrop => new Command(() => { BottomCrop -= BottomCrop > 0 ? CropSpeed : 0; });
 
         public int LeftImageLeftCrop { get; set; }
         public int LeftImageRightCrop { get; set; }
@@ -77,8 +77,7 @@ namespace CrossCam.ViewModel
         public int RightImageRightCrop { get; set; }
         public int TopCrop { get; set; }
         public int BottomCrop { get; set; }
-        public int BorderThicknessOscillating => IsCaptureComplete ? BORDER_THICKNESS : 0;
-        private const int BORDER_THICKNESS = CROP_SPEED * 6;
+        public int BorderThickness { get; set; }
 
         public bool IsViewPortrait { get; set; }
         public bool IsCaptureLeftFirst { get; set; }
@@ -126,6 +125,9 @@ namespace CrossCam.ViewModel
 
             IsCaptureLeftFirst = Settings.IsCaptureLeftFirst;
             CameraColumn = IsCaptureLeftFirst ? 0 : 1;
+
+            CropSpeed = 10;
+            BorderThickness = 60;
 
             PropertyChanged += (sender, args) =>
             {
@@ -273,10 +275,9 @@ namespace CrossCam.ViewModel
             {
                 IsSaving = true;
 
-                await Task.Delay(100); // take a break to go update the screen
-
                 var leftBitmap = LeftBitmap;
                 var rightBitmap = RightBitmap;
+
                 SKImage leftSkImage = null;
                 SKImage rightSkImage = null;
                 SKImage finalImage = null;
@@ -284,66 +285,46 @@ namespace CrossCam.ViewModel
                 {
                     LeftBitmap = null;
                     RightBitmap = null;
-                    
-                    double eachSideWidth;
-                    if (leftBitmap.Height > leftBitmap.Width)
-                    {
-                        eachSideWidth = leftBitmap.Width;
-                    }
-                    else
-                    {
-                        if (IsViewPortrait)
-                        {
-                            eachSideWidth = Application.Current.MainPage.Height / 2f * leftBitmap.Height / Application.Current.MainPage.Width;
-                        }
-                        else
-                        {
-                            eachSideWidth = Application.Current.MainPage.Width / 2f * leftBitmap.Height / Application.Current.MainPage.Height;
-                        }
-                    }
 
-                    var imageLeftTrimWidth = (leftBitmap.Width - eachSideWidth) / 2d;
-
-                    var floatedTrim = (float) imageLeftTrimWidth;
-                    var floatedWidth = (float) eachSideWidth;
+                    await Task.Delay(100); // take a break to go update the screen
 
                     var didSave = true;
 
                     byte[] finalBytesToSave;
+
                     if (Settings.SaveSidesSeparately)
                     {
                         using (var tempSurface =
-                            SKSurface.Create(new SKImageInfo((int) floatedWidth, leftBitmap.Height)))
+                            SKSurface.Create(new SKImageInfo(leftBitmap.Width, leftBitmap.Height)))
                         {
                             var canvas = tempSurface.Canvas;
 
-                            canvas.Clear(SKColors.Transparent);
-
-                            canvas.DrawBitmap(leftBitmap,
-                                SKRect.Create(floatedTrim, 0, floatedWidth, leftBitmap.Height),
-                                SKRect.Create(0, 0, floatedWidth, leftBitmap.Height));
-
+                            canvas.Clear();
+                            if (_needs180Flip)
+                            {
+                                canvas.RotateDegrees(180);
+                                canvas.Translate(-1f * leftBitmap.Width, -1f * leftBitmap.Height);
+                            }
+                            canvas.DrawBitmap(leftBitmap, 0, 0);
                             leftSkImage = tempSurface.Snapshot();
 
-                            canvas.Clear(SKColors.Transparent);
-
-                            canvas.DrawBitmap(rightBitmap,
-                                SKRect.Create(floatedTrim, 0, floatedWidth, rightBitmap.Height),
-                                SKRect.Create(0, 0, floatedWidth, rightBitmap.Height));
-
+                            canvas.Clear();
+                            if (_needs180Flip)
+                            {
+                                canvas.RotateDegrees(180);
+                                canvas.Translate(-1f * leftBitmap.Width, -1f * leftBitmap.Height);
+                            }
+                            canvas.DrawBitmap(rightBitmap, 0, 0);
                             rightSkImage = tempSurface.Snapshot();
-
                         }
-
-                        rightBitmap.Dispose();
-                        leftBitmap.Dispose();
 
                         using (var encoded = leftSkImage.Encode(SKEncodedImageFormat.Jpeg, 100))
                         {
                             finalBytesToSave = encoded.ToArray();
                         }
 
-                        didSave = await photoSaver.SavePhoto(finalBytesToSave);
+                        // ReSharper disable once ConditionIsAlwaysTrueOrFalse - just let it go
+                        didSave = didSave && await photoSaver.SavePhoto(finalBytesToSave);
 
                         using (var encoded = rightSkImage.Encode(SKEncodedImageFormat.Jpeg, 100))
                         {
@@ -352,68 +333,22 @@ namespace CrossCam.ViewModel
 
                         didSave = didSave && await photoSaver.SavePhoto(finalBytesToSave);
                     }
-                    else
+
+                    if (Settings.SaveRedundantFirstSide)
                     {
-                        if (Settings.SaveRedundantFirstSide)
-                        {
-                            using (var tempSurface =
-                                SKSurface.Create(new SKImageInfo(leftBitmap.Width, leftBitmap.Height)))
-                            {
-                                var canvas = tempSurface.Canvas;
-                                canvas.Clear(SKColors.Transparent);
-
-                                if (_needs180Flip)
-                                {
-                                    canvas.RotateDegrees(180);
-                                    canvas.Translate(-1 * leftBitmap.Width, -1 * leftBitmap.Height);
-                                }
-
-                                canvas.DrawBitmap(IsCaptureLeftFirst ? leftBitmap : rightBitmap,
-                                    SKRect.Create(floatedTrim, 0, floatedWidth, leftBitmap.Height),
-                                    SKRect.Create(0, 0, floatedWidth, leftBitmap.Height));
-
-                                finalImage = tempSurface.Snapshot();
-                            }
-
-                            using (var encoded = finalImage.Encode(SKEncodedImageFormat.Jpeg, 100))
-                            {
-                                finalBytesToSave = encoded.ToArray();
-                            }
-
-                            didSave = await photoSaver.SavePhoto(finalBytesToSave);
-                        }
-
-                        //cross view save
-
-                        var finalImageWidth = leftBitmap.Width + rightBitmap.Width - LeftImageLeftCrop -
-                                              LeftImageRightCrop - RightImageLeftCrop - RightImageRightCrop +
-                                              4 * BORDER_THICKNESS;
-                        var finalImageHeight = leftBitmap.Height - TopCrop - BottomCrop + 2 * BORDER_THICKNESS;
-
                         using (var tempSurface =
-                            SKSurface.Create(new SKImageInfo(finalImageWidth, finalImageHeight)))
+                            SKSurface.Create(new SKImageInfo(leftBitmap.Width, leftBitmap.Height)))
                         {
                             var canvas = tempSurface.Canvas;
-
-                            canvas.Clear(SKColors.Black);
-
+                            canvas.Clear();
                             if (_needs180Flip)
                             {
                                 canvas.RotateDegrees(180);
-                                canvas.Translate(-1f * finalImageWidth, -1f * finalImageHeight);
+                                canvas.Translate(-1f * leftBitmap.Width, -1f * leftBitmap.Height);
                             }
-
-                            DrawTool.DrawImagesOnCanvas(canvas, leftBitmap, rightBitmap, BORDER_THICKNESS, 
-                                LeftImageLeftCrop, LeftImageRightCrop, RightImageLeftCrop, RightImageRightCrop,
-                                TopCrop, BottomCrop);
+                            canvas.DrawBitmap(IsCaptureLeftFirst ? leftBitmap : rightBitmap, 0, 0);
 
                             finalImage = tempSurface.Snapshot();
-                        }
-
-                        if (!Settings.SaveForParallel)
-                        {
-                            leftBitmap.Dispose();
-                            rightBitmap.Dispose();
                         }
 
                         using (var encoded = finalImage.Encode(SKEncodedImageFormat.Jpeg, 100))
@@ -421,44 +356,66 @@ namespace CrossCam.ViewModel
                             finalBytesToSave = encoded.ToArray();
                         }
 
-                        if (!Settings.SaveForParallel)
+                        didSave = didSave && await photoSaver.SavePhoto(finalBytesToSave);
+                    }
+
+                    var finalImageWidth = leftBitmap.Width + rightBitmap.Width - LeftImageLeftCrop -
+                                          LeftImageRightCrop - RightImageLeftCrop - RightImageRightCrop +
+                                          4 * BorderThickness;
+                    var finalImageHeight = leftBitmap.Height - TopCrop - BottomCrop + 2 * BorderThickness;
+
+                    if (Settings.SaveForCrossView)
+                    {
+                        using (var tempSurface =
+                            SKSurface.Create(new SKImageInfo(finalImageWidth, finalImageHeight)))
                         {
-                            finalImage.Dispose();
+                            var canvas = tempSurface.Canvas;
+                            canvas.Clear();
+                            if (_needs180Flip)
+                            {
+                                canvas.RotateDegrees(180);
+                                canvas.Translate(-1f * finalImageWidth, -1f * finalImageHeight);
+                            }
+                            DrawTool.DrawImagesOnCanvas(canvas, leftBitmap, rightBitmap, BorderThickness,
+                                LeftImageLeftCrop, LeftImageRightCrop, RightImageLeftCrop, RightImageRightCrop,
+                                TopCrop, BottomCrop);
+
+                            finalImage = tempSurface.Snapshot();
                         }
 
-                        var crossJoinedSave = await photoSaver.SavePhoto(finalBytesToSave);
-                        didSave = didSave && crossJoinedSave;
-
-                        if (Settings.SaveForParallel)
+                        using (var encoded = finalImage.Encode(SKEncodedImageFormat.Jpeg, 100))
                         {
-                            //TODO: consider extracting this to method but not sure if really cleaner
-                            using (var tempSurface =
-                                SKSurface.Create(new SKImageInfo((int)finalImageWidth, (int)finalImageHeight)))
-                            {
-                                var canvas = tempSurface.Canvas;
-
-                                canvas.Clear(SKColors.Black);
-
-                                DrawTool.DrawImagesOnCanvas(canvas, rightBitmap, leftBitmap, BorderThicknessOscillating,
-                                    LeftImageLeftCrop, LeftImageRightCrop, RightImageLeftCrop, RightImageRightCrop,
-                                    TopCrop, BottomCrop);
-
-                                finalImage = tempSurface.Snapshot();
-                            }
-                            
-                            leftBitmap.Dispose();
-                            rightBitmap.Dispose();
-
-                            using (var encoded = finalImage.Encode(SKEncodedImageFormat.Jpeg, 100))
-                            {
-                                finalBytesToSave = encoded.ToArray();
-                            }
-
-                            finalImage.Dispose();
-
-                            var parallelJoinedSave = await photoSaver.SavePhoto(finalBytesToSave);
-                            didSave = didSave && parallelJoinedSave;
+                            finalBytesToSave = encoded.ToArray();
                         }
+                        
+                        didSave = didSave && await photoSaver.SavePhoto(finalBytesToSave);
+                    }
+
+                    if (Settings.SaveForParallel)
+                    {
+                        using (var tempSurface =
+                            SKSurface.Create(new SKImageInfo(finalImageWidth, finalImageHeight)))
+                        {
+                            var canvas = tempSurface.Canvas;
+                            canvas.Clear();
+                            if (_needs180Flip)
+                            {
+                                canvas.RotateDegrees(180);
+                                canvas.Translate(-1f * finalImageWidth, -1f * finalImageHeight);
+                            }
+                            DrawTool.DrawImagesOnCanvas(canvas, rightBitmap, leftBitmap, BorderThickness,
+                                LeftImageLeftCrop, LeftImageRightCrop, RightImageLeftCrop, RightImageRightCrop,
+                                TopCrop, BottomCrop);
+
+                            finalImage = tempSurface.Snapshot();
+                        }
+
+                        using (var encoded = finalImage.Encode(SKEncodedImageFormat.Jpeg, 100))
+                        {
+                            finalBytesToSave = encoded.ToArray();
+                        }
+                        
+                        didSave = didSave && await photoSaver.SavePhoto(finalBytesToSave);
                     }
 
                     IsSaving = false;

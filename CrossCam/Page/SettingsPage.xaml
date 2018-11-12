@@ -72,17 +72,20 @@
             <Label Text="Saving"
                    Style="{DynamicResource header}"/>
             <StackLayout Orientation="Horizontal">
-                <Label Text="Save sides separately (for easier post processing)"/>
+                <Label Text="Save joined cross view version with cropping and border"/>
+                <Switch IsToggled="{Binding Settings.SaveForCrossView}"/>
+            </StackLayout>
+            <StackLayout Orientation="Horizontal">
+                <Label Text="Save joined parallel view/VR version with cropping and border"/>
+                <Switch IsToggled="{Binding Settings.SaveForParallel}"/>
+            </StackLayout>
+            <StackLayout Orientation="Horizontal">
+                <Label Text="Save each side separately with no cropping or border (for easier post processing)"/>
                 <Switch IsToggled="{Binding Settings.SaveSidesSeparately}"/>
             </StackLayout>
             <StackLayout Orientation="Horizontal">
-                <Label Text="Save redundant first side alone (for sharing with flat view people)"/>
+                <Label Text="Save first side alone with no cropping or border (for sharing basic photo with flat view people)"/>
                 <Switch IsToggled="{Binding Settings.SaveRedundantFirstSide}"
-                        IsEnabled="{Binding Settings.SaveSidesSeparately, Converter={vc:BooleanInvertConverter}}"/>
-            </StackLayout>
-            <StackLayout Orientation="Horizontal">
-                <Label Text="Also save a parallel view/VR version"/>
-                <Switch IsToggled="{Binding Settings.SaveForParallel}"
                         IsEnabled="{Binding Settings.SaveSidesSeparately, Converter={vc:BooleanInvertConverter}}"/>
             </StackLayout>
             <BoxView/>

@@ -14,6 +14,7 @@ namespace CrossCam.Model
         public bool IsTapToFocusEnabled { get; set; }
         public bool SaveRedundantFirstSide { get; set; }
         public bool SaveForParallel { get; set; }
+        public bool SaveForCrossView { get; set; }
 
         public Settings()
         {
@@ -24,6 +25,7 @@ namespace CrossCam.Model
         {
             AreGuideLinesVisible = true;
             IsCaptureLeftFirst = true;
+            SaveForCrossView = true;
 
             ShowGuideLinesWithFirstCapture = false;
             IsGuideDonutVisible = false;
