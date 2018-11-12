@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel;
 using CrossCam.ViewModel;
+using SkiaSharp;
 using SkiaSharp.Views.Forms;
 using Xamarin.Forms;
 
@@ -54,17 +55,14 @@ namespace CrossCam.Page
 	                ResetGuides();
 	                break;
 	            case nameof(CameraViewModel.LeftBitmap):
-	                _canvasView.InvalidateSurface();
-                    break;
-	            case nameof(CameraViewModel.RightBitmap):
-	                _canvasView.InvalidateSurface();
-                    break;
+                case nameof(CameraViewModel.RightBitmap):
                 case nameof(CameraViewModel.LeftImageLeftCrop):
                 case nameof(CameraViewModel.LeftImageRightCrop):
                 case nameof(CameraViewModel.RightImageLeftCrop):
                 case nameof(CameraViewModel.RightImageRightCrop):
                 case nameof(CameraViewModel.TopCrop):
                 case nameof(CameraViewModel.BottomCrop):
+                case nameof(CameraViewModel.BorderThicknessOscillating):
                     _canvasView.InvalidateSurface();
                     break;
 	        }
@@ -74,10 +72,10 @@ namespace CrossCam.Page
 	    {
 	        var canvas = e.Surface.Canvas;
 
-	        canvas.Clear();
+	        canvas.Clear(SKColors.Black);
             
 	        DrawTool.DrawImagesOnCanvas(
-	            e.Info, canvas, _viewModel.LeftBitmap, _viewModel.RightBitmap, _viewModel.BorderThickness,
+	            canvas, _viewModel.LeftBitmap, _viewModel.RightBitmap, _viewModel.BorderThicknessOscillating,
 	            _viewModel.LeftImageLeftCrop, _viewModel.LeftImageRightCrop, _viewModel.RightImageLeftCrop, _viewModel.RightImageRightCrop, 
 	            _viewModel.TopCrop, _viewModel.BottomCrop);
         }

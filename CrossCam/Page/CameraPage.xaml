@@ -49,6 +49,11 @@
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
+            <forms:SKCanvasView x:Name="_canvasView"
+                           Grid.Column="0"
+                           Grid.Row="0"
+                           Grid.ColumnSpan="2"
+                           PaintSurface="OnPaintSurface"/>
             <StackLayout Grid.Column="{Binding HelpTextColumn}"
                          Grid.Row="0"
                          IsVisible="{Binding IsSaving, Converter={vc:BooleanInvertConverter}}"
@@ -58,11 +63,6 @@
                 <Label Text="{Binding HelpText}"
                        IsVisible="{Binding ShouldHelpTextBeVisible}"/>
             </StackLayout>
-            <forms:SKCanvasView x:Name="_canvasView"
-                           Grid.Column="0"
-                           Grid.Row="0"
-                           Grid.ColumnSpan="2"
-                           PaintSurface="OnPaintSurface"/>
             <ce:CameraModule Grid.Column="{Binding CameraColumn}"
                              Grid.Row="0"
                              SwitchToContinuousFocusTrigger="{Binding SwitchToContinuousFocusTrigger}"

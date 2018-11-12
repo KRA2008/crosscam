@@ -3,6 +3,7 @@ using System.IO;
 using System.Threading.Tasks;
 using System.Web;
 using CrossCam.Model;
+using CrossCam.Page;
 using CrossCam.Wrappers;
 using FreshMvvm;
 using SkiaSharp;
@@ -56,7 +57,7 @@ namespace CrossCam.ViewModel
 
         public Settings Settings { get; set; }
 
-        private const float CROP_SPEED = 0.0065f;
+        private const int CROP_SPEED = 10;
         public Command IncreaseLLCrop => new Command(() => { LeftImageLeftCrop += CROP_SPEED; });
         public Command DecreaseLLCrop => new Command(() => { LeftImageLeftCrop -= LeftImageLeftCrop > 0 ? CROP_SPEED : 0; });
         public Command IncreaseLRCrop => new Command(() => { LeftImageRightCrop += CROP_SPEED; });
@@ -70,13 +71,14 @@ namespace CrossCam.ViewModel
         public Command IncreaseBottomCrop => new Command(() => { BottomCrop += CROP_SPEED; });
         public Command DecreaseBottomCrop => new Command(() => { BottomCrop -= BottomCrop > 0 ? CROP_SPEED : 0; });
 
-        public float LeftImageLeftCrop { get; set; }
-        public float LeftImageRightCrop { get; set; }
-        public float RightImageLeftCrop { get; set; }
-        public float RightImageRightCrop { get; set; }
-        public float TopCrop { get; set; }
-        public float BottomCrop { get; set; }
-        public float BorderThickness => IsCaptureComplete ? 0.01f : 0f;
+        public int LeftImageLeftCrop { get; set; }
+        public int LeftImageRightCrop { get; set; }
+        public int RightImageLeftCrop { get; set; }
+        public int RightImageRightCrop { get; set; }
+        public int TopCrop { get; set; }
+        public int BottomCrop { get; set; }
+        public int BorderThicknessOscillating => IsCaptureComplete ? BORDER_THICKNESS : 0;
+        private const int BORDER_THICKNESS = CROP_SPEED * 6;
 
         public bool IsViewPortrait { get; set; }
         public bool IsCaptureLeftFirst { get; set; }
@@ -382,28 +384,28 @@ namespace CrossCam.ViewModel
                         }
 
                         //cross view save
-                        var finalImageWidth = eachSideWidth * 2;
+
+                        var finalImageWidth = leftBitmap.Width + rightBitmap.Width - LeftImageLeftCrop -
+                                              LeftImageRightCrop - RightImageLeftCrop - RightImageRightCrop +
+                                              4 * BORDER_THICKNESS;
+                        var finalImageHeight = leftBitmap.Height - TopCrop - BottomCrop + 2 * BORDER_THICKNESS;
 
                         using (var tempSurface =
-                            SKSurface.Create(new SKImageInfo((int)finalImageWidth, leftBitmap.Height)))
+                            SKSurface.Create(new SKImageInfo(finalImageWidth, finalImageHeight)))
                         {
                             var canvas = tempSurface.Canvas;
 
-                            canvas.Clear(SKColors.Transparent);
+                            canvas.Clear(SKColors.Black);
 
                             if (_needs180Flip)
                             {
                                 canvas.RotateDegrees(180);
-                                canvas.Translate((float)(-1 * finalImageWidth), -1 * leftBitmap.Height);
+                                canvas.Translate(-1f * finalImageWidth, -1f * finalImageHeight);
                             }
 
-                            canvas.DrawBitmap(leftBitmap,
-                                SKRect.Create(floatedTrim, 0, floatedWidth, leftBitmap.Height),
-                                SKRect.Create(0, 0, floatedWidth, leftBitmap.Height));
-                            canvas.DrawBitmap(rightBitmap,
-                                SKRect.Create(floatedTrim, 0, floatedWidth, leftBitmap.Height),
-                                SKRect.Create(floatedWidth, 0, floatedWidth, leftBitmap.Height));
-
+                            DrawTool.DrawImagesOnCanvas(canvas, leftBitmap, rightBitmap, BORDER_THICKNESS, 
+                                LeftImageLeftCrop, LeftImageRightCrop, RightImageLeftCrop, RightImageRightCrop,
+                                TopCrop, BottomCrop);
 
                             finalImage = tempSurface.Snapshot();
                         }
@@ -431,29 +433,19 @@ namespace CrossCam.ViewModel
                         {
                             //TODO: consider extracting this to method but not sure if really cleaner
                             using (var tempSurface =
-                                SKSurface.Create(new SKImageInfo((int)finalImageWidth, leftBitmap.Height)))
+                                SKSurface.Create(new SKImageInfo((int)finalImageWidth, (int)finalImageHeight)))
                             {
                                 var canvas = tempSurface.Canvas;
 
-                                canvas.Clear(SKColors.Transparent);
+                                canvas.Clear(SKColors.Black);
 
-                                if (_needs180Flip)
-                                {
-                                    canvas.RotateDegrees(180);
-                                    canvas.Translate((float)(-1 * finalImageWidth), -1 * leftBitmap.Height);
-                                }
-
-                                canvas.DrawBitmap(rightBitmap,
-                                    SKRect.Create(floatedTrim, 0, floatedWidth, leftBitmap.Height),
-                                    SKRect.Create(0, 0, floatedWidth, leftBitmap.Height));
-                                canvas.DrawBitmap(leftBitmap,
-                                    SKRect.Create(floatedTrim, 0, floatedWidth, leftBitmap.Height),
-                                    SKRect.Create(floatedWidth, 0, floatedWidth, leftBitmap.Height));
-
+                                DrawTool.DrawImagesOnCanvas(canvas, rightBitmap, leftBitmap, BorderThicknessOscillating,
+                                    LeftImageLeftCrop, LeftImageRightCrop, RightImageLeftCrop, RightImageRightCrop,
+                                    TopCrop, BottomCrop);
 
                                 finalImage = tempSurface.Snapshot();
                             }
-
+                            
                             leftBitmap.Dispose();
                             rightBitmap.Dispose();
 
