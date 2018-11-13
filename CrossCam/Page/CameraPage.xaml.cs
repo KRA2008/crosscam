@@ -62,7 +62,7 @@ namespace CrossCam.Page
                 case nameof(CameraViewModel.RightImageRightCrop):
                 case nameof(CameraViewModel.TopCrop):
                 case nameof(CameraViewModel.BottomCrop):
-                case nameof(CameraViewModel.BorderThickness):
+                case nameof(CameraViewModel.Settings):
                     _canvasView.InvalidateSurface();
                     break;
 	        }
@@ -76,7 +76,7 @@ namespace CrossCam.Page
             
 	        DrawTool.DrawImagesOnCanvas(
 	            canvas, _viewModel.LeftBitmap, _viewModel.RightBitmap, 
-	            _viewModel.LeftBitmap != null && _viewModel.RightBitmap != null ? _viewModel.BorderThickness : 0,
+	            _viewModel.LeftBitmap != null && _viewModel.RightBitmap != null && _viewModel.Settings.AddBorder ? _viewModel.Settings.BorderThickness : 0,
 	            _viewModel.LeftImageLeftCrop, _viewModel.LeftImageRightCrop, _viewModel.RightImageLeftCrop, _viewModel.RightImageRightCrop, 
 	            _viewModel.TopCrop, _viewModel.BottomCrop);
         }

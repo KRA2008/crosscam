@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel;
+using System.Linq;
 using CrossCam.Model;
 using CrossCam.Wrappers;
 using FreshMvvm;
@@ -11,6 +13,9 @@ namespace CrossCam.ViewModel
     {
         public Settings Settings { get; set; }
         public Command ResetToDefaults { get; set; }
+
+        // ReSharper disable once MemberCanBeMadeStatic.Global
+        public List<int> PositiveIntegers => Enumerable.Range(0, 1000).ToList();
 
         public SettingsViewModel()
         {
@@ -30,25 +35,12 @@ namespace CrossCam.ViewModel
         protected override void ViewIsDisappearing(object sender, EventArgs e)
         {
             base.ViewIsDisappearing(sender, e);
+            SaveSettings(null, null);
             Settings.PropertyChanged -= SaveSettings;
         }
 
         private void SaveSettings(object sender, PropertyChangedEventArgs e)
         {
-            if (!Settings.AreGuideLinesVisible)
-            {
-                Settings.ShowGuideLinesWithFirstCapture = false;
-            }
-            if (!Settings.IsGuideDonutVisible)
-            {
-                Settings.ShowGuideDonutWithFirstCapture = false;
-                Settings.IsGuideDonutBothDonuts = false;
-            }
-            if (Settings.SaveSidesSeparately)
-            {
-                Settings.SaveRedundantFirstSide = false;
-            }
-
             PersistentStorage.Save(PersistentStorage.SETTINGS_KEY, Settings);
         }
     }

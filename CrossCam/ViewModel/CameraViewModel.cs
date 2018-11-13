@@ -21,8 +21,6 @@ namespace CrossCam.ViewModel
         public Command RetakeRightCommand { get; set; }
         public bool RightCaptureSuccess { get; set; }
 
-        private bool _needs180Flip { get; set; }
-
         public bool IsCameraVisible { get; set; }
         public byte[] CapturedImageBytes { get; set; }
         public bool CaptureSuccess { get; set; }
@@ -56,20 +54,75 @@ namespace CrossCam.ViewModel
         public string ErrorMessage { get; set; }
 
         public Settings Settings { get; set; }
-
-        public int CropSpeed { get; set; }
-        public Command IncreaseLLCrop => new Command(() => { LeftImageLeftCrop += CropSpeed; });
-        public Command DecreaseLLCrop => new Command(() => { LeftImageLeftCrop -= LeftImageLeftCrop > 0 ? CropSpeed : 0; });
-        public Command IncreaseLRCrop => new Command(() => { LeftImageRightCrop += CropSpeed; });
-        public Command DecreaseLRCrop => new Command(() => { LeftImageRightCrop -= LeftImageRightCrop > 0 ? CropSpeed : 0; });
-        public Command IncreaseRLCrop => new Command(() => { RightImageLeftCrop += CropSpeed; });
-        public Command DecreaseRLCrop => new Command(() => { RightImageLeftCrop -= RightImageLeftCrop > 0 ? CropSpeed : 0; });
-        public Command IncreaseRRCrop => new Command(() => { RightImageRightCrop += CropSpeed; });
-        public Command DecreaseRRCrop => new Command(() => { RightImageRightCrop -= RightImageRightCrop > 0 ? CropSpeed : 0; });
-        public Command IncreaseTopCrop => new Command(() => { TopCrop += CropSpeed; });
-        public Command DecreaseTopCrop => new Command(() => { TopCrop -= TopCrop > 0 ? CropSpeed : 0; });
-        public Command IncreaseBottomCrop => new Command(() => { BottomCrop += CropSpeed; });
-        public Command DecreaseBottomCrop => new Command(() => { BottomCrop -= BottomCrop > 0 ? CropSpeed : 0; });
+        
+        public Command IncreaseLLCrop => new Command(() =>
+        {
+            LeftImageLeftCrop += Settings.CropSpeed;
+            if (Settings.LockSideCroppingTogether)
+            {
+                RightImageRightCrop = LeftImageLeftCrop;
+            }
+        });
+        public Command DecreaseLLCrop => new Command(() =>
+        {
+            LeftImageLeftCrop -= LeftImageLeftCrop > 0 ? Settings.CropSpeed : 0;
+            if (Settings.LockSideCroppingTogether)
+            {
+                RightImageRightCrop = LeftImageLeftCrop;
+            }
+        });
+        public Command IncreaseLRCrop => new Command(() =>
+        {
+            LeftImageRightCrop += Settings.CropSpeed;
+            if (Settings.LockSideCroppingTogether)
+            {
+                RightImageLeftCrop = LeftImageRightCrop;
+            }
+        });
+        public Command DecreaseLRCrop => new Command(() =>
+        {
+            LeftImageRightCrop -= LeftImageRightCrop > 0 ? Settings.CropSpeed : 0;
+            if (Settings.LockSideCroppingTogether)
+            {
+                RightImageLeftCrop = LeftImageRightCrop;
+            }
+        });
+        public Command IncreaseRLCrop => new Command(() =>
+        {
+            RightImageLeftCrop += Settings.CropSpeed;
+            if (Settings.LockSideCroppingTogether)
+            {
+                LeftImageRightCrop = RightImageLeftCrop;
+            }
+        });
+        public Command DecreaseRLCrop => new Command(() =>
+        {
+            RightImageLeftCrop -= RightImageLeftCrop > 0 ? Settings.CropSpeed : 0;
+            if (Settings.LockSideCroppingTogether)
+            {
+                LeftImageRightCrop = RightImageLeftCrop;
+            }
+        });
+        public Command IncreaseRRCrop => new Command(() =>
+        {
+            RightImageRightCrop += Settings.CropSpeed;
+            if (Settings.LockSideCroppingTogether)
+            {
+                LeftImageLeftCrop = RightImageRightCrop;
+            }
+        });
+        public Command DecreaseRRCrop => new Command(() =>
+        {
+            RightImageRightCrop -= RightImageRightCrop > 0 ? Settings.CropSpeed : 0;
+            if (Settings.LockSideCroppingTogether)
+            {
+                LeftImageLeftCrop = RightImageRightCrop;
+            }
+        });
+        public Command IncreaseTopCrop => new Command(() => { TopCrop += Settings.CropSpeed; });
+        public Command DecreaseTopCrop => new Command(() => { TopCrop -= TopCrop > 0 ? Settings.CropSpeed : 0; });
+        public Command IncreaseBottomCrop => new Command(() => { BottomCrop += Settings.CropSpeed; });
+        public Command DecreaseBottomCrop => new Command(() => { BottomCrop -= BottomCrop > 0 ? Settings.CropSpeed : 0; });
 
         public int LeftImageLeftCrop { get; set; }
         public int LeftImageRightCrop { get; set; }
@@ -77,7 +130,6 @@ namespace CrossCam.ViewModel
         public int RightImageRightCrop { get; set; }
         public int TopCrop { get; set; }
         public int BottomCrop { get; set; }
-        public int BorderThickness { get; set; }
 
         public bool IsViewPortrait { get; set; }
         public bool IsCaptureLeftFirst { get; set; }
@@ -116,6 +168,8 @@ namespace CrossCam.ViewModel
             ? ImageSource.FromFile("squareOuter")
             : ImageSource.FromFile("squareInner");
 
+        private bool _needs180Flip;
+
         public CameraViewModel()
         {
             var photoSaver = DependencyService.Get<IPhotoSaver>();
@@ -125,9 +179,6 @@ namespace CrossCam.ViewModel
 
             IsCaptureLeftFirst = Settings.IsCaptureLeftFirst;
             CameraColumn = IsCaptureLeftFirst ? 0 : 1;
-
-            CropSpeed = 10;
-            BorderThickness = 60;
 
             PropertyChanged += (sender, args) =>
             {
@@ -361,8 +412,9 @@ namespace CrossCam.ViewModel
 
                     var finalImageWidth = leftBitmap.Width + rightBitmap.Width - LeftImageLeftCrop -
                                           LeftImageRightCrop - RightImageLeftCrop - RightImageRightCrop +
-                                          4 * BorderThickness;
-                    var finalImageHeight = leftBitmap.Height - TopCrop - BottomCrop + 2 * BorderThickness;
+                                          4 * (Settings.AddBorder ? Settings.BorderThickness : 0);
+                    var finalImageHeight = leftBitmap.Height - TopCrop - BottomCrop +
+                                           2 * (Settings.AddBorder ? Settings.BorderThickness : 0);
 
                     if (Settings.SaveForCrossView)
                     {
@@ -376,7 +428,7 @@ namespace CrossCam.ViewModel
                                 canvas.RotateDegrees(180);
                                 canvas.Translate(-1f * finalImageWidth, -1f * finalImageHeight);
                             }
-                            DrawTool.DrawImagesOnCanvas(canvas, leftBitmap, rightBitmap, BorderThickness,
+                            DrawTool.DrawImagesOnCanvas(canvas, leftBitmap, rightBitmap, Settings.AddBorder ? Settings.BorderThickness : 0,
                                 LeftImageLeftCrop, LeftImageRightCrop, RightImageLeftCrop, RightImageRightCrop,
                                 TopCrop, BottomCrop);
 
@@ -403,7 +455,7 @@ namespace CrossCam.ViewModel
                                 canvas.RotateDegrees(180);
                                 canvas.Translate(-1f * finalImageWidth, -1f * finalImageHeight);
                             }
-                            DrawTool.DrawImagesOnCanvas(canvas, rightBitmap, leftBitmap, BorderThickness,
+                            DrawTool.DrawImagesOnCanvas(canvas, rightBitmap, leftBitmap, Settings.AddBorder ? Settings.BorderThickness : 0,
                                 LeftImageLeftCrop, LeftImageRightCrop, RightImageLeftCrop, RightImageRightCrop,
                                 TopCrop, BottomCrop);
 
@@ -526,6 +578,7 @@ namespace CrossCam.ViewModel
             RaisePropertyChanged(nameof(ShouldLineGuidesBeVisible)); //TODO: figure out how to have Fody do this
             RaisePropertyChanged(nameof(ShouldDonutGuideBeVisible));
             RaisePropertyChanged(nameof(RightReticleImage));
+            RaisePropertyChanged(nameof(Settings));
         }
 
         private void ClearCrops()

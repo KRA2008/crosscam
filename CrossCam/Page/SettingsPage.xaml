@@ -6,6 +6,7 @@
                             xmlns:fresh="clr-namespace:FreshMvvm;assembly=FreshMvvm"
                             xmlns:vm="clr-namespace:CrossCam.ViewModel;assembly=CrossCam"
                             xmlns:vc="clr-namespace:CrossCam.ValueConverter;assembly=CrossCam"
+                            xmlns:ce="clr-namespace:CrossCam.CustomElement;assembly=CrossCam"
                             mc:Ignorable="d"
 
                             d:DataContext="{d:DesignInstance Type=vm:SettingsViewModel, IsDesignTimeCreatable=False}"
@@ -38,10 +39,57 @@
                 <Setter Property="Margin"
                         Value="10"/>
             </Style>
+            <Style TargetType="Picker">
+                <Setter Property="Margin"
+                        Value="10"/>
+            </Style>
         </ResourceDictionary>
     </ContentPage.Resources>
     <ScrollView VerticalOptions="StartAndExpand">
         <StackLayout>
+            <BoxView/>
+            <Label Text="Editing"
+                   Style="{DynamicResource header}"/>
+            <StackLayout Orientation="Horizontal">
+                <Label Text="Add border"/>
+                <Switch IsToggled="{Binding Settings.AddBorder}"/>
+            </StackLayout>
+            <StackLayout Orientation="Horizontal">
+                <Label Text="Border thickness"/>
+                <Picker ItemsSource="{Binding PositiveIntegers}"
+                        SelectedIndex="{Binding Settings.BorderThickness}"
+                        HorizontalOptions="EndAndExpand"/>
+            </StackLayout>
+            <StackLayout Orientation="Horizontal">
+                <Label Text="Cropping speed"/>
+                <Picker ItemsSource="{Binding PositiveIntegers}"
+                        SelectedIndex="{Binding Settings.CropSpeed}"
+                        HorizontalOptions="EndAndExpand"/>
+            </StackLayout>
+            <StackLayout Orientation="Horizontal">
+                <Label Text="Lock together cropping of sides (easier to maintain stereo window)"/>
+                <Switch IsToggled="{Binding Settings.LockSideCroppingTogether}"/>
+            </StackLayout>
+            <BoxView/>
+            <Label Text="Saving"
+                   Style="{DynamicResource header}"/>
+            <StackLayout Orientation="Horizontal">
+                <Label Text="Save joined cross view version (with cropping and border)"/>
+                <Switch IsToggled="{Binding Settings.SaveForCrossView}"/>
+            </StackLayout>
+            <StackLayout Orientation="Horizontal">
+                <Label Text="Save joined parallel view/VR version (with cropping and border)"/>
+                <Switch IsToggled="{Binding Settings.SaveForParallel}"/>
+            </StackLayout>
+            <StackLayout Orientation="Horizontal">
+                <Label Text="Save each side separately (with no cropping or border) (for easier post processing)"/>
+                <Switch IsToggled="{Binding Settings.SaveSidesSeparately}"/>
+            </StackLayout>
+            <StackLayout Orientation="Horizontal">
+                <Label Text="Save first side alone (with no cropping or border) (for sharing basic photo with flat view people)"/>
+                <Switch IsToggled="{Binding Settings.SaveRedundantFirstSide}"
+                        IsEnabled="{Binding Settings.SaveSidesSeparately, Converter={vc:BooleanInvertConverter}}"/>
+            </StackLayout>
             <BoxView/>
             <Label Text="Guides"
                    Style="{DynamicResource header}"/>
@@ -67,26 +115,6 @@
                 <Label Text="Both sides donut (probably not helpful, but interesting)"/>
                 <Switch IsEnabled="{Binding Settings.IsGuideDonutVisible}"
                         IsToggled="{Binding Settings.IsGuideDonutBothDonuts}"/>
-            </StackLayout>
-            <BoxView/>
-            <Label Text="Saving"
-                   Style="{DynamicResource header}"/>
-            <StackLayout Orientation="Horizontal">
-                <Label Text="Save joined cross view version with cropping and border"/>
-                <Switch IsToggled="{Binding Settings.SaveForCrossView}"/>
-            </StackLayout>
-            <StackLayout Orientation="Horizontal">
-                <Label Text="Save joined parallel view/VR version with cropping and border"/>
-                <Switch IsToggled="{Binding Settings.SaveForParallel}"/>
-            </StackLayout>
-            <StackLayout Orientation="Horizontal">
-                <Label Text="Save each side separately with no cropping or border (for easier post processing)"/>
-                <Switch IsToggled="{Binding Settings.SaveSidesSeparately}"/>
-            </StackLayout>
-            <StackLayout Orientation="Horizontal">
-                <Label Text="Save first side alone with no cropping or border (for sharing basic photo with flat view people)"/>
-                <Switch IsToggled="{Binding Settings.SaveRedundantFirstSide}"
-                        IsEnabled="{Binding Settings.SaveSidesSeparately, Converter={vc:BooleanInvertConverter}}"/>
             </StackLayout>
             <BoxView/>
             <Label Text="Camera"
