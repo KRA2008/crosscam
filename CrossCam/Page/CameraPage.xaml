@@ -101,8 +101,7 @@
                 <TapGestureRecognizer Command="{Binding NavigateToHelpCommand}"/>
             </ContentView.GestureRecognizers>
             <Image Source="help"
-                   InputTransparent="True"
-                   Opacity="0.5"/>
+                   InputTransparent="True"/>
         </ContentView>
         <ContentView AbsoluteLayout.LayoutFlags="PositionProportional"
                      AbsoluteLayout.LayoutBounds="0.8,0,75,75"
@@ -112,8 +111,7 @@
                 <TapGestureRecognizer Command="{Binding NavigateToSettingsCommand}"/>
             </ContentView.GestureRecognizers>
             <Image Source="gear"
-                   InputTransparent="True"
-                   Opacity="0.5"/>
+                   InputTransparent="True"/>
         </ContentView>
         <ContentView AbsoluteLayout.LayoutFlags="All"
                      AbsoluteLayout.LayoutBounds="0.15, 1, 0.125, 0.125"
@@ -123,8 +121,7 @@
                 <TapGestureRecognizer Command="{Binding RetakeLeftCommand}"/>
             </ContentView.GestureRecognizers>
             <Image Source="cancel"
-                   InputTransparent="True"
-                   Opacity="0.5"/>
+                   InputTransparent="True"/>
         </ContentView>
         <ContentView AbsoluteLayout.LayoutFlags="All"
                      AbsoluteLayout.LayoutBounds="0.85, 1, 0.125, 0.125"
@@ -134,8 +131,7 @@
                 <TapGestureRecognizer Command="{Binding RetakeRightCommand}"/>
             </ContentView.GestureRecognizers>
             <Image Source="cancel"
-                   InputTransparent="True"
-                   Opacity="0.5"/>
+                   InputTransparent="True"/>
         </ContentView>
         <BoxView x:Name="_upperLine" 
                  AbsoluteLayout.LayoutFlags="All"
@@ -208,8 +204,7 @@
             <ContentView.GestureRecognizers>
                 <TapGestureRecognizer Command="{Binding SaveCapturesCommand}"/>
             </ContentView.GestureRecognizers>
-            <Image Source="checkmark"
-                   Opacity="0.75"/>
+            <Image Source="checkmark"/>
         </ContentView>
         <ContentView AbsoluteLayout.LayoutFlags="PositionProportional"
                      AbsoluteLayout.LayoutBounds="{DynamicResource _captureRectangle}"
@@ -218,8 +213,7 @@
             <ContentView.GestureRecognizers>
                 <TapGestureRecognizer Command="{Binding CapturePictureCommand}"/>
             </ContentView.GestureRecognizers>
-            <Image Source="aperture"
-                   Opacity="0.75"/>
+            <Image Source="aperture"/>
         </ContentView>
         <ContentView AbsoluteLayout.LayoutFlags="PositionProportional"
                      AbsoluteLayout.LayoutBounds="{DynamicResource _viewRectangle}"
@@ -228,8 +222,7 @@
             <ContentView.GestureRecognizers>
                 <TapGestureRecognizer Command="{Binding ToggleViewModeCommand}"/>
             </ContentView.GestureRecognizers>
-            <Image Source="eye"
-                   Opacity="0.75"/>
+            <Image Source="eye"/>
         </ContentView>
         <ContentView AbsoluteLayout.LayoutFlags="PositionProportional"
                      AbsoluteLayout.LayoutBounds="{DynamicResource _cropRectangle}"
@@ -238,8 +231,7 @@
             <ContentView.GestureRecognizers>
                 <TapGestureRecognizer Command="{Binding EnterCropModeCommand}"/>
             </ContentView.GestureRecognizers>
-            <Image Source="scissor"
-                   Opacity="0.75"/>
+            <Image Source="scissor"/>
         </ContentView>
         <ContentView AbsoluteLayout.LayoutFlags="PositionProportional"
                      AbsoluteLayout.LayoutBounds="{DynamicResource _clearRectangle}"
@@ -248,8 +240,7 @@
             <ContentView.GestureRecognizers>
                 <TapGestureRecognizer Command="{Binding SwapSidesCommand}"/>
             </ContentView.GestureRecognizers>
-            <Image Source="swap"
-                   Opacity="0.5"/>
+            <Image Source="swap"/>
         </ContentView>
         <ContentView AbsoluteLayout.LayoutFlags="PositionProportional"
                      AbsoluteLayout.LayoutBounds="{DynamicResource _clearRectangle}"
@@ -259,8 +250,7 @@
                 <TapGestureRecognizer Command="{Binding ClearCapturesCommand}"/>
             </ContentView.GestureRecognizers>
             <Image Source="clear"
-                   InputTransparent="True"
-                   Opacity="0.75"/>
+                   InputTransparent="True"/>
         </ContentView>
 
         <ContentView AbsoluteLayout.LayoutFlags="PositionProportional"
@@ -271,8 +261,7 @@
                 <TapGestureRecognizer Command="{Binding ClearCropsCommand}"/>
             </ContentView.GestureRecognizers>
             <Image Source="x"
-                   InputTransparent="True"
-                   Opacity="0.75"/>
+                   InputTransparent="True"/>
         </ContentView>
         <ContentView AbsoluteLayout.LayoutFlags="PositionProportional"
                      AbsoluteLayout.LayoutBounds="0.5,1,100,100"
@@ -281,24 +270,20 @@
             <ContentView.GestureRecognizers>
                 <TapGestureRecognizer Command="{Binding LeaveCropModeCommand}"/>
             </ContentView.GestureRecognizers>
-            <Image Source="check"
-                   Opacity="0.75"/>
+            <Image Source="check"/>
         </ContentView>
 
         <StackLayout AbsoluteLayout.LayoutFlags="PositionProportional"
                      AbsoluteLayout.LayoutBounds="0.15, 0.5, 50, 150"
                      IsVisible="{Binding ShouldCropButtonsBeVisible}"
                      Spacing="0">
-            <Image Source="chevronLeft"
-                   Opacity="0.75">
+            <Image Source="chevronLeft">
                 <Image.GestureRecognizers>
                     <TapGestureRecognizer Command="{Binding DecreaseLLCrop}"/>
                 </Image.GestureRecognizers>
             </Image>
-            <Image Source="leftScissor"
-                   Opacity="0.75"/>
-            <Image Source="chevronRight"
-                   Opacity="0.75">
+            <Image Source="leftScissor"/>
+            <Image Source="chevronRight">
                 <Image.GestureRecognizers>
                     <TapGestureRecognizer Command="{Binding IncreaseLLCrop}"/>
                 </Image.GestureRecognizers>
@@ -308,16 +293,13 @@
                      AbsoluteLayout.LayoutBounds="0.3, 0.5, 50, 150"
                      IsVisible="{Binding ShouldCropButtonsBeVisible}"
                      Spacing="0">
-            <Image Source="chevronRight"
-                   Opacity="0.75">
+            <Image Source="chevronRight">
                 <Image.GestureRecognizers>
                     <TapGestureRecognizer Command="{Binding DecreaseLRCrop}"/>
                 </Image.GestureRecognizers>
             </Image>
-            <Image Source="rightScissor"
-                   Opacity="0.75"/>
-            <Image Source="chevronLeft"
-                   Opacity="0.75">
+            <Image Source="rightScissor"/>
+            <Image Source="chevronLeft">
                 <Image.GestureRecognizers>
                     <TapGestureRecognizer Command="{Binding IncreaseLRCrop}"/>
                 </Image.GestureRecognizers>
@@ -327,16 +309,13 @@
                      AbsoluteLayout.LayoutBounds="0.7, 0.5, 50, 150"
                      Spacing="0"
                      IsVisible="{Binding ShouldCropButtonsBeVisible}">
-            <Image Source="chevronLeft"
-                   Opacity="0.75">
+            <Image Source="chevronLeft">
                 <Image.GestureRecognizers>
                     <TapGestureRecognizer Command="{Binding DecreaseRLCrop}"/>
                 </Image.GestureRecognizers>
             </Image>
-            <Image Source="leftScissor"
-                   Opacity="0.75"/>
-            <Image Source="chevronRight"
-                   Opacity="0.75">
+            <Image Source="leftScissor"/>
+            <Image Source="chevronRight">
                 <Image.GestureRecognizers>
                     <TapGestureRecognizer Command="{Binding IncreaseRLCrop}"/>
                 </Image.GestureRecognizers>
@@ -346,16 +325,13 @@
                      AbsoluteLayout.LayoutBounds="0.85, 0.5, 50, 150"
                      IsVisible="{Binding ShouldCropButtonsBeVisible}"
                      Spacing="0">
-            <Image Source="chevronRight"
-                   Opacity="0.75">
+            <Image Source="chevronRight">
                 <Image.GestureRecognizers>
                     <TapGestureRecognizer Command="{Binding DecreaseRRCrop}"/>
                 </Image.GestureRecognizers>
             </Image>
-            <Image Source="rightScissor"
-                   Opacity="0.75"/>
-            <Image Source="chevronLeft"
-                   Opacity="0.75">
+            <Image Source="rightScissor"/>
+            <Image Source="chevronLeft">
                 <Image.GestureRecognizers>
                     <TapGestureRecognizer Command="{Binding IncreaseRRCrop}"/>
                 </Image.GestureRecognizers>
@@ -367,16 +343,13 @@
                      Spacing="0"
                      Orientation="Horizontal"
                      IsVisible="{Binding ShouldCropButtonsBeVisible}">
-            <Image Source="chevronUp"
-                   Opacity="0.75">
+            <Image Source="chevronUp">
                 <Image.GestureRecognizers>
                     <TapGestureRecognizer Command="{Binding DecreaseTopCrop}"/>
                 </Image.GestureRecognizers>
             </Image>
-            <Image Source="topScissor"
-                   Opacity="0.75"/>
-            <Image Source="chevronDown"
-                   Opacity="0.75">
+            <Image Source="topScissor"/>
+            <Image Source="chevronDown">
                 <Image.GestureRecognizers>
                     <TapGestureRecognizer Command="{Binding IncreaseTopCrop}"/>
                 </Image.GestureRecognizers>
@@ -387,16 +360,13 @@
                      Spacing="0"
                      Orientation="Horizontal"
                      IsVisible="{Binding ShouldCropButtonsBeVisible}">
-            <Image Source="chevronDown"
-                   Opacity="0.75">
+            <Image Source="chevronDown">
                 <Image.GestureRecognizers>
                     <TapGestureRecognizer Command="{Binding DecreaseBottomCrop}"/>
                 </Image.GestureRecognizers>
             </Image>
-            <Image Source="bottomScissor"
-                   Opacity="0.75"/>
-            <Image Source="chevronUp"
-                   Opacity="0.75">
+            <Image Source="bottomScissor"/>
+            <Image Source="chevronUp">
                 <Image.GestureRecognizers>
                     <TapGestureRecognizer Command="{Binding IncreaseBottomCrop}"/>
                 </Image.GestureRecognizers>
@@ -410,8 +380,7 @@
             <ContentView.GestureRecognizers>
                 <TapGestureRecognizer Command="{Binding ToggleViewModeCommand}"/>
             </ContentView.GestureRecognizers>
-            <Image Source="eye"
-                   Opacity="0.75"/>
+            <Image Source="eye"/>
         </ContentView>
 
         <Label Style="{DynamicResource _savingFeedback}"
