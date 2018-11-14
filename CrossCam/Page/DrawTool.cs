@@ -7,7 +7,7 @@ namespace CrossCam.Page
         public static void DrawImagesOnCanvas(
             SKCanvas canvas, SKBitmap leftBitmap, SKBitmap rightBitmap, int borderThickness,
             int leftLeftCrop, int leftRightCrop, int rightLeftCrop, int rightRightCrop,
-            int topCrop, int bottomCrop)
+            int topCrop, int bottomCrop, bool switchForParallel = false)
         {
             if (leftBitmap == null && rightBitmap == null) return;
 
@@ -53,6 +53,26 @@ namespace CrossCam.Page
 
             var previewY = canvasHeight / 2f - bitmapHeightLessCrop / scalingRatio / 2f;
             var previewHeight = bitmapHeightLessCrop / scalingRatio;
+
+            float leftPreviewX;
+            float rightPreviewX;
+            float leftPreviewWidth;
+            float rightPreviewWidth;
+            if (switchForParallel)
+            {
+                leftPreviewX = canvasWidth / 2f + borderThickness / scalingRatio;
+                rightPreviewX = canvasWidth / 2f - (rightBitmapWidthLessCrop + borderThickness) / scalingRatio;
+                leftPreviewWidth = rightBitmapWidthLessCrop / scalingRatio;
+                rightPreviewWidth = leftBitmapWidthLessCrop / scalingRatio;
+            }
+            else
+            {
+                leftPreviewX = canvasWidth / 2f - (leftBitmapWidthLessCrop + borderThickness) / scalingRatio;
+                rightPreviewX = canvasWidth / 2f + borderThickness / scalingRatio;
+                leftPreviewWidth = leftBitmapWidthLessCrop / scalingRatio;
+                rightPreviewWidth = rightBitmapWidthLessCrop / scalingRatio;
+            }
+
             if (leftBitmap != null)
             {
                 canvas.DrawBitmap(
@@ -63,9 +83,9 @@ namespace CrossCam.Page
                         leftBitmapWidthLessCrop,
                         bitmapHeightLessCrop),
                     SKRect.Create(
-                        canvasWidth / 2f - (leftBitmapWidthLessCrop + borderThickness) / scalingRatio,
+                        leftPreviewX,
                         previewY,
-                        leftBitmapWidthLessCrop / scalingRatio,
+                        leftPreviewWidth,
                         previewHeight));
             }
 
@@ -79,9 +99,9 @@ namespace CrossCam.Page
                         rightBitmapWidthLessCrop,
                         bitmapHeightLessCrop),
                     SKRect.Create(
-                        canvasWidth / 2f + borderThickness / scalingRatio,
+                        rightPreviewX,
                         previewY,
-                        rightBitmapWidthLessCrop / scalingRatio,
+                        rightPreviewWidth,
                         previewHeight));
             }
         }

@@ -363,11 +363,6 @@ namespace CrossCam.ViewModel
                             leftSkImage = tempSurface.Snapshot();
 
                             canvas.Clear();
-                            if (_needs180Flip)
-                            {
-                                canvas.RotateDegrees(180);
-                                canvas.Translate(-1f * leftBitmap.Width, -1f * leftBitmap.Height);
-                            }
                             canvas.DrawBitmap(rightBitmap, 0, 0);
                             rightSkImage = tempSurface.Snapshot();
                         }
@@ -458,9 +453,9 @@ namespace CrossCam.ViewModel
                                 canvas.RotateDegrees(180);
                                 canvas.Translate(-1f * finalImageWidth, -1f * finalImageHeight);
                             }
-                            DrawTool.DrawImagesOnCanvas(canvas, rightBitmap, leftBitmap, Settings.AddBorder ? Settings.BorderThickness : 0,
+                            DrawTool.DrawImagesOnCanvas(canvas, leftBitmap, rightBitmap, Settings.AddBorder ? Settings.BorderThickness : 0,
                                 LeftImageLeftCrop, LeftImageRightCrop, RightImageLeftCrop, RightImageRightCrop,
-                                TopCrop, BottomCrop);
+                                TopCrop, BottomCrop, true);
 
                             finalImage = tempSurface.Snapshot();
                         }
