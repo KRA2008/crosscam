@@ -58,12 +58,14 @@
                 <Label Text="Border thickness"/>
                 <Picker ItemsSource="{Binding PositiveIntegers}"
                         SelectedIndex="{Binding Settings.BorderThickness}"
+                        BackgroundColor="White"
                         HorizontalOptions="EndAndExpand"/>
             </StackLayout>
             <StackLayout Orientation="Horizontal">
                 <Label Text="Cropping speed"/>
                 <Picker ItemsSource="{Binding PositiveIntegers}"
                         SelectedIndex="{Binding Settings.CropSpeed}"
+                        BackgroundColor="White"
                         HorizontalOptions="EndAndExpand"/>
             </StackLayout>
             <StackLayout Orientation="Horizontal">
