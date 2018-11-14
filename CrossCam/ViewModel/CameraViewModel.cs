@@ -154,7 +154,8 @@ namespace CrossCam.ViewModel
         public bool ShouldDonutGuideBeVisible => (LeftBitmap == null ^ RightBitmap == null || Settings.ShowGuideDonutWithFirstCapture && !IsCaptureComplete) && Settings.IsGuideDonutVisible && !IsSaving && !IsViewMode && !InCropMode;
         public bool ShouldCropButtonsBeVisible => InCropMode && !IsViewMode;
 
-        public string HelpText => "1) Frame up your subject" +
+        public string HelpText => "(flip for " + OppositeOrientation + ")" +
+                                  "\n1) Frame up your subject" +
                                   "\n2) Take the first picture (but finish reading these directions first)" +
                                   "\n3) Move " + SlideDirection + "" +
                                   "\n4) Start cross viewing with the preview that will have taken the place of these instructions" +
@@ -162,6 +163,8 @@ namespace CrossCam.ViewModel
                                   "\n6) Take the second picture when the desired level of 3D is achieved";
         public string SlideDirection => IsCaptureLeftFirst ? "LEFT" : "RIGHT";
         public int HelpTextColumn => IsCaptureLeftFirst ? 1 : 0;
+        public string OppositeOrientation => IsViewPortrait ? "landscape" : "portrait";
+        public bool ShouldPortraitCaptureLandscapeViewModeWarningBeVisible => IsCaptureComplete && IsViewPortrait && WasCapturePortrait;
 
         public ImageSource LeftReticleImage => ImageSource.FromFile("squareOuter");
         public ImageSource RightReticleImage => Settings.IsGuideDonutBothDonuts

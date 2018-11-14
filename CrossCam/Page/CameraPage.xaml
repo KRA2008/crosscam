@@ -383,6 +383,14 @@
             <Image Source="eye"/>
         </ContentView>
 
+        <Label AbsoluteLayout.LayoutFlags="All"
+               AbsoluteLayout.LayoutBounds="0.5,0.15,0.75,0.1"
+               HorizontalTextAlignment="Center"
+               VerticalTextAlignment="Center"
+               InputTransparent="True"
+               Text="(flip to landscape for a better view)"
+               IsVisible="{Binding ShouldPortraitCaptureLandscapeViewModeWarningBeVisible}"/>
+
         <Label Style="{DynamicResource _savingFeedback}"
                Text="Saved to Photos!">
             <Label.Behaviors>
