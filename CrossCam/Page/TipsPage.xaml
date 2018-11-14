@@ -38,7 +38,7 @@
                 <BoxView/>
                 <Label Text="If you move in the opposite direction from what you're &quot;supposed&quot; to do you'll produce a parallel view/VR picture. You could also go to the settings page which has a setting to allow you to save a parallel view/VR version in addition to your cross view (sides switched)."/>
                 <BoxView/>
-                <Label Text="An interesting &quot;stereo window&quot; effect can be created by turning on the border and cropping the inside edges of the image until the outer edge itself becomes 3D in the picture. The key is to crop the right edge of the left picture slightly past what the right edge of the right picture shows of the scene and vice-versa. The setting for locking cropping together can help you do this and adding a border is also done in the settings."/>
+                <Label Text="An interesting &quot;stereo window&quot; effect can be created by turning on the border and cropping the inside edges of the image until the outer edge itself becomes 3D in the picture. The key is to crop the right edge of the left picture slightly past what the right edge of the right picture shows of the scene and vice-versa. The setting for locking cropping together can help you do this. Adding a border is also toggled in the settings."/>
                 <BoxView/>
                 <Label Text="If you find that it's impossible to make both the upper and lower guide lines line up at the same time, you probably moved in some direction other than just to the side."/>
                 <BoxView/>
