@@ -171,6 +171,15 @@ namespace CrossCam.ViewModel
             ? ImageSource.FromFile("squareOuter")
             : ImageSource.FromFile("squareInner");
 
+        public ImageSource SaveCropImage =>
+            LeftImageLeftCrop != 0 ||
+            LeftImageRightCrop != 0 ||
+            RightImageLeftCrop != 0 ||
+            RightImageRightCrop != 0 ||
+            TopCrop != 0 ||
+            BottomCrop != 0 ? 
+                ImageSource.FromFile("check") : ImageSource.FromFile("x");
+
         private bool _needs180Flip;
 
         public CameraViewModel()

@@ -343,6 +343,12 @@
   <ItemGroup>
     <BundleResource Include="Resources\refresh%402x.png" />
   </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\restore.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\restore%402x.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup />

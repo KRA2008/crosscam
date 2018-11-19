@@ -260,7 +260,7 @@
             <ContentView.GestureRecognizers>
                 <TapGestureRecognizer Command="{Binding ClearCropsCommand}"/>
             </ContentView.GestureRecognizers>
-            <Image Source="x"
+            <Image Source="restore"
                    InputTransparent="True"/>
         </ContentView>
         <ContentView AbsoluteLayout.LayoutFlags="PositionProportional"
@@ -270,7 +270,7 @@
             <ContentView.GestureRecognizers>
                 <TapGestureRecognizer Command="{Binding LeaveCropModeCommand}"/>
             </ContentView.GestureRecognizers>
-            <Image Source="check"/>
+            <Image Source="{Binding SaveCropImage}"/>
         </ContentView>
 
         <StackLayout AbsoluteLayout.LayoutFlags="PositionProportional"
