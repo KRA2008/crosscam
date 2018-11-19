@@ -14,6 +14,8 @@ namespace CrossCam.ViewModel
 
         public Command PrivacyPolicyCommand { get; set; }
 
+        public Command AboutTheDeveloperCommand { get; set; }
+
         public HelpViewModel()
         {
             NavigateToAppExplanationPage = new Command(async () =>
@@ -34,6 +36,11 @@ namespace CrossCam.ViewModel
             PrivacyPolicyCommand = new Command(() =>
             {
                 Device.OpenUri(new Uri("http://kra2008.com/crosscam/privacypolicy.html"));
+            });
+
+            AboutTheDeveloperCommand = new Command(() =>
+            {
+                Device.OpenUri(new Uri("http://kra2008.com/"));
             });
         }
     }

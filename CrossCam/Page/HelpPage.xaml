@@ -25,6 +25,9 @@
             <Button Text="Privacy Policy"
                     Command="{Binding PrivacyPolicyCommand}"/>
             <BoxView/>
+            <Button Text="About the Developer"
+                    Command="{Binding AboutTheDeveloperCommand}"/>
+            <BoxView/>
         </StackLayout>
     </ContentPage.Content>
 </fresh:FreshBaseContentPage>
