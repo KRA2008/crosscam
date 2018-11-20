@@ -273,105 +273,205 @@
             <Image Source="{Binding SaveCropImage}"/>
         </ContentView>
 
-        <StackLayout AbsoluteLayout.LayoutFlags="PositionProportional"
-                     AbsoluteLayout.LayoutBounds="0.15, 0.5, 50, 150"
-                     IsVisible="{Binding ShouldCropButtonsBeVisible}"
-                     Spacing="0">
-            <Image Source="chevronLeft">
+        <Grid AbsoluteLayout.LayoutFlags="PositionProportional"
+              AbsoluteLayout.LayoutBounds="0.15, 0.55, 50, 150"
+              IsVisible="{Binding ShouldLeftCropButtonsBeVisible}"
+              RowSpacing="0"
+              ColumnSpacing="0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <BoxView Grid.RowSpan="2" 
+                     Grid.Row="0"
+                     Grid.Column="0"
+                     Color="White"
+                     WidthRequest="3"/>
+            <Image Grid.Row="0" 
+                   Grid.Column="1"
+                   Source="leftTriangle">
                 <Image.GestureRecognizers>
                     <TapGestureRecognizer Command="{Binding DecreaseLLCrop}"/>
                 </Image.GestureRecognizers>
             </Image>
-            <Image Source="leftScissor"/>
-            <Image Source="chevronRight">
+            <Image Grid.Row="1" 
+                   Grid.Column="1" 
+                   Source="rightTriangle">
                 <Image.GestureRecognizers>
                     <TapGestureRecognizer Command="{Binding IncreaseLLCrop}"/>
                 </Image.GestureRecognizers>
             </Image>
-        </StackLayout>
-        <StackLayout AbsoluteLayout.LayoutFlags="PositionProportional"
-                     AbsoluteLayout.LayoutBounds="0.3, 0.5, 50, 150"
-                     IsVisible="{Binding ShouldCropButtonsBeVisible}"
-                     Spacing="0">
-            <Image Source="chevronRight">
+        </Grid>
+        <Grid AbsoluteLayout.LayoutFlags="PositionProportional"
+              AbsoluteLayout.LayoutBounds="0.3, 0.55, 50, 150"
+              IsVisible="{Binding ShouldLeftCropButtonsBeVisible}"
+              RowSpacing="0"
+              ColumnSpacing="0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <BoxView Grid.RowSpan="2" 
+                     Grid.Row="0"
+                     Grid.Column="1"
+                     Color="White"
+                     WidthRequest="3"/>
+            <Image Grid.Row="0" 
+                   Grid.Column="0"
+                   Source="rightTriangle">
                 <Image.GestureRecognizers>
                     <TapGestureRecognizer Command="{Binding DecreaseLRCrop}"/>
                 </Image.GestureRecognizers>
             </Image>
-            <Image Source="rightScissor"/>
-            <Image Source="chevronLeft">
+            <Image Grid.Row="1" 
+                   Grid.Column="0"
+                   Source="leftTriangle">
                 <Image.GestureRecognizers>
                     <TapGestureRecognizer Command="{Binding IncreaseLRCrop}"/>
                 </Image.GestureRecognizers>
             </Image>
-        </StackLayout>
-        <StackLayout AbsoluteLayout.LayoutFlags="PositionProportional"
-                     AbsoluteLayout.LayoutBounds="0.7, 0.5, 50, 150"
-                     Spacing="0"
-                     IsVisible="{Binding ShouldCropButtonsBeVisible}">
-            <Image Source="chevronLeft">
+        </Grid>
+        <Grid AbsoluteLayout.LayoutFlags="PositionProportional"
+              AbsoluteLayout.LayoutBounds="0.7, 0.55, 50, 150"
+              RowSpacing="0"
+              ColumnSpacing="0"
+              IsVisible="{Binding ShouldCropButtonsBeVisible}">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <BoxView Grid.RowSpan="2"
+                     Grid.Row="0"
+                     Grid.Column="0"
+                     Color="White"
+                     WidthRequest="3"/>
+            <Image Grid.Row="0" 
+                   Grid.Column="1"
+                   Source="leftTriangle">
                 <Image.GestureRecognizers>
                     <TapGestureRecognizer Command="{Binding DecreaseRLCrop}"/>
                 </Image.GestureRecognizers>
             </Image>
-            <Image Source="leftScissor"/>
-            <Image Source="chevronRight">
+            <Image Grid.Row="1" 
+                   Grid.Column="1"
+                   Source="rightTriangle">
                 <Image.GestureRecognizers>
                     <TapGestureRecognizer Command="{Binding IncreaseRLCrop}"/>
                 </Image.GestureRecognizers>
             </Image>
-        </StackLayout>
-        <StackLayout AbsoluteLayout.LayoutFlags="PositionProportional"
-                     AbsoluteLayout.LayoutBounds="0.85, 0.5, 50, 150"
-                     IsVisible="{Binding ShouldCropButtonsBeVisible}"
-                     Spacing="0">
-            <Image Source="chevronRight">
+        </Grid>
+        <Grid AbsoluteLayout.LayoutFlags="PositionProportional"
+              AbsoluteLayout.LayoutBounds="0.85, 0.55, 50, 150"
+              IsVisible="{Binding ShouldCropButtonsBeVisible}"
+              RowSpacing="0"
+              ColumnSpacing="0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <BoxView Grid.RowSpan="2"
+                     Grid.Row="0"
+                     Grid.Column="1"
+                     Color="White"
+                     WidthRequest="3"/>
+            <Image Grid.Row="0" 
+                   Grid.Column="0"
+                   Source="rightTriangle">
                 <Image.GestureRecognizers>
                     <TapGestureRecognizer Command="{Binding DecreaseRRCrop}"/>
                 </Image.GestureRecognizers>
             </Image>
-            <Image Source="rightScissor"/>
-            <Image Source="chevronLeft">
+            <Image Grid.Row="1" 
+                   Grid.Column="0"
+                   Source="leftTriangle">
                 <Image.GestureRecognizers>
                     <TapGestureRecognizer Command="{Binding IncreaseRRCrop}"/>
                 </Image.GestureRecognizers>
             </Image>
-        </StackLayout>
+        </Grid>
 
-        <StackLayout AbsoluteLayout.LayoutFlags="PositionProportional"
-                     AbsoluteLayout.LayoutBounds="1, 0.2, 150, 50"
-                     Spacing="0"
-                     Orientation="Horizontal"
-                     IsVisible="{Binding ShouldCropButtonsBeVisible}">
-            <Image Source="chevronUp">
+        <Grid AbsoluteLayout.LayoutFlags="PositionProportional"
+              AbsoluteLayout.LayoutBounds="1, 0.2, 150, 50"
+              RowSpacing="0"
+              ColumnSpacing="0"
+              IsVisible="{Binding ShouldCropButtonsBeVisible}">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <BoxView Grid.ColumnSpan="2"
+                     Grid.Row="0"
+                     Grid.Column="0"
+                     Color="White"
+                     HeightRequest="3"/>
+            <Image Grid.Row="1" 
+                   Grid.Column="0"
+                   Source="upTriangle">
                 <Image.GestureRecognizers>
                     <TapGestureRecognizer Command="{Binding DecreaseTopCrop}"/>
                 </Image.GestureRecognizers>
             </Image>
-            <Image Source="topScissor"/>
-            <Image Source="chevronDown">
+            <Image Grid.Row="1" 
+                   Grid.Column="1"
+                   Source="downTriangle">
                 <Image.GestureRecognizers>
                     <TapGestureRecognizer Command="{Binding IncreaseTopCrop}"/>
                 </Image.GestureRecognizers>
             </Image>
-        </StackLayout>
-        <StackLayout AbsoluteLayout.LayoutFlags="PositionProportional"
-                     AbsoluteLayout.LayoutBounds="1, 0.8, 150, 50"
-                     Spacing="0"
-                     Orientation="Horizontal"
-                     IsVisible="{Binding ShouldCropButtonsBeVisible}">
-            <Image Source="chevronDown">
+        </Grid>
+        <Grid AbsoluteLayout.LayoutFlags="PositionProportional"
+              AbsoluteLayout.LayoutBounds="1, 0.8, 150, 50"
+              RowSpacing="0"
+              ColumnSpacing="0"
+              IsVisible="{Binding ShouldCropButtonsBeVisible}">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <BoxView Grid.ColumnSpan="2"
+                     Grid.Row="1"
+                     Grid.Column="0"
+                     Color="White"
+                     HeightRequest="3"/>
+            <Image Grid.Row="0" 
+                   Grid.Column="0"
+                   Source="downTriangle">
                 <Image.GestureRecognizers>
                     <TapGestureRecognizer Command="{Binding DecreaseBottomCrop}"/>
                 </Image.GestureRecognizers>
             </Image>
-            <Image Source="bottomScissor"/>
-            <Image Source="chevronUp">
+            <Image Grid.Row="0" 
+                   Grid.Column="1"
+                   Source="upTriangle">
                 <Image.GestureRecognizers>
                     <TapGestureRecognizer Command="{Binding IncreaseBottomCrop}"/>
                 </Image.GestureRecognizers>
             </Image>
-        </StackLayout>
+        </Grid>
 
         <ContentView AbsoluteLayout.LayoutFlags="PositionProportional"
                      AbsoluteLayout.LayoutBounds="0.5, 0.5, 75, 75"

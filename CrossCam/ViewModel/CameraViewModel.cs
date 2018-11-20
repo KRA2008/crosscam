@@ -153,6 +153,7 @@ namespace CrossCam.ViewModel
         public bool ShouldLineGuidesBeVisible => (LeftBitmap == null ^ RightBitmap == null || Settings.ShowGuideLinesWithFirstCapture && !IsCaptureComplete) && Settings.AreGuideLinesVisible && !IsSaving && !IsViewMode && !InCropMode;
         public bool ShouldDonutGuideBeVisible => (LeftBitmap == null ^ RightBitmap == null || Settings.ShowGuideDonutWithFirstCapture && !IsCaptureComplete) && Settings.IsGuideDonutVisible && !IsSaving && !IsViewMode && !InCropMode;
         public bool ShouldCropButtonsBeVisible => InCropMode && !IsViewMode;
+        public bool ShouldLeftCropButtonsBeVisible => ShouldCropButtonsBeVisible && !Settings.LockSideCroppingTogether;
 
         public string HelpText => "(flip for " + OppositeOrientation + ")" +
                                   "\n1) Frame up your subject" +
@@ -585,7 +586,7 @@ namespace CrossCam.ViewModel
             RaisePropertyChanged(nameof(ShouldLineGuidesBeVisible)); //TODO: figure out how to have Fody do this
             RaisePropertyChanged(nameof(ShouldDonutGuideBeVisible));
             RaisePropertyChanged(nameof(RightReticleImage));
-            RaisePropertyChanged(nameof(Settings));
+            RaisePropertyChanged(nameof(ShouldLeftCropButtonsBeVisible));
         }
 
         private void ClearCrops()
