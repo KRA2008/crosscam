@@ -373,6 +373,54 @@
   <ItemGroup>
     <BundleResource Include="Resources\upTriangle%402x.png" />
   </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\checkBox%402x.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\checkBox.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\clearBox.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\clearBox%402x.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\down.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\down%402x.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\edit.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\edit%402x.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\pan.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\pan%402x.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\rotateLeft.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\rotateLeft%402x.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\rotateRight.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\rotateRight%402x.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\up.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\up%402x.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup />

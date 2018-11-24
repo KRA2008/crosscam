@@ -13,6 +13,8 @@ namespace CrossCam.ViewModel
 {
     public sealed class CameraViewModel : FreshBasePageModel
     {
+        public WorkflowStage WorkflowStage { get; set; }
+
         public SKBitmap LeftBitmap { get; set; }
         public Command RetakeLeftCommand { get; set; }
         public bool LeftCaptureSuccess { get; set; }
@@ -35,7 +37,6 @@ namespace CrossCam.ViewModel
         public Command SaveCapturesCommand { get; set; }
 
         public Command ToggleViewModeCommand { get; set; }
-        public bool IsViewMode { get; set; }
 
         public Command ClearCapturesCommand { get; set; }
 
@@ -44,9 +45,7 @@ namespace CrossCam.ViewModel
 
         public Command SwapSidesCommand { get; set; }
 
-        public Command EnterCropModeCommand { get; set; }
-        public Command LeaveCropModeCommand { get; set; }
-        public bool InCropMode { get; set; }
+        public Command GoToMode { get; set; }
 
         public Command ClearCropsCommand { get; set; }
 
@@ -137,23 +136,18 @@ namespace CrossCam.ViewModel
 
         public bool FailFadeTrigger { get; set; }
         public bool SuccessFadeTrigger { get; set; }
-        public bool IsSaving { get; set; }
 
         public bool SwitchToContinuousFocusTrigger { get; set; }
         
-        public bool IsCaptureComplete => LeftBitmap != null && RightBitmap != null;
         public bool IsNothingCaptured => LeftBitmap == null && RightBitmap == null;
-        public bool ShouldCaptureButtonBeVisible => !IsCaptureComplete && !IsSaving && !IsViewMode && !InCropMode;
-        public bool ShouldHelpTextBeVisible => IsNothingCaptured && !IsSaving && !IsViewMode && HelpTextColumn != CameraColumn && !InCropMode;
-        public bool ShouldLeftRetakeBeVisible => LeftBitmap != null && !IsSaving && !IsViewMode && (!IsCaptureComplete || IsCaptureComplete && DoesCaptureOrientationMatchViewOrientation) && !InCropMode;
-        public bool ShouldRightRetakeBeVisible => RightBitmap != null && !IsSaving && !IsViewMode && (!IsCaptureComplete || IsCaptureComplete && DoesCaptureOrientationMatchViewOrientation) && !InCropMode;
+        public bool ShouldHelpTextBeVisible => IsNothingCaptured && HelpTextColumn != CameraColumn && WorkflowStage == WorkflowStage.Capture;
+        public bool ShouldLeftRetakeBeVisible => LeftBitmap != null && (WorkflowStage == WorkflowStage.Capture || WorkflowStage == WorkflowStage.Final && DoesCaptureOrientationMatchViewOrientation) && WorkflowStage == WorkflowStage.Capture;
+        public bool ShouldRightRetakeBeVisible => RightBitmap != null && (WorkflowStage == WorkflowStage.Capture || WorkflowStage == WorkflowStage.Final && DoesCaptureOrientationMatchViewOrientation) && WorkflowStage == WorkflowStage.Capture;
         public bool DoesCaptureOrientationMatchViewOrientation => WasCapturePortrait == IsViewPortrait;
-        public bool ShouldEndButtonsBeVisible => IsCaptureComplete && !IsSaving && !IsViewMode && !InCropMode;
-        public bool ShouldSettingsAndHelpBeVisible => !IsSaving && !IsViewMode;
-        public bool ShouldLineGuidesBeVisible => (LeftBitmap == null ^ RightBitmap == null || Settings.ShowGuideLinesWithFirstCapture && !IsCaptureComplete) && Settings.AreGuideLinesVisible && !IsSaving && !IsViewMode && !InCropMode;
-        public bool ShouldDonutGuideBeVisible => (LeftBitmap == null ^ RightBitmap == null || Settings.ShowGuideDonutWithFirstCapture && !IsCaptureComplete) && Settings.IsGuideDonutVisible && !IsSaving && !IsViewMode && !InCropMode;
-        public bool ShouldCropButtonsBeVisible => InCropMode && !IsViewMode;
-        public bool ShouldLeftCropButtonsBeVisible => ShouldCropButtonsBeVisible && !Settings.LockSideCroppingTogether;
+        public bool ShouldSettingsAndHelpBeVisible => WorkflowStage != WorkflowStage.Saving && WorkflowStage != WorkflowStage.View;
+        public bool ShouldLineGuidesBeVisible => (LeftBitmap == null ^ RightBitmap == null || Settings.ShowGuideLinesWithFirstCapture && WorkflowStage == WorkflowStage.Capture) && Settings.AreGuideLinesVisible && WorkflowStage == WorkflowStage.Capture;
+        public bool ShouldDonutGuideBeVisible => (LeftBitmap == null ^ RightBitmap == null || Settings.ShowGuideDonutWithFirstCapture && WorkflowStage == WorkflowStage.Capture) && Settings.IsGuideDonutVisible && WorkflowStage == WorkflowStage.Capture;
+        public bool ShouldLeftCropButtonsBeVisible => WorkflowStage == WorkflowStage.Crop && !Settings.LockSideCroppingTogether;
 
         public string HelpText => "(flip for " + OppositeOrientation + ")" +
                                   "\n1) Frame up your subject" +
@@ -165,7 +159,7 @@ namespace CrossCam.ViewModel
         public string SlideDirection => IsCaptureLeftFirst ? "LEFT" : "RIGHT";
         public int HelpTextColumn => IsCaptureLeftFirst ? 1 : 0;
         public string OppositeOrientation => IsViewPortrait ? "landscape" : "portrait";
-        public bool ShouldPortraitCaptureLandscapeViewModeWarningBeVisible => IsCaptureComplete && IsViewPortrait && WasCapturePortrait;
+        public bool ShouldPortraitCaptureLandscapeViewModeWarningBeVisible => WorkflowStage != WorkflowStage.Capture && WorkflowStage != WorkflowStage.Saving && IsViewPortrait && WasCapturePortrait;
 
         public ImageSource LeftReticleImage => ImageSource.FromFile("squareOuter");
         public ImageSource RightReticleImage => Settings.IsGuideDonutBothDonuts
@@ -182,6 +176,7 @@ namespace CrossCam.ViewModel
                 ImageSource.FromFile("check") : ImageSource.FromFile("x");
 
         private bool _needs180Flip;
+        private WorkflowStage _stageBeforeView;
 
         public CameraViewModel()
         {
@@ -221,6 +216,7 @@ namespace CrossCam.ViewModel
                         {
                             CameraColumn = IsCaptureLeftFirst ? 0 : 1;
                             IsCameraVisible = false;
+                            WorkflowStage = WorkflowStage.Final;
                         }
                     }
                     else
@@ -236,6 +232,7 @@ namespace CrossCam.ViewModel
                         {
                             CameraColumn = IsCaptureLeftFirst ? 0 : 1;
                             IsCameraVisible = false;
+                            WorkflowStage = WorkflowStage.Final;
                         }
                     }
                 }
@@ -258,6 +255,7 @@ namespace CrossCam.ViewModel
                 {
                     MoveRightTrigger = !MoveRightTrigger;
                 }
+                WorkflowStage = WorkflowStage.Capture;
             });
 
             RetakeRightCommand = new Command(() =>
@@ -270,16 +268,12 @@ namespace CrossCam.ViewModel
                 {
                     MoveLeftTrigger = !MoveLeftTrigger;
                 }
+                WorkflowStage = WorkflowStage.Capture;
             });
 
-            EnterCropModeCommand = new Command(() =>
+            GoToMode = new Command<WorkflowStage>(arg =>
             {
-                InCropMode = true;
-            });
-
-            LeaveCropModeCommand = new Command(() =>
-            {
-                InCropMode = false;
+                WorkflowStage = arg;
             });
 
             ClearCropsCommand = new Command(ClearCrops);
@@ -293,7 +287,15 @@ namespace CrossCam.ViewModel
 
             ToggleViewModeCommand = new Command(() =>
             {
-                IsViewMode = !IsViewMode;
+                if (WorkflowStage != WorkflowStage.View)
+                {
+                    _stageBeforeView = WorkflowStage;
+                    WorkflowStage = WorkflowStage.View;
+                }
+                else
+                {
+                    WorkflowStage = _stageBeforeView;
+                }
             });
 
             NavigateToSettingsCommand = new Command(async () =>
@@ -337,7 +339,7 @@ namespace CrossCam.ViewModel
 
             SaveCapturesCommand = new Command(async () =>
             {
-                IsSaving = true;
+                WorkflowStage = WorkflowStage.Saving;
 
                 var leftBitmap = LeftBitmap;
                 var rightBitmap = RightBitmap;
@@ -478,7 +480,7 @@ namespace CrossCam.ViewModel
                         didSave = didSave && await photoSaver.SavePhoto(finalBytesToSave);
                     }
 
-                    IsSaving = false;
+                    WorkflowStage = WorkflowStage.Capture;
 
                     if (didSave)
                     {
@@ -493,7 +495,7 @@ namespace CrossCam.ViewModel
                 {
                     ErrorMessage = e.ToString();
 
-                    IsSaving = false;
+                    WorkflowStage = WorkflowStage.Capture;
 
                     FailFadeTrigger = !FailFadeTrigger;
                 }
@@ -605,6 +607,7 @@ namespace CrossCam.ViewModel
             RightBitmap = null;
             IsCameraVisible = true;
             ClearCrops();
+            WorkflowStage = WorkflowStage.Capture;
 
             if (Settings.IsTapToFocusEnabled)
             {
