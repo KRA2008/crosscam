@@ -46,7 +46,7 @@ namespace CrossCam.ViewModel
         public Command SwapSidesCommand { get; set; }
 
         public Command GoToModeCommand { get; set; }
-        public Command SaveEditsCommand { get; set; }
+        public Command SaveEditCommand { get; set; }
 
         public Command ClearEditCommand { get; set; }
 
@@ -130,6 +130,16 @@ namespace CrossCam.ViewModel
         public int RightImageRightCrop { get; set; }
         public int TopCrop { get; set; }
         public int BottomCrop { get; set; }
+
+        public float RotationSpeed => 0.1f;
+
+        public float LeftRotation { get; set; }
+        public float RightRotation { get; set; }
+
+        public Command IncreaseLeftRotation => new Command(() => { LeftRotation += RotationSpeed; });
+        public Command DecreaseLeftRotation => new Command(() => { LeftRotation -= RotationSpeed; });
+        public Command IncreaseRightRotation => new Command(() => { RightRotation += RotationSpeed; });
+        public Command DecreaseRightRotation => new Command(() => { RightRotation -= RotationSpeed; });
 
         public bool IsViewPortrait { get; set; }
         public bool IsCaptureLeftFirst { get; set; }
@@ -275,7 +285,7 @@ namespace CrossCam.ViewModel
                 WorkflowStage = arg;
             });
 
-            SaveEditsCommand = new Command(() =>
+            SaveEditCommand = new Command(() =>
             {
                 WorkflowStage = WorkflowStage == WorkflowStage.Edits ? WorkflowStage.Final : WorkflowStage.Edits;
             });
@@ -288,6 +298,7 @@ namespace CrossCam.ViewModel
                         ClearCrops();
                         break;
                     case WorkflowStage.Rotate:
+                        ClearRotation();
                         break;
                     case WorkflowStage.Pan:
                         break;
@@ -456,7 +467,7 @@ namespace CrossCam.ViewModel
                             }
                             DrawTool.DrawImagesOnCanvas(canvas, leftBitmap, rightBitmap, Settings.AddBorder ? Settings.BorderThickness : 0,
                                 LeftImageLeftCrop, LeftImageRightCrop, RightImageLeftCrop, RightImageRightCrop,
-                                TopCrop, BottomCrop);
+                                TopCrop, BottomCrop, LeftRotation, RightRotation);
 
                             finalImage = tempSurface.Snapshot();
                         }
@@ -483,7 +494,7 @@ namespace CrossCam.ViewModel
                             }
                             DrawTool.DrawImagesOnCanvas(canvas, leftBitmap, rightBitmap, Settings.AddBorder ? Settings.BorderThickness : 0,
                                 LeftImageLeftCrop, LeftImageRightCrop, RightImageLeftCrop, RightImageRightCrop,
-                                TopCrop, BottomCrop, true);
+                                TopCrop, BottomCrop, LeftRotation, RightRotation, true);
 
                             finalImage = tempSurface.Snapshot();
                         }
@@ -618,12 +629,19 @@ namespace CrossCam.ViewModel
             BottomCrop = 0;
         }
 
+        private void ClearRotation()
+        {
+            LeftRotation = 0;
+            RightRotation = 0;
+        }
+
         private void ClearCaptures()
         {
             LeftBitmap = null;
             RightBitmap = null;
             IsCameraVisible = true;
             ClearCrops();
+            ClearRotation();
             WorkflowStage = WorkflowStage.Capture;
 
             if (Settings.IsTapToFocusEnabled)

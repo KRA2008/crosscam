@@ -201,13 +201,13 @@
             </ContentView.GestureRecognizers>
         </ContentView>
         <ContentView AbsoluteLayout.LayoutFlags="PositionProportional"
-                     AbsoluteLayout.LayoutBounds="{DynamicResource _captureRectangle}"
-                     Padding="20"
-                     IsVisible="{Binding WorkflowStage, Converter={vc:EnumCompareConverter}, ConverterParameter={x:Static vm:WorkflowStage.Final}}">
+                     AbsoluteLayout.LayoutBounds="{DynamicResource _clearRectangle}"
+                     Padding="20"                     
+                     IsVisible="{Binding WorkflowStage, Converter={vc:EnumCompareConverter}, ConverterParameter={x:Static vm:WorkflowStage.Capture}}">
             <ContentView.GestureRecognizers>
-                <TapGestureRecognizer Command="{Binding SaveCapturesCommand}"/>
+                <TapGestureRecognizer Command="{Binding SwapSidesCommand}"/>
             </ContentView.GestureRecognizers>
-            <Image Source="checkBox"/>
+            <Image Source="swap"/>
         </ContentView>
         <ContentView AbsoluteLayout.LayoutFlags="PositionProportional"
                      AbsoluteLayout.LayoutBounds="{DynamicResource _captureRectangle}"
@@ -217,6 +217,15 @@
                 <TapGestureRecognizer Command="{Binding CapturePictureCommand}"/>
             </ContentView.GestureRecognizers>
             <Image Source="aperture"/>
+        </ContentView>
+        <ContentView AbsoluteLayout.LayoutFlags="PositionProportional"
+                     AbsoluteLayout.LayoutBounds="{DynamicResource _clearRectangle}"
+                     Padding="20"
+                     IsVisible="{Binding WorkflowStage, Converter={vc:EnumCompareConverter}, ConverterParameter={x:Static vm:WorkflowStage.Final}}">
+            <ContentView.GestureRecognizers>
+                <TapGestureRecognizer Command="{Binding ClearCapturesCommand}"/>
+            </ContentView.GestureRecognizers>
+            <Image Source="clearBox"/>
         </ContentView>
         <ContentView AbsoluteLayout.LayoutFlags="PositionProportional"
                      AbsoluteLayout.LayoutBounds="{DynamicResource _viewRectangle}"
@@ -238,22 +247,13 @@
             <Image Source="edit"/>
         </ContentView>
         <ContentView AbsoluteLayout.LayoutFlags="PositionProportional"
-                     AbsoluteLayout.LayoutBounds="{DynamicResource _clearRectangle}"
-                     Padding="20"                     
-                     IsVisible="{Binding WorkflowStage, Converter={vc:EnumCompareConverter}, ConverterParameter={x:Static vm:WorkflowStage.Capture}}">
-            <ContentView.GestureRecognizers>
-                <TapGestureRecognizer Command="{Binding SwapSidesCommand}"/>
-            </ContentView.GestureRecognizers>
-            <Image Source="swap"/>
-        </ContentView>
-        <ContentView AbsoluteLayout.LayoutFlags="PositionProportional"
-                     AbsoluteLayout.LayoutBounds="{DynamicResource _clearRectangle}"
+                     AbsoluteLayout.LayoutBounds="{DynamicResource _captureRectangle}"
                      Padding="20"
                      IsVisible="{Binding WorkflowStage, Converter={vc:EnumCompareConverter}, ConverterParameter={x:Static vm:WorkflowStage.Final}}">
             <ContentView.GestureRecognizers>
-                <TapGestureRecognizer Command="{Binding ClearCapturesCommand}"/>
+                <TapGestureRecognizer Command="{Binding SaveCapturesCommand}"/>
             </ContentView.GestureRecognizers>
-            <Image Source="clearBox"/>
+            <Image Source="checkBox"/>
         </ContentView>
 
         <ContentView AbsoluteLayout.LayoutFlags="PositionProportional"
@@ -284,7 +284,7 @@
                 <TapGestureRecognizer Command="{Binding GoToModeCommand}"
                                       CommandParameter="{x:Static vm:WorkflowStage.Rotate}"/>
             </ContentView.GestureRecognizers>
-            <Image Source="rotateRight"/>
+            <Image Source="rotate"/>
         </ContentView>
 
         <ContentView AbsoluteLayout.LayoutFlags="PositionProportional"
@@ -294,19 +294,65 @@
             <ContentView.GestureRecognizers>
                 <TapGestureRecognizer Command="{Binding ClearEditCommand}"/>
             </ContentView.GestureRecognizers>
-            <Image Source="restore"
+            <Image Source="undo"
                    InputTransparent="True"/>
         </ContentView>
-
+        <ContentView AbsoluteLayout.LayoutFlags="PositionProportional"
+                     AbsoluteLayout.LayoutBounds="0.5, 0.5, 75, 75"
+                     Padding="10"
+                     IsVisible="{Binding ShouldClearAndViewEditsButtonsBeVisible}">
+            <ContentView.GestureRecognizers>
+                <TapGestureRecognizer Command="{Binding ToggleViewModeCommand}"/>
+            </ContentView.GestureRecognizers>
+            <Image Source="eye"/>
+        </ContentView>
         <ContentView AbsoluteLayout.LayoutFlags="PositionProportional"
                      AbsoluteLayout.LayoutBounds="0.5,1,100,100"
                      Padding="20"
                      IsVisible="{Binding ShouldSaveEditsButtonBeVisible}">
             <ContentView.GestureRecognizers>
-                <TapGestureRecognizer Command="{Binding SaveEditsCommand}"/>
+                <TapGestureRecognizer Command="{Binding SaveEditCommand}"/>
             </ContentView.GestureRecognizers>
             <Image Source="check"/>
         </ContentView>
+
+        <ContentView AbsoluteLayout.LayoutFlags="PositionProportional"
+                     AbsoluteLayout.LayoutBounds="0.25,0.33,75,75"
+                     Padding="10"
+                     IsVisible="{Binding WorkflowStage, Converter={vc:EnumCompareConverter}, ConverterParameter={x:Static vm:WorkflowStage.Rotate}}">
+            <ContentView.GestureRecognizers>
+                <TapGestureRecognizer Command="{Binding DecreaseLeftRotation}"/>
+            </ContentView.GestureRecognizers>
+            <Image Source="rotateLeft"/>
+        </ContentView>
+        <ContentView AbsoluteLayout.LayoutFlags="PositionProportional"
+                     AbsoluteLayout.LayoutBounds="0.25,0.67,75,75"
+                     Padding="10"
+                     IsVisible="{Binding WorkflowStage, Converter={vc:EnumCompareConverter}, ConverterParameter={x:Static vm:WorkflowStage.Rotate}}">
+            <ContentView.GestureRecognizers>
+                <TapGestureRecognizer Command="{Binding IncreaseLeftRotation}"/>
+            </ContentView.GestureRecognizers>
+            <Image Source="rotateRight"/>
+        </ContentView>
+        <ContentView AbsoluteLayout.LayoutFlags="PositionProportional"
+                     AbsoluteLayout.LayoutBounds="0.75,0.33,75,75"
+                     Padding="10"
+                     IsVisible="{Binding WorkflowStage, Converter={vc:EnumCompareConverter}, ConverterParameter={x:Static vm:WorkflowStage.Rotate}}">
+            <ContentView.GestureRecognizers>
+                <TapGestureRecognizer Command="{Binding IncreaseRightRotation}"/>
+            </ContentView.GestureRecognizers>
+            <Image Source="rotateRight"/>
+        </ContentView>
+        <ContentView AbsoluteLayout.LayoutFlags="PositionProportional"
+                     AbsoluteLayout.LayoutBounds="0.75,0.67,75,75"
+                     Padding="10"
+                     IsVisible="{Binding WorkflowStage, Converter={vc:EnumCompareConverter}, ConverterParameter={x:Static vm:WorkflowStage.Rotate}}">
+            <ContentView.GestureRecognizers>
+                <TapGestureRecognizer Command="{Binding DecreaseRightRotation}"/>
+            </ContentView.GestureRecognizers>
+            <Image Source="rotateLeft"/>
+        </ContentView>
+
 
         <Grid AbsoluteLayout.LayoutFlags="PositionProportional"
               AbsoluteLayout.LayoutBounds="0.15, 0.55, 50, 150"
@@ -507,16 +553,6 @@
                 </Image.GestureRecognizers>
             </Image>
         </Grid>
-
-        <ContentView AbsoluteLayout.LayoutFlags="PositionProportional"
-                     AbsoluteLayout.LayoutBounds="0.5, 0.5, 75, 75"
-                     Padding="10"
-                     IsVisible="{Binding ShouldClearAndViewEditsButtonsBeVisible}">
-            <ContentView.GestureRecognizers>
-                <TapGestureRecognizer Command="{Binding ToggleViewModeCommand}"/>
-            </ContentView.GestureRecognizers>
-            <Image Source="eye"/>
-        </ContentView>
 
         <Label AbsoluteLayout.LayoutFlags="All"
                AbsoluteLayout.LayoutBounds="0.5,0.15,0.75,0.1"

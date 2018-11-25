@@ -7,7 +7,7 @@ namespace CrossCam.Page
         public static void DrawImagesOnCanvas(
             SKCanvas canvas, SKBitmap leftBitmap, SKBitmap rightBitmap, int borderThickness,
             int leftLeftCrop, int leftRightCrop, int rightLeftCrop, int rightRightCrop,
-            int topCrop, int bottomCrop, bool switchForParallel = false)
+            int topCrop, int bottomCrop, float leftRotation, float rightRotation, bool switchForParallel = false)
         {
             if (leftBitmap == null && rightBitmap == null) return;
 
@@ -75,6 +75,8 @@ namespace CrossCam.Page
 
             if (leftBitmap != null)
             {
+                var rotation = switchForParallel ? rightRotation : leftRotation;
+                canvas.RotateDegrees(rotation);
                 canvas.DrawBitmap(
                     leftBitmap,
                     SKRect.Create(
@@ -87,10 +89,13 @@ namespace CrossCam.Page
                         previewY,
                         leftPreviewWidth,
                         previewHeight));
+                canvas.RotateDegrees(-1 * rotation);
             }
 
             if (rightBitmap != null)
             {
+                var rotation = switchForParallel ? leftRotation : rightRotation;
+                canvas.RotateDegrees(rotation);
                 canvas.DrawBitmap(
                     rightBitmap,
                     SKRect.Create(
@@ -103,6 +108,7 @@ namespace CrossCam.Page
                         previewY,
                         rightPreviewWidth,
                         previewHeight));
+                canvas.RotateDegrees(-1 * rotation);
             }
         }
     }

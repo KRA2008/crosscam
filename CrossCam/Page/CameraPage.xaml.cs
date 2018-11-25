@@ -63,6 +63,8 @@ namespace CrossCam.Page
                 case nameof(CameraViewModel.TopCrop):
                 case nameof(CameraViewModel.BottomCrop):
                 case nameof(CameraViewModel.Settings):
+                case nameof(CameraViewModel.LeftRotation):
+	            case nameof(CameraViewModel.RightRotation):
                     _canvasView.InvalidateSurface();
                     break;
 	        }
@@ -78,7 +80,7 @@ namespace CrossCam.Page
 	            canvas, _viewModel.LeftBitmap, _viewModel.RightBitmap, 
 	            _viewModel.LeftBitmap != null && _viewModel.RightBitmap != null && _viewModel.Settings.AddBorder ? _viewModel.Settings.BorderThickness : 0,
 	            _viewModel.LeftImageLeftCrop, _viewModel.LeftImageRightCrop, _viewModel.RightImageLeftCrop, _viewModel.RightImageRightCrop, 
-	            _viewModel.TopCrop, _viewModel.BottomCrop);
+	            _viewModel.TopCrop, _viewModel.BottomCrop, _viewModel.LeftRotation, _viewModel.RightRotation);
         }
 
         private void ResetGuides()
