@@ -45,9 +45,10 @@ namespace CrossCam.ViewModel
 
         public Command SwapSidesCommand { get; set; }
 
-        public Command GoToMode { get; set; }
+        public Command GoToModeCommand { get; set; }
+        public Command SaveEditsCommand { get; set; }
 
-        public Command ClearCropsCommand { get; set; }
+        public Command ClearEditCommand { get; set; }
 
         public Command PromptForPermissionAndSendErrorEmailCommand { get; set; }
         public string ErrorMessage { get; set; }
@@ -141,13 +142,20 @@ namespace CrossCam.ViewModel
         
         public bool IsNothingCaptured => LeftBitmap == null && RightBitmap == null;
         public bool ShouldHelpTextBeVisible => IsNothingCaptured && HelpTextColumn != CameraColumn && WorkflowStage == WorkflowStage.Capture;
-        public bool ShouldLeftRetakeBeVisible => LeftBitmap != null && (WorkflowStage == WorkflowStage.Capture || WorkflowStage == WorkflowStage.Final && DoesCaptureOrientationMatchViewOrientation) && WorkflowStage == WorkflowStage.Capture;
-        public bool ShouldRightRetakeBeVisible => RightBitmap != null && (WorkflowStage == WorkflowStage.Capture || WorkflowStage == WorkflowStage.Final && DoesCaptureOrientationMatchViewOrientation) && WorkflowStage == WorkflowStage.Capture;
+        public bool ShouldLeftRetakeBeVisible => LeftBitmap != null && (WorkflowStage == WorkflowStage.Capture || WorkflowStage == WorkflowStage.Final && DoesCaptureOrientationMatchViewOrientation);
+        public bool ShouldRightRetakeBeVisible => RightBitmap != null && (WorkflowStage == WorkflowStage.Capture || WorkflowStage == WorkflowStage.Final && DoesCaptureOrientationMatchViewOrientation);
         public bool DoesCaptureOrientationMatchViewOrientation => WasCapturePortrait == IsViewPortrait;
         public bool ShouldSettingsAndHelpBeVisible => WorkflowStage != WorkflowStage.Saving && WorkflowStage != WorkflowStage.View;
         public bool ShouldLineGuidesBeVisible => (LeftBitmap == null ^ RightBitmap == null || Settings.ShowGuideLinesWithFirstCapture && WorkflowStage == WorkflowStage.Capture) && Settings.AreGuideLinesVisible && WorkflowStage == WorkflowStage.Capture;
         public bool ShouldDonutGuideBeVisible => (LeftBitmap == null ^ RightBitmap == null || Settings.ShowGuideDonutWithFirstCapture && WorkflowStage == WorkflowStage.Capture) && Settings.IsGuideDonutVisible && WorkflowStage == WorkflowStage.Capture;
         public bool ShouldLeftCropButtonsBeVisible => WorkflowStage == WorkflowStage.Crop && !Settings.LockSideCroppingTogether;
+        public bool ShouldSaveEditsButtonBeVisible => WorkflowStage == WorkflowStage.Edits ||
+                                                      WorkflowStage == WorkflowStage.Crop ||
+                                                      WorkflowStage == WorkflowStage.Rotate ||
+                                                      WorkflowStage == WorkflowStage.Pan;
+        public bool ShouldClearAndViewEditsButtonsBeVisible => WorkflowStage == WorkflowStage.Crop ||
+                                                               WorkflowStage == WorkflowStage.Rotate ||
+                                                               WorkflowStage == WorkflowStage.Pan;
 
         public string HelpText => "(flip for " + OppositeOrientation + ")" +
                                   "\n1) Frame up your subject" +
@@ -165,15 +173,6 @@ namespace CrossCam.ViewModel
         public ImageSource RightReticleImage => Settings.IsGuideDonutBothDonuts
             ? ImageSource.FromFile("squareOuter")
             : ImageSource.FromFile("squareInner");
-
-        public ImageSource SaveCropImage =>
-            LeftImageLeftCrop != 0 ||
-            LeftImageRightCrop != 0 ||
-            RightImageLeftCrop != 0 ||
-            RightImageRightCrop != 0 ||
-            TopCrop != 0 ||
-            BottomCrop != 0 ? 
-                ImageSource.FromFile("check") : ImageSource.FromFile("x");
 
         private bool _needs180Flip;
         private WorkflowStage _stageBeforeView;
@@ -271,12 +270,29 @@ namespace CrossCam.ViewModel
                 WorkflowStage = WorkflowStage.Capture;
             });
 
-            GoToMode = new Command<WorkflowStage>(arg =>
+            GoToModeCommand = new Command<WorkflowStage>(arg =>
             {
                 WorkflowStage = arg;
             });
 
-            ClearCropsCommand = new Command(ClearCrops);
+            SaveEditsCommand = new Command(() =>
+            {
+                WorkflowStage = WorkflowStage == WorkflowStage.Edits ? WorkflowStage.Final : WorkflowStage.Edits;
+            });
+
+            ClearEditCommand = new Command(() =>
+            {
+                switch (WorkflowStage)
+                {
+                    case WorkflowStage.Crop:
+                        ClearCrops();
+                        break;
+                    case WorkflowStage.Rotate:
+                        break;
+                    case WorkflowStage.Pan:
+                        break;
+                }
+            });
 
             ClearCapturesCommand = new Command(ClearCaptures);
 
@@ -589,6 +605,7 @@ namespace CrossCam.ViewModel
             RaisePropertyChanged(nameof(ShouldDonutGuideBeVisible));
             RaisePropertyChanged(nameof(RightReticleImage));
             RaisePropertyChanged(nameof(ShouldLeftCropButtonsBeVisible));
+            RaisePropertyChanged(nameof(Settings)); // this doesn't cause reevaluation for above stuff, but triggers redraw of canvas
         }
 
         private void ClearCrops()
