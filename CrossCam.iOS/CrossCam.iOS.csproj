@@ -373,6 +373,30 @@
   <ItemGroup>
     <BundleResource Include="Resources\alignUp%402x.png" />
   </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\panDown.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\panDown%402x.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\panLeft.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\panLeft%402x.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\panRight.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\panRight%402x.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\panUp.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\panUp%402x.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup />

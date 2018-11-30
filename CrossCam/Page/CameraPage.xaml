@@ -23,7 +23,9 @@
             <x:Double x:Key="_smallIconWidth">30</x:Double>
             <x:Double x:Key="_smallIconWidthPlusBottomPadding">40</x:Double>
             <x:Double x:Key="_mediumIconWidth">40</x:Double>
+            <GridLength x:Key="_mediumIconWidthGridLength">40</GridLength>
             <x:Double x:Key="_doubleMediumIconWidth">80</x:Double>
+            <x:Double x:Key="_tripleMediumIconWidth">120</x:Double>
             <x:Double x:Key="_mediumIconWidthPlusTopPadding">60</x:Double>
             <x:Double x:Key="_largeIconWidth">80</x:Double>
             <x:Double x:Key="_giantIconWidth">100</x:Double>
@@ -425,6 +427,83 @@
             </ContentView.GestureRecognizers>
             <Image Source="alignDown"/>
         </ContentView>
+
+        <Grid AbsoluteLayout.LayoutFlags="PositionProportional,HeightProportional"
+              RowSpacing="0"
+              ColumnSpacing="0"
+              IsVisible="{Binding WorkflowStage, Converter={vc:EnumCompareConverter}, ConverterParameter={x:Static vm:WorkflowStage.Pan}}">
+            <AbsoluteLayout.LayoutBounds>
+                <Rectangle X="0.2" Y="0" Width="{StaticResource _tripleMediumIconWidth}" Height="1"/>
+            </AbsoluteLayout.LayoutBounds>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="{StaticResource _mediumIconWidthGridLength}"/>
+                <RowDefinition Height="{StaticResource _mediumIconWidthGridLength}"/>
+                <RowDefinition Height="{StaticResource _mediumIconWidthGridLength}"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="{StaticResource _mediumIconWidthGridLength}"/>
+                <ColumnDefinition Width="{StaticResource _mediumIconWidthGridLength}"/>
+                <ColumnDefinition Width="{StaticResource _mediumIconWidthGridLength}"/>
+            </Grid.ColumnDefinitions>
+            <Image Grid.Column="0"
+                   Grid.Row="1"
+                   Source="zoomIn"/>
+            <Image Grid.Column="1"
+                   Grid.Row="1"
+                   Source="panUp"/>
+            <Image Grid.Column="0"
+                   Grid.Row="2"
+                   Source="panLeft"/>
+            <Image Grid.Column="2"
+                   Grid.Row="2"
+                   Source="panRight"/>
+            <Image Grid.Column="1"
+                   Grid.Row="3"
+                   Source="panDown"/>
+            <Image Grid.Column="2"
+                   Grid.Row="3"
+                   Source="zoomOut"/>
+        </Grid>
+        <Grid AbsoluteLayout.LayoutFlags="PositionProportional,HeightProportional"
+              RowSpacing="0"
+              ColumnSpacing="0"
+              IsVisible="{Binding WorkflowStage, Converter={vc:EnumCompareConverter}, ConverterParameter={x:Static vm:WorkflowStage.Pan}}">
+            <AbsoluteLayout.LayoutBounds>
+                <Rectangle X="0.8" Y="0" Width="{StaticResource _tripleMediumIconWidth}" Height="1"/>
+            </AbsoluteLayout.LayoutBounds>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="{StaticResource _mediumIconWidthGridLength}"/>
+                <RowDefinition Height="{StaticResource _mediumIconWidthGridLength}"/>
+                <RowDefinition Height="{StaticResource _mediumIconWidthGridLength}"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="{StaticResource _mediumIconWidthGridLength}"/>
+                <ColumnDefinition Width="{StaticResource _mediumIconWidthGridLength}"/>
+                <ColumnDefinition Width="{StaticResource _mediumIconWidthGridLength}"/>
+            </Grid.ColumnDefinitions>
+            <Image Grid.Column="0"
+                   Grid.Row="1"
+                   Source="zoomIn"/>
+            <Image Grid.Column="1"
+                   Grid.Row="1"
+                   Source="panUp"/>
+            <Image Grid.Column="0"
+                   Grid.Row="2"
+                   Source="panLeft"/>
+            <Image Grid.Column="2"
+                   Grid.Row="2"
+                   Source="panRight"/>
+            <Image Grid.Column="1"
+                   Grid.Row="3"
+                   Source="panDown"/>
+            <Image Grid.Column="2"
+                   Grid.Row="3"
+                   Source="zoomOut"/>
+        </Grid>
 
         <Grid AbsoluteLayout.LayoutFlags="PositionProportional,HeightProportional"
               IsVisible="{Binding ShouldLeftCropButtonsBeVisible}"
