@@ -1,6 +1,5 @@
 ﻿using System.ComponentModel;
 using CrossCam.ViewModel;
-using SkiaSharp;
 using SkiaSharp.Views.Forms;
 using Xamarin.Forms;
 

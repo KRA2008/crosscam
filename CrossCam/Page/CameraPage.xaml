@@ -14,15 +14,55 @@
 			 x:Class="CrossCam.Page.CameraPage">
     <ContentPage.Resources>
         <ResourceDictionary>
-            <Rectangle x:Key="_captureRectangle">0.5,1,125,125</Rectangle>
-            <Rectangle x:Key="_clearRectangle">0.5,0,100,100</Rectangle>
-            <Rectangle x:Key="_cropRectangle">0.5,0,100,100</Rectangle>
-            <Rectangle x:Key="_viewRectangle">0.5,0.3,75,75</Rectangle>
-            <Rectangle x:Key="_panRectangle">0.5,0.3,75,75</Rectangle>
-            <Rectangle x:Key="_rotateRectangle">0.5,0.6,75,75</Rectangle>
-            <Rectangle x:Key="_editRectangle">0.5,0.6,75,75</Rectangle>
+            <x:Double x:Key="_topBarHeight">20</x:Double>
+            <Thickness x:Key="_topBarPadding" Left="0" Top="{StaticResource _topBarHeight}" Right="0" Bottom="0"/>
+
+            <x:Double x:Key="_bottomPaddingHeight">10</x:Double>
+            <Thickness x:Key="_bottomPadding" Left="0" Top="0" Right="0" Bottom="{StaticResource _bottomPaddingHeight}"/>
+
+            <x:Double x:Key="_smallIconWidth">30</x:Double>
+            <x:Double x:Key="_smallIconWidthPlusBottomPadding">40</x:Double>
+            <x:Double x:Key="_mediumIconWidth">40</x:Double>
+            <x:Double x:Key="_doubleMediumIconWidth">80</x:Double>
+            <x:Double x:Key="_mediumIconWidthPlusTopPadding">60</x:Double>
+            <x:Double x:Key="_largeIconWidth">80</x:Double>
+            <x:Double x:Key="_giantIconWidth">100</x:Double>
+            <x:Double x:Key="_3dLeftLeft">0.1</x:Double>
+            <x:Double x:Key="_3dLeftMiddle">0.15</x:Double>
+            <x:Double x:Key="_3dLeftRight">0.3</x:Double>
+            <x:Double x:Key="_3dRightLeft">0.7</x:Double>
+            <x:Double x:Key="_3dRightMiddle">0.85</x:Double>
+            <x:Double x:Key="_3dRightRight">0.9</x:Double>
+            <x:Double x:Key="_3dUpper">0.2</x:Double>
+            <x:Double x:Key="_3dLower">0.8</x:Double>
+            <Rectangle x:Key="_captureBounds" X="0.5" Y="1" Width="{StaticResource _giantIconWidth}" Height="{StaticResource _giantIconWidth}"/>
+            <Rectangle x:Key="_clearBounds" X="0.5" Y="0" Width="{StaticResource _largeIconWidth}" Height="{StaticResource _largeIconWidth}"/>
+            <Rectangle x:Key="_cropBounds" X="0.5" Y="0.67" Width="{StaticResource _mediumIconWidth}" Height="{StaticResource _mediumIconWidth}"/>
+            <Rectangle x:Key="_viewBounds" X="0.5" Y="0.33" Width="{StaticResource _mediumIconWidth}" Height="{StaticResource _mediumIconWidth}"/>
+            <Rectangle x:Key="_panBounds" X="0" Y="0.33" Width="1" Height="{StaticResource _mediumIconWidth}"/>
+            <Rectangle x:Key="_alignBounds" X="0" Y="0" Width="1" Height="{StaticResource _mediumIconWidthPlusTopPadding}"/>
+            <Rectangle x:Key="_editBounds" X="0.5" Y="0.6" Width="{StaticResource _mediumIconWidth}" Height="{StaticResource _mediumIconWidth}"/>
+            <Rectangle x:Key="_retakeLeftBounds" X="{StaticResource _3dLeftMiddle}" Y="1" Width="{StaticResource _smallIconWidth}" Height="{StaticResource _smallIconWidthPlusBottomPadding}"/>
+            <Rectangle x:Key="_retakeRightBounds" X="{StaticResource _3dRightMiddle}" Y="1" Width="{StaticResource _smallIconWidth}" Height="{StaticResource _smallIconWidthPlusBottomPadding}"/>
+            <Rectangle x:Key="_undoBounds" X="0.5" Y="0" Width="{StaticResource _mediumIconWidth}" Height="{StaticResource _mediumIconWidthPlusTopPadding}"/>
+            <Rectangle x:Key="_secondaryViewBounds" X="0.5" Y="0.5" Width="{StaticResource _mediumIconWidth}" Height="{StaticResource _mediumIconWidth}"/>
+            <Rectangle x:Key="_checkBounds" X="0.5" Y="1" Width="{StaticResource _largeIconWidth}" Height="{StaticResource _largeIconWidth}"/>
+            <Rectangle x:Key="_helpBounds" X="{StaticResource _3dLeftMiddle}" Y="0" Width="{StaticResource _mediumIconWidth}" Height="{StaticResource _mediumIconWidthPlusTopPadding}"/>
+            <Rectangle x:Key="_gearBounds" X="{StaticResource _3dRightMiddle}" Y="0" Width="{StaticResource _mediumIconWidth}" Height="{StaticResource _mediumIconWidthPlusTopPadding}"/>
+
+            <Rectangle x:Key="_leftRotateLeft" X="{StaticResource _3dLeftLeft}" Y="{StaticResource _3dUpper}" Width="{StaticResource _mediumIconWidth}" Height="{StaticResource _mediumIconWidth}"/>
+            <Rectangle x:Key="_leftRotateRight" X="{StaticResource _3dLeftLeft}" Y="{StaticResource _3dLower}" Width="{StaticResource _mediumIconWidth}" Height="{StaticResource _mediumIconWidth}"/>
+            <Rectangle x:Key="_rightRotateLeft" X="{StaticResource _3dRightLeft}" Y="{StaticResource _3dUpper}" Width="{StaticResource _mediumIconWidth}" Height="{StaticResource _mediumIconWidth}"/>
+            <Rectangle x:Key="_rightRotateRight" X="{StaticResource _3dRightLeft}" Y="{StaticResource _3dLower}" Width="{StaticResource _mediumIconWidth}" Height="{StaticResource _mediumIconWidth}"/>
+
+            <Rectangle x:Key="_leftAlignUp" X="{StaticResource _3dLeftRight}" Y="{StaticResource _3dUpper}" Width="{StaticResource _mediumIconWidth}" Height="{StaticResource _mediumIconWidth}"/>
+            <Rectangle x:Key="_leftAlignDown" X="{StaticResource _3dLeftRight}" Y="{StaticResource _3dLower}" Width="{StaticResource _mediumIconWidth}" Height="{StaticResource _mediumIconWidth}"/>
+            <Rectangle x:Key="_rightAlignUp" X="{StaticResource _3dRightRight}" Y="{StaticResource _3dUpper}" Width="{StaticResource _mediumIconWidth}" Height="{StaticResource _mediumIconWidth}"/>
+            <Rectangle x:Key="_rightAlignDown" X="{StaticResource _3dRightRight}" Y="{StaticResource _3dLower}" Width="{StaticResource _mediumIconWidth}" Height="{StaticResource _mediumIconWidth}"/>
+
             <Thickness x:Key="_reticlePadding">10</Thickness>
             <Thickness x:Key="_linePadding">0,10,0,10</Thickness>
+
             <Style TargetType="Label"
                    x:Key="_savingFeedback">
                 <Setter Property="FontAttributes"
@@ -96,29 +136,10 @@
                 </ce:CameraSuccessOutline.Behaviors>
             </ce:CameraSuccessOutline>
         </Grid>
+
         <ContentView AbsoluteLayout.LayoutFlags="PositionProportional"
-                     AbsoluteLayout.LayoutBounds="0.2,0,75,75"
-                     Padding="20"
-                     IsVisible="{Binding ShouldSettingsAndHelpBeVisible}">
-            <ContentView.GestureRecognizers>
-                <TapGestureRecognizer Command="{Binding NavigateToHelpCommand}"/>
-            </ContentView.GestureRecognizers>
-            <Image Source="help"
-                   InputTransparent="True"/>
-        </ContentView>
-        <ContentView AbsoluteLayout.LayoutFlags="PositionProportional"
-                     AbsoluteLayout.LayoutBounds="0.8,0,75,75"
-                     Padding="20"
-                     IsVisible="{Binding ShouldSettingsAndHelpBeVisible}">
-            <ContentView.GestureRecognizers>
-                <TapGestureRecognizer Command="{Binding NavigateToSettingsCommand}"/>
-            </ContentView.GestureRecognizers>
-            <Image Source="gear"
-                   InputTransparent="True"/>
-        </ContentView>
-        <ContentView AbsoluteLayout.LayoutFlags="All"
-                     AbsoluteLayout.LayoutBounds="0.15, 1, 0.125, 0.125"
-                     Padding="10"
+                     AbsoluteLayout.LayoutBounds="{StaticResource _retakeLeftBounds}"
+                     Padding="{StaticResource _bottomPadding}"
                      IsVisible="{Binding ShouldLeftRetakeBeVisible}">
             <ContentView.GestureRecognizers>
                 <TapGestureRecognizer Command="{Binding RetakeLeftCommand}"/>
@@ -126,9 +147,9 @@
             <Image Source="cancel"
                    InputTransparent="True"/>
         </ContentView>
-        <ContentView AbsoluteLayout.LayoutFlags="All"
-                     AbsoluteLayout.LayoutBounds="0.85, 1, 0.125, 0.125"
-                     Padding="10"
+        <ContentView AbsoluteLayout.LayoutFlags="PositionProportional"
+                     AbsoluteLayout.LayoutBounds="{StaticResource _retakeRightBounds}"
+                     Padding="{StaticResource _bottomPadding}"
                      IsVisible="{Binding ShouldRightRetakeBeVisible}">
             <ContentView.GestureRecognizers>
                 <TapGestureRecognizer Command="{Binding RetakeRightCommand}"/>
@@ -139,14 +160,14 @@
         <BoxView x:Name="_upperLine" 
                  AbsoluteLayout.LayoutFlags="All"
                  AbsoluteLayout.LayoutBounds="0, 0, 0, 0"
-                 Margin="{DynamicResource _linePadding}"
+                 Margin="{StaticResource _linePadding}"
                  InputTransparent="True"
                  BackgroundColor="White"
                  IsVisible="{Binding ShouldLineGuidesBeVisible}"/>
         <ContentView x:Name="_upperLinePanner"
                      AbsoluteLayout.LayoutFlags="All"
                      AbsoluteLayout.LayoutBounds="0, 0, 0, 0"
-                     Padding="{DynamicResource _linePadding}"
+                     Padding="{StaticResource _linePadding}"
                      IsVisible="{Binding ShouldLineGuidesBeVisible}">
             <ContentView.GestureRecognizers>
                 <PanGestureRecognizer PanUpdated="UpperLinePanned"/>
@@ -157,12 +178,12 @@
                  AbsoluteLayout.LayoutBounds="0, 0, 0, 0"
                  InputTransparent="True"
                  BackgroundColor="White"
-                 Margin="{DynamicResource _linePadding}"
+                 Margin="{StaticResource _linePadding}"
                  IsVisible="{Binding ShouldLineGuidesBeVisible}"/>
         <ContentView x:Name="_lowerLinePanner"
                      AbsoluteLayout.LayoutFlags="All"
                      AbsoluteLayout.LayoutBounds="0, 0, 0, 0"
-                     Padding="{DynamicResource _linePadding}"
+                     Padding="{StaticResource _linePadding}"
                      IsVisible="{Binding ShouldLineGuidesBeVisible}">
             <ContentView.GestureRecognizers>
                 <PanGestureRecognizer PanUpdated="LowerLinePanned"/>
@@ -171,14 +192,14 @@
         <Image x:Name="_leftReticle"
                AbsoluteLayout.LayoutFlags="All"
                AbsoluteLayout.LayoutBounds="0, 0, 0, 0"
-               Margin="{DynamicResource _reticlePadding}"
+               Margin="{StaticResource _reticlePadding}"
                InputTransparent="True" 
                Source="{Binding LeftReticleImage}"
                IsVisible="{Binding ShouldDonutGuideBeVisible}"/>
         <ContentView x:Name="_leftReticlePanner"
                      AbsoluteLayout.LayoutFlags="All"
                      AbsoluteLayout.LayoutBounds="0, 0, 0, 0"
-                     Padding="{DynamicResource _reticlePadding}"
+                     Padding="{StaticResource _reticlePadding}"
                      IsVisible="{Binding ShouldDonutGuideBeVisible}">
             <ContentView.GestureRecognizers>
                 <PanGestureRecognizer PanUpdated="ReticlePanned"/>
@@ -187,22 +208,22 @@
         <Image x:Name="_rightReticle"
                AbsoluteLayout.LayoutFlags="All"
                AbsoluteLayout.LayoutBounds="0, 0, 0, 0"
-               Margin="{DynamicResource _reticlePadding}"
+               Margin="{StaticResource _reticlePadding}"
                InputTransparent="True" 
                Source="{Binding RightReticleImage}"
                IsVisible="{Binding ShouldDonutGuideBeVisible}"/>
         <ContentView x:Name="_rightReticlePanner"
                      AbsoluteLayout.LayoutFlags="All"
                      AbsoluteLayout.LayoutBounds="0, 0, 0, 0"
-                     Padding="{DynamicResource _reticlePadding}"
+                     Padding="{StaticResource _reticlePadding}"
                      IsVisible="{Binding ShouldDonutGuideBeVisible}">
             <ContentView.GestureRecognizers>
                 <PanGestureRecognizer PanUpdated="ReticlePanned"/>
             </ContentView.GestureRecognizers>
         </ContentView>
         <ContentView AbsoluteLayout.LayoutFlags="PositionProportional"
-                     AbsoluteLayout.LayoutBounds="{DynamicResource _clearRectangle}"
-                     Padding="20"                     
+                     AbsoluteLayout.LayoutBounds="{StaticResource _clearBounds}"
+                     Padding="{StaticResource _topBarPadding}"
                      IsVisible="{Binding WorkflowStage, Converter={vc:EnumCompareConverter}, ConverterParameter={x:Static vm:WorkflowStage.Capture}}">
             <ContentView.GestureRecognizers>
                 <TapGestureRecognizer Command="{Binding SwapSidesCommand}"/>
@@ -210,8 +231,8 @@
             <Image Source="swap"/>
         </ContentView>
         <ContentView AbsoluteLayout.LayoutFlags="PositionProportional"
-                     AbsoluteLayout.LayoutBounds="{DynamicResource _captureRectangle}"
-                     Padding="20"
+                     AbsoluteLayout.LayoutBounds="{StaticResource _captureBounds}"
+                     Padding="{StaticResource _bottomPadding}"
                      IsVisible="{Binding WorkflowStage, Converter={vc:EnumCompareConverter}, ConverterParameter={x:Static vm:WorkflowStage.Capture}}">
             <ContentView.GestureRecognizers>
                 <TapGestureRecognizer Command="{Binding CapturePictureCommand}"/>
@@ -219,8 +240,8 @@
             <Image Source="aperture"/>
         </ContentView>
         <ContentView AbsoluteLayout.LayoutFlags="PositionProportional"
-                     AbsoluteLayout.LayoutBounds="{DynamicResource _clearRectangle}"
-                     Padding="20"
+                     AbsoluteLayout.LayoutBounds="{StaticResource _clearBounds}"
+                     Padding="{StaticResource _topBarPadding}"
                      IsVisible="{Binding WorkflowStage, Converter={vc:EnumCompareConverter}, ConverterParameter={x:Static vm:WorkflowStage.Final}}">
             <ContentView.GestureRecognizers>
                 <TapGestureRecognizer Command="{Binding ClearCapturesCommand}"/>
@@ -228,8 +249,7 @@
             <Image Source="clearBox"/>
         </ContentView>
         <ContentView AbsoluteLayout.LayoutFlags="PositionProportional"
-                     AbsoluteLayout.LayoutBounds="{DynamicResource _viewRectangle}"
-                     Padding="10"
+                     AbsoluteLayout.LayoutBounds="{StaticResource _viewBounds}"
                      IsVisible="{Binding WorkflowStage, Converter={vc:EnumCompareConverter}, ConverterParameter={x:Static vm:WorkflowStage.Final}}">
             <ContentView.GestureRecognizers>
                 <TapGestureRecognizer Command="{Binding ToggleViewModeCommand}"/>
@@ -237,8 +257,7 @@
             <Image Source="eye"/>
         </ContentView>
         <ContentView AbsoluteLayout.LayoutFlags="PositionProportional"
-                     AbsoluteLayout.LayoutBounds="{DynamicResource _editRectangle}"
-                     Padding="10"
+                     AbsoluteLayout.LayoutBounds="{StaticResource _editBounds}"
                      IsVisible="{Binding WorkflowStage, Converter={vc:EnumCompareConverter}, ConverterParameter={x:Static vm:WorkflowStage.Final}}">
             <ContentView.GestureRecognizers>
                 <TapGestureRecognizer Command="{Binding GoToModeCommand}"
@@ -247,8 +266,8 @@
             <Image Source="edit"/>
         </ContentView>
         <ContentView AbsoluteLayout.LayoutFlags="PositionProportional"
-                     AbsoluteLayout.LayoutBounds="{DynamicResource _captureRectangle}"
-                     Padding="20"
+                     AbsoluteLayout.LayoutBounds="{StaticResource _captureBounds}"
+                     Padding="{StaticResource _bottomPadding}"
                      IsVisible="{Binding WorkflowStage, Converter={vc:EnumCompareConverter}, ConverterParameter={x:Static vm:WorkflowStage.Final}}">
             <ContentView.GestureRecognizers>
                 <TapGestureRecognizer Command="{Binding SaveCapturesCommand}"/>
@@ -257,8 +276,7 @@
         </ContentView>
 
         <ContentView AbsoluteLayout.LayoutFlags="PositionProportional"
-                     AbsoluteLayout.LayoutBounds="{DynamicResource _cropRectangle}"
-                     Padding="20"
+                     AbsoluteLayout.LayoutBounds="{StaticResource _cropBounds}"
                      IsVisible="{Binding WorkflowStage, Converter={vc:EnumCompareConverter}, ConverterParameter={x:Static vm:WorkflowStage.Edits}}">
             <ContentView.GestureRecognizers>
                 <TapGestureRecognizer Command="{Binding GoToModeCommand}"
@@ -266,30 +284,57 @@
             </ContentView.GestureRecognizers>
             <Image Source="scissor"/>
         </ContentView>
-        <ContentView AbsoluteLayout.LayoutFlags="PositionProportional"
-                     AbsoluteLayout.LayoutBounds="{DynamicResource _panRectangle}"
-                     Padding="10"
-                     IsVisible="{Binding WorkflowStage, Converter={vc:EnumCompareConverter}, ConverterParameter={x:Static vm:WorkflowStage.Edits}}">
-            <ContentView.GestureRecognizers>
+        <Grid AbsoluteLayout.LayoutFlags="PositionProportional,WidthProportional"
+              AbsoluteLayout.LayoutBounds="{StaticResource _panBounds}"
+              IsVisible="{Binding WorkflowStage, Converter={vc:EnumCompareConverter}, ConverterParameter={x:Static vm:WorkflowStage.Edits}}">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Grid.GestureRecognizers>
                 <TapGestureRecognizer Command="{Binding GoToModeCommand}"
                                       CommandParameter="{x:Static vm:WorkflowStage.Pan}"/>
-            </ContentView.GestureRecognizers>
-            <Image Source="pan"/>
-        </ContentView>
-        <ContentView AbsoluteLayout.LayoutFlags="PositionProportional"
-                     AbsoluteLayout.LayoutBounds="{DynamicResource _rotateRectangle}"
-                     Padding="10"
-                     IsVisible="{Binding WorkflowStage, Converter={vc:EnumCompareConverter}, ConverterParameter={x:Static vm:WorkflowStage.Edits}}">
-            <ContentView.GestureRecognizers>
+            </Grid.GestureRecognizers>
+            <StackLayout Grid.Column="1"
+                         Spacing="0"
+                         Orientation="Horizontal">
+                <Image Source="pan"/>
+                <Label Text="/"
+                       FontAttributes="Bold"
+                       FontSize="Large"
+                       VerticalTextAlignment="Center"/>
+                <Image Source="zoom"/>
+            </StackLayout>
+        </Grid>
+        <Grid AbsoluteLayout.LayoutFlags="PositionProportional,WidthProportional"
+              AbsoluteLayout.LayoutBounds="{StaticResource _alignBounds}"
+              Padding="{StaticResource _topBarPadding}"
+              IsVisible="{Binding WorkflowStage, Converter={vc:EnumCompareConverter}, ConverterParameter={x:Static vm:WorkflowStage.Edits}}">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Grid.GestureRecognizers>
                 <TapGestureRecognizer Command="{Binding GoToModeCommand}"
-                                      CommandParameter="{x:Static vm:WorkflowStage.Rotate}"/>
-            </ContentView.GestureRecognizers>
-            <Image Source="rotate"/>
-        </ContentView>
+                                      CommandParameter="{x:Static vm:WorkflowStage.Align}"/>
+            </Grid.GestureRecognizers>
+            <StackLayout Grid.Column="1"
+                         Spacing="0"
+                         Orientation="Horizontal">
+                <Image Source="rotate"/>
+                <Label Text="/"
+                       FontAttributes="Bold"
+                       FontSize="Large"
+                       VerticalTextAlignment="Center"/>
+                <Image Source="vertAlign"/>
+            </StackLayout>
+        </Grid>
 
         <ContentView AbsoluteLayout.LayoutFlags="PositionProportional"
-                     AbsoluteLayout.LayoutBounds="0.5,0,100,100"
-                     Padding="20"
+                     AbsoluteLayout.LayoutBounds="{StaticResource _undoBounds}"
+                     Padding="{StaticResource _topBarPadding}"
                      IsVisible="{Binding ShouldClearAndViewEditsButtonsBeVisible}">
             <ContentView.GestureRecognizers>
                 <TapGestureRecognizer Command="{Binding ClearEditCommand}"/>
@@ -298,8 +343,7 @@
                    InputTransparent="True"/>
         </ContentView>
         <ContentView AbsoluteLayout.LayoutFlags="PositionProportional"
-                     AbsoluteLayout.LayoutBounds="0.5, 0.5, 75, 75"
-                     Padding="10"
+                     AbsoluteLayout.LayoutBounds="{StaticResource _secondaryViewBounds}"
                      IsVisible="{Binding ShouldClearAndViewEditsButtonsBeVisible}">
             <ContentView.GestureRecognizers>
                 <TapGestureRecognizer Command="{Binding ToggleViewModeCommand}"/>
@@ -307,8 +351,8 @@
             <Image Source="eye"/>
         </ContentView>
         <ContentView AbsoluteLayout.LayoutFlags="PositionProportional"
-                     AbsoluteLayout.LayoutBounds="0.5,1,100,100"
-                     Padding="20"
+                     AbsoluteLayout.LayoutBounds="{StaticResource _checkBounds}"
+                     Padding="{StaticResource _bottomPadding}"
                      IsVisible="{Binding ShouldSaveEditsButtonBeVisible}">
             <ContentView.GestureRecognizers>
                 <TapGestureRecognizer Command="{Binding SaveEditCommand}"/>
@@ -317,69 +361,101 @@
         </ContentView>
 
         <ContentView AbsoluteLayout.LayoutFlags="PositionProportional"
-                     AbsoluteLayout.LayoutBounds="0.25,0.33,75,75"
-                     Padding="10"
-                     IsVisible="{Binding WorkflowStage, Converter={vc:EnumCompareConverter}, ConverterParameter={x:Static vm:WorkflowStage.Rotate}}">
+                     AbsoluteLayout.LayoutBounds="{StaticResource _leftRotateLeft}"
+                     IsVisible="{Binding WorkflowStage, Converter={vc:EnumCompareConverter}, ConverterParameter={x:Static vm:WorkflowStage.Align}}">
             <ContentView.GestureRecognizers>
                 <TapGestureRecognizer Command="{Binding DecreaseLeftRotation}"/>
             </ContentView.GestureRecognizers>
             <Image Source="rotateLeft"/>
         </ContentView>
         <ContentView AbsoluteLayout.LayoutFlags="PositionProportional"
-                     AbsoluteLayout.LayoutBounds="0.25,0.67,75,75"
-                     Padding="10"
-                     IsVisible="{Binding WorkflowStage, Converter={vc:EnumCompareConverter}, ConverterParameter={x:Static vm:WorkflowStage.Rotate}}">
+                     AbsoluteLayout.LayoutBounds="{StaticResource _leftRotateRight}"
+                     IsVisible="{Binding WorkflowStage, Converter={vc:EnumCompareConverter}, ConverterParameter={x:Static vm:WorkflowStage.Align}}">
             <ContentView.GestureRecognizers>
                 <TapGestureRecognizer Command="{Binding IncreaseLeftRotation}"/>
             </ContentView.GestureRecognizers>
             <Image Source="rotateRight"/>
         </ContentView>
         <ContentView AbsoluteLayout.LayoutFlags="PositionProportional"
-                     AbsoluteLayout.LayoutBounds="0.75,0.33,75,75"
-                     Padding="10"
-                     IsVisible="{Binding WorkflowStage, Converter={vc:EnumCompareConverter}, ConverterParameter={x:Static vm:WorkflowStage.Rotate}}">
-            <ContentView.GestureRecognizers>
-                <TapGestureRecognizer Command="{Binding IncreaseRightRotation}"/>
-            </ContentView.GestureRecognizers>
-            <Image Source="rotateRight"/>
-        </ContentView>
-        <ContentView AbsoluteLayout.LayoutFlags="PositionProportional"
-                     AbsoluteLayout.LayoutBounds="0.75,0.67,75,75"
-                     Padding="10"
-                     IsVisible="{Binding WorkflowStage, Converter={vc:EnumCompareConverter}, ConverterParameter={x:Static vm:WorkflowStage.Rotate}}">
+                     AbsoluteLayout.LayoutBounds="{StaticResource _rightRotateLeft}"
+                     IsVisible="{Binding WorkflowStage, Converter={vc:EnumCompareConverter}, ConverterParameter={x:Static vm:WorkflowStage.Align}}">
             <ContentView.GestureRecognizers>
                 <TapGestureRecognizer Command="{Binding DecreaseRightRotation}"/>
             </ContentView.GestureRecognizers>
             <Image Source="rotateLeft"/>
         </ContentView>
+        <ContentView AbsoluteLayout.LayoutFlags="PositionProportional"
+                     AbsoluteLayout.LayoutBounds="{StaticResource _rightRotateRight}"
+                     IsVisible="{Binding WorkflowStage, Converter={vc:EnumCompareConverter}, ConverterParameter={x:Static vm:WorkflowStage.Align}}">
+            <ContentView.GestureRecognizers>
+                <TapGestureRecognizer Command="{Binding IncreaseRightRotation}"/>
+            </ContentView.GestureRecognizers>
+            <Image Source="rotateRight"/>
+        </ContentView>
 
+        <ContentView AbsoluteLayout.LayoutFlags="PositionProportional"
+                     AbsoluteLayout.LayoutBounds="{StaticResource _leftAlignUp}"
+                     IsVisible="{Binding WorkflowStage, Converter={vc:EnumCompareConverter}, ConverterParameter={x:Static vm:WorkflowStage.Align}}">
+            <ContentView.GestureRecognizers>
+                <TapGestureRecognizer Command=""/>
+            </ContentView.GestureRecognizers>
+            <Image Source="alignUp"/>
+        </ContentView>
+        <ContentView AbsoluteLayout.LayoutFlags="PositionProportional"
+                     AbsoluteLayout.LayoutBounds="{StaticResource _leftAlignDown}"
+                     IsVisible="{Binding WorkflowStage, Converter={vc:EnumCompareConverter}, ConverterParameter={x:Static vm:WorkflowStage.Align}}">
+            <ContentView.GestureRecognizers>
+                <TapGestureRecognizer Command=""/>
+            </ContentView.GestureRecognizers>
+            <Image Source="alignDown"/>
+        </ContentView>
+        <ContentView AbsoluteLayout.LayoutFlags="PositionProportional"
+                     AbsoluteLayout.LayoutBounds="{StaticResource _rightAlignUp}"
+                     IsVisible="{Binding WorkflowStage, Converter={vc:EnumCompareConverter}, ConverterParameter={x:Static vm:WorkflowStage.Align}}">
+            <ContentView.GestureRecognizers>
+                <TapGestureRecognizer Command=""/>
+            </ContentView.GestureRecognizers>
+            <Image Source="alignUp"/>
+        </ContentView>
+        <ContentView AbsoluteLayout.LayoutFlags="PositionProportional"
+                     AbsoluteLayout.LayoutBounds="{StaticResource _rightAlignDown}"
+                     IsVisible="{Binding WorkflowStage, Converter={vc:EnumCompareConverter}, ConverterParameter={x:Static vm:WorkflowStage.Align}}">
+            <ContentView.GestureRecognizers>
+                <TapGestureRecognizer Command=""/>
+            </ContentView.GestureRecognizers>
+            <Image Source="alignDown"/>
+        </ContentView>
 
-        <Grid AbsoluteLayout.LayoutFlags="PositionProportional"
-              AbsoluteLayout.LayoutBounds="0.15, 0.55, 50, 150"
+        <Grid AbsoluteLayout.LayoutFlags="PositionProportional,HeightProportional"
               IsVisible="{Binding ShouldLeftCropButtonsBeVisible}"
               RowSpacing="0"
               ColumnSpacing="0">
+            <AbsoluteLayout.LayoutBounds>
+                <Rectangle X="0.15" Y="0" Width="{StaticResource _mediumIconWidth}" Height="1"/>
+            </AbsoluteLayout.LayoutBounds>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto"/>
                 <ColumnDefinition Width="Auto"/>
             </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
             <BoxView Grid.RowSpan="2" 
-                     Grid.Row="0"
+                     Grid.Row="1"
                      Grid.Column="0"
                      Color="White"
                      WidthRequest="3"/>
-            <Image Grid.Row="0" 
+            <Image Grid.Row="1" 
                    Grid.Column="1"
                    Source="leftTriangle">
                 <Image.GestureRecognizers>
                     <TapGestureRecognizer Command="{Binding DecreaseLLCrop}"/>
                 </Image.GestureRecognizers>
             </Image>
-            <Image Grid.Row="1" 
+            <Image Grid.Row="2" 
                    Grid.Column="1" 
                    Source="rightTriangle">
                 <Image.GestureRecognizers>
@@ -387,32 +463,36 @@
                 </Image.GestureRecognizers>
             </Image>
         </Grid>
-        <Grid AbsoluteLayout.LayoutFlags="PositionProportional"
-              AbsoluteLayout.LayoutBounds="0.3, 0.55, 50, 150"
+        <Grid AbsoluteLayout.LayoutFlags="PositionProportional,HeightProportional"
               IsVisible="{Binding ShouldLeftCropButtonsBeVisible}"
               RowSpacing="0"
               ColumnSpacing="0">
+            <AbsoluteLayout.LayoutBounds>
+                <Rectangle X="0.3" Y="0" Width="{StaticResource _mediumIconWidth}" Height="1"/>
+            </AbsoluteLayout.LayoutBounds>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto"/>
                 <ColumnDefinition Width="Auto"/>
             </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
             <BoxView Grid.RowSpan="2" 
-                     Grid.Row="0"
+                     Grid.Row="1"
                      Grid.Column="1"
                      Color="White"
                      WidthRequest="3"/>
-            <Image Grid.Row="0" 
+            <Image Grid.Row="1" 
                    Grid.Column="0"
                    Source="rightTriangle">
                 <Image.GestureRecognizers>
                     <TapGestureRecognizer Command="{Binding DecreaseLRCrop}"/>
                 </Image.GestureRecognizers>
             </Image>
-            <Image Grid.Row="1" 
+            <Image Grid.Row="2" 
                    Grid.Column="0"
                    Source="leftTriangle">
                 <Image.GestureRecognizers>
@@ -420,32 +500,36 @@
                 </Image.GestureRecognizers>
             </Image>
         </Grid>
-        <Grid AbsoluteLayout.LayoutFlags="PositionProportional"
-              AbsoluteLayout.LayoutBounds="0.7, 0.55, 50, 150"
+        <Grid AbsoluteLayout.LayoutFlags="PositionProportional,HeightProportional"
               RowSpacing="0"
               ColumnSpacing="0"
               IsVisible="{Binding WorkflowStage, Converter={vc:EnumCompareConverter}, ConverterParameter={x:Static vm:WorkflowStage.Crop}}">
+            <AbsoluteLayout.LayoutBounds>
+                <Rectangle X="0.7" Y="0" Width="{StaticResource _mediumIconWidth}" Height="1"/>
+            </AbsoluteLayout.LayoutBounds>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto"/>
                 <ColumnDefinition Width="Auto"/>
             </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
             <BoxView Grid.RowSpan="2"
-                     Grid.Row="0"
+                     Grid.Row="1"
                      Grid.Column="0"
                      Color="White"
                      WidthRequest="3"/>
-            <Image Grid.Row="0" 
+            <Image Grid.Row="1" 
                    Grid.Column="1"
                    Source="leftTriangle">
                 <Image.GestureRecognizers>
                     <TapGestureRecognizer Command="{Binding DecreaseRLCrop}"/>
                 </Image.GestureRecognizers>
             </Image>
-            <Image Grid.Row="1" 
+            <Image Grid.Row="2" 
                    Grid.Column="1"
                    Source="rightTriangle">
                 <Image.GestureRecognizers>
@@ -453,32 +537,36 @@
                 </Image.GestureRecognizers>
             </Image>
         </Grid>
-        <Grid AbsoluteLayout.LayoutFlags="PositionProportional"
-              AbsoluteLayout.LayoutBounds="0.85, 0.55, 50, 150"
+        <Grid AbsoluteLayout.LayoutFlags="PositionProportional,HeightProportional"
               IsVisible="{Binding WorkflowStage, Converter={vc:EnumCompareConverter}, ConverterParameter={x:Static vm:WorkflowStage.Crop}}"
               RowSpacing="0"
               ColumnSpacing="0">
+            <AbsoluteLayout.LayoutBounds>
+                <Rectangle X="0.85" Y="0" Width="{StaticResource _mediumIconWidth}" Height="1"/>
+            </AbsoluteLayout.LayoutBounds>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto"/>
                 <ColumnDefinition Width="Auto"/>
             </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
             <BoxView Grid.RowSpan="2"
-                     Grid.Row="0"
+                     Grid.Row="1"
                      Grid.Column="1"
                      Color="White"
                      WidthRequest="3"/>
-            <Image Grid.Row="0" 
+            <Image Grid.Row="1" 
                    Grid.Column="0"
                    Source="rightTriangle">
                 <Image.GestureRecognizers>
                     <TapGestureRecognizer Command="{Binding DecreaseRRCrop}"/>
                 </Image.GestureRecognizers>
             </Image>
-            <Image Grid.Row="1" 
+            <Image Grid.Row="2" 
                    Grid.Column="0"
                    Source="leftTriangle">
                 <Image.GestureRecognizers>
@@ -488,10 +576,12 @@
         </Grid>
 
         <Grid AbsoluteLayout.LayoutFlags="PositionProportional"
-              AbsoluteLayout.LayoutBounds="1, 0.2, 150, 50"
               RowSpacing="0"
               ColumnSpacing="0"
               IsVisible="{Binding WorkflowStage, Converter={vc:EnumCompareConverter}, ConverterParameter={x:Static vm:WorkflowStage.Crop}}">
+            <AbsoluteLayout.LayoutBounds>
+                <Rectangle X="1" Y="0.25" Width="{StaticResource _doubleMediumIconWidth}" Height="{StaticResource _mediumIconWidth}"/>
+            </AbsoluteLayout.LayoutBounds>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto"/>
                 <ColumnDefinition Width="Auto"/>
@@ -521,10 +611,12 @@
             </Image>
         </Grid>
         <Grid AbsoluteLayout.LayoutFlags="PositionProportional"
-              AbsoluteLayout.LayoutBounds="1, 0.8, 150, 50"
               RowSpacing="0"
               ColumnSpacing="0"
               IsVisible="{Binding WorkflowStage, Converter={vc:EnumCompareConverter}, ConverterParameter={x:Static vm:WorkflowStage.Crop}}">
+            <AbsoluteLayout.LayoutBounds>
+                <Rectangle X="1" Y="0.8" Width="{StaticResource _doubleMediumIconWidth}" Height="{StaticResource _mediumIconWidth}"/>
+            </AbsoluteLayout.LayoutBounds>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto"/>
                 <ColumnDefinition Width="Auto"/>
@@ -554,6 +646,27 @@
             </Image>
         </Grid>
 
+        <ContentView AbsoluteLayout.LayoutFlags="PositionProportional"
+                     AbsoluteLayout.LayoutBounds="{StaticResource _helpBounds}"
+                     Padding="{StaticResource _topBarPadding}"
+                     IsVisible="{Binding ShouldSettingsAndHelpBeVisible}">
+            <ContentView.GestureRecognizers>
+                <TapGestureRecognizer Command="{Binding NavigateToHelpCommand}"/>
+            </ContentView.GestureRecognizers>
+            <Image Source="help"
+                   InputTransparent="True"/>
+        </ContentView>
+        <ContentView AbsoluteLayout.LayoutFlags="PositionProportional"
+                     AbsoluteLayout.LayoutBounds="{StaticResource _gearBounds}"
+                     Padding="{StaticResource _topBarPadding}"
+                     IsVisible="{Binding ShouldSettingsAndHelpBeVisible}">
+            <ContentView.GestureRecognizers>
+                <TapGestureRecognizer Command="{Binding NavigateToSettingsCommand}"/>
+            </ContentView.GestureRecognizers>
+            <Image Source="gear"
+                   InputTransparent="True"/>
+        </ContentView>
+
         <Label AbsoluteLayout.LayoutFlags="All"
                AbsoluteLayout.LayoutBounds="0.5,0.15,0.75,0.1"
                HorizontalTextAlignment="Center"
@@ -562,7 +675,7 @@
                Text="(flip to landscape for a better view)"
                IsVisible="{Binding ShouldPortraitCaptureLandscapeViewModeWarningBeVisible}"/>
 
-        <Label Style="{DynamicResource _savingFeedback}"
+        <Label Style="{StaticResource _savingFeedback}"
                Text="Saved to Photos!">
             <Label.Behaviors>
                 <ce:FadeInAndOutBehavior Trigger="{Binding SuccessFadeTrigger}"
@@ -571,7 +684,7 @@
                                          VisibleTimeMs="2000"/>
             </Label.Behaviors>
         </Label>
-        <Label Style="{DynamicResource _savingFeedback}"
+        <Label Style="{StaticResource _savingFeedback}"
                Text="Save failed. :(">
             <Label.Behaviors>
                 <ce:FadeInAndOutBehavior Trigger="{Binding FailFadeTrigger}"
@@ -589,7 +702,7 @@
                IsRunning="{Binding WorkflowStage, Converter={vc:EnumCompareConverter}, ConverterParameter={x:Static vm:WorkflowStage.Saving}}"
                InputTransparent="True"/>
         <Label Text="Saving..."
-               Style="{DynamicResource _savingFeedback}"
+               Style="{StaticResource _savingFeedback}"
                IsVisible="{Binding WorkflowStage, Converter={vc:EnumCompareConverter}, ConverterParameter={x:Static vm:WorkflowStage.Saving}}"/>
         <ContentView AbsoluteLayout.LayoutFlags="All"
                      AbsoluteLayout.LayoutBounds="0,0,1,1"

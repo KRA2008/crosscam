@@ -156,15 +156,15 @@ namespace CrossCam.ViewModel
         public bool ShouldRightRetakeBeVisible => RightBitmap != null && (WorkflowStage == WorkflowStage.Capture || WorkflowStage == WorkflowStage.Final && DoesCaptureOrientationMatchViewOrientation);
         public bool DoesCaptureOrientationMatchViewOrientation => WasCapturePortrait == IsViewPortrait;
         public bool ShouldSettingsAndHelpBeVisible => WorkflowStage != WorkflowStage.Saving && WorkflowStage != WorkflowStage.View;
-        public bool ShouldLineGuidesBeVisible => (LeftBitmap == null ^ RightBitmap == null || Settings.ShowGuideLinesWithFirstCapture && WorkflowStage == WorkflowStage.Capture) && Settings.AreGuideLinesVisible && WorkflowStage == WorkflowStage.Capture;
-        public bool ShouldDonutGuideBeVisible => (LeftBitmap == null ^ RightBitmap == null || Settings.ShowGuideDonutWithFirstCapture && WorkflowStage == WorkflowStage.Capture) && Settings.IsGuideDonutVisible && WorkflowStage == WorkflowStage.Capture;
+        public bool ShouldLineGuidesBeVisible => (LeftBitmap == null ^ RightBitmap == null || Settings.ShowGuideLinesWithFirstCapture && WorkflowStage == WorkflowStage.Capture || WorkflowStage == WorkflowStage.Align) && Settings.AreGuideLinesVisible;
+        public bool ShouldDonutGuideBeVisible => (LeftBitmap == null ^ RightBitmap == null || Settings.ShowGuideDonutWithFirstCapture && WorkflowStage == WorkflowStage.Capture || WorkflowStage == WorkflowStage.Align) && Settings.IsGuideDonutVisible;
         public bool ShouldLeftCropButtonsBeVisible => WorkflowStage == WorkflowStage.Crop && !Settings.LockSideCroppingTogether;
         public bool ShouldSaveEditsButtonBeVisible => WorkflowStage == WorkflowStage.Edits ||
                                                       WorkflowStage == WorkflowStage.Crop ||
-                                                      WorkflowStage == WorkflowStage.Rotate ||
+                                                      WorkflowStage == WorkflowStage.Align ||
                                                       WorkflowStage == WorkflowStage.Pan;
         public bool ShouldClearAndViewEditsButtonsBeVisible => WorkflowStage == WorkflowStage.Crop ||
-                                                               WorkflowStage == WorkflowStage.Rotate ||
+                                                               WorkflowStage == WorkflowStage.Align ||
                                                                WorkflowStage == WorkflowStage.Pan;
 
         public string HelpText => "(flip for " + OppositeOrientation + ")" +
@@ -297,7 +297,7 @@ namespace CrossCam.ViewModel
                     case WorkflowStage.Crop:
                         ClearCrops();
                         break;
-                    case WorkflowStage.Rotate:
+                    case WorkflowStage.Align:
                         ClearRotation();
                         break;
                     case WorkflowStage.Pan:

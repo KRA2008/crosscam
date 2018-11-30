@@ -6,7 +6,7 @@
         Final,
         Edits,
         Crop,
-        Rotate,
+        Align,
         Pan,
         View,
         Saving

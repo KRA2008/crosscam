@@ -111,22 +111,10 @@
     <BundleResource Include="Resources\aperture%402x.png" />
   </ItemGroup>
   <ItemGroup>
-    <BundleResource Include="Resources\checkmark.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <BundleResource Include="Resources\checkmark%402x.png" />
-  </ItemGroup>
-  <ItemGroup>
     <BundleResource Include="Resources\cancel.png" />
   </ItemGroup>
   <ItemGroup>
     <BundleResource Include="Resources\cancel%402x.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <BundleResource Include="Resources\clear.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <BundleResource Include="Resources\clear%402x.png" />
   </ItemGroup>
   <ItemGroup>
     <BundleResource Include="Resources\eye.png" />
@@ -266,30 +254,6 @@
     <BundleResource Include="Resources\help%402x.png" />
   </ItemGroup>
   <ItemGroup>
-    <BundleResource Include="Resources\chevronLeft.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <BundleResource Include="Resources\chevronLeft%402x.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <BundleResource Include="Resources\chevronRight.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <BundleResource Include="Resources\chevronRight%402x.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <BundleResource Include="Resources\leftScissor.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <BundleResource Include="Resources\leftScissor%402x.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <BundleResource Include="Resources\rightScissor.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <BundleResource Include="Resources\rightScissor%402x.png" />
-  </ItemGroup>
-  <ItemGroup>
     <BundleResource Include="Resources\scissor.png" />
   </ItemGroup>
   <ItemGroup>
@@ -302,52 +266,10 @@
     <BundleResource Include="Resources\check%402x.png" />
   </ItemGroup>
   <ItemGroup>
-    <BundleResource Include="Resources\x.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <BundleResource Include="Resources\x%402x.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <BundleResource Include="Resources\bottomScissor.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <BundleResource Include="Resources\bottomScissor%402x.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <BundleResource Include="Resources\topScissor.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <BundleResource Include="Resources\topScissor%402x.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <BundleResource Include="Resources\chevronUp%402x.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <BundleResource Include="Resources\chevronUp.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <BundleResource Include="Resources\chevronDown%402x.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <BundleResource Include="Resources\chevronDown.png" />
-  </ItemGroup>
-  <ItemGroup>
     <BundleResource Include="Resources\undo.png" />
   </ItemGroup>
   <ItemGroup>
     <BundleResource Include="Resources\undo%402x.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <BundleResource Include="Resources\refresh.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <BundleResource Include="Resources\refresh%402x.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <BundleResource Include="Resources\restore.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <BundleResource Include="Resources\restore%402x.png" />
   </ItemGroup>
   <ItemGroup>
     <BundleResource Include="Resources\downTriangle.png" />
@@ -386,12 +308,6 @@
     <BundleResource Include="Resources\clearBox%402x.png" />
   </ItemGroup>
   <ItemGroup>
-    <BundleResource Include="Resources\down.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <BundleResource Include="Resources\down%402x.png" />
-  </ItemGroup>
-  <ItemGroup>
     <BundleResource Include="Resources\edit.png" />
   </ItemGroup>
   <ItemGroup>
@@ -416,16 +332,46 @@
     <BundleResource Include="Resources\rotateRight%402x.png" />
   </ItemGroup>
   <ItemGroup>
-    <BundleResource Include="Resources\up.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <BundleResource Include="Resources\up%402x.png" />
-  </ItemGroup>
-  <ItemGroup>
     <BundleResource Include="Resources\rotate.png" />
   </ItemGroup>
   <ItemGroup>
     <BundleResource Include="Resources\rotate%402x.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\vertAlign.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\vertAlign%402x.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\zoom.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\zoom%402x.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\zoomIn.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\zoomIn%402x.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\zoomOut.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\zoomOut%402x.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\alignDown.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\alignDown%402x.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\alignUp.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\alignUp%402x.png" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
