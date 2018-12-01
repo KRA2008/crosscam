@@ -68,10 +68,6 @@
                         BackgroundColor="White"
                         HorizontalOptions="EndAndExpand"/>
             </StackLayout>
-            <StackLayout Orientation="Horizontal">
-                <Label Text="Lock together cropping of sides (easier to maintain stereo window)"/>
-                <Switch IsToggled="{Binding Settings.LockSideCroppingTogether}"/>
-            </StackLayout>
             <BoxView/>
             <Label Text="Saving"
                    Style="{DynamicResource header}"/>

@@ -506,80 +506,6 @@
         </Grid>
 
         <Grid AbsoluteLayout.LayoutFlags="PositionProportional,HeightProportional"
-              IsVisible="{Binding ShouldLeftCropButtonsBeVisible}"
-              RowSpacing="0"
-              ColumnSpacing="0">
-            <AbsoluteLayout.LayoutBounds>
-                <Rectangle X="0.15" Y="0" Width="{StaticResource _mediumIconWidth}" Height="1"/>
-            </AbsoluteLayout.LayoutBounds>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="Auto"/>
-                <ColumnDefinition Width="Auto"/>
-            </Grid.ColumnDefinitions>
-            <Grid.RowDefinitions>
-                <RowDefinition Height="*"/>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="*"/>
-            </Grid.RowDefinitions>
-            <BoxView Grid.RowSpan="2" 
-                     Grid.Row="1"
-                     Grid.Column="0"
-                     Color="White"
-                     WidthRequest="3"/>
-            <Image Grid.Row="1" 
-                   Grid.Column="1"
-                   Source="leftTriangle">
-                <Image.GestureRecognizers>
-                    <TapGestureRecognizer Command="{Binding DecreaseLLCrop}"/>
-                </Image.GestureRecognizers>
-            </Image>
-            <Image Grid.Row="2" 
-                   Grid.Column="1" 
-                   Source="rightTriangle">
-                <Image.GestureRecognizers>
-                    <TapGestureRecognizer Command="{Binding IncreaseLLCrop}"/>
-                </Image.GestureRecognizers>
-            </Image>
-        </Grid>
-        <Grid AbsoluteLayout.LayoutFlags="PositionProportional,HeightProportional"
-              IsVisible="{Binding ShouldLeftCropButtonsBeVisible}"
-              RowSpacing="0"
-              ColumnSpacing="0">
-            <AbsoluteLayout.LayoutBounds>
-                <Rectangle X="0.3" Y="0" Width="{StaticResource _mediumIconWidth}" Height="1"/>
-            </AbsoluteLayout.LayoutBounds>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="Auto"/>
-                <ColumnDefinition Width="Auto"/>
-            </Grid.ColumnDefinitions>
-            <Grid.RowDefinitions>
-                <RowDefinition Height="*"/>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="*"/>
-            </Grid.RowDefinitions>
-            <BoxView Grid.RowSpan="2" 
-                     Grid.Row="1"
-                     Grid.Column="1"
-                     Color="White"
-                     WidthRequest="3"/>
-            <Image Grid.Row="1" 
-                   Grid.Column="0"
-                   Source="rightTriangle">
-                <Image.GestureRecognizers>
-                    <TapGestureRecognizer Command="{Binding DecreaseLRCrop}"/>
-                </Image.GestureRecognizers>
-            </Image>
-            <Image Grid.Row="2" 
-                   Grid.Column="0"
-                   Source="leftTriangle">
-                <Image.GestureRecognizers>
-                    <TapGestureRecognizer Command="{Binding IncreaseLRCrop}"/>
-                </Image.GestureRecognizers>
-            </Image>
-        </Grid>
-        <Grid AbsoluteLayout.LayoutFlags="PositionProportional,HeightProportional"
               RowSpacing="0"
               ColumnSpacing="0"
               IsVisible="{Binding WorkflowStage, Converter={vc:EnumCompareConverter}, ConverterParameter={x:Static vm:WorkflowStage.Crop}}">
@@ -659,7 +585,7 @@
               ColumnSpacing="0"
               IsVisible="{Binding WorkflowStage, Converter={vc:EnumCompareConverter}, ConverterParameter={x:Static vm:WorkflowStage.Crop}}">
             <AbsoluteLayout.LayoutBounds>
-                <Rectangle X="1" Y="0.25" Width="{StaticResource _doubleMediumIconWidth}" Height="{StaticResource _mediumIconWidth}"/>
+                <Rectangle X="0.8" Y="0.25" Width="{StaticResource _doubleMediumIconWidth}" Height="{StaticResource _mediumIconWidth}"/>
             </AbsoluteLayout.LayoutBounds>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto"/>
@@ -694,7 +620,7 @@
               ColumnSpacing="0"
               IsVisible="{Binding WorkflowStage, Converter={vc:EnumCompareConverter}, ConverterParameter={x:Static vm:WorkflowStage.Crop}}">
             <AbsoluteLayout.LayoutBounds>
-                <Rectangle X="1" Y="0.8" Width="{StaticResource _doubleMediumIconWidth}" Height="{StaticResource _mediumIconWidth}"/>
+                <Rectangle X="0.8" Y="0.8" Width="{StaticResource _doubleMediumIconWidth}" Height="{StaticResource _mediumIconWidth}"/>
             </AbsoluteLayout.LayoutBounds>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto"/>

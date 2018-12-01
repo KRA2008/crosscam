@@ -55,69 +55,25 @@ namespace CrossCam.ViewModel
 
         public Settings Settings { get; set; }
         
-        public Command IncreaseLLCrop => new Command(() =>
-        {
-            LeftImageLeftCrop += Settings.CropSpeed;
-            if (Settings.LockSideCroppingTogether)
-            {
-                RightImageRightCrop = LeftImageLeftCrop;
-            }
-        });
-        public Command DecreaseLLCrop => new Command(() =>
-        {
-            LeftImageLeftCrop -= LeftImageLeftCrop > 0 ? Settings.CropSpeed : 0;
-            if (Settings.LockSideCroppingTogether)
-            {
-                RightImageRightCrop = LeftImageLeftCrop;
-            }
-        });
-        public Command IncreaseLRCrop => new Command(() =>
-        {
-            LeftImageRightCrop += Settings.CropSpeed;
-            if (Settings.LockSideCroppingTogether)
-            {
-                RightImageLeftCrop = LeftImageRightCrop;
-            }
-        });
-        public Command DecreaseLRCrop => new Command(() =>
-        {
-            LeftImageRightCrop -= LeftImageRightCrop > 0 ? Settings.CropSpeed : 0;
-            if (Settings.LockSideCroppingTogether)
-            {
-                RightImageLeftCrop = LeftImageRightCrop;
-            }
-        });
         public Command IncreaseRLCrop => new Command(() =>
         {
             RightImageLeftCrop += Settings.CropSpeed;
-            if (Settings.LockSideCroppingTogether)
-            {
-                LeftImageRightCrop = RightImageLeftCrop;
-            }
+            LeftImageRightCrop = RightImageLeftCrop;
         });
         public Command DecreaseRLCrop => new Command(() =>
         {
             RightImageLeftCrop -= RightImageLeftCrop > 0 ? Settings.CropSpeed : 0;
-            if (Settings.LockSideCroppingTogether)
-            {
-                LeftImageRightCrop = RightImageLeftCrop;
-            }
+            LeftImageRightCrop = RightImageLeftCrop;
         });
         public Command IncreaseRRCrop => new Command(() =>
         {
             RightImageRightCrop += Settings.CropSpeed;
-            if (Settings.LockSideCroppingTogether)
-            {
-                LeftImageLeftCrop = RightImageRightCrop;
-            }
+            LeftImageLeftCrop = RightImageRightCrop;
         });
         public Command DecreaseRRCrop => new Command(() =>
         {
             RightImageRightCrop -= RightImageRightCrop > 0 ? Settings.CropSpeed : 0;
-            if (Settings.LockSideCroppingTogether)
-            {
-                LeftImageLeftCrop = RightImageRightCrop;
-            }
+            LeftImageLeftCrop = RightImageRightCrop;
         });
         public Command IncreaseTopCrop => new Command(() => { TopCrop += Settings.CropSpeed; });
         public Command DecreaseTopCrop => new Command(() => { TopCrop -= TopCrop > 0 ? Settings.CropSpeed : 0; });
@@ -158,7 +114,6 @@ namespace CrossCam.ViewModel
         public bool ShouldSettingsAndHelpBeVisible => WorkflowStage != WorkflowStage.Saving && WorkflowStage != WorkflowStage.View;
         public bool ShouldLineGuidesBeVisible => (LeftBitmap == null ^ RightBitmap == null || Settings.ShowGuideLinesWithFirstCapture && WorkflowStage == WorkflowStage.Capture || WorkflowStage == WorkflowStage.Align) && Settings.AreGuideLinesVisible;
         public bool ShouldDonutGuideBeVisible => (LeftBitmap == null ^ RightBitmap == null || Settings.ShowGuideDonutWithFirstCapture && WorkflowStage == WorkflowStage.Capture || WorkflowStage == WorkflowStage.Align) && Settings.IsGuideDonutVisible;
-        public bool ShouldLeftCropButtonsBeVisible => WorkflowStage == WorkflowStage.Crop && !Settings.LockSideCroppingTogether;
         public bool ShouldSaveEditsButtonBeVisible => WorkflowStage == WorkflowStage.Edits ||
                                                       WorkflowStage == WorkflowStage.Crop ||
                                                       WorkflowStage == WorkflowStage.Align ||
@@ -615,7 +570,6 @@ namespace CrossCam.ViewModel
             RaisePropertyChanged(nameof(ShouldLineGuidesBeVisible)); //TODO: figure out how to have Fody do this
             RaisePropertyChanged(nameof(ShouldDonutGuideBeVisible));
             RaisePropertyChanged(nameof(RightReticleImage));
-            RaisePropertyChanged(nameof(ShouldLeftCropButtonsBeVisible));
             RaisePropertyChanged(nameof(Settings)); // this doesn't cause reevaluation for above stuff, but triggers redraw of canvas
         }
 

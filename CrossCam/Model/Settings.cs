@@ -12,7 +12,6 @@ namespace CrossCam.Model
         public bool SaveRedundantFirstSide { get; set; }
         public bool SaveForParallel { get; set; }
         public bool SaveForCrossView { get; set; }
-        public bool LockSideCroppingTogether { get; set; }
         public bool AddBorder { get; set; }
 
         private bool _areGuideLinesVisible;
@@ -94,7 +93,6 @@ namespace CrossCam.Model
             AreGuideLinesVisible = true;
             IsCaptureLeftFirst = true;
             SaveForCrossView = true;
-            LockSideCroppingTogether = true;
 
             ShowGuideLinesWithFirstCapture = false;
             IsGuideDonutVisible = false;
