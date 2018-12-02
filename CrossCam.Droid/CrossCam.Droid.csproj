@@ -198,5 +198,11 @@
   <ItemGroup>
     <AndroidResource Include="Resources\drawable\vertAlignReverse.png" />
   </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\leftZoomInRightZoomOut.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\leftZoomOutRightZoomIn.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
 </Project>

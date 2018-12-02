@@ -55,30 +55,14 @@ namespace CrossCam.ViewModel
 
         public Settings Settings { get; set; }
 
-        public int LeftZoom { get; set; }
-        public int RightZoom { get; set; }
-
-        public Command LeftZoomIn => new Command(() =>
+        public int Zoom { get; set; }
+        public Command LeftZoomInRightZoomOut => new Command(() =>
         {
-            LeftZoom += Settings.ZoomSpeed;
+            Zoom += Settings.ZoomSpeed;
         });
-        public Command LeftZoomOut => new Command(() =>
+        public Command LeftZoomOutRightZoomIn => new Command(() =>
         {
-            if (LeftZoom - Settings.ZoomSpeed >= 0)
-            {
-                LeftZoom -= Settings.ZoomSpeed;
-            }
-        });
-        public Command RightZoomIn => new Command(() =>
-        {
-            RightZoom += Settings.ZoomSpeed;
-        });
-        public Command RightZoomOut => new Command(() =>
-        {
-            if (RightZoom - Settings.ZoomSpeed >= 0)
-            {
-                RightZoom -= Settings.ZoomSpeed;
-            }
+            Zoom -= Settings.ZoomSpeed;
         });
 
         public int LeftLeftCrop { get; set; }
@@ -498,11 +482,12 @@ namespace CrossCam.ViewModel
                         didSave = didSave && await photoSaver.SavePhoto(finalBytesToSave);
                     }
 
-                    var finalImageWidth = leftBitmap.Width + rightBitmap.Width - 
-                                          - LeftLeftCrop - LeftRightCrop - RightLeftCrop - RightRightCrop +
-                                          4 * (Settings.AddBorder ? Settings.BorderThickness : 0);
-                    var finalImageHeight = leftBitmap.Height - LeftTopCrop - LeftBottomCrop +
-                                           2 * (Settings.AddBorder ? Settings.BorderThickness : 0);
+                    var finalImageWidth = DrawTool.CalculateCanvasWidth(leftBitmap, rightBitmap,
+                        LeftLeftCrop, LeftRightCrop, RightLeftCrop, RightRightCrop,
+                        Settings.BorderThickness, Settings.AddBorder);
+                    var finalImageHeight = DrawTool.CalculateCanvasHeight(leftBitmap, rightBitmap,
+                        LeftTopCrop, LeftBottomCrop, RightTopCrop, RightBottomCrop,
+                        Settings.BorderThickness, Settings.AddBorder);
 
                     if (Settings.SaveForCrossView)
                     {
@@ -520,7 +505,7 @@ namespace CrossCam.ViewModel
                                 LeftLeftCrop, LeftRightCrop, RightLeftCrop, RightRightCrop,
                                 LeftTopCrop, LeftBottomCrop, RightTopCrop, RightBottomCrop,
                                 LeftRotation, RightRotation, VerticalAlignment,
-                                LeftZoom, RightZoom);
+                                Zoom);
 
                             finalImage = tempSurface.Snapshot();
                         }
@@ -549,7 +534,7 @@ namespace CrossCam.ViewModel
                                 LeftLeftCrop, LeftRightCrop, RightLeftCrop, RightRightCrop,
                                 LeftTopCrop, LeftBottomCrop, RightTopCrop, RightBottomCrop,
                                 LeftRotation, RightRotation, VerticalAlignment,
-                                LeftZoom, RightZoom,
+                                Zoom,
                                 true);
 
                             finalImage = tempSurface.Snapshot();
@@ -691,8 +676,7 @@ namespace CrossCam.ViewModel
             LeftRotation = 0;
             RightRotation = 0;
             VerticalAlignment = 0;
-            LeftZoom = 0;
-            RightZoom = 0;
+            Zoom = 0;
         }
 
         private void ClearEdits()

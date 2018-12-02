@@ -10,7 +10,7 @@ namespace CrossCam.Page
             int leftLeftCrop, int leftRightCrop, int rightLeftCrop, int rightRightCrop,
             int leftTopCrop, int leftBottomCrop, int rightTopCrop, int rightBottomCrop,
             float leftRotation, float rightRotation, int alignment,
-            int leftHorizontalZoom, int rightHorizontalZoom,
+            int zoom,
             bool switchForParallel = false)
         {
             if (leftBitmap == null && rightBitmap == null) return;
@@ -87,6 +87,7 @@ namespace CrossCam.Page
             if (leftBitmap != null)
             {
                 var aspectRatio = leftBitmap.Height / (1f * leftBitmap.Width);
+                var leftHorizontalZoom = zoom > 0 ? zoom : 0;
                 var leftVerticalZoom = aspectRatio * leftHorizontalZoom;
 
                 canvas.RotateDegrees(innerLeftRotation, leftPreviewWidth / 2f + leftPreviewX, previewHeight / 2f + previewY);
@@ -108,6 +109,7 @@ namespace CrossCam.Page
             if (rightBitmap != null)
             {
                 var aspectRatio = rightBitmap.Height / (1f * rightBitmap.Width);
+                var rightHorizontalZoom = zoom < 0 ? Math.Abs(zoom) : 0;
                 var rightVerticalZoom = aspectRatio * rightHorizontalZoom;
 
                 canvas.RotateDegrees(innerRightRotation, rightPreviewWidth / 2f + rightPreviewX, previewHeight / 2f + previewY);
@@ -125,6 +127,24 @@ namespace CrossCam.Page
                         previewHeight));
                 canvas.RotateDegrees(-1 * innerLeftRotation, rightPreviewWidth / 2f + rightPreviewX, previewHeight / 2f + previewY);
             }
+        }
+
+        public static int CalculateCanvasWidth(SKBitmap leftBitmap, SKBitmap rightBitmap, 
+            int leftLeftCrop, int leftRightCrop, int rightLeftCrop, int rightRightCrop,
+            int borderThickness, bool addBorder)
+        {
+            return leftBitmap.Width + rightBitmap.Width -
+                - leftLeftCrop - leftRightCrop - rightLeftCrop - rightRightCrop +
+                4 * (addBorder ? borderThickness : 0);
+        }
+
+        public static int CalculateCanvasHeight(SKBitmap leftBitmap, SKBitmap rightBitmap, 
+            int leftTopCrop, int leftBottomCrop, int rightTopCrop, int rightBottomCrop,
+            int borderThickness, bool addBorder)
+        {
+            return 0;
+            //leftBitmap.Height - LeftTopCrop - LeftBottomCrop +
+            //    2 * (Settings.AddBorder ? Settings.BorderThickness : 0);
         }
     }
 }
