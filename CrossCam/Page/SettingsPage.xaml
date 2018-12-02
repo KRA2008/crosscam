@@ -62,22 +62,32 @@
                         HorizontalOptions="EndAndExpand"/>
             </StackLayout>
             <StackLayout Orientation="Horizontal">
-                <Label Text="Cropping speed"/>
+                <Label Text="Crop speed"/>
                 <Picker ItemsSource="{Binding PositiveIntegers}"
                         SelectedIndex="{Binding Settings.CropSpeed}"
                         BackgroundColor="White"
                         HorizontalOptions="EndAndExpand"/>
             </StackLayout>
             <StackLayout Orientation="Horizontal">
-                <Label Text="Zoom/pan speed"/>
+                <Label Text="Align speed"/>
                 <Picker ItemsSource="{Binding PositiveIntegers}"
-                        SelectedIndex="{Binding Settings.ZoomPanSpeed}"
+                        SelectedIndex="{Binding Settings.AlignSpeed}"
                         BackgroundColor="White"
                         HorizontalOptions="EndAndExpand"/>
             </StackLayout>
             <StackLayout Orientation="Horizontal">
-                <Label Text="Lock zoom/pan sides together"/>
-                <Switch IsToggled="{Binding Settings.ZoomPanSidesLocked}"/>
+                <Label Text="Zoom speed"/>
+                <Picker ItemsSource="{Binding PositiveIntegers}"
+                        SelectedIndex="{Binding Settings.ZoomSpeed}"
+                        BackgroundColor="White"
+                        HorizontalOptions="EndAndExpand"/>
+            </StackLayout>
+            <StackLayout Orientation="Horizontal">
+                <Label Text="Rotate speed"/>
+                <Picker ItemsSource="{Binding PositiveIntegers}"
+                        SelectedIndex="{Binding Settings.RotationSpeed}"
+                        BackgroundColor="White"
+                        HorizontalOptions="EndAndExpand"/>
             </StackLayout>
             <BoxView/>
             <Label Text="Saving"

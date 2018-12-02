@@ -55,93 +55,147 @@ namespace CrossCam.ViewModel
 
         public Settings Settings { get; set; }
 
-        public int LeftHorizontalPan { get; set; }
-        public int LeftVerticalPan { get; set; }
-        public int RightHorizontalPan { get; set; }
-        public int RightVerticalPan { get; set; }
-        public Command LeftPanLeftCommand => new Command(() => { LeftHorizontalPan -= Settings.ZoomPanSpeed; });
-        public Command LeftPanUpCommand => new Command(() => { LeftVerticalPan -= Settings.ZoomPanSpeed; });
-        public Command LeftPanRightCommand => new Command(() => { LeftHorizontalPan += Settings.ZoomPanSpeed; });
-        public Command LeftPanDownCommand => new Command(() => { LeftVerticalPan += Settings.ZoomPanSpeed; });
-        public Command RightPanLeftCommand => new Command(() => { RightHorizontalPan -= Settings.ZoomPanSpeed; });
-        public Command RightPanUpCommand => new Command(() => { RightVerticalPan -= Settings.ZoomPanSpeed; });
-        public Command RightPanRightCommand => new Command(() => { RightHorizontalPan += Settings.ZoomPanSpeed; });
-        public Command RightPanDownCommand => new Command(() => { RightVerticalPan += Settings.ZoomPanSpeed; });
-
-        public int RightZoom { get; set; }
         public int LeftZoom { get; set; }
-        public Command ZoomInRightCommand => new Command(() =>
+        public int RightZoom { get; set; }
+
+        public Command LeftZoomIn => new Command(() =>
         {
-            RightZoom += 20;
-            if (Settings.ZoomPanSidesLocked)
+            LeftZoom += Settings.ZoomSpeed;
+        });
+        public Command LeftZoomOut => new Command(() =>
+        {
+            if (LeftZoom - Settings.ZoomSpeed >= 0)
             {
-                LeftZoom = RightZoom;
+                LeftZoom -= Settings.ZoomSpeed;
             }
         });
-        public Command ZoomOutRightCommand => new Command(() =>
+        public Command RightZoomIn => new Command(() =>
         {
-            if (RightZoom - Settings.ZoomPanSpeed > 0)
+            RightZoom += Settings.ZoomSpeed;
+        });
+        public Command RightZoomOut => new Command(() =>
+        {
+            if (RightZoom - Settings.ZoomSpeed >= 0)
             {
-                RightZoom -= Settings.ZoomPanSpeed;
-                if (Settings.ZoomPanSidesLocked)
-                {
-                    LeftZoom = RightZoom;
-                }
+                RightZoom -= Settings.ZoomSpeed;
             }
         });
-        public Command ZoomInLeftCommand => new Command(() =>
-        {
-            LeftZoom += 20;
-        });
-        public Command ZoomOutLeftCommand => new Command(() =>
-        {
-            if (LeftZoom - Settings.ZoomPanSpeed > 0)
-            {
-                LeftZoom -= Settings.ZoomPanSpeed;
-            }
-        });
+
+        public int LeftLeftCrop { get; set; }
+        public int LeftRightCrop { get; set; }
+        public int RightLeftCrop { get; set; }
+        public int RightRightCrop { get; set; }
+        public int LeftTopCrop { get; set; }
+        public int LeftBottomCrop { get; set; }
+        public int RightTopCrop { get; set; }
+        public int RightBottomCrop { get; set; }
 
         public Command IncreaseInsideCrop => new Command(() =>
         {
-            InsideCrop += Settings.CropSpeed;
+            LeftRightCrop += Settings.CropSpeed;
+            RightLeftCrop += Settings.CropSpeed;
         });
         public Command DecreaseInsideCrop => new Command(() =>
         {
-            if (InsideCrop - Settings.CropSpeed >= 0)
+            if (LeftRightCrop - Settings.CropSpeed >= 0 &&
+                RightLeftCrop - Settings.CropSpeed >= 0)
             {
-                InsideCrop -= Settings.CropSpeed;
+                LeftRightCrop -= Settings.CropSpeed;
+                RightLeftCrop -= Settings.CropSpeed;
             }
         });
         public Command IncreaseOutsideCrop => new Command(() =>
         {
-            OutsideCrop += Settings.CropSpeed;
+            LeftLeftCrop += Settings.CropSpeed;
+            RightRightCrop += Settings.CropSpeed;
         });
         public Command DecreaseOutsideCrop => new Command(() =>
         {
-            if (OutsideCrop - Settings.CropSpeed >= 0)
+            if (LeftLeftCrop - Settings.CropSpeed >= 0 &&
+                RightRightCrop - Settings.CropSpeed >= 0)
             {
-                OutsideCrop -= Settings.CropSpeed;
+                LeftLeftCrop -= Settings.CropSpeed;
+                RightRightCrop -= Settings.CropSpeed;
             }
         });
-        public Command IncreaseTopCrop => new Command(() => { TopCrop += Settings.CropSpeed; });
-        public Command DecreaseTopCrop => new Command(() => { TopCrop -= TopCrop > 0 ? Settings.CropSpeed : 0; });
-        public Command IncreaseBottomCrop => new Command(() => { BottomCrop += Settings.CropSpeed; });
-        public Command DecreaseBottomCrop => new Command(() => { BottomCrop -= BottomCrop > 0 ? Settings.CropSpeed : 0; });
 
-        public int InsideCrop { get; set; }
-        public int OutsideCrop { get; set; }
-        public int TopCrop { get; set; }
-        public int BottomCrop { get; set; }
+        public Command IncreaseLeftCrop => new Command(() =>
+        {
+            LeftLeftCrop += Settings.CropSpeed;
+            RightLeftCrop += Settings.CropSpeed;
+        });
+        public Command DecreaseLeftCrop => new Command(() =>
+        {
+            if (LeftLeftCrop - Settings.CropSpeed >= 0 &&
+                RightLeftCrop - Settings.CropSpeed >= 0)
+            {
+                LeftLeftCrop -= Settings.CropSpeed;
+                RightLeftCrop -= Settings.CropSpeed;
+            }
+        });
+        public Command IncreaseRightCrop => new Command(() =>
+        {
+            LeftRightCrop += Settings.CropSpeed;
+            RightRightCrop += Settings.CropSpeed;
+        });
+        public Command DecreaseRightCrop => new Command(() =>
+        {
+            if (LeftRightCrop - Settings.CropSpeed >= 0 &&
+                RightRightCrop - Settings.CropSpeed >= 0)
+            {
+                LeftRightCrop -= Settings.CropSpeed;
+                RightRightCrop -= Settings.CropSpeed;
+            }
+        });
 
-        public float RotationSpeed => 0.1f;
+        public Command IncreaseTopCrop => new Command(() =>
+        {
+            LeftTopCrop += Settings.CropSpeed;
+            RightTopCrop += Settings.CropSpeed;
+        });
+        public Command DecreaseTopCrop => new Command(() =>
+        {
+            if (LeftTopCrop - Settings.CropSpeed >= 0 &&
+                RightTopCrop - Settings.CropSpeed > 0)
+            {
+                LeftTopCrop -= Settings.CropSpeed;
+                RightTopCrop -= Settings.CropSpeed;
+            }
+        });
+        public Command IncreaseBottomCrop => new Command(() =>
+        {
+            LeftBottomCrop += Settings.CropSpeed;
+            RightBottomCrop += Settings.CropSpeed;
+        });
+        public Command DecreaseBottomCrop => new Command(() =>
+        {
+            if (LeftBottomCrop - Settings.CropSpeed >= 0 &&
+                RightBottomCrop - Settings.CropSpeed > 0)
+            {
+                LeftBottomCrop -= Settings.CropSpeed;
+                RightBottomCrop -= Settings.CropSpeed;
+            }
+        });
+
+        public int VerticalAlignment { get; set; }
+        public Command LeftUpRightDown => new Command(() =>
+        {
+            VerticalAlignment += Settings.AlignSpeed;
+        });
+        public Command LeftDownRightUp => new Command(() =>
+        {
+            VerticalAlignment -= Settings.AlignSpeed;
+        });
+
+        private const float ROTATION_MULTIPLIER = 100f;
 
         public float LeftRotation { get; set; }
         public float RightRotation { get; set; }
-
-        public Command IncreaseLeftRotation => new Command(() => { LeftRotation += RotationSpeed; });
-        public Command DecreaseLeftRotation => new Command(() => { LeftRotation -= RotationSpeed; });
-        public Command IncreaseRightRotation => new Command(() => { RightRotation += RotationSpeed; });
-        public Command DecreaseRightRotation => new Command(() => { RightRotation -= RotationSpeed; });
+        
+        public Command IncreaseLeftRotation => new Command(() => { LeftRotation += Settings.RotationSpeed * ROTATION_MULTIPLIER; });
+        public Command DecreaseLeftRotation => new Command(() => { LeftRotation -= Settings.RotationSpeed * ROTATION_MULTIPLIER; });
+        public Command IncreaseRightRotation => new Command(() => { RightRotation += Settings.RotationSpeed * ROTATION_MULTIPLIER; });
+        public Command DecreaseRightRotation => new Command(() => { RightRotation -= Settings.RotationSpeed * ROTATION_MULTIPLIER; });
 
         public bool IsViewPortrait { get; set; }
         public bool IsCaptureLeftFirst { get; set; }
@@ -158,17 +212,13 @@ namespace CrossCam.ViewModel
         public bool ShouldRightRetakeBeVisible => RightBitmap != null && (WorkflowStage == WorkflowStage.Capture || WorkflowStage == WorkflowStage.Final && DoesCaptureOrientationMatchViewOrientation);
         public bool DoesCaptureOrientationMatchViewOrientation => WasCapturePortrait == IsViewPortrait;
         public bool ShouldSettingsAndHelpBeVisible => WorkflowStage != WorkflowStage.Saving && WorkflowStage != WorkflowStage.View;
-        public bool ShouldLineGuidesBeVisible => (LeftBitmap == null ^ RightBitmap == null || Settings.ShowGuideLinesWithFirstCapture && WorkflowStage == WorkflowStage.Capture || WorkflowStage == WorkflowStage.Align) && Settings.AreGuideLinesVisible;
-        public bool ShouldDonutGuideBeVisible => (LeftBitmap == null ^ RightBitmap == null || Settings.ShowGuideDonutWithFirstCapture && WorkflowStage == WorkflowStage.Capture || WorkflowStage == WorkflowStage.Align) && Settings.IsGuideDonutVisible;
+        public bool ShouldLineGuidesBeVisible => (LeftBitmap == null ^ RightBitmap == null || Settings.ShowGuideLinesWithFirstCapture && WorkflowStage == WorkflowStage.Capture) && Settings.AreGuideLinesVisible;
+        public bool ShouldDonutGuideBeVisible => (LeftBitmap == null ^ RightBitmap == null || Settings.ShowGuideDonutWithFirstCapture && WorkflowStage == WorkflowStage.Capture) && Settings.IsGuideDonutVisible;
         public bool ShouldSaveEditsButtonBeVisible => WorkflowStage == WorkflowStage.Edits ||
                                                       WorkflowStage == WorkflowStage.Crop ||
-                                                      WorkflowStage == WorkflowStage.Align ||
-                                                      WorkflowStage == WorkflowStage.Pan;
+                                                      WorkflowStage == WorkflowStage.Align;
         public bool ShouldClearAndViewEditsButtonsBeVisible => WorkflowStage == WorkflowStage.Crop ||
-                                                               WorkflowStage == WorkflowStage.Align ||
-                                                               WorkflowStage == WorkflowStage.Pan;
-        public bool ShouldLeftPanZoomBeVisible => WorkflowStage == WorkflowStage.Pan &&
-                                                  !Settings.ZoomPanSidesLocked;
+                                                               WorkflowStage == WorkflowStage.Align;
 
         public string HelpText => "(flip for " + OppositeOrientation + ")" +
                                   "\n1) Frame up your subject" +
@@ -180,7 +230,7 @@ namespace CrossCam.ViewModel
         public string SlideDirection => IsCaptureLeftFirst ? "LEFT" : "RIGHT";
         public int HelpTextColumn => IsCaptureLeftFirst ? 1 : 0;
         public string OppositeOrientation => IsViewPortrait ? "landscape" : "portrait";
-        public bool ShouldPortraitCaptureLandscapeViewModeWarningBeVisible => WorkflowStage != WorkflowStage.Capture && WorkflowStage != WorkflowStage.Saving && IsViewPortrait && WasCapturePortrait;
+        public bool ShouldPortraitViewModeWarningBeVisible => WorkflowStage != WorkflowStage.Capture && WorkflowStage != WorkflowStage.Saving && IsViewPortrait;
 
         public ImageSource LeftReticleImage => ImageSource.FromFile("squareOuter");
         public ImageSource RightReticleImage => Settings.IsGuideDonutBothDonuts
@@ -259,7 +309,7 @@ namespace CrossCam.ViewModel
 
             RetakeLeftCommand = new Command(() =>
             {
-                ClearCrops();
+                ClearEdits();
                 CameraColumn = 0;
                 IsCameraVisible = true;
                 LeftBitmap = null;
@@ -272,7 +322,7 @@ namespace CrossCam.ViewModel
 
             RetakeRightCommand = new Command(() =>
             {
-                ClearCrops();
+                ClearEdits();
                 CameraColumn = 1;
                 IsCameraVisible = true;
                 RightBitmap = null;
@@ -301,11 +351,7 @@ namespace CrossCam.ViewModel
                         ClearCrops();
                         break;
                     case WorkflowStage.Align:
-                        ClearRotation();
-                        break;
-                    case WorkflowStage.Pan:
-                        ClearZoom();
-                        //ClearPan();
+                        ClearAlignments();
                         break;
                 }
             });
@@ -453,9 +499,9 @@ namespace CrossCam.ViewModel
                     }
 
                     var finalImageWidth = leftBitmap.Width + rightBitmap.Width - 
-                                          2 * OutsideCrop - 2 * InsideCrop +
+                                          - LeftLeftCrop - LeftRightCrop - RightLeftCrop - RightRightCrop +
                                           4 * (Settings.AddBorder ? Settings.BorderThickness : 0);
-                    var finalImageHeight = leftBitmap.Height - TopCrop - BottomCrop +
+                    var finalImageHeight = leftBitmap.Height - LeftTopCrop - LeftBottomCrop +
                                            2 * (Settings.AddBorder ? Settings.BorderThickness : 0);
 
                     if (Settings.SaveForCrossView)
@@ -470,10 +516,11 @@ namespace CrossCam.ViewModel
                                 canvas.RotateDegrees(180);
                                 canvas.Translate(-1f * finalImageWidth, -1f * finalImageHeight);
                             }
-                            DrawTool.DrawImagesOnCanvas(canvas, leftBitmap, rightBitmap, Settings.AddBorder ? Settings.BorderThickness : 0,
-                                OutsideCrop, InsideCrop, TopCrop, BottomCrop,
-                                LeftRotation, RightRotation,
-                                RightZoom);
+                            DrawTool.DrawImagesOnCanvas(canvas, leftBitmap, rightBitmap, Settings.BorderThickness,
+                                LeftLeftCrop, LeftRightCrop, RightLeftCrop, RightRightCrop,
+                                LeftTopCrop, LeftBottomCrop, RightTopCrop, RightBottomCrop,
+                                LeftRotation, RightRotation, VerticalAlignment,
+                                LeftZoom, RightZoom);
 
                             finalImage = tempSurface.Snapshot();
                         }
@@ -499,9 +546,10 @@ namespace CrossCam.ViewModel
                                 canvas.Translate(-1f * finalImageWidth, -1f * finalImageHeight);
                             }
                             DrawTool.DrawImagesOnCanvas(canvas, leftBitmap, rightBitmap, Settings.AddBorder ? Settings.BorderThickness : 0,
-                                OutsideCrop, InsideCrop, TopCrop, BottomCrop, 
-                                LeftRotation, RightRotation, 
-                                RightZoom, 
+                                LeftLeftCrop, LeftRightCrop, RightLeftCrop, RightRightCrop,
+                                LeftTopCrop, LeftBottomCrop, RightTopCrop, RightBottomCrop,
+                                LeftRotation, RightRotation, VerticalAlignment,
+                                LeftZoom, RightZoom,
                                 true);
 
                             finalImage = tempSurface.Snapshot();
@@ -624,27 +672,33 @@ namespace CrossCam.ViewModel
             RaisePropertyChanged(nameof(ShouldDonutGuideBeVisible));
             RaisePropertyChanged(nameof(RightReticleImage));
             RaisePropertyChanged(nameof(Settings)); // this doesn't cause reevaluation for above stuff, but triggers redraw of canvas
-            RaisePropertyChanged(nameof(ShouldLeftPanZoomBeVisible));
         }
 
         private void ClearCrops()
         {
-            InsideCrop = 0;
-            OutsideCrop = 0;
-            TopCrop = 0;
-            BottomCrop = 0;
+            LeftLeftCrop = 0;
+            LeftRightCrop = 0;
+            RightLeftCrop = 0;
+            RightRightCrop = 0;
+            LeftTopCrop = 0;
+            LeftBottomCrop = 0;
+            RightTopCrop = 0;
+            RightBottomCrop = 0;
         }
 
-        private void ClearRotation()
+        private void ClearAlignments()
         {
             LeftRotation = 0;
             RightRotation = 0;
-        }
-
-        private void ClearZoom()
-        {
+            VerticalAlignment = 0;
             LeftZoom = 0;
             RightZoom = 0;
+        }
+
+        private void ClearEdits()
+        {
+            ClearCrops();
+            ClearAlignments();
         }
 
         private void ClearCaptures()
@@ -652,9 +706,7 @@ namespace CrossCam.ViewModel
             LeftBitmap = null;
             RightBitmap = null;
             IsCameraVisible = true;
-            ClearCrops();
-            ClearRotation();
-            ClearZoom();
+            ClearEdits();
             WorkflowStage = WorkflowStage.Capture;
 
             if (Settings.IsTapToFocusEnabled)

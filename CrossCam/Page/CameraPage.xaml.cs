@@ -55,15 +55,20 @@ namespace CrossCam.Page
 	                break;
 	            case nameof(CameraViewModel.LeftBitmap):
                 case nameof(CameraViewModel.RightBitmap):
-                case nameof(CameraViewModel.InsideCrop):
-                case nameof(CameraViewModel.OutsideCrop):
-                case nameof(CameraViewModel.TopCrop):
-                case nameof(CameraViewModel.BottomCrop):
+                case nameof(CameraViewModel.LeftLeftCrop):
+	            case nameof(CameraViewModel.LeftRightCrop):
+	            case nameof(CameraViewModel.RightLeftCrop):
+	            case nameof(CameraViewModel.RightRightCrop):
+	            case nameof(CameraViewModel.LeftTopCrop):
+	            case nameof(CameraViewModel.LeftBottomCrop):
+	            case nameof(CameraViewModel.RightTopCrop):
+	            case nameof(CameraViewModel.RightBottomCrop):
                 case nameof(CameraViewModel.Settings):
                 case nameof(CameraViewModel.LeftRotation):
 	            case nameof(CameraViewModel.RightRotation):
+                case nameof(CameraViewModel.VerticalAlignment):
+                case nameof(CameraViewModel.LeftZoom):
 	            case nameof(CameraViewModel.RightZoom):
-	            case nameof(CameraViewModel.LeftZoom):
                     _canvasView.InvalidateSurface();
                     break;
 	        }
@@ -78,9 +83,10 @@ namespace CrossCam.Page
 	        DrawTool.DrawImagesOnCanvas(
 	            canvas, _viewModel.LeftBitmap, _viewModel.RightBitmap, 
 	            _viewModel.LeftBitmap != null && _viewModel.RightBitmap != null && _viewModel.Settings.AddBorder ? _viewModel.Settings.BorderThickness : 0,
-	            _viewModel.OutsideCrop, _viewModel.InsideCrop, _viewModel.TopCrop, _viewModel.BottomCrop,
-	            _viewModel.LeftRotation, _viewModel.RightRotation,
-	            _viewModel.RightZoom);
+	            _viewModel.LeftLeftCrop, _viewModel.LeftRightCrop, _viewModel.RightLeftCrop, _viewModel.RightRightCrop,
+                _viewModel.LeftTopCrop, _viewModel.LeftBottomCrop, _viewModel.RightTopCrop, _viewModel.RightBottomCrop,
+	            _viewModel.LeftRotation, _viewModel.RightRotation, _viewModel.VerticalAlignment,
+	            _viewModel.LeftZoom, _viewModel.RightZoom);
         }
 
         private void ResetGuides()

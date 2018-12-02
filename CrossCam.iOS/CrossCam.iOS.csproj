@@ -314,12 +314,6 @@
     <BundleResource Include="Resources\edit%402x.png" />
   </ItemGroup>
   <ItemGroup>
-    <BundleResource Include="Resources\pan.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <BundleResource Include="Resources\pan%402x.png" />
-  </ItemGroup>
-  <ItemGroup>
     <BundleResource Include="Resources\rotateLeft.png" />
   </ItemGroup>
   <ItemGroup>
@@ -362,40 +356,34 @@
     <BundleResource Include="Resources\zoomOut%402x.png" />
   </ItemGroup>
   <ItemGroup>
-    <BundleResource Include="Resources\alignDown.png" />
+    <BundleResource Include="Resources\insideCrop.png" />
   </ItemGroup>
   <ItemGroup>
-    <BundleResource Include="Resources\alignDown%402x.png" />
+    <BundleResource Include="Resources\insideCrop%402x.png" />
   </ItemGroup>
   <ItemGroup>
-    <BundleResource Include="Resources\alignUp.png" />
+    <BundleResource Include="Resources\leftCrop.png" />
   </ItemGroup>
   <ItemGroup>
-    <BundleResource Include="Resources\alignUp%402x.png" />
+    <BundleResource Include="Resources\leftCrop%402x.png" />
   </ItemGroup>
   <ItemGroup>
-    <BundleResource Include="Resources\panDown.png" />
+    <BundleResource Include="Resources\outsideCrop.png" />
   </ItemGroup>
   <ItemGroup>
-    <BundleResource Include="Resources\panDown%402x.png" />
+    <BundleResource Include="Resources\outsideCrop%402x.png" />
   </ItemGroup>
   <ItemGroup>
-    <BundleResource Include="Resources\panLeft.png" />
+    <BundleResource Include="Resources\rightCrop.png" />
   </ItemGroup>
   <ItemGroup>
-    <BundleResource Include="Resources\panLeft%402x.png" />
+    <BundleResource Include="Resources\rightCrop%402x.png" />
   </ItemGroup>
   <ItemGroup>
-    <BundleResource Include="Resources\panRight.png" />
+    <BundleResource Include="Resources\vertAlignReverse.png" />
   </ItemGroup>
   <ItemGroup>
-    <BundleResource Include="Resources\panRight%402x.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <BundleResource Include="Resources\panUp.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <BundleResource Include="Resources\panUp%402x.png" />
+    <BundleResource Include="Resources\vertAlignReverse%402x.png" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

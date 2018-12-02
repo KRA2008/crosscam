@@ -163,9 +163,6 @@
     <AndroidResource Include="Resources\drawable\edit.png" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\drawable\pan.png" />
-  </ItemGroup>
-  <ItemGroup>
     <AndroidResource Include="Resources\drawable\rotateLeft.png" />
   </ItemGroup>
   <ItemGroup>
@@ -187,22 +184,19 @@
     <AndroidResource Include="Resources\drawable\zoomOut.png" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\drawable\alignDown.png" />
+    <AndroidResource Include="Resources\drawable\insideCrop.png" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\drawable\alignUp.png" />
+    <AndroidResource Include="Resources\drawable\leftCrop.png" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\drawable\panDown.png" />
+    <AndroidResource Include="Resources\drawable\outsideCrop.png" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\drawable\panLeft.png" />
+    <AndroidResource Include="Resources\drawable\rightCrop.png" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\drawable\panRight.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="Resources\drawable\panUp.png" />
+    <AndroidResource Include="Resources\drawable\vertAlignReverse.png" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
 </Project>

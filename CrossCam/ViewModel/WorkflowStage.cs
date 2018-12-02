@@ -7,7 +7,6 @@
         Edits,
         Crop,
         Align,
-        Pan,
         View,
         Saving
     }
