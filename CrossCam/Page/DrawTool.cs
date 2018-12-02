@@ -88,7 +88,8 @@ namespace CrossCam.Page
             {
                 var aspectRatio = leftBitmap.Height / (1f * leftBitmap.Width);
                 var leftVerticalZoom = aspectRatio * leftHorizontalZoom;
-                canvas.RotateDegrees(innerLeftRotation);
+
+                canvas.RotateDegrees(innerLeftRotation, leftPreviewWidth / 2f + leftPreviewX, previewHeight / 2f + previewY);
                 canvas.DrawBitmap(
                     leftBitmap,
                     SKRect.Create(
@@ -101,14 +102,15 @@ namespace CrossCam.Page
                         previewY,
                         leftPreviewWidth,
                         previewHeight));
-                canvas.RotateDegrees(-1 * innerLeftRotation);
+                canvas.RotateDegrees(-1 * innerLeftRotation, leftPreviewWidth / 2f + leftPreviewX, previewHeight / 2f + previewY);
             }
 
             if (rightBitmap != null)
             {
                 var aspectRatio = rightBitmap.Height / (1f * rightBitmap.Width);
                 var rightVerticalZoom = aspectRatio * rightHorizontalZoom;
-                canvas.RotateDegrees(innerRightRotation);
+
+                canvas.RotateDegrees(innerRightRotation, rightPreviewWidth / 2f + rightPreviewX, previewHeight / 2f + previewY);
                 canvas.DrawBitmap(
                     rightBitmap,
                     SKRect.Create(
@@ -121,7 +123,7 @@ namespace CrossCam.Page
                         previewY,
                         rightPreviewWidth,
                         previewHeight));
-                canvas.RotateDegrees(-1 * innerRightRotation);
+                canvas.RotateDegrees(-1 * innerLeftRotation, rightPreviewWidth / 2f + rightPreviewX, previewHeight / 2f + previewY);
             }
         }
     }
