@@ -192,10 +192,10 @@ namespace CrossCam.ViewModel
         public float LeftRotation { get; set; }
         public float RightRotation { get; set; }
         
-        public Command IncreaseLeftRotation => new Command(() => { LeftRotation += Settings.RotationSpeed * ROTATION_MULTIPLIER; });
-        public Command DecreaseLeftRotation => new Command(() => { LeftRotation -= Settings.RotationSpeed * ROTATION_MULTIPLIER; });
-        public Command IncreaseRightRotation => new Command(() => { RightRotation += Settings.RotationSpeed * ROTATION_MULTIPLIER; });
-        public Command DecreaseRightRotation => new Command(() => { RightRotation -= Settings.RotationSpeed * ROTATION_MULTIPLIER; });
+        public Command IncreaseLeftRotation => new Command(() => { LeftRotation += Settings.RotationSpeed / ROTATION_MULTIPLIER; });
+        public Command DecreaseLeftRotation => new Command(() => { LeftRotation -= Settings.RotationSpeed / ROTATION_MULTIPLIER; });
+        public Command IncreaseRightRotation => new Command(() => { RightRotation += Settings.RotationSpeed / ROTATION_MULTIPLIER; });
+        public Command DecreaseRightRotation => new Command(() => { RightRotation -= Settings.RotationSpeed / ROTATION_MULTIPLIER; });
 
         public bool IsViewPortrait { get; set; }
         public bool IsCaptureLeftFirst { get; set; }

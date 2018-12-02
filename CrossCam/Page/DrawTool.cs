@@ -22,20 +22,15 @@ namespace CrossCam.Page
             var leftBitmapWidthLessCrop = 0;
             var rightBitmapWidthLessCrop = 0;
             var bitmapHeightLessCrop = 0;
-            float aspectRatio;
 
             if (leftBitmap != null)
             {
-                aspectRatio = leftBitmap.Height / (1f * leftBitmap.Width);
-                var leftVerticalZoom = aspectRatio * leftHorizontalZoom;
-                leftBitmapWidthLessCrop = leftBitmap.Width - leftLeftCrop - leftRightCrop - leftHorizontalZoom;
+                leftBitmapWidthLessCrop = leftBitmap.Width - leftLeftCrop - leftRightCrop;
                 bitmapHeightLessCrop = leftBitmap.Height - leftTopCrop - leftBottomCrop - Math.Abs(alignment);
             }
 
             if (rightBitmap != null)
             {
-                aspectRatio = rightBitmap.Height / (1f * rightBitmap.Width);
-                var rightVerticalZoom = aspectRatio * rightHorizontalZoom;
                 rightBitmapWidthLessCrop = rightBitmap.Width - rightLeftCrop - rightRightCrop;
                 if (leftBitmap == null)
                 {
@@ -91,14 +86,16 @@ namespace CrossCam.Page
 
             if (leftBitmap != null)
             {
+                var aspectRatio = leftBitmap.Height / (1f * leftBitmap.Width);
+                var leftVerticalZoom = aspectRatio * leftHorizontalZoom;
                 canvas.RotateDegrees(innerLeftRotation);
                 canvas.DrawBitmap(
                     leftBitmap,
                     SKRect.Create(
-                        leftLeftCrop,
-                        leftTopCrop + (alignment > 0 ? alignment : 0),
-                        leftBitmapWidthLessCrop,
-                        bitmapHeightLessCrop),
+                        leftLeftCrop + leftHorizontalZoom / 2f,
+                        leftTopCrop + leftVerticalZoom / 2f + (alignment > 0 ? alignment : 0),
+                        leftBitmapWidthLessCrop - leftHorizontalZoom,
+                        bitmapHeightLessCrop - leftVerticalZoom),
                     SKRect.Create(
                         leftPreviewX,
                         previewY,
@@ -109,14 +106,16 @@ namespace CrossCam.Page
 
             if (rightBitmap != null)
             {
+                var aspectRatio = rightBitmap.Height / (1f * rightBitmap.Width);
+                var rightVerticalZoom = aspectRatio * rightHorizontalZoom;
                 canvas.RotateDegrees(innerRightRotation);
                 canvas.DrawBitmap(
                     rightBitmap,
                     SKRect.Create(
-                        rightLeftCrop,
-                        rightTopCrop - (alignment < 0 ? alignment : 0),
-                        rightBitmapWidthLessCrop,
-                        bitmapHeightLessCrop),
+                        rightLeftCrop + rightVerticalZoom / 2f,
+                        rightTopCrop + rightVerticalZoom / 2f - (alignment < 0 ? alignment : 0),
+                        rightBitmapWidthLessCrop - rightHorizontalZoom,
+                        bitmapHeightLessCrop - rightHorizontalZoom),
                     SKRect.Create(
                         rightPreviewX,
                         previewY,
