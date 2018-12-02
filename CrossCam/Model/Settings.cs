@@ -13,6 +13,7 @@ namespace CrossCam.Model
         public bool SaveForParallel { get; set; }
         public bool SaveForCrossView { get; set; }
         public bool AddBorder { get; set; }
+        public bool ZoomPanSidesLocked { get; set; }
 
         private bool _areGuideLinesVisible;
         public bool AreGuideLinesVisible
@@ -70,6 +71,19 @@ namespace CrossCam.Model
             }
         }
 
+        private int _zoomPanSpeed;
+        public int ZoomPanSpeed
+        {
+            get => _zoomPanSpeed;
+            set
+            {
+                if (value >= 0)
+                {
+                    _zoomPanSpeed = value;
+                }
+            }
+        }
+
         private int _borderThickness;
         public int BorderThickness
         {
@@ -93,6 +107,7 @@ namespace CrossCam.Model
             AreGuideLinesVisible = true;
             IsCaptureLeftFirst = true;
             SaveForCrossView = true;
+            ZoomPanSidesLocked = true;
 
             ShowGuideLinesWithFirstCapture = false;
             IsGuideDonutVisible = false;
@@ -104,6 +119,7 @@ namespace CrossCam.Model
             SaveForParallel = false;
             AddBorder = false;
 
+            ZoomPanSpeed = 20;
             CropSpeed = 20;
             BorderThickness = 60;
         }

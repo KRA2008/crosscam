@@ -68,6 +68,17 @@
                         BackgroundColor="White"
                         HorizontalOptions="EndAndExpand"/>
             </StackLayout>
+            <StackLayout Orientation="Horizontal">
+                <Label Text="Zoom/pan speed"/>
+                <Picker ItemsSource="{Binding PositiveIntegers}"
+                        SelectedIndex="{Binding Settings.ZoomPanSpeed}"
+                        BackgroundColor="White"
+                        HorizontalOptions="EndAndExpand"/>
+            </StackLayout>
+            <StackLayout Orientation="Horizontal">
+                <Label Text="Lock zoom/pan sides together"/>
+                <Switch IsToggled="{Binding Settings.ZoomPanSidesLocked}"/>
+            </StackLayout>
             <BoxView/>
             <Label Text="Saving"
                    Style="{DynamicResource header}"/>

@@ -6,109 +6,120 @@ namespace CrossCam.Page
     {
         public static void DrawImagesOnCanvas(
             SKCanvas canvas, SKBitmap leftBitmap, SKBitmap rightBitmap, int borderThickness,
-            int leftLeftCrop, int leftRightCrop, int rightLeftCrop, int rightRightCrop,
-            int topCrop, int bottomCrop, float leftRotation, float rightRotation, bool switchForParallel = false)
+            int outsideCrop, int insideCrop, int topCrop, int bottomCrop,
+            float leftRotation, float rightRotation,
+            int horizontalZoom,
+            bool switchForParallel = false)
         {
             if (leftBitmap == null && rightBitmap == null) return;
 
             var canvasWidth = canvas.DeviceClipBounds.Width;
             var canvasHeight = canvas.DeviceClipBounds.Height;
 
-            var leftBitmapWidthLessCrop = 0;
-            var rightBitmapWidthLessCrop = 0;
-            var bitmapHeightLessCrop = 0;
+            var leftBitmapWidthLessCropZoom = 0;
+            var rightBitmapWidthLessCropZoom = 0;
+            var bitmapHeightLessCropZoom = 0;
+            var verticalZoom = 0;
 
             if (leftBitmap != null)
             {
-                leftBitmapWidthLessCrop = leftBitmap.Width  - leftLeftCrop - leftRightCrop;
-                bitmapHeightLessCrop = leftBitmap.Height - topCrop - bottomCrop;
+                var aspectRatio = leftBitmap.Height / (1f * leftBitmap.Width);
+                verticalZoom = (int)(aspectRatio * horizontalZoom);
+                leftBitmapWidthLessCropZoom = leftBitmap.Width  - outsideCrop - insideCrop - 2 * horizontalZoom;
+                bitmapHeightLessCropZoom = leftBitmap.Height - topCrop - bottomCrop - 2 * verticalZoom;
             }
 
             if (rightBitmap != null)
             {
-                rightBitmapWidthLessCrop = rightBitmap.Width - rightLeftCrop - rightRightCrop;
+                var aspectRatio = rightBitmap.Height / (1f * rightBitmap.Width);
+                rightBitmapWidthLessCropZoom = rightBitmap.Width - insideCrop - outsideCrop - 2 * horizontalZoom;
                 if (leftBitmap == null)
                 {
-                    bitmapHeightLessCrop = rightBitmap.Height - topCrop - bottomCrop;
+                    verticalZoom = (int)(aspectRatio * horizontalZoom);
+                    bitmapHeightLessCropZoom = rightBitmap.Height - topCrop - bottomCrop - 2 * verticalZoom;
                 }
             }
 
             int effectiveJoinedWidth;
-            if (leftBitmapWidthLessCrop > rightBitmapWidthLessCrop)
+            if (leftBitmapWidthLessCropZoom > rightBitmapWidthLessCropZoom)
             {
-                effectiveJoinedWidth = leftBitmapWidthLessCrop * 2;
+                effectiveJoinedWidth = leftBitmapWidthLessCropZoom * 2;
             }
             else
             {
-                effectiveJoinedWidth = rightBitmapWidthLessCrop * 2;
+                effectiveJoinedWidth = rightBitmapWidthLessCropZoom * 2;
             }
 
             effectiveJoinedWidth += 4 * borderThickness;
-            var effectiveJoinedHeight = bitmapHeightLessCrop + 2 * borderThickness;
+            var effectiveJoinedHeight = bitmapHeightLessCropZoom + 2 * borderThickness;
 
             var widthRatio = effectiveJoinedWidth / (1f * canvasWidth);
             var heightRatio = effectiveJoinedHeight / (1f * canvasHeight);
 
             var scalingRatio = widthRatio > heightRatio ? widthRatio : heightRatio;
 
-            var previewY = canvasHeight / 2f - bitmapHeightLessCrop / scalingRatio / 2f;
-            var previewHeight = bitmapHeightLessCrop / scalingRatio;
+            var previewY = canvasHeight / 2f - bitmapHeightLessCropZoom / scalingRatio / 2f;
+            var previewHeight = bitmapHeightLessCropZoom / scalingRatio;
 
             float leftPreviewX;
             float rightPreviewX;
             float leftPreviewWidth;
             float rightPreviewWidth;
+            float innerLeftRotation;
+            float innerRightRotation;
             if (switchForParallel)
             {
                 leftPreviewX = canvasWidth / 2f + borderThickness / scalingRatio;
-                rightPreviewX = canvasWidth / 2f - (rightBitmapWidthLessCrop + borderThickness) / scalingRatio;
-                leftPreviewWidth = rightBitmapWidthLessCrop / scalingRatio;
-                rightPreviewWidth = leftBitmapWidthLessCrop / scalingRatio;
+                rightPreviewX = canvasWidth / 2f - (rightBitmapWidthLessCropZoom + borderThickness) / scalingRatio;
+                leftPreviewWidth = rightBitmapWidthLessCropZoom / scalingRatio;
+                rightPreviewWidth = leftBitmapWidthLessCropZoom / scalingRatio;
+                innerRightRotation = leftRotation;
+                innerLeftRotation = rightRotation;
             }
             else
             {
-                leftPreviewX = canvasWidth / 2f - (leftBitmapWidthLessCrop + borderThickness) / scalingRatio;
+                leftPreviewX = canvasWidth / 2f - (leftBitmapWidthLessCropZoom + borderThickness) / scalingRatio;
                 rightPreviewX = canvasWidth / 2f + borderThickness / scalingRatio;
-                leftPreviewWidth = leftBitmapWidthLessCrop / scalingRatio;
-                rightPreviewWidth = rightBitmapWidthLessCrop / scalingRatio;
+                leftPreviewWidth = leftBitmapWidthLessCropZoom / scalingRatio;
+                rightPreviewWidth = rightBitmapWidthLessCropZoom / scalingRatio;
+                innerRightRotation = rightRotation;
+                innerLeftRotation = leftRotation;
             }
 
             if (leftBitmap != null)
             {
-                var rotation = switchForParallel ? rightRotation : leftRotation;
-                canvas.RotateDegrees(rotation);
+                canvas.RotateDegrees(innerLeftRotation);
                 canvas.DrawBitmap(
                     leftBitmap,
                     SKRect.Create(
-                        leftLeftCrop,
-                        topCrop,
-                        leftBitmapWidthLessCrop,
-                        bitmapHeightLessCrop),
+                        outsideCrop + horizontalZoom,
+                        topCrop + verticalZoom,
+                        leftBitmapWidthLessCropZoom,
+                        bitmapHeightLessCropZoom),
                     SKRect.Create(
                         leftPreviewX,
                         previewY,
                         leftPreviewWidth,
                         previewHeight));
-                canvas.RotateDegrees(-1 * rotation);
+                canvas.RotateDegrees(-1 * innerLeftRotation);
             }
 
             if (rightBitmap != null)
             {
-                var rotation = switchForParallel ? leftRotation : rightRotation;
-                canvas.RotateDegrees(rotation);
+                canvas.RotateDegrees(innerRightRotation);
                 canvas.DrawBitmap(
                     rightBitmap,
                     SKRect.Create(
-                        rightLeftCrop,
-                        topCrop,
-                        rightBitmapWidthLessCrop,
-                        bitmapHeightLessCrop),
+                        insideCrop + horizontalZoom,
+                        topCrop + verticalZoom,
+                        rightBitmapWidthLessCropZoom,
+                        bitmapHeightLessCropZoom),
                     SKRect.Create(
                         rightPreviewX,
                         previewY,
                         rightPreviewWidth,
                         previewHeight));
-                canvas.RotateDegrees(-1 * rotation);
+                canvas.RotateDegrees(-1 * innerRightRotation);
             }
         }
     }

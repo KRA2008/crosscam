@@ -55,15 +55,15 @@ namespace CrossCam.Page
 	                break;
 	            case nameof(CameraViewModel.LeftBitmap):
                 case nameof(CameraViewModel.RightBitmap):
-                case nameof(CameraViewModel.LeftImageLeftCrop):
-                case nameof(CameraViewModel.LeftImageRightCrop):
-                case nameof(CameraViewModel.RightImageLeftCrop):
-                case nameof(CameraViewModel.RightImageRightCrop):
+                case nameof(CameraViewModel.InsideCrop):
+                case nameof(CameraViewModel.OutsideCrop):
                 case nameof(CameraViewModel.TopCrop):
                 case nameof(CameraViewModel.BottomCrop):
                 case nameof(CameraViewModel.Settings):
                 case nameof(CameraViewModel.LeftRotation):
 	            case nameof(CameraViewModel.RightRotation):
+	            case nameof(CameraViewModel.RightZoom):
+	            case nameof(CameraViewModel.LeftZoom):
                     _canvasView.InvalidateSurface();
                     break;
 	        }
@@ -78,8 +78,9 @@ namespace CrossCam.Page
 	        DrawTool.DrawImagesOnCanvas(
 	            canvas, _viewModel.LeftBitmap, _viewModel.RightBitmap, 
 	            _viewModel.LeftBitmap != null && _viewModel.RightBitmap != null && _viewModel.Settings.AddBorder ? _viewModel.Settings.BorderThickness : 0,
-	            _viewModel.LeftImageLeftCrop, _viewModel.LeftImageRightCrop, _viewModel.RightImageLeftCrop, _viewModel.RightImageRightCrop, 
-	            _viewModel.TopCrop, _viewModel.BottomCrop, _viewModel.LeftRotation, _viewModel.RightRotation);
+	            _viewModel.OutsideCrop, _viewModel.InsideCrop, _viewModel.TopCrop, _viewModel.BottomCrop,
+	            _viewModel.LeftRotation, _viewModel.RightRotation,
+	            _viewModel.RightZoom);
         }
 
         private void ResetGuides()

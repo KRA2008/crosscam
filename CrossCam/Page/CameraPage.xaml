@@ -431,7 +431,7 @@
         <Grid AbsoluteLayout.LayoutFlags="PositionProportional,HeightProportional"
               RowSpacing="0"
               ColumnSpacing="0"
-              IsVisible="{Binding WorkflowStage, Converter={vc:EnumCompareConverter}, ConverterParameter={x:Static vm:WorkflowStage.Pan}}">
+              IsVisible="{Binding ShouldLeftPanZoomBeVisible}">
             <AbsoluteLayout.LayoutBounds>
                 <Rectangle X="0.2" Y="0" Width="{StaticResource _tripleMediumIconWidth}" Height="1"/>
             </AbsoluteLayout.LayoutBounds>
@@ -449,22 +449,46 @@
             </Grid.ColumnDefinitions>
             <Image Grid.Column="0"
                    Grid.Row="1"
-                   Source="zoomIn"/>
+                   Source="zoomIn">
+                <Image.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding ZoomInLeftCommand}"/>
+                </Image.GestureRecognizers>
+            </Image>
             <Image Grid.Column="1"
                    Grid.Row="1"
-                   Source="panUp"/>
+                   Source="panUp">
+                <Image.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding LeftPanUpCommand}"/>
+                </Image.GestureRecognizers>
+            </Image>
             <Image Grid.Column="0"
                    Grid.Row="2"
-                   Source="panLeft"/>
+                   Source="panLeft">
+                <Image.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding LeftPanLeftCommand}"/>
+                </Image.GestureRecognizers>
+            </Image>
             <Image Grid.Column="2"
                    Grid.Row="2"
-                   Source="panRight"/>
+                   Source="panRight">
+                <Image.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding LeftPanRightCommand}"/>
+                </Image.GestureRecognizers>
+            </Image>
             <Image Grid.Column="1"
                    Grid.Row="3"
-                   Source="panDown"/>
+                   Source="panDown">
+                <Image.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding LeftPanDownCommand}"/>
+                </Image.GestureRecognizers>
+            </Image>
             <Image Grid.Column="2"
                    Grid.Row="3"
-                   Source="zoomOut"/>
+                   Source="zoomOut">
+                <Image.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding ZoomOutLeftCommand}"/>
+                </Image.GestureRecognizers>
+            </Image>
         </Grid>
         <Grid AbsoluteLayout.LayoutFlags="PositionProportional,HeightProportional"
               RowSpacing="0"
@@ -487,22 +511,46 @@
             </Grid.ColumnDefinitions>
             <Image Grid.Column="0"
                    Grid.Row="1"
-                   Source="zoomIn"/>
+                   Source="zoomIn">
+                <Image.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding ZoomInRightCommand}"/>
+                </Image.GestureRecognizers>
+            </Image>
             <Image Grid.Column="1"
                    Grid.Row="1"
-                   Source="panUp"/>
+                   Source="panUp">
+                <Image.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding RightPanUpCommand}"/>
+                </Image.GestureRecognizers>
+            </Image>
             <Image Grid.Column="0"
                    Grid.Row="2"
-                   Source="panLeft"/>
+                   Source="panLeft">
+                <Image.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding RightPanLeftCommand}"/>
+                </Image.GestureRecognizers>
+            </Image>
             <Image Grid.Column="2"
                    Grid.Row="2"
-                   Source="panRight"/>
+                   Source="panRight">
+                <Image.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding RightPanRightCommand}"/>
+                </Image.GestureRecognizers>
+            </Image>
             <Image Grid.Column="1"
                    Grid.Row="3"
-                   Source="panDown"/>
+                   Source="panDown">
+                <Image.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding LeftPanDownCommand}"/>
+                </Image.GestureRecognizers>
+            </Image>
             <Image Grid.Column="2"
                    Grid.Row="3"
-                   Source="zoomOut"/>
+                   Source="zoomOut">
+                <Image.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding ZoomOutRightCommand}"/>
+                </Image.GestureRecognizers>
+            </Image>
         </Grid>
 
         <Grid AbsoluteLayout.LayoutFlags="PositionProportional,HeightProportional"
@@ -531,14 +579,14 @@
                    Grid.Column="1"
                    Source="leftTriangle">
                 <Image.GestureRecognizers>
-                    <TapGestureRecognizer Command="{Binding DecreaseRLCrop}"/>
+                    <TapGestureRecognizer Command="{Binding DecreaseInsideCrop}"/>
                 </Image.GestureRecognizers>
             </Image>
             <Image Grid.Row="2" 
                    Grid.Column="1"
                    Source="rightTriangle">
                 <Image.GestureRecognizers>
-                    <TapGestureRecognizer Command="{Binding IncreaseRLCrop}"/>
+                    <TapGestureRecognizer Command="{Binding IncreaseInsideCrop}"/>
                 </Image.GestureRecognizers>
             </Image>
         </Grid>
@@ -568,14 +616,14 @@
                    Grid.Column="0"
                    Source="rightTriangle">
                 <Image.GestureRecognizers>
-                    <TapGestureRecognizer Command="{Binding DecreaseRRCrop}"/>
+                    <TapGestureRecognizer Command="{Binding DecreaseOutsideCrop}"/>
                 </Image.GestureRecognizers>
             </Image>
             <Image Grid.Row="2" 
                    Grid.Column="0"
                    Source="leftTriangle">
                 <Image.GestureRecognizers>
-                    <TapGestureRecognizer Command="{Binding IncreaseRRCrop}"/>
+                    <TapGestureRecognizer Command="{Binding IncreaseOutsideCrop}"/>
                 </Image.GestureRecognizers>
             </Image>
         </Grid>
