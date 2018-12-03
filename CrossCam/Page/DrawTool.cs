@@ -133,6 +133,18 @@ namespace CrossCam.Page
             int leftLeftCrop, int leftRightCrop, int rightLeftCrop, int rightRightCrop,
             int borderThickness, bool addBorder)
         {
+            if (leftBitmap == null && rightBitmap == null) return 0;
+
+            if (leftBitmap == null || rightBitmap == null)
+            {
+                if (leftBitmap != null)
+                {
+                    return leftBitmap.Width * 2;
+                }
+
+                return rightBitmap.Width * 2;
+            }
+
             return leftBitmap.Width + rightBitmap.Width -
                 - leftLeftCrop - leftRightCrop - rightLeftCrop - rightRightCrop +
                 4 * (addBorder ? borderThickness : 0);
@@ -142,9 +154,15 @@ namespace CrossCam.Page
             int leftTopCrop, int leftBottomCrop, int rightTopCrop, int rightBottomCrop,
             int borderThickness, bool addBorder)
         {
-            return 0;
-            //leftBitmap.Height - LeftTopCrop - LeftBottomCrop +
-            //    2 * (Settings.AddBorder ? Settings.BorderThickness : 0);
+            if (leftBitmap == null && rightBitmap == null) return 0;
+
+            if (leftBitmap == null || rightBitmap == null)
+            {
+                return leftBitmap?.Height ?? rightBitmap.Height;
+            }
+
+            return leftBitmap.Height - leftTopCrop - leftBottomCrop + 2 * (addBorder ? borderThickness : 0);
+            var rightHeight = rightBitmap.Height - rightTopCrop - rightBottomCrop + 2 * (addBorder ? borderThickness : 0); // not sure when this is not the same as left
         }
     }
 }
