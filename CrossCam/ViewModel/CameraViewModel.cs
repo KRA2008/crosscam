@@ -484,10 +484,11 @@ namespace CrossCam.ViewModel
 
                     var finalImageWidth = DrawTool.CalculateCanvasWidth(leftBitmap, rightBitmap,
                         LeftLeftCrop, LeftRightCrop, RightLeftCrop, RightRightCrop,
-                        Settings.BorderThickness, Settings.AddBorder);
+                        Settings.AddBorder ? Settings.BorderThickness : 0);
                     var finalImageHeight = DrawTool.CalculateCanvasHeight(leftBitmap, rightBitmap,
                         LeftTopCrop, LeftBottomCrop, RightTopCrop, RightBottomCrop,
-                        Settings.BorderThickness, Settings.AddBorder);
+                        VerticalAlignment,
+                        Settings.AddBorder ? Settings.BorderThickness : 0);
 
                     if (Settings.SaveForCrossView)
                     {
@@ -501,10 +502,12 @@ namespace CrossCam.ViewModel
                                 canvas.RotateDegrees(180);
                                 canvas.Translate(-1f * finalImageWidth, -1f * finalImageHeight);
                             }
-                            DrawTool.DrawImagesOnCanvas(canvas, leftBitmap, rightBitmap, Settings.BorderThickness,
+                            DrawTool.DrawImagesOnCanvas(canvas, leftBitmap, rightBitmap, 
+                                Settings.BorderThickness, Settings.AddBorder,
                                 LeftLeftCrop, LeftRightCrop, RightLeftCrop, RightRightCrop,
                                 LeftTopCrop, LeftBottomCrop, RightTopCrop, RightBottomCrop,
-                                LeftRotation, RightRotation, VerticalAlignment,
+                                LeftRotation, RightRotation, 
+                                VerticalAlignment,
                                 Zoom);
 
                             finalImage = tempSurface.Snapshot();
@@ -530,7 +533,7 @@ namespace CrossCam.ViewModel
                                 canvas.RotateDegrees(180);
                                 canvas.Translate(-1f * finalImageWidth, -1f * finalImageHeight);
                             }
-                            DrawTool.DrawImagesOnCanvas(canvas, leftBitmap, rightBitmap, Settings.AddBorder ? Settings.BorderThickness : 0,
+                            DrawTool.DrawImagesOnCanvas(canvas, leftBitmap, rightBitmap, Settings.BorderThickness, Settings.AddBorder,
                                 LeftLeftCrop, LeftRightCrop, RightLeftCrop, RightRightCrop,
                                 LeftTopCrop, LeftBottomCrop, RightTopCrop, RightBottomCrop,
                                 LeftRotation, RightRotation, VerticalAlignment,
