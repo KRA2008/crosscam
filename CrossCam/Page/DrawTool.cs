@@ -69,65 +69,103 @@ namespace CrossCam.Page
 
             if (leftBitmap != null)
             {
-                var aspectRatio = leftBitmap.Height / (1f * leftBitmap.Width);
-                var leftHorizontalZoom = zoom > 0 ? zoom : 0;
-                var leftVerticalZoom = aspectRatio * leftHorizontalZoom;
+                SKBitmap rotatedAndZoomed = null;
+                if (Math.Abs(innerLeftRotation) > 0.00001 ||
+                    zoom > 0)
+                {
+                    var aspectRatio = leftBitmap.Height / (1f * leftBitmap.Width);
+                    var leftHorizontalZoom = zoom > 0 ? zoom : 0;
+                    var leftVerticalZoom = aspectRatio * leftHorizontalZoom;
 
-                canvas.RotateDegrees(innerLeftRotation, leftPreviewWidth / 2f + leftPreviewX, leftPreviewHeight / 2f + previewY);
+                    rotatedAndZoomed = new SKBitmap(leftBitmap.Width, leftBitmap.Height);
+
+                    using (var tempCanvas = new SKCanvas(rotatedAndZoomed))
+                    {
+                        var zoomedX = leftHorizontalZoom / -2f;
+                        var zoomedY = leftVerticalZoom / -2f;
+                        var zoomedWidth = leftBitmap.Width + leftHorizontalZoom;
+                        var zoomedHeight = leftBitmap.Height + leftVerticalZoom;
+                        tempCanvas.RotateDegrees(innerLeftRotation, leftBitmap.Width / 2f, leftBitmap.Height / 2f);
+                        tempCanvas.DrawBitmap(
+                            leftBitmap,
+                            SKRect.Create(
+                                0,
+                                0,
+                                leftBitmap.Width,
+                                leftBitmap.Height),
+                            SKRect.Create(
+                                zoomedX,
+                                zoomedY,
+                                zoomedWidth,
+                                zoomedHeight
+                            ));
+                        tempCanvas.RotateDegrees(innerLeftRotation, -1 * leftBitmap.Width / 2f, leftBitmap.Height / 2f);
+                    }
+                }
+                
                 canvas.DrawBitmap(
-                    leftBitmap,
+                    rotatedAndZoomed ?? leftBitmap,
                     SKRect.Create(
                         0,
                         0,
-                        leftBitmap.Width,
-                        leftBitmap.Height),
+                        rotatedAndZoomed?.Width ?? leftBitmap.Width,
+                        rotatedAndZoomed?.Height ?? leftBitmap.Height),
                     SKRect.Create(
-                        leftPreviewX, //TODO: zoom
+                        leftPreviewX,
                         previewY,
                         leftPreviewWidth,
                         leftPreviewHeight));
-                canvas.RotateDegrees(-1 * innerLeftRotation, leftPreviewWidth / 2f + leftPreviewX, leftPreviewHeight / 2f + previewY);
             }
 
             if (rightBitmap != null)
             {
-                var aspectRatio = rightBitmap.Height / (1f * rightBitmap.Width);
-                var rightHorizontalZoom = zoom < 0 ? Math.Abs(zoom) : 0;
-                var rightVerticalZoom = aspectRatio * rightHorizontalZoom;
+                SKBitmap rotatedAndZoomed = null;
+                if (Math.Abs(innerRightRotation) > 0.00001 ||
+                    zoom < 0)
+                {
+                    var aspectRatio = rightBitmap.Height / (1f * rightBitmap.Width);
+                    var rightHorizontalZoom = zoom < 0 ? Math.Abs(zoom) : 0;
+                    var rightVerticalZoom = aspectRatio * rightHorizontalZoom;
 
-                canvas.RotateDegrees(innerRightRotation, rightPreviewWidth / 2f + rightPreviewX, rightPreviewHeight / 2f + previewY);
+                    rotatedAndZoomed = new SKBitmap(rightBitmap.Width, rightBitmap.Height);
+
+                    using (var tempCanvas = new SKCanvas(rotatedAndZoomed))
+                    {
+                        var zoomedX = rightVerticalZoom / -2f;
+                        var zoomedY = rightVerticalZoom / -2f;
+                        var zoomedWidth = rightBitmap.Width + rightVerticalZoom;
+                        var zoomedHeight = rightBitmap.Height + rightVerticalZoom;
+                        tempCanvas.RotateDegrees(innerRightRotation, rightBitmap.Width / 2f, rightBitmap.Height / 2f);
+                        tempCanvas.DrawBitmap(
+                            leftBitmap,
+                            SKRect.Create(
+                                0,
+                                0,
+                                rightBitmap.Width,
+                                rightBitmap.Height),
+                            SKRect.Create(
+                                zoomedX,
+                                zoomedY,
+                                zoomedWidth,
+                                zoomedHeight
+                            ));
+                        tempCanvas.RotateDegrees(innerRightRotation, -1 * rightBitmap.Width / 2f, rightBitmap.Height / 2f);
+                    }
+                }
+                
                 canvas.DrawBitmap(
-                    rightBitmap,
+                    rotatedAndZoomed ?? rightBitmap,
                     SKRect.Create(
                         0,
                         0,
-                        rightBitmap.Width,
-                        rightBitmap.Height),
+                        rotatedAndZoomed?.Width ?? rightBitmap.Width,
+                        rotatedAndZoomed?.Height ?? rightBitmap.Height),
                     SKRect.Create(
                         rightPreviewX,
                         previewY,
                         rightPreviewWidth,
                         rightPreviewHeight));
-                canvas.RotateDegrees(-1 * innerLeftRotation, rightPreviewWidth / 2f + rightPreviewX, rightPreviewHeight / 2f + previewY);
             }
-
-            var blackPaint = new SKPaint
-            {
-                Color = SKColors.Yellow,
-                Style = SKPaintStyle.StrokeAndFill,
-                StrokeWidth = 10,
-                IsAntialias = true
-            };
-            var borderOriginX = screenWidth / 2f - joinedBitmapWidthLessCropPlusBorder / (scalingRatio * 2f) + leftLeftCrop / scalingRatio;
-            var borderOriginY = screenHeight / 2f - joinedBitmapHeightLessCropPlusBorder / (scalingRatio * 2f);
-            var topBorderWidth = joinedBitmapWidthLessCropPlusBorder / scalingRatio;
-            var sideBorderHeight = joinedBitmapHeightLessCropPlusBorder / scalingRatio;
-            var scaledInnerBorderThickness = innerBorderThickness / scalingRatio;
-
-            canvas.DrawRect(borderOriginX, borderOriginY, topBorderWidth, scaledInnerBorderThickness, blackPaint);
-            //TODO: positioning of bitmaps with top crop isn't right
-            canvas.DrawRect(borderOriginX, borderOriginY, scaledInnerBorderThickness, sideBorderHeight, blackPaint);
-            //canvas.DrawRect();
         }
 
         public static int CalculateCanvasWidth(SKBitmap leftBitmap, SKBitmap rightBitmap, 
