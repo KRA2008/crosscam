@@ -5,6 +5,8 @@ namespace CrossCam.Page
 {
     public class DrawTool
     {
+        private const float FLOATY_ZERO = 0.00001f;
+
         public static void DrawImagesOnCanvas(
             SKCanvas canvas, SKBitmap leftBitmap, SKBitmap rightBitmap,
             int borderThickness, bool addBorder,
@@ -87,24 +89,28 @@ namespace CrossCam.Page
                 innerRightRotation = rightRotation;
                 innerLeftRotation = leftRotation;
             }
+            var isRightRotated = Math.Abs(innerRightRotation) > FLOATY_ZERO;
+            var isLeftRotated = Math.Abs(innerLeftRotation) > FLOATY_ZERO;
 
             SKBitmap rotatedAndZoomed = null;
             if (leftBitmap != null)
             {
-                if (Math.Abs(innerLeftRotation) > 0.00001 ||
+                if (isLeftRotated ||
                     leftZoom > 0)
                 {
-                    var leftVerticalZoom = aspectRatio * leftZoom;
-
                     rotatedAndZoomed = new SKBitmap(leftBitmap.Width, leftBitmap.Height);
 
                     using (var tempCanvas = new SKCanvas(rotatedAndZoomed))
                     {
+                        var leftVerticalZoom = aspectRatio * leftZoom;
                         var zoomedX = leftZoom / -2f;
                         var zoomedY = leftVerticalZoom / -2f;
                         var zoomedWidth = leftBitmap.Width + leftZoom;
                         var zoomedHeight = leftBitmap.Height + leftVerticalZoom;
-                        tempCanvas.RotateDegrees(innerLeftRotation, leftBitmap.Width / 2f, leftBitmap.Height / 2f);
+                        if (isLeftRotated)
+                        {
+                            tempCanvas.RotateDegrees(innerLeftRotation, leftBitmap.Width / 2f, leftBitmap.Height / 2f);
+                        }
                         tempCanvas.DrawBitmap(
                             leftBitmap,
                             SKRect.Create(
@@ -118,7 +124,11 @@ namespace CrossCam.Page
                                 zoomedWidth,
                                 zoomedHeight
                             ));
-                        tempCanvas.RotateDegrees(innerLeftRotation, -1 * leftBitmap.Width / 2f, leftBitmap.Height / 2f);
+                        if (isLeftRotated)
+                        {
+                            tempCanvas.RotateDegrees(innerLeftRotation, -1 * leftBitmap.Width / 2f,
+                                leftBitmap.Height / 2f);
+                        }
                     }
                 }
                 
@@ -138,20 +148,23 @@ namespace CrossCam.Page
 
             if (rightBitmap != null)
             {
-                if (Math.Abs(innerRightRotation) > 0.00001 ||
+                if (isRightRotated ||
                     rightZoom > 0)
                 {
-                    var rightVerticalZoom = aspectRatio * rightZoom;
-
                     rotatedAndZoomed = new SKBitmap(rightBitmap.Width, rightBitmap.Height);
 
                     using (var tempCanvas = new SKCanvas(rotatedAndZoomed))
                     {
+                        var rightVerticalZoom = aspectRatio * rightZoom;
                         var zoomedX = rightZoom / -2f;
                         var zoomedY = rightVerticalZoom / -2f;
                         var zoomedWidth = rightBitmap.Width + rightZoom;
                         var zoomedHeight = rightBitmap.Height + rightVerticalZoom;
-                        tempCanvas.RotateDegrees(innerRightRotation, rightBitmap.Width / 2f, rightBitmap.Height / 2f);
+                        if (isRightRotated)
+                        {
+                            tempCanvas.RotateDegrees(innerRightRotation, rightBitmap.Width / 2f,
+                                rightBitmap.Height / 2f);
+                        }
                         tempCanvas.DrawBitmap(
                             rightBitmap,
                             SKRect.Create(
@@ -165,7 +178,11 @@ namespace CrossCam.Page
                                 zoomedWidth,
                                 zoomedHeight
                             ));
-                        tempCanvas.RotateDegrees(innerRightRotation, -1 * rightBitmap.Width / 2f, rightBitmap.Height / 2f);
+                        if (isRightRotated)
+                        {
+                            tempCanvas.RotateDegrees(innerRightRotation, -1 * rightBitmap.Width / 2f,
+                                rightBitmap.Height / 2f);
+                        }
                     }
                 }
                 
