@@ -23,11 +23,13 @@ namespace CrossCam.Page
             var leftBitmapWidthLessCrop = 0;
             var rightBitmapWidthLessCrop = 0;
             var bitmapHeightLessCrop = 0;
+            var aspectRatio = 0f;
 
             if (leftBitmap != null)
             {
                 leftBitmapWidthLessCrop = leftBitmap.Width - leftLeftCrop - leftRightCrop;
                 bitmapHeightLessCrop = leftBitmap.Height - leftTopCrop - leftBottomCrop - Math.Abs(alignment);
+                aspectRatio = leftBitmap.Height / (1f * leftBitmap.Width);
             }
 
             if (rightBitmap != null)
@@ -36,6 +38,7 @@ namespace CrossCam.Page
                 if (leftBitmap == null)
                 {
                     bitmapHeightLessCrop = rightBitmap.Height - rightTopCrop - rightBottomCrop - Math.Abs(alignment);
+                    aspectRatio = rightBitmap.Height / (1f * rightBitmap.Width);
                 }
             }
 
@@ -85,13 +88,12 @@ namespace CrossCam.Page
                 innerLeftRotation = leftRotation;
             }
 
+            SKBitmap rotatedAndZoomed = null;
             if (leftBitmap != null)
             {
-                SKBitmap rotatedAndZoomed = null;
                 if (Math.Abs(innerLeftRotation) > 0.00001 ||
                     leftZoom > 0)
                 {
-                    var aspectRatio = leftBitmap.Height / (1f * leftBitmap.Width);
                     var leftVerticalZoom = aspectRatio * leftZoom;
 
                     rotatedAndZoomed = new SKBitmap(leftBitmap.Width, leftBitmap.Height);
@@ -136,20 +138,18 @@ namespace CrossCam.Page
 
             if (rightBitmap != null)
             {
-                SKBitmap rotatedAndZoomed = null;
                 if (Math.Abs(innerRightRotation) > 0.00001 ||
                     rightZoom > 0)
                 {
-                    var aspectRatio = rightBitmap.Height / (1f * rightBitmap.Width);
                     var rightVerticalZoom = aspectRatio * rightZoom;
 
                     rotatedAndZoomed = new SKBitmap(rightBitmap.Width, rightBitmap.Height);
 
                     using (var tempCanvas = new SKCanvas(rotatedAndZoomed))
                     {
-                        var zoomedX = rightVerticalZoom / -2f;
+                        var zoomedX = rightZoom / -2f;
                         var zoomedY = rightVerticalZoom / -2f;
-                        var zoomedWidth = rightBitmap.Width + rightVerticalZoom;
+                        var zoomedWidth = rightBitmap.Width + rightZoom;
                         var zoomedHeight = rightBitmap.Height + rightVerticalZoom;
                         tempCanvas.RotateDegrees(innerRightRotation, rightBitmap.Width / 2f, rightBitmap.Height / 2f);
                         tempCanvas.DrawBitmap(
@@ -182,6 +182,7 @@ namespace CrossCam.Page
                         rightPreviewWidth,
                         previewHeight));
             }
+            rotatedAndZoomed?.Dispose();
         }
 
         public static int CalculateCanvasWidth(SKBitmap leftBitmap, SKBitmap rightBitmap, 
