@@ -20,12 +20,13 @@
             <x:Double x:Key="_bottomPaddingHeight">10</x:Double>
             <Thickness x:Key="_bottomPadding" Left="0" Top="0" Right="0" Bottom="{StaticResource _bottomPaddingHeight}"/>
 
+            <x:Double x:Key="_cropLineThickness">3</x:Double>
+            <GridLength x:Key="_cropLineGridLength">3</GridLength>
             <x:Double x:Key="_smallIconWidth">30</x:Double>
             <x:Double x:Key="_smallIconWidthPlusBottomPadding">40</x:Double>
             <x:Double x:Key="_mediumIconWidth">40</x:Double>
-            <GridLength x:Key="_mediumIconWidthGridLength">40</GridLength>
+            <x:Double x:Key="_mediumIconWidthPlusCropLineThickness">43</x:Double>
             <x:Double x:Key="_doubleMediumIconWidth">80</x:Double>
-            <x:Double x:Key="_tripleMediumIconWidth">120</x:Double>
             <x:Double x:Key="_mediumIconWidthPlusTopPadding">60</x:Double>
             <x:Double x:Key="_largeIconWidth">80</x:Double>
             <x:Double x:Key="_giantIconWidth">100</x:Double>
@@ -47,7 +48,6 @@
             <Rectangle x:Key="_retakeLeftBounds" X="{StaticResource _3dLeftMiddle}" Y="1" Width="{StaticResource _smallIconWidth}" Height="{StaticResource _smallIconWidthPlusBottomPadding}"/>
             <Rectangle x:Key="_retakeRightBounds" X="{StaticResource _3dRightMiddle}" Y="1" Width="{StaticResource _smallIconWidth}" Height="{StaticResource _smallIconWidthPlusBottomPadding}"/>
             <Rectangle x:Key="_undoBounds" X="0.5" Y="0" Width="{StaticResource _mediumIconWidth}" Height="{StaticResource _mediumIconWidthPlusTopPadding}"/>
-            <Rectangle x:Key="_secondaryViewBounds" X="0.5" Y="0.5" Width="{StaticResource _mediumIconWidth}" Height="{StaticResource _mediumIconWidth}"/>
             <Rectangle x:Key="_checkBounds" X="0.5" Y="1" Width="{StaticResource _largeIconWidth}" Height="{StaticResource _largeIconWidth}"/>
             <Rectangle x:Key="_helpBounds" X="{StaticResource _3dLeftMiddle}" Y="0" Width="{StaticResource _mediumIconWidth}" Height="{StaticResource _mediumIconWidthPlusTopPadding}"/>
             <Rectangle x:Key="_gearBounds" X="{StaticResource _3dRightMiddle}" Y="0" Width="{StaticResource _mediumIconWidth}" Height="{StaticResource _mediumIconWidthPlusTopPadding}"/>
@@ -418,10 +418,10 @@
               ColumnSpacing="0"
               IsVisible="{Binding WorkflowStage, Converter={vc:EnumCompareConverter}, ConverterParameter={x:Static vm:WorkflowStage.Crop}}">
             <AbsoluteLayout.LayoutBounds>
-                <Rectangle X="0.15" Y="0" Width="{StaticResource _mediumIconWidth}" Height="1"/>
+                <Rectangle X="0.15" Y="0" Width="{StaticResource _mediumIconWidthPlusCropLineThickness}" Height="1"/>
             </AbsoluteLayout.LayoutBounds>
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="{StaticResource _cropLineGridLength}"/>
                 <ColumnDefinition Width="Auto"/>
             </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
@@ -435,7 +435,7 @@
                      Grid.Row="1"
                      Grid.Column="0"
                      Color="White"
-                     WidthRequest="3"/>
+                     WidthRequest="{StaticResource _cropLineThickness}"/>
             <Image Grid.Row="1" 
                    Grid.Column="1"
                    Source="leftTriangle">
@@ -460,11 +460,11 @@
               RowSpacing="0"
               ColumnSpacing="0">
             <AbsoluteLayout.LayoutBounds>
-                <Rectangle X="0.3" Y="0" Width="{StaticResource _mediumIconWidth}" Height="1"/>
+                <Rectangle X="0.3" Y="0" Width="{StaticResource _mediumIconWidthPlusCropLineThickness}" Height="1"/>
             </AbsoluteLayout.LayoutBounds>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto"/>
-                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="{StaticResource _cropLineGridLength}"/>
             </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
                 <RowDefinition Height="*"/>
@@ -477,7 +477,7 @@
                      Grid.Row="1"
                      Grid.Column="1"
                      Color="White"
-                     WidthRequest="3"/>
+                     WidthRequest="{StaticResource _cropLineThickness}"/>
             <Image Grid.Row="1" 
                    Grid.Column="0"
                    Source="rightTriangle">
@@ -503,10 +503,10 @@
               ColumnSpacing="0"
               IsVisible="{Binding WorkflowStage, Converter={vc:EnumCompareConverter}, ConverterParameter={x:Static vm:WorkflowStage.Crop}}">
             <AbsoluteLayout.LayoutBounds>
-                <Rectangle X="0.7" Y="0" Width="{StaticResource _mediumIconWidth}" Height="1"/>
+                <Rectangle X="0.7" Y="0" Width="{StaticResource _mediumIconWidthPlusCropLineThickness}" Height="1"/>
             </AbsoluteLayout.LayoutBounds>
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="{StaticResource _cropLineGridLength}"/>
                 <ColumnDefinition Width="Auto"/>
             </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
@@ -520,7 +520,7 @@
                      Grid.Row="1"
                      Grid.Column="0"
                      Color="White"
-                     WidthRequest="3"/>
+                     WidthRequest="{StaticResource _cropLineThickness}"/>
             <Image Grid.Row="1" 
                    Grid.Column="1"
                    Source="leftTriangle">
@@ -545,11 +545,11 @@
               RowSpacing="0"
               ColumnSpacing="0">
             <AbsoluteLayout.LayoutBounds>
-                <Rectangle X="0.85" Y="0" Width="{StaticResource _mediumIconWidth}" Height="1"/>
+                <Rectangle X="0.85" Y="0" Width="{StaticResource _mediumIconWidthPlusCropLineThickness}" Height="1"/>
             </AbsoluteLayout.LayoutBounds>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto"/>
-                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="{StaticResource _cropLineGridLength}"/>
             </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
                 <RowDefinition Height="*"/>
@@ -562,7 +562,7 @@
                      Grid.Row="1"
                      Grid.Column="1"
                      Color="White"
-                     WidthRequest="3"/>
+                     WidthRequest="{StaticResource _cropLineThickness}"/>
             <Image Grid.Row="1" 
                    Grid.Column="0"
                    Source="rightTriangle">
@@ -588,21 +588,21 @@
               ColumnSpacing="0"
               IsVisible="{Binding WorkflowStage, Converter={vc:EnumCompareConverter}, ConverterParameter={x:Static vm:WorkflowStage.Crop}}">
             <AbsoluteLayout.LayoutBounds>
-                <Rectangle X="0.2" Y="0.25" Width="{StaticResource _doubleMediumIconWidth}" Height="{StaticResource _mediumIconWidth}"/>
+                <Rectangle X="0.2" Y="0.25" Width="{StaticResource _doubleMediumIconWidth}" Height="{StaticResource _mediumIconWidthPlusCropLineThickness}"/>
             </AbsoluteLayout.LayoutBounds>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto"/>
                 <ColumnDefinition Width="Auto"/>
             </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
-                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="{StaticResource _cropLineGridLength}"/>
                 <RowDefinition Height="Auto"/>
             </Grid.RowDefinitions>
             <BoxView Grid.ColumnSpan="2"
                      Grid.Row="0"
                      Grid.Column="0"
                      Color="White"
-                     HeightRequest="3"/>
+                     HeightRequest="{StaticResource _cropLineThickness}"/>
             <Image Grid.Row="1" 
                    Grid.Column="0"
                    Source="upTriangle">
@@ -623,7 +623,7 @@
               ColumnSpacing="0"
               IsVisible="{Binding WorkflowStage, Converter={vc:EnumCompareConverter}, ConverterParameter={x:Static vm:WorkflowStage.Crop}}">
             <AbsoluteLayout.LayoutBounds>
-                <Rectangle X="0.2" Y="0.8" Width="{StaticResource _doubleMediumIconWidth}" Height="{StaticResource _mediumIconWidth}"/>
+                <Rectangle X="0.2" Y="0.8" Width="{StaticResource _doubleMediumIconWidth}" Height="{StaticResource _mediumIconWidthPlusCropLineThickness}"/>
             </AbsoluteLayout.LayoutBounds>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto"/>
@@ -631,13 +631,13 @@
             </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"/>
-                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="{StaticResource _cropLineGridLength}"/>
             </Grid.RowDefinitions>
             <BoxView Grid.ColumnSpan="2"
                      Grid.Row="1"
                      Grid.Column="0"
                      Color="White"
-                     HeightRequest="3"/>
+                     HeightRequest="{StaticResource _cropLineThickness}"/>
             <Image Grid.Row="0" 
                    Grid.Column="0"
                    Source="downTriangle">
