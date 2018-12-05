@@ -145,7 +145,7 @@ namespace CrossCam.Model
 
             RotationSpeed = 10;
             ZoomSpeed = 20;
-            AlignSpeed = 20;
+            AlignSpeed = 10;
             CropSpeed = 20;
             BorderThickness = 60;
         }
