@@ -699,6 +699,7 @@ namespace CrossCam.ViewModel
             RightRotation = 0;
             VerticalAlignment = 0;
             LeftZoom = 0;
+            RightZoom = 0;
         }
 
         private void ClearEdits()
