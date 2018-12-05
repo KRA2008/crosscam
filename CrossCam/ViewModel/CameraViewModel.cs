@@ -55,14 +55,29 @@ namespace CrossCam.ViewModel
 
         public Settings Settings { get; set; }
 
-        public int Zoom { get; set; }
-        public Command LeftZoomInRightZoomOut => new Command(() =>
+        public int LeftZoom { get; set; }
+        public int RightZoom { get; set; }
+        public Command LeftZoomIn => new Command(() =>
         {
-            Zoom += Settings.ZoomSpeed;
+            LeftZoom += Settings.ZoomSpeed;
         });
-        public Command LeftZoomOutRightZoomIn => new Command(() =>
+        public Command LeftZoomOut => new Command(() =>
         {
-            Zoom -= Settings.ZoomSpeed;
+            if (LeftZoom - Settings.ZoomSpeed >= 0)
+            {
+                LeftZoom -= Settings.ZoomSpeed;
+            }
+        });
+        public Command RightZoomIn => new Command(() =>
+        {
+            RightZoom += Settings.ZoomSpeed;
+        });
+        public Command RightZoomOut => new Command(() =>
+        {
+            if (RightZoom - Settings.ZoomSpeed >= 0)
+            {
+                RightZoom -= Settings.ZoomSpeed;
+            }
         });
 
         public int LeftLeftCrop { get; set; }
@@ -201,8 +216,12 @@ namespace CrossCam.ViewModel
         public bool ShouldSaveEditsButtonBeVisible => WorkflowStage == WorkflowStage.Edits ||
                                                       WorkflowStage == WorkflowStage.Crop ||
                                                       WorkflowStage == WorkflowStage.Align;
-        public bool ShouldClearAndViewEditsButtonsBeVisible => WorkflowStage == WorkflowStage.Crop ||
-                                                               WorkflowStage == WorkflowStage.Align;
+        public bool ShouldViewButtonBeVisible => WorkflowStage == WorkflowStage.Final ||
+                                                 WorkflowStage == WorkflowStage.Edits ||
+                                                 WorkflowStage == WorkflowStage.Crop ||
+                                                 WorkflowStage == WorkflowStage.Align;
+        public bool ShouldClearEditButtonBeVisible => WorkflowStage == WorkflowStage.Crop ||
+                                                      WorkflowStage == WorkflowStage.Align;
 
         public string HelpText => "(flip for " + OppositeOrientation + ")" +
                                   "\n1) Frame up your subject" +
@@ -508,7 +527,7 @@ namespace CrossCam.ViewModel
                                 LeftTopCrop, LeftBottomCrop, RightTopCrop, RightBottomCrop,
                                 LeftRotation, RightRotation, 
                                 VerticalAlignment,
-                                Zoom);
+                                LeftZoom, RightZoom);
 
                             finalImage = tempSurface.Snapshot();
                         }
@@ -537,7 +556,7 @@ namespace CrossCam.ViewModel
                                 LeftLeftCrop, LeftRightCrop, RightLeftCrop, RightRightCrop,
                                 LeftTopCrop, LeftBottomCrop, RightTopCrop, RightBottomCrop,
                                 LeftRotation, RightRotation, VerticalAlignment,
-                                Zoom,
+                                LeftZoom, RightZoom,
                                 true);
 
                             finalImage = tempSurface.Snapshot();
@@ -679,7 +698,7 @@ namespace CrossCam.ViewModel
             LeftRotation = 0;
             RightRotation = 0;
             VerticalAlignment = 0;
-            Zoom = 0;
+            LeftZoom = 0;
         }
 
         private void ClearEdits()

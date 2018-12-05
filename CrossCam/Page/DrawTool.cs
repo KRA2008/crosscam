@@ -11,7 +11,7 @@ namespace CrossCam.Page
             int leftLeftCrop, int leftRightCrop, int rightLeftCrop, int rightRightCrop,
             int leftTopCrop, int leftBottomCrop, int rightTopCrop, int rightBottomCrop,
             float leftRotation, float rightRotation, int alignment,
-            int zoom,
+            int leftZoom, int rightZoom,
             bool switchForParallel = false)
         {
             if (leftBitmap == null && rightBitmap == null) return;
@@ -89,19 +89,18 @@ namespace CrossCam.Page
             {
                 SKBitmap rotatedAndZoomed = null;
                 if (Math.Abs(innerLeftRotation) > 0.00001 ||
-                    zoom > 0)
+                    leftZoom > 0)
                 {
                     var aspectRatio = leftBitmap.Height / (1f * leftBitmap.Width);
-                    var leftHorizontalZoom = zoom > 0 ? zoom : 0;
-                    var leftVerticalZoom = aspectRatio * leftHorizontalZoom;
+                    var leftVerticalZoom = aspectRatio * leftZoom;
 
                     rotatedAndZoomed = new SKBitmap(leftBitmap.Width, leftBitmap.Height);
 
                     using (var tempCanvas = new SKCanvas(rotatedAndZoomed))
                     {
-                        var zoomedX = leftHorizontalZoom / -2f;
+                        var zoomedX = leftZoom / -2f;
                         var zoomedY = leftVerticalZoom / -2f;
-                        var zoomedWidth = leftBitmap.Width + leftHorizontalZoom;
+                        var zoomedWidth = leftBitmap.Width + leftZoom;
                         var zoomedHeight = leftBitmap.Height + leftVerticalZoom;
                         tempCanvas.RotateDegrees(innerLeftRotation, leftBitmap.Width / 2f, leftBitmap.Height / 2f);
                         tempCanvas.DrawBitmap(
@@ -139,11 +138,10 @@ namespace CrossCam.Page
             {
                 SKBitmap rotatedAndZoomed = null;
                 if (Math.Abs(innerRightRotation) > 0.00001 ||
-                    zoom < 0)
+                    rightZoom > 0)
                 {
                     var aspectRatio = rightBitmap.Height / (1f * rightBitmap.Width);
-                    var rightHorizontalZoom = zoom < 0 ? Math.Abs(zoom) : 0;
-                    var rightVerticalZoom = aspectRatio * rightHorizontalZoom;
+                    var rightVerticalZoom = aspectRatio * rightZoom;
 
                     rotatedAndZoomed = new SKBitmap(rightBitmap.Width, rightBitmap.Height);
 

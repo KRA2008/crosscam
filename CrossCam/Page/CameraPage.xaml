@@ -42,7 +42,7 @@
             <Rectangle x:Key="_clearBounds" X="0.5" Y="0" Width="{StaticResource _largeIconWidth}" Height="{StaticResource _largeIconWidth}"/>
             <Rectangle x:Key="_cropBounds" X="0.5" Y="0.67" Width="{StaticResource _mediumIconWidth}" Height="{StaticResource _mediumIconWidth}"/>
             <Rectangle x:Key="_viewBounds" X="0.5" Y="0.33" Width="{StaticResource _mediumIconWidth}" Height="{StaticResource _mediumIconWidth}"/>
-            <Rectangle x:Key="_alignBounds" X="0" Y="0.33" Width="1" Height="{StaticResource _mediumIconWidthPlusTopPadding}"/>
+            <Rectangle x:Key="_alignBounds" X="0" Y="0" Width="1" Height="{StaticResource _mediumIconWidthPlusTopPadding}"/>
             <Rectangle x:Key="_editBounds" X="0.5" Y="0.6" Width="{StaticResource _mediumIconWidth}" Height="{StaticResource _mediumIconWidth}"/>
             <Rectangle x:Key="_retakeLeftBounds" X="{StaticResource _3dLeftMiddle}" Y="1" Width="{StaticResource _smallIconWidth}" Height="{StaticResource _smallIconWidthPlusBottomPadding}"/>
             <Rectangle x:Key="_retakeRightBounds" X="{StaticResource _3dRightMiddle}" Y="1" Width="{StaticResource _smallIconWidth}" Height="{StaticResource _smallIconWidthPlusBottomPadding}"/>
@@ -60,8 +60,8 @@
             <Rectangle x:Key="_leftAlignUp" X="{StaticResource _3dLeftRight}" Y="{StaticResource _3dUpper}" Width="{StaticResource _mediumIconWidth}" Height="{StaticResource _mediumIconWidth}"/>
             <Rectangle x:Key="_rightAlignUp" X="{StaticResource _3dRightRight}" Y="{StaticResource _3dUpper}" Width="{StaticResource _mediumIconWidth}" Height="{StaticResource _mediumIconWidth}"/>
 
-            <Rectangle x:Key="_leftZoom" X="{StaticResource _3dLeftRightAdjusted}" Y="{StaticResource _3dLower}" Width="{StaticResource _doubleMediumIconWidth}" Height="{StaticResource _mediumIconWidth}"/>
-            <Rectangle x:Key="_rightZoom" X="{StaticResource _3dRightRight}" Y="{StaticResource _3dLower}" Width="{StaticResource _doubleMediumIconWidth}" Height="{StaticResource _mediumIconWidth}"/>
+            <Rectangle x:Key="_leftZoom" X="{StaticResource _3dLeftRightAdjusted}" Y="{StaticResource _3dLower}" Width="{StaticResource _mediumIconWidth}" Height="{StaticResource _doubleMediumIconWidth}"/>
+            <Rectangle x:Key="_rightZoom" X="{StaticResource _3dRightRight}" Y="{StaticResource _3dLower}" Width="{StaticResource _mediumIconWidth}" Height="{StaticResource _doubleMediumIconWidth}"/>
 
             <Thickness x:Key="_reticlePadding">10</Thickness>
             <Thickness x:Key="_linePadding">0,10,0,10</Thickness>
@@ -254,7 +254,7 @@
         <Image Source="eye"
                AbsoluteLayout.LayoutFlags="PositionProportional"
                AbsoluteLayout.LayoutBounds="{StaticResource _viewBounds}"
-               IsVisible="{Binding WorkflowStage, Converter={vc:EnumCompareConverter}, ConverterParameter={x:Static vm:WorkflowStage.Final}}">
+               IsVisible="{Binding ShouldViewButtonBeVisible}">
             <Image.GestureRecognizers>
                 <TapGestureRecognizer Command="{Binding ToggleViewModeCommand}"/>
             </Image.GestureRecognizers>
@@ -309,32 +309,19 @@
                        FontSize="Large"
                        VerticalTextAlignment="Center"/>
                 <Image Source="vertAlign"/>
-                <Label Text="/"
-                       FontAttributes="Bold"
-                       FontSize="Large"
-                       VerticalTextAlignment="Center"/>
-                <Image Source="zoom"/>
             </StackLayout>
         </Grid>
 
         <ContentView AbsoluteLayout.LayoutFlags="PositionProportional"
                      AbsoluteLayout.LayoutBounds="{StaticResource _undoBounds}"
                      Padding="{StaticResource _topBarPadding}"
-                     IsVisible="{Binding ShouldClearAndViewEditsButtonsBeVisible}">
+                     IsVisible="{Binding ShouldClearEditButtonBeVisible}">
             <ContentView.GestureRecognizers>
                 <TapGestureRecognizer Command="{Binding ClearEditCommand}"/>
             </ContentView.GestureRecognizers>
             <Image Source="undo"
                    InputTransparent="True"/>
         </ContentView>
-        <Image Source="eye"
-               AbsoluteLayout.LayoutFlags="PositionProportional"
-               AbsoluteLayout.LayoutBounds="{StaticResource _secondaryViewBounds}"
-               IsVisible="{Binding ShouldClearAndViewEditsButtonsBeVisible}">
-            <Image.GestureRecognizers>
-                <TapGestureRecognizer Command="{Binding ToggleViewModeCommand}"/>
-            </Image.GestureRecognizers>
-        </Image>
         <ContentView AbsoluteLayout.LayoutFlags="PositionProportional"
                      AbsoluteLayout.LayoutBounds="{StaticResource _checkBounds}"
                      Padding="{StaticResource _bottomPadding}"
@@ -399,9 +386,14 @@
                      AbsoluteLayout.LayoutBounds="{StaticResource _leftZoom}"
                      Spacing="0"
                      IsVisible="{Binding WorkflowStage, Converter={vc:EnumCompareConverter}, ConverterParameter={x:Static vm:WorkflowStage.Align}}">
-            <Image Source="leftZoomInRightZoomOut">
+            <Image Source="zoomIn">
                 <Image.GestureRecognizers>
-                    <TapGestureRecognizer Command="{Binding LeftZoomInRightZoomOut}"/>
+                    <TapGestureRecognizer Command="{Binding LeftZoomIn}"/>
+                </Image.GestureRecognizers>
+            </Image>
+            <Image Source="zoomOut">
+                <Image.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding LeftZoomOut}"/>
                 </Image.GestureRecognizers>
             </Image>
         </StackLayout>
@@ -409,9 +401,14 @@
                      AbsoluteLayout.LayoutBounds="{StaticResource _rightZoom}"
                      Spacing="0"
                      IsVisible="{Binding WorkflowStage, Converter={vc:EnumCompareConverter}, ConverterParameter={x:Static vm:WorkflowStage.Align}}">
-            <Image Source="leftZoomOutRightZoomIn">
+            <Image Source="zoomIn">
                 <Image.GestureRecognizers>
-                    <TapGestureRecognizer Command="{Binding LeftZoomOutRightZoomIn}"/>
+                    <TapGestureRecognizer Command="{Binding RightZoomIn}"/>
+                </Image.GestureRecognizers>
+            </Image>
+            <Image Source="zoomOut">
+                <Image.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding RightZoomOut}"/>
                 </Image.GestureRecognizers>
             </Image>
         </StackLayout>

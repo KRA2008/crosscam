@@ -67,7 +67,8 @@ namespace CrossCam.Page
                 case nameof(CameraViewModel.LeftRotation):
 	            case nameof(CameraViewModel.RightRotation):
                 case nameof(CameraViewModel.VerticalAlignment):
-                case nameof(CameraViewModel.Zoom):
+                case nameof(CameraViewModel.LeftZoom):
+	            case nameof(CameraViewModel.RightZoom):
                     _canvasView.InvalidateSurface();
                     break;
 	        }
@@ -85,7 +86,7 @@ namespace CrossCam.Page
 	            _viewModel.LeftLeftCrop, _viewModel.LeftRightCrop, _viewModel.RightLeftCrop, _viewModel.RightRightCrop,
                 _viewModel.LeftTopCrop, _viewModel.LeftBottomCrop, _viewModel.RightTopCrop, _viewModel.RightBottomCrop,
 	            _viewModel.LeftRotation, _viewModel.RightRotation, _viewModel.VerticalAlignment,
-	            _viewModel.Zoom);
+	            _viewModel.LeftZoom, _viewModel.RightZoom);
         }
 
         private void ResetGuides()
