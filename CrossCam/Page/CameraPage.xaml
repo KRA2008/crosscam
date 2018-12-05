@@ -32,7 +32,6 @@
             <x:Double x:Key="_giantIconWidth">100</x:Double>
             <x:Double x:Key="_3dLeftLeft">0.1</x:Double>
             <x:Double x:Key="_3dLeftMiddle">0.15</x:Double>
-            <x:Double x:Key="_3dLeftRightAdjusted">0.25</x:Double>
             <x:Double x:Key="_3dLeftRight">0.3</x:Double>
             <x:Double x:Key="_3dRightLeft">0.7</x:Double>
             <x:Double x:Key="_3dRightMiddle">0.85</x:Double>
@@ -60,7 +59,7 @@
             <Rectangle x:Key="_leftAlignUp" X="{StaticResource _3dLeftRight}" Y="{StaticResource _3dUpper}" Width="{StaticResource _mediumIconWidth}" Height="{StaticResource _mediumIconWidth}"/>
             <Rectangle x:Key="_rightAlignUp" X="{StaticResource _3dRightRight}" Y="{StaticResource _3dUpper}" Width="{StaticResource _mediumIconWidth}" Height="{StaticResource _mediumIconWidth}"/>
 
-            <Rectangle x:Key="_leftZoom" X="{StaticResource _3dLeftRightAdjusted}" Y="{StaticResource _3dLower}" Width="{StaticResource _mediumIconWidth}" Height="{StaticResource _doubleMediumIconWidth}"/>
+            <Rectangle x:Key="_leftZoom" X="{StaticResource _3dLeftRight}" Y="{StaticResource _3dLower}" Width="{StaticResource _mediumIconWidth}" Height="{StaticResource _doubleMediumIconWidth}"/>
             <Rectangle x:Key="_rightZoom" X="{StaticResource _3dRightRight}" Y="{StaticResource _3dLower}" Width="{StaticResource _mediumIconWidth}" Height="{StaticResource _doubleMediumIconWidth}"/>
 
             <Thickness x:Key="_reticlePadding">10</Thickness>
