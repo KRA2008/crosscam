@@ -92,9 +92,9 @@ namespace CrossCam.Page
             var isRightRotated = Math.Abs(innerRightRotation) > FLOATY_ZERO;
             var isLeftRotated = Math.Abs(innerLeftRotation) > FLOATY_ZERO;
 
-            SKBitmap rotatedAndZoomed = null;
             if (leftBitmap != null)
             {
+                SKBitmap rotatedAndZoomed = null;
                 if (isLeftRotated ||
                     leftZoom > 0)
                 {
@@ -144,10 +144,12 @@ namespace CrossCam.Page
                         previewY,
                         leftPreviewWidth,
                         previewHeight));
+                rotatedAndZoomed?.Dispose();
             }
 
             if (rightBitmap != null)
             {
+                SKBitmap rotatedAndZoomed = null;
                 if (isRightRotated ||
                     rightZoom > 0)
                 {
@@ -198,8 +200,8 @@ namespace CrossCam.Page
                         previewY,
                         rightPreviewWidth,
                         previewHeight));
+                rotatedAndZoomed?.Dispose();
             }
-            rotatedAndZoomed?.Dispose();
         }
 
         public static int CalculateCanvasWidth(SKBitmap leftBitmap, SKBitmap rightBitmap, 
