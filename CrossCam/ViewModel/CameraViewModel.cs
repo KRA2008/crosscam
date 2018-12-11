@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using System.IO;
 using System.Threading.Tasks;
 using System.Web;
@@ -7,6 +8,7 @@ using CrossCam.Page;
 using CrossCam.Wrappers;
 using FreshMvvm;
 using SkiaSharp;
+using Xamarin.Essentials;
 using Xamarin.Forms;
 
 namespace CrossCam.ViewModel
@@ -268,6 +270,74 @@ namespace CrossCam.ViewModel
 
             IsCaptureLeftFirst = Settings.IsCaptureLeftFirst;
             CameraColumn = IsCaptureLeftFirst ? 0 : 1;
+
+            Accelerometer.ReadingChanged += (sender, args) =>
+            {
+                var data = args.Reading;
+                //Debug.WriteLine($"Reading: X: {data.Acceleration.X}, Y: {data.Acceleration.Y}, Z: {data.Acceleration.Z}");
+            };
+
+            Gyroscope.ReadingChanged += (sender, args) =>
+            {
+                var data = args.Reading;
+                //Debug.WriteLine($"Reading: X: {data.AngularVelocity.X}, Y: {data.AngularVelocity.Y}, Z: {data.AngularVelocity.Z}");
+            };
+
+            Compass.ReadingChanged += (sender, args) =>
+            {
+                var data = args.Reading;
+                Console.WriteLine($"Reading: {data.HeadingMagneticNorth} degrees");
+            };
+
+            const SensorSpeed SPEED = SensorSpeed.UI;
+
+            try
+            {
+                if (Accelerometer.IsMonitoring)
+                    Accelerometer.Stop();
+                else
+                    Accelerometer.Start(SPEED);
+            }
+            catch (FeatureNotSupportedException fnsEx)
+            {
+                Debug.WriteLine("not supported! " + fnsEx);
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine("problem! " + ex);
+            }
+
+            try
+            {
+                if (Gyroscope.IsMonitoring)
+                    Gyroscope.Stop();
+                else
+                    Gyroscope.Start(SPEED);
+            }
+            catch (FeatureNotSupportedException fnsEx)
+            {
+                Debug.WriteLine("not supported! " + fnsEx);
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine("problem! " + ex);
+            }
+
+            try
+            {
+                if (Compass.IsMonitoring)
+                    Compass.Stop();
+                else
+                    Compass.Start(SPEED);
+            }
+            catch (FeatureNotSupportedException fnsEx)
+            {
+                Debug.WriteLine("not supported! " + fnsEx);
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine("problem! " + ex);
+            }
 
             PropertyChanged += (sender, args) =>
             {

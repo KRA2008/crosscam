@@ -37,6 +37,7 @@ namespace CrossCam.Droid
         protected override void OnCreate(Bundle bundle)
         {
             base.OnCreate(bundle);
+            Xamarin.Essentials.Platform.Init(this, bundle);
 
             Window.AddFlags(WindowManagerFlags.Fullscreen);
             Window.ClearFlags(WindowManagerFlags.ForceNotFullscreen);
@@ -103,7 +104,7 @@ namespace CrossCam.Droid
 
         public override void OnRequestPermissionsResult(int requestCode, string[] permissions, Permission[] grantResults)
         {
-            base.OnRequestPermissionsResult(requestCode, permissions, grantResults);
+            Xamarin.Essentials.Platform.OnRequestPermissionsResult(requestCode, permissions, grantResults);
             if (requestCode == CAMERA_PERMISSION_REQUEST_CODE)
             {
                 if (grantResults.Contains(Permission.Granted))
@@ -135,6 +136,7 @@ namespace CrossCam.Droid
                     JavaSystem.Exit(0);
                 }
             }
+            base.OnRequestPermissionsResult(requestCode, permissions, grantResults);
         }
     }
 }
