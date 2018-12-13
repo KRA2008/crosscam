@@ -14,6 +14,7 @@ namespace CrossCam.Page
             int leftTopCrop, int leftBottomCrop, int rightTopCrop, int rightBottomCrop,
             float leftRotation, float rightRotation, int alignment,
             int leftZoom, int rightZoom,
+            float leftKeystone, float rightKeystone, 
             bool switchForParallel = false)
         {
             if (leftBitmap == null && rightBitmap == null) return;
@@ -71,6 +72,8 @@ namespace CrossCam.Page
             float rightPreviewWidth;
             float innerLeftRotation;
             float innerRightRotation;
+            float innerLeftKeystone;
+            float innerRightKeystone;
             if (switchForParallel)
             {
                 leftPreviewX = canvasWidth / 2f + innerBorderThickness / scalingRatio;
@@ -79,6 +82,8 @@ namespace CrossCam.Page
                 rightPreviewWidth = leftBitmapWidthLessCrop / scalingRatio;
                 innerRightRotation = leftRotation;
                 innerLeftRotation = rightRotation;
+                innerRightKeystone = leftKeystone;
+                innerLeftKeystone = rightKeystone;
             }
             else
             {
@@ -88,120 +93,115 @@ namespace CrossCam.Page
                 rightPreviewWidth = rightBitmapWidthLessCrop / scalingRatio;
                 innerRightRotation = rightRotation;
                 innerLeftRotation = leftRotation;
+                innerRightKeystone = rightKeystone;
+                innerLeftKeystone = leftKeystone;
             }
             var isRightRotated = Math.Abs(innerRightRotation) > FLOATY_ZERO;
             var isLeftRotated = Math.Abs(innerLeftRotation) > FLOATY_ZERO;
+            var isRightKeystoned = Math.Abs(innerRightKeystone) > FLOATY_ZERO;
+            var isLeftKeystoned = Math.Abs(innerLeftKeystone) > FLOATY_ZERO;
 
             if (leftBitmap != null)
             {
-                SKBitmap rotatedAndZoomed = null;
+                SKBitmap transformed = null;
                 if (isLeftRotated ||
-                    leftZoom > 0)
+                    leftZoom > 0 ||
+                    isLeftKeystoned)
                 {
-                    rotatedAndZoomed = new SKBitmap(leftBitmap.Width, leftBitmap.Height);
-
-                    using (var tempCanvas = new SKCanvas(rotatedAndZoomed))
-                    {
-                        var leftVerticalZoom = aspectRatio * leftZoom;
-                        var zoomedX = leftZoom / -2f;
-                        var zoomedY = leftVerticalZoom / -2f;
-                        var zoomedWidth = leftBitmap.Width + leftZoom;
-                        var zoomedHeight = leftBitmap.Height + leftVerticalZoom;
-                        if (isLeftRotated)
-                        {
-                            tempCanvas.RotateDegrees(innerLeftRotation, leftBitmap.Width / 2f, leftBitmap.Height / 2f);
-                        }
-                        tempCanvas.DrawBitmap(
-                            leftBitmap,
-                            SKRect.Create(
-                                0,
-                                0,
-                                leftBitmap.Width,
-                                leftBitmap.Height),
-                            SKRect.Create(
-                                zoomedX,
-                                zoomedY,
-                                zoomedWidth,
-                                zoomedHeight
-                            ));
-                        if (isLeftRotated)
-                        {
-                            tempCanvas.RotateDegrees(innerLeftRotation, -1 * leftBitmap.Width / 2f,
-                                leftBitmap.Height / 2f);
-                        }
-                    }
+                    transformed = ZoomAndRotate(leftBitmap, aspectRatio, leftZoom, isLeftRotated, innerLeftRotation, isLeftKeystoned, innerLeftKeystone);
                 }
                 
                 canvas.DrawBitmap(
-                    rotatedAndZoomed ?? leftBitmap,
+                    transformed ?? leftBitmap,
                     SKRect.Create(
                         leftLeftCrop,
                         leftTopCrop + (alignment > 0 ? alignment : 0),
-                        (rotatedAndZoomed?.Width ?? leftBitmap.Width) - leftLeftCrop - leftRightCrop,
-                        (rotatedAndZoomed?.Height ?? leftBitmap.Height) - leftTopCrop - leftBottomCrop - Math.Abs(alignment)),
+                        (transformed?.Width ?? leftBitmap.Width) - leftLeftCrop - leftRightCrop,
+                        (transformed?.Height ?? leftBitmap.Height) - leftTopCrop - leftBottomCrop - Math.Abs(alignment)),
                     SKRect.Create(
                         leftPreviewX,
                         previewY,
                         leftPreviewWidth,
                         previewHeight));
-                rotatedAndZoomed?.Dispose();
+                transformed?.Dispose();
             }
 
             if (rightBitmap != null)
             {
-                SKBitmap rotatedAndZoomed = null;
+                SKBitmap transformed = null;
                 if (isRightRotated ||
-                    rightZoom > 0)
+                    rightZoom > 0 || 
+                    isRightKeystoned)
                 {
-                    rotatedAndZoomed = new SKBitmap(rightBitmap.Width, rightBitmap.Height);
-
-                    using (var tempCanvas = new SKCanvas(rotatedAndZoomed))
-                    {
-                        var rightVerticalZoom = aspectRatio * rightZoom;
-                        var zoomedX = rightZoom / -2f;
-                        var zoomedY = rightVerticalZoom / -2f;
-                        var zoomedWidth = rightBitmap.Width + rightZoom;
-                        var zoomedHeight = rightBitmap.Height + rightVerticalZoom;
-                        if (isRightRotated)
-                        {
-                            tempCanvas.RotateDegrees(innerRightRotation, rightBitmap.Width / 2f,
-                                rightBitmap.Height / 2f);
-                        }
-                        tempCanvas.DrawBitmap(
-                            rightBitmap,
-                            SKRect.Create(
-                                0,
-                                0,
-                                rightBitmap.Width,
-                                rightBitmap.Height),
-                            SKRect.Create(
-                                zoomedX,
-                                zoomedY,
-                                zoomedWidth,
-                                zoomedHeight
-                            ));
-                        if (isRightRotated)
-                        {
-                            tempCanvas.RotateDegrees(innerRightRotation, -1 * rightBitmap.Width / 2f,
-                                rightBitmap.Height / 2f);
-                        }
-                    }
+                    transformed = ZoomAndRotate(rightBitmap, aspectRatio, rightZoom, isRightRotated, innerRightRotation, isRightKeystoned, innerRightKeystone);
                 }
                 
                 canvas.DrawBitmap(
-                    rotatedAndZoomed ?? rightBitmap,
+                    transformed ?? rightBitmap,
                     SKRect.Create(
                         rightLeftCrop,
                         rightTopCrop - (alignment < 0 ? alignment : 0),
-                        (rotatedAndZoomed?.Width ?? rightBitmap.Width) - rightLeftCrop - rightRightCrop,
-                        (rotatedAndZoomed?.Height ?? rightBitmap.Height) - rightTopCrop - rightBottomCrop - Math.Abs(alignment)),
+                        (transformed?.Width ?? rightBitmap.Width) - rightLeftCrop - rightRightCrop,
+                        (transformed?.Height ?? rightBitmap.Height) - rightTopCrop - rightBottomCrop - Math.Abs(alignment)),
                     SKRect.Create(
                         rightPreviewX,
                         previewY,
                         rightPreviewWidth,
                         previewHeight));
-                rotatedAndZoomed?.Dispose();
+                transformed?.Dispose();
             }
+        }
+
+        private static SKBitmap ZoomAndRotate(SKBitmap originalBitmap, float aspectRatio, int zoom, bool isRotated, float rotation, bool isKeystoned, float keystone)
+        {
+            var rotatedAndZoomed = new SKBitmap(originalBitmap.Width, originalBitmap.Height);
+
+            using (var tempCanvas = new SKCanvas(rotatedAndZoomed))
+            {
+                var rightVerticalZoom = aspectRatio * zoom;
+                var zoomedX = zoom / -2f;
+                var zoomedY = rightVerticalZoom / -2f;
+                var zoomedWidth = originalBitmap.Width + zoom;
+                var zoomedHeight = originalBitmap.Height + rightVerticalZoom;
+                if (isRotated)
+                {
+                    tempCanvas.RotateDegrees(rotation, originalBitmap.Width / 2f,
+                        originalBitmap.Height / 2f);
+                }
+                tempCanvas.DrawBitmap(
+                    originalBitmap,
+                    SKRect.Create(
+                        0,
+                        0,
+                        originalBitmap.Width,
+                        originalBitmap.Height),
+                    SKRect.Create(
+                        zoomedX,
+                        zoomedY,
+                        zoomedWidth,
+                        zoomedHeight
+                    ));
+                if (isRotated)
+                {
+                    tempCanvas.RotateDegrees(rotation, -1 * originalBitmap.Width / 2f,
+                        originalBitmap.Height / 2f);
+                }
+            }
+
+            SKBitmap keystoned = null;
+            if (isKeystoned)
+            {
+                keystoned = new SKBitmap(originalBitmap.Width, originalBitmap.Height);
+                using (var tempCanvas = new SKCanvas(keystoned))
+                {
+                    tempCanvas.SetMatrix(TaperTransform.Make(new SKSize(originalBitmap.Width, originalBitmap.Height),
+                        keystone > 0 ? TaperSide.Left : TaperSide.Right, TaperCorner.Both, 1 - Math.Abs(keystone)));
+                    tempCanvas.DrawBitmap(rotatedAndZoomed, 0, 0);
+                    rotatedAndZoomed.Dispose();
+                }
+            }
+
+            return keystoned ?? rotatedAndZoomed;
         }
 
         public static int CalculateCanvasWidth(SKBitmap leftBitmap, SKBitmap rightBitmap, 

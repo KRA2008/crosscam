@@ -89,6 +89,13 @@
                         BackgroundColor="White"
                         HorizontalOptions="EndAndExpand"/>
             </StackLayout>
+            <StackLayout Orientation="Horizontal">
+                <Label Text="Keystone speed"/>
+                <Picker ItemsSource="{Binding PositiveIntegers}"
+                        SelectedIndex="{Binding Settings.KeystoneSpeed}"
+                        BackgroundColor="White"
+                        HorizontalOptions="EndAndExpand"/>
+            </StackLayout>
             <BoxView/>
             <Label Text="Saving"
                    Style="{DynamicResource header}"/>

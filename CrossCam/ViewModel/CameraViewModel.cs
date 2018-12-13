@@ -191,10 +191,20 @@ namespace CrossCam.ViewModel
         public float LeftRotation { get; set; }
         public float RightRotation { get; set; }
         
-        public Command IncreaseLeftRotation => new Command(() => { LeftRotation += Settings.RotationSpeed / ROTATION_MULTIPLIER; });
-        public Command DecreaseLeftRotation => new Command(() => { LeftRotation -= Settings.RotationSpeed / ROTATION_MULTIPLIER; });
-        public Command IncreaseRightRotation => new Command(() => { RightRotation += Settings.RotationSpeed / ROTATION_MULTIPLIER; });
-        public Command DecreaseRightRotation => new Command(() => { RightRotation -= Settings.RotationSpeed / ROTATION_MULTIPLIER; });
+        public Command IncreaseLeftRotation => new Command(() =>  LeftRotation += Settings.RotationSpeed / ROTATION_MULTIPLIER);
+        public Command DecreaseLeftRotation => new Command(() => LeftRotation -= Settings.RotationSpeed / ROTATION_MULTIPLIER);
+        public Command IncreaseRightRotation => new Command(() => RightRotation += Settings.RotationSpeed / ROTATION_MULTIPLIER);
+        public Command DecreaseRightRotation => new Command(() => RightRotation -= Settings.RotationSpeed / ROTATION_MULTIPLIER);
+
+        private const float KEYSTONE_MULTIPLIER = 10000f;
+
+        public float LeftKeystone { get; set; }
+        public float RightKeystone { get; set; }
+
+        public Command IncreaseLeftKeystone => new Command(() => LeftKeystone += Settings.KeystoneSpeed / KEYSTONE_MULTIPLIER);
+        public Command DecreaseLeftKeystone => new Command(() => LeftKeystone -= Settings.KeystoneSpeed / KEYSTONE_MULTIPLIER);
+        public Command IncreaseRightKeystone => new Command(() => RightKeystone += Settings.KeystoneSpeed / KEYSTONE_MULTIPLIER);
+        public Command DecreaseRightKeystone => new Command(() => RightKeystone -= Settings.KeystoneSpeed / KEYSTONE_MULTIPLIER);
 
         public bool IsViewPortrait { get; set; }
         public bool IsCaptureLeftFirst { get; set; }
@@ -215,12 +225,14 @@ namespace CrossCam.ViewModel
         public bool ShouldDonutGuideBeVisible => (LeftBitmap == null ^ RightBitmap == null || Settings.ShowGuideDonutWithFirstCapture && WorkflowStage == WorkflowStage.Capture) && Settings.IsGuideDonutVisible;
         public bool ShouldSaveEditsButtonBeVisible => WorkflowStage == WorkflowStage.Edits ||
                                                       WorkflowStage == WorkflowStage.Crop ||
+                                                      WorkflowStage == WorkflowStage.Keystone ||
                                                       WorkflowStage == WorkflowStage.Align;
         public bool ShouldViewButtonBeVisible => WorkflowStage == WorkflowStage.Final ||
-                                                 WorkflowStage == WorkflowStage.Edits ||
                                                  WorkflowStage == WorkflowStage.Crop ||
+                                                 WorkflowStage == WorkflowStage.Keystone ||
                                                  WorkflowStage == WorkflowStage.Align;
         public bool ShouldClearEditButtonBeVisible => WorkflowStage == WorkflowStage.Crop ||
+                                                      WorkflowStage == WorkflowStage.Keystone ||
                                                       WorkflowStage == WorkflowStage.Align;
 
         public string HelpText => "(flip for " + OppositeOrientation + ")" +
@@ -355,6 +367,9 @@ namespace CrossCam.ViewModel
                         break;
                     case WorkflowStage.Align:
                         ClearAlignments();
+                        break;
+                    case WorkflowStage.Keystone:
+                        ClearKeystone();
                         break;
                 }
             });
@@ -527,7 +542,8 @@ namespace CrossCam.ViewModel
                                 LeftTopCrop, LeftBottomCrop, RightTopCrop, RightBottomCrop,
                                 LeftRotation, RightRotation, 
                                 VerticalAlignment,
-                                LeftZoom, RightZoom);
+                                LeftZoom, RightZoom,
+                                LeftKeystone, RightKeystone);
 
                             finalImage = tempSurface.Snapshot();
                         }
@@ -557,6 +573,7 @@ namespace CrossCam.ViewModel
                                 LeftTopCrop, LeftBottomCrop, RightTopCrop, RightBottomCrop,
                                 LeftRotation, RightRotation, VerticalAlignment,
                                 LeftZoom, RightZoom,
+                                LeftKeystone, RightKeystone,
                                 true);
 
                             finalImage = tempSurface.Snapshot();
@@ -702,10 +719,17 @@ namespace CrossCam.ViewModel
             RightZoom = 0;
         }
 
+        private void ClearKeystone()
+        {
+            LeftKeystone = 0;
+            RightKeystone = 0;
+        }
+
         private void ClearEdits()
         {
             ClearCrops();
             ClearAlignments();
+            ClearKeystone();
         }
 
         private void ClearCaptures()

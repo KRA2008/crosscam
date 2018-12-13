@@ -7,6 +7,7 @@
         Edits,
         Crop,
         Align,
+        Keystone,
         View,
         Saving
     }

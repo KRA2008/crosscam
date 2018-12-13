@@ -397,6 +397,18 @@
   <ItemGroup>
     <BundleResource Include="Resources\leftZoomOutRightZoomIn%402x.png" />
   </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\keystoneLeft.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\keystoneLeft%402x.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\keystoneRight.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\keystoneRight%402x.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup />

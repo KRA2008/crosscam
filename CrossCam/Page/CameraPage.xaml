@@ -43,6 +43,7 @@
             <Rectangle x:Key="_cropBounds" X="0.5" Y="0.6" Width="{StaticResource _mediumIconWidth}" Height="{StaticResource _mediumIconWidth}"/>
             <Rectangle x:Key="_viewBounds" X="0.5" Y="0.33" Width="{StaticResource _mediumIconWidth}" Height="{StaticResource _mediumIconWidth}"/>
             <Rectangle x:Key="_alignBounds" X="0" Y="0" Width="1" Height="{StaticResource _mediumIconWidthPlusTopPadding}"/>
+            <Rectangle x:Key="_keystoneBounds" X="0" Y="0.33" Width="1" Height="{StaticResource _mediumIconWidth}"/>
             <Rectangle x:Key="_editBounds" X="0.5" Y="0.6" Width="{StaticResource _mediumIconWidth}" Height="{StaticResource _mediumIconWidth}"/>
             <Rectangle x:Key="_retakeLeftBounds" X="{StaticResource _3dLeftMiddle}" Y="1" Width="{StaticResource _smallIconWidth}" Height="{StaticResource _smallIconWidthPlusBottomPadding}"/>
             <Rectangle x:Key="_retakeRightBounds" X="{StaticResource _3dRightMiddle}" Y="1" Width="{StaticResource _smallIconWidth}" Height="{StaticResource _smallIconWidthPlusBottomPadding}"/>
@@ -50,6 +51,11 @@
             <Rectangle x:Key="_checkBounds" X="0.5" Y="1" Width="{StaticResource _largeIconWidth}" Height="{StaticResource _largeIconWidth}"/>
             <Rectangle x:Key="_helpBounds" X="{StaticResource _3dLeftMiddle}" Y="0" Width="{StaticResource _mediumIconWidth}" Height="{StaticResource _mediumIconWidthPlusTopPadding}"/>
             <Rectangle x:Key="_gearBounds" X="{StaticResource _3dRightMiddle}" Y="0" Width="{StaticResource _mediumIconWidth}" Height="{StaticResource _mediumIconWidthPlusTopPadding}"/>
+
+            <Rectangle x:Key="_leftKeystoneLeft" X="{StaticResource _3dLeftLeft}" Y="0.5" Width="{StaticResource _mediumIconWidth}" Height="{StaticResource _mediumIconWidth}"/>
+            <Rectangle x:Key="_leftKeystoneRight" X="{StaticResource _3dLeftRight}" Y="0.5" Width="{StaticResource _mediumIconWidth}" Height="{StaticResource _mediumIconWidth}"/>
+            <Rectangle x:Key="_rightKeystoneLeft" X="{StaticResource _3dRightLeft}" Y="0.5" Width="{StaticResource _mediumIconWidth}" Height="{StaticResource _mediumIconWidth}"/>
+            <Rectangle x:Key="_rightKeystoneRight" X="{StaticResource _3dRightRight}" Y="0.5" Width="{StaticResource _mediumIconWidth}" Height="{StaticResource _mediumIconWidth}"/>
 
             <Rectangle x:Key="_leftRotateLeft" X="{StaticResource _3dLeftLeft}" Y="{StaticResource _3dUpper}" Width="{StaticResource _mediumIconWidth}" Height="{StaticResource _mediumIconWidth}"/>
             <Rectangle x:Key="_leftRotateRight" X="{StaticResource _3dLeftLeft}" Y="{StaticResource _3dLower}" Width="{StaticResource _mediumIconWidth}" Height="{StaticResource _mediumIconWidth}"/>
@@ -277,15 +283,6 @@
             <Image Source="checkBox"/>
         </ContentView>
 
-        <Image Source="scissor"
-               AbsoluteLayout.LayoutFlags="PositionProportional"
-               AbsoluteLayout.LayoutBounds="{StaticResource _cropBounds}"
-               IsVisible="{Binding WorkflowStage, Converter={vc:EnumCompareConverter}, ConverterParameter={x:Static vm:WorkflowStage.Edits}}">
-            <Image.GestureRecognizers>
-                <TapGestureRecognizer Command="{Binding GoToModeCommand}"
-                                      CommandParameter="{x:Static vm:WorkflowStage.Crop}"/>
-            </Image.GestureRecognizers>
-        </Image>
         <Grid AbsoluteLayout.LayoutFlags="PositionProportional,WidthProportional"
               AbsoluteLayout.LayoutBounds="{StaticResource _alignBounds}"
               Padding="{StaticResource _topBarPadding}"
@@ -310,6 +307,34 @@
                 <Image Source="vertAlign"/>
             </StackLayout>
         </Grid>
+        <Grid AbsoluteLayout.LayoutFlags="PositionProportional,WidthProportional"
+              AbsoluteLayout.LayoutBounds="{StaticResource _keystoneBounds}"
+              IsVisible="{Binding WorkflowStage, Converter={vc:EnumCompareConverter}, ConverterParameter={x:Static vm:WorkflowStage.Edits}}">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Grid.GestureRecognizers>
+                <TapGestureRecognizer Command="{Binding GoToModeCommand}"
+                                      CommandParameter="{x:Static vm:WorkflowStage.Keystone}"/>
+            </Grid.GestureRecognizers>
+            <StackLayout Grid.Column="1"
+                         Spacing="0"
+                         Orientation="Horizontal">
+                <Image Source="keystoneLeft"/>
+                <Image Source="keystoneRight"/>
+            </StackLayout>
+        </Grid>
+        <Image Source="scissor"
+               AbsoluteLayout.LayoutFlags="PositionProportional"
+               AbsoluteLayout.LayoutBounds="{StaticResource _cropBounds}"
+               IsVisible="{Binding WorkflowStage, Converter={vc:EnumCompareConverter}, ConverterParameter={x:Static vm:WorkflowStage.Edits}}">
+            <Image.GestureRecognizers>
+                <TapGestureRecognizer Command="{Binding GoToModeCommand}"
+                                      CommandParameter="{x:Static vm:WorkflowStage.Crop}"/>
+            </Image.GestureRecognizers>
+        </Image>
 
         <ContentView AbsoluteLayout.LayoutFlags="PositionProportional"
                      AbsoluteLayout.LayoutBounds="{StaticResource _undoBounds}"
@@ -411,6 +436,39 @@
                 </Image.GestureRecognizers>
             </Image>
         </StackLayout>
+
+        <Image AbsoluteLayout.LayoutFlags="PositionProportional"
+               AbsoluteLayout.LayoutBounds="{StaticResource _leftKeystoneLeft}"
+               Source="keystoneLeft"
+               IsVisible="{Binding WorkflowStage, Converter={vc:EnumCompareConverter}, ConverterParameter={x:Static vm:WorkflowStage.Keystone}}">
+            <Image.GestureRecognizers>
+                <TapGestureRecognizer Command="{Binding DecreaseLeftKeystone}"/>
+            </Image.GestureRecognizers>
+        </Image>
+        <Image AbsoluteLayout.LayoutFlags="PositionProportional"
+               AbsoluteLayout.LayoutBounds="{StaticResource _leftKeystoneRight}"
+               Source="keystoneRight"
+               IsVisible="{Binding WorkflowStage, Converter={vc:EnumCompareConverter}, ConverterParameter={x:Static vm:WorkflowStage.Keystone}}">
+            <Image.GestureRecognizers>
+                <TapGestureRecognizer Command="{Binding IncreaseLeftKeystone}"/>
+            </Image.GestureRecognizers>
+        </Image>
+        <Image AbsoluteLayout.LayoutFlags="PositionProportional"
+               AbsoluteLayout.LayoutBounds="{StaticResource _rightKeystoneLeft}"
+               Source="keystoneLeft"
+               IsVisible="{Binding WorkflowStage, Converter={vc:EnumCompareConverter}, ConverterParameter={x:Static vm:WorkflowStage.Keystone}}">
+            <Image.GestureRecognizers>
+                <TapGestureRecognizer Command="{Binding DecreaseRightKeystone}"/>
+            </Image.GestureRecognizers>
+        </Image>
+        <Image AbsoluteLayout.LayoutFlags="PositionProportional"
+               AbsoluteLayout.LayoutBounds="{StaticResource _rightKeystoneRight}"
+               Source="keystoneRight"
+               IsVisible="{Binding WorkflowStage, Converter={vc:EnumCompareConverter}, ConverterParameter={x:Static vm:WorkflowStage.Keystone}}">
+            <Image.GestureRecognizers>
+                <TapGestureRecognizer Command="{Binding IncreaseRightKeystone}"/>
+            </Image.GestureRecognizers>
+        </Image>
 
         <Grid AbsoluteLayout.LayoutFlags="PositionProportional,HeightProportional"
               RowSpacing="0"

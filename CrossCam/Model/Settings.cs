@@ -109,6 +109,19 @@ namespace CrossCam.Model
             }
         }
 
+        private int _keystoneSpeed;
+        public int KeystoneSpeed
+        {
+            get => _keystoneSpeed;
+            set
+            {
+                if (value >= 0)
+                {
+                    _keystoneSpeed = value;
+                }
+            }
+        }
+
         private int _borderThickness;
         public int BorderThickness
         {
@@ -148,6 +161,7 @@ namespace CrossCam.Model
             AlignSpeed = 10;
             CropSpeed = 20;
             BorderThickness = 60;
+            KeystoneSpeed = 50;
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
