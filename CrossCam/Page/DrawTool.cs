@@ -9,7 +9,7 @@ namespace CrossCam.Page
 
         public static void DrawImagesOnCanvas(
             SKCanvas canvas, SKBitmap leftBitmap, SKBitmap rightBitmap,
-            int borderThickness, bool addBorder,
+            int borderThickness, bool addBorder, BorderColor borderColor,
             int leftLeftCrop, int leftRightCrop, int rightLeftCrop, int rightRightCrop,
             int leftTopCrop, int leftBottomCrop, int rightTopCrop, int rightBottomCrop,
             float leftRotation, float rightRotation, int alignment,
@@ -149,6 +149,28 @@ namespace CrossCam.Page
                         rightPreviewWidth,
                         previewHeight));
                 transformed?.Dispose();
+            }
+
+            if (innerBorderThickness > 0)
+            {
+                var borderPaint = new SKPaint
+                {
+                    Color = borderColor == BorderColor.Black ? SKColor.Parse("000000") : SKColor.Parse("ffffff"),
+                    Style = SKPaintStyle.StrokeAndFill
+                };
+                var originX = leftPreviewX - innerBorderThickness / scalingRatio;
+                var originY = previewY - innerBorderThickness / scalingRatio;
+                var fullPreviewWidth = leftPreviewWidth + rightPreviewWidth + 4 * innerBorderThickness / scalingRatio;
+                var fullPreviewHeight = previewHeight + 2 * innerBorderThickness / scalingRatio;
+                var scaledBorderThickness = innerBorderThickness / scalingRatio;
+                var endX = rightPreviewX + rightPreviewWidth;
+                var endY = previewY + previewHeight;
+                canvas.DrawRect(originX, originY, fullPreviewWidth, scaledBorderThickness, borderPaint);
+                canvas.DrawRect(originX, originY, scaledBorderThickness, fullPreviewHeight, borderPaint);
+                canvas.DrawRect(canvasWidth / 2f - scaledBorderThickness, originY, scaledBorderThickness, fullPreviewHeight, borderPaint);
+                canvas.DrawRect(canvasWidth / 2f, originY, scaledBorderThickness, fullPreviewHeight, borderPaint);
+                canvas.DrawRect(endX, originY, scaledBorderThickness, fullPreviewHeight, borderPaint);
+                canvas.DrawRect(originX, endY, fullPreviewWidth, scaledBorderThickness, borderPaint);
             }
         }
 

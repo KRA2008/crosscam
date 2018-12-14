@@ -84,8 +84,8 @@ namespace CrossCam.Page
             
 	        DrawTool.DrawImagesOnCanvas(
 	            canvas, _viewModel.LeftBitmap, _viewModel.RightBitmap,
-	            _viewModel.Settings.BorderThickness, _viewModel.Settings.AddBorder,
-	            _viewModel.LeftLeftCrop, _viewModel.LeftRightCrop, _viewModel.RightLeftCrop, _viewModel.RightRightCrop,
+	            _viewModel.Settings.BorderThickness, _viewModel.Settings.AddBorder, _viewModel.Settings.BorderColor,
+                _viewModel.LeftLeftCrop, _viewModel.LeftRightCrop, _viewModel.RightLeftCrop, _viewModel.RightRightCrop,
                 _viewModel.LeftTopCrop, _viewModel.LeftBottomCrop, _viewModel.RightTopCrop, _viewModel.RightBottomCrop,
 	            _viewModel.LeftRotation, _viewModel.RightRotation, _viewModel.VerticalAlignment,
 	            _viewModel.LeftZoom, _viewModel.RightZoom,

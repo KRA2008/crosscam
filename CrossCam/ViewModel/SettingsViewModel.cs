@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using CrossCam.Model;
+using CrossCam.Page;
 using CrossCam.Wrappers;
 using FreshMvvm;
 using Xamarin.Forms;
@@ -15,7 +16,8 @@ namespace CrossCam.ViewModel
         public Command ResetToDefaults { get; set; }
 
         // ReSharper disable once MemberCanBeMadeStatic.Global
-        public List<int> PositiveIntegers => Enumerable.Range(0, 1000).ToList();
+        public IEnumerable<int> PositiveIntegers => Enumerable.Range(0, 1000).ToList();
+        public IEnumerable<string> BorderColors => Enum.GetNames(typeof(BorderColor)).ToList();
 
         public SettingsViewModel()
         {

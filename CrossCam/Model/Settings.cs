@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel;
+using CrossCam.Page;
 
 namespace CrossCam.Model
 {
@@ -13,6 +14,17 @@ namespace CrossCam.Model
         public bool SaveForParallel { get; set; }
         public bool SaveForCrossView { get; set; }
         public bool AddBorder { get; set; }
+
+        public BorderColor BorderColor
+        {
+            get => _borderColor;
+            set
+            {
+                var intValue = (int) value;
+                if (intValue < 0) return;
+                _borderColor = value;
+            }
+        }
 
         private bool _areGuideLinesVisible;
         public bool AreGuideLinesVisible
@@ -123,6 +135,8 @@ namespace CrossCam.Model
         }
 
         private int _borderThickness;
+        private BorderColor _borderColor;
+
         public int BorderThickness
         {
             get => _borderThickness;
@@ -155,6 +169,8 @@ namespace CrossCam.Model
             SaveRedundantFirstSide = false;
             SaveForParallel = false;
             AddBorder = false;
+
+            BorderColor = BorderColor.Black;
 
             RotationSpeed = 10;
             ZoomSpeed = 20;
