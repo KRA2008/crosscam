@@ -123,8 +123,7 @@
                              IsVisible="{Binding IsCameraVisible}"
                              CapturedImage="{Binding CapturedImageBytes}"
                              CaptureSuccess="{Binding CaptureSuccess}"
-                             ErrorMessage="{Binding ErrorMessage}"
-                             WasCapturePortrait="{Binding WasCapturePortrait}"/>
+                             ErrorMessage="{Binding ErrorMessage}"/>
             <ce:CameraSuccessOutline Grid.Column="0"
                                      Grid.Row="0">
                 <ce:CameraSuccessOutline.Behaviors>
@@ -165,6 +164,27 @@
             <Image Source="cancel"
                    InputTransparent="True"/>
         </ContentView>
+        <ContentView AbsoluteLayout.LayoutFlags="PositionProportional"
+                     AbsoluteLayout.LayoutBounds="{StaticResource _retakeLeftBounds}"
+                     Padding="{StaticResource _bottomPadding}"
+                     IsVisible="{Binding ShouldLeftLoadBeVisible}">
+            <ContentView.GestureRecognizers>
+                <TapGestureRecognizer Command="{Binding LoadPhotoCommand}"/>
+            </ContentView.GestureRecognizers>
+            <Image Source="loadImage"
+                   InputTransparent="True"/>
+        </ContentView>
+        <ContentView AbsoluteLayout.LayoutFlags="PositionProportional"
+                     AbsoluteLayout.LayoutBounds="{StaticResource _retakeRightBounds}"
+                     Padding="{StaticResource _bottomPadding}"
+                     IsVisible="{Binding ShouldRightLoadBeVisible}">
+            <ContentView.GestureRecognizers>
+                <TapGestureRecognizer Command="{Binding LoadPhotoCommand}"/>
+            </ContentView.GestureRecognizers>
+            <Image Source="loadImage"
+                   InputTransparent="True"/>
+        </ContentView>
+
         <BoxView x:Name="_upperLine" 
                  AbsoluteLayout.LayoutFlags="All"
                  AbsoluteLayout.LayoutBounds="0, 0, 0, 0"

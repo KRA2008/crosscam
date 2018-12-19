@@ -27,9 +27,6 @@ namespace CrossCam.CustomElement
 	    public static readonly BindableProperty SwitchToContinuousFocusTriggerProperty = BindableProperty.Create(nameof(SwitchToContinuousFocusTrigger),
 	        typeof(bool), typeof(CameraModule), false, BindingMode.TwoWay);
 
-	    public static readonly BindableProperty WasCapturePortraitProperty = BindableProperty.Create(nameof(WasCapturePortrait),
-	        typeof(bool), typeof(CameraModule), false, BindingMode.TwoWay);
-
         public static readonly BindableProperty ErrorMessageProperty = BindableProperty.Create(nameof(ErrorMessage),
 	        typeof(string), typeof(CameraModule), null, BindingMode.TwoWay);
 
@@ -67,12 +64,6 @@ namespace CrossCam.CustomElement
         {
 	        get => (bool)GetValue(SwitchToContinuousFocusTriggerProperty);
 	        set => SetValue(SwitchToContinuousFocusTriggerProperty, value);
-	    }
-
-	    public bool WasCapturePortrait
-        {
-	        get => (bool)GetValue(WasCapturePortraitProperty);
-	        set => SetValue(WasCapturePortraitProperty, value);
 	    }
 
         public string ErrorMessage

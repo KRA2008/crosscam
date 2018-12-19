@@ -206,6 +206,8 @@ namespace CrossCam.ViewModel
         public Command IncreaseRightKeystone => new Command(() => RightKeystone += Settings.KeystoneSpeed / KEYSTONE_MULTIPLIER);
         public Command DecreaseRightKeystone => new Command(() => RightKeystone -= Settings.KeystoneSpeed / KEYSTONE_MULTIPLIER);
 
+        public Command LoadPhotoCommand { get; set; }
+
         public bool IsViewPortrait { get; set; }
         public bool IsCaptureLeftFirst { get; set; }
         public bool WasCapturePortrait { get; set; }
@@ -214,7 +216,9 @@ namespace CrossCam.ViewModel
         public bool SuccessFadeTrigger { get; set; }
 
         public bool SwitchToContinuousFocusTrigger { get; set; }
-        
+
+        public bool ShouldLeftLoadBeVisible => LeftBitmap == null && CameraColumn == 0;
+        public bool ShouldRightLoadBeVisible => RightBitmap == null && CameraColumn == 1;
         public bool IsNothingCaptured => LeftBitmap == null && RightBitmap == null;
         public bool ShouldHelpTextBeVisible => IsNothingCaptured && HelpTextColumn != CameraColumn && WorkflowStage == WorkflowStage.Capture;
         public bool ShouldLeftRetakeBeVisible => LeftBitmap != null && (WorkflowStage == WorkflowStage.Capture || WorkflowStage == WorkflowStage.Final && DoesCaptureOrientationMatchViewOrientation);
@@ -283,6 +287,7 @@ namespace CrossCam.ViewModel
                     if (CameraColumn == 0)
                     {
                         LeftBitmap = GetBitmapAndCorrectOrientation(CapturedImageBytes);
+                        WasCapturePortrait = LeftBitmap.Width < LeftBitmap.Height;
 
                         if (RightBitmap == null)
                         {
@@ -299,6 +304,7 @@ namespace CrossCam.ViewModel
                     else
                     {
                         RightBitmap = GetBitmapAndCorrectOrientation(CapturedImageBytes);
+                        WasCapturePortrait = RightBitmap.Width < RightBitmap.Height;
 
                         if (LeftBitmap == null)
                         {
@@ -321,6 +327,15 @@ namespace CrossCam.ViewModel
                     }
                 }
             };
+
+            LoadPhotoCommand = new Command(async () =>
+            {
+                var photo = await DependencyService.Get<IPhotoPicker>().GetImage();
+                if (photo != null)
+                {
+                    CapturedImageBytes = photo;
+                }
+            });
 
             RetakeLeftCommand = new Command(() =>
             {

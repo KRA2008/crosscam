@@ -1,6 +1,9 @@
-﻿using System.Linq;
+﻿using System.IO;
+using System.Linq;
+using System.Threading.Tasks;
 using Android;
 using Android.App;
+using Android.Content;
 using Android.Content.PM;
 using Android.OS;
 using Android.Support.V4.App;
@@ -24,8 +27,12 @@ namespace CrossCam.Droid
 
         internal static MainActivity Instance { get; private set; }
 
+
         private const int CAMERA_PERMISSION_REQUEST_CODE = 50;
         private const int WRITE_TO_STORAGE_REQUEST_CODE = 51;
+
+        public const int PICK_PHOTO_ID = 1000;
+        public TaskCompletionSource<byte[]> PickPhotoTaskCompletionSource { set; get; }
 
         protected override void OnCreate(Bundle bundle)
         {
@@ -68,6 +75,30 @@ namespace CrossCam.Droid
         {
             base.OnResume();
             LifecycleEventListener.OnAppMaximized();
+        }    
+
+        protected override void OnActivityResult(int requestCode, Result resultCode, Intent intent)
+        {
+            base.OnActivityResult(requestCode, resultCode, intent);
+
+            if (requestCode == PICK_PHOTO_ID)
+            {
+                if (resultCode == Result.Ok && 
+                    intent != null)
+                {
+                    var uri = intent.Data;
+                    var stream = ContentResolver.OpenInputStream(uri);
+                    var memoryStream = new MemoryStream();
+                    stream.CopyTo(memoryStream);
+
+                    // Set the Stream as the completion of the Task
+                    PickPhotoTaskCompletionSource.SetResult(memoryStream.ToArray());
+                }
+                else
+                {
+                    PickPhotoTaskCompletionSource.SetResult(null);
+                }
+            }
         }
 
         public override void OnRequestPermissionsResult(int requestCode, string[] permissions, Permission[] grantResults)
