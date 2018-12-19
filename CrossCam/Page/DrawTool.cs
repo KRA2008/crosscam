@@ -243,7 +243,7 @@ namespace CrossCam.Page
             }
 
             return leftBitmap.Width + rightBitmap.Width -
-                - leftLeftCrop - leftRightCrop - rightLeftCrop - rightRightCrop +
+                leftLeftCrop - leftRightCrop - rightLeftCrop - rightRightCrop +
                 4 * borderThickness;
         }
 
