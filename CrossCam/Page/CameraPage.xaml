@@ -666,7 +666,7 @@
               ColumnSpacing="0"
               IsVisible="{Binding WorkflowStage, Converter={vc:EnumCompareConverter}, ConverterParameter={x:Static vm:WorkflowStage.Crop}}">
             <AbsoluteLayout.LayoutBounds>
-                <Rectangle X="0.2" Y="0.25" Width="{StaticResource _doubleMediumIconWidth}" Height="{StaticResource _mediumIconWidthPlusCropLineThickness}"/>
+                <Rectangle X="0.8" Y="0.25" Width="{StaticResource _doubleMediumIconWidth}" Height="{StaticResource _mediumIconWidthPlusCropLineThickness}"/>
             </AbsoluteLayout.LayoutBounds>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto"/>
@@ -701,7 +701,7 @@
               ColumnSpacing="0"
               IsVisible="{Binding WorkflowStage, Converter={vc:EnumCompareConverter}, ConverterParameter={x:Static vm:WorkflowStage.Crop}}">
             <AbsoluteLayout.LayoutBounds>
-                <Rectangle X="0.2" Y="0.8" Width="{StaticResource _doubleMediumIconWidth}" Height="{StaticResource _mediumIconWidthPlusCropLineThickness}"/>
+                <Rectangle X="0.8" Y="0.8" Width="{StaticResource _doubleMediumIconWidth}" Height="{StaticResource _mediumIconWidthPlusCropLineThickness}"/>
             </AbsoluteLayout.LayoutBounds>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto"/>
