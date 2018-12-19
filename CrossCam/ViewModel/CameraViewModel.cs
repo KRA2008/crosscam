@@ -217,8 +217,8 @@ namespace CrossCam.ViewModel
 
         public bool SwitchToContinuousFocusTrigger { get; set; }
 
-        public bool ShouldLeftLoadBeVisible => LeftBitmap == null && CameraColumn == 0;
-        public bool ShouldRightLoadBeVisible => RightBitmap == null && CameraColumn == 1;
+        public bool ShouldLeftLoadBeVisible => LeftBitmap == null && CameraColumn == 0 && WorkflowStage == WorkflowStage.Capture;
+        public bool ShouldRightLoadBeVisible => RightBitmap == null && CameraColumn == 1 && WorkflowStage == WorkflowStage.Capture;
         public bool IsNothingCaptured => LeftBitmap == null && RightBitmap == null;
         public bool ShouldHelpTextBeVisible => IsNothingCaptured && HelpTextColumn != CameraColumn && WorkflowStage == WorkflowStage.Capture;
         public bool ShouldLeftRetakeBeVisible => LeftBitmap != null && (WorkflowStage == WorkflowStage.Capture || WorkflowStage == WorkflowStage.Final && DoesCaptureOrientationMatchViewOrientation);
