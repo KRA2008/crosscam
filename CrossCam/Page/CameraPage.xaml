@@ -189,6 +189,26 @@
                    InputTransparent="True"/>
         </ContentView>
 
+        <StackLayout x:Name="_accelerometerLayout"
+                     AbsoluteLayout.LayoutFlags="All"
+                     AbsoluteLayout.LayoutBounds="0, 0, 1, 1"
+                     Orientation="Horizontal"
+                     Spacing="0">
+            <Label x:Name="_accelerometerLabel"
+                   TextColor="White"
+                   Text="0"
+                   FontSize="Large"
+                   FontAttributes="Bold"
+                   InputTransparent="True"
+                   VerticalTextAlignment="Center"
+                   HorizontalTextAlignment="Center"/>
+            <Image x:Name="_accelerometerStar"
+                   WidthRequest="{StaticResource _mediumIconWidth}"
+                   HeightRequest="{StaticResource _mediumIconWidth}"
+                   Source="star"
+                   IsVisible="False"/>
+        </StackLayout>
+
         <BoxView x:Name="_upperLine" 
                  AbsoluteLayout.LayoutFlags="All"
                  AbsoluteLayout.LayoutBounds="0, 0, 0, 0"

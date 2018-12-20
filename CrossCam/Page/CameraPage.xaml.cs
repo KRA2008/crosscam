@@ -1,6 +1,9 @@
-﻿using System.ComponentModel;
+﻿using System;
+using System.ComponentModel;
+using System.Diagnostics;
 using CrossCam.ViewModel;
 using SkiaSharp.Views.Forms;
+using Xamarin.Essentials;
 using Xamarin.Forms;
 
 namespace CrossCam.Page
@@ -14,6 +17,9 @@ namespace CrossCam.Page
 	    private readonly Rectangle _lowerLineBoundsLandscape = new Rectangle(0, 0.67, 1, 21);
 	    private readonly Rectangle _upperLineBoundsPortrait = new Rectangle(0, 0.4, 1, 21);
 	    private readonly Rectangle _lowerLinesBoundsPortrait = new Rectangle(0, 0.6, 1, 21);
+
+        private readonly Rectangle _accelerometerBoundsPortrait = new Rectangle(0, 0.65, 0.15, 0.1);
+	    private readonly Rectangle _accelerometerBoundsLandscape = new Rectangle(0, 0.85, 0.1, 0.15);
 
         private readonly Rectangle _leftReticleBounds = new Rectangle(0.2297, 0.5, 0.075, 0.075);
         private readonly Rectangle _rightReticleBounds = new Rectangle(0.7703, 0.5, 0.075, 0.075);
@@ -29,14 +35,98 @@ namespace CrossCam.Page
 	    private double _lowerLineY;
 	    private double _lowerLineHeight;
 
+	    private float _averageAcceleration;
+	    private const float ACCELERATION_WEIGHT = 4f;
+
         public CameraPage()
 		{
             InitializeComponent();
             ResetGuides();
 		    NavigationPage.SetHasNavigationBar(this, false);
+
+            Accelerometer.ReadingChanged += (sender, args) =>
+            {
+                _averageAcceleration *= (ACCELERATION_WEIGHT - 1) / ACCELERATION_WEIGHT;
+                var acceleration = args.Reading.Acceleration;
+                if (Math.Abs(acceleration.X) < Math.Abs(acceleration.Y))
+                {
+                    _averageAcceleration += acceleration.X / ACCELERATION_WEIGHT;
+                }
+                else
+                {
+                    _averageAcceleration += acceleration.Y / ACCELERATION_WEIGHT;
+                }
+
+                var sign = _averageAcceleration / Math.Abs(_averageAcceleration);
+                var truncatedAcceleration = (int) (_averageAcceleration * 90 + sign * 0.5);
+                _accelerometerStar.IsVisible = truncatedAcceleration == 0;
+                _accelerometerLabel.Text = $"{truncatedAcceleration}°";
+            };
+
+            Gyroscope.ReadingChanged += (sender, args) =>
+            {
+                var data = args.Reading;
+                //Debug.WriteLine($"Reading: X: {data.AngularVelocity.X}, Y: {data.AngularVelocity.Y}, Z: {data.AngularVelocity.Z}");
+            };
+
+            Compass.ReadingChanged += (sender, args) =>
+            {
+                var data = args.Reading;
+                //Console.WriteLine($"Reading: {data.HeadingMagneticNorth} degrees");
+            };
+
+            const SensorSpeed SPEED = SensorSpeed.UI;
+
+            try
+            {
+                if (Accelerometer.IsMonitoring)
+                    Accelerometer.Stop();
+                else
+                    Accelerometer.Start(SPEED);
+            }
+            catch (FeatureNotSupportedException fnsEx)
+            {
+                Debug.WriteLine("not supported! " + fnsEx);
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine("problem! " + ex);
+            }
+
+            try
+            {
+                if (Gyroscope.IsMonitoring)
+                    Gyroscope.Stop();
+                else
+                    Gyroscope.Start(SPEED);
+            }
+            catch (FeatureNotSupportedException fnsEx)
+            {
+                Debug.WriteLine("not supported! " + fnsEx);
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine("problem! " + ex);
+            }
+
+            try
+            {
+                if (Compass.IsMonitoring)
+                    Compass.Stop();
+                else
+                    Compass.Start(SPEED);
+            }
+            catch (FeatureNotSupportedException fnsEx)
+            {
+                Debug.WriteLine("not supported! " + fnsEx);
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine("problem! " + ex);
+            }
         }
 
-	    protected override void OnBindingContextChanged()
+        protected override void OnBindingContextChanged()
 	    {
 	        base.OnBindingContextChanged();
 	        if (BindingContext != null)
@@ -96,6 +186,8 @@ namespace CrossCam.Page
         {
             if (_viewModel == null || _viewModel.IsViewPortrait)
             {
+                AbsoluteLayout.SetLayoutBounds(_accelerometerLayout, _accelerometerBoundsPortrait);
+
                 AbsoluteLayout.SetLayoutFlags(_upperLine, AbsoluteLayoutFlags.YProportional | AbsoluteLayoutFlags.WidthProportional);
                 AbsoluteLayout.SetLayoutBounds(_upperLine, _upperLineBoundsPortrait);
                 AbsoluteLayout.SetLayoutFlags(_upperLinePanner, AbsoluteLayoutFlags.YProportional | AbsoluteLayoutFlags.WidthProportional);
@@ -108,6 +200,8 @@ namespace CrossCam.Page
             }
             else
             {
+                AbsoluteLayout.SetLayoutBounds(_accelerometerLayout, _accelerometerBoundsLandscape);
+
                 AbsoluteLayout.SetLayoutFlags(_upperLine, AbsoluteLayoutFlags.YProportional | AbsoluteLayoutFlags.WidthProportional);
                 AbsoluteLayout.SetLayoutBounds(_upperLine, _upperLineBoundsLandscape);
                 AbsoluteLayout.SetLayoutFlags(_upperLinePanner, AbsoluteLayoutFlags.YProportional | AbsoluteLayoutFlags.WidthProportional);
