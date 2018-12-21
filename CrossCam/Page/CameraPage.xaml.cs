@@ -18,8 +18,8 @@ namespace CrossCam.Page
 	    private readonly Rectangle _upperLineBoundsPortrait = new Rectangle(0, 0.4, 1, 21);
 	    private readonly Rectangle _lowerLinesBoundsPortrait = new Rectangle(0, 0.6, 1, 21);
 
-	    private const double ACCELEROMETER_PORTRAIT_Y = 0.65;
-	    private const double ACCELEROMETER_LANDSCAPE_Y = 0.8;
+	    private const double ROTATION_GUIDES_PORTRAIT_Y = 0.65;
+	    private const double ROTATION_GUIDES_LANDSCAPE_Y = 0.8;
 
 	    private readonly Rectangle _leftReticleBounds = new Rectangle(0.2297, 0.5, 0.075, 0.075);
         private readonly Rectangle _rightReticleBounds = new Rectangle(0.7703, 0.5, 0.075, 0.075);
@@ -35,13 +35,28 @@ namespace CrossCam.Page
 	    private double _lowerLineY;
 	    private double _lowerLineHeight;
 
-	    private float _averageRoll;
-	    private float _averagePitch;
-	    private float _firstPhotoPitch;
-	    private const float ACCELEROMETER_MEASURMENT_WEIGHT = 4f;
+	    private const double ACCELEROMETER_MEASURMENT_WEIGHT = 4;
+	    private const double ACCELEROMETER_SENSITIVITY = 90;
+
+        private double _averageRoll;
         private readonly ImageSource _rotateLeft = ImageSource.FromFile("rotateLeftInBox");
 	    private readonly ImageSource _rotateRight = ImageSource.FromFile("rotateRightInBox");
 	    private readonly ImageSource _star = ImageSource.FromFile("starInBox");
+
+	    private double _averagePitch;
+	    private double _firstPhotoPitch;
+	    private readonly ImageSource _pitchForward = ImageSource.FromFile("rotateForwardInBoxWall");
+	    private readonly ImageSource _pitchBackward = ImageSource.FromFile("rotateBackwardInBoxWall");
+	    private readonly ImageSource _pitchStar = ImageSource.FromFile("starInBoxWall");
+
+	    private const double COMPASS_MEASURMENT_WEIGHT = 1;
+	    private const double COMPASS_SENSITIVITY = 0.9;
+
+        private double _averageYaw;
+	    private double _firstPhotoYaw;
+	    private readonly ImageSource _yawLeft = ImageSource.FromFile("rotateLeftInBoxFloor");
+	    private readonly ImageSource _yawRight = ImageSource.FromFile("rotateRightInBoxFloor");
+	    private readonly ImageSource _yawStar = ImageSource.FromFile("starInBoxFloor");
 
         public CameraPage()
 		{
@@ -52,7 +67,17 @@ namespace CrossCam.Page
             Accelerometer.ReadingChanged += (sender, args) =>
             {
                 _averageRoll *= (ACCELEROMETER_MEASURMENT_WEIGHT - 1) / ACCELEROMETER_MEASURMENT_WEIGHT;
+                _averagePitch *= (ACCELEROMETER_MEASURMENT_WEIGHT - 1) / ACCELEROMETER_MEASURMENT_WEIGHT;
+
                 var acceleration = args.Reading.Acceleration;
+                if (_viewModel != null && _viewModel.IsNothingCaptured)
+                {
+                    _firstPhotoPitch = acceleration.Z;
+                }
+                if (_viewModel != null && _viewModel.IsExactlyOnePictureTaken)
+                {
+                    _averagePitch += acceleration.Z / ACCELEROMETER_MEASURMENT_WEIGHT;
+                }
                 if (Math.Abs(acceleration.X) < Math.Abs(acceleration.Y))
                 {
                     _averageRoll += acceleration.X / ACCELEROMETER_MEASURMENT_WEIGHT;
@@ -61,14 +86,13 @@ namespace CrossCam.Page
                 {
                     _averageRoll -= acceleration.Y / ACCELEROMETER_MEASURMENT_WEIGHT;
                 }
-
-                var sign = _averageRoll / Math.Abs(_averageRoll);
-                var truncatedAcceleration = (int) (_averageRoll * 90 + sign * 0.5);
-                if (truncatedAcceleration > 0)
+                
+                var roundedRoll = Math.Round(_averageRoll * ACCELEROMETER_SENSITIVITY);
+                if (roundedRoll > 0)
                 {
                     _rollIndicator.Source = _rotateRight;
                 }
-                else if (truncatedAcceleration < 0)
+                else if (roundedRoll < 0)
                 {
                     _rollIndicator.Source = _rotateLeft;
                 }
@@ -76,22 +100,57 @@ namespace CrossCam.Page
                 {
                     _rollIndicator.Source = _star;
                 }
+
+                var roundedPitchDifference = Math.Round((_firstPhotoPitch - _averagePitch) * ACCELEROMETER_SENSITIVITY);
+                if (roundedPitchDifference > 0)
+                {
+                    _pitchIndicator.Source = _pitchForward;
+                }
+                else if (roundedPitchDifference < 0)
+                {
+                    _pitchIndicator.Source = _pitchBackward;
+                }
+                else
+                {
+                    _pitchIndicator.Source = _pitchStar;
+                }
             };
 
             Compass.ReadingChanged += (sender, args) =>
             {
-                var data = args.Reading;
-                //Console.WriteLine($"Reading: {data.HeadingMagneticNorth} degrees");
-            };
+                _averageYaw *= (COMPASS_MEASURMENT_WEIGHT - 1) / COMPASS_MEASURMENT_WEIGHT;
 
-            const SensorSpeed SPEED = SensorSpeed.UI;
+                var heading = args.Reading.HeadingMagneticNorth;
+                if (_viewModel != null && _viewModel.IsNothingCaptured)
+                {
+                    _firstPhotoYaw = heading;
+                }
+                if (_viewModel != null && _viewModel.IsExactlyOnePictureTaken)
+                {
+                    _averageYaw += heading / COMPASS_MEASURMENT_WEIGHT;
+                }
+                
+                var roundedYawDifference = Math.Round((_firstPhotoYaw - _averageYaw) * COMPASS_SENSITIVITY);
+                if (roundedYawDifference > 0)
+                {
+                    _yawIndicator.Source = _yawRight;
+                }
+                else if (roundedYawDifference < 0)
+                {
+                    _yawIndicator.Source = _yawLeft;
+                }
+                else
+                {
+                    _yawIndicator.Source = _yawStar;
+                }
+            };
 
             try
             {
                 if (Accelerometer.IsMonitoring)
                     Accelerometer.Stop();
                 else
-                    Accelerometer.Start(SPEED);
+                    Accelerometer.Start(SensorSpeed.Game);
             }
             catch (FeatureNotSupportedException fnsEx)
             {
@@ -107,7 +166,7 @@ namespace CrossCam.Page
                 if (Compass.IsMonitoring)
                     Compass.Stop();
                 else
-                    Compass.Start(SPEED);
+                    Compass.Start(SensorSpeed.Fastest);
             }
             catch (FeatureNotSupportedException fnsEx)
             {
@@ -178,10 +237,12 @@ namespace CrossCam.Page
 
         private void ResetGuides()
         {
-            var accelerometerBounds = AbsoluteLayout.GetLayoutBounds(_rollIndicator);
+            var rollBounds = AbsoluteLayout.GetLayoutBounds(_rollIndicator);
+            var pitchBounds = AbsoluteLayout.GetLayoutBounds(_pitchIndicator);
+            var yawBounds = AbsoluteLayout.GetLayoutBounds(_yawIndicator);
             if (_viewModel == null || _viewModel.IsViewPortrait)
             {
-                accelerometerBounds.Y = ACCELEROMETER_PORTRAIT_Y;
+                rollBounds.Y = pitchBounds.Y = yawBounds.Y = ROTATION_GUIDES_PORTRAIT_Y;
 
                 AbsoluteLayout.SetLayoutFlags(_upperLine, AbsoluteLayoutFlags.YProportional | AbsoluteLayoutFlags.WidthProportional);
                 AbsoluteLayout.SetLayoutBounds(_upperLine, _upperLineBoundsPortrait);
@@ -195,7 +256,7 @@ namespace CrossCam.Page
             }
             else
             {
-                accelerometerBounds.Y = ACCELEROMETER_LANDSCAPE_Y;
+                rollBounds.Y = pitchBounds.Y = yawBounds.Y = ROTATION_GUIDES_LANDSCAPE_Y;
 
                 AbsoluteLayout.SetLayoutFlags(_upperLine, AbsoluteLayoutFlags.YProportional | AbsoluteLayoutFlags.WidthProportional);
                 AbsoluteLayout.SetLayoutBounds(_upperLine, _upperLineBoundsLandscape);
@@ -207,8 +268,12 @@ namespace CrossCam.Page
                 AbsoluteLayout.SetLayoutFlags(_lowerLinePanner, AbsoluteLayoutFlags.YProportional | AbsoluteLayoutFlags.WidthProportional);
                 AbsoluteLayout.SetLayoutBounds(_lowerLinePanner, _lowerLineBoundsLandscape);
             }
-            accelerometerBounds.X = _viewModel == null || _viewModel.CameraColumn == 0 ? 0.15 : 0.85;
-            AbsoluteLayout.SetLayoutBounds(_rollIndicator, accelerometerBounds);
+            rollBounds.X = _viewModel == null || _viewModel.CameraColumn == 0 ? 0.15 : 0.85;
+            AbsoluteLayout.SetLayoutBounds(_rollIndicator, rollBounds);
+            pitchBounds.X = _viewModel == null || _viewModel.CameraColumn == 0 ? 0.25 : 0.95;
+            AbsoluteLayout.SetLayoutBounds(_pitchIndicator, pitchBounds);
+            yawBounds.X = _viewModel == null || _viewModel.CameraColumn == 0 ? 0.35 : 0.75;
+            AbsoluteLayout.SetLayoutBounds(_yawIndicator, yawBounds);
 
             AbsoluteLayout.SetLayoutFlags(_leftReticle, AbsoluteLayoutFlags.All);
             AbsoluteLayout.SetLayoutBounds(_leftReticle, _leftReticleBounds);

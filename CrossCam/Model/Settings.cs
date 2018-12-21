@@ -14,6 +14,9 @@ namespace CrossCam.Model
         public bool SaveForParallel { get; set; }
         public bool SaveForCrossView { get; set; }
         public bool AddBorder { get; set; }
+        public bool ShowRollGuide { get; set; }
+        public bool ShowPitchGuide { get; set; }
+        public bool ShowYawGuide { get; set; }
 
         public BorderColor BorderColor
         {
@@ -159,6 +162,9 @@ namespace CrossCam.Model
             AreGuideLinesVisible = true;
             IsCaptureLeftFirst = true;
             SaveForCrossView = true;
+            ShowRollGuide = true;
+            ShowPitchGuide = true;
+            ShowYawGuide = true;
 
             ShowGuideLinesWithFirstCapture = false;
             IsGuideDonutVisible = false;

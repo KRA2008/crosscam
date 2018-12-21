@@ -139,6 +139,18 @@
                         IsToggled="{Binding Settings.ShowGuideLinesWithFirstCapture}"/>
             </StackLayout>
             <StackLayout Orientation="Horizontal">
+                <Label Text="Roll guide visible"/>
+                <Switch IsToggled="{Binding Settings.ShowRollGuide}"/>
+            </StackLayout>
+            <StackLayout Orientation="Horizontal">
+                <Label Text="Pitch guide visible"/>
+                <Switch IsToggled="{Binding Settings.ShowPitchGuide}"/>
+            </StackLayout>
+            <StackLayout Orientation="Horizontal">
+                <Label Text="Yaw guide visible"/>
+                <Switch IsToggled="{Binding Settings.ShowYawGuide}"/>
+            </StackLayout>
+            <StackLayout Orientation="Horizontal">
                 <Label Text="Donut/dot visible (generally only useful for very large scenes)"/>
                 <Switch IsToggled="{Binding Settings.IsGuideDonutVisible}"/>
             </StackLayout>
