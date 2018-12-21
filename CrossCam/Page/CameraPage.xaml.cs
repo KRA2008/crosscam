@@ -18,10 +18,10 @@ namespace CrossCam.Page
 	    private readonly Rectangle _upperLineBoundsPortrait = new Rectangle(0, 0.4, 1, 21);
 	    private readonly Rectangle _lowerLinesBoundsPortrait = new Rectangle(0, 0.6, 1, 21);
 
-        private readonly Rectangle _accelerometerBoundsPortrait = new Rectangle(0, 0.65, 0.15, 0.1);
-	    private readonly Rectangle _accelerometerBoundsLandscape = new Rectangle(0, 0.85, 0.1, 0.15);
+	    private const double ACCELEROMETER_PORTRAIT_Y = 0.65;
+	    private const double ACCELEROMETER_LANDSCAPE_Y = 0.8;
 
-        private readonly Rectangle _leftReticleBounds = new Rectangle(0.2297, 0.5, 0.075, 0.075);
+	    private readonly Rectangle _leftReticleBounds = new Rectangle(0.2297, 0.5, 0.075, 0.075);
         private readonly Rectangle _rightReticleBounds = new Rectangle(0.7703, 0.5, 0.075, 0.075);
 
 	    private double _reticleLeftX;
@@ -35,8 +35,13 @@ namespace CrossCam.Page
 	    private double _lowerLineY;
 	    private double _lowerLineHeight;
 
-	    private float _averageAcceleration;
-	    private const float ACCELERATION_WEIGHT = 4f;
+	    private float _averageRoll;
+	    private float _averagePitch;
+	    private float _firstPhotoPitch;
+	    private const float ACCELEROMETER_MEASURMENT_WEIGHT = 4f;
+        private readonly ImageSource _rotateLeft = ImageSource.FromFile("rotateLeftInBox");
+	    private readonly ImageSource _rotateRight = ImageSource.FromFile("rotateRightInBox");
+	    private readonly ImageSource _star = ImageSource.FromFile("starInBox");
 
         public CameraPage()
 		{
@@ -46,27 +51,31 @@ namespace CrossCam.Page
 
             Accelerometer.ReadingChanged += (sender, args) =>
             {
-                _averageAcceleration *= (ACCELERATION_WEIGHT - 1) / ACCELERATION_WEIGHT;
+                _averageRoll *= (ACCELEROMETER_MEASURMENT_WEIGHT - 1) / ACCELEROMETER_MEASURMENT_WEIGHT;
                 var acceleration = args.Reading.Acceleration;
                 if (Math.Abs(acceleration.X) < Math.Abs(acceleration.Y))
                 {
-                    _averageAcceleration += acceleration.X / ACCELERATION_WEIGHT;
+                    _averageRoll += acceleration.X / ACCELEROMETER_MEASURMENT_WEIGHT;
                 }
                 else
                 {
-                    _averageAcceleration += acceleration.Y / ACCELERATION_WEIGHT;
+                    _averageRoll -= acceleration.Y / ACCELEROMETER_MEASURMENT_WEIGHT;
                 }
 
-                var sign = _averageAcceleration / Math.Abs(_averageAcceleration);
-                var truncatedAcceleration = (int) (_averageAcceleration * 90 + sign * 0.5);
-                _accelerometerStar.IsVisible = truncatedAcceleration == 0;
-                _accelerometerLabel.Text = $"{truncatedAcceleration}°";
-            };
-
-            Gyroscope.ReadingChanged += (sender, args) =>
-            {
-                var data = args.Reading;
-                //Debug.WriteLine($"Reading: X: {data.AngularVelocity.X}, Y: {data.AngularVelocity.Y}, Z: {data.AngularVelocity.Z}");
+                var sign = _averageRoll / Math.Abs(_averageRoll);
+                var truncatedAcceleration = (int) (_averageRoll * 90 + sign * 0.5);
+                if (truncatedAcceleration > 0)
+                {
+                    _rollIndicator.Source = _rotateRight;
+                }
+                else if (truncatedAcceleration < 0)
+                {
+                    _rollIndicator.Source = _rotateLeft;
+                }
+                else
+                {
+                    _rollIndicator.Source = _star;
+                }
             };
 
             Compass.ReadingChanged += (sender, args) =>
@@ -83,22 +92,6 @@ namespace CrossCam.Page
                     Accelerometer.Stop();
                 else
                     Accelerometer.Start(SPEED);
-            }
-            catch (FeatureNotSupportedException fnsEx)
-            {
-                Debug.WriteLine("not supported! " + fnsEx);
-            }
-            catch (Exception ex)
-            {
-                Debug.WriteLine("problem! " + ex);
-            }
-
-            try
-            {
-                if (Gyroscope.IsMonitoring)
-                    Gyroscope.Stop();
-                else
-                    Gyroscope.Start(SPEED);
             }
             catch (FeatureNotSupportedException fnsEx)
             {
@@ -141,6 +134,7 @@ namespace CrossCam.Page
 	        switch (e.PropertyName)
 	        {
 	            case nameof(CameraViewModel.IsViewPortrait):
+                case nameof(CameraViewModel.CameraColumn):
 	                ResetGuides();
 	                break;
 	            case nameof(CameraViewModel.LeftBitmap):
@@ -184,9 +178,10 @@ namespace CrossCam.Page
 
         private void ResetGuides()
         {
+            var accelerometerBounds = AbsoluteLayout.GetLayoutBounds(_rollIndicator);
             if (_viewModel == null || _viewModel.IsViewPortrait)
             {
-                AbsoluteLayout.SetLayoutBounds(_accelerometerLayout, _accelerometerBoundsPortrait);
+                accelerometerBounds.Y = ACCELEROMETER_PORTRAIT_Y;
 
                 AbsoluteLayout.SetLayoutFlags(_upperLine, AbsoluteLayoutFlags.YProportional | AbsoluteLayoutFlags.WidthProportional);
                 AbsoluteLayout.SetLayoutBounds(_upperLine, _upperLineBoundsPortrait);
@@ -200,7 +195,7 @@ namespace CrossCam.Page
             }
             else
             {
-                AbsoluteLayout.SetLayoutBounds(_accelerometerLayout, _accelerometerBoundsLandscape);
+                accelerometerBounds.Y = ACCELEROMETER_LANDSCAPE_Y;
 
                 AbsoluteLayout.SetLayoutFlags(_upperLine, AbsoluteLayoutFlags.YProportional | AbsoluteLayoutFlags.WidthProportional);
                 AbsoluteLayout.SetLayoutBounds(_upperLine, _upperLineBoundsLandscape);
@@ -212,6 +207,8 @@ namespace CrossCam.Page
                 AbsoluteLayout.SetLayoutFlags(_lowerLinePanner, AbsoluteLayoutFlags.YProportional | AbsoluteLayoutFlags.WidthProportional);
                 AbsoluteLayout.SetLayoutBounds(_lowerLinePanner, _lowerLineBoundsLandscape);
             }
+            accelerometerBounds.X = _viewModel == null || _viewModel.CameraColumn == 0 ? 0.15 : 0.85;
+            AbsoluteLayout.SetLayoutBounds(_rollIndicator, accelerometerBounds);
 
             AbsoluteLayout.SetLayoutFlags(_leftReticle, AbsoluteLayoutFlags.All);
             AbsoluteLayout.SetLayoutBounds(_leftReticle, _leftReticleBounds);

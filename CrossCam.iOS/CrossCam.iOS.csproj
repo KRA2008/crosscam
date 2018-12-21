@@ -449,6 +449,60 @@
   <ItemGroup>
     <BundleResource Include="Resources\star%402x.png" />
   </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\rotateBackwardInBoxWall.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\rotateBackwardInBoxWall%402x.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\rotateForwardInBoxWall.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\rotateForwardInBoxWall%402x.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\rotateLeftInBox.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\rotateLeftInBox%402x.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\rotateLeftInBoxFloor.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\rotateLeftInBoxFloor%402x.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\rotateRightInBox.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\rotateRightInBox%402x.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\rotateRightInBoxFloor.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\rotateRightInBoxFloor%402x.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\starInBox.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\starInBox%402x.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\starInBoxFloor.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\starInBoxFloor%402x.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\starInBoxWall%402x.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\starInBoxWall.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup />

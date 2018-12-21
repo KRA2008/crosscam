@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Diagnostics;
 using System.IO;
 using System.Threading.Tasks;
 using System.Web;
@@ -8,7 +7,6 @@ using CrossCam.Page;
 using CrossCam.Wrappers;
 using FreshMvvm;
 using SkiaSharp;
-using Xamarin.Essentials;
 using Xamarin.Forms;
 
 namespace CrossCam.ViewModel
@@ -29,6 +27,7 @@ namespace CrossCam.ViewModel
         public byte[] CapturedImageBytes { get; set; }
         public bool CaptureSuccess { get; set; }
         public int CameraColumn { get; set; }
+        public double AccelerometerX => CameraColumn == 0 ? 0.25 : 0.75;
 
         public Command CapturePictureCommand { get; set; }
         public bool CapturePictureTrigger { get; set; }
