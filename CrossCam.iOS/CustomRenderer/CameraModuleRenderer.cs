@@ -363,10 +363,15 @@ namespace CrossCam.iOS.CustomRenderer
                             {
                                 case UIDeviceOrientation.Portrait:
                                     _cameraModule.IsPortrait = true;
+                                    _cameraModule.IsViewInvertedLandscape = false;
                                     break;
                                 case UIDeviceOrientation.LandscapeLeft:
+                                    _cameraModule.IsPortrait = false;
+                                    _cameraModule.IsViewInvertedLandscape = false;
+                                    break;
                                 case UIDeviceOrientation.LandscapeRight:
                                     _cameraModule.IsPortrait = false;
+                                    _cameraModule.IsViewInvertedLandscape = true;
                                     break;
                             }
 

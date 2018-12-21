@@ -21,7 +21,10 @@ namespace CrossCam.CustomElement
 	    public static readonly BindableProperty IsPortraitProperty = BindableProperty.Create(nameof(IsPortrait),
 	        typeof(bool), typeof(CameraModule), false, BindingMode.TwoWay);
 
-	    public static readonly BindableProperty IsTapToFocusEnabledProperty = BindableProperty.Create(nameof(IsTapToFocusEnabled),
+	    public static readonly BindableProperty IsViewInvertedLandscapeProperty = BindableProperty.Create(nameof(IsViewInvertedLandscape),
+	        typeof(bool), typeof(CameraModule), false, BindingMode.TwoWay);
+
+        public static readonly BindableProperty IsTapToFocusEnabledProperty = BindableProperty.Create(nameof(IsTapToFocusEnabled),
 	        typeof(bool), typeof(CameraModule), false, BindingMode.TwoWay);
 
 	    public static readonly BindableProperty SwitchToContinuousFocusTriggerProperty = BindableProperty.Create(nameof(SwitchToContinuousFocusTrigger),
@@ -54,7 +57,13 @@ namespace CrossCam.CustomElement
 	        set => SetValue(IsPortraitProperty, value);
 	    }
 
-	    public bool IsTapToFocusEnabled
+	    public bool IsViewInvertedLandscape
+        {
+	        get => (bool)GetValue(IsViewInvertedLandscapeProperty);
+	        set => SetValue(IsViewInvertedLandscapeProperty, value);
+	    }
+
+        public bool IsTapToFocusEnabled
 	    {
 	        get => (bool)GetValue(IsTapToFocusEnabledProperty);
 	        set => SetValue(IsTapToFocusEnabledProperty, value);

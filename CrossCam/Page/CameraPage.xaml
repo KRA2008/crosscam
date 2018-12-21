@@ -127,6 +127,7 @@
                              IsPortrait="{Binding IsViewPortrait}"
                              CaptureTrigger="{Binding CapturePictureTrigger}"
                              IsVisible="{Binding IsCameraVisible}"
+                             IsViewInvertedLandscape="{Binding IsViewInvertedLandscape}"
                              CapturedImage="{Binding CapturedImageBytes}"
                              CaptureSuccess="{Binding CaptureSuccess}"
                              ErrorMessage="{Binding ErrorMessage}"/>

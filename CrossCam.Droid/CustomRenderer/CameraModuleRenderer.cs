@@ -322,11 +322,18 @@ namespace CrossCam.Droid.CustomRenderer
             {
                 case SurfaceOrientation.Rotation0: //portraits
                 case SurfaceOrientation.Rotation180:
+                    _cameraModule.IsViewInvertedLandscape = false;
                     _cameraModule.IsPortrait = true;
                     proportionalPreviewHeight = _previewSize.Width * moduleWidth / _previewSize.Height;
                     break;
-                default: //landscapes
+                case SurfaceOrientation.Rotation90:
+                    _cameraModule.IsViewInvertedLandscape = false;
                     _cameraModule.IsPortrait = false;
+                    proportionalPreviewHeight = _previewSize.Height * moduleWidth / _previewSize.Width;
+                    break;
+                default:
+                    _cameraModule.IsPortrait = false;
+                    _cameraModule.IsViewInvertedLandscape = true;
                     proportionalPreviewHeight = _previewSize.Height * moduleWidth / _previewSize.Width;
                     break;
             }

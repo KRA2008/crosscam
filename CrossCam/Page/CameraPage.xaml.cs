@@ -90,11 +90,11 @@ namespace CrossCam.Page
                 var roundedRoll = Math.Round(_averageRoll * ACCELEROMETER_SENSITIVITY);
                 if (roundedRoll > 0)
                 {
-                    _rollIndicator.Source = _rotateRight;
+                    _rollIndicator.Source = _viewModel != null && _viewModel.IsViewInvertedLandscape ? _rotateLeft : _rotateRight;
                 }
                 else if (roundedRoll < 0)
                 {
-                    _rollIndicator.Source = _rotateLeft;
+                    _rollIndicator.Source = _viewModel != null && _viewModel.IsViewInvertedLandscape ? _rotateRight : _rotateLeft;
                 }
                 else
                 {
@@ -121,13 +121,13 @@ namespace CrossCam.Page
                 _averageYaw *= (COMPASS_MEASURMENT_WEIGHT - 1) / COMPASS_MEASURMENT_WEIGHT;
 
                 var heading = args.Reading.HeadingMagneticNorth;
-                if (_viewModel != null)
-                {
-                    _averageYaw += heading / COMPASS_MEASURMENT_WEIGHT;
-                }
                 if (_viewModel != null && _viewModel.IsNothingCaptured)
                 {
-                    _firstPhotoYaw = _averageYaw;
+                    _firstPhotoYaw = heading;
+                }
+                if (_viewModel != null && _viewModel.IsExactlyOnePictureTaken)
+                {
+                    _averageYaw += heading / COMPASS_MEASURMENT_WEIGHT;
                 }
 
                 var roundedYawDifference = Math.Round((_firstPhotoYaw - _averageYaw) * COMPASS_SENSITIVITY);
