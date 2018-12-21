@@ -27,7 +27,6 @@ namespace CrossCam.ViewModel
         public byte[] CapturedImageBytes { get; set; }
         public bool CaptureSuccess { get; set; }
         public int CameraColumn { get; set; }
-        public double AccelerometerX => CameraColumn == 0 ? 0.25 : 0.75;
 
         public Command CapturePictureCommand { get; set; }
         public bool CapturePictureTrigger { get; set; }
@@ -230,8 +229,8 @@ namespace CrossCam.ViewModel
         public bool ShouldLineGuidesBeVisible => (IsExactlyOnePictureTaken || Settings.ShowGuideLinesWithFirstCapture && WorkflowStage == WorkflowStage.Capture) && Settings.AreGuideLinesVisible;
         public bool ShouldDonutGuideBeVisible => (IsExactlyOnePictureTaken || Settings.ShowGuideDonutWithFirstCapture && WorkflowStage == WorkflowStage.Capture) && Settings.IsGuideDonutVisible;
         public bool ShouldRollGuideBeVisible => WorkflowStage == WorkflowStage.Capture && Settings.ShowRollGuide;
-        public bool ShouldPitchGuideBeVisible => IsExactlyOnePictureTaken; //&& settings thing
-        public bool ShouldYawGuideBeVisible => IsExactlyOnePictureTaken; //&& settings thing
+        public bool ShouldPitchGuideBeVisible => IsExactlyOnePictureTaken && Settings.ShowPitchGuide;
+        public bool ShouldYawGuideBeVisible => IsExactlyOnePictureTaken && Settings.ShowYawGuide;
         public bool ShouldSaveEditsButtonBeVisible => WorkflowStage == WorkflowStage.Edits ||
                                                       WorkflowStage == WorkflowStage.Crop ||
                                                       WorkflowStage == WorkflowStage.Keystone ||
@@ -715,6 +714,9 @@ namespace CrossCam.ViewModel
             base.ViewIsAppearing(sender, e);
             RaisePropertyChanged(nameof(ShouldLineGuidesBeVisible)); //TODO: figure out how to have Fody do this
             RaisePropertyChanged(nameof(ShouldDonutGuideBeVisible));
+            RaisePropertyChanged(nameof(ShouldRollGuideBeVisible));
+            RaisePropertyChanged(nameof(ShouldPitchGuideBeVisible));
+            RaisePropertyChanged(nameof(ShouldYawGuideBeVisible));
             RaisePropertyChanged(nameof(RightReticleImage));
             RaisePropertyChanged(nameof(Settings)); // this doesn't cause reevaluation for above stuff, but triggers redraw of canvas
         }

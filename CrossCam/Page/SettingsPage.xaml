@@ -89,44 +89,6 @@
                         IsEnabled="{Binding Settings.SaveSidesSeparately, Converter={vc:BooleanInvertConverter}}"/>
             </StackLayout>
             <BoxView/>
-            <Label Text="Editing"
-                   Style="{DynamicResource header}"/>
-            <StackLayout Orientation="Horizontal">
-                <Label Text="Crop speed"/>
-                <Picker ItemsSource="{Binding PositiveIntegers}"
-                        SelectedIndex="{Binding Settings.CropSpeed}"
-                        BackgroundColor="White"
-                        HorizontalOptions="EndAndExpand"/>
-            </StackLayout>
-            <StackLayout Orientation="Horizontal">
-                <Label Text="Align speed"/>
-                <Picker ItemsSource="{Binding PositiveIntegers}"
-                        SelectedIndex="{Binding Settings.AlignSpeed}"
-                        BackgroundColor="White"
-                        HorizontalOptions="EndAndExpand"/>
-            </StackLayout>
-            <StackLayout Orientation="Horizontal">
-                <Label Text="Zoom speed"/>
-                <Picker ItemsSource="{Binding PositiveIntegers}"
-                        SelectedIndex="{Binding Settings.ZoomSpeed}"
-                        BackgroundColor="White"
-                        HorizontalOptions="EndAndExpand"/>
-            </StackLayout>
-            <StackLayout Orientation="Horizontal">
-                <Label Text="Rotate speed"/>
-                <Picker ItemsSource="{Binding PositiveIntegers}"
-                        SelectedIndex="{Binding Settings.RotationSpeed}"
-                        BackgroundColor="White"
-                        HorizontalOptions="EndAndExpand"/>
-            </StackLayout>
-            <StackLayout Orientation="Horizontal">
-                <Label Text="Keystone speed"/>
-                <Picker ItemsSource="{Binding PositiveIntegers}"
-                        SelectedIndex="{Binding Settings.KeystoneSpeed}"
-                        BackgroundColor="White"
-                        HorizontalOptions="EndAndExpand"/>
-            </StackLayout>
-            <BoxView/>
             <Label Text="Guides"
                    Style="{DynamicResource header}"/>
             <StackLayout Orientation="Horizontal">
@@ -163,6 +125,44 @@
                 <Label Text="Both sides donut (probably not helpful, but interesting)"/>
                 <Switch IsEnabled="{Binding Settings.IsGuideDonutVisible}"
                         IsToggled="{Binding Settings.IsGuideDonutBothDonuts}"/>
+            </StackLayout>
+            <BoxView/>
+            <Label Text="Editing"
+                   Style="{DynamicResource header}"/>
+            <StackLayout Orientation="Horizontal">
+                <Label Text="Crop speed"/>
+                <Picker ItemsSource="{Binding PositiveIntegers}"
+                        SelectedIndex="{Binding Settings.CropSpeed}"
+                        BackgroundColor="White"
+                        HorizontalOptions="EndAndExpand"/>
+            </StackLayout>
+            <StackLayout Orientation="Horizontal">
+                <Label Text="Align speed"/>
+                <Picker ItemsSource="{Binding PositiveIntegers}"
+                        SelectedIndex="{Binding Settings.AlignSpeed}"
+                        BackgroundColor="White"
+                        HorizontalOptions="EndAndExpand"/>
+            </StackLayout>
+            <StackLayout Orientation="Horizontal">
+                <Label Text="Zoom speed"/>
+                <Picker ItemsSource="{Binding PositiveIntegers}"
+                        SelectedIndex="{Binding Settings.ZoomSpeed}"
+                        BackgroundColor="White"
+                        HorizontalOptions="EndAndExpand"/>
+            </StackLayout>
+            <StackLayout Orientation="Horizontal">
+                <Label Text="Rotate speed"/>
+                <Picker ItemsSource="{Binding PositiveIntegers}"
+                        SelectedIndex="{Binding Settings.RotationSpeed}"
+                        BackgroundColor="White"
+                        HorizontalOptions="EndAndExpand"/>
+            </StackLayout>
+            <StackLayout Orientation="Horizontal">
+                <Label Text="Keystone speed"/>
+                <Picker ItemsSource="{Binding PositiveIntegers}"
+                        SelectedIndex="{Binding Settings.KeystoneSpeed}"
+                        BackgroundColor="White"
+                        HorizontalOptions="EndAndExpand"/>
             </StackLayout>
             <BoxView/>
             <Label Text="Camera"

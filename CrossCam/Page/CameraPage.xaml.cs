@@ -49,7 +49,7 @@ namespace CrossCam.Page
 	    private readonly ImageSource _pitchBackward = ImageSource.FromFile("rotateBackwardInBoxWall");
 	    private readonly ImageSource _pitchStar = ImageSource.FromFile("starInBoxWall");
 
-	    private const double COMPASS_MEASURMENT_WEIGHT = 1;
+	    private const double COMPASS_MEASURMENT_WEIGHT = 2;
 	    private const double COMPASS_SENSITIVITY = 0.9;
 
         private double _averageYaw;
@@ -121,15 +121,15 @@ namespace CrossCam.Page
                 _averageYaw *= (COMPASS_MEASURMENT_WEIGHT - 1) / COMPASS_MEASURMENT_WEIGHT;
 
                 var heading = args.Reading.HeadingMagneticNorth;
-                if (_viewModel != null && _viewModel.IsNothingCaptured)
-                {
-                    _firstPhotoYaw = heading;
-                }
-                if (_viewModel != null && _viewModel.IsExactlyOnePictureTaken)
+                if (_viewModel != null)
                 {
                     _averageYaw += heading / COMPASS_MEASURMENT_WEIGHT;
                 }
-                
+                if (_viewModel != null && _viewModel.IsNothingCaptured)
+                {
+                    _firstPhotoYaw = _averageYaw;
+                }
+
                 var roundedYawDifference = Math.Round((_firstPhotoYaw - _averageYaw) * COMPASS_SENSITIVITY);
                 if (roundedYawDifference > 0)
                 {
@@ -268,11 +268,11 @@ namespace CrossCam.Page
                 AbsoluteLayout.SetLayoutFlags(_lowerLinePanner, AbsoluteLayoutFlags.YProportional | AbsoluteLayoutFlags.WidthProportional);
                 AbsoluteLayout.SetLayoutBounds(_lowerLinePanner, _lowerLineBoundsLandscape);
             }
-            rollBounds.X = _viewModel == null || _viewModel.CameraColumn == 0 ? 0.15 : 0.85;
+            rollBounds.X = _viewModel == null || _viewModel.CameraColumn == 0 ? 0 : 1;
             AbsoluteLayout.SetLayoutBounds(_rollIndicator, rollBounds);
-            pitchBounds.X = _viewModel == null || _viewModel.CameraColumn == 0 ? 0.25 : 0.95;
+            pitchBounds.X = _viewModel == null || _viewModel.CameraColumn == 0 ? 0.15 : 0.85;
             AbsoluteLayout.SetLayoutBounds(_pitchIndicator, pitchBounds);
-            yawBounds.X = _viewModel == null || _viewModel.CameraColumn == 0 ? 0.35 : 0.75;
+            yawBounds.X = _viewModel == null || _viewModel.CameraColumn == 0 ? 0.3 : 0.7;
             AbsoluteLayout.SetLayoutBounds(_yawIndicator, yawBounds);
 
             AbsoluteLayout.SetLayoutFlags(_leftReticle, AbsoluteLayoutFlags.All);
