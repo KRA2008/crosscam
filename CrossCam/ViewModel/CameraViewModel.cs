@@ -260,8 +260,7 @@ namespace CrossCam.ViewModel
         public ImageSource RightReticleImage => Settings.IsGuideDonutBothDonuts
             ? ImageSource.FromFile("squareOuter")
             : ImageSource.FromFile("squareInner");
-
-        private bool _needs180Flip;
+        
         private WorkflowStage _stageBeforeView;
 
         public CameraViewModel()
@@ -474,6 +473,8 @@ namespace CrossCam.ViewModel
 
                     byte[] finalBytesToSave;
 
+                    var needs180Flip = Device.RuntimePlatform == Device.iOS && IsViewInvertedLandscape;
+
                     if (Settings.SaveSidesSeparately)
                     {
                         using (var tempSurface =
@@ -482,7 +483,7 @@ namespace CrossCam.ViewModel
                             var canvas = tempSurface.Canvas;
 
                             canvas.Clear();
-                            if (_needs180Flip)
+                            if (needs180Flip)
                             {
                                 canvas.RotateDegrees(180);
                                 canvas.Translate(-1f * leftBitmap.Width, -1f * leftBitmap.Height);
@@ -518,7 +519,7 @@ namespace CrossCam.ViewModel
                         {
                             var canvas = tempSurface.Canvas;
                             canvas.Clear();
-                            if (_needs180Flip)
+                            if (needs180Flip)
                             {
                                 canvas.RotateDegrees(180);
                                 canvas.Translate(-1f * leftBitmap.Width, -1f * leftBitmap.Height);
@@ -551,7 +552,7 @@ namespace CrossCam.ViewModel
                         {
                             var canvas = tempSurface.Canvas;
                             canvas.Clear();
-                            if (_needs180Flip)
+                            if (needs180Flip)
                             {
                                 canvas.RotateDegrees(180);
                                 canvas.Translate(-1f * finalImageWidth, -1f * finalImageHeight);
@@ -583,7 +584,7 @@ namespace CrossCam.ViewModel
                         {
                             var canvas = tempSurface.Canvas;
                             canvas.Clear();
-                            if (_needs180Flip)
+                            if (needs180Flip)
                             {
                                 canvas.RotateDegrees(180);
                                 canvas.Translate(-1f * finalImageWidth, -1f * finalImageHeight);
@@ -671,13 +672,10 @@ namespace CrossCam.ViewModel
             switch (origin)
             {
                 case SKCodecOrigin.BottomRight:
-                    _needs180Flip = true;
                     return BitmapRotate180(SKBitmap.Decode(byteArray));
                 case SKCodecOrigin.RightTop:
-                    _needs180Flip = false;
                     return BitmapRotate90(SKBitmap.Decode(byteArray));
                 default:
-                    _needs180Flip = false;
                     return SKBitmap.Decode(byteArray);
             }
         }
