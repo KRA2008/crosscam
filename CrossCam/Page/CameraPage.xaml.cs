@@ -18,8 +18,8 @@ namespace CrossCam.Page
 	    private readonly Rectangle _upperLineBoundsPortrait = new Rectangle(0, 0.4, 1, 21);
 	    private readonly Rectangle _lowerLinesBoundsPortrait = new Rectangle(0, 0.6, 1, 21);
 
-	    private const double ROTATION_GUIDES_PORTRAIT_Y = 0.65;
-	    private const double ROTATION_GUIDES_LANDSCAPE_Y = 0.8;
+	    private const double ROTATION_GUIDES_PORTRAIT_Y = 0.35;
+	    private const double ROTATION_GUIDES_LANDSCAPE_Y = 0.2;
 
 	    private readonly Rectangle _leftReticleBounds = new Rectangle(0.2297, 0.5, 0.075, 0.075);
         private readonly Rectangle _rightReticleBounds = new Rectangle(0.7703, 0.5, 0.075, 0.075);
