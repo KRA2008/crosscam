@@ -111,15 +111,14 @@
                            Grid.Row="0"
                            Grid.ColumnSpan="2"
                            PaintSurface="OnPaintSurface"/>
-            <StackLayout Grid.Column="{Binding HelpTextColumn}"
-                         Grid.Row="0"
-                         IsVisible="{Binding ShouldHelpTextBeVisible}"
-                         Padding="10"
-                         Spacing="0"
-                         VerticalOptions="CenterAndExpand">
-                <Label Text="{Binding HelpText}"
-                       IsVisible="{Binding ShouldHelpTextBeVisible}"/>
-            </StackLayout>
+            <Image Grid.Row="0"
+                   Grid.Column="{Binding IconColumn}"
+                   IsVisible="{Binding ShouldIconBeVisible}"
+                   Source="icon"
+                   HorizontalOptions="Center"
+                   VerticalOptions="Center"
+                   WidthRequest="{StaticResource _doubleMediumIconWidth}"
+                   HeightRequest="{StaticResource _doubleMediumIconWidth}"/>
             <ce:CameraModule Grid.Column="{Binding CameraColumn}"
                              Grid.Row="0"
                              SwitchToContinuousFocusTrigger="{Binding SwitchToContinuousFocusTrigger}"

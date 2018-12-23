@@ -221,7 +221,7 @@ namespace CrossCam.ViewModel
         public bool ShouldLeftLoadBeVisible => LeftBitmap == null && CameraColumn == 0 && WorkflowStage == WorkflowStage.Capture;
         public bool ShouldRightLoadBeVisible => RightBitmap == null && CameraColumn == 1 && WorkflowStage == WorkflowStage.Capture;
         public bool IsNothingCaptured => LeftBitmap == null && RightBitmap == null;
-        public bool ShouldHelpTextBeVisible => IsNothingCaptured && HelpTextColumn != CameraColumn && WorkflowStage == WorkflowStage.Capture;
+        public bool ShouldIconBeVisible => IsNothingCaptured && IconColumn != CameraColumn && WorkflowStage == WorkflowStage.Capture;
         public bool ShouldLeftRetakeBeVisible => LeftBitmap != null && (WorkflowStage == WorkflowStage.Capture || WorkflowStage == WorkflowStage.Final && DoesCaptureOrientationMatchViewOrientation);
         public bool ShouldRightRetakeBeVisible => RightBitmap != null && (WorkflowStage == WorkflowStage.Capture || WorkflowStage == WorkflowStage.Final && DoesCaptureOrientationMatchViewOrientation);
         public bool DoesCaptureOrientationMatchViewOrientation => WasCapturePortrait == IsViewPortrait;
@@ -243,17 +243,8 @@ namespace CrossCam.ViewModel
         public bool ShouldClearEditButtonBeVisible => WorkflowStage == WorkflowStage.Crop ||
                                                       WorkflowStage == WorkflowStage.Keystone ||
                                                       WorkflowStage == WorkflowStage.Align;
-
-        public string HelpText => "(flip for " + OppositeOrientation + ")" +
-                                  "\n1) Frame up your subject" +
-                                  "\n2) Take the first picture (but finish reading these directions first)" +
-                                  "\n3) Move " + SlideDirection + "" +
-                                  "\n4) Start cross viewing with the preview that will have taken the place of these instructions" +
-                                  "\n5) Guide lines will have appeared, align the second picture so the guide lines and the 3D image itself appear clear and sharp" +
-                                  "\n6) Take the second picture when the desired level of 3D is achieved";
-        public string SlideDirection => IsCaptureLeftFirst ? "LEFT" : "RIGHT";
-        public int HelpTextColumn => IsCaptureLeftFirst ? 1 : 0;
-        public string OppositeOrientation => IsViewPortrait ? "landscape" : "portrait";
+        
+        public int IconColumn => IsCaptureLeftFirst ? 1 : 0;
         public bool ShouldPortraitViewModeWarningBeVisible => WorkflowStage != WorkflowStage.Capture && WorkflowStage != WorkflowStage.Saving && IsViewPortrait;
 
         public ImageSource LeftReticleImage => ImageSource.FromFile("squareOuter");
