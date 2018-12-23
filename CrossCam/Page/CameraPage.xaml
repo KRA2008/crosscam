@@ -97,31 +97,24 @@
     <AbsoluteLayout>
         <Grid AbsoluteLayout.LayoutFlags="All"
               AbsoluteLayout.LayoutBounds="0,0,1,1"
-              ColumnSpacing="0"
-              RowSpacing="0">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="*"/>
-            </Grid.RowDefinitions>
+              ColumnSpacing="0">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
             <forms:SKCanvasView x:Name="_canvasView"
                            Grid.Column="0"
-                           Grid.Row="0"
                            Grid.ColumnSpan="2"
                            PaintSurface="OnPaintSurface"/>
-            <Image Grid.Row="0"
-                   Grid.Column="{Binding IconColumn}"
+            <Image Grid.Column="{Binding IconColumn}"
                    IsVisible="{Binding ShouldIconBeVisible}"
                    Source="iconInverse"
-                   Opacity="0.15"
+                   Opacity="0.2"
                    HorizontalOptions="Center"
                    VerticalOptions="Center"
                    WidthRequest="{StaticResource _doubleMediumIconWidth}"
                    HeightRequest="{StaticResource _doubleMediumIconWidth}"/>
             <ce:CameraModule Grid.Column="{Binding CameraColumn}"
-                             Grid.Row="0"
                              SwitchToContinuousFocusTrigger="{Binding SwitchToContinuousFocusTrigger}"
                              IsTapToFocusEnabled="{Binding Settings.IsTapToFocusEnabled}"
                              IsPortrait="{Binding IsViewPortrait}"
@@ -131,8 +124,7 @@
                              CapturedImage="{Binding CapturedImageBytes}"
                              CaptureSuccess="{Binding CaptureSuccess}"
                              ErrorMessage="{Binding ErrorMessage}"/>
-            <ce:CameraSuccessOutline Grid.Column="0"
-                                     Grid.Row="0">
+            <ce:CameraSuccessOutline Grid.Column="0">
                 <ce:CameraSuccessOutline.Behaviors>
                     <ce:FadeInAndOutBehavior Trigger="{Binding LeftCaptureSuccess}"
                                              InTimeMs="0"
@@ -140,8 +132,7 @@
                                              VisibleTimeMs="0"/>
                 </ce:CameraSuccessOutline.Behaviors>
             </ce:CameraSuccessOutline>
-            <ce:CameraSuccessOutline Grid.Column="1"
-                                     Grid.Row="0">
+            <ce:CameraSuccessOutline Grid.Column="1">
                 <ce:CameraSuccessOutline.Behaviors>
                     <ce:FadeInAndOutBehavior Trigger="{Binding RightCaptureSuccess}"
                                              InTimeMs="0"
@@ -807,11 +798,11 @@
         </ContentView>
 
         <Label AbsoluteLayout.LayoutFlags="All"
-               AbsoluteLayout.LayoutBounds="0.5,0.15,0.75,0.1"
+               AbsoluteLayout.LayoutBounds="0.5,0.85,0.75,0.1"
                HorizontalTextAlignment="Center"
                VerticalTextAlignment="Center"
                InputTransparent="True"
-               Text="(flip to landscape for a better view)"
+               Text="{Binding PortraitToLandscapeHint}"
                IsVisible="{Binding ShouldPortraitViewModeWarningBeVisible}"/>
 
         <Label Style="{StaticResource _savingFeedback}"

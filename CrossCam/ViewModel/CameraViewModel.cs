@@ -245,7 +245,13 @@ namespace CrossCam.ViewModel
                                                       WorkflowStage == WorkflowStage.Align;
         
         public int IconColumn => IsCaptureLeftFirst ? 1 : 0;
-        public bool ShouldPortraitViewModeWarningBeVisible => WorkflowStage != WorkflowStage.Capture && WorkflowStage != WorkflowStage.Saving && IsViewPortrait;
+
+        public bool ShouldPortraitViewModeWarningBeVisible => IsViewPortrait &&
+                                                              WorkflowStage != WorkflowStage.Saving &&
+                                                              (IsNothingCaptured ||
+                                                               WorkflowStage == WorkflowStage.Final);
+        public string PortraitToLandscapeHint =>
+            WorkflowStage == WorkflowStage.Capture ? "(flip for landscape)" : "(flip to landscape for a better view)";
 
         public ImageSource LeftReticleImage => ImageSource.FromFile("squareOuter");
         public ImageSource RightReticleImage => Settings.IsGuideDonutBothDonuts
