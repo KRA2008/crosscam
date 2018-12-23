@@ -1,8 +1,8 @@
 ﻿namespace CrossCam.Page
 {
-	public partial class AppExplanationPage
+	public partial class DirectionsPage
 	{
-		public AppExplanationPage ()
+		public DirectionsPage ()
 		{
 			InitializeComponent ();
 		}

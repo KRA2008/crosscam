@@ -485,10 +485,10 @@
     <BundleResource Include="Resources\starInBoxWall.png" />
   </ItemGroup>
   <ItemGroup>
-    <BundleResource Include="Resources\icon.png" />
+    <BundleResource Include="Resources\iconInverse.png" />
   </ItemGroup>
   <ItemGroup>
-    <BundleResource Include="Resources\icon%402x.png" />
+    <BundleResource Include="Resources\iconInverse%402x.png" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

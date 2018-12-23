@@ -6,7 +6,9 @@ namespace CrossCam.ViewModel
 {
     public class HelpViewModel : FreshBasePageModel
     {
-        public Command NavigateToAppExplanationPage { get; set; }
+        public Command NavigateToTechniqueHelpPage { get; set; }
+
+        public Command NavigateToDirectionsPage { get; set; }
 
         public Command NavigateToTipsPage { get; set; }
 
@@ -18,9 +20,14 @@ namespace CrossCam.ViewModel
 
         public HelpViewModel()
         {
-            NavigateToAppExplanationPage = new Command(async () =>
+            NavigateToTechniqueHelpPage = new Command(async () =>
             {
-                await CoreMethods.PushPageModel<AppExplanationViewModel>();
+                await CoreMethods.PushPageModel<TechniqueHelpViewModel>();
+            });
+
+            NavigateToDirectionsPage = new Command(async () =>
+            {
+                await CoreMethods.PushPageModel<DirectionsViewModel>();
             });
 
             NavigateToTipsPage = new Command(async () =>

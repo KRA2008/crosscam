@@ -5,6 +5,9 @@ namespace CrossCam.Model
 {
     public class Settings : INotifyPropertyChanged
     {
+        public bool HasOfferedTechniqueHelpBefore { get; set; }
+        public bool HasShownDirectionsBefore { get; set; }
+
         public bool ShowGuideLinesWithFirstCapture { get; set; }
         public bool ShowGuideDonutWithFirstCapture { get; set; }
         public bool IsGuideDonutBothDonuts { get; set; }
@@ -154,6 +157,8 @@ namespace CrossCam.Model
 
         public Settings()
         {
+            HasOfferedTechniqueHelpBefore = false;
+            HasShownDirectionsBefore = false;
             ResetToDefaults();
         }
 

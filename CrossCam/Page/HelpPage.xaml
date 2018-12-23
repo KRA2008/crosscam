@@ -13,8 +13,11 @@
     <ContentPage.Content>
         <StackLayout>
             <BoxView/>
-            <Button Text="What is this app?"
-                    Command="{Binding NavigateToAppExplanationPage}"/>
+            <Button Text="How do I look at the 3D pictures?"
+                    Command="{Binding NavigateToTechniqueHelpPage}"/>
+            <BoxView/>
+            <Button Text="How do I use CrossCam?"
+                    Command="{Binding NavigateToDirectionsPage}"/>
             <BoxView/>
             <Button Text="Tips"
                     Command="{Binding NavigateToTipsPage}"/>

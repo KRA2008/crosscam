@@ -1,0 +1,22 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<fresh:FreshBaseContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+                            xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                            xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+                            xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                            xmlns:vm="clr-namespace:CrossCam.ViewModel;assembly=CrossCam"
+                            xmlns:fresh="clr-namespace:FreshMvvm;assembly=FreshMvvm"
+                            mc:Ignorable="d"
+             
+                            d:DataContext="{d:DesignInstance Type=vm:DirectionsViewModel, IsDesignTimeCreatable=False}"
+                            Title="How to Use CrossCam"
+                            x:Class="CrossCam.Page.DirectionsPage">
+    <StackLayout Padding="10">
+        <Label Text="If you want to view this information again at any time, tap the '?' on the top left of the camera screen."/>
+        <Label Text=" "/>
+        <Label Text="1) Take the first picture"/>
+        <Label Text="2) Keep your phone steady in front of you and move a little to the LEFT"/>
+        <Label Text="3) Align the first picture with the preview of the second picture"/>
+        <Label Text="4) Start cross viewing and take the second picture when you like what you see"/>
+        <Label Text="5) You can tap the pencil icon to edit it or tap the checkmark to save it"/>
+    </StackLayout>
+</fresh:FreshBaseContentPage>

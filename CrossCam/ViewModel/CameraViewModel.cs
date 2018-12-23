@@ -649,7 +649,7 @@ namespace CrossCam.ViewModel
             });
         }
 
-        private SKBitmap GetBitmapAndCorrectOrientation(byte[] byteArray)
+        private static SKBitmap GetBitmapAndCorrectOrientation(byte[] byteArray)
         {
             SKCodecOrigin origin;
 
@@ -699,7 +699,7 @@ namespace CrossCam.ViewModel
             return rotated;
         }
 
-        protected override void ViewIsAppearing(object sender, EventArgs e)
+        protected override async void ViewIsAppearing(object sender, EventArgs e)
         {
             base.ViewIsAppearing(sender, e);
             RaisePropertyChanged(nameof(ShouldLineGuidesBeVisible)); //TODO: figure out how to have Fody do this
@@ -709,6 +709,39 @@ namespace CrossCam.ViewModel
             RaisePropertyChanged(nameof(ShouldYawGuideBeVisible));
             RaisePropertyChanged(nameof(RightReticleImage));
             RaisePropertyChanged(nameof(Settings)); // this doesn't cause reevaluation for above stuff, but triggers redraw of canvas
+
+            await EvaluateAndShowWelcomePopup();
+        }
+
+        private async Task EvaluateAndShowWelcomePopup()
+        {
+            if (!Settings.HasOfferedTechniqueHelpBefore)
+            {
+                var showTechniquePage = await CoreMethods.DisplayAlert("Welcome to CrossCam!",
+                    "CrossCam was made to help you take 3D photos. The photos are 3D just like VR or 3D movies are, but you don't need any special equipment or glasses - just your phone. The technique to view the 3D photos is a little tricky and takes some practice to get it right. Would you like to learn more about the viewing technique?",
+                    "Yes, tell me more", "No, I already know how");
+                Settings.HasOfferedTechniqueHelpBefore = true;
+                PersistentStorage.Save(PersistentStorage.SETTINGS_KEY, Settings);
+                if (showTechniquePage)
+                {
+                    await CoreMethods.PushPageModel<TechniqueHelpViewModel>();
+                }
+                else
+                {
+                    await CoreMethods.PushPageModel<DirectionsViewModel>();
+                    Settings.HasShownDirectionsBefore = true;
+                    PersistentStorage.Save(PersistentStorage.SETTINGS_KEY, Settings);
+                }
+            }
+            else
+            {
+                if (!Settings.HasShownDirectionsBefore)
+                {
+                    await CoreMethods.PushPageModel<DirectionsViewModel>();
+                    Settings.HasShownDirectionsBefore = true;
+                    PersistentStorage.Save(PersistentStorage.SETTINGS_KEY, Settings);
+                }
+            }
         }
 
         private void ClearCrops()
