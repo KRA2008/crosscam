@@ -11,7 +11,7 @@
                             Title="How to Use CrossCam"
                             x:Class="CrossCam.Page.DirectionsPage">
     <StackLayout Padding="10">
-        <Label Text="If you want to view this information again at any time, tap the '?' on the top left of the camera screen."/>
+        <Label Text="If you want to see this again, tap the '?' on the top left of the camera screen."/>
         <Label Text=" "/>
         <Label Text="1) Take the first picture"/>
         <Label Text="2) Keep your phone steady in front of you and move a little to the LEFT"/>

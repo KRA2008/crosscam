@@ -12,9 +12,9 @@
                             x:Class="CrossCam.Page.TechniqueHelpPage">
     <ScrollView>
         <StackLayout Padding="10">
-            <Label Text="If you want to view this information again at any time, tap the '?' on the top left of the camera screen."/>
+            <Label Text="If you want to see this again, tap the '?' on the top left of the camera screen."/>
             <Label Text=" "/>
-            <Label Text="To see the 3D pictures, you have to carefully cross your eyes while looking at a pair of pictures like the pair below. The goal is to make your right eye point at the left picture while your left eye points at the right picture."/>
+            <Label Text="To see the 3D, you have to carefully cross your eyes while looking at a special pair of pictures like the pair below. The goal is to make your right eye point at the left picture while your left eye points at the right picture."/>
             <Image Source="iconInverse"/>
             <Label Text="Cross your eyes while looking at the pair of pictures above. When you cross your eyes, things will get blurry and see-through and you'll start to see 4 pictures instead of 2. The harder you cross your eyes, the further apart the pairs of pictures will move - it will look a little like this:"/>
             <Image Source="iconInverse"/>
