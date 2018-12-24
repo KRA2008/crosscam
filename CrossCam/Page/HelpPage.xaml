@@ -13,10 +13,10 @@
     <ContentPage.Content>
         <StackLayout>
             <BoxView/>
-            <Button Text="How do I look at the 3D pictures?"
+            <Button Text="Cross-Eyed Viewing Technique"
                     Command="{Binding NavigateToTechniqueHelpPage}"/>
             <BoxView/>
-            <Button Text="How do I use CrossCam?"
+            <Button Text="How to Use CrossCam"
                     Command="{Binding NavigateToDirectionsPage}"/>
             <BoxView/>
             <Button Text="Tips"
