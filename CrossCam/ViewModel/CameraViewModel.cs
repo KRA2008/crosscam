@@ -769,6 +769,7 @@ namespace CrossCam.ViewModel
             RaisePropertyChanged(nameof(RightReticleImage));
             RaisePropertyChanged(nameof(Settings)); // this doesn't cause reevaluation for above stuff, but triggers redraw of canvas
 
+            await Task.Delay(100);
             await EvaluateAndShowWelcomePopup();
         }
 
@@ -778,7 +779,7 @@ namespace CrossCam.ViewModel
             {
                 var showTechniquePage = await CoreMethods.DisplayAlert("Welcome to CrossCam!",
                     "CrossCam was made to help you take 3D photos. The photos are 3D just like VR or 3D movies are, but you don't need any special equipment or glasses - just your phone. The technique to view the 3D photos is a little tricky and takes some practice to get it right. Would you like to learn more about the viewing technique?",
-                    "Yes, tell me more", "No, I already know how");
+                    "Yes", "No");
                 Settings.HasOfferedTechniqueHelpBefore = true;
                 PersistentStorage.Save(PersistentStorage.SETTINGS_KEY, Settings);
                 if (showTechniquePage)
