@@ -490,6 +490,21 @@
   <ItemGroup>
     <BundleResource Include="Resources\iconInverse%402x.png" />
   </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\fyi.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\steamEngine.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\overlapping.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\overlapped.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\blurry.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup />

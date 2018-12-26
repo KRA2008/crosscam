@@ -5,7 +5,6 @@
                             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
                             xmlns:vm="clr-namespace:CrossCam.ViewModel;assembly=CrossCam"
                             xmlns:fresh="clr-namespace:FreshMvvm;assembly=FreshMvvm"
-                            xmlns:vc="clr-namespace:CrossCam.ValueConverter;assembly=CrossCam"
                             mc:Ignorable="d"
              
                             d:DataContext="{d:DesignInstance Type=vm:TechniqueHelpViewModel, IsDesignTimeCreatable=False}"
@@ -16,13 +15,13 @@
             <Label Text="If you want to see this again, tap the '?' on the top left of the camera screen."/>
             <Label Text=" "/>
             <Label Text="To see the 3D, you have to carefully cross your eyes while looking at a special pair of pictures like the pair below. The goal is to make your right eye point at the left picture while your left eye points at the right picture."/>
-            <Image Source="{vc:ImageResource CrossCam.Images.steamEngine.JPG}" />
+            <Image Source="steamEngine" />
             <Label Text="Cross your eyes while looking at the pair of pictures above. When you cross your eyes, things will get blurry and see-through and you'll start to see 4 pictures instead of 2. The harder you cross your eyes, the further apart the pairs of pictures will move - it will look a little like this:"/>
-            <Image Source="{vc:ImageResource CrossCam.Images.blurry.JPG}" />
+            <Image Source="blurry" />
             <Label Text="Uncross your eyes carefully, so that the pictures on the inside of each pair start to overlap. It will start to look like there are only 3 pictures instead of 4. It will still be blurry and see-through and look something like this:"/>
-            <Image Source="{vc:ImageResource CrossCam.Images.overlapping.JPG}" />
+            <Image Source="overlapping" />
             <Label Text="Once you have the middle overlap working you just have to relax your eyes and allow them to focus the picture. At that point you'll have one sharp 3D picture in the middle with a transparent picture floating off on each side that will look like this (except the middle will be 3D):"/>
-            <Image Source="{vc:ImageResource CrossCam.Images.overlapped.JPG}" />
+            <Image Source="overlapped" />
             <Label Text="If you have trouble crossing your eyes, you can also try staring at your finger while you hold it halfway between your eyes and the screen. You should see the pictures starting to separate and overlap behind your finger."/>
             <Label Text=" "/>
             <Label Text="Additional tutorials:"/>
@@ -35,7 +34,7 @@
                     Command="{Binding OpenCrossViewSubredditCommand}"/>
             <Label Text=" "/>
             <Label Text="One more thing - a lot of people are familiar with &quot;magic eye&quot; books and can easily look at the 3D in them. To see the 3D picture above correctly you CAN'T DO what you would normally do with those books. You need to make sure you are crossing your eyes, not making your eyes parallel or &quot;wall-eyed&quot;. If you aren't sure which one you are doing, you can ask someone else to watch your eyes and check if they are crossing. You can also look at the picture below as a test:"/>
-            <Image Source="{vc:ImageResource CrossCam.Images.fyi.png}"/>
+            <Image Source="fyi"/>
         </StackLayout>
     </ScrollView>
 </fresh:FreshBaseContentPage>
