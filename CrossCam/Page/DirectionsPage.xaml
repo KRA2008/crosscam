@@ -10,19 +10,21 @@
                             d:DataContext="{d:DesignInstance Type=vm:DirectionsViewModel, IsDesignTimeCreatable=False}"
                             Title="How to Use CrossCam"
                             x:Class="CrossCam.Page.DirectionsPage">
-    <StackLayout Padding="10">
-        <Label Text="If you want to see this again, tap the '?' on the top left of the camera screen."/>
-        <Label Text=" "/>
-        <Label Text="1) Take the first picture"/>
-        <Label Text="2) Keep your phone steady in front of you and move LEFT"/>
-        <Label Text="3) Align the first picture with the preview of the second picture"/>
-        <Label Text="4) Start cross viewing and take the second picture when you like what you see"/>
-        <Label Text="5) You can tap the pencil icon to edit it or tap the checkmark to save it"/>
-        <Label Text=" "/>
-        <Label Text="Other stuff you can do:"/>
-        <Label Text="~ Tap the gear icon on the top right of the camera screen to open the settings page. It's full of interesting stuff"/>
-        <Label Text="~ There's a nice Tips page you can get to by tapping the '?' on the top left of the camera screen"/>
-        <Label Text="~ If you would prefer to move the other direction for your second shot, tap the circled arrows button on the top middle of the camera screen"/>
-        <Label Text="~ Tap the little folder icon on the bottom to load an image as a side or to load a full stereo image"/>
-    </StackLayout>
+    <ScrollView>
+        <StackLayout Padding="10">
+            <Label Text="If you want to see this again, tap the '?' on the top left of the camera screen."/>
+            <Label Text=" "/>
+            <Label Text="1) Take the first picture"/>
+            <Label Text="2) Keep your phone steady in front of you and move LEFT"/>
+            <Label Text="3) Align the first picture with the preview of the second picture"/>
+            <Label Text="4) Start cross viewing and take the second picture when you like what you see"/>
+            <Label Text="5) You can tap the pencil icon to edit it or tap the checkmark to save it"/>
+            <Label Text=" "/>
+            <Label Text="Other stuff you can do:"/>
+            <Label Text="~ Tap the gear icon on the top right of the camera screen to open the settings page. It's full of interesting stuff"/>
+            <Label Text="~ There's a nice Tips page you can get to by tapping the '?' on the top left of the camera screen"/>
+            <Label Text="~ If you would prefer to move the other direction for your second shot, tap the circled arrows button on the top middle of the camera screen"/>
+            <Label Text="~ Tap the little folder icon on the bottom to load an image as a side or to load a full stereo image"/>
+        </StackLayout>
+    </ScrollView>
 </fresh:FreshBaseContentPage>
