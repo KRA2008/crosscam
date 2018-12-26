@@ -287,37 +287,11 @@ namespace CrossCam.ViewModel
                 {
                     if (CameraColumn == 0)
                     {
-                        LeftBitmap = GetBitmapAndCorrectOrientation(CapturedImageBytes);
-                        WasCapturePortrait = LeftBitmap.Width < LeftBitmap.Height;
-
-                        if (RightBitmap == null)
-                        {
-                            MoveLeftTrigger = !MoveLeftTrigger;
-                            CameraColumn = 1;
-                        }
-                        else
-                        {
-                            CameraColumn = IsCaptureLeftFirst ? 0 : 1;
-                            IsCameraVisible = false;
-                            WorkflowStage = WorkflowStage.Final;
-                        }
+                        SetLeftBitmap(GetBitmapAndCorrectOrientation(CapturedImageBytes));
                     }
                     else
                     {
-                        RightBitmap = GetBitmapAndCorrectOrientation(CapturedImageBytes);
-                        WasCapturePortrait = RightBitmap.Width < RightBitmap.Height;
-
-                        if (LeftBitmap == null)
-                        {
-                            MoveRightTrigger = !MoveRightTrigger;
-                            CameraColumn = 0;
-                        }
-                        else
-                        {
-                            CameraColumn = IsCaptureLeftFirst ? 0 : 1;
-                            IsCameraVisible = false;
-                            WorkflowStage = WorkflowStage.Final;
-                        }
+                        SetRightBitmap(GetBitmapAndCorrectOrientation(CapturedImageBytes));
                     }
                 }
                 else if (args.PropertyName == nameof(ErrorMessage))
@@ -331,10 +305,27 @@ namespace CrossCam.ViewModel
 
             LoadPhotoCommand = new Command(async () =>
             {
+                const string FULL_IMAGE = "Load full stereo image";
+                const string SINGLE_SIDE = "Load single side";
+                const string CANCEL = "Cancel";
+                var loadType = await CoreMethods.DisplayActionSheet("Choose an action:", CANCEL, null,
+                    FULL_IMAGE, SINGLE_SIDE);
+
+                if (loadType == CANCEL) return;
+
                 var photo = await DependencyService.Get<IPhotoPicker>().GetImage();
+
                 if (photo != null)
                 {
-                    CapturedImageBytes = photo;
+                    if (loadType == FULL_IMAGE)
+                    {
+                        SetLeftBitmap(GetHalfOfFullStereoImage(photo, true), false);
+                        SetRightBitmap(GetHalfOfFullStereoImage(photo,false), false);
+                    }
+                    else if (loadType == SINGLE_SIDE)
+                    {
+                        CapturedImageBytes = photo;
+                    }
                 }
             });
 
@@ -653,6 +644,68 @@ namespace CrossCam.ViewModel
 
                 ErrorMessage = null;
             });
+        }
+
+        private void SetLeftBitmap(SKBitmap bitmap, bool withMovementTrigger = true)
+        {
+            LeftBitmap = bitmap;
+            WasCapturePortrait = LeftBitmap.Width < LeftBitmap.Height;
+
+            if (RightBitmap == null)
+            {
+                if (withMovementTrigger)
+                {
+                    MoveLeftTrigger = !MoveLeftTrigger;
+                }
+                CameraColumn = 1;
+            }
+            else
+            {
+                CameraColumn = IsCaptureLeftFirst ? 0 : 1;
+                IsCameraVisible = false;
+                WorkflowStage = WorkflowStage.Final;
+            }
+        }
+
+        private void SetRightBitmap(SKBitmap bitmap, bool withMovementTrigger = true)
+        {
+            RightBitmap = bitmap;
+            WasCapturePortrait = RightBitmap.Width < RightBitmap.Height;
+
+            if (LeftBitmap == null)
+            {
+                if (withMovementTrigger)
+                {
+                    MoveRightTrigger = !MoveRightTrigger;
+                }
+                CameraColumn = 0;
+            }
+            else
+            {
+                CameraColumn = IsCaptureLeftFirst ? 0 : 1;
+                IsCameraVisible = false;
+                WorkflowStage = WorkflowStage.Final;
+            }
+        }
+
+        private static SKBitmap GetHalfOfFullStereoImage(byte[] byteArray, bool wantLeft)
+        {
+            var original = SKBitmap.Decode(byteArray);
+
+            var width = (int) Math.Round(original.Width / 2f);
+            var height = original.Height;
+
+            var extracted = new SKBitmap(width, height);
+
+            using (var surface = new SKCanvas(extracted))
+            {
+                surface.DrawBitmap(
+                    original,
+                    SKRect.Create(wantLeft ? 0 : width, 0, width, height),
+                    SKRect.Create(0, 0, width, height));
+            }
+
+            return extracted;
         }
 
         private static SKBitmap GetBitmapAndCorrectOrientation(byte[] byteArray)
