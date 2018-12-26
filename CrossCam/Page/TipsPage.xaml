@@ -24,21 +24,18 @@
                 <BoxView/>
                 <Label Text="If all the movement makes you sick or makes it too difficult to cross view, just move over a little bit and align the pictures using the horizontal lines without cross viewing and then start cross viewing once aligned and holding still."/>
                 <BoxView/>
-                <Label Text="When you slide over, try to minimize the rotation that takes place on any axis, including the natural tendency to turn towards the subject as you move to the side. Some rotation will be necessary sometimes, but try to minimize it. Imagine the phone is mounted on a straight horizontal rail and can only slide."/>
+                <Label Text="When you slide over, try to not to rotate your phone at all in any direction, including the natural tendency to turn towards the subject as you move to the side. Some rotation will be necessary sometimes, but try to minimize it. Imagine the phone is mounted on a straight horizontal rail and can only slide."/>
                 <BoxView/>
                 <Label Text="You can drag the alignment lines around if you want."/>
                 <BoxView/>
-                <Label Text="If you want to take the pictures in the reverse order or you run out of space on one side, tap the arrows button on top of the main screen to switch sides and direction."/>
-                <BoxView/>
-                <Label Text="Tap the gear icon on the top right of the main screen to get to the settings page. It's full of interesting stuff!"/>
-                <BoxView/>
                 <Label Text="If you want to save your captures as separate pictures without them stitched together (for easier post-processing) you can turn that on in the settings."/>
                 <BoxView/>
-                <Label Text="There is an experimental &quot;guide donut/dot&quot; on the settings page you can turn on which may help you keep your perspectives parallel for a large scene. Ideally you would drag it onto the horizon, sky, or other very distant point. Be careful, using it on smaller scenes will make things painful."/>
+                <Label Text="There is an experimental &quot;guide donut/dot&quot; on the settings page you can turn on which may help you keep your perspectives parallel for a large scene. Ideally you would drag it onto the horizon, sky, or other very distant point. Be careful, using it on smaller scenes may make things painful."/>
                 <BoxView/>
                 <Label Text="If you move in the opposite direction from what you're &quot;supposed&quot; to do you'll produce a parallel view/VR picture. You could also go to the settings page which has a setting to allow you to save a parallel view/VR version in addition to your cross view (sides switched)."/>
                 <BoxView/>
-                <Label Text="An interesting &quot;stereo window&quot; effect can be created by turning on the border and cropping the inside edges of the image until the outer edge itself becomes 3D in the picture. The key is to crop the right edge of the left picture slightly past what the right edge of the right picture shows of the scene and vice-versa. The setting for locking cropping together can help you do this. Adding a border is also toggled in the settings."/>
+                <Label Text="An interesting &quot;stereo window&quot; effect can be created by doing two things: 1) turn on the border (in settings) and 2) crop the inside edges of the images until the outer edge itself becomes 3D in the picture. The key is to crop the right edge of the left picture slightly past what the right edge of the right picture shows of the scene and vice-versa. Adding a border is toggled in the settings. If this is confusing, just tap a whole bunch on the inside edge crop button and it will start to be clear. That crop button looks like this:"/>
+                <Image Source="insideCrop"/>
                 <BoxView/>
                 <Label Text="If you find that it's impossible to make both the upper and lower guide lines line up at the same time, you probably moved in some direction other than just to the side."/>
                 <BoxView/>

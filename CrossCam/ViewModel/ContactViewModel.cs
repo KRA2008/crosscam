@@ -26,7 +26,7 @@ namespace CrossCam.ViewModel
 
             CrossViewSubredditCommand = new Command(() =>
             {
-                Device.OpenUri(new Uri("https://www.reddit.com/r/CrossView/"));
+                Device.OpenUri(new Uri("https://old.reddit.com/r/CrossView/"));
             });
         }
     }
