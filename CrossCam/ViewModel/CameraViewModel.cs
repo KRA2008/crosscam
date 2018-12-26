@@ -227,7 +227,7 @@ namespace CrossCam.ViewModel
         public bool DoesCaptureOrientationMatchViewOrientation => WasCapturePortrait == IsViewPortrait;
         public bool ShouldSettingsAndHelpBeVisible => WorkflowStage != WorkflowStage.Saving && WorkflowStage != WorkflowStage.View;
         public bool IsExactlyOnePictureTaken => LeftBitmap == null ^ RightBitmap == null;
-        public bool ShouldLineGuidesBeVisible => (IsExactlyOnePictureTaken || Settings.ShowGuideLinesWithFirstCapture && WorkflowStage == WorkflowStage.Capture) && Settings.AreGuideLinesVisible;
+        public bool ShouldLineGuidesBeVisible => (IsExactlyOnePictureTaken || Settings.ShowGuideLinesWithFirstCapture && WorkflowStage == WorkflowStage.Capture) && Settings.AreGuideLinesVisible || WorkflowStage == WorkflowStage.Align;
         public bool ShouldDonutGuideBeVisible => (IsExactlyOnePictureTaken || Settings.ShowGuideDonutWithFirstCapture && WorkflowStage == WorkflowStage.Capture) && Settings.IsGuideDonutVisible;
         public bool ShouldRollGuideBeVisible => WorkflowStage == WorkflowStage.Capture && Settings.ShowRollGuide;
         public bool ShouldPitchGuideBeVisible => IsExactlyOnePictureTaken && Settings.ShowPitchGuide;
