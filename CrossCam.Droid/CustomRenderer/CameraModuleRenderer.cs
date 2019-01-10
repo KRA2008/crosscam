@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.IO;
 using System.Linq;
 using Android.App;
 using Android.Content;
@@ -12,7 +11,6 @@ using Android.Views;
 using Android.Widget;
 using CrossCam.Droid.CustomRenderer;
 using Java.Lang;
-using SkiaSharp;
 using Xamarin.Forms;
 using Xamarin.Forms.Platform.Android;
 using CameraModule = CrossCam.CustomElement.CameraModule;
@@ -404,14 +402,7 @@ namespace CrossCam.Droid.CustomRenderer
 
                     if (!wasPreviewRestarted)
                     {
-                        try
-                        {
-                            _camera.StartPreview();
-                        }
-                        catch
-                        {
-                            // shoot. weird androids. sorry. i hope it worked out anyway.
-                        }
+                        _camera.StartPreview();
                     }
                 }
                 catch (Exception e)
