@@ -121,6 +121,12 @@ namespace CrossCam.Droid.CustomRenderer
                 }
             }
 
+            if (e.PropertyName == nameof(_cameraModule.IsNothingCaptured) &&
+                _cameraModule.IsNothingCaptured)
+            {
+                TurnOnContinuousFocus();
+            }
+
             if (e.PropertyName == nameof(_cameraModule.IsTapToFocusEnabled) &&
                 !_cameraModule.IsTapToFocusEnabled)
             {
@@ -134,14 +140,58 @@ namespace CrossCam.Droid.CustomRenderer
             }
         }
 
-        private void TurnOnContinuousFocus()
+        private void TurnOnFocusLockIfNothingCaptured()
         {
-            var parameters = _camera.GetParameters();
+            if (_cameraModule.IsNothingCaptured)
+            {
+                var parameters = _camera.GetParameters();
+
+                if (parameters.SupportedFocusModes.Contains(Camera.Parameters.FocusModeFixed))
+                {
+                    parameters.FocusMode = Camera.Parameters.FocusModeFixed;
+                }
+                if (parameters.IsAutoExposureLockSupported)
+                {
+                    parameters.AutoExposureLock = true;
+                }
+                if (parameters.IsAutoWhiteBalanceLockSupported)
+                {
+                    parameters.AutoWhiteBalanceLock = true;
+                }
+
+                _camera.SetParameters(parameters);
+            }
+        }
+
+        private void TurnOnContinuousFocus(Camera.Parameters providedParameters = null)
+        {
+            var parameters = providedParameters ?? _camera.GetParameters();
+
             if (parameters.SupportedFocusModes.Contains(Camera.Parameters.FocusModeContinuousPicture))
             {
                 parameters.FocusMode = Camera.Parameters.FocusModeContinuousPicture;
             }
-            _camera.SetParameters(parameters);
+            if (parameters.SupportedWhiteBalance.Contains(Camera.Parameters.WhiteBalanceAuto))
+            {
+                parameters.WhiteBalance = Camera.Parameters.WhiteBalanceAuto;
+            }
+            if (parameters.SupportedSceneModes.Contains(Camera.Parameters.SceneModeAuto))
+            {
+                parameters.SceneMode = Camera.Parameters.SceneModeAuto;
+            }
+            if (parameters.IsAutoWhiteBalanceLockSupported)
+            {
+                parameters.AutoWhiteBalanceLock = false;
+            }
+            if (parameters.IsAutoExposureLockSupported)
+            {
+                parameters.AutoExposureLock = false;
+            }
+
+            if (providedParameters == null)
+            {
+                _camera.SetParameters(parameters);
+            }
         }
 
         private void SetupUserInterface()
@@ -235,10 +285,7 @@ namespace CrossCam.Droid.CustomRenderer
                         parameters.FlashMode = Camera.Parameters.FlashModeOff;
                         parameters.VideoStabilization = false;
                         parameters.JpegQuality = 100;
-                        if (parameters.SupportedFocusModes.Contains(Camera.Parameters.FocusModeContinuousPicture))
-                        {
-                            parameters.FocusMode = Camera.Parameters.FocusModeContinuousPicture;
-                        }
+                        TurnOnContinuousFocus(parameters);
 
                         var landscapePictureDescendingSizes = parameters
                             .SupportedPictureSizes
@@ -387,6 +434,7 @@ namespace CrossCam.Droid.CustomRenderer
             {
                 try
                 {
+                    TurnOnFocusLockIfNothingCaptured();
                     var wasPreviewRestarted = false;
                     try
                     {

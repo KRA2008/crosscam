@@ -123,6 +123,7 @@
                              IsViewInvertedLandscape="{Binding IsViewInvertedLandscape}"
                              CapturedImage="{Binding CapturedImageBytes}"
                              CaptureSuccess="{Binding CaptureSuccess}"
+                             IsNothingCaptured="{Binding IsNothingCaptured}"
                              ErrorMessage="{Binding ErrorMessage}"/>
             <ce:CameraSuccessOutline Grid.Column="0">
                 <ce:CameraSuccessOutline.Behaviors>

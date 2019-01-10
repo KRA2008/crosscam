@@ -33,6 +33,9 @@ namespace CrossCam.CustomElement
         public static readonly BindableProperty ErrorMessageProperty = BindableProperty.Create(nameof(ErrorMessage),
 	        typeof(string), typeof(CameraModule), null, BindingMode.TwoWay);
 
+	    public static readonly BindableProperty IsNothingCapturedProperty = BindableProperty.Create(nameof(IsNothingCaptured),
+	        typeof(bool), typeof(CameraModule), false, BindingMode.TwoWay);
+
         public byte[] CapturedImage
         {
             get => (byte[])GetValue(CapturedImageProperty);
@@ -79,6 +82,12 @@ namespace CrossCam.CustomElement
 	    {
 	        get => (string)GetValue(ErrorMessageProperty);
 	        set => SetValue(ErrorMessageProperty, value);
+	    }
+
+	    public bool IsNothingCaptured
+	    {
+	        get => (bool)GetValue(IsNothingCapturedProperty);
+	        set => SetValue(IsNothingCapturedProperty, value);
 	    }
     }
 }

@@ -81,34 +81,47 @@ namespace CrossCam.iOS.CustomRenderer
                 }
             }
 
+            if (e.PropertyName == nameof(_cameraModule.IsNothingCaptured) &&
+                _cameraModule.IsNothingCaptured)
+            {
+                TurnOffFlashAndSetContinuousAutoMode(_device);
+            }
+
             if (e.PropertyName == nameof(_cameraModule.IsTapToFocusEnabled) &&
                 !_cameraModule.IsTapToFocusEnabled)
             {
-                TurnOnContinuousFocus();
+                TurnOffFlashAndSetContinuousAutoMode(_device);
             }
 
             if (e.PropertyName == nameof(_cameraModule.SwitchToContinuousFocusTrigger) &&
                 _cameraModule.IsTapToFocusEnabled)
             {
-                TurnOnContinuousFocus();
+                TurnOffFlashAndSetContinuousAutoMode(_device);
             }
         }
 
-        private void TurnOnContinuousFocus()
+        private void LockPictureSpecificSettingsIfNothingCaptured()
         {
-            _device.LockForConfiguration(out var error);
-            if (error != null) return;
-
-            if (_device.IsFocusModeSupported(AVCaptureFocusMode.ContinuousAutoFocus))
+            if (_cameraModule.IsNothingCaptured)
             {
-                _device.FocusMode = AVCaptureFocusMode.ContinuousAutoFocus;
-            }
-            if (_device.IsExposureModeSupported(AVCaptureExposureMode.ContinuousAutoExposure))
-            {
-                _device.ExposureMode = AVCaptureExposureMode.ContinuousAutoExposure;
-            }
+                _device.LockForConfiguration(out var error);
+                if (error != null) return;
 
-            _device.UnlockForConfiguration();
+                if (_device.IsFocusModeSupported(AVCaptureFocusMode.Locked))
+                {
+                    _device.FocusMode = AVCaptureFocusMode.Locked;
+                }
+                if (_device.IsExposureModeSupported(AVCaptureExposureMode.Locked))
+                {
+                    _device.ExposureMode = AVCaptureExposureMode.Locked;
+                }
+                if (_device.IsWhiteBalanceModeSupported(AVCaptureWhiteBalanceMode.Locked))
+                {
+                    _device.WhiteBalanceMode = AVCaptureWhiteBalanceMode.Locked;
+                }
+
+                _device.UnlockForConfiguration();
+            }
         }
 
         private void SetupCamera()
@@ -130,7 +143,7 @@ namespace CrossCam.iOS.CustomRenderer
                 if (_photoOutput == null)
                 {
                     _device = AVCaptureDevice.GetDefaultDevice(AVMediaTypes.Video);
-                    ConfigureCameraForDevice(_device);
+                    TurnOffFlashAndSetContinuousAutoMode(_device);
 
                     _photoOutput = new AVCapturePhotoOutput
                     {
@@ -176,6 +189,8 @@ namespace CrossCam.iOS.CustomRenderer
                 }
                 else if (finishedPhotoBuffer != null)
                 {
+                    LockPictureSpecificSettingsIfNothingCaptured();
+
                     using (var image = AVCapturePhotoOutput.GetJpegPhotoDataRepresentation(finishedPhotoBuffer, previewPhotoBuffer))
                     using (var imgDataProvider = new CGDataProvider(image))
                     using (var cgImage = CGImage.FromJPEG(imgDataProvider, null, false, CGColorRenderingIntent.Default))
@@ -203,6 +218,8 @@ namespace CrossCam.iOS.CustomRenderer
                 }
                 else if (photo != null)
                 {
+                    LockPictureSpecificSettingsIfNothingCaptured();
+
                     using (var cgImage = photo.CGImageRepresentation)
                     using (var uiImage = UIImage.FromImage(cgImage, 1, GetOrientationForCorrection()))
                     {
@@ -252,7 +269,7 @@ namespace CrossCam.iOS.CustomRenderer
 
             if (taps > 1)
             {
-                TurnOnContinuousFocus();
+                TurnOffFlashAndSetContinuousAutoMode(_device);
             }
             else
             {
@@ -305,13 +322,17 @@ namespace CrossCam.iOS.CustomRenderer
                         _device.ExposurePointOfInterest = touchLocation;
                         _device.ExposureMode = AVCaptureExposureMode.AutoExpose;
                     }
+                    if (_device.IsWhiteBalanceModeSupported(AVCaptureWhiteBalanceMode.AutoWhiteBalance))
+                    {
+                        _device.WhiteBalanceMode = AVCaptureWhiteBalanceMode.AutoWhiteBalance; //not sure about this
+                    }
 
                     _device.UnlockForConfiguration();
                 }
             }
         }
 
-        private static void ConfigureCameraForDevice(AVCaptureDevice device)
+        private static void TurnOffFlashAndSetContinuousAutoMode(AVCaptureDevice device)
         {
             device.LockForConfiguration(out var error);
             if (error != null) return;
@@ -320,17 +341,14 @@ namespace CrossCam.iOS.CustomRenderer
             {
                 device.FlashMode = AVCaptureFlashMode.Off;
             }
-
             if (device.IsFocusModeSupported(AVCaptureFocusMode.ContinuousAutoFocus))
             {
                 device.FocusMode = AVCaptureFocusMode.ContinuousAutoFocus;
             }
-
             if (device.IsExposureModeSupported(AVCaptureExposureMode.ContinuousAutoExposure))
             {
                 device.ExposureMode = AVCaptureExposureMode.ContinuousAutoExposure;
             }
-
             if (device.IsWhiteBalanceModeSupported(AVCaptureWhiteBalanceMode.ContinuousAutoWhiteBalance))
             {
                 device.WhiteBalanceMode = AVCaptureWhiteBalanceMode.ContinuousAutoWhiteBalance;
