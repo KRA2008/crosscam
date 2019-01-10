@@ -39,7 +39,7 @@
                 <BoxView/>
                 <Label Text="If you find that it's impossible to make both the upper and lower guide lines line up at the same time, you probably moved in some direction other than just to the side."/>
                 <BoxView/>
-                <Label Text="If you want to take pictures of very close up subjects or &quot;macro&quot; photos for cross viewing, it is very helpful to do &quot;keystone&quot; corrections. Typically you would want to vertically shrink the inside edges of the photos and then crop the top and bottom of the photos. You get to the keystone editing menu by tapping the button that looks like this:"/>
+                <Label Text="If you want to take pictures of very close up subjects or &quot;macro&quot; photos for cross viewing, it is very helpful to do &quot;keystone&quot; corrections. Typically you would want to shrink the inside edges of the photos and then crop some off the top and bottom to level them out. You get to the keystone editing menu by tapping the button that looks like this:"/>
                 <StackLayout Orientation="Horizontal" 
                              Spacing="0">
                     <Image Source="keystoneLeft"
