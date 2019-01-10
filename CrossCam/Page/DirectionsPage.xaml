@@ -15,10 +15,10 @@
             <Label Text="If you want to see this again, tap the '?' on the top left of the camera screen."/>
             <Label Text=" "/>
             <Label Text="1) Take the first picture"/>
-            <Label Text="2) Keep your phone steady in front of you and move LEFT"/>
-            <Label Text="3) Align the first picture with the preview of the second picture"/>
-            <Label Text="4) Start cross viewing and take the second picture when you like what you see"/>
-            <Label Text="5) You can tap the pencil icon to edit it or tap the checkmark to save it"/>
+            <Label Text="2) Start cross viewing the first picture with the preview that appears"/>
+            <Label Text="3) Keep your phone steady in front of you and slowly move LEFT while cross viewing (don't move too far - around an inch or less for each foot away your target is)"/>
+            <Label Text="4) Align the first picture with the preview of the second picture and take the second picture when you like what you see"/>
+            <Label Text="5) Once the second pictures is taken, you can tap the pencil icon to edit it or tap the checkmark to save it"/>
             <Label Text=" "/>
             <Label Text="Other stuff you can do:"/>
             <Label Text="~ Tap the gear icon on the top right of the camera screen to open the settings page. It's full of interesting stuff"/>
