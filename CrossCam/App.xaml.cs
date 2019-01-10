@@ -1,5 +1,6 @@
 ﻿using CrossCam.ViewModel;
 using FreshMvvm;
+using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
 [assembly: XamlCompilation(XamlCompilationOptions.Compile)]
@@ -7,6 +8,9 @@ namespace CrossCam
 {
     public partial class App
     {
+        public const string APP_PAUSING_EVENT = "appPausing";
+        public const string APP_UNPAUSING_EVENT = "appUnpausing";
+
         public App()
         {
             InitializeComponent();
@@ -15,17 +19,16 @@ namespace CrossCam
 
         protected override void OnStart()
         {
-            // Handle when your app starts
         }
 
         protected override void OnSleep()
         {
-            // Handle when your app sleeps
+            MessagingCenter.Send(this, APP_PAUSING_EVENT);
         }
 
         protected override void OnResume()
         {
-            // Handle when your app resumes
+            MessagingCenter.Send(this, APP_UNPAUSING_EVENT);
         }
     }
 }
