@@ -175,7 +175,8 @@ namespace CrossCam.Droid.CustomRenderer
             {
                 parameters.WhiteBalance = Camera.Parameters.WhiteBalanceAuto;
             }
-            if (parameters.SupportedSceneModes.Contains(Camera.Parameters.SceneModeAuto))
+            if (parameters.SupportedSceneModes != null && 
+                parameters.SupportedSceneModes.Contains(Camera.Parameters.SceneModeAuto))
             {
                 parameters.SceneMode = Camera.Parameters.SceneModeAuto;
             }
