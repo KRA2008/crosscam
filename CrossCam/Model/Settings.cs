@@ -167,6 +167,8 @@ namespace CrossCam.Model
             }
         }
 
+        public bool IsAutomaticAlignmentOn { get; set; }
+
         public Settings()
         {
             HasOfferedTechniqueHelpBefore = false;
@@ -196,6 +198,7 @@ namespace CrossCam.Model
 
             BorderColor = BorderColor.Black;
 
+            IsAutomaticAlignmentOn = true;
             ResolutionProportion = 100;
             RotationSpeed = 10;
             ZoomSpeed = 20;

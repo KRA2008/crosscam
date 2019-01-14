@@ -372,7 +372,7 @@
             </Grid.ColumnDefinitions>
             <Grid.GestureRecognizers>
                 <TapGestureRecognizer Command="{Binding GoToModeCommand}"
-                                      CommandParameter="{x:Static vm:WorkflowStage.Align}"/>
+                                      CommandParameter="{x:Static vm:WorkflowStage.ManualAlign}"/>
             </Grid.GestureRecognizers>
             <StackLayout Grid.Column="1"
                          Spacing="0"
@@ -437,7 +437,7 @@
         <Image Source="rotateLeft"
                AbsoluteLayout.LayoutFlags="PositionProportional"
                AbsoluteLayout.LayoutBounds="{StaticResource _leftRotateLeft}"
-               IsVisible="{Binding WorkflowStage, Converter={vc:EnumCompareConverter}, ConverterParameter={x:Static vm:WorkflowStage.Align}}">
+               IsVisible="{Binding WorkflowStage, Converter={vc:EnumCompareConverter}, ConverterParameter={x:Static vm:WorkflowStage.ManualAlign}}">
             <Image.GestureRecognizers>
                 <TapGestureRecognizer Command="{Binding DecreaseLeftRotation}"/>
             </Image.GestureRecognizers>
@@ -445,7 +445,7 @@
         <Image Source="rotateRight"
                AbsoluteLayout.LayoutFlags="PositionProportional"
                AbsoluteLayout.LayoutBounds="{StaticResource _leftRotateRight}"
-               IsVisible="{Binding WorkflowStage, Converter={vc:EnumCompareConverter}, ConverterParameter={x:Static vm:WorkflowStage.Align}}">
+               IsVisible="{Binding WorkflowStage, Converter={vc:EnumCompareConverter}, ConverterParameter={x:Static vm:WorkflowStage.ManualAlign}}">
             <Image.GestureRecognizers>
                 <TapGestureRecognizer Command="{Binding IncreaseLeftRotation}"/>
             </Image.GestureRecognizers>
@@ -453,7 +453,7 @@
         <Image Source="rotateLeft"
                AbsoluteLayout.LayoutFlags="PositionProportional"
                AbsoluteLayout.LayoutBounds="{StaticResource _rightRotateLeft}"
-               IsVisible="{Binding WorkflowStage, Converter={vc:EnumCompareConverter}, ConverterParameter={x:Static vm:WorkflowStage.Align}}">
+               IsVisible="{Binding WorkflowStage, Converter={vc:EnumCompareConverter}, ConverterParameter={x:Static vm:WorkflowStage.ManualAlign}}">
             <Image.GestureRecognizers>
                 <TapGestureRecognizer Command="{Binding DecreaseRightRotation}"/>
             </Image.GestureRecognizers>
@@ -461,7 +461,7 @@
         <Image Source="rotateRight"
                AbsoluteLayout.LayoutFlags="PositionProportional"
                AbsoluteLayout.LayoutBounds="{StaticResource _rightRotateRight}"
-               IsVisible="{Binding WorkflowStage, Converter={vc:EnumCompareConverter}, ConverterParameter={x:Static vm:WorkflowStage.Align}}">
+               IsVisible="{Binding WorkflowStage, Converter={vc:EnumCompareConverter}, ConverterParameter={x:Static vm:WorkflowStage.ManualAlign}}">
             <Image.GestureRecognizers>
                 <TapGestureRecognizer Command="{Binding IncreaseRightRotation}"/>
             </Image.GestureRecognizers>
@@ -470,7 +470,7 @@
         <Image Source="vertAlign"
                AbsoluteLayout.LayoutFlags="PositionProportional"
                AbsoluteLayout.LayoutBounds="{StaticResource _leftAlignUp}"
-               IsVisible="{Binding WorkflowStage, Converter={vc:EnumCompareConverter}, ConverterParameter={x:Static vm:WorkflowStage.Align}}">
+               IsVisible="{Binding WorkflowStage, Converter={vc:EnumCompareConverter}, ConverterParameter={x:Static vm:WorkflowStage.ManualAlign}}">
             <Image.GestureRecognizers>
                 <TapGestureRecognizer Command="{Binding LeftUpRightDown}"/>
             </Image.GestureRecognizers>
@@ -478,7 +478,7 @@
         <Image Source="vertAlignReverse"
                AbsoluteLayout.LayoutFlags="PositionProportional"
                AbsoluteLayout.LayoutBounds="{StaticResource _rightAlignUp}"
-               IsVisible="{Binding WorkflowStage, Converter={vc:EnumCompareConverter}, ConverterParameter={x:Static vm:WorkflowStage.Align}}">
+               IsVisible="{Binding WorkflowStage, Converter={vc:EnumCompareConverter}, ConverterParameter={x:Static vm:WorkflowStage.ManualAlign}}">
             <Image.GestureRecognizers>
                 <TapGestureRecognizer Command="{Binding LeftDownRightUp}"/>
             </Image.GestureRecognizers>
@@ -487,7 +487,7 @@
         <StackLayout AbsoluteLayout.LayoutFlags="PositionProportional"
                      AbsoluteLayout.LayoutBounds="{StaticResource _leftZoom}"
                      Spacing="0"
-                     IsVisible="{Binding WorkflowStage, Converter={vc:EnumCompareConverter}, ConverterParameter={x:Static vm:WorkflowStage.Align}}">
+                     IsVisible="{Binding WorkflowStage, Converter={vc:EnumCompareConverter}, ConverterParameter={x:Static vm:WorkflowStage.ManualAlign}}">
             <Image Source="zoomIn">
                 <Image.GestureRecognizers>
                     <TapGestureRecognizer Command="{Binding LeftZoomIn}"/>
@@ -502,7 +502,7 @@
         <StackLayout AbsoluteLayout.LayoutFlags="PositionProportional"
                      AbsoluteLayout.LayoutBounds="{StaticResource _rightZoom}"
                      Spacing="0"
-                     IsVisible="{Binding WorkflowStage, Converter={vc:EnumCompareConverter}, ConverterParameter={x:Static vm:WorkflowStage.Align}}">
+                     IsVisible="{Binding WorkflowStage, Converter={vc:EnumCompareConverter}, ConverterParameter={x:Static vm:WorkflowStage.ManualAlign}}">
             <Image Source="zoomIn">
                 <Image.GestureRecognizers>
                     <TapGestureRecognizer Command="{Binding RightZoomIn}"/>
@@ -841,12 +841,15 @@
                HorizontalOptions="CenterAndExpand"
                VerticalOptions="CenterAndExpand"
                Color="White"
-               IsVisible="{Binding WorkflowStage, Converter={vc:EnumCompareConverter}, ConverterParameter={x:Static vm:WorkflowStage.Saving}}"
-               IsRunning="{Binding WorkflowStage, Converter={vc:EnumCompareConverter}, ConverterParameter={x:Static vm:WorkflowStage.Saving}}"
+               IsVisible="{Binding ShouldActivityIndicatorBeVisible}"
+               IsRunning="{Binding ShouldActivityIndicatorBeVisible}"
                InputTransparent="True"/>
         <Label Text="Saving..."
                Style="{StaticResource _savingFeedback}"
                IsVisible="{Binding WorkflowStage, Converter={vc:EnumCompareConverter}, ConverterParameter={x:Static vm:WorkflowStage.Saving}}"/>
+        <Label Text="Aligning..."
+               Style="{StaticResource _savingFeedback}"
+               IsVisible="{Binding WorkflowStage, Converter={vc:EnumCompareConverter}, ConverterParameter={x:Static vm:WorkflowStage.AutomaticAlign}}"/>
         <ContentView AbsoluteLayout.LayoutFlags="All"
                      AbsoluteLayout.LayoutBounds="0,0,1,1"
                      IsVisible="{Binding WorkflowStage, Converter={vc:EnumCompareConverter}, ConverterParameter={x:Static vm:WorkflowStage.View}}">

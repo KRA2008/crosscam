@@ -6,9 +6,10 @@
         Final,
         Edits,
         Crop,
-        Align,
+        ManualAlign,
         Keystone,
         View,
-        Saving
+        Saving,
+        AutomaticAlign
     }
 }

@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Diagnostics;
 using System.IO;
+using System.Linq;
 using System.Threading.Tasks;
 using System.Web;
 using CrossCam.Model;
@@ -227,7 +229,7 @@ namespace CrossCam.ViewModel
         public bool DoesCaptureOrientationMatchViewOrientation => WasCapturePortrait == IsViewPortrait;
         public bool ShouldSettingsAndHelpBeVisible => WorkflowStage != WorkflowStage.Saving && WorkflowStage != WorkflowStage.View;
         public bool IsExactlyOnePictureTaken => LeftBitmap == null ^ RightBitmap == null;
-        public bool ShouldLineGuidesBeVisible => (IsExactlyOnePictureTaken || Settings.ShowGuideLinesWithFirstCapture && WorkflowStage == WorkflowStage.Capture) && Settings.AreGuideLinesVisible || WorkflowStage == WorkflowStage.Align || WorkflowStage == WorkflowStage.Keystone;
+        public bool ShouldLineGuidesBeVisible => (IsExactlyOnePictureTaken || Settings.ShowGuideLinesWithFirstCapture && WorkflowStage == WorkflowStage.Capture) && Settings.AreGuideLinesVisible || WorkflowStage == WorkflowStage.Keystone || WorkflowStage == WorkflowStage.ManualAlign;
         public bool ShouldDonutGuideBeVisible => (IsExactlyOnePictureTaken || Settings.ShowGuideDonutWithFirstCapture && WorkflowStage == WorkflowStage.Capture) && Settings.IsGuideDonutVisible;
         public bool ShouldRollGuideBeVisible => WorkflowStage == WorkflowStage.Capture && Settings.ShowRollGuide;
         public bool ShouldPitchGuideBeVisible => IsExactlyOnePictureTaken && Settings.ShowPitchGuide;
@@ -235,14 +237,16 @@ namespace CrossCam.ViewModel
         public bool ShouldSaveEditsButtonBeVisible => WorkflowStage == WorkflowStage.Edits ||
                                                       WorkflowStage == WorkflowStage.Crop ||
                                                       WorkflowStage == WorkflowStage.Keystone ||
-                                                      WorkflowStage == WorkflowStage.Align;
+                                                      WorkflowStage == WorkflowStage.ManualAlign;
         public bool ShouldViewButtonBeVisible => WorkflowStage == WorkflowStage.Final ||
                                                  WorkflowStage == WorkflowStage.Crop ||
                                                  WorkflowStage == WorkflowStage.Keystone ||
-                                                 WorkflowStage == WorkflowStage.Align;
+                                                 WorkflowStage == WorkflowStage.ManualAlign;
         public bool ShouldClearEditButtonBeVisible => WorkflowStage == WorkflowStage.Crop ||
                                                       WorkflowStage == WorkflowStage.Keystone ||
-                                                      WorkflowStage == WorkflowStage.Align;
+                                                      WorkflowStage == WorkflowStage.ManualAlign;
+        public bool ShouldActivityIndicatorBeVisible => WorkflowStage == WorkflowStage.AutomaticAlign ||
+                                                        WorkflowStage == WorkflowStage.Saving;
         
         public int IconColumn => IsCaptureLeftFirst ? 1 : 0;
 
@@ -320,7 +324,7 @@ namespace CrossCam.ViewModel
                     if (loadType == FULL_IMAGE)
                     {
                         SetLeftBitmap(GetHalfOfFullStereoImage(photo, true), false);
-                        SetRightBitmap(GetHalfOfFullStereoImage(photo,false), false);
+                        SetRightBitmap(GetHalfOfFullStereoImage(photo, false), false);
                     }
                     else if (loadType == SINGLE_SIDE)
                     {
@@ -372,7 +376,7 @@ namespace CrossCam.ViewModel
                     case WorkflowStage.Crop:
                         ClearCrops();
                         break;
-                    case WorkflowStage.Align:
+                    case WorkflowStage.ManualAlign:
                         ClearAlignments();
                         break;
                     case WorkflowStage.Keystone:
@@ -652,6 +656,98 @@ namespace CrossCam.ViewModel
             });
         }
 
+        private async void AutoAlign()
+        {
+            WorkflowStage = WorkflowStage.AutomaticAlign;
+
+            await Task.Delay(500);
+
+            var colorsLeft = GetVerticalSpectrum(LeftBitmap);
+            var colorsRight = GetVerticalSpectrum(RightBitmap);
+
+            var error0 = GetErrorForOffset(colorsLeft, colorsRight, 0);
+            var errorPlus1 = GetErrorForOffset(colorsLeft, colorsRight, 1);
+            var errorMinus1 = GetErrorForOffset(colorsLeft, colorsRight, -1);
+
+            var offset = 0;
+            if (error0 < errorPlus1 &&
+                error0 < errorMinus1)
+            {
+                //no correction needed!
+            }
+            else
+            {
+                var direction = 1;
+                var error = errorPlus1;
+                if (errorMinus1 < errorPlus1)
+                {
+                    direction = -1;
+                    error = errorMinus1;
+                    Debug.WriteLine("error negative");
+                }
+                else
+                {
+                    Debug.WriteLine("error positive");
+                }
+                
+                offset = direction * 2;
+                while (true)
+                {
+                    var newError = GetErrorForOffset(colorsLeft, colorsRight, offset);
+                    if (newError < error)
+                    {
+                        error = newError;
+                        offset += direction;
+                    }
+                    else
+                    {
+                        break;
+                    }
+                }
+            }
+
+            VerticalAlignment = offset;
+
+            WorkflowStage = WorkflowStage.Final;
+        }
+
+        private static long GetErrorForOffset(int[] left, int[] right, int offset)
+        {
+            long error = 0;
+            var leftOffset = offset > 0 ? offset : 0;
+            var rightOffset = offset < 0 ? Math.Abs(offset) : 0;
+            for (var ii = 0; ii < left.Length - Math.Abs(offset); ii++)
+            {
+                error += Math.Abs(left[ii + leftOffset] - right[ii + rightOffset]);
+            }
+
+            return error;
+        } 
+
+        private static int[] GetVerticalSpectrum(SKBitmap bitmap)
+        {
+            var colorsLeft = Enumerable.Repeat(0, bitmap.Height).ToArray();
+
+            unsafe
+            {
+                var ptr = (uint*)bitmap.GetPixels().ToPointer();
+
+                for (var row = 0; row < bitmap.Height; row++)
+                {
+                    for (var column = 0; column < bitmap.Width; column++)
+                    {
+                        var pixel = *ptr++;
+                        var colorsCombined = (int)(pixel & 0x000000FF) +
+                                             (int)((pixel & 0x0000FF00) >> 8) +
+                                             (int)((pixel & 0x00FF0000) >> 16);
+                        colorsLeft[row] += colorsCombined;
+                    }
+                }
+            }
+
+            return colorsLeft.ToArray();
+        }
+
         private void SetLeftBitmap(SKBitmap bitmap, bool withMovementTrigger = true)
         {
             LeftBitmap = bitmap;
@@ -670,6 +766,10 @@ namespace CrossCam.ViewModel
                 CameraColumn = IsCaptureLeftFirst ? 0 : 1;
                 IsCameraVisible = false;
                 WorkflowStage = WorkflowStage.Final;
+                if (Settings.IsAutomaticAlignmentOn)
+                {
+                    AutoAlign();
+                }
             }
         }
 
@@ -691,6 +791,10 @@ namespace CrossCam.ViewModel
                 CameraColumn = IsCaptureLeftFirst ? 0 : 1;
                 IsCameraVisible = false;
                 WorkflowStage = WorkflowStage.Final;
+                if (Settings.IsAutomaticAlignmentOn)
+                {
+                    AutoAlign();
+                }
             }
         }
 

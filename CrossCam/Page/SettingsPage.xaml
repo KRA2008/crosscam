@@ -137,6 +137,10 @@
             <Label Text="Editing"
                    Style="{DynamicResource header}"/>
             <StackLayout Orientation="Horizontal">
+                <Label Text="Automatically align after capture"/>
+                <Switch IsToggled="{Binding Settings.IsAutomaticAlignmentOn}"/>
+            </StackLayout>
+            <StackLayout Orientation="Horizontal">
                 <Label Text="Crop speed"/>
                 <Picker ItemsSource="{Binding ZeroToOneThousand}"
                         SelectedIndex="{Binding Settings.CropSpeed}"
