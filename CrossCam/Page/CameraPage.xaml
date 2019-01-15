@@ -388,8 +388,8 @@
             <StackLayout Grid.Column="1"
                          Spacing="0"
                          Orientation="Horizontal">
-                <Image Source="keystoneLeft"/>
                 <Image Source="keystoneRight"/>
+                <Image Source="keystoneLeft"/>
             </StackLayout>
         </Grid>
         <Image Source="scissor"
@@ -505,14 +505,6 @@
 
         <Image AbsoluteLayout.LayoutFlags="PositionProportional"
                AbsoluteLayout.LayoutBounds="{StaticResource _leftKeystoneLeft}"
-               Source="keystoneLeft"
-               IsVisible="{Binding WorkflowStage, Converter={vc:EnumCompareConverter}, ConverterParameter={x:Static vm:WorkflowStage.Keystone}}">
-            <Image.GestureRecognizers>
-                <TapGestureRecognizer Command="{Binding DecreaseLeftKeystone}"/>
-            </Image.GestureRecognizers>
-        </Image>
-        <Image AbsoluteLayout.LayoutFlags="PositionProportional"
-               AbsoluteLayout.LayoutBounds="{StaticResource _leftKeystoneRight}"
                Source="keystoneRight"
                IsVisible="{Binding WorkflowStage, Converter={vc:EnumCompareConverter}, ConverterParameter={x:Static vm:WorkflowStage.Keystone}}">
             <Image.GestureRecognizers>
@@ -520,19 +512,27 @@
             </Image.GestureRecognizers>
         </Image>
         <Image AbsoluteLayout.LayoutFlags="PositionProportional"
-               AbsoluteLayout.LayoutBounds="{StaticResource _rightKeystoneLeft}"
+               AbsoluteLayout.LayoutBounds="{StaticResource _leftKeystoneRight}"
                Source="keystoneLeft"
                IsVisible="{Binding WorkflowStage, Converter={vc:EnumCompareConverter}, ConverterParameter={x:Static vm:WorkflowStage.Keystone}}">
             <Image.GestureRecognizers>
-                <TapGestureRecognizer Command="{Binding DecreaseRightKeystone}"/>
+                <TapGestureRecognizer Command="{Binding DecreaseLeftKeystone}"/>
             </Image.GestureRecognizers>
         </Image>
         <Image AbsoluteLayout.LayoutFlags="PositionProportional"
-               AbsoluteLayout.LayoutBounds="{StaticResource _rightKeystoneRight}"
+               AbsoluteLayout.LayoutBounds="{StaticResource _rightKeystoneLeft}"
                Source="keystoneRight"
                IsVisible="{Binding WorkflowStage, Converter={vc:EnumCompareConverter}, ConverterParameter={x:Static vm:WorkflowStage.Keystone}}">
             <Image.GestureRecognizers>
                 <TapGestureRecognizer Command="{Binding IncreaseRightKeystone}"/>
+            </Image.GestureRecognizers>
+        </Image>
+        <Image AbsoluteLayout.LayoutFlags="PositionProportional"
+               AbsoluteLayout.LayoutBounds="{StaticResource _rightKeystoneRight}"
+               Source="keystoneLeft"
+               IsVisible="{Binding WorkflowStage, Converter={vc:EnumCompareConverter}, ConverterParameter={x:Static vm:WorkflowStage.Keystone}}">
+            <Image.GestureRecognizers>
+                <TapGestureRecognizer Command="{Binding DecreaseRightKeystone}"/>
             </Image.GestureRecognizers>
         </Image>
 
