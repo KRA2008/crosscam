@@ -21,6 +21,7 @@ namespace CrossCam.Model
         public bool ShowPitchGuide { get; set; }
         public bool ShowYawGuide { get; set; }
 
+        private BorderColor _borderColor;
         public BorderColor BorderColor
         {
             get => _borderColor;
@@ -71,6 +72,19 @@ namespace CrossCam.Model
                 if (value)
                 {
                     SaveRedundantFirstSide = false;
+                }
+            }
+        }
+
+        private int _resolutionProportion;
+        public int ResolutionProportion
+        {
+            get => _resolutionProportion;
+            set
+            {
+                if (value >= 0)
+                {
+                    _resolutionProportion = value;
                 }
             }
         }
@@ -141,8 +155,6 @@ namespace CrossCam.Model
         }
 
         private int _borderThickness;
-        private BorderColor _borderColor;
-
         public int BorderThickness
         {
             get => _borderThickness;
@@ -184,6 +196,7 @@ namespace CrossCam.Model
 
             BorderColor = BorderColor.Black;
 
+            ResolutionProportion = 100;
             RotationSpeed = 10;
             ZoomSpeed = 20;
             AlignSpeed = 10;

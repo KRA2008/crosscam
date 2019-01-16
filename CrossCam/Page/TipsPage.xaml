@@ -48,6 +48,8 @@
                            HorizontalOptions="StartAndExpand"/>
                 </StackLayout>
                 <BoxView/>
+                <Label Text="The settings screen has an option to proportionally decrease the resolution of the final picture - this can help if you want to save space. If your photo is not cropped the end result is two full-resolution pictures joined together to make one of double resolution, which means you can often get away with a large reduction in resolution without noticeably affecting quality."/>
+                <BoxView/>
             </StackLayout>
         </ScrollView>
     </ContentPage.Content>

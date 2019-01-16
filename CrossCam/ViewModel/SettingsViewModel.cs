@@ -14,10 +14,12 @@ namespace CrossCam.ViewModel
     {
         public Settings Settings { get; set; }
         public Command ResetToDefaults { get; set; }
-
-        // ReSharper disable once MemberCanBeMadeStatic.Global
-        public IEnumerable<int> PositiveIntegers => Enumerable.Range(0, 1000).ToList();
+        
+        // ReSharper disable MemberCanBeMadeStatic.Global
+        public IEnumerable<int> ZeroToNineNineNine => Enumerable.Range(0, 1000).ToList();
+        public IEnumerable<int> OneToOneHundred => Enumerable.Range(0, 101).ToList();
         public IEnumerable<string> BorderColors => Enum.GetNames(typeof(BorderColor)).ToList();
+        // ReSharper restore MemberCanBeMadeStatic.Global
 
         public SettingsViewModel()
         {

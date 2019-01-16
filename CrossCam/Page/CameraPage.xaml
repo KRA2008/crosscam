@@ -311,6 +311,8 @@
                        IsVisible="{Binding Settings.SaveSidesSeparately}"/>
                 <Image Source="saveOne"
                        IsVisible="{Binding Settings.SaveRedundantFirstSide}"/>
+                <Label Text="{Binding Settings.ResolutionProportion, StringFormat=' {0}%'}"
+                       FontSize="15"/>
             </StackLayout>
         </Grid>
         <ContentView AbsoluteLayout.LayoutFlags="PositionProportional"

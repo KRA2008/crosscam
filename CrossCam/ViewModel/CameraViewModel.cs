@@ -533,6 +533,9 @@ namespace CrossCam.ViewModel
                         VerticalAlignment,
                         Settings.AddBorder ? Settings.BorderThickness : 0);
 
+                    finalImageWidth = (int)(finalImageWidth * (Settings.ResolutionProportion / 100d));
+                    finalImageHeight = (int)(finalImageHeight * (Settings.ResolutionProportion / 100d));
+
                     if (Settings.SaveForCrossView)
                     {
                         using (var tempSurface =
