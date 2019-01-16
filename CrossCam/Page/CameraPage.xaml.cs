@@ -17,8 +17,11 @@ namespace CrossCam.Page
 	    private readonly Rectangle _upperLineBoundsPortrait = new Rectangle(0, 0.4, 1, 21);
 	    private readonly Rectangle _lowerLinesBoundsPortrait = new Rectangle(0, 0.6, 1, 21);
 
-	    private const double ROTATION_GUIDES_PORTRAIT_Y = 0.35;
-	    private const double ROTATION_GUIDES_LANDSCAPE_Y = 0.2;
+	    private const double ROTATION_GUIDES_PORTRAIT_Y = 0.7;
+	    private const double ROTATION_GUIDES_LANDSCAPE_Y = 0.9;
+        
+	    private const double LEVEL_BUBBLE_MIDDLE = 21.5;
+	    private const double LEVEL_BUBBLE_SPEED = 5;
 
 	    private readonly Rectangle _leftReticleBounds = new Rectangle(0.2297, 0.5, 0.075, 0.075);
         private readonly Rectangle _rightReticleBounds = new Rectangle(0.7703, 0.5, 0.075, 0.075);
@@ -34,13 +37,11 @@ namespace CrossCam.Page
 	    private double _lowerLineY;
 	    private double _lowerLineHeight;
 
-	    private const double ACCELEROMETER_MEASURMENT_WEIGHT = 4;
+	    private const double ACCELEROMETER_MEASURMENT_WEIGHT = 12;
 	    private const double ACCELEROMETER_SENSITIVITY = 90;
+	    private const double AVERAGE_ROLL_LIMIT = LEVEL_BUBBLE_MIDDLE / (ACCELEROMETER_SENSITIVITY * LEVEL_BUBBLE_SPEED);
 
         private double _averageRoll;
-        private readonly ImageSource _rotateLeft = ImageSource.FromFile("rotateLeftInBox");
-	    private readonly ImageSource _rotateRight = ImageSource.FromFile("rotateRightInBox");
-	    private readonly ImageSource _star = ImageSource.FromFile("starInBox");
 
 	    private double _averagePitch;
 	    private double _firstPhotoPitch;
@@ -63,7 +64,11 @@ namespace CrossCam.Page
             ResetGuides();
 		    NavigationPage.SetHasNavigationBar(this, false);
 
-		    Accelerometer.ReadingChanged += HandleAccelerometerReading;
+		    var bubbleBounds = AbsoluteLayout.GetLayoutBounds(_horizontalLevelBubble);
+		    bubbleBounds.X = LEVEL_BUBBLE_MIDDLE;
+		    AbsoluteLayout.SetLayoutBounds(_horizontalLevelBubble, bubbleBounds);
+
+            Accelerometer.ReadingChanged += HandleAccelerometerReading;
 		    Compass.ReadingChanged += HandleCompassReading;
             MessagingCenter.Subscribe<App>(this, App.APP_PAUSING_EVENT, o => EvaluateSensors(false));
 		    MessagingCenter.Subscribe<App>(this, App.APP_UNPAUSING_EVENT, o => EvaluateSensors());
@@ -189,19 +194,24 @@ namespace CrossCam.Page
                 _averageRoll -= acceleration.Y / ACCELEROMETER_MEASURMENT_WEIGHT;
             }
 
-            var roundedRoll = Math.Round(_averageRoll * ACCELEROMETER_SENSITIVITY);
-            if (roundedRoll > 0)
+            if (_averageRoll > AVERAGE_ROLL_LIMIT)
             {
-                _rollIndicator.Source = _viewModel != null && _viewModel.IsViewInvertedLandscape ? _rotateLeft : _rotateRight;
-            }
-            else if (roundedRoll < 0)
+                _averageRoll = AVERAGE_ROLL_LIMIT;
+            } else if (_averageRoll < -AVERAGE_ROLL_LIMIT)
             {
-                _rollIndicator.Source = _viewModel != null && _viewModel.IsViewInvertedLandscape ? _rotateRight : _rotateLeft;
+                _averageRoll = -AVERAGE_ROLL_LIMIT;
             }
-            else
+            var bubbleBounds = AbsoluteLayout.GetLayoutBounds(_horizontalLevelBubble);
+            var newBounds = LEVEL_BUBBLE_MIDDLE + _averageRoll * LEVEL_BUBBLE_SPEED * ACCELEROMETER_SENSITIVITY;
+            if (newBounds < 0)
             {
-                _rollIndicator.Source = _star;
+                newBounds = 0;
+            } else if (newBounds > LEVEL_BUBBLE_MIDDLE * 2)
+            {
+                newBounds = LEVEL_BUBBLE_MIDDLE * 2;
             }
+            bubbleBounds.X = newBounds;
+            AbsoluteLayout.SetLayoutBounds(_horizontalLevelBubble, bubbleBounds);
 
             var roundedPitchDifference = Math.Round((_firstPhotoPitch - _averagePitch) * ACCELEROMETER_SENSITIVITY);
             if (roundedPitchDifference > 0)
@@ -285,7 +295,7 @@ namespace CrossCam.Page
 
         private void ResetGuides()
         {
-            var rollBounds = AbsoluteLayout.GetLayoutBounds(_rollIndicator);
+            var rollBounds = AbsoluteLayout.GetLayoutBounds(_horizontalLevelWhole);
             var pitchBounds = AbsoluteLayout.GetLayoutBounds(_pitchIndicator);
             var yawBounds = AbsoluteLayout.GetLayoutBounds(_yawIndicator);
             if (_viewModel == null || _viewModel.IsViewPortrait)
@@ -316,11 +326,11 @@ namespace CrossCam.Page
                 AbsoluteLayout.SetLayoutFlags(_lowerLinePanner, AbsoluteLayoutFlags.YProportional | AbsoluteLayoutFlags.WidthProportional);
                 AbsoluteLayout.SetLayoutBounds(_lowerLinePanner, _lowerLineBoundsLandscape);
             }
-            rollBounds.X = _viewModel == null || _viewModel.CameraColumn == 0 ? 0 : 1;
-            AbsoluteLayout.SetLayoutBounds(_rollIndicator, rollBounds);
-            pitchBounds.X = _viewModel == null || _viewModel.CameraColumn == 0 ? 0.15 : 0.85;
+            rollBounds.X = _viewModel == null || _viewModel.CameraColumn == 0 ? 0.2 : 0.8;
+            AbsoluteLayout.SetLayoutBounds(_horizontalLevelWhole, rollBounds);
+            pitchBounds.X = _viewModel == null || _viewModel.CameraColumn == 0 ? 0.1 : 0.9;
             AbsoluteLayout.SetLayoutBounds(_pitchIndicator, pitchBounds);
-            yawBounds.X = _viewModel == null || _viewModel.CameraColumn == 0 ? 0.3 : 0.7;
+            yawBounds.X = _viewModel == null || _viewModel.CameraColumn == 0 ? 0.375 : 0.625;
             AbsoluteLayout.SetLayoutBounds(_yawIndicator, yawBounds);
 
             AbsoluteLayout.SetLayoutFlags(_leftReticle, AbsoluteLayoutFlags.All);

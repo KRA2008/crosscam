@@ -29,6 +29,7 @@
             <x:Double x:Key="_axisGuidesWidth">20</x:Double>
             <x:Double x:Key="_biggerAxisGuidesWidth">30</x:Double>
             <x:Double x:Key="_mediumIconWidth">40</x:Double>
+            <x:Double x:Key="_levelWidth">60</x:Double>
             <x:Double x:Key="_smallerButtonWidth">50</x:Double>
             <x:Double x:Key="_mediumIconWidthPlusCropLineThickness">43</x:Double>
             <x:Double x:Key="_doubleMediumIconWidth">80</x:Double>
@@ -51,12 +52,14 @@
             <Rectangle x:Key="_alignBounds" X="0" Y="{StaticResource _topMiddleButtonY}" Width="1" Height="{StaticResource _mediumIconWidthPlusTopPadding}"/>
             <Rectangle x:Key="_keystoneBounds" X="0" Y="{StaticResource _secondMiddleButtonY}" Width="1" Height="{StaticResource _mediumIconWidth}"/>
             <Rectangle x:Key="_editBounds" X="0.5" Y="0.6" Width="{StaticResource _mediumIconWidth}" Height="{StaticResource _mediumIconWidth}"/>
+            <Rectangle x:Key="_loadLeftBounds" X="0" Y="1" Width="{StaticResource _smallerButtonWidth}" Height="{StaticResource _smallerButtonWidth}"/>
+            <Rectangle x:Key="_loadRightBounds" X="1" Y="1" Width="{StaticResource _smallerButtonWidth}" Height="{StaticResource _smallerButtonWidth}"/>
             <Rectangle x:Key="_retakeLeftBounds" X="{StaticResource _3dLeftMiddle}" Y="1" Width="{StaticResource _smallerButtonWidth}" Height="{StaticResource _smallerButtonWidth}"/>
             <Rectangle x:Key="_retakeRightBounds" X="{StaticResource _3dRightMiddle}" Y="1" Width="{StaticResource _smallerButtonWidth}" Height="{StaticResource _smallerButtonWidth}"/>
             <Rectangle x:Key="_undoBounds" X="0.5" Y="{StaticResource _topMiddleButtonY}" Width="{StaticResource _mediumIconWidth}" Height="{StaticResource _mediumIconWidthPlusTopPadding}"/>
             <Rectangle x:Key="_checkBounds" X="0.5" Y="1" Width="{StaticResource _largeIconWidth}" Height="{StaticResource _largeIconWidth}"/>
-            <Rectangle x:Key="_helpBounds" X="{StaticResource _3dLeftMiddle}" Y="0" Width="{StaticResource _smallerButtonWidth}" Height="{StaticResource _smallerButtonWidthPlusTopPadding}"/>
-            <Rectangle x:Key="_gearBounds" X="{StaticResource _3dRightMiddle}" Y="0" Width="{StaticResource _smallerButtonWidth}" Height="{StaticResource _smallerButtonWidthPlusTopPadding}"/>
+            <Rectangle x:Key="_helpBounds" X="0" Y="0" Width="{StaticResource _smallerButtonWidth}" Height="{StaticResource _smallerButtonWidthPlusTopPadding}"/>
+            <Rectangle x:Key="_gearBounds" X="1" Y="0" Width="{StaticResource _smallerButtonWidth}" Height="{StaticResource _smallerButtonWidthPlusTopPadding}"/>
 
             <Rectangle x:Key="_leftKeystoneLeft" X="{StaticResource _3dLeftLeft}" Y="0.5" Width="{StaticResource _mediumIconWidth}" Height="{StaticResource _mediumIconWidth}"/>
             <Rectangle x:Key="_leftKeystoneRight" X="{StaticResource _3dLeftRight}" Y="0.5" Width="{StaticResource _mediumIconWidth}" Height="{StaticResource _mediumIconWidth}"/>
@@ -164,7 +167,7 @@
                    InputTransparent="True"/>
         </ContentView>
         <ContentView AbsoluteLayout.LayoutFlags="PositionProportional"
-                     AbsoluteLayout.LayoutBounds="{StaticResource _retakeLeftBounds}"
+                     AbsoluteLayout.LayoutBounds="{StaticResource _loadLeftBounds}"
                      Padding="{StaticResource _bottomPadding}"
                      IsVisible="{Binding ShouldLeftLoadBeVisible}">
             <ContentView.GestureRecognizers>
@@ -174,7 +177,7 @@
                    InputTransparent="True"/>
         </ContentView>
         <ContentView AbsoluteLayout.LayoutFlags="PositionProportional"
-                     AbsoluteLayout.LayoutBounds="{StaticResource _retakeRightBounds}"
+                     AbsoluteLayout.LayoutBounds="{StaticResource _loadRightBounds}"
                      Padding="{StaticResource _bottomPadding}"
                      IsVisible="{Binding ShouldRightLoadBeVisible}">
             <ContentView.GestureRecognizers>
@@ -184,13 +187,20 @@
                    InputTransparent="True"/>
         </ContentView>
 
-        <Image x:Name="_rollIndicator"
-               AbsoluteLayout.LayoutFlags="PositionProportional"
-               IsVisible="{Binding ShouldRollGuideBeVisible}">
+        <AbsoluteLayout x:Name="_horizontalLevelWhole"
+                        AbsoluteLayout.LayoutFlags="PositionProportional"
+                        IsVisible="{Binding ShouldRollGuideBeVisible}">
             <AbsoluteLayout.LayoutBounds>
-                <Rectangle X="0" Y="0" Width="{StaticResource _axisGuidesWidth}" Height="{StaticResource _axisGuidesWidth}"/>
+                <Rectangle X="0" Y="0" Width="{StaticResource _levelWidth}" Height="{StaticResource _levelWidth}"/>
             </AbsoluteLayout.LayoutBounds>
-        </Image>
+            <Image AbsoluteLayout.LayoutFlags="All" 
+                   AbsoluteLayout.LayoutBounds="0,0,1,1"
+                   Source="horizontalLevelOutside"/>
+            <Image x:Name="_horizontalLevelBubble"
+                   AbsoluteLayout.LayoutFlags="HeightProportional,YProportional"
+                   AbsoluteLayout.LayoutBounds="0,0,15,1"
+                   Source="horizontalLevelInside"/>
+        </AbsoluteLayout>
         <Image x:Name="_pitchIndicator"
                AbsoluteLayout.LayoutFlags="PositionProportional"
                IsVisible="{Binding ShouldPitchGuideBeVisible}">

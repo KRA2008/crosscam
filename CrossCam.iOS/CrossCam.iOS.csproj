@@ -509,6 +509,12 @@
   <ItemGroup>
     <BundleResource Include="Resources\blurry.png" />
   </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\horizontalLevelOutside.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\horizontalLevelInside.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup />
