@@ -62,9 +62,9 @@
                         HorizontalOptions="EndAndExpand"/>
             </StackLayout>
             <StackLayout Orientation="Horizontal">
-                <Label Text="Border thickness"/>
-                <Picker ItemsSource="{Binding ZeroToNineNineNine}"
-                        SelectedIndex="{Binding Settings.BorderThickness}"
+                <Label Text="Border thickness (tenths of percentage of width)"/>
+                <Picker ItemsSource="{Binding ZeroToOneHundred}"
+                        SelectedIndex="{Binding Settings.BorderThicknessProportion}"
                         BackgroundColor="White"
                         HorizontalOptions="EndAndExpand"/>
             </StackLayout>
@@ -73,7 +73,7 @@
                    Style="{DynamicResource header}"/>
             <StackLayout Orientation="Horizontal">
                 <Label Text="Resolution proportion"/>
-                <Picker ItemsSource="{Binding OneToOneHundred}"
+                <Picker ItemsSource="{Binding ZeroToOneHundred}"
                         SelectedIndex="{Binding Settings.ResolutionProportion}"
                         BackgroundColor="White"
                         HorizontalOptions="EndAndExpand"/>
@@ -138,35 +138,35 @@
                    Style="{DynamicResource header}"/>
             <StackLayout Orientation="Horizontal">
                 <Label Text="Crop speed"/>
-                <Picker ItemsSource="{Binding ZeroToNineNineNine}"
+                <Picker ItemsSource="{Binding ZeroToOneThousand}"
                         SelectedIndex="{Binding Settings.CropSpeed}"
                         BackgroundColor="White"
                         HorizontalOptions="EndAndExpand"/>
             </StackLayout>
             <StackLayout Orientation="Horizontal">
                 <Label Text="Align speed"/>
-                <Picker ItemsSource="{Binding ZeroToNineNineNine}"
+                <Picker ItemsSource="{Binding ZeroToOneThousand}"
                         SelectedIndex="{Binding Settings.AlignSpeed}"
                         BackgroundColor="White"
                         HorizontalOptions="EndAndExpand"/>
             </StackLayout>
             <StackLayout Orientation="Horizontal">
                 <Label Text="Zoom speed"/>
-                <Picker ItemsSource="{Binding ZeroToNineNineNine}"
+                <Picker ItemsSource="{Binding ZeroToOneThousand}"
                         SelectedIndex="{Binding Settings.ZoomSpeed}"
                         BackgroundColor="White"
                         HorizontalOptions="EndAndExpand"/>
             </StackLayout>
             <StackLayout Orientation="Horizontal">
                 <Label Text="Rotate speed"/>
-                <Picker ItemsSource="{Binding ZeroToNineNineNine}"
+                <Picker ItemsSource="{Binding ZeroToOneThousand}"
                         SelectedIndex="{Binding Settings.RotationSpeed}"
                         BackgroundColor="White"
                         HorizontalOptions="EndAndExpand"/>
             </StackLayout>
             <StackLayout Orientation="Horizontal">
                 <Label Text="Keystone speed"/>
-                <Picker ItemsSource="{Binding ZeroToNineNineNine}"
+                <Picker ItemsSource="{Binding ZeroToOneThousand}"
                         SelectedIndex="{Binding Settings.KeystoneSpeed}"
                         BackgroundColor="White"
                         HorizontalOptions="EndAndExpand"/>

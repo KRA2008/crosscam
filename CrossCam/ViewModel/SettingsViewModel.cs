@@ -16,8 +16,8 @@ namespace CrossCam.ViewModel
         public Command ResetToDefaults { get; set; }
         
         // ReSharper disable MemberCanBeMadeStatic.Global
-        public IEnumerable<int> ZeroToNineNineNine => Enumerable.Range(0, 1000).ToList();
-        public IEnumerable<int> OneToOneHundred => Enumerable.Range(0, 101).ToList();
+        public IEnumerable<int> ZeroToOneThousand => Enumerable.Range(0, 1001).ToList();
+        public IEnumerable<int> ZeroToOneHundred => Enumerable.Range(0, 101).ToList();
         public IEnumerable<string> BorderColors => Enum.GetNames(typeof(BorderColor)).ToList();
         // ReSharper restore MemberCanBeMadeStatic.Global
 

@@ -525,13 +525,16 @@ namespace CrossCam.ViewModel
                         didSave = didSave && await photoSaver.SavePhoto(finalBytesToSave);
                     }
 
-                    var finalImageWidth = DrawTool.CalculateCanvasWidth(leftBitmap, rightBitmap,
-                        LeftLeftCrop, LeftRightCrop, RightLeftCrop, RightRightCrop,
-                        Settings.AddBorder ? Settings.BorderThickness : 0);
-                    var finalImageHeight = DrawTool.CalculateCanvasHeight(leftBitmap, rightBitmap,
-                        LeftTopCrop, LeftBottomCrop, RightTopCrop, RightBottomCrop,
-                        VerticalAlignment,
-                        Settings.AddBorder ? Settings.BorderThickness : 0);
+                    var finalImageWidth = DrawTool.CalculateCanvasWidthLessBorder(leftBitmap, rightBitmap,
+                        LeftLeftCrop, LeftRightCrop, RightLeftCrop, RightRightCrop);
+                    var borderThickness = Settings.AddBorder
+                        ? (int) (DrawTool.BORDER_CONVERSION_FACTOR * Settings.BorderThicknessProportion *
+                                 finalImageWidth)
+                        : 0;
+                    finalImageWidth += 4 * borderThickness;
+                    var finalImageHeight = DrawTool.CalculateCanvasHeightLessBorder(leftBitmap, rightBitmap,
+                        LeftTopCrop, LeftBottomCrop, RightTopCrop, RightBottomCrop, VerticalAlignment) + 
+                                           2 * borderThickness;
 
                     finalImageWidth = (int)(finalImageWidth * (Settings.ResolutionProportion / 100d));
                     finalImageHeight = (int)(finalImageHeight * (Settings.ResolutionProportion / 100d));
@@ -549,7 +552,7 @@ namespace CrossCam.ViewModel
                                 canvas.Translate(-1f * finalImageWidth, -1f * finalImageHeight);
                             }
                             DrawTool.DrawImagesOnCanvas(canvas, leftBitmap, rightBitmap, 
-                                Settings.BorderThickness, Settings.AddBorder, Settings.BorderColor,
+                                Settings.BorderThicknessProportion, Settings.AddBorder, Settings.BorderColor,
                                 LeftLeftCrop, LeftRightCrop, RightLeftCrop, RightRightCrop,
                                 LeftTopCrop, LeftBottomCrop, RightTopCrop, RightBottomCrop,
                                 LeftRotation, RightRotation, 
@@ -581,7 +584,7 @@ namespace CrossCam.ViewModel
                                 canvas.Translate(-1f * finalImageWidth, -1f * finalImageHeight);
                             }
                             DrawTool.DrawImagesOnCanvas(canvas, leftBitmap, rightBitmap, 
-                                Settings.BorderThickness, Settings.AddBorder, Settings.BorderColor,
+                                Settings.BorderThicknessProportion, Settings.AddBorder, Settings.BorderColor,
                                 LeftLeftCrop, LeftRightCrop, RightLeftCrop, RightRightCrop,
                                 LeftTopCrop, LeftBottomCrop, RightTopCrop, RightBottomCrop,
                                 LeftRotation, RightRotation, VerticalAlignment,

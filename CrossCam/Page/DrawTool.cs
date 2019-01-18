@@ -5,6 +5,7 @@ namespace CrossCam.Page
 {
     public class DrawTool
     {
+        public const double BORDER_CONVERSION_FACTOR = 0.0005;
         private const float FLOATY_ZERO = 0.00001f;
 
         public static void DrawImagesOnCanvas(
@@ -22,7 +23,6 @@ namespace CrossCam.Page
             var canvasWidth = canvas.DeviceClipBounds.Width;
             var canvasHeight = canvas.DeviceClipBounds.Height;
 
-            var innerBorderThickness = leftBitmap != null && rightBitmap != null && addBorder ? borderThickness : 0;
             var leftBitmapWidthLessCrop = 0;
             var rightBitmapWidthLessCrop = 0;
             var bitmapHeightLessCrop = 0;
@@ -55,6 +55,7 @@ namespace CrossCam.Page
                 effectiveJoinedWidth = rightBitmapWidthLessCrop * 2;
             }
 
+            var innerBorderThickness = leftBitmap != null && rightBitmap != null && addBorder ? (int)(BORDER_CONVERSION_FACTOR * borderThickness * effectiveJoinedWidth) : 0;
             effectiveJoinedWidth += 4 * innerBorderThickness;
             var effectiveJoinedHeight = bitmapHeightLessCrop + 2 * innerBorderThickness;
 
@@ -226,9 +227,8 @@ namespace CrossCam.Page
             return keystoned ?? rotatedAndZoomed;
         }
 
-        public static int CalculateCanvasWidth(SKBitmap leftBitmap, SKBitmap rightBitmap, 
-            int leftLeftCrop, int leftRightCrop, int rightLeftCrop, int rightRightCrop,
-            int borderThickness)
+        public static int CalculateCanvasWidthLessBorder(SKBitmap leftBitmap, SKBitmap rightBitmap, 
+            int leftLeftCrop, int leftRightCrop, int rightLeftCrop, int rightRightCrop)
         {
             if (leftBitmap == null && rightBitmap == null) return 0;
 
@@ -243,13 +243,12 @@ namespace CrossCam.Page
             }
 
             return leftBitmap.Width + rightBitmap.Width -
-                leftLeftCrop - leftRightCrop - rightLeftCrop - rightRightCrop +
-                4 * borderThickness;
+                leftLeftCrop - leftRightCrop - rightLeftCrop - rightRightCrop;
         }
 
-        public static int CalculateCanvasHeight(SKBitmap leftBitmap, SKBitmap rightBitmap, 
+        public static int CalculateCanvasHeightLessBorder(SKBitmap leftBitmap, SKBitmap rightBitmap, 
             int leftTopCrop, int leftBottomCrop, int rightTopCrop, int rightBottomCrop,
-            int alignment, int borderThickness)
+            int alignment)
         {
             if (leftBitmap == null && rightBitmap == null) return 0;
 
@@ -258,10 +257,8 @@ namespace CrossCam.Page
                 return leftBitmap?.Height ?? rightBitmap.Height;
             }
 
-            return leftBitmap.Height - leftTopCrop - leftBottomCrop - Math.Abs(alignment) +
-                   2 * borderThickness;
-            var rightHeight = rightBitmap.Height - rightTopCrop - rightBottomCrop +
-                              2 * borderThickness; // not sure when this is not the same as left
+            return leftBitmap.Height - leftTopCrop - leftBottomCrop - Math.Abs(alignment);
+            var rightHeight = rightBitmap.Height - rightTopCrop - rightBottomCrop; // not sure when this is not the same as left
         }
     }
 }

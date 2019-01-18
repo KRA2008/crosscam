@@ -154,15 +154,15 @@ namespace CrossCam.Model
             }
         }
 
-        private int _borderThickness;
-        public int BorderThickness
+        private int _borderThicknessProportion;
+        public int BorderThicknessProportion
         {
-            get => _borderThickness;
+            get => _borderThicknessProportion;
             set
             {
                 if (value >= 0)
                 {
-                    _borderThickness = value;
+                    _borderThicknessProportion = value;
                 }
             }
         }
@@ -201,7 +201,7 @@ namespace CrossCam.Model
             ZoomSpeed = 20;
             AlignSpeed = 10;
             CropSpeed = 20;
-            BorderThickness = 60;
+            BorderThicknessProportion = 25;
             KeystoneSpeed = 50;
         }
 
