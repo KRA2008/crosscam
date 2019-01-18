@@ -16,11 +16,8 @@
             <Button Text="Send me an email"
                     Command="{Binding EmailCommand}"/>
             <BoxView/>
-            <Button Text="Request a feature or report a bug"
-                    Command="{Binding GithubCommand}"/>
-            <BoxView/>
-            <Button Text="Check out the cross view subreddit"
-                    Command="{Binding CrossViewSubredditCommand}"/>
+            <Button Text="Add an issue on Github"
+                    Command="{Binding GithubIssueCommand}"/>
             <BoxView/>
         </StackLayout>
     </ContentPage.Content>

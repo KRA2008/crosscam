@@ -18,6 +18,10 @@ namespace CrossCam.ViewModel
 
         public Command AboutTheDeveloperCommand { get; set; }
 
+        public Command CrossViewSubredditCommand { get; set; }
+
+        public Command GithubCodeCommand { get; set; }
+
         public HelpViewModel()
         {
             NavigateToTechniqueHelpPage = new Command(async () =>
@@ -48,6 +52,16 @@ namespace CrossCam.ViewModel
             AboutTheDeveloperCommand = new Command(() =>
             {
                 Device.OpenUri(new Uri("http://kra2008.com/"));
+            });
+
+            CrossViewSubredditCommand = new Command(() =>
+            {
+                Device.OpenUri(new Uri("https://old.reddit.com/r/CrossView/"));
+            });
+
+            GithubCodeCommand = new Command(() =>
+            {
+                Device.OpenUri(new Uri("https://github.com/KRA2008/crosscam"));
             });
         }
     }

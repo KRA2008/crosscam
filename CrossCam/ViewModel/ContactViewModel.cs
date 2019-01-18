@@ -8,9 +8,7 @@ namespace CrossCam.ViewModel
     {
         public Command EmailCommand { get; set; }
 
-        public Command GithubCommand { get; set; }
-
-        public Command CrossViewSubredditCommand { get; set; }
+        public Command GithubIssueCommand { get; set; }
 
         public ContactViewModel()
         {
@@ -19,14 +17,9 @@ namespace CrossCam.ViewModel
                 Device.OpenUri(new Uri("mailto:me@kra2008.com?subject=CrossCam%20feedback"));
             });
 
-            GithubCommand = new Command(() =>
+            GithubIssueCommand = new Command(() =>
             {
                 Device.OpenUri(new Uri("https://github.com/KRA2008/crosscam/issues"));
-            });
-
-            CrossViewSubredditCommand = new Command(() =>
-            {
-                Device.OpenUri(new Uri("https://old.reddit.com/r/CrossView/"));
             });
         }
     }

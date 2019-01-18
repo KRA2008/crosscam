@@ -25,8 +25,14 @@
             <Button Text="Feedback/Contact"
                     Command="{Binding NavigateToContactPage}"/>
             <BoxView/>
+            <Button Text="CrossView Subreddit"
+                    Command="{Binding CrossViewSubredditCommand}"/>
+            <BoxView/>
             <Button Text="Privacy Policy"
                     Command="{Binding PrivacyPolicyCommand}"/>
+            <BoxView/>
+            <Button Text="See the Code"
+                    Command="{Binding GithubCodeCommand}"/>
             <BoxView/>
             <Button Text="About the Developer"
                     Command="{Binding AboutTheDeveloperCommand}"/>
