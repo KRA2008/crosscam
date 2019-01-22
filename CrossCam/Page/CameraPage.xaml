@@ -301,7 +301,7 @@
         <Grid AbsoluteLayout.LayoutFlags="PositionProportional,WidthProportional"
               RowSpacing="0"
               ColumnSpacing="0"
-              IsVisible="{Binding WorkflowStage, Converter={vc:EnumCompareConverter}, ConverterParameter={x:Static vm:WorkflowStage.Final}}">
+              IsVisible="{Binding ShouldSaveCapturesButtonBeVisible}">
             <AbsoluteLayout.LayoutBounds>
                 <Rectangle X="0" Y="1" Width="1" Height="15"/>
             </AbsoluteLayout.LayoutBounds>
@@ -354,7 +354,7 @@
         <ContentView AbsoluteLayout.LayoutFlags="PositionProportional"
                      AbsoluteLayout.LayoutBounds="{StaticResource _captureBounds}"
                      Padding="{StaticResource _bottomPadding}"
-                     IsVisible="{Binding WorkflowStage, Converter={vc:EnumCompareConverter}, ConverterParameter={x:Static vm:WorkflowStage.Final}}">
+                     IsVisible="{Binding ShouldSaveCapturesButtonBeVisible}">
             <ContentView.GestureRecognizers>
                 <TapGestureRecognizer Command="{Binding SaveCapturesCommand}"/>
             </ContentView.GestureRecognizers>

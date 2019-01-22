@@ -248,6 +248,11 @@ namespace CrossCam.ViewModel
                                                       WorkflowStage == WorkflowStage.ManualAlign;
         public bool ShouldActivityIndicatorBeVisible => WorkflowStage == WorkflowStage.AutomaticAlign ||
                                                         WorkflowStage == WorkflowStage.Saving;
+        public bool ShouldSaveCapturesButtonBeVisible => WorkflowStage == WorkflowStage.Final &&
+                                                         (Settings.SaveForCrossView ||
+                                                          Settings.SaveForParallel ||
+                                                          Settings.SaveSidesSeparately ||
+                                                          Settings.SaveRedundantFirstSide);
         
         public int IconColumn => IsCaptureLeftFirst ? 1 : 0;
 
@@ -893,6 +898,7 @@ namespace CrossCam.ViewModel
             RaisePropertyChanged(nameof(ShouldRollGuideBeVisible));
             RaisePropertyChanged(nameof(ShouldPitchGuideBeVisible));
             RaisePropertyChanged(nameof(ShouldYawGuideBeVisible));
+            RaisePropertyChanged(nameof(ShouldSaveCapturesButtonBeVisible));
             RaisePropertyChanged(nameof(RightReticleImage));
             RaisePropertyChanged(nameof(Settings)); // this doesn't cause reevaluation for above stuff (but I'd like it to), but it does trigger redraw of canvas and rerun of auto alignment
 
