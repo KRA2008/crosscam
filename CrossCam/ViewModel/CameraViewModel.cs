@@ -663,46 +663,53 @@ namespace CrossCam.ViewModel
         {
             WorkflowStage = WorkflowStage.AutomaticAlign;
 
-            await Task.Delay(500);
-
-            var colorsLeft = GetVerticalSpectrum(LeftBitmap);
-            var colorsRight = GetVerticalSpectrum(RightBitmap);
-
-            var error0 = GetErrorForOffset(colorsLeft, colorsRight, 0);
-            var errorPlus1 = GetErrorForOffset(colorsLeft, colorsRight, 1);
-            var errorMinus1 = GetErrorForOffset(colorsLeft, colorsRight, -1);
-
             var offset = 0;
-            if (error0 < errorPlus1 &&
-                error0 < errorMinus1)
+
+            await Task.Run(() =>
             {
-                //no correction needed!
-            }
-            else
-            {
-                var direction = 1;
-                var error = errorPlus1;
-                if (errorMinus1 < errorPlus1)
+                Debug.WriteLine("starting alignment");
+
+                var colorsLeft = GetVerticalSpectrum(LeftBitmap);
+                var colorsRight = GetVerticalSpectrum(RightBitmap);
+
+                var error0 = GetErrorForOffset(colorsLeft, colorsRight, 0);
+                var errorPlus1 = GetErrorForOffset(colorsLeft, colorsRight, 1);
+                var errorMinus1 = GetErrorForOffset(colorsLeft, colorsRight, -1);
+
+                if (error0 < errorPlus1 &&
+                    error0 < errorMinus1)
                 {
-                    direction = -1;
-                    error = errorMinus1;
+                    //no correction needed!
                 }
-                
-                offset = direction * 2;
-                while (true)
+                else
                 {
-                    var newError = GetErrorForOffset(colorsLeft, colorsRight, offset);
-                    if (newError < error)
+                    var direction = 1;
+                    var error = errorPlus1;
+                    if (errorMinus1 < errorPlus1)
                     {
-                        error = newError;
-                        offset += direction;
+                        direction = -1;
+                        error = errorMinus1;
                     }
-                    else
+
+                    offset = direction * 2;
+                    Debug.WriteLine("starting alignment loop");
+                    while (true)
                     {
-                        break;
+                        var newError = GetErrorForOffset(colorsLeft, colorsRight, offset);
+                        if (newError < error)
+                        {
+                            error = newError;
+                            offset += direction;
+                        }
+                        else
+                        {
+                            break;
+                        }
                     }
                 }
-            }
+
+                Debug.WriteLine("alignment done");
+            });
 
             AutomaticAlignment = offset;
 
