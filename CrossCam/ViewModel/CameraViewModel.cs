@@ -623,22 +623,27 @@ namespace CrossCam.ViewModel
                 }
                 catch (Exception e)
                 {
+                    LeftBitmap = leftBitmap;
+                    RightBitmap = rightBitmap;
+
                     ErrorMessage = e.ToString();
 
-                    WorkflowStage = WorkflowStage.Capture;
+                    WorkflowStage = WorkflowStage.Final;
 
                     FailFadeTrigger = !FailFadeTrigger;
+
+                    return;
                 }
                 finally
                 {
                     rightSkImage?.Dispose();
                     leftSkImage?.Dispose();
                     finalImage?.Dispose();
-                    leftBitmap.Dispose();
-                    rightBitmap.Dispose();
-
-                    ClearCaptures();
                 }
+
+                leftBitmap?.Dispose();
+                rightBitmap?.Dispose();
+                ClearCaptures();
             });
 
             PromptForPermissionAndSendErrorEmailCommand = new Command(async () =>
@@ -664,11 +669,8 @@ namespace CrossCam.ViewModel
             WorkflowStage = WorkflowStage.AutomaticAlign;
 
             var offset = 0;
-
             await Task.Run(() =>
             {
-                Debug.WriteLine("starting alignment");
-
                 var colorsLeft = GetVerticalSpectrum(LeftBitmap);
                 var colorsRight = GetVerticalSpectrum(RightBitmap);
 
@@ -692,7 +694,6 @@ namespace CrossCam.ViewModel
                     }
 
                     offset = direction * 2;
-                    Debug.WriteLine("starting alignment loop");
                     while (true)
                     {
                         var newError = GetErrorForOffset(colorsLeft, colorsRight, offset);
@@ -707,10 +708,7 @@ namespace CrossCam.ViewModel
                         }
                     }
                 }
-
-                Debug.WriteLine("alignment done");
             });
-
             AutomaticAlignment = offset;
 
             WorkflowStage = WorkflowStage.Final;
