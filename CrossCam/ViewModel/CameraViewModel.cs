@@ -877,7 +877,7 @@ namespace CrossCam.ViewModel
             RaisePropertyChanged(nameof(ShouldPitchGuideBeVisible));
             RaisePropertyChanged(nameof(ShouldYawGuideBeVisible));
             RaisePropertyChanged(nameof(RightReticleImage));
-            RaisePropertyChanged(nameof(Settings)); // this doesn't cause reevaluation for above stuff, but triggers redraw of canvas
+            RaisePropertyChanged(nameof(Settings)); // this doesn't cause reevaluation for above stuff (but I'd like it to), but it does trigger redraw of canvas
 
             await Task.Delay(100);
             await EvaluateAndShowWelcomePopup();
