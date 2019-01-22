@@ -178,14 +178,15 @@ namespace CrossCam.ViewModel
             }
         });
 
-        public int VerticalAlignment { get; set; }
+        public int AutomaticAlignment { get; set; }
+        public int ManualAlignment { get; set; }
         public Command LeftUpRightDown => new Command(() =>
         {
-            VerticalAlignment += Settings.AlignSpeed;
+            ManualAlignment += Settings.AlignSpeed;
         });
         public Command LeftDownRightUp => new Command(() =>
         {
-            VerticalAlignment -= Settings.AlignSpeed;
+            ManualAlignment -= Settings.AlignSpeed;
         });
 
         private const float ROTATION_MULTIPLIER = 100f;
@@ -537,7 +538,8 @@ namespace CrossCam.ViewModel
                         : 0;
                     finalImageWidth += 4 * borderThickness;
                     var finalImageHeight = DrawTool.CalculateCanvasHeightLessBorder(leftBitmap, rightBitmap,
-                        LeftTopCrop, LeftBottomCrop, RightTopCrop, RightBottomCrop, VerticalAlignment) + 
+                        LeftTopCrop, LeftBottomCrop, RightTopCrop, RightBottomCrop, 
+                                               ManualAlignment + (Settings.IsAutomaticAlignmentOn ? AutomaticAlignment : 0)) + 
                                            2 * borderThickness;
 
                     finalImageWidth = (int)(finalImageWidth * (Settings.ResolutionProportion / 100d));
@@ -560,7 +562,7 @@ namespace CrossCam.ViewModel
                                 LeftLeftCrop, LeftRightCrop, RightLeftCrop, RightRightCrop,
                                 LeftTopCrop, LeftBottomCrop, RightTopCrop, RightBottomCrop,
                                 LeftRotation, RightRotation, 
-                                VerticalAlignment,
+                                ManualAlignment + (Settings.IsAutomaticAlignmentOn ? AutomaticAlignment : 0),
                                 LeftZoom, RightZoom,
                                 LeftKeystone, RightKeystone);
 
@@ -591,7 +593,8 @@ namespace CrossCam.ViewModel
                                 Settings.BorderThicknessProportion, Settings.AddBorder, Settings.BorderColor,
                                 LeftLeftCrop, LeftRightCrop, RightLeftCrop, RightRightCrop,
                                 LeftTopCrop, LeftBottomCrop, RightTopCrop, RightBottomCrop,
-                                LeftRotation, RightRotation, VerticalAlignment,
+                                LeftRotation, RightRotation, 
+                                ManualAlignment + (Settings.IsAutomaticAlignmentOn ? AutomaticAlignment : 0),
                                 LeftZoom, RightZoom,
                                 LeftKeystone, RightKeystone,
                                 true);
@@ -706,7 +709,7 @@ namespace CrossCam.ViewModel
                 }
             }
 
-            VerticalAlignment = offset;
+            AutomaticAlignment = offset;
 
             WorkflowStage = WorkflowStage.Final;
         }
@@ -930,9 +933,9 @@ namespace CrossCam.ViewModel
         {
             LeftRotation = 0;
             RightRotation = 0;
-            VerticalAlignment = 0;
             LeftZoom = 0;
             RightZoom = 0;
+            ManualAlignment = 0;
         }
 
         private void ClearKeystone()

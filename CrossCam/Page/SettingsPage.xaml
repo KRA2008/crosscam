@@ -96,44 +96,6 @@
                         IsEnabled="{Binding Settings.SaveSidesSeparately, Converter={vc:BooleanInvertConverter}}"/>
             </StackLayout>
             <BoxView/>
-            <Label Text="Guides"
-                   Style="{DynamicResource header}"/>
-            <StackLayout Orientation="Horizontal">
-                <Label Text="Lines visible"/>
-                <Switch IsToggled="{Binding Settings.AreGuideLinesVisible}"/>
-            </StackLayout>
-            <StackLayout Orientation="Horizontal">
-                <Label Text="Lines visible before first capture"/>
-                <Switch IsEnabled="{Binding Settings.AreGuideLinesVisible}"
-                        IsToggled="{Binding Settings.ShowGuideLinesWithFirstCapture}"/>
-            </StackLayout>
-            <StackLayout Orientation="Horizontal">
-                <Label Text="Roll guide visible"/>
-                <Switch IsToggled="{Binding Settings.ShowRollGuide}"/>
-            </StackLayout>
-            <StackLayout Orientation="Horizontal">
-                <Label Text="Pitch guide visible (experimental)"/>
-                <Switch IsToggled="{Binding Settings.ShowPitchGuide}"/>
-            </StackLayout>
-            <StackLayout Orientation="Horizontal">
-                <Label Text="Yaw guide visible (experimental)"/>
-                <Switch IsToggled="{Binding Settings.ShowYawGuide}"/>
-            </StackLayout>
-            <StackLayout Orientation="Horizontal">
-                <Label Text="Donut/dot visible (experimental/generally only useful for very large scenes)"/>
-                <Switch IsToggled="{Binding Settings.IsGuideDonutVisible}"/>
-            </StackLayout>
-            <StackLayout Orientation="Horizontal">
-                <Label Text="Donut/dot visible before first capture"/>
-                <Switch IsEnabled="{Binding Settings.IsGuideDonutVisible}"
-                        IsToggled="{Binding Settings.ShowGuideDonutWithFirstCapture}"/>
-            </StackLayout>
-            <StackLayout Orientation="Horizontal">
-                <Label Text="Both sides donut (not helpful, but interesting)"/>
-                <Switch IsEnabled="{Binding Settings.IsGuideDonutVisible}"
-                        IsToggled="{Binding Settings.IsGuideDonutBothDonuts}"/>
-            </StackLayout>
-            <BoxView/>
             <Label Text="Editing"
                    Style="{DynamicResource header}"/>
             <StackLayout Orientation="Horizontal">
@@ -174,6 +136,44 @@
                         SelectedIndex="{Binding Settings.KeystoneSpeed}"
                         BackgroundColor="White"
                         HorizontalOptions="EndAndExpand"/>
+            </StackLayout>
+            <BoxView/>
+            <Label Text="Guides"
+                   Style="{DynamicResource header}"/>
+            <StackLayout Orientation="Horizontal">
+                <Label Text="Lines visible"/>
+                <Switch IsToggled="{Binding Settings.AreGuideLinesVisible}"/>
+            </StackLayout>
+            <StackLayout Orientation="Horizontal">
+                <Label Text="Lines visible before first capture"/>
+                <Switch IsEnabled="{Binding Settings.AreGuideLinesVisible}"
+                        IsToggled="{Binding Settings.ShowGuideLinesWithFirstCapture}"/>
+            </StackLayout>
+            <StackLayout Orientation="Horizontal">
+                <Label Text="Roll guide visible"/>
+                <Switch IsToggled="{Binding Settings.ShowRollGuide}"/>
+            </StackLayout>
+            <StackLayout Orientation="Horizontal">
+                <Label Text="Pitch guide visible (experimental)"/>
+                <Switch IsToggled="{Binding Settings.ShowPitchGuide}"/>
+            </StackLayout>
+            <StackLayout Orientation="Horizontal">
+                <Label Text="Yaw guide visible (experimental)"/>
+                <Switch IsToggled="{Binding Settings.ShowYawGuide}"/>
+            </StackLayout>
+            <StackLayout Orientation="Horizontal">
+                <Label Text="Donut/dot visible (experimental/generally only useful for very large scenes)"/>
+                <Switch IsToggled="{Binding Settings.IsGuideDonutVisible}"/>
+            </StackLayout>
+            <StackLayout Orientation="Horizontal">
+                <Label Text="Donut/dot visible before first capture"/>
+                <Switch IsEnabled="{Binding Settings.IsGuideDonutVisible}"
+                        IsToggled="{Binding Settings.ShowGuideDonutWithFirstCapture}"/>
+            </StackLayout>
+            <StackLayout Orientation="Horizontal">
+                <Label Text="Both sides donut (not helpful, but interesting)"/>
+                <Switch IsEnabled="{Binding Settings.IsGuideDonutVisible}"
+                        IsToggled="{Binding Settings.IsGuideDonutBothDonuts}"/>
             </StackLayout>
             <BoxView/>
             <Label Text="Camera"
