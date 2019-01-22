@@ -686,11 +686,6 @@ namespace CrossCam.ViewModel
                 {
                     direction = -1;
                     error = errorMinus1;
-                    Debug.WriteLine("error negative");
-                }
-                else
-                {
-                    Debug.WriteLine("error positive");
                 }
                 
                 offset = direction * 2;
@@ -737,18 +732,20 @@ namespace CrossCam.ViewModel
 
                 for (var row = 0; row < bitmap.Height; row++)
                 {
-                    for (var column = 0; column < bitmap.Width; column++)
+                    for (var column = 0; column < bitmap.Width / 2; column++)
                     {
-                        var pixel = *ptr++;
+                        var pixel = *ptr;
                         var colorsCombined = (int)(pixel & 0x000000FF) +
                                              (int)((pixel & 0x0000FF00) >> 8) +
                                              (int)((pixel & 0x00FF0000) >> 16);
                         colorsLeft[row] += colorsCombined;
+                        ptr++;
+                        ptr++;
                     }
                 }
             }
 
-            return colorsLeft.ToArray();
+            return colorsLeft;
         }
 
         private void SetLeftBitmap(SKBitmap bitmap, bool withMovementTrigger = true)
