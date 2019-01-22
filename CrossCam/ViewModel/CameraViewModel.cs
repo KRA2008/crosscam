@@ -264,6 +264,7 @@ namespace CrossCam.ViewModel
             : ImageSource.FromFile("squareInner");
         
         private WorkflowStage _stageBeforeView;
+        private bool _wasAutomaticAlignmentRun;
 
         public CameraViewModel()
         {
@@ -304,6 +305,16 @@ namespace CrossCam.ViewModel
                     if (ErrorMessage != null)
                     {
                         PromptForPermissionAndSendErrorEmailCommand.Execute(null);
+                    }
+                }
+                else if (args.PropertyName == nameof(Settings))
+                {
+                    if (Settings.IsAutomaticAlignmentOn &&
+                        !_wasAutomaticAlignmentRun &&
+                        RightBitmap != null &&
+                        LeftBitmap != null)
+                    {
+                        AutoAlign();
                     }
                 }
             };
@@ -710,6 +721,7 @@ namespace CrossCam.ViewModel
                 }
             });
             AutomaticAlignment = offset;
+            _wasAutomaticAlignmentRun = true;
 
             WorkflowStage = WorkflowStage.Final;
         }
@@ -882,7 +894,7 @@ namespace CrossCam.ViewModel
             RaisePropertyChanged(nameof(ShouldPitchGuideBeVisible));
             RaisePropertyChanged(nameof(ShouldYawGuideBeVisible));
             RaisePropertyChanged(nameof(RightReticleImage));
-            RaisePropertyChanged(nameof(Settings)); // this doesn't cause reevaluation for above stuff (but I'd like it to), but it does trigger redraw of canvas
+            RaisePropertyChanged(nameof(Settings)); // this doesn't cause reevaluation for above stuff (but I'd like it to), but it does trigger redraw of canvas and rerun of auto alignment
 
             await Task.Delay(100);
             await EvaluateAndShowWelcomePopup();
@@ -951,11 +963,14 @@ namespace CrossCam.ViewModel
             ClearCrops();
             ClearAlignments();
             ClearKeystone();
+            _wasAutomaticAlignmentRun = false;
         }
 
         private void ClearCaptures()
         {
+            LeftBitmap?.Dispose();
             LeftBitmap = null;
+            RightBitmap?.Dispose();
             RightBitmap = null;
             IsCameraVisible = true;
             ClearEdits();
