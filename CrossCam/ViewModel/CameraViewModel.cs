@@ -661,45 +661,16 @@ namespace CrossCam.ViewModel
             {
                 var colorsLeft = GetVerticalSpectrum(LeftBitmap);
                 var colorsRight = GetVerticalSpectrum(RightBitmap);
-
-                var error0 = GetErrorForOffset(colorsLeft, colorsRight, 0);
-                var errorPlus1 = GetErrorForOffset(colorsLeft, colorsRight, 1);
-                var errorMinus1 = GetErrorForOffset(colorsLeft, colorsRight, -1);
-
-                if (error0 < errorPlus1 &&
-                    error0 < errorMinus1)
+                
+                var halfHeight = LeftBitmap.Height / 2;
+                var error = long.MaxValue;
+                for (var ii = -halfHeight; ii < halfHeight; ii++)
                 {
-                    //no correction needed!
-                }
-                else
-                {
-                    var direction = 1;
-                    var error = errorPlus1;
-                    if (errorMinus1 < errorPlus1)
+                    var newError = GetErrorForOffset(colorsLeft, colorsRight, ii);
+                    if (newError < error)
                     {
-                        direction = -1;
-                        error = errorMinus1;
-                    }
-
-                    offset = direction * 2;
-                    while (true)
-                    {
-                        var newError = GetErrorForOffset(colorsLeft, colorsRight, offset);
-                        if (newError < error)
-                        {
-                            error = newError;
-                            offset += direction;
-
-                            if (Math.Abs(offset) > LeftBitmap.Height / 2)
-                            {
-                                offset = 0;
-                                break;
-                            }
-                        }
-                        else
-                        {
-                            break;
-                        }
+                        error = newError;
+                        offset = ii;
                     }
                 }
             });
