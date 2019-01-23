@@ -889,7 +889,7 @@ namespace CrossCam.ViewModel
             if (!Settings.HasOfferedTechniqueHelpBefore)
             {
                 var showTechniquePage = await CoreMethods.DisplayAlert("Welcome to CrossCam!",
-                    "CrossCam was made to help you take 3D photos. The photos are 3D just like VR or 3D movies are, but you don't need any special equipment or glasses - just your phone. The technique to view the 3D photos is a little tricky and takes some practice to get it right. Would you like to learn more about the viewing technique?",
+                    "CrossCam was made to help you take 3D photos. The photos are 3D just like VR or 3D movies are, but you don't need any special equipment or glasses - just your phone. The technique to view the 3D photos is a little tricky and takes some practice to get it right. Before I tell you how to use CrossCam, would you first like to learn more about the viewing technique?",
                     "Yes", "No");
                 Settings.HasOfferedTechniqueHelpBefore = true;
                 PersistentStorage.Save(PersistentStorage.SETTINGS_KEY, Settings);
