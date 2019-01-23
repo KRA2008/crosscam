@@ -689,6 +689,12 @@ namespace CrossCam.ViewModel
                         {
                             error = newError;
                             offset += direction;
+
+                            if (Math.Abs(offset) > LeftBitmap.Height / 2)
+                            {
+                                offset = 0;
+                                break;
+                            }
                         }
                         else
                         {
@@ -941,6 +947,7 @@ namespace CrossCam.ViewModel
             ClearCrops();
             ClearAlignments();
             ClearKeystone();
+            AutomaticAlignment = 0;
             _wasAutomaticAlignmentRun = false;
         }
 
