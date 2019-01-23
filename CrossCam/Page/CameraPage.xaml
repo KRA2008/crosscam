@@ -841,8 +841,8 @@
                HorizontalOptions="CenterAndExpand"
                VerticalOptions="CenterAndExpand"
                Color="White"
-               IsVisible="{Binding ShouldActivityIndicatorBeVisible}"
-               IsRunning="{Binding ShouldActivityIndicatorBeVisible}"
+               IsVisible="{Binding IsBusy}"
+               IsRunning="{Binding IsBusy}"
                InputTransparent="True"/>
         <Label Text="Saving..."
                Style="{StaticResource _savingFeedback}"
@@ -850,6 +850,9 @@
         <Label Text="Aligning..."
                Style="{StaticResource _savingFeedback}"
                IsVisible="{Binding WorkflowStage, Converter={vc:EnumCompareConverter}, ConverterParameter={x:Static vm:WorkflowStage.AutomaticAlign}}"/>
+        <Label Text="Loading..."
+               Style="{StaticResource _savingFeedback}"
+               IsVisible="{Binding WorkflowStage, Converter={vc:EnumCompareConverter}, ConverterParameter={x:Static vm:WorkflowStage.Loading}}"/>
         <ContentView AbsoluteLayout.LayoutFlags="All"
                      AbsoluteLayout.LayoutBounds="0,0,1,1"
                      IsVisible="{Binding WorkflowStage, Converter={vc:EnumCompareConverter}, ConverterParameter={x:Static vm:WorkflowStage.View}}">

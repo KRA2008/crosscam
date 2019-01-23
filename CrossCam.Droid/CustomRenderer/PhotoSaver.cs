@@ -37,12 +37,13 @@ namespace CrossCam.Droid.CustomRenderer
                             bitmap.Compress(Bitmap.CompressFormat.Jpeg, 100, imageOut);
                         }
                     }
+
+                    taskCompletionSource.SetResult(true);
                 }
-                catch
+                catch (Exception e)
                 {
-                    taskCompletionSource.SetResult(false);
+                    taskCompletionSource.SetException(e);
                 }
-                taskCompletionSource.SetResult(true);
             });
 
             return taskCompletionSource.Task;

@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
@@ -228,7 +227,8 @@ namespace CrossCam.ViewModel
         public bool ShouldLeftRetakeBeVisible => LeftBitmap != null && (WorkflowStage == WorkflowStage.Capture || WorkflowStage == WorkflowStage.Final && DoesCaptureOrientationMatchViewOrientation);
         public bool ShouldRightRetakeBeVisible => RightBitmap != null && (WorkflowStage == WorkflowStage.Capture || WorkflowStage == WorkflowStage.Final && DoesCaptureOrientationMatchViewOrientation);
         public bool DoesCaptureOrientationMatchViewOrientation => WasCapturePortrait == IsViewPortrait;
-        public bool ShouldSettingsAndHelpBeVisible => WorkflowStage != WorkflowStage.Saving && WorkflowStage != WorkflowStage.View;
+        public bool ShouldSettingsAndHelpBeVisible => !IsBusy && 
+                                                      WorkflowStage != WorkflowStage.View;
         public bool IsExactlyOnePictureTaken => LeftBitmap == null ^ RightBitmap == null;
         public bool ShouldLineGuidesBeVisible => (IsExactlyOnePictureTaken || Settings.ShowGuideLinesWithFirstCapture && WorkflowStage == WorkflowStage.Capture) && Settings.AreGuideLinesVisible || WorkflowStage == WorkflowStage.Keystone || WorkflowStage == WorkflowStage.ManualAlign;
         public bool ShouldDonutGuideBeVisible => (IsExactlyOnePictureTaken || Settings.ShowGuideDonutWithFirstCapture && WorkflowStage == WorkflowStage.Capture) && Settings.IsGuideDonutVisible;
@@ -246,8 +246,9 @@ namespace CrossCam.ViewModel
         public bool ShouldClearEditButtonBeVisible => WorkflowStage == WorkflowStage.Crop ||
                                                       WorkflowStage == WorkflowStage.Keystone ||
                                                       WorkflowStage == WorkflowStage.ManualAlign;
-        public bool ShouldActivityIndicatorBeVisible => WorkflowStage == WorkflowStage.AutomaticAlign ||
-                                                        WorkflowStage == WorkflowStage.Saving;
+        public bool IsBusy => WorkflowStage == WorkflowStage.Loading ||
+                              WorkflowStage == WorkflowStage.AutomaticAlign ||
+                              WorkflowStage == WorkflowStage.Saving;
         public bool ShouldSaveCapturesButtonBeVisible => WorkflowStage == WorkflowStage.Final &&
                                                          (Settings.SaveForCrossView ||
                                                           Settings.SaveForParallel ||
@@ -298,11 +299,11 @@ namespace CrossCam.ViewModel
                 {
                     if (CameraColumn == 0)
                     {
-                        SetLeftBitmap(GetBitmapAndCorrectOrientation(CapturedImageBytes));
+                        LeftBytesCaptured(CapturedImageBytes);
                     }
                     else
                     {
-                        SetRightBitmap(GetBitmapAndCorrectOrientation(CapturedImageBytes));
+                        RightBytesCaptured(CapturedImageBytes);
                     }
                 }
                 else if (args.PropertyName == nameof(ErrorMessage))
@@ -340,8 +341,11 @@ namespace CrossCam.ViewModel
                 {
                     if (loadType == FULL_IMAGE)
                     {
-                        SetLeftBitmap(GetHalfOfFullStereoImage(photo, true), false);
-                        SetRightBitmap(GetHalfOfFullStereoImage(photo, false), false);
+                        WorkflowStage = WorkflowStage.Loading;
+                        var leftHalf = await Task.Run(() => GetHalfOfFullStereoImage(photo, true));
+                        SetLeftBitmap(leftHalf, false);
+                        var rightHalf = await Task.Run(() => GetHalfOfFullStereoImage(photo, false));
+                        SetRightBitmap(rightHalf, false);
                     }
                     else if (loadType == SINGLE_SIDE)
                     {
@@ -464,201 +468,157 @@ namespace CrossCam.ViewModel
             SaveCapturesCommand = new Command(async () =>
             {
                 WorkflowStage = WorkflowStage.Saving;
-
-                var leftBitmap = LeftBitmap;
-                var rightBitmap = RightBitmap;
-
-                SKImage leftSkImage = null;
-                SKImage rightSkImage = null;
-                SKImage finalImage = null;
+                
                 try
                 {
-                    LeftBitmap = null;
-                    RightBitmap = null;
-
-                    await Task.Delay(100); // take a break to go update the screen
-
-                    var didSave = true;
-
-                    byte[] finalBytesToSave;
-
-                    var needs180Flip = Device.RuntimePlatform == Device.iOS && IsViewInvertedLandscape;
-
-                    if (Settings.SaveSidesSeparately)
+                    await Task.Run(async () =>
                     {
-                        using (var tempSurface =
-                            SKSurface.Create(new SKImageInfo(leftBitmap.Width, leftBitmap.Height)))
-                        {
-                            var canvas = tempSurface.Canvas;
+                        var needs180Flip = Device.RuntimePlatform == Device.iOS && IsViewInvertedLandscape;
 
-                            canvas.Clear();
-                            if (needs180Flip)
+                        if (Settings.SaveSidesSeparately)
+                        {
+                            using (var tempSurface =
+                                SKSurface.Create(new SKImageInfo(LeftBitmap.Width, LeftBitmap.Height)))
                             {
-                                canvas.RotateDegrees(180);
-                                canvas.Translate(-1f * leftBitmap.Width, -1f * leftBitmap.Height);
+                                var canvas = tempSurface.Canvas;
+
+                                canvas.Clear();
+                                if (needs180Flip)
+                                {
+                                    canvas.RotateDegrees(180);
+                                    canvas.Translate(-1f * LeftBitmap.Width, -1f * LeftBitmap.Height);
+                                }
+
+                                canvas.DrawBitmap(LeftBitmap, 0, 0);
+                                using (var leftSkImage = tempSurface.Snapshot())
+                                {
+                                    using (var encoded = leftSkImage.Encode(SKEncodedImageFormat.Jpeg, 100))
+                                    {
+                                        await photoSaver.SavePhoto(encoded.ToArray());
+                                    }
+                                }
+
+                                canvas.Clear();
+                                canvas.DrawBitmap(RightBitmap, 0, 0);
+                                using (var rightSkImage = tempSurface.Snapshot())
+                                {
+                                    using (var encoded = rightSkImage.Encode(SKEncodedImageFormat.Jpeg, 100))
+                                    {
+                                        await photoSaver.SavePhoto(encoded.ToArray());
+                                    }
+                                }
                             }
-                            canvas.DrawBitmap(leftBitmap, 0, 0);
-                            leftSkImage = tempSurface.Snapshot();
-
-                            canvas.Clear();
-                            canvas.DrawBitmap(rightBitmap, 0, 0);
-                            rightSkImage = tempSurface.Snapshot();
                         }
 
-                        using (var encoded = leftSkImage.Encode(SKEncodedImageFormat.Jpeg, 100))
+                        if (Settings.SaveRedundantFirstSide)
                         {
-                            finalBytesToSave = encoded.ToArray();
-                        }
-
-                        // ReSharper disable once ConditionIsAlwaysTrueOrFalse - just let it go
-                        didSave = didSave && await photoSaver.SavePhoto(finalBytesToSave);
-
-                        using (var encoded = rightSkImage.Encode(SKEncodedImageFormat.Jpeg, 100))
-                        {
-                            finalBytesToSave = encoded.ToArray();
-                        }
-
-                        didSave = didSave && await photoSaver.SavePhoto(finalBytesToSave);
-                    }
-
-                    if (Settings.SaveRedundantFirstSide)
-                    {
-                        using (var tempSurface =
-                            SKSurface.Create(new SKImageInfo(leftBitmap.Width, leftBitmap.Height)))
-                        {
-                            var canvas = tempSurface.Canvas;
-                            canvas.Clear();
-                            if (needs180Flip)
+                            using (var tempSurface =
+                                SKSurface.Create(new SKImageInfo(LeftBitmap.Width, LeftBitmap.Height)))
                             {
-                                canvas.RotateDegrees(180);
-                                canvas.Translate(-1f * leftBitmap.Width, -1f * leftBitmap.Height);
+                                var canvas = tempSurface.Canvas;
+                                canvas.Clear();
+                                if (needs180Flip)
+                                {
+                                    canvas.RotateDegrees(180);
+                                    canvas.Translate(-1f * LeftBitmap.Width, -1f * LeftBitmap.Height);
+                                }
+
+                                canvas.DrawBitmap(IsCaptureLeftFirst ? LeftBitmap : RightBitmap, 0, 0);
+
+                                using (var encoded = tempSurface.Snapshot().Encode(SKEncodedImageFormat.Jpeg, 100))
+                                {
+                                    await photoSaver.SavePhoto(encoded.ToArray());
+                                }
                             }
-                            canvas.DrawBitmap(IsCaptureLeftFirst ? leftBitmap : rightBitmap, 0, 0);
-
-                            finalImage = tempSurface.Snapshot();
                         }
 
-                        using (var encoded = finalImage.Encode(SKEncodedImageFormat.Jpeg, 100))
+                        var finalImageWidth = DrawTool.CalculateCanvasWidthLessBorder(LeftBitmap, RightBitmap,
+                            LeftLeftCrop, LeftRightCrop, RightLeftCrop, RightRightCrop);
+                        var borderThickness = Settings.AddBorder
+                            ? (int) (DrawTool.BORDER_CONVERSION_FACTOR * Settings.BorderThicknessProportion *
+                                     finalImageWidth)
+                            : 0;
+                        finalImageWidth += 4 * borderThickness;
+                        var finalImageHeight = DrawTool.CalculateCanvasHeightLessBorder(LeftBitmap, RightBitmap,
+                                                   LeftTopCrop, LeftBottomCrop, RightTopCrop, RightBottomCrop,
+                                                   ManualAlignment + (Settings.IsAutomaticAlignmentOn
+                                                       ? AutomaticAlignment
+                                                       : 0)) +
+                                               2 * borderThickness;
+
+                        finalImageWidth = (int) (finalImageWidth * (Settings.ResolutionProportion / 100d));
+                        finalImageHeight = (int) (finalImageHeight * (Settings.ResolutionProportion / 100d));
+
+                        if (Settings.SaveForCrossView)
                         {
-                            finalBytesToSave = encoded.ToArray();
-                        }
-
-                        didSave = didSave && await photoSaver.SavePhoto(finalBytesToSave);
-                    }
-
-                    var finalImageWidth = DrawTool.CalculateCanvasWidthLessBorder(leftBitmap, rightBitmap,
-                        LeftLeftCrop, LeftRightCrop, RightLeftCrop, RightRightCrop);
-                    var borderThickness = Settings.AddBorder
-                        ? (int) (DrawTool.BORDER_CONVERSION_FACTOR * Settings.BorderThicknessProportion *
-                                 finalImageWidth)
-                        : 0;
-                    finalImageWidth += 4 * borderThickness;
-                    var finalImageHeight = DrawTool.CalculateCanvasHeightLessBorder(leftBitmap, rightBitmap,
-                        LeftTopCrop, LeftBottomCrop, RightTopCrop, RightBottomCrop, 
-                                               ManualAlignment + (Settings.IsAutomaticAlignmentOn ? AutomaticAlignment : 0)) + 
-                                           2 * borderThickness;
-
-                    finalImageWidth = (int)(finalImageWidth * (Settings.ResolutionProportion / 100d));
-                    finalImageHeight = (int)(finalImageHeight * (Settings.ResolutionProportion / 100d));
-
-                    if (Settings.SaveForCrossView)
-                    {
-                        using (var tempSurface =
-                            SKSurface.Create(new SKImageInfo(finalImageWidth, finalImageHeight)))
-                        {
-                            var canvas = tempSurface.Canvas;
-                            canvas.Clear();
-                            if (needs180Flip)
+                            using (var tempSurface =
+                                SKSurface.Create(new SKImageInfo(finalImageWidth, finalImageHeight)))
                             {
-                                canvas.RotateDegrees(180);
-                                canvas.Translate(-1f * finalImageWidth, -1f * finalImageHeight);
+                                var canvas = tempSurface.Canvas;
+                                canvas.Clear();
+                                if (needs180Flip)
+                                {
+                                    canvas.RotateDegrees(180);
+                                    canvas.Translate(-1f * finalImageWidth, -1f * finalImageHeight);
+                                }
+
+                                DrawTool.DrawImagesOnCanvas(canvas, LeftBitmap, RightBitmap,
+                                    Settings.BorderThicknessProportion, Settings.AddBorder, Settings.BorderColor,
+                                    LeftLeftCrop, LeftRightCrop, RightLeftCrop, RightRightCrop,
+                                    LeftTopCrop, LeftBottomCrop, RightTopCrop, RightBottomCrop,
+                                    LeftRotation, RightRotation,
+                                    ManualAlignment + (Settings.IsAutomaticAlignmentOn ? AutomaticAlignment : 0),
+                                    LeftZoom, RightZoom,
+                                    LeftKeystone, RightKeystone);
+                                
+                                using (var encoded = tempSurface.Snapshot().Encode(SKEncodedImageFormat.Jpeg, 100))
+                                {
+                                    await photoSaver.SavePhoto(encoded.ToArray());
+                                }
                             }
-                            DrawTool.DrawImagesOnCanvas(canvas, leftBitmap, rightBitmap, 
-                                Settings.BorderThicknessProportion, Settings.AddBorder, Settings.BorderColor,
-                                LeftLeftCrop, LeftRightCrop, RightLeftCrop, RightRightCrop,
-                                LeftTopCrop, LeftBottomCrop, RightTopCrop, RightBottomCrop,
-                                LeftRotation, RightRotation, 
-                                ManualAlignment + (Settings.IsAutomaticAlignmentOn ? AutomaticAlignment : 0),
-                                LeftZoom, RightZoom,
-                                LeftKeystone, RightKeystone);
-
-                            finalImage = tempSurface.Snapshot();
                         }
 
-                        using (var encoded = finalImage.Encode(SKEncodedImageFormat.Jpeg, 100))
+                        if (Settings.SaveForParallel)
                         {
-                            finalBytesToSave = encoded.ToArray();
-                        }
-                        
-                        didSave = didSave && await photoSaver.SavePhoto(finalBytesToSave);
-                    }
-
-                    if (Settings.SaveForParallel)
-                    {
-                        using (var tempSurface =
-                            SKSurface.Create(new SKImageInfo(finalImageWidth, finalImageHeight)))
-                        {
-                            var canvas = tempSurface.Canvas;
-                            canvas.Clear();
-                            if (needs180Flip)
+                            using (var tempSurface =
+                                SKSurface.Create(new SKImageInfo(finalImageWidth, finalImageHeight)))
                             {
-                                canvas.RotateDegrees(180);
-                                canvas.Translate(-1f * finalImageWidth, -1f * finalImageHeight);
+                                var canvas = tempSurface.Canvas;
+                                canvas.Clear();
+                                if (needs180Flip)
+                                {
+                                    canvas.RotateDegrees(180);
+                                    canvas.Translate(-1f * finalImageWidth, -1f * finalImageHeight);
+                                }
+
+                                DrawTool.DrawImagesOnCanvas(canvas, LeftBitmap, RightBitmap,
+                                    Settings.BorderThicknessProportion, Settings.AddBorder, Settings.BorderColor,
+                                    LeftLeftCrop, LeftRightCrop, RightLeftCrop, RightRightCrop,
+                                    LeftTopCrop, LeftBottomCrop, RightTopCrop, RightBottomCrop,
+                                    LeftRotation, RightRotation,
+                                    ManualAlignment + (Settings.IsAutomaticAlignmentOn ? AutomaticAlignment : 0),
+                                    LeftZoom, RightZoom,
+                                    LeftKeystone, RightKeystone,
+                                    true);
+                                
+                                using (var encoded = tempSurface.Snapshot().Encode(SKEncodedImageFormat.Jpeg, 100))
+                                {
+                                    await photoSaver.SavePhoto(encoded.ToArray());
+                                }
                             }
-                            DrawTool.DrawImagesOnCanvas(canvas, leftBitmap, rightBitmap, 
-                                Settings.BorderThicknessProportion, Settings.AddBorder, Settings.BorderColor,
-                                LeftLeftCrop, LeftRightCrop, RightLeftCrop, RightRightCrop,
-                                LeftTopCrop, LeftBottomCrop, RightTopCrop, RightBottomCrop,
-                                LeftRotation, RightRotation, 
-                                ManualAlignment + (Settings.IsAutomaticAlignmentOn ? AutomaticAlignment : 0),
-                                LeftZoom, RightZoom,
-                                LeftKeystone, RightKeystone,
-                                true);
-
-                            finalImage = tempSurface.Snapshot();
                         }
-
-                        using (var encoded = finalImage.Encode(SKEncodedImageFormat.Jpeg, 100))
-                        {
-                            finalBytesToSave = encoded.ToArray();
-                        }
-                        
-                        didSave = didSave && await photoSaver.SavePhoto(finalBytesToSave);
-                    }
-
-                    WorkflowStage = WorkflowStage.Capture;
-
-                    if (didSave)
-                    {
-                        SuccessFadeTrigger = !SuccessFadeTrigger;
-                    }
-                    else
-                    {
-                        FailFadeTrigger = !FailFadeTrigger;
-                    }
+                    });
                 }
                 catch (Exception e)
                 {
-                    LeftBitmap = leftBitmap;
-                    RightBitmap = rightBitmap;
-
-                    ErrorMessage = e.ToString();
-
-                    WorkflowStage = WorkflowStage.Final;
-
                     FailFadeTrigger = !FailFadeTrigger;
+                    ErrorMessage = e.ToString();
+                    WorkflowStage = WorkflowStage.Final;
 
                     return;
                 }
-                finally
-                {
-                    rightSkImage?.Dispose();
-                    leftSkImage?.Dispose();
-                    finalImage?.Dispose();
-                }
-
-                leftBitmap?.Dispose();
-                rightBitmap?.Dispose();
+                
+                SuccessFadeTrigger = !SuccessFadeTrigger;
                 ClearCaptures();
             });
 
@@ -678,6 +638,18 @@ namespace CrossCam.ViewModel
 
                 ErrorMessage = null;
             });
+        }
+
+        private async void LeftBytesCaptured(byte[] capturedBytes)
+        {
+            var bitmap = await Task.Run(() => GetBitmapAndCorrectOrientation(capturedBytes));
+            SetLeftBitmap(bitmap);
+        }
+
+        private async void RightBytesCaptured(byte[] capturedBytes)
+        {
+            var bitmap = await Task.Run(() => GetBitmapAndCorrectOrientation(capturedBytes));
+            SetRightBitmap(bitmap);
         }
 
         private async void AutoAlign()
@@ -850,7 +822,7 @@ namespace CrossCam.ViewModel
             {
                 origin = codec.Origin;
             }
-
+            
             switch (origin)
             {
                 case SKCodecOrigin.BottomRight:

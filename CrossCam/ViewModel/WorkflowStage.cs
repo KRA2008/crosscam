@@ -10,6 +10,7 @@
         Keystone,
         View,
         Saving,
-        AutomaticAlign
+        AutomaticAlign,
+        Loading
     }
 }

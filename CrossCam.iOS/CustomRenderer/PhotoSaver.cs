@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Threading.Tasks;
 using CrossCam.iOS.CustomRenderer;
 using CrossCam.Wrappers;
 using Foundation;
@@ -13,6 +14,7 @@ namespace CrossCam.iOS.CustomRenderer
         public Task<bool> SavePhoto(byte[] image)
         {
             var taskCompletionSource = new TaskCompletionSource<bool>();
+
             try
             {
                 var uiImage = new UIImage(NSData.FromArray(image));
@@ -24,17 +26,27 @@ namespace CrossCam.iOS.CustomRenderer
                     }
                 }
 
-                uiImage.SaveToPhotosAlbum((image1, error) =>
+                Device.BeginInvokeOnMainThread(() =>
                 {
-                    taskCompletionSource.SetResult(error == null);
+                    uiImage.SaveToPhotosAlbum((image1, error) =>
+                    {
+                        if (error != null)
+                        {
+                            taskCompletionSource.SetException(new Exception(error.ToString()));
+                        }
+                        else
+                        {
+                            taskCompletionSource.SetResult(true);
+                        }
+                    });
                 });
-                return taskCompletionSource.Task;
             }
-            catch
+            catch (Exception e)
             {
-                taskCompletionSource.SetResult(false);
-                return taskCompletionSource.Task;
+                taskCompletionSource.SetException(e);
             }
+
+            return taskCompletionSource.Task;
         }
     }
 }
