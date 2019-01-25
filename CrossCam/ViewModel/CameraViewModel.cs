@@ -1,6 +1,6 @@
 ﻿using System;
 using System.IO;
-using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Web;
 using CrossCam.Model;
@@ -176,8 +176,7 @@ namespace CrossCam.ViewModel
                 RightBottomCrop -= Settings.CropSpeed;
             }
         });
-
-        public int AutomaticAlignment { get; set; }
+        
         public int ManualAlignment { get; set; }
         public Command LeftUpRightDown => new Command(() =>
         {
@@ -215,8 +214,9 @@ namespace CrossCam.ViewModel
         public bool IsCaptureLeftFirst { get; set; }
         public bool WasCapturePortrait { get; set; }
 
-        public bool FailFadeTrigger { get; set; }
-        public bool SuccessFadeTrigger { get; set; }
+        public bool AlignmentFailFadeTrigger { get; set; }
+        public bool SaveFailFadeTrigger { get; set; }
+        public bool SaveSuccessFadeTrigger { get; set; }
 
         public bool SwitchToContinuousFocusTrigger { get; set; }
 
@@ -270,7 +270,7 @@ namespace CrossCam.ViewModel
             : ImageSource.FromFile("squareInner");
         
         private WorkflowStage _stageBeforeView;
-        private bool _wasAutomaticAlignmentRun;
+        private int _wasAutomaticAlignmentRun;
 
         public CameraViewModel()
         {
@@ -316,11 +316,10 @@ namespace CrossCam.ViewModel
                 else if (args.PropertyName == nameof(Settings))
                 {
                     if (Settings.IsAutomaticAlignmentOn &&
-                        !_wasAutomaticAlignmentRun &&
                         RightBitmap != null &&
                         LeftBitmap != null)
                     {
-                        AutoAlign();
+                        AutoAlignIfNotYetRun();
                     }
                 }
             };
@@ -541,9 +540,7 @@ namespace CrossCam.ViewModel
                         finalImageWidth += 4 * borderThickness;
                         var finalImageHeight = DrawTool.CalculateCanvasHeightLessBorder(LeftBitmap, RightBitmap,
                                                    LeftTopCrop, LeftBottomCrop, RightTopCrop, RightBottomCrop,
-                                                   ManualAlignment + (Settings.IsAutomaticAlignmentOn
-                                                       ? AutomaticAlignment
-                                                       : 0)) +
+                                                   ManualAlignment) +
                                                2 * borderThickness;
 
                         finalImageWidth = (int) (finalImageWidth * (Settings.ResolutionProportion / 100d));
@@ -567,7 +564,7 @@ namespace CrossCam.ViewModel
                                     LeftLeftCrop, LeftRightCrop, RightLeftCrop, RightRightCrop,
                                     LeftTopCrop, LeftBottomCrop, RightTopCrop, RightBottomCrop,
                                     LeftRotation, RightRotation,
-                                    ManualAlignment + (Settings.IsAutomaticAlignmentOn ? AutomaticAlignment : 0),
+                                    ManualAlignment,
                                     LeftZoom, RightZoom,
                                     LeftKeystone, RightKeystone);
                                 
@@ -596,7 +593,7 @@ namespace CrossCam.ViewModel
                                     LeftLeftCrop, LeftRightCrop, RightLeftCrop, RightRightCrop,
                                     LeftTopCrop, LeftBottomCrop, RightTopCrop, RightBottomCrop,
                                     LeftRotation, RightRotation,
-                                    ManualAlignment + (Settings.IsAutomaticAlignmentOn ? AutomaticAlignment : 0),
+                                    ManualAlignment,
                                     LeftZoom, RightZoom,
                                     LeftKeystone, RightKeystone,
                                     true);
@@ -611,14 +608,14 @@ namespace CrossCam.ViewModel
                 }
                 catch (Exception e)
                 {
-                    FailFadeTrigger = !FailFadeTrigger;
+                    SaveFailFadeTrigger = !SaveFailFadeTrigger;
                     ErrorMessage = e.ToString();
                     WorkflowStage = WorkflowStage.Final;
 
                     return;
                 }
                 
-                SuccessFadeTrigger = !SuccessFadeTrigger;
+                SaveSuccessFadeTrigger = !SaveSuccessFadeTrigger;
                 ClearCaptures();
             });
 
@@ -652,71 +649,47 @@ namespace CrossCam.ViewModel
             SetRightBitmap(bitmap);
         }
 
-        private async void AutoAlign()
+        private async void AutoAlignIfNotYetRun()
         {
-            WorkflowStage = WorkflowStage.AutomaticAlign;
-
-            var offset = 0;
-            await Task.Run(() =>
+            if (0 == Interlocked.Exchange(ref _wasAutomaticAlignmentRun, 1))
             {
-                var colorsLeft = GetVerticalSpectrum(LeftBitmap);
-                var colorsRight = GetVerticalSpectrum(RightBitmap);
-                
-                var halfHeight = LeftBitmap.Height / 2;
-                var error = long.MaxValue;
-                for (var ii = -halfHeight; ii < halfHeight; ii++)
+                WorkflowStage = WorkflowStage.AutomaticAlign;
+
+                var openCv = DependencyService.Get<IOpenCv>();
+
+                byte[] alignedResult = null;
+                try
                 {
-                    var newError = GetErrorForOffset(colorsLeft, colorsRight, ii);
-                    if (newError < error)
+                    await Task.Run(() =>
                     {
-                        error = newError;
-                        offset = ii;
+                        alignedResult = openCv.CreateAlignedSecondImage(
+                            IsCaptureLeftFirst ? LeftBitmap : RightBitmap,
+                            IsCaptureLeftFirst ? RightBitmap : LeftBitmap);
+                    });
+                }
+                catch (Exception e)
+                {
+                    ErrorMessage = e.ToString();
+                }
+
+                if (alignedResult != null)
+                {
+                    if (IsCaptureLeftFirst)
+                    {
+                        SetRightBitmap(GetBitmapAndCorrectOrientation(alignedResult));
+                    }
+                    else
+                    {
+                        SetLeftBitmap(GetBitmapAndCorrectOrientation(alignedResult));
                     }
                 }
-            });
-            AutomaticAlignment = offset;
-            _wasAutomaticAlignmentRun = true;
-
-            WorkflowStage = WorkflowStage.Final;
-        }
-
-        private static long GetErrorForOffset(int[] left, int[] right, int offset)
-        {
-            long error = 0;
-            var leftOffset = offset > 0 ? offset : 0;
-            var rightOffset = offset < 0 ? Math.Abs(offset) : 0;
-            for (var ii = 0; ii < left.Length - Math.Abs(offset); ii++)
-            {
-                error += Math.Abs(left[ii + leftOffset] - right[ii + rightOffset]);
-            }
-
-            return error;
-        } 
-
-        private static int[] GetVerticalSpectrum(SKBitmap bitmap)
-        {
-            var colorsLeft = Enumerable.Repeat(0, bitmap.Height).ToArray();
-
-            unsafe
-            {
-                var ptr = (uint*)bitmap.GetPixels().ToPointer();
-
-                for (var row = 0; row < bitmap.Height; row++)
+                else
                 {
-                    for (var column = 0; column < bitmap.Width / 2; column++)
-                    {
-                        var pixel = *ptr;
-                        var colorsCombined = (int)(pixel & 0x000000FF) +
-                                             (int)((pixel & 0x0000FF00) >> 8) +
-                                             (int)((pixel & 0x00FF0000) >> 16);
-                        colorsLeft[row] += colorsCombined;
-                        ptr++;
-                        ptr++;
-                    }
+                    AlignmentFailFadeTrigger = !AlignmentFailFadeTrigger;
                 }
-            }
 
-            return colorsLeft;
+                WorkflowStage = WorkflowStage.Final;
+            }
         }
 
         private void SetLeftBitmap(SKBitmap bitmap, bool withMovementTrigger = true)
@@ -739,7 +712,7 @@ namespace CrossCam.ViewModel
                 WorkflowStage = WorkflowStage.Final;
                 if (Settings.IsAutomaticAlignmentOn)
                 {
-                    AutoAlign();
+                    AutoAlignIfNotYetRun();
                 }
             }
         }
@@ -764,14 +737,14 @@ namespace CrossCam.ViewModel
                 WorkflowStage = WorkflowStage.Final;
                 if (Settings.IsAutomaticAlignmentOn)
                 {
-                    AutoAlign();
+                    AutoAlignIfNotYetRun();
                 }
             }
         }
 
-        private static SKBitmap GetHalfOfFullStereoImage(byte[] byteArray, bool wantLeft)
+        private static SKBitmap GetHalfOfFullStereoImage(byte[] bytes, bool wantLeft)
         {
-            var original = SKBitmap.Decode(byteArray);
+            var original = SKBitmap.Decode(bytes);
 
             var width = (int) Math.Round(original.Width / 2f);
             var height = original.Height;
@@ -789,11 +762,11 @@ namespace CrossCam.ViewModel
             return extracted;
         }
 
-        private static SKBitmap GetBitmapAndCorrectOrientation(byte[] byteArray)
+        private static SKBitmap GetBitmapAndCorrectOrientation(byte[] bytes)
         {
             SKCodecOrigin origin;
 
-            using (var stream = new MemoryStream(byteArray))
+            using (var stream = new MemoryStream(bytes))
             using (var data = SKData.Create(stream))
             using (var codec = SKCodec.Create(data))
             {
@@ -803,11 +776,11 @@ namespace CrossCam.ViewModel
             switch (origin)
             {
                 case SKCodecOrigin.BottomRight:
-                    return BitmapRotate180(SKBitmap.Decode(byteArray));
+                    return BitmapRotate180(SKBitmap.Decode(bytes));
                 case SKCodecOrigin.RightTop:
-                    return BitmapRotate90(SKBitmap.Decode(byteArray));
+                    return BitmapRotate90(SKBitmap.Decode(bytes));
                 default:
-                    return SKBitmap.Decode(byteArray);
+                    return SKBitmap.Decode(bytes);
             }
         }
 
@@ -918,8 +891,7 @@ namespace CrossCam.ViewModel
             ClearCrops();
             ClearAlignments();
             ClearKeystone();
-            AutomaticAlignment = 0;
-            _wasAutomaticAlignmentRun = false;
+            _wasAutomaticAlignmentRun = 0;
         }
 
         private void ClearCaptures()

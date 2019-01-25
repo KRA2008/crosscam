@@ -268,7 +268,6 @@ namespace CrossCam.Page
                 case nameof(CameraViewModel.LeftRotation):
 	            case nameof(CameraViewModel.RightRotation):
                 case nameof(CameraViewModel.ManualAlignment):
-                case nameof(CameraViewModel.AutomaticAlignment):
                 case nameof(CameraViewModel.LeftZoom):
 	            case nameof(CameraViewModel.RightZoom):
 	            case nameof(CameraViewModel.LeftKeystone):
@@ -290,7 +289,7 @@ namespace CrossCam.Page
                 _viewModel.LeftLeftCrop, _viewModel.LeftRightCrop, _viewModel.RightLeftCrop, _viewModel.RightRightCrop,
                 _viewModel.LeftTopCrop, _viewModel.LeftBottomCrop, _viewModel.RightTopCrop, _viewModel.RightBottomCrop,
 	            _viewModel.LeftRotation, _viewModel.RightRotation, 
-	            _viewModel.ManualAlignment + (_viewModel.Settings.IsAutomaticAlignmentOn ? _viewModel.AutomaticAlignment : 0),
+	            _viewModel.ManualAlignment,
 	            _viewModel.LeftZoom, _viewModel.RightZoom,
 	            _viewModel.LeftKeystone, _viewModel.RightKeystone);
         }

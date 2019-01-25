@@ -81,7 +81,7 @@
             <Thickness x:Key="_linePadding">0,10,0,10</Thickness>
 
             <Style TargetType="Label"
-                   x:Key="_savingFeedback">
+                   x:Key="_feedback">
                 <Setter Property="FontAttributes"
                         Value="Bold"/>
                 <Setter Property="FontSize"
@@ -818,19 +818,28 @@
                Text="{Binding PortraitToLandscapeHint}"
                IsVisible="{Binding ShouldPortraitViewModeWarningBeVisible}"/>
 
-        <Label Style="{StaticResource _savingFeedback}"
+        <Label Style="{StaticResource _feedback}"
                Text="Saved to Photos!">
             <Label.Behaviors>
-                <ce:FadeInAndOutBehavior Trigger="{Binding SuccessFadeTrigger}"
+                <ce:FadeInAndOutBehavior Trigger="{Binding SaveSuccessFadeTrigger}"
                                          InTimeMs="250"
                                          OutTimeMs="250"
                                          VisibleTimeMs="2000"/>
             </Label.Behaviors>
         </Label>
-        <Label Style="{StaticResource _savingFeedback}"
+        <Label Style="{StaticResource _feedback}"
                Text="Save failed. :(">
             <Label.Behaviors>
-                <ce:FadeInAndOutBehavior Trigger="{Binding FailFadeTrigger}"
+                <ce:FadeInAndOutBehavior Trigger="{Binding SaveFailFadeTrigger}"
+                                         InTimeMs="250"
+                                         OutTimeMs="250"
+                                         VisibleTimeMs="2000"/>
+            </Label.Behaviors>
+        </Label>
+        <Label Style="{StaticResource _feedback}"
+               Text="Alignment failed.">
+            <Label.Behaviors>
+                <ce:FadeInAndOutBehavior Trigger="{Binding AlignmentFailFadeTrigger}"
                                          InTimeMs="250"
                                          OutTimeMs="250"
                                          VisibleTimeMs="2000"/>
@@ -845,13 +854,13 @@
                IsRunning="{Binding IsBusy}"
                InputTransparent="True"/>
         <Label Text="Saving..."
-               Style="{StaticResource _savingFeedback}"
+               Style="{StaticResource _feedback}"
                IsVisible="{Binding WorkflowStage, Converter={vc:EnumCompareConverter}, ConverterParameter={x:Static vm:WorkflowStage.Saving}}"/>
         <Label Text="Aligning..."
-               Style="{StaticResource _savingFeedback}"
+               Style="{StaticResource _feedback}"
                IsVisible="{Binding WorkflowStage, Converter={vc:EnumCompareConverter}, ConverterParameter={x:Static vm:WorkflowStage.AutomaticAlign}}"/>
         <Label Text="Loading..."
-               Style="{StaticResource _savingFeedback}"
+               Style="{StaticResource _feedback}"
                IsVisible="{Binding WorkflowStage, Converter={vc:EnumCompareConverter}, ConverterParameter={x:Static vm:WorkflowStage.Loading}}"/>
         <ContentView AbsoluteLayout.LayoutFlags="All"
                      AbsoluteLayout.LayoutBounds="0,0,1,1"
