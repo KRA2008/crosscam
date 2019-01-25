@@ -40,6 +40,7 @@
     <MtouchUseLlvm>true</MtouchUseLlvm>
     <OptimizePNGs>true</OptimizePNGs>
     <BuildIpa>true</BuildIpa>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|iPhoneSimulator' ">
     <DebugType>full</DebugType>
@@ -74,6 +75,7 @@
     <OptimizePNGs>true</OptimizePNGs>
     <CodesignExtraArgs />
     <CodesignResourceRules />
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(RunConfiguration)' == 'Default' ">
     <AppExtensionDebugBundleId />
@@ -90,6 +92,10 @@
     </PackageReference>
   </ItemGroup>
   <ItemGroup>
+    <Reference Include="Emgu.CV.World.IOS, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\CrossCamDocs\libemgucv-pro-3.4.3.3027\libs\Emgu.CV.World.IOS.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Xml" />
     <Reference Include="System.Core" />
@@ -108,6 +114,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CustomRenderer\AppVersionProvider.cs" />
+    <Compile Include="CustomRenderer\OpenCV.cs" />
     <Compile Include="CustomRenderer\PhotoPicker.cs" />
     <Compile Include="CustomRenderer\PhotoSaver.cs" />
     <Compile Include="Main.cs" />
@@ -514,6 +521,9 @@
   </ItemGroup>
   <ItemGroup>
     <BundleResource Include="Resources\horizontalLevelInside.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="MissingEmguCvBinaryExplanation.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

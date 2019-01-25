@@ -69,6 +69,41 @@
                         HorizontalOptions="EndAndExpand"/>
             </StackLayout>
             <BoxView/>
+            <Label Text="Automatic Alignment"
+                   Style="{DynamicResource header}"/>
+            <StackLayout Orientation="Horizontal">
+                <Label Text="Automatically align after capture"/>
+                <Switch IsToggled="{Binding Settings.IsAutomaticAlignmentOn}"/>
+            </StackLayout>
+            <StackLayout Orientation="Horizontal">
+                <Label Text="Iterations (maximum run time cut-off)"/>
+                <Picker ItemsSource="{Binding ZeroToOneThousand}"
+                        SelectedIndex="{Binding Settings.AutomaticAlignmentIterations}"
+                        BackgroundColor="White"
+                        HorizontalOptions="EndAndExpand"/>
+            </StackLayout>
+            <StackLayout Orientation="Horizontal">
+                <Label Text="Epsilon level (higher values means higher quality but longer run time)"/>
+                <Picker ItemsSource="{Binding ZeroToTen}"
+                        SelectedIndex="{Binding Settings.AutomaticAlignmentEpsilonLevel}"
+                        BackgroundColor="White"
+                        HorizontalOptions="EndAndExpand"/>
+            </StackLayout>
+            <StackLayout Orientation="Horizontal">
+                <Label Text="Intermediate downsize percentage (higher values means higher quality but longer run time and increased chances of memory shortage and crash)"/>
+                <Picker ItemsSource="{Binding ZeroToOneHundred}"
+                        SelectedIndex="{Binding Settings.AutomaticAlignmentDownsizePercentage}"
+                        BackgroundColor="White"
+                        HorizontalOptions="EndAndExpand"/>
+            </StackLayout>
+            <StackLayout Orientation="Horizontal">
+                <Label Text="Minimum required correlation coefficient (alignments with final score below this are discarded)"/>
+                <Picker ItemsSource="{Binding ZeroToOneHundred}"
+                        SelectedIndex="{Binding Settings.AutomaticAlignmentEccThresholdPercentage}"
+                        BackgroundColor="White"
+                        HorizontalOptions="EndAndExpand"/>
+            </StackLayout>
+            <BoxView/>
             <Label Text="Saving"
                    Style="{DynamicResource header}"/>
             <StackLayout Orientation="Horizontal">
@@ -98,10 +133,6 @@
             <BoxView/>
             <Label Text="Editing"
                    Style="{DynamicResource header}"/>
-            <StackLayout Orientation="Horizontal">
-                <Label Text="Automatically align after capture"/>
-                <Switch IsToggled="{Binding Settings.IsAutomaticAlignmentOn}"/>
-            </StackLayout>
             <StackLayout Orientation="Horizontal">
                 <Label Text="Crop speed"/>
                 <Picker ItemsSource="{Binding ZeroToOneThousand}"
