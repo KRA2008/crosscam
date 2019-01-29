@@ -668,16 +668,16 @@ namespace CrossCam.ViewModel
                         alignedResult = openCv.CreateAlignedSecondImage(
                             IsCaptureLeftFirst ? LeftBitmap : RightBitmap,
                             IsCaptureLeftFirst ? RightBitmap : LeftBitmap,
-                            Settings.AutomaticAlignmentDownsizePercentage,
-                            Settings.AutomaticAlignmentIterations,
-                            Settings.AutomaticAlignmentEpsilonLevel,
-                            Settings.AutomaticAlignmentEccThresholdPercentage);
+                            Settings.AlignmentDownsizePercentage,
+                            Settings.AlignmentIterations,
+                            Settings.AlignmentEpsilonLevel,
+                            Settings.AlignmentEccThresholdPercentage);
                     });
                     stopwatch.Stop();
                     Debug.WriteLine(stopwatch.ElapsedMilliseconds + "," + 
-                                    Settings.AutomaticAlignmentDownsizePercentage + "," +
-                                    Settings.AutomaticAlignmentIterations + "," +
-                                    Settings.AutomaticAlignmentEpsilonLevel);
+                                    Settings.AlignmentDownsizePercentage + "," +
+                                    Settings.AlignmentIterations + "," +
+                                    Settings.AlignmentEpsilonLevel);
                 }
                 catch (Exception e)
                 {

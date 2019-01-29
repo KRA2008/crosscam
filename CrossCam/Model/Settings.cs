@@ -169,54 +169,54 @@ namespace CrossCam.Model
 
         public bool IsAutomaticAlignmentOn { get; set; }
 
-        private int _automaticAlignmentEpsilonLevel;
-        public int AutomaticAlignmentEpsilonLevel
+        private int _alignmentEpsilonLevel;
+        public int AlignmentEpsilonLevel
         {
-            get => _automaticAlignmentEpsilonLevel;
+            get => _alignmentEpsilonLevel;
             set
             {
                 if (value > 0)
                 {
-                    _automaticAlignmentEpsilonLevel = value;
+                    _alignmentEpsilonLevel = value;
                 }
             }
         }
 
-        private int _automaticAlignmentIterations;
-        public int AutomaticAlignmentIterations
+        private int _alignmentIterations;
+        public int AlignmentIterations
         {
-            get => _automaticAlignmentIterations;
+            get => _alignmentIterations;
             set
             {
                 if (value > 0)
                 {
-                    _automaticAlignmentIterations = value;
+                    _alignmentIterations = value;
                 }
             }
         }
 
-        private int _automaticAlignmentDownsizePercentage;
-        public int AutomaticAlignmentDownsizePercentage
+        private int _alignmentDownsizePercentage;
+        public int AlignmentDownsizePercentage
         {
-            get => _automaticAlignmentDownsizePercentage;
+            get => _alignmentDownsizePercentage;
             set
             {
                 if (value > 0)
                 {
-                    _automaticAlignmentDownsizePercentage = value;
+                    _alignmentDownsizePercentage = value;
                 }
             }
         }
 
-        private int _automaticAlignmentEccThresholdPercentage;
-        public int AutomaticAlignmentEccThresholdPercentage
+        private int _alignmentEccThresholdPercentage;
+        public int AlignmentEccThresholdPercentage
         {
-            get => _automaticAlignmentEccThresholdPercentage;
+            get => _alignmentEccThresholdPercentage;
             set
             {
                 if (value > 0)
                 {
-                    _automaticAlignmentEccThresholdPercentage = value;
+                    _alignmentEccThresholdPercentage = value;
                 }
             }
         }
@@ -251,10 +251,10 @@ namespace CrossCam.Model
             BorderColor = BorderColor.Black;
 
             IsAutomaticAlignmentOn = true;
-            AutomaticAlignmentDownsizePercentage = 25;
-            AutomaticAlignmentEpsilonLevel = 4;
-            AutomaticAlignmentIterations = 100;
-            AutomaticAlignmentEccThresholdPercentage = 60;
+            AlignmentDownsizePercentage = 25;
+            AlignmentEpsilonLevel = 3;
+            AlignmentIterations = 50;
+            AlignmentEccThresholdPercentage = 60;
 
             ResolutionProportion = 100;
             RotationSpeed = 10;

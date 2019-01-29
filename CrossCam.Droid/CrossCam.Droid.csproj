@@ -22,7 +22,7 @@
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
     <OutputPath>bin\Debug</OutputPath>
-    <DefineConstants>DEBUG;</DefineConstants>
+    <DefineConstants>DEBUG;__ANDROID__</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <AndroidLinkMode>None</AndroidLinkMode>
@@ -30,6 +30,7 @@
     <AotAssemblies>false</AotAssemblies>
     <EnableLLVM>false</EnableLLVM>
     <BundleAssemblies>false</BundleAssemblies>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>full</DebugType>
@@ -45,6 +46,8 @@
     <EnableProguard>true</EnableProguard>
     <EmbedAssembliesIntoApk>true</EmbedAssembliesIntoApk>
     <AndroidLinkMode>SdkOnly</AndroidLinkMode>
+    <DefineConstants>__ANDROID__</DefineConstants>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="FreshMvvm">
@@ -73,7 +76,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CustomRenderer\AppVersionProvider.cs" />
-    <Compile Include="CustomRenderer\OpenCV.cs" />
     <Compile Include="CustomRenderer\PhotoPicker.cs" />
     <Compile Include="CustomRenderer\PhotoSaver.cs" />
     <Compile Include="MainActivity.cs" />
@@ -298,5 +300,6 @@
   <ItemGroup>
     <Content Include="MissingEmguCvBinaryExplanation.txt" />
   </ItemGroup>
+  <Import Project="..\AutoAlignment\AutoAlignment.projitems" Label="Shared" />
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
 </Project>

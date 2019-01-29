@@ -1,15 +1,19 @@
 ﻿using System;
-using CrossCam.iOS.CustomRenderer;
+using AutoAlignment;
 using CrossCam.Wrappers;
 using Emgu.CV;
 using Emgu.CV.CvEnum;
 using Emgu.CV.Structure;
 using SkiaSharp;
-using SkiaSharp.Views.iOS;
 using Xamarin.Forms;
+#if __ANDROID__
+using SkiaSharp.Views.Android;
+#elif __IOS__
+using SkiaSharp.Views.iOS;
+#endif
 
 [assembly: Dependency(typeof(OpenCv))]
-namespace CrossCam.iOS.CustomRenderer
+namespace AutoAlignment
 {
     public class OpenCv : IOpenCv
     {
@@ -21,12 +25,12 @@ namespace CrossCam.iOS.CustomRenderer
             using (var downsizedFirstGrayMat = new Mat())
             using (var downsizedSecondGrayMat = new Mat())
             {
-                CvInvoke.Imdecode(GetBytes(firstImage, downsizeFactor), ImreadModes.Grayscale, 
+                CvInvoke.Imdecode(GetBytes(firstImage, downsizeFactor), ImreadModes.Grayscale,
                     downsizedFirstGrayMat);
                 CvInvoke.Imdecode(GetBytes(secondImage, downsizeFactor), ImreadModes.Grayscale,
                     downsizedSecondGrayMat);
 
-                using (var transformMatrix = new Mat())
+                using (var transformMatrix = Mat.Eye(2, 3, DepthType.Cv32F, 1))
                 {
                     var criteria = new MCvTermCriteria(iterations, Math.Pow(10, -epsilonLevel));
                     var ecc = CvInvoke.FindTransformECC(downsizedSecondGrayMat, downsizedFirstGrayMat, transformMatrix,
@@ -61,7 +65,11 @@ namespace CrossCam.iOS.CustomRenderer
                         CvInvoke.WarpAffine(fullSizeColorSecondMat, alignedMat, transformMatrix,
                             fullSizeColorSecondMat.Size);
 
+#if __IOS__
                         return alignedMat.ToCGImage().ToSKBitmap();
+#elif __ANDROID__
+                        return alignedMat.ToBitmap().ToSKBitmap();
+#endif
                     }
                 }
             }

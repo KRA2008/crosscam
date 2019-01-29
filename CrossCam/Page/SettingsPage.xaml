@@ -76,30 +76,30 @@
                 <Switch IsToggled="{Binding Settings.IsAutomaticAlignmentOn}"/>
             </StackLayout>
             <StackLayout Orientation="Horizontal">
-                <Label Text="Iterations (maximum run time cut-off)"/>
+                <Label Text="Iterations"/>
                 <Picker ItemsSource="{Binding ZeroToOneThousand}"
-                        SelectedIndex="{Binding Settings.AutomaticAlignmentIterations}"
+                        SelectedIndex="{Binding Settings.AlignmentIterations}"
                         BackgroundColor="White"
                         HorizontalOptions="EndAndExpand"/>
             </StackLayout>
             <StackLayout Orientation="Horizontal">
-                <Label Text="Epsilon level (higher values means higher quality but longer run time)"/>
+                <Label Text="Epsilon level"/>
                 <Picker ItemsSource="{Binding ZeroToTen}"
-                        SelectedIndex="{Binding Settings.AutomaticAlignmentEpsilonLevel}"
+                        SelectedIndex="{Binding Settings.AlignmentEpsilonLevel}"
                         BackgroundColor="White"
                         HorizontalOptions="EndAndExpand"/>
             </StackLayout>
             <StackLayout Orientation="Horizontal">
-                <Label Text="Intermediate downsize percentage (higher values means higher quality but longer run time and increased chances of memory shortage and crash)"/>
+                <Label Text="Intermediate downsize percentage"/>
                 <Picker ItemsSource="{Binding ZeroToOneHundred}"
-                        SelectedIndex="{Binding Settings.AutomaticAlignmentDownsizePercentage}"
+                        SelectedIndex="{Binding Settings.AlignmentDownsizePercentage}"
                         BackgroundColor="White"
                         HorizontalOptions="EndAndExpand"/>
             </StackLayout>
             <StackLayout Orientation="Horizontal">
-                <Label Text="Minimum required correlation coefficient (alignments with final score below this are discarded)"/>
+                <Label Text="Minimum required correlation coefficient"/>
                 <Picker ItemsSource="{Binding ZeroToOneHundred}"
-                        SelectedIndex="{Binding Settings.AutomaticAlignmentEccThresholdPercentage}"
+                        SelectedIndex="{Binding Settings.AlignmentEccThresholdPercentage}"
                         BackgroundColor="White"
                         HorizontalOptions="EndAndExpand"/>
             </StackLayout>
