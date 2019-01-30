@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Diagnostics;
 using System.IO;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Web;
@@ -10,6 +11,7 @@ using CrossCam.Wrappers;
 using FreshMvvm;
 using SkiaSharp;
 using Xamarin.Forms;
+using Xamarin.Forms.Internals;
 
 namespace CrossCam.ViewModel
 {
@@ -657,12 +659,10 @@ namespace CrossCam.ViewModel
                 WorkflowStage = WorkflowStage.AutomaticAlign;
 
                 var openCv = DependencyService.Get<IOpenCv>();
-                var stopwatch = new Stopwatch();
 
-                SKBitmap alignedResult = null;
+                AlignedResult alignedResult = null;
                 try
                 {
-                    stopwatch.Start();
                     await Task.Run(() =>
                     {
                         alignedResult = openCv.CreateAlignedSecondImage(
@@ -673,11 +673,6 @@ namespace CrossCam.ViewModel
                             Settings.AlignmentEpsilonLevel,
                             Settings.AlignmentEccThresholdPercentage);
                     });
-                    stopwatch.Stop();
-                    Debug.WriteLine(stopwatch.ElapsedMilliseconds + "," + 
-                                    Settings.AlignmentDownsizePercentage + "," +
-                                    Settings.AlignmentIterations + "," +
-                                    Settings.AlignmentEpsilonLevel);
                 }
                 catch (Exception e)
                 {
@@ -686,13 +681,90 @@ namespace CrossCam.ViewModel
 
                 if (alignedResult != null)
                 {
-                    if (IsCaptureLeftFirst)
+                    var topLeft = alignedResult.TransformMatrix.MapPoint(0,0);
+                    var topRight = alignedResult.TransformMatrix.MapPoint(alignedResult.AlignedBitmap.Width - 1,0);
+                    var bottomRight = alignedResult.TransformMatrix.MapPoint(alignedResult.AlignedBitmap.Width - 1,
+                        alignedResult.AlignedBitmap.Height - 1);
+                    var bottomLeft = alignedResult.TransformMatrix.MapPoint(0, alignedResult.AlignedBitmap.Height - 1);
+
+                    if (topLeft.Y > topRight.Y)
                     {
-                        SetRightBitmap(alignedResult);
+                        if (topLeft.Y > 0)
+                        {
+                            LeftTopCrop = RightTopCrop = (int)topLeft.Y;
+                        }
                     }
                     else
                     {
-                        SetLeftBitmap(alignedResult);
+                        if (topRight.Y > 0)
+                        {
+                            LeftTopCrop = RightTopCrop = (int)topRight.Y;
+                        }
+                    }
+
+                    var maxY = alignedResult.AlignedBitmap.Height - 1;
+                    if (bottomLeft.Y < bottomRight.Y)
+                    {
+                        if (bottomLeft.Y < maxY)
+                        {
+                            LeftBottomCrop = RightBottomCrop = (int)(maxY - bottomLeft.Y);
+                        }
+                    }
+                    else
+                    {
+                        if (bottomRight.Y < maxY)
+                        {
+                            LeftBottomCrop = RightBottomCrop = (int)(maxY - bottomRight.Y);
+                        }
+                    }
+
+                    var leftCrop = 0;
+                    if (topLeft.X > bottomLeft.X)
+                    {
+                        if (topLeft.X > 0)
+                        {
+                            leftCrop = (int)topLeft.X;
+                        }
+                    }
+                    else
+                    {
+                        if (bottomLeft.X > 0)
+                        {
+                            leftCrop = (int)bottomLeft.X;
+                        }
+                    }
+
+                    var rightCrop = 0;
+                    var maxX = alignedResult.AlignedBitmap.Width - 1;
+                    if (topRight.X < bottomRight.X)
+                    {
+                        if (topRight.X < maxX)
+                        {
+                            rightCrop = (int)(maxX - topRight.X);
+                        }
+                    }
+                    else
+                    {
+                        if (bottomRight.X < maxX)
+                        {
+                            rightCrop = (int)(maxX - bottomRight.X);
+                        }
+                    }
+
+                    //this actually cuts off a bit more than it has to, but it is inconsequential for small deviations
+                    //(it cuts at the corner of the original image, not at the point where the original border crosses the new border)
+
+                    if (IsCaptureLeftFirst)
+                    {
+                        LeftLeftCrop = RightRightCrop = rightCrop;
+                        LeftRightCrop = RightLeftCrop = leftCrop;
+                        SetRightBitmap(alignedResult.AlignedBitmap);
+                    }
+                    else
+                    {
+                        LeftLeftCrop = RightRightCrop = leftCrop;
+                        LeftRightCrop = RightLeftCrop = rightCrop;
+                        SetLeftBitmap(alignedResult.AlignedBitmap);
                     }
                 }
                 else

@@ -1,5 +1,6 @@
 ﻿using System;
 using AutoAlignment;
+using CrossCam.Model;
 using CrossCam.Wrappers;
 using Emgu.CV;
 using Emgu.CV.CvEnum;
@@ -17,7 +18,7 @@ namespace AutoAlignment
 {
     public class OpenCv : IOpenCv
     {
-        public SKBitmap CreateAlignedSecondImage(SKBitmap firstImage, SKBitmap secondImage, int downsizePercentage, int iterations,
+        public AlignedResult CreateAlignedSecondImage(SKBitmap firstImage, SKBitmap secondImage, int downsizePercentage, int iterations,
             int epsilonLevel, int eccCutoff)
         {
             var downsizeFactor = downsizePercentage / 100f;
@@ -42,6 +43,7 @@ namespace AutoAlignment
                         return null;
                     }
 
+                    var skMatrix = SKMatrix.MakeIdentity();
                     unsafe
                     {
                         //|ScaleX SkewX  TransX|
@@ -49,14 +51,24 @@ namespace AutoAlignment
                         //|Persp0 Persp1 Persp2| (row omitted for affine)
 
                         var ptr = (float*)transformMatrix.DataPointer.ToPointer(); //ScaleX
+                        skMatrix.ScaleX = *ptr;
                         ptr++; //SkewX
+                        skMatrix.SkewX = *ptr;
                         ptr++; //TransX
                         *ptr = 0; //we don't need any horizontal shifting
                         ptr++; //SkewY
+                        skMatrix.SkewY = *ptr;
                         ptr++; //ScaleY
+                        skMatrix.ScaleY = *ptr;
                         ptr++; //TransY
                         *ptr /= downsizeFactor; //scale up the vertical shifting
+                        skMatrix.TransY = *ptr;
                     }
+
+                    var result = new AlignedResult
+                    {
+                        TransformMatrix = skMatrix
+                    };
 
                     using (var alignedMat = new Mat())
                     using (var fullSizeColorSecondMat = new Mat())
@@ -66,10 +78,11 @@ namespace AutoAlignment
                             fullSizeColorSecondMat.Size);
 
 #if __IOS__
-                        return alignedMat.ToCGImage().ToSKBitmap();
+                        result.AlignedBitmap = alignedMat.ToCGImage().ToSKBitmap();
 #elif __ANDROID__
-                        return alignedMat.ToBitmap().ToSKBitmap();
+                        result.AlignedBitmap = alignedMat.ToBitmap().ToSKBitmap();
 #endif
+                        return result;
                     }
                 }
             }
