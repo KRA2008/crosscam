@@ -1,7 +1,5 @@
 ﻿using System;
-using System.Diagnostics;
 using System.IO;
-using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Web;
@@ -11,7 +9,6 @@ using CrossCam.Wrappers;
 using FreshMvvm;
 using SkiaSharp;
 using Xamarin.Forms;
-using Xamarin.Forms.Internals;
 
 namespace CrossCam.ViewModel
 {
@@ -830,8 +827,64 @@ namespace CrossCam.ViewModel
         {
             var original = SKBitmap.Decode(bytes);
 
-            var width = (int) Math.Round(original.Width / 2f);
-            var height = original.Height;
+            const int BORDER_DIFF_THRESHOLD = 5;
+            var bottomBorder = 0;
+            var leftBorder = 0;
+            var topBorder = 0;
+            var rightBorder = 0;
+
+            var topLeft = GetTotalColor(original.GetPixel(0, 0));
+            var topRight = GetTotalColor(original.GetPixel(original.Width - 1, 0));
+            var bottomRight = GetTotalColor(original.GetPixel(original.Width - 1, original.Height - 1));
+            var bottomLeft = GetTotalColor(original.GetPixel(0, original.Height - 1));
+
+            if (Math.Abs(topLeft - topRight) < BORDER_DIFF_THRESHOLD &&
+                Math.Abs(topRight - bottomRight) < BORDER_DIFF_THRESHOLD &&
+                Math.Abs(bottomRight - bottomLeft) < BORDER_DIFF_THRESHOLD &&
+                Math.Abs(bottomLeft - topLeft) < BORDER_DIFF_THRESHOLD &&
+                Math.Abs(topLeft - bottomRight) < BORDER_DIFF_THRESHOLD &&
+                Math.Abs(topRight - bottomLeft) < BORDER_DIFF_THRESHOLD)
+            {
+                for (var ii = 0; ii < original.Width / 4; ii++)
+                {
+                    var color = original.GetPixel(ii, original.Height / 2);
+                    if (Math.Abs(color.Red + color.Green + color.Blue - topLeft) > BORDER_DIFF_THRESHOLD)
+                    {
+                        leftBorder = ii;
+                        break;
+                    }
+                }
+                for (var ii = 0; ii < original.Height / 2; ii++)
+                {
+                    var color = original.GetPixel(original.Width / 4, ii);
+                    if (Math.Abs(color.Red + color.Green + color.Blue - topLeft) > BORDER_DIFF_THRESHOLD)
+                    {
+                        topBorder = ii;
+                        break;
+                    }
+                }
+                for (var ii = original.Width / 2; ii > original.Width / 4; ii--)
+                {
+                    var color = original.GetPixel(ii, original.Height / 2);
+                    if (Math.Abs(color.Red + color.Green + color.Blue - topLeft) > BORDER_DIFF_THRESHOLD)
+                    {
+                        rightBorder = original.Width / 2 - 1 - ii;
+                        break;
+                    }
+                }
+                for (var ii = original.Height - 1; ii > original.Height / 2; ii--)
+                {
+                    var color = original.GetPixel(original.Width / 4, ii);
+                    if (Math.Abs(color.Red + color.Green + color.Blue - topLeft) > BORDER_DIFF_THRESHOLD)
+                    {
+                        bottomBorder = original.Height - ii;
+                        break;
+                    }
+                }
+            }
+
+            var width = (int) Math.Round(original.Width / 2f) - leftBorder - rightBorder;
+            var height = original.Height - topBorder - bottomBorder;
 
             var extracted = new SKBitmap(width, height);
 
@@ -839,11 +892,24 @@ namespace CrossCam.ViewModel
             {
                 surface.DrawBitmap(
                     original,
-                    SKRect.Create(wantLeft ? 0 : width, 0, width, height),
-                    SKRect.Create(0, 0, width, height));
+                    SKRect.Create(
+                        wantLeft ? leftBorder : width + 2 * leftBorder + rightBorder,
+                        topBorder,
+                        width,
+                        height),
+                    SKRect.Create(
+                        0,
+                        0,
+                        width,
+                        height));
             }
 
             return extracted;
+        }
+
+        private static int GetTotalColor(SKColor color)
+        {
+            return color.Red + color.Green + color.Blue;
         }
 
         private static SKBitmap GetBitmapAndCorrectOrientation(byte[] bytes)
