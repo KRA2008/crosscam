@@ -70,7 +70,7 @@
   </ItemGroup>
   <ItemGroup>
     <Reference Include="Emgu.CV.World.Android">
-      <HintPath>..\..\CrossCamDocs\libemgucv-pro-3.4.3.3027\libs\Emgu.CV.World.Android.dll</HintPath>
+      <HintPath>D:\Kevin\CrossCamDocs\libemgucv-pro-3.4.3.3027\libs\Emgu.CV.World.Android.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Xml" />
