@@ -471,7 +471,6 @@ namespace CrossCam.ViewModel
                 
                 try
                 {
-                    throw new Exception("blah");
                     await Task.Run(async () =>
                     {
                         var needs180Flip = Device.RuntimePlatform == Device.iOS && IsViewInverted;
