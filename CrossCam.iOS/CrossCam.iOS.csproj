@@ -42,7 +42,7 @@
     <BuildIpa>true</BuildIpa>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
     <MtouchLink>Full</MtouchLink>
-    <MtouchExtraArgs>--linkskip=CrossCam --linkskip=CrossCam.iOS</MtouchExtraArgs>
+    <MtouchExtraArgs>--linkskip=CrossCam --linkskip=CrossCam.iOS --optimize=-remove-dynamic-registrar</MtouchExtraArgs>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|iPhoneSimulator' ">
     <DebugType>full</DebugType>
