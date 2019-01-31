@@ -5,6 +5,8 @@ using CrossCam.Wrappers;
 using Emgu.CV;
 using Emgu.CV.CvEnum;
 using Emgu.CV.Structure;
+using Emgu.CV.Text;
+using Emgu.CV.Util;
 using SkiaSharp;
 using Xamarin.Forms;
 #if __ANDROID__
@@ -34,8 +36,20 @@ namespace AutoAlignment
                 using (var transformMatrix = Mat.Eye(2, 3, DepthType.Cv32F, 1))
                 {
                     var criteria = new MCvTermCriteria(iterations, Math.Pow(10, -epsilonLevel));
-                    var ecc = CvInvoke.FindTransformECC(downsizedSecondGrayMat, downsizedFirstGrayMat, transformMatrix,
-                        MotionType.Euclidean, criteria);
+                    double ecc;
+                    try
+                    {
+                        ecc = CvInvoke.FindTransformECC(downsizedSecondGrayMat, downsizedFirstGrayMat, transformMatrix,
+                            MotionType.Euclidean, criteria);
+                    }
+                    catch (CvException e)
+                    {
+                        if (e.Status == (int)ErrorCodes.StsNoConv)
+                        {
+                            return null;
+                        }
+                        throw;
+                    }
 
                     if (transformMatrix.IsEmpty ||
                         ecc * 100 < eccCutoff)
