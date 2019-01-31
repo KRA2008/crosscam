@@ -7,6 +7,7 @@ using CrossCam.Model;
 using CrossCam.Page;
 using CrossCam.Wrappers;
 using FreshMvvm;
+using Plugin.DeviceInfo;
 using SkiaSharp;
 using Xamarin.Forms;
 
@@ -470,6 +471,7 @@ namespace CrossCam.ViewModel
                 
                 try
                 {
+                    throw new Exception("blah");
                     await Task.Run(async () =>
                     {
                         var needs180Flip = Device.RuntimePlatform == Device.iOS && IsViewInverted;
@@ -625,10 +627,18 @@ namespace CrossCam.ViewModel
                     "An error has occurred. Would you like to send an error report?", "Yes", "No");
                 if (sendReport)
                 {
-                    var appVersionProvider = DependencyService.Get<IAppVersionProvider>();
-                    var errorMessage = appVersionProvider.GetAppVersion() + 
-                                       "\n" + 
-                                       ErrorMessage;
+                    var errorMessage = ErrorMessage + "\n" +
+                                       "\n" +
+                                       "Device Platform: " + CrossDeviceInfo.Current.Platform + "\n" +
+                                       "Device Manufacturer: " + CrossDeviceInfo.Current.Manufacturer + "\n" +
+                                       "Device Model: " + CrossDeviceInfo.Current.Model + "\n" +
+                                       "Device Width: " + Application.Current.MainPage.Width + "\n" +
+                                       "Device Height: " + Application.Current.MainPage.Height + "\n" +
+                                       "OS Version: " + CrossDeviceInfo.Current.Version + "\n" +
+                                       "OS Version Number: " + CrossDeviceInfo.Current.VersionNumber + "\n" +
+                                       "App Version: " + CrossDeviceInfo.Current.AppVersion + "\n" +
+                                       "App Build: " + CrossDeviceInfo.Current.AppBuild + "\n" +
+                                       "Idiom: " + CrossDeviceInfo.Current.Idiom;
                     Device.OpenUri(new Uri("mailto:me@kra2008.com?subject=CrossCam%20error%20report&body=" +
                                            HttpUtility.UrlEncode(errorMessage)));
                 }

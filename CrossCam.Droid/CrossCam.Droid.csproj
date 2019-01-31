@@ -56,6 +56,9 @@
     <PackageReference Include="FreshMvvm">
       <Version>2.2.4</Version>
     </PackageReference>
+    <PackageReference Include="Xam.Plugin.DeviceInfo">
+      <Version>4.1.1</Version>
+    </PackageReference>
     <PackageReference Include="Xamarin.Android.Support.Design" Version="27.0.2.1" />
     <PackageReference Include="Xamarin.Android.Support.v4" Version="27.0.2.1" />
     <PackageReference Include="Xamarin.Android.Support.v7.AppCompat" Version="27.0.2.1" />
@@ -78,7 +81,6 @@
     <Reference Include="Mono.Android" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="CustomRenderer\AppVersionProvider.cs" />
     <Compile Include="CustomRenderer\PhotoPicker.cs" />
     <Compile Include="CustomRenderer\PhotoSaver.cs" />
     <Compile Include="MainActivity.cs" />
