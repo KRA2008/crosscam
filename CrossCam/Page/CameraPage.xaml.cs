@@ -177,21 +177,41 @@ namespace CrossCam.Page
             _averagePitch *= (ACCELEROMETER_MEASURMENT_WEIGHT - 1) / ACCELEROMETER_MEASURMENT_WEIGHT;
 
             var acceleration = args.Reading.Acceleration;
-            if (_viewModel != null && _viewModel.IsNothingCaptured)
+            if (_viewModel != null && 
+                _viewModel.IsNothingCaptured)
             {
                 _firstPhotoPitch = acceleration.Z;
             }
-            if (_viewModel != null && _viewModel.IsExactlyOnePictureTaken)
+            if (_viewModel != null && 
+                _viewModel.IsExactlyOnePictureTaken)
             {
                 _averagePitch += acceleration.Z / ACCELEROMETER_MEASURMENT_WEIGHT;
             }
-            if (Math.Abs(acceleration.X) < Math.Abs(acceleration.Y))
+
+            if (_viewModel != null)
             {
-                _averageRoll += acceleration.X / ACCELEROMETER_MEASURMENT_WEIGHT;
-            }
-            else
-            {
-                _averageRoll -= acceleration.Y / ACCELEROMETER_MEASURMENT_WEIGHT;
+                if (Math.Abs(acceleration.X) < Math.Abs(acceleration.Y)) //portrait
+                {
+                    if (_viewModel.IsViewInverted)
+                    {
+                        _averageRoll -= acceleration.X / ACCELEROMETER_MEASURMENT_WEIGHT;
+                    }
+                    else
+                    {
+                        _averageRoll += acceleration.X / ACCELEROMETER_MEASURMENT_WEIGHT;
+                    }
+                }
+                else //landscape
+                {
+                    if (_viewModel.IsViewInverted)
+                    {
+                        _averageRoll += acceleration.Y / ACCELEROMETER_MEASURMENT_WEIGHT;
+                    }
+                    else
+                    {
+                        _averageRoll -= acceleration.Y / ACCELEROMETER_MEASURMENT_WEIGHT;
+                    }
+                }
             }
 
             if (_averageRoll > AVERAGE_ROLL_LIMIT)

@@ -210,7 +210,7 @@ namespace CrossCam.ViewModel
         public Command LoadPhotoCommand { get; set; }
 
         public bool IsViewPortrait { get; set; }
-        public bool IsViewInvertedLandscape { get; set; }
+        public bool IsViewInverted { get; set; }
         public bool IsCaptureLeftFirst { get; set; }
         public bool WasCapturePortrait { get; set; }
 
@@ -472,7 +472,7 @@ namespace CrossCam.ViewModel
                 {
                     await Task.Run(async () =>
                     {
-                        var needs180Flip = Device.RuntimePlatform == Device.iOS && IsViewInvertedLandscape;
+                        var needs180Flip = Device.RuntimePlatform == Device.iOS && IsViewInverted;
 
                         if (Settings.SaveSidesSeparately)
                         {

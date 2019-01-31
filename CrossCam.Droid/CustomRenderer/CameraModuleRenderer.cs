@@ -363,26 +363,40 @@ namespace CrossCam.Droid.CustomRenderer
             var moduleWidth = _cameraModule.Width * metrics.Density;
             var moduleHeight = _cameraModule.Height * metrics.Density;
 
+            var parameters = _camera.GetParameters();
             double proportionalPreviewHeight;
             switch (Display.Rotation)
             {
-                case SurfaceOrientation.Rotation0: //portraits
-                case SurfaceOrientation.Rotation180:
-                    _cameraModule.IsViewInvertedLandscape = false;
+                case SurfaceOrientation.Rotation0:
+                    _cameraModule.IsViewInverted = false;
                     _cameraModule.IsPortrait = true;
                     proportionalPreviewHeight = _previewSize.Width * moduleWidth / _previewSize.Height;
+                    _camera.SetDisplayOrientation(90);
+                    parameters.SetRotation(90);
+                    break;
+                case SurfaceOrientation.Rotation180:
+                    _cameraModule.IsViewInverted = true;
+                    _cameraModule.IsPortrait = true;
+                    proportionalPreviewHeight = _previewSize.Width * moduleWidth / _previewSize.Height;
+                    _camera.SetDisplayOrientation(270);
+                    parameters.SetRotation(270);
                     break;
                 case SurfaceOrientation.Rotation90:
-                    _cameraModule.IsViewInvertedLandscape = false;
+                    _cameraModule.IsViewInverted = false;
                     _cameraModule.IsPortrait = false;
                     proportionalPreviewHeight = _previewSize.Height * moduleWidth / _previewSize.Width;
+                    _camera.SetDisplayOrientation(0);
+                    parameters.SetRotation(0);
                     break;
                 default:
                     _cameraModule.IsPortrait = false;
-                    _cameraModule.IsViewInvertedLandscape = true;
+                    _cameraModule.IsViewInverted = true;
                     proportionalPreviewHeight = _previewSize.Height * moduleWidth / _previewSize.Width;
+                    _camera.SetDisplayOrientation(180);
+                    parameters.SetRotation(180);
                     break;
             }
+            _camera.SetParameters(parameters);
 
             var verticalOffset = (moduleHeight - proportionalPreviewHeight) / 2f;
 
@@ -391,32 +405,6 @@ namespace CrossCam.Droid.CustomRenderer
 
             _textureView.LayoutParameters = new FrameLayout.LayoutParams((int) Math.Round(moduleWidth),
                 (int)Math.Round(proportionalPreviewHeight));
-
-            var parameters = _camera.GetParameters();
-
-            var display = _activity.WindowManager.DefaultDisplay;
-            if (display.Rotation == SurfaceOrientation.Rotation0) // portrait
-            {
-                _camera.SetDisplayOrientation(90);
-                parameters.SetRotation(90);
-            }
-            else if (display.Rotation == SurfaceOrientation.Rotation90)
-            {
-                _camera.SetDisplayOrientation(0);
-                parameters.SetRotation(0);
-            }
-            else if (display.Rotation == SurfaceOrientation.Rotation180) // portrait
-            {
-                _camera.SetDisplayOrientation(270);
-                parameters.SetRotation(270);
-            }
-            else if (display.Rotation == SurfaceOrientation.Rotation270)
-            {
-                _camera.SetDisplayOrientation(180);
-                parameters.SetRotation(180);
-            }
-
-            _camera.SetParameters(parameters);
         }
 
         private void TakePhotoButtonTapped()
