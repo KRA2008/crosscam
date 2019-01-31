@@ -1,9 +1,10 @@
-﻿using SkiaSharp;
+using CrossCam.Model;
+using SkiaSharp;
 
 namespace CrossCam.Wrappers
 {
     public interface IOpenCv
     {
-        byte[] CreateAlignedSecondImage(SKBitmap firstImage, SKBitmap secondImage);
+        AlignedResult CreateAlignedSecondImage(SKBitmap firstImage, SKBitmap secondImage, int downsizePercentage, int iterations, int epsilonLevel, int eccCutoff);
     }
 }

@@ -40,6 +40,9 @@
     <MtouchUseLlvm>true</MtouchUseLlvm>
     <OptimizePNGs>true</OptimizePNGs>
     <BuildIpa>true</BuildIpa>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <MtouchLink>Full</MtouchLink>
+    <MtouchExtraArgs>--linkskip=CrossCam --linkskip=CrossCam.iOS</MtouchExtraArgs>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|iPhoneSimulator' ">
     <DebugType>full</DebugType>
@@ -74,6 +77,10 @@
     <OptimizePNGs>true</OptimizePNGs>
     <CodesignExtraArgs />
     <CodesignResourceRules />
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <MtouchLink>None</MtouchLink>
+    <MtouchExtraArgs>
+    </MtouchExtraArgs>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(RunConfiguration)' == 'Default' ">
     <AppExtensionDebugBundleId />
@@ -112,7 +119,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CustomRenderer\AppVersionProvider.cs" />
-    <Compile Include="CustomRenderer\OpenCV.cs" />
     <Compile Include="CustomRenderer\PhotoPicker.cs" />
     <Compile Include="CustomRenderer\PhotoSaver.cs" />
     <Compile Include="Main.cs" />
@@ -523,6 +529,7 @@
   <ItemGroup>
     <Content Include="MissingEmguCvBinaryExplanation.txt" />
   </ItemGroup>
+  <Import Project="..\AutoAlignment\AutoAlignment.projitems" Label="Shared" />
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup />

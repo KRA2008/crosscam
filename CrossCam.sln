@@ -9,7 +9,14 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CrossCam.Droid", "CrossCam.
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CrossCam.iOS", "CrossCam.iOS\CrossCam.iOS.csproj", "{169D5C20-8FDA-48FC-96AF-2F6E09BB9B4F}"
 EndProject
+Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "AutoAlignment", "AutoAlignment\AutoAlignment.shproj", "{F9D4DFBF-A407-473C-AA27-36E2E0F5FCF8}"
+EndProject
 Global
+	GlobalSection(SharedMSBuildProjectFiles) = preSolution
+		AutoAlignment\AutoAlignment.projitems*{169d5c20-8fda-48fc-96af-2f6e09bb9b4f}*SharedItemsImports = 4
+		AutoAlignment\AutoAlignment.projitems*{a47f6f63-d74d-4c78-bb34-518c57c41dee}*SharedItemsImports = 4
+		AutoAlignment\AutoAlignment.projitems*{f9d4dfbf-a407-473c-aa27-36e2e0f5fcf8}*SharedItemsImports = 13
+	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Debug|ARM = Debug|ARM

@@ -82,7 +82,7 @@ namespace CrossCam.Model
             get => _resolutionProportion;
             set
             {
-                if (value >= 0)
+                if (value > 0)
                 {
                     _resolutionProportion = value;
                 }
@@ -95,7 +95,7 @@ namespace CrossCam.Model
             get => _cropSpeed;
             set
             {
-                if (value >= 0)
+                if (value > 0)
                 {
                     _cropSpeed = value;
                 }
@@ -108,7 +108,7 @@ namespace CrossCam.Model
             get => _zoomSpeed;
             set
             {
-                if (value >= 0)
+                if (value > 0)
                 {
                     _zoomSpeed = value;
                 }
@@ -121,7 +121,7 @@ namespace CrossCam.Model
             get => _alignSpeed;
             set
             {
-                if (value >= 0)
+                if (value > 0)
                 {
                     _alignSpeed = value;
                 }
@@ -134,7 +134,7 @@ namespace CrossCam.Model
             get => _rotationSpeed;
             set
             {
-                if (value >= 0)
+                if (value > 0)
                 {
                     _rotationSpeed = value;
                 }
@@ -147,7 +147,7 @@ namespace CrossCam.Model
             get => _keystoneSpeed;
             set
             {
-                if (value >= 0)
+                if (value > 0)
                 {
                     _keystoneSpeed = value;
                 }
@@ -160,7 +160,7 @@ namespace CrossCam.Model
             get => _borderThicknessProportion;
             set
             {
-                if (value >= 0)
+                if (value > 0)
                 {
                     _borderThicknessProportion = value;
                 }
@@ -168,6 +168,58 @@ namespace CrossCam.Model
         }
 
         public bool IsAutomaticAlignmentOn { get; set; }
+
+        private int _alignmentEpsilonLevel;
+        public int AlignmentEpsilonLevel
+        {
+            get => _alignmentEpsilonLevel;
+            set
+            {
+                if (value > 0)
+                {
+                    _alignmentEpsilonLevel = value;
+                }
+            }
+        }
+
+        private int _alignmentIterations;
+        public int AlignmentIterations
+        {
+            get => _alignmentIterations;
+            set
+            {
+                if (value > 0)
+                {
+                    _alignmentIterations = value;
+                }
+            }
+        }
+
+        private int _alignmentDownsizePercentage;
+        public int AlignmentDownsizePercentage
+        {
+            get => _alignmentDownsizePercentage;
+            set
+            {
+                if (value > 0)
+                {
+                    _alignmentDownsizePercentage = value;
+                }
+            }
+        }
+
+        private int _alignmentEccThresholdPercentage;
+        public int AlignmentEccThresholdPercentage
+        {
+            get => _alignmentEccThresholdPercentage;
+            set
+            {
+                if (value > 0)
+                {
+                    _alignmentEccThresholdPercentage = value;
+                }
+            }
+        }
 
         public Settings()
         {
@@ -199,6 +251,11 @@ namespace CrossCam.Model
             BorderColor = BorderColor.Black;
 
             IsAutomaticAlignmentOn = true;
+            AlignmentDownsizePercentage = 25;
+            AlignmentEpsilonLevel = 3;
+            AlignmentIterations = 50;
+            AlignmentEccThresholdPercentage = 60;
+
             ResolutionProportion = 100;
             RotationSpeed = 10;
             ZoomSpeed = 20;
