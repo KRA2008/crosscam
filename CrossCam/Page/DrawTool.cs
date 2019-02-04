@@ -12,7 +12,7 @@ namespace CrossCam.Page
             SKCanvas canvas, SKBitmap leftBitmap, SKBitmap rightBitmap,
             int borderThickness, bool addBorder, BorderColor borderColor,
             int leftLeftCrop, int leftRightCrop, int rightLeftCrop, int rightRightCrop,
-            int leftTopCrop, int leftBottomCrop, int rightTopCrop, int rightBottomCrop,
+            int topCrop, int bottomCrop,
             float leftRotation, float rightRotation, int alignment,
             int leftZoom, int rightZoom,
             float leftKeystone, float rightKeystone, 
@@ -31,7 +31,7 @@ namespace CrossCam.Page
             if (leftBitmap != null)
             {
                 leftBitmapWidthLessCrop = leftBitmap.Width - leftLeftCrop - leftRightCrop;
-                bitmapHeightLessCrop = leftBitmap.Height - leftTopCrop - leftBottomCrop - Math.Abs(alignment);
+                bitmapHeightLessCrop = leftBitmap.Height - topCrop - bottomCrop - Math.Abs(alignment);
                 aspectRatio = leftBitmap.Height / (1f * leftBitmap.Width);
             }
 
@@ -40,7 +40,7 @@ namespace CrossCam.Page
                 rightBitmapWidthLessCrop = rightBitmap.Width - rightLeftCrop - rightRightCrop;
                 if (leftBitmap == null)
                 {
-                    bitmapHeightLessCrop = rightBitmap.Height - rightTopCrop - rightBottomCrop - Math.Abs(alignment);
+                    bitmapHeightLessCrop = rightBitmap.Height - topCrop - bottomCrop - Math.Abs(alignment);
                     aspectRatio = rightBitmap.Height / (1f * rightBitmap.Width);
                 }
             }
@@ -116,9 +116,9 @@ namespace CrossCam.Page
                     transformed ?? leftBitmap,
                     SKRect.Create(
                         leftLeftCrop,
-                        leftTopCrop + (alignment > 0 ? alignment : 0),
+                        topCrop + (alignment > 0 ? alignment : 0),
                         (transformed?.Width ?? leftBitmap.Width) - leftLeftCrop - leftRightCrop,
-                        (transformed?.Height ?? leftBitmap.Height) - leftTopCrop - leftBottomCrop - Math.Abs(alignment)),
+                        (transformed?.Height ?? leftBitmap.Height) - topCrop - bottomCrop - Math.Abs(alignment)),
                     SKRect.Create(
                         leftPreviewX,
                         previewY,
@@ -141,9 +141,9 @@ namespace CrossCam.Page
                     transformed ?? rightBitmap,
                     SKRect.Create(
                         rightLeftCrop,
-                        rightTopCrop - (alignment < 0 ? alignment : 0),
+                        topCrop - (alignment < 0 ? alignment : 0),
                         (transformed?.Width ?? rightBitmap.Width) - rightLeftCrop - rightRightCrop,
-                        (transformed?.Height ?? rightBitmap.Height) - rightTopCrop - rightBottomCrop - Math.Abs(alignment)),
+                        (transformed?.Height ?? rightBitmap.Height) - topCrop - bottomCrop - Math.Abs(alignment)),
                     SKRect.Create(
                         rightPreviewX,
                         previewY,
@@ -247,7 +247,7 @@ namespace CrossCam.Page
         }
 
         public static int CalculateCanvasHeightLessBorder(SKBitmap leftBitmap, SKBitmap rightBitmap, 
-            int leftTopCrop, int leftBottomCrop, int rightTopCrop, int rightBottomCrop,
+            int topCrop, int bottomCrop,
             int alignment)
         {
             if (leftBitmap == null && rightBitmap == null) return 0;
@@ -257,8 +257,7 @@ namespace CrossCam.Page
                 return leftBitmap?.Height ?? rightBitmap.Height;
             }
 
-            return leftBitmap.Height - leftTopCrop - leftBottomCrop - Math.Abs(alignment);
-            var rightHeight = rightBitmap.Height - rightTopCrop - rightBottomCrop; // not sure when this is not the same as left
+            return leftBitmap.Height - topCrop - bottomCrop - Math.Abs(alignment);
         }
     }
 }

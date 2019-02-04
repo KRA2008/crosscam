@@ -304,6 +304,8 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="MissingEmguCvBinaryExplanation.txt" />
+    <AndroidResource Include="Resources\drawable-nodpi\bottomCrop.png" />
+    <AndroidResource Include="Resources\drawable-nodpi\topCrop.png" />
   </ItemGroup>
   <Import Project="..\AutoAlignment\AutoAlignment.projitems" Label="Shared" />
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />

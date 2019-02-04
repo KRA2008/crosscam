@@ -283,7 +283,7 @@
         <ContentView AbsoluteLayout.LayoutFlags="PositionProportional"
                      AbsoluteLayout.LayoutBounds="{StaticResource _clearBounds}"
                      Padding="{StaticResource _topBarButtonPadding}"
-                     IsVisible="{Binding WorkflowStage, Converter={vc:EnumCompareConverter}, ConverterParameter={x:Static vm:WorkflowStage.Capture}}">
+                     IsVisible="{Binding WorkflowStage, Converter={vc:WorkflowCompareConverter}, ConverterParameter={x:Static vm:WorkflowStage.Capture}}">
             <ContentView.GestureRecognizers>
                 <TapGestureRecognizer Command="{Binding SwapSidesCommand}"/>
             </ContentView.GestureRecognizers>
@@ -292,7 +292,7 @@
         <ContentView AbsoluteLayout.LayoutFlags="PositionProportional"
                      AbsoluteLayout.LayoutBounds="{StaticResource _captureBounds}"
                      Padding="{StaticResource _bottomPadding}"
-                     IsVisible="{Binding WorkflowStage, Converter={vc:EnumCompareConverter}, ConverterParameter={x:Static vm:WorkflowStage.Capture}}">
+                     IsVisible="{Binding WorkflowStage, Converter={vc:WorkflowCompareConverter}, ConverterParameter={x:Static vm:WorkflowStage.Capture}}">
             <ContentView.GestureRecognizers>
                 <TapGestureRecognizer Command="{Binding CapturePictureCommand}"/>
             </ContentView.GestureRecognizers>
@@ -328,7 +328,7 @@
         <ContentView AbsoluteLayout.LayoutFlags="PositionProportional"
                      AbsoluteLayout.LayoutBounds="{StaticResource _clearBounds}"
                      Padding="{StaticResource _topBarButtonPadding}"
-                     IsVisible="{Binding WorkflowStage, Converter={vc:EnumCompareConverter}, ConverterParameter={x:Static vm:WorkflowStage.Final}}">
+                     IsVisible="{Binding WorkflowStage, Converter={vc:WorkflowCompareConverter}, ConverterParameter={x:Static vm:WorkflowStage.Final}}">
             <ContentView.GestureRecognizers>
                 <TapGestureRecognizer Command="{Binding ClearCapturesCommand}"/>
             </ContentView.GestureRecognizers>
@@ -345,7 +345,7 @@
         <Image Source="edit"
                AbsoluteLayout.LayoutFlags="PositionProportional"
                AbsoluteLayout.LayoutBounds="{StaticResource _editBounds}"
-               IsVisible="{Binding WorkflowStage, Converter={vc:EnumCompareConverter}, ConverterParameter={x:Static vm:WorkflowStage.Final}}">
+               IsVisible="{Binding WorkflowStage, Converter={vc:WorkflowCompareConverter}, ConverterParameter={x:Static vm:WorkflowStage.Final}}">
             <Image.GestureRecognizers>
                 <TapGestureRecognizer Command="{Binding GoToModeCommand}"
                                       CommandParameter="{x:Static vm:WorkflowStage.Edits}"/>
@@ -364,7 +364,7 @@
         <Grid AbsoluteLayout.LayoutFlags="PositionProportional,WidthProportional"
               AbsoluteLayout.LayoutBounds="{StaticResource _alignBounds}"
               Padding="{StaticResource _topBarButtonPadding}"
-              IsVisible="{Binding WorkflowStage, Converter={vc:EnumCompareConverter}, ConverterParameter={x:Static vm:WorkflowStage.Edits}}">
+              IsVisible="{Binding WorkflowStage, Converter={vc:WorkflowCompareConverter}, ConverterParameter={x:Static vm:WorkflowStage.Edits}}">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="Auto"/>
@@ -387,7 +387,7 @@
         </Grid>
         <Grid AbsoluteLayout.LayoutFlags="PositionProportional,WidthProportional"
               AbsoluteLayout.LayoutBounds="{StaticResource _keystoneBounds}"
-              IsVisible="{Binding WorkflowStage, Converter={vc:EnumCompareConverter}, ConverterParameter={x:Static vm:WorkflowStage.Edits}}">
+              IsVisible="{Binding WorkflowStage, Converter={vc:WorkflowCompareConverter}, ConverterParameter={x:Static vm:WorkflowStage.Edits}}">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="Auto"/>
@@ -407,7 +407,7 @@
         <Image Source="scissor"
                AbsoluteLayout.LayoutFlags="PositionProportional"
                AbsoluteLayout.LayoutBounds="{StaticResource _cropBounds}"
-               IsVisible="{Binding WorkflowStage, Converter={vc:EnumCompareConverter}, ConverterParameter={x:Static vm:WorkflowStage.Edits}}">
+               IsVisible="{Binding WorkflowStage, Converter={vc:WorkflowCompareConverter}, ConverterParameter={x:Static vm:WorkflowStage.Edits}}">
             <Image.GestureRecognizers>
                 <TapGestureRecognizer Command="{Binding GoToModeCommand}"
                                       CommandParameter="{x:Static vm:WorkflowStage.Crop}"/>
@@ -437,7 +437,7 @@
         <Image Source="rotateLeft"
                AbsoluteLayout.LayoutFlags="PositionProportional"
                AbsoluteLayout.LayoutBounds="{StaticResource _leftRotateLeft}"
-               IsVisible="{Binding WorkflowStage, Converter={vc:EnumCompareConverter}, ConverterParameter={x:Static vm:WorkflowStage.ManualAlign}}">
+               IsVisible="{Binding WorkflowStage, Converter={vc:WorkflowCompareConverter}, ConverterParameter={x:Static vm:WorkflowStage.ManualAlign}}">
             <Image.GestureRecognizers>
                 <TapGestureRecognizer Command="{Binding DecreaseLeftRotation}"/>
             </Image.GestureRecognizers>
@@ -445,7 +445,7 @@
         <Image Source="rotateRight"
                AbsoluteLayout.LayoutFlags="PositionProportional"
                AbsoluteLayout.LayoutBounds="{StaticResource _leftRotateRight}"
-               IsVisible="{Binding WorkflowStage, Converter={vc:EnumCompareConverter}, ConverterParameter={x:Static vm:WorkflowStage.ManualAlign}}">
+               IsVisible="{Binding WorkflowStage, Converter={vc:WorkflowCompareConverter}, ConverterParameter={x:Static vm:WorkflowStage.ManualAlign}}">
             <Image.GestureRecognizers>
                 <TapGestureRecognizer Command="{Binding IncreaseLeftRotation}"/>
             </Image.GestureRecognizers>
@@ -453,7 +453,7 @@
         <Image Source="rotateLeft"
                AbsoluteLayout.LayoutFlags="PositionProportional"
                AbsoluteLayout.LayoutBounds="{StaticResource _rightRotateLeft}"
-               IsVisible="{Binding WorkflowStage, Converter={vc:EnumCompareConverter}, ConverterParameter={x:Static vm:WorkflowStage.ManualAlign}}">
+               IsVisible="{Binding WorkflowStage, Converter={vc:WorkflowCompareConverter}, ConverterParameter={x:Static vm:WorkflowStage.ManualAlign}}">
             <Image.GestureRecognizers>
                 <TapGestureRecognizer Command="{Binding DecreaseRightRotation}"/>
             </Image.GestureRecognizers>
@@ -461,7 +461,7 @@
         <Image Source="rotateRight"
                AbsoluteLayout.LayoutFlags="PositionProportional"
                AbsoluteLayout.LayoutBounds="{StaticResource _rightRotateRight}"
-               IsVisible="{Binding WorkflowStage, Converter={vc:EnumCompareConverter}, ConverterParameter={x:Static vm:WorkflowStage.ManualAlign}}">
+               IsVisible="{Binding WorkflowStage, Converter={vc:WorkflowCompareConverter}, ConverterParameter={x:Static vm:WorkflowStage.ManualAlign}}">
             <Image.GestureRecognizers>
                 <TapGestureRecognizer Command="{Binding IncreaseRightRotation}"/>
             </Image.GestureRecognizers>
@@ -470,7 +470,7 @@
         <Image Source="vertAlign"
                AbsoluteLayout.LayoutFlags="PositionProportional"
                AbsoluteLayout.LayoutBounds="{StaticResource _leftAlignUp}"
-               IsVisible="{Binding WorkflowStage, Converter={vc:EnumCompareConverter}, ConverterParameter={x:Static vm:WorkflowStage.ManualAlign}}">
+               IsVisible="{Binding WorkflowStage, Converter={vc:WorkflowCompareConverter}, ConverterParameter={x:Static vm:WorkflowStage.ManualAlign}}">
             <Image.GestureRecognizers>
                 <TapGestureRecognizer Command="{Binding LeftUpRightDown}"/>
             </Image.GestureRecognizers>
@@ -478,7 +478,7 @@
         <Image Source="vertAlignReverse"
                AbsoluteLayout.LayoutFlags="PositionProportional"
                AbsoluteLayout.LayoutBounds="{StaticResource _rightAlignUp}"
-               IsVisible="{Binding WorkflowStage, Converter={vc:EnumCompareConverter}, ConverterParameter={x:Static vm:WorkflowStage.ManualAlign}}">
+               IsVisible="{Binding WorkflowStage, Converter={vc:WorkflowCompareConverter}, ConverterParameter={x:Static vm:WorkflowStage.ManualAlign}}">
             <Image.GestureRecognizers>
                 <TapGestureRecognizer Command="{Binding LeftDownRightUp}"/>
             </Image.GestureRecognizers>
@@ -487,7 +487,7 @@
         <StackLayout AbsoluteLayout.LayoutFlags="PositionProportional"
                      AbsoluteLayout.LayoutBounds="{StaticResource _leftZoom}"
                      Spacing="0"
-                     IsVisible="{Binding WorkflowStage, Converter={vc:EnumCompareConverter}, ConverterParameter={x:Static vm:WorkflowStage.ManualAlign}}">
+                     IsVisible="{Binding WorkflowStage, Converter={vc:WorkflowCompareConverter}, ConverterParameter={x:Static vm:WorkflowStage.ManualAlign}}">
             <Image Source="zoomIn">
                 <Image.GestureRecognizers>
                     <TapGestureRecognizer Command="{Binding LeftZoomIn}"/>
@@ -502,7 +502,7 @@
         <StackLayout AbsoluteLayout.LayoutFlags="PositionProportional"
                      AbsoluteLayout.LayoutBounds="{StaticResource _rightZoom}"
                      Spacing="0"
-                     IsVisible="{Binding WorkflowStage, Converter={vc:EnumCompareConverter}, ConverterParameter={x:Static vm:WorkflowStage.ManualAlign}}">
+                     IsVisible="{Binding WorkflowStage, Converter={vc:WorkflowCompareConverter}, ConverterParameter={x:Static vm:WorkflowStage.ManualAlign}}">
             <Image Source="zoomIn">
                 <Image.GestureRecognizers>
                     <TapGestureRecognizer Command="{Binding RightZoomIn}"/>
@@ -518,7 +518,7 @@
         <Image AbsoluteLayout.LayoutFlags="PositionProportional"
                AbsoluteLayout.LayoutBounds="{StaticResource _leftKeystoneLeft}"
                Source="keystoneRight"
-               IsVisible="{Binding WorkflowStage, Converter={vc:EnumCompareConverter}, ConverterParameter={x:Static vm:WorkflowStage.Keystone}}">
+               IsVisible="{Binding WorkflowStage, Converter={vc:WorkflowCompareConverter}, ConverterParameter={x:Static vm:WorkflowStage.Keystone}}">
             <Image.GestureRecognizers>
                 <TapGestureRecognizer Command="{Binding IncreaseLeftKeystone}"/>
             </Image.GestureRecognizers>
@@ -526,7 +526,7 @@
         <Image AbsoluteLayout.LayoutFlags="PositionProportional"
                AbsoluteLayout.LayoutBounds="{StaticResource _leftKeystoneRight}"
                Source="keystoneLeft"
-               IsVisible="{Binding WorkflowStage, Converter={vc:EnumCompareConverter}, ConverterParameter={x:Static vm:WorkflowStage.Keystone}}">
+               IsVisible="{Binding WorkflowStage, Converter={vc:WorkflowCompareConverter}, ConverterParameter={x:Static vm:WorkflowStage.Keystone}}">
             <Image.GestureRecognizers>
                 <TapGestureRecognizer Command="{Binding DecreaseLeftKeystone}"/>
             </Image.GestureRecognizers>
@@ -534,7 +534,7 @@
         <Image AbsoluteLayout.LayoutFlags="PositionProportional"
                AbsoluteLayout.LayoutBounds="{StaticResource _rightKeystoneLeft}"
                Source="keystoneRight"
-               IsVisible="{Binding WorkflowStage, Converter={vc:EnumCompareConverter}, ConverterParameter={x:Static vm:WorkflowStage.Keystone}}">
+               IsVisible="{Binding WorkflowStage, Converter={vc:WorkflowCompareConverter}, ConverterParameter={x:Static vm:WorkflowStage.Keystone}}">
             <Image.GestureRecognizers>
                 <TapGestureRecognizer Command="{Binding IncreaseRightKeystone}"/>
             </Image.GestureRecognizers>
@@ -542,252 +542,293 @@
         <Image AbsoluteLayout.LayoutFlags="PositionProportional"
                AbsoluteLayout.LayoutBounds="{StaticResource _rightKeystoneRight}"
                Source="keystoneLeft"
-               IsVisible="{Binding WorkflowStage, Converter={vc:EnumCompareConverter}, ConverterParameter={x:Static vm:WorkflowStage.Keystone}}">
+               IsVisible="{Binding WorkflowStage, Converter={vc:WorkflowCompareConverter}, ConverterParameter={x:Static vm:WorkflowStage.Keystone}}">
             <Image.GestureRecognizers>
                 <TapGestureRecognizer Command="{Binding DecreaseRightKeystone}"/>
             </Image.GestureRecognizers>
         </Image>
 
-        <Grid AbsoluteLayout.LayoutFlags="PositionProportional,HeightProportional"
+        <!--TODO:center and expand needed below??-->
+        <Grid AbsoluteLayout.LayoutFlags="PositionProportional,WidthProportional"
+              AbsoluteLayout.LayoutBounds="0,0.8,1,25"
               RowSpacing="0"
               ColumnSpacing="0"
-              IsVisible="{Binding WorkflowStage, Converter={vc:EnumCompareConverter}, ConverterParameter={x:Static vm:WorkflowStage.Crop}}">
-            <AbsoluteLayout.LayoutBounds>
-                <Rectangle X="0.15" Y="0" Width="{StaticResource _mediumIconWidthPlusCropLineThickness}" Height="1"/>
-            </AbsoluteLayout.LayoutBounds>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="{StaticResource _cropLineGridLength}"/>
-                <ColumnDefinition Width="Auto"/>
-            </Grid.ColumnDefinitions>
+              IsVisible="{Binding WorkflowStage, Converter={vc:WorkflowCompareConverter}, ConverterParameter={x:Static vm:WorkflowStage.Crop}}">
             <Grid.RowDefinitions>
-                <RowDefinition Height="*"/>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="*"/>
+                <RowDefinition Height="1"/>
+                <RowDefinition Height="23"/>
+                <RowDefinition Height="1"/>
             </Grid.RowDefinitions>
-            <BoxView Grid.RowSpan="2"
-                     Grid.Row="1"
-                     Grid.Column="0"
-                     Color="White"
-                     WidthRequest="{StaticResource _cropLineThickness}"/>
-            <Image Grid.Row="1" 
-                   Grid.Column="1"
-                   Source="leftTriangle">
-                <Image.GestureRecognizers>
-                    <TapGestureRecognizer Command="{Binding DecreaseLeftCrop}"/>
-                </Image.GestureRecognizers>
-            </Image>
-            <Image Grid.Row="2" 
-                   Grid.Column="1"
-                   Source="rightTriangle">
-                <Image.GestureRecognizers>
-                    <TapGestureRecognizer Command="{Binding IncreaseLeftCrop}"/>
-                </Image.GestureRecognizers>
-            </Image>
-            <Image Grid.Row="3"
-                   Grid.Column="0"
-                   Grid.ColumnSpan="2"
-                   Source="leftCrop"/>
-        </Grid>
-        <Grid AbsoluteLayout.LayoutFlags="PositionProportional,HeightProportional"
-              IsVisible="{Binding WorkflowStage, Converter={vc:EnumCompareConverter}, ConverterParameter={x:Static vm:WorkflowStage.Crop}}"
-              RowSpacing="0"
-              ColumnSpacing="0">
-            <AbsoluteLayout.LayoutBounds>
-                <Rectangle X="0.3" Y="0" Width="{StaticResource _mediumIconWidthPlusCropLineThickness}" Height="1"/>
-            </AbsoluteLayout.LayoutBounds>
             <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="1"/>
                 <ColumnDefinition Width="Auto"/>
-                <ColumnDefinition Width="{StaticResource _cropLineGridLength}"/>
+                <ColumnDefinition Width="1"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="1"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="1"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="1"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="1"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="1"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="1"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="1"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="1"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="1"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="1"/>
+                <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
-            <Grid.RowDefinitions>
-                <RowDefinition Height="*"/>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="*"/>
-            </Grid.RowDefinitions>
-            <BoxView Grid.RowSpan="2"
-                     Grid.Row="1"
-                     Grid.Column="1"
-                     Color="White"
-                     WidthRequest="{StaticResource _cropLineThickness}"/>
-            <Image Grid.Row="1" 
-                   Grid.Column="0"
-                   Source="rightTriangle">
-                <Image.GestureRecognizers>
-                    <TapGestureRecognizer Command="{Binding DecreaseRightCrop}"/>
-                </Image.GestureRecognizers>
-            </Image>
-            <Image Grid.Row="2" 
-                   Grid.Column="0"
-                   Source="leftTriangle">
-                <Image.GestureRecognizers>
-                    <TapGestureRecognizer Command="{Binding IncreaseRightCrop}"/>
-                </Image.GestureRecognizers>
-            </Image>
-            <Image Grid.Row="3"
-                   Grid.Column="0"
-                   Grid.ColumnSpan="2"
-                   Source="rightCrop"/>
-        </Grid>
 
-        <Grid AbsoluteLayout.LayoutFlags="PositionProportional,HeightProportional"
-              RowSpacing="0"
-              ColumnSpacing="0"
-              IsVisible="{Binding WorkflowStage, Converter={vc:EnumCompareConverter}, ConverterParameter={x:Static vm:WorkflowStage.Crop}}">
-            <AbsoluteLayout.LayoutBounds>
-                <Rectangle X="0.7" Y="0" Width="{StaticResource _mediumIconWidthPlusCropLineThickness}" Height="1"/>
-            </AbsoluteLayout.LayoutBounds>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="{StaticResource _cropLineGridLength}"/>
-                <ColumnDefinition Width="Auto"/>
-            </Grid.ColumnDefinitions>
-            <Grid.RowDefinitions>
-                <RowDefinition Height="*"/>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="*"/>
-            </Grid.RowDefinitions>
-            <BoxView Grid.RowSpan="2"
-                     Grid.Row="1"
-                     Grid.Column="0"
-                     Color="White"
-                     WidthRequest="{StaticResource _cropLineThickness}"/>
-            <Image Grid.Row="1" 
-                   Grid.Column="1"
-                   Source="leftTriangle">
-                <Image.GestureRecognizers>
-                    <TapGestureRecognizer Command="{Binding DecreaseInsideCrop}"/>
-                </Image.GestureRecognizers>
-            </Image>
-            <Image Grid.Row="2" 
-                   Grid.Column="1"
-                   Source="rightTriangle">
-                <Image.GestureRecognizers>
-                    <TapGestureRecognizer Command="{Binding IncreaseInsideCrop}"/>
-                </Image.GestureRecognizers>
-            </Image>
-            <Image Grid.Row="3"
-                   Grid.Column="0"
-                   Grid.ColumnSpan="2"
-                   Source="insideCrop"/>
-        </Grid>
-        <Grid AbsoluteLayout.LayoutFlags="PositionProportional,HeightProportional"
-              IsVisible="{Binding WorkflowStage, Converter={vc:EnumCompareConverter}, ConverterParameter={x:Static vm:WorkflowStage.Crop}}"
-              RowSpacing="0"
-              ColumnSpacing="0">
-            <AbsoluteLayout.LayoutBounds>
-                <Rectangle X="0.85" Y="0" Width="{StaticResource _mediumIconWidthPlusCropLineThickness}" Height="1"/>
-            </AbsoluteLayout.LayoutBounds>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="Auto"/>
-                <ColumnDefinition Width="{StaticResource _cropLineGridLength}"/>
-            </Grid.ColumnDefinitions>
-            <Grid.RowDefinitions>
-                <RowDefinition Height="*"/>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="*"/>
-            </Grid.RowDefinitions>
-            <BoxView Grid.RowSpan="2"
-                     Grid.Row="1"
-                     Grid.Column="1"
-                     Color="White"
-                     WidthRequest="{StaticResource _cropLineThickness}"/>
-            <Image Grid.Row="1" 
-                   Grid.Column="0"
-                   Source="rightTriangle">
-                <Image.GestureRecognizers>
-                    <TapGestureRecognizer Command="{Binding DecreaseOutsideCrop}"/>
-                </Image.GestureRecognizers>
-            </Image>
-            <Image Grid.Row="2" 
-                   Grid.Column="0"
-                   Source="leftTriangle">
-                <Image.GestureRecognizers>
-                    <TapGestureRecognizer Command="{Binding IncreaseOutsideCrop}"/>
-                </Image.GestureRecognizers>
-            </Image>
-            <Image Grid.Row="3"
-                   Grid.Column="0"
-                   Grid.ColumnSpan="2"
-                   Source="outsideCrop"/>
-        </Grid>
-
-        <Grid AbsoluteLayout.LayoutFlags="PositionProportional"
-              RowSpacing="0"
-              ColumnSpacing="0"
-              IsVisible="{Binding WorkflowStage, Converter={vc:EnumCompareConverter}, ConverterParameter={x:Static vm:WorkflowStage.Crop}}">
-            <AbsoluteLayout.LayoutBounds>
-                <Rectangle X="0.8" Y="0.25" Width="{StaticResource _doubleMediumIconWidth}" Height="{StaticResource _mediumIconWidthPlusCropLineThickness}"/>
-            </AbsoluteLayout.LayoutBounds>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="Auto"/>
-                <ColumnDefinition Width="Auto"/>
-            </Grid.ColumnDefinitions>
-            <Grid.RowDefinitions>
-                <RowDefinition Height="{StaticResource _cropLineGridLength}"/>
-                <RowDefinition Height="Auto"/>
-            </Grid.RowDefinitions>
-            <BoxView Grid.ColumnSpan="2"
+            <BoxView Grid.Column="1"
                      Grid.Row="0"
-                     Grid.Column="0"
+                     Grid.RowSpan="3"
                      Color="White"
-                     HeightRequest="{StaticResource _cropLineThickness}"/>
-            <Image Grid.Row="1" 
-                   Grid.Column="0"
-                   Source="upTriangle">
+                     IsVisible="{Binding CropMode, Converter={vc:CropCompareConverter}, ConverterParameter={x:Static vm:CropMode.Left}}">
+            </BoxView>
+            <BoxView Grid.Column="1"
+                     Grid.Row="0"
+                     Grid.ColumnSpan="3"
+                     Color="White"
+                     IsVisible="{Binding CropMode, Converter={vc:CropCompareConverter}, ConverterParameter={x:Static vm:CropMode.Left}}">
+            </BoxView>
+            <BoxView Grid.Column="3"
+                     Grid.Row="0"
+                     Grid.RowSpan="3"
+                     Color="White"
+                     IsVisible="{Binding CropMode, Converter={vc:CropCompareConverter}, ConverterParameter={x:Static vm:CropMode.Left}}">
+            </BoxView>
+            <BoxView Grid.Column="1"
+                     Grid.Row="2"
+                     Grid.ColumnSpan="3"
+                     Color="White"
+                     IsVisible="{Binding CropMode, Converter={vc:CropCompareConverter}, ConverterParameter={x:Static vm:CropMode.Left}}">
+            </BoxView>
+            <Image Grid.Column="2"
+                   Grid.Row="1"
+                   Source="leftCrop">
                 <Image.GestureRecognizers>
-                    <TapGestureRecognizer Command="{Binding DecreaseTopCrop}"/>
+                    <TapGestureRecognizer Command="{Binding SetCropMode}"
+                                          CommandParameter="{x:Static vm:CropMode.Left}"/>
                 </Image.GestureRecognizers>
             </Image>
-            <Image Grid.Row="1" 
-                   Grid.Column="1"
-                   Source="downTriangle">
+
+            <BoxView Grid.Column="5"
+                     Grid.Row="0"
+                     Grid.RowSpan="3"
+                     Color="White"
+                     IsVisible="{Binding CropMode, Converter={vc:CropCompareConverter}, ConverterParameter={x:Static vm:CropMode.Right}}">
+            </BoxView>
+            <BoxView Grid.Column="5"
+                     Grid.Row="0"
+                     Grid.ColumnSpan="3"
+                     Color="White"
+                     IsVisible="{Binding CropMode, Converter={vc:CropCompareConverter}, ConverterParameter={x:Static vm:CropMode.Right}}">
+            </BoxView>
+            <BoxView Grid.Column="7"
+                     Grid.Row="0"
+                     Grid.RowSpan="3"
+                     Color="White"
+                     IsVisible="{Binding CropMode, Converter={vc:CropCompareConverter}, ConverterParameter={x:Static vm:CropMode.Right}}">
+            </BoxView>
+            <BoxView Grid.Column="5"
+                     Grid.Row="2"
+                     Grid.ColumnSpan="3"
+                     Color="White"
+                     IsVisible="{Binding CropMode, Converter={vc:CropCompareConverter}, ConverterParameter={x:Static vm:CropMode.Right}}">
+            </BoxView>
+            <Image Grid.Column="6"
+                   Grid.Row="1"
+                   Source="rightCrop">
                 <Image.GestureRecognizers>
-                    <TapGestureRecognizer Command="{Binding IncreaseTopCrop}"/>
+                    <TapGestureRecognizer Command="{Binding SetCropMode}"
+                                          CommandParameter="{x:Static vm:CropMode.Right}"/>
+                </Image.GestureRecognizers>
+            </Image>
+
+            <BoxView Grid.Column="9"
+                     Grid.Row="0"
+                     Grid.RowSpan="3"
+                     Color="White"
+                     IsVisible="{Binding CropMode, Converter={vc:CropCompareConverter}, ConverterParameter={x:Static vm:CropMode.Inside}}">
+            </BoxView>
+            <BoxView Grid.Column="9"
+                     Grid.Row="0"
+                     Grid.ColumnSpan="3"
+                     Color="White"
+                     IsVisible="{Binding CropMode, Converter={vc:CropCompareConverter}, ConverterParameter={x:Static vm:CropMode.Inside}}">
+            </BoxView>
+            <BoxView Grid.Column="11"
+                     Grid.Row="0"
+                     Grid.RowSpan="3"
+                     Color="White"
+                     IsVisible="{Binding CropMode, Converter={vc:CropCompareConverter}, ConverterParameter={x:Static vm:CropMode.Inside}}">
+            </BoxView>
+            <BoxView Grid.Column="9"
+                     Grid.Row="2"
+                     Grid.ColumnSpan="3"
+                     Color="White"
+                     IsVisible="{Binding CropMode, Converter={vc:CropCompareConverter}, ConverterParameter={x:Static vm:CropMode.Inside}}">
+            </BoxView>
+            <Image Grid.Column="10"
+                   Grid.Row="1"
+                   Source="insideCrop">
+                <Image.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding SetCropMode}"
+                                          CommandParameter="{x:Static vm:CropMode.Inside}"/>
+                </Image.GestureRecognizers>
+            </Image>
+
+            <BoxView Grid.Column="13"
+                     Grid.Row="0"
+                     Grid.RowSpan="3"
+                     Color="White"
+                     IsVisible="{Binding CropMode, Converter={vc:CropCompareConverter}, ConverterParameter={x:Static vm:CropMode.Outside}}">
+            </BoxView>
+            <BoxView Grid.Column="13"
+                     Grid.Row="0"
+                     Grid.ColumnSpan="3"
+                     Color="White"
+                     IsVisible="{Binding CropMode, Converter={vc:CropCompareConverter}, ConverterParameter={x:Static vm:CropMode.Outside}}">
+            </BoxView>
+            <BoxView Grid.Column="15"
+                     Grid.Row="0"
+                     Grid.RowSpan="3"
+                     Color="White"
+                     IsVisible="{Binding CropMode, Converter={vc:CropCompareConverter}, ConverterParameter={x:Static vm:CropMode.Outside}}">
+            </BoxView>
+            <BoxView Grid.Column="13"
+                     Grid.Row="2"
+                     Grid.ColumnSpan="3"
+                     Color="White"
+                     IsVisible="{Binding CropMode, Converter={vc:CropCompareConverter}, ConverterParameter={x:Static vm:CropMode.Outside}}">
+            </BoxView>
+            <Image Grid.Column="14"
+                   Grid.Row="1"
+                   Source="outsideCrop">
+                <Image.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding SetCropMode}"
+                                          CommandParameter="{x:Static vm:CropMode.Outside}"/>
+                </Image.GestureRecognizers>
+            </Image>
+
+            <BoxView Grid.Column="17"
+                     Grid.Row="0"
+                     Grid.RowSpan="3"
+                     Color="White"
+                     IsVisible="{Binding CropMode, Converter={vc:CropCompareConverter}, ConverterParameter={x:Static vm:CropMode.Top}}">
+            </BoxView>
+            <BoxView Grid.Column="17"
+                     Grid.Row="0"
+                     Grid.ColumnSpan="3"
+                     Color="White"
+                     IsVisible="{Binding CropMode, Converter={vc:CropCompareConverter}, ConverterParameter={x:Static vm:CropMode.Top}}">
+            </BoxView>
+            <BoxView Grid.Column="19"
+                     Grid.Row="0"
+                     Grid.RowSpan="3"
+                     Color="White"
+                     IsVisible="{Binding CropMode, Converter={vc:CropCompareConverter}, ConverterParameter={x:Static vm:CropMode.Top}}">
+            </BoxView>
+            <BoxView Grid.Column="17"
+                     Grid.Row="2"
+                     Grid.ColumnSpan="3"
+                     Color="White"
+                     IsVisible="{Binding CropMode, Converter={vc:CropCompareConverter}, ConverterParameter={x:Static vm:CropMode.Top}}">
+            </BoxView>
+            <Image Grid.Column="18"
+                   Grid.Row="1"
+                   Source="topCrop">
+                <Image.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding SetCropMode}"
+                                          CommandParameter="{x:Static vm:CropMode.Top}"/>
+                </Image.GestureRecognizers>
+            </Image>
+
+            <BoxView Grid.Column="21"
+                     Grid.Row="0"
+                     Grid.RowSpan="3"
+                     Color="White"
+                     IsVisible="{Binding CropMode, Converter={vc:CropCompareConverter}, ConverterParameter={x:Static vm:CropMode.Bottom}}">
+            </BoxView>
+            <BoxView Grid.Column="21"
+                     Grid.Row="0"
+                     Grid.ColumnSpan="3"
+                     Color="White"
+                     IsVisible="{Binding CropMode, Converter={vc:CropCompareConverter}, ConverterParameter={x:Static vm:CropMode.Bottom}}">
+            </BoxView>
+            <BoxView Grid.Column="23"
+                     Grid.Row="0"
+                     Grid.RowSpan="3"
+                     Color="White"
+                     IsVisible="{Binding CropMode, Converter={vc:CropCompareConverter}, ConverterParameter={x:Static vm:CropMode.Bottom}}">
+            </BoxView>
+            <BoxView Grid.Column="21"
+                     Grid.Row="2"
+                     Grid.ColumnSpan="3"
+                     Color="White"
+                     IsVisible="{Binding CropMode, Converter={vc:CropCompareConverter}, ConverterParameter={x:Static vm:CropMode.Bottom}}">
+            </BoxView>
+            <Image Grid.Column="22"
+                   Grid.Row="1"
+                   Source="bottomCrop">
+                <Image.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding SetCropMode}"
+                                          CommandParameter="{x:Static vm:CropMode.Bottom}"/>
                 </Image.GestureRecognizers>
             </Image>
         </Grid>
-        <Grid AbsoluteLayout.LayoutFlags="PositionProportional"
-              RowSpacing="0"
-              ColumnSpacing="0"
-              IsVisible="{Binding WorkflowStage, Converter={vc:EnumCompareConverter}, ConverterParameter={x:Static vm:WorkflowStage.Crop}}">
+
+        <StackLayout AbsoluteLayout.LayoutFlags="PositionProportional,WidthProportional"
+                     Orientation="Horizontal"
+                     Padding="10"
+                     IsVisible="{Binding WorkflowStage, Converter={vc:WorkflowCompareConverter}, ConverterParameter={x:Static vm:WorkflowStage.Crop}}">
             <AbsoluteLayout.LayoutBounds>
-                <Rectangle X="0.8" Y="0.8" Width="{StaticResource _doubleMediumIconWidth}" Height="{StaticResource _mediumIconWidthPlusCropLineThickness}"/>
+                <Rectangle X="0" Y="1" Width="1" Height="{StaticResource _largeIconWidth}"/>
             </AbsoluteLayout.LayoutBounds>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="Auto"/>
-                <ColumnDefinition Width="Auto"/>
-            </Grid.ColumnDefinitions>
-            <Grid.RowDefinitions>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="{StaticResource _cropLineGridLength}"/>
-            </Grid.RowDefinitions>
-            <BoxView Grid.ColumnSpan="2"
-                     Grid.Row="1"
-                     Grid.Column="0"
-                     Color="White"
-                     HeightRequest="{StaticResource _cropLineThickness}"/>
-            <Image Grid.Row="0" 
-                   Grid.Column="0"
-                   Source="downTriangle">
+            <Slider Value="{Binding InsideCrop}"
+                    Maximum="{Binding InsideCropMax}"
+                    Minimum="0"
+                    HorizontalOptions="FillAndExpand"
+                    IsVisible="{Binding CropMode, Converter={vc:CropCompareConverter}, ConverterParameter={x:Static vm:CropMode.Inside}}"/>
+            <Slider Value="{Binding OutsideCrop}"
+                    Maximum="{Binding OutsideCropMax}"
+                    Minimum="0"
+                    HorizontalOptions="FillAndExpand"
+                    IsVisible="{Binding CropMode, Converter={vc:CropCompareConverter}, ConverterParameter={x:Static vm:CropMode.Outside}}"/>
+            <Slider Value="{Binding TopCrop}"
+                    Maximum="{Binding TopCropMax}"
+                    Minimum="0"
+                    HorizontalOptions="FillAndExpand"
+                    IsVisible="{Binding CropMode, Converter={vc:CropCompareConverter}, ConverterParameter={x:Static vm:CropMode.Top}}"/>
+            <Slider Value="{Binding BottomCrop}"
+                    Maximum="{Binding BottomCropMax}"
+                    Minimum="0"
+                    HorizontalOptions="FillAndExpand"
+                    IsVisible="{Binding CropMode, Converter={vc:CropCompareConverter}, ConverterParameter={x:Static vm:CropMode.Bottom}}"/>
+            <Slider Value="{Binding LeftCrop}"
+                    Maximum="{Binding LeftCropMax}"
+                    Minimum="0"
+                    HorizontalOptions="FillAndExpand"
+                    IsVisible="{Binding CropMode, Converter={vc:CropCompareConverter}, ConverterParameter={x:Static vm:CropMode.Left}}"/>
+            <Slider Value="{Binding RightCrop}"
+                    Maximum="{Binding RightCropMax}"
+                    Minimum="0"
+                    HorizontalOptions="FillAndExpand"
+                    IsVisible="{Binding CropMode, Converter={vc:CropCompareConverter}, ConverterParameter={x:Static vm:CropMode.Right}}"/>
+            <Image Source="check">
                 <Image.GestureRecognizers>
-                    <TapGestureRecognizer Command="{Binding DecreaseBottomCrop}"/>
+                    <TapGestureRecognizer Command="{Binding SaveEditCommand}"/>
                 </Image.GestureRecognizers>
             </Image>
-            <Image Grid.Row="0" 
-                   Grid.Column="1"
-                   Source="upTriangle">
-                <Image.GestureRecognizers>
-                    <TapGestureRecognizer Command="{Binding IncreaseBottomCrop}"/>
-                </Image.GestureRecognizers>
-            </Image>
-        </Grid>
+        </StackLayout>
 
         <ContentView AbsoluteLayout.LayoutFlags="PositionProportional"
                      AbsoluteLayout.LayoutBounds="{StaticResource _helpBounds}"
@@ -855,16 +896,16 @@
                InputTransparent="True"/>
         <Label Text="Saving..."
                Style="{StaticResource _feedback}"
-               IsVisible="{Binding WorkflowStage, Converter={vc:EnumCompareConverter}, ConverterParameter={x:Static vm:WorkflowStage.Saving}}"/>
+               IsVisible="{Binding WorkflowStage, Converter={vc:WorkflowCompareConverter}, ConverterParameter={x:Static vm:WorkflowStage.Saving}}"/>
         <Label Text="Aligning..."
                Style="{StaticResource _feedback}"
-               IsVisible="{Binding WorkflowStage, Converter={vc:EnumCompareConverter}, ConverterParameter={x:Static vm:WorkflowStage.AutomaticAlign}}"/>
+               IsVisible="{Binding WorkflowStage, Converter={vc:WorkflowCompareConverter}, ConverterParameter={x:Static vm:WorkflowStage.AutomaticAlign}}"/>
         <Label Text="Loading..."
                Style="{StaticResource _feedback}"
-               IsVisible="{Binding WorkflowStage, Converter={vc:EnumCompareConverter}, ConverterParameter={x:Static vm:WorkflowStage.Loading}}"/>
+               IsVisible="{Binding WorkflowStage, Converter={vc:WorkflowCompareConverter}, ConverterParameter={x:Static vm:WorkflowStage.Loading}}"/>
         <ContentView AbsoluteLayout.LayoutFlags="All"
                      AbsoluteLayout.LayoutBounds="0,0,1,1"
-                     IsVisible="{Binding WorkflowStage, Converter={vc:EnumCompareConverter}, ConverterParameter={x:Static vm:WorkflowStage.View}}">
+                     IsVisible="{Binding WorkflowStage, Converter={vc:WorkflowCompareConverter}, ConverterParameter={x:Static vm:WorkflowStage.View}}">
             <ContentView.GestureRecognizers>
                 <TapGestureRecognizer Command="{Binding ToggleViewModeCommand}"/>
             </ContentView.GestureRecognizers>

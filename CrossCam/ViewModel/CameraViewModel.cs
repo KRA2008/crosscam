@@ -16,6 +16,7 @@ namespace CrossCam.ViewModel
     public sealed class CameraViewModel : FreshBasePageModel
     {
         public WorkflowStage WorkflowStage { get; set; }
+        public CropMode CropMode { get; set; }
 
         public SKBitmap LeftBitmap { get; set; }
         public Command RetakeLeftCommand { get; set; }
@@ -82,110 +83,30 @@ namespace CrossCam.ViewModel
             }
         });
 
-        public int LeftLeftCrop { get; set; }
-        public int LeftRightCrop { get; set; }
-        public int RightLeftCrop { get; set; }
-        public int RightRightCrop { get; set; }
-        public int LeftTopCrop { get; set; }
-        public int LeftBottomCrop { get; set; }
-        public int RightTopCrop { get; set; }
-        public int RightBottomCrop { get; set; }
+        public int LeftCrop { get; set; }
+        public int RightCrop { get; set; }
+        public int InsideCrop { get; set; }
+        public int OutsideCrop { get; set; }
+        public int TopCrop { get; set; }
+        public int BottomCrop { get; set; }
 
-        public Command IncreaseInsideCrop => new Command(() =>
-        {
-            LeftRightCrop += Settings.CropSpeed;
-            RightLeftCrop += Settings.CropSpeed;
-        });
-        public Command DecreaseInsideCrop => new Command(() =>
-        {
-            if (LeftRightCrop - Settings.CropSpeed >= 0 &&
-                RightLeftCrop - Settings.CropSpeed >= 0)
-            {
-                LeftRightCrop -= Settings.CropSpeed;
-                RightLeftCrop -= Settings.CropSpeed;
-            }
-        });
-        public Command IncreaseOutsideCrop => new Command(() =>
-        {
-            LeftLeftCrop += Settings.CropSpeed;
-            RightRightCrop += Settings.CropSpeed;
-        });
-        public Command DecreaseOutsideCrop => new Command(() =>
-        {
-            if (LeftLeftCrop - Settings.CropSpeed >= 0 &&
-                RightRightCrop - Settings.CropSpeed >= 0)
-            {
-                LeftLeftCrop -= Settings.CropSpeed;
-                RightRightCrop -= Settings.CropSpeed;
-            }
-        });
+        public int LeftCropMax { get; set; }
+        public int RightCropMax { get; set; }
+        public int InsideCropMax { get; set; }
+        public int OutsideCropMax { get; set; }
+        public int TopCropMax { get; set; }
+        public int BottomCropMax { get; set; }
 
-        public Command IncreaseLeftCrop => new Command(() =>
-        {
-            LeftLeftCrop += Settings.CropSpeed;
-            RightLeftCrop += Settings.CropSpeed;
-        });
-        public Command DecreaseLeftCrop => new Command(() =>
-        {
-            if (LeftLeftCrop - Settings.CropSpeed >= 0 &&
-                RightLeftCrop - Settings.CropSpeed >= 0)
-            {
-                LeftLeftCrop -= Settings.CropSpeed;
-                RightLeftCrop -= Settings.CropSpeed;
-            }
-        });
-        public Command IncreaseRightCrop => new Command(() =>
-        {
-            LeftRightCrop += Settings.CropSpeed;
-            RightRightCrop += Settings.CropSpeed;
-        });
-        public Command DecreaseRightCrop => new Command(() =>
-        {
-            if (LeftRightCrop - Settings.CropSpeed >= 0 &&
-                RightRightCrop - Settings.CropSpeed >= 0)
-            {
-                LeftRightCrop -= Settings.CropSpeed;
-                RightRightCrop -= Settings.CropSpeed;
-            }
-        });
+        public Command SetCropMode { get; set; }
 
-        public Command IncreaseTopCrop => new Command(() =>
-        {
-            LeftTopCrop += Settings.CropSpeed;
-            RightTopCrop += Settings.CropSpeed;
-        });
-        public Command DecreaseTopCrop => new Command(() =>
-        {
-            if (LeftTopCrop - Settings.CropSpeed >= 0 &&
-                RightTopCrop - Settings.CropSpeed > 0)
-            {
-                LeftTopCrop -= Settings.CropSpeed;
-                RightTopCrop -= Settings.CropSpeed;
-            }
-        });
-        public Command IncreaseBottomCrop => new Command(() =>
-        {
-            LeftBottomCrop += Settings.CropSpeed;
-            RightBottomCrop += Settings.CropSpeed;
-        });
-        public Command DecreaseBottomCrop => new Command(() =>
-        {
-            if (LeftBottomCrop - Settings.CropSpeed >= 0 &&
-                RightBottomCrop - Settings.CropSpeed > 0)
-            {
-                LeftBottomCrop -= Settings.CropSpeed;
-                RightBottomCrop -= Settings.CropSpeed;
-            }
-        });
-        
-        public int ManualAlignment { get; set; }
+        public int VerticalAlignment { get; set; }
         public Command LeftUpRightDown => new Command(() =>
         {
-            ManualAlignment += Settings.AlignSpeed;
+            VerticalAlignment += Settings.AlignSpeed;
         });
         public Command LeftDownRightUp => new Command(() =>
         {
-            ManualAlignment -= Settings.AlignSpeed;
+            VerticalAlignment -= Settings.AlignSpeed;
         });
 
         private const float ROTATION_MULTIPLIER = 100f;
@@ -237,7 +158,6 @@ namespace CrossCam.ViewModel
         public bool ShouldPitchGuideBeVisible => IsExactlyOnePictureTaken && Settings.ShowPitchGuide;
         public bool ShouldYawGuideBeVisible => IsExactlyOnePictureTaken && Settings.ShowYawGuide;
         public bool ShouldSaveEditsButtonBeVisible => WorkflowStage == WorkflowStage.Edits ||
-                                                      WorkflowStage == WorkflowStage.Crop ||
                                                       WorkflowStage == WorkflowStage.Keystone ||
                                                       WorkflowStage == WorkflowStage.ManualAlign;
         public bool ShouldViewButtonBeVisible => WorkflowStage == WorkflowStage.Final ||
@@ -282,6 +202,13 @@ namespace CrossCam.ViewModel
 
             IsCaptureLeftFirst = Settings.IsCaptureLeftFirst;
             CameraColumn = IsCaptureLeftFirst ? 0 : 1;
+
+            BottomCropMax = 1;
+            InsideCropMax = 1;
+            LeftCropMax = 1;
+            OutsideCropMax = 1;
+            RightCropMax = 1;
+            TopCropMax = 1;
             
             PropertyChanged += (sender, args) =>
             {
@@ -465,6 +392,11 @@ namespace CrossCam.ViewModel
                 PersistentStorage.Save(PersistentStorage.SETTINGS_KEY, Settings);
             });
 
+            SetCropMode = new Command(mode =>
+            {
+                CropMode = (CropMode) mode;
+            });
+
             SaveCapturesCommand = new Command(async () =>
             {
                 WorkflowStage = WorkflowStage.Saving;
@@ -533,15 +465,15 @@ namespace CrossCam.ViewModel
                         }
 
                         var finalImageWidth = DrawTool.CalculateCanvasWidthLessBorder(LeftBitmap, RightBitmap,
-                            LeftLeftCrop, LeftRightCrop, RightLeftCrop, RightRightCrop);
+                            LeftCrop + OutsideCrop, InsideCrop + RightCrop, InsideCrop + LeftCrop, RightCrop + OutsideCrop);
                         var borderThickness = Settings.AddBorder
                             ? (int) (DrawTool.BORDER_CONVERSION_FACTOR * Settings.BorderThicknessProportion *
                                      finalImageWidth)
                             : 0;
                         finalImageWidth += 4 * borderThickness;
                         var finalImageHeight = DrawTool.CalculateCanvasHeightLessBorder(LeftBitmap, RightBitmap,
-                                                   LeftTopCrop, LeftBottomCrop, RightTopCrop, RightBottomCrop,
-                                                   ManualAlignment) +
+                                                   TopCrop, BottomCrop,
+                                                   VerticalAlignment) +
                                                2 * borderThickness;
 
                         finalImageWidth = (int) (finalImageWidth * (Settings.ResolutionProportion / 100d));
@@ -562,10 +494,10 @@ namespace CrossCam.ViewModel
 
                                 DrawTool.DrawImagesOnCanvas(canvas, LeftBitmap, RightBitmap,
                                     Settings.BorderThicknessProportion, Settings.AddBorder, Settings.BorderColor,
-                                    LeftLeftCrop, LeftRightCrop, RightLeftCrop, RightRightCrop,
-                                    LeftTopCrop, LeftBottomCrop, RightTopCrop, RightBottomCrop,
+                                    LeftCrop + OutsideCrop, InsideCrop + RightCrop, InsideCrop + LeftCrop, RightCrop + OutsideCrop, 
+                                    TopCrop, BottomCrop,
                                     LeftRotation, RightRotation,
-                                    ManualAlignment,
+                                    VerticalAlignment,
                                     LeftZoom, RightZoom,
                                     LeftKeystone, RightKeystone);
                                 
@@ -591,14 +523,14 @@ namespace CrossCam.ViewModel
 
                                 DrawTool.DrawImagesOnCanvas(canvas, LeftBitmap, RightBitmap,
                                     Settings.BorderThicknessProportion, Settings.AddBorder, Settings.BorderColor,
-                                    LeftLeftCrop, LeftRightCrop, RightLeftCrop, RightRightCrop,
-                                    LeftTopCrop, LeftBottomCrop, RightTopCrop, RightBottomCrop,
+                                    LeftCrop + OutsideCrop, InsideCrop + RightCrop, InsideCrop + LeftCrop, RightCrop + OutsideCrop,
+                                    TopCrop, BottomCrop,
                                     LeftRotation, RightRotation,
-                                    ManualAlignment,
+                                    VerticalAlignment,
                                     LeftZoom, RightZoom,
                                     LeftKeystone, RightKeystone,
                                     true);
-                                
+
                                 using (var encoded = tempSurface.Snapshot().Encode(SKEncodedImageFormat.Jpeg, 100))
                                 {
                                     await photoSaver.SavePhoto(encoded.ToArray());
@@ -697,14 +629,14 @@ namespace CrossCam.ViewModel
                     {
                         if (topLeft.Y > 0)
                         {
-                            LeftTopCrop = RightTopCrop = (int)topLeft.Y;
+                            TopCrop = (int)topLeft.Y;
                         }
                     }
                     else
                     {
                         if (topRight.Y > 0)
                         {
-                            LeftTopCrop = RightTopCrop = (int)topRight.Y;
+                            TopCrop = (int)topRight.Y;
                         }
                     }
 
@@ -713,47 +645,47 @@ namespace CrossCam.ViewModel
                     {
                         if (bottomLeft.Y < maxY)
                         {
-                            LeftBottomCrop = RightBottomCrop = (int)(maxY - bottomLeft.Y);
+                            BottomCrop = (int)(maxY - bottomLeft.Y);
                         }
                     }
                     else
                     {
                         if (bottomRight.Y < maxY)
                         {
-                            LeftBottomCrop = RightBottomCrop = (int)(maxY - bottomRight.Y);
+                            BottomCrop = (int)(maxY - bottomRight.Y);
                         }
                     }
 
-                    var leftCrop = 0;
+                    var alignedLeftCrop = 0;
                     if (topLeft.X > bottomLeft.X)
                     {
                         if (topLeft.X > 0)
                         {
-                            leftCrop = (int)topLeft.X;
+                            alignedLeftCrop = (int)topLeft.X;
                         }
                     }
                     else
                     {
                         if (bottomLeft.X > 0)
                         {
-                            leftCrop = (int)bottomLeft.X;
+                            alignedLeftCrop = (int)bottomLeft.X;
                         }
                     }
 
-                    var rightCrop = 0;
+                    var alignedRightCrop = 0;
                     var maxX = alignedResult.AlignedBitmap.Width - 1;
                     if (topRight.X < bottomRight.X)
                     {
                         if (topRight.X < maxX)
                         {
-                            rightCrop = (int)(maxX - topRight.X);
+                            alignedRightCrop = (int)(maxX - topRight.X);
                         }
                     }
                     else
                     {
                         if (bottomRight.X < maxX)
                         {
-                            rightCrop = (int)(maxX - bottomRight.X);
+                            alignedRightCrop = (int)(maxX - bottomRight.X);
                         }
                     }
 
@@ -762,14 +694,14 @@ namespace CrossCam.ViewModel
 
                     if (IsCaptureLeftFirst)
                     {
-                        LeftLeftCrop = RightRightCrop = rightCrop;
-                        LeftRightCrop = RightLeftCrop = leftCrop;
+                        OutsideCrop = alignedRightCrop;
+                        InsideCrop = alignedLeftCrop;
                         SetRightBitmap(alignedResult.AlignedBitmap);
                     }
                     else
                     {
-                        LeftLeftCrop = RightRightCrop = leftCrop;
-                        LeftRightCrop = RightLeftCrop = rightCrop;
+                        InsideCrop = alignedRightCrop;
+                        OutsideCrop = alignedLeftCrop;
                         SetLeftBitmap(alignedResult.AlignedBitmap);
                     }
                 }
@@ -800,6 +732,8 @@ namespace CrossCam.ViewModel
                 CameraColumn = IsCaptureLeftFirst ? 0 : 1;
                 IsCameraVisible = false;
                 WorkflowStage = WorkflowStage.Final;
+                LeftCropMax = OutsideCropMax = InsideCropMax = RightCropMax = bitmap.Width / 2;
+                TopCropMax = BottomCropMax = bitmap.Height / 2;
                 if (Settings.IsAutomaticAlignmentOn)
                 {
                     AutoAlignIfNotYetRun();
@@ -825,6 +759,8 @@ namespace CrossCam.ViewModel
                 CameraColumn = IsCaptureLeftFirst ? 0 : 1;
                 IsCameraVisible = false;
                 WorkflowStage = WorkflowStage.Final;
+                LeftCropMax = OutsideCropMax = InsideCropMax = RightCropMax = bitmap.Width / 2;
+                TopCropMax = BottomCropMax = bitmap.Height / 2;
                 if (Settings.IsAutomaticAlignmentOn)
                 {
                     AutoAlignIfNotYetRun();
@@ -1020,14 +956,12 @@ namespace CrossCam.ViewModel
 
         private void ClearCrops()
         {
-            LeftLeftCrop = 0;
-            LeftRightCrop = 0;
-            RightLeftCrop = 0;
-            RightRightCrop = 0;
-            LeftTopCrop = 0;
-            LeftBottomCrop = 0;
-            RightTopCrop = 0;
-            RightBottomCrop = 0;
+            OutsideCrop = 0;
+            InsideCrop = 0;
+            RightCrop = 0;
+            LeftCrop = 0;
+            TopCrop = 0;
+            BottomCrop = 0;
         }
 
         private void ClearAlignments()
@@ -1036,7 +970,7 @@ namespace CrossCam.ViewModel
             RightRotation = 0;
             LeftZoom = 0;
             RightZoom = 0;
-            ManualAlignment = 0;
+            VerticalAlignment = 0;
         }
 
         private void ClearKeystone()
@@ -1062,6 +996,7 @@ namespace CrossCam.ViewModel
             IsCameraVisible = true;
             ClearEdits();
             WorkflowStage = WorkflowStage.Capture;
+            CropMode = CropMode.Inside;
 
             if (Settings.IsTapToFocusEnabled)
             {
