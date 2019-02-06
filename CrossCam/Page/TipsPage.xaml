@@ -50,6 +50,8 @@
                 <BoxView/>
                 <Label Text="The settings screen has an option to proportionally decrease the resolution of the final picture - this can help if you want to save space. If your photo is not cropped the end result is two full-resolution pictures joined together to make one of double resolution, which means you can often get away with a large reduction in resolution without noticeably affecting quality."/>
                 <BoxView/>
+                <Label Text="If you're exploring with other people it's a good idea to go into &quot;fast mode&quot; by turning off auto alignment and switching the save mode to save each side separately. You can always load, auto align, and edit the pictures later. That way your companions don't have to wait for you to perfect your pictures on the spot."/>
+                <BoxView/>
             </StackLayout>
         </ScrollView>
     </ContentPage.Content>
