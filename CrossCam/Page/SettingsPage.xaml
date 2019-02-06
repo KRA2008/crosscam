@@ -134,34 +134,6 @@
             <Label Text="Editing"
                    Style="{DynamicResource header}"/>
             <StackLayout Orientation="Horizontal">
-                <Label Text="Crop speed"/>
-                <Picker ItemsSource="{Binding ZeroToOneThousand}"
-                        SelectedIndex="{Binding Settings.CropSpeed}"
-                        BackgroundColor="White"
-                        HorizontalOptions="EndAndExpand"/>
-            </StackLayout>
-            <StackLayout Orientation="Horizontal">
-                <Label Text="Align speed"/>
-                <Picker ItemsSource="{Binding ZeroToOneThousand}"
-                        SelectedIndex="{Binding Settings.AlignSpeed}"
-                        BackgroundColor="White"
-                        HorizontalOptions="EndAndExpand"/>
-            </StackLayout>
-            <StackLayout Orientation="Horizontal">
-                <Label Text="Zoom speed"/>
-                <Picker ItemsSource="{Binding ZeroToOneThousand}"
-                        SelectedIndex="{Binding Settings.ZoomSpeed}"
-                        BackgroundColor="White"
-                        HorizontalOptions="EndAndExpand"/>
-            </StackLayout>
-            <StackLayout Orientation="Horizontal">
-                <Label Text="Rotate speed"/>
-                <Picker ItemsSource="{Binding ZeroToOneThousand}"
-                        SelectedIndex="{Binding Settings.RotationSpeed}"
-                        BackgroundColor="White"
-                        HorizontalOptions="EndAndExpand"/>
-            </StackLayout>
-            <StackLayout Orientation="Horizontal">
                 <Label Text="Keystone speed"/>
                 <Picker ItemsSource="{Binding ZeroToOneThousand}"
                         SelectedIndex="{Binding Settings.KeystoneSpeed}"

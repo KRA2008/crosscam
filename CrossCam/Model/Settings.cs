@@ -89,58 +89,6 @@ namespace CrossCam.Model
             }
         }
 
-        private int _cropSpeed;
-        public int CropSpeed
-        {
-            get => _cropSpeed;
-            set
-            {
-                if (value > 0)
-                {
-                    _cropSpeed = value;
-                }
-            }
-        }
-
-        private int _zoomSpeed;
-        public int ZoomSpeed
-        {
-            get => _zoomSpeed;
-            set
-            {
-                if (value > 0)
-                {
-                    _zoomSpeed = value;
-                }
-            }
-        }
-
-        private int _alignSpeed;
-        public int AlignSpeed
-        {
-            get => _alignSpeed;
-            set
-            {
-                if (value > 0)
-                {
-                    _alignSpeed = value;
-                }
-            }
-        }
-
-        private int _rotationSpeed;
-        public int RotationSpeed
-        {
-            get => _rotationSpeed;
-            set
-            {
-                if (value > 0)
-                {
-                    _rotationSpeed = value;
-                }
-            }
-        }
-
         private int _keystoneSpeed;
         public int KeystoneSpeed
         {
@@ -257,10 +205,6 @@ namespace CrossCam.Model
             AlignmentEccThresholdPercentage = 60;
 
             ResolutionProportion = 100;
-            RotationSpeed = 10;
-            ZoomSpeed = 20;
-            AlignSpeed = 10;
-            CropSpeed = 20;
             BorderThicknessProportion = 25;
             KeystoneSpeed = 50;
         }

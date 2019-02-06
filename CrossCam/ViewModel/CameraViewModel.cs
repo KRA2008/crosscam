@@ -17,6 +17,7 @@ namespace CrossCam.ViewModel
     {
         public WorkflowStage WorkflowStage { get; set; }
         public CropMode CropMode { get; set; }
+        public ManualAlignMode ManualAlignMode { get; set; }
 
         public SKBitmap LeftBitmap { get; set; }
         public Command RetakeLeftCommand { get; set; }
@@ -58,30 +59,11 @@ namespace CrossCam.ViewModel
 
         public Settings Settings { get; set; }
 
+        public Command SetManualAlignMode { get; set; }
+
+        public int ZoomMax { get; set; }
         public int LeftZoom { get; set; }
         public int RightZoom { get; set; }
-        public Command LeftZoomIn => new Command(() =>
-        {
-            LeftZoom += Settings.ZoomSpeed;
-        });
-        public Command LeftZoomOut => new Command(() =>
-        {
-            if (LeftZoom - Settings.ZoomSpeed >= 0)
-            {
-                LeftZoom -= Settings.ZoomSpeed;
-            }
-        });
-        public Command RightZoomIn => new Command(() =>
-        {
-            RightZoom += Settings.ZoomSpeed;
-        });
-        public Command RightZoomOut => new Command(() =>
-        {
-            if (RightZoom - Settings.ZoomSpeed >= 0)
-            {
-                RightZoom -= Settings.ZoomSpeed;
-            }
-        });
 
         public int LeftCrop { get; set; }
         public int RightCrop { get; set; }
@@ -90,34 +72,19 @@ namespace CrossCam.ViewModel
         public int TopCrop { get; set; }
         public int BottomCrop { get; set; }
 
-        public int LeftCropMax { get; set; }
-        public int RightCropMax { get; set; }
-        public int InsideCropMax { get; set; }
-        public int OutsideCropMax { get; set; }
-        public int TopCropMax { get; set; }
-        public int BottomCropMax { get; set; }
+        public int SideCropMax { get; set; }
+        public int TopOrBottomCropMax { get; set; }
 
         public Command SetCropMode { get; set; }
 
+        public int VerticalAlignmentMax { get; set; }
         public int VerticalAlignment { get; set; }
-        public Command LeftUpRightDown => new Command(() =>
-        {
-            VerticalAlignment += Settings.AlignSpeed;
-        });
-        public Command LeftDownRightUp => new Command(() =>
-        {
-            VerticalAlignment -= Settings.AlignSpeed;
-        });
+        public int VerticalAlignmentMin => -VerticalAlignmentMax;
 
-        private const float ROTATION_MULTIPLIER = 100f;
-
+        public float RotationMax => 10;
         public float LeftRotation { get; set; }
         public float RightRotation { get; set; }
-        
-        public Command IncreaseLeftRotation => new Command(() =>  LeftRotation += Settings.RotationSpeed / ROTATION_MULTIPLIER);
-        public Command DecreaseLeftRotation => new Command(() => LeftRotation -= Settings.RotationSpeed / ROTATION_MULTIPLIER);
-        public Command IncreaseRightRotation => new Command(() => RightRotation += Settings.RotationSpeed / ROTATION_MULTIPLIER);
-        public Command DecreaseRightRotation => new Command(() => RightRotation -= Settings.RotationSpeed / ROTATION_MULTIPLIER);
+        public float RotationMin => -RotationMax;
 
         private const float KEYSTONE_MULTIPLIER = 10000f;
 
@@ -158,8 +125,7 @@ namespace CrossCam.ViewModel
         public bool ShouldPitchGuideBeVisible => IsExactlyOnePictureTaken && Settings.ShowPitchGuide;
         public bool ShouldYawGuideBeVisible => IsExactlyOnePictureTaken && Settings.ShowYawGuide;
         public bool ShouldSaveEditsButtonBeVisible => WorkflowStage == WorkflowStage.Edits ||
-                                                      WorkflowStage == WorkflowStage.Keystone ||
-                                                      WorkflowStage == WorkflowStage.ManualAlign;
+                                                      WorkflowStage == WorkflowStage.Keystone;
         public bool ShouldViewButtonBeVisible => WorkflowStage == WorkflowStage.Final ||
                                                  WorkflowStage == WorkflowStage.Crop ||
                                                  WorkflowStage == WorkflowStage.Keystone ||
@@ -181,9 +147,10 @@ namespace CrossCam.ViewModel
         public bool ShouldPortraitViewModeWarningBeVisible => IsViewPortrait &&
                                                               WorkflowStage != WorkflowStage.Saving &&
                                                               (IsNothingCaptured ||
-                                                               WorkflowStage == WorkflowStage.Final);
+                                                               WorkflowStage == WorkflowStage.Final ||
+                                                               WorkflowStage == WorkflowStage.Edits);
         public string PortraitToLandscapeHint =>
-            WorkflowStage == WorkflowStage.Capture ? "(flip for landscape)" : "(flip to landscape for a better view)";
+            WorkflowStage == WorkflowStage.Capture ? "(flip for landscape)" : WorkflowStage == WorkflowStage.Edits ? "(flip to landscape for easier editing)" : "(flip to landscape for a better view)";
 
         public ImageSource LeftReticleImage => ImageSource.FromFile("squareOuter");
         public ImageSource RightReticleImage => Settings.IsGuideDonutBothDonuts
@@ -203,12 +170,10 @@ namespace CrossCam.ViewModel
             IsCaptureLeftFirst = Settings.IsCaptureLeftFirst;
             CameraColumn = IsCaptureLeftFirst ? 0 : 1;
 
-            BottomCropMax = 1;
-            InsideCropMax = 1;
-            LeftCropMax = 1;
-            OutsideCropMax = 1;
-            RightCropMax = 1;
-            TopCropMax = 1;
+            SideCropMax = 1;
+            TopOrBottomCropMax = 1;
+            VerticalAlignmentMax = 1;
+            ZoomMax = 1;
             
             PropertyChanged += (sender, args) =>
             {
@@ -395,6 +360,11 @@ namespace CrossCam.ViewModel
             SetCropMode = new Command(mode =>
             {
                 CropMode = (CropMode) mode;
+            });
+
+            SetManualAlignMode = new Command(mode =>
+            {
+                ManualAlignMode = (ManualAlignMode) mode;
             });
 
             SaveCapturesCommand = new Command(async () =>
@@ -732,8 +702,7 @@ namespace CrossCam.ViewModel
                 CameraColumn = IsCaptureLeftFirst ? 0 : 1;
                 IsCameraVisible = false;
                 WorkflowStage = WorkflowStage.Final;
-                LeftCropMax = OutsideCropMax = InsideCropMax = RightCropMax = bitmap.Width / 2;
-                TopCropMax = BottomCropMax = bitmap.Height / 2;
+                SetMaxEdits(bitmap);
                 if (Settings.IsAutomaticAlignmentOn)
                 {
                     AutoAlignIfNotYetRun();
@@ -759,13 +728,20 @@ namespace CrossCam.ViewModel
                 CameraColumn = IsCaptureLeftFirst ? 0 : 1;
                 IsCameraVisible = false;
                 WorkflowStage = WorkflowStage.Final;
-                LeftCropMax = OutsideCropMax = InsideCropMax = RightCropMax = bitmap.Width / 2;
-                TopCropMax = BottomCropMax = bitmap.Height / 2;
+                SetMaxEdits(bitmap);
                 if (Settings.IsAutomaticAlignmentOn)
                 {
                     AutoAlignIfNotYetRun();
                 }
             }
+        }
+
+        private void SetMaxEdits(SKBitmap bitmap)
+        {
+            SideCropMax = bitmap.Width / 2;
+            TopOrBottomCropMax = bitmap.Height / 2;
+            VerticalAlignmentMax = bitmap.Height / 8;
+            ZoomMax = bitmap.Height / 4;
         }
 
         private static SKBitmap GetHalfOfFullStereoImage(byte[] bytes, bool wantLeft)
