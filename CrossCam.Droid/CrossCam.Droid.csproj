@@ -153,9 +153,6 @@
     <AndroidResource Include="Resources\drawable-nodpi\crossed.png" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\drawable-nodpi\downTriangle.png" />
-  </ItemGroup>
-  <ItemGroup>
     <AndroidResource Include="Resources\drawable-nodpi\edit.png" />
   </ItemGroup>
   <ItemGroup>
@@ -192,15 +189,6 @@
     <AndroidResource Include="Resources\drawable-nodpi\leftCrop.png" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\drawable-nodpi\leftTriangle.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="Resources\drawable-nodpi\leftZoomInRightZoomOut.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="Resources\drawable-nodpi\leftZoomOutRightZoomIn.png" />
-  </ItemGroup>
-  <ItemGroup>
     <AndroidResource Include="Resources\drawable-nodpi\loadImage.png" />
   </ItemGroup>
   <ItemGroup>
@@ -213,9 +201,6 @@
     <AndroidResource Include="Resources\drawable-nodpi\rightCrop.png" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\drawable-nodpi\rightTriangle.png" />
-  </ItemGroup>
-  <ItemGroup>
     <AndroidResource Include="Resources\drawable-nodpi\rotate.png" />
   </ItemGroup>
   <ItemGroup>
@@ -225,19 +210,7 @@
     <AndroidResource Include="Resources\drawable-nodpi\rotateForwardInBoxWall.png" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\drawable-nodpi\rotateLeft.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="Resources\drawable-nodpi\rotateLeftInBox.png" />
-  </ItemGroup>
-  <ItemGroup>
     <AndroidResource Include="Resources\drawable-nodpi\rotateLeftInBoxFloor.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="Resources\drawable-nodpi\rotateRight.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="Resources\drawable-nodpi\rotateRightInBox.png" />
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\drawable-nodpi\rotateRightInBoxFloor.png" />
@@ -258,12 +231,6 @@
     <AndroidResource Include="Resources\drawable-nodpi\squareOuter.png" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\drawable-nodpi\star.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="Resources\drawable-nodpi\starInBox.png" />
-  </ItemGroup>
-  <ItemGroup>
     <AndroidResource Include="Resources\drawable-nodpi\starInBoxFloor.png" />
   </ItemGroup>
   <ItemGroup>
@@ -276,22 +243,10 @@
     <AndroidResource Include="Resources\drawable-nodpi\undo.png" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\drawable-nodpi\upTriangle.png" />
-  </ItemGroup>
-  <ItemGroup>
     <AndroidResource Include="Resources\drawable-nodpi\vertAlign.png" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\drawable-nodpi\vertAlignReverse.png" />
-  </ItemGroup>
-  <ItemGroup>
     <AndroidResource Include="Resources\drawable-nodpi\zoom.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="Resources\drawable-nodpi\zoomIn.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="Resources\drawable-nodpi\zoomOut.png" />
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\drawable-nodpi\parallel.png" />

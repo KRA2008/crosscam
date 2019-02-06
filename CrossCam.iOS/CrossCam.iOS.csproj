@@ -274,30 +274,6 @@
     <BundleResource Include="Resources\undo%402x.png" />
   </ItemGroup>
   <ItemGroup>
-    <BundleResource Include="Resources\downTriangle.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <BundleResource Include="Resources\downTriangle%402x.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <BundleResource Include="Resources\leftTriangle.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <BundleResource Include="Resources\leftTriangle%402x.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <BundleResource Include="Resources\rightTriangle.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <BundleResource Include="Resources\rightTriangle%402x.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <BundleResource Include="Resources\upTriangle.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <BundleResource Include="Resources\upTriangle%402x.png" />
-  </ItemGroup>
-  <ItemGroup>
     <BundleResource Include="Resources\checkBox%402x.png" />
   </ItemGroup>
   <ItemGroup>
@@ -316,18 +292,6 @@
     <BundleResource Include="Resources\edit%402x.png" />
   </ItemGroup>
   <ItemGroup>
-    <BundleResource Include="Resources\rotateLeft.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <BundleResource Include="Resources\rotateLeft%402x.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <BundleResource Include="Resources\rotateRight.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <BundleResource Include="Resources\rotateRight%402x.png" />
-  </ItemGroup>
-  <ItemGroup>
     <BundleResource Include="Resources\rotate.png" />
   </ItemGroup>
   <ItemGroup>
@@ -344,18 +308,6 @@
   </ItemGroup>
   <ItemGroup>
     <BundleResource Include="Resources\zoom%402x.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <BundleResource Include="Resources\zoomIn.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <BundleResource Include="Resources\zoomIn%402x.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <BundleResource Include="Resources\zoomOut.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <BundleResource Include="Resources\zoomOut%402x.png" />
   </ItemGroup>
   <ItemGroup>
     <BundleResource Include="Resources\insideCrop.png" />
@@ -380,24 +332,6 @@
   </ItemGroup>
   <ItemGroup>
     <BundleResource Include="Resources\rightCrop%402x.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <BundleResource Include="Resources\vertAlignReverse.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <BundleResource Include="Resources\vertAlignReverse%402x.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <BundleResource Include="Resources\leftZoomInRightZoomOut.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <BundleResource Include="Resources\leftZoomInRightZoomOut%402x.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <BundleResource Include="Resources\leftZoomOutRightZoomIn.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <BundleResource Include="Resources\leftZoomOutRightZoomIn%402x.png" />
   </ItemGroup>
   <ItemGroup>
     <BundleResource Include="Resources\keystoneLeft.png" />
@@ -442,12 +376,6 @@
     <BundleResource Include="Resources\saveOne%402x.png" />
   </ItemGroup>
   <ItemGroup>
-    <BundleResource Include="Resources\star.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <BundleResource Include="Resources\star%402x.png" />
-  </ItemGroup>
-  <ItemGroup>
     <BundleResource Include="Resources\rotateBackwardInBoxWall.png" />
   </ItemGroup>
   <ItemGroup>
@@ -460,34 +388,16 @@
     <BundleResource Include="Resources\rotateForwardInBoxWall%402x.png" />
   </ItemGroup>
   <ItemGroup>
-    <BundleResource Include="Resources\rotateLeftInBox.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <BundleResource Include="Resources\rotateLeftInBox%402x.png" />
-  </ItemGroup>
-  <ItemGroup>
     <BundleResource Include="Resources\rotateLeftInBoxFloor.png" />
   </ItemGroup>
   <ItemGroup>
     <BundleResource Include="Resources\rotateLeftInBoxFloor%402x.png" />
   </ItemGroup>
   <ItemGroup>
-    <BundleResource Include="Resources\rotateRightInBox.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <BundleResource Include="Resources\rotateRightInBox%402x.png" />
-  </ItemGroup>
-  <ItemGroup>
     <BundleResource Include="Resources\rotateRightInBoxFloor.png" />
   </ItemGroup>
   <ItemGroup>
     <BundleResource Include="Resources\rotateRightInBoxFloor%402x.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <BundleResource Include="Resources\starInBox.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <BundleResource Include="Resources\starInBox%402x.png" />
   </ItemGroup>
   <ItemGroup>
     <BundleResource Include="Resources\starInBoxFloor.png" />
