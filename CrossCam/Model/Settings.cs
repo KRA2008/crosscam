@@ -186,7 +186,7 @@ namespace CrossCam.Model
             BorderColor = BorderColor.Black;
 
             IsAutomaticAlignmentOn = true;
-            AlignmentDownsizePercentage = 25;
+            AlignmentDownsizePercentage = 35;
             AlignmentEpsilonLevel = 3;
             AlignmentIterations = 50;
             AlignmentEccThresholdPercentage = 60;
