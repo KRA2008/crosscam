@@ -28,6 +28,15 @@
                 <BoxView/>
                 <Label Text="When you move over, try not to rotate your phone at all in any direction, including the natural tendency to turn towards the subject as you move to the side. Some rotation will be necessary sometimes, but try to minimize it. Imagine the phone is mounted on a straight horizontal rail and can only slide."/>
                 <BoxView/>
+                <Label Text="If you want to take pictures of very close up subjects for cross viewing, you may want to turn inward with each shot. As a result, it is very helpful to do &quot;keystone&quot; corrections. Typically you would want to shrink the inside edges of the photos and then crop some off the top and bottom to level them out. You get to the keystone editing menu by tapping the button that looks like this:"/>
+                <StackLayout Orientation="Horizontal" 
+                             Spacing="0">
+                    <Image Source="keystoneLeft"
+                           HorizontalOptions="EndAndExpand"/>
+                    <Image Source="keystoneRight"
+                           HorizontalOptions="StartAndExpand"/>
+                </StackLayout>
+                <BoxView/>
                 <Label Text="You can drag the alignment lines around if you want. This is especially helpful when aligning the pictures during editing."/>
                 <BoxView/>
                 <Label Text="There is an experimental &quot;guide donut/dot&quot; on the settings page you can turn on which may help you keep your perspectives parallel for a large scene. Ideally you would drag it onto the horizon, sky, or other very distant point. Be careful, using it on smaller scenes may make things painful."/>
@@ -38,15 +47,6 @@
                 <Image Source="insideCrop"/>
                 <BoxView/>
                 <Label Text="If you find that it's impossible to make both the upper and lower guide lines line up at the same time, you probably moved in some direction other than just to the side."/>
-                <BoxView/>
-                <Label Text="If you want to take pictures of very close up subjects for cross viewing, you'll often need to turn inward with each shot. As a result, it is very helpful to do &quot;keystone&quot; corrections. Typically you would want to shrink the inside edges of the photos and then crop some off the top and bottom to level them out. You get to the keystone editing menu by tapping the button that looks like this:"/>
-                <StackLayout Orientation="Horizontal" 
-                             Spacing="0">
-                    <Image Source="keystoneLeft"
-                           HorizontalOptions="EndAndExpand"/>
-                    <Image Source="keystoneRight"
-                           HorizontalOptions="StartAndExpand"/>
-                </StackLayout>
                 <BoxView/>
                 <Label Text="The settings screen has an option to proportionally decrease the resolution of the final picture - this can help if you want to save space. If your photo is not cropped the end result is two full-resolution pictures joined together to make one of double resolution, which means you can often get away with a large reduction in resolution without noticeably affecting quality."/>
                 <BoxView/>
