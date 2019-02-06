@@ -422,7 +422,7 @@
         <ContentView AbsoluteLayout.LayoutFlags="PositionProportional"
                      AbsoluteLayout.LayoutBounds="{StaticResource _checkBounds}"
                      Padding="{StaticResource _bottomPadding}"
-                     IsVisible="{Binding ShouldSaveEditsButtonBeVisible}">
+                     IsVisible="{Binding WorkflowStage, Converter={vc:EnumCompareConverter}, ConverterParameter={x:Static vm:WorkflowStage.Edits}}">
             <ContentView.GestureRecognizers>
                 <TapGestureRecognizer Command="{Binding SaveEditCommand}"/>
             </ContentView.GestureRecognizers>
