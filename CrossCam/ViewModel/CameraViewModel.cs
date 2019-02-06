@@ -28,6 +28,8 @@ namespace CrossCam.ViewModel
         public Command RetakeRightCommand { get; set; }
         public bool RightCaptureSuccess { get; set; }
 
+        private SKBitmap _replacedAutoAlignedBitmap { get; set; }
+
         public bool IsCameraVisible { get; set; }
         public byte[] CapturedImageBytes { get; set; }
         public bool CaptureSuccess { get; set; }
@@ -208,6 +210,22 @@ namespace CrossCam.ViewModel
                         LeftBitmap != null)
                     {
                         AutoAlignIfNotYetRun();
+                    }
+
+                    if (!Settings.IsAutomaticAlignmentOn &&
+                        _wasAutomaticAlignmentRun == 1)
+                    {
+                        ClearCrops();
+                        if (IsCaptureLeftFirst)
+                        {
+                            SetRightBitmap(_replacedAutoAlignedBitmap);
+                        }
+                        else
+                        {
+                            SetLeftBitmap(_replacedAutoAlignedBitmap);
+                        }
+
+                        _wasAutomaticAlignmentRun = 0;
                     }
                 }
             };
@@ -664,12 +682,14 @@ namespace CrossCam.ViewModel
 
                     if (IsCaptureLeftFirst)
                     {
+                        _replacedAutoAlignedBitmap = RightBitmap;
                         OutsideCrop = alignedRightCrop;
                         InsideCrop = alignedLeftCrop;
                         SetRightBitmap(alignedResult.AlignedBitmap);
                     }
                     else
                     {
+                        _replacedAutoAlignedBitmap = LeftBitmap;
                         InsideCrop = alignedRightCrop;
                         OutsideCrop = alignedLeftCrop;
                         SetLeftBitmap(alignedResult.AlignedBitmap);
