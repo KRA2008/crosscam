@@ -18,6 +18,7 @@ namespace CrossCam.ViewModel
         public WorkflowStage WorkflowStage { get; set; }
         public CropMode CropMode { get; set; }
         public ManualAlignMode ManualAlignMode { get; set; }
+        public KeystoneMode KeystoneMode { get; set; }
 
         public SKBitmap LeftBitmap { get; set; }
         public Command RetakeLeftCommand { get; set; }
@@ -86,15 +87,11 @@ namespace CrossCam.ViewModel
         public float RightRotation { get; set; }
         public float RotationMin => -RotationMax;
 
-        private const float KEYSTONE_MULTIPLIER = 10000f;
+        public Command SetKeystoneMode { get; set; }
 
+        public float MaxKeystone => 0.25f;
         public float LeftKeystone { get; set; }
         public float RightKeystone { get; set; }
-
-        public Command IncreaseLeftKeystone => new Command(() => LeftKeystone += Settings.KeystoneSpeed / KEYSTONE_MULTIPLIER);
-        public Command DecreaseLeftKeystone => new Command(() => LeftKeystone -= Settings.KeystoneSpeed / KEYSTONE_MULTIPLIER);
-        public Command IncreaseRightKeystone => new Command(() => RightKeystone += Settings.KeystoneSpeed / KEYSTONE_MULTIPLIER);
-        public Command DecreaseRightKeystone => new Command(() => RightKeystone -= Settings.KeystoneSpeed / KEYSTONE_MULTIPLIER);
 
         public Command LoadPhotoCommand { get; set; }
 
@@ -124,8 +121,7 @@ namespace CrossCam.ViewModel
         public bool ShouldRollGuideBeVisible => WorkflowStage == WorkflowStage.Capture && Settings.ShowRollGuide;
         public bool ShouldPitchGuideBeVisible => IsExactlyOnePictureTaken && Settings.ShowPitchGuide;
         public bool ShouldYawGuideBeVisible => IsExactlyOnePictureTaken && Settings.ShowYawGuide;
-        public bool ShouldSaveEditsButtonBeVisible => WorkflowStage == WorkflowStage.Edits ||
-                                                      WorkflowStage == WorkflowStage.Keystone;
+        public bool ShouldSaveEditsButtonBeVisible => WorkflowStage == WorkflowStage.Edits;
         public bool ShouldViewButtonBeVisible => WorkflowStage == WorkflowStage.Final ||
                                                  WorkflowStage == WorkflowStage.Crop ||
                                                  WorkflowStage == WorkflowStage.Keystone ||
@@ -367,6 +363,11 @@ namespace CrossCam.ViewModel
                 ManualAlignMode = (ManualAlignMode) mode;
             });
 
+            SetKeystoneMode = new Command(mode =>
+            {
+                KeystoneMode = (KeystoneMode) mode;
+            });
+
             SaveCapturesCommand = new Command(async () =>
             {
                 WorkflowStage = WorkflowStage.Saving;
@@ -437,7 +438,7 @@ namespace CrossCam.ViewModel
                         var finalImageWidth = DrawTool.CalculateCanvasWidthLessBorder(LeftBitmap, RightBitmap,
                             LeftCrop + OutsideCrop, InsideCrop + RightCrop, InsideCrop + LeftCrop, RightCrop + OutsideCrop);
                         var borderThickness = Settings.AddBorder
-                            ? (int) (DrawTool.BORDER_CONVERSION_FACTOR * Settings.BorderThicknessProportion *
+                            ? (int) (DrawTool.BORDER_CONVERSION_FACTOR * Settings.BorderWidthProportion *
                                      finalImageWidth)
                             : 0;
                         finalImageWidth += 4 * borderThickness;
@@ -463,7 +464,7 @@ namespace CrossCam.ViewModel
                                 }
 
                                 DrawTool.DrawImagesOnCanvas(canvas, LeftBitmap, RightBitmap,
-                                    Settings.BorderThicknessProportion, Settings.AddBorder, Settings.BorderColor,
+                                    Settings.BorderWidthProportion, Settings.AddBorder, Settings.BorderColor,
                                     LeftCrop + OutsideCrop, InsideCrop + RightCrop, InsideCrop + LeftCrop, RightCrop + OutsideCrop, 
                                     TopCrop, BottomCrop,
                                     LeftRotation, RightRotation,
@@ -492,7 +493,7 @@ namespace CrossCam.ViewModel
                                 }
 
                                 DrawTool.DrawImagesOnCanvas(canvas, LeftBitmap, RightBitmap,
-                                    Settings.BorderThicknessProportion, Settings.AddBorder, Settings.BorderColor,
+                                    Settings.BorderWidthProportion, Settings.AddBorder, Settings.BorderColor,
                                     LeftCrop + OutsideCrop, InsideCrop + RightCrop, InsideCrop + LeftCrop, RightCrop + OutsideCrop,
                                     TopCrop, BottomCrop,
                                     LeftRotation, RightRotation,
@@ -740,7 +741,7 @@ namespace CrossCam.ViewModel
         {
             SideCropMax = bitmap.Width / 2;
             TopOrBottomCropMax = bitmap.Height / 2;
-            VerticalAlignmentMax = bitmap.Height / 8;
+            VerticalAlignmentMax = bitmap.Height / 4;
             ZoomMax = bitmap.Height / 4;
         }
 
@@ -938,6 +939,7 @@ namespace CrossCam.ViewModel
             LeftCrop = 0;
             TopCrop = 0;
             BottomCrop = 0;
+            CropMode = CropMode.Inside;
         }
 
         private void ClearAlignments()
@@ -947,12 +949,14 @@ namespace CrossCam.ViewModel
             LeftZoom = 0;
             RightZoom = 0;
             VerticalAlignment = 0;
+            ManualAlignMode = ManualAlignMode.VerticalAlign;
         }
 
         private void ClearKeystone()
         {
             LeftKeystone = 0;
             RightKeystone = 0;
+            KeystoneMode = KeystoneMode.Left;
         }
 
         private void ClearEdits()
@@ -972,7 +976,6 @@ namespace CrossCam.ViewModel
             IsCameraVisible = true;
             ClearEdits();
             WorkflowStage = WorkflowStage.Capture;
-            CropMode = CropMode.Inside;
 
             if (Settings.IsTapToFocusEnabled)
             {

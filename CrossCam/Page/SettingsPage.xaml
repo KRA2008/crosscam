@@ -64,7 +64,7 @@
             <StackLayout Orientation="Horizontal">
                 <Label Text="Border thickness (tenths of percentage of width)"/>
                 <Picker ItemsSource="{Binding ZeroToOneHundred}"
-                        SelectedIndex="{Binding Settings.BorderThicknessProportion}"
+                        SelectedIndex="{Binding Settings.BorderWidthProportion}"
                         BackgroundColor="White"
                         HorizontalOptions="EndAndExpand"/>
             </StackLayout>
@@ -129,16 +129,6 @@
                 <Label Text="Save first side alone (with no edits or border) (for sharing basic photo with flat view people)"/>
                 <Switch IsToggled="{Binding Settings.SaveRedundantFirstSide}"
                         IsEnabled="{Binding Settings.SaveSidesSeparately, Converter={vc:BooleanInvertConverter}}"/>
-            </StackLayout>
-            <BoxView/>
-            <Label Text="Editing"
-                   Style="{DynamicResource header}"/>
-            <StackLayout Orientation="Horizontal">
-                <Label Text="Keystone speed"/>
-                <Picker ItemsSource="{Binding ZeroToOneThousand}"
-                        SelectedIndex="{Binding Settings.KeystoneSpeed}"
-                        BackgroundColor="White"
-                        HorizontalOptions="EndAndExpand"/>
             </StackLayout>
             <BoxView/>
             <Label Text="Guides"

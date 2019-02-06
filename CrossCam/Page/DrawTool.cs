@@ -109,7 +109,7 @@ namespace CrossCam.Page
                     leftZoom > 0 ||
                     isLeftKeystoned)
                 {
-                    transformed = ZoomAndRotate(leftBitmap, aspectRatio, leftZoom, isLeftRotated, innerLeftRotation, isLeftKeystoned, innerLeftKeystone);
+                    transformed = ZoomAndRotate(leftBitmap, aspectRatio, leftZoom, isLeftRotated, innerLeftRotation, isLeftKeystoned, -innerLeftKeystone);
                 }
                 
                 canvas.DrawBitmap(

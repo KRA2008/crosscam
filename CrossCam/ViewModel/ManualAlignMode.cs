@@ -2,9 +2,9 @@
 {
     public enum ManualAlignMode
     {
+        VerticalAlign,
         RotateLeft,
         RotateRight,
-        VerticalAlign,
         ZoomLeft,
         ZoomRight
     }

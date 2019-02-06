@@ -89,28 +89,15 @@ namespace CrossCam.Model
             }
         }
 
-        private int _keystoneSpeed;
-        public int KeystoneSpeed
+        private int _borderWidthProportion;
+        public int BorderWidthProportion
         {
-            get => _keystoneSpeed;
+            get => _borderWidthProportion;
             set
             {
                 if (value > 0)
                 {
-                    _keystoneSpeed = value;
-                }
-            }
-        }
-
-        private int _borderThicknessProportion;
-        public int BorderThicknessProportion
-        {
-            get => _borderThicknessProportion;
-            set
-            {
-                if (value > 0)
-                {
-                    _borderThicknessProportion = value;
+                    _borderWidthProportion = value;
                 }
             }
         }
@@ -182,6 +169,7 @@ namespace CrossCam.Model
             IsCaptureLeftFirst = true;
             SaveForCrossView = true;
             ShowRollGuide = true;
+            AddBorder = true;
 
             ShowPitchGuide = false;
             ShowYawGuide = false;
@@ -194,7 +182,6 @@ namespace CrossCam.Model
             IsTapToFocusEnabled = false;
             SaveRedundantFirstSide = false;
             SaveForParallel = false;
-            AddBorder = false;
 
             BorderColor = BorderColor.Black;
 
@@ -205,8 +192,7 @@ namespace CrossCam.Model
             AlignmentEccThresholdPercentage = 60;
 
             ResolutionProportion = 100;
-            BorderThicknessProportion = 25;
-            KeystoneSpeed = 50;
+            BorderWidthProportion = 10;
         }
 
         public event PropertyChangedEventHandler PropertyChanged;

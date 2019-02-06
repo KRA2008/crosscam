@@ -34,17 +34,17 @@
                 <BoxView/>
                 <Label Text="If you move in the opposite direction from what you're &quot;supposed&quot; to you'll produce a parallel view/VR picture. You could also go to the settings page which has a setting to allow you to save a parallel view/VR version in addition to your cross view (sides switched)."/>
                 <BoxView/>
-                <Label Text="An interesting &quot;stereo window&quot; effect can be created by doing two things: 1) turn on the border (in settings) and 2) crop the inside edges of the images until the outer edge itself becomes 3D in the picture. The key is to crop the right edge of the left picture slightly past what the right edge of the right picture shows of the scene and vice-versa. Adding a border is toggled in the settings. If this is confusing, just tap a whole bunch on the inside edge crop button and it will start to be clear. That crop button looks like this:"/>
+                <Label Text="An interesting &quot;stereo window&quot; effect can be created by doing two things: 1) turn on the border (in settings) and 2) crop the inside edges of the images until the outer edge itself becomes 3D in the picture. The key is to crop the right edge of the left picture slightly past what the right edge of the right picture shows of the scene and vice-versa. Adding a border is toggled in the settings. If this is confusing, just crop a bunch off the inside edge and it will start to be clear. That crop button looks like this:"/>
                 <Image Source="insideCrop"/>
                 <BoxView/>
                 <Label Text="If you find that it's impossible to make both the upper and lower guide lines line up at the same time, you probably moved in some direction other than just to the side."/>
                 <BoxView/>
-                <Label Text="If you want to take pictures of very close up subjects or &quot;macro&quot; photos for cross viewing, it is very helpful to do &quot;keystone&quot; corrections. Typically you would want to shrink the inside edges of the photos and then crop some off the top and bottom to level them out. You get to the keystone editing menu by tapping the button that looks like this:"/>
+                <Label Text="If you want to take pictures of very close up subjects for cross viewing, you'll often need to turn inward with each shot. As a result, it is very helpful to do &quot;keystone&quot; corrections. Typically you would want to shrink the inside edges of the photos and then crop some off the top and bottom to level them out. You get to the keystone editing menu by tapping the button that looks like this:"/>
                 <StackLayout Orientation="Horizontal" 
                              Spacing="0">
-                    <Image Source="keystoneRight"
-                           HorizontalOptions="EndAndExpand"/>
                     <Image Source="keystoneLeft"
+                           HorizontalOptions="EndAndExpand"/>
+                    <Image Source="keystoneRight"
                            HorizontalOptions="StartAndExpand"/>
                 </StackLayout>
                 <BoxView/>

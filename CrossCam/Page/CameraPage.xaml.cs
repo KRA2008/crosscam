@@ -303,7 +303,7 @@ namespace CrossCam.Page
             
 	        DrawTool.DrawImagesOnCanvas(
 	            canvas, _viewModel.LeftBitmap, _viewModel.RightBitmap,
-	            _viewModel.Settings.BorderThicknessProportion, _viewModel.Settings.AddBorder, _viewModel.Settings.BorderColor,
+	            _viewModel.Settings.BorderWidthProportion, _viewModel.Settings.AddBorder, _viewModel.Settings.BorderColor,
 	            _viewModel.LeftCrop + _viewModel.OutsideCrop, _viewModel.InsideCrop + _viewModel.RightCrop, _viewModel.InsideCrop + _viewModel.LeftCrop, _viewModel.RightCrop + _viewModel.OutsideCrop,
 	            _viewModel.TopCrop, _viewModel.BottomCrop,
                 _viewModel.LeftRotation, _viewModel.RightRotation, 
