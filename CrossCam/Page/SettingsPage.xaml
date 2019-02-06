@@ -128,7 +128,7 @@
             <StackLayout Orientation="Horizontal">
                 <Label Text="Save first side alone (with no edits or border) (for sharing basic photo with flat view people)"/>
                 <Switch IsToggled="{Binding Settings.SaveRedundantFirstSide}"
-                        IsEnabled="{Binding Settings.SaveSidesSeparately, Converter={vc:BooleanInvertConverter}}"/>
+                        IsEnabled="{Binding EnableFirstSideAloneSwitch}"/>
             </StackLayout>
             <BoxView/>
             <Label Text="Guides"

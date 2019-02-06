@@ -22,6 +22,8 @@ namespace CrossCam.ViewModel
         public IEnumerable<string> BorderColors => Enum.GetNames(typeof(BorderColor)).ToList();
         // ReSharper restore MemberCanBeMadeStatic.Global
 
+        public bool EnableFirstSideAloneSwitch { get; set; }
+
         public SettingsViewModel()
         {
             ResetToDefaults = new Command(() =>
@@ -46,6 +48,14 @@ namespace CrossCam.ViewModel
 
         private void SaveSettings(object sender, PropertyChangedEventArgs e)
         {
+            EnableFirstSideAloneSwitch = (Settings.SaveForCrossView || Settings.SaveForParallel) &&
+                                         !Settings.SaveSidesSeparately;
+
+            if (!EnableFirstSideAloneSwitch)
+            {
+                Settings.SaveRedundantFirstSide = false;
+            }
+
             PersistentStorage.Save(PersistentStorage.SETTINGS_KEY, Settings);
         }
     }
