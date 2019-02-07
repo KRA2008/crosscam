@@ -50,7 +50,7 @@
     <AndroidLinkMode>Full</AndroidLinkMode>
     <DefineConstants>__ANDROID__</DefineConstants>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
-    <AndroidLinkSkip>CrossCam;CrossCam.Droid</AndroidLinkSkip>
+    <AndroidLinkSkip>CrossCam;CrossCam.Droid;Xamarin.Android.Support.Vector.Drawable</AndroidLinkSkip>
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="FreshMvvm">
