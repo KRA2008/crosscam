@@ -5,7 +5,6 @@ using CrossCam.Wrappers;
 using Emgu.CV;
 using Emgu.CV.CvEnum;
 using Emgu.CV.Structure;
-using Emgu.CV.Text;
 using Emgu.CV.Util;
 using SkiaSharp;
 using Xamarin.Forms;
