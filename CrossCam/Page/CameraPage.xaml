@@ -1157,6 +1157,14 @@
         <Label Text="Loading..."
                Style="{StaticResource _feedback}"
                IsVisible="{Binding WorkflowStage, Converter={vc:EnumCompareConverter}, ConverterParameter={x:Static vm:WorkflowStage.Loading}}"/>
+        <Label Text="Automatic alignment not supported on device - turn off in Settings."
+               Style="{StaticResource _feedback}"
+               IsVisible="False">
+            <Label.Behaviors>
+                <ce:FadeInAndOutBehavior VisibleTimeMs="3000"
+                                         Trigger="{Binding AutomaticAlignmentNotSupportedTrigger}"/>
+            </Label.Behaviors>
+        </Label>
         <ContentView AbsoluteLayout.LayoutFlags="All"
                      AbsoluteLayout.LayoutBounds="0,0,1,1"
                      IsVisible="{Binding WorkflowStage, Converter={vc:EnumCompareConverter}, ConverterParameter={x:Static vm:WorkflowStage.View}}">

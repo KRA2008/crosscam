@@ -19,6 +19,22 @@ namespace AutoAlignment
 {
     public class OpenCv : IOpenCv
     {
+        public bool IsOpenCvSupported()
+        {
+            try
+            {
+                using (new Mat())
+                {
+                }
+            }
+            catch
+            {
+                return false;
+            }
+
+            return true;
+        }
+
         public AlignedResult CreateAlignedSecondImage(SKBitmap firstImage, SKBitmap secondImage, int downsizePercentage, int iterations,
             int epsilonLevel, int eccCutoff)
         {

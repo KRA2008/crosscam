@@ -102,6 +102,7 @@ namespace CrossCam.ViewModel
         public bool IsCaptureLeftFirst { get; set; }
         public bool WasCapturePortrait { get; set; }
 
+        public bool AutomaticAlignmentNotSupportedTrigger { get; set; }
         public bool AlignmentFailFadeTrigger { get; set; }
         public bool SaveFailFadeTrigger { get; set; }
         public bool SaveSuccessFadeTrigger { get; set; }
@@ -587,117 +588,125 @@ namespace CrossCam.ViewModel
                 var openCv = DependencyService.Get<IOpenCv>();
 
                 AlignedResult alignedResult = null;
-                try
+                if (openCv.IsOpenCvSupported())
                 {
-                    await Task.Run(() =>
+                    try
                     {
-                        alignedResult = openCv.CreateAlignedSecondImage(
-                            IsCaptureLeftFirst ? LeftBitmap : RightBitmap,
-                            IsCaptureLeftFirst ? RightBitmap : LeftBitmap,
-                            Settings.AlignmentDownsizePercentage,
-                            Settings.AlignmentIterations,
-                            Settings.AlignmentEpsilonLevel,
-                            Settings.AlignmentEccThresholdPercentage);
-                    });
-                }
-                catch (Exception e)
-                {
-                    ErrorMessage = e.ToString();
-                }
-
-                if (alignedResult != null)
-                {
-                    var topLeft = alignedResult.TransformMatrix.MapPoint(0,0);
-                    var topRight = alignedResult.TransformMatrix.MapPoint(alignedResult.AlignedBitmap.Width - 1,0);
-                    var bottomRight = alignedResult.TransformMatrix.MapPoint(alignedResult.AlignedBitmap.Width - 1,
-                        alignedResult.AlignedBitmap.Height - 1);
-                    var bottomLeft = alignedResult.TransformMatrix.MapPoint(0, alignedResult.AlignedBitmap.Height - 1);
-
-                    if (topLeft.Y > topRight.Y)
-                    {
-                        if (topLeft.Y > 0)
+                        await Task.Run(() =>
                         {
-                            TopCrop = (int)topLeft.Y;
+                            alignedResult = openCv.CreateAlignedSecondImage(
+                                IsCaptureLeftFirst ? LeftBitmap : RightBitmap,
+                                IsCaptureLeftFirst ? RightBitmap : LeftBitmap,
+                                Settings.AlignmentDownsizePercentage,
+                                Settings.AlignmentIterations,
+                                Settings.AlignmentEpsilonLevel,
+                                Settings.AlignmentEccThresholdPercentage);
+                        });
+                    }
+                    catch (Exception e)
+                    {
+                        ErrorMessage = e.ToString();
+                    }
+
+                    if (alignedResult != null)
+                    {
+                        var topLeft = alignedResult.TransformMatrix.MapPoint(0, 0);
+                        var topRight = alignedResult.TransformMatrix.MapPoint(alignedResult.AlignedBitmap.Width - 1, 0);
+                        var bottomRight = alignedResult.TransformMatrix.MapPoint(alignedResult.AlignedBitmap.Width - 1,
+                            alignedResult.AlignedBitmap.Height - 1);
+                        var bottomLeft =
+                            alignedResult.TransformMatrix.MapPoint(0, alignedResult.AlignedBitmap.Height - 1);
+
+                        if (topLeft.Y > topRight.Y)
+                        {
+                            if (topLeft.Y > 0)
+                            {
+                                TopCrop = (int) topLeft.Y;
+                            }
+                        }
+                        else
+                        {
+                            if (topRight.Y > 0)
+                            {
+                                TopCrop = (int) topRight.Y;
+                            }
+                        }
+
+                        var maxY = alignedResult.AlignedBitmap.Height - 1;
+                        if (bottomLeft.Y < bottomRight.Y)
+                        {
+                            if (bottomLeft.Y < maxY)
+                            {
+                                BottomCrop = (int) (maxY - bottomLeft.Y);
+                            }
+                        }
+                        else
+                        {
+                            if (bottomRight.Y < maxY)
+                            {
+                                BottomCrop = (int) (maxY - bottomRight.Y);
+                            }
+                        }
+
+                        var alignedLeftCrop = 0;
+                        if (topLeft.X > bottomLeft.X)
+                        {
+                            if (topLeft.X > 0)
+                            {
+                                alignedLeftCrop = (int) topLeft.X;
+                            }
+                        }
+                        else
+                        {
+                            if (bottomLeft.X > 0)
+                            {
+                                alignedLeftCrop = (int) bottomLeft.X;
+                            }
+                        }
+
+                        var alignedRightCrop = 0;
+                        var maxX = alignedResult.AlignedBitmap.Width - 1;
+                        if (topRight.X < bottomRight.X)
+                        {
+                            if (topRight.X < maxX)
+                            {
+                                alignedRightCrop = (int) (maxX - topRight.X);
+                            }
+                        }
+                        else
+                        {
+                            if (bottomRight.X < maxX)
+                            {
+                                alignedRightCrop = (int) (maxX - bottomRight.X);
+                            }
+                        }
+
+                        //this actually cuts off a bit more than it has to, but it is inconsequential for small deviations
+                        //(it cuts at the corner of the original image, not at the point where the original border crosses the new border)
+
+                        if (IsCaptureLeftFirst)
+                        {
+                            _replacedAutoAlignedBitmap = RightBitmap;
+                            OutsideCrop = alignedRightCrop;
+                            InsideCrop = alignedLeftCrop;
+                            SetRightBitmap(alignedResult.AlignedBitmap);
+                        }
+                        else
+                        {
+                            _replacedAutoAlignedBitmap = LeftBitmap;
+                            InsideCrop = alignedRightCrop;
+                            OutsideCrop = alignedLeftCrop;
+                            SetLeftBitmap(alignedResult.AlignedBitmap);
                         }
                     }
                     else
                     {
-                        if (topRight.Y > 0)
-                        {
-                            TopCrop = (int)topRight.Y;
-                        }
-                    }
-
-                    var maxY = alignedResult.AlignedBitmap.Height - 1;
-                    if (bottomLeft.Y < bottomRight.Y)
-                    {
-                        if (bottomLeft.Y < maxY)
-                        {
-                            BottomCrop = (int)(maxY - bottomLeft.Y);
-                        }
-                    }
-                    else
-                    {
-                        if (bottomRight.Y < maxY)
-                        {
-                            BottomCrop = (int)(maxY - bottomRight.Y);
-                        }
-                    }
-
-                    var alignedLeftCrop = 0;
-                    if (topLeft.X > bottomLeft.X)
-                    {
-                        if (topLeft.X > 0)
-                        {
-                            alignedLeftCrop = (int)topLeft.X;
-                        }
-                    }
-                    else
-                    {
-                        if (bottomLeft.X > 0)
-                        {
-                            alignedLeftCrop = (int)bottomLeft.X;
-                        }
-                    }
-
-                    var alignedRightCrop = 0;
-                    var maxX = alignedResult.AlignedBitmap.Width - 1;
-                    if (topRight.X < bottomRight.X)
-                    {
-                        if (topRight.X < maxX)
-                        {
-                            alignedRightCrop = (int)(maxX - topRight.X);
-                        }
-                    }
-                    else
-                    {
-                        if (bottomRight.X < maxX)
-                        {
-                            alignedRightCrop = (int)(maxX - bottomRight.X);
-                        }
-                    }
-
-                    //this actually cuts off a bit more than it has to, but it is inconsequential for small deviations
-                    //(it cuts at the corner of the original image, not at the point where the original border crosses the new border)
-
-                    if (IsCaptureLeftFirst)
-                    {
-                        _replacedAutoAlignedBitmap = RightBitmap;
-                        OutsideCrop = alignedRightCrop;
-                        InsideCrop = alignedLeftCrop;
-                        SetRightBitmap(alignedResult.AlignedBitmap);
-                    }
-                    else
-                    {
-                        _replacedAutoAlignedBitmap = LeftBitmap;
-                        InsideCrop = alignedRightCrop;
-                        OutsideCrop = alignedLeftCrop;
-                        SetLeftBitmap(alignedResult.AlignedBitmap);
+                        AlignmentFailFadeTrigger = !AlignmentFailFadeTrigger;
                     }
                 }
                 else
                 {
-                    AlignmentFailFadeTrigger = !AlignmentFailFadeTrigger;
+                    AutomaticAlignmentNotSupportedTrigger = !AutomaticAlignmentNotSupportedTrigger;
                 }
 
                 WorkflowStage = WorkflowStage.Final;
