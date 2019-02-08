@@ -176,6 +176,11 @@
                 <Switch IsToggled="{Binding Settings.IsTapToFocusEnabled}"/>
             </StackLayout>
             <BoxView/>
+            <StackLayout Orientation="Horizontal">
+                <Label Text="Lefty mode"/>
+                <Switch IsToggled="{Binding Settings.LeftyMode}"/>
+            </StackLayout>
+            <BoxView/>
             <Button Text="Reset to Defaults"
                     Command="{Binding ResetToDefaults}"/>
         </StackLayout>

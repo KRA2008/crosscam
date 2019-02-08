@@ -54,6 +54,8 @@
                 <BoxView/>
                 <Label Text="There is an experimental &quot;guide donut/dot&quot; on the settings page you can turn on which may help you keep your perspectives parallel for a large scene. Ideally you would drag it onto the horizon, sky, or other very distant point. Be careful, using it on smaller scenes may make things painful."/>
                 <BoxView/>
+                <Label Text="There's a lefty mode on the settings page in case you want that."/>
+                <BoxView/>
             </StackLayout>
         </ScrollView>
     </ContentPage.Content>

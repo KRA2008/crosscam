@@ -21,6 +21,8 @@ namespace CrossCam.Model
         public bool ShowPitchGuide { get; set; }
         public bool ShowYawGuide { get; set; }
 
+        public bool LeftyMode { get; set; }
+
         private BorderColor _borderColor;
         public BorderColor BorderColor
         {
@@ -182,6 +184,8 @@ namespace CrossCam.Model
             IsTapToFocusEnabled = false;
             SaveRedundantFirstSide = false;
             SaveForParallel = false;
+
+            LeftyMode = false;
 
             BorderColor = BorderColor.Black;
 
