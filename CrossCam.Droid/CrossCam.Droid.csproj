@@ -51,6 +51,7 @@
     <DefineConstants>__ANDROID__</DefineConstants>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
     <AndroidLinkSkip>CrossCam;CrossCam.Droid</AndroidLinkSkip>
+	<AndroidResgenExtraArgs>--no-version-vectors</AndroidResgenExtraArgs>
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="FreshMvvm">
