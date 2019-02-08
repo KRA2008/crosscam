@@ -8,7 +8,6 @@ using Android.Content.PM;
 using Android.OS;
 using Android.Support.V4.App;
 using Android.Support.V4.Content;
-using Android.Support.V7.App;
 using Android.Views;
 using Java.Lang;
 using Xamarin.Forms;
@@ -38,8 +37,6 @@ namespace CrossCam.Droid
         {
             base.OnCreate(bundle);
             Xamarin.Essentials.Platform.Init(this, bundle);
-
-            AppCompatDelegate.CompatVectorFromResourcesEnabled = true;
 
             Window.AddFlags(WindowManagerFlags.Fullscreen);
             Window.ClearFlags(WindowManagerFlags.ForceNotFullscreen);
