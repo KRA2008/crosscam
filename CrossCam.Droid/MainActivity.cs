@@ -27,6 +27,7 @@ namespace CrossCam.Droid
 
         internal static MainActivity Instance { get; private set; }
 
+
         private const int CAMERA_PERMISSION_REQUEST_CODE = 50;
         private const int WRITE_TO_STORAGE_REQUEST_CODE = 51;
 
