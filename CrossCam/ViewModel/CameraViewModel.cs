@@ -545,8 +545,8 @@ namespace CrossCam.ViewModel
 
             PromptForPermissionAndSendErrorEmailCommand = new Command(async () =>
             {
-                var sendReport = await CoreMethods.DisplayAlert("Error",
-                    "An error has occurred. Would you like to send an error report?", "Yes", "No");
+                var sendReport = await CoreMethods.DisplayAlert("Oops",
+                    "Sorry, CrossCam did an error. Please send me an error report so I can fix it!", "Send", "Don't Send");
                 if (sendReport)
                 {
                     var errorMessage = ErrorMessage + "\n" +
@@ -717,6 +717,8 @@ namespace CrossCam.ViewModel
 
         private void SetLeftBitmap(SKBitmap bitmap, bool withMovementTrigger = true)
         {
+            if (bitmap == null) return;
+
             LeftBitmap = bitmap;
             WasCapturePortrait = LeftBitmap.Width < LeftBitmap.Height;
 
@@ -743,6 +745,8 @@ namespace CrossCam.ViewModel
 
         private void SetRightBitmap(SKBitmap bitmap, bool withMovementTrigger = true)
         {
+            if (bitmap == null) return;
+
             RightBitmap = bitmap;
             WasCapturePortrait = RightBitmap.Width < RightBitmap.Height;
 
@@ -864,25 +868,39 @@ namespace CrossCam.ViewModel
             return color.Red + color.Green + color.Blue;
         }
 
-        private static SKBitmap GetBitmapAndCorrectOrientation(byte[] bytes)
+        private SKBitmap GetBitmapAndCorrectOrientation(byte[] bytes)
         {
-            SKCodecOrigin origin;
+            try
+            {
+                SKCodecOrigin origin = 0;
 
-            using (var stream = new MemoryStream(bytes))
-            using (var data = SKData.Create(stream))
-            using (var codec = SKCodec.Create(data))
-            {
-                origin = codec.Origin;
+                using (var stream = new MemoryStream(bytes))
+                using (var data = SKData.Create(stream))
+                using (var codec = SKCodec.Create(data))
+                {
+                    if (codec != null)
+                    {
+                        origin = codec.Origin;
+                    }
+                }
+
+                switch (origin)
+                {
+                    case SKCodecOrigin.BottomRight:
+                        return BitmapRotate180(SKBitmap.Decode(bytes));
+                    case SKCodecOrigin.RightTop:
+                        return BitmapRotate90(SKBitmap.Decode(bytes));
+                    default:
+                        return SKBitmap.Decode(bytes);
+                }
             }
-            
-            switch (origin)
+            catch (Exception e)
             {
-                case SKCodecOrigin.BottomRight:
-                    return BitmapRotate180(SKBitmap.Decode(bytes));
-                case SKCodecOrigin.RightTop:
-                    return BitmapRotate90(SKBitmap.Decode(bytes));
-                default:
-                    return SKBitmap.Decode(bytes);
+                Device.BeginInvokeOnMainThread(() =>
+                {
+                    ErrorMessage = e.ToString();
+                });
+                return null;
             }
         }
 
