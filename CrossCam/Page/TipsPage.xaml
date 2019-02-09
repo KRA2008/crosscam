@@ -56,7 +56,7 @@
                 <BoxView/>
                 <Label Text="There's a lefty mode on the settings page in case you want that."/>
                 <BoxView/>
-                <Label Text="If you're interested in red/cyan anaglyph mode, there is a save mode for it you can activate on the Settings page. However, it will almost certainly be necessary to crop and align the pictures significantly differently than you would for cross or parallel viewing. To that end, the Settings page also has a switch for an edit mode built specifically for red/cyan anaglyph."/>
+                <Label Text="If you're interested in red/cyan anaglyph, there is a switch on the Settings page which allows you to edit and save in red/cyan anaglyph."/>
                 <BoxView/>
             </StackLayout>
         </ScrollView>

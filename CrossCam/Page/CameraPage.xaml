@@ -338,6 +338,8 @@
                        IsVisible="{Binding Settings.SaveSidesSeparately}"/>
                 <Image Source="saveOne"
                        IsVisible="{Binding Settings.SaveRedundantFirstSide}"/>
+                <Image Source="anaglyph"
+                       IsVisible="{Binding Settings.RedCyanAnaglyphMode}"/>
                 <Label Text="{Binding Settings.ResolutionProportion, StringFormat=' {0}%'}"
                        FontSize="15"/>
             </StackLayout>

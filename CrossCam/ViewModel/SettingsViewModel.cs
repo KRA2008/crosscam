@@ -36,6 +36,7 @@ namespace CrossCam.ViewModel
         {
             base.Init(initData);
             Settings = (Settings) initData;
+            SaveSettings(null, null);
             Settings.PropertyChanged += SaveSettings;
         }
 
@@ -48,7 +49,7 @@ namespace CrossCam.ViewModel
 
         private void SaveSettings(object sender, PropertyChangedEventArgs e)
         {
-            EnableFirstSideAloneSwitch = (Settings.SaveForCrossView || Settings.SaveForParallel) &&
+            EnableFirstSideAloneSwitch = (Settings.SaveForCrossView || Settings.SaveForParallel || Settings.RedCyanAnaglyphMode) &&
                                          !Settings.SaveSidesSeparately;
 
             if (!EnableFirstSideAloneSwitch)

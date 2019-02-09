@@ -19,11 +19,49 @@ namespace CrossCam.Model
         public bool IsTapToFocusEnabled { get; set; }
 
         public bool SaveRedundantFirstSide { get; set; }
-        public bool SaveForParallel { get; set; }
-        public bool SaveForCrossView { get; set; }
-        public bool SaveForAnaglyph { get; set; }
 
-        public bool EditWithOnionSkin { get; set; }
+        private bool _saveForParallel;
+        public bool SaveForParallel
+        {
+            get => _saveForParallel;
+            set
+            {
+                if (value)
+                {
+                    RedCyanAnaglyphMode = false;
+                }
+                _saveForParallel = value;
+            }
+        }
+
+        private bool _saveForCrossView;
+        public bool SaveForCrossView
+        {
+            get => _saveForCrossView;
+            set
+            {
+                if (value)
+                {
+                    RedCyanAnaglyphMode = false;
+                }
+                _saveForCrossView = value;
+            }
+        }
+
+        private bool _redCyanAnaglyphMode;
+        public bool RedCyanAnaglyphMode
+        {
+            get => _redCyanAnaglyphMode;
+            set
+            {
+                if (value)
+                {
+                    SaveForParallel = false;
+                    SaveForCrossView = false;
+                }
+                _redCyanAnaglyphMode = value;
+            }
+        }
 
         public bool AddBorder { get; set; }
 
@@ -190,9 +228,8 @@ namespace CrossCam.Model
             IsTapToFocusEnabled = false;
             SaveRedundantFirstSide = false;
             SaveForParallel = false;
-            SaveForAnaglyph = false;
 
-            EditWithOnionSkin = false;
+            RedCyanAnaglyphMode = false;
 
             LeftyMode = false;
 

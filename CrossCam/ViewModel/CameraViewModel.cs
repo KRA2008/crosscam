@@ -140,7 +140,8 @@ namespace CrossCam.ViewModel
                                                          (Settings.SaveForCrossView ||
                                                           Settings.SaveForParallel ||
                                                           Settings.SaveSidesSeparately ||
-                                                          Settings.SaveRedundantFirstSide);
+                                                          Settings.SaveRedundantFirstSide ||
+                                                          Settings.RedCyanAnaglyphMode);
         
         public int IconColumn => IsCaptureLeftFirst ? 1 : 0;
 
@@ -433,7 +434,7 @@ namespace CrossCam.ViewModel
                             }
                         }
 
-                        if (Settings.SaveForAnaglyph)
+                        if (Settings.RedCyanAnaglyphMode)
                         {
                             var canvasWidth = LeftBitmap.Width - LeftCrop - InsideCrop - OutsideCrop - RightCrop;
                             var canvasHeight = DrawTool.CalculateCanvasHeightLessBorder(LeftBitmap, RightBitmap,

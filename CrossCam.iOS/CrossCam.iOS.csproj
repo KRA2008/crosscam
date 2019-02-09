@@ -444,6 +444,8 @@
     <BundleResource Include="Resources\bottomCrop%402x.png" />
     <BundleResource Include="Resources\topCrop.png" />
     <BundleResource Include="Resources\topCrop%402x.png" />
+    <BundleResource Include="Resources\anaglyph.png" />
+    <BundleResource Include="Resources\anaglyph%402x.png" />
   </ItemGroup>
   <Import Project="..\AutoAlignment\AutoAlignment.projitems" Label="Shared" />
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
