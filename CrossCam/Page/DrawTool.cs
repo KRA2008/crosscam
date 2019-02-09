@@ -182,13 +182,14 @@ namespace CrossCam.Page
                     if (drawMode == DrawMode.RedCyan)
                     {
                         paint.ColorFilter =
-                            SKColorFilter.CreateColorMatrix(new[]
+                            SKColorFilter.CreateColorMatrix(new float[]
                             {
-                                1, 0, 0,    0, 0,
-                                0, 0, 0,    0, 0,
-                                0, 0, 0,    0, 0,
-                                0, 0, 0, 0.5f, 0
+                                1, 0, 0, 0, 0,
+                                0, 0, 0, 0, 0,
+                                0, 0, 0, 0, 0,
+                                0, 0, 0, 1, 0
                             });
+                        paint.BlendMode = SKBlendMode.Plus;
                     }
 
                     canvas.DrawBitmap(
