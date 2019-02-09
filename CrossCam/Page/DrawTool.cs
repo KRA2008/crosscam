@@ -111,6 +111,7 @@ namespace CrossCam.Page
                     innerLeftKeystone = rightKeystone;
                     break;
                 case DrawMode.RedCyan:
+                    leftPreviewX = rightPreviewX = canvasWidth / 2f - leftBitmapWidthLessCrop / (2f * scalingRatio);
                     leftPreviewWidth = leftBitmapWidthLessCrop / scalingRatio;
                     rightPreviewWidth = rightBitmapWidthLessCrop / scalingRatio;
                     innerRightRotation = rightRotation;

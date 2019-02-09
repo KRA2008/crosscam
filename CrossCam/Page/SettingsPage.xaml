@@ -135,6 +135,13 @@
                         IsEnabled="{Binding EnableFirstSideAloneSwitch}"/>
             </StackLayout>
             <BoxView/>
+            <Label Text="Editing"
+                   Style="{DynamicResource header}"/>
+            <StackLayout Orientation="Horizontal">
+                <Label Text="Edit in anaglyph red/cyan onion skin mode"/>
+                <Switch IsToggled="{Binding Settings.EditWithOnionSkin}"/>
+            </StackLayout>
+            <BoxView/>
             <Label Text="Guides"
                    Style="{DynamicResource header}"/>
             <StackLayout Orientation="Horizontal">

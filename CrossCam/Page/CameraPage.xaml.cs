@@ -309,7 +309,8 @@ namespace CrossCam.Page
                 _viewModel.LeftRotation, _viewModel.RightRotation, 
 	            _viewModel.VerticalAlignment,
 	            _viewModel.LeftZoom, _viewModel.RightZoom,
-	            _viewModel.LeftKeystone, _viewModel.RightKeystone);
+	            _viewModel.LeftKeystone, _viewModel.RightKeystone, 
+	            _viewModel.WorkflowStage != WorkflowStage.Capture && _viewModel.Settings.EditWithOnionSkin ? DrawMode.RedCyan : DrawMode.Cross);
         }
 
         private void ResetGuides()

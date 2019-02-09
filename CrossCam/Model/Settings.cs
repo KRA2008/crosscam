@@ -11,16 +11,21 @@ namespace CrossCam.Model
         public bool ShowGuideLinesWithFirstCapture { get; set; }
         public bool ShowGuideDonutWithFirstCapture { get; set; }
         public bool IsGuideDonutBothDonuts { get; set; }
+        public bool ShowRollGuide { get; set; }
+        public bool ShowPitchGuide { get; set; }
+        public bool ShowYawGuide { get; set; }
+
         public bool IsCaptureLeftFirst { get; set; }
         public bool IsTapToFocusEnabled { get; set; }
+
         public bool SaveRedundantFirstSide { get; set; }
         public bool SaveForParallel { get; set; }
         public bool SaveForCrossView { get; set; }
         public bool SaveForAnaglyph { get; set; }
+
+        public bool EditWithOnionSkin { get; set; }
+
         public bool AddBorder { get; set; }
-        public bool ShowRollGuide { get; set; }
-        public bool ShowPitchGuide { get; set; }
-        public bool ShowYawGuide { get; set; }
 
         public bool LeftyMode { get; set; }
 
@@ -186,6 +191,8 @@ namespace CrossCam.Model
             SaveRedundantFirstSide = false;
             SaveForParallel = false;
             SaveForAnaglyph = false;
+
+            EditWithOnionSkin = false;
 
             LeftyMode = false;
 
