@@ -28,7 +28,7 @@
                 <BoxView/>
                 <Label Text="When you move over, try not to rotate your phone at all in any direction, including the natural tendency to turn towards the subject as you move to the side. Some rotation will be necessary sometimes, but try to minimize it. Imagine the phone is mounted on a straight horizontal rail and can only slide."/>
                 <BoxView/>
-                <Label Text="If you want to take pictures of very close up subjects for cross viewing, you may want to turn inward with each shot. As a result, it is very helpful to do &quot;keystone&quot; corrections. Typically you would want to shrink the inside edges of the photos and then crop some off the top and bottom to level them out. You get to the keystone editing menu by tapping the button that looks like this:"/>
+                <Label Text="If you want to take pictures of very close up subjects for cross viewing, you may want to turn inward with each shot to maximize the useable size. As a result, it is very helpful to do &quot;keystone&quot; corrections. Typically you would want to shrink the inside edges of the photos and then crop some off the top and bottom to level them out. You get to the keystone editing menu by tapping the button that looks like this:"/>
                 <StackLayout Orientation="Horizontal" 
                              Spacing="0">
                     <Image Source="keystoneLeft"
@@ -43,18 +43,20 @@
                 <BoxView/>
                 <Label Text="If you move in the opposite direction from what you're &quot;supposed&quot; to you'll produce a parallel view/VR picture. You could also go to the settings page which has a setting to allow you to save a parallel view/VR version in addition to your cross view (sides switched)."/>
                 <BoxView/>
-                <Label Text="An interesting &quot;stereo window&quot; effect can be created by doing two things: 1) turn on the border (in settings) and 2) crop the inside edges of the images until the outer edge itself becomes 3D in the picture. The key is to crop the right edge of the left picture slightly past what the right edge of the right picture shows of the scene and vice-versa. Adding a border is toggled in the settings. If this is confusing, just crop a bunch off the inside edge and it will start to be clear. That crop button looks like this:"/>
+                <Label Text="An interesting &quot;stereo window&quot; effect can be created by doing two things: 1) turn on the border (in settings) and 2) crop the inside edges of the images until the outer edge itself becomes 3D in the picture. The key is to crop the right edge of the left picture slightly past what the right edge of the right picture shows of the scene and vice-versa. Adding a border is toggled in the settings. If this is confusing, just crop a bunch off the inside edge and it will start to be clear. The crop button for the inside edge looks like this:"/>
                 <Image Source="insideCrop"/>
                 <BoxView/>
-                <Label Text="If you find that it's impossible to make both the upper and lower guide lines line up at the same time, you probably moved in some direction other than just to the side."/>
+                <Label Text="If you find that while taking pictures it's impossible to make both the upper and lower guide lines line up at the same time, you probably moved in some direction other than just to the side. Try to fix this before taking the pictures, but aligning after the fact can help this a lot."/>
                 <BoxView/>
                 <Label Text="The settings screen has an option to proportionally decrease the resolution of the final picture - this can help if you want to save space. If your photo is not cropped the end result is two full-resolution pictures joined together to make one of double resolution, which means you can often get away with a large reduction in resolution without noticeably affecting quality."/>
                 <BoxView/>
-                <Label Text="If you're exploring with other people it's a good idea to go into &quot;fast mode&quot; by turning off auto alignment and switching the save mode to save each side separately. You can always load, auto align, and edit the pictures later. That way your companions don't have to wait for you to perfect your pictures on the spot."/>
+                <Label Text="If you're exploring with other people it's a good idea to go into &quot;fast mode&quot; by turning off auto alignment and switching the save mode to save each side separately. You can always load, auto align, and edit the pictures later. That way your companions don't have to wait for you to perfect your pictures on the spot, but you can still be confident that the depth and framing that you want are really there."/>
                 <BoxView/>
-                <Label Text="There is an experimental &quot;guide donut/dot&quot; on the settings page you can turn on which may help you keep your perspectives parallel for a large scene. Ideally you would drag it onto the horizon, sky, or other very distant point. Be careful, using it on smaller scenes may make things painful."/>
+                <Label Text="There is an experimental &quot;guide donut/dot&quot; on the settings page you can turn on which may help you keep your perspectives parallel for a large scene. Ideally you would drag it onto the horizon, sky, or other very distant point. Be careful, using it on smaller scenes may make things painful (see keystone tip above)."/>
                 <BoxView/>
                 <Label Text="There's a lefty mode on the settings page in case you want that."/>
+                <BoxView/>
+                <Label Text="If you're interested in red/cyan anaglyph mode, there is a save mode for it you can activate on the Settings page. However, it will almost certainly be necessary to crop and align the pictures significantly differently than you would for cross or parallel viewing. To that end, the Settings page also has a switch for an edit mode built specifically for red/cyan anaglyph."/>
                 <BoxView/>
             </StackLayout>
         </ScrollView>
