@@ -1,4 +1,5 @@
 ﻿using System;
+using CrossCam.ViewModel;
 using SkiaSharp;
 
 namespace CrossCam.Page
@@ -16,7 +17,7 @@ namespace CrossCam.Page
             float leftRotation, float rightRotation, int alignment,
             int leftZoom, int rightZoom,
             float leftKeystone, float rightKeystone, 
-            bool switchForParallel = false)
+            DrawMode drawMode = DrawMode.Cross)
         {
             if (leftBitmap == null && rightBitmap == null) return;
 
@@ -55,9 +56,21 @@ namespace CrossCam.Page
                 effectiveJoinedWidth = rightBitmapWidthLessCrop * 2;
             }
 
-            var innerBorderThickness = leftBitmap != null && rightBitmap != null && addBorder ? (int)(BORDER_CONVERSION_FACTOR * borderThickness * effectiveJoinedWidth) : 0;
+            var innerBorderThickness = leftBitmap != null && 
+                                       rightBitmap != null && 
+                                       addBorder && 
+                                       drawMode != DrawMode.RedCyan ? 
+                (int)(BORDER_CONVERSION_FACTOR * borderThickness * effectiveJoinedWidth) : 
+                0;
+            var effectiveJoinedHeight = bitmapHeightLessCrop;
+
             effectiveJoinedWidth += 4 * innerBorderThickness;
-            var effectiveJoinedHeight = bitmapHeightLessCrop + 2 * innerBorderThickness;
+            effectiveJoinedHeight += 2 * innerBorderThickness;
+            
+            if (drawMode == DrawMode.RedCyan)
+            {
+                effectiveJoinedWidth /= 2;
+            }
 
             var widthRatio = effectiveJoinedWidth / (1f * canvasWidth);
             var heightRatio = effectiveJoinedHeight / (1f * canvasHeight);
@@ -67,35 +80,44 @@ namespace CrossCam.Page
             var previewY = canvasHeight / 2f - bitmapHeightLessCrop / scalingRatio / 2f;
             var previewHeight = bitmapHeightLessCrop / scalingRatio;
 
-            float leftPreviewX;
-            float rightPreviewX;
-            float leftPreviewWidth;
-            float rightPreviewWidth;
-            float innerLeftRotation;
-            float innerRightRotation;
-            float innerLeftKeystone;
-            float innerRightKeystone;
-            if (switchForParallel)
+            float leftPreviewX = 0;
+            float rightPreviewX = 0;
+            float leftPreviewWidth = 0;
+            float rightPreviewWidth = 0;
+            float innerLeftRotation = 0;
+            float innerRightRotation = 0;
+            float innerLeftKeystone = 0;
+            float innerRightKeystone = 0;
+            switch (drawMode)
             {
-                leftPreviewX = canvasWidth / 2f + innerBorderThickness / scalingRatio;
-                rightPreviewX = canvasWidth / 2f - (rightBitmapWidthLessCrop + innerBorderThickness) / scalingRatio;
-                leftPreviewWidth = rightBitmapWidthLessCrop / scalingRatio;
-                rightPreviewWidth = leftBitmapWidthLessCrop / scalingRatio;
-                innerRightRotation = leftRotation;
-                innerLeftRotation = rightRotation;
-                innerRightKeystone = leftKeystone;
-                innerLeftKeystone = rightKeystone;
-            }
-            else
-            {
-                leftPreviewX = canvasWidth / 2f - (leftBitmapWidthLessCrop + innerBorderThickness) / scalingRatio;
-                rightPreviewX = canvasWidth / 2f + innerBorderThickness / scalingRatio;
-                leftPreviewWidth = leftBitmapWidthLessCrop / scalingRatio;
-                rightPreviewWidth = rightBitmapWidthLessCrop / scalingRatio;
-                innerRightRotation = rightRotation;
-                innerLeftRotation = leftRotation;
-                innerRightKeystone = rightKeystone;
-                innerLeftKeystone = leftKeystone;
+                case DrawMode.Cross:
+                    leftPreviewX = canvasWidth / 2f - (leftBitmapWidthLessCrop + innerBorderThickness) / scalingRatio;
+                    rightPreviewX = canvasWidth / 2f + innerBorderThickness / scalingRatio;
+                    leftPreviewWidth = leftBitmapWidthLessCrop / scalingRatio;
+                    rightPreviewWidth = rightBitmapWidthLessCrop / scalingRatio;
+                    innerRightRotation = rightRotation;
+                    innerLeftRotation = leftRotation;
+                    innerRightKeystone = rightKeystone;
+                    innerLeftKeystone = leftKeystone;
+                    break;
+                case DrawMode.Parallel:
+                    leftPreviewX = canvasWidth / 2f + innerBorderThickness / scalingRatio;
+                    rightPreviewX = canvasWidth / 2f - (rightBitmapWidthLessCrop + innerBorderThickness) / scalingRatio;
+                    leftPreviewWidth = rightBitmapWidthLessCrop / scalingRatio;
+                    rightPreviewWidth = leftBitmapWidthLessCrop / scalingRatio;
+                    innerRightRotation = leftRotation;
+                    innerLeftRotation = rightRotation;
+                    innerRightKeystone = leftKeystone;
+                    innerLeftKeystone = rightKeystone;
+                    break;
+                case DrawMode.RedCyan:
+                    leftPreviewWidth = leftBitmapWidthLessCrop / scalingRatio;
+                    rightPreviewWidth = rightBitmapWidthLessCrop / scalingRatio;
+                    innerRightRotation = rightRotation;
+                    innerLeftRotation = leftRotation;
+                    innerRightKeystone = rightKeystone;
+                    innerLeftKeystone = leftKeystone;
+                    break;
             }
             var isRightRotated = Math.Abs(innerRightRotation) > FLOATY_ZERO;
             var isLeftRotated = Math.Abs(innerLeftRotation) > FLOATY_ZERO;
@@ -111,19 +133,36 @@ namespace CrossCam.Page
                 {
                     transformed = ZoomAndRotate(leftBitmap, aspectRatio, leftZoom, isLeftRotated, innerLeftRotation, isLeftKeystoned, -innerLeftKeystone);
                 }
-                
-                canvas.DrawBitmap(
-                    transformed ?? leftBitmap,
-                    SKRect.Create(
-                        leftLeftCrop,
-                        topCrop + (alignment > 0 ? alignment : 0),
-                        (transformed?.Width ?? leftBitmap.Width) - leftLeftCrop - leftRightCrop,
-                        (transformed?.Height ?? leftBitmap.Height) - topCrop - bottomCrop - Math.Abs(alignment)),
-                    SKRect.Create(
-                        leftPreviewX,
-                        previewY,
-                        leftPreviewWidth,
-                        previewHeight));
+
+                using (var paint = new SKPaint())
+                {
+                    if (drawMode == DrawMode.RedCyan)
+                    {
+                        paint.ColorFilter =
+                            SKColorFilter.CreateColorMatrix(new float[]
+                            {
+                                0, 0, 0, 0, 0,
+                                0, 1, 0, 0, 0,
+                                0, 0, 1, 0, 0,
+                                0, 0, 0, 1, 0
+                            });
+                    }
+
+                    canvas.DrawBitmap(
+                        transformed ?? leftBitmap,
+                        SKRect.Create(
+                            leftLeftCrop,
+                            topCrop + (alignment > 0 ? alignment : 0),
+                            (transformed?.Width ?? leftBitmap.Width) - leftLeftCrop - leftRightCrop,
+                            (transformed?.Height ?? leftBitmap.Height) - topCrop - bottomCrop - Math.Abs(alignment)),
+                        SKRect.Create(
+                            leftPreviewX,
+                            previewY,
+                            leftPreviewWidth,
+                            previewHeight),
+                        paint);
+                }
+
                 transformed?.Dispose();
             }
 
@@ -136,19 +175,36 @@ namespace CrossCam.Page
                 {
                     transformed = ZoomAndRotate(rightBitmap, aspectRatio, rightZoom, isRightRotated, innerRightRotation, isRightKeystoned, innerRightKeystone);
                 }
-                
-                canvas.DrawBitmap(
-                    transformed ?? rightBitmap,
-                    SKRect.Create(
-                        rightLeftCrop,
-                        topCrop - (alignment < 0 ? alignment : 0),
-                        (transformed?.Width ?? rightBitmap.Width) - rightLeftCrop - rightRightCrop,
-                        (transformed?.Height ?? rightBitmap.Height) - topCrop - bottomCrop - Math.Abs(alignment)),
-                    SKRect.Create(
-                        rightPreviewX,
-                        previewY,
-                        rightPreviewWidth,
-                        previewHeight));
+
+                using (var paint = new SKPaint())
+                {
+                    if (drawMode == DrawMode.RedCyan)
+                    {
+                        paint.ColorFilter =
+                            SKColorFilter.CreateColorMatrix(new[]
+                            {
+                                1, 0, 0,    0, 0,
+                                0, 0, 0,    0, 0,
+                                0, 0, 0,    0, 0,
+                                0, 0, 0, 0.5f, 0
+                            });
+                    }
+
+                    canvas.DrawBitmap(
+                        transformed ?? rightBitmap,
+                        SKRect.Create(
+                            rightLeftCrop,
+                            topCrop - (alignment < 0 ? alignment : 0),
+                            (transformed?.Width ?? rightBitmap.Width) - rightLeftCrop - rightRightCrop,
+                            (transformed?.Height ?? rightBitmap.Height) - topCrop - bottomCrop - Math.Abs(alignment)),
+                        SKRect.Create(
+                            rightPreviewX,
+                            previewY,
+                            rightPreviewWidth,
+                            previewHeight),
+                        paint);
+                }
+
                 transformed?.Dispose();
             }
 
@@ -227,7 +283,7 @@ namespace CrossCam.Page
             return keystoned ?? rotatedAndZoomed;
         }
 
-        public static int CalculateCanvasWidthLessBorder(SKBitmap leftBitmap, SKBitmap rightBitmap, 
+        public static int CalculateJoinedCanvasWidthLessBorder(SKBitmap leftBitmap, SKBitmap rightBitmap, 
             int leftLeftCrop, int leftRightCrop, int rightLeftCrop, int rightRightCrop)
         {
             if (leftBitmap == null && rightBitmap == null) return 0;

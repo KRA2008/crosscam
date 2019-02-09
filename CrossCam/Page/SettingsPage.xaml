@@ -122,6 +122,10 @@
                 <Switch IsToggled="{Binding Settings.SaveForParallel}"/>
             </StackLayout>
             <StackLayout Orientation="Horizontal">
+                <Label Text="Save anaglyph red/cyan version (with edits but no border)"/>
+                <Switch IsToggled="{Binding Settings.SaveForAnaglyph}"/>
+            </StackLayout>
+            <StackLayout Orientation="Horizontal">
                 <Label Text="Save each side separately (with no edits or border) (for easier post processing)"/>
                 <Switch IsToggled="{Binding Settings.SaveSidesSeparately}"/>
             </StackLayout>

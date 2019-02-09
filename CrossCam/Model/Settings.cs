@@ -16,6 +16,7 @@ namespace CrossCam.Model
         public bool SaveRedundantFirstSide { get; set; }
         public bool SaveForParallel { get; set; }
         public bool SaveForCrossView { get; set; }
+        public bool SaveForAnaglyph { get; set; }
         public bool AddBorder { get; set; }
         public bool ShowRollGuide { get; set; }
         public bool ShowPitchGuide { get; set; }
@@ -184,6 +185,7 @@ namespace CrossCam.Model
             IsTapToFocusEnabled = false;
             SaveRedundantFirstSide = false;
             SaveForParallel = false;
+            SaveForAnaglyph = false;
 
             LeftyMode = false;
 

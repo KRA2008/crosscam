@@ -433,6 +433,34 @@ namespace CrossCam.ViewModel
                             }
                         }
 
+                        if (Settings.SaveForAnaglyph)
+                        {
+                            var canvasWidth = LeftBitmap.Width - LeftCrop - InsideCrop - OutsideCrop - RightCrop;
+                            var canvasHeight = DrawTool.CalculateCanvasHeightLessBorder(LeftBitmap, RightBitmap,
+                                TopCrop, BottomCrop, VerticalAlignment);
+                            using (var tempSurface =
+                                SKSurface.Create(new SKImageInfo(canvasWidth, canvasHeight)))
+                            {
+                                var canvas = tempSurface.Canvas;
+                                canvas.Clear(SKColor.Empty);
+
+                                DrawTool.DrawImagesOnCanvas(canvas, LeftBitmap, RightBitmap, 
+                                    Settings.BorderWidthProportion, Settings.AddBorder, Settings.BorderColor,
+                                    LeftCrop + OutsideCrop, InsideCrop + RightCrop, InsideCrop + LeftCrop, RightCrop + OutsideCrop,
+                                    TopCrop, BottomCrop, LeftRotation, RightRotation, 
+                                    VerticalAlignment, LeftZoom, RightZoom,
+                                    LeftKeystone, RightKeystone, DrawMode.RedCyan);
+
+                                using (var skImage = tempSurface.Snapshot())
+                                {
+                                    using (var encoded = skImage.Encode(SKEncodedImageFormat.Jpeg, 100))
+                                    {
+                                        await photoSaver.SavePhoto(encoded.ToArray());
+                                    }
+                                }
+                            }
+                        }
+
                         if (Settings.SaveRedundantFirstSide)
                         {
                             using (var tempSurface =
@@ -455,7 +483,7 @@ namespace CrossCam.ViewModel
                             }
                         }
 
-                        var finalImageWidth = DrawTool.CalculateCanvasWidthLessBorder(LeftBitmap, RightBitmap,
+                        var finalImageWidth = DrawTool.CalculateJoinedCanvasWidthLessBorder(LeftBitmap, RightBitmap,
                             LeftCrop + OutsideCrop, InsideCrop + RightCrop, InsideCrop + LeftCrop, RightCrop + OutsideCrop);
                         var borderThickness = Settings.AddBorder
                             ? (int) (DrawTool.BORDER_CONVERSION_FACTOR * Settings.BorderWidthProportion *
@@ -520,7 +548,7 @@ namespace CrossCam.ViewModel
                                     VerticalAlignment,
                                     LeftZoom, RightZoom,
                                     LeftKeystone, RightKeystone,
-                                    true);
+                                    DrawMode.Parallel);
 
                                 using (var encoded = tempSurface.Snapshot().Encode(SKEncodedImageFormat.Jpeg, 100))
                                 {
