@@ -36,7 +36,7 @@ namespace AutoAlignment
         }
 
         public AlignedResult CreateAlignedSecondImage(SKBitmap firstImage, SKBitmap secondImage, int downsizePercentage, int iterations,
-            int epsilonLevel, int eccCutoff)
+            int epsilonLevel, int eccCutoff, bool discardTransX)
         {
             var downsizeFactor = downsizePercentage / 100f;
 
@@ -84,13 +84,21 @@ namespace AutoAlignment
                         ptr++; //SkewX
                         skMatrix.SkewX = *ptr;
                         ptr++; //TransX
-                        *ptr = 0; //we don't need any horizontal shifting
+                        if (!discardTransX)
+                        {
+                            *ptr /= downsizeFactor; //scale up the shifting
+                        }
+                        else
+                        {
+                            *ptr = 0; //discard for side-by-side
+                        }
+                        skMatrix.TransX = *ptr;
                         ptr++; //SkewY
                         skMatrix.SkewY = *ptr;
                         ptr++; //ScaleY
                         skMatrix.ScaleY = *ptr;
                         ptr++; //TransY
-                        *ptr /= downsizeFactor; //scale up the vertical shifting
+                        *ptr /= downsizeFactor; //scale up the shifting
                         skMatrix.TransY = *ptr;
                     }
 
