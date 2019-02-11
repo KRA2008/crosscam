@@ -159,7 +159,7 @@ namespace CrossCam.ViewModel
             : ImageSource.FromFile("squareInner");
         
         private WorkflowStage _stageBeforeView;
-        private int _wasAlignmentRun;
+        private int _alignmentThreadLock;
         private bool _wasAnaglyphAlignmentRun;
         private bool _wasSideBySideAlignmentRun;
 
@@ -211,36 +211,27 @@ namespace CrossCam.ViewModel
                 }
                 else if (args.PropertyName == nameof(Settings))
                 {
-                    if (Settings.IsAutomaticAlignmentOn &&
-                        RightBitmap != null &&
-                        LeftBitmap != null)
+                    var alignmentWasRunButIsOffNow = !Settings.IsAutomaticAlignmentOn &&
+                                                      (_wasSideBySideAlignmentRun ||
+                                                       _wasAnaglyphAlignmentRun);
+                    var otherAlignmentModeWasRun = Settings.IsAutomaticAlignmentOn &&
+                                                   (_wasAnaglyphAlignmentRun && !Settings.RedCyanAnaglyphMode ||
+                                                    _wasSideBySideAlignmentRun && Settings.RedCyanAnaglyphMode);
+                    if (alignmentWasRunButIsOffNow ||
+                        otherAlignmentModeWasRun)
                     {
-                        if (_wasSideBySideAlignmentRun && 
-                            Settings.RedCyanAnaglyphMode ||
-                            _wasAnaglyphAlignmentRun &&
-                            !Settings.RedCyanAnaglyphMode)
-                        {
-                            _wasAlignmentRun = 0;
-                        }
-                        AutoAlignIfNotYetRun();
-
-                    }
-
-                    if (!Settings.IsAutomaticAlignmentOn &&
-                        _wasAlignmentRun == 1)
-                    {
-                        ClearCrops();
+                        ClearCrops(true);
                         if (IsCaptureLeftFirst)
                         {
-                            SetRightBitmap(_replacedAutoAlignedBitmap);
+                            SetRightBitmap(_replacedAutoAlignedBitmap); //calls autoalign internally
                         }
                         else
                         {
-                            SetLeftBitmap(_replacedAutoAlignedBitmap);
+                            SetLeftBitmap(_replacedAutoAlignedBitmap); //calls autoalign internally
                         }
-
-                        _wasAlignmentRun = 0;
                     }
+
+                    AutoAlign();
                 }
             };
 
@@ -314,7 +305,7 @@ namespace CrossCam.ViewModel
                 switch (WorkflowStage)
                 {
                     case WorkflowStage.Crop:
-                        ClearCrops();
+                        ClearCrops(false);
                         break;
                     case WorkflowStage.ManualAlign:
                         ClearAlignments();
@@ -620,13 +611,13 @@ namespace CrossCam.ViewModel
             SetRightBitmap(bitmap);
         }
 
-        private async void AutoAlignIfNotYetRun()
+        private async void AutoAlign()
         {
-            if (0 == Interlocked.Exchange(ref _wasAlignmentRun, 1))
+            if (Settings.IsAutomaticAlignmentOn &&
+                LeftBitmap != null &&
+                RightBitmap != null &&
+                0 == Interlocked.Exchange(ref _alignmentThreadLock, 1))
             {
-                _wasAnaglyphAlignmentRun = Settings.RedCyanAnaglyphMode;
-                _wasSideBySideAlignmentRun = !Settings.RedCyanAnaglyphMode;
-
                 WorkflowStage = WorkflowStage.AutomaticAlign;
 
                 var openCv = DependencyService.Get<IOpenCv>();
@@ -655,6 +646,9 @@ namespace CrossCam.ViewModel
 
                     if (alignedResult != null)
                     {
+                        _wasAnaglyphAlignmentRun = Settings.RedCyanAnaglyphMode;
+                        _wasSideBySideAlignmentRun = !Settings.RedCyanAnaglyphMode;
+
                         var topLeft = alignedResult.TransformMatrix.MapPoint(0, 0);
                         var topRight = alignedResult.TransformMatrix.MapPoint(alignedResult.AlignedBitmap.Width - 1, 0);
                         var bottomRight = alignedResult.TransformMatrix.MapPoint(alignedResult.AlignedBitmap.Width - 1,
@@ -771,6 +765,8 @@ namespace CrossCam.ViewModel
                 }
 
                 WorkflowStage = WorkflowStage.Final;
+
+                _alignmentThreadLock = 0;
             }
         }
 
@@ -795,10 +791,7 @@ namespace CrossCam.ViewModel
                 IsCameraVisible = false;
                 WorkflowStage = WorkflowStage.Final;
                 SetMaxEdits(bitmap);
-                if (Settings.IsAutomaticAlignmentOn)
-                {
-                    AutoAlignIfNotYetRun();
-                }
+                AutoAlign();
             }
         }
 
@@ -823,10 +816,7 @@ namespace CrossCam.ViewModel
                 IsCameraVisible = false;
                 WorkflowStage = WorkflowStage.Final;
                 SetMaxEdits(bitmap);
-                if (Settings.IsAutomaticAlignmentOn)
-                {
-                    AutoAlignIfNotYetRun();
-                }
+                AutoAlign();
             }
         }
 
@@ -1007,7 +997,7 @@ namespace CrossCam.ViewModel
             RaisePropertyChanged(nameof(ShouldRightRightRetakeBeVisible));
             RaisePropertyChanged(nameof(ShouldLeftCaptureBeVisible));
             RaisePropertyChanged(nameof(ShouldRightCaptureBeVisible));
-            RaisePropertyChanged(nameof(Settings)); // this doesn't cause reevaluation for above stuff (but I'd like it to), but it does trigger redraw of canvas and rerun of auto alignment
+            RaisePropertyChanged(nameof(Settings)); // this doesn't cause reevaluation for above stuff (but I'd like it to), but it does trigger redraw of canvas and evaluation of whether to run auto alignment
 
             await Task.Delay(100);
             await EvaluateAndShowWelcomePopup();
@@ -1044,7 +1034,7 @@ namespace CrossCam.ViewModel
             }
         }
 
-        private void ClearCrops()
+        private void ClearCrops(bool andAutomaticAlignmentFlags)
         {
             OutsideCrop = 0;
             InsideCrop = 0;
@@ -1053,6 +1043,11 @@ namespace CrossCam.ViewModel
             TopCrop = 0;
             BottomCrop = 0;
             CropMode = CropMode.Inside;
+            if (andAutomaticAlignmentFlags)
+            {
+                _wasSideBySideAlignmentRun = false;
+                _wasAnaglyphAlignmentRun = false;
+            }
         }
 
         private void ClearAlignments()
@@ -1074,12 +1069,9 @@ namespace CrossCam.ViewModel
 
         private void ClearEdits()
         {
-            ClearCrops();
+            ClearCrops(true);
             ClearAlignments();
             ClearKeystone();
-            _wasAlignmentRun = 0;
-            _wasSideBySideAlignmentRun = false;
-            _wasAnaglyphAlignmentRun = false;
         }
 
         private void ClearCaptures()
