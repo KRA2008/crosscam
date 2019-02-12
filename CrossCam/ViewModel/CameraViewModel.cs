@@ -35,6 +35,8 @@ namespace CrossCam.ViewModel
         public bool CaptureSuccess { get; set; }
         public int CameraColumn { get; set; }
 
+        public double PreviewBottomY { get; set; }
+
         public Command CapturePictureCommand { get; set; }
         public bool CapturePictureTrigger { get; set; }
 

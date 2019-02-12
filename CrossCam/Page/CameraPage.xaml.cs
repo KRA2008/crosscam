@@ -16,12 +16,10 @@ namespace CrossCam.Page
 	    private readonly Rectangle _lowerLineBoundsLandscape = new Rectangle(0, 0.67, 1, 21);
 	    private readonly Rectangle _upperLineBoundsPortrait = new Rectangle(0, 0.4, 1, 21);
 	    private readonly Rectangle _lowerLinesBoundsPortrait = new Rectangle(0, 0.6, 1, 21);
-
-	    private const double ROTATION_GUIDES_PORTRAIT_Y = 0.7;
-	    private const double ROTATION_GUIDES_LANDSCAPE_Y = 0.9;
         
 	    private const double LEVEL_BUBBLE_MIDDLE = 21.5;
 	    private const double LEVEL_BUBBLE_SPEED = 5;
+	    private const double LEVEL_ICON_WIDTH = 60;
 
 	    private readonly Rectangle _leftReticleBounds = new Rectangle(0.2297, 0.5, 0.075, 0.075);
         private readonly Rectangle _rightReticleBounds = new Rectangle(0.7703, 0.5, 0.075, 0.075);
@@ -275,6 +273,9 @@ namespace CrossCam.Page
                 case nameof(CameraViewModel.CameraColumn):
 	                ResetGuides();
 	                break;
+                case nameof(CameraViewModel.PreviewBottomY):
+                    SetSensorGuidesY();
+                    break;
 	            case nameof(CameraViewModel.LeftBitmap):
                 case nameof(CameraViewModel.RightBitmap):
 	            case nameof(CameraViewModel.RightCrop):
@@ -313,15 +314,21 @@ namespace CrossCam.Page
 	            _viewModel.WorkflowStage != WorkflowStage.Capture && _viewModel.Settings.RedCyanAnaglyphMode ? DrawMode.RedCyan : DrawMode.Cross);
         }
 
+	    private void SetSensorGuidesY()
+	    {
+	        var rollBounds = AbsoluteLayout.GetLayoutBounds(_horizontalLevelWhole);
+	        var pitchBounds = AbsoluteLayout.GetLayoutBounds(_pitchIndicator);
+	        var yawBounds = AbsoluteLayout.GetLayoutBounds(_yawIndicator);
+	        rollBounds.Y = pitchBounds.Y = yawBounds.Y = _viewModel.PreviewBottomY - LEVEL_ICON_WIDTH / 5;
+	        AbsoluteLayout.SetLayoutBounds(_horizontalLevelWhole, rollBounds);
+	        AbsoluteLayout.SetLayoutBounds(_pitchIndicator, pitchBounds);
+	        AbsoluteLayout.SetLayoutBounds(_yawIndicator, yawBounds);
+        }
+
         private void ResetGuides()
         {
-            var rollBounds = AbsoluteLayout.GetLayoutBounds(_horizontalLevelWhole);
-            var pitchBounds = AbsoluteLayout.GetLayoutBounds(_pitchIndicator);
-            var yawBounds = AbsoluteLayout.GetLayoutBounds(_yawIndicator);
             if (_viewModel == null || _viewModel.IsViewPortrait)
             {
-                rollBounds.Y = pitchBounds.Y = yawBounds.Y = ROTATION_GUIDES_PORTRAIT_Y;
-
                 AbsoluteLayout.SetLayoutFlags(_upperLine, AbsoluteLayoutFlags.YProportional | AbsoluteLayoutFlags.WidthProportional);
                 AbsoluteLayout.SetLayoutBounds(_upperLine, _upperLineBoundsPortrait);
                 AbsoluteLayout.SetLayoutFlags(_upperLinePanner, AbsoluteLayoutFlags.YProportional | AbsoluteLayoutFlags.WidthProportional);
@@ -334,8 +341,6 @@ namespace CrossCam.Page
             }
             else
             {
-                rollBounds.Y = pitchBounds.Y = yawBounds.Y = ROTATION_GUIDES_LANDSCAPE_Y;
-
                 AbsoluteLayout.SetLayoutFlags(_upperLine, AbsoluteLayoutFlags.YProportional | AbsoluteLayoutFlags.WidthProportional);
                 AbsoluteLayout.SetLayoutBounds(_upperLine, _upperLineBoundsLandscape);
                 AbsoluteLayout.SetLayoutFlags(_upperLinePanner, AbsoluteLayoutFlags.YProportional | AbsoluteLayoutFlags.WidthProportional);
@@ -346,6 +351,11 @@ namespace CrossCam.Page
                 AbsoluteLayout.SetLayoutFlags(_lowerLinePanner, AbsoluteLayoutFlags.YProportional | AbsoluteLayoutFlags.WidthProportional);
                 AbsoluteLayout.SetLayoutBounds(_lowerLinePanner, _lowerLineBoundsLandscape);
             }
+            var rollBounds = AbsoluteLayout.GetLayoutBounds(_horizontalLevelWhole);
+            var pitchBounds = AbsoluteLayout.GetLayoutBounds(_pitchIndicator);
+            var yawBounds = AbsoluteLayout.GetLayoutBounds(_yawIndicator);
+            rollBounds.Width = LEVEL_ICON_WIDTH;
+            rollBounds.Height = LEVEL_ICON_WIDTH;
             rollBounds.X = _viewModel == null || _viewModel.CameraColumn == 0 ? 0.2 : 0.8;
             AbsoluteLayout.SetLayoutBounds(_horizontalLevelWhole, rollBounds);
             pitchBounds.X = _viewModel == null || _viewModel.CameraColumn == 0 ? 0.1 : 0.9;

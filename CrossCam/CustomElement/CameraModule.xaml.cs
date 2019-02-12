@@ -36,6 +36,9 @@ namespace CrossCam.CustomElement
 	    public static readonly BindableProperty IsNothingCapturedProperty = BindableProperty.Create(nameof(IsNothingCaptured),
 	        typeof(bool), typeof(CameraModule), false, BindingMode.TwoWay);
 
+	    public static readonly BindableProperty PreviewBottomYProperty = BindableProperty.Create(nameof(PreviewBottomY),
+	        typeof(double), typeof(CameraModule), 0d, BindingMode.TwoWay);
+
         public byte[] CapturedImage
         {
             get => (byte[])GetValue(CapturedImageProperty);
@@ -89,5 +92,11 @@ namespace CrossCam.CustomElement
 	        get => (bool)GetValue(IsNothingCapturedProperty);
 	        set => SetValue(IsNothingCapturedProperty, value);
 	    }
+
+	    public double PreviewBottomY
+	    {
+	        get => (double) GetValue(PreviewBottomYProperty);
+	        set => SetValue(PreviewBottomYProperty, value);
+        }
     }
 }

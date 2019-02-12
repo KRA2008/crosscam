@@ -24,8 +24,6 @@ namespace CrossCam.iOS.CustomRenderer
         private bool _isInitialized;
         private AVCaptureVideoPreviewLayer _avCaptureVideoPreviewLayer;
         private UIDeviceOrientation? _previousValidOrientation;
-        private nfloat _leftTrim;
-        private nfloat _streamWidth;
 
         public CameraModuleRenderer()
         {
@@ -50,6 +48,20 @@ namespace CrossCam.iOS.CustomRenderer
                 e.PropertyName == nameof(_cameraModule.Height))
             {
                 NativeView.Bounds = new CGRect(0, 0, _cameraModule.Width, _cameraModule.Height);
+                double previewHeight;
+                var orientation = UIDevice.CurrentDevice.Orientation;
+                switch (orientation)
+                {
+                    case UIDeviceOrientation.LandscapeLeft:
+                    case UIDeviceOrientation.LandscapeRight:
+                        previewHeight = 0.75 * _cameraModule.Width;
+                        _cameraModule.PreviewBottomY = (previewHeight + _cameraModule.Height) / 2;
+                        break;
+                    case UIDeviceOrientation.Portrait:
+                        previewHeight = 1.33 * _cameraModule.Width;
+                        _cameraModule.PreviewBottomY = (previewHeight + _cameraModule.Height) / 2;
+                        break;
+                }
             }
             
             if (_cameraModule.Width > 0 &&
@@ -423,18 +435,15 @@ namespace CrossCam.iOS.CustomRenderer
             var sideHeight = NativeView.Bounds.Height;
             var sideWidth = NativeView.Bounds.Width;
 
-            _leftTrim = 0;
-            _streamWidth = sideWidth;
-
             if (_liveCameraStream == null)
             {
-                _liveCameraStream = new UIView(new CGRect(_leftTrim, 0, _streamWidth, sideHeight));
+                _liveCameraStream = new UIView(new CGRect(0, 0, sideWidth, sideHeight));
                 _tapper = new UIGestureRecognizer {Delegate = this};
                 _liveCameraStream.AddGestureRecognizer(_tapper);
             }
             else
             {
-                _liveCameraStream.Frame = new CGRect(_leftTrim, 0, _streamWidth, sideHeight);
+                _liveCameraStream.Frame = new CGRect(0, 0, sideWidth, sideHeight);
             }
 
             if (_avCaptureVideoPreviewLayer == null)
