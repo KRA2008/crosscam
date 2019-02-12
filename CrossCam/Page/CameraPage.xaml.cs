@@ -20,6 +20,7 @@ namespace CrossCam.Page
 	    private const double LEVEL_BUBBLE_MIDDLE = 21.5;
 	    private const double LEVEL_BUBBLE_SPEED = 5;
 	    private const double LEVEL_ICON_WIDTH = 60;
+	    private const double OTHER_SENSOR_ICON_WIDTH = 30;
 
 	    private readonly Rectangle _leftReticleBounds = new Rectangle(0.2297, 0.5, 0.075, 0.075);
         private readonly Rectangle _rightReticleBounds = new Rectangle(0.7703, 0.5, 0.075, 0.075);
@@ -319,8 +320,9 @@ namespace CrossCam.Page
 	        var rollBounds = AbsoluteLayout.GetLayoutBounds(_horizontalLevelWhole);
 	        var pitchBounds = AbsoluteLayout.GetLayoutBounds(_pitchIndicator);
 	        var yawBounds = AbsoluteLayout.GetLayoutBounds(_yawIndicator);
-	        rollBounds.Y = pitchBounds.Y = yawBounds.Y = _viewModel.PreviewBottomY - LEVEL_ICON_WIDTH / 5;
-	        AbsoluteLayout.SetLayoutBounds(_horizontalLevelWhole, rollBounds);
+	        rollBounds.Y = _viewModel.PreviewBottomY - LEVEL_ICON_WIDTH / 5;
+	        pitchBounds.Y = yawBounds.Y = _viewModel.PreviewBottomY;
+            AbsoluteLayout.SetLayoutBounds(_horizontalLevelWhole, rollBounds);
 	        AbsoluteLayout.SetLayoutBounds(_pitchIndicator, pitchBounds);
 	        AbsoluteLayout.SetLayoutBounds(_yawIndicator, yawBounds);
         }
@@ -358,8 +360,12 @@ namespace CrossCam.Page
             rollBounds.Height = LEVEL_ICON_WIDTH;
             rollBounds.X = _viewModel == null || _viewModel.CameraColumn == 0 ? 0.2 : 0.8;
             AbsoluteLayout.SetLayoutBounds(_horizontalLevelWhole, rollBounds);
-            pitchBounds.X = _viewModel == null || _viewModel.CameraColumn == 0 ? 0.1 : 0.9;
+            pitchBounds.Width = OTHER_SENSOR_ICON_WIDTH;
+            pitchBounds.Height = OTHER_SENSOR_ICON_WIDTH;
+            pitchBounds.X = _viewModel == null || _viewModel.CameraColumn == 0 ? 0.15 : 0.85;
             AbsoluteLayout.SetLayoutBounds(_pitchIndicator, pitchBounds);
+            yawBounds.Width = OTHER_SENSOR_ICON_WIDTH;
+            yawBounds.Height = OTHER_SENSOR_ICON_WIDTH;
             yawBounds.X = _viewModel == null || _viewModel.CameraColumn == 0 ? 0.375 : 0.625;
             AbsoluteLayout.SetLayoutBounds(_yawIndicator, yawBounds);
 
