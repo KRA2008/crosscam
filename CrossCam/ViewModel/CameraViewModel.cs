@@ -165,6 +165,11 @@ namespace CrossCam.ViewModel
         private bool _wasAnaglyphAlignmentRun;
         private bool _wasSideBySideAlignmentRun;
 
+        public void LoadSharedImages(byte[] image1, byte[] image2)
+        {
+
+        }
+
         public CameraViewModel()
         {
             var photoSaver = DependencyService.Get<IPhotoSaver>();

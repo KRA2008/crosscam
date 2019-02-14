@@ -11,10 +11,19 @@ namespace CrossCam
         public const string APP_PAUSING_EVENT = "appPausing";
         public const string APP_UNPAUSING_EVENT = "appUnpausing";
 
+        private CameraViewModel _cameraViewModel;
+
         public App()
         {
             InitializeComponent();
-            MainPage = new FreshNavigationContainer(FreshPageModelResolver.ResolvePageModel<CameraViewModel>());
+            var cameraPage = FreshPageModelResolver.ResolvePageModel<CameraViewModel>();
+            _cameraViewModel = (CameraViewModel)cameraPage.BindingContext;
+            MainPage = new FreshNavigationContainer(cameraPage);
+        }
+
+        public void LoadSharedImages(byte[] image1, byte[] image2)
+        {
+            _cameraViewModel.LoadSharedImages(image1, image2);
         }
 
         protected override void OnStart()

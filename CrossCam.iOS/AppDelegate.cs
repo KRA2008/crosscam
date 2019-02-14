@@ -8,11 +8,14 @@ namespace CrossCam.iOS
 	[Register ("AppDelegate")]
 	public partial class AppDelegate : Xamarin.Forms.Platform.iOS.FormsApplicationDelegate
 	{
+	    private App _app;
+
 		public override bool FinishedLaunching (UIApplication app, NSDictionary options)
 		{
 			Forms.Init();
 
-            LoadApplication(new App());
+            _app = new App();
+            LoadApplication(_app);
             var success = base.FinishedLaunching(app, options);
             AuthorizeCameraUse();
 		    return success;
@@ -20,8 +23,7 @@ namespace CrossCam.iOS
 
 	    public override bool OpenUrl(UIApplication application, NSUrl url, string sourceApplication, NSObject annotation)
 	    {
-	        //_app.Import(url.Query);
-	        return true;
+            return true;
 	    }
 
         private static async void AuthorizeCameraUse()
