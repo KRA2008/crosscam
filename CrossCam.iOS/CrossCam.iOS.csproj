@@ -42,7 +42,8 @@
     <BuildIpa>true</BuildIpa>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
     <MtouchLink>Full</MtouchLink>
-    <MtouchExtraArgs>--linkskip=CrossCam --linkskip=CrossCam.iOS --optimize=-remove-dynamic-registrar</MtouchExtraArgs>
+    <MtouchExtraArgs>--linkskip=CrossCam --linkskip=CrossCam.iOS -- linkskip=CrossCam.iOS.Extension --optimize=-remove-dynamic-registrar</MtouchExtraArgs>
+    <MtouchFloat32>true</MtouchFloat32>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|iPhoneSimulator' ">
     <DebugType>full</DebugType>
@@ -81,6 +82,7 @@
     <MtouchLink>None</MtouchLink>
     <MtouchExtraArgs>
     </MtouchExtraArgs>
+    <MtouchFloat32>true</MtouchFloat32>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(RunConfiguration)' == 'Default' ">
     <AppExtensionDebugBundleId />
@@ -150,12 +152,6 @@
   </ItemGroup>
   <ItemGroup>
     <BundleResource Include="Resources\squareOuter.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\CrossCam\CrossCam.csproj">
-      <Project>{c67dad12-9b8d-4ae3-b7b2-5f84e4e26ea8}</Project>
-      <Name>CrossCam</Name>
-    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <BundleResource Include="Resources\gear.png" />
@@ -446,6 +442,18 @@
     <BundleResource Include="Resources\topCrop%402x.png" />
     <BundleResource Include="Resources\anaglyph.png" />
     <BundleResource Include="Resources\anaglyph%402x.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\CrossCam.iOS.Extension\CrossCam.iOS.Extension.csproj">
+      <Project>{292f6a1e-e003-4bd7-8baf-ac64b80d0bba}</Project>
+      <Name>CrossCam.iOS.Extension</Name>
+      <IsAppExtension>true</IsAppExtension>
+      <IsWatchApp>false</IsWatchApp>
+    </ProjectReference>
+    <ProjectReference Include="..\CrossCam\CrossCam.csproj">
+      <Project>{C67DAD12-9B8D-4AE3-B7B2-5F84E4E26EA8}</Project>
+      <Name>CrossCam</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="..\AutoAlignment\AutoAlignment.projitems" Label="Shared" />
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />

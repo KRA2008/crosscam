@@ -57,5 +57,16 @@
 	<true/>
 	<key>XSAppIconAssets</key>
 	<string>Assets.xcassets/AppIcons.appiconset</string>
+  <key>CFBundleURLTypes</key>
+  <array>
+    <dict>
+      <key>CFBundleURLName</key>
+      <string>crosscam</string>
+      <key>CFBundleURLSchemes</key>
+      <array>
+        <string>crosscam</string>
+      </array>
+    </dict>
+  </array>
 </dict>
 </plist>

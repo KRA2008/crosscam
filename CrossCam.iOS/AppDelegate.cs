@@ -18,7 +18,13 @@ namespace CrossCam.iOS
 		    return success;
 		}
 
-	    private static async void AuthorizeCameraUse()
+	    public override bool OpenUrl(UIApplication application, NSUrl url, string sourceApplication, NSObject annotation)
+	    {
+	        //_app.Import(url.Query);
+	        return true;
+	    }
+
+        private static async void AuthorizeCameraUse()
 	    {
 	        var authorizationStatus = AVCaptureDevice.GetAuthorizationStatus(AVMediaType.Video);
 

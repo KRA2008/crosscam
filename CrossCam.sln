@@ -11,6 +11,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CrossCam.iOS", "CrossCam.iO
 EndProject
 Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "AutoAlignment", "AutoAlignment\AutoAlignment.shproj", "{F9D4DFBF-A407-473C-AA27-36E2E0F5FCF8}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CrossCam.iOS.Extension", "CrossCam.iOS.Extension\CrossCam.iOS.Extension.csproj", "{292F6A1E-E003-4BD7-8BAF-AC64B80D0BBA}"
+EndProject
 Global
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution
 		AutoAlignment\AutoAlignment.projitems*{169d5c20-8fda-48fc-96af-2f6e09bb9b4f}*SharedItemsImports = 4
@@ -69,8 +71,6 @@ Global
 		{A47F6F63-D74D-4C78-BB34-518C57C41DEE}.Debug|ARM.Build.0 = Debug|Any CPU
 		{A47F6F63-D74D-4C78-BB34-518C57C41DEE}.Debug|ARM.Deploy.0 = Debug|Any CPU
 		{A47F6F63-D74D-4C78-BB34-518C57C41DEE}.Debug|iPhone.ActiveCfg = Debug|Any CPU
-		{A47F6F63-D74D-4C78-BB34-518C57C41DEE}.Debug|iPhone.Build.0 = Debug|Any CPU
-		{A47F6F63-D74D-4C78-BB34-518C57C41DEE}.Debug|iPhone.Deploy.0 = Debug|Any CPU
 		{A47F6F63-D74D-4C78-BB34-518C57C41DEE}.Debug|iPhoneSimulator.ActiveCfg = Debug|Any CPU
 		{A47F6F63-D74D-4C78-BB34-518C57C41DEE}.Debug|iPhoneSimulator.Build.0 = Debug|Any CPU
 		{A47F6F63-D74D-4C78-BB34-518C57C41DEE}.Debug|iPhoneSimulator.Deploy.0 = Debug|Any CPU
@@ -90,8 +90,6 @@ Global
 		{A47F6F63-D74D-4C78-BB34-518C57C41DEE}.Release|ARM.Build.0 = Release|Any CPU
 		{A47F6F63-D74D-4C78-BB34-518C57C41DEE}.Release|ARM.Deploy.0 = Release|Any CPU
 		{A47F6F63-D74D-4C78-BB34-518C57C41DEE}.Release|iPhone.ActiveCfg = Release|Any CPU
-		{A47F6F63-D74D-4C78-BB34-518C57C41DEE}.Release|iPhone.Build.0 = Release|Any CPU
-		{A47F6F63-D74D-4C78-BB34-518C57C41DEE}.Release|iPhone.Deploy.0 = Release|Any CPU
 		{A47F6F63-D74D-4C78-BB34-518C57C41DEE}.Release|iPhoneSimulator.ActiveCfg = Release|Any CPU
 		{A47F6F63-D74D-4C78-BB34-518C57C41DEE}.Release|iPhoneSimulator.Build.0 = Release|Any CPU
 		{A47F6F63-D74D-4C78-BB34-518C57C41DEE}.Release|iPhoneSimulator.Deploy.0 = Release|Any CPU
@@ -124,6 +122,26 @@ Global
 		{169D5C20-8FDA-48FC-96AF-2F6E09BB9B4F}.Release|Mixed Platforms.Build.0 = Release|iPhone
 		{169D5C20-8FDA-48FC-96AF-2F6E09BB9B4F}.Release|x64.ActiveCfg = Release|iPhone
 		{169D5C20-8FDA-48FC-96AF-2F6E09BB9B4F}.Release|x86.ActiveCfg = Release|iPhone
+		{292F6A1E-E003-4BD7-8BAF-AC64B80D0BBA}.Debug|Any CPU.ActiveCfg = Debug|iPhone
+		{292F6A1E-E003-4BD7-8BAF-AC64B80D0BBA}.Debug|ARM.ActiveCfg = Debug|iPhone
+		{292F6A1E-E003-4BD7-8BAF-AC64B80D0BBA}.Debug|iPhone.ActiveCfg = Debug|iPhone
+		{292F6A1E-E003-4BD7-8BAF-AC64B80D0BBA}.Debug|iPhone.Build.0 = Debug|iPhone
+		{292F6A1E-E003-4BD7-8BAF-AC64B80D0BBA}.Debug|iPhoneSimulator.ActiveCfg = Debug|iPhoneSimulator
+		{292F6A1E-E003-4BD7-8BAF-AC64B80D0BBA}.Debug|iPhoneSimulator.Build.0 = Debug|iPhoneSimulator
+		{292F6A1E-E003-4BD7-8BAF-AC64B80D0BBA}.Debug|Mixed Platforms.ActiveCfg = Debug|iPhone
+		{292F6A1E-E003-4BD7-8BAF-AC64B80D0BBA}.Debug|Mixed Platforms.Build.0 = Debug|iPhone
+		{292F6A1E-E003-4BD7-8BAF-AC64B80D0BBA}.Debug|x64.ActiveCfg = Debug|iPhone
+		{292F6A1E-E003-4BD7-8BAF-AC64B80D0BBA}.Debug|x86.ActiveCfg = Debug|iPhone
+		{292F6A1E-E003-4BD7-8BAF-AC64B80D0BBA}.Release|Any CPU.ActiveCfg = Release|iPhone
+		{292F6A1E-E003-4BD7-8BAF-AC64B80D0BBA}.Release|ARM.ActiveCfg = Release|iPhone
+		{292F6A1E-E003-4BD7-8BAF-AC64B80D0BBA}.Release|iPhone.ActiveCfg = Release|iPhone
+		{292F6A1E-E003-4BD7-8BAF-AC64B80D0BBA}.Release|iPhone.Build.0 = Release|iPhone
+		{292F6A1E-E003-4BD7-8BAF-AC64B80D0BBA}.Release|iPhoneSimulator.ActiveCfg = Release|iPhoneSimulator
+		{292F6A1E-E003-4BD7-8BAF-AC64B80D0BBA}.Release|iPhoneSimulator.Build.0 = Release|iPhoneSimulator
+		{292F6A1E-E003-4BD7-8BAF-AC64B80D0BBA}.Release|Mixed Platforms.ActiveCfg = Release|iPhone
+		{292F6A1E-E003-4BD7-8BAF-AC64B80D0BBA}.Release|Mixed Platforms.Build.0 = Release|iPhone
+		{292F6A1E-E003-4BD7-8BAF-AC64B80D0BBA}.Release|x64.ActiveCfg = Release|iPhone
+		{292F6A1E-E003-4BD7-8BAF-AC64B80D0BBA}.Release|x86.ActiveCfg = Release|iPhone
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
