@@ -5,12 +5,11 @@ using System.Net;
 using System.Threading.Tasks;
 using Foundation;
 using MobileCoreServices;
-using Social;
 using UIKit;
 
 namespace CrossCam.iOS.Extension
 {
-    public partial class ShareViewController : SLComposeServiceViewController
+    public partial class ShareViewController : UIViewController
     {
         public ShareViewController(IntPtr handle) : base(handle)
         {
@@ -66,18 +65,6 @@ namespace CrossCam.iOS.Extension
             return index < 0
                 ? originalPath
                 : originalPath.Remove(index, PREFIX.Length);
-        }
-
-        public override bool IsContentValid()
-        {
-            // Do validation of contentText and/or NSExtensionContext attachments here
-            return true;
-        }
-
-        public override SLComposeSheetConfigurationItem[] GetConfigurationItems()
-        {
-            // To add configuration options via table cells at the bottom of the sheet, return an array of SLComposeSheetConfigurationItem here.
-            return new SLComposeSheetConfigurationItem[0];
         }
     }
 }

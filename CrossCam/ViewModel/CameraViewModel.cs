@@ -625,6 +625,13 @@ namespace CrossCam.ViewModel
                             RightBytesCaptured(image1);
                             return;
                         }
+
+                        if (RightBitmap == null &&
+                            LeftBitmap == null)
+                        {
+                            CapturedImageBytes = image1;
+                            return;
+                        }
                     }
                     else
                     {
@@ -632,13 +639,13 @@ namespace CrossCam.ViewModel
                         return;
                     }
                 }
-
-                // i save left first, so i load left first
-                LeftBytesCaptured(image1);
-                if (image2 != null)
+                else
                 {
+                    // i save left first, so i load left first
+                    LeftBytesCaptured(image1);
                     RightBytesCaptured(image2);
                 }
+
             }
             catch (Exception e)
             {
