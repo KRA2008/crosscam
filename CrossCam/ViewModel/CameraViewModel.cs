@@ -15,6 +15,10 @@ namespace CrossCam.ViewModel
 {
     public sealed class CameraViewModel : FreshBasePageModel
     {
+        private const string FULL_IMAGE = "Load full stereo image";
+        private const string SINGLE_SIDE = "Load single side";
+        private const string CANCEL = "Cancel";
+
         public WorkflowStage WorkflowStage { get; set; }
         public CropMode CropMode { get; set; }
         public ManualAlignMode ManualAlignMode { get; set; }
@@ -165,11 +169,6 @@ namespace CrossCam.ViewModel
         private bool _wasAnaglyphAlignmentRun;
         private bool _wasSideBySideAlignmentRun;
 
-        public void LoadSharedImages(byte[] image1, byte[] image2)
-        {
-
-        }
-
         public CameraViewModel()
         {
             var photoSaver = DependencyService.Get<IPhotoSaver>();
@@ -244,11 +243,7 @@ namespace CrossCam.ViewModel
 
             LoadPhotoCommand = new Command(async () =>
             {
-                const string FULL_IMAGE = "Load full stereo image";
-                const string SINGLE_SIDE = "Load single side";
-                const string CANCEL = "Cancel";
-                var loadType = await CoreMethods.DisplayActionSheet("Choose an action:", CANCEL, null,
-                    FULL_IMAGE, SINGLE_SIDE);
+                var loadType = await OpenLoadingPopup();
 
                 if (loadType == CANCEL) return;
 
@@ -259,10 +254,7 @@ namespace CrossCam.ViewModel
                     if (loadType == FULL_IMAGE)
                     {
                         WorkflowStage = WorkflowStage.Loading;
-                        var leftHalf = await Task.Run(() => GetHalfOfFullStereoImage(photo, true));
-                        SetLeftBitmap(leftHalf, false);
-                        var rightHalf = await Task.Run(() => GetHalfOfFullStereoImage(photo, false));
-                        SetRightBitmap(rightHalf, false);
+                        await LoadFullStereoImage(photo);
                     }
                     else if (loadType == SINGLE_SIDE)
                     {
@@ -606,6 +598,90 @@ namespace CrossCam.ViewModel
             });
         }
 
+        public async void LoadSharedImages(byte[] image1, byte[] image2)
+        {
+            try
+            {
+                WorkflowStage = WorkflowStage.Loading;
+
+                if (image2 == null)
+                {
+                    var loadType = await OpenLoadingPopup();
+
+                    if (loadType == CANCEL) return;
+
+                    if (loadType == SINGLE_SIDE)
+                    {
+                        if (LeftBitmap == null &&
+                            RightBitmap != null)
+                        {
+                            LeftBytesCaptured(image1);
+                            return;
+                        }
+
+                        if (RightBitmap == null &&
+                            LeftBitmap != null)
+                        {
+                            RightBytesCaptured(image1);
+                            return;
+                        }
+                    }
+                    else
+                    {
+                        await LoadFullStereoImage(image1);
+                        return;
+                    }
+                }
+
+                // i save left first, so i load left first
+                LeftBytesCaptured(image1);
+                if (image2 != null)
+                {
+                    RightBytesCaptured(image2);
+                }
+            }
+            catch (Exception e)
+            {
+                ErrorMessage = e.ToString();
+            }
+        }
+
+        protected override async void ViewIsAppearing(object sender, EventArgs e)
+        {
+            base.ViewIsAppearing(sender, e);
+            RaisePropertyChanged(nameof(ShouldLineGuidesBeVisible)); //TODO: figure out how to have Fody do this (just firing 'null' has bad behavior)
+            RaisePropertyChanged(nameof(ShouldDonutGuideBeVisible));
+            RaisePropertyChanged(nameof(ShouldRollGuideBeVisible));
+            RaisePropertyChanged(nameof(ShouldPitchGuideBeVisible));
+            RaisePropertyChanged(nameof(ShouldYawGuideBeVisible));
+            RaisePropertyChanged(nameof(ShouldSaveCapturesButtonBeVisible));
+            RaisePropertyChanged(nameof(RightReticleImage));
+            RaisePropertyChanged(nameof(ShouldLeftLeftRetakeBeVisible));
+            RaisePropertyChanged(nameof(ShouldLeftRightRetakeBeVisible));
+            RaisePropertyChanged(nameof(ShouldRightLeftRetakeBeVisible));
+            RaisePropertyChanged(nameof(ShouldRightRightRetakeBeVisible));
+            RaisePropertyChanged(nameof(ShouldLeftCaptureBeVisible));
+            RaisePropertyChanged(nameof(ShouldRightCaptureBeVisible));
+            RaisePropertyChanged(nameof(Settings)); // this doesn't cause reevaluation for above stuff (but I'd like it to), but it does trigger redraw of canvas and evaluation of whether to run auto alignment
+
+            await Task.Delay(100);
+            await EvaluateAndShowWelcomePopup();
+        }
+
+        private async Task<string> OpenLoadingPopup()
+        {
+            return await CoreMethods.DisplayActionSheet("Choose an action:", CANCEL, null,
+                FULL_IMAGE, SINGLE_SIDE);
+        }
+
+        private async Task LoadFullStereoImage(byte[] image)
+        {
+            var leftHalf = await Task.Run(() => GetHalfOfFullStereoImage(image, true));
+            SetLeftBitmap(leftHalf, false);
+            var rightHalf = await Task.Run(() => GetHalfOfFullStereoImage(image, false));
+            SetRightBitmap(rightHalf, false);
+        }
+
         private async void LeftBytesCaptured(byte[] capturedBytes)
         {
             var bitmap = await Task.Run(() => GetBitmapAndCorrectOrientation(capturedBytes));
@@ -791,6 +867,7 @@ namespace CrossCam.ViewModel
                     MoveLeftTrigger = !MoveLeftTrigger;
                 }
                 CameraColumn = 1;
+                WorkflowStage = WorkflowStage.Capture;
             }
             else
             {
@@ -816,6 +893,7 @@ namespace CrossCam.ViewModel
                     MoveRightTrigger = !MoveRightTrigger;
                 }
                 CameraColumn = 0;
+                WorkflowStage = WorkflowStage.Capture;
             }
             else
             {
@@ -986,28 +1064,6 @@ namespace CrossCam.ViewModel
             }
 
             return rotated;
-        }
-
-        protected override async void ViewIsAppearing(object sender, EventArgs e)
-        {
-            base.ViewIsAppearing(sender, e);
-            RaisePropertyChanged(nameof(ShouldLineGuidesBeVisible)); //TODO: figure out how to have Fody do this
-            RaisePropertyChanged(nameof(ShouldDonutGuideBeVisible));
-            RaisePropertyChanged(nameof(ShouldRollGuideBeVisible));
-            RaisePropertyChanged(nameof(ShouldPitchGuideBeVisible));
-            RaisePropertyChanged(nameof(ShouldYawGuideBeVisible));
-            RaisePropertyChanged(nameof(ShouldSaveCapturesButtonBeVisible));
-            RaisePropertyChanged(nameof(RightReticleImage));
-            RaisePropertyChanged(nameof(ShouldLeftLeftRetakeBeVisible));
-            RaisePropertyChanged(nameof(ShouldLeftRightRetakeBeVisible));
-            RaisePropertyChanged(nameof(ShouldRightLeftRetakeBeVisible));
-            RaisePropertyChanged(nameof(ShouldRightRightRetakeBeVisible));
-            RaisePropertyChanged(nameof(ShouldLeftCaptureBeVisible));
-            RaisePropertyChanged(nameof(ShouldRightCaptureBeVisible));
-            RaisePropertyChanged(nameof(Settings)); // this doesn't cause reevaluation for above stuff (but I'd like it to), but it does trigger redraw of canvas and evaluation of whether to run auto alignment
-
-            await Task.Delay(100);
-            await EvaluateAndShowWelcomePopup();
         }
 
         private async Task EvaluateAndShowWelcomePopup()
