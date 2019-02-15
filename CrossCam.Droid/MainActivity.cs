@@ -5,6 +5,7 @@ using Android;
 using Android.App;
 using Android.Content;
 using Android.Content.PM;
+using Android.Net;
 using Android.OS;
 using Android.Support.V4.App;
 using Android.Support.V4.Content;
@@ -20,13 +21,20 @@ namespace CrossCam.Droid
         Theme = "@style/MainTheme",
         MainLauncher = false,
         ConfigurationChanges = ConfigChanges.ScreenSize | ConfigChanges.Orientation,
-        ScreenOrientation = ScreenOrientation.FullUser)]
+        ScreenOrientation = ScreenOrientation.FullUser,
+        LaunchMode = LaunchMode.SingleTop)]
+    [IntentFilter(
+        new[] {Intent.ActionSend,Intent.ActionSendMultiple}, 
+        Categories = new[] {Intent.CategoryDefault},
+        DataMimeType = "image/*", 
+        Icon = "@drawable/icon")]
     public class MainActivity : Xamarin.Forms.Platform.Android.FormsAppCompatActivity
     {
         public LifecycleEventListener LifecycleEventListener;
 
         internal static MainActivity Instance { get; private set; }
 
+        private App _app;
 
         private const int CAMERA_PERMISSION_REQUEST_CODE = 50;
         private const int WRITE_TO_STORAGE_REQUEST_CODE = 51;
@@ -57,12 +65,14 @@ namespace CrossCam.Droid
                 }
                 else
                 {
-                    LoadApplication(new App());
+                    _app = new App();
+                    LoadApplication(_app);
                 }
             }
             else
             {
-                LoadApplication(new App());
+                _app = new App();
+                LoadApplication(_app);
             }
         }
         
@@ -117,7 +127,8 @@ namespace CrossCam.Droid
                     }
                     else
                     {
-                        LoadApplication(new App());
+                        _app = new App();
+                        LoadApplication(_app);
                     }
                 }
                 else
@@ -129,7 +140,8 @@ namespace CrossCam.Droid
             {
                 if (grantResults.Contains(Permission.Granted))
                 {
-                    LoadApplication(new App());
+                    _app = new App();
+                    LoadApplication(_app);
                 }
                 else
                 {
@@ -137,6 +149,49 @@ namespace CrossCam.Droid
                 }
             }
             base.OnRequestPermissionsResult(requestCode, permissions, grantResults);
+        }
+
+        protected override async void OnNewIntent(Intent intent)
+        {
+            base.OnNewIntent(intent);
+
+            if (Intent.ActionSend.Equals(intent.Action) && intent.Type != null)
+            {
+                if (intent.Type.StartsWith("image/"))
+                {
+                    if (intent.GetParcelableExtra(Intent.ExtraStream) is Uri uri)
+                    {
+                        var image = await ImageUriToByteArray(uri);
+                        _app.LoadSharedImages(image, null);
+                    }
+                }
+            }
+            else if (Intent.ActionSendMultiple.Equals(intent.Action) && intent.Type != null)
+            {
+                if (intent.Type.StartsWith("image/"))
+                {
+                    var parcelables = intent.GetParcelableArrayListExtra(Intent.ExtraStream);
+                    if (parcelables[0] is Uri uri1 &&
+                        parcelables[1] is Uri uri2)
+                    {
+                        var image1Task = ImageUriToByteArray(uri1);
+                        var image2Task = ImageUriToByteArray(uri2);
+                        await Task.WhenAll(image1Task, image2Task);
+                        _app.LoadSharedImages(image1Task.Result, image2Task.Result);
+                    }
+                }
+            }
+        }
+
+        private async Task<byte[]> ImageUriToByteArray(Uri uri)
+        {
+            return await Task.Run(() =>
+            {
+                var imageStream = ContentResolver.OpenInputStream(uri);
+                var imageMemStream = new MemoryStream();
+                imageStream.CopyTo(imageMemStream);
+                return imageMemStream.ToArray();
+            });
         }
     }
 }
