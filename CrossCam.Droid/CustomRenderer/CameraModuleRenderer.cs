@@ -78,65 +78,79 @@ namespace CrossCam.Droid.CustomRenderer
         {
             base.OnElementChanged(e);
 
-            if (e.OldElement != null || Element == null)
+            try
             {
-                return;
-            }
+                if (e.OldElement != null || Element == null)
+                {
+                    return;
+                }
 
-            if (e.NewElement != null)
-            {
-                _cameraModule = e.NewElement;
+                if (e.NewElement != null)
+                {
+                    _cameraModule = e.NewElement;
+                }
+
+                SetupUserInterface();
+                AddView(_view);
             }
-            
-            SetupUserInterface();
-            AddView(_view);
+            catch (Exception ex)
+            {
+                _cameraModule.ErrorMessage = ex.ToString();
+            }
         }
 
         protected override void OnElementPropertyChanged(object sender, PropertyChangedEventArgs e)
         {
             base.OnElementPropertyChanged(sender, e);
 
-            if (e.PropertyName == nameof(_cameraModule.IsVisible))
+            try
             {
-                if (_cameraModule.IsVisible)
+                if (e.PropertyName == nameof(_cameraModule.IsVisible))
                 {
-                    if (_isSurfaceAvailable)
+                    if (_cameraModule.IsVisible)
                     {
-                        SetupAndStartCamera();
+                        if (_isSurfaceAvailable)
+                        {
+                            SetupAndStartCamera();
+                        }
                     }
                 }
-            }
 
-            if (e.PropertyName == nameof(_cameraModule.Width) ||
-                e.PropertyName == nameof(_cameraModule.Height))
-            {
-                OrientationChanged();
-            }
-
-            if (e.PropertyName == nameof(_cameraModule.CaptureTrigger))
-            {
-                if (_cameraModule.IsVisible)
+                if (e.PropertyName == nameof(_cameraModule.Width) ||
+                    e.PropertyName == nameof(_cameraModule.Height))
                 {
-                    TakePhotoButtonTapped();
+                    OrientationChanged();
+                }
+
+                if (e.PropertyName == nameof(_cameraModule.CaptureTrigger))
+                {
+                    if (_cameraModule.IsVisible)
+                    {
+                        TakePhotoButtonTapped();
+                    }
+                }
+
+                if (e.PropertyName == nameof(_cameraModule.IsNothingCaptured) &&
+                    _cameraModule.IsNothingCaptured)
+                {
+                    TurnOnContinuousFocus();
+                }
+
+                if (e.PropertyName == nameof(_cameraModule.IsTapToFocusEnabled) &&
+                    !_cameraModule.IsTapToFocusEnabled)
+                {
+                    TurnOnContinuousFocus();
+                }
+
+                if (e.PropertyName == nameof(_cameraModule.SwitchToContinuousFocusTrigger) &&
+                    _cameraModule.IsTapToFocusEnabled)
+                {
+                    TurnOnContinuousFocus();
                 }
             }
-
-            if (e.PropertyName == nameof(_cameraModule.IsNothingCaptured) &&
-                _cameraModule.IsNothingCaptured)
+            catch (Exception ex)
             {
-                TurnOnContinuousFocus();
-            }
-
-            if (e.PropertyName == nameof(_cameraModule.IsTapToFocusEnabled) &&
-                !_cameraModule.IsTapToFocusEnabled)
-            {
-                TurnOnContinuousFocus();
-            }
-
-            if (e.PropertyName == nameof(_cameraModule.SwitchToContinuousFocusTrigger) &&
-                _cameraModule.IsTapToFocusEnabled)
-            {
-                TurnOnContinuousFocus();
+                _cameraModule.ErrorMessage = ex.ToString();
             }
         }
 

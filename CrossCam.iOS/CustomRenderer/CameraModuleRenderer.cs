@@ -44,71 +44,78 @@ namespace CrossCam.iOS.CustomRenderer
         {
             base.OnElementPropertyChanged(sender, e);
 
-            if (e.PropertyName == nameof(_cameraModule.Width) ||
-                e.PropertyName == nameof(_cameraModule.Height))
+            try
             {
-                NativeView.Bounds = new CGRect(0, 0, _cameraModule.Width, _cameraModule.Height);
-                double previewHeight;
-                var orientation = UIDevice.CurrentDevice.Orientation;
-                switch (orientation)
+                if (e.PropertyName == nameof(_cameraModule.Width) ||
+                    e.PropertyName == nameof(_cameraModule.Height))
                 {
-                    case UIDeviceOrientation.LandscapeLeft:
-                    case UIDeviceOrientation.LandscapeRight:
-                        previewHeight = 0.75 * _cameraModule.Width;
-                        _cameraModule.PreviewBottomY = (previewHeight + _cameraModule.Height) / 2;
-                        break;
-                    case UIDeviceOrientation.Portrait:
-                        previewHeight = 1.33 * _cameraModule.Width;
-                        _cameraModule.PreviewBottomY = (previewHeight + _cameraModule.Height) / 2;
-                        break;
+                    NativeView.Bounds = new CGRect(0, 0, _cameraModule.Width, _cameraModule.Height);
+                    double previewHeight;
+                    var orientation = UIDevice.CurrentDevice.Orientation;
+                    switch (orientation)
+                    {
+                        case UIDeviceOrientation.LandscapeLeft:
+                        case UIDeviceOrientation.LandscapeRight:
+                            previewHeight = 0.75 * _cameraModule.Width;
+                            _cameraModule.PreviewBottomY = (previewHeight + _cameraModule.Height) / 2;
+                            break;
+                        case UIDeviceOrientation.Portrait:
+                            previewHeight = 1.33 * _cameraModule.Width;
+                            _cameraModule.PreviewBottomY = (previewHeight + _cameraModule.Height) / 2;
+                            break;
+                    }
+                }
+
+                if (_cameraModule.Width > 0 &&
+                    _cameraModule.Height > 0 &&
+                    !_isInitialized)
+                {
+                    SetupUserInterface();
+                    _isInitialized = true;
+                }
+
+                if (_isInitialized)
+                {
+                    if (_cameraModule.IsVisible)
+                    {
+                        SetupCamera();
+                        StartPreview();
+                    }
+                    else
+                    {
+                        StopPreview();
+                    }
+                }
+
+                if (e.PropertyName == nameof(_cameraModule.CaptureTrigger))
+                {
+                    if (_cameraModule.IsVisible)
+                    {
+                        CapturePhoto();
+                    }
+                }
+
+                if (e.PropertyName == nameof(_cameraModule.IsNothingCaptured) &&
+                    _cameraModule.IsNothingCaptured)
+                {
+                    TurnOffFlashAndSetContinuousAutoMode(_device);
+                }
+
+                if (e.PropertyName == nameof(_cameraModule.IsTapToFocusEnabled) &&
+                    !_cameraModule.IsTapToFocusEnabled)
+                {
+                    TurnOffFlashAndSetContinuousAutoMode(_device);
+                }
+
+                if (e.PropertyName == nameof(_cameraModule.SwitchToContinuousFocusTrigger) &&
+                    _cameraModule.IsTapToFocusEnabled)
+                {
+                    TurnOffFlashAndSetContinuousAutoMode(_device);
                 }
             }
-            
-            if (_cameraModule.Width > 0 &&
-                _cameraModule.Height > 0 &&
-                !_isInitialized)
+            catch (Exception ex)
             {
-                SetupUserInterface();
-                _isInitialized = true;
-            }
-
-            if (_isInitialized)
-            {
-                if (_cameraModule.IsVisible)
-                {
-                    SetupCamera();
-                    StartPreview();
-                }
-                else
-                {
-                    StopPreview();
-                }
-            }
-
-            if (e.PropertyName == nameof(_cameraModule.CaptureTrigger))
-            {
-                if (_cameraModule.IsVisible)
-                {
-                    CapturePhoto();
-                }
-            }
-
-            if (e.PropertyName == nameof(_cameraModule.IsNothingCaptured) &&
-                _cameraModule.IsNothingCaptured)
-            {
-                TurnOffFlashAndSetContinuousAutoMode(_device);
-            }
-
-            if (e.PropertyName == nameof(_cameraModule.IsTapToFocusEnabled) &&
-                !_cameraModule.IsTapToFocusEnabled)
-            {
-                TurnOffFlashAndSetContinuousAutoMode(_device);
-            }
-
-            if (e.PropertyName == nameof(_cameraModule.SwitchToContinuousFocusTrigger) &&
-                _cameraModule.IsTapToFocusEnabled)
-            {
-                TurnOffFlashAndSetContinuousAutoMode(_device);
+                _cameraModule.ErrorMessage = ex.ToString();
             }
         }
 
