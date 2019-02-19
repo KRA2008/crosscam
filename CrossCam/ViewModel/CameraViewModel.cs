@@ -916,7 +916,7 @@ namespace CrossCam.ViewModel
         {
             SideCropMax = bitmap.Width / 2;
             TopOrBottomCropMax = bitmap.Height / 2;
-            VerticalAlignmentMax = bitmap.Height / 4;
+            VerticalAlignmentMax = bitmap.Height / 8;
             ZoomMax = bitmap.Height / 4;
         }
 
