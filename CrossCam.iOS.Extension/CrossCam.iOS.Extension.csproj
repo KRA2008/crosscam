@@ -56,6 +56,7 @@
     <MtouchFloat32>true</MtouchFloat32>
     <CodesignExtraArgs />
     <CodesignResourceRules />
+    <CodesignProvision>CrossCam Extension Dev</CodesignProvision>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|iPhone' ">
     <DebugType>none</DebugType>
@@ -67,12 +68,12 @@
     </CodesignEntitlements>
     <MtouchArch>ARMv7, ARM64</MtouchArch>
     <ConsolePause>false</ConsolePause>
-    <CodesignKey>iPhone Developer</CodesignKey>
+    <CodesignKey>iPhone Distribution</CodesignKey>
     <OptimizePNGs>true</OptimizePNGs>
     <MtouchLink>Full</MtouchLink>
     <MtouchFloat32>true</MtouchFloat32>
     <MtouchUseLlvm>true</MtouchUseLlvm>
-    <CodesignProvision />
+    <CodesignProvision>CrossCam Extension Dist</CodesignProvision>
     <CodesignExtraArgs />
     <CodesignResourceRules />
   </PropertyGroup>

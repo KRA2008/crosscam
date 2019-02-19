@@ -9,7 +9,7 @@
 	<key>CFBundleExecutable</key>
 	<string>CrossCam.iOS.Extension</string>
 	<key>CFBundleIdentifier</key>
-	<string>com.kra2008.crosscam.iOS.Extension</string>
+	<string>com.kra2008.crosscam.ios.extension</string>
 	<key>CFBundleInfoDictionaryVersion</key>
 	<string>6.0</string>
 	<key>CFBundleName</key>
