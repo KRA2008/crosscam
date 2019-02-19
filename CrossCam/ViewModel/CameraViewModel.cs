@@ -32,7 +32,7 @@ namespace CrossCam.ViewModel
         public Command RetakeRightCommand { get; set; }
         public bool RightCaptureSuccess { get; set; }
 
-        private SKBitmap _replacedAutoAlignedBitmap { get; set; }
+        private SKBitmap _originalUnalignedBitmap { get; set; }
 
         public bool IsCameraVisible { get; set; }
         public byte[] CapturedImageBytes { get; set; }
@@ -168,10 +168,11 @@ namespace CrossCam.ViewModel
         private int _alignmentThreadLock;
         private bool _wasAnaglyphAlignmentRun;
         private bool _wasSideBySideAlignmentRun;
+        private IPhotoSaver _photoSaver;
 
         public CameraViewModel()
         {
-            var photoSaver = DependencyService.Get<IPhotoSaver>();
+            _photoSaver = DependencyService.Get<IPhotoSaver>();
             IsCameraVisible = true;
 
             Settings = PersistentStorage.LoadOrDefault(PersistentStorage.SETTINGS_KEY, new Settings());
@@ -229,11 +230,11 @@ namespace CrossCam.ViewModel
                         ClearCrops(true);
                         if (IsCaptureLeftFirst)
                         {
-                            SetRightBitmap(_replacedAutoAlignedBitmap); //calls autoalign internally
+                            SetRightBitmap(_originalUnalignedBitmap); //calls autoalign internally
                         }
                         else
                         {
-                            SetLeftBitmap(_replacedAutoAlignedBitmap); //calls autoalign internally
+                            SetLeftBitmap(_originalUnalignedBitmap); //calls autoalign internally
                         }
                     }
 
@@ -413,24 +414,44 @@ namespace CrossCam.ViewModel
                                     canvas.Translate(-1f * LeftBitmap.Width, -1f * LeftBitmap.Height);
                                 }
 
-                                canvas.DrawBitmap(LeftBitmap, 0, 0);
-                                using (var leftSkImage = tempSurface.Snapshot())
+                                SKBitmap innerLeftBitmap;
+                                SKBitmap innerRightBitmap;
+                                if (IsCaptureLeftFirst)
                                 {
-                                    using (var encoded = leftSkImage.Encode(SKEncodedImageFormat.Jpeg, 100))
+                                    innerLeftBitmap = LeftBitmap;
+                                    if (_wasAnaglyphAlignmentRun ||
+                                        _wasSideBySideAlignmentRun)
                                     {
-                                        await photoSaver.SavePhoto(encoded.ToArray());
+                                        innerRightBitmap = _originalUnalignedBitmap;
+                                    }
+                                    else
+                                    {
+                                        innerRightBitmap = RightBitmap;
+                                    }
+                                }
+                                else
+                                {
+                                    innerRightBitmap = RightBitmap;
+                                    if (_wasAnaglyphAlignmentRun ||
+                                        _wasSideBySideAlignmentRun)
+                                    {
+                                        innerLeftBitmap = _originalUnalignedBitmap;
+                                    }
+                                    else
+                                    {
+                                        innerLeftBitmap = LeftBitmap;
                                     }
                                 }
 
+                                canvas.DrawBitmap(innerLeftBitmap, 0, 0);
+
+                                await SaveSurfaceSnapshot(tempSurface);
+
                                 canvas.Clear();
-                                canvas.DrawBitmap(RightBitmap, 0, 0);
-                                using (var rightSkImage = tempSurface.Snapshot())
-                                {
-                                    using (var encoded = rightSkImage.Encode(SKEncodedImageFormat.Jpeg, 100))
-                                    {
-                                        await photoSaver.SavePhoto(encoded.ToArray());
-                                    }
-                                }
+
+                                canvas.DrawBitmap(innerRightBitmap, 0, 0);
+
+                                await SaveSurfaceSnapshot(tempSurface);
                             }
                         }
 
@@ -452,13 +473,7 @@ namespace CrossCam.ViewModel
                                     VerticalAlignment, LeftZoom, RightZoom,
                                     LeftKeystone, RightKeystone, DrawMode.RedCyan);
 
-                                using (var skImage = tempSurface.Snapshot())
-                                {
-                                    using (var encoded = skImage.Encode(SKEncodedImageFormat.Jpeg, 100))
-                                    {
-                                        await photoSaver.SavePhoto(encoded.ToArray());
-                                    }
-                                }
+                                await SaveSurfaceSnapshot(tempSurface);
                             }
                         }
 
@@ -477,10 +492,7 @@ namespace CrossCam.ViewModel
 
                                 canvas.DrawBitmap(IsCaptureLeftFirst ? LeftBitmap : RightBitmap, 0, 0);
 
-                                using (var encoded = tempSurface.Snapshot().Encode(SKEncodedImageFormat.Jpeg, 100))
-                                {
-                                    await photoSaver.SavePhoto(encoded.ToArray());
-                                }
+                                await SaveSurfaceSnapshot(tempSurface);
                             }
                         }
 
@@ -520,11 +532,8 @@ namespace CrossCam.ViewModel
                                     VerticalAlignment,
                                     LeftZoom, RightZoom,
                                     LeftKeystone, RightKeystone);
-                                
-                                using (var encoded = tempSurface.Snapshot().Encode(SKEncodedImageFormat.Jpeg, 100))
-                                {
-                                    await photoSaver.SavePhoto(encoded.ToArray());
-                                }
+
+                                await SaveSurfaceSnapshot(tempSurface);
                             }
                         }
 
@@ -551,10 +560,7 @@ namespace CrossCam.ViewModel
                                     LeftKeystone, RightKeystone,
                                     DrawMode.Parallel);
 
-                                using (var encoded = tempSurface.Snapshot().Encode(SKEncodedImageFormat.Jpeg, 100))
-                                {
-                                    await photoSaver.SavePhoto(encoded.ToArray());
-                                }
+                                await SaveSurfaceSnapshot(tempSurface);
                             }
                         }
                     });
@@ -675,6 +681,17 @@ namespace CrossCam.ViewModel
             await EvaluateAndShowWelcomePopup();
         }
 
+        private async Task SaveSurfaceSnapshot(SKSurface surface)
+        {
+            using (var skImage = surface.Snapshot())
+            {
+                using (var encoded = skImage.Encode(SKEncodedImageFormat.Jpeg, 100))
+                {
+                    await _photoSaver.SavePhoto(encoded.ToArray());
+                }
+            }
+        }
+
         private async Task<string> OpenLoadingPopup()
         {
             return await CoreMethods.DisplayActionSheet("Choose an action:", CANCEL, null,
@@ -706,6 +723,8 @@ namespace CrossCam.ViewModel
             if (Settings.IsAutomaticAlignmentOn &&
                 LeftBitmap != null &&
                 RightBitmap != null &&
+                !_wasAnaglyphAlignmentRun &&
+                !_wasSideBySideAlignmentRun &&
                 0 == Interlocked.Exchange(ref _alignmentThreadLock, 1))
             {
                 WorkflowStage = WorkflowStage.AutomaticAlign;
@@ -815,7 +834,7 @@ namespace CrossCam.ViewModel
 
                         if (IsCaptureLeftFirst)
                         {
-                            _replacedAutoAlignedBitmap = RightBitmap;
+                            _originalUnalignedBitmap = RightBitmap;
                             if (Settings.RedCyanAnaglyphMode)
                             {
                                 RightCrop = alignedRightCrop;
@@ -830,7 +849,7 @@ namespace CrossCam.ViewModel
                         }
                         else
                         {
-                            _replacedAutoAlignedBitmap = LeftBitmap;
+                            _originalUnalignedBitmap = LeftBitmap;
                             if (Settings.RedCyanAnaglyphMode)
                             {
                                 RightCrop = alignedRightCrop;
