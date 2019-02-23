@@ -223,38 +223,6 @@
             </AbsoluteLayout.LayoutBounds>
         </Image>
 
-        <BoxView x:Name="_upperLine" 
-                 AbsoluteLayout.LayoutFlags="All"
-                 AbsoluteLayout.LayoutBounds="0, 0, 0, 0"
-                 Margin="{StaticResource _linePadding}"
-                 InputTransparent="True"
-                 BackgroundColor="White"
-                 IsVisible="{Binding ShouldLineGuidesBeVisible}"/>
-        <ContentView x:Name="_upperLinePanner"
-                     AbsoluteLayout.LayoutFlags="All"
-                     AbsoluteLayout.LayoutBounds="0, 0, 0, 0"
-                     Padding="{StaticResource _linePadding}"
-                     IsVisible="{Binding ShouldLineGuidesBeVisible}">
-            <ContentView.GestureRecognizers>
-                <PanGestureRecognizer PanUpdated="UpperLinePanned"/>
-            </ContentView.GestureRecognizers>
-        </ContentView>
-        <BoxView x:Name="_lowerLine"
-                 AbsoluteLayout.LayoutFlags="All"
-                 AbsoluteLayout.LayoutBounds="0, 0, 0, 0"
-                 InputTransparent="True"
-                 BackgroundColor="White"
-                 Margin="{StaticResource _linePadding}"
-                 IsVisible="{Binding ShouldLineGuidesBeVisible}"/>
-        <ContentView x:Name="_lowerLinePanner"
-                     AbsoluteLayout.LayoutFlags="All"
-                     AbsoluteLayout.LayoutBounds="0, 0, 0, 0"
-                     Padding="{StaticResource _linePadding}"
-                     IsVisible="{Binding ShouldLineGuidesBeVisible}">
-            <ContentView.GestureRecognizers>
-                <PanGestureRecognizer PanUpdated="LowerLinePanned"/>
-            </ContentView.GestureRecognizers>
-        </ContentView>
         <Image x:Name="_leftReticle"
                AbsoluteLayout.LayoutFlags="All"
                AbsoluteLayout.LayoutBounds="0, 0, 0, 0"
@@ -1252,5 +1220,38 @@
                    HorizontalOptions="Center"
                    VerticalOptions="StartAndExpand"/>
         </StackLayout>
+
+        <BoxView x:Name="_upperLine" 
+                 AbsoluteLayout.LayoutFlags="All"
+                 AbsoluteLayout.LayoutBounds="0, 0, 0, 0"
+                 Margin="{StaticResource _linePadding}"
+                 InputTransparent="True"
+                 BackgroundColor="White"
+                 IsVisible="{Binding ShouldLineGuidesBeVisible}"/>
+        <ContentView x:Name="_upperLinePanner"
+                     AbsoluteLayout.LayoutFlags="All"
+                     AbsoluteLayout.LayoutBounds="0, 0, 0, 0"
+                     Padding="{StaticResource _linePadding}"
+                     IsVisible="{Binding ShouldLineGuidesBeVisible}">
+            <ContentView.GestureRecognizers>
+                <PanGestureRecognizer PanUpdated="UpperLinePanned"/>
+            </ContentView.GestureRecognizers>
+        </ContentView>
+        <BoxView x:Name="_lowerLine"
+                 AbsoluteLayout.LayoutFlags="All"
+                 AbsoluteLayout.LayoutBounds="0, 0, 0, 0"
+                 InputTransparent="True"
+                 BackgroundColor="White"
+                 Margin="{StaticResource _linePadding}"
+                 IsVisible="{Binding ShouldLineGuidesBeVisible}"/>
+        <ContentView x:Name="_lowerLinePanner"
+                     AbsoluteLayout.LayoutFlags="All"
+                     AbsoluteLayout.LayoutBounds="0, 0, 0, 0"
+                     Padding="{StaticResource _linePadding}"
+                     IsVisible="{Binding ShouldLineGuidesBeVisible}">
+            <ContentView.GestureRecognizers>
+                <PanGestureRecognizer PanUpdated="LowerLinePanned"/>
+            </ContentView.GestureRecognizers>
+        </ContentView>
     </AbsoluteLayout>
 </fresh:FreshBaseContentPage>
