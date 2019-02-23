@@ -28,6 +28,8 @@ namespace CrossCam.iOS.CustomRenderer
         public CameraModuleRenderer()
         {
             NSNotificationCenter.DefaultCenter.AddObserver(new NSString("UIDeviceOrientationDidChangeNotification"), OrientationChanged);
+            NSNotificationCenter.DefaultCenter.AddObserver(new NSString("UIApplicationWillResignActiveNotification"),
+                n => TurnOffFlashAndSetContinuousAutoMode(_device)); // after minimizing or locking phone with first picture taken, preview of second will become super dark and locked that way - seems to be outside my control
         }
 
         protected override void OnElementChanged(ElementChangedEventArgs<CameraModule> e)
