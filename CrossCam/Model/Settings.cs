@@ -215,8 +215,8 @@ namespace CrossCam.Model
             IsCaptureLeftFirst = true;
             SaveForCrossView = true;
             ShowRollGuide = true;
-            AddBorder = true;
 
+            AddBorder = false;
             ShowPitchGuide = false;
             ShowYawGuide = false;
 
