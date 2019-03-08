@@ -425,7 +425,14 @@ namespace CrossCam.Droid.CustomRenderer
 
         private void TakePhotoButtonTapped()
         {
-            _camera.TakePicture(this, this, this, this);
+            try
+            {
+                _camera.TakePicture(this, this, this, this);
+            }
+            catch
+            {
+                //user can try again
+            }
         }
 
         public void OnShutter()
