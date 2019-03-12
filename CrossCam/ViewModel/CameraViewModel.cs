@@ -316,7 +316,15 @@ namespace CrossCam.ViewModel
                 }
             });
 
-            ClearCapturesCommand = new Command(ClearCaptures);
+            ClearCapturesCommand = new Command(async() =>
+            {
+                var confirmClear = await CoreMethods.DisplayAlert("Really clear?",
+                    "Are you sure you want to clear your pictures and start over?", "Yes, clear", "No");
+                if (confirmClear)
+                {
+                    ClearCaptures();
+                }
+            });
 
             CapturePictureCommand = new Command(() =>
             {
