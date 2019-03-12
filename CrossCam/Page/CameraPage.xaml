@@ -200,13 +200,12 @@
             <AbsoluteLayout.LayoutBounds>
                 <Rectangle X="0" Y="0" Width="0" Height="0"/>
             </AbsoluteLayout.LayoutBounds>
-            <Image AbsoluteLayout.LayoutFlags="All" 
-                   AbsoluteLayout.LayoutBounds="0,0,1,1"
-                   Source="horizontalLevelOutside"/>
+            <Image x:Name="_horizontalLevelOutside"
+                   AbsoluteLayout.LayoutFlags="All" 
+                   AbsoluteLayout.LayoutBounds="0,0,1,1"/>
             <Image x:Name="_horizontalLevelBubble"
                    AbsoluteLayout.LayoutFlags="HeightProportional,YProportional"
-                   AbsoluteLayout.LayoutBounds="0,0,15,1"
-                   Source="horizontalLevelInside"/>
+                   AbsoluteLayout.LayoutBounds="0,0,15,1"/>
         </AbsoluteLayout>
         <Image x:Name="_pitchIndicator"
                AbsoluteLayout.LayoutFlags="XProportional"

@@ -442,6 +442,8 @@
     <BundleResource Include="Resources\topCrop%402x.png" />
     <BundleResource Include="Resources\anaglyph.png" />
     <BundleResource Include="Resources\anaglyph%402x.png" />
+    <BundleResource Include="Resources\horizontalLevelInsideGreen.png" />
+    <BundleResource Include="Resources\horizontalLevelOutsideGreen.png" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\CrossCam.iOS.Extension\CrossCam.iOS.Extension.csproj">

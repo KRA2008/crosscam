@@ -17,12 +17,16 @@ namespace CrossCam.Page
 	    private readonly Rectangle _upperLineBoundsPortrait = new Rectangle(0, 0.4, 1, 21);
 	    private readonly Rectangle _lowerLinesBoundsPortrait = new Rectangle(0, 0.6, 1, 21);
         
-	    private const double LEVEL_BUBBLE_MIDDLE = 21.5;
+	    private const double LEVEL_BUBBLE_MIDDLE = 22.5;
 	    private const double LEVEL_BUBBLE_SPEED = 5;
 	    private const double LEVEL_ICON_WIDTH = 60;
 	    private const double OTHER_SENSOR_ICON_WIDTH = 30;
+	    private readonly ImageSource _levelBubbleImage = ImageSource.FromFile("horizontalLevelInside");
+	    private readonly ImageSource _levelOutsideImage = ImageSource.FromFile("horizontalLevelOutside");
+	    private readonly ImageSource _levelBubbleGreenImage = ImageSource.FromFile("horizontalLevelInsideGreen");
+	    private readonly ImageSource _levelOutsideGreenImage = ImageSource.FromFile("horizontalLevelOutsideGreen");
 
-	    private readonly Rectangle _leftReticleBounds = new Rectangle(0.2297, 0.5, 0.075, 0.075);
+        private readonly Rectangle _leftReticleBounds = new Rectangle(0.2297, 0.5, 0.075, 0.075);
         private readonly Rectangle _rightReticleBounds = new Rectangle(0.7703, 0.5, 0.075, 0.075);
 
 	    private double _reticleLeftX;
@@ -39,6 +43,7 @@ namespace CrossCam.Page
 	    private const double ACCELEROMETER_MEASURMENT_WEIGHT = 12;
 	    private const double ACCELEROMETER_SENSITIVITY = 90;
 	    private const double AVERAGE_ROLL_LIMIT = LEVEL_BUBBLE_MIDDLE / (ACCELEROMETER_SENSITIVITY * LEVEL_BUBBLE_SPEED);
+	    private const double ROLL_GOOD_THRESHOLD = AVERAGE_ROLL_LIMIT / 8;
 
         private double _averageRoll;
 
@@ -66,6 +71,8 @@ namespace CrossCam.Page
 		    var bubbleBounds = AbsoluteLayout.GetLayoutBounds(_horizontalLevelBubble);
 		    bubbleBounds.X = LEVEL_BUBBLE_MIDDLE;
 		    AbsoluteLayout.SetLayoutBounds(_horizontalLevelBubble, bubbleBounds);
+		    _horizontalLevelBubble.Source = _levelBubbleImage;
+		    _horizontalLevelOutside.Source = _levelOutsideImage;
 
             Accelerometer.ReadingChanged += HandleAccelerometerReading;
 		    Compass.ReadingChanged += HandleCompassReading;
@@ -215,6 +222,19 @@ namespace CrossCam.Page
                     {
                         _averageRoll -= acceleration.Y / ACCELEROMETER_MEASURMENT_WEIGHT;
                     }
+                }
+
+                if (Math.Abs(_averageRoll) < ROLL_GOOD_THRESHOLD &&
+                    _horizontalLevelBubble.Source == _levelBubbleImage)
+                {
+                    _horizontalLevelBubble.Source = _levelBubbleGreenImage;
+                    _horizontalLevelOutside.Source = _levelOutsideGreenImage;
+                }
+                else if(Math.Abs(_averageRoll) > ROLL_GOOD_THRESHOLD &&
+                        _horizontalLevelBubble.Source == _levelBubbleGreenImage)
+                {
+                    _horizontalLevelBubble.Source = _levelBubbleImage;
+                    _horizontalLevelOutside.Source = _levelOutsideImage;
                 }
             }
 
