@@ -73,6 +73,11 @@ namespace CrossCam.Page
 		    MessagingCenter.Subscribe<App>(this, App.APP_UNPAUSING_EVENT, o => EvaluateSensors());
         }
 
+	    protected override bool OnBackButtonPressed()
+	    {
+	        return _viewModel?.BackButtonPressed() ?? base.OnBackButtonPressed();
+	    }
+
 	    private void EvaluateSensors(bool isAppRunning = true)
 	    {
 	        if (_viewModel != null)

@@ -246,7 +246,8 @@ namespace CrossCam.ViewModel
             {
                 var loadType = await OpenLoadingPopup();
 
-                if (loadType == CANCEL) return;
+                if (loadType == CANCEL ||
+                    loadType == null) return;
 
                 var photo = await DependencyService.Get<IPhotoPicker>().GetImage();
 
@@ -612,6 +613,32 @@ namespace CrossCam.ViewModel
             });
         }
 
+        public bool BackButtonPressed()
+        {
+            switch (WorkflowStage)
+            {
+                case WorkflowStage.Final:
+                    ClearCapturesCommand.Execute(this);
+                    return true;
+                case WorkflowStage.View:
+                    ToggleViewModeCommand.Execute(this);
+                    return true;
+                case WorkflowStage.Crop:
+                case WorkflowStage.ManualAlign:
+                case WorkflowStage.Keystone:
+                case WorkflowStage.Edits:
+                    SaveEditCommand.Execute(this);
+                    return true;
+                case WorkflowStage.Capture:
+                    return false;
+                case WorkflowStage.Saving:
+                case WorkflowStage.AutomaticAlign:
+                case WorkflowStage.Loading:
+                default:
+                    return true;
+            }
+        }
+
         public async void LoadSharedImages(byte[] image1, byte[] image2)
         {
             try
@@ -622,7 +649,8 @@ namespace CrossCam.ViewModel
                 {
                     var loadType = await OpenLoadingPopup();
 
-                    if (loadType == CANCEL) return;
+                    if (loadType == CANCEL ||
+                        loadType == null) return;
 
                     if (loadType == SINGLE_SIDE)
                     {
