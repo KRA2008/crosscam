@@ -97,7 +97,7 @@ namespace CrossCam.Page
 	                {
 	                    try
 	                    {
-	                        Accelerometer.Start(SensorSpeed.Game);
+	                        Accelerometer.Start(Device.RuntimePlatform == Device.Android ? SensorSpeed.UI : SensorSpeed.Game);
 	                    }
 	                    catch
 	                    {
