@@ -650,7 +650,11 @@ namespace CrossCam.ViewModel
                     var loadType = await OpenLoadingPopup();
 
                     if (loadType == CANCEL ||
-                        loadType == null) return;
+                        loadType == null)
+                    {
+                        WorkflowStage = WorkflowStage.Capture;
+                        return;
+                    }
 
                     if (loadType == SINGLE_SIDE)
                     {
