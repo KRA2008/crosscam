@@ -417,7 +417,7 @@ namespace CrossCam.Droid.CustomRenderer
             _textureView.SetX(0);
             _textureView.SetY((float)verticalOffset);
 
-            _cameraModule.PreviewBottomY = _cameraModule.Height - verticalOffset/2;
+            _cameraModule.PreviewBottomY = (moduleHeight - verticalOffset)/metrics.Density;
 
             _textureView.LayoutParameters = new FrameLayout.LayoutParams((int) Math.Round(moduleWidth),
                 (int)Math.Round(proportionalPreviewHeight));
