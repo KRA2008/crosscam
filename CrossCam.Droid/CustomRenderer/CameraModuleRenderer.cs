@@ -308,7 +308,7 @@ namespace CrossCam.Droid.CustomRenderer
             
             if (_useCamera2)
             {
-                SetOrientation2();
+                SetOrientation();
                 StartPreview2();
             }
             else
@@ -338,16 +338,7 @@ namespace CrossCam.Droid.CustomRenderer
         {
             if (_surfaceTexture != null)
             {
-                if (_isRunning && !_useCamera2)
-                {
-                    SetOrientation1();
-                    return;
-                }
-
-                if (_useCamera2)
-                {
-                    SetOrientation2();
-                }
+                SetOrientation();
             }
         }
 
@@ -444,7 +435,101 @@ namespace CrossCam.Droid.CustomRenderer
             _cameraModule.ErrorMessage = error.ToString();
         }
 
-#region camera1
+
+        private void SetOrientation()
+        {
+            if (!_isRunning && !_useCamera2) return;
+            
+            var metrics = new DisplayMetrics();
+            Display.GetMetrics(metrics);
+
+            var moduleWidth = _cameraModule.Width * metrics.Density;
+            var moduleHeight = _cameraModule.Height * metrics.Density;
+
+            int previewSizeWidth;
+            int previewSizeHeight;
+            int rotation1;
+            int rotation2;
+
+            if (_useCamera2)
+            {
+                previewSizeWidth = _preview2Size.Width;
+                previewSizeHeight = _preview2Size.Height;
+            }
+            else
+            {
+                previewSizeWidth = _previewSize.Width;
+                previewSizeHeight = _previewSize.Height;
+            }
+
+            double proportionalPreviewHeight;
+            switch (Display.Rotation)
+            {
+                case SurfaceOrientation.Rotation0:
+                    _cameraModule.IsViewInverted = false;
+                    _cameraModule.IsPortrait = true;
+                    proportionalPreviewHeight = previewSizeWidth * moduleWidth / previewSizeHeight;
+                    rotation1 = 90;
+                    rotation2 = 0;
+                    break;
+                case SurfaceOrientation.Rotation180:
+                    _cameraModule.IsViewInverted = true;
+                    _cameraModule.IsPortrait = true;
+                    proportionalPreviewHeight = previewSizeWidth * moduleWidth / previewSizeHeight;
+                    rotation1 = 270;
+                    rotation2 = -180;
+                    break;
+                case SurfaceOrientation.Rotation90:
+                    _cameraModule.IsViewInverted = false;
+                    _cameraModule.IsPortrait = false;
+                    proportionalPreviewHeight = previewSizeHeight * moduleWidth / previewSizeWidth;
+                    rotation1 = 0;
+                    rotation2 = -90;
+                    break;
+                default:
+                    _cameraModule.IsPortrait = false;
+                    _cameraModule.IsViewInverted = true;
+                    proportionalPreviewHeight = previewSizeHeight * moduleWidth / previewSizeWidth;
+                    rotation1 = 180;
+                    rotation2 = -270;
+                    break;
+            }
+
+            if (!_useCamera2)
+            {
+                var parameters = _camera1.GetParameters();
+                parameters.SetRotation(rotation1);
+                _camera1.SetDisplayOrientation(rotation1);
+                _camera1.SetParameters(parameters);
+            }
+
+            var verticalOffset = (moduleHeight - proportionalPreviewHeight) / 2f;
+
+            _textureView.SetX(0);
+
+            _cameraModule.PreviewBottomY = (moduleHeight - verticalOffset) / metrics.Density;
+
+            var matrix = new Matrix();
+            if (!_useCamera2 || 
+                Display.Rotation == SurfaceOrientation.Rotation0 ||
+                Display.Rotation == SurfaceOrientation.Rotation180)
+            {
+                _textureView.SetY((float)verticalOffset);
+                _textureView.LayoutParameters = new FrameLayout.LayoutParams((int)Math.Round(moduleWidth),
+                    (int)Math.Round(proportionalPreviewHeight));
+                matrix.SetRotate(0);
+                _textureView.SetTransform(matrix);
+                return;
+            }
+
+            _textureView.SetY(250);
+            _textureView.LayoutParameters = new FrameLayout.LayoutParams((int)Math.Round(moduleWidth),
+                (int)Math.Round(proportionalPreviewHeight));
+            matrix.SetRotate(rotation2, (float)moduleWidth/2f, (float)proportionalPreviewHeight/2f);
+            _textureView.SetTransform(matrix);
+        }
+
+        #region camera1
 
         private void StopCamera1()
         {
@@ -542,7 +627,7 @@ namespace CrossCam.Droid.CustomRenderer
                         _surfaceTexture = surface;
                     }
 
-                    SetOrientation1();
+                    SetOrientation();
                     StartCamera1();
                 }
             }
@@ -550,60 +635,6 @@ namespace CrossCam.Droid.CustomRenderer
             {
                 _cameraModule.ErrorMessage = e.ToString();
             }
-        }
-
-        private void SetOrientation1()
-        {
-            var metrics = new DisplayMetrics();
-            Display.GetMetrics(metrics);
-            
-            var moduleWidth = _cameraModule.Width * metrics.Density;
-            var moduleHeight = _cameraModule.Height * metrics.Density;
-
-            var parameters = _camera1.GetParameters();
-            double proportionalPreviewHeight;
-            switch (Display.Rotation)
-            {
-                case SurfaceOrientation.Rotation0:
-                    _cameraModule.IsViewInverted = false;
-                    _cameraModule.IsPortrait = true;
-                    proportionalPreviewHeight = _previewSize.Width * moduleWidth / _previewSize.Height;
-                    _camera1.SetDisplayOrientation(90);
-                    parameters.SetRotation(90);
-                    break;
-                case SurfaceOrientation.Rotation180:
-                    _cameraModule.IsViewInverted = true;
-                    _cameraModule.IsPortrait = true;
-                    proportionalPreviewHeight = _previewSize.Width * moduleWidth / _previewSize.Height;
-                    _camera1.SetDisplayOrientation(270);
-                    parameters.SetRotation(270);
-                    break;
-                case SurfaceOrientation.Rotation90:
-                    _cameraModule.IsViewInverted = false;
-                    _cameraModule.IsPortrait = false;
-                    proportionalPreviewHeight = _previewSize.Height * moduleWidth / _previewSize.Width;
-                    _camera1.SetDisplayOrientation(0);
-                    parameters.SetRotation(0);
-                    break;
-                default:
-                    _cameraModule.IsPortrait = false;
-                    _cameraModule.IsViewInverted = true;
-                    proportionalPreviewHeight = _previewSize.Height * moduleWidth / _previewSize.Width;
-                    _camera1.SetDisplayOrientation(180);
-                    parameters.SetRotation(180);
-                    break;
-            }
-            _camera1.SetParameters(parameters);
-
-            var verticalOffset = (moduleHeight - proportionalPreviewHeight) / 2f;
-
-            _textureView.SetX(0);
-            _textureView.SetY((float)verticalOffset);
-
-            _cameraModule.PreviewBottomY = (moduleHeight - verticalOffset)/metrics.Density;
-
-            _textureView.LayoutParameters = new FrameLayout.LayoutParams((int) Math.Round(moduleWidth),
-                (int)Math.Round(proportionalPreviewHeight));
         }
 
         public void OnShutter()
@@ -723,62 +754,6 @@ namespace CrossCam.Droid.CustomRenderer
 
             camera.Close();
             _openingCamera2 = false;
-        }
-
-        private void SetOrientation2()
-        {
-            if (_surfaceTexture == null || _preview2Size == null) return;
-
-            var metrics = new DisplayMetrics();
-            Display.GetMetrics(metrics);
-
-            var matrix = new Matrix();
-            var viewWidth = (float)_cameraModule.Width * metrics.Density;
-            var viewHeight = (float)_cameraModule.Height * metrics.Density;
-
-            float previewDisplayHeight;
-            float rotation;
-            float previewDisplayYOffset;
-            switch (Display.Rotation)
-            {
-                case SurfaceOrientation.Rotation0:
-                    _cameraModule.IsViewInverted = false;
-                    _cameraModule.IsPortrait = true;
-                    previewDisplayHeight = _preview2Size.Width * viewWidth / _preview2Size.Height;
-                    previewDisplayYOffset = (viewHeight - previewDisplayHeight) / 2;
-                    rotation = 0;
-                    break;
-                case SurfaceOrientation.Rotation180:
-                    _cameraModule.IsViewInverted = true;
-                    _cameraModule.IsPortrait = true;
-                    previewDisplayHeight = _preview2Size.Width * viewWidth / _preview2Size.Height;
-                    previewDisplayYOffset = (viewHeight - previewDisplayHeight) / 2;
-                    rotation = 180;
-                    break;
-                case SurfaceOrientation.Rotation90:
-                    _cameraModule.IsViewInverted = false;
-                    _cameraModule.IsPortrait = false;
-                    previewDisplayHeight = _preview2Size.Height * viewWidth / _preview2Size.Width;
-                    previewDisplayYOffset = (viewHeight - previewDisplayHeight) / 2;
-                    rotation = 90;
-                    break;
-                default:
-                    _cameraModule.IsPortrait = false;
-                    _cameraModule.IsViewInverted = true;
-                    previewDisplayHeight = _preview2Size.Height * viewWidth / _preview2Size.Width;
-                    previewDisplayYOffset = (viewHeight - previewDisplayHeight) / 2;
-                    rotation = 270;
-                    break;
-            }
-
-            _cameraModule.PreviewBottomY = (previewDisplayHeight + previewDisplayYOffset) / metrics.Density;
-
-            _textureView.SetY(previewDisplayYOffset);
-            _textureView.LayoutParameters = new FrameLayout.LayoutParams((int)viewWidth, (int)previewDisplayHeight); //TODO: is it better to use the matrix transforms than actually changing the textureview itself?
-
-            matrix.PostRotate(rotation);
-            _textureView.SetTransform(matrix);
-            //_textureView.Rotation = rotation;
         }
 
         private void SetRefreshingPreview2()
