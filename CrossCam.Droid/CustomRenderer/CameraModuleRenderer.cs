@@ -56,6 +56,8 @@ namespace CrossCam.Droid.CustomRenderer
         private CameraCaptureSession _previewSession;
         private bool _openingCamera2;
         private Size _preview2Size;
+        private int _camera2SensorOrientation;
+        readonly SparseIntArray _orientations = new SparseIntArray();
 
         public CameraModuleRenderer(Context context) : base(context)
         {
@@ -69,6 +71,11 @@ namespace CrossCam.Droid.CustomRenderer
             {
                 _cameraManager = (CameraManager)MainActivity.Instance.GetSystemService(Context.CameraService);
                 _useCamera2 = true;
+
+                _orientations.Append((int)SurfaceOrientation.Rotation0, 0);
+                _orientations.Append((int)SurfaceOrientation.Rotation90, 90);
+                _orientations.Append((int)SurfaceOrientation.Rotation180, 180);
+                _orientations.Append((int)SurfaceOrientation.Rotation270, 270);
             }
         }
 
@@ -325,6 +332,120 @@ namespace CrossCam.Droid.CustomRenderer
             return true;
         }
 
+        public void OnSurfaceTextureSizeChanged(SurfaceTexture surface, int width, int height) {}
+
+        private void OrientationChanged()
+        {
+            if (_surfaceTexture != null)
+            {
+                if (_isRunning && !_useCamera2)
+                {
+                    SetOrientation1();
+                    return;
+                }
+
+                if (_useCamera2)
+                {
+                    SetOrientation2();
+                }
+            }
+        }
+
+        private void TakePhotoButtonTapped()
+        {
+            try
+            {
+                if (_useCamera2)
+                {
+                    TakePhoto2();
+                }
+                else
+                {
+                    _camera1.TakePicture(this, this, this, this);
+                }
+            }
+            catch
+            {
+                //user can try again
+            }
+        }
+
+        private const int MAX_DOUBLE_TAP_DURATION = 200;
+        private long _tapStartTime;
+
+        public bool OnTouch(View v, MotionEvent e)
+        {
+            if (_camera1 != null)
+            {
+                if (JavaSystem.CurrentTimeMillis() - _tapStartTime <= MAX_DOUBLE_TAP_DURATION)
+                { //double tap
+                    TurnOnContinuousFocus();
+                }
+                else
+                { //single tap
+                    _tapStartTime = JavaSystem.CurrentTimeMillis();
+
+                    if (_cameraModule.IsTapToFocusEnabled)
+                    {
+                        if (_useCamera2)
+                        {
+
+                        }
+                        else
+                        {
+                            var parameters = _camera1.GetParameters();
+                            var focusRect = CalculateTapArea(e.GetX(), e.GetY(), 1f);
+                            var meteringRect = CalculateTapArea(e.GetX(), e.GetY(), 1.5f);
+
+                            if (parameters.MaxNumFocusAreas > 0 &&
+                                parameters.SupportedFocusModes.Contains(Camera.Parameters.FocusModeAuto))
+                            {
+                                parameters.FocusMode = Camera.Parameters.FocusModeAuto;
+                                parameters.FocusAreas = new List<Camera.Area> { new Camera.Area(focusRect, 1000) };
+                            }
+
+                            if (parameters.MaxNumMeteringAreas > 0)
+                            {
+                                parameters.MeteringAreas = new List<Camera.Area> { new Camera.Area(meteringRect, 1000) };
+                            }
+                            _camera1.SetParameters(parameters);
+                        }
+                    }
+                }
+            }
+
+            return false;
+        }
+
+        private Rect CalculateTapArea(float x, float y, float coefficient)
+        {
+            var areaSize = Float.ValueOf(100 * coefficient).IntValue();
+
+            var left = Clamp((int)x - areaSize / 2, 0, _textureView.Width - areaSize);
+            var top = Clamp((int)y - areaSize / 2, 0, _textureView.Height - areaSize);
+
+            var rectF = new RectF(left, top, left + areaSize, top + areaSize);
+            Matrix.MapRect(rectF);
+
+            return new Rect((int)(rectF.Left + 0.5), (int)(rectF.Top + 0.5), (int)(rectF.Right + 0.5), (int)(rectF.Bottom + 0.5));
+        }
+
+        private static int Clamp(int x, int min, int max)
+        {
+            if (x > max)
+            {
+                return max;
+            }
+            return x < min ? min : x;
+        }
+
+        public void OnError(CameraError error, Camera camera)
+        {
+            _cameraModule.ErrorMessage = error.ToString();
+        }
+
+#region camera1
+
         private void StopCamera1()
         {
             if (_isRunning)
@@ -343,10 +464,6 @@ namespace CrossCam.Droid.CustomRenderer
                 _camera1?.StartPreview();
                 _isRunning = true;
             }
-        }
-
-        public void OnSurfaceTextureSizeChanged(SurfaceTexture surface, int width, int height)
-        {
         }
 
         private void SetupAndStartCamera1(SurfaceTexture surface = null)
@@ -435,23 +552,6 @@ namespace CrossCam.Droid.CustomRenderer
             }
         }
 
-        private void OrientationChanged()
-        {
-            if (_surfaceTexture != null)
-            {
-                if (_isRunning && !_useCamera2)
-                {
-                    SetOrientation1();
-                    return;
-                }
-
-                if (_useCamera2)
-                {
-                    SetOrientation2();
-                }
-            }
-        }
-
         private void SetOrientation1()
         {
             var metrics = new DisplayMetrics();
@@ -506,25 +606,6 @@ namespace CrossCam.Droid.CustomRenderer
                 (int)Math.Round(proportionalPreviewHeight));
         }
 
-        private void TakePhotoButtonTapped()
-        {
-            try
-            {
-                if (_useCamera2)
-                {
-                    TakePhoto2();
-                }
-                else
-                {
-                    _camera1.TakePicture(this, this, this, this);
-                }
-            }
-            catch
-            {
-                //user can try again
-            }
-        }
-
         public void OnShutter()
         {
             _cameraModule.CaptureSuccess = !_cameraModule.CaptureSuccess;
@@ -562,80 +643,8 @@ namespace CrossCam.Droid.CustomRenderer
             }
         }
 
-        private const int MAX_DOUBLE_TAP_DURATION = 200;
-        private long _tapStartTime;
-
-        public bool OnTouch(View v, MotionEvent e)
-        {
-            if (_camera1 != null)
-            {
-                if (JavaSystem.CurrentTimeMillis() - _tapStartTime <= MAX_DOUBLE_TAP_DURATION)
-                { //double tap
-                    TurnOnContinuousFocus();
-                }
-                else
-                { //single tap
-                    _tapStartTime = JavaSystem.CurrentTimeMillis();
-
-                    if (_cameraModule.IsTapToFocusEnabled)
-                    {
-                        if (_useCamera2)
-                        {
-
-                        }
-                        else
-                        {
-                            var parameters = _camera1.GetParameters();
-                            var focusRect = CalculateTapArea(e.GetX(), e.GetY(), 1f);
-                            var meteringRect = CalculateTapArea(e.GetX(), e.GetY(), 1.5f);
-
-                            if (parameters.MaxNumFocusAreas > 0 &&
-                                parameters.SupportedFocusModes.Contains(Camera.Parameters.FocusModeAuto))
-                            {
-                                parameters.FocusMode = Camera.Parameters.FocusModeAuto;
-                                parameters.FocusAreas = new List<Camera.Area> { new Camera.Area(focusRect, 1000) };
-                            }
-
-                            if (parameters.MaxNumMeteringAreas > 0)
-                            {
-                                parameters.MeteringAreas = new List<Camera.Area> { new Camera.Area(meteringRect, 1000) };
-                            }
-                            _camera1.SetParameters(parameters);
-                        }
-                    }
-                }
-            }
-
-            return false;
-        }
-
-        private Rect CalculateTapArea(float x, float y, float coefficient)
-        {
-            var areaSize = Float.ValueOf(100 * coefficient).IntValue();
-
-            var left = Clamp((int)x - areaSize / 2, 0, _textureView.Width - areaSize);
-            var top = Clamp((int)y - areaSize / 2, 0, _textureView.Height - areaSize);
-
-            var rectF = new RectF(left, top, left + areaSize, top + areaSize);
-            Matrix.MapRect(rectF);
-
-            return new Rect((int)(rectF.Left+0.5), (int)(rectF.Top + 0.5), (int)(rectF.Right + 0.5), (int)(rectF.Bottom + 0.5));
-        }
-
-        private static int Clamp(int x, int min, int max)
-        {
-            if (x > max)
-            {
-                return max;
-            }
-            return x < min ? min : x;
-        }
-
-        public void OnError(CameraError error, Camera camera)
-        {
-            _cameraModule.ErrorMessage = error.ToString();
-        }
-
+        #endregion
+#region camera2
         private void OpenCamera2()
         {
             if (_openingCamera2)
@@ -661,8 +670,10 @@ namespace CrossCam.Droid.CustomRenderer
             var characteristics = _cameraManager.GetCameraCharacteristics(backFacingCameraId);
             var map = (StreamConfigurationMap)characteristics.Get(CameraCharacteristics.ScalerStreamConfigurationMap);
 
+            _camera2SensorOrientation = (int)characteristics.Get(CameraCharacteristics.SensorOrientation);
+
             var previewSizes = map.GetOutputSizes(Class.FromType(typeof(SurfaceTexture)));
-            _preview2Size = previewSizes[0];
+            _preview2Size = previewSizes[0]; //TODO: need to actually get good size (same proportions as largest capture size)
 
             _stateListener = new CameraStateListener(this);
 
@@ -720,16 +731,14 @@ namespace CrossCam.Droid.CustomRenderer
 
             var metrics = new DisplayMetrics();
             Display.GetMetrics(metrics);
-            
+
             var matrix = new Matrix();
-            var viewWidth = (float) _cameraModule.Width * metrics.Density;
-            var viewHeight = (float) _cameraModule.Height * metrics.Density;
+            var viewWidth = (float)_cameraModule.Width * metrics.Density;
+            var viewHeight = (float)_cameraModule.Height * metrics.Density;
 
             float previewDisplayHeight;
             float rotation;
             float previewDisplayYOffset;
-            RectF previewDisplayRect;
-            RectF viewRect;
             switch (Display.Rotation)
             {
                 case SurfaceOrientation.Rotation0:
@@ -737,9 +746,6 @@ namespace CrossCam.Droid.CustomRenderer
                     _cameraModule.IsPortrait = true;
                     previewDisplayHeight = _preview2Size.Width * viewWidth / _preview2Size.Height;
                     previewDisplayYOffset = (viewHeight - previewDisplayHeight) / 2;
-                    viewRect = new RectF(0, 0, viewWidth, viewHeight);
-                    previewDisplayRect = new RectF(0, previewDisplayYOffset, viewWidth,
-                        previewDisplayHeight + previewDisplayYOffset);
                     rotation = 0;
                     break;
                 case SurfaceOrientation.Rotation180:
@@ -747,9 +753,6 @@ namespace CrossCam.Droid.CustomRenderer
                     _cameraModule.IsPortrait = true;
                     previewDisplayHeight = _preview2Size.Width * viewWidth / _preview2Size.Height;
                     previewDisplayYOffset = (viewHeight - previewDisplayHeight) / 2;
-                    viewRect = new RectF(0, 0, viewWidth, viewHeight);
-                    previewDisplayRect = new RectF(0, previewDisplayYOffset, viewWidth,
-                        previewDisplayHeight + previewDisplayYOffset);
                     rotation = 180;
                     break;
                 case SurfaceOrientation.Rotation90:
@@ -757,32 +760,25 @@ namespace CrossCam.Droid.CustomRenderer
                     _cameraModule.IsPortrait = false;
                     previewDisplayHeight = _preview2Size.Height * viewWidth / _preview2Size.Width;
                     previewDisplayYOffset = (viewHeight - previewDisplayHeight) / 2;
-                    viewRect = new RectF(0, 0, viewWidth, viewHeight);
-                    previewDisplayRect = new RectF(0, previewDisplayYOffset, viewWidth,
-                        previewDisplayHeight + previewDisplayYOffset);
-                    rotation = 0;
+                    rotation = 90;
                     break;
                 default:
                     _cameraModule.IsPortrait = false;
                     _cameraModule.IsViewInverted = true;
                     previewDisplayHeight = _preview2Size.Height * viewWidth / _preview2Size.Width;
                     previewDisplayYOffset = (viewHeight - previewDisplayHeight) / 2;
-                    viewRect = new RectF(0, 0, viewWidth, viewHeight);
-                    previewDisplayRect = new RectF(0, previewDisplayYOffset, viewWidth,
-                        previewDisplayHeight + previewDisplayYOffset);
-                    rotation = 90;
+                    rotation = 270;
                     break;
             }
 
             _cameraModule.PreviewBottomY = (previewDisplayHeight + previewDisplayYOffset) / metrics.Density;
 
-            matrix.SetRectToRect(viewRect, previewDisplayRect, Matrix.ScaleToFit.Fill);
+            _textureView.SetY(previewDisplayYOffset);
+            _textureView.LayoutParameters = new FrameLayout.LayoutParams((int)viewWidth, (int)previewDisplayHeight); //TODO: is it better to use the matrix transforms than actually changing the textureview itself?
 
-            matrix.PostRotate(rotation, viewRect.CenterX(), viewRect.CenterY());
-
-            _textureView.LayoutParameters = new FrameLayout.LayoutParams((int)viewWidth, (int)viewHeight);
-
+            matrix.PostRotate(rotation);
             _textureView.SetTransform(matrix);
+            //_textureView.Rotation = rotation;
         }
 
         private void SetRefreshingPreview2()
@@ -811,12 +807,7 @@ namespace CrossCam.Droid.CustomRenderer
             var windowManager = MainActivity.Instance.GetSystemService(Context.WindowService).JavaCast<IWindowManager>();
             var rotation = windowManager.DefaultDisplay.Rotation;
 
-            var orientations = new SparseIntArray();
-            orientations.Append((int)SurfaceOrientation.Rotation0, 0);
-            orientations.Append((int)SurfaceOrientation.Rotation90, 90);
-            orientations.Append((int)SurfaceOrientation.Rotation180, 180);
-            orientations.Append((int)SurfaceOrientation.Rotation270, 270);
-            captureBuilder.Set(CaptureRequest.JpegOrientation, new Integer(orientations.Get((int)rotation))); //TODO: use the other orientation stuff?
+            captureBuilder.Set(CaptureRequest.JpegOrientation, new Integer(_orientations.Get((int)rotation))); //TODO: use the other orientation stuff?
 
             var readerListener = new ImageAvailableListener();
             readerListener.Photo += (sender, buffer) =>
@@ -857,6 +848,7 @@ namespace CrossCam.Droid.CustomRenderer
                 }
             }, backgroundHandler);
         }
+#endregion
     }
 }
 
