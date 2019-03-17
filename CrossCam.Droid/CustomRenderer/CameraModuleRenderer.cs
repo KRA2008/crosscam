@@ -444,11 +444,11 @@ namespace CrossCam.Droid.CustomRenderer
             var metrics = new DisplayMetrics();
             Display.GetMetrics(metrics);
 
-            var moduleWidth = _cameraModule.Width * metrics.Density;
-            var moduleHeight = _cameraModule.Height * metrics.Density;
+            var moduleWidth = (float)(_cameraModule.Width * metrics.Density);
+            var moduleHeight = (float)(_cameraModule.Height * metrics.Density);
 
-            double previewSizeWidth;
-            double previewSizeHeight;
+            float previewSizeWidth;
+            float previewSizeHeight;
             int rotation1;
             int rotation2;
 
@@ -463,7 +463,13 @@ namespace CrossCam.Droid.CustomRenderer
                 previewSizeHeight = _previewSize.Height;
             }
 
-            double proportionalPreviewHeight;
+            float xAdjust2;
+            float yAdjust2;
+            float previewWidth2;
+            float previewHeight2;
+            float verticalOffset;
+
+            float proportionalPreviewHeight;
             switch (Display.Rotation)
             {
                 case SurfaceOrientation.Rotation0:
@@ -472,6 +478,11 @@ namespace CrossCam.Droid.CustomRenderer
                     proportionalPreviewHeight = previewSizeWidth * moduleWidth / previewSizeHeight;
                     rotation1 = 90;
                     rotation2 = 0;
+                    verticalOffset = (moduleHeight - proportionalPreviewHeight) / 2f; //TODO: extract this and reduce duplication
+                    xAdjust2 = 0;
+                    yAdjust2 = verticalOffset;
+                    previewWidth2 = moduleWidth;
+                    previewHeight2 = proportionalPreviewHeight;
                     break;
                 case SurfaceOrientation.Rotation180:
                     _cameraModule.IsViewInverted = true;
@@ -479,6 +490,11 @@ namespace CrossCam.Droid.CustomRenderer
                     proportionalPreviewHeight = previewSizeWidth * moduleWidth / previewSizeHeight;
                     rotation1 = 270;
                     rotation2 = -180;
+                    verticalOffset = (moduleHeight - proportionalPreviewHeight) / 2f;
+                    xAdjust2 = moduleWidth;
+                    yAdjust2 = verticalOffset + proportionalPreviewHeight;
+                    previewWidth2 = moduleWidth;
+                    previewHeight2 = proportionalPreviewHeight;
                     break;
                 case SurfaceOrientation.Rotation90:
                     _cameraModule.IsViewInverted = false;
@@ -486,6 +502,11 @@ namespace CrossCam.Droid.CustomRenderer
                     proportionalPreviewHeight = previewSizeHeight * moduleWidth / previewSizeWidth;
                     rotation1 = 0;
                     rotation2 = -90;
+                    verticalOffset = (moduleHeight - proportionalPreviewHeight) / 2f;
+                    xAdjust2 = 0;
+                    yAdjust2 = proportionalPreviewHeight + verticalOffset;
+                    previewWidth2 = proportionalPreviewHeight;
+                    previewHeight2 = moduleWidth;
                     break;
                 default:
                     _cameraModule.IsPortrait = false;
@@ -493,6 +514,11 @@ namespace CrossCam.Droid.CustomRenderer
                     proportionalPreviewHeight = previewSizeHeight * moduleWidth / previewSizeWidth;
                     rotation1 = 180;
                     rotation2 = -270;
+                    verticalOffset = (moduleHeight - proportionalPreviewHeight) / 2f;
+                    xAdjust2 = moduleWidth;
+                    yAdjust2 = verticalOffset;
+                    previewWidth2 = proportionalPreviewHeight;
+                    previewHeight2 = moduleWidth;
                     break;
             }
 
@@ -505,28 +531,26 @@ namespace CrossCam.Droid.CustomRenderer
             }
             else
             {
+                _textureView.PivotX = 0;
+                _textureView.PivotY = 0;
                 _textureView.Rotation = rotation2;
             }
 
-            var verticalOffset = (moduleHeight - proportionalPreviewHeight) / 2f;
-
             _cameraModule.PreviewBottomY = (moduleHeight - verticalOffset) / metrics.Density;
             
-            if (!_useCamera2 || 
-                Display.Rotation == SurfaceOrientation.Rotation0 ||
-                Display.Rotation == SurfaceOrientation.Rotation180)
+            if (!_useCamera2)
             {
                 _textureView.SetX(0);
-                _textureView.SetY((float)verticalOffset);
+                _textureView.SetY(verticalOffset);
                 _textureView.LayoutParameters = new FrameLayout.LayoutParams((int)Math.Round(moduleWidth),
                     (int)Math.Round(proportionalPreviewHeight));
                 return;
             }
             
-            _textureView.SetX((float)(Math.Abs(moduleHeight - moduleWidth) / 2f));
-            _textureView.SetY((float)(Math.Abs(moduleWidth - proportionalPreviewHeight) / 2f));
-            _textureView.LayoutParameters = new FrameLayout.LayoutParams((int)Math.Round(proportionalPreviewHeight),
-                (int)Math.Round(moduleWidth));
+            _textureView.SetX(xAdjust2);
+            _textureView.SetY(yAdjust2);
+            _textureView.LayoutParameters = new FrameLayout.LayoutParams((int)Math.Round(previewWidth2),
+                (int)Math.Round(previewHeight2));
         }
 
 #region camera1
