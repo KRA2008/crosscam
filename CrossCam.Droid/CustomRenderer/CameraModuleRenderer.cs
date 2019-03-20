@@ -844,19 +844,29 @@ namespace CrossCam.Droid.CustomRenderer
             switch (phoneOrientation)
             {
                 case 0:
-                    neededRotation = _camera2SensorOrientation % 360;
+                    neededRotation = _camera2SensorOrientation;
                     break;
                 case 90:
-                    neededRotation = (_camera2SensorOrientation - 90) % 360;
+                    neededRotation = _camera2SensorOrientation + 270;
                     break;
                 case 180:
-                    neededRotation = (_camera2SensorOrientation + 180) % 360;
+                    neededRotation = _camera2SensorOrientation + 180;
                     break;
                 case 270:
-                    neededRotation = (_camera2SensorOrientation + 90) % 360;
+                    neededRotation = _camera2SensorOrientation + 90;
                     break;
             }
             //TODO: inverted portrait on S9 is wrong...
+            while (neededRotation < 0)
+            {
+                neededRotation += 360;
+            }
+
+            if (neededRotation >= 360)
+            {
+                neededRotation = neededRotation % 360;
+            }
+
             captureBuilder.Set(CaptureRequest.JpegOrientation, new Integer(neededRotation));
 
             var readerListener = new ImageAvailableListener();
