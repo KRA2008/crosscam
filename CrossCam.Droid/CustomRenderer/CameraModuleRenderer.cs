@@ -174,7 +174,7 @@ namespace CrossCam.Droid.CustomRenderer
                 {
                     if (_useCamera2 && _cameraModule.IsNothingCaptured)
                     {
-                        StartPreview2();
+                        SetRefreshingPreview2(true);
                     }
                 }
 
@@ -777,7 +777,7 @@ namespace CrossCam.Droid.CustomRenderer
             _camera2 = null;
         }
 
-        public void StartPreview2(CameraDevice camera = null, bool? lock3A = null)
+        public void StartPreview2(CameraDevice camera = null)
         {
             if (camera == null && _camera2 == null) return;
 
@@ -801,7 +801,7 @@ namespace CrossCam.Droid.CustomRenderer
                     OnConfiguredAction = session =>
                     {
                         _previewSession = session;
-                        SetRefreshingPreview2(lock3A ?? !_cameraModule.IsNothingCaptured);
+                        SetRefreshingPreview2(false);
                     }
                 },
                 null);
@@ -824,20 +824,23 @@ namespace CrossCam.Droid.CustomRenderer
             _openingCamera2 = false;
         }
 
-        private void SetRefreshingPreview2(bool lock3A = false)
+        private void SetRefreshingPreview2(bool lock3A)
         {
             _previewBuilder.Set(CaptureRequest.ControlMode, new Integer((int)ControlMode.Auto));
 
             if (lock3A)
             {
-                //TODO: focus locking
+                _previewBuilder.Set(CaptureRequest.ControlAwbLock, new Boolean(true));
+                _previewBuilder.Set(CaptureRequest.BlackLevelLock, new Boolean(true));
                 _previewBuilder.Set(CaptureRequest.ControlAeLock, new Boolean(true));
             }
             else
             {
+                _previewBuilder.Set(CaptureRequest.ControlAwbLock, new Boolean(false));
+                _previewBuilder.Set(CaptureRequest.BlackLevelLock, new Boolean(false));
                 _previewBuilder.Set(CaptureRequest.ControlAeLock, new Boolean(false));
                 _previewBuilder.Set(CaptureRequest.ControlAePrecaptureTrigger, new Integer((int)ControlAEPrecaptureTrigger.Start));
-                _previewBuilder.Set(CaptureRequest.ControlAeMode, new Integer((int)ControlAEMode.On));
+                _previewBuilder.Set(CaptureRequest.ControlAfTrigger, new Integer((int)ControlAFTrigger.Start));
             }
 
             var thread = new HandlerThread("CameraPreview");
@@ -913,7 +916,7 @@ namespace CrossCam.Droid.CustomRenderer
 
             captureListener.PhotoComplete += (sender, e) =>
             {
-                StartPreview2(_camera2, true);
+                StartPreview2(_camera2);
             };
 
             _camera2.CreateCaptureSession(outputSurfaces, new CameraCaptureStateListener
