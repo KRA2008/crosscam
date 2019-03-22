@@ -832,13 +832,14 @@ namespace CrossCam.Droid.CustomRenderer
                 _previewBuilder.Set(CaptureRequest.ControlAwbLock, new Boolean(true));
                 _previewBuilder.Set(CaptureRequest.BlackLevelLock, new Boolean(true));
                 _previewBuilder.Set(CaptureRequest.ControlAeLock, new Boolean(true));
+                _previewBuilder.Set(CaptureRequest.ControlAfTrigger, new Integer((int)ControlAFTrigger.Start));
             }
             else
             {
-                _previewBuilder.Set(CaptureRequest.ControlAfMode, new Integer((int) ControlAFMode.ContinuousPicture));
                 _previewBuilder.Set(CaptureRequest.ControlAwbLock, new Boolean(false));
                 _previewBuilder.Set(CaptureRequest.BlackLevelLock, new Boolean(false));
                 _previewBuilder.Set(CaptureRequest.ControlAeLock, new Boolean(false));
+                _previewBuilder.Set(CaptureRequest.ControlAfTrigger, new Integer((int)ControlAFTrigger.Cancel)); //TODO: this is only available at certain API level, lock that down above
             }
 
             var thread = new HandlerThread("CameraPreview");
