@@ -76,19 +76,6 @@ namespace CrossCam.iOS.CustomRenderer
                     _isInitialized = true;
                 }
 
-                if (_isInitialized)
-                {
-                    if (_cameraModule.IsVisible)
-                    {
-                        SetupCamera();
-                        StartPreview();
-                    }
-                    else
-                    {
-                        StopPreview();
-                    }
-                }
-
                 if (e.PropertyName == nameof(_cameraModule.CaptureTrigger))
                 {
                     if (_cameraModule.IsVisible)
@@ -184,11 +171,6 @@ namespace CrossCam.iOS.CustomRenderer
         private void StartPreview()
         {
             _captureSession.StartRunning();
-        }
-
-        private void StopPreview()
-        {
-            _captureSession.StopRunning();
         }
 
         private void CapturePhoto()
@@ -381,6 +363,7 @@ namespace CrossCam.iOS.CustomRenderer
         private void SetupUserInterface()
         {
             SetupCamera();
+            StartPreview();
             NativeView.Add(_liveCameraStream);
             NativeView.ClipsToBounds = true;
         }
@@ -396,7 +379,6 @@ namespace CrossCam.iOS.CustomRenderer
                     case UIDeviceOrientation.LandscapeRight:
                         if (_previousValidOrientation != UIDevice.CurrentDevice.Orientation)
                         {
-                            StopPreview();
                             SetupCamera();
                             switch (UIDevice.CurrentDevice.Orientation)
                             {
@@ -413,11 +395,7 @@ namespace CrossCam.iOS.CustomRenderer
                                     _cameraModule.IsViewInverted = true;
                                     break;
                             }
-
-                            if (_cameraModule.IsVisible)
-                            {
-                                StartPreview();
-                            }
+                            
                             _previousValidOrientation = UIDevice.CurrentDevice.Orientation;
                         }
 
@@ -425,12 +403,7 @@ namespace CrossCam.iOS.CustomRenderer
                     default:
                         if (!_previousValidOrientation.HasValue)
                         {
-                            StopPreview();
                             _cameraModule.IsPortrait = true;
-                            if (_cameraModule.IsVisible)
-                            {
-                                StartPreview();
-                            }
 
                             _previousValidOrientation = UIDeviceOrientation.Portrait;
                         }
