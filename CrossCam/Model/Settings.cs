@@ -10,10 +10,7 @@ namespace CrossCam.Model
 
         public bool ShowGuideLinesWithFirstCapture { get; set; }
         public bool ShowGuideDonutWithFirstCapture { get; set; }
-        public bool IsGuideDonutBothDonuts { get; set; }
         public bool ShowRollGuide { get; set; }
-        public bool ShowPitchGuide { get; set; }
-        public bool ShowYawGuide { get; set; }
 
         public bool IsCaptureLeftFirst { get; set; }
         public bool IsTapToFocusEnabled { get; set; }
@@ -103,7 +100,6 @@ namespace CrossCam.Model
                 if (!value)
                 {
                     ShowGuideDonutWithFirstCapture = false;
-                    IsGuideDonutBothDonuts = false;
                 }
             }
         }
@@ -217,13 +213,10 @@ namespace CrossCam.Model
             ShowRollGuide = true;
 
             AddBorder = false;
-            ShowPitchGuide = false;
-            ShowYawGuide = false;
 
             ShowGuideLinesWithFirstCapture = false;
             IsGuideDonutVisible = false;
             ShowGuideDonutWithFirstCapture = false;
-            IsGuideDonutBothDonuts = false;
             SaveSidesSeparately = false;
             IsTapToFocusEnabled = false;
             SaveRedundantFirstSide = false;

@@ -130,8 +130,6 @@ namespace CrossCam.ViewModel
         public bool ShouldLineGuidesBeVisible => (IsExactlyOnePictureTaken || Settings.ShowGuideLinesWithFirstCapture && WorkflowStage == WorkflowStage.Capture) && Settings.AreGuideLinesVisible || WorkflowStage == WorkflowStage.Keystone || WorkflowStage == WorkflowStage.ManualAlign;
         public bool ShouldDonutGuideBeVisible => (IsExactlyOnePictureTaken || Settings.ShowGuideDonutWithFirstCapture && WorkflowStage == WorkflowStage.Capture) && Settings.IsGuideDonutVisible;
         public bool ShouldRollGuideBeVisible => WorkflowStage == WorkflowStage.Capture && Settings.ShowRollGuide;
-        public bool ShouldPitchGuideBeVisible => IsExactlyOnePictureTaken && Settings.ShowPitchGuide;
-        public bool ShouldYawGuideBeVisible => IsExactlyOnePictureTaken && Settings.ShowYawGuide;
         public bool ShouldViewButtonBeVisible => WorkflowStage == WorkflowStage.Final ||
                                                  WorkflowStage == WorkflowStage.Crop ||
                                                  WorkflowStage == WorkflowStage.Keystone ||
@@ -158,17 +156,12 @@ namespace CrossCam.ViewModel
                                                                WorkflowStage == WorkflowStage.Edits);
         public string PortraitToLandscapeHint =>
             WorkflowStage == WorkflowStage.Capture ? "(flip for landscape)" : WorkflowStage == WorkflowStage.Edits ? "(flip to landscape for easier editing)" : "(flip to landscape for a better view)";
-
-        public ImageSource LeftReticleImage => ImageSource.FromFile("squareOuter");
-        public ImageSource RightReticleImage => Settings.IsGuideDonutBothDonuts
-            ? ImageSource.FromFile("squareOuter")
-            : ImageSource.FromFile("squareInner");
         
         private WorkflowStage _stageBeforeView;
         private int _alignmentThreadLock;
         private bool _wasAnaglyphAlignmentRun;
         private bool _wasSideBySideAlignmentRun;
-        private IPhotoSaver _photoSaver;
+        private readonly IPhotoSaver _photoSaver;
 
         public CameraViewModel()
         {
@@ -705,10 +698,7 @@ namespace CrossCam.ViewModel
             RaisePropertyChanged(nameof(ShouldLineGuidesBeVisible)); //TODO: figure out how to have Fody do this (just firing 'null' has bad behavior)
             RaisePropertyChanged(nameof(ShouldDonutGuideBeVisible));
             RaisePropertyChanged(nameof(ShouldRollGuideBeVisible));
-            RaisePropertyChanged(nameof(ShouldPitchGuideBeVisible));
-            RaisePropertyChanged(nameof(ShouldYawGuideBeVisible));
             RaisePropertyChanged(nameof(ShouldSaveCapturesButtonBeVisible));
-            RaisePropertyChanged(nameof(RightReticleImage));
             RaisePropertyChanged(nameof(ShouldLeftLeftRetakeBeVisible));
             RaisePropertyChanged(nameof(ShouldLeftRightRetakeBeVisible));
             RaisePropertyChanged(nameof(ShouldRightLeftRetakeBeVisible));

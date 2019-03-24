@@ -20,7 +20,6 @@ namespace CrossCam.Page
 	    private const double LEVEL_BUBBLE_MIDDLE = 22.5;
 	    private const double LEVEL_BUBBLE_SPEED = 5;
 	    private const double LEVEL_ICON_WIDTH = 60;
-	    private const double OTHER_SENSOR_ICON_WIDTH = 30;
 	    private readonly ImageSource _levelBubbleImage = ImageSource.FromFile("horizontalLevelInside");
 	    private readonly ImageSource _levelOutsideImage = ImageSource.FromFile("horizontalLevelOutside");
 	    private readonly ImageSource _levelBubbleGreenImage = ImageSource.FromFile("horizontalLevelInsideGreen");
@@ -47,21 +46,6 @@ namespace CrossCam.Page
 
         private double _averageRoll;
 
-	    private double _averagePitch;
-	    private double _firstPhotoPitch;
-	    private readonly ImageSource _pitchForward = ImageSource.FromFile("rotateForwardInBoxWall");
-	    private readonly ImageSource _pitchBackward = ImageSource.FromFile("rotateBackwardInBoxWall");
-	    private readonly ImageSource _pitchStar = ImageSource.FromFile("starInBoxWall");
-
-	    private const double COMPASS_MEASURMENT_WEIGHT = 2;
-	    private const double COMPASS_SENSITIVITY = 0.9;
-
-        private double _averageYaw;
-	    private double _firstPhotoYaw;
-	    private readonly ImageSource _yawLeft = ImageSource.FromFile("rotateLeftInBoxFloor");
-	    private readonly ImageSource _yawRight = ImageSource.FromFile("rotateRightInBoxFloor");
-	    private readonly ImageSource _yawStar = ImageSource.FromFile("starInBoxFloor");
-
         public CameraPage()
 		{
             InitializeComponent();
@@ -75,7 +59,6 @@ namespace CrossCam.Page
 		    _horizontalLevelOutside.Source = _levelOutsideImage;
 
             Accelerometer.ReadingChanged += HandleAccelerometerReading;
-		    Compass.ReadingChanged += HandleCompassReading;
             MessagingCenter.Subscribe<App>(this, App.APP_PAUSING_EVENT, o => EvaluateSensors(false));
 		    MessagingCenter.Subscribe<App>(this, App.APP_UNPAUSING_EVENT, o => EvaluateSensors());
         }
@@ -89,7 +72,7 @@ namespace CrossCam.Page
 	    {
 	        if (_viewModel != null)
 	        {
-	            if ((_viewModel.Settings.ShowPitchGuide || _viewModel.Settings.ShowRollGuide) && 
+	            if (_viewModel.Settings.ShowRollGuide && 
 	                _viewModel.WorkflowStage == WorkflowStage.Capture &&
 	                isAppRunning)
 	            {
@@ -119,85 +102,14 @@ namespace CrossCam.Page
 	                    }
                     }
 	            }
-
-	            if (_viewModel.Settings.ShowYawGuide &&
-	                _viewModel.WorkflowStage == WorkflowStage.Capture &&
-	                isAppRunning)
-	            {
-	                if (!Compass.IsMonitoring)
-	                {
-	                    try
-	                    {
-                            Compass.Start(SensorSpeed.Fastest);
-	                    }
-	                    catch
-	                    {
-                            //oh well
-	                    }
-                    }
-	            }
-	            else
-	            {
-	                if (Compass.IsMonitoring)
-	                {
-	                    try
-	                    {
-                            Compass.Stop();
-	                    }
-	                    catch
-	                    {
-                            //oh well
-	                    }
-	                }
-	            }
 	        }
 	    }
-
-        private void HandleCompassReading(object sender, CompassChangedEventArgs args)
-        {
-            _averageYaw *= (COMPASS_MEASURMENT_WEIGHT - 1) / COMPASS_MEASURMENT_WEIGHT;
-
-            var heading = args.Reading.HeadingMagneticNorth;
-            if (_viewModel != null && _viewModel.IsNothingCaptured)
-            {
-                _firstPhotoYaw = heading;
-            }
-            if (_viewModel != null && _viewModel.IsExactlyOnePictureTaken)
-            {
-                _averageYaw += heading / COMPASS_MEASURMENT_WEIGHT;
-            }
-
-            var roundedYawDifference = Math.Round((_firstPhotoYaw - _averageYaw) * COMPASS_SENSITIVITY);
-            if (roundedYawDifference > 0)
-            {
-                _yawIndicator.Source = _yawRight;
-            }
-            else if (roundedYawDifference < 0)
-            {
-                _yawIndicator.Source = _yawLeft;
-            }
-            else
-            {
-                _yawIndicator.Source = _yawStar;
-            }
-        }
 
         private void HandleAccelerometerReading(object sender, AccelerometerChangedEventArgs args)
         {
             _averageRoll *= (ACCELEROMETER_MEASURMENT_WEIGHT - 1) / ACCELEROMETER_MEASURMENT_WEIGHT;
-            _averagePitch *= (ACCELEROMETER_MEASURMENT_WEIGHT - 1) / ACCELEROMETER_MEASURMENT_WEIGHT;
 
             var acceleration = args.Reading.Acceleration;
-            if (_viewModel != null && 
-                _viewModel.IsNothingCaptured)
-            {
-                _firstPhotoPitch = acceleration.Z;
-            }
-            if (_viewModel != null && 
-                _viewModel.IsExactlyOnePictureTaken)
-            {
-                _averagePitch += acceleration.Z / ACCELEROMETER_MEASURMENT_WEIGHT;
-            }
 
             if (_viewModel != null)
             {
@@ -256,20 +168,6 @@ namespace CrossCam.Page
             }
             bubbleBounds.X = newBounds;
             AbsoluteLayout.SetLayoutBounds(_horizontalLevelBubble, bubbleBounds);
-
-            var roundedPitchDifference = Math.Round((_firstPhotoPitch - _averagePitch) * ACCELEROMETER_SENSITIVITY);
-            if (roundedPitchDifference > 0)
-            {
-                _pitchIndicator.Source = _pitchForward;
-            }
-            else if (roundedPitchDifference < 0)
-            {
-                _pitchIndicator.Source = _pitchBackward;
-            }
-            else
-            {
-                _pitchIndicator.Source = _pitchStar;
-            }
         }
 
         protected override void OnBindingContextChanged()
@@ -296,7 +194,6 @@ namespace CrossCam.Page
                     ResetGuides();
                     break;
                 case nameof(CameraViewModel.IsViewPortrait):
-                case nameof(CameraViewModel.CameraColumn):
 	                ResetGuides();
 	                break;
                 case nameof(CameraViewModel.PreviewBottomY):
@@ -343,13 +240,8 @@ namespace CrossCam.Page
 	    private void SetSensorGuidesY()
 	    {
 	        var rollBounds = AbsoluteLayout.GetLayoutBounds(_horizontalLevelWhole);
-	        var pitchBounds = AbsoluteLayout.GetLayoutBounds(_pitchIndicator);
-	        var yawBounds = AbsoluteLayout.GetLayoutBounds(_yawIndicator);
 	        rollBounds.Y = _viewModel.PreviewBottomY - LEVEL_ICON_WIDTH / 5;
-	        pitchBounds.Y = yawBounds.Y = _viewModel.PreviewBottomY;
             AbsoluteLayout.SetLayoutBounds(_horizontalLevelWhole, rollBounds);
-	        AbsoluteLayout.SetLayoutBounds(_pitchIndicator, pitchBounds);
-	        AbsoluteLayout.SetLayoutBounds(_yawIndicator, yawBounds);
         }
 
         private void ResetGuides()
@@ -379,20 +271,10 @@ namespace CrossCam.Page
                 AbsoluteLayout.SetLayoutBounds(_lowerLinePanner, _lowerLineBoundsLandscape);
             }
             var rollBounds = AbsoluteLayout.GetLayoutBounds(_horizontalLevelWhole);
-            var pitchBounds = AbsoluteLayout.GetLayoutBounds(_pitchIndicator);
-            var yawBounds = AbsoluteLayout.GetLayoutBounds(_yawIndicator);
             rollBounds.Width = LEVEL_ICON_WIDTH;
             rollBounds.Height = LEVEL_ICON_WIDTH;
             rollBounds.X = _viewModel == null || _viewModel.CameraColumn == 0 ? 0.2 : 0.8;
             AbsoluteLayout.SetLayoutBounds(_horizontalLevelWhole, rollBounds);
-            pitchBounds.Width = OTHER_SENSOR_ICON_WIDTH;
-            pitchBounds.Height = OTHER_SENSOR_ICON_WIDTH;
-            pitchBounds.X = _viewModel == null || _viewModel.CameraColumn == 0 ? 0.15 : 0.85;
-            AbsoluteLayout.SetLayoutBounds(_pitchIndicator, pitchBounds);
-            yawBounds.Width = OTHER_SENSOR_ICON_WIDTH;
-            yawBounds.Height = OTHER_SENSOR_ICON_WIDTH;
-            yawBounds.X = _viewModel == null || _viewModel.CameraColumn == 0 ? 0.375 : 0.625;
-            AbsoluteLayout.SetLayoutBounds(_yawIndicator, yawBounds);
 
             AbsoluteLayout.SetLayoutFlags(_leftReticle, AbsoluteLayoutFlags.All);
             AbsoluteLayout.SetLayoutBounds(_leftReticle, _leftReticleBounds);
