@@ -90,7 +90,7 @@ namespace CrossCam.ViewModel
         public int VerticalAlignment { get; set; }
         public int VerticalAlignmentMin => -VerticalAlignmentMax;
 
-        public float RotationMax => 10;
+        public float RotationMax => 5;
         public float LeftRotation { get; set; }
         public float RightRotation { get; set; }
         public float RotationMin => -RotationMax;
