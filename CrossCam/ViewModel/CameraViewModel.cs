@@ -504,7 +504,7 @@ namespace CrossCam.ViewModel
                             ? (int) (DrawTool.BORDER_CONVERSION_FACTOR * Settings.BorderWidthProportion *
                                      finalImageWidth)
                             : 0;
-                        finalImageWidth += 4 * borderThickness;
+                        finalImageWidth += 3 * borderThickness;
                         var finalImageHeight = DrawTool.CalculateCanvasHeightLessBorder(LeftBitmap, RightBitmap,
                                                    TopCrop, BottomCrop,
                                                    VerticalAlignment) +
@@ -730,10 +730,17 @@ namespace CrossCam.ViewModel
 
         private async Task LoadFullStereoImage(byte[] image)
         {
-            var leftHalf = await Task.Run(() => GetHalfOfFullStereoImage(image, true));
-            SetLeftBitmap(leftHalf, false);
-            var rightHalf = await Task.Run(() => GetHalfOfFullStereoImage(image, false));
-            SetRightBitmap(rightHalf, false);
+            try
+            {
+                var leftHalf = await Task.Run(() => GetHalfOfFullStereoImage(image, true));
+                SetLeftBitmap(leftHalf, false);
+                var rightHalf = await Task.Run(() => GetHalfOfFullStereoImage(image, false));
+                SetRightBitmap(rightHalf, false);
+            }
+            catch (Exception e)
+            {
+                ErrorMessage = e.ToString();
+            }
         }
 
         private async void LeftBytesCaptured(byte[] capturedBytes)
@@ -969,68 +976,79 @@ namespace CrossCam.ViewModel
             ZoomMax = bitmap.Height / 12;
         }
 
-        private static SKBitmap GetHalfOfFullStereoImage(byte[] bytes, bool wantLeft)
+        private static SKBitmap GetHalfOfFullStereoImage(byte[] bytes, bool wantLeft) 
         {
             var original = SKBitmap.Decode(bytes);
 
-            const int BORDER_DIFF_THRESHOLD = 5;
+            const int BORDER_DIFF_THRESHOLD = 25;
             var bottomBorder = 0;
             var leftBorder = 0;
             var topBorder = 0;
             var rightBorder = 0;
 
-            var topLeft = GetTotalColor(original.GetPixel(0, 0));
-            var topRight = GetTotalColor(original.GetPixel(original.Width - 1, 0));
-            var bottomRight = GetTotalColor(original.GetPixel(original.Width - 1, original.Height - 1));
-            var bottomLeft = GetTotalColor(original.GetPixel(0, original.Height - 1));
-
-            if (Math.Abs(topLeft - topRight) < BORDER_DIFF_THRESHOLD &&
-                Math.Abs(topRight - bottomRight) < BORDER_DIFF_THRESHOLD &&
-                Math.Abs(bottomRight - bottomLeft) < BORDER_DIFF_THRESHOLD &&
-                Math.Abs(bottomLeft - topLeft) < BORDER_DIFF_THRESHOLD &&
-                Math.Abs(topLeft - bottomRight) < BORDER_DIFF_THRESHOLD &&
-                Math.Abs(topRight - bottomLeft) < BORDER_DIFF_THRESHOLD)
+            var midX = original.Width / 2;
+            if (original.Width % 2 == 0 &&
+                wantLeft)
             {
-                for (var ii = 0; ii < original.Width / 4; ii++)
+                midX -= 1;
+            }
+            var startX = wantLeft ? 0 : midX;
+            var endX = wantLeft ? midX : original.Width - 1;
+            var startY = 0;
+            var endY = original.Height - 1;
+
+            var topLeftColor = GetTotalColor(original.GetPixel(startX, startY));
+            var topRightColor = GetTotalColor(original.GetPixel(endX, startY));
+            var bottomRightColor = GetTotalColor(original.GetPixel(endX, endY));
+            var bottomLeftColor = GetTotalColor(original.GetPixel(startX, endY));
+
+            if (Math.Abs(topLeftColor - topRightColor) < BORDER_DIFF_THRESHOLD &&
+                Math.Abs(topRightColor - bottomRightColor) < BORDER_DIFF_THRESHOLD &&
+                Math.Abs(bottomRightColor - bottomLeftColor) < BORDER_DIFF_THRESHOLD &&
+                Math.Abs(bottomLeftColor - topLeftColor) < BORDER_DIFF_THRESHOLD &&
+                Math.Abs(topLeftColor - bottomRightColor) < BORDER_DIFF_THRESHOLD &&
+                Math.Abs(topRightColor - bottomLeftColor) < BORDER_DIFF_THRESHOLD)
+            {
+                for (var ii = startX; ii < startX + (endX - startX) / 2; ii++)
                 {
-                    var color = original.GetPixel(ii, original.Height / 2);
-                    if (Math.Abs(color.Red + color.Green + color.Blue - topLeft) > BORDER_DIFF_THRESHOLD)
+                    var color = original.GetPixel(ii, endY / 2);
+                    if (Math.Abs(color.Red + color.Green + color.Blue - topLeftColor) > BORDER_DIFF_THRESHOLD)
                     {
-                        leftBorder = ii;
+                        leftBorder = ii - startX;
                         break;
                     }
                 }
-                for (var ii = 0; ii < original.Height / 2; ii++)
+                for (var ii = startY; ii < endY / 2; ii++)
                 {
-                    var color = original.GetPixel(original.Width / 4, ii);
-                    if (Math.Abs(color.Red + color.Green + color.Blue - topLeft) > BORDER_DIFF_THRESHOLD)
+                    var color = original.GetPixel(startX + (endX - startX) / 2, ii);
+                    if (Math.Abs(color.Red + color.Green + color.Blue - topLeftColor) > BORDER_DIFF_THRESHOLD)
                     {
-                        topBorder = ii;
+                        topBorder = ii - startY;
                         break;
                     }
                 }
-                for (var ii = original.Width / 2; ii > original.Width / 4; ii--)
+                for (var ii = endX; ii > startX + (endX - startX) / 2; ii--)
                 {
-                    var color = original.GetPixel(ii, original.Height / 2);
-                    if (Math.Abs(color.Red + color.Green + color.Blue - topLeft) > BORDER_DIFF_THRESHOLD)
+                    var color = original.GetPixel(ii, endY / 2);
+                    if (Math.Abs(color.Red + color.Green + color.Blue - topLeftColor) > BORDER_DIFF_THRESHOLD)
                     {
-                        rightBorder = original.Width / 2 - 1 - ii;
+                        rightBorder = endX - ii;
                         break;
                     }
                 }
-                for (var ii = original.Height - 1; ii > original.Height / 2; ii--)
+                for (var ii = endY; ii > endY / 2; ii--)
                 {
-                    var color = original.GetPixel(original.Width / 4, ii);
-                    if (Math.Abs(color.Red + color.Green + color.Blue - topLeft) > BORDER_DIFF_THRESHOLD)
+                    var color = original.GetPixel(startX + (endX - startX) / 2, ii);
+                    if (Math.Abs(color.Red + color.Green + color.Blue - topLeftColor) > BORDER_DIFF_THRESHOLD)
                     {
-                        bottomBorder = original.Height - ii;
+                        bottomBorder = endY - ii;
                         break;
                     }
                 }
             }
 
-            var width = (int) Math.Round(original.Width / 2f) - leftBorder - rightBorder;
-            var height = original.Height - topBorder - bottomBorder;
+            var width = endX - startX - rightBorder - leftBorder;
+            var height = endY - startY - topBorder - bottomBorder;
 
             var extracted = new SKBitmap(width, height);
 
@@ -1039,7 +1057,7 @@ namespace CrossCam.ViewModel
                 surface.DrawBitmap(
                     original,
                     SKRect.Create(
-                        wantLeft ? leftBorder : width + 2 * leftBorder + rightBorder,
+                        startX + leftBorder,
                         topBorder,
                         width,
                         height),

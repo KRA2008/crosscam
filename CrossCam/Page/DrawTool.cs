@@ -64,7 +64,7 @@ namespace CrossCam.Page
                 0;
             var effectiveJoinedHeight = bitmapHeightLessCrop;
 
-            effectiveJoinedWidth += 4 * innerBorderThickness;
+            effectiveJoinedWidth += 3 * innerBorderThickness;
             effectiveJoinedHeight += 2 * innerBorderThickness;
             
             if (drawMode == DrawMode.RedCyan)
@@ -91,8 +91,8 @@ namespace CrossCam.Page
             switch (drawMode)
             {
                 case DrawMode.Cross:
-                    leftPreviewX = canvasWidth / 2f - (leftBitmapWidthLessCrop + innerBorderThickness) / scalingRatio;
-                    rightPreviewX = canvasWidth / 2f + innerBorderThickness / scalingRatio;
+                    leftPreviewX = canvasWidth / 2f - (leftBitmapWidthLessCrop + innerBorderThickness / 2f) / scalingRatio;
+                    rightPreviewX = canvasWidth / 2f + innerBorderThickness / (2 * scalingRatio);
                     leftPreviewWidth = leftBitmapWidthLessCrop / scalingRatio;
                     rightPreviewWidth = rightBitmapWidthLessCrop / scalingRatio;
                     innerRightRotation = rightRotation;
@@ -101,8 +101,8 @@ namespace CrossCam.Page
                     innerLeftKeystone = leftKeystone;
                     break;
                 case DrawMode.Parallel:
-                    leftPreviewX = canvasWidth / 2f + innerBorderThickness / scalingRatio;
-                    rightPreviewX = canvasWidth / 2f - (rightBitmapWidthLessCrop + innerBorderThickness) / scalingRatio;
+                    leftPreviewX = canvasWidth / 2f + innerBorderThickness / (2 * scalingRatio);
+                    rightPreviewX = canvasWidth / 2f - (rightBitmapWidthLessCrop + innerBorderThickness / 2f) / scalingRatio;
                     leftPreviewWidth = rightBitmapWidthLessCrop / scalingRatio;
                     rightPreviewWidth = leftBitmapWidthLessCrop / scalingRatio;
                     innerRightRotation = leftRotation;
@@ -219,15 +219,14 @@ namespace CrossCam.Page
                 };
                 var originX = leftPreviewX - innerBorderThickness / scalingRatio;
                 var originY = previewY - innerBorderThickness / scalingRatio;
-                var fullPreviewWidth = leftPreviewWidth + rightPreviewWidth + 4 * innerBorderThickness / scalingRatio;
+                var fullPreviewWidth = leftPreviewWidth + rightPreviewWidth + 3 * innerBorderThickness / scalingRatio;
                 var fullPreviewHeight = previewHeight + 2 * innerBorderThickness / scalingRatio;
                 var scaledBorderThickness = innerBorderThickness / scalingRatio;
                 var endX = rightPreviewX + rightPreviewWidth;
                 var endY = previewY + previewHeight;
                 canvas.DrawRect(originX, originY, fullPreviewWidth, scaledBorderThickness, borderPaint);
                 canvas.DrawRect(originX, originY, scaledBorderThickness, fullPreviewHeight, borderPaint);
-                canvas.DrawRect(canvasWidth / 2f - scaledBorderThickness, originY, scaledBorderThickness, fullPreviewHeight, borderPaint);
-                canvas.DrawRect(canvasWidth / 2f, originY, scaledBorderThickness, fullPreviewHeight, borderPaint);
+                canvas.DrawRect(canvasWidth / 2f - scaledBorderThickness / 2f, originY, scaledBorderThickness, fullPreviewHeight, borderPaint);
                 canvas.DrawRect(endX, originY, scaledBorderThickness, fullPreviewHeight, borderPaint);
                 canvas.DrawRect(originX, endY, fullPreviewWidth, scaledBorderThickness, borderPaint);
             }
