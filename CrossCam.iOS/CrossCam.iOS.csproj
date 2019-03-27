@@ -372,42 +372,6 @@
     <BundleResource Include="Resources\saveOne%402x.png" />
   </ItemGroup>
   <ItemGroup>
-    <BundleResource Include="Resources\rotateBackwardInBoxWall.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <BundleResource Include="Resources\rotateBackwardInBoxWall%402x.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <BundleResource Include="Resources\rotateForwardInBoxWall.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <BundleResource Include="Resources\rotateForwardInBoxWall%402x.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <BundleResource Include="Resources\rotateLeftInBoxFloor.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <BundleResource Include="Resources\rotateLeftInBoxFloor%402x.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <BundleResource Include="Resources\rotateRightInBoxFloor.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <BundleResource Include="Resources\rotateRightInBoxFloor%402x.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <BundleResource Include="Resources\starInBoxFloor.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <BundleResource Include="Resources\starInBoxFloor%402x.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <BundleResource Include="Resources\starInBoxWall%402x.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <BundleResource Include="Resources\starInBoxWall.png" />
-  </ItemGroup>
-  <ItemGroup>
     <BundleResource Include="Resources\iconInverse.png" />
   </ItemGroup>
   <ItemGroup>
