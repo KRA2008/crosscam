@@ -476,7 +476,7 @@ namespace CrossCam.Droid.CustomRenderer
                     _cameraModule.IsPortrait = true;
                     proportionalPreviewHeight = previewSizeWidth * moduleWidth / previewSizeHeight;
                     rotation1 = 90;
-                    rotation2 = 0;
+                    rotation2 = _camera2SensorOrientation - 90;
                     verticalOffset = (moduleHeight - proportionalPreviewHeight) / 2f;
                     xAdjust2 = 0;
                     yAdjust2 = verticalOffset;
@@ -488,7 +488,7 @@ namespace CrossCam.Droid.CustomRenderer
                     _cameraModule.IsPortrait = true;
                     proportionalPreviewHeight = previewSizeWidth * moduleWidth / previewSizeHeight;
                     rotation1 = 270;
-                    rotation2 = -180;
+                    rotation2 = _camera2SensorOrientation - 270;
                     verticalOffset = (moduleHeight - proportionalPreviewHeight) / 2f;
                     xAdjust2 = moduleWidth;
                     yAdjust2 = verticalOffset + proportionalPreviewHeight;
@@ -500,7 +500,7 @@ namespace CrossCam.Droid.CustomRenderer
                     _cameraModule.IsPortrait = false;
                     proportionalPreviewHeight = previewSizeHeight * moduleWidth / previewSizeWidth;
                     rotation1 = 0;
-                    rotation2 = -90;
+                    rotation2 = _camera2SensorOrientation - 180;
                     verticalOffset = (moduleHeight - proportionalPreviewHeight) / 2f;
                     xAdjust2 = 0;
                     yAdjust2 = proportionalPreviewHeight + verticalOffset;
@@ -512,7 +512,7 @@ namespace CrossCam.Droid.CustomRenderer
                     _cameraModule.IsViewInverted = true;
                     proportionalPreviewHeight = previewSizeHeight * moduleWidth / previewSizeWidth;
                     rotation1 = 180;
-                    rotation2 = -270;
+                    rotation2 = _camera2SensorOrientation - 360;
                     verticalOffset = (moduleHeight - proportionalPreviewHeight) / 2f;
                     xAdjust2 = moduleWidth;
                     yAdjust2 = verticalOffset;
