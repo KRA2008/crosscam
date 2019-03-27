@@ -54,6 +54,8 @@
                 <BoxView/>
                 <Label Text="If you're exploring with other people it's a good idea to go into &quot;fast mode&quot; by turning off auto alignment and switching the save mode to save each side separately. You can always load, auto align, and edit the pictures later. That way your companions don't have to wait for you to perfect your pictures on the spot, but you can still be confident that the depth and framing that you want are really there."/>
                 <BoxView/>
+                <Label Text="You can load previously taken pictures by tapping the folder icon on the bottom of the camera page, but if you're working with a big batch of photos you can also share them to CrossCam straight from your photos app, which may keep track of your place in your photos better."/>
+                <BoxView/>
                 <Label Text="There is an experimental &quot;guide donut/dot&quot; on the settings page you can turn on which may help you keep your perspectives parallel for a large scene. Ideally you would drag it onto the horizon, sky, or other very distant point. Be careful, using it on smaller scenes may make things painful (see keystone tip above)."/>
                 <BoxView/>
                 <Label Text="There's a lefty mode on the settings page in case you want that."/>
