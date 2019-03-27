@@ -39,6 +39,8 @@ namespace CrossCam.iOS.CustomRenderer
             if (e.NewElement != null)
             {
                 _cameraModule = e.NewElement;
+                SetupCamera();
+                StartPreview();
             }
         }
 
@@ -52,6 +54,7 @@ namespace CrossCam.iOS.CustomRenderer
                     e.PropertyName == nameof(_cameraModule.Height))
                 {
                     NativeView.Bounds = new CGRect(0, 0, _cameraModule.Width, _cameraModule.Height);
+                    SetupCamera();
                     double previewHeight;
                     var orientation = UIDevice.CurrentDevice.Orientation;
                     switch (orientation)
@@ -171,6 +174,11 @@ namespace CrossCam.iOS.CustomRenderer
         private void StartPreview()
         {
             _captureSession.StartRunning();
+        }
+
+        private void StopPreview()
+        {
+            _captureSession.StopRunning();
         }
 
         private void CapturePhoto()
@@ -372,6 +380,7 @@ namespace CrossCam.iOS.CustomRenderer
         {
             if (_isInitialized)
             {
+                SetupCamera();
                 switch (UIDevice.CurrentDevice.Orientation)
                 {
                     case UIDeviceOrientation.Portrait:
@@ -379,7 +388,6 @@ namespace CrossCam.iOS.CustomRenderer
                     case UIDeviceOrientation.LandscapeRight:
                         if (_previousValidOrientation != UIDevice.CurrentDevice.Orientation)
                         {
-                            SetupCamera();
                             switch (UIDevice.CurrentDevice.Orientation)
                             {
                                 case UIDeviceOrientation.Portrait:
@@ -404,7 +412,7 @@ namespace CrossCam.iOS.CustomRenderer
                         if (!_previousValidOrientation.HasValue)
                         {
                             _cameraModule.IsPortrait = true;
-
+                            _cameraModule.IsViewInverted = false;
                             _previousValidOrientation = UIDeviceOrientation.Portrait;
                         }
                         break;
