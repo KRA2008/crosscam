@@ -195,11 +195,11 @@ namespace CrossCam.ViewModel
                 {
                     if (CameraColumn == 0)
                     {
-                        LeftBytesCaptured(CapturedImageBytes);
+                        LeftBytesCaptured(CapturedImageBytes); // not awaiting. ok.
                     }
                     else
                     {
-                        RightBytesCaptured(CapturedImageBytes);
+                        RightBytesCaptured(CapturedImageBytes); // not awaiting. ok.
                     }
                 }
                 else if (args.PropertyName == nameof(ErrorMessage))
@@ -654,14 +654,14 @@ namespace CrossCam.ViewModel
                         if (LeftBitmap == null &&
                             RightBitmap != null)
                         {
-                            LeftBytesCaptured(image1);
+                            await LeftBytesCaptured(image1);
                             return;
                         }
 
                         if (RightBitmap == null &&
                             LeftBitmap != null)
                         {
-                            RightBytesCaptured(image1);
+                            await RightBytesCaptured(image1);
                             return;
                         }
 
@@ -681,8 +681,8 @@ namespace CrossCam.ViewModel
                 else
                 {
                     // i save left first, so i load left first
-                    LeftBytesCaptured(image1);
-                    RightBytesCaptured(image2);
+                    await LeftBytesCaptured(image1);
+                    await RightBytesCaptured(image2);
                 }
 
             }
@@ -743,13 +743,13 @@ namespace CrossCam.ViewModel
             }
         }
 
-        private async void LeftBytesCaptured(byte[] capturedBytes)
+        private async Task LeftBytesCaptured(byte[] capturedBytes)
         {
             var bitmap = await Task.Run(() => GetBitmapAndCorrectOrientation(capturedBytes));
             SetLeftBitmap(bitmap);
         }
 
-        private async void RightBytesCaptured(byte[] capturedBytes)
+        private async Task RightBytesCaptured(byte[] capturedBytes)
         {
             var bitmap = await Task.Run(() => GetBitmapAndCorrectOrientation(capturedBytes));
             SetRightBitmap(bitmap);
