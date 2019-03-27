@@ -82,10 +82,37 @@ namespace CrossCam.Droid
             LifecycleEventListener.OnAppMinimized();
         }
 
-        protected override void OnResume()
+        protected override async void OnResume()
         {
             base.OnResume();
             LifecycleEventListener.OnAppMaximized();
+
+            if (Intent.ActionSend.Equals(Intent.Action) && Intent.Type != null)
+            {
+                if (Intent.Type.StartsWith("image/"))
+                {
+                    if (Intent.GetParcelableExtra(Intent.ExtraStream) is Uri uri)
+                    {
+                        var image = await ImageUriToByteArray(uri);
+                        _app.LoadSharedImages(image, null);
+                    }
+                }
+            }
+            else if (Intent.ActionSendMultiple.Equals(Intent.Action) && Intent.Type != null)
+            {
+                if (Intent.Type.StartsWith("image/"))
+                {
+                    var parcelables = Intent.GetParcelableArrayListExtra(Intent.ExtraStream);
+                    if (parcelables[0] is Uri uri1 &&
+                        parcelables[1] is Uri uri2)
+                    {
+                        var image1Task = ImageUriToByteArray(uri1);
+                        var image2Task = ImageUriToByteArray(uri2);
+                        await Task.WhenAll(image1Task, image2Task);
+                        _app.LoadSharedImages(image1Task.Result, image2Task.Result);
+                    }
+                }
+            }
         }    
 
         protected override void OnActivityResult(int requestCode, Result resultCode, Intent intent)
@@ -151,36 +178,10 @@ namespace CrossCam.Droid
             base.OnRequestPermissionsResult(requestCode, permissions, grantResults);
         }
 
-        protected override async void OnNewIntent(Intent intent)
+        protected override void OnNewIntent(Intent intent)
         {
             base.OnNewIntent(intent);
-
-            if (Intent.ActionSend.Equals(intent.Action) && intent.Type != null)
-            {
-                if (intent.Type.StartsWith("image/"))
-                {
-                    if (intent.GetParcelableExtra(Intent.ExtraStream) is Uri uri)
-                    {
-                        var image = await ImageUriToByteArray(uri);
-                        _app.LoadSharedImages(image, null);
-                    }
-                }
-            }
-            else if (Intent.ActionSendMultiple.Equals(intent.Action) && intent.Type != null)
-            {
-                if (intent.Type.StartsWith("image/"))
-                {
-                    var parcelables = intent.GetParcelableArrayListExtra(Intent.ExtraStream);
-                    if (parcelables[0] is Uri uri1 &&
-                        parcelables[1] is Uri uri2)
-                    {
-                        var image1Task = ImageUriToByteArray(uri1);
-                        var image2Task = ImageUriToByteArray(uri2);
-                        await Task.WhenAll(image1Task, image2Task);
-                        _app.LoadSharedImages(image1Task.Result, image2Task.Result);
-                    }
-                }
-            }
+            Intent = intent;
         }
 
         private async Task<byte[]> ImageUriToByteArray(Uri uri)

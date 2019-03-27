@@ -640,6 +640,7 @@ namespace CrossCam.ViewModel
 
                 if (image2 == null)
                 {
+                    await Task.Delay(2000);
                     var loadType = await OpenLoadingPopup();
 
                     if (loadType == CANCEL ||
