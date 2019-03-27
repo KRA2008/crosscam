@@ -94,6 +94,10 @@
     <Reference Include="Mono.Android" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CustomRenderer\Camera2\CameraCaptureListener.cs" />
+    <Compile Include="CustomRenderer\Camera2\CameraCaptureStateListener.cs" />
+    <Compile Include="CustomRenderer\Camera2\CameraStateListener.cs" />
+    <Compile Include="CustomRenderer\Camera2\ImageAvailableListener.cs" />
     <Compile Include="CustomRenderer\PhotoPicker.cs" />
     <Compile Include="CustomRenderer\PhotoSaver.cs" />
     <Compile Include="MainActivity.cs" />
