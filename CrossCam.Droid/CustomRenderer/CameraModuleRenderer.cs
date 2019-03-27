@@ -70,7 +70,7 @@ namespace CrossCam.Droid.CustomRenderer
             };
             MainActivity.Instance.LifecycleEventListener.AppMaximized += AppWasMaximized;
             MainActivity.Instance.LifecycleEventListener.AppMinimized += AppWasMinimized;
-            if (Build.VERSION.SdkInt >= BuildVersionCodes.Lollipop)
+            if (Build.VERSION.SdkInt >= BuildVersionCodes.M)
             {
                 _cameraManager = (CameraManager)MainActivity.Instance.GetSystemService(Context.CameraService);
 
@@ -477,7 +477,7 @@ namespace CrossCam.Droid.CustomRenderer
                     proportionalPreviewHeight = previewSizeWidth * moduleWidth / previewSizeHeight;
                     rotation1 = 90;
                     rotation2 = 0;
-                    verticalOffset = (moduleHeight - proportionalPreviewHeight) / 2f; //TODO: extract this and reduce duplication
+                    verticalOffset = (moduleHeight - proportionalPreviewHeight) / 2f;
                     xAdjust2 = 0;
                     yAdjust2 = verticalOffset;
                     previewWidth2 = moduleWidth;
@@ -839,7 +839,7 @@ namespace CrossCam.Droid.CustomRenderer
                 _previewBuilder.Set(CaptureRequest.ControlAwbLock, new Boolean(false));
                 _previewBuilder.Set(CaptureRequest.BlackLevelLock, new Boolean(false));
                 _previewBuilder.Set(CaptureRequest.ControlAeLock, new Boolean(false));
-                _previewBuilder.Set(CaptureRequest.ControlAfTrigger, new Integer((int)ControlAFTrigger.Cancel)); //TODO: this is only available at certain API level, lock that down above
+                _previewBuilder.Set(CaptureRequest.ControlAfTrigger, new Integer((int)ControlAFTrigger.Cancel));
             }
 
             var thread = new HandlerThread("CameraPreview");
@@ -880,7 +880,7 @@ namespace CrossCam.Droid.CustomRenderer
                     neededRotation = _camera2SensorOrientation + 90;
                     break;
             }
-            //TODO: inverted portrait on S9 is wrong...
+
             while (neededRotation < 0)
             {
                 neededRotation += 360;
