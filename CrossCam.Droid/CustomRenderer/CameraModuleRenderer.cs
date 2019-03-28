@@ -733,19 +733,35 @@ namespace CrossCam.Droid.CustomRenderer
 
             var map = (StreamConfigurationMap)characteristics.Get(CameraCharacteristics
                 .ScalerStreamConfigurationMap);
-            var previewSizes = map.GetOutputSizes(Class.FromType(typeof(SurfaceTexture))).ToList();
-            var pictureSizes = map.GetOutputSizes((int)ImageFormatType.Jpeg).ToList();
 
-            var previewSizesByTotal = previewSizes.OrderByDescending(s => s.Width * s.Height);
-            var pictureSizesByTotal = pictureSizes.OrderByDescending(s => s.Width * s.Height);
+            var pictureSizes = map.GetOutputSizes((int)ImageFormatType.Jpeg).Where(p => p.Width > p.Height).OrderByDescending(s => s.Width * s.Height).ToList();
+            var previewSizes = map.GetOutputSizes(Class.FromType(typeof(SurfaceTexture))).Where(p => p.Width > p.Height).OrderByDescending(s => s.Width * s.Height).ToList();
 
-            _picture2Size = pictureSizesByTotal.First();
-            var pictureAspectRatio = _picture2Size.Width > _picture2Size.Height
-                ? _picture2Size.Width / _picture2Size.Height
-                : _picture2Size.Height / _picture2Size.Width;
+            foreach (var pictureSize in pictureSizes)
+            {
+                foreach (var previewSize in previewSizes)
+                {
+                    if (Math.Abs((double)pictureSize.Width / pictureSize.Height -
+                                 (double)previewSize.Width / previewSize.Height) < 0.0001)
+                    {
+                        _picture2Size = pictureSize;
+                        _preview2Size = previewSize;
+                        break;
+                    }
+                }
 
-            _preview2Size = previewSizesByTotal.First(p =>
-                pictureAspectRatio == (p.Width > p.Height ? p.Width / p.Height : p.Height / p.Width));
+                if (_picture2Size != null)
+                {
+                    break;
+                }
+            }
+
+            if (_picture2Size == null ||
+                _preview2Size == null)
+            {
+                _picture2Size = pictureSizes.First();
+                _preview2Size = previewSizes.First();
+            }
 
             _stateListener = new CameraStateListener(this);
 
