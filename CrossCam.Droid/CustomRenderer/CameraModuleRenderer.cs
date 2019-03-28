@@ -79,9 +79,16 @@ namespace CrossCam.Droid.CustomRenderer
                 _orientations.Append((int)SurfaceOrientation.Rotation180, 180);
                 _orientations.Append((int)SurfaceOrientation.Rotation270, 270);
 
-                var level = FindCamera2();
-
-                _useCamera2 = level != (int)InfoSupportedHardwareLevel.Legacy;
+                try
+                {
+                    var level = FindCamera2();
+                    _useCamera2 = level != (int)InfoSupportedHardwareLevel.Legacy;
+                }
+                catch (Exception e)
+                {
+                    _cameraModule.ErrorMessage = e.ToString();
+                    _useCamera2 = false;
+                }
             }
         }
 
@@ -794,33 +801,38 @@ namespace CrossCam.Droid.CustomRenderer
 
         public void StartPreview2(CameraDevice camera = null, bool applyLocks = false)
         {
-            if (camera == null && _camera2 == null) return;
-
-            if (_surfaceTexture == null) return;
-
-            if (camera != null)
+            try
             {
-                _camera2 = camera;
-            }
+                if (camera == null && _camera2 == null) return;
 
-            _previewBuilder = _camera2.CreateCaptureRequest(CameraTemplate.Preview);
-            var surface = new Surface(_surfaceTexture);
-            _previewBuilder.AddTarget(surface);
+                if (_surfaceTexture == null) return;
 
-            _camera2.CreateCaptureSession(new List<Surface> { surface },
-                new CameraCaptureStateListener
+                if (camera != null)
                 {
-                    OnConfigureFailedAction = session =>
+                    _camera2 = camera;
+                }
+
+                _previewBuilder = _camera2.CreateCaptureRequest(CameraTemplate.Preview);
+                var surface = new Surface(_surfaceTexture);
+                _previewBuilder.AddTarget(surface);
+
+                _camera2.CreateCaptureSession(new List<Surface> {surface},
+                    new CameraCaptureStateListener
                     {
+                        OnConfigureFailedAction = session => { },
+                        OnConfiguredAction = session =>
+                        {
+                            _previewSession = session;
+                            SetRefreshingPreview2(applyLocks);
+                        }
                     },
-                    OnConfiguredAction = session =>
-                    {
-                        _previewSession = session;
-                        SetRefreshingPreview2(applyLocks);
-                    }
-                },
-                null);
-            _openingCamera2 = false;
+                    null);
+                _openingCamera2 = false;
+            }
+            catch (Exception e)
+            {
+                _cameraModule.ErrorMessage = e.ToString();
+            }
         }
 
         public void Camera2Disconnected(CameraDevice camera)
@@ -841,115 +853,122 @@ namespace CrossCam.Droid.CustomRenderer
 
         private void SetRefreshingPreview2(bool applyLocks)
         {
-            _previewBuilder.Set(CaptureRequest.ControlMode, new Integer((int)ControlMode.Auto));
-
-            if (applyLocks)
+            try
             {
-                _previewBuilder.Set(CaptureRequest.ControlAwbLock, new Boolean(true));
-                _previewBuilder.Set(CaptureRequest.BlackLevelLock, new Boolean(true));
-                _previewBuilder.Set(CaptureRequest.ControlAeLock, new Boolean(true));
-                _previewBuilder.Set(CaptureRequest.ControlAfTrigger, new Integer((int)ControlAFTrigger.Start));
+                _previewBuilder.Set(CaptureRequest.ControlMode, new Integer((int) ControlMode.Auto));
+
+                if (applyLocks)
+                {
+                    _previewBuilder.Set(CaptureRequest.ControlAwbLock, new Boolean(true));
+                    _previewBuilder.Set(CaptureRequest.BlackLevelLock, new Boolean(true));
+                    _previewBuilder.Set(CaptureRequest.ControlAeLock, new Boolean(true));
+                    _previewBuilder.Set(CaptureRequest.ControlAfTrigger, new Integer((int) ControlAFTrigger.Start));
+                }
+                else
+                {
+                    _previewBuilder.Set(CaptureRequest.ControlAwbLock, new Boolean(false));
+                    _previewBuilder.Set(CaptureRequest.BlackLevelLock, new Boolean(false));
+                    _previewBuilder.Set(CaptureRequest.ControlAeLock, new Boolean(false));
+                    _previewBuilder.Set(CaptureRequest.ControlAfTrigger, new Integer((int) ControlAFTrigger.Cancel));
+                }
+
+                var thread = new HandlerThread("CameraPreview");
+                thread.Start();
+                var backgroundHandler = new Handler(thread.Looper);
+
+                _previewSession.SetRepeatingRequest(_previewBuilder.Build(), null, backgroundHandler);
             }
-            else
+            catch (Exception e)
             {
-                _previewBuilder.Set(CaptureRequest.ControlAwbLock, new Boolean(false));
-                _previewBuilder.Set(CaptureRequest.BlackLevelLock, new Boolean(false));
-                _previewBuilder.Set(CaptureRequest.ControlAeLock, new Boolean(false));
-                _previewBuilder.Set(CaptureRequest.ControlAfTrigger, new Integer((int)ControlAFTrigger.Cancel));
+                _cameraModule.ErrorMessage = e.ToString();
             }
-
-            var thread = new HandlerThread("CameraPreview");
-            thread.Start();
-            var backgroundHandler = new Handler(thread.Looper);
-
-            _previewSession.SetRepeatingRequest(_previewBuilder.Build(), null, backgroundHandler);
         }
 
         private void TakePhoto2()
         {
-            if (_camera2 == null || _openingCamera2) return;
-
-            var reader = ImageReader.NewInstance(_picture2Size.Width, _picture2Size.Height, ImageFormatType.Jpeg, 1);
-            var outputSurfaces = new List<Surface>(2) { reader.Surface, new Surface(_surfaceTexture) };
-
-            var captureBuilder = _camera2.CreateCaptureRequest(CameraTemplate.StillCapture);
-            captureBuilder.AddTarget(reader.Surface);
-            captureBuilder.Set(CaptureRequest.ControlMode, new Integer((int)ControlMode.Auto));
-
-            var windowManager = MainActivity.Instance.GetSystemService(Context.WindowService).JavaCast<IWindowManager>();
-            var rotation = windowManager.DefaultDisplay.Rotation;
-            
-            var phoneOrientation = _orientations.Get((int) rotation);
-            var neededRotation = 0;
-            switch (phoneOrientation)
+            try
             {
-                case 0:
-                    neededRotation = _camera2SensorOrientation;
-                    break;
-                case 90:
-                    neededRotation = _camera2SensorOrientation + 270;
-                    break;
-                case 180:
-                    neededRotation = _camera2SensorOrientation + 180;
-                    break;
-                case 270:
-                    neededRotation = _camera2SensorOrientation + 90;
-                    break;
-            }
+                if (_camera2 == null || _openingCamera2) return;
 
-            while (neededRotation < 0)
-            {
-                neededRotation += 360;
-            }
+                var reader =
+                    ImageReader.NewInstance(_picture2Size.Width, _picture2Size.Height, ImageFormatType.Jpeg, 1);
+                var outputSurfaces = new List<Surface>(2) {reader.Surface, new Surface(_surfaceTexture)};
 
-            if (neededRotation >= 360)
-            {
-                neededRotation = neededRotation % 360;
-            }
+                var captureBuilder = _camera2.CreateCaptureRequest(CameraTemplate.StillCapture);
+                captureBuilder.AddTarget(reader.Surface);
+                captureBuilder.Set(CaptureRequest.ControlMode, new Integer((int) ControlMode.Auto));
 
-            captureBuilder.Set(CaptureRequest.JpegOrientation, new Integer(neededRotation));
+                var windowManager = MainActivity.Instance.GetSystemService(Context.WindowService)
+                    .JavaCast<IWindowManager>();
+                var rotation = windowManager.DefaultDisplay.Rotation;
 
-            var readerListener = new ImageAvailableListener();
-            readerListener.Photo += (sender, buffer) =>
-            {
-                Device.BeginInvokeOnMainThread(() =>
+                var phoneOrientation = _orientations.Get((int) rotation);
+                var neededRotation = 0;
+                switch (phoneOrientation)
                 {
-                    _cameraModule.CapturedImage = buffer;
-                });
-            };
-            readerListener.Error += (sender, exception) =>
-            {
-                _cameraModule.ErrorMessage = exception.ToString();
-            };
-
-            var thread = new HandlerThread("CameraPicture");
-            thread.Start();
-            var backgroundHandler = new Handler(thread.Looper);
-            reader.SetOnImageAvailableListener(readerListener, backgroundHandler);
-
-            var captureListener = new CameraCaptureListener();
-
-            captureListener.PhotoComplete += (sender, e) =>
-            {
-                StartPreview2(_camera2, true);
-            };
-
-            _camera2.CreateCaptureSession(outputSurfaces, new CameraCaptureStateListener
-            {
-                OnConfiguredAction = session =>
-                {
-                    try
-                    {
-                        _previewSession = session;
-                        session.Capture(captureBuilder.Build(), captureListener, backgroundHandler);
-                        _cameraModule.CaptureSuccess = !_cameraModule.CaptureSuccess;
-                    }
-                    catch (CameraAccessException ex)
-                    {
-                        Log.WriteLine(LogPriority.Info, "Capture Session error: ", ex.ToString());
-                    }
+                    case 0:
+                        neededRotation = _camera2SensorOrientation;
+                        break;
+                    case 90:
+                        neededRotation = _camera2SensorOrientation + 270;
+                        break;
+                    case 180:
+                        neededRotation = _camera2SensorOrientation + 180;
+                        break;
+                    case 270:
+                        neededRotation = _camera2SensorOrientation + 90;
+                        break;
                 }
-            }, backgroundHandler);
+
+                while (neededRotation < 0)
+                {
+                    neededRotation += 360;
+                }
+
+                if (neededRotation >= 360)
+                {
+                    neededRotation = neededRotation % 360;
+                }
+
+                captureBuilder.Set(CaptureRequest.JpegOrientation, new Integer(neededRotation));
+
+                var readerListener = new ImageAvailableListener();
+                readerListener.Photo += (sender, buffer) =>
+                {
+                    Device.BeginInvokeOnMainThread(() => { _cameraModule.CapturedImage = buffer; });
+                };
+                readerListener.Error += (sender, exception) => { _cameraModule.ErrorMessage = exception.ToString(); };
+
+                var thread = new HandlerThread("CameraPicture");
+                thread.Start();
+                var backgroundHandler = new Handler(thread.Looper);
+                reader.SetOnImageAvailableListener(readerListener, backgroundHandler);
+
+                var captureListener = new CameraCaptureListener();
+
+                captureListener.PhotoComplete += (sender, e) => { StartPreview2(_camera2, true); };
+
+                _camera2.CreateCaptureSession(outputSurfaces, new CameraCaptureStateListener
+                {
+                    OnConfiguredAction = session =>
+                    {
+                        try
+                        {
+                            _previewSession = session;
+                            session.Capture(captureBuilder.Build(), captureListener, backgroundHandler);
+                            _cameraModule.CaptureSuccess = !_cameraModule.CaptureSuccess;
+                        }
+                        catch (CameraAccessException ex)
+                        {
+                            Log.WriteLine(LogPriority.Info, "Capture Session error: ", ex.ToString());
+                        }
+                    }
+                }, backgroundHandler);
+            }
+            catch (Exception e)
+            {
+                _cameraModule.ErrorMessage = e.ToString();
+            }
         }
 
 #endregion
