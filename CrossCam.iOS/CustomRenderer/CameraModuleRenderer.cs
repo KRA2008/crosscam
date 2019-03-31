@@ -88,19 +88,13 @@ namespace CrossCam.iOS.CustomRenderer
                 }
 
                 if (e.PropertyName == nameof(_cameraModule.IsNothingCaptured) &&
-                    _cameraModule.IsNothingCaptured)
-                {
-                    TurnOffFlashAndSetContinuousAutoMode(_device);
-                }
-
-                if (e.PropertyName == nameof(_cameraModule.IsTapToFocusEnabled) &&
-                    !_cameraModule.IsTapToFocusEnabled)
-                {
-                    TurnOffFlashAndSetContinuousAutoMode(_device);
-                }
-
-                if (e.PropertyName == nameof(_cameraModule.SwitchToContinuousFocusTrigger) &&
-                    _cameraModule.IsTapToFocusEnabled)
+                    _cameraModule.IsNothingCaptured ||
+                    e.PropertyName == nameof(_cameraModule.IsTapToFocusEnabled) &&
+                    !_cameraModule.IsTapToFocusEnabled ||
+                    e.PropertyName == nameof(_cameraModule.SwitchToContinuousFocusTrigger) &&
+                    _cameraModule.IsTapToFocusEnabled ||
+                    e.PropertyName == nameof(_cameraModule.IsLockToFirstEnabled) &&
+                    !_cameraModule.IsLockToFirstEnabled)
                 {
                     TurnOffFlashAndSetContinuousAutoMode(_device);
                 }

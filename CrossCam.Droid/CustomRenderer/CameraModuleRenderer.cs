@@ -193,19 +193,13 @@ namespace CrossCam.Droid.CustomRenderer
                 }
 
                 if (e.PropertyName == nameof(_cameraModule.IsNothingCaptured) &&
-                    _cameraModule.IsNothingCaptured)
-                {
-                    TurnOnContinuousFocus();
-                }
-
-                if (e.PropertyName == nameof(_cameraModule.IsTapToFocusEnabled) &&
-                    !_cameraModule.IsTapToFocusEnabled)
-                {
-                    TurnOnContinuousFocus();
-                }
-
-                if (e.PropertyName == nameof(_cameraModule.SwitchToContinuousFocusTrigger) &&
-                    _cameraModule.IsTapToFocusEnabled)
+                    _cameraModule.IsNothingCaptured ||
+                    e.PropertyName == nameof(_cameraModule.IsTapToFocusEnabled) &&
+                    !_cameraModule.IsTapToFocusEnabled ||
+                    e.PropertyName == nameof(_cameraModule.SwitchToContinuousFocusTrigger) &&
+                    _cameraModule.IsTapToFocusEnabled ||
+                    e.PropertyName == nameof(_cameraModule.IsLockToFirstEnabled) &&
+                    !_cameraModule.IsLockToFirstEnabled)
                 {
                     TurnOnContinuousFocus();
                 }
@@ -594,8 +588,8 @@ namespace CrossCam.Droid.CustomRenderer
                         {
                             foreach (var previewSize in landscapePreviewDescendingSizes)
                             {
-                                if (Math.Abs((double)pictureSize.Width / pictureSize.Height -
-                                             (double)previewSize.Width / previewSize.Height) < 0.0001)
+                                if (Math.Abs(pictureSize.Width / (1f * pictureSize.Height) -
+                                             previewSize.Width / (1f * previewSize.Height)) < 0.0001)
                                 {
                                     _pictureSize = pictureSize;
                                     _previewSize = previewSize;
@@ -748,8 +742,8 @@ namespace CrossCam.Droid.CustomRenderer
             {
                 foreach (var previewSize in previewSizes)
                 {
-                    if (Math.Abs((double)pictureSize.Width / pictureSize.Height -
-                                 (double)previewSize.Width / previewSize.Height) < 0.0001)
+                    if (Math.Abs(pictureSize.Width / (1f * pictureSize.Height) -
+                                 previewSize.Width / (1f * previewSize.Height)) < 0.0001)
                     {
                         _picture2Size = pictureSize;
                         _preview2Size = previewSize;
@@ -766,8 +760,7 @@ namespace CrossCam.Droid.CustomRenderer
             if (_picture2Size == null ||
                 _preview2Size == null)
             {
-                _picture2Size = pictureSizes.First();
-                _preview2Size = previewSizes.First();
+                return (int) InfoSupportedHardwareLevel.Legacy; // cannot find appropriate sizes with camera2. fall back to camera1.
             }
 
             _stateListener = new CameraStateListener(this);
