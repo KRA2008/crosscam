@@ -705,9 +705,9 @@ namespace CrossCam.Droid.CustomRenderer
             }
         }
 
-        #endregion
+#endregion
 
-        #region camera2
+#region camera2
 
         private int FindCamera2()
         {

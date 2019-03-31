@@ -49,8 +49,9 @@ namespace CrossCam.Page
         public CameraPage()
 		{
             InitializeComponent();
-            ResetGuides();
-		    NavigationPage.SetHasNavigationBar(this, false);
+            ResetLineAndDonutGuides();
+            PlaceRollGuide();
+            NavigationPage.SetHasNavigationBar(this, false);
 
 		    var bubbleBounds = AbsoluteLayout.GetLayoutBounds(_horizontalLevelBubble);
 		    bubbleBounds.X = LEVEL_BUBBLE_MIDDLE;
@@ -191,10 +192,13 @@ namespace CrossCam.Page
                 case nameof(CameraViewModel.Settings):
                     EvaluateSensors();
                     _canvasView.InvalidateSurface();
-                    ResetGuides();
+                    ResetLineAndDonutGuides();
+                    break;
+                case nameof(CameraViewModel.CameraColumn):
+                    PlaceRollGuide();
                     break;
                 case nameof(CameraViewModel.IsViewPortrait):
-	                ResetGuides();
+	                ResetLineAndDonutGuides();
 	                break;
                 case nameof(CameraViewModel.PreviewBottomY):
                     SetSensorGuidesY();
@@ -244,7 +248,7 @@ namespace CrossCam.Page
             AbsoluteLayout.SetLayoutBounds(_horizontalLevelWhole, rollBounds);
         }
 
-        private void ResetGuides()
+        private void ResetLineAndDonutGuides()
         {
             if (_viewModel == null || _viewModel.IsViewPortrait)
             {
@@ -270,11 +274,6 @@ namespace CrossCam.Page
                 AbsoluteLayout.SetLayoutFlags(_lowerLinePanner, AbsoluteLayoutFlags.YProportional | AbsoluteLayoutFlags.WidthProportional);
                 AbsoluteLayout.SetLayoutBounds(_lowerLinePanner, _lowerLineBoundsLandscape);
             }
-            var rollBounds = AbsoluteLayout.GetLayoutBounds(_horizontalLevelWhole);
-            rollBounds.Width = LEVEL_ICON_WIDTH;
-            rollBounds.Height = LEVEL_ICON_WIDTH;
-            rollBounds.X = _viewModel == null || _viewModel.CameraColumn == 0 ? 0.2 : 0.8;
-            AbsoluteLayout.SetLayoutBounds(_horizontalLevelWhole, rollBounds);
 
             AbsoluteLayout.SetLayoutFlags(_leftReticle, AbsoluteLayoutFlags.All);
             AbsoluteLayout.SetLayoutBounds(_leftReticle, _leftReticleBounds);
@@ -285,6 +284,15 @@ namespace CrossCam.Page
             AbsoluteLayout.SetLayoutBounds(_rightReticle, _rightReticleBounds);
             AbsoluteLayout.SetLayoutFlags(_rightReticlePanner, AbsoluteLayoutFlags.All);
             AbsoluteLayout.SetLayoutBounds(_rightReticlePanner, _rightReticleBounds);
+        }
+
+        private void PlaceRollGuide()
+        {
+            var rollBounds = AbsoluteLayout.GetLayoutBounds(_horizontalLevelWhole);
+            rollBounds.Width = LEVEL_ICON_WIDTH;
+            rollBounds.Height = LEVEL_ICON_WIDTH;
+            rollBounds.X = _viewModel == null || _viewModel.CameraColumn == 0 ? 0.2 : 0.8;
+            AbsoluteLayout.SetLayoutBounds(_horizontalLevelWhole, rollBounds);
         }
 
         private void ReticlePanned(object sender, PanUpdatedEventArgs e)
