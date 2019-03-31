@@ -225,6 +225,10 @@
                 <Label Text="Tap to point focus, double tap to switch back to continuous focus (or save or clear)"/>
                 <Switch IsToggled="{Binding Settings.IsTapToFocusEnabled}"/>
             </StackLayout>
+            <StackLayout Orientation="Horizontal">
+                <Label Text="Lock focus and exposure for second picture to focus and exposure from first picture"/>
+                <Switch IsToggled="{Binding Settings.IsLockToFirstEnabled}"/>
+            </StackLayout>
             <BoxView/>
             <StackLayout Orientation="Horizontal">
                 <Label Text="Lefty mode"/>

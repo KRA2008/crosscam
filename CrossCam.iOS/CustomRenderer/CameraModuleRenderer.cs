@@ -111,9 +111,9 @@ namespace CrossCam.iOS.CustomRenderer
             }
         }
 
-        private void LockPictureSpecificSettingsIfNothingCaptured()
+        private void LockPictureSpecificSettingsIfApplicable()
         {
-            if (_cameraModule.IsNothingCaptured)
+            if (_cameraModule.IsNothingCaptured && _cameraModule.IsLockToFirstEnabled)
             {
                 _device.LockForConfiguration(out var error);
                 if (error != null) return;
@@ -176,11 +176,6 @@ namespace CrossCam.iOS.CustomRenderer
             _captureSession.StartRunning();
         }
 
-        private void StopPreview()
-        {
-            _captureSession.StopRunning();
-        }
-
         private void CapturePhoto()
         {
             var photoSettings = AVCapturePhotoSettings.Create();
@@ -200,7 +195,7 @@ namespace CrossCam.iOS.CustomRenderer
                 }
                 else if (finishedPhotoBuffer != null)
                 {
-                    LockPictureSpecificSettingsIfNothingCaptured();
+                    LockPictureSpecificSettingsIfApplicable();
 
                     using (var image = AVCapturePhotoOutput.GetJpegPhotoDataRepresentation(finishedPhotoBuffer, previewPhotoBuffer))
                     using (var imgDataProvider = new CGDataProvider(image))
@@ -229,7 +224,7 @@ namespace CrossCam.iOS.CustomRenderer
                 }
                 else if (photo != null)
                 {
-                    LockPictureSpecificSettingsIfNothingCaptured();
+                    LockPictureSpecificSettingsIfApplicable();
 
                     using (var cgImage = photo.CGImageRepresentation)
                     using (var uiImage = UIImage.FromImage(cgImage, 1, GetOrientationForCorrection()))

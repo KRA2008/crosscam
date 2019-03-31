@@ -115,6 +115,7 @@
             <ce:CameraModule Grid.Column="{Binding CameraColumn}"
                              SwitchToContinuousFocusTrigger="{Binding SwitchToContinuousFocusTrigger}"
                              IsTapToFocusEnabled="{Binding Settings.IsTapToFocusEnabled}"
+                             IsLockToFirstEnabled="{Binding Settings.IsLockToFirstEnabled}"
                              IsPortrait="{Binding IsViewPortrait}"
                              CaptureTrigger="{Binding CapturePictureTrigger}"
                              IsVisible="{Binding IsCameraVisible}"

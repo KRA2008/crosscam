@@ -27,14 +27,17 @@ namespace CrossCam.CustomElement
         public static readonly BindableProperty IsTapToFocusEnabledProperty = BindableProperty.Create(nameof(IsTapToFocusEnabled),
 	        typeof(bool), typeof(CameraModule), false, BindingMode.TwoWay);
 
-	    public static readonly BindableProperty SwitchToContinuousFocusTriggerProperty = BindableProperty.Create(nameof(SwitchToContinuousFocusTrigger),
+        public static readonly BindableProperty IsLockToFirstEnabledProperty = BindableProperty.Create(nameof(IsLockToFirstEnabled),
+            typeof(bool), typeof(CameraModule), true, BindingMode.TwoWay);
+
+        public static readonly BindableProperty SwitchToContinuousFocusTriggerProperty = BindableProperty.Create(nameof(SwitchToContinuousFocusTrigger),
 	        typeof(bool), typeof(CameraModule), false, BindingMode.TwoWay);
 
         public static readonly BindableProperty ErrorMessageProperty = BindableProperty.Create(nameof(ErrorMessage),
 	        typeof(string), typeof(CameraModule), null, BindingMode.TwoWay);
 
 	    public static readonly BindableProperty IsNothingCapturedProperty = BindableProperty.Create(nameof(IsNothingCaptured),
-	        typeof(bool), typeof(CameraModule), false, BindingMode.TwoWay);
+	        typeof(bool), typeof(CameraModule), true, BindingMode.TwoWay);
 
 	    public static readonly BindableProperty PreviewBottomYProperty = BindableProperty.Create(nameof(PreviewBottomY),
 	        typeof(double), typeof(CameraModule), 0d, BindingMode.TwoWay);
@@ -75,7 +78,13 @@ namespace CrossCam.CustomElement
 	        set => SetValue(IsTapToFocusEnabledProperty, value);
 	    }
 
-	    public bool SwitchToContinuousFocusTrigger
+        public bool IsLockToFirstEnabled
+        {
+            get => (bool)GetValue(IsLockToFirstEnabledProperty);
+            set => SetValue(IsLockToFirstEnabledProperty, value);
+        }
+
+        public bool SwitchToContinuousFocusTrigger
         {
 	        get => (bool)GetValue(SwitchToContinuousFocusTriggerProperty);
 	        set => SetValue(SwitchToContinuousFocusTriggerProperty, value);

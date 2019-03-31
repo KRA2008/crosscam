@@ -13,6 +13,8 @@ namespace CrossCam.Model
         public bool ShowRollGuide { get; set; }
 
         public bool IsCaptureLeftFirst { get; set; }
+
+        public bool IsLockToFirstEnabled { get; set; }
         public bool IsTapToFocusEnabled { get; set; }
 
         public bool SaveRedundantFirstSide { get; set; }
@@ -218,11 +220,13 @@ namespace CrossCam.Model
             IsGuideDonutVisible = false;
             ShowGuideDonutWithFirstCapture = false;
             SaveSidesSeparately = false;
-            IsTapToFocusEnabled = false;
             SaveRedundantFirstSide = false;
             SaveForParallel = false;
 
             RedCyanAnaglyphMode = false;
+
+            IsTapToFocusEnabled = false;
+            IsLockToFirstEnabled = true;
 
             LeftyMode = false;
 

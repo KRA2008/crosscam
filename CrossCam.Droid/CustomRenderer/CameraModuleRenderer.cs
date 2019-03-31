@@ -216,36 +216,6 @@ namespace CrossCam.Droid.CustomRenderer
             }
         }
 
-        private void TurnOnFocusLockIfNothingCaptured()
-        {
-            if (_cameraModule.IsNothingCaptured)
-            {
-                if (_useCamera2)
-                {
-
-                }
-                else
-                {
-                    var parameters = _camera1.GetParameters();
-
-                    if (parameters.SupportedFocusModes.Contains(Camera.Parameters.FocusModeFixed))
-                    {
-                        parameters.FocusMode = Camera.Parameters.FocusModeFixed;
-                    }
-                    if (parameters.IsAutoExposureLockSupported)
-                    {
-                        parameters.AutoExposureLock = true;
-                    }
-                    if (parameters.IsAutoWhiteBalanceLockSupported)
-                    {
-                        parameters.AutoWhiteBalanceLock = true;
-                    }
-
-                    _camera1.SetParameters(parameters);
-                }
-            }
-        }
-
         private void TurnOnContinuousFocus(Camera.Parameters providedParameters = null)
         {
             if (_useCamera2)
@@ -679,7 +649,7 @@ namespace CrossCam.Droid.CustomRenderer
             {
                 try
                 {
-                    TurnOnFocusLockIfNothingCaptured();
+                    TurnOnFocusLockIfApplicable1();
                     var wasPreviewRestarted = false;
                     try
                     {
@@ -712,9 +682,32 @@ namespace CrossCam.Droid.CustomRenderer
             }
         }
 
-#endregion
+        private void TurnOnFocusLockIfApplicable1()
+        {
+            if (_cameraModule.IsNothingCaptured && _cameraModule.IsLockToFirstEnabled)
+            {
+                var parameters = _camera1.GetParameters();
 
-#region camera2
+                if (parameters.SupportedFocusModes.Contains(Camera.Parameters.FocusModeFixed))
+                {
+                    parameters.FocusMode = Camera.Parameters.FocusModeFixed;
+                }
+                if (parameters.IsAutoExposureLockSupported)
+                {
+                    parameters.AutoExposureLock = true;
+                }
+                if (parameters.IsAutoWhiteBalanceLockSupported)
+                {
+                    parameters.AutoWhiteBalanceLock = true;
+                }
+
+                _camera1.SetParameters(parameters);
+            }
+        }
+
+        #endregion
+
+        #region camera2
 
         private int FindCamera2()
         {
@@ -864,7 +857,7 @@ namespace CrossCam.Droid.CustomRenderer
             {
                 _previewBuilder.Set(CaptureRequest.ControlMode, new Integer((int) ControlMode.Auto));
 
-                if (applyLocks)
+                if (applyLocks && _cameraModule.IsLockToFirstEnabled)
                 {
                     _previewBuilder.Set(CaptureRequest.ControlAwbLock, new Boolean(true));
                     _previewBuilder.Set(CaptureRequest.BlackLevelLock, new Boolean(true));
