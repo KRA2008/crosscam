@@ -695,7 +695,14 @@ namespace CrossCam.Droid.CustomRenderer
 
                     if (!wasPreviewRestarted)
                     {
-                        _camera1.StartPreview();
+                        try
+                        {
+                            _camera1.StartPreview();
+                        }
+                        catch
+                        {
+                            // i hope it worked. it keeps erroring for one user and getting in the way and although there is an error, there is no undesirable operation! so be quiet.
+                        }
                     }
                 }
                 catch (Exception e)
