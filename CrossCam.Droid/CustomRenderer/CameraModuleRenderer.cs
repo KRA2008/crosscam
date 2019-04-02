@@ -742,7 +742,9 @@ namespace CrossCam.Droid.CustomRenderer
             {
                 foreach (var previewSize in previewSizes)
                 {
-                    if (Math.Abs(pictureSize.Width / (1f * pictureSize.Height) -
+                    if (pictureSize.Width/2 >= previewSize.Width &&
+                        pictureSize.Height/2 >= previewSize.Height &&
+                        Math.Abs(pictureSize.Width / (1f * pictureSize.Height) -
                                  previewSize.Width / (1f * previewSize.Height)) < 0.0001)
                     {
                         _picture2Size = pictureSize;
