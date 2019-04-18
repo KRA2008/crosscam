@@ -1,11 +1,12 @@
-﻿using System;
-using AutoAlignment;
+﻿using AutoAlignment;
 using CrossCam.Model;
 using CrossCam.Wrappers;
+#if !__NO_EMGU__
 using Emgu.CV;
 using Emgu.CV.CvEnum;
 using Emgu.CV.Structure;
 using Emgu.CV.Util;
+#endif
 using SkiaSharp;
 using Xamarin.Forms;
 #if __ANDROID__
@@ -21,6 +22,9 @@ namespace AutoAlignment
     {
         public bool IsOpenCvSupported()
         {
+#if __NO_EMGU__
+            return false;
+#else
             try
             {
                 using (new Mat())
@@ -33,11 +37,15 @@ namespace AutoAlignment
             }
 
             return true;
+#endif
         }
 
         public AlignedResult CreateAlignedSecondImage(SKBitmap firstImage, SKBitmap secondImage, int downsizePercentage, int iterations,
             int epsilonLevel, int eccCutoff, bool discardTransX)
         {
+#if __NO_EMGU__
+            return null;
+#else
             var downsizeFactor = downsizePercentage / 100f;
 
             using (var downsizedFirstGrayMat = new Mat())
@@ -50,7 +58,7 @@ namespace AutoAlignment
 
                 using (var transformMatrix = Mat.Eye(2, 3, DepthType.Cv32F, 1))
                 {
-                    var criteria = new MCvTermCriteria(iterations, Math.Pow(10, -epsilonLevel));
+                    var criteria = new MCvTermCriteria(iterations, System.Math.Pow(10, -epsilonLevel));
                     double ecc;
                     try
                     {
@@ -123,6 +131,7 @@ namespace AutoAlignment
                     }
                 }
             }
+#endif
         }
 
         private static byte[] GetBytes(SKBitmap bitmap, double downsize)

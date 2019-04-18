@@ -494,6 +494,9 @@ namespace CrossCam.Droid.CustomRenderer
 
             if (_useCamera2)
             {
+                //var matrix = new Matrix();
+                //_textureView.SetTransform(matrix);
+
                 _textureView.PivotX = 0;
                 _textureView.PivotY = 0;
                 _textureView.Rotation = rotation2;
@@ -742,8 +745,8 @@ namespace CrossCam.Droid.CustomRenderer
             {
                 foreach (var previewSize in previewSizes)
                 {
-                    if (pictureSize.Width/2 >= previewSize.Width &&
-                        pictureSize.Height/2 >= previewSize.Height &&
+                    if (pictureSize.Width/8 >= previewSize.Width &&
+                        pictureSize.Height/8 >= previewSize.Height &&
                         Math.Abs(pictureSize.Width / (1f * pictureSize.Height) -
                                  previewSize.Width / (1f * previewSize.Height)) < 0.0001)
                     {

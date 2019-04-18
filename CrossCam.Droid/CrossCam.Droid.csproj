@@ -53,6 +53,20 @@
     <AndroidLinkSkip>CrossCam;CrossCam.Droid</AndroidLinkSkip>
     <AndroidResgenExtraArgs>--no-version-vectors</AndroidResgenExtraArgs>
   </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug Without Emgu|AnyCPU'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\Debug Without Emgu\</OutputPath>
+    <DefineConstants>DEBUG;__ANDROID__;__NO_EMGU__;</DefineConstants>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <DebugType>full</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <GenerateSerializationAssemblies>Off</GenerateSerializationAssemblies>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <AotAssemblies>false</AotAssemblies>
+    <EnableLLVM>false</EnableLLVM>
+    <BundleAssemblies>false</BundleAssemblies>
+  </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="FreshMvvm">
       <Version>2.2.4</Version>
