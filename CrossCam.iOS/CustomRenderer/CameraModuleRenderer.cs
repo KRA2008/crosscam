@@ -19,11 +19,13 @@ namespace CrossCam.iOS.CustomRenderer
         private UIView _liveCameraStream;
         private UIGestureRecognizer _tapper;
         private AVCapturePhotoOutput _photoOutput;
+        private AVCaptureStillImageOutput _stillImageOutput;
         private CameraModule _cameraModule;
         private AVCaptureDevice _device;
         private bool _isInitialized;
         private AVCaptureVideoPreviewLayer _avCaptureVideoPreviewLayer;
         private UIDeviceOrientation? _previousValidOrientation;
+        private bool _is10OrHigher;
 
         public CameraModuleRenderer()
         {
@@ -144,8 +146,9 @@ namespace CrossCam.iOS.CustomRenderer
                 SetPreviewSizing();
 
                 SetPreviewOrientation();
-
-                if (_photoOutput == null)
+                
+                _is10OrHigher = UIDevice.CurrentDevice.CheckSystemVersion(10, 0);
+                if (_is10OrHigher && _photoOutput == null)
                 {
                     _device = AVCaptureDevice.GetDefaultDevice(AVMediaTypes.Video);
                     TurnOffFlashAndSetContinuousAutoMode(_device);
@@ -156,6 +159,20 @@ namespace CrossCam.iOS.CustomRenderer
                     };
 
                     _captureSession.AddOutput(_photoOutput);
+                    _captureSession.AddInput(AVCaptureDeviceInput.FromDevice(_device));
+                }
+                else if (!_is10OrHigher && _stillImageOutput == null)
+                {
+                    _device = AVCaptureDevice.GetDefaultDevice(AVMediaTypes.Video);
+                    TurnOffFlashAndSetContinuousAutoMode(_device);
+
+                    _stillImageOutput = new AVCaptureStillImageOutput
+                    {
+                        OutputSettings = new NSDictionary(),
+                        HighResolutionStillImageOutputEnabled = true
+                    };
+
+                    _captureSession.AddOutput(_stillImageOutput);
                     _captureSession.AddInput(AVCaptureDeviceInput.FromDevice(_device));
                 }
             }
@@ -170,11 +187,39 @@ namespace CrossCam.iOS.CustomRenderer
             _captureSession.StartRunning();
         }
 
-        private void CapturePhoto()
+        private async void CapturePhoto()
         {
-            var photoSettings = AVCapturePhotoSettings.Create();
-            photoSettings.IsHighResolutionPhotoEnabled = true;
-            _photoOutput.CapturePhoto(photoSettings, this);
+            try
+            {
+                if (_is10OrHigher)
+                {
+                    var photoSettings = AVCapturePhotoSettings.Create();
+                    photoSettings.IsHighResolutionPhotoEnabled = true;
+                    _photoOutput.CapturePhoto(photoSettings, this);
+                }
+                else
+                {
+
+                    var videoConnection = _stillImageOutput.ConnectionFromMediaType(AVMediaType.Video);
+                    var sampleBuffer = await _stillImageOutput.CaptureStillImageTaskAsync(videoConnection);
+
+                    _cameraModule.CaptureSuccess = !_cameraModule.CaptureSuccess;
+
+                    LockPictureSpecificSettingsIfApplicable();
+
+                    var jpegImageAsNsData = AVCaptureStillImageOutput.JpegStillToNSData(sampleBuffer);
+                    using (var image = UIImage.LoadFromData(jpegImageAsNsData))
+                    using (var cgImage = image.CGImage)
+                    using (var rotatedImage = UIImage.FromImage(cgImage, 1, GetOrientationForCorrection()))
+                    {
+                        _cameraModule.CapturedImage = rotatedImage.AsJPEG().ToArray();
+                    }
+                }
+            }
+            catch (Exception e)
+            {
+                _cameraModule.ErrorMessage = e.ToString();
+            }
         }
 
         [Export("captureOutput:didFinishProcessingPhotoSampleBuffer:previewPhotoSampleBuffer:resolvedSettings:bracketSettings:error:")]
