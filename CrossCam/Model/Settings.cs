@@ -239,7 +239,7 @@ namespace CrossCam.Model
             AlignmentEccThresholdPercentage = 60;
 
             ResolutionProportion = 100;
-            BorderWidthProportion = 10;
+            BorderWidthProportion = 15;
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
