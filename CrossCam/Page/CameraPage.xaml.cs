@@ -1,5 +1,6 @@
 ﻿using System;
 using System.ComponentModel;
+using System.Threading.Tasks;
 using CrossCam.ViewModel;
 using SkiaSharp.Views.Forms;
 using Xamarin.Essentials;
@@ -45,6 +46,8 @@ namespace CrossCam.Page
 	    private const double ROLL_GOOD_THRESHOLD = AVERAGE_ROLL_LIMIT / 8;
 
         private double _averageRoll;
+        private double _lastAccelerometerReadingX;
+        private double _lastAccelerometerReadingY;
 
         public CameraPage()
 		{
@@ -59,12 +62,14 @@ namespace CrossCam.Page
 		    _horizontalLevelBubble.Source = _levelBubbleImage;
 		    _horizontalLevelOutside.Source = _levelOutsideImage;
 
-            Accelerometer.ReadingChanged += HandleAccelerometerReading;
+            Accelerometer.ReadingChanged += StoreAccelerometerReading;
             MessagingCenter.Subscribe<App>(this, App.APP_PAUSING_EVENT, o => EvaluateSensors(false));
 		    MessagingCenter.Subscribe<App>(this, App.APP_UNPAUSING_EVENT, o => EvaluateSensors());
+
+            StartAccelerometerCycling();
         }
 
-	    protected override bool OnBackButtonPressed()
+        protected override bool OnBackButtonPressed()
 	    {
 	        return _viewModel?.BackButtonPressed() ?? base.OnBackButtonPressed();
 	    }
@@ -81,8 +86,8 @@ namespace CrossCam.Page
 	                {
 	                    try
 	                    {
-	                        Accelerometer.Start(Device.RuntimePlatform == Device.Android ? SensorSpeed.UI : SensorSpeed.Game);
-	                    }
+	                        Accelerometer.Start(SensorSpeed.Game);
+                        }
 	                    catch
 	                    {
                             //oh well
@@ -104,36 +109,49 @@ namespace CrossCam.Page
                     }
 	            }
 	        }
-	    }
+        }
 
-        private void HandleAccelerometerReading(object sender, AccelerometerChangedEventArgs args)
+        private async void StartAccelerometerCycling()
+        {
+            while (true)
+            {
+                await Task.Delay(50);
+                UpdateLevelFromAccelerometerData();
+            }
+        }
+
+        private void StoreAccelerometerReading(object sender, AccelerometerChangedEventArgs args)
+        {
+            _lastAccelerometerReadingX = args.Reading.Acceleration.X;
+            _lastAccelerometerReadingY = args.Reading.Acceleration.Y;
+        }
+
+        private void UpdateLevelFromAccelerometerData()
         {
             _averageRoll *= (ACCELEROMETER_MEASURMENT_WEIGHT - 1) / ACCELEROMETER_MEASURMENT_WEIGHT;
 
-            var acceleration = args.Reading.Acceleration;
-
             if (_viewModel != null)
             {
-                if (Math.Abs(acceleration.X) < Math.Abs(acceleration.Y)) //portrait
+                if (Math.Abs(_lastAccelerometerReadingX) < Math.Abs(_lastAccelerometerReadingY)) //portrait
                 {
                     if (_viewModel.IsViewInverted)
                     {
-                        _averageRoll -= acceleration.X / ACCELEROMETER_MEASURMENT_WEIGHT;
+                        _averageRoll -= _lastAccelerometerReadingX / ACCELEROMETER_MEASURMENT_WEIGHT;
                     }
                     else
                     {
-                        _averageRoll += acceleration.X / ACCELEROMETER_MEASURMENT_WEIGHT;
+                        _averageRoll += _lastAccelerometerReadingX / ACCELEROMETER_MEASURMENT_WEIGHT;
                     }
                 }
                 else //landscape
                 {
                     if (_viewModel.IsViewInverted)
                     {
-                        _averageRoll += acceleration.Y / ACCELEROMETER_MEASURMENT_WEIGHT;
+                        _averageRoll += _lastAccelerometerReadingY / ACCELEROMETER_MEASURMENT_WEIGHT;
                     }
                     else
                     {
-                        _averageRoll -= acceleration.Y / ACCELEROMETER_MEASURMENT_WEIGHT;
+                        _averageRoll -= _lastAccelerometerReadingY / ACCELEROMETER_MEASURMENT_WEIGHT;
                     }
                 }
 
@@ -143,7 +161,7 @@ namespace CrossCam.Page
                     _horizontalLevelBubble.Source = _levelBubbleGreenImage;
                     _horizontalLevelOutside.Source = _levelOutsideGreenImage;
                 }
-                else if(Math.Abs(_averageRoll) > ROLL_GOOD_THRESHOLD &&
+                else if (Math.Abs(_averageRoll) > ROLL_GOOD_THRESHOLD &&
                         _horizontalLevelBubble.Source == _levelBubbleGreenImage)
                 {
                     _horizontalLevelBubble.Source = _levelBubbleImage;
@@ -154,7 +172,8 @@ namespace CrossCam.Page
             if (_averageRoll > AVERAGE_ROLL_LIMIT)
             {
                 _averageRoll = AVERAGE_ROLL_LIMIT;
-            } else if (_averageRoll < -AVERAGE_ROLL_LIMIT)
+            }
+            else if (_averageRoll < -AVERAGE_ROLL_LIMIT)
             {
                 _averageRoll = -AVERAGE_ROLL_LIMIT;
             }
@@ -163,7 +182,8 @@ namespace CrossCam.Page
             if (newBounds < 0)
             {
                 newBounds = 0;
-            } else if (newBounds > LEVEL_BUBBLE_MIDDLE * 2)
+            }
+            else if (newBounds > LEVEL_BUBBLE_MIDDLE * 2)
             {
                 newBounds = LEVEL_BUBBLE_MIDDLE * 2;
             }
