@@ -32,7 +32,7 @@ using Camera = Android.Hardware.Camera;
 [assembly: ExportRenderer(typeof(CameraModule), typeof(CameraModuleRenderer))]
 namespace CrossCam.Droid.CustomRenderer
 {
-    public class CameraModuleRenderer : ViewRenderer<CameraModule, View>, TextureView.ISurfaceTextureListener, Camera.IShutterCallback, Camera.IPictureCallback, View.IOnTouchListener, Camera.IErrorCallback
+    public sealed class CameraModuleRenderer : ViewRenderer<CameraModule, View>, TextureView.ISurfaceTextureListener, Camera.IShutterCallback, Camera.IPictureCallback, View.IOnTouchListener, Camera.IErrorCallback
     {
         private Camera _camera1;
         private View _view;
@@ -41,6 +41,8 @@ namespace CrossCam.Droid.CustomRenderer
         private TextureView _textureView;
         private SurfaceTexture _surfaceTexture;
         private CameraModule _cameraModule;
+
+        private readonly float _landscapePreviewAllottedWidth;
 
         private static Camera.Size _previewSize;
         private static Camera.Size _pictureSize;
@@ -70,6 +72,10 @@ namespace CrossCam.Droid.CustomRenderer
             };
             MainActivity.Instance.LifecycleEventListener.AppMaximized += AppWasMaximized;
             MainActivity.Instance.LifecycleEventListener.AppMinimized += AppWasMinimized;
+
+            _landscapePreviewAllottedWidth = Resources.DisplayMetrics.HeightPixels / 2f; // when in landscape (the larger of the two), preview width will be half the height of the screen
+            // ("height" of a screen is the larger of the two dimensions, which is opposite of camera/preview sizes)
+
             if (Build.VERSION.SdkInt >= BuildVersionCodes.M)
             {
                 _cameraManager = (CameraManager)MainActivity.Instance.GetSystemService(Context.CameraService);
@@ -576,41 +582,50 @@ namespace CrossCam.Droid.CustomRenderer
                         parameters.JpegQuality = 100;
                         TurnOnContinuousFocus(parameters);
 
-                        var landscapePictureDescendingSizes = parameters
+                        _pictureSize = parameters
                             .SupportedPictureSizes
                             .Where(p => p.Width > p.Height)
-                            .OrderByDescending(p => p.Width * p.Height)
-                            .ToList();
-                        var landscapePreviewDescendingSizes = parameters
+                            .OrderByDescending(p => p.Width * p.Height).First();
+                        var pictureAspectRatio = _pictureSize.Width / (1f * _pictureSize.Height);
+
+                        var previewSizes = parameters
                             .SupportedPreviewSizes
                             .Where(p => p.Width > p.Height)
                             .OrderByDescending(p => p.Width * p.Height)
                             .ToList();
 
-                        foreach (var pictureSize in landscapePictureDescendingSizes)
+                        var bigger = new List<Camera.Size>();
+                        var smaller = new List<Camera.Size>();
+
+                        foreach (var previewSize in previewSizes)
                         {
-                            foreach (var previewSize in landscapePreviewDescendingSizes)
+                            if (Math.Abs(previewSize.Width / (1f * previewSize.Height) - pictureAspectRatio) < 0.001)
                             {
-                                if (Math.Abs(pictureSize.Width / (1f * pictureSize.Height) -
-                                             previewSize.Width / (1f * previewSize.Height)) < 0.0001)
+                                if (previewSize.Width >= _landscapePreviewAllottedWidth)
                                 {
-                                    _pictureSize = pictureSize;
-                                    _previewSize = previewSize;
-                                    break;
+                                    bigger.Add(previewSize);
+                                }
+                                else
+                                {
+                                    smaller.Add(previewSize);
                                 }
                             }
+                        }
 
-                            if (_pictureSize != null)
-                            {
-                                break;
-                            }
+                        if (bigger.Any())
+                        {
+                            _previewSize = bigger.Last();
+                        }
+                        else if (smaller.Any())
+                        {
+                            _previewSize = smaller.First();
                         }
 
                         if (_pictureSize == null ||
                             _previewSize == null)
                         {
-                            _pictureSize = landscapePictureDescendingSizes.First();
-                            _previewSize = landscapePreviewDescendingSizes.First();
+                            _pictureSize = parameters.SupportedPictureSizes.First();
+                            _previewSize = previewSizes.First();
                         }
 
                         parameters.SetPictureSize(_pictureSize.Width, _pictureSize.Height);
@@ -737,29 +752,41 @@ namespace CrossCam.Droid.CustomRenderer
 
             var map = (StreamConfigurationMap)characteristics.Get(CameraCharacteristics
                 .ScalerStreamConfigurationMap);
+            
 
-            var pictureSizes = map.GetOutputSizes((int)ImageFormatType.Jpeg).Where(p => p.Width > p.Height).OrderByDescending(s => s.Width * s.Height).ToList();
-            var previewSizes = map.GetOutputSizes(Class.FromType(typeof(SurfaceTexture))).Where(p => p.Width > p.Height).OrderByDescending(s => s.Width * s.Height).ToList();
 
-            foreach (var pictureSize in pictureSizes)
+            _picture2Size = map.GetOutputSizes((int) ImageFormatType.Jpeg).Where(p => p.Width > p.Height)
+                .OrderByDescending(s => s.Width * s.Height).First();
+            var pictureAspectRatio = _picture2Size.Width / (1f * _picture2Size.Height);
+
+            var previewSizes = map.GetOutputSizes(Class.FromType(typeof(SurfaceTexture))).Where(p => p.Width > p.Height)
+                .OrderByDescending(s => s.Width * s.Height).ToList();
+
+            var bigger = new List<Size>();
+            var smaller = new List<Size>();
+            
+            foreach (var previewSize in previewSizes)
             {
-                foreach (var previewSize in previewSizes)
+                if (Math.Abs(previewSize.Width / (1f * previewSize.Height) - pictureAspectRatio) < 0.001)
                 {
-                    if (pictureSize.Width/8 >= previewSize.Width &&
-                        pictureSize.Height/8 >= previewSize.Height &&
-                        Math.Abs(pictureSize.Width / (1f * pictureSize.Height) -
-                                 previewSize.Width / (1f * previewSize.Height)) < 0.0001)
+                    if (previewSize.Width >= _landscapePreviewAllottedWidth)
                     {
-                        _picture2Size = pictureSize;
-                        _preview2Size = previewSize;
-                        break;
+                        bigger.Add(previewSize);
+                    }
+                    else
+                    {
+                        smaller.Add(previewSize);
                     }
                 }
+            }
 
-                if (_picture2Size != null)
-                {
-                    break;
-                }
+            if (bigger.Any())
+            {
+                _preview2Size = bigger.Last();
+            }
+            else if (smaller.Any())
+            {
+                _preview2Size = smaller.First();
             }
 
             if (_picture2Size == null ||
