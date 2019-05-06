@@ -21,6 +21,7 @@
             <Label Text="5) Once the second picture is taken, you can tap the pencil icon to edit or tap the checkmark to save"/>
             <Label Text=" "/>
             <Label Text="Other stuff you can do:"/>
+            <Label Text="~ Tap once to focus on a point, tap twice to switch back to continuous auto focus."/>
             <Label Text="~ Tap the gear icon on the top right of the camera screen to open the settings page. It's full of interesting stuff."/>
             <Label Text="~ There's a nice Tips page you can get to by tapping the '?' on the top left of the camera screen that can help you make your pictures great."/>
             <Label Text="~ If you would prefer to move the other direction for your second shot, tap the circled arrows button on the top middle of the camera screen."/>

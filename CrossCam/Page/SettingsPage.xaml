@@ -223,7 +223,7 @@
                    Style="{DynamicResource header}"/>
             <StackLayout Orientation="Horizontal">
                 <Label Text="Tap to point focus, double tap to switch back to continuous focus (or save or clear)"/>
-                <Switch IsToggled="{Binding Settings.IsTapToFocusEnabled}"/>
+                <Switch IsToggled="{Binding Settings.IsTapToFocusEnabled2}"/>
             </StackLayout>
             <StackLayout Orientation="Horizontal">
                 <Label Text="Lock focus and exposure for second picture to focus and exposure from first picture"/>

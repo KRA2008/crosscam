@@ -1225,7 +1225,7 @@ namespace CrossCam.ViewModel
             ClearEdits();
             WorkflowStage = WorkflowStage.Capture;
 
-            if (Settings.IsTapToFocusEnabled)
+            if (Settings.IsTapToFocusEnabled2)
             {
                 SwitchToContinuousFocusTrigger = !SwitchToContinuousFocusTrigger;
             }

@@ -114,7 +114,7 @@
                    HeightRequest="{StaticResource _doubleMediumIconWidth}"/>
             <ce:CameraModule Grid.Column="{Binding CameraColumn}"
                              SwitchToContinuousFocusTrigger="{Binding SwitchToContinuousFocusTrigger}"
-                             IsTapToFocusEnabled="{Binding Settings.IsTapToFocusEnabled}"
+                             IsTapToFocusEnabled="{Binding Settings.IsTapToFocusEnabled2}"
                              IsLockToFirstEnabled="{Binding Settings.IsLockToFirstEnabled}"
                              IsPortrait="{Binding IsViewPortrait}"
                              CaptureTrigger="{Binding CapturePictureTrigger}"
