@@ -114,6 +114,9 @@ namespace CrossCam.ViewModel
         public bool SaveSuccessFadeTrigger { get; set; }
 
         public bool SwitchToContinuousFocusTrigger { get; set; }
+        public bool IsFocusCircleVisible { get; set; }
+        public double FocusCircleX { get; set; }
+        public double FocusCircleY { get; set; }
 
         public bool IsNothingCaptured => LeftBitmap == null && RightBitmap == null;
         public bool ShouldIconBeVisible => IsNothingCaptured && IconColumn != CameraColumn && WorkflowStage == WorkflowStage.Capture;

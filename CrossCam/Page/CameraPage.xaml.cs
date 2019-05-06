@@ -29,6 +29,8 @@ namespace CrossCam.Page
         private readonly Rectangle _leftReticleBounds = new Rectangle(0.2297, 0.5, 0.075, 0.075);
         private readonly Rectangle _rightReticleBounds = new Rectangle(0.7703, 0.5, 0.075, 0.075);
 
+        private const double FOCUS_CIRCLE_WIDTH = 30;
+
 	    private double _reticleLeftX;
 	    private double _reticleRightX;
 	    private double _reticleY;
@@ -206,6 +208,10 @@ namespace CrossCam.Page
 	    {
 	        switch (e.PropertyName)
 	        {
+                case nameof(CameraViewModel.FocusCircleX):
+                case nameof(CameraViewModel.FocusCircleY):
+                    MoveFocusCircle();
+                    break;
                 case nameof(CameraViewModel.WorkflowStage):
                     EvaluateSensors();
                     break;
@@ -243,7 +249,21 @@ namespace CrossCam.Page
 	        }
 	    }
 
-	    private void OnPaintSurface(object sender, SKPaintSurfaceEventArgs e)
+        private void MoveFocusCircle()
+        {
+            if (_viewModel != null)
+            {
+                AbsoluteLayout.SetLayoutBounds(_focusCircle, new Rectangle
+                {
+                    X = _viewModel.FocusCircleX - FOCUS_CIRCLE_WIDTH / 2d,
+                    Y = _viewModel.FocusCircleY - FOCUS_CIRCLE_WIDTH / 2d,
+                    Width = FOCUS_CIRCLE_WIDTH,
+                    Height = FOCUS_CIRCLE_WIDTH
+                });
+            }
+        }
+
+        private void OnPaintSurface(object sender, SKPaintSurfaceEventArgs e)
 	    {
 	        var canvas = e.Surface.Canvas;
 

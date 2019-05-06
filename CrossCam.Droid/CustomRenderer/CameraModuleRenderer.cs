@@ -10,7 +10,6 @@ using Android.Hardware.Camera2;
 using Android.Hardware.Camera2.Params;
 using Android.Media;
 using Android.OS;
-using Android.Preferences;
 using Android.Runtime;
 using Android.Util;
 using Android.Views;
@@ -225,6 +224,7 @@ namespace CrossCam.Droid.CustomRenderer
 
         private void TurnOnContinuousFocus(Camera.Parameters providedParameters = null)
         {
+            _cameraModule.IsFocusCircleVisible = false;
             if (_useCamera2)
             {
                 SetRefreshingPreview2(false);
@@ -385,6 +385,13 @@ namespace CrossCam.Droid.CustomRenderer
                             {
                                 parameters.MeteringAreas = new List<Camera.Area> { new Camera.Area(meteringRect, 1000) };
                             }
+
+                            var metrics = new DisplayMetrics();
+                            Display.GetMetrics(metrics);
+                            _cameraModule.FocusCircleX = (focusRect.CenterX() + _textureView.GetX()) / metrics.Density;
+                            _cameraModule.FocusCircleY = (focusRect.CenterY() + _textureView.GetY()) / metrics.Density;
+                            _cameraModule.IsFocusCircleVisible = true;
+
                             _camera1.SetParameters(parameters);
                         }
                     }

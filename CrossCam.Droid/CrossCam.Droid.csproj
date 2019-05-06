@@ -278,6 +278,7 @@
     <AndroidResource Include="Resources\drawable-nodpi\anaglyph.png" />
     <AndroidResource Include="Resources\drawable-nodpi\horizontalLevelInsideGreen.png" />
     <AndroidResource Include="Resources\drawable-nodpi\horizontalLevelOutsideGreen.png" />
+    <AndroidResource Include="Resources\drawable-nodpi\focusCircle.png" />
   </ItemGroup>
   <Import Project="..\AutoAlignment\AutoAlignment.projitems" Label="Shared" />
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />

@@ -124,7 +124,20 @@
                              CaptureSuccess="{Binding CaptureSuccess}"
                              IsNothingCaptured="{Binding IsNothingCaptured}"
                              PreviewBottomY="{Binding PreviewBottomY}"
-                             ErrorMessage="{Binding ErrorMessage}"/>
+                             ErrorMessage="{Binding ErrorMessage}"
+                             IsFocusCircleVisible="{Binding IsFocusCircleVisible}"
+                             FocusCircleX="{Binding FocusCircleX}"
+                             FocusCircleY="{Binding FocusCircleY}"/>
+            <AbsoluteLayout Grid.Column="{Binding CameraColumn}"
+                            IsVisible="{Binding IsCameraVisible}"
+                            InputTransparent="True">
+                <Image x:Name="_focusCircle"
+                       AbsoluteLayout.LayoutFlags="None"
+                       AbsoluteLayout.LayoutBounds="0,0,0,0"
+                       Source="focusCircle"
+                       IsVisible="{Binding IsFocusCircleVisible}">
+                </Image>
+            </AbsoluteLayout>
             <ce:CameraSuccessOutline Grid.Column="0">
                 <ce:CameraSuccessOutline.Behaviors>
                     <ce:FadeInAndOutBehavior Trigger="{Binding LeftCaptureSuccess}"

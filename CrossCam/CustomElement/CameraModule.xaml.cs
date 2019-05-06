@@ -42,6 +42,15 @@ namespace CrossCam.CustomElement
 	    public static readonly BindableProperty PreviewBottomYProperty = BindableProperty.Create(nameof(PreviewBottomY),
 	        typeof(double), typeof(CameraModule), 0d, BindingMode.TwoWay);
 
+        public static readonly BindableProperty IsFocusCircleVisibleProperty = BindableProperty.Create(nameof(IsFocusCircleVisible),
+            typeof(bool), typeof(CameraModule), false, BindingMode.TwoWay);
+
+        public static readonly BindableProperty FocusCircleXProperty = BindableProperty.Create(nameof(FocusCircleX),
+            typeof(double), typeof(CameraModule), 0d, BindingMode.TwoWay);
+
+        public static readonly BindableProperty FocusCircleYProperty = BindableProperty.Create(nameof(FocusCircleY),
+            typeof(double), typeof(CameraModule), 0d, BindingMode.TwoWay);
+
         public byte[] CapturedImage
         {
             get => (byte[])GetValue(CapturedImageProperty);
@@ -106,6 +115,24 @@ namespace CrossCam.CustomElement
 	    {
 	        get => (double) GetValue(PreviewBottomYProperty);
 	        set => SetValue(PreviewBottomYProperty, value);
+        }
+
+        public bool IsFocusCircleVisible
+        {
+            get => (bool)GetValue(IsFocusCircleVisibleProperty);
+            set => SetValue(IsFocusCircleVisibleProperty, value);
+        }
+
+        public double FocusCircleX
+        {
+            get => (double)GetValue(FocusCircleXProperty);
+            set => SetValue(FocusCircleXProperty, value);
+        }
+
+        public double FocusCircleY
+        {
+            get => (double)GetValue(FocusCircleYProperty);
+            set => SetValue(FocusCircleYProperty, value);
         }
     }
 }

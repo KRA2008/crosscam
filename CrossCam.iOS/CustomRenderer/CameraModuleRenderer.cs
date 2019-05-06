@@ -322,24 +322,31 @@ namespace CrossCam.iOS.CustomRenderer
                 {
                     var focusPoint = new CGPoint();
 
+                    var translatedPoint = _avCaptureVideoPreviewLayer.CaptureDevicePointOfInterestForPoint(touchLocation);
+
+                    double previewHeight = 0;
+
                     if (_previousValidOrientation == UIDeviceOrientation.Portrait)
                     {
-                        var translatedPoint = _avCaptureVideoPreviewLayer.CaptureDevicePointOfInterestForPoint(touchLocation);
                         focusPoint.X = translatedPoint.Y;
                         focusPoint.Y = translatedPoint.X;
 
                         focusPoint.X = 1 - focusPoint.X;
+
+                        previewHeight = _cameraModule.Width * (4f / 3f);
                     }
                     else if (_previousValidOrientation == UIDeviceOrientation.LandscapeLeft)
                     {
                         focusPoint = _avCaptureVideoPreviewLayer.CaptureDevicePointOfInterestForPoint(touchLocation);
+
+                        previewHeight = _cameraModule.Height * (3f / 4f);
                     }
                     else if (_previousValidOrientation == UIDeviceOrientation.LandscapeRight)
                     {
-                        var translatedPoint = _avCaptureVideoPreviewLayer.CaptureDevicePointOfInterestForPoint(touchLocation);
-
                         focusPoint.X = 1 - translatedPoint.X;
                         focusPoint.Y = 1 - translatedPoint.Y;
+
+                        previewHeight = _cameraModule.Height * 2 * (3f / 4f);
                     }
 
                     if (focusPoint.Y < 0)
@@ -372,12 +379,16 @@ namespace CrossCam.iOS.CustomRenderer
                         _device.WhiteBalanceMode = AVCaptureWhiteBalanceMode.AutoWhiteBalance; //not sure about this
                     }
 
+                    _cameraModule.FocusCircleX = focusPoint.X * _cameraModule.Width;
+                    _cameraModule.FocusCircleY = (_cameraModule.Height - previewHeight) / 2f + focusPoint.Y * previewHeight;
+                    _cameraModule.IsFocusCircleVisible = true;
+
                     _device.UnlockForConfiguration();
                 }
             }
         }
 
-        private static void TurnOffFlashAndSetContinuousAutoMode(AVCaptureDevice device)
+        private void TurnOffFlashAndSetContinuousAutoMode(AVCaptureDevice device)
         {
             device.LockForConfiguration(out var error);
             if (error != null) return;
@@ -398,6 +409,8 @@ namespace CrossCam.iOS.CustomRenderer
             {
                 device.WhiteBalanceMode = AVCaptureWhiteBalanceMode.ContinuousAutoWhiteBalance;
             }
+
+            _cameraModule.IsFocusCircleVisible = false;
 
             device.UnlockForConfiguration();
         }
