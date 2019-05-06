@@ -14,6 +14,7 @@ namespace CrossCam.Model
 
         public bool IsCaptureLeftFirst { get; set; }
 
+        public bool IsForceCamera1Enabled { get; set; }
         public bool IsLockToFirstEnabled { get; set; }
         public bool IsTapToFocusEnabled { get; set; }
 
@@ -225,6 +226,7 @@ namespace CrossCam.Model
 
             RedCyanAnaglyphMode = false;
 
+            IsForceCamera1Enabled = false;
             IsTapToFocusEnabled = false;
             IsLockToFirstEnabled = true;
 

@@ -10,12 +10,15 @@ using Android.Hardware.Camera2;
 using Android.Hardware.Camera2.Params;
 using Android.Media;
 using Android.OS;
+using Android.Preferences;
 using Android.Runtime;
 using Android.Util;
 using Android.Views;
 using Android.Widget;
 using CrossCam.Droid.CustomRenderer;
 using CrossCam.Droid.CustomRenderer.Camera2;
+using CrossCam.Model;
+using CrossCam.Wrappers;
 using Java.Lang;
 using Xamarin.Forms;
 using Xamarin.Forms.Platform.Android;
@@ -73,10 +76,14 @@ namespace CrossCam.Droid.CustomRenderer
             MainActivity.Instance.LifecycleEventListener.AppMaximized += AppWasMaximized;
             MainActivity.Instance.LifecycleEventListener.AppMinimized += AppWasMinimized;
 
+            //TODO: remove when i figure out why distortion is happening on a couple devices with camera2
+            var settings = PersistentStorage.LoadOrDefault(PersistentStorage.SETTINGS_KEY, new Settings());
+            var forceCamera1 = settings.IsForceCamera1Enabled;
+
             _landscapePreviewAllottedWidth = Resources.DisplayMetrics.HeightPixels / 2f; // when in landscape (the larger of the two), preview width will be half the height of the screen
             // ("height" of a screen is the larger of the two dimensions, which is opposite of camera/preview sizes)
 
-            if (Build.VERSION.SdkInt >= BuildVersionCodes.M)
+            if (Build.VERSION.SdkInt >= BuildVersionCodes.M && !forceCamera1)
             {
                 _cameraManager = (CameraManager)MainActivity.Instance.GetSystemService(Context.CameraService);
 
