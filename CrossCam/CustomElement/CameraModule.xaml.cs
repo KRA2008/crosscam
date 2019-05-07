@@ -8,48 +8,48 @@ namespace CrossCam.CustomElement
 		{
 			InitializeComponent ();
 	    }
-        //TODO: what binding modes are needed?
+
 	    public static readonly BindableProperty CapturedImageProperty = BindableProperty.Create(nameof(CapturedImage),
-	        typeof(byte[]), typeof(CameraModule), defaultBindingMode: BindingMode.TwoWay);
+	        typeof(byte[]), typeof(CameraModule), null, BindingMode.OneWayToSource);
 
         public static readonly BindableProperty CaptureTriggerProperty = BindableProperty.Create(nameof(CaptureTrigger),
-            typeof(bool), typeof(CameraModule), false, BindingMode.TwoWay);
+            typeof(bool), typeof(CameraModule), false);
 
 	    public static readonly BindableProperty CaptureSuccessProperty = BindableProperty.Create(nameof(CaptureSuccess),
-	        typeof(bool), typeof(CameraModule), false, BindingMode.TwoWay);
+	        typeof(bool), typeof(CameraModule), false, BindingMode.OneWayToSource);
 
 	    public static readonly BindableProperty IsPortraitProperty = BindableProperty.Create(nameof(IsPortrait),
-	        typeof(bool), typeof(CameraModule), false, BindingMode.TwoWay);
+	        typeof(bool), typeof(CameraModule), false, BindingMode.OneWayToSource);
 
 	    public static readonly BindableProperty IsViewInvertedProperty = BindableProperty.Create(nameof(IsViewInverted),
-	        typeof(bool), typeof(CameraModule), false, BindingMode.TwoWay);
+	        typeof(bool), typeof(CameraModule), false, BindingMode.OneWayToSource);
 
         public static readonly BindableProperty IsTapToFocusEnabledProperty = BindableProperty.Create(nameof(IsTapToFocusEnabled),
-	        typeof(bool), typeof(CameraModule), false, BindingMode.TwoWay);
+	        typeof(bool), typeof(CameraModule), false);
 
         public static readonly BindableProperty IsLockToFirstEnabledProperty = BindableProperty.Create(nameof(IsLockToFirstEnabled),
-            typeof(bool), typeof(CameraModule), true, BindingMode.TwoWay);
+            typeof(bool), typeof(CameraModule), true);
 
         public static readonly BindableProperty SwitchToContinuousFocusTriggerProperty = BindableProperty.Create(nameof(SwitchToContinuousFocusTrigger),
-	        typeof(bool), typeof(CameraModule), false, BindingMode.TwoWay);
+	        typeof(bool), typeof(CameraModule), false);
 
         public static readonly BindableProperty ErrorMessageProperty = BindableProperty.Create(nameof(ErrorMessage),
-	        typeof(string), typeof(CameraModule), null, BindingMode.TwoWay);
+	        typeof(string), typeof(CameraModule), null, BindingMode.OneWayToSource);
 
 	    public static readonly BindableProperty IsNothingCapturedProperty = BindableProperty.Create(nameof(IsNothingCaptured),
-	        typeof(bool), typeof(CameraModule), true, BindingMode.TwoWay);
+	        typeof(bool), typeof(CameraModule), true);
 
 	    public static readonly BindableProperty PreviewBottomYProperty = BindableProperty.Create(nameof(PreviewBottomY),
-	        typeof(double), typeof(CameraModule), 0d, BindingMode.TwoWay);
+	        typeof(double), typeof(CameraModule), 0d, BindingMode.OneWayToSource);
 
         public static readonly BindableProperty IsFocusCircleVisibleProperty = BindableProperty.Create(nameof(IsFocusCircleVisible),
-            typeof(bool), typeof(CameraModule), false, BindingMode.TwoWay);
+            typeof(bool), typeof(CameraModule), false, BindingMode.OneWayToSource);
 
         public static readonly BindableProperty FocusCircleXProperty = BindableProperty.Create(nameof(FocusCircleX),
-            typeof(double), typeof(CameraModule), 0d, BindingMode.TwoWay);
+            typeof(double), typeof(CameraModule), 0d, BindingMode.OneWayToSource);
 
         public static readonly BindableProperty FocusCircleYProperty = BindableProperty.Create(nameof(FocusCircleY),
-            typeof(double), typeof(CameraModule), 0d, BindingMode.TwoWay);
+            typeof(double), typeof(CameraModule), 0d, BindingMode.OneWayToSource);
 
         public byte[] CapturedImage
         {
