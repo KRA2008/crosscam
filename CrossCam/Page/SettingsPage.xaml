@@ -229,10 +229,6 @@
                 <Label Text="Lock focus and exposure for second picture to focus and exposure from first picture"/>
                 <Switch IsToggled="{Binding Settings.IsLockToFirstEnabled}"/>
             </StackLayout>
-            <StackLayout Orientation="Horizontal">
-                <Label Text="Force camera1 (helpful if preview is distorted, requires a restart to take affect)"/>
-                <Switch IsToggled="{Binding Settings.IsForceCamera1Enabled}"/>
-            </StackLayout>
             <BoxView/>
             <StackLayout Orientation="Horizontal">
                 <Label Text="Lefty mode"/>

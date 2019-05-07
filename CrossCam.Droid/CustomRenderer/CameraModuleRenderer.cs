@@ -75,14 +75,10 @@ namespace CrossCam.Droid.CustomRenderer
             MainActivity.Instance.LifecycleEventListener.AppMaximized += AppWasMaximized;
             MainActivity.Instance.LifecycleEventListener.AppMinimized += AppWasMinimized;
 
-            //TODO: remove when i figure out why distortion is happening on a couple devices with camera2
-            var settings = PersistentStorage.LoadOrDefault(PersistentStorage.SETTINGS_KEY, new Settings());
-            var forceCamera1 = settings.IsForceCamera1Enabled;
-
             _landscapePreviewAllottedWidth = Resources.DisplayMetrics.HeightPixels / 2f; // when in landscape (the larger of the two), preview width will be half the height of the screen
-            // ("height" of a screen is the larger of the two dimensions, which is opposite of camera/preview sizes)
+                                                                                         // ("height" of a screen is the larger of the two dimensions, which is opposite of camera/preview sizes)
 
-            if (Build.VERSION.SdkInt >= BuildVersionCodes.M && !forceCamera1)
+            if (Build.VERSION.SdkInt >= BuildVersionCodes.M)
             {
                 _cameraManager = (CameraManager)MainActivity.Instance.GetSystemService(Context.CameraService);
 
@@ -514,9 +510,6 @@ namespace CrossCam.Droid.CustomRenderer
 
             if (_useCamera2)
             {
-                //var matrix = new Matrix();
-                //_textureView.SetTransform(matrix);
-
                 _textureView.PivotX = 0;
                 _textureView.PivotY = 0;
                 _textureView.Rotation = rotation2;
@@ -644,6 +637,8 @@ namespace CrossCam.Droid.CustomRenderer
 
                         parameters.SetPictureSize(_pictureSize.Width, _pictureSize.Height);
                         parameters.SetPreviewSize(_previewSize.Width, _previewSize.Height);
+
+                        _surfaceTexture.SetDefaultBufferSize(_previewSize.Width, _previewSize.Height);
 
                         _camera1.SetParameters(parameters);
                         _camera1.SetPreviewTexture(_surfaceTexture);
@@ -850,6 +845,8 @@ namespace CrossCam.Droid.CustomRenderer
                 {
                     _camera2 = camera;
                 }
+
+                _surfaceTexture.SetDefaultBufferSize(_preview2Size.Width, _preview2Size.Height);
 
                 _previewBuilder = _camera2.CreateCaptureRequest(CameraTemplate.Preview);
                 var surface = new Surface(_surfaceTexture);
