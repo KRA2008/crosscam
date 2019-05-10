@@ -13,7 +13,7 @@ namespace CrossCam.Droid.CustomRenderer.Camera2
 
         public override void OnOpened(CameraDevice camera)
         {
-            _cameraModuleRenderer.StartContinuouslyFocusingPreview2(camera);
+            _cameraModuleRenderer.StartContinuouslyFocusingPreview2IfNotRunning(camera);
         }
 
         public override void OnDisconnected(CameraDevice camera)

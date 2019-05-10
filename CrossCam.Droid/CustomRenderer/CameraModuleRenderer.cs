@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
+using System.Threading.Tasks;
 using Android.App;
 using Android.Content;
 using Android.Graphics;
@@ -32,7 +33,7 @@ using Camera = Android.Hardware.Camera;
 [assembly: ExportRenderer(typeof(CameraModule), typeof(CameraModuleRenderer))]
 namespace CrossCam.Droid.CustomRenderer
 {
-    public sealed class CameraModuleRenderer : ViewRenderer<CameraModule, View>, TextureView.ISurfaceTextureListener, Camera.IShutterCallback, Camera.IPictureCallback, View.IOnTouchListener, Camera.IErrorCallback
+    public sealed class CameraModuleRenderer : ViewRenderer<CameraModule, View>, TextureView.ISurfaceTextureListener, Camera.IShutterCallback, Camera.IPictureCallback, Camera.IErrorCallback, View.IOnTouchListener
     {
         private Camera _camera1;
         private View _view;
@@ -41,6 +42,7 @@ namespace CrossCam.Droid.CustomRenderer
         private TextureView _textureView;
         private SurfaceTexture _surfaceTexture;
         private CameraModule _cameraModule;
+        private GestureDetector _gestureDetector;
 
         private readonly float _landscapePreviewAllottedWidth;
 
@@ -63,6 +65,7 @@ namespace CrossCam.Droid.CustomRenderer
         private Size _picture2Size;
         private int _camera2SensorOrientation;
         readonly SparseIntArray _orientations = new SparseIntArray();
+        private bool _isContinuouslyFocusingCamera2;
 
         public CameraModuleRenderer(Context context) : base(context)
         {
@@ -76,7 +79,7 @@ namespace CrossCam.Droid.CustomRenderer
             _landscapePreviewAllottedWidth = Resources.DisplayMetrics.HeightPixels / 2f; // when in landscape (the larger of the two), preview width will be half the height of the screen
                                                                                          // ("height" of a screen is the larger of the two dimensions, which is opposite of camera/preview sizes)
 
-            if (Build.VERSION.SdkInt >= BuildVersionCodes.M)
+            if (Build.VERSION.SdkInt >= BuildVersionCodes.Lollipop)
             {
                 _cameraManager = (CameraManager)MainActivity.Instance.GetSystemService(Context.CameraService);
 
@@ -221,7 +224,7 @@ namespace CrossCam.Droid.CustomRenderer
             _cameraModule.IsFocusCircleVisible = false;
             if (_useCamera2)
             {
-                StartContinuouslyFocusingPreview2();
+                StartContinuouslyFocusingPreview2IfNotRunning();
             }
             else
             {
@@ -264,6 +267,7 @@ namespace CrossCam.Droid.CustomRenderer
             _textureView = _view.FindViewById<TextureView>(Resource.Id.textureView);
             _textureView.SurfaceTextureListener = this;
             _textureView.SetOnTouchListener(this);
+            _gestureDetector = new GestureDetector(MainActivity.Instance, new CameraPreviewGestureListener(this));
         }
 
         protected override void OnLayout(bool changed, int l, int t, int r, int b)
@@ -285,7 +289,7 @@ namespace CrossCam.Droid.CustomRenderer
         {
             _textureView.LayoutParameters = new FrameLayout.LayoutParams(width, height);
             _surfaceTexture = surface;
-            
+
             if (_useCamera2)
             {
                 SetOrientation();
@@ -341,149 +345,143 @@ namespace CrossCam.Droid.CustomRenderer
             }
         }
 
-        private const int MAX_DOUBLE_TAP_DURATION = 200;
-        private long _tapStartTime;
-
         public bool OnTouch(View v, MotionEvent e)
+        {
+            return _gestureDetector.OnTouchEvent(e);
+        }
+
+        private void PreviewDoubleTapped()
+        {
+            TurnOnContinuousFocus();
+        }
+
+        private void PreviewSingleTapped(MotionEvent e)
         {
             try
             {
-                if (JavaSystem.CurrentTimeMillis() - _tapStartTime <= MAX_DOUBLE_TAP_DURATION)
+                if (_cameraModule.IsTapToFocusEnabled)
                 {
-                    //double tap
-                    TurnOnContinuousFocus();
-                }
-                else
-                {
-                    //single tap
-                    _tapStartTime = JavaSystem.CurrentTimeMillis();
+                    var metrics = new DisplayMetrics();
+                    Display.GetMetrics(metrics);
 
-                    if (_cameraModule.IsTapToFocusEnabled)
+                    if (_useCamera2)
                     {
+                        var characteristics = _cameraManager.GetCameraCharacteristics(_camera2Device.Id);
+                        var arraySize = (Rect)characteristics.Get(CameraCharacteristics.SensorInfoActiveArraySize);
+                        var rotation = Display.Rotation;
 
-                        if (_useCamera2)
+                        //sensor 90, display 0
+
+                        MeteringRectangle meteringRectangle = null;
+                        if (_camera2SensorOrientation == 90 && rotation == SurfaceOrientation.Rotation0)
                         {
-                            //var characteristics = _cameraManager.GetCameraCharacteristics(_camera2Device.Id);
-                            //var arraySize = (Rect) characteristics.Get(CameraCharacteristics.SensorInfoActiveArraySize);
-                            //var rotation = Display.Rotation;
+                            var displayHorizontalProportion = e.GetX() / _textureView.Width;
+                            var displayVerticalProportion = e.GetY() / _textureView.Height;
 
-                            ////sensor 90, display 0
+                            var sizingRatio = arraySize.Width() / (1f * _textureView.Height);
 
-                            //MeteringRectangle meteringRectangle = null;
-                            //if (_camera2SensorOrientation == 90 && rotation == SurfaceOrientation.Rotation0)
-                            //{
-                            //    var displayHorizontalProportion = e.GetX() / _textureView.Width;
-                            //    var displayVerticalProportion = e.GetY() / _textureView.Height;
+                            // TODO: extract/import/change this??? it's the total area to consider... should it match the circle i display?
+                            const int FOCUS_CIRCLE_DIAMETER = 30;
 
-                            //    var sizingRatio = arraySize.Width() / (1f * _textureView.Height);
-                            //    const int
-                            //        FOCUS_CIRCLE_DIAMETER =
-                            //            30; // TODO: extract/import/change this??? it's the total area to consider... should it match the circle i display?
-                            //    var focusSquareSide = FOCUS_CIRCLE_DIAMETER * sizingRatio;
+                            var focusSquareSide = FOCUS_CIRCLE_DIAMETER * metrics.Density * sizingRatio;
 
-                            //    var sensorTapRect = new Rect
-                            //    {
-                            //        Left = (int) (displayVerticalProportion * arraySize.Width() - focusSquareSide / 2),
-                            //        Top = (int) ((1 - displayHorizontalProportion) * arraySize.Height() -
-                            //                     focusSquareSide / 2),
-                            //        Right = (int) (displayVerticalProportion * arraySize.Width() + focusSquareSide / 2),
-                            //        Bottom = (int) ((1 - displayHorizontalProportion) * arraySize.Height() +
-                            //                        focusSquareSide / 2)
-                            //    };
-
-                            //    meteringRectangle = new MeteringRectangle(sensorTapRect, 1000);
-                            //}
-
-                            //var maxAfRegions = (int) characteristics.Get(CameraCharacteristics.ControlMaxRegionsAf);
-                            //var maxAeRegions = (int) characteristics.Get(CameraCharacteristics.ControlMaxRegionsAe);
-                            //var maxAwbRegions = (int) characteristics.Get(CameraCharacteristics.ControlMaxRegionsAwb);
-
-                            //////TODO: why am i always using the same capturerequest/previewbuilder elsewhere
-                            //var previewBuilder = _camera2Device.CreateCaptureRequest(CameraTemplate.Preview);
-                            //var surface = new Surface(_surfaceTexture);
-                            //previewBuilder.AddTarget(surface);
-
-                            //if ((maxAfRegions > 0 ||
-                            //     maxAeRegions > 0 ||
-                            //     maxAwbRegions > 0) &&
-                            //    meteringRectangle != null)
-                            //{
-                            //    if (maxAfRegions > 0)
-                            //    {
-                            //        previewBuilder.Set(CaptureRequest.ControlAfRegions, new[] {meteringRectangle});
-                            //        previewBuilder.Set(CaptureRequest.ControlAfMode,
-                            //            new Integer((int)ControlAFMode.Auto));
-                            //        previewBuilder.Set(CaptureRequest.ControlAfTrigger,
-                            //            new Integer((int) ControlAFTrigger.Start));
-                            //    }
-
-                            //    //if (maxAeRegions > 0)
-                            //    //{
-                            //    //    previewBuilder.Set(CaptureRequest.ControlAeRegions, meteringRectangle);
-                            //    //    previewBuilder.Set(CaptureRequest.ControlAeMode, new Integer((int)ControlAEMode.On));//???
-                            //    //    //previewBuilder.Set(CaptureRequest.ControlAeMode, new Integer((int)ControlMode.Auto)); //???
-                            //    //    previewBuilder.Set(CaptureRequest.ControlAePrecaptureTrigger, new Integer((int)ControlAEPrecaptureTrigger.Start));//???
-                            //    //}
-
-                            //    //if (maxAwbRegions > 0)
-                            //    //{
-                            //    //    previewBuilder.Set(CaptureRequest.ControlAwbRegions, meteringRectangle);
-                            //    //    previewBuilder.Set(CaptureRequest.ControlAwbMode, new Integer((int)ControlAwbMode.Auto));//???
-                            //    //    previewBuilder.Set(CaptureRequest.ControlAwbLock, new Integer((int)ControlAwbState.Locked));//???
-                            //    //}
-                            //    _currentCamera2Session.StopRepeating();
-
-                            //    _camera2Device.CreateCaptureSession(new List<Surface> {surface},
-                            //        new CameraCaptureStateListener
-                            //        {
-                            //            OnConfigureFailedAction = session => { },
-                            //            OnConfiguredAction = session =>
-                            //            {
-                            //                _currentCamera2Session = session;
-                            //                SetRefreshingPreview2(true);
-                            //            }
-                            //        },
-                            //        null);
-                            //}
-                        }
-                        else
-                        {
-                            var focusRect = CalculateTapArea(e.GetX(), e.GetY(), _textureView.Width,
-                                _textureView.Height, 1f);
-                            var meteringRect = CalculateTapArea(e.GetX(), e.GetY(), _textureView.Width,
-                                _textureView.Height, 1.5f);
-
-                            var parameters = _camera1.GetParameters();
-
-                            if (parameters.MaxNumFocusAreas > 0 &&
-                                parameters.SupportedFocusModes.Contains(Camera.Parameters.FocusModeAuto))
+                            var sensorTapRect = new Rect
                             {
-                                parameters.FocusMode = Camera.Parameters.FocusModeAuto;
-                                parameters.FocusAreas = new List<Camera.Area> {new Camera.Area(focusRect, 1000)};
-                            }
+                                Left = (int)(displayVerticalProportion * arraySize.Width() - focusSquareSide / 2),
+                                Top = (int)((1 - displayHorizontalProportion) * arraySize.Height() -
+                                             focusSquareSide / 2),
+                                Right = (int)(displayVerticalProportion * arraySize.Width() + focusSquareSide / 2),
+                                Bottom = (int)((1 - displayHorizontalProportion) * arraySize.Height() +
+                                                focusSquareSide / 2)
+                            };
 
-                            if (parameters.MaxNumMeteringAreas > 0)
-                            {
-                                parameters.MeteringAreas = new List<Camera.Area> {new Camera.Area(meteringRect, 1000)};
-                            }
-
-                            _camera1.SetParameters(parameters);
+                            meteringRectangle = new MeteringRectangle(sensorTapRect, 999);
                         }
 
-                        var metrics = new DisplayMetrics();
-                        Display.GetMetrics(metrics);
-                        _cameraModule.FocusCircleX = (e.GetX() + _textureView.GetX()) / metrics.Density;
-                        _cameraModule.FocusCircleY = (e.GetY() + _textureView.GetY()) / metrics.Density;
-                        _cameraModule.IsFocusCircleVisible = true;
+                        var maxAfRegions = (int)characteristics.Get(CameraCharacteristics.ControlMaxRegionsAf);
+                        var maxAeRegions = (int)characteristics.Get(CameraCharacteristics.ControlMaxRegionsAe);
+                        //TODO: auto white balance? does that mean you have to tap on something white???
+
+                        if ((maxAfRegions > 0 ||
+                             maxAeRegions > 0) &&
+                            meteringRectangle != null)
+                        {
+                            _surfaceTexture.SetDefaultBufferSize(_preview2Size.Width, _preview2Size.Height);
+                            _isContinuouslyFocusingCamera2 = false;
+                            _camera2Device.CreateCaptureSession(new List<Surface> { _surface },
+                                new CameraCaptureStateListener
+                                {
+                                    OnConfigureFailedAction = session => { },
+                                    OnConfiguredAction = session =>
+                                    {
+                                        _currentCamera2Session = session;
+
+                                        var listener = new CameraCaptureListener();
+                                        listener.PhotoComplete += (sender, args) =>
+                                        {
+                                            StartLockedPreview2();
+                                        };
+
+                                        var thread = new HandlerThread("CameraTapFocusPreview");
+                                        thread.Start();
+                                        var backgroundHandler = new Handler(thread.Looper);
+
+                                        var previewBuilder = _camera2Device.CreateCaptureRequest(CameraTemplate.Preview);
+                                        previewBuilder.AddTarget(_surface);
+
+                                        if (maxAfRegions > 0)
+                                        {
+                                            previewBuilder.Set(CaptureRequest.ControlAfRegions, new[] { meteringRectangle });
+                                            previewBuilder.Set(CaptureRequest.ControlAfMode, new Integer((int)ControlAFMode.Auto));
+                                            previewBuilder.Set(CaptureRequest.ControlAfTrigger, new Integer((int)ControlAFTrigger.Start));
+                                        }
+
+                                        if (maxAeRegions > 0)
+                                        {
+                                            previewBuilder.Set(CaptureRequest.ControlAeRegions, new[] { meteringRectangle });
+                                            previewBuilder.Set(CaptureRequest.ControlAeMode, new Integer((int)ControlAEMode.On));
+                                            previewBuilder.Set(CaptureRequest.ControlAePrecaptureTrigger, new Integer((int)ControlAEPrecaptureTrigger.Start));
+                                        }
+
+                                        session.Capture(previewBuilder.Build(), listener, backgroundHandler);
+                                    }
+                                },
+                                null);
+                        }
                     }
+                    else
+                    {
+                        var focusRect = CalculateTapArea(e.GetX(), e.GetY(), _textureView.Width,
+                            _textureView.Height, 1f);
+                        var meteringRect = CalculateTapArea(e.GetX(), e.GetY(), _textureView.Width,
+                            _textureView.Height, 1.5f);
+
+                        var parameters = _camera1.GetParameters();
+
+                        if (parameters.MaxNumFocusAreas > 0 &&
+                            parameters.SupportedFocusModes.Contains(Camera.Parameters.FocusModeAuto))
+                        {
+                            parameters.FocusMode = Camera.Parameters.FocusModeAuto;
+                            parameters.FocusAreas = new List<Camera.Area> { new Camera.Area(focusRect, 1000) };
+                        }
+
+                        if (parameters.MaxNumMeteringAreas > 0)
+                        {
+                            parameters.MeteringAreas = new List<Camera.Area> { new Camera.Area(meteringRect, 1000) };
+                        }
+
+                        _camera1.SetParameters(parameters);
+                    }
+
+                    _cameraModule.FocusCircleX = (e.GetX() + _textureView.GetX()) / metrics.Density;
+                    _cameraModule.FocusCircleY = (e.GetY() + _textureView.GetY()) / metrics.Density;
+                    _cameraModule.IsFocusCircleVisible = true;
                 }
             }
             catch (Exception ex)
             {
                 _cameraModule.ErrorMessage = ex.ToString();
             }
-
-            return false;
         }
 
         private Rect CalculateTapArea(float x, float y, int width, int height, float coefficient)
@@ -921,7 +919,7 @@ namespace CrossCam.Droid.CustomRenderer
             _camera2Device = null;
         }
 
-        public void StartContinuouslyFocusingPreview2(CameraDevice camera = null)
+        public void StartContinuouslyFocusingPreview2IfNotRunning(CameraDevice camera = null)
         {
             try
             {
@@ -934,26 +932,31 @@ namespace CrossCam.Droid.CustomRenderer
                     _camera2Device = camera;
                 }
 
-                _surfaceTexture.SetDefaultBufferSize(_preview2Size.Width, _preview2Size.Height);
 
-                _camera2Device.CreateCaptureSession(new List<Surface> { _surface },
-                    new CameraCaptureStateListener
-                    {
-                        OnConfigureFailedAction = session => { },
-                        OnConfiguredAction = session =>
+                if (!_isContinuouslyFocusingCamera2)
+                {
+                    _surfaceTexture.SetDefaultBufferSize(_preview2Size.Width, _preview2Size.Height);
+                    _isContinuouslyFocusingCamera2 = true;
+                    _camera2Device.CreateCaptureSession(new List<Surface> { _surface },
+                        new CameraCaptureStateListener
                         {
-                            _currentCamera2Session = session;
+                            OnConfigureFailedAction = session => { },
+                            OnConfiguredAction = session =>
+                            {
 
-                            var thread = new HandlerThread("CameraPreview");
-                            thread.Start();
-                            var backgroundHandler = new Handler(thread.Looper);
+                                _currentCamera2Session = session;
 
-                            var previewBuilder = _camera2Device.CreateCaptureRequest(CameraTemplate.Preview);
-                            previewBuilder.AddTarget(_surface);
-                            _currentCamera2Session.SetRepeatingRequest(previewBuilder.Build(), null, backgroundHandler);
-                        }
-                    },
-                    null);
+                                var thread = new HandlerThread("CameraContinuousPreview");
+                                thread.Start();
+                                var backgroundHandler = new Handler(thread.Looper);
+
+                                var previewBuilder = _camera2Device.CreateCaptureRequest(CameraTemplate.Preview);
+                                previewBuilder.AddTarget(_surface);
+                                _currentCamera2Session.SetRepeatingRequest(previewBuilder.Build(), null, backgroundHandler);
+                            }
+                        },
+                        null);
+                }
                 _openingCamera2 = false;
             }
             catch (Exception e)
@@ -978,42 +981,43 @@ namespace CrossCam.Droid.CustomRenderer
             _openingCamera2 = false;
         }
 
-        //private void SetRefreshingPreview2(bool applyLocks)
-        //{
-        //    try
-        //    {
-        //        var previewBuilder = _camera2Device.CreateCaptureRequest(CameraTemplate.Preview);
-        //        var surface = new Surface(_surfaceTexture);
-        //        previewBuilder.AddTarget(surface);
+        private void StartLockedPreview2()
+        {
+            try
+            {
+                _surfaceTexture.SetDefaultBufferSize(_preview2Size.Width, _preview2Size.Height);
+                _isContinuouslyFocusingCamera2 = false;
+                _camera2Device.CreateCaptureSession(new List<Surface> { _surface },
+                    new CameraCaptureStateListener
+                    {
+                        OnConfigureFailedAction = session => { },
+                        OnConfiguredAction = session =>
+                        {
+                            _currentCamera2Session = session;
 
-        //        previewBuilder.Set(CaptureRequest.ControlMode, new Integer((int) ControlMode.Auto));
+                            var previewBuilder = _camera2Device.CreateCaptureRequest(CameraTemplate.Preview);
+                            previewBuilder.AddTarget(_surface);
 
-        //        if (applyLocks && _cameraModule.IsLockToFirstEnabled)
-        //        {
-        //            previewBuilder.Set(CaptureRequest.ControlAwbLock, new Boolean(true));
-        //            previewBuilder.Set(CaptureRequest.BlackLevelLock, new Boolean(true));
-        //            previewBuilder.Set(CaptureRequest.ControlAeLock, new Boolean(true));
-        //            previewBuilder.Set(CaptureRequest.ControlAfTrigger, new Integer((int) ControlAFTrigger.Start));
-        //        }
-        //        else
-        //        {
-        //            previewBuilder.Set(CaptureRequest.ControlAwbLock, new Boolean(false));
-        //            previewBuilder.Set(CaptureRequest.BlackLevelLock, new Boolean(false));
-        //            previewBuilder.Set(CaptureRequest.ControlAeLock, new Boolean(false));
-        //            previewBuilder.Set(CaptureRequest.ControlAfTrigger, new Integer((int) ControlAFTrigger.Cancel));
-        //        }
+                            if (_cameraModule.IsLockToFirstEnabled)
+                            {
+                                previewBuilder.Set(CaptureRequest.ControlAeLock, new Boolean(true));
+                                previewBuilder.Set(CaptureRequest.ControlAfMode, new Integer((int)ControlAFMode.Auto));
+                            }
 
-        //        var thread = new HandlerThread("CameraPreview");
-        //        thread.Start();
-        //        var backgroundHandler = new Handler(thread.Looper);
+                            var thread = new HandlerThread("CameraLockedPreview");
+                            thread.Start();
+                            var backgroundHandler = new Handler(thread.Looper);
 
-        //        _currentCamera2Session.SetRepeatingRequest(previewBuilder.Build(), null, backgroundHandler);
-        //    }
-        //    catch (Exception e)
-        //    {
-        //        _cameraModule.ErrorMessage = e.ToString();
-        //    }
-        //}
+                            _currentCamera2Session.SetRepeatingRequest(previewBuilder.Build(), null, backgroundHandler);
+                        }
+                    },
+                    null);
+            }
+            catch (Exception e)
+            {
+                _cameraModule.ErrorMessage = e.ToString();
+            }
+        }
 
         private void TakePhoto2()
         {
@@ -1054,7 +1058,7 @@ namespace CrossCam.Droid.CustomRenderer
                 }
 
                 var reader =
-                    ImageReader.NewInstance(_picture2Size.Width, _picture2Size.Height, ImageFormatType.Jpeg, 5);
+                    ImageReader.NewInstance(_picture2Size.Width, _picture2Size.Height, ImageFormatType.Jpeg, 1);
 
                 var captureBuilder = _camera2Device.CreateCaptureRequest(CameraTemplate.StillCapture);
                 captureBuilder.AddTarget(reader.Surface);
@@ -1067,14 +1071,14 @@ namespace CrossCam.Droid.CustomRenderer
                 };
                 readerListener.Error += (sender, exception) => { _cameraModule.ErrorMessage = exception.ToString(); };
 
-                var thread = new HandlerThread("CameraPicture");
+                var thread = new HandlerThread("CameraCapture");
                 thread.Start();
                 var backgroundHandler = new Handler(thread.Looper);
                 reader.SetOnImageAvailableListener(readerListener, backgroundHandler);
 
                 var captureListener = new CameraCaptureListener();
 
-                captureListener.PhotoComplete += (sender, e) => { StartContinuouslyFocusingPreview2(); };
+                captureListener.PhotoComplete += (sender, e) => { StartLockedPreview2(); };
 
                 _camera2Device.CreateCaptureSession(new [] {reader.Surface}, new CameraCaptureStateListener
                 {
@@ -1099,8 +1103,34 @@ namespace CrossCam.Droid.CustomRenderer
             }
         }
 
-#endregion
+        #endregion
 
+        private sealed class CameraPreviewGestureListener : GestureDetector.SimpleOnGestureListener
+        {
+            private readonly CameraModuleRenderer _cameraModule;
+
+            public CameraPreviewGestureListener(CameraModuleRenderer cameraModule)
+            {
+                _cameraModule = cameraModule;
+            }
+
+            public override bool OnDown(MotionEvent e)
+            {
+                return true;
+            }
+
+            public override bool OnSingleTapConfirmed(MotionEvent e)
+            {
+                _cameraModule.PreviewSingleTapped(e);
+                return true;
+            }
+
+            public override bool OnDoubleTap(MotionEvent e)
+            {
+                _cameraModule.PreviewDoubleTapped();
+                return true;
+            }
+        }
     }
 }
 
