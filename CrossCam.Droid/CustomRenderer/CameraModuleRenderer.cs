@@ -364,39 +364,89 @@ namespace CrossCam.Droid.CustomRenderer
                     var metrics = new DisplayMetrics();
                     Display.GetMetrics(metrics);
 
+                    System.Diagnostics.Debug.WriteLine("X: " + e.GetX());
+                    System.Diagnostics.Debug.WriteLine("Y: " + e.GetY());
+                    System.Diagnostics.Debug.WriteLine("rawX: " + e.RawX);
+                    System.Diagnostics.Debug.WriteLine("rawY: " + e.RawY);
+
                     if (_useCamera2)
                     {
                         var characteristics = _cameraManager.GetCameraCharacteristics(_camera2Device.Id);
                         var arraySize = (Rect)characteristics.Get(CameraCharacteristics.SensorInfoActiveArraySize);
                         var rotation = Display.Rotation;
 
-                        //sensor 90, display 0
+                        var displayHorizontalProportion = e.GetX() / _textureView.Width;
+                        var displayVerticalProportion = e.GetY() / _textureView.Height;
 
-                        MeteringRectangle meteringRectangle = null;
-                        if (_camera2SensorOrientation == 90 && rotation == SurfaceOrientation.Rotation0)
+                        // TODO: extract/import/change this??? it's the total area to consider... should it match the circle i display?
+                        const int FOCUS_CIRCLE_DIAMETER = 30;
+                        
+                        Rect sensorTapRect = null;
+                        float sizingRatio;
+                        float focusSquareSide;
+                        var screenRotation = _orientations.Get((int)rotation);
+                        if ((_camera2SensorOrientation + screenRotation + 360) % 360 == 90)
                         {
-                            var displayHorizontalProportion = e.GetX() / _textureView.Width;
-                            var displayVerticalProportion = e.GetY() / _textureView.Height;
-
-                            var sizingRatio = arraySize.Width() / (1f * _textureView.Height);
-
-                            // TODO: extract/import/change this??? it's the total area to consider... should it match the circle i display?
-                            const int FOCUS_CIRCLE_DIAMETER = 30;
-
-                            var focusSquareSide = FOCUS_CIRCLE_DIAMETER * metrics.Density * sizingRatio;
-
-                            var sensorTapRect = new Rect
+                            //portrait
+                            sizingRatio = arraySize.Width() / (1f * _textureView.Height);
+                            focusSquareSide = FOCUS_CIRCLE_DIAMETER * metrics.Density * sizingRatio;
+                            var x = displayVerticalProportion * arraySize.Width();
+                            var y = (1 - displayHorizontalProportion) * arraySize.Height();
+                            sensorTapRect = new Rect
                             {
-                                Left = (int)(displayVerticalProportion * arraySize.Width() - focusSquareSide / 2),
-                                Top = (int)((1 - displayHorizontalProportion) * arraySize.Height() -
-                                             focusSquareSide / 2),
-                                Right = (int)(displayVerticalProportion * arraySize.Width() + focusSquareSide / 2),
-                                Bottom = (int)((1 - displayHorizontalProportion) * arraySize.Height() +
-                                                focusSquareSide / 2)
+                                Left = (int)(x - focusSquareSide / 2),
+                                Top = (int)(y - focusSquareSide / 2),
+                                Right = (int)(x + focusSquareSide / 2),
+                                Bottom = (int)(y + focusSquareSide / 2)
                             };
-
-                            meteringRectangle = new MeteringRectangle(sensorTapRect, 999);
                         }
+                        else if ((_camera2SensorOrientation + screenRotation + 360) % 360 == 0)
+                        {
+                            //landscape tipped right
+                            sizingRatio = arraySize.Width() / (1f * _textureView.Width);
+                            focusSquareSide = FOCUS_CIRCLE_DIAMETER * metrics.Density * sizingRatio;
+                            var x = (1 - displayHorizontalProportion) * arraySize.Width();
+                            var y = (1 - displayVerticalProportion) * arraySize.Height();
+                            sensorTapRect = new Rect
+                            {
+                                Left = (int)(x - focusSquareSide / 2),
+                                Top = (int)(y - focusSquareSide / 2),
+                                Right = (int)(x + focusSquareSide / 2),
+                                Bottom = (int)(y + focusSquareSide / 2)
+                            };
+                        }
+                        else if ((_camera2SensorOrientation + screenRotation + 360) % 360 == 180)
+                        {
+                            //landscape tipped left
+                            sizingRatio = arraySize.Width() / (1f * _textureView.Width);
+                            focusSquareSide = FOCUS_CIRCLE_DIAMETER * metrics.Density * sizingRatio;
+                            var x = displayHorizontalProportion * arraySize.Width();
+                            var y = displayVerticalProportion * arraySize.Height();
+                            sensorTapRect = new Rect
+                            {
+                                Left = (int)(x - focusSquareSide / 2),
+                                Top = (int)(y - focusSquareSide / 2),
+                                Right = (int)(x + focusSquareSide / 2),
+                                Bottom = (int)(y + focusSquareSide / 2)
+                            };
+                        }
+                        else if ((_camera2SensorOrientation + screenRotation + 360) % 360 == 270)
+                        {
+                            //upside down portrait
+                            sizingRatio = arraySize.Width() / (1f * _textureView.Height);
+                            focusSquareSide = FOCUS_CIRCLE_DIAMETER * metrics.Density * sizingRatio;
+                            var x = (1 - displayVerticalProportion) * arraySize.Width();
+                            var y = displayHorizontalProportion * arraySize.Height();
+                            sensorTapRect = new Rect
+                            {
+                                Left = (int)(x - focusSquareSide / 2),
+                                Top = (int)(y - focusSquareSide / 2),
+                                Right = (int)(x + focusSquareSide / 2),
+                                Bottom = (int)(y + focusSquareSide / 2)
+                            };
+                        }
+
+                        var meteringRectangle = new MeteringRectangle(sensorTapRect, 999);
 
                         var maxAfRegions = (int)characteristics.Get(CameraCharacteristics.ControlMaxRegionsAf);
                         var maxAeRegions = (int)characteristics.Get(CameraCharacteristics.ControlMaxRegionsAe);
