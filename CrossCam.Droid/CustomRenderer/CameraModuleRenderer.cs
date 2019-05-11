@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
-using System.Threading.Tasks;
 using Android.App;
 using Android.Content;
 using Android.Graphics;
@@ -60,13 +59,11 @@ namespace CrossCam.Droid.CustomRenderer
         private CameraStateListener _stateListener;
         private string _camera2Id;
         private CameraDevice _camera2Device;
-        private CameraCaptureSession _currentCamera2Session;
         private bool _openingCamera2;
         private Size _preview2Size;
         private Size _picture2Size;
         private int _camera2SensorOrientation;
-        readonly SparseIntArray _orientations = new SparseIntArray();
-        private bool _isContinuouslyFocusingCamera2;
+        private readonly SparseIntArray _orientations = new SparseIntArray();
 
         public CameraModuleRenderer(Context context) : base(context)
         {
@@ -450,7 +447,7 @@ namespace CrossCam.Droid.CustomRenderer
                                 Bottom = (int)(y + focusSquareSide / 2)
                             };
                             focusCircleX = _textureView.Width - e.GetX();
-                            focusCircleY = _textureView.Height - e.GetY() + (_textureView.GetY() - _textureView.Height);
+                            focusCircleY = _textureView.GetY() - e.GetY();
                         }
 
                         while(sensorTapRect.Top < arraySize.Top)
@@ -483,20 +480,16 @@ namespace CrossCam.Droid.CustomRenderer
                         var maxAeRegions = (int)characteristics.Get(CameraCharacteristics.ControlMaxRegionsAe);
                         //TODO: auto white balance? does that mean you have to tap on something white???
 
-                        if ((maxAfRegions > 0 ||
-                             maxAeRegions > 0) &&
-                            meteringRectangle != null)
+                        if (maxAfRegions > 0 ||
+                            maxAeRegions > 0)
                         {
                             _surfaceTexture.SetDefaultBufferSize(_preview2Size.Width, _preview2Size.Height);
-                            _isContinuouslyFocusingCamera2 = false;
                             _camera2Device.CreateCaptureSession(new List<Surface> { _surface },
                                 new CameraCaptureStateListener
                                 {
                                     OnConfigureFailedAction = session => { },
                                     OnConfiguredAction = session =>
                                     {
-                                        _currentCamera2Session = session;
-
                                         var listener = new CameraCaptureListener();
                                         listener.PhotoComplete += (sender, args) =>
                                         {
@@ -1016,31 +1009,32 @@ namespace CrossCam.Droid.CustomRenderer
                     _camera2Device = camera;
                 }
 
-
-                if (!_isContinuouslyFocusingCamera2)
-                {
-                    _surfaceTexture.SetDefaultBufferSize(_preview2Size.Width, _preview2Size.Height);
-                    _isContinuouslyFocusingCamera2 = true;
-                    _camera2Device.CreateCaptureSession(new List<Surface> { _surface },
-                        new CameraCaptureStateListener
+                
+                _surfaceTexture.SetDefaultBufferSize(_preview2Size.Width, _preview2Size.Height);
+                _camera2Device.CreateCaptureSession(new List<Surface> { _surface },
+                    new CameraCaptureStateListener
+                    {
+                        OnConfigureFailedAction = session => { },
+                        OnConfiguredAction = session =>
                         {
-                            OnConfigureFailedAction = session => { },
-                            OnConfiguredAction = session =>
+                            var thread = new HandlerThread("CameraContinuousPreview");
+                            thread.Start();
+                            var backgroundHandler = new Handler(thread.Looper);
+
+                            var previewBuilder = _camera2Device.CreateCaptureRequest(CameraTemplate.Preview);
+                            previewBuilder.AddTarget(_surface);
+                            try
                             {
-
-                                _currentCamera2Session = session;
-
-                                var thread = new HandlerThread("CameraContinuousPreview");
-                                thread.Start();
-                                var backgroundHandler = new Handler(thread.Looper);
-
-                                var previewBuilder = _camera2Device.CreateCaptureRequest(CameraTemplate.Preview);
-                                previewBuilder.AddTarget(_surface);
-                                _currentCamera2Session.SetRepeatingRequest(previewBuilder.Build(), null, backgroundHandler);
+                                session.SetRepeatingRequest(previewBuilder.Build(), null,
+                                    backgroundHandler);
                             }
-                        },
-                        null);
-                }
+                            catch (Exception)
+                            {
+                                //simultaneous sessions, ignore
+                            }
+                        }
+                    },
+                    null);
                 _openingCamera2 = false;
             }
             catch (Exception e)
@@ -1070,15 +1064,12 @@ namespace CrossCam.Droid.CustomRenderer
             try
             {
                 _surfaceTexture.SetDefaultBufferSize(_preview2Size.Width, _preview2Size.Height);
-                _isContinuouslyFocusingCamera2 = false;
                 _camera2Device.CreateCaptureSession(new List<Surface> { _surface },
                     new CameraCaptureStateListener
                     {
                         OnConfigureFailedAction = session => { },
                         OnConfiguredAction = session =>
                         {
-                            _currentCamera2Session = session;
-
                             var previewBuilder = _camera2Device.CreateCaptureRequest(CameraTemplate.Preview);
                             previewBuilder.AddTarget(_surface);
 
@@ -1092,7 +1083,15 @@ namespace CrossCam.Droid.CustomRenderer
                             thread.Start();
                             var backgroundHandler = new Handler(thread.Looper);
 
-                            _currentCamera2Session.SetRepeatingRequest(previewBuilder.Build(), null, backgroundHandler);
+                            try
+                            {
+                                session.SetRepeatingRequest(previewBuilder.Build(), null,
+                                    backgroundHandler);
+                            }
+                            catch (Exception)
+                            {
+                                //simultaneous sessions, ignore
+                            }
                         }
                     },
                     null);
@@ -1170,7 +1169,6 @@ namespace CrossCam.Droid.CustomRenderer
                     {
                         try
                         {
-                            _currentCamera2Session = session;
                             session.Capture(captureBuilder.Build(), captureListener, backgroundHandler);
                             _cameraModule.CaptureSuccess = !_cameraModule.CaptureSuccess;
                         }
