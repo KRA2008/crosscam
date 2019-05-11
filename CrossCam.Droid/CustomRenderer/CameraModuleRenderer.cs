@@ -222,7 +222,7 @@ namespace CrossCam.Droid.CustomRenderer
             _cameraModule.IsFocusCircleVisible = false;
             if (_useCamera2)
             {
-                StartContinuouslyFocusingPreview2IfNotRunning();
+                StartContinuouslyFocusingPreview2();
             }
             else
             {
@@ -493,7 +493,7 @@ namespace CrossCam.Droid.CustomRenderer
                                         var listener = new CameraCaptureListener();
                                         listener.PhotoComplete += (sender, args) =>
                                         {
-                                            StartLockedPreview2();
+                                            StartLockedPreview2(false);
                                         };
 
                                         var thread = new HandlerThread("CameraTapFocusPreview");
@@ -996,7 +996,7 @@ namespace CrossCam.Droid.CustomRenderer
             _camera2Device = null;
         }
 
-        public void StartContinuouslyFocusingPreview2IfNotRunning(CameraDevice camera = null)
+        public void StartContinuouslyFocusingPreview2(CameraDevice camera = null)
         {
             try
             {
@@ -1059,10 +1059,14 @@ namespace CrossCam.Droid.CustomRenderer
             _openingCamera2 = false;
         }
 
-        private void StartLockedPreview2()
+        private void StartLockedPreview2(bool hideFocusCircle)
         {
             try
             {
+                if (hideFocusCircle)
+                {
+                    _cameraModule.IsFocusCircleVisible = false;
+                }
                 _surfaceTexture.SetDefaultBufferSize(_preview2Size.Width, _preview2Size.Height);
                 _camera2Device.CreateCaptureSession(new List<Surface> { _surface },
                     new CameraCaptureStateListener
@@ -1072,12 +1076,9 @@ namespace CrossCam.Droid.CustomRenderer
                         {
                             var previewBuilder = _camera2Device.CreateCaptureRequest(CameraTemplate.Preview);
                             previewBuilder.AddTarget(_surface);
-
-                            if (_cameraModule.IsLockToFirstEnabled)
-                            {
-                                previewBuilder.Set(CaptureRequest.ControlAeLock, new Boolean(true));
-                                previewBuilder.Set(CaptureRequest.ControlAfMode, new Integer((int)ControlAFMode.Auto));
-                            }
+                            
+                            previewBuilder.Set(CaptureRequest.ControlAeLock, new Boolean(true));
+                            previewBuilder.Set(CaptureRequest.ControlAfMode, new Integer((int)ControlAFMode.Auto));
 
                             var thread = new HandlerThread("CameraLockedPreview");
                             thread.Start();
@@ -1161,7 +1162,17 @@ namespace CrossCam.Droid.CustomRenderer
 
                 var captureListener = new CameraCaptureListener();
 
-                captureListener.PhotoComplete += (sender, e) => { StartLockedPreview2(); };
+                captureListener.PhotoComplete += (sender, e) =>
+                {
+                    if (_cameraModule.IsLockToFirstEnabled)
+                    {
+                        StartLockedPreview2(true);
+                    }
+                    else
+                    {
+                        StartContinuouslyFocusingPreview2();
+                    }
+                };
 
                 _camera2Device.CreateCaptureSession(new [] {reader.Surface}, new CameraCaptureStateListener
                 {
