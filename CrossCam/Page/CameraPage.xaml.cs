@@ -29,7 +29,7 @@ namespace CrossCam.Page
         private readonly Rectangle _leftReticleBounds = new Rectangle(0.2297, 0.5, 0.075, 0.075);
         private readonly Rectangle _rightReticleBounds = new Rectangle(0.7703, 0.5, 0.075, 0.075);
 
-        private const double FOCUS_CIRCLE_WIDTH = 30;
+        public const double FOCUS_CIRCLE_WIDTH = 30;
 
 	    private double _reticleLeftX;
 	    private double _reticleRightX;
