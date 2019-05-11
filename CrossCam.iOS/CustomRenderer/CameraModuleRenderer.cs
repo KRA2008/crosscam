@@ -111,6 +111,8 @@ namespace CrossCam.iOS.CustomRenderer
         {
             if (_cameraModule.IsNothingCaptured && _cameraModule.IsLockToFirstEnabled)
             {
+                _cameraModule.IsFocusCircleVisible = false;
+
                 _device.LockForConfiguration(out var error);
                 if (error != null) return;
 
@@ -320,43 +322,50 @@ namespace CrossCam.iOS.CustomRenderer
             {
                 if (_cameraModule.IsTapToFocusEnabled)
                 {
-                    var focusPoint = new CGPoint();
-
                     var translatedPoint = _avCaptureVideoPreviewLayer.CaptureDevicePointOfInterestForPoint(touchLocation);
 
-                    double previewHeight = 0;
+                    if (translatedPoint.X < 0)
+                    {
+                        translatedPoint.X = 0;
+                    }
 
+                    if (translatedPoint.X > 1)
+                    {
+                        translatedPoint.X = 1;
+                    }
+
+                    if (translatedPoint.Y < 0)
+                    {
+                        translatedPoint.Y = 0;
+                    }
+
+                    if (translatedPoint.Y > 1)
+                    {
+                        translatedPoint.Y = 1;
+                    }
+                    
+                    double focusCircleX = 0;
+                    double focusCircleY = 0;
                     if (_previousValidOrientation == UIDeviceOrientation.Portrait)
                     {
-                        focusPoint.X = translatedPoint.Y;
-                        focusPoint.Y = translatedPoint.X;
-
-                        focusPoint.X = 1 - focusPoint.X;
-
-                        previewHeight = _cameraModule.Width * (4f / 3f);
+                        var previewHeight = _cameraModule.Width * (4f / 3f);
+                        var verticalOffset = (_cameraModule.Height - previewHeight) / 2;
+                        focusCircleX = (1 - translatedPoint.Y) * _cameraModule.Width;
+                        focusCircleY = translatedPoint.X * previewHeight + verticalOffset;
                     }
                     else if (_previousValidOrientation == UIDeviceOrientation.LandscapeLeft)
                     {
-                        focusPoint = _avCaptureVideoPreviewLayer.CaptureDevicePointOfInterestForPoint(touchLocation);
-
-                        previewHeight = _cameraModule.Height * (3f / 4f);
+                        var previewHeight = _cameraModule.Width * (3f / 4f);
+                        var verticalOffset = (_cameraModule.Height - previewHeight) / 2;
+                        focusCircleX = translatedPoint.X * _cameraModule.Width;
+                        focusCircleY = translatedPoint.Y * previewHeight + verticalOffset;
                     }
                     else if (_previousValidOrientation == UIDeviceOrientation.LandscapeRight)
                     {
-                        focusPoint.X = 1 - translatedPoint.X;
-                        focusPoint.Y = 1 - translatedPoint.Y;
-
-                        previewHeight = _cameraModule.Height * 2 * (3f / 4f);
-                    }
-
-                    if (focusPoint.Y < 0)
-                    {
-                        focusPoint.Y = 0;
-                    }
-
-                    if (focusPoint.Y > 1)
-                    {
-                        focusPoint.Y = 1;
+                        var previewHeight = _cameraModule.Width * (3f / 4f);
+                        var verticalOffset = (_cameraModule.Height - previewHeight) / 2;
+                        focusCircleX = (1 - translatedPoint.X) * _cameraModule.Width;
+                        focusCircleY = (1 - translatedPoint.Y) * previewHeight + verticalOffset;
                     }
 
                     _device.LockForConfiguration(out var error);
@@ -365,13 +374,13 @@ namespace CrossCam.iOS.CustomRenderer
                     if (_device.FocusPointOfInterestSupported &&
                         _device.IsFocusModeSupported(AVCaptureFocusMode.AutoFocus))
                     {
-                        _device.FocusPointOfInterest = focusPoint;
+                        _device.FocusPointOfInterest = translatedPoint;
                         _device.FocusMode = AVCaptureFocusMode.AutoFocus;
                     }
                     if (_device.ExposurePointOfInterestSupported &&
                         _device.IsExposureModeSupported(AVCaptureExposureMode.AutoExpose))
                     {
-                        _device.ExposurePointOfInterest = touchLocation;
+                        _device.ExposurePointOfInterest = translatedPoint;
                         _device.ExposureMode = AVCaptureExposureMode.AutoExpose;
                     }
                     if (_device.IsWhiteBalanceModeSupported(AVCaptureWhiteBalanceMode.AutoWhiteBalance))
@@ -379,8 +388,8 @@ namespace CrossCam.iOS.CustomRenderer
                         _device.WhiteBalanceMode = AVCaptureWhiteBalanceMode.AutoWhiteBalance; //not sure about this
                     }
 
-                    _cameraModule.FocusCircleX = focusPoint.X * _cameraModule.Width;
-                    _cameraModule.FocusCircleY = (_cameraModule.Height - previewHeight) / 2f + focusPoint.Y * previewHeight;
+                    _cameraModule.FocusCircleX = focusCircleX;
+                    _cameraModule.FocusCircleY = focusCircleY;
                     _cameraModule.IsFocusCircleVisible = true;
 
                     _device.UnlockForConfiguration();
