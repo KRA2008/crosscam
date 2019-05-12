@@ -484,6 +484,11 @@ namespace CrossCam.Droid.CustomRenderer
                             maxAeRegions > 0)
                         {
                             _surfaceTexture.SetDefaultBufferSize(_preview2Size.Width, _preview2Size.Height);
+
+                            var tapThread = new HandlerThread("TapSession");
+                            tapThread.Start();
+                            var sessionHandler = new Handler(tapThread.Looper);
+
                             _camera2Device.CreateCaptureSession(new List<Surface> { _surface },
                                 new CameraCaptureStateListener
                                 {
@@ -527,7 +532,7 @@ namespace CrossCam.Droid.CustomRenderer
                                         }
                                     }
                                 },
-                                null);
+                                sessionHandler);
                         }
                     }
                     else
@@ -1018,6 +1023,11 @@ namespace CrossCam.Droid.CustomRenderer
 
                 
                 _surfaceTexture.SetDefaultBufferSize(_preview2Size.Width, _preview2Size.Height);
+
+                var continuousFocusThread = new HandlerThread("ContinuousFocusSession");
+                continuousFocusThread.Start();
+                var sessionHandler = new Handler(continuousFocusThread.Looper);
+
                 _camera2Device.CreateCaptureSession(new List<Surface> { _surface },
                     new CameraCaptureStateListener
                     {
@@ -1041,7 +1051,7 @@ namespace CrossCam.Droid.CustomRenderer
                             }
                         }
                     },
-                    null);
+                    sessionHandler);
                 _openingCamera2 = false;
             }
             catch (Exception e)
@@ -1075,6 +1085,11 @@ namespace CrossCam.Droid.CustomRenderer
                     _cameraModule.IsFocusCircleVisible = false;
                 }
                 _surfaceTexture.SetDefaultBufferSize(_preview2Size.Width, _preview2Size.Height);
+
+                var handlerThread = new HandlerThread("LockedFocusSession");
+                handlerThread.Start();
+                var sessionHandler = new Handler(handlerThread.Looper);
+
                 _camera2Device.CreateCaptureSession(new List<Surface> { _surface },
                     new CameraCaptureStateListener
                     {
@@ -1102,7 +1117,7 @@ namespace CrossCam.Droid.CustomRenderer
                             }
                         }
                     },
-                    null);
+                    sessionHandler);
             }
             catch (Exception e)
             {
@@ -1162,10 +1177,14 @@ namespace CrossCam.Droid.CustomRenderer
                 };
                 readerListener.Error += (sender, exception) => { _cameraModule.ErrorMessage = exception.ToString(); };
 
-                var thread = new HandlerThread("CameraCapture");
-                thread.Start();
-                var backgroundHandler = new Handler(thread.Looper);
-                reader.SetOnImageAvailableListener(readerListener, backgroundHandler);
+                var captureThread = new HandlerThread("CameraCapture");
+                captureThread.Start();
+                var captureHandler = new Handler(captureThread.Looper);
+                reader.SetOnImageAvailableListener(readerListener, captureHandler);
+
+                var sessionThread = new HandlerThread("CaptureSession");
+                sessionThread.Start();
+                var sessionHandler = new Handler(sessionThread.Looper);
 
                 var captureListener = new CameraCaptureListener();
 
@@ -1187,15 +1206,15 @@ namespace CrossCam.Droid.CustomRenderer
                     {
                         try
                         {
-                            session.Capture(captureBuilder.Build(), captureListener, backgroundHandler);
+                            session.Capture(captureBuilder.Build(), captureListener, captureHandler);
                             _cameraModule.CaptureSuccess = !_cameraModule.CaptureSuccess;
                         }
                         catch (CameraAccessException ex)
                         {
-                            Log.WriteLine(LogPriority.Info, "Capture Session error: ", ex.ToString());
+                            _cameraModule.ErrorMessage = ex.ToString();
                         }
                     }
-                }, backgroundHandler);
+                }, sessionHandler);
             }
             catch (Exception e)
             {
