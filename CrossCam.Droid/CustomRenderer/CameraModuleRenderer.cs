@@ -517,7 +517,14 @@ namespace CrossCam.Droid.CustomRenderer
                                             previewBuilder.Set(CaptureRequest.ControlAePrecaptureTrigger, new Integer((int)ControlAEPrecaptureTrigger.Start));
                                         }
 
-                                        session.Capture(previewBuilder.Build(), listener, backgroundHandler);
+                                        try
+                                        {
+                                            session.Capture(previewBuilder.Build(), listener, backgroundHandler);
+                                        }
+                                        catch (Exception)
+                                        {
+                                            //simultaneous sessions, ignore
+                                        }
                                     }
                                 },
                                 null);
@@ -1212,7 +1219,7 @@ namespace CrossCam.Droid.CustomRenderer
                 return true;
             }
 
-            public override bool OnSingleTapConfirmed(MotionEvent e)
+            public override bool OnSingleTapUp(MotionEvent e)
             {
                 _cameraModule.PreviewSingleTapped(e);
                 return true;
