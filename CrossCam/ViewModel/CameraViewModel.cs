@@ -783,11 +783,11 @@ namespace CrossCam.ViewModel
                             alignedResult = openCv.CreateAlignedSecondImage(
                                 IsCaptureLeftFirst ? LeftBitmap : RightBitmap,
                                 IsCaptureLeftFirst ? RightBitmap : LeftBitmap,
-                                Settings.AlignmentDownsizePercentage,
-                                Settings.AlignmentIterations,
-                                Settings.AlignmentEpsilonLevel,
-                                Settings.AlignmentEccThresholdPercentage,
-                                Settings.AlignmentPyramidLayers,
+                                Settings.AlignmentDownsizePercentage2,
+                                Settings.AlignmentIterations2,
+                                Settings.AlignmentEpsilonLevel2,
+                                Settings.AlignmentEccThresholdPercentage2,
+                                Settings.AlignmentPyramidLayers2,
                                 !Settings.RedCyanAnaglyphMode);
                         });
                     }

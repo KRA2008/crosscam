@@ -148,67 +148,67 @@ namespace CrossCam.Model
 
         public bool IsAutomaticAlignmentOn { get; set; }
 
-        private int _alignmentEpsilonLevel;
-        public int AlignmentEpsilonLevel
+        private int _alignmentEpsilonLevel2;
+        public int AlignmentEpsilonLevel2
         {
-            get => _alignmentEpsilonLevel;
+            get => _alignmentEpsilonLevel2;
             set
             {
                 if (value > 0)
                 {
-                    _alignmentEpsilonLevel = value;
+                    _alignmentEpsilonLevel2 = value;
                 }
             }
         }
 
-        private int _alignmentIterations;
-        public int AlignmentIterations
+        private int _alignmentIterations2;
+        public int AlignmentIterations2
         {
-            get => _alignmentIterations;
+            get => _alignmentIterations2;
             set
             {
                 if (value > 0)
                 {
-                    _alignmentIterations = value;
+                    _alignmentIterations2 = value;
                 }
             }
         }
 
-        private int _alignmentPyramidLayers;
-        public int AlignmentPyramidLayers
+        private int _alignmentPyramidLayers2;
+        public int AlignmentPyramidLayers2
         {
-            get => _alignmentPyramidLayers;
+            get => _alignmentPyramidLayers2;
             set
             {
                 if (value > 0)
                 {
-                    _alignmentPyramidLayers = value;
+                    _alignmentPyramidLayers2 = value;
                 }
             }
         }
 
-        private int _alignmentDownsizePercentage;
-        public int AlignmentDownsizePercentage
+        private int _alignmentDownsizePercentage2;
+        public int AlignmentDownsizePercentage2
         {
-            get => _alignmentDownsizePercentage;
+            get => _alignmentDownsizePercentage2;
             set
             {
                 if (value > 0)
                 {
-                    _alignmentDownsizePercentage = value;
+                    _alignmentDownsizePercentage2 = value;
                 }
             }
         }
 
-        private int _alignmentEccThresholdPercentage;
-        public int AlignmentEccThresholdPercentage
+        private int _alignmentEccThresholdPercentage2;
+        public int AlignmentEccThresholdPercentage2
         {
-            get => _alignmentEccThresholdPercentage;
+            get => _alignmentEccThresholdPercentage2;
             set
             {
                 if (value > 0)
                 {
-                    _alignmentEccThresholdPercentage = value;
+                    _alignmentEccThresholdPercentage2 = value;
                 }
             }
         }
@@ -246,11 +246,11 @@ namespace CrossCam.Model
             BorderColor = BorderColor.Black;
 
             IsAutomaticAlignmentOn = true;
-            AlignmentDownsizePercentage = 35;
-            AlignmentEpsilonLevel = 3;
-            AlignmentIterations = 50;
-            AlignmentEccThresholdPercentage = 60;
-            AlignmentPyramidLayers = 4;
+            AlignmentDownsizePercentage2 = 35;
+            AlignmentEpsilonLevel2 = 3;
+            AlignmentIterations2 = 50;
+            AlignmentEccThresholdPercentage2 = 60;
+            AlignmentPyramidLayers2 = 4;
 
             ResolutionProportion = 100;
             BorderWidthProportion = 15;

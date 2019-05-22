@@ -56,7 +56,7 @@ namespace AutoAlignment
 
             var eccs = new List<double>();
             var warpMatrix = Mat.Eye(2, 3, DepthType.Cv32F, 1);
-            var termCriteria = new MCvTermCriteria(iterations, System.Math.Pow(10, -epsilonLevel));
+            var termCriteria = new MCvTermCriteria(iterations, Math.Pow(10, -epsilonLevel));
             for (var ii = pyramidLayers-1; ii >= 0; ii--)
             {
                 var downsize = topDownsizeFactor / Math.Pow(2, ii);

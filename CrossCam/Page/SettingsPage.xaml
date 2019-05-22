@@ -87,7 +87,7 @@
                          IsVisible="{ce:DebugMarkupExtension}">
                 <Label Text="Iterations"/>
                 <Picker ItemsSource="{Binding ZeroToOneThousand}"
-                        SelectedIndex="{Binding Settings.AlignmentIterations}"
+                        SelectedIndex="{Binding Settings.AlignmentIterations2}"
                         BackgroundColor="White"
                         HorizontalOptions="EndAndExpand"/>
             </StackLayout>
@@ -95,7 +95,7 @@
                          IsVisible="{ce:DebugMarkupExtension}">
                 <Label Text="Epsilon level"/>
                 <Picker ItemsSource="{Binding ZeroToTen}"
-                        SelectedIndex="{Binding Settings.AlignmentEpsilonLevel}"
+                        SelectedIndex="{Binding Settings.AlignmentEpsilonLevel2}"
                         BackgroundColor="White"
                         HorizontalOptions="EndAndExpand"/>
             </StackLayout>
@@ -103,7 +103,7 @@
                          IsVisible="{ce:DebugMarkupExtension}">
                 <Label Text="Downsized pyramid estimating layers"/>
                 <Picker ItemsSource="{Binding ZeroToTen}"
-                        SelectedIndex="{Binding Settings.AlignmentPyramidLayers}"
+                        SelectedIndex="{Binding Settings.AlignmentPyramidLayers2}"
                         BackgroundColor="White"
                         HorizontalOptions="EndAndExpand"/>
             </StackLayout>
@@ -111,7 +111,7 @@
                          IsVisible="{ce:DebugMarkupExtension}">
                 <Label Text="Intermediate downsize percentage"/>
                 <Picker ItemsSource="{Binding ZeroToOneHundred}"
-                        SelectedIndex="{Binding Settings.AlignmentDownsizePercentage}"
+                        SelectedIndex="{Binding Settings.AlignmentDownsizePercentage2}"
                         BackgroundColor="White"
                         HorizontalOptions="EndAndExpand"/>
             </StackLayout>
@@ -119,7 +119,7 @@
                          IsVisible="{ce:DebugMarkupExtension}">
                 <Label Text="Minimum required correlation coefficient"/>
                 <Picker ItemsSource="{Binding ZeroToOneHundred}"
-                        SelectedIndex="{Binding Settings.AlignmentEccThresholdPercentage}"
+                        SelectedIndex="{Binding Settings.AlignmentEccThresholdPercentage2}"
                         BackgroundColor="White"
                         HorizontalOptions="EndAndExpand"/>
             </StackLayout>
