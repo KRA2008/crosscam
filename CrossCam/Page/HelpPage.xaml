@@ -10,7 +10,7 @@
              d:DataContext="{d:DesignInstance Type=vm:HelpViewModel, IsDesignTimeCreatable=False}"
              x:Class="CrossCam.Page.HelpPage"
              Title="Help">
-    <ContentPage.Content>
+    <ScrollView>
         <StackLayout>
             <BoxView/>
             <Button Text="Cross-Eyed Viewing Technique"
@@ -38,5 +38,5 @@
                     Command="{Binding AboutTheDeveloperCommand}"/>
             <BoxView/>
         </StackLayout>
-    </ContentPage.Content>
+    </ScrollView>
 </fresh:FreshBaseContentPage>
