@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using System.IO;
 using System.Threading;
 using System.Threading.Tasks;
@@ -786,6 +787,7 @@ namespace CrossCam.ViewModel
                                 Settings.AlignmentIterations,
                                 Settings.AlignmentEpsilonLevel,
                                 Settings.AlignmentEccThresholdPercentage,
+                                Settings.AlignmentPyramidLayers,
                                 !Settings.RedCyanAnaglyphMode);
                         });
                     }

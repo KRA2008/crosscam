@@ -174,6 +174,19 @@ namespace CrossCam.Model
             }
         }
 
+        private int _alignmentPyramidLayers;
+        public int AlignmentPyramidLayers
+        {
+            get => _alignmentPyramidLayers;
+            set
+            {
+                if (value > 0)
+                {
+                    _alignmentPyramidLayers = value;
+                }
+            }
+        }
+
         private int _alignmentDownsizePercentage;
         public int AlignmentDownsizePercentage
         {
@@ -237,6 +250,7 @@ namespace CrossCam.Model
             AlignmentEpsilonLevel = 3;
             AlignmentIterations = 50;
             AlignmentEccThresholdPercentage = 60;
+            AlignmentPyramidLayers = 4;
 
             ResolutionProportion = 100;
             BorderWidthProportion = 15;

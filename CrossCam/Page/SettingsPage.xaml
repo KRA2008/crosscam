@@ -83,28 +83,40 @@
                 <Label Text="Automatically align after capture"/>
                 <Switch IsToggled="{Binding Settings.IsAutomaticAlignmentOn}"/>
             </StackLayout>
-            <StackLayout Orientation="Horizontal">
+            <StackLayout Orientation="Horizontal"
+                         IsVisible="{ce:DebugMarkupExtension}">
                 <Label Text="Iterations"/>
                 <Picker ItemsSource="{Binding ZeroToOneThousand}"
                         SelectedIndex="{Binding Settings.AlignmentIterations}"
                         BackgroundColor="White"
                         HorizontalOptions="EndAndExpand"/>
             </StackLayout>
-            <StackLayout Orientation="Horizontal">
+            <StackLayout Orientation="Horizontal"
+                         IsVisible="{ce:DebugMarkupExtension}">
                 <Label Text="Epsilon level"/>
                 <Picker ItemsSource="{Binding ZeroToTen}"
                         SelectedIndex="{Binding Settings.AlignmentEpsilonLevel}"
                         BackgroundColor="White"
                         HorizontalOptions="EndAndExpand"/>
             </StackLayout>
-            <StackLayout Orientation="Horizontal">
+            <StackLayout Orientation="Horizontal"
+                         IsVisible="{ce:DebugMarkupExtension}">
+                <Label Text="Downsized pyramid estimating layers"/>
+                <Picker ItemsSource="{Binding ZeroToTen}"
+                        SelectedIndex="{Binding Settings.AlignmentPyramidLayers}"
+                        BackgroundColor="White"
+                        HorizontalOptions="EndAndExpand"/>
+            </StackLayout>
+            <StackLayout Orientation="Horizontal"
+                         IsVisible="{ce:DebugMarkupExtension}">
                 <Label Text="Intermediate downsize percentage"/>
                 <Picker ItemsSource="{Binding ZeroToOneHundred}"
                         SelectedIndex="{Binding Settings.AlignmentDownsizePercentage}"
                         BackgroundColor="White"
                         HorizontalOptions="EndAndExpand"/>
             </StackLayout>
-            <StackLayout Orientation="Horizontal">
+            <StackLayout Orientation="Horizontal"
+                         IsVisible="{ce:DebugMarkupExtension}">
                 <Label Text="Minimum required correlation coefficient"/>
                 <Picker ItemsSource="{Binding ZeroToOneHundred}"
                         SelectedIndex="{Binding Settings.AlignmentEccThresholdPercentage}"
