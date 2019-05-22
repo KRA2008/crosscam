@@ -219,41 +219,52 @@ namespace CrossCam.Droid.CustomRenderer
 
         private void TurnOnContinuousFocus(Camera.Parameters providedParameters = null)
         {
-            _cameraModule.IsFocusCircleVisible = false;
-            if (_useCamera2)
+            try
             {
-                StartContinuouslyFocusingPreview2();
+                _cameraModule.IsFocusCircleVisible = false;
+                if (_useCamera2)
+                {
+                    StartContinuouslyFocusingPreview2();
+                }
+                else
+                {
+                    var parameters = providedParameters ?? _camera1.GetParameters();
+
+                    if (parameters.SupportedFocusModes.Contains(Camera.Parameters.FocusModeContinuousPicture))
+                    {
+                        parameters.FocusMode = Camera.Parameters.FocusModeContinuousPicture;
+                    }
+
+                    if (parameters.SupportedWhiteBalance.Contains(Camera.Parameters.WhiteBalanceAuto))
+                    {
+                        parameters.WhiteBalance = Camera.Parameters.WhiteBalanceAuto;
+                    }
+
+                    if (parameters.SupportedSceneModes != null &&
+                        parameters.SupportedSceneModes.Contains(Camera.Parameters.SceneModeAuto))
+                    {
+                        parameters.SceneMode = Camera.Parameters.SceneModeAuto;
+                    }
+
+                    if (parameters.IsAutoWhiteBalanceLockSupported)
+                    {
+                        parameters.AutoWhiteBalanceLock = false;
+                    }
+
+                    if (parameters.IsAutoExposureLockSupported)
+                    {
+                        parameters.AutoExposureLock = false;
+                    }
+
+                    if (providedParameters == null)
+                    {
+                        _camera1.SetParameters(parameters);
+                    }
+                }
             }
-            else
+            catch (Exception e)
             {
-                var parameters = providedParameters ?? _camera1.GetParameters();
-
-                if (parameters.SupportedFocusModes.Contains(Camera.Parameters.FocusModeContinuousPicture))
-                {
-                    parameters.FocusMode = Camera.Parameters.FocusModeContinuousPicture;
-                }
-                if (parameters.SupportedWhiteBalance.Contains(Camera.Parameters.WhiteBalanceAuto))
-                {
-                    parameters.WhiteBalance = Camera.Parameters.WhiteBalanceAuto;
-                }
-                if (parameters.SupportedSceneModes != null &&
-                    parameters.SupportedSceneModes.Contains(Camera.Parameters.SceneModeAuto))
-                {
-                    parameters.SceneMode = Camera.Parameters.SceneModeAuto;
-                }
-                if (parameters.IsAutoWhiteBalanceLockSupported)
-                {
-                    parameters.AutoWhiteBalanceLock = false;
-                }
-                if (parameters.IsAutoExposureLockSupported)
-                {
-                    parameters.AutoExposureLock = false;
-                }
-
-                if (providedParameters == null)
-                {
-                    _camera1.SetParameters(parameters);
-                }
+                _cameraModule.ErrorMessage = e.ToString();
             }
         }
 
@@ -603,116 +614,123 @@ namespace CrossCam.Droid.CustomRenderer
 
         private void SetOrientation()
         {
-            var metrics = new DisplayMetrics();
-            Display.GetMetrics(metrics);
-
-            var moduleWidth = (float)(_cameraModule.Width * metrics.Density);
-            var moduleHeight = (float)(_cameraModule.Height * metrics.Density);
-
-            float previewSizeWidth;
-            float previewSizeHeight;
-            int rotation1;
-            int rotation2;
-
-            if (_useCamera2)
+            try
             {
-                previewSizeWidth = _preview2Size.Width;
-                previewSizeHeight = _preview2Size.Height;
+                var metrics = new DisplayMetrics();
+                Display.GetMetrics(metrics);
+
+                var moduleWidth = (float) (_cameraModule.Width * metrics.Density);
+                var moduleHeight = (float) (_cameraModule.Height * metrics.Density);
+
+                float previewSizeWidth;
+                float previewSizeHeight;
+                int rotation1;
+                int rotation2;
+
+                if (_useCamera2)
+                {
+                    previewSizeWidth = _preview2Size.Width;
+                    previewSizeHeight = _preview2Size.Height;
+                }
+                else
+                {
+                    previewSizeWidth = _previewSize.Width;
+                    previewSizeHeight = _previewSize.Height;
+                }
+
+                float xAdjust2;
+                float yAdjust2;
+                float previewWidth2;
+                float previewHeight2;
+                float verticalOffset;
+
+                float proportionalPreviewHeight;
+                switch (Display.Rotation)
+                {
+                    case SurfaceOrientation.Rotation0:
+                        _cameraModule.IsViewInverted = false;
+                        _cameraModule.IsPortrait = true;
+                        proportionalPreviewHeight = previewSizeWidth * moduleWidth / previewSizeHeight;
+                        rotation1 = 90;
+                        rotation2 = _camera2SensorOrientation - 90;
+                        verticalOffset = (moduleHeight - proportionalPreviewHeight) / 2f;
+                        xAdjust2 = 0;
+                        yAdjust2 = verticalOffset;
+                        previewWidth2 = moduleWidth;
+                        previewHeight2 = proportionalPreviewHeight;
+                        break;
+                    case SurfaceOrientation.Rotation180:
+                        _cameraModule.IsViewInverted = true;
+                        _cameraModule.IsPortrait = true;
+                        proportionalPreviewHeight = previewSizeWidth * moduleWidth / previewSizeHeight;
+                        rotation1 = 270;
+                        rotation2 = _camera2SensorOrientation - 270;
+                        verticalOffset = (moduleHeight - proportionalPreviewHeight) / 2f;
+                        xAdjust2 = moduleWidth;
+                        yAdjust2 = verticalOffset + proportionalPreviewHeight;
+                        previewWidth2 = moduleWidth;
+                        previewHeight2 = proportionalPreviewHeight;
+                        break;
+                    case SurfaceOrientation.Rotation90:
+                        _cameraModule.IsViewInverted = false;
+                        _cameraModule.IsPortrait = false;
+                        proportionalPreviewHeight = previewSizeHeight * moduleWidth / previewSizeWidth;
+                        rotation1 = 0;
+                        rotation2 = _camera2SensorOrientation - 180;
+                        verticalOffset = (moduleHeight - proportionalPreviewHeight) / 2f;
+                        xAdjust2 = 0;
+                        yAdjust2 = proportionalPreviewHeight + verticalOffset;
+                        previewWidth2 = proportionalPreviewHeight;
+                        previewHeight2 = moduleWidth;
+                        break;
+                    default:
+                        _cameraModule.IsPortrait = false;
+                        _cameraModule.IsViewInverted = true;
+                        proportionalPreviewHeight = previewSizeHeight * moduleWidth / previewSizeWidth;
+                        rotation1 = 180;
+                        rotation2 = _camera2SensorOrientation - 360;
+                        verticalOffset = (moduleHeight - proportionalPreviewHeight) / 2f;
+                        xAdjust2 = moduleWidth;
+                        yAdjust2 = verticalOffset;
+                        previewWidth2 = proportionalPreviewHeight;
+                        previewHeight2 = moduleWidth;
+                        break;
+                }
+
+                if (_useCamera2)
+                {
+                    _textureView.PivotX = 0;
+                    _textureView.PivotY = 0;
+                    _textureView.Rotation = rotation2;
+                }
+                else
+                {
+                    var parameters = _camera1.GetParameters();
+                    parameters.SetRotation(rotation1);
+                    _camera1.SetDisplayOrientation(rotation1);
+                    _camera1.SetParameters(parameters);
+                }
+
+                _cameraModule.PreviewBottomY = (moduleHeight - verticalOffset) / metrics.Density;
+
+                if (_useCamera2)
+                {
+                    _textureView.SetX(xAdjust2);
+                    _textureView.SetY(yAdjust2);
+                    _textureView.LayoutParameters = new FrameLayout.LayoutParams((int) Math.Round(previewWidth2),
+                        (int) Math.Round(previewHeight2));
+                }
+                else
+                {
+                    _textureView.SetX(0);
+                    _textureView.SetY(verticalOffset);
+                    _textureView.LayoutParameters = new FrameLayout.LayoutParams((int) Math.Round(moduleWidth),
+                        (int) Math.Round(proportionalPreviewHeight));
+                }
             }
-            else
+            catch (Exception e)
             {
-                previewSizeWidth = _previewSize.Width;
-                previewSizeHeight = _previewSize.Height;
-            }
-
-            float xAdjust2;
-            float yAdjust2;
-            float previewWidth2;
-            float previewHeight2;
-            float verticalOffset;
-
-            float proportionalPreviewHeight;
-            switch (Display.Rotation)
-            {
-                case SurfaceOrientation.Rotation0:
-                    _cameraModule.IsViewInverted = false;
-                    _cameraModule.IsPortrait = true;
-                    proportionalPreviewHeight = previewSizeWidth * moduleWidth / previewSizeHeight;
-                    rotation1 = 90;
-                    rotation2 = _camera2SensorOrientation - 90;
-                    verticalOffset = (moduleHeight - proportionalPreviewHeight) / 2f;
-                    xAdjust2 = 0;
-                    yAdjust2 = verticalOffset;
-                    previewWidth2 = moduleWidth;
-                    previewHeight2 = proportionalPreviewHeight;
-                    break;
-                case SurfaceOrientation.Rotation180:
-                    _cameraModule.IsViewInverted = true;
-                    _cameraModule.IsPortrait = true;
-                    proportionalPreviewHeight = previewSizeWidth * moduleWidth / previewSizeHeight;
-                    rotation1 = 270;
-                    rotation2 = _camera2SensorOrientation - 270;
-                    verticalOffset = (moduleHeight - proportionalPreviewHeight) / 2f;
-                    xAdjust2 = moduleWidth;
-                    yAdjust2 = verticalOffset + proportionalPreviewHeight;
-                    previewWidth2 = moduleWidth;
-                    previewHeight2 = proportionalPreviewHeight;
-                    break;
-                case SurfaceOrientation.Rotation90:
-                    _cameraModule.IsViewInverted = false;
-                    _cameraModule.IsPortrait = false;
-                    proportionalPreviewHeight = previewSizeHeight * moduleWidth / previewSizeWidth;
-                    rotation1 = 0;
-                    rotation2 = _camera2SensorOrientation - 180;
-                    verticalOffset = (moduleHeight - proportionalPreviewHeight) / 2f;
-                    xAdjust2 = 0;
-                    yAdjust2 = proportionalPreviewHeight + verticalOffset;
-                    previewWidth2 = proportionalPreviewHeight;
-                    previewHeight2 = moduleWidth;
-                    break;
-                default:
-                    _cameraModule.IsPortrait = false;
-                    _cameraModule.IsViewInverted = true;
-                    proportionalPreviewHeight = previewSizeHeight * moduleWidth / previewSizeWidth;
-                    rotation1 = 180;
-                    rotation2 = _camera2SensorOrientation - 360;
-                    verticalOffset = (moduleHeight - proportionalPreviewHeight) / 2f;
-                    xAdjust2 = moduleWidth;
-                    yAdjust2 = verticalOffset;
-                    previewWidth2 = proportionalPreviewHeight;
-                    previewHeight2 = moduleWidth;
-                    break;
-            }
-
-            if (_useCamera2)
-            {
-                _textureView.PivotX = 0;
-                _textureView.PivotY = 0;
-                _textureView.Rotation = rotation2;
-            }
-            else
-            {
-                var parameters = _camera1.GetParameters();
-                parameters.SetRotation(rotation1);
-                _camera1.SetDisplayOrientation(rotation1);
-                _camera1.SetParameters(parameters);
-            }
-
-            _cameraModule.PreviewBottomY = (moduleHeight - verticalOffset) / metrics.Density;
-            
-            if (_useCamera2)
-            {
-                _textureView.SetX(xAdjust2);
-                _textureView.SetY(yAdjust2);
-                _textureView.LayoutParameters = new FrameLayout.LayoutParams((int)Math.Round(previewWidth2),
-                    (int)Math.Round(previewHeight2));
-            }
-            else
-            {
-                _textureView.SetX(0);
-                _textureView.SetY(verticalOffset);
-                _textureView.LayoutParameters = new FrameLayout.LayoutParams((int)Math.Round(moduleWidth),
-                    (int)Math.Round(proportionalPreviewHeight));
+                _cameraModule.ErrorMessage = e.ToString();
             }
         }
 
