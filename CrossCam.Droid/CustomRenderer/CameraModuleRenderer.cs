@@ -522,14 +522,20 @@ namespace CrossCam.Droid.CustomRenderer
                                         if (maxAfRegions > 0)
                                         {
                                             previewBuilder.Set(CaptureRequest.ControlAfRegions, new[] { meteringRectangle });
-                                            previewBuilder.Set(CaptureRequest.ControlAfMode, new Integer((int)ControlAFMode.Auto));
+                                            if (((int[])characteristics.Get(CameraCharacteristics.ControlAfAvailableModes)).Contains((int)ControlAFMode.Auto))
+                                            {
+                                                previewBuilder.Set(CaptureRequest.ControlAfMode, new Integer((int)ControlAFMode.Auto));
+                                            }
                                             previewBuilder.Set(CaptureRequest.ControlAfTrigger, new Integer((int)ControlAFTrigger.Start));
                                         }
 
                                         if (maxAeRegions > 0)
                                         {
                                             previewBuilder.Set(CaptureRequest.ControlAeRegions, new[] { meteringRectangle });
-                                            previewBuilder.Set(CaptureRequest.ControlAeMode, new Integer((int)ControlAEMode.On));
+                                            if (((int[])characteristics.Get(CameraCharacteristics.ControlAeAvailableModes)).Contains((int)ControlAEMode.On))
+                                            {
+                                                previewBuilder.Set(CaptureRequest.ControlAeMode, new Integer((int)ControlAEMode.On));
+                                            }
                                             previewBuilder.Set(CaptureRequest.ControlAePrecaptureTrigger, new Integer((int)ControlAEPrecaptureTrigger.Start));
                                         }
 
@@ -1116,9 +1122,16 @@ namespace CrossCam.Droid.CustomRenderer
                         {
                             var previewBuilder = _camera2Device.CreateCaptureRequest(CameraTemplate.Preview);
                             previewBuilder.AddTarget(_surface);
-                            
-                            previewBuilder.Set(CaptureRequest.ControlAeLock, new Boolean(true));
-                            previewBuilder.Set(CaptureRequest.ControlAfMode, new Integer((int)ControlAFMode.Auto));
+
+                            var characteristics = _cameraManager.GetCameraCharacteristics(_camera2Device.Id);
+                            if ((bool) characteristics.Get(CameraCharacteristics.ControlAeLockAvailable))
+                            {
+                                previewBuilder.Set(CaptureRequest.ControlAeLock, new Boolean(true));
+                            }
+                            if (((int[]) characteristics.Get(CameraCharacteristics.ControlAfAvailableModes)).Contains((int)ControlAFMode.Auto))
+                            {
+                                previewBuilder.Set(CaptureRequest.ControlAfMode, new Integer((int)ControlAFMode.Auto));
+                            }
 
                             var thread = new HandlerThread("CameraLockedPreview");
                             thread.Start();
