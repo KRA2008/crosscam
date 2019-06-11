@@ -27,6 +27,7 @@ using CameraError = Android.Hardware.CameraError;
 using CameraModule = CrossCam.CustomElement.CameraModule;
 using Exception = Java.Lang.Exception;
 using Math = System.Math;
+using Object = Java.Lang.Object;
 using Size = Android.Util.Size;
 using View = Android.Views.View;
 #pragma warning disable 618
@@ -58,7 +59,15 @@ namespace CrossCam.Droid.CustomRenderer
         private readonly bool _useCamera2;
         private Surface _surface;
         private readonly CameraManager _cameraManager;
+        private CameraCaptureSession _camera2session;
+        private CaptureRequest.Builder _captureRequestBuilder;
+        private CaptureRequest _previewCaptureRequest;
+        private CameraCaptureListener _captureListener;
         private CameraStateListener _stateListener;
+        private ImageReader _imageReader;
+        private CameraState _cameraState;
+        private HandlerThread _backgroundThread;
+        private Handler _backgroundHandler;
         private string _camera2Id;
         private CameraDevice _camera2Device;
         private bool _openingCamera2;
@@ -110,6 +119,7 @@ namespace CrossCam.Droid.CustomRenderer
             if (_useCamera2)
             {
                 StopCamera2();
+                StopBackgroundThread();
             }
             else
             {
@@ -129,6 +139,7 @@ namespace CrossCam.Droid.CustomRenderer
         {
             if (_useCamera2)
             {
+                StartBackgroundThread();
                 OpenCamera2();
             }
             else
@@ -347,7 +358,7 @@ namespace CrossCam.Droid.CustomRenderer
             {
                 if (_useCamera2)
                 {
-                    TakePhoto2();
+                    LockFocus2();
                 }
                 else
                 {
@@ -506,14 +517,14 @@ namespace CrossCam.Droid.CustomRenderer
                             tapThread.Start();
                             var sessionHandler = new Handler(tapThread.Looper);
 
-                            _camera2Device.CreateCaptureSession(new List<Surface> { _surface },
+                            _camera2Device.CreateCaptureSession(new List<Surface> { _surface }, //TODO: use old session
                                 new CameraCaptureStateListener
                                 {
                                     OnConfigureFailedAction = session => { },
                                     OnConfiguredAction = session =>
                                     {
                                         var listener = new CameraCaptureListener();
-                                        listener.PhotoComplete += (sender, args) =>
+                                        listener.CaptureComplete += (sender, args) =>
                                         {
                                             StartLockedPreview2(false);
                                         };
@@ -545,14 +556,7 @@ namespace CrossCam.Droid.CustomRenderer
                                             previewBuilder.Set(CaptureRequest.ControlAePrecaptureTrigger, new Integer((int)ControlAEPrecaptureTrigger.Start));
                                         }
 
-                                        try
-                                        {
-                                            session.Capture(previewBuilder.Build(), listener, backgroundHandler);
-                                        }
-                                        catch (Exception)
-                                        {
-                                            //simultaneous sessions, ignore
-                                        }
+                                        session.Capture(previewBuilder.Build(), listener, backgroundHandler);
                                     }
                                 },
                                 sessionHandler);
@@ -1050,39 +1054,150 @@ namespace CrossCam.Droid.CustomRenderer
                 {
                     _camera2Device = camera;
                 }
-
                 
                 _surfaceTexture.SetDefaultBufferSize(_preview2Size.Width, _preview2Size.Height);
+
+                _imageReader =
+                    ImageReader.NewInstance(_picture2Size.Width, _picture2Size.Height, ImageFormatType.Jpeg, 1);
 
                 var continuousFocusThread = new HandlerThread("ContinuousFocusSession");
                 continuousFocusThread.Start();
                 var sessionHandler = new Handler(continuousFocusThread.Looper);
 
-                _camera2Device.CreateCaptureSession(new List<Surface> { _surface },
+                _captureListener = new CameraCaptureListener();
+                _captureListener.CaptureComplete += (sender, args) => { HandleCaptureResult(args.CaptureResult); };
+                _captureListener.CaptureProgressed += (sender, args) => { HandleCaptureResult(args.CaptureResult); };
+
+                _camera2Device.CreateCaptureSession(new List<Surface> { _surface, _imageReader.Surface },
                     new CameraCaptureStateListener
                     {
                         OnConfigureFailedAction = session => { },
                         OnConfiguredAction = session =>
                         {
+                            _camera2session = session;
+
                             var thread = new HandlerThread("CameraContinuousPreview");
                             thread.Start();
                             var backgroundHandler = new Handler(thread.Looper);
 
-                            var previewBuilder = _camera2Device.CreateCaptureRequest(CameraTemplate.Preview);
-                            previewBuilder.AddTarget(_surface);
-                            try
-                            {
-                                session.SetRepeatingRequest(previewBuilder.Build(), null,
-                                    backgroundHandler);
-                            }
-                            catch (Exception)
-                            {
-                                //simultaneous sessions, ignore
-                            }
+                            _captureRequestBuilder = _camera2Device.CreateCaptureRequest(CameraTemplate.Preview);
+                            _captureRequestBuilder.AddTarget(_surface);
+
+                            _captureRequestBuilder.Set(CaptureRequest.ControlAfMode,
+                                new Integer((int) ControlAFMode.ContinuousPicture));
+
+                            _previewCaptureRequest = _captureRequestBuilder.Build();
+
+                            session.SetRepeatingRequest(_previewCaptureRequest, _captureListener, backgroundHandler);
                         }
                     },
                     sessionHandler);
                 _openingCamera2 = false;
+            }
+            catch (Exception e)
+            {
+                _cameraModule.ErrorMessage = e.ToString();
+            }
+        }
+
+        private void HandleCaptureResult(CaptureResult result)
+        {
+            Object aeState;
+            ControlAEState aeStateEnum;
+            switch (_cameraState)
+            {
+                case CameraState.Preview:
+                    break;
+                case CameraState.WaitingLock:
+                    var afState = result.Get(CaptureResult.ControlAfState);
+                    if (afState == null)
+                    {
+                        //TODO: why doesn't this require _cameraState to be set?
+                        CaptureStillPicture2();
+                    }
+                    var afStateEnum = (ControlAFState) (int) afState;
+                    if (afStateEnum == ControlAFState.FocusedLocked ||
+                        afStateEnum == ControlAFState.NotFocusedLocked)
+                    {
+                        aeState = result.Get(CaptureResult.ControlAeState);
+                        if (aeState == null)
+                        {
+                            _cameraState = CameraState.PictureTaken;
+                            CaptureStillPicture2();
+                        }
+                        aeStateEnum = (ControlAEState) (int) aeState;
+                        if (aeStateEnum == ControlAEState.Converged)
+                        {
+                            _cameraState = CameraState.PictureTaken;
+                            CaptureStillPicture2();
+                        }
+                        else
+                        {
+                            RunPrecaptureSequence();
+                        }
+                    }
+                    break;
+                case CameraState.WaitingPrecapture:
+                    aeState = result.Get(CaptureResult.ControlAeState);
+                    if (aeState == null)
+                    {
+                        _cameraState = CameraState.WaitingNonPrecapture;
+                    }
+                    aeStateEnum = (ControlAEState) (int) aeState;
+                    if (aeStateEnum == ControlAEState.Precapture ||
+                        aeStateEnum == ControlAEState.FlashRequired)
+                    {
+                        _cameraState = CameraState.WaitingNonPrecapture;
+                    }
+                    break;
+                case CameraState.WaitingNonPrecapture:
+                    aeState = result.Get(CaptureResult.ControlAeState);
+                    if (aeState == null)
+                    {
+                        _cameraState = CameraState.PictureTaken;
+                        CaptureStillPicture2();
+                    }
+                    aeStateEnum = (ControlAEState) (int) aeState;
+                    if (aeStateEnum != ControlAEState.Precapture)
+                    {
+                        _cameraState = CameraState.PictureTaken;
+                        CaptureStillPicture2();
+                    }
+                    break;
+                case CameraState.PictureTaken:
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException();
+            }
+        }
+
+        private void RunPrecaptureSequence()
+        {
+            try
+            {
+                _captureRequestBuilder.Set(CaptureRequest.ControlAePrecaptureTrigger, new Integer((int) ControlAEPrecaptureTrigger.Start));
+                _cameraState = CameraState.WaitingPrecapture;
+                _camera2session.Capture(_captureRequestBuilder.Build(), _captureListener, _backgroundHandler);
+            }
+            catch (Exception e)
+            {
+                _cameraModule.ErrorMessage = e.ToString();
+            }
+        }
+
+        private void CaptureStillPicture2()
+        {
+            throw new NotImplementedException();
+        }
+
+
+        private void LockFocus2()
+        {
+            try
+            {
+                _captureRequestBuilder.Set(CaptureRequest.ControlAfTrigger, new Integer((int) ControlAFTrigger.Start));
+                _cameraState = CameraState.WaitingLock;
+                _camera2session.Capture(_captureRequestBuilder.Build(), _captureListener, _backgroundHandler);
             }
             catch (Exception e)
             {
@@ -1120,7 +1235,7 @@ namespace CrossCam.Droid.CustomRenderer
                 handlerThread.Start();
                 var sessionHandler = new Handler(handlerThread.Looper);
 
-                _camera2Device.CreateCaptureSession(new List<Surface> { _surface },
+                _camera2Device.CreateCaptureSession(new List<Surface> { _surface }, //TODO: use old session
                     new CameraCaptureStateListener
                     {
                         OnConfigureFailedAction = session => { },
@@ -1142,16 +1257,9 @@ namespace CrossCam.Droid.CustomRenderer
                             var thread = new HandlerThread("CameraLockedPreview");
                             thread.Start();
                             var backgroundHandler = new Handler(thread.Looper);
-
-                            try
-                            {
-                                session.SetRepeatingRequest(previewBuilder.Build(), null,
-                                    backgroundHandler);
-                            }
-                            catch (Exception)
-                            {
-                                //simultaneous sessions, ignore
-                            }
+                            
+                            session.SetRepeatingRequest(previewBuilder.Build(), null,
+                                backgroundHandler);
                         }
                     },
                     sessionHandler);
@@ -1200,11 +1308,9 @@ namespace CrossCam.Droid.CustomRenderer
                     neededRotation = neededRotation % 360;
                 }
 
-                var reader =
-                    ImageReader.NewInstance(_picture2Size.Width, _picture2Size.Height, ImageFormatType.Jpeg, 1);
 
                 var captureBuilder = _camera2Device.CreateCaptureRequest(CameraTemplate.StillCapture);
-                captureBuilder.AddTarget(reader.Surface);
+                captureBuilder.AddTarget(_imageReader.Surface);
                 captureBuilder.Set(CaptureRequest.JpegOrientation, new Integer(neededRotation));
 
                 var readerListener = new ImageAvailableListener();
@@ -1217,7 +1323,7 @@ namespace CrossCam.Droid.CustomRenderer
                 var captureThread = new HandlerThread("CameraCapture");
                 captureThread.Start();
                 var captureHandler = new Handler(captureThread.Looper);
-                reader.SetOnImageAvailableListener(readerListener, captureHandler);
+                _imageReader.SetOnImageAvailableListener(readerListener, captureHandler);
 
                 var sessionThread = new HandlerThread("CaptureSession");
                 sessionThread.Start();
@@ -1225,7 +1331,7 @@ namespace CrossCam.Droid.CustomRenderer
 
                 var captureListener = new CameraCaptureListener();
 
-                captureListener.PhotoComplete += (sender, e) =>
+                captureListener.CaptureComplete += (sender, e) =>
                 {
                     if (_cameraModule.IsLockToFirstEnabled)
                     {
@@ -1237,7 +1343,7 @@ namespace CrossCam.Droid.CustomRenderer
                     }
                 };
 
-                _camera2Device.CreateCaptureSession(new [] {reader.Surface}, new CameraCaptureStateListener
+                _camera2Device.CreateCaptureSession(new [] {_imageReader.Surface}, new CameraCaptureStateListener //TODO: use old session
                 {
                     OnConfiguredAction = session =>
                     {
@@ -1257,6 +1363,21 @@ namespace CrossCam.Droid.CustomRenderer
             {
                 _cameraModule.ErrorMessage = e.ToString();
             }
+        }
+
+        private void StartBackgroundThread()
+        {
+            _backgroundThread = new HandlerThread("CameraBackground");
+            _backgroundThread.Start();
+            _backgroundHandler = new Handler(_backgroundThread.Looper);
+        }
+        
+        private void StopBackgroundThread()
+        {
+            _backgroundThread.QuitSafely();
+            _backgroundThread.Join();
+            _backgroundThread = null;
+            _backgroundHandler = null;
         }
 
         #endregion
@@ -1286,6 +1407,15 @@ namespace CrossCam.Droid.CustomRenderer
                 _cameraModule.PreviewDoubleTapped();
                 return true;
             }
+        }
+
+        private enum CameraState
+        {
+            Preview,
+            WaitingLock,
+            WaitingPrecapture,
+            WaitingNonPrecapture,
+            PictureTaken
         }
     }
 }
