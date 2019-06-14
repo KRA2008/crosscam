@@ -645,7 +645,7 @@ namespace CrossCam.Droid.CustomRenderer
 
                         foreach (var previewSize in previewSizes)
                         {
-                            if (Math.Abs(previewSize.Width / (1f * previewSize.Height) - pictureAspectRatio) < 0.001)
+                            if (Math.Abs(previewSize.Width / (1f * previewSize.Height) - pictureAspectRatio) < 0.01)
                             {
                                 if (previewSize.Width >= _landscapePreviewAllottedWidth)
                                 {
@@ -667,10 +667,8 @@ namespace CrossCam.Droid.CustomRenderer
                             _previewSize = smaller.First();
                         }
 
-                        if (_pictureSize == null ||
-                            _previewSize == null)
+                        if (_previewSize == null)
                         {
-                            _pictureSize = parameters.SupportedPictureSizes.First();
                             _previewSize = previewSizes.First();
                         }
 
@@ -813,7 +811,7 @@ namespace CrossCam.Droid.CustomRenderer
             
             foreach (var previewSize in previewSizes)
             {
-                if (Math.Abs(previewSize.Width / (1f * previewSize.Height) - pictureAspectRatio) < 0.001)
+                if (Math.Abs(previewSize.Width / (1f * previewSize.Height) - pictureAspectRatio) < 0.01)
                 {
                     if (previewSize.Width >= _landscapePreviewAllottedWidth)
                     {
@@ -835,8 +833,7 @@ namespace CrossCam.Droid.CustomRenderer
                 _preview2Size = smaller.First();
             }
 
-            if (_picture2Size == null ||
-                _preview2Size == null)
+            if (_preview2Size == null)
             {
                 return (int) InfoSupportedHardwareLevel.Legacy; // cannot find appropriate sizes with camera2. fall back to camera1.
             }
@@ -1390,6 +1387,16 @@ namespace CrossCam.Droid.CustomRenderer
             _backgroundHandler = null;
         }
 
+        private enum CameraState
+        {
+            Preview,
+            WaitingLock,
+            WaitingTapLock,
+            WaitingPrecapture,
+            WaitingNonPrecapture,
+            PictureTaken
+        }
+
         #endregion
 
         private sealed class CameraPreviewGestureListener : GestureDetector.SimpleOnGestureListener
@@ -1417,16 +1424,6 @@ namespace CrossCam.Droid.CustomRenderer
                 _cameraModule.PreviewDoubleTapped();
                 return true;
             }
-        }
-
-        private enum CameraState
-        {
-            Preview,
-            WaitingLock,
-            WaitingTapLock,
-            WaitingPrecapture,
-            WaitingNonPrecapture,
-            PictureTaken
         }
     }
 }
