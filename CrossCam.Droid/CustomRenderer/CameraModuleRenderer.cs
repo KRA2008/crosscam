@@ -35,7 +35,8 @@ using Camera = Android.Hardware.Camera;
 [assembly: ExportRenderer(typeof(CameraModule), typeof(CameraModuleRenderer))]
 namespace CrossCam.Droid.CustomRenderer
 {
-    public sealed class CameraModuleRenderer : ViewRenderer<CameraModule, View>, TextureView.ISurfaceTextureListener, Camera.IShutterCallback, Camera.IPictureCallback, Camera.IErrorCallback, View.IOnTouchListener
+    public sealed class CameraModuleRenderer : ViewRenderer<CameraModule, View>, TextureView.ISurfaceTextureListener, View.IOnTouchListener,
+        Camera.IAutoFocusCallback, Camera.IShutterCallback, Camera.IPictureCallback, Camera.IErrorCallback
     {
         private Camera _camera1;
         private View _view;
@@ -242,6 +243,8 @@ namespace CrossCam.Droid.CustomRenderer
                 }
                 else
                 {
+                    _camera1.CancelAutoFocus();
+
                     var parameters = providedParameters ?? _camera1.GetParameters();
 
                     if (parameters.SupportedFocusModes.Contains(Camera.Parameters.FocusModeContinuousPicture))
@@ -269,6 +272,9 @@ namespace CrossCam.Droid.CustomRenderer
                     {
                         parameters.AutoExposureLock = false;
                     }
+
+                    parameters.FocusAreas = null;
+                    parameters.MeteringAreas = null;
 
                     if (providedParameters == null)
                     {
@@ -390,29 +396,79 @@ namespace CrossCam.Droid.CustomRenderer
                     }
                     else
                     {
+                        TurnOnContinuousFocus();
                         var metrics = new DisplayMetrics();
                         Display.GetMetrics(metrics);
 
-                        var focusRect = CalculateTapArea(e.GetX(), e.GetY(), _textureView.Width,
-                            _textureView.Height, 1f);
-                        var meteringRect = CalculateTapArea(e.GetX(), e.GetY(), _textureView.Width,
-                            _textureView.Height, 1.5f);
+                        var tapRadius = (float)CameraPage.FOCUS_CIRCLE_WIDTH * metrics.Density / 2f;
+
+                        var tapX = Clamp(e.GetX(), tapRadius, _textureView.Width - tapRadius);
+                        var tapY = Clamp(e.GetY(), tapRadius, _textureView.Height - tapRadius);
+
+                        var tapRect = new Rect(
+                            (int)(tapX - tapRadius),
+                            (int)(tapY - tapRadius),
+                            (int)(tapX + tapRadius),
+                            (int)(tapY + tapRadius));
+
+                        Rect targetFocusRect; 
 
                         var parameters = _camera1.GetParameters();
+                        
+                        switch (Display.Rotation)
+                        {//TODO: flip rectangle based on orientation
+                            case SurfaceOrientation.Rotation0:
+                                targetFocusRect = new Rect(
+                                    tapRect.Left * 2000 / _textureView.Width - 1000,
+                                    tapRect.Top * 2000 / _textureView.Height - 1000,
+                                    tapRect.Right * 2000 / _textureView.Width - 1000,
+                                    tapRect.Bottom * 2000 / _textureView.Height - 1000);
+                                break;
+                            case SurfaceOrientation.Rotation180:
+                                targetFocusRect = new Rect(
+                                    tapRect.Left * 2000 / _textureView.Width - 1000,
+                                    tapRect.Top * 2000 / _textureView.Height - 1000,
+                                    tapRect.Right * 2000 / _textureView.Width - 1000,
+                                    tapRect.Bottom * 2000 / _textureView.Height - 1000);
+                                break;
+                            case SurfaceOrientation.Rotation270:
+                                targetFocusRect = new Rect(
+                                    tapRect.Left * 2000 / _textureView.Width - 1000,
+                                    tapRect.Top * 2000 / _textureView.Height - 1000,
+                                    tapRect.Right * 2000 / _textureView.Width - 1000,
+                                    tapRect.Bottom * 2000 / _textureView.Height - 1000);
+                                break;
+                            case SurfaceOrientation.Rotation90:
+                                targetFocusRect = new Rect(
+                                    tapRect.Left * 2000 / _textureView.Width - 1000,
+                                    tapRect.Top * 2000 / _textureView.Height - 1000,
+                                    tapRect.Right * 2000 / _textureView.Width - 1000,
+                                    tapRect.Bottom * 2000 / _textureView.Height - 1000);
+                                break;
+                            default:
+                                throw new ArgumentOutOfRangeException();
+                        }
 
                         if (parameters.MaxNumFocusAreas > 0 &&
                             parameters.SupportedFocusModes.Contains(Camera.Parameters.FocusModeAuto))
                         {
                             parameters.FocusMode = Camera.Parameters.FocusModeAuto;
-                            parameters.FocusAreas = new List<Camera.Area> { new Camera.Area(focusRect, 1000) };
+                            parameters.FocusAreas = new List<Camera.Area> { new Camera.Area(targetFocusRect, 1000) };
                         }
 
                         if (parameters.MaxNumMeteringAreas > 0)
                         {
-                            parameters.MeteringAreas = new List<Camera.Area> { new Camera.Area(meteringRect, 1000) };
+                            parameters.MeteringAreas = new List<Camera.Area> { new Camera.Area(targetFocusRect, 1000) };
+                        }
+
+                        if (parameters.IsAutoExposureLockSupported)
+                        {
+                            //parameters.AutoExposureLock = true; //TODO: use this properly... it needs to finish adjusting exposure and then lock there, and also automatically unlock/relock with next tap.. or does it?
                         }
 
                         _camera1.SetParameters(parameters);
+
+                        _camera1.AutoFocus(this);
 
                         double focusCircleX = e.GetX() + _textureView.GetX();
                         double focusCircleY = e.GetY() + _textureView.GetY();
@@ -428,35 +484,17 @@ namespace CrossCam.Droid.CustomRenderer
                 _cameraModule.ErrorMessage = ex.ToString();
             }
         }
-
-        private Rect CalculateTapArea(float x, float y, int width, int height, float coefficient)
+        
+        private static float Clamp(float x, float min, float max)
         {
-            var areaSize = Float.ValueOf(100 * coefficient).IntValue();
-
-            var left = Clamp((int)x - areaSize / 2, 0, width - areaSize);
-            var top = Clamp((int)y - areaSize / 2, 0, height - areaSize);
-
-            var rectF = new RectF(left, top, left + areaSize, top + areaSize);
-            Matrix.MapRect(rectF);
-
-            return new Rect((int)(rectF.Left + 0.5), (int)(rectF.Top + 0.5), (int)(rectF.Right + 0.5), (int)(rectF.Bottom + 0.5));
-        }
-
-        private static int Clamp(int x, int min, int max)
-        {
-            if (x > max)
-            {
-                return max;
-            }
-            return x < min ? min : x;
+            return x < min ? min : x < max ? x : max;
         }
 
         public void OnError(CameraError error, Camera camera)
         {
             _cameraModule.ErrorMessage = error.ToString();
         }
-
-
+        
         private void SetOrientation()
         {
             try
@@ -761,6 +799,10 @@ namespace CrossCam.Droid.CustomRenderer
 
                 _camera1.SetParameters(parameters);
             }
+        }
+
+        public void OnAutoFocus(bool success, Camera camera)
+        {
         }
 
         #endregion
@@ -1160,7 +1202,6 @@ namespace CrossCam.Droid.CustomRenderer
         
         private void TapToFocus2(MotionEvent e)
         {
-
             var metrics = new DisplayMetrics();
             Display.GetMetrics(metrics);
 
