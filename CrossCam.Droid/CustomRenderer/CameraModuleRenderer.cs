@@ -27,7 +27,6 @@ using CameraError = Android.Hardware.CameraError;
 using CameraModule = CrossCam.CustomElement.CameraModule;
 using Exception = Java.Lang.Exception;
 using Math = System.Math;
-using Object = Java.Lang.Object;
 using Size = Android.Util.Size;
 using View = Android.Views.View;
 #pragma warning disable 618
@@ -73,6 +72,7 @@ namespace CrossCam.Droid.CustomRenderer
         private Size _preview2Size;
         private Size _picture2Size;
         private MeteringRectangle _camera2MeteringRectangle;
+        private bool _isCamera2Locked;
         private int _camera2SensorOrientation;
         private readonly SparseIntArray _orientations = new SparseIntArray();
 
@@ -84,8 +84,7 @@ namespace CrossCam.Droid.CustomRenderer
             };
             MainActivity.Instance.LifecycleEventListener.AppMaximized += AppWasMaximized;
             MainActivity.Instance.LifecycleEventListener.AppMinimized += AppWasMinimized;
-
-            //TODO: remove when i figure out why distortion is happening on a couple devices with camera2
+            
             var settings = PersistentStorage.LoadOrDefault(PersistentStorage.SETTINGS_KEY, new Settings());
             var forceCamera1 = settings.IsForceCamera1Enabled;
 
@@ -987,18 +986,16 @@ namespace CrossCam.Droid.CustomRenderer
                         aeStateEnum = (ControlAEState)(int)aeState;
                         if (aeStateEnum == ControlAEState.Converged)
                         {
+                            LockAe();
                             _cameraState = CameraState.Preview;
-                        }
-                        else
-                        {
-                            RunTapPrecaptureSequence();
                         }
                     }
                     break;
                 case CameraState.WaitingPrecapture:
                     if (aeState == null ||
                         aeStateEnum == ControlAEState.Precapture ||
-                        aeStateEnum == ControlAEState.FlashRequired)
+                        aeStateEnum == ControlAEState.FlashRequired ||
+                        aeStateEnum == ControlAEState.Locked)
                     {
                         _cameraState = CameraState.WaitingNonPrecapture;
                     }
@@ -1033,28 +1030,23 @@ namespace CrossCam.Droid.CustomRenderer
             }
         }
 
-        private void RunTapPrecaptureSequence()
+        private void LockAe()
         {
             try
             {
                 var characteristics = _cameraManager.GetCameraCharacteristics(_camera2Device.Id);
-                var maxAeRegions = (int)characteristics.Get(CameraCharacteristics.ControlMaxRegionsAe);
-                if (maxAeRegions > 0)
+                if ((bool)characteristics.Get(CameraCharacteristics.ControlAeLockAvailable))
                 {
-                    _previewRequestBuilder.Set(CaptureRequest.ControlAeRegions, new[] { _camera2MeteringRectangle });
-                    if (((int[])characteristics.Get(CameraCharacteristics.ControlAeAvailableModes)).Contains((int)ControlAEMode.On))
-                    {
-                        _previewRequestBuilder.Set(CaptureRequest.ControlAeMode, new Integer((int)ControlAEMode.On));
-                    }
-                    _previewRequestBuilder.Set(CaptureRequest.ControlAePrecaptureTrigger, new Integer((int)ControlAEPrecaptureTrigger.Start));
+                    _previewRequestBuilder.Set(CaptureRequest.ControlAeLock, new Boolean(true));
                 }
                 _previewRequestBuilder.Set(CaptureRequest.ControlAfTrigger, null);
-                _cameraState = CameraState.Preview;
-                _camera2Session.StopRepeating();
-                _camera2Session.Capture(_previewRequestBuilder.Build(), _captureListener, _backgroundHandler);
-
                 _previewRequestBuilder.Set(CaptureRequest.ControlAePrecaptureTrigger, null);
+                _cameraState = CameraState.Preview;
+
+                _camera2Session.StopRepeating();
                 _camera2Session.SetRepeatingRequest(_previewRequestBuilder.Build(), _captureListener, _backgroundHandler);
+
+                _isCamera2Locked = true;
             }
             catch (Exception e)
             {
@@ -1066,10 +1058,18 @@ namespace CrossCam.Droid.CustomRenderer
         {
             try
             {
-                _previewRequestBuilder.Set(CaptureRequest.ControlAePrecaptureTrigger, null);
-                _previewRequestBuilder.Set(CaptureRequest.ControlAfTrigger, new Integer((int) ControlAFTrigger.Start));
-                _cameraState = CameraState.WaitingLock;
-                _camera2Session.Capture(_previewRequestBuilder.Build(), _captureListener, _backgroundHandler);
+                if (_isCamera2Locked)
+                {
+                    _cameraState = CameraState.PictureTaken;
+                    CaptureStillPicture2();
+                }
+                else
+                {
+                    _previewRequestBuilder.Set(CaptureRequest.ControlAePrecaptureTrigger, null);
+                    _previewRequestBuilder.Set(CaptureRequest.ControlAfTrigger, new Integer((int)ControlAFTrigger.Start));
+                    _cameraState = CameraState.WaitingLock;
+                    _camera2Session.Capture(_previewRequestBuilder.Build(), _captureListener, _backgroundHandler);
+                }
             }
             catch (Exception e)
             {
@@ -1091,55 +1091,6 @@ namespace CrossCam.Droid.CustomRenderer
             camera.Close();
             _camera2Device = null;
             _openingCamera2 = false;
-        }
-
-        private void StartLockedPreview2(bool hideFocusCircle)
-        {
-            try
-            {
-                if (hideFocusCircle)
-                {
-                    _cameraModule.IsFocusCircleVisible = false;
-                }
-                _surfaceTexture.SetDefaultBufferSize(_preview2Size.Width, _preview2Size.Height);
-
-                var handlerThread = new HandlerThread("LockedFocusSession");
-                handlerThread.Start();
-                var sessionHandler = new Handler(handlerThread.Looper);
-
-                _camera2Device.CreateCaptureSession(new List<Surface> { _surface }, //TODO: use old session
-                    new CameraCaptureStateListener
-                    {
-                        OnConfigureFailedAction = session => { },
-                        OnConfiguredAction = session =>
-                        {
-                            var previewBuilder = _camera2Device.CreateCaptureRequest(CameraTemplate.Preview);
-                            previewBuilder.AddTarget(_surface);
-
-                            var characteristics = _cameraManager.GetCameraCharacteristics(_camera2Device.Id);
-                            if ((bool) characteristics.Get(CameraCharacteristics.ControlAeLockAvailable))
-                            {
-                                previewBuilder.Set(CaptureRequest.ControlAeLock, new Boolean(true));
-                            }
-                            if (((int[]) characteristics.Get(CameraCharacteristics.ControlAfAvailableModes)).Contains((int)ControlAFMode.Auto))
-                            {
-                                previewBuilder.Set(CaptureRequest.ControlAfMode, new Integer((int)ControlAFMode.Auto));
-                            }
-
-                            var thread = new HandlerThread("CameraLockedPreview");
-                            thread.Start();
-                            var backgroundHandler = new Handler(thread.Looper);
-                            
-                            session.SetRepeatingRequest(previewBuilder.Build(), null,
-                                backgroundHandler);
-                        }
-                    },
-                    sessionHandler);
-            }
-            catch (Exception e)
-            {
-                _cameraModule.ErrorMessage = e.ToString();
-            }
         }
 
         private void CaptureStillPicture2()
@@ -1329,25 +1280,46 @@ namespace CrossCam.Droid.CustomRenderer
             _camera2MeteringRectangle = new MeteringRectangle(sensorTapRect, 999);
 
             var maxAfRegions = (int)characteristics.Get(CameraCharacteristics.ControlMaxRegionsAf);
+            var maxAeRegions = (int)characteristics.Get(CameraCharacteristics.ControlMaxRegionsAe);
 
-            if (maxAfRegions > 0)
+            if (maxAfRegions > 0 ||
+                maxAeRegions > 0)
             {
-                if (maxAfRegions > 0)
+                if (maxAfRegions > 0 ||
+                    maxAeRegions > 0)
                 {
-                    _previewRequestBuilder.Set(CaptureRequest.ControlAfRegions, new[] { _camera2MeteringRectangle });
-                    if (((int[])characteristics.Get(CameraCharacteristics.ControlAfAvailableModes)).Contains((int)ControlAFMode.Auto))
+                    if (maxAfRegions > 0)
                     {
-                        _previewRequestBuilder.Set(CaptureRequest.ControlAfMode, new Integer((int)ControlAFMode.Auto));
+                        _previewRequestBuilder.Set(CaptureRequest.ControlAfRegions, new[] { _camera2MeteringRectangle });
+                        if (((int[])characteristics.Get(CameraCharacteristics.ControlAfAvailableModes)).Contains((int)ControlAFMode.Auto))
+                        {
+                            _previewRequestBuilder.Set(CaptureRequest.ControlAfMode, new Integer((int)ControlAFMode.Auto));
+                        }
+                        _previewRequestBuilder.Set(CaptureRequest.ControlAfTrigger, new Integer((int)ControlAFTrigger.Start));
                     }
-                    _previewRequestBuilder.Set(CaptureRequest.ControlAfTrigger, new Integer((int)ControlAFTrigger.Start));
-                    _previewRequestBuilder.Set(CaptureRequest.ControlAePrecaptureTrigger, null);
+
+                    if (maxAeRegions > 0)
+                    {
+                        _previewRequestBuilder.Set(CaptureRequest.ControlAeRegions, new[] { _camera2MeteringRectangle });
+                        if (((int[])characteristics.Get(CameraCharacteristics.ControlAeAvailableModes)).Contains((int)ControlAEMode.On))
+                        {
+                            _previewRequestBuilder.Set(CaptureRequest.ControlAeMode, new Integer((int)ControlAEMode.On));
+                        }
+                        _previewRequestBuilder.Set(CaptureRequest.ControlAePrecaptureTrigger, new Integer((int)ControlAEPrecaptureTrigger.Start));
+                    }
+                }
+
+                if ((bool)characteristics.Get(CameraCharacteristics.ControlAeLockAvailable))
+                {
+                    _previewRequestBuilder.Set(CaptureRequest.ControlAeLock, new Boolean(false));
                 }
 
                 _cameraState = CameraState.WaitingTapLock;
                 _camera2Session.StopRepeating();
                 _camera2Session.Capture(_previewRequestBuilder.Build(), _captureListener, _backgroundHandler);
-                
+
                 _previewRequestBuilder.Set(CaptureRequest.ControlAfTrigger, null);
+                _previewRequestBuilder.Set(CaptureRequest.ControlAePrecaptureTrigger, null);
                 _camera2Session.SetRepeatingRequest(_previewRequestBuilder.Build(), _captureListener,
                     _backgroundHandler);
 
@@ -1361,30 +1333,40 @@ namespace CrossCam.Droid.CustomRenderer
         {
             try
             {
+                var characteristics = _cameraManager.GetCameraCharacteristics(_camera2Id);
+                _cameraState = CameraState.Preview;
+
                 if (_cameraModule.IsLockToFirstEnabled && withLockIfEnabled)
                 {
-                    //TODO: ????
-                    //var characteristics = _cameraManager.GetCameraCharacteristics(_camera2Device.Id);
-                    //if ((bool)characteristics.Get(CameraCharacteristics.ControlAeLockAvailable))
-                    //{
-                    //    _previewRequestBuilder.Set(CaptureRequest.ControlAeLock, new Boolean(true));
-                    //}
-                    //if (((int[])characteristics.Get(CameraCharacteristics.ControlAfAvailableModes)).Contains((int)ControlAFMode.Auto))
-                    //{
-                    //    _previewRequestBuilder.Set(CaptureRequest.ControlAfMode, new Integer((int)ControlAFMode.Auto));
-                    //}
+                    if ((bool)characteristics.Get(CameraCharacteristics.ControlAeLockAvailable))
+                    {
+                        _previewRequestBuilder.Set(CaptureRequest.ControlAeLock, new Boolean(true));
+                    }
+
                     _camera2Session.StopRepeating();
                     _camera2Session.SetRepeatingRequest(_previewRequestBuilder.Build(), _captureListener, _backgroundHandler);
+
+                    _isCamera2Locked = true;
                 }
                 else
                 {
+                    if ((bool)characteristics.Get(CameraCharacteristics.ControlAeLockAvailable))
+                    {
+                        _previewRequestBuilder.Set(CaptureRequest.ControlAeLock, new Boolean(false));
+                    }
                     _previewRequestBuilder.Set(CaptureRequest.ControlAfTrigger, new Integer((int)ControlAFTrigger.Cancel));
                     _previewRequestBuilder.Set(CaptureRequest.ControlAePrecaptureTrigger, new Integer((int)ControlAEPrecaptureTrigger.Cancel));
                     _previewRequestBuilder.Set(CaptureRequest.ControlAfMode, new Integer((int)ControlAFMode.ContinuousPicture));
-                    _cameraState = CameraState.Preview;
+
                     _camera2Session.StopRepeating();
                     _camera2Session.Capture(_previewRequestBuilder.Build(), _captureListener, _backgroundHandler);
+
+                    _previewRequestBuilder.Set(CaptureRequest.ControlAfTrigger, null);
+                    _previewRequestBuilder.Set(CaptureRequest.ControlAePrecaptureTrigger, null);
+
                     _camera2Session.SetRepeatingRequest(_previewRequestBuilder.Build(), _captureListener, _backgroundHandler);
+
+                    _isCamera2Locked = false;
                 }
             }
             catch (Exception e)
