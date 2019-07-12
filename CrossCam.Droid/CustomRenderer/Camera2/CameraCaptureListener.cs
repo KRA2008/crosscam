@@ -13,18 +13,27 @@ namespace CrossCam.Droid.CustomRenderer.Camera2
         {
             base.OnCaptureCompleted(session, request, result);
 
-            CaptureComplete?.Invoke(this, new CameraCaptureListenerEventArgs {CaptureResult = result});
+            CaptureComplete?.Invoke(this, new CameraCaptureListenerEventArgs
+            {
+                CaptureRequest = request,
+                CaptureResult = result
+            });
         }
 
         public override void OnCaptureProgressed(CameraCaptureSession session, CaptureRequest request, CaptureResult partialResult)
         {
             base.OnCaptureProgressed(session, request, partialResult);
 
-            CaptureProgressed?.Invoke(this, new CameraCaptureListenerEventArgs { CaptureResult = partialResult });
+            CaptureProgressed?.Invoke(this, new CameraCaptureListenerEventArgs
+            {
+                CaptureRequest = request,
+                CaptureResult = partialResult
+            });
         }
 
         public class CameraCaptureListenerEventArgs : EventArgs
         {
+            public CaptureRequest CaptureRequest { get; set; }
             public CaptureResult CaptureResult { get; set; }
         }
     }
