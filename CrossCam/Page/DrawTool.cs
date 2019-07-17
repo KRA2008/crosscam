@@ -1,4 +1,5 @@
 ﻿using System;
+using CrossCam.Model;
 using CrossCam.ViewModel;
 using SkiaSharp;
 

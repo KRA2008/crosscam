@@ -256,8 +256,11 @@
             </StackLayout>
             <BoxView/>
             <StackLayout Orientation="Horizontal">
-                <Label Text="Lefty mode"/>
-                <Switch IsToggled="{Binding Settings.LeftyMode}"/>
+                <Label Text="Handedness (placement of the capture/aperture button on the screen)"/>
+                <Picker ItemsSource="{Binding Handednesses}"
+                        SelectedIndex="{Binding Settings.Handedness, Converter={vc:HandednessValueConverter}}"
+                        BackgroundColor="White"
+                        HorizontalOptions="EndAndExpand"/>
             </StackLayout>
             <BoxView/>
             <Button Text="Reset to Defaults"

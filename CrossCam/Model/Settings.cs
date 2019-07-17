@@ -65,7 +65,17 @@ namespace CrossCam.Model
 
         public bool AddBorder { get; set; }
 
-        public bool LeftyMode { get; set; }
+        private Handedness _handedness;
+        public Handedness Handedness
+        {
+            get => _handedness;
+            set
+            {
+                var intValue = (int)value;
+                if (intValue < 0) return;
+                _handedness = value;
+            }
+        }
 
         private BorderColor _borderColor;
         public BorderColor BorderColor
@@ -243,7 +253,7 @@ namespace CrossCam.Model
             IsTapToFocusEnabled2 = true;
             IsLockToFirstEnabled = true;
 
-            LeftyMode = false;
+            Handedness = Handedness.Right;
 
             BorderColor = BorderColor.Black;
 

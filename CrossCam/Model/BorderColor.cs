@@ -1,4 +1,4 @@
-﻿namespace CrossCam.Page
+﻿namespace CrossCam.Model
 {
     public enum BorderColor
     {

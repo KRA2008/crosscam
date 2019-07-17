@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using CrossCam.Model;
-using CrossCam.Page;
 using CrossCam.Wrappers;
 using FreshMvvm;
 using Xamarin.Forms;
@@ -20,6 +19,7 @@ namespace CrossCam.ViewModel
         public IEnumerable<int> ZeroToOneHundred => Enumerable.Range(0, 101).ToList();
         public IEnumerable<int> ZeroToTen => Enumerable.Range(0, 11).ToList();
         public IEnumerable<string> BorderColors => Enum.GetNames(typeof(BorderColor)).ToList();
+        public IEnumerable<string> Handednesses => Enum.GetNames(typeof(Handedness)).ToList();
         // ReSharper restore MemberCanBeMadeStatic.Global
 
         public bool EnableFirstSideAloneSwitch { get; set; }

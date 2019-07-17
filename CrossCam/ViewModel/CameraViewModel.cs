@@ -121,16 +121,20 @@ namespace CrossCam.ViewModel
 
         public bool IsNothingCaptured => LeftBitmap == null && RightBitmap == null;
         public bool ShouldIconBeVisible => IsNothingCaptured && IconColumn != CameraColumn && WorkflowStage == WorkflowStage.Capture;
-        public bool ShouldLeftLeftRetakeBeVisible => LeftBitmap != null && (WorkflowStage == WorkflowStage.Final && DoesCaptureOrientationMatchViewOrientation || WorkflowStage == WorkflowStage.Capture && !Settings.LeftyMode);
-        public bool ShouldLeftRightRetakeBeVisible => LeftBitmap != null && WorkflowStage == WorkflowStage.Capture && Settings.LeftyMode;
-        public bool ShouldRightLeftRetakeBeVisible => RightBitmap != null && WorkflowStage == WorkflowStage.Capture && !Settings.LeftyMode;
-        public bool ShouldRightRightRetakeBeVisible => RightBitmap != null && (WorkflowStage == WorkflowStage.Final && DoesCaptureOrientationMatchViewOrientation || WorkflowStage == WorkflowStage.Capture && Settings.LeftyMode);
+        public bool ShouldLeftLeftRetakeBeVisible => LeftBitmap != null && (WorkflowStage == WorkflowStage.Final && DoesCaptureOrientationMatchViewOrientation || WorkflowStage == WorkflowStage.Capture && (Settings.Handedness == Handedness.Right || Settings.Handedness == Handedness.Center));
+        public bool ShouldLeftRightRetakeBeVisible => LeftBitmap != null && WorkflowStage == WorkflowStage.Capture && Settings.Handedness == Handedness.Left;
+        public bool ShouldRightLeftRetakeBeVisible => RightBitmap != null && WorkflowStage == WorkflowStage.Capture && Settings.Handedness == Handedness.Right;
+        public bool ShouldRightRightRetakeBeVisible => RightBitmap != null && (WorkflowStage == WorkflowStage.Final && DoesCaptureOrientationMatchViewOrientation || WorkflowStage == WorkflowStage.Capture && (Settings.Handedness == Handedness.Left || Settings.Handedness == Handedness.Center));
+        public bool ShouldCenterLoadBeVisible => WorkflowStage == WorkflowStage.Capture && Settings.Handedness != Handedness.Center;
+        public bool ShouldLeftLoadBeVisible => CameraColumn == 0 && WorkflowStage == WorkflowStage.Capture && Settings.Handedness == Handedness.Center;
+        public bool ShouldRightLoadBeVisible => CameraColumn == 1 && WorkflowStage == WorkflowStage.Capture && Settings.Handedness == Handedness.Center;
         public bool DoesCaptureOrientationMatchViewOrientation => WasCapturePortrait == IsViewPortrait;
         public bool ShouldSettingsAndHelpBeVisible => !IsBusy && 
                                                       WorkflowStage != WorkflowStage.View;
         public bool IsExactlyOnePictureTaken => LeftBitmap == null ^ RightBitmap == null;
-        public bool ShouldRightCaptureBeVisible => WorkflowStage == WorkflowStage.Capture && !Settings.LeftyMode;
-        public bool ShouldLeftCaptureBeVisible => WorkflowStage == WorkflowStage.Capture && Settings.LeftyMode;
+        public bool ShouldRightCaptureBeVisible => WorkflowStage == WorkflowStage.Capture && Settings.Handedness == Handedness.Right;
+        public bool ShouldCenterCaptureBeVisible => WorkflowStage == WorkflowStage.Capture && Settings.Handedness == Handedness.Center;
+        public bool ShouldLeftCaptureBeVisible => WorkflowStage == WorkflowStage.Capture && Settings.Handedness == Handedness.Left;
         public bool ShouldLineGuidesBeVisible => (IsExactlyOnePictureTaken || Settings.ShowGuideLinesWithFirstCapture && WorkflowStage == WorkflowStage.Capture) && Settings.AreGuideLinesVisible || WorkflowStage == WorkflowStage.Keystone || WorkflowStage == WorkflowStage.ManualAlign;
         public bool ShouldDonutGuideBeVisible => (IsExactlyOnePictureTaken || Settings.ShowGuideDonutWithFirstCapture && WorkflowStage == WorkflowStage.Capture) && Settings.IsGuideDonutVisible;
         public bool ShouldRollGuideBeVisible => WorkflowStage == WorkflowStage.Capture && Settings.ShowRollGuide;
@@ -709,7 +713,11 @@ namespace CrossCam.ViewModel
             RaisePropertyChanged(nameof(ShouldRightLeftRetakeBeVisible));
             RaisePropertyChanged(nameof(ShouldRightRightRetakeBeVisible));
             RaisePropertyChanged(nameof(ShouldLeftCaptureBeVisible));
+            RaisePropertyChanged(nameof(ShouldCenterCaptureBeVisible));
             RaisePropertyChanged(nameof(ShouldRightCaptureBeVisible));
+            RaisePropertyChanged(nameof(ShouldCenterLoadBeVisible));
+            RaisePropertyChanged(nameof(ShouldLeftLoadBeVisible));
+            RaisePropertyChanged(nameof(ShouldRightLoadBeVisible));
             RaisePropertyChanged(nameof(Settings)); // this doesn't cause reevaluation for above stuff (but I'd like it to), but it does trigger redraw of canvas and evaluation of whether to run auto alignment
 
             await Task.Delay(100);

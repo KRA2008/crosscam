@@ -4,6 +4,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:fresh="clr-namespace:FreshMvvm;assembly=FreshMvvm"
+             xmlns:model="clr-namespace:CrossCam.Model;assembly=CrossCam"
              xmlns:vm="clr-namespace:CrossCam.ViewModel;assembly=CrossCam"
              xmlns:ce="clr-namespace:CrossCam.CustomElement;assembly=CrossCam"
              xmlns:vc="clr-namespace:CrossCam.ValueConverter;assembly=CrossCam"
@@ -43,6 +44,7 @@
             <x:Double x:Key="_3dRightRight">0.9</x:Double>
             <x:Double x:Key="_editModeInnerButtons">0.8</x:Double>
             <Rectangle x:Key="_rightHandCaptureBounds" X="1" Y="1" Width="{StaticResource _giantIconWidth}" Height="{StaticResource _giantIconWidth}"/>
+            <Rectangle x:Key="_centerHandCaptureBounds" X="0.5" Y="1" Width="{StaticResource _giantIconWidth}" Height="{StaticResource _giantIconWidth}"/>
             <Rectangle x:Key="_leftHandCaptureBounds" X="0" Y="1" Width="{StaticResource _giantIconWidth}" Height="{StaticResource _giantIconWidth}"/>
             <Rectangle x:Key="_finalSaveBounds" X="0.5" Y="1" Width="{StaticResource _giantIconWidth}" Height="{StaticResource _giantIconWidth}"/>
             <Rectangle x:Key="_clearBounds" X="0.5" Y="{StaticResource _topMiddleButtonY}" Width="{StaticResource _largeIconWidth}" Height="{StaticResource _largeIconWidth}"/>
@@ -198,9 +200,29 @@
         </ContentView>
 
         <ContentView AbsoluteLayout.LayoutFlags="PositionProportional"
+                     AbsoluteLayout.LayoutBounds="{StaticResource _retakeLeftRightBounds}"
+                     Padding="{StaticResource _bottomPadding}"
+                     IsVisible="{Binding ShouldLeftLoadBeVisible}">
+            <ContentView.GestureRecognizers>
+                <TapGestureRecognizer Command="{Binding LoadPhotoCommand}"/>
+            </ContentView.GestureRecognizers>
+            <Image Source="loadImage"
+                   InputTransparent="True"/>
+        </ContentView>
+        <ContentView AbsoluteLayout.LayoutFlags="PositionProportional"
                      AbsoluteLayout.LayoutBounds="{StaticResource _loadBounds}"
                      Padding="{StaticResource _bottomPadding}"
-                     IsVisible="{Binding WorkflowStage, Converter={vc:EnumCompareConverter}, ConverterParameter={x:Static vm:WorkflowStage.Capture}}">
+                     IsVisible="{Binding ShouldCenterLoadBeVisible}">
+            <ContentView.GestureRecognizers>
+                <TapGestureRecognizer Command="{Binding LoadPhotoCommand}"/>
+            </ContentView.GestureRecognizers>
+            <Image Source="loadImage"
+                   InputTransparent="True"/>
+        </ContentView>
+        <ContentView AbsoluteLayout.LayoutFlags="PositionProportional"
+                     AbsoluteLayout.LayoutBounds="{StaticResource _retakeRightLeftBounds}"
+                     Padding="{StaticResource _bottomPadding}"
+                     IsVisible="{Binding ShouldRightLoadBeVisible}">
             <ContentView.GestureRecognizers>
                 <TapGestureRecognizer Command="{Binding LoadPhotoCommand}"/>
             </ContentView.GestureRecognizers>
@@ -267,6 +289,15 @@
                      AbsoluteLayout.LayoutBounds="{StaticResource _leftHandCaptureBounds}"
                      Padding="{StaticResource _bottomPadding}"
                      IsVisible="{Binding ShouldLeftCaptureBeVisible}">
+            <ContentView.GestureRecognizers>
+                <TapGestureRecognizer Command="{Binding CapturePictureCommand}"/>
+            </ContentView.GestureRecognizers>
+            <Image Source="aperture"/>
+        </ContentView>
+        <ContentView AbsoluteLayout.LayoutFlags="PositionProportional"
+                     AbsoluteLayout.LayoutBounds="{StaticResource _centerHandCaptureBounds}"
+                     Padding="{StaticResource _bottomPadding}"
+                     IsVisible="{Binding ShouldCenterCaptureBeVisible}">
             <ContentView.GestureRecognizers>
                 <TapGestureRecognizer Command="{Binding CapturePictureCommand}"/>
             </ContentView.GestureRecognizers>
@@ -514,7 +545,7 @@
                 <Rectangle X="0" Y="1" Width="1" Height="{StaticResource _largeIconWidth}"/>
             </AbsoluteLayout.LayoutBounds>
             <Image Source="check"
-                   IsVisible="{Binding Settings.LeftyMode}">
+                   IsVisible="{Binding Settings.Handedness, Converter={vc:EnumCompareConverter}, ConverterParameter={x:Static model:Handedness.Left}}">
                 <Image.GestureRecognizers>
                     <TapGestureRecognizer Command="{Binding SaveEditCommand}"/>
                 </Image.GestureRecognizers>
@@ -530,7 +561,7 @@
                     HorizontalOptions="FillAndExpand"
                     IsVisible="{Binding KeystoneMode, Converter={vc:EnumCompareConverter}, ConverterParameter={x:Static vm:KeystoneMode.Right}}"/>
             <Image Source="check"
-                   IsVisible="{Binding Settings.LeftyMode, Converter={vc:BooleanInvertConverter}}">
+                   IsVisible="{Binding Settings.Handedness, Converter={vc:EnumCompareInvertConverter}, ConverterParameter={x:Static model:Handedness.Left}}">
                 <Image.GestureRecognizers>
                     <TapGestureRecognizer Command="{Binding SaveEditCommand}"/>
                 </Image.GestureRecognizers>
@@ -761,7 +792,7 @@
                 <Rectangle X="0" Y="1" Width="1" Height="{StaticResource _largeIconWidth}"/>
             </AbsoluteLayout.LayoutBounds>
             <Image Source="check"
-                   IsVisible="{Binding Settings.LeftyMode}">
+                   IsVisible="{Binding Settings.Handedness, Converter={vc:EnumCompareConverter}, ConverterParameter={x:Static model:Handedness.Left}}">
                 <Image.GestureRecognizers>
                     <TapGestureRecognizer Command="{Binding SaveEditCommand}"/>
                 </Image.GestureRecognizers>
@@ -792,7 +823,7 @@
                     HorizontalOptions="FillAndExpand"
                     IsVisible="{Binding ManualAlignMode, Converter={vc:EnumCompareConverter}, ConverterParameter={x:Static vm:ManualAlignMode.VerticalAlign}}"/>
             <Image Source="check"
-                   IsVisible="{Binding Settings.LeftyMode, Converter={vc:BooleanInvertConverter}}">
+                   IsVisible="{Binding Settings.Handedness, Converter={vc:EnumCompareInvertConverter}, ConverterParameter={x:Static model:Handedness.Left}}">
                 <Image.GestureRecognizers>
                     <TapGestureRecognizer Command="{Binding SaveEditCommand}"/>
                 </Image.GestureRecognizers>
@@ -1052,7 +1083,7 @@
                 <Rectangle X="0" Y="1" Width="1" Height="{StaticResource _largeIconWidth}"/>
             </AbsoluteLayout.LayoutBounds>
             <Image Source="check"
-                   IsVisible="{Binding Settings.LeftyMode}">
+                   IsVisible="{Binding Settings.Handedness, Converter={vc:EnumCompareConverter}, ConverterParameter={x:Static model:Handedness.Left}}">
                 <Image.GestureRecognizers>
                     <TapGestureRecognizer Command="{Binding SaveEditCommand}"/>
                 </Image.GestureRecognizers>
@@ -1088,7 +1119,7 @@
                     HorizontalOptions="FillAndExpand"
                     IsVisible="{Binding CropMode, Converter={vc:EnumCompareConverter}, ConverterParameter={x:Static vm:CropMode.Right}}"/>
             <Image Source="check"
-                   IsVisible="{Binding Settings.LeftyMode, Converter={vc:BooleanInvertConverter}}">
+                   IsVisible="{Binding Settings.Handedness, Converter={vc:EnumCompareInvertConverter}, ConverterParameter={x:Static model:Handedness.Left}}">
                 <Image.GestureRecognizers>
                     <TapGestureRecognizer Command="{Binding SaveEditCommand}"/>
                 </Image.GestureRecognizers>
