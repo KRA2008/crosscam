@@ -13,11 +13,10 @@ using CameraModule = CrossCam.CustomElement.CameraModule;
 [assembly: ExportRenderer(typeof(CameraModule), typeof(CameraModuleRenderer))]
 namespace CrossCam.iOS.CustomRenderer
 {
-    public class CameraModuleRenderer : ViewRenderer<CameraModule, UIView>, IAVCapturePhotoCaptureDelegate, IUIGestureRecognizerDelegate
+    public class CameraModuleRenderer : ViewRenderer<CameraModule, UIView>, IAVCapturePhotoCaptureDelegate
     {
         private AVCaptureSession _captureSession;
         private UIView _liveCameraStream;
-        private UIGestureRecognizer _tapper;
         private AVCapturePhotoOutput _photoOutput;
         private AVCaptureStillImageOutput _stillImageOutput;
         private CameraModule _cameraModule;
@@ -306,95 +305,90 @@ namespace CrossCam.iOS.CustomRenderer
         {
             _cameraModule.CaptureSuccess = !_cameraModule.CaptureSuccess;
         }
-
-        [Export("gestureRecognizer:shouldReceiveTouch:")]
-        // ReSharper disable once UnusedMember.Local
-        private void PreviewWasTapped(UIGestureRecognizer recognizer, UITouch touch)
+        
+        private void PreviewWasTapped(UIGestureRecognizer recognizer)
         {
-            var touchLocation = touch.LocationInView(touch.View);
-            var taps = touch.TapCount;
+            var touchLocation = recognizer.LocationInView(recognizer.View);
 
-            if (taps > 1)
+            if (_cameraModule.IsTapToFocusEnabled)
             {
-                TurnOffFlashAndSetContinuousAutoMode(_device);
-            }
-            else
-            {
-                if (_cameraModule.IsTapToFocusEnabled)
+                var translatedPoint = _avCaptureVideoPreviewLayer.CaptureDevicePointOfInterestForPoint(touchLocation);
+
+                if (translatedPoint.X < 0)
                 {
-                    var translatedPoint = _avCaptureVideoPreviewLayer.CaptureDevicePointOfInterestForPoint(touchLocation);
-
-                    if (translatedPoint.X < 0)
-                    {
-                        translatedPoint.X = 0;
-                    }
-
-                    if (translatedPoint.X > 1)
-                    {
-                        translatedPoint.X = 1;
-                    }
-
-                    if (translatedPoint.Y < 0)
-                    {
-                        translatedPoint.Y = 0;
-                    }
-
-                    if (translatedPoint.Y > 1)
-                    {
-                        translatedPoint.Y = 1;
-                    }
-                    
-                    double focusCircleX = 0;
-                    double focusCircleY = 0;
-                    if (_previousValidOrientation == UIDeviceOrientation.Portrait)
-                    {
-                        var previewHeight = _cameraModule.Width * (4f / 3f);
-                        var verticalOffset = (_cameraModule.Height - previewHeight) / 2;
-                        focusCircleX = (1 - translatedPoint.Y) * _cameraModule.Width;
-                        focusCircleY = translatedPoint.X * previewHeight + verticalOffset;
-                    }
-                    else if (_previousValidOrientation == UIDeviceOrientation.LandscapeLeft)
-                    {
-                        var previewHeight = _cameraModule.Width * (3f / 4f);
-                        var verticalOffset = (_cameraModule.Height - previewHeight) / 2;
-                        focusCircleX = translatedPoint.X * _cameraModule.Width;
-                        focusCircleY = translatedPoint.Y * previewHeight + verticalOffset;
-                    }
-                    else if (_previousValidOrientation == UIDeviceOrientation.LandscapeRight)
-                    {
-                        var previewHeight = _cameraModule.Width * (3f / 4f);
-                        var verticalOffset = (_cameraModule.Height - previewHeight) / 2;
-                        focusCircleX = (1 - translatedPoint.X) * _cameraModule.Width;
-                        focusCircleY = (1 - translatedPoint.Y) * previewHeight + verticalOffset;
-                    }
-
-                    _device.LockForConfiguration(out var error);
-                    if (error != null) return;
-
-                    if (_device.FocusPointOfInterestSupported &&
-                        _device.IsFocusModeSupported(AVCaptureFocusMode.AutoFocus))
-                    {
-                        _device.FocusPointOfInterest = translatedPoint;
-                        _device.FocusMode = AVCaptureFocusMode.AutoFocus;
-                    }
-                    if (_device.ExposurePointOfInterestSupported &&
-                        _device.IsExposureModeSupported(AVCaptureExposureMode.AutoExpose))
-                    {
-                        _device.ExposurePointOfInterest = translatedPoint;
-                        _device.ExposureMode = AVCaptureExposureMode.AutoExpose;
-                    }
-                    if (_device.IsWhiteBalanceModeSupported(AVCaptureWhiteBalanceMode.AutoWhiteBalance))
-                    {
-                        _device.WhiteBalanceMode = AVCaptureWhiteBalanceMode.AutoWhiteBalance; //not sure about this
-                    }
-
-                    _cameraModule.FocusCircleX = focusCircleX;
-                    _cameraModule.FocusCircleY = focusCircleY;
-                    _cameraModule.IsFocusCircleVisible = true;
-
-                    _device.UnlockForConfiguration();
+                    translatedPoint.X = 0;
                 }
+
+                if (translatedPoint.X > 1)
+                {
+                    translatedPoint.X = 1;
+                }
+
+                if (translatedPoint.Y < 0)
+                {
+                    translatedPoint.Y = 0;
+                }
+
+                if (translatedPoint.Y > 1)
+                {
+                    translatedPoint.Y = 1;
+                }
+                
+                double focusCircleX = 0;
+                double focusCircleY = 0;
+                if (_previousValidOrientation == UIDeviceOrientation.Portrait)
+                {
+                    var previewHeight = _cameraModule.Width * (4f / 3f);
+                    var verticalOffset = (_cameraModule.Height - previewHeight) / 2;
+                    focusCircleX = (1 - translatedPoint.Y) * _cameraModule.Width;
+                    focusCircleY = translatedPoint.X * previewHeight + verticalOffset;
+                }
+                else if (_previousValidOrientation == UIDeviceOrientation.LandscapeLeft)
+                {
+                    var previewHeight = _cameraModule.Width * (3f / 4f);
+                    var verticalOffset = (_cameraModule.Height - previewHeight) / 2;
+                    focusCircleX = translatedPoint.X * _cameraModule.Width;
+                    focusCircleY = translatedPoint.Y * previewHeight + verticalOffset;
+                }
+                else if (_previousValidOrientation == UIDeviceOrientation.LandscapeRight)
+                {
+                    var previewHeight = _cameraModule.Width * (3f / 4f);
+                    var verticalOffset = (_cameraModule.Height - previewHeight) / 2;
+                    focusCircleX = (1 - translatedPoint.X) * _cameraModule.Width;
+                    focusCircleY = (1 - translatedPoint.Y) * previewHeight + verticalOffset;
+                }
+
+                _device.LockForConfiguration(out var error);
+                if (error != null) return;
+
+                if (_device.FocusPointOfInterestSupported &&
+                    _device.IsFocusModeSupported(AVCaptureFocusMode.AutoFocus))
+                {
+                    _device.FocusPointOfInterest = translatedPoint;
+                    _device.FocusMode = AVCaptureFocusMode.AutoFocus;
+                }
+                if (_device.ExposurePointOfInterestSupported &&
+                    _device.IsExposureModeSupported(AVCaptureExposureMode.AutoExpose))
+                {
+                    _device.ExposurePointOfInterest = translatedPoint;
+                    _device.ExposureMode = AVCaptureExposureMode.AutoExpose;
+                }
+                if (_device.IsWhiteBalanceModeSupported(AVCaptureWhiteBalanceMode.AutoWhiteBalance))
+                {
+                    _device.WhiteBalanceMode = AVCaptureWhiteBalanceMode.AutoWhiteBalance; //not sure about this
+                }
+
+                _cameraModule.FocusCircleX = focusCircleX;
+                _cameraModule.FocusCircleY = focusCircleY;
+                _cameraModule.IsFocusCircleVisible = true;
+
+                _device.UnlockForConfiguration();
             }
+        }
+
+        private void PreviewWasSwiped(UISwipeGestureRecognizer swipeGesture)
+        {
+            _cameraModule.WasSwipedTrigger = !_cameraModule.WasSwipedTrigger;
         }
 
         private void TurnOffFlashAndSetContinuousAutoMode(AVCaptureDevice device)
@@ -484,8 +478,27 @@ namespace CrossCam.iOS.CustomRenderer
             if (_liveCameraStream == null)
             {
                 _liveCameraStream = new UIView(new CGRect(0, 0, sideWidth, sideHeight));
-                _tapper = new UIGestureRecognizer {Delegate = this};
-                _liveCameraStream.AddGestureRecognizer(_tapper);
+
+                var singleTapGesture = new UITapGestureRecognizer
+                {
+                    NumberOfTapsRequired = 1
+                };
+                singleTapGesture.AddTarget(() => PreviewWasTapped(singleTapGesture));
+                _liveCameraStream.AddGestureRecognizer(singleTapGesture);
+
+                var doubleTapGesture = new UITapGestureRecognizer
+                {
+                    NumberOfTapsRequired = 2
+                };
+                doubleTapGesture.AddTarget(() => TurnOffFlashAndSetContinuousAutoMode(_device));
+                _liveCameraStream.AddGestureRecognizer(doubleTapGesture);
+
+                var swipeGesture = new UISwipeGestureRecognizer
+                {
+                    Direction = UISwipeGestureRecognizerDirection.Left | UISwipeGestureRecognizerDirection.Right
+                };
+                swipeGesture.AddTarget(() => PreviewWasSwiped(swipeGesture));
+                _liveCameraStream.AddGestureRecognizer(swipeGesture);
             }
             else
             {

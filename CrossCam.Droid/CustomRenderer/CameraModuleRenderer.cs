@@ -1432,11 +1432,11 @@ namespace CrossCam.Droid.CustomRenderer
 
         private sealed class CameraPreviewGestureListener : GestureDetector.SimpleOnGestureListener
         {
-            private readonly CameraModuleRenderer _cameraModule;
+            private readonly CameraModuleRenderer _renderer;
 
-            public CameraPreviewGestureListener(CameraModuleRenderer cameraModule)
+            public CameraPreviewGestureListener(CameraModuleRenderer renderer)
             {
-                _cameraModule = cameraModule;
+                _renderer = renderer;
             }
 
             public override bool OnDown(MotionEvent e)
@@ -1446,13 +1446,22 @@ namespace CrossCam.Droid.CustomRenderer
 
             public override bool OnSingleTapUp(MotionEvent e)
             {
-                _cameraModule.PreviewSingleTapped(e);
+                _renderer.PreviewSingleTapped(e);
                 return true;
             }
 
             public override bool OnDoubleTap(MotionEvent e)
             {
-                _cameraModule.PreviewDoubleTapped();
+                _renderer.PreviewDoubleTapped();
+                return true;
+            }
+
+            public override bool OnFling(MotionEvent e1, MotionEvent e2, float velocityX, float velocityY)
+            {
+                if (Math.Abs(velocityX) > Math.Abs(velocityY))
+                {
+                    _renderer._cameraModule.WasSwipedTrigger = !_renderer._cameraModule.WasSwipedTrigger;
+                }
                 return true;
             }
         }

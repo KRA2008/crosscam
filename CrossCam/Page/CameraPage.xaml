@@ -48,6 +48,7 @@
             <Rectangle x:Key="_leftHandCaptureBounds" X="0" Y="1" Width="{StaticResource _giantIconWidth}" Height="{StaticResource _giantIconWidth}"/>
             <Rectangle x:Key="_finalSaveBounds" X="0.5" Y="1" Width="{StaticResource _giantIconWidth}" Height="{StaticResource _giantIconWidth}"/>
             <Rectangle x:Key="_clearBounds" X="0.5" Y="{StaticResource _topMiddleButtonY}" Width="{StaticResource _largeIconWidth}" Height="{StaticResource _largeIconWidth}"/>
+            <Rectangle x:Key="_swipeHintBounds" X="0" Y="{StaticResource _topMiddleButtonY}" Width="1" Height="{StaticResource _largeIconWidth}"/>
             <Rectangle x:Key="_cropBounds" X="0.5" Y="0.6" Width="{StaticResource _mediumIconWidth}" Height="{StaticResource _mediumIconWidth}"/>
             <Rectangle x:Key="_viewBounds" X="0.5" Y="{StaticResource _secondMiddleButtonY}" Width="{StaticResource _mediumIconWidth}" Height="{StaticResource _mediumIconWidth}"/>
             <Rectangle x:Key="_alignBounds" X="0" Y="{StaticResource _topMiddleButtonY}" Width="1" Height="{StaticResource _mediumIconWidthPlusTopPadding}"/>
@@ -105,7 +106,13 @@
             <forms:SKCanvasView x:Name="_canvasView"
                            Grid.Column="0"
                            Grid.ColumnSpan="2"
-                           PaintSurface="OnPaintSurface"/>
+                           PaintSurface="OnPaintSurface">
+                <View.GestureRecognizers>
+                    <SwipeGestureRecognizer Command="{Binding SwapSidesCommand}"
+                                            Direction="Left,Right"
+                                            Threshold="50"/>
+                </View.GestureRecognizers>
+            </forms:SKCanvasView>
             <Image Grid.Column="{Binding IconColumn}"
                    IsVisible="{Binding ShouldIconBeVisible}"
                    Source="iconInverse"
@@ -129,7 +136,8 @@
                              ErrorMessage="{Binding ErrorMessage}"
                              IsFocusCircleVisible="{Binding IsFocusCircleVisible}"
                              FocusCircleX="{Binding FocusCircleX}"
-                             FocusCircleY="{Binding FocusCircleY}"/>
+                             FocusCircleY="{Binding FocusCircleY}"
+                             WasSwipedTrigger="{Binding WasSwipedTrigger}"/>
             <AbsoluteLayout Grid.Column="{Binding CameraColumn}"
                             IsVisible="{Binding IsCameraVisible}"
                             InputTransparent="True">
@@ -276,14 +284,15 @@
                 <PanGestureRecognizer PanUpdated="ReticlePanned"/>
             </ContentView.GestureRecognizers>
         </ContentView>
-        <ContentView AbsoluteLayout.LayoutFlags="PositionProportional"
+        <ContentView AbsoluteLayout.LayoutFlags="YProportional,WidthProportional,XProportional"
                      AbsoluteLayout.LayoutBounds="{StaticResource _clearBounds}"
                      Padding="{StaticResource _topBarButtonPadding}"
                      IsVisible="{Binding WorkflowStage, Converter={vc:EnumCompareConverter}, ConverterParameter={x:Static vm:WorkflowStage.Capture}}">
             <ContentView.GestureRecognizers>
                 <TapGestureRecognizer Command="{Binding SwapSidesCommand}"/>
             </ContentView.GestureRecognizers>
-            <Image Source="swap"/>
+            <Label Text="(swipe to swap)"
+                   HorizontalTextAlignment="Center"/>
         </ContentView>
         <ContentView AbsoluteLayout.LayoutFlags="PositionProportional"
                      AbsoluteLayout.LayoutBounds="{StaticResource _leftHandCaptureBounds}"

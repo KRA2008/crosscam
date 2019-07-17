@@ -47,6 +47,7 @@ namespace CrossCam.ViewModel
 
         public bool MoveLeftTrigger { get; set; }
         public bool MoveRightTrigger { get; set; }
+        public bool WasSwipedTrigger { get; set; }
 
         public Command SaveCapturesCommand { get; set; }
 
@@ -241,6 +242,10 @@ namespace CrossCam.ViewModel
 
                     AutoAlign();
                 }
+                else if (args.PropertyName == nameof(WasSwipedTrigger))
+                {
+                    SwapSidesCommand.Execute(null);
+                }
             };
 
             LoadPhotoCommand = new Command(async () =>
@@ -358,31 +363,36 @@ namespace CrossCam.ViewModel
 
             SwapSidesCommand = new Command(() =>
             {
-                IsCaptureLeftFirst = !IsCaptureLeftFirst;
-
-                var tempArray = LeftBitmap;
-                LeftBitmap = RightBitmap;
-                RightBitmap = tempArray;
-
-                if (IsCameraVisible)
+                if (WorkflowStage == WorkflowStage.Capture ||
+                    WorkflowStage == WorkflowStage.Final ||
+                    WorkflowStage == WorkflowStage.Edits)
                 {
-                    CameraColumn = CameraColumn == 0 ? 1 : 0;
-                }
+                    IsCaptureLeftFirst = !IsCaptureLeftFirst;
 
-                if (LeftBitmap != null &&
-                    RightBitmap == null)
-                {
-                    MoveLeftTrigger = !MoveLeftTrigger;
-                }
+                    var tempArray = LeftBitmap;
+                    LeftBitmap = RightBitmap;
+                    RightBitmap = tempArray;
 
-                if (LeftBitmap == null &&
-                    RightBitmap != null)
-                {
-                    MoveRightTrigger = !MoveRightTrigger;
-                }
+                    if (IsCameraVisible)
+                    {
+                        CameraColumn = CameraColumn == 0 ? 1 : 0;
+                    }
 
-                Settings.IsCaptureLeftFirst = IsCaptureLeftFirst;
-                PersistentStorage.Save(PersistentStorage.SETTINGS_KEY, Settings);
+                    if (LeftBitmap != null &&
+                        RightBitmap == null)
+                    {
+                        MoveLeftTrigger = !MoveLeftTrigger;
+                    }
+
+                    if (LeftBitmap == null &&
+                        RightBitmap != null)
+                    {
+                        MoveRightTrigger = !MoveRightTrigger;
+                    }
+
+                    Settings.IsCaptureLeftFirst = IsCaptureLeftFirst;
+                    PersistentStorage.Save(PersistentStorage.SETTINGS_KEY, Settings);
+                }
             });
 
             SetCropMode = new Command(mode =>
