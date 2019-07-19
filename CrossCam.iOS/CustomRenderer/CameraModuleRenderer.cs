@@ -1,5 +1,7 @@
 ﻿using System;
 using System.ComponentModel;
+using System.Diagnostics;
+using System.Linq;
 using AVFoundation;
 using CoreGraphics;
 using CoreMedia;
@@ -176,11 +178,18 @@ namespace CrossCam.iOS.CustomRenderer
                     _captureSession.AddOutput(_stillImageOutput);
                     _captureSession.AddInput(AVCaptureDeviceInput.FromDevice(_device));
                 }
+                
+                _device.AddObserver(this, "adjustingFocus", NSKeyValueObservingOptions.OldNew, IntPtr.Zero);
             }
             catch (Exception e)
             {
                 _cameraModule.ErrorMessage = e.ToString();
             }
+        }
+
+        public override void ObserveValue(NSString keyPath, NSObject ofObject, NSDictionary change, IntPtr context)
+        {
+            _cameraModule.IsFocusCircleLocked = !_device.AdjustingFocus;
         }
 
         private void StartPreview()
@@ -308,6 +317,7 @@ namespace CrossCam.iOS.CustomRenderer
         
         private void PreviewWasTapped(UIGestureRecognizer recognizer)
         {
+            _cameraModule.IsFocusCircleLocked = false;
             var touchLocation = recognizer.LocationInView(recognizer.View);
 
             if (_cameraModule.IsTapToFocusEnabled)

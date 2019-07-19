@@ -137,15 +137,29 @@
                              IsFocusCircleVisible="{Binding IsFocusCircleVisible}"
                              FocusCircleX="{Binding FocusCircleX}"
                              FocusCircleY="{Binding FocusCircleY}"
-                             WasSwipedTrigger="{Binding WasSwipedTrigger}"/>
+                             WasSwipedTrigger="{Binding WasSwipedTrigger}"
+                             IsFocusCircleLocked="{Binding IsFocusCircleLocked}"/>
             <AbsoluteLayout Grid.Column="{Binding CameraColumn}"
                             IsVisible="{Binding IsCameraVisible}"
                             InputTransparent="True">
                 <Image x:Name="_focusCircle"
                        AbsoluteLayout.LayoutFlags="None"
                        AbsoluteLayout.LayoutBounds="0,0,0,0"
-                       Source="focusCircle"
                        IsVisible="{Binding IsFocusCircleVisible}">
+                    <Image.Triggers>
+                        <DataTrigger TargetType="Image" 
+                                     Binding="{Binding IsFocusCircleLocked}"
+                                     Value="true">
+                            <Setter Property="Source"
+                                    Value="focusCircleGreen"/>
+                        </DataTrigger>
+                        <DataTrigger TargetType="Image" 
+                                     Binding="{Binding IsFocusCircleLocked}"
+                                     Value="false">
+                            <Setter Property="Source"
+                                    Value="focusCircle"/>
+                        </DataTrigger>
+                    </Image.Triggers>
                 </Image>
             </AbsoluteLayout>
             <ce:CameraSuccessOutline Grid.Column="0">

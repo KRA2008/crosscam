@@ -48,6 +48,9 @@ namespace CrossCam.CustomElement
         public static readonly BindableProperty IsFocusCircleVisibleProperty = BindableProperty.Create(nameof(IsFocusCircleVisible),
             typeof(bool), typeof(CameraModule), false, BindingMode.OneWayToSource);
 
+        public static readonly BindableProperty IsFocusCircleLockedProperty = BindableProperty.Create(nameof(IsFocusCircleLocked),
+            typeof(bool), typeof(CameraModule), false, BindingMode.OneWayToSource);
+
         public static readonly BindableProperty FocusCircleXProperty = BindableProperty.Create(nameof(FocusCircleX),
             typeof(double), typeof(CameraModule), 0d, BindingMode.OneWayToSource);
 
@@ -130,6 +133,12 @@ namespace CrossCam.CustomElement
         {
             get => (bool)GetValue(IsFocusCircleVisibleProperty);
             set => SetValue(IsFocusCircleVisibleProperty, value);
+        }
+
+        public bool IsFocusCircleLocked
+        {
+            get => (bool)GetValue(IsFocusCircleLockedProperty);
+            set => SetValue(IsFocusCircleLockedProperty, value);
         }
 
         public double FocusCircleX

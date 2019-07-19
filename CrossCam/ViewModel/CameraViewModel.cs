@@ -117,6 +117,7 @@ namespace CrossCam.ViewModel
 
         public bool SwitchToContinuousFocusTrigger { get; set; }
         public bool IsFocusCircleVisible { get; set; }
+        public bool IsFocusCircleLocked { get; set; }
         public double FocusCircleX { get; set; }
         public double FocusCircleY { get; set; }
 
