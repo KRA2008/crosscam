@@ -52,6 +52,7 @@
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
     <AndroidLinkSkip>CrossCam;CrossCam.Droid</AndroidLinkSkip>
     <AndroidResgenExtraArgs>--no-version-vectors</AndroidResgenExtraArgs>
+    <AndroidSupportedAbis>armeabi-v7a;arm64-v8a</AndroidSupportedAbis>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug Without Emgu|AnyCPU'">
     <DebugSymbols>true</DebugSymbols>
