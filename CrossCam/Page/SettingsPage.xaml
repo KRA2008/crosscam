@@ -251,7 +251,7 @@
                             Value="true"/>
                     </OnPlatform>
                 </StackLayout.IsVisible>
-                <Label Text="Force camera1 (helpful if you're experiencing weirdness but will result in limited functionality, requires a force quit/restart to take effect)"/>
+                <Label Text="Force camera1 (may be helpful if you're experiencing weirdness but will result in limited functionality, requires a force quit/restart to take effect)"/>
                 <Switch IsToggled="{Binding Settings.IsForceCamera1Enabled}"/>
             </StackLayout>
             <BoxView/>
