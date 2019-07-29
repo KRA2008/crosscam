@@ -390,6 +390,10 @@ namespace CrossCam.ViewModel
                         MoveRightTrigger = !MoveRightTrigger;
                     }
 
+                    var tempCrop = InsideCrop;
+                    InsideCrop = OutsideCrop;
+                    OutsideCrop = tempCrop;
+
                     Settings.IsCaptureLeftFirst = IsCaptureLeftFirst;
                     PersistentStorage.Save(PersistentStorage.SETTINGS_KEY, Settings);
                 }
