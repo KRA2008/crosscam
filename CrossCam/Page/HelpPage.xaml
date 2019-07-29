@@ -37,6 +37,10 @@
             <Button Text="About the Developer"
                     Command="{Binding AboutTheDeveloperCommand}"/>
             <BoxView/>
+            <Label Text="{Binding AppVersion}"
+                   HorizontalOptions="StartAndExpand"
+                   VerticalOptions="EndAndExpand"
+                   Margin="10"/>
         </StackLayout>
     </ScrollView>
 </fresh:FreshBaseContentPage>
