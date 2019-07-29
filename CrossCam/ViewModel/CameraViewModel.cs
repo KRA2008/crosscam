@@ -1123,6 +1123,8 @@ namespace CrossCam.ViewModel
                         return BitmapRotate180(SKBitmap.Decode(bytes));
                     case SKCodecOrigin.RightTop:
                         return BitmapRotate90(SKBitmap.Decode(bytes));
+                    case SKCodecOrigin.LeftBottom:
+                        return BitmapRotate270(SKBitmap.Decode(bytes));
                     default:
                         return SKBitmap.Decode(bytes);
                 }
@@ -1159,6 +1161,20 @@ namespace CrossCam.ViewModel
             {
                 surface.Translate(rotated.Width, rotated.Height);
                 surface.RotateDegrees(180);
+                surface.DrawBitmap(originalBitmap, 0, 0);
+            }
+
+            return rotated;
+        }
+
+        private static SKBitmap BitmapRotate270(SKBitmap originalBitmap)
+        {
+            var rotated = new SKBitmap(originalBitmap.Height, originalBitmap.Width);
+
+            using (var surface = new SKCanvas(rotated))
+            {
+                surface.Translate(0, rotated.Height);
+                surface.RotateDegrees(270);
                 surface.DrawBitmap(originalBitmap, 0, 0);
             }
 
