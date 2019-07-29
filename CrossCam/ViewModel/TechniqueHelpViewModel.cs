@@ -7,10 +7,8 @@ namespace CrossCam.ViewModel
     public class TechniqueHelpViewModel : FreshBasePageModel
     {
         public Command OpenWeirdVideoTutorialCommand { get; set; }
-
         public Command OpenShortVideoTutorialCommand { get; set; }
-
-        public Command OpenCrossViewSubredditCommand { get; set; }
+        public Command OpenPromotionalAlbumCommand { get; set; }
 
         public TechniqueHelpViewModel()
         {
@@ -24,9 +22,9 @@ namespace CrossCam.ViewModel
                 Device.OpenUri(new Uri("https://www.youtube.com/watch?v=cvShotHl1As"));
             });
 
-            OpenCrossViewSubredditCommand = new Command(() =>
+            OpenPromotionalAlbumCommand = new Command(() =>
             {
-                Device.OpenUri(new Uri("https://old.reddit.com/r/crossview"));
+                Device.OpenUri(new Uri("https://imgur.com/a/Crw232n"));
             });
         }
     }

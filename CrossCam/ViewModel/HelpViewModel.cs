@@ -11,6 +11,7 @@ namespace CrossCam.ViewModel
         public Command NavigateToDirectionsPage { get; set; }
         public Command NavigateToTipsPage { get; set; }
         public Command NavigateToContactPage { get; set; }
+        public Command OpenPromotionalAlbumCommand { get; set; }
         public Command PrivacyPolicyCommand { get; set; }
         public Command AboutTheDeveloperCommand { get; set; }
         public Command CrossViewSubredditCommand { get; set; }
@@ -38,6 +39,11 @@ namespace CrossCam.ViewModel
             NavigateToContactPage = new Command(async () =>
             {
                 await  CoreMethods.PushPageModel<ContactViewModel>();
+            });
+            
+            OpenPromotionalAlbumCommand = new Command(() =>
+            {
+                Device.OpenUri(new Uri("https://imgur.com/a/Crw232n"));
             });
 
             PrivacyPolicyCommand = new Command(() =>

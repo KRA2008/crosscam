@@ -22,6 +22,9 @@
             <Button Text="Tips"
                     Command="{Binding NavigateToTipsPage}"/>
             <BoxView/>
+            <Button Text="See Pictures I've Taken"
+                    Command="{Binding OpenPromotionalAlbumCommand}"/>
+            <BoxView/>
             <Button Text="Feedback/Contact"
                     Command="{Binding NavigateToContactPage}"/>
             <BoxView/>
