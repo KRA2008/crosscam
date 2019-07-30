@@ -116,7 +116,7 @@ namespace CrossCam.Droid.CustomRenderer
                     var level = FindCamera2();
                     _useCamera2 = level != (int)InfoSupportedHardwareLevel.Legacy;
                 }
-                catch (Exception e)
+                catch (System.Exception e)
                 {
                     _cameraModule.ErrorMessage = e.ToString();
                     _useCamera2 = false;
@@ -184,7 +184,7 @@ namespace CrossCam.Droid.CustomRenderer
                     OpenCamera2();
                 }
             }
-            catch (Exception ex)
+            catch (System.Exception ex)
             {
                 _cameraModule.ErrorMessage = ex.ToString();
             }
@@ -236,7 +236,7 @@ namespace CrossCam.Droid.CustomRenderer
                     TurnOnContinuousFocus();
                 }
             }
-            catch (Exception ex)
+            catch (System.Exception ex)
             {
                 _cameraModule.ErrorMessage = ex.ToString();
             }
@@ -291,7 +291,7 @@ namespace CrossCam.Droid.CustomRenderer
                     }
                 }
             }
-            catch (Exception e)
+            catch (System.Exception e)
             {
                 _cameraModule.ErrorMessage = e.ToString();
             }
@@ -481,7 +481,7 @@ namespace CrossCam.Droid.CustomRenderer
                     }
                 }
             }
-            catch (Exception ex)
+            catch (System.Exception ex)
             {
                 _cameraModule.ErrorMessage = ex.ToString();
             }
@@ -613,7 +613,7 @@ namespace CrossCam.Droid.CustomRenderer
                         (int) Math.Round(proportionalPreviewHeight));
                 }
             }
-            catch (Exception e)
+            catch (System.Exception e)
             {
                 _cameraModule.ErrorMessage = e.ToString();
             }
@@ -730,7 +730,7 @@ namespace CrossCam.Droid.CustomRenderer
                     StartCamera1();
                 }
             }
-            catch (Exception e)
+            catch (System.Exception e)
             {
                 _cameraModule.ErrorMessage = e.ToString();
             }
@@ -773,7 +773,7 @@ namespace CrossCam.Droid.CustomRenderer
                         }
                     }
                 }
-                catch (Exception e)
+                catch (System.Exception e)
                 {
                     _cameraModule.ErrorMessage = e.ToString();
                 }
@@ -902,7 +902,7 @@ namespace CrossCam.Droid.CustomRenderer
                 StartBackgroundThread();
                 _cameraManager.OpenCamera(_camera2Id, _stateListener, null);
             }
-            catch (Exception e)
+            catch (System.Exception e)
             {
                 _cameraModule.ErrorMessage = e.ToString();
             }
@@ -960,7 +960,7 @@ namespace CrossCam.Droid.CustomRenderer
                     null);
                 _openingCamera2 = false;
             }
-            catch (Exception e)
+            catch (System.Exception e)
             {
                 _cameraModule.ErrorMessage = e.ToString();
             }
@@ -1067,7 +1067,7 @@ namespace CrossCam.Droid.CustomRenderer
                     }
                 }
             }
-            catch (Exception e)
+            catch (System.Exception e)
             {
                 _cameraModule.ErrorMessage = e.ToString();
             }
@@ -1092,7 +1092,7 @@ namespace CrossCam.Droid.CustomRenderer
                     _camera2Session.SetRepeatingRequest(_previewRequestBuilder.Build(), _captureListener, _backgroundHandler);
                 }
             }
-            catch (Exception e)
+            catch (System.Exception e)
             {
                 _cameraModule.ErrorMessage = e.ToString();
             }
@@ -1188,7 +1188,7 @@ namespace CrossCam.Droid.CustomRenderer
                 _camera2Session.Capture(captureBuilder.Build(), captureListener, null);
                 _cameraModule.CaptureSuccess = !_cameraModule.CaptureSuccess;
             }
-            catch (Exception e)
+            catch (System.Exception e)
             {
                 _cameraModule.ErrorMessage = e.ToString();
             }
@@ -1408,7 +1408,7 @@ namespace CrossCam.Droid.CustomRenderer
                     _camera2Session.SetRepeatingRequest(_previewRequestBuilder.Build(), _captureListener, _backgroundHandler);
                 }
             }
-            catch (Exception e)
+            catch (System.Exception e)
             {
                 _cameraModule.ErrorMessage = e.ToString();
             }

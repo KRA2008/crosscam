@@ -1,5 +1,4 @@
-﻿using System.Diagnostics;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using Android.Content;
 using Android.Graphics;
 using Android.Provider;
@@ -7,6 +6,7 @@ using CrossCam.Droid.CustomRenderer;
 using CrossCam.Wrappers;
 using Java.Lang;
 using Xamarin.Forms;
+using Exception = System.Exception;
 
 [assembly: Dependency(typeof(PhotoSaver))]
 namespace CrossCam.Droid.CustomRenderer
