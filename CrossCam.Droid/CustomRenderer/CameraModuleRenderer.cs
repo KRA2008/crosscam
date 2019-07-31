@@ -1445,8 +1445,8 @@ namespace CrossCam.Droid.CustomRenderer
         
         private void StopBackgroundThread()
         {
-            _backgroundThread.QuitSafely();
-            _backgroundThread.Join();
+            _backgroundThread?.QuitSafely();
+            _backgroundThread?.Join();
             _backgroundThread = null;
             _backgroundHandler = null;
         }
