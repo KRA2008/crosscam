@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
+using System.Net;
 using CrossCam.Model;
 using CrossCam.Wrappers;
 using FreshMvvm;
@@ -13,7 +14,16 @@ namespace CrossCam.ViewModel
     {
         public Settings Settings { get; set; }
         public Command ResetToDefaults { get; set; }
-        
+        public Command ChooseDirectory { get; set; }
+        public Command ClearDirectory { get; set; }
+        public string SaveDirectory => Settings?.SavingDirectory == null
+            ? "Pictures"
+            : WebUtility.UrlDecode(Settings.SavingDirectory);
+        public string ExternalDirectory { get; set; }
+        public bool CanSaveToArbitraryDirectory { get; set; }
+        public bool CanSaveToExternalDirectory => !string.IsNullOrWhiteSpace(ExternalDirectory);
+        private readonly IDirectorySelector _directorySelector;
+
         // ReSharper disable MemberCanBeMadeStatic.Global
         public IEnumerable<int> ZeroToOneThousand => Enumerable.Range(0, 1001).ToList();
         public IEnumerable<int> ZeroToOneHundred => Enumerable.Range(0, 101).ToList();
@@ -26,9 +36,29 @@ namespace CrossCam.ViewModel
 
         public SettingsViewModel()
         {
+            _directorySelector = DependencyService.Get<IDirectorySelector>();
+
             ResetToDefaults = new Command(() =>
             {
                 Settings.ResetToDefaults();
+            });
+
+            ChooseDirectory = new Command(async () =>
+            {
+                var newDirectory = await _directorySelector.SelectDirectory();
+                if (newDirectory != null)
+                {
+                    Settings.SavingDirectory = newDirectory;
+                    RaisePropertyChanged(nameof(SaveDirectory));
+                }
+                SaveSettings(null, null);
+            });
+
+            ClearDirectory = new Command(() =>
+            {
+                Settings.SavingDirectory = null;
+                RaisePropertyChanged(nameof(SaveDirectory));
+                SaveSettings(null, null);
             });
         }
 
@@ -38,6 +68,9 @@ namespace CrossCam.ViewModel
             Settings = (Settings) initData;
             SaveSettings(null, null);
             Settings.PropertyChanged += SaveSettings;
+
+            ExternalDirectory = _directorySelector.GetExternalSaveDirectory();
+            CanSaveToArbitraryDirectory = _directorySelector.CanSaveToArbitraryDirectory();
         }
 
         protected override void ViewIsDisappearing(object sender, EventArgs e)

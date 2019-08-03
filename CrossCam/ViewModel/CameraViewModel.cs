@@ -165,7 +165,15 @@ namespace CrossCam.ViewModel
                                                                WorkflowStage == WorkflowStage.Edits);
         public string PortraitToLandscapeHint =>
             WorkflowStage == WorkflowStage.Capture ? "(flip for landscape)" : WorkflowStage == WorkflowStage.Edits ? "(flip to landscape for easier editing)" : "(flip to landscape for a better view)";
-        
+
+        public string SavedSuccessMessage => "Saved to " + (Settings.SaveToExternal
+                                                 ? "external"
+                                                 :
+                                                 !string.IsNullOrWhiteSpace(Settings.SavingDirectory)
+                                                     ?
+                                                     "custom folder"
+                                                     : "Photos") + "!";
+
         private WorkflowStage _stageBeforeView;
         private int _alignmentThreadLock;
         private bool _wasAnaglyphAlignmentRun;
@@ -732,6 +740,7 @@ namespace CrossCam.ViewModel
             RaisePropertyChanged(nameof(ShouldCenterLoadBeVisible));
             RaisePropertyChanged(nameof(ShouldLeftLoadBeVisible));
             RaisePropertyChanged(nameof(ShouldRightLoadBeVisible));
+            RaisePropertyChanged(nameof(SavedSuccessMessage));
             RaisePropertyChanged(nameof(Settings)); // this doesn't cause reevaluation for above stuff (but I'd like it to), but it does trigger redraw of canvas and evaluation of whether to run auto alignment
 
             await Task.Delay(100);
@@ -744,7 +753,7 @@ namespace CrossCam.ViewModel
             {
                 using (var encoded = skImage.Encode(SKEncodedImageFormat.Jpeg, 100))
                 {
-                    await _photoSaver.SavePhoto(encoded.ToArray());
+                    await _photoSaver.SavePhoto(encoded.ToArray(), Settings.SavingDirectory, Settings.SaveToExternal);
                 }
             }
         }

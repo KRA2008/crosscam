@@ -11,7 +11,7 @@ namespace CrossCam.iOS.CustomRenderer
 {
     public class PhotoSaver : IPhotoSaver
     {
-        public Task<bool> SavePhoto(byte[] image)
+        public Task<bool> SavePhoto(byte[] image, string destination, bool external)
         {
             var taskCompletionSource = new TaskCompletionSource<bool>();
 

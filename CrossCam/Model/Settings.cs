@@ -1,5 +1,4 @@
 ﻿using System.ComponentModel;
-using CrossCam.Page;
 
 namespace CrossCam.Model
 {
@@ -19,6 +18,9 @@ namespace CrossCam.Model
         public bool IsTapToFocusEnabled2 { get; set; }
 
         public bool SaveRedundantFirstSide { get; set; }
+
+        public string SavingDirectory { get; set; }
+        public bool SaveToExternal { get; set; }
 
         private bool _saveForParallel;
         public bool SaveForParallel
@@ -252,6 +254,9 @@ namespace CrossCam.Model
             IsForceCamera1Enabled = false;
             IsTapToFocusEnabled2 = true;
             IsLockToFirstEnabled = true;
+
+            SavingDirectory = null;
+            SaveToExternal = false;
 
             Handedness = Handedness.Right;
 

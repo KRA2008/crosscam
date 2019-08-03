@@ -1179,7 +1179,7 @@
                IsVisible="{Binding ShouldPortraitViewModeWarningBeVisible}"/>
 
         <Label Style="{StaticResource _feedback}"
-               Text="Saved to Photos!">
+               Text="{Binding SavedSuccessMessage}">
             <Label.Behaviors>
                 <ce:FadeInAndOutBehavior Trigger="{Binding SaveSuccessFadeTrigger}"
                                          InTimeMs="250"

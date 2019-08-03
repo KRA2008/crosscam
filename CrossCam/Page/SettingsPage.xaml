@@ -140,6 +140,8 @@
                     <RowDefinition Height="Auto"/>
                     <RowDefinition Height="Auto"/>
                     <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
                 </Grid.RowDefinitions>
                 <Label Grid.Row="0"
                        Grid.Column="0"
@@ -205,6 +207,45 @@
                 <Switch Grid.Row="5"
                         Grid.Column="2"
                         IsToggled="{Binding Settings.RedCyanAnaglyphMode}"/>
+                <Label Grid.Row="6"
+                       Grid.Column="0"
+                       Grid.ColumnSpan="2"
+                       Text="{Binding SaveDirectory, StringFormat='Save to: {0}'}"
+                       IsVisible="{Binding CanSaveToArbitraryDirectory}"/>
+                <Button Grid.Row="6"
+                        Grid.Column="2"
+                        Command="{Binding ChooseDirectory}"
+                        Text="Browse..."
+                        IsVisible="False">
+                    <Button.Triggers>
+                        <MultiTrigger TargetType="Button">
+                            <MultiTrigger.Conditions>
+                                <BindingCondition Binding="{Binding CanSaveToArbitraryDirectory}"
+                                                  Value="True"/>
+                                <BindingCondition Binding="{Binding Settings.SavingDirectory}"
+                                                  Value="{x:Null}"/>
+                            </MultiTrigger.Conditions>
+                            <MultiTrigger.Setters>
+                                <Setter Property="IsVisible"
+                                        Value="True"/>
+                            </MultiTrigger.Setters>
+                        </MultiTrigger>
+                    </Button.Triggers>
+                </Button>
+                <Button Grid.Row="6"
+                        Grid.Column="2"
+                        Command="{Binding ClearDirectory}"
+                        Text="Reset"
+                        IsVisible="{Binding Settings.SavingDirectory, Converter={vc:IsNotNullConverter}}"/>
+                <Label Grid.Row="7"
+                       Grid.Column="0"
+                       Grid.ColumnSpan="2"
+                       Text="{Binding ExternalDirectory, StringFormat='Save to external CrossCam directory at: {0} (warning: pictures there will be deleted if CrossCam is uninstalled)'}"
+                       IsVisible="{Binding CanSaveToExternalDirectory}"/>
+                <Switch Grid.Row="7"
+                        Grid.Column="2"
+                        IsToggled="{Binding Settings.SaveToExternal}"
+                        IsVisible="{Binding CanSaveToExternalDirectory}"/>
             </Grid>
             <BoxView/>
             <Label Text="Guides"
@@ -246,9 +287,7 @@
                 <StackLayout.IsVisible>
                     <OnPlatform x:TypeArguments="system:Boolean">
                         <On Platform="iOS"
-                            Value="false"/>
-                        <On Platform="Android"
-                            Value="true"/>
+                            Value="False"/>
                     </OnPlatform>
                 </StackLayout.IsVisible>
                 <Label Text="Force camera1 (may be helpful if you're experiencing weirdness but will result in limited functionality, requires a force quit/restart to take effect)"/>

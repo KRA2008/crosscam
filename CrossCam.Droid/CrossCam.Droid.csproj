@@ -113,6 +113,7 @@
     <Compile Include="CustomRenderer\Camera2\CameraCaptureStateListener.cs" />
     <Compile Include="CustomRenderer\Camera2\CameraStateListener.cs" />
     <Compile Include="CustomRenderer\Camera2\ImageAvailableListener.cs" />
+    <Compile Include="CustomRenderer\DirectorySelector.cs" />
     <Compile Include="CustomRenderer\HandsomePickerRenderer.cs" />
     <Compile Include="CustomRenderer\PhotoPicker.cs" />
     <Compile Include="CustomRenderer\PhotoSaver.cs" />

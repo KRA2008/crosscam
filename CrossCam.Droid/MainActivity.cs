@@ -9,7 +9,10 @@ using Android.Net;
 using Android.OS;
 using Android.Support.V4.App;
 using Android.Support.V4.Content;
+using Android.Support.V4.OS;
+using Android.Support.V4.Provider;
 using Android.Views;
+using CrossCam.Droid.CustomRenderer;
 using Java.Lang;
 using Xamarin.Forms;
 
@@ -35,9 +38,11 @@ namespace CrossCam.Droid
         internal static MainActivity Instance { get; private set; }
 
         private App _app;
+        private string _selectedSavingDirectory;
 
         private const int CAMERA_PERMISSION_REQUEST_CODE = 50;
         private const int WRITE_TO_STORAGE_REQUEST_CODE = 51;
+        public const int BROWSE_DIRECTORIES_REQUEST_CODE = 52;
 
         public const int PICK_PHOTO_ID = 1000;
         public TaskCompletionSource<byte[]> PickPhotoTaskCompletionSource { set; get; }
@@ -56,24 +61,17 @@ namespace CrossCam.Droid
             Instance = this;
 
             Forms.Init(this, bundle);
-
+            
             if (Build.VERSION.SdkInt >= BuildVersionCodes.M)
             {
-                if (ContextCompat.CheckSelfPermission(Forms.Context, Manifest.Permission.Camera) != (int)Permission.Granted)
+                if (CheckForAndRequestPermissions())
                 {
-                    ActivityCompat.RequestPermissions(Instance, new[] { Manifest.Permission.Camera }, CAMERA_PERMISSION_REQUEST_CODE);
-                }
-                else
-                {
-                    _app = new App();
-                    LoadApplication(_app);
+                    return;
                 }
             }
-            else
-            {
-                _app = new App();
-                LoadApplication(_app);
-            }
+
+            _app = new App();
+            LoadApplication(_app);
         }
         
         protected override void OnPause()
@@ -137,6 +135,17 @@ namespace CrossCam.Droid
                     PickPhotoTaskCompletionSource.SetResult(null);
                 }
             }
+            else if (requestCode == BROWSE_DIRECTORIES_REQUEST_CODE)
+            {
+                if (resultCode == Result.Ok)
+                {
+                    DirectorySelector.DirectorySelected(intent.Data);
+                }
+                else
+                {
+                    DirectorySelector.DirectorySelectionCancelled();
+                }
+            }
         }
 
         public override void OnRequestPermissionsResult(int requestCode, string[] permissions, Permission[] grantResults)
@@ -144,38 +153,50 @@ namespace CrossCam.Droid
             Xamarin.Essentials.Platform.OnRequestPermissionsResult(requestCode, permissions, grantResults);
             if (requestCode == CAMERA_PERMISSION_REQUEST_CODE)
             {
-                if (grantResults.Contains(Permission.Granted))
-                {
-                    if (ContextCompat.CheckSelfPermission(Forms.Context, Manifest.Permission.WriteExternalStorage) !=
-                        (int) Permission.Granted)
-                    {
-                        ActivityCompat.RequestPermissions(Instance, new[] {Manifest.Permission.WriteExternalStorage},
-                            WRITE_TO_STORAGE_REQUEST_CODE);
-                    }
-                    else
-                    {
-                        _app = new App();
-                        LoadApplication(_app);
-                    }
-                }
-                else
+                if (!grantResults.Contains(Permission.Granted))
                 {
                     JavaSystem.Exit(0);
+                    return;
                 }
             }
-            else if (requestCode == WRITE_TO_STORAGE_REQUEST_CODE)
+
+            if (requestCode == WRITE_TO_STORAGE_REQUEST_CODE)
             {
-                if (grantResults.Contains(Permission.Granted))
-                {
-                    _app = new App();
-                    LoadApplication(_app);
-                }
-                else
+                if (!grantResults.Contains(Permission.Granted))
                 {
                     JavaSystem.Exit(0);
+                    return;
                 }
             }
+
+            if (CheckForAndRequestPermissions())
+            {
+                return;
+            }
+
+            _app = new App();
+            LoadApplication(_app);
+
             base.OnRequestPermissionsResult(requestCode, permissions, grantResults);
+        }
+
+        private bool CheckForAndRequestPermissions()
+        {
+            if (ContextCompat.CheckSelfPermission(this, Manifest.Permission.Camera) != (int)Permission.Granted)
+            {
+                ActivityCompat.RequestPermissions(Instance, new[] { Manifest.Permission.Camera }, CAMERA_PERMISSION_REQUEST_CODE);
+                return true;
+            }
+
+            if (ContextCompat.CheckSelfPermission(this, Manifest.Permission.WriteExternalStorage) !=
+                (int)Permission.Granted)
+            {
+                ActivityCompat.RequestPermissions(Instance, new[] { Manifest.Permission.WriteExternalStorage },
+                    WRITE_TO_STORAGE_REQUEST_CODE);
+                return true;
+            }
+
+            return false;
         }
 
         protected override void OnNewIntent(Intent intent)
