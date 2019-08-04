@@ -26,7 +26,6 @@ using Xamarin.Forms.Platform.Android;
 using Boolean = Java.Lang.Boolean;
 using CameraError = Android.Hardware.CameraError;
 using CameraModule = CrossCam.CustomElement.CameraModule;
-using Exception = Java.Lang.Exception;
 using Math = System.Math;
 using Size = Android.Util.Size;
 using View = Android.Views.View;
@@ -1045,7 +1044,6 @@ namespace CrossCam.Droid.CustomRenderer
                             _cameraModule.IsFocusCircleLocked = true;
                             
                             _camera2Session.StopRepeating();
-                            _camera2Session.AbortCaptures();
                             
                             var characteristics = _cameraManager.GetCameraCharacteristics(_camera2Device.Id);
                             TurnOnAeLock(characteristics);
@@ -1185,7 +1183,6 @@ namespace CrossCam.Droid.CustomRenderer
                 };
 
                 _camera2Session.StopRepeating();
-                _camera2Session.AbortCaptures();
 
                 _camera2State = CameraState.PictureTaken;
                 _previewRequestBuilder.SetTag(CameraState.PictureTaken.ToString());
@@ -1348,7 +1345,6 @@ namespace CrossCam.Droid.CustomRenderer
                 _camera2FoundGoodCaptureInterlocked = 0;
 
                 _camera2Session.StopRepeating();
-                _camera2Session.AbortCaptures();
                 _camera2Session.Capture(_previewRequestBuilder.Build(), _captureListener, _backgroundHandler);
 
                 _camera2State = CameraState.AwaitingTapLock;
