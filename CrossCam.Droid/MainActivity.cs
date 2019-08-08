@@ -38,14 +38,13 @@ namespace CrossCam.Droid
         internal static MainActivity Instance { get; private set; }
 
         private App _app;
-        private string _selectedSavingDirectory;
 
         private const int CAMERA_PERMISSION_REQUEST_CODE = 50;
         private const int WRITE_TO_STORAGE_REQUEST_CODE = 51;
         public const int BROWSE_DIRECTORIES_REQUEST_CODE = 52;
 
         public const int PICK_PHOTO_ID = 1000;
-        public TaskCompletionSource<byte[]> PickPhotoTaskCompletionSource { set; get; }
+        public TaskCompletionSource<byte[][]> PickPhotoTaskCompletionSource { set; get; }
 
         protected override void OnCreate(Bundle bundle)
         {
@@ -85,50 +84,57 @@ namespace CrossCam.Droid
             base.OnResume();
             LifecycleEventListener.OnAppMaximized();
 
-            if (Intent.ActionSend.Equals(Intent.Action) && Intent.Type != null)
+            if (Intent.ActionSend.Equals(Intent.Action) && 
+                Intent.Type != null &&
+                Intent.Type.StartsWith("image/") &&
+                Intent.GetParcelableExtra(Intent.ExtraStream) is Uri uri)
             {
-                if (Intent.Type.StartsWith("image/"))
-                {
-                    if (Intent.GetParcelableExtra(Intent.ExtraStream) is Uri uri)
-                    {
-                        var image = await ImageUriToByteArray(uri);
-                        _app.LoadSharedImages(image, null);
-                    }
-                }
+                var image = await ImageUriToByteArray(uri);
+                _app.LoadSharedImages(image, null);
             }
-            else if (Intent.ActionSendMultiple.Equals(Intent.Action) && Intent.Type != null)
+            else if (Intent.ActionSendMultiple.Equals(Intent.Action) && 
+                     Intent.Type != null &&
+                     Intent.Type.StartsWith("image/"))
             {
-                if (Intent.Type.StartsWith("image/"))
+                var parcelables = Intent.GetParcelableArrayListExtra(Intent.ExtraStream);
+                if (parcelables[0] is Uri uri1 &&
+                    parcelables[1] is Uri uri2)
                 {
-                    var parcelables = Intent.GetParcelableArrayListExtra(Intent.ExtraStream);
-                    if (parcelables[0] is Uri uri1 &&
-                        parcelables[1] is Uri uri2)
-                    {
-                        var image1Task = ImageUriToByteArray(uri1);
-                        var image2Task = ImageUriToByteArray(uri2);
-                        await Task.WhenAll(image1Task, image2Task);
-                        _app.LoadSharedImages(image1Task.Result, image2Task.Result);
-                    }
+                    var image1Task = ImageUriToByteArray(uri1);
+                    var image2Task = ImageUriToByteArray(uri2);
+                    await Task.WhenAll(image1Task, image2Task);
+                    _app.LoadSharedImages(image1Task.Result, image2Task.Result);
                 }
             }
         }    
 
-        protected override void OnActivityResult(int requestCode, Result resultCode, Intent intent)
+        protected override async void OnActivityResult(int requestCode, Result resultCode, Intent intent)
         {
             base.OnActivityResult(requestCode, resultCode, intent);
 
             if (requestCode == PICK_PHOTO_ID)
             {
                 if (resultCode == Result.Ok && 
-                    intent != null)
+                    intent?.Data != null)
                 {
                     var uri = intent.Data;
                     var stream = ContentResolver.OpenInputStream(uri);
                     var memoryStream = new MemoryStream();
                     stream.CopyTo(memoryStream);
+                    
+                    PickPhotoTaskCompletionSource.SetResult(new [] {memoryStream.ToArray(), null});
+                }
+                else if (intent?.ClipData != null &&
+                         intent.ClipData.ItemCount > 1)
+                {
+                    var item1 = intent.ClipData.GetItemAt(0);
+                    var item2 = intent.ClipData.GetItemAt(1);
 
-                    // Set the Stream as the completion of the Task
-                    PickPhotoTaskCompletionSource.SetResult(memoryStream.ToArray());
+                    var image1Task = ImageUriToByteArray(item1.Uri);
+                    var image2Task = ImageUriToByteArray(item2.Uri);
+                    await Task.WhenAll(image1Task, image2Task);
+
+                    PickPhotoTaskCompletionSource.SetResult(new[] { image1Task.Result, image2Task.Result });
                 }
                 else
                 {

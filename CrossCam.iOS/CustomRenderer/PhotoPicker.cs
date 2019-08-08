@@ -11,10 +11,10 @@ namespace CrossCam.iOS.CustomRenderer
 {
     public class PhotoPicker : IPhotoPicker
     {
-        private TaskCompletionSource<byte[]> _taskCompletionSource;
+        private TaskCompletionSource<byte[][]> _taskCompletionSource;
         private UIImagePickerController _imagePicker;
 
-        public Task<byte[]> GetImage()
+        public Task<byte[][]> GetImages()
         {
             // Create and define UIImagePickerController
             _imagePicker = new UIImagePickerController
@@ -33,7 +33,7 @@ namespace CrossCam.iOS.CustomRenderer
             viewController.PresentModalViewController(_imagePicker, true);
 
             // Return Task object
-            _taskCompletionSource = new TaskCompletionSource<byte[]>();
+            _taskCompletionSource = new TaskCompletionSource<byte[][]>();
             return _taskCompletionSource.Task;
         }
 
@@ -49,7 +49,7 @@ namespace CrossCam.iOS.CustomRenderer
                 UnregisterEventHandlers();
 
                 // Set the Stream as the completion of the Task
-                _taskCompletionSource.SetResult(data);
+                _taskCompletionSource.SetResult(new[] {data, null});
             }
             else
             {

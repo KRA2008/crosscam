@@ -4,6 +4,6 @@ namespace CrossCam.Wrappers
 {
     public interface IPhotoPicker
     {
-        Task<byte[]> GetImage();
+        Task<byte[][]> GetImages();
     }
 }

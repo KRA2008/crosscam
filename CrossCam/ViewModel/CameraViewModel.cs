@@ -258,25 +258,28 @@ namespace CrossCam.ViewModel
 
             LoadPhotoCommand = new Command(async () =>
             {
-                var loadType = await OpenLoadingPopup();
+                //var loadType = await OpenLoadingPopup();
 
-                if (loadType == CANCEL ||
-                    loadType == null) return;
+                //if (loadType == CANCEL ||
+                //    loadType == null) return;
 
-                var photo = await DependencyService.Get<IPhotoPicker>().GetImage();
-
-                if (photo != null)
+                var photos = await DependencyService.Get<IPhotoPicker>().GetImages();
+                if (photos != null)
                 {
-                    if (loadType == FULL_IMAGE)
-                    {
-                        WorkflowStage = WorkflowStage.Loading;
-                        await LoadFullStereoImage(photo);
-                    }
-                    else if (loadType == SINGLE_SIDE)
-                    {
-                        CapturedImageBytes = photo;
-                    }
+                    LoadSharedImages(photos[0], photos[1]);
                 }
+                //if (photo != null)
+                //{
+                //    if (loadType == FULL_IMAGE)
+                //    {
+                //        WorkflowStage = WorkflowStage.Loading;
+                //        await LoadFullStereoImage(photo);
+                //    }
+                //    else if (loadType == SINGLE_SIDE)
+                //    {
+                //        CapturedImageBytes = photo;
+                //    }
+                //}
             });
 
             RetakeLeftCommand = new Command(() =>
