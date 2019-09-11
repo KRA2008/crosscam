@@ -3,6 +3,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Android;
 using Android.App;
+using Android.Bluetooth;
 using Android.Content;
 using Android.Content.PM;
 using Android.Net;
@@ -31,6 +32,8 @@ namespace CrossCam.Droid
         Categories = new[] {Intent.CategoryDefault},
         DataMimeType = "image/*", 
         Icon = "@drawable/icon")]
+    [IntentFilter(
+        new [] {BluetoothDevice.ActionFound})]
     public class MainActivity : Xamarin.Forms.Platform.Android.FormsAppCompatActivity
     {
         public LifecycleEventListener LifecycleEventListener;
