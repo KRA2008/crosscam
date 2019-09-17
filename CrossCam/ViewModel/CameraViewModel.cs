@@ -297,8 +297,8 @@ namespace CrossCam.ViewModel
                 if (photos != null)
                 {
                     LoadSharedImages(photos[0], photos[1]);
-                }            });
-
+                }
+            });
             RetakeLeftCommand = new Command(() =>
             {
                 try

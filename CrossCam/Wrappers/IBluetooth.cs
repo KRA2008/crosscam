@@ -1,7 +1,11 @@
-﻿namespace CrossCam.Wrappers
+﻿using System.Threading.Tasks;
+
+namespace CrossCam.Wrappers
 {
     public interface IBluetooth
     {
-        void What();
+        Task<bool> SearchForABondedDevice();
+        Task<bool> ListenForConnections();
+        bool AttemptConnection();
     }
 }
