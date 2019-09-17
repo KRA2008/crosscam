@@ -16,6 +16,7 @@ namespace CrossCam.ViewModel
         public Command ResetToDefaults { get; set; }
         public Command ChooseDirectory { get; set; }
         public Command ClearDirectory { get; set; }
+        public Command NavigateToPairingPageCommand { get; set; }
         public string SaveDirectory => Settings?.SavingDirectory == null
             ? "Pictures"
             : WebUtility.UrlDecode(Settings.SavingDirectory);
@@ -61,6 +62,11 @@ namespace CrossCam.ViewModel
                 Settings.SavingDirectory = null;
                 RaisePropertyChanged(nameof(SaveDirectory));
                 SaveSettings(null, null);
+            });
+
+            NavigateToPairingPageCommand = new Command(async () =>
+            {
+                await CoreMethods.PushPageModel<PairingViewModel>();
             });
         }
 

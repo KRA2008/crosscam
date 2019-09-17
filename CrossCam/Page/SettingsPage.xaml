@@ -81,7 +81,108 @@
                 </Frame>
             </StackLayout>
             <BoxView/>
+<<<<<<< HEAD
             <Label Text="Saving Method"
+=======
+            <Label Text="Border"
+                   Style="{DynamicResource header}"/>
+            <StackLayout Orientation="Horizontal">
+                <Label Text="Add border"/>
+                <Switch IsToggled="{Binding Settings.AddBorder}"
+                        HorizontalOptions="EndAndExpand"/>
+            </StackLayout>
+            <StackLayout Orientation="Horizontal">
+                <Label Text="Border color"/>
+                <Frame>
+                    <Picker ItemsSource="{Binding BorderColors}"
+                        SelectedIndex="{Binding Settings.BorderColor, Converter={vc:BorderColorValueConverter}}"
+                        HorizontalOptions="EndAndExpand"/>
+                </Frame>
+            </StackLayout>
+            <StackLayout Orientation="Horizontal">
+                <Label Text="Border thickness (tenths of percentage of width)"/>
+                <Frame>
+                    <Picker ItemsSource="{Binding ZeroToOneHundred}"
+                        SelectedIndex="{Binding Settings.BorderWidthProportion}"
+                        WidthRequest="50"
+                        HorizontalOptions="EndAndExpand"/>
+                </Frame>
+            </StackLayout>
+            <StackLayout Orientation="Horizontal">
+                <Label Text="Clip border off when loading stereo pair"/>
+                <Switch IsToggled="{Binding Settings.ClipBorderOnLoad}"
+                        HorizontalOptions="EndAndExpand"/>
+            </StackLayout>
+            <BoxView/>
+            <Label Text="Automatic Alignment"
+                   Style="{DynamicResource header}"/>
+            <StackLayout Orientation="Horizontal">
+                <Label Text="Automatically align after capture"/>
+                <Switch IsToggled="{Binding Settings.IsAutomaticAlignmentOn}"/>
+            </StackLayout>
+            <StackLayout Orientation="Horizontal">
+                <Label Text="Align horizontally (for side by side)"/>
+                <Switch IsToggled="{Binding Settings.AlignHorizontallySideBySide}"
+                        IsEnabled="{Binding Settings.IsAutomaticAlignmentOn}"/>
+            </StackLayout>
+            <StackLayout Orientation="Horizontal"
+                         IsVisible="{ce:DebugMarkupExtension}">
+                <Label Text="Iterations"/>
+                <Frame>
+                    <Picker ItemsSource="{Binding ZeroToOneThousand}"
+                        SelectedIndex="{Binding Settings.AlignmentIterations2}"
+                        WidthRequest="50"
+                        HorizontalOptions="EndAndExpand"/>
+                </Frame>
+            </StackLayout>
+            <StackLayout Orientation="Horizontal"
+                         IsVisible="{ce:DebugMarkupExtension}">
+                <Label Text="Epsilon level"/>
+                <Frame>
+                    <Picker ItemsSource="{Binding ZeroToTen}"
+                        SelectedIndex="{Binding Settings.AlignmentEpsilonLevel2}"
+                        WidthRequest="50"
+                        HorizontalOptions="EndAndExpand"/>
+                </Frame>
+            </StackLayout>
+            <StackLayout Orientation="Horizontal"
+                         IsVisible="{ce:DebugMarkupExtension}">
+                <Label Text="Downsized pyramid estimating layers"/>
+                <Frame>
+                    <Picker ItemsSource="{Binding ZeroToTen}"
+                        SelectedIndex="{Binding Settings.AlignmentPyramidLayers2}"
+                        WidthRequest="50"
+                        HorizontalOptions="EndAndExpand"/>
+                </Frame>
+            </StackLayout>
+            <StackLayout Orientation="Horizontal"
+                         IsVisible="{ce:DebugMarkupExtension}">
+                <Label Text="Intermediate downsize percentage"/>
+                <Frame>
+                    <Picker ItemsSource="{Binding ZeroToOneHundred}"
+                            SelectedIndex="{Binding Settings.AlignmentDownsizePercentage2}"
+                            WidthRequest="50"
+                            HorizontalOptions="EndAndExpand"/>
+                </Frame>
+            </StackLayout>
+            <StackLayout Orientation="Horizontal"
+                         IsVisible="{ce:DebugMarkupExtension}">
+                <Label Text="Minimum required correlation coefficient"/>
+                <Frame>
+                    <Picker ItemsSource="{Binding ZeroToOneHundred}"
+                            WidthRequest="50"
+                            SelectedIndex="{Binding Settings.AlignmentEccThresholdPercentage2}"
+                            HorizontalOptions="EndAndExpand"/>
+                </Frame>
+            </StackLayout>
+            <BoxView/>
+            <Label Text="Pairing"
+                   Style="{DynamicResource header}"/>
+            <Button Text="Go to Pairing Page"
+                    Command="{Binding NavigateToPairingPageCommand}"/>
+            <BoxView/>
+            <Label Text="Saving"
+>>>>>>> to become bonded, one device must be on bluetooth settings screen (currently). currently refusing to connect
                    Style="{DynamicResource header}"/>
             <Grid ColumnSpacing="0">
                 <Grid.ColumnDefinitions>
