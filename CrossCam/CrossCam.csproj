@@ -42,6 +42,9 @@
     <EmbeddedResource Update="CustomElement\EmailMeLabel.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
+    <EmbeddedResource Update="Page\PairingPage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
     <EmbeddedResource Update="Page\CameraPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
@@ -68,6 +71,9 @@
   <ItemGroup>
     <Compile Update="CustomElement\CameraSuccessOutline.xaml.cs">
       <DependentUpon>CameraSuccessOutline.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Page\PairingPage.xaml.cs">
+      <DependentUpon>PairingPage.xaml</DependentUpon>
     </Compile>
     <Compile Update="Page\CameraPage.xaml.cs">
       <DependentUpon>CameraPage.xaml</DependentUpon>

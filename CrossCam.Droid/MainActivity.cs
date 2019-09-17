@@ -1,4 +1,5 @@
-﻿using System.IO;
+﻿using System;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using Android;
@@ -6,7 +7,6 @@ using Android.App;
 using Android.Bluetooth;
 using Android.Content;
 using Android.Content.PM;
-using Android.Net;
 using Android.OS;
 using Android.Support.V4.App;
 using Android.Support.V4.Content;
@@ -16,6 +16,7 @@ using Android.Views;
 using CrossCam.Droid.CustomRenderer;
 using Java.Lang;
 using Xamarin.Forms;
+using Uri = Android.Net.Uri;
 
 namespace CrossCam.Droid
 {
@@ -41,6 +42,7 @@ namespace CrossCam.Droid
         internal static MainActivity Instance { get; private set; }
 
         private App _app;
+        private BluetoothReceiver _bluetoothReceiver;
 
         private const int CAMERA_PERMISSION_REQUEST_CODE = 50;
         private const int WRITE_TO_STORAGE_REQUEST_CODE = 51;
@@ -52,6 +54,7 @@ namespace CrossCam.Droid
         protected override void OnCreate(Bundle bundle)
         {
             base.OnCreate(bundle);
+            _bluetoothReceiver = new BluetoothReceiver();
             Xamarin.Essentials.Platform.Init(this, bundle);
 
             Window.AddFlags(WindowManagerFlags.Fullscreen);
@@ -78,13 +81,15 @@ namespace CrossCam.Droid
         
         protected override void OnPause()
         {
-            base.OnPause();
+            UnregisterReceiver(_bluetoothReceiver);
             LifecycleEventListener.OnAppMinimized();
+            base.OnPause();
         }
 
         protected override async void OnResume()
         {
             base.OnResume();
+            RegisterReceiver(_bluetoothReceiver, new IntentFilter(BluetoothDevice.ActionFound));
             LifecycleEventListener.OnAppMaximized();
 
             if (Intent.ActionSend.Equals(Intent.Action) && 
@@ -223,6 +228,23 @@ namespace CrossCam.Droid
                 imageStream.CopyTo(imageMemStream);
                 return imageMemStream.ToArray();
             });
+        }
+    }
+
+    [BroadcastReceiver(Enabled = true, Exported = false)]
+    public class BluetoothReceiver : BroadcastReceiver
+    {
+        public override void OnReceive(Context context, Intent intent)
+        {
+            if (BluetoothDevice.ActionFound.Equals(intent.Action))
+            {
+                var bluetoothDevice = (BluetoothDevice)intent.GetParcelableExtra(BluetoothDevice.ExtraDevice);
+                if (bluetoothDevice.BondState == Bond.Bonded)
+                {
+                    Bluetooth.BondedDevice = bluetoothDevice;
+                    Bluetooth.DeviceSearchSucceeded.SetResult(true);
+                }
+            }
         }
     }
 }

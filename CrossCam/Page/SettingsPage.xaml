@@ -136,6 +136,11 @@
                         HorizontalOptions="EndAndExpand"/>
             </StackLayout>
             <BoxView/>
+            <Label Text="Pairing"
+                   Style="{DynamicResource header}"/>
+            <Button Text="Go to Pairing Page"
+                    Command="{Binding NavigateToPairingPageCommand}"/>
+            <BoxView/>
             <Label Text="Saving"
                    Style="{DynamicResource header}"/>
             <Grid ColumnSpacing="0">
