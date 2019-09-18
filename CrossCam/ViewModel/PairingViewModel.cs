@@ -1,4 +1,6 @@
-﻿using CrossCam.Wrappers;
+﻿using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using CrossCam.Wrappers;
 using FreshMvvm;
 using Xamarin.Forms;
 
@@ -6,9 +8,20 @@ namespace CrossCam.ViewModel
 {
     public class PairingViewModel : FreshBasePageModel
     {
-        public bool HasBondedDevice { get; set; }
+        public bool IsBluetoothSupported { get; set; }
+        public Command CheckIfBluetoothIsSupportedCommand { get; set; }
+
+        public bool IsBluetoothOn { get; set; }
+        public Command TurnBluetoothOnCommand { get; set; }
+
+        public List<PartnerDevice> PartnerDevices { get; set; }
+        public Command GetPartnerDevicesCommand { get; set; }
+
+        public bool IsSearchingForDevices { get; set; }
+        public ObservableCollection<PartnerDevice> AvailableDevices { get; set; }
+        public Command SearchForDevicesCommand { get; set; }
+
         public bool HasConnection { get; set; }
-        public Command StartSearchingCommand { get; set; }
         public Command ListenForConnectionCommand { get; set; }
         public Command AttemptConnectionCommand { get; set; }
 
@@ -16,9 +29,25 @@ namespace CrossCam.ViewModel
         {
             var bluetooth = DependencyService.Get<IBluetooth>();
 
-            StartSearchingCommand = new Command(async () =>
+            CheckIfBluetoothIsSupportedCommand = new Command(() =>
             {
-                HasBondedDevice = await bluetooth.SearchForABondedDevice();
+                IsBluetoothSupported = bluetooth.IsBluetoothSupported();
+            });
+
+            TurnBluetoothOnCommand = new Command(async () =>
+            {
+                IsBluetoothOn = await bluetooth.TurnOnBluetooth();
+            });
+
+            GetPartnerDevicesCommand = new Command(() =>
+            {
+                PartnerDevices = bluetooth.GetPairedDevices();
+            });
+
+            SearchForDevicesCommand = new Command(() =>
+            {
+                AvailableDevices = new ObservableCollection<PartnerDevice>();
+                IsSearchingForDevices = bluetooth.SearchForAvailableDevices(AvailableDevices);
             });
 
             ListenForConnectionCommand = new Command(async () =>
@@ -26,9 +55,10 @@ namespace CrossCam.ViewModel
                 HasConnection = await bluetooth.ListenForConnections();
             });
 
-            AttemptConnectionCommand = new Command(() =>
+            AttemptConnectionCommand = new Command(async obj =>
             {
-                HasConnection = bluetooth.AttemptConnection();
+                var partnerDevice = (PartnerDevice) obj;
+                HasConnection = await bluetooth.AttemptConnection(partnerDevice);
             });
         }
     }
