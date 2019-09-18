@@ -5,19 +5,60 @@
              xmlns:freshMvvm="clr-namespace:FreshMvvm;assembly=FreshMvvm"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:viewModel="clr-namespace:CrossCam.ViewModel;assembly=CrossCam"
+             xmlns:wrappers="clr-namespace:CrossCam.Wrappers;assembly=CrossCam"
              mc:Ignorable="d"
 
              d:DataContext="{d:DesignInstance Type=viewModel:PairingViewModel, IsDesignTimeCreatable=False}"
              x:Class="CrossCam.Page.PairingPage"
              Title="Pairing">
-    <StackLayout Padding="10">
-        <Button Text="Search"
-                Command="{Binding StartSearchingCommand}"/>
-        <Label Text="{Binding HasBondedDevice, StringFormat='Bonded: {0}'}"/>
-        <Button Text="Listen for Connection"
-                Command="{Binding ListenForConnectionCommand}"/>
-        <Button Text="Attempt Connection"
-                Command="{Binding AttemptConnectionCommand}"/>
-        <Label Text="{Binding HasConnection, StringFormat='Connected: {0}'}"/>
-    </StackLayout>
+    <ScrollView>
+        <StackLayout Padding="10">
+            <Button Text="Check for Bluetooth Support"
+                    Command="{Binding CheckIfBluetoothIsSupportedCommand}"/>
+            <Label Text="{Binding IsBluetoothSupported, StringFormat='Supported: {0}'}"/>
+            <Button Text="Turn On Bluetooth"
+                    Command="{Binding TurnBluetoothOnCommand}"/>
+            <Label Text="{Binding IsBluetoothOn, StringFormat='On: {0}'}"/>
+
+            <Button Text="Get Paired Devices"
+                    Command="{Binding GetPartnerDevicesCommand}"/>
+            <StackLayout x:Name="PairedDevicesList"
+                         BindableLayout.ItemsSource="{Binding PartnerDevices}">
+                <BindableLayout.ItemTemplate>
+                    <DataTemplate>
+                        <Label d:DataContext="{d:DesignInstance Type=wrappers:PartnerDevice, IsDesignTimeCreatable=False}"
+                               Text="{Binding Name}">
+                            <!--<Label.GestureRecognizers>
+                                <TapGestureRecognizer Command="{Binding Source={x:Reference DevicesList}, Path=BindingContext.}"/>
+                            </Label.GestureRecognizers>-->
+                        </Label>
+                    </DataTemplate>
+                </BindableLayout.ItemTemplate>
+            </StackLayout>
+
+            <Button Text="Search for Available Devices"
+                    Command="{Binding SearchForDevicesCommand}"/>
+            <StackLayout x:Name="AvailableDevicesList"
+                         BindableLayout.ItemsSource="{Binding AvailableDevices}">
+                <BindableLayout.ItemTemplate>
+                    <DataTemplate>
+                        <Label d:DataContext="{d:DesignInstance Type=wrappers:PartnerDevice, IsDesignTimeCreatable=False}"
+                               Text="{Binding Name}">
+                            <Label.GestureRecognizers>
+                                <!-- ReSharper disable once Xaml.BindingWithContextNotResolved -->
+                                <TapGestureRecognizer Command="{Binding Source={x:Reference AvailableDevicesList}, Path=BindingContext.AttemptConnectionCommand}"
+                                                      CommandParameter="{Binding .}"/>
+                            </Label.GestureRecognizers>
+                        </Label>
+                    </DataTemplate>
+                </BindableLayout.ItemTemplate>
+            </StackLayout>
+            <Label Text="{Binding IsSearchingForDevices, StringFormat='Searching: {0}'}"/>
+            <Button Text="Listen for Connection"
+                    Command="{Binding ListenForConnectionCommand}"/>
+            <Button Text="Attempt Connection"
+                    Command="{Binding AttemptConnectionCommand}"/>
+            <Label Text="{Binding HasConnection, StringFormat='Connected: {0}'}"/>
+        </StackLayout>
+    </ScrollView>
 </freshMvvm:FreshBaseContentPage>

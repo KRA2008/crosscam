@@ -16,6 +16,7 @@ using Android.Views;
 using CrossCam.Droid.CustomRenderer;
 using Java.Lang;
 using Xamarin.Forms;
+using Debug = System.Diagnostics.Debug;
 using Uri = Android.Net.Uri;
 
 namespace CrossCam.Droid
@@ -44,9 +45,14 @@ namespace CrossCam.Droid
         private App _app;
         private BluetoothReceiver _bluetoothReceiver;
 
-        private const int CAMERA_PERMISSION_REQUEST_CODE = 50;
-        private const int WRITE_TO_STORAGE_REQUEST_CODE = 51;
-        public const int BROWSE_DIRECTORIES_REQUEST_CODE = 52;
+        public enum RequestCodes
+        {
+            CameraPermissionRequestCode,    
+            WriteToStorageRequestCode,
+            BrowseDirectoriesRequestCode,
+            TurnOnBluetoothRequestCode,
+            MakeBluetoothDiscoverableRequestCode
+        }
 
         public const int PICK_PHOTO_ID = 1000;
         public TaskCompletionSource<byte[][]> PickPhotoTaskCompletionSource { set; get; }
@@ -90,6 +96,9 @@ namespace CrossCam.Droid
         {
             base.OnResume();
             RegisterReceiver(_bluetoothReceiver, new IntentFilter(BluetoothDevice.ActionFound));
+            RegisterReceiver(_bluetoothReceiver, new IntentFilter(BluetoothDevice.ActionAclConnected));
+            RegisterReceiver(_bluetoothReceiver, new IntentFilter(BluetoothDevice.ActionAclDisconnected));
+            RegisterReceiver(_bluetoothReceiver, new IntentFilter(BluetoothDevice.ActionAclDisconnectRequested));
             LifecycleEventListener.OnAppMaximized();
 
             if (Intent.ActionSend.Equals(Intent.Action) && 
@@ -149,7 +158,7 @@ namespace CrossCam.Droid
                     PickPhotoTaskCompletionSource.SetResult(null);
                 }
             }
-            else if (requestCode == BROWSE_DIRECTORIES_REQUEST_CODE)
+            else if (requestCode == (int)RequestCodes.BrowseDirectoriesRequestCode)
             {
                 if (resultCode == Result.Ok)
                 {
@@ -160,12 +169,20 @@ namespace CrossCam.Droid
                     DirectorySelector.DirectorySelectionCancelled();
                 }
             }
+            else if (requestCode == (int)RequestCodes.TurnOnBluetoothRequestCode)
+            {
+                Bluetooth.IsBluetoothOnSource.SetResult(resultCode == Result.Ok);
+            }
+            else if (requestCode == (int)RequestCodes.MakeBluetoothDiscoverableRequestCode)
+            {
+                Bluetooth.IsDeviceDiscoverableSource.SetResult(resultCode != Result.Canceled); // result code is discoverable duration, not pass/fail
+            }
         }
 
         public override void OnRequestPermissionsResult(int requestCode, string[] permissions, Permission[] grantResults)
         {
             Xamarin.Essentials.Platform.OnRequestPermissionsResult(requestCode, permissions, grantResults);
-            if (requestCode == CAMERA_PERMISSION_REQUEST_CODE)
+            if (requestCode == (int)RequestCodes.CameraPermissionRequestCode)
             {
                 if (!grantResults.Contains(Permission.Granted))
                 {
@@ -174,7 +191,7 @@ namespace CrossCam.Droid
                 }
             }
 
-            if (requestCode == WRITE_TO_STORAGE_REQUEST_CODE)
+            if (requestCode == (int)RequestCodes.WriteToStorageRequestCode)
             {
                 if (!grantResults.Contains(Permission.Granted))
                 {
@@ -198,7 +215,7 @@ namespace CrossCam.Droid
         {
             if (ContextCompat.CheckSelfPermission(this, Manifest.Permission.Camera) != (int)Permission.Granted)
             {
-                ActivityCompat.RequestPermissions(Instance, new[] { Manifest.Permission.Camera }, CAMERA_PERMISSION_REQUEST_CODE);
+                ActivityCompat.RequestPermissions(Instance, new[] { Manifest.Permission.Camera }, (int)RequestCodes.CameraPermissionRequestCode);
                 return true;
             }
 
@@ -206,7 +223,7 @@ namespace CrossCam.Droid
                 (int)Permission.Granted)
             {
                 ActivityCompat.RequestPermissions(Instance, new[] { Manifest.Permission.WriteExternalStorage },
-                    WRITE_TO_STORAGE_REQUEST_CODE);
+                    (int)RequestCodes.WriteToStorageRequestCode);
                 return true;
             }
 
@@ -238,12 +255,19 @@ namespace CrossCam.Droid
         {
             if (BluetoothDevice.ActionFound.Equals(intent.Action))
             {
-                var bluetoothDevice = (BluetoothDevice)intent.GetParcelableExtra(BluetoothDevice.ExtraDevice);
-                if (bluetoothDevice.BondState == Bond.Bonded)
-                {
-                    Bluetooth.BondedDevice = bluetoothDevice;
-                    Bluetooth.DeviceSearchSucceeded.SetResult(true);
-                }
+                var bluetoothDevice = (BluetoothDevice) intent.GetParcelableExtra(BluetoothDevice.ExtraDevice);
+                Bluetooth.AvailableDevices.Add(bluetoothDevice);
+            }
+            else if (BluetoothDevice.ActionAclConnected.Equals(intent.Action))
+            {
+                Debug.WriteLine("Bluetooth connected!");
+                //yay!
+            }
+            else if (BluetoothDevice.ActionAclDisconnected.Equals(intent.Action) ||
+                     BluetoothDevice.ActionAclDisconnectRequested.Equals(intent.Action))
+            {
+                Debug.WriteLine("Bluetooth disconnected!");
+                //hmmmm.
             }
         }
     }
