@@ -20,7 +20,8 @@ namespace CrossCam.Droid.CustomRenderer
         public static TaskCompletionSource<bool> IsBluetoothOnSource;
         public static TaskCompletionSource<bool> IsDeviceDiscoverableSource;
         public static readonly ObservableCollection<BluetoothDevice> AvailableDevices = new ObservableCollection<BluetoothDevice>();
-        private ObservableCollection<PartnerDevice> _displayAvailableDevices;
+        private ObservableCollection<PartnerDevice> _displayDiscoveredDevices;
+        private ObservableCollection<PartnerDevice> _displayPartnerDevices;
         private BluetoothSocket _bluetoothSocket;
         private const string SDP_UUID = "492a8e3d-2589-40b1-b9c2-419a7ce80f3c";
 
@@ -33,7 +34,7 @@ namespace CrossCam.Droid.CustomRenderer
                     foreach (var newItem in args.NewItems)
                     {
                         var newDevice = (BluetoothDevice) newItem;
-                        _displayAvailableDevices.Add(new PartnerDevice
+                        _displayDiscoveredDevices.Add(new PartnerDevice
                         {
                             Name = newDevice.Name ?? "Unnamed",
                             Address = newDevice.Address
@@ -61,36 +62,51 @@ namespace CrossCam.Droid.CustomRenderer
             return Task.FromResult(true);
         }
 
-        public List<PartnerDevice> GetPairedDevices()
+        public void GetPairedDevices(ObservableCollection<PartnerDevice> partnerDevices)
         {
-            return BluetoothAdapter.DefaultAdapter.BondedDevices
+            _displayPartnerDevices = partnerDevices;
+            var devices = BluetoothAdapter.DefaultAdapter.BondedDevices
                 .Select(device => new PartnerDevice {Name = device.Name, Address = device.Address}).ToList();
+            foreach (var device in devices)
+            {
+                partnerDevices.Add(device);
+            }
         }
 
         public bool SearchForAvailableDevices(ObservableCollection<PartnerDevice> partnerDevices)
         {
             AvailableDevices.Clear();
-            _displayAvailableDevices = partnerDevices;
+            _displayDiscoveredDevices = partnerDevices;
             return BluetoothAdapter.DefaultAdapter.StartDiscovery();
+        }
+
+        public async Task<bool> BecomeDiscoverable()
+        {
+            IsDeviceDiscoverableSource = new TaskCompletionSource<bool>();
+            MainActivity.Instance.StartActivityForResult(new Intent(BluetoothAdapter.ActionRequestDiscoverable),
+                (int)MainActivity.RequestCodes.MakeBluetoothDiscoverableRequestCode);
+            return await IsDeviceDiscoverableSource.Task;
         }
 
         public async Task<bool> ListenForConnections()
         {
             try
             {
-                IsDeviceDiscoverableSource = new TaskCompletionSource<bool>();
-                MainActivity.Instance.StartActivityForResult(new Intent(BluetoothAdapter.ActionRequestDiscoverable),
-                    (int)MainActivity.RequestCodes.MakeBluetoothDiscoverableRequestCode);
-                if (await IsDeviceDiscoverableSource.Task)
+                var serverSocket =
+                    BluetoothAdapter.DefaultAdapter.ListenUsingRfcommWithServiceRecord(Application.Context.PackageName,
+                        UUID.FromString(SDP_UUID));
+                _bluetoothSocket = await serverSocket.AcceptAsync();
+                if (_bluetoothSocket != null)
                 {
-                    var serverSocket =
-                        BluetoothAdapter.DefaultAdapter.ListenUsingRfcommWithServiceRecord(Application.Context.PackageName,
-                            UUID.FromString(SDP_UUID));
-                    _bluetoothSocket = await serverSocket.AcceptAsync();
-                    if (_bluetoothSocket != null)
+                    serverSocket.Close();
+                    if (_bluetoothSocket.IsConnected)
                     {
-                        serverSocket.Close();
-                        return _bluetoothSocket.IsConnected;
+                        _displayPartnerDevices.Add(new PartnerDevice
+                        {
+                            Name = _bluetoothSocket.RemoteDevice.Name,
+                            Address = _bluetoothSocket.RemoteDevice.Address
+                        });
+                        return true;
                     }
                 }
             }
@@ -111,7 +127,11 @@ namespace CrossCam.Droid.CustomRenderer
                 {
                     _bluetoothSocket = targetDevice.CreateRfcommSocketToServiceRecord(UUID.FromString(SDP_UUID));
                     await _bluetoothSocket.ConnectAsync();
-                    return _bluetoothSocket.IsConnected;
+                    if (_bluetoothSocket.IsConnected)
+                    {
+                        _displayPartnerDevices.Add(partnerDevice);
+                        return true;
+                    }
                 }
             }
             catch (Exception e)
@@ -120,6 +140,17 @@ namespace CrossCam.Droid.CustomRenderer
             }
 
             return false;
+        }
+
+        public void ForgetDevice(PartnerDevice partnerDevice)
+        {
+            var targetDevice = BluetoothAdapter.DefaultAdapter.BondedDevices.FirstOrDefault(d => d.Address == partnerDevice.Address);
+            if (targetDevice != null)
+            {
+                var mi = targetDevice.Class.GetMethod("removeBond", null); 
+                mi.Invoke(targetDevice, null);
+                _displayPartnerDevices.Remove(partnerDevice);
+            }
         }
     }
 }
