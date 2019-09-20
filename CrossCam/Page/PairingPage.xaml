@@ -13,52 +13,164 @@
              Title="Pairing">
     <ScrollView>
         <StackLayout Padding="10">
-            <Button Text="Check for Bluetooth Support"
-                    Command="{Binding CheckIfBluetoothIsSupportedCommand}"/>
-            <Label Text="{Binding IsBluetoothSupported, StringFormat='Supported: {0}'}"/>
-            <Button Text="Turn On Bluetooth"
-                    Command="{Binding TurnBluetoothOnCommand}"/>
-            <Label Text="{Binding IsBluetoothOn, StringFormat='On: {0}'}"/>
-
-            <Button Text="Get Paired Devices"
-                    Command="{Binding GetPartnerDevicesCommand}"/>
-            <StackLayout x:Name="PairedDevicesList"
-                         BindableLayout.ItemsSource="{Binding PartnerDevices}">
-                <BindableLayout.ItemTemplate>
-                    <DataTemplate>
-                        <Label d:DataContext="{d:DesignInstance Type=wrappers:PartnerDevice, IsDesignTimeCreatable=False}"
-                               Text="{Binding Name}">
-                            <!--<Label.GestureRecognizers>
-                                <TapGestureRecognizer Command="{Binding Source={x:Reference DevicesList}, Path=BindingContext.}"/>
-                            </Label.GestureRecognizers>-->
-                        </Label>
-                    </DataTemplate>
-                </BindableLayout.ItemTemplate>
-            </StackLayout>
-
-            <Button Text="Search for Available Devices"
-                    Command="{Binding SearchForDevicesCommand}"/>
-            <StackLayout x:Name="AvailableDevicesList"
-                         BindableLayout.ItemsSource="{Binding AvailableDevices}">
-                <BindableLayout.ItemTemplate>
-                    <DataTemplate>
-                        <Label d:DataContext="{d:DesignInstance Type=wrappers:PartnerDevice, IsDesignTimeCreatable=False}"
-                               Text="{Binding Name}">
-                            <Label.GestureRecognizers>
-                                <!-- ReSharper disable once Xaml.BindingWithContextNotResolved -->
-                                <TapGestureRecognizer Command="{Binding Source={x:Reference AvailableDevicesList}, Path=BindingContext.AttemptConnectionCommand}"
-                                                      CommandParameter="{Binding .}"/>
-                            </Label.GestureRecognizers>
-                        </Label>
-                    </DataTemplate>
-                </BindableLayout.ItemTemplate>
-            </StackLayout>
-            <Label Text="{Binding IsSearchingForDevices, StringFormat='Searching: {0}'}"/>
-            <Button Text="Listen for Connection"
-                    Command="{Binding ListenForConnectionCommand}"/>
-            <Button Text="Attempt Connection"
-                    Command="{Binding AttemptConnectionCommand}"/>
-            <Label Text="{Binding HasConnection, StringFormat='Connected: {0}'}"/>
+            <Label Text="If you have two phones with CrossCam installed, you can connect them over Bluetooth in order to take simultaneous photos from two perspectives. This makes the best cross views possible. To get started, navigate them both to this page."/>
+            <Label Text=""/>
+            <Label Text=""/>
+            <Label Text="FIRST TIME CONNECTING TWO DEVICES:"
+                   FontAttributes="Bold"
+                   HorizontalOptions="Center"/>
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Label Grid.Row="0"
+                       Grid.Column="1"
+                       Text="1)"
+                       HorizontalOptions="End"
+                       VerticalOptions="Center"/>
+                <Frame Grid.Row="0" 
+                       Grid.Column="2" 
+                       Padding="1"
+                       HorizontalOptions="Start">
+                    <Button Text="TAP HERE ON THE SECONDARY"
+                            VerticalOptions="Center"
+                            Command="{Binding BecomeDiscoverableSecondaryCommand}"/>
+                </Frame>
+                <Label Grid.Row="1" 
+                       Grid.Column="1" 
+                       Text="2)"
+                       HorizontalOptions="End"
+                       VerticalOptions="Center"/>
+                <Label Grid.Row="1" 
+                       Grid.Column="2" 
+                       Text="Wait a couple seconds"
+                       VerticalOptions="Center"/>
+                <Label Grid.Row="2" 
+                       Grid.Column="1" 
+                       Text="3)"
+                       HorizontalOptions="End"
+                       VerticalOptions="Center"/>
+                <Frame Grid.Row="2" 
+                       Grid.Column="2"
+                       HorizontalOptions="Start"
+                       Padding="1">
+                    <Button Text="TAP HERE ON THE PRIMARY"
+                            VerticalOptions="Center"
+                            Command="{Binding SearchForDevicesPrimaryCommand}"/>
+                </Frame>
+                <Label Grid.Row="3"
+                       Grid.Column="1"
+                       Text="4)"/>
+                <Label Grid.Row="3" 
+                       Grid.Column="2" 
+                       Text="On the primary, tap the name of the secondary in the list below (when it appears):"/>
+                <Frame Grid.Row="4" 
+                       Grid.Column="0" 
+                       Grid.ColumnSpan="4" 
+                       Padding="1">
+                    <StackLayout x:Name="AvailableDevicesList"
+                                 BindableLayout.ItemsSource="{Binding AvailableDevices}"
+                                 BackgroundColor="Black">
+                        <BindableLayout.ItemTemplate>
+                            <DataTemplate>
+                                <ContentView Padding="10">
+                                    <ContentView.GestureRecognizers>
+                                        <!-- ReSharper disable once Xaml.BindingWithContextNotResolved -->
+                                        <TapGestureRecognizer Command="{Binding Source={x:Reference AvailableDevicesList}, Path=BindingContext.AttemptConnectionPrimaryCommand}"
+                                                              CommandParameter="{Binding .}"/>
+                                    </ContentView.GestureRecognizers>
+                                    <Label d:DataContext="{d:DesignInstance Type=wrappers:PartnerDevice, IsDesignTimeCreatable=False}"
+                                           HorizontalOptions="Center"
+                                           VerticalOptions="Center"
+                                           Text="{Binding Name}"/>
+                                </ContentView>
+                            </DataTemplate>
+                        </BindableLayout.ItemTemplate>
+                    </StackLayout>
+                </Frame>
+                <Label Grid.Row="5"
+                       Grid.Column="1"
+                       Text="5)"/>
+                <Label Grid.Row="5"
+                       Grid.Column="2"
+                       Text="Match up the codes and accept the prompts that follow to complete the pairing"/>
+            </Grid>
+            <Label Text=""/>
+            <Label Text=""/>
+            <Label Text="RECONNECT TO A PREVIOUSLY USED DEVICE:"
+                   FontAttributes="Bold"
+                   HorizontalOptions="Center"/>
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Label Grid.Row="0"
+                       Grid.Column="1"
+                       Text="1)"/>
+                <Label Grid.Row="0"
+                       Grid.Column="2"
+                       Text="Navigate to this page on both devices"/>
+                <Label Grid.Row="1"
+                       Grid.Column="1"
+                       Text="2)"/>
+                <Label Grid.Row="1"
+                       Grid.Column="2"
+                       Text="On the primary, tap the name of the secondary in the list below:"/>
+                <Frame Grid.Row="2" 
+                       Grid.Column="0" 
+                       Grid.ColumnSpan="4" 
+                       Padding="1">
+                    <StackLayout x:Name="PairedDevicesList"
+                                 BindableLayout.ItemsSource="{Binding PartnerDevices}"
+                                 BackgroundColor="Black">
+                        <BindableLayout.ItemTemplate>
+                            <DataTemplate>
+                                <StackLayout d:DataContext="{d:DesignInstance Type=wrappers:PartnerDevice, IsDesignTimeCreatable=False}"
+                                             Padding="10"
+                                             Orientation="Horizontal">
+                                    <Label Text="{Binding Name}"
+                                           HorizontalOptions="StartAndExpand"
+                                           VerticalOptions="Center">
+                                        <Label.GestureRecognizers>
+                                            <!-- ReSharper disable once Xaml.BindingWithContextNotResolved -->
+                                            <TapGestureRecognizer Command="{Binding Source={x:Reference PairedDevicesList}, Path=BindingContext.AttemptConnectionPrimaryCommand}"
+                                                                  CommandParameter="{Binding .}"/>
+                                        </Label.GestureRecognizers>
+                                    </Label>
+                                    <!-- ReSharper disable once Xaml.BindingWithContextNotResolved -->
+                                    <Button Text="Forget"
+                                            Command="{Binding Source={x:Reference PairedDevicesList}, Path=BindingContext.ForgetDeviceCommand}"
+                                            CommandParameter="{Binding .}"
+                                            HorizontalOptions="EndAndExpand"
+                                            VerticalOptions="Center"/>
+                                </StackLayout>
+                            </DataTemplate>
+                        </BindableLayout.ItemTemplate>
+                    </StackLayout>
+                </Frame>
+            </Grid>
         </StackLayout>
     </ScrollView>
 </freshMvvm:FreshBaseContentPage>

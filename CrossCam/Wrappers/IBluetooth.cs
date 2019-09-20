@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Collections.ObjectModel;
+﻿using System.Collections.ObjectModel;
 using System.Threading.Tasks;
 
 namespace CrossCam.Wrappers
@@ -8,10 +7,12 @@ namespace CrossCam.Wrappers
     {
         bool IsBluetoothSupported();
         Task<bool> TurnOnBluetooth();
-        List<PartnerDevice> GetPairedDevices();
+        void GetPairedDevices(ObservableCollection<PartnerDevice> pairedDevices);
         bool SearchForAvailableDevices(ObservableCollection<PartnerDevice> partnerDevices);
+        Task<bool> BecomeDiscoverable();
         Task<bool> ListenForConnections();
         Task<bool> AttemptConnection(PartnerDevice partnerDevice);
+        void ForgetDevice(PartnerDevice partnerDevice);
     }
 
     public class PartnerDevice
