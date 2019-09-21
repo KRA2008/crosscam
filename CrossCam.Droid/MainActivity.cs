@@ -1,5 +1,4 @@
-﻿using System;
-using System.IO;
+﻿using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using Android;
@@ -10,8 +9,6 @@ using Android.Content.PM;
 using Android.OS;
 using Android.Support.V4.App;
 using Android.Support.V4.Content;
-using Android.Support.V4.OS;
-using Android.Support.V4.Provider;
 using Android.Views;
 using CrossCam.Droid.CustomRenderer;
 using Java.Lang;
@@ -51,7 +48,11 @@ namespace CrossCam.Droid
             WriteToStorageRequestCode,
             BrowseDirectoriesRequestCode,
             TurnOnBluetoothRequestCode,
-            MakeBluetoothDiscoverableRequestCode
+            MakeBluetoothDiscoverableRequestCode,
+            BluetoothBasicRequestCode,
+            BluetoothAdminRequestCode,
+            FineLocationRequestCode,
+            CoarseLocationRequestCode
         }
 
         public const int PICK_PHOTO_ID = 1000;
@@ -75,7 +76,7 @@ namespace CrossCam.Droid
             
             if (Build.VERSION.SdkInt >= BuildVersionCodes.M)
             {
-                if (CheckForAndRequestPermissions())
+                if (CheckForAndRequestRequiredPermissions())
                 {
                     return;
                 }
@@ -99,6 +100,7 @@ namespace CrossCam.Droid
             RegisterReceiver(_bluetoothReceiver, new IntentFilter(BluetoothDevice.ActionAclConnected));
             RegisterReceiver(_bluetoothReceiver, new IntentFilter(BluetoothDevice.ActionAclDisconnected));
             RegisterReceiver(_bluetoothReceiver, new IntentFilter(BluetoothDevice.ActionAclDisconnectRequested));
+            RegisterReceiver(_bluetoothReceiver, new IntentFilter(BluetoothDevice.ActionBondStateChanged));
             LifecycleEventListener.OnAppMaximized();
 
             if (Intent.ActionSend.Equals(Intent.Action) && 
@@ -182,7 +184,8 @@ namespace CrossCam.Droid
         public override void OnRequestPermissionsResult(int requestCode, string[] permissions, Permission[] grantResults)
         {
             Xamarin.Essentials.Platform.OnRequestPermissionsResult(requestCode, permissions, grantResults);
-            if (requestCode == (int)RequestCodes.CameraPermissionRequestCode)
+            if (requestCode == (int)RequestCodes.CameraPermissionRequestCode ||
+                requestCode == (int)RequestCodes.WriteToStorageRequestCode)
             {
                 if (!grantResults.Contains(Permission.Granted))
                 {
@@ -191,16 +194,22 @@ namespace CrossCam.Droid
                 }
             }
 
-            if (requestCode == (int)RequestCodes.WriteToStorageRequestCode)
+            if (requestCode == (int) RequestCodes.BluetoothBasicRequestCode ||
+                requestCode == (int) RequestCodes.BluetoothAdminRequestCode ||
+                requestCode == (int) RequestCodes.FineLocationRequestCode ||
+                requestCode == (int) RequestCodes.CoarseLocationRequestCode)
             {
                 if (!grantResults.Contains(Permission.Granted))
                 {
-                    JavaSystem.Exit(0);
+                    Bluetooth.BluetoothPermissionsTask.SetResult(false);
                     return;
                 }
+
+                CheckForAndRequestBluetoothPermissions();
+                return;
             }
 
-            if (CheckForAndRequestPermissions())
+            if (CheckForAndRequestRequiredPermissions())
             {
                 return;
             }
@@ -211,11 +220,48 @@ namespace CrossCam.Droid
             base.OnRequestPermissionsResult(requestCode, permissions, grantResults);
         }
 
-        private bool CheckForAndRequestPermissions()
+        public void CheckForAndRequestBluetoothPermissions()
+        {
+            if (ContextCompat.CheckSelfPermission(this, Manifest.Permission.Bluetooth) != (int)Permission.Granted)
+            {
+                ActivityCompat.RequestPermissions(Instance, new[] { Manifest.Permission.Bluetooth },
+                    (int)RequestCodes.BluetoothBasicRequestCode);
+                return;
+            }
+
+            if (ContextCompat.CheckSelfPermission(this, Manifest.Permission.BluetoothAdmin) !=
+                (int)Permission.Granted)
+            {
+                ActivityCompat.RequestPermissions(Instance, new[] { Manifest.Permission.BluetoothAdmin },
+                    (int)RequestCodes.BluetoothAdminRequestCode);
+                return;
+            }
+
+            if (ContextCompat.CheckSelfPermission(this, Manifest.Permission.AccessFineLocation) !=
+                (int)Permission.Granted)
+            {
+                ActivityCompat.RequestPermissions(Instance, new[] { Manifest.Permission.AccessFineLocation },
+                    (int)RequestCodes.FineLocationRequestCode);
+                return;
+            }
+
+            if (ContextCompat.CheckSelfPermission(this, Manifest.Permission.AccessCoarseLocation) !=
+                (int)Permission.Granted)
+            {
+                ActivityCompat.RequestPermissions(Instance, new[] { Manifest.Permission.AccessCoarseLocation },
+                    (int)RequestCodes.CoarseLocationRequestCode);
+                return;
+            }
+
+            Bluetooth.BluetoothPermissionsTask.SetResult(true);
+        }
+
+        private bool CheckForAndRequestRequiredPermissions()
         {
             if (ContextCompat.CheckSelfPermission(this, Manifest.Permission.Camera) != (int)Permission.Granted)
             {
-                ActivityCompat.RequestPermissions(Instance, new[] { Manifest.Permission.Camera }, (int)RequestCodes.CameraPermissionRequestCode);
+                ActivityCompat.RequestPermissions(Instance, new[] {Manifest.Permission.Camera},
+                    (int) RequestCodes.CameraPermissionRequestCode);
                 return true;
             }
 
@@ -260,14 +306,18 @@ namespace CrossCam.Droid
             }
             else if (BluetoothDevice.ActionAclConnected.Equals(intent.Action))
             {
-                Debug.WriteLine("Bluetooth connected!");
+                Debug.WriteLine("Bluetooth connected");
                 //yay!
             }
             else if (BluetoothDevice.ActionAclDisconnected.Equals(intent.Action) ||
                      BluetoothDevice.ActionAclDisconnectRequested.Equals(intent.Action))
             {
-                Debug.WriteLine("Bluetooth disconnected!");
+                Debug.WriteLine("Bluetooth disconnected");
                 //hmmmm.
+            }
+            else if (BluetoothDevice.ActionBondStateChanged.Equals(intent.Action))
+            {
+                Debug.WriteLine("Bluetooth bond state changed");
             }
         }
     }
