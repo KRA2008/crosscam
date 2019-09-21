@@ -1027,7 +1027,6 @@ namespace CrossCam.Droid.CustomRenderer
                                 return;
                             }
 
-
                             _isCamera2FocusAndExposureLocked = true;
                             _cameraModule.IsFocusCircleLocked = true;
                             

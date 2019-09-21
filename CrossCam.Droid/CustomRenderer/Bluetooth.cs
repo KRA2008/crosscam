@@ -15,15 +15,13 @@ using Application = Android.App.Application;
 [assembly: Dependency(typeof(Bluetooth))]
 namespace CrossCam.Droid.CustomRenderer
 {
-    public class Bluetooth : IBluetooth
+    public sealed class Bluetooth : IBluetooth
     {
-        public static TaskCompletionSource<bool> IsBluetoothOnSource;
-        public static TaskCompletionSource<bool> IsDeviceDiscoverableSource;
+        public static TaskCompletionSource<bool> BluetoothPermissionsTask = new TaskCompletionSource<bool>();
+        public static TaskCompletionSource<bool> IsBluetoothOnSource = new TaskCompletionSource<bool>();
+        public static TaskCompletionSource<bool> IsDeviceDiscoverableSource = new TaskCompletionSource<bool>();
         public static readonly ObservableCollection<BluetoothDevice> AvailableDevices = new ObservableCollection<BluetoothDevice>();
-        private ObservableCollection<PartnerDevice> _displayDiscoveredDevices;
-        private ObservableCollection<PartnerDevice> _displayPartnerDevices;
         private BluetoothSocket _bluetoothSocket;
-        private const string SDP_UUID = "492a8e3d-2589-40b1-b9c2-419a7ce80f3c";
 
         public Bluetooth()
         {
@@ -33,8 +31,8 @@ namespace CrossCam.Droid.CustomRenderer
                 {
                     foreach (var newItem in args.NewItems)
                     {
-                        var newDevice = (BluetoothDevice) newItem;
-                        _displayDiscoveredDevices.Add(new PartnerDevice
+                        var newDevice = (BluetoothDevice)newItem;
+                        OnDeviceDiscovered(new PartnerDevice
                         {
                             Name = newDevice.Name ?? "Unnamed",
                             Address = newDevice.Address
@@ -42,6 +40,13 @@ namespace CrossCam.Droid.CustomRenderer
                     }
                 }
             };
+        }
+
+        public Task<bool> RequestBluetoothPermissions()
+        {
+            BluetoothPermissionsTask = new TaskCompletionSource<bool>();
+            MainActivity.Instance.CheckForAndRequestBluetoothPermissions();
+            return BluetoothPermissionsTask.Task;
         }
 
         public bool IsBluetoothSupported()
@@ -62,30 +67,32 @@ namespace CrossCam.Droid.CustomRenderer
             return Task.FromResult(true);
         }
 
-        public void GetPairedDevices(ObservableCollection<PartnerDevice> partnerDevices)
+        public List<PartnerDevice> GetPairedDevices()
         {
-            _displayPartnerDevices = partnerDevices;
-            var devices = BluetoothAdapter.DefaultAdapter.BondedDevices
-                .Select(device => new PartnerDevice {Name = device.Name, Address = device.Address}).ToList();
-            foreach (var device in devices)
-            {
-                partnerDevices.Add(device);
-            }
+            return BluetoothAdapter.DefaultAdapter.BondedDevices
+                .Select(device => new PartnerDevice { Name = device.Name ?? "Unnamed", Address = device.Address }).ToList();
         }
 
-        public bool SearchForAvailableDevices(ObservableCollection<PartnerDevice> partnerDevices)
+        public bool BeginSearchForDiscoverableDevices()
         {
             AvailableDevices.Clear();
-            _displayDiscoveredDevices = partnerDevices;
             return BluetoothAdapter.DefaultAdapter.StartDiscovery();
         }
 
-        public async Task<bool> BecomeDiscoverable()
+        public event EventHandler<PartnerDevice> DeviceDiscovered;
+
+        private void OnDeviceDiscovered(PartnerDevice e)
+        {
+            var handler = DeviceDiscovered;
+            handler?.Invoke(this, e);
+        }
+
+        public Task<bool> BecomeDiscoverable()
         {
             IsDeviceDiscoverableSource = new TaskCompletionSource<bool>();
             MainActivity.Instance.StartActivityForResult(new Intent(BluetoothAdapter.ActionRequestDiscoverable),
                 (int)MainActivity.RequestCodes.MakeBluetoothDiscoverableRequestCode);
-            return await IsDeviceDiscoverableSource.Task;
+            return IsDeviceDiscoverableSource.Task;
         }
 
         public async Task<bool> ListenForConnections()
@@ -94,27 +101,22 @@ namespace CrossCam.Droid.CustomRenderer
             {
                 var serverSocket =
                     BluetoothAdapter.DefaultAdapter.ListenUsingRfcommWithServiceRecord(Application.Context.PackageName,
-                        UUID.FromString(SDP_UUID));
+                        UUID.FromString(PartnerDevice.SDP_UUID));
                 _bluetoothSocket = await serverSocket.AcceptAsync();
                 if (_bluetoothSocket != null)
                 {
                     serverSocket.Close();
-                    if (_bluetoothSocket.IsConnected)
-                    {
-                        _displayPartnerDevices.Add(new PartnerDevice
-                        {
-                            Name = _bluetoothSocket.RemoteDevice.Name,
-                            Address = _bluetoothSocket.RemoteDevice.Address
-                        });
-                        return true;
-                    }
+                    BluetoothAdapter.DefaultAdapter.CancelDiscovery();
+                    return _bluetoothSocket.IsConnected;
                 }
             }
             catch (Exception e)
             {
+                BluetoothAdapter.DefaultAdapter.CancelDiscovery();
                 return false;
             }
 
+            BluetoothAdapter.DefaultAdapter.CancelDiscovery();
             return false;
         }
 
@@ -125,13 +127,9 @@ namespace CrossCam.Droid.CustomRenderer
                 var targetDevice = AvailableDevices.FirstOrDefault(d => d.Address == partnerDevice.Address);
                 if (targetDevice != null)
                 {
-                    _bluetoothSocket = targetDevice.CreateRfcommSocketToServiceRecord(UUID.FromString(SDP_UUID));
+                    _bluetoothSocket = targetDevice.CreateRfcommSocketToServiceRecord(UUID.FromString(PartnerDevice.SDP_UUID));
                     await _bluetoothSocket.ConnectAsync();
-                    if (_bluetoothSocket.IsConnected)
-                    {
-                        _displayPartnerDevices.Add(partnerDevice);
-                        return true;
-                    }
+                    return _bluetoothSocket.IsConnected;
                 }
             }
             catch (Exception e)
@@ -149,7 +147,6 @@ namespace CrossCam.Droid.CustomRenderer
             {
                 var mi = targetDevice.Class.GetMethod("removeBond", null); 
                 mi.Invoke(targetDevice, null);
-                _displayPartnerDevices.Remove(partnerDevice);
             }
         }
     }

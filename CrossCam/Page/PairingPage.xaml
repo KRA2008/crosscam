@@ -25,8 +25,6 @@
                     <RowDefinition Height="Auto"/>
                     <RowDefinition Height="Auto"/>
                     <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="Auto"/>
                 </Grid.RowDefinitions>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*"/>
@@ -43,51 +41,42 @@
                        Grid.Column="2" 
                        Padding="1"
                        HorizontalOptions="Start">
-                    <Button Text="TAP HERE ON THE SECONDARY"
+                    <Button Text="TAP HERE ON ONE DEVICE"
                             VerticalOptions="Center"
-                            Command="{Binding BecomeDiscoverableSecondaryCommand}"/>
+                            Command="{Binding BecomeDiscoverableCommand}"/>
                 </Frame>
                 <Label Grid.Row="1" 
                        Grid.Column="1" 
                        Text="2)"
                        HorizontalOptions="End"
                        VerticalOptions="Center"/>
-                <Label Grid.Row="1" 
-                       Grid.Column="2" 
-                       Text="Wait a couple seconds"
-                       VerticalOptions="Center"/>
-                <Label Grid.Row="2" 
-                       Grid.Column="1" 
-                       Text="3)"
-                       HorizontalOptions="End"
-                       VerticalOptions="Center"/>
-                <Frame Grid.Row="2" 
+                <Frame Grid.Row="1" 
                        Grid.Column="2"
                        HorizontalOptions="Start"
                        Padding="1">
-                    <Button Text="TAP HERE ON THE PRIMARY"
+                    <Button Text="TAP HERE ON THE OTHER DEVICE"
                             VerticalOptions="Center"
-                            Command="{Binding SearchForDevicesPrimaryCommand}"/>
+                            Command="{Binding SearchForDevicesCommand}"/>
                 </Frame>
-                <Label Grid.Row="3"
+                <Label Grid.Row="2"
                        Grid.Column="1"
-                       Text="4)"/>
-                <Label Grid.Row="3" 
+                       Text="3)"/>
+                <Label Grid.Row="2" 
                        Grid.Column="2" 
-                       Text="On the primary, tap the name of the secondary in the list below (when it appears):"/>
-                <Frame Grid.Row="4" 
+                       Text="Tap the name of the first device in the list below (when it appears):"/>
+                <Frame Grid.Row="3" 
                        Grid.Column="0" 
                        Grid.ColumnSpan="4" 
                        Padding="1">
                     <StackLayout x:Name="AvailableDevicesList"
-                                 BindableLayout.ItemsSource="{Binding AvailableDevices}"
+                                 BindableLayout.ItemsSource="{Binding DiscoveredDevices}"
                                  BackgroundColor="Black">
                         <BindableLayout.ItemTemplate>
                             <DataTemplate>
                                 <ContentView Padding="10">
                                     <ContentView.GestureRecognizers>
                                         <!-- ReSharper disable once Xaml.BindingWithContextNotResolved -->
-                                        <TapGestureRecognizer Command="{Binding Source={x:Reference AvailableDevicesList}, Path=BindingContext.AttemptConnectionPrimaryCommand}"
+                                        <TapGestureRecognizer Command="{Binding Source={x:Reference AvailableDevicesList}, Path=BindingContext.AttemptConnectionCommand}"
                                                               CommandParameter="{Binding .}"/>
                                     </ContentView.GestureRecognizers>
                                     <Label d:DataContext="{d:DesignInstance Type=wrappers:PartnerDevice, IsDesignTimeCreatable=False}"
@@ -99,12 +88,6 @@
                         </BindableLayout.ItemTemplate>
                     </StackLayout>
                 </Frame>
-                <Label Grid.Row="5"
-                       Grid.Column="1"
-                       Text="5)"/>
-                <Label Grid.Row="5"
-                       Grid.Column="2"
-                       Text="Match up the codes and accept the prompts that follow to complete the pairing"/>
             </Grid>
             <Label Text=""/>
             <Label Text=""/>
@@ -137,13 +120,13 @@
                        Text="2)"/>
                 <Label Grid.Row="1"
                        Grid.Column="2"
-                       Text="On the primary, tap the name of the secondary in the list below:"/>
+                       Text="On either device, tap the name of the other device in the list below:"/>
                 <Frame Grid.Row="2" 
                        Grid.Column="0" 
                        Grid.ColumnSpan="4" 
                        Padding="1">
                     <StackLayout x:Name="PairedDevicesList"
-                                 BindableLayout.ItemsSource="{Binding PartnerDevices}"
+                                 BindableLayout.ItemsSource="{Binding PairedDevices}"
                                  BackgroundColor="Black">
                         <BindableLayout.ItemTemplate>
                             <DataTemplate>
@@ -155,7 +138,7 @@
                                            VerticalOptions="Center">
                                         <Label.GestureRecognizers>
                                             <!-- ReSharper disable once Xaml.BindingWithContextNotResolved -->
-                                            <TapGestureRecognizer Command="{Binding Source={x:Reference PairedDevicesList}, Path=BindingContext.AttemptConnectionPrimaryCommand}"
+                                            <TapGestureRecognizer Command="{Binding Source={x:Reference PairedDevicesList}, Path=BindingContext.AttemptConnectionCommand}"
                                                                   CommandParameter="{Binding .}"/>
                                         </Label.GestureRecognizers>
                                     </Label>
@@ -171,6 +154,14 @@
                     </StackLayout>
                 </Frame>
             </Grid>
+            <Label Text=""/>
+            <Label Text=""/>
+            <Label Text="TROUBLESHOOTING:"
+                   FontAttributes="Bold"
+                   HorizontalOptions="Center"/>
+            <Label Text="You may have to wait a few seconds between steps."/>
+            <Label Text="To start over, tap the &quot;Forget&quot; button next to the device name above (if present) on both devices, then leave and come back to this page."/>
+            <Label Text="Make sure you have granted CrossCam permission to access bluetooth and your location."/>
         </StackLayout>
     </ScrollView>
 </freshMvvm:FreshBaseContentPage>
