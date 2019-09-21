@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.ObjectModel;
+using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 using CrossCam.Wrappers;
 using FreshMvvm;
@@ -9,89 +11,111 @@ namespace CrossCam.ViewModel
 {
     public class PairingViewModel : FreshBasePageModel
     {
-        public ObservableCollection<PartnerDevice> PartnerDevices { get; set; }
-        public ObservableCollection<PartnerDevice> AvailableDevices { get; set; }
+        private readonly IBluetooth _bluetooth;
+        private int _isInitialized;
+        public ObservableCollection<PartnerDevice> PairedDevices { get; set; }
+        public ObservableCollection<PartnerDevice> DiscoveredDevices { get; set; }
 
         public Command InitializeBluetoothCommand { get; set; }
-
-        public Command BecomeDiscoverableSecondaryCommand { get; set; }
-        public Command SearchForDevicesPrimaryCommand { get; set; }
-        public Command AttemptConnectionPrimaryCommand { get; set; }
-
+        public Command BecomeDiscoverableCommand { get; set; }
+        public Command SearchForDevicesCommand { get; set; }
+        public Command AttemptConnectionCommand { get; set; }
         public Command ForgetDeviceCommand { get; set; }
 
         public PairingViewModel()
         {
-            var bluetooth = DependencyService.Get<IBluetooth>();
+            _bluetooth = DependencyService.Get<IBluetooth>();
+            DiscoveredDevices = new ObservableCollection<PartnerDevice>();
 
             InitializeBluetoothCommand = new Command(async () =>
             {
-                if (!bluetooth.IsBluetoothSupported())
+                if (Interlocked.CompareExchange(ref _isInitialized, 1, 0) == 0)
                 {
-                    await CoreMethods.DisplayAlert("Bluetooth Not Supported",
-                        "Bluetooth is not supported on this device.", "OK");
-                    await CoreMethods.PopPageModel();
-                }
-                else
-                {
-                    PartnerDevices = new ObservableCollection<PartnerDevice>();
-                    bluetooth.GetPairedDevices(PartnerDevices);
-                    if (!await bluetooth.TurnOnBluetooth())
+                    if (!_bluetooth.IsBluetoothSupported())
                     {
-                        await CoreMethods.DisplayAlert("Bluetooth Not On",
-                            "This device failed to turn on bluetooth.", "OK");
+                        await CoreMethods.DisplayAlert("Bluetooth Not Supported",
+                            "Bluetooth is not supported on this device.", "OK");
+                        await CoreMethods.PopPageModel();
                     }
                     else
                     {
-                        if (!await bluetooth.ListenForConnections())
+                        if (!await _bluetooth.RequestBluetoothPermissions())
                         {
-                            await CoreMethods.DisplayAlert("Bluetooth Listening Failed",
-                                "This device failed to begin listening for connections over bluetooth.", "OK");
+                            await CoreMethods.DisplayAlert("Permissions Denied",
+                                "Permissions required for pairing were denied.", "OK");
                         }
                         else
                         {
-                            await DisplayConnectionSuccessMessage();
+                            PairedDevices = new ObservableCollection<PartnerDevice>(_bluetooth.GetPairedDevices());
+                            if (!await _bluetooth.TurnOnBluetooth())
+                            {
+                                await CoreMethods.DisplayAlert("Bluetooth Not On",
+                                    "This device failed to turn on bluetooth.", "OK");
+                            }
+                            else
+                            {
+                                if (!await _bluetooth.ListenForConnections())
+                                {
+                                    await CoreMethods.DisplayAlert("Bluetooth Listening Failed",
+                                        "This device failed to begin listening for connections over bluetooth.", "OK");
+                                }
+                                else
+                                {
+                                    PairedDevices = new ObservableCollection<PartnerDevice>(_bluetooth.GetPairedDevices());
+                                    await DisplayConnectionSuccessMessage();
+                                }
+                            }
                         }
                     }
                 }
             });
 
-            BecomeDiscoverableSecondaryCommand = new Command(async () =>
+            BecomeDiscoverableCommand = new Command(async () =>
             {
-                if (!await bluetooth.BecomeDiscoverable())
+                if (!await _bluetooth.BecomeDiscoverable())
                 {
                     await CoreMethods.DisplayAlert("Device Failed to Become Discoverable",
                         "This device failed to become discoverable over bluetooth.", "OK");
                 }
             });
 
-            SearchForDevicesPrimaryCommand = new Command(async () =>
+            SearchForDevicesCommand = new Command(async () =>
             {
-                AvailableDevices = new ObservableCollection<PartnerDevice>();
-                if (!bluetooth.SearchForAvailableDevices(AvailableDevices))
+                DiscoveredDevices.Clear();
+                if (!_bluetooth.BeginSearchForDiscoverableDevices())
                 {
                     await CoreMethods.DisplayAlert("Device Failed to Search",
                         "This device failed to search for discoverable devices over bluetooth.", "OK");
                 }
             });
 
-            AttemptConnectionPrimaryCommand = new Command(async obj =>
+            AttemptConnectionCommand = new Command(async obj =>
             {
-                if (!await bluetooth.AttemptConnection((PartnerDevice)obj))
+                if (!await _bluetooth.AttemptConnection((PartnerDevice)obj))
                 {
                     await CoreMethods.DisplayAlert("Device Failed to Connect",
-                        "This devices failed to connect over bluetooth.", "OK");
+                        "This device failed to connect over bluetooth.", "OK");
                 }
                 else
                 {
+                    PairedDevices = new ObservableCollection<PartnerDevice>(_bluetooth.GetPairedDevices());
                     await DisplayConnectionSuccessMessage();
                 }
             });
 
             ForgetDeviceCommand = new Command(obj =>
             {
-                bluetooth.ForgetDevice((PartnerDevice)obj);
+                _bluetooth.ForgetDevice((PartnerDevice)obj);
+                PairedDevices = new ObservableCollection<PartnerDevice>(_bluetooth.GetPairedDevices());
             });
+        }
+
+        private void BluetoothOnDeviceDiscovered(object sender, PartnerDevice e)
+        {
+            if (DiscoveredDevices.All(d => d.Address != e.Address))
+            {
+                DiscoveredDevices.Add(e);
+            }
         }
 
         private async Task DisplayConnectionSuccessMessage()
@@ -102,7 +126,14 @@ namespace CrossCam.ViewModel
         protected override void ViewIsAppearing(object sender, EventArgs e)
         {
             base.ViewIsAppearing(sender, e);
+            _bluetooth.DeviceDiscovered += BluetoothOnDeviceDiscovered;
             InitializeBluetoothCommand.Execute(null);
+        }
+
+        protected override void ViewIsDisappearing(object sender, EventArgs e)
+        {
+            _bluetooth.DeviceDiscovered -= BluetoothOnDeviceDiscovered;
+            base.ViewIsDisappearing(sender, e);
         }
     }
 }
