@@ -13,12 +13,101 @@
              Title="Pairing">
     <ScrollView>
         <StackLayout Padding="10">
-            <Label Text="If you have two phones with CrossCam installed, you can connect them over Bluetooth in order to take simultaneous photos from two perspectives. This makes the best cross views possible. To get started, navigate them both to this page."/>
+            <Label HorizontalOptions="Center">
+                <Label.Triggers>
+                    <DataTrigger TargetType="Label"
+                                 Binding="{Binding IsConnected}"
+                                 Value="True">
+                        <Setter Value="CONNECTED"
+                                Property="Text"/>
+                        <Setter Property="TextColor"
+                                Value="Green"/>
+                    </DataTrigger>
+                    <DataTrigger TargetType="Label"
+                                 Binding="{Binding IsConnected}"
+                                 Value="False">
+                        <Setter Value="DISCONNECTED"
+                                Property="Text"/>
+                        <Setter Property="TextColor"
+                                Value="Red"/>
+                    </DataTrigger>
+                </Label.Triggers> 
+            </Label>
             <Label Text=""/>
+
+            <Label Text="RECONNECT TO A PREVIOUSLY USED DEVICE:"
+                   FontAttributes="Bold"
+                   HorizontalOptions="Center"/>
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Label Grid.Row="0"
+                       Grid.Column="1"
+                       Text="1)"/>
+                <Label Grid.Row="0"
+                       Grid.Column="2"
+                       Text="Navigate to this page on both devices"/>
+                <Label Grid.Row="1"
+                       Grid.Column="1"
+                       Text="2)"/>
+                <Label Grid.Row="1"
+                       Grid.Column="2"
+                       Text="On either device, tap the name of the other device in the list below:"/>
+                <Frame Grid.Row="2" 
+                       Grid.Column="0" 
+                       Grid.ColumnSpan="4" 
+                       Padding="1">
+                    <StackLayout x:Name="PairedDevicesList"
+                                 BindableLayout.ItemsSource="{Binding PairedDevices}"
+                                 BackgroundColor="Black">
+                        <BindableLayout.ItemTemplate>
+                            <DataTemplate>
+                                <StackLayout d:DataContext="{d:DesignInstance Type=wrappers:PartnerDevice, IsDesignTimeCreatable=False}"
+                                             Padding="10"
+                                             Orientation="Horizontal">
+                                    <Label Text="{Binding Name}"
+                                           HorizontalOptions="CenterAndExpand"
+                                           VerticalOptions="Center">
+                                        <Label.GestureRecognizers>
+                                            <!-- ReSharper disable once Xaml.BindingWithContextNotResolved -->
+                                            <TapGestureRecognizer Command="{Binding Source={x:Reference PairedDevicesList}, Path=BindingContext.AttemptConnectionCommand}"
+                                                                  CommandParameter="{Binding .}"/>
+                                        </Label.GestureRecognizers>
+                                    </Label>
+                                    <!-- ReSharper disable once Xaml.BindingWithContextNotResolved -->
+                                    <Button Text="Forget"
+                                            Command="{Binding Source={x:Reference PairedDevicesList}, Path=BindingContext.ForgetDeviceCommand}"
+                                            CommandParameter="{Binding .}"
+                                            VerticalOptions="Center"/>
+                                </StackLayout>
+                            </DataTemplate>
+                        </BindableLayout.ItemTemplate>
+                    </StackLayout>
+                </Frame>
+            </Grid>
+
             <Label Text=""/>
             <Label Text="FIRST TIME CONNECTING TWO DEVICES:"
                    FontAttributes="Bold"
                    HorizontalOptions="Center"/>
+
+            <Label Text="If you have two phones with CrossCam installed, you can connect them over Bluetooth in order to take simultaneous photos from two perspectives. This makes the best cross views possible. To get started, navigate them both to this page."/>
+
+            <Label Text="CrossCam will request permissions and power on components as needed in order to connect your devices. Please note: access to location services is required for step #2. CrossCam does not actually USE your location in any way, but because the act of searching for bluetooth devices could theoretically be used to find your location, CrossCam requires permission to access your location. You may not be used to seeing that because it is a newer change in the way mobile operating systems handle bluetooth permissions in order to more strongly protect your privacy. Once your devices are connected and remember each other, CrossCam will not require location access for reconnecting in the future - feel free to remove that permission."/>
+
+            <Label Text=""/>
             <Grid>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto"/>
@@ -90,78 +179,13 @@
                 </Frame>
             </Grid>
             <Label Text=""/>
-            <Label Text=""/>
-            <Label Text="RECONNECT TO A PREVIOUSLY USED DEVICE:"
-                   FontAttributes="Bold"
-                   HorizontalOptions="Center"/>
-            <Grid>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="Auto"/>
-                </Grid.RowDefinitions>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="Auto"/>
-                    <ColumnDefinition Width="Auto"/>
-                    <ColumnDefinition Width="*"/>
-                </Grid.ColumnDefinitions>
-                <Label Grid.Row="0"
-                       Grid.Column="1"
-                       Text="1)"/>
-                <Label Grid.Row="0"
-                       Grid.Column="2"
-                       Text="Navigate to this page on both devices"/>
-                <Label Grid.Row="1"
-                       Grid.Column="1"
-                       Text="2)"/>
-                <Label Grid.Row="1"
-                       Grid.Column="2"
-                       Text="On either device, tap the name of the other device in the list below:"/>
-                <Frame Grid.Row="2" 
-                       Grid.Column="0" 
-                       Grid.ColumnSpan="4" 
-                       Padding="1">
-                    <StackLayout x:Name="PairedDevicesList"
-                                 BindableLayout.ItemsSource="{Binding PairedDevices}"
-                                 BackgroundColor="Black">
-                        <BindableLayout.ItemTemplate>
-                            <DataTemplate>
-                                <StackLayout d:DataContext="{d:DesignInstance Type=wrappers:PartnerDevice, IsDesignTimeCreatable=False}"
-                                             Padding="10"
-                                             Orientation="Horizontal">
-                                    <Label Text="{Binding Name}"
-                                           HorizontalOptions="StartAndExpand"
-                                           VerticalOptions="Center">
-                                        <Label.GestureRecognizers>
-                                            <!-- ReSharper disable once Xaml.BindingWithContextNotResolved -->
-                                            <TapGestureRecognizer Command="{Binding Source={x:Reference PairedDevicesList}, Path=BindingContext.AttemptConnectionCommand}"
-                                                                  CommandParameter="{Binding .}"/>
-                                        </Label.GestureRecognizers>
-                                    </Label>
-                                    <!-- ReSharper disable once Xaml.BindingWithContextNotResolved -->
-                                    <Button Text="Forget"
-                                            Command="{Binding Source={x:Reference PairedDevicesList}, Path=BindingContext.ForgetDeviceCommand}"
-                                            CommandParameter="{Binding .}"
-                                            HorizontalOptions="EndAndExpand"
-                                            VerticalOptions="Center"/>
-                                </StackLayout>
-                            </DataTemplate>
-                        </BindableLayout.ItemTemplate>
-                    </StackLayout>
-                </Frame>
-            </Grid>
-            <Label Text=""/>
-            <Label Text=""/>
             <Label Text="TROUBLESHOOTING:"
                    FontAttributes="Bold"
                    HorizontalOptions="Center"/>
             <Label Text="You may have to wait a few seconds between steps."/>
-            <Label Text="To start over, tap the &quot;Forget&quot; button next to the device name above (if present) on both devices, then leave and come back to this page."/>
-            <Label Text="Make sure you have granted CrossCam permission to access bluetooth and your location."/>
+            <Label Text="You may have to try a step a second time."/>
+            <Label Text="To start over, tap the &quot;Forget&quot; button next to the device name at the top of the page (if present) on both devices, then leave and come back to this page."/>
+            <Label Text="If all else fails, please send me an email (see the help page)."/>
         </StackLayout>
     </ScrollView>
 </freshMvvm:FreshBaseContentPage>
