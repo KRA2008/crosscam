@@ -100,7 +100,6 @@ namespace CrossCam.Droid
             RegisterReceiver(_bluetoothReceiver, new IntentFilter(BluetoothDevice.ActionFound));
             RegisterReceiver(_bluetoothReceiver, new IntentFilter(BluetoothDevice.ActionAclConnected));
             RegisterReceiver(_bluetoothReceiver, new IntentFilter(BluetoothDevice.ActionAclDisconnected));
-            RegisterReceiver(_bluetoothReceiver, new IntentFilter(BluetoothDevice.ActionAclDisconnectRequested));
             RegisterReceiver(_bluetoothReceiver, new IntentFilter(BluetoothDevice.ActionBondStateChanged));
             LifecycleEventListener.OnAppMaximized();
 
@@ -331,8 +330,7 @@ namespace CrossCam.Droid
                 Debug.WriteLine("Bluetooth connected");
                 //yay!
             }
-            else if (BluetoothDevice.ActionAclDisconnected.Equals(intent.Action) ||
-                     BluetoothDevice.ActionAclDisconnectRequested.Equals(intent.Action))
+            else if (BluetoothDevice.ActionAclDisconnected.Equals(intent.Action))
             {
                 Debug.WriteLine("Bluetooth disconnected");
                 //hmmmm.

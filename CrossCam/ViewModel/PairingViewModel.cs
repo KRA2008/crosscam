@@ -19,6 +19,7 @@ namespace CrossCam.ViewModel
         public ObservableCollection<PartnerDevice> PairedDevices { get; set; }
         public ObservableCollection<PartnerDevice> DiscoveredDevices { get; set; }
 
+        public Command DisconnectCommand { get; set; }
         public Command InitializeBluetoothCommand { get; set; }
         public Command BecomeDiscoverableCommand { get; set; }
         public Command SearchForDevicesCommand { get; set; }
@@ -29,6 +30,12 @@ namespace CrossCam.ViewModel
         {
             _bluetooth = DependencyService.Get<IBluetooth>();
             DiscoveredDevices = new ObservableCollection<PartnerDevice>();
+
+            DisconnectCommand = new Command(() =>
+            {
+                _bluetooth.Disconnect();
+                RaisePropertyChanged(nameof(IsConnected));
+            });
 
             InitializeBluetoothCommand = new Command(async () =>
             {
@@ -58,21 +65,25 @@ namespace CrossCam.ViewModel
                             {
                                 try
                                 {
-                                    if (!await _bluetooth.ListenForConnections())
+                                    var didConnect = await _bluetooth.ListenForConnections();
+                                    if (didConnect.HasValue)
                                     {
-                                        await CoreMethods.DisplayAlert("Bluetooth Listening Failed",
-                                            "This device failed to begin listening for connections over bluetooth.",
-                                            "OK");
-                                    }
-                                    else
-                                    {
-                                        await ConnectionSucceeded();
+                                        if (!didConnect.Value)
+                                        {
+                                            await CoreMethods.DisplayAlert("Bluetooth Listening Timed Out",
+                                                "This device timed out waiting for connections over bluetooth. Please navigate away from and back to this page.",
+                                                "OK");
+                                        }
+                                        else
+                                        {
+                                            await ConnectionSucceeded();
+                                        }
                                     }
                                 }
                                 catch (Exception e)
                                 {
                                     await CoreMethods.DisplayAlert("Bluetooth Listening Failed",
-                                        "This device failed to begin listening for connections over bluetooth. Error: " + e,
+                                        "This device failed to begin listening for connections over bluetooth. Please navigate away from and back to this page. Error: " + e.Message,
                                         "OK");
                                 }
                             }
@@ -124,7 +135,7 @@ namespace CrossCam.ViewModel
                     {
                         RaisePropertyChanged(nameof(IsConnected));
                         await CoreMethods.DisplayAlert("Device Failed to Connect",
-                            "This device failed to connect over bluetooth.", "OK");
+                            "This device failed to connect over bluetooth. Please try again.", "OK");
                     }
                     else
                     {
@@ -134,7 +145,7 @@ namespace CrossCam.ViewModel
                 catch (Exception e)
                 {
                     await CoreMethods.DisplayAlert("Device Failed to Connect",
-                        "This device failed to connect over bluetooth. Error: " + e, "OK");
+                        "This device failed to connect over bluetooth. Please try again. Error: " + e.Message, "OK");
                 }
             });
 

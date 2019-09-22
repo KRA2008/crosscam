@@ -7,6 +7,7 @@ namespace CrossCam.Wrappers
     public interface IBluetooth
     {
         bool IsConnected();
+        void Disconnect();
         Task<bool> RequestBluetoothPermissions();
         Task<bool> RequestLocationPermissions();
         bool IsBluetoothSupported();
@@ -16,9 +17,11 @@ namespace CrossCam.Wrappers
         bool BeginSearchForDiscoverableDevices();
         event EventHandler<PartnerDevice> DeviceDiscovered;
         Task<bool> BecomeDiscoverable();
-        Task<bool> ListenForConnections();
+        Task<bool?> ListenForConnections();
         Task<bool> AttemptConnection(PartnerDevice partnerDevice);
         void ForgetDevice(PartnerDevice partnerDevice);
+        Task<bool> SendPreviewFrame(byte[] preview);
+        Task<byte[]> Capture(int countdownSeconds);
     }
 
     public class PartnerDevice
