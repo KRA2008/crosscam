@@ -22,9 +22,11 @@ namespace CrossCam.Droid.CustomRenderer
         public static TaskCompletionSource<bool> BluetoothPermissionsTask = new TaskCompletionSource<bool>();
         public static TaskCompletionSource<bool> LocationPermissionsTask = new TaskCompletionSource<bool>();
         public static TaskCompletionSource<bool> IsBluetoothOnTask = new TaskCompletionSource<bool>();
-        public static TaskCompletionSource<bool> IsLocationOnTask = new TaskCompletionSource<bool>();
         public static TaskCompletionSource<bool> IsDeviceDiscoverableTask = new TaskCompletionSource<bool>();
-        public static readonly ObservableCollection<BluetoothDevice> AvailableDevices = new ObservableCollection<BluetoothDevice>();
+        public static readonly ObservableCollection<BluetoothDevice> AvailableDevices =
+            new ObservableCollection<BluetoothDevice>();
+
+        private static TaskCompletionSource<bool> _isLocationOnTask = new TaskCompletionSource<bool>();
         private BluetoothSocket _bluetoothSocket;
 
         public Bluetooth()
@@ -93,10 +95,11 @@ namespace CrossCam.Droid.CustomRenderer
         {
             if (!checkOnly)
             {
-                IsLocationOnTask = new TaskCompletionSource<bool>();
+                _isLocationOnTask = new TaskCompletionSource<bool>();
             }
 
-            var googleApiClient = new GoogleApiClient.Builder(MainActivity.Instance).AddApi(LocationServices.API).Build();
+            var googleApiClient =
+                new GoogleApiClient.Builder(MainActivity.Instance).AddApi(LocationServices.API).Build();
             googleApiClient.Connect();
 
             var builder = new LocationSettingsRequest.Builder().AddLocationRequest(new LocationRequest());
@@ -109,7 +112,7 @@ namespace CrossCam.Droid.CustomRenderer
                 {
                     case CommonStatusCodes.Success:
                     {
-                        IsLocationOnTask.SetResult(true);
+                        _isLocationOnTask.SetResult(true);
                         break;
                     }
                     case CommonStatusCodes.ResolutionRequired:
@@ -118,16 +121,17 @@ namespace CrossCam.Droid.CustomRenderer
                         {
                             try
                             {
-                                callback.Status.StartResolutionForResult(MainActivity.Instance, (int)MainActivity.RequestCodes.TurnLocationServicesOnRequestCode);
+                                callback.Status.StartResolutionForResult(MainActivity.Instance,
+                                    (int) MainActivity.RequestCodes.TurnLocationServicesOnRequestCode);
                             }
                             catch (IntentSender.SendIntentException e)
                             {
-                                IsLocationOnTask.SetResult(false);
+                                _isLocationOnTask.SetResult(false);
                             }
                         }
                         else
                         {
-                            IsLocationOnTask.SetResult(false);
+                            _isLocationOnTask.SetResult(false);
                         }
 
                         break;
@@ -136,24 +140,26 @@ namespace CrossCam.Droid.CustomRenderer
                     {
                         if (!checkOnly)
                         {
-                            MainActivity.Instance.StartActivity(new Intent(Android.Provider.Settings.ActionLocationSourceSettings));
+                            MainActivity.Instance.StartActivity(new Intent(Android.Provider.Settings
+                                .ActionLocationSourceSettings));
                         }
                         else
                         {
-                            IsLocationOnTask.SetResult(false);
+                            _isLocationOnTask.SetResult(false);
                         }
                         break;
                     }
                 }
             });
 
-            return IsLocationOnTask.Task;
+            return _isLocationOnTask.Task;
         }
 
         public List<PartnerDevice> GetPairedDevices()
         {
             return BluetoothAdapter.DefaultAdapter.BondedDevices
-                .Select(device => new PartnerDevice { Name = device.Name ?? "Unnamed", Address = device.Address }).ToList();
+                .Select(device => new PartnerDevice {Name = device.Name ?? "Unnamed", Address = device.Address})
+                .ToList();
         }
 
         public bool BeginSearchForDiscoverableDevices()
@@ -212,7 +218,8 @@ namespace CrossCam.Droid.CustomRenderer
 
         public void ForgetDevice(PartnerDevice partnerDevice)
         {
-            var targetDevice = BluetoothAdapter.DefaultAdapter.BondedDevices.FirstOrDefault(d => d.Address == partnerDevice.Address);
+            var targetDevice =
+                BluetoothAdapter.DefaultAdapter.BondedDevices.FirstOrDefault(d => d.Address == partnerDevice.Address);
             if (targetDevice != null)
             {
                 var mi = targetDevice.Class.GetMethod("removeBond", null); 
