@@ -15,6 +15,11 @@ namespace CrossCam.iOS.CustomRenderer
             throw new NotImplementedException();
         }
 
+        public void Disconnect()
+        {
+            throw new NotImplementedException();
+        }
+
         public Task<bool> RequestBluetoothPermissions()
         {
             throw new NotImplementedException();
@@ -56,7 +61,7 @@ namespace CrossCam.iOS.CustomRenderer
             throw new NotImplementedException();
         }
 
-        public Task<bool> ListenForConnections()
+        public Task<bool?> ListenForConnections()
         {
             throw new NotImplementedException();
         }
@@ -67,6 +72,16 @@ namespace CrossCam.iOS.CustomRenderer
         }
 
         public void ForgetDevice(PartnerDevice partnerDevice)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<bool> SendPreviewFrame(byte[] preview)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<byte[]> Capture(int countdownSeconds)
         {
             throw new NotImplementedException();
         }
