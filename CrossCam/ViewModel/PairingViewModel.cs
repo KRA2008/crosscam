@@ -13,6 +13,9 @@ namespace CrossCam.ViewModel
     {
         private readonly IBluetooth _bluetooth;
         private int _isInitialized;
+        public bool IsConnected =>
+            _bluetooth != null && 
+            _bluetooth.IsConnected();
         public ObservableCollection<PartnerDevice> PairedDevices { get; set; }
         public ObservableCollection<PartnerDevice> DiscoveredDevices { get; set; }
 
@@ -39,14 +42,13 @@ namespace CrossCam.ViewModel
                     }
                     else
                     {
+                        PairedDevices = new ObservableCollection<PartnerDevice>(_bluetooth.GetPairedDevices());
                         if (!await _bluetooth.RequestBluetoothPermissions())
                         {
-                            await CoreMethods.DisplayAlert("Permissions Denied",
-                                "Permissions required for pairing were denied.", "OK");
+                            await DisplayPermissionsDeniedMessage();
                         }
                         else
                         {
-                            PairedDevices = new ObservableCollection<PartnerDevice>(_bluetooth.GetPairedDevices());
                             if (!await _bluetooth.TurnOnBluetooth())
                             {
                                 await CoreMethods.DisplayAlert("Bluetooth Not On",
@@ -54,18 +56,28 @@ namespace CrossCam.ViewModel
                             }
                             else
                             {
-                                if (!await _bluetooth.ListenForConnections())
+                                try
+                                {
+                                    if (!await _bluetooth.ListenForConnections())
+                                    {
+                                        await CoreMethods.DisplayAlert("Bluetooth Listening Failed",
+                                            "This device failed to begin listening for connections over bluetooth.",
+                                            "OK");
+                                    }
+                                    else
+                                    {
+                                        await ConnectionSucceeded();
+                                    }
+                                }
+                                catch (Exception e)
                                 {
                                     await CoreMethods.DisplayAlert("Bluetooth Listening Failed",
-                                        "This device failed to begin listening for connections over bluetooth.", "OK");
-                                }
-                                else
-                                {
-                                    PairedDevices = new ObservableCollection<PartnerDevice>(_bluetooth.GetPairedDevices());
-                                    await DisplayConnectionSuccessMessage();
+                                        "This device failed to begin listening for connections over bluetooth. Error: " + e,
+                                        "OK");
                                 }
                             }
                         }
+                        RaisePropertyChanged(nameof(IsConnected));
                     }
                 }
             });
@@ -81,31 +93,55 @@ namespace CrossCam.ViewModel
 
             SearchForDevicesCommand = new Command(async () =>
             {
-                DiscoveredDevices.Clear();
-                if (!_bluetooth.BeginSearchForDiscoverableDevices())
+                if (!await _bluetooth.RequestLocationPermissions())
                 {
-                    await CoreMethods.DisplayAlert("Device Failed to Search",
-                        "This device failed to search for discoverable devices over bluetooth.", "OK");
+                    await DisplayPermissionsDeniedMessage();
+                }
+                else
+                {
+                    if (!await _bluetooth.TurnOnLocationServices())
+                    {
+                        await CoreMethods.DisplayAlert("Location Services Off",
+                            "Location services were not turned on.", "OK");
+                    }
+                    else
+                    {
+                        DiscoveredDevices.Clear();
+                        if (!_bluetooth.BeginSearchForDiscoverableDevices())
+                        {
+                            await CoreMethods.DisplayAlert("Device Failed to Search",
+                                "This device failed to search for discoverable devices over bluetooth.", "OK");
+                        }
+                    }
                 }
             });
 
             AttemptConnectionCommand = new Command(async obj =>
             {
-                if (!await _bluetooth.AttemptConnection((PartnerDevice)obj))
+                try
+                {
+                    if (!await _bluetooth.AttemptConnection((PartnerDevice) obj))
+                    {
+                        RaisePropertyChanged(nameof(IsConnected));
+                        await CoreMethods.DisplayAlert("Device Failed to Connect",
+                            "This device failed to connect over bluetooth.", "OK");
+                    }
+                    else
+                    {
+                        await ConnectionSucceeded();
+                    }
+                }
+                catch (Exception e)
                 {
                     await CoreMethods.DisplayAlert("Device Failed to Connect",
-                        "This device failed to connect over bluetooth.", "OK");
-                }
-                else
-                {
-                    PairedDevices = new ObservableCollection<PartnerDevice>(_bluetooth.GetPairedDevices());
-                    await DisplayConnectionSuccessMessage();
+                        "This device failed to connect over bluetooth. Error: " + e, "OK");
                 }
             });
 
-            ForgetDeviceCommand = new Command(obj =>
+            ForgetDeviceCommand = new Command(async obj =>
             {
                 _bluetooth.ForgetDevice((PartnerDevice)obj);
+                await Task.Delay(500);
                 PairedDevices = new ObservableCollection<PartnerDevice>(_bluetooth.GetPairedDevices());
             });
         }
@@ -118,9 +154,17 @@ namespace CrossCam.ViewModel
             }
         }
 
-        private async Task DisplayConnectionSuccessMessage()
+        private async Task ConnectionSucceeded()
         {
+            RaisePropertyChanged(nameof(IsConnected));
             await CoreMethods.DisplayAlert("Connection Success", "Congrats!", "Yay");
+            PairedDevices = new ObservableCollection<PartnerDevice>(_bluetooth.GetPairedDevices());
+        }
+
+        private async Task DisplayPermissionsDeniedMessage()
+        {
+            await CoreMethods.DisplayAlert("Permissions Denied",
+                "Permissions required for pairing were denied.", "OK");
         }
 
         protected override void ViewIsAppearing(object sender, EventArgs e)

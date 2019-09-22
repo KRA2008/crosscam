@@ -6,9 +6,12 @@ namespace CrossCam.Wrappers
 {
     public interface IBluetooth
     {
+        bool IsConnected();
         Task<bool> RequestBluetoothPermissions();
+        Task<bool> RequestLocationPermissions();
         bool IsBluetoothSupported();
         Task<bool> TurnOnBluetooth();
+        Task<bool> TurnOnLocationServices();
         List<PartnerDevice> GetPairedDevices();
         bool BeginSearchForDiscoverableDevices();
         event EventHandler<PartnerDevice> DeviceDiscovered;
