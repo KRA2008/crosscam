@@ -33,6 +33,9 @@
                     </DataTrigger>
                 </Label.Triggers> 
             </Label>
+            <Button Text="Disconnect"
+                    Command="{Binding DisconnectCommand}"
+                    IsVisible="{Binding IsConnected}"/>
             <Label Text=""/>
 
             <Label Text="RECONNECT TO A PREVIOUSLY USED DEVICE:"

@@ -10,6 +10,7 @@ using Android.Gms.Common.Apis;
 using Android.Gms.Location;
 using CrossCam.Droid.CustomRenderer;
 using CrossCam.Wrappers;
+using Java.IO;
 using Java.Util;
 using Xamarin.Forms;
 using Application = Android.App.Application;
@@ -52,6 +53,11 @@ namespace CrossCam.Droid.CustomRenderer
         {
             return _bluetoothSocket != null && 
                    _bluetoothSocket.IsConnected;
+        }
+
+        public void Disconnect()
+        {
+            _bluetoothSocket?.Close();
         }
 
         public Task<bool> RequestBluetoothPermissions()
@@ -169,7 +175,6 @@ namespace CrossCam.Droid.CustomRenderer
         }
 
         public event EventHandler<PartnerDevice> DeviceDiscovered;
-
         private void OnDeviceDiscovered(PartnerDevice e)
         {
             var handler = DeviceDiscovered;
@@ -184,12 +189,33 @@ namespace CrossCam.Droid.CustomRenderer
             return IsDeviceDiscoverableTask.Task;
         }
 
-        public async Task<bool> ListenForConnections()
+        public async Task<bool?> ListenForConnections()
         {
             var serverSocket =
                 BluetoothAdapter.DefaultAdapter.ListenUsingRfcommWithServiceRecord(Application.Context.PackageName,
                     UUID.FromString(PartnerDevice.SDP_UUID));
-            _bluetoothSocket = await serverSocket.AcceptAsync();
+            try
+            {
+                _bluetoothSocket = await serverSocket.AcceptAsync();
+            }
+            catch (Exception e)
+            {
+                if (string.Equals(e.Message, "Try again", StringComparison.OrdinalIgnoreCase))
+                {
+                    if (_bluetoothSocket != null &&
+                        _bluetoothSocket.IsConnected)
+                    {
+                        serverSocket.Close();
+                        BluetoothAdapter.DefaultAdapter.CancelDiscovery();
+                        return null;
+                    }
+
+                    return false;
+                }
+
+                throw;
+            }
+
             if (_bluetoothSocket != null)
             {
                 serverSocket.Close();
@@ -197,23 +223,31 @@ namespace CrossCam.Droid.CustomRenderer
                 return _bluetoothSocket.IsConnected;
             }
 
+            serverSocket.Close();
             BluetoothAdapter.DefaultAdapter.CancelDiscovery();
             return false;
         }
 
         public async Task<bool> AttemptConnection(PartnerDevice partnerDevice)
         {
-            var targetDevice = BluetoothAdapter.DefaultAdapter.BondedDevices.Union(AvailableDevices)
-                .FirstOrDefault(d => d.Address == partnerDevice.Address);
-            if (targetDevice != null)
+            try
             {
-                _bluetoothSocket =
-                    targetDevice.CreateRfcommSocketToServiceRecord(UUID.FromString(PartnerDevice.SDP_UUID));
-                await _bluetoothSocket.ConnectAsync();
-                return _bluetoothSocket.IsConnected;
-            }
+                var targetDevice = BluetoothAdapter.DefaultAdapter.BondedDevices.Union(AvailableDevices)
+                    .FirstOrDefault(d => d.Address == partnerDevice.Address);
+                if (targetDevice != null)
+                {
+                    _bluetoothSocket =
+                        targetDevice.CreateRfcommSocketToServiceRecord(UUID.FromString(PartnerDevice.SDP_UUID));
+                    await _bluetoothSocket.ConnectAsync();
+                    return _bluetoothSocket.IsConnected;
+                }
 
-            return false;
+                return false;
+            }
+            catch (Exception e)
+            {
+                return false;
+            }
         }
 
         public void ForgetDevice(PartnerDevice partnerDevice)
@@ -225,6 +259,16 @@ namespace CrossCam.Droid.CustomRenderer
                 var mi = targetDevice.Class.GetMethod("removeBond", null); 
                 mi.Invoke(targetDevice, null);
             }
+        }
+
+        public Task<bool> SendPreviewFrame(byte[] preview)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<byte[]> Capture(int countdownSeconds)
+        {
+            throw new NotImplementedException();
         }
     }
 }
