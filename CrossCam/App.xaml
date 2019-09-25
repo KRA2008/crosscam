@@ -10,6 +10,12 @@
                 <Setter Property="FontSize"
                         Value="Small"/>
             </Style>
+            <Style TargetType="Span">
+                <Setter Property="TextColor"
+                        Value="White"/>
+                <Setter Property="FontSize"
+                        Value="Small"/>
+            </Style>
             <Style TargetType="NavigationPage" ApplyToDerivedTypes="True">
                 <Setter Property="BarTextColor" 
                         Value="White"/>

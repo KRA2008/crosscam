@@ -5,6 +5,7 @@
                             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
                             xmlns:vm="clr-namespace:CrossCam.ViewModel;assembly=CrossCam"
                             xmlns:fresh="clr-namespace:FreshMvvm;assembly=FreshMvvm"
+                            xmlns:customElement="clr-namespace:CrossCam.CustomElement;assembly=CrossCam"
                             mc:Ignorable="d"
              
                             d:DataContext="{d:DesignInstance Type=vm:TechniqueHelpViewModel, IsDesignTimeCreatable=False}"
@@ -34,7 +35,15 @@
                     Command="{Binding OpenPromotionalAlbumCommand}"/>
             <Label Text=" "/>
             <Label Text="One more thing - a lot of people are familiar with &quot;magic eye&quot; books and can easily look at the 3D in them. To see the 3D picture above correctly you CAN'T DO what you would normally do with those books. You need to make sure you are crossing your eyes, not making your eyes parallel or &quot;wall-eyed&quot;. If you aren't sure which one you are doing, you can ask someone else to watch your eyes and check if they are crossing. You can also look at the picture below as a test:"/>
-            <Image Source="fyi"/>
+            <AbsoluteLayout HorizontalOptions="Center"
+                            HeightRequest="179"
+                            WidthRequest="302">
+                <Image AbsoluteLayout.LayoutFlags="All" 
+                       AbsoluteLayout.LayoutBounds="0,0,1,1" 
+                       Aspect="AspectFit"
+                       Source="fyi"/>
+            </AbsoluteLayout>
+            <customElement:EmailMeLabel/>
         </StackLayout>
     </ScrollView>
 </fresh:FreshBaseContentPage>

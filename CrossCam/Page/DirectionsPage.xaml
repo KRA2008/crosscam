@@ -5,6 +5,7 @@
                             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
                             xmlns:vm="clr-namespace:CrossCam.ViewModel;assembly=CrossCam"
                             xmlns:fresh="clr-namespace:FreshMvvm;assembly=FreshMvvm"
+                            xmlns:customElement="clr-namespace:CrossCam.CustomElement;assembly=CrossCam"
                             mc:Ignorable="d"
              
                             d:DataContext="{d:DesignInstance Type=vm:DirectionsViewModel, IsDesignTimeCreatable=False}"
@@ -27,6 +28,7 @@
             <Label Text="~ If you would prefer to move the other direction for your second shot or would like to swap the sides just do a swipe."/>
             <Label Text="~ Tap the little folder icon on the bottom to load an image as a side or to load a full stereo image."/>
             <Label Text="~ CrossCam will automatically align your pictures vertically after you capture them. If you don't like how they were aligned, you can turn the automatic alignment off on the settings page."/>
+            <customElement:EmailMeLabel/>
         </StackLayout>
     </ScrollView>
 </fresh:FreshBaseContentPage>

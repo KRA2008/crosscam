@@ -5,6 +5,7 @@
                             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
                             xmlns:vm="clr-namespace:CrossCam.ViewModel;assembly=CrossCam"
                             xmlns:fresh="clr-namespace:FreshMvvm;assembly=FreshMvvm"
+                            xmlns:customElement="clr-namespace:CrossCam.CustomElement;assembly=CrossCam"
                             mc:Ignorable="d"
              
                             d:DataContext="{d:DesignInstance Type=vm:TipsViewModel, IsDesignTimeCreatable=False}"
@@ -60,6 +61,7 @@
                 <BoxView/>
                 <Label Text="There's a 'handedness' setting on the settings page in case you want that. It can put the capture/aperture button right, left, or centered."/>
                 <BoxView/>
+                <customElement:EmailMeLabel/>
             </StackLayout>
         </ScrollView>
     </ContentPage.Content>

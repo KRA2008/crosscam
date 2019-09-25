@@ -5,6 +5,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:vm="clr-namespace:CrossCam.ViewModel;assembly=CrossCam"
              xmlns:fresh="clr-namespace:FreshMvvm;assembly=FreshMvvm"
+             xmlns:customElement="clr-namespace:CrossCam.CustomElement;assembly=CrossCam"
              mc:Ignorable="d"
              
              d:DataContext="{d:DesignInstance Type=vm:HelpViewModel, IsDesignTimeCreatable=False}"
@@ -40,6 +41,7 @@
             <Button Text="About the Developer"
                     Command="{Binding AboutTheDeveloperCommand}"/>
             <BoxView/>
+            <customElement:EmailMeLabel/>
             <Label Text="{Binding AppVersion}"
                    HorizontalOptions="StartAndExpand"
                    VerticalOptions="EndAndExpand"

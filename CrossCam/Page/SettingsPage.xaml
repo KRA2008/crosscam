@@ -304,6 +304,7 @@
             <BoxView/>
             <Button Text="Reset to Defaults"
                     Command="{Binding ResetToDefaults}"/>
+            <ce:EmailMeLabel/>
         </StackLayout>
     </ScrollView>
 </fresh:FreshBaseContentPage>
