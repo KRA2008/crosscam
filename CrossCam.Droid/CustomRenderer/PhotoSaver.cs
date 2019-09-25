@@ -55,6 +55,10 @@ namespace CrossCam.Droid.CustomRenderer
                         {
                             var pickedDir = DocumentFile.FromTreeUri(MainActivity.Instance, Uri.Parse(destination));
                             var newFile = pickedDir.CreateFile("image/jpeg", currentTimeSeconds + ".jpg");
+                            if (newFile == null)
+                            {
+                                throw new DirectoryNotFoundException();
+                            }
                             destinationFinalUri = newFile.Uri;
                         }
                         else

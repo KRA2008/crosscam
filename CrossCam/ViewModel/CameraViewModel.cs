@@ -428,7 +428,7 @@ namespace CrossCam.ViewModel
             SaveCapturesCommand = new Command(async () =>
             {
                 WorkflowStage = WorkflowStage.Saving;
-                
+
                 try
                 {
                     await Task.Run(async () =>
@@ -501,10 +501,11 @@ namespace CrossCam.ViewModel
                                 var canvas = tempSurface.Canvas;
                                 canvas.Clear(SKColor.Empty);
 
-                                DrawTool.DrawImagesOnCanvas(canvas, LeftBitmap, RightBitmap, 
+                                DrawTool.DrawImagesOnCanvas(canvas, LeftBitmap, RightBitmap,
                                     Settings.BorderWidthProportion, Settings.AddBorder, Settings.BorderColor,
-                                    LeftCrop + OutsideCrop, InsideCrop + RightCrop, InsideCrop + LeftCrop, RightCrop + OutsideCrop,
-                                    TopCrop, BottomCrop, LeftRotation, RightRotation, 
+                                    LeftCrop + OutsideCrop, InsideCrop + RightCrop, InsideCrop + LeftCrop,
+                                    RightCrop + OutsideCrop,
+                                    TopCrop, BottomCrop, LeftRotation, RightRotation,
                                     VerticalAlignment, LeftZoom, RightZoom,
                                     LeftKeystone, RightKeystone, DrawMode.RedCyan);
 
@@ -532,7 +533,8 @@ namespace CrossCam.ViewModel
                         }
 
                         var finalImageWidth = DrawTool.CalculateJoinedCanvasWidthLessBorder(LeftBitmap, RightBitmap,
-                            LeftCrop + OutsideCrop, InsideCrop + RightCrop, InsideCrop + LeftCrop, RightCrop + OutsideCrop);
+                            LeftCrop + OutsideCrop, InsideCrop + RightCrop, InsideCrop + LeftCrop,
+                            RightCrop + OutsideCrop);
                         var borderThickness = Settings.AddBorder
                             ? (int) (DrawTool.BORDER_CONVERSION_FACTOR * Settings.BorderWidthProportion *
                                      finalImageWidth)
@@ -561,7 +563,8 @@ namespace CrossCam.ViewModel
 
                                 DrawTool.DrawImagesOnCanvas(canvas, LeftBitmap, RightBitmap,
                                     Settings.BorderWidthProportion, Settings.AddBorder, Settings.BorderColor,
-                                    LeftCrop + OutsideCrop, InsideCrop + RightCrop, InsideCrop + LeftCrop, RightCrop + OutsideCrop, 
+                                    LeftCrop + OutsideCrop, InsideCrop + RightCrop, InsideCrop + LeftCrop,
+                                    RightCrop + OutsideCrop,
                                     TopCrop, BottomCrop,
                                     LeftRotation, RightRotation,
                                     VerticalAlignment,
@@ -587,7 +590,8 @@ namespace CrossCam.ViewModel
 
                                 DrawTool.DrawImagesOnCanvas(canvas, LeftBitmap, RightBitmap,
                                     Settings.BorderWidthProportion, Settings.AddBorder, Settings.BorderColor,
-                                    LeftCrop + OutsideCrop, InsideCrop + RightCrop, InsideCrop + LeftCrop, RightCrop + OutsideCrop,
+                                    LeftCrop + OutsideCrop, InsideCrop + RightCrop, InsideCrop + LeftCrop,
+                                    RightCrop + OutsideCrop,
                                     TopCrop, BottomCrop,
                                     LeftRotation, RightRotation,
                                     VerticalAlignment,
@@ -599,6 +603,16 @@ namespace CrossCam.ViewModel
                             }
                         }
                     });
+                }
+                catch (DirectoryNotFoundException)
+                {
+                    SaveFailFadeTrigger = !SaveFailFadeTrigger;
+                    WorkflowStage = WorkflowStage.Final;
+
+                    await CoreMethods.DisplayAlert("Directory Not Found",
+                        "The save destination could not be found. Please choose another on the settings page.", "OK");
+
+                    return;
                 }
                 catch (Exception e)
                 {
