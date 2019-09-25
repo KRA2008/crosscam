@@ -9,9 +9,15 @@ namespace CrossCam.ViewModel
         public Command OpenWeirdVideoTutorialCommand { get; set; }
         public Command OpenShortVideoTutorialCommand { get; set; }
         public Command OpenPromotionalAlbumCommand { get; set; }
+        public Command OpenIAStateTutorialCommand { get; set; }
 
         public TechniqueHelpViewModel()
         {
+            OpenIAStateTutorialCommand = new Command(() =>
+            {
+                Device.OpenUri(new Uri("https://mslagell.public.iastate.edu/xtut/index.html"));
+            });
+
             OpenShortVideoTutorialCommand = new Command(() =>
             {
                 Device.OpenUri(new Uri("https://www.youtube.com/watch?v=zBa-bCxsZDk"));

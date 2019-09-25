@@ -26,6 +26,8 @@
             <Label Text="If you have trouble crossing your eyes, you can also try staring at your finger while you hold it halfway between your eyes and the screen. You should see the pictures starting to separate and overlap behind your finger."/>
             <Label Text=" "/>
             <Label Text="Additional tutorials:"/>
+            <Button Text="A nice text tutorial"
+                    Command="{Binding OpenIAStateTutorialCommand}"/>
             <Button Text="A short YouTube tutorial"
                     Command="{Binding OpenShortVideoTutorialCommand}"/>
             <Button Text="A long, odd, helpful YouTube tutorial"
