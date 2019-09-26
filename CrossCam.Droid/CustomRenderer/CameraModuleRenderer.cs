@@ -500,7 +500,10 @@ namespace CrossCam.Droid.CustomRenderer
         {
             try
             {
+                if (_textureView == null) return;
+
                 var metrics = new DisplayMetrics();
+                if (Display == null) return;
                 Display.GetMetrics(metrics);
 
                 var moduleWidth = (float) (_cameraModule.Width * metrics.Density);
@@ -589,6 +592,7 @@ namespace CrossCam.Droid.CustomRenderer
                 }
                 else
                 {
+                    if (_camera1 == null) return;
                     var parameters = _camera1.GetParameters();
                     parameters.SetRotation(rotation1);
                     _camera1.SetDisplayOrientation(rotation1);
