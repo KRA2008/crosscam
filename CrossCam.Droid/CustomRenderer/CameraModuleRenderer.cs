@@ -365,7 +365,6 @@ namespace CrossCam.Droid.CustomRenderer
 
         private void TakePhotoButtonTapped()
         {
-            System.Diagnostics.Debug.WriteLine("capture pressed!");
             if (_useCamera2)
             {
                 StartRealCapture2();
@@ -970,17 +969,6 @@ namespace CrossCam.Droid.CustomRenderer
         {
             try
             {
-                System.Diagnostics.Debug.WriteLine("CamState: " + _camera2State +
-                                " RequestTag: " + request.Tag +
-                                " AFTrigger: " + (ControlAFTrigger) (int) request.Get(CaptureRequest.ControlAfTrigger) +
-                                " AETrigger: " +
-                                (ControlAEPrecaptureTrigger) (int) request.Get(
-                                    CaptureRequest.ControlAePrecaptureTrigger) +
-                                " AFMode: " + (ControlAFMode) (int) request.Get(CaptureRequest.ControlAfMode) +
-                                " AEMode: " + (ControlAEMode) (int) request.Get(CaptureRequest.ControlAeMode) +
-                                " 3AMode: " + (ControlMode) (int) request.Get(CaptureRequest.ControlMode) +
-                                " AFState: " + (ControlAFState) (int) result.Get(CaptureResult.ControlAfState) +
-                                " AEState: " + (ControlAEState) (int) result.Get(CaptureResult.ControlAeState));
                 if (_camera2State == CameraState.Preview ||
                     _camera2State == CameraState.PictureTaken ||
                     _camera2State.ToString() != request.Tag.ToString())
@@ -1024,7 +1012,6 @@ namespace CrossCam.Droid.CustomRenderer
                     switch (_camera2State)
                     {
                         case CameraState.AwaitingPhotoCapture:
-                            System.Diagnostics.Debug.WriteLine("good capture found!");
                             CaptureStillPicture2();
                             break;
                         case CameraState.AwaitingTapLock:
@@ -1036,7 +1023,6 @@ namespace CrossCam.Droid.CustomRenderer
                                 return;
                             }
 
-                            System.Diagnostics.Debug.WriteLine("good lock found!");
 
                             _isCamera2FocusAndExposureLocked = true;
                             _cameraModule.IsFocusCircleLocked = true;
@@ -1164,11 +1150,9 @@ namespace CrossCam.Droid.CustomRenderer
                 var readerListener = new ImageAvailableListener();
                 readerListener.Photo += (sender, buffer) =>
                 {
-                    System.Diagnostics.Debug.WriteLine("listener photo callback");
                     Device.BeginInvokeOnMainThread(() =>
                     {
                         _cameraModule.CapturedImage = buffer;
-                        System.Diagnostics.Debug.WriteLine("just set buffer");
                     });
                 };
                 readerListener.Error += (sender, exception) => { _cameraModule.ErrorMessage = exception.ToString(); };
