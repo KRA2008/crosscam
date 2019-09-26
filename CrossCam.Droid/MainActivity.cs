@@ -114,18 +114,8 @@ namespace CrossCam.Droid
 
             if (requestCode == PICK_PHOTO_ID)
             {
-                if (resultCode == Result.Ok && 
-                    intent?.Data != null)
-                {
-                    var uri = intent.Data;
-                    var stream = ContentResolver.OpenInputStream(uri);
-                    var memoryStream = new MemoryStream();
-                    stream.CopyTo(memoryStream);
-                    
-                    PickPhotoTaskCompletionSource.SetResult(new [] {memoryStream.ToArray(), null});
-                }
-                else if (intent?.ClipData != null &&
-                         intent.ClipData.ItemCount > 1)
+                if (intent?.ClipData != null &&
+                    intent.ClipData.ItemCount > 1)
                 {
                     var item1 = intent.ClipData.GetItemAt(0);
                     var item2 = intent.ClipData.GetItemAt(1);
@@ -135,6 +125,16 @@ namespace CrossCam.Droid
                     await Task.WhenAll(image1Task, image2Task);
 
                     PickPhotoTaskCompletionSource.SetResult(new[] { image1Task.Result, image2Task.Result });
+                }
+                else if (resultCode == Result.Ok &&
+                         intent?.Data != null)
+                {
+                    var uri = intent.Data;
+                    var stream = ContentResolver.OpenInputStream(uri);
+                    var memoryStream = new MemoryStream();
+                    stream.CopyTo(memoryStream);
+
+                    PickPhotoTaskCompletionSource.SetResult(new[] { memoryStream.ToArray(), null });
                 }
                 else
                 {
