@@ -1003,13 +1003,11 @@ namespace CrossCam.Droid.CustomRenderer
                 }
 
                 if (afState != null &&
-                    afStateEnum != ControlAFState.FocusedLocked &&
-                    afStateEnum != ControlAFState.PassiveFocused &&
-                    afStateEnum != ControlAFState.Inactive
+                    (afStateEnum == ControlAFState.PassiveScan ||
+                     afStateEnum == ControlAFState.ActiveScan)
                     ||
                     aeState != null &&
-                    aeStateEnum != ControlAEState.Converged &&
-                    aeStateEnum != ControlAEState.Precapture) // if the capture is progressing (not complete) and already bad, we'll need another capture
+                    aeStateEnum == ControlAEState.Searching) // the capture is still progressing
                 {
                     return;
                 }
