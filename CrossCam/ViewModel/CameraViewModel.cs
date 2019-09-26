@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using System.Runtime.CompilerServices;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Web;
@@ -258,28 +259,11 @@ namespace CrossCam.ViewModel
 
             LoadPhotoCommand = new Command(async () =>
             {
-                //var loadType = await OpenLoadingPopup();
-
-                //if (loadType == CANCEL ||
-                //    loadType == null) return;
-
                 var photos = await DependencyService.Get<IPhotoPicker>().GetImages();
                 if (photos != null)
                 {
                     LoadSharedImages(photos[0], photos[1]);
                 }
-                //if (photo != null)
-                //{
-                //    if (loadType == FULL_IMAGE)
-                //    {
-                //        WorkflowStage = WorkflowStage.Loading;
-                //        await LoadFullStereoImage(photo);
-                //    }
-                //    else if (loadType == SINGLE_SIDE)
-                //    {
-                //        CapturedImageBytes = photo;
-                //    }
-                //}
             });
 
             RetakeLeftCommand = new Command(() =>
@@ -785,9 +769,9 @@ namespace CrossCam.ViewModel
         {
             try
             {
-                var leftHalf = await Task.Run(() => GetHalfOfFullStereoImage(image, true));
+                var leftHalf = await Task.Run(() => GetHalfOfFullStereoImage(image, true, Settings.ClipBorderOnLoad));
                 SetLeftBitmap(leftHalf, false);
-                var rightHalf = await Task.Run(() => GetHalfOfFullStereoImage(image, false));
+                var rightHalf = await Task.Run(() => GetHalfOfFullStereoImage(image, false, Settings.ClipBorderOnLoad));
                 SetRightBitmap(rightHalf, false);
             }
             catch (Exception e)
@@ -1030,7 +1014,7 @@ namespace CrossCam.ViewModel
             ZoomMax = bitmap.Height / 12;
         }
 
-        private static SKBitmap GetHalfOfFullStereoImage(byte[] bytes, bool wantLeft) 
+        private static SKBitmap GetHalfOfFullStereoImage(byte[] bytes, bool wantLeft, bool clipBorder) 
         {
             var original = SKBitmap.Decode(bytes);
 
@@ -1051,52 +1035,55 @@ namespace CrossCam.ViewModel
             var startY = 0;
             var endY = original.Height - 1;
 
-            var topLeftColor = GetTotalColor(original.GetPixel(startX, startY));
-            var topRightColor = GetTotalColor(original.GetPixel(endX, startY));
-            var bottomRightColor = GetTotalColor(original.GetPixel(endX, endY));
-            var bottomLeftColor = GetTotalColor(original.GetPixel(startX, endY));
-
-            if (Math.Abs(topLeftColor - topRightColor) < BORDER_DIFF_THRESHOLD &&
-                Math.Abs(topRightColor - bottomRightColor) < BORDER_DIFF_THRESHOLD &&
-                Math.Abs(bottomRightColor - bottomLeftColor) < BORDER_DIFF_THRESHOLD &&
-                Math.Abs(bottomLeftColor - topLeftColor) < BORDER_DIFF_THRESHOLD &&
-                Math.Abs(topLeftColor - bottomRightColor) < BORDER_DIFF_THRESHOLD &&
-                Math.Abs(topRightColor - bottomLeftColor) < BORDER_DIFF_THRESHOLD)
+            if (clipBorder)
             {
-                for (var ii = startX; ii < startX + (endX - startX) / 2; ii++)
+                var topLeftColor = GetTotalColor(original.GetPixel(startX, startY));
+                var topRightColor = GetTotalColor(original.GetPixel(endX, startY));
+                var bottomRightColor = GetTotalColor(original.GetPixel(endX, endY));
+                var bottomLeftColor = GetTotalColor(original.GetPixel(startX, endY));
+
+                if (Math.Abs(topLeftColor - topRightColor) < BORDER_DIFF_THRESHOLD &&
+                    Math.Abs(topRightColor - bottomRightColor) < BORDER_DIFF_THRESHOLD &&
+                    Math.Abs(bottomRightColor - bottomLeftColor) < BORDER_DIFF_THRESHOLD &&
+                    Math.Abs(bottomLeftColor - topLeftColor) < BORDER_DIFF_THRESHOLD &&
+                    Math.Abs(topLeftColor - bottomRightColor) < BORDER_DIFF_THRESHOLD &&
+                    Math.Abs(topRightColor - bottomLeftColor) < BORDER_DIFF_THRESHOLD)
                 {
-                    var color = original.GetPixel(ii, endY / 2);
-                    if (Math.Abs(color.Red + color.Green + color.Blue - topLeftColor) > BORDER_DIFF_THRESHOLD)
+                    for (var ii = startX; ii < startX + (endX - startX) / 2; ii++)
                     {
-                        leftBorder = ii - startX;
-                        break;
+                        var color = original.GetPixel(ii, endY / 2);
+                        if (Math.Abs(color.Red + color.Green + color.Blue - topLeftColor) > BORDER_DIFF_THRESHOLD)
+                        {
+                            leftBorder = ii - startX;
+                            break;
+                        }
                     }
-                }
-                for (var ii = startY; ii < endY / 2; ii++)
-                {
-                    var color = original.GetPixel(startX + (endX - startX) / 2, ii);
-                    if (Math.Abs(color.Red + color.Green + color.Blue - topLeftColor) > BORDER_DIFF_THRESHOLD)
+                    for (var ii = startY; ii < endY / 2; ii++)
                     {
-                        topBorder = ii - startY;
-                        break;
+                        var color = original.GetPixel(startX + (endX - startX) / 2, ii);
+                        if (Math.Abs(color.Red + color.Green + color.Blue - topLeftColor) > BORDER_DIFF_THRESHOLD)
+                        {
+                            topBorder = ii - startY;
+                            break;
+                        }
                     }
-                }
-                for (var ii = endX; ii > startX + (endX - startX) / 2; ii--)
-                {
-                    var color = original.GetPixel(ii, endY / 2);
-                    if (Math.Abs(color.Red + color.Green + color.Blue - topLeftColor) > BORDER_DIFF_THRESHOLD)
+                    for (var ii = endX; ii > startX + (endX - startX) / 2; ii--)
                     {
-                        rightBorder = endX - ii;
-                        break;
+                        var color = original.GetPixel(ii, endY / 2);
+                        if (Math.Abs(color.Red + color.Green + color.Blue - topLeftColor) > BORDER_DIFF_THRESHOLD)
+                        {
+                            rightBorder = endX - ii;
+                            break;
+                        }
                     }
-                }
-                for (var ii = endY; ii > endY / 2; ii--)
-                {
-                    var color = original.GetPixel(startX + (endX - startX) / 2, ii);
-                    if (Math.Abs(color.Red + color.Green + color.Blue - topLeftColor) > BORDER_DIFF_THRESHOLD)
+                    for (var ii = endY; ii > endY / 2; ii--)
                     {
-                        bottomBorder = endY - ii;
-                        break;
+                        var color = original.GetPixel(startX + (endX - startX) / 2, ii);
+                        if (Math.Abs(color.Red + color.Green + color.Blue - topLeftColor) > BORDER_DIFF_THRESHOLD)
+                        {
+                            bottomBorder = endY - ii;
+                            break;
+                        }
                     }
                 }
             }

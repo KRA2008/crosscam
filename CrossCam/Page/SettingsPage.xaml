@@ -61,7 +61,8 @@
                    Style="{DynamicResource header}"/>
             <StackLayout Orientation="Horizontal">
                 <Label Text="Add border"/>
-                <Switch IsToggled="{Binding Settings.AddBorder}"/>
+                <Switch IsToggled="{Binding Settings.AddBorder}"
+                        HorizontalOptions="EndAndExpand"/>
             </StackLayout>
             <StackLayout Orientation="Horizontal">
                 <Label Text="Border color"/>
@@ -75,6 +76,11 @@
                 <Picker ItemsSource="{Binding ZeroToOneHundred}"
                         SelectedIndex="{Binding Settings.BorderWidthProportion}"
                         BackgroundColor="White"
+                        HorizontalOptions="EndAndExpand"/>
+            </StackLayout>
+            <StackLayout Orientation="Horizontal">
+                <Label Text="Clip border off when loading stereo pair"/>
+                <Switch IsToggled="{Binding Settings.ClipBorderOnLoad}"
                         HorizontalOptions="EndAndExpand"/>
             </StackLayout>
             <BoxView/>

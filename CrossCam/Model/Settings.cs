@@ -67,6 +67,8 @@ namespace CrossCam.Model
 
         public bool AddBorder { get; set; }
 
+        public bool ClipBorderOnLoad { get; set; }
+
         private Handedness _handedness;
         public Handedness Handedness
         {
@@ -241,6 +243,7 @@ namespace CrossCam.Model
             ShowRollGuide = true;
 
             AddBorder = false;
+            ClipBorderOnLoad = true;
 
             ShowGuideLinesWithFirstCapture = false;
             IsGuideDonutVisible = false;
