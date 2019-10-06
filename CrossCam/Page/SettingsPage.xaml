@@ -90,6 +90,11 @@
                 <Label Text="Automatically align after capture"/>
                 <Switch IsToggled="{Binding Settings.IsAutomaticAlignmentOn}"/>
             </StackLayout>
+            <StackLayout Orientation="Horizontal">
+                <Label Text="Align horizontally (for side by side)"/>
+                <Switch IsToggled="{Binding Settings.AlignHorizontallySideBySide}"
+                        IsEnabled="{Binding Settings.IsAutomaticAlignmentOn}"/>
+            </StackLayout>
             <StackLayout Orientation="Horizontal"
                          IsVisible="{ce:DebugMarkupExtension}">
                 <Label Text="Iterations"/>

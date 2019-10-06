@@ -177,8 +177,8 @@ namespace CrossCam.ViewModel
 
         private WorkflowStage _stageBeforeView;
         private int _alignmentThreadLock;
-        private bool _wasAnaglyphAlignmentRun;
-        private bool _wasSideBySideAlignmentRun;
+        private bool _wasAlignmentWithHorizontalRun;
+        private bool _wasAlignmentWithoutHorizontalRun;
         private readonly IPhotoSaver _photoSaver;
 
         public CameraViewModel()
@@ -230,11 +230,11 @@ namespace CrossCam.ViewModel
                 else if (args.PropertyName == nameof(Settings))
                 {
                     var alignmentWasRunButIsOffNow = !Settings.IsAutomaticAlignmentOn &&
-                                                      (_wasSideBySideAlignmentRun ||
-                                                       _wasAnaglyphAlignmentRun);
+                                                      (_wasAlignmentWithoutHorizontalRun ||
+                                                       _wasAlignmentWithHorizontalRun);
                     var otherAlignmentModeWasRun = Settings.IsAutomaticAlignmentOn &&
-                                                   (_wasAnaglyphAlignmentRun && !Settings.RedCyanAnaglyphMode ||
-                                                    _wasSideBySideAlignmentRun && Settings.RedCyanAnaglyphMode);
+                                                   (_wasAlignmentWithHorizontalRun && !Settings.RedCyanAnaglyphMode && !Settings.AlignHorizontallySideBySide ||
+                                                    _wasAlignmentWithoutHorizontalRun && (Settings.RedCyanAnaglyphMode || Settings.AlignHorizontallySideBySide));
                     if (alignmentWasRunButIsOffNow ||
                         otherAlignmentModeWasRun)
                     {
@@ -438,8 +438,8 @@ namespace CrossCam.ViewModel
                                 if (IsCaptureLeftFirst)
                                 {
                                     innerLeftBitmap = LeftBitmap;
-                                    if (_wasAnaglyphAlignmentRun ||
-                                        _wasSideBySideAlignmentRun)
+                                    if (_wasAlignmentWithHorizontalRun ||
+                                        _wasAlignmentWithoutHorizontalRun)
                                     {
                                         innerRightBitmap = _originalUnalignedBitmap;
                                     }
@@ -451,8 +451,8 @@ namespace CrossCam.ViewModel
                                 else
                                 {
                                     innerRightBitmap = RightBitmap;
-                                    if (_wasAnaglyphAlignmentRun ||
-                                        _wasSideBySideAlignmentRun)
+                                    if (_wasAlignmentWithHorizontalRun ||
+                                        _wasAlignmentWithoutHorizontalRun)
                                     {
                                         innerLeftBitmap = _originalUnalignedBitmap;
                                     }
@@ -797,8 +797,8 @@ namespace CrossCam.ViewModel
             if (Settings.IsAutomaticAlignmentOn &&
                 LeftBitmap != null &&
                 RightBitmap != null &&
-                !_wasAnaglyphAlignmentRun &&
-                !_wasSideBySideAlignmentRun &&
+                !_wasAlignmentWithHorizontalRun &&
+                !_wasAlignmentWithoutHorizontalRun &&
                 0 == Interlocked.Exchange(ref _alignmentThreadLock, 1))
             {
                 WorkflowStage = WorkflowStage.AutomaticAlign;
@@ -820,7 +820,7 @@ namespace CrossCam.ViewModel
                                 Settings.AlignmentEpsilonLevel2,
                                 Settings.AlignmentEccThresholdPercentage2,
                                 Settings.AlignmentPyramidLayers2,
-                                !Settings.RedCyanAnaglyphMode);
+                                !Settings.RedCyanAnaglyphMode && !Settings.AlignHorizontallySideBySide);
                         });
                     }
                     catch (Exception e)
@@ -830,8 +830,8 @@ namespace CrossCam.ViewModel
 
                     if (alignedResult != null)
                     {
-                        _wasAnaglyphAlignmentRun = Settings.RedCyanAnaglyphMode;
-                        _wasSideBySideAlignmentRun = !Settings.RedCyanAnaglyphMode;
+                        _wasAlignmentWithHorizontalRun = Settings.RedCyanAnaglyphMode || Settings.AlignHorizontallySideBySide;
+                        _wasAlignmentWithoutHorizontalRun = !Settings.RedCyanAnaglyphMode && !Settings.AlignHorizontallySideBySide;
 
                         var topLeft = alignedResult.TransformMatrix.MapPoint(0, 0);
                         var topRight = alignedResult.TransformMatrix.MapPoint(alignedResult.AlignedBitmap.Width - 1, 0);
@@ -839,6 +839,9 @@ namespace CrossCam.ViewModel
                             alignedResult.AlignedBitmap.Height - 1);
                         var bottomLeft =
                             alignedResult.TransformMatrix.MapPoint(0, alignedResult.AlignedBitmap.Height - 1);
+
+                        //this actually cuts off a bit more than it has to, but it is inconsequential for small deviations
+                        //(it cuts at the corner of the original image, not at the point where the original border crosses the new border)
 
                         if (topLeft.Y > topRight.Y)
                         {
@@ -871,70 +874,45 @@ namespace CrossCam.ViewModel
                             }
                         }
 
-                        var alignedLeftCrop = 0;
                         if (topLeft.X > bottomLeft.X)
                         {
                             if (topLeft.X > 0)
                             {
-                                alignedLeftCrop = (int) topLeft.X;
+                                LeftCrop = (int) topLeft.X;
                             }
                         }
                         else
                         {
                             if (bottomLeft.X > 0)
                             {
-                                alignedLeftCrop = (int) bottomLeft.X;
+                                LeftCrop = (int) bottomLeft.X;
                             }
                         }
 
-                        var alignedRightCrop = 0;
                         var maxX = alignedResult.AlignedBitmap.Width - 1;
                         if (topRight.X < bottomRight.X)
                         {
                             if (topRight.X < maxX)
                             {
-                                alignedRightCrop = (int) (maxX - topRight.X);
+                                RightCrop = (int) (maxX - topRight.X);
                             }
                         }
                         else
                         {
                             if (bottomRight.X < maxX)
                             {
-                                alignedRightCrop = (int) (maxX - bottomRight.X);
+                                RightCrop = (int) (maxX - bottomRight.X);
                             }
                         }
-
-                        //this actually cuts off a bit more than it has to, but it is inconsequential for small deviations
-                        //(it cuts at the corner of the original image, not at the point where the original border crosses the new border)
 
                         if (IsCaptureLeftFirst)
                         {
                             _originalUnalignedBitmap = RightBitmap;
-                            if (Settings.RedCyanAnaglyphMode)
-                            {
-                                RightCrop = alignedRightCrop;
-                                LeftCrop = alignedLeftCrop;
-                            }
-                            else
-                            {
-                                OutsideCrop = alignedRightCrop;
-                                InsideCrop = alignedLeftCrop;
-                            }
                             SetRightBitmap(alignedResult.AlignedBitmap);
                         }
                         else
                         {
                             _originalUnalignedBitmap = LeftBitmap;
-                            if (Settings.RedCyanAnaglyphMode)
-                            {
-                                RightCrop = alignedRightCrop;
-                                LeftCrop = alignedLeftCrop;
-                            }
-                            else
-                            {
-                                InsideCrop = alignedRightCrop;
-                                OutsideCrop = alignedLeftCrop;
-                            }
                             SetLeftBitmap(alignedResult.AlignedBitmap);
                         }
                     }
@@ -1239,8 +1217,8 @@ namespace CrossCam.ViewModel
             CropMode = CropMode.Inside;
             if (andAutomaticAlignmentFlags)
             {
-                _wasSideBySideAlignmentRun = false;
-                _wasAnaglyphAlignmentRun = false;
+                _wasAlignmentWithoutHorizontalRun = false;
+                _wasAlignmentWithHorizontalRun = false;
             }
         }
 

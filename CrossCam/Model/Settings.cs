@@ -122,7 +122,21 @@ namespace CrossCam.Model
             }
         }
 
-        public bool IsAutomaticAlignmentOn { get; set; }
+        private bool _isAutomaticAlignmentOn;
+        public bool IsAutomaticAlignmentOn
+        {
+            get => _isAutomaticAlignmentOn;
+            set
+            {
+                _isAutomaticAlignmentOn = value;
+                if (!value)
+                {
+                    AlignHorizontallySideBySide = false;
+                }
+            }
+        }
+
+        public bool AlignHorizontallySideBySide { get; set; }
 
         private int _alignmentEpsilonLevel2;
         public int AlignmentEpsilonLevel2
@@ -227,6 +241,8 @@ namespace CrossCam.Model
             BorderColor = BorderColor.Black;
 
             IsAutomaticAlignmentOn = true;
+            AlignHorizontallySideBySide = true;
+
             AlignmentDownsizePercentage2 = 35;
             AlignmentEpsilonLevel2 = 3;
             AlignmentIterations2 = 50;

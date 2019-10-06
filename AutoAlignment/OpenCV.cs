@@ -123,7 +123,7 @@ namespace AutoAlignment
                 ptr++; //TransX
                 if (discardTransX)
                 {
-                    *ptr = 0; //discard for side-by-side
+                    *ptr = 0;
                 }
                 skMatrix.TransX = *ptr;
                 ptr++; //SkewY
