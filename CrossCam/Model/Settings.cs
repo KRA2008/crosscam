@@ -20,50 +20,11 @@ namespace CrossCam.Model
         public bool SaveRedundantFirstSide { get; set; }
 
         public string SavingDirectory { get; set; }
+
         public bool SaveToExternal { get; set; }
-
-        private bool _saveForParallel;
-        public bool SaveForParallel
-        {
-            get => _saveForParallel;
-            set
-            {
-                if (value)
-                {
-                    RedCyanAnaglyphMode = false;
-                }
-                _saveForParallel = value;
-            }
-        }
-
-        private bool _saveForCrossView;
-        public bool SaveForCrossView
-        {
-            get => _saveForCrossView;
-            set
-            {
-                if (value)
-                {
-                    RedCyanAnaglyphMode = false;
-                }
-                _saveForCrossView = value;
-            }
-        }
-
-        private bool _redCyanAnaglyphMode;
-        public bool RedCyanAnaglyphMode
-        {
-            get => _redCyanAnaglyphMode;
-            set
-            {
-                if (value)
-                {
-                    SaveForParallel = false;
-                    SaveForCrossView = false;
-                }
-                _redCyanAnaglyphMode = value;
-            }
-        }
+        public bool SaveForParallel { get; set; }
+        public bool SaveForCrossView { get; set; }
+        public bool RedCyanAnaglyphMode { get; set; }
 
         public bool AddBorder { get; set; }
 

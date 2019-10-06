@@ -198,7 +198,7 @@
                        Style="{StaticResource saveModes}"/>
                 <Label Grid.Row="4"
                        Grid.Column="1"
-                       Text="Save first side alone (with no edits or border) (for sharing basic photo with flat view people)"/>
+                       Text="Save first side alone (with no edits or border) (for sharing flat photo with flat view people)"/>
                 <Switch Grid.Row="4"
                         Grid.Column="2"
                         IsToggled="{Binding Settings.SaveRedundantFirstSide}"
@@ -209,7 +209,7 @@
                        Style="{StaticResource saveModes}"/>
                 <Label Grid.Row="5"
                        Grid.Column="1"
-                       Text="Red/cyan anaglyph mode (also changes edit mode to red/cyan anaglyph)"/>
+                       Text="Red/cyan anaglyph mode (with edits but no border) (also changes edit mode to red/cyan anaglyph)"/>
                 <Switch Grid.Row="5"
                         Grid.Column="2"
                         IsToggled="{Binding Settings.RedCyanAnaglyphMode}"/>
