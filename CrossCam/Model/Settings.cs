@@ -129,10 +129,7 @@ namespace CrossCam.Model
             set
             {
                 _isAutomaticAlignmentOn = value;
-                if (!value)
-                {
-                    AlignHorizontallySideBySide = false;
-                }
+                AlignHorizontallySideBySide = value;
             }
         }
 
