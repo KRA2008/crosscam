@@ -323,6 +323,7 @@ namespace CrossCam.Droid
             if (BluetoothDevice.ActionFound.Equals(intent.Action))
             {
                 var bluetoothDevice = (BluetoothDevice) intent.GetParcelableExtra(BluetoothDevice.ExtraDevice);
+                //TODO: limit this only to devices that actually advertise with CrossCam's UUID
                 Bluetooth.AvailableDevices.Add(bluetoothDevice);
             }
             else if (BluetoothDevice.ActionAclConnected.Equals(intent.Action))
