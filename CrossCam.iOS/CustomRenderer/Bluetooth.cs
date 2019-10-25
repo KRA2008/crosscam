@@ -21,11 +21,13 @@ namespace CrossCam.iOS.CustomRenderer
             new ObservableCollection<CBPeripheral>();
 
         private CBCentralManager _centralManager;
+        private BluetoothManagerDelegate _managerDelegate;
 
         public event EventHandler<PartnerDevice> DeviceDiscovered;
 
         public Bluetooth()
         {
+            _managerDelegate = new BluetoothManagerDelegate();
             AvailableDevices.CollectionChanged += (sender, args) =>
             {
                 if (args.Action == NotifyCollectionChangedAction.Add)
@@ -90,11 +92,11 @@ namespace CrossCam.iOS.CustomRenderer
 
         public bool BeginSearchForDiscoverableDevices()
         {
-            var managerDelegate = new BluetoothManagerDelegate();
-            _centralManager = new CBCentralManager(managerDelegate, DispatchQueue.DefaultGlobalQueue,
+            _centralManager = new CBCentralManager(_managerDelegate, DispatchQueue.DefaultGlobalQueue,
                 new CBCentralInitOptions());
-            _centralManager.ScanForPeripherals(CBUUID.FromString(PartnerDevice.SDP_UUID));
-            return false;
+            _centralManager.ScanForPeripherals(new CBUUID[]{});
+            //_centralManager.ScanForPeripherals(CBUUID.FromString(PartnerDevice.SDP_UUID));
+            return true;
         }
 
         public Task<bool> BecomeDiscoverable()
