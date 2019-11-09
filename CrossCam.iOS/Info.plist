@@ -51,6 +51,11 @@
   <string>This app uses bluetooth to connect two cameras for simultaneous capture</string>
   <key>NSBluetoothPeripheralUsageDescription</key>
   <string>This app uses bluetooth to connect two cameras for simultaneous capture</string>
+  <key>UIBackgroundModes</key>
+  <array>
+    <string>bluetooth-central</string>
+    <string>bluetooth-peripheral</string>
+  </array>
 	<key>UIMainStoryboardFile</key>
 	<string>LaunchScreen</string>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
