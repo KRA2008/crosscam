@@ -1,10 +1,12 @@
 ﻿using System;
 using System.Collections.ObjectModel;
+using System.Diagnostics;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using CrossCam.Wrappers;
 using FreshMvvm;
+using Plugin.BluetoothLE;
 using Xamarin.Forms;
 
 namespace CrossCam.ViewModel
@@ -118,11 +120,16 @@ namespace CrossCam.ViewModel
                     else
                     {
                         DiscoveredDevices.Clear();
-                        if (!_bluetooth.BeginSearchForDiscoverableDevices())
+
+                        CrossBleAdapter.Current.Scan().Subscribe(scanResult =>
                         {
-                            await CoreMethods.DisplayAlert("Device Failed to Search",
-                                "This device failed to search for discoverable devices over bluetooth.", "OK");
-                        }
+                            Debug.WriteLine("Aritchie device found: " + scanResult.Device.Name);
+                        });
+                        //if (!_bluetooth.BeginSearchForDiscoverableDevices())
+                        //{
+                        //    await CoreMethods.DisplayAlert("Device Failed to Search",
+                        //        "This device failed to search for discoverable devices over bluetooth.", "OK");
+                        //}
                     }
                 }
             });
