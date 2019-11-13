@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Linq;
@@ -9,6 +10,7 @@ using FreshMvvm;
 using Plugin.BluetoothLE;
 using Plugin.BluetoothLE.Server;
 using Xamarin.Forms;
+using IDevice = Plugin.BluetoothLE.IDevice;
 
 namespace CrossCam.ViewModel
 {
@@ -16,11 +18,9 @@ namespace CrossCam.ViewModel
     {
         private readonly IBluetooth _bluetooth;
         private int _isInitialized;
-        public bool IsConnected =>
-            _bluetooth != null && 
-            _bluetooth.IsConnected();
-        public ObservableCollection<PartnerDevice> PairedDevices { get; set; }
-        public ObservableCollection<PartnerDevice> DiscoveredDevices { get; set; }
+        public bool IsConnected { get; set; }
+        public ObservableCollection<IDevice> PairedDevices { get; set; }
+        public ObservableCollection<IDevice> DiscoveredDevices { get; set; }
         public const string SDP_UUID = "492a8e3d-2589-40b1-b9c2-419a7ce80f3c";
 
         public Command DisconnectCommand { get; set; }
@@ -33,7 +33,12 @@ namespace CrossCam.ViewModel
         public PairingViewModel()
         {
             _bluetooth = DependencyService.Get<IBluetooth>();
-            DiscoveredDevices = new ObservableCollection<PartnerDevice>();
+            DiscoveredDevices = new ObservableCollection<IDevice>();
+
+            CrossBleAdapter.Current.WhenStatusChanged().Subscribe(status =>
+            {
+                Debug.WriteLine("### Status changed: " + status);
+            });
 
             DisconnectCommand = new Command(() =>
             {
@@ -53,7 +58,7 @@ namespace CrossCam.ViewModel
                     }
                     else
                     {
-                        PairedDevices = new ObservableCollection<PartnerDevice>(_bluetooth.GetPairedDevices());
+                        GetPairedDevices();
                         if (!await _bluetooth.RequestBluetoothPermissions())
                         {
                             await DisplayPermissionsDeniedMessage();
@@ -67,28 +72,9 @@ namespace CrossCam.ViewModel
                             }
                             else
                             {
-                                try
+                                if (CrossBleAdapter.Current.CanControlAdapterState())
                                 {
-                                    var didConnect = await _bluetooth.ListenForConnections();
-                                    if (didConnect.HasValue)
-                                    {
-                                        if (!didConnect.Value)
-                                        {
-                                            await CoreMethods.DisplayAlert("Bluetooth Listening Timed Out",
-                                                "This device timed out waiting for connections over bluetooth. Please navigate away from and back to this page.",
-                                                "OK");
-                                        }
-                                        else
-                                        {
-                                            await ConnectionSucceeded();
-                                        }
-                                    }
-                                }
-                                catch (Exception e)
-                                {
-                                    await CoreMethods.DisplayAlert("Bluetooth Listening Failed",
-                                        "This device failed to begin listening for connections over bluetooth. Please navigate away from and back to this page. Error: " + e.Message,
-                                        "OK");
+                                    CrossBleAdapter.Current.SetAdapterState(true);
                                 }
                             }
                         }
@@ -112,6 +98,16 @@ namespace CrossCam.ViewModel
                         );
                     });
                 });
+
+                CrossBleAdapter.Current.Advertiser.Stop();
+                CrossBleAdapter.Current.Advertiser.Start(new AdvertisementData
+                {
+                    //TODO: something about android naming here - use device or specify or something, comes up blank on Nexus 4
+                    ServiceUuids = new List<Guid>
+                    {
+                        Guid.Parse(SDP_UUID)
+                    }
+                });
             });
 
             SearchForDevicesCommand = new Command(async () =>
@@ -130,24 +126,25 @@ namespace CrossCam.ViewModel
                     else
                     {
                         DiscoveredDevices.Clear();
-
-                        CrossBleAdapter.Current.Scan().Subscribe(scanResult =>
+                        CrossBleAdapter.Current.StopScan();
+                        CrossBleAdapter.Current.Scan(new ScanConfig
                         {
-                            Debug.WriteLine("### Aritchie device found: " + scanResult.Device.Name + " ID: " + scanResult.Device.Uuid);
-                            if (DiscoveredDevices.All(d => d.Address != scanResult.Device.Uuid.ToString()))
+                            ServiceUuids = new List<Guid>
                             {
-                                DiscoveredDevices.Add(new PartnerDevice
-                                {
-                                    Address = scanResult.Device.Uuid.ToString(),
-                                    Name = !string.IsNullOrWhiteSpace(scanResult.Device.Name) ? scanResult.Device.Name : "Unnamed"
-                                });
+                                Guid.Parse(SDP_UUID)
                             }
+                        }).Subscribe(scanResult =>
+                        {
+                            Debug.WriteLine("### Device found: " + scanResult.Device.Name + " ID: " + scanResult.Device.Uuid);
+                            if (DiscoveredDevices.All(d => d.Uuid.ToString() != scanResult.Device.Uuid.ToString()))
+                            {
+                                DiscoveredDevices.Add(scanResult.Device);
+                            }
+                        }, async exception =>
+                        {      
+                            await CoreMethods.DisplayAlert("Device Failed to Search", 
+                                "This device failed to search for discoverable devices over bluetooth.", "OK");
                         });
-                        //if (!_bluetooth.BeginSearchForDiscoverableDevices())
-                        //{
-                        //    await CoreMethods.DisplayAlert("Device Failed to Search",
-                        //        "This device failed to search for discoverable devices over bluetooth.", "OK");
-                        //}
                     }
                 }
             });
@@ -156,16 +153,17 @@ namespace CrossCam.ViewModel
             {
                 try
                 {
-                    if (!await _bluetooth.AttemptConnection((PartnerDevice) obj))
+                    var device = (IDevice) obj;
+                    device.WhenStatusChanged().Subscribe(async status =>
                     {
-                        RaisePropertyChanged(nameof(IsConnected));
-                        await CoreMethods.DisplayAlert("Device Failed to Connect",
-                            "This device failed to connect over bluetooth. Please try again.", "OK");
-                    }
-                    else
-                    {
+                        Debug.WriteLine("### Connected device status changed: " + status);
                         await ConnectionSucceeded();
-                    }
+                    }, async exception =>
+                    {
+                        await CoreMethods.DisplayAlert("Device Failed to Connect",
+                            "This device failed to connect over bluetooth. Please try again. Error: " + exception.Message, "OK");
+                    });
+                    device.Connect();
                 }
                 catch (Exception e)
                 {
@@ -176,25 +174,33 @@ namespace CrossCam.ViewModel
 
             ForgetDeviceCommand = new Command(async obj =>
             {
-                _bluetooth.ForgetDevice((PartnerDevice)obj);
-                await Task.Delay(500);
-                PairedDevices = new ObservableCollection<PartnerDevice>(_bluetooth.GetPairedDevices());
+                var device = (IDevice) obj;
+                //TODO: how to forget?
+                await Task.Delay(500); 
+                GetPairedDevices();
             });
         }
 
-        private void BluetoothOnDeviceDiscovered(object sender, PartnerDevice e)
+        private void GetPairedDevices()
         {
-            if (DiscoveredDevices.All(d => d.Address != e.Address))
+            CrossBleAdapter.Current.GetPairedDevices().Subscribe(devices =>
             {
-                DiscoveredDevices.Add(e);
-            }
+                PairedDevices = new ObservableCollection<IDevice>(devices);
+            }, async exception =>
+            {
+                await CoreMethods.DisplayAlert("Failed to Get Paired Devices",
+                    "This device failed to get paired devices.", "OK");
+            });
         }
 
         private async Task ConnectionSucceeded()
         {
             RaisePropertyChanged(nameof(IsConnected));
-            await CoreMethods.DisplayAlert("Connection Success", "Congrats!", "Yay");
-            PairedDevices = new ObservableCollection<PartnerDevice>(_bluetooth.GetPairedDevices());
+            await CoreMethods.DisplayAlert("Connection Success", "Congrats!", "Yay"); 
+            CrossBleAdapter.Current.GetPairedDevices().Subscribe(devices =>
+            {
+                PairedDevices = new ObservableCollection<IDevice>(devices);
+            });
         }
 
         private async Task DisplayPermissionsDeniedMessage()
@@ -206,13 +212,13 @@ namespace CrossCam.ViewModel
         protected override void ViewIsAppearing(object sender, EventArgs e)
         {
             base.ViewIsAppearing(sender, e);
-            _bluetooth.DeviceDiscovered += BluetoothOnDeviceDiscovered;
             InitializeBluetoothCommand.Execute(null);
         }
 
         protected override void ViewIsDisappearing(object sender, EventArgs e)
         {
-            _bluetooth.DeviceDiscovered -= BluetoothOnDeviceDiscovered;
+            CrossBleAdapter.Current.StopScan();
+            CrossBleAdapter.Current.Advertiser.Stop();
             base.ViewIsDisappearing(sender, e);
         }
     }

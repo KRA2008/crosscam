@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 
 namespace CrossCam.Wrappers
 {
@@ -13,11 +11,6 @@ namespace CrossCam.Wrappers
         bool IsBluetoothSupported();
         Task<bool> TurnOnBluetooth();
         Task<bool> TurnOnLocationServices();
-        List<PartnerDevice> GetPairedDevices();
-        bool BeginSearchForDiscoverableDevices();
-        event EventHandler<PartnerDevice> DeviceDiscovered;
-        Task<bool> BecomeDiscoverable();
-        Task<bool?> ListenForConnections();
         Task<bool> AttemptConnection(PartnerDevice partnerDevice);
         void ForgetDevice(PartnerDevice partnerDevice);
         Task<bool> SendPreviewFrame(byte[] preview);
