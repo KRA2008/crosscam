@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using CrossCam.Wrappers;
 using FreshMvvm;
 using Plugin.BluetoothLE;
+using Plugin.BluetoothLE.Server;
 using Xamarin.Forms;
 
 namespace CrossCam.ViewModel
@@ -20,6 +21,7 @@ namespace CrossCam.ViewModel
             _bluetooth.IsConnected();
         public ObservableCollection<PartnerDevice> PairedDevices { get; set; }
         public ObservableCollection<PartnerDevice> DiscoveredDevices { get; set; }
+        public const string SDP_UUID = "492a8e3d-2589-40b1-b9c2-419a7ce80f3c";
 
         public Command DisconnectCommand { get; set; }
         public Command InitializeBluetoothCommand { get; set; }
@@ -95,13 +97,21 @@ namespace CrossCam.ViewModel
                 }
             });
 
-            BecomeDiscoverableCommand = new Command(async () =>
+            BecomeDiscoverableCommand = new Command(() =>
             {
-                if (!await _bluetooth.BecomeDiscoverable())
+                var server = CrossBleAdapter.Current.CreateGattServer();
+                server.Subscribe(gattServer =>
                 {
-                    await CoreMethods.DisplayAlert("Device Failed to Become Discoverable",
-                        "This device failed to become discoverable over bluetooth.", "OK");
-                }
+                    gattServer.AddService(Guid.Parse(SDP_UUID), true, service =>
+                    {
+                        Debug.WriteLine("### Service callback");
+                        service.AddCharacteristic(
+                            Guid.Parse(SDP_UUID),
+                            CharacteristicProperties.Read | CharacteristicProperties.Write | CharacteristicProperties.WriteNoResponse,
+                            GattPermissions.Read | GattPermissions.Write
+                        );
+                    });
+                });
             });
 
             SearchForDevicesCommand = new Command(async () =>
@@ -123,7 +133,15 @@ namespace CrossCam.ViewModel
 
                         CrossBleAdapter.Current.Scan().Subscribe(scanResult =>
                         {
-                            Debug.WriteLine("Aritchie device found: " + scanResult.Device.Name);
+                            Debug.WriteLine("### Aritchie device found: " + scanResult.Device.Name + " ID: " + scanResult.Device.Uuid);
+                            if (DiscoveredDevices.All(d => d.Address != scanResult.Device.Uuid.ToString()))
+                            {
+                                DiscoveredDevices.Add(new PartnerDevice
+                                {
+                                    Address = scanResult.Device.Uuid.ToString(),
+                                    Name = !string.IsNullOrWhiteSpace(scanResult.Device.Name) ? scanResult.Device.Name : "Unnamed"
+                                });
+                            }
                         });
                         //if (!_bluetooth.BeginSearchForDiscoverableDevices())
                         //{
