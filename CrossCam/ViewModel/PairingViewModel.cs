@@ -21,7 +21,10 @@ namespace CrossCam.ViewModel
         public bool IsConnected { get; set; }
         public ObservableCollection<IDevice> PairedDevices { get; set; }
         public ObservableCollection<IDevice> DiscoveredDevices { get; set; }
-        public const string SDP_UUID = "492a8e3d-2589-40b1-b9c2-419a7ce80f3c";
+        public const string SERVICE = "492a8e3d-2589-40b1-b9c2-419a7ce80f3c";
+        public const string PREVIEW = "492a8e3e-2589-40b1-b9c2-419a7ce80f3c";
+        public const string TRIGGER = "492a8e3f-2589-40b1-b9c2-419a7ce80f3c";
+        public const string CAPTURED = "492a8e40-2589-40b1-b9c2-419a7ce80f3c";
 
         public Command DisconnectCommand { get; set; }
         public Command InitializeBluetoothCommand { get; set; }
@@ -88,24 +91,22 @@ namespace CrossCam.ViewModel
                 var server = CrossBleAdapter.Current.CreateGattServer();
                 server.Subscribe(gattServer =>
                 {
-                    gattServer.AddService(Guid.Parse(SDP_UUID), true, service =>
+                    gattServer.AddService(Guid.Parse(SERVICE), true, service =>
                     {
                         Debug.WriteLine("### Service callback");
-                        service.AddCharacteristic(
-                            Guid.Parse(SDP_UUID),
-                            CharacteristicProperties.Read | CharacteristicProperties.Write | CharacteristicProperties.WriteNoResponse,
-                            GattPermissions.Read | GattPermissions.Write
-                        );
+                        service.AddCharacteristic(Guid.Parse(PREVIEW), CharacteristicProperties.Read, GattPermissions.Read);
+                        service.AddCharacteristic(Guid.Parse(TRIGGER), CharacteristicProperties.Write, GattPermissions.Write);
+                        service.AddCharacteristic(Guid.Parse(CAPTURED), CharacteristicProperties.Read, GattPermissions.Read);
                     });
                 });
-
+                
                 CrossBleAdapter.Current.Advertiser.Stop();
                 CrossBleAdapter.Current.Advertiser.Start(new AdvertisementData
                 {
                     //TODO: something about android naming here - use device or specify or something, comes up blank on Nexus 4
                     ServiceUuids = new List<Guid>
                     {
-                        Guid.Parse(SDP_UUID)
+                        Guid.Parse(SERVICE)
                     }
                 });
             });
@@ -131,7 +132,7 @@ namespace CrossCam.ViewModel
                         {
                             ServiceUuids = new List<Guid>
                             {
-                                Guid.Parse(SDP_UUID)
+                                Guid.Parse(SERVICE)
                             }
                         }).Subscribe(scanResult =>
                         {
@@ -157,11 +158,22 @@ namespace CrossCam.ViewModel
                     device.WhenStatusChanged().Subscribe(async status =>
                     {
                         Debug.WriteLine("### Connected device status changed: " + status);
-                        await ConnectionSucceeded();
+                        if (status == ConnectionStatus.Connected)
+                        {
+                            await ShowConnectionSucceeded();
+                        }
                     }, async exception =>
                     {
                         await CoreMethods.DisplayAlert("Device Failed to Connect",
                             "This device failed to connect over bluetooth. Please try again. Error: " + exception.Message, "OK");
+                    });
+                    device.DiscoverServices().Subscribe(service =>
+                    {
+                        Debug.WriteLine("### Service discovered: " + service.Description + ", " + service.Uuid);
+                        service.DiscoverCharacteristics().Subscribe(characteristic =>
+                        {
+                            Debug.WriteLine("### Characteristic discovered: " + characteristic.Description + ", " + characteristic.Uuid);
+                        });
                     });
                     device.Connect();
                 }
@@ -193,8 +205,9 @@ namespace CrossCam.ViewModel
             });
         }
 
-        private async Task ConnectionSucceeded()
+        private async Task ShowConnectionSucceeded()
         {
+            IsConnected = true;
             RaisePropertyChanged(nameof(IsConnected));
             await CoreMethods.DisplayAlert("Connection Success", "Congrats!", "Yay"); 
             CrossBleAdapter.Current.GetPairedDevices().Subscribe(devices =>
