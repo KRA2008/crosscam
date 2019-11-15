@@ -16,7 +16,6 @@ namespace CrossCam.ViewModel
 {
     public class PairingViewModel : FreshBasePageModel
     {
-        private readonly IBluetooth _bluetooth;
         private int _isInitialized;
         public bool IsConnected { get; set; }
         public ObservableCollection<IDevice> PairedDevices { get; set; }
@@ -35,7 +34,7 @@ namespace CrossCam.ViewModel
 
         public PairingViewModel()
         {
-            _bluetooth = DependencyService.Get<IBluetooth>();
+            var bluetooth = DependencyService.Get<IBluetooth>();
             DiscoveredDevices = new ObservableCollection<IDevice>();
 
             CrossBleAdapter.Current.WhenStatusChanged().Subscribe(status =>
@@ -45,7 +44,7 @@ namespace CrossCam.ViewModel
 
             DisconnectCommand = new Command(() =>
             {
-                _bluetooth.Disconnect();
+                bluetooth.Disconnect();
                 RaisePropertyChanged(nameof(IsConnected));
             });
 
@@ -53,7 +52,7 @@ namespace CrossCam.ViewModel
             {
                 if (Interlocked.CompareExchange(ref _isInitialized, 1, 0) == 0)
                 {
-                    if (!_bluetooth.IsBluetoothSupported())
+                    if (!bluetooth.IsBluetoothSupported())
                     {
                         await CoreMethods.DisplayAlert("Bluetooth Not Supported",
                             "Bluetooth is not supported on this device.", "OK");
@@ -62,13 +61,13 @@ namespace CrossCam.ViewModel
                     else
                     {
                         GetPairedDevices();
-                        if (!await _bluetooth.RequestBluetoothPermissions())
+                        if (!await bluetooth.RequestBluetoothPermissions())
                         {
                             await DisplayPermissionsDeniedMessage();
                         }
                         else
                         {
-                            if (!await _bluetooth.TurnOnBluetooth())
+                            if (!await bluetooth.TurnOnBluetooth())
                             {
                                 await CoreMethods.DisplayAlert("Bluetooth Not On",
                                     "This device failed to turn on bluetooth.", "OK");
@@ -103,6 +102,7 @@ namespace CrossCam.ViewModel
                 CrossBleAdapter.Current.Advertiser.Stop();
                 CrossBleAdapter.Current.Advertiser.Start(new AdvertisementData
                 {
+                    AndroidIsConnectable = true,
                     //TODO: something about android naming here - use device or specify or something, comes up blank on Nexus 4
                     ServiceUuids = new List<Guid>
                     {
@@ -113,16 +113,20 @@ namespace CrossCam.ViewModel
 
             SearchForDevicesCommand = new Command(async () =>
             {
-                if (!await _bluetooth.RequestLocationPermissions())
+                if (!await bluetooth.RequestLocationPermissions())
                 {
                     await DisplayPermissionsDeniedMessage();
                 }
                 else
                 {
-                    if (!await _bluetooth.TurnOnLocationServices())
+                    if (!await bluetooth.TurnOnLocationServices())
                     {
-                        await CoreMethods.DisplayAlert("Location Services Off",
-                            "Location services were not turned on.", "OK");
+
+                        await Device.InvokeOnMainThreadAsync(async () =>
+                        {
+                            await CoreMethods.DisplayAlert("Location Services Off",
+                                "Location services were not turned on.", "OK");
+                        });
                     }
                     else
                     {
@@ -142,9 +146,12 @@ namespace CrossCam.ViewModel
                                 DiscoveredDevices.Add(scanResult.Device);
                             }
                         }, async exception =>
-                        {      
-                            await CoreMethods.DisplayAlert("Device Failed to Search", 
-                                "This device failed to search for discoverable devices over bluetooth.", "OK");
+                        {
+                            await Device.InvokeOnMainThreadAsync(async () =>
+                            {
+                                await CoreMethods.DisplayAlert("Device Failed to Search",
+                                    "This device failed to search for discoverable devices over bluetooth.", "OK");
+                            });
                         });
                     }
                 }
@@ -161,21 +168,28 @@ namespace CrossCam.ViewModel
                         if (status == ConnectionStatus.Connected)
                         {
                             await ShowConnectionSucceeded();
+                            device.DiscoverServices().Subscribe(service =>
+                            {
+                                Debug.WriteLine("### Service discovered: " + service.Description + ", " + service.Uuid);
+                                service.DiscoverCharacteristics().Subscribe(characteristic =>
+                                {
+                                    Debug.WriteLine("### Characteristic discovered: " + characteristic.Description + ", " + characteristic.Uuid);
+                                });
+                            });
                         }
                     }, async exception =>
                     {
-                        await CoreMethods.DisplayAlert("Device Failed to Connect",
-                            "This device failed to connect over bluetooth. Please try again. Error: " + exception.Message, "OK");
-                    });
-                    device.DiscoverServices().Subscribe(service =>
-                    {
-                        Debug.WriteLine("### Service discovered: " + service.Description + ", " + service.Uuid);
-                        service.DiscoverCharacteristics().Subscribe(characteristic =>
+                        await Device.InvokeOnMainThreadAsync(async () =>
                         {
-                            Debug.WriteLine("### Characteristic discovered: " + characteristic.Description + ", " + characteristic.Uuid);
+                            await CoreMethods.DisplayAlert("Device Failed to Connect",
+                                "This device failed to connect over bluetooth. Please try again. Error: " +
+                                exception.Message, "OK");
                         });
                     });
-                    device.Connect();
+                    device.Connect(new ConnectionConfig
+                    {
+                        AutoConnect = false
+                    });
                 }
                 catch (Exception e)
                 {
@@ -200,8 +214,11 @@ namespace CrossCam.ViewModel
                 PairedDevices = new ObservableCollection<IDevice>(devices);
             }, async exception =>
             {
-                await CoreMethods.DisplayAlert("Failed to Get Paired Devices",
-                    "This device failed to get paired devices.", "OK");
+                await Device.InvokeOnMainThreadAsync(async () =>
+                {
+                    await CoreMethods.DisplayAlert("Failed to Get Paired Devices",
+                        "This device failed to get paired devices.", "OK");
+                });
             });
         }
 
@@ -209,7 +226,10 @@ namespace CrossCam.ViewModel
         {
             IsConnected = true;
             RaisePropertyChanged(nameof(IsConnected));
-            await CoreMethods.DisplayAlert("Connection Success", "Congrats!", "Yay"); 
+            await Device.InvokeOnMainThreadAsync(async () =>
+            {
+                await CoreMethods.DisplayAlert("Connection Success", "Congrats!", "Yay");
+            }); 
             CrossBleAdapter.Current.GetPairedDevices().Subscribe(devices =>
             {
                 PairedDevices = new ObservableCollection<IDevice>(devices);
