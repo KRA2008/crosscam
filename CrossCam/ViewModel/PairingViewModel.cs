@@ -74,9 +74,19 @@ namespace CrossCam.ViewModel
                             }
                             else
                             {
-                                if (CrossBleAdapter.Current.CanControlAdapterState())
+                                if(!await bluetooth.RequestLocationPermissions())
                                 {
-                                    CrossBleAdapter.Current.SetAdapterState(true);
+                                    await DisplayPermissionsDeniedMessage();
+                                }
+                                else
+                                {
+                                    if (!await bluetooth.TurnOnLocationServices())
+                                    {
+                                        if (CrossBleAdapter.Current.CanControlAdapterState())
+                                        {
+                                            CrossBleAdapter.Current.SetAdapterState(true);
+                                        }
+                                    }
                                 }
                             }
                         }
@@ -103,7 +113,7 @@ namespace CrossCam.ViewModel
                 CrossBleAdapter.Current.Advertiser.Start(new AdvertisementData
                 {
                     AndroidIsConnectable = true,
-                    //TODO: something about android naming here - use device or specify or something, comes up blank on Nexus 4
+                    //TODO: something about android naming here - use device or specify or something, coming up blank
                     ServiceUuids = new List<Guid>
                     {
                         Guid.Parse(SERVICE)
@@ -113,48 +123,29 @@ namespace CrossCam.ViewModel
 
             SearchForDevicesCommand = new Command(async () =>
             {
-                if (!await bluetooth.RequestLocationPermissions())
+                DiscoveredDevices.Clear();
+                CrossBleAdapter.Current.StopScan();
+                CrossBleAdapter.Current.Scan(new ScanConfig
                 {
-                    await DisplayPermissionsDeniedMessage();
-                }
-                else
+                    ServiceUuids = new List<Guid>
+                    {
+                        Guid.Parse(SERVICE)
+                    }
+                }).Subscribe(scanResult =>
                 {
-                    if (!await bluetooth.TurnOnLocationServices())
+                    Debug.WriteLine("### Device found: " + scanResult.Device.Name + " ID: " + scanResult.Device.Uuid);
+                    if (DiscoveredDevices.All(d => d.Uuid.ToString() != scanResult.Device.Uuid.ToString()))
                     {
-
-                        await Device.InvokeOnMainThreadAsync(async () =>
-                        {
-                            await CoreMethods.DisplayAlert("Location Services Off",
-                                "Location services were not turned on.", "OK");
-                        });
+                        DiscoveredDevices.Add(scanResult.Device);
                     }
-                    else
+                }, async exception =>
+                {
+                    await Device.InvokeOnMainThreadAsync(async () =>
                     {
-                        DiscoveredDevices.Clear();
-                        CrossBleAdapter.Current.StopScan();
-                        CrossBleAdapter.Current.Scan(new ScanConfig
-                        {
-                            ServiceUuids = new List<Guid>
-                            {
-                                Guid.Parse(SERVICE)
-                            }
-                        }).Subscribe(scanResult =>
-                        {
-                            Debug.WriteLine("### Device found: " + scanResult.Device.Name + " ID: " + scanResult.Device.Uuid);
-                            if (DiscoveredDevices.All(d => d.Uuid.ToString() != scanResult.Device.Uuid.ToString()))
-                            {
-                                DiscoveredDevices.Add(scanResult.Device);
-                            }
-                        }, async exception =>
-                        {
-                            await Device.InvokeOnMainThreadAsync(async () =>
-                            {
-                                await CoreMethods.DisplayAlert("Device Failed to Search",
-                                    "This device failed to search for discoverable devices over bluetooth.", "OK");
-                            });
-                        });
-                    }
-                }
+                        await CoreMethods.DisplayAlert("Device Failed to Search",
+                            "This device failed to search for discoverable devices over bluetooth.", "OK");
+                    });
+                });
             });
 
             AttemptConnectionCommand = new Command(async obj =>
