@@ -266,6 +266,17 @@ namespace CrossCam.ViewModel
                                                     subscription.Characteristic.Uuid);
                                 });
                             });
+
+                            CrossBleAdapter.Current.Advertiser.Stop();
+                            CrossBleAdapter.Current.Advertiser.Start(new AdvertisementData
+                            {
+                                AndroidIsConnectable = true,
+                                //TODO: something about android naming here - use device or specify or something, coming up blank
+                                ServiceUuids = new List<Guid>
+                                {
+                                    _serviceGuid
+                                }
+                            });
                         }
 
                         _isPairInitialized = true;
@@ -327,25 +338,15 @@ namespace CrossCam.ViewModel
                             _isConnectionCallbackReady = true;
                         }
 
-                        if (device.IsPairingAvailable() && 
-                            bluetooth.IsServerSupported() &&
-                            (Device.RuntimePlatform == Device.iOS ||
-                             CrossBleAdapter.AndroidConfiguration.IsServerSupported))
+                        device.PairingRequest().Subscribe(didPair =>
                         {
-                            device.PairingRequest().Subscribe(didPair =>
+                            Debug.WriteLine("### Pairing requested: " + didPair);
+                            if (didPair)
                             {
-                                Debug.WriteLine("### Pairing requested: " + didPair);
-                                if (didPair)
-                                {
-                                    GetPairedDevices();
-                                    device.Connect();
-                                }
-                            });
-                        }
-                        else
-                        {
-                            device.Connect();
-                        }
+                                GetPairedDevices();
+                                device.Connect();
+                            }
+                        });
 
                         _connectThreadLocker = 0;
                     }
@@ -378,6 +379,7 @@ namespace CrossCam.ViewModel
             CrossBleAdapter.Current.Advertiser.Stop();
             CrossBleAdapter.Current.StopScan();
             IsConnected = true;
+            GetPairedDevices();
             await Device.InvokeOnMainThreadAsync(async () =>
             {
                 await CoreMethods.DisplayAlert("Connection Success", "Congrats!", "Yay");
