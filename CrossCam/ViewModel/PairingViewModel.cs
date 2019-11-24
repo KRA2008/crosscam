@@ -121,7 +121,7 @@ namespace CrossCam.ViewModel
                             CrossBleAdapter.Current.SetAdapterState(true);
                         }
 
-                        if (bluetooth.IsServerSupported() &&
+                        if (bluetooth.IsBluetoothApiLevelSufficient() &&
                             (Device.RuntimePlatform == Device.iOS ||
                              CrossBleAdapter.AndroidConfiguration.IsServerSupported))
                         {
@@ -235,7 +235,7 @@ namespace CrossCam.ViewModel
                             CrossBleAdapter.Current.SetAdapterState(true);
                         }
 
-                        if (bluetooth.IsServerSupported() &&
+                        if (bluetooth.IsBluetoothApiLevelSufficient() &&
                             (Device.RuntimePlatform == Device.iOS ||
                              CrossBleAdapter.AndroidConfiguration.IsServerSupported))
                         {
@@ -338,15 +338,30 @@ namespace CrossCam.ViewModel
                             _isConnectionCallbackReady = true;
                         }
 
-                        device.PairingRequest().Subscribe(didPair =>
+                        if (Device.RuntimePlatform == Device.Android &&
+                            bluetooth.IsBluetoothApiLevelSufficient() &&
+                            device.IsPairingAvailable())
                         {
-                            Debug.WriteLine("### Pairing requested: " + didPair);
-                            if (didPair)
+                            device.PairingRequest().Subscribe(didPair =>
                             {
-                                GetPairedDevices();
-                                device.Connect();
-                            }
-                        });
+                                Debug.WriteLine("### Pairing requested: " + didPair);
+                                if (didPair)
+                                {
+                                    GetPairedDevices();
+                                    device.Connect(new ConnectionConfig
+                                    {
+                                        AutoConnect = true
+                                    });
+                                }
+                            });
+                        }
+                        else
+                        {
+                            device.Connect(new ConnectionConfig
+                            {
+                                AutoConnect = true
+                            });
+                        }
 
                         _connectThreadLocker = 0;
                     }
