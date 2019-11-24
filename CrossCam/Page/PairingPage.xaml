@@ -6,6 +6,8 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:viewModel="clr-namespace:CrossCam.ViewModel;assembly=CrossCam"
              xmlns:wrappers="clr-namespace:CrossCam.Wrappers;assembly=CrossCam"
+             xmlns:valueConverter="clr-namespace:CrossCam.ValueConverter;assembly=CrossCam"
+             xmlns:bluetoothLe="clr-namespace:Plugin.BluetoothLE;assembly=Plugin.BluetoothLE"
              mc:Ignorable="d"
 
              d:DataContext="{d:DesignInstance Type=viewModel:PairingViewModel, IsDesignTimeCreatable=False}"
@@ -41,79 +43,9 @@
             <Label Text="RECONNECT TO A PREVIOUSLY USED DEVICE:"
                    FontAttributes="Bold"
                    HorizontalOptions="Center"/>
+
             <Grid>
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="Auto"/>
-                </Grid.RowDefinitions>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="Auto"/>
-                    <ColumnDefinition Width="Auto"/>
-                    <ColumnDefinition Width="*"/>
-                </Grid.ColumnDefinitions>
-                <Label Grid.Row="0"
-                       Grid.Column="1"
-                       Text="1)"/>
-                <Label Grid.Row="0"
-                       Grid.Column="2"
-                       Text="Navigate to this page on both devices"/>
-                <Label Grid.Row="1"
-                       Grid.Column="1"
-                       Text="2)"/>
-                <Label Grid.Row="1"
-                       Grid.Column="2"
-                       Text="On either device, tap the name of the other device in the list below:"/>
-                <Frame Grid.Row="2" 
-                       Grid.Column="0" 
-                       Grid.ColumnSpan="4" 
-                       Padding="1">
-                    <StackLayout x:Name="PairedDevicesList"
-                                 BindableLayout.ItemsSource="{Binding PairedDevices}"
-                                 BackgroundColor="Black">
-                        <BindableLayout.ItemTemplate>
-                            <DataTemplate>
-                                <StackLayout d:DataContext="{d:DesignInstance Type=wrappers:PartnerDevice, IsDesignTimeCreatable=False}"
-                                             Padding="10"
-                                             Orientation="Horizontal">
-                                    <Label Text="{Binding Name}"
-                                           HorizontalOptions="CenterAndExpand"
-                                           VerticalOptions="Center">
-                                        <Label.GestureRecognizers>
-                                            <!-- ReSharper disable once Xaml.BindingWithContextNotResolved -->
-                                            <TapGestureRecognizer Command="{Binding Source={x:Reference PairedDevicesList}, Path=BindingContext.AttemptConnectionCommand}"
-                                                                  CommandParameter="{Binding .}"/>
-                                        </Label.GestureRecognizers>
-                                    </Label>
-                                    <!-- ReSharper disable once Xaml.BindingWithContextNotResolved -->
-                                    <Button Text="Forget"
-                                            Command="{Binding Source={x:Reference PairedDevicesList}, Path=BindingContext.ForgetDeviceCommand}"
-                                            CommandParameter="{Binding .}"
-                                            VerticalOptions="Center"/>
-                                </StackLayout>
-                            </DataTemplate>
-                        </BindableLayout.ItemTemplate>
-                    </StackLayout>
-                </Frame>
-            </Grid>
-
-            <Label Text=""/>
-            <Label Text="FIRST TIME CONNECTING TWO DEVICES:"
-                   FontAttributes="Bold"
-                   HorizontalOptions="Center"/>
-
-            <Label Text="If you have two phones with CrossCam installed, you can connect them over Bluetooth in order to take simultaneous photos from two perspectives. This makes the best cross views possible. To get started, navigate them both to this page."/>
-
-            <Label Text="CrossCam will request permissions and power on components as needed in order to connect your devices. Please note: access to location services is required for step #2. CrossCam does not actually USE your location in any way, but because the act of searching for Bluetooth devices could theoretically be used to find your location, CrossCam requires permission to access your location. You may not be used to seeing that because it is a newer change in the way mobile operating systems handle Bluetooth permissions in order to more strongly protect your privacy. Once your devices are connected and remember each other, CrossCam will not require location access for reconnecting in the future - feel free to remove that permission."/>
-
-            <Label Text=""/>
-            <Grid>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="Auto"/>
                     <RowDefinition Height="Auto"/>
                     <RowDefinition Height="Auto"/>
                     <RowDefinition Height="Auto"/>
@@ -133,49 +65,115 @@
                        Grid.Column="2" 
                        Padding="1"
                        HorizontalOptions="Start">
-                    <Button Text="TAP HERE ON ONE DEVICE"
+                    <Button Text="TAP HERE ON BOTH DEVICES"
                             VerticalOptions="Center"
-                            Command="{Binding BecomeDiscoverableCommand}"/>
+                            Command="{Binding PairedSetupCommand}"/>
                 </Frame>
-                <Label Grid.Row="1" 
-                       Grid.Column="1" 
-                       Text="2)"
+                <Label Grid.Row="1"
+                       Grid.Column="1"
+                       Text="2)"/>
+                <Label Grid.Row="1"
+                       Grid.Column="2"
+                       Text="On the secondary device only, tap the name of the primary device below:"/>
+                <Frame Grid.Row="2"
+                       Grid.Column="0"
+                       Grid.ColumnSpan="4"
+                       Padding="1">
+                    <StackLayout x:Name="PairedDevicesList"
+                                 BindableLayout.ItemsSource="{Binding PairedDevices}"
+                                 BackgroundColor="Black">
+                        <BindableLayout.ItemTemplate>
+                            <DataTemplate>
+                                <StackLayout Padding="10">
+                                    <StackLayout.GestureRecognizers>
+                                        <!-- ReSharper disable once Xaml.BindingWithContextNotResolved -->
+                                        <TapGestureRecognizer Command="{Binding Source={x:Reference PairedDevicesList}, Path=BindingContext.AttemptConnectionCommand}"
+                                                              CommandParameter="{Binding .}"/>
+                                    </StackLayout.GestureRecognizers>
+                                    <Label d:DataContext="{d:DesignInstance Type=bluetoothLe:IDevice, IsDesignTimeCreatable=False}"
+                                           HorizontalOptions="Center"
+                                           VerticalOptions="Center"
+                                           Text="{Binding Name}"
+                                           IsVisible="{Binding Name, Converter={valueConverter:IsNotNullConverter}}"/>
+                                    <Label d:DataContext="{d:DesignInstance Type=bluetoothLe:IDevice, IsDesignTimeCreatable=False}"
+                                           HorizontalOptions="Center"
+                                           VerticalOptions="Center"
+                                           Text="{Binding Uuid, Converter={valueConverter:GuidToStringConverter}}"
+                                           IsVisible="{Binding Name, Converter={valueConverter:IsNullConverter}}"/>
+                                </StackLayout>
+                            </DataTemplate>
+                        </BindableLayout.ItemTemplate>
+                    </StackLayout>
+                </Frame>
+            </Grid>
+
+            <Label Text=""/>
+            <Label Text="FIRST TIME CONNECTING TWO DEVICES:"
+                   FontAttributes="Bold"
+                   HorizontalOptions="Center"/>
+
+            <Label Text="If you have two phones with CrossCam installed, you can connect them over Bluetooth in order to take simultaneous photos from two perspectives. This makes the best cross views possible. To get started, navigate them both to this page."/>
+
+            <Label Text="CrossCam will request permissions and power on components as needed in order to connect your devices. Please note: access to location services is required. CrossCam does not actually USE your location in any way, but because the act of searching for Bluetooth devices could theoretically be used to find your location, CrossCam requires permission to access your location. You may not be used to seeing that because it is a newer change in the way mobile operating systems handle Bluetooth permissions in order to more strongly protect your privacy. Once your devices are connected and remember each other, CrossCam will not require location access for reconnecting in the future - feel free to remove that permission."/>
+
+            <Label Text=""/>
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Label Grid.Row="0"
+                       Grid.Column="1"
+                       Text="1)"
                        HorizontalOptions="End"
                        VerticalOptions="Center"/>
-                <Frame Grid.Row="1" 
-                       Grid.Column="2"
-                       HorizontalOptions="Start"
-                       Padding="1">
-                    <Button Text="TAP HERE ON THE OTHER DEVICE"
-                            VerticalOptions="Center"
-                            Command="{Binding SearchForDevicesCommand}"/>
-                </Frame>
-                <Label Grid.Row="2"
-                       Grid.Column="1"
-                       Text="3)"/>
-                <Label Grid.Row="2" 
+                <Frame Grid.Row="0" 
                        Grid.Column="2" 
-                       Text="Tap the name of the first device in the list below (when it appears):"/>
-                <Frame Grid.Row="3" 
-                       Grid.Column="0" 
-                       Grid.ColumnSpan="4" 
+                       Padding="1"
+                       HorizontalOptions="Start">
+                    <Button Text="TAP HERE ON BOTH DEVICES"
+                            VerticalOptions="Center"
+                            Command="{Binding InitialSetupCommand}"/>
+                </Frame>
+                <Label Grid.Row="1"
+                       Grid.Column="1"
+                       Text="2)"/>
+                <Label Grid.Row="1"
+                       Grid.Column="2"
+                       Text="On the secondary device only, tap the name of the primary device below (when it appears):"/>
+                <Frame Grid.Row="2"
+                       Grid.Column="0"
+                       Grid.ColumnSpan="4"
                        Padding="1">
                     <StackLayout x:Name="AvailableDevicesList"
                                  BindableLayout.ItemsSource="{Binding DiscoveredDevices}"
                                  BackgroundColor="Black">
                         <BindableLayout.ItemTemplate>
                             <DataTemplate>
-                                <ContentView Padding="10">
-                                    <ContentView.GestureRecognizers>
+                                <StackLayout Padding="10">
+                                    <StackLayout.GestureRecognizers>
                                         <!-- ReSharper disable once Xaml.BindingWithContextNotResolved -->
                                         <TapGestureRecognizer Command="{Binding Source={x:Reference AvailableDevicesList}, Path=BindingContext.AttemptConnectionCommand}"
                                                               CommandParameter="{Binding .}"/>
-                                    </ContentView.GestureRecognizers>
-                                    <Label d:DataContext="{d:DesignInstance Type=wrappers:PartnerDevice, IsDesignTimeCreatable=False}"
+                                    </StackLayout.GestureRecognizers>
+                                    <Label d:DataContext="{d:DesignInstance Type=bluetoothLe:IDevice, IsDesignTimeCreatable=False}"
                                            HorizontalOptions="Center"
                                            VerticalOptions="Center"
-                                           Text="{Binding Name}"/>
-                                </ContentView>
+                                           Text="{Binding Name}"
+                                           IsVisible="{Binding Name, Converter={valueConverter:IsNotNullConverter}}"/>
+                                    <Label d:DataContext="{d:DesignInstance Type=bluetoothLe:IDevice, IsDesignTimeCreatable=False}"
+                                           HorizontalOptions="Center"
+                                           VerticalOptions="Center"
+                                           Text="{Binding Uuid, Converter={valueConverter:GuidToStringConverter}}"
+                                           IsVisible="{Binding Name, Converter={valueConverter:IsNullConverter}}"/>
+                                </StackLayout>
                             </DataTemplate>
                         </BindableLayout.ItemTemplate>
                     </StackLayout>
@@ -187,7 +185,7 @@
                    HorizontalOptions="Center"/>
             <Label Text="You may have to wait a few seconds between steps."/>
             <Label Text="You may have to try a step a second time."/>
-            <Label Text="To start over, tap the &quot;Forget&quot; button next to the device name at the top of the page (if present) on both devices, then leave and come back to this page."/>
+            <Label Text="You may have to forget the paired device from your Bluetooth settings."/>
             <Label Text="If all else fails, please send me an email (see the help page)."/>
         </StackLayout>
     </ScrollView>
