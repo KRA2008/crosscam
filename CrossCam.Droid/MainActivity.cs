@@ -13,7 +13,6 @@ using Android.Views;
 using CrossCam.Droid.CustomRenderer;
 using Java.Lang;
 using Xamarin.Forms;
-using Debug = System.Diagnostics.Debug;
 using Uri = Android.Net.Uri;
 
 namespace CrossCam.Droid
@@ -40,7 +39,6 @@ namespace CrossCam.Droid
         internal static MainActivity Instance { get; private set; }
 
         private App _app;
-        private BluetoothReceiver _bluetoothReceiver;
 
         public enum RequestCodes
         {
@@ -48,7 +46,6 @@ namespace CrossCam.Droid
             WriteToStorageRequestCode,
             BrowseDirectoriesRequestCode,
             TurnOnBluetoothRequestCode,
-            MakeBluetoothDiscoverableRequestCode,
             BluetoothBasicRequestCode,
             BluetoothAdminRequestCode,
             FineLocationRequestCode,
@@ -62,7 +59,6 @@ namespace CrossCam.Droid
         protected override void OnCreate(Bundle bundle)
         {
             base.OnCreate(bundle);
-            _bluetoothReceiver = new BluetoothReceiver();
             Xamarin.Essentials.Platform.Init(this, bundle);
 
             Window.AddFlags(WindowManagerFlags.Fullscreen);
@@ -89,7 +85,6 @@ namespace CrossCam.Droid
         
         protected override void OnPause()
         {
-            UnregisterReceiver(_bluetoothReceiver);
             LifecycleEventListener.OnAppMinimized();
             base.OnPause();
         }
@@ -97,10 +92,6 @@ namespace CrossCam.Droid
         protected override async void OnResume()
         {
             base.OnResume();
-            RegisterReceiver(_bluetoothReceiver, new IntentFilter(BluetoothDevice.ActionFound));
-            RegisterReceiver(_bluetoothReceiver, new IntentFilter(BluetoothDevice.ActionAclConnected));
-            RegisterReceiver(_bluetoothReceiver, new IntentFilter(BluetoothDevice.ActionAclDisconnected));
-            RegisterReceiver(_bluetoothReceiver, new IntentFilter(BluetoothDevice.ActionBondStateChanged));
             LifecycleEventListener.OnAppMaximized();
 
             if (Intent.ActionSend.Equals(Intent.Action) && 
@@ -175,10 +166,6 @@ namespace CrossCam.Droid
             {
                 Bluetooth.IsBluetoothOnTask.SetResult(resultCode == Result.Ok);
             }
-            else if (requestCode == (int)RequestCodes.MakeBluetoothDiscoverableRequestCode)
-            {
-                Bluetooth.IsDeviceDiscoverableTask.SetResult(resultCode != Result.Canceled); // result code is discoverable duration, not pass/fail
-            } 
             else if (requestCode == (int) RequestCodes.TurnLocationServicesOnRequestCode)
             {
                 await Bluetooth.CheckForAndTurnOnLocationServices(true);
@@ -312,34 +299,6 @@ namespace CrossCam.Droid
                 imageStream.CopyTo(imageMemStream);
                 return imageMemStream.ToArray();
             });
-        }
-    }
-
-    [BroadcastReceiver(Enabled = true, Exported = false)]
-    public class BluetoothReceiver : BroadcastReceiver
-    {
-        public override void OnReceive(Context context, Intent intent)
-        {
-            if (BluetoothDevice.ActionFound.Equals(intent.Action))
-            {
-                var bluetoothDevice = (BluetoothDevice) intent.GetParcelableExtra(BluetoothDevice.ExtraDevice);
-                //TODO: limit this only to devices that actually advertise with CrossCam's UUID
-                Bluetooth.AvailableDevices.Add(bluetoothDevice);
-            }
-            else if (BluetoothDevice.ActionAclConnected.Equals(intent.Action))
-            {
-                Debug.WriteLine("Bluetooth connected");
-                //yay!
-            }
-            else if (BluetoothDevice.ActionAclDisconnected.Equals(intent.Action))
-            {
-                Debug.WriteLine("Bluetooth disconnected");
-                //hmmmm.
-            }
-            else if (BluetoothDevice.ActionBondStateChanged.Equals(intent.Action))
-            {
-                Debug.WriteLine("Bluetooth bond state changed");
-            }
         }
     }
 }

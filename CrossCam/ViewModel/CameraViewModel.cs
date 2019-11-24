@@ -1299,6 +1299,8 @@ namespace CrossCam.ViewModel
 
         private async Task EvaluateAndShowWelcomePopup()
         {
+#if DEBUG
+#else
             if (!Settings.HasOfferedTechniqueHelpBefore)
             {
                 var showTechniquePage = await CoreMethods.DisplayAlert("Welcome to CrossCam!",
@@ -1326,6 +1328,7 @@ namespace CrossCam.ViewModel
                     PersistentStorage.Save(PersistentStorage.SETTINGS_KEY, Settings);
                 }
             }
+#endif
         }
 
         private void ClearCrops(bool andAutomaticAlignmentFlags)
