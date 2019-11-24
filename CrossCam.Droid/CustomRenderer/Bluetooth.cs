@@ -39,7 +39,7 @@ namespace CrossCam.Droid.CustomRenderer
             return BluetoothAdapter.DefaultAdapter != null;
         }
 
-        public bool IsServerSupported()
+        public bool IsBluetoothApiLevelSufficient()
         {
             return Build.VERSION.SdkInt >= BuildVersionCodes.M;
         }

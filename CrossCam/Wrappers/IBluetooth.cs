@@ -7,7 +7,7 @@ namespace CrossCam.Wrappers
         Task<bool> RequestBluetoothPermissions();
         Task<bool> RequestLocationPermissions();
         bool IsBluetoothSupported();
-        bool IsServerSupported();
+        bool IsBluetoothApiLevelSufficient();
         Task<bool> TurnOnBluetooth();
         Task<bool> TurnOnLocationServices();
         Task<bool> SendPreviewFrame(byte[] preview);

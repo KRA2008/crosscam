@@ -24,7 +24,7 @@ namespace CrossCam.iOS.CustomRenderer
             return true;
         }
 
-        public bool IsServerSupported()
+        public bool IsBluetoothApiLevelSufficient()
         {
             return true;
         }
