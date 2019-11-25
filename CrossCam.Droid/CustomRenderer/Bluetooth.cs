@@ -75,6 +75,7 @@ namespace CrossCam.Droid.CustomRenderer
 
             var builder = new LocationSettingsRequest.Builder().AddLocationRequest(new LocationRequest());
             builder.SetAlwaysShow(true);
+            builder.SetNeedBle(true);
 
             var result = LocationServices.SettingsApi.CheckLocationSettings(googleApiClient, builder.Build());
             result.SetResultCallback((LocationSettingsResult callback) =>
