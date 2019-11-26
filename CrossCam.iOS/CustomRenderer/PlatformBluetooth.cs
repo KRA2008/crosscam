@@ -4,10 +4,10 @@ using CrossCam.iOS.CustomRenderer;
 using CrossCam.Wrappers;
 using Xamarin.Forms;
 
-[assembly: Dependency(typeof(Bluetooth))]
+[assembly: Dependency(typeof(PlatformBluetooth))]
 namespace CrossCam.iOS.CustomRenderer
 {
-    public class Bluetooth : IBluetooth
+    public class PlatformBluetooth : IPlatformBluetooth
     {
         public Task<bool> RequestBluetoothPermissions()
         {

@@ -21,6 +21,8 @@ namespace CrossCam.ViewModel
         private const string SINGLE_SIDE = "Load single side";
         private const string CANCEL = "Cancel";
 
+        public static BluetoothOperator BluetoothOperator = new BluetoothOperator();
+
         public WorkflowStage WorkflowStage { get; set; }
         public CropMode CropMode { get; set; }
         public ManualAlignMode ManualAlignMode { get; set; }

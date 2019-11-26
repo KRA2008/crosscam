@@ -172,7 +172,7 @@
     <ITunesArtwork Include="iTunesArtwork" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="CustomRenderer\Bluetooth.cs" />
+    <Compile Include="CustomRenderer\PlatformBluetooth.cs" />
     <Compile Include="CustomRenderer\DirectorySelector.cs" />
     <Compile Include="CustomRenderer\NotchHeightProvider.cs" />
     <Compile Include="CustomRenderer\PhotoPicker.cs" />

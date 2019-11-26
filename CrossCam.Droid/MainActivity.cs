@@ -164,11 +164,11 @@ namespace CrossCam.Droid
             }
             else if (requestCode == (int)RequestCodes.TurnOnBluetoothRequestCode)
             {
-                Bluetooth.IsBluetoothOnTask.SetResult(resultCode == Result.Ok);
+                PlatformBluetooth.IsBluetoothOnTask.SetResult(resultCode == Result.Ok);
             }
             else if (requestCode == (int) RequestCodes.TurnLocationServicesOnRequestCode)
             {
-                await Bluetooth.CheckForAndTurnOnLocationServices(true);
+                await PlatformBluetooth.CheckForAndTurnOnLocationServices(true);
             }
         }
 
@@ -190,7 +190,7 @@ namespace CrossCam.Droid
             {
                 if (!grantResults.Contains(Permission.Granted))
                 {
-                    Bluetooth.BluetoothPermissionsTask.SetResult(false);
+                    PlatformBluetooth.BluetoothPermissionsTask.SetResult(false);
                     return;
                 }
 
@@ -203,7 +203,7 @@ namespace CrossCam.Droid
             {
                 if (!grantResults.Contains(Permission.Granted))
                 {
-                    Bluetooth.LocationPermissionsTask.SetResult(false);
+                    PlatformBluetooth.LocationPermissionsTask.SetResult(false);
                     return;
                 }
 
@@ -241,7 +241,7 @@ namespace CrossCam.Droid
                 return;
             }
 
-            Bluetooth.LocationPermissionsTask.SetResult(true);
+            PlatformBluetooth.LocationPermissionsTask.SetResult(true);
         }
 
         public void CheckForAndRequestBluetoothPermissions()
@@ -261,7 +261,7 @@ namespace CrossCam.Droid
                 return;
             }
 
-            Bluetooth.BluetoothPermissionsTask.SetResult(true);
+            PlatformBluetooth.BluetoothPermissionsTask.SetResult(true);
         }
 
         private bool CheckForAndRequestRequiredPermissions()

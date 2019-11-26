@@ -5,7 +5,6 @@
              xmlns:freshMvvm="clr-namespace:FreshMvvm;assembly=FreshMvvm"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:viewModel="clr-namespace:CrossCam.ViewModel;assembly=CrossCam"
-             xmlns:wrappers="clr-namespace:CrossCam.Wrappers;assembly=CrossCam"
              xmlns:valueConverter="clr-namespace:CrossCam.ValueConverter;assembly=CrossCam"
              xmlns:bluetoothLe="clr-namespace:Plugin.BluetoothLE;assembly=Plugin.BluetoothLE"
              mc:Ignorable="d"
@@ -185,8 +184,8 @@
                    HorizontalOptions="Center"/>
             <Label Text="You may have to wait a few seconds between steps."/>
             <Label Text="You may have to try a step a second time."/>
+            <Label Text="You may want to try to connecting the devices via your phone's Bluetooth settings."/>
             <Label Text="You may have to forget the paired device from your Bluetooth settings."/>
-            <Label Text="If all else fails, please send me an email (see the help page)."/>
         </StackLayout>
     </ScrollView>
 </freshMvvm:FreshBaseContentPage>
