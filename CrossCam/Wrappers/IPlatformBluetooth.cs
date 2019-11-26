@@ -2,7 +2,7 @@
 
 namespace CrossCam.Wrappers
 {
-    public interface IBluetooth
+    public interface IPlatformBluetooth
     {
         Task<bool> RequestBluetoothPermissions();
         Task<bool> RequestLocationPermissions();
@@ -10,7 +10,5 @@ namespace CrossCam.Wrappers
         bool IsBluetoothApiLevelSufficient();
         Task<bool> TurnOnBluetooth();
         Task<bool> TurnOnLocationServices();
-        Task<bool> SendPreviewFrame(byte[] preview);
-        Task<byte[]> Capture(int countdownSeconds);
     }
 }

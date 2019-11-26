@@ -1,5 +1,4 @@
-﻿using System;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using Android.Bluetooth;
 using Android.Content;
 using Android.Gms.Common.Apis;
@@ -9,10 +8,10 @@ using CrossCam.Droid.CustomRenderer;
 using CrossCam.Wrappers;
 using Xamarin.Forms;
 
-[assembly: Dependency(typeof(Bluetooth))]
+[assembly: Dependency(typeof(PlatformBluetooth))]
 namespace CrossCam.Droid.CustomRenderer
 {
-    public sealed class Bluetooth : IBluetooth
+    public sealed class PlatformBluetooth : IPlatformBluetooth
     {
         public static TaskCompletionSource<bool> BluetoothPermissionsTask = new TaskCompletionSource<bool>();
         public static TaskCompletionSource<bool> LocationPermissionsTask = new TaskCompletionSource<bool>();
@@ -125,16 +124,6 @@ namespace CrossCam.Droid.CustomRenderer
             });
 
             return _isLocationOnTask.Task;
-        }
-
-        public Task<bool> SendPreviewFrame(byte[] preview)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task<byte[]> Capture(int countdownSeconds)
-        {
-            throw new NotImplementedException();
         }
     }
 }
