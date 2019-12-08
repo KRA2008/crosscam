@@ -10,6 +10,7 @@ using FreshMvvm;
 using Plugin.DeviceInfo;
 using SkiaSharp;
 using Xamarin.Forms;
+using ErrorEventArgs = CrossCam.Wrappers.ErrorEventArgs;
 
 namespace CrossCam.ViewModel
 {
@@ -19,7 +20,8 @@ namespace CrossCam.ViewModel
         private const string SINGLE_SIDE = "Load single side";
         private const string CANCEL = "Cancel";
 
-        public static BluetoothOperator BluetoothOperator = new BluetoothOperator();
+        public static readonly BluetoothOperator BluetoothOperator = new BluetoothOperator();
+        public BluetoothOperator BluetoothOperatorBindable => BluetoothOperator;
 
         public WorkflowStage WorkflowStage { get; set; }
         public CropMode CropMode { get; set; }
@@ -813,6 +815,10 @@ namespace CrossCam.ViewModel
                 WasCaptureCross = !WasCaptureCross;
             }
 
+            BluetoothOperator.ErrorOccurred += BluetoothOperatorOnErrorOccurred;
+            BluetoothOperator.Disconnected += BluetoothOperatorOnDisconnected;
+            BluetoothOperator.Connected += BluetoothOperatorOnConnected;
+
             await Task.Delay(100);
             await EvaluateAndShowWelcomePopup();
         }
@@ -868,6 +874,40 @@ namespace CrossCam.ViewModel
 
                 await SaveSurfaceSnapshot(tempSurface);
             }
+        }
+
+        protected override void ViewIsDisappearing(object sender, EventArgs e)
+        {
+            BluetoothOperator.ErrorOccurred -= BluetoothOperatorOnErrorOccurred;
+            BluetoothOperator.Disconnected -= BluetoothOperatorOnDisconnected;
+            BluetoothOperator.Connected -= BluetoothOperatorOnConnected;
+            base.ViewIsDisappearing(sender, e);
+        }
+
+        private async void BluetoothOperatorOnErrorOccurred(object sender, ErrorEventArgs e)
+        {
+            await Device.InvokeOnMainThreadAsync(async () =>
+            {
+                await CoreMethods.DisplayAlert("Pair Error Occurred",
+                    "An error has occurred with the paired device. Step: " + e.Step + " Error: " + e.Exception, "OK");
+            });
+        }
+
+        private async void BluetoothOperatorOnDisconnected(object sender, EventArgs e)
+        {
+            await Device.InvokeOnMainThreadAsync(async () =>
+            {
+                await CoreMethods.DisplayAlert("Disconnected", "The connection to the paired device was lost.",
+                    "OK");
+            });
+        }
+
+        private async void BluetoothOperatorOnConnected(object sender, EventArgs e)
+        {
+            await Device.InvokeOnMainThreadAsync(async () =>
+            {
+                await CoreMethods.DisplayAlert("Connected", "Device connected!", "OK");
+            });
         }
 
         private async Task SaveSurfaceSnapshot(SKSurface surface)

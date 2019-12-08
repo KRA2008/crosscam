@@ -173,6 +173,10 @@ namespace CrossCam.Droid.CustomRenderer
                 if (e.NewElement != null)
                 {
                     _cameraModule = e.NewElement;
+                    _cameraModule.BluetoothOperator.CaptureRequested += (sender2, args) =>
+                    {
+                        Device.BeginInvokeOnMainThread(TakePhotoButtonTapped);
+                    };
                 }
 
                 
@@ -365,6 +369,11 @@ namespace CrossCam.Droid.CustomRenderer
 
         private void TakePhotoButtonTapped()
         {
+            if (_cameraModule.BluetoothOperator.IsConnected &&
+                _cameraModule.BluetoothOperator.IsPrimary)
+            {
+                _cameraModule.BluetoothOperator.RequestCapture();
+            }
             if (_useCamera2)
             {
                 StartRealCapture2();

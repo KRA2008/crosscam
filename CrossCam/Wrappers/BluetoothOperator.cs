@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Diagnostics;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using Plugin.BluetoothLE;
@@ -10,46 +12,55 @@ using IDevice = Plugin.BluetoothLE.IDevice;
 
 namespace CrossCam.Wrappers
 {
-    public class BluetoothOperator
+    public sealed class BluetoothOperator : INotifyPropertyChanged
     {
-        private bool _isConnected;
+        public bool IsConnected { get; private set; }
         private readonly IPlatformBluetooth _bleSetup;
         private readonly Guid _serviceGuid = Guid.Parse("492a8e3d-2589-40b1-b9c2-419a7ce80f3c");
         private readonly Guid _previewGuid = Guid.Parse("492a8e3e-2589-40b1-b9c2-419a7ce80f3c");
         private readonly Guid _triggerGuid = Guid.Parse("492a8e3f-2589-40b1-b9c2-419a7ce80f3c");
         private readonly Guid _capturedGuid = Guid.Parse("492a8e40-2589-40b1-b9c2-419a7ce80f3c");
         private readonly Guid _helloGuid = Guid.Parse("492a8e41-2589-40b1-b9c2-419a7ce80f3c");
+        public bool IsPrimary { get; private set; }
+        private IDevice _device;
+
+        public event EventHandler CaptureRequested;
+        private void OnCaptureRequested(EventArgs e)
+        {
+            var handler = CaptureRequested;
+            handler?.Invoke(this, e);
+        }
 
         public event EventHandler Disconnected;
-        protected virtual void OnDisconnected(EventArgs e)
+        private void OnDisconnected(EventArgs e)
         {
             var handler = Disconnected;
             handler?.Invoke(this, e);
         }
 
         public event EventHandler Connected;
-        protected virtual void OnConnected(EventArgs e)
+        private void OnConnected(EventArgs e)
         {
             var handler = Connected;
             handler?.Invoke(this, e);
         }
 
         public event EventHandler<ErrorEventArgs> ErrorOccurred;
-        protected virtual void OnErrorOccurred(ErrorEventArgs e)
+        private void OnErrorOccurred(ErrorEventArgs e)
         {
             var handler = ErrorOccurred;
             handler?.Invoke(this, e);
         }
 
         public event EventHandler<BluetoothDeviceDiscoveredEventArgs> DeviceDiscovered;
-        protected virtual void OnDeviceDiscovered(BluetoothDeviceDiscoveredEventArgs e)
+        private void OnDeviceDiscovered(BluetoothDeviceDiscoveredEventArgs e)
         {
             var handler = DeviceDiscovered;
             handler?.Invoke(this, e);
         }
 
         public event EventHandler<PairedDevicesFoundEventArgs> PairedDevicesFound;
-        protected virtual void OnPairedDevicesFound(PairedDevicesFoundEventArgs e)
+        private void OnPairedDevicesFound(PairedDevicesFoundEventArgs e)
         {
             var handler = PairedDevicesFound;
             handler?.Invoke(this, e);
@@ -111,9 +122,9 @@ namespace CrossCam.Wrappers
             CrossBleAdapter.Current.Scan(new ScanConfig
             {
                 ServiceUuids = new List<Guid>
-                    {
-                        _serviceGuid
-                    }
+                {
+                    _serviceGuid
+                }
             }).Subscribe(scanResult =>
             {
                 Debug.WriteLine("### Device found: " + scanResult.Device.Name + " ID: " + scanResult.Device.Uuid);
@@ -170,16 +181,26 @@ namespace CrossCam.Wrappers
                         service.AddCharacteristic(_previewGuid, CharacteristicProperties.Read,
                             GattPermissions.Read);
                         service.AddCharacteristic(_triggerGuid, CharacteristicProperties.Write,
-                            GattPermissions.Write);
+                            GattPermissions.Write).WhenWriteReceived().Subscribe(request =>
+                        {
+                            OnCaptureRequested(null);
+                        }, exception =>
+                        {
+                            OnErrorOccurred(new ErrorEventArgs
+                            {
+                                Step = "Receiving Trigger",
+                                Exception = exception
+                            });
+                        });
                         service.AddCharacteristic(_capturedGuid, CharacteristicProperties.Read,
                             GattPermissions.Read);
-                        var helloCharacteristic = service.AddCharacteristic(_helloGuid,
-                            CharacteristicProperties.Write, GattPermissions.Write);
-                        helloCharacteristic.WhenWriteReceived().Subscribe(request =>
+                        service.AddCharacteristic(_helloGuid,
+                            CharacteristicProperties.Write, GattPermissions.Write).WhenWriteReceived().Subscribe(request =>
                         {
+                            IsPrimary = false;
                             var write = Encoding.UTF8.GetString(request.Value, 0, request.Value.Length);
                             Debug.WriteLine("### Hello received: " + write);
-                            _isConnected = true;
+                            IsConnected = true;
                             OnConnected(null);
                         }, exception =>
                         {
@@ -217,9 +238,10 @@ namespace CrossCam.Wrappers
             {
                 Debug.WriteLine("### Connected device status changed: " + status);
                 if (status == ConnectionStatus.Connected &&
-                    !_isConnected)
+                    !IsConnected)
                 {
-                    _isConnected = true;
+                    IsConnected = true;
+                    _device = device;
                     OnConnected(null);
 
                     device.DiscoverServices().Subscribe(service =>
@@ -230,6 +252,7 @@ namespace CrossCam.Wrappers
                             Debug.WriteLine("### Characteristic discovered: " + characteristic.Description + ", " + characteristic.Uuid);
                             if (characteristic.Uuid == _helloGuid)
                             {
+                                IsPrimary = true;
                                 characteristic.Write(Encoding.UTF8.GetBytes("Hi there friend.")).Subscribe(resp =>
                                 {
                                     Debug.WriteLine("### Hello write response came back.");
@@ -246,9 +269,9 @@ namespace CrossCam.Wrappers
                     });
                 }
                 else if (status == ConnectionStatus.Disconnected &&
-                         _isConnected)
+                         IsConnected)
                 {
-                    _isConnected = false;
+                    IsConnected = false;
                     OnDisconnected(null);
                 }
             }, exception =>
@@ -329,6 +352,28 @@ namespace CrossCam.Wrappers
                     Exception = exception
                 });
             });
+        }
+
+        public void RequestCapture()
+        {
+            _device.WriteCharacteristic(_serviceGuid, _triggerGuid, new byte[] { }).Subscribe(what =>
+            {
+                Debug.WriteLine("Trigger send succeeded.");
+            }, exception =>
+            {
+                OnErrorOccurred(new ErrorEventArgs
+                {
+                    Exception = exception,
+                    Step = "Sending Trigger"
+                });
+            });
+        }
+
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        private void OnPropertyChanged([CallerMemberName] string propertyName = null)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
     }
 

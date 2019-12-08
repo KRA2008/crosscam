@@ -1,4 +1,5 @@
-﻿using Xamarin.Forms;
+﻿using CrossCam.Wrappers;
+using Xamarin.Forms;
 
 namespace CrossCam.CustomElement
 {
@@ -56,6 +57,9 @@ namespace CrossCam.CustomElement
 
         public static readonly BindableProperty FocusCircleYProperty = BindableProperty.Create(nameof(FocusCircleY),
             typeof(double), typeof(CameraModule), 0d, BindingMode.OneWayToSource);
+
+        public static readonly BindableProperty BluetoothOperatorProperty = BindableProperty.Create(nameof(BluetoothOperator),
+            typeof(BluetoothOperator), typeof(CameraModule));
 
         public byte[] CapturedImage
         {
@@ -151,6 +155,12 @@ namespace CrossCam.CustomElement
         {
             get => (double)GetValue(FocusCircleYProperty);
             set => SetValue(FocusCircleYProperty, value);
+        }
+
+        public BluetoothOperator BluetoothOperator
+        {
+            get => (BluetoothOperator)GetValue(BluetoothOperatorProperty);
+            set => SetValue(BluetoothOperatorProperty, value);
         }
     }
 }
