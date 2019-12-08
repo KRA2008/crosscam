@@ -5,6 +5,7 @@ using System.Diagnostics;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
+using FreshMvvm;
 using Plugin.BluetoothLE;
 using Plugin.BluetoothLE.Server;
 using Xamarin.Forms;
@@ -14,14 +15,16 @@ namespace CrossCam.Wrappers
 {
     public sealed class BluetoothOperator : INotifyPropertyChanged
     {
-        public bool IsConnected { get; private set; }
+        public bool IsConnected => ConnectionStatus == ConnectionStatus.Connected;
+        private ConnectionStatus ConnectionStatus { get; set; }
+        public bool IsPrimary { get; private set; }
+        public IPageModelCoreMethods CurrentCoreMethods { get; set; }
         private readonly IPlatformBluetooth _bleSetup;
         private readonly Guid _serviceGuid = Guid.Parse("492a8e3d-2589-40b1-b9c2-419a7ce80f3c");
         private readonly Guid _previewGuid = Guid.Parse("492a8e3e-2589-40b1-b9c2-419a7ce80f3c");
         private readonly Guid _triggerGuid = Guid.Parse("492a8e3f-2589-40b1-b9c2-419a7ce80f3c");
         private readonly Guid _capturedGuid = Guid.Parse("492a8e40-2589-40b1-b9c2-419a7ce80f3c");
         private readonly Guid _helloGuid = Guid.Parse("492a8e41-2589-40b1-b9c2-419a7ce80f3c");
-        public bool IsPrimary { get; private set; }
         private IDevice _device;
 
         public event EventHandler CaptureRequested;
@@ -34,6 +37,7 @@ namespace CrossCam.Wrappers
         public event EventHandler Disconnected;
         private void OnDisconnected(EventArgs e)
         {
+            ShowPairDisconnected();
             var handler = Disconnected;
             handler?.Invoke(this, e);
         }
@@ -41,6 +45,7 @@ namespace CrossCam.Wrappers
         public event EventHandler Connected;
         private void OnConnected(EventArgs e)
         {
+            ShowPairConnected();
             var handler = Connected;
             handler?.Invoke(this, e);
         }
@@ -48,6 +53,7 @@ namespace CrossCam.Wrappers
         public event EventHandler<ErrorEventArgs> ErrorOccurred;
         private void OnErrorOccurred(ErrorEventArgs e)
         {
+            ShowPairErrorOccurred(e.Step, e.Exception.ToString());
             var handler = ErrorOccurred;
             handler?.Invoke(this, e);
         }
@@ -86,6 +92,7 @@ namespace CrossCam.Wrappers
             CrossBleAdapter.Current.WhenDeviceStateRestored().Subscribe(device =>
             {
                 Debug.WriteLine("### State restored: " + device.Status);
+                ConnectionStatus = device.Status;
                 if (device.IsConnected())
                 {
                     OnConnected(null);
@@ -200,7 +207,7 @@ namespace CrossCam.Wrappers
                             IsPrimary = false;
                             var write = Encoding.UTF8.GetString(request.Value, 0, request.Value.Length);
                             Debug.WriteLine("### Hello received: " + write);
-                            IsConnected = true;
+                            ConnectionStatus = ConnectionStatus.Connected;
                             OnConnected(null);
                         }, exception =>
                         {
@@ -234,13 +241,12 @@ namespace CrossCam.Wrappers
 
         public void Connect(IDevice device)
         {
-            device.WhenStatusChanged().Subscribe(status =>
+            device.WhenStatusChanged().Subscribe(newStatus =>
             {
-                Debug.WriteLine("### Connected device status changed: " + status);
-                if (status == ConnectionStatus.Connected &&
+                Debug.WriteLine("### Connected device status changed: " + newStatus);
+                if (newStatus == ConnectionStatus.Connected &&
                     !IsConnected)
                 {
-                    IsConnected = true;
                     _device = device;
                     OnConnected(null);
 
@@ -268,12 +274,15 @@ namespace CrossCam.Wrappers
                         });
                     });
                 }
-                else if (status == ConnectionStatus.Disconnected &&
-                         IsConnected)
+                else if (newStatus == ConnectionStatus.Disconnected &&
+                         IsConnected ||
+                         newStatus == ConnectionStatus.Disconnected &&
+                         ConnectionStatus == ConnectionStatus.Connecting)
                 {
-                    IsConnected = false;
                     OnDisconnected(null);
                 }
+
+                ConnectionStatus = newStatus;
             }, exception =>
             {
                 OnErrorOccurred(new ErrorEventArgs
@@ -374,6 +383,32 @@ namespace CrossCam.Wrappers
         private void OnPropertyChanged([CallerMemberName] string propertyName = null)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
+
+        private async void ShowPairErrorOccurred(string step, string details)
+        {
+            await Device.InvokeOnMainThreadAsync(async () =>
+            {
+                await CurrentCoreMethods.DisplayAlert("Pair Error Occurred",
+                    "An error occurred during " + step + ", exception: " + details, "OK");
+            });
+        }
+
+        private async void ShowPairDisconnected()
+        {
+            await Device.InvokeOnMainThreadAsync(async () =>
+            {
+                await CurrentCoreMethods.DisplayAlert("Disconnected", "The connection to the paired device was lost. Please connect again.",
+                    "OK");
+            });
+        }
+
+        private async void ShowPairConnected()
+        {
+            await Device.InvokeOnMainThreadAsync(async () =>
+            {
+                await CurrentCoreMethods.DisplayAlert("Connected Pair Device", "Pair device connected successfully!", "Yay");
+            });
         }
     }
 

@@ -10,7 +10,6 @@ using FreshMvvm;
 using Plugin.DeviceInfo;
 using SkiaSharp;
 using Xamarin.Forms;
-using ErrorEventArgs = CrossCam.Wrappers.ErrorEventArgs;
 
 namespace CrossCam.ViewModel
 {
@@ -815,14 +814,13 @@ namespace CrossCam.ViewModel
                 WasCaptureCross = !WasCaptureCross;
             }
 
-            BluetoothOperator.ErrorOccurred += BluetoothOperatorOnErrorOccurred;
-            BluetoothOperator.Disconnected += BluetoothOperatorOnDisconnected;
-            BluetoothOperator.Connected += BluetoothOperatorOnConnected;
+            BluetoothOperator.CurrentCoreMethods = CoreMethods;
 
             await Task.Delay(100);
             await EvaluateAndShowWelcomePopup();
         }
 
+<<<<<<< HEAD
         private void TriggerMovementHint()
         {
             if (LeftBitmap != null &&
@@ -910,6 +908,8 @@ namespace CrossCam.ViewModel
             });
         }
 
+=======
+>>>>>>> better feedback mechanism during connection, handling popups with less duplication, etc
         private async Task SaveSurfaceSnapshot(SKSurface surface)
         {
             using (var skImage = surface.Snapshot())
