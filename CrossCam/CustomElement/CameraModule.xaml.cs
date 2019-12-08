@@ -1,4 +1,5 @@
-﻿using Xamarin.Forms;
+﻿using CrossCam.Wrappers;
+using Xamarin.Forms;
 
 namespace CrossCam.CustomElement
 {
@@ -59,6 +60,9 @@ namespace CrossCam.CustomElement
 
         public static readonly BindableProperty IsFrontCameraProperty = BindableProperty.Create(nameof(IsFrontCamera),
             typeof(bool), typeof(CameraModule), false);
+
+        public static readonly BindableProperty BluetoothOperatorProperty = BindableProperty.Create(nameof(BluetoothOperator),
+            typeof(BluetoothOperator), typeof(CameraModule));
 
         public byte[] CapturedImage
         {
@@ -160,6 +164,12 @@ namespace CrossCam.CustomElement
         {
             get => (bool)GetValue(IsFrontCameraProperty);
             set => SetValue(IsFrontCameraProperty, value);
+        }
+
+        public BluetoothOperator BluetoothOperator
+        {
+            get => (BluetoothOperator)GetValue(BluetoothOperatorProperty);
+            set => SetValue(BluetoothOperatorProperty, value);
         }
     }
 }

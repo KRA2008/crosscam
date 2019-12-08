@@ -13,7 +13,7 @@ namespace CrossCam.ViewModel
 {
     public class PairingViewModel : FreshBasePageModel
     {
-        public bool IsConnected { get; set; }
+        public BluetoothOperator BluetoothOperator => CameraViewModel.BluetoothOperator;
         public ObservableCollection<IDevice> PairedDevices { get; set; }
         public ObservableCollection<IDevice> DiscoveredDevices { get; set; }
 
@@ -129,7 +129,6 @@ namespace CrossCam.ViewModel
         {
             CrossBleAdapter.Current.Advertiser.Stop();
             CrossBleAdapter.Current.StopScan();
-            IsConnected = true;
             CameraViewModel.BluetoothOperator.GetPairedDevices();
             await Device.InvokeOnMainThreadAsync(async () =>
             {
@@ -139,7 +138,6 @@ namespace CrossCam.ViewModel
 
         private async Task ShowDisconnected()
         {
-            IsConnected = false;
             await Device.InvokeOnMainThreadAsync(async () =>
             {
                 await CoreMethods.DisplayAlert("Disconnected", "Disconnected!", "OK");

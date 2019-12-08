@@ -17,7 +17,7 @@
             <Label HorizontalOptions="Center">
                 <Label.Triggers>
                     <DataTrigger TargetType="Label"
-                                 Binding="{Binding IsConnected}"
+                                 Binding="{Binding BluetoothOperator.IsConnected}"
                                  Value="True">
                         <Setter Value="CONNECTED"
                                 Property="Text"/>
@@ -25,7 +25,7 @@
                                 Value="Green"/>
                     </DataTrigger>
                     <DataTrigger TargetType="Label"
-                                 Binding="{Binding IsConnected}"
+                                 Binding="{Binding BluetoothOperator.IsConnected}"
                                  Value="False">
                         <Setter Value="DISCONNECTED"
                                 Property="Text"/>
@@ -36,7 +36,7 @@
             </Label>
             <Button Text="Disconnect"
                     Command="{Binding DisconnectCommand}"
-                    IsVisible="{Binding IsConnected}"/>
+                    IsVisible="{Binding BluetoothOperator.IsConnected}"/>
             <Label Text=""/>
 
             <Label Text="RECONNECT TO A PREVIOUSLY USED DEVICE:"

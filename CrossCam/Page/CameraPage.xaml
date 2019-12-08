@@ -140,7 +140,8 @@
                              FocusCircleY="{Binding FocusCircleY}"
                              WasSwipedTrigger="{Binding WasSwipedTrigger}"
                              IsFocusCircleLocked="{Binding IsFocusCircleLocked}"
-                             IsFrontCamera="{Binding Settings.IsFrontCamera}"/>
+                             IsFrontCamera="{Binding Settings.IsFrontCamera}"
+                             BluetoothOperator="{Binding BluetoothOperatorBindable}"/>
             <AbsoluteLayout Grid.Column="{Binding CameraColumn}"
                             IsVisible="{Binding IsCameraVisible}"
                             InputTransparent="True">
