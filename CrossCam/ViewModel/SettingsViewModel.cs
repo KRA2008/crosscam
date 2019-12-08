@@ -88,6 +88,12 @@ namespace CrossCam.ViewModel
             Settings.PropertyChanged -= SaveSettings;
         }
 
+        protected override void ViewIsAppearing(object sender, EventArgs e)
+        {
+            base.ViewIsAppearing(sender, e);
+            CameraViewModel.BluetoothOperator.CurrentCoreMethods = CoreMethods;
+        }
+
         private void SaveSettings(object sender, PropertyChangedEventArgs e)
         {
             RaisePropertyChanged(nameof(IsAnaglyphMode));

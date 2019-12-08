@@ -821,9 +821,7 @@ namespace CrossCam.ViewModel
                 WasCaptureCross = !WasCaptureCross;
             }
 
-            BluetoothOperator.ErrorOccurred += BluetoothOperatorOnErrorOccurred;
-            BluetoothOperator.Disconnected += BluetoothOperatorOnDisconnected;
-            BluetoothOperator.Connected += BluetoothOperatorOnConnected;
+            BluetoothOperator.CurrentCoreMethods = CoreMethods;
 
             await Task.Delay(100);
             await EvaluateAndShowWelcomePopup();

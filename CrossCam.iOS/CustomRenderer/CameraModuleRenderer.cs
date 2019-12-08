@@ -45,6 +45,10 @@ namespace CrossCam.iOS.CustomRenderer
             if (e.NewElement != null)
             {
                 _cameraModule = e.NewElement;
+                _cameraModule.BluetoothOperator.CaptureRequested += (sender2, args) =>
+                {
+                    Device.BeginInvokeOnMainThread(CapturePhoto);
+                };
                 SetupCamera();
                 StartPreview();
             }
@@ -232,6 +236,11 @@ namespace CrossCam.iOS.CustomRenderer
         {
             try
             {
+                if (_cameraModule.BluetoothOperator.IsConnected &&
+                    _cameraModule.BluetoothOperator.IsPrimary)
+                {
+                    _cameraModule.BluetoothOperator.RequestCapture();
+                }
                 if (_is10OrHigher)
                 {
                     var photoSettings = AVCapturePhotoSettings.Create();

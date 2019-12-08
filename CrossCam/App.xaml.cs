@@ -11,7 +11,7 @@ namespace CrossCam
         public const string APP_PAUSING_EVENT = "appPausing";
         public const string APP_UNPAUSING_EVENT = "appUnpausing";
 
-        private CameraViewModel _cameraViewModel;
+        private readonly CameraViewModel _cameraViewModel;
 
         public App()
         {

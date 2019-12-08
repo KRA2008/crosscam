@@ -125,31 +125,14 @@ namespace CrossCam.ViewModel
             });
         }
 
-        private async Task ShowConnectionSucceeded()
-        {
-            CrossBleAdapter.Current.Advertiser.Stop();
-            CrossBleAdapter.Current.StopScan();
-            CameraViewModel.BluetoothOperator.GetPairedDevices();
-            await Device.InvokeOnMainThreadAsync(async () =>
-            {
-                await CoreMethods.DisplayAlert("Connection Success", "Congrats!", "Yay");
-            });
-        }
-
-        private async Task ShowDisconnected()
-        {
-            await Device.InvokeOnMainThreadAsync(async () =>
-            {
-                await CoreMethods.DisplayAlert("Disconnected", "Disconnected!", "OK");
-            });
-        }
-
         protected override void ViewIsAppearing(object sender, EventArgs e)
         {
             base.ViewIsAppearing(sender, e);
+
+            CameraViewModel.BluetoothOperator.CurrentCoreMethods = CoreMethods;
+
             CameraViewModel.BluetoothOperator.GetPairedDevices();
 
-            CameraViewModel.BluetoothOperator.ErrorOccurred += OperatorOnErrorOccurred;
             CameraViewModel.BluetoothOperator.Connected += OperatorOnConnected;
             CameraViewModel.BluetoothOperator.Disconnected += OperatorOnDisconnected;
             CameraViewModel.BluetoothOperator.DeviceDiscovered += OperatorOnDeviceDiscovered;
@@ -169,23 +152,18 @@ namespace CrossCam.ViewModel
             }
         }
 
-        private async void OperatorOnDisconnected(object sender, EventArgs e)
+        private static void OperatorOnDisconnected(object sender, EventArgs e)
         {
-            await ShowDisconnected();
+            CrossBleAdapter.Current.Advertiser.Stop();
+            CrossBleAdapter.Current.StopScan();
+            CameraViewModel.BluetoothOperator.GetPairedDevices();
         }
 
-        private async void OperatorOnConnected(object sender, EventArgs e)
+        private static void OperatorOnConnected(object sender, EventArgs e)
         {
-            await ShowConnectionSucceeded();
-        }
-
-        private async void OperatorOnErrorOccurred(object sender, ErrorEventArgs e)
-        {
-            await Device.InvokeOnMainThreadAsync(async () =>
-            {
-                await CoreMethods.DisplayAlert("Error Occurred",
-                    "An error occurred during " + e.Step + ", exception: " + e.Exception, "OK");
-            });
+            CrossBleAdapter.Current.Advertiser.Stop();
+            CrossBleAdapter.Current.StopScan();
+            CameraViewModel.BluetoothOperator.GetPairedDevices();
         }
 
         protected override void ViewIsDisappearing(object sender, EventArgs e)
@@ -193,7 +171,6 @@ namespace CrossCam.ViewModel
             CrossBleAdapter.Current.StopScan();
             CrossBleAdapter.Current.Advertiser.Stop();
 
-            CameraViewModel.BluetoothOperator.ErrorOccurred -= OperatorOnErrorOccurred;
             CameraViewModel.BluetoothOperator.Connected -= OperatorOnConnected;
             CameraViewModel.BluetoothOperator.Disconnected -= OperatorOnDisconnected;
             CameraViewModel.BluetoothOperator.DeviceDiscovered -= OperatorOnDeviceDiscovered;
