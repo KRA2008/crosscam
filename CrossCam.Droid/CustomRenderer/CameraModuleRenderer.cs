@@ -175,7 +175,10 @@ namespace CrossCam.Droid.CustomRenderer
                     _cameraModule = e.NewElement;
                     _cameraModule.BluetoothOperator.CaptureRequested += (sender2, args) =>
                     {
-                        Device.BeginInvokeOnMainThread(TakePhotoButtonTapped);
+                        Device.BeginInvokeOnMainThread(() =>
+                        {
+                            TakePhotoButtonTapped(true);
+                        });
                     };
                 }
 
@@ -367,12 +370,14 @@ namespace CrossCam.Droid.CustomRenderer
             }
         }
 
-        private void TakePhotoButtonTapped()
+        private void TakePhotoButtonTapped(bool isSyncReentry = false)
         {
             if (_cameraModule.BluetoothOperator.IsConnected &&
-                _cameraModule.BluetoothOperator.IsPrimary)
+                _cameraModule.BluetoothOperator.IsPrimary &&
+                !isSyncReentry)
             {
-                _cameraModule.BluetoothOperator.RequestCapture();
+                _cameraModule.BluetoothOperator.RequestSyncForCaptureAndSync();
+                return;
             }
             if (_useCamera2)
             {
