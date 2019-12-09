@@ -22,14 +22,13 @@ namespace CrossCam.Wrappers
         public IPageModelCoreMethods CurrentCoreMethods { get; set; }
         private readonly IPlatformBluetooth _bleSetup;
         private readonly Guid _serviceGuid = Guid.Parse("492a8e3d-2589-40b1-b9c2-419a7ce80f3c");
-        private readonly Guid _previewGuid = Guid.Parse("492a8e3e-2589-40b1-b9c2-419a7ce80f3c");
-        private readonly Guid _triggerGuid = Guid.Parse("492a8e3f-2589-40b1-b9c2-419a7ce80f3c");
-        private readonly Guid _capturedGuid = Guid.Parse("492a8e40-2589-40b1-b9c2-419a7ce80f3c");
-        private readonly Guid _helloGuid = Guid.Parse("492a8e41-2589-40b1-b9c2-419a7ce80f3c");
+        private readonly Guid _timeGuid = Guid.Parse("492a8e3e-2589-40b1-b9c2-419a7ce80f3c");
+        private readonly Guid _previewGuid = Guid.Parse("492a8e3f-2589-40b1-b9c2-419a7ce80f3c");
+        private readonly Guid _triggerGuid = Guid.Parse("492a8e40-2589-40b1-b9c2-419a7ce80f3c");
+        private readonly Guid _capturedGuid = Guid.Parse("492a8e41-2589-40b1-b9c2-419a7ce80f3c");
+        private readonly Guid _helloGuid = Guid.Parse("492a8e42-2589-40b1-b9c2-419a7ce80f3c");
         private IDevice _device;
         private readonly Timer _captureSyncTimer = new Timer{AutoReset = false};
-
-        private const int CAPTURE_DELAY_BUFFER_MS = 5000;
 
         public event ElapsedEventHandler CaptureRequested;
         private void OnCaptureRequested(object sender, ElapsedEventArgs e)
@@ -192,10 +191,22 @@ namespace CrossCam.Wrappers
                         Debug.WriteLine("### Service callback");
                         service.AddCharacteristic(_previewGuid, CharacteristicProperties.Read,
                             GattPermissions.Read);
+                        service.AddCharacteristic(_timeGuid, CharacteristicProperties.Write,
+                        GattPermissions.Write).WhenWriteReceived().Subscribe(request =>
+                        {
+                            //request.Value = Encoding.UTF8.GetBytes(DateTime.UtcNow.Ticks.ToString());
+                        }, exception =>
+                        {
+                            OnErrorOccurred(new ErrorEventArgs
+                            {
+                                Exception = exception,
+                                Step = "Provide Time for Sync"
+                            });
+                        });
                         service.AddCharacteristic(_triggerGuid, CharacteristicProperties.Write,
                             GattPermissions.Write).WhenWriteReceived().Subscribe(request =>
                         {
-                            HandleIncomingSyncRequest(request.Value);
+                            HandleIncomingSyncRequest(null);
                         }, exception =>
                         {
                             OnErrorOccurred(new ErrorEventArgs
@@ -371,17 +382,29 @@ namespace CrossCam.Wrappers
 
         public void RequestSyncForCaptureAndSync()
         {
-            var syncTime = DateTime.Now.AddMilliseconds(CAPTURE_DELAY_BUFFER_MS);
-            _device.WriteCharacteristic(_serviceGuid, _triggerGuid, Encoding.UTF8.GetBytes(syncTime.Ticks.ToString())).Subscribe(what =>
+            var timeRequestStart = DateTime.UtcNow.Ticks;
+            _device.WriteCharacteristic(_serviceGuid, _timeGuid, new byte[]{}).Subscribe(result =>
             {
-                Debug.WriteLine("Trigger send succeeded: " + syncTime);
-                SyncCapture(syncTime);
+                var transitTimeMs = (DateTime.UtcNow.Ticks - timeRequestStart) / (10000*2d);
+                Debug.WriteLine("Transit time: " + transitTimeMs);
+                SyncCapture(transitTimeMs);
+                _device.WriteCharacteristic(_serviceGuid, _triggerGuid, new byte[]{}).Subscribe(what =>
+                {
+                    Debug.WriteLine("Trigger send succeeded");
+                }, exception =>
+                {
+                    OnErrorOccurred(new ErrorEventArgs
+                    {
+                        Exception = exception,
+                        Step = "Sending Trigger"
+                    });
+                });
             }, exception =>
             {
                 OnErrorOccurred(new ErrorEventArgs
                 {
                     Exception = exception,
-                    Step = "Sending Trigger"
+                    Step = "Read Time for Sync"
                 });
             });
         }
@@ -390,14 +413,14 @@ namespace CrossCam.Wrappers
         {
             try
             {
-                await Task.Delay(0);//hacky but i want the bluetooth response to go out right away
-                var captureTimeString = Encoding.UTF8.GetString(bytes, 0, bytes.Length);
-                Debug.WriteLine("Trigger received: " + captureTimeString);
-                if (long.TryParse(captureTimeString, out var captureTimeTicks))
-                {
-                    var captureTime = new DateTime(captureTimeTicks);
-                    SyncCapture(captureTime);
-                }
+                //await Task.Delay(0);//hacky but i want the bluetooth response to go out right away
+                ////var delayString = Encoding.UTF8.GetString(bytes, 0, bytes.Length);
+                //Debug.WriteLine("Trigger received: " + delayString);
+                //if (double.TryParse(delayString, out var delayMs))
+                //{
+                //    //SyncCapture(0);
+                //}
+                OnCaptureRequested(null, null);
             }
             catch (Exception e)
             {
@@ -409,13 +432,12 @@ namespace CrossCam.Wrappers
             }
         }
 
-        private void SyncCapture(DateTime syncTime)
+        private void SyncCapture(double msDelay)
         {
             _captureSyncTimer.Elapsed += OnCaptureRequested;
-            var interval = (syncTime.Ticks - DateTime.Now.Ticks) / 10000d;
-            _captureSyncTimer.Interval = interval;
+            _captureSyncTimer.Interval = msDelay;
             _captureSyncTimer.Start();
-            Debug.WriteLine("Sync interval set: " + interval);
+            Debug.WriteLine("Sync interval set: " + msDelay);
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
