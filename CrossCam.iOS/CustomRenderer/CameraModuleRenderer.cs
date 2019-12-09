@@ -239,7 +239,7 @@ namespace CrossCam.iOS.CustomRenderer
                 if (_cameraModule.BluetoothOperator.IsConnected &&
                     _cameraModule.BluetoothOperator.IsPrimary)
                 {
-                    _cameraModule.BluetoothOperator.RequestCapture();
+                    _cameraModule.BluetoothOperator.RequestSyncForCaptureAndSync();
                 }
                 if (_is10OrHigher)
                 {

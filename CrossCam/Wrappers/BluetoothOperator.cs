@@ -5,6 +5,7 @@ using System.Diagnostics;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
+using System.Timers;
 using FreshMvvm;
 using Plugin.BluetoothLE;
 using Plugin.BluetoothLE.Server;
@@ -26,10 +27,14 @@ namespace CrossCam.Wrappers
         private readonly Guid _capturedGuid = Guid.Parse("492a8e40-2589-40b1-b9c2-419a7ce80f3c");
         private readonly Guid _helloGuid = Guid.Parse("492a8e41-2589-40b1-b9c2-419a7ce80f3c");
         private IDevice _device;
+        private readonly Timer _captureSyncTimer = new Timer{AutoReset = false};
 
-        public event EventHandler CaptureRequested;
-        private void OnCaptureRequested(EventArgs e)
+        private const int CAPTURE_DELAY_BUFFER_MS = 5000;
+
+        public event ElapsedEventHandler CaptureRequested;
+        private void OnCaptureRequested(object sender, ElapsedEventArgs e)
         {
+            _captureSyncTimer.Elapsed -= OnCaptureRequested;
             var handler = CaptureRequested;
             handler?.Invoke(this, e);
         }
@@ -190,7 +195,7 @@ namespace CrossCam.Wrappers
                         service.AddCharacteristic(_triggerGuid, CharacteristicProperties.Write,
                             GattPermissions.Write).WhenWriteReceived().Subscribe(request =>
                         {
-                            OnCaptureRequested(null);
+                            HandleIncomingSyncRequest(request.Value);
                         }, exception =>
                         {
                             OnErrorOccurred(new ErrorEventArgs
@@ -334,6 +339,7 @@ namespace CrossCam.Wrappers
                     device.CancelConnection();
                 }
 
+                ConnectionStatus = ConnectionStatus.Disconnected;
                 OnDisconnected(null);
             }, exception =>
             {
@@ -363,11 +369,13 @@ namespace CrossCam.Wrappers
             });
         }
 
-        public void RequestCapture()
+        public void RequestSyncForCaptureAndSync()
         {
-            _device.WriteCharacteristic(_serviceGuid, _triggerGuid, new byte[] { }).Subscribe(what =>
+            var syncTime = DateTime.Now.AddMilliseconds(CAPTURE_DELAY_BUFFER_MS);
+            _device.WriteCharacteristic(_serviceGuid, _triggerGuid, Encoding.UTF8.GetBytes(syncTime.Ticks.ToString())).Subscribe(what =>
             {
-                Debug.WriteLine("Trigger send succeeded.");
+                Debug.WriteLine("Trigger send succeeded: " + syncTime);
+                SyncCapture(syncTime);
             }, exception =>
             {
                 OnErrorOccurred(new ErrorEventArgs
@@ -376,6 +384,38 @@ namespace CrossCam.Wrappers
                     Step = "Sending Trigger"
                 });
             });
+        }
+
+        private async void HandleIncomingSyncRequest(byte[] bytes)
+        {
+            try
+            {
+                await Task.Delay(0);//hacky but i want the bluetooth response to go out right away
+                var captureTimeString = Encoding.UTF8.GetString(bytes, 0, bytes.Length);
+                Debug.WriteLine("Trigger received: " + captureTimeString);
+                if (long.TryParse(captureTimeString, out var captureTimeTicks))
+                {
+                    var captureTime = new DateTime(captureTimeTicks);
+                    SyncCapture(captureTime);
+                }
+            }
+            catch (Exception e)
+            {
+                OnErrorOccurred(new ErrorEventArgs
+                {
+                    Exception = e,
+                    Step = "Receive Sync for Capture"
+                });
+            }
+        }
+
+        private void SyncCapture(DateTime syncTime)
+        {
+            _captureSyncTimer.Elapsed += OnCaptureRequested;
+            var interval = (syncTime.Ticks - DateTime.Now.Ticks) / 10000d;
+            _captureSyncTimer.Interval = interval;
+            _captureSyncTimer.Start();
+            Debug.WriteLine("Sync interval set: " + interval);
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
