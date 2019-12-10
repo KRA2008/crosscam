@@ -397,7 +397,7 @@ namespace CrossCam.Wrappers
                     Debug.WriteLine("Time offset: " + timeOffset / 10000d + " milliseconds");
                     Debug.WriteLine("Round trip delay: " + roundTripDelay / 10000d + " milliseconds");
                     var targetSyncMoment = DateTime.UtcNow.AddMilliseconds(CAPTURE_BUFFER_MS);
-                    var partnerSyncMoment = targetSyncMoment.AddTicks(timeOffset).AddTicks(-roundTripDelay);
+                    var partnerSyncMoment = targetSyncMoment.AddTicks(timeOffset).AddTicks(-roundTripDelay/2);
                     _device.WriteCharacteristic(_serviceGuid, _triggerGuid, Encoding.UTF8.GetBytes(partnerSyncMoment.Ticks.ToString())).Subscribe(what =>
                     {
                         SyncCapture(targetSyncMoment);
