@@ -30,9 +30,12 @@ namespace CrossCam.Wrappers
         private IDevice _device;
         private readonly Timer _captureSyncTimer = new Timer{AutoReset = false};
 
+        private long CAPTURE_BUFFER_MS = 1000;
+
         public event ElapsedEventHandler CaptureRequested;
         private void OnCaptureRequested(object sender, ElapsedEventArgs e)
         {
+            Debug.WriteLine("CAPTURE NOW!!!!");
             _captureSyncTimer.Elapsed -= OnCaptureRequested;
             var handler = CaptureRequested;
             handler?.Invoke(this, e);
@@ -191,10 +194,10 @@ namespace CrossCam.Wrappers
                         Debug.WriteLine("### Service callback");
                         service.AddCharacteristic(_previewGuid, CharacteristicProperties.Read,
                             GattPermissions.Read);
-                        service.AddCharacteristic(_timeGuid, CharacteristicProperties.Write,
-                        GattPermissions.Write).WhenWriteReceived().Subscribe(request =>
+                        service.AddCharacteristic(_timeGuid, CharacteristicProperties.Read,
+                        GattPermissions.Read).WhenReadReceived().Subscribe(request =>
                         {
-                            //request.Value = Encoding.UTF8.GetBytes(DateTime.UtcNow.Ticks.ToString());
+                            request.Value = Encoding.UTF8.GetBytes(DateTime.UtcNow.Ticks.ToString());
                         }, exception =>
                         {
                             OnErrorOccurred(new ErrorEventArgs
@@ -206,7 +209,7 @@ namespace CrossCam.Wrappers
                         service.AddCharacteristic(_triggerGuid, CharacteristicProperties.Write,
                             GattPermissions.Write).WhenWriteReceived().Subscribe(request =>
                         {
-                            HandleIncomingSyncRequest(null);
+                            HandleIncomingSyncRequest(request.Value, DateTime.UtcNow);
                         }, exception =>
                         {
                             OnErrorOccurred(new ErrorEventArgs
@@ -382,45 +385,40 @@ namespace CrossCam.Wrappers
 
         public void RequestSyncForCaptureAndSync()
         {
-            var timeRequestStart = DateTime.UtcNow.Ticks;
-            _device.WriteCharacteristic(_serviceGuid, _timeGuid, new byte[]{}).Subscribe(result =>
+            var now = DateTime.UtcNow;
+            _device.WriteCharacteristic(_serviceGuid, _triggerGuid, Encoding.UTF8.GetBytes(now.Ticks.ToString())).Subscribe(what =>
             {
-                var transitTimeMs = (DateTime.UtcNow.Ticks - timeRequestStart) / (10000*2d);
-                Debug.WriteLine("Transit time: " + transitTimeMs);
-                SyncCapture(transitTimeMs);
-                _device.WriteCharacteristic(_serviceGuid, _triggerGuid, new byte[]{}).Subscribe(what =>
-                {
-                    Debug.WriteLine("Trigger send succeeded");
-                }, exception =>
-                {
-                    OnErrorOccurred(new ErrorEventArgs
-                    {
-                        Exception = exception,
-                        Step = "Sending Trigger"
-                    });
-                });
+                Debug.WriteLine("Transmission time: " + (DateTime.UtcNow.Ticks - now.Ticks));
+                Debug.WriteLine("Trigger send succeeded: " + now.ToString("O"));
+                SyncCapture(now.AddMilliseconds(CAPTURE_BUFFER_MS));
             }, exception =>
             {
                 OnErrorOccurred(new ErrorEventArgs
                 {
                     Exception = exception,
-                    Step = "Read Time for Sync"
+                    Step = "Sending Trigger"
                 });
             });
         }
 
-        private async void HandleIncomingSyncRequest(byte[] bytes)
+        private async void HandleIncomingSyncRequest(byte[] masterTicksByteArray, DateTime utcNow)
         {
             try
             {
-                //await Task.Delay(0);//hacky but i want the bluetooth response to go out right away
-                ////var delayString = Encoding.UTF8.GetString(bytes, 0, bytes.Length);
-                //Debug.WriteLine("Trigger received: " + delayString);
-                //if (double.TryParse(delayString, out var delayMs))
-                //{
-                //    //SyncCapture(0);
-                //}
-                OnCaptureRequested(null, null);
+                await Task.Delay(0);//hacky but i want the bluetooth response to go out right away
+                var masterTimeString = Encoding.UTF8.GetString(masterTicksByteArray, 0, masterTicksByteArray.Length);
+                Debug.WriteLine("Trigger received: " + masterTimeString);
+                if (long.TryParse(masterTimeString, out var masterTimeTicks))
+                {
+                    var masterTime = new DateTime(masterTimeTicks);
+                    var clockOffset = utcNow.Ticks - masterTime.Ticks;
+                    var captureTime = masterTime.AddMilliseconds(CAPTURE_BUFFER_MS).AddTicks(clockOffset);
+                    SyncCapture(masterTime);
+                    Debug.WriteLine("Now here: " + utcNow.ToString("O"));
+                    Debug.WriteLine("Master time: " + masterTime.ToString("O"));
+                    Debug.WriteLine("Clock offset: " + clockOffset);
+                    Debug.WriteLine("Capture time: " + captureTime.ToString("O"));
+                }
             }
             catch (Exception e)
             {
@@ -432,12 +430,14 @@ namespace CrossCam.Wrappers
             }
         }
 
-        private void SyncCapture(double msDelay)
+        private void SyncCapture(DateTime syncTime)
         {
             _captureSyncTimer.Elapsed += OnCaptureRequested;
-            _captureSyncTimer.Interval = msDelay;
+            var interval = (syncTime.Ticks - DateTime.UtcNow.Ticks) / 10000d;
+            _captureSyncTimer.Interval = interval;
             _captureSyncTimer.Start();
-            Debug.WriteLine("Sync interval set: " + msDelay);
+            Debug.WriteLine("Sync interval set: " + interval);
+            Debug.WriteLine("Sync time: " + syncTime.ToString("O"));
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
