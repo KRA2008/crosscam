@@ -209,7 +209,7 @@ namespace CrossCam.Wrappers
                         service.AddCharacteristic(_triggerGuid, CharacteristicProperties.Write,
                             GattPermissions.Write).WhenWriteReceived().Subscribe(request =>
                         {
-                            HandleIncomingSyncRequest(request.Value, DateTime.UtcNow);
+                            HandleIncomingSyncRequest(request.Value);
                         }, exception =>
                         {
                             OnErrorOccurred(new ErrorEventArgs
@@ -385,39 +385,53 @@ namespace CrossCam.Wrappers
 
         public void RequestSyncForCaptureAndSync()
         {
-            var now = DateTime.UtcNow;
-            _device.WriteCharacteristic(_serviceGuid, _triggerGuid, Encoding.UTF8.GetBytes(now.Ticks.ToString())).Subscribe(what =>
+            var t0 = DateTime.UtcNow.Ticks;
+            _device.ReadCharacteristic(_serviceGuid, _timeGuid).Subscribe(result =>
             {
-                Debug.WriteLine("Transmission time: " + (DateTime.UtcNow.Ticks - now.Ticks));
-                Debug.WriteLine("Trigger send succeeded: " + now.ToString("O"));
-                SyncCapture(now.AddMilliseconds(CAPTURE_BUFFER_MS));
+                var t3 = DateTime.UtcNow.Ticks;
+                var t1t2String = Encoding.UTF8.GetString(result.Data, 0, result.Data.Length);
+                if (long.TryParse(t1t2String, out var t1t2))
+                {
+                    var timeOffset = ((t1t2 - t0) + (t1t2 - t3)) / 2;
+                    var roundTripDelay = (t3 - t0);
+                    Debug.WriteLine("Time offset: " + timeOffset / 10000d + " milliseconds");
+                    Debug.WriteLine("Round trip delay: " + roundTripDelay / 10000d + " milliseconds");
+                    var targetSyncMoment = DateTime.UtcNow.AddMilliseconds(CAPTURE_BUFFER_MS);
+                    var partnerSyncMoment = targetSyncMoment.AddTicks(timeOffset).AddTicks(-roundTripDelay);
+                    _device.WriteCharacteristic(_serviceGuid, _triggerGuid, Encoding.UTF8.GetBytes(partnerSyncMoment.Ticks.ToString())).Subscribe(what =>
+                    {
+                        SyncCapture(targetSyncMoment);
+                    }, exception =>
+                    {
+                        OnErrorOccurred(new ErrorEventArgs
+                        {
+                            Exception = exception,
+                            Step = "Sending Trigger"
+                        });
+                    });
+                }
             }, exception =>
             {
                 OnErrorOccurred(new ErrorEventArgs
                 {
                     Exception = exception,
-                    Step = "Sending Trigger"
+                    Step = "Send Read Time Request"
                 });
             });
         }
 
-        private async void HandleIncomingSyncRequest(byte[] masterTicksByteArray, DateTime utcNow)
+        private async void HandleIncomingSyncRequest(byte[] masterTicksByteArray)
         {
             try
             {
                 await Task.Delay(0);//hacky but i want the bluetooth response to go out right away
-                var masterTimeString = Encoding.UTF8.GetString(masterTicksByteArray, 0, masterTicksByteArray.Length);
-                Debug.WriteLine("Trigger received: " + masterTimeString);
-                if (long.TryParse(masterTimeString, out var masterTimeTicks))
+                var targetTimeString = Encoding.UTF8.GetString(masterTicksByteArray, 0, masterTicksByteArray.Length);
+                Debug.WriteLine("Trigger received: " + targetTimeString);
+                if (long.TryParse(targetTimeString, out var targetTimeTicks))
                 {
-                    var masterTime = new DateTime(masterTimeTicks);
-                    var clockOffset = utcNow.Ticks - masterTime.Ticks;
-                    var captureTime = masterTime.AddMilliseconds(CAPTURE_BUFFER_MS).AddTicks(clockOffset);
-                    SyncCapture(masterTime);
-                    Debug.WriteLine("Now here: " + utcNow.ToString("O"));
-                    Debug.WriteLine("Master time: " + masterTime.ToString("O"));
-                    Debug.WriteLine("Clock offset: " + clockOffset);
-                    Debug.WriteLine("Capture time: " + captureTime.ToString("O"));
+                    var targetTime = new DateTime(targetTimeTicks);
+                    SyncCapture(targetTime);
+                    Debug.WriteLine("Target time: " + targetTime.ToString("O"));
                 }
             }
             catch (Exception e)
