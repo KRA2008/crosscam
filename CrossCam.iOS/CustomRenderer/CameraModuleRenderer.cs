@@ -47,7 +47,10 @@ namespace CrossCam.iOS.CustomRenderer
                 _cameraModule = e.NewElement;
                 _cameraModule.BluetoothOperator.CaptureRequested += (sender2, args) =>
                 {
-                    Device.BeginInvokeOnMainThread(CapturePhoto);
+                    Device.BeginInvokeOnMainThread(() =>
+                    {
+                        CapturePhoto(true);
+                    });
                 };
                 SetupCamera();
                 StartPreview();
@@ -232,12 +235,13 @@ namespace CrossCam.iOS.CustomRenderer
             });
         }
 
-        private async void CapturePhoto()
+        private async void CapturePhoto(bool isSyncReentry = false)
         {
             try
             {
                 if (_cameraModule.BluetoothOperator.IsConnected &&
-                    _cameraModule.BluetoothOperator.IsPrimary)
+                    _cameraModule.BluetoothOperator.IsPrimary &&
+                    !isSyncReentry)
                 {
                     _cameraModule.BluetoothOperator.RequestSyncForCaptureAndSync();
                 }
