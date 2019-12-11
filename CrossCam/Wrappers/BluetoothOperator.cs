@@ -210,7 +210,10 @@ namespace CrossCam.Wrappers
                         service.AddCharacteristic(_triggerGuid, CharacteristicProperties.Write,
                             GattPermissions.Write).WhenWriteReceived().Subscribe(request =>
                         {
-                            HandleIncomingSyncRequest(request.Value);
+                            Task.Run(() =>
+                            {
+                                HandleIncomingSyncRequest(request.Value);
+                            });
                         }, exception =>
                         {
                             OnErrorOccurred(new ErrorEventArgs
@@ -384,10 +387,10 @@ namespace CrossCam.Wrappers
             });
         }
 
-        public async Task RequestSyncForCaptureAndSync()
+        public async void RequestSyncForCaptureAndSync()
         {
-            var timeOffset = 0l;
-            var roundTripDelay = 0l;
+            var timeOffset = 0L;
+            var roundTripDelay = 0L;
             const int NUMBER_OF_RUNS = 5;
             try
             {
@@ -401,7 +404,7 @@ namespace CrossCam.Wrappers
                     {
                         var timeOffsetRun = ((t1t2 - t0) + (t1t2 - t3)) / 2;
                         timeOffset += timeOffsetRun;
-                        var roundTripDelayRun = (t3 - t0);
+                        var roundTripDelayRun = t3 - t0;
                         roundTripDelay += roundTripDelayRun; 
                         Debug.WriteLine("Time offset: " + timeOffsetRun / 10000d + " milliseconds");
                         Debug.WriteLine("Round trip delay: " + roundTripDelayRun / 10000d + " milliseconds");
@@ -437,13 +440,11 @@ namespace CrossCam.Wrappers
             });
         }
 
-        private async void HandleIncomingSyncRequest(byte[] masterTicksByteArray)
+        private void HandleIncomingSyncRequest(byte[] masterTicksByteArray)
         {
             try
             {
-                await Task.Delay(0);//hacky but i want the bluetooth response to go out right away
                 var targetTimeString = Encoding.UTF8.GetString(masterTicksByteArray, 0, masterTicksByteArray.Length);
-                Debug.WriteLine("Trigger received: " + targetTimeString);
                 if (long.TryParse(targetTimeString, out var targetTimeTicks))
                 {
                     var targetTime = new DateTime(targetTimeTicks);
