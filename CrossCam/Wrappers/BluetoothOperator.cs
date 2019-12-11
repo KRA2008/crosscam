@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
+using System.Reactive.Threading.Tasks;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
@@ -30,7 +31,7 @@ namespace CrossCam.Wrappers
         private IDevice _device;
         private readonly Timer _captureSyncTimer = new Timer{AutoReset = false};
 
-        private long CAPTURE_BUFFER_MS = 1000;
+        private const long CAPTURE_BUFFER_MS = 1000;
 
         public event ElapsedEventHandler CaptureRequested;
         private void OnCaptureRequested(object sender, ElapsedEventArgs e)
@@ -383,39 +384,55 @@ namespace CrossCam.Wrappers
             });
         }
 
-        public void RequestSyncForCaptureAndSync()
+        public async Task RequestSyncForCaptureAndSync()
         {
-            var t0 = DateTime.UtcNow.Ticks;
-            _device.ReadCharacteristic(_serviceGuid, _timeGuid).Subscribe(result =>
+            var timeOffset = 0l;
+            var roundTripDelay = 0l;
+            const int NUMBER_OF_RUNS = 5;
+            try
             {
-                var t3 = DateTime.UtcNow.Ticks;
-                var t1t2String = Encoding.UTF8.GetString(result.Data, 0, result.Data.Length);
-                if (long.TryParse(t1t2String, out var t1t2))
+                for (var i = 0; i < NUMBER_OF_RUNS; i++)
                 {
-                    var timeOffset = ((t1t2 - t0) + (t1t2 - t3)) / 2;
-                    var roundTripDelay = (t3 - t0);
-                    Debug.WriteLine("Time offset: " + timeOffset / 10000d + " milliseconds");
-                    Debug.WriteLine("Round trip delay: " + roundTripDelay / 10000d + " milliseconds");
-                    var targetSyncMoment = DateTime.UtcNow.AddMilliseconds(CAPTURE_BUFFER_MS);
-                    var partnerSyncMoment = targetSyncMoment.AddTicks(timeOffset).AddTicks(-roundTripDelay/2);
-                    _device.WriteCharacteristic(_serviceGuid, _triggerGuid, Encoding.UTF8.GetBytes(partnerSyncMoment.Ticks.ToString())).Subscribe(what =>
+                    var t0 = DateTime.UtcNow.Ticks;
+                    var readResult = await _device.ReadCharacteristic(_serviceGuid, _timeGuid).ToTask();
+                    var t3 = DateTime.UtcNow.Ticks;
+                    var t1t2String = Encoding.UTF8.GetString(readResult.Data, 0, readResult.Data.Length);
+                    if (long.TryParse(t1t2String, out var t1t2))
                     {
-                        SyncCapture(targetSyncMoment);
-                    }, exception =>
-                    {
-                        OnErrorOccurred(new ErrorEventArgs
-                        {
-                            Exception = exception,
-                            Step = "Sending Trigger"
-                        });
-                    });
+                        var timeOffsetRun = ((t1t2 - t0) + (t1t2 - t3)) / 2;
+                        timeOffset += timeOffsetRun;
+                        var roundTripDelayRun = (t3 - t0);
+                        roundTripDelay += roundTripDelayRun; 
+                        Debug.WriteLine("Time offset: " + timeOffsetRun / 10000d + " milliseconds");
+                        Debug.WriteLine("Round trip delay: " + roundTripDelayRun / 10000d + " milliseconds");
+                    }
                 }
+
+                timeOffset /= NUMBER_OF_RUNS;
+                roundTripDelay /= NUMBER_OF_RUNS;
+                Debug.WriteLine("Average time offset: " + timeOffset / 10000d + " milliseconds");
+                Debug.WriteLine("Average round trip delay: " + roundTripDelay / 10000d + " milliseconds");
+            }
+            catch (Exception e)
+            {
+                OnErrorOccurred(new ErrorEventArgs
+                {
+                    Exception = e,
+                    Step = "Send Read Time Request"
+                });
+            }
+
+            var targetSyncMoment = DateTime.UtcNow.AddMilliseconds(CAPTURE_BUFFER_MS);
+            var partnerSyncMoment = targetSyncMoment.AddTicks(timeOffset).AddTicks(-roundTripDelay / 2);
+            _device.WriteCharacteristic(_serviceGuid, _triggerGuid, Encoding.UTF8.GetBytes(partnerSyncMoment.Ticks.ToString())).Subscribe(what =>
+            {
+                SyncCapture(targetSyncMoment);
             }, exception =>
             {
                 OnErrorOccurred(new ErrorEventArgs
                 {
                     Exception = exception,
-                    Step = "Send Read Time Request"
+                    Step = "Sending Trigger"
                 });
             });
         }
