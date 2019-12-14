@@ -80,6 +80,13 @@ namespace CrossCam.Wrappers
             handler?.Invoke(this, e);
         }
 
+        public event EventHandler<PreviewFrameReadyEventArgs> PreviewFrameReady;
+        private void OnPreviewFrameReady(PreviewFrameReadyEventArgs e)
+        {
+            var handler = PreviewFrameReady;
+            handler?.Invoke(this, e);
+        }
+
 
         public BluetoothOperator()
         {
@@ -504,6 +511,11 @@ namespace CrossCam.Wrappers
                 await CurrentCoreMethods.DisplayAlert("Connected Pair Device", "Pair device connected successfully!", "Yay");
             });
         }
+    }
+
+    public class PreviewFrameReadyEventArgs : EventArgs
+    {
+        public byte[] Frame { get; set; }
     }
 
     public class PairedDevicesFoundEventArgs : EventArgs
