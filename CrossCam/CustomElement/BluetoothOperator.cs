@@ -7,13 +7,14 @@ using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Timers;
+using CrossCam.Wrappers;
 using FreshMvvm;
 using Plugin.BluetoothLE;
 using Plugin.BluetoothLE.Server;
 using Xamarin.Forms;
 using IDevice = Plugin.BluetoothLE.IDevice;
 
-namespace CrossCam.Wrappers
+namespace CrossCam.CustomElement
 {
     public sealed class BluetoothOperator : INotifyPropertyChanged
     {
@@ -30,6 +31,7 @@ namespace CrossCam.Wrappers
         private readonly Guid _helloGuid = Guid.Parse("492a8e42-2589-40b1-b9c2-419a7ce80f3c");
         private IDevice _device;
         private readonly Timer _captureSyncTimer = new Timer{AutoReset = false};
+        public TaskCompletionSource<byte[]> NextPreviewFrameTask { get; set; }
 
         private const long CAPTURE_BUFFER_MS = 1000;
 
@@ -51,11 +53,11 @@ namespace CrossCam.Wrappers
         }
 
         public event EventHandler Connected;
-        private void OnConnected(EventArgs e)
+        private void OnConnected(bool isPrimary)
         {
-            ShowPairConnected();
+            ShowPairConnected(isPrimary);
             var handler = Connected;
-            handler?.Invoke(this, e);
+            handler?.Invoke(this, new EventArgs());
         }
 
         public event EventHandler<ErrorEventArgs> ErrorOccurred;
@@ -80,14 +82,6 @@ namespace CrossCam.Wrappers
             handler?.Invoke(this, e);
         }
 
-        public event EventHandler<PreviewFrameReadyEventArgs> PreviewFrameReady;
-        private void OnPreviewFrameReady(PreviewFrameReadyEventArgs e)
-        {
-            var handler = PreviewFrameReady;
-            handler?.Invoke(this, e);
-        }
-
-
         public BluetoothOperator()
         {
             _bleSetup = DependencyService.Get<IPlatformBluetooth>();
@@ -110,7 +104,7 @@ namespace CrossCam.Wrappers
                 ConnectionStatus = device.Status;
                 if (device.IsConnected())
                 {
-                    OnConnected(null);
+                    OnConnected(true); //Unsure which device actually calls this
                 }
                 else if (device.IsDisconnected())
                 {
@@ -201,7 +195,20 @@ namespace CrossCam.Wrappers
                     {
                         Debug.WriteLine("### Service callback");
                         service.AddCharacteristic(_previewGuid, CharacteristicProperties.Read,
-                            GattPermissions.Read);
+                            GattPermissions.Read).WhenReadReceived().Subscribe(async request =>
+                        {
+                            NextPreviewFrameTask = new TaskCompletionSource<byte[]>();
+                            await NextPreviewFrameTask.Task;
+                            request.Value = NextPreviewFrameTask.Task.Result;
+                            NextPreviewFrameTask = null;
+                        }, exception =>
+                        {
+                            OnErrorOccurred(new ErrorEventArgs
+                            {
+                                Exception = exception,
+                                Step = "Provide Preview Frame"
+                            });
+                        });
                         service.AddCharacteristic(_timeGuid, CharacteristicProperties.Read,
                         GattPermissions.Read).WhenReadReceived().Subscribe(request =>
                         {
@@ -238,7 +245,7 @@ namespace CrossCam.Wrappers
                             var write = Encoding.UTF8.GetString(request.Value, 0, request.Value.Length);
                             Debug.WriteLine("### Hello received: " + write);
                             ConnectionStatus = ConnectionStatus.Connected;
-                            OnConnected(null);
+                            OnConnected(false);
                         }, exception =>
                         {
                             OnErrorOccurred(new ErrorEventArgs
@@ -278,7 +285,7 @@ namespace CrossCam.Wrappers
                     !IsConnected)
                 {
                     _device = device;
-                    OnConnected(null);
+                    OnConnected(true); //Unsure if this is good - the device with the status change and the device where the message pops might be different
 
                     device.DiscoverServices().Subscribe(service =>
                     {
@@ -353,6 +360,27 @@ namespace CrossCam.Wrappers
                     AutoConnect = true
                 });
             }
+        }
+
+        public async Task<byte[]> FetchPreviewFrame()
+        {
+            try
+            {
+                if (_device != null)
+                {
+                    var frame = await _device.ReadCharacteristic(_serviceGuid, _previewGuid).ToTask();
+                    return frame.Data;
+                }
+            }
+            catch (Exception e)
+            {
+                OnErrorOccurred(new ErrorEventArgs
+                {
+                    Exception = e,
+                    Step = "Read Preview"
+                });
+            }
+            return null;
         }
 
         public void Disconnect()
@@ -504,18 +532,13 @@ namespace CrossCam.Wrappers
             });
         }
 
-        private async void ShowPairConnected()
+        private async void ShowPairConnected(bool isPrimary)
         {
             await Device.InvokeOnMainThreadAsync(async () =>
             {
-                await CurrentCoreMethods.DisplayAlert("Connected Pair Device", "Pair device connected successfully!", "Yay");
+                await CurrentCoreMethods.DisplayAlert("Connected Pair Device", "Pair device connected successfully! This is the " + (isPrimary ? "primary" : "secondary") + " device.", "Yay");
             });
         }
-    }
-
-    public class PreviewFrameReadyEventArgs : EventArgs
-    {
-        public byte[] Frame { get; set; }
     }
 
     public class PairedDevicesFoundEventArgs : EventArgs

@@ -73,7 +73,7 @@
                        Text="2)"/>
                 <Label Grid.Row="1"
                        Grid.Column="2"
-                       Text="On the secondary device only, tap the name of the primary device below:"/>
+                       Text="On the primary device, tap the name of the secondary device below:"/>
                 <Frame Grid.Row="2"
                        Grid.Column="0"
                        Grid.ColumnSpan="4"
@@ -146,7 +146,7 @@
                        Text="2)"/>
                 <Label Grid.Row="1"
                        Grid.Column="2"
-                       Text="On the secondary device only, tap the name of the primary device below (when it appears):"/>
+                       Text="On the primary device only, tap the name of the secondary device below (when it appears):"/>
                 <Frame Grid.Row="2"
                        Grid.Column="0"
                        Grid.ColumnSpan="4"

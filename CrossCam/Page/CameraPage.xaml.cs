@@ -2,6 +2,7 @@
 using System.ComponentModel;
 using System.Threading.Tasks;
 using CrossCam.ViewModel;
+using SkiaSharp;
 using SkiaSharp.Views.Forms;
 using Xamarin.Essentials;
 using Xamarin.Forms;
@@ -202,7 +203,7 @@ namespace CrossCam.Page
                     break;
                 case nameof(CameraViewModel.Settings):
                     EvaluateSensors();
-                    _canvasView.InvalidateSurface();
+                    _drawnResultCanvas.InvalidateSurface();
                     ResetLineAndDonutGuides();
                     break;
                 case nameof(CameraViewModel.CameraColumn):
@@ -229,7 +230,10 @@ namespace CrossCam.Page
 	            case nameof(CameraViewModel.RightZoom):
 	            case nameof(CameraViewModel.LeftKeystone):
 	            case nameof(CameraViewModel.RightKeystone):
-                    _canvasView.InvalidateSurface();
+                    _drawnResultCanvas.InvalidateSurface();
+                    break;
+                case nameof(CameraViewModel.PreviewFrame):
+                    _pairPreviewCanvas.InvalidateSurface();
                     break;
 	        }
 	    }
@@ -248,7 +252,7 @@ namespace CrossCam.Page
             }
         }
 
-        private void OnPaintSurface(object sender, SKPaintSurfaceEventArgs e)
+        private void OnPaintDrawnResult(object sender, SKPaintSurfaceEventArgs e)
 	    {
 	        var canvas = e.Surface.Canvas;
 
@@ -272,7 +276,27 @@ namespace CrossCam.Page
                     : _viewModel.Settings.Mode);
         }
 
-	    private void SetSensorGuidesY()
+        private void OnPaintPreviewResult(object sender, SKPaintSurfaceEventArgs e)
+        {
+            if (_viewModel.PreviewFrame != null)
+            {
+                var canvas = e.Surface.Canvas;
+
+                canvas.Clear();
+
+                var bitmap = SKBitmap.Decode(_viewModel.PreviewFrame);
+
+                var canvasWidth = canvas.DeviceClipBounds.Width;
+                var canvasHeight = canvas.DeviceClipBounds.Height;
+                canvas.DrawBitmap(bitmap,
+                    SKRect.Create(0, 0, bitmap.Width, bitmap.Height),
+                    SKRect.Create(0, 0, canvasWidth, canvasHeight));
+
+                _viewModel.FetchPairPreviewFrame();
+            }
+        }
+
+        private void SetSensorGuidesY()
 	    {
 	        var rollBounds = AbsoluteLayout.GetLayoutBounds(_horizontalLevelWhole);
 	        rollBounds.Y = _viewModel.PreviewBottomY - LEVEL_ICON_WIDTH / 5;
@@ -427,5 +451,5 @@ namespace CrossCam.Page
 	                lineHeight));
 	        }
         }
-	}
+    }
 }
