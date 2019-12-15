@@ -63,7 +63,8 @@ namespace CrossCam.Droid.CustomRenderer
         private CaptureRequest.Builder _previewRequestBuilder;
         private CameraCaptureListener _captureListener;
         private CameraStateListener _stateListener;
-        private ImageReader _imageReader;
+        private ImageReader _finalCaptureImageReader;
+        private ImageReader _previewImageReader;
         private HandlerThread _backgroundThread;
         private Handler _backgroundHandler;
         private string _camera2Id;
@@ -1014,14 +1015,23 @@ namespace CrossCam.Droid.CustomRenderer
                 
                 _surfaceTexture.SetDefaultBufferSize(_preview2Size.Width, _preview2Size.Height);
 
-                _imageReader =
+                _finalCaptureImageReader =
                     ImageReader.NewInstance(_picture2Size.Width, _picture2Size.Height, ImageFormatType.Jpeg, 1);
+                _previewImageReader = ImageReader.NewInstance(_preview2Size.Width, _preview2Size.Height, ImageFormatType.Jpeg, 1); //TODO: probably need to fiddle with orientation
+                var previewImageListener = new ImageAvailableListener();
+                previewImageListener.Photo += (sender, bytes) => 
+                {
+                    if (_cameraModule.BluetoothOperator.IsConnected)
+                    {
+                        _cameraModule.BluetoothOperator.NextPreviewFrameTask?.SetResult(bytes);
+                    }
+                };
 
                 _captureListener = new CameraCaptureListener();
                 _captureListener.CaptureComplete += (sender, args) => { HandleCaptureResult(args.CaptureRequest, args.CaptureResult); };
                 _captureListener.CaptureProgressed += (sender, args) => { HandleCaptureResult(args.CaptureRequest, args.CaptureResult); };
                 
-                _camera2Device.CreateCaptureSession(new List<Surface> { _surface, _imageReader.Surface },
+                _camera2Device.CreateCaptureSession(new List<Surface> { _surface, _finalCaptureImageReader.Surface, _previewImageReader.Surface },
                     new CameraCaptureStateListener
                     {
                         OnConfigureFailedAction = session => { },
@@ -1031,6 +1041,7 @@ namespace CrossCam.Droid.CustomRenderer
 
                             _previewRequestBuilder = _camera2Device.CreateCaptureRequest(CameraTemplate.Preview);
                             _previewRequestBuilder.AddTarget(_surface);
+                            _previewRequestBuilder.AddTarget(_previewImageReader.Surface);
 
                             _camera2State = CameraState.Preview;
                             _previewRequestBuilder.SetTag(CameraState.Preview.ToString());
@@ -1268,7 +1279,7 @@ namespace CrossCam.Droid.CustomRenderer
                 }
                 
                 var captureBuilder = _camera2Device.CreateCaptureRequest(CameraTemplate.StillCapture);
-                captureBuilder.AddTarget(_imageReader.Surface);
+                captureBuilder.AddTarget(_finalCaptureImageReader.Surface);
                 captureBuilder.Set(CaptureRequest.JpegOrientation, new Integer(neededRotation));
                 var characteristics = _cameraManager.GetCameraCharacteristics(_camera2Id);
                 try
@@ -1289,7 +1300,7 @@ namespace CrossCam.Droid.CustomRenderer
                     });
                 };
                 readerListener.Error += (sender, exception) => { _cameraModule.ErrorMessage = exception.ToString(); };
-                _imageReader.SetOnImageAvailableListener(readerListener, _backgroundHandler);
+                _finalCaptureImageReader.SetOnImageAvailableListener(readerListener, _backgroundHandler);
 
                 var captureListener = new CameraCaptureListener();
                 captureListener.CaptureComplete += (sender, e) =>
@@ -1551,6 +1562,8 @@ namespace CrossCam.Droid.CustomRenderer
             _backgroundThread = null;
             _backgroundHandler = null;
         }
+
+        
 
 #endregion
 

@@ -104,10 +104,10 @@
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
-            <forms:SKCanvasView x:Name="_canvasView"
+            <forms:SKCanvasView x:Name="_drawnResultCanvas"
                            Grid.Column="0"
                            Grid.ColumnSpan="2"
-                           PaintSurface="OnPaintSurface">
+                           PaintSurface="OnPaintDrawnResult">
                 <View.GestureRecognizers>
                     <SwipeGestureRecognizer Command="{Binding SwapSidesCommand}"
                                             Direction="Left,Right"
@@ -122,6 +122,15 @@
                    VerticalOptions="Center"
                    WidthRequest="{StaticResource _doubleMediumIconWidth}"
                    HeightRequest="{StaticResource _doubleMediumIconWidth}"/>
+            <forms:SKCanvasView x:Name="_pairPreviewCanvas"
+                                Grid.Column="{Binding IconColumn}"
+                                PaintSurface="OnPaintPreviewResult">
+                <View.GestureRecognizers>
+                    <SwipeGestureRecognizer Command="{Binding SwapSidesCommand}"
+                                            Direction="Left,Right"
+                                            Threshold="50"/>
+                </View.GestureRecognizers>
+            </forms:SKCanvasView>
             <ce:CameraModule Grid.Column="{Binding CameraColumn}"
                              SwitchToContinuousFocusTrigger="{Binding SwitchToContinuousFocusTrigger}"
                              IsTapToFocusEnabled="{Binding Settings.IsTapToFocusEnabled2}"

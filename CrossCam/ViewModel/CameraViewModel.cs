@@ -3,6 +3,7 @@ using System.IO;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Web;
+using CrossCam.CustomElement;
 using CrossCam.Model;
 using CrossCam.Page;
 using CrossCam.Wrappers;
@@ -12,7 +13,7 @@ using Plugin.DeviceInfo;
 using SkiaSharp;
 using Xamarin.Essentials;
 using Xamarin.Forms;
-using ErrorEventArgs = CrossCam.Wrappers.ErrorEventArgs;
+using ErrorEventArgs = CrossCam.CustomElement.ErrorEventArgs;
 
 namespace CrossCam.ViewModel
 {
@@ -44,6 +45,8 @@ namespace CrossCam.ViewModel
         public byte[] CapturedImageBytes { get; set; }
         public bool CaptureSuccess { get; set; }
         public int CameraColumn { get; set; }
+
+        public byte[] PreviewFrame { get; set; }
 
         public AbsoluteLayoutFlags CanvasRectangleFlags => Settings.Mode == DrawMode.Parallel
             ? AbsoluteLayoutFlags.YProportional | AbsoluteLayoutFlags.HeightProportional | AbsoluteLayoutFlags.XProportional : 
@@ -234,6 +237,11 @@ namespace CrossCam.ViewModel
             TopOrBottomCropMax = 1;
             VerticalAlignmentMax = 1;
             ZoomMax = 1;
+
+            BluetoothOperator.Connected += (sender, args) =>
+            {
+                FetchPairPreviewFrame();
+            };
             
             PropertyChanged += (sender, args) =>
             {
@@ -700,6 +708,14 @@ namespace CrossCam.ViewModel
 
                 ErrorMessage = null;
             });
+        }
+
+        public async void FetchPairPreviewFrame()
+        {
+            if (BluetoothOperator.IsConnected)
+            {
+                PreviewFrame = await BluetoothOperator.FetchPreviewFrame();
+            }
         }
 
         public bool BackButtonPressed()
