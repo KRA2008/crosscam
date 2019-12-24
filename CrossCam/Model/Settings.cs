@@ -25,6 +25,7 @@ namespace CrossCam.Model
         public bool SaveForParallel { get; set; }
         public bool SaveForCrossView { get; set; }
         public bool RedCyanAnaglyphMode { get; set; }
+        public bool GreyscaleAnaglyphMode { get; set; }
 
         public bool AddBorder { get; set; }
 
@@ -225,6 +226,7 @@ namespace CrossCam.Model
             SaveForParallel = false;
 
             RedCyanAnaglyphMode = false;
+            GreyscaleAnaglyphMode = false;
 
             IsForceCamera1Enabled = false;
             IsTapToFocusEnabled2 = true;

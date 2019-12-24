@@ -4,6 +4,7 @@
     {
         Cross,
         Parallel,
-        RedCyan
+        RedCyan,
+        GrayscaleRedCyan
     }
 }

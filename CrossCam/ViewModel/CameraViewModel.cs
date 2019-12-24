@@ -476,25 +476,12 @@ namespace CrossCam.ViewModel
 
                         if (Settings.RedCyanAnaglyphMode)
                         {
-                            var canvasWidth = LeftBitmap.Width - LeftCrop - InsideCrop - OutsideCrop - RightCrop;
-                            var canvasHeight = DrawTool.CalculateCanvasHeightLessBorder(LeftBitmap, RightBitmap,
-                                TopCrop, BottomCrop, VerticalAlignment);
-                            using (var tempSurface =
-                                SKSurface.Create(new SKImageInfo(canvasWidth, canvasHeight)))
-                            {
-                                var canvas = tempSurface.Canvas;
-                                canvas.Clear(SKColor.Empty);
+                            await DrawAnaglyph(false);
+                        }
 
-                                DrawTool.DrawImagesOnCanvas(canvas, LeftBitmap, RightBitmap,
-                                    Settings.BorderWidthProportion, Settings.AddBorder, Settings.BorderColor,
-                                    LeftCrop + OutsideCrop, InsideCrop + RightCrop, InsideCrop + LeftCrop,
-                                    RightCrop + OutsideCrop,
-                                    TopCrop, BottomCrop, LeftRotation, RightRotation,
-                                    VerticalAlignment, LeftZoom, RightZoom,
-                                    LeftKeystone, RightKeystone, DrawMode.RedCyan);
-
-                                await SaveSurfaceSnapshot(tempSurface);
-                            }
+                        if (Settings.GreyscaleAnaglyphMode)
+                        {
+                            await DrawAnaglyph(true);
                         }
 
                         if (Settings.SaveRedundantFirstSide)
@@ -635,6 +622,29 @@ namespace CrossCam.ViewModel
 
                 ErrorMessage = null;
             });
+        }
+
+        private async Task DrawAnaglyph(bool greyscale)
+        {
+            var canvasWidth = LeftBitmap.Width - LeftCrop - InsideCrop - OutsideCrop - RightCrop;
+            var canvasHeight = DrawTool.CalculateCanvasHeightLessBorder(LeftBitmap, RightBitmap,
+                TopCrop, BottomCrop, VerticalAlignment);
+            using (var tempSurface =
+                SKSurface.Create(new SKImageInfo(canvasWidth, canvasHeight)))
+            {
+                var canvas = tempSurface.Canvas;
+                canvas.Clear(SKColor.Empty);
+
+                DrawTool.DrawImagesOnCanvas(canvas, LeftBitmap, RightBitmap,
+                    Settings.BorderWidthProportion, Settings.AddBorder, Settings.BorderColor,
+                    LeftCrop + OutsideCrop, InsideCrop + RightCrop, InsideCrop + LeftCrop,
+                    RightCrop + OutsideCrop,
+                    TopCrop, BottomCrop, LeftRotation, RightRotation,
+                    VerticalAlignment, LeftZoom, RightZoom,
+                    LeftKeystone, RightKeystone, greyscale ? DrawMode.RedCyan : DrawMode.GrayscaleRedCyan);
+
+                await SaveSurfaceSnapshot(tempSurface);
+            }
         }
 
         public bool BackButtonPressed()

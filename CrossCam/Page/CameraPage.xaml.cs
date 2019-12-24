@@ -278,7 +278,7 @@ namespace CrossCam.Page
 	            _viewModel.VerticalAlignment,
 	            _viewModel.LeftZoom, _viewModel.RightZoom,
 	            _viewModel.LeftKeystone, _viewModel.RightKeystone, 
-	            _viewModel.WorkflowStage != WorkflowStage.Capture && _viewModel.Settings.RedCyanAnaglyphMode ? DrawMode.RedCyan : DrawMode.Cross);
+	            _viewModel.WorkflowStage != WorkflowStage.Capture && (_viewModel.Settings.RedCyanAnaglyphMode || _viewModel.Settings.GreyscaleAnaglyphMode) ? DrawMode.RedCyan : DrawMode.Cross);
         }
 
 	    private void SetSensorGuidesY()

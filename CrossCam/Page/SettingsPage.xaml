@@ -219,11 +219,17 @@
                         Grid.Column="2"
                         IsToggled="{Binding Settings.RedCyanAnaglyphMode}"/>
                 <Label Grid.Row="6"
+                       Grid.Column="1"
+                       Text="Greyscale red/cyan anaglyph mode (with edits but no border) (also changes edit mode to greyscale red/cyan anaglyph)"/>
+                <Switch Grid.Row="6"
+                        Grid.Column="2"
+                        IsToggled="{Binding Settings.GreyscaleAnaglyphMode}"/>
+                <Label Grid.Row="7"
                        Grid.Column="0"
                        Grid.ColumnSpan="2"
                        Text="{Binding SaveDirectory, StringFormat='Save to: {0}'}"
                        IsVisible="{Binding CanSaveToArbitraryDirectory}"/>
-                <Button Grid.Row="6"
+                <Button Grid.Row="7"
                         Grid.Column="2"
                         Command="{Binding ChooseDirectory}"
                         Text="Browse..."
