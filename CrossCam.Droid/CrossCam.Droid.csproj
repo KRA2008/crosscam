@@ -33,6 +33,7 @@
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
     <AndroidLinkSkip>
     </AndroidLinkSkip>
+    <AndroidEnableProfiledAot>false</AndroidEnableProfiledAot>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>full</DebugType>
@@ -53,6 +54,7 @@
     <AndroidLinkSkip>CrossCam;CrossCam.Droid</AndroidLinkSkip>
     <AndroidResgenExtraArgs>--no-version-vectors</AndroidResgenExtraArgs>
     <AndroidSupportedAbis>armeabi-v7a;arm64-v8a</AndroidSupportedAbis>
+    <AndroidEnableProfiledAot>false</AndroidEnableProfiledAot>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug Without Emgu|AnyCPU'">
     <DebugSymbols>true</DebugSymbols>
@@ -274,7 +276,7 @@
     <AndroidResource Include="Resources\drawable-nodpi\horizontalLevelInside.png" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="MissingEmguCvBinaryExplanation.txt" />
+    <None Include="MissingEmguCvBinaryExplanation.txt" />
     <AndroidResource Include="Resources\drawable-nodpi\bottomCrop.png" />
     <AndroidResource Include="Resources\drawable-nodpi\topCrop.png" />
     <AndroidResource Include="Resources\drawable-nodpi\anaglyph.png" />
