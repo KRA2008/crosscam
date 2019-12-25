@@ -1,9 +1,22 @@
 ﻿using System.ComponentModel;
+using CrossCam.ViewModel;
 
 namespace CrossCam.Model
 {
     public class Settings : INotifyPropertyChanged
     {
+        private DrawMode _mode;
+        public DrawMode Mode
+        {
+            get => _mode;
+            set
+            {
+                var intValue = (int)value;
+                if (intValue < 0) return;
+                _mode = value;
+            }
+        }
+
         public bool HasOfferedTechniqueHelpBefore { get; set; }
         public bool HasShownDirectionsBefore { get; set; }
 
@@ -25,7 +38,7 @@ namespace CrossCam.Model
         public bool SaveForParallel { get; set; }
         public bool SaveForCrossView { get; set; }
         public bool RedCyanAnaglyphMode { get; set; }
-        public bool GreyscaleAnaglyphMode { get; set; }
+        public bool GrayscaleAnaglyphMode { get; set; }
 
         public bool AddBorder { get; set; }
 
@@ -210,6 +223,8 @@ namespace CrossCam.Model
 
         public void ResetToDefaults()
         {
+            Mode = DrawMode.Cross;
+
             AreGuideLinesVisible = true;
             IsCaptureLeftFirst = true;
             SaveForCrossView = true;
@@ -226,7 +241,7 @@ namespace CrossCam.Model
             SaveForParallel = false;
 
             RedCyanAnaglyphMode = false;
-            GreyscaleAnaglyphMode = false;
+            GrayscaleAnaglyphMode = false;
 
             IsForceCamera1Enabled = false;
             IsTapToFocusEnabled2 = true;

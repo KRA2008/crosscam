@@ -57,6 +57,18 @@
     <ScrollView VerticalOptions="StartAndExpand">
         <StackLayout>
             <BoxView/>
+            <StackLayout Orientation="Horizontal">
+                <Label Text="Mode"
+                       Style="{DynamicResource header}"/>
+                <Picker ItemsSource="{Binding Modes}"
+                        SelectedIndex="{Binding Settings.Mode, Converter={vc:ModeValueConverter}}"
+                        BackgroundColor="White"
+                        WidthRequest="300"
+                        HorizontalOptions="StartAndExpand"/>
+            </StackLayout>
+            <Label Text="(Anaglyph while capturing is not yet supported, but editing and saving is)"
+                   IsVisible="{Binding IsAnaglyphMode}"/>
+            <BoxView/>
             <Label Text="Border"
                    Style="{DynamicResource header}"/>
             <StackLayout Orientation="Horizontal">
@@ -214,16 +226,20 @@
                        Style="{StaticResource saveModes}"/>
                 <Label Grid.Row="5"
                        Grid.Column="1"
-                       Text="Red/cyan anaglyph mode (with edits but no border) (also changes edit mode to red/cyan anaglyph)"/>
+                       Text="Red/cyan anaglyph mode (with edits but no border)"/>
                 <Switch Grid.Row="5"
                         Grid.Column="2"
                         IsToggled="{Binding Settings.RedCyanAnaglyphMode}"/>
+                <Image Grid.Row="6"
+                       Grid.Column="0"
+                       Source="anaglyph"
+                       Style="{StaticResource saveModes}"/>
                 <Label Grid.Row="6"
                        Grid.Column="1"
-                       Text="Greyscale red/cyan anaglyph mode (with edits but no border) (also changes edit mode to greyscale red/cyan anaglyph)"/>
+                       Text="Grayscale red/cyan anaglyph mode (with edits but no border)"/>
                 <Switch Grid.Row="6"
                         Grid.Column="2"
-                        IsToggled="{Binding Settings.GreyscaleAnaglyphMode}"/>
+                        IsToggled="{Binding Settings.GrayscaleAnaglyphMode}"/>
                 <Label Grid.Row="7"
                        Grid.Column="0"
                        Grid.ColumnSpan="2"

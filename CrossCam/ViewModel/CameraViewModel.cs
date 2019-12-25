@@ -1,6 +1,5 @@
 ﻿using System;
 using System.IO;
-using System.Runtime.CompilerServices;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Web;
@@ -479,7 +478,7 @@ namespace CrossCam.ViewModel
                             await DrawAnaglyph(false);
                         }
 
-                        if (Settings.GreyscaleAnaglyphMode)
+                        if (Settings.GrayscaleAnaglyphMode)
                         {
                             await DrawAnaglyph(true);
                         }
@@ -624,7 +623,7 @@ namespace CrossCam.ViewModel
             });
         }
 
-        private async Task DrawAnaglyph(bool greyscale)
+        private async Task DrawAnaglyph(bool grayscale)
         {
             var canvasWidth = LeftBitmap.Width - LeftCrop - InsideCrop - OutsideCrop - RightCrop;
             var canvasHeight = DrawTool.CalculateCanvasHeightLessBorder(LeftBitmap, RightBitmap,
@@ -641,7 +640,7 @@ namespace CrossCam.ViewModel
                     RightCrop + OutsideCrop,
                     TopCrop, BottomCrop, LeftRotation, RightRotation,
                     VerticalAlignment, LeftZoom, RightZoom,
-                    LeftKeystone, RightKeystone, greyscale ? DrawMode.RedCyan : DrawMode.GrayscaleRedCyan);
+                    LeftKeystone, RightKeystone, grayscale ? DrawMode.GrayscaleRedCyanAnaglyph : DrawMode.RedCyanAnaglyph);
 
                 await SaveSurfaceSnapshot(tempSurface);
             }

@@ -268,17 +268,22 @@ namespace CrossCam.Page
 	        var canvas = e.Surface.Canvas;
 
 	        canvas.Clear();
-            
-	        DrawTool.DrawImagesOnCanvas(
-	            canvas, _viewModel.LeftBitmap, _viewModel.RightBitmap,
-	            _viewModel.Settings.BorderWidthProportion, _viewModel.Settings.AddBorder, _viewModel.Settings.BorderColor,
-	            _viewModel.LeftCrop + _viewModel.OutsideCrop, _viewModel.InsideCrop + _viewModel.RightCrop, _viewModel.InsideCrop + _viewModel.LeftCrop, _viewModel.RightCrop + _viewModel.OutsideCrop,
-	            _viewModel.TopCrop, _viewModel.BottomCrop,
-                _viewModel.LeftRotation, _viewModel.RightRotation, 
-	            _viewModel.VerticalAlignment,
-	            _viewModel.LeftZoom, _viewModel.RightZoom,
-	            _viewModel.LeftKeystone, _viewModel.RightKeystone, 
-	            _viewModel.WorkflowStage != WorkflowStage.Capture && (_viewModel.Settings.RedCyanAnaglyphMode || _viewModel.Settings.GreyscaleAnaglyphMode) ? DrawMode.RedCyan : DrawMode.Cross);
+
+            DrawTool.DrawImagesOnCanvas(
+                canvas, _viewModel.LeftBitmap, _viewModel.RightBitmap,
+                _viewModel.Settings.BorderWidthProportion, _viewModel.Settings.AddBorder,
+                _viewModel.Settings.BorderColor,
+                _viewModel.LeftCrop + _viewModel.OutsideCrop, _viewModel.InsideCrop + _viewModel.RightCrop,
+                _viewModel.InsideCrop + _viewModel.LeftCrop, _viewModel.RightCrop + _viewModel.OutsideCrop,
+                _viewModel.TopCrop, _viewModel.BottomCrop,
+                _viewModel.LeftRotation, _viewModel.RightRotation,
+                _viewModel.VerticalAlignment,
+                _viewModel.LeftZoom, _viewModel.RightZoom,
+                _viewModel.LeftKeystone, _viewModel.RightKeystone,
+                (_viewModel.Settings.Mode == DrawMode.GrayscaleRedCyanAnaglyph ||
+                 _viewModel.Settings.Mode == DrawMode.RedCyanAnaglyph) && _viewModel.WorkflowStage == WorkflowStage.Capture
+                    ? DrawMode.Cross
+                    : _viewModel.Settings.Mode);
         }
 
 	    private void SetSensorGuidesY()

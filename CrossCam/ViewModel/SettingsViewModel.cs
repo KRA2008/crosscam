@@ -6,6 +6,7 @@ using System.Net;
 using CrossCam.Model;
 using CrossCam.Wrappers;
 using FreshMvvm;
+using PropertyChanged;
 using Xamarin.Forms;
 
 namespace CrossCam.ViewModel
@@ -23,8 +24,10 @@ namespace CrossCam.ViewModel
         public bool CanSaveToArbitraryDirectory { get; set; }
         public bool CanSaveToExternalDirectory => !string.IsNullOrWhiteSpace(ExternalDirectory);
         private readonly IDirectorySelector _directorySelector;
+        public bool IsAnaglyphMode => Settings.Mode == DrawMode.RedCyanAnaglyph || Settings.Mode == DrawMode.GrayscaleRedCyanAnaglyph;
 
         // ReSharper disable MemberCanBeMadeStatic.Global
+        public IEnumerable<string> Modes => Enum.GetNames(typeof(DrawMode)).ToList();
         public IEnumerable<int> ZeroToOneThousand => Enumerable.Range(0, 1001).ToList();
         public IEnumerable<int> ZeroToOneHundred => Enumerable.Range(0, 101).ToList();
         public IEnumerable<int> ZeroToTen => Enumerable.Range(0, 11).ToList();
@@ -82,6 +85,7 @@ namespace CrossCam.ViewModel
 
         private void SaveSettings(object sender, PropertyChangedEventArgs e)
         {
+            RaisePropertyChanged(nameof(IsAnaglyphMode));
             EnableFirstSideAloneSwitch = (Settings.SaveForCrossView || Settings.SaveForParallel || Settings.RedCyanAnaglyphMode) &&
                                          !Settings.SaveSidesSeparately;
 
