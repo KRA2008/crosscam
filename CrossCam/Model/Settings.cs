@@ -34,11 +34,36 @@ namespace CrossCam.Model
 
         public string SavingDirectory { get; set; }
 
+        public bool SaveInCurrentMode { get; set; }
         public bool SaveToExternal { get; set; }
-        public bool SaveForParallel { get; set; }
-        public bool SaveForCrossView { get; set; }
-        public bool RedCyanAnaglyphMode { get; set; }
-        public bool GrayscaleAnaglyphMode { get; set; }
+
+        private bool _saveForParallel;
+        public bool SaveForParallel
+        {
+            get => _saveForParallel || SaveInCurrentMode && Mode == DrawMode.Parallel;
+            set => _saveForParallel = value;
+        }
+
+        private bool _saveForCrossView;
+        public bool SaveForCrossView
+        {
+            get => _saveForCrossView || SaveInCurrentMode && Mode == DrawMode.Cross;
+            set => _saveForCrossView = value;
+        }
+
+        private bool _redCyanAnaglyphMode;
+        public bool RedCyanAnaglyphMode
+        {
+            get => _redCyanAnaglyphMode || SaveInCurrentMode && Mode == DrawMode.RedCyanAnaglyph;
+            set => _redCyanAnaglyphMode = value;
+        }
+
+        private bool _grayscaleAnaglyphMode;
+        public bool GrayscaleAnaglyphMode
+        {
+            get => _grayscaleAnaglyphMode || SaveInCurrentMode && Mode == DrawMode.GrayscaleRedCyanAnaglyph;
+            set => _grayscaleAnaglyphMode = value;
+        }
 
         public bool AddBorder { get; set; }
 
@@ -227,7 +252,6 @@ namespace CrossCam.Model
 
             AreGuideLinesVisible = true;
             IsCaptureLeftFirst = true;
-            SaveForCrossView = true;
             ShowRollGuide = true;
 
             AddBorder = false;
@@ -236,6 +260,9 @@ namespace CrossCam.Model
             ShowGuideLinesWithFirstCapture = false;
             IsGuideDonutVisible = false;
             ShowGuideDonutWithFirstCapture = false;
+
+            SaveInCurrentMode = true;
+            SaveForCrossView = false;
             SaveSidesSeparately = false;
             SaveRedundantFirstSide = false;
             SaveForParallel = false;

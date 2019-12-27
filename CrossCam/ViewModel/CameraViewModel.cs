@@ -154,15 +154,18 @@ namespace CrossCam.ViewModel
                                                           Settings.SaveForParallel ||
                                                           Settings.SaveSidesSeparately ||
                                                           Settings.SaveRedundantFirstSide ||
-                                                          Settings.RedCyanAnaglyphMode);
+                                                          Settings.RedCyanAnaglyphMode ||
+                                                          Settings.GrayscaleAnaglyphMode);
         
         public int IconColumn => IsCaptureLeftFirst ? 1 : 0;
 
         public bool ShouldPortraitViewModeWarningBeVisible => IsViewPortrait &&
                                                               WorkflowStage != WorkflowStage.Saving &&
                                                               (IsNothingCaptured ||
-                                                               WorkflowStage == WorkflowStage.Final ||
-                                                               WorkflowStage == WorkflowStage.Edits);
+                                                               (WorkflowStage == WorkflowStage.Final ||
+                                                                WorkflowStage == WorkflowStage.Edits) && 
+                                                               Settings.Mode != DrawMode.GrayscaleRedCyanAnaglyph &&
+                                                               Settings.Mode != DrawMode.RedCyanAnaglyph);
         public string PortraitToLandscapeHint =>
             WorkflowStage == WorkflowStage.Capture ? "(flip for landscape)" : WorkflowStage == WorkflowStage.Edits ? "(flip to landscape for easier editing)" : "(flip to landscape for a better view)";
 

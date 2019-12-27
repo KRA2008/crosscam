@@ -360,6 +360,8 @@
                        IsVisible="{Binding Settings.SaveRedundantFirstSide}"/>
                 <Image Source="anaglyph"
                        IsVisible="{Binding Settings.RedCyanAnaglyphMode}"/>
+                <Image Source="grayscaleAnaglyph"
+                       IsVisible="{Binding Settings.GrayscaleAnaglyphMode}"/>
                 <Label Text="{Binding Settings.ResolutionProportion, StringFormat=' {0}%'}"
                        FontSize="15"/>
             </StackLayout>
