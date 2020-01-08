@@ -18,7 +18,7 @@ namespace CrossCam.Page
             float leftRotation, float rightRotation, int alignment,
             int leftZoom, int rightZoom,
             float leftKeystone, float rightKeystone, 
-            DrawMode drawMode = DrawMode.Cross)
+            DrawMode drawMode)
         {
             if (leftBitmap == null && rightBitmap == null) return;
 
@@ -83,19 +83,19 @@ namespace CrossCam.Page
             var previewY = canvasHeight / 2f - bitmapHeightLessCrop / scalingRatio / 2f;
             var previewHeight = bitmapHeightLessCrop / scalingRatio;
 
-            float leftPreviewX = 0;
-            float rightPreviewX = 0;
-            float leftPreviewWidth = 0;
-            float rightPreviewWidth = 0;
-            float innerLeftRotation = 0;
-            float innerRightRotation = 0;
-            float innerLeftKeystone = 0;
-            float innerRightKeystone = 0;
+            float leftPreviewX;
+            float rightPreviewX;
+            float leftPreviewWidth;
+            float rightPreviewWidth;
+            float innerLeftRotation;
+            float innerRightRotation;
+            float innerLeftKeystone;
+            float innerRightKeystone;
             switch (drawMode)
             {
-                case DrawMode.Cross:
-                    leftPreviewX = canvasWidth / 2f - (leftBitmapWidthLessCrop + innerBorderThickness / 2f) / scalingRatio;
-                    rightPreviewX = canvasWidth / 2f + innerBorderThickness / (2 * scalingRatio);
+                case DrawMode.GrayscaleRedCyanAnaglyph:
+                case DrawMode.RedCyanAnaglyph:
+                    leftPreviewX = rightPreviewX = canvasWidth / 2f - leftBitmapWidthLessCrop / (2f * scalingRatio);
                     leftPreviewWidth = leftBitmapWidthLessCrop / scalingRatio;
                     rightPreviewWidth = rightBitmapWidthLessCrop / scalingRatio;
                     innerRightRotation = rightRotation;
@@ -103,19 +103,9 @@ namespace CrossCam.Page
                     innerRightKeystone = rightKeystone;
                     innerLeftKeystone = leftKeystone;
                     break;
-                case DrawMode.Parallel:
-                    leftPreviewX = canvasWidth / 2f + innerBorderThickness / (2 * scalingRatio);
-                    rightPreviewX = canvasWidth / 2f - (rightBitmapWidthLessCrop + innerBorderThickness / 2f) / scalingRatio;
-                    leftPreviewWidth = rightBitmapWidthLessCrop / scalingRatio;
-                    rightPreviewWidth = leftBitmapWidthLessCrop / scalingRatio;
-                    innerRightRotation = leftRotation;
-                    innerLeftRotation = rightRotation;
-                    innerRightKeystone = leftKeystone;
-                    innerLeftKeystone = rightKeystone;
-                    break;
-                case DrawMode.GrayscaleRedCyanAnaglyph:
-                case DrawMode.RedCyanAnaglyph:
-                    leftPreviewX = rightPreviewX = canvasWidth / 2f - leftBitmapWidthLessCrop / (2f * scalingRatio);
+                default:
+                    leftPreviewX = canvasWidth / 2f - (leftBitmapWidthLessCrop + innerBorderThickness / 2f) / scalingRatio;
+                    rightPreviewX = canvasWidth / 2f + innerBorderThickness / (2 * scalingRatio);
                     leftPreviewWidth = leftBitmapWidthLessCrop / scalingRatio;
                     rightPreviewWidth = rightBitmapWidthLessCrop / scalingRatio;
                     innerRightRotation = rightRotation;

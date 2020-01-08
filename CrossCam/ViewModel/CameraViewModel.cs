@@ -551,34 +551,14 @@ namespace CrossCam.ViewModel
                         finalImageWidth = (int) (finalImageWidth * (Settings.ResolutionProportion / 100d));
                         finalImageHeight = (int) (finalImageHeight * (Settings.ResolutionProportion / 100d));
 
-                        if (Settings.SaveForCrossView)
-                        {
-                            using (var tempSurface =
-                                SKSurface.Create(new SKImageInfo(finalImageWidth, finalImageHeight)))
-                            {
-                                var canvas = tempSurface.Canvas;
-                                canvas.Clear();
-                                if (needs180Flip)
-                                {
-                                    canvas.RotateDegrees(180);
-                                    canvas.Translate(-1f * finalImageWidth, -1f * finalImageHeight);
-                                }
-
-                                DrawTool.DrawImagesOnCanvas(canvas, LeftBitmap, RightBitmap,
-                                    Settings.BorderWidthProportion, Settings.AddBorder, Settings.BorderColor,
-                                    LeftCrop + OutsideCrop, InsideCrop + RightCrop, InsideCrop + LeftCrop,
-                                    RightCrop + OutsideCrop,
-                                    TopCrop, BottomCrop,
-                                    LeftRotation, RightRotation,
-                                    VerticalAlignment,
-                                    LeftZoom, RightZoom,
-                                    LeftKeystone, RightKeystone);
-
-                                await SaveSurfaceSnapshot(tempSurface);
-                            }
-                        }
-
-                        if (Settings.SaveForParallel)
+                        if (Settings.SaveForCrossView &&
+                            Settings.Mode == DrawMode.Cross ||
+                            Settings.SaveForParallel &&
+                            Settings.Mode == DrawMode.Parallel ||
+                            Settings.SaveForCrossView && 
+                            Settings.Mode == DrawMode.RedCyanAnaglyph ||
+                            Settings.SaveForCrossView &&
+                            Settings.Mode == DrawMode.GrayscaleRedCyanAnaglyph)
                         {
                             using (var tempSurface =
                                 SKSurface.Create(new SKImageInfo(finalImageWidth, finalImageHeight)))
@@ -600,6 +580,37 @@ namespace CrossCam.ViewModel
                                     VerticalAlignment,
                                     LeftZoom, RightZoom,
                                     LeftKeystone, RightKeystone,
+                                    DrawMode.Cross);
+
+                                await SaveSurfaceSnapshot(tempSurface);
+                            }
+                        }
+
+                        if (Settings.SaveForParallel &&
+                            Settings.Mode == DrawMode.Cross ||
+                            Settings.SaveForCrossView &&
+                            Settings.Mode == DrawMode.Parallel)
+                        {
+                            using (var tempSurface =
+                                SKSurface.Create(new SKImageInfo(finalImageWidth, finalImageHeight)))
+                            {
+                                var canvas = tempSurface.Canvas;
+                                canvas.Clear();
+                                if (needs180Flip)
+                                {
+                                    canvas.RotateDegrees(180);
+                                    canvas.Translate(-1f * finalImageWidth, -1f * finalImageHeight);
+                                }
+
+                                DrawTool.DrawImagesOnCanvas(canvas, RightBitmap, LeftBitmap,
+                                    Settings.BorderWidthProportion, Settings.AddBorder, Settings.BorderColor,
+                                    InsideCrop + LeftCrop, RightCrop + OutsideCrop,
+                                    LeftCrop + OutsideCrop, InsideCrop + RightCrop, 
+                                    TopCrop, BottomCrop,
+                                    RightRotation, LeftRotation,
+                                    VerticalAlignment,
+                                    RightZoom, LeftZoom,
+                                    RightKeystone, LeftKeystone,
                                     DrawMode.Parallel);
 
                                 await SaveSurfaceSnapshot(tempSurface);
