@@ -280,8 +280,7 @@ namespace CrossCam.Page
                 _viewModel.VerticalAlignment,
                 _viewModel.LeftZoom, _viewModel.RightZoom,
                 _viewModel.LeftKeystone, _viewModel.RightKeystone,
-                (_viewModel.Settings.Mode == DrawMode.GrayscaleRedCyanAnaglyph ||
-                 _viewModel.Settings.Mode == DrawMode.RedCyanAnaglyph) && _viewModel.WorkflowStage == WorkflowStage.Capture
+                _viewModel.Settings.Mode != DrawMode.Parallel && _viewModel.WorkflowStage == WorkflowStage.Capture
                     ? DrawMode.Cross
                     : _viewModel.Settings.Mode);
         }

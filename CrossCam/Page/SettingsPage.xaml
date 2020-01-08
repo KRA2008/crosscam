@@ -235,7 +235,7 @@
                        Style="{StaticResource saveModes}"/>
                 <Label Grid.Row="6"
                        Grid.Column="1"
-                       Text="Red/cyan anaglyph mode (with edits but no border)"/>
+                       Text="Save red/cyan anaglyph version (with edits but no border)"/>
                 <Switch Grid.Row="6"
                         Grid.Column="2"
                         IsToggled="{Binding Settings.RedCyanAnaglyphMode}"/>
@@ -245,7 +245,7 @@
                        Style="{StaticResource saveModes}"/>
                 <Label Grid.Row="7"
                        Grid.Column="1"
-                       Text="Grayscale red/cyan anaglyph mode (with edits but no border)"/>
+                       Text="Save grayscale red/cyan anaglyph version (with edits but no border)"/>
                 <Switch Grid.Row="7"
                         Grid.Column="2"
                         IsToggled="{Binding Settings.GrayscaleAnaglyphMode}"/>

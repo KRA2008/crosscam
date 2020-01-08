@@ -47,6 +47,7 @@ namespace CrossCam.ViewModel
         public bool MoveLeftTrigger { get; set; }
         public bool MoveRightTrigger { get; set; }
         public bool WasSwipedTrigger { get; set; }
+        public string DrawModeDirectionHelpText => Settings.Mode == DrawMode.Parallel ? "for parallel" : "for cross";
 
         public Command SaveCapturesCommand { get; set; }
 
@@ -276,7 +277,14 @@ namespace CrossCam.ViewModel
                 LeftBitmap = null;
                 if (RightBitmap != null)
                 {
-                    MoveRightTrigger = !MoveRightTrigger;
+                    if (Settings.Mode != DrawMode.Parallel)
+                    {
+                        MoveRightTrigger = !MoveRightTrigger;
+                    }
+                    else
+                    {
+                        MoveLeftTrigger = !MoveLeftTrigger;
+                    }
                 }
                 WorkflowStage = WorkflowStage.Capture;
             });
@@ -289,7 +297,14 @@ namespace CrossCam.ViewModel
                 RightBitmap = null;
                 if (LeftBitmap != null)
                 {
-                    MoveLeftTrigger = !MoveLeftTrigger;
+                    if (Settings.Mode != DrawMode.Parallel)
+                    {
+                        MoveLeftTrigger = !MoveLeftTrigger;
+                    }
+                    else
+                    {
+                        MoveRightTrigger = !MoveRightTrigger;
+                    }
                 }
                 WorkflowStage = WorkflowStage.Capture;
             });
@@ -378,13 +393,28 @@ namespace CrossCam.ViewModel
                     if (LeftBitmap != null &&
                         RightBitmap == null)
                     {
-                        MoveLeftTrigger = !MoveLeftTrigger;
+                        if (Settings.Mode != DrawMode.Parallel)
+                        {
+                            MoveLeftTrigger = !MoveLeftTrigger;
+                        }
+                        else
+                        {
+                            MoveRightTrigger = !MoveRightTrigger;
+                        }
                     }
 
                     if (LeftBitmap == null &&
                         RightBitmap != null)
                     {
-                        MoveRightTrigger = !MoveRightTrigger;
+
+                        if (Settings.Mode != DrawMode.Parallel)
+                        {
+                            MoveRightTrigger = !MoveRightTrigger;
+                        }
+                        else
+                        {
+                            MoveLeftTrigger = !MoveLeftTrigger;
+                        }
                     }
 
                     var tempCrop = InsideCrop;
@@ -749,6 +779,7 @@ namespace CrossCam.ViewModel
             RaisePropertyChanged(nameof(ShouldRightRightRetakeBeVisible));
             RaisePropertyChanged(nameof(ShouldLeftCaptureBeVisible));
             RaisePropertyChanged(nameof(ShouldCenterCaptureBeVisible));
+            RaisePropertyChanged(nameof(DrawModeDirectionHelpText));
             RaisePropertyChanged(nameof(ShouldRightCaptureBeVisible));
             RaisePropertyChanged(nameof(ShouldCenterLoadBeVisible));
             RaisePropertyChanged(nameof(ShouldLeftLoadBeVisible));
@@ -955,7 +986,14 @@ namespace CrossCam.ViewModel
             {
                 if (withMovementTrigger)
                 {
-                    MoveLeftTrigger = !MoveLeftTrigger;
+                    if (Settings.Mode != DrawMode.Parallel)
+                    {
+                        MoveLeftTrigger = !MoveLeftTrigger;
+                    }
+                    else
+                    {
+                        MoveRightTrigger = !MoveRightTrigger;
+                    }
                 }
                 CameraColumn = 1;
                 WorkflowStage = WorkflowStage.Capture;
@@ -981,7 +1019,14 @@ namespace CrossCam.ViewModel
             {
                 if (withMovementTrigger)
                 {
-                    MoveRightTrigger = !MoveRightTrigger;
+                    if (Settings.Mode != DrawMode.Parallel)
+                    {
+                        MoveRightTrigger = !MoveRightTrigger;
+                    }
+                    else
+                    {
+                        MoveLeftTrigger = !MoveLeftTrigger;
+                    }
                 }
                 CameraColumn = 0;
                 WorkflowStage = WorkflowStage.Capture;
