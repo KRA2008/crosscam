@@ -275,17 +275,7 @@ namespace CrossCam.ViewModel
                 CameraColumn = 0;
                 IsCameraVisible = true;
                 LeftBitmap = null;
-                if (RightBitmap != null)
-                {
-                    if (Settings.Mode != DrawMode.Parallel)
-                    {
-                        MoveRightTrigger = !MoveRightTrigger;
-                    }
-                    else
-                    {
-                        MoveLeftTrigger = !MoveLeftTrigger;
-                    }
-                }
+                TriggerMovementHint();
                 WorkflowStage = WorkflowStage.Capture;
             });
 
@@ -295,17 +285,7 @@ namespace CrossCam.ViewModel
                 CameraColumn = 1;
                 IsCameraVisible = true;
                 RightBitmap = null;
-                if (LeftBitmap != null)
-                {
-                    if (Settings.Mode != DrawMode.Parallel)
-                    {
-                        MoveLeftTrigger = !MoveLeftTrigger;
-                    }
-                    else
-                    {
-                        MoveRightTrigger = !MoveRightTrigger;
-                    }
-                }
+                TriggerMovementHint();
                 WorkflowStage = WorkflowStage.Capture;
             });
 
@@ -390,32 +370,7 @@ namespace CrossCam.ViewModel
                         CameraColumn = CameraColumn == 0 ? 1 : 0;
                     }
 
-                    if (LeftBitmap != null &&
-                        RightBitmap == null)
-                    {
-                        if (Settings.Mode != DrawMode.Parallel)
-                        {
-                            MoveLeftTrigger = !MoveLeftTrigger;
-                        }
-                        else
-                        {
-                            MoveRightTrigger = !MoveRightTrigger;
-                        }
-                    }
-
-                    if (LeftBitmap == null &&
-                        RightBitmap != null)
-                    {
-
-                        if (Settings.Mode != DrawMode.Parallel)
-                        {
-                            MoveRightTrigger = !MoveRightTrigger;
-                        }
-                        else
-                        {
-                            MoveLeftTrigger = !MoveLeftTrigger;
-                        }
-                    }
+                    TriggerMovementHint();
 
                     var tempCrop = InsideCrop;
                     InsideCrop = OutsideCrop;
@@ -667,29 +622,6 @@ namespace CrossCam.ViewModel
             });
         }
 
-        private async Task DrawAnaglyph(bool grayscale)
-        {
-            var canvasWidth = LeftBitmap.Width - LeftCrop - InsideCrop - OutsideCrop - RightCrop;
-            var canvasHeight = DrawTool.CalculateCanvasHeightLessBorder(LeftBitmap, RightBitmap,
-                TopCrop, BottomCrop, VerticalAlignment);
-            using (var tempSurface =
-                SKSurface.Create(new SKImageInfo(canvasWidth, canvasHeight)))
-            {
-                var canvas = tempSurface.Canvas;
-                canvas.Clear(SKColor.Empty);
-
-                DrawTool.DrawImagesOnCanvas(canvas, LeftBitmap, RightBitmap,
-                    Settings.BorderWidthProportion, Settings.AddBorder, Settings.BorderColor,
-                    LeftCrop + OutsideCrop, InsideCrop + RightCrop, InsideCrop + LeftCrop,
-                    RightCrop + OutsideCrop,
-                    TopCrop, BottomCrop, LeftRotation, RightRotation,
-                    VerticalAlignment, LeftZoom, RightZoom,
-                    LeftKeystone, RightKeystone, grayscale ? DrawMode.GrayscaleRedCyanAnaglyph : DrawMode.RedCyanAnaglyph);
-
-                await SaveSurfaceSnapshot(tempSurface);
-            }
-        }
-
         public bool BackButtonPressed()
         {
             switch (WorkflowStage)
@@ -780,6 +712,7 @@ namespace CrossCam.ViewModel
         protected override async void ViewIsAppearing(object sender, EventArgs e)
         {
             base.ViewIsAppearing(sender, e);
+            TriggerMovementHint();
             RaisePropertyChanged(nameof(ShouldLineGuidesBeVisible)); //TODO: figure out how to have Fody do this (just firing 'null' has bad behavior)
             RaisePropertyChanged(nameof(ShouldDonutGuideBeVisible));
             RaisePropertyChanged(nameof(ShouldRollGuideBeVisible));
@@ -800,6 +733,59 @@ namespace CrossCam.ViewModel
 
             await Task.Delay(100);
             await EvaluateAndShowWelcomePopup();
+        }
+
+        private void TriggerMovementHint()
+        {
+            if (LeftBitmap != null &&
+                RightBitmap == null)
+            {
+                if (Settings.Mode != DrawMode.Parallel)
+                {
+                    MoveLeftTrigger = !MoveLeftTrigger;
+                }
+                else
+                {
+                    MoveRightTrigger = !MoveRightTrigger;
+                }
+            }
+
+            if (LeftBitmap == null &&
+                RightBitmap != null)
+            {
+
+                if (Settings.Mode != DrawMode.Parallel)
+                {
+                    MoveRightTrigger = !MoveRightTrigger;
+                }
+                else
+                {
+                    MoveLeftTrigger = !MoveLeftTrigger;
+                }
+            }
+        }
+
+        private async Task DrawAnaglyph(bool grayscale)
+        {
+            var canvasWidth = LeftBitmap.Width - LeftCrop - InsideCrop - OutsideCrop - RightCrop;
+            var canvasHeight = DrawTool.CalculateCanvasHeightLessBorder(LeftBitmap, RightBitmap,
+                TopCrop, BottomCrop, VerticalAlignment);
+            using (var tempSurface =
+                SKSurface.Create(new SKImageInfo(canvasWidth, canvasHeight)))
+            {
+                var canvas = tempSurface.Canvas;
+                canvas.Clear(SKColor.Empty);
+
+                DrawTool.DrawImagesOnCanvas(canvas, LeftBitmap, RightBitmap,
+                    Settings.BorderWidthProportion, Settings.AddBorder, Settings.BorderColor,
+                    LeftCrop + OutsideCrop, InsideCrop + RightCrop, InsideCrop + LeftCrop,
+                    RightCrop + OutsideCrop,
+                    TopCrop, BottomCrop, LeftRotation, RightRotation,
+                    VerticalAlignment, LeftZoom, RightZoom,
+                    LeftKeystone, RightKeystone, grayscale ? DrawMode.GrayscaleRedCyanAnaglyph : DrawMode.RedCyanAnaglyph);
+
+                await SaveSurfaceSnapshot(tempSurface);
+            }
         }
 
         private async Task SaveSurfaceSnapshot(SKSurface surface)
@@ -997,14 +983,7 @@ namespace CrossCam.ViewModel
             {
                 if (withMovementTrigger)
                 {
-                    if (Settings.Mode != DrawMode.Parallel)
-                    {
-                        MoveLeftTrigger = !MoveLeftTrigger;
-                    }
-                    else
-                    {
-                        MoveRightTrigger = !MoveRightTrigger;
-                    }
+                    TriggerMovementHint();
                 }
                 CameraColumn = 1;
                 WorkflowStage = WorkflowStage.Capture;
@@ -1030,14 +1009,7 @@ namespace CrossCam.ViewModel
             {
                 if (withMovementTrigger)
                 {
-                    if (Settings.Mode != DrawMode.Parallel)
-                    {
-                        MoveRightTrigger = !MoveRightTrigger;
-                    }
-                    else
-                    {
-                        MoveLeftTrigger = !MoveLeftTrigger;
-                    }
+                    TriggerMovementHint();
                 }
                 CameraColumn = 0;
                 WorkflowStage = WorkflowStage.Capture;

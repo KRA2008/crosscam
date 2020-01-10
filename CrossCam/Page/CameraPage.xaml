@@ -1245,7 +1245,7 @@
                 <ce:FadeInAndOutBehavior Trigger="{Binding MoveLeftTrigger}"
                                          InTimeMs="0"
                                          OutTimeMs="500"
-                                         VisibleTimeMs="1500"/>
+                                         VisibleTimeMs="2500"/>
             </StackLayout.Behaviors>
             <Image Source="left"
                    Aspect="AspectFit"
@@ -1266,7 +1266,7 @@
                 <ce:FadeInAndOutBehavior Trigger="{Binding MoveRightTrigger}"
                                          InTimeMs="0"
                                          OutTimeMs="500"
-                                         VisibleTimeMs="1500"/>
+                                         VisibleTimeMs="2500"/>
             </StackLayout.Behaviors>
             <Image Source="right"
                    Aspect="AspectFit"
