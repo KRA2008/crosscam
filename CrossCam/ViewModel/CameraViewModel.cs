@@ -376,6 +376,18 @@ namespace CrossCam.ViewModel
                     InsideCrop = OutsideCrop;
                     OutsideCrop = tempCrop;
 
+                    var tempRotate = LeftRotation;
+                    LeftRotation = RightRotation;
+                    RightRotation = tempRotate;
+
+                    var tempKeystone = LeftKeystone;
+                    LeftKeystone = RightKeystone;
+                    RightKeystone = tempKeystone;
+
+                    var tempZoom = LeftZoom;
+                    LeftZoom = RightZoom;
+                    RightZoom = tempZoom;
+
                     Settings.IsCaptureLeftFirst = IsCaptureLeftFirst;
                     PersistentStorage.Save(PersistentStorage.SETTINGS_KEY, Settings);
                 }
@@ -1281,6 +1293,17 @@ namespace CrossCam.ViewModel
 
         private void ClearEdits()
         {
+            if (_originalUnalignedBitmap != null)
+            {
+                if (Settings.IsCaptureLeftFirst)
+                {
+                    RightBitmap = _originalUnalignedBitmap;
+                }
+                else
+                {
+                    LeftBitmap = _originalUnalignedBitmap;
+                }
+            }
             ClearCrops(true);
             ClearAlignments();
             ClearKeystone();
@@ -1288,12 +1311,13 @@ namespace CrossCam.ViewModel
 
         private void ClearCaptures()
         {
+            ClearEdits();
             LeftBitmap?.Dispose();
             LeftBitmap = null;
             RightBitmap?.Dispose();
             RightBitmap = null;
+            _originalUnalignedBitmap?.Dispose();
             IsCameraVisible = true;
-            ClearEdits();
             WorkflowStage = WorkflowStage.Capture;
 
             if (Settings.IsTapToFocusEnabled2)
