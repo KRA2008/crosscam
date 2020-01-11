@@ -239,6 +239,19 @@ namespace CrossCam.Model
             }
         }
 
+        private int _maximumParallelWidth;
+        public int MaximumParallelWidth
+        {
+            get => _maximumParallelWidth;
+            set
+            {
+                if (value > 0)
+                {
+                    _maximumParallelWidth = value;
+                }
+            }
+        }
+
         public Settings()
         {
             HasOfferedTechniqueHelpBefore = false;
@@ -292,6 +305,8 @@ namespace CrossCam.Model
 
             ResolutionProportion = 100;
             BorderWidthProportion = 15;
+
+            MaximumParallelWidth = 600;
         }
 
         public event PropertyChangedEventHandler PropertyChanged;

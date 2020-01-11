@@ -96,8 +96,8 @@
         </ResourceDictionary>
     </ContentPage.Resources>
     <AbsoluteLayout>
-        <Grid AbsoluteLayout.LayoutFlags="All"
-              AbsoluteLayout.LayoutBounds="0,0,1,1"
+        <Grid AbsoluteLayout.LayoutFlags="{Binding CanvasRectangleFlags}"
+              AbsoluteLayout.LayoutBounds="{Binding CanvasRectangle}"
               ColumnSpacing="0">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>

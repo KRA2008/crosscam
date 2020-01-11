@@ -8,6 +8,7 @@ using CrossCam.Page;
 using CrossCam.Wrappers;
 using FreshMvvm;
 using Plugin.DeviceInfo;
+using PropertyChanged;
 using SkiaSharp;
 using Xamarin.Forms;
 
@@ -38,6 +39,27 @@ namespace CrossCam.ViewModel
         public byte[] CapturedImageBytes { get; set; }
         public bool CaptureSuccess { get; set; }
         public int CameraColumn { get; set; }
+
+        public AbsoluteLayoutFlags CanvasRectangleFlags => Settings.Mode == DrawMode.Parallel
+            ? AbsoluteLayoutFlags.YProportional | AbsoluteLayoutFlags.HeightProportional | AbsoluteLayoutFlags.XProportional : 
+            AbsoluteLayoutFlags.All;
+        public Rectangle CanvasRectangle 
+        {
+            get 
+            {
+                if(Settings.Mode != DrawMode.Parallel) return new Rectangle(0,0,1,1);
+                var mainPage = Application.Current?.MainPage;
+                var windowWidth = int.MaxValue;
+                if (mainPage != null)
+                {
+                    var appWidth = mainPage.Width;
+                    var appHeight = mainPage.Height;
+
+                    windowWidth = (int) (IsViewPortrait ? Math.Min(appWidth, appHeight) : Math.Max(appWidth, appHeight));
+                }
+                return new Rectangle(0.5, 0, Math.Min(Settings.MaximumParallelWidth, windowWidth), 1);
+            }
+        }
 
         public double PreviewBottomY { get; set; }
 
@@ -741,6 +763,8 @@ namespace CrossCam.ViewModel
             RaisePropertyChanged(nameof(ShouldLeftLoadBeVisible));
             RaisePropertyChanged(nameof(ShouldRightLoadBeVisible));
             RaisePropertyChanged(nameof(SavedSuccessMessage));
+            RaisePropertyChanged(nameof(CanvasRectangle));
+            RaisePropertyChanged(nameof(CanvasRectangleFlags));
             RaisePropertyChanged(nameof(Settings)); // this doesn't cause reevaluation for above stuff (but I'd like it to), but it does trigger redraw of canvas and evaluation of whether to run auto alignment
 
             await Task.Delay(100);

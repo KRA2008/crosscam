@@ -88,6 +88,7 @@
                 <Picker ItemsSource="{Binding ZeroToOneHundred}"
                         SelectedIndex="{Binding Settings.BorderWidthProportion}"
                         BackgroundColor="White"
+                        WidthRequest="50"
                         HorizontalOptions="EndAndExpand"/>
             </StackLayout>
             <StackLayout Orientation="Horizontal">
@@ -113,6 +114,7 @@
                 <Picker ItemsSource="{Binding ZeroToOneThousand}"
                         SelectedIndex="{Binding Settings.AlignmentIterations2}"
                         BackgroundColor="White"
+                        WidthRequest="50"
                         HorizontalOptions="EndAndExpand"/>
             </StackLayout>
             <StackLayout Orientation="Horizontal"
@@ -121,6 +123,7 @@
                 <Picker ItemsSource="{Binding ZeroToTen}"
                         SelectedIndex="{Binding Settings.AlignmentEpsilonLevel2}"
                         BackgroundColor="White"
+                        WidthRequest="50"
                         HorizontalOptions="EndAndExpand"/>
             </StackLayout>
             <StackLayout Orientation="Horizontal"
@@ -129,6 +132,7 @@
                 <Picker ItemsSource="{Binding ZeroToTen}"
                         SelectedIndex="{Binding Settings.AlignmentPyramidLayers2}"
                         BackgroundColor="White"
+                        WidthRequest="50"
                         HorizontalOptions="EndAndExpand"/>
             </StackLayout>
             <StackLayout Orientation="Horizontal"
@@ -137,12 +141,14 @@
                 <Picker ItemsSource="{Binding ZeroToOneHundred}"
                         SelectedIndex="{Binding Settings.AlignmentDownsizePercentage2}"
                         BackgroundColor="White"
+                        WidthRequest="50"
                         HorizontalOptions="EndAndExpand"/>
             </StackLayout>
             <StackLayout Orientation="Horizontal"
                          IsVisible="{ce:DebugMarkupExtension}">
                 <Label Text="Minimum required correlation coefficient"/>
                 <Picker ItemsSource="{Binding ZeroToOneHundred}"
+                        WidthRequest="50"
                         SelectedIndex="{Binding Settings.AlignmentEccThresholdPercentage2}"
                         BackgroundColor="White"
                         HorizontalOptions="EndAndExpand"/>
@@ -181,6 +187,7 @@
                         ItemsSource="{Binding ZeroToOneHundred}"
                         SelectedIndex="{Binding Settings.ResolutionProportion}"
                         BackgroundColor="White"
+                        WidthRequest="50"
                         HorizontalOptions="EndAndExpand"/>
                 <Label Grid.Row="1"
                        Grid.Column="1"
@@ -314,6 +321,14 @@
                 <Switch IsEnabled="{Binding Settings.IsGuideDonutVisible}"
                         IsToggled="{Binding Settings.ShowGuideDonutWithFirstCapture}"/>
             </StackLayout>
+            <StackLayout Orientation="Horizontal">
+                <Label Text="Maximum parallel view width"/>
+                <Picker ItemsSource="{Binding ZeroToOneThousand}"
+                        SelectedIndex="{Binding Settings.MaximumParallelWidth}"
+                        BackgroundColor="White"
+                        WidthRequest="50"
+                        HorizontalOptions="EndAndExpand"/>
+            </StackLayout>
             <BoxView/>
             <Label Text="Camera"
                    Style="{DynamicResource header}"/>
@@ -335,7 +350,6 @@
                 <Label Text="Force camera1 (may be helpful if you're experiencing weirdness but will result in limited functionality, requires a force quit/restart to take effect)"/>
                 <Switch IsToggled="{Binding Settings.IsForceCamera1Enabled}"/>
             </StackLayout>
-            <BoxView/>
             <StackLayout Orientation="Horizontal">
                 <Label Text="Handedness (placement of the capture/aperture button on the screen)"/>
                 <Picker ItemsSource="{Binding Handednesses}"
