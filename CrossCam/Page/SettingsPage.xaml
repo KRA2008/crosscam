@@ -41,8 +41,8 @@
                         Value="10"/>
             </Style>
             <Style TargetType="Picker">
-                <Setter Property="Margin"
-                        Value="10"/>
+                <Setter Property="BackgroundColor"
+                        Value="White"/>
             </Style>
             <x:Double x:Key="saveModesHeight">15</x:Double>
             <Style TargetType="Image"
@@ -52,22 +52,38 @@
                 <Setter Property="HorizontalOptions"
                         Value="Center"/>
             </Style>
+            <Style TargetType="Frame">
+                <Setter Property="BorderColor"
+                        Value="White"/>
+                <Setter Property="Margin"
+                        Value="1"/>
+                <Setter Property="Padding"
+                        Value="1"/>
+            </Style>
         </ResourceDictionary>
     </ContentPage.Resources>
     <ScrollView VerticalOptions="StartAndExpand">
         <StackLayout>
             <BoxView/>
-            <StackLayout Orientation="Horizontal">
-                <Label Text="Mode"
-                       Style="{DynamicResource header}"/>
+            <Label Text="Viewing Method"
+                   Style="{DynamicResource header}"/>
+            <Frame>
                 <Picker ItemsSource="{Binding Modes}"
                         SelectedIndex="{Binding Settings.Mode, Converter={vc:ModeValueConverter}}"
-                        BackgroundColor="White"
-                        WidthRequest="300"
-                        HorizontalOptions="StartAndExpand"/>
-            </StackLayout>
+                        HorizontalOptions="FillAndExpand"/>
+            </Frame>
             <Label Text="(Anaglyph while capturing is not yet supported, but editing and saving is)"
                    IsVisible="{Binding IsAnaglyphMode}"/>
+            <StackLayout Orientation="Horizontal"
+                         IsVisible="{Binding Settings.Mode, Converter={vc:EnumCompareConverter}, ConverterParameter={x:Static vm:DrawMode.Parallel}}">
+                <Label Text="Maximum parallel view image width"/>
+                <Frame>
+                    <Picker ItemsSource="{Binding ZeroToOneThousand}"
+                        SelectedIndex="{Binding Settings.MaximumParallelWidth}"
+                        WidthRequest="50"
+                        HorizontalOptions="EndAndExpand"/>
+                </Frame>
+            </StackLayout>
             <BoxView/>
             <Label Text="Border"
                    Style="{DynamicResource header}"/>
@@ -78,18 +94,20 @@
             </StackLayout>
             <StackLayout Orientation="Horizontal">
                 <Label Text="Border color"/>
-                <Picker ItemsSource="{Binding BorderColors}"
+                <Frame>
+                    <Picker ItemsSource="{Binding BorderColors}"
                         SelectedIndex="{Binding Settings.BorderColor, Converter={vc:BorderColorValueConverter}}"
-                        BackgroundColor="White"
                         HorizontalOptions="EndAndExpand"/>
+                </Frame>
             </StackLayout>
             <StackLayout Orientation="Horizontal">
                 <Label Text="Border thickness (tenths of percentage of width)"/>
-                <Picker ItemsSource="{Binding ZeroToOneHundred}"
+                <Frame>
+                    <Picker ItemsSource="{Binding ZeroToOneHundred}"
                         SelectedIndex="{Binding Settings.BorderWidthProportion}"
-                        BackgroundColor="White"
                         WidthRequest="50"
                         HorizontalOptions="EndAndExpand"/>
+                </Frame>
             </StackLayout>
             <StackLayout Orientation="Horizontal">
                 <Label Text="Clip border off when loading stereo pair"/>
@@ -111,47 +129,52 @@
             <StackLayout Orientation="Horizontal"
                          IsVisible="{ce:DebugMarkupExtension}">
                 <Label Text="Iterations"/>
-                <Picker ItemsSource="{Binding ZeroToOneThousand}"
+                <Frame>
+                    <Picker ItemsSource="{Binding ZeroToOneThousand}"
                         SelectedIndex="{Binding Settings.AlignmentIterations2}"
-                        BackgroundColor="White"
                         WidthRequest="50"
                         HorizontalOptions="EndAndExpand"/>
+                </Frame>
             </StackLayout>
             <StackLayout Orientation="Horizontal"
                          IsVisible="{ce:DebugMarkupExtension}">
                 <Label Text="Epsilon level"/>
-                <Picker ItemsSource="{Binding ZeroToTen}"
+                <Frame>
+                    <Picker ItemsSource="{Binding ZeroToTen}"
                         SelectedIndex="{Binding Settings.AlignmentEpsilonLevel2}"
-                        BackgroundColor="White"
                         WidthRequest="50"
                         HorizontalOptions="EndAndExpand"/>
+                </Frame>
             </StackLayout>
             <StackLayout Orientation="Horizontal"
                          IsVisible="{ce:DebugMarkupExtension}">
                 <Label Text="Downsized pyramid estimating layers"/>
-                <Picker ItemsSource="{Binding ZeroToTen}"
+                <Frame>
+                    <Picker ItemsSource="{Binding ZeroToTen}"
                         SelectedIndex="{Binding Settings.AlignmentPyramidLayers2}"
-                        BackgroundColor="White"
                         WidthRequest="50"
                         HorizontalOptions="EndAndExpand"/>
+                </Frame>
             </StackLayout>
             <StackLayout Orientation="Horizontal"
                          IsVisible="{ce:DebugMarkupExtension}">
                 <Label Text="Intermediate downsize percentage"/>
-                <Picker ItemsSource="{Binding ZeroToOneHundred}"
-                        SelectedIndex="{Binding Settings.AlignmentDownsizePercentage2}"
-                        BackgroundColor="White"
-                        WidthRequest="50"
-                        HorizontalOptions="EndAndExpand"/>
+                <Frame>
+                    <Picker ItemsSource="{Binding ZeroToOneHundred}"
+                            SelectedIndex="{Binding Settings.AlignmentDownsizePercentage2}"
+                            WidthRequest="50"
+                            HorizontalOptions="EndAndExpand"/>
+                </Frame>
             </StackLayout>
             <StackLayout Orientation="Horizontal"
                          IsVisible="{ce:DebugMarkupExtension}">
                 <Label Text="Minimum required correlation coefficient"/>
-                <Picker ItemsSource="{Binding ZeroToOneHundred}"
-                        WidthRequest="50"
-                        SelectedIndex="{Binding Settings.AlignmentEccThresholdPercentage2}"
-                        BackgroundColor="White"
-                        HorizontalOptions="EndAndExpand"/>
+                <Frame>
+                    <Picker ItemsSource="{Binding ZeroToOneHundred}"
+                            WidthRequest="50"
+                            SelectedIndex="{Binding Settings.AlignmentEccThresholdPercentage2}"
+                            HorizontalOptions="EndAndExpand"/>
+                </Frame>
             </StackLayout>
             <BoxView/>
             <Label Text="Saving"
@@ -182,13 +205,14 @@
                 <Label Grid.Row="0"
                        Grid.Column="1"
                        Text="Resolution proportion"/>
-                <Picker Grid.Row="0"
-                        Grid.Column="2"
-                        ItemsSource="{Binding ZeroToOneHundred}"
-                        SelectedIndex="{Binding Settings.ResolutionProportion}"
-                        BackgroundColor="White"
-                        WidthRequest="50"
-                        HorizontalOptions="EndAndExpand"/>
+                <Frame Grid.Row="0"
+                       Grid.Column="2"
+                       WidthRequest="50"
+                       HorizontalOptions="End">
+                    <Picker ItemsSource="{Binding ZeroToOneHundred}"
+                            SelectedIndex="{Binding Settings.ResolutionProportion}"
+                            HorizontalOptions="FillAndExpand"/>
+                </Frame>
                 <Label Grid.Row="1"
                        Grid.Column="1"
                        Text="Save in current mode"/>
@@ -321,14 +345,6 @@
                 <Switch IsEnabled="{Binding Settings.IsGuideDonutVisible}"
                         IsToggled="{Binding Settings.ShowGuideDonutWithFirstCapture}"/>
             </StackLayout>
-            <StackLayout Orientation="Horizontal">
-                <Label Text="Maximum parallel view width"/>
-                <Picker ItemsSource="{Binding ZeroToOneThousand}"
-                        SelectedIndex="{Binding Settings.MaximumParallelWidth}"
-                        BackgroundColor="White"
-                        WidthRequest="50"
-                        HorizontalOptions="EndAndExpand"/>
-            </StackLayout>
             <BoxView/>
             <Label Text="Camera"
                    Style="{DynamicResource header}"/>
@@ -352,10 +368,11 @@
             </StackLayout>
             <StackLayout Orientation="Horizontal">
                 <Label Text="Handedness (placement of the capture/aperture button on the screen)"/>
-                <Picker ItemsSource="{Binding Handednesses}"
-                        SelectedIndex="{Binding Settings.Handedness, Converter={vc:HandednessValueConverter}}"
-                        BackgroundColor="White"
-                        HorizontalOptions="EndAndExpand"/>
+                <Frame>
+                    <Picker ItemsSource="{Binding Handednesses}"
+                            SelectedIndex="{Binding Settings.Handedness, Converter={vc:HandednessValueConverter}}"
+                            HorizontalOptions="EndAndExpand"/>
+                </Frame>
             </StackLayout>
             <BoxView/>
             <Button Text="Reset to Defaults"

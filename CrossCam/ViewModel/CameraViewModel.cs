@@ -8,7 +8,6 @@ using CrossCam.Page;
 using CrossCam.Wrappers;
 using FreshMvvm;
 using Plugin.DeviceInfo;
-using PropertyChanged;
 using SkiaSharp;
 using Xamarin.Forms;
 
