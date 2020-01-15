@@ -130,6 +130,7 @@ namespace CrossCam.ViewModel
         public bool IsViewInverted { get; set; }
         public bool IsCaptureLeftFirst { get; set; }
         public bool WasCapturePortrait { get; set; }
+        public bool WasCaptureCross { get; set; }
 
         public bool AutomaticAlignmentNotSupportedTrigger { get; set; }
         public bool AlignmentFailFadeTrigger { get; set; }
@@ -374,11 +375,13 @@ namespace CrossCam.ViewModel
                 await CoreMethods.PushPageModel<HelpViewModel>();
             });
 
-            SwapSidesCommand = new Command(() =>
+            SwapSidesCommand = new Command(obj =>
             {
+                var forced = obj as bool?;
                 if (WorkflowStage == WorkflowStage.Capture ||
                     WorkflowStage == WorkflowStage.Final ||
-                    WorkflowStage == WorkflowStage.Edits)
+                    WorkflowStage == WorkflowStage.Edits ||
+                    forced.HasValue && forced.Value)
                 {
                     IsCaptureLeftFirst = !IsCaptureLeftFirst;
 
@@ -765,6 +768,12 @@ namespace CrossCam.ViewModel
             RaisePropertyChanged(nameof(CanvasRectangle));
             RaisePropertyChanged(nameof(CanvasRectangleFlags));
             RaisePropertyChanged(nameof(Settings)); // this doesn't cause reevaluation for above stuff (but I'd like it to), but it does trigger redraw of canvas and evaluation of whether to run auto alignment
+            if ((Settings.Mode == DrawMode.Cross || Settings.Mode == DrawMode.RedCyanAnaglyph || Settings.Mode == DrawMode.GrayscaleRedCyanAnaglyph) && !WasCaptureCross ||
+                Settings.Mode == DrawMode.Parallel && WasCaptureCross)
+            {
+                SwapSidesCommand.Execute(true);
+                WasCaptureCross = !WasCaptureCross;
+            }
 
             await Task.Delay(100);
             await EvaluateAndShowWelcomePopup();
@@ -1025,6 +1034,7 @@ namespace CrossCam.ViewModel
             }
             else
             {
+                WasCaptureCross = Settings.Mode != DrawMode.Parallel;
                 CameraColumn = IsCaptureLeftFirst ? 0 : 1;
                 IsCameraVisible = false;
                 WorkflowStage = WorkflowStage.Final;
@@ -1051,6 +1061,7 @@ namespace CrossCam.ViewModel
             }
             else
             {
+                WasCaptureCross = Settings.Mode != DrawMode.Parallel;
                 CameraColumn = IsCaptureLeftFirst ? 0 : 1;
                 IsCameraVisible = false;
                 WorkflowStage = WorkflowStage.Final;

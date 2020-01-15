@@ -76,7 +76,7 @@
                    IsVisible="{Binding IsAnaglyphMode}"/>
             <StackLayout Orientation="Horizontal"
                          IsVisible="{Binding Settings.Mode, Converter={vc:EnumCompareConverter}, ConverterParameter={x:Static vm:DrawMode.Parallel}}">
-                <Label Text="Maximum parallel view image width"/>
+                <Label Text="Maximum parallel view image width (pixels)"/>
                 <Frame>
                     <Picker ItemsSource="{Binding ZeroToOneThousand}"
                         SelectedIndex="{Binding Settings.MaximumParallelWidth}"
