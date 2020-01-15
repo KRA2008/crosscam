@@ -8,6 +8,7 @@ using CrossCam.Page;
 using CrossCam.Wrappers;
 using FreshMvvm;
 using Plugin.DeviceInfo;
+using PropertyChanged;
 using SkiaSharp;
 using Xamarin.Forms;
 
@@ -182,13 +183,22 @@ namespace CrossCam.ViewModel
         
         public int IconColumn => IsCaptureLeftFirst ? 1 : 0;
 
-        public bool ShouldPortraitViewModeWarningBeVisible => IsViewPortrait &&
+        public bool ShouldPortraitViewModeWarningBeVisible => IsViewPortrait && 
+                                                              (LeftBitmap == null || RightBitmap == null || IsPictureWiderThanTall) &&
                                                               WorkflowStage != WorkflowStage.Saving &&
                                                               (IsNothingCaptured ||
                                                                (WorkflowStage == WorkflowStage.Final ||
                                                                 WorkflowStage == WorkflowStage.Edits) && 
                                                                Settings.Mode != DrawMode.GrayscaleRedCyanAnaglyph &&
                                                                Settings.Mode != DrawMode.RedCyanAnaglyph);
+        private bool IsPictureWiderThanTall => LeftBitmap != null &&
+                                               RightBitmap != null &&
+                                               DrawTool.CalculateJoinedCanvasWidthLessBorder(LeftBitmap, RightBitmap,
+                                                   LeftCrop + OutsideCrop, InsideCrop + RightCrop, InsideCrop + LeftCrop,
+                                                   RightCrop + OutsideCrop) >
+                                               DrawTool.CalculateCanvasHeightLessBorder(LeftBitmap, RightBitmap,
+                                                   TopCrop, BottomCrop,
+                                                   VerticalAlignment);
         public string PortraitToLandscapeHint =>
             WorkflowStage == WorkflowStage.Capture ? "(flip for landscape)" : WorkflowStage == WorkflowStage.Edits ? "(flip to landscape for easier editing)" : "(flip to landscape for a better view)";
 
