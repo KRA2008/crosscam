@@ -180,8 +180,8 @@ namespace CrossCam.ViewModel
                                                           Settings.SaveRedundantFirstSide ||
                                                           Settings.RedCyanAnaglyphMode ||
                                                           Settings.GrayscaleAnaglyphMode);
-        
-        public int IconColumn => IsCaptureLeftFirst ? 1 : 0;
+
+        public int IconColumn => CameraColumn == 0 ? 1 : 0;
 
         public bool ShouldPortraitViewModeWarningBeVisible => IsViewPortrait && 
                                                               (LeftBitmap == null || RightBitmap == null || IsPictureWiderThanTall) &&
