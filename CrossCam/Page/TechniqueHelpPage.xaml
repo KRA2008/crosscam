@@ -6,6 +6,7 @@
                             xmlns:vm="clr-namespace:CrossCam.ViewModel;assembly=CrossCam"
                             xmlns:fresh="clr-namespace:FreshMvvm;assembly=FreshMvvm"
                             xmlns:customElement="clr-namespace:CrossCam.CustomElement;assembly=CrossCam"
+                            xmlns:valueConverter="clr-namespace:CrossCam.ValueConverter;assembly=CrossCam"
                             mc:Ignorable="d"
              
                             d:DataContext="{d:DesignInstance Type=vm:TechniqueHelpViewModel, IsDesignTimeCreatable=False}"
@@ -15,36 +16,97 @@
         <StackLayout Padding="10">
             <Label Text="If you want to see this again, tap the '?' on the top left of the camera screen."/>
             <Label Text=" "/>
-            <Label Text="To see the 3D, you have to carefully cross your eyes while looking at a special pair of pictures like the pair below. It's very important that you be able to do this easily or CrossCam will be difficult to use. The goal of the technique is to make your right eye point at the left picture while your left eye points at the right picture."/>
-            <Image Source="steamEngine" />
-            <Label Text="Cross your eyes while looking at the pair of pictures above. When you cross your eyes, things will get blurry and see-through and you'll start to see 4 pictures instead of 2. The harder you cross your eyes, the further apart the pairs of pictures will move - it will look a little like this:"/>
-            <Image Source="blurry" />
-            <Label Text="Uncross your eyes carefully, so that the pictures on the inside of each pair start to overlap. It will start to look like there are only 3 pictures instead of 4. It will still be blurry and see-through and look something like this:"/>
-            <Image Source="overlapping" />
-            <Label Text="Once you have the middle overlap working you just have to relax your eyes and allow them to focus the picture. At that point you'll have one sharp 3D picture in the middle with a transparent picture floating off on each side that will look like this (except the middle will be 3D):"/>
-            <Image Source="overlapped" />
-            <Label Text="If you have trouble crossing your eyes, you can also try staring at your finger while you hold it halfway between your eyes and the screen. You should see the pictures starting to separate and overlap behind your finger."/>
+            <Label Text="There are a lot of different ways to see 3D. Sometimes you use a headset, sometimes you wear some special glasses, but CrossCam specializes in 3D that just takes a regular screen and a little bit of practice. All these different methods use the same root principle though - make each eye see a slightly different image (just like in real life) and let your amazing brain do the rest. It's very important that you put in the practice needed though, or CrossCam will be pretty pointless for you."/>
             <Label Text=" "/>
-            <Label Text="Additional tutorials:"/>
-            <Button Text="A nice text tutorial"
+            <Label Text="As you read this text, your eyes are both pointing at the same place on the screen. However, if you carefully make them point at different places, you can make each eye see something different. If what each eye sees is a photograph of a scene taken from a slightly different perspective, your brain won't know the difference, and you will feel like you are seeing the scene in real life 3D."/>
+            <Label Text=" "/>
+            <Label Text="There are two ways to make your eyes point at different places: cross and parallel. Lots of people can easily cross their eyes, but have never had to do it in a controlled way in order to see something before. Everyone's eyes can go parallel (or &quot;wall eyed&quot;) - it's what your eyes do when you completely relax them and kind of stare into the distance or day dream or fall asleep, but not everyone can make them go parallel on command. If you're able to manually cross your eyes, you should definitely try the cross method first, otherwise you probably want to try parallel first."/>
+            <Label Text=" "/>
+            <Label Text="Both methods will let you see CrossCam's 3D, but different people find one method easier than the other, while lots of people can easily do both. It's also very important to know which method you're using, otherwise the sides will be mixed up and the 3D won't work right. It's vital that the correct eye points at the correct side - and those sides are switched between cross and parallel, which is why a pair of pictures will only ever work for cross or parallel viewing, but not both at once (unless you swap the sides)."/>
+            <Label Text=" "/>
+            <BoxView/>
+            <Label Text=" "/>
+            <Label Text="Tap a method below to see a tutorial on that method."/>
+            <Label Text=" "/>
+            <StackLayout Orientation="Horizontal">
+                <Button Text="TAP FOR CROSS"
+                        HorizontalOptions="FillAndExpand"
+                        Command="{Binding SetCrossMode}"/>
+                <Button Text="TAP FOR PARALLEL"
+                        HorizontalOptions="FillAndExpand"
+                        Command="{Binding SetParallelMode}"/>
+            </StackLayout>
+            <BoxView/>
+            <Label Text=" "/>
+
+            <StackLayout IsVisible="{Binding IsCrossViewMode}">
+                <Label Text="CROSS VIEWING" HorizontalOptions="CenterAndExpand"/>
+                <Label Text=" "/>
+                <Image Source="steamEngine" />
+                <Label Text="Cross your eyes while looking at the pair of pictures above. When you cross your eyes, things will get blurry and see-through and you'll start to see 4 pictures instead of 2. The harder you cross your eyes, the further apart the pairs of pictures will move - it will look a little like this:"/>
+                <Image Source="blurry" />
+                <Label Text="Uncross your eyes carefully, so that the pictures on the inside of each pair start to overlap. It will start to look like there are only 3 pictures instead of 4. It will still be blurry and see-through and look something like this:"/>
+                <Image Source="overlapping" />
+                <Label Text="Once you have the middle overlap working you just have to relax your eyes and allow them to focus the picture. At that point you'll have one sharp 3D picture in the middle with a transparent picture floating off on each side that will look like this (except the middle will be 3D):"/>
+                <Image Source="overlapped" />
+                <Label Text="If you have trouble crossing your eyes, you can also try staring at your finger while you hold it halfway between your eyes and the screen. You should see the pictures starting to separate and overlap behind your finger."/>
+                <Label Text=" "/>
+                <Label Text="Additional tutorials:"/>
+                <Button Text="A nice text tutorial"
                     Command="{Binding OpenIAStateTutorialCommand}"/>
-            <Button Text="A short YouTube tutorial"
+                <Button Text="A short YouTube tutorial"
                     Command="{Binding OpenShortVideoTutorialCommand}"/>
-            <Button Text="A long, odd, helpful YouTube tutorial"
+                <Button Text="A long, odd, helpful YouTube tutorial"
                     Command="{Binding OpenWeirdVideoTutorialCommand}"/>
-            <Label Text=" "/>
-            <Button Text="Images I've taken that you can practice on"
+                <Label Text=" "/>
+                <Button Text="Images I've taken that you can practice on"
                     Command="{Binding OpenPromotionalAlbumCommand}"/>
-            <Label Text=" "/>
-            <Label Text="One more thing - a lot of people are familiar with &quot;magic eye&quot; books and can easily look at the 3D in them. To see the 3D picture above correctly you CAN'T DO what you would normally do with those books. You need to make sure you are crossing your eyes, not making your eyes parallel or &quot;wall-eyed&quot;. If you aren't sure which one you are doing, you can ask someone else to watch your eyes and check if they are crossing. You can also look at the picture below as a test:"/>
-            <AbsoluteLayout HorizontalOptions="Center"
+                <Label Text=" "/>
+                <Label Text="One more thing - a lot of people are familiar with &quot;magic eye&quot; books and can easily look at the 3D in them. To see the 3D picture above correctly you CAN'T DO what you would normally do with those books. You need to make sure you are crossing your eyes, not making your eyes parallel or &quot;wall-eyed&quot;. If you aren't sure which one you are doing, you can ask someone else to watch your eyes and check if they are crossing. You can also look at the picture below as a test:"/>
+                <AbsoluteLayout HorizontalOptions="Center"
                             HeightRequest="179"
                             WidthRequest="302">
-                <Image AbsoluteLayout.LayoutFlags="All" 
+                    <Image AbsoluteLayout.LayoutFlags="All" 
                        AbsoluteLayout.LayoutBounds="0,0,1,1" 
                        Aspect="AspectFit"
                        Source="fyi"/>
-            </AbsoluteLayout>
+                </AbsoluteLayout>
+            </StackLayout>
+
+            <StackLayout IsVisible="{Binding IsCrossViewMode, Converter={valueConverter:BooleanInvertConverter}}">
+                <Label Text="PARALLEL VIEWING" HorizontalOptions="CenterAndExpand"/>
+                <Label Text=" "/>
+                <Image Source="steamEngine" />
+                <Label Text="Cross your eyes while looking at the pair of pictures above. When you cross your eyes, things will get blurry and see-through and you'll start to see 4 pictures instead of 2. The harder you cross your eyes, the further apart the pairs of pictures will move - it will look a little like this:"/>
+                <Image Source="blurry" />
+                <Label Text="Uncross your eyes carefully, so that the pictures on the inside of each pair start to overlap. It will start to look like there are only 3 pictures instead of 4. It will still be blurry and see-through and look something like this:"/>
+                <Image Source="overlapping" />
+                <Label Text="Once you have the middle overlap working you just have to relax your eyes and allow them to focus the picture. At that point you'll have one sharp 3D picture in the middle with a transparent picture floating off on each side that will look like this (except the middle will be 3D):"/>
+                <Image Source="overlapped" />
+                <Label Text="If you have trouble crossing your eyes, you can also try staring at your finger while you hold it halfway between your eyes and the screen. You should see the pictures starting to separate and overlap behind your finger."/>
+                <Label Text=" "/>
+                <Label Text="Additional tutorials:"/>
+                <Button Text="A nice text tutorial"
+                Command="{Binding OpenIAStateTutorialCommand}"/>
+                <Button Text="A short YouTube tutorial"
+                Command="{Binding OpenShortVideoTutorialCommand}"/>
+                <Button Text="A long, odd, helpful YouTube tutorial"
+                Command="{Binding OpenWeirdVideoTutorialCommand}"/>
+                <Label Text=" "/>
+                <Button Text="Images I've taken that you can practice on"
+                Command="{Binding OpenPromotionalAlbumCommand}"/>
+                <Label Text=" "/>
+                <Label Text="One more thing - a lot of people are familiar with &quot;magic eye&quot; books and can easily look at the 3D in them. To see the 3D picture above correctly you CAN'T DO what you would normally do with those books. You need to make sure you are crossing your eyes, not making your eyes parallel or &quot;wall-eyed&quot;. If you aren't sure which one you are doing, you can ask someone else to watch your eyes and check if they are crossing. You can also look at the picture below as a test:"/>
+                <AbsoluteLayout HorizontalOptions="Center"
+                            HeightRequest="179"
+                            WidthRequest="302">
+                    <Image AbsoluteLayout.LayoutFlags="All" 
+                       AbsoluteLayout.LayoutBounds="0,0,1,1" 
+                       Aspect="AspectFit"
+                       Source="fyi"/>
+                </AbsoluteLayout>
+            </StackLayout>
+
             <customElement:EmailMeLabel/>
         </StackLayout>
     </ScrollView>
