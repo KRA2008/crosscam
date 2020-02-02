@@ -8,7 +8,6 @@ using CrossCam.Page;
 using CrossCam.Wrappers;
 using FreshMvvm;
 using Plugin.DeviceInfo;
-using PropertyChanged;
 using SkiaSharp;
 using Xamarin.Forms;
 
@@ -303,22 +302,36 @@ namespace CrossCam.ViewModel
 
             RetakeLeftCommand = new Command(() =>
             {
-                ClearEdits();
-                CameraColumn = 0;
-                IsCameraVisible = true;
-                LeftBitmap = null;
-                TriggerMovementHint();
-                WorkflowStage = WorkflowStage.Capture;
+                try
+                {
+                    ClearEdits();
+                    CameraColumn = 0;
+                    IsCameraVisible = true;
+                    LeftBitmap = null;
+                    TriggerMovementHint();
+                    WorkflowStage = WorkflowStage.Capture;
+                }
+                catch (Exception e)
+                {
+                    ErrorMessage = e.ToString();
+                }
             });
 
             RetakeRightCommand = new Command(() =>
             {
-                ClearEdits();
-                CameraColumn = 1;
-                IsCameraVisible = true;
-                RightBitmap = null;
-                TriggerMovementHint();
-                WorkflowStage = WorkflowStage.Capture;
+                try
+                {
+                    ClearEdits();
+                    CameraColumn = 1;
+                    IsCameraVisible = true;
+                    RightBitmap = null;
+                    TriggerMovementHint();
+                    WorkflowStage = WorkflowStage.Capture;
+                }
+                catch (Exception e)
+                {
+                    ErrorMessage = e.ToString();
+                }
             });
 
             GoToModeCommand = new Command<WorkflowStage>(arg =>
@@ -333,27 +346,41 @@ namespace CrossCam.ViewModel
 
             ClearEditCommand = new Command(() =>
             {
-                switch (WorkflowStage)
+                try
                 {
-                    case WorkflowStage.Crop:
-                        ClearCrops(false);
-                        break;
-                    case WorkflowStage.ManualAlign:
-                        ClearAlignments();
-                        break;
-                    case WorkflowStage.Keystone:
-                        ClearKeystone();
-                        break;
+                    switch (WorkflowStage)
+                    {
+                        case WorkflowStage.Crop:
+                            ClearCrops(false);
+                            break;
+                        case WorkflowStage.ManualAlign:
+                            ClearAlignments();
+                            break;
+                        case WorkflowStage.Keystone:
+                            ClearKeystone();
+                            break;
+                    }
+                }
+                catch (Exception e)
+                {
+                    ErrorMessage = e.ToString();
                 }
             });
 
             ClearCapturesCommand = new Command(async() =>
             {
-                var confirmClear = await CoreMethods.DisplayAlert("Really clear?",
-                    "Are you sure you want to clear your pictures and start over?", "Yes, clear", "No");
-                if (confirmClear)
+                try
                 {
-                    ClearCaptures();
+                    var confirmClear = await CoreMethods.DisplayAlert("Really clear?",
+                        "Are you sure you want to clear your pictures and start over?", "Yes, clear", "No");
+                    if (confirmClear)
+                    {
+                        ClearCaptures();
+                    }
+                }
+                catch (Exception e)
+                {
+                    ErrorMessage = e.ToString();
                 }
             });
 
