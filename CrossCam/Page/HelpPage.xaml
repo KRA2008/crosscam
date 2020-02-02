@@ -14,7 +14,7 @@
     <ScrollView>
         <StackLayout>
             <BoxView/>
-            <Button Text="Cross-Eyed Viewing Technique"
+            <Button Text="3D Viewing Technique"
                     Command="{Binding NavigateToTechniqueHelpPage}"/>
             <BoxView/>
             <Button Text="How to Use CrossCam"

@@ -6,7 +6,6 @@ using System.Net;
 using CrossCam.Model;
 using CrossCam.Wrappers;
 using FreshMvvm;
-using PropertyChanged;
 using Xamarin.Forms;
 
 namespace CrossCam.ViewModel

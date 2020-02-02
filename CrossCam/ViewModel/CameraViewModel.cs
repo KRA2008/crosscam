@@ -382,7 +382,7 @@ namespace CrossCam.ViewModel
 
             NavigateToHelpCommand = new Command(async () =>
             {
-                await CoreMethods.PushPageModel<HelpViewModel>();
+                await CoreMethods.PushPageModel<HelpViewModel>(Settings);
             });
 
             SwapSidesCommand = new Command(obj =>
@@ -1276,17 +1276,17 @@ namespace CrossCam.ViewModel
             if (!Settings.HasOfferedTechniqueHelpBefore)
             {
                 var showTechniquePage = await CoreMethods.DisplayAlert("Welcome to CrossCam!",
-                    "CrossCam was made to help you take 3D photos. The photos are 3D just like VR or 3D movies are, but you don't need any special equipment or glasses - just your phone. The technique to view the 3D photos is a little tricky and takes some practice to get it right. Before I tell you how to use CrossCam, would you first like to learn more about the viewing technique?",
+                    "CrossCam was made to help you take 3D photos. The photos are 3D just like VR or 3D movies, but you don't need any special equipment or glasses - just your phone. The technique to view the 3D photos is a little tricky and takes some practice to get it right. Before I tell you how to use CrossCam, would you first like to learn more about the viewing technique?",
                     "Yes", "No");
                 Settings.HasOfferedTechniqueHelpBefore = true;
                 PersistentStorage.Save(PersistentStorage.SETTINGS_KEY, Settings);
                 if (showTechniquePage)
                 {
-                    await CoreMethods.PushPageModel<TechniqueHelpViewModel>();
+                    await CoreMethods.PushPageModel<TechniqueHelpViewModel>(Settings);
                 }
                 else
                 {
-                    await CoreMethods.PushPageModel<DirectionsViewModel>();
+                    await CoreMethods.PushPageModel<DirectionsViewModel>(Settings);
                     Settings.HasShownDirectionsBefore = true;
                     PersistentStorage.Save(PersistentStorage.SETTINGS_KEY, Settings);
                 }
@@ -1295,7 +1295,7 @@ namespace CrossCam.ViewModel
             {
                 if (!Settings.HasShownDirectionsBefore)
                 {
-                    await CoreMethods.PushPageModel<DirectionsViewModel>();
+                    await CoreMethods.PushPageModel<DirectionsViewModel>(Settings);
                     Settings.HasShownDirectionsBefore = true;
                     PersistentStorage.Save(PersistentStorage.SETTINGS_KEY, Settings);
                 }

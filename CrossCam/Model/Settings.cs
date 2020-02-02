@@ -5,6 +5,8 @@ namespace CrossCam.Model
 {
     public class Settings : INotifyPropertyChanged
     {
+        public const double PARALLEL_BASE_WIDTH = 500;
+
         private DrawMode _mode;
         public DrawMode Mode
         {
@@ -306,7 +308,7 @@ namespace CrossCam.Model
             ResolutionProportion = 100;
             BorderWidthProportion = 15;
 
-            MaximumParallelWidth = 600;
+            MaximumParallelWidth = (int)PARALLEL_BASE_WIDTH;
         }
 
         public event PropertyChangedEventHandler PropertyChanged;

@@ -408,18 +408,6 @@
     <BundleResource Include="Resources\fyi.png" />
   </ItemGroup>
   <ItemGroup>
-    <BundleResource Include="Resources\steamEngine.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <BundleResource Include="Resources\overlapping.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <BundleResource Include="Resources\overlapped.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <BundleResource Include="Resources\blurry.png" />
-  </ItemGroup>
-  <ItemGroup>
     <BundleResource Include="Resources\horizontalLevelOutside.png" />
   </ItemGroup>
   <ItemGroup>
@@ -443,6 +431,11 @@
     <BundleResource Include="Resources\focusCircleGreen%403x.png" />
     <BundleResource Include="Resources\grayscaleAnaglyph.png" />
     <BundleResource Include="Resources\grayscaleAnaglyph%402x.png" />
+    <BundleResource Include="Resources\bloodrootBlurry.png" />
+    <BundleResource Include="Resources\bloodrootOverlapped.png" />
+    <BundleResource Include="Resources\bloodrootOverlapping.png" />
+    <BundleResource Include="Resources\bloodrootParallel.png" />
+    <BundleResource Include="Resources\bloodrootReduced.png" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\CrossCam.iOS.Extension\CrossCam.iOS.Extension.csproj">

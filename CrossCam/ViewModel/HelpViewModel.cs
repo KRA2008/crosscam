@@ -1,4 +1,5 @@
 ﻿using System;
+using CrossCam.Model;
 using FreshMvvm;
 using Plugin.DeviceInfo;
 using Xamarin.Forms;
@@ -16,6 +17,7 @@ namespace CrossCam.ViewModel
         public Command AboutTheDeveloperCommand { get; set; }
         public Command CrossViewSubredditCommand { get; set; }
         public Command GithubCodeCommand { get; set; }
+        private Settings _settings;
 
         public string AppVersion => "v" + CrossDeviceInfo.Current.AppVersion;
 
@@ -23,12 +25,12 @@ namespace CrossCam.ViewModel
         {
             NavigateToTechniqueHelpPage = new Command(async () =>
             {
-                await CoreMethods.PushPageModel<TechniqueHelpViewModel>();
+                await CoreMethods.PushPageModel<TechniqueHelpViewModel>(_settings);
             });
 
             NavigateToDirectionsPage = new Command(async () =>
             {
-                await CoreMethods.PushPageModel<DirectionsViewModel>();
+                await CoreMethods.PushPageModel<DirectionsViewModel>(_settings);
             });
 
             NavigateToTipsPage = new Command(async () =>
@@ -65,6 +67,12 @@ namespace CrossCam.ViewModel
             {
                 Device.OpenUri(new Uri("https://github.com/KRA2008/crosscam"));
             });
+        }
+
+        public override void Init(object initData)
+        {
+            base.Init(initData);
+            _settings = (Settings) initData;
         }
     }
 }
