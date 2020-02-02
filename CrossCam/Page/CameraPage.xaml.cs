@@ -18,10 +18,11 @@ namespace CrossCam.Page
 	    private readonly Rectangle _upperLineBoundsPortrait = new Rectangle(0, 0.4, 1, 21);
 	    private readonly Rectangle _lowerLinesBoundsPortrait = new Rectangle(0, 0.6, 1, 21);
         
-	    private const double LEVEL_BUBBLE_MIDDLE = 22.5;
-	    private const double LEVEL_BUBBLE_SPEED = 5;
 	    private const double LEVEL_ICON_WIDTH = 60;
-	    private readonly ImageSource _levelBubbleImage = ImageSource.FromFile("horizontalLevelInside");
+        private const double BUBBLE_LEVEL_MAX_TIP = 0.1;
+        private const double ACCELEROMETER_MEASURMENT_WEIGHT = 12;
+        private const double ROLL_GOOD_THRESHOLD = 0.01;
+        private readonly ImageSource _levelBubbleImage = ImageSource.FromFile("horizontalLevelInside");
 	    private readonly ImageSource _levelOutsideImage = ImageSource.FromFile("horizontalLevelOutside");
 	    private readonly ImageSource _levelBubbleGreenImage = ImageSource.FromFile("horizontalLevelInsideGreen");
 	    private readonly ImageSource _levelOutsideGreenImage = ImageSource.FromFile("horizontalLevelOutsideGreen");
@@ -42,11 +43,6 @@ namespace CrossCam.Page
 	    private double _lowerLineY;
 	    private double _lowerLineHeight;
 
-	    private const double ACCELEROMETER_MEASURMENT_WEIGHT = 12;
-	    private const double ACCELEROMETER_SENSITIVITY = 90;
-	    private const double AVERAGE_ROLL_LIMIT = LEVEL_BUBBLE_MIDDLE / (ACCELEROMETER_SENSITIVITY * LEVEL_BUBBLE_SPEED);
-	    private const double ROLL_GOOD_THRESHOLD = AVERAGE_ROLL_LIMIT / 8;
-
         private double _averageRoll;
         private double _lastAccelerometerReadingX;
         private double _lastAccelerometerReadingY;
@@ -59,7 +55,6 @@ namespace CrossCam.Page
             NavigationPage.SetHasNavigationBar(this, false);
 
 		    var bubbleBounds = AbsoluteLayout.GetLayoutBounds(_horizontalLevelBubble);
-		    bubbleBounds.X = LEVEL_BUBBLE_MIDDLE;
 		    AbsoluteLayout.SetLayoutBounds(_horizontalLevelBubble, bubbleBounds);
 		    _horizontalLevelBubble.Source = _levelBubbleImage;
 		    _horizontalLevelOutside.Source = _levelOutsideImage;
@@ -67,8 +62,6 @@ namespace CrossCam.Page
             Accelerometer.ReadingChanged += StoreAccelerometerReading;
             MessagingCenter.Subscribe<App>(this, App.APP_PAUSING_EVENT, o => EvaluateSensors(false));
 		    MessagingCenter.Subscribe<App>(this, App.APP_UNPAUSING_EVENT, o => EvaluateSensors());
-
-            StartAccelerometerCycling();
         }
 
         protected override bool OnBackButtonPressed()
@@ -89,6 +82,7 @@ namespace CrossCam.Page
 	                    try
 	                    {
 	                        Accelerometer.Start(SensorSpeed.Game);
+                            StartAccelerometerCycling();
                         }
 	                    catch
 	                    {
@@ -115,7 +109,7 @@ namespace CrossCam.Page
 
         private async void StartAccelerometerCycling()
         {
-            while (true)
+            while (Accelerometer.IsMonitoring)
             {
                 await Task.Delay(50);
                 UpdateLevelFromAccelerometerData();
@@ -171,25 +165,16 @@ namespace CrossCam.Page
                 }
             }
 
-            if (_averageRoll > AVERAGE_ROLL_LIMIT)
+            var newX = 0.5 + _averageRoll / BUBBLE_LEVEL_MAX_TIP / 2;
+            if (newX > 1)
             {
-                _averageRoll = AVERAGE_ROLL_LIMIT;
-            }
-            else if (_averageRoll < -AVERAGE_ROLL_LIMIT)
+                newX = 1;
+            } else if (newX < 0)
             {
-                _averageRoll = -AVERAGE_ROLL_LIMIT;
+                newX = 0;
             }
             var bubbleBounds = AbsoluteLayout.GetLayoutBounds(_horizontalLevelBubble);
-            var newBounds = LEVEL_BUBBLE_MIDDLE + _averageRoll * LEVEL_BUBBLE_SPEED * ACCELEROMETER_SENSITIVITY;
-            if (newBounds < 0)
-            {
-                newBounds = 0;
-            }
-            else if (newBounds > LEVEL_BUBBLE_MIDDLE * 2)
-            {
-                newBounds = LEVEL_BUBBLE_MIDDLE * 2;
-            }
-            bubbleBounds.X = newBounds;
+            bubbleBounds.X = newX;
             AbsoluteLayout.SetLayoutBounds(_horizontalLevelBubble, bubbleBounds);
         }
 
