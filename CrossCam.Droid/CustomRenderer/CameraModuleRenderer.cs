@@ -971,6 +971,8 @@ namespace CrossCam.Droid.CustomRenderer
 
         private void HandleCaptureResult(CaptureRequest request, CaptureResult result)
         {
+            if (_camera2Device == null) return;
+
             try
             {
                 if (_camera2State == CameraState.Preview ||
@@ -1064,6 +1066,8 @@ namespace CrossCam.Droid.CustomRenderer
 
         private void StartRealCapture2()
         {
+            if (_camera2Device == null) return;
+
             try
             {
                 if (_isCamera2FocusAndExposureLocked)
@@ -1349,6 +1353,8 @@ namespace CrossCam.Droid.CustomRenderer
 
         private void RestartPreview2(bool withLockIfEnabled)
         {
+            if (_camera2Device == null) return;
+
             try
             {
                 var characteristics = _cameraManager.GetCameraCharacteristics(_camera2Id);
