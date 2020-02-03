@@ -23,11 +23,11 @@
         <ScrollView>
             <StackLayout Spacing="0">
                 <BoxView/>
+                <Label Text="When you move over, try not to rotate your phone at all in any direction, including the natural tendency to turn towards the subject as you move to the side. Some rotation will be necessary (sometimes), but try to minimize it. Imagine the phone is mounted on a straight horizontal rail and can only slide."/>
+                <BoxView/>
                 <Label Text="Sometimes instead of fully &quot;moving&quot; left or right to take pictures, it can be easier to just stand with your feet apart and lean in each direction, but be careful to keep the phone level and at the same height."/>
                 <BoxView/>
-                <Label Text="If all the movement makes you sick or makes it too difficult to cross view, just move over a little bit and align the pictures using the horizontal lines without cross viewing and then start cross viewing once aligned and holding still."/>
-                <BoxView/>
-                <Label Text="When you move over, try not to rotate your phone at all in any direction, including the natural tendency to turn towards the subject as you move to the side. Some rotation will be necessary sometimes, but try to minimize it. Imagine the phone is mounted on a straight horizontal rail and can only slide."/>
+                <Label Text="If all the movement makes you sick or makes it too difficult to cross view, don't start doing it until after you've moved over a little bit. Then compare the pictures to each other and align the pictures using the horizontal lines without cross viewing and then start cross viewing once aligned and holding still."/>
                 <BoxView/>
                 <Label Text="If you want to take pictures of very close up subjects for cross viewing, you may want to turn inward with each shot to maximize the useable size. As a result, it is very helpful to do &quot;keystone&quot; corrections. Typically you would want to shrink the inside edges of the photos and then crop some off the top and bottom to level them out. You get to the keystone editing menu by tapping the button that looks like this:"/>
                 <StackLayout Orientation="Horizontal" 
@@ -41,8 +41,6 @@
                 <Label Text="You can drag the alignment lines around if you want. This is especially helpful when aligning the pictures during editing."/>
                 <BoxView/>
                 <Label Text="If you don't like the results of the automatic alignment, just turn it off on the settings page and your original captured pictures will be restored."/>
-                <BoxView/>
-                <Label Text="If you're interested in red/cyan anaglyph, there is a switch on the Settings page which allows you to edit and save in red/cyan anaglyph."/>
                 <BoxView/>
                 <Label Text="An interesting &quot;stereo window&quot; effect can be created by doing two things: 1) turn on the border (in settings) and 2) crop the inside edges of the images until the outer edge itself becomes 3D in the picture. The key is to crop the right edge of the left picture slightly past what the right edge of the right picture shows of the scene and vice-versa. Adding a border is toggled in the settings. If this is confusing, just crop a bunch off the inside edges and it will start to be clear. The crop button for the inside edges looks like this:"/>
                 <Image Source="insideCrop"/>
