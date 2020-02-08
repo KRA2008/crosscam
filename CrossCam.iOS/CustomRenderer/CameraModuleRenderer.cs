@@ -244,6 +244,7 @@ namespace CrossCam.iOS.CustomRenderer
                     !isSyncReentry)
                 {
                     _cameraModule.BluetoothOperator.RequestSyncForCaptureAndSync();
+                    return;
                 }
                 if (_is10OrHigher)
                 {
