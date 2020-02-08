@@ -499,12 +499,17 @@ namespace CrossCam.CustomElement
 
         private void SyncCapture(DateTime syncTime)
         {
-            _captureSyncTimer.Elapsed += OnCaptureRequested;
             var interval = (syncTime.Ticks - DateTime.UtcNow.Ticks) / 10000d;
-            _captureSyncTimer.Interval = interval;
-            _captureSyncTimer.Start();
             Debug.WriteLine("Sync interval set: " + interval);
             Debug.WriteLine("Sync time: " + syncTime.ToString("O"));
+            if (interval < 0)
+            {
+                Debug.WriteLine("Sync aborted, interval < 0");
+                return;
+            }
+            _captureSyncTimer.Elapsed += OnCaptureRequested;
+            _captureSyncTimer.Interval = interval;
+            _captureSyncTimer.Start();
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
