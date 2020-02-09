@@ -3,8 +3,10 @@ using System.ComponentModel;
 using System.Linq;
 using System.Threading.Tasks;
 using AVFoundation;
+using CoreFoundation;
 using CoreGraphics;
 using CoreMedia;
+using CoreVideo;
 using CrossCam.iOS.CustomRenderer;
 using Foundation;
 using UIKit;
@@ -21,6 +23,8 @@ namespace CrossCam.iOS.CustomRenderer
         private UIView _liveCameraStream;
         private AVCapturePhotoOutput _photoOutput;
         private AVCaptureStillImageOutput _stillImageOutput;
+        private AVCaptureVideoDataOutput _previewFrameOutput;
+        private PreviewFrameDelegate _previewFrameDelegate;
         private CameraModule _cameraModule;
         private AVCaptureDevice _device;
         private bool _isInitialized;
@@ -188,6 +192,22 @@ namespace CrossCam.iOS.CustomRenderer
                         IsHighResolutionCaptureEnabled = true
                     };
 
+                    var settings = new AVVideoSettingsUncompressed
+                    {
+                        PixelFormatType = CVPixelFormatType.CV32BGRA
+                    };
+                    _previewFrameOutput = new AVCaptureVideoDataOutput
+                    {
+                        AlwaysDiscardsLateVideoFrames = true,
+                        MinFrameDuration = new CMTime(1, 30),
+                        UncompressedVideoSetting = settings
+                    };
+                    _previewFrameDelegate = new PreviewFrameDelegate();
+                    var queue = new DispatchQueue("PreviewFrameQueue");
+                    _previewFrameOutput.WeakVideoSettings = settings.Dictionary;
+                    _previewFrameOutput.SetSampleBufferDelegate(_previewFrameDelegate, queue);
+
+                    _captureSession.AddOutput(_previewFrameOutput);
                     _captureSession.AddOutput(_photoOutput);
                     _captureSession.AddInput(AVCaptureDeviceInput.FromDevice(_device));
                 }
@@ -609,6 +629,66 @@ namespace CrossCam.iOS.CustomRenderer
             if (videoOrientation != 0)
             {
                 _avCaptureVideoPreviewLayer.Orientation = videoOrientation;
+            }
+        }
+
+        private class PreviewFrameDelegate : AVCaptureVideoDataOutputSampleBufferDelegate
+        {
+            public override void DidOutputSampleBuffer(AVCaptureOutput captureOutput, CMSampleBuffer sampleBuffer, AVCaptureConnection connection)
+            {
+                try
+                {
+                    //var image = GetImageFromSampleBuffer(sampleBuffer);
+
+                   // var bytes = image.AsJPEG().ToArray();
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine("Error sampling buffer: {0}", e.Message);
+                }
+                finally
+                {
+                    sampleBuffer.Dispose();
+                }
+            }
+
+            private static UIImage GetImageFromSampleBuffer(CMSampleBuffer sampleBuffer)
+            {
+
+                // Get a pixel buffer from the sample buffer
+                using (var pixelBuffer = sampleBuffer.GetImageBuffer() as CVPixelBuffer)
+                {
+                    // Lock the base address
+                    pixelBuffer.Lock(CVPixelBufferLock.None);
+
+                    // Prepare to decode buffer
+                    const CGBitmapFlags FLAGS = CGBitmapFlags.PremultipliedFirst | CGBitmapFlags.ByteOrder32Little;
+
+                    // Decode buffer - Create a new colorspace
+                    using (var cs = CGColorSpace.CreateDeviceRGB())
+                    {
+
+                        // Create new context from buffer
+                        using (var context = new CGBitmapContext(pixelBuffer.BaseAddress,
+                            pixelBuffer.Width,
+                            pixelBuffer.Height,
+                            8,
+                            pixelBuffer.BytesPerRow,
+                            cs,
+                            (CGImageAlphaInfo)FLAGS))
+                        {
+
+                            // Get the image from the context
+                            using (var cgImage = context.ToImage())
+                            {
+
+                                // Unlock and return image
+                                pixelBuffer.Unlock(CVPixelBufferLock.None);
+                                return UIImage.FromImage(cgImage);
+                            }
+                        }
+                    }
+                }
             }
         }
     }

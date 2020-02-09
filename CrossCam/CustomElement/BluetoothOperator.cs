@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
+using System.Linq;
 using System.Reactive.Threading.Tasks;
 using System.Runtime.CompilerServices;
 using System.Text;
@@ -424,9 +425,13 @@ namespace CrossCam.CustomElement
 
         public async void RequestSyncForCaptureAndSync()
         {
-            var timeOffset = 0L;
-            var roundTripDelay = 0L;
-            const int NUMBER_OF_RUNS = 5;
+            const int NUMBER_OF_RUNS = 15;
+            const int BUFFER_TRIP_MULTIPLIER = 3;
+            var offsets = new List<long>();
+            var trips = new List<long>();
+            var offsetsAverage = 0L;
+            var tripsSafeAverage = 0L;
+            var measureStart = DateTime.UtcNow.Ticks;
             try
             {
                 for (var i = 0; i < NUMBER_OF_RUNS; i++)
@@ -438,18 +443,19 @@ namespace CrossCam.CustomElement
                     if (long.TryParse(t1t2String, out var t1t2))
                     {
                         var timeOffsetRun = ((t1t2 - t0) + (t1t2 - t3)) / 2;
-                        timeOffset += timeOffsetRun;
+                        offsets.Add(timeOffsetRun);
                         var roundTripDelayRun = t3 - t0;
-                        roundTripDelay += roundTripDelayRun; 
+                        trips.Add(roundTripDelayRun);
                         Debug.WriteLine("Time offset: " + timeOffsetRun / 10000d + " milliseconds");
                         Debug.WriteLine("Round trip delay: " + roundTripDelayRun / 10000d + " milliseconds");
                     }
                 }
 
-                timeOffset /= NUMBER_OF_RUNS;
-                roundTripDelay /= NUMBER_OF_RUNS;
-                Debug.WriteLine("Average time offset: " + timeOffset / 10000d + " milliseconds");
-                Debug.WriteLine("Average round trip delay: " + roundTripDelay / 10000d + " milliseconds");
+                offsetsAverage = (long)offsets.Average();
+                tripsSafeAverage = (long)trips.Average();
+
+                Debug.WriteLine("Average time offset: " + offsetsAverage / 10000d + " milliseconds");
+                Debug.WriteLine("Average round trip delay: " + tripsSafeAverage / 10000d + " milliseconds");
             }
             catch (Exception e)
             {
@@ -460,8 +466,13 @@ namespace CrossCam.CustomElement
                 });
             }
 
-            var targetSyncMoment = DateTime.UtcNow.AddMilliseconds(CAPTURE_BUFFER_MS);
-            var partnerSyncMoment = targetSyncMoment.AddTicks(timeOffset).AddTicks(-roundTripDelay / 2);
+            var measureEnd = DateTime.UtcNow.Ticks;
+            var measureDuration = measureEnd - measureStart;
+            Debug.WriteLine("Measure duration: " + measureDuration / 10000d + " milliseconds");
+            var targetSyncMoment = DateTime.UtcNow.AddTicks(tripsSafeAverage * BUFFER_TRIP_MULTIPLIER);
+            Debug.WriteLine("Target sync: " + targetSyncMoment.ToString("O"));
+            var partnerSyncMoment = targetSyncMoment.AddTicks(offsetsAverage);
+            Debug.WriteLine("Partner sync: " + partnerSyncMoment.ToString("O"));
             _device.WriteCharacteristic(_serviceGuid, _triggerGuid, Encoding.UTF8.GetBytes(partnerSyncMoment.Ticks.ToString())).Subscribe(what =>
             {
                 SyncCapture(targetSyncMoment);
