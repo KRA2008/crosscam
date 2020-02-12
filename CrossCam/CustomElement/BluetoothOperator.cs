@@ -32,9 +32,8 @@ namespace CrossCam.CustomElement
         private readonly Guid _helloGuid = Guid.Parse("492a8e42-2589-40b1-b9c2-419a7ce80f3c");
         private IDevice _device;
         private readonly Timer _captureSyncTimer = new Timer{AutoReset = false};
-        public TaskCompletionSource<byte[]> NextPreviewFrameTask { get; set; }
 
-        private const long CAPTURE_BUFFER_MS = 1000;
+        public byte[] LatestPreviewFrame = new byte[0];
 
         public event ElapsedEventHandler CaptureRequested;
         private void OnCaptureRequested(object sender, ElapsedEventArgs e)
@@ -196,13 +195,11 @@ namespace CrossCam.CustomElement
                     {
                         Debug.WriteLine("### Service callback");
                         service.AddCharacteristic(_previewGuid, CharacteristicProperties.Read,
-                            GattPermissions.Read).WhenReadReceived().Subscribe(async request =>
+                        GattPermissions.Read).WhenReadReceived().Subscribe(request =>
                         {
-                            NextPreviewFrameTask = new TaskCompletionSource<byte[]>();
-                            await NextPreviewFrameTask.Task;
-                            request.Value = NextPreviewFrameTask.Task.Result;
-                            NextPreviewFrameTask = null;
-                        }, exception =>
+                            request.Value = LatestPreviewFrame;
+                        }, 
+                        exception =>
                         {
                             OnErrorOccurred(new ErrorEventArgs
                             {
@@ -370,6 +367,7 @@ namespace CrossCam.CustomElement
                 if (_device != null)
                 {
                     var frame = await _device.ReadCharacteristic(_serviceGuid, _previewGuid).ToTask();
+                    Debug.WriteLine("Preview frame length: " + frame.Data.Length);
                     return frame.Data;
                 }
             }
@@ -425,8 +423,8 @@ namespace CrossCam.CustomElement
 
         public async void RequestSyncForCaptureAndSync()
         {
-            const int NUMBER_OF_RUNS = 15;
-            const int BUFFER_TRIP_MULTIPLIER = 3;
+            const int NUMBER_OF_RUNS = 10;
+            const int BUFFER_TRIP_MULTIPLIER = 4;
             var offsets = new List<long>();
             var trips = new List<long>();
             var offsetsAverage = 0L;

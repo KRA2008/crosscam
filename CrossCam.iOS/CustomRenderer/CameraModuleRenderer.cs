@@ -202,7 +202,7 @@ namespace CrossCam.iOS.CustomRenderer
                         MinFrameDuration = new CMTime(1, 30),
                         UncompressedVideoSetting = settings
                     };
-                    _previewFrameDelegate = new PreviewFrameDelegate();
+                    _previewFrameDelegate = new PreviewFrameDelegate(_cameraModule);
                     var queue = new DispatchQueue("PreviewFrameQueue");
                     _previewFrameOutput.WeakVideoSettings = settings.Dictionary;
                     _previewFrameOutput.SetSampleBufferDelegate(_previewFrameDelegate, queue);
@@ -634,13 +634,23 @@ namespace CrossCam.iOS.CustomRenderer
 
         private class PreviewFrameDelegate : AVCaptureVideoDataOutputSampleBufferDelegate
         {
+            private readonly CameraModule _camera;
+
+            public PreviewFrameDelegate(CameraModule camera)
+            {
+                _camera = camera;
+            }
+
             public override void DidOutputSampleBuffer(AVCaptureOutput captureOutput, CMSampleBuffer sampleBuffer, AVCaptureConnection connection)
             {
                 try
                 {
-                    //var image = GetImageFromSampleBuffer(sampleBuffer);
-
-                   // var bytes = image.AsJPEG().ToArray();
+                    if (_camera.BluetoothOperator.IsConnected)
+                    {
+                        var image = GetImageFromSampleBuffer(sampleBuffer);
+                        var bytes = image.AsJPEG().ToArray();
+                        _camera.BluetoothOperator.LatestPreviewFrame = bytes;
+                    }
                 }
                 catch (Exception e)
                 {

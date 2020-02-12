@@ -259,7 +259,10 @@ namespace CrossCam.Page
                     _drawnResultCanvas.InvalidateSurface();
                     break;
                 case nameof(CameraViewModel.PreviewFrame):
-                    _pairPreviewCanvas.InvalidateSurface();
+                    Device.BeginInvokeOnMainThread(() =>
+                    {
+                        _pairPreviewCanvas.InvalidateSurface();
+                    });
                     break;
 	        }
 	    }
@@ -312,13 +315,16 @@ namespace CrossCam.Page
 
                 var bitmap = SKBitmap.Decode(_viewModel.PreviewFrame);
 
-                var canvasWidth = canvas.DeviceClipBounds.Width;
-                var canvasHeight = canvas.DeviceClipBounds.Height;
-                canvas.DrawBitmap(bitmap,
-                    SKRect.Create(0, 0, bitmap.Width, bitmap.Height),
-                    SKRect.Create(0, 0, canvasWidth, canvasHeight));
+                if (bitmap != null)
+                {
+                    var canvasWidth = canvas.DeviceClipBounds.Width;
+                    var canvasHeight = canvas.DeviceClipBounds.Height;
+                    canvas.DrawBitmap(bitmap,
+                        SKRect.Create(0, 0, bitmap.Width, bitmap.Height),
+                        SKRect.Create(0, 0, canvasWidth, canvasHeight));
 
-                _viewModel.FetchPairPreviewFrame();
+                    _viewModel.FetchPairPreviewFrame();
+                }
             }
         }
 
