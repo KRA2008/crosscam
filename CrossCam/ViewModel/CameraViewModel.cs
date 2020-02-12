@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using System.IO;
 using System.Threading;
 using System.Threading.Tasks;
@@ -237,9 +238,9 @@ namespace CrossCam.ViewModel
             VerticalAlignmentMax = 1;
             ZoomMax = 1;
 
-            BluetoothOperator.Connected += (sender, args) =>
+            BluetoothOperator.Connected += async (sender, args) =>
             {
-                FetchPairPreviewFrame();
+                BeginPreviewFrameFetching();
             };
             
             PropertyChanged += (sender, args) =>
@@ -311,6 +312,7 @@ namespace CrossCam.ViewModel
                     LoadSharedImages(photos[0], photos[1]);
                 }
             });
+
             RetakeLeftCommand = new Command(() =>
             {
                 try
@@ -706,12 +708,29 @@ namespace CrossCam.ViewModel
             });
         }
 
+        private async void BeginPreviewFrameFetching()
+        {
+            await Task.Delay(5000);
+            FetchPairPreviewFrame();
+        }
+
         public async void FetchPairPreviewFrame()
         {
-            if (BluetoothOperator.IsConnected)
+            await Task.Run(async () =>
             {
-                PreviewFrame = await BluetoothOperator.FetchPreviewFrame();
-            }
+                var previewFrame = await BluetoothOperator.FetchPreviewFrame();
+                if (previewFrame != null &&
+                    previewFrame.Length > 0)
+                {
+                    Debug.WriteLine("Preview frame length: " + previewFrame.Length);
+                    PreviewFrame = previewFrame;
+                }
+                else
+                {
+                    Debug.WriteLine(previewFrame == null ? "Preview frame null" : "Preview frame length 0");
+                    FetchPairPreviewFrame();
+                }
+            });
         }
 
         public bool BackButtonPressed()

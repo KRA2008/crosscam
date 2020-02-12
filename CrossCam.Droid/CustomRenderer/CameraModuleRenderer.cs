@@ -956,7 +956,7 @@ namespace CrossCam.Droid.CustomRenderer
                 {
                     if (_cameraModule.BluetoothOperator.IsConnected)
                     {
-                        _cameraModule.BluetoothOperator.NextPreviewFrameTask?.SetResult(bytes);
+                        _cameraModule.BluetoothOperator.LatestPreviewFrame = bytes;
                     }
                 };
 
