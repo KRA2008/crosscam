@@ -239,11 +239,6 @@ namespace CrossCam.ViewModel
             VerticalAlignmentMax = 1;
             ZoomMax = 1;
 
-            BluetoothOperator.Connected += async (sender, args) =>
-            {
-                BeginPreviewFrameFetching();
-            };
-            
             PropertyChanged += (sender, args) =>
             {
                 if (args.PropertyName == nameof(CaptureSuccess))
@@ -709,31 +704,6 @@ namespace CrossCam.ViewModel
                 }
 
                 ErrorMessage = null;
-            });
-        }
-
-        private async void BeginPreviewFrameFetching()
-        {
-            await Task.Delay(5000);
-            FetchPairPreviewFrame();
-        }
-
-        public async void FetchPairPreviewFrame()
-        {
-            await Task.Run(async () =>
-            {
-                var previewFrame = await BluetoothOperator.FetchPreviewFrame();
-                if (previewFrame != null &&
-                    previewFrame.Length > 0)
-                {
-                    Debug.WriteLine("Preview frame length: " + previewFrame.Length);
-                    PreviewFrame = previewFrame;
-                }
-                else
-                {
-                    Debug.WriteLine(previewFrame == null ? "Preview frame null" : "Preview frame length 0");
-                    FetchPairPreviewFrame();
-                }
             });
         }
 

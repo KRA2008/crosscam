@@ -14,6 +14,7 @@ using Plugin.BluetoothLE;
 using Plugin.BluetoothLE.Server;
 using Xamarin.Forms;
 using IDevice = Plugin.BluetoothLE.IDevice;
+using IGattCharacteristic = Plugin.BluetoothLE.IGattCharacteristic;
 
 namespace CrossCam.CustomElement
 {
@@ -23,17 +24,22 @@ namespace CrossCam.CustomElement
         private ConnectionStatus ConnectionStatus { get; set; }
         public bool IsPrimary { get; private set; }
         public IPageModelCoreMethods CurrentCoreMethods { get; set; }
+        public bool IsReadyForPreviewFrame { get; set; }
+
         private readonly IPlatformBluetooth _bleSetup;
         private readonly Guid _serviceGuid = Guid.Parse("492a8e3d-2589-40b1-b9c2-419a7ce80f3c");
-        private readonly Guid _timeGuid = Guid.Parse("492a8e3e-2589-40b1-b9c2-419a7ce80f3c");
-        private readonly Guid _previewGuid = Guid.Parse("492a8e3f-2589-40b1-b9c2-419a7ce80f3c");
-        private readonly Guid _triggerGuid = Guid.Parse("492a8e40-2589-40b1-b9c2-419a7ce80f3c");
-        private readonly Guid _capturedGuid = Guid.Parse("492a8e41-2589-40b1-b9c2-419a7ce80f3c");
-        private readonly Guid _helloGuid = Guid.Parse("492a8e42-2589-40b1-b9c2-419a7ce80f3c");
+        private readonly Guid _clockReadingGuid = Guid.Parse("492a8e3e-2589-40b1-b9c2-419a7ce80f3c");
+        private readonly Guid _previewFrameGuid = Guid.Parse("492a8e3f-2589-40b1-b9c2-419a7ce80f3c");
+        private readonly Guid _initiateCaptureGuid = Guid.Parse("492a8e40-2589-40b1-b9c2-419a7ce80f3c");
+        private readonly Guid _setCaptureMomentGuid = Guid.Parse("492a8e41-2589-40b1-b9c2-419a7ce80f3c");
+        private readonly Guid _capturedImageGuid = Guid.Parse("492a8e42-2589-40b1-b9c2-419a7ce80f3c");
+        private readonly Guid _helloGuid = Guid.Parse("492a8e43-2589-40b1-b9c2-419a7ce80f3c");
         private IDevice _device;
         private readonly Timer _captureSyncTimer = new Timer{AutoReset = false};
 
-        public byte[] LatestPreviewFrame = new byte[0];
+
+
+        private IGattCharacteristic _previewFrameCharacteristic; //set this up on connect and clear it when disconnected
 
         public event ElapsedEventHandler CaptureRequested;
         private void OnCaptureRequested(object sender, ElapsedEventArgs e)
@@ -53,9 +59,9 @@ namespace CrossCam.CustomElement
         }
 
         public event EventHandler Connected;
-        private void OnConnected(bool isPrimary)
+        private void OnConnected()
         {
-            ShowPairConnected(isPrimary);
+            ShowPairConnected();
             var handler = Connected;
             handler?.Invoke(this, new EventArgs());
         }
@@ -82,6 +88,13 @@ namespace CrossCam.CustomElement
             handler?.Invoke(this, e);
         }
 
+        public event EventHandler<byte[]> PreviewFrameAvailable;
+        private void OnPreviewFrameAvailable(byte[] frame)
+        {
+            var handler = PreviewFrameAvailable;
+            handler?.Invoke(this, frame);
+        }
+
         public BluetoothOperator()
         {
             _bleSetup = DependencyService.Get<IPlatformBluetooth>();
@@ -104,7 +117,9 @@ namespace CrossCam.CustomElement
                 ConnectionStatus = device.Status;
                 if (device.IsConnected())
                 {
-                    OnConnected(true); //Unsure which device actually calls this
+                    IsPrimary = false;
+                    IsReadyForPreviewFrame = true;
+                    OnConnected(); //Unsure which device actually calls this
                 }
                 else if (device.IsDisconnected())
                 {
@@ -194,10 +209,10 @@ namespace CrossCam.CustomElement
                     gattServer.AddService(_serviceGuid, true, service =>
                     {
                         Debug.WriteLine("### Service callback");
-                        service.AddCharacteristic(_previewGuid, CharacteristicProperties.Read,
-                        GattPermissions.Read).WhenReadReceived().Subscribe(request =>
+                        service.AddCharacteristic(_previewFrameGuid, CharacteristicProperties.Write,
+                        GattPermissions.Write).WhenWriteReceived().Subscribe(request =>
                         {
-                            request.Value = LatestPreviewFrame;
+                            //OnPreviewFrameAvailable(request.Value);
                         }, 
                         exception =>
                         {
@@ -207,7 +222,7 @@ namespace CrossCam.CustomElement
                                 Step = "Provide Preview Frame"
                             });
                         });
-                        service.AddCharacteristic(_timeGuid, CharacteristicProperties.Read,
+                        service.AddCharacteristic(_clockReadingGuid, CharacteristicProperties.Read,
                         GattPermissions.Read).WhenReadReceived().Subscribe(request =>
                         {
                             request.Value = Encoding.UTF8.GetBytes(DateTime.UtcNow.Ticks.ToString());
@@ -219,7 +234,7 @@ namespace CrossCam.CustomElement
                                 Step = "Provide Time for Sync"
                             });
                         });
-                        service.AddCharacteristic(_triggerGuid, CharacteristicProperties.Write,
+                        service.AddCharacteristic(_initiateCaptureGuid, CharacteristicProperties.Write,
                             GattPermissions.Write).WhenWriteReceived().Subscribe(request =>
                         {
                             Task.Run(() =>
@@ -234,16 +249,19 @@ namespace CrossCam.CustomElement
                                 Exception = exception
                             });
                         });
-                        service.AddCharacteristic(_capturedGuid, CharacteristicProperties.Read,
-                            GattPermissions.Read);
-                        service.AddCharacteristic(_helloGuid,
-                            CharacteristicProperties.Write, GattPermissions.Write).WhenWriteReceived().Subscribe(request =>
+                        service.AddCharacteristic(_capturedImageGuid, CharacteristicProperties.Write,
+                            GattPermissions.Write).WhenWriteReceived().Subscribe(request =>
                         {
-                            IsPrimary = false;
-                            var write = Encoding.UTF8.GetString(request.Value, 0, request.Value.Length);
-                            Debug.WriteLine("### Hello received: " + write);
+                            Debug.WriteLine("FINAL CAPTURE WRITTEN");
+                        });
+                        service.AddCharacteristic(_helloGuid,
+                            CharacteristicProperties.Read, GattPermissions.Read).WhenReadReceived().Subscribe(request =>
+                        {
+                            IsPrimary = true;
+                            request.Value = Encoding.UTF8.GetBytes("Hi there friend.");
+                            Debug.WriteLine("### Sending hello read response");
                             ConnectionStatus = ConnectionStatus.Connected;
-                            OnConnected(false);
+                            OnConnected();
                         }, exception =>
                         {
                             OnErrorOccurred(new ErrorEventArgs
@@ -283,7 +301,9 @@ namespace CrossCam.CustomElement
                     !IsConnected)
                 {
                     _device = device;
-                    OnConnected(true); //Unsure if this is good - the device with the status change and the device where the message pops might be different
+                    IsReadyForPreviewFrame = true;
+                    IsPrimary = false; //is this correct? Unsure if this is good - the device with the status change and the device where the message pops might be different
+                    OnConnected(); 
 
                     device.DiscoverServices().Subscribe(service =>
                     {
@@ -293,10 +313,9 @@ namespace CrossCam.CustomElement
                             Debug.WriteLine("### Characteristic discovered: " + characteristic.Description + ", " + characteristic.Uuid);
                             if (characteristic.Uuid == _helloGuid)
                             {
-                                IsPrimary = true;
-                                characteristic.Write(Encoding.UTF8.GetBytes("Hi there friend.")).Subscribe(resp =>
+                                characteristic.Read().Subscribe(resp =>
                                 {
-                                    Debug.WriteLine("### Hello write response came back.");
+                                    Debug.WriteLine("### Hello response came back: " + Encoding.UTF8.GetString(resp.Data, 0, resp.Data.Length));
                                 }, exception =>
                                 {
                                     OnErrorOccurred(new ErrorEventArgs
@@ -305,6 +324,11 @@ namespace CrossCam.CustomElement
                                         Exception = exception
                                     });
                                 });
+                            }
+
+                            if (characteristic.Uuid == _previewFrameGuid)
+                            {
+                                _previewFrameCharacteristic = characteristic;
                             }
                         });
                     });
@@ -360,28 +384,6 @@ namespace CrossCam.CustomElement
             }
         }
 
-        public async Task<byte[]> FetchPreviewFrame()
-        {
-            try
-            {
-                if (_device != null)
-                {
-                    var frame = await _device.ReadCharacteristic(_serviceGuid, _previewGuid).ToTask();
-                    Debug.WriteLine("Preview frame length: " + frame.Data.Length);
-                    return frame.Data;
-                }
-            }
-            catch (Exception e)
-            {
-                OnErrorOccurred(new ErrorEventArgs
-                {
-                    Exception = e,
-                    Step = "Read Preview"
-                });
-            }
-            return null;
-        }
-
         public void Disconnect()
         {
             CrossBleAdapter.Current.GetConnectedDevices().Subscribe(devices =>
@@ -435,7 +437,7 @@ namespace CrossCam.CustomElement
                 for (var i = 0; i < NUMBER_OF_RUNS; i++)
                 {
                     var t0 = DateTime.UtcNow.Ticks;
-                    var readResult = await _device.ReadCharacteristic(_serviceGuid, _timeGuid).ToTask();
+                    var readResult = await _device.ReadCharacteristic(_serviceGuid, _clockReadingGuid).ToTask();
                     var t3 = DateTime.UtcNow.Ticks;
                     var t1t2String = Encoding.UTF8.GetString(readResult.Data, 0, readResult.Data.Length);
                     if (long.TryParse(t1t2String, out var t1t2))
@@ -471,7 +473,7 @@ namespace CrossCam.CustomElement
             Debug.WriteLine("Target sync: " + targetSyncMoment.ToString("O"));
             var partnerSyncMoment = targetSyncMoment.AddTicks(offsetsAverage);
             Debug.WriteLine("Partner sync: " + partnerSyncMoment.ToString("O"));
-            _device.WriteCharacteristic(_serviceGuid, _triggerGuid, Encoding.UTF8.GetBytes(partnerSyncMoment.Ticks.ToString())).Subscribe(what =>
+            _device.WriteCharacteristic(_serviceGuid, _initiateCaptureGuid, Encoding.UTF8.GetBytes(partnerSyncMoment.Ticks.ToString())).Subscribe(what =>
             {
                 SyncCapture(targetSyncMoment);
             }, exception =>
@@ -546,12 +548,57 @@ namespace CrossCam.CustomElement
             });
         }
 
-        private async void ShowPairConnected(bool isPrimary)
+        private async void ShowPairConnected()
         {
             await Device.InvokeOnMainThreadAsync(async () =>
             {
-                await CurrentCoreMethods.DisplayAlert("Connected Pair Device", "Pair device connected successfully! This is the " + (isPrimary ? "primary" : "secondary") + " device.", "Yay");
+                await CurrentCoreMethods.DisplayAlert("Connected Pair Device", "Pair device connected successfully! This is the " + (IsPrimary ? "primary" : "secondary") + " device.", "Yay");
             });
+        }
+
+        public void SendLatestPreviewFrame(byte[] frame)
+        {
+            IsReadyForPreviewFrame = false;
+            try
+            {
+                if (_device != null)
+                {
+                    if (frame != null && _previewFrameCharacteristic != null)
+                    {
+                        const double INCREMENT = 0.01;
+                        var threshold = INCREMENT;
+                        double position;
+                        double length;
+                        double proportion;
+                        _previewFrameCharacteristic.BlobWrite(frame, false).Subscribe(resp =>
+                        {
+                            position = resp.Position;
+                            length = resp.TotalLength;
+                            proportion = position / length;
+                            if(proportion > threshold)
+                            {
+                                Debug.WriteLine("Complete: " + proportion);
+                                threshold += INCREMENT;
+                            }
+                        }, exception =>
+                        {
+                            OnErrorOccurred(new ErrorEventArgs
+                            {
+                                Exception = exception,
+                                Step = "Send Preview Frame"
+                            });
+                        });
+                    }
+                }
+            }
+            catch (Exception e)
+            {
+                OnErrorOccurred(new ErrorEventArgs
+                {
+                    Exception = e,
+                    Step = "Send Preview Frame Outer"
+                });
+            }
         }
     }
 

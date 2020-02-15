@@ -202,6 +202,11 @@ namespace CrossCam.iOS.CustomRenderer
                         MinFrameDuration = new CMTime(1, 30),
                         UncompressedVideoSetting = settings
                     };
+                    //if (UIDevice.CurrentDevice.CheckSystemVersion(13, 0))
+                    //{
+                    //    _previewFrameOutput.DeliversPreviewSizedOutputBuffers = true;
+                    //    _previewFrameOutput.AutomaticallyConfiguresOutputBufferDimensions = false;
+                    //}
                     _previewFrameDelegate = new PreviewFrameDelegate(_cameraModule);
                     var queue = new DispatchQueue("PreviewFrameQueue");
                     _previewFrameOutput.WeakVideoSettings = settings.Dictionary;
@@ -645,11 +650,12 @@ namespace CrossCam.iOS.CustomRenderer
             {
                 try
                 {
-                    if (_camera.BluetoothOperator.IsConnected)
+                    if (_camera.BluetoothOperator.IsConnected &&
+                        _camera.BluetoothOperator.IsReadyForPreviewFrame)
                     {
                         var image = GetImageFromSampleBuffer(sampleBuffer);
                         var bytes = image.AsJPEG().ToArray();
-                        _camera.BluetoothOperator.LatestPreviewFrame = bytes;
+                        _camera.BluetoothOperator.SendLatestPreviewFrame(bytes);
                     }
                 }
                 catch (Exception e)
