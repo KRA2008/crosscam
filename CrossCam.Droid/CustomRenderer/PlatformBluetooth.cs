@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
 using Android.Bluetooth;
 using Android.Content;
@@ -13,6 +14,7 @@ using CrossCam.Droid.CustomRenderer;
 using CrossCam.Wrappers;
 using Java.Util;
 using Xamarin.Forms;
+using Debug = System.Diagnostics.Debug;
 
 [assembly: Dependency(typeof(PlatformBluetooth))]
 namespace CrossCam.Droid.CustomRenderer
@@ -46,12 +48,6 @@ namespace CrossCam.Droid.CustomRenderer
                     }
                 }
             };
-        }
-
-        public bool IsConnected()
-        {
-            return _bluetoothSocket != null &&
-                   _bluetoothSocket.IsConnected;
         }
 
         public void Disconnect()
@@ -238,18 +234,48 @@ namespace CrossCam.Droid.CustomRenderer
             return false;
         }
 
-        public Task<bool> SayHello()
+        public async Task<bool> SayHello()
         {
             if (_bluetoothSocket?.IsConnected == true)
             {
-                var bytes = 
-                await _bluetoothSocket.OutputStream.WriteAsync()
+                var bytes = Encoding.UTF8.GetBytes("Hi there friend.");
+                await _bluetoothSocket.OutputStream.WriteAsync(bytes, 0, bytes.Length);
+                return true;
             }
+
+            return false;
         }
 
-        public Task<bool> ListenForHello()
+        public async Task<bool> ListenForHello()
         {
-            throw new NotImplementedException();
+            const int BUFFER_LENGTH = 1024;
+            var buffer = new byte[BUFFER_LENGTH];
+            var isMoreDataToRead = true;
+            var helloBytes = new List<byte>();
+
+            do
+            {
+                var read = await _bluetoothSocket.InputStream.ReadAsync(buffer, 0, buffer.Length);
+
+                if (read < BUFFER_LENGTH)
+                {
+                    isMoreDataToRead = false;
+                }
+
+                if (read > 0)
+                {
+                    for (var ii = 0; ii < read; ii++)
+                    {
+                        helloBytes.Add(buffer[ii]);
+                    }
+                }
+
+            } while (isMoreDataToRead);
+
+            var helloByteArray = helloBytes.ToArray();
+            var hello = Encoding.UTF8.GetString(helloByteArray, 0, helloByteArray.Length);
+            Debug.WriteLine("Hello received: " + hello);
+            return true;
         }
 
         public async Task<bool> AttemptConnection(PartnerDevice partnerDevice)

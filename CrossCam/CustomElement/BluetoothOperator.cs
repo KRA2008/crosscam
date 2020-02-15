@@ -143,6 +143,7 @@ namespace CrossCam.CustomElement
                         IsPrimary = true;
                         IsConnected = true;
                         ShowPairConnected();
+                        await _platformBluetooth.ListenForHello();
                     }
                 }
             }
@@ -158,6 +159,8 @@ namespace CrossCam.CustomElement
                 {
                     IsPrimary = false;
                     ShowPairConnected();
+                    await Task.Delay(1000);
+                    await _platformBluetooth.SayHello();
                 }
             }
             catch (Exception e)
