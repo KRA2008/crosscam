@@ -84,12 +84,12 @@ namespace CrossCam.iOS.CustomRenderer
             return Task.FromResult(true);
         }
 
-        public List<PartnerDevice> GetPairedDevices()
+        public IEnumerable<PartnerDevice> GetPairedDevices()
         {
             return Enumerable.Empty<PartnerDevice>().ToList();
         }
 
-        public bool BeginSearchForDiscoverableDevices()
+        public bool StartScanning()
         {
             _centralManager = new CBCentralManager(_managerDelegate, DispatchQueue.DefaultGlobalQueue,
                 new CBCentralInitOptions());
@@ -111,6 +111,16 @@ namespace CrossCam.iOS.CustomRenderer
         {
             var taskCompletionSource = new TaskCompletionSource<bool?>();
             return taskCompletionSource.Task;
+        }
+
+        public Task<bool> SayHello()
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<bool> ListenForHello()
+        {
+            throw new NotImplementedException();
         }
 
         public Task<bool> AttemptConnection(PartnerDevice partnerDevice)

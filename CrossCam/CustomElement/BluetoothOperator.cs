@@ -3,30 +3,24 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Linq;
-using System.Reactive.Threading.Tasks;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Timers;
 using CrossCam.Wrappers;
 using FreshMvvm;
-using Plugin.BluetoothLE;
-using Plugin.BluetoothLE.Server;
 using Xamarin.Forms;
-using IDevice = Plugin.BluetoothLE.IDevice;
-using IGattCharacteristic = Plugin.BluetoothLE.IGattCharacteristic;
 
 namespace CrossCam.CustomElement
 {
     public sealed class BluetoothOperator : INotifyPropertyChanged
     {
-        public bool IsConnected => ConnectionStatus == ConnectionStatus.Connected;
-        private ConnectionStatus ConnectionStatus { get; set; }
+        public bool IsConnected { get; set; }
         public bool IsPrimary { get; private set; }
         public IPageModelCoreMethods CurrentCoreMethods { get; set; }
         public bool IsReadyForPreviewFrame { get; set; }
 
-        private readonly IPlatformBluetooth _bleSetup;
+        private readonly IPlatformBluetooth _platformBluetooth;
         private readonly Guid _serviceGuid = Guid.Parse("492a8e3d-2589-40b1-b9c2-419a7ce80f3c");
         private readonly Guid _clockReadingGuid = Guid.Parse("492a8e3e-2589-40b1-b9c2-419a7ce80f3c");
         private readonly Guid _previewFrameGuid = Guid.Parse("492a8e3f-2589-40b1-b9c2-419a7ce80f3c");
@@ -34,12 +28,8 @@ namespace CrossCam.CustomElement
         private readonly Guid _setCaptureMomentGuid = Guid.Parse("492a8e41-2589-40b1-b9c2-419a7ce80f3c");
         private readonly Guid _capturedImageGuid = Guid.Parse("492a8e42-2589-40b1-b9c2-419a7ce80f3c");
         private readonly Guid _helloGuid = Guid.Parse("492a8e43-2589-40b1-b9c2-419a7ce80f3c");
-        private IDevice _device;
+        private PartnerDevice _device;
         private readonly Timer _captureSyncTimer = new Timer{AutoReset = false};
-
-
-
-        private IGattCharacteristic _previewFrameCharacteristic; //set this up on connect and clear it when disconnected
 
         public event ElapsedEventHandler CaptureRequested;
         private void OnCaptureRequested(object sender, ElapsedEventArgs e)
@@ -74,17 +64,10 @@ namespace CrossCam.CustomElement
             handler?.Invoke(this, e);
         }
 
-        public event EventHandler<BluetoothDeviceDiscoveredEventArgs> DeviceDiscovered;
-        private void OnDeviceDiscovered(BluetoothDeviceDiscoveredEventArgs e)
+        public event EventHandler<PartnerDevice> DeviceDiscovered;
+        private void OnDeviceDiscovered(PartnerDevice e)
         {
             var handler = DeviceDiscovered;
-            handler?.Invoke(this, e);
-        }
-
-        public event EventHandler<PairedDevicesFoundEventArgs> PairedDevicesFound;
-        private void OnPairedDevicesFound(PairedDevicesFoundEventArgs e)
-        {
-            var handler = PairedDevicesFound;
             handler?.Invoke(this, e);
         }
 
@@ -97,77 +80,30 @@ namespace CrossCam.CustomElement
 
         public BluetoothOperator()
         {
-            _bleSetup = DependencyService.Get<IPlatformBluetooth>();
+            _platformBluetooth = DependencyService.Get<IPlatformBluetooth>();
+            _platformBluetooth.DeviceDiscovered += PlatformBluetoothOnDeviceDiscovered;
+        }
 
-            CrossBleAdapter.Current.WhenStatusChanged().Subscribe(status =>
-            {
-                Debug.WriteLine("### Status changed: " + status);
-            }, exception =>
-            {
-                OnErrorOccurred(new ErrorEventArgs
-                {
-                    Step = "Bluetooth Status Changed",
-                    Exception = exception
-                });
-            });
-
-            CrossBleAdapter.Current.WhenDeviceStateRestored().Subscribe(device =>
-            {
-                Debug.WriteLine("### State restored: " + device.Status);
-                ConnectionStatus = device.Status;
-                if (device.IsConnected())
-                {
-                    IsPrimary = false;
-                    IsReadyForPreviewFrame = true;
-                    OnConnected(); //Unsure which device actually calls this
-                }
-                else if (device.IsDisconnected())
-                {
-                    OnDisconnected(null);
-                }
-            }, exception =>
-            {
-                OnErrorOccurred(new ErrorEventArgs
-                {
-                    Step = "Device State Restored",
-                    Exception = exception
-                });
-            });
+        private void PlatformBluetoothOnDeviceDiscovered(object sender, PartnerDevice e)
+        {
+            OnDeviceDiscovered(e);
         }
 
         public async Task InitializeForPairing()
         {
-            if (!await _bleSetup.RequestLocationPermissions())
+            if (!await _platformBluetooth.RequestLocationPermissions())
             {
                 throw new PermissionsException();
             }
 
-            if (!await _bleSetup.TurnOnLocationServices())
+            if (!await _platformBluetooth.TurnOnLocationServices())
             {
                 throw new PermissionsException();
             }
 
             await CreateGattServerAndStartAdvertisingIfCapable();
 
-            CrossBleAdapter.Current.StopScan();
-            CrossBleAdapter.Current.Scan(new ScanConfig
-            {
-                ServiceUuids = new List<Guid>
-                {
-                    _serviceGuid
-                }
-            }).Subscribe(scanResult =>
-            {
-                Debug.WriteLine("### Device found: " + scanResult.Device.Name + " ID: " + scanResult.Device.Uuid);
-                OnDeviceDiscovered(new BluetoothDeviceDiscoveredEventArgs
-                {
-                    Device = scanResult.Device
-                });
-            }, exception => OnErrorOccurred(new ErrorEventArgs
-            {
-                Step = "Scan For Devices",
-                Exception = exception
-            }));
+            _platformBluetooth.StartScanning();
 
             Debug.WriteLine("### Bluetooth initialized");
         }
@@ -179,248 +115,70 @@ namespace CrossCam.CustomElement
 
         private async Task CreateGattServerAndStartAdvertisingIfCapable()
         {
-            if (!_bleSetup.IsBluetoothSupported())
+            if (!_platformBluetooth.IsBluetoothSupported())
             {
                 throw new BluetoothNotSupportedException();
             }
 
-            if (!await _bleSetup.RequestBluetoothPermissions())
+            if (!await _platformBluetooth.RequestBluetoothPermissions())
             {
                 throw new PermissionsException();
             }
 
-            if (!await _bleSetup.TurnOnBluetooth())
+            if (!await _platformBluetooth.TurnOnBluetooth())
             {
                 throw new BluetoothNotTurnedOnException();
             }
 
-            if (CrossBleAdapter.Current.CanControlAdapterState())
-            {
-                CrossBleAdapter.Current.SetAdapterState(true);
-            }
-
-            if (_bleSetup.IsBluetoothApiLevelSufficient() &&
+            if (_platformBluetooth.IsBluetoothApiLevelSufficient() &&
                (Device.RuntimePlatform == Device.iOS ||
-                CrossBleAdapter.AndroidConfiguration.IsServerSupported))
+                _platformBluetooth.IsServerSupported()))
             {
-                var server = CrossBleAdapter.Current.CreateGattServer();
-                server.Subscribe(gattServer =>
+                if (await _platformBluetooth.BecomeDiscoverable())
                 {
-                    gattServer.AddService(_serviceGuid, true, service =>
+                    var didConnect = await _platformBluetooth.ListenForConnections();
+                    if (didConnect.HasValue &&
+                        didConnect.Value)
                     {
-                        Debug.WriteLine("### Service callback");
-                        service.AddCharacteristic(_previewFrameGuid, CharacteristicProperties.Write,
-                        GattPermissions.Write).WhenWriteReceived().Subscribe(request =>
-                        {
-                            //OnPreviewFrameAvailable(request.Value);
-                        }, 
-                        exception =>
-                        {
-                            OnErrorOccurred(new ErrorEventArgs
-                            {
-                                Exception = exception,
-                                Step = "Provide Preview Frame"
-                            });
-                        });
-                        service.AddCharacteristic(_clockReadingGuid, CharacteristicProperties.Read,
-                        GattPermissions.Read).WhenReadReceived().Subscribe(request =>
-                        {
-                            request.Value = Encoding.UTF8.GetBytes(DateTime.UtcNow.Ticks.ToString());
-                        }, exception =>
-                        {
-                            OnErrorOccurred(new ErrorEventArgs
-                            {
-                                Exception = exception,
-                                Step = "Provide Time for Sync"
-                            });
-                        });
-                        service.AddCharacteristic(_initiateCaptureGuid, CharacteristicProperties.Write,
-                            GattPermissions.Write).WhenWriteReceived().Subscribe(request =>
-                        {
-                            Task.Run(() =>
-                            {
-                                HandleIncomingSyncRequest(request.Value);
-                            });
-                        }, exception =>
-                        {
-                            OnErrorOccurred(new ErrorEventArgs
-                            {
-                                Step = "Receiving Trigger",
-                                Exception = exception
-                            });
-                        });
-                        service.AddCharacteristic(_capturedImageGuid, CharacteristicProperties.Write,
-                            GattPermissions.Write).WhenWriteReceived().Subscribe(request =>
-                        {
-                            Debug.WriteLine("FINAL CAPTURE WRITTEN");
-                        });
-                        service.AddCharacteristic(_helloGuid,
-                            CharacteristicProperties.Read, GattPermissions.Read).WhenReadReceived().Subscribe(request =>
-                        {
-                            IsPrimary = true;
-                            request.Value = Encoding.UTF8.GetBytes("Hi there friend.");
-                            Debug.WriteLine("### Sending hello read response");
-                            ConnectionStatus = ConnectionStatus.Connected;
-                            OnConnected();
-                        }, exception =>
-                        {
-                            OnErrorOccurred(new ErrorEventArgs
-                            {
-                                Step = "Hello",
-                                Exception = exception
-                            });
-                        });
-                    });
-                }, exception =>
-                {
-                    OnErrorOccurred(new ErrorEventArgs
-                    {
-                        Step = "Server Setup",
-                        Exception = exception
-                    });
-                });
-
-                CrossBleAdapter.Current.Advertiser.Stop();
-                CrossBleAdapter.Current.Advertiser.Start(new AdvertisementData
-                {
-                    AndroidIsConnectable = true,
-                    ServiceUuids = new List<Guid>
-                    {
-                        _serviceGuid
+                        IsPrimary = true;
+                        IsConnected = true;
+                        ShowPairConnected();
                     }
-                });
+                }
             }
         }
 
-        public void Connect(IDevice device)
+        public async void Connect(PartnerDevice device)
         {
-            device.WhenStatusChanged().Subscribe(newStatus =>
+            try
             {
-                Debug.WriteLine("### Connected device status changed: " + newStatus);
-                if (newStatus == ConnectionStatus.Connected &&
-                    !IsConnected)
+                var didConnect = await _platformBluetooth.AttemptConnection(device);
+                IsConnected = didConnect;
+                if (didConnect)
                 {
-                    _device = device;
-                    IsReadyForPreviewFrame = true;
-                    IsPrimary = false; //is this correct? Unsure if this is good - the device with the status change and the device where the message pops might be different
-                    OnConnected(); 
-
-                    device.DiscoverServices().Subscribe(service =>
-                    {
-                        Debug.WriteLine("### Service discovered: " + service.Description + ", " + service.Uuid);
-                        service.DiscoverCharacteristics().Subscribe(characteristic =>
-                        {
-                            Debug.WriteLine("### Characteristic discovered: " + characteristic.Description + ", " + characteristic.Uuid);
-                            if (characteristic.Uuid == _helloGuid)
-                            {
-                                characteristic.Read().Subscribe(resp =>
-                                {
-                                    Debug.WriteLine("### Hello response came back: " + Encoding.UTF8.GetString(resp.Data, 0, resp.Data.Length));
-                                }, exception =>
-                                {
-                                    OnErrorOccurred(new ErrorEventArgs
-                                    {
-                                        Step = "Writing Hello",
-                                        Exception = exception
-                                    });
-                                });
-                            }
-
-                            if (characteristic.Uuid == _previewFrameGuid)
-                            {
-                                _previewFrameCharacteristic = characteristic;
-                            }
-                        });
-                    });
+                    IsPrimary = false;
+                    ShowPairConnected();
                 }
-                else if (newStatus == ConnectionStatus.Disconnected &&
-                         IsConnected ||
-                         newStatus == ConnectionStatus.Disconnected &&
-                         ConnectionStatus == ConnectionStatus.Connecting)
-                {
-                    OnDisconnected(null);
-                }
-
-                ConnectionStatus = newStatus;
-            }, exception =>
+            }
+            catch (Exception e)
             {
                 OnErrorOccurred(new ErrorEventArgs
                 {
-                    Step = "Connected Device Status",
-                    Exception = exception
-                });
-            });
-
-            if (Device.RuntimePlatform == Device.Android &&
-                _bleSetup.IsBluetoothApiLevelSufficient() &&
-                device.IsPairingAvailable())
-            {
-                device.PairingRequest().Subscribe(didPair =>
-                {
-                    Debug.WriteLine("### Pairing requested: " + didPair);
-                    if (didPair)
-                    {
-                        GetPairedDevices();
-                        device.Connect(new ConnectionConfig
-                        {
-                            AutoConnect = true
-                        });
-                    }
-                }, exception =>
-                {
-                    OnErrorOccurred(new ErrorEventArgs
-                    {
-                        Step = "Pairing",
-                        Exception = exception
-                    });
-                });
-            }
-            else
-            {
-                device.Connect(new ConnectionConfig
-                {
-                    AutoConnect = true
+                    Exception = e,
+                    Step = "Attempt Connection"
                 });
             }
         }
 
         public void Disconnect()
         {
-            CrossBleAdapter.Current.GetConnectedDevices().Subscribe(devices =>
-            {
-                foreach (var device in devices)
-                {
-                    device.CancelConnection();
-                }
-
-                ConnectionStatus = ConnectionStatus.Disconnected;
-                OnDisconnected(null);
-            }, exception =>
-            {
-                OnErrorOccurred(new ErrorEventArgs
-                {
-                    Step = "Disconnect",
-                    Exception = exception
-                });
-            });
+            _platformBluetooth.Disconnect();
+            IsConnected = false;
         }
 
-        public void GetPairedDevices()
+        public IEnumerable<PartnerDevice> GetPairedDevices()
         {
-            CrossBleAdapter.Current.GetPairedDevices().Subscribe(devices =>
-            {
-                OnPairedDevicesFound(new PairedDevicesFoundEventArgs
-                {
-                    Devices = devices
-                });
-            }, exception =>
-            {
-                OnErrorOccurred(new ErrorEventArgs
-                {
-                    Step = "Get Paired Devices",
-                    Exception = exception
-                });
-            });
+            return _platformBluetooth.GetPairedDevices();
         }
 
         public async void RequestSyncForCaptureAndSync()
@@ -437,9 +195,9 @@ namespace CrossCam.CustomElement
                 for (var i = 0; i < NUMBER_OF_RUNS; i++)
                 {
                     var t0 = DateTime.UtcNow.Ticks;
-                    var readResult = await _device.ReadCharacteristic(_serviceGuid, _clockReadingGuid).ToTask();
+                    var readResult = new byte[0] { };//}await _device.ReadCharacteristic(_serviceGuid, _clockReadingGuid).ToTask();
                     var t3 = DateTime.UtcNow.Ticks;
-                    var t1t2String = Encoding.UTF8.GetString(readResult.Data, 0, readResult.Data.Length);
+                    var t1t2String = Encoding.UTF8.GetString(readResult, 0, readResult.Length);
                     if (long.TryParse(t1t2String, out var t1t2))
                     {
                         var timeOffsetRun = ((t1t2 - t0) + (t1t2 - t3)) / 2;
@@ -473,17 +231,17 @@ namespace CrossCam.CustomElement
             Debug.WriteLine("Target sync: " + targetSyncMoment.ToString("O"));
             var partnerSyncMoment = targetSyncMoment.AddTicks(offsetsAverage);
             Debug.WriteLine("Partner sync: " + partnerSyncMoment.ToString("O"));
-            _device.WriteCharacteristic(_serviceGuid, _initiateCaptureGuid, Encoding.UTF8.GetBytes(partnerSyncMoment.Ticks.ToString())).Subscribe(what =>
-            {
-                SyncCapture(targetSyncMoment);
-            }, exception =>
-            {
-                OnErrorOccurred(new ErrorEventArgs
-                {
-                    Exception = exception,
-                    Step = "Sending Trigger"
-                });
-            });
+            //_device.WriteCharacteristic(_serviceGuid, _initiateCaptureGuid, Encoding.UTF8.GetBytes(partnerSyncMoment.Ticks.ToString())).Subscribe(what =>
+            //{
+            //    SyncCapture(targetSyncMoment);
+            //}, exception =>
+            //{
+            //    OnErrorOccurred(new ErrorEventArgs
+            //    {
+            //        Exception = exception,
+            //        Step = "Sending Trigger"
+            //    });
+            //});
         }
 
         private void HandleIncomingSyncRequest(byte[] masterTicksByteArray)
@@ -563,31 +321,31 @@ namespace CrossCam.CustomElement
             {
                 if (_device != null)
                 {
-                    if (frame != null && _previewFrameCharacteristic != null)
+                    if (frame != null /*&& _previewFrameCharacteristic != null*/)
                     {
                         const double INCREMENT = 0.01;
                         var threshold = INCREMENT;
                         double position;
                         double length;
                         double proportion;
-                        _previewFrameCharacteristic.BlobWrite(frame, false).Subscribe(resp =>
-                        {
-                            position = resp.Position;
-                            length = resp.TotalLength;
-                            proportion = position / length;
-                            if(proportion > threshold)
-                            {
-                                Debug.WriteLine("Complete: " + proportion);
-                                threshold += INCREMENT;
-                            }
-                        }, exception =>
-                        {
-                            OnErrorOccurred(new ErrorEventArgs
-                            {
-                                Exception = exception,
-                                Step = "Send Preview Frame"
-                            });
-                        });
+                        //_previewFrameCharacteristic.BlobWrite(frame, false).Subscribe(resp =>
+                        //{
+                        //    position = resp.Position;
+                        //    length = resp.TotalLength;
+                        //    proportion = position / length;
+                        //    if(proportion > threshold)
+                        //    {
+                        //        Debug.WriteLine("Complete: " + proportion);
+                        //        threshold += INCREMENT;
+                        //    }
+                        //}, exception =>
+                        //{
+                        //    OnErrorOccurred(new ErrorEventArgs
+                        //    {
+                        //        Exception = exception,
+                        //        Step = "Send Preview Frame"
+                        //    });
+                        //});
                     }
                 }
             }
@@ -602,20 +360,10 @@ namespace CrossCam.CustomElement
         }
     }
 
-    public class PairedDevicesFoundEventArgs : EventArgs
-    {
-        public IEnumerable<IDevice> Devices { get; set; }
-    }
-
     public class ErrorEventArgs : EventArgs
     {
         public string Step { get; set; }
         public Exception Exception { get; set; }
-    }
-
-    public class BluetoothDeviceDiscoveredEventArgs : EventArgs
-    {
-        public IDevice Device { get; set; }
     }
 
     public class PermissionsException : Exception {}

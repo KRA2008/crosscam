@@ -6,7 +6,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:viewModel="clr-namespace:CrossCam.ViewModel;assembly=CrossCam"
              xmlns:valueConverter="clr-namespace:CrossCam.ValueConverter;assembly=CrossCam"
-             xmlns:bluetoothLe="clr-namespace:Plugin.BluetoothLE;assembly=Plugin.BluetoothLE"
+             xmlns:wrappers="clr-namespace:CrossCam.Wrappers;assembly=CrossCam"
              mc:Ignorable="d"
 
              d:DataContext="{d:DesignInstance Type=viewModel:PairingViewModel, IsDesignTimeCreatable=False}"
@@ -89,15 +89,15 @@
                                         <TapGestureRecognizer Command="{Binding Source={x:Reference PairedDevicesList}, Path=BindingContext.AttemptConnectionCommand}"
                                                               CommandParameter="{Binding .}"/>
                                     </StackLayout.GestureRecognizers>
-                                    <Label d:DataContext="{d:DesignInstance Type=bluetoothLe:IDevice, IsDesignTimeCreatable=False}"
+                                    <Label d:DataContext="{d:DesignInstance Type=wrappers:PartnerDevice, IsDesignTimeCreatable=False}"
                                            HorizontalOptions="Center"
                                            VerticalOptions="Center"
                                            Text="{Binding Name}"
                                            IsVisible="{Binding Name, Converter={valueConverter:IsNotNullConverter}}"/>
-                                    <Label d:DataContext="{d:DesignInstance Type=bluetoothLe:IDevice, IsDesignTimeCreatable=False}"
+                                    <Label d:DataContext="{d:DesignInstance Type=wrappers:PartnerDevice, IsDesignTimeCreatable=False}"
                                            HorizontalOptions="Center"
                                            VerticalOptions="Center"
-                                           Text="{Binding Uuid, Converter={valueConverter:GuidToStringConverter}}"
+                                           Text="{Binding Address, Converter={valueConverter:GuidToStringConverter}}"
                                            IsVisible="{Binding Name, Converter={valueConverter:IsNullConverter}}"/>
                                 </StackLayout>
                             </DataTemplate>
@@ -146,7 +146,7 @@
                        Text="2)"/>
                 <Label Grid.Row="1"
                        Grid.Column="2"
-                       Text="On the primary device only, tap the name of the secondary device below (when it appears):"/>
+                       Text="On the SECONDARY device only, tap the name of the PRIMARY device below (when it appears):"/>
                 <Frame Grid.Row="2"
                        Grid.Column="0"
                        Grid.ColumnSpan="4"
@@ -162,15 +162,15 @@
                                         <TapGestureRecognizer Command="{Binding Source={x:Reference AvailableDevicesList}, Path=BindingContext.AttemptConnectionCommand}"
                                                               CommandParameter="{Binding .}"/>
                                     </StackLayout.GestureRecognizers>
-                                    <Label d:DataContext="{d:DesignInstance Type=bluetoothLe:IDevice, IsDesignTimeCreatable=False}"
+                                    <Label d:DataContext="{d:DesignInstance Type=wrappers:PartnerDevice, IsDesignTimeCreatable=False}"
                                            HorizontalOptions="Center"
                                            VerticalOptions="Center"
                                            Text="{Binding Name}"
                                            IsVisible="{Binding Name, Converter={valueConverter:IsNotNullConverter}}"/>
-                                    <Label d:DataContext="{d:DesignInstance Type=bluetoothLe:IDevice, IsDesignTimeCreatable=False}"
+                                    <Label d:DataContext="{d:DesignInstance Type=wrappers:PartnerDevice, IsDesignTimeCreatable=False}"
                                            HorizontalOptions="Center"
                                            VerticalOptions="Center"
-                                           Text="{Binding Uuid, Converter={valueConverter:GuidToStringConverter}}"
+                                           Text="{Binding Address, Converter={valueConverter:GuidToStringConverter}}"
                                            IsVisible="{Binding Name, Converter={valueConverter:IsNullConverter}}"/>
                                 </StackLayout>
                             </DataTemplate>

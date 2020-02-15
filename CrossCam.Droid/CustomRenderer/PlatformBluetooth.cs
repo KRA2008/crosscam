@@ -171,14 +171,14 @@ namespace CrossCam.Droid.CustomRenderer
             return _isLocationOnTask.Task;
         }
 
-        public List<PartnerDevice> GetPairedDevices()
+        public IEnumerable<PartnerDevice> GetPairedDevices()
         {
             return BluetoothAdapter.DefaultAdapter.BondedDevices
                 .Select(device => new PartnerDevice { Name = device.Name ?? "Unnamed", Address = device.Address })
                 .ToList();
         }
 
-        public bool BeginSearchForDiscoverableDevices()
+        public bool StartScanning()
         {
             AvailableDevices.Clear();
             return BluetoothAdapter.DefaultAdapter.StartDiscovery();
@@ -238,26 +238,34 @@ namespace CrossCam.Droid.CustomRenderer
             return false;
         }
 
+        public Task<bool> SayHello()
+        {
+            if (_bluetoothSocket?.IsConnected == true)
+            {
+                var bytes = 
+                await _bluetoothSocket.OutputStream.WriteAsync()
+            }
+        }
+
+        public Task<bool> ListenForHello()
+        {
+            throw new NotImplementedException();
+        }
+
         public async Task<bool> AttemptConnection(PartnerDevice partnerDevice)
         {
-            try
+            var didConnect = false;
+            var targetDevice = BluetoothAdapter.DefaultAdapter.BondedDevices.Union(AvailableDevices)
+                .FirstOrDefault(d => d.Address == partnerDevice.Address);
+            if (targetDevice != null)
             {
-                var targetDevice = BluetoothAdapter.DefaultAdapter.BondedDevices.Union(AvailableDevices)
-                    .FirstOrDefault(d => d.Address == partnerDevice.Address);
-                if (targetDevice != null)
-                {
-                    _bluetoothSocket =
-                        targetDevice.CreateRfcommSocketToServiceRecord(UUID.FromString(PartnerDevice.SDP_UUID));
-                    await _bluetoothSocket.ConnectAsync();
-                    return _bluetoothSocket.IsConnected;
-                }
+                _bluetoothSocket =
+                    targetDevice.CreateRfcommSocketToServiceRecord(UUID.FromString(PartnerDevice.SDP_UUID));
+                await _bluetoothSocket.ConnectAsync();
+                didConnect = _bluetoothSocket.IsConnected;
+            }
 
-                return false;
-            }
-            catch (Exception e)
-            {
-                return false;
-            }
+            return didConnect;
         }
 
         public void ForgetDevice(PartnerDevice partnerDevice)

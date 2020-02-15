@@ -6,17 +6,15 @@ using System.Threading.Tasks;
 using CrossCam.CustomElement;
 using CrossCam.Wrappers;
 using FreshMvvm;
-using Plugin.BluetoothLE;
 using Xamarin.Forms;
-using IDevice = Plugin.BluetoothLE.IDevice;
 
 namespace CrossCam.ViewModel
 {
     public class PairingViewModel : FreshBasePageModel
     {
         public BluetoothOperator BluetoothOperator => CameraViewModel.BluetoothOperator;
-        public ObservableCollection<IDevice> PairedDevices { get; set; }
-        public ObservableCollection<IDevice> DiscoveredDevices { get; set; }
+        public ObservableCollection<PartnerDevice> PairedDevices { get; set; }
+        public ObservableCollection<PartnerDevice> DiscoveredDevices { get; set; }
 
         public Command DisconnectCommand { get; set; }
         public Command InitialSetupCommand { get; set; }
@@ -29,8 +27,8 @@ namespace CrossCam.ViewModel
 
         public PairingViewModel()
         {
-            DiscoveredDevices = new ObservableCollection<IDevice>();
-            PairedDevices = new ObservableCollection<IDevice>();
+            DiscoveredDevices = new ObservableCollection<PartnerDevice>();
+            PairedDevices = new ObservableCollection<PartnerDevice>();
 
             DisconnectCommand = new Command(() =>
             {
@@ -64,6 +62,8 @@ namespace CrossCam.ViewModel
                     try
                     {
                         await CameraViewModel.BluetoothOperator.InitializeForPairedConnection();
+                        PairedDevices = new ObservableCollection<PartnerDevice>(CameraViewModel.BluetoothOperator.GetPairedDevices());
+                        CameraViewModel.BluetoothOperator.GetPairedDevices();
                     }
                     catch (Exception e)
                     {
@@ -82,7 +82,7 @@ namespace CrossCam.ViewModel
                 {
                     try
                     {
-                        CameraViewModel.BluetoothOperator.Connect((IDevice) obj);
+                        CameraViewModel.BluetoothOperator.Connect((PartnerDevice) obj);
                     }
                     catch (Exception e)
                     {
@@ -137,45 +137,31 @@ namespace CrossCam.ViewModel
             CameraViewModel.BluetoothOperator.Connected += OperatorOnConnected;
             CameraViewModel.BluetoothOperator.Disconnected += OperatorOnDisconnected;
             CameraViewModel.BluetoothOperator.DeviceDiscovered += OperatorOnDeviceDiscovered;
-            CameraViewModel.BluetoothOperator.PairedDevicesFound += OperatorOnPairedDevicesFound;
         }
 
-        private void OperatorOnPairedDevicesFound(object sender, PairedDevicesFoundEventArgs e)
+        private void OperatorOnDeviceDiscovered(object sender, PartnerDevice e)
         {
-            PairedDevices = new ObservableCollection<IDevice>(e.Devices);
-        }
-
-        private void OperatorOnDeviceDiscovered(object sender, BluetoothDeviceDiscoveredEventArgs e)
-        {
-            if (DiscoveredDevices.All(d => d.Uuid != e.Device.Uuid))
+            if (DiscoveredDevices.All(d => d.Address != e.Address))
             {
-                DiscoveredDevices.Add(e.Device);
+                DiscoveredDevices.Add(e);
             }
         }
 
         private static void OperatorOnDisconnected(object sender, EventArgs e)
         {
-            CrossBleAdapter.Current.Advertiser.Stop();
-            CrossBleAdapter.Current.StopScan();
             CameraViewModel.BluetoothOperator.GetPairedDevices();
         }
 
         private static void OperatorOnConnected(object sender, EventArgs e)
         {
-            CrossBleAdapter.Current.Advertiser.Stop();
-            CrossBleAdapter.Current.StopScan();
             CameraViewModel.BluetoothOperator.GetPairedDevices();
         }
 
         protected override void ViewIsDisappearing(object sender, EventArgs e)
         {
-            CrossBleAdapter.Current.StopScan();
-            CrossBleAdapter.Current.Advertiser.Stop();
-
             CameraViewModel.BluetoothOperator.Connected -= OperatorOnConnected;
             CameraViewModel.BluetoothOperator.Disconnected -= OperatorOnDisconnected;
             CameraViewModel.BluetoothOperator.DeviceDiscovered -= OperatorOnDeviceDiscovered;
-            CameraViewModel.BluetoothOperator.PairedDevicesFound -= OperatorOnPairedDevicesFound;
 
             base.ViewIsDisappearing(sender, e);
         }
