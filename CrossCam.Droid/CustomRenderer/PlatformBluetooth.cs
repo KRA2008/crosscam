@@ -19,7 +19,7 @@ using Debug = System.Diagnostics.Debug;
 [assembly: Dependency(typeof(PlatformBluetooth))]
 namespace CrossCam.Droid.CustomRenderer
 {
-    public sealed class PlatformBluetooth : IPlatformBluetooth
+    public sealed class PlatformBluetooth : BluetoothGattCallback, IPlatformBluetooth
     {
         public static TaskCompletionSource<bool> BluetoothPermissionsTask = new TaskCompletionSource<bool>();
         public static TaskCompletionSource<bool> LocationPermissionsTask = new TaskCompletionSource<bool>();
@@ -48,6 +48,12 @@ namespace CrossCam.Droid.CustomRenderer
                     }
                 }
             };
+        }
+
+        public override void OnCharacteristicWrite(BluetoothGatt gatt, BluetoothGattCharacteristic characteristic, GattStatus status)
+        {
+            base.OnCharacteristicWrite(gatt, characteristic, status);
+            //characteristic.Uuid
         }
 
         public void Disconnect()
