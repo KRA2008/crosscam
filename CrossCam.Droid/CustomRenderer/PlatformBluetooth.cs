@@ -10,6 +10,7 @@ using Android.Content;
 using Android.Gms.Common.Apis;
 using Android.Gms.Location;
 using Android.OS;
+using CrossCam.CustomElement;
 using CrossCam.Droid.CustomRenderer;
 using CrossCam.Wrappers;
 using Java.Util;
@@ -205,7 +206,7 @@ namespace CrossCam.Droid.CustomRenderer
         {
             var serverSocket =
                 BluetoothAdapter.DefaultAdapter.ListenUsingRfcommWithServiceRecord(Android.App.Application.Context.PackageName,
-                    UUID.FromString(PartnerDevice.SDP_UUID));
+                    UUID.FromString(BluetoothOperator.ServiceGuid.ToString()));
             try
             {
                 _bluetoothSocket = await serverSocket.AcceptAsync();
@@ -292,7 +293,7 @@ namespace CrossCam.Droid.CustomRenderer
             if (targetDevice != null)
             {
                 _bluetoothSocket =
-                    targetDevice.CreateRfcommSocketToServiceRecord(UUID.FromString(PartnerDevice.SDP_UUID));
+                    targetDevice.CreateRfcommSocketToServiceRecord(UUID.FromString(BluetoothOperator.ServiceGuid.ToString()));
                 await _bluetoothSocket.ConnectAsync();
                 didConnect = _bluetoothSocket.IsConnected;
             }

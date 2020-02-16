@@ -42,19 +42,14 @@
 	<key>CFBundleName</key>
 	<string>CrossCam</string>
 	<key>NSCameraUsageDescription</key>
-	<string>This app uses the camera to take 3D pictures</string>
+	<string>This app uses the camera to take 3D pictures.</string>
 	<key>NSPhotoLibraryAddUsageDescription</key>
-	<string>This app saves the 3D pictures you make to your photo library</string>
+	<string>This app saves the 3D pictures you make to your photo library.</string>
 	<key>NSPhotoLibraryUsageDescription</key>
-	<string>This app saves and loads the 3D pictures you make to and from your photo library</string>
-  <key>NSBluetoothAlwaysUsageDescription</key>
-  <string>This app uses bluetooth to connect two cameras for simultaneous capture</string>
-  <key>NSBluetoothPeripheralUsageDescription</key>
-  <string>This app uses bluetooth to connect two cameras for simultaneous capture</string>
-  <key>UIBackgroundModes</key>
+	<string>This app saves and loads the 3D pictures you make to and from your photo library.</string>
+  <key>UISupportedExternalAccessoryProtocols</key>
   <array>
-    <string>bluetooth-central</string>
-    <string>bluetooth-peripheral</string>
+    <string>com.kra2008.crosscam</string>
   </array>
 	<key>UIMainStoryboardFile</key>
 	<string>LaunchScreen</string>

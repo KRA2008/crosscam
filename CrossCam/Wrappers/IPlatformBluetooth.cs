@@ -27,7 +27,6 @@ namespace CrossCam.Wrappers
 
     public class PartnerDevice
     {
-        public const string SDP_UUID = "492a8e3d-2589-40b1-b9c2-419a7ce80f3c";
         public string Name { get; set; }
         public string Address { get; set; }
     }

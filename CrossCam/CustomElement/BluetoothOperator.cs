@@ -21,13 +21,13 @@ namespace CrossCam.CustomElement
         public bool IsReadyForPreviewFrame { get; set; }
 
         private readonly IPlatformBluetooth _platformBluetooth;
-        private readonly Guid _serviceGuid = Guid.Parse("492a8e3d-2589-40b1-b9c2-419a7ce80f3c");
-        private readonly Guid _clockReadingGuid = Guid.Parse("492a8e3e-2589-40b1-b9c2-419a7ce80f3c");
-        private readonly Guid _previewFrameGuid = Guid.Parse("492a8e3f-2589-40b1-b9c2-419a7ce80f3c");
-        private readonly Guid _initiateCaptureGuid = Guid.Parse("492a8e40-2589-40b1-b9c2-419a7ce80f3c");
-        private readonly Guid _setCaptureMomentGuid = Guid.Parse("492a8e41-2589-40b1-b9c2-419a7ce80f3c");
-        private readonly Guid _capturedImageGuid = Guid.Parse("492a8e42-2589-40b1-b9c2-419a7ce80f3c");
-        private readonly Guid _helloGuid = Guid.Parse("492a8e43-2589-40b1-b9c2-419a7ce80f3c");
+        public static readonly Guid ServiceGuid = Guid.Parse("492a8e3d-2589-40b1-b9c2-419a7ce80f3c");
+        public static readonly Guid ClockReadingGuid = Guid.Parse("492a8e3e-2589-40b1-b9c2-419a7ce80f3c");
+        public static readonly Guid PreviewFrameGuid = Guid.Parse("492a8e3f-2589-40b1-b9c2-419a7ce80f3c");
+        public static readonly Guid InitiateCaptureGuid = Guid.Parse("492a8e40-2589-40b1-b9c2-419a7ce80f3c");
+        public static readonly Guid SetCaptureMomentGuid = Guid.Parse("492a8e41-2589-40b1-b9c2-419a7ce80f3c");
+        public static readonly Guid CapturedImageGuid = Guid.Parse("492a8e42-2589-40b1-b9c2-419a7ce80f3c");
+        public static readonly Guid HelloGuid = Guid.Parse("492a8e43-2589-40b1-b9c2-419a7ce80f3c");
         private PartnerDevice _device;
         private readonly Timer _captureSyncTimer = new Timer{AutoReset = false};
 
@@ -101,9 +101,9 @@ namespace CrossCam.CustomElement
                 throw new PermissionsException();
             }
 
-            await CreateGattServerAndStartAdvertisingIfCapable();
-
             _platformBluetooth.StartScanning();
+
+            await CreateGattServerAndStartAdvertisingIfCapable();
 
             Debug.WriteLine("### Bluetooth initialized");
         }

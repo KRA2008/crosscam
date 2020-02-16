@@ -143,7 +143,10 @@ namespace CrossCam.ViewModel
         {
             if (DiscoveredDevices.All(d => d.Address != e.Address))
             {
-                DiscoveredDevices.Add(e);
+                Device.BeginInvokeOnMainThread(() =>
+                {
+                    DiscoveredDevices.Add(e);
+                });
             }
         }
 
@@ -162,6 +165,8 @@ namespace CrossCam.ViewModel
             CameraViewModel.BluetoothOperator.Connected -= OperatorOnConnected;
             CameraViewModel.BluetoothOperator.Disconnected -= OperatorOnDisconnected;
             CameraViewModel.BluetoothOperator.DeviceDiscovered -= OperatorOnDeviceDiscovered;
+
+            //TODO: be sure scanning and advertising are turned off
 
             base.ViewIsDisappearing(sender, e);
         }

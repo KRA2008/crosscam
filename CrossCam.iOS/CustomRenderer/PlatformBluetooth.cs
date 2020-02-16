@@ -6,9 +6,10 @@ using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using CoreBluetooth;
-using CoreFoundation;
+using CrossCam.CustomElement;
 using CrossCam.iOS.CustomRenderer;
 using CrossCam.Wrappers;
+using ExternalAccessory;
 using Foundation;
 using Xamarin.Forms;
 
@@ -17,28 +18,29 @@ namespace CrossCam.iOS.CustomRenderer
 {
     public class PlatformBluetooth : IPlatformBluetooth
     {
-        public static readonly ObservableCollection<CBPeripheral> AvailableDevices =
-            new ObservableCollection<CBPeripheral>();
-
-        private CBCentralManager _centralManager;
-        private BluetoothManagerDelegate _managerDelegate;
-
         public event EventHandler<PartnerDevice> DeviceDiscovered;
+        private const string PROTOCOL = "com.kra2008.crosscam";
+
+        private readonly ObservableCollection<EAAccessory> _availableDevices =
+            new ObservableCollection<EAAccessory>();
+
+        private TaskCompletionSource<bool?> _secondaryConnectionCompletionSource;
+
+        private EASession _connection;
 
         public PlatformBluetooth()
         {
-            _managerDelegate = new BluetoothManagerDelegate();
-            AvailableDevices.CollectionChanged += (sender, args) =>
+            _availableDevices.CollectionChanged += (sender, args) =>
             {
                 if (args.Action == NotifyCollectionChangedAction.Add)
                 {
                     foreach (var newItem in args.NewItems)
                     {
-                        var newDevice = (CBPeripheral)newItem;
+                        var newDevice = (EAAccessory)newItem;
                         OnDeviceDiscovered(new PartnerDevice
                         {
                             Name = newDevice.Name ?? "Unnamed",
-                            Address = "idk" //TODO
+                            Address = newDevice.Description //TODO???? and switch to using this for IDing connection attempt below
                         });
                     }
                 }
@@ -49,11 +51,6 @@ namespace CrossCam.iOS.CustomRenderer
         {
             var handler = DeviceDiscovered;
             handler?.Invoke(this, e);
-        }
-
-        public bool IsConnected()
-        {
-            return false;
         }
 
         public void Disconnect()
@@ -91,44 +88,82 @@ namespace CrossCam.iOS.CustomRenderer
 
         public bool StartScanning()
         {
-            _centralManager = new CBCentralManager(_managerDelegate, DispatchQueue.DefaultGlobalQueue,
-                new CBCentralInitOptions());
-            _centralManager.ScanForPeripherals(new CBUUID[] { });
-            //_centralManager.ScanForPeripherals(CBUUID.FromString(PartnerDevice.SDP_UUID));
+            var connectedAccessories = EAAccessoryManager.SharedAccessoryManager.ConnectedAccessories;
+            EAAccessoryManager.Notifications.ObserveDidConnect(EAAccessoryConnected);
+            EAAccessoryManager.Notifications.ObserveDidDisconnect(EAAccessoryDisconnected);
+            EAAccessoryManager.SharedAccessoryManager.RegisterForLocalNotifications();
+
+            foreach (var accessory in connectedAccessories)
+            {
+                foreach (var protocolString in accessory.ProtocolStrings)
+                {
+                    if (protocolString.Contains(PROTOCOL))
+                    {
+                        _availableDevices.Add(accessory);
+                    }
+                    break;
+                }
+            }
             return true;
+        }
+
+        private void EAAccessoryDisconnected(object sender, EAAccessoryEventArgs e)
+        {
+            Debug.WriteLine("Accessory disconnected says manager: " + e.Accessory.Name);
+        }
+
+        private void EAAccessoryConnected(object sender, EAAccessoryEventArgs e)
+        {
+            Debug.WriteLine("Accessory connected says manager: " + e.Accessory.Name);
         }
 
         public void ForgetDevice(PartnerDevice partnerDevice)
         {
         }
 
-        public Task<bool> BecomeDiscoverable()
+        public async Task<bool> BecomeDiscoverable()
         {
-            return Task.FromResult(true);
+            await EAAccessoryManager.SharedAccessoryManager.ShowBluetoothAccessoryPickerAsync(null);
+
+            var serviceUuid = CBUUID.FromString(BluetoothOperator.ServiceGuid.ToString());
+            return true;
         }
 
         public Task<bool?> ListenForConnections()
         {
-            var taskCompletionSource = new TaskCompletionSource<bool?>();
-            return taskCompletionSource.Task;
+            return Task.FromResult((bool?)null);
         }
 
         public Task<bool> SayHello()
         {
-            throw new NotImplementedException();
+            return Task.FromResult(true);
         }
 
         public Task<bool> ListenForHello()
         {
-            throw new NotImplementedException();
+            return Task.FromResult(true);
         }
 
         public Task<bool> AttemptConnection(PartnerDevice partnerDevice)
         {
-            var matchingDevice = AvailableDevices.First(d => d.Name == partnerDevice.Name);
-            _centralManager.ConnectPeripheral(matchingDevice);
-            _centralManager.StopScan();
-            return Task.FromResult(true);
+            var selectedDevice = _availableDevices.FirstOrDefault(d => d.Name == partnerDevice.Name);
+            if (selectedDevice != null)
+            {
+                _connection = new EASession(selectedDevice, PROTOCOL);
+                _connection.Accessory.Disconnected += delegate
+                {
+                    //TODO: close session
+                };
+                _connection.Accessory.Delegate = new AccessoryDelegate();
+
+                _connection.InputStream.Schedule(NSRunLoop.Current, NSRunLoop.NSDefaultRunLoopMode);
+                _connection.InputStream.Open();
+
+                _connection.OutputStream.Schedule(NSRunLoop.Current, NSRunLoop.NSDefaultRunLoopMode);
+                _connection.OutputStream.Open();
+                return Task.FromResult(true);
+            }
+            return Task.FromResult(false);
         }
 
         public bool IsServerSupported()
@@ -151,27 +186,12 @@ namespace CrossCam.iOS.CustomRenderer
             throw new NotImplementedException();
         }
 
-        private class BluetoothManagerDelegate : CBCentralManagerDelegate
+        private class AccessoryDelegate : EAAccessoryDelegate
         {
-            public override void UpdatedState(CBCentralManager central)
+            public override void Disconnected(EAAccessory accessory)
             {
-                Debug.WriteLine("Updated state: " + central.State);
+                Debug.WriteLine("Disconnected in delegate " + accessory.Name);
             }
-
-            public override void DiscoveredPeripheral(CBCentralManager central, CBPeripheral peripheral, NSDictionary advertisementData,
-                NSNumber RSSI)
-            {
-                base.DiscoveredPeripheral(central, peripheral, advertisementData, RSSI);
-                Debug.WriteLine("Discovered device: " + peripheral.Name);
-                AvailableDevices.Add(peripheral);
-                var peripheralDelegate = new BluetoothPeripheralDelgate();
-                peripheral.Delegate = peripheralDelegate;
-            }
-        }
-
-        private class BluetoothPeripheralDelgate : CBPeripheralDelegate
-        {
-
         }
     }
 }
