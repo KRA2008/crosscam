@@ -4,6 +4,7 @@ using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.Diagnostics;
 using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
 using CrossCam.iOS.CustomRenderer;
 using CrossCam.Wrappers;
@@ -100,8 +101,8 @@ namespace CrossCam.iOS.CustomRenderer
 
         public bool StartScanning()
         {
-            var peer = new MCPeerID(UIDevice.CurrentDevice.Name);
-            var session = new MCSession(peer) {Delegate = new SessionDelegate(this)};
+            var myPeerId = new MCPeerID(UIDevice.CurrentDevice.Name);
+            var session = new MCSession(myPeerId) {Delegate = new SessionDelegate(this)};
             var browser = new MCBrowserViewController(CROSSCAM_SERVICE, session)
             {
                 Delegate = new BrowserViewControllerDelegate(),
@@ -118,21 +119,28 @@ namespace CrossCam.iOS.CustomRenderer
 
         public Task<bool> BecomeDiscoverable()
         {
-            var peer = new MCPeerID(UIDevice.CurrentDevice.Name);
-            var session = new MCSession(peer) {Delegate = new SessionDelegate(this)};
+            var myPeerId = new MCPeerID(UIDevice.CurrentDevice.Name);
+            var session = new MCSession(myPeerId) {Delegate = new SessionDelegate(this)};
             var assistant = new MCAdvertiserAssistant(CROSSCAM_SERVICE, new NSDictionary(),  session);
             assistant.Start();
             return Task.FromResult(true);
         }
 
-        public Task<bool> ListenForConnections()
+        public Task ListenForConnections()
         {
             return Task.FromResult(true);
         }
 
-        public Task<bool> SayHello()
+        public async Task<bool> SayHello()
         {
-            return Task.FromResult(true);
+            await Task.Delay(3000);
+            var data = NSData.FromString("Hi there friend.");
+            _session.SendData(data, _session.ConnectedPeers, MCSessionSendDataMode.Reliable, out var error);
+            if (error != null)
+            {
+                throw new Exception(error.ToString());
+            }
+            return true;
         }
 
         public Task<bool> ListenForHello()
@@ -140,9 +148,9 @@ namespace CrossCam.iOS.CustomRenderer
             return Task.FromResult(true);
         }
 
-        public Task<bool> AttemptConnection(PartnerDevice partnerDevice)
+        public Task AttemptConnection(PartnerDevice partnerDevice)
         {
-            return Task.FromResult(false);
+            throw new NotImplementedException();
         }
 
         public bool IsServerSupported()
@@ -179,12 +187,13 @@ namespace CrossCam.iOS.CustomRenderer
                 switch (state)
                 {
                     case MCSessionState.Connected:
-                        Debug.WriteLine("Connected: {0}", peerID.DisplayName);
+                        Debug.WriteLine("Connected to " + peerID.DisplayName);
                         _platformBluetooth._session = session;
                         _platformBluetooth.OnConnected();
+                        _platformBluetooth.SayHello();
                         break;
                     case MCSessionState.Connecting:
-                        Debug.WriteLine("Connecting: {0}", peerID.DisplayName);
+                        Debug.WriteLine("Connecting to " + peerID.DisplayName);
                         break;
                     case MCSessionState.NotConnected:
                         if (_platformBluetooth._session != null)
@@ -192,7 +201,7 @@ namespace CrossCam.iOS.CustomRenderer
                             _platformBluetooth.OnDisconnected();
                         }
                         _platformBluetooth._session = null;
-                        Debug.WriteLine("Not Connected: {0}", peerID.DisplayName);
+                        Debug.WriteLine("Not Connected to " + peerID.DisplayName);
                         break;
                 }
             }

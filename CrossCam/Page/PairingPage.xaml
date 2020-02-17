@@ -65,14 +65,16 @@
                 <Frame Grid.Row="0" 
                        Grid.Column="2" 
                        Padding="1"
-                       HorizontalOptions="Start">
+                       HorizontalOptions="Start"
+                       VerticalOptions="Center">
                     <Button Text="TAP HERE ON BOTH DEVICES"
                             VerticalOptions="Center"
                             Command="{Binding PairedSetupCommand}"/>
                 </Frame>
                 <Label Grid.Row="1"
                        Grid.Column="1"
-                       Text="2)"/>
+                       Text="2)"
+                       VerticalOptions="Center"/>
                 <Label Grid.Row="1"
                        Grid.Column="2"
                        Text="On the SECONDARY device, tap the name of the PRIMARY device below:"/>
@@ -123,6 +125,7 @@
                     <RowDefinition Height="Auto"/>
                     <RowDefinition Height="Auto"/>
                     <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
                 </Grid.RowDefinitions>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*"/>
@@ -153,7 +156,8 @@
                 </Frame>
                 <Label Grid.Row="1"
                        Grid.Column="1"
-                       Text="2)"/>
+                       Text="2)"
+                       VerticalOptions="Center"/>
                 <Frame Grid.Row="1" 
                        Grid.Column="2" 
                        Padding="1"
@@ -219,6 +223,25 @@
                             </DataTemplate>
                         </BindableLayout.ItemTemplate>
                     </StackLayout>
+                </Frame>
+                <Label Grid.Row="3"
+                       Grid.Column="1"
+                       Text="3)"
+                       VerticalOptions="Center"/>
+                <Frame Grid.Row="3" 
+                       Grid.Column="2" 
+                       Padding="1"
+                       HorizontalOptions="Start">
+                    <Frame.IsVisible>
+                        <OnPlatform x:TypeArguments="system:Boolean">
+                            <On Platform="Android"
+                                Value="False"/>
+                            <On Platform="iOS"
+                                Value="True"/>
+                        </OnPlatform>
+                    </Frame.IsVisible>
+                    <Label VerticalOptions="Center"
+                           Text="Follow the prompts."/>
                 </Frame>
             </Grid>
             <Label Text=""/>

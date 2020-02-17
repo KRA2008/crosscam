@@ -215,7 +215,7 @@ namespace CrossCam.Droid.CustomRenderer
             return IsDeviceDiscoverableTask.Task;
         }
 
-        public async Task<bool> ListenForConnections()
+        public async Task ListenForConnections()
         {
             var serverSocket =
                 BluetoothAdapter.DefaultAdapter.ListenUsingRfcommWithServiceRecord(Android.App.Application.Context.PackageName,
@@ -254,7 +254,6 @@ namespace CrossCam.Droid.CustomRenderer
 
             serverSocket.Close();
             BluetoothAdapter.DefaultAdapter.CancelDiscovery();
-            return true;
         }
 
         public async Task<bool> SayHello()
@@ -301,7 +300,7 @@ namespace CrossCam.Droid.CustomRenderer
             return true;
         }
 
-        public async Task<bool> AttemptConnection(PartnerDevice partnerDevice)
+        public async Task AttemptConnection(PartnerDevice partnerDevice)
         {
             var didConnect = false;
             var targetDevice = BluetoothAdapter.DefaultAdapter.BondedDevices.Union(AvailableDevices)
@@ -316,8 +315,6 @@ namespace CrossCam.Droid.CustomRenderer
                     OnConnected();
                 } //TODO: what if it fails?
             }
-
-            return true;
         }
 
         public void ForgetDevice(PartnerDevice partnerDevice)
