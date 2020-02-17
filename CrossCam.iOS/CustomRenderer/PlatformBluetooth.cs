@@ -5,12 +5,12 @@ using System.Collections.Specialized;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
-using CoreBluetooth;
-using CrossCam.CustomElement;
 using CrossCam.iOS.CustomRenderer;
 using CrossCam.Wrappers;
 using ExternalAccessory;
 using Foundation;
+using MultipeerConnectivity;
+using UIKit;
 using Xamarin.Forms;
 
 [assembly: Dependency(typeof(PlatformBluetooth))]
@@ -18,15 +18,11 @@ namespace CrossCam.iOS.CustomRenderer
 {
     public class PlatformBluetooth : IPlatformBluetooth
     {
-        public event EventHandler<PartnerDevice> DeviceDiscovered;
-        private const string PROTOCOL = "com.kra2008.crosscam";
+        private const string CROSSCAM_SERVICE = "CrossCam";
 
         private readonly ObservableCollection<EAAccessory> _availableDevices =
             new ObservableCollection<EAAccessory>();
-
-        private TaskCompletionSource<bool?> _secondaryConnectionCompletionSource;
-
-        private EASession _connection;
+        private MCSession _session;
 
         public PlatformBluetooth()
         {
@@ -47,6 +43,22 @@ namespace CrossCam.iOS.CustomRenderer
             };
         }
 
+        public event EventHandler Connected;
+        private void OnConnected()
+        {
+            var handler = Connected;
+            handler?.Invoke(this, new EventArgs());
+        }
+
+        public event EventHandler Disconnected;
+        private void OnDisconnected()
+        {
+            var handler = Disconnected;
+            handler?.Invoke(this, new EventArgs());
+        }
+
+
+        public event EventHandler<PartnerDevice> DeviceDiscovered;
         private void OnDeviceDiscovered(PartnerDevice e)
         {
             var handler = DeviceDiscovered;
@@ -88,50 +100,34 @@ namespace CrossCam.iOS.CustomRenderer
 
         public bool StartScanning()
         {
-            var connectedAccessories = EAAccessoryManager.SharedAccessoryManager.ConnectedAccessories;
-            EAAccessoryManager.Notifications.ObserveDidConnect(EAAccessoryConnected);
-            EAAccessoryManager.Notifications.ObserveDidDisconnect(EAAccessoryDisconnected);
-            EAAccessoryManager.SharedAccessoryManager.RegisterForLocalNotifications();
-
-            foreach (var accessory in connectedAccessories)
+            var peer = new MCPeerID(UIDevice.CurrentDevice.Name);
+            var session = new MCSession(peer) {Delegate = new SessionDelegate(this)};
+            var browser = new MCBrowserViewController(CROSSCAM_SERVICE, session)
             {
-                foreach (var protocolString in accessory.ProtocolStrings)
-                {
-                    if (protocolString.Contains(PROTOCOL))
-                    {
-                        _availableDevices.Add(accessory);
-                    }
-                    break;
-                }
-            }
+                Delegate = new BrowserViewControllerDelegate(),
+                ModalPresentationStyle = UIModalPresentationStyle.FormSheet
+            };
+            var rootVc = UIApplication.SharedApplication.KeyWindow.RootViewController;
+            rootVc.PresentViewController(browser, true, null);
             return true;
-        }
-
-        private void EAAccessoryDisconnected(object sender, EAAccessoryEventArgs e)
-        {
-            Debug.WriteLine("Accessory disconnected says manager: " + e.Accessory.Name);
-        }
-
-        private void EAAccessoryConnected(object sender, EAAccessoryEventArgs e)
-        {
-            Debug.WriteLine("Accessory connected says manager: " + e.Accessory.Name);
         }
 
         public void ForgetDevice(PartnerDevice partnerDevice)
         {
         }
 
-        public async Task<bool> BecomeDiscoverable()
+        public Task<bool> BecomeDiscoverable()
         {
-            await EAAccessoryManager.SharedAccessoryManager.ShowBluetoothAccessoryPickerAsync(null);
-
-            var serviceUuid = CBUUID.FromString(BluetoothOperator.ServiceGuid.ToString());
-            return true;
+            var peer = new MCPeerID(UIDevice.CurrentDevice.Name);
+            var session = new MCSession(peer) {Delegate = new SessionDelegate(this)};
+            var assistant = new MCAdvertiserAssistant(CROSSCAM_SERVICE, new NSDictionary(),  session);
+            assistant.Start();
+            return Task.FromResult(true);
         }
 
-        public Task<bool?> ListenForConnections()
+        public Task<bool> ListenForConnections()
         {
-            return Task.FromResult((bool?)null);
+            return Task.FromResult(true);
         }
 
         public Task<bool> SayHello()
@@ -146,23 +142,6 @@ namespace CrossCam.iOS.CustomRenderer
 
         public Task<bool> AttemptConnection(PartnerDevice partnerDevice)
         {
-            var selectedDevice = _availableDevices.FirstOrDefault(d => d.Name == partnerDevice.Name);
-            if (selectedDevice != null)
-            {
-                _connection = new EASession(selectedDevice, PROTOCOL);
-                _connection.Accessory.Disconnected += delegate
-                {
-                    //TODO: close session
-                };
-                _connection.Accessory.Delegate = new AccessoryDelegate();
-
-                _connection.InputStream.Schedule(NSRunLoop.Current, NSRunLoop.NSDefaultRunLoopMode);
-                _connection.InputStream.Open();
-
-                _connection.OutputStream.Schedule(NSRunLoop.Current, NSRunLoop.NSDefaultRunLoopMode);
-                _connection.OutputStream.Open();
-                return Task.FromResult(true);
-            }
             return Task.FromResult(false);
         }
 
@@ -186,11 +165,74 @@ namespace CrossCam.iOS.CustomRenderer
             throw new NotImplementedException();
         }
 
-        private class AccessoryDelegate : EAAccessoryDelegate
+        private class SessionDelegate : MCSessionDelegate
         {
-            public override void Disconnected(EAAccessory accessory)
+            private readonly PlatformBluetooth _platformBluetooth;
+
+            public SessionDelegate(PlatformBluetooth platformBluetooth)
             {
-                Debug.WriteLine("Disconnected in delegate " + accessory.Name);
+                _platformBluetooth = platformBluetooth;
+            }
+
+            public override void DidChangeState(MCSession session, MCPeerID peerID, MCSessionState state)
+            {
+                switch (state)
+                {
+                    case MCSessionState.Connected:
+                        Debug.WriteLine("Connected: {0}", peerID.DisplayName);
+                        _platformBluetooth._session = session;
+                        _platformBluetooth.OnConnected();
+                        break;
+                    case MCSessionState.Connecting:
+                        Debug.WriteLine("Connecting: {0}", peerID.DisplayName);
+                        break;
+                    case MCSessionState.NotConnected:
+                        if (_platformBluetooth._session != null)
+                        {
+                            _platformBluetooth.OnDisconnected();
+                        }
+                        _platformBluetooth._session = null;
+                        Debug.WriteLine("Not Connected: {0}", peerID.DisplayName);
+                        break;
+                }
+            }
+
+            public override void DidStartReceivingResource(MCSession session, string resourceName, MCPeerID fromPeer, NSProgress progress)
+            {
+            }
+
+            public override void DidFinishReceivingResource(MCSession session, string resourceName, MCPeerID fromPeer, NSUrl localUrl,
+                NSError error)
+            {
+            }
+
+            public override void DidReceiveStream(MCSession session, NSInputStream stream, string streamName, MCPeerID peerID)
+            {
+            }
+
+            public override void DidReceiveData(MCSession session, NSData data, MCPeerID peerID)
+            {
+                InvokeOnMainThread(() => {
+                    var alert = new UIAlertView("", data.ToString(), null, "OK");
+                    alert.Show();
+                });
+            }
+        }
+
+        private class BrowserViewControllerDelegate : MCBrowserViewControllerDelegate
+        {
+            public override void DidFinish(MCBrowserViewController browserViewController)
+            {
+                InvokeOnMainThread(() => {
+                    browserViewController.DismissViewController(true, null);
+                });
+            }
+
+            public override void WasCancelled(MCBrowserViewController browserViewController)
+            {
+                InvokeOnMainThread(() => {
+                    browserViewController.DismissViewController(true, null);
+                });
             }
         }
     }

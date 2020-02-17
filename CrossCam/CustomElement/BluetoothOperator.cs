@@ -41,16 +41,18 @@ namespace CrossCam.CustomElement
         }
 
         public event EventHandler Disconnected;
-        private void OnDisconnected(EventArgs e)
+        private void OnDisconnected()
         {
+            IsConnected = false;
             ShowPairDisconnected();
             var handler = Disconnected;
-            handler?.Invoke(this, e);
+            handler?.Invoke(this, new EventArgs());
         }
 
         public event EventHandler Connected;
         private void OnConnected()
         {
+            IsConnected = true;
             ShowPairConnected();
             var handler = Connected;
             handler?.Invoke(this, new EventArgs());
@@ -82,6 +84,18 @@ namespace CrossCam.CustomElement
         {
             _platformBluetooth = DependencyService.Get<IPlatformBluetooth>();
             _platformBluetooth.DeviceDiscovered += PlatformBluetoothOnDeviceDiscovered;
+            _platformBluetooth.Connected += PlatformBluetoothOnConnected;
+            _platformBluetooth.Disconnected += PlatformBluetoothOnDisconnected;
+        }
+
+        private void PlatformBluetoothOnDisconnected(object sender, EventArgs e)
+        {
+            OnDisconnected();
+        }
+
+        private void PlatformBluetoothOnConnected(object sender, EventArgs e)
+        {
+            OnConnected();
         }
 
         private void PlatformBluetoothOnDeviceDiscovered(object sender, PartnerDevice e)
@@ -89,7 +103,7 @@ namespace CrossCam.CustomElement
             OnDeviceDiscovered(e);
         }
 
-        public async Task InitializeForPairing()
+        public async Task InitializeForPairingAndroid()
         {
             if (!await _platformBluetooth.RequestLocationPermissions())
             {
@@ -106,6 +120,16 @@ namespace CrossCam.CustomElement
             await CreateGattServerAndStartAdvertisingIfCapable();
 
             Debug.WriteLine("### Bluetooth initialized");
+        }
+
+        public async Task InitializeForPairingiOSA()
+        {
+            _platformBluetooth.StartScanning();
+        }
+
+        public async Task InitializeForPairingiOSB()
+        {
+            await _platformBluetooth.BecomeDiscoverable();
         }
 
         public async Task InitializeForPairedConnection()
@@ -136,15 +160,7 @@ namespace CrossCam.CustomElement
             {
                 if (await _platformBluetooth.BecomeDiscoverable())
                 {
-                    var didConnect = await _platformBluetooth.ListenForConnections();
-                    if (didConnect.HasValue &&
-                        didConnect.Value)
-                    {
-                        IsPrimary = true;
-                        IsConnected = true;
-                        ShowPairConnected();
-                        await _platformBluetooth.ListenForHello();
-                    }
+                    await _platformBluetooth.ListenForConnections();
                 }
             }
         }
@@ -153,15 +169,7 @@ namespace CrossCam.CustomElement
         {
             try
             {
-                var didConnect = await _platformBluetooth.AttemptConnection(device);
-                IsConnected = didConnect;
-                if (didConnect)
-                {
-                    IsPrimary = false;
-                    ShowPairConnected();
-                    await Task.Delay(1000);
-                    await _platformBluetooth.SayHello();
-                }
+                await _platformBluetooth.AttemptConnection(device);
             }
             catch (Exception e)
             {
@@ -176,7 +184,7 @@ namespace CrossCam.CustomElement
         public void Disconnect()
         {
             _platformBluetooth.Disconnect();
-            IsConnected = false;
+            OnDisconnected();
         }
 
         public IEnumerable<PartnerDevice> GetPairedDevices()
@@ -313,7 +321,7 @@ namespace CrossCam.CustomElement
         {
             await Device.InvokeOnMainThreadAsync(async () =>
             {
-                await CurrentCoreMethods.DisplayAlert("Connected Pair Device", "Pair device connected successfully! This is the " + (IsPrimary ? "primary" : "secondary") + " device.", "Yay");
+                await CurrentCoreMethods.DisplayAlert("Connected Pair Device", "Pair device connected successfully!", "Yay");
             });
         }
 

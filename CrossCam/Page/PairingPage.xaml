@@ -7,6 +7,8 @@
              xmlns:viewModel="clr-namespace:CrossCam.ViewModel;assembly=CrossCam"
              xmlns:valueConverter="clr-namespace:CrossCam.ValueConverter;assembly=CrossCam"
              xmlns:wrappers="clr-namespace:CrossCam.Wrappers;assembly=CrossCam"
+             xmlns:system="clr-namespace:System;assembly=netstandard"
+             xmlns:input="clr-namespace:System.Windows.Input;assembly=netstandard"
              mc:Ignorable="d"
 
              d:DataContext="{d:DesignInstance Type=viewModel:PairingViewModel, IsDesignTimeCreatable=False}"
@@ -137,20 +139,61 @@
                        Grid.Column="2" 
                        Padding="1"
                        HorizontalOptions="Start">
-                    <Button Text="TAP HERE ON BOTH DEVICES"
-                            VerticalOptions="Center"
-                            Command="{Binding InitialSetupCommand}"/>
+                    <Button VerticalOptions="Center"
+                            Command="{Binding InitialSetupCommand}">
+                        <Button.Text>
+                            <OnPlatform x:TypeArguments="system:String">
+                                <On Platform="Android"
+                                    Value="TAP HERE ON BOTH DEVICES"/>
+                                <On Platform="iOS"
+                                    Value="TAP HERE ON ONE DEVICE"/>
+                            </OnPlatform>
+                        </Button.Text>
+                    </Button>
                 </Frame>
                 <Label Grid.Row="1"
                        Grid.Column="1"
                        Text="2)"/>
+                <Frame Grid.Row="1" 
+                       Grid.Column="2" 
+                       Padding="1"
+                       HorizontalOptions="Start">
+                    <Frame.IsVisible>
+                        <OnPlatform x:TypeArguments="system:Boolean">
+                            <On Platform="Android"
+                                Value="False"/>
+                            <On Platform="iOS"
+                                Value="True"/>
+                        </OnPlatform>
+                    </Frame.IsVisible>
+                    <Button VerticalOptions="Center"
+                            Text="TAP HERE ON THE OTHER DEVICE"
+                            Command="{Binding InitialSetupiOSPart2Command}"/>
+                </Frame>
                 <Label Grid.Row="1"
                        Grid.Column="2"
-                       Text="On the SECONDARY device only, tap the name of the PRIMARY device below (when it appears):"/>
+                       Text="On the SECONDARY device only, tap the name of the PRIMARY device below (when it appears):">
+                    <Label.IsVisible>
+                        <OnPlatform x:TypeArguments="system:Boolean">
+                            <On Platform="Android"
+                                Value="True"/>
+                            <On Platform="iOS"
+                                Value="False"/>
+                        </OnPlatform>
+                    </Label.IsVisible>
+                </Label>
                 <Frame Grid.Row="2"
                        Grid.Column="0"
                        Grid.ColumnSpan="4"
                        Padding="1">
+                    <Frame.IsVisible>
+                        <OnPlatform x:TypeArguments="system:Boolean">
+                            <On Platform="Android"
+                                Value="True"/>
+                            <On Platform="iOS"
+                                Value="False"/>
+                        </OnPlatform>
+                    </Frame.IsVisible>
                     <StackLayout x:Name="AvailableDevicesList"
                                  BindableLayout.ItemsSource="{Binding DiscoveredDevices}"
                                  BackgroundColor="Black">

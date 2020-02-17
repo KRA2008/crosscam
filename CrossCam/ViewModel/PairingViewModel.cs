@@ -18,6 +18,7 @@ namespace CrossCam.ViewModel
 
         public Command DisconnectCommand { get; set; }
         public Command InitialSetupCommand { get; set; }
+        public Command InitialSetupiOSPart2Command { get; set; }
         public Command PairedSetupCommand { get; set; }
         public Command AttemptConnectionCommand { get; set; }
 
@@ -41,8 +42,34 @@ namespace CrossCam.ViewModel
                 {
                     try
                     {
-                        DiscoveredDevices.Clear();
-                        await CameraViewModel.BluetoothOperator.InitializeForPairing();
+                        if (Device.RuntimePlatform == Device.Android)
+                        {
+                            DiscoveredDevices.Clear();
+                            await CameraViewModel.BluetoothOperator.InitializeForPairingAndroid();
+                        }
+                        else
+                        {
+                            await CameraViewModel.BluetoothOperator.InitializeForPairingiOSA();
+                        }
+                    }
+                    catch (Exception e)
+                    {
+                        await HandleBluetoothException(e);
+                    }
+                    finally
+                    {
+                        _initializeThreadLocker = 0;
+                    }
+                }
+            });
+
+            InitialSetupiOSPart2Command = new Command(async () =>
+            {
+                if (Interlocked.CompareExchange(ref _initializeThreadLocker, 1, 0) == 0)
+                {
+                    try
+                    {
+                        await CameraViewModel.BluetoothOperator.InitializeForPairingiOSB();
                     }
                     catch (Exception e)
                     {

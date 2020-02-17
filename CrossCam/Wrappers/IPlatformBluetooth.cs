@@ -20,9 +20,11 @@ namespace CrossCam.Wrappers
         bool StartScanning();
         event EventHandler<PartnerDevice> DeviceDiscovered;
         Task<bool> BecomeDiscoverable();
-        Task<bool?> ListenForConnections();
+        Task<bool> ListenForConnections();
         Task<bool> SayHello();
         Task<bool> ListenForHello();
+        event EventHandler Connected;
+        event EventHandler Disconnected;
     }
 
     public class PartnerDevice

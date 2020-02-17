@@ -187,6 +187,19 @@ namespace CrossCam.Droid.CustomRenderer
             return BluetoothAdapter.DefaultAdapter.StartDiscovery();
         }
 
+        public event EventHandler Connected;
+        private void OnConnected()
+        {
+            var handler = Connected;
+            handler?.Invoke(this, new EventArgs());
+        }
+        public event EventHandler Disconnected;
+        private void OnDisconnected()
+        {
+            var handler = Disconnected;
+            handler?.Invoke(this, new EventArgs());
+        }
+
         public event EventHandler<PartnerDevice> DeviceDiscovered;
         private void OnDeviceDiscovered(PartnerDevice e)
         {
@@ -202,7 +215,7 @@ namespace CrossCam.Droid.CustomRenderer
             return IsDeviceDiscoverableTask.Task;
         }
 
-        public async Task<bool?> ListenForConnections()
+        public async Task<bool> ListenForConnections()
         {
             var serverSocket =
                 BluetoothAdapter.DefaultAdapter.ListenUsingRfcommWithServiceRecord(Android.App.Application.Context.PackageName,
@@ -215,15 +228,17 @@ namespace CrossCam.Droid.CustomRenderer
             {
                 if (string.Equals(e.Message, "Try again", StringComparison.OrdinalIgnoreCase))
                 {
-                    if (_bluetoothSocket != null &&
-                        _bluetoothSocket.IsConnected)
-                    {
-                        serverSocket.Close();
-                        BluetoothAdapter.DefaultAdapter.CancelDiscovery();
-                        return null;
-                    }
+                    //TODO: what was this for???
+                    //if (_bluetoothSocket != null &&
+                    //    _bluetoothSocket.IsConnected)
+                    //{
+                    //    serverSocket.Close();
+                    //    BluetoothAdapter.DefaultAdapter.CancelDiscovery();
+                    //    OnConnected();
+                    //    return true;
+                    //}
 
-                    return false;
+                    //return false;
                 }
 
                 throw;
@@ -231,14 +246,15 @@ namespace CrossCam.Droid.CustomRenderer
 
             if (_bluetoothSocket != null)
             {
-                serverSocket.Close();
-                BluetoothAdapter.DefaultAdapter.CancelDiscovery();
-                return _bluetoothSocket.IsConnected;
+                if (_bluetoothSocket.IsConnected)
+                {
+                    OnConnected();
+                } //TODO: what if it fails?
             }
 
             serverSocket.Close();
             BluetoothAdapter.DefaultAdapter.CancelDiscovery();
-            return false;
+            return true;
         }
 
         public async Task<bool> SayHello()
@@ -295,10 +311,13 @@ namespace CrossCam.Droid.CustomRenderer
                 _bluetoothSocket =
                     targetDevice.CreateRfcommSocketToServiceRecord(UUID.FromString(BluetoothOperator.ServiceGuid.ToString()));
                 await _bluetoothSocket.ConnectAsync();
-                didConnect = _bluetoothSocket.IsConnected;
+                if (_bluetoothSocket.IsConnected)
+                {
+                    OnConnected();
+                } //TODO: what if it fails?
             }
 
-            return didConnect;
+            return true;
         }
 
         public void ForgetDevice(PartnerDevice partnerDevice)

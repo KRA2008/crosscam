@@ -47,11 +47,7 @@
 	<string>This app saves the 3D pictures you make to your photo library.</string>
 	<key>NSPhotoLibraryUsageDescription</key>
 	<string>This app saves and loads the 3D pictures you make to and from your photo library.</string>
-  <key>UISupportedExternalAccessoryProtocols</key>
-  <array>
-    <string>com.kra2008.crosscam</string>
-  </array>
-	<key>UIMainStoryboardFile</key>
+  <key>UIMainStoryboardFile</key>
 	<string>LaunchScreen</string>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<false/>
