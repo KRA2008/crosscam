@@ -77,7 +77,7 @@
                        VerticalOptions="Center"/>
                 <Label Grid.Row="1"
                        Grid.Column="2"
-                       Text="On the SECONDARY device, tap the name of the PRIMARY device below:"/>
+                       Text="On either device, tap the name of the other device below (when it appears):"/>
                 <Frame Grid.Row="2"
                        Grid.Column="0"
                        Grid.ColumnSpan="4"
@@ -115,13 +115,25 @@
                    FontAttributes="Bold"
                    HorizontalOptions="Center"/>
 
-            <Label Text="If you have two phones with CrossCam installed, you can connect them over Bluetooth in order to take simultaneous photos from two perspectives. This makes the best cross views possible. To get started, navigate them both to this page."/>
+            <Label Text="If you have two devices with CrossCam installed, you can connect them in order to take simultaneous photos from two perspectives. This makes the best cross views possible. To get started, navigate them both to this page."/>
 
-            <Label Text="CrossCam will request permissions and power on components as needed in order to connect your devices. Please note: access to location services is required. CrossCam does not actually USE your location in any way, but because the act of searching for Bluetooth devices could theoretically be used to find your location, CrossCam requires permission to access your location. You may not be used to seeing that because it is a newer change in the way mobile operating systems handle Bluetooth permissions in order to more strongly protect your privacy. Once your devices are connected and remember each other, CrossCam will not require location access for reconnecting in the future - feel free to remove that permission."/>
+            <Label Text="Please be aware that at this time the devices must be of the same platform in order to connect."/>
+
+            <Label Text="CrossCam will request permissions and power on components as needed in order to connect your devices. Please note: access to location services is required. CrossCam does not actually USE your location in any way, but because the act of searching for Bluetooth devices could theoretically be used to find your location, CrossCam requires permission to access your location. You may not be used to seeing that because it is a newer change in the way mobile operating systems handle Bluetooth permissions in order to more strongly protect your privacy. Once your devices are connected and remember each other, CrossCam will not require location access for reconnecting in the future - feel free to remove that permission.">
+                <Label.IsVisible>
+                    <OnPlatform x:TypeArguments="system:Boolean">
+                        <On Platform="Android"
+                            Value="False"/>
+                        <On Platform="iOS"
+                            Value="False"/>
+                    </OnPlatform>
+                </Label.IsVisible>
+            </Label>
 
             <Label Text=""/>
             <Grid>
                 <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
                     <RowDefinition Height="Auto"/>
                     <RowDefinition Height="Auto"/>
                     <RowDefinition Height="Auto"/>
@@ -133,27 +145,41 @@
                     <ColumnDefinition Width="Auto"/>
                     <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
+
                 <Label Grid.Row="0"
                        Grid.Column="1"
                        Text="1)"
                        HorizontalOptions="End"
                        VerticalOptions="Center"/>
+                <Label Grid.Row="0"
+                       Grid.Column="2"
+                       Text="Power on Wifi on both devices (but you don't need to connect to anything)">
+                    <Label.IsVisible>
+                        <OnPlatform x:TypeArguments="system:Boolean">
+                            <On Platform="Android"
+                                Value="False"/>
+                            <On Platform="iOS"
+                                Value="True"/>
+                        </OnPlatform>
+                    </Label.IsVisible>
+                </Label>
                 <Frame Grid.Row="0" 
                        Grid.Column="2" 
                        Padding="1"
                        HorizontalOptions="Start">
+                    <Frame.IsVisible>
+                        <OnPlatform x:TypeArguments="system:Boolean">
+                            <On Platform="Android"
+                                Value="True"/>
+                            <On Platform="iOS"
+                                Value="False"/>
+                        </OnPlatform>
+                    </Frame.IsVisible>
                     <Button VerticalOptions="Center"
-                            Command="{Binding InitialSetupCommand}">
-                        <Button.Text>
-                            <OnPlatform x:TypeArguments="system:String">
-                                <On Platform="Android"
-                                    Value="TAP HERE ON BOTH DEVICES"/>
-                                <On Platform="iOS"
-                                    Value="TAP HERE ON ONE DEVICE"/>
-                            </OnPlatform>
-                        </Button.Text>
-                    </Button>
+                            Command="{Binding InitialSetupCommand}"
+                            Text="TAP HERE ON BOTH DEVICES"/>
                 </Frame>
+
                 <Label Grid.Row="1"
                        Grid.Column="1"
                        Text="2)"
@@ -171,12 +197,12 @@
                         </OnPlatform>
                     </Frame.IsVisible>
                     <Button VerticalOptions="Center"
-                            Text="TAP HERE ON THE OTHER DEVICE"
-                            Command="{Binding InitialSetupiOSPart2Command}"/>
+                            Text="TAP HERE ON ONE DEVICE"
+                            Command="{Binding InitialSetupCommand}"/>
                 </Frame>
                 <Label Grid.Row="1"
                        Grid.Column="2"
-                       Text="On the SECONDARY device only, tap the name of the PRIMARY device below (when it appears):">
+                       Text="On either device, tap the name of the other device below (when it appears):">
                     <Label.IsVisible>
                         <OnPlatform x:TypeArguments="system:Boolean">
                             <On Platform="Android"
@@ -224,10 +250,20 @@
                         </BindableLayout.ItemTemplate>
                     </StackLayout>
                 </Frame>
+
                 <Label Grid.Row="3"
                        Grid.Column="1"
                        Text="3)"
-                       VerticalOptions="Center"/>
+                       VerticalOptions="Center">
+                    <Label.IsVisible>
+                        <OnPlatform x:TypeArguments="system:Boolean">
+                            <On Platform="Android"
+                                Value="False"/>
+                            <On Platform="iOS"
+                                Value="True"/>
+                        </OnPlatform>
+                    </Label.IsVisible>
+                </Label>
                 <Frame Grid.Row="3" 
                        Grid.Column="2" 
                        Padding="1"
@@ -240,9 +276,38 @@
                                 Value="True"/>
                         </OnPlatform>
                     </Frame.IsVisible>
-                    <Label VerticalOptions="Center"
-                           Text="Follow the prompts."/>
+                    <Button VerticalOptions="Center"
+                            Text="TAP HERE ON THE OTHER DEVICE"
+                            Command="{Binding InitialSetupiOSPart2Command}"/>
                 </Frame>
+
+                <Label Grid.Row="4"
+                       Grid.Column="1"
+                       Text="4)"
+                       VerticalOptions="Center">
+                    <Label.IsVisible>
+                        <OnPlatform x:TypeArguments="system:Boolean">
+                            <On Platform="Android"
+                                Value="False"/>
+                            <On Platform="iOS"
+                                Value="True"/>
+                        </OnPlatform>
+                    </Label.IsVisible>
+                </Label>
+                <Label Grid.Row="4" 
+                       Grid.Column="2"
+                       HorizontalOptions="Start" 
+                       VerticalOptions="Center"
+                       Text="Follow the prompts on both devices">
+                    <Label.IsVisible>
+                        <OnPlatform x:TypeArguments="system:Boolean">
+                            <On Platform="Android"
+                                Value="False"/>
+                            <On Platform="iOS"
+                                Value="True"/>
+                        </OnPlatform>
+                    </Label.IsVisible>
+                </Label>
             </Grid>
             <Label Text=""/>
             <Label Text="TROUBLESHOOTING:"
@@ -250,8 +315,26 @@
                    HorizontalOptions="Center"/>
             <Label Text="You may have to wait a few seconds between steps."/>
             <Label Text="You may have to try a step a second time."/>
-            <Label Text="You may want to try to connecting the devices via your phone's Bluetooth settings."/>
-            <Label Text="You may have to forget the paired device from your Bluetooth settings."/>
+            <Label Text="You may want to try to connecting the devices via your phone's Bluetooth settings.">
+                <Label.IsVisible>
+                    <OnPlatform x:TypeArguments="system:Boolean">
+                        <On Platform="Android"
+                            Value="True"/>
+                        <On Platform="iOS"
+                            Value="False"/>
+                    </OnPlatform>
+                </Label.IsVisible>
+            </Label>
+            <Label Text="You may have to forget the paired device from your Bluetooth settings.">
+                <Label.IsVisible>
+                    <OnPlatform x:TypeArguments="system:Boolean">
+                        <On Platform="Android"
+                            Value="True"/>
+                        <On Platform="iOS"
+                            Value="False"/>
+                    </OnPlatform>
+                </Label.IsVisible>
+            </Label>
         </StackLayout>
     </ScrollView>
 </freshMvvm:FreshBaseContentPage>
