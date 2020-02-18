@@ -187,11 +187,14 @@ namespace CrossCam.Droid.CustomRenderer
             return BluetoothAdapter.DefaultAdapter.StartDiscovery();
         }
 
-        public event EventHandler Connected;
-        private void OnConnected()
+        public event EventHandler<ConnectedEventArgs> Connected;
+        private void OnConnected(bool? isPrimary)
         {
             var handler = Connected;
-            handler?.Invoke(this, new EventArgs());
+            handler?.Invoke(this, new ConnectedEventArgs
+            {
+                IsPrimary = isPrimary
+            });
         }
         public event EventHandler Disconnected;
         private void OnDisconnected()
@@ -248,7 +251,7 @@ namespace CrossCam.Droid.CustomRenderer
             {
                 if (_bluetoothSocket.IsConnected)
                 {
-                    OnConnected();
+                    OnConnected(false);
                 } //TODO: what if it fails?
             }
 
@@ -312,7 +315,7 @@ namespace CrossCam.Droid.CustomRenderer
                 await _bluetoothSocket.ConnectAsync();
                 if (_bluetoothSocket.IsConnected)
                 {
-                    OnConnected();
+                    OnConnected(true);
                 } //TODO: what if it fails?
             }
         }

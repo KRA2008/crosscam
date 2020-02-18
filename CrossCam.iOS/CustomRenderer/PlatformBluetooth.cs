@@ -4,7 +4,6 @@ using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.Diagnostics;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using CrossCam.iOS.CustomRenderer;
 using CrossCam.Wrappers;
@@ -44,11 +43,14 @@ namespace CrossCam.iOS.CustomRenderer
             };
         }
 
-        public event EventHandler Connected;
-        private void OnConnected()
+        public event EventHandler<ConnectedEventArgs> Connected;
+        private void OnConnected(bool? isPrimary)
         {
             var handler = Connected;
-            handler?.Invoke(this, new EventArgs());
+            handler?.Invoke(this, new ConnectedEventArgs
+            {
+                IsPrimary = isPrimary
+            });
         }
 
         public event EventHandler Disconnected;
@@ -189,7 +191,7 @@ namespace CrossCam.iOS.CustomRenderer
                     case MCSessionState.Connected:
                         Debug.WriteLine("Connected to " + peerID.DisplayName);
                         _platformBluetooth._session = session;
-                        _platformBluetooth.OnConnected();
+                        _platformBluetooth.OnConnected(null);
                         _platformBluetooth.SayHello();
                         break;
                     case MCSessionState.Connecting:

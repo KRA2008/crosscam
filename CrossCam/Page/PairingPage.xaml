@@ -77,7 +77,7 @@
                        VerticalOptions="Center"/>
                 <Label Grid.Row="1"
                        Grid.Column="2"
-                       Text="On either device, tap the name of the other device below (when it appears):"/>
+                       Text="On the PRIMARY device, tap the name of the SECONDARY device below (when it appears):"/>
                 <Frame Grid.Row="2"
                        Grid.Column="0"
                        Grid.ColumnSpan="4"
@@ -123,12 +123,14 @@
                 <Label.IsVisible>
                     <OnPlatform x:TypeArguments="system:Boolean">
                         <On Platform="Android"
-                            Value="False"/>
+                            Value="True"/>
                         <On Platform="iOS"
                             Value="False"/>
                     </OnPlatform>
                 </Label.IsVisible>
             </Label>
+
+            <Label Text="The PRIMARY device is the one that will show both previews and trigger the capture. You probably want your faster device to be the PRIMARY."/>
 
             <Label Text=""/>
             <Grid>
@@ -197,12 +199,12 @@
                         </OnPlatform>
                     </Frame.IsVisible>
                     <Button VerticalOptions="Center"
-                            Text="TAP HERE ON ONE DEVICE"
+                            Text="TAP HERE ON THE PRIMARY"
                             Command="{Binding InitialSetupCommand}"/>
                 </Frame>
                 <Label Grid.Row="1"
                        Grid.Column="2"
-                       Text="On either device, tap the name of the other device below (when it appears):">
+                       Text="On the PRIMARY device, tap the name of the SECONDARY device below (when it appears):">
                     <Label.IsVisible>
                         <OnPlatform x:TypeArguments="system:Boolean">
                             <On Platform="Android"
@@ -277,7 +279,7 @@
                         </OnPlatform>
                     </Frame.IsVisible>
                     <Button VerticalOptions="Center"
-                            Text="TAP HERE ON THE OTHER DEVICE"
+                            Text="TAP HERE ON THE SECONDARY"
                             Command="{Binding InitialSetupiOSPart2Command}"/>
                 </Frame>
 

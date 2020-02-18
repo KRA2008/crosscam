@@ -23,8 +23,13 @@ namespace CrossCam.Wrappers
         Task ListenForConnections();
         Task<bool> SayHello();
         Task<bool> ListenForHello();
-        event EventHandler Connected;
+        event EventHandler<ConnectedEventArgs> Connected;
         event EventHandler Disconnected;
+    }
+
+    public class ConnectedEventArgs : EventArgs
+    {
+        public bool? IsPrimary { get; set; }
     }
 
     public class PartnerDevice

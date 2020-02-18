@@ -93,8 +93,12 @@ namespace CrossCam.CustomElement
             OnDisconnected();
         }
 
-        private void PlatformBluetoothOnConnected(object sender, EventArgs e)
+        private void PlatformBluetoothOnConnected(object sender, ConnectedEventArgs e)
         {
+            if (e.IsPrimary.HasValue)
+            {
+                IsPrimary = e.IsPrimary.Value;
+            }
             OnConnected();
         }
 
@@ -124,11 +128,13 @@ namespace CrossCam.CustomElement
 
         public async Task InitializeForPairingiOSA()
         {
+            IsPrimary = true;
             _platformBluetooth.StartScanning();
         }
 
         public async Task InitializeForPairingiOSB()
         {
+            IsPrimary = false;
             await _platformBluetooth.BecomeDiscoverable();
         }
 
@@ -321,7 +327,7 @@ namespace CrossCam.CustomElement
         {
             await Device.InvokeOnMainThreadAsync(async () =>
             {
-                await CurrentCoreMethods.DisplayAlert("Connected Pair Device", "Pair device connected successfully!", "Yay");
+                await CurrentCoreMethods.DisplayAlert("Connected Pair Device", "Pair device connected successfully! This is the " + (IsPrimary ? "primary" : "secondary") + " device.", "Yay");
             });
         }
 
