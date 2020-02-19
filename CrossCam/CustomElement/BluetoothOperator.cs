@@ -16,7 +16,7 @@ namespace CrossCam.CustomElement
     public sealed class BluetoothOperator : INotifyPropertyChanged
     {
         public bool IsConnected { get; set; }
-        public bool IsPrimary { get; private set; }
+        public bool IsPrimary => _platformBluetooth.IsPrimary;
         public IPageModelCoreMethods CurrentCoreMethods { get; set; }
         public bool IsReadyForPreviewFrame { get; set; }
 
@@ -93,12 +93,8 @@ namespace CrossCam.CustomElement
             OnDisconnected();
         }
 
-        private void PlatformBluetoothOnConnected(object sender, ConnectedEventArgs e)
+        private void PlatformBluetoothOnConnected(object sender, EventArgs e)
         {
-            if (e.IsPrimary.HasValue)
-            {
-                IsPrimary = e.IsPrimary.Value;
-            }
             OnConnected();
         }
 
@@ -128,13 +124,11 @@ namespace CrossCam.CustomElement
 
         public async Task InitializeForPairingiOSA()
         {
-            IsPrimary = true;
             _platformBluetooth.StartScanning();
         }
 
         public async Task InitializeForPairingiOSB()
         {
-            IsPrimary = false;
             await _platformBluetooth.BecomeDiscoverable();
         }
 
@@ -327,8 +321,12 @@ namespace CrossCam.CustomElement
         {
             await Device.InvokeOnMainThreadAsync(async () =>
             {
-                await CurrentCoreMethods.DisplayAlert("Connected Pair Device", "Pair device connected successfully! This is the " + (IsPrimary ? "primary" : "secondary") + " device.", "Yay");
+                await CurrentCoreMethods.DisplayAlert("Connected Pair Device", "Pair device connected successfully! This is the " + (_platformBluetooth.IsPrimary ? "primary" : "secondary") + " device.", "Yay");
             });
+            if (IsPrimary)
+            {
+                await _platformBluetooth.SayHello();
+            }
         }
 
         public void SendLatestPreviewFrame(byte[] frame)
