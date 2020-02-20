@@ -16,6 +16,8 @@ namespace CrossCam.Wrappers
         Task<bool> TurnOnBluetooth();
         Task<bool> TurnOnLocationServices(); 
         Task AttemptConnection(PartnerDevice partnerDevice);
+        Task SendReadyForPreviewFrame();
+        Task SendPreviewFrame(byte[] frame);
         void ForgetDevice(PartnerDevice partnerDevice);
         IEnumerable<PartnerDevice> GetPairedDevices();
         bool StartScanning();
@@ -26,6 +28,8 @@ namespace CrossCam.Wrappers
         Task<bool> ListenForHello();
         event EventHandler Connected;
         event EventHandler Disconnected;
+        event EventHandler PreviewFrameRequested;
+        event EventHandler<byte[]> PreviewFrameReceived;
     }
 
     public class PartnerDevice

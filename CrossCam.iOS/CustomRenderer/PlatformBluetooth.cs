@@ -21,6 +21,7 @@ namespace CrossCam.iOS.CustomRenderer
     {
         public bool IsPrimary { get; set; }
 
+        private const string HELLO_MESSAGE = "Hi there friend.";
         private const string CROSSCAM_SERVICE = "CrossCam";
         private const int HEADER_LENGTH = 6;
         private const byte SYNC_MASK = 170; // 0xAA (do it twice)
@@ -68,6 +69,19 @@ namespace CrossCam.iOS.CustomRenderer
             handler?.Invoke(this, new EventArgs());
         }
 
+        public event EventHandler PreviewFrameRequested;
+        private void OnPreviewFrameRequested()
+        {
+            var handler = PreviewFrameRequested;
+            handler?.Invoke(this, new EventArgs());
+        }
+
+        public event EventHandler<byte[]> PreviewFrameReceived;
+        private void OnPreviewFrameReceived(byte[] bytes)
+        {
+            var handler = PreviewFrameReceived;
+            handler?.Invoke(this, bytes);
+        }
 
         public event EventHandler<PartnerDevice> DeviceDiscovered;
         private void OnDeviceDiscovered(PartnerDevice e)
@@ -145,21 +159,17 @@ namespace CrossCam.iOS.CustomRenderer
 
         public async Task<bool> SayHello()
         {
-            var payloadBytes = Encoding.UTF8.GetBytes("Hi there friend.");
-            var messageFrame = GetMessageFrame(CrossCommand.Hello, payloadBytes);
+            var payloadBytes = Encoding.UTF8.GetBytes(HELLO_MESSAGE);
+            var fullMessage = AddPayloadHeader(CrossCommand.Hello, payloadBytes);
 
-            _session.SendData(NSData.FromArray(messageFrame), _session.ConnectedPeers, MCSessionSendDataMode.Reliable, out var error);
-            if (error != null)
-            {
-                throw new Exception(error.ToString());
-            }
+            SendData(fullMessage);
             return true;
         }
 
-        private byte[] GetMessageFrame(CrossCommand crossCommand, byte[] payload)
+        private byte[] AddPayloadHeader(CrossCommand crossCommand, byte[] payload)
         {
             var payloadLength = payload.Length;
-            var frame = new List<byte>
+            var header = new List<byte>
             {
                 SYNC_MASK,
                 SYNC_MASK,
@@ -168,7 +178,16 @@ namespace CrossCam.iOS.CustomRenderer
                 (byte) (payloadLength >> 4),
                 (byte) payloadLength
             };
-            return frame.Concat(payload).ToArray();
+            return header.Concat(payload).ToArray();
+        }
+
+        private void SendData(byte[] payload)
+        {
+            _session.SendData(NSData.FromArray(payload), _session.ConnectedPeers, MCSessionSendDataMode.Reliable, out var error);
+            if (error != null)
+            {
+                throw new Exception(error.ToString());
+            }
         }
 
         public Task<bool> ListenForHello()
@@ -181,6 +200,20 @@ namespace CrossCam.iOS.CustomRenderer
             throw new NotImplementedException();
         }
 
+        public Task SendReadyForPreviewFrame()
+        {
+            var fullMessage = AddPayloadHeader(CrossCommand.ReadyForPreviewFrame, Enumerable.Empty<byte>().ToArray());
+            SendData(fullMessage);
+            return Task.FromResult(true);
+        }
+
+        public Task SendPreviewFrame(byte[] frame)
+        {
+            var frameMessage = AddPayloadHeader(CrossCommand.PreviewFrame, frame);
+            SendData(frameMessage);
+            return Task.FromResult(true);
+        }
+
         public bool IsServerSupported()
         {
             return true;
@@ -189,16 +222,6 @@ namespace CrossCam.iOS.CustomRenderer
         public bool IsBluetoothApiLevelSufficient()
         {
             return true;
-        }
-
-        public Task<bool> SendPreviewFrame(byte[] preview)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task<byte[]> Capture(int countdownSeconds)
-        {
-            throw new NotImplementedException();
         }
 
         private class SessionDelegate : MCSessionDelegate
@@ -217,7 +240,10 @@ namespace CrossCam.iOS.CustomRenderer
                     case MCSessionState.Connected:
                         Debug.WriteLine("Connected to " + peerID.DisplayName);
                         _platformBluetooth._session = session;
-                        _platformBluetooth.OnConnected();
+                        if (!_platformBluetooth.IsPrimary)
+                        {
+                            _platformBluetooth.OnConnected();
+                        }
                         break;
                     case MCSessionState.Connecting:
                         Debug.WriteLine("Connecting to " + peerID.DisplayName);
@@ -253,26 +279,38 @@ namespace CrossCam.iOS.CustomRenderer
                     bytes[1] == SYNC_MASK)
                 {
                     var payloadLength = (bytes[3] << 8) | (bytes[4] << 4) | bytes[5];
+                    var payload = bytes.Skip(HEADER_LENGTH).ToArray();
+                    if (payload.Length != payloadLength)
+                    {
+                        //panic
+                    }
                     switch (bytes[2])
                     {
                         case (int)CrossCommand.Hello:
-                            HandleHelloCommand(bytes, payloadLength);
+                            HandleHelloCommand(payload);
                             break;
                         case (int)CrossCommand.PreviewFrame:
+                            HandlePreviewFrameReceived(payload);
                             break;
                         case (int)CrossCommand.ReadyForPreviewFrame:
+                            _platformBluetooth.OnPreviewFrameRequested();
                             break;
                     }
                 }
             }
 
-            private void HandleHelloCommand(byte[] bytes, int payloadLength)
+            private void HandlePreviewFrameReceived(byte[] bytes)
             {
-                var helloMessage = Encoding.UTF8.GetString(bytes, HEADER_LENGTH, payloadLength);
-                InvokeOnMainThread(() => {
-                    var alert = new UIAlertView("", helloMessage, null, "OK");
-                    alert.Show();
-                });
+                _platformBluetooth.OnPreviewFrameReceived(bytes);
+            }
+
+            private void HandleHelloCommand(byte[] bytes)
+            {
+                var helloMessage = Encoding.UTF8.GetString(bytes, 0, bytes.Length);
+                if (helloMessage == HELLO_MESSAGE)
+                {
+                    _platformBluetooth.OnConnected();
+                }
             }
         }
 

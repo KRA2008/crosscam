@@ -73,10 +73,10 @@ namespace CrossCam.CustomElement
             handler?.Invoke(this, e);
         }
 
-        public event EventHandler<byte[]> PreviewFrameAvailable;
-        private void OnPreviewFrameAvailable(byte[] frame)
+        public event EventHandler<byte[]> PreviewFrameReceived;
+        private void OnPreviewFrameReceived(byte[] frame)
         {
-            var handler = PreviewFrameAvailable;
+            var handler = PreviewFrameReceived;
             handler?.Invoke(this, frame);
         }
 
@@ -86,6 +86,18 @@ namespace CrossCam.CustomElement
             _platformBluetooth.DeviceDiscovered += PlatformBluetoothOnDeviceDiscovered;
             _platformBluetooth.Connected += PlatformBluetoothOnConnected;
             _platformBluetooth.Disconnected += PlatformBluetoothOnDisconnected;
+            _platformBluetooth.PreviewFrameRequested += PlatformBluetoothOnPreviewFrameRequested;
+            _platformBluetooth.PreviewFrameReceived += PlatformBluetoothOnPreviewFrameReceived;
+        }
+
+        private void PlatformBluetoothOnPreviewFrameReceived(object sender, byte[] bytes)
+        {
+            OnPreviewFrameReceived(bytes);
+        }
+
+        private void PlatformBluetoothOnPreviewFrameRequested(object sender, EventArgs e)
+        {
+            IsReadyForPreviewFrame = true;
         }
 
         private void PlatformBluetoothOnDisconnected(object sender, EventArgs e)
@@ -93,9 +105,13 @@ namespace CrossCam.CustomElement
             OnDisconnected();
         }
 
-        private void PlatformBluetoothOnConnected(object sender, EventArgs e)
+        private async void PlatformBluetoothOnConnected(object sender, EventArgs e)
         {
             OnConnected();
+            if (IsPrimary)
+            {
+                await _platformBluetooth.SendReadyForPreviewFrame();
+            }
         }
 
         private void PlatformBluetoothOnDeviceDiscovered(object sender, PartnerDevice e)
@@ -323,46 +339,17 @@ namespace CrossCam.CustomElement
             {
                 await CurrentCoreMethods.DisplayAlert("Connected Pair Device", "Pair device connected successfully! This is the " + (_platformBluetooth.IsPrimary ? "primary" : "secondary") + " device.", "Yay");
             });
-            if (IsPrimary)
+            if (!IsPrimary)
             {
                 await _platformBluetooth.SayHello();
             }
         }
 
-        public void SendLatestPreviewFrame(byte[] frame)
+        public async void SendLatestPreviewFrame(byte[] frame)
         {
-            IsReadyForPreviewFrame = false;
             try
             {
-                if (_device != null)
-                {
-                    if (frame != null /*&& _previewFrameCharacteristic != null*/)
-                    {
-                        const double INCREMENT = 0.01;
-                        var threshold = INCREMENT;
-                        double position;
-                        double length;
-                        double proportion;
-                        //_previewFrameCharacteristic.BlobWrite(frame, false).Subscribe(resp =>
-                        //{
-                        //    position = resp.Position;
-                        //    length = resp.TotalLength;
-                        //    proportion = position / length;
-                        //    if(proportion > threshold)
-                        //    {
-                        //        Debug.WriteLine("Complete: " + proportion);
-                        //        threshold += INCREMENT;
-                        //    }
-                        //}, exception =>
-                        //{
-                        //    OnErrorOccurred(new ErrorEventArgs
-                        //    {
-                        //        Exception = exception,
-                        //        Step = "Send Preview Frame"
-                        //    });
-                        //});
-                    }
-                }
+                await _platformBluetooth.SendPreviewFrame(frame);
             }
             catch (Exception e)
             {
@@ -372,6 +359,11 @@ namespace CrossCam.CustomElement
                     Step = "Send Preview Frame Outer"
                 });
             }
+        }
+
+        public async void RequestNextPreviewFrame()
+        {
+            await _platformBluetooth.SendReadyForPreviewFrame();
         }
     }
 

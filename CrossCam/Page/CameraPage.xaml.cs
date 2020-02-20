@@ -323,8 +323,7 @@ namespace CrossCam.Page
                         SKRect.Create(0, 0, bitmap.Width, bitmap.Height),
                         SKRect.Create(0, 0, canvasWidth, canvasHeight));
 
-                    //_viewModel.FetchPairPreviewFrame();
-                    //TODO: indicate/notify for next frame
+                    _viewModel.BluetoothOperatorBindable.RequestNextPreviewFrame();
                 }
             }
         }

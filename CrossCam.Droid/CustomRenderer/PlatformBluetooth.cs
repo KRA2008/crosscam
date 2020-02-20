@@ -203,8 +203,22 @@ namespace CrossCam.Droid.CustomRenderer
             handler?.Invoke(this, new EventArgs());
         }
 
+        public event EventHandler PreviewFrameRequested;
+        private void OnPreviewFrameRequested()
+        {
+            var handler = PreviewFrameRequested;
+            handler?.Invoke(this, new EventArgs());
+        }
+
         public event EventHandler<PartnerDevice> DeviceDiscovered;
         private void OnDeviceDiscovered(PartnerDevice e)
+        {
+            var handler = DeviceDiscovered;
+            handler?.Invoke(this, e);
+        }
+
+        public event EventHandler<byte[]> PreviewFrameReceived;
+        private void OnPreviewFrameReceived(PartnerDevice e)
         {
             var handler = DeviceDiscovered;
             handler?.Invoke(this, e);
@@ -322,6 +336,16 @@ namespace CrossCam.Droid.CustomRenderer
             }
         }
 
+        public Task SendReadyForPreviewFrame()
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task SendPreviewFrame()
+        {
+            throw new NotImplementedException();
+        }
+
         public void ForgetDevice(PartnerDevice partnerDevice)
         {
             var targetDevice =
@@ -333,7 +357,7 @@ namespace CrossCam.Droid.CustomRenderer
             }
         }
 
-        public Task<bool> SendPreviewFrame(byte[] preview)
+        public Task SendPreviewFrame(byte[] preview)
         {
             throw new NotImplementedException();
         }

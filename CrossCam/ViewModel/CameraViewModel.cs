@@ -827,6 +827,7 @@ namespace CrossCam.ViewModel
             }
 
             BluetoothOperator.CurrentCoreMethods = CoreMethods;
+            BluetoothOperator.PreviewFrameReceived += BluetoothOperatorOnPreviewFrameReceived;
 
             await Task.Delay(100);
             await EvaluateAndShowWelcomePopup();
@@ -887,36 +888,13 @@ namespace CrossCam.ViewModel
 
         protected override void ViewIsDisappearing(object sender, EventArgs e)
         {
-            BluetoothOperator.ErrorOccurred -= BluetoothOperatorOnErrorOccurred;
-            BluetoothOperator.Disconnected -= BluetoothOperatorOnDisconnected;
-            BluetoothOperator.Connected -= BluetoothOperatorOnConnected;
+            BluetoothOperator.PreviewFrameReceived -= BluetoothOperatorOnPreviewFrameReceived;
             base.ViewIsDisappearing(sender, e);
         }
 
-        private async void BluetoothOperatorOnErrorOccurred(object sender, ErrorEventArgs e)
+        private void BluetoothOperatorOnPreviewFrameReceived(object sender, byte[] bytes)
         {
-            await Device.InvokeOnMainThreadAsync(async () =>
-            {
-                await CoreMethods.DisplayAlert("Pair Error Occurred",
-                    "An error has occurred with the paired device. Step: " + e.Step + " Error: " + e.Exception, "OK");
-            });
-        }
-
-        private async void BluetoothOperatorOnDisconnected(object sender, EventArgs e)
-        {
-            await Device.InvokeOnMainThreadAsync(async () =>
-            {
-                await CoreMethods.DisplayAlert("Disconnected", "The connection to the paired device was lost.",
-                    "OK");
-            });
-        }
-
-        private async void BluetoothOperatorOnConnected(object sender, EventArgs e)
-        {
-            await Device.InvokeOnMainThreadAsync(async () =>
-            {
-                await CoreMethods.DisplayAlert("Connected", "Device connected!", "OK");
-            });
+            PreviewFrame = bytes;
         }
 
         private async Task SaveSurfaceSnapshot(SKSurface surface)

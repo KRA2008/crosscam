@@ -655,7 +655,9 @@ namespace CrossCam.iOS.CustomRenderer
                     {
                         var image = GetImageFromSampleBuffer(sampleBuffer);
                         var bytes = image.AsJPEG().ToArray();
+                        //TODO: fix orientation
                         _camera.BluetoothOperator.SendLatestPreviewFrame(bytes);
+                        _camera.BluetoothOperator.IsReadyForPreviewFrame = false;
                     }
                 }
                 catch (Exception e)
