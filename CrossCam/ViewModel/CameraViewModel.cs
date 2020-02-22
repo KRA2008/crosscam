@@ -828,6 +828,10 @@ namespace CrossCam.ViewModel
 
             BluetoothOperator.CurrentCoreMethods = CoreMethods;
             BluetoothOperator.PreviewFrameReceived += BluetoothOperatorOnPreviewFrameReceived;
+            if (BluetoothOperator.IsPrimary)
+            {
+                await BluetoothOperator.SendReadyForPreviewFrame();
+            }
 
             await Task.Delay(100);
             await EvaluateAndShowWelcomePopup();
@@ -894,6 +898,7 @@ namespace CrossCam.ViewModel
 
         private void BluetoothOperatorOnPreviewFrameReceived(object sender, byte[] bytes)
         {
+            Debug.WriteLine("Preview frame set bindable");
             PreviewFrame = bytes;
         }
 
@@ -1248,7 +1253,7 @@ namespace CrossCam.ViewModel
             return color.Red + color.Green + color.Blue;
         }
 
-        private SKBitmap DecodeBitmapAndCorrectOrientation(byte[] bytes)
+        public SKBitmap DecodeBitmapAndCorrectOrientation(byte[] bytes)
         {
             try
             {

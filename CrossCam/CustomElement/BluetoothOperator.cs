@@ -18,7 +18,7 @@ namespace CrossCam.CustomElement
         public bool IsConnected { get; set; }
         public bool IsPrimary => _platformBluetooth.IsPrimary;
         public IPageModelCoreMethods CurrentCoreMethods { get; set; }
-        public bool IsReadyForPreviewFrame { get; set; }
+        public bool IsReadyToPackagePreviewFrame { get; set; }
 
         private readonly IPlatformBluetooth _platformBluetooth;
         public static readonly Guid ServiceGuid = Guid.Parse("492a8e3d-2589-40b1-b9c2-419a7ce80f3c");
@@ -92,12 +92,13 @@ namespace CrossCam.CustomElement
 
         private void PlatformBluetoothOnPreviewFrameReceived(object sender, byte[] bytes)
         {
+            Debug.WriteLine("Operator received frame");
             OnPreviewFrameReceived(bytes);
         }
 
         private void PlatformBluetoothOnPreviewFrameRequested(object sender, EventArgs e)
         {
-            IsReadyForPreviewFrame = true;
+            IsReadyToPackagePreviewFrame = true;
         }
 
         private void PlatformBluetoothOnDisconnected(object sender, EventArgs e)
@@ -105,13 +106,9 @@ namespace CrossCam.CustomElement
             OnDisconnected();
         }
 
-        private async void PlatformBluetoothOnConnected(object sender, EventArgs e)
+        private void PlatformBluetoothOnConnected(object sender, EventArgs e)
         {
             OnConnected();
-            if (IsPrimary)
-            {
-                await _platformBluetooth.SendReadyForPreviewFrame();
-            }
         }
 
         private void PlatformBluetoothOnDeviceDiscovered(object sender, PartnerDevice e)
@@ -206,6 +203,11 @@ namespace CrossCam.CustomElement
         public IEnumerable<PartnerDevice> GetPairedDevices()
         {
             return _platformBluetooth.GetPairedDevices();
+        }
+
+        public async Task SendReadyForPreviewFrame()
+        {
+            await _platformBluetooth.SendReadyForPreviewFrame();
         }
 
         public async void RequestSyncForCaptureAndSync()
@@ -363,6 +365,7 @@ namespace CrossCam.CustomElement
 
         public async void RequestNextPreviewFrame()
         {
+            Debug.WriteLine("Requesting next frame");
             await _platformBluetooth.SendReadyForPreviewFrame();
         }
     }

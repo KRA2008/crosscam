@@ -183,7 +183,8 @@ namespace CrossCam.iOS.CustomRenderer
 
         private void SendData(byte[] payload)
         {
-            _session.SendData(NSData.FromArray(payload), _session.ConnectedPeers, MCSessionSendDataMode.Reliable, out var error);
+            NSError error = null;
+            _session?.SendData(NSData.FromArray(payload), _session.ConnectedPeers, MCSessionSendDataMode.Reliable, out error);
             if (error != null)
             {
                 throw new Exception(error.ToString());
@@ -202,6 +203,7 @@ namespace CrossCam.iOS.CustomRenderer
 
         public Task SendReadyForPreviewFrame()
         {
+            Debug.WriteLine("Sending ready");
             var fullMessage = AddPayloadHeader(CrossCommand.ReadyForPreviewFrame, Enumerable.Empty<byte>().ToArray());
             SendData(fullMessage);
             return Task.FromResult(true);
@@ -209,6 +211,7 @@ namespace CrossCam.iOS.CustomRenderer
 
         public Task SendPreviewFrame(byte[] frame)
         {
+            Debug.WriteLine("Sending preview frame");
             var frameMessage = AddPayloadHeader(CrossCommand.PreviewFrame, frame);
             SendData(frameMessage);
             return Task.FromResult(true);
@@ -301,11 +304,13 @@ namespace CrossCam.iOS.CustomRenderer
 
             private void HandlePreviewFrameReceived(byte[] bytes)
             {
+                Debug.WriteLine("Received frame");
                 _platformBluetooth.OnPreviewFrameReceived(bytes);
             }
 
             private void HandleHelloCommand(byte[] bytes)
             {
+                Debug.WriteLine("Received hello");
                 var helloMessage = Encoding.UTF8.GetString(bytes, 0, bytes.Length);
                 if (helloMessage == HELLO_MESSAGE)
                 {

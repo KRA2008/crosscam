@@ -2,6 +2,7 @@
 using System.ComponentModel;
 using System.Linq;
 using System.Threading.Tasks;
+using System.Diagnostics;
 using AVFoundation;
 using CoreFoundation;
 using CoreGraphics;
@@ -29,7 +30,7 @@ namespace CrossCam.iOS.CustomRenderer
         private AVCaptureDevice _device;
         private bool _isInitialized;
         private AVCaptureVideoPreviewLayer _avCaptureVideoPreviewLayer;
-        private UIDeviceOrientation? _previousValidOrientation;
+        private static UIDeviceOrientation? _previousValidOrientation;
         private bool _is10OrHigher;
 
         public CameraModuleRenderer()
@@ -358,7 +359,7 @@ namespace CrossCam.iOS.CustomRenderer
             }
         }
 
-        private UIImageOrientation GetOrientationForCorrection()
+        private static UIImageOrientation GetOrientationForCorrection()
         {
             UIImageOrientation imageOrientation;
             var orientationTarget = _previousValidOrientation ?? UIDevice.CurrentDevice.Orientation;
@@ -651,13 +652,13 @@ namespace CrossCam.iOS.CustomRenderer
                 try
                 {
                     if (_camera.BluetoothOperator.IsConnected &&
-                        _camera.BluetoothOperator.IsReadyForPreviewFrame)
+                        _camera.BluetoothOperator.IsReadyToPackagePreviewFrame)
                     {
+                        Debug.WriteLine("Collecting frame for sending");
                         var image = GetImageFromSampleBuffer(sampleBuffer);
-                        var bytes = image.AsJPEG().ToArray();
-                        //TODO: fix orientation
+                        var bytes = image.AsJPEG(0).ToArray();
                         _camera.BluetoothOperator.SendLatestPreviewFrame(bytes);
-                        _camera.BluetoothOperator.IsReadyForPreviewFrame = false;
+                        _camera.BluetoothOperator.IsReadyToPackagePreviewFrame = false;
                     }
                 }
                 catch (Exception e)
@@ -699,10 +700,9 @@ namespace CrossCam.iOS.CustomRenderer
                             // Get the image from the context
                             using (var cgImage = context.ToImage())
                             {
-
                                 // Unlock and return image
                                 pixelBuffer.Unlock(CVPixelBufferLock.None);
-                                return UIImage.FromImage(cgImage);
+                                return UIImage.FromImage(cgImage, new nfloat(0.5), GetOrientationForCorrection());
                             }
                         }
                     }

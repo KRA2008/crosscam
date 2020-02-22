@@ -1,6 +1,7 @@
 ﻿using System;
 using System.ComponentModel;
 using System.Security.Cryptography;
+using System.Diagnostics;
 using System.Threading.Tasks;
 using CrossCam.CustomElement;
 using CrossCam.ViewModel;
@@ -307,16 +308,18 @@ namespace CrossCam.Page
 
         private void OnPaintPreviewResult(object sender, SKPaintSurfaceEventArgs e)
         {
+            Debug.WriteLine("Drawing preview frame");
             if (_viewModel.PreviewFrame != null)
             {
                 var canvas = e.Surface.Canvas;
 
                 canvas.Clear();
 
-                var bitmap = SKBitmap.Decode(_viewModel.PreviewFrame);
+                var bitmap = _viewModel.DecodeBitmapAndCorrectOrientation(_viewModel.PreviewFrame);
 
                 if (bitmap != null)
                 {
+                    Debug.WriteLine("Preview frame bitmap not null");
                     var canvasWidth = canvas.DeviceClipBounds.Width;
                     var canvasHeight = canvas.DeviceClipBounds.Height;
                     canvas.DrawBitmap(bitmap,
