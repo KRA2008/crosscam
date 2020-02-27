@@ -284,11 +284,11 @@ namespace CrossCam.ViewModel
                         ClearCrops(true);
                         if (IsCaptureLeftFirst)
                         {
-                            SetRightBitmap(_originalUnalignedBitmap); //calls autoalign internally
+                            SetRightBitmap(_originalUnalignedBitmap, true, true); //calls autoalign internally
                         }
                         else
                         {
-                            SetLeftBitmap(_originalUnalignedBitmap); //calls autoalign internally
+                            SetLeftBitmap(_originalUnalignedBitmap, true, true); //calls autoalign internally
                         }
                     }
 
@@ -830,7 +830,7 @@ namespace CrossCam.ViewModel
             BluetoothOperator.PreviewFrameReceived += BluetoothOperatorOnPreviewFrameReceived;
             if (BluetoothOperator.IsPrimary)
             {
-                await BluetoothOperator.SendReadyForPreviewFrame();
+                BluetoothOperator.FinishedRenderingPreviewFrame();
             }
 
             await Task.Delay(100);
@@ -924,9 +924,9 @@ namespace CrossCam.ViewModel
             try
             {
                 var leftHalf = await Task.Run(() => GetHalfOfFullStereoImage(image, true, Settings.ClipBorderOnLoad));
-                SetLeftBitmap(leftHalf, false);
+                SetLeftBitmap(leftHalf, false, true);
                 var rightHalf = await Task.Run(() => GetHalfOfFullStereoImage(image, false, Settings.ClipBorderOnLoad));
-                SetRightBitmap(rightHalf, false);
+                SetRightBitmap(rightHalf, false, true);
             }
             catch (Exception e)
             {
@@ -937,13 +937,13 @@ namespace CrossCam.ViewModel
         private async Task LeftBytesCaptured(byte[] capturedBytes)
         {
             var bitmap = await Task.Run(() => DecodeBitmapAndCorrectOrientation(capturedBytes));
-            SetLeftBitmap(bitmap);
+            SetLeftBitmap(bitmap, true, true);
         }
 
         private async Task RightBytesCaptured(byte[] capturedBytes)
         {
             var bitmap = await Task.Run(() => DecodeBitmapAndCorrectOrientation(capturedBytes));
-            SetRightBitmap(bitmap);
+            SetRightBitmap(bitmap, true, true);
         }
 
         private async void AutoAlign()
@@ -1062,12 +1062,12 @@ namespace CrossCam.ViewModel
                         if (IsCaptureLeftFirst)
                         {
                             _originalUnalignedBitmap = RightBitmap;
-                            SetRightBitmap(alignedResult.AlignedBitmap);
+                            SetRightBitmap(alignedResult.AlignedBitmap, true, true);
                         }
                         else
                         {
                             _originalUnalignedBitmap = LeftBitmap;
-                            SetLeftBitmap(alignedResult.AlignedBitmap);
+                            SetLeftBitmap(alignedResult.AlignedBitmap, true, true);
                         }
                     }
                     else
@@ -1086,57 +1086,63 @@ namespace CrossCam.ViewModel
             }
         }
 
-        private void SetLeftBitmap(SKBitmap bitmap, bool withMovementTrigger = true)
+        public void SetLeftBitmap(SKBitmap bitmap, bool withMovementTrigger, bool stepForward)
         {
             if (bitmap == null) return;
 
             LeftBitmap = bitmap;
             WasCapturePortrait = LeftBitmap.Width < LeftBitmap.Height;
 
-            if (RightBitmap == null)
+            if (stepForward)
             {
-                if (withMovementTrigger)
+                if (RightBitmap == null)
                 {
-                    TriggerMovementHint();
+                    if (withMovementTrigger)
+                    {
+                        TriggerMovementHint();
+                    }
+                    CameraColumn = 1;
+                    WorkflowStage = WorkflowStage.Capture;
                 }
-                CameraColumn = 1;
-                WorkflowStage = WorkflowStage.Capture;
-            }
-            else
-            {
-                WasCaptureCross = Settings.Mode != DrawMode.Parallel;
-                CameraColumn = IsCaptureLeftFirst ? 0 : 1;
-                IsCameraVisible = false;
-                WorkflowStage = WorkflowStage.Final;
-                SetMaxEdits(bitmap);
-                AutoAlign();
+                else
+                {
+                    WasCaptureCross = Settings.Mode != DrawMode.Parallel;
+                    CameraColumn = IsCaptureLeftFirst ? 0 : 1;
+                    IsCameraVisible = false;
+                    WorkflowStage = WorkflowStage.Final;
+                    SetMaxEdits(bitmap);
+                    AutoAlign();
+                }
             }
         }
 
-        private void SetRightBitmap(SKBitmap bitmap, bool withMovementTrigger = true)
+        public void SetRightBitmap(SKBitmap bitmap, bool withMovementTrigger, bool stepForward)
         {
             if (bitmap == null) return;
 
             RightBitmap = bitmap;
             WasCapturePortrait = RightBitmap.Width < RightBitmap.Height;
 
-            if (LeftBitmap == null)
+            if (stepForward)
             {
-                if (withMovementTrigger)
+                if (LeftBitmap == null)
                 {
-                    TriggerMovementHint();
+                    if (withMovementTrigger)
+                    {
+                        TriggerMovementHint();
+                    }
+                    CameraColumn = 0;
+                    WorkflowStage = WorkflowStage.Capture;
                 }
-                CameraColumn = 0;
-                WorkflowStage = WorkflowStage.Capture;
-            }
-            else
-            {
-                WasCaptureCross = Settings.Mode != DrawMode.Parallel;
-                CameraColumn = IsCaptureLeftFirst ? 0 : 1;
-                IsCameraVisible = false;
-                WorkflowStage = WorkflowStage.Final;
-                SetMaxEdits(bitmap);
-                AutoAlign();
+                else
+                {
+                    WasCaptureCross = Settings.Mode != DrawMode.Parallel;
+                    CameraColumn = IsCaptureLeftFirst ? 0 : 1;
+                    IsCameraVisible = false;
+                    WorkflowStage = WorkflowStage.Final;
+                    SetMaxEdits(bitmap);
+                    AutoAlign();
+                }
             }
         }
 

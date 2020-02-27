@@ -30,6 +30,8 @@ namespace CrossCam.iOS.CustomRenderer
             Hello = 1,
             ReadyForPreviewFrame,
             PreviewFrame,
+            ReadyForClockReading,
+            ClockReading
         }
 
         private readonly ObservableCollection<EAAccessory> _availableDevices =
@@ -81,6 +83,13 @@ namespace CrossCam.iOS.CustomRenderer
         {
             var handler = PreviewFrameReceived;
             handler?.Invoke(this, bytes);
+        }
+
+        public event EventHandler<long> ClockReadingReceived;
+        private void OnClockReadingReceived(long e)
+        {
+            var handler = ClockReadingReceived;
+            handler?.Invoke(this, e);
         }
 
         public event EventHandler<PartnerDevice> DeviceDiscovered;
@@ -138,6 +147,21 @@ namespace CrossCam.iOS.CustomRenderer
             return true;
         }
 
+        public Task SendClockReading()
+        {
+            Debug.WriteLine("Sending clock reading");
+            var ticks = DateTime.Now.Ticks;
+            var message = AddPayloadHeader(CrossCommand.ClockReading, BitConverter.GetBytes(ticks));
+            SendData(message);
+            return Task.FromResult(true);
+        }
+
+        public void ProcessClockReading(byte[] readingBytes)
+        {
+            var reading = BitConverter.ToInt64(readingBytes);
+            OnClockReadingReceived(reading);
+        }
+
         public void ForgetDevice(PartnerDevice partnerDevice)
         {
         }
@@ -157,16 +181,16 @@ namespace CrossCam.iOS.CustomRenderer
             return Task.FromResult(true);
         }
 
-        public async Task<bool> SayHello()
+        public Task<bool> SayHello()
         {
             var payloadBytes = Encoding.UTF8.GetBytes(HELLO_MESSAGE);
             var fullMessage = AddPayloadHeader(CrossCommand.Hello, payloadBytes);
 
             SendData(fullMessage);
-            return true;
+            return Task.FromResult(true);
         }
 
-        private byte[] AddPayloadHeader(CrossCommand crossCommand, byte[] payload)
+        private static byte[] AddPayloadHeader(CrossCommand crossCommand, byte[] payload)
         {
             var payloadLength = payload.Length;
             var header = new List<byte>
@@ -214,6 +238,14 @@ namespace CrossCam.iOS.CustomRenderer
             Debug.WriteLine("Sending preview frame");
             var frameMessage = AddPayloadHeader(CrossCommand.PreviewFrame, frame);
             SendData(frameMessage);
+            return Task.FromResult(true);
+        }
+
+        public Task SendReadyForClockReading()
+        {
+            Debug.WriteLine("Sending ready for clock reading");
+            var message = AddPayloadHeader(CrossCommand.ReadyForClockReading, Enumerable.Empty<byte>().ToArray());
+            SendData(message);
             return Task.FromResult(true);
         }
 
@@ -297,6 +329,12 @@ namespace CrossCam.iOS.CustomRenderer
                             break;
                         case (int)CrossCommand.ReadyForPreviewFrame:
                             _platformBluetooth.OnPreviewFrameRequested();
+                            break;
+                        case (int)CrossCommand.ReadyForClockReading:
+                            _platformBluetooth.SendClockReading();
+                            break;
+                        case (int)CrossCommand.ClockReading:
+                            _platformBluetooth.ProcessClockReading(payload);
                             break;
                     }
                 }

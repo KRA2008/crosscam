@@ -218,6 +218,8 @@ namespace CrossCam.Droid.CustomRenderer
         }
 
         public event EventHandler<byte[]> PreviewFrameReceived;
+        public event EventHandler<long> ClockReadingReceived;
+
         private void OnPreviewFrameReceived(PartnerDevice e)
         {
             var handler = DeviceDiscovered;
@@ -346,6 +348,21 @@ namespace CrossCam.Droid.CustomRenderer
             throw new NotImplementedException();
         }
 
+        public Task SendClockReading(byte[] reading)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task SendClockReading()
+        {
+            throw new NotImplementedException();
+        }
+
+        public void ProcessClockReading(byte[] readingBytes)
+        {
+            throw new NotImplementedException();
+        }
+
         public void ForgetDevice(PartnerDevice partnerDevice)
         {
             var targetDevice =
@@ -358,6 +375,11 @@ namespace CrossCam.Droid.CustomRenderer
         }
 
         public Task SendPreviewFrame(byte[] preview)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task SendReadyForClockReading()
         {
             throw new NotImplementedException();
         }

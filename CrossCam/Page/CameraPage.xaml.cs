@@ -320,13 +320,17 @@ namespace CrossCam.Page
                 if (bitmap != null)
                 {
                     Debug.WriteLine("Preview frame bitmap not null");
-                    var canvasWidth = canvas.DeviceClipBounds.Width;
-                    var canvasHeight = canvas.DeviceClipBounds.Height;
-                    canvas.DrawBitmap(bitmap,
-                        SKRect.Create(0, 0, bitmap.Width, bitmap.Height),
-                        SKRect.Create(0, 0, canvasWidth, canvasHeight));
 
-                    _viewModel.BluetoothOperatorBindable.RequestNextPreviewFrame();
+                    if (_viewModel.IsCaptureLeftFirst)
+                    {
+                        _viewModel.SetRightBitmap(bitmap, false, false);
+                    }
+                    else
+                    {
+                        _viewModel.SetLeftBitmap(bitmap, false, false);
+                    }
+
+                    _viewModel.BluetoothOperatorBindable.FinishedRenderingPreviewFrame();
                 }
             }
         }

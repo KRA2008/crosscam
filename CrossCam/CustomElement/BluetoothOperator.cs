@@ -31,6 +31,13 @@ namespace CrossCam.CustomElement
         private PartnerDevice _device;
         private readonly Timer _captureSyncTimer = new Timer{AutoReset = false};
 
+        private const int TIMER_SAMPLE_TRIPS = 10;
+        private readonly long[] T0_SAMPLES = new long[TIMER_SAMPLE_TRIPS];
+        private readonly long[] T1T2_SAMPLES = new long[TIMER_SAMPLE_TRIPS];
+        private readonly long[] T3_SAMPLES = new long[TIMER_SAMPLE_TRIPS];
+        private int _totalTrips;
+        private bool _isSyncingForCapture;
+
         public event ElapsedEventHandler CaptureRequested;
         private void OnCaptureRequested(object sender, ElapsedEventArgs e)
         {
@@ -88,6 +95,22 @@ namespace CrossCam.CustomElement
             _platformBluetooth.Disconnected += PlatformBluetoothOnDisconnected;
             _platformBluetooth.PreviewFrameRequested += PlatformBluetoothOnPreviewFrameRequested;
             _platformBluetooth.PreviewFrameReceived += PlatformBluetoothOnPreviewFrameReceived;
+            _platformBluetooth.ClockReadingReceived += PlatformBluetoothOnClockReadingReceived; 
+        }
+
+        private async void PlatformBluetoothOnClockReadingReceived(object sender, long e)
+        {
+            T1T2_SAMPLES[_totalTrips] = e;
+            T3_SAMPLES[_totalTrips] = DateTime.Now.Ticks;
+            _totalTrips++;
+            if (_totalTrips < TIMER_SAMPLE_TRIPS)
+            {
+                await _platformBluetooth.SendReadyForPreviewFrame();
+            }
+            else
+            {
+                await FindAndApplySyncMoment();
+            }
         }
 
         private void PlatformBluetoothOnPreviewFrameReceived(object sender, byte[] bytes)
@@ -205,37 +228,48 @@ namespace CrossCam.CustomElement
             return _platformBluetooth.GetPairedDevices();
         }
 
-        public async Task SendReadyForPreviewFrame()
+        public async void BeginSamplingClock()
         {
-            await _platformBluetooth.SendReadyForPreviewFrame();
+            _totalTrips = 0;
+            _isSyncingForCapture = true;
+            T0_SAMPLES[_totalTrips] = DateTime.Now.Ticks;
+            await _platformBluetooth.SendReadyForClockReading();
         }
 
-        public async void RequestSyncForCaptureAndSync()
+        public async void FinishedRenderingPreviewFrame()
         {
-            const int NUMBER_OF_RUNS = 10;
+            if (_isSyncingForCapture)
+            {
+                T0_SAMPLES[_totalTrips] = DateTime.Now.Ticks;
+                await _platformBluetooth.SendReadyForClockReading();
+            }
+            else
+            {
+                await _platformBluetooth.SendReadyForPreviewFrame();
+            }
+        }
+
+        private async Task FindAndApplySyncMoment()
+        {
             const int BUFFER_TRIP_MULTIPLIER = 4;
             var offsets = new List<long>();
             var trips = new List<long>();
             var offsetsAverage = 0L;
             var tripsSafeAverage = 0L;
-            var measureStart = DateTime.UtcNow.Ticks;
             try
             {
-                for (var i = 0; i < NUMBER_OF_RUNS; i++)
+                for (var i = 0; i < TIMER_SAMPLE_TRIPS; i++)
                 {
-                    var t0 = DateTime.UtcNow.Ticks;
-                    var readResult = new byte[0] { };//}await _device.ReadCharacteristic(_serviceGuid, _clockReadingGuid).ToTask();
-                    var t3 = DateTime.UtcNow.Ticks;
-                    var t1t2String = Encoding.UTF8.GetString(readResult, 0, readResult.Length);
-                    if (long.TryParse(t1t2String, out var t1t2))
-                    {
-                        var timeOffsetRun = ((t1t2 - t0) + (t1t2 - t3)) / 2;
-                        offsets.Add(timeOffsetRun);
-                        var roundTripDelayRun = t3 - t0;
-                        trips.Add(roundTripDelayRun);
-                        Debug.WriteLine("Time offset: " + timeOffsetRun / 10000d + " milliseconds");
-                        Debug.WriteLine("Round trip delay: " + roundTripDelayRun / 10000d + " milliseconds");
-                    }
+                    var t0 = T0_SAMPLES[i];
+                    var t3 = T3_SAMPLES[i];
+                    var t1t2 = T1T2_SAMPLES[i];
+
+                    var timeOffsetRun = ((t1t2 - t0) + (t1t2 - t3)) / 2;
+                    offsets.Add(timeOffsetRun);
+                    var roundTripDelayRun = t3 - t0;
+                    trips.Add(roundTripDelayRun);
+                    Debug.WriteLine("Time offset: " + timeOffsetRun / 10000d + " milliseconds");
+                    Debug.WriteLine("Round trip delay: " + roundTripDelayRun / 10000d + " milliseconds");
                 }
 
                 offsetsAverage = (long)offsets.Average();
@@ -253,9 +287,6 @@ namespace CrossCam.CustomElement
                 });
             }
 
-            var measureEnd = DateTime.UtcNow.Ticks;
-            var measureDuration = measureEnd - measureStart;
-            Debug.WriteLine("Measure duration: " + measureDuration / 10000d + " milliseconds");
             var targetSyncMoment = DateTime.UtcNow.AddTicks(tripsSafeAverage * BUFFER_TRIP_MULTIPLIER);
             Debug.WriteLine("Target sync: " + targetSyncMoment.ToString("O"));
             var partnerSyncMoment = targetSyncMoment.AddTicks(offsetsAverage);
@@ -271,6 +302,9 @@ namespace CrossCam.CustomElement
             //        Step = "Sending Trigger"
             //    });
             //});
+
+            _isSyncingForCapture = false;
+            await _platformBluetooth.SendReadyForPreviewFrame();
         }
 
         private void HandleIncomingSyncRequest(byte[] masterTicksByteArray)
@@ -361,12 +395,6 @@ namespace CrossCam.CustomElement
                     Step = "Send Preview Frame Outer"
                 });
             }
-        }
-
-        public async void RequestNextPreviewFrame()
-        {
-            Debug.WriteLine("Requesting next frame");
-            await _platformBluetooth.SendReadyForPreviewFrame();
         }
     }
 
