@@ -4,7 +4,6 @@ using System.ComponentModel;
 using System.Diagnostics;
 using System.Linq;
 using System.Runtime.CompilerServices;
-using System.Text;
 using System.Threading.Tasks;
 using System.Timers;
 using CrossCam.Wrappers;
@@ -18,7 +17,6 @@ namespace CrossCam.CustomElement
         public bool IsConnected { get; set; }
         public bool IsPrimary => _platformBluetooth.IsPrimary;
         public IPageModelCoreMethods CurrentCoreMethods { get; set; }
-        public bool IsReadyToPackagePreviewFrame { get; set; }
 
         private readonly IPlatformBluetooth _platformBluetooth;
         public static readonly Guid ServiceGuid = Guid.Parse("492a8e3d-2589-40b1-b9c2-419a7ce80f3c");
@@ -80,10 +78,24 @@ namespace CrossCam.CustomElement
             handler?.Invoke(this, e);
         }
 
+        public event EventHandler PreviewFrameRequested;
+        private void OnPreviewFrameRequested()
+        {
+            var handler = PreviewFrameRequested;
+            handler?.Invoke(this, null);
+        }
+
         public event EventHandler<byte[]> PreviewFrameReceived;
         private void OnPreviewFrameReceived(byte[] frame)
         {
             var handler = PreviewFrameReceived;
+            handler?.Invoke(this, frame);
+        }
+
+        public event EventHandler<byte[]> CapturedImageReceived;
+        private void OnCapturedImageReceived(byte[] frame)
+        {
+            var handler = CapturedImageReceived;
             handler?.Invoke(this, frame);
         }
 
@@ -96,12 +108,24 @@ namespace CrossCam.CustomElement
             _platformBluetooth.PreviewFrameRequested += PlatformBluetoothOnPreviewFrameRequested;
             _platformBluetooth.PreviewFrameReceived += PlatformBluetoothOnPreviewFrameReceived;
             _platformBluetooth.ClockReadingReceived += PlatformBluetoothOnClockReadingReceived; 
+            _platformBluetooth.SyncReceived += PlatformBluetoothOnSyncReceived;
+            _platformBluetooth.CaptureReceived += PlatformBluetoothOnCaptureReceived;
+        }
+
+        private void PlatformBluetoothOnCaptureReceived(object sender, byte[] e)
+        {
+            OnCapturedImageReceived(e);
+        }
+
+        private void PlatformBluetoothOnSyncReceived(object sender, DateTime e)
+        {
+            SyncCapture(e);
         }
 
         private async void PlatformBluetoothOnClockReadingReceived(object sender, long e)
         {
             T1T2_SAMPLES[_totalTrips] = e;
-            T3_SAMPLES[_totalTrips] = DateTime.Now.Ticks;
+            T3_SAMPLES[_totalTrips] = DateTime.UtcNow.Ticks;
             _totalTrips++;
             if (_totalTrips < TIMER_SAMPLE_TRIPS)
             {
@@ -121,7 +145,7 @@ namespace CrossCam.CustomElement
 
         private void PlatformBluetoothOnPreviewFrameRequested(object sender, EventArgs e)
         {
-            IsReadyToPackagePreviewFrame = true;
+            OnPreviewFrameRequested();
         }
 
         private void PlatformBluetoothOnDisconnected(object sender, EventArgs e)
@@ -232,16 +256,30 @@ namespace CrossCam.CustomElement
         {
             _totalTrips = 0;
             _isSyncingForCapture = true;
-            T0_SAMPLES[_totalTrips] = DateTime.Now.Ticks;
+            T0_SAMPLES[_totalTrips] = DateTime.UtcNow.Ticks;
             await _platformBluetooth.SendReadyForClockReading();
         }
 
-        public async void FinishedRenderingPreviewFrame()
+        public async void FinishedRenderingPreviewFrame(bool forceStopSyncing = false)
         {
+            if (forceStopSyncing)
+            {
+                Debug.WriteLine("Forced stop sync");
+                _isSyncingForCapture = false;
+            }
             if (_isSyncingForCapture)
             {
-                T0_SAMPLES[_totalTrips] = DateTime.Now.Ticks;
-                await _platformBluetooth.SendReadyForClockReading();
+                if (_totalTrips < TIMER_SAMPLE_TRIPS)
+                {
+                    Debug.WriteLine("Getting next clock reading, trips: " + _totalTrips);
+                    T0_SAMPLES[_totalTrips] = DateTime.UtcNow.Ticks;
+                    await _platformBluetooth.SendReadyForClockReading();
+                }
+                else
+                {
+
+                    Debug.WriteLine("Neither requesting frame nor requesting clock reading");
+                }
             }
             else
             {
@@ -291,57 +329,36 @@ namespace CrossCam.CustomElement
             Debug.WriteLine("Target sync: " + targetSyncMoment.ToString("O"));
             var partnerSyncMoment = targetSyncMoment.AddTicks(offsetsAverage);
             Debug.WriteLine("Partner sync: " + partnerSyncMoment.ToString("O"));
-            //_device.WriteCharacteristic(_serviceGuid, _initiateCaptureGuid, Encoding.UTF8.GetBytes(partnerSyncMoment.Ticks.ToString())).Subscribe(what =>
-            //{
-            //    SyncCapture(targetSyncMoment);
-            //}, exception =>
-            //{
-            //    OnErrorOccurred(new ErrorEventArgs
-            //    {
-            //        Exception = exception,
-            //        Step = "Sending Trigger"
-            //    });
-            //});
-
-            _isSyncingForCapture = false;
-            await _platformBluetooth.SendReadyForPreviewFrame();
+            SyncCapture(targetSyncMoment);
+            await _platformBluetooth.SendSync(partnerSyncMoment);
         }
 
-        private void HandleIncomingSyncRequest(byte[] masterTicksByteArray)
+        private void SyncCapture(DateTime syncTime)
         {
             try
             {
-                var targetTimeString = Encoding.UTF8.GetString(masterTicksByteArray, 0, masterTicksByteArray.Length);
-                if (long.TryParse(targetTimeString, out var targetTimeTicks))
+                var interval = (syncTime.Ticks - DateTime.UtcNow.Ticks) / 10000d;
+                Debug.WriteLine("Sync interval set: " + interval);
+                Debug.WriteLine("Sync time: " + syncTime.ToString("O"));
+                Debug.WriteLine("Now time: " + DateTime.UtcNow.ToString("O"));
+                if (interval < 0)
                 {
-                    var targetTime = new DateTime(targetTimeTicks);
-                    SyncCapture(targetTime);
-                    Debug.WriteLine("Target time: " + targetTime.ToString("O"));
+                    Debug.WriteLine("Sync aborted, interval < 0");
+                    return;
                 }
+
+                _captureSyncTimer.Elapsed += OnCaptureRequested;
+                _captureSyncTimer.Interval = interval;
+                _captureSyncTimer.Start();
             }
             catch (Exception e)
             {
                 OnErrorOccurred(new ErrorEventArgs
                 {
                     Exception = e,
-                    Step = "Receive Sync for Capture"
+                    Step = "Sync capture"
                 });
             }
-        }
-
-        private void SyncCapture(DateTime syncTime)
-        {
-            var interval = (syncTime.Ticks - DateTime.UtcNow.Ticks) / 10000d;
-            Debug.WriteLine("Sync interval set: " + interval);
-            Debug.WriteLine("Sync time: " + syncTime.ToString("O"));
-            if (interval < 0)
-            {
-                Debug.WriteLine("Sync aborted, interval < 0");
-                return;
-            }
-            _captureSyncTimer.Elapsed += OnCaptureRequested;
-            _captureSyncTimer.Interval = interval;
-            _captureSyncTimer.Start();
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
@@ -386,6 +403,22 @@ namespace CrossCam.CustomElement
             try
             {
                 await _platformBluetooth.SendPreviewFrame(frame);
+            }
+            catch (Exception e)
+            {
+                OnErrorOccurred(new ErrorEventArgs
+                {
+                    Exception = e,
+                    Step = "Send Preview Frame Outer"
+                });
+            }
+        }
+
+        public async void SendCapture(byte[] frame)
+        {
+            try
+            {
+                await _platformBluetooth.SendCaptue(frame);
             }
             catch (Exception e)
             {

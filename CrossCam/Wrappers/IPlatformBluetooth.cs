@@ -21,7 +21,10 @@ namespace CrossCam.Wrappers
         Task SendReadyForClockReading();
         Task SendClockReading();
         void ProcessClockReading(byte[] readingBytes);
+        Task SendSync(DateTime syncMoment);
+        Task ProcessSyncAndCapture(byte[] syncBytes);
         void ForgetDevice(PartnerDevice partnerDevice);
+        Task SendCaptue(byte[] capturedImage);
         IEnumerable<PartnerDevice> GetPairedDevices();
         bool StartScanning();
         event EventHandler<PartnerDevice> DeviceDiscovered;
@@ -34,6 +37,8 @@ namespace CrossCam.Wrappers
         event EventHandler PreviewFrameRequested;
         event EventHandler<byte[]> PreviewFrameReceived;
         event EventHandler<long> ClockReadingReceived;
+        event EventHandler<DateTime> SyncReceived;
+        event EventHandler<byte[]> CaptureReceived;
     }
 
     public class PartnerDevice

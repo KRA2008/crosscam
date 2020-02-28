@@ -257,7 +257,10 @@ namespace CrossCam.Page
 	            case nameof(CameraViewModel.RightZoom):
 	            case nameof(CameraViewModel.LeftKeystone):
 	            case nameof(CameraViewModel.RightKeystone):
-                    _drawnResultCanvas.InvalidateSurface();
+                    Device.BeginInvokeOnMainThread(() =>
+                    {
+                        _drawnResultCanvas.InvalidateSurface();
+                    });
                     break;
                 case nameof(CameraViewModel.PreviewFrame):
                     Device.BeginInvokeOnMainThread(() =>
@@ -339,35 +342,40 @@ namespace CrossCam.Page
 	    {
 	        var rollBounds = AbsoluteLayout.GetLayoutBounds(_horizontalLevelWhole);
 	        rollBounds.Y = _viewModel.PreviewBottomY - LEVEL_ICON_WIDTH / 5;
-            AbsoluteLayout.SetLayoutBounds(_horizontalLevelWhole, rollBounds);
+            Device.BeginInvokeOnMainThread(() =>
+            {
+                AbsoluteLayout.SetLayoutBounds(_horizontalLevelWhole, rollBounds);
+            });
         }
 
         private void ResetLineAndDonutGuides()
         {
-            if (_viewModel == null || _viewModel.IsViewPortrait)
+            Device.BeginInvokeOnMainThread(() =>
             {
-                AbsoluteLayout.SetLayoutFlags(_upperLine, AbsoluteLayoutFlags.YProportional | AbsoluteLayoutFlags.WidthProportional);
-                AbsoluteLayout.SetLayoutBounds(_upperLine, _upperLineBoundsPortrait);
-                AbsoluteLayout.SetLayoutFlags(_upperLinePanner, AbsoluteLayoutFlags.YProportional | AbsoluteLayoutFlags.WidthProportional);
-                AbsoluteLayout.SetLayoutBounds(_upperLinePanner, _upperLineBoundsPortrait);
+                if (_viewModel == null || _viewModel.IsViewPortrait)
+                {
+                    AbsoluteLayout.SetLayoutFlags(_upperLine, AbsoluteLayoutFlags.YProportional | AbsoluteLayoutFlags.WidthProportional);
+                    AbsoluteLayout.SetLayoutBounds(_upperLine, _upperLineBoundsPortrait);
+                    AbsoluteLayout.SetLayoutFlags(_upperLinePanner, AbsoluteLayoutFlags.YProportional | AbsoluteLayoutFlags.WidthProportional);
+                    AbsoluteLayout.SetLayoutBounds(_upperLinePanner, _upperLineBoundsPortrait);
 
-                AbsoluteLayout.SetLayoutFlags(_lowerLine, AbsoluteLayoutFlags.YProportional | AbsoluteLayoutFlags.WidthProportional);
-                AbsoluteLayout.SetLayoutBounds(_lowerLine, _lowerLinesBoundsPortrait);
-                AbsoluteLayout.SetLayoutFlags(_lowerLinePanner, AbsoluteLayoutFlags.YProportional | AbsoluteLayoutFlags.WidthProportional);
-                AbsoluteLayout.SetLayoutBounds(_lowerLinePanner, _lowerLinesBoundsPortrait);
-            }
-            else
-            {
-                AbsoluteLayout.SetLayoutFlags(_upperLine, AbsoluteLayoutFlags.YProportional | AbsoluteLayoutFlags.WidthProportional);
-                AbsoluteLayout.SetLayoutBounds(_upperLine, _upperLineBoundsLandscape);
-                AbsoluteLayout.SetLayoutFlags(_upperLinePanner, AbsoluteLayoutFlags.YProportional | AbsoluteLayoutFlags.WidthProportional);
-                AbsoluteLayout.SetLayoutBounds(_upperLinePanner, _upperLineBoundsLandscape);
+                    AbsoluteLayout.SetLayoutFlags(_lowerLine, AbsoluteLayoutFlags.YProportional | AbsoluteLayoutFlags.WidthProportional);
+                    AbsoluteLayout.SetLayoutBounds(_lowerLine, _lowerLinesBoundsPortrait);
+                    AbsoluteLayout.SetLayoutFlags(_lowerLinePanner, AbsoluteLayoutFlags.YProportional | AbsoluteLayoutFlags.WidthProportional);
+                    AbsoluteLayout.SetLayoutBounds(_lowerLinePanner, _lowerLinesBoundsPortrait);
+                }
+                else
+                {
+                    AbsoluteLayout.SetLayoutFlags(_upperLine, AbsoluteLayoutFlags.YProportional | AbsoluteLayoutFlags.WidthProportional);
+                    AbsoluteLayout.SetLayoutBounds(_upperLine, _upperLineBoundsLandscape);
+                    AbsoluteLayout.SetLayoutFlags(_upperLinePanner, AbsoluteLayoutFlags.YProportional | AbsoluteLayoutFlags.WidthProportional);
+                    AbsoluteLayout.SetLayoutBounds(_upperLinePanner, _upperLineBoundsLandscape);
 
-                AbsoluteLayout.SetLayoutFlags(_lowerLine, AbsoluteLayoutFlags.YProportional | AbsoluteLayoutFlags.WidthProportional);
-                AbsoluteLayout.SetLayoutBounds(_lowerLine, _lowerLineBoundsLandscape);
-                AbsoluteLayout.SetLayoutFlags(_lowerLinePanner, AbsoluteLayoutFlags.YProportional | AbsoluteLayoutFlags.WidthProportional);
-                AbsoluteLayout.SetLayoutBounds(_lowerLinePanner, _lowerLineBoundsLandscape);
-            }
+                    AbsoluteLayout.SetLayoutFlags(_lowerLine, AbsoluteLayoutFlags.YProportional | AbsoluteLayoutFlags.WidthProportional);
+                    AbsoluteLayout.SetLayoutBounds(_lowerLine, _lowerLineBoundsLandscape);
+                    AbsoluteLayout.SetLayoutFlags(_lowerLinePanner, AbsoluteLayoutFlags.YProportional | AbsoluteLayoutFlags.WidthProportional);
+                    AbsoluteLayout.SetLayoutBounds(_lowerLinePanner, _lowerLineBoundsLandscape);
+                }
 
             AbsoluteLayout.SetLayoutFlags(_leftReticle, AbsoluteLayoutFlags.PositionProportional);
             AbsoluteLayout.SetLayoutBounds(_leftReticle, _leftReticleBounds);
@@ -377,8 +385,7 @@ namespace CrossCam.Page
             AbsoluteLayout.SetLayoutFlags(_rightReticle, AbsoluteLayoutFlags.PositionProportional);
             AbsoluteLayout.SetLayoutBounds(_rightReticle, _rightReticleBounds);
             AbsoluteLayout.SetLayoutFlags(_rightReticlePanner, AbsoluteLayoutFlags.PositionProportional);
-            AbsoluteLayout.SetLayoutBounds(_rightReticlePanner, _rightReticleBounds);
-        }
+            AbsoluteLayout.SetLayoutBounds(_rightReticlePanner, _rightReticleBounds);        }
 
         private void PlaceRollGuide()
         {
@@ -386,7 +393,10 @@ namespace CrossCam.Page
             rollBounds.Width = LEVEL_ICON_WIDTH;
             rollBounds.Height = LEVEL_ICON_WIDTH;
             rollBounds.X = _viewModel == null || _viewModel.CameraColumn == 0 ? 0.2 : 0.8;
-            AbsoluteLayout.SetLayoutBounds(_horizontalLevelWhole, rollBounds);
+            Device.BeginInvokeOnMainThread(() =>
+            {
+                AbsoluteLayout.SetLayoutBounds(_horizontalLevelWhole, rollBounds);
+            });
         }
 
         private void ReticlePanned(object sender, PanUpdatedEventArgs e)

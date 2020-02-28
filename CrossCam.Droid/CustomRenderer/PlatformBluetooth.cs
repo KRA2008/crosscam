@@ -176,6 +176,11 @@ namespace CrossCam.Droid.CustomRenderer
             return _isLocationOnTask.Task;
         }
 
+        public Task SendCaptue(byte[] capturedImage)
+        {
+            throw new NotImplementedException();
+        }
+
         public IEnumerable<PartnerDevice> GetPairedDevices()
         {
             return BluetoothAdapter.DefaultAdapter.BondedDevices
@@ -219,6 +224,8 @@ namespace CrossCam.Droid.CustomRenderer
 
         public event EventHandler<byte[]> PreviewFrameReceived;
         public event EventHandler<long> ClockReadingReceived;
+        public event EventHandler<DateTime> SyncReceived;
+        public event EventHandler<byte[]> CaptureReceived;
 
         private void OnPreviewFrameReceived(PartnerDevice e)
         {
@@ -359,6 +366,21 @@ namespace CrossCam.Droid.CustomRenderer
         }
 
         public void ProcessClockReading(byte[] readingBytes)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task SendSync(DateTime syncMoment)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task ProcessSyncAndCapture(byte[] syncBytes)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task ProcessSyncAndCapture()
         {
             throw new NotImplementedException();
         }

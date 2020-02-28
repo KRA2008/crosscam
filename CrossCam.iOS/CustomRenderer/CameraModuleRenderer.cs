@@ -3,6 +3,7 @@ using System.ComponentModel;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Diagnostics;
+using System.Threading;
 using AVFoundation;
 using CoreFoundation;
 using CoreGraphics;
@@ -293,7 +294,16 @@ namespace CrossCam.iOS.CustomRenderer
                     using (var cgImage = image.CGImage)
                     using (var rotatedImage = UIImage.FromImage(cgImage, 1, GetOrientationForCorrection()))
                     {
-                        _cameraModule.CapturedImage = rotatedImage.AsJPEG().ToArray();
+                        var imageBytes = rotatedImage.AsJPEG().ToArray();
+                        if (_cameraModule.BluetoothOperator.IsConnected &&
+                            !_cameraModule.BluetoothOperator.IsPrimary)
+                        {
+                            _cameraModule.BluetoothOperator.SendCapture(imageBytes);
+                        }
+                        else
+                        {
+                            _cameraModule.CapturedImage = imageBytes;
+                        }
                     }
                 }
             }
@@ -322,7 +332,16 @@ namespace CrossCam.iOS.CustomRenderer
                     using (var cgImage = CGImage.FromJPEG(imgDataProvider, null, false, CGColorRenderingIntent.Default))
                     using (var uiImage = UIImage.FromImage(cgImage, 1, GetOrientationForCorrection()))
                     {
-                        _cameraModule.CapturedImage = uiImage.AsJPEG().ToArray();
+                        var imageBytes = uiImage.AsJPEG().ToArray();
+                        if (_cameraModule.BluetoothOperator.IsConnected &&
+                            !_cameraModule.BluetoothOperator.IsPrimary)
+                        {
+                            _cameraModule.BluetoothOperator.SendCapture(imageBytes);
+                        }
+                        else
+                        {
+                            _cameraModule.CapturedImage = imageBytes;
+                        }
                     }
                 }
             }
@@ -349,7 +368,16 @@ namespace CrossCam.iOS.CustomRenderer
                     using (var cgImage = photo.CGImageRepresentation)
                     using (var uiImage = UIImage.FromImage(cgImage, 1, GetOrientationForCorrection()))
                     {
-                        _cameraModule.CapturedImage = uiImage.AsJPEG().ToArray();
+                        var imageBytes = uiImage.AsJPEG().ToArray();
+                        if (_cameraModule.BluetoothOperator.IsConnected &&
+                            !_cameraModule.BluetoothOperator.IsPrimary)
+                        {
+                            _cameraModule.BluetoothOperator.SendCapture(imageBytes);
+                        }
+                        else
+                        {
+                            _cameraModule.CapturedImage = imageBytes;
+                        }
                     }
                 }
             }
@@ -641,24 +669,30 @@ namespace CrossCam.iOS.CustomRenderer
         private class PreviewFrameDelegate : AVCaptureVideoDataOutputSampleBufferDelegate
         {
             private readonly CameraModule _camera;
+            private int _readyToCapturePreviewFrameInterlocked;
 
             public PreviewFrameDelegate(CameraModule camera)
             {
                 _camera = camera;
+                _camera.BluetoothOperator.PreviewFrameRequested += (sender, args) =>
+                {
+                    _readyToCapturePreviewFrameInterlocked = 1;
+                };
             }
 
             public override void DidOutputSampleBuffer(AVCaptureOutput captureOutput, CMSampleBuffer sampleBuffer, AVCaptureConnection connection)
             {
                 try
                 {
-                    if (_camera.BluetoothOperator.IsConnected &&
-                        _camera.BluetoothOperator.IsReadyToPackagePreviewFrame)
+                    if (_camera.BluetoothOperator.IsConnected)
                     {
-                        Debug.WriteLine("Collecting frame for sending");
-                        var image = GetImageFromSampleBuffer(sampleBuffer);
-                        var bytes = image.AsJPEG(0).ToArray();
-                        _camera.BluetoothOperator.SendLatestPreviewFrame(bytes);
-                        _camera.BluetoothOperator.IsReadyToPackagePreviewFrame = false;
+                        if (Interlocked.Exchange(ref _readyToCapturePreviewFrameInterlocked, 0) == 1)
+                        {
+                            Debug.WriteLine("Collecting frame for sending");
+                            var image = GetImageFromSampleBuffer(sampleBuffer);
+                            var bytes = image.AsJPEG(0).ToArray();
+                            _camera.BluetoothOperator.SendLatestPreviewFrame(bytes);
+                        }
                     }
                 }
                 catch (Exception e)

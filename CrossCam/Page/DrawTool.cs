@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using CrossCam.Model;
 using CrossCam.ViewModel;
 using SkiaSharp;
@@ -21,6 +22,9 @@ namespace CrossCam.Page
             DrawMode drawMode)
         {
             if (leftBitmap == null && rightBitmap == null) return;
+            if (leftBitmap != null && rightBitmap != null &&
+                leftBitmap.Width != rightBitmap.Width &&
+                leftBitmap.Height != rightBitmap.Height) return;
 
             var canvasWidth = canvas.DeviceClipBounds.Width;
             var canvasHeight = canvas.DeviceClipBounds.Height;

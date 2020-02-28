@@ -31,7 +31,9 @@ namespace CrossCam.iOS.CustomRenderer
             ReadyForPreviewFrame,
             PreviewFrame,
             ReadyForClockReading,
-            ClockReading
+            ClockReading,
+            Sync,
+            CapturedImage
         }
 
         private readonly ObservableCollection<EAAccessory> _availableDevices =
@@ -99,6 +101,21 @@ namespace CrossCam.iOS.CustomRenderer
             handler?.Invoke(this, e);
         }
 
+        public event EventHandler<DateTime> SyncReceived;
+        private void OnSyncReceived(DateTime e)
+        {
+            var handler = SyncReceived;
+            handler?.Invoke(this, e);
+        }
+
+        public event EventHandler<byte[]> CaptureReceived;
+        private void OnCaptureReceived(byte[] e)
+        {
+            var handler = CaptureReceived;
+            handler?.Invoke(this, e);
+        }
+
+
         public void Disconnect()
         {
         }
@@ -127,6 +144,13 @@ namespace CrossCam.iOS.CustomRenderer
             return Task.FromResult(true);
         }
 
+        public Task SendCaptue(byte[] capturedImage)
+        {
+            var message = AddPayloadHeader(CrossCommand.CapturedImage, capturedImage);
+            SendData(message);
+            return Task.FromResult(true);
+        }
+
         public IEnumerable<PartnerDevice> GetPairedDevices()
         {
             return Enumerable.Empty<PartnerDevice>().ToList();
@@ -150,7 +174,7 @@ namespace CrossCam.iOS.CustomRenderer
         public Task SendClockReading()
         {
             Debug.WriteLine("Sending clock reading");
-            var ticks = DateTime.Now.Ticks;
+            var ticks = DateTime.UtcNow.Ticks;
             var message = AddPayloadHeader(CrossCommand.ClockReading, BitConverter.GetBytes(ticks));
             SendData(message);
             return Task.FromResult(true);
@@ -160,6 +184,19 @@ namespace CrossCam.iOS.CustomRenderer
         {
             var reading = BitConverter.ToInt64(readingBytes);
             OnClockReadingReceived(reading);
+        }
+
+        public Task SendSync(DateTime syncMoment)
+        {
+            var syncMessage = AddPayloadHeader(CrossCommand.Sync, BitConverter.GetBytes(syncMoment.Ticks));
+            SendData(syncMessage);
+            return Task.FromResult(true);
+        }
+
+        public Task ProcessSyncAndCapture(byte[] syncBytes)
+        {
+            OnSyncReceived(new DateTime(BitConverter.ToInt64(syncBytes)));
+            return Task.FromResult(true);
         }
 
         public void ForgetDevice(PartnerDevice partnerDevice)
@@ -325,7 +362,7 @@ namespace CrossCam.iOS.CustomRenderer
                             HandleHelloCommand(payload);
                             break;
                         case (int)CrossCommand.PreviewFrame:
-                            HandlePreviewFrameReceived(payload);
+                            _platformBluetooth.OnPreviewFrameReceived(payload);
                             break;
                         case (int)CrossCommand.ReadyForPreviewFrame:
                             _platformBluetooth.OnPreviewFrameRequested();
@@ -336,14 +373,14 @@ namespace CrossCam.iOS.CustomRenderer
                         case (int)CrossCommand.ClockReading:
                             _platformBluetooth.ProcessClockReading(payload);
                             break;
+                        case (int)CrossCommand.Sync:
+                            _platformBluetooth.ProcessSyncAndCapture(payload);
+                            break;
+                        case (int)CrossCommand.CapturedImage:
+                            _platformBluetooth.OnCaptureReceived(payload);
+                            break;
                     }
                 }
-            }
-
-            private void HandlePreviewFrameReceived(byte[] bytes)
-            {
-                Debug.WriteLine("Received frame");
-                _platformBluetooth.OnPreviewFrameReceived(bytes);
             }
 
             private void HandleHelloCommand(byte[] bytes)

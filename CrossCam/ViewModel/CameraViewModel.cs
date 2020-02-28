@@ -313,13 +313,20 @@ namespace CrossCam.ViewModel
             {
                 try
                 {
-                    ClearEdits();
-                    CameraColumn = 0;
-                    IsCameraVisible = true;
-                    LeftBitmap?.Dispose();
-                    LeftBitmap = null;
-                    TriggerMovementHint();
-                    WorkflowStage = WorkflowStage.Capture;
+                    if (BluetoothOperator.IsConnected)
+                    {
+                        ClearCaptures();
+                    }
+                    else
+                    {
+                        ClearEdits();
+                        CameraColumn = 0;
+                        IsCameraVisible = true;
+                        LeftBitmap?.Dispose();
+                        LeftBitmap = null;
+                        TriggerMovementHint();
+                        WorkflowStage = WorkflowStage.Capture;
+                    }
                 }
                 catch (Exception e)
                 {
@@ -331,13 +338,20 @@ namespace CrossCam.ViewModel
             {
                 try
                 {
-                    ClearEdits();
-                    CameraColumn = 1;
-                    IsCameraVisible = true;
-                    RightBitmap?.Dispose();
-                    RightBitmap = null;
-                    TriggerMovementHint();
-                    WorkflowStage = WorkflowStage.Capture;
+                    if (BluetoothOperator.IsConnected)
+                    {
+                        ClearCaptures();
+                    }
+                    else
+                    {
+                        ClearEdits();
+                        CameraColumn = 1;
+                        IsCameraVisible = true;
+                        RightBitmap?.Dispose();
+                        RightBitmap = null;
+                        TriggerMovementHint();
+                        WorkflowStage = WorkflowStage.Capture;
+                    }
                 }
                 catch (Exception e)
                 {
@@ -828,6 +842,7 @@ namespace CrossCam.ViewModel
 
             BluetoothOperator.CurrentCoreMethods = CoreMethods;
             BluetoothOperator.PreviewFrameReceived += BluetoothOperatorOnPreviewFrameReceived;
+            BluetoothOperator.CapturedImageReceived += BluetoothOperatorOnCapturedImageReceived;
             if (BluetoothOperator.IsPrimary)
             {
                 BluetoothOperator.FinishedRenderingPreviewFrame();
@@ -835,6 +850,20 @@ namespace CrossCam.ViewModel
 
             await Task.Delay(100);
             await EvaluateAndShowWelcomePopup();
+        }
+
+        private void BluetoothOperatorOnCapturedImageReceived(object sender, byte[] e)
+        {
+            PreviewFrame = null;
+            var bitmap = GetBitmapAndCorrectOrientation(e);
+            if (IsCaptureLeftFirst)
+            {
+                SetRightBitmap(bitmap, false, true);
+            }
+            else
+            {
+                SetLeftBitmap(bitmap, false, true);
+            }
         }
 
         private void TriggerMovementHint()
@@ -1459,6 +1488,11 @@ namespace CrossCam.ViewModel
 
         private void ClearCaptures()
         {
+            if (BluetoothOperator.IsConnected &&
+                BluetoothOperator.IsPrimary)
+            {
+                BluetoothOperator.FinishedRenderingPreviewFrame(true);
+            }
             ClearEdits();
             LeftBitmap?.Dispose();
             LeftBitmap = null;
