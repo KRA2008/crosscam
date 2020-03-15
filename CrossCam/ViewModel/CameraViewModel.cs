@@ -183,23 +183,21 @@ namespace CrossCam.ViewModel
         public int IconColumn => CameraColumn == 0 ? 1 : 0;
 
         public bool ShouldPortraitViewModeWarningBeVisible => IsViewPortrait && 
-                                                              (LeftBitmap == null || RightBitmap == null || IsPictureWiderThanTall) &&
+                                                              IsPictureWiderThanTall &&
                                                               WorkflowStage != WorkflowStage.Saving &&
-                                                              (IsNothingCaptured ||
-                                                               (WorkflowStage == WorkflowStage.Final ||
+                                                              (WorkflowStage == WorkflowStage.Final ||
                                                                 WorkflowStage == WorkflowStage.Edits) && 
                                                                Settings.Mode != DrawMode.GrayscaleRedCyanAnaglyph &&
-                                                               Settings.Mode != DrawMode.RedCyanAnaglyph);
+                                                               Settings.Mode != DrawMode.RedCyanAnaglyph;
         private bool IsPictureWiderThanTall => LeftBitmap != null &&
                                                RightBitmap != null &&
+                                               Settings.Mode != DrawMode.Parallel && 
                                                DrawTool.CalculateJoinedCanvasWidthLessBorder(LeftBitmap, RightBitmap,
                                                    LeftCrop + OutsideCrop, InsideCrop + RightCrop, InsideCrop + LeftCrop,
                                                    RightCrop + OutsideCrop) >
                                                DrawTool.CalculateCanvasHeightLessBorder(LeftBitmap, RightBitmap,
                                                    TopCrop, BottomCrop,
                                                    VerticalAlignment);
-        public string PortraitToLandscapeHint =>
-            WorkflowStage == WorkflowStage.Capture ? "(flip for landscape)" : WorkflowStage == WorkflowStage.Edits ? "(flip to landscape for easier editing)" : "(flip to landscape for a better view)";
 
         public string SavedSuccessMessage => "Saved to " + (Settings.SaveToExternal
                                                  ? "external"
@@ -1388,6 +1386,7 @@ namespace CrossCam.ViewModel
             RightBitmap?.Dispose();
             RightBitmap = null;
             _originalUnalignedBitmap?.Dispose();
+            _originalUnalignedBitmap = null;
             IsCameraVisible = true;
             WorkflowStage = WorkflowStage.Capture;
 

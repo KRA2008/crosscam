@@ -1177,7 +1177,7 @@
                HorizontalTextAlignment="Center"
                VerticalTextAlignment="Center"
                InputTransparent="True"
-               Text="{Binding PortraitToLandscapeHint}"
+               Text="(flip to landscape for a larger view)"
                IsVisible="{Binding ShouldPortraitViewModeWarningBeVisible}"/>
 
         <Label Style="{StaticResource _feedback}"
