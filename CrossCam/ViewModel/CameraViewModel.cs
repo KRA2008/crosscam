@@ -68,7 +68,6 @@ namespace CrossCam.ViewModel
         public bool MoveLeftTrigger { get; set; }
         public bool MoveRightTrigger { get; set; }
         public bool WasSwipedTrigger { get; set; }
-        public string DrawModeDirectionHelpText => Settings.Mode == DrawMode.Parallel ? "for parallel" : "for cross";
 
         public Command SaveCapturesCommand { get; set; }
 
@@ -305,6 +304,7 @@ namespace CrossCam.ViewModel
                     ClearEdits();
                     CameraColumn = 0;
                     IsCameraVisible = true;
+                    LeftBitmap?.Dispose();
                     LeftBitmap = null;
                     TriggerMovementHint();
                     WorkflowStage = WorkflowStage.Capture;
@@ -322,6 +322,7 @@ namespace CrossCam.ViewModel
                     ClearEdits();
                     CameraColumn = 1;
                     IsCameraVisible = true;
+                    RightBitmap?.Dispose();
                     RightBitmap = null;
                     TriggerMovementHint();
                     WorkflowStage = WorkflowStage.Capture;
@@ -794,7 +795,6 @@ namespace CrossCam.ViewModel
             RaisePropertyChanged(nameof(ShouldRightRightRetakeBeVisible));
             RaisePropertyChanged(nameof(ShouldLeftCaptureBeVisible));
             RaisePropertyChanged(nameof(ShouldCenterCaptureBeVisible));
-            RaisePropertyChanged(nameof(DrawModeDirectionHelpText));
             RaisePropertyChanged(nameof(ShouldRightCaptureBeVisible));
             RaisePropertyChanged(nameof(ShouldCenterLoadBeVisible));
             RaisePropertyChanged(nameof(ShouldLeftLoadBeVisible));

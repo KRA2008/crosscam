@@ -1255,10 +1255,16 @@
                    FontSize="Large"
                    FontAttributes="Bold"
                    HorizontalOptions="Center"/>
-            <Label Text="{Binding DrawModeDirectionHelpText}"
+            <Label Text="for cross"
                    FontSize="Medium"
                    HorizontalOptions="Center"
-                   VerticalOptions="StartAndExpand"/>
+                   VerticalOptions="StartAndExpand"
+                   IsVisible="{Binding Settings.Mode, Converter={vc:EnumCompareInvertConverter}, ConverterParameter={x:Static vm:DrawMode.Parallel}}"/>
+            <Label Text="for parallel"
+                   FontSize="Medium"
+                   HorizontalOptions="Center"
+                   VerticalOptions="StartAndExpand"
+                   IsVisible="{Binding Settings.Mode, Converter={vc:EnumCompareConverter}, ConverterParameter={x:Static vm:DrawMode.Parallel}}"/>
         </StackLayout>
         <StackLayout AbsoluteLayout.LayoutFlags="All"
                      AbsoluteLayout.LayoutBounds="0.5,0.5,0.5,0.5">
@@ -1276,10 +1282,16 @@
                    FontSize="Large"
                    FontAttributes="Bold"
                    HorizontalOptions="Center"/>
-            <Label Text="{Binding DrawModeDirectionHelpText}"
+            <Label Text="for cross"
                    FontSize="Medium"
                    HorizontalOptions="Center"
-                   VerticalOptions="StartAndExpand"/>
+                   VerticalOptions="StartAndExpand"
+                   IsVisible="{Binding Settings.Mode, Converter={vc:EnumCompareInvertConverter}, ConverterParameter={x:Static vm:DrawMode.Parallel}}"/>
+            <Label Text="for parallel"
+                   FontSize="Medium"
+                   HorizontalOptions="Center"
+                   VerticalOptions="StartAndExpand"
+                   IsVisible="{Binding Settings.Mode, Converter={vc:EnumCompareConverter}, ConverterParameter={x:Static vm:DrawMode.Parallel}}"/>
         </StackLayout>
 
         <BoxView x:Name="_upperLine" 
