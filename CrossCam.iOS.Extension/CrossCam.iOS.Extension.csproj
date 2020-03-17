@@ -74,8 +74,7 @@
     <MtouchLink>Full</MtouchLink>
     <MtouchFloat32>true</MtouchFloat32>
     <MtouchUseLlvm>true</MtouchUseLlvm>
-    <CodesignProvision>
-    </CodesignProvision>
+    <CodesignProvision>CrossCam Share Extension Store Dist</CodesignProvision>
     <CodesignExtraArgs />
     <CodesignResourceRules />
   </PropertyGroup>
