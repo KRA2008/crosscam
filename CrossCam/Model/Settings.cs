@@ -312,5 +312,9 @@ namespace CrossCam.Model
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
+        public virtual void RaisePropertyChanged(string propertyName = null)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
     }
 }
