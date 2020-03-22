@@ -1,4 +1,5 @@
-﻿using System.ComponentModel;
+﻿using System;
+using System.ComponentModel;
 using CrossCam.ViewModel;
 
 namespace CrossCam.Model
@@ -15,6 +16,39 @@ namespace CrossCam.Model
             {
                 var intValue = (int)value;
                 if (intValue < 0) return;
+
+                switch (_mode)
+                {
+                    case DrawMode.Cross when value != DrawMode.Cross:
+                        SaveForCrossView = false;
+                        break;
+                    case DrawMode.Parallel when value != DrawMode.Parallel:
+                        SaveForParallel = false;
+                        break;
+                    case DrawMode.RedCyanAnaglyph when value != DrawMode.RedCyanAnaglyph:
+                        SaveForRedCyanAnaglyph = false;
+                        break;
+                    case DrawMode.GrayscaleRedCyanAnaglyph when value != DrawMode.GrayscaleRedCyanAnaglyph:
+                        SaveForGrayscaleAnaglyph = false;
+                        break;
+                }
+
+                switch (value)
+                {
+                    case DrawMode.Cross:
+                        SaveForCrossView = true;
+                        break;
+                    case DrawMode.Parallel:
+                        SaveForParallel = true;
+                        break;
+                    case DrawMode.RedCyanAnaglyph:
+                        SaveForRedCyanAnaglyph = true;
+                        break;
+                    case DrawMode.GrayscaleRedCyanAnaglyph:
+                        SaveForGrayscaleAnaglyph = true;
+                        break;
+                }
+
                 _mode = value;
             }
         }
@@ -36,36 +70,17 @@ namespace CrossCam.Model
 
         public string SavingDirectory { get; set; }
 
-        public bool SaveInCurrentMode { get; set; }
         public bool SaveToExternal { get; set; }
 
-        private bool _saveForParallel;
-        public bool SaveForParallel
-        {
-            get => _saveForParallel || SaveInCurrentMode && Mode == DrawMode.Parallel;
-            set => _saveForParallel = value;
-        }
+        public bool SaveForCrossView { get; set; }
+        public bool SaveForParallel { get; set; }
+        public bool SaveForRedCyanAnaglyph { get; set; }
+        public bool SaveForGrayscaleAnaglyph { get; set; }
 
-        private bool _saveForCrossView;
-        public bool SaveForCrossView
-        {
-            get => _saveForCrossView || SaveInCurrentMode && Mode == DrawMode.Cross;
-            set => _saveForCrossView = value;
-        }
-
-        private bool _redCyanAnaglyphMode;
-        public bool RedCyanAnaglyphMode
-        {
-            get => _redCyanAnaglyphMode || SaveInCurrentMode && Mode == DrawMode.RedCyanAnaglyph;
-            set => _redCyanAnaglyphMode = value;
-        }
-
-        private bool _grayscaleAnaglyphMode;
-        public bool GrayscaleAnaglyphMode
-        {
-            get => _grayscaleAnaglyphMode || SaveInCurrentMode && Mode == DrawMode.GrayscaleRedCyanAnaglyph;
-            set => _grayscaleAnaglyphMode = value;
-        }
+        [Obsolete("Use SaveForRedCyanAnaglyph - kept for backward compatibility")]
+        public bool RedCyanAnaglyphMode { get => SaveForRedCyanAnaglyph; set => SaveForRedCyanAnaglyph = value; }
+        [Obsolete("Use SaveForGrayscaleAnaglyph - kept for backward compatibility")]
+        public bool GrayscaleAnaglyphMode { get => SaveForGrayscaleAnaglyph; set => SaveForGrayscaleAnaglyph = value; }
 
         public bool AddBorder { get; set; }
 
@@ -276,14 +291,12 @@ namespace CrossCam.Model
             IsGuideDonutVisible = false;
             ShowGuideDonutWithFirstCapture = false;
 
-            SaveInCurrentMode = true;
-            SaveForCrossView = false;
+            SaveForCrossView = true;
             SaveSidesSeparately = false;
             SaveRedundantFirstSide = false;
             SaveForParallel = false;
-
-            RedCyanAnaglyphMode = false;
-            GrayscaleAnaglyphMode = false;
+            SaveForGrayscaleAnaglyph = false;
+            SaveForRedCyanAnaglyph = false;
 
             IsForceCamera1Enabled = false;
             IsTapToFocusEnabled2 = true;

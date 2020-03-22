@@ -176,8 +176,8 @@ namespace CrossCam.ViewModel
                                                           Settings.SaveForParallel ||
                                                           Settings.SaveSidesSeparately ||
                                                           Settings.SaveRedundantFirstSide ||
-                                                          Settings.RedCyanAnaglyphMode ||
-                                                          Settings.GrayscaleAnaglyphMode);
+                                                          Settings.SaveForRedCyanAnaglyph ||
+                                                          Settings.SaveForGrayscaleAnaglyph);
 
         public int IconColumn => CameraColumn == 0 ? 1 : 0;
 
@@ -264,8 +264,8 @@ namespace CrossCam.ViewModel
                                                       (_wasAlignmentWithoutHorizontalRun ||
                                                        _wasAlignmentWithHorizontalRun);
                     var otherAlignmentModeWasRun = Settings.IsAutomaticAlignmentOn &&
-                                                   (_wasAlignmentWithHorizontalRun && !Settings.RedCyanAnaglyphMode && !Settings.AlignHorizontallySideBySide ||
-                                                    _wasAlignmentWithoutHorizontalRun && (Settings.RedCyanAnaglyphMode || Settings.AlignHorizontallySideBySide));
+                                                   (_wasAlignmentWithHorizontalRun && !Settings.SaveForRedCyanAnaglyph && !Settings.AlignHorizontallySideBySide ||
+                                                    _wasAlignmentWithoutHorizontalRun && (Settings.SaveForRedCyanAnaglyph || Settings.AlignHorizontallySideBySide));
                     if (alignmentWasRunButIsOffNow ||
                         otherAlignmentModeWasRun)
                     {
@@ -533,12 +533,12 @@ namespace CrossCam.ViewModel
                             }
                         }
 
-                        if (Settings.RedCyanAnaglyphMode)
+                        if (Settings.SaveForRedCyanAnaglyph)
                         {
                             await DrawAnaglyph(false);
                         }
 
-                        if (Settings.GrayscaleAnaglyphMode)
+                        if (Settings.SaveForGrayscaleAnaglyph)
                         {
                             await DrawAnaglyph(true);
                         }
@@ -925,7 +925,7 @@ namespace CrossCam.ViewModel
                                 Settings.AlignmentEpsilonLevel2,
                                 Settings.AlignmentEccThresholdPercentage2,
                                 Settings.AlignmentPyramidLayers2,
-                                !Settings.RedCyanAnaglyphMode && !Settings.AlignHorizontallySideBySide);
+                                !Settings.SaveForRedCyanAnaglyph && !Settings.AlignHorizontallySideBySide);
                         });
                     }
                     catch (Exception e)
@@ -935,8 +935,8 @@ namespace CrossCam.ViewModel
 
                     if (alignedResult != null)
                     {
-                        _wasAlignmentWithHorizontalRun = Settings.RedCyanAnaglyphMode || Settings.AlignHorizontallySideBySide;
-                        _wasAlignmentWithoutHorizontalRun = !Settings.RedCyanAnaglyphMode && !Settings.AlignHorizontallySideBySide;
+                        _wasAlignmentWithHorizontalRun = Settings.SaveForRedCyanAnaglyph || Settings.AlignHorizontallySideBySide;
+                        _wasAlignmentWithoutHorizontalRun = !Settings.SaveForRedCyanAnaglyph && !Settings.AlignHorizontallySideBySide;
 
                         var topLeft = alignedResult.TransformMatrix.MapPoint(0, 0);
                         var topRight = alignedResult.TransformMatrix.MapPoint(alignedResult.AlignedBitmap.Width - 1, 0);

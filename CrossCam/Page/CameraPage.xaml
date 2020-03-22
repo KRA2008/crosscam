@@ -359,9 +359,9 @@
                 <Image Source="saveOne"
                        IsVisible="{Binding Settings.SaveRedundantFirstSide}"/>
                 <Image Source="anaglyph"
-                       IsVisible="{Binding Settings.RedCyanAnaglyphMode}"/>
+                       IsVisible="{Binding Settings.SaveForRedCyanAnaglyph}"/>
                 <Image Source="grayscaleAnaglyph"
-                       IsVisible="{Binding Settings.GrayscaleAnaglyphMode}"/>
+                       IsVisible="{Binding Settings.SaveForGrayscaleAnaglyph}"/>
                 <Label Text="{Binding Settings.ResolutionProportion, StringFormat=' {0}%'}"
                        FontSize="15"/>
             </StackLayout>

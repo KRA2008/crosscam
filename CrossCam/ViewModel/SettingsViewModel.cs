@@ -85,7 +85,7 @@ namespace CrossCam.ViewModel
         private void SaveSettings(object sender, PropertyChangedEventArgs e)
         {
             RaisePropertyChanged(nameof(IsAnaglyphMode));
-            EnableFirstSideAloneSwitch = (Settings.SaveForCrossView || Settings.SaveForParallel || Settings.RedCyanAnaglyphMode) &&
+            EnableFirstSideAloneSwitch = (Settings.SaveForCrossView || Settings.SaveForParallel || Settings.SaveForRedCyanAnaglyph) &&
                                          !Settings.SaveSidesSeparately;
 
             if (!EnableFirstSideAloneSwitch)
