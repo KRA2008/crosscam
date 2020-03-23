@@ -19,16 +19,37 @@
             <Label Text=" "/>
             <Label Text="To see the 3D in CrossCam, you have to do something special with your eyes. There are two ways to do it, but you have to learn at least one of the ways or CrossCam will be useless to you. You also need to tell CrossCam which one you're going to do or it won't work right. Don't worry, you can always change this again in Settings."/>
             <Label Text=" "/>
-            <Label Text="If you're able to cross your eyes, you should try the cross method first, otherwise you should try the parallel method. If you're used to Magic Eye books, you're already able to do the parallel method. Tap a method below to learn it, and make sure to tell CrossCam which one works for you."/>
-            <StackLayout Orientation="Horizontal">
-                <Button Text="LEARN CROSS"
-                        HorizontalOptions="FillAndExpand"
-                        Command="{Binding ViewCrossTutorialCommand}"/>
-                <Button Text="LEARN PARALLEL"
-                        HorizontalOptions="FillAndExpand"
-                        Command="{Binding ViewParallelTutorialCommand}"/>
+            <Label Text="If you're able to cross your eyes, you should try the cross method first, otherwise you should try the parallel method. If you're used to Magic Eye™ books, you're probably already able to do the parallel method, but you might also be able to do the cross method. Tap a method below to learn it, and make sure to tell CrossCam which one works for you by pressing the corresponding CHOOSE button."/>
+            <Label Text=" "/>
+            <StackLayout Spacing="0">
+                <BoxView/>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="1"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="1"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="1"/>
+                    </Grid.ColumnDefinitions>
+                    <BoxView Grid.Column="0" 
+                             WidthRequest="1"
+                             HeightRequest="0"/>
+                    <Button Grid.Column="1"
+                            Text="LEARN CROSS"
+                            HorizontalOptions="FillAndExpand"
+                            Command="{Binding ViewCrossTutorialCommand}"/>
+                    <BoxView Grid.Column="2" 
+                             WidthRequest="1"
+                             HeightRequest="0"/>
+                    <Button Grid.Column="3" Text="LEARN PARALLEL"
+                            HorizontalOptions="FillAndExpand"
+                            Command="{Binding ViewParallelTutorialCommand}"/>
+                    <BoxView Grid.Column="4" 
+                             WidthRequest="1"
+                             HeightRequest="0"/>
+                </Grid>
+                <BoxView/>
             </StackLayout>
-            <BoxView/>
             <Label Text=" "/>
 
             <StackLayout IsVisible="{Binding IsCrossViewMode}">
@@ -80,7 +101,7 @@
                 </Grid>
                 <AbsoluteLayout>
                 </AbsoluteLayout>
-                <Label Text="Start by turning your phone to landscape - CrossCam is trying to make the pair of images above the easiest size for this. You don't always have to use CrossCam in landscape, but a perfectly sized image makes learning the technique easier."/>
+                <Label Text="If the above image doesn't fit on your screen, turn your phone to landscape - CrossCam is trying to make the pair of images above the easiest size for this. You don't always have to use CrossCam in landscape, but a perfectly sized image makes learning the technique easier."/>
                 <Label Text="Relax your eyes and look &quot;through&quot; the pair of pictures above like you're kind of zoning out with your eyes pointing at the pictures. You should start to see 3 flowers with a 3D flower in the middle, a little bit like this:"/>
                 <Image Source="bloodrootOverlapped" />
                 <Label Text="If you start to see 4 flowers, you've gone too far. Try moving your eyes around a tiny bit if you find yourself at that point again. Relaxing too far will look a little like this:"/>
@@ -99,7 +120,7 @@
 
             <BoxView/>
             <Label Text=" "/>
-            <Label Text="I personally prefer cross over parallel because images can be larger, but both methods work."/>
+            <Label Text="I personally prefer cross over parallel because images can be larger, but both methods work. If you'd like to experiment with larger parallel images, you can control the size on the Settings page."/>
             <Label Text=" "/>
             <Label Text="Sometimes it's difficult to feel whether you're doing the cross or parallel method while you're doing it. You can ask someone else to watch your eyes while you do it or you can look at the picture below as a test:"/>
             <AbsoluteLayout HorizontalOptions="Center"

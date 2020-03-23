@@ -6,7 +6,7 @@ namespace CrossCam.Model
 {
     public class Settings : INotifyPropertyChanged
     {
-        public const double PARALLEL_BASE_WIDTH = 500;
+        public const double PARALLEL_BASE_WIDTH = 325;
 
         private DrawMode _mode;
         public DrawMode Mode
