@@ -27,15 +27,15 @@ namespace CrossCam.Page
 	    private readonly ImageSource _levelBubbleGreenImage = ImageSource.FromFile("horizontalLevelInsideGreen");
 	    private readonly ImageSource _levelOutsideGreenImage = ImageSource.FromFile("horizontalLevelOutsideGreen");
 
-        private readonly Rectangle _leftReticleBounds = new Rectangle(0.2297, 0.5, 0.075, 0.075);
-        private readonly Rectangle _rightReticleBounds = new Rectangle(0.7703, 0.5, 0.075, 0.075);
+        private const double RETICLE_WIDTH = 30;
+        private readonly Rectangle _leftReticleBounds = new Rectangle(0.5, 0.5, RETICLE_WIDTH, RETICLE_WIDTH);
+        private readonly Rectangle _rightReticleBounds = new Rectangle(0.5, 0.5, RETICLE_WIDTH, RETICLE_WIDTH);
 
         public const double FOCUS_CIRCLE_WIDTH = 30;
 
 	    private double _reticleLeftX;
 	    private double _reticleRightX;
 	    private double _reticleY;
-	    private double _reticleWidth;
 
 	    private double _upperLineY;
 	    private double _upperLineHeight;
@@ -306,14 +306,14 @@ namespace CrossCam.Page
                 AbsoluteLayout.SetLayoutBounds(_lowerLinePanner, _lowerLineBoundsLandscape);
             }
 
-            AbsoluteLayout.SetLayoutFlags(_leftReticle, AbsoluteLayoutFlags.All);
+            AbsoluteLayout.SetLayoutFlags(_leftReticle, AbsoluteLayoutFlags.PositionProportional);
             AbsoluteLayout.SetLayoutBounds(_leftReticle, _leftReticleBounds);
-            AbsoluteLayout.SetLayoutFlags(_leftReticlePanner, AbsoluteLayoutFlags.All);
+            AbsoluteLayout.SetLayoutFlags(_leftReticlePanner, AbsoluteLayoutFlags.PositionProportional);
             AbsoluteLayout.SetLayoutBounds(_leftReticlePanner, _leftReticleBounds);
 
-            AbsoluteLayout.SetLayoutFlags(_rightReticle, AbsoluteLayoutFlags.All);
+            AbsoluteLayout.SetLayoutFlags(_rightReticle, AbsoluteLayoutFlags.PositionProportional);
             AbsoluteLayout.SetLayoutBounds(_rightReticle, _rightReticleBounds);
-            AbsoluteLayout.SetLayoutFlags(_rightReticlePanner, AbsoluteLayoutFlags.All);
+            AbsoluteLayout.SetLayoutFlags(_rightReticlePanner, AbsoluteLayoutFlags.PositionProportional);
             AbsoluteLayout.SetLayoutBounds(_rightReticlePanner, _rightReticleBounds);
         }
 
@@ -330,53 +330,51 @@ namespace CrossCam.Page
 	    {
 	        if (e.StatusType == GestureStatus.Started)
 	        {
-	            var originalBounds = AbsoluteLayout.GetLayoutBounds(_leftReticlePanner);
 	            _reticleLeftX = _leftReticle.X;
 	            _reticleY = _leftReticle.Y;
 	            _reticleRightX = _rightReticle.X;
-	            _reticleWidth = originalBounds.Width;
             }
 	        else if (e.StatusType == GestureStatus.Running)
 	        {
-	            if (AbsoluteLayout.GetLayoutFlags(_leftReticle) != AbsoluteLayoutFlags.SizeProportional)
+	            if (AbsoluteLayout.GetLayoutFlags(_leftReticle) != AbsoluteLayoutFlags.None)
 	            {
-	                AbsoluteLayout.SetLayoutFlags(_leftReticle, AbsoluteLayoutFlags.SizeProportional);
-	                AbsoluteLayout.SetLayoutFlags(_rightReticle, AbsoluteLayoutFlags.SizeProportional);
+	                AbsoluteLayout.SetLayoutFlags(_leftReticle, AbsoluteLayoutFlags.None);
+	                AbsoluteLayout.SetLayoutFlags(_rightReticle, AbsoluteLayoutFlags.None);
 	            }
 
                 AbsoluteLayout.SetLayoutBounds(_leftReticle, new Rectangle(
-	                _reticleLeftX + e.TotalX,
-	                _reticleY + e.TotalY,
-	                _reticleWidth,
-	                _reticleWidth));
+	                _reticleLeftX + e.TotalX - RETICLE_WIDTH/2d,
+	                _reticleY + e.TotalY - RETICLE_WIDTH / 2d,
+	                RETICLE_WIDTH,
+	                RETICLE_WIDTH));
 
 	            AbsoluteLayout.SetLayoutBounds(_rightReticle, new Rectangle(
-	                _reticleRightX + e.TotalX,
-	                _reticleY + e.TotalY,
-	                _reticleWidth,
-	                _reticleWidth));
+	                _reticleRightX + e.TotalX - RETICLE_WIDTH / 2d,
+	                _reticleY + e.TotalY - RETICLE_WIDTH / 2d,
+	                RETICLE_WIDTH,
+	                RETICLE_WIDTH));
             }
 	        else if (e.StatusType == GestureStatus.Completed)
 	        {
-	            if (AbsoluteLayout.GetLayoutFlags(_leftReticlePanner) != AbsoluteLayoutFlags.SizeProportional)
+	            if (AbsoluteLayout.GetLayoutFlags(_leftReticlePanner) != AbsoluteLayoutFlags.None)
 	            {
-	                AbsoluteLayout.SetLayoutFlags(_leftReticlePanner, AbsoluteLayoutFlags.SizeProportional);
-	                AbsoluteLayout.SetLayoutFlags(_rightReticlePanner, AbsoluteLayoutFlags.SizeProportional);
+	                AbsoluteLayout.SetLayoutFlags(_leftReticlePanner, AbsoluteLayoutFlags.None);
+	                AbsoluteLayout.SetLayoutFlags(_rightReticlePanner, AbsoluteLayoutFlags.None);
 	            }
 
 	            var newLeftReticleBounds = AbsoluteLayout.GetLayoutBounds(_leftReticle);
 	            AbsoluteLayout.SetLayoutBounds(_leftReticlePanner, new Rectangle(
 	                newLeftReticleBounds.X,
 	                newLeftReticleBounds.Y,
-	                _reticleWidth,
-	                _reticleWidth));
+	                RETICLE_WIDTH,
+	                RETICLE_WIDTH));
 
 	            var newRightReticleBounds = AbsoluteLayout.GetLayoutBounds(_rightReticle);
 	            AbsoluteLayout.SetLayoutBounds(_rightReticlePanner, new Rectangle(
 	                newRightReticleBounds.X,
 	                newRightReticleBounds.Y,
-	                _reticleWidth,
-	                _reticleWidth));
+	                RETICLE_WIDTH,
+	                RETICLE_WIDTH));
 	        }
         }
 

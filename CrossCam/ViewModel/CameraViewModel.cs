@@ -786,7 +786,24 @@ namespace CrossCam.ViewModel
             base.ViewIsAppearing(sender, e);
             TriggerMovementHint();
 
-            RaisePropertyChanged();
+            RaisePropertyChanged(nameof(ShouldLineGuidesBeVisible)); //TODO: figure out how to have Fody do this (just firing 'null' has bad behavior)
+            RaisePropertyChanged(nameof(ShouldDonutGuideBeVisible));
+            RaisePropertyChanged(nameof(ShouldRollGuideBeVisible));
+            RaisePropertyChanged(nameof(ShouldSaveCapturesButtonBeVisible));
+            RaisePropertyChanged(nameof(ShouldLeftLeftRetakeBeVisible));
+            RaisePropertyChanged(nameof(ShouldLeftRightRetakeBeVisible));
+            RaisePropertyChanged(nameof(ShouldRightLeftRetakeBeVisible));
+            RaisePropertyChanged(nameof(ShouldRightRightRetakeBeVisible));
+            RaisePropertyChanged(nameof(ShouldLeftCaptureBeVisible));
+            RaisePropertyChanged(nameof(ShouldCenterCaptureBeVisible));
+            RaisePropertyChanged(nameof(ShouldRightCaptureBeVisible));
+            RaisePropertyChanged(nameof(ShouldCenterLoadBeVisible));
+            RaisePropertyChanged(nameof(ShouldLeftLoadBeVisible));
+            RaisePropertyChanged(nameof(ShouldRightLoadBeVisible));
+            RaisePropertyChanged(nameof(SavedSuccessMessage));
+            RaisePropertyChanged(nameof(CanvasRectangle));
+            RaisePropertyChanged(nameof(CanvasRectangleFlags));
+            RaisePropertyChanged(nameof(Settings)); // this doesn't cause reevaluation for above stuff (but I'd like it to), but it does trigger redraw of canvas and evaluation of whether to run auto alignment
             Settings.RaisePropertyChanged();
 
             if ((Settings.Mode == DrawMode.Cross || Settings.Mode == DrawMode.RedCyanAnaglyph || Settings.Mode == DrawMode.GrayscaleRedCyanAnaglyph) && !WasCaptureCross ||

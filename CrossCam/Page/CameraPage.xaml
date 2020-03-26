@@ -178,6 +178,47 @@
                                              VisibleTimeMs="0"/>
                 </ce:CameraSuccessOutline.Behaviors>
             </ce:CameraSuccessOutline>
+
+            <AbsoluteLayout Grid.Column="0"
+                            InputTransparent="True"
+                            CascadeInputTransparent="False">
+                <Image x:Name="_leftReticle"
+                       AbsoluteLayout.LayoutFlags="All"
+                       AbsoluteLayout.LayoutBounds="0, 0, 0, 0"
+                       Margin="{StaticResource _reticlePadding}"
+                       InputTransparent="True" 
+                       Source="squareOuter"
+                       IsVisible="{Binding ShouldDonutGuideBeVisible}"/>
+                <ContentView x:Name="_leftReticlePanner"
+                             AbsoluteLayout.LayoutFlags="All"
+                             AbsoluteLayout.LayoutBounds="0, 0, 0, 0"
+                             Padding="{StaticResource _reticlePadding}"
+                             IsVisible="{Binding ShouldDonutGuideBeVisible}">
+                    <ContentView.GestureRecognizers>
+                        <PanGestureRecognizer PanUpdated="ReticlePanned"/>
+                    </ContentView.GestureRecognizers>
+                </ContentView>
+            </AbsoluteLayout>
+            <AbsoluteLayout Grid.Column="1"
+                            InputTransparent="True"
+                            CascadeInputTransparent="False">
+                <Image x:Name="_rightReticle"
+                       AbsoluteLayout.LayoutFlags="All"
+                       AbsoluteLayout.LayoutBounds="0, 0, 0, 0"
+                       Margin="{StaticResource _reticlePadding}"
+                       InputTransparent="True" 
+                       Source="squareInner"
+                       IsVisible="{Binding ShouldDonutGuideBeVisible}"/>
+                <ContentView x:Name="_rightReticlePanner"
+                             AbsoluteLayout.LayoutFlags="All"
+                             AbsoluteLayout.LayoutBounds="0, 0, 0, 0"
+                             Padding="{StaticResource _reticlePadding}"
+                             IsVisible="{Binding ShouldDonutGuideBeVisible}">
+                    <ContentView.GestureRecognizers>
+                        <PanGestureRecognizer PanUpdated="ReticlePanned"/>
+                    </ContentView.GestureRecognizers>
+                </ContentView>
+            </AbsoluteLayout>
         </Grid>
 
         <ContentView AbsoluteLayout.LayoutFlags="PositionProportional"
@@ -266,38 +307,6 @@
                    AbsoluteLayout.LayoutBounds="0.5,0,15,1"/>
         </AbsoluteLayout>
 
-        <Image x:Name="_leftReticle"
-               AbsoluteLayout.LayoutFlags="All"
-               AbsoluteLayout.LayoutBounds="0, 0, 0, 0"
-               Margin="{StaticResource _reticlePadding}"
-               InputTransparent="True" 
-               Source="squareOuter"
-               IsVisible="{Binding ShouldDonutGuideBeVisible}"/>
-        <ContentView x:Name="_leftReticlePanner"
-                     AbsoluteLayout.LayoutFlags="All"
-                     AbsoluteLayout.LayoutBounds="0, 0, 0, 0"
-                     Padding="{StaticResource _reticlePadding}"
-                     IsVisible="{Binding ShouldDonutGuideBeVisible}">
-            <ContentView.GestureRecognizers>
-                <PanGestureRecognizer PanUpdated="ReticlePanned"/>
-            </ContentView.GestureRecognizers>
-        </ContentView>
-        <Image x:Name="_rightReticle"
-               AbsoluteLayout.LayoutFlags="All"
-               AbsoluteLayout.LayoutBounds="0, 0, 0, 0"
-               Margin="{StaticResource _reticlePadding}"
-               InputTransparent="True" 
-               Source="squareInner"
-               IsVisible="{Binding ShouldDonutGuideBeVisible}"/>
-        <ContentView x:Name="_rightReticlePanner"
-                     AbsoluteLayout.LayoutFlags="All"
-                     AbsoluteLayout.LayoutBounds="0, 0, 0, 0"
-                     Padding="{StaticResource _reticlePadding}"
-                     IsVisible="{Binding ShouldDonutGuideBeVisible}">
-            <ContentView.GestureRecognizers>
-                <PanGestureRecognizer PanUpdated="ReticlePanned"/>
-            </ContentView.GestureRecognizers>
-        </ContentView>
         <ContentView AbsoluteLayout.LayoutFlags="YProportional,WidthProportional,XProportional"
                      AbsoluteLayout.LayoutBounds="{StaticResource _clearBounds}"
                      Padding="{StaticResource _topBarButtonPadding}"
