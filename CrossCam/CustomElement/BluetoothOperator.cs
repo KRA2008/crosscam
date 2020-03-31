@@ -29,12 +29,12 @@ namespace CrossCam.CustomElement
         private PartnerDevice _device;
         private readonly Timer _captureSyncTimer = new Timer{AutoReset = false};
 
-        private const int TIMER_SAMPLE_TRIPS = 10;
-        private readonly long[] T0_SAMPLES = new long[TIMER_SAMPLE_TRIPS];
-        private readonly long[] T1T2_SAMPLES = new long[TIMER_SAMPLE_TRIPS];
-        private readonly long[] T3_SAMPLES = new long[TIMER_SAMPLE_TRIPS];
-        private int _totalTrips;
-        private bool _isSyncingForCapture;
+        private const int TIMER_TOTAL_SAMPLES = 15;
+        private int _timerSampleIndex;
+        private readonly long[] T0_SAMPLES = new long[TIMER_TOTAL_SAMPLES];
+        private readonly long[] T1T2_SAMPLES = new long[TIMER_TOTAL_SAMPLES];
+        private readonly long[] T3_SAMPLES = new long[TIMER_TOTAL_SAMPLES];
+        private bool _isCaptureRequested;
 
         public event ElapsedEventHandler CaptureRequested;
         private void OnCaptureRequested(object sender, ElapsedEventArgs e)
@@ -124,16 +124,24 @@ namespace CrossCam.CustomElement
 
         private async void PlatformBluetoothOnClockReadingReceived(object sender, long e)
         {
-            T1T2_SAMPLES[_totalTrips] = e;
-            T3_SAMPLES[_totalTrips] = DateTime.UtcNow.Ticks;
-            _totalTrips++;
-            if (_totalTrips < TIMER_SAMPLE_TRIPS)
+            T1T2_SAMPLES[_timerSampleIndex] = e;
+            T3_SAMPLES[_timerSampleIndex] = DateTime.UtcNow.Ticks;
+            if (_timerSampleIndex < TIMER_TOTAL_SAMPLES - 1)
+            {
+                _timerSampleIndex++;
+            }
+            else
+            {
+                _timerSampleIndex = 0;
+            }
+
+            if (!_isCaptureRequested)
             {
                 await _platformBluetooth.SendReadyForPreviewFrame();
             }
             else
             {
-                await FindAndApplySyncMoment();
+                await CalculateAndApplySyncMoment();
             }
         }
 
@@ -252,42 +260,18 @@ namespace CrossCam.CustomElement
             return _platformBluetooth.GetPairedDevices();
         }
 
-        public async void BeginSamplingClock()
+        public void BeginSyncedCapture()
         {
-            _totalTrips = 0;
-            _isSyncingForCapture = true;
-            T0_SAMPLES[_totalTrips] = DateTime.UtcNow.Ticks;
+            _isCaptureRequested = true;
+        }
+
+        public async void RequestClockReading()
+        {
+            T0_SAMPLES[_timerSampleIndex] = DateTime.UtcNow.Ticks;
             await _platformBluetooth.SendReadyForClockReading();
         }
 
-        public async void FinishedRenderingPreviewFrame(bool forceStopSyncing = false)
-        {
-            if (forceStopSyncing)
-            {
-                Debug.WriteLine("Forced stop sync");
-                _isSyncingForCapture = false;
-            }
-            if (_isSyncingForCapture)
-            {
-                if (_totalTrips < TIMER_SAMPLE_TRIPS)
-                {
-                    Debug.WriteLine("Getting next clock reading, trips: " + _totalTrips);
-                    T0_SAMPLES[_totalTrips] = DateTime.UtcNow.Ticks;
-                    await _platformBluetooth.SendReadyForClockReading();
-                }
-                else
-                {
-
-                    Debug.WriteLine("Neither requesting frame nor requesting clock reading");
-                }
-            }
-            else
-            {
-                await _platformBluetooth.SendReadyForPreviewFrame();
-            }
-        }
-
-        private async Task FindAndApplySyncMoment()
+        private async Task CalculateAndApplySyncMoment()
         {
             const int BUFFER_TRIP_MULTIPLIER = 4;
             var offsets = new List<long>();
@@ -296,7 +280,7 @@ namespace CrossCam.CustomElement
             var tripsSafeAverage = 0L;
             try
             {
-                for (var i = 0; i < TIMER_SAMPLE_TRIPS; i++)
+                for (var i = 0; i < TIMER_TOTAL_SAMPLES; i++)
                 {
                     var t0 = T0_SAMPLES[i];
                     var t3 = T3_SAMPLES[i];
@@ -331,6 +315,7 @@ namespace CrossCam.CustomElement
             Debug.WriteLine("Partner sync: " + partnerSyncMoment.ToString("O"));
             SyncCapture(targetSyncMoment);
             await _platformBluetooth.SendSync(partnerSyncMoment);
+            _isCaptureRequested = false;
         }
 
         private void SyncCapture(DateTime syncTime)

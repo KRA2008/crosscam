@@ -845,7 +845,7 @@ namespace CrossCam.ViewModel
             BluetoothOperator.CapturedImageReceived += BluetoothOperatorOnCapturedImageReceived;
             if (BluetoothOperator.IsPrimary)
             {
-                BluetoothOperator.FinishedRenderingPreviewFrame();
+                BluetoothOperator.RequestClockReading();
             }
 
             await Task.Delay(100);
@@ -1491,7 +1491,7 @@ namespace CrossCam.ViewModel
             if (BluetoothOperator.IsConnected &&
                 BluetoothOperator.IsPrimary)
             {
-                BluetoothOperator.FinishedRenderingPreviewFrame(true);
+                BluetoothOperator.RequestClockReading();
             }
             ClearEdits();
             LeftBitmap?.Dispose();

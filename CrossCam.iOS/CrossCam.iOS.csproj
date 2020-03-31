@@ -73,7 +73,7 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <ConsolePause>false</ConsolePause>
-    <MtouchArch>ARMv7, ARM64</MtouchArch>
+    <MtouchArch>ARM64</MtouchArch>
     <CodesignEntitlements>
     </CodesignEntitlements>
     <MtouchProfiling>false</MtouchProfiling>
@@ -82,7 +82,7 @@
     <CodesignProvision>CrossCam Dev</CodesignProvision>
     <IpaPackageName />
     <MtouchFastDev>true</MtouchFastDev>
-    <DeviceSpecificBuild>true</DeviceSpecificBuild>
+    <DeviceSpecificBuild>false</DeviceSpecificBuild>
     <OptimizePNGs>false</OptimizePNGs>
     <CodesignExtraArgs />
     <CodesignResourceRules />
@@ -464,12 +464,6 @@
     <BundleResource Include="Resources\bloodrootReduced.png" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\CrossCam.iOS.Extension\CrossCam.iOS.Extension.csproj">
-      <Project>{292f6a1e-e003-4bd7-8baf-ac64b80d0bba}</Project>
-      <Name>CrossCam.iOS.Extension</Name>
-      <IsAppExtension>true</IsAppExtension>
-      <IsWatchApp>false</IsWatchApp>
-    </ProjectReference>
     <ProjectReference Include="..\CrossCam\CrossCam.csproj">
       <Project>{C67DAD12-9B8D-4AE3-B7B2-5F84E4E26EA8}</Project>
       <Name>CrossCam</Name>

@@ -410,7 +410,7 @@ namespace CrossCam.Droid.CustomRenderer
                 _cameraModule.BluetoothOperator.IsPrimary &&
                 !isSyncReentry)
             {
-                _cameraModule.BluetoothOperator.BeginSamplingClock();
+                _cameraModule.BluetoothOperator.BeginSyncedCapture();
                 return;
             }
             if (_useCamera2)

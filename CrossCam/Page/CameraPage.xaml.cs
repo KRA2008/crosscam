@@ -5,7 +5,6 @@ using System.Diagnostics;
 using System.Threading.Tasks;
 using CrossCam.CustomElement;
 using CrossCam.ViewModel;
-using SkiaSharp;
 using SkiaSharp.Views.Forms;
 using Xamarin.Essentials;
 using Xamarin.Forms;
@@ -333,7 +332,7 @@ namespace CrossCam.Page
                         _viewModel.SetLeftBitmap(bitmap, false, false);
                     }
 
-                    _viewModel.BluetoothOperatorBindable.FinishedRenderingPreviewFrame();
+                    _viewModel.BluetoothOperatorBindable.RequestClockReading();
                 }
             }
         }
@@ -354,38 +353,48 @@ namespace CrossCam.Page
             {
                 if (_viewModel == null || _viewModel.IsViewPortrait)
                 {
-                    AbsoluteLayout.SetLayoutFlags(_upperLine, AbsoluteLayoutFlags.YProportional | AbsoluteLayoutFlags.WidthProportional);
+                    AbsoluteLayout.SetLayoutFlags(_upperLine,
+                        AbsoluteLayoutFlags.YProportional | AbsoluteLayoutFlags.WidthProportional);
                     AbsoluteLayout.SetLayoutBounds(_upperLine, _upperLineBoundsPortrait);
-                    AbsoluteLayout.SetLayoutFlags(_upperLinePanner, AbsoluteLayoutFlags.YProportional | AbsoluteLayoutFlags.WidthProportional);
+                    AbsoluteLayout.SetLayoutFlags(_upperLinePanner,
+                        AbsoluteLayoutFlags.YProportional | AbsoluteLayoutFlags.WidthProportional);
                     AbsoluteLayout.SetLayoutBounds(_upperLinePanner, _upperLineBoundsPortrait);
 
-                    AbsoluteLayout.SetLayoutFlags(_lowerLine, AbsoluteLayoutFlags.YProportional | AbsoluteLayoutFlags.WidthProportional);
+                    AbsoluteLayout.SetLayoutFlags(_lowerLine,
+                        AbsoluteLayoutFlags.YProportional | AbsoluteLayoutFlags.WidthProportional);
                     AbsoluteLayout.SetLayoutBounds(_lowerLine, _lowerLinesBoundsPortrait);
-                    AbsoluteLayout.SetLayoutFlags(_lowerLinePanner, AbsoluteLayoutFlags.YProportional | AbsoluteLayoutFlags.WidthProportional);
+                    AbsoluteLayout.SetLayoutFlags(_lowerLinePanner,
+                        AbsoluteLayoutFlags.YProportional | AbsoluteLayoutFlags.WidthProportional);
                     AbsoluteLayout.SetLayoutBounds(_lowerLinePanner, _lowerLinesBoundsPortrait);
                 }
                 else
                 {
-                    AbsoluteLayout.SetLayoutFlags(_upperLine, AbsoluteLayoutFlags.YProportional | AbsoluteLayoutFlags.WidthProportional);
+                    AbsoluteLayout.SetLayoutFlags(_upperLine,
+                        AbsoluteLayoutFlags.YProportional | AbsoluteLayoutFlags.WidthProportional);
                     AbsoluteLayout.SetLayoutBounds(_upperLine, _upperLineBoundsLandscape);
-                    AbsoluteLayout.SetLayoutFlags(_upperLinePanner, AbsoluteLayoutFlags.YProportional | AbsoluteLayoutFlags.WidthProportional);
+                    AbsoluteLayout.SetLayoutFlags(_upperLinePanner,
+                        AbsoluteLayoutFlags.YProportional | AbsoluteLayoutFlags.WidthProportional);
                     AbsoluteLayout.SetLayoutBounds(_upperLinePanner, _upperLineBoundsLandscape);
 
-                    AbsoluteLayout.SetLayoutFlags(_lowerLine, AbsoluteLayoutFlags.YProportional | AbsoluteLayoutFlags.WidthProportional);
+                    AbsoluteLayout.SetLayoutFlags(_lowerLine,
+                        AbsoluteLayoutFlags.YProportional | AbsoluteLayoutFlags.WidthProportional);
                     AbsoluteLayout.SetLayoutBounds(_lowerLine, _lowerLineBoundsLandscape);
-                    AbsoluteLayout.SetLayoutFlags(_lowerLinePanner, AbsoluteLayoutFlags.YProportional | AbsoluteLayoutFlags.WidthProportional);
+                    AbsoluteLayout.SetLayoutFlags(_lowerLinePanner,
+                        AbsoluteLayoutFlags.YProportional | AbsoluteLayoutFlags.WidthProportional);
                     AbsoluteLayout.SetLayoutBounds(_lowerLinePanner, _lowerLineBoundsLandscape);
                 }
 
-            AbsoluteLayout.SetLayoutFlags(_leftReticle, AbsoluteLayoutFlags.PositionProportional);
-            AbsoluteLayout.SetLayoutBounds(_leftReticle, _leftReticleBounds);
-            AbsoluteLayout.SetLayoutFlags(_leftReticlePanner, AbsoluteLayoutFlags.PositionProportional);
-            AbsoluteLayout.SetLayoutBounds(_leftReticlePanner, _leftReticleBounds);
+                AbsoluteLayout.SetLayoutFlags(_leftReticle, AbsoluteLayoutFlags.PositionProportional);
+                AbsoluteLayout.SetLayoutBounds(_leftReticle, _leftReticleBounds);
+                AbsoluteLayout.SetLayoutFlags(_leftReticlePanner, AbsoluteLayoutFlags.PositionProportional);
+                AbsoluteLayout.SetLayoutBounds(_leftReticlePanner, _leftReticleBounds);
 
-            AbsoluteLayout.SetLayoutFlags(_rightReticle, AbsoluteLayoutFlags.PositionProportional);
-            AbsoluteLayout.SetLayoutBounds(_rightReticle, _rightReticleBounds);
-            AbsoluteLayout.SetLayoutFlags(_rightReticlePanner, AbsoluteLayoutFlags.PositionProportional);
-            AbsoluteLayout.SetLayoutBounds(_rightReticlePanner, _rightReticleBounds);        }
+                AbsoluteLayout.SetLayoutFlags(_rightReticle, AbsoluteLayoutFlags.PositionProportional);
+                AbsoluteLayout.SetLayoutBounds(_rightReticle, _rightReticleBounds);
+                AbsoluteLayout.SetLayoutFlags(_rightReticlePanner, AbsoluteLayoutFlags.PositionProportional);
+                AbsoluteLayout.SetLayoutBounds(_rightReticlePanner, _rightReticleBounds);
+            });
+        }
 
         private void PlaceRollGuide()
         {
