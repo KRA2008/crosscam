@@ -57,6 +57,9 @@ namespace CrossCam.CustomElement
         public static readonly BindableProperty FocusCircleYProperty = BindableProperty.Create(nameof(FocusCircleY),
             typeof(double), typeof(CameraModule), 0d, BindingMode.OneWayToSource);
 
+        public static readonly BindableProperty IsFrontCameraProperty = BindableProperty.Create(nameof(IsFrontCamera),
+            typeof(bool), typeof(CameraModule), false);
+
         public byte[] CapturedImage
         {
             get => (byte[])GetValue(CapturedImageProperty);
@@ -151,6 +154,12 @@ namespace CrossCam.CustomElement
         {
             get => (double)GetValue(FocusCircleYProperty);
             set => SetValue(FocusCircleYProperty, value);
+        }
+
+        public bool IsFrontCamera
+        {
+            get => (bool)GetValue(IsFrontCameraProperty);
+            set => SetValue(IsFrontCameraProperty, value);
         }
     }
 }

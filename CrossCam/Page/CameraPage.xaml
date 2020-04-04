@@ -138,7 +138,8 @@
                              FocusCircleX="{Binding FocusCircleX}"
                              FocusCircleY="{Binding FocusCircleY}"
                              WasSwipedTrigger="{Binding WasSwipedTrigger}"
-                             IsFocusCircleLocked="{Binding IsFocusCircleLocked}"/>
+                             IsFocusCircleLocked="{Binding IsFocusCircleLocked}"
+                             IsFrontCamera="{Binding Settings.IsFrontCamera}"/>
             <AbsoluteLayout Grid.Column="{Binding CameraColumn}"
                             IsVisible="{Binding IsCameraVisible}"
                             InputTransparent="True">

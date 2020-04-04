@@ -342,6 +342,10 @@
             <Label Text="Camera"
                    Style="{DynamicResource header}"/>
             <StackLayout Orientation="Horizontal">
+                <Label Text="Front camera"/>
+                <Switch IsToggled="{Binding Settings.IsFrontCamera}"/>
+            </StackLayout>
+            <StackLayout Orientation="Horizontal">
                 <Label Text="Tap to point focus, double tap to switch back to continuous focus (or save or clear)"/>
                 <Switch IsToggled="{Binding Settings.IsTapToFocusEnabled2}"/>
             </StackLayout>

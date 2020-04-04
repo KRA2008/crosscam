@@ -56,7 +56,7 @@ namespace CrossCam.Droid.CustomRenderer
 
         private bool _wasCameraRunningBeforeMinimize;
 
-        private readonly bool _useCamera2;
+        private bool _useCamera2;
         private Surface _surface;
         private readonly CameraManager _cameraManager;
         private CameraCaptureSession _camera2Session;
@@ -109,17 +109,6 @@ namespace CrossCam.Droid.CustomRenderer
                 _orientations.Append((int)SurfaceOrientation.Rotation90, 90);
                 _orientations.Append((int)SurfaceOrientation.Rotation180, 180);
                 _orientations.Append((int)SurfaceOrientation.Rotation270, 270);
-
-                try
-                {
-                    var level = FindCamera2();
-                    _useCamera2 = level != (int)InfoSupportedHardwareLevel.Legacy;
-                }
-                catch (System.Exception e)
-                {
-                    _cameraModule.ErrorMessage = e.ToString();
-                    _useCamera2 = false;
-                }
             }
         }
 
@@ -173,11 +162,20 @@ namespace CrossCam.Droid.CustomRenderer
                 if (e.NewElement != null)
                 {
                     _cameraModule = e.NewElement;
+                    try
+                    {
+                        var level = FindCamera2();
+                        _useCamera2 = level != (int)InfoSupportedHardwareLevel.Legacy;
+                    }
+                    catch (System.Exception ex)
+                    {
+                        _cameraModule.ErrorMessage = ex.ToString();
+                        _useCamera2 = false;
+                    }
                 }
 
                 
                 SetupUserInterface();
-                AddView(_view);
                 if (_useCamera2)
                 {
                     OpenCamera2();
@@ -233,6 +231,22 @@ namespace CrossCam.Droid.CustomRenderer
                     !_cameraModule.IsLockToFirstEnabled)
                 {
                     TurnOnContinuousFocus();
+                }
+
+                if (e.PropertyName == nameof(_cameraModule.IsFrontCamera))
+                {
+                    if (_useCamera2)
+                    {
+                        StopCamera2();
+                        FindCamera2();
+                        SetOrientation();
+                        OpenCamera2();
+                    }
+                    else
+                    {
+                        StopCamera1();
+                        SetupAndStartCamera1(null, true);
+                    }
                 }
             }
             catch (System.Exception ex)
@@ -305,6 +319,8 @@ namespace CrossCam.Droid.CustomRenderer
             _textureView.SurfaceTextureListener = this;
             _textureView.SetOnTouchListener(this);
             _gestureDetector = new GestureDetector(MainActivity.Instance, new CameraPreviewGestureListener(this));
+
+            AddView(_view);
         }
 
         protected override void OnLayout(bool changed, int l, int t, int r, int b)
@@ -511,7 +527,8 @@ namespace CrossCam.Droid.CustomRenderer
 
                 float previewSizeWidth;
                 float previewSizeHeight;
-                int rotation1;
+                int displayRotation1;
+                int cameraRotation1;
                 int rotation2;
 
                 if (_useCamera2)
@@ -538,7 +555,7 @@ namespace CrossCam.Droid.CustomRenderer
                         _cameraModule.IsViewInverted = false;
                         _cameraModule.IsPortrait = true;
                         proportionalPreviewHeight = previewSizeWidth * moduleWidth / previewSizeHeight;
-                        rotation1 = 90;
+                        cameraRotation1 = displayRotation1 = 90;
                         rotation2 = _camera2SensorOrientation - 90;
                         verticalOffset = (moduleHeight - proportionalPreviewHeight) / 2f;
                         xAdjust2 = 0;
@@ -546,23 +563,19 @@ namespace CrossCam.Droid.CustomRenderer
                         previewWidth2 = moduleWidth;
                         previewHeight2 = proportionalPreviewHeight;
                         break;
-                    case SurfaceOrientation.Rotation180:
-                        _cameraModule.IsViewInverted = true;
-                        _cameraModule.IsPortrait = true;
-                        proportionalPreviewHeight = previewSizeWidth * moduleWidth / previewSizeHeight;
-                        rotation1 = 270;
-                        rotation2 = _camera2SensorOrientation - 270;
-                        verticalOffset = (moduleHeight - proportionalPreviewHeight) / 2f;
-                        xAdjust2 = moduleWidth;
-                        yAdjust2 = verticalOffset + proportionalPreviewHeight;
-                        previewWidth2 = moduleWidth;
-                        previewHeight2 = proportionalPreviewHeight;
-                        break;
                     case SurfaceOrientation.Rotation90:
                         _cameraModule.IsViewInverted = false;
                         _cameraModule.IsPortrait = false;
                         proportionalPreviewHeight = previewSizeHeight * moduleWidth / previewSizeWidth;
-                        rotation1 = 0;
+                        if (_cameraModule.IsFrontCamera)
+                        {
+                            cameraRotation1 = 180;
+                            displayRotation1 = 0;
+                        }
+                        else
+                        {
+                            cameraRotation1 = displayRotation1 = 0;
+                        }
                         rotation2 = _camera2SensorOrientation - 180;
                         verticalOffset = (moduleHeight - proportionalPreviewHeight) / 2f;
                         xAdjust2 = 0;
@@ -570,12 +583,33 @@ namespace CrossCam.Droid.CustomRenderer
                         previewWidth2 = proportionalPreviewHeight;
                         previewHeight2 = moduleWidth;
                         break;
+                    case SurfaceOrientation.Rotation180:
+                        _cameraModule.IsViewInverted = true;
+                        _cameraModule.IsPortrait = true;
+                        proportionalPreviewHeight = previewSizeWidth * moduleWidth / previewSizeHeight;
+                        cameraRotation1 = displayRotation1 = 270;
+                        rotation2 = _camera2SensorOrientation - 270;
+                        verticalOffset = (moduleHeight - proportionalPreviewHeight) / 2f;
+                        xAdjust2 = moduleWidth;
+                        yAdjust2 = verticalOffset + proportionalPreviewHeight;
+                        previewWidth2 = moduleWidth;
+                        previewHeight2 = proportionalPreviewHeight;
+                        break;
+                    case SurfaceOrientation.Rotation270:
                     default:
                         _cameraModule.IsPortrait = false;
                         _cameraModule.IsViewInverted = true;
                         proportionalPreviewHeight = previewSizeHeight * moduleWidth / previewSizeWidth;
-                        rotation1 = 180;
-                        rotation2 = _camera2SensorOrientation - 360;
+                        if (_cameraModule.IsFrontCamera)
+                        {
+                            cameraRotation1 = 0;
+                            displayRotation1 = 180;
+                        }
+                        else
+                        {
+                            cameraRotation1 = displayRotation1 = 180;
+                        }
+                        rotation2 = _camera2SensorOrientation;
                         verticalOffset = (moduleHeight - proportionalPreviewHeight) / 2f;
                         xAdjust2 = moduleWidth;
                         yAdjust2 = verticalOffset;
@@ -586,6 +620,10 @@ namespace CrossCam.Droid.CustomRenderer
 
                 if (_useCamera2)
                 {
+                    if (_cameraModule.IsFrontCamera)
+                    {
+                        rotation2 += 180;
+                    }
                     _textureView.PivotX = 0;
                     _textureView.PivotY = 0;
                     _textureView.Rotation = rotation2;
@@ -594,8 +632,8 @@ namespace CrossCam.Droid.CustomRenderer
                 {
                     if (_camera1 == null) return;
                     var parameters = _camera1.GetParameters();
-                    parameters.SetRotation(rotation1);
-                    _camera1.SetDisplayOrientation(rotation1);
+                    parameters.SetRotation(cameraRotation1);
+                    _camera1.SetDisplayOrientation(displayRotation1);
                     _camera1.SetParameters(parameters);
                 }
 
@@ -644,15 +682,17 @@ namespace CrossCam.Droid.CustomRenderer
             }
         }
 
-        private void SetupAndStartCamera1(SurfaceTexture surface = null)
+        private void SetupAndStartCamera1(SurfaceTexture surface = null, bool restart = false)
         {
             try
             {
                 if (_surfaceTexture != null)
                 {
-                    if (_camera1 == null)
+                    if (_camera1 == null || restart)
                     {
-                        _camera1 = Camera.Open((int)CameraFacing.Back);
+                        _camera1 = _cameraModule.IsFrontCamera
+                            ? Camera.Open((int) CameraFacing.Front)
+                            : Camera.Open((int) CameraFacing.Back);
                         _camera1.SetErrorCallback(this);
 
                         for (var ii = 0; ii < Camera.NumberOfCameras - 1; ii++)
@@ -822,7 +862,8 @@ namespace CrossCam.Droid.CustomRenderer
             {
                 var cameraChars = _cameraManager.GetCameraCharacteristics(cameraId);
                 var direction = (int)cameraChars.Get(CameraCharacteristics.LensFacing);
-                if (direction == (int)LensFacing.Back)
+                if (direction == (int)LensFacing.Back && !_cameraModule.IsFrontCamera ||
+                    direction == (int)LensFacing.Front && _cameraModule.IsFrontCamera)
                 {
                     _camera2Id = cameraId;
                     break;
@@ -975,6 +1016,27 @@ namespace CrossCam.Droid.CustomRenderer
 
             try
             {
+#if DEBUG
+                var afStateDebug = result.Get(CaptureResult.ControlAfState);
+                var aeStateDebug = result.Get(CaptureResult.ControlAeState);
+                ControlAFState afStateEnumDebug = 0;
+                if (afStateDebug != null)
+                {
+                    afStateEnumDebug = (ControlAFState)(int)afStateDebug;
+                }
+
+                ControlAEState aeStateEnumDebug = 0;
+                if (aeStateDebug != null)
+                {
+                    aeStateEnumDebug = (ControlAEState)(int)aeStateDebug;
+                }
+
+                System.Diagnostics.Debug.WriteLine("CAMERA 2 FRAME, state: " + _camera2State +
+                                                   " tag: " + request.Tag +
+                                                   " afstate: " + afStateEnumDebug +
+                                                   " aestate: " + aeStateEnumDebug);
+#endif
+
                 if (_camera2State == CameraState.Preview ||
                     _camera2State == CameraState.PictureTaken ||
                     _camera2State.ToString() != request.Tag.ToString())
@@ -1191,91 +1253,79 @@ namespace CrossCam.Droid.CustomRenderer
             var metrics = new DisplayMetrics();
             Display.GetMetrics(metrics);
 
-            double focusCircleX = 0;
-            double focusCircleY = 0;
+            double focusCircleX;
+            double focusCircleY;
 
             var characteristics = _cameraManager.GetCameraCharacteristics(_camera2Device.Id);
             var arraySize = (Rect)characteristics.Get(CameraCharacteristics.SensorInfoActiveArraySize);
             var rotation = Display.Rotation;
 
-            Rect sensorTapRect = null;
             var screenRotation = _orientations.Get((int)rotation);
-            if ((_camera2SensorOrientation + screenRotation + 360) % 360 == 90)
-            {
-                //portrait
-                var displayHorizontalProportion = e.GetX() / _textureView.Width;
-                var displayVerticalProportion = e.GetY() / _textureView.Height;
-                var sizingRatio = arraySize.Width() / (1f * _textureView.Height);
-                var focusSquareSide = (float)CameraPage.FOCUS_CIRCLE_WIDTH * metrics.Density * sizingRatio;
-                var x = displayVerticalProportion * arraySize.Width();
-                var y = (1 - displayHorizontalProportion) * arraySize.Height();
-                sensorTapRect = new Rect
-                {
-                    Left = (int)(x - focusSquareSide / 2),
-                    Top = (int)(y - focusSquareSide / 2),
-                    Right = (int)(x + focusSquareSide / 2),
-                    Bottom = (int)(y + focusSquareSide / 2)
-                };
-                focusCircleX = e.GetX() + _textureView.GetX();
-                focusCircleY = e.GetY() + _textureView.GetY();
-            }
-            else if ((_camera2SensorOrientation + screenRotation + 360) % 360 == 0)
+            var frontFacingModifier = _cameraModule.IsFrontCamera ? 180 : 0;
+            var sensorScreenSum = (_camera2SensorOrientation + screenRotation + 360 + frontFacingModifier) % 360;
+            float x;
+            float y;
+            if (sensorScreenSum == 0)
             {
                 //landscape tipped right
                 var displayVerticalProportion = e.GetX() / _textureView.Width;
                 var displayHorizontalProportion = (_textureView.Height - e.GetY()) / _textureView.Height;
-                var sizingRatio = arraySize.Width() / (1f * _textureView.Height);
-                var focusSquareSide = (float)CameraPage.FOCUS_CIRCLE_WIDTH * metrics.Density * sizingRatio;
-                var x = (1 - displayHorizontalProportion) * arraySize.Width();
-                var y = (1 - displayVerticalProportion) * arraySize.Height();
-                sensorTapRect = new Rect
-                {
-                    Left = (int)(x - focusSquareSide / 2),
-                    Top = (int)(y - focusSquareSide / 2),
-                    Right = (int)(x + focusSquareSide / 2),
-                    Bottom = (int)(y + focusSquareSide / 2)
-                };
+                x = (1 - displayHorizontalProportion) * arraySize.Width();
+                y = (1 - displayVerticalProportion) * arraySize.Height();
                 focusCircleX = _textureView.Height - e.GetY();
                 focusCircleY = e.GetX() + _textureView.GetY();
             }
-            else if ((_camera2SensorOrientation + screenRotation + 360) % 360 == 180)
+            else if (sensorScreenSum == 90)
+            {
+                //portrait
+                var displayHorizontalProportion = e.GetX() / _textureView.Width;
+                var displayVerticalProportion = e.GetY() / _textureView.Height;
+                x = displayVerticalProportion * arraySize.Width();
+                if (_cameraModule.IsFrontCamera)
+                {
+                    y = displayHorizontalProportion * arraySize.Height();
+                }
+                else
+                {
+                    y = (1 - displayHorizontalProportion) * arraySize.Height();
+                }
+                focusCircleX = e.GetX() + _textureView.GetX();
+                focusCircleY = e.GetY() + _textureView.GetY();
+            }
+            else if (sensorScreenSum == 180)
             {
                 //landscape tipped left
                 var displayVerticalProportion = (_textureView.Width - e.GetX()) / _textureView.Width;
                 var displayHorizontalProportion = e.GetY() / _textureView.Height;
-                var sizingRatio = arraySize.Width() / (1f * _textureView.Height);
-                var focusSquareSide = (float)CameraPage.FOCUS_CIRCLE_WIDTH * metrics.Density * sizingRatio;
-                var x = displayHorizontalProportion * arraySize.Width();
-                var y = displayVerticalProportion * arraySize.Height();
-                sensorTapRect = new Rect
-                {
-                    Left = (int)(x - focusSquareSide / 2),
-                    Top = (int)(y - focusSquareSide / 2),
-                    Right = (int)(x + focusSquareSide / 2),
-                    Bottom = (int)(y + focusSquareSide / 2)
-                };
+                x = displayHorizontalProportion * arraySize.Width();
+                y = displayVerticalProportion * arraySize.Height();
                 focusCircleX = e.GetY();
                 focusCircleY = _textureView.GetY() - e.GetX();
             }
-            else if ((_camera2SensorOrientation + screenRotation + 360) % 360 == 270)
+            else //  i.e. if (sensorScreenSum == 270)
             {
                 //upside down portrait
                 var displayHorizontalProportion = (_textureView.Width - e.GetX()) / _textureView.Width;
                 var displayVerticalProportion = (_textureView.Height - e.GetY()) / _textureView.Height;
-                var sizingRatio = arraySize.Width() / (1f * _textureView.Height);
-                var focusSquareSide = (float)CameraPage.FOCUS_CIRCLE_WIDTH * metrics.Density * sizingRatio;
-                var x = (1 - displayVerticalProportion) * arraySize.Width();
-                var y = displayHorizontalProportion * arraySize.Height();
-                sensorTapRect = new Rect
-                {
-                    Left = (int)(x - focusSquareSide / 2),
-                    Top = (int)(y - focusSquareSide / 2),
-                    Right = (int)(x + focusSquareSide / 2),
-                    Bottom = (int)(y + focusSquareSide / 2)
-                };
+                x = (1 - displayVerticalProportion) * arraySize.Width();
+                y = displayHorizontalProportion * arraySize.Height();
                 focusCircleX = _textureView.Width - e.GetX();
                 focusCircleY = _textureView.GetY() - e.GetY();
             }
+            var sizingRatio = arraySize.Width() / (1f * _textureView.Height);
+            var focusSquareSide = (float)CameraPage.FOCUS_CIRCLE_WIDTH * metrics.Density * sizingRatio;
+            if (_cameraModule.IsFrontCamera)
+            {
+                x = 0;
+                y = 0;
+            }
+            var sensorTapRect = new Rect
+            {
+                Left = (int)(x - focusSquareSide / 2),
+                Top = (int)(y - focusSquareSide / 2),
+                Right = (int)(x + focusSquareSide / 2),
+                Bottom = (int)(y + focusSquareSide / 2)
+            };
 
             while (sensorTapRect.Top < arraySize.Top)
             {

@@ -209,8 +209,9 @@ namespace CrossCam.Page
                     PlaceRollGuide();
                     break;
                 case nameof(CameraViewModel.IsViewPortrait):
-	                ResetLineAndDonutGuides();
-	                break;
+                    _canvasView.InvalidateSurface();
+                    ResetLineAndDonutGuides();
+                    break;
                 case nameof(CameraViewModel.PreviewBottomY):
                     SetSensorGuidesY();
                     break;

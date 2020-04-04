@@ -904,13 +904,13 @@ namespace CrossCam.ViewModel
 
         private async Task LeftBytesCaptured(byte[] capturedBytes)
         {
-            var bitmap = await Task.Run(() => GetBitmapAndCorrectOrientation(capturedBytes));
+            var bitmap = await Task.Run(() => DecodeBitmapAndCorrectOrientation(capturedBytes));
             SetLeftBitmap(bitmap);
         }
 
         private async Task RightBytesCaptured(byte[] capturedBytes)
         {
-            var bitmap = await Task.Run(() => GetBitmapAndCorrectOrientation(capturedBytes));
+            var bitmap = await Task.Run(() => DecodeBitmapAndCorrectOrientation(capturedBytes));
             SetRightBitmap(bitmap);
         }
 
@@ -1219,7 +1219,7 @@ namespace CrossCam.ViewModel
             return color.Red + color.Green + color.Blue;
         }
 
-        private SKBitmap GetBitmapAndCorrectOrientation(byte[] bytes)
+        private SKBitmap DecodeBitmapAndCorrectOrientation(byte[] bytes)
         {
             try
             {
@@ -1237,12 +1237,16 @@ namespace CrossCam.ViewModel
 
                 switch (origin)
                 {
-                    case SKCodecOrigin.BottomRight:
-                        return BitmapRotate180(SKBitmap.Decode(bytes));
+                    case SKCodecOrigin.BottomRight when !Settings.IsFrontCamera:
+                        return BitmapRotate180(SKBitmap.Decode(bytes), false);
+                    case SKCodecOrigin.BottomRight when Settings.IsFrontCamera:
+                        return BitmapHorizontalMirror(SKBitmap.Decode(bytes));
                     case SKCodecOrigin.RightTop:
-                        return BitmapRotate90(SKBitmap.Decode(bytes));
+                        return BitmapRotate90(SKBitmap.Decode(bytes), Settings.IsFrontCamera);
                     case SKCodecOrigin.LeftBottom:
-                        return BitmapRotate270(SKBitmap.Decode(bytes));
+                        return BitmapRotate270(SKBitmap.Decode(bytes), Settings.IsFrontCamera);
+                    case SKCodecOrigin.TopLeft when Settings.IsFrontCamera:
+                        return BitmapRotate180(SKBitmap.Decode(bytes), true);
                     default:
                         return SKBitmap.Decode(bytes);
                 }
@@ -1257,7 +1261,7 @@ namespace CrossCam.ViewModel
             }
         }
 
-        private static SKBitmap BitmapRotate90(SKBitmap originalBitmap)
+        private static SKBitmap BitmapRotate90(SKBitmap originalBitmap, bool withHorizontalMirror)
         {
             var rotated = new SKBitmap(originalBitmap.Height, originalBitmap.Width);
 
@@ -1265,13 +1269,18 @@ namespace CrossCam.ViewModel
             {
                 surface.Translate(rotated.Width, 0);
                 surface.RotateDegrees(90);
+                if (withHorizontalMirror)
+                {
+                    surface.Translate(0, rotated.Width);
+                    surface.Scale(1, -1, 0, 0);
+                }
                 surface.DrawBitmap(originalBitmap, 0, 0);
             }
 
             return rotated;
         }
 
-        private static SKBitmap BitmapRotate180(SKBitmap originalBitmap)
+        private static SKBitmap BitmapRotate180(SKBitmap originalBitmap, bool withHorizontalMirror)
         {
             var rotated = new SKBitmap(originalBitmap.Width, originalBitmap.Height);
 
@@ -1279,13 +1288,18 @@ namespace CrossCam.ViewModel
             {
                 surface.Translate(rotated.Width, rotated.Height);
                 surface.RotateDegrees(180);
+                if (withHorizontalMirror)
+                {
+                    surface.Translate(rotated.Width, 0);
+                    surface.Scale(-1, 1, 0, 0);
+                }
                 surface.DrawBitmap(originalBitmap, 0, 0);
             }
 
             return rotated;
         }
 
-        private static SKBitmap BitmapRotate270(SKBitmap originalBitmap)
+        private static SKBitmap BitmapRotate270(SKBitmap originalBitmap, bool withHorizontalMirror)
         {
             var rotated = new SKBitmap(originalBitmap.Height, originalBitmap.Width);
 
@@ -1293,10 +1307,29 @@ namespace CrossCam.ViewModel
             {
                 surface.Translate(0, rotated.Height);
                 surface.RotateDegrees(270);
+                if (withHorizontalMirror)
+                {
+                    surface.Translate(0, rotated.Width);
+                    surface.Scale(1, -1, 0, 0);
+                }
                 surface.DrawBitmap(originalBitmap, 0, 0);
             }
 
             return rotated;
+        }
+
+        private static SKBitmap BitmapHorizontalMirror(SKBitmap originalBitmap)
+        {
+            var transformed = new SKBitmap(originalBitmap.Width, originalBitmap.Height);
+
+            using (var surface = new SKCanvas(transformed))
+            {
+                surface.Translate(transformed.Width, 0);
+                surface.Scale(-1, 1, 0, 0);
+                surface.DrawBitmap(originalBitmap, 0, 0);
+            }
+
+            return transformed;
         }
 
         private async Task EvaluateAndShowWelcomePopup()
