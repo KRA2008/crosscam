@@ -117,7 +117,7 @@ namespace CrossCam.Model
 
         public bool ClipBorderOnLoad { get; set; }
 
-        public bool IsPairedPrimary { get; set; }
+        public bool? IsPairedPrimary { get; set; }
 
         private Handedness _handedness;
         public Handedness Handedness
@@ -358,7 +358,7 @@ namespace CrossCam.Model
 
             MaximumParallelWidth = (int)PARALLEL_BASE_WIDTH;
 
-            IsPairedPrimary = false;
+            IsPairedPrimary = null;
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
