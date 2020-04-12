@@ -74,7 +74,8 @@ namespace CrossCam.Droid.CustomRenderer
         private MeteringRectangle _camera2MeteringRectangle;
         private int _camera2FoundGoodCaptureInterlocked;
         private bool _isCamera2FocusAndExposureLocked;
-        private int _camera2SensorOrientation;
+        private int _camera2SensorOrientation; 
+        private bool _camera2CameraDeviceErrorRetry;
         private readonly SparseIntArray _orientations = new SparseIntArray();
 
         private CameraState _camera2State;
@@ -941,8 +942,11 @@ namespace CrossCam.Droid.CustomRenderer
                     return;
                 }
 
-                _openingCamera2 = true;
-                _surface = new Surface(_surfaceTexture);
+                _openingCamera2 = true; 
+                if (_surface == null)
+                {
+                    _surface = new Surface(_surfaceTexture);
+                }
                 StartBackgroundThread();
                 _cameraManager.OpenCamera(_camera2Id, _stateListener, null);
             }
@@ -1159,11 +1163,35 @@ namespace CrossCam.Droid.CustomRenderer
 
         public void Camera2Errored(CameraDevice camera, Android.Hardware.Camera2.CameraError error)
         {
-            _cameraModule.ErrorMessage = error.ToString();
+            _openingCamera2 = false;
+            if (error == Android.Hardware.Camera2.CameraError.CameraDevice &&
+                !_camera2CameraDeviceErrorRetry) // docs say try again: https://developer.android.com/reference/android/hardware/camera2/CameraDevice.StateCallback#ERROR_CAMERA_DEVICE
+            {
+                _camera2CameraDeviceErrorRetry = true;
+                camera.Close();
+                OpenCamera2();
+                return;
+            }
+
+            if (error == Android.Hardware.Camera2.CameraError.CameraDevice &&
+                _camera2CameraDeviceErrorRetry)
+            {
+                new AlertDialog.Builder(MainActivity.Instance)
+                    .SetMessage("Your phone's camera has encountered a fatal error outside the control of CrossCam. Please restart your device. Go try out your regular camera app if you don't believe me. If restarting does not fix the issue or your camera app is working, please email me@kra2008.com.")
+                    .SetTitle("Fatal Camera Error")
+                    .SetPositiveButton("OK", (EventHandler<DialogClickEventArgs>)null)
+                    .Create()
+                    .Show();
+            }
+            else
+            {
+                _cameraModule.ErrorMessage = error.ToString();
+            }
+
+            _camera2CameraDeviceErrorRetry = false;
 
             camera.Close();
             _camera2Device = null;
-            _openingCamera2 = false;
         }
 
         private void CaptureStillPicture2()
