@@ -1519,10 +1519,7 @@ namespace CrossCam.Droid.CustomRenderer
 
             public override bool OnFling(MotionEvent e1, MotionEvent e2, float velocityX, float velocityY)
             {
-                if (Math.Abs(velocityX) > Math.Abs(velocityY))
-                {
-                    _renderer._cameraModule.WasSwipedTrigger = !_renderer._cameraModule.WasSwipedTrigger;
-                }
+                _renderer._cameraModule.WasSwipedTrigger = !_renderer._cameraModule.WasSwipedTrigger; //at one point i only made the swipe work in the x-direction, but found that old and new devices disagree about orientations (Nexus 4 v PH-1)
                 return true;
             }
         }
