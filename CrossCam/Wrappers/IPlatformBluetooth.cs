@@ -6,7 +6,6 @@ namespace CrossCam.Wrappers
 {
     public interface IPlatformBluetooth
     {
-        bool IsPrimary { get; set; }
         void Disconnect();
         Task<bool> RequestBluetoothPermissions();
         Task<bool> RequestLocationPermissions();
@@ -34,6 +33,7 @@ namespace CrossCam.Wrappers
         Task<bool> ListenForHello();
         event EventHandler Connected;
         event EventHandler Disconnected;
+        event EventHandler HelloReceived;
         event EventHandler PreviewFrameRequested;
         event EventHandler<byte[]> PreviewFrameReceived;
         event EventHandler<long> ClockReadingReceived;

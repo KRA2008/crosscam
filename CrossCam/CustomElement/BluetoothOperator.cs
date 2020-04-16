@@ -1,21 +1,26 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Linq;
 using System.Runtime.CompilerServices;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Timers;
+using CrossCam.Model;
 using CrossCam.Wrappers;
 using FreshMvvm;
 using Xamarin.Forms;
+using Timer = System.Timers.Timer;
 
 namespace CrossCam.CustomElement
 {
     public sealed class BluetoothOperator : INotifyPropertyChanged
     {
+        private readonly Settings _settings;
         public bool IsConnected { get; set; }
-        public bool IsPrimary => _platformBluetooth.IsPrimary;
+        public bool IsPrimary => _settings.IsPairedPrimary.HasValue && _settings.IsPairedPrimary.Value;
         public IPageModelCoreMethods CurrentCoreMethods { get; set; }
 
         private readonly IPlatformBluetooth _platformBluetooth;
@@ -29,12 +34,22 @@ namespace CrossCam.CustomElement
         private PartnerDevice _device;
         private readonly Timer _captureSyncTimer = new Timer{AutoReset = false};
 
-        private const int TIMER_TOTAL_SAMPLES = 15;
+        private const int TIMER_TOTAL_SAMPLES = 25;
         private int _timerSampleIndex;
         private readonly long[] T0_SAMPLES = new long[TIMER_TOTAL_SAMPLES];
         private readonly long[] T1T2_SAMPLES = new long[TIMER_TOTAL_SAMPLES];
         private readonly long[] T3_SAMPLES = new long[TIMER_TOTAL_SAMPLES];
         private bool _isCaptureRequested;
+
+        public ObservableCollection<PartnerDevice> PairedDevices { get; set; }
+        public ObservableCollection<PartnerDevice> DiscoveredDevices { get; set; }
+
+        public Command PairedSetupCommand { get; set; }
+        public Command AttemptConnectionCommand { get; set; }
+
+        private int _initializeThreadLocker;
+        private int _pairInitializeThreadLocker;
+        private int _connectThreadLocker;
 
         public event ElapsedEventHandler CaptureRequested;
         private void OnCaptureRequested(object sender, ElapsedEventArgs e)
@@ -50,15 +65,21 @@ namespace CrossCam.CustomElement
         {
             IsConnected = false;
             ShowPairDisconnected();
+            GetPairedDevices();
             var handler = Disconnected;
             handler?.Invoke(this, new EventArgs());
         }
 
         public event EventHandler Connected;
-        private void OnConnected()
+        private async void OnConnected()
         {
             IsConnected = true;
             ShowPairConnected();
+            GetPairedDevices();
+            if (!IsPrimary)
+            {
+                await _platformBluetooth.SayHello();
+            }
             var handler = Connected;
             handler?.Invoke(this, new EventArgs());
         }
@@ -74,6 +95,7 @@ namespace CrossCam.CustomElement
         public event EventHandler<PartnerDevice> DeviceDiscovered;
         private void OnDeviceDiscovered(PartnerDevice e)
         {
+            AddDiscoveredDevice(null, e);
             var handler = DeviceDiscovered;
             handler?.Invoke(this, e);
         }
@@ -99,8 +121,9 @@ namespace CrossCam.CustomElement
             handler?.Invoke(this, frame);
         }
 
-        public BluetoothOperator()
+        public BluetoothOperator(Settings settings)
         {
+            _settings = settings;
             _platformBluetooth = DependencyService.Get<IPlatformBluetooth>();
             _platformBluetooth.DeviceDiscovered += PlatformBluetoothOnDeviceDiscovered;
             _platformBluetooth.Connected += PlatformBluetoothOnConnected;
@@ -110,6 +133,100 @@ namespace CrossCam.CustomElement
             _platformBluetooth.ClockReadingReceived += PlatformBluetoothOnClockReadingReceived; 
             _platformBluetooth.SyncReceived += PlatformBluetoothOnSyncReceived;
             _platformBluetooth.CaptureReceived += PlatformBluetoothOnCaptureReceived;
+            _platformBluetooth.HelloReceived += PlatformBluetoothOnHelloReceived;
+
+            DiscoveredDevices = new ObservableCollection<PartnerDevice>();
+            PairedDevices = new ObservableCollection<PartnerDevice>();
+
+            PairedSetupCommand = new Command(async obj =>
+            {
+                if (Interlocked.CompareExchange(ref _pairInitializeThreadLocker, 1, 0) == 0)
+                {
+                    try
+                    {
+                        await InitializeForPairedConnection();
+                        PairedDevices = new ObservableCollection<PartnerDevice>(GetPairedDevices());
+                    }
+                    catch (Exception e)
+                    {
+                        await HandleBluetoothException(e);
+                    }
+                    finally
+                    {
+                        _pairInitializeThreadLocker = 0;
+                    }
+                }
+            });
+
+            AttemptConnectionCommand = new Command(async obj =>
+            {
+                if (Interlocked.CompareExchange(ref _connectThreadLocker, 1, 0) == 0)
+                {
+                    try
+                    {
+                        Connect((PartnerDevice)obj);
+                    }
+                    catch (Exception e)
+                    {
+                        await HandleBluetoothException(e);
+                    }
+                    finally
+                    {
+                        _connectThreadLocker = 0;
+                    }
+                }
+            });
+        }
+
+        public async Task SetUpPrimaryForPairing()
+        {
+            if (Interlocked.CompareExchange(ref _initializeThreadLocker, 1, 0) == 0)
+            {
+                try
+                {
+                    if (Device.RuntimePlatform == Device.Android)
+                    {
+                        DiscoveredDevices.Clear();
+                        await InitializeForPairingAndroid();
+                    }
+                    else
+                    {
+                        await InitializeForPairingiOSPrimary();
+                    }
+                }
+                catch (Exception e)
+                {
+                    await HandleBluetoothException(e);
+                }
+                finally
+                {
+                    _initializeThreadLocker = 0;
+                }
+            }
+        }
+
+        public async Task SetUpSecondaryForPairing()
+        {
+            if (Interlocked.CompareExchange(ref _initializeThreadLocker, 1, 0) == 0)
+            {
+                try
+                {
+                    await InitializeForPairingiOSSecondary();
+                }
+                catch (Exception e)
+                {
+                    await HandleBluetoothException(e);
+                }
+                finally
+                {
+                    _initializeThreadLocker = 0;
+                }
+            }
+        }
+
+        private void PlatformBluetoothOnHelloReceived(object sender, EventArgs e)
+        {
+            RequestClockReading();
         }
 
         private void PlatformBluetoothOnCaptureReceived(object sender, byte[] e)
@@ -171,7 +288,7 @@ namespace CrossCam.CustomElement
             OnDeviceDiscovered(e);
         }
 
-        public async Task InitializeForPairingAndroid()
+        private async Task InitializeForPairingAndroid()
         {
             if (!await _platformBluetooth.RequestLocationPermissions())
             {
@@ -190,17 +307,17 @@ namespace CrossCam.CustomElement
             Debug.WriteLine("### Bluetooth initialized");
         }
 
-        public async Task InitializeForPairingiOSA()
+        private async Task InitializeForPairingiOSPrimary()
         {
             _platformBluetooth.StartScanning();
         }
 
-        public async Task InitializeForPairingiOSB()
+        private async Task InitializeForPairingiOSSecondary()
         {
             await _platformBluetooth.BecomeDiscoverable();
         }
 
-        public async Task InitializeForPairedConnection()
+        private async Task InitializeForPairedConnection()
         {
             await CreateGattServerAndStartAdvertisingIfCapable();
         }
@@ -233,7 +350,7 @@ namespace CrossCam.CustomElement
             }
         }
 
-        public async void Connect(PartnerDevice device)
+        private async void Connect(PartnerDevice device)
         {
             try
             {
@@ -255,7 +372,7 @@ namespace CrossCam.CustomElement
             OnDisconnected();
         }
 
-        public IEnumerable<PartnerDevice> GetPairedDevices()
+        private IEnumerable<PartnerDevice> GetPairedDevices()
         {
             return _platformBluetooth.GetPairedDevices();
         }
@@ -276,7 +393,7 @@ namespace CrossCam.CustomElement
             const int BUFFER_TRIP_MULTIPLIER = 4;
             var offsets = new List<long>();
             var trips = new List<long>();
-            var offsetsAverage = 0L;
+            var offsetsSafeAverage = 0L;
             var tripsSafeAverage = 0L;
             try
             {
@@ -294,10 +411,12 @@ namespace CrossCam.CustomElement
                     Debug.WriteLine("Round trip delay: " + roundTripDelayRun / 10000d + " milliseconds");
                 }
 
-                offsetsAverage = (long)offsets.Average();
-                tripsSafeAverage = (long)trips.Average();
+                var safeOffsets = CleanseData(offsets);
+                var safeTrips = CleanseData(trips);
+                offsetsSafeAverage = (long)safeOffsets.Average();
+                tripsSafeAverage = (long)safeTrips.Average();
 
-                Debug.WriteLine("Average time offset: " + offsetsAverage / 10000d + " milliseconds");
+                Debug.WriteLine("Average time offset: " + offsetsSafeAverage / 10000d + " milliseconds");
                 Debug.WriteLine("Average round trip delay: " + tripsSafeAverage / 10000d + " milliseconds");
             }
             catch (Exception e)
@@ -311,11 +430,22 @@ namespace CrossCam.CustomElement
 
             var targetSyncMoment = DateTime.UtcNow.AddTicks(tripsSafeAverage * BUFFER_TRIP_MULTIPLIER);
             Debug.WriteLine("Target sync: " + targetSyncMoment.ToString("O"));
-            var partnerSyncMoment = targetSyncMoment.AddTicks(offsetsAverage);
+            var partnerSyncMoment = targetSyncMoment.AddTicks(offsetsSafeAverage);
             Debug.WriteLine("Partner sync: " + partnerSyncMoment.ToString("O"));
             SyncCapture(targetSyncMoment);
             await _platformBluetooth.SendSync(partnerSyncMoment);
             _isCaptureRequested = false;
+        }
+
+        private static IEnumerable<long> CleanseData(IEnumerable<long> data)
+        {
+            var nonZero = data.Where(d => d != 0).ToList();
+
+            var avg = nonZero.Average();
+            var sum = nonZero.Sum(d => Math.Pow(d - avg, 2));
+            var stdDev = Math.Sqrt(sum / (nonZero.Count - 1));
+
+            return nonZero.Where(datum => Math.Abs(datum - avg) < stdDev).ToArray();
         }
 
         private void SyncCapture(DateTime syncTime)
@@ -326,12 +456,6 @@ namespace CrossCam.CustomElement
                 Debug.WriteLine("Sync interval set: " + interval);
                 Debug.WriteLine("Sync time: " + syncTime.ToString("O"));
                 Debug.WriteLine("Now time: " + DateTime.UtcNow.ToString("O"));
-                if (interval < 0)
-                {
-                    Debug.WriteLine("Sync aborted, interval < 0");
-                    return;
-                }
-
                 _captureSyncTimer.Elapsed += OnCaptureRequested;
                 _captureSyncTimer.Interval = interval;
                 _captureSyncTimer.Start();
@@ -375,12 +499,8 @@ namespace CrossCam.CustomElement
         {
             await Device.InvokeOnMainThreadAsync(async () =>
             {
-                await CurrentCoreMethods.DisplayAlert("Connected Pair Device", "Pair device connected successfully! This is the " + (_platformBluetooth.IsPrimary ? "primary" : "secondary") + " device.", "Yay");
+                await CurrentCoreMethods.DisplayAlert("Connected Pair Device", "Pair device connected successfully! This is the " + (_settings.IsPairedPrimary.HasValue && _settings.IsPairedPrimary.Value ? "primary" : "secondary") + " device.", "Yay");
             });
-            if (!IsPrimary)
-            {
-                await _platformBluetooth.SayHello();
-            }
         }
 
         public async void SendLatestPreviewFrame(byte[] frame)
@@ -411,6 +531,47 @@ namespace CrossCam.CustomElement
                 {
                     Exception = e,
                     Step = "Send Preview Frame Outer"
+                });
+            }
+        }
+
+        private async Task HandleBluetoothException(Exception e)
+        {
+            await Device.InvokeOnMainThreadAsync(async () =>
+            {
+                switch (e)
+                {
+                    case PermissionsException _:
+                        await CurrentCoreMethods.DisplayAlert("Permissions Denied",
+                            "The necessary permissions for pairing were not granted. Exception: " + e, "OK");
+                        break;
+                    case BluetoothNotSupportedException _:
+                        await CurrentCoreMethods.DisplayAlert("Bluetooth Not Supported",
+                            "Bluetooth is not supported on this device. Exception: " + e, "OK");
+                        break;
+                    case BluetoothFailedToSearchException _:
+                        await CurrentCoreMethods.DisplayAlert("Failed to Search",
+                            "The device failed to search for devices. Exception: " + e, "OK");
+                        break;
+                    case BluetoothNotTurnedOnException _:
+                        await CurrentCoreMethods.DisplayAlert("Bluetooth Not On",
+                            "The device failed to power on Bluetooth. Exception: " + e, "OK");
+                        break;
+                    default:
+                        await CurrentCoreMethods.DisplayAlert("Error",
+                            "An error occurred. Exception: " + e, "OK");
+                        break;
+                }
+            });
+        }
+
+        private void AddDiscoveredDevice(object sender, PartnerDevice e)
+        {
+            if (DiscoveredDevices.All(d => d.Address != e.Address))
+            {
+                Device.BeginInvokeOnMainThread(() =>
+                {
+                    DiscoveredDevices.Add(e);
                 });
             }
         }

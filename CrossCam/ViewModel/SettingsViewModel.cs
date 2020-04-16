@@ -66,7 +66,7 @@ namespace CrossCam.ViewModel
 
             NavigateToPairingPageCommand = new Command(async () =>
             {
-                await CoreMethods.PushPageModel<PairingViewModel>();
+                await CoreMethods.PushPageModel<PairingViewModel>(Settings);
             });
         }
 

@@ -462,6 +462,12 @@
     <BundleResource Include="Resources\bloodrootOverlapping.png" />
     <BundleResource Include="Resources\bloodrootParallel.png" />
     <BundleResource Include="Resources\bloodrootReduced.png" />
+    <BundleResource Include="Resources\pair.png" />
+    <BundleResource Include="Resources\pair%402x.png" />
+    <BundleResource Include="Resources\pairPrimary.png" />
+    <BundleResource Include="Resources\pairPrimary%402x.png" />
+    <BundleResource Include="Resources\pairSecondary.png" />
+    <BundleResource Include="Resources\pairSecondary%402x.png" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\CrossCam\CrossCam.csproj">

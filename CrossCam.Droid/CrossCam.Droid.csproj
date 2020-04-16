@@ -307,6 +307,15 @@
   <ItemGroup>
     <AndroidResource Include="Resources\drawable-nodpi\bloodrootParallel.png" />
   </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable-nodpi\pair.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable-nodpi\pairPrimary.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable-nodpi\pairSecondary.png" />
+  </ItemGroup>
   <Import Project="..\AutoAlignment\AutoAlignment.projitems" Label="Shared" />
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
 </Project>

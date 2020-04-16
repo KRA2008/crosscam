@@ -208,6 +208,13 @@ namespace CrossCam.Droid.CustomRenderer
             handler?.Invoke(this, new EventArgs());
         }
 
+        public event EventHandler HelloReceived;
+        private void OnHelloReceived()
+        {
+            var handler = HelloReceived;
+            handler?.Invoke(this, new EventArgs());
+        }
+
         public event EventHandler PreviewFrameRequested;
         private void OnPreviewFrameRequested()
         {

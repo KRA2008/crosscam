@@ -19,8 +19,6 @@ namespace CrossCam.iOS.CustomRenderer
 {
     public class PlatformBluetooth : IPlatformBluetooth
     {
-        public bool IsPrimary { get; set; }
-
         private const string HELLO_MESSAGE = "Hi there friend.";
         private const string CROSSCAM_SERVICE = "CrossCam";
         private const int HEADER_LENGTH = 6;
@@ -70,6 +68,13 @@ namespace CrossCam.iOS.CustomRenderer
         private void OnDisconnected()
         {
             var handler = Disconnected;
+            handler?.Invoke(this, new EventArgs());
+        }
+
+        public event EventHandler HelloReceived;
+        private void OnHelloReceived()
+        {
+            var handler = HelloReceived;
             handler?.Invoke(this, new EventArgs());
         }
 
@@ -159,15 +164,12 @@ namespace CrossCam.iOS.CustomRenderer
         public bool StartScanning()
         {
             var myPeerId = new MCPeerID(UIDevice.CurrentDevice.Name);
-            var session = new MCSession(myPeerId) {Delegate = new SessionDelegate(this)};
-            var browser = new MCBrowserViewController(CROSSCAM_SERVICE, session)
+            _session = new MCSession(myPeerId) { Delegate = new SessionDelegate(this) };
+            var browser = new MCNearbyServiceBrowser(myPeerId, CROSSCAM_SERVICE)
             {
-                Delegate = new BrowserViewControllerDelegate(),
-                ModalPresentationStyle = UIModalPresentationStyle.FormSheet
+                Delegate = new NewBrowserDelegate(this)
             };
-            var rootVc = UIApplication.SharedApplication.KeyWindow.RootViewController;
-            rootVc.PresentViewController(browser, true, null);
-            IsPrimary = true;
+            browser.StartBrowsingForPeers();
             return true;
         }
 
@@ -206,10 +208,9 @@ namespace CrossCam.iOS.CustomRenderer
         public Task<bool> BecomeDiscoverable()
         {
             var myPeerId = new MCPeerID(UIDevice.CurrentDevice.Name);
-            var session = new MCSession(myPeerId) {Delegate = new SessionDelegate(this)};
-            var assistant = new MCAdvertiserAssistant(CROSSCAM_SERVICE, new NSDictionary(),  session);
+            _session = new MCSession(myPeerId) {Delegate = new SessionDelegate(this)};
+            var assistant = new MCAdvertiserAssistant(CROSSCAM_SERVICE, new NSDictionary(), _session);
             assistant.Start();
-            IsPrimary = false;
             return Task.FromResult(true);
         }
 
@@ -311,11 +312,7 @@ namespace CrossCam.iOS.CustomRenderer
                 {
                     case MCSessionState.Connected:
                         Debug.WriteLine("Connected to " + peerID.DisplayName);
-                        _platformBluetooth._session = session;
-                        if (!_platformBluetooth.IsPrimary)
-                        {
-                            _platformBluetooth.OnConnected();
-                        }
+                        _platformBluetooth.OnConnected();
                         break;
                     case MCSessionState.Connecting:
                         Debug.WriteLine("Connecting to " + peerID.DisplayName);
@@ -359,7 +356,7 @@ namespace CrossCam.iOS.CustomRenderer
                     switch (bytes[2])
                     {
                         case (int)CrossCommand.Hello:
-                            HandleHelloCommand(payload);
+                            HandleHelloReceived(payload);
                             break;
                         case (int)CrossCommand.PreviewFrame:
                             _platformBluetooth.OnPreviewFrameReceived(payload);
@@ -383,31 +380,35 @@ namespace CrossCam.iOS.CustomRenderer
                 }
             }
 
-            private void HandleHelloCommand(byte[] bytes)
+            private void HandleHelloReceived(byte[] bytes)
             {
                 Debug.WriteLine("Received hello");
                 var helloMessage = Encoding.UTF8.GetString(bytes, 0, bytes.Length);
                 if (helloMessage == HELLO_MESSAGE)
                 {
                     _platformBluetooth.OnConnected();
+                    _platformBluetooth.OnHelloReceived();
                 }
             }
         }
 
-        private class BrowserViewControllerDelegate : MCBrowserViewControllerDelegate
+        private class NewBrowserDelegate : MCNearbyServiceBrowserDelegate
         {
-            public override void DidFinish(MCBrowserViewController browserViewController)
+            private readonly PlatformBluetooth _platformBluetooth;
+
+            public NewBrowserDelegate(PlatformBluetooth platformBluetooth)
             {
-                InvokeOnMainThread(() => {
-                    browserViewController.DismissViewController(true, null);
-                });
+                _platformBluetooth = platformBluetooth;
             }
 
-            public override void WasCancelled(MCBrowserViewController browserViewController)
+            public override void FoundPeer(MCNearbyServiceBrowser browser, MCPeerID peerID, NSDictionary info)
             {
-                InvokeOnMainThread(() => {
-                    browserViewController.DismissViewController(true, null);
-                });
+                browser.InvitePeer(peerID, _platformBluetooth._session, null, 30);
+                browser.StopBrowsingForPeers();
+            }
+
+            public override void LostPeer(MCNearbyServiceBrowser browser, MCPeerID peerID)
+            {
             }
         }
     }

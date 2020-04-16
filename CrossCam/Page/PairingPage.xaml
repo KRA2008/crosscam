@@ -16,29 +16,9 @@
              Title="Pairing">
     <ScrollView>
         <StackLayout Padding="10">
-            <Label HorizontalOptions="Center">
-                <Label.Triggers>
-                    <DataTrigger TargetType="Label"
-                                 Binding="{Binding BluetoothOperator.IsConnected}"
-                                 Value="True">
-                        <Setter Value="CONNECTED"
-                                Property="Text"/>
-                        <Setter Property="TextColor"
-                                Value="Green"/>
-                    </DataTrigger>
-                    <DataTrigger TargetType="Label"
-                                 Binding="{Binding BluetoothOperator.IsConnected}"
-                                 Value="False">
-                        <Setter Value="DISCONNECTED"
-                                Property="Text"/>
-                        <Setter Property="TextColor"
-                                Value="Red"/>
-                    </DataTrigger>
-                </Label.Triggers> 
-            </Label>
-            <Button Text="Disconnect"
+            <!--<Button Text="Disconnect"
                     Command="{Binding DisconnectCommand}"
-                    IsVisible="{Binding BluetoothOperator.IsConnected}"/>
+                    IsVisible="{Binding BluetoothOperator.IsConnected}"/>-->
             <Label Text=""/>
 
             <Label Text="RECONNECT TO A PREVIOUSLY USED DEVICE:"
@@ -67,9 +47,9 @@
                        Padding="1"
                        HorizontalOptions="Start"
                        VerticalOptions="Center">
-                    <Button Text="TAP HERE ON BOTH DEVICES"
+                    <!--<Button Text="TAP HERE ON BOTH DEVICES"
                             VerticalOptions="Center"
-                            Command="{Binding PairedSetupCommand}"/>
+                            Command="{Binding PairedSetupCommand}"/>-->
                 </Frame>
                 <Label Grid.Row="1"
                        Grid.Column="1"
@@ -82,14 +62,14 @@
                        Grid.Column="0"
                        Grid.ColumnSpan="4"
                        Padding="1">
-                    <StackLayout x:Name="PairedDevicesList"
+                    <!--<StackLayout x:Name="PairedDevicesList"
                                  BindableLayout.ItemsSource="{Binding PairedDevices}"
                                  BackgroundColor="Black">
                         <BindableLayout.ItemTemplate>
                             <DataTemplate>
                                 <StackLayout Padding="10">
                                     <StackLayout.GestureRecognizers>
-                                        <!-- ReSharper disable once Xaml.BindingWithContextNotResolved -->
+                                        --><!-- ReSharper disable once Xaml.BindingWithContextNotResolved --><!--
                                         <TapGestureRecognizer Command="{Binding Source={x:Reference PairedDevicesList}, Path=BindingContext.AttemptConnectionCommand}"
                                                               CommandParameter="{Binding .}"/>
                                     </StackLayout.GestureRecognizers>
@@ -106,7 +86,7 @@
                                 </StackLayout>
                             </DataTemplate>
                         </BindableLayout.ItemTemplate>
-                    </StackLayout>
+                    </StackLayout>-->
                 </Frame>
             </Grid>
 
@@ -130,7 +110,7 @@
                 </Label.IsVisible>
             </Label>
 
-            <Label Text="The PRIMARY device is the one that will show both previews and trigger the capture. You probably want your faster device to be the PRIMARY."/>
+            <Label Text="The PRIMARY device is the one that will show both previews, trigger the capture, and hold/save the final captures."/>
 
             <Label Text=""/>
             <Grid>
@@ -177,9 +157,9 @@
                                 Value="False"/>
                         </OnPlatform>
                     </Frame.IsVisible>
-                    <Button VerticalOptions="Center"
+                    <!--<Button VerticalOptions="Center"
                             Command="{Binding InitialSetupCommand}"
-                            Text="TAP HERE ON BOTH DEVICES"/>
+                            Text="TAP HERE ON BOTH DEVICES"/>-->
                 </Frame>
 
                 <Label Grid.Row="1"
@@ -200,7 +180,7 @@
                     </Frame.IsVisible>
                     <Button VerticalOptions="Center"
                             Text="TAP HERE ON THE PRIMARY"
-                            Command="{Binding InitialSetupCommand}"/>
+                            Command="{Binding SetDevicePrimaryCommand}"/>
                 </Frame>
                 <Label Grid.Row="1"
                        Grid.Column="2"
@@ -226,14 +206,14 @@
                                 Value="False"/>
                         </OnPlatform>
                     </Frame.IsVisible>
-                    <StackLayout x:Name="AvailableDevicesList"
+                    <!--<StackLayout x:Name="AvailableDevicesList"
                                  BindableLayout.ItemsSource="{Binding DiscoveredDevices}"
                                  BackgroundColor="Black">
                         <BindableLayout.ItemTemplate>
                             <DataTemplate>
                                 <StackLayout Padding="10">
                                     <StackLayout.GestureRecognizers>
-                                        <!-- ReSharper disable once Xaml.BindingWithContextNotResolved -->
+                                        --><!-- ReSharper disable once Xaml.BindingWithContextNotResolved --><!--
                                         <TapGestureRecognizer Command="{Binding Source={x:Reference AvailableDevicesList}, Path=BindingContext.AttemptConnectionCommand}"
                                                               CommandParameter="{Binding .}"/>
                                     </StackLayout.GestureRecognizers>
@@ -250,7 +230,7 @@
                                 </StackLayout>
                             </DataTemplate>
                         </BindableLayout.ItemTemplate>
-                    </StackLayout>
+                    </StackLayout>-->
                 </Frame>
 
                 <Label Grid.Row="3"
@@ -280,7 +260,7 @@
                     </Frame.IsVisible>
                     <Button VerticalOptions="Center"
                             Text="TAP HERE ON THE SECONDARY"
-                            Command="{Binding InitialSetupiOSPart2Command}"/>
+                            Command="{Binding SetDeviceSecondaryCommand}"/>
                 </Frame>
 
                 <Label Grid.Row="4"
