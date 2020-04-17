@@ -5,6 +5,7 @@ using System.Diagnostics;
 using System.Threading.Tasks;
 using CrossCam.CustomElement;
 using CrossCam.ViewModel;
+using SkiaSharp;
 using SkiaSharp.Views.Forms;
 using Xamarin.Essentials;
 using Xamarin.Forms;
@@ -310,7 +311,6 @@ namespace CrossCam.Page
 
         private void OnPaintPreviewResult(object sender, SKPaintSurfaceEventArgs e)
         {
-            Debug.WriteLine("Drawing preview frame");
             if (_viewModel.PreviewFrame != null)
             {
                 var canvas = e.Surface.Canvas;
@@ -321,16 +321,11 @@ namespace CrossCam.Page
 
                 if (bitmap != null)
                 {
-                    Debug.WriteLine("Preview frame bitmap not null");
-
-                    if (_viewModel.IsCaptureLeftFirst)
-                    {
-                        _viewModel.SetRightBitmap(bitmap, false, false);
-                    }
-                    else
-                    {
-                        _viewModel.SetLeftBitmap(bitmap, false, false);
-                    }
+                    var canvasWidth = canvas.DeviceClipBounds.Width;
+                    var sizeRatio = bitmap.Width / (canvasWidth * 1d);
+                    var scaledHeight = bitmap.Height / sizeRatio;
+                    canvas.DrawBitmap(bitmap,
+                        new SKRect(0, (float)(canvas.DeviceClipBounds.Height-scaledHeight)/2, canvas.DeviceClipBounds.Width, (float)(canvas.DeviceClipBounds.Height + scaledHeight) / 2));
 
                     _viewModel.BluetoothOperatorBindable.RequestClockReading();
                 }
