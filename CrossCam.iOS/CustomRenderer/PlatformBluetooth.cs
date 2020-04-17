@@ -123,6 +123,7 @@ namespace CrossCam.iOS.CustomRenderer
 
         public void Disconnect()
         {
+            _session.Disconnect();
         }
 
         public Task<bool> RequestBluetoothPermissions()

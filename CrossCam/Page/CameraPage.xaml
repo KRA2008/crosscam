@@ -126,7 +126,8 @@
                    HeightRequest="{StaticResource _doubleMediumIconWidth}"/>
             <forms:SKCanvasView x:Name="_pairPreviewCanvas"
                                 Grid.Column="{Binding IconColumn}"
-                                PaintSurface="OnPaintPreviewResult">
+                                PaintSurface="OnPaintPreviewResult"
+                                IsVisible="{Binding BluetoothOperatorBindable.PairStatus, Converter={vc:EnumCompareConverter}, ConverterParameter={x:Static vm:PairStatus.Connected}}">
                 <View.GestureRecognizers>
                     <SwipeGestureRecognizer Command="{Binding SwapSidesCommand}"
                                             Direction="Left,Right"

@@ -49,6 +49,7 @@ namespace CrossCam.CustomElement
 
         public PairStatus PairStatus { get; set; }
 
+        private bool _primaryIsRequestingDisconnect;
         private int _initializeThreadLocker;
         private int _pairInitializeThreadLocker;
         private int _connectThreadLocker;
@@ -254,13 +255,20 @@ namespace CrossCam.CustomElement
                 _timerSampleIndex = 0;
             }
 
-            if (!_isCaptureRequested)
+            if (_primaryIsRequestingDisconnect)
             {
-                await _platformBluetooth.SendReadyForPreviewFrame();
+                _platformBluetooth.Disconnect();
             }
             else
             {
-                await CalculateAndApplySyncMoment();
+                if (!_isCaptureRequested)
+                {
+                    await _platformBluetooth.SendReadyForPreviewFrame();
+                }
+                else
+                {
+                    await CalculateAndApplySyncMoment();
+                }
             }
         }
 
@@ -370,7 +378,14 @@ namespace CrossCam.CustomElement
 
         public void Disconnect()
         {
-            _platformBluetooth.Disconnect();
+            if (IsPrimary)
+            {
+                _primaryIsRequestingDisconnect = true;
+            }
+            else
+            {
+                _platformBluetooth.Disconnect();
+            }
             OnDisconnected();
         }
 
