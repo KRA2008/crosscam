@@ -277,7 +277,7 @@
                        VerticalOptions="Center"/>
                 <Label Grid.Row="2"
                        Grid.Column="2"
-                       Text="Power on Wifi on both devices (but you don't need to connect to anything)">
+                       Text="Power on Wi-Fi on both devices (but you don't need to connect to anything)">
                     <Label.IsVisible>
                         <OnPlatform x:TypeArguments="system:Boolean">
                             <On Platform="Android"
@@ -317,7 +317,7 @@
                 </Label>
             </Grid>
             <Label Text=" "/>
-            <Label Text="To connect again later, make sure you have wifi powered on and then just tap the connect button on the home screen.">
+            <Label Text="To connect again later, make sure you have Wi-Fi powered on and then just tap the connect button on the home screen.">
                 <Label.IsVisible>
                     <OnPlatform x:TypeArguments="system:Boolean">
                         <On Platform="Android"
