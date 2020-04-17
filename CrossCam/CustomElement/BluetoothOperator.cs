@@ -9,6 +9,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Timers;
 using CrossCam.Model;
+using CrossCam.ViewModel;
 using CrossCam.Wrappers;
 using FreshMvvm;
 using Xamarin.Forms;
@@ -19,7 +20,6 @@ namespace CrossCam.CustomElement
     public sealed class BluetoothOperator : INotifyPropertyChanged
     {
         private readonly Settings _settings;
-        public bool IsConnected { get; set; }
         public bool IsPrimary => _settings.IsPairedPrimary.HasValue && _settings.IsPairedPrimary.Value;
         public IPageModelCoreMethods CurrentCoreMethods { get; set; }
 
@@ -47,6 +47,8 @@ namespace CrossCam.CustomElement
         public Command PairedSetupCommand { get; set; }
         public Command AttemptConnectionCommand { get; set; }
 
+        public PairStatus PairStatus { get; set; }
+
         private int _initializeThreadLocker;
         private int _pairInitializeThreadLocker;
         private int _connectThreadLocker;
@@ -63,8 +65,7 @@ namespace CrossCam.CustomElement
         public event EventHandler Disconnected;
         private void OnDisconnected()
         {
-            IsConnected = false;
-            ShowPairDisconnected();
+            PairStatus = PairStatus.Disconnected;
             GetPairedDevices();
             var handler = Disconnected;
             handler?.Invoke(this, new EventArgs());
@@ -73,8 +74,7 @@ namespace CrossCam.CustomElement
         public event EventHandler Connected;
         private async void OnConnected()
         {
-            IsConnected = true;
-            ShowPairConnected();
+            PairStatus = PairStatus.Connected;
             GetPairedDevices();
             if (!IsPrimary)
             {
@@ -184,6 +184,7 @@ namespace CrossCam.CustomElement
             {
                 try
                 {
+                    PairStatus = PairStatus.Connecting;
                     if (Device.RuntimePlatform == Device.Android)
                     {
                         DiscoveredDevices.Clear();
@@ -211,6 +212,7 @@ namespace CrossCam.CustomElement
             {
                 try
                 {
+                    PairStatus = PairStatus.Connecting;
                     await InitializeForPairingiOSSecondary();
                 }
                 catch (Exception e)
@@ -483,23 +485,6 @@ namespace CrossCam.CustomElement
             {
                 await CurrentCoreMethods.DisplayAlert("Pair Error Occurred",
                     "An error occurred during " + step + ", exception: " + details, "OK");
-            });
-        }
-
-        private async void ShowPairDisconnected()
-        {
-            await Device.InvokeOnMainThreadAsync(async () =>
-            {
-                await CurrentCoreMethods.DisplayAlert("Disconnected", "The connection to the paired device was lost. Please connect again.",
-                    "OK");
-            });
-        }
-
-        private async void ShowPairConnected()
-        {
-            await Device.InvokeOnMainThreadAsync(async () =>
-            {
-                await CurrentCoreMethods.DisplayAlert("Connected Pair Device", "Pair device connected successfully! This is the " + (_settings.IsPairedPrimary.HasValue && _settings.IsPairedPrimary.Value ? "primary" : "secondary") + " device.", "Yay");
             });
         }
 

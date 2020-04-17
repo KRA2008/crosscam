@@ -157,8 +157,8 @@ namespace CrossCam.ViewModel
 
         public bool IsNothingCaptured => LeftBitmap == null && RightBitmap == null;
         public bool ShouldIconBeVisible => IsNothingCaptured && IconColumn != CameraColumn && WorkflowStage == WorkflowStage.Capture;
-        public bool ShouldLeftPairBeVisible => IsNothingCaptured && Settings.Handedness == Handedness.Right && !BluetoothOperator.IsConnected;
-        public bool ShouldRightPairBeVisible => IsNothingCaptured && Settings.Handedness == Handedness.Left && !BluetoothOperator.IsConnected;
+        public bool ShouldLeftPairBeVisible => IsNothingCaptured && Settings.Handedness == Handedness.Right;
+        public bool ShouldRightPairBeVisible => IsNothingCaptured && Settings.Handedness == Handedness.Left;
         public bool ShouldLeftLeftRetakeBeVisible => LeftBitmap != null && (WorkflowStage == WorkflowStage.Final && DoesCaptureOrientationMatchViewOrientation || WorkflowStage == WorkflowStage.Capture && (Settings.Handedness == Handedness.Right || Settings.Handedness == Handedness.Center));
         public bool ShouldLeftRightRetakeBeVisible => LeftBitmap != null && WorkflowStage == WorkflowStage.Capture && Settings.Handedness == Handedness.Left;
         public bool ShouldRightLeftRetakeBeVisible => RightBitmap != null && WorkflowStage == WorkflowStage.Capture && Settings.Handedness == Handedness.Right;
@@ -170,9 +170,9 @@ namespace CrossCam.ViewModel
         public bool ShouldSettingsAndHelpBeVisible => !IsBusy && 
                                                       WorkflowStage != WorkflowStage.View;
         public bool IsExactlyOnePictureTaken => LeftBitmap == null ^ RightBitmap == null;
-        public bool ShouldRightCaptureBeVisible => WorkflowStage == WorkflowStage.Capture && Settings.Handedness == Handedness.Right && (!BluetoothOperatorBindable.IsConnected || Settings.IsPairedPrimary.HasValue && Settings.IsPairedPrimary.Value);
-        public bool ShouldCenterCaptureBeVisible => WorkflowStage == WorkflowStage.Capture && Settings.Handedness == Handedness.Center && (!BluetoothOperatorBindable.IsConnected || Settings.IsPairedPrimary.HasValue && Settings.IsPairedPrimary.Value);
-        public bool ShouldLeftCaptureBeVisible => WorkflowStage == WorkflowStage.Capture && Settings.Handedness == Handedness.Left && (!BluetoothOperatorBindable.IsConnected || Settings.IsPairedPrimary.HasValue && Settings.IsPairedPrimary.Value);
+        public bool ShouldRightCaptureBeVisible => WorkflowStage == WorkflowStage.Capture && Settings.Handedness == Handedness.Right && (BluetoothOperatorBindable.PairStatus == PairStatus.Disconnected || Settings.IsPairedPrimary.HasValue && Settings.IsPairedPrimary.Value);
+        public bool ShouldCenterCaptureBeVisible => WorkflowStage == WorkflowStage.Capture && Settings.Handedness == Handedness.Center && (BluetoothOperatorBindable.PairStatus == PairStatus.Disconnected || Settings.IsPairedPrimary.HasValue && Settings.IsPairedPrimary.Value);
+        public bool ShouldLeftCaptureBeVisible => WorkflowStage == WorkflowStage.Capture && Settings.Handedness == Handedness.Left && (BluetoothOperatorBindable.PairStatus == PairStatus.Disconnected || Settings.IsPairedPrimary.HasValue && Settings.IsPairedPrimary.Value);
         public bool ShouldLineGuidesBeVisible => (IsExactlyOnePictureTaken || Settings.ShowGuideLinesWithFirstCapture && WorkflowStage == WorkflowStage.Capture) && Settings.AreGuideLinesVisible || WorkflowStage == WorkflowStage.Keystone || WorkflowStage == WorkflowStage.ManualAlign;
         public bool ShouldDonutGuideBeVisible => (IsExactlyOnePictureTaken || Settings.ShowGuideDonutWithFirstCapture && WorkflowStage == WorkflowStage.Capture) && Settings.IsGuideDonutVisible;
         public bool ShouldRollGuideBeVisible => WorkflowStage == WorkflowStage.Capture && Settings.ShowRollGuide;
@@ -319,7 +319,7 @@ namespace CrossCam.ViewModel
             {
                 try
                 {
-                    if (BluetoothOperator.IsConnected)
+                    if (BluetoothOperator.PairStatus == PairStatus.Connected)
                     {
                         ClearCaptures();
                     }
@@ -344,7 +344,7 @@ namespace CrossCam.ViewModel
             {
                 try
                 {
-                    if (BluetoothOperator.IsConnected)
+                    if (BluetoothOperator.PairStatus == PairStatus.Connected)
                     {
                         ClearCaptures();
                     }
@@ -728,7 +728,7 @@ namespace CrossCam.ViewModel
 
             PairCommand = new Command(async () =>
             {
-                if (!BluetoothOperator.IsConnected)
+                if (BluetoothOperator.PairStatus == PairStatus.Disconnected)
                 {
                     if (!Settings.IsPairedPrimary.HasValue)
                     {
@@ -1535,7 +1535,7 @@ namespace CrossCam.ViewModel
 
         private void ClearCaptures()
         {
-            if (BluetoothOperator.IsConnected &&
+            if (BluetoothOperator.PairStatus == PairStatus.Connected &&
                 BluetoothOperator.IsPrimary)
             {
                 BluetoothOperator.RequestClockReading();

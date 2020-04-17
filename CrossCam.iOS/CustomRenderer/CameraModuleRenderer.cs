@@ -10,6 +10,7 @@ using CoreGraphics;
 using CoreMedia;
 using CoreVideo;
 using CrossCam.iOS.CustomRenderer;
+using CrossCam.ViewModel;
 using Foundation;
 using UIKit;
 using Xamarin.Forms;
@@ -266,7 +267,7 @@ namespace CrossCam.iOS.CustomRenderer
         {
             try
             {
-                if (_cameraModule.BluetoothOperator.IsConnected &&
+                if (_cameraModule.BluetoothOperator.PairStatus == PairStatus.Connected &&
                     _cameraModule.BluetoothOperator.IsPrimary &&
                     !isSyncReentry)
                 {
@@ -295,7 +296,7 @@ namespace CrossCam.iOS.CustomRenderer
                     using (var rotatedImage = UIImage.FromImage(cgImage, 1, GetOrientationForCorrection()))
                     {
                         var imageBytes = rotatedImage.AsJPEG().ToArray();
-                        if (_cameraModule.BluetoothOperator.IsConnected &&
+                        if (_cameraModule.BluetoothOperator.PairStatus == PairStatus.Connected &&
                             !_cameraModule.BluetoothOperator.IsPrimary)
                         {
                             _cameraModule.BluetoothOperator.SendCapture(imageBytes);
@@ -333,7 +334,7 @@ namespace CrossCam.iOS.CustomRenderer
                     using (var uiImage = UIImage.FromImage(cgImage, 1, GetOrientationForCorrection()))
                     {
                         var imageBytes = uiImage.AsJPEG().ToArray();
-                        if (_cameraModule.BluetoothOperator.IsConnected &&
+                        if (_cameraModule.BluetoothOperator.PairStatus == PairStatus.Connected &&
                             !_cameraModule.BluetoothOperator.IsPrimary)
                         {
                             _cameraModule.BluetoothOperator.SendCapture(imageBytes);
@@ -369,7 +370,7 @@ namespace CrossCam.iOS.CustomRenderer
                     using (var uiImage = UIImage.FromImage(cgImage, 1, GetOrientationForCorrection()))
                     {
                         var imageBytes = uiImage.AsJPEG().ToArray();
-                        if (_cameraModule.BluetoothOperator.IsConnected &&
+                        if (_cameraModule.BluetoothOperator.PairStatus == PairStatus.Connected &&
                             !_cameraModule.BluetoothOperator.IsPrimary)
                         {
                             _cameraModule.BluetoothOperator.SendCapture(imageBytes);
@@ -684,7 +685,7 @@ namespace CrossCam.iOS.CustomRenderer
             {
                 try
                 {
-                    if (_camera.BluetoothOperator.IsConnected)
+                    if (_camera.BluetoothOperator.PairStatus == PairStatus.Connected)
                     {
                         if (Interlocked.Exchange(ref _readyToCapturePreviewFrameInterlocked, 0) == 1)
                         {

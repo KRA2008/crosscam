@@ -19,6 +19,7 @@ using CrossCam.Droid.CustomRenderer;
 using CrossCam.Droid.CustomRenderer.Camera2;
 using CrossCam.Model;
 using CrossCam.Page;
+using CrossCam.ViewModel;
 using CrossCam.Wrappers;
 using Java.Lang;
 using Xamarin.Forms;
@@ -406,7 +407,7 @@ namespace CrossCam.Droid.CustomRenderer
 
         private void TakePhotoButtonTapped(bool isSyncReentry = false)
         {
-            if (_cameraModule.BluetoothOperator.IsConnected &&
+            if (_cameraModule.BluetoothOperator.PairStatus == PairStatus.Connected &&
                 _cameraModule.BluetoothOperator.IsPrimary &&
                 !isSyncReentry)
             {
@@ -1021,7 +1022,7 @@ namespace CrossCam.Droid.CustomRenderer
                 var previewImageListener = new ImageAvailableListener();
                 previewImageListener.Photo += (sender, bytes) => 
                 {
-                    if (_cameraModule.BluetoothOperator.IsConnected)
+                    if (_cameraModule.BluetoothOperator.PairStatus == PairStatus.Connected)
                     {
                         //_cameraModule.BluetoothOperator.LatestPreviewFrame = bytes;
                     }
