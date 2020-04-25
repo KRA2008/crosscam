@@ -261,7 +261,7 @@ namespace CrossCam.iOS.CustomRenderer
             });
         }
 
-        private async void CapturePhoto(bool isSyncReentry = false)
+        private async void CapturePhoto()
         {
             try
             {

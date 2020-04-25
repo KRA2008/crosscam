@@ -56,8 +56,6 @@ namespace CrossCam.Page
             InitializeComponent();
             NavigationPage.SetHasNavigationBar(this, false);
 
-		    var bubbleBounds = AbsoluteLayout.GetLayoutBounds(_horizontalLevelBubble);
-		    AbsoluteLayout.SetLayoutBounds(_horizontalLevelBubble, bubbleBounds);
 		    _horizontalLevelBubble.Source = _levelBubbleImage;
 		    _horizontalLevelOutside.Source = _levelOutsideImage;
 
@@ -240,7 +238,7 @@ namespace CrossCam.Page
                     SetMarginsForNotch();
                     break;
                 case nameof(CameraViewModel.PreviewBottomY):
-                    SetSensorGuidesY();
+                    PlaceRollGuide();
                     break;
 	            case nameof(CameraViewModel.LeftBitmap):
                 case nameof(CameraViewModel.RightBitmap):
@@ -332,16 +330,6 @@ namespace CrossCam.Page
             }
         }
 
-        private void SetSensorGuidesY()
-	    {
-	        var rollBounds = AbsoluteLayout.GetLayoutBounds(_horizontalLevelWhole);
-	        rollBounds.Y = _viewModel.PreviewBottomY - LEVEL_ICON_WIDTH / 5;
-            Device.BeginInvokeOnMainThread(() =>
-            {
-                AbsoluteLayout.SetLayoutBounds(_horizontalLevelWhole, rollBounds);
-            });
-        }
-
         private void ResetLineAndDonutGuides()
         {
             Device.BeginInvokeOnMainThread(() =>
@@ -397,6 +385,10 @@ namespace CrossCam.Page
             rollBounds.Width = LEVEL_ICON_WIDTH;
             rollBounds.Height = LEVEL_ICON_WIDTH;
             rollBounds.X = _viewModel == null || _viewModel.CameraColumn == 0 ? 0.2 : 0.8;
+            if (_viewModel != null)
+            {
+                rollBounds.Y = _viewModel.PreviewBottomY - LEVEL_ICON_WIDTH / 5;
+            }
             Device.BeginInvokeOnMainThread(() =>
             {
                 AbsoluteLayout.SetLayoutBounds(_horizontalLevelWhole, rollBounds);

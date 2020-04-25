@@ -34,7 +34,7 @@ namespace CrossCam.CustomElement
         private PartnerDevice _device;
         private readonly Timer _captureSyncTimer = new Timer{AutoReset = false};
 
-        private const int TIMER_TOTAL_SAMPLES = 25;
+        private const int TIMER_TOTAL_SAMPLES = 50;
         private int _timerSampleIndex;
         private readonly long[] T0_SAMPLES = new long[TIMER_TOTAL_SAMPLES];
         private readonly long[] T1T2_SAMPLES = new long[TIMER_TOTAL_SAMPLES];

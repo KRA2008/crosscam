@@ -935,7 +935,7 @@ namespace CrossCam.ViewModel
         private void BluetoothOperatorOnCapturedImageReceived(object sender, byte[] e)
         {
             PreviewFrame = null;
-            var bitmap = GetBitmapAndCorrectOrientation(e);
+            var bitmap = DecodeBitmapAndCorrectOrientation(e);
             if (IsCaptureLeftFirst)
             {
                 SetRightBitmap(bitmap, false, true);
