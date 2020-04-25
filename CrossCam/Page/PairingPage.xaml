@@ -117,9 +117,9 @@
                 </Label.IsVisible>
             </Label>
 
-            <Label Text="If you have two devices with CrossCam installed, you can connect them in order to take simultaneous photos from two perspectives. This makes the best cross views possible. To get started, navigate them both to this page."/>
+            <Label Text="If you have two devices with CrossCam installed, you can connect them in order to take simultaneous photos from two perspectives. This makes the best cross views possible."/>
 
-            <Label Text="Please be aware that at this time the devices must be of the same platform in order to connect (both Android or both iOS)."/>
+            <Label Text="Please be aware that at this time the devices must be the same platform in order to connect (both Android or both iOS)."/>
 
             <Label Text="CrossCam will request permissions and power on components as needed in order to connect your devices. Please note: access to location services is required. CrossCam does not actually USE your location in any way, but because the act of searching for Bluetooth devices could theoretically be used to find your location, CrossCam requires permission to access your location. You may not be used to seeing that because it is a newer change in the way mobile operating systems handle Bluetooth permissions in order to more strongly protect your privacy. Once your devices are connected and remember each other, CrossCam will not require location access for reconnecting in the future - feel free to remove that permission.">
                 <Label.IsVisible>
@@ -132,7 +132,7 @@
                 </Label.IsVisible>
             </Label>
 
-            <Label Text="The PRIMARY device is the one that will show both previews, trigger the capture, and hold/save the final captures."/>
+            <Label Text="The PRIMARY device is the one that will show both previews, trigger the capture, and hold/save the final captures. To get started, navigate them both to this page."/>
 
             <Label Text=""/>
             <Grid>
@@ -277,7 +277,7 @@
                        VerticalOptions="Center"/>
                 <Label Grid.Row="2"
                        Grid.Column="2"
-                       Text="Power on Wi-Fi on both devices (but you don't need to connect to anything)">
+                       Text="Make sure Wi-Fi is enabled on both devices (CrossCam uses the Wi-Fi antenna, but not the network - you don't need to be connected to anything)">
                     <Label.IsVisible>
                         <OnPlatform x:TypeArguments="system:Boolean">
                             <On Platform="Android"
@@ -305,7 +305,7 @@
                        Grid.Column="2"
                        HorizontalOptions="Start" 
                        VerticalOptions="Center"
-                       Text="Go back to the home screen and tap the pair button in the lower corner">
+                       Text="Go back to the home screen on both devices and tap the pair button in the lower corner">
                     <Label.IsVisible>
                         <OnPlatform x:TypeArguments="system:Boolean">
                             <On Platform="Android"
@@ -316,8 +316,7 @@
                     </Label.IsVisible>
                 </Label>
             </Grid>
-            <Label Text=" "/>
-            <Label Text="To connect again later, make sure you have Wi-Fi powered on and then just tap the connect button on the home screen.">
+            <Label Text="To connect again later, make sure you have Wi-Fi enabled and then just tap the connect button on the home screen on both devices.">
                 <Label.IsVisible>
                     <OnPlatform x:TypeArguments="system:Boolean">
                         <On Platform="Android"

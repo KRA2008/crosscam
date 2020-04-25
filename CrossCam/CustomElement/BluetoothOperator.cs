@@ -54,15 +54,6 @@ namespace CrossCam.CustomElement
         private int _pairInitializeThreadLocker;
         private int _connectThreadLocker;
 
-        public event ElapsedEventHandler CaptureRequested;
-        private void OnCaptureRequested(object sender, ElapsedEventArgs e)
-        {
-            Debug.WriteLine("CAPTURE NOW!!!!");
-            _captureSyncTimer.Elapsed -= OnCaptureRequested;
-            var handler = CaptureRequested;
-            handler?.Invoke(this, e);
-        }
-
         public event EventHandler Disconnected;
         private void OnDisconnected()
         {
@@ -101,10 +92,10 @@ namespace CrossCam.CustomElement
             handler?.Invoke(this, e);
         }
 
-        public event EventHandler PreviewFrameRequested;
+        public event EventHandler PreviewFrameRequestReceived;
         private void OnPreviewFrameRequested()
         {
-            var handler = PreviewFrameRequested;
+            var handler = PreviewFrameRequestReceived;
             handler?.Invoke(this, null);
         }
 
@@ -113,6 +104,15 @@ namespace CrossCam.CustomElement
         {
             var handler = PreviewFrameReceived;
             handler?.Invoke(this, frame);
+        }
+
+        public event ElapsedEventHandler CaptureSyncTimeElapsed;
+        private void OnCaptureSyncTimeElapsed(object sender, ElapsedEventArgs e)
+        {
+            Debug.WriteLine("CAPTURE NOW!!!!");
+            _captureSyncTimer.Elapsed -= OnCaptureSyncTimeElapsed;
+            var handler = CaptureSyncTimeElapsed;
+            handler?.Invoke(this, e);
         }
 
         public event EventHandler<byte[]> CapturedImageReceived;
@@ -135,6 +135,7 @@ namespace CrossCam.CustomElement
             _platformBluetooth.SyncReceived += PlatformBluetoothOnSyncReceived;
             _platformBluetooth.CaptureReceived += PlatformBluetoothOnCaptureReceived;
             _platformBluetooth.HelloReceived += PlatformBluetoothOnHelloReceived;
+            _platformBluetooth.SecondaryErrorReceived += PlatformBluetoothOnSecondaryErrorReceived;
 
             DiscoveredDevices = new ObservableCollection<PartnerDevice>();
             PairedDevices = new ObservableCollection<PartnerDevice>();
@@ -179,6 +180,15 @@ namespace CrossCam.CustomElement
             });
         }
 
+        private void PlatformBluetoothOnSecondaryErrorReceived(object sender, EventArgs e)
+        {
+            OnErrorOccurred(new ErrorEventArgs
+            {
+                Exception = new Exception(),
+                Step = "secondary device operation"
+            });
+        }
+
         public async Task SetUpPrimaryForPairing()
         {
             if (Interlocked.CompareExchange(ref _initializeThreadLocker, 1, 0) == 0)
@@ -186,6 +196,7 @@ namespace CrossCam.CustomElement
                 try
                 {
                     PairStatus = PairStatus.Connecting;
+                    _primaryIsRequestingDisconnect = false;
                     if (Device.RuntimePlatform == Device.Android)
                     {
                         DiscoveredDevices.Clear();
@@ -258,6 +269,7 @@ namespace CrossCam.CustomElement
             if (_primaryIsRequestingDisconnect)
             {
                 _platformBluetooth.Disconnect();
+                _primaryIsRequestingDisconnect = false;
             }
             else
             {
@@ -274,7 +286,6 @@ namespace CrossCam.CustomElement
 
         private void PlatformBluetoothOnPreviewFrameReceived(object sender, byte[] bytes)
         {
-            Debug.WriteLine("Operator received frame");
             OnPreviewFrameReceived(bytes);
         }
 
@@ -313,8 +324,6 @@ namespace CrossCam.CustomElement
             _platformBluetooth.StartScanning();
 
             await CreateGattServerAndStartAdvertisingIfCapable();
-
-            Debug.WriteLine("### Bluetooth initialized");
         }
 
         private async Task InitializeForPairingiOSPrimary()
@@ -371,7 +380,7 @@ namespace CrossCam.CustomElement
                 OnErrorOccurred(new ErrorEventArgs
                 {
                     Exception = e,
-                    Step = "Attempt Connection"
+                    Step = "attempt connection"
                 });
             }
         }
@@ -407,11 +416,11 @@ namespace CrossCam.CustomElement
 
         private async Task CalculateAndApplySyncMoment()
         {
-            const int BUFFER_TRIP_MULTIPLIER = 4;
+            const int BUFFER_TRIP_MULTIPLIER = 10;
             var offsets = new List<long>();
             var trips = new List<long>();
-            var offsetsSafeAverage = 0L;
-            var tripsSafeAverage = 0L;
+            var offset = 0L;
+            var trip = 0L;
             try
             {
                 for (var i = 0; i < TIMER_TOTAL_SAMPLES; i++)
@@ -428,28 +437,26 @@ namespace CrossCam.CustomElement
                     Debug.WriteLine("Round trip delay: " + roundTripDelayRun / 10000d + " milliseconds");
                 }
 
-                var safeOffsets = CleanseData(offsets);
-                var safeTrips = CleanseData(trips);
-                offsetsSafeAverage = (long)safeOffsets.Average();
-                tripsSafeAverage = (long)safeTrips.Average();
+                offset = offsets.Where(o => o != 0).OrderByDescending(o => o).ElementAt(TIMER_TOTAL_SAMPLES / 2); //median
+                trip = trips.Max();
 
-                Debug.WriteLine("Average time offset: " + offsetsSafeAverage / 10000d + " milliseconds");
-                Debug.WriteLine("Average round trip delay: " + tripsSafeAverage / 10000d + " milliseconds");
+                Debug.WriteLine("Median time offset: " + offset / 10000d + " milliseconds");
+                Debug.WriteLine("Max trip delay: " + trip / 10000d + " milliseconds");
             }
             catch (Exception e)
             {
                 OnErrorOccurred(new ErrorEventArgs
                 {
                     Exception = e,
-                    Step = "Send Read Time Request"
+                    Step = "send read time request"
                 });
             }
 
-            var targetSyncMoment = DateTime.UtcNow.AddTicks(tripsSafeAverage * BUFFER_TRIP_MULTIPLIER);
-            Debug.WriteLine("Target sync: " + targetSyncMoment.ToString("O"));
-            var partnerSyncMoment = targetSyncMoment.AddTicks(offsetsSafeAverage);
-            Debug.WriteLine("Partner sync: " + partnerSyncMoment.ToString("O"));
+            var targetSyncMoment = DateTime.UtcNow.AddTicks(trip * BUFFER_TRIP_MULTIPLIER);
             SyncCapture(targetSyncMoment);
+            var partnerSyncMoment = targetSyncMoment.AddTicks(offset);
+            Debug.WriteLine("Target sync: " + targetSyncMoment.ToString("O"));
+            Debug.WriteLine("Partner sync: " + partnerSyncMoment.ToString("O"));
             await _platformBluetooth.SendSync(partnerSyncMoment);
             _isCaptureRequested = false;
         }
@@ -470,19 +477,22 @@ namespace CrossCam.CustomElement
             try
             {
                 var interval = (syncTime.Ticks - DateTime.UtcNow.Ticks) / 10000d;
-                Debug.WriteLine("Sync interval set: " + interval);
-                Debug.WriteLine("Sync time: " + syncTime.ToString("O"));
-                Debug.WriteLine("Now time: " + DateTime.UtcNow.ToString("O"));
-                _captureSyncTimer.Elapsed += OnCaptureRequested;
+                _captureSyncTimer.Elapsed += OnCaptureSyncTimeElapsed;
                 _captureSyncTimer.Interval = interval;
                 _captureSyncTimer.Start();
+                Debug.WriteLine("Sync interval set: " + interval);
+                Debug.WriteLine("Sync time: " + syncTime.ToString("O"));
             }
             catch (Exception e)
             {
+                if (!IsPrimary)
+                {
+                    _platformBluetooth.SendSecondaryErrorOccurred();
+                }
                 OnErrorOccurred(new ErrorEventArgs
                 {
                     Exception = e,
-                    Step = "Sync capture"
+                    Step = "sync capture"
                 });
             }
         }
@@ -514,7 +524,7 @@ namespace CrossCam.CustomElement
                 OnErrorOccurred(new ErrorEventArgs
                 {
                     Exception = e,
-                    Step = "Send Preview Frame Outer"
+                    Step = "send preview frame"
                 });
             }
         }
@@ -530,7 +540,7 @@ namespace CrossCam.CustomElement
                 OnErrorOccurred(new ErrorEventArgs
                 {
                     Exception = e,
-                    Step = "Send Preview Frame Outer"
+                    Step = "send captured frame"
                 });
             }
         }

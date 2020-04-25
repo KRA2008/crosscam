@@ -11,9 +11,11 @@ using CrossCam.Wrappers;
 using FreshMvvm;
 using Newtonsoft.Json;
 using Plugin.DeviceInfo;
+using PropertyChanged;
 using SkiaSharp;
 using Xamarin.Essentials;
 using Xamarin.Forms;
+using ErrorEventArgs = CrossCam.CustomElement.ErrorEventArgs;
 
 namespace CrossCam.ViewModel
 {
@@ -41,7 +43,6 @@ namespace CrossCam.ViewModel
 
         private SKBitmap _originalUnalignedBitmap { get; set; }
 
-        public bool IsCameraVisible { get; set; }
         public byte[] CapturedImageBytes { get; set; }
         public bool CaptureSuccess { get; set; }
         public int CameraColumn { get; set; }
@@ -173,8 +174,8 @@ namespace CrossCam.ViewModel
         public bool ShouldRightCaptureBeVisible => WorkflowStage == WorkflowStage.Capture && Settings.Handedness == Handedness.Right && (BluetoothOperatorBindable.PairStatus == PairStatus.Disconnected || Settings.IsPairedPrimary.HasValue && Settings.IsPairedPrimary.Value);
         public bool ShouldCenterCaptureBeVisible => WorkflowStage == WorkflowStage.Capture && Settings.Handedness == Handedness.Center && (BluetoothOperatorBindable.PairStatus == PairStatus.Disconnected || Settings.IsPairedPrimary.HasValue && Settings.IsPairedPrimary.Value);
         public bool ShouldLeftCaptureBeVisible => WorkflowStage == WorkflowStage.Capture && Settings.Handedness == Handedness.Left && (BluetoothOperatorBindable.PairStatus == PairStatus.Disconnected || Settings.IsPairedPrimary.HasValue && Settings.IsPairedPrimary.Value);
-        public bool ShouldLineGuidesBeVisible => (IsExactlyOnePictureTaken || Settings.ShowGuideLinesWithFirstCapture || BluetoothOperator.IsPrimary && BluetoothOperator.PairStatus == PairStatus.Connected && WorkflowStage == WorkflowStage.Capture) && Settings.AreGuideLinesVisible || WorkflowStage == WorkflowStage.Keystone || WorkflowStage == WorkflowStage.ManualAlign;
-        public bool ShouldDonutGuideBeVisible => (IsExactlyOnePictureTaken || Settings.ShowGuideDonutWithFirstCapture || BluetoothOperator.IsPrimary && BluetoothOperator.PairStatus == PairStatus.Connected && WorkflowStage == WorkflowStage.Capture) && Settings.IsGuideDonutVisible;
+        public bool ShouldLineGuidesBeVisible => ((IsExactlyOnePictureTaken && WorkflowStage != WorkflowStage.Loading) || Settings.ShowGuideLinesWithFirstCapture || BluetoothOperator.IsPrimary && BluetoothOperator.PairStatus == PairStatus.Connected && WorkflowStage == WorkflowStage.Capture) && Settings.AreGuideLinesVisible || WorkflowStage == WorkflowStage.Keystone || WorkflowStage == WorkflowStage.ManualAlign;
+        public bool ShouldDonutGuideBeVisible => ((IsExactlyOnePictureTaken && WorkflowStage != WorkflowStage.Loading) || Settings.ShowGuideDonutWithFirstCapture || BluetoothOperator.IsPrimary && BluetoothOperator.PairStatus == PairStatus.Connected && WorkflowStage == WorkflowStage.Capture) && Settings.IsGuideDonutVisible;
         public bool ShouldRollGuideBeVisible => WorkflowStage == WorkflowStage.Capture && Settings.ShowRollGuide;
         public bool ShouldViewButtonBeVisible => WorkflowStage == WorkflowStage.Final ||
                                                  WorkflowStage == WorkflowStage.Crop ||
@@ -193,6 +194,8 @@ namespace CrossCam.ViewModel
                                                           Settings.SaveRedundantFirstSide ||
                                                           Settings.SaveForRedCyanAnaglyph ||
                                                           Settings.SaveForGrayscaleAnaglyph);
+        public bool ShouldPairPreviewBeVisible => BluetoothOperator.PairStatus == PairStatus.Connected &&
+                                                  WorkflowStage == WorkflowStage.Capture;
 
         public int IconColumn => CameraColumn == 0 ? 1 : 0;
 
@@ -226,11 +229,11 @@ namespace CrossCam.ViewModel
         private bool _wasAlignmentWithHorizontalRun;
         private bool _wasAlignmentWithoutHorizontalRun;
         private readonly IPhotoSaver _photoSaver;
+        private bool _secondaryErrorOccurred;
 
         public CameraViewModel()
         {
             _photoSaver = DependencyService.Get<IPhotoSaver>();
-            IsCameraVisible = true;
 
             Settings = PersistentStorage.LoadOrDefault(PersistentStorage.SETTINGS_KEY, new Settings());
             BluetoothOperator = new BluetoothOperator(Settings);
@@ -260,13 +263,27 @@ namespace CrossCam.ViewModel
                 }
                 else if (args.PropertyName == nameof(CapturedImageBytes))
                 {
-                    if (CameraColumn == 0)
+                    if (_secondaryErrorOccurred)
                     {
-                        LeftBytesCaptured(CapturedImageBytes); // not awaiting. ok.
+                        ClearCaptures();
                     }
                     else
                     {
-                        RightBytesCaptured(CapturedImageBytes); // not awaiting. ok.
+                        if (CameraColumn == 0)
+                        {
+                            LeftBytesCaptured(CapturedImageBytes, BluetoothOperator.PairStatus == PairStatus.Disconnected); // not awaiting. ok.
+                        }
+                        else
+                        {
+                            RightBytesCaptured(CapturedImageBytes, BluetoothOperator.PairStatus == PairStatus.Disconnected); // not awaiting. ok.
+                        }
+
+                        if (BluetoothOperator.IsPrimary &&
+                            BluetoothOperator.PairStatus == PairStatus.Connected)
+                        {
+                            WorkflowStage = WorkflowStage.Loading;
+                            RaisePropertyChanged(nameof(ShouldLineGuidesBeVisible));
+                        }
                     }
                 }
                 else if (args.PropertyName == nameof(ErrorMessage))
@@ -327,7 +344,6 @@ namespace CrossCam.ViewModel
                     {
                         ClearEdits();
                         CameraColumn = 0;
-                        IsCameraVisible = true;
                         LeftBitmap?.Dispose();
                         LeftBitmap = null;
                         TriggerMovementHint();
@@ -352,7 +368,6 @@ namespace CrossCam.ViewModel
                     {
                         ClearEdits();
                         CameraColumn = 1;
-                        IsCameraVisible = true;
                         RightBitmap?.Dispose();
                         RightBitmap = null;
                         TriggerMovementHint();
@@ -417,7 +432,15 @@ namespace CrossCam.ViewModel
 
             CapturePictureCommand = new Command(() =>
             {
-                CapturePictureTrigger = !CapturePictureTrigger;
+                if (BluetoothOperator.IsPrimary &&
+                    BluetoothOperator.PairStatus == PairStatus.Connected)
+                {
+                    BluetoothOperator.BeginSyncedCapture();
+                }
+                else
+                {
+                    CapturePictureTrigger = !CapturePictureTrigger;
+                }
             });
 
             ToggleViewModeCommand = new Command(() =>
@@ -457,7 +480,7 @@ namespace CrossCam.ViewModel
                     LeftBitmap = RightBitmap;
                     RightBitmap = tempArray;
 
-                    if (IsCameraVisible)
+                    if (WorkflowStage == WorkflowStage.Capture)
                     {
                         CameraColumn = CameraColumn == 0 ? 1 : 0;
                     }
@@ -761,6 +784,7 @@ namespace CrossCam.ViewModel
             RaisePropertyChanged(nameof(ShouldCenterCaptureBeVisible));
             RaisePropertyChanged(nameof(ShouldRightCaptureBeVisible));
             RaisePropertyChanged(nameof(ShouldLineGuidesBeVisible));
+            RaisePropertyChanged(nameof(ShouldPairPreviewBeVisible));
         }
 
         private void BluetoothOperatorOnConnected(object sender, EventArgs e)
@@ -769,6 +793,7 @@ namespace CrossCam.ViewModel
             RaisePropertyChanged(nameof(ShouldCenterCaptureBeVisible));
             RaisePropertyChanged(nameof(ShouldRightCaptureBeVisible));
             RaisePropertyChanged(nameof(ShouldLineGuidesBeVisible));
+            RaisePropertyChanged(nameof(ShouldPairPreviewBeVisible));
         }
 
         public bool BackButtonPressed()
@@ -896,9 +921,15 @@ namespace CrossCam.ViewModel
             BluetoothOperator.CurrentCoreMethods = CoreMethods;
             BluetoothOperator.PreviewFrameReceived += BluetoothOperatorOnPreviewFrameReceived;
             BluetoothOperator.CapturedImageReceived += BluetoothOperatorOnCapturedImageReceived;
+            BluetoothOperator.ErrorOccurred += BluetoothOperatorOnErrorOccurred;
 
             await Task.Delay(100);
             await EvaluateAndShowWelcomePopup();
+        }
+
+        private void BluetoothOperatorOnErrorOccurred(object sender, ErrorEventArgs e)
+        {
+            _secondaryErrorOccurred = true;
         }
 
         private void BluetoothOperatorOnCapturedImageReceived(object sender, byte[] e)
@@ -976,7 +1007,6 @@ namespace CrossCam.ViewModel
 
         private void BluetoothOperatorOnPreviewFrameReceived(object sender, byte[] bytes)
         {
-            Debug.WriteLine("Preview frame set bindable");
             PreviewFrame = bytes;
         }
 
@@ -1012,16 +1042,16 @@ namespace CrossCam.ViewModel
             }
         }
 
-        private async Task LeftBytesCaptured(byte[] capturedBytes)
+        private async Task LeftBytesCaptured(byte[] capturedBytes, bool withMovementAndStep = true)
         {
             var bitmap = await Task.Run(() => DecodeBitmapAndCorrectOrientation(capturedBytes));
-            SetLeftBitmap(bitmap, true, true);
+            SetLeftBitmap(bitmap, withMovementAndStep, withMovementAndStep);
         }
 
-        private async Task RightBytesCaptured(byte[] capturedBytes)
+        private async Task RightBytesCaptured(byte[] capturedBytes, bool withMovementAndStep = true)
         {
             var bitmap = await Task.Run(() => DecodeBitmapAndCorrectOrientation(capturedBytes));
-            SetRightBitmap(bitmap, true, true);
+            SetRightBitmap(bitmap, withMovementAndStep, withMovementAndStep);
         }
 
         private async void AutoAlign()
@@ -1186,7 +1216,6 @@ namespace CrossCam.ViewModel
                 {
                     WasCaptureCross = Settings.Mode != DrawMode.Parallel;
                     CameraColumn = IsCaptureLeftFirst ? 0 : 1;
-                    IsCameraVisible = false;
                     WorkflowStage = WorkflowStage.Final;
                     SetMaxEdits(bitmap);
                     AutoAlign();
@@ -1216,7 +1245,6 @@ namespace CrossCam.ViewModel
                 {
                     WasCaptureCross = Settings.Mode != DrawMode.Parallel;
                     CameraColumn = IsCaptureLeftFirst ? 0 : 1;
-                    IsCameraVisible = false;
                     WorkflowStage = WorkflowStage.Final;
                     SetMaxEdits(bitmap);
                     AutoAlign();
@@ -1549,7 +1577,7 @@ namespace CrossCam.ViewModel
             RightBitmap = null;
             _originalUnalignedBitmap?.Dispose();
             _originalUnalignedBitmap = null;
-            IsCameraVisible = true;
+            _secondaryErrorOccurred = false;
             WorkflowStage = WorkflowStage.Capture;
 
             if (Settings.IsTapToFocusEnabled2)

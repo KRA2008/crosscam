@@ -31,7 +31,8 @@ namespace CrossCam.iOS.CustomRenderer
             ReadyForClockReading,
             ClockReading,
             Sync,
-            CapturedImage
+            CapturedImage,
+            Error
         }
 
         private readonly ObservableCollection<EAAccessory> _availableDevices =
@@ -120,6 +121,13 @@ namespace CrossCam.iOS.CustomRenderer
             handler?.Invoke(this, e);
         }
 
+        public event EventHandler SecondaryErrorReceived;
+        private void OnSecondaryErrorReceived()
+        {
+            var handler = SecondaryErrorReceived;
+            handler?.Invoke(this, new EventArgs());
+        }
+
 
         public void Disconnect()
         {
@@ -176,7 +184,6 @@ namespace CrossCam.iOS.CustomRenderer
 
         public Task SendClockReading()
         {
-            Debug.WriteLine("Sending clock reading");
             var ticks = DateTime.UtcNow.Ticks;
             var message = AddPayloadHeader(CrossCommand.ClockReading, BitConverter.GetBytes(ticks));
             SendData(message);
@@ -266,7 +273,6 @@ namespace CrossCam.iOS.CustomRenderer
 
         public Task SendReadyForPreviewFrame()
         {
-            Debug.WriteLine("Sending ready");
             var fullMessage = AddPayloadHeader(CrossCommand.ReadyForPreviewFrame, Enumerable.Empty<byte>().ToArray());
             SendData(fullMessage);
             return Task.FromResult(true);
@@ -274,7 +280,6 @@ namespace CrossCam.iOS.CustomRenderer
 
         public Task SendPreviewFrame(byte[] frame)
         {
-            Debug.WriteLine("Sending preview frame");
             var frameMessage = AddPayloadHeader(CrossCommand.PreviewFrame, frame);
             SendData(frameMessage);
             return Task.FromResult(true);
@@ -282,10 +287,14 @@ namespace CrossCam.iOS.CustomRenderer
 
         public Task SendReadyForClockReading()
         {
-            Debug.WriteLine("Sending ready for clock reading");
             var message = AddPayloadHeader(CrossCommand.ReadyForClockReading, Enumerable.Empty<byte>().ToArray());
             SendData(message);
             return Task.FromResult(true);
+        }
+
+        public void SendSecondaryErrorOccurred()
+        {
+            SendData(AddPayloadHeader(CrossCommand.Error, Enumerable.Empty<byte>().ToArray()));
         }
 
         public bool IsServerSupported()
@@ -376,6 +385,9 @@ namespace CrossCam.iOS.CustomRenderer
                             break;
                         case (int)CrossCommand.CapturedImage:
                             _platformBluetooth.OnCaptureReceived(payload);
+                            break;
+                        case (int)CrossCommand.Error:
+                            _platformBluetooth.OnSecondaryErrorReceived();
                             break;
                     }
                 }

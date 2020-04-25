@@ -31,6 +31,7 @@ namespace CrossCam.Wrappers
         Task ListenForConnections();
         Task<bool> SayHello();
         Task<bool> ListenForHello();
+        void SendSecondaryErrorOccurred();
         event EventHandler Connected;
         event EventHandler Disconnected;
         event EventHandler HelloReceived;
@@ -38,7 +39,8 @@ namespace CrossCam.Wrappers
         event EventHandler<byte[]> PreviewFrameReceived;
         event EventHandler<long> ClockReadingReceived;
         event EventHandler<DateTime> SyncReceived;
-        event EventHandler<byte[]> CaptureReceived;
+        event EventHandler<byte[]> CaptureReceived; 
+        event EventHandler SecondaryErrorReceived;
     }
 
     public class PartnerDevice

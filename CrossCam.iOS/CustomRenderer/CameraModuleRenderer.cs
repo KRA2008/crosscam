@@ -52,12 +52,10 @@ namespace CrossCam.iOS.CustomRenderer
             if (e.NewElement != null)
             {
                 _cameraModule = e.NewElement;
-                _cameraModule.BluetoothOperator.CaptureRequested += (sender2, args) =>
+                _cameraModule.BluetoothOperator.CaptureSyncTimeElapsed += (sender2, args) =>
                 {
-                    Device.BeginInvokeOnMainThread(() =>
-                    {
-                        CapturePhoto(true);
-                    });
+
+                    Device.BeginInvokeOnMainThread(CapturePhoto);
                 };
                 SetupCamera();
                 StartPreview();
@@ -205,7 +203,7 @@ namespace CrossCam.iOS.CustomRenderer
                         MinFrameDuration = new CMTime(1, 30),
                         UncompressedVideoSetting = settings
                     };
-                    //if (UIDevice.CurrentDevice.CheckSystemVersion(13, 0))
+                    //if (UIDevice.CurrentDevice.CheckSystemVersion(13, 0)) //TODO: what is this?
                     //{
                     //    _previewFrameOutput.DeliversPreviewSizedOutputBuffers = true;
                     //    _previewFrameOutput.AutomaticallyConfiguresOutputBufferDimensions = false;
@@ -219,7 +217,7 @@ namespace CrossCam.iOS.CustomRenderer
                     _captureSession.AddOutput(_photoOutput);
                     _captureSession.AddInput(AVCaptureDeviceInput.FromDevice(_device));
                 }
-                else if (!_is10OrHigher && (_stillImageOutput == null || restart))
+                else if (!_is10OrHigher && (_stillImageOutput == null || restart)) //TODO: can i add support for pairing to iOS 10 and below devices?
                 {
                     _stillImageOutput = new AVCaptureStillImageOutput
                     {
@@ -267,13 +265,6 @@ namespace CrossCam.iOS.CustomRenderer
         {
             try
             {
-                if (_cameraModule.BluetoothOperator.PairStatus == PairStatus.Connected &&
-                    _cameraModule.BluetoothOperator.IsPrimary &&
-                    !isSyncReentry)
-                {
-                    _cameraModule.BluetoothOperator.BeginSyncedCapture();
-                    return;
-                }
                 if (_is10OrHigher)
                 {
                     var photoSettings = AVCapturePhotoSettings.Create();
@@ -675,7 +666,7 @@ namespace CrossCam.iOS.CustomRenderer
             public PreviewFrameDelegate(CameraModule camera)
             {
                 _camera = camera;
-                _camera.BluetoothOperator.PreviewFrameRequested += (sender, args) =>
+                _camera.BluetoothOperator.PreviewFrameRequestReceived += (sender, args) =>
                 {
                     _readyToCapturePreviewFrameInterlocked = 1;
                 };
@@ -689,7 +680,6 @@ namespace CrossCam.iOS.CustomRenderer
                     {
                         if (Interlocked.Exchange(ref _readyToCapturePreviewFrameInterlocked, 0) == 1)
                         {
-                            Debug.WriteLine("Collecting frame for sending");
                             var image = GetImageFromSampleBuffer(sampleBuffer);
                             var bytes = image.AsJPEG(0).ToArray();
                             _camera.BluetoothOperator.SendLatestPreviewFrame(bytes);

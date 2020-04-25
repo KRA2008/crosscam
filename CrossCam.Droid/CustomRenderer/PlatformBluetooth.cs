@@ -194,6 +194,11 @@ namespace CrossCam.Droid.CustomRenderer
             return BluetoothAdapter.DefaultAdapter.StartDiscovery();
         }
 
+        public void SendSecondaryErrorOccurred()
+        {
+            throw new NotImplementedException();
+        }
+
         public event EventHandler Connected;
         private void OnConnected()
         {
@@ -233,6 +238,7 @@ namespace CrossCam.Droid.CustomRenderer
         public event EventHandler<long> ClockReadingReceived;
         public event EventHandler<DateTime> SyncReceived;
         public event EventHandler<byte[]> CaptureReceived;
+        public event EventHandler SecondaryErrorReceived;
 
         private void OnPreviewFrameReceived(PartnerDevice e)
         {

@@ -14,7 +14,6 @@ namespace CrossCam.Droid.CustomRenderer.Camera2
 
             try
             {
-                System.Diagnostics.Debug.WriteLine("image available");
                 image = reader.AcquireNextImage();
                 var buffer = image.GetPlanes()[0].Buffer;
                 var imageData = new byte[buffer.Capacity()];
@@ -28,7 +27,6 @@ namespace CrossCam.Droid.CustomRenderer.Camera2
             }
             finally
             {
-                System.Diagnostics.Debug.WriteLine("closing image");
                 image?.Close();
             }
         }

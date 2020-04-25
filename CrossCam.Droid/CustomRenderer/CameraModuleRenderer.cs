@@ -162,7 +162,7 @@ namespace CrossCam.Droid.CustomRenderer
                 if (e.NewElement != null)
                 {
                     _cameraModule = e.NewElement;
-                    _cameraModule.BluetoothOperator.CaptureRequested += (sender2, args) =>
+                    _cameraModule.BluetoothOperator.CaptureSyncTimeElapsed += (sender2, args) =>
                     {
                         Device.BeginInvokeOnMainThread(() =>
                         {

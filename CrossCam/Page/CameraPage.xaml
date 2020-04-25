@@ -127,7 +127,7 @@
             <forms:SKCanvasView x:Name="_pairPreviewCanvas"
                                 Grid.Column="{Binding IconColumn}"
                                 PaintSurface="OnPaintPreviewResult"
-                                IsVisible="{Binding BluetoothOperatorBindable.PairStatus, Converter={vc:EnumCompareConverter}, ConverterParameter={x:Static vm:PairStatus.Connected}}">
+                                IsVisible="{Binding ShouldPairPreviewBeVisible}">
                 <View.GestureRecognizers>
                     <SwipeGestureRecognizer Command="{Binding SwapSidesCommand}"
                                             Direction="Left,Right"
@@ -140,7 +140,7 @@
                              IsLockToFirstEnabled="{Binding Settings.IsLockToFirstEnabled}"
                              IsPortrait="{Binding IsViewPortrait}"
                              CaptureTrigger="{Binding CapturePictureTrigger}"
-                             IsVisible="{Binding IsCameraVisible}"
+                             IsVisible="{Binding WorkflowStage, Converter={vc:EnumCompareConverter}, ConverterParameter={x:Static vm:WorkflowStage.Capture}}"
                              IsViewInverted="{Binding IsViewInverted}"
                              CapturedImage="{Binding CapturedImageBytes}"
                              CaptureSuccess="{Binding CaptureSuccess}"
@@ -155,7 +155,7 @@
                              IsFrontCamera="{Binding Settings.IsFrontCamera}"
                              BluetoothOperator="{Binding BluetoothOperatorBindable}"/>
             <AbsoluteLayout Grid.Column="{Binding CameraColumn}"
-                            IsVisible="{Binding IsCameraVisible}"
+                            IsVisible="{Binding WorkflowStage, Converter={vc:EnumCompareConverter}, ConverterParameter={x:Static vm:WorkflowStage.Capture}}"
                             InputTransparent="True">
                 <Image x:Name="_focusCircle"
                        AbsoluteLayout.LayoutFlags="None"

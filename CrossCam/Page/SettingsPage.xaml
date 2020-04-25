@@ -60,9 +60,15 @@
     </ContentPage.Resources>
     <ScrollView VerticalOptions="StartAndExpand">
         <StackLayout>
-            <BoxView/>
-            <Label Text="Capture/Preview Method"
+            
+
+<BoxView/>
+            <Label Text="Pairing"
                    Style="{DynamicResource header}"/>
+            <Button Text="Go to Pairing Page"
+                    Command="{Binding NavigateToPairingPageCommand}"/>
+            <BoxView/>
+            <Label Text="Capture/Preview Method"                   Style="{DynamicResource header}"/>
             <Frame>
                 <Picker ItemsSource="{Binding Modes}"
                         SelectedIndex="{Binding Settings.Mode, Converter={vc:ModeValueConverter}}"
@@ -175,11 +181,6 @@
                             HorizontalOptions="EndAndExpand"/>
                 </Frame>
             </StackLayout>
-            <BoxView/>
-            <Label Text="Pairing"
-                   Style="{DynamicResource header}"/>
-            <Button Text="Go to Pairing Page"
-                    Command="{Binding NavigateToPairingPageCommand}"/>
             <BoxView/>
             <Label Text="Saving"
 >>>>>>> to become bonded, one device must be on bluetooth settings screen (currently). currently refusing to connect
