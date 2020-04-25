@@ -422,6 +422,9 @@
         <AbsoluteLayout x:Name="_horizontalLevelWhole"
                         AbsoluteLayout.LayoutFlags="XProportional"
                         IsVisible="{Binding ShouldRollGuideBeVisible}">
+            <AbsoluteLayout.LayoutBounds>
+                <Rectangle X="0" Y="0" Width="0" Height="0"/>
+            </AbsoluteLayout.LayoutBounds>
             <Image x:Name="_horizontalLevelOutside"
                    AbsoluteLayout.LayoutFlags="All" 
                    AbsoluteLayout.LayoutBounds="0,0,1,1"/>
