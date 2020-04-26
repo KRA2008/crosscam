@@ -9,6 +9,7 @@
              xmlns:wrappers="clr-namespace:CrossCam.Wrappers;assembly=CrossCam"
              xmlns:system="clr-namespace:System;assembly=netstandard"
              xmlns:input="clr-namespace:System.Windows.Input;assembly=netstandard"
+             xmlns:customElement="clr-namespace:CrossCam.CustomElement;assembly=CrossCam"
              mc:Ignorable="d"
 
              d:DataContext="{d:DesignInstance Type=viewModel:PairingViewModel, IsDesignTimeCreatable=False}"
@@ -326,6 +327,8 @@
                     </OnPlatform>
                 </Label.IsVisible>
             </Label>
+            <Label Text="Please be aware that this feature is still experimental and may have issues. Also please be aware that the synchronization is software-based, so may not be as precise as a physical trigger button."/>
+            <customElement:EmailMeLabel/>
         </StackLayout>
     </ScrollView>
 </freshMvvm:FreshBaseContentPage>

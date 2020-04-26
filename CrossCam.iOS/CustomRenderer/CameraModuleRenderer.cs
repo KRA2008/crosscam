@@ -317,7 +317,11 @@ namespace CrossCam.iOS.CustomRenderer
                 }
                 else if (finishedPhotoBuffer != null)
                 {
-                    LockPictureSpecificSettingsIfApplicable();
+                    if (!(_cameraModule.BluetoothOperator.PairStatus == PairStatus.Connected &&
+                          !_cameraModule.BluetoothOperator.IsPrimary))
+                    {
+                        LockPictureSpecificSettingsIfApplicable();
+                    }
 
                     using (var image = AVCapturePhotoOutput.GetJpegPhotoDataRepresentation(finishedPhotoBuffer, previewPhotoBuffer))
                     using (var imgDataProvider = new CGDataProvider(image))
@@ -355,7 +359,11 @@ namespace CrossCam.iOS.CustomRenderer
                 }
                 else if (photo != null)
                 {
-                    LockPictureSpecificSettingsIfApplicable();
+                    if (!(_cameraModule.BluetoothOperator.PairStatus == PairStatus.Connected &&
+                          !_cameraModule.BluetoothOperator.IsPrimary))
+                    {
+                        LockPictureSpecificSettingsIfApplicable();
+                    }
 
                     using (var cgImage = photo.CGImageRepresentation)
                     using (var uiImage = UIImage.FromImage(cgImage, 1, GetOrientationForCorrection()))

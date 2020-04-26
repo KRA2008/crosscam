@@ -239,6 +239,8 @@ namespace CrossCam.ViewModel
             BluetoothOperator = new BluetoothOperator(Settings);
             BluetoothOperator.Connected += BluetoothOperatorOnConnected;
             BluetoothOperator.Disconnected += BluetoothOperatorOnDisconnected;
+            BluetoothOperator.PreviewFrameReceived += BluetoothOperatorOnPreviewFrameReceived;
+            BluetoothOperator.CapturedImageReceived += BluetoothOperatorOnCapturedImageReceived;
 
             IsCaptureLeftFirst = Settings.IsCaptureLeftFirst;
             CameraColumn = IsCaptureLeftFirst ? 0 : 1;
@@ -756,7 +758,7 @@ namespace CrossCam.ViewModel
                     if (!Settings.IsPairedPrimary.HasValue)
                     {
                         await CoreMethods.DisplayAlert("Pair Role Not Selected",
-                            "Please go to the pairing page on the Settings screen and choose a pairing role for this device before attempting to pair.",
+                            "Please go to Pairing page (via the Settings page) and choose a pairing role for this device before attempting to pair.",
                             "Ok");
                     }
                     else
@@ -919,8 +921,6 @@ namespace CrossCam.ViewModel
             }
 
             BluetoothOperator.CurrentCoreMethods = CoreMethods;
-            BluetoothOperator.PreviewFrameReceived += BluetoothOperatorOnPreviewFrameReceived;
-            BluetoothOperator.CapturedImageReceived += BluetoothOperatorOnCapturedImageReceived;
             BluetoothOperator.ErrorOccurred += BluetoothOperatorOnErrorOccurred;
 
             await Task.Delay(100);
@@ -1001,7 +1001,8 @@ namespace CrossCam.ViewModel
 
         protected override void ViewIsDisappearing(object sender, EventArgs e)
         {
-            BluetoothOperator.PreviewFrameReceived -= BluetoothOperatorOnPreviewFrameReceived;
+            BluetoothOperator.ErrorOccurred -= BluetoothOperatorOnErrorOccurred;
+
             base.ViewIsDisappearing(sender, e);
         }
 
