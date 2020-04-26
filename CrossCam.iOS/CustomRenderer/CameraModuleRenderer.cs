@@ -193,31 +193,9 @@ namespace CrossCam.iOS.CustomRenderer
                         IsHighResolutionCaptureEnabled = true
                     };
 
-                    var settings = new AVVideoSettingsUncompressed
-                    {
-                        PixelFormatType = CVPixelFormatType.CV32BGRA
-                    };
-                    _previewFrameOutput = new AVCaptureVideoDataOutput
-                    {
-                        AlwaysDiscardsLateVideoFrames = true,
-                        MinFrameDuration = new CMTime(1, 30),
-                        UncompressedVideoSetting = settings
-                    };
-                    //if (UIDevice.CurrentDevice.CheckSystemVersion(13, 0)) //TODO: what is this?
-                    //{
-                    //    _previewFrameOutput.DeliversPreviewSizedOutputBuffers = true;
-                    //    _previewFrameOutput.AutomaticallyConfiguresOutputBufferDimensions = false;
-                    //}
-                    _previewFrameDelegate = new PreviewFrameDelegate(_cameraModule);
-                    var queue = new DispatchQueue("PreviewFrameQueue");
-                    _previewFrameOutput.WeakVideoSettings = settings.Dictionary;
-                    _previewFrameOutput.SetSampleBufferDelegate(_previewFrameDelegate, queue);
-
-                    _captureSession.AddOutput(_previewFrameOutput);
                     _captureSession.AddOutput(_photoOutput);
-                    _captureSession.AddInput(AVCaptureDeviceInput.FromDevice(_device));
                 }
-                else if (!_is10OrHigher && (_stillImageOutput == null || restart)) //TODO: can i add support for pairing to iOS 10 and below devices?
+                else if (!_is10OrHigher && (_stillImageOutput == null || restart))
                 {
                     _stillImageOutput = new AVCaptureStillImageOutput
                     {
@@ -226,9 +204,31 @@ namespace CrossCam.iOS.CustomRenderer
                     };
 
                     _captureSession.AddOutput(_stillImageOutput);
-                    _captureSession.AddInput(AVCaptureDeviceInput.FromDevice(_device));
                 }
-                
+
+                var settings = new AVVideoSettingsUncompressed
+                {
+                    PixelFormatType = CVPixelFormatType.CV32BGRA
+                };
+                _previewFrameOutput = new AVCaptureVideoDataOutput
+                {
+                    AlwaysDiscardsLateVideoFrames = true,
+                    MinFrameDuration = new CMTime(1, 30),
+                    UncompressedVideoSetting = settings
+                };
+                //if (UIDevice.CurrentDevice.CheckSystemVersion(13, 0)) //TODO: what is this?
+                //{
+                //    _previewFrameOutput.DeliversPreviewSizedOutputBuffers = true;
+                //    _previewFrameOutput.AutomaticallyConfiguresOutputBufferDimensions = false;
+                //}
+                _previewFrameDelegate = new PreviewFrameDelegate(_cameraModule);
+                var queue = new DispatchQueue("PreviewFrameQueue");
+                _previewFrameOutput.WeakVideoSettings = settings.Dictionary;
+                _previewFrameOutput.SetSampleBufferDelegate(_previewFrameDelegate, queue);
+
+                _captureSession.AddOutput(_previewFrameOutput);
+                _captureSession.AddInput(AVCaptureDeviceInput.FromDevice(_device));
+
                 _device.AddObserver(this, "adjustingFocus", NSKeyValueObservingOptions.OldNew, IntPtr.Zero);
             }
             catch (Exception e)
@@ -279,7 +279,11 @@ namespace CrossCam.iOS.CustomRenderer
 
                     _cameraModule.CaptureSuccess = !_cameraModule.CaptureSuccess;
 
-                    LockPictureSpecificSettingsIfApplicable();
+                    if (!(_cameraModule.BluetoothOperator.PairStatus == PairStatus.Connected &&
+                        !_cameraModule.BluetoothOperator.IsPrimary))
+                    {
+                        LockPictureSpecificSettingsIfApplicable();
+                    }
 
                     var jpegImageAsNsData = AVCaptureStillImageOutput.JpegStillToNSData(sampleBuffer);
                     using (var image = UIImage.LoadFromData(jpegImageAsNsData))
