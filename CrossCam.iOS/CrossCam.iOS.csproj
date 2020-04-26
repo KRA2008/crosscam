@@ -21,12 +21,16 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <ConsolePause>false</ConsolePause>
-    <MtouchArch>x86_64</MtouchArch>
+    <MtouchArch>i386, x86_64</MtouchArch>
     <MtouchLink>None</MtouchLink>
     <MtouchDebug>true</MtouchDebug>
-    <MtouchProfiling>true</MtouchProfiling>
+    <MtouchProfiling>false</MtouchProfiling>
     <CodesignKey>iPhone Developer</CodesignKey>
     <MtouchI18n />
+    <MtouchFastDev>true</MtouchFastDev>
+    <DeviceSpecificBuild>true</DeviceSpecificBuild>
+    <MtouchFloat32>true</MtouchFloat32>
+    <MtouchNoSymbolStrip>true</MtouchNoSymbolStrip>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|iPhone' ">
     <DebugType>full</DebugType>
@@ -72,14 +76,14 @@
     <MtouchArch>ARMv7, ARM64</MtouchArch>
     <CodesignEntitlements>
     </CodesignEntitlements>
-    <MtouchProfiling>true</MtouchProfiling>
+    <MtouchProfiling>false</MtouchProfiling>
     <CodesignKey>Apple Development: Kevin Anderson (288S2529U3)</CodesignKey>
     <MtouchDebug>true</MtouchDebug>
     <CodesignProvision>VS: WildCard Development</CodesignProvision>
     <IpaPackageName />
     <MtouchFastDev>true</MtouchFastDev>
     <DeviceSpecificBuild>true</DeviceSpecificBuild>
-    <OptimizePNGs>true</OptimizePNGs>
+    <OptimizePNGs>false</OptimizePNGs>
     <CodesignExtraArgs />
     <CodesignResourceRules />
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
@@ -87,6 +91,7 @@
     <MtouchExtraArgs>
     </MtouchExtraArgs>
     <MtouchFloat32>true</MtouchFloat32>
+    <MtouchNoSymbolStrip>true</MtouchNoSymbolStrip>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(RunConfiguration)' == 'Default' ">
     <AppExtensionDebugBundleId />
@@ -94,12 +99,19 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug Without Emgu|iPhoneSimulator'">
     <DebugSymbols>true</DebugSymbols>
     <OutputPath>bin\iPhoneSimulator\Debug Without Emgu\</OutputPath>
-    <DefineConstants>__IOS__;__MOBILE__;__UNIFIED__;DEBUG;ENABLE_TEST_CLOUD;</DefineConstants>
+    <DefineConstants>DEBUG;__IOS__;__MOBILE__;__UNIFIED__;ENABLE_TEST_CLOUD;__NO_EMGU__;</DefineConstants>
     <DebugType>full</DebugType>
     <PlatformTarget>AnyCPU</PlatformTarget>
     <UseVSHostingProcess>false</UseVSHostingProcess>
     <ErrorReport>prompt</ErrorReport>
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <MtouchDebug>true</MtouchDebug>
+    <MtouchArch>i386, x86_64</MtouchArch>
+    <MtouchFastDev>true</MtouchFastDev>
+    <DeviceSpecificBuild>true</DeviceSpecificBuild>
+    <MtouchFloat32>true</MtouchFloat32>
+    <MtouchLink>None</MtouchLink>
+    <MtouchNoSymbolStrip>true</MtouchNoSymbolStrip>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug Without Emgu|iPhone'">
     <DebugSymbols>true</DebugSymbols>
@@ -114,6 +126,13 @@
     <CodesignExtraArgs />
     <CodesignResourceRules />
     <CodesignEntitlements />
+    <MtouchDebug>true</MtouchDebug>
+    <MtouchArch>ARMv7, ARM64</MtouchArch>
+    <MtouchFloat32>true</MtouchFloat32>
+    <MtouchNoSymbolStrip>true</MtouchNoSymbolStrip>
+    <MtouchFastDev>true</MtouchFastDev>
+    <DeviceSpecificBuild>true</DeviceSpecificBuild>
+    <MtouchLink>None</MtouchLink>
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="FreshMvvm">

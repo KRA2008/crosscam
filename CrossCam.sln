@@ -64,11 +64,12 @@ Global
 		{A47F6F63-D74D-4C78-BB34-518C57C41DEE}.Release|Any CPU.Deploy.0 = Release|Any CPU
 		{A47F6F63-D74D-4C78-BB34-518C57C41DEE}.Release|iPhone.ActiveCfg = Release|Any CPU
 		{A47F6F63-D74D-4C78-BB34-518C57C41DEE}.Release|iPhoneSimulator.ActiveCfg = Release|Any CPU
-		{169D5C20-8FDA-48FC-96AF-2F6E09BB9B4F}.Debug Without Emgu|Any CPU.ActiveCfg = Debug Without Emgu|iPhone
-		{169D5C20-8FDA-48FC-96AF-2F6E09BB9B4F}.Debug Without Emgu|iPhone.ActiveCfg = Debug|iPhone
-		{169D5C20-8FDA-48FC-96AF-2F6E09BB9B4F}.Debug Without Emgu|iPhone.Build.0 = Debug|iPhone
-		{169D5C20-8FDA-48FC-96AF-2F6E09BB9B4F}.Debug Without Emgu|iPhoneSimulator.ActiveCfg = Debug|iPhoneSimulator
-		{169D5C20-8FDA-48FC-96AF-2F6E09BB9B4F}.Debug Without Emgu|iPhoneSimulator.Build.0 = Debug|iPhoneSimulator
+		{169D5C20-8FDA-48FC-96AF-2F6E09BB9B4F}.Debug Without Emgu|Any CPU.ActiveCfg = Debug|iPhone
+		{169D5C20-8FDA-48FC-96AF-2F6E09BB9B4F}.Debug Without Emgu|iPhone.ActiveCfg = Debug Without Emgu|iPhone
+		{169D5C20-8FDA-48FC-96AF-2F6E09BB9B4F}.Debug Without Emgu|iPhone.Build.0 = Debug Without Emgu|iPhone
+		{169D5C20-8FDA-48FC-96AF-2F6E09BB9B4F}.Debug Without Emgu|iPhone.Deploy.0 = Debug Without Emgu|iPhone
+		{169D5C20-8FDA-48FC-96AF-2F6E09BB9B4F}.Debug Without Emgu|iPhoneSimulator.ActiveCfg = Debug Without Emgu|iPhoneSimulator
+		{169D5C20-8FDA-48FC-96AF-2F6E09BB9B4F}.Debug Without Emgu|iPhoneSimulator.Build.0 = Debug Without Emgu|iPhoneSimulator
 		{169D5C20-8FDA-48FC-96AF-2F6E09BB9B4F}.Debug|Any CPU.ActiveCfg = Debug|iPhone
 		{169D5C20-8FDA-48FC-96AF-2F6E09BB9B4F}.Debug|iPhone.ActiveCfg = Debug|iPhone
 		{169D5C20-8FDA-48FC-96AF-2F6E09BB9B4F}.Debug|iPhone.Build.0 = Debug|iPhone
