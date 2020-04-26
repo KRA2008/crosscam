@@ -186,6 +186,7 @@ namespace CrossCam.iOS.CustomRenderer
                 TurnOffFlashAndSetContinuousAutoMode(_device);
 
                 _is10OrHigher = UIDevice.CurrentDevice.CheckSystemVersion(10, 0);
+                var isRestart = false;
                 if (_is10OrHigher && (_photoOutput == null || restart))
                 {
                     _photoOutput = new AVCapturePhotoOutput
@@ -194,6 +195,7 @@ namespace CrossCam.iOS.CustomRenderer
                     };
 
                     _captureSession.AddOutput(_photoOutput);
+                    isRestart = true;
                 }
                 else if (!_is10OrHigher && (_stillImageOutput == null || restart))
                 {
@@ -204,30 +206,34 @@ namespace CrossCam.iOS.CustomRenderer
                     };
 
                     _captureSession.AddOutput(_stillImageOutput);
+                    isRestart = true;
                 }
 
-                var settings = new AVVideoSettingsUncompressed
+                if (isRestart)
                 {
-                    PixelFormatType = CVPixelFormatType.CV32BGRA
-                };
-                _previewFrameOutput = new AVCaptureVideoDataOutput
-                {
-                    AlwaysDiscardsLateVideoFrames = true,
-                    MinFrameDuration = new CMTime(1, 30),
-                    UncompressedVideoSetting = settings
-                };
-                //if (UIDevice.CurrentDevice.CheckSystemVersion(13, 0)) //TODO: what is this?
-                //{
-                //    _previewFrameOutput.DeliversPreviewSizedOutputBuffers = true;
-                //    _previewFrameOutput.AutomaticallyConfiguresOutputBufferDimensions = false;
-                //}
-                _previewFrameDelegate = new PreviewFrameDelegate(_cameraModule);
-                var queue = new DispatchQueue("PreviewFrameQueue");
-                _previewFrameOutput.WeakVideoSettings = settings.Dictionary;
-                _previewFrameOutput.SetSampleBufferDelegate(_previewFrameDelegate, queue);
+                    var settings = new AVVideoSettingsUncompressed
+                    {
+                        PixelFormatType = CVPixelFormatType.CV32BGRA
+                    };
+                    _previewFrameOutput = new AVCaptureVideoDataOutput
+                    {
+                        AlwaysDiscardsLateVideoFrames = true,
+                        MinFrameDuration = new CMTime(1, 30),
+                        UncompressedVideoSetting = settings
+                    };
+                    //if (UIDevice.CurrentDevice.CheckSystemVersion(13, 0)) //TODO: what is this?
+                    //{
+                    //    _previewFrameOutput.DeliversPreviewSizedOutputBuffers = true;
+                    //    _previewFrameOutput.AutomaticallyConfiguresOutputBufferDimensions = false;
+                    //}
+                    _previewFrameDelegate = new PreviewFrameDelegate(_cameraModule);
+                    var queue = new DispatchQueue("PreviewFrameQueue");
+                    _previewFrameOutput.WeakVideoSettings = settings.Dictionary;
+                    _previewFrameOutput.SetSampleBufferDelegate(_previewFrameDelegate, queue);
 
-                _captureSession.AddOutput(_previewFrameOutput);
-                _captureSession.AddInput(AVCaptureDeviceInput.FromDevice(_device));
+                    _captureSession.AddOutput(_previewFrameOutput);
+                    _captureSession.AddInput(AVCaptureDeviceInput.FromDevice(_device));
+                }
 
                 _device.AddObserver(this, "adjustingFocus", NSKeyValueObservingOptions.OldNew, IntPtr.Zero);
             }
