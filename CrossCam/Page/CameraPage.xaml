@@ -1,14 +1,14 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
-<fresh:FreshBaseContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+<freshMvvm:FreshBaseContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-             xmlns:fresh="clr-namespace:FreshMvvm;assembly=FreshMvvm"
              xmlns:model="clr-namespace:CrossCam.Model;assembly=CrossCam"
              xmlns:vm="clr-namespace:CrossCam.ViewModel;assembly=CrossCam"
              xmlns:ce="clr-namespace:CrossCam.CustomElement;assembly=CrossCam"
              xmlns:vc="clr-namespace:CrossCam.ValueConverter;assembly=CrossCam"
              xmlns:forms="clr-namespace:SkiaSharp.Views.Forms;assembly=SkiaSharp.Views.Forms"
+             xmlns:freshMvvm="clr-namespace:FreshMvvm;assembly=FreshMvvm"
              mc:Ignorable="d"
              
              d:DataContext="{d:DesignInstance Type=vm:CameraViewModel, IsDesignTimeCreatable=False}"
@@ -48,6 +48,7 @@
             <Rectangle x:Key="_leftHandCaptureBounds" X="0" Y="1" Width="{StaticResource _giantIconWidth}" Height="{StaticResource _giantIconWidth}"/>
             <Rectangle x:Key="_finalSaveBounds" X="0.5" Y="1" Width="{StaticResource _giantIconWidth}" Height="{StaticResource _giantIconWidth}"/>
             <Rectangle x:Key="_clearBounds" X="0.5" Y="{StaticResource _topMiddleButtonY}" Width="{StaticResource _largeIconWidth}" Height="{StaticResource _largeIconWidth}"/>
+            <Rectangle x:Key="_swipeBounds" X="0.5" Y="{StaticResource _topMiddleButtonY}" Width="150" Height="60"/>
             <Rectangle x:Key="_swipeHintBounds" X="0" Y="{StaticResource _topMiddleButtonY}" Width="1" Height="{StaticResource _largeIconWidth}"/>
             <Rectangle x:Key="_cropBounds" X="0.5" Y="0.6" Width="{StaticResource _mediumIconWidth}" Height="{StaticResource _mediumIconWidth}"/>
             <Rectangle x:Key="_viewBounds" X="0.5" Y="{StaticResource _secondMiddleButtonY}" Width="{StaticResource _mediumIconWidth}" Height="{StaticResource _mediumIconWidth}"/>
@@ -308,8 +309,8 @@
                    AbsoluteLayout.LayoutBounds="0.5,0,15,1"/>
         </AbsoluteLayout>
 
-        <ContentView AbsoluteLayout.LayoutFlags="YProportional,WidthProportional,XProportional"
-                     AbsoluteLayout.LayoutBounds="{StaticResource _clearBounds}"
+        <ContentView AbsoluteLayout.LayoutFlags="PositionProportional"
+                     AbsoluteLayout.LayoutBounds="{StaticResource _swipeBounds}"
                      Padding="{StaticResource _topBarButtonPadding}"
                      IsVisible="{Binding WorkflowStage, Converter={vc:EnumCompareConverter}, ConverterParameter={x:Static vm:WorkflowStage.Capture}}">
             <ContentView.GestureRecognizers>
@@ -1337,4 +1338,4 @@
             </ContentView.GestureRecognizers>
         </ContentView>
     </AbsoluteLayout>
-</fresh:FreshBaseContentPage>
+</freshMvvm:FreshBaseContentPage>

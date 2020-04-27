@@ -1,6 +1,7 @@
 ﻿using System;
 using System.ComponentModel;
 using System.Threading.Tasks;
+using CrossCam.CustomElement;
 using CrossCam.ViewModel;
 using SkiaSharp.Views.Forms;
 using Xamarin.Essentials;
@@ -69,7 +70,20 @@ namespace CrossCam.Page
 	        return _viewModel?.BackButtonPressed() ?? base.OnBackButtonPressed();
 	    }
 
-	    private void EvaluateSensors(bool isAppRunning = true)
+        protected override void OnAppearing()
+        {
+            base.OnAppearing();
+            var notchHeightProvider = DependencyService.Get<INotchHeightProvider>();
+            if (notchHeightProvider != null)
+            {
+                var padding = Padding;
+                padding.Top = notchHeightProvider.GetNotchHeight();
+                padding.Bottom = notchHeightProvider.GetHomeThingHeight();
+                Padding = padding;
+            }
+        }
+
+        private void EvaluateSensors(bool isAppRunning = true)
 	    {
 	        if (_viewModel != null)
 	        {

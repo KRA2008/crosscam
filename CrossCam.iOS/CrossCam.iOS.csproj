@@ -171,6 +171,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CustomRenderer\DirectorySelector.cs" />
+    <Compile Include="CustomRenderer\NotchHeightProvider.cs" />
     <Compile Include="CustomRenderer\PhotoPicker.cs" />
     <Compile Include="CustomRenderer\PhotoSaver.cs" />
     <Compile Include="Main.cs" />
