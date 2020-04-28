@@ -315,6 +315,9 @@
                      IsVisible="{Binding WorkflowStage, Converter={vc:EnumCompareConverter}, ConverterParameter={x:Static vm:WorkflowStage.Capture}}">
             <ContentView.GestureRecognizers>
                 <TapGestureRecognizer Command="{Binding SwapSidesCommand}"/>
+                <SwipeGestureRecognizer Command="{Binding SwapSidesCommand}"
+                                        Direction="Left,Right"
+                                        Threshold="50"/>
             </ContentView.GestureRecognizers>
             <Label Text="(swipe to swap)"
                    HorizontalTextAlignment="Center"/>
