@@ -73,12 +73,18 @@ namespace CrossCam.Page
         protected override void OnAppearing()
         {
             base.OnAppearing();
+            SetMarginsForNotch();
+        }
+
+        private void SetMarginsForNotch()
+        {
             var notchHeightProvider = DependencyService.Get<INotchHeightProvider>();
-            if (notchHeightProvider != null)
+            if (notchHeightProvider != null &&
+                _viewModel != null)
             {
                 var padding = Padding;
-                padding.Top = notchHeightProvider.GetNotchHeight();
-                padding.Bottom = notchHeightProvider.GetHomeThingHeight();
+                padding.Top = _viewModel.IsViewPortrait ? notchHeightProvider.GetNotchHeight() : 0;
+                padding.Bottom = _viewModel.IsViewPortrait ? notchHeightProvider.GetHomeThingHeight() : 0;
                 Padding = padding;
             }
         }
@@ -223,6 +229,7 @@ namespace CrossCam.Page
                     PlaceRollGuide();
                     break;
                 case nameof(CameraViewModel.IsViewPortrait):
+                    SetMarginsForNotch();
                     _canvasView.InvalidateSurface();
                     ResetLineAndDonutGuides();
                     break;
