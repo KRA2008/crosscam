@@ -40,10 +40,6 @@
                 <Setter Property="Margin"
                         Value="10"/>
             </Style>
-            <Style TargetType="Picker">
-                <Setter Property="BackgroundColor"
-                        Value="White"/>
-            </Style>
             <x:Double x:Key="saveModesHeight">15</x:Double>
             <Style TargetType="Image"
                    x:Key="saveModes">

@@ -42,6 +42,12 @@
                 <Setter Property="HeightRequest"
                         Value="1"/>
             </Style>
+            <Style TargetType="Picker">
+                <Setter Property="TextColor"
+                        Value="Black"/>
+                <Setter Property="BackgroundColor"
+                        Value="White"/>
+            </Style>
         </ResourceDictionary>
     </Application.Resources>
 </Application>
