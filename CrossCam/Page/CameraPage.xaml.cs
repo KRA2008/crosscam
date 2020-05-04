@@ -231,7 +231,6 @@ namespace CrossCam.Page
                     PlaceRollGuide();
                     break;
                 case nameof(CameraViewModel.IsViewPortrait):
-                    _canvasView.InvalidateSurface();
                     _drawnResultCanvas.InvalidateSurface();
                     _pairPreviewCanvas.InvalidateSurface();
                     ResetLineAndDonutGuides();
