@@ -13,9 +13,9 @@ namespace CrossCam.Page
         public static void DrawImagesOnCanvas(
             SKCanvas canvas, SKBitmap leftBitmap, SKBitmap rightBitmap,
             int borderThickness, bool addBorder, BorderColor borderColor,
-            int leftLeftCrop, int leftRightCrop, int rightLeftCrop, int rightRightCrop,
-            int topCrop, int bottomCrop,
-            float leftRotation, float rightRotation, int alignment,
+            double leftLeftCrop, double leftRightCrop, double rightLeftCrop, double rightRightCrop,
+            double topCrop, double bottomCrop,
+            float leftRotation, float rightRotation, double alignment,
             int leftZoom, int rightZoom,
             float leftKeystone, float rightKeystone,
             double leftFov, double rightFov,
@@ -34,15 +34,15 @@ namespace CrossCam.Page
 
             if (leftBitmap != null)
             {
-                leftBitmapWidthLessCrop = leftBitmap.Width - leftLeftCrop - leftRightCrop;
-                leftBitmapHeightLessCrop = leftBitmap.Height - topCrop - bottomCrop - Math.Abs(alignment);
+                leftBitmapWidthLessCrop = (int)(leftBitmap.Width - leftBitmap.Width * (leftLeftCrop + leftRightCrop));
+                leftBitmapHeightLessCrop = (int)(leftBitmap.Height - leftBitmap.Height * (topCrop + bottomCrop + Math.Abs(alignment)));
                 aspectRatio = leftBitmap.Height / (1f * leftBitmap.Width);
             }
 
             if (rightBitmap != null)
             {
-                rightBitmapWidthLessCrop = rightBitmap.Width - rightLeftCrop - rightRightCrop;
-                rightBitmapHeightLessCrop = rightBitmap.Height - topCrop - bottomCrop - Math.Abs(alignment);
+                rightBitmapWidthLessCrop = (int)(rightBitmap.Width - rightBitmap.Width * (rightLeftCrop + rightRightCrop));
+                rightBitmapHeightLessCrop = (int)(rightBitmap.Height - rightBitmap.Height * (topCrop + bottomCrop + Math.Abs(alignment)));
                 aspectRatio = rightBitmap.Height / (1f * rightBitmap.Width);
             }
 
@@ -181,10 +181,10 @@ namespace CrossCam.Page
                     canvas.DrawBitmap(
                         transformed ?? grayscale ?? leftBitmap,
                         SKRect.Create(
-                            (float)(leftLeftCrop + leftFovCorrection),
-                            (float)(topCrop + (alignment > 0 ? alignment : 0) + topFovCorrection),
-                            (float)(width - leftLeftCrop - leftRightCrop - leftFovCorrection),
-                            (float)(height - topCrop - bottomCrop - Math.Abs(alignment) - topFovCorrection)),
+                            (float)(width * leftLeftCrop + leftFovCorrection),
+                            (float)(height * topCrop + (alignment > 0 ? alignment * height : 0) + topFovCorrection),
+                            (float)(width - width * (leftLeftCrop + leftRightCrop) - leftFovCorrection),
+                            (float)(height - height * (topCrop + bottomCrop + Math.Abs(alignment)) - topFovCorrection)),
                         SKRect.Create(
                             leftPreviewX,
                             leftPreviewY,
@@ -238,10 +238,10 @@ namespace CrossCam.Page
                     canvas.DrawBitmap(
                         transformed ?? grayscale ?? rightBitmap,
                         SKRect.Create(
-                            (float)(rightLeftCrop + rightFovCorrection),
-                            (float)(topCrop - (alignment < 0 ? alignment : 0) + topFovCorrection),
-                            (float)(width - rightLeftCrop - rightRightCrop - rightFovCorrection),
-                            (float)(height - topCrop - bottomCrop - Math.Abs(alignment) - topFovCorrection)),
+                            (float)(width * rightLeftCrop + rightFovCorrection),
+                            (float)(height * topCrop - (alignment < 0 ? alignment * height : 0) + topFovCorrection),
+                            (float)(width - width * (rightLeftCrop + rightRightCrop) - rightFovCorrection),
+                            (float)(height - height * (topCrop + bottomCrop + Math.Abs(alignment)) - topFovCorrection)),
                         SKRect.Create(
                             rightPreviewX,
                             rightPreviewY,
@@ -356,7 +356,7 @@ namespace CrossCam.Page
         }
 
         public static int CalculateJoinedCanvasWidthLessBorder(SKBitmap leftBitmap, SKBitmap rightBitmap, 
-            int leftLeftCrop, int leftRightCrop, int rightLeftCrop, int rightRightCrop)
+            double leftLeftCrop, double leftRightCrop, double rightLeftCrop, double rightRightCrop)
         {
             if (leftBitmap == null && rightBitmap == null) return 0;
 
@@ -370,13 +370,14 @@ namespace CrossCam.Page
                 return rightBitmap.Width * 2;
             }
 
-            return leftBitmap.Width + rightBitmap.Width -
-                leftLeftCrop - leftRightCrop - rightLeftCrop - rightRightCrop;
+            var baseWidth = Math.Min(leftBitmap.Width, rightBitmap.Width);
+            return (int)(2 * baseWidth -
+                baseWidth * (leftLeftCrop + leftRightCrop + rightLeftCrop + rightRightCrop));
         }
 
-        public static int CalculateCanvasHeightLessBorder(SKBitmap leftBitmap, SKBitmap rightBitmap, 
-            int topCrop, int bottomCrop,
-            int alignment)
+        public static int CalculateCanvasHeightLessBorder(SKBitmap leftBitmap, SKBitmap rightBitmap,
+            double topCrop, double bottomCrop,
+            double alignment)
         {
             if (leftBitmap == null && rightBitmap == null) return 0;
 
@@ -385,7 +386,8 @@ namespace CrossCam.Page
                 return leftBitmap?.Height ?? rightBitmap.Height;
             }
 
-            return leftBitmap.Height - topCrop - bottomCrop - Math.Abs(alignment);
+            var baseHeight = Math.Min(leftBitmap.Height, rightBitmap.Height);
+            return (int)(baseHeight - baseHeight * (topCrop + bottomCrop + Math.Abs(alignment)));
         }
     }
 }
