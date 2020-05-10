@@ -299,6 +299,7 @@ namespace CrossCam.Page
                 _viewModel.VerticalAlignment,
                 _viewModel.LeftZoom, _viewModel.RightZoom,
                 _viewModel.LeftKeystone, _viewModel.RightKeystone,
+                _viewModel.LeftFov, _viewModel.RightFov,
                 (_viewModel.Settings.Mode == DrawMode.RedCyanAnaglyph ||
                  _viewModel.Settings.Mode == DrawMode.GrayscaleRedCyanAnaglyph) && 
                 _viewModel.WorkflowStage == WorkflowStage.Capture
@@ -321,7 +322,16 @@ namespace CrossCam.Page
                     var canvasWidth = canvas.DeviceClipBounds.Width;
                     var sizeRatio = bitmap.Width / (canvasWidth * 1d);
                     var scaledHeight = bitmap.Height / sizeRatio;
+
+                    var fovRatio = _viewModel.BluetoothOperatorBindable.Fov / _viewModel.BluetoothOperatorBindable.PartnerFov;
+
+                    var newLeft = (bitmap.Width - bitmap.Width * fovRatio) / 2d;
+                    var newTop = (bitmap.Height - bitmap.Height * fovRatio) / 2d;
+                    var newRight = bitmap.Width - newLeft;
+                    var newBottom = bitmap.Height - newTop;
+
                     canvas.DrawBitmap(bitmap,
+                        new SKRect((float)newLeft, (float)newTop, (float)newRight, (float)newBottom),
                         new SKRect(0, (float)(canvas.DeviceClipBounds.Height-scaledHeight)/2, canvas.DeviceClipBounds.Width, (float)(canvas.DeviceClipBounds.Height + scaledHeight) / 2));
 
                     _viewModel.BluetoothOperatorBindable.RequestClockReading();

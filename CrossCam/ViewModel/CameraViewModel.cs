@@ -156,6 +156,9 @@ namespace CrossCam.ViewModel
         public double FocusCircleX { get; set; }
         public double FocusCircleY { get; set; }
 
+        public double LeftFov => BluetoothOperator.IsPrimary && BluetoothOperator.PairStatus == PairStatus.Connected ? (IsCaptureLeftFirst ? BluetoothOperator.Fov : BluetoothOperator.PartnerFov) : 0; //TODO: it shouldn't go to 0 because you disconnect - otherwise you MUST stay connected while saving, which is bad'
+        public double RightFov => BluetoothOperator.IsPrimary && BluetoothOperator.PairStatus == PairStatus.Connected ? (IsCaptureLeftFirst ? BluetoothOperator.PartnerFov : BluetoothOperator.Fov) : 0;
+
         public bool IsNothingCaptured => LeftBitmap == null && RightBitmap == null;
         public bool ShouldIconBeVisible => IsNothingCaptured && IconColumn != CameraColumn && WorkflowStage == WorkflowStage.Capture;
         public bool ShouldLeftPairBeVisible => IsNothingCaptured && Settings.Handedness == Handedness.Right;
@@ -635,6 +638,7 @@ namespace CrossCam.ViewModel
                                     VerticalAlignment,
                                     LeftZoom, RightZoom,
                                     LeftKeystone, RightKeystone,
+                                    LeftFov, RightFov,
                                     DrawMode.Cross);
 
                                 await SaveSurfaceSnapshot(tempSurface);
@@ -666,6 +670,7 @@ namespace CrossCam.ViewModel
                                     VerticalAlignment,
                                     RightZoom, LeftZoom,
                                     RightKeystone, LeftKeystone,
+                                    LeftFov, RightFov,
                                     DrawMode.Parallel);
 
                                 await SaveSurfaceSnapshot(tempSurface);
@@ -993,7 +998,9 @@ namespace CrossCam.ViewModel
                     RightCrop + OutsideCrop,
                     TopCrop, BottomCrop, LeftRotation, RightRotation,
                     VerticalAlignment, LeftZoom, RightZoom,
-                    LeftKeystone, RightKeystone, grayscale ? DrawMode.GrayscaleRedCyanAnaglyph : DrawMode.RedCyanAnaglyph);
+                    LeftKeystone, RightKeystone,
+                    LeftFov, RightFov, 
+                    grayscale ? DrawMode.GrayscaleRedCyanAnaglyph : DrawMode.RedCyanAnaglyph);
 
                 await SaveSurfaceSnapshot(tempSurface);
             }

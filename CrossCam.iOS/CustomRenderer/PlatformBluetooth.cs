@@ -25,7 +25,7 @@ namespace CrossCam.iOS.CustomRenderer
         private const byte SYNC_MASK = 170; // 0xAA (do it twice)
         protected enum CrossCommand
         {
-            Hello = 1,
+            Fov = 1,
             ReadyForPreviewFrame,
             PreviewFrame,
             ReadyForClockReading,
@@ -72,11 +72,11 @@ namespace CrossCam.iOS.CustomRenderer
             handler?.Invoke(this, new EventArgs());
         }
 
-        public event EventHandler HelloReceived;
-        private void OnHelloReceived()
+        public event EventHandler<double> FovReceived;
+        private void OnFovReceived(double fov)
         {
-            var handler = HelloReceived;
-            handler?.Invoke(this, new EventArgs());
+            var handler = FovReceived;
+            handler?.Invoke(this, fov);
         }
 
         public event EventHandler PreviewFrameRequested;
@@ -227,10 +227,10 @@ namespace CrossCam.iOS.CustomRenderer
             return Task.FromResult(true);
         }
 
-        public Task<bool> SayHello()
+        public Task<bool> SendFov(double fov)
         {
-            var payloadBytes = Encoding.UTF8.GetBytes(HELLO_MESSAGE);
-            var fullMessage = AddPayloadHeader(CrossCommand.Hello, payloadBytes);
+            var payloadBytes = BitConverter.GetBytes(fov);
+            var fullMessage = AddPayloadHeader(CrossCommand.Fov, payloadBytes);
 
             SendData(fullMessage);
             return Task.FromResult(true);
@@ -261,7 +261,7 @@ namespace CrossCam.iOS.CustomRenderer
             }
         }
 
-        public Task<bool> ListenForHello()
+        public Task<bool> ListenForFov()
         {
             return Task.FromResult(true);
         }
@@ -365,8 +365,8 @@ namespace CrossCam.iOS.CustomRenderer
                     }
                     switch (bytes[2])
                     {
-                        case (int)CrossCommand.Hello:
-                            HandleHelloReceived(payload);
+                        case (int)CrossCommand.Fov:
+                            HandleFovReceived(payload);
                             break;
                         case (int)CrossCommand.PreviewFrame:
                             _platformBluetooth.OnPreviewFrameReceived(payload);
@@ -393,15 +393,12 @@ namespace CrossCam.iOS.CustomRenderer
                 }
             }
 
-            private void HandleHelloReceived(byte[] bytes)
+            private void HandleFovReceived(byte[] bytes)
             {
-                Debug.WriteLine("Received hello");
-                var helloMessage = Encoding.UTF8.GetString(bytes, 0, bytes.Length);
-                if (helloMessage == HELLO_MESSAGE)
-                {
-                    _platformBluetooth.OnConnected();
-                    _platformBluetooth.OnHelloReceived();
-                }
+                Debug.WriteLine("Received fov");
+                var fov = BitConverter.ToDouble(bytes, 0);
+                _platformBluetooth.OnConnected();
+                _platformBluetooth.OnFovReceived(fov);
             }
         }
 

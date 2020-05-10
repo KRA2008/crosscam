@@ -1,8 +1,8 @@
 ﻿using System;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
-using System.Diagnostics;
 using System.Threading;
 using AVFoundation;
 using CoreFoundation;
@@ -180,6 +180,10 @@ namespace CrossCam.iOS.CustomRenderer
                 {
                     _device = AVCaptureDevice.GetDefaultDevice(AVMediaTypes.Video);
                 }
+
+                _cameraModule.BluetoothOperator.Fov = UIDevice.CurrentDevice.CheckSystemVersion(13, 0) ? 
+                    _device.ActiveFormat.GeometricDistortionCorrectedVideoFieldOfView : 
+                    _device.ActiveFormat.VideoFieldOfView;
 
                 SetPreviewSizing(_device, restart);
 

@@ -21,6 +21,8 @@ namespace CrossCam.CustomElement
     {
         private readonly Settings _settings;
         public bool IsPrimary => _settings.IsPairedPrimary.HasValue && _settings.IsPairedPrimary.Value;
+        public double Fov { get; set; }
+        public double PartnerFov { get; set; }
         public IPageModelCoreMethods CurrentCoreMethods { get; set; }
 
         private readonly IPlatformBluetooth _platformBluetooth;
@@ -70,7 +72,7 @@ namespace CrossCam.CustomElement
             GetPairedDevices();
             if (!IsPrimary)
             {
-                await _platformBluetooth.SayHello();
+                await _platformBluetooth.SendFov(Fov);
             }
             var handler = Connected;
             handler?.Invoke(this, new EventArgs());
@@ -134,7 +136,7 @@ namespace CrossCam.CustomElement
             _platformBluetooth.ClockReadingReceived += PlatformBluetoothOnClockReadingReceived; 
             _platformBluetooth.SyncReceived += PlatformBluetoothOnSyncReceived;
             _platformBluetooth.CaptureReceived += PlatformBluetoothOnCaptureReceived;
-            _platformBluetooth.HelloReceived += PlatformBluetoothOnHelloReceived;
+            _platformBluetooth.FovReceived += PlatformBluetoothOnFovReceived;
             _platformBluetooth.SecondaryErrorReceived += PlatformBluetoothOnSecondaryErrorReceived;
 
             DiscoveredDevices = new ObservableCollection<PartnerDevice>();
@@ -178,6 +180,12 @@ namespace CrossCam.CustomElement
                     }
                 }
             });
+        }
+
+        private void PlatformBluetoothOnFovReceived(object sender, double e)
+        {
+            PartnerFov = e;
+            RequestClockReading();
         }
 
         private void PlatformBluetoothOnSecondaryErrorReceived(object sender, EventArgs e)
@@ -236,11 +244,6 @@ namespace CrossCam.CustomElement
                     _initializeThreadLocker = 0;
                 }
             }
-        }
-
-        private void PlatformBluetoothOnHelloReceived(object sender, EventArgs e)
-        {
-            RequestClockReading();
         }
 
         private void PlatformBluetoothOnCaptureReceived(object sender, byte[] e)

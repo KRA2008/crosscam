@@ -213,11 +213,11 @@ namespace CrossCam.Droid.CustomRenderer
             handler?.Invoke(this, new EventArgs());
         }
 
-        public event EventHandler HelloReceived;
-        private void OnHelloReceived()
+        public event EventHandler<double> FovReceived;
+        private void OnHelloReceived(double fov)
         {
-            var handler = HelloReceived;
-            handler?.Invoke(this, new EventArgs());
+            var handler = FovReceived;
+            handler?.Invoke(this, fov);
         }
 
         public event EventHandler PreviewFrameRequested;
@@ -296,19 +296,20 @@ namespace CrossCam.Droid.CustomRenderer
             BluetoothAdapter.DefaultAdapter.CancelDiscovery();
         }
 
-        public async Task<bool> SayHello()
+        public Task<bool> SendFov(double fov)
         {
-            if (_bluetoothSocket?.IsConnected == true)
-            {
-                var bytes = Encoding.UTF8.GetBytes("Hi there friend.");
-                await _bluetoothSocket.OutputStream.WriteAsync(bytes, 0, bytes.Length);
-                return true;
-            }
+            return null;
+            //if (_bluetoothSocket?.IsConnected == true)
+            //{
+            //    var bytes = Encoding.UTF8.GetBytes("Hi there friend.");
+            //    await _bluetoothSocket.OutputStream.WriteAsync(bytes, 0, bytes.Length);
+            //    return true;
+            //}
 
-            return false;
+            //return false;
         }
 
-        public async Task<bool> ListenForHello()
+        public async Task<bool> ListenForFov()
         {
             const int BUFFER_LENGTH = 1024;
             var buffer = new byte[BUFFER_LENGTH];

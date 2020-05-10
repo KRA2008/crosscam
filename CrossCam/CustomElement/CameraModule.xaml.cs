@@ -1,5 +1,4 @@
-﻿using CrossCam.Wrappers;
-using Xamarin.Forms;
+﻿using Xamarin.Forms;
 
 namespace CrossCam.CustomElement
 {
