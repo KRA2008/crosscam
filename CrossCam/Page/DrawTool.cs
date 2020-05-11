@@ -16,11 +16,12 @@ namespace CrossCam.Page
             double leftLeftCrop, double leftRightCrop, double rightLeftCrop, double rightRightCrop,
             double topCrop, double bottomCrop,
             float leftRotation, float rightRotation, double alignment,
-            int leftZoom, int rightZoom,
+            double leftZoom, double rightZoom,
             float leftKeystone, float rightKeystone,
             double leftFov, double rightFov,
             DrawMode drawMode)
         {
+            //TODO: deal with different aspect ratio pictures (for Android)
             if (leftBitmap == null && rightBitmap == null) return;
 
             var canvasWidth = canvas.DeviceClipBounds.Width;
@@ -30,20 +31,17 @@ namespace CrossCam.Page
             var rightBitmapWidthLessCrop = 0;
             var leftBitmapHeightLessCrop = 0;
             var rightBitmapHeightLessCrop = 0;
-            var aspectRatio = 0f; //TODO: deal with different aspect ratio pictures (for Android)
 
             if (leftBitmap != null)
             {
                 leftBitmapWidthLessCrop = (int)(leftBitmap.Width - leftBitmap.Width * (leftLeftCrop + leftRightCrop));
                 leftBitmapHeightLessCrop = (int)(leftBitmap.Height - leftBitmap.Height * (topCrop + bottomCrop + Math.Abs(alignment)));
-                aspectRatio = leftBitmap.Height / (1f * leftBitmap.Width);
             }
 
             if (rightBitmap != null)
             {
                 rightBitmapWidthLessCrop = (int)(rightBitmap.Width - rightBitmap.Width * (rightLeftCrop + rightRightCrop));
                 rightBitmapHeightLessCrop = (int)(rightBitmap.Height - rightBitmap.Height * (topCrop + bottomCrop + Math.Abs(alignment)));
-                aspectRatio = rightBitmap.Height / (1f * rightBitmap.Width);
             }
 
             if (rightBitmap == null)
@@ -104,7 +102,7 @@ namespace CrossCam.Page
                 case DrawMode.RedCyanAnaglyph: //TODO: handle
                     leftPreviewX = rightPreviewX = canvasWidth / 2f - leftBitmapWidthLessCrop / (2f * leftScalingRatio);
                     leftPreviewWidth = leftBitmapWidthLessCrop / leftScalingRatio;
-                    rightPreviewWidth = rightBitmapWidthLessCrop / leftScalingRatio;
+                    rightPreviewWidth = rightBitmapWidthLessCrop / rightScalingRatio;
                     innerRightRotation = rightRotation;
                     innerLeftRotation = leftRotation;
                     innerRightKeystone = rightKeystone;
@@ -154,7 +152,7 @@ namespace CrossCam.Page
                     leftZoom > 0 ||
                     isLeftKeystoned)
                 {
-                    transformed = ZoomAndRotate(grayscale ?? leftBitmap, aspectRatio, leftZoom, isLeftRotated, innerLeftRotation, isLeftKeystoned, -innerLeftKeystone);
+                    transformed = ZoomAndRotate(grayscale ?? leftBitmap, leftZoom, isLeftRotated, innerLeftRotation, isLeftKeystoned, -innerLeftKeystone);
                 }
 
                 using (var paint = new SKPaint())
@@ -210,7 +208,7 @@ namespace CrossCam.Page
                     rightZoom > 0 || 
                     isRightKeystoned)
                 {
-                    transformed = ZoomAndRotate(grayscale ?? rightBitmap, aspectRatio, rightZoom, isRightRotated, innerRightRotation, isRightKeystoned, innerRightKeystone);
+                    transformed = ZoomAndRotate(grayscale ?? rightBitmap, rightZoom, isRightRotated, innerRightRotation, isRightKeystoned, innerRightKeystone);
                 }
 
                 using (var paint = new SKPaint())
@@ -261,8 +259,9 @@ namespace CrossCam.Page
                     Color = borderColor == BorderColor.Black ? SKColor.Parse("000000") : SKColor.Parse("ffffff"),
                     Style = SKPaintStyle.StrokeAndFill
                 };
-                var originX = (float)(leftPreviewX - innerBorderThicknessProportion / leftScalingRatio);
-                var originY = (float)(leftPreviewY - innerBorderThicknessProportion / leftScalingRatio);
+                //leftPreviewWidth and rightPreviewWidth should be the same
+                var originX = (float)(leftPreviewX - innerBorderThicknessProportion * leftPreviewWidth / leftScalingRatio);
+                var originY = (float)(leftPreviewY - innerBorderThicknessProportion * leftPreviewWidth / leftScalingRatio);
                 var fullPreviewWidth = (float)(leftPreviewWidth + rightPreviewWidth + 3 * innerBorderThicknessProportion / leftScalingRatio);
                 var fullPreviewHeight = (float)(leftPreviewHeight + 2 * innerBorderThicknessProportion / leftScalingRatio);
                 var scaledBorderThickness = (float)(innerBorderThicknessProportion / leftScalingRatio);
@@ -303,17 +302,16 @@ namespace CrossCam.Page
             return grayed;
         }
 
-        private static SKBitmap ZoomAndRotate(SKBitmap originalBitmap, float aspectRatio, int zoom, bool isRotated, float rotation, bool isKeystoned, float keystone)
+        private static SKBitmap ZoomAndRotate(SKBitmap originalBitmap, double zoom, bool isRotated, float rotation, bool isKeystoned, float keystone)
         {
             var rotatedAndZoomed = new SKBitmap(originalBitmap.Width, originalBitmap.Height);
 
             using (var tempCanvas = new SKCanvas(rotatedAndZoomed))
             {
-                var rightVerticalZoom = aspectRatio * zoom;
-                var zoomedX = zoom / -2f;
-                var zoomedY = rightVerticalZoom / -2f;
-                var zoomedWidth = originalBitmap.Width + zoom;
-                var zoomedHeight = originalBitmap.Height + rightVerticalZoom;
+                var zoomedX = originalBitmap.Width * zoom / -2f;
+                var zoomedY = originalBitmap.Height * zoom / -2f;
+                var zoomedWidth = originalBitmap.Width * (1 + zoom);
+                var zoomedHeight = originalBitmap.Height * (1 + zoom);
                 if (isRotated)
                 {
                     tempCanvas.RotateDegrees(rotation, originalBitmap.Width / 2f,
@@ -322,16 +320,11 @@ namespace CrossCam.Page
                 tempCanvas.DrawBitmap(
                     originalBitmap,
                     SKRect.Create(
-                        0,
-                        0,
-                        originalBitmap.Width,
-                        originalBitmap.Height),
-                    SKRect.Create(
-                        zoomedX,
-                        zoomedY,
-                        zoomedWidth,
-                        zoomedHeight
-                    ));
+                        (float)zoomedX,
+                        (float)zoomedY,
+                        (float)zoomedWidth,
+                        (float)zoomedHeight
+                    )); // blows up the bitmap, which is cut off later
                 if (isRotated)
                 {
                     tempCanvas.RotateDegrees(rotation, -1 * originalBitmap.Width / 2f,

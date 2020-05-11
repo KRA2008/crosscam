@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Diagnostics;
 using System.IO;
 using System.Threading;
 using System.Threading.Tasks;
@@ -11,7 +10,6 @@ using CrossCam.Wrappers;
 using FreshMvvm;
 using Newtonsoft.Json;
 using Plugin.DeviceInfo;
-using PropertyChanged;
 using SkiaSharp;
 using Xamarin.Essentials;
 using Xamarin.Forms;
@@ -106,9 +104,9 @@ namespace CrossCam.ViewModel
 
         public Command PairCommand { get; set; }
 
-        public int ZoomMax { get; set; }
-        public int LeftZoom { get; set; }
-        public int RightZoom { get; set; }
+        public double ZoomMax => 1 / 4d;
+        public double LeftZoom { get; set; }
+        public double RightZoom { get; set; }
 
         public double LeftCrop { get; set; }
         public double RightCrop { get; set; }
@@ -117,12 +115,12 @@ namespace CrossCam.ViewModel
         public double TopCrop { get; set; }
         public double BottomCrop { get; set; }
 
-        public double SideCropMax => 0.5;
-        public double TopOrBottomCropMax => 0.5;
+        public double SideCropMax => 1 / 2d;
+        public double TopOrBottomCropMax => 1 / 2d;
 
         public Command SetCropMode { get; set; }
 
-        public double VerticalAlignmentMax => 0.125;
+        public double VerticalAlignmentMax => 1 / 8d;
         public double VerticalAlignment { get; set; }
         public double VerticalAlignmentMin => -VerticalAlignmentMax;
 
@@ -133,7 +131,7 @@ namespace CrossCam.ViewModel
 
         public Command SetKeystoneMode { get; set; }
 
-        public float MaxKeystone => 0.25f;
+        public float MaxKeystone => 1 / 4f;
         public float LeftKeystone { get; set; }
         public float RightKeystone { get; set; }
 
@@ -247,8 +245,6 @@ namespace CrossCam.ViewModel
 
             IsCaptureLeftFirst = Settings.IsCaptureLeftFirst;
             CameraColumn = IsCaptureLeftFirst ? 0 : 1;
-
-            ZoomMax = 1;
 
             PropertyChanged += (sender, args) =>
             {
@@ -1225,7 +1221,6 @@ namespace CrossCam.ViewModel
                     WasCaptureCross = Settings.Mode != DrawMode.Parallel;
                     CameraColumn = IsCaptureLeftFirst ? 0 : 1;
                     WorkflowStage = WorkflowStage.Final;
-                    SetMaxEdits(bitmap);
                     AutoAlign();
                 }
             }
@@ -1254,15 +1249,9 @@ namespace CrossCam.ViewModel
                     WasCaptureCross = Settings.Mode != DrawMode.Parallel;
                     CameraColumn = IsCaptureLeftFirst ? 0 : 1;
                     WorkflowStage = WorkflowStage.Final;
-                    SetMaxEdits(bitmap);
                     AutoAlign();
                 }
             }
-        }
-
-        private void SetMaxEdits(SKBitmap bitmap)
-        {
-            ZoomMax = bitmap.Height / 12;
         }
 
         private static SKBitmap GetHalfOfFullStereoImage(byte[] bytes, bool wantLeft, bool clipBorder) 
