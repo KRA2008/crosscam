@@ -7,7 +7,7 @@ namespace CrossCam.Page
 {
     public class DrawTool
     {
-        public const double BORDER_CONVERSION_FACTOR = 0.0005;
+        public const double BORDER_CONVERSION_FACTOR = 0.001;
         private const float FLOATY_ZERO = 0.00001f;
 
         public static void DrawImagesOnCanvas(
@@ -27,32 +27,18 @@ namespace CrossCam.Page
             var canvasWidth = canvas.DeviceClipBounds.Width;
             var canvasHeight = canvas.DeviceClipBounds.Height;
 
-            var leftBitmapWidthLessCrop = 0;
-            var rightBitmapWidthLessCrop = 0;
-            var leftBitmapHeightLessCrop = 0;
-            var rightBitmapHeightLessCrop = 0;
+            int leftBitmapWidthLessCrop;
+            int leftBitmapHeightLessCrop;
 
             if (leftBitmap != null)
             {
                 leftBitmapWidthLessCrop = (int)(leftBitmap.Width - leftBitmap.Width * (leftLeftCrop + leftRightCrop));
                 leftBitmapHeightLessCrop = (int)(leftBitmap.Height - leftBitmap.Height * (topCrop + bottomCrop + Math.Abs(alignment)));
             }
-
-            if (rightBitmap != null)
+            else
             {
-                rightBitmapWidthLessCrop = (int)(rightBitmap.Width - rightBitmap.Width * (rightLeftCrop + rightRightCrop));
-                rightBitmapHeightLessCrop = (int)(rightBitmap.Height - rightBitmap.Height * (topCrop + bottomCrop + Math.Abs(alignment)));
-            }
-
-            if (rightBitmap == null)
-            {
-                rightBitmapWidthLessCrop = leftBitmapWidthLessCrop;
-                rightBitmapHeightLessCrop = leftBitmapHeightLessCrop;
-            }
-            else if (leftBitmap == null)
-            {
-                leftBitmapWidthLessCrop = rightBitmapWidthLessCrop;
-                leftBitmapHeightLessCrop = rightBitmapHeightLessCrop;
+                leftBitmapWidthLessCrop = (int)(rightBitmap.Width - rightBitmap.Width * (rightLeftCrop + rightRightCrop));
+                leftBitmapHeightLessCrop = (int)(rightBitmap.Height - rightBitmap.Height * (topCrop + bottomCrop + Math.Abs(alignment)));
             }
 
             var innerBorderThicknessProportion = leftBitmap != null && 
@@ -63,66 +49,32 @@ namespace CrossCam.Page
                 BORDER_CONVERSION_FACTOR * borderThickness : 
                 0;
 
-            leftBitmapWidthLessCrop = (int)(leftBitmapWidthLessCrop + 1.5 * innerBorderThicknessProportion * leftBitmapWidthLessCrop);
-            rightBitmapWidthLessCrop = (int)(rightBitmapWidthLessCrop + 1.5 * innerBorderThicknessProportion * rightBitmapWidthLessCrop);
-            leftBitmapHeightLessCrop = (int)(leftBitmapHeightLessCrop + 2 * innerBorderThicknessProportion * leftBitmapHeightLessCrop);
-            rightBitmapHeightLessCrop = (int)(rightBitmapHeightLessCrop + 2 * innerBorderThicknessProportion * rightBitmapHeightLessCrop);
-
-            if (drawMode == DrawMode.RedCyanAnaglyph ||
-                drawMode == DrawMode.GrayscaleRedCyanAnaglyph)
-            {
-                //effectiveJoinedWidth /= 2; // TODO: handle
-            }
-
-            var leftWidthRatio = leftBitmapWidthLessCrop / (canvasWidth / 2f);
-            var leftHeightRatio = leftBitmapHeightLessCrop / (1f * canvasHeight);
-            var leftScalingRatio = leftWidthRatio > leftHeightRatio ? leftWidthRatio : leftHeightRatio;
-
-            var rightWidthRatio = rightBitmapWidthLessCrop / (canvasWidth / 2f);
-            var rightHeightRatio = rightBitmapHeightLessCrop / (1f * canvasHeight);
-            var rightScalingRatio = rightWidthRatio > rightHeightRatio ? rightWidthRatio : rightHeightRatio;
-
-            var leftPreviewY = canvasHeight / 2f - leftBitmapHeightLessCrop / leftScalingRatio / 2f;
-            var leftPreviewHeight = leftBitmapHeightLessCrop / leftScalingRatio;
-
-            var rightPreviewY = canvasHeight / 2f - rightBitmapHeightLessCrop / rightScalingRatio / 2f;
-            var rightPreviewHeight = rightBitmapHeightLessCrop / rightScalingRatio;
+            var widthRatio = (leftBitmapWidthLessCrop + leftBitmapWidthLessCrop * innerBorderThicknessProportion * 1.5) / (canvasWidth / 2f);
+            var heightRatio = (leftBitmapHeightLessCrop + leftBitmapWidthLessCrop * innerBorderThicknessProportion * 2) / (1f * canvasHeight);
+            var scalingRatio = widthRatio > heightRatio ? widthRatio : heightRatio;
 
             float leftPreviewX;
             float rightPreviewX;
-            float leftPreviewWidth;
-            float rightPreviewWidth;
-            float innerLeftRotation;
-            float innerRightRotation;
-            float innerLeftKeystone;
-            float innerRightKeystone;
+            float previewY;
+            var sidePreviewWidthLessCrop = (float)(leftBitmapWidthLessCrop / scalingRatio);
+            var previewHeightLessCrop = (float)(leftBitmapHeightLessCrop / scalingRatio);
             switch (drawMode)
             {
                 case DrawMode.GrayscaleRedCyanAnaglyph:
-                case DrawMode.RedCyanAnaglyph: //TODO: handle
-                    leftPreviewX = rightPreviewX = canvasWidth / 2f - leftBitmapWidthLessCrop / (2f * leftScalingRatio);
-                    leftPreviewWidth = leftBitmapWidthLessCrop / leftScalingRatio;
-                    rightPreviewWidth = rightBitmapWidthLessCrop / rightScalingRatio;
-                    innerRightRotation = rightRotation;
-                    innerLeftRotation = leftRotation;
-                    innerRightKeystone = rightKeystone;
-                    innerLeftKeystone = leftKeystone;
+                case DrawMode.RedCyanAnaglyph:
+                    leftPreviewX = rightPreviewX = canvasWidth / 2f - sidePreviewWidthLessCrop / 2f; 
+                    previewY = canvasHeight / 2f - previewHeightLessCrop / 2f;
                     break;
                 default:
-                    leftPreviewX = (float)(canvasWidth / 2f - (leftBitmapWidthLessCrop + innerBorderThicknessProportion *leftBitmapWidthLessCrop / 2f) / leftScalingRatio);
-                    rightPreviewX = (float)(canvasWidth / 2f + innerBorderThicknessProportion * rightBitmapWidthLessCrop / (2 * rightScalingRatio));
-                    leftPreviewWidth = leftBitmapWidthLessCrop / leftScalingRatio;
-                    rightPreviewWidth = rightBitmapWidthLessCrop / rightScalingRatio;
-                    innerRightRotation = rightRotation;
-                    innerLeftRotation = leftRotation;
-                    innerRightKeystone = rightKeystone;
-                    innerLeftKeystone = leftKeystone;
+                    leftPreviewX = (float)(canvasWidth / 2f - sidePreviewWidthLessCrop - innerBorderThicknessProportion * sidePreviewWidthLessCrop / 2f);
+                    rightPreviewX = (float)(canvasWidth / 2f + innerBorderThicknessProportion * sidePreviewWidthLessCrop / 2f );
+                    previewY = canvasHeight / 2f - previewHeightLessCrop / 2f;
                     break;
             }
-            var isRightRotated = Math.Abs(innerRightRotation) > FLOATY_ZERO;
-            var isLeftRotated = Math.Abs(innerLeftRotation) > FLOATY_ZERO;
-            var isRightKeystoned = Math.Abs(innerRightKeystone) > FLOATY_ZERO;
-            var isLeftKeystoned = Math.Abs(innerLeftKeystone) > FLOATY_ZERO;
+            var isRightRotated = Math.Abs(rightRotation) > FLOATY_ZERO;
+            var isLeftRotated = Math.Abs(leftRotation) > FLOATY_ZERO;
+            var isRightKeystoned = Math.Abs(rightKeystone) > FLOATY_ZERO;
+            var isLeftKeystoned = Math.Abs(leftKeystone) > FLOATY_ZERO;
 
             var leftFovCorrectionProportion = 1d;
             var rightFovCorrectionProportion = 1d;
@@ -152,7 +104,7 @@ namespace CrossCam.Page
                     leftZoom > 0 ||
                     isLeftKeystoned)
                 {
-                    transformed = ZoomAndRotate(grayscale ?? leftBitmap, leftZoom, isLeftRotated, innerLeftRotation, isLeftKeystoned, -innerLeftKeystone);
+                    transformed = ZoomAndRotate(grayscale ?? leftBitmap, leftZoom, isLeftRotated, leftRotation, isLeftKeystoned, -leftKeystone);
                 }
 
                 using (var paint = new SKPaint())
@@ -185,9 +137,9 @@ namespace CrossCam.Page
                             (float)(height - height * (topCrop + bottomCrop + Math.Abs(alignment)) - topFovCorrection)),
                         SKRect.Create(
                             leftPreviewX,
-                            leftPreviewY,
-                            leftPreviewWidth,
-                            leftPreviewHeight),
+                            previewY,
+                            sidePreviewWidthLessCrop,
+                            previewHeightLessCrop),
                         paint);
                 }
 
@@ -208,7 +160,7 @@ namespace CrossCam.Page
                     rightZoom > 0 || 
                     isRightKeystoned)
                 {
-                    transformed = ZoomAndRotate(grayscale ?? rightBitmap, rightZoom, isRightRotated, innerRightRotation, isRightKeystoned, innerRightKeystone);
+                    transformed = ZoomAndRotate(grayscale ?? rightBitmap, rightZoom, isRightRotated, rightRotation, isRightKeystoned, rightKeystone);
                 }
 
                 using (var paint = new SKPaint())
@@ -242,9 +194,9 @@ namespace CrossCam.Page
                             (float)(height - height * (topCrop + bottomCrop + Math.Abs(alignment)) - topFovCorrection)),
                         SKRect.Create(
                             rightPreviewX,
-                            rightPreviewY,
-                            rightPreviewWidth,
-                            rightPreviewHeight),
+                            previewY,
+                            sidePreviewWidthLessCrop,
+                            previewHeightLessCrop),
                         paint);
                 }
 
@@ -259,14 +211,14 @@ namespace CrossCam.Page
                     Color = borderColor == BorderColor.Black ? SKColor.Parse("000000") : SKColor.Parse("ffffff"),
                     Style = SKPaintStyle.StrokeAndFill
                 };
-                //leftPreviewWidth and rightPreviewWidth should be the same
-                var originX = (float)(leftPreviewX - innerBorderThicknessProportion * leftPreviewWidth / leftScalingRatio);
-                var originY = (float)(leftPreviewY - innerBorderThicknessProportion * leftPreviewWidth / leftScalingRatio);
-                var fullPreviewWidth = (float)(leftPreviewWidth + rightPreviewWidth + 3 * innerBorderThicknessProportion / leftScalingRatio);
-                var fullPreviewHeight = (float)(leftPreviewHeight + 2 * innerBorderThicknessProportion / leftScalingRatio);
-                var scaledBorderThickness = (float)(innerBorderThicknessProportion / leftScalingRatio);
-                var endX = rightPreviewX + rightPreviewWidth;
-                var endY = leftPreviewY + leftPreviewHeight;
+
+                var originX = (float)(leftPreviewX - innerBorderThicknessProportion * sidePreviewWidthLessCrop);
+                var originY = (float)(previewY - innerBorderThicknessProportion * sidePreviewWidthLessCrop);
+                var fullPreviewWidth = (float)(2 * sidePreviewWidthLessCrop + 3 * innerBorderThicknessProportion * sidePreviewWidthLessCrop);
+                var fullPreviewHeight = (float)(previewHeightLessCrop + 2 * innerBorderThicknessProportion * sidePreviewWidthLessCrop);
+                var scaledBorderThickness = (float)(innerBorderThicknessProportion * sidePreviewWidthLessCrop);
+                var endX = rightPreviewX + sidePreviewWidthLessCrop;
+                var endY = previewY + previewHeightLessCrop;
                 canvas.DrawRect(originX, originY, fullPreviewWidth, scaledBorderThickness, borderPaint);
                 canvas.DrawRect(originX, originY, scaledBorderThickness, fullPreviewHeight, borderPaint);
                 canvas.DrawRect(canvasWidth / 2f - scaledBorderThickness / 2f, originY, scaledBorderThickness, fullPreviewHeight, borderPaint);
