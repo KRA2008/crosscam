@@ -50,6 +50,11 @@ namespace CrossCam.Page
                 0;
 
             var widthRatio = (leftBitmapWidthLessCrop + leftBitmapWidthLessCrop * innerBorderThicknessProportion * 1.5) / (canvasWidth / 2f);
+            if (drawMode == DrawMode.RedCyanAnaglyph ||
+                drawMode == DrawMode.GrayscaleRedCyanAnaglyph)
+            {
+                widthRatio /= 2;
+            }
             var heightRatio = (leftBitmapHeightLessCrop + leftBitmapWidthLessCrop * innerBorderThicknessProportion * 2) / (1f * canvasHeight);
             var scalingRatio = widthRatio > heightRatio ? widthRatio : heightRatio;
 
