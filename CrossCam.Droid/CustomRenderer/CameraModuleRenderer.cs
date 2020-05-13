@@ -942,11 +942,9 @@ namespace CrossCam.Droid.CustomRenderer
                     return;
                 }
 
-                _openingCamera2 = true; 
-                if (_surface == null)
-                {
-                    _surface = new Surface(_surfaceTexture);
-                }
+                _openingCamera2 = true;
+                _surface = new Surface(_surfaceTexture);
+
                 StartBackgroundThread();
                 _cameraManager.OpenCamera(_camera2Id, _stateListener, null);
             }
