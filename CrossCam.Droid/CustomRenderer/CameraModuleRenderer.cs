@@ -268,14 +268,28 @@ namespace CrossCam.Droid.CustomRenderer
                 }
                 else
                 {
-                    var parameters = providedParameters ?? _camera1.GetParameters();
+                    Camera.Parameters parameters;
+                    if (providedParameters != null)
+                    {
+                        parameters = providedParameters;
+                    } 
+                    else if (_camera1 == null)
+                    {
+                        return;
+                    }
+                    else
+                    {
+                        parameters = _camera1.GetParameters();
+                    }
 
-                    if (parameters.SupportedFocusModes.Contains(Camera.Parameters.FocusModeContinuousPicture))
+                    if (parameters.SupportedFocusModes != null && 
+                        parameters.SupportedFocusModes.Contains(Camera.Parameters.FocusModeContinuousPicture))
                     {
                         parameters.FocusMode = Camera.Parameters.FocusModeContinuousPicture;
                     }
 
-                    if (parameters.SupportedWhiteBalance.Contains(Camera.Parameters.WhiteBalanceAuto))
+                    if (parameters.SupportedWhiteBalance != null &&
+                        parameters.SupportedWhiteBalance.Contains(Camera.Parameters.WhiteBalanceAuto))
                     {
                         parameters.WhiteBalance = Camera.Parameters.WhiteBalanceAuto;
                     }
@@ -468,6 +482,7 @@ namespace CrossCam.Droid.CustomRenderer
                         targetFocusRect.Round(roundedRect);
 
                         if (parameters.MaxNumFocusAreas > 0 &&
+                            parameters.SupportedFocusModes != null &&
                             parameters.SupportedFocusModes.Contains(Camera.Parameters.FocusModeAuto))
                         {
                             parameters.FocusMode = Camera.Parameters.FocusModeAuto;
@@ -830,7 +845,8 @@ namespace CrossCam.Droid.CustomRenderer
             {
                 var parameters = _camera1.GetParameters();
 
-                if (parameters.SupportedFocusModes.Contains(Camera.Parameters.FocusModeFixed))
+                if (parameters.SupportedFocusModes != null &&
+                    parameters.SupportedFocusModes.Contains(Camera.Parameters.FocusModeFixed))
                 {
                     parameters.FocusMode = Camera.Parameters.FocusModeFixed;
                 }
