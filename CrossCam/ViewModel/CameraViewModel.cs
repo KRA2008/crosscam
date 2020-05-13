@@ -1122,6 +1122,8 @@ namespace CrossCam.ViewModel
         {
             var original = SKBitmap.Decode(bytes);
 
+            if (original == null) return null;
+
             const int BORDER_DIFF_THRESHOLD = 25;
             var bottomBorder = 0;
             var leftBorder = 0;
