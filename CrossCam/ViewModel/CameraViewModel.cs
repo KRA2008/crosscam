@@ -7,6 +7,7 @@ using CrossCam.Model;
 using CrossCam.Page;
 using CrossCam.Wrappers;
 using FreshMvvm;
+using Newtonsoft.Json;
 using Plugin.DeviceInfo;
 using SkiaSharp;
 using Xamarin.Forms;
@@ -685,7 +686,8 @@ namespace CrossCam.ViewModel
                                        "OS Version Number: " + CrossDeviceInfo.Current.VersionNumber + "\n" +
                                        "App Version: " + CrossDeviceInfo.Current.AppVersion + "\n" +
                                        "App Build: " + CrossDeviceInfo.Current.AppBuild + "\n" +
-                                       "Idiom: " + CrossDeviceInfo.Current.Idiom;
+                                       "Idiom: " + CrossDeviceInfo.Current.Idiom + " \n" +
+                                       "Settings: " + JsonConvert.SerializeObject(Settings);
                     Device.OpenUri(new Uri("mailto:me@kra2008.com?subject=CrossCam%20error%20report&body=" +
                                            HttpUtility.UrlEncode(errorMessage)));
                 }
