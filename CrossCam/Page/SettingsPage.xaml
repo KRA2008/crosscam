@@ -354,6 +354,8 @@
                     <OnPlatform x:TypeArguments="system:Boolean">
                         <On Platform="iOS"
                             Value="False"/>
+                        <On Platform="Android"
+                            Value="True"/>
                     </OnPlatform>
                 </StackLayout.IsVisible>
                 <Label Text="Force camera1 (may be helpful if you're experiencing weirdness but will result in limited functionality, requires a force quit/restart to take effect)"/>
