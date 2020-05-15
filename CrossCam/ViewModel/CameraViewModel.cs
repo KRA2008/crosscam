@@ -10,6 +10,7 @@ using FreshMvvm;
 using Newtonsoft.Json;
 using Plugin.DeviceInfo;
 using SkiaSharp;
+using Xamarin.Essentials;
 using Xamarin.Forms;
 
 namespace CrossCam.ViewModel
@@ -677,13 +678,13 @@ namespace CrossCam.ViewModel
                 {
                     var errorMessage = ErrorMessage + "\n" +
                                        "\n" +
-                                       "Device Platform: " + CrossDeviceInfo.Current.Platform + "\n" +
-                                       "Device Manufacturer: " + CrossDeviceInfo.Current.Manufacturer + "\n" +
-                                       "Device Model: " + CrossDeviceInfo.Current.Model + "\n" +
+                                       "Device Platform: " + DeviceInfo.Platform + "\n" +
+                                       "Device Manufacturer: " + DeviceInfo.Manufacturer + "\n" +
+                                       "Device Model: " + DeviceInfo.Model + "\n" +
                                        "Device Width: " + Application.Current.MainPage.Width + "\n" +
                                        "Device Height: " + Application.Current.MainPage.Height + "\n" +
-                                       "OS Version: " + CrossDeviceInfo.Current.Version + "\n" +
-                                       "OS Version Number: " + CrossDeviceInfo.Current.VersionNumber + "\n" +
+                                       "OS Version Number: " + DeviceInfo.Version + "\n" +
+                                       "OS Version String: " + DeviceInfo.VersionString + "\n" +
                                        "App Version: " + CrossDeviceInfo.Current.AppVersion + "\n" +
                                        "App Build: " + CrossDeviceInfo.Current.AppBuild + "\n" +
                                        "Idiom: " + CrossDeviceInfo.Current.Idiom + " \n" +
