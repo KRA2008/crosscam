@@ -534,35 +534,6 @@ namespace CrossCam.ViewModel
                             }
                         }
 
-                        if (Settings.SaveForRedCyanAnaglyph)
-                        {
-                            await DrawAnaglyph(false);
-                        }
-
-                        if (Settings.SaveForGrayscaleAnaglyph)
-                        {
-                            await DrawAnaglyph(true);
-                        }
-
-                        if (Settings.SaveRedundantFirstSide)
-                        {
-                            using (var tempSurface =
-                                SKSurface.Create(new SKImageInfo(LeftBitmap.Width, LeftBitmap.Height)))
-                            {
-                                var canvas = tempSurface.Canvas;
-                                canvas.Clear();
-                                if (needs180Flip)
-                                {
-                                    canvas.RotateDegrees(180);
-                                    canvas.Translate(-1f * LeftBitmap.Width, -1f * LeftBitmap.Height);
-                                }
-
-                                canvas.DrawBitmap(IsCaptureLeftFirst ? LeftBitmap : RightBitmap, 0, 0);
-
-                                await SaveSurfaceSnapshot(tempSurface);
-                            }
-                        }
-
                         var finalImageWidth = DrawTool.CalculateJoinedCanvasWidthLessBorder(LeftBitmap, RightBitmap,
                             LeftCrop + OutsideCrop, InsideCrop + RightCrop, InsideCrop + LeftCrop,
                             RightCrop + OutsideCrop);
@@ -640,6 +611,35 @@ namespace CrossCam.ViewModel
                                     RightZoom, LeftZoom,
                                     RightKeystone, LeftKeystone,
                                     DrawMode.Parallel);
+
+                                await SaveSurfaceSnapshot(tempSurface);
+                            }
+                        }
+
+                        if (Settings.SaveForRedCyanAnaglyph)
+                        {
+                            await DrawAnaglyph(false);
+                        }
+
+                        if (Settings.SaveForGrayscaleAnaglyph)
+                        {
+                            await DrawAnaglyph(true);
+                        }
+
+                        if (Settings.SaveRedundantFirstSide)
+                        {
+                            using (var tempSurface =
+                                SKSurface.Create(new SKImageInfo(LeftBitmap.Width, LeftBitmap.Height)))
+                            {
+                                var canvas = tempSurface.Canvas;
+                                canvas.Clear();
+                                if (needs180Flip)
+                                {
+                                    canvas.RotateDegrees(180);
+                                    canvas.Translate(-1f * LeftBitmap.Width, -1f * LeftBitmap.Height);
+                                }
+
+                                canvas.DrawBitmap(IsCaptureLeftFirst ? LeftBitmap : RightBitmap, 0, 0);
 
                                 await SaveSurfaceSnapshot(tempSurface);
                             }
