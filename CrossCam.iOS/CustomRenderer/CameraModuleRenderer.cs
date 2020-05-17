@@ -749,7 +749,7 @@ namespace CrossCam.iOS.CustomRenderer
                             {
                                 // Unlock and return image
                                 pixelBuffer.Unlock(CVPixelBufferLock.None);
-                                return UIImage.FromImage(cgImage, new nfloat(0.5), GetOrientationForCorrection());
+                                return UIImage.FromImage(cgImage, new nfloat(0.1), GetOrientationForCorrection());
                             }
                         }
                     }

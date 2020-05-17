@@ -278,6 +278,7 @@ namespace CrossCam.CustomElement
             {
                 if (!_isCaptureRequested)
                 {
+                    await Task.Delay(_settings.PairedPreviewFrameDelayMs);
                     await _platformBluetooth.SendReadyForPreviewFrame();
                 }
                 else

@@ -119,6 +119,19 @@ namespace CrossCam.Model
 
         public bool? IsPairedPrimary { get; set; }
 
+        private int _pairedPreviewFrameDelayMs;
+        public int PairedPreviewFrameDelayMs
+        {
+            get => _pairedPreviewFrameDelayMs;
+            set
+            {
+                if (value >= 0)
+                {
+                    _pairedPreviewFrameDelayMs = value;
+                }
+            }
+        }
+
         private Handedness _handedness;
         public Handedness Handedness
         {
@@ -359,6 +372,7 @@ namespace CrossCam.Model
             MaximumParallelWidth = (int)PARALLEL_BASE_WIDTH;
 
             IsPairedPrimary = null;
+            PairedPreviewFrameDelayMs = 250;
         }
 
         public event PropertyChangedEventHandler PropertyChanged;

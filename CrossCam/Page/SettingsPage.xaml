@@ -63,11 +63,6 @@
             
 
 <BoxView/>
-            <Label Text="Pairing"
-                   Style="{DynamicResource header}"/>
-            <Button Text="Go to Pairing Page"
-                    Command="{Binding NavigateToPairingPageCommand}"/>
-            <BoxView/>
             <Label Text="Capture/Preview Method"                   Style="{DynamicResource header}"/>
             <Frame>
                 <Picker ItemsSource="{Binding Modes}"
@@ -87,9 +82,21 @@
                 </Frame>
             </StackLayout>
             <BoxView/>
-<<<<<<< HEAD
-            <Label Text="Saving Method"
-=======
+            <Label Text="Pairing"
+                   Style="{DynamicResource header}"/>
+            <Button Text="Go to Pairing Setup Page"
+                    Command="{Binding NavigateToPairingPageCommand}"/>
+            <StackLayout Orientation="Horizontal"
+                         IsVisible="{Binding Settings.IsPairedPrimary, Converter={vc:NullableBooleanConverter}}">
+                <Label Text="Preview frame delay (higher number will reduce frame rate but save battery)"/>
+                <Frame>
+                    <Picker ItemsSource="{Binding ZeroToOneThousand}"
+                            SelectedIndex="{Binding Settings.PairedPreviewFrameDelayMs}"
+                            WidthRequest="50"
+                            HorizontalOptions="EndAndExpand"/>
+                </Frame>
+            </StackLayout>
+            <BoxView/>
             <Label Text="Border"
                    Style="{DynamicResource header}"/>
             <StackLayout Orientation="Horizontal">
@@ -183,7 +190,6 @@
             </StackLayout>
             <BoxView/>
             <Label Text="Saving"
->>>>>>> to become bonded, one device must be on bluetooth settings screen (currently). currently refusing to connect
                    Style="{DynamicResource header}"/>
             <Grid ColumnSpacing="0">
                 <Grid.ColumnDefinitions>
