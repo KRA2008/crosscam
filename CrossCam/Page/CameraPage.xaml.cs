@@ -1,8 +1,10 @@
 ﻿using System;
 using System.ComponentModel;
+using System.Security.Cryptography;
 using System.Threading.Tasks;
 using CrossCam.CustomElement;
 using CrossCam.ViewModel;
+using SkiaSharp;
 using SkiaSharp.Views.Forms;
 using Xamarin.Essentials;
 using Xamarin.Forms;
@@ -274,7 +276,7 @@ namespace CrossCam.Page
 	    {
 	        var canvas = e.Surface.Canvas;
 
-	        canvas.Clear();
+	        canvas.Clear(SKColor.Empty);
 
             DrawTool.DrawImagesOnCanvas(
                 canvas, _viewModel.LeftBitmap, _viewModel.RightBitmap,
