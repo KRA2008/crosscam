@@ -58,7 +58,7 @@ namespace CrossCam.Droid.CustomRenderer
 
         private bool _useCamera2;
         private Surface _surface;
-        private readonly CameraManager _cameraManager;
+        private CameraManager _cameraManager;
         private CameraCaptureSession _camera2Session;
         private CaptureRequest.Builder _previewRequestBuilder;
         private CameraCaptureListener _captureListener;
@@ -95,21 +95,18 @@ namespace CrossCam.Droid.CustomRenderer
             };
             MainActivity.Instance.LifecycleEventListener.AppMaximized += AppWasMaximized;
             MainActivity.Instance.LifecycleEventListener.AppMinimized += AppWasMinimized;
-            
-            var settings = PersistentStorage.LoadOrDefault(PersistentStorage.SETTINGS_KEY, new Settings());
-            var forceCamera1 = settings.IsForceCamera1Enabled;
 
             _landscapePreviewAllottedWidth = Resources.DisplayMetrics.HeightPixels / 2f; // when in landscape (the larger of the two), preview width will be half the height of the screen
                                                                                          // ("height" of a screen is the larger of the two dimensions, which is opposite of camera/preview sizes)
 
-            if (Build.VERSION.SdkInt >= BuildVersionCodes.M && !forceCamera1) // camera2 is introduced in 21, but i need the af cancel trigger which is 23
+             _orientations.Append((int)SurfaceOrientation.Rotation0, 0);
+             _orientations.Append((int)SurfaceOrientation.Rotation90, 90);
+             _orientations.Append((int)SurfaceOrientation.Rotation180, 180);
+             _orientations.Append((int)SurfaceOrientation.Rotation270, 270);
+
+            if (Build.VERSION.SdkInt >= BuildVersionCodes.Lollipop)
             {
                 _cameraManager = (CameraManager)MainActivity.Instance.GetSystemService(Context.CameraService);
-
-                _orientations.Append((int)SurfaceOrientation.Rotation0, 0);
-                _orientations.Append((int)SurfaceOrientation.Rotation90, 90);
-                _orientations.Append((int)SurfaceOrientation.Rotation180, 180);
-                _orientations.Append((int)SurfaceOrientation.Rotation270, 270);
             }
         }
 
@@ -165,8 +162,13 @@ namespace CrossCam.Droid.CustomRenderer
                     _cameraModule = e.NewElement;
                     try
                     {
-                        var level = FindCamera2();
-                        _useCamera2 = level != (int)InfoSupportedHardwareLevel.Legacy;
+                        var settings = PersistentStorage.LoadOrDefault(PersistentStorage.SETTINGS_KEY, new Settings());
+                        var forceCamera1 = settings.IsForceCamera1Enabled;
+                        if (Build.VERSION.SdkInt >= BuildVersionCodes.M && !forceCamera1) // camera2 is introduced in 21, but i need the af cancel trigger which is 23
+                        {
+                            var level = FindCamera2();
+                            _useCamera2 = level != (int)InfoSupportedHardwareLevel.Legacy;
+                        }
                     }
                     catch (System.Exception ex)
                     {
