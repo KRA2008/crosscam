@@ -48,7 +48,7 @@
     <BuildIpa>true</BuildIpa>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
     <MtouchLink>Full</MtouchLink>
-    <MtouchExtraArgs>--linkskip=CrossCam --linkskip=CrossCam.iOS --linkskip=CrossCam.iOS.Extension --optimize=-remove-dynamic-registrar</MtouchExtraArgs>
+    <MtouchExtraArgs>--linkskip=CrossCam --linkskip=CrossCam.iOS --linkskip=CrossCam.iOS.Extension --optimize=-remove-dynamic-registrar --optimize=experimental-xforms-product-type</MtouchExtraArgs>
     <MtouchFloat32>true</MtouchFloat32>
     <CodesignExtraArgs />
     <CodesignResourceRules />
@@ -88,8 +88,7 @@
     <CodesignResourceRules />
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
     <MtouchLink>None</MtouchLink>
-    <MtouchExtraArgs>
-    </MtouchExtraArgs>
+    <MtouchExtraArgs>--optimize=experimental-xforms-product-type</MtouchExtraArgs>
     <MtouchFloat32>true</MtouchFloat32>
     <MtouchNoSymbolStrip>true</MtouchNoSymbolStrip>
   </PropertyGroup>
@@ -145,7 +144,7 @@
       <Version>1.5.3.2</Version>
     </PackageReference>
     <PackageReference Include="Xamarin.Forms">
-      <Version>3.6.0.539721</Version>
+      <Version>4.6.0.800</Version>
     </PackageReference>
   </ItemGroup>
   <ItemGroup>
