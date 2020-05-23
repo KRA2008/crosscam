@@ -175,8 +175,18 @@ namespace CrossCam.ViewModel
         public bool ShouldRightCaptureBeVisible => WorkflowStage == WorkflowStage.Capture && Settings.Handedness == Handedness.Right && (BluetoothOperatorBindable.PairStatus == PairStatus.Disconnected || Settings.IsPairedPrimary.HasValue && Settings.IsPairedPrimary.Value);
         public bool ShouldCenterCaptureBeVisible => WorkflowStage == WorkflowStage.Capture && Settings.Handedness == Handedness.Center && (BluetoothOperatorBindable.PairStatus == PairStatus.Disconnected || Settings.IsPairedPrimary.HasValue && Settings.IsPairedPrimary.Value);
         public bool ShouldLeftCaptureBeVisible => WorkflowStage == WorkflowStage.Capture && Settings.Handedness == Handedness.Left && (BluetoothOperatorBindable.PairStatus == PairStatus.Disconnected || Settings.IsPairedPrimary.HasValue && Settings.IsPairedPrimary.Value);
-        public bool ShouldLineGuidesBeVisible => ((IsExactlyOnePictureTaken && WorkflowStage != WorkflowStage.Loading) || Settings.ShowGuideLinesWithFirstCapture || (BluetoothOperator.IsPrimary && BluetoothOperator.PairStatus == PairStatus.Connected) && WorkflowStage == WorkflowStage.Capture) && Settings.AreGuideLinesVisible || WorkflowStage == WorkflowStage.Keystone || WorkflowStage == WorkflowStage.ManualAlign;
-        public bool ShouldDonutGuideBeVisible => ((IsExactlyOnePictureTaken && WorkflowStage != WorkflowStage.Loading) || Settings.ShowGuideDonutWithFirstCapture || (BluetoothOperator.IsPrimary && BluetoothOperator.PairStatus == PairStatus.Connected) && WorkflowStage == WorkflowStage.Capture) && Settings.IsGuideDonutVisible;
+
+        public bool ShouldLineGuidesBeVisible => ((IsNothingCaptured && Settings.ShowGuideLinesWithFirstCapture)
+                                                  || (IsExactlyOnePictureTaken && WorkflowStage != WorkflowStage.Loading)
+                                                  || (BluetoothOperator.IsPrimary && BluetoothOperator.PairStatus == PairStatus.Connected && WorkflowStage == WorkflowStage.Capture))
+                                                  && Settings.AreGuideLinesVisible
+                                                  || WorkflowStage == WorkflowStage.Keystone
+                                                  || WorkflowStage == WorkflowStage.ManualAlign;
+        public bool ShouldDonutGuideBeVisible => ((IsNothingCaptured && Settings.ShowGuideDonutWithFirstCapture)
+                                                 || (IsExactlyOnePictureTaken && WorkflowStage != WorkflowStage.Loading)
+                                                 || (BluetoothOperator.IsPrimary && BluetoothOperator.PairStatus == PairStatus.Connected && WorkflowStage == WorkflowStage.Capture))
+                                                 && Settings.IsGuideDonutVisible;
+
         public bool ShouldRollGuideBeVisible => WorkflowStage == WorkflowStage.Capture && Settings.ShowRollGuide;
         public bool ShouldViewButtonBeVisible => WorkflowStage == WorkflowStage.Final ||
                                                  WorkflowStage == WorkflowStage.Crop ||
