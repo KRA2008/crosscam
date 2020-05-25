@@ -154,7 +154,7 @@ namespace CrossCam.ViewModel
         public double FocusCircleX { get; set; }
         public double FocusCircleY { get; set; }
 
-        public double LeftFov => BluetoothOperator.IsPrimary && BluetoothOperator.PairStatus == PairStatus.Connected ? (IsCaptureLeftFirst ? BluetoothOperator.Fov : BluetoothOperator.PartnerFov) : 0; //TODO: it shouldn't go to 0 because you disconnect - otherwise you MUST stay connected while saving, which is bad'
+        public double LeftFov => BluetoothOperator.IsPrimary && BluetoothOperator.PairStatus == PairStatus.Connected ? (IsCaptureLeftFirst ? BluetoothOperator.Fov : BluetoothOperator.PartnerFov) : 0; //TODO: it shouldn't go to 0 because you disconnect - otherwise you MUST stay connected while saving, which is bad
         public double RightFov => BluetoothOperator.IsPrimary && BluetoothOperator.PairStatus == PairStatus.Connected ? (IsCaptureLeftFirst ? BluetoothOperator.PartnerFov : BluetoothOperator.Fov) : 0;
 
         public bool IsNothingCaptured => LeftBitmap == null && RightBitmap == null;
@@ -642,7 +642,6 @@ namespace CrossCam.ViewModel
                                     VerticalAlignment,
                                     LeftZoom, RightZoom,
                                     LeftKeystone, RightKeystone,
-                                    LeftFov, RightFov,
                                     DrawMode.Cross);
 
                                 await SaveSurfaceSnapshot(tempSurface);
@@ -674,7 +673,6 @@ namespace CrossCam.ViewModel
                                     VerticalAlignment,
                                     RightZoom, LeftZoom,
                                     RightKeystone, LeftKeystone,
-                                    LeftFov, RightFov,
                                     DrawMode.Parallel);
 
                                 await SaveSurfaceSnapshot(tempSurface);
@@ -1006,7 +1004,6 @@ namespace CrossCam.ViewModel
                     TopCrop, BottomCrop, LeftRotation, RightRotation,
                     VerticalAlignment, LeftZoom, RightZoom,
                     LeftKeystone, RightKeystone,
-                    LeftFov, RightFov, 
                     grayscale ? DrawMode.GrayscaleRedCyanAnaglyph : DrawMode.RedCyanAnaglyph);
 
                 await SaveSurfaceSnapshot(tempSurface);
@@ -1231,6 +1228,11 @@ namespace CrossCam.ViewModel
                 }
                 else
                 {
+                    if (BluetoothOperator.IsPrimary &&
+                        BluetoothOperator.PairStatus == PairStatus.Connected)
+                    {
+                        CheckAndCorrectFovAndResolutionDifferences();
+                    }
                     WasCaptureCross = Settings.Mode != DrawMode.Parallel;
                     CameraColumn = IsCaptureLeftFirst ? 0 : 1;
                     WorkflowStage = WorkflowStage.Final;
@@ -1259,12 +1261,62 @@ namespace CrossCam.ViewModel
                 }
                 else
                 {
+                    if (BluetoothOperator.IsPrimary &&
+                        BluetoothOperator.PairStatus == PairStatus.Connected)
+                    {
+                        CheckAndCorrectFovAndResolutionDifferences();
+                    }
                     WasCaptureCross = Settings.Mode != DrawMode.Parallel;
                     CameraColumn = IsCaptureLeftFirst ? 0 : 1;
                     WorkflowStage = WorkflowStage.Final;
                     AutoAlign();
                 }
             }
+        }
+
+        private void CheckAndCorrectFovAndResolutionDifferences() //TODO: this seems like a fine approach but it doesn't look like it's working right...
+        {
+            var finalWidth = Math.Min(LeftBitmap.Width, RightBitmap.Width); // TODO: Android aspect ratio differences may make this ambiguous
+            var finalHeight = Math.Min(LeftBitmap.Height, RightBitmap.Height);
+
+            if (LeftFov > DrawTool.FLOATY_ZERO &&
+                RightFov > DrawTool.FLOATY_ZERO)
+            {
+                if (LeftFov > RightFov)
+                {
+                    LeftBitmap = CorrectFovAndResolutionSide(LeftBitmap, RightFov / LeftFov, finalWidth, finalHeight);
+                }
+                else
+                {
+                    RightBitmap = CorrectFovAndResolutionSide(RightBitmap, LeftFov / RightFov, finalWidth, finalHeight);
+                }
+            }
+        }
+
+        private static SKBitmap CorrectFovAndResolutionSide(SKBitmap originalImage, double correctionProportion, int finalWidth, int finalHeight)
+        {
+            var leftFovCorrection = (originalImage.Width - originalImage.Width * correctionProportion) / 2d;
+            var topFovCorrection = (originalImage.Height - originalImage.Height * correctionProportion) / 2d;
+
+            var corrected = new SKBitmap(finalWidth, finalHeight);
+
+            using (var canvas = new SKCanvas(corrected))
+            {
+                canvas.DrawBitmap(
+                    originalImage,
+                    SKRect.Create(
+                        (float)leftFovCorrection,
+                        (float)topFovCorrection,
+                        (float)(originalImage.Width - leftFovCorrection),
+                        (float)(originalImage.Height - topFovCorrection)),
+                    SKRect.Create(
+                        0,
+                        0,
+                        finalWidth,
+                        finalHeight));
+            }
+
+            return corrected;
         }
 
         private static SKBitmap GetHalfOfFullStereoImage(byte[] bytes, bool wantLeft, bool clipBorder) 

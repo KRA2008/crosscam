@@ -8,7 +8,7 @@ namespace CrossCam.Page
     public class DrawTool
     {
         public const double BORDER_CONVERSION_FACTOR = 0.001;
-        private const float FLOATY_ZERO = 0.00001f;
+        public const float FLOATY_ZERO = 0.00001f;
 
         public static void DrawImagesOnCanvas(
             SKCanvas canvas, SKBitmap leftBitmap, SKBitmap rightBitmap,
@@ -18,7 +18,6 @@ namespace CrossCam.Page
             float leftRotation, float rightRotation, double alignment,
             double leftZoom, double rightZoom,
             float leftKeystone, float rightKeystone,
-            double leftFov, double rightFov,
             DrawMode drawMode)
         {
             //TODO: deal with different aspect ratio pictures (for Android)
@@ -81,21 +80,6 @@ namespace CrossCam.Page
             var isRightKeystoned = Math.Abs(rightKeystone) > FLOATY_ZERO;
             var isLeftKeystoned = Math.Abs(leftKeystone) > FLOATY_ZERO;
 
-            var leftFovCorrectionProportion = 1d;
-            var rightFovCorrectionProportion = 1d;
-            if (leftFov > FLOATY_ZERO &&
-                rightFov > FLOATY_ZERO)
-            {
-                if (leftFov > rightFov)
-                {
-                    leftFovCorrectionProportion = rightFov / leftFov;
-                }
-                else
-                {
-                    rightFovCorrectionProportion = leftFov / rightFov;
-                }
-            }
-
             if (leftBitmap != null)
             {
                 SKBitmap grayscale = null;
@@ -130,16 +114,13 @@ namespace CrossCam.Page
                     var width = transformed?.Width ?? grayscale?.Width ?? leftBitmap.Width;
                     var height = transformed?.Height ?? grayscale?.Height ?? leftBitmap.Height;
 
-                    var leftFovCorrection = (width - width * leftFovCorrectionProportion) / 2d;
-                    var topFovCorrection = (height - height * leftFovCorrectionProportion) / 2d;
-
                     canvas.DrawBitmap(
                         transformed ?? grayscale ?? leftBitmap,
                         SKRect.Create(
-                            (float)(width * leftLeftCrop + leftFovCorrection),
-                            (float)(height * topCrop + (alignment > 0 ? alignment * height : 0) + topFovCorrection),
-                            (float)(width - width * (leftLeftCrop + leftRightCrop) - leftFovCorrection),
-                            (float)(height - height * (topCrop + bottomCrop + Math.Abs(alignment)) - topFovCorrection)),
+                            (float)(width * leftLeftCrop),
+                            (float)(height * topCrop + (alignment > 0 ? alignment * height : 0)),
+                            (float)(width - width * (leftLeftCrop + leftRightCrop)),
+                            (float)(height - height * (topCrop + bottomCrop + Math.Abs(alignment)))),
                         SKRect.Create(
                             leftPreviewX,
                             previewY,
@@ -187,16 +168,13 @@ namespace CrossCam.Page
                     var width = transformed?.Width ?? grayscale?.Width ?? rightBitmap.Width;
                     var height = transformed?.Height ?? grayscale?.Height ?? rightBitmap.Height;
 
-                    var rightFovCorrection = (width - width * rightFovCorrectionProportion) / 2d;
-                    var topFovCorrection = (height - height * rightFovCorrectionProportion) / 2d;
-
                     canvas.DrawBitmap(
                         transformed ?? grayscale ?? rightBitmap,
                         SKRect.Create(
-                            (float)(width * rightLeftCrop + rightFovCorrection),
-                            (float)(height * topCrop - (alignment < 0 ? alignment * height : 0) + topFovCorrection),
-                            (float)(width - width * (rightLeftCrop + rightRightCrop) - rightFovCorrection),
-                            (float)(height - height * (topCrop + bottomCrop + Math.Abs(alignment)) - topFovCorrection)),
+                            (float)(width * rightLeftCrop),
+                            (float)(height * topCrop - (alignment < 0 ? alignment * height : 0)),
+                            (float)(width - width * (rightLeftCrop + rightRightCrop)),
+                            (float)(height - height * (topCrop + bottomCrop + Math.Abs(alignment)))),
                         SKRect.Create(
                             rightPreviewX,
                             previewY,
