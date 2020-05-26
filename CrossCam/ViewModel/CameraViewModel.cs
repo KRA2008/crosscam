@@ -1284,20 +1284,21 @@ namespace CrossCam.ViewModel
             {
                 if (LeftFov > RightFov)
                 {
-                    LeftBitmap = CorrectFovAndResolutionSide(LeftBitmap, RightFov / LeftFov, finalWidth, finalHeight);
+                    var widthCorrection = CalculateFovCorrection(LeftFov, RightFov, LeftBitmap.Width);
+                    var heightCorrection = CalculateFovCorrection(LeftFov, RightFov, LeftBitmap.Height);
+                    LeftBitmap = CorrectFovAndResolutionSide(LeftBitmap, widthCorrection, heightCorrection, finalWidth, finalHeight);
                 }
                 else
                 {
-                    RightBitmap = CorrectFovAndResolutionSide(RightBitmap, LeftFov / RightFov, finalWidth, finalHeight);
+                    var widthCorrection = CalculateFovCorrection(RightFov, LeftFov, RightBitmap.Width);
+                    var heightCorrection = CalculateFovCorrection(RightFov, LeftFov, RightBitmap.Height);
+                    RightBitmap = CorrectFovAndResolutionSide(RightBitmap, widthCorrection, heightCorrection, finalWidth, finalHeight);
                 }
             }
         }
 
-        private static SKBitmap CorrectFovAndResolutionSide(SKBitmap originalImage, double correctionProportion, int finalWidth, int finalHeight)
+        private static SKBitmap CorrectFovAndResolutionSide(SKBitmap originalImage, double widthCorrection, double heightCorrection, int finalWidth, int finalHeight)
         {
-            var leftFovCorrection = (originalImage.Width - originalImage.Width * correctionProportion) / 2d;
-            var topFovCorrection = (originalImage.Height - originalImage.Height * correctionProportion) / 2d;
-
             var corrected = new SKBitmap(finalWidth, finalHeight);
 
             using (var canvas = new SKCanvas(corrected))
@@ -1305,10 +1306,10 @@ namespace CrossCam.ViewModel
                 canvas.DrawBitmap(
                     originalImage,
                     SKRect.Create(
-                        (float)leftFovCorrection,
-                        (float)topFovCorrection,
-                        (float)(originalImage.Width - leftFovCorrection),
-                        (float)(originalImage.Height - topFovCorrection)),
+                        (float)widthCorrection,
+                        (float)heightCorrection,
+                        (float)(originalImage.Width - widthCorrection),
+                        (float)(originalImage.Height - heightCorrection)),
                     SKRect.Create(
                         0,
                         0,
@@ -1317,6 +1318,11 @@ namespace CrossCam.ViewModel
             }
 
             return corrected;
+        }
+
+        private static double CalculateFovCorrection(double largerFov, double smallerFov, int originalLength)
+        {
+            return (originalLength - originalLength * (Math.Tan(smallerFov * Math.PI / 180) / Math.Tan(largerFov * Math.PI / 180))) / 2;
         }
 
         private static SKBitmap GetHalfOfFullStereoImage(byte[] bytes, bool wantLeft, bool clipBorder) 
