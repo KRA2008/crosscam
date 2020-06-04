@@ -1284,14 +1284,14 @@ namespace CrossCam.ViewModel
             {
                 if (LeftFov > RightFov)
                 {
-                    var widthCorrection = CalculateFovCorrection(LeftFov, RightFov, LeftBitmap.Width);
-                    var heightCorrection = CalculateFovCorrection(LeftFov, RightFov, LeftBitmap.Height);
+                    var widthCorrection = FindCropForFovCorrection(LeftFov, RightFov, LeftBitmap.Width);
+                    var heightCorrection = FindCropForFovCorrection(LeftFov, RightFov, LeftBitmap.Height);
                     LeftBitmap = CorrectFovAndResolutionSide(LeftBitmap, widthCorrection, heightCorrection, finalWidth, finalHeight);
                 }
                 else
                 {
-                    var widthCorrection = CalculateFovCorrection(RightFov, LeftFov, RightBitmap.Width);
-                    var heightCorrection = CalculateFovCorrection(RightFov, LeftFov, RightBitmap.Height);
+                    var widthCorrection = FindCropForFovCorrection(RightFov, LeftFov, RightBitmap.Width);
+                    var heightCorrection = FindCropForFovCorrection(RightFov, LeftFov, RightBitmap.Height);
                     RightBitmap = CorrectFovAndResolutionSide(RightBitmap, widthCorrection, heightCorrection, finalWidth, finalHeight);
                 }
             }
@@ -1320,9 +1320,14 @@ namespace CrossCam.ViewModel
             return corrected;
         }
 
-        private static double CalculateFovCorrection(double largerFov, double smallerFov, int originalLength)
+        public static double FindCropForFovCorrection(double largerFov, double smallerFov, int originalLength)
         {
-            return (originalLength - originalLength * (Math.Tan(smallerFov * Math.PI / 180) / Math.Tan(largerFov * Math.PI / 180))) / 2;
+            return originalLength * (1 - Math.Tan(smallerFov * Math.PI / 180 / 2) / Math.Tan(largerFov * Math.PI / 180 / 2)) / 2;
+        }
+
+        public static double FindPaddingForFovCorrection(double largerFov, double smallerFov, int originalLength)
+        {
+            return originalLength * (Math.Tan(largerFov * Math.PI / 180 / 2) / Math.Tan(smallerFov * Math.PI / 180 / 2) - 1) / 2;
         }
 
         private static SKBitmap GetHalfOfFullStereoImage(byte[] bytes, bool wantLeft, bool clipBorder) 

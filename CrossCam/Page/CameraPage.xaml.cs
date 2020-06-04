@@ -322,16 +322,42 @@ namespace CrossCam.Page
                     var sizeRatio = bitmap.Width / (canvasWidth * 1d);
                     var scaledHeight = bitmap.Height / sizeRatio;
 
-                    var fovRatio = _viewModel.BluetoothOperatorBindable.Fov / _viewModel.BluetoothOperatorBindable.PartnerFov;
-
-                    var newLeft = (bitmap.Width - bitmap.Width * fovRatio) / 2d;
-                    var newTop = (bitmap.Height - bitmap.Height * fovRatio) / 2d;
-                    var newRight = bitmap.Width - newLeft;
-                    var newBottom = bitmap.Height - newTop;
+                    double heightFovCorrection;
+                    double widthFovCorrection;
+                    if (_viewModel.BluetoothOperatorBindable.PartnerFov < _viewModel.BluetoothOperatorBindable.Fov)
+                    {
+                        heightFovCorrection = -1 * CameraViewModel.FindPaddingForFovCorrection(
+                            _viewModel.BluetoothOperatorBindable.Fov, 
+                            _viewModel.BluetoothOperatorBindable.PartnerFov,
+                            bitmap.Height);
+                        widthFovCorrection = -1 * CameraViewModel.FindPaddingForFovCorrection(
+                            _viewModel.BluetoothOperatorBindable.Fov, 
+                            _viewModel.BluetoothOperatorBindable.PartnerFov,
+                            bitmap.Width);
+                    }
+                    else
+                    {
+                        heightFovCorrection = CameraViewModel.FindCropForFovCorrection(
+                            _viewModel.BluetoothOperatorBindable.PartnerFov,
+                            _viewModel.BluetoothOperatorBindable.Fov, 
+                            bitmap.Height);
+                        widthFovCorrection = CameraViewModel.FindCropForFovCorrection(
+                            _viewModel.BluetoothOperatorBindable.PartnerFov,
+                            _viewModel.BluetoothOperatorBindable.Fov,
+                            bitmap.Width);
+                    }
 
                     canvas.DrawBitmap(bitmap,
-                        new SKRect((float)newLeft, (float)newTop, (float)newRight, (float)newBottom),
-                        new SKRect(0, (float)(canvas.DeviceClipBounds.Height-scaledHeight)/2, canvas.DeviceClipBounds.Width, (float)(canvas.DeviceClipBounds.Height + scaledHeight) / 2));
+                        new SKRect(
+                            (float)widthFovCorrection,
+                            (float)heightFovCorrection,
+                            (float)(bitmap.Width - widthFovCorrection),
+                            (float)(bitmap.Height - heightFovCorrection)),
+                        new SKRect(
+                            0,
+                            (float)(canvas.DeviceClipBounds.Height-scaledHeight)/2,
+                            canvas.DeviceClipBounds.Width,
+                            (float)(canvas.DeviceClipBounds.Height + scaledHeight) / 2));
 
                     _viewModel.BluetoothOperatorBindable.RequestClockReading();
                 }
