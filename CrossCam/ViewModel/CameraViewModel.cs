@@ -51,7 +51,9 @@ namespace CrossCam.ViewModel
                 if(Settings.Mode != DrawMode.Parallel) return new Rectangle(0,0,1,1);
                 var mainPage = Application.Current?.MainPage;
                 var windowWidth = int.MaxValue;
-                if (mainPage != null)
+                if (mainPage != null &&
+                    mainPage.Width > 0 &&
+                    mainPage.Height > 0)
                 {
                     var appWidth = mainPage.Width;
                     var appHeight = mainPage.Height;
