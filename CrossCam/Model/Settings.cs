@@ -17,20 +17,49 @@ namespace CrossCam.Model
                 var intValue = (int)value;
                 if (intValue < 0) return;
 
-                switch (_mode)
+                var totalSaveModes = 0;
+                if(SaveForCrossView)
                 {
-                    case DrawMode.Cross when value != DrawMode.Cross:
-                        SaveForCrossView = false;
-                        break;
-                    case DrawMode.Parallel when value != DrawMode.Parallel:
-                        SaveForParallel = false;
-                        break;
-                    case DrawMode.RedCyanAnaglyph when value != DrawMode.RedCyanAnaglyph:
-                        SaveForRedCyanAnaglyph = false;
-                        break;
-                    case DrawMode.GrayscaleRedCyanAnaglyph when value != DrawMode.GrayscaleRedCyanAnaglyph:
-                        SaveForGrayscaleAnaglyph = false;
-                        break;
+                    totalSaveModes++;
+                }
+                if (SaveForParallel)
+                {
+                    totalSaveModes++;
+                }
+                if (SaveForRedCyanAnaglyph)
+                {
+                    totalSaveModes++;
+                }
+                if (SaveForGrayscaleAnaglyph)
+                {
+                    totalSaveModes++;
+                }
+                if (SaveSidesSeparately)
+                {
+                    totalSaveModes++;
+                }
+                if (SaveRedundantFirstSide)
+                {
+                    totalSaveModes++;
+                }
+
+                if (totalSaveModes == 1)
+                {
+                    switch (_mode)
+                    {
+                        case DrawMode.Cross when value != DrawMode.Cross:
+                            SaveForCrossView = false;
+                            break;
+                        case DrawMode.Parallel when value != DrawMode.Parallel:
+                            SaveForParallel = false;
+                            break;
+                        case DrawMode.RedCyanAnaglyph when value != DrawMode.RedCyanAnaglyph:
+                            SaveForRedCyanAnaglyph = false;
+                            break;
+                        case DrawMode.GrayscaleRedCyanAnaglyph when value != DrawMode.GrayscaleRedCyanAnaglyph:
+                            SaveForGrayscaleAnaglyph = false;
+                            break;
+                    }
                 }
 
                 switch (value)
