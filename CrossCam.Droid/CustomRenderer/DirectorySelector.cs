@@ -57,6 +57,9 @@ namespace CrossCam.Droid.CustomRenderer
 
         public static void DirectorySelected(Uri directory)
         {
+            var contentResolver = MainActivity.Instance.ContentResolver;
+            contentResolver.TakePersistableUriPermission(directory,
+                ActivityFlags.GrantReadUriPermission | ActivityFlags.GrantWriteUriPermission);
             _completionSource.SetResult(directory.ToString());
         }
 
