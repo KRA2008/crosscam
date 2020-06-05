@@ -53,8 +53,6 @@ namespace CrossCam.Page
         public CameraPage()
 		{
             InitializeComponent();
-            ResetLineAndDonutGuides();
-            PlaceRollGuide();
             NavigationPage.SetHasNavigationBar(this, false);
 
 		    var bubbleBounds = AbsoluteLayout.GetLayoutBounds(_horizontalLevelBubble);
@@ -208,7 +206,9 @@ namespace CrossCam.Page
 	            _viewModel = (CameraViewModel) BindingContext;
 	            _viewModel.PropertyChanged += ViewModelPropertyChanged;
                 EvaluateSensors();
-	        }
+                ResetLineAndDonutGuides();
+                PlaceRollGuide();
+            }
 	    }
 
 	    private void ViewModelPropertyChanged(object sender, PropertyChangedEventArgs e)
@@ -228,6 +228,7 @@ namespace CrossCam.Page
                     ResetLineAndDonutGuides();
                     break;
                 case nameof(CameraViewModel.CameraColumn):
+                case nameof(CameraViewModel.IsCaptureLeftFirst):
                     PlaceRollGuide();
                     break;
                 case nameof(CameraViewModel.IsViewPortrait):
