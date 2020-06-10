@@ -907,9 +907,11 @@ namespace CrossCam.Droid.CustomRenderer
             var map = (StreamConfigurationMap)characteristics.Get(CameraCharacteristics
                 .ScalerStreamConfigurationMap);
 
-            var highResSizes = map.GetHighResolutionOutputSizes((int) ImageFormatType.Jpeg).Where(p => p.Width > p.Height);
-            var normalSizes = map.GetOutputSizes((int) ImageFormatType.Jpeg).Where(p => p.Width > p.Height);
-            _picture2Size = highResSizes.Concat(normalSizes).OrderByDescending(s => s.Width * s.Height).First();
+            var highResSizes = map.GetHighResolutionOutputSizes((int) ImageFormatType.Jpeg)?.Where(p => p.Width > p.Height).ToList();
+            var normalSizes = map.GetOutputSizes((int)ImageFormatType.Jpeg).Where(p => p.Width > p.Height).ToList();
+            _picture2Size = highResSizes != null
+                ? highResSizes.Concat(normalSizes).OrderByDescending(s => s.Width * s.Height).First()
+                : normalSizes.OrderByDescending(s => s.Width * s.Height).First();
             var pictureAspectRatio = _picture2Size.Width / (1f * _picture2Size.Height);
 
             var previewSizes = map.GetOutputSizes(Class.FromType(typeof(SurfaceTexture))).Where(p => p.Width > p.Height)
