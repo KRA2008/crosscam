@@ -1322,12 +1322,12 @@ namespace CrossCam.ViewModel
 
         public static double FindCropForFovCorrection(double largerFov, double smallerFov, int originalLength)
         {
-            return originalLength * (1 - Math.Tan(smallerFov * Math.PI / 180 / 2) / Math.Tan(largerFov * Math.PI / 180 / 2)) / 2;
+            return originalLength * (1 - Math.Tan(smallerFov * Math.PI / 360d) / Math.Tan(largerFov * Math.PI / 360d)) / 2d;
         }
 
         public static double FindPaddingForFovCorrection(double largerFov, double smallerFov, int originalLength)
         {
-            return originalLength * (Math.Tan(largerFov * Math.PI / 180 / 2) / Math.Tan(smallerFov * Math.PI / 180 / 2) - 1) / 2;
+            return originalLength * (Math.Tan(largerFov * Math.PI / 360d) / Math.Tan(smallerFov * Math.PI / 360d) - 1) / 2d;
         }
 
         private static SKBitmap GetHalfOfFullStereoImage(byte[] bytes, bool wantLeft, bool clipBorder) 
