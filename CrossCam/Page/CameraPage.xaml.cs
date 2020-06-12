@@ -324,27 +324,56 @@ namespace CrossCam.Page
 
                     double heightFovCorrection;
                     double widthFovCorrection;
+                    var isLandscape = bitmap.Width > bitmap.Height;
                     if (_viewModel.BluetoothOperatorBindable.PartnerFov < _viewModel.BluetoothOperatorBindable.Fov)
                     {
-                        heightFovCorrection = -1 * CameraViewModel.FindPaddingForFovCorrection(
-                            _viewModel.BluetoothOperatorBindable.Fov, 
-                            _viewModel.BluetoothOperatorBindable.PartnerFov,
-                            bitmap.Height);
-                        widthFovCorrection = -1 * CameraViewModel.FindPaddingForFovCorrection(
-                            _viewModel.BluetoothOperatorBindable.Fov, 
-                            _viewModel.BluetoothOperatorBindable.PartnerFov,
-                            bitmap.Width);
+                        if (isLandscape)
+                        {
+                            widthFovCorrection = -1 * CameraViewModel.FindPaddingForFovCorrection(
+                                                     _viewModel.BluetoothOperatorBindable.Fov,
+                                                     _viewModel.BluetoothOperatorBindable.PartnerFov,
+                                                     bitmap.Width);
+                            heightFovCorrection = -1 * CameraViewModel.FindPaddingForFovCorrection(
+                                                      CameraViewModel.CalculatePortraitFov(_viewModel.BluetoothOperatorBindable.Fov),
+                                                      CameraViewModel.CalculatePortraitFov(_viewModel.BluetoothOperatorBindable.PartnerFov),
+                                                      bitmap.Height);
+                        }
+                        else
+                        {
+                            heightFovCorrection = -1 * CameraViewModel.FindPaddingForFovCorrection(
+                                                      _viewModel.BluetoothOperatorBindable.Fov,
+                                                      _viewModel.BluetoothOperatorBindable.PartnerFov,
+                                                      bitmap.Height);
+                            widthFovCorrection = -1 * CameraViewModel.FindPaddingForFovCorrection(
+                                                     CameraViewModel.CalculatePortraitFov(_viewModel.BluetoothOperatorBindable.Fov),
+                                                     CameraViewModel.CalculatePortraitFov(_viewModel.BluetoothOperatorBindable.PartnerFov),
+                                                     bitmap.Width);
+                        }
                     }
                     else
                     {
-                        heightFovCorrection = CameraViewModel.FindCropForFovCorrection(
-                            _viewModel.BluetoothOperatorBindable.PartnerFov,
-                            _viewModel.BluetoothOperatorBindable.Fov, 
-                            bitmap.Height);
-                        widthFovCorrection = CameraViewModel.FindCropForFovCorrection(
-                            _viewModel.BluetoothOperatorBindable.PartnerFov,
-                            _viewModel.BluetoothOperatorBindable.Fov,
-                            bitmap.Width);
+                        if (isLandscape)
+                        {
+                            widthFovCorrection = CameraViewModel.FindCropForFovCorrection(
+                                _viewModel.BluetoothOperatorBindable.PartnerFov,
+                                _viewModel.BluetoothOperatorBindable.Fov,
+                                bitmap.Width);
+                            heightFovCorrection = CameraViewModel.FindCropForFovCorrection(
+                                CameraViewModel.CalculatePortraitFov(_viewModel.BluetoothOperatorBindable.PartnerFov),
+                                CameraViewModel.CalculatePortraitFov(_viewModel.BluetoothOperatorBindable.Fov),
+                                bitmap.Height);
+                        }
+                        else
+                        {
+                            heightFovCorrection = CameraViewModel.FindCropForFovCorrection(
+                                _viewModel.BluetoothOperatorBindable.PartnerFov,
+                                _viewModel.BluetoothOperatorBindable.Fov,
+                                bitmap.Height);
+                            widthFovCorrection = CameraViewModel.FindCropForFovCorrection(
+                                CameraViewModel.CalculatePortraitFov(_viewModel.BluetoothOperatorBindable.PartnerFov),
+                                CameraViewModel.CalculatePortraitFov(_viewModel.BluetoothOperatorBindable.Fov),
+                                bitmap.Width);
+                        }
                     }
 
                     canvas.DrawBitmap(bitmap,

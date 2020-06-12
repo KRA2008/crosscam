@@ -181,9 +181,9 @@ namespace CrossCam.iOS.CustomRenderer
                     _device = AVCaptureDevice.GetDefaultDevice(AVMediaTypes.Video);
                 }
 
-                _cameraModule.BluetoothOperator.Fov = UIDevice.CurrentDevice.CheckSystemVersion(13, 0) ? 
+                _cameraModule.BluetoothOperator.Fov = (UIDevice.CurrentDevice.CheckSystemVersion(13, 0) ? 
                     _device.ActiveFormat.GeometricDistortionCorrectedVideoFieldOfView : 
-                    _device.ActiveFormat.VideoFieldOfView;
+                    _device.ActiveFormat.VideoFieldOfView) * Math.PI / 180d;
 
                 SetPreviewSizing(_device, restart);
 

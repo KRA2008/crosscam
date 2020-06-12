@@ -1274,24 +1274,44 @@ namespace CrossCam.ViewModel
             }
         }
 
-        private void CheckAndCorrectFovAndResolutionDifferences() //TODO: this seems like a fine approach but it doesn't look like it's working right...
+        private void CheckAndCorrectFovAndResolutionDifferences() //TODO: this seems like a fine approach but it doesn't look like it's working right... i had to divide by an extra factor of two and i don't know why, and it's still not quite perfect.
         {
             var finalWidth = Math.Min(LeftBitmap.Width, RightBitmap.Width); // TODO: Android aspect ratio differences may make this ambiguous
             var finalHeight = Math.Min(LeftBitmap.Height, RightBitmap.Height);
 
+            var isLandscape = finalWidth > finalHeight;
+
             if (LeftFov > DrawTool.FLOATY_ZERO &&
                 RightFov > DrawTool.FLOATY_ZERO)
             {
+                double heightCorrection;
+                double widthCorrection;
                 if (LeftFov > RightFov)
                 {
-                    var widthCorrection = FindCropForFovCorrection(LeftFov, RightFov, LeftBitmap.Width);
-                    var heightCorrection = FindCropForFovCorrection(LeftFov, RightFov, LeftBitmap.Height);
+                    if (isLandscape)
+                    {
+                        widthCorrection = FindCropForFovCorrection(LeftFov, RightFov, LeftBitmap.Width);
+                        heightCorrection = FindCropForFovCorrection(CalculatePortraitFov(LeftFov), CalculatePortraitFov(RightFov), LeftBitmap.Height);
+                    }
+                    else
+                    {
+                        heightCorrection = FindCropForFovCorrection(LeftFov, RightFov, LeftBitmap.Height);
+                        widthCorrection = FindCropForFovCorrection(CalculatePortraitFov(LeftFov), CalculatePortraitFov(RightFov), LeftBitmap.Width);
+                    }
                     LeftBitmap = CorrectFovAndResolutionSide(LeftBitmap, widthCorrection, heightCorrection, finalWidth, finalHeight);
                 }
                 else
                 {
-                    var widthCorrection = FindCropForFovCorrection(RightFov, LeftFov, RightBitmap.Width);
-                    var heightCorrection = FindCropForFovCorrection(RightFov, LeftFov, RightBitmap.Height);
+                    if (isLandscape)
+                    {
+                        widthCorrection = FindCropForFovCorrection(RightFov, LeftFov, RightBitmap.Width);
+                        heightCorrection = FindCropForFovCorrection(CalculatePortraitFov(RightFov), CalculatePortraitFov(LeftFov), RightBitmap.Height);
+                    }
+                    else
+                    {
+                        heightCorrection = FindCropForFovCorrection(RightFov, LeftFov, RightBitmap.Height);
+                        widthCorrection = FindCropForFovCorrection(CalculatePortraitFov(RightFov), CalculatePortraitFov(LeftFov), RightBitmap.Width);
+                    }
                     RightBitmap = CorrectFovAndResolutionSide(RightBitmap, widthCorrection, heightCorrection, finalWidth, finalHeight);
                 }
             }
@@ -1322,12 +1342,17 @@ namespace CrossCam.ViewModel
 
         public static double FindCropForFovCorrection(double largerFov, double smallerFov, int originalLength)
         {
-            return originalLength * (1 - Math.Tan(smallerFov * Math.PI / 360d) / Math.Tan(largerFov * Math.PI / 360d)) / 2d;
+            return originalLength * (1 - Math.Tan(smallerFov / 2d) / Math.Tan(largerFov / 2d)) / 4d;
         }
 
         public static double FindPaddingForFovCorrection(double largerFov, double smallerFov, int originalLength)
         {
-            return originalLength * (Math.Tan(largerFov * Math.PI / 360d) / Math.Tan(smallerFov * Math.PI / 360d) - 1) / 2d;
+            return originalLength * (Math.Tan(largerFov / 2d) / Math.Tan(smallerFov / 2d) - 1) / 4d;
+        }
+
+        public static double CalculatePortraitFov(double landscapeFov)
+        {
+            return 2 * Math.Atan(3 * Math.Tan(landscapeFov / 2d) / 4d);
         }
 
         private static SKBitmap GetHalfOfFullStereoImage(byte[] bytes, bool wantLeft, bool clipBorder) 
