@@ -6,6 +6,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using CrossCam.CustomElement;
 using CrossCam.iOS.CustomRenderer;
 using CrossCam.Wrappers;
 using ExternalAccessory;
@@ -20,7 +21,6 @@ namespace CrossCam.iOS.CustomRenderer
     public class PlatformBluetooth : IPlatformBluetooth
     {
         private const string HELLO_MESSAGE = "Hi there friend.";
-        private const string CROSSCAM_SERVICE = "CrossCam";
         private const int HEADER_LENGTH = 6;
         private const byte SYNC_MASK = 170; // 0xAA (do it twice)
         protected enum CrossCommand
@@ -174,7 +174,7 @@ namespace CrossCam.iOS.CustomRenderer
         {
             var myPeerId = new MCPeerID(UIDevice.CurrentDevice.Name);
             _session = new MCSession(myPeerId) { Delegate = new SessionDelegate(this) };
-            var browser = new MCNearbyServiceBrowser(myPeerId, CROSSCAM_SERVICE)
+            var browser = new MCNearbyServiceBrowser(myPeerId, BluetoothOperator.CROSSCAM_SERVICE)
             {
                 Delegate = new NewBrowserDelegate(this)
             };
@@ -217,7 +217,7 @@ namespace CrossCam.iOS.CustomRenderer
         {
             var myPeerId = new MCPeerID(UIDevice.CurrentDevice.Name);
             _session = new MCSession(myPeerId) {Delegate = new SessionDelegate(this)};
-            var assistant = new MCAdvertiserAssistant(CROSSCAM_SERVICE, new NSDictionary(), _session);
+            var assistant = new MCAdvertiserAssistant(BluetoothOperator.CROSSCAM_SERVICE, new NSDictionary(), _session);
             assistant.Start();
             return Task.FromResult(true);
         }

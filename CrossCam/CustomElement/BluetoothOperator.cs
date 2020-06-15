@@ -26,6 +26,7 @@ namespace CrossCam.CustomElement
         public IPageModelCoreMethods CurrentCoreMethods { get; set; }
 
         private readonly IPlatformBluetooth _platformBluetooth;
+        public const string CROSSCAM_SERVICE = "com.kra2008.CrossCam";
         public static readonly Guid ServiceGuid = Guid.Parse("492a8e3d-2589-40b1-b9c2-419a7ce80f3c");
         public static readonly Guid ClockReadingGuid = Guid.Parse("492a8e3e-2589-40b1-b9c2-419a7ce80f3c");
         public static readonly Guid PreviewFrameGuid = Guid.Parse("492a8e3f-2589-40b1-b9c2-419a7ce80f3c");
@@ -138,48 +139,6 @@ namespace CrossCam.CustomElement
             _platformBluetooth.CaptureReceived += PlatformBluetoothOnCaptureReceived;
             _platformBluetooth.FovReceived += PlatformBluetoothOnFovReceived;
             _platformBluetooth.SecondaryErrorReceived += PlatformBluetoothOnSecondaryErrorReceived;
-
-            DiscoveredDevices = new ObservableCollection<PartnerDevice>();
-            PairedDevices = new ObservableCollection<PartnerDevice>();
-
-            PairedSetupCommand = new Command(async obj =>
-            {
-                if (Interlocked.CompareExchange(ref _pairInitializeThreadLocker, 1, 0) == 0)
-                {
-                    try
-                    {
-                        await InitializeForPairedConnection();
-                        PairedDevices = new ObservableCollection<PartnerDevice>(GetPairedDevices());
-                    }
-                    catch (Exception e)
-                    {
-                        await HandleBluetoothException(e);
-                    }
-                    finally
-                    {
-                        _pairInitializeThreadLocker = 0;
-                    }
-                }
-            });
-
-            AttemptConnectionCommand = new Command(async obj =>
-            {
-                if (Interlocked.CompareExchange(ref _connectThreadLocker, 1, 0) == 0)
-                {
-                    try
-                    {
-                        Connect((PartnerDevice)obj);
-                    }
-                    catch (Exception e)
-                    {
-                        await HandleBluetoothException(e);
-                    }
-                    finally
-                    {
-                        _connectThreadLocker = 0;
-                    }
-                }
-            });
         }
 
         private void PlatformBluetoothOnFovReceived(object sender, double e)
@@ -205,15 +164,7 @@ namespace CrossCam.CustomElement
                 {
                     PairStatus = PairStatus.Connecting;
                     _primaryIsRequestingDisconnect = false;
-                    if (Device.RuntimePlatform == Device.Android)
-                    {
-                        DiscoveredDevices.Clear();
-                        await InitializeForPairingAndroid();
-                    }
-                    else
-                    {
-                        await InitializeForPairingiOSPrimary();
-                    }
+                    _platformBluetooth.StartScanning();
                 }
                 catch (Exception e)
                 {
@@ -233,7 +184,7 @@ namespace CrossCam.CustomElement
                 try
                 {
                     PairStatus = PairStatus.Connecting;
-                    await InitializeForPairingiOSSecondary();
+                    await _platformBluetooth.BecomeDiscoverable();
                 }
                 catch (Exception e)
                 {
@@ -327,21 +278,6 @@ namespace CrossCam.CustomElement
 
             _platformBluetooth.StartScanning();
 
-            await CreateGattServerAndStartAdvertisingIfCapable();
-        }
-
-        private async Task InitializeForPairingiOSPrimary()
-        {
-            _platformBluetooth.StartScanning();
-        }
-
-        private async Task InitializeForPairingiOSSecondary()
-        {
-            await _platformBluetooth.BecomeDiscoverable();
-        }
-
-        private async Task InitializeForPairedConnection()
-        {
             await CreateGattServerAndStartAdvertisingIfCapable();
         }
 

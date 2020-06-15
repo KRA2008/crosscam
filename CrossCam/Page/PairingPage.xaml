@@ -5,10 +5,7 @@
              xmlns:freshMvvm="clr-namespace:FreshMvvm;assembly=FreshMvvm"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:viewModel="clr-namespace:CrossCam.ViewModel;assembly=CrossCam"
-             xmlns:valueConverter="clr-namespace:CrossCam.ValueConverter;assembly=CrossCam"
-             xmlns:wrappers="clr-namespace:CrossCam.Wrappers;assembly=CrossCam"
              xmlns:system="clr-namespace:System;assembly=netstandard"
-             xmlns:input="clr-namespace:System.Windows.Input;assembly=netstandard"
              xmlns:customElement="clr-namespace:CrossCam.CustomElement;assembly=CrossCam"
              mc:Ignorable="d"
 
@@ -17,125 +14,13 @@
              Title="Pairing">
     <ScrollView>
         <StackLayout Padding="10">
-            <StackLayout Spacing="0">
-                <StackLayout.IsVisible>
-                    <OnPlatform x:TypeArguments="system:Boolean">
-                        <On Platform="Android"
-                            Value="True"/>
-                        <On Platform="iOS"
-                            Value="False"/>
-                    </OnPlatform>
-                </StackLayout.IsVisible>
-
-                <!--<Button Text="Disconnect"
-                    Command="{Binding DisconnectCommand}"
-                    IsVisible="{Binding BluetoothOperator.IsConnected}"/>-->
-                <Label Text=""/>
-
-                <Label Text="RECONNECT TO A PREVIOUSLY USED DEVICE:"
-                   FontAttributes="Bold"
-                   HorizontalOptions="Center"/>
-
-                <Grid>
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="Auto"/>
-                    </Grid.RowDefinitions>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="*"/>
-                        <ColumnDefinition Width="Auto"/>
-                        <ColumnDefinition Width="Auto"/>
-                        <ColumnDefinition Width="*"/>
-                    </Grid.ColumnDefinitions>
-                    <Label Grid.Row="0"
-                       Grid.Column="1"
-                       Text="1)"
-                       HorizontalOptions="End"
-                       VerticalOptions="Center"/>
-                    <Frame Grid.Row="0" 
-                       Grid.Column="2" 
-                       Padding="1"
-                       HorizontalOptions="Start"
-                       VerticalOptions="Center">
-                        <!--<Button Text="TAP HERE ON BOTH DEVICES"
-                            VerticalOptions="Center"
-                            Command="{Binding PairedSetupCommand}"/>-->
-                    </Frame>
-                    <Label Grid.Row="1"
-                       Grid.Column="1"
-                       Text="2)"
-                       VerticalOptions="Center"/>
-                    <Label Grid.Row="1"
-                       Grid.Column="2"
-                       Text="On the PRIMARY device, tap the name of the SECONDARY device below (when it appears):"/>
-                    <Frame Grid.Row="2"
-                       Grid.Column="0"
-                       Grid.ColumnSpan="4"
-                       Padding="1">
-                        <!--<StackLayout x:Name="PairedDevicesList"
-                                 BindableLayout.ItemsSource="{Binding PairedDevices}"
-                                 BackgroundColor="Black">
-                        <BindableLayout.ItemTemplate>
-                            <DataTemplate>
-                                <StackLayout Padding="10">
-                                    <StackLayout.GestureRecognizers>
-                                        -->
-                        <!-- ReSharper disable once Xaml.BindingWithContextNotResolved -->
-                        <!--
-                                        <TapGestureRecognizer Command="{Binding Source={x:Reference PairedDevicesList}, Path=BindingContext.AttemptConnectionCommand}"
-                                                              CommandParameter="{Binding .}"/>
-                                    </StackLayout.GestureRecognizers>
-                                    <Label d:DataContext="{d:DesignInstance Type=wrappers:PartnerDevice, IsDesignTimeCreatable=False}"
-                                           HorizontalOptions="Center"
-                                           VerticalOptions="Center"
-                                           Text="{Binding Name}"
-                                           IsVisible="{Binding Name, Converter={valueConverter:IsNotNullConverter}}"/>
-                                    <Label d:DataContext="{d:DesignInstance Type=wrappers:PartnerDevice, IsDesignTimeCreatable=False}"
-                                           HorizontalOptions="Center"
-                                           VerticalOptions="Center"
-                                           Text="{Binding Address, Converter={valueConverter:GuidToStringConverter}}"
-                                           IsVisible="{Binding Name, Converter={valueConverter:IsNullConverter}}"/>
-                                </StackLayout>
-                            </DataTemplate>
-                        </BindableLayout.ItemTemplate>
-                    </StackLayout>-->
-                    </Frame>
-                </Grid>
-            </StackLayout>
-
             <Label Text=""/>
-            <Label Text="FIRST TIME CONNECTING TWO DEVICES:"
-                   FontAttributes="Bold"
-                   HorizontalOptions="Center">
-                <Label.IsVisible>
-                    <OnPlatform x:TypeArguments="system:Boolean">
-                        <On Platform="Android"
-                            Value="True"/>
-                        <On Platform="iOS"
-                            Value="False"/>
-                    </OnPlatform>
-                </Label.IsVisible>
-            </Label>
 
             <Label Text="If you have two devices with CrossCam installed, you can connect them in order to take simultaneous photos from two perspectives. This makes the best cross views possible."/>
 
-            <Label Text="Please be aware that at this time the devices must be the same platform in order to connect (both Android or both iOS)."/>
+            <Label Text="Please be aware that this feature is still experimental and may have issues. Also please be aware that at this time the devices must be the same platform in order to connect (both Android or both iOS)."/>
 
-            <Label Text="CrossCam will request permissions and power on components as needed in order to connect your devices. Please note: access to location services is required. CrossCam does not actually USE your location in any way, but because the act of searching for Bluetooth devices could theoretically be used to find your location, CrossCam requires permission to access your location. You may not be used to seeing that because it is a newer change in the way mobile operating systems handle Bluetooth permissions in order to more strongly protect your privacy. Once your devices are connected and remember each other, CrossCam will not require location access for reconnecting in the future - feel free to remove that permission.">
-                <Label.IsVisible>
-                    <OnPlatform x:TypeArguments="system:Boolean">
-                        <On Platform="Android"
-                            Value="True"/>
-                        <On Platform="iOS"
-                            Value="False"/>
-                    </OnPlatform>
-                </Label.IsVisible>
-            </Label>
-
-            <Label Text="The PRIMARY device is the one that will show both previews, trigger the capture, and hold/save the final captures. To get started, navigate them both to this page."/>
-
-            <Label Text=""/>
+            <Label Text="Before two devices can be used together their roles have to be assigned. The PRIMARY device is the one that will show both previews, trigger the capture, and hold/save the final captures. To assign roles, navigate both devices to this page and then follow the steps below:"/>
             <Grid>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto"/>
@@ -150,76 +35,6 @@
                     <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
 
-                <!--<Frame Grid.Row="0" 
-                       Grid.Column="2" 
-                       Padding="1"
-                       HorizontalOptions="Start">
-                    <Frame.IsVisible>
-                        <OnPlatform x:TypeArguments="system:Boolean">
-                            <On Platform="Android"
-                                Value="True"/>
-                            <On Platform="iOS"
-                                Value="False"/>
-                        </OnPlatform>
-                    </Frame.IsVisible>
-                    --><!--<Button VerticalOptions="Center"
-                            Command="{Binding InitialSetupCommand}"
-                            Text="TAP HERE ON BOTH DEVICES"/>--><!--
-                </Frame>
-
-                <Label Grid.Row="1"
-                       Grid.Column="2"
-                       Text="On the PRIMARY device, tap the name of the SECONDARY device below (when it appears):">
-                    <Label.IsVisible>
-                        <OnPlatform x:TypeArguments="system:Boolean">
-                            <On Platform="Android"
-                                Value="True"/>
-                            <On Platform="iOS"
-                                Value="False"/>
-                        </OnPlatform>
-                    </Label.IsVisible>
-                </Label>
-                <Frame Grid.Row="2"
-                       Grid.Column="0"
-                       Grid.ColumnSpan="4"
-                       Padding="1">
-                    <Frame.IsVisible>
-                        <OnPlatform x:TypeArguments="system:Boolean">
-                            <On Platform="Android"
-                                Value="True"/>
-                            <On Platform="iOS"
-                                Value="False"/>
-                        </OnPlatform>
-                    </Frame.IsVisible>
-                    --><!--<StackLayout x:Name="AvailableDevicesList"
-                                 BindableLayout.ItemsSource="{Binding DiscoveredDevices}"
-                                 BackgroundColor="Black">
-                        <BindableLayout.ItemTemplate>
-                            <DataTemplate>
-                                <StackLayout Padding="10">
-                                    <StackLayout.GestureRecognizers>
-                                        -->
-                    <!-- ReSharper disable once Xaml.BindingWithContextNotResolved -->
-                    <!--
-                                        <TapGestureRecognizer Command="{Binding Source={x:Reference AvailableDevicesList}, Path=BindingContext.AttemptConnectionCommand}"
-                                                              CommandParameter="{Binding .}"/>
-                                    </StackLayout.GestureRecognizers>
-                                    <Label d:DataContext="{d:DesignInstance Type=wrappers:PartnerDevice, IsDesignTimeCreatable=False}"
-                                           HorizontalOptions="Center"
-                                           VerticalOptions="Center"
-                                           Text="{Binding Name}"
-                                           IsVisible="{Binding Name, Converter={valueConverter:IsNotNullConverter}}"/>
-                                    <Label d:DataContext="{d:DesignInstance Type=wrappers:PartnerDevice, IsDesignTimeCreatable=False}"
-                                           HorizontalOptions="Center"
-                                           VerticalOptions="Center"
-                                           Text="{Binding Address, Converter={valueConverter:GuidToStringConverter}}"
-                                           IsVisible="{Binding Name, Converter={valueConverter:IsNullConverter}}"/>
-                                </StackLayout>
-                            </DataTemplate>
-                        </BindableLayout.ItemTemplate>
-                    </StackLayout>--><!--
-                </Frame>-->
-
                 <Label Grid.Row="0"
                        Grid.Column="1"
                        Text="1)"
@@ -228,14 +43,6 @@
                        Grid.Column="2" 
                        Padding="1"
                        HorizontalOptions="Start">
-                    <Frame.IsVisible>
-                        <OnPlatform x:TypeArguments="system:Boolean">
-                            <On Platform="Android"
-                                Value="False"/>
-                            <On Platform="iOS"
-                                Value="True"/>
-                        </OnPlatform>
-                    </Frame.IsVisible>
                     <Button VerticalOptions="Center"
                             Text="TAP HERE ON THE PRIMARY"
                             Command="{Binding SetDevicePrimaryCommand}"/>
@@ -244,28 +51,11 @@
                 <Label Grid.Row="1"
                        Grid.Column="1"
                        Text="2)"
-                       VerticalOptions="Center">
-                    <Label.IsVisible>
-                        <OnPlatform x:TypeArguments="system:Boolean">
-                            <On Platform="Android"
-                                Value="False"/>
-                            <On Platform="iOS"
-                                Value="True"/>
-                        </OnPlatform>
-                    </Label.IsVisible>
-                </Label>
+                       VerticalOptions="Center"/>
                 <Frame Grid.Row="1" 
                        Grid.Column="2" 
                        Padding="1"
                        HorizontalOptions="Start">
-                    <Frame.IsVisible>
-                        <OnPlatform x:TypeArguments="system:Boolean">
-                            <On Platform="Android"
-                                Value="False"/>
-                            <On Platform="iOS"
-                                Value="True"/>
-                        </OnPlatform>
-                    </Frame.IsVisible>
                     <Button VerticalOptions="Center"
                             Text="TAP HERE ON THE SECONDARY"
                             Command="{Binding SetDeviceSecondaryCommand}"/>
@@ -278,56 +68,35 @@
                        VerticalOptions="Center"/>
                 <Label Grid.Row="2"
                        Grid.Column="2"
-                       Text="Make sure Wi-Fi is enabled on both devices (CrossCam uses the Wi-Fi antenna, but not the network - you don't need to be connected to anything)">
-                    <Label.IsVisible>
-                        <OnPlatform x:TypeArguments="system:Boolean">
-                            <On Platform="Android"
-                                Value="False"/>
-                            <On Platform="iOS"
-                                Value="True"/>
-                        </OnPlatform>
-                    </Label.IsVisible>
-                </Label>
+                       Text="Make sure Wi-Fi is enabled on both devices"/>
 
                 <Label Grid.Row="3"
                        Grid.Column="1"
                        Text="4)"
-                       VerticalOptions="Center">
-                    <Label.IsVisible>
-                        <OnPlatform x:TypeArguments="system:Boolean">
-                            <On Platform="Android"
-                                Value="False"/>
-                            <On Platform="iOS"
-                                Value="True"/>
-                        </OnPlatform>
-                    </Label.IsVisible>
-                </Label>
+                       VerticalOptions="Center"/>
                 <Label Grid.Row="3" 
                        Grid.Column="2"
                        HorizontalOptions="Start" 
                        VerticalOptions="Center"
-                       Text="Go back to the home screen on both devices and tap the pair button in the lower corner">
-                    <Label.IsVisible>
-                        <OnPlatform x:TypeArguments="system:Boolean">
-                            <On Platform="Android"
-                                Value="False"/>
-                            <On Platform="iOS"
-                                Value="True"/>
-                        </OnPlatform>
-                    </Label.IsVisible>
-                </Label>
+                       Text="Go back to the home screen on both devices and tap the pair button in the lower corner"/>
             </Grid>
-            <Label Text="To connect again later, make sure you have Wi-Fi enabled and then just tap the connect button on the home screen on both devices.">
+            <Label Text="To connect again later, make sure you have Wi-Fi enabled and then just tap the connect button on the home screen on both devices."/>
+            <Label Text=" "/>
+            <Label Text="A Note About Permissions:"></Label>
+            <Label Text="CrossCam will request permissions and power on components as needed in order to connect your devices. Please note: access to location services is required. CrossCam does not actually USE your location in any way, but because the act of searching for Bluetooth devices could theoretically be used to find your location, CrossCam requires permission to access your location. You may not be used to seeing that because it is a newer change in the way mobile operating systems handle Bluetooth permissions in order to more strongly protect your privacy. Once your devices are connected and remember each other, CrossCam will not require location access for reconnecting in the future - feel free to remove that permission. Also, remember that CrossCam still does not use an internet connection or even request the internet permissions so it can't transmit location data anywhere even if it did collect it.">
                 <Label.IsVisible>
                     <OnPlatform x:TypeArguments="system:Boolean">
                         <On Platform="Android"
-                            Value="False"/>
-                        <On Platform="iOS"
                             Value="True"/>
+                        <On Platform="iOS"
+                            Value="False"/>
                     </OnPlatform>
                 </Label.IsVisible>
             </Label>
-            <Label Text="Please be aware that this feature is still experimental and may have issues. Also please be aware that the synchronization is software-based, so may not be as precise as a physical trigger button."/>
+            <Label Text=" "/>
+            <Label Text="If you have trouble, PLEASE NOTE:"/>
+            <Label Text=" &#x2022; CrossCam uses the Wi-Fi antenna, but not the network - you don't need to be searching for networks or connected to anything, but Wi-Fi needs to be enabled."/>
+            <Label Text=" &#x2022; CrossCam uses a software switch to capture the photo, rather than a physical switch, so the synchronization may sometimes not be perfect, but it should generally be very close. This is important but also difficult and I'm working on it."/>
             <customElement:EmailMeLabel/>
         </StackLayout>
     </ScrollView>
