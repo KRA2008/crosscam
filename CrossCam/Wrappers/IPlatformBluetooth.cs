@@ -25,7 +25,7 @@ namespace CrossCam.Wrappers
         void ForgetDevice(PartnerDevice partnerDevice);
         Task SendCaptue(byte[] capturedImage);
         IEnumerable<PartnerDevice> GetPairedDevices();
-        bool StartScanning();
+        Task<bool> StartScanning();
         event EventHandler<PartnerDevice> DeviceDiscovered;
         Task<bool> BecomeDiscoverable();
         Task ListenForConnections();

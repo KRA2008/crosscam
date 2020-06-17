@@ -1032,7 +1032,7 @@ namespace CrossCam.Droid.CustomRenderer
                 _captureListener.CaptureComplete += (sender, args) => { HandleCaptureResult(args.CaptureRequest, args.CaptureResult); };
                 _captureListener.CaptureProgressed += (sender, args) => { HandleCaptureResult(args.CaptureRequest, args.CaptureResult); };
                 
-                _camera2Device.CreateCaptureSession(new List<Surface> { _surface, _finalCaptureImageReader.Surface, _previewImageReader.Surface },
+                _camera2Device.CreateCaptureSession(new List<Surface> { _surface, _finalCaptureImageReader.Surface/*, _previewImageReader.Surface*/ },
                     new CameraCaptureStateListener
                     {
                         OnConfigureFailedAction = session => { },
@@ -1042,7 +1042,7 @@ namespace CrossCam.Droid.CustomRenderer
 
                             _previewRequestBuilder = _camera2Device.CreateCaptureRequest(CameraTemplate.Preview);
                             _previewRequestBuilder.AddTarget(_surface);
-                            _previewRequestBuilder.AddTarget(_previewImageReader.Surface);
+                            //_previewRequestBuilder.AddTarget(_previewImageReader.Surface);
 
                             _camera2State = CameraState.Preview;
                             _previewRequestBuilder.SetTag(CameraState.Preview.ToString());
@@ -1069,24 +1069,24 @@ namespace CrossCam.Droid.CustomRenderer
             try
             {
 #if DEBUG
-                var afStateDebug = result.Get(CaptureResult.ControlAfState);
-                var aeStateDebug = result.Get(CaptureResult.ControlAeState);
-                ControlAFState afStateEnumDebug = 0;
-                if (afStateDebug != null)
-                {
-                    afStateEnumDebug = (ControlAFState)(int)afStateDebug;
-                }
+                //var afStateDebug = result.Get(CaptureResult.ControlAfState);
+                //var aeStateDebug = result.Get(CaptureResult.ControlAeState);
+                //ControlAFState afStateEnumDebug = 0;
+                //if (afStateDebug != null)
+                //{
+                //    afStateEnumDebug = (ControlAFState)(int)afStateDebug;
+                //}
 
-                ControlAEState aeStateEnumDebug = 0;
-                if (aeStateDebug != null)
-                {
-                    aeStateEnumDebug = (ControlAEState)(int)aeStateDebug;
-                }
+                //ControlAEState aeStateEnumDebug = 0;
+                //if (aeStateDebug != null)
+                //{
+                //    aeStateEnumDebug = (ControlAEState)(int)aeStateDebug;
+                //}
 
-                System.Diagnostics.Debug.WriteLine("CAMERA 2 FRAME, state: " + _camera2State +
-                                                   " tag: " + request.Tag +
-                                                   " afstate: " + afStateEnumDebug +
-                                                   " aestate: " + aeStateEnumDebug);
+                //System.Diagnostics.Debug.WriteLine("CAMERA 2 FRAME, state: " + _camera2State +
+                //                                   " tag: " + request.Tag +
+                //                                   " afstate: " + afStateEnumDebug +
+                //                                   " aestate: " + aeStateEnumDebug);
 #endif
 
                 if (_camera2State == CameraState.Preview ||

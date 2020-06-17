@@ -170,7 +170,7 @@ namespace CrossCam.iOS.CustomRenderer
             return Enumerable.Empty<PartnerDevice>().ToList();
         }
 
-        public bool StartScanning()
+        public Task<bool> StartScanning()
         {
             var myPeerId = new MCPeerID(UIDevice.CurrentDevice.Name);
             _session = new MCSession(myPeerId) { Delegate = new SessionDelegate(this) };
@@ -179,7 +179,7 @@ namespace CrossCam.iOS.CustomRenderer
                 Delegate = new NewBrowserDelegate(this)
             };
             browser.StartBrowsingForPeers();
-            return true;
+            return Task.FromResult(true);
         }
 
         public Task SendClockReading()

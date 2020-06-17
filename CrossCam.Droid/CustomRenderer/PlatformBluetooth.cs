@@ -18,6 +18,7 @@ using CrossCam.Droid.CustomRenderer;
 using CrossCam.Wrappers;
 using Java.Util;
 using Xamarin.Forms;
+using Xamarin.Essentials;
 using Debug = System.Diagnostics.Debug;
 
 [assembly: Dependency(typeof(PlatformBluetooth))]
@@ -35,7 +36,8 @@ namespace CrossCam.Droid.CustomRenderer
         private static TaskCompletionSource<bool> _isLocationOnTask = new TaskCompletionSource<bool>();
         private BluetoothSocket _bluetoothSocket;
 
-        private GoogleApiClient _googleApiClient;
+        private readonly GoogleApiClient _googleApiClient;
+        private string _partnerId;
 
         public PlatformBluetooth()
         {
@@ -59,7 +61,8 @@ namespace CrossCam.Droid.CustomRenderer
                 .AddConnectionCallbacks(this)
                 .AddOnConnectionFailedListener(this)
                 .AddApi(NearbyClass.CONNECTIONS_API)
-                .Build();
+                .Build(); 
+            _googleApiClient.Connect();
         }
 
         public override void OnCharacteristicWrite(BluetoothGatt gatt, BluetoothGattCharacteristic characteristic, GattStatus status)
@@ -72,7 +75,7 @@ namespace CrossCam.Droid.CustomRenderer
 
         public void Disconnect()
         {
-            _bluetoothSocket?.Close();
+            //_bluetoothSocket?.Close();
         }
 
         public Task<bool> RequestBluetoothPermissions()
@@ -199,34 +202,6 @@ namespace CrossCam.Droid.CustomRenderer
                 .ToList();
         }
 
-        public bool StartScanning()
-        {
-            var result = NearbyClass.Connections.StartDiscovery(_googleApiClient,
-                BluetoothOperator.CROSSCAM_SERVICE, new MyEndpointDiscoveryCallback(this),
-                new DiscoveryOptions.Builder().SetStrategy(Strategy.P2pPointToPoint).Build());
-            return true;
-        }
-
-        private class MyEndpointDiscoveryCallback : EndpointDiscoveryCallback
-        {
-            private readonly PlatformBluetooth _bluetooth;
-
-            public MyEndpointDiscoveryCallback(PlatformBluetooth bluetooth)
-            {
-                _bluetooth = bluetooth;
-            }
-
-            public override void OnEndpointFound(string p0, DiscoveredEndpointInfo p1)
-            {
-                Debug.WriteLine("### OnEndpointFound");
-            }
-
-            public override void OnEndpointLost(string p0)
-            {
-                Debug.WriteLine("### OnEndpointLost");
-            }
-        }
-
         public void SendSecondaryErrorOccurred()
         {
             throw new NotImplementedException();
@@ -279,40 +254,6 @@ namespace CrossCam.Droid.CustomRenderer
             handler?.Invoke(this, e);
         }
 
-        public Task<bool> BecomeDiscoverable()
-        {
-            var name = string.Empty;
-            var result = NearbyClass.Connections.StartAdvertising(_googleApiClient, name, BluetoothOperator.CROSSCAM_SERVICE,
-                new MyConnectionLifecycleCallback(this),
-                new AdvertisingOptions.Builder().SetStrategy(Strategy.P2pPointToPoint).Build());
-            return Task.FromResult(true);
-        }
-
-        private class MyConnectionLifecycleCallback : ConnectionLifecycleCallback
-        {
-            private readonly PlatformBluetooth _platformBluetooth;
-
-            public MyConnectionLifecycleCallback(PlatformBluetooth platformBluetooth)
-            {
-                _platformBluetooth = platformBluetooth;
-            }
-
-            public override void OnConnectionInitiated(string p0, ConnectionInfo p1)
-            {
-                Debug.WriteLine("### OnConnectionInitiated");
-            }
-
-            public override void OnConnectionResult(string p0, ConnectionResolution p1)
-            {
-                Debug.WriteLine("### OnConnectionResult");
-            }
-
-            public override void OnDisconnected(string p0)
-            {
-                Debug.WriteLine("### OnDisconnected");
-            }
-        }
-
         public async Task ListenForConnections()
         {
             var serverSocket =
@@ -355,9 +296,11 @@ namespace CrossCam.Droid.CustomRenderer
             BluetoothAdapter.DefaultAdapter.CancelDiscovery();
         }
 
-        public Task<bool> SendFov(double fov)
+        public async Task<bool> SendFov(double fov)
         {
-            return null;
+            var result = await NearbyClass.Connections.SendPayloadAsync(_googleApiClient, _partnerId,
+                Payload.FromBytes(new[] {(byte) 0}));
+            return result.IsSuccess;
             //if (_bluetoothSocket?.IsConnected == true)
             //{
             //    var bytes = Encoding.UTF8.GetBytes("Hi there friend.");
@@ -420,42 +363,26 @@ namespace CrossCam.Droid.CustomRenderer
 
         public Task SendReadyForPreviewFrame()
         {
-            throw new NotImplementedException();
-        }
-
-        public Task SendPreviewFrame()
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task SendClockReading(byte[] reading)
-        {
-            throw new NotImplementedException();
+            return Task.FromResult(true);
         }
 
         public Task SendClockReading()
         {
-            throw new NotImplementedException();
+            return Task.FromResult(true);
         }
 
         public void ProcessClockReading(byte[] readingBytes)
         {
-            throw new NotImplementedException();
         }
 
         public Task SendSync(DateTime syncMoment)
         {
-            throw new NotImplementedException();
+            return Task.FromResult(true);
         }
 
         public Task ProcessSyncAndCapture(byte[] syncBytes)
         {
-            throw new NotImplementedException();
-        }
-
-        public Task ProcessSyncAndCapture()
-        {
-            throw new NotImplementedException();
+            return Task.FromResult(true);
         }
 
         public void ForgetDevice(PartnerDevice partnerDevice)
@@ -471,32 +398,129 @@ namespace CrossCam.Droid.CustomRenderer
 
         public Task SendPreviewFrame(byte[] preview)
         {
-            throw new NotImplementedException();
+            return Task.FromResult(true);
         }
 
         public Task SendReadyForClockReading()
         {
-            throw new NotImplementedException();
-        }
-
-        public Task<byte[]> Capture(int countdownSeconds)
-        {
-            throw new NotImplementedException();
+            return Task.FromResult(true);
         }
 
         public void OnConnected(Bundle connectionHint)
         {
-            throw new NotImplementedException();
+            Debug.WriteLine("### OnConnected " + connectionHint);
         }
 
         public void OnConnectionSuspended(int cause)
         {
-            throw new NotImplementedException();
+            Debug.WriteLine("### OnConnectionSuspended " + cause);
         }
 
         public void OnConnectionFailed(ConnectionResult result)
         {
-            throw new NotImplementedException();
+            Debug.WriteLine("### OnConnectionFailed " + result.ErrorMessage);
+        }
+
+        public async Task<bool> BecomeDiscoverable()
+        {
+            var result = await NearbyClass.Connections.StartAdvertisingAsync(_googleApiClient, DeviceInfo.Name, BluetoothOperator.CROSSCAM_SERVICE,
+                new MyConnectionLifecycleCallback(this), new AdvertisingOptions.Builder().SetStrategy(Strategy.P2pPointToPoint).Build());
+            return result.Status.IsSuccess;
+        }
+
+        private class MyConnectionLifecycleCallback : ConnectionLifecycleCallback
+        {
+            private readonly PlatformBluetooth _platformBluetooth;
+
+            public MyConnectionLifecycleCallback(PlatformBluetooth platformBluetooth)
+            {
+                _platformBluetooth = platformBluetooth;
+            }
+
+            public override async void OnConnectionInitiated(string p0, ConnectionInfo p1)
+            {
+                Debug.WriteLine("### OnConnectionInitiated " + p0 + ", " + p1.EndpointName + ", Incoming: " + p1.IsIncomingConnection);
+                //if (p1.IsIncomingConnection)
+                //{
+                    var result = await NearbyClass.Connections.AcceptConnectionAsync(_platformBluetooth._googleApiClient, p0, new MyPayloadCallback(_platformBluetooth));
+                    if (result.IsSuccess)
+                    {
+                        Debug.WriteLine("### AcceptConnectionAsync result: " + p0 + ", " + result.StatusMessage);
+                        _platformBluetooth._partnerId = p0;
+                        _platformBluetooth.OnConnected();
+                    }
+                //}
+            }
+
+            public override void OnConnectionResult(string p0, ConnectionResolution p1)
+            {
+                Debug.WriteLine("### OnConnectionResult " + p0 + ", " + p1.Status.StatusMessage);
+                if (p1.Status.IsSuccess)
+                {
+                    _platformBluetooth._partnerId = p0;
+                    _platformBluetooth.OnConnected();
+                }
+            }
+
+            public override void OnDisconnected(string p0)
+            {
+                Debug.WriteLine("### OnDisconnected " + p0);
+            }
+        }
+
+        private class MyPayloadCallback : PayloadCallback
+        {
+            private readonly PlatformBluetooth _platformBluetooth;
+
+            public MyPayloadCallback(PlatformBluetooth platformBluetooth)
+            {
+                _platformBluetooth = platformBluetooth;
+            }
+
+            public override void OnPayloadReceived(string p0, Payload p1)
+            {
+                Debug.WriteLine("### OnPayloadReceived " + p0 + ", " + p1.AsBytes());
+                _platformBluetooth.OnConnected();
+            }
+
+            public override void OnPayloadTransferUpdate(string p0, PayloadTransferUpdate p1)
+            {
+                Debug.WriteLine("### OnPayloadTransferUpdate " + p0 + ", " + p1.TransferStatus);
+            }
+        }
+
+        public async Task<bool> StartScanning()
+        {
+            await RequestLocationPermissions();
+            var result = await NearbyClass.Connections.StartDiscoveryAsync(_googleApiClient,
+                BluetoothOperator.CROSSCAM_SERVICE, new MyEndpointDiscoveryCallback(this),
+                new DiscoveryOptions.Builder().SetStrategy(Strategy.P2pPointToPoint).Build());
+            return result.Status.IsSuccess;
+        }
+
+        private class MyEndpointDiscoveryCallback : EndpointDiscoveryCallback
+        {
+            private readonly PlatformBluetooth _bluetooth;
+
+            public MyEndpointDiscoveryCallback(PlatformBluetooth bluetooth)
+            {
+                _bluetooth = bluetooth;
+            }
+
+            public override async void OnEndpointFound(string p0, DiscoveredEndpointInfo p1)
+            {
+                Debug.WriteLine("### OnEndpointFound " + p0 + ", " + p1.EndpointName);
+                if (p1.ServiceId == BluetoothOperator.CROSSCAM_SERVICE)
+                {
+                    await NearbyClass.Connections.RequestConnectionAsync(_bluetooth._googleApiClient, DeviceInfo.Name,
+                        p0, new MyConnectionLifecycleCallback(_bluetooth));
+                }
+            }
+
+            public override void OnEndpointLost(string p0)
+            {
+                Debug.WriteLine("### OnEndpointLost " + p0);
+            }
         }
     }
 }

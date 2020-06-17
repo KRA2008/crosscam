@@ -61,7 +61,6 @@ namespace CrossCam.CustomElement
         private void OnDisconnected()
         {
             PairStatus = PairStatus.Disconnected;
-            GetPairedDevices();
             var handler = Disconnected;
             handler?.Invoke(this, new EventArgs());
         }
@@ -70,7 +69,6 @@ namespace CrossCam.CustomElement
         private async void OnConnected()
         {
             PairStatus = PairStatus.Connected;
-            GetPairedDevices();
             if (!IsPrimary)
             {
                 await _platformBluetooth.SendFov(Fov);
@@ -164,7 +162,7 @@ namespace CrossCam.CustomElement
                 {
                     PairStatus = PairStatus.Connecting;
                     _primaryIsRequestingDisconnect = false;
-                    _platformBluetooth.StartScanning();
+                   await _platformBluetooth.StartScanning();
                 }
                 catch (Exception e)
                 {
