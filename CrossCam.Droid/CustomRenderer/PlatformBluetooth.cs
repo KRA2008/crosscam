@@ -190,11 +190,6 @@ namespace CrossCam.Droid.CustomRenderer
             return _isLocationOnTask.Task;
         }
 
-        public Task SendCaptue(byte[] capturedImage)
-        {
-            throw new NotImplementedException();
-        }
-
         public IEnumerable<PartnerDevice> GetPairedDevices()
         {
             return BluetoothAdapter.DefaultAdapter.BondedDevices
@@ -202,9 +197,17 @@ namespace CrossCam.Droid.CustomRenderer
                 .ToList();
         }
 
-        public void SendSecondaryErrorOccurred()
+        public async Task SendPayload(byte[] bytes)
         {
-            throw new NotImplementedException();
+            var result = await NearbyClass.Connections.SendPayloadAsync(_googleApiClient, _partnerId,
+                Payload.FromBytes(bytes));
+        }
+
+        public event EventHandler<byte[]> PayloadReceived;
+        private void OnPayloadReceived(byte[] payload)
+        {
+            var handler = PayloadReceived;
+            handler?.Invoke(this, payload);
         }
 
         public event EventHandler Connected;
@@ -221,34 +224,8 @@ namespace CrossCam.Droid.CustomRenderer
             handler?.Invoke(this, new EventArgs());
         }
 
-        public event EventHandler<double> FovReceived;
-        private void OnHelloReceived(double fov)
-        {
-            var handler = FovReceived;
-            handler?.Invoke(this, fov);
-        }
-
-        public event EventHandler PreviewFrameRequested;
-        private void OnPreviewFrameRequested()
-        {
-            var handler = PreviewFrameRequested;
-            handler?.Invoke(this, new EventArgs());
-        }
-
         public event EventHandler<PartnerDevice> DeviceDiscovered;
         private void OnDeviceDiscovered(PartnerDevice e)
-        {
-            var handler = DeviceDiscovered;
-            handler?.Invoke(this, e);
-        }
-
-        public event EventHandler<byte[]> PreviewFrameReceived;
-        public event EventHandler<long> ClockReadingReceived;
-        public event EventHandler<DateTime> SyncReceived;
-        public event EventHandler<byte[]> CaptureReceived;
-        public event EventHandler SecondaryErrorReceived;
-
-        private void OnPreviewFrameReceived(PartnerDevice e)
         {
             var handler = DeviceDiscovered;
             handler?.Invoke(this, e);
@@ -361,30 +338,6 @@ namespace CrossCam.Droid.CustomRenderer
             }
         }
 
-        public Task SendReadyForPreviewFrame()
-        {
-            return Task.FromResult(true);
-        }
-
-        public Task SendClockReading()
-        {
-            return Task.FromResult(true);
-        }
-
-        public void ProcessClockReading(byte[] readingBytes)
-        {
-        }
-
-        public Task SendSync(DateTime syncMoment)
-        {
-            return Task.FromResult(true);
-        }
-
-        public Task ProcessSyncAndCapture(byte[] syncBytes)
-        {
-            return Task.FromResult(true);
-        }
-
         public void ForgetDevice(PartnerDevice partnerDevice)
         {
             var targetDevice =
@@ -394,16 +347,6 @@ namespace CrossCam.Droid.CustomRenderer
                 var mi = targetDevice.Class.GetMethod("removeBond", null);
                 mi.Invoke(targetDevice, null);
             }
-        }
-
-        public Task SendPreviewFrame(byte[] preview)
-        {
-            return Task.FromResult(true);
-        }
-
-        public Task SendReadyForClockReading()
-        {
-            return Task.FromResult(true);
         }
 
         public void OnConnected(Bundle connectionHint)
@@ -480,7 +423,7 @@ namespace CrossCam.Droid.CustomRenderer
             public override void OnPayloadReceived(string p0, Payload p1)
             {
                 Debug.WriteLine("### OnPayloadReceived " + p0 + ", " + p1.AsBytes());
-                _platformBluetooth.OnConnected();
+                _platformBluetooth.OnPayloadReceived(p1.AsBytes());
             }
 
             public override void OnPayloadTransferUpdate(string p0, PayloadTransferUpdate p1)

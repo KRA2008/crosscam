@@ -28,12 +28,6 @@ namespace CrossCam.CustomElement
         private readonly IPlatformBluetooth _platformBluetooth;
         public const string CROSSCAM_SERVICE = "com.kra2008.CrossCam";
         public static readonly Guid ServiceGuid = Guid.Parse("492a8e3d-2589-40b1-b9c2-419a7ce80f3c");
-        public static readonly Guid ClockReadingGuid = Guid.Parse("492a8e3e-2589-40b1-b9c2-419a7ce80f3c");
-        public static readonly Guid PreviewFrameGuid = Guid.Parse("492a8e3f-2589-40b1-b9c2-419a7ce80f3c");
-        public static readonly Guid InitiateCaptureGuid = Guid.Parse("492a8e40-2589-40b1-b9c2-419a7ce80f3c");
-        public static readonly Guid SetCaptureMomentGuid = Guid.Parse("492a8e41-2589-40b1-b9c2-419a7ce80f3c");
-        public static readonly Guid CapturedImageGuid = Guid.Parse("492a8e42-2589-40b1-b9c2-419a7ce80f3c");
-        public static readonly Guid HelloGuid = Guid.Parse("492a8e43-2589-40b1-b9c2-419a7ce80f3c");
         private PartnerDevice _device;
         private readonly Timer _captureSyncTimer = new Timer{AutoReset = false};
 
@@ -57,6 +51,20 @@ namespace CrossCam.CustomElement
         private int _pairInitializeThreadLocker;
         private int _connectThreadLocker;
 
+        private const int HEADER_LENGTH = 6;
+        private const byte SYNC_MASK = 170; // 0xAA (do it twice)
+        private enum CrossCommand
+        {
+            Fov = 1,
+            ReadyForPreviewFrame,
+            PreviewFrame,
+            ReadyForClockReading,
+            ClockReading,
+            Sync,
+            CapturedImage,
+            Error
+        }
+
         public event EventHandler Disconnected;
         private void OnDisconnected()
         {
@@ -71,7 +79,7 @@ namespace CrossCam.CustomElement
             PairStatus = PairStatus.Connected;
             if (!IsPrimary)
             {
-                await _platformBluetooth.SendFov(Fov);
+                await SendFov(Fov);
             }
             var handler = Connected;
             handler?.Invoke(this, new EventArgs());
@@ -130,22 +138,127 @@ namespace CrossCam.CustomElement
             _platformBluetooth.DeviceDiscovered += PlatformBluetoothOnDeviceDiscovered;
             _platformBluetooth.Connected += PlatformBluetoothOnConnected;
             _platformBluetooth.Disconnected += PlatformBluetoothOnDisconnected;
-            _platformBluetooth.PreviewFrameRequested += PlatformBluetoothOnPreviewFrameRequested;
-            _platformBluetooth.PreviewFrameReceived += PlatformBluetoothOnPreviewFrameReceived;
-            _platformBluetooth.ClockReadingReceived += PlatformBluetoothOnClockReadingReceived; 
-            _platformBluetooth.SyncReceived += PlatformBluetoothOnSyncReceived;
-            _platformBluetooth.CaptureReceived += PlatformBluetoothOnCaptureReceived;
-            _platformBluetooth.FovReceived += PlatformBluetoothOnFovReceived;
-            _platformBluetooth.SecondaryErrorReceived += PlatformBluetoothOnSecondaryErrorReceived;
+            _platformBluetooth.PayloadReceived += PlatformBluetoothOnPayloadReceived;
         }
 
-        private void PlatformBluetoothOnFovReceived(object sender, double e)
+        private void PlatformBluetoothOnPayloadReceived(object sender, byte[] bytes)
         {
-            PartnerFov = e;
+            if (bytes[0] == SYNC_MASK &&
+                bytes[1] == SYNC_MASK)
+            {
+                var payloadLength = (bytes[3] << 8) | (bytes[4] << 4) | bytes[5];
+                var payload = bytes.Skip(HEADER_LENGTH).ToArray();
+                if (payload.Length != payloadLength)
+                {
+                    //panic
+                }
+                switch (bytes[2])
+                {
+                    case (int)CrossCommand.Fov:
+                        HandleFovReceived(payload);
+                        break;
+                    case (int)CrossCommand.PreviewFrame:
+                        OnPreviewFrameReceived(payload);
+                        break;
+                    case (int)CrossCommand.ReadyForPreviewFrame:
+                        OnPreviewFrameRequested();
+                        break;
+                    case (int)CrossCommand.ReadyForClockReading:
+                        SendClockReading();
+                        break;
+                    case (int)CrossCommand.ClockReading:
+                        ProcessClockReading(payload);
+                        break;
+                    case (int)CrossCommand.Sync:
+                        ProcessSync(payload);
+                        break;
+                    case (int)CrossCommand.CapturedImage:
+                        OnCapturedImageReceived(payload);
+                        break;
+                    case (int)CrossCommand.Error:
+                        SecondaryErrorReceived();
+                        //_platformBluetooth.OnSecondaryErrorReceived();
+                        // TODO: handle
+                        break;
+                }
+            }
+        }
+
+        private Task SendReadyForPreviewFrame()
+        {
+            var fullMessage = AddPayloadHeader(CrossCommand.ReadyForPreviewFrame, Enumerable.Empty<byte>().ToArray());
+            _platformBluetooth.SendPayload(fullMessage);
+            return Task.FromResult(true);
+        }
+
+        private Task SendPreviewFrame(byte[] frame)
+        {
+            var frameMessage = AddPayloadHeader(CrossCommand.PreviewFrame, frame);
+            _platformBluetooth.SendPayload(frameMessage);
+            return Task.FromResult(true);
+        }
+
+        private Task SendReadyForClockReading()
+        {
+            var message = AddPayloadHeader(CrossCommand.ReadyForClockReading, Enumerable.Empty<byte>().ToArray());
+            _platformBluetooth.SendPayload(message);
+            return Task.FromResult(true);
+        }
+
+        private void SendSecondaryErrorOccurred()
+        {
+            _platformBluetooth.SendPayload(AddPayloadHeader(CrossCommand.Error, Enumerable.Empty<byte>().ToArray()));
+        }
+
+        private Task<bool> SendFov(double fov)
+        {
+            var payloadBytes = BitConverter.GetBytes(fov);
+            var fullMessage = AddPayloadHeader(CrossCommand.Fov, payloadBytes);
+
+            _platformBluetooth.SendPayload(fullMessage);
+            return Task.FromResult(true);
+        }
+
+        private Task SendSync(DateTime syncMoment)
+        {
+            var syncMessage = AddPayloadHeader(CrossCommand.Sync, BitConverter.GetBytes(syncMoment.Ticks));
+            _platformBluetooth.SendPayload(syncMessage);
+            return Task.FromResult(true);
+        }
+
+        private Task SendClockReading()
+        {
+            var ticks = DateTime.UtcNow.Ticks;
+            var message = AddPayloadHeader(CrossCommand.ClockReading, BitConverter.GetBytes(ticks));
+            _platformBluetooth.SendPayload(message);
+            return Task.FromResult(true);
+        }
+
+        private static byte[] AddPayloadHeader(CrossCommand crossCommand, byte[] payload)
+        {
+            var payloadLength = payload.Length;
+            var header = new List<byte>
+            {
+                SYNC_MASK,
+                SYNC_MASK,
+                (byte) crossCommand,
+                (byte) (payloadLength >> 8),
+                (byte) (payloadLength >> 4),
+                (byte) payloadLength
+            };
+            return header.Concat(payload).ToArray();
+        }
+
+        private void HandleFovReceived(byte[] bytes)
+        {
+            Debug.WriteLine("Received fov");
+            var fov = BitConverter.ToDouble(bytes, 0);
+            OnConnected();
+            PartnerFov = fov;
             RequestClockReading();
         }
 
-        private void PlatformBluetoothOnSecondaryErrorReceived(object sender, EventArgs e)
+        private void SecondaryErrorReceived()
         {
             OnErrorOccurred(new ErrorEventArgs
             {
@@ -195,19 +308,15 @@ namespace CrossCam.CustomElement
             }
         }
 
-        private void PlatformBluetoothOnCaptureReceived(object sender, byte[] e)
+        private void ProcessSync(byte[] syncBytes)
         {
-            OnCapturedImageReceived(e);
+            SyncCapture(new DateTime(BitConverter.ToInt64(syncBytes, 0)));
         }
 
-        private void PlatformBluetoothOnSyncReceived(object sender, DateTime e)
+        private async void ProcessClockReading(byte[] readingBytes)
         {
-            SyncCapture(e);
-        }
-
-        private async void PlatformBluetoothOnClockReadingReceived(object sender, long e)
-        {
-            T1T2_SAMPLES[_timerSampleIndex] = e;
+            var reading = BitConverter.ToInt64(readingBytes, 0);
+            T1T2_SAMPLES[_timerSampleIndex] = reading;
             T3_SAMPLES[_timerSampleIndex] = DateTime.UtcNow.Ticks;
             if (_timerSampleIndex < TIMER_TOTAL_SAMPLES - 1)
             {
@@ -228,23 +337,13 @@ namespace CrossCam.CustomElement
                 if (!_isCaptureRequested)
                 {
                     await Task.Delay(_settings.PairedPreviewFrameDelayMs);
-                    await _platformBluetooth.SendReadyForPreviewFrame();
+                    await SendReadyForPreviewFrame();
                 }
                 else
                 {
                     await CalculateAndApplySyncMoment();
                 }
             }
-        }
-
-        private void PlatformBluetoothOnPreviewFrameReceived(object sender, byte[] bytes)
-        {
-            OnPreviewFrameReceived(bytes);
-        }
-
-        private void PlatformBluetoothOnPreviewFrameRequested(object sender, EventArgs e)
-        {
-            OnPreviewFrameRequested();
         }
 
         private void PlatformBluetoothOnDisconnected(object sender, EventArgs e)
@@ -274,7 +373,7 @@ namespace CrossCam.CustomElement
                 throw new PermissionsException();
             }
 
-            _platformBluetooth.StartScanning();
+            await _platformBluetooth.StartScanning();
 
             await CreateGattServerAndStartAdvertisingIfCapable();
         }
@@ -349,7 +448,7 @@ namespace CrossCam.CustomElement
         public async void RequestClockReading()
         {
             T0_SAMPLES[_timerSampleIndex] = DateTime.UtcNow.Ticks;
-            await _platformBluetooth.SendReadyForClockReading();
+            await SendReadyForClockReading();
         }
 
         private async Task CalculateAndApplySyncMoment()
@@ -395,7 +494,7 @@ namespace CrossCam.CustomElement
             var partnerSyncMoment = targetSyncMoment.AddTicks(offset);
             Debug.WriteLine("Target sync: " + targetSyncMoment.ToString("O"));
             Debug.WriteLine("Partner sync: " + partnerSyncMoment.ToString("O"));
-            await _platformBluetooth.SendSync(partnerSyncMoment);
+            await SendSync(partnerSyncMoment);
             _isCaptureRequested = false;
         }
 
@@ -425,7 +524,7 @@ namespace CrossCam.CustomElement
             {
                 if (!IsPrimary)
                 {
-                    _platformBluetooth.SendSecondaryErrorOccurred();
+                    SendSecondaryErrorOccurred();
                 }
                 OnErrorOccurred(new ErrorEventArgs
                 {
@@ -455,7 +554,7 @@ namespace CrossCam.CustomElement
         {
             try
             {
-                await _platformBluetooth.SendPreviewFrame(frame);
+                await SendPreviewFrame(frame);
             }
             catch (Exception e)
             {
@@ -471,7 +570,8 @@ namespace CrossCam.CustomElement
         {
             try
             {
-                await _platformBluetooth.SendCaptue(frame);
+                var message = AddPayloadHeader(CrossCommand.CapturedImage, frame);
+                await _platformBluetooth.SendPayload(message);
             }
             catch (Exception e)
             {

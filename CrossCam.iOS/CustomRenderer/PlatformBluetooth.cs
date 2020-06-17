@@ -4,7 +4,6 @@ using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.Diagnostics;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using CrossCam.CustomElement;
 using CrossCam.iOS.CustomRenderer;
@@ -20,21 +19,6 @@ namespace CrossCam.iOS.CustomRenderer
 {
     public class PlatformBluetooth : IPlatformBluetooth
     {
-        private const string HELLO_MESSAGE = "Hi there friend.";
-        private const int HEADER_LENGTH = 6;
-        private const byte SYNC_MASK = 170; // 0xAA (do it twice)
-        protected enum CrossCommand
-        {
-            Fov = 1,
-            ReadyForPreviewFrame,
-            PreviewFrame,
-            ReadyForClockReading,
-            ClockReading,
-            Sync,
-            CapturedImage,
-            Error
-        }
-
         private readonly ObservableCollection<EAAccessory> _availableDevices =
             new ObservableCollection<EAAccessory>();
         private MCSession _session;
@@ -72,34 +56,6 @@ namespace CrossCam.iOS.CustomRenderer
             handler?.Invoke(this, new EventArgs());
         }
 
-        public event EventHandler<double> FovReceived;
-        private void OnFovReceived(double fov)
-        {
-            var handler = FovReceived;
-            handler?.Invoke(this, fov);
-        }
-
-        public event EventHandler PreviewFrameRequested;
-        private void OnPreviewFrameRequested()
-        {
-            var handler = PreviewFrameRequested;
-            handler?.Invoke(this, new EventArgs());
-        }
-
-        public event EventHandler<byte[]> PreviewFrameReceived;
-        private void OnPreviewFrameReceived(byte[] bytes)
-        {
-            var handler = PreviewFrameReceived;
-            handler?.Invoke(this, bytes);
-        }
-
-        public event EventHandler<long> ClockReadingReceived;
-        private void OnClockReadingReceived(long e)
-        {
-            var handler = ClockReadingReceived;
-            handler?.Invoke(this, e);
-        }
-
         public event EventHandler<PartnerDevice> DeviceDiscovered;
         private void OnDeviceDiscovered(PartnerDevice e)
         {
@@ -107,27 +63,23 @@ namespace CrossCam.iOS.CustomRenderer
             handler?.Invoke(this, e);
         }
 
-        public event EventHandler<DateTime> SyncReceived;
-        private void OnSyncReceived(DateTime e)
+        public Task SendPayload(byte[] bytes)
         {
-            var handler = SyncReceived;
-            handler?.Invoke(this, e);
+            NSError error = null;
+            _session?.SendData(NSData.FromArray(bytes), _session.ConnectedPeers, MCSessionSendDataMode.Reliable, out error);
+            if (error != null)
+            {
+                throw new Exception(error.ToString());
+            }
+            return Task.FromResult(true);
         }
 
-        public event EventHandler<byte[]> CaptureReceived;
-        private void OnCaptureReceived(byte[] e)
+        public event EventHandler<byte[]> PayloadReceived;
+        private void OnReceivedPayload(byte[] bytes)
         {
-            var handler = CaptureReceived;
-            handler?.Invoke(this, e);
+            var handler = PayloadReceived;
+            handler?.Invoke(this, bytes);
         }
-
-        public event EventHandler SecondaryErrorReceived;
-        private void OnSecondaryErrorReceived()
-        {
-            var handler = SecondaryErrorReceived;
-            handler?.Invoke(this, new EventArgs());
-        }
-
 
         public void Disconnect()
         {
@@ -158,13 +110,6 @@ namespace CrossCam.iOS.CustomRenderer
             return Task.FromResult(true);
         }
 
-        public Task SendCaptue(byte[] capturedImage)
-        {
-            var message = AddPayloadHeader(CrossCommand.CapturedImage, capturedImage);
-            SendData(message);
-            return Task.FromResult(true);
-        }
-
         public IEnumerable<PartnerDevice> GetPairedDevices()
         {
             return Enumerable.Empty<PartnerDevice>().ToList();
@@ -179,33 +124,6 @@ namespace CrossCam.iOS.CustomRenderer
                 Delegate = new NewBrowserDelegate(this)
             };
             browser.StartBrowsingForPeers();
-            return Task.FromResult(true);
-        }
-
-        public Task SendClockReading()
-        {
-            var ticks = DateTime.UtcNow.Ticks;
-            var message = AddPayloadHeader(CrossCommand.ClockReading, BitConverter.GetBytes(ticks));
-            SendData(message);
-            return Task.FromResult(true);
-        }
-
-        public void ProcessClockReading(byte[] readingBytes)
-        {
-            var reading = BitConverter.ToInt64(readingBytes);
-            OnClockReadingReceived(reading);
-        }
-
-        public Task SendSync(DateTime syncMoment)
-        {
-            var syncMessage = AddPayloadHeader(CrossCommand.Sync, BitConverter.GetBytes(syncMoment.Ticks));
-            SendData(syncMessage);
-            return Task.FromResult(true);
-        }
-
-        public Task ProcessSyncAndCapture(byte[] syncBytes)
-        {
-            OnSyncReceived(new DateTime(BitConverter.ToInt64(syncBytes)));
             return Task.FromResult(true);
         }
 
@@ -227,40 +145,6 @@ namespace CrossCam.iOS.CustomRenderer
             return Task.FromResult(true);
         }
 
-        public Task<bool> SendFov(double fov)
-        {
-            var payloadBytes = BitConverter.GetBytes(fov);
-            var fullMessage = AddPayloadHeader(CrossCommand.Fov, payloadBytes);
-
-            SendData(fullMessage);
-            return Task.FromResult(true);
-        }
-
-        private static byte[] AddPayloadHeader(CrossCommand crossCommand, byte[] payload)
-        {
-            var payloadLength = payload.Length;
-            var header = new List<byte>
-            {
-                SYNC_MASK,
-                SYNC_MASK,
-                (byte) crossCommand,
-                (byte) (payloadLength >> 8),
-                (byte) (payloadLength >> 4),
-                (byte) payloadLength
-            };
-            return header.Concat(payload).ToArray();
-        }
-
-        private void SendData(byte[] payload)
-        {
-            NSError error = null;
-            _session?.SendData(NSData.FromArray(payload), _session.ConnectedPeers, MCSessionSendDataMode.Reliable, out error);
-            if (error != null)
-            {
-                throw new Exception(error.ToString());
-            }
-        }
-
         public Task<bool> ListenForFov()
         {
             return Task.FromResult(true);
@@ -269,32 +153,6 @@ namespace CrossCam.iOS.CustomRenderer
         public Task AttemptConnection(PartnerDevice partnerDevice)
         {
             throw new NotImplementedException();
-        }
-
-        public Task SendReadyForPreviewFrame()
-        {
-            var fullMessage = AddPayloadHeader(CrossCommand.ReadyForPreviewFrame, Enumerable.Empty<byte>().ToArray());
-            SendData(fullMessage);
-            return Task.FromResult(true);
-        }
-
-        public Task SendPreviewFrame(byte[] frame)
-        {
-            var frameMessage = AddPayloadHeader(CrossCommand.PreviewFrame, frame);
-            SendData(frameMessage);
-            return Task.FromResult(true);
-        }
-
-        public Task SendReadyForClockReading()
-        {
-            var message = AddPayloadHeader(CrossCommand.ReadyForClockReading, Enumerable.Empty<byte>().ToArray());
-            SendData(message);
-            return Task.FromResult(true);
-        }
-
-        public void SendSecondaryErrorOccurred()
-        {
-            SendData(AddPayloadHeader(CrossCommand.Error, Enumerable.Empty<byte>().ToArray()));
         }
 
         public bool IsServerSupported()
@@ -353,52 +211,7 @@ namespace CrossCam.iOS.CustomRenderer
 
             public override void DidReceiveData(MCSession session, NSData data, MCPeerID peerID)
             {
-                var bytes = data.ToArray();
-                if (bytes[0] == SYNC_MASK &&
-                    bytes[1] == SYNC_MASK)
-                {
-                    var payloadLength = (bytes[3] << 8) | (bytes[4] << 4) | bytes[5];
-                    var payload = bytes.Skip(HEADER_LENGTH).ToArray();
-                    if (payload.Length != payloadLength)
-                    {
-                        //panic
-                    }
-                    switch (bytes[2])
-                    {
-                        case (int)CrossCommand.Fov:
-                            HandleFovReceived(payload);
-                            break;
-                        case (int)CrossCommand.PreviewFrame:
-                            _platformBluetooth.OnPreviewFrameReceived(payload);
-                            break;
-                        case (int)CrossCommand.ReadyForPreviewFrame:
-                            _platformBluetooth.OnPreviewFrameRequested();
-                            break;
-                        case (int)CrossCommand.ReadyForClockReading:
-                            _platformBluetooth.SendClockReading();
-                            break;
-                        case (int)CrossCommand.ClockReading:
-                            _platformBluetooth.ProcessClockReading(payload);
-                            break;
-                        case (int)CrossCommand.Sync:
-                            _platformBluetooth.ProcessSyncAndCapture(payload);
-                            break;
-                        case (int)CrossCommand.CapturedImage:
-                            _platformBluetooth.OnCaptureReceived(payload);
-                            break;
-                        case (int)CrossCommand.Error:
-                            _platformBluetooth.OnSecondaryErrorReceived();
-                            break;
-                    }
-                }
-            }
-
-            private void HandleFovReceived(byte[] bytes)
-            {
-                Debug.WriteLine("Received fov");
-                var fov = BitConverter.ToDouble(bytes, 0);
-                _platformBluetooth.OnConnected();
-                _platformBluetooth.OnFovReceived(fov);
+                _platformBluetooth.OnReceivedPayload(data.ToArray());
             }
         }
 
