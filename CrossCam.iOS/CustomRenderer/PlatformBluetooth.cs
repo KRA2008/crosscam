@@ -13,6 +13,7 @@ using Foundation;
 using MultipeerConnectivity;
 using UIKit;
 using Xamarin.Forms;
+using Xamarin.Essentials;
 
 [assembly: Dependency(typeof(PlatformBluetooth))]
 namespace CrossCam.iOS.CustomRenderer
@@ -119,11 +120,14 @@ namespace CrossCam.iOS.CustomRenderer
         {
             var myPeerId = new MCPeerID(UIDevice.CurrentDevice.Name);
             _session = new MCSession(myPeerId) { Delegate = new SessionDelegate(this) };
-            var browser = new MCNearbyServiceBrowser(myPeerId, BluetoothOperator.CROSSCAM_SERVICE)
+            MainThread.BeginInvokeOnMainThread(() =>
             {
-                Delegate = new NewBrowserDelegate(this)
-            };
-            browser.StartBrowsingForPeers();
+                var browser = new MCNearbyServiceBrowser(myPeerId, BluetoothOperator.CROSSCAM_SERVICE)
+                {
+                    Delegate = new NewBrowserDelegate(this)
+                };
+                browser.StartBrowsingForPeers();
+            });
             return Task.FromResult(true);
         }
 

@@ -26,7 +26,7 @@ namespace CrossCam.CustomElement
         public IPageModelCoreMethods CurrentCoreMethods { get; set; }
 
         private readonly IPlatformBluetooth _platformBluetooth;
-        public const string CROSSCAM_SERVICE = "com.kra2008.CrossCam";
+        public const string CROSSCAM_SERVICE = "CrossCam";
         public static readonly Guid ServiceGuid = Guid.Parse("492a8e3d-2589-40b1-b9c2-419a7ce80f3c");
         private PartnerDevice _device;
         private readonly Timer _captureSyncTimer = new Timer{AutoReset = false};
