@@ -1109,77 +1109,77 @@ namespace CrossCam.ViewModel
                         _wasAlignmentWithHorizontalRun = Settings.SaveForRedCyanAnaglyph || Settings.AlignHorizontallySideBySide;
                         _wasAlignmentWithoutHorizontalRun = !Settings.SaveForRedCyanAnaglyph && !Settings.AlignHorizontallySideBySide;
 
-                        var topLeft = alignedResult.TransformMatrix.MapPoint(0, 0);
-                        var topRight = alignedResult.TransformMatrix.MapPoint(alignedResult.AlignedBitmap.Width - 1, 0);
-                        var bottomRight = alignedResult.TransformMatrix.MapPoint(alignedResult.AlignedBitmap.Width - 1,
-                            alignedResult.AlignedBitmap.Height - 1);
-                        var bottomLeft =
-                            alignedResult.TransformMatrix.MapPoint(0, alignedResult.AlignedBitmap.Height - 1);
+                        //var topLeft = alignedResult.TransformMatrix.MapPoint(0, 0);
+                        //var topRight = alignedResult.TransformMatrix.MapPoint(alignedResult.AlignedBitmap.Width - 1, 0);
+                        //var bottomRight = alignedResult.TransformMatrix.MapPoint(alignedResult.AlignedBitmap.Width - 1,
+                        //    alignedResult.AlignedBitmap.Height - 1);
+                        //var bottomLeft =
+                        //    alignedResult.TransformMatrix.MapPoint(0, alignedResult.AlignedBitmap.Height - 1);
 
-                        //this actually cuts off a bit more than it has to, but it is inconsequential for small deviations
-                        //(it cuts at the corner of the original image, not at the point where the original border crosses the new border)
+                        ////this actually cuts off a bit more than it has to, but it is inconsequential for small deviations
+                        ////(it cuts at the corner of the original image, not at the point where the original border crosses the new border)
 
-                        if (topLeft.Y > topRight.Y)
-                        {
-                            if (topLeft.Y > 0)
-                            {
-                                TopCrop = topLeft.Y / secondImage.Height;
-                            }
-                        }
-                        else
-                        {
-                            if (topRight.Y > 0)
-                            {
-                                TopCrop = topRight.Y / secondImage.Height;
-                            }
-                        }
+                        //if (topLeft.Y > topRight.Y)
+                        //{
+                        //    if (topLeft.Y > 0)
+                        //    {
+                        //        TopCrop = topLeft.Y / secondImage.Height;
+                        //    }
+                        //}
+                        //else
+                        //{
+                        //    if (topRight.Y > 0)
+                        //    {
+                        //        TopCrop = topRight.Y / secondImage.Height;
+                        //    }
+                        //}
 
-                        var maxY = alignedResult.AlignedBitmap.Height - 1;
-                        if (bottomLeft.Y < bottomRight.Y)
-                        {
-                            if (bottomLeft.Y < maxY)
-                            {
-                                BottomCrop = (maxY - bottomLeft.Y) / secondImage.Height;
-                            }
-                        }
-                        else
-                        {
-                            if (bottomRight.Y < maxY)
-                            {
-                                BottomCrop = (maxY - bottomRight.Y) / secondImage.Height;
-                            }
-                        }
+                        //var maxY = alignedResult.AlignedBitmap.Height - 1;
+                        //if (bottomLeft.Y < bottomRight.Y)
+                        //{
+                        //    if (bottomLeft.Y < maxY)
+                        //    {
+                        //        BottomCrop = (maxY - bottomLeft.Y) / secondImage.Height;
+                        //    }
+                        //}
+                        //else
+                        //{
+                        //    if (bottomRight.Y < maxY)
+                        //    {
+                        //        BottomCrop = (maxY - bottomRight.Y) / secondImage.Height;
+                        //    }
+                        //}
 
-                        if (topLeft.X > bottomLeft.X)
-                        {
-                            if (topLeft.X > 0)
-                            {
-                                LeftCrop = topLeft.X / secondImage.Width;
-                            }
-                        }
-                        else
-                        {
-                            if (bottomLeft.X > 0)
-                            {
-                                LeftCrop = bottomLeft.X / secondImage.Width;
-                            }
-                        }
+                        //if (topLeft.X > bottomLeft.X)
+                        //{
+                        //    if (topLeft.X > 0)
+                        //    {
+                        //        LeftCrop = topLeft.X / secondImage.Width;
+                        //    }
+                        //}
+                        //else
+                        //{
+                        //    if (bottomLeft.X > 0)
+                        //    {
+                        //        LeftCrop = bottomLeft.X / secondImage.Width;
+                        //    }
+                        //}
 
-                        var maxX = alignedResult.AlignedBitmap.Width - 1;
-                        if (topRight.X < bottomRight.X)
-                        {
-                            if (topRight.X < maxX)
-                            {
-                                RightCrop = (maxX - topRight.X) / secondImage.Width;
-                            }
-                        }
-                        else
-                        {
-                            if (bottomRight.X < maxX)
-                            {
-                                RightCrop = (maxX - bottomRight.X) / secondImage.Width;
-                            }
-                        }
+                        //var maxX = alignedResult.AlignedBitmap.Width - 1;
+                        //if (topRight.X < bottomRight.X)
+                        //{
+                        //    if (topRight.X < maxX)
+                        //    {
+                        //        RightCrop = (maxX - topRight.X) / secondImage.Width;
+                        //    }
+                        //}
+                        //else
+                        //{
+                        //    if (bottomRight.X < maxX)
+                        //    {
+                        //        RightCrop = (maxX - bottomRight.X) / secondImage.Width;
+                        //    }
+                        //}
 
                         if (IsCaptureLeftFirst)
                         {

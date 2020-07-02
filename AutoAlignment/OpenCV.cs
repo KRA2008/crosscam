@@ -52,8 +52,12 @@ namespace AutoAlignment
 #if __NO_EMGU__
             return null;
 #else
+            var warpMatrix = new Mat();
+
             using (var detector = new ORBDetector()) //TODO: more usings?
             {
+                // 1 = "object"
+                // 2 = "scene"
                 var grayscale1 = new Mat();
                 var descriptors1 = new Mat();
                 var keyPoints1 = new VectorOfKeyPoint();
@@ -100,13 +104,11 @@ namespace AutoAlignment
                         points2.Add(keyPoints2List.ElementAt(goodMatch.TrainIdx).Point);
                     }
 
-                    var mat1 = 
-
-                    CvInvoke.FindHomography()
-
-                    var width = descriptors1.Width;
-                    var height = descriptors1.Height;
-                    var distance = vectorOfMatches[0][0].Distance;
+                    warpMatrix = CvInvoke.FindHomography(points1.ToArray(), points2.ToArray(), HomographyMethod.Ransac);
+                    if (warpMatrix == null || warpMatrix.IsEmpty)
+                    {
+                        return null;
+                    }
                 }
                 else
                 {
@@ -116,69 +118,69 @@ namespace AutoAlignment
 
 
 
-            var mat1 = new Mat();
-            var mat2 = new Mat();
+            //var mat1 = new Mat();
+            //var mat2 = new Mat();
             
-            var topDownsizeFactor = downsizePercentage / 100f;
+            //var topDownsizeFactor = downsizePercentage / 100f;
 
-            var eccs = new List<double>();
-            var warpMatrix = Mat.Eye(2, 3, DepthType.Cv32F, 1);
-            var termCriteria = new MCvTermCriteria(iterations, Math.Pow(10, -epsilonLevel));
-            for (var ii = pyramidLayers-1; ii >= 0; ii--)
-            {
-                var downsize = topDownsizeFactor / Math.Pow(2, ii);
-                CvInvoke.Imdecode(GetBytes(firstImage, downsize), ImreadModes.Grayscale, mat1);
-                CvInvoke.Imdecode(GetBytes(secondImage, downsize), ImreadModes.Grayscale, mat2);
+            //var eccs = new List<double>();
+            //var warpMatrix = Mat.Eye(2, 3, DepthType.Cv32F, 1);
+            //var termCriteria = new MCvTermCriteria(iterations, Math.Pow(10, -epsilonLevel));
+            //for (var ii = pyramidLayers-1; ii >= 0; ii--)
+            //{
+            //    var downsize = topDownsizeFactor / Math.Pow(2, ii);
+            //    CvInvoke.Imdecode(GetBytes(firstImage, downsize), ImreadModes.Grayscale, mat1);
+            //    CvInvoke.Imdecode(GetBytes(secondImage, downsize), ImreadModes.Grayscale, mat2);
 
-                try
-                {
-                    var ecc = CvInvoke.FindTransformECC(mat2, mat1, warpMatrix, MotionType.Euclidean, termCriteria);
-                    eccs.Add(ecc);
-                }
-                catch (CvException e)
-                {
-                    if (e.Status == (int)ErrorCodes.StsNoConv)
-                    {
-                        return null;
-                    }
-                    throw;
-                }
+            //    try
+            //    {
+            //        var ecc = CvInvoke.FindTransformECC(mat2, mat1, warpMatrix, MotionType.Euclidean, termCriteria);
+            //        eccs.Add(ecc);
+            //    }
+            //    catch (CvException e)
+            //    {
+            //        if (e.Status == (int)ErrorCodes.StsNoConv)
+            //        {
+            //            return null;
+            //        }
+            //        throw;
+            //    }
 
-                if (warpMatrix.IsEmpty)
-                {
-                    return null;
-                }
+            //    if (warpMatrix.IsEmpty)
+            //    {
+            //        return null;
+            //    }
 
-                unsafe
-                {
-                    var ptr = (float*)warpMatrix.DataPointer.ToPointer(); //ScaleX
-                    ptr++; //SkewX
-                    ptr++; //TransX
-                    *ptr *= 2; //scale up the shifting
-                    ptr++; //SkewY
-                    ptr++; //ScaleY
-                    ptr++; //TransY
-                    *ptr *= 2; //scale up the shifting
-                }
-            }
+                //unsafe
+                //{
+                //    var ptr = (float*)warpMatrix.DataPointer.ToPointer(); //ScaleX
+                //    ptr++; //SkewX
+                //    ptr++; //TransX
+                //    *ptr *= 2; //scale up the shifting
+                //    ptr++; //SkewY
+                //    ptr++; //ScaleY
+                //    ptr++; //TransY
+                //    *ptr *= 2; //scale up the shifting
+                //}
+            //}
 
-            var lastUpscaleFactor = 1 / ( 2 * topDownsizeFactor );
-            unsafe
-            {
-                var ptr = (float*)warpMatrix.DataPointer.ToPointer(); //ScaleX
-                ptr++; //SkewX
-                ptr++; //TransX
-                *ptr *= lastUpscaleFactor; //scale up the shifting
-                ptr++; //SkewY
-                ptr++; //ScaleY
-                ptr++; //TransY
-                *ptr *= lastUpscaleFactor; //scale up the shifting
-            }
+            //var lastUpscaleFactor = 1 / ( 2 * topDownsizeFactor );
+            //unsafe
+            //{
+            //    var ptr = (float*)warpMatrix.DataPointer.ToPointer(); //ScaleX
+            //    ptr++; //SkewX
+            //    ptr++; //TransX
+            //    *ptr *= lastUpscaleFactor; //scale up the shifting
+            //    ptr++; //SkewY
+            //    ptr++; //ScaleY
+            //    ptr++; //TransY
+            //    *ptr *= lastUpscaleFactor; //scale up the shifting
+            //}
 
-            if (eccs.Last() * 100 < eccCutoff)
-            {
-                return null;
-            }
+            //if (eccs.Last() * 100 < eccCutoff)
+            //{
+            //    return null;
+            //}
             
             var skMatrix = SKMatrix.MakeIdentity();
             unsafe
@@ -210,8 +212,9 @@ namespace AutoAlignment
             using (var fullSizeColorSecondMat = new Mat())
             {
                 CvInvoke.Imdecode(GetBytes(secondImage, 1), ImreadModes.Color, fullSizeColorSecondMat);
-                CvInvoke.WarpAffine(fullSizeColorSecondMat, alignedMat, warpMatrix,
-                    fullSizeColorSecondMat.Size);
+                CvInvoke.WarpPerspective(fullSizeColorSecondMat, alignedMat, warpMatrix, fullSizeColorSecondMat.Size);
+                //CvInvoke.WarpAffine(fullSizeColorSecondMat, alignedMat, warpMatrix,
+                //    fullSizeColorSecondMat.Size);
 
 #if __IOS__
                 result.AlignedBitmap = alignedMat.ToCGImage().ToSKBitmap();
