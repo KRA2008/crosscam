@@ -6,6 +6,7 @@ using CrossCam.Model;
 using CrossCam.Wrappers;
 #if !__NO_EMGU__
 using System.Drawing;
+using System.Numerics;
 using Emgu.CV;
 using Emgu.CV.CvEnum;
 using Emgu.CV.Features2D;
@@ -54,21 +55,26 @@ namespace AutoAlignment
 #else
             var warpMatrix = new Mat();
 
+            VectorOfKeyPoint keyPoints1;
+            VectorOfKeyPoint keyPoints2;
+            Mat funMat;
             using (var detector = new ORBDetector()) //TODO: more usings?
             {
                 // 1 = "object"
                 // 2 = "scene"
                 var grayscale1 = new Mat();
                 var descriptors1 = new Mat();
-                var keyPoints1 = new VectorOfKeyPoint();
+                keyPoints1 = new VectorOfKeyPoint();
                 CvInvoke.Imdecode(GetBytes(firstImage, 1), ImreadModes.Grayscale, grayscale1);
                 detector.DetectAndCompute(grayscale1, null, keyPoints1, descriptors1, false);
 
                 var grayscale2 = new Mat();
                 var descriptors2 = new Mat();
-                var keyPoints2 = new VectorOfKeyPoint();
+                keyPoints2 = new VectorOfKeyPoint();
                 CvInvoke.Imdecode(GetBytes(secondImage, 1), ImreadModes.Grayscale, grayscale2);
                 detector.DetectAndCompute(grayscale2, null, keyPoints2, descriptors2, false);
+
+                funMat = CvInvoke.FindFundamentalMat(keyPoints1, keyPoints2);
 
                 var indexParams = new LshIndexParams(6, 12, 1); //OpenCV people say this, FLANN people say 12,20,2
                 var matcher = new FlannBasedMatcher(indexParams, new SearchParams()); //TODO: tune this?
@@ -103,6 +109,7 @@ namespace AutoAlignment
                         points1.Add(keyPoints1List.ElementAt(goodMatch.QueryIdx).Point);
                         points2.Add(keyPoints2List.ElementAt(goodMatch.TrainIdx).Point);
                     }
+
 
                     warpMatrix = CvInvoke.FindHomography(points1.ToArray(), points2.ToArray(), HomographyMethod.Ransac);
                     if (warpMatrix == null || warpMatrix.IsEmpty)
@@ -212,7 +219,9 @@ namespace AutoAlignment
             using (var fullSizeColorSecondMat = new Mat())
             {
                 CvInvoke.Imdecode(GetBytes(secondImage, 1), ImreadModes.Color, fullSizeColorSecondMat);
-                CvInvoke.WarpPerspective(fullSizeColorSecondMat, alignedMat, warpMatrix, fullSizeColorSecondMat.Size);
+                CvInvoke.StereoRectifyUncalibrated(keyPoints1, keyPoints2, funMat, fullSizeColorSecondMat.Size,
+                    new Mat(), alignedMat);
+                //CvInvoke.WarpPerspective(fullSizeColorSecondMat, alignedMat, warpMatrix, fullSizeColorSecondMat.Size);
                 //CvInvoke.WarpAffine(fullSizeColorSecondMat, alignedMat, warpMatrix,
                 //    fullSizeColorSecondMat.Size);
 
