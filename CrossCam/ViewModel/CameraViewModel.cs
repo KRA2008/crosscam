@@ -1183,13 +1183,15 @@ namespace CrossCam.ViewModel
 
                         if (IsCaptureLeftFirst)
                         {
-                            _originalUnalignedBitmap = RightBitmap;
-                            SetRightBitmap(alignedResult.AlignedBitmap, true, true);
+                            //_originalUnalignedBitmap = RightBitmap;
+                            SetLeftBitmap(alignedResult.AlignedFirstBitmap, false, true);
+                            SetRightBitmap(alignedResult.AlignedSecondBitmap, false, true);
                         }
                         else
                         {
-                            _originalUnalignedBitmap = LeftBitmap;
-                            SetLeftBitmap(alignedResult.AlignedBitmap, true, true);
+                            //_originalUnalignedBitmap = LeftBitmap;
+                            SetRightBitmap(alignedResult.AlignedFirstBitmap, false, true);
+                            SetLeftBitmap(alignedResult.AlignedSecondBitmap, false, true);
                         }
                     }
                     else

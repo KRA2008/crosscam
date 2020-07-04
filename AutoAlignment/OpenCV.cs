@@ -5,6 +5,7 @@ using AutoAlignment;
 using CrossCam.Model;
 using CrossCam.Wrappers;
 #if !__NO_EMGU__
+using System.Diagnostics;
 using System.Drawing;
 using System.Numerics;
 using Emgu.CV;
@@ -16,6 +17,7 @@ using Emgu.CV.Util;
 #endif
 using SkiaSharp;
 using Xamarin.Forms;
+using Color = System.Drawing.Color;
 #if __ANDROID__
 using SkiaSharp.Views.Android;
 #elif __IOS__
@@ -55,8 +57,8 @@ namespace AutoAlignment
 #else
             var warpMatrix = new Mat();
 
-            VectorOfKeyPoint keyPoints1;
-            VectorOfKeyPoint keyPoints2;
+            VectorOfKeyPoint goodKeyPointsVector1;
+            VectorOfKeyPoint goodKeyPointsVector2;
             Mat funMat;
             using (var detector = new ORBDetector()) //TODO: more usings?
             {
@@ -64,17 +66,15 @@ namespace AutoAlignment
                 // 2 = "scene"
                 var grayscale1 = new Mat();
                 var descriptors1 = new Mat();
-                keyPoints1 = new VectorOfKeyPoint();
+                var allKeyPoints1 = new VectorOfKeyPoint();
                 CvInvoke.Imdecode(GetBytes(firstImage, 1), ImreadModes.Grayscale, grayscale1);
-                detector.DetectAndCompute(grayscale1, null, keyPoints1, descriptors1, false);
+                detector.DetectAndCompute(grayscale1, null, allKeyPoints1, descriptors1, false);
 
                 var grayscale2 = new Mat();
                 var descriptors2 = new Mat();
-                keyPoints2 = new VectorOfKeyPoint();
+                var allKeyPoints2 = new VectorOfKeyPoint();
                 CvInvoke.Imdecode(GetBytes(secondImage, 1), ImreadModes.Grayscale, grayscale2);
-                detector.DetectAndCompute(grayscale2, null, keyPoints2, descriptors2, false);
-
-                funMat = CvInvoke.FindFundamentalMat(keyPoints1, keyPoints2);
+                detector.DetectAndCompute(grayscale2, null, allKeyPoints2, descriptors2, false);
 
                 var indexParams = new LshIndexParams(6, 12, 1); //OpenCV people say this, FLANN people say 12,20,2
                 var matcher = new FlannBasedMatcher(indexParams, new SearchParams()); //TODO: tune this?
@@ -98,24 +98,46 @@ namespace AutoAlignment
 
                 if (goodMatches.Count > 10)
                 {
-                    var points1 = new List<PointF>();
-                    var points2 = new List<PointF>();
+                    var tempGoodPoints1List = new List<PointF>();
+                    var tempGoodKeyPoints1 = new List<MKeyPoint>();
+                    var tempGoodPoints2List = new List<PointF>();
+                    var tempGoodKeyPoints2 = new List<MKeyPoint>();
 
-                    var keyPoints1List = keyPoints1.ToArray().ToList();
-                    var keyPoints2List = keyPoints2.ToArray().ToList();
+                    var tempAllKeyPoints1List = allKeyPoints1.ToArray().ToList();
+                    var tempAllKeyPoints2List = allKeyPoints2.ToArray().ToList();
 
                     foreach (var goodMatch in goodMatches)
                     {
-                        points1.Add(keyPoints1List.ElementAt(goodMatch.QueryIdx).Point);
-                        points2.Add(keyPoints2List.ElementAt(goodMatch.TrainIdx).Point);
+                        tempGoodPoints1List.Add(tempAllKeyPoints1List.ElementAt(goodMatch.QueryIdx).Point);
+                        tempGoodKeyPoints1.Add(tempAllKeyPoints1List.ElementAt(goodMatch.QueryIdx));
+                        tempGoodPoints2List.Add(tempAllKeyPoints2List.ElementAt(goodMatch.TrainIdx).Point);
+                        tempGoodKeyPoints2.Add(tempAllKeyPoints2List.ElementAt(goodMatch.TrainIdx));
                     }
 
+                    goodKeyPointsVector1 = new VectorOfKeyPoint(tempGoodKeyPoints1.ToArray());
+                    goodKeyPointsVector2 = new VectorOfKeyPoint(tempGoodKeyPoints2.ToArray());
+                    var goodPointsVector1 = new VectorOfPointF(tempGoodPoints1List.ToArray());
+                    var goodPointsVector2 = new VectorOfPointF(tempGoodPoints2List.ToArray());
 
-                    warpMatrix = CvInvoke.FindHomography(points1.ToArray(), points2.ToArray(), HomographyMethod.Ransac);
-                    if (warpMatrix == null || warpMatrix.IsEmpty)
+                    Debug.WriteLine("### POINTS1: ");
+                    foreach (var pointF in tempGoodPoints1List)
                     {
-                        return null;
+                        Debug.WriteLine(pointF.X + "," + pointF.Y);
                     }
+
+                    Debug.WriteLine("### POINTS2: ");
+                    foreach (var pointF in tempGoodPoints2List)
+                    {
+                        Debug.WriteLine(pointF.X + "," + pointF.Y);
+                    }
+
+                    funMat = CvInvoke.FindFundamentalMat(goodPointsVector1, goodPointsVector2);
+
+                    //warpMatrix = CvInvoke.FindHomography(goodPointsVector1, goodPointsVector2, HomographyMethod.Ransac);
+                    //if (warpMatrix == null || warpMatrix.IsEmpty)
+                    //{
+                    //    return null;
+                    //}
                 }
                 else
                 {
@@ -127,7 +149,7 @@ namespace AutoAlignment
 
             //var mat1 = new Mat();
             //var mat2 = new Mat();
-            
+
             //var topDownsizeFactor = downsizePercentage / 100f;
 
             //var eccs = new List<double>();
@@ -158,17 +180,17 @@ namespace AutoAlignment
             //        return null;
             //    }
 
-                //unsafe
-                //{
-                //    var ptr = (float*)warpMatrix.DataPointer.ToPointer(); //ScaleX
-                //    ptr++; //SkewX
-                //    ptr++; //TransX
-                //    *ptr *= 2; //scale up the shifting
-                //    ptr++; //SkewY
-                //    ptr++; //ScaleY
-                //    ptr++; //TransY
-                //    *ptr *= 2; //scale up the shifting
-                //}
+            //unsafe
+            //{
+            //    var ptr = (float*)warpMatrix.DataPointer.ToPointer(); //ScaleX
+            //    ptr++; //SkewX
+            //    ptr++; //TransX
+            //    *ptr *= 2; //scale up the shifting
+            //    ptr++; //SkewY
+            //    ptr++; //ScaleY
+            //    ptr++; //TransY
+            //    *ptr *= 2; //scale up the shifting
+            //}
             //}
 
             //var lastUpscaleFactor = 1 / ( 2 * topDownsizeFactor );
@@ -188,45 +210,75 @@ namespace AutoAlignment
             //{
             //    return null;
             //}
-            
+
+
+            //TODO: DO BELOW STUFF FOR BOTH MATRICES
+            //var skMatrix = SKMatrix.MakeIdentity();
+            //unsafe
+            //{
+            //    var ptr = (float*)warpMatrix.DataPointer.ToPointer(); //ScaleX
+            //    skMatrix.ScaleX = *ptr;
+            //    ptr++; //SkewX
+            //    skMatrix.SkewX = *ptr;
+            //    ptr++; //TransX
+            //    if (discardTransX)
+            //    {
+            //        *ptr = 0;
+            //    }
+            //    skMatrix.TransX = *ptr;
+            //    ptr++; //SkewY
+            //    skMatrix.SkewY = *ptr;
+            //    ptr++; //ScaleY
+            //    skMatrix.ScaleY = *ptr;
+            //    ptr++; //TransY
+            //    skMatrix.TransY = *ptr;
+            //}
+
             var skMatrix = SKMatrix.MakeIdentity();
             unsafe
             {
-                var ptr = (float*)warpMatrix.DataPointer.ToPointer(); //ScaleX
-                skMatrix.ScaleX = *ptr;
+                var ptr = (double*)funMat.DataPointer.ToPointer(); //ScaleX
+                skMatrix.ScaleX = (float)*ptr;
                 ptr++; //SkewX
-                skMatrix.SkewX = *ptr;
+                skMatrix.SkewX = (float)*ptr;
                 ptr++; //TransX
-                if (discardTransX)
-                {
-                    *ptr = 0;
-                }
-                skMatrix.TransX = *ptr;
+                skMatrix.TransX = (float)*ptr;
                 ptr++; //SkewY
-                skMatrix.SkewY = *ptr;
+                skMatrix.SkewY = (float)*ptr;
                 ptr++; //ScaleY
-                skMatrix.ScaleY = *ptr;
+                skMatrix.ScaleY = (float)*ptr;
                 ptr++; //TransY
-                skMatrix.TransY = *ptr;
+                skMatrix.TransY = (float)*ptr;
             }
+
+            var theData = funMat.GetData();
 
             var result = new AlignedResult
             {
-                TransformMatrix = skMatrix
+                //TransformMatrix = skMatrix
             };
 
-            using (var alignedMat = new Mat())
-            using (var fullSizeColorSecondMat = new Mat())
+            using (var fullSizeColor1 = new Mat())
+            using (var fullSizeColor2 = new Mat())
+            using (var matrix1 = new Mat())
+            using (var matrix2 = new Mat())
+            using (var alignedMat1 = new Mat())
+            using (var alignedMat2 = new Mat())
             {
-                CvInvoke.Imdecode(GetBytes(secondImage, 1), ImreadModes.Color, fullSizeColorSecondMat);
-                CvInvoke.StereoRectifyUncalibrated(keyPoints1, keyPoints2, funMat, fullSizeColorSecondMat.Size,
-                    new Mat(), alignedMat);
-                //CvInvoke.WarpPerspective(fullSizeColorSecondMat, alignedMat, warpMatrix, fullSizeColorSecondMat.Size);
-                //CvInvoke.WarpAffine(fullSizeColorSecondMat, alignedMat, warpMatrix,
-                //    fullSizeColorSecondMat.Size);
+                CvInvoke.Imdecode(GetBytes(firstImage, 1), ImreadModes.Color, fullSizeColor1);
+                CvInvoke.Imdecode(GetBytes(secondImage, 1), ImreadModes.Color, fullSizeColor2);
+                CvInvoke.StereoRectifyUncalibrated(goodKeyPointsVector1, goodKeyPointsVector2, funMat, fullSizeColor1.Size,
+                    matrix1, matrix2);
+
+                CvInvoke.WarpPerspective(fullSizeColor1, alignedMat1, matrix1, fullSizeColor1.Size);
+                CvInvoke.WarpPerspective(fullSizeColor2, alignedMat2, matrix2, fullSizeColor2.Size);
+
+                //Features2DToolbox.DrawKeypoints(fullSizeColor1, goodKeyPointsVector1, alignedMat1, new Bgr(Color.DarkGreen));
+                //Features2DToolbox.DrawKeypoints(fullSizeColor2, goodKeyPointsVector2, alignedMat2, new Bgr(Color.DarkGreen));
 
 #if __IOS__
-                result.AlignedBitmap = alignedMat.ToCGImage().ToSKBitmap();
+                result.AlignedFirstBitmap = alignedMat1.ToCGImage().ToSKBitmap();
+                result.AlignedSecondBitmap = alignedMat2.ToCGImage().ToSKBitmap();
 #elif __ANDROID__
                 result.AlignedBitmap = alignedMat.ToBitmap().ToSKBitmap();
 #endif
