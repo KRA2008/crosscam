@@ -56,9 +56,12 @@ namespace AutoAlignment
             return null;
 #else
             var warpMatrix = new Mat();
-
+            const double SCALING_FACTOR = 0.2;
             VectorOfKeyPoint goodKeyPointsVector1;
+            VectorOfKeyPoint allKeyPointsVector1;
             VectorOfKeyPoint goodKeyPointsVector2;
+            VectorOfKeyPoint allKeyPointsVector2;
+            VectorOfVectorOfDMatch goodMatchesVector;
             Mat funMat;
             using (var detector = new ORBDetector()) //TODO: more usings?
             {
@@ -66,35 +69,38 @@ namespace AutoAlignment
                 // 2 = "scene"
                 var grayscale1 = new Mat();
                 var descriptors1 = new Mat();
-                var allKeyPoints1 = new VectorOfKeyPoint();
-                CvInvoke.Imdecode(GetBytes(firstImage, 1), ImreadModes.Grayscale, grayscale1);
-                detector.DetectAndCompute(grayscale1, null, allKeyPoints1, descriptors1, false);
+                allKeyPointsVector1 = new VectorOfKeyPoint();
+                CvInvoke.Imdecode(GetBytes(firstImage, SCALING_FACTOR), ImreadModes.Grayscale, grayscale1);
+                detector.DetectAndCompute(grayscale1, null, allKeyPointsVector1, descriptors1, false);
 
                 var grayscale2 = new Mat();
                 var descriptors2 = new Mat();
-                var allKeyPoints2 = new VectorOfKeyPoint();
-                CvInvoke.Imdecode(GetBytes(secondImage, 1), ImreadModes.Grayscale, grayscale2);
-                detector.DetectAndCompute(grayscale2, null, allKeyPoints2, descriptors2, false);
+                allKeyPointsVector2 = new VectorOfKeyPoint();
+                CvInvoke.Imdecode(GetBytes(secondImage, SCALING_FACTOR), ImreadModes.Grayscale, grayscale2);
+                detector.DetectAndCompute(grayscale2, null, allKeyPointsVector2, descriptors2, false);
+
+                var vectorOfMatches = new VectorOfVectorOfDMatch();
 
                 var indexParams = new LshIndexParams(6, 12, 1); //OpenCV people say this, FLANN people say 12,20,2
                 var matcher = new FlannBasedMatcher(indexParams, new SearchParams()); //TODO: tune this?
                 matcher.Add(descriptors1);
-                var vectorOfMatches = new VectorOfVectorOfDMatch();
                 matcher.KnnMatch(descriptors2, vectorOfMatches, 2, null);
 
-                const float SUCCESS_THRESHOLD = 0.75f;
-                var goodMatches = new List<MDMatch>();
+                //var matcher = new BFMatcher(DistanceType.Hamming);
+                //matcher.Add(descriptors1);
+                //matcher.KnnMatch(descriptors2, vectorOfMatches, 2, null);
+
+                var standOutMatches = new List<MDMatch>();
                 for (var ii = 0; ii < vectorOfMatches.Size; ii++)
                 {
-                    if (vectorOfMatches[ii].Size > 1)
+                    if (vectorOfMatches[ii][0].Distance < 0.75 * vectorOfMatches[ii][1].Distance)
                     {
-                        var matches = vectorOfMatches[ii].ToArray();
-                        if (matches[0].Distance < SUCCESS_THRESHOLD * matches[1].Distance)
-                        {
-                            goodMatches.Add(matches[0]);
-                        }
+                        standOutMatches.Add(vectorOfMatches[ii][0]);
                     }
                 }
+
+                var matchesQuota = Math.Min(500, standOutMatches.Count);
+                var goodMatches = standOutMatches.OrderBy(m => m.Distance).ToList().GetRange(0, matchesQuota);
 
                 if (goodMatches.Count > 10)
                 {
@@ -103,17 +109,26 @@ namespace AutoAlignment
                     var tempGoodPoints2List = new List<PointF>();
                     var tempGoodKeyPoints2 = new List<MKeyPoint>();
 
-                    var tempAllKeyPoints1List = allKeyPoints1.ToArray().ToList();
-                    var tempAllKeyPoints2List = allKeyPoints2.ToArray().ToList();
+                    var tempAllKeyPoints1List = allKeyPointsVector1.ToArray().ToList();
+                    var tempAllKeyPoints2List = allKeyPointsVector2.ToArray().ToList();
 
-                    foreach (var goodMatch in goodMatches)
+                    var goodMatchesVectorList = new List<MDMatch[]>();
+                    for (var ii = 0; ii < goodMatches.Count; ii++)
                     {
-                        tempGoodPoints1List.Add(tempAllKeyPoints1List.ElementAt(goodMatch.QueryIdx).Point);
-                        tempGoodKeyPoints1.Add(tempAllKeyPoints1List.ElementAt(goodMatch.QueryIdx));
-                        tempGoodPoints2List.Add(tempAllKeyPoints2List.ElementAt(goodMatch.TrainIdx).Point);
-                        tempGoodKeyPoints2.Add(tempAllKeyPoints2List.ElementAt(goodMatch.TrainIdx));
+                        tempGoodPoints1List.Add(tempAllKeyPoints1List.ElementAt(goodMatches[ii].QueryIdx).Point);
+                        tempGoodKeyPoints1.Add(tempAllKeyPoints1List.ElementAt(goodMatches[ii].QueryIdx));
+                        tempGoodPoints2List.Add(tempAllKeyPoints2List.ElementAt(goodMatches[ii].TrainIdx).Point);
+                        tempGoodKeyPoints2.Add(tempAllKeyPoints2List.ElementAt(goodMatches[ii].TrainIdx));
+                        goodMatchesVectorList.Add(new []{new MDMatch
+                        {
+                            Distance = goodMatches[ii].Distance,
+                            ImgIdx = goodMatches[ii].ImgIdx,
+                            QueryIdx = ii,
+                            TrainIdx = ii
+                        }});
                     }
 
+                    goodMatchesVector = new VectorOfVectorOfDMatch(goodMatchesVectorList.ToArray());
                     goodKeyPointsVector1 = new VectorOfKeyPoint(tempGoodKeyPoints1.ToArray());
                     goodKeyPointsVector2 = new VectorOfKeyPoint(tempGoodKeyPoints2.ToArray());
                     var goodPointsVector1 = new VectorOfPointF(tempGoodPoints1List.ToArray());
@@ -265,18 +280,22 @@ namespace AutoAlignment
             using (var alignedMat1 = new Mat())
             using (var alignedMat2 = new Mat())
             {
-                CvInvoke.Imdecode(GetBytes(firstImage, 1), ImreadModes.Color, fullSizeColor1);
-                CvInvoke.Imdecode(GetBytes(secondImage, 1), ImreadModes.Color, fullSizeColor2);
-                CvInvoke.StereoRectifyUncalibrated(goodKeyPointsVector1, goodKeyPointsVector2, funMat, fullSizeColor1.Size,
-                    matrix1, matrix2);
+                CvInvoke.Imdecode(GetBytes(firstImage, SCALING_FACTOR), ImreadModes.Color, fullSizeColor1);
+                CvInvoke.Imdecode(GetBytes(secondImage, SCALING_FACTOR), ImreadModes.Color, fullSizeColor2);
+                //CvInvoke.StereoRectifyUncalibrated(goodKeyPointsVector1, goodKeyPointsVector2, funMat, fullSizeColor1.Size,
+                //    matrix1, matrix2);
 
-                CvInvoke.WarpPerspective(fullSizeColor1, alignedMat1, matrix1, fullSizeColor1.Size);
-                CvInvoke.WarpPerspective(fullSizeColor2, alignedMat2, matrix2, fullSizeColor2.Size);
+                //CvInvoke.WarpPerspective(fullSizeColor1, alignedMat1, matrix1, fullSizeColor1.Size);
+                //CvInvoke.WarpPerspective(fullSizeColor2, alignedMat2, matrix2, fullSizeColor2.Size);
 
-                //Features2DToolbox.DrawKeypoints(fullSizeColor1, goodKeyPointsVector1, alignedMat1, new Bgr(Color.DarkGreen));
-                //Features2DToolbox.DrawKeypoints(fullSizeColor2, goodKeyPointsVector2, alignedMat2, new Bgr(Color.DarkGreen));
+                //var drawnResult = new Mat();
+                //Features2DToolbox.DrawMatches(fullSizeColor1, goodKeyPointsVector1, fullSizeColor2, goodKeyPointsVector2, goodMatchesVector, drawnResult, new MCvScalar(0,255,0), new MCvScalar(255,255,0));
+                Features2DToolbox.DrawKeypoints(fullSizeColor1, goodKeyPointsVector1, alignedMat1, new Bgr(Color.LawnGreen));
+                Features2DToolbox.DrawKeypoints(fullSizeColor2, goodKeyPointsVector2, alignedMat2, new Bgr(Color.LawnGreen));
 
 #if __IOS__
+                //result.AlignedFirstBitmap = drawnResult.ToCGImage().ToSKBitmap();
+                //result.AlignedSecondBitmap = drawnResult.ToCGImage().ToSKBitmap();
                 result.AlignedFirstBitmap = alignedMat1.ToCGImage().ToSKBitmap();
                 result.AlignedSecondBitmap = alignedMat2.ToCGImage().ToSKBitmap();
 #elif __ANDROID__
