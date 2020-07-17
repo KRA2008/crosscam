@@ -1101,6 +1101,9 @@ namespace CrossCam.ViewModel
                     }
                     catch (Exception e)
                     {
+                        var message = e.Message;
+                        var inner = e.InnerException;
+                        var innerMessage = inner?.Message;
                         ErrorMessage = e.ToString();
                     }
 
