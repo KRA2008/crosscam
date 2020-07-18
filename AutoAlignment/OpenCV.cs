@@ -5,11 +5,8 @@ using AutoAlignment;
 using CrossCam.Model;
 using CrossCam.Wrappers;
 #if !__NO_EMGU__
-using System.Drawing;
 using Emgu.CV;
 using Emgu.CV.CvEnum;
-using Emgu.CV.Features2D;
-using Emgu.CV.Flann;
 using Emgu.CV.Structure;
 using Emgu.CV.Util;
 #endif
@@ -52,70 +49,6 @@ namespace AutoAlignment
 #if __NO_EMGU__
             return null;
 #else
-            using (var detector = new ORBDetector()) //TODO: more usings?
-            {
-                var grayscale1 = new Mat();
-                var descriptors1 = new Mat();
-                var keyPoints1 = new VectorOfKeyPoint();
-                CvInvoke.Imdecode(GetBytes(firstImage, 1), ImreadModes.Grayscale, grayscale1);
-                detector.DetectAndCompute(grayscale1, null, keyPoints1, descriptors1, false);
-
-                var grayscale2 = new Mat();
-                var descriptors2 = new Mat();
-                var keyPoints2 = new VectorOfKeyPoint();
-                CvInvoke.Imdecode(GetBytes(secondImage, 1), ImreadModes.Grayscale, grayscale2);
-                detector.DetectAndCompute(grayscale2, null, keyPoints2, descriptors2, false);
-
-                var indexParams = new LshIndexParams(6, 12, 1); //OpenCV people say this, FLANN people say 12,20,2
-                var matcher = new FlannBasedMatcher(indexParams, new SearchParams()); //TODO: tune this?
-                matcher.Add(descriptors1);
-                var vectorOfMatches = new VectorOfVectorOfDMatch();
-                matcher.KnnMatch(descriptors2, vectorOfMatches, 2, null);
-
-                const float SUCCESS_THRESHOLD = 0.75f;
-                var goodMatches = new List<MDMatch>();
-                for (var ii = 0; ii < vectorOfMatches.Size; ii++)
-                {
-                    if (vectorOfMatches[ii].Size > 1)
-                    {
-                        var matches = vectorOfMatches[ii].ToArray();
-                        if (matches[0].Distance < SUCCESS_THRESHOLD * matches[1].Distance)
-                        {
-                            goodMatches.Add(matches[0]);
-                        }
-                    }
-                }
-
-                if (goodMatches.Count > 10)
-                {
-                    var points1 = new List<PointF>();
-                    var points2 = new List<PointF>();
-
-                    var keyPoints1List = keyPoints1.ToArray().ToList();
-                    var keyPoints2List = keyPoints2.ToArray().ToList();
-
-                    foreach (var goodMatch in goodMatches)
-                    {
-                        points1.Add(keyPoints1List.ElementAt(goodMatch.QueryIdx).Point);
-                        points2.Add(keyPoints2List.ElementAt(goodMatch.TrainIdx).Point);
-                    }
-
-                    var mat1 = 
-
-                    CvInvoke.FindHomography()
-
-                    var width = descriptors1.Width;
-                    var height = descriptors1.Height;
-                    var distance = vectorOfMatches[0][0].Distance;
-                }
-                else
-                {
-                    return null;
-                }
-            }
-
-
-
             var mat1 = new Mat();
             var mat2 = new Mat();
             
