@@ -14,6 +14,7 @@ using Emgu.CV.Features2D;
 using Emgu.CV.Flann;
 using Emgu.CV.Structure;
 using Emgu.CV.Util;
+using Emgu.CV.XFeatures2D;
 #endif
 using SkiaSharp;
 using Xamarin.Forms;
@@ -146,14 +147,14 @@ namespace AutoAlignment
 
 
             var warpMatrix = new Mat();
-            const double SCALING_FACTOR = 0.2;
+            const double SCALING_FACTOR = 1;
             VectorOfKeyPoint goodKeyPointsVector1;
             VectorOfKeyPoint allKeyPointsVector1;
             VectorOfKeyPoint goodKeyPointsVector2;
             VectorOfKeyPoint allKeyPointsVector2;
             VectorOfVectorOfDMatch goodMatchesVector;
             Mat funMat;
-            using (var detector = new ORBDetector()) //TODO: more usings?
+            using (var detector = new SIFT()) //TODO: more usings?
             {
                 // 1 = "object"
                 // 2 = "scene"
@@ -171,117 +172,52 @@ namespace AutoAlignment
 
                 var vectorOfMatches = new VectorOfVectorOfDMatch();
 
-                //var indexParams = new LshIndexParams(6, 12, 1); //OpenCV people say this, FLANN people say 12,20,2
-                //var matcher = new FlannBasedMatcher(indexParams, new SearchParams()); //TODO: tune this?
-                //matcher.Add(descriptors1);
-                //matcher.KnnMatch(descriptors2, vectorOfMatches, 2, null);
-
                 var matcher = new BFMatcher(DistanceType.Hamming);
                 matcher.Add(descriptors1);
                 matcher.KnnMatch(descriptors2, vectorOfMatches, 5, null);
+                var vectorTargets = new VectorOfPointF();
 
-                //var standOutMatches = new List<MDMatch>();
-                //for (var ii = 0; ii < vectorOfMatches.Size; ii++)
-                //{
-                //    if (vectorOfMatches[ii][0].Distance < 0.75 * vectorOfMatches[ii][1].Distance)
-                //    {
-                //        standOutMatches.Add(vectorOfMatches[ii][0]);
-                //    }
-                //}
-
-                //var matchesQuota = Math.Min(20, standOutMatches.Count);
-                //var distances = standOutMatches.Select(d => d.Distance).ToArray();
-                //var mean = distances.Average();
-                //var median = distances.ElementAt(distances.Length / 2);
-
-                //double sumOfSquares = 0;
-                //foreach (var distance in distances)
-                //{
-                //    sumOfSquares += Math.Pow(distance - mean, 2);
-                //}
-                //var stdDev = Math.Sqrt(sumOfSquares / distances.Length);
-
-                //var goodMatches = standOutMatches.OrderBy(m => m.Distance).ToList().GetRange(0, matchesQuota);
-
-                //var allowedSpan = 0.05 * Math.Sqrt(Math.Pow(grayscale1.Size.Height, 2) + Math.Pow(grayscale1.Size.Width, 2));
-                var goodMatches = new List<MDMatch>();
-                var scaledDistanceTarget = Math.Sqrt(Math.Pow(skMatrix.TransX, 2) + Math.Pow(skMatrix.TransY, 2)) * SCALING_FACTOR;
-                //string unfilteredPhysicalDistances = "";
+                var startingPoints = new PointF[vectorOfMatches.Size];
                 for (var i = 0; i < vectorOfMatches.Size; i++)
                 {
-                    var orderedAcceptableMatches = vectorOfMatches[i].ToArray()
-                        .OrderBy(m => CalculatePhysicalDistanceBetweenPoints(
-                                        allKeyPointsVector1[m.QueryIdx].Point,
-                                        allKeyPointsVector2[m.TrainIdx].Point)).ToList();
-
-                    //if (orderedAcceptableMatches.Any())
-                    //{
-                    //    goodMatches.Add(orderedAcceptableMatches.First());
-                    //}
-
-                    //foreach (var m in vectorOfMatches[i].ToArray())
-                    //{
-                    //    unfilteredPhysicalDistances += CalculatePhysicalDistanceBetweenPoints(
-                    //                        allKeyPointsVector1[m.QueryIdx].Point,
-                    //                        allKeyPointsVector2[m.TrainIdx].Point).ToString("F1") + ",";
-                    //}
-
-
-                    //if (vectorOfMatches[i][0].Distance < 0.75 * vectorOfMatches[i][1].Distance)
-                    //{
-                    //    goodMatches.Add(vectorOfMatches[i][0]);
-                    //}
-
-
-
-                    //for (var j = 0; j < vectorOfMatches[i].Size; j++)
-                    //{
-                    //    var from = allKeyPointsVector1[vectorOfMatches[i][j].QueryIdx].Point;
-                    //    var to = allKeyPointsVector2[vectorOfMatches[i][j].TrainIdx].Point;
-
-                    //    //calculate local distance for each possible match
-                    //    var physicalDistance = Math.Sqrt(Math.Pow(from.X - to.X, 2) + Math.Pow(from.Y - to.Y, 2));
-
-                    //    //save as best match if local distance is in specified area and on same height
-                    //    if (physicalDistance < allowedSpan)
-                    //    {
-                    //        goodMatches.Add(vectorOfMatches[i][j]);
-                    //        break;
-                    //    }
-                    //}
+                    var queryIdx = vectorOfMatches[i][0].QueryIdx;
+                    startingPoints[queryIdx] = allKeyPointsVector1[queryIdx].Point;
                 }
-                //Debug.WriteLine("");
-                //Debug.WriteLine("### UNFILTERED PHYSICAL DISTANCES");
-                //Debug.WriteLine(unfilteredPhysicalDistances);
+                var vectorStarting = new VectorOfPointF(startingPoints.ToArray());
+
+                CvInvoke.Transform(vectorStarting, vectorTargets,eccWarpMatrix);
 
 
-                //var filteredPhysicalDistances = "";
-                //foreach (var m in goodMatches)
+                var closeMatches = new List<MDMatch>();
+                for (var i = 0; i < vectorOfMatches.Size; i++)
+                {
+                    var matchesOrderedByPhysicalDistance = vectorOfMatches[i].ToArray()
+                        .OrderBy(m => CalculatePhysicalDistanceBetweenPoints(
+                                        vectorTargets[m.QueryIdx],
+                                        allKeyPointsVector2[m.TrainIdx].Point)).ToList();
+                    //foreach (var mdMatch in matchesOrderedByPhysicalDistance)
+                    //{
+                    //    var queryPoint = allKeyPointsVector1[mdMatch.QueryIdx].Point;
+                    //    var targetPoint = vectorTargets[mdMatch.QueryIdx];
+                    //    var trainPoint = allKeyPointsVector2[mdMatch.TrainIdx].Point;
+                    //    Debug.WriteLine(queryPoint.X + "," + queryPoint.Y + " " + targetPoint.X + "," + targetPoint.Y + " " + trainPoint.X + "," + trainPoint.Y);
+                    //}
+
+                    closeMatches.Add(matchesOrderedByPhysicalDistance[0]);
+                }
+
+                var goodMatches = closeMatches.OrderBy(m => CalculatePhysicalDistanceBetweenPoints(
+                    vectorTargets[m.QueryIdx],
+                    allKeyPointsVector2[m.TrainIdx].Point)).ToList().GetRange(0, Math.Min(30,closeMatches.Count));
+
+
+                //foreach (var mdMatch in goodMatches)
                 //{
-                //    filteredPhysicalDistances += CalculatePhysicalDistanceBetweenPoints(
-                //                    allKeyPointsVector1[m.QueryIdx].Point,
-                //                    allKeyPointsVector2[m.TrainIdx].Point).ToString("F1") + ",";
+                //    var queryPoint = allKeyPointsVector1[mdMatch.QueryIdx].Point;
+                //    var targetPoint = vectorTargets[mdMatch.QueryIdx];
+                //    var trainPoint = allKeyPointsVector2[mdMatch.TrainIdx].Point;
+                //    Debug.WriteLine(queryPoint.X + "," + queryPoint.Y + " " + targetPoint.X + "," + targetPoint.Y + " " + trainPoint.X + "," + trainPoint.Y);
                 //}
-                //Debug.WriteLine("");
-                //Debug.WriteLine("### FILTERED AND FIRST PHYSICAL DISTANCES");
-                //Debug.WriteLine(filteredPhysicalDistances);
-
-                //CvInvoke.CalcOpticalFlowFarneback();
-
-
-                //const int QUOTA = 30;
-
-                //var toTake = Math.Min(QUOTA, goodMatches.Count);
-                //goodMatches = goodMatches.OrderBy(m =>
-                //    CalculatePhysicalDistanceBetweenPoints(allKeyPointsVector1[m.QueryIdx].Point,
-                //        allKeyPointsVector2[m.TrainIdx].Point)).ToList().GetRange(goodMatches.Count / 2 - toTake / 2, toTake);
-
-                //goodMatches = goodMatches.OrderBy(m =>
-                //    CalculatePhysicalDistanceBetweenPoints(allKeyPointsVector1[m.QueryIdx].Point,
-                //        allKeyPointsVector2[m.TrainIdx].Point)).ToList().GetRange(0, Math.Min(QUOTA, goodMatches.Count));
-
-                //goodMatches = goodMatches.OrderBy(m => m.Distance).ToList().GetRange(0, Math.Min(QUOTA, goodMatches.Count));
-
 
                 var tempGoodPoints1List = new List<PointF>();
                 var tempGoodKeyPoints1 = new List<MKeyPoint>();
@@ -314,7 +250,15 @@ namespace AutoAlignment
                 var goodPointsVector1 = new VectorOfPointF(tempGoodPoints1List.ToArray());
                 var goodPointsVector2 = new VectorOfPointF(tempGoodPoints2List.ToArray());
 
-                //funMat = CvInvoke.FindFundamentalMat(goodPointsVector1, goodPointsVector2);
+                try
+                {
+                    Debug.WriteLine("MATCHES: " + goodMatches.Count);
+                    funMat = CvInvoke.FindFundamentalMat(goodPointsVector1, goodPointsVector2);
+                }
+                catch
+                {
+                    return null;
+                }
 
                 //warpMatrix = CvInvoke.FindHomography(goodPointsVector1, goodPointsVector2, HomographyMethod.Ransac);
                 //if (warpMatrix == null || warpMatrix.IsEmpty)
@@ -322,10 +266,6 @@ namespace AutoAlignment
                 //    return null;
                 //}
             }
-
-
-
-
 
 
 
@@ -342,13 +282,14 @@ namespace AutoAlignment
             using (var alignedMat1 = new Mat())
             using (var alignedMat2 = new Mat())
             {
-                //CvInvoke.Imdecode(GetBytes(firstImage, SCALING_FACTOR), ImreadModes.Color, fullSizeColor1);
-                //CvInvoke.Imdecode(GetBytes(secondImage, SCALING_FACTOR), ImreadModes.Color, fullSizeColor2);
-                //CvInvoke.StereoRectifyUncalibrated(goodKeyPointsVector1, goodKeyPointsVector2, funMat, fullSizeColor1.Size,
-                //    matrix1, matrix2);
+                CvInvoke.Imdecode(GetBytes(firstImage, SCALING_FACTOR), ImreadModes.Color, fullSizeColor1);
+                CvInvoke.Imdecode(GetBytes(secondImage, SCALING_FACTOR), ImreadModes.Color, fullSizeColor2);
 
-                //CvInvoke.WarpPerspective(fullSizeColor1, alignedMat1, matrix1, fullSizeColor1.Size);
-                //CvInvoke.WarpPerspective(fullSizeColor2, alignedMat2, matrix2, fullSizeColor2.Size);
+                CvInvoke.StereoRectifyUncalibrated(goodKeyPointsVector1, goodKeyPointsVector2, funMat, fullSizeColor1.Size,
+                    matrix1, matrix2);
+
+                CvInvoke.WarpPerspective(fullSizeColor1, alignedMat1, matrix1, fullSizeColor1.Size);
+                CvInvoke.WarpPerspective(fullSizeColor2, alignedMat2, matrix2, fullSizeColor2.Size);
 
                 //var drawnResult = new Mat();
                 //Features2DToolbox.DrawMatches(fullSizeColor1, goodKeyPointsVector1, fullSizeColor2, goodKeyPointsVector2, goodMatchesVector, drawnResult, new MCvScalar(0, 255, 0), new MCvScalar(255, 255, 0));
@@ -361,14 +302,13 @@ namespace AutoAlignment
                 //result.AlignedFirstBitmap = alignedMat1.ToCGImage().ToSKBitmap();
                 //result.AlignedSecondBitmap = alignedMat2.ToCGImage().ToSKBitmap();
 
-                CvInvoke.Imdecode(GetBytes(firstImage, 1), ImreadModes.Color, fullSizeColor1);
-                CvInvoke.Imdecode(GetBytes(secondImage, 1), ImreadModes.Color, fullSizeColor2);
+                //CvInvoke.Imdecode(GetBytes(firstImage, 1), ImreadModes.Color, fullSizeColor1);
+                //CvInvoke.Imdecode(GetBytes(secondImage, 1), ImreadModes.Color, fullSizeColor2);
 
-                //CvInvoke.WarpPerspective(fullSizeColor2, alignedMat2, eccWarpMatrix, fullSizeColor2.Size);
-                CvInvoke.WarpAffine(fullSizeColor2, alignedMat2, eccWarpMatrix, fullSizeColor2.Size);
+                //CvInvoke.WarpAffine(fullSizeColor2, alignedMat2, eccWarpMatrix, fullSizeColor2.Size);
 
                 result.AlignedFirstBitmap = fullSizeColor1.ToCGImage().ToSKBitmap();
-                result.AlignedSecondBitmap = alignedMat2.ToCGImage().ToSKBitmap();
+                result.AlignedSecondBitmap = fullSizeColor2.ToCGImage().ToSKBitmap();
 #elif __ANDROID__
                 //result.AlignedBitmap = alignedMat.ToBitmap().ToSKBitmap();
 #endif
