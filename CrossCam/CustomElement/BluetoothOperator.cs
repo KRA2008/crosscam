@@ -21,8 +21,20 @@ namespace CrossCam.CustomElement
     {
         private readonly Settings _settings;
         public bool IsPrimary => _settings.IsPairedPrimary.HasValue && _settings.IsPairedPrimary.Value;
-        public double Fov { get; set; }
-        public double PartnerFov { get; set; }
+
+        
+
+        public double Fov //TODO: make field of view correction a value configured by user for a pair of phones
+        {
+            get => 90;
+            set {}
+        } 
+        public double PartnerFov //TODO: make field of view correction a value configured by user for a pair of phones
+        {
+            get => 90;
+            set {}
+        }
+
         public IPageModelCoreMethods CurrentCoreMethods { get; set; }
 
         private readonly IPlatformBluetooth _platformBluetooth;

@@ -44,7 +44,7 @@ namespace AutoAlignment
         }
 
         public AlignedResult CreateAlignedSecondImage(SKBitmap firstImage, SKBitmap secondImage, int downsizePercentage, int iterations,
-            int epsilonLevel, int eccCutoff, int pyramidLayers, bool discardTransX)
+            int epsilonLevel, int eccCutoff, int pyramidLayers, bool discardTransX, bool allowFullAffine)
         {
 #if __NO_EMGU__
             return null;
@@ -65,7 +65,7 @@ namespace AutoAlignment
 
                 try
                 {
-                    var ecc = CvInvoke.FindTransformECC(mat2, mat1, warpMatrix, MotionType.Euclidean, termCriteria);
+                    var ecc = CvInvoke.FindTransformECC(mat2, mat1, warpMatrix, allowFullAffine ? MotionType.Affine : MotionType.Euclidean, termCriteria);
                     eccs.Add(ecc);
                 }
                 catch (CvException e)

@@ -188,6 +188,11 @@
                             HorizontalOptions="EndAndExpand"/>
                 </Frame>
             </StackLayout>
+            <StackLayout Orientation="Horizontal"
+                         IsVisible="{ce:DebugMarkupExtension}">
+                <Label Text="Allow full affine"/>
+                <Switch IsToggled="{Binding Settings.AlignmentAllowFullAffine}"/>
+            </StackLayout>
             <BoxView/>
             <Label Text="Saving"
                    Style="{DynamicResource header}"/>

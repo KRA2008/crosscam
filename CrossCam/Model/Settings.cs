@@ -302,6 +302,8 @@ namespace CrossCam.Model
             }
         }
 
+        public bool AlignmentAllowFullAffine { get; set; }
+
         private int _maximumParallelWidth;
         public int MaximumParallelWidth
         {
@@ -365,6 +367,7 @@ namespace CrossCam.Model
             AlignmentIterations2 = 50;
             AlignmentEccThresholdPercentage2 = 60;
             AlignmentPyramidLayers2 = 4;
+            AlignmentAllowFullAffine = false;
 
             ResolutionProportion = 100;
             BorderWidthProportion = 15;

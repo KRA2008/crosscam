@@ -1096,7 +1096,8 @@ namespace CrossCam.ViewModel
                                 Settings.AlignmentEpsilonLevel2,
                                 Settings.AlignmentEccThresholdPercentage2,
                                 Settings.AlignmentPyramidLayers2,
-                                !Settings.SaveForRedCyanAnaglyph && !Settings.AlignHorizontallySideBySide);
+                                !Settings.SaveForRedCyanAnaglyph && !Settings.AlignHorizontallySideBySide,
+                                Settings.AlignmentAllowFullAffine);
                         });
                     }
                     catch (Exception e)
@@ -1300,7 +1301,7 @@ namespace CrossCam.ViewModel
                     }
                     LeftBitmap = CorrectFovAndResolutionSide(LeftBitmap, widthCorrection, heightCorrection, finalWidth, finalHeight);
                 }
-                else
+                else if (RightFov > LeftFov)
                 {
                     if (isLandscape)
                     {
@@ -1313,6 +1314,17 @@ namespace CrossCam.ViewModel
                         widthCorrection = FindCropForFovCorrection(CalculatePortraitFov(RightFov), CalculatePortraitFov(LeftFov), RightBitmap.Width);
                     }
                     RightBitmap = CorrectFovAndResolutionSide(RightBitmap, widthCorrection, heightCorrection, finalWidth, finalHeight);
+                }
+                else
+                {
+                    if (RightBitmap.Width > LeftBitmap.Width)
+                    {
+                        RightBitmap = CorrectFovAndResolutionSide(RightBitmap, 0, 0, finalWidth, finalHeight);
+                    }
+                    else if(LeftBitmap.Width > RightBitmap.Width)
+                    {
+                        LeftBitmap = CorrectFovAndResolutionSide(LeftBitmap, 0, 0, finalWidth, finalHeight);
+                    }
                 }
             }
         }
