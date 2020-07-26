@@ -154,7 +154,7 @@ namespace AutoAlignment
             VectorOfKeyPoint allKeyPointsVector2;
             VectorOfVectorOfDMatch goodMatchesVector;
             Mat funMat;
-            using (var detector = new SIFT()) //TODO: more usings?
+            using (var detector = new ORBDetector()) //TODO: tweak props?
             {
                 // 1 = "object"
                 // 2 = "scene"
@@ -170,31 +170,85 @@ namespace AutoAlignment
                 CvInvoke.Imdecode(GetBytes(secondImage, SCALING_FACTOR), ImreadModes.Grayscale, grayscale2);
                 detector.DetectAndCompute(grayscale2, null, allKeyPointsVector2, descriptors2, false);
 
-                var vectorOfMatches = new VectorOfVectorOfDMatch();
+                //const int THRESHOLD = 2;
+                //var thresholdDistance = Math.Sqrt(Math.Pow(skMatrix.TransX, 2) + Math.Pow(skMatrix.TransY, 2)) * THRESHOLD;
+                //var mask = new Mat(allKeyPointsVector1.Size, allKeyPointsVector2.Size, DepthType.Cv8U, 1);
+                //unsafe
+                //{
+                //    var maskPtr = (byte*)mask.DataPointer.ToPointer();
+                //    for (var i = 0; i < allKeyPointsVector1.Size; i++)
+                //    {
+                //        var keyPoint1 = allKeyPointsVector1[i];
+                //        for (var j = 0; j < allKeyPointsVector2.Size; j++)
+                //        {
+                //            var keyPoint2 = allKeyPointsVector2[j];
+                //            var physicalDistance = CalculatePhysicalDistanceBetweenPoints(keyPoint1.Point, keyPoint2.Point);
+                //            if (physicalDistance < thresholdDistance)
+                //            {
+                //                *maskPtr = 255;
+                //            }
+                //            else
+                //            {
+                //                *maskPtr = 0;
+                //            }
 
-                var matcher = new BFMatcher(DistanceType.Hamming);
+                //            maskPtr++;
+                //        }
+                //    }
+                //}
+
+                var vectorOfMatches = new VectorOfVectorOfDMatch();
+                var matcher = new BFMatcher(DistanceType.Hamming, true);
                 matcher.Add(descriptors1);
-                matcher.KnnMatch(descriptors2, vectorOfMatches, 5, null);
-                var vectorTargets = new VectorOfPointF();
+                try
+                {
+                    //var mask = Mat.Ones(1, descriptors1.Cols, DepthType.Cv8U, 1);
+                    //var mask = Mat.Ones(1, descriptors1.Cols, DepthType.Cv8U, 1);     //this gets past the first assertion but fails: masks[i].rows == queryDescriptorsCount && masks[i].cols == rows && masks[i].type() == CV_8UC1
+                    //Debug.WriteLine("Mask size: " + mask.Size);
+                    Debug.WriteLine("Desc1 size : " + descriptors1.Size);
+                    Debug.WriteLine("Desc2 size : " + descriptors2.Size);
+                    Debug.WriteLine("Kp1 size : " + allKeyPointsVector1.Size);
+                    Debug.WriteLine("Kp2 size : " + allKeyPointsVector2.Size);
+                    matcher.KnnMatch(descriptors2, vectorOfMatches, 1, null);
+                }
+                catch (CvException e)
+                {
+                    Debug.WriteLine(e.ErrorMessage);
+                    return null;
+                }
+                catch (Exception e)
+                {
+                    Debug.WriteLine(e.Message);
+                    return null;
+                }
+                //var vectorTargets = new VectorOfPointF();
 
                 var startingPoints = new PointF[vectorOfMatches.Size];
                 for (var i = 0; i < vectorOfMatches.Size; i++)
                 {
-                    var queryIdx = vectorOfMatches[i][0].QueryIdx;
-                    startingPoints[queryIdx] = allKeyPointsVector1[queryIdx].Point;
+                    Debug.WriteLine("i: " + i);
+                    if (vectorOfMatches[i].Size > 0)
+                    {
+                        var queryIdx = vectorOfMatches[i][0].QueryIdx;
+                        Debug.WriteLine("Query idx: " + queryIdx);
+                        if (queryIdx > -1 && queryIdx < allKeyPointsVector1.Size)
+                        {
+                            startingPoints[queryIdx] = allKeyPointsVector1[queryIdx].Point;
+                        }
+                    }
                 }
-                var vectorStarting = new VectorOfPointF(startingPoints.ToArray());
+                //var vectorStarting = new VectorOfPointF(startingPoints.ToArray());
 
-                CvInvoke.Transform(vectorStarting, vectorTargets,eccWarpMatrix);
+                //CvInvoke.Transform(vectorStarting, vectorTargets,eccWarpMatrix);
 
-
-                var closeMatches = new List<MDMatch>();
+                var goodMatches = new List<MDMatch>();
+                //var closeMatches = new List<MDMatch>();
                 for (var i = 0; i < vectorOfMatches.Size; i++)
                 {
-                    var matchesOrderedByPhysicalDistance = vectorOfMatches[i].ToArray()
-                        .OrderBy(m => CalculatePhysicalDistanceBetweenPoints(
-                                        vectorTargets[m.QueryIdx],
-                                        allKeyPointsVector2[m.TrainIdx].Point)).ToList();
+                    //var matchesOrderedByPhysicalDistance = vectorOfMatches[i].ToArray()
+                    //    .OrderBy(m => CalculatePhysicalDistanceBetweenPoints(
+                    //                    vectorTargets[m.QueryIdx],
+                    //                    allKeyPointsVector2[m.TrainIdx].Point)).ToList();
                     //foreach (var mdMatch in matchesOrderedByPhysicalDistance)
                     //{
                     //    var queryPoint = allKeyPointsVector1[mdMatch.QueryIdx].Point;
@@ -203,12 +257,22 @@ namespace AutoAlignment
                     //    Debug.WriteLine(queryPoint.X + "," + queryPoint.Y + " " + targetPoint.X + "," + targetPoint.Y + " " + trainPoint.X + "," + trainPoint.Y);
                     //}
 
-                    closeMatches.Add(matchesOrderedByPhysicalDistance[0]);
+                    //closeMatches.Add(matchesOrderedByPhysicalDistance[0]);
+
+                    if (vectorOfMatches[i].Size == 0)
+                    {
+                        continue;
+                    }
+
+                    if(vectorOfMatches[i].Size == 1 || (vectorOfMatches[i][0].Distance < 0.75 * vectorOfMatches[i][1].Distance))
+                    {
+                        goodMatches.Add(vectorOfMatches[i][0]);
+                    }
                 }
 
-                var goodMatches = closeMatches.OrderBy(m => CalculatePhysicalDistanceBetweenPoints(
-                    vectorTargets[m.QueryIdx],
-                    allKeyPointsVector2[m.TrainIdx].Point)).ToList().GetRange(0, Math.Min(30,closeMatches.Count));
+                //var goodMatches = closeMatches.OrderBy(m => CalculatePhysicalDistanceBetweenPoints(
+                //    vectorTargets[m.QueryIdx],
+                //    allKeyPointsVector2[m.TrainIdx].Point)).ToList().GetRange(0, Math.Min(30,closeMatches.Count));
 
 
                 //foreach (var mdMatch in goodMatches)
@@ -285,14 +349,14 @@ namespace AutoAlignment
                 CvInvoke.Imdecode(GetBytes(firstImage, SCALING_FACTOR), ImreadModes.Color, fullSizeColor1);
                 CvInvoke.Imdecode(GetBytes(secondImage, SCALING_FACTOR), ImreadModes.Color, fullSizeColor2);
 
-                CvInvoke.StereoRectifyUncalibrated(goodKeyPointsVector1, goodKeyPointsVector2, funMat, fullSizeColor1.Size,
-                    matrix1, matrix2);
+                //CvInvoke.StereoRectifyUncalibrated(goodKeyPointsVector1, goodKeyPointsVector2, funMat, fullSizeColor1.Size,
+                //    matrix1, matrix2);
 
-                CvInvoke.WarpPerspective(fullSizeColor1, alignedMat1, matrix1, fullSizeColor1.Size);
-                CvInvoke.WarpPerspective(fullSizeColor2, alignedMat2, matrix2, fullSizeColor2.Size);
+                //CvInvoke.WarpPerspective(fullSizeColor1, alignedMat1, matrix1, fullSizeColor1.Size);
+                //CvInvoke.WarpPerspective(fullSizeColor2, alignedMat2, matrix2, fullSizeColor2.Size);
 
-                //var drawnResult = new Mat();
-                //Features2DToolbox.DrawMatches(fullSizeColor1, goodKeyPointsVector1, fullSizeColor2, goodKeyPointsVector2, goodMatchesVector, drawnResult, new MCvScalar(0, 255, 0), new MCvScalar(255, 255, 0));
+                var drawnResult = new Mat();
+                Features2DToolbox.DrawMatches(fullSizeColor1, goodKeyPointsVector1, fullSizeColor2, goodKeyPointsVector2, goodMatchesVector, drawnResult, new MCvScalar(0, 255, 0), new MCvScalar(255, 255, 0));
                 //Features2DToolbox.DrawKeypoints(fullSizeColor1, goodKeyPointsVector1, alignedMat1, new Bgr(Color.LawnGreen));
                 //Features2DToolbox.DrawKeypoints(fullSizeColor2, goodKeyPointsVector2, alignedMat2, new Bgr(Color.LawnGreen));
 
@@ -301,14 +365,14 @@ namespace AutoAlignment
                 //result.AlignedSecondBitmap = drawnResult.ToCGImage().ToSKBitmap();
                 //result.AlignedFirstBitmap = alignedMat1.ToCGImage().ToSKBitmap();
                 //result.AlignedSecondBitmap = alignedMat2.ToCGImage().ToSKBitmap();
-
+                
                 //CvInvoke.Imdecode(GetBytes(firstImage, 1), ImreadModes.Color, fullSizeColor1);
                 //CvInvoke.Imdecode(GetBytes(secondImage, 1), ImreadModes.Color, fullSizeColor2);
 
                 //CvInvoke.WarpAffine(fullSizeColor2, alignedMat2, eccWarpMatrix, fullSizeColor2.Size);
 
-                result.AlignedFirstBitmap = fullSizeColor1.ToCGImage().ToSKBitmap();
-                result.AlignedSecondBitmap = fullSizeColor2.ToCGImage().ToSKBitmap();
+                result.AlignedFirstBitmap = drawnResult.ToCGImage().ToSKBitmap();
+                result.AlignedSecondBitmap = drawnResult.ToCGImage().ToSKBitmap();
 #elif __ANDROID__
                 //result.AlignedBitmap = alignedMat.ToBitmap().ToSKBitmap();
 #endif
