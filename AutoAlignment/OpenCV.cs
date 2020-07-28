@@ -147,7 +147,7 @@ namespace AutoAlignment
 
 
             var warpMatrix = new Mat();
-            const double SCALING_FACTOR = 0.5;
+            const double SCALING_FACTOR = 1;
             VectorOfKeyPoint goodKeyPointsVector1;
             VectorOfKeyPoint allKeyPointsVector1;
             VectorOfKeyPoint goodKeyPointsVector2;
@@ -170,7 +170,7 @@ namespace AutoAlignment
                 CvInvoke.Imdecode(GetBytes(secondImage, SCALING_FACTOR), ImreadModes.Grayscale, grayscale2);
                 detector.DetectAndCompute(grayscale2, null, allKeyPointsVector2, descriptors2, false);
 
-                const double THRESHOLD = 4;
+                const double THRESHOLD = 2;
                 var thresholdDistance = Math.Sqrt(Math.Pow(skMatrix.TransX * SCALING_FACTOR, 2) + Math.Pow(skMatrix.TransY * SCALING_FACTOR, 2)) * THRESHOLD;
                 var mask = new Mat(allKeyPointsVector2.Size, allKeyPointsVector1.Size, DepthType.Cv8U, 1);
                 unsafe
@@ -309,6 +309,7 @@ namespace AutoAlignment
                 {
                     Debug.WriteLine("MATCHES: " + goodMatches.Count);
                     funMat = CvInvoke.FindFundamentalMat(goodPointsVector1, goodPointsVector2);
+                    warpMatrix = CvInvoke.EstimateRigidTransform(goodPointsVector1, goodPointsVector2, false);
                 }
                 catch
                 {
@@ -345,6 +346,8 @@ namespace AutoAlignment
 
                 CvInvoke.WarpPerspective(fullSizeColor1, alignedMat1, matrix1, fullSizeColor1.Size);
                 CvInvoke.WarpPerspective(fullSizeColor2, alignedMat2, matrix2, fullSizeColor2.Size);
+
+                //CvInvoke.WarpAffine(fullSizeColor1, alignedMat1, warpMatrix, fullSizeColor1.Size);
 
                 //var drawnResult = new Mat();
                 //Features2DToolbox.DrawMatches(fullSizeColor1, goodKeyPointsVector1, fullSizeColor2, goodKeyPointsVector2, goodMatchesVector, drawnResult, new MCvScalar(0, 255, 0), new MCvScalar(255, 255, 0));
