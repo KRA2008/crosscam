@@ -5,20 +5,15 @@ using AutoAlignment;
 using CrossCam.Model;
 using CrossCam.Wrappers;
 #if !__NO_EMGU__
-using System.Diagnostics;
 using System.Drawing;
-using System.Numerics;
 using Emgu.CV;
 using Emgu.CV.CvEnum;
 using Emgu.CV.Features2D;
-using Emgu.CV.Flann;
 using Emgu.CV.Structure;
 using Emgu.CV.Util;
-using Emgu.CV.XFeatures2D;
 #endif
 using SkiaSharp;
 using Xamarin.Forms;
-using Color = System.Drawing.Color;
 #if __ANDROID__
 using SkiaSharp.Views.Android;
 #elif __IOS__
@@ -101,17 +96,15 @@ namespace AutoAlignment
                 return null;
             }
 
-            var skMatrix = ConvertCvMatToSkMatrix(eccWarpMatrix, false);
+            var skMatrix = ConvertCvMatToSkMatrixFloat(eccWarpMatrix);
 
 
 
-
-            var rigidWarpMatrix = new Mat();
+            Mat rigidWarpMatrix;
             const double SCALING_FACTOR = 1;
-            VectorOfKeyPoint goodKeyPointsVector1;
-            VectorOfKeyPoint goodKeyPointsVector2;
-            VectorOfVectorOfDMatch goodMatchesVector;
-            Mat funMat;
+            var goodMatchesVectorList = new List<MDMatch[]>();
+            var tempGoodKeyPoints2 = new List<MKeyPoint>();
+            var tempGoodKeyPoints1 = new List<MKeyPoint>();
             using (var detector = new ORBDetector())
             {
                 var grayscale1 = new Mat();
@@ -156,7 +149,7 @@ namespace AutoAlignment
                 var vectorOfMatches = new VectorOfVectorOfDMatch();
                 var matcher = new BFMatcher(DistanceType.Hamming);
                 matcher.Add(descriptors1);
-                matcher.KnnMatch(descriptors2, vectorOfMatches, 2, null);
+                matcher.KnnMatch(descriptors2, vectorOfMatches, 2, new VectorOfMat(mask));
 
                 var goodMatches = new List<MDMatch>();
                 for (var i = 0; i < vectorOfMatches.Size; i++)
@@ -173,14 +166,11 @@ namespace AutoAlignment
                 }
 
                 var tempGoodPoints1List = new List<PointF>();
-                var tempGoodKeyPoints1 = new List<MKeyPoint>();
                 var tempGoodPoints2List = new List<PointF>();
-                var tempGoodKeyPoints2 = new List<MKeyPoint>();
 
                 var tempAllKeyPoints1List = allKeyPointsVector1.ToArray().ToList();
                 var tempAllKeyPoints2List = allKeyPointsVector2.ToArray().ToList();
 
-                var goodMatchesVectorList = new List<MDMatch[]>();
                 for (var ii = 0; ii < goodMatches.Count; ii++)
                 {
                     var queryIndex = goodMatches[ii].QueryIdx;
@@ -198,28 +188,17 @@ namespace AutoAlignment
                     }});
                 }
 
-                goodMatchesVector = new VectorOfVectorOfDMatch(goodMatchesVectorList.ToArray());
-                goodKeyPointsVector1 = new VectorOfKeyPoint(tempGoodKeyPoints1.ToArray());
-                goodKeyPointsVector2 = new VectorOfKeyPoint(tempGoodKeyPoints2.ToArray());
                 var goodPointsVector1 = new VectorOfPointF(tempGoodPoints1List.ToArray());
                 var goodPointsVector2 = new VectorOfPointF(tempGoodPoints2List.ToArray());
 
                 try
                 {
-                    Debug.WriteLine("MATCHES: " + goodMatches.Count);
-                    funMat = CvInvoke.FindFundamentalMat(goodPointsVector1, goodPointsVector2);
                     rigidWarpMatrix = CvInvoke.EstimateRigidTransform(goodPointsVector2, goodPointsVector1, false);
                 }
                 catch
                 {
                     return null;
                 }
-
-                //warpMatrix = CvInvoke.FindHomography(goodPointsVector1, goodPointsVector2, HomographyMethod.Ransac);
-                //if (warpMatrix == null || warpMatrix.IsEmpty)
-                //{
-                //    return null;
-                //}
             }
 
 
@@ -227,47 +206,28 @@ namespace AutoAlignment
 
             var result = new AlignedResult
             {
-                //TransformMatrix = skMatrix
+                TransformMatrix = ConvertCvMatToSkMatrixDouble(rigidWarpMatrix, discardTransX)
             };
 
             using (var fullSizeColor1 = new Mat())
             using (var fullSizeColor2 = new Mat())
-            using (var matrix1 = new Mat())
-            using (var matrix2 = new Mat())
-            using (var alignedMat1 = new Mat())
-            using (var alignedMat2 = new Mat())
+            using (var alignedMat = new Mat())
             {
                 CvInvoke.Imdecode(GetBytes(firstImage, SCALING_FACTOR), ImreadModes.Color, fullSizeColor1);
                 CvInvoke.Imdecode(GetBytes(secondImage, SCALING_FACTOR), ImreadModes.Color, fullSizeColor2);
+
+                CvInvoke.WarpAffine(fullSizeColor2, alignedMat, rigidWarpMatrix, fullSizeColor2.Size);
 #if __IOS__
-                //CvInvoke.StereoRectifyUncalibrated(goodKeyPointsVector1, goodKeyPointsVector2, funMat, fullSizeColor1.Size,
-                //    matrix1, matrix2);
-                //CvInvoke.WarpPerspective(fullSizeColor1, alignedMat1, matrix1, fullSizeColor1.Size);
-                //CvInvoke.WarpPerspective(fullSizeColor2, alignedMat2, matrix2, fullSizeColor2.Size);
-                //result.AlignedFirstBitmap = alignedMat1.ToCGImage().ToSKBitmap();
-                //result.AlignedSecondBitmap = alignedMat2.ToCGImage().ToSKBitmap();
-
-
-
-                CvInvoke.WarpAffine(fullSizeColor2, alignedMat2, rigidWarpMatrix, fullSizeColor2.Size);
-                result.AlignedFirstBitmap = fullSizeColor1.ToCGImage().ToSKBitmap();
-                result.AlignedSecondBitmap = alignedMat2.ToCGImage().ToSKBitmap();
-
-
-
-                //var drawnResult = new Mat();
-                //Features2DToolbox.DrawMatches(fullSizeColor1, goodKeyPointsVector1, fullSizeColor2, goodKeyPointsVector2, goodMatchesVector, drawnResult, new MCvScalar(0, 255, 0), new MCvScalar(255, 255, 0));
-                //result.AlignedFirstBitmap = drawnResult.ToCGImage().ToSKBitmap();
-                //result.AlignedSecondBitmap = drawnResult.ToCGImage().ToSKBitmap();
+                result.AlignedBitmap = alignedMat.ToCGImage().ToSKBitmap();
 #elif __ANDROID__
-                //result.AlignedBitmap = alignedMat.ToBitmap().ToSKBitmap();
+                result.AlignedBitmap = alignedMat.ToBitmap().ToSKBitmap();
 #endif
                 return result;
             }
 #endif
         }
 
-        private static SKMatrix ConvertCvMatToSkMatrix(Mat mat, bool discardTransX)
+        private static SKMatrix ConvertCvMatToSkMatrixFloat(Mat mat)
         {
             var skMatrix = SKMatrix.MakeIdentity();
             unsafe
@@ -277,10 +237,6 @@ namespace AutoAlignment
                 ptr++; //SkewX
                 skMatrix.SkewX = *ptr;
                 ptr++; //TransX
-                if (discardTransX)
-                {
-                    *ptr = 0;
-                }
                 skMatrix.TransX = *ptr;
                 ptr++; //SkewY
                 skMatrix.SkewY = *ptr;
@@ -288,6 +244,32 @@ namespace AutoAlignment
                 skMatrix.ScaleY = *ptr;
                 ptr++; //TransY
                 skMatrix.TransY = *ptr;
+            }
+
+            return skMatrix;
+        }
+
+        private static SKMatrix ConvertCvMatToSkMatrixDouble(Mat mat, bool discardTransX)
+        {
+            var skMatrix = SKMatrix.MakeIdentity();
+            unsafe
+            {
+                var ptr = (double*)mat.DataPointer.ToPointer(); //ScaleX
+                skMatrix.ScaleX = (float)*ptr;
+                ptr++; //SkewX
+                skMatrix.SkewX = (float)*ptr;
+                ptr++; //TransX
+                if (discardTransX)
+                {
+                    *ptr = 0;
+                }
+                skMatrix.TransX = (float)*ptr;
+                ptr++; //SkewY
+                skMatrix.SkewY = (float)*ptr;
+                ptr++; //ScaleY
+                skMatrix.ScaleY = (float)*ptr;
+                ptr++; //TransY
+                skMatrix.TransY = (float)*ptr;
             }
 
             return skMatrix;
