@@ -1096,8 +1096,7 @@ namespace CrossCam.ViewModel
                                 Settings.AlignmentEpsilonLevel2,
                                 Settings.AlignmentEccThresholdPercentage2,
                                 Settings.AlignmentPyramidLayers2,
-                                !Settings.SaveForRedCyanAnaglyph && !Settings.AlignHorizontallySideBySide,
-                                Settings.AlignmentAllowFullAffine);
+                                !Settings.SaveForRedCyanAnaglyph && !Settings.AlignHorizontallySideBySide);
                         });
                     }
                     catch (Exception e)
@@ -1185,12 +1184,12 @@ namespace CrossCam.ViewModel
                         if (IsCaptureLeftFirst)
                         {
                             _originalUnalignedBitmap = RightBitmap;
-                            SetRightBitmap(alignedResult.AlignedBitmap, true, true);
+                            SetRightBitmap(alignedResult.AlignedBitmap, false, true);
                         }
                         else
                         {
                             _originalUnalignedBitmap = LeftBitmap;
-                            SetLeftBitmap(alignedResult.AlignedBitmap, true, true);
+                            SetLeftBitmap(alignedResult.AlignedBitmap, false, true);
                         }
                     }
                     else
