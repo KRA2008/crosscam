@@ -101,26 +101,22 @@ namespace AutoAlignment
 
 
             Mat rigidWarpMatrix;
-            const double SCALING_FACTOR = 1;
-            var goodMatchesVectorList = new List<MDMatch[]>();
-            var tempGoodKeyPoints2 = new List<MKeyPoint>();
-            var tempGoodKeyPoints1 = new List<MKeyPoint>();
             using (var detector = new ORBDetector())
             {
                 var grayscale1 = new Mat();
                 var descriptors1 = new Mat();
                 var allKeyPointsVector1 = new VectorOfKeyPoint();
-                CvInvoke.Imdecode(GetBytes(firstImage, SCALING_FACTOR), ImreadModes.Grayscale, grayscale1);
+                CvInvoke.Imdecode(GetBytes(firstImage, 1), ImreadModes.Grayscale, grayscale1);
                 detector.DetectAndCompute(grayscale1, null, allKeyPointsVector1, descriptors1, false);
 
                 var grayscale2 = new Mat();
                 var descriptors2 = new Mat();
                 var allKeyPointsVector2 = new VectorOfKeyPoint();
-                CvInvoke.Imdecode(GetBytes(secondImage, SCALING_FACTOR), ImreadModes.Grayscale, grayscale2);
+                CvInvoke.Imdecode(GetBytes(secondImage, 1), ImreadModes.Grayscale, grayscale2);
                 detector.DetectAndCompute(grayscale2, null, allKeyPointsVector2, descriptors2, false);
 
                 const double THRESHOLD = 2;
-                var thresholdDistance = Math.Sqrt(Math.Pow(skMatrix.TransX * SCALING_FACTOR, 2) + Math.Pow(skMatrix.TransY * SCALING_FACTOR, 2)) * THRESHOLD;
+                var thresholdDistance = Math.Sqrt(Math.Pow(skMatrix.TransX, 2) + Math.Pow(skMatrix.TransY, 2)) * THRESHOLD;
                 var mask = new Mat(allKeyPointsVector2.Size, allKeyPointsVector1.Size, DepthType.Cv8U, 1);
                 unsafe
                 {
@@ -176,16 +172,7 @@ namespace AutoAlignment
                     var queryIndex = goodMatches[ii].QueryIdx;
                     var trainIndex = goodMatches[ii].TrainIdx;
                     tempGoodPoints1List.Add(tempAllKeyPoints1List.ElementAt(trainIndex).Point);
-                    tempGoodKeyPoints1.Add(tempAllKeyPoints1List.ElementAt(trainIndex));
                     tempGoodPoints2List.Add(tempAllKeyPoints2List.ElementAt(queryIndex).Point);
-                    tempGoodKeyPoints2.Add(tempAllKeyPoints2List.ElementAt(queryIndex));
-                    goodMatchesVectorList.Add(new[]{new MDMatch
-                    {
-                        Distance = goodMatches[ii].Distance,
-                        ImgIdx = goodMatches[ii].ImgIdx,
-                        QueryIdx = ii,
-                        TrainIdx = ii
-                    }});
                 }
 
                 var goodPointsVector1 = new VectorOfPointF(tempGoodPoints1List.ToArray());
@@ -213,8 +200,8 @@ namespace AutoAlignment
             using (var fullSizeColor2 = new Mat())
             using (var alignedMat = new Mat())
             {
-                CvInvoke.Imdecode(GetBytes(firstImage, SCALING_FACTOR), ImreadModes.Color, fullSizeColor1);
-                CvInvoke.Imdecode(GetBytes(secondImage, SCALING_FACTOR), ImreadModes.Color, fullSizeColor2);
+                CvInvoke.Imdecode(GetBytes(firstImage, 1), ImreadModes.Color, fullSizeColor1);
+                CvInvoke.Imdecode(GetBytes(secondImage, 1), ImreadModes.Color, fullSizeColor2);
 
                 CvInvoke.WarpAffine(fullSizeColor2, alignedMat, rigidWarpMatrix, fullSizeColor2.Size);
 #if __IOS__
