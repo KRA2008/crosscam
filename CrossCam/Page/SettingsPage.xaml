@@ -121,11 +121,6 @@
                         HorizontalOptions="EndAndExpand"/>
                 </Frame>
             </StackLayout>
-            <StackLayout Orientation="Horizontal">
-                <Label Text="Clip border off when loading stereo pair"/>
-                <Switch IsToggled="{Binding Settings.ClipBorderOnLoad}"
-                        HorizontalOptions="EndAndExpand"/>
-            </StackLayout>
             <BoxView/>
             <Label Text="Automatic Alignment"
                    Style="{DynamicResource header}"/>
@@ -190,8 +185,8 @@
             </StackLayout>
             <StackLayout Orientation="Horizontal"
                          IsVisible="{ce:DebugMarkupExtension}">
-                <Label Text="Allow full affine"/>
-                <Switch IsToggled="{Binding Settings.AlignmentAllowFullAffine}"/>
+                <Label Text="Save matches"/>
+                <Switch IsToggled="{Binding Settings.AlignmentDrawMatches}"/>
             </StackLayout>
             <BoxView/>
             <Label Text="Saving"
@@ -415,8 +410,8 @@
                 </Frame>
             </StackLayout>
             <StackLayout Orientation="Horizontal">
-                <Label Text="Clip border off when loading stereo pair"/>
-                <Switch IsToggled="{Binding Settings.ClipBorderOnLoad}"
+                <Label Text="Clip border off when loading next stereo pair"/>
+                <Switch IsToggled="{Binding Settings.ClipBorderOnNextLoad}"
                         HorizontalOptions="EndAndExpand"/>
             </StackLayout>
             <BoxView/>

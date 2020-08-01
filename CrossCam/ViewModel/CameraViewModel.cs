@@ -1043,10 +1043,15 @@ namespace CrossCam.ViewModel
         {
             try
             {
-                var leftHalf = await Task.Run(() => GetHalfOfFullStereoImage(image, true, Settings.ClipBorderOnLoad));
+                var leftHalf = await Task.Run(() => GetHalfOfFullStereoImage(image, true, Settings.ClipBorderOnNextLoad));
                 SetLeftBitmap(leftHalf, false, true);
-                var rightHalf = await Task.Run(() => GetHalfOfFullStereoImage(image, false, Settings.ClipBorderOnLoad));
+                var rightHalf = await Task.Run(() => GetHalfOfFullStereoImage(image, false, Settings.ClipBorderOnNextLoad));
                 SetRightBitmap(rightHalf, false, true);
+                if (Settings.ClipBorderOnNextLoad)
+                {
+                    Settings.ClipBorderOnNextLoad = false;
+                    PersistentStorage.Save(PersistentStorage.SETTINGS_KEY, Settings);
+                }
             }
             catch (Exception e)
             {
@@ -1106,6 +1111,25 @@ namespace CrossCam.ViewModel
 
                     if (alignedResult != null)
                     {
+                        if (Settings.AlignmentDrawMatches)
+                        {
+                            using (var tempSurface =
+                                SKSurface.Create(new SKImageInfo(alignedResult.DrawnMatches.Width, alignedResult.DrawnMatches.Height)))
+                            {
+                                var canvas = tempSurface.Canvas;
+                                canvas.Clear();
+                                if (Device.RuntimePlatform == Device.iOS && IsViewInverted)
+                                {
+                                    canvas.RotateDegrees(180);
+                                    canvas.Translate(-1f * alignedResult.DrawnMatches.Width, -1f * alignedResult.DrawnMatches.Height);
+                                }
+
+                                canvas.DrawBitmap(alignedResult.DrawnMatches,0,0);
+
+                                await SaveSurfaceSnapshot(tempSurface);
+                            }
+                        }
+
                         _wasAlignmentWithHorizontalRun = Settings.SaveForRedCyanAnaglyph || Settings.AlignHorizontallySideBySide;
                         _wasAlignmentWithoutHorizontalRun = !Settings.SaveForRedCyanAnaglyph && !Settings.AlignHorizontallySideBySide;
 
@@ -1403,6 +1427,7 @@ namespace CrossCam.ViewModel
                     Math.Abs(topLeftColor - bottomRightColor) < BORDER_DIFF_THRESHOLD &&
                     Math.Abs(topRightColor - bottomLeftColor) < BORDER_DIFF_THRESHOLD)
                 {
+
                     for (var ii = startX; ii < startX + (endX - startX) / 2; ii++)
                     {
                         var color = original.GetPixel(ii, endY / 2);

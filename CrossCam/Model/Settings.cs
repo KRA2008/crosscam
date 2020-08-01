@@ -115,7 +115,7 @@ namespace CrossCam.Model
 
         public bool AddBorder { get; set; }
 
-        public bool ClipBorderOnLoad { get; set; }
+        public bool ClipBorderOnNextLoad { get; set; }
 
         public bool? IsPairedPrimary { get; set; }
 
@@ -302,8 +302,6 @@ namespace CrossCam.Model
             }
         }
 
-        public bool AlignmentAllowFullAffine { get; set; }
-
         private int _maximumParallelWidth;
         public int MaximumParallelWidth
         {
@@ -316,6 +314,8 @@ namespace CrossCam.Model
                 }
             }
         }
+
+        public bool AlignmentDrawMatches { get; set; }
 
         public Settings()
         {
@@ -333,7 +333,7 @@ namespace CrossCam.Model
             ShowRollGuide = true;
 
             AddBorder = false;
-            ClipBorderOnLoad = true;
+            ClipBorderOnNextLoad = false;
 
             ShowGuideLinesWithFirstCapture = false;
             IsGuideDonutVisible = false;
@@ -367,7 +367,7 @@ namespace CrossCam.Model
             AlignmentIterations2 = 50;
             AlignmentEccThresholdPercentage2 = 60;
             AlignmentPyramidLayers2 = 4;
-            AlignmentAllowFullAffine = false;
+            AlignmentDrawMatches = false;
 
             ResolutionProportion = 100;
             BorderWidthProportion = 15;
