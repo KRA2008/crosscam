@@ -39,9 +39,11 @@ namespace CrossCam.CustomElement
 
         private readonly IPlatformBluetooth _platformBluetooth;
         public const string CROSSCAM_SERVICE = "CrossCam";
+        private const int SECONDS_COUNTDOWN = 3;
         public static readonly Guid ServiceGuid = Guid.Parse("492a8e3d-2589-40b1-b9c2-419a7ce80f3c");
         private PartnerDevice _device;
         private readonly Timer _captureSyncTimer = new Timer{AutoReset = false};
+        private readonly Timer _countdownTimer = new Timer{AutoReset = false};
 
         private const int TIMER_TOTAL_SAMPLES = 50;
         private int _timerSampleIndex;
@@ -57,6 +59,7 @@ namespace CrossCam.CustomElement
         public Command AttemptConnectionCommand { get; set; }
 
         public PairStatus PairStatus { get; set; }
+        public int CountdownTimeRemaining { get; set; }
 
         private bool _primaryIsRequestingDisconnect;
         private int _initializeThreadLocker;
@@ -134,6 +137,27 @@ namespace CrossCam.CustomElement
             _captureSyncTimer.Elapsed -= OnCaptureSyncTimeElapsed;
             var handler = CaptureSyncTimeElapsed;
             handler?.Invoke(this, e);
+        }
+
+        private void OnCountdownTimerSecondElapsed(object sender, ElapsedEventArgs e)
+        {
+            CountdownTimeRemaining--;
+            _countdownTimer.Elapsed -= OnCountdownTimerSecondElapsed;
+            if (CountdownTimeRemaining > 0)
+            {
+                _countdownTimer.Interval = 1000;
+                _countdownTimer.Elapsed += OnCountdownTimerSecondElapsed;
+                _countdownTimer.Start();
+            }
+        }
+
+        private void OnCountdownTimerSyncComplete(object sender, ElapsedEventArgs e)
+        {
+            CountdownTimeRemaining = SECONDS_COUNTDOWN;
+            _countdownTimer.Elapsed -= OnCountdownTimerSyncComplete;
+            _countdownTimer.Interval = 1000;
+            _countdownTimer.Elapsed += OnCountdownTimerSecondElapsed;
+            _countdownTimer.Start();
         }
 
         public event EventHandler<byte[]> CapturedImageReceived;
@@ -501,7 +525,8 @@ namespace CrossCam.CustomElement
                 });
             }
 
-            var targetSyncMoment = DateTime.UtcNow.AddTicks(trip * BUFFER_TRIP_MULTIPLIER);
+            //var targetSyncMoment = DateTime.UtcNow.AddTicks(trip * BUFFER_TRIP_MULTIPLIER);
+            var targetSyncMoment = DateTime.UtcNow.AddSeconds(SECONDS_COUNTDOWN);
             SyncCapture(targetSyncMoment);
             var partnerSyncMoment = targetSyncMoment.AddTicks(offset);
             Debug.WriteLine("Target sync: " + targetSyncMoment.ToString("O"));
@@ -529,6 +554,9 @@ namespace CrossCam.CustomElement
                 _captureSyncTimer.Elapsed += OnCaptureSyncTimeElapsed;
                 _captureSyncTimer.Interval = interval;
                 _captureSyncTimer.Start();
+                _countdownTimer.Elapsed += OnCountdownTimerSyncComplete;
+                _countdownTimer.Interval = SECONDS_COUNTDOWN * 1000 - interval;
+                _countdownTimer.Start();
                 Debug.WriteLine("Sync interval set: " + interval);
                 Debug.WriteLine("Sync time: " + syncTime.ToString("O"));
             }
