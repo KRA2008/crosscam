@@ -97,31 +97,6 @@
                 </Frame>
             </StackLayout>
             <BoxView/>
-            <Label Text="Border"
-                   Style="{DynamicResource header}"/>
-            <StackLayout Orientation="Horizontal">
-                <Label Text="Add border"/>
-                <Switch IsToggled="{Binding Settings.AddBorder}"
-                        HorizontalOptions="EndAndExpand"/>
-            </StackLayout>
-            <StackLayout Orientation="Horizontal">
-                <Label Text="Border color"/>
-                <Frame>
-                    <Picker ItemsSource="{Binding BorderColors}"
-                        SelectedIndex="{Binding Settings.BorderColor, Converter={vc:BorderColorValueConverter}}"
-                        HorizontalOptions="EndAndExpand"/>
-                </Frame>
-            </StackLayout>
-            <StackLayout Orientation="Horizontal">
-                <Label Text="Border thickness (tenths of percentage of width)"/>
-                <Frame>
-                    <Picker ItemsSource="{Binding ZeroToOneHundred}"
-                        SelectedIndex="{Binding Settings.BorderWidthProportion}"
-                        WidthRequest="50"
-                        HorizontalOptions="EndAndExpand"/>
-                </Frame>
-            </StackLayout>
-            <BoxView/>
             <Label Text="Automatic Alignment"
                    Style="{DynamicResource header}"/>
             <StackLayout Orientation="Horizontal">
