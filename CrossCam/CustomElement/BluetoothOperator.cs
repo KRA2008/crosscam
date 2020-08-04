@@ -360,6 +360,7 @@ namespace CrossCam.CustomElement
             }
             else
             {
+                Debug.WriteLine("### TIMER SAMPLES WRAPPED");
                 _timerSampleIndex = 0;
             }
 
@@ -506,15 +507,11 @@ namespace CrossCam.CustomElement
                     offsets.Add(timeOffsetRun);
                     var roundTripDelayRun = t3 - t0;
                     trips.Add(roundTripDelayRun);
-                    Debug.WriteLine("Time offset: " + timeOffsetRun / 10000d + " milliseconds");
-                    Debug.WriteLine("Round trip delay: " + roundTripDelayRun / 10000d + " milliseconds");
                 }
 
-                offset = offsets.Where(o => o != 0).OrderByDescending(o => o).ElementAt(TIMER_TOTAL_SAMPLES / 2); //median
+                //offset = offsets.Where(o => o != 0).OrderByDescending(o => o).ElementAt(TIMER_TOTAL_SAMPLES / 2);
+                offset = GetCleanAverage(offsets);
                 trip = trips.Max();
-
-                Debug.WriteLine("Median time offset: " + offset / 10000d + " milliseconds");
-                Debug.WriteLine("Max trip delay: " + trip / 10000d + " milliseconds");
             }
             catch (Exception e)
             {
@@ -535,15 +532,15 @@ namespace CrossCam.CustomElement
             _isCaptureRequested = false;
         }
 
-        private static IEnumerable<long> CleanseData(IEnumerable<long> data)
+        private static long GetCleanAverage(IEnumerable<long> data)
         {
             var nonZero = data.Where(d => d != 0).ToList();
 
             var avg = nonZero.Average();
             var sum = nonZero.Sum(d => Math.Pow(d - avg, 2));
-            var stdDev = Math.Sqrt(sum / (nonZero.Count - 1));
+            var stdDev = Math.Sqrt(sum / nonZero.Count);
 
-            return nonZero.Where(datum => Math.Abs(datum - avg) < stdDev).ToArray();
+            return (long)nonZero.Where(datum => Math.Abs(datum - avg) < stdDev).Average();
         }
 
         private void SyncCapture(DateTime syncTime)
