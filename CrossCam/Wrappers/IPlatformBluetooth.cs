@@ -16,7 +16,6 @@ namespace CrossCam.Wrappers
         Task<bool> TurnOnLocationServices(); 
         Task AttemptConnection(PartnerDevice partnerDevice);
         void ForgetDevice(PartnerDevice partnerDevice);
-        IEnumerable<PartnerDevice> GetPairedDevices();
         Task<bool> StartScanning();
         event EventHandler<PartnerDevice> DeviceDiscovered;
         Task<bool> BecomeDiscoverable();

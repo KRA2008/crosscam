@@ -111,11 +111,6 @@ namespace CrossCam.iOS.CustomRenderer
             return Task.FromResult(true);
         }
 
-        public IEnumerable<PartnerDevice> GetPairedDevices()
-        {
-            return Enumerable.Empty<PartnerDevice>().ToList();
-        }
-
         public Task<bool> StartScanning()
         {
             var myPeerId = new MCPeerID(UIDevice.CurrentDevice.Name);

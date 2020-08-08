@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -190,17 +191,10 @@ namespace CrossCam.Droid.CustomRenderer
             return _isLocationOnTask.Task;
         }
 
-        public IEnumerable<PartnerDevice> GetPairedDevices()
-        {
-            return BluetoothAdapter.DefaultAdapter.BondedDevices
-                .Select(device => new PartnerDevice { Name = device.Name ?? "Unnamed", Address = device.Address })
-                .ToList();
-        }
-
         public async Task SendPayload(byte[] bytes)
         {
             var result = await NearbyClass.Connections.SendPayloadAsync(_googleApiClient, _partnerId,
-                Payload.FromBytes(bytes));
+                Payload.FromStream(new MemoryStream(bytes)));
         }
 
         public event EventHandler<byte[]> PayloadReceived;
@@ -391,6 +385,8 @@ namespace CrossCam.Droid.CustomRenderer
                         Debug.WriteLine("### AcceptConnectionAsync result: " + p0 + ", " + result.StatusMessage);
                         _platformBluetooth._partnerId = p0;
                         _platformBluetooth.OnConnected();
+                        NearbyClass.Connections.StopDiscovery(_platformBluetooth._googleApiClient);
+                        NearbyClass.Connections.StopAdvertising(_platformBluetooth._googleApiClient);
                     }
                 //}
             }
@@ -402,6 +398,8 @@ namespace CrossCam.Droid.CustomRenderer
                 {
                     _platformBluetooth._partnerId = p0;
                     _platformBluetooth.OnConnected();
+                    NearbyClass.Connections.StopDiscovery(_platformBluetooth._googleApiClient);
+                    NearbyClass.Connections.StopAdvertising(_platformBluetooth._googleApiClient);
                 }
             }
 
@@ -414,6 +412,7 @@ namespace CrossCam.Droid.CustomRenderer
         private class MyPayloadCallback : PayloadCallback
         {
             private readonly PlatformBluetooth _platformBluetooth;
+            private Payload _mostRecentPayload;
 
             public MyPayloadCallback(PlatformBluetooth platformBluetooth)
             {
@@ -422,13 +421,29 @@ namespace CrossCam.Droid.CustomRenderer
 
             public override void OnPayloadReceived(string p0, Payload p1)
             {
-                Debug.WriteLine("### OnPayloadReceived " + p0 + ", " + p1.AsBytes());
-                _platformBluetooth.OnPayloadReceived(p1.AsBytes());
+                Debug.WriteLine("### OnPayloadReceived, payload: " + p0 + ", payload type: " + p1.PayloadType);
+                Debug.WriteLine("Id: " + p1.Id);
+                _mostRecentPayload = p1;
             }
 
             public override void OnPayloadTransferUpdate(string p0, PayloadTransferUpdate p1)
             {
                 Debug.WriteLine("### OnPayloadTransferUpdate " + p0 + ", " + p1.TransferStatus);
+                Debug.WriteLine("Transferred: " + p1.BytesTransferred);
+                Debug.WriteLine("Total: " + p1.TotalBytes);
+                Debug.WriteLine("Id: " + p1.PayloadId);
+                if (p1.TransferStatus == PayloadTransferUpdate.Status.Success &&
+                    _mostRecentPayload != null)
+                {
+                    var memoryStream = new MemoryStream();
+                    _mostRecentPayload.AsStream().AsInputStream().CopyTo(memoryStream);
+
+                    //var stream = _mostRecentPayload.AsStream();
+                    //var inputStream = stream.AsInputStream();
+                    //var bytes = _mostRecentPayload.AsStream().ToArray<byte>();
+                    //_mostRecentPayload.AsStream().AsInputStream().CopyTo(memoryStream);
+                    _platformBluetooth.OnPayloadReceived(memoryStream.ToArray());
+                }
             }
         }
 

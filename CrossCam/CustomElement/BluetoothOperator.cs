@@ -472,11 +472,6 @@ namespace CrossCam.CustomElement
             OnDisconnected();
         }
 
-        private IEnumerable<PartnerDevice> GetPairedDevices()
-        {
-            return _platformBluetooth.GetPairedDevices();
-        }
-
         public void BeginSyncedCapture()
         {
             _isCaptureRequested = true;
