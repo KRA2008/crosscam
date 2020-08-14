@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace CrossCam.Wrappers
@@ -20,11 +19,10 @@ namespace CrossCam.Wrappers
         event EventHandler<PartnerDevice> DeviceDiscovered;
         Task<bool> BecomeDiscoverable();
         Task ListenForConnections();
-        Task<bool> ListenForFov();
         event EventHandler Connected;
         event EventHandler Disconnected;
 
-        Task SendPayload(byte[] bytes);
+        void SendPayload(byte[] bytes);
         event EventHandler<byte[]> PayloadReceived;
     }
 

@@ -64,7 +64,7 @@ namespace CrossCam.iOS.CustomRenderer
             handler?.Invoke(this, e);
         }
 
-        public Task SendPayload(byte[] bytes)
+        public void SendPayload(byte[] bytes)
         {
             NSError error = null;
             _session?.SendData(NSData.FromArray(bytes), _session.ConnectedPeers, MCSessionSendDataMode.Reliable, out error);
@@ -72,11 +72,10 @@ namespace CrossCam.iOS.CustomRenderer
             {
                 throw new Exception(error.ToString());
             }
-            return Task.FromResult(true);
         }
 
         public event EventHandler<byte[]> PayloadReceived;
-        private void OnReceivedPayload(byte[] bytes)
+        private void OnPayloadReceived(byte[] bytes)
         {
             var handler = PayloadReceived;
             handler?.Invoke(this, bytes);
@@ -144,11 +143,6 @@ namespace CrossCam.iOS.CustomRenderer
             return Task.FromResult(true);
         }
 
-        public Task<bool> ListenForFov()
-        {
-            return Task.FromResult(true);
-        }
-
         public Task AttemptConnection(PartnerDevice partnerDevice)
         {
             throw new NotImplementedException();
@@ -210,7 +204,7 @@ namespace CrossCam.iOS.CustomRenderer
 
             public override void DidReceiveData(MCSession session, NSData data, MCPeerID peerID)
             {
-                _platformBluetooth.OnReceivedPayload(data.ToArray());
+                _platformBluetooth.OnPayloadReceived(data.ToArray());
             }
         }
 

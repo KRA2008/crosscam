@@ -62,6 +62,7 @@ namespace CrossCam.Droid.CustomRenderer
         private CameraManager _cameraManager;
         private CameraCaptureSession _camera2Session;
         private CaptureRequest.Builder _previewRequestBuilder;
+        private int _readyToCapturePreviewFrameInterlocked;
         private CameraCaptureListener _captureListener;
         private CameraStateListener _stateListener;
         private ImageReader _finalCaptureImageReader;
@@ -162,12 +163,16 @@ namespace CrossCam.Droid.CustomRenderer
                 if (e.NewElement != null)
                 {
                     _cameraModule = e.NewElement;
-                    _cameraModule.BluetoothOperator.CaptureSyncTimeElapsed += (sender2, args) =>
+                    _cameraModule.BluetoothOperator.CaptureSyncTimeElapsed += (sender, args) =>
                     {
                         Device.BeginInvokeOnMainThread(() =>
                         {
                             TakePhotoButtonTapped(true);
                         });
+                    };
+                    _cameraModule.BluetoothOperator.PreviewFrameRequestReceived += (sender, args) =>
+                    {
+                        _readyToCapturePreviewFrameInterlocked = 1;
                     };
                     try
                     {
@@ -186,6 +191,7 @@ namespace CrossCam.Droid.CustomRenderer
                     }
                 }
 
+                System.Diagnostics.Debug.WriteLine("### USE CAMERA2: " + _useCamera2);
                 
                 SetupUserInterface();
                 if (_useCamera2)
@@ -796,6 +802,7 @@ namespace CrossCam.Droid.CustomRenderer
 
                         _camera1.SetParameters(parameters);
                         _camera1.SetPreviewTexture(_surfaceTexture);
+                        _camera1.SetPreviewCallback(new Camera1PreviewCallbackHandler(_cameraModule));
                     }
 
                     if (surface != null)
@@ -884,6 +891,34 @@ namespace CrossCam.Droid.CustomRenderer
         public void OnAutoFocus(bool success, Camera camera)
         {
             _cameraModule.IsFocusCircleLocked = success;
+        }
+
+        private class Camera1PreviewCallbackHandler : Java.Lang.Object, Camera.IPreviewCallback
+        {
+            private readonly CameraModule _cameraModule;
+            private int _readyToCapturePreviewFrameInterlocked;
+
+            public Camera1PreviewCallbackHandler(CameraModule cameraModule)
+            {
+                _cameraModule = cameraModule;
+                _cameraModule.BluetoothOperator.PreviewFrameRequestReceived += (sender, args) =>
+                {
+                    _readyToCapturePreviewFrameInterlocked = 1;
+                };
+            }
+
+            public void OnPreviewFrame(byte[] data, Camera camera)
+            {
+                if (_cameraModule.BluetoothOperator.PairStatus == PairStatus.Connected)
+                {
+                    if (Interlocked.Exchange(ref _readyToCapturePreviewFrameInterlocked, 0) == 1)
+                    {
+                        var parameters = camera.GetParameters();
+                        var imageFormat = parameters.PreviewFormat;
+                        _cameraModule.BluetoothOperator.SendLatestPreviewFrame(data);
+                    }
+                }
+            }
         }
 
 #endregion
@@ -1024,7 +1059,10 @@ namespace CrossCam.Droid.CustomRenderer
                 {
                     if (_cameraModule.BluetoothOperator.PairStatus == PairStatus.Connected)
                     {
-                        //_cameraModule.BluetoothOperator.LatestPreviewFrame = bytes;
+                        if (Interlocked.Exchange(ref _readyToCapturePreviewFrameInterlocked, 0) == 1)
+                        {
+                            _cameraModule.BluetoothOperator.SendLatestPreviewFrame(bytes);
+                        }
                     }
                 };
 
@@ -1032,7 +1070,7 @@ namespace CrossCam.Droid.CustomRenderer
                 _captureListener.CaptureComplete += (sender, args) => { HandleCaptureResult(args.CaptureRequest, args.CaptureResult); };
                 _captureListener.CaptureProgressed += (sender, args) => { HandleCaptureResult(args.CaptureRequest, args.CaptureResult); };
                 
-                _camera2Device.CreateCaptureSession(new List<Surface> { _surface, _finalCaptureImageReader.Surface/*, _previewImageReader.Surface*/ },
+                _camera2Device.CreateCaptureSession(new List<Surface> { _surface, _finalCaptureImageReader.Surface, _previewImageReader.Surface },
                     new CameraCaptureStateListener
                     {
                         OnConfigureFailedAction = session => { },
@@ -1042,7 +1080,7 @@ namespace CrossCam.Droid.CustomRenderer
 
                             _previewRequestBuilder = _camera2Device.CreateCaptureRequest(CameraTemplate.Preview);
                             _previewRequestBuilder.AddTarget(_surface);
-                            //_previewRequestBuilder.AddTarget(_previewImageReader.Surface);
+                            _previewRequestBuilder.AddTarget(_previewImageReader.Surface);
 
                             _camera2State = CameraState.Preview;
                             _previewRequestBuilder.SetTag(CameraState.Preview.ToString());

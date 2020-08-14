@@ -21,6 +21,7 @@ using Java.Util;
 using Xamarin.Forms;
 using Xamarin.Essentials;
 using Debug = System.Diagnostics.Debug;
+using File = Java.IO.File;
 
 [assembly: Dependency(typeof(PlatformBluetooth))]
 namespace CrossCam.Droid.CustomRenderer
@@ -64,12 +65,6 @@ namespace CrossCam.Droid.CustomRenderer
                 .AddApi(NearbyClass.CONNECTIONS_API)
                 .Build(); 
             _googleApiClient.Connect();
-        }
-
-        public override void OnCharacteristicWrite(BluetoothGatt gatt, BluetoothGattCharacteristic characteristic, GattStatus status)
-        {
-            base.OnCharacteristicWrite(gatt, characteristic, status);
-            //characteristic.Uuid
         }
 
         public bool IsPrimary { get; set; }
@@ -191,10 +186,18 @@ namespace CrossCam.Droid.CustomRenderer
             return _isLocationOnTask.Task;
         }
 
-        public async Task SendPayload(byte[] bytes)
+        public void SendPayload(byte[] bytes)
         {
-            var result = await NearbyClass.Connections.SendPayloadAsync(_googleApiClient, _partnerId,
-                Payload.FromStream(new MemoryStream(bytes)));
+            try
+            {
+                var memoryStream = new MemoryStream(bytes);
+                NearbyClass.Connections.SendPayload(_googleApiClient, _partnerId,
+                    Payload.FromStream(memoryStream));
+            }
+            catch (Exception e)
+            {
+                Debug.WriteLine("### EXCEPTION SENDING: " + e);
+            }
         }
 
         public event EventHandler<byte[]> PayloadReceived;
@@ -265,53 +268,6 @@ namespace CrossCam.Droid.CustomRenderer
 
             serverSocket.Close();
             BluetoothAdapter.DefaultAdapter.CancelDiscovery();
-        }
-
-        public async Task<bool> SendFov(double fov)
-        {
-            var result = await NearbyClass.Connections.SendPayloadAsync(_googleApiClient, _partnerId,
-                Payload.FromBytes(new[] {(byte) 0}));
-            return result.IsSuccess;
-            //if (_bluetoothSocket?.IsConnected == true)
-            //{
-            //    var bytes = Encoding.UTF8.GetBytes("Hi there friend.");
-            //    await _bluetoothSocket.OutputStream.WriteAsync(bytes, 0, bytes.Length);
-            //    return true;
-            //}
-
-            //return false;
-        }
-
-        public async Task<bool> ListenForFov()
-        {
-            const int BUFFER_LENGTH = 1024;
-            var buffer = new byte[BUFFER_LENGTH];
-            var isMoreDataToRead = true;
-            var helloBytes = new List<byte>();
-
-            do
-            {
-                var read = await _bluetoothSocket.InputStream.ReadAsync(buffer, 0, buffer.Length);
-
-                if (read < BUFFER_LENGTH)
-                {
-                    isMoreDataToRead = false;
-                }
-
-                if (read > 0)
-                {
-                    for (var ii = 0; ii < read; ii++)
-                    {
-                        helloBytes.Add(buffer[ii]);
-                    }
-                }
-
-            } while (isMoreDataToRead);
-
-            var helloByteArray = helloBytes.ToArray();
-            var hello = Encoding.UTF8.GetString(helloByteArray, 0, helloByteArray.Length);
-            Debug.WriteLine("Hello received: " + hello);
-            return true;
         }
 
         public async Task AttemptConnection(PartnerDevice partnerDevice)
@@ -422,27 +378,42 @@ namespace CrossCam.Droid.CustomRenderer
             public override void OnPayloadReceived(string p0, Payload p1)
             {
                 Debug.WriteLine("### OnPayloadReceived, payload: " + p0 + ", payload type: " + p1.PayloadType);
-                Debug.WriteLine("Id: " + p1.Id);
+                //Debug.WriteLine("Id: " + p1.Id);
                 _mostRecentPayload = p1;
             }
 
             public override void OnPayloadTransferUpdate(string p0, PayloadTransferUpdate p1)
             {
-                Debug.WriteLine("### OnPayloadTransferUpdate " + p0 + ", " + p1.TransferStatus);
-                Debug.WriteLine("Transferred: " + p1.BytesTransferred);
-                Debug.WriteLine("Total: " + p1.TotalBytes);
-                Debug.WriteLine("Id: " + p1.PayloadId);
                 if (p1.TransferStatus == PayloadTransferUpdate.Status.Success &&
                     _mostRecentPayload != null)
                 {
-                    var memoryStream = new MemoryStream();
-                    _mostRecentPayload.AsStream().AsInputStream().CopyTo(memoryStream);
+                    try
+                    {
+                        var bytes = new List<byte>();
+                        var memoryStream = _mostRecentPayload.AsStream().AsInputStream();
+                        while (memoryStream.CanRead)
+                        {
+                            var nextByte = memoryStream.ReadByte();
+                            Debug.WriteLine("### BYTE READ: " + nextByte);
+                            if (nextByte == -1)
+                            {
+                                break;
+                            }
 
-                    //var stream = _mostRecentPayload.AsStream();
-                    //var inputStream = stream.AsInputStream();
-                    //var bytes = _mostRecentPayload.AsStream().ToArray<byte>();
-                    //_mostRecentPayload.AsStream().AsInputStream().CopyTo(memoryStream);
-                    _platformBluetooth.OnPayloadReceived(memoryStream.ToArray());
+                            bytes.Add((byte) nextByte);
+                        }
+
+                        Debug.WriteLine("### OnPayloadTransferUpdate " + p0 + ", " + p1.TransferStatus + ", " +
+                                        bytes.ToArray().Length);
+                        Debug.WriteLine("Transferred: " + p1.BytesTransferred);
+                        Debug.WriteLine("Total: " + p1.TotalBytes);
+                        Debug.WriteLine("Id: " + p1.PayloadId);
+                        _platformBluetooth.OnPayloadReceived(bytes.ToArray());
+                    }
+                    catch (Exception e)
+                    {
+                        Debug.WriteLine("### EXCEPTION UPDATING: " + e);
+                    }
                 }
             }
         }
