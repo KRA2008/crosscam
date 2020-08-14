@@ -40,6 +40,7 @@ namespace CrossCam.Droid.CustomRenderer
 
         private readonly GoogleApiClient _googleApiClient;
         private string _partnerId;
+        private bool _isSending;
 
         public PlatformBluetooth()
         {
@@ -186,13 +187,15 @@ namespace CrossCam.Droid.CustomRenderer
             return _isLocationOnTask.Task;
         }
 
-        public void SendPayload(byte[] bytes)
+        public async void SendPayload(byte[] bytes)
         {
             try
             {
+                _isSending = true;
                 var memoryStream = new MemoryStream(bytes);
-                NearbyClass.Connections.SendPayload(_googleApiClient, _partnerId,
+                await NearbyClass.Connections.SendPayloadAsync(_googleApiClient, _partnerId,
                     Payload.FromStream(memoryStream));
+                _isSending = false;
             }
             catch (Exception e)
             {
@@ -370,6 +373,10 @@ namespace CrossCam.Droid.CustomRenderer
             private readonly PlatformBluetooth _platformBluetooth;
             private Payload _mostRecentPayload;
             private List<byte> incomingBytes;
+            private long currentPayloadId;
+            private bool isHeaderRead;
+            private bool isReadComplete;
+            private long expectedLength;
 
             public MyPayloadCallback(PlatformBluetooth platformBluetooth)
             {
@@ -378,43 +385,41 @@ namespace CrossCam.Droid.CustomRenderer
 
             public override void OnPayloadReceived(string p0, Payload p1)
             {
-                Debug.WriteLine("### OnPayloadReceived, p0: " + p0 + ", payload type: " + p1.PayloadType);
+                //Debug.WriteLine("### OnPayloadReceived, Id: " + p1.Id);
                 //Debug.WriteLine("Id: " + p1.Id);
                 _mostRecentPayload = p1;
+                incomingBytes = new List<byte>();
+                currentPayloadId = p1.Id;
+                isHeaderRead = false;
             }
 
             public override void OnPayloadTransferUpdate(string p0, PayloadTransferUpdate p1)
             {
-                Debug.WriteLine("### OnPayloadTransferUpdate, p0: " + p0 + ", status: " + p1.TransferStatus);
-                if ((p1.TransferStatus == PayloadTransferUpdate.Status.Success 
-                     /*|| p1.TransferStatus == PayloadTransferUpdate.Status.InProgress*/) &&
+                //Debug.WriteLine("### OnPayloadTransferUpdate, Id: " + p1.PayloadId + " status: " + p1.TransferStatus);
+                //Debug.WriteLine("Transferred: " + p1.BytesTransferred);
+                //Debug.WriteLine("Total: " + p1.TotalBytes);
+                //Debug.WriteLine("Is Sending: " + _platformBluetooth._isSending);
+                if (/*(p1.TransferStatus == PayloadTransferUpdate.Status.InProgress 
+                     || p1.TransferStatus == PayloadTransferUpdate.Status.InProgress) &&*/
+                    !_platformBluetooth._isSending &&
                     _mostRecentPayload != null)
                 {
                     try
                     {
-                        incomingBytes = new List<byte>();
                         var memoryStream = _mostRecentPayload.AsStream().AsInputStream();
                         var nextByte = memoryStream.ReadByte();
-                        const int START_BUFFER_COUNTER = 10;
-                        for (var ii = 0; ii < START_BUFFER_COUNTER; ii++)
-                        {
-                            Debug.WriteLine("### start read BYTE READ: " + nextByte);
-                            if (nextByte != -1)
-                            {
-                                break;
-                            }
 
-                            if (ii == START_BUFFER_COUNTER - 1 && nextByte == -1)
-                            {
-                                return;
-                            }
-                        }
-
-                        for (var ii = 0; ii < BluetoothOperator.HEADER_LENGTH - 1; ii++)
+                        if (!isHeaderRead)
                         {
-                            incomingBytes.Add((byte)nextByte);
-                            nextByte = memoryStream.ReadByte();
-                            Debug.WriteLine("### for loop BYTE READ: " + nextByte);
+                            for (var ii = 0; ii < BluetoothOperator.HEADER_LENGTH; ii++)
+                            {
+                                incomingBytes.Add((byte)nextByte);
+                                nextByte = memoryStream.ReadByte();
+                            }
+                            //Debug.WriteLine("### header: " + string.Join(",",incomingBytes));
+                            expectedLength = BluetoothOperator.HEADER_LENGTH + (incomingBytes.ElementAt(3) << 8) | (incomingBytes.ElementAt(4) << 4) | incomingBytes.ElementAt(5);
+
+                            isHeaderRead = true;
                         }
 
                         while (nextByte != -1)
@@ -424,10 +429,11 @@ namespace CrossCam.Droid.CustomRenderer
                             //Debug.WriteLine("### BYTE READ: " + nextByte);
                         }
 
-                        Debug.WriteLine("Transferred: " + p1.BytesTransferred);
-                        Debug.WriteLine("Total: " + p1.TotalBytes);
-                        Debug.WriteLine("Id: " + p1.PayloadId);
-                        _platformBluetooth.OnPayloadReceived(incomingBytes.ToArray());
+                        if (expectedLength == incomingBytes.Count)
+                        {
+                            //Debug.WriteLine("### reading COMPLETE, length: " + incomingBytes.Count);
+                            _platformBluetooth.OnPayloadReceived(incomingBytes.ToArray());
+                        }
                     }
                     catch (Exception e)
                     {

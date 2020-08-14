@@ -190,6 +190,7 @@ namespace CrossCam.CustomElement
                     {
                         Debug.WriteLine("### payload stated length was not equal to payload observed length???");
                     }
+                    Debug.WriteLine("### Command received: " + bytes[2]);
                     switch (bytes[2])
                     {
                         case (byte)CrossCommand.Fov:
@@ -273,6 +274,7 @@ namespace CrossCam.CustomElement
 
         private static byte[] AddPayloadHeader(CrossCommand crossCommand, byte[] payload)
         {
+            Debug.WriteLine("### Command sending: " + crossCommand);
             var payloadLength = payload.Length;
             var header = new List<byte>
             {
