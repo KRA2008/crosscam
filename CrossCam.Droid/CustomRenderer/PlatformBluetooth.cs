@@ -369,6 +369,7 @@ namespace CrossCam.Droid.CustomRenderer
         {
             private readonly PlatformBluetooth _platformBluetooth;
             private Payload _mostRecentPayload;
+            private List<byte> incomingBytes;
 
             public MyPayloadCallback(PlatformBluetooth platformBluetooth)
             {
@@ -377,38 +378,56 @@ namespace CrossCam.Droid.CustomRenderer
 
             public override void OnPayloadReceived(string p0, Payload p1)
             {
-                Debug.WriteLine("### OnPayloadReceived, payload: " + p0 + ", payload type: " + p1.PayloadType);
+                Debug.WriteLine("### OnPayloadReceived, p0: " + p0 + ", payload type: " + p1.PayloadType);
                 //Debug.WriteLine("Id: " + p1.Id);
                 _mostRecentPayload = p1;
             }
 
             public override void OnPayloadTransferUpdate(string p0, PayloadTransferUpdate p1)
             {
-                if (p1.TransferStatus == PayloadTransferUpdate.Status.Success &&
+                Debug.WriteLine("### OnPayloadTransferUpdate, p0: " + p0 + ", status: " + p1.TransferStatus);
+                if ((p1.TransferStatus == PayloadTransferUpdate.Status.Success 
+                     /*|| p1.TransferStatus == PayloadTransferUpdate.Status.InProgress*/) &&
                     _mostRecentPayload != null)
                 {
                     try
                     {
-                        var bytes = new List<byte>();
+                        incomingBytes = new List<byte>();
                         var memoryStream = _mostRecentPayload.AsStream().AsInputStream();
-                        while (memoryStream.CanRead)
+                        var nextByte = memoryStream.ReadByte();
+                        const int START_BUFFER_COUNTER = 10;
+                        for (var ii = 0; ii < START_BUFFER_COUNTER; ii++)
                         {
-                            var nextByte = memoryStream.ReadByte();
-                            Debug.WriteLine("### BYTE READ: " + nextByte);
-                            if (nextByte == -1)
+                            Debug.WriteLine("### start read BYTE READ: " + nextByte);
+                            if (nextByte != -1)
                             {
                                 break;
                             }
 
-                            bytes.Add((byte) nextByte);
+                            if (ii == START_BUFFER_COUNTER - 1 && nextByte == -1)
+                            {
+                                return;
+                            }
                         }
 
-                        Debug.WriteLine("### OnPayloadTransferUpdate " + p0 + ", " + p1.TransferStatus + ", " +
-                                        bytes.ToArray().Length);
+                        for (var ii = 0; ii < BluetoothOperator.HEADER_LENGTH - 1; ii++)
+                        {
+                            incomingBytes.Add((byte)nextByte);
+                            nextByte = memoryStream.ReadByte();
+                            Debug.WriteLine("### for loop BYTE READ: " + nextByte);
+                        }
+
+                        while (nextByte != -1)
+                        {
+                            incomingBytes.Add((byte)nextByte);
+                            nextByte = memoryStream.ReadByte();
+                            //Debug.WriteLine("### BYTE READ: " + nextByte);
+                        }
+
                         Debug.WriteLine("Transferred: " + p1.BytesTransferred);
                         Debug.WriteLine("Total: " + p1.TotalBytes);
                         Debug.WriteLine("Id: " + p1.PayloadId);
-                        _platformBluetooth.OnPayloadReceived(bytes.ToArray());
+                        _platformBluetooth.OnPayloadReceived(incomingBytes.ToArray());
                     }
                     catch (Exception e)
                     {

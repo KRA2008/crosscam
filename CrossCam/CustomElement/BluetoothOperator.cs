@@ -66,7 +66,7 @@ namespace CrossCam.CustomElement
         private int _pairInitializeThreadLocker;
         private int _connectThreadLocker;
 
-        private const int HEADER_LENGTH = 6;
+        public const int HEADER_LENGTH = 6;
         private const byte SYNC_MASK = 170; // 0xAA (do it twice)
         private enum CrossCommand
         {
