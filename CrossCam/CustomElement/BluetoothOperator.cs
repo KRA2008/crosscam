@@ -68,7 +68,7 @@ namespace CrossCam.CustomElement
 
         public const int HEADER_LENGTH = 6;
         private const byte SYNC_MASK = 170; // 0xAA (do it twice)
-        private enum CrossCommand
+        public enum CrossCommand
         {
             Fov = 1,
             RequestPreviewFrame,
@@ -184,13 +184,13 @@ namespace CrossCam.CustomElement
                 if (bytes[0] == SYNC_MASK &&
                     bytes[1] == SYNC_MASK)
                 {
-                    var payloadLength = (bytes[3] << 8) | (bytes[4] << 4) | bytes[5];
+                    var payloadLength = (bytes[3] << 16) | (bytes[4] << 8) | bytes[5];
                     var payload = bytes.Skip(HEADER_LENGTH).ToArray();
                     if (payload.Length != payloadLength)
                     {
                         Debug.WriteLine("### payload stated length was not equal to payload observed length???");
                     }
-                    Debug.WriteLine("### Command received: " + bytes[2]);
+                    //Debug.WriteLine("### Command received: " + (CrossCommand)bytes[2]);
                     switch (bytes[2])
                     {
                         case (byte)CrossCommand.Fov:
@@ -274,7 +274,7 @@ namespace CrossCam.CustomElement
 
         private static byte[] AddPayloadHeader(CrossCommand crossCommand, byte[] payload)
         {
-            Debug.WriteLine("### Command sending: " + crossCommand);
+            //Debug.WriteLine("### Command sending: " + crossCommand);
             var payloadLength = payload.Length;
             var header = new List<byte>
             {
@@ -290,7 +290,7 @@ namespace CrossCam.CustomElement
 
         private void HandleFovReceived(byte[] bytes)
         {
-            Debug.WriteLine("Received fov");
+            //Debug.WriteLine("Received fov");
             var fov = BitConverter.ToDouble(bytes, 0);
             OnConnected();
             PartnerFov = fov;

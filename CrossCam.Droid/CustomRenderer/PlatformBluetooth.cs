@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -72,7 +73,7 @@ namespace CrossCam.Droid.CustomRenderer
 
         public void Disconnect()
         {
-            //_bluetoothSocket?.Close();
+            NearbyClass.Connections.DisconnectFromEndpoint(_googleApiClient, _partnerId);
         }
 
         public Task<bool> RequestBluetoothPermissions()
@@ -191,6 +192,7 @@ namespace CrossCam.Droid.CustomRenderer
         {
             try
             {
+                Debug.WriteLine("### SENDING: " + (BluetoothOperator.CrossCommand)bytes[2]);
                 _isSending = true;
                 var memoryStream = new MemoryStream(bytes);
                 await NearbyClass.Connections.SendPayloadAsync(_googleApiClient, _partnerId,
@@ -333,20 +335,20 @@ namespace CrossCam.Droid.CustomRenderer
                 _platformBluetooth = platformBluetooth;
             }
 
-            public override async void OnConnectionInitiated(string p0, ConnectionInfo p1)
+            public override void OnConnectionInitiated(string p0, ConnectionInfo p1)
             {
                 Debug.WriteLine("### OnConnectionInitiated " + p0 + ", " + p1.EndpointName + ", Incoming: " + p1.IsIncomingConnection);
                 //if (p1.IsIncomingConnection)
                 //{
-                    var result = await NearbyClass.Connections.AcceptConnectionAsync(_platformBluetooth._googleApiClient, p0, new MyPayloadCallback(_platformBluetooth));
-                    if (result.IsSuccess)
-                    {
-                        Debug.WriteLine("### AcceptConnectionAsync result: " + p0 + ", " + result.StatusMessage);
-                        _platformBluetooth._partnerId = p0;
-                        _platformBluetooth.OnConnected();
-                        NearbyClass.Connections.StopDiscovery(_platformBluetooth._googleApiClient);
-                        NearbyClass.Connections.StopAdvertising(_platformBluetooth._googleApiClient);
-                    }
+                    NearbyClass.Connections.AcceptConnection(_platformBluetooth._googleApiClient, p0, new MyPayloadCallback(_platformBluetooth));
+                    //if (result..IsSuccess)
+                    //{
+                    //    Debug.WriteLine("### AcceptConnectionAsync result: " + p0 + ", " + result.StatusMessage);
+                    //    _platformBluetooth._partnerId = p0;
+                    //    _platformBluetooth.OnConnected();
+                    //    NearbyClass.Connections.StopDiscovery(_platformBluetooth._googleApiClient);
+                    //    NearbyClass.Connections.StopAdvertising(_platformBluetooth._googleApiClient);
+                    //}
                 //}
             }
 
@@ -372,11 +374,11 @@ namespace CrossCam.Droid.CustomRenderer
         {
             private readonly PlatformBluetooth _platformBluetooth;
             private Payload _mostRecentPayload;
-            private List<byte> incomingBytes;
-            private long currentPayloadId;
-            private bool isHeaderRead;
-            private bool isReadComplete;
-            private long expectedLength;
+            private byte[] _incomingBytes;
+            private long _incomingBytesCounter;
+            private bool _isHeaderRead;
+            private long _expectedLength;
+            private readonly byte[] _headerBytes = new byte[BluetoothOperator.HEADER_LENGTH];
 
             public MyPayloadCallback(PlatformBluetooth platformBluetooth)
             {
@@ -386,16 +388,16 @@ namespace CrossCam.Droid.CustomRenderer
             public override void OnPayloadReceived(string p0, Payload p1)
             {
                 //Debug.WriteLine("### OnPayloadReceived, Id: " + p1.Id);
-                //Debug.WriteLine("Id: " + p1.Id);
-                _mostRecentPayload = p1;
-                incomingBytes = new List<byte>();
-                currentPayloadId = p1.Id;
-                isHeaderRead = false;
+                if (!_platformBluetooth._isSending)
+                {
+                    _mostRecentPayload = p1;
+                    _isHeaderRead = false;
+                }
             }
 
             public override void OnPayloadTransferUpdate(string p0, PayloadTransferUpdate p1)
             {
-                //Debug.WriteLine("### OnPayloadTransferUpdate, Id: " + p1.PayloadId + " status: " + p1.TransferStatus);
+                //Debug.WriteLine("### OnPayloadTransferUpdate, Id: " + p1.PayloadId + " status: " + p1.TransferStatus + " sending: " + _platformBluetooth._isSending);
                 //Debug.WriteLine("Transferred: " + p1.BytesTransferred);
                 //Debug.WriteLine("Total: " + p1.TotalBytes);
                 //Debug.WriteLine("Is Sending: " + _platformBluetooth._isSending);
@@ -409,30 +411,53 @@ namespace CrossCam.Droid.CustomRenderer
                         var memoryStream = _mostRecentPayload.AsStream().AsInputStream();
                         var nextByte = memoryStream.ReadByte();
 
-                        if (!isHeaderRead)
+                        if (!_isHeaderRead)
                         {
                             for (var ii = 0; ii < BluetoothOperator.HEADER_LENGTH; ii++)
                             {
-                                incomingBytes.Add((byte)nextByte);
+                                _headerBytes[ii] = (byte)nextByte;
                                 nextByte = memoryStream.ReadByte();
                             }
                             //Debug.WriteLine("### header: " + string.Join(",",incomingBytes));
-                            expectedLength = BluetoothOperator.HEADER_LENGTH + (incomingBytes.ElementAt(3) << 8) | (incomingBytes.ElementAt(4) << 4) | incomingBytes.ElementAt(5);
+                            _expectedLength = BluetoothOperator.HEADER_LENGTH + (_headerBytes.ElementAt(3) << 16) | (_headerBytes.ElementAt(4) << 8) | _headerBytes.ElementAt(5);
+                            Debug.WriteLine("### RECEIVING: " + (BluetoothOperator.CrossCommand)_headerBytes[2]);
 
-                            isHeaderRead = true;
+                            if (_expectedLength == 0)
+                            {
+                                _platformBluetooth.OnPayloadReceived(_headerBytes);
+                                _mostRecentPayload = null;
+                                return;
+                            }
+
+                            _incomingBytes = new byte[_expectedLength];
+                            _incomingBytesCounter = BluetoothOperator.HEADER_LENGTH;
+                            for (var ii = 0; ii < _headerBytes.Length; ii++)
+                            {
+                                _incomingBytes[ii] = _headerBytes[ii];
+                            }
+
+                            _isHeaderRead = true;
+                        }
+
+                        if (_expectedLength > 14)
+                        {
+                            var what = "";
                         }
 
                         while (nextByte != -1)
                         {
-                            incomingBytes.Add((byte)nextByte);
+                            if(_incomingBytesCounter > _incomingBytes.Length) Debugger.Break();
+                            _incomingBytes[_incomingBytesCounter] = (byte) nextByte;
                             nextByte = memoryStream.ReadByte();
+                            _incomingBytesCounter++;
                             //Debug.WriteLine("### BYTE READ: " + nextByte);
                         }
 
-                        if (expectedLength == incomingBytes.Count)
+                        if (_expectedLength == _incomingBytes.Length)
                         {
-                            //Debug.WriteLine("### reading COMPLETE, length: " + incomingBytes.Count);
-                            _platformBluetooth.OnPayloadReceived(incomingBytes.ToArray());
+                            //Debug.WriteLine("### reading COMPLETE, length: " + _incomingBytes.Length);
+                            _platformBluetooth.OnPayloadReceived(_incomingBytes);
+                            _mostRecentPayload = null;
                         }
                     }
                     catch (Exception e)
