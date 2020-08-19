@@ -398,33 +398,28 @@ namespace CrossCam.Droid.CustomRenderer
             public override void OnPayloadTransferUpdate(string p0, PayloadTransferUpdate p1)
             {
                 //Debug.WriteLine("### OnPayloadTransferUpdate, Id: " + p1.PayloadId + " status: " + p1.TransferStatus + " sending: " + _platformBluetooth._isSending);
-                //Debug.WriteLine("Transferred: " + p1.BytesTransferred);
-                //Debug.WriteLine("Total: " + p1.TotalBytes);
-                //Debug.WriteLine("Is Sending: " + _platformBluetooth._isSending);
-                if (/*(p1.TransferStatus == PayloadTransferUpdate.Status.InProgress 
-                     || p1.TransferStatus == PayloadTransferUpdate.Status.InProgress) &&*/
-                    !_platformBluetooth._isSending &&
+                if (!_platformBluetooth._isSending &&
                     _mostRecentPayload != null)
                 {
                     try
                     {
+                        int nextByte;
                         var memoryStream = _mostRecentPayload.AsStream().AsInputStream();
-                        var nextByte = memoryStream.ReadByte();
 
                         if (!_isHeaderRead)
                         {
                             for (var ii = 0; ii < BluetoothOperator.HEADER_LENGTH; ii++)
                             {
+                                 nextByte = memoryStream.ReadByte();
                                 _headerBytes[ii] = (byte)nextByte;
-                                nextByte = memoryStream.ReadByte();
                             }
-                            //Debug.WriteLine("### header: " + string.Join(",",incomingBytes));
                             _expectedLength = BluetoothOperator.HEADER_LENGTH + (_headerBytes.ElementAt(3) << 16) | (_headerBytes.ElementAt(4) << 8) | _headerBytes.ElementAt(5);
                             Debug.WriteLine("### RECEIVING: " + (BluetoothOperator.CrossCommand)_headerBytes[2]);
 
                             if (_expectedLength == 0)
                             {
                                 _platformBluetooth.OnPayloadReceived(_headerBytes);
+                                memoryStream.Close();
                                 _mostRecentPayload = null;
                                 return;
                             }
@@ -439,24 +434,17 @@ namespace CrossCam.Droid.CustomRenderer
                             _isHeaderRead = true;
                         }
 
-                        if (_expectedLength > 14)
+                        while (_incomingBytesCounter < _expectedLength)
                         {
-                            var what = "";
-                        }
-
-                        while (nextByte != -1)
-                        {
-                            if(_incomingBytesCounter > _incomingBytes.Length) Debugger.Break();
-                            _incomingBytes[_incomingBytesCounter] = (byte) nextByte;
                             nextByte = memoryStream.ReadByte();
+                            _incomingBytes[_incomingBytesCounter] = (byte) nextByte;
                             _incomingBytesCounter++;
-                            //Debug.WriteLine("### BYTE READ: " + nextByte);
                         }
 
                         if (_expectedLength == _incomingBytes.Length)
                         {
-                            //Debug.WriteLine("### reading COMPLETE, length: " + _incomingBytes.Length);
                             _platformBluetooth.OnPayloadReceived(_incomingBytes);
+                            memoryStream.Close();
                             _mostRecentPayload = null;
                         }
                     }
