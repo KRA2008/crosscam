@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.IO;
 using System.Linq;
 using System.Threading;
 using Android.App;
@@ -21,6 +22,7 @@ using CrossCam.Model;
 using CrossCam.Page;
 using CrossCam.ViewModel;
 using CrossCam.Wrappers;
+using Java.IO;
 using Java.Lang;
 using Xamarin.Forms;
 using Xamarin.Forms.Platform.Android;
@@ -913,9 +915,10 @@ namespace CrossCam.Droid.CustomRenderer
                 {
                     if (Interlocked.Exchange(ref _readyToCapturePreviewFrameInterlocked, 0) == 1)
                     {
-                        var parameters = camera.GetParameters();
-                        var imageFormat = parameters.PreviewFormat;
-                        _cameraModule.BluetoothOperator.SendLatestPreviewFrame(data);
+                        var stream = new MemoryStream();
+                        var yuv = new YuvImage(data, ImageFormatType.Nv21, _previewSize.Width, _previewSize.Height, null);
+                        yuv.CompressToJpeg(new Rect(0, 0, _previewSize.Width, _previewSize.Height), 0, stream);
+                        _cameraModule.BluetoothOperator.SendLatestPreviewFrame(stream.ToArray());
                     }
                 }
             }
@@ -1055,7 +1058,7 @@ namespace CrossCam.Droid.CustomRenderer
                     ImageReader.NewInstance(_picture2Size.Width, _picture2Size.Height, ImageFormatType.Jpeg, 1);
                 _previewImageReader = ImageReader.NewInstance(_preview2Size.Width, _preview2Size.Height, ImageFormatType.Jpeg, 1); //TODO: probably need to fiddle with orientation
                 var previewImageListener = new ImageAvailableListener();
-                previewImageListener.Photo += (sender, bytes) => 
+                previewImageListener.Photo += (sender, bytes) =>
                 {
                     if (_cameraModule.BluetoothOperator.PairStatus == PairStatus.Connected)
                     {
