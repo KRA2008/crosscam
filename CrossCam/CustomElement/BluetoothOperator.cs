@@ -188,7 +188,7 @@ namespace CrossCam.CustomElement
                     var payload = bytes.Skip(HEADER_LENGTH).ToArray();
                     if (payload.Length != payloadLength)
                     {
-                        Debug.WriteLine("### payload stated length was not equal to payload observed length???");
+                        Debug.WriteLine("### payload stated length (" + payload.Length + ") was not equal to payload observed length (" + payloadLength + ")");
                     }
                     //Debug.WriteLine("### Command received: " + (CrossCommand)bytes[2]);
                     switch (bytes[2])
@@ -281,9 +281,9 @@ namespace CrossCam.CustomElement
                 SYNC_MASK,
                 SYNC_MASK,
                 (byte) crossCommand,
-                (byte) (payloadLength >> 8),
-                (byte) (payloadLength >> 4),
-                (byte) payloadLength
+                (byte) (payloadLength >> 16),
+                (byte) ((payloadLength >> 8) & 0x00ff),
+                (byte) (payloadLength & 0x0000ff)
             };
             return header.Concat(payload).ToArray();
         }

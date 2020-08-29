@@ -413,7 +413,7 @@ namespace CrossCam.Droid.CustomRenderer
                                  nextByte = memoryStream.ReadByte();
                                 _headerBytes[ii] = (byte)nextByte;
                             }
-                            _expectedLength = BluetoothOperator.HEADER_LENGTH + (_headerBytes.ElementAt(3) << 16) | (_headerBytes.ElementAt(4) << 8) | _headerBytes.ElementAt(5);
+                            _expectedLength = BluetoothOperator.HEADER_LENGTH + ((_headerBytes.ElementAt(3) << 16) | (_headerBytes.ElementAt(4) << 8) | _headerBytes.ElementAt(5));
                             Debug.WriteLine("### RECEIVING: " + (BluetoothOperator.CrossCommand)_headerBytes[2]);
 
                             if (_expectedLength == 0)

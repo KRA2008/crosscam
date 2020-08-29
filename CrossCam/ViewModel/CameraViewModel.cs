@@ -205,6 +205,7 @@ namespace CrossCam.ViewModel
                                                           Settings.SaveRedundantFirstSide ||
                                                           Settings.SaveForRedCyanAnaglyph ||
                                                           Settings.SaveForGrayscaleAnaglyph);
+
         public bool ShouldPairPreviewBeVisible => BluetoothOperator.PairStatus == PairStatus.Connected &&
                                                   WorkflowStage == WorkflowStage.Capture;
 
