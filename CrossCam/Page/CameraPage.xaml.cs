@@ -2,6 +2,7 @@
 using System.ComponentModel;
 using System.Security.Cryptography;
 using System.Diagnostics;
+using System.Linq;
 using System.Threading.Tasks;
 using CrossCam.CustomElement;
 using CrossCam.ViewModel;
@@ -314,7 +315,7 @@ namespace CrossCam.Page
 
                 canvas.Clear();
 
-                var bitmap = _viewModel.DecodeBitmapAndCorrectOrientation(_viewModel.PreviewFrame);
+                var bitmap = _viewModel.DecodeBitmapAndCorrectOrientation(_viewModel.PreviewFrame, true);
 
                 if (bitmap != null)
                 {

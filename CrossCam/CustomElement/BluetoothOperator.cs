@@ -234,9 +234,9 @@ namespace CrossCam.CustomElement
             _platformBluetooth.SendPayload(fullMessage);
         }
 
-        private void SendPreviewFrame(byte[] frame)
+        private void SendPreviewFrame(byte[] frame, byte? rotationNeeded = null)
         {
-            var frameMessage = AddPayloadHeader(CrossCommand.PreviewFrame, frame);
+            var frameMessage = AddPayloadHeader(CrossCommand.PreviewFrame, rotationNeeded.HasValue ? frame.Concat(new []{rotationNeeded.Value}).ToArray() : frame);
             _platformBluetooth.SendPayload(frameMessage);
         }
 
@@ -524,11 +524,11 @@ namespace CrossCam.CustomElement
             });
         }
 
-        public void SendLatestPreviewFrame(byte[] frame)
+        public void SendLatestPreviewFrame(byte[] frame, byte? rotationNeeded = null)
         {
             try
             {
-                SendPreviewFrame(frame);
+                SendPreviewFrame(frame, rotationNeeded);
             }
             catch (Exception e)
             {
