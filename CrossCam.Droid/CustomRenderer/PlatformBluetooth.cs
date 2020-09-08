@@ -45,21 +45,21 @@ namespace CrossCam.Droid.CustomRenderer
 
         public PlatformBluetooth()
         {
-            AvailableDevices.CollectionChanged += (sender, args) =>
-            {
-                if (args.Action == NotifyCollectionChangedAction.Add)
-                {
-                    foreach (var newItem in args.NewItems)
-                    {
-                        var newDevice = (BluetoothDevice)newItem;
-                        OnDeviceDiscovered(new PartnerDevice
-                        {
-                            Name = newDevice.Name ?? "Unnamed",
-                            Address = newDevice.Address
-                        });
-                    }
-                }
-            };
+            //AvailableDevices.CollectionChanged += (sender, args) =>
+            //{
+            //    if (args.Action == NotifyCollectionChangedAction.Add)
+            //    {
+            //        foreach (var newItem in args.NewItems)
+            //        {
+            //            var newDevice = (BluetoothDevice)newItem;
+            //            OnDeviceDiscovered(new PartnerDevice
+            //            {
+            //                Name = newDevice.Name ?? "Unnamed",
+            //                Address = newDevice.Address
+            //            });
+            //        }
+            //    }
+            //};
 
             _googleApiClient = new GoogleApiClient.Builder(MainActivity.Instance)
                 .AddConnectionCallbacks(this)
