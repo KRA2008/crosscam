@@ -403,7 +403,7 @@ namespace CrossCam.CustomElement
 
         public void Disconnect()
         {
-            if (IsPrimary)
+            if (IsPrimary && PairStatus == PairStatus.Connected)
             {
                 _primaryIsRequestingDisconnect = true;
             }

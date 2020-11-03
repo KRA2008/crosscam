@@ -854,7 +854,15 @@ namespace CrossCam.Droid.CustomRenderer
                         // restarting preview failed, try again later, some devices are just weird
                     }
 
-                    _cameraModule.CapturedImage = data;
+                    if (_cameraModule.BluetoothOperator.PairStatus == PairStatus.Connected &&
+                        !_cameraModule.BluetoothOperator.IsPrimary)
+                    {
+                        _cameraModule.BluetoothOperator.SendCapture(data);
+                    }
+                    else
+                    {
+                        _cameraModule.CapturedImage = data;
+                    }
 
                     if (!wasPreviewRestarted)
                     {
@@ -1334,10 +1342,18 @@ namespace CrossCam.Droid.CustomRenderer
                 var readerListener = new ImageAvailableListener();
                 readerListener.Photo += (sender, buffer) =>
                 {
-                    Device.BeginInvokeOnMainThread(() =>
+                    if (_cameraModule.BluetoothOperator.PairStatus == PairStatus.Connected &&
+                        !_cameraModule.BluetoothOperator.IsPrimary)
                     {
-                        _cameraModule.CapturedImage = buffer;
-                    });
+                        _cameraModule.BluetoothOperator.SendCapture(buffer);
+                    }
+                    else
+                    {
+                        Device.BeginInvokeOnMainThread(() =>
+                        {
+                            _cameraModule.CapturedImage = buffer;
+                        });
+                    }
                 };
                 readerListener.Error += (sender, exception) => { _cameraModule.ErrorMessage = exception.ToString(); };
                 _finalCaptureImageReader.SetOnImageAvailableListener(readerListener, _backgroundHandler);

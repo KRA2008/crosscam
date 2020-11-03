@@ -1,14 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Collections.Specialized;
 using System.Diagnostics;
-using System.Linq;
 using System.Threading.Tasks;
 using CrossCam.CustomElement;
 using CrossCam.iOS.CustomRenderer;
 using CrossCam.Wrappers;
-using ExternalAccessory;
 using Foundation;
 using MultipeerConnectivity;
 using UIKit;
@@ -20,28 +15,7 @@ namespace CrossCam.iOS.CustomRenderer
 {
     public class PlatformBluetooth : IPlatformBluetooth
     {
-        private readonly ObservableCollection<EAAccessory> _availableDevices =
-            new ObservableCollection<EAAccessory>();
         private MCSession _session;
-
-        public PlatformBluetooth()
-        {
-            _availableDevices.CollectionChanged += (sender, args) =>
-            {
-                if (args.Action == NotifyCollectionChangedAction.Add)
-                {
-                    foreach (var newItem in args.NewItems)
-                    {
-                        var newDevice = (EAAccessory)newItem;
-                        OnDeviceDiscovered(new PartnerDevice
-                        {
-                            Name = newDevice.Name ?? "Unnamed",
-                            Address = newDevice.Description //TODO???? and switch to using this for IDing connection attempt below
-                        });
-                    }
-                }
-            };
-        }
 
         public event EventHandler Connected;
         private void OnConnected()
@@ -96,15 +70,6 @@ namespace CrossCam.iOS.CustomRenderer
             return Task.FromResult(true);
         }
 
-        public bool IsBluetoothSupported()
-        {
-            return true;
-        }
-        public Task<bool> TurnOnBluetooth()
-        {
-            return Task.FromResult(true);
-        }
-
         public Task<bool> TurnOnLocationServices()
         {
             return Task.FromResult(true);
@@ -125,10 +90,6 @@ namespace CrossCam.iOS.CustomRenderer
             return Task.FromResult(true);
         }
 
-        public void ForgetDevice(PartnerDevice partnerDevice)
-        {
-        }
-
         public Task<bool> BecomeDiscoverable()
         {
             var myPeerId = new MCPeerID(UIDevice.CurrentDevice.Name);
@@ -136,26 +97,6 @@ namespace CrossCam.iOS.CustomRenderer
             var assistant = new MCAdvertiserAssistant(BluetoothOperator.CROSSCAM_SERVICE, new NSDictionary(), _session);
             assistant.Start();
             return Task.FromResult(true);
-        }
-
-        public Task ListenForConnections()
-        {
-            return Task.FromResult(true);
-        }
-
-        public Task AttemptConnection(PartnerDevice partnerDevice)
-        {
-            throw new NotImplementedException();
-        }
-
-        public bool IsServerSupported()
-        {
-            return true;
-        }
-
-        public bool IsBluetoothApiLevelSufficient()
-        {
-            return true;
         }
 
         private class SessionDelegate : MCSessionDelegate

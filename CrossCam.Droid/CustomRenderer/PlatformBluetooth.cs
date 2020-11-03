@@ -1,11 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Collections.Specialized;
-using System.Diagnostics;
 using System.IO;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using Android.Bluetooth;
 using Android.Content;
@@ -18,11 +13,9 @@ using Android.OS;
 using CrossCam.CustomElement;
 using CrossCam.Droid.CustomRenderer;
 using CrossCam.Wrappers;
-using Java.Util;
 using Xamarin.Forms;
 using Xamarin.Essentials;
 using Debug = System.Diagnostics.Debug;
-using File = Java.IO.File;
 
 [assembly: Dependency(typeof(PlatformBluetooth))]
 namespace CrossCam.Droid.CustomRenderer
@@ -31,13 +24,8 @@ namespace CrossCam.Droid.CustomRenderer
     {
         public static TaskCompletionSource<bool> BluetoothPermissionsTask = new TaskCompletionSource<bool>();
         public static TaskCompletionSource<bool> LocationPermissionsTask = new TaskCompletionSource<bool>();
-        public static TaskCompletionSource<bool> IsBluetoothOnTask = new TaskCompletionSource<bool>();
-        public static TaskCompletionSource<bool> IsDeviceDiscoverableTask = new TaskCompletionSource<bool>();
-        public static readonly ObservableCollection<BluetoothDevice> AvailableDevices =
-            new ObservableCollection<BluetoothDevice>();
 
         private static TaskCompletionSource<bool> _isLocationOnTask = new TaskCompletionSource<bool>();
-        private BluetoothSocket _bluetoothSocket;
 
         private readonly GoogleApiClient _googleApiClient;
         private string _partnerId;
@@ -45,22 +33,6 @@ namespace CrossCam.Droid.CustomRenderer
 
         public PlatformBluetooth()
         {
-            //AvailableDevices.CollectionChanged += (sender, args) =>
-            //{
-            //    if (args.Action == NotifyCollectionChangedAction.Add)
-            //    {
-            //        foreach (var newItem in args.NewItems)
-            //        {
-            //            var newDevice = (BluetoothDevice)newItem;
-            //            OnDeviceDiscovered(new PartnerDevice
-            //            {
-            //                Name = newDevice.Name ?? "Unnamed",
-            //                Address = newDevice.Address
-            //            });
-            //        }
-            //    }
-            //};
-
             _googleApiClient = new GoogleApiClient.Builder(MainActivity.Instance)
                 .AddConnectionCallbacks(this)
                 .AddOnConnectionFailedListener(this)
@@ -69,11 +41,16 @@ namespace CrossCam.Droid.CustomRenderer
             _googleApiClient.Connect();
         }
 
-        public bool IsPrimary { get; set; }
-
         public void Disconnect()
         {
-            NearbyClass.Connections.DisconnectFromEndpoint(_googleApiClient, _partnerId);
+            Debug.WriteLine("### Disconnecting");
+            if (!string.IsNullOrWhiteSpace(_partnerId))
+            {
+                NearbyClass.Connections.DisconnectFromEndpoint(_googleApiClient, _partnerId);
+            }
+            NearbyClass.Connections.StopDiscovery(_googleApiClient);
+            NearbyClass.Connections.StopAdvertising(_googleApiClient);
+            NearbyClass.Connections.StopAllEndpoints(_googleApiClient);
         }
 
         public Task<bool> RequestBluetoothPermissions()
@@ -90,11 +67,6 @@ namespace CrossCam.Droid.CustomRenderer
             return LocationPermissionsTask.Task;
         }
 
-        public bool IsBluetoothSupported()
-        {
-            return BluetoothAdapter.DefaultAdapter != null;
-        }
-
         public bool IsBluetoothApiLevelSufficient()
         {
             return Build.VERSION.SdkInt >= BuildVersionCodes.M;
@@ -105,19 +77,6 @@ namespace CrossCam.Droid.CustomRenderer
             return Build.VERSION.SdkInt >= BuildVersionCodes.M;
         }
 
-        public Task<bool> TurnOnBluetooth()
-        {
-            IsBluetoothOnTask = new TaskCompletionSource<bool>();
-            if (!BluetoothAdapter.DefaultAdapter.IsEnabled)
-            {
-                MainActivity.Instance.StartActivityForResult(new Intent(BluetoothAdapter.ActionRequestEnable),
-                    (int)MainActivity.RequestCodes.TurnOnBluetoothRequestCode);
-                return IsBluetoothOnTask.Task;
-            }
-
-            return Task.FromResult(true);
-        }
-
         public Task<bool> TurnOnLocationServices()
         {
             return CheckForAndTurnOnLocationServices();
@@ -125,6 +84,7 @@ namespace CrossCam.Droid.CustomRenderer
 
         public static Task<bool> CheckForAndTurnOnLocationServices(bool checkOnly = false)
         {
+            Debug.WriteLine("### DoingLocationStuff");
             if (!checkOnly)
             {
                 _isLocationOnTask = new TaskCompletionSource<bool>();
@@ -233,80 +193,9 @@ namespace CrossCam.Droid.CustomRenderer
             handler?.Invoke(this, e);
         }
 
-        public async Task ListenForConnections()
-        {
-            var serverSocket =
-                BluetoothAdapter.DefaultAdapter.ListenUsingRfcommWithServiceRecord(Android.App.Application.Context.PackageName,
-                    UUID.FromString(BluetoothOperator.ServiceGuid.ToString()));
-            try
-            {
-                _bluetoothSocket = await serverSocket.AcceptAsync();
-            }
-            catch (Exception e)
-            {
-                if (string.Equals(e.Message, "Try again", StringComparison.OrdinalIgnoreCase))
-                {
-                    //TODO: what was this for???
-                    //if (_bluetoothSocket != null &&
-                    //    _bluetoothSocket.IsConnected)
-                    //{
-                    //    serverSocket.Close();
-                    //    BluetoothAdapter.DefaultAdapter.CancelDiscovery();
-                    //    OnConnected();
-                    //    return true;
-                    //}
-
-                    //return false;
-                }
-
-                throw;
-            }
-
-            if (_bluetoothSocket != null)
-            {
-                if (_bluetoothSocket.IsConnected)
-                {
-                    IsPrimary = false;
-                    OnConnected();
-                } //TODO: what if it fails?
-            }
-
-            serverSocket.Close();
-            BluetoothAdapter.DefaultAdapter.CancelDiscovery();
-        }
-
-        public async Task AttemptConnection(PartnerDevice partnerDevice)
-        {
-            var didConnect = false;
-            var targetDevice = BluetoothAdapter.DefaultAdapter.BondedDevices.Union(AvailableDevices)
-                .FirstOrDefault(d => d.Address == partnerDevice.Address);
-            if (targetDevice != null)
-            {
-                _bluetoothSocket =
-                    targetDevice.CreateRfcommSocketToServiceRecord(UUID.FromString(BluetoothOperator.ServiceGuid.ToString()));
-                await _bluetoothSocket.ConnectAsync();
-                if (_bluetoothSocket.IsConnected)
-                {
-                    IsPrimary = true;
-                    OnConnected();
-                } //TODO: what if it fails?
-            }
-        }
-
-        public void ForgetDevice(PartnerDevice partnerDevice)
-        {
-            var targetDevice =
-                BluetoothAdapter.DefaultAdapter.BondedDevices.FirstOrDefault(d => d.Address == partnerDevice.Address);
-            if (targetDevice != null)
-            {
-                var mi = targetDevice.Class.GetMethod("removeBond", null);
-                mi.Invoke(targetDevice, null);
-            }
-        }
-
         public void OnConnected(Bundle connectionHint)
         {
-            Debug.WriteLine("### OnConnected " + connectionHint);
+            Debug.WriteLine("### OnConnected " + (connectionHint != null ? string.Join(",", connectionHint.KeySet()) : ""));
         }
 
         public void OnConnectionSuspended(int cause)
@@ -321,6 +210,7 @@ namespace CrossCam.Droid.CustomRenderer
 
         public async Task<bool> BecomeDiscoverable()
         {
+            Debug.WriteLine("### BecomingDiscoverable");
             var result = await NearbyClass.Connections.StartAdvertisingAsync(_googleApiClient, DeviceInfo.Name, BluetoothOperator.CROSSCAM_SERVICE,
                 new MyConnectionLifecycleCallback(this), new AdvertisingOptions.Builder().SetStrategy(Strategy.P2pPointToPoint).Build());
             return result.Status.IsSuccess;
@@ -338,18 +228,8 @@ namespace CrossCam.Droid.CustomRenderer
             public override void OnConnectionInitiated(string p0, ConnectionInfo p1)
             {
                 Debug.WriteLine("### OnConnectionInitiated " + p0 + ", " + p1.EndpointName + ", Incoming: " + p1.IsIncomingConnection);
-                //if (p1.IsIncomingConnection)
-                //{
-                    NearbyClass.Connections.AcceptConnection(_platformBluetooth._googleApiClient, p0, new MyPayloadCallback(_platformBluetooth));
-                    //if (result..IsSuccess)
-                    //{
-                    //    Debug.WriteLine("### AcceptConnectionAsync result: " + p0 + ", " + result.StatusMessage);
-                    //    _platformBluetooth._partnerId = p0;
-                    //    _platformBluetooth.OnConnected();
-                    //    NearbyClass.Connections.StopDiscovery(_platformBluetooth._googleApiClient);
-                    //    NearbyClass.Connections.StopAdvertising(_platformBluetooth._googleApiClient);
-                    //}
-                //}
+                NearbyClass.Connections.AcceptConnection(_platformBluetooth._googleApiClient, p0, new MyPayloadCallback(_platformBluetooth));
+
             }
 
             public override void OnConnectionResult(string p0, ConnectionResolution p1)
@@ -458,6 +338,7 @@ namespace CrossCam.Droid.CustomRenderer
 
         public async Task<bool> StartScanning()
         {
+            Debug.WriteLine("### StartingScanning");
             await RequestLocationPermissions();
             var result = await NearbyClass.Connections.StartDiscoveryAsync(_googleApiClient,
                 BluetoothOperator.CROSSCAM_SERVICE, new MyEndpointDiscoveryCallback(this),

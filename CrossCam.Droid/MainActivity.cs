@@ -172,11 +172,11 @@ namespace CrossCam.Droid
             }
             else if (requestCode == (int)RequestCodes.TurnOnBluetoothRequestCode)
             {
-                PlatformBluetooth.IsBluetoothOnTask.SetResult(resultCode == Result.Ok);
+                //PlatformBluetooth.IsBluetoothOnTask.SetResult(resultCode == Result.Ok);
             }
             else if (requestCode == (int)RequestCodes.MakeBluetoothDiscoverableRequestCode)
             {
-                PlatformBluetooth.IsDeviceDiscoverableTask.SetResult(resultCode != Result.Canceled); // result code is discoverable duration, not pass/fail
+                //PlatformBluetooth.IsDeviceDiscoverableTask.SetResult(resultCode != Result.Canceled); // result code is discoverable duration, not pass/fail
             }
             else if (requestCode == (int) RequestCodes.TurnLocationServicesOnRequestCode)
             {
@@ -322,7 +322,7 @@ namespace CrossCam.Droid
                 {
                     var bluetoothDevice = (BluetoothDevice)intent.GetParcelableExtra(BluetoothDevice.ExtraDevice);
                     //TODO: limit this only to devices that actually advertise with CrossCam's UUID
-                    PlatformBluetooth.AvailableDevices.Add(bluetoothDevice);
+                    //PlatformBluetooth.AvailableDevices.Add(bluetoothDevice);
                 }
                 else if (BluetoothDevice.ActionAclConnected.Equals(intent.Action))
                 {

@@ -8,17 +8,10 @@ namespace CrossCam.Wrappers
         void Disconnect();
         Task<bool> RequestBluetoothPermissions();
         Task<bool> RequestLocationPermissions();
-        bool IsBluetoothSupported();
-        bool IsServerSupported();
-        bool IsBluetoothApiLevelSufficient();
-        Task<bool> TurnOnBluetooth();
-        Task<bool> TurnOnLocationServices(); 
-        Task AttemptConnection(PartnerDevice partnerDevice);
-        void ForgetDevice(PartnerDevice partnerDevice);
+        Task<bool> TurnOnLocationServices();
         Task<bool> StartScanning();
         event EventHandler<PartnerDevice> DeviceDiscovered;
         Task<bool> BecomeDiscoverable();
-        Task ListenForConnections();
         event EventHandler Connected;
         event EventHandler Disconnected;
 
