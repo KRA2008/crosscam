@@ -2,6 +2,7 @@
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 using Android.Bluetooth;
 using Android.Content;
@@ -31,7 +32,6 @@ namespace CrossCam.Droid.CustomRenderer
 
         private readonly GoogleApiClient _googleApiClient;
         private string _partnerId;
-        private bool _isSending;
 
         public PlatformBluetooth()
         {
@@ -137,7 +137,6 @@ namespace CrossCam.Droid.CustomRenderer
             try
             {
                 Debug.WriteLine("### SENDING: " + (BluetoothOperator.CrossCommand)bytes[2]);
-                _isSending = true;
                 var memoryStream = new MemoryStream(bytes);
                 if ((BluetoothOperator.CrossCommand) bytes[2] == BluetoothOperator.CrossCommand.CapturedImage)
                 {
@@ -145,7 +144,6 @@ namespace CrossCam.Droid.CustomRenderer
                 }
                 await NearbyClass.Connections.SendPayloadAsync(_googleApiClient, _partnerId,
                     Payload.FromStream(memoryStream));
-                _isSending = false;
             }
             catch (Exception e)
             {
@@ -241,12 +239,14 @@ namespace CrossCam.Droid.CustomRenderer
         private class MyPayloadCallback : PayloadCallback
         {
             private readonly PlatformBluetooth _platformBluetooth;
-            private Payload _mostRecentPayload;
+            private Payload _mostRecentReceivedPayload;
             private byte[] _incomingBytes;
             private int _incomingBytesCounter;
             private bool _isHeaderRead;
             private int _expectedLength;
             private readonly byte[] _headerBytes = new byte[BluetoothOperator.HEADER_LENGTH];
+
+            private int _payloadSendLock;
 
             public MyPayloadCallback(PlatformBluetooth platformBluetooth)
             {
@@ -255,24 +255,20 @@ namespace CrossCam.Droid.CustomRenderer
 
             public override void OnPayloadReceived(string p0, Payload p1)
             {
-                if (!_platformBluetooth._isSending)
-                {
-                    Debug.WriteLine("### OnPayloadReceived, Id: " + p1.Id);
-                    _mostRecentPayload = p1;
-                    _isHeaderRead = false;
-                }
+                Debug.WriteLine("### OnPayloadReceived, Id: " + p1.Id);
+                _mostRecentReceivedPayload = p1;
+                _isHeaderRead = false;
+                _payloadSendLock = 0;
             }
 
             public override async void OnPayloadTransferUpdate(string p0, PayloadTransferUpdate p1)
             {
-                if (!_platformBluetooth._isSending &&
-                    _mostRecentPayload != null &&
-                    p1.TransferStatus == PayloadTransferUpdate.Status.Success)
+                if (_mostRecentReceivedPayload.Id == p1.PayloadId ) //NOTES: filtering to success status works great until transferring captured images, which seems to need to be read in chunks of "in progress"
                 {
-                    Debug.WriteLine("### OnPayloadTransferUpdate, Id: " + p1.PayloadId + " status: " + p1.TransferStatus + " sending: " + _platformBluetooth._isSending);
+                    Debug.WriteLine("### OnPayloadTransferUpdate, Id: " + p1.PayloadId + " status: " + p1.TransferStatus);
                     try
                     {
-                        var memoryStream = _mostRecentPayload.AsStream().AsInputStream();
+                        var memoryStream = _mostRecentReceivedPayload.AsStream().AsInputStream();
 
                         if (!_isHeaderRead)
                         {
@@ -282,15 +278,14 @@ namespace CrossCam.Droid.CustomRenderer
                                 _headerBytes[ii] = (byte)nextByte;
                             }
                             _expectedLength = BluetoothOperator.HEADER_LENGTH + ((_headerBytes.ElementAt(3) << 16) | (_headerBytes.ElementAt(4) << 8) | _headerBytes.ElementAt(5));
-                            Debug.WriteLine("### RECEIVING: " + (BluetoothOperator.CrossCommand)_headerBytes[2]);
+                            //Debug.WriteLine("### RECEIVING: " + (BluetoothOperator.CrossCommand)_headerBytes[2]);
 
-                            if (_expectedLength == BluetoothOperator.HEADER_LENGTH)
+                            if (_expectedLength == BluetoothOperator.HEADER_LENGTH &&
+                                Interlocked.Exchange(ref _payloadSendLock, 1) == 0)
                             {
-                                Debug.WriteLine("### ProcessReceivedPayload, header only");
+                                Debug.WriteLine("### ProcessReceivedPayload, header only, Id: " + p1.PayloadId);
                                 _platformBluetooth.ProcessReceivedPayload(_headerBytes);
                                 memoryStream.Close();
-                                _mostRecentPayload.Dispose();
-                                _mostRecentPayload = null;
                                 return;
                             }
 
@@ -322,20 +317,23 @@ namespace CrossCam.Droid.CustomRenderer
 
                         //if((BluetoothOperator.CrossCommand)_headerBytes[2] == BluetoothOperator.CrossCommand.CapturedImage) Debugger.Break();
 
-                        if (_expectedLength == _incomingBytesCounter)
+                        if (_expectedLength == _incomingBytesCounter &&
+                            Interlocked.Exchange(ref _payloadSendLock, 1) == 0)
                         {
-                            Debug.WriteLine("### ProcessReceivedPayload: " + _incomingBytesCounter + " of " + _expectedLength);
+                            Debug.WriteLine("### ProcessReceivedPayload: " + _incomingBytesCounter + " of " + _expectedLength + ", Id: " + p1.PayloadId);
                             _platformBluetooth.ProcessReceivedPayload(_incomingBytes);
-                            memoryStream.Close();
-                            _mostRecentPayload.Dispose();
-                            _mostRecentPayload = null;
                         }
+                        memoryStream.Close();
                     }
                     catch (Exception e)
                     {
                         Debug.WriteLine("### EXCEPTION UPDATING: " + e);
                     }
                 }
+                //else if (p1.TransferStatus == PayloadTransferUpdate.Status.InProgress) //KEEP THIS because i keep forgetting how to get the status
+                //{
+                //    Debug.WriteLine("### PROGRESS: " + p1.BytesTransferred + " of " + p1.TotalBytes);
+                //}
             }
         }
 
