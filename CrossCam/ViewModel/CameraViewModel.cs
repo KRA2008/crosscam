@@ -291,7 +291,7 @@ namespace CrossCam.ViewModel
                         if (BluetoothOperator.IsPrimary &&
                             BluetoothOperator.PairStatus == PairStatus.Connected)
                         {
-                            WorkflowStage = WorkflowStage.Loading;
+                            WorkflowStage = WorkflowStage.Receiving;
                             RaisePropertyChanged(nameof(ShouldLineGuidesBeVisible));
                             RaisePropertyChanged(nameof(ShouldDonutGuideBeVisible));
                         }

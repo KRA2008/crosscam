@@ -11,6 +11,7 @@
         View,
         Saving,
         AutomaticAlign,
-        Loading
+        Loading,
+        Receiving
     }
 }

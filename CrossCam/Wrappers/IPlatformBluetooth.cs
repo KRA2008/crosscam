@@ -1,15 +1,14 @@
 ﻿using System;
 using System.Threading.Tasks;
+using CrossCam.CustomElement;
 
 namespace CrossCam.Wrappers
 {
     public interface IPlatformBluetooth
     {
+        BluetoothOperator BluetoothOperator { set; }
         void Disconnect();
-        Task<bool> RequestBluetoothPermissions();
-        Task<bool> RequestLocationPermissions();
-        Task<bool> TurnOnLocationServices();
-        Task<bool> StartScanning();
+        Task<string> StartScanning();
         event EventHandler<PartnerDevice> DeviceDiscovered;
         Task<bool> BecomeDiscoverable();
         event EventHandler Connected;

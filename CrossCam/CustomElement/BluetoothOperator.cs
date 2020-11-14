@@ -66,6 +66,17 @@ namespace CrossCam.CustomElement
         private int _pairInitializeThreadLocker;
         private int _connectThreadLocker;
 
+        private int _receivingProgress;
+        public int ReceivingProgress
+        {
+            get => _receivingProgress;
+            set
+            {
+                _receivingProgress = value;
+                OnPropertyChanged(nameof(ReceivingProgress));
+            }
+        }
+
         public const int HEADER_LENGTH = 6;
         private const byte SYNC_MASK = 170; // 0xAA (do it twice)
         public enum CrossCommand
@@ -171,6 +182,7 @@ namespace CrossCam.CustomElement
         {
             _settings = settings;
             _platformBluetooth = DependencyService.Get<IPlatformBluetooth>();
+            _platformBluetooth.BluetoothOperator = this;
             _platformBluetooth.DeviceDiscovered += PlatformBluetoothOnDeviceDiscovered;
             _platformBluetooth.Connected += PlatformBluetoothOnConnected;
             _platformBluetooth.Disconnected += PlatformBluetoothOnDisconnected;
@@ -190,6 +202,13 @@ namespace CrossCam.CustomElement
                     {
                         Debug.WriteLine("### payload stated length (" + payload.Length + ") was not equal to payload observed length (" + payloadLength + ")");
                     }
+
+                    //if ((CrossCommand) bytes[2] != CrossCommand.PreviewFrame &&
+                    //    (CrossCommand) bytes[2] != CrossCommand.CapturedImage)
+                    //{
+                    //    Debug.WriteLine("### PAYLOAD RECEIVED: " + string.Join(",",bytes));
+                    //}
+
                     //Debug.WriteLine("### Command received: " + (CrossCommand)bytes[2]);
                     switch (bytes[2])
                     {
@@ -285,7 +304,13 @@ namespace CrossCam.CustomElement
                 (byte) ((payloadLength >> 8) & 0x00ff),
                 (byte) (payloadLength & 0x0000ff)
             };
-            return header.Concat(payload).ToArray();
+            var fullPayload = header.Concat(payload).ToArray();
+            //if (crossCommand != CrossCommand.CapturedImage &&
+            //    crossCommand != CrossCommand.PreviewFrame)
+            //{
+            //    Debug.WriteLine("### PAYLOAD SENT: " + string.Join(",", fullPayload));
+            //}
+            return fullPayload;
         }
 
         private void HandleFovReceived(byte[] bytes)
@@ -314,7 +339,11 @@ namespace CrossCam.CustomElement
                 {
                     PairStatus = PairStatus.Connecting;
                     _primaryIsRequestingDisconnect = false;
-                   await _platformBluetooth.StartScanning();
+                   var resultMessage = await _platformBluetooth.StartScanning();
+                   if (resultMessage != null)
+                   {
+                       await HandleBluetoothException(new Exception(resultMessage));
+                   }
                 }
                 catch (Exception e)
                 {

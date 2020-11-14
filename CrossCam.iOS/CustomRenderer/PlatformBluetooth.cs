@@ -15,6 +15,7 @@ namespace CrossCam.iOS.CustomRenderer
 {
     public class PlatformBluetooth : IPlatformBluetooth
     {
+        public BluetoothOperator BluetoothOperator { get; set; }
         private MCSession _session;
 
         public event EventHandler Connected;
@@ -60,22 +61,7 @@ namespace CrossCam.iOS.CustomRenderer
             _session.Disconnect();
         }
 
-        public Task<bool> RequestBluetoothPermissions()
-        {
-            return Task.FromResult(true);
-        }
-
-        public Task<bool> RequestLocationPermissions()
-        {
-            return Task.FromResult(true);
-        }
-
-        public Task<bool> TurnOnLocationServices()
-        {
-            return Task.FromResult(true);
-        }
-
-        public Task<bool> StartScanning()
+        public Task<string> StartScanning()
         {
             var myPeerId = new MCPeerID(UIDevice.CurrentDevice.Name);
             _session = new MCSession(myPeerId) { Delegate = new SessionDelegate(this) };
@@ -87,7 +73,7 @@ namespace CrossCam.iOS.CustomRenderer
                 };
                 browser.StartBrowsingForPeers();
             });
-            return Task.FromResult(true);
+            return Task.FromResult((string)null);
         }
 
         public Task<bool> BecomeDiscoverable()

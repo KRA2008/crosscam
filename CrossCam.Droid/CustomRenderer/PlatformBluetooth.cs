@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
@@ -24,6 +25,7 @@ namespace CrossCam.Droid.CustomRenderer
     {
         public static TaskCompletionSource<bool> BluetoothPermissionsTask = new TaskCompletionSource<bool>();
         public static TaskCompletionSource<bool> LocationPermissionsTask = new TaskCompletionSource<bool>();
+        public BluetoothOperator BluetoothOperator { get;set; }
 
         private static TaskCompletionSource<bool> _isLocationOnTask = new TaskCompletionSource<bool>();
 
@@ -53,28 +55,11 @@ namespace CrossCam.Droid.CustomRenderer
             NearbyClass.Connections.StopAllEndpoints(_googleApiClient);
         }
 
-        public Task<bool> RequestBluetoothPermissions()
-        {
-            BluetoothPermissionsTask = new TaskCompletionSource<bool>();
-            MainActivity.Instance.CheckForAndRequestBluetoothPermissions();
-            return BluetoothPermissionsTask.Task;
-        }
-
         public Task<bool> RequestLocationPermissions()
         {
             LocationPermissionsTask = new TaskCompletionSource<bool>();
             MainActivity.Instance.CheckForAndRequestLocationPermissions();
             return LocationPermissionsTask.Task;
-        }
-
-        public bool IsBluetoothApiLevelSufficient()
-        {
-            return Build.VERSION.SdkInt >= BuildVersionCodes.M;
-        }
-
-        public bool IsServerSupported()
-        {
-            return Build.VERSION.SdkInt >= BuildVersionCodes.M;
         }
 
         public Task<bool> TurnOnLocationServices()
@@ -84,7 +69,7 @@ namespace CrossCam.Droid.CustomRenderer
 
         public static Task<bool> CheckForAndTurnOnLocationServices(bool checkOnly = false)
         {
-            Debug.WriteLine("### DoingLocationStuff");
+            //Debug.WriteLine("### DoingLocationStuff");
             if (!checkOnly)
             {
                 _isLocationOnTask = new TaskCompletionSource<bool>();
@@ -96,7 +81,6 @@ namespace CrossCam.Droid.CustomRenderer
 
             var builder = new LocationSettingsRequest.Builder().AddLocationRequest(new LocationRequest());
             builder.SetAlwaysShow(true);
-            builder.SetNeedBle(true);
 
             var result = LocationServices.SettingsApi.CheckLocationSettings(googleApiClient, builder.Build());
             result.SetResultCallback((LocationSettingsResult callback) =>
@@ -155,6 +139,10 @@ namespace CrossCam.Droid.CustomRenderer
                 Debug.WriteLine("### SENDING: " + (BluetoothOperator.CrossCommand)bytes[2]);
                 _isSending = true;
                 var memoryStream = new MemoryStream(bytes);
+                if ((BluetoothOperator.CrossCommand) bytes[2] == BluetoothOperator.CrossCommand.CapturedImage)
+                {
+                    await Task.Delay(1000);
+                }
                 await NearbyClass.Connections.SendPayloadAsync(_googleApiClient, _partnerId,
                     Payload.FromStream(memoryStream));
                 _isSending = false;
@@ -166,7 +154,7 @@ namespace CrossCam.Droid.CustomRenderer
         }
 
         public event EventHandler<byte[]> PayloadReceived;
-        private void OnPayloadReceived(byte[] payload)
+        private void ProcessReceivedPayload(byte[] payload)
         {
             var handler = PayloadReceived;
             handler?.Invoke(this, payload);
@@ -195,22 +183,22 @@ namespace CrossCam.Droid.CustomRenderer
 
         public void OnConnected(Bundle connectionHint)
         {
-            Debug.WriteLine("### OnConnected " + (connectionHint != null ? string.Join(",", connectionHint.KeySet()) : ""));
+            //Debug.WriteLine("### OnConnected " + (connectionHint != null ? string.Join(",", connectionHint.KeySet()) : ""));
         }
 
         public void OnConnectionSuspended(int cause)
         {
-            Debug.WriteLine("### OnConnectionSuspended " + cause);
+            //Debug.WriteLine("### OnConnectionSuspended " + cause);
         }
 
         public void OnConnectionFailed(ConnectionResult result)
         {
-            Debug.WriteLine("### OnConnectionFailed " + result.ErrorMessage);
+            //Debug.WriteLine("### OnConnectionFailed " + result.ErrorMessage);
         }
 
         public async Task<bool> BecomeDiscoverable()
         {
-            Debug.WriteLine("### BecomingDiscoverable");
+            //Debug.WriteLine("### BecomingDiscoverable");
             var result = await NearbyClass.Connections.StartAdvertisingAsync(_googleApiClient, DeviceInfo.Name, BluetoothOperator.CROSSCAM_SERVICE,
                 new MyConnectionLifecycleCallback(this), new AdvertisingOptions.Builder().SetStrategy(Strategy.P2pPointToPoint).Build());
             return result.Status.IsSuccess;
@@ -227,14 +215,14 @@ namespace CrossCam.Droid.CustomRenderer
 
             public override void OnConnectionInitiated(string p0, ConnectionInfo p1)
             {
-                Debug.WriteLine("### OnConnectionInitiated " + p0 + ", " + p1.EndpointName + ", Incoming: " + p1.IsIncomingConnection);
+                //Debug.WriteLine("### OnConnectionInitiated " + p0 + ", " + p1.EndpointName + ", Incoming: " + p1.IsIncomingConnection);
                 NearbyClass.Connections.AcceptConnection(_platformBluetooth._googleApiClient, p0, new MyPayloadCallback(_platformBluetooth));
 
             }
 
             public override void OnConnectionResult(string p0, ConnectionResolution p1)
             {
-                Debug.WriteLine("### OnConnectionResult " + p0 + ", " + p1.Status.StatusMessage);
+                //Debug.WriteLine("### OnConnectionResult " + p0 + ", " + p1.Status.StatusMessage);
                 if (p1.Status.IsSuccess)
                 {
                     _platformBluetooth._partnerId = p0;
@@ -255,9 +243,9 @@ namespace CrossCam.Droid.CustomRenderer
             private readonly PlatformBluetooth _platformBluetooth;
             private Payload _mostRecentPayload;
             private byte[] _incomingBytes;
-            private long _incomingBytesCounter;
+            private int _incomingBytesCounter;
             private bool _isHeaderRead;
-            private long _expectedLength;
+            private int _expectedLength;
             private readonly byte[] _headerBytes = new byte[BluetoothOperator.HEADER_LENGTH];
 
             public MyPayloadCallback(PlatformBluetooth platformBluetooth)
@@ -267,39 +255,41 @@ namespace CrossCam.Droid.CustomRenderer
 
             public override void OnPayloadReceived(string p0, Payload p1)
             {
-                //Debug.WriteLine("### OnPayloadReceived, Id: " + p1.Id);
                 if (!_platformBluetooth._isSending)
                 {
+                    Debug.WriteLine("### OnPayloadReceived, Id: " + p1.Id);
                     _mostRecentPayload = p1;
                     _isHeaderRead = false;
                 }
             }
 
-            public override void OnPayloadTransferUpdate(string p0, PayloadTransferUpdate p1)
+            public override async void OnPayloadTransferUpdate(string p0, PayloadTransferUpdate p1)
             {
-                //Debug.WriteLine("### OnPayloadTransferUpdate, Id: " + p1.PayloadId + " status: " + p1.TransferStatus + " sending: " + _platformBluetooth._isSending);
                 if (!_platformBluetooth._isSending &&
-                    _mostRecentPayload != null)
+                    _mostRecentPayload != null &&
+                    p1.TransferStatus == PayloadTransferUpdate.Status.Success)
                 {
+                    Debug.WriteLine("### OnPayloadTransferUpdate, Id: " + p1.PayloadId + " status: " + p1.TransferStatus + " sending: " + _platformBluetooth._isSending);
                     try
                     {
-                        int nextByte;
                         var memoryStream = _mostRecentPayload.AsStream().AsInputStream();
 
                         if (!_isHeaderRead)
                         {
                             for (var ii = 0; ii < BluetoothOperator.HEADER_LENGTH; ii++)
                             {
-                                 nextByte = memoryStream.ReadByte();
+                                var nextByte = memoryStream.ReadByte();
                                 _headerBytes[ii] = (byte)nextByte;
                             }
                             _expectedLength = BluetoothOperator.HEADER_LENGTH + ((_headerBytes.ElementAt(3) << 16) | (_headerBytes.ElementAt(4) << 8) | _headerBytes.ElementAt(5));
                             Debug.WriteLine("### RECEIVING: " + (BluetoothOperator.CrossCommand)_headerBytes[2]);
 
-                            if (_expectedLength == 0)
+                            if (_expectedLength == BluetoothOperator.HEADER_LENGTH)
                             {
-                                _platformBluetooth.OnPayloadReceived(_headerBytes);
+                                Debug.WriteLine("### ProcessReceivedPayload, header only");
+                                _platformBluetooth.ProcessReceivedPayload(_headerBytes);
                                 memoryStream.Close();
+                                _mostRecentPayload.Dispose();
                                 _mostRecentPayload = null;
                                 return;
                             }
@@ -314,17 +304,30 @@ namespace CrossCam.Droid.CustomRenderer
                             _isHeaderRead = true;
                         }
 
-                        while (_incomingBytesCounter < _expectedLength)
-                        {
-                            nextByte = memoryStream.ReadByte();
-                            _incomingBytes[_incomingBytesCounter] = (byte) nextByte;
-                            _incomingBytesCounter++;
-                        }
+                        //while (_incomingBytesCounter < _expectedLength)
+                        //{
+                        //    if ((BluetoothOperator.CrossCommand)_headerBytes[2] ==
+                        //        BluetoothOperator.CrossCommand.CapturedImage &&
+                        //        _incomingBytesCounter % 100000 == 0)
+                        //    {
+                        //        Debug.WriteLine("counter: " + _incomingBytesCounter);
+                        //        _platformBluetooth.BluetoothOperator.ReceivingProgress = (int)(_incomingBytesCounter * 100 / (_expectedLength * 1f));
+                        //        // TODO: deal with threading with this stuff...
+                        //    }
 
-                        if (_expectedLength == _incomingBytes.Length)
+                        //}
+                        //TODO: loop this in chunks to get progress report, not sure why there's always a second read with 0 bytes but maybe running over with the first read will fix that
+                        var readBytes = await memoryStream.ReadAsync(_incomingBytes, BluetoothOperator.HEADER_LENGTH, _expectedLength - BluetoothOperator.HEADER_LENGTH);
+                        _incomingBytesCounter += readBytes;
+
+                        //if((BluetoothOperator.CrossCommand)_headerBytes[2] == BluetoothOperator.CrossCommand.CapturedImage) Debugger.Break();
+
+                        if (_expectedLength == _incomingBytesCounter)
                         {
-                            _platformBluetooth.OnPayloadReceived(_incomingBytes);
+                            Debug.WriteLine("### ProcessReceivedPayload: " + _incomingBytesCounter + " of " + _expectedLength);
+                            _platformBluetooth.ProcessReceivedPayload(_incomingBytes);
                             memoryStream.Close();
+                            _mostRecentPayload.Dispose();
                             _mostRecentPayload = null;
                         }
                     }
@@ -336,14 +339,15 @@ namespace CrossCam.Droid.CustomRenderer
             }
         }
 
-        public async Task<bool> StartScanning()
+        public async Task<string> StartScanning()
         {
-            Debug.WriteLine("### StartingScanning");
+            //Debug.WriteLine("### StartingScanning");
             await RequestLocationPermissions();
+            await TurnOnLocationServices(); //TODO: make this only needed when there isn't a stored partner
             var result = await NearbyClass.Connections.StartDiscoveryAsync(_googleApiClient,
                 BluetoothOperator.CROSSCAM_SERVICE, new MyEndpointDiscoveryCallback(this),
                 new DiscoveryOptions.Builder().SetStrategy(Strategy.P2pPointToPoint).Build());
-            return result.Status.IsSuccess;
+            return result.IsSuccess ? null : result.StatusMessage;
         }
 
         private class MyEndpointDiscoveryCallback : EndpointDiscoveryCallback
@@ -357,7 +361,7 @@ namespace CrossCam.Droid.CustomRenderer
 
             public override async void OnEndpointFound(string p0, DiscoveredEndpointInfo p1)
             {
-                Debug.WriteLine("### OnEndpointFound " + p0 + ", " + p1.EndpointName);
+                //Debug.WriteLine("### OnEndpointFound " + p0 + ", " + p1.EndpointName);
                 if (p1.ServiceId == BluetoothOperator.CROSSCAM_SERVICE)
                 {
                     await NearbyClass.Connections.RequestConnectionAsync(_bluetooth._googleApiClient, DeviceInfo.Name,
@@ -367,7 +371,7 @@ namespace CrossCam.Droid.CustomRenderer
 
             public override void OnEndpointLost(string p0)
             {
-                Debug.WriteLine("### OnEndpointLost " + p0);
+                //Debug.WriteLine("### OnEndpointLost " + p0);
             }
         }
     }
