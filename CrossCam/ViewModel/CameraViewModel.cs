@@ -10,6 +10,7 @@ using CrossCam.Page;
 using CrossCam.Wrappers;
 using FreshMvvm;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Serialization;
 using Plugin.DeviceInfo;
 using SkiaSharp;
 using Xamarin.Essentials;
@@ -291,7 +292,7 @@ namespace CrossCam.ViewModel
                         if (BluetoothOperator.IsPrimary &&
                             BluetoothOperator.PairStatus == PairStatus.Connected)
                         {
-                            WorkflowStage = WorkflowStage.Receiving;
+                            WorkflowStage = WorkflowStage.Loading;
                             RaisePropertyChanged(nameof(ShouldLineGuidesBeVisible));
                             RaisePropertyChanged(nameof(ShouldDonutGuideBeVisible));
                         }
@@ -1498,55 +1499,23 @@ namespace CrossCam.ViewModel
             return color.Red + color.Green + color.Blue;
         }
 
-        public SKBitmap DecodeBitmapAndCorrectOrientation(byte[] bytes, bool externalOrientationCorrection = false)
+        public SKBitmap DecodeBitmapAndCorrectOrientation(byte[] bytes, bool withOrientationByte = false)
         {
             try
             {
-                SKCodecOrigin origin = 0;
 
-                var useExternalCorrection = externalOrientationCorrection && Device.RuntimePlatform == Device.Android;
-                using (var stream = new MemoryStream(bytes, 0, useExternalCorrection ? bytes.Length - 1: bytes.Length))
-                using (var data = SKData.Create(stream))
-                using (var codec = SKCodec.Create(data))
+                withOrientationByte = withOrientationByte && Device.RuntimePlatform == Device.Android;
+                if (withOrientationByte)
                 {
-                    var bitmap = SKBitmap.Decode(data);
-
-                    if (codec != null)
+                    using (var stream = new MemoryStream(bytes, 0, bytes.Length - 1))
                     {
-                        origin = codec.Origin;
+                        return InternalDecodeAndCorrect(stream, bytes.Last());
                     }
+                }
 
-                    if (!useExternalCorrection)
-                    {
-                        switch (origin)
-                        {
-                            case SKCodecOrigin.BottomRight when !Settings.IsFrontCamera:
-                                return BitmapRotate180(bitmap, false);
-                            case SKCodecOrigin.BottomRight when Settings.IsFrontCamera:
-                                return BitmapHorizontalMirror(bitmap);
-                            case SKCodecOrigin.RightTop:
-                                return BitmapRotate90(bitmap, Settings.IsFrontCamera);
-                            case SKCodecOrigin.LeftBottom:
-                                return BitmapRotate270(bitmap, Settings.IsFrontCamera);
-                            case SKCodecOrigin.TopLeft when Settings.IsFrontCamera:
-                                return BitmapRotate180(bitmap, true);
-                            default:
-                                return bitmap;
-                        }
-                    }
-
-                    var correction = bytes.Last();
-                    switch (correction)
-                    {
-                        case 1:
-                            return BitmapRotate90(bitmap, false);
-                        case 2:
-                            return BitmapRotate180(bitmap, false);
-                        case 3:
-                            return BitmapRotate270(bitmap, false);
-                        default:
-                            return bitmap;
-                    }
+                using (var stream = new MemoryStream(bytes))
+                {
+                    return InternalDecodeAndCorrect(stream, null);
                 }
             }
             catch (Exception e)
@@ -1556,6 +1525,52 @@ namespace CrossCam.ViewModel
                     ErrorMessage = e.ToString();
                 });
                 return null;
+            }
+        }
+
+        private SKBitmap InternalDecodeAndCorrect(Stream stream, byte? orientationByte)
+        {
+            SKCodecOrigin origin = 0;
+            using (var data = SKData.Create(stream))
+            using (var codec = SKCodec.Create(data))
+            {
+                var bitmap = SKBitmap.Decode(data);
+
+                if (codec != null)
+                {
+                    origin = codec.Origin;
+                }
+
+                if (!orientationByte.HasValue)
+                {
+                    switch (origin)
+                    {
+                        case SKCodecOrigin.BottomRight when !Settings.IsFrontCamera:
+                            return BitmapRotate180(bitmap, false);
+                        case SKCodecOrigin.BottomRight when Settings.IsFrontCamera:
+                            return BitmapHorizontalMirror(bitmap);
+                        case SKCodecOrigin.RightTop:
+                            return BitmapRotate90(bitmap, Settings.IsFrontCamera);
+                        case SKCodecOrigin.LeftBottom:
+                            return BitmapRotate270(bitmap, Settings.IsFrontCamera);
+                        case SKCodecOrigin.TopLeft when Settings.IsFrontCamera:
+                            return BitmapRotate180(bitmap, true);
+                        default:
+                            return bitmap;
+                    }
+                }
+
+                switch (orientationByte)
+                {
+                    case 1:
+                        return BitmapRotate90(bitmap, false);
+                    case 2:
+                        return BitmapRotate180(bitmap, false);
+                    case 3:
+                        return BitmapRotate270(bitmap, false);
+                    default:
+                        return bitmap;
+                }
             }
         }
 

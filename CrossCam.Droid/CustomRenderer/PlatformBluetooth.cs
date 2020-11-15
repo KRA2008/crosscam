@@ -1,8 +1,6 @@
 ﻿using System;
-using System.Diagnostics;
 using System.IO;
 using System.Linq;
-using System.Threading;
 using System.Threading.Tasks;
 using Android.Bluetooth;
 using Android.Content;
@@ -26,12 +24,12 @@ namespace CrossCam.Droid.CustomRenderer
     {
         public static TaskCompletionSource<bool> BluetoothPermissionsTask = new TaskCompletionSource<bool>();
         public static TaskCompletionSource<bool> LocationPermissionsTask = new TaskCompletionSource<bool>();
-        public BluetoothOperator BluetoothOperator { get;set; }
 
         private static TaskCompletionSource<bool> _isLocationOnTask = new TaskCompletionSource<bool>();
 
         private readonly GoogleApiClient _googleApiClient;
         private string _partnerId;
+        private Stream _sendingStream; //TODO: can i just keep using the same streams?
 
         public PlatformBluetooth()
         {
@@ -137,13 +135,13 @@ namespace CrossCam.Droid.CustomRenderer
             try
             {
                 Debug.WriteLine("### SENDING: " + (BluetoothOperator.CrossCommand)bytes[2]);
-                var memoryStream = new MemoryStream(bytes);
-                if ((BluetoothOperator.CrossCommand) bytes[2] == BluetoothOperator.CrossCommand.CapturedImage)
+                _sendingStream = new MemoryStream(bytes);
+                if ((BluetoothOperator.CrossCommand)bytes[2] == BluetoothOperator.CrossCommand.CapturedImage)
                 {
                     await Task.Delay(1000);
                 }
                 await NearbyClass.Connections.SendPayloadAsync(_googleApiClient, _partnerId,
-                    Payload.FromStream(memoryStream));
+                    Payload.FromStream(_sendingStream));
             }
             catch (Exception e)
             {
@@ -240,9 +238,9 @@ namespace CrossCam.Droid.CustomRenderer
         {
             private readonly PlatformBluetooth _platformBluetooth;
             private Payload _mostRecentReceivedPayload;
+            private Stream _receivingStream;
             private byte[] _incomingBytes;
             private int _incomingBytesCounter;
-            private bool _isHeaderRead;
             private int _expectedLength;
             private readonly byte[] _headerBytes = new byte[BluetoothOperator.HEADER_LENGTH];
 
@@ -251,71 +249,33 @@ namespace CrossCam.Droid.CustomRenderer
                 _platformBluetooth = platformBluetooth;
             }
 
-            public override async void OnPayloadReceived(string p0, Payload p1)
+            //TODO: handle closing and disposing better, what's with the "failed to call close" stuff?
+            //TODO: consider a constant sized buffer
+            public override void OnPayloadReceived(string p0, Payload p1)
             {
-                Debug.WriteLine("### OnPayloadReceived, Id: " + p1.Id);
+                //Debug.WriteLine("### OnPayloadReceived, Id: " + p1.Id);
                 _mostRecentReceivedPayload = p1;
-                _isHeaderRead = false;
 
                 try
                 {
-                    var memoryStream = _mostRecentReceivedPayload.AsStream().AsInputStream();
+                    _receivingStream = _mostRecentReceivedPayload.AsStream().AsInputStream();
 
-                    if (!_isHeaderRead)
+                    for (var ii = 0; ii < BluetoothOperator.HEADER_LENGTH; ii++)
                     {
-                        for (var ii = 0; ii < BluetoothOperator.HEADER_LENGTH; ii++)
-                        {
-                            var nextByte = memoryStream.ReadByte();
-                            _headerBytes[ii] = (byte)nextByte;
-                        }
-                        _expectedLength = BluetoothOperator.HEADER_LENGTH + ((_headerBytes.ElementAt(3) << 16) | (_headerBytes.ElementAt(4) << 8) | _headerBytes.ElementAt(5));
-                        //Debug.WriteLine("### RECEIVING: " + (BluetoothOperator.CrossCommand)_headerBytes[2]);
+                        var nextByte = _receivingStream.ReadByte();
+                        _headerBytes[ii] = (byte)nextByte;
+                    }
+                    _expectedLength = BluetoothOperator.HEADER_LENGTH + ((_headerBytes.ElementAt(3) << 16) | (_headerBytes.ElementAt(4) << 8) | _headerBytes.ElementAt(5));
 
-                        if (_expectedLength == BluetoothOperator.HEADER_LENGTH)
-                        {
-                            Debug.WriteLine("### ProcessReceivedPayload, header only, Id: " + p1.Id);
-                            _platformBluetooth.ProcessReceivedPayload(_headerBytes);
-                            memoryStream.Close();
-                            return;
-                        }
-
-                        _incomingBytes = new byte[_expectedLength];
-                        _incomingBytesCounter = BluetoothOperator.HEADER_LENGTH;
-                        for (var ii = 0; ii < _headerBytes.Length; ii++)
-                        {
-                            _incomingBytes[ii] = _headerBytes[ii];
-                        }
-
-                        _isHeaderRead = true;
+                    _incomingBytes = new byte[_expectedLength];
+                    _incomingBytesCounter = BluetoothOperator.HEADER_LENGTH;
+                    for (var ii = 0; ii < _headerBytes.Length; ii++)
+                    {
+                        _incomingBytes[ii] = _headerBytes[ii];
                     }
 
-                    //while (_incomingBytesCounter < _expectedLength)
-                    //{
-                    //    if ((BluetoothOperator.CrossCommand)_headerBytes[2] ==
-                    //        BluetoothOperator.CrossCommand.CapturedImage &&
-                    //        _incomingBytesCounter % 100000 == 0)
-                    //    {
-                    //        Debug.WriteLine("counter: " + _incomingBytesCounter);
-                    //        _platformBluetooth.BluetoothOperator.ReceivingProgress = (int)(_incomingBytesCounter * 100 / (_expectedLength * 1f));
-                    //        // TODO: deal with threading with this stuff...
-                    //    }
-
-                    //}
-                    var readBytes = memoryStream.Read(_incomingBytes, BluetoothOperator.HEADER_LENGTH, _expectedLength - BluetoothOperator.HEADER_LENGTH);
+                    var readBytes = _receivingStream.Read(_incomingBytes, _incomingBytesCounter, _expectedLength - _incomingBytesCounter);
                     _incomingBytesCounter += readBytes;
-
-                    //if((BluetoothOperator.CrossCommand)_headerBytes[2] == BluetoothOperator.CrossCommand.CapturedImage) Debugger.Break();
-
-                    if (_expectedLength == _incomingBytesCounter)
-                    {
-                        Debug.WriteLine("### ProcessReceivedPayload: " + _incomingBytesCounter + " of " + _expectedLength + ", Id: " + p1.Id);
-                        _platformBluetooth.ProcessReceivedPayload(_incomingBytes);
-                    }
-                    else
-                    {
-                        Debug.WriteLine("### WTF, bad read!");
-                    }
-                    memoryStream.Close();
                 }
                 catch (Exception e)
                 {
@@ -325,11 +285,40 @@ namespace CrossCam.Droid.CustomRenderer
 
             public override void OnPayloadTransferUpdate(string p0, PayloadTransferUpdate p1)
             {
-                Debug.WriteLine("### OnPayloadTransferUpdate " + (_mostRecentReceivedPayload?.Id == p1.PayloadId ? "RECEIVE" : "SEND") + " Id: " + p1.PayloadId + " status: " + p1.TransferStatus + " progress: " + p1.BytesTransferred + "/" + p1.TotalBytes);
-                //else if (p1.TransferStatus == PayloadTransferUpdate.Status.InProgress) //KEEP THIS because i keep forgetting how to get the status
-                //{
-                //    Debug.WriteLine("### PROGRESS: " + p1.BytesTransferred + " of " + p1.TotalBytes);
-                //}
+                //Debug.WriteLine("### OnPayloadTransferUpdate " + (_mostRecentReceivedPayload?.Id == p1.PayloadId ? "RECEIVE" : "SEND") + " Id: " + p1.PayloadId + " status: " + p1.TransferStatus + " progress: " + p1.BytesTransferred + "/" + _expectedLength);
+                if (p1.PayloadId == _mostRecentReceivedPayload?.Id) //only care about receiving
+                {
+                    int readBytes;
+                    switch (p1.TransferStatus)
+                    {
+                        case PayloadTransferUpdate.Status.InProgress:
+                            readBytes = _receivingStream.Read(_incomingBytes, _incomingBytesCounter, _expectedLength - _incomingBytesCounter);
+                            _incomingBytesCounter += readBytes;
+                            break;
+                        case PayloadTransferUpdate.Status.Success:
+                            readBytes = _receivingStream.Read(_incomingBytes, _incomingBytesCounter, _expectedLength - _incomingBytesCounter);
+                            _incomingBytesCounter += readBytes;
+
+                            //Debug.WriteLine("### ProcessReceivedPayload: " + _incomingBytesCounter + " of " + _expectedLength + ", Id: " + p1.PayloadId);
+                            _platformBluetooth.ProcessReceivedPayload(_incomingBytes);
+
+                            _receivingStream?.Close();
+                            _receivingStream = null;
+                            break;
+                        default: //failure
+                            Debug.WriteLine("### Transfer failed!");
+                            break;
+                    }
+                }
+                else
+                {
+                    if (p1.TransferStatus == PayloadTransferUpdate.Status.Success)
+                    {
+                        //Debug.WriteLine("### Closing due to sent success");
+                        _platformBluetooth._sendingStream?.Close();
+                        _platformBluetooth._sendingStream = null;
+                    }
+                }
             }
         }
 

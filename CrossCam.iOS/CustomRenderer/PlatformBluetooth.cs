@@ -15,7 +15,6 @@ namespace CrossCam.iOS.CustomRenderer
 {
     public class PlatformBluetooth : IPlatformBluetooth
     {
-        public BluetoothOperator BluetoothOperator { get; set; }
         private MCSession _session;
 
         public event EventHandler Connected;
@@ -42,7 +41,7 @@ namespace CrossCam.iOS.CustomRenderer
         public void SendPayload(byte[] bytes)
         {
             NSError error = null;
-            _session?.SendData(NSData.FromArray(bytes), _session.ConnectedPeers, MCSessionSendDataMode.Reliable, out error);
+            _session?.SendData(NSData.FromArray(bytes), _session.ConnectedPeers, MCSessionSendDataMode.Reliable, out error); //TODO: how to indicate transmitting on secondary?
             if (error != null)
             {
                 throw new Exception(error.ToString());

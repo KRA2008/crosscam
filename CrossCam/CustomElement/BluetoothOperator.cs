@@ -22,8 +22,6 @@ namespace CrossCam.CustomElement
         private readonly Settings _settings;
         public bool IsPrimary => _settings.IsPairedPrimary.HasValue && _settings.IsPairedPrimary.Value;
 
-        
-
         public double Fov //TODO: make field of view correction a value configured by user for a pair of phones
         {
             get => 90;
@@ -65,17 +63,6 @@ namespace CrossCam.CustomElement
         private int _initializeThreadLocker;
         private int _pairInitializeThreadLocker;
         private int _connectThreadLocker;
-
-        private int _receivingProgress;
-        public int ReceivingProgress
-        {
-            get => _receivingProgress;
-            set
-            {
-                _receivingProgress = value;
-                OnPropertyChanged(nameof(ReceivingProgress));
-            }
-        }
 
         public const int HEADER_LENGTH = 6;
         private const byte SYNC_MASK = 170; // 0xAA (do it twice)
@@ -182,7 +169,6 @@ namespace CrossCam.CustomElement
         {
             _settings = settings;
             _platformBluetooth = DependencyService.Get<IPlatformBluetooth>();
-            _platformBluetooth.BluetoothOperator = this;
             _platformBluetooth.DeviceDiscovered += PlatformBluetoothOnDeviceDiscovered;
             _platformBluetooth.Connected += PlatformBluetoothOnConnected;
             _platformBluetooth.Disconnected += PlatformBluetoothOnDisconnected;

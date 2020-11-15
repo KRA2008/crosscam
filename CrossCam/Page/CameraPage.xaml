@@ -1385,17 +1385,9 @@
         <Label Text="Loading..."
                Style="{StaticResource _feedback}"
                IsVisible="{Binding WorkflowStage, Converter={vc:EnumCompareConverter}, ConverterParameter={x:Static vm:WorkflowStage.Loading}}"/>
-        <StackLayout IsVisible="{Binding WorkflowStage, Converter={vc:EnumCompareConverter}, ConverterParameter={x:Static vm:WorkflowStage.Receiving}}">
-            <Label Text="Receiving..."
-                   Style="{StaticResource _feedback}"/>
-            <Label Text="{Binding BluetoothOperatorBindable.ReceivingProgress, StringFormat='{0}%'}"
-                   Style="{StaticResource _feedback}"/>
-            <Label Text="Keep both devices unlocked!"
-                   Style="{StaticResource _feedback}"/>
-        </StackLayout>
         <Label Text="Automatic alignment not supported on device - turn off in Settings."
-               Style="{StaticResource _feedback}"
-               IsVisible="False">
+           Style="{StaticResource _feedback}"
+           IsVisible="False">
             <Label.Behaviors>
                 <ce:FadeInAndOutBehavior VisibleTimeMs="3000"
                                          Trigger="{Binding AutomaticAlignmentNotSupportedTrigger}"/>
