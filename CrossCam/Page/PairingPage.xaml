@@ -82,8 +82,8 @@
             </Grid>
             <Label Text="To connect again later, make sure you have Wi-Fi enabled and then just tap the connect button on the home screen on both devices."/>
             <Label Text=" "/>
-            <Label Text="A Note About Permissions:"></Label>
-            <Label Text="CrossCam will request permissions and power on components as needed in order to connect your devices. Please note: access to location services is required. CrossCam does not actually USE your location in any way, but because the act of searching for Bluetooth devices could theoretically be used to find your location, CrossCam requires permission to access your location. You may not be used to seeing that because it is a newer change in the way mobile operating systems handle Bluetooth permissions in order to more strongly protect your privacy. Once your devices are connected and remember each other, CrossCam will not require location access for reconnecting in the future - feel free to remove that permission. Also, remember that CrossCam still does not use an internet connection or even request the internet permissions so it can't transmit location data anywhere even if it did collect it.">
+            <Label Text="A Note About Permissions:"/>
+            <Label Text="CrossCam will request permissions and power on components as needed in order to connect your devices. Please note: CrossCam requires access to location services on the primary device in order to find the secondary. CrossCam does not actually USE your location in any way, but because the act of searching for nearby devices could theoretically be used to find your location, CrossCam requires permission to access your location. Note that CrossCam still does not use an internet connection or even request internet permission so it can't transmit location data anywhere even if it did collect it.">
                 <Label.IsVisible>
                     <OnPlatform x:TypeArguments="system:Boolean">
                         <On Platform="Android"

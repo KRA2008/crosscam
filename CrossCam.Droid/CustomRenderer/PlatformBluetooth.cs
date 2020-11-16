@@ -28,7 +28,7 @@ namespace CrossCam.Droid.CustomRenderer
         private static TaskCompletionSource<bool> _isLocationOnTask = new TaskCompletionSource<bool>();
 
         private readonly GoogleApiClient _googleApiClient;
-        private string _partnerId;
+        private string _connectedPartnerId;
         private Stream _sendingStream; //TODO: can i just keep using the same streams?
 
         public PlatformBluetooth()
@@ -44,9 +44,9 @@ namespace CrossCam.Droid.CustomRenderer
         public void Disconnect()
         {
             Debug.WriteLine("### Disconnecting");
-            if (!string.IsNullOrWhiteSpace(_partnerId))
+            if (!string.IsNullOrWhiteSpace(_connectedPartnerId))
             {
-                NearbyClass.Connections.DisconnectFromEndpoint(_googleApiClient, _partnerId);
+                NearbyClass.Connections.DisconnectFromEndpoint(_googleApiClient, _connectedPartnerId);
             }
             NearbyClass.Connections.StopDiscovery(_googleApiClient);
             NearbyClass.Connections.StopAdvertising(_googleApiClient);
@@ -134,13 +134,13 @@ namespace CrossCam.Droid.CustomRenderer
         {
             try
             {
-                Debug.WriteLine("### SENDING: " + (BluetoothOperator.CrossCommand)bytes[2]);
+                //Debug.WriteLine("### SENDING: " + (BluetoothOperator.CrossCommand)bytes[2]);
                 _sendingStream = new MemoryStream(bytes);
                 if ((BluetoothOperator.CrossCommand)bytes[2] == BluetoothOperator.CrossCommand.CapturedImage)
                 {
                     await Task.Delay(1000);
                 }
-                await NearbyClass.Connections.SendPayloadAsync(_googleApiClient, _partnerId,
+                await NearbyClass.Connections.SendPayloadAsync(_googleApiClient, _connectedPartnerId,
                     Payload.FromStream(_sendingStream));
             }
             catch (Exception e)
@@ -200,6 +200,17 @@ namespace CrossCam.Droid.CustomRenderer
             return result.Status.IsSuccess;
         }
 
+        public async Task<string> StartScanning()
+        {
+            //Debug.WriteLine("### StartingScanning");
+            await RequestLocationPermissions();
+            await TurnOnLocationServices();
+            var statuses = await NearbyClass.Connections.StartDiscoveryAsync(_googleApiClient,
+            BluetoothOperator.CROSSCAM_SERVICE, new MyEndpointDiscoveryCallback(this),
+            new DiscoveryOptions.Builder().SetStrategy(Strategy.P2pPointToPoint).Build());
+            return statuses.IsSuccess ? null : statuses.StatusMessage;
+        }
+
         private class MyConnectionLifecycleCallback : ConnectionLifecycleCallback
         {
             private readonly PlatformBluetooth _platformBluetooth;
@@ -213,7 +224,6 @@ namespace CrossCam.Droid.CustomRenderer
             {
                 //Debug.WriteLine("### OnConnectionInitiated " + p0 + ", " + p1.EndpointName + ", Incoming: " + p1.IsIncomingConnection);
                 NearbyClass.Connections.AcceptConnection(_platformBluetooth._googleApiClient, p0, new MyPayloadCallback(_platformBluetooth));
-
             }
 
             public override void OnConnectionResult(string p0, ConnectionResolution p1)
@@ -221,7 +231,7 @@ namespace CrossCam.Droid.CustomRenderer
                 //Debug.WriteLine("### OnConnectionResult " + p0 + ", " + p1.Status.StatusMessage);
                 if (p1.Status.IsSuccess)
                 {
-                    _platformBluetooth._partnerId = p0;
+                    _platformBluetooth._connectedPartnerId = p0;
                     _platformBluetooth.OnConnected();
                     NearbyClass.Connections.StopDiscovery(_platformBluetooth._googleApiClient);
                     NearbyClass.Connections.StopAdvertising(_platformBluetooth._googleApiClient);
@@ -322,17 +332,6 @@ namespace CrossCam.Droid.CustomRenderer
             }
         }
 
-        public async Task<string> StartScanning()
-        {
-            //Debug.WriteLine("### StartingScanning");
-            await RequestLocationPermissions();
-            await TurnOnLocationServices(); //TODO: make this only needed when there isn't a stored partner
-            var result = await NearbyClass.Connections.StartDiscoveryAsync(_googleApiClient,
-                BluetoothOperator.CROSSCAM_SERVICE, new MyEndpointDiscoveryCallback(this),
-                new DiscoveryOptions.Builder().SetStrategy(Strategy.P2pPointToPoint).Build());
-            return result.IsSuccess ? null : result.StatusMessage;
-        }
-
         private class MyEndpointDiscoveryCallback : EndpointDiscoveryCallback
         {
             private readonly PlatformBluetooth _bluetooth;
@@ -344,7 +343,7 @@ namespace CrossCam.Droid.CustomRenderer
 
             public override async void OnEndpointFound(string p0, DiscoveredEndpointInfo p1)
             {
-                //Debug.WriteLine("### OnEndpointFound " + p0 + ", " + p1.EndpointName);
+                Debug.WriteLine("### OnEndpointFound " + p0 + ", " + p1.EndpointName);
                 if (p1.ServiceId == BluetoothOperator.CROSSCAM_SERVICE)
                 {
                     await NearbyClass.Connections.RequestConnectionAsync(_bluetooth._googleApiClient, DeviceInfo.Name,

@@ -46,8 +46,6 @@ namespace CrossCam.Droid
             CameraPermissionRequestCode,    
             WriteToStorageRequestCode,
             BrowseDirectoriesRequestCode,
-            TurnOnBluetoothRequestCode,
-            MakeBluetoothDiscoverableRequestCode,
             BluetoothBasicRequestCode,
             BluetoothAdminRequestCode,
             FineLocationRequestCode,
@@ -169,14 +167,6 @@ namespace CrossCam.Droid
                 {
                     DirectorySelector.DirectorySelectionCancelled();
                 }
-            }
-            else if (requestCode == (int)RequestCodes.TurnOnBluetoothRequestCode)
-            {
-                //PlatformBluetooth.IsBluetoothOnTask.SetResult(resultCode == Result.Ok);
-            }
-            else if (requestCode == (int)RequestCodes.MakeBluetoothDiscoverableRequestCode)
-            {
-                //PlatformBluetooth.IsDeviceDiscoverableTask.SetResult(resultCode != Result.Canceled); // result code is discoverable duration, not pass/fail
             }
             else if (requestCode == (int) RequestCodes.TurnLocationServicesOnRequestCode)
             {
