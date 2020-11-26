@@ -10,7 +10,6 @@ using CrossCam.Page;
 using CrossCam.Wrappers;
 using FreshMvvm;
 using Newtonsoft.Json;
-using Newtonsoft.Json.Serialization;
 using Plugin.DeviceInfo;
 using SkiaSharp;
 using Xamarin.Essentials;
@@ -255,6 +254,8 @@ namespace CrossCam.ViewModel
             BluetoothOperator.Disconnected += BluetoothOperatorOnDisconnected;
             BluetoothOperator.PreviewFrameReceived += BluetoothOperatorOnPreviewFrameReceived;
             BluetoothOperator.CapturedImageReceived += BluetoothOperatorOnCapturedImageReceived;
+            BluetoothOperator.InitialSyncStarted += BluetoothOperatorInitialSyncStarted;
+            BluetoothOperator.InitialSyncCompleted += BluetoothOperatorInitialSyncCompleted;
 
             IsCaptureLeftFirst = Settings.IsCaptureLeftFirst;
             CameraColumn = IsCaptureLeftFirst ? 0 : 1;
@@ -788,6 +789,16 @@ namespace CrossCam.ViewModel
                     BluetoothOperator.Disconnect();
                 }
             });
+        }
+
+        private void BluetoothOperatorInitialSyncStarted(object sender, EventArgs e)
+        {
+            WorkflowStage = WorkflowStage.Syncing;
+        }
+
+        private void BluetoothOperatorInitialSyncCompleted(object sender, EventArgs e)
+        {
+            WorkflowStage = WorkflowStage.Capture;
         }
 
         private void BluetoothOperatorOnDisconnected(object sender, EventArgs e)

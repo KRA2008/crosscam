@@ -43,18 +43,14 @@ namespace CrossCam.CustomElement
         private readonly Timer _captureSyncTimer = new Timer{AutoReset = false};
         private readonly Timer _countdownTimer = new Timer{AutoReset = false};
 
-        private const int TIMER_TOTAL_SAMPLES = 50;
+        public decimal InitialSyncProgress { get; set; }
+        private int TimerTotalSamples => _settings.PairSyncSampleCount;
         private int _timerSampleIndex;
-        private readonly long[] T0_SAMPLES = new long[TIMER_TOTAL_SAMPLES];
-        private readonly long[] T1T2_SAMPLES = new long[TIMER_TOTAL_SAMPLES];
-        private readonly long[] T3_SAMPLES = new long[TIMER_TOTAL_SAMPLES];
+        private int _timerSampleInitialIndex;
+        private long[] _t0Samples;
+        private long[] _t1t2Samples;
+        private long[] _t3Samples;
         private bool _isCaptureRequested;
-
-        public ObservableCollection<PartnerDevice> PairedDevices { get; set; }
-        public ObservableCollection<PartnerDevice> DiscoveredDevices { get; set; }
-
-        public Command PairedSetupCommand { get; set; }
-        public Command AttemptConnectionCommand { get; set; }
 
         public PairStatus PairStatus { get; set; }
         public int CountdownTimeRemaining { get; set; }
@@ -106,12 +102,18 @@ namespace CrossCam.CustomElement
             handler?.Invoke(this, e);
         }
 
-        public event EventHandler<PartnerDevice> DeviceDiscovered;
-        private void OnDeviceDiscovered(PartnerDevice e)
+        public event EventHandler InitialSyncStarted;
+        private void OnInitialSyncStarted()
         {
-            AddDiscoveredDevice(null, e);
-            var handler = DeviceDiscovered;
-            handler?.Invoke(this, e);
+            var handler = InitialSyncStarted;
+            handler?.Invoke(this, new EventArgs());
+        }
+
+        public event EventHandler InitialSyncCompleted;
+        private void OnInitialSyncCompleted()
+        {
+            var handler = InitialSyncCompleted;
+            handler?.Invoke(this, new EventArgs());
         }
 
         public event EventHandler PreviewFrameRequestReceived;
@@ -169,7 +171,6 @@ namespace CrossCam.CustomElement
         {
             _settings = settings;
             _platformBluetooth = DependencyService.Get<IPlatformBluetooth>();
-            _platformBluetooth.DeviceDiscovered += PlatformBluetoothOnDeviceDiscovered;
             _platformBluetooth.Connected += PlatformBluetoothOnConnected;
             _platformBluetooth.Disconnected += PlatformBluetoothOnDisconnected;
             _platformBluetooth.PayloadReceived += PlatformBluetoothOnPayloadReceived;
@@ -306,6 +307,11 @@ namespace CrossCam.CustomElement
             OnConnected();
             PartnerFov = fov;
             RequestClockReading();
+            _timerSampleInitialIndex = 0;
+            InitialSyncProgress = 0;
+            _t0Samples = new long[TimerTotalSamples];
+            _t1t2Samples = new long[TimerTotalSamples];
+            _t3Samples = new long[TimerTotalSamples];
         }
 
         private void SecondaryErrorReceived()
@@ -370,9 +376,9 @@ namespace CrossCam.CustomElement
         private async void ProcessClockReading(byte[] readingBytes)
         {
             var reading = BitConverter.ToInt64(readingBytes, 0);
-            T1T2_SAMPLES[_timerSampleIndex] = reading;
-            T3_SAMPLES[_timerSampleIndex] = DateTime.UtcNow.Ticks;
-            if (_timerSampleIndex < TIMER_TOTAL_SAMPLES - 1)
+            _t1t2Samples[_timerSampleIndex] = reading;
+            _t3Samples[_timerSampleIndex] = DateTime.UtcNow.Ticks;
+            if (_timerSampleIndex < TimerTotalSamples - 1)
             {
                 _timerSampleIndex++;
             }
@@ -392,7 +398,18 @@ namespace CrossCam.CustomElement
                 if (!_isCaptureRequested)
                 {
                     await Task.Delay(_settings.PairedPreviewFrameDelayMs);
-                    SendReadyForPreviewFrame();
+                    if (_timerSampleInitialIndex < TimerTotalSamples)
+                    {
+                        _timerSampleInitialIndex++;
+                        InitialSyncProgress = decimal.Round(100m * _timerSampleInitialIndex / (1m * TimerTotalSamples));
+                        RequestClockReading();
+                        OnInitialSyncStarted();
+                    }
+                    else
+                    {
+                        OnInitialSyncCompleted();
+                        SendReadyForPreviewFrame();
+                    }
                 }
                 else
                 {
@@ -409,11 +426,6 @@ namespace CrossCam.CustomElement
         private void PlatformBluetoothOnConnected(object sender, EventArgs e)
         {
             OnConnected();
-        }
-
-        private void PlatformBluetoothOnDeviceDiscovered(object sender, PartnerDevice e)
-        {
-            OnDeviceDiscovered(e);
         }
 
         public void Disconnect()
@@ -436,52 +448,66 @@ namespace CrossCam.CustomElement
 
         public void RequestClockReading()
         {
-            T0_SAMPLES[_timerSampleIndex] = DateTime.UtcNow.Ticks;
+            _t0Samples[_timerSampleIndex] = DateTime.UtcNow.Ticks;
             SendReadyForClockReading();
         }
 
         private void CalculateAndApplySyncMoment()
         {
-            const int BUFFER_TRIP_MULTIPLIER = 10;
-            var offsets = new List<long>();
-            var trips = new List<long>();
-            var offset = 0L;
-            var trip = 0L;
             try
             {
-                for (var i = 0; i < TIMER_TOTAL_SAMPLES; i++)
+                var offsets = new List<long>();
+                var trips = new List<long>();
+                var offset = 0L;
+                var trip = 0L;
+                try
                 {
-                    var t0 = T0_SAMPLES[i];
-                    var t3 = T3_SAMPLES[i];
-                    var t1t2 = T1T2_SAMPLES[i];
+                    for (var i = 0; i < TimerTotalSamples; i++)
+                    {
+                        var t0 = _t0Samples[i];
+                        var t3 = _t3Samples[i];
+                        var t1t2 = _t1t2Samples[i];
 
-                    var timeOffsetRun = ((t1t2 - t0) + (t1t2 - t3)) / 2;
-                    offsets.Add(timeOffsetRun);
-                    var roundTripDelayRun = t3 - t0;
-                    trips.Add(roundTripDelayRun);
+                        var timeOffsetRun = ((t1t2 - t0) + (t1t2 - t3)) / 2;
+                        offsets.Add(timeOffsetRun);
+                        var roundTripDelayRun = t3 - t0;
+                        trips.Add(roundTripDelayRun);
+                    }
+
+                    offset = GetCleanAverage(offsets);
+                    trip = trips.Max();
+                }
+                catch (Exception e)
+                {
+                    OnErrorOccurred(new ErrorEventArgs
+                    {
+                        Exception = e,
+                        Step = "send read time request"
+                    });
                 }
 
-                //offset = offsets.Where(o => o != 0).OrderByDescending(o => o).ElementAt(TIMER_TOTAL_SAMPLES / 2);
-                offset = GetCleanAverage(offsets);
-                trip = trips.Max();
+                Debug.WriteLine("OFFSETS: " + string.Join(",", offsets));
+                Debug.WriteLine("CLEANED OFFSET: " + offset);
+                Debug.WriteLine("TRIPS: " + string.Join(",", trips));
+                Debug.WriteLine("MAX TRIP: " + trip);
+
+                //var targetSyncMoment = DateTime.UtcNow.AddTicks(trip * BUFFER_TRIP_MULTIPLIER);
+                var targetSyncMoment = DateTime.UtcNow.AddSeconds(SECONDS_COUNTDOWN);
+                SyncCapture(targetSyncMoment);
+                var partnerSyncMoment = targetSyncMoment.AddTicks(offset);
+                Debug.WriteLine("Target sync: " + targetSyncMoment.ToString("O"));
+                Debug.WriteLine("Partner sync: " + partnerSyncMoment.ToString("O"));
+                SendSync(partnerSyncMoment);
+                _isCaptureRequested = false;
             }
             catch (Exception e)
             {
                 OnErrorOccurred(new ErrorEventArgs
                 {
                     Exception = e,
-                    Step = "send read time request"
+                    Step = "calc sync"
                 });
             }
-
-            //var targetSyncMoment = DateTime.UtcNow.AddTicks(trip * BUFFER_TRIP_MULTIPLIER);
-            var targetSyncMoment = DateTime.UtcNow.AddSeconds(SECONDS_COUNTDOWN);
-            SyncCapture(targetSyncMoment);
-            var partnerSyncMoment = targetSyncMoment.AddTicks(offset);
-            Debug.WriteLine("Target sync: " + targetSyncMoment.ToString("O"));
-            Debug.WriteLine("Partner sync: " + partnerSyncMoment.ToString("O"));
-            SendSync(partnerSyncMoment);
-            _isCaptureRequested = false;
         }
 
         private static long GetCleanAverage(IEnumerable<long> data)
@@ -600,17 +626,6 @@ namespace CrossCam.CustomElement
                         break;
                 }
             });
-        }
-
-        private void AddDiscoveredDevice(object sender, PartnerDevice e)
-        {
-            if (DiscoveredDevices.All(d => d.Address != e.Address))
-            {
-                Device.BeginInvokeOnMainThread(() =>
-                {
-                    DiscoveredDevices.Add(e);
-                });
-            }
         }
     }
 

@@ -132,6 +132,19 @@ namespace CrossCam.Model
             }
         }
 
+        private int _pairPreviewSampleCount;
+        public int PairSyncSampleCount
+        {
+            get => _pairPreviewSampleCount;
+            set
+            {
+                if (value > 0)
+                {
+                    _pairPreviewSampleCount = value;
+                }
+            }
+        }
+
         private Handedness _handedness;
         public Handedness Handedness
         {
@@ -376,6 +389,7 @@ namespace CrossCam.Model
 
             IsPairedPrimary = null;
             PairedPreviewFrameDelayMs = 250;
+            PairSyncSampleCount = 50;
         }
 
         public event PropertyChangedEventHandler PropertyChanged;

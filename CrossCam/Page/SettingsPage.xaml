@@ -60,10 +60,10 @@
     </ContentPage.Resources>
     <ScrollView VerticalOptions="StartAndExpand">
         <StackLayout>
-            
 
-<BoxView/>
-            <Label Text="Capture/Preview Method"                   Style="{DynamicResource header}"/>
+            <BoxView/>
+            <Label Text="Capture/Preview Method"
+                   Style="{DynamicResource header}"/>
             <Frame>
                 <Picker ItemsSource="{Binding Modes}"
                         SelectedIndex="{Binding Settings.Mode, Converter={vc:ModeValueConverter}}"
@@ -92,6 +92,16 @@
                 <Frame>
                     <Picker ItemsSource="{Binding ZeroToOneThousand}"
                             SelectedIndex="{Binding Settings.PairedPreviewFrameDelayMs}"
+                            WidthRequest="50"
+                            HorizontalOptions="EndAndExpand"/>
+                </Frame>
+            </StackLayout>
+            <StackLayout Orientation="Horizontal"
+                         IsVisible="{Binding Settings.IsPairedPrimary, Converter={vc:NullableBooleanConverter}}">
+                <Label Text="Clock sample count (lower number will decrease time for initial sync but may decrease sync accuracy)"/>
+                <Frame>
+                    <Picker ItemsSource="{Binding ZeroToOneThousand}"
+                            SelectedIndex="{Binding Settings.PairSyncSampleCount}"
                             WidthRequest="50"
                             HorizontalOptions="EndAndExpand"/>
                 </Frame>

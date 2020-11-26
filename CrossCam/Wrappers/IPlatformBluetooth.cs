@@ -8,7 +8,6 @@ namespace CrossCam.Wrappers
         void Disconnect();
         Task<string> StartScanning();
         Task<bool> BecomeDiscoverable();
-        event EventHandler<PartnerDevice> DeviceDiscovered;
         event EventHandler Connected;
         event EventHandler Disconnected;
 

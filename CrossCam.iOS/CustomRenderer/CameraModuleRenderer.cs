@@ -54,7 +54,6 @@ namespace CrossCam.iOS.CustomRenderer
                 _cameraModule = e.NewElement;
                 _cameraModule.BluetoothOperator.CaptureSyncTimeElapsed += (sender2, args) =>
                 {
-
                     Device.BeginInvokeOnMainThread(CapturePhoto);
                 };
                 SetupCamera();
