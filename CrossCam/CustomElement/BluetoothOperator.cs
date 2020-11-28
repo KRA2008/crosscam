@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Linq;
@@ -38,8 +37,6 @@ namespace CrossCam.CustomElement
         private readonly IPlatformBluetooth _platformBluetooth;
         public const string CROSSCAM_SERVICE = "CrossCam";
         private const int SECONDS_COUNTDOWN = 3;
-        public static readonly Guid ServiceGuid = Guid.Parse("492a8e3d-2589-40b1-b9c2-419a7ce80f3c");
-        private PartnerDevice _device;
         private readonly Timer _captureSyncTimer = new Timer{AutoReset = false};
         private readonly Timer _countdownTimer = new Timer{AutoReset = false};
 
