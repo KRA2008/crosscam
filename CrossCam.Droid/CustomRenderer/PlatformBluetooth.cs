@@ -10,6 +10,7 @@ using Android.Gms.Location;
 using Android.Gms.Nearby;
 using Android.Gms.Nearby.Connection;
 using Android.OS;
+using Android.Support.V7.App;
 using CrossCam.CustomElement;
 using CrossCam.Droid.CustomRenderer;
 using CrossCam.Wrappers;
@@ -52,14 +53,14 @@ namespace CrossCam.Droid.CustomRenderer
             NearbyClass.Connections.StopAllEndpoints(_googleApiClient);
         }
 
-        public Task<bool> RequestLocationPermissions()
+        private static Task<bool> RequestLocationPermissions()
         {
             LocationPermissionsTask = new TaskCompletionSource<bool>();
             MainActivity.Instance.CheckForAndRequestLocationPermissions();
             return LocationPermissionsTask.Task;
         }
 
-        public Task<bool> TurnOnLocationServices()
+        private static Task<bool> TurnOnLocationServices()
         {
             return CheckForAndTurnOnLocationServices();
         }
@@ -204,9 +205,11 @@ namespace CrossCam.Droid.CustomRenderer
             //Debug.WriteLine("### StartingScanning");
             await RequestLocationPermissions();
             await TurnOnLocationServices();
+
             var statuses = await NearbyClass.Connections.StartDiscoveryAsync(_googleApiClient,
             BluetoothOperator.CROSSCAM_SERVICE, new MyEndpointDiscoveryCallback(this),
             new DiscoveryOptions.Builder().SetStrategy(Strategy.P2pPointToPoint).Build());
+
             return statuses.IsSuccess ? null : statuses.StatusMessage;
         }
 
@@ -221,8 +224,21 @@ namespace CrossCam.Droid.CustomRenderer
 
             public override void OnConnectionInitiated(string p0, ConnectionInfo p1)
             {
-                //Debug.WriteLine("### OnConnectionInitiated " + p0 + ", " + p1.EndpointName + ", Incoming: " + p1.IsIncomingConnection);
-                NearbyClass.Connections.AcceptConnection(_platformBluetooth._googleApiClient, p0, new MyPayloadCallback(_platformBluetooth));
+                Debug.WriteLine("### OnConnectionInitiated: " + p0 + ", " + p1.EndpointName);
+                new AlertDialog.Builder(MainActivity.Instance).SetTitle("Accept connection to " + p1.EndpointName + "?")
+                    .SetMessage("Confirm the code matches on both devices: " + p1.AuthenticationToken)
+                    .SetPositiveButton("Accept",
+                        (sender, args) =>
+                        {
+                            NearbyClass.Connections.AcceptConnection(_platformBluetooth._googleApiClient, p0,
+                                new MyPayloadCallback(_platformBluetooth));
+                        }).SetNegativeButton("Cancel",
+                        (sender, args) =>
+                        {
+                            NearbyClass.Connections.RejectConnection(_platformBluetooth._googleApiClient, p0);
+                            _platformBluetooth.Disconnect();
+                            _platformBluetooth.OnDisconnected();
+                        }).Show();
             }
 
             public override void OnConnectionResult(string p0, ConnectionResolution p1)
@@ -234,6 +250,11 @@ namespace CrossCam.Droid.CustomRenderer
                     _platformBluetooth.OnConnected();
                     NearbyClass.Connections.StopDiscovery(_platformBluetooth._googleApiClient);
                     NearbyClass.Connections.StopAdvertising(_platformBluetooth._googleApiClient);
+                }
+                else
+                {
+                    _platformBluetooth.Disconnect();
+                    _platformBluetooth.OnDisconnected();
                 }
             }
 

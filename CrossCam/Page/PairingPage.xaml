@@ -68,7 +68,7 @@
                        VerticalOptions="Center"/>
                 <Label Grid.Row="2"
                        Grid.Column="2"
-                       Text="Make sure Wi-Fi is enabled on both devices"/>
+                       Text="Make sure Wi-Fi is enabled on both devices (but it doesn't need to be connected to anything)"/>
 
                 <Label Grid.Row="3"
                        Grid.Column="1"
@@ -83,7 +83,7 @@
             <Label Text="To connect again later, make sure you have Wi-Fi enabled and then just tap the connect button on the home screen on both devices."/>
             <Label Text=" "/>
             <Label Text="A Note About Permissions:"/>
-            <Label Text="CrossCam will request permissions and power on components as needed in order to connect your devices. Please note: CrossCam requires access to location services on the primary device in order to find the secondary. CrossCam does not actually USE your location in any way, but because the act of searching for nearby devices could theoretically be used to find your location, CrossCam requires permission to access your location. Note that CrossCam still does not use an internet connection or even request internet permission so it can't transmit location data anywhere even if it did collect it.">
+            <Label Text="CrossCam will request permissions and power on components as needed in order to connect your devices. Please note: CrossCam requires location permission and for location services to be on on the primary device in order to connect to the secondary. This is simply an Android requirement and is completely outside my control. CrossCam does not actually USE your location in any way, but because the act of searching for nearby devices could theoretically be used to roughly locate you, CrossCam requires permission to access your location. Note that CrossCam still does not use an internet connection or even request internet permission, so it can't transmit location data anywhere even if it did collect it.">
                 <Label.IsVisible>
                     <OnPlatform x:TypeArguments="system:Boolean">
                         <On Platform="Android"
@@ -95,8 +95,7 @@
             </Label>
             <Label Text=" "/>
             <Label Text="If you have trouble, PLEASE NOTE:"/>
-            <Label Text=" &#x2022; CrossCam uses the Wi-Fi antenna, but not the network - you don't need to be searching for networks or connected to anything, but Wi-Fi needs to be enabled."/>
-            <Label Text=" &#x2022; CrossCam uses a software switch to capture the photo, rather than a physical switch, so the synchronization may sometimes not be perfect, but it should generally be very close. This is important but also difficult and I'm working on it."/>
+            <Label Text=" &#x2022; CrossCam is software, not hardware, so capturing the photos may be slightly out of sync depending on what else the processors and memory are doing at the precise moment the capture is triggered. As a result, the synchronization may sometimes not be perfect, but it should generally be very close."/>
             <customElement:EmailMeLabel/>
         </StackLayout>
     </ScrollView>

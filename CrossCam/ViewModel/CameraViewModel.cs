@@ -166,9 +166,11 @@ namespace CrossCam.ViewModel
         public bool ShouldLeftRightRetakeBeVisible => LeftBitmap != null && WorkflowStage == WorkflowStage.Capture && Settings.Handedness == Handedness.Left;
         public bool ShouldRightLeftRetakeBeVisible => RightBitmap != null && WorkflowStage == WorkflowStage.Capture && Settings.Handedness == Handedness.Right;
         public bool ShouldRightRightRetakeBeVisible => RightBitmap != null && (WorkflowStage == WorkflowStage.Final && DoesCaptureOrientationMatchViewOrientation || WorkflowStage == WorkflowStage.Capture && (Settings.Handedness == Handedness.Left || Settings.Handedness == Handedness.Center));
-        public bool ShouldCenterLoadBeVisible => WorkflowStage == WorkflowStage.Capture && Settings.Handedness != Handedness.Center;
-        public bool ShouldLeftLoadBeVisible => CameraColumn == 0 && WorkflowStage == WorkflowStage.Capture && Settings.Handedness == Handedness.Center;
-        public bool ShouldRightLoadBeVisible => CameraColumn == 1 && WorkflowStage == WorkflowStage.Capture && Settings.Handedness == Handedness.Center;
+        
+        public bool ShouldCenterLoadBeVisible => WorkflowStage == WorkflowStage.Capture && Settings.Handedness != Handedness.Center && BluetoothOperator.PairStatus != PairStatus.Connected;
+        public bool ShouldLeftLoadBeVisible => CameraColumn == 0 && WorkflowStage == WorkflowStage.Capture && Settings.Handedness == Handedness.Center && BluetoothOperator.PairStatus != PairStatus.Connected;
+        public bool ShouldRightLoadBeVisible => CameraColumn == 1 && WorkflowStage == WorkflowStage.Capture && Settings.Handedness == Handedness.Center && BluetoothOperator.PairStatus != PairStatus.Connected;
+        
         public bool DoesCaptureOrientationMatchViewOrientation => WasCapturePortrait == IsViewPortrait;
         public bool ShouldSettingsAndHelpBeVisible => !IsBusy && 
                                                       WorkflowStage != WorkflowStage.View;
@@ -809,6 +811,9 @@ namespace CrossCam.ViewModel
             RaisePropertyChanged(nameof(ShouldLineGuidesBeVisible));
             RaisePropertyChanged(nameof(ShouldPairPreviewBeVisible));
             RaisePropertyChanged(nameof(ShouldDonutGuideBeVisible));
+            RaisePropertyChanged(nameof(ShouldLeftLoadBeVisible));
+            RaisePropertyChanged(nameof(ShouldCenterLoadBeVisible));
+            RaisePropertyChanged(nameof(ShouldRightLoadBeVisible));
         }
 
         private void BluetoothOperatorOnConnected(object sender, EventArgs e)
@@ -819,6 +824,9 @@ namespace CrossCam.ViewModel
             RaisePropertyChanged(nameof(ShouldLineGuidesBeVisible));
             RaisePropertyChanged(nameof(ShouldPairPreviewBeVisible));
             RaisePropertyChanged(nameof(ShouldDonutGuideBeVisible));
+            RaisePropertyChanged(nameof(ShouldLeftLoadBeVisible));
+            RaisePropertyChanged(nameof(ShouldCenterLoadBeVisible));
+            RaisePropertyChanged(nameof(ShouldRightLoadBeVisible));
         }
 
         public bool BackButtonPressed()

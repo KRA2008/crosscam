@@ -307,11 +307,6 @@ namespace CrossCam.CustomElement
             OnConnected();
             PartnerFov = fov;
             RequestClockReading();
-            _timerSampleInitialIndex = 0;
-            InitialSyncProgress = 0;
-            _t0Samples = new long[TimerTotalSamples];
-            _t1t2Samples = new long[TimerTotalSamples];
-            _t3Samples = new long[TimerTotalSamples];
         }
 
         private void SecondaryErrorReceived()
@@ -425,6 +420,11 @@ namespace CrossCam.CustomElement
 
         private void PlatformBluetoothOnConnected(object sender, EventArgs e)
         {
+            _timerSampleInitialIndex = 0;
+            InitialSyncProgress = 0;
+            _t0Samples = new long[TimerTotalSamples];
+            _t1t2Samples = new long[TimerTotalSamples];
+            _t3Samples = new long[TimerTotalSamples];
             OnConnected();
         }
 
