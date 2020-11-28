@@ -98,7 +98,7 @@
             </StackLayout>
             <StackLayout Orientation="Horizontal"
                          IsVisible="{Binding Settings.IsPairedPrimary, Converter={vc:NullableBooleanConverter}}">
-                <Label Text="Clock sample count (lower number will decrease time for initial sync but may decrease sync accuracy)"/>
+                <Label Text="Clock sample count (lower number will decrease time required for initial sync but may decrease sync accuracy)"/>
                 <Frame>
                     <Picker ItemsSource="{Binding ZeroToOneThousand}"
                             SelectedIndex="{Binding Settings.PairSyncSampleCount}"
@@ -398,68 +398,6 @@
                 <Label Text="Clip border off when loading next stereo pair"/>
                 <Switch IsToggled="{Binding Settings.ClipBorderOnNextLoad}"
                         HorizontalOptions="EndAndExpand"/>
-            </StackLayout>
-            <BoxView/>
-            <Label Text="Automatic Alignment"
-                   Style="{DynamicResource header}"/>
-            <StackLayout Orientation="Horizontal">
-                <Label Text="Automatically align after capture"/>
-                <Switch IsToggled="{Binding Settings.IsAutomaticAlignmentOn}"/>
-            </StackLayout>
-            <StackLayout Orientation="Horizontal">
-                <Label Text="Align horizontally (for side by side)"/>
-                <Switch IsToggled="{Binding Settings.AlignHorizontallySideBySide}"
-                        IsEnabled="{Binding Settings.IsAutomaticAlignmentOn}"/>
-            </StackLayout>
-            <StackLayout Orientation="Horizontal"
-                         IsVisible="{ce:DebugMarkupExtension}">
-                <Label Text="Iterations"/>
-                <Frame>
-                    <Picker ItemsSource="{Binding ZeroToOneThousand}"
-                        SelectedIndex="{Binding Settings.AlignmentIterations2}"
-                        WidthRequest="50"
-                        HorizontalOptions="EndAndExpand"/>
-                </Frame>
-            </StackLayout>
-            <StackLayout Orientation="Horizontal"
-                         IsVisible="{ce:DebugMarkupExtension}">
-                <Label Text="Epsilon level"/>
-                <Frame>
-                    <Picker ItemsSource="{Binding ZeroToTen}"
-                        SelectedIndex="{Binding Settings.AlignmentEpsilonLevel2}"
-                        WidthRequest="50"
-                        HorizontalOptions="EndAndExpand"/>
-                </Frame>
-            </StackLayout>
-            <StackLayout Orientation="Horizontal"
-                         IsVisible="{ce:DebugMarkupExtension}">
-                <Label Text="Downsized pyramid estimating layers"/>
-                <Frame>
-                    <Picker ItemsSource="{Binding ZeroToTen}"
-                        SelectedIndex="{Binding Settings.AlignmentPyramidLayers2}"
-                        WidthRequest="50"
-                        HorizontalOptions="EndAndExpand"/>
-                </Frame>
-            </StackLayout>
-            <StackLayout Orientation="Horizontal"
-                         IsVisible="{ce:DebugMarkupExtension}">
-                <Label Text="Intermediate downsize percentage"/>
-                <Frame>
-                    <Picker ItemsSource="{Binding ZeroToOneHundred}"
-                            SelectedIndex="{Binding Settings.AlignmentDownsizePercentage2}"
-                            WidthRequest="50"
-                            HorizontalOptions="EndAndExpand"/>
-                </Frame>
-            </StackLayout>
-            <StackLayout Orientation="Horizontal"
-                         IsVisible="{ce:DebugMarkupExtension}">
-                <Label Text="Minimum required correlation coefficient"/>
-                <Frame>
-                    <Picker ItemsSource="{Binding ZeroToOneHundred}"
-                            WidthRequest="50"
-                            SelectedIndex="{Binding Settings.AlignmentEccThresholdPercentage2}"
-                            HorizontalOptions="EndAndExpand"/>
-                </Frame>
             </StackLayout>
             <BoxView/>
             <Label Text="Guides"

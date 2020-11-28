@@ -1754,7 +1754,7 @@ namespace CrossCam.ViewModel
             if (BluetoothOperator.PairStatus == PairStatus.Connected &&
                 BluetoothOperator.IsPrimary)
             {
-                BluetoothOperator.RequestClockReading();
+                BluetoothOperator.RequestPreviewFrame();
             }
             ClearEdits();
             LeftBitmap?.Dispose();

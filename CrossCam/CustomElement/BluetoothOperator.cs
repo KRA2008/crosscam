@@ -46,19 +46,17 @@ namespace CrossCam.CustomElement
         public decimal InitialSyncProgress { get; set; }
         private int TimerTotalSamples => _settings.PairSyncSampleCount;
         private int _timerSampleIndex;
-        private int _timerSampleInitialIndex;
         private long[] _t0Samples;
         private long[] _t1t2Samples;
         private long[] _t3Samples;
         private bool _isCaptureRequested;
+        private DateTime? _captureMomentUtc;
 
         public PairStatus PairStatus { get; set; }
         public int CountdownTimeRemaining { get; set; }
 
         private bool _primaryIsRequestingDisconnect;
         private int _initializeThreadLocker;
-        private int _pairInitializeThreadLocker;
-        private int _connectThreadLocker;
 
         public const int HEADER_LENGTH = 6;
         private const byte SYNC_MASK = 170; // 0xAA (do it twice)
@@ -163,6 +161,7 @@ namespace CrossCam.CustomElement
         public event EventHandler<byte[]> CapturedImageReceived;
         private void OnCapturedImageReceived(byte[] frame)
         {
+            _captureMomentUtc = null;
             var handler = CapturedImageReceived;
             handler?.Invoke(this, frame);
         }
@@ -368,48 +367,25 @@ namespace CrossCam.CustomElement
             SyncCapture(new DateTime(BitConverter.ToInt64(syncBytes, 0)));
         }
 
-        private async void ProcessClockReading(byte[] readingBytes)
+        private void ProcessClockReading(byte[] readingBytes)
         {
-            var reading = BitConverter.ToInt64(readingBytes, 0);
-            _t1t2Samples[_timerSampleIndex] = reading;
-            _t3Samples[_timerSampleIndex] = DateTime.UtcNow.Ticks;
-            if (_timerSampleIndex < TimerTotalSamples - 1)
+            if (_timerSampleIndex < TimerTotalSamples)
             {
+                _t3Samples[_timerSampleIndex] = DateTime.UtcNow.Ticks;
+                if (_timerSampleIndex == 0)
+                {
+                    OnInitialSyncStarted();
+                }
+                var reading = BitConverter.ToInt64(readingBytes, 0);
+                _t1t2Samples[_timerSampleIndex] = reading;
                 _timerSampleIndex++;
+                InitialSyncProgress = decimal.Round(100m * _timerSampleIndex / (1m * TimerTotalSamples));
+                RequestClockReading();
             }
             else
             {
-                Debug.WriteLine("### TIMER SAMPLES WRAPPED");
-                _timerSampleIndex = 0;
-            }
-
-            if (_primaryIsRequestingDisconnect)
-            {
-                _platformBluetooth.Disconnect();
-                _primaryIsRequestingDisconnect = false;
-            }
-            else
-            {
-                if (!_isCaptureRequested)
-                {
-                    await Task.Delay(_settings.PairedPreviewFrameDelayMs);
-                    if (_timerSampleInitialIndex < TimerTotalSamples)
-                    {
-                        _timerSampleInitialIndex++;
-                        InitialSyncProgress = decimal.Round(100m * _timerSampleInitialIndex / (1m * TimerTotalSamples));
-                        RequestClockReading();
-                        OnInitialSyncStarted();
-                    }
-                    else
-                    {
-                        OnInitialSyncCompleted();
-                        SendReadyForPreviewFrame();
-                    }
-                }
-                else
-                {
-                    CalculateAndApplySyncMoment();
-                }
+                OnInitialSyncCompleted();
+                SendReadyForPreviewFrame();
             }
         }
 
@@ -420,7 +396,7 @@ namespace CrossCam.CustomElement
 
         private void PlatformBluetoothOnConnected(object sender, EventArgs e)
         {
-            _timerSampleInitialIndex = 0;
+            _timerSampleIndex = 0;
             InitialSyncProgress = 0;
             _t0Samples = new long[TimerTotalSamples];
             _t1t2Samples = new long[TimerTotalSamples];
@@ -446,9 +422,12 @@ namespace CrossCam.CustomElement
             _isCaptureRequested = true;
         }
 
-        public void RequestClockReading()
+        private void RequestClockReading()
         {
-            _t0Samples[_timerSampleIndex] = DateTime.UtcNow.Ticks;
+            if (_timerSampleIndex < TimerTotalSamples)
+            {
+                _t0Samples[_timerSampleIndex] = DateTime.UtcNow.Ticks;
+            }
             SendReadyForClockReading();
         }
 
@@ -456,6 +435,7 @@ namespace CrossCam.CustomElement
         {
             try
             {
+                _isCaptureRequested = false;
                 var offsets = new List<long>();
                 var trips = new List<long>();
                 var offset = 0L;
@@ -491,14 +471,12 @@ namespace CrossCam.CustomElement
                 Debug.WriteLine("TRIPS: " + string.Join(",", trips));
                 Debug.WriteLine("MAX TRIP: " + trip);
 
-                //var targetSyncMoment = DateTime.UtcNow.AddTicks(trip * BUFFER_TRIP_MULTIPLIER);
                 var targetSyncMoment = DateTime.UtcNow.AddSeconds(SECONDS_COUNTDOWN);
                 SyncCapture(targetSyncMoment);
                 var partnerSyncMoment = targetSyncMoment.AddTicks(offset);
                 Debug.WriteLine("Target sync: " + targetSyncMoment.ToString("O"));
                 Debug.WriteLine("Partner sync: " + partnerSyncMoment.ToString("O"));
                 SendSync(partnerSyncMoment);
-                _isCaptureRequested = false;
             }
             catch (Exception e)
             {
@@ -534,6 +512,8 @@ namespace CrossCam.CustomElement
                 _countdownTimer.Start();
                 Debug.WriteLine("Sync interval set: " + interval);
                 Debug.WriteLine("Sync time: " + syncTime.ToString("O"));
+                _captureMomentUtc = syncTime;
+                RequestPreviewFrame();
             }
             catch (Exception e)
             {
@@ -626,6 +606,44 @@ namespace CrossCam.CustomElement
                         break;
                 }
             });
+        }
+
+        public async void RequestPreviewFrame()
+        {
+            try
+            {
+                if (_primaryIsRequestingDisconnect)
+                {
+                    _platformBluetooth.Disconnect();
+                    _primaryIsRequestingDisconnect = false;
+                }
+                else
+                {
+                    
+                    if (!_isCaptureRequested)
+                    {
+                        if (!_captureMomentUtc.HasValue ||
+                            _captureMomentUtc.Value > DateTime.UtcNow.AddSeconds(1).AddMilliseconds(_settings.PairedPreviewFrameDelayMs))
+                        {
+                            await Task.Delay(_settings.PairedPreviewFrameDelayMs);
+                            SendReadyForPreviewFrame();
+                        }
+                            
+                    }
+                    else
+                    {
+                        CalculateAndApplySyncMoment();
+                    }
+                }
+            }
+            catch (Exception e)
+            {
+                OnErrorOccurred(new ErrorEventArgs
+                {
+                    Exception = e,
+                    Step = "request preview"
+                });
+            }
         }
     }
 

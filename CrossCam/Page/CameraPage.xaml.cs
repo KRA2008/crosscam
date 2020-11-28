@@ -387,7 +387,7 @@ namespace CrossCam.Page
                             (float)(canvas.DeviceClipBounds.Height + scaledHeight) / 2));
                 }
 
-                _viewModel.BluetoothOperatorBindable.RequestClockReading();
+                _viewModel.BluetoothOperatorBindable.RequestPreviewFrame();
             }
         }
 
