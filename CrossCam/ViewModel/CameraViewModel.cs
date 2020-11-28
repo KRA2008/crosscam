@@ -805,6 +805,12 @@ namespace CrossCam.ViewModel
 
         private void BluetoothOperatorOnDisconnected(object sender, EventArgs e)
         {
+            if (WorkflowStage == WorkflowStage.Syncing)
+            {
+                WorkflowStage = WorkflowStage.Capture;
+            }
+            RaisePropertyChanged(nameof(BluetoothOperator.PairStatus));
+            RaisePropertyChanged(nameof(BluetoothOperatorBindable.PairStatus));
             RaisePropertyChanged(nameof(ShouldLeftCaptureBeVisible));
             RaisePropertyChanged(nameof(ShouldCenterCaptureBeVisible));
             RaisePropertyChanged(nameof(ShouldRightCaptureBeVisible));
@@ -818,6 +824,8 @@ namespace CrossCam.ViewModel
 
         private void BluetoothOperatorOnConnected(object sender, EventArgs e)
         {
+            RaisePropertyChanged(nameof(BluetoothOperator.PairStatus));
+            RaisePropertyChanged(nameof(BluetoothOperatorBindable.PairStatus));
             RaisePropertyChanged(nameof(ShouldLeftCaptureBeVisible));
             RaisePropertyChanged(nameof(ShouldCenterCaptureBeVisible));
             RaisePropertyChanged(nameof(ShouldRightCaptureBeVisible));

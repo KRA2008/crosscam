@@ -51,6 +51,7 @@ namespace CrossCam.Droid.CustomRenderer
             NearbyClass.Connections.StopDiscovery(_googleApiClient);
             NearbyClass.Connections.StopAdvertising(_googleApiClient);
             NearbyClass.Connections.StopAllEndpoints(_googleApiClient);
+            OnDisconnected();
         }
 
         private static Task<bool> RequestLocationPermissions()
@@ -261,6 +262,7 @@ namespace CrossCam.Droid.CustomRenderer
             public override void OnDisconnected(string p0)
             {
                 Debug.WriteLine("### OnDisconnected " + p0);
+                _platformBluetooth.OnDisconnected();
             }
         }
 

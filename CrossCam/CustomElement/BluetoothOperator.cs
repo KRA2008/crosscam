@@ -411,7 +411,6 @@ namespace CrossCam.CustomElement
             {
                 _platformBluetooth.Disconnect();
             }
-            OnDisconnected();
         }
 
         public void BeginSyncedCapture()

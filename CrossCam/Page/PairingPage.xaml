@@ -95,6 +95,7 @@
             </Label>
             <Label Text=" "/>
             <Label Text="If you have trouble, PLEASE NOTE:"/>
+            <Label Text=" &#x2022; Every camera is different. Different model cameras or cameras with different manufacturers will have vast differences, but even two of the same model of phone will behave slightly differently. These differences can include but are not limited to: angular field of view, focus, exposure, and white balance behavior, timing and more. I prefer to use a pair of identical old phones (in my case, a pair of iPhone 6)."/>
             <Label Text=" &#x2022; CrossCam is software, not hardware, so capturing the photos may be slightly out of sync depending on what else the processors and memory are doing at the precise moment the capture is triggered. As a result, the synchronization may sometimes not be perfect, but it should generally be very close."/>
             <Label Text=" &#x2022; The &quot;flash&quot; that happens at capture may not appear synced between the two phones, but it actually happens after the captures are complete and (just like the capture) may happen at a different time depending on what the processors are busy with (for example, processing the picture that was just taken)." />
             <customElement:EmailMeLabel/>
