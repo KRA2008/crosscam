@@ -509,7 +509,10 @@ namespace CrossCam.CustomElement
                 Debug.WriteLine("Sync interval set: " + interval);
                 Debug.WriteLine("Sync time: " + syncTime.ToString("O"));
                 _captureMomentUtc = syncTime;
-                RequestPreviewFrame();
+                if (IsPrimary)
+                {
+                    RequestPreviewFrame();
+                }
             }
             catch (Exception e)
             {

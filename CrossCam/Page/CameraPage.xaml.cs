@@ -141,58 +141,61 @@ namespace CrossCam.Page
 
         private void UpdateLevelFromAccelerometerData()
         {
-            _averageRoll *= (ACCELEROMETER_MEASURMENT_WEIGHT - 1) / ACCELEROMETER_MEASURMENT_WEIGHT;
-
-            if (_viewModel != null)
+            Device.BeginInvokeOnMainThread(() =>
             {
-                if (Math.Abs(_lastAccelerometerReadingX) < Math.Abs(_lastAccelerometerReadingY)) //portrait
+                _averageRoll *= (ACCELEROMETER_MEASURMENT_WEIGHT - 1) / ACCELEROMETER_MEASURMENT_WEIGHT;
+
+                if (_viewModel != null)
                 {
-                    if (_viewModel.IsViewInverted)
+                    if (Math.Abs(_lastAccelerometerReadingX) < Math.Abs(_lastAccelerometerReadingY)) //portrait
                     {
-                        _averageRoll -= _lastAccelerometerReadingX / ACCELEROMETER_MEASURMENT_WEIGHT;
+                        if (_viewModel.IsViewInverted)
+                        {
+                            _averageRoll -= _lastAccelerometerReadingX / ACCELEROMETER_MEASURMENT_WEIGHT;
+                        }
+                        else
+                        {
+                            _averageRoll += _lastAccelerometerReadingX / ACCELEROMETER_MEASURMENT_WEIGHT;
+                        }
                     }
-                    else
+                    else //landscape
                     {
-                        _averageRoll += _lastAccelerometerReadingX / ACCELEROMETER_MEASURMENT_WEIGHT;
+                        if (_viewModel.IsViewInverted)
+                        {
+                            _averageRoll += _lastAccelerometerReadingY / ACCELEROMETER_MEASURMENT_WEIGHT;
+                        }
+                        else
+                        {
+                            _averageRoll -= _lastAccelerometerReadingY / ACCELEROMETER_MEASURMENT_WEIGHT;
+                        }
                     }
-                }
-                else //landscape
-                {
-                    if (_viewModel.IsViewInverted)
+
+                    if (Math.Abs(_averageRoll) < ROLL_GOOD_THRESHOLD &&
+                        _horizontalLevelBubble.Source == _levelBubbleImage)
                     {
-                        _averageRoll += _lastAccelerometerReadingY / ACCELEROMETER_MEASURMENT_WEIGHT;
+                        _horizontalLevelBubble.Source = _levelBubbleGreenImage;
+                        _horizontalLevelOutside.Source = _levelOutsideGreenImage;
                     }
-                    else
+                    else if (Math.Abs(_averageRoll) > ROLL_GOOD_THRESHOLD &&
+                            _horizontalLevelBubble.Source == _levelBubbleGreenImage)
                     {
-                        _averageRoll -= _lastAccelerometerReadingY / ACCELEROMETER_MEASURMENT_WEIGHT;
+                        _horizontalLevelBubble.Source = _levelBubbleImage;
+                        _horizontalLevelOutside.Source = _levelOutsideImage;
                     }
                 }
 
-                if (Math.Abs(_averageRoll) < ROLL_GOOD_THRESHOLD &&
-                    _horizontalLevelBubble.Source == _levelBubbleImage)
+                var newX = 0.5 + _averageRoll / BUBBLE_LEVEL_MAX_TIP / 2;
+                if (newX > 1)
                 {
-                    _horizontalLevelBubble.Source = _levelBubbleGreenImage;
-                    _horizontalLevelOutside.Source = _levelOutsideGreenImage;
-                }
-                else if (Math.Abs(_averageRoll) > ROLL_GOOD_THRESHOLD &&
-                        _horizontalLevelBubble.Source == _levelBubbleGreenImage)
+                    newX = 1;
+                } else if (newX < 0)
                 {
-                    _horizontalLevelBubble.Source = _levelBubbleImage;
-                    _horizontalLevelOutside.Source = _levelOutsideImage;
+                    newX = 0;
                 }
-            }
-
-            var newX = 0.5 + _averageRoll / BUBBLE_LEVEL_MAX_TIP / 2;
-            if (newX > 1)
-            {
-                newX = 1;
-            } else if (newX < 0)
-            {
-                newX = 0;
-            }
-            var bubbleBounds = AbsoluteLayout.GetLayoutBounds(_horizontalLevelBubble);
-            bubbleBounds.X = newX;
-            AbsoluteLayout.SetLayoutBounds(_horizontalLevelBubble, bubbleBounds);
+                var bubbleBounds = AbsoluteLayout.GetLayoutBounds(_horizontalLevelBubble);
+                bubbleBounds.X = newX;
+                AbsoluteLayout.SetLayoutBounds(_horizontalLevelBubble, bubbleBounds);
+            });
         }
 
         protected override void OnBindingContextChanged()

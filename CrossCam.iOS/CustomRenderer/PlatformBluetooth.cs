@@ -58,6 +58,7 @@ namespace CrossCam.iOS.CustomRenderer
         public void Disconnect()
         {
             _session.Disconnect();
+            OnDisconnected();
         }
 
         public Task<string> StartScanning()

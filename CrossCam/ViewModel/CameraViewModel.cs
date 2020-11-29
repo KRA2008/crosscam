@@ -740,28 +740,31 @@ namespace CrossCam.ViewModel
 
             PromptForPermissionAndSendErrorEmailCommand = new Command(async () =>
             {
-                var sendReport = await CoreMethods.DisplayAlert("Oops",
-                    "Sorry, CrossCam did an error. Please send me an error report so I can fix it!", "Send", "Don't Send");
-                if (sendReport)
+                await Device.InvokeOnMainThreadAsync(async () =>
                 {
-                    var errorMessage = ErrorMessage + "\n" +
-                                       "\n" +
-                                       "Device Platform: " + DeviceInfo.Platform + "\n" +
-                                       "Device Manufacturer: " + DeviceInfo.Manufacturer + "\n" +
-                                       "Device Model: " + DeviceInfo.Model + "\n" +
-                                       "Device Width: " + Application.Current.MainPage.Width + "\n" +
-                                       "Device Height: " + Application.Current.MainPage.Height + "\n" +
-                                       "OS Version Number: " + DeviceInfo.Version + "\n" +
-                                       "OS Version String: " + DeviceInfo.VersionString + "\n" +
-                                       "App Version: " + CrossDeviceInfo.Current.AppVersion + "\n" +
-                                       "App Build: " + CrossDeviceInfo.Current.AppBuild + "\n" +
-                                       "Idiom: " + CrossDeviceInfo.Current.Idiom + " \n" +
-                                       "Settings: " + JsonConvert.SerializeObject(Settings);
-                    Device.OpenUri(new Uri("mailto:me@kra2008.com?subject=CrossCam%20error%20report&body=" +
-                                           HttpUtility.UrlEncode(errorMessage)));
-                }
+                    var sendReport = await CoreMethods.DisplayAlert("Oops",
+                        "Sorry, CrossCam did an error. Please send me an error report so I can fix it!", "Send", "Don't Send");
+                    if (sendReport)
+                    {
+                        var errorMessage = ErrorMessage + "\n" +
+                                           "\n" +
+                                           "Device Platform: " + DeviceInfo.Platform + "\n" +
+                                           "Device Manufacturer: " + DeviceInfo.Manufacturer + "\n" +
+                                           "Device Model: " + DeviceInfo.Model + "\n" +
+                                           "Device Width: " + Application.Current.MainPage.Width + "\n" +
+                                           "Device Height: " + Application.Current.MainPage.Height + "\n" +
+                                           "OS Version Number: " + DeviceInfo.Version + "\n" +
+                                           "OS Version String: " + DeviceInfo.VersionString + "\n" +
+                                           "App Version: " + CrossDeviceInfo.Current.AppVersion + "\n" +
+                                           "App Build: " + CrossDeviceInfo.Current.AppBuild + "\n" +
+                                           "Idiom: " + CrossDeviceInfo.Current.Idiom + " \n" +
+                                           "Settings: " + JsonConvert.SerializeObject(Settings);
+                        Device.OpenUri(new Uri("mailto:me@kra2008.com?subject=CrossCam%20error%20report&body=" +
+                                               HttpUtility.UrlEncode(errorMessage)));
+                    }
 
-                ErrorMessage = null;
+                    ErrorMessage = null;
+                });
             });
 
             PairCommand = new Command(async () =>
