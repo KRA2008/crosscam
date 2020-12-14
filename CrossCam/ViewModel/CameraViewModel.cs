@@ -1,6 +1,8 @@
 ﻿using System;
+using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
+using System.Net.NetworkInformation;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Web;
@@ -31,6 +33,7 @@ namespace CrossCam.ViewModel
         public CropMode CropMode { get; set; }
         public ManualAlignMode ManualAlignMode { get; set; }
         public KeystoneMode KeystoneMode { get; set; }
+        public CameraSettingMode CameraSettingMode { get; set; }
 
         public SKBitmap LeftBitmap { get; set; }
         public Command RetakeLeftCommand { get; set; }
@@ -85,6 +88,11 @@ namespace CrossCam.ViewModel
         public Command ToggleViewModeCommand { get; set; }
 
         public Command ClearCapturesCommand { get; set; }
+
+        public Command OpenCameraSettingsCommand { get; set; }
+        public bool CameraSettingsVisible { get; set; }
+        public ObservableCollection<AvailableCamera> AvailableCameras { get; set; }
+        public AvailableCamera ChosenCamera { get; set; } //TODO: add some kind of default setter logic, maybe in the saving mechanism
 
         public Command NavigateToSettingsCommand { get; set; }
         public Command NavigateToHelpCommand { get; set; }
@@ -261,6 +269,7 @@ namespace CrossCam.ViewModel
 
             IsCaptureLeftFirst = Settings.IsCaptureLeftFirst;
             CameraColumn = IsCaptureLeftFirst ? 0 : 1;
+            AvailableCameras = new ObservableCollection<AvailableCamera>();
 
             PropertyChanged += (sender, args) =>
             {
@@ -479,6 +488,11 @@ namespace CrossCam.ViewModel
             NavigateToHelpCommand = new Command(async () =>
             {
                 await CoreMethods.PushPageModel<HelpViewModel>(Settings);
+            });
+
+            OpenCameraSettingsCommand = new Command(() =>
+            {
+                CameraSettingsVisible = !CameraSettingsVisible;
             });
 
             SwapSidesCommand = new Command(obj =>
@@ -1570,20 +1584,20 @@ namespace CrossCam.ViewModel
                 {
                     origin = codec.Origin;
                 }
-
+                
                 if (!orientationByte.HasValue)
                 {
                     switch (origin)
                     {
-                        case SKCodecOrigin.BottomRight when !Settings.IsFrontCamera:
+                        case SKCodecOrigin.BottomRight when !ChosenCamera.IsFront:
                             return BitmapRotate180(bitmap, false);
-                        case SKCodecOrigin.BottomRight when Settings.IsFrontCamera:
+                        case SKCodecOrigin.BottomRight when ChosenCamera.IsFront:
                             return BitmapHorizontalMirror(bitmap);
                         case SKCodecOrigin.RightTop:
-                            return BitmapRotate90(bitmap, Settings.IsFrontCamera);
+                            return BitmapRotate90(bitmap, ChosenCamera.IsFront);
                         case SKCodecOrigin.LeftBottom:
-                            return BitmapRotate270(bitmap, Settings.IsFrontCamera);
-                        case SKCodecOrigin.TopLeft when Settings.IsFrontCamera:
+                            return BitmapRotate270(bitmap, ChosenCamera.IsFront);
+                        case SKCodecOrigin.TopLeft when ChosenCamera.IsFront:
                             return BitmapRotate180(bitmap, true);
                         default:
                             return bitmap;

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Linq;
@@ -34,6 +35,7 @@ namespace CrossCam.iOS.CustomRenderer
         private AVCaptureVideoPreviewLayer _avCaptureVideoPreviewLayer;
         private static UIDeviceOrientation? _previousValidOrientation;
         private bool _is10OrHigher;
+        private IEnumerable<AVCaptureDevice> _devices;
 
         public CameraModuleRenderer()
         {
@@ -116,7 +118,7 @@ namespace CrossCam.iOS.CustomRenderer
                     TurnOffFlashAndSetContinuousAutoMode(_device);
                 }
 
-                if (e.PropertyName == nameof(_cameraModule.IsFrontCamera))
+                if (e.PropertyName == nameof(_cameraModule.ChosenCamera))
                 {
                     FullInit();
                 }
@@ -163,21 +165,38 @@ namespace CrossCam.iOS.CustomRenderer
                     {
                         SessionPreset = AVCaptureSession.PresetPhoto
                     };
+                    if (!_cameraModule.AvailableCameras.Any())
+                    {
+                        var session = AVCaptureDeviceDiscoverySession.Create(
+                            new []
+                            {
+                                AVCaptureDeviceType.BuiltInWideAngleCamera, 
+                                AVCaptureDeviceType.BuiltInTelephotoCamera,
+                                AVCaptureDeviceType.BuiltInUltraWideCamera
+                            }, AVMediaType.Video, AVCaptureDevicePosition.Unspecified);
+                        _devices = session.Devices;
+                        foreach (var avCaptureDevice in _devices)
+                        {
+                            _cameraModule.AvailableCameras.Add(new AvailableCamera
+                            {
+                                DisplayName = avCaptureDevice.LocalizedName,
+                                CameraId = avCaptureDevice.UniqueID,
+                                IsFront = avCaptureDevice.Position == AVCaptureDevicePosition.Front
+                            });
+                        }
+                    }
                 }
 
                 SetPreviewOrientation();
 
-                if (_cameraModule.IsFrontCamera)
-                {
-                    var devices = AVCaptureDeviceDiscoverySession.Create(
-                        new[] {AVCaptureDeviceType.BuiltInWideAngleCamera},
-                        AVMediaType.Video, AVCaptureDevicePosition.Front).Devices;
-                    _device = devices.FirstOrDefault();
-                }
-
-                if (!_cameraModule.IsFrontCamera || _device == null)
+                if (_device == null)
                 {
                     _device = AVCaptureDevice.GetDefaultDevice(AVMediaTypes.Video);
+                    _cameraModule.ChosenCamera = _cameraModule.AvailableCameras.First(c => c.CameraId == _device.UniqueID);
+                }
+                else
+                {
+                    _device = AVCaptureDevice.DeviceWithUniqueID(_cameraModule.ChosenCamera.CameraId);
                 }
 
                 SetPreviewSizing(_device, restart);
@@ -458,7 +477,7 @@ namespace CrossCam.iOS.CustomRenderer
                 {
                     var previewHeight = _cameraModule.Width * (4f / 3f);
                     var verticalOffset = (_cameraModule.Height - previewHeight) / 2;
-                    if (_cameraModule.IsFrontCamera)
+                    if (_cameraModule.ChosenCamera.IsFront)
                     {
                         focusCircleX = translatedPoint.Y * _cameraModule.Width;
                     }
@@ -473,7 +492,7 @@ namespace CrossCam.iOS.CustomRenderer
                     var previewHeight = _cameraModule.Width * (3f / 4f);
                     var verticalOffset = (_cameraModule.Height - previewHeight) / 2;
                     focusCircleX = translatedPoint.X * _cameraModule.Width;
-                    if (_cameraModule.IsFrontCamera)
+                    if (_cameraModule.ChosenCamera.IsFront)
                     {
                         focusCircleY = (1 - translatedPoint.Y) * previewHeight + verticalOffset;
                     }
@@ -487,7 +506,7 @@ namespace CrossCam.iOS.CustomRenderer
                     var previewHeight = _cameraModule.Width * (3f / 4f);
                     var verticalOffset = (_cameraModule.Height - previewHeight) / 2;
                     focusCircleX = (1 - translatedPoint.X) * _cameraModule.Width;
-                    if (_cameraModule.IsFrontCamera)
+                    if (_cameraModule.ChosenCamera.IsFront)
                     {
                         focusCircleY = translatedPoint.Y * previewHeight + verticalOffset;
                     }

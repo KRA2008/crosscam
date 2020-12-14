@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.IO;
 using System.Linq;
@@ -81,6 +82,7 @@ namespace CrossCam.Droid.CustomRenderer
         private int _camera2SensorOrientation; 
         private bool _camera2CameraDeviceErrorRetry;
         private readonly SparseIntArray _orientations = new SparseIntArray();
+        private int _camera1initThreadlock;
 
         private CameraState _camera2State;
         private int _cameraRotation1;
@@ -255,7 +257,7 @@ namespace CrossCam.Droid.CustomRenderer
                     TurnOnContinuousFocus();
                 }
 
-                if (e.PropertyName == nameof(_cameraModule.IsFrontCamera))
+                if (e.PropertyName == nameof(_cameraModule.ChosenCamera))
                 {
                     if (_useCamera2)
                     {
@@ -618,7 +620,7 @@ namespace CrossCam.Droid.CustomRenderer
                         _cameraModule.IsViewInverted = false;
                         _cameraModule.IsPortrait = false;
                         proportionalPreviewHeight = previewSizeHeight * moduleWidth / previewSizeWidth;
-                        if (_cameraModule.IsFrontCamera)
+                        if (_cameraModule.ChosenCamera.IsFront)
                         {
                             _cameraRotation1 = 180;
                             _displayRotation1 = 0;
@@ -651,7 +653,7 @@ namespace CrossCam.Droid.CustomRenderer
                         _cameraModule.IsPortrait = false;
                         _cameraModule.IsViewInverted = true;
                         proportionalPreviewHeight = previewSizeHeight * moduleWidth / previewSizeWidth;
-                        if (_cameraModule.IsFrontCamera)
+                        if (_cameraModule.ChosenCamera.IsFront)
                         {
                             _cameraRotation1 = 0;
                             _displayRotation1 = 180;
@@ -671,7 +673,7 @@ namespace CrossCam.Droid.CustomRenderer
 
                 if (_useCamera2)
                 {
-                    if (_cameraModule.IsFrontCamera)
+                    if (_cameraModule.ChosenCamera.IsFront)
                     {
                         rotation2 += 180;
                     }
@@ -739,9 +741,29 @@ namespace CrossCam.Droid.CustomRenderer
             {
                 if (_surfaceTexture != null)
                 {
-                    if (_camera1 == null || restart)
+                    if ((_camera1 == null || restart))
                     {
-                        _camera1 = _cameraModule.IsFrontCamera
+                        if (Interlocked.Exchange(ref _camera1initThreadlock, 1) == 1) return;
+
+                        if (!_cameraModule.AvailableCameras.Any())
+                        {
+                            var backCamera = new AvailableCamera
+                            {
+                                CameraId = "0",
+                                IsFront = false
+                            };
+                            _cameraModule.AvailableCameras.Add(backCamera);
+                            _cameraModule.AvailableCameras.Add(new AvailableCamera
+                            {
+                                CameraId = "1",
+                                IsFront = true
+                            });
+                            if (_cameraModule.ChosenCamera == null)
+                            {
+                                _cameraModule.ChosenCamera = backCamera;
+                            }
+                        }
+                        _camera1 = _cameraModule.ChosenCamera.IsFront
                             ? Camera.Open((int) CameraFacing.Front)
                             : Camera.Open((int) CameraFacing.Back);
                         _camera1.SetErrorCallback(this);
@@ -814,6 +836,8 @@ namespace CrossCam.Droid.CustomRenderer
                         _camera1.SetParameters(parameters);
                         _camera1.SetPreviewTexture(_surfaceTexture);
                         _camera1.SetPreviewCallback(new Camera1PreviewCallbackHandler(_cameraModule, this));
+
+                        _camera1initThreadlock = 0;
                     }
 
                     if (surface != null)
@@ -950,16 +974,28 @@ namespace CrossCam.Droid.CustomRenderer
         private int FindCamera2()
         {
             var cameraIds = _cameraManager.GetCameraIdList();
-            foreach (var cameraId in cameraIds)
+            if (!_cameraModule.AvailableCameras.Any())
             {
-                var cameraChars = _cameraManager.GetCameraCharacteristics(cameraId);
-                var direction = (int)cameraChars.Get(CameraCharacteristics.LensFacing);
-                if (direction == (int)LensFacing.Back && !_cameraModule.IsFrontCamera ||
-                    direction == (int)LensFacing.Front && _cameraModule.IsFrontCamera)
+                foreach (var cameraId in cameraIds)
                 {
-                    _camera2Id = cameraId;
-                    break;
+                    var cameraChars = _cameraManager.GetCameraCharacteristics(cameraId);
+                    var direction = (int)cameraChars.Get(CameraCharacteristics.LensFacing);
+                    _cameraModule.AvailableCameras.Add(new AvailableCamera
+                    {
+                        CameraId = cameraId,
+                        IsFront = direction == (int)LensFacing.Front
+                    });
                 }
+            }
+
+            if (_cameraModule.ChosenCamera == null)
+            {
+                _cameraModule.ChosenCamera = _cameraModule.AvailableCameras.FirstOrDefault(c => !c.IsFront);
+                _camera2Id = _cameraModule.ChosenCamera?.CameraId;
+            }
+            else
+            {
+                _camera2Id = _cameraModule.ChosenCamera.CameraId;
             }
 
             if (_camera2Id == null)
@@ -1391,7 +1427,7 @@ namespace CrossCam.Droid.CustomRenderer
             var rotation = Display.Rotation;
 
             var screenRotation = _orientations.Get((int)rotation);
-            var frontFacingModifier = _cameraModule.IsFrontCamera ? 180 : 0;
+            var frontFacingModifier = _cameraModule.ChosenCamera.IsFront ? 180 : 0;
             var sensorScreenSum = (_camera2SensorOrientation + screenRotation + 360 + frontFacingModifier) % 360;
             float x;
             float y;
@@ -1411,7 +1447,7 @@ namespace CrossCam.Droid.CustomRenderer
                 var displayHorizontalProportion = e.GetX() / _textureView.Width;
                 var displayVerticalProportion = e.GetY() / _textureView.Height;
                 x = displayVerticalProportion * arraySize.Width();
-                if (_cameraModule.IsFrontCamera)
+                if (_cameraModule.ChosenCamera.IsFront)
                 {
                     y = displayHorizontalProportion * arraySize.Height();
                 }
@@ -1444,7 +1480,7 @@ namespace CrossCam.Droid.CustomRenderer
             }
             var sizingRatio = arraySize.Width() / (1f * _textureView.Height);
             var focusSquareSide = (float)CameraPage.FOCUS_CIRCLE_WIDTH * metrics.Density * sizingRatio;
-            if (_cameraModule.IsFrontCamera)
+            if (_cameraModule.ChosenCamera.IsFront)
             {
                 x = 0;
                 y = 0;

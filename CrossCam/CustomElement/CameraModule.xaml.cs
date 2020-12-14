@@ -1,4 +1,7 @@
-﻿using Xamarin.Forms;
+﻿using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using CrossCam.ViewModel;
+using Xamarin.Forms;
 
 namespace CrossCam.CustomElement
 {
@@ -57,11 +60,14 @@ namespace CrossCam.CustomElement
         public static readonly BindableProperty FocusCircleYProperty = BindableProperty.Create(nameof(FocusCircleY),
             typeof(double), typeof(CameraModule), 0d, BindingMode.OneWayToSource);
 
-        public static readonly BindableProperty IsFrontCameraProperty = BindableProperty.Create(nameof(IsFrontCamera),
-            typeof(bool), typeof(CameraModule), false);
-
         public static readonly BindableProperty BluetoothOperatorProperty = BindableProperty.Create(nameof(BluetoothOperator),
             typeof(BluetoothOperator), typeof(CameraModule));
+
+        public static readonly BindableProperty AvailableCamerasProperty = BindableProperty.Create(nameof(AvailableCameras),
+            typeof(ObservableCollection<AvailableCamera>), typeof(CameraModule), defaultBindingMode:BindingMode.TwoWay);
+
+        public static readonly BindableProperty ChosenCameraProperty = BindableProperty.Create(nameof(ChosenCamera),
+            typeof(AvailableCamera), typeof(CameraModule), defaultBindingMode:BindingMode.TwoWay);
 
         public byte[] CapturedImage
         {
@@ -159,16 +165,22 @@ namespace CrossCam.CustomElement
             set => SetValue(FocusCircleYProperty, value);
         }
 
-        public bool IsFrontCamera
-        {
-            get => (bool)GetValue(IsFrontCameraProperty);
-            set => SetValue(IsFrontCameraProperty, value);
-        }
-
         public BluetoothOperator BluetoothOperator
         {
             get => (BluetoothOperator)GetValue(BluetoothOperatorProperty);
             set => SetValue(BluetoothOperatorProperty, value);
+        }
+
+        public ObservableCollection<AvailableCamera> AvailableCameras
+        {
+            get => (ObservableCollection<AvailableCamera>)GetValue(AvailableCamerasProperty);
+            set => SetValue(AvailableCamerasProperty, value);
+        }
+
+        public AvailableCamera ChosenCamera
+        {
+            get => (AvailableCamera)GetValue(ChosenCameraProperty);
+            set => SetValue(ChosenCameraProperty, value);
         }
     }
 }

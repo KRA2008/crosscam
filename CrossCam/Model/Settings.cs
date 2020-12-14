@@ -85,8 +85,6 @@ namespace CrossCam.Model
         public bool HasOfferedTechniqueHelpBefore { get; set; }
         public bool HasShownDirectionsBefore { get; set; }
 
-        public bool IsFrontCamera { get; set; }
-
         public bool ShowGuideLinesWithFirstCapture { get; set; }
         public bool ShowGuideDonutWithFirstCapture { get; set; }
         public bool ShowRollGuide { get; set; }
@@ -365,8 +363,6 @@ namespace CrossCam.Model
 
             SavingDirectory = null;
             SaveToExternal = false;
-
-            IsFrontCamera = false;
 
             Handedness = Handedness.Right;
 

@@ -30,6 +30,7 @@
             <x:Double x:Key="_halfMediumIconWidth">20</x:Double>
             <x:Double x:Key="_mediumIconWidth">40</x:Double>
             <x:Double x:Key="_smallerButtonWidth">50</x:Double>
+            <x:Double x:Key="_doubleSmallerButtonWidth">100</x:Double>
             <x:Double x:Key="_mediumIconWidthPlusCropLineThickness">43</x:Double>
             <x:Double x:Key="_doubleMediumIconWidth">80</x:Double>
             <x:Double x:Key="_mediumIconWidthPlusTopPadding">60</x:Double>
@@ -65,7 +66,7 @@
             <Rectangle x:Key="_undoBounds" X="0.5" Y="{StaticResource _topMiddleButtonY}" Width="{StaticResource _mediumIconWidth}" Height="{StaticResource _mediumIconWidthPlusTopPadding}"/>
             <Rectangle x:Key="_checkBounds" X="0.5" Y="1" Width="{StaticResource _largeIconWidth}" Height="{StaticResource _largeIconWidth}"/>
             <Rectangle x:Key="_helpBounds" X="0" Y="0" Width="{StaticResource _smallerButtonWidth}" Height="{StaticResource _smallerButtonWidthPlusTopPadding}"/>
-            <Rectangle x:Key="_gearBounds" X="1" Y="0" Width="{StaticResource _smallerButtonWidth}" Height="{StaticResource _smallerButtonWidthPlusTopPadding}"/>
+            <Rectangle x:Key="_gearBounds" X="1" Y="0" Width="{StaticResource _doubleSmallerButtonWidth}" Height="{StaticResource _smallerButtonWidthPlusTopPadding}"/>
 
             <Rectangle x:Key="_leftKeystone" X="{StaticResource _3dLeftMiddle}" Y="{StaticResource _editModeInnerButtons}" Width="{StaticResource _mediumIconWidth}" Height="{StaticResource _mediumIconWidth}"/>
             <Rectangle x:Key="_rightKeystone" X="{StaticResource _3dRightMiddle}" Y="{StaticResource _editModeInnerButtons}" Width="{StaticResource _mediumIconWidth}" Height="{StaticResource _mediumIconWidth}"/>
@@ -152,8 +153,9 @@
                              FocusCircleY="{Binding FocusCircleY}"
                              WasSwipedTrigger="{Binding WasSwipedTrigger}"
                              IsFocusCircleLocked="{Binding IsFocusCircleLocked}"
-                             IsFrontCamera="{Binding Settings.IsFrontCamera}"
-                             BluetoothOperator="{Binding BluetoothOperatorBindable}"/>
+                             BluetoothOperator="{Binding BluetoothOperatorBindable}"
+                             AvailableCameras="{Binding AvailableCameras}"
+                             ChosenCamera="{Binding ChosenCamera}"/>
             <AbsoluteLayout Grid.Column="{Binding CameraColumn}"
                             IsVisible="{Binding WorkflowStage, Converter={vc:EnumCompareConverter}, ConverterParameter={x:Static vm:WorkflowStage.Capture}}"
                             InputTransparent="True">
@@ -417,6 +419,40 @@
             </ContentView.GestureRecognizers>
             <Image Source="loadImage"
                    InputTransparent="True"/>
+        </ContentView>
+
+        <ContentView x:Name="_cameraSettingsRibbon"
+                     AbsoluteLayout.LayoutFlags="WidthProportional"
+                     AbsoluteLayout.LayoutBounds="0,0,1,40"
+                     IsVisible="{Binding CameraSettingsVisible}"
+                     HorizontalOptions="FillAndExpand" 
+                     BackgroundColor="Black"
+                     Opacity="0.6">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+                <Label Grid.Column="0"
+                       Grid.Row="0"
+                       Text="Camera:"
+                       VerticalTextAlignment="Center"
+                       HorizontalOptions="EndAndExpand"/>
+                <Picker Grid.Column="1"
+                        Grid.Row="0"
+                        Title="Camera"
+                        TitleColor="Black"
+                        TextColor="White"
+                        BackgroundColor="Black"
+                        FontSize="Small"
+                        ItemsSource="{Binding AvailableCameras}"
+                        SelectedItem="{Binding ChosenCamera}"
+                        ItemDisplayBinding="{Binding DisplayName}"
+                        HeightRequest="{Binding Source={x:Reference _cameraSettingsRibbon}, Path=Height}"/>
+            </Grid>
         </ContentView>
 
         <AbsoluteLayout x:Name="_horizontalLevelWhole"
@@ -1299,16 +1335,25 @@
             <Image Source="help"
                    InputTransparent="True"/>
         </ContentView>
-        <ContentView AbsoluteLayout.LayoutFlags="PositionProportional"
+        <StackLayout AbsoluteLayout.LayoutFlags="PositionProportional"
                      AbsoluteLayout.LayoutBounds="{StaticResource _gearBounds}"
-                     Padding="{StaticResource _topBarSmallButtonPadding}"
-                     IsVisible="{Binding ShouldSettingsAndHelpBeVisible}">
-            <ContentView.GestureRecognizers>
-                <TapGestureRecognizer Command="{Binding NavigateToSettingsCommand}"/>
-            </ContentView.GestureRecognizers>
-            <Image Source="gear"
-                   InputTransparent="True"/>
-        </ContentView>
+                     IsVisible="{Binding ShouldSettingsAndHelpBeVisible}"
+                     Orientation="Horizontal">
+            <ContentView Padding="{StaticResource _topBarSmallButtonPadding}">
+                <ContentView.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding OpenCameraSettingsCommand}"/>
+                </ContentView.GestureRecognizers>
+                <Image Source="cameraSettings"
+                       InputTransparent="True"/>
+            </ContentView>
+            <ContentView Padding="{StaticResource _topBarSmallButtonPadding}">
+                <ContentView.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding NavigateToSettingsCommand}"/>
+                </ContentView.GestureRecognizers>
+                <Image Source="gear"
+                       InputTransparent="True"/>
+            </ContentView>
+        </StackLayout>
 
         <Label AbsoluteLayout.LayoutFlags="All"
                AbsoluteLayout.LayoutBounds="0.5,0.85,0.75,0.1"
