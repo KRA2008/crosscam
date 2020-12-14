@@ -4,6 +4,7 @@ namespace CrossCam.ViewModel
 {
     public enum CameraSettingMode
     {
+        Menu,
         ISO,
         Exposure,
         FrameDuration,

@@ -470,6 +470,8 @@
     <BundleResource Include="Resources\pairSecondary%402x.png" />
     <BundleResource Include="Resources\cameraSettings.png" />
     <BundleResource Include="Resources\cameraSettings%402x.png" />
+    <BundleResource Include="Resources\cameraFlip.png" />
+    <BundleResource Include="Resources\cameraFlip%402x.png" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\CrossCam\CrossCam.csproj">

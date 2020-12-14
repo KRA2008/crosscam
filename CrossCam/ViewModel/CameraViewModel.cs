@@ -90,9 +90,12 @@ namespace CrossCam.ViewModel
         public Command ClearCapturesCommand { get; set; }
 
         public Command OpenCameraSettingsCommand { get; set; }
+        public Command SaveCameraSettingCommand { get; set; }
+        public Command ResetCameraSettingCommand { get; set; }
+        public Command<CameraSettingMode> SetCameraSettingModeCommand { get; set; }
         public bool CameraSettingsVisible { get; set; }
         public ObservableCollection<AvailableCamera> AvailableCameras { get; set; }
-        public AvailableCamera ChosenCamera { get; set; } //TODO: add some kind of default setter logic, maybe in the saving mechanism
+        public AvailableCamera ChosenCamera { get; set; }
 
         public Command NavigateToSettingsCommand { get; set; }
         public Command NavigateToHelpCommand { get; set; }
@@ -493,6 +496,52 @@ namespace CrossCam.ViewModel
             OpenCameraSettingsCommand = new Command(() =>
             {
                 CameraSettingsVisible = !CameraSettingsVisible;
+                if (!CameraSettingsVisible)
+                {
+                    CameraSettingMode = CameraSettingMode.Menu;
+                }
+            });
+
+            SetCameraSettingModeCommand = new Command<CameraSettingMode>(mode =>
+            {
+                CameraSettingMode = mode;
+            });
+
+            SaveCameraSettingCommand = new Command(() =>
+            {
+                if (CameraSettingMode == CameraSettingMode.Menu)
+                {
+                    CameraSettingsVisible = false;
+                }
+                else
+                {
+                    CameraSettingMode = CameraSettingMode.Menu;
+                }
+            });
+
+            ResetCameraSettingCommand = new Command(() =>
+            {
+                switch (CameraSettingMode)
+                {
+                    case CameraSettingMode.Camera:
+                        ChosenCamera = AvailableCameras.FirstOrDefault(c => !c.IsFront);
+                        break;
+                    case CameraSettingMode.ISO:
+                        break;
+                    case CameraSettingMode.Exposure:
+                        break;
+                    case CameraSettingMode.FrameDuration:
+                        break;
+                    case CameraSettingMode.WhiteBalance:
+                        break;
+                    case CameraSettingMode.Flash:
+                        break;
+                    case CameraSettingMode.Menu:
+                        ChosenCamera = AvailableCameras.FirstOrDefault(c => !c.IsFront);
+                        break;
+                    default:
+                        throw new ArgumentOutOfRangeException();
+                }
             });
 
             SwapSidesCommand = new Command(obj =>

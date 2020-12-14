@@ -427,21 +427,44 @@
                      IsVisible="{Binding CameraSettingsVisible}"
                      HorizontalOptions="FillAndExpand" 
                      BackgroundColor="Black"
-                     Opacity="0.6">
+                     Opacity="0.7">
             <Grid>
                 <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="40"/>
                     <ColumnDefinition Width="*"/>
                     <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="40"/>
                 </Grid.ColumnDefinitions>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto"/>
                 </Grid.RowDefinitions>
-                <Label Grid.Column="0"
+                <Image Grid.Column="0"
+                       Grid.Row="0" 
+                       Source="undo">
+                    <Image.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding ResetCameraSettingCommand}"/>
+                    </Image.GestureRecognizers>
+                </Image>
+                <StackLayout Grid.Column="1"
+                             Grid.ColumnSpan="2"
+                             Grid.Row="0" 
+                             Orientation="Horizontal"
+                             HorizontalOptions="CenterAndExpand"
+                             IsVisible="{Binding CameraSettingMode, Converter={vc:EnumCompareConverter}, ConverterParameter={x:Static vm:CameraSettingMode.Menu}}">
+                    <Image Source="cameraFlip">
+                        <Image.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding SetCameraSettingModeCommand}"
+                                                  CommandParameter="{x:Static vm:CameraSettingMode.Camera}"/>
+                        </Image.GestureRecognizers>
+                    </Image>
+                </StackLayout>
+                <Label Grid.Column="1"
                        Grid.Row="0"
                        Text="Camera:"
                        VerticalTextAlignment="Center"
-                       HorizontalOptions="EndAndExpand"/>
-                <Picker Grid.Column="1"
+                       HorizontalOptions="EndAndExpand"
+                       IsVisible="{Binding CameraSettingMode, Converter={vc:EnumCompareConverter}, ConverterParameter={x:Static vm:CameraSettingMode.Camera}}"/>
+                <Picker Grid.Column="2"
                         Grid.Row="0"
                         Title="Camera"
                         TitleColor="Black"
@@ -451,7 +474,15 @@
                         ItemsSource="{Binding AvailableCameras}"
                         SelectedItem="{Binding ChosenCamera}"
                         ItemDisplayBinding="{Binding DisplayName}"
-                        HeightRequest="{Binding Source={x:Reference _cameraSettingsRibbon}, Path=Height}"/>
+                        HeightRequest="{Binding Source={x:Reference _cameraSettingsRibbon}, Path=Height}"
+                        IsVisible="{Binding CameraSettingMode, Converter={vc:EnumCompareConverter}, ConverterParameter={x:Static vm:CameraSettingMode.Camera}}"/>
+                <Image Grid.Column="3"
+                       Grid.Row="0"
+                       Source="check">
+                    <Image.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding SaveCameraSettingCommand}"/>
+                    </Image.GestureRecognizers>
+                </Image>
             </Grid>
         </ContentView>
 
@@ -1339,14 +1370,16 @@
                      AbsoluteLayout.LayoutBounds="{StaticResource _gearBounds}"
                      IsVisible="{Binding ShouldSettingsAndHelpBeVisible}"
                      Orientation="Horizontal">
-            <ContentView Padding="{StaticResource _topBarSmallButtonPadding}">
+            <ContentView Padding="{StaticResource _topBarSmallButtonPadding}"
+                         IsVisible="{Binding WorkflowStage, Converter={vc:EnumCompareConverter}, ConverterParameter={x:Static vm:WorkflowStage.Capture}}">
                 <ContentView.GestureRecognizers>
                     <TapGestureRecognizer Command="{Binding OpenCameraSettingsCommand}"/>
                 </ContentView.GestureRecognizers>
                 <Image Source="cameraSettings"
                        InputTransparent="True"/>
             </ContentView>
-            <ContentView Padding="{StaticResource _topBarSmallButtonPadding}">
+            <ContentView Padding="{StaticResource _topBarSmallButtonPadding}"
+                         HorizontalOptions="EndAndExpand">
                 <ContentView.GestureRecognizers>
                     <TapGestureRecognizer Command="{Binding NavigateToSettingsCommand}"/>
                 </ContentView.GestureRecognizers>

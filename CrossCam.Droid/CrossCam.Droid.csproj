@@ -322,6 +322,9 @@
   <ItemGroup>
     <AndroidResource Include="Resources\drawable-nodpi\cameraSettings.png" />
   </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable-nodpi\cameraFlip.png" />
+  </ItemGroup>
   <Import Project="..\AutoAlignment\AutoAlignment.projitems" Label="Shared" />
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
 </Project>
