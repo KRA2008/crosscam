@@ -107,10 +107,10 @@
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
-            <forms:SKCanvasView x:Name="_drawnResultCanvas"
+            <forms:SKCanvasView x:Name="_capturedCanvas"
                            Grid.Column="0"
                            Grid.ColumnSpan="2"
-                           PaintSurface="OnPaintDrawnResult">
+                           PaintSurface="OnCapturedCanvasInvalidated">
                 <View.GestureRecognizers>
                     <SwipeGestureRecognizer Command="{Binding SwapSidesCommand}"
                                             Direction="Left,Right"
@@ -125,9 +125,9 @@
                    VerticalOptions="Center"
                    WidthRequest="{StaticResource _doubleMediumIconWidth}"
                    HeightRequest="{StaticResource _doubleMediumIconWidth}"/>
-            <forms:SKCanvasView x:Name="_pairPreviewCanvas"
+            <forms:SKCanvasView x:Name="_pairedPreviewCanvas"
                                 Grid.Column="{Binding IconColumn}"
-                                PaintSurface="OnPaintPreviewResult"
+                                PaintSurface="OnPairedPreviewCanvasInvalidated"
                                 IsVisible="{Binding ShouldPairPreviewBeVisible}">
                 <View.GestureRecognizers>
                     <SwipeGestureRecognizer Command="{Binding SwapSidesCommand}"
@@ -1059,6 +1059,175 @@
                 </Image.GestureRecognizers>
             </Image>
         </StackLayout>
+
+
+        <Grid AbsoluteLayout.LayoutFlags="PositionProportional"
+              AbsoluteLayout.LayoutBounds="{StaticResource _leftKeystone}"
+              ColumnSpacing="0"
+              RowSpacing="0"
+              IsVisible="{Binding WorkflowStage, Converter={vc:EnumCompareConverter}, ConverterParameter={x:Static vm:WorkflowStage.FovCorrection}}">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="1"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="1"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="1"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="1"/>
+            </Grid.RowDefinitions>
+            <Grid.GestureRecognizers>
+                <TapGestureRecognizer Command="{Binding SetFovCorrectionMode}"
+                                      CommandParameter="{x:Static vm:FovCorrectionMode.LeftZoom}"/>
+            </Grid.GestureRecognizers>
+            <BoxView Grid.Row="0" 
+                     Grid.Column="0"
+                     Grid.ColumnSpan="3"
+                     Color="White"
+                     IsVisible="{Binding FovCorrectionMode, Converter={vc:EnumCompareConverter}, ConverterParameter={x:Static vm:FovCorrectionMode.LeftZoom}}"/>
+            <BoxView Grid.Row="0" 
+                     Grid.Column="0"
+                     Grid.RowSpan="3"
+                     Color="White"
+                     IsVisible="{Binding FovCorrectionMode, Converter={vc:EnumCompareConverter}, ConverterParameter={x:Static vm:FovCorrectionMode.LeftZoom}}"/>
+            <Image Grid.Row="1"
+                   Grid.Column="1"
+                   Source="zoom"/>
+            <BoxView Grid.Row="2" 
+                     Grid.Column="0"
+                     Grid.ColumnSpan="3"
+                     Color="White"
+                     IsVisible="{Binding FovCorrectionMode, Converter={vc:EnumCompareConverter}, ConverterParameter={x:Static vm:FovCorrectionMode.LeftZoom}}"/>
+            <BoxView Grid.Row="0" 
+                     Grid.Column="2"
+                     Grid.RowSpan="3"
+                     Color="White"
+                     IsVisible="{Binding FovCorrectionMode, Converter={vc:EnumCompareConverter}, ConverterParameter={x:Static vm:FovCorrectionMode.LeftZoom}}"/>
+        </Grid>
+        <Grid AbsoluteLayout.LayoutFlags="PositionProportional"
+              AbsoluteLayout.LayoutBounds="{StaticResource _manualVerticalAlign}"
+              ColumnSpacing="0"
+              RowSpacing="0"
+              IsVisible="{Binding WorkflowStage, Converter={vc:EnumCompareConverter}, ConverterParameter={x:Static vm:WorkflowStage.FovCorrection}}">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="1"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="1"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="1"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="1"/>
+            </Grid.RowDefinitions>
+            <Grid.GestureRecognizers>
+                <TapGestureRecognizer Command="{Binding SetFovCorrectionMode}"
+                                      CommandParameter="{x:Static vm:FovCorrectionMode.Vertical}"/>
+            </Grid.GestureRecognizers>
+            <BoxView Grid.Row="0" 
+                     Grid.Column="0"
+                     Grid.ColumnSpan="3"
+                     Color="White"
+                     IsVisible="{Binding FovCorrectionMode, Converter={vc:EnumCompareConverter}, ConverterParameter={x:Static vm:FovCorrectionMode.Vertical}}"/>
+            <BoxView Grid.Row="0" 
+                     Grid.Column="0"
+                     Grid.RowSpan="3"
+                     Color="White"
+                     IsVisible="{Binding FovCorrectionMode, Converter={vc:EnumCompareConverter}, ConverterParameter={x:Static vm:FovCorrectionMode.Vertical}}"/>
+            <Image Grid.Row="1"
+                   Grid.Column="1"
+                   Source="vertAlign"/>
+            <BoxView Grid.Row="2" 
+                     Grid.Column="0"
+                     Grid.ColumnSpan="3"
+                     Color="White"
+                     IsVisible="{Binding FovCorrectionMode, Converter={vc:EnumCompareConverter}, ConverterParameter={x:Static vm:FovCorrectionMode.Vertical}}"/>
+            <BoxView Grid.Row="0" 
+                     Grid.Column="2"
+                     Grid.RowSpan="3"
+                     Color="White"
+                     IsVisible="{Binding FovCorrectionMode, Converter={vc:EnumCompareConverter}, ConverterParameter={x:Static vm:FovCorrectionMode.Vertical}}"/>
+        </Grid>
+        <Grid AbsoluteLayout.LayoutFlags="PositionProportional"
+              AbsoluteLayout.LayoutBounds="{StaticResource _rightKeystone}"
+              ColumnSpacing="0"
+              RowSpacing="0"
+              IsVisible="{Binding WorkflowStage, Converter={vc:EnumCompareConverter}, ConverterParameter={x:Static vm:WorkflowStage.FovCorrection}}">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="1"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="1"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="1"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="1"/>
+            </Grid.RowDefinitions>
+            <Grid.GestureRecognizers>
+                <TapGestureRecognizer Command="{Binding SetFovCorrectionMode}"
+                                      CommandParameter="{x:Static vm:FovCorrectionMode.RightZoom}"/>
+            </Grid.GestureRecognizers>
+            <BoxView Grid.Row="0" 
+                     Grid.Column="0"
+                     Grid.ColumnSpan="3"
+                     Color="White"
+                     IsVisible="{Binding FovCorrectionMode, Converter={vc:EnumCompareConverter}, ConverterParameter={x:Static vm:FovCorrectionMode.RightZoom}}"/>
+            <BoxView Grid.Row="0" 
+                     Grid.Column="0"
+                     Grid.RowSpan="3"
+                     Color="White"
+                     IsVisible="{Binding FovCorrectionMode, Converter={vc:EnumCompareConverter}, ConverterParameter={x:Static vm:FovCorrectionMode.RightZoom}}"/>
+            <Image Grid.Row="1"
+                   Grid.Column="1"
+                   Source="zoom"/>
+            <BoxView Grid.Row="2" 
+                     Grid.Column="0"
+                     Grid.ColumnSpan="3"
+                     Color="White"
+                     IsVisible="{Binding FovCorrectionMode, Converter={vc:EnumCompareConverter}, ConverterParameter={x:Static vm:FovCorrectionMode.RightZoom}}"/>
+            <BoxView Grid.Row="0" 
+                     Grid.Column="2"
+                     Grid.RowSpan="3"
+                     Color="White"
+                     IsVisible="{Binding FovCorrectionMode, Converter={vc:EnumCompareConverter}, ConverterParameter={x:Static vm:FovCorrectionMode.RightZoom}}"/>
+        </Grid>
+
+
+        <StackLayout AbsoluteLayout.LayoutFlags="PositionProportional,WidthProportional"
+                     Orientation="Horizontal"
+                     Padding="10"
+                     IsVisible="{Binding WorkflowStage, Converter={vc:EnumCompareConverter}, ConverterParameter={x:Static vm:WorkflowStage.FovCorrection}}">
+            <AbsoluteLayout.LayoutBounds>
+                <Rectangle X="0" Y="1" Width="1" Height="{StaticResource _largeIconWidth}"/>
+            </AbsoluteLayout.LayoutBounds>
+            <Image Source="check"
+                   IsVisible="{Binding Settings.Handedness, Converter={vc:EnumCompareConverter}, ConverterParameter={x:Static model:Handedness.Left}}">
+                <Image.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding SaveEditCommand}"/>
+                </Image.GestureRecognizers>
+            </Image>
+            <Slider Value="{Binding FovLeftCorrection}"
+                    Maximum="{Binding ZoomMax}"
+                    Minimum="0"
+                    HorizontalOptions="FillAndExpand"
+                    IsVisible="{Binding FovCorrectionMode, Converter={vc:EnumCompareConverter}, ConverterParameter={x:Static vm:FovCorrectionMode.LeftZoom}}"/>
+            <Slider Value="{Binding FovRightCorrection}"
+                    Maximum="{Binding ZoomMax}"
+                    Minimum="0"
+                    HorizontalOptions="FillAndExpand"
+                    IsVisible="{Binding FovCorrectionMode, Converter={vc:EnumCompareConverter}, ConverterParameter={x:Static vm:FovCorrectionMode.RightZoom}}"/>
+            <Slider Value="{Binding FovVertAlign}"
+                    Maximum="{Binding VerticalAlignmentMax}"
+                    Minimum="{Binding VerticalAlignmentMin}"
+                    HorizontalOptions="FillAndExpand"
+                    IsVisible="{Binding FovCorrectionMode, Converter={vc:EnumCompareConverter}, ConverterParameter={x:Static vm:FovCorrectionMode.Vertical}}"/>
+            <Image Source="check"
+                   IsVisible="{Binding Settings.Handedness, Converter={vc:EnumCompareInvertConverter}, ConverterParameter={x:Static model:Handedness.Left}}">
+                <Image.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding SaveEditCommand}"/>
+                </Image.GestureRecognizers>
+            </Image>
+        </StackLayout>
+
 
         <Grid AbsoluteLayout.LayoutFlags="PositionProportional,WidthProportional"
               RowSpacing="0"

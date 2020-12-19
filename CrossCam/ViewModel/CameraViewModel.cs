@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.ObjectModel;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
-using System.Net.NetworkInformation;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Web;
@@ -34,6 +34,7 @@ namespace CrossCam.ViewModel
         public ManualAlignMode ManualAlignMode { get; set; }
         public KeystoneMode KeystoneMode { get; set; }
         public CameraSettingMode CameraSettingMode { get; set; }
+        public FovCorrectionMode FovCorrectionMode { get; set; }
 
         public SKBitmap LeftBitmap { get; set; }
         public Command RetakeLeftCommand { get; set; }
@@ -114,7 +115,43 @@ namespace CrossCam.ViewModel
 
         public Command SetManualAlignMode { get; set; }
 
+        public double FovRightCorrection
+        {
+            get => Settings.IsCaptureLeftFirst ? Settings.FovSecondaryCorrection : Settings.FovPrimaryCorrection;
+            set
+            {
+                if (Settings.IsCaptureLeftFirst)
+                {
+                    Settings.FovSecondaryCorrection = value;
+                }
+                else
+                {
+                    Settings.FovPrimaryCorrection = value;
+                }
+            }
+        }
+
+        public double FovLeftCorrection
+        {
+            get => Settings.IsCaptureLeftFirst ? Settings.FovPrimaryCorrection : Settings.FovSecondaryCorrection;
+            set
+            {
+                if (Settings.IsCaptureLeftFirst)
+                {
+                    Settings.FovPrimaryCorrection = value;
+                }
+                else
+                {
+                    Settings.FovSecondaryCorrection = value;
+                }
+            }
+        }
+
+        public Command SetFovCorrectionMode { get; set; }
+
         public Command PairCommand { get; set; }
+
+        public double FovVertAlign { get; set; }
 
         public double ZoomMax => 1 / 4d;
         public double LeftZoom { get; set; }
@@ -165,9 +202,6 @@ namespace CrossCam.ViewModel
         public bool IsFocusCircleLocked { get; set; }
         public double FocusCircleX { get; set; }
         public double FocusCircleY { get; set; }
-
-        public double LeftFov => BluetoothOperator.IsPrimary && BluetoothOperator.PairStatus == PairStatus.Connected ? (IsCaptureLeftFirst ? BluetoothOperator.Fov : BluetoothOperator.PartnerFov) : 0; //TODO: it shouldn't go to 0 because you disconnect - otherwise you MUST stay connected while saving, which is bad
-        public double RightFov => BluetoothOperator.IsPrimary && BluetoothOperator.PairStatus == PairStatus.Connected ? (IsCaptureLeftFirst ? BluetoothOperator.PartnerFov : BluetoothOperator.Fov) : 0;
 
         public bool IsNothingCaptured => LeftBitmap == null && RightBitmap == null;
         public bool ShouldIconBeVisible => IsNothingCaptured && IconColumn != CameraColumn && WorkflowStage == WorkflowStage.Capture;
@@ -414,7 +448,20 @@ namespace CrossCam.ViewModel
 
             SaveEditCommand = new Command(() =>
             {
-                WorkflowStage = WorkflowStage == WorkflowStage.Edits ? WorkflowStage.Final : WorkflowStage.Edits;
+                switch (WorkflowStage)
+                {
+                    case WorkflowStage.Edits:
+                        WorkflowStage = WorkflowStage.Final;
+                        break;
+                    case WorkflowStage.FovCorrection:
+                        //Settings.IsFovCorrectionSet = true;
+                        PersistentStorage.Save(PersistentStorage.SETTINGS_KEY, Settings);
+                        CheckAndCorrectFovAndResolutionDifferences();
+                        break;
+                    default:
+                        WorkflowStage = WorkflowStage.Edits;
+                        break;
+                }
             });
 
             ClearEditCommand = new Command(() =>
@@ -594,6 +641,11 @@ namespace CrossCam.ViewModel
             SetManualAlignMode = new Command(mode =>
             {
                 ManualAlignMode = (ManualAlignMode) mode;
+            });
+
+            SetFovCorrectionMode = new Command(mode =>
+            {
+                FovCorrectionMode = (FovCorrectionMode) mode;
             });
 
             SetKeystoneMode = new Command(mode =>
@@ -1351,7 +1403,11 @@ namespace CrossCam.ViewModel
                     if (BluetoothOperator.IsPrimary &&
                         BluetoothOperator.PairStatus == PairStatus.Connected)
                     {
-                        CheckAndCorrectFovAndResolutionDifferences();
+                        if (!Settings.IsFovCorrectionSet)
+                        {
+                            WorkflowStage = WorkflowStage.FovCorrection;
+                            return;
+                        }
                     }
                     WasCaptureCross = Settings.Mode != DrawMode.Parallel;
                     CameraColumn = IsCaptureLeftFirst ? 0 : 1;
@@ -1384,7 +1440,11 @@ namespace CrossCam.ViewModel
                     if (BluetoothOperator.IsPrimary &&
                         BluetoothOperator.PairStatus == PairStatus.Connected)
                     {
-                        CheckAndCorrectFovAndResolutionDifferences();
+                        if (!Settings.IsFovCorrectionSet)
+                        {
+                            WorkflowStage = WorkflowStage.FovCorrection;
+                            return;
+                        }
                     }
                     WasCaptureCross = Settings.Mode != DrawMode.Parallel;
                     CameraColumn = IsCaptureLeftFirst ? 0 : 1;
@@ -1394,82 +1454,189 @@ namespace CrossCam.ViewModel
             }
         }
 
-        private void CheckAndCorrectFovAndResolutionDifferences() //TODO: this seems like a fine approach but it doesn't look like it's working right... i had to divide by an extra factor of two and i don't know why, and it's still not quite perfect.
+        private void CheckAndCorrectFovAndResolutionDifferences()
         {
-            var finalWidth = Math.Min(LeftBitmap.Width, RightBitmap.Width); // TODO: Android aspect ratio differences may make this ambiguous
-            var finalHeight = Math.Min(LeftBitmap.Height, RightBitmap.Height);
+            //TODO: feed all this into the DrawTool in order to get instant feedback on the sliders
+            //TODO: also add the vertical alignment bit
 
-            var isLandscape = finalWidth > finalHeight;
+            //ASPECT RATIO
+            // cut the top and bottom off of whichever side is taller
+            //FIELD OF VIEW
+            // zoom into the side that the user said needs zooming (extract inverse so the preview of the smaller fov side can be padded)
+            //RESOLUTION
+            // decrease the resolution of the higher res to match the lower
+            //
+            //SHIT, i never thought of a way to zoom or crop the primary's camera preview (it's native)
+            //  i had resolved to compensate by zooming OUT on the secondary if the primary has the higher FOV (which it usually will), but it would be really cool to be able to handle this at the native level
 
-            if (LeftFov > DrawTool.FLOATY_ZERO &&
-                RightFov > DrawTool.FLOATY_ZERO)
+            var leftAspect = LeftBitmap.Width / (LeftBitmap.Height * 1f);
+            var rightAspect = RightBitmap.Width / (RightBitmap.Height * 1f);
+
+            float leftAspectHeightDelta = 0;
+            float rightAspectHeightDelta = 0;
+            float leftAspectWidthDelta = 0;
+            float rightAspectWidthDelta = 0;
+
+            if (LeftBitmap.Width > LeftBitmap.Height) // landscape
             {
-                double heightCorrection;
-                double widthCorrection;
-                if (LeftFov > RightFov)
+                if (leftAspect > rightAspect)
                 {
-                    if (isLandscape)
-                    {
-                        widthCorrection = FindCropForFovCorrection(LeftFov, RightFov, LeftBitmap.Width);
-                        heightCorrection = FindCropForFovCorrection(CalculatePortraitFov(LeftFov), CalculatePortraitFov(RightFov), LeftBitmap.Height);
-                    }
-                    else
-                    {
-                        heightCorrection = FindCropForFovCorrection(LeftFov, RightFov, LeftBitmap.Height);
-                        widthCorrection = FindCropForFovCorrection(CalculatePortraitFov(LeftFov), CalculatePortraitFov(RightFov), LeftBitmap.Width);
-                    }
-                    LeftBitmap = CorrectFovAndResolutionSide(LeftBitmap, widthCorrection, heightCorrection, finalWidth, finalHeight);
+                    leftAspectWidthDelta = RightBitmap.Width * LeftBitmap.Height / (RightBitmap.Height * 1f) - LeftBitmap.Width;
                 }
-                else if (RightFov > LeftFov)
+                else if (rightAspect > leftAspect)
                 {
-                    if (isLandscape)
-                    {
-                        widthCorrection = FindCropForFovCorrection(RightFov, LeftFov, RightBitmap.Width);
-                        heightCorrection = FindCropForFovCorrection(CalculatePortraitFov(RightFov), CalculatePortraitFov(LeftFov), RightBitmap.Height);
-                    }
-                    else
-                    {
-                        heightCorrection = FindCropForFovCorrection(RightFov, LeftFov, RightBitmap.Height);
-                        widthCorrection = FindCropForFovCorrection(CalculatePortraitFov(RightFov), CalculatePortraitFov(LeftFov), RightBitmap.Width);
-                    }
-                    RightBitmap = CorrectFovAndResolutionSide(RightBitmap, widthCorrection, heightCorrection, finalWidth, finalHeight);
-                }
-                else
-                {
-                    if (RightBitmap.Width > LeftBitmap.Width)
-                    {
-                        RightBitmap = CorrectFovAndResolutionSide(RightBitmap, 0, 0, finalWidth, finalHeight);
-                    }
-                    else if(LeftBitmap.Width > RightBitmap.Width)
-                    {
-                        LeftBitmap = CorrectFovAndResolutionSide(LeftBitmap, 0, 0, finalWidth, finalHeight);
-                    }
+                    rightAspectWidthDelta = LeftBitmap.Width * RightBitmap.Height / (LeftBitmap.Height * 1f) - RightBitmap.Width;
                 }
             }
-        }
+            else // portrait
+            {
+                if (leftAspect > rightAspect)
+                {
+                    leftAspectHeightDelta = RightBitmap.Height * LeftBitmap.Width / (RightBitmap.Width * 1f) - LeftBitmap.Height;
+                }
+                else if (rightAspect > leftAspect)
+                {
+                    rightAspectHeightDelta = LeftBitmap.Height * RightBitmap.Width / (LeftBitmap.Width * 1f) - RightBitmap.Height;
+                }
+            }
 
-        private static SKBitmap CorrectFovAndResolutionSide(SKBitmap originalImage, double widthCorrection, double heightCorrection, int finalWidth, int finalHeight)
-        {
-            var corrected = new SKBitmap(finalWidth, finalHeight);
+            var croppedLeftWidthDelta = (LeftBitmap.Width - leftAspectWidthDelta) * FovLeftCorrection / 2d;
+            var croppedLeftHeightDelta = (LeftBitmap.Height - leftAspectHeightDelta) * FovLeftCorrection / 2d;
+            var croppedRightWidthDelta = (RightBitmap.Width - rightAspectWidthDelta) * FovRightCorrection / 2d;
+            var croppedRightHeightDelta = (RightBitmap.Height - rightAspectHeightDelta) * FovRightCorrection / 2d;
 
-            using (var canvas = new SKCanvas(corrected))
+            var croppedLeftWidth = LeftBitmap.Width - 2 * croppedLeftWidthDelta;
+            var croppedLeftHeight = LeftBitmap.Height - 2 * croppedLeftHeightDelta;
+            var croppedRightWidth = RightBitmap.Width - 2 * croppedRightWidthDelta;
+            var croppedRightHeight = RightBitmap.Height - 2 * croppedRightHeightDelta;
+
+            var newLeftAspect = croppedLeftWidth / croppedLeftHeight;
+            var newRightAspect = croppedRightWidth / croppedRightHeight;
+
+            if(Math.Abs(newLeftAspect - newRightAspect) > DrawTool.FLOATY_ZERO)
+            {
+                Debug.WriteLine("### ASPECT RATIOS NOT EQUAL.... shit.");
+            }
+
+            var newWidthRes = Math.Min(croppedLeftWidth, croppedRightWidth);
+            var newHeightRes = Math.Min(croppedLeftHeight, croppedRightHeight);
+
+            var croppedLeft = new SKBitmap((int)newWidthRes, (int)newHeightRes);
+            using (var canvas = new SKCanvas(croppedLeft))
             {
                 canvas.DrawBitmap(
-                    originalImage,
+                    LeftBitmap,
                     SKRect.Create(
-                        (float)widthCorrection,
-                        (float)heightCorrection,
-                        (float)(originalImage.Width - widthCorrection),
-                        (float)(originalImage.Height - heightCorrection)),
+                        (float)croppedLeftWidthDelta,
+                        (float)croppedLeftHeightDelta,
+                        (float)croppedLeftWidth,
+                        (float)croppedLeftHeight),
                     SKRect.Create(
                         0,
                         0,
-                        finalWidth,
-                        finalHeight));
+                        (int)newWidthRes,
+                        (int)newHeightRes));
             }
+            LeftBitmap = croppedLeft;
 
-            return corrected;
+            var croppedRight = new SKBitmap((int)newWidthRes, (int)newHeightRes);
+            using (var canvas = new SKCanvas(croppedRight))
+            {
+                canvas.DrawBitmap(
+                    RightBitmap,
+                    SKRect.Create(
+                        (float)croppedRightWidthDelta,
+                        (float)croppedRightHeightDelta,
+                        (float)croppedRightWidth,
+                        (float)croppedRightHeight),
+                    SKRect.Create(
+                        0,
+                        0,
+                        (int)newWidthRes,
+                        (int)newHeightRes));
+            }
+            SetRightBitmap(croppedRight, false, true);
         }
+
+        //private void CheckAndCorrectFovAndResolutionDifferences()
+        //{
+        //    var finalWidth = Math.Min(LeftBitmap.Width, RightBitmap.Width);
+        //    var finalHeight = Math.Min(LeftBitmap.Height, RightBitmap.Height);
+
+        //    var isLandscape = finalWidth > finalHeight;
+
+        //    var LeftFov = 90;
+        //    var RightFov = 90;
+
+        //    if (LeftFov > DrawTool.FLOATY_ZERO &&
+        //        RightFov > DrawTool.FLOATY_ZERO)
+        //    {
+        //        double heightCorrection;
+        //        double widthCorrection;
+        //        if (LeftFov > RightFov)
+        //        {
+        //            if (isLandscape)
+        //            {
+        //                widthCorrection = FindCropForFovCorrection(LeftFov, RightFov, LeftBitmap.Width);
+        //                heightCorrection = FindCropForFovCorrection(CalculatePortraitFov(LeftFov), CalculatePortraitFov(RightFov), LeftBitmap.Height);
+        //            }
+        //            else
+        //            {
+        //                heightCorrection = FindCropForFovCorrection(LeftFov, RightFov, LeftBitmap.Height);
+        //                widthCorrection = FindCropForFovCorrection(CalculatePortraitFov(LeftFov), CalculatePortraitFov(RightFov), LeftBitmap.Width);
+        //            }
+        //            LeftBitmap = CorrectFovAndResolutionSide(LeftBitmap, widthCorrection, heightCorrection, finalWidth, finalHeight);
+        //        }
+        //        else if (RightFov > LeftFov)
+        //        {
+        //            if (isLandscape)
+        //            {
+        //                widthCorrection = FindCropForFovCorrection(RightFov, LeftFov, RightBitmap.Width);
+        //                heightCorrection = FindCropForFovCorrection(CalculatePortraitFov(RightFov), CalculatePortraitFov(LeftFov), RightBitmap.Height);
+        //            }
+        //            else
+        //            {
+        //                heightCorrection = FindCropForFovCorrection(RightFov, LeftFov, RightBitmap.Height);
+        //                widthCorrection = FindCropForFovCorrection(CalculatePortraitFov(RightFov), CalculatePortraitFov(LeftFov), RightBitmap.Width);
+        //            }
+        //            RightBitmap = CorrectFovAndResolutionSide(RightBitmap, widthCorrection, heightCorrection, finalWidth, finalHeight);
+        //        }
+        //        else
+        //        {
+        //            if (RightBitmap.Width > LeftBitmap.Width)
+        //            {
+        //                RightBitmap = CorrectFovAndResolutionSide(RightBitmap, 0, 0, finalWidth, finalHeight);
+        //            }
+        //            else if (LeftBitmap.Width > RightBitmap.Width)
+        //            {
+        //                LeftBitmap = CorrectFovAndResolutionSide(LeftBitmap, 0, 0, finalWidth, finalHeight);
+        //            }
+        //        }
+        //    }
+        //}
+
+        //private static SKBitmap CorrectFovAndResolutionSide(SKBitmap originalImage, double widthCorrection, double heightCorrection, int finalWidth, int finalHeight)
+        //{
+        //    var corrected = new SKBitmap(finalWidth, finalHeight);
+
+        //    using (var canvas = new SKCanvas(corrected))
+        //    {
+        //        canvas.DrawBitmap(
+        //            originalImage,
+        //            SKRect.Create(
+        //                (float)widthCorrection,
+        //                (float)heightCorrection,
+        //                (float)(originalImage.Width - widthCorrection),
+        //                (float)(originalImage.Height - heightCorrection)),
+        //            SKRect.Create(
+        //                0,
+        //                0,
+        //                finalWidth,
+        //                finalHeight));
+        //    }
+
+        //    return corrected;
+        //}
 
         public static double FindCropForFovCorrection(double largerFov, double smallerFov, int originalLength)
         {

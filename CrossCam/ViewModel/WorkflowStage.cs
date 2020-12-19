@@ -12,6 +12,7 @@
         Saving,
         AutomaticAlign,
         Loading,
-        Syncing
+        Syncing,
+        FovCorrection
     }
 }

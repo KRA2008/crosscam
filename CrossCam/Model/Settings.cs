@@ -130,6 +130,36 @@ namespace CrossCam.Model
             }
         }
 
+        public bool IsFovCorrectionSet { get; set; }
+
+        private double _fovPrimaryCorrection;
+        public double FovPrimaryCorrection
+        {
+            get => _fovPrimaryCorrection;
+            set
+            {
+                if (_fovSecondaryCorrection > 0)
+                {
+                    _fovSecondaryCorrection = 0;
+                }
+                _fovPrimaryCorrection = value;
+            }
+        }
+
+        private double _fovSecondaryCorrection;
+        public double FovSecondaryCorrection
+        {
+            get => _fovSecondaryCorrection;
+            set
+            {
+                if (_fovPrimaryCorrection > 0)
+                {
+                    _fovPrimaryCorrection = 0;
+                }
+                _fovSecondaryCorrection = value;
+            }
+        }
+
         private int _pairPreviewSampleCount;
         public int PairSyncSampleCount
         {

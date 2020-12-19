@@ -224,7 +224,7 @@ namespace CrossCam.Page
                     break;
                 case nameof(CameraViewModel.Settings):
                     EvaluateSensors();
-                    _drawnResultCanvas.InvalidateSurface();
+                    _capturedCanvas.InvalidateSurface();
                     ResetLineAndDonutGuides();
                     break;
                 case nameof(CameraViewModel.CameraColumn):
@@ -232,8 +232,8 @@ namespace CrossCam.Page
                     PlaceRollGuide();
                     break;
                 case nameof(CameraViewModel.IsViewPortrait):
-                    _drawnResultCanvas.InvalidateSurface();
-                    _pairPreviewCanvas.InvalidateSurface();
+                    _capturedCanvas.InvalidateSurface();
+                    _pairedPreviewCanvas.InvalidateSurface();
                     ResetLineAndDonutGuides();
                     SetMarginsForNotch();
                     break;
@@ -258,13 +258,13 @@ namespace CrossCam.Page
 	            case nameof(CameraViewModel.RightKeystone):
                     Device.BeginInvokeOnMainThread(() =>
                     {
-                        _drawnResultCanvas.InvalidateSurface();
+                        _capturedCanvas.InvalidateSurface();
                     });
                     break;
                 case nameof(CameraViewModel.PreviewFrame):
                     Device.BeginInvokeOnMainThread(() =>
                     {
-                        _pairPreviewCanvas.InvalidateSurface();
+                        _pairedPreviewCanvas.InvalidateSurface();
                     });
                     break;
 	        }
@@ -294,7 +294,7 @@ namespace CrossCam.Page
             }
         }
 
-        private void OnPaintDrawnResult(object sender, SKPaintSurfaceEventArgs e)
+        private void OnCapturedCanvasInvalidated(object sender, SKPaintSurfaceEventArgs e)
 	    {
 	        var canvas = e.Surface.Canvas;
 
@@ -318,7 +318,7 @@ namespace CrossCam.Page
                     : _viewModel.Settings.Mode);
         }
 
-        private void OnPaintPreviewResult(object sender, SKPaintSurfaceEventArgs e)
+        private void OnPairedPreviewCanvasInvalidated(object sender, SKPaintSurfaceEventArgs e)
         {
             if (_viewModel.PreviewFrame != null)
             {
@@ -396,7 +396,7 @@ namespace CrossCam.Page
                             (float)(bitmap.Height - heightFovCorrection)),
                         new SKRect(
                             0,
-                            (float)(canvas.DeviceClipBounds.Height-scaledHeight)/2,
+                            (float)(canvas.DeviceClipBounds.Height - scaledHeight) / 2,
                             canvas.DeviceClipBounds.Width,
                             (float)(canvas.DeviceClipBounds.Height + scaledHeight) / 2));
                 }
