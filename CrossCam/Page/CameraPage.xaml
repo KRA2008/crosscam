@@ -780,12 +780,12 @@
                     <TapGestureRecognizer Command="{Binding SaveEditCommand}"/>
                 </Image.GestureRecognizers>
             </Image>
-            <Slider Value="{Binding LeftKeystone}"
+            <Slider Value="{Binding Edits.LeftKeystone}"
                     Maximum="{Binding MaxKeystone}"
                     Minimum="0"
                     HorizontalOptions="FillAndExpand"
                     IsVisible="{Binding KeystoneMode, Converter={vc:EnumCompareConverter}, ConverterParameter={x:Static vm:KeystoneMode.Left}}"/>
-            <Slider Value="{Binding RightKeystone}"
+            <Slider Value="{Binding Edits.RightKeystone}"
                     Maximum="{Binding MaxKeystone}"
                     Minimum="0"
                     HorizontalOptions="FillAndExpand"
@@ -1027,27 +1027,27 @@
                     <TapGestureRecognizer Command="{Binding SaveEditCommand}"/>
                 </Image.GestureRecognizers>
             </Image>
-            <Slider Value="{Binding LeftRotation}"
+            <Slider Value="{Binding Edits.LeftRotation}"
                     Maximum="{Binding RotationMax}"
                     Minimum="{Binding RotationMin}"
                     HorizontalOptions="FillAndExpand"
                     IsVisible="{Binding ManualAlignMode, Converter={vc:EnumCompareConverter}, ConverterParameter={x:Static vm:ManualAlignMode.RotateLeft}}"/>
-            <Slider Value="{Binding RightRotation}"
+            <Slider Value="{Binding Edits.RightRotation}"
                     Maximum="{Binding RotationMax}"
                     Minimum="{Binding RotationMin}"
                     HorizontalOptions="FillAndExpand"
                     IsVisible="{Binding ManualAlignMode, Converter={vc:EnumCompareConverter}, ConverterParameter={x:Static vm:ManualAlignMode.RotateRight}}"/>
-            <Slider Value="{Binding LeftZoom}"
+            <Slider Value="{Binding Edits.LeftZoom}"
                     Maximum="{Binding ZoomMax}"
                     Minimum="0"
                     HorizontalOptions="FillAndExpand"
                     IsVisible="{Binding ManualAlignMode, Converter={vc:EnumCompareConverter}, ConverterParameter={x:Static vm:ManualAlignMode.ZoomLeft}}"/>
-            <Slider Value="{Binding RightZoom}"
+            <Slider Value="{Binding Edits.RightZoom}"
                     Maximum="{Binding ZoomMax}"
                     Minimum="0"
                     HorizontalOptions="FillAndExpand"
                     IsVisible="{Binding ManualAlignMode, Converter={vc:EnumCompareConverter}, ConverterParameter={x:Static vm:ManualAlignMode.ZoomRight}}"/>
-            <Slider Value="{Binding VerticalAlignment}"
+            <Slider Value="{Binding Edits.VerticalAlignment}"
                     Maximum="{Binding VerticalAlignmentMax}"
                     Minimum="{Binding VerticalAlignmentMin}"
                     HorizontalOptions="FillAndExpand"
@@ -1205,17 +1205,17 @@
                     <TapGestureRecognizer Command="{Binding SaveEditCommand}"/>
                 </Image.GestureRecognizers>
             </Image>
-            <Slider Value="{Binding FovLeftCorrection}"
+            <Slider Value="{Binding Edits.FovLeftCorrection}"
                     Maximum="{Binding ZoomMax}"
                     Minimum="0"
                     HorizontalOptions="FillAndExpand"
                     IsVisible="{Binding FovCorrectionMode, Converter={vc:EnumCompareConverter}, ConverterParameter={x:Static vm:FovCorrectionMode.LeftZoom}}"/>
-            <Slider Value="{Binding FovRightCorrection}"
+            <Slider Value="{Binding Edits.FovRightCorrection}"
                     Maximum="{Binding ZoomMax}"
                     Minimum="0"
                     HorizontalOptions="FillAndExpand"
                     IsVisible="{Binding FovCorrectionMode, Converter={vc:EnumCompareConverter}, ConverterParameter={x:Static vm:FovCorrectionMode.RightZoom}}"/>
-            <Slider Value="{Binding FovVertAlign}"
+            <Slider Value="{Binding Edits.FovVertAlign}"
                     Maximum="{Binding VerticalAlignmentMax}"
                     Minimum="{Binding VerticalAlignmentMin}"
                     HorizontalOptions="FillAndExpand"
@@ -1487,32 +1487,32 @@
                     <TapGestureRecognizer Command="{Binding SaveEditCommand}"/>
                 </Image.GestureRecognizers>
             </Image>
-            <Slider Value="{Binding InsideCrop}"
+            <Slider Value="{Binding Edits.InsideCrop}"
                     Maximum="{Binding SideCropMax}"
                     Minimum="0"
                     HorizontalOptions="FillAndExpand"
                     IsVisible="{Binding CropMode, Converter={vc:EnumCompareConverter}, ConverterParameter={x:Static vm:CropMode.Inside}}"/>
-            <Slider Value="{Binding OutsideCrop}"
+            <Slider Value="{Binding Edits.OutsideCrop}"
                     Maximum="{Binding SideCropMax}"
                     Minimum="0"
                     HorizontalOptions="FillAndExpand"
                     IsVisible="{Binding CropMode, Converter={vc:EnumCompareConverter}, ConverterParameter={x:Static vm:CropMode.Outside}}"/>
-            <Slider Value="{Binding TopCrop}"
+            <Slider Value="{Binding Edits.TopCrop}"
                     Maximum="{Binding TopOrBottomCropMax}"
                     Minimum="0"
                     HorizontalOptions="FillAndExpand"
                     IsVisible="{Binding CropMode, Converter={vc:EnumCompareConverter}, ConverterParameter={x:Static vm:CropMode.Top}}"/>
-            <Slider Value="{Binding BottomCrop}"
+            <Slider Value="{Binding Edits.BottomCrop}"
                     Maximum="{Binding TopOrBottomCropMax}"
                     Minimum="0"
                     HorizontalOptions="FillAndExpand"
                     IsVisible="{Binding CropMode, Converter={vc:EnumCompareConverter}, ConverterParameter={x:Static vm:CropMode.Bottom}}"/>
-            <Slider Value="{Binding LeftCrop}"
+            <Slider Value="{Binding Edits.LeftCrop}"
                     Maximum="{Binding SideCropMax}"
                     Minimum="0"
                     HorizontalOptions="FillAndExpand"
                     IsVisible="{Binding CropMode, Converter={vc:EnumCompareConverter}, ConverterParameter={x:Static vm:CropMode.Left}}"/>
-            <Slider Value="{Binding RightCrop}"
+            <Slider Value="{Binding Edits.RightCrop}"
                     Maximum="{Binding SideCropMax}"
                     Minimum="0"
                     HorizontalOptions="FillAndExpand"

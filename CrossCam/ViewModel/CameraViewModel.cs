@@ -117,74 +117,25 @@ namespace CrossCam.ViewModel
 
         public Command SetManualAlignMode { get; set; }
 
-        public double FovRightCorrection
-        {
-            get => Settings.IsCaptureLeftFirst ? Settings.FovSecondaryCorrection : Settings.FovPrimaryCorrection;
-            set
-            {
-                if (Settings.IsCaptureLeftFirst)
-                {
-                    Settings.FovSecondaryCorrection = value;
-                }
-                else
-                {
-                    Settings.FovPrimaryCorrection = value;
-                }
-            }
-        }
-
-        public double FovLeftCorrection
-        {
-            get => Settings.IsCaptureLeftFirst ? Settings.FovPrimaryCorrection : Settings.FovSecondaryCorrection;
-            set
-            {
-                if (Settings.IsCaptureLeftFirst)
-                {
-                    Settings.FovPrimaryCorrection = value;
-                }
-                else
-                {
-                    Settings.FovSecondaryCorrection = value;
-                }
-            }
-        }
-
         public Command SetFovCorrectionMode { get; set; }
 
         public Command PairCommand { get; set; }
 
-        public double FovVertAlign { get; set; }
-
         public double ZoomMax => 1 / 4d;
-        public double LeftZoom { get; set; }
-        public double RightZoom { get; set; }
-
-        public double LeftCrop { get; set; }
-        public double RightCrop { get; set; }
-        public double InsideCrop { get; set; }
-        public double OutsideCrop { get; set; }
-        public double TopCrop { get; set; }
-        public double BottomCrop { get; set; }
-
         public double SideCropMax => 1 / 2d;
         public double TopOrBottomCropMax => 1 / 2d;
 
         public Command SetCropMode { get; set; }
 
         public double VerticalAlignmentMax => 1 / 8d;
-        public double VerticalAlignment { get; set; }
         public double VerticalAlignmentMin => -VerticalAlignmentMax;
 
         public float RotationMax => 5;
-        public float LeftRotation { get; set; }
-        public float RightRotation { get; set; }
         public float RotationMin => -RotationMax;
 
         public Command SetKeystoneMode { get; set; }
 
         public float MaxKeystone => 1 / 4f;
-        public float LeftKeystone { get; set; }
-        public float RightKeystone { get; set; }
 
         public Command LoadPhotoCommand { get; set; }
 
@@ -272,11 +223,11 @@ namespace CrossCam.ViewModel
                                                RightBitmap != null &&
                                                Settings.Mode != DrawMode.Parallel && 
                                                DrawTool.CalculateJoinedCanvasWidthLessBorder(LeftBitmap, RightBitmap,
-                                                   LeftCrop + OutsideCrop, InsideCrop + RightCrop, InsideCrop + LeftCrop,
-                                                   RightCrop + OutsideCrop) >
+                                                   Edits.LeftCrop + Edits.OutsideCrop, Edits.InsideCrop + Edits.RightCrop, Edits.InsideCrop + Edits.LeftCrop,
+                                                   Edits.RightCrop + Edits.OutsideCrop) >
                                                DrawTool.CalculateCanvasHeightLessBorder(LeftBitmap, RightBitmap,
-                                                   TopCrop, BottomCrop,
-                                                   VerticalAlignment);
+                                                   Edits.TopCrop, Edits.BottomCrop,
+                                                   Edits.VerticalAlignment);
 
         public string SavedSuccessMessage => "Saved to " + (Settings.SaveToExternal
                                                  ? "external"
@@ -615,21 +566,21 @@ namespace CrossCam.ViewModel
 
                     TriggerMovementHint();
 
-                    var tempCrop = InsideCrop;
-                    InsideCrop = OutsideCrop;
-                    OutsideCrop = tempCrop;
+                    var tempCrop = Edits.InsideCrop;
+                    Edits.InsideCrop = Edits.OutsideCrop;
+                    Edits.OutsideCrop = tempCrop;
 
-                    var tempRotate = LeftRotation;
-                    LeftRotation = RightRotation;
-                    RightRotation = tempRotate;
+                    var tempRotate = Edits.LeftRotation;
+                    Edits.LeftRotation = Edits.RightRotation;
+                    Edits.RightRotation = tempRotate;
 
-                    var tempKeystone = LeftKeystone;
-                    LeftKeystone = RightKeystone;
-                    RightKeystone = tempKeystone;
+                    var tempKeystone = Edits.LeftKeystone;
+                    Edits.LeftKeystone = Edits.RightKeystone;
+                    Edits.RightKeystone = tempKeystone;
 
-                    var tempZoom = LeftZoom;
-                    LeftZoom = RightZoom;
-                    RightZoom = tempZoom;
+                    var tempZoom = Edits.LeftZoom;
+                    Edits.LeftZoom = Edits.RightZoom;
+                    Edits.RightZoom = tempZoom;
 
                     Settings.IsCaptureLeftFirst = IsCaptureLeftFirst;
                     PersistentStorage.Save(PersistentStorage.SETTINGS_KEY, Settings);
@@ -722,16 +673,16 @@ namespace CrossCam.ViewModel
                         }
 
                         var finalImageWidth = DrawTool.CalculateJoinedCanvasWidthLessBorder(LeftBitmap, RightBitmap,
-                            LeftCrop + OutsideCrop, InsideCrop + RightCrop, InsideCrop + LeftCrop,
-                            RightCrop + OutsideCrop);
+                            Edits.LeftCrop + Edits.OutsideCrop, Edits.InsideCrop + Edits.RightCrop, Edits.InsideCrop + Edits.LeftCrop,
+                            Edits.RightCrop + Edits.OutsideCrop);
                         var borderThickness = Settings.AddBorder
                             ? (int) (DrawTool.BORDER_CONVERSION_FACTOR * Settings.BorderWidthProportion *
                                      finalImageWidth)
                             : 0;
                         finalImageWidth += 3 * borderThickness;
                         var finalImageHeight = DrawTool.CalculateCanvasHeightLessBorder(LeftBitmap, RightBitmap,
-                                                   TopCrop, BottomCrop,
-                                                   VerticalAlignment) +
+                                                   Edits.TopCrop, Edits.BottomCrop,
+                                                   Edits.VerticalAlignment) +
                                                2 * borderThickness;
 
                         finalImageWidth = (int) (finalImageWidth * (Settings.ResolutionProportion / 100d));
@@ -759,13 +710,13 @@ namespace CrossCam.ViewModel
 
                                 DrawTool.DrawImagesOnCanvas(canvas, LeftBitmap, RightBitmap,
                                     Settings.BorderWidthProportion, Settings.AddBorder, Settings.BorderColor,
-                                    LeftCrop + OutsideCrop, InsideCrop + RightCrop, InsideCrop + LeftCrop,
-                                    RightCrop + OutsideCrop,
-                                    TopCrop, BottomCrop,
-                                    LeftRotation, RightRotation,
-                                    VerticalAlignment,
-                                    LeftZoom, RightZoom,
-                                    LeftKeystone, RightKeystone,
+                                    Edits.LeftCrop + Edits.OutsideCrop, Edits.InsideCrop + Edits.RightCrop, Edits.InsideCrop + Edits.LeftCrop,
+                                    Edits.RightCrop + Edits.OutsideCrop,
+                                    Edits.TopCrop, Edits.BottomCrop,
+                                    Edits.LeftRotation, Edits.RightRotation,
+                                    Edits.VerticalAlignment,
+                                    Edits.LeftZoom, Edits.RightZoom,
+                                    Edits.LeftKeystone, Edits.RightKeystone,
                                     DrawMode.Cross);
 
                                 await SaveSurfaceSnapshot(tempSurface);
@@ -790,13 +741,13 @@ namespace CrossCam.ViewModel
 
                                 DrawTool.DrawImagesOnCanvas(canvas, RightBitmap, LeftBitmap,
                                     Settings.BorderWidthProportion, Settings.AddBorder, Settings.BorderColor,
-                                    InsideCrop + LeftCrop, RightCrop + OutsideCrop,
-                                    LeftCrop + OutsideCrop, InsideCrop + RightCrop, 
-                                    TopCrop, BottomCrop,
-                                    RightRotation, LeftRotation,
-                                    VerticalAlignment,
-                                    RightZoom, LeftZoom,
-                                    RightKeystone, LeftKeystone,
+                                    Edits.InsideCrop + Edits.LeftCrop, Edits.RightCrop + Edits.OutsideCrop,
+                                    Edits.LeftCrop + Edits.OutsideCrop, Edits.InsideCrop + Edits.RightCrop,
+                                    Edits.TopCrop, Edits.BottomCrop,
+                                    Edits.RightRotation, Edits.LeftRotation,
+                                    Edits.VerticalAlignment,
+                                    Edits.RightZoom, Edits.LeftZoom,
+                                    Edits.RightKeystone, Edits.LeftKeystone,
                                     DrawMode.Parallel);
 
                                 await SaveSurfaceSnapshot(tempSurface);
@@ -1139,9 +1090,9 @@ namespace CrossCam.ViewModel
         private async Task DrawAnaglyph(bool grayscale)
         {
             var baseWidth = Math.Min(LeftBitmap.Width, RightBitmap.Width);
-            var canvasWidth = (int)(baseWidth - baseWidth * (LeftCrop + InsideCrop + OutsideCrop + RightCrop));
+            var canvasWidth = (int)(baseWidth - baseWidth * (Edits.LeftCrop + Edits.InsideCrop + Edits.OutsideCrop + Edits.RightCrop));
             var canvasHeight = DrawTool.CalculateCanvasHeightLessBorder(LeftBitmap, RightBitmap,
-                TopCrop, BottomCrop, VerticalAlignment);
+                Edits.TopCrop, Edits.BottomCrop, Edits.VerticalAlignment);
             using (var tempSurface =
                 SKSurface.Create(new SKImageInfo(canvasWidth, canvasHeight)))
             {
@@ -1150,11 +1101,11 @@ namespace CrossCam.ViewModel
 
                 DrawTool.DrawImagesOnCanvas(canvas, LeftBitmap, RightBitmap,
                     Settings.BorderWidthProportion, Settings.AddBorder, Settings.BorderColor,
-                    LeftCrop + OutsideCrop, InsideCrop + RightCrop, InsideCrop + LeftCrop,
-                    RightCrop + OutsideCrop,
-                    TopCrop, BottomCrop, LeftRotation, RightRotation,
-                    VerticalAlignment, LeftZoom, RightZoom,
-                    LeftKeystone, RightKeystone,
+                    Edits.LeftCrop + Edits.OutsideCrop, Edits.InsideCrop + Edits.RightCrop, Edits.InsideCrop + Edits.LeftCrop,
+                    Edits.RightCrop + Edits.OutsideCrop,
+                    Edits.TopCrop, Edits.BottomCrop, Edits.LeftRotation, Edits.RightRotation,
+                    Edits.VerticalAlignment, Edits.LeftZoom, Edits.RightZoom,
+                    Edits.LeftKeystone, Edits.RightKeystone,
                     grayscale ? DrawMode.GrayscaleRedCyanAnaglyph : DrawMode.RedCyanAnaglyph);
 
                 await SaveSurfaceSnapshot(tempSurface);
@@ -1298,14 +1249,14 @@ namespace CrossCam.ViewModel
                         {
                             if (topLeft.Y > 0)
                             {
-                                TopCrop = topLeft.Y / secondImage.Height;
+                                Edits.TopCrop = topLeft.Y / secondImage.Height;
                             }
                         }
                         else
                         {
                             if (topRight.Y > 0)
                             {
-                                TopCrop = topRight.Y / secondImage.Height;
+                                Edits.TopCrop = topRight.Y / secondImage.Height;
                             }
                         }
 
@@ -1314,14 +1265,14 @@ namespace CrossCam.ViewModel
                         {
                             if (bottomLeft.Y < maxY)
                             {
-                                BottomCrop = (maxY - bottomLeft.Y) / secondImage.Height;
+                                Edits.BottomCrop = (maxY - bottomLeft.Y) / secondImage.Height;
                             }
                         }
                         else
                         {
                             if (bottomRight.Y < maxY)
                             {
-                                BottomCrop = (maxY - bottomRight.Y) / secondImage.Height;
+                                Edits.BottomCrop = (maxY - bottomRight.Y) / secondImage.Height;
                             }
                         }
 
@@ -1329,14 +1280,14 @@ namespace CrossCam.ViewModel
                         {
                             if (topLeft.X > 0)
                             {
-                                LeftCrop = topLeft.X / secondImage.Width;
+                                Edits.LeftCrop = topLeft.X / secondImage.Width;
                             }
                         }
                         else
                         {
                             if (bottomLeft.X > 0)
                             {
-                                LeftCrop = bottomLeft.X / secondImage.Width;
+                                Edits.LeftCrop = bottomLeft.X / secondImage.Width;
                             }
                         }
 
@@ -1345,14 +1296,14 @@ namespace CrossCam.ViewModel
                         {
                             if (topRight.X < maxX)
                             {
-                                RightCrop = (maxX - topRight.X) / secondImage.Width;
+                                Edits.RightCrop = (maxX - topRight.X) / secondImage.Width;
                             }
                         }
                         else
                         {
                             if (bottomRight.X < maxX)
                             {
-                                RightCrop = (maxX - bottomRight.X) / secondImage.Width;
+                                Edits.RightCrop = (maxX - bottomRight.X) / secondImage.Width;
                             }
                         }
 
@@ -1503,10 +1454,10 @@ namespace CrossCam.ViewModel
                 }
             }
 
-            var croppedLeftWidthDelta = (LeftBitmap.Width - leftAspectWidthDelta) * FovLeftCorrection / 2d;
-            var croppedLeftHeightDelta = (LeftBitmap.Height - leftAspectHeightDelta) * FovLeftCorrection / 2d;
-            var croppedRightWidthDelta = (RightBitmap.Width - rightAspectWidthDelta) * FovRightCorrection / 2d;
-            var croppedRightHeightDelta = (RightBitmap.Height - rightAspectHeightDelta) * FovRightCorrection / 2d;
+            var croppedLeftWidthDelta = (LeftBitmap.Width - leftAspectWidthDelta) * Edits.FovLeftCorrection / 2d;
+            var croppedLeftHeightDelta = (LeftBitmap.Height - leftAspectHeightDelta) * Edits.FovLeftCorrection / 2d;
+            var croppedRightWidthDelta = (RightBitmap.Width - rightAspectWidthDelta) * Edits.FovRightCorrection / 2d;
+            var croppedRightHeightDelta = (RightBitmap.Height - rightAspectHeightDelta) * Edits.FovRightCorrection / 2d;
 
             var croppedLeftWidth = LeftBitmap.Width - 2 * croppedLeftWidthDelta;
             var croppedLeftHeight = LeftBitmap.Height - 2 * croppedLeftHeightDelta;
@@ -1944,12 +1895,12 @@ namespace CrossCam.ViewModel
 
         private void ClearCrops(bool andAutomaticAlignmentFlags)
         {
-            OutsideCrop = 0;
-            InsideCrop = 0;
-            RightCrop = 0;
-            LeftCrop = 0;
-            TopCrop = 0;
-            BottomCrop = 0;
+            Edits.OutsideCrop = 0;
+            Edits.InsideCrop = 0;
+            Edits.RightCrop = 0;
+            Edits.LeftCrop = 0;
+            Edits.TopCrop = 0;
+            Edits.BottomCrop = 0;
             CropMode = CropMode.Inside;
             if (andAutomaticAlignmentFlags)
             {
@@ -1960,18 +1911,18 @@ namespace CrossCam.ViewModel
 
         private void ClearAlignments()
         {
-            LeftRotation = 0;
-            RightRotation = 0;
-            LeftZoom = 0;
-            RightZoom = 0;
-            VerticalAlignment = 0;
+            Edits.LeftRotation = 0;
+            Edits.RightRotation = 0;
+            Edits.LeftZoom = 0;
+            Edits.RightZoom = 0;
+            Edits.VerticalAlignment = 0;
             ManualAlignMode = ManualAlignMode.VerticalAlign;
         }
 
         private void ClearKeystone()
         {
-            LeftKeystone = 0;
-            RightKeystone = 0;
+            Edits.LeftKeystone = 0;
+            Edits.RightKeystone = 0;
             KeystoneMode = KeystoneMode.Left;
         }
 

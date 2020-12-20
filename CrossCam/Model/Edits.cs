@@ -1,9 +1,9 @@
-﻿using PropertyChanged;
+﻿using System.ComponentModel;
+using System.Runtime.CompilerServices;
 
 namespace CrossCam.Model
 {
-    [AddINotifyPropertyChangedInterface]
-    public class Edits
+    public class Edits : INotifyPropertyChanged
     {
         private readonly Settings _settings;
         public Edits(Settings settings)
@@ -57,6 +57,12 @@ namespace CrossCam.Model
                     _settings.FovSecondaryCorrection = value;
                 }
             }
+        }
+
+        public event PropertyChangedEventHandler PropertyChanged;
+        protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
     }
 }

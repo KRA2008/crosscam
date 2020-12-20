@@ -2,6 +2,7 @@
 using System.ComponentModel;
 using System.Threading.Tasks;
 using CrossCam.CustomElement;
+using CrossCam.Model;
 using CrossCam.ViewModel;
 using SkiaSharp;
 using SkiaSharp.Views.Forms;
@@ -205,13 +206,22 @@ namespace CrossCam.Page
 	        {
 	            _viewModel = (CameraViewModel) BindingContext;
 	            _viewModel.PropertyChanged += ViewModelPropertyChanged;
+                _viewModel.Edits.PropertyChanged += EditsPropertyChanged;
                 EvaluateSensors();
                 ResetLineAndDonutGuides();
                 PlaceRollGuide();
             }
 	    }
 
-	    private void ViewModelPropertyChanged(object sender, PropertyChangedEventArgs e)
+        private void EditsPropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+            Device.BeginInvokeOnMainThread(() =>
+            {
+                _capturedCanvas.InvalidateSurface();
+            });
+        }
+
+        private void ViewModelPropertyChanged(object sender, PropertyChangedEventArgs e)
 	    {
 	        switch (e.PropertyName)
 	        {
@@ -241,21 +251,8 @@ namespace CrossCam.Page
                     PlaceRollGuide();
                     PlaceSettingsRibbon();
                     break;
-	            case nameof(CameraViewModel.LeftBitmap):
+                case nameof(CameraViewModel.LeftBitmap):
                 case nameof(CameraViewModel.RightBitmap):
-	            case nameof(CameraViewModel.RightCrop):
-                case nameof(CameraViewModel.LeftCrop):
-                case nameof(CameraViewModel.InsideCrop):
-	            case nameof(CameraViewModel.OutsideCrop):
-	            case nameof(CameraViewModel.TopCrop):
-	            case nameof(CameraViewModel.BottomCrop):
-                case nameof(CameraViewModel.LeftRotation):
-	            case nameof(CameraViewModel.RightRotation):
-                case nameof(CameraViewModel.VerticalAlignment):
-                case nameof(CameraViewModel.LeftZoom):
-	            case nameof(CameraViewModel.RightZoom):
-	            case nameof(CameraViewModel.LeftKeystone):
-	            case nameof(CameraViewModel.RightKeystone):
                     Device.BeginInvokeOnMainThread(() =>
                     {
                         _capturedCanvas.InvalidateSurface();
@@ -304,13 +301,13 @@ namespace CrossCam.Page
                 canvas, _viewModel.LeftBitmap, _viewModel.RightBitmap,
                 _viewModel.Settings.BorderWidthProportion, _viewModel.Settings.AddBorder,
                 _viewModel.Settings.BorderColor,
-                _viewModel.LeftCrop + _viewModel.OutsideCrop, _viewModel.InsideCrop + _viewModel.RightCrop,
-                _viewModel.InsideCrop + _viewModel.LeftCrop, _viewModel.RightCrop + _viewModel.OutsideCrop,
-                _viewModel.TopCrop, _viewModel.BottomCrop,
-                _viewModel.LeftRotation, _viewModel.RightRotation,
-                _viewModel.VerticalAlignment,
-                _viewModel.LeftZoom, _viewModel.RightZoom,
-                _viewModel.LeftKeystone, _viewModel.RightKeystone,
+                _viewModel.Edits.LeftCrop + _viewModel.Edits.OutsideCrop, _viewModel.Edits.InsideCrop + _viewModel.Edits.RightCrop,
+                _viewModel.Edits.InsideCrop + _viewModel.Edits.LeftCrop, _viewModel.Edits.RightCrop + _viewModel.Edits.OutsideCrop,
+                _viewModel.Edits.TopCrop, _viewModel.Edits.BottomCrop,
+                _viewModel.Edits.LeftRotation, _viewModel.Edits.RightRotation,
+                _viewModel.Edits.VerticalAlignment,
+                _viewModel.Edits.LeftZoom, _viewModel.Edits.RightZoom,
+                _viewModel.Edits.LeftKeystone, _viewModel.Edits.RightKeystone,
                 (_viewModel.Settings.Mode == DrawMode.RedCyanAnaglyph ||
                  _viewModel.Settings.Mode == DrawMode.GrayscaleRedCyanAnaglyph) && 
                 _viewModel.WorkflowStage == WorkflowStage.Capture

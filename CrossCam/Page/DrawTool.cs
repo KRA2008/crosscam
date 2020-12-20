@@ -10,6 +10,13 @@ namespace CrossCam.Page
         public const double BORDER_CONVERSION_FACTOR = 0.001;
         public const float FLOATY_ZERO = 0.00001f;
 
+        public static void DrawImagesOnCanvasNEW(SKCanvas canvas, SKBitmap leftBitmap, SKBitmap rightBitmap,
+            int borderThickness, bool addBorder, BorderColor borderColor, Edits edits, DrawMode drawMode)
+        {
+            //TODO: refactor to use this and make DrawImageOnCanvas private, can i figure out crop order and stuff from draw mode?
+        }
+
+
         public static void DrawImagesOnCanvas(
             SKCanvas canvas, SKBitmap leftBitmap, SKBitmap rightBitmap,
             int borderThickness, bool addBorder, BorderColor borderColor,
