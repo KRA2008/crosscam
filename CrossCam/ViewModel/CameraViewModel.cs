@@ -113,6 +113,8 @@ namespace CrossCam.ViewModel
 
         public Settings Settings { get; set; }
 
+        public Edits Edits { get; set; }
+
         public Command SetManualAlignMode { get; set; }
 
         public double FovRightCorrection
@@ -296,6 +298,7 @@ namespace CrossCam.ViewModel
             _photoSaver = DependencyService.Get<IPhotoSaver>();
 
             Settings = PersistentStorage.LoadOrDefault(PersistentStorage.SETTINGS_KEY, new Settings());
+            Edits = new Edits(Settings);
             BluetoothOperator = new BluetoothOperator(Settings);
             BluetoothOperator.Connected += BluetoothOperatorOnConnected;
             BluetoothOperator.Disconnected += BluetoothOperatorOnDisconnected;
