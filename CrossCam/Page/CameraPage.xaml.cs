@@ -298,21 +298,10 @@ namespace CrossCam.Page
 	        canvas.Clear(SKColor.Empty);
 
             DrawTool.DrawImagesOnCanvas(
-                canvas, _viewModel.LeftBitmap, _viewModel.RightBitmap,
-                _viewModel.Settings.BorderWidthProportion, _viewModel.Settings.AddBorder,
-                _viewModel.Settings.BorderColor,
-                _viewModel.Edits.LeftCrop + _viewModel.Edits.OutsideCrop, _viewModel.Edits.InsideCrop + _viewModel.Edits.RightCrop,
-                _viewModel.Edits.InsideCrop + _viewModel.Edits.LeftCrop, _viewModel.Edits.RightCrop + _viewModel.Edits.OutsideCrop,
-                _viewModel.Edits.TopCrop, _viewModel.Edits.BottomCrop,
-                _viewModel.Edits.LeftRotation, _viewModel.Edits.RightRotation,
-                _viewModel.Edits.VerticalAlignment,
-                _viewModel.Edits.LeftZoom, _viewModel.Edits.RightZoom,
-                _viewModel.Edits.LeftKeystone, _viewModel.Edits.RightKeystone,
-                (_viewModel.Settings.Mode == DrawMode.RedCyanAnaglyph ||
-                 _viewModel.Settings.Mode == DrawMode.GrayscaleRedCyanAnaglyph) && 
-                _viewModel.WorkflowStage == WorkflowStage.Capture
-                    ? DrawMode.Cross
-                    : _viewModel.Settings.Mode);
+                canvas, _viewModel.LeftBitmap, _viewModel.RightBitmap, 
+                _viewModel.Settings,
+                _viewModel.Edits,
+                DrawMode.Cross); // strange but true, its really just saying "don't swap the sides" from how they're shown, and also no anaglyph preview yet
         }
 
         private void OnPairedPreviewCanvasInvalidated(object sender, SKPaintSurfaceEventArgs e)

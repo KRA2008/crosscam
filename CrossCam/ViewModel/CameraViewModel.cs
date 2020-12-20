@@ -222,12 +222,8 @@ namespace CrossCam.ViewModel
         private bool IsPictureWiderThanTall => LeftBitmap != null &&
                                                RightBitmap != null &&
                                                Settings.Mode != DrawMode.Parallel && 
-                                               DrawTool.CalculateJoinedCanvasWidthLessBorder(LeftBitmap, RightBitmap,
-                                                   Edits.LeftCrop + Edits.OutsideCrop, Edits.InsideCrop + Edits.RightCrop, Edits.InsideCrop + Edits.LeftCrop,
-                                                   Edits.RightCrop + Edits.OutsideCrop) >
-                                               DrawTool.CalculateCanvasHeightLessBorder(LeftBitmap, RightBitmap,
-                                                   Edits.TopCrop, Edits.BottomCrop,
-                                                   Edits.VerticalAlignment);
+                                               DrawTool.CalculateJoinedCanvasWidthLessBorder(LeftBitmap, RightBitmap, Edits) >
+                                               DrawTool.CalculateCanvasHeightLessBorder(LeftBitmap, RightBitmap, Edits);
 
         public string SavedSuccessMessage => "Saved to " + (Settings.SaveToExternal
                                                  ? "external"
@@ -672,17 +668,13 @@ namespace CrossCam.ViewModel
                             }
                         }
 
-                        var finalImageWidth = DrawTool.CalculateJoinedCanvasWidthLessBorder(LeftBitmap, RightBitmap,
-                            Edits.LeftCrop + Edits.OutsideCrop, Edits.InsideCrop + Edits.RightCrop, Edits.InsideCrop + Edits.LeftCrop,
-                            Edits.RightCrop + Edits.OutsideCrop);
+                        var finalImageWidth = DrawTool.CalculateJoinedCanvasWidthLessBorder(LeftBitmap, RightBitmap, Edits);
                         var borderThickness = Settings.AddBorder
                             ? (int) (DrawTool.BORDER_CONVERSION_FACTOR * Settings.BorderWidthProportion *
                                      finalImageWidth)
                             : 0;
                         finalImageWidth += 3 * borderThickness;
-                        var finalImageHeight = DrawTool.CalculateCanvasHeightLessBorder(LeftBitmap, RightBitmap,
-                                                   Edits.TopCrop, Edits.BottomCrop,
-                                                   Edits.VerticalAlignment) +
+                        var finalImageHeight = DrawTool.CalculateCanvasHeightLessBorder(LeftBitmap, RightBitmap, Edits) +
                                                2 * borderThickness;
 
                         finalImageWidth = (int) (finalImageWidth * (Settings.ResolutionProportion / 100d));
@@ -708,15 +700,10 @@ namespace CrossCam.ViewModel
                                     canvas.Translate(-1f * finalImageWidth, -1f * finalImageHeight);
                                 }
 
-                                DrawTool.DrawImagesOnCanvas(canvas, LeftBitmap, RightBitmap,
-                                    Settings.BorderWidthProportion, Settings.AddBorder, Settings.BorderColor,
-                                    Edits.LeftCrop + Edits.OutsideCrop, Edits.InsideCrop + Edits.RightCrop, Edits.InsideCrop + Edits.LeftCrop,
-                                    Edits.RightCrop + Edits.OutsideCrop,
-                                    Edits.TopCrop, Edits.BottomCrop,
-                                    Edits.LeftRotation, Edits.RightRotation,
-                                    Edits.VerticalAlignment,
-                                    Edits.LeftZoom, Edits.RightZoom,
-                                    Edits.LeftKeystone, Edits.RightKeystone,
+                                DrawTool.DrawImagesOnCanvas(
+                                    canvas, LeftBitmap, RightBitmap, 
+                                    Settings,
+                                    Edits, 
                                     DrawMode.Cross);
 
                                 await SaveSurfaceSnapshot(tempSurface);
@@ -739,15 +726,10 @@ namespace CrossCam.ViewModel
                                     canvas.Translate(-1f * finalImageWidth, -1f * finalImageHeight);
                                 }
 
-                                DrawTool.DrawImagesOnCanvas(canvas, RightBitmap, LeftBitmap,
-                                    Settings.BorderWidthProportion, Settings.AddBorder, Settings.BorderColor,
-                                    Edits.InsideCrop + Edits.LeftCrop, Edits.RightCrop + Edits.OutsideCrop,
-                                    Edits.LeftCrop + Edits.OutsideCrop, Edits.InsideCrop + Edits.RightCrop,
-                                    Edits.TopCrop, Edits.BottomCrop,
-                                    Edits.RightRotation, Edits.LeftRotation,
-                                    Edits.VerticalAlignment,
-                                    Edits.RightZoom, Edits.LeftZoom,
-                                    Edits.RightKeystone, Edits.LeftKeystone,
+                                DrawTool.DrawImagesOnCanvas(
+                                    canvas, LeftBitmap, RightBitmap, 
+                                    Settings, 
+                                    Edits, 
                                     DrawMode.Parallel);
 
                                 await SaveSurfaceSnapshot(tempSurface);
@@ -1091,21 +1073,17 @@ namespace CrossCam.ViewModel
         {
             var baseWidth = Math.Min(LeftBitmap.Width, RightBitmap.Width);
             var canvasWidth = (int)(baseWidth - baseWidth * (Edits.LeftCrop + Edits.InsideCrop + Edits.OutsideCrop + Edits.RightCrop));
-            var canvasHeight = DrawTool.CalculateCanvasHeightLessBorder(LeftBitmap, RightBitmap,
-                Edits.TopCrop, Edits.BottomCrop, Edits.VerticalAlignment);
+            var canvasHeight = DrawTool.CalculateCanvasHeightLessBorder(LeftBitmap, RightBitmap, Edits);
             using (var tempSurface =
                 SKSurface.Create(new SKImageInfo(canvasWidth, canvasHeight)))
             {
                 var canvas = tempSurface.Canvas;
                 canvas.Clear(SKColor.Empty);
 
-                DrawTool.DrawImagesOnCanvas(canvas, LeftBitmap, RightBitmap,
-                    Settings.BorderWidthProportion, Settings.AddBorder, Settings.BorderColor,
-                    Edits.LeftCrop + Edits.OutsideCrop, Edits.InsideCrop + Edits.RightCrop, Edits.InsideCrop + Edits.LeftCrop,
-                    Edits.RightCrop + Edits.OutsideCrop,
-                    Edits.TopCrop, Edits.BottomCrop, Edits.LeftRotation, Edits.RightRotation,
-                    Edits.VerticalAlignment, Edits.LeftZoom, Edits.RightZoom,
-                    Edits.LeftKeystone, Edits.RightKeystone,
+                DrawTool.DrawImagesOnCanvas(
+                    canvas, LeftBitmap, RightBitmap, 
+                    Settings, 
+                    Edits,
                     grayscale ? DrawMode.GrayscaleRedCyanAnaglyph : DrawMode.RedCyanAnaglyph);
 
                 await SaveSurfaceSnapshot(tempSurface);

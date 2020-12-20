@@ -10,14 +10,42 @@ namespace CrossCam.Page
         public const double BORDER_CONVERSION_FACTOR = 0.001;
         public const float FLOATY_ZERO = 0.00001f;
 
-        public static void DrawImagesOnCanvasNEW(SKCanvas canvas, SKBitmap leftBitmap, SKBitmap rightBitmap,
-            int borderThickness, bool addBorder, BorderColor borderColor, Edits edits, DrawMode drawMode)
+        public static void DrawImagesOnCanvas(SKCanvas canvas, SKBitmap leftBitmap, SKBitmap rightBitmap,
+            Settings settings, Edits edits, DrawMode drawMode)
         {
-            //TODO: refactor to use this and make DrawImageOnCanvas private, can i figure out crop order and stuff from draw mode?
+            switch (drawMode)
+            {
+                case DrawMode.Cross:
+                case DrawMode.GrayscaleRedCyanAnaglyph:
+                case DrawMode.RedCyanAnaglyph:
+                    DrawImagesOnCanvasInternal(canvas, leftBitmap, rightBitmap,
+                        settings.BorderWidthProportion, settings.AddBorder, settings.BorderColor,
+                        edits.LeftCrop + edits.OutsideCrop, edits.InsideCrop + edits.RightCrop, edits.InsideCrop + edits.LeftCrop,
+                        edits.RightCrop + edits.OutsideCrop,
+                        edits.TopCrop, edits.BottomCrop,
+                        edits.LeftRotation, edits.RightRotation,
+                        edits.VerticalAlignment,
+                        edits.LeftZoom, edits.RightZoom,
+                        edits.LeftKeystone, edits.RightKeystone,
+                        drawMode);
+                    break;
+                case DrawMode.Parallel:
+                    DrawImagesOnCanvasInternal(canvas, rightBitmap, leftBitmap,
+                        settings.BorderWidthProportion, settings.AddBorder, settings.BorderColor,
+                        edits.InsideCrop + edits.LeftCrop, edits.RightCrop + edits.OutsideCrop,
+                        edits.LeftCrop + edits.OutsideCrop, edits.InsideCrop + edits.RightCrop,
+                        edits.TopCrop, edits.BottomCrop,
+                        edits.RightRotation, edits.LeftRotation,
+                        edits.VerticalAlignment,
+                        edits.RightZoom, edits.LeftZoom,
+                        edits.RightKeystone, edits.LeftKeystone,
+                        drawMode);
+                    break;
+            }
         }
 
 
-        public static void DrawImagesOnCanvas(
+        private static void DrawImagesOnCanvasInternal(
             SKCanvas canvas, SKBitmap leftBitmap, SKBitmap rightBitmap,
             int borderThickness, bool addBorder, BorderColor borderColor,
             double leftLeftCrop, double leftRightCrop, double rightLeftCrop, double rightRightCrop,
@@ -290,7 +318,16 @@ namespace CrossCam.Page
             return keystoned ?? rotatedAndZoomed;
         }
 
-        public static int CalculateJoinedCanvasWidthLessBorder(SKBitmap leftBitmap, SKBitmap rightBitmap, 
+        public static int CalculateJoinedCanvasWidthLessBorder(SKBitmap leftBitmap, SKBitmap rightBitmap,
+            Edits edits)
+        {
+            return CalculateJoinedCanvasWidthLessBorderInternal(leftBitmap, rightBitmap,
+                edits.LeftCrop + edits.OutsideCrop, edits.InsideCrop + edits.RightCrop,
+                edits.InsideCrop + edits.LeftCrop,
+                edits.RightCrop + edits.OutsideCrop);
+        }
+
+        private static int CalculateJoinedCanvasWidthLessBorderInternal(SKBitmap leftBitmap, SKBitmap rightBitmap, 
             double leftLeftCrop, double leftRightCrop, double rightLeftCrop, double rightRightCrop)
         {
             if (leftBitmap == null && rightBitmap == null) return 0;
@@ -310,9 +347,15 @@ namespace CrossCam.Page
                 baseWidth * (leftLeftCrop + leftRightCrop + rightLeftCrop + rightRightCrop));
         }
 
-        public static int CalculateCanvasHeightLessBorder(SKBitmap leftBitmap, SKBitmap rightBitmap,
-            double topCrop, double bottomCrop,
-            double alignment)
+        public static int CalculateCanvasHeightLessBorder(SKBitmap leftBitmap, SKBitmap rightBitmap, Edits edits)
+        {
+            return CalculateCanvasHeightLessBorderInternal(leftBitmap, rightBitmap,
+                edits.TopCrop, edits.BottomCrop,
+                edits.VerticalAlignment);
+        }
+
+        private static int CalculateCanvasHeightLessBorderInternal(SKBitmap leftBitmap, SKBitmap rightBitmap,
+            double topCrop, double bottomCrop, double alignment)
         {
             if (leftBitmap == null && rightBitmap == null) return 0;
 
