@@ -25,7 +25,7 @@ namespace CrossCam.Page
                         edits.TopCrop, edits.BottomCrop,
                         edits.LeftRotation, edits.RightRotation,
                         edits.VerticalAlignment,
-                        edits.LeftZoom, edits.RightZoom,
+                        edits.LeftZoom + edits.FovLeftCorrection, edits.RightZoom + edits.FovRightCorrection, //TODO: invert/reverse the fov correction when previewing? (zoom OUT on smaller FOV device...)
                         edits.LeftKeystone, edits.RightKeystone,
                         drawMode);
                     break;
@@ -37,13 +37,12 @@ namespace CrossCam.Page
                         edits.TopCrop, edits.BottomCrop,
                         edits.RightRotation, edits.LeftRotation,
                         edits.VerticalAlignment,
-                        edits.RightZoom, edits.LeftZoom,
+                        edits.RightZoom + edits.FovRightCorrection, edits.LeftZoom + edits.FovLeftCorrection,
                         edits.RightKeystone, edits.LeftKeystone,
                         drawMode);
                     break;
             }
         }
-
 
         private static void DrawImagesOnCanvasInternal(
             SKCanvas canvas, SKBitmap leftBitmap, SKBitmap rightBitmap,
@@ -55,9 +54,7 @@ namespace CrossCam.Page
             float leftKeystone, float rightKeystone,
             DrawMode drawMode)
         {
-            //TODO: deal with different aspect ratio pictures (for Android)
-            //TODO: deal with different fields of view (both of these started in CameraViewModel, need to move)
-            //TODone? different resolutions?
+            //TODO: chop different aspect ratios, but at the moment my paired test devices all have matching ratios (4:3 on iOS, 16:9 on Android)...
             if (leftBitmap == null && rightBitmap == null) return;
 
             var canvasWidth = canvas.DeviceClipBounds.Width;
@@ -74,7 +71,7 @@ namespace CrossCam.Page
             else
             {
                 leftBitmapWidthLessCrop = (int)(rightBitmap.Width - rightBitmap.Width * (rightLeftCrop + rightRightCrop));
-                leftBitmapHeightLessCrop = (int)(rightBitmap.Height - rightBitmap.Height * (topCrop + bottomCrop + Math.Abs(alignment)));
+                leftBitmapHeightLessCrop = (int)(rightBitmap.Height - rightBitmap.Height * (topCrop + bottomCrop + Math.Abs(alignment))); //TODO: why did this become just one side? was it abandoned incomplete work?
             }
 
             var innerBorderThicknessProportion = leftBitmap != null && 

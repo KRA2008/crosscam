@@ -1215,7 +1215,7 @@
                     Minimum="0"
                     HorizontalOptions="FillAndExpand"
                     IsVisible="{Binding FovCorrectionMode, Converter={vc:EnumCompareConverter}, ConverterParameter={x:Static vm:FovCorrectionMode.RightZoom}}"/>
-            <Slider Value="{Binding Edits.FovVertAlign}"
+            <Slider Value="{Binding Edits.VerticalAlignment}"
                     Maximum="{Binding VerticalAlignmentMax}"
                     Minimum="{Binding VerticalAlignmentMin}"
                     HorizontalOptions="FillAndExpand"

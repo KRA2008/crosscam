@@ -27,7 +27,6 @@ namespace CrossCam.Model
         public float LeftKeystone { get; set; }
         public float RightKeystone { get; set; }
 
-        public double FovVertAlign { get; set; }
         public double FovRightCorrection
         {
             get => _settings.IsCaptureLeftFirst ? _settings.FovSecondaryCorrection : _settings.FovPrimaryCorrection;
