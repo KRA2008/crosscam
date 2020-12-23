@@ -56,6 +56,8 @@ namespace CrossCam.Page
             DrawMode drawMode)
         {
             //TODO: deal with different aspect ratio pictures (for Android)
+            //TODO: deal with different fields of view (both of these started in CameraViewModel, need to move)
+            //TODone? different resolutions?
             if (leftBitmap == null && rightBitmap == null) return;
 
             var canvasWidth = canvas.DeviceClipBounds.Width;
