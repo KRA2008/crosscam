@@ -208,6 +208,7 @@ namespace CrossCam.ViewModel
                                                           Settings.SaveForGrayscaleAnaglyph);
 
         public bool ShouldPairPreviewBeVisible => BluetoothOperator.PairStatus == PairStatus.Connected &&
+                                                  BluetoothOperator.IsPrimary &&
                                                   WorkflowStage == WorkflowStage.Capture;
 
         public int IconColumn => CameraColumn == 0 ? 1 : 0;
@@ -404,7 +405,7 @@ namespace CrossCam.ViewModel
                         WorkflowStage = WorkflowStage.Final;
                         break;
                     case WorkflowStage.FovCorrection:
-                        //Settings.IsFovCorrectionSet = true; //TODO: remove this, just easier for debugging, also add button to clear it
+                        Settings.IsFovCorrectionSet = true;
                         PersistentStorage.Save(PersistentStorage.SETTINGS_KEY, Settings);
                         WorkflowStage = WorkflowStage.Final;
                         break;
@@ -865,6 +866,11 @@ namespace CrossCam.ViewModel
             }
             RaisePropertyChanged(nameof(BluetoothOperator.PairStatus));
             RaisePropertyChanged(nameof(BluetoothOperatorBindable.PairStatus));
+            RaisePropertyChanged(nameof(BluetoothOperator.IsPrimary));
+            RaisePropertyChanged(nameof(BluetoothOperatorBindable.IsPrimary));
+            RaisePropertyChanged(nameof(BluetoothOperator.CountdownTimeRemaining));
+            RaisePropertyChanged(nameof(BluetoothOperatorBindable.CountdownTimeRemaining));
+            RaisePropertyChanged(nameof(Settings.IsPairedPrimary));
             RaisePropertyChanged(nameof(ShouldLeftCaptureBeVisible));
             RaisePropertyChanged(nameof(ShouldCenterCaptureBeVisible));
             RaisePropertyChanged(nameof(ShouldRightCaptureBeVisible));
@@ -880,6 +886,11 @@ namespace CrossCam.ViewModel
         {
             RaisePropertyChanged(nameof(BluetoothOperator.PairStatus));
             RaisePropertyChanged(nameof(BluetoothOperatorBindable.PairStatus));
+            RaisePropertyChanged(nameof(BluetoothOperator.IsPrimary));
+            RaisePropertyChanged(nameof(BluetoothOperatorBindable.IsPrimary));
+            RaisePropertyChanged(nameof(BluetoothOperator.CountdownTimeRemaining));
+            RaisePropertyChanged(nameof(BluetoothOperatorBindable.CountdownTimeRemaining));
+            RaisePropertyChanged(nameof(Settings.IsPairedPrimary));
             RaisePropertyChanged(nameof(ShouldLeftCaptureBeVisible));
             RaisePropertyChanged(nameof(ShouldCenterCaptureBeVisible));
             RaisePropertyChanged(nameof(ShouldRightCaptureBeVisible));
@@ -1338,6 +1349,7 @@ namespace CrossCam.ViewModel
                         if (!Settings.IsFovCorrectionSet)
                         {
                             WorkflowStage = WorkflowStage.FovCorrection; //TODO: pop an explanation popup, give some better wording on the pair page
+                            ShowFovDialog();
                             return;
                         }
                     }
@@ -1375,6 +1387,7 @@ namespace CrossCam.ViewModel
                         if (!Settings.IsFovCorrectionSet)
                         {
                             WorkflowStage = WorkflowStage.FovCorrection;
+                            ShowFovDialog();
                             return;
                         }
                     }
@@ -1386,19 +1399,9 @@ namespace CrossCam.ViewModel
             }
         }
 
-        public static double FindCropForFovCorrection(double largerFov, double smallerFov, int originalLength)
+        private async void ShowFovDialog()
         {
-            return originalLength * (1 - Math.Tan(smallerFov / 2d) / Math.Tan(largerFov / 2d)) / 4d;
-        }
-
-        public static double FindPaddingForFovCorrection(double largerFov, double smallerFov, int originalLength)
-        {
-            return originalLength * (Math.Tan(largerFov / 2d) / Math.Tan(smallerFov / 2d) - 1) / 4d;
-        }
-
-        public static double CalculatePortraitFov(double landscapeFov)
-        {
-            return 2 * Math.Atan(3 * Math.Tan(landscapeFov / 2d) / 4d);
+            await CoreMethods.DisplayAlert("Field of View Correction", "Different model phones have different fields of view. On the next screen you'll need to zoom in on the side that shows objects appearing smaller. This correction will be saved but you can reset it on the Settings page. If you're using two of the same phone just save without changing anything.", "OK");
         }
 
         private static SKBitmap GetHalfOfFullStereoImage(byte[] bytes, bool wantLeft, bool clipBorder) 

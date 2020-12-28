@@ -1,5 +1,6 @@
 ﻿using System;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.Threading.Tasks;
 using CrossCam.CustomElement;
 using CrossCam.Model;
@@ -207,9 +208,12 @@ namespace CrossCam.Page
 	            _viewModel = (CameraViewModel) BindingContext;
 	            _viewModel.PropertyChanged += ViewModelPropertyChanged;
                 _viewModel.Edits.PropertyChanged += EditsPropertyChanged;
-                EvaluateSensors();
-                ResetLineAndDonutGuides();
-                PlaceRollGuide();
+                Device.BeginInvokeOnMainThread(() =>
+                {
+                    EvaluateSensors();
+                    ResetLineAndDonutGuides();
+                    PlaceRollGuide();
+                });
             }
 	    }
 
@@ -223,48 +227,45 @@ namespace CrossCam.Page
 
         private void ViewModelPropertyChanged(object sender, PropertyChangedEventArgs e)
 	    {
-	        switch (e.PropertyName)
-	        {
-                case nameof(CameraViewModel.FocusCircleX):
-                case nameof(CameraViewModel.FocusCircleY):
-                    MoveFocusCircle();
-                    break;
-                case nameof(CameraViewModel.WorkflowStage):
-                    EvaluateSensors();
-                    break;
-                case nameof(CameraViewModel.Settings):
-                    EvaluateSensors();
-                    _capturedCanvas.InvalidateSurface();
-                    ResetLineAndDonutGuides();
-                    break;
-                case nameof(CameraViewModel.CameraColumn):
-                case nameof(CameraViewModel.IsCaptureLeftFirst):
-                    PlaceRollGuide();
-                    break;
-                case nameof(CameraViewModel.IsViewPortrait):
-                    _capturedCanvas.InvalidateSurface();
-                    _pairedPreviewCanvas.InvalidateSurface();
-                    ResetLineAndDonutGuides();
-                    SetMarginsForNotch();
-                    break;
-                case nameof(CameraViewModel.PreviewBottomY):
-                    PlaceRollGuide();
-                    PlaceSettingsRibbon();
-                    break;
-                case nameof(CameraViewModel.LeftBitmap):
-                case nameof(CameraViewModel.RightBitmap):
-                    Device.BeginInvokeOnMainThread(() =>
-                    {
+            Device.BeginInvokeOnMainThread(() =>
+            {
+                switch (e.PropertyName)
+                {
+                    case nameof(CameraViewModel.FocusCircleX):
+                    case nameof(CameraViewModel.FocusCircleY):
+                        MoveFocusCircle();
+                        break;
+                    case nameof(CameraViewModel.WorkflowStage):
+                        EvaluateSensors();
+                        break;
+                    case nameof(CameraViewModel.Settings):
+                        EvaluateSensors();
                         _capturedCanvas.InvalidateSurface();
-                    });
-                    break;
-                case nameof(CameraViewModel.PreviewFrame):
-                    Device.BeginInvokeOnMainThread(() =>
-                    {
+                        ResetLineAndDonutGuides();
+                        break;
+                    case nameof(CameraViewModel.CameraColumn):
+                    case nameof(CameraViewModel.IsCaptureLeftFirst):
+                        PlaceRollGuide();
+                        break;
+                    case nameof(CameraViewModel.IsViewPortrait):
+                        _capturedCanvas.InvalidateSurface();
                         _pairedPreviewCanvas.InvalidateSurface();
-                    });
-                    break;
-	        }
+                        ResetLineAndDonutGuides();
+                        SetMarginsForNotch();
+                        break;
+                    case nameof(CameraViewModel.PreviewBottomY):
+                        PlaceRollGuide();
+                        PlaceSettingsRibbon();
+                        break;
+                    case nameof(CameraViewModel.LeftBitmap):
+                    case nameof(CameraViewModel.RightBitmap):
+                        _capturedCanvas.InvalidateSurface();
+                        break;
+                    case nameof(CameraViewModel.PreviewFrame):
+                        _pairedPreviewCanvas.InvalidateSurface();
+                        break;
+                }
+            });
 	    }
 
         private void PlaceSettingsRibbon()
@@ -295,7 +296,7 @@ namespace CrossCam.Page
 	    {
 	        var canvas = e.Surface.Canvas;
 
-	        canvas.Clear(SKColor.Empty);
+	        canvas.Clear();
 
             DrawTool.DrawImagesOnCanvas(
                 canvas, _viewModel.LeftBitmap, _viewModel.RightBitmap, 
@@ -306,138 +307,90 @@ namespace CrossCam.Page
 
         private void OnPairedPreviewCanvasInvalidated(object sender, SKPaintSurfaceEventArgs e)
         {
+            var canvas = e.Surface.Canvas;
+
+            canvas.Clear();
+
             if (_viewModel.PreviewFrame != null)
             {
-                var canvas = e.Surface.Canvas;
-
-                canvas.Clear();
-
                 var bitmap = _viewModel.DecodeBitmapAndCorrectOrientation(_viewModel.PreviewFrame, true);
 
                 if (bitmap != null)
                 {
                     var canvasWidth = canvas.DeviceClipBounds.Width;
-                    var sizeRatio = bitmap.Width / (canvasWidth * 1d);
-                    var scaledHeight = bitmap.Height / sizeRatio;
+                    var canvasHeight = canvas.DeviceClipBounds.Height;
 
-                    double heightFovCorrection;
-                    double widthFovCorrection;
-                    var isLandscape = bitmap.Width > bitmap.Height;
-                    if (_viewModel.BluetoothOperatorBindable.PartnerFov < _viewModel.BluetoothOperatorBindable.Fov)
-                    {
-                        if (isLandscape)
-                        {
-                            widthFovCorrection = -1 * CameraViewModel.FindPaddingForFovCorrection(
-                                                     _viewModel.BluetoothOperatorBindable.Fov,
-                                                     _viewModel.BluetoothOperatorBindable.PartnerFov,
-                                                     bitmap.Width);
-                            heightFovCorrection = -1 * CameraViewModel.FindPaddingForFovCorrection(
-                                                      CameraViewModel.CalculatePortraitFov(_viewModel.BluetoothOperatorBindable.Fov),
-                                                      CameraViewModel.CalculatePortraitFov(_viewModel.BluetoothOperatorBindable.PartnerFov),
-                                                      bitmap.Height);
-                        }
-                        else
-                        {
-                            heightFovCorrection = -1 * CameraViewModel.FindPaddingForFovCorrection(
-                                                      _viewModel.BluetoothOperatorBindable.Fov,
-                                                      _viewModel.BluetoothOperatorBindable.PartnerFov,
-                                                      bitmap.Height);
-                            widthFovCorrection = -1 * CameraViewModel.FindPaddingForFovCorrection(
-                                                     CameraViewModel.CalculatePortraitFov(_viewModel.BluetoothOperatorBindable.Fov),
-                                                     CameraViewModel.CalculatePortraitFov(_viewModel.BluetoothOperatorBindable.PartnerFov),
-                                                     bitmap.Width);
-                        }
-                    }
-                    else
-                    {
-                        if (isLandscape)
-                        {
-                            widthFovCorrection = CameraViewModel.FindCropForFovCorrection(
-                                _viewModel.BluetoothOperatorBindable.PartnerFov,
-                                _viewModel.BluetoothOperatorBindable.Fov,
-                                bitmap.Width);
-                            heightFovCorrection = CameraViewModel.FindCropForFovCorrection(
-                                CameraViewModel.CalculatePortraitFov(_viewModel.BluetoothOperatorBindable.PartnerFov),
-                                CameraViewModel.CalculatePortraitFov(_viewModel.BluetoothOperatorBindable.Fov),
-                                bitmap.Height);
-                        }
-                        else
-                        {
-                            heightFovCorrection = CameraViewModel.FindCropForFovCorrection(
-                                _viewModel.BluetoothOperatorBindable.PartnerFov,
-                                _viewModel.BluetoothOperatorBindable.Fov,
-                                bitmap.Height);
-                            widthFovCorrection = CameraViewModel.FindCropForFovCorrection(
-                                CameraViewModel.CalculatePortraitFov(_viewModel.BluetoothOperatorBindable.PartnerFov),
-                                CameraViewModel.CalculatePortraitFov(_viewModel.BluetoothOperatorBindable.Fov),
-                                bitmap.Width);
-                        }
-                    }
+                    var aspectRatio = bitmap.Height / (bitmap.Width * 1f);
+
+                    var zoomDirection = _viewModel.Settings.FovPrimaryCorrection > _viewModel.Settings.FovSecondaryCorrection; // true means zoom out on secondary, false means zoom in
+                    var zoomAmount = zoomDirection
+                        ? 1 / (1 + _viewModel.Settings.FovPrimaryCorrection)
+                        : 1 + _viewModel.Settings.FovSecondaryCorrection;
+
+                    var zoomedWidth = canvasWidth * zoomAmount;
+                    var zoomedHeight = zoomedWidth * aspectRatio;
+
+                    var newX = (canvasWidth - zoomedWidth) / 2;
+
+                    var newY = (canvasHeight - zoomedHeight) / 2f;
 
                     canvas.DrawBitmap(bitmap,
+                        new SKRect(0, 0, bitmap.Width, bitmap.Height),
                         new SKRect(
-                            (float)widthFovCorrection,
-                            (float)heightFovCorrection,
-                            (float)(bitmap.Width - widthFovCorrection),
-                            (float)(bitmap.Height - heightFovCorrection)),
-                        new SKRect(
-                            0,
-                            (float)(canvas.DeviceClipBounds.Height - scaledHeight) / 2,
-                            canvas.DeviceClipBounds.Width,
-                            (float)(canvas.DeviceClipBounds.Height + scaledHeight) / 2));
+                            (float)newX,
+                            (float)newY,
+                            (float)(newX + zoomedWidth),
+                            (float)(newY + zoomedHeight)));
                 }
-
-                _viewModel.BluetoothOperatorBindable.RequestPreviewFrame();
             }
+
+            _viewModel.BluetoothOperatorBindable.RequestPreviewFrame();
         }
 
         private void ResetLineAndDonutGuides()
         {
-            Device.BeginInvokeOnMainThread(() =>
+            if (_viewModel == null || _viewModel.IsViewPortrait)
             {
-                if (_viewModel == null || _viewModel.IsViewPortrait)
-                {
-                    AbsoluteLayout.SetLayoutFlags(_upperLine,
-                        AbsoluteLayoutFlags.YProportional | AbsoluteLayoutFlags.WidthProportional);
-                    AbsoluteLayout.SetLayoutBounds(_upperLine, _upperLineBoundsPortrait);
-                    AbsoluteLayout.SetLayoutFlags(_upperLinePanner,
-                        AbsoluteLayoutFlags.YProportional | AbsoluteLayoutFlags.WidthProportional);
-                    AbsoluteLayout.SetLayoutBounds(_upperLinePanner, _upperLineBoundsPortrait);
+                AbsoluteLayout.SetLayoutFlags(_upperLine,
+                    AbsoluteLayoutFlags.YProportional | AbsoluteLayoutFlags.WidthProportional);
+                AbsoluteLayout.SetLayoutBounds(_upperLine, _upperLineBoundsPortrait);
+                AbsoluteLayout.SetLayoutFlags(_upperLinePanner,
+                    AbsoluteLayoutFlags.YProportional | AbsoluteLayoutFlags.WidthProportional);
+                AbsoluteLayout.SetLayoutBounds(_upperLinePanner, _upperLineBoundsPortrait);
 
-                    AbsoluteLayout.SetLayoutFlags(_lowerLine,
-                        AbsoluteLayoutFlags.YProportional | AbsoluteLayoutFlags.WidthProportional);
-                    AbsoluteLayout.SetLayoutBounds(_lowerLine, _lowerLinesBoundsPortrait);
-                    AbsoluteLayout.SetLayoutFlags(_lowerLinePanner,
-                        AbsoluteLayoutFlags.YProportional | AbsoluteLayoutFlags.WidthProportional);
-                    AbsoluteLayout.SetLayoutBounds(_lowerLinePanner, _lowerLinesBoundsPortrait);
-                }
-                else
-                {
-                    AbsoluteLayout.SetLayoutFlags(_upperLine,
-                        AbsoluteLayoutFlags.YProportional | AbsoluteLayoutFlags.WidthProportional);
-                    AbsoluteLayout.SetLayoutBounds(_upperLine, _upperLineBoundsLandscape);
-                    AbsoluteLayout.SetLayoutFlags(_upperLinePanner,
-                        AbsoluteLayoutFlags.YProportional | AbsoluteLayoutFlags.WidthProportional);
-                    AbsoluteLayout.SetLayoutBounds(_upperLinePanner, _upperLineBoundsLandscape);
+                AbsoluteLayout.SetLayoutFlags(_lowerLine,
+                    AbsoluteLayoutFlags.YProportional | AbsoluteLayoutFlags.WidthProportional);
+                AbsoluteLayout.SetLayoutBounds(_lowerLine, _lowerLinesBoundsPortrait);
+                AbsoluteLayout.SetLayoutFlags(_lowerLinePanner,
+                    AbsoluteLayoutFlags.YProportional | AbsoluteLayoutFlags.WidthProportional);
+                AbsoluteLayout.SetLayoutBounds(_lowerLinePanner, _lowerLinesBoundsPortrait);
+            }
+            else
+            {
+                AbsoluteLayout.SetLayoutFlags(_upperLine,
+                    AbsoluteLayoutFlags.YProportional | AbsoluteLayoutFlags.WidthProportional);
+                AbsoluteLayout.SetLayoutBounds(_upperLine, _upperLineBoundsLandscape);
+                AbsoluteLayout.SetLayoutFlags(_upperLinePanner,
+                    AbsoluteLayoutFlags.YProportional | AbsoluteLayoutFlags.WidthProportional);
+                AbsoluteLayout.SetLayoutBounds(_upperLinePanner, _upperLineBoundsLandscape);
 
-                    AbsoluteLayout.SetLayoutFlags(_lowerLine,
-                        AbsoluteLayoutFlags.YProportional | AbsoluteLayoutFlags.WidthProportional);
-                    AbsoluteLayout.SetLayoutBounds(_lowerLine, _lowerLineBoundsLandscape);
-                    AbsoluteLayout.SetLayoutFlags(_lowerLinePanner,
-                        AbsoluteLayoutFlags.YProportional | AbsoluteLayoutFlags.WidthProportional);
-                    AbsoluteLayout.SetLayoutBounds(_lowerLinePanner, _lowerLineBoundsLandscape);
-                }
+                AbsoluteLayout.SetLayoutFlags(_lowerLine,
+                    AbsoluteLayoutFlags.YProportional | AbsoluteLayoutFlags.WidthProportional);
+                AbsoluteLayout.SetLayoutBounds(_lowerLine, _lowerLineBoundsLandscape);
+                AbsoluteLayout.SetLayoutFlags(_lowerLinePanner,
+                    AbsoluteLayoutFlags.YProportional | AbsoluteLayoutFlags.WidthProportional);
+                AbsoluteLayout.SetLayoutBounds(_lowerLinePanner, _lowerLineBoundsLandscape);
+            }
 
-                AbsoluteLayout.SetLayoutFlags(_leftReticle, AbsoluteLayoutFlags.PositionProportional);
-                AbsoluteLayout.SetLayoutBounds(_leftReticle, _leftReticleBounds);
-                AbsoluteLayout.SetLayoutFlags(_leftReticlePanner, AbsoluteLayoutFlags.PositionProportional);
-                AbsoluteLayout.SetLayoutBounds(_leftReticlePanner, _leftReticleBounds);
+            AbsoluteLayout.SetLayoutFlags(_leftReticle, AbsoluteLayoutFlags.PositionProportional);
+            AbsoluteLayout.SetLayoutBounds(_leftReticle, _leftReticleBounds);
+            AbsoluteLayout.SetLayoutFlags(_leftReticlePanner, AbsoluteLayoutFlags.PositionProportional);
+            AbsoluteLayout.SetLayoutBounds(_leftReticlePanner, _leftReticleBounds);
 
-                AbsoluteLayout.SetLayoutFlags(_rightReticle, AbsoluteLayoutFlags.PositionProportional);
-                AbsoluteLayout.SetLayoutBounds(_rightReticle, _rightReticleBounds);
-                AbsoluteLayout.SetLayoutFlags(_rightReticlePanner, AbsoluteLayoutFlags.PositionProportional);
-                AbsoluteLayout.SetLayoutBounds(_rightReticlePanner, _rightReticleBounds);
-            });
+            AbsoluteLayout.SetLayoutFlags(_rightReticle, AbsoluteLayoutFlags.PositionProportional);
+            AbsoluteLayout.SetLayoutBounds(_rightReticle, _rightReticleBounds);
+            AbsoluteLayout.SetLayoutFlags(_rightReticlePanner, AbsoluteLayoutFlags.PositionProportional);
+            AbsoluteLayout.SetLayoutBounds(_rightReticlePanner, _rightReticleBounds);
         }
 
         private void PlaceRollGuide()
@@ -450,10 +403,7 @@ namespace CrossCam.Page
             {
                 rollBounds.Y = _viewModel.PreviewBottomY - LEVEL_ICON_WIDTH / 5;
             }
-            Device.BeginInvokeOnMainThread(() =>
-            {
-                AbsoluteLayout.SetLayoutBounds(_horizontalLevelWhole, rollBounds);
-            });
+            AbsoluteLayout.SetLayoutBounds(_horizontalLevelWhole, rollBounds);
         }
 
         private void ReticlePanned(object sender, PanUpdatedEventArgs e)

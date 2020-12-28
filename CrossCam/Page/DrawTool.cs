@@ -25,7 +25,7 @@ namespace CrossCam.Page
                         edits.TopCrop, edits.BottomCrop,
                         edits.LeftRotation, edits.RightRotation,
                         edits.VerticalAlignment,
-                        edits.LeftZoom + edits.FovLeftCorrection, edits.RightZoom + edits.FovRightCorrection, //TODO: invert/reverse the fov correction when previewing? (zoom OUT on smaller FOV device...)
+                        edits.LeftZoom + edits.FovLeftCorrection, edits.RightZoom + edits.FovRightCorrection,
                         edits.LeftKeystone, edits.RightKeystone,
                         drawMode);
                     break;

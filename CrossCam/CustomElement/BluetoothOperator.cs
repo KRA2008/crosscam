@@ -21,17 +21,6 @@ namespace CrossCam.CustomElement
         private readonly Settings _settings;
         public bool IsPrimary => _settings.IsPairedPrimary.HasValue && _settings.IsPairedPrimary.Value;
 
-        public double Fov //TODO: make field of view correction a value configured by user for a pair of phones
-        {
-            get => 90;
-            set {}
-        } 
-        public double PartnerFov //TODO: make field of view correction a value configured by user for a pair of phones
-        {
-            get => 90;
-            set {}
-        }
-
         public IPageModelCoreMethods CurrentCoreMethods { get; set; }
 
         private readonly IPlatformBluetooth _platformBluetooth;
@@ -54,12 +43,13 @@ namespace CrossCam.CustomElement
 
         private bool _primaryIsRequestingDisconnect;
         private int _initializeThreadLocker;
+        private bool _initialSyncComplete;
 
         public const int HEADER_LENGTH = 6;
         private const byte SYNC_MASK = 170; // 0xAA (do it twice)
         public enum CrossCommand
         {
-            Fov = 1,
+            Hello = 1,
             RequestPreviewFrame,
             PreviewFrame,
             RequestClockReading,
@@ -83,7 +73,7 @@ namespace CrossCam.CustomElement
             PairStatus = PairStatus.Connected;
             if (!IsPrimary)
             {
-                SendFov(Fov);
+                SendHello();
             }
             var handler = Connected;
             handler?.Invoke(this, new EventArgs());
@@ -107,6 +97,7 @@ namespace CrossCam.CustomElement
         public event EventHandler InitialSyncCompleted;
         private void OnInitialSyncCompleted()
         {
+            _initialSyncComplete = true;
             var handler = InitialSyncCompleted;
             handler?.Invoke(this, new EventArgs());
         }
@@ -195,8 +186,8 @@ namespace CrossCam.CustomElement
                     //Debug.WriteLine("### Command received: " + (CrossCommand)bytes[2]);
                     switch (bytes[2])
                     {
-                        case (byte)CrossCommand.Fov:
-                            HandleFovReceived(payload);
+                        case (byte)CrossCommand.Hello:
+                            HandleHelloReceived();
                             break;
                         case (byte)CrossCommand.RequestPreviewFrame:
                             OnPreviewFrameRequested();
@@ -253,10 +244,9 @@ namespace CrossCam.CustomElement
             _platformBluetooth.SendPayload(AddPayloadHeader(CrossCommand.Error, Enumerable.Empty<byte>().ToArray()));
         }
 
-        private void SendFov(double fov)
+        private void SendHello()
         {
-            var payloadBytes = BitConverter.GetBytes(fov);
-            var fullMessage = AddPayloadHeader(CrossCommand.Fov, payloadBytes);
+            var fullMessage = AddPayloadHeader(CrossCommand.Hello, Enumerable.Empty<byte>().ToArray());
 
             _platformBluetooth.SendPayload(fullMessage);
         }
@@ -296,12 +286,9 @@ namespace CrossCam.CustomElement
             return fullPayload;
         }
 
-        private void HandleFovReceived(byte[] bytes)
+        private void HandleHelloReceived()
         {
-            //Debug.WriteLine("Received fov");
-            var fov = BitConverter.ToDouble(bytes, 0);
             OnConnected();
-            PartnerFov = fov;
             RequestClockReading();
         }
 
@@ -394,6 +381,7 @@ namespace CrossCam.CustomElement
         private void PlatformBluetoothOnConnected(object sender, EventArgs e)
         {
             _timerSampleIndex = 0;
+            _initialSyncComplete = false;
             InitialSyncProgress = 0;
             _t0Samples = new long[TimerTotalSamples];
             _t1t2Samples = new long[TimerTotalSamples];
@@ -611,27 +599,32 @@ namespace CrossCam.CustomElement
         {
             try
             {
-                if (_primaryIsRequestingDisconnect)
+                if (IsPrimary &&
+                    PairStatus == PairStatus.Connected && 
+                    _initialSyncComplete)
                 {
-                    _platformBluetooth.Disconnect();
-                    _primaryIsRequestingDisconnect = false;
-                }
-                else
-                {
-                    
-                    if (!_isCaptureRequested)
+                    if (_primaryIsRequestingDisconnect)
                     {
-                        if (!_captureMomentUtc.HasValue ||
-                            _captureMomentUtc.Value > DateTime.UtcNow.AddSeconds(1).AddMilliseconds(_settings.PairedPreviewFrameDelayMs))
-                        {
-                            await Task.Delay(_settings.PairedPreviewFrameDelayMs);
-                            SendReadyForPreviewFrame();
-                        }
-                            
+                        _platformBluetooth.Disconnect();
+                        _primaryIsRequestingDisconnect = false;
                     }
                     else
                     {
-                        CalculateAndApplySyncMoment();
+                        
+                        if (!_isCaptureRequested)
+                        {
+                            if (!_captureMomentUtc.HasValue ||
+                                _captureMomentUtc.Value > DateTime.UtcNow.AddSeconds(1).AddMilliseconds(_settings.PairedPreviewFrameDelayMs))
+                            {
+                                await Task.Delay(_settings.PairedPreviewFrameDelayMs);
+                                SendReadyForPreviewFrame();
+                            }
+                                
+                        }
+                        else
+                        {
+                            CalculateAndApplySyncMoment();
+                        }
                     }
                 }
             }

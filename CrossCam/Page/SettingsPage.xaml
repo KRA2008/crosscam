@@ -106,6 +106,22 @@
                             HorizontalOptions="EndAndExpand"/>
                 </Frame>
             </StackLayout>
+            <Label Text="Field of view correction"
+                   HorizontalOptions="CenterAndExpand"
+                   IsVisible="{Binding Settings.IsPairedPrimary, Converter={vc:NullableBooleanConverter}}"/>
+            <StackLayout Orientation="Horizontal"
+                         IsVisible="{Binding Settings.IsPairedPrimary, Converter={vc:NullableBooleanConverter}}">
+                <StackLayout HorizontalOptions="EndAndExpand">
+                    <Label Text="{Binding Settings.FovPrimaryCorrection, StringFormat='Primary: {0}'}"
+                           HorizontalOptions="EndAndExpand"/>
+                    <Label Text="{Binding Settings.FovSecondaryCorrection, StringFormat='Secondary: {0}'}"
+                           HorizontalOptions="EndAndExpand"/>
+                </StackLayout>
+                <Button Text="Reset"
+                        Command="{Binding ResetFovCorrectionCommand}"
+                        HorizontalOptions="StartAndExpand"
+                        VerticalOptions="CenterAndExpand"/>
+            </StackLayout>
             <BoxView/>
             <Label Text="Automatic Alignment"
                    Style="{DynamicResource header}"/>
