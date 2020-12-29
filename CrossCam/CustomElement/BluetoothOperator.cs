@@ -458,16 +458,16 @@ namespace CrossCam.CustomElement
                     });
                 }
 
-                Debug.WriteLine("OFFSETS: " + string.Join(",", offsets));
-                Debug.WriteLine("CLEANED OFFSET: " + offset);
-                Debug.WriteLine("TRIPS: " + string.Join(",", trips));
-                Debug.WriteLine("MAX TRIP: " + trip);
+                //Debug.WriteLine("OFFSETS: " + string.Join(",", offsets));
+                //Debug.WriteLine("CLEANED OFFSET: " + offset);
+                //Debug.WriteLine("TRIPS: " + string.Join(",", trips));
+                //Debug.WriteLine("MAX TRIP: " + trip);
 
                 var targetSyncMoment = DateTime.UtcNow.AddSeconds(SECONDS_COUNTDOWN);
                 SyncCapture(targetSyncMoment);
                 var partnerSyncMoment = targetSyncMoment.AddTicks(offset);
-                Debug.WriteLine("Target sync: " + targetSyncMoment.ToString("O"));
-                Debug.WriteLine("Partner sync: " + partnerSyncMoment.ToString("O"));
+                //Debug.WriteLine("Target sync: " + targetSyncMoment.ToString("O"));
+                //Debug.WriteLine("Partner sync: " + partnerSyncMoment.ToString("O"));
                 SendSync(partnerSyncMoment);
             }
             catch (Exception e)
@@ -502,8 +502,8 @@ namespace CrossCam.CustomElement
                 _countdownTimer.Elapsed += OnCountdownTimerSyncComplete;
                 _countdownTimer.Interval = SECONDS_COUNTDOWN * 1000 - interval;
                 _countdownTimer.Start();
-                Debug.WriteLine("Sync interval set: " + interval);
-                Debug.WriteLine("Sync time: " + syncTime.ToString("O"));
+                //Debug.WriteLine("Sync interval set: " + interval);
+                //Debug.WriteLine("Sync time: " + syncTime.ToString("O"));
                 _captureMomentUtc = syncTime;
                 if (IsPrimary)
                 {
