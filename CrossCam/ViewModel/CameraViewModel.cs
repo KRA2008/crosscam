@@ -864,13 +864,6 @@ namespace CrossCam.ViewModel
             {
                 WorkflowStage = WorkflowStage.Capture;
             }
-            RaisePropertyChanged(nameof(BluetoothOperator.PairStatus));
-            RaisePropertyChanged(nameof(BluetoothOperatorBindable.PairStatus));
-            RaisePropertyChanged(nameof(BluetoothOperator.IsPrimary));
-            RaisePropertyChanged(nameof(BluetoothOperatorBindable.IsPrimary));
-            RaisePropertyChanged(nameof(BluetoothOperator.CountdownTimeRemaining));
-            RaisePropertyChanged(nameof(BluetoothOperatorBindable.CountdownTimeRemaining));
-            RaisePropertyChanged(nameof(Settings.IsPairedPrimary));
             RaisePropertyChanged(nameof(ShouldLeftCaptureBeVisible));
             RaisePropertyChanged(nameof(ShouldCenterCaptureBeVisible));
             RaisePropertyChanged(nameof(ShouldRightCaptureBeVisible));
@@ -884,13 +877,6 @@ namespace CrossCam.ViewModel
 
         private void BluetoothOperatorOnConnected(object sender, EventArgs e)
         {
-            RaisePropertyChanged(nameof(BluetoothOperator.PairStatus));
-            RaisePropertyChanged(nameof(BluetoothOperatorBindable.PairStatus));
-            RaisePropertyChanged(nameof(BluetoothOperator.IsPrimary));
-            RaisePropertyChanged(nameof(BluetoothOperatorBindable.IsPrimary));
-            RaisePropertyChanged(nameof(BluetoothOperator.CountdownTimeRemaining));
-            RaisePropertyChanged(nameof(BluetoothOperatorBindable.CountdownTimeRemaining));
-            RaisePropertyChanged(nameof(Settings.IsPairedPrimary));
             RaisePropertyChanged(nameof(ShouldLeftCaptureBeVisible));
             RaisePropertyChanged(nameof(ShouldCenterCaptureBeVisible));
             RaisePropertyChanged(nameof(ShouldRightCaptureBeVisible));

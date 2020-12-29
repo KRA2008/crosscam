@@ -63,6 +63,10 @@ namespace CrossCam.CustomElement
         private void OnDisconnected()
         {
             PairStatus = PairStatus.Disconnected;
+            OnPropertyChanged(nameof(IsPrimary));
+            OnPropertyChanged(nameof(PairStatus));
+            OnPropertyChanged(nameof(CountdownTimeRemaining));
+            _settings.RaisePropertyChanged(nameof(Settings.IsPairedPrimary));
             var handler = Disconnected;
             handler?.Invoke(this, new EventArgs());
         }
@@ -75,6 +79,10 @@ namespace CrossCam.CustomElement
             {
                 SendHello();
             }
+            OnPropertyChanged(nameof(IsPrimary));
+            OnPropertyChanged(nameof(PairStatus));
+            OnPropertyChanged(nameof(CountdownTimeRemaining));
+            _settings.RaisePropertyChanged(nameof(Settings.IsPairedPrimary));
             var handler = Connected;
             handler?.Invoke(this, new EventArgs());
         }
