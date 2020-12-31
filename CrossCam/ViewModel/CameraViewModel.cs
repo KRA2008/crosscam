@@ -1198,7 +1198,7 @@ namespace CrossCam.ViewModel
 
                     if (alignedResult != null)
                     {
-                        if (Settings.AlignmentDrawMatches)
+                        if (Settings.AlignWithKeypoints && Settings.AlignmentDrawMatches)
                         {
                             using (var tempSurface =
                                 SKSurface.Create(new SKImageInfo(alignedResult.DrawnMatches.Width, alignedResult.DrawnMatches.Height)))
