@@ -134,6 +134,16 @@
                 <Switch IsToggled="{Binding Settings.AlignHorizontallySideBySide}"
                         IsEnabled="{Binding Settings.IsAutomaticAlignmentOn}"/>
             </StackLayout>
+            <StackLayout Orientation="Horizontal">
+                <Label Text="Use keypoint alignment (rather than ECC)"/>
+                <Switch IsToggled="{Binding Settings.AlignWithKeypoints}"
+                        IsEnabled="{Binding Settings.IsAutomaticAlignmentOn}"/>
+            </StackLayout>
+            <StackLayout Orientation="Horizontal"
+                         IsVisible="{ce:DebugMarkupExtension}">
+                <Label Text="Allow full affine transformation"/>
+                <Switch IsToggled="{Binding Settings.AlignFullAffine}"/>
+            </StackLayout>
             <StackLayout Orientation="Horizontal"
                          IsVisible="{ce:DebugMarkupExtension}">
                 <Label Text="Iterations"/>

@@ -1170,15 +1170,25 @@ namespace CrossCam.ViewModel
                     {
                         await Task.Run(() =>
                         {
-                            alignedResult = openCv.CreateAlignedSecondImage(
-                                firstImage,
-                                secondImage,
-                                Settings.AlignmentDownsizePercentage2,
-                                Settings.AlignmentIterations2,
-                                Settings.AlignmentEpsilonLevel2,
-                                Settings.AlignmentEccThresholdPercentage2,
-                                Settings.AlignmentPyramidLayers2,
-                                !Settings.SaveForRedCyanAnaglyph && !Settings.AlignHorizontallySideBySide);
+                            var discardTransX = !Settings.SaveForRedCyanAnaglyph &&
+                                                !Settings.AlignHorizontallySideBySide;
+                            if (Settings.AlignWithKeypoints)
+                            {
+                                alignedResult = openCv.CreateAlignedSecondImageKeypoints(firstImage, secondImage,
+                                    discardTransX, Settings.AlignFullAffine);
+                            }
+                            else
+                            {
+                                alignedResult = openCv.CreateAlignedSecondImageEcc(
+                                    firstImage,
+                                    secondImage,
+                                    Settings.AlignmentDownsizePercentage2,
+                                    Settings.AlignmentIterations2,
+                                    Settings.AlignmentEpsilonLevel2,
+                                    Settings.AlignmentEccThresholdPercentage2,
+                                    Settings.AlignmentPyramidLayers2,
+                                    discardTransX);
+                            }
                         });
                     }
                     catch (Exception e)
@@ -1207,22 +1217,22 @@ namespace CrossCam.ViewModel
                             }
                         }
 
-                        using (var tempSurface =
-                            SKSurface.Create(new SKImageInfo(alignedResult.Rectified1.Width*2, alignedResult.Rectified1.Height)))
-                        {
-                            var canvas = tempSurface.Canvas;
-                            canvas.Clear();
-                            if (Device.RuntimePlatform == Device.iOS && IsViewInverted)
-                            {
-                                canvas.RotateDegrees(180);
-                                canvas.Translate(-1f * alignedResult.Rectified1.Width * 2, -1f * alignedResult.Rectified1.Height);
-                            }
+                        //using (var tempSurface =
+                        //    SKSurface.Create(new SKImageInfo(alignedResult.Rectified1.Width*2, alignedResult.Rectified1.Height)))
+                        //{
+                        //    var canvas = tempSurface.Canvas;
+                        //    canvas.Clear();
+                        //    if (Device.RuntimePlatform == Device.iOS && IsViewInverted)
+                        //    {
+                        //        canvas.RotateDegrees(180);
+                        //        canvas.Translate(-1f * alignedResult.Rectified1.Width * 2, -1f * alignedResult.Rectified1.Height);
+                        //    }
 
-                            canvas.DrawBitmap(alignedResult.Rectified1, 0, 0);
-                            canvas.DrawBitmap(alignedResult.Rectified2, alignedResult.Rectified2.Width, 0);
+                        //    canvas.DrawBitmap(alignedResult.Rectified1, 0, 0);
+                        //    canvas.DrawBitmap(alignedResult.Rectified2, alignedResult.Rectified2.Width, 0);
 
-                            await SaveSurfaceSnapshot(tempSurface);
-                        }
+                        //    await SaveSurfaceSnapshot(tempSurface);
+                        //}
 
                         _wasAlignmentWithHorizontalRun = Settings.SaveForRedCyanAnaglyph || Settings.AlignHorizontallySideBySide;
                         _wasAlignmentWithoutHorizontalRun = !Settings.SaveForRedCyanAnaglyph && !Settings.AlignHorizontallySideBySide;
