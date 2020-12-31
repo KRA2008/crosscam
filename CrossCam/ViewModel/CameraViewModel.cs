@@ -1207,6 +1207,23 @@ namespace CrossCam.ViewModel
                             }
                         }
 
+                        using (var tempSurface =
+                            SKSurface.Create(new SKImageInfo(alignedResult.Rectified1.Width*2, alignedResult.Rectified1.Height)))
+                        {
+                            var canvas = tempSurface.Canvas;
+                            canvas.Clear();
+                            if (Device.RuntimePlatform == Device.iOS && IsViewInverted)
+                            {
+                                canvas.RotateDegrees(180);
+                                canvas.Translate(-1f * alignedResult.Rectified1.Width * 2, -1f * alignedResult.Rectified1.Height);
+                            }
+
+                            canvas.DrawBitmap(alignedResult.Rectified1, 0, 0);
+                            canvas.DrawBitmap(alignedResult.Rectified2, alignedResult.Rectified2.Width, 0);
+
+                            await SaveSurfaceSnapshot(tempSurface);
+                        }
+
                         _wasAlignmentWithHorizontalRun = Settings.SaveForRedCyanAnaglyph || Settings.AlignHorizontallySideBySide;
                         _wasAlignmentWithoutHorizontalRun = !Settings.SaveForRedCyanAnaglyph && !Settings.AlignHorizontallySideBySide;
 

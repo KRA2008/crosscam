@@ -29,7 +29,7 @@ namespace AutoAlignment
         {
 #if __NO_EMGU__
             return false;
-#else
+#endif
             try
             {
                 using (new Mat())
@@ -42,7 +42,6 @@ namespace AutoAlignment
             }
 
             return true;
-#endif
         }
 
         public AlignedResult CreateAlignedSecondImage(SKBitmap firstImage, SKBitmap secondImage, int downsizePercentage, int iterations,
@@ -50,85 +49,88 @@ namespace AutoAlignment
         {
 #if __NO_EMGU__
             return null;
-#else
-            var mat1 = new Mat();
-            var mat2 = new Mat();
+#endif
+            //var mat1 = new Mat();
+            //var mat2 = new Mat();
 
-            var topDownsizeFactor = downsizePercentage / 100f;
+            //var topDownsizeFactor = downsizePercentage / 100f;
 
-            var eccs = new List<double>();
-            var eccWarpMatrix = Mat.Eye(2, 3, DepthType.Cv32F, 1);
-            var termCriteria = new MCvTermCriteria(iterations, Math.Pow(10, -epsilonLevel));
-            for (var ii = pyramidLayers - 1; ii >= 0; ii--)
-            {
-                var downsize = topDownsizeFactor / Math.Pow(2, ii);
-                CvInvoke.Imdecode(GetBytes(firstImage, downsize), ImreadModes.Grayscale, mat1);
-                CvInvoke.Imdecode(GetBytes(secondImage, downsize), ImreadModes.Grayscale, mat2);
+            //var eccs = new List<double>();
+            //var eccWarpMatrix = Mat.Eye(2, 3, DepthType.Cv32F, 1);
+            //var termCriteria = new MCvTermCriteria(iterations, Math.Pow(10, -epsilonLevel));
+            //for (var ii = pyramidLayers - 1; ii >= 0; ii--)
+            //{
+            //    var downsize = topDownsizeFactor / Math.Pow(2, ii);
+            //    CvInvoke.Imdecode(GetBytes(firstImage, downsize), ImreadModes.Grayscale, mat1);
+            //    CvInvoke.Imdecode(GetBytes(secondImage, downsize), ImreadModes.Grayscale, mat2);
 
-                try
-                {
-                    var ecc = CvInvoke.FindTransformECC(mat2, mat1, eccWarpMatrix, MotionType.Euclidean, termCriteria);
-                    eccs.Add(ecc);
-                }
-                catch (CvException e)
-                {
-                    if (e.Status == (int) ErrorCodes.StsNoConv)
-                    {
-                        return null;
-                    }
+            //    try
+            //    {
+            //        var ecc = CvInvoke.FindTransformECC(mat2, mat1, eccWarpMatrix, MotionType.Euclidean, termCriteria);
+            //        eccs.Add(ecc);
+            //    }
+            //    catch (CvException e)
+            //    {
+            //        if (e.Status == (int) ErrorCodes.StsNoConv)
+            //        {
+            //            return null;
+            //        }
 
-                    throw;
-                }
+            //        throw;
+            //    }
 
-                if (eccWarpMatrix.IsEmpty)
-                {
-                    return null;
-                }
+            //    if (eccWarpMatrix.IsEmpty)
+            //    {
+            //        return null;
+            //    }
 
-                ScaleUpMat(eccWarpMatrix, 2);
-            }
+            //    ScaleUpMat(eccWarpMatrix, 2);
+            //}
 
-            var lastUpscaleFactor = 1 / ( 2 * topDownsizeFactor );
-            ScaleUpMat(eccWarpMatrix, lastUpscaleFactor);
+            //var lastUpscaleFactor = 1 / ( 2 * topDownsizeFactor );
+            //ScaleUpMat(eccWarpMatrix, lastUpscaleFactor);
 
-            if (eccs.Last() * 100 < eccCutoff)
-            {
-                return null;
-            }
+            //if (eccs.Last() * 100 < eccCutoff)
+            //{
+            //    return null;
+            //}
 
-            var skMatrix = ConvertCvMatToSkMatrixFloat(eccWarpMatrix); //needed later depending on chosen keypoint filtering mechanism
+            //var skMatrix = ConvertCvMatToSkMatrixFloat(eccWarpMatrix); //needed later depending on chosen keypoint filtering mechanism
 
 
 
+            var result = new AlignedResult();
             Mat rigidWarpMatrix;
             VectorOfVectorOfDMatch goodMatchesVector;
             VectorOfKeyPoint goodKeyPointsVector1;
             VectorOfKeyPoint goodKeyPointsVector2;
             using (var detector = new ORBDetector())
             {
-                var grayscale1 = new Mat();
+                const ImreadModes READ_MODE = ImreadModes.Color;
+
+                var mat1 = new Mat();
                 var descriptors1 = new Mat();
                 var allKeyPointsVector1 = new VectorOfKeyPoint();
-                CvInvoke.Imdecode(GetBytes(firstImage, 1), ImreadModes.Grayscale, grayscale1);
-                detector.DetectAndCompute(grayscale1, null, allKeyPointsVector1, descriptors1, false);
+                CvInvoke.Imdecode(GetBytes(firstImage, 1), READ_MODE, mat1);
+                detector.DetectAndCompute(mat1, null, allKeyPointsVector1, descriptors1, false);
 
-                var grayscale2 = new Mat();
+                var mat2 = new Mat();
                 var descriptors2 = new Mat();
                 var allKeyPointsVector2 = new VectorOfKeyPoint();
-                CvInvoke.Imdecode(GetBytes(secondImage, 1), ImreadModes.Grayscale, grayscale2);
-                detector.DetectAndCompute(grayscale2, null, allKeyPointsVector2, descriptors2, false);
+                CvInvoke.Imdecode(GetBytes(secondImage, 1), READ_MODE, mat2);
+                detector.DetectAndCompute(mat2, null, allKeyPointsVector2, descriptors2, false);
 
                 // OPTION 1A
 
                 ////filtering keypoint matching by physical distance between keypoints as proportion of image size
-                //const double THRESHOLD_PROPORTION = 1 / 8d;
-                //var thresholdDistance = Math.Sqrt(Math.Pow(firstImage.Width, 2) + Math.Pow(firstImage.Height, 2)) * THRESHOLD_PROPORTION;
+                const double THRESHOLD_PROPORTION = 1 / 4d;
+                var thresholdDistance = Math.Sqrt(Math.Pow(firstImage.Width, 2) + Math.Pow(firstImage.Height, 2)) * THRESHOLD_PROPORTION; //TODO: idk, something else?
 
                 //OPTION 1B
 
                 ////filtering keypoint matching by physical distance as proportion of eccWarpMatrix translation distance
                 const double THRESHOLD = 2;
-                var thresholdDistance = Math.Sqrt(Math.Pow(skMatrix.TransX, 2) + Math.Pow(skMatrix.TransY, 2)) * THRESHOLD; //TODO: account for rotation?
+                //var thresholdDistance = Math.Sqrt(Math.Pow(skMatrix.TransX, 2) + Math.Pow(skMatrix.TransY, 2)) * THRESHOLD; //TODO: account for rotation?
 
                 var mask = new Mat(allKeyPointsVector2.Size, allKeyPointsVector1.Size, DepthType.Cv8U, 1);
                 unsafe
@@ -241,9 +243,40 @@ namespace AutoAlignment
                 var goodPointsVector1 = new VectorOfPointF(tempGoodPoints1List.ToArray());
                 var goodPointsVector2 = new VectorOfPointF(tempGoodPoints2List.ToArray());
 
+
+
+#region STEREORECTIFYUNCALIBRATED
+
+                var funMat = CvInvoke.FindFundamentalMat(goodPointsVector1, goodPointsVector2); //TODO: try different orders?
+
+                var fullSizeColor1 = new Mat();
+                var fullSizeColor2 = new Mat();
+                CvInvoke.Imdecode(GetBytes(firstImage, 1), ImreadModes.Color, fullSizeColor1);
+                CvInvoke.Imdecode(GetBytes(secondImage, 1), ImreadModes.Color, fullSizeColor2);
+
+                var matrix1 = new Mat();
+                var matrix2 = new Mat();
+                var yesNo= CvInvoke.StereoRectifyUncalibrated(goodPointsVector1, goodPointsVector2, funMat, fullSizeColor1.Size,
+                    matrix1, matrix2);
+
+                var alignedMat1 = new Mat();
+                var alignedMat2 = new Mat();
+                CvInvoke.WarpPerspective(fullSizeColor1, alignedMat1, matrix1, fullSizeColor1.Size);
+                CvInvoke.WarpPerspective(fullSizeColor2, alignedMat2, matrix2, fullSizeColor2.Size);
+
+#if __ANDROID__
+                result.Rectified1 = alignedMat1.ToBitmap().ToSKBitmap();
+                result.Rectified2 = alignedMat2.ToBitmap().ToSKBitmap();
+#elif __IOS__
+                result.Rectified1 = alignedMat1.ToCGImage().ToSKBitmap();
+                result.Rectified2 = alignedMat2.ToCGImage().ToSKBitmap();
+#endif
+#endregion
+
+
                 try
                 {
-                    rigidWarpMatrix = CvInvoke.EstimateRigidTransform(goodPointsVector2, goodPointsVector1, false);
+                    rigidWarpMatrix = CvInvoke.EstimateRigidTransform(goodPointsVector2, goodPointsVector1, true);
                 }
                 catch
                 {
@@ -251,13 +284,7 @@ namespace AutoAlignment
                 }
             }
 
-
-
-
-            var result = new AlignedResult
-            {
-                TransformMatrix = ConvertCvMatToSkMatrixDouble(rigidWarpMatrix, discardTransX)
-            };
+            result.TransformMatrix = ConvertCvMatToSkMatrixDouble(rigidWarpMatrix, discardTransX);
 
             using (var fullSizeColor1 = new Mat())
             using (var fullSizeColor2 = new Mat())
@@ -279,7 +306,6 @@ namespace AutoAlignment
 #endif
                 return result;
             }
-#endif
         }
 
         private static SKMatrix ConvertCvMatToSkMatrixFloat(Mat mat)
