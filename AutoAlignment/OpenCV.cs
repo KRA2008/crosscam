@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
+using System.Drawing.Drawing2D;
 using System.Linq;
 using AutoAlignment;
 using CrossCam.Model;
@@ -118,7 +120,7 @@ namespace AutoAlignment
                 fullSizeColorSecondMat.Size);
 
 #if __IOS__
-                    result.AlignedBitmap = alignedMat.ToCGImage().ToSKBitmap();
+            result.AlignedBitmap = alignedMat.ToCGImage().ToSKBitmap();
 #elif __ANDROID__
             result.AlignedBitmap = alignedMat.ToBitmap().ToSKBitmap();
 #endif
@@ -138,6 +140,7 @@ namespace AutoAlignment
 #if __NO_EMGU__
             return null;
 #endif
+            var result = new AlignedResult();
             Mat warpMatrix;
             VectorOfVectorOfDMatch goodMatchesVector;
             VectorOfKeyPoint goodKeyPointsVector1;
@@ -282,73 +285,90 @@ namespace AutoAlignment
                 var goodPointsVector1 = new VectorOfPointF(tempGoodPoints1List.ToArray());
                 var goodPointsVector2 = new VectorOfPointF(tempGoodPoints2List.ToArray());
 
+                var good1 = tempGoodKeyPoints1.Select(p => new SKPoint(p.Point.X, p.Point.Y)).ToArray();
+                var good2 = tempGoodKeyPoints2.Select(p => new SKPoint(p.Point.X, p.Point.Y)).ToArray();
 
+                if(good1.Length != good2.Length) Debug.WriteLine("crap.");
 
-//#region STEREORECTIFYUNCALIBRATED
+                var baseOffset = GetNetYOffset(good1, good2);
+                const float INC_ANGLE = 0.01f; //TODO: pick a good size, or make it configurable
+                int rotateDirection;
 
-//                var funMat = CvInvoke.FindFundamentalMat(goodPointsVector1, goodPointsVector2); //TODO: try different orders?
+                var rotateA = SKMatrix.MakeRotation(INC_ANGLE, secondImage.Width / 2f, secondImage.Height / 2f);
+                var rotateB = SKMatrix.MakeRotation(-INC_ANGLE, secondImage.Width / 2f, secondImage.Height / 2f);
+                var attemptA = rotateA.MapPoints(good2);
+                var offsetA = GetNetYOffset(good1, attemptA);
+                var attemptB = rotateB.MapPoints(good2);
+                var offsetB = GetNetYOffset(good1, attemptB);
 
-//                var fullSizeColor1 = new Mat();
-//                var fullSizeColor2 = new Mat();
-//                CvInvoke.Imdecode(GetBytes(firstImage, 1), ImreadModes.Color, fullSizeColor1);
-//                CvInvoke.Imdecode(GetBytes(secondImage, 1), ImreadModes.Color, fullSizeColor2);
-
-//                var matrix1 = new Mat();
-//                var matrix2 = new Mat();
-//                var yesNo= CvInvoke.StereoRectifyUncalibrated(goodPointsVector1, goodPointsVector2, funMat, fullSizeColor1.Size,
-//                    matrix1, matrix2);
-
-//                var alignedMat1 = new Mat();
-//                var alignedMat2 = new Mat();
-//                CvInvoke.WarpPerspective(fullSizeColor1, alignedMat1, matrix1, fullSizeColor1.Size);
-//                CvInvoke.WarpPerspective(fullSizeColor2, alignedMat2, matrix2, fullSizeColor2.Size);
-
-//#if __ANDROID__
-//                result.Rectified1 = alignedMat1.ToBitmap().ToSKBitmap();
-//                result.Rectified2 = alignedMat2.ToBitmap().ToSKBitmap();
-//#elif __IOS__
-//                result.Rectified1 = alignedMat1.ToCGImage().ToSKBitmap();
-//                result.Rectified2 = alignedMat2.ToCGImage().ToSKBitmap();
-//#endif
-//#endregion
-
-
-                try
+                if (offsetA < baseOffset)
                 {
-                    warpMatrix = CvInvoke.FindHomography(goodPointsVector1, goodPointsVector2);
+                    rotateDirection = 1;
+                    baseOffset = offsetA;
                 }
-                catch
+                else if (offsetB < baseOffset)
                 {
-                    return null;
+                    rotateDirection = -1;
+                    baseOffset = offsetB;
                 }
-            }
+                else
+                {
+                    //don't turn i guess
+                    rotateDirection = 0;
+                }
+                var testAngle = 2 * rotateDirection * INC_ANGLE;
 
-            //TODO: maybe just say it failed if the skew is too big? or try again without skew and return that result
-            var result = new AlignedResult
-            {
-                TransformMatrix = ConvertCvMatOfFloatsToSkMatrix(warpMatrix, discardTransX)
-            };
+                do
+                {
+                    var rotate = SKMatrix.MakeRotation(testAngle, secondImage.Width / 2f, secondImage.Height / 2f);
+                    var attempt = rotate.MapPoints(good2);
+                    var offset = GetNetYOffset(good1, attempt);
+                    if (offset < baseOffset)
+                    {
+                        baseOffset = offset;
+                        testAngle += rotateDirection * INC_ANGLE;
+                    }
+                    else
+                    {
+                        result.TransformMatrix = SKMatrix.MakeRotation(testAngle - rotateDirection * INC_ANGLE, secondImage.Width / 2f, secondImage.Height / 2f); //go back one click
+                        var rotatedImage = new SKBitmap(secondImage.Width, secondImage.Height);
+                        using (var canvas = new SKCanvas(rotatedImage))
+                        {
+                            canvas.SetMatrix(result.TransformMatrix);
+                            canvas.DrawBitmap(secondImage,0,0);
+                        }
+                        result.AlignedBitmap = rotatedImage;
+                        break;
+                    }
+                } while (true);
 
-            using var fullSizeColor1 = new Mat();
-            using var fullSizeColor2 = new Mat();
-            using var alignedMat = new Mat();
-            CvInvoke.Imdecode(GetBytes(firstImage, 1), ImreadModes.Color, fullSizeColor1);
-            CvInvoke.Imdecode(GetBytes(secondImage, 1), ImreadModes.Color, fullSizeColor2);
+                using var fullSizeColor1 = new Mat();
+                using var fullSizeColor2 = new Mat();
+                CvInvoke.Imdecode(GetBytes(firstImage, 1), ImreadModes.Color, fullSizeColor1);
+                CvInvoke.Imdecode(GetBytes(secondImage, 1), ImreadModes.Color, fullSizeColor2);
 
-            CvInvoke.WarpPerspective(fullSizeColor2, alignedMat, warpMatrix, fullSizeColor2.Size);
-
-            using(var drawnResult = new Mat())
-            {
-                Features2DToolbox.DrawMatches(fullSizeColor1, goodKeyPointsVector1, fullSizeColor2, goodKeyPointsVector2, goodMatchesVector, drawnResult, new MCvScalar(0, 255, 0), new MCvScalar(255, 255, 0));
+                using (var drawnResult = new Mat())
+                {
+                    Features2DToolbox.DrawMatches(fullSizeColor1, goodKeyPointsVector1, fullSizeColor2, goodKeyPointsVector2, goodMatchesVector, drawnResult, new MCvScalar(0, 255, 0), new MCvScalar(255, 255, 0));
 #if __IOS__
                     result.DrawnMatches = drawnResult.ToCGImage().ToSKBitmap();
-                    result.AlignedBitmap = alignedMat.ToCGImage().ToSKBitmap();
 #elif __ANDROID__
-                result.DrawnMatches = drawnResult.ToBitmap().ToSKBitmap();
-                result.AlignedBitmap = alignedMat.ToBitmap().ToSKBitmap();
+                    result.DrawnMatches = drawnResult.ToBitmap().ToSKBitmap();
 #endif
+                }
             }
+
             return result;
+        }
+
+        private static double GetNetYOffset(SKPoint[] points1, SKPoint[] points2)
+        {
+            var netOffset = 0d;
+            for (var ii = 0; ii < points1.Length; ii++)
+            {
+                netOffset += Math.Abs(points1[ii].Y - points2[ii].Y);
+            }
+            return netOffset;
         }
 
         private static SKMatrix ConvertCvMatOfFloatsToSkMatrix(Mat mat, bool discardTransX)
