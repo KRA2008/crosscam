@@ -54,79 +54,75 @@ namespace AutoAlignment
             var topDownsizeFactor = downsizePercentage / 100f;
 
             var eccs = new List<double>();
-            using (var mat1 = new Mat())
-            using (var mat2 = new Mat())
-            using (var warpMatrix = Mat.Eye(2, 3, DepthType.Cv32F, 1))
+            using var mat1 = new Mat();
+            using var mat2 = new Mat();
+            using var warpMatrix = Mat.Eye(2, 3, DepthType.Cv32F, 1);
+            var termCriteria = new MCvTermCriteria(iterations, Math.Pow(10, -epsilonLevel));
+            for (var ii = pyramidLayers - 1; ii >= 0; ii--)
             {
-                var termCriteria = new MCvTermCriteria(iterations, Math.Pow(10, -epsilonLevel));
-                for (var ii = pyramidLayers - 1; ii >= 0; ii--)
+                var downsize = topDownsizeFactor / Math.Pow(2, ii);
+                CvInvoke.Imdecode(GetBytes(firstImage, downsize), ImreadModes.Grayscale, mat1);
+                CvInvoke.Imdecode(GetBytes(secondImage, downsize), ImreadModes.Grayscale, mat2);
+
+                try
                 {
-                    var downsize = topDownsizeFactor / Math.Pow(2, ii);
-                    CvInvoke.Imdecode(GetBytes(firstImage, downsize), ImreadModes.Grayscale, mat1);
-                    CvInvoke.Imdecode(GetBytes(secondImage, downsize), ImreadModes.Grayscale, mat2);
-
-                    try
-                    {
-                        var ecc = CvInvoke.FindTransformECC(mat2, mat1, warpMatrix, MotionType.Euclidean, termCriteria);
-                        eccs.Add(ecc);
-                    }
-                    catch (CvException e)
-                    {
-                        if (e.Status == (int)ErrorCodes.StsNoConv)
-                        {
-                            return null;
-                        }
-                        throw;
-                    }
-
-                    if (warpMatrix.IsEmpty)
+                    var ecc = CvInvoke.FindTransformECC(mat2, mat1, warpMatrix, MotionType.Euclidean, termCriteria);
+                    eccs.Add(ecc);
+                }
+                catch (CvException e)
+                {
+                    if (e.Status == (int)ErrorCodes.StsNoConv)
                     {
                         return null;
                     }
-
-                    unsafe
-                    {
-                        var ptr = (float*)warpMatrix.DataPointer.ToPointer(); //ScaleX
-                        ptr++; //SkewX
-                        ptr++; //TransX
-                        *ptr *= 2; //scale up the shifting
-                        ptr++; //SkewY
-                        ptr++; //ScaleY
-                        ptr++; //TransY
-                        *ptr *= 2; //scale up the shifting
-                    }
+                    throw;
                 }
 
-                var lastUpscaleFactor = 1 / (2 * topDownsizeFactor);
-                ScaleUpCvMatOfFloats(warpMatrix, lastUpscaleFactor);
-
-                if (eccs.Last() * 100 < eccCutoff)
+                if (warpMatrix.IsEmpty)
                 {
                     return null;
                 }
 
-                var skMatrix = ConvertCvMatOfFloatsToSkMatrix(warpMatrix, discardTransX);
-
-                var result = new AlignedResult
+                unsafe
                 {
-                    TransformMatrix = skMatrix
-                };
+                    var ptr = (float*)warpMatrix.DataPointer.ToPointer(); //ScaleX
+                    ptr++; //SkewX
+                    ptr++; //TransX
+                    *ptr *= 2; //scale up the shifting
+                    ptr++; //SkewY
+                    ptr++; //ScaleY
+                    ptr++; //TransY
+                    *ptr *= 2; //scale up the shifting
+                }
+            }
 
-                using (var alignedMat = new Mat())
-                using (var fullSizeColorSecondMat = new Mat())
-                {
-                    CvInvoke.Imdecode(GetBytes(secondImage, 1), ImreadModes.Color, fullSizeColorSecondMat);
-                    CvInvoke.WarpAffine(fullSizeColorSecondMat, alignedMat, warpMatrix,
-                        fullSizeColorSecondMat.Size);
+            var lastUpscaleFactor = 1 / (2 * topDownsizeFactor);
+            ScaleUpCvMatOfFloats(warpMatrix, lastUpscaleFactor);
+
+            if (eccs.Last() * 100 < eccCutoff)
+            {
+                return null;
+            }
+
+            var skMatrix = ConvertCvMatOfFloatsToSkMatrix(warpMatrix, discardTransX);
+
+            var result = new AlignedResult
+            {
+                TransformMatrix = skMatrix
+            };
+
+            using var alignedMat = new Mat();
+            using var fullSizeColorSecondMat = new Mat();
+            CvInvoke.Imdecode(GetBytes(secondImage, 1), ImreadModes.Color, fullSizeColorSecondMat);
+            CvInvoke.WarpAffine(fullSizeColorSecondMat, alignedMat, warpMatrix,
+                fullSizeColorSecondMat.Size);
 
 #if __IOS__
                     result.AlignedBitmap = alignedMat.ToCGImage().ToSKBitmap();
 #elif __ANDROID__
-                    result.AlignedBitmap = alignedMat.ToBitmap().ToSKBitmap();
+            result.AlignedBitmap = alignedMat.ToBitmap().ToSKBitmap();
 #endif
-                    return result;
-                }
-            }
+            return result;
         }
 
         //TODO: when this one has good keypoints (its own challenge):
@@ -142,7 +138,7 @@ namespace AutoAlignment
 #if __NO_EMGU__
             return null;
 #endif
-            Mat rigidWarpMatrix;
+            Mat warpMatrix;
             VectorOfVectorOfDMatch goodMatchesVector;
             VectorOfKeyPoint goodKeyPointsVector1;
             VectorOfKeyPoint goodKeyPointsVector2;
@@ -319,7 +315,7 @@ namespace AutoAlignment
 
                 try
                 {
-                    rigidWarpMatrix = CvInvoke.EstimateRigidTransform(goodPointsVector2, goodPointsVector1, fullAffine);
+                    warpMatrix = CvInvoke.FindHomography(goodPointsVector1, goodPointsVector2);
                 }
                 catch
                 {
@@ -330,31 +326,29 @@ namespace AutoAlignment
             //TODO: maybe just say it failed if the skew is too big? or try again without skew and return that result
             var result = new AlignedResult
             {
-                TransformMatrix = ConvertCvMatOfDoublesToSkMatrix(rigidWarpMatrix, discardTransX) //TODO: does this really need double treatment? clear from Emgu doc but not from OpenCV doc
+                TransformMatrix = ConvertCvMatOfFloatsToSkMatrix(warpMatrix, discardTransX)
             };
 
-            using (var fullSizeColor1 = new Mat())
-            using (var fullSizeColor2 = new Mat())
-            using (var alignedMat = new Mat())
+            using var fullSizeColor1 = new Mat();
+            using var fullSizeColor2 = new Mat();
+            using var alignedMat = new Mat();
+            CvInvoke.Imdecode(GetBytes(firstImage, 1), ImreadModes.Color, fullSizeColor1);
+            CvInvoke.Imdecode(GetBytes(secondImage, 1), ImreadModes.Color, fullSizeColor2);
+
+            CvInvoke.WarpPerspective(fullSizeColor2, alignedMat, warpMatrix, fullSizeColor2.Size);
+
+            using(var drawnResult = new Mat())
             {
-                CvInvoke.Imdecode(GetBytes(firstImage, 1), ImreadModes.Color, fullSizeColor1);
-                CvInvoke.Imdecode(GetBytes(secondImage, 1), ImreadModes.Color, fullSizeColor2);
-
-                CvInvoke.WarpAffine(fullSizeColor2, alignedMat, rigidWarpMatrix, fullSizeColor2.Size);
-
-                using(var drawnResult = new Mat())
-                {
-                    Features2DToolbox.DrawMatches(fullSizeColor1, goodKeyPointsVector1, fullSizeColor2, goodKeyPointsVector2, goodMatchesVector, drawnResult, new MCvScalar(0, 255, 0), new MCvScalar(255, 255, 0));
+                Features2DToolbox.DrawMatches(fullSizeColor1, goodKeyPointsVector1, fullSizeColor2, goodKeyPointsVector2, goodMatchesVector, drawnResult, new MCvScalar(0, 255, 0), new MCvScalar(255, 255, 0));
 #if __IOS__
                     result.DrawnMatches = drawnResult.ToCGImage().ToSKBitmap();
                     result.AlignedBitmap = alignedMat.ToCGImage().ToSKBitmap();
 #elif __ANDROID__
-                    result.DrawnMatches = drawnResult.ToBitmap().ToSKBitmap();
-                    result.AlignedBitmap = alignedMat.ToBitmap().ToSKBitmap();
+                result.DrawnMatches = drawnResult.ToBitmap().ToSKBitmap();
+                result.AlignedBitmap = alignedMat.ToBitmap().ToSKBitmap();
 #endif
-                }
-                return result;
             }
+            return result;
         }
 
         private static SKMatrix ConvertCvMatOfFloatsToSkMatrix(Mat mat, bool discardTransX)
@@ -433,22 +427,17 @@ namespace AutoAlignment
         {
             var width = (int)(bitmap.Width * downsize);
             var height = (int)(bitmap.Height * downsize);
-            using (var tempSurface =
-                SKSurface.Create(new SKImageInfo(width, height)))
-            {
-                var canvas = tempSurface.Canvas;
-                canvas.Clear();
+            using var tempSurface =
+                SKSurface.Create(new SKImageInfo(width, height));
+            var canvas = tempSurface.Canvas;
+            canvas.Clear();
 
-                canvas.DrawBitmap(bitmap,
-                    SKRect.Create(0, 0, bitmap.Width, bitmap.Height),
-                    SKRect.Create(0, 0, width, height));
+            canvas.DrawBitmap(bitmap,
+                SKRect.Create(0, 0, bitmap.Width, bitmap.Height),
+                SKRect.Create(0, 0, width, height));
 
-                using (var data = tempSurface.Snapshot().Encode(SKEncodedImageFormat.Jpeg, 100))
-                {
-                    return data.ToArray();
-                }
-            }
-
+            using var data = tempSurface.Snapshot().Encode(SKEncodedImageFormat.Jpeg, 100);
+            return data.ToArray();
         }
     }
 }
