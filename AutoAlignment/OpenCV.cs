@@ -282,65 +282,129 @@ namespace AutoAlignment
                 goodMatchesVector = new VectorOfVectorOfDMatch(goodMatchesVectorList.ToArray());
                 goodKeyPointsVector1 = new VectorOfKeyPoint(tempGoodKeyPoints1.ToArray());
                 goodKeyPointsVector2 = new VectorOfKeyPoint(tempGoodKeyPoints2.ToArray());
-                var goodPointsVector1 = new VectorOfPointF(tempGoodPoints1List.ToArray());
-                var goodPointsVector2 = new VectorOfPointF(tempGoodPoints2List.ToArray());
 
                 var good1 = tempGoodKeyPoints1.Select(p => new SKPoint(p.Point.X, p.Point.Y)).ToArray();
                 var good2 = tempGoodKeyPoints2.Select(p => new SKPoint(p.Point.X, p.Point.Y)).ToArray();
 
                 if(good1.Length != good2.Length) Debug.WriteLine("crap.");
 
+
+
+                #region translation
                 var baseOffset = GetNetYOffset(good1, good2);
-                const float INC_ANGLE = 0.01f; //TODO: pick a good size, or make it configurable
-                int rotateDirection;
+                const int FINAL_TRANSLATION_DELTA = 1; //TODO: make configurable?
+                var translationInc = secondImage.Height / 2;
+                var finalTranslation = 0;
 
-                var rotateA = SKMatrix.MakeRotation(INC_ANGLE, secondImage.Width / 2f, secondImage.Height / 2f);
-                var rotateB = SKMatrix.MakeRotation(-INC_ANGLE, secondImage.Width / 2f, secondImage.Height / 2f);
-                var attemptA = rotateA.MapPoints(good2);
-                var offsetA = GetNetYOffset(good1, attemptA);
-                var attemptB = rotateB.MapPoints(good2);
-                var offsetB = GetNetYOffset(good1, attemptB);
+                while (translationInc > FINAL_TRANSLATION_DELTA)
+                {
+                    var translateA = SKMatrix.MakeTranslation(0, finalTranslation + translationInc);
+                    var translateB = SKMatrix.MakeTranslation(0, finalTranslation - translationInc);
+                    var attemptA = translateA.MapPoints(good2);
+                    var offsetA = GetNetYOffset(good1, attemptA);
+                    var attemptB = translateB.MapPoints(good2);
+                    var offsetB = GetNetYOffset(good1, attemptB);
 
-                if (offsetA < baseOffset)
-                {
-                    rotateDirection = 1;
-                    baseOffset = offsetA;
-                }
-                else if (offsetB < baseOffset)
-                {
-                    rotateDirection = -1;
-                    baseOffset = offsetB;
-                }
-                else
-                {
-                    //don't turn i guess
-                    rotateDirection = 0;
-                }
-                var testAngle = 2 * rotateDirection * INC_ANGLE;
-
-                do
-                {
-                    var rotate = SKMatrix.MakeRotation(testAngle, secondImage.Width / 2f, secondImage.Height / 2f);
-                    var attempt = rotate.MapPoints(good2);
-                    var offset = GetNetYOffset(good1, attempt);
-                    if (offset < baseOffset)
+                    if (offsetA < baseOffset)
                     {
-                        baseOffset = offset;
-                        testAngle += rotateDirection * INC_ANGLE;
+                        baseOffset = offsetA;
+                        finalTranslation += translationInc;
                     }
-                    else
+                    else if (offsetB < baseOffset)
                     {
-                        result.TransformMatrix = SKMatrix.MakeRotation(testAngle - rotateDirection * INC_ANGLE, secondImage.Width / 2f, secondImage.Height / 2f); //go back one click
-                        var rotatedImage = new SKBitmap(secondImage.Width, secondImage.Height);
-                        using (var canvas = new SKCanvas(rotatedImage))
-                        {
-                            canvas.SetMatrix(result.TransformMatrix);
-                            canvas.DrawBitmap(secondImage,0,0);
-                        }
-                        result.AlignedBitmap = rotatedImage;
-                        break;
+                        baseOffset = offsetB;
+                        finalTranslation -= translationInc;
                     }
-                } while (true);
+                    translationInc /= 2;
+                }
+
+                var translated2 = SKMatrix.MakeTranslation(0, finalTranslation);
+                good2 = translated2.MapPoints(good2);
+                #endregion
+
+                #region rotation
+                baseOffset = GetNetYOffset(good1, good2);
+                const float FINAL_ROTATION_DELTA = 0.0001f; //TODO: make configurable?
+                var rotationInc = (float)Math.PI / 2f;
+                var finalRotation = 0f;
+
+                while (rotationInc > FINAL_ROTATION_DELTA)
+                {
+                    var rotateA = SKMatrix.MakeRotation(finalRotation + rotationInc, secondImage.Width / 2f, secondImage.Height / 2f);
+                    var rotateB = SKMatrix.MakeRotation(finalRotation - rotationInc, secondImage.Width / 2f, secondImage.Height / 2f);
+                    var attemptA = rotateA.MapPoints(good2);
+                    var offsetA = GetNetYOffset(good1, attemptA);
+                    var attemptB = rotateB.MapPoints(good2);
+                    var offsetB = GetNetYOffset(good1, attemptB);
+
+                    if (offsetA < baseOffset)
+                    {
+                        baseOffset = offsetA;
+                        finalRotation += rotationInc;
+                    }
+                    else if (offsetB < baseOffset)
+                    {
+                        baseOffset = offsetB;
+                        finalRotation -= rotationInc;
+                    }
+                    rotationInc /= 2f;
+                }
+
+                var rotated2 = SKMatrix.MakeRotation(finalRotation, secondImage.Width / 2f, secondImage.Height / 2f);
+                good2 = rotated2.MapPoints(good2);
+                #endregion
+
+                #region zoom
+                baseOffset = GetNetYOffset(good1, good2);
+                const float FINAL_ZOOM_DELTA = 0.0001f;
+                var zoomInc = 1f;
+                var finalZoom = 1f;
+
+                while (zoomInc > FINAL_ZOOM_DELTA)
+                {
+                    var zoomA = SKMatrix.MakeScale(finalZoom + zoomInc, finalZoom + zoomInc);
+                    var zoomB = SKMatrix.MakeScale(finalZoom - zoomInc, finalZoom - zoomInc);
+                    var attemptA = zoomA.MapPoints(good2);
+                    var offsetA = GetNetYOffset(good1, attemptA);
+                    var attemptB = zoomB.MapPoints(good2);
+                    var offsetB = GetNetYOffset(good1, attemptB);
+
+                    if (offsetA < baseOffset)
+                    {
+                        baseOffset = offsetA;
+                        finalZoom += zoomInc;
+                    }
+                    else if (offsetB < baseOffset)
+                    {
+                        baseOffset = offsetB;
+                        finalZoom -= zoomInc;
+                    }
+                    zoomInc /= 2f;
+                }
+
+                var zoomed2 = SKMatrix.MakeScale(finalZoom, finalZoom);
+                good2 = zoomed2.MapPoints(good2);
+                #endregion
+
+                var finalTranslationMatrix = SKMatrix.MakeTranslation(0, finalTranslation);
+                var finalRotationMatrix = SKMatrix.MakeRotation(finalRotation, secondImage.Width / 2f, secondImage.Height / 2f);
+                var translateAndRotate = new SKMatrix();
+                SKMatrix.Concat(ref translateAndRotate, finalTranslationMatrix, finalRotationMatrix);
+                var finalZoomMatrix = SKMatrix.MakeScale(finalZoom, finalZoom);
+                var finalMatrix = new SKMatrix();
+                SKMatrix.Concat(ref finalMatrix, translateAndRotate, finalZoomMatrix);
+
+                result.TransformMatrix = SKMatrix.MakeIdentity();//finalMatrix;
+                var rotatedImage = new SKBitmap(secondImage.Width, secondImage.Height);
+                using (var canvas = new SKCanvas(rotatedImage))
+                {
+                    canvas.SetMatrix(finalMatrix);
+                    canvas.DrawBitmap(secondImage,0,0);
+                }
+                result.AlignedBitmap = rotatedImage;
+
+
+
 
                 using var fullSizeColor1 = new Mat();
                 using var fullSizeColor2 = new Mat();
