@@ -141,288 +141,310 @@ namespace AutoAlignment
             return null;
 #endif
             var result = new AlignedResult();
-            Mat warpMatrix;
-            VectorOfVectorOfDMatch goodMatchesVector;
-            VectorOfKeyPoint goodKeyPointsVector1;
-            VectorOfKeyPoint goodKeyPointsVector2;
-            using (var detector = new ORBDetector())
+
+            var detector = new ORBDetector();
+            const ImreadModes READ_MODE = ImreadModes.Color;
+
+            var mat1 = new Mat();
+            var descriptors1 = new Mat();
+            var allKeyPointsVector1 = new VectorOfKeyPoint();
+            CvInvoke.Imdecode(GetBytes(firstImage, 1), READ_MODE, mat1);
+            detector.DetectAndCompute(mat1, null, allKeyPointsVector1, descriptors1, false);
+
+            var mat2 = new Mat();
+            var descriptors2 = new Mat();
+            var allKeyPointsVector2 = new VectorOfKeyPoint();
+            CvInvoke.Imdecode(GetBytes(secondImage, 1), READ_MODE, mat2);
+            detector.DetectAndCompute(mat2, null, allKeyPointsVector2, descriptors2, false);
+
+            // OPTION 1A
+
+            ////filtering keypoint matching by physical distance between keypoints as proportion of image size
+            const double THRESHOLD_PROPORTION = 1 / 4d;
+            var thresholdDistance = Math.Sqrt(Math.Pow(firstImage.Width, 2) + Math.Pow(firstImage.Height, 2)) * THRESHOLD_PROPORTION; //TODO: idk, something else?
+
+            //OPTION 1B
+
+            ////filtering keypoint matching by physical distance as proportion of eccWarpMatrix translation distance
+            const double THRESHOLD = 2;
+            //var thresholdDistance = Math.Sqrt(Math.Pow(skMatrix.TransX, 2) + Math.Pow(skMatrix.TransY, 2)) * THRESHOLD; //TODO: account for rotation?
+
+            var mask = new Mat(allKeyPointsVector2.Size, allKeyPointsVector1.Size, DepthType.Cv8U, 1);
+            unsafe
             {
-                const ImreadModes READ_MODE = ImreadModes.Color;
-
-                var mat1 = new Mat();
-                var descriptors1 = new Mat();
-                var allKeyPointsVector1 = new VectorOfKeyPoint();
-                CvInvoke.Imdecode(GetBytes(firstImage, 1), READ_MODE, mat1);
-                detector.DetectAndCompute(mat1, null, allKeyPointsVector1, descriptors1, false);
-
-                var mat2 = new Mat();
-                var descriptors2 = new Mat();
-                var allKeyPointsVector2 = new VectorOfKeyPoint();
-                CvInvoke.Imdecode(GetBytes(secondImage, 1), READ_MODE, mat2);
-                detector.DetectAndCompute(mat2, null, allKeyPointsVector2, descriptors2, false);
-
-                // OPTION 1A
-
-                ////filtering keypoint matching by physical distance between keypoints as proportion of image size
-                const double THRESHOLD_PROPORTION = 1 / 4d;
-                var thresholdDistance = Math.Sqrt(Math.Pow(firstImage.Width, 2) + Math.Pow(firstImage.Height, 2)) * THRESHOLD_PROPORTION; //TODO: idk, something else?
-
-                //OPTION 1B
-
-                ////filtering keypoint matching by physical distance as proportion of eccWarpMatrix translation distance
-                const double THRESHOLD = 2;
-                //var thresholdDistance = Math.Sqrt(Math.Pow(skMatrix.TransX, 2) + Math.Pow(skMatrix.TransY, 2)) * THRESHOLD; //TODO: account for rotation?
-
-                var mask = new Mat(allKeyPointsVector2.Size, allKeyPointsVector1.Size, DepthType.Cv8U, 1);
-                unsafe
+                var maskPtr = (byte*)mask.DataPointer.ToPointer();
+                for (var i = 0; i < allKeyPointsVector2.Size; i++)
                 {
-                    var maskPtr = (byte*)mask.DataPointer.ToPointer();
-                    for (var i = 0; i < allKeyPointsVector2.Size; i++)
+                    var keyPoint2 = allKeyPointsVector2[i];
+                    for (var j = 0; j < allKeyPointsVector1.Size; j++)
                     {
-                        var keyPoint2 = allKeyPointsVector2[i];
-                        for (var j = 0; j < allKeyPointsVector1.Size; j++)
+                        var keyPoint1 = allKeyPointsVector1[j];
+                        var physicalDistance = CalculatePhysicalDistanceBetweenPoints(keyPoint2.Point, keyPoint1.Point);
+                        if (physicalDistance < thresholdDistance)
                         {
-                            var keyPoint1 = allKeyPointsVector1[j];
-                            var physicalDistance = CalculatePhysicalDistanceBetweenPoints(keyPoint2.Point, keyPoint1.Point);
-                            if (physicalDistance < thresholdDistance)
-                            {
-                                *maskPtr = 255;
-                            }
-                            else
-                            {
-                                *maskPtr = 0;
-                            }
-
-                            maskPtr++;
+                            *maskPtr = 255;
                         }
+                        else
+                        {
+                            *maskPtr = 0;
+                        }
+
+                        maskPtr++;
                     }
-                }
-
-
-                // OPTION 2
-
-                ////filtering keypoint matching by physical distance from expected keypoint location when transformed by eccWarpMatrix
-                //var transformedKeypoints2 = new VectorOfPointF();
-                //CvInvoke.Transform(new VectorOfPointF(allKeyPointsVector2.ToArray().Select(v => v.Point).ToArray()), transformedKeypoints2, eccWarpMatrix);
-                //const double THRESHOLD_DISTANCE_PROPORTION = 1/20d;
-                //var thresholdDistance = Math.Sqrt(Math.Pow(firstImage.Width, 2) + Math.Pow(firstImage.Height, 2)) * THRESHOLD_DISTANCE_PROPORTION;
-                //var mask = new Mat(allKeyPointsVector2.Size, allKeyPointsVector1.Size, DepthType.Cv8U, 1);
-                //unsafe
-                //{
-                //    var maskPtr = (byte*)mask.DataPointer.ToPointer();
-                //    for (var i = 0; i < transformedKeypoints2.Size; i++)
-                //    {
-                //        var transformedKeyPoint2 = transformedKeypoints2[i];
-                //        for (var j = 0; j < allKeyPointsVector1.Size; j++)
-                //        {
-                //            var keyPoint1 = allKeyPointsVector1[j];
-                //            var physicalDistance = CalculatePhysicalDistanceBetweenPoints(transformedKeyPoint2, keyPoint1.Point);
-                //            if (physicalDistance < thresholdDistance)
-                //            {
-                //                *maskPtr = 255;
-                //            }
-                //            else
-                //            {
-                //                *maskPtr = 0;
-                //            }
-
-                //            maskPtr++;
-                //        }
-                //    }
-                //}
-
-
-
-
-                var vectorOfMatches = new VectorOfVectorOfDMatch();
-                var matcher = new BFMatcher(DistanceType.Hamming); //TODO: consider using crosscheck...?... (to be accepted, keypoints must be closest to each other in both directions)
-                matcher.Add(descriptors1);
-                matcher.KnnMatch(descriptors2, vectorOfMatches, 2, new VectorOfMat(mask));
-
-                var goodMatches = new List<MDMatch>();
-                for (var i = 0; i < vectorOfMatches.Size; i++)
-                {
-                    if (vectorOfMatches[i].Size == 0)
-                    {
-                        continue;
-                    }
-
-                    if(vectorOfMatches[i].Size == 1 || 
-                       (vectorOfMatches[i][0].Distance < 0.75 * vectorOfMatches[i][1].Distance)) //make sure matches are unique
-                    {
-                        goodMatches.Add(vectorOfMatches[i][0]);
-                    }
-                }
-
-                var tempGoodPoints1List = new List<PointF>();
-                var tempGoodKeyPoints1 = new List<MKeyPoint>();
-                var tempGoodPoints2List = new List<PointF>();
-                var tempGoodKeyPoints2 = new List<MKeyPoint>();
-
-                var tempAllKeyPoints1List = allKeyPointsVector1.ToArray().ToList();
-                var tempAllKeyPoints2List = allKeyPointsVector2.ToArray().ToList();
-                var goodMatchesVectorList = new List<MDMatch[]>();
-                for (var ii = 0; ii < goodMatches.Count; ii++)
-                {
-                    var queryIndex = goodMatches[ii].QueryIdx;
-                    var trainIndex = goodMatches[ii].TrainIdx;
-                    tempGoodPoints1List.Add(tempAllKeyPoints1List.ElementAt(trainIndex).Point);
-                    tempGoodKeyPoints1.Add(tempAllKeyPoints1List.ElementAt(trainIndex));
-                    tempGoodPoints2List.Add(tempAllKeyPoints2List.ElementAt(queryIndex).Point);
-                    tempGoodKeyPoints2.Add(tempAllKeyPoints2List.ElementAt(queryIndex));
-                    goodMatchesVectorList.Add(new[]{new MDMatch
-                    {
-                        Distance = goodMatches[ii].Distance,
-                        ImgIdx = goodMatches[ii].ImgIdx,
-                        QueryIdx = ii,
-                        TrainIdx = ii
-                    }});
-                }
-
-                goodMatchesVector = new VectorOfVectorOfDMatch(goodMatchesVectorList.ToArray());
-                goodKeyPointsVector1 = new VectorOfKeyPoint(tempGoodKeyPoints1.ToArray());
-                goodKeyPointsVector2 = new VectorOfKeyPoint(tempGoodKeyPoints2.ToArray());
-
-                var good1 = tempGoodKeyPoints1.Select(p => new SKPoint(p.Point.X, p.Point.Y)).ToArray();
-                var good2 = tempGoodKeyPoints2.Select(p => new SKPoint(p.Point.X, p.Point.Y)).ToArray();
-
-                if(good1.Length != good2.Length) Debug.WriteLine("crap.");
-
-
-
-                #region translation
-                var baseOffset = GetNetYOffset(good1, good2);
-                const int FINAL_TRANSLATION_DELTA = 1; //TODO: make configurable?
-                var translationInc = secondImage.Height / 2;
-                var finalTranslation = 0;
-
-                while (translationInc > FINAL_TRANSLATION_DELTA)
-                {
-                    var translateA = SKMatrix.MakeTranslation(0, finalTranslation + translationInc);
-                    var translateB = SKMatrix.MakeTranslation(0, finalTranslation - translationInc);
-                    var attemptA = translateA.MapPoints(good2);
-                    var offsetA = GetNetYOffset(good1, attemptA);
-                    var attemptB = translateB.MapPoints(good2);
-                    var offsetB = GetNetYOffset(good1, attemptB);
-
-                    if (offsetA < baseOffset)
-                    {
-                        baseOffset = offsetA;
-                        finalTranslation += translationInc;
-                    }
-                    else if (offsetB < baseOffset)
-                    {
-                        baseOffset = offsetB;
-                        finalTranslation -= translationInc;
-                    }
-                    translationInc /= 2;
-                }
-
-                var translated2 = SKMatrix.MakeTranslation(0, finalTranslation);
-                good2 = translated2.MapPoints(good2);
-                #endregion
-
-                #region rotation
-                baseOffset = GetNetYOffset(good1, good2);
-                const float FINAL_ROTATION_DELTA = 0.0001f; //TODO: make configurable?
-                var rotationInc = (float)Math.PI / 2f;
-                var finalRotation = 0f;
-
-                while (rotationInc > FINAL_ROTATION_DELTA)
-                {
-                    var rotateA = SKMatrix.MakeRotation(finalRotation + rotationInc, secondImage.Width / 2f, secondImage.Height / 2f);
-                    var rotateB = SKMatrix.MakeRotation(finalRotation - rotationInc, secondImage.Width / 2f, secondImage.Height / 2f);
-                    var attemptA = rotateA.MapPoints(good2);
-                    var offsetA = GetNetYOffset(good1, attemptA);
-                    var attemptB = rotateB.MapPoints(good2);
-                    var offsetB = GetNetYOffset(good1, attemptB);
-
-                    if (offsetA < baseOffset)
-                    {
-                        baseOffset = offsetA;
-                        finalRotation += rotationInc;
-                    }
-                    else if (offsetB < baseOffset)
-                    {
-                        baseOffset = offsetB;
-                        finalRotation -= rotationInc;
-                    }
-                    rotationInc /= 2f;
-                }
-
-                var rotated2 = SKMatrix.MakeRotation(finalRotation, secondImage.Width / 2f, secondImage.Height / 2f);
-                good2 = rotated2.MapPoints(good2);
-                #endregion
-
-                #region zoom
-                baseOffset = GetNetYOffset(good1, good2);
-                const float FINAL_ZOOM_DELTA = 0.0001f;
-                var zoomInc = 1f;
-                var finalZoom = 1f;
-
-                while (zoomInc > FINAL_ZOOM_DELTA)
-                {
-                    var zoomA = SKMatrix.MakeScale(finalZoom + zoomInc, finalZoom + zoomInc);
-                    var zoomB = SKMatrix.MakeScale(finalZoom - zoomInc, finalZoom - zoomInc);
-                    var attemptA = zoomA.MapPoints(good2);
-                    var offsetA = GetNetYOffset(good1, attemptA);
-                    var attemptB = zoomB.MapPoints(good2);
-                    var offsetB = GetNetYOffset(good1, attemptB);
-
-                    if (offsetA < baseOffset)
-                    {
-                        baseOffset = offsetA;
-                        finalZoom += zoomInc;
-                    }
-                    else if (offsetB < baseOffset)
-                    {
-                        baseOffset = offsetB;
-                        finalZoom -= zoomInc;
-                    }
-                    zoomInc /= 2f;
-                }
-
-                var zoomed2 = SKMatrix.MakeScale(finalZoom, finalZoom);
-                good2 = zoomed2.MapPoints(good2);
-                #endregion
-
-                var finalTranslationMatrix = SKMatrix.MakeTranslation(0, finalTranslation);
-                var finalRotationMatrix = SKMatrix.MakeRotation(finalRotation, secondImage.Width / 2f, secondImage.Height / 2f);
-                var translateAndRotate = new SKMatrix();
-                SKMatrix.Concat(ref translateAndRotate, finalTranslationMatrix, finalRotationMatrix);
-                var finalZoomMatrix = SKMatrix.MakeScale(finalZoom, finalZoom);
-                var finalMatrix = new SKMatrix();
-                SKMatrix.Concat(ref finalMatrix, translateAndRotate, finalZoomMatrix);
-
-                result.TransformMatrix = SKMatrix.MakeIdentity();//finalMatrix;
-                var rotatedImage = new SKBitmap(secondImage.Width, secondImage.Height);
-                using (var canvas = new SKCanvas(rotatedImage))
-                {
-                    canvas.SetMatrix(finalMatrix);
-                    canvas.DrawBitmap(secondImage,0,0);
-                }
-                result.AlignedBitmap = rotatedImage;
-
-
-
-
-                using var fullSizeColor1 = new Mat();
-                using var fullSizeColor2 = new Mat();
-                CvInvoke.Imdecode(GetBytes(firstImage, 1), ImreadModes.Color, fullSizeColor1);
-                CvInvoke.Imdecode(GetBytes(secondImage, 1), ImreadModes.Color, fullSizeColor2);
-
-                using (var drawnResult = new Mat())
-                {
-                    Features2DToolbox.DrawMatches(fullSizeColor1, goodKeyPointsVector1, fullSizeColor2, goodKeyPointsVector2, goodMatchesVector, drawnResult, new MCvScalar(0, 255, 0), new MCvScalar(255, 255, 0));
-#if __IOS__
-                    result.DrawnMatches = drawnResult.ToCGImage().ToSKBitmap();
-#elif __ANDROID__
-                    result.DrawnMatches = drawnResult.ToBitmap().ToSKBitmap();
-#endif
                 }
             }
 
+
+            // OPTION 2
+
+            ////filtering keypoint matching by physical distance from expected keypoint location when transformed by eccWarpMatrix
+            //var transformedKeypoints2 = new VectorOfPointF();
+            //CvInvoke.Transform(new VectorOfPointF(allKeyPointsVector2.ToArray().Select(v => v.Point).ToArray()), transformedKeypoints2, eccWarpMatrix);
+            //const double THRESHOLD_DISTANCE_PROPORTION = 1/20d;
+            //var thresholdDistance = Math.Sqrt(Math.Pow(firstImage.Width, 2) + Math.Pow(firstImage.Height, 2)) * THRESHOLD_DISTANCE_PROPORTION;
+            //var mask = new Mat(allKeyPointsVector2.Size, allKeyPointsVector1.Size, DepthType.Cv8U, 1);
+            //unsafe
+            //{
+            //    var maskPtr = (byte*)mask.DataPointer.ToPointer();
+            //    for (var i = 0; i < transformedKeypoints2.Size; i++)
+            //    {
+            //        var transformedKeyPoint2 = transformedKeypoints2[i];
+            //        for (var j = 0; j < allKeyPointsVector1.Size; j++)
+            //        {
+            //            var keyPoint1 = allKeyPointsVector1[j];
+            //            var physicalDistance = CalculatePhysicalDistanceBetweenPoints(transformedKeyPoint2, keyPoint1.Point);
+            //            if (physicalDistance < thresholdDistance)
+            //            {
+            //                *maskPtr = 255;
+            //            }
+            //            else
+            //            {
+            //                *maskPtr = 0;
+            //            }
+
+            //            maskPtr++;
+            //        }
+            //    }
+            //}
+
+
+
+
+            var vectorOfMatches = new VectorOfVectorOfDMatch();
+            var matcher = new BFMatcher(DistanceType.Hamming); //TODO: consider using crosscheck...?... (to be accepted, keypoints must be closest to each other in both directions)
+            matcher.Add(descriptors1);
+            matcher.KnnMatch(descriptors2, vectorOfMatches, 2, new VectorOfMat(mask));
+
+            var goodMatches = new List<MDMatch>();
+            for (var i = 0; i < vectorOfMatches.Size; i++)
+            {
+                if (vectorOfMatches[i].Size == 0)
+                {
+                    continue;
+                }
+
+                if(vectorOfMatches[i].Size == 1 || 
+                   (vectorOfMatches[i][0].Distance < 0.75 * vectorOfMatches[i][1].Distance)) //make sure matches are unique
+                {
+                    goodMatches.Add(vectorOfMatches[i][0]);
+                }
+            }
+
+            var tempGoodPoints1List = new List<PointF>();
+            var tempGoodKeyPoints1 = new List<MKeyPoint>();
+            var tempGoodPoints2List = new List<PointF>();
+            var tempGoodKeyPoints2 = new List<MKeyPoint>();
+
+            var tempAllKeyPoints1List = allKeyPointsVector1.ToArray().ToList();
+            var tempAllKeyPoints2List = allKeyPointsVector2.ToArray().ToList();
+            var goodMatchesVectorList = new List<MDMatch[]>();
+            for (var ii = 0; ii < goodMatches.Count; ii++)
+            {
+                var queryIndex = goodMatches[ii].QueryIdx;
+                var trainIndex = goodMatches[ii].TrainIdx;
+                tempGoodPoints1List.Add(tempAllKeyPoints1List.ElementAt(trainIndex).Point);
+                tempGoodKeyPoints1.Add(tempAllKeyPoints1List.ElementAt(trainIndex));
+                tempGoodPoints2List.Add(tempAllKeyPoints2List.ElementAt(queryIndex).Point);
+                tempGoodKeyPoints2.Add(tempAllKeyPoints2List.ElementAt(queryIndex));
+                goodMatchesVectorList.Add(new[]{new MDMatch
+                {
+                    Distance = goodMatches[ii].Distance,
+                    ImgIdx = goodMatches[ii].ImgIdx,
+                    QueryIdx = ii,
+                    TrainIdx = ii
+                }});
+            }
+
+            var goodMatchesVector = new VectorOfVectorOfDMatch(goodMatchesVectorList.ToArray());
+            var goodKeyPointsVector1 = new VectorOfKeyPoint(tempGoodKeyPoints1.ToArray());
+            var goodKeyPointsVector2 = new VectorOfKeyPoint(tempGoodKeyPoints2.ToArray());
+
+            var pointsFrom1 = tempGoodKeyPoints1.Select(p => new SKPoint(p.Point.X, p.Point.Y)).ToArray();
+            var pointsFrom2 = tempGoodKeyPoints2.Select(p => new SKPoint(p.Point.X, p.Point.Y)).ToArray();
+
+            if(pointsFrom1.Length != pointsFrom2.Length) Debug.WriteLine("crap.");
+
+
+
+
+            #region translation1
+            var translation = FindTranslation(pointsFrom1, pointsFrom2, secondImage);
+            var translated = SKMatrix.MakeTranslation(0, translation);
+            pointsFrom2 = translated.MapPoints(pointsFrom2);
+            #endregion
+
+            #region rotation1
+            var rotation = FindRotation(pointsFrom1, pointsFrom2, secondImage);
+            var rotated = SKMatrix.MakeRotation(rotation, secondImage.Width / 2f, secondImage.Height / 2f);
+            pointsFrom2 = rotated.MapPoints(pointsFrom2);
+            #endregion
+
+            #region zoom1
+            var finalZoom = FindZoom(pointsFrom1, pointsFrom2);
+            var zoomed = SKMatrix.MakeScale(finalZoom, finalZoom);
+            pointsFrom2 = zoomed.MapPoints(pointsFrom2);
+            #endregion
+
+            #region finalMatrixConstruction
+            var translateRotateCombo = new SKMatrix();
+            SKMatrix.Concat(ref translateRotateCombo, translated, rotated);
+            var finalMatrix = new SKMatrix();
+            SKMatrix.Concat(ref finalMatrix, translateRotateCombo, zoomed);
+            result.TransformMatrix = SKMatrix.MakeIdentity();//finalMatrix;
+            var rotatedImage = new SKBitmap(secondImage.Width, secondImage.Height);
+            using (var canvas = new SKCanvas(rotatedImage))
+            {
+                canvas.SetMatrix(finalMatrix);
+                canvas.DrawBitmap(secondImage, 0, 0);
+            }
+            result.AlignedBitmap = rotatedImage;
+            #endregion
+
+
+
+
+            using var fullSizeColor1 = new Mat();
+            using var fullSizeColor2 = new Mat();
+            CvInvoke.Imdecode(GetBytes(firstImage, 1), ImreadModes.Color, fullSizeColor1);
+            CvInvoke.Imdecode(GetBytes(secondImage, 1), ImreadModes.Color, fullSizeColor2);
+
+            using var drawnResult = new Mat();
+            Features2DToolbox.DrawMatches(fullSizeColor1, goodKeyPointsVector1, fullSizeColor2, goodKeyPointsVector2, goodMatchesVector, drawnResult, new MCvScalar(0, 255, 0), new MCvScalar(255, 255, 0));
+#if __IOS__
+            result.DrawnMatches = drawnResult.ToCGImage().ToSKBitmap();
+#elif __ANDROID__
+            result.DrawnMatches = drawnResult.ToBitmap().ToSKBitmap();
+#endif
             return result;
+        }
+
+        //private static SKMatrix ConcatenateMatrices(params SKMatrix[] matrices)
+        //{
+        //    var finalMatrix = new SKMatrix();
+        //    return matrices.Aggregate(finalMatrix, ConcatenateMatrices);
+        //}
+
+        //private static SKMatrix ConcatenateMatrices(SKMatrix matrix1, SKMatrix matrix2)
+        //{
+        //    var finalMatrix = new SKMatrix();
+        //    SKMatrix.Concat(ref finalMatrix, matrix1, matrix2);
+        //    return finalMatrix;
+        //}
+
+        private static float FindTranslation(SKPoint[] good1, SKPoint[] good2, SKBitmap secondImage, float seed = 0)
+        {
+            var baseOffset = GetNetYOffset(good1, good2);
+            const int FINAL_TRANSLATION_DELTA = 1;
+            var translationInc = secondImage.Height / 2;
+            var finalTranslation = seed;
+
+            while (translationInc > FINAL_TRANSLATION_DELTA)
+            {
+                var translateA = SKMatrix.MakeTranslation(0, finalTranslation + translationInc);
+                var translateB = SKMatrix.MakeTranslation(0, finalTranslation - translationInc);
+                var attemptA = translateA.MapPoints(good2);
+                var offsetA = GetNetYOffset(good1, attemptA);
+                var attemptB = translateB.MapPoints(good2);
+                var offsetB = GetNetYOffset(good1, attemptB);
+
+                if (offsetA < baseOffset)
+                {
+                    baseOffset = offsetA;
+                    finalTranslation += translationInc;
+                }
+                else if (offsetB < baseOffset)
+                {
+                    baseOffset = offsetB;
+                    finalTranslation -= translationInc;
+                }
+                translationInc /= 2;
+            }
+
+            return finalTranslation;
+        }
+
+        private static float FindRotation(SKPoint[] good1, SKPoint[] good2, SKBitmap secondImage, float seed = 0)
+        {
+            var baseOffset = GetNetYOffset(good1, good2);
+            const float FINAL_ROTATION_DELTA = 0.0001f; //TODO: make configurable?
+            var rotationInc = (float)Math.PI / 2f;
+            var finalRotation = seed;
+
+            while (rotationInc > FINAL_ROTATION_DELTA)
+            {
+                var rotateA = SKMatrix.MakeRotation(finalRotation + rotationInc, secondImage.Width / 2f, secondImage.Height / 2f);
+                var rotateB = SKMatrix.MakeRotation(finalRotation - rotationInc, secondImage.Width / 2f, secondImage.Height / 2f);
+                var attemptA = rotateA.MapPoints(good2);
+                var offsetA = GetNetYOffset(good1, attemptA);
+                var attemptB = rotateB.MapPoints(good2);
+                var offsetB = GetNetYOffset(good1, attemptB);
+
+                if (offsetA < baseOffset)
+                {
+                    baseOffset = offsetA;
+                    finalRotation += rotationInc;
+                }
+                else if (offsetB < baseOffset)
+                {
+                    baseOffset = offsetB;
+                    finalRotation -= rotationInc;
+                }
+                rotationInc /= 2f;
+            }
+
+            return finalRotation;
+        }
+
+        private static float FindZoom(SKPoint[] good1, SKPoint[] good2, float seed = 1f)
+        {
+            var baseOffset = GetNetYOffset(good1, good2);
+            const float FINAL_ZOOM_DELTA = 0.0001f; //TODO: make configurable?
+            var zoomInc = 1f;
+            var finalZoom = seed;
+
+            while (zoomInc > FINAL_ZOOM_DELTA)
+            {
+                var zoomA = SKMatrix.MakeScale(finalZoom + zoomInc, finalZoom + zoomInc);
+                var zoomB = SKMatrix.MakeScale(finalZoom - zoomInc, finalZoom - zoomInc);
+                var attemptA = zoomA.MapPoints(good2);
+                var offsetA = GetNetYOffset(good1, attemptA);
+                var attemptB = zoomB.MapPoints(good2);
+                var offsetB = GetNetYOffset(good1, attemptB);
+
+                if (offsetA < baseOffset)
+                {
+                    baseOffset = offsetA;
+                    finalZoom += zoomInc;
+                }
+                else if (offsetB < baseOffset)
+                {
+                    baseOffset = offsetB;
+                    finalZoom -= zoomInc;
+                }
+                zoomInc /= 2f;
+            }
+
+            return finalZoom;
         }
 
         private static double GetNetYOffset(SKPoint[] points1, SKPoint[] points2)
