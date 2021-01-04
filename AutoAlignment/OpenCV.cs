@@ -231,9 +231,9 @@ namespace AutoAlignment
 
 
             var vectorOfMatches = new VectorOfVectorOfDMatch();
-            var matcher = new BFMatcher(DistanceType.Hamming);
+            var matcher = new BFMatcher(DistanceType.Hamming, true); //TODO: messing with crosscheck, it's turned on... good? if using, don't need unique match check below.
             matcher.Add(descriptors1);
-            matcher.KnnMatch(descriptors2, vectorOfMatches, 2, new VectorOfMat(mask));
+            matcher.KnnMatch(descriptors2, vectorOfMatches, 1, new VectorOfMat()); //TODO: am not using the mask... is that good?
 
             var goodMatches = new List<MDMatch>();
             for (var i = 0; i < vectorOfMatches.Size; i++)
@@ -357,7 +357,7 @@ namespace AutoAlignment
             var rotated3 = SKMatrix.MakeRotation(rotation3, secondImage.Width / 2f, secondImage.Height / 2f);
             points2 = rotated3.MapPoints(points2);
 
-            var zoom3 = FindZoom(points1, points2);
+            var zoom3 = FindZoom(points1, points2); //TODO: how am i handling different resolutions on the way in?
             var zoomed3 = SKMatrix.MakeScale(zoom3, zoom3);
             points2 = zoomed3.MapPoints(points2);
 
@@ -384,14 +384,14 @@ namespace AutoAlignment
 
 
 
-            result.TransformMatrix = SKMatrix.MakeIdentity();//finalMatrix;
-            var rotatedImage = new SKBitmap(secondImage.Width, secondImage.Height);
-            using (var canvas = new SKCanvas(rotatedImage))
+            result.TransformMatrix = tempMatrix8; //TODO: this doesn't translate horizontally right now - add that as an option
+            var alignedImage = new SKBitmap(secondImage.Width, secondImage.Height);
+            using (var canvas = new SKCanvas(alignedImage))
             {
                 canvas.SetMatrix(tempMatrix8);
                 canvas.DrawBitmap(secondImage, 0, 0);
             }
-            result.AlignedBitmap = rotatedImage;
+            result.AlignedBitmap = alignedImage;
 
 
 
@@ -423,19 +423,6 @@ namespace AutoAlignment
             public PointF Point2 { get; set; }
             public KeyPointOutlierDetectorData Data { get; set; }
         }
-
-        //private static SKMatrix ConcatenateMatrices(params SKMatrix[] matrices)
-        //{
-        //    var finalMatrix = new SKMatrix();
-        //    return matrices.Aggregate(finalMatrix, ConcatenateMatrices);
-        //}
-
-        //private static SKMatrix ConcatenateMatrices(SKMatrix matrix1, SKMatrix matrix2)
-        //{
-        //    var finalMatrix = new SKMatrix();
-        //    SKMatrix.Concat(ref finalMatrix, matrix1, matrix2);
-        //    return finalMatrix;
-        //}
 
         private static float FindTranslation(SKPoint[] good1, SKPoint[] good2, SKBitmap secondImage)
         {
