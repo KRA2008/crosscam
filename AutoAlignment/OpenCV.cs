@@ -231,7 +231,7 @@ namespace AutoAlignment
 
 
             var vectorOfMatches = new VectorOfVectorOfDMatch();
-            var matcher = new BFMatcher(DistanceType.Hamming); //TODO: consider using crosscheck...?... (to be accepted, keypoints must be closest to each other in both directions)
+            var matcher = new BFMatcher(DistanceType.Hamming);
             matcher.Add(descriptors1);
             matcher.KnnMatch(descriptors2, vectorOfMatches, 2, new VectorOfMat(mask));
 
@@ -279,46 +279,119 @@ namespace AutoAlignment
             var goodKeyPointsVector1 = new VectorOfKeyPoint(tempGoodKeyPoints1.ToArray());
             var goodKeyPointsVector2 = new VectorOfKeyPoint(tempGoodKeyPoints2.ToArray());
 
-            var pointsFrom1 = tempGoodKeyPoints1.Select(p => new SKPoint(p.Point.X, p.Point.Y)).ToArray();
-            var pointsFrom2 = tempGoodKeyPoints2.Select(p => new SKPoint(p.Point.X, p.Point.Y)).ToArray();
+            var pointsFrom1 = tempGoodKeyPoints1.Select(p => p.Point).ToList();
+            var pointsFrom2 = tempGoodKeyPoints2.Select(p => p.Point).ToList();
 
-            if(pointsFrom1.Length != pointsFrom2.Length) Debug.WriteLine("crap.");
+            if(pointsFrom1.Count != pointsFrom2.Count) Debug.WriteLine("crap.");
+
+            var pairedPoints = new List<PointForCleaning>();
+            for (var ii = 0; ii < pointsFrom1.Count; ii++)
+            {
+                var point1 = pointsFrom1[ii];
+                var point2 = pointsFrom2[ii];
+                pairedPoints.Add(new PointForCleaning
+                {
+                    Point1 = point1,
+                    Point2 = point2,
+                    Data = new KeyPointOutlierDetectorData
+                    {
+                        Distance = (float)CalculatePhysicalDistanceBetweenPoints(point1, point2),
+                        Slope = (point2.Y - point1.Y) / (point2.X - point1.X)
+                    }
+                });
+            }
+
+            Debug.WriteLine("Dirty Distances: " + string.Join(",", pairedPoints.Select(d => d.Data.Distance)));
+            Debug.WriteLine("Dirty Slopes: " + string.Join(",", pairedPoints.Select(d => d.Data.Slope)));
+            Debug.WriteLine("Dirty X: " + string.Join(",", pairedPoints.Select(d => Math.Abs(d.Point1.X - d.Point2.X))));
+            Debug.WriteLine("Dirty Y: " + string.Join(",", pairedPoints.Select(d => Math.Abs(d.Point1.Y - d.Point2.Y))));
+
+            var rejectCountOnEnds = pairedPoints.Count * 0.05;
+            pairedPoints = pairedPoints.OrderBy(p => p.Data.Slope).ToList();
+            pairedPoints.RemoveRange(0, (int)rejectCountOnEnds);
+            pairedPoints.RemoveRange((int)(pairedPoints.Count - rejectCountOnEnds), (int)rejectCountOnEnds);
+
+            Debug.WriteLine("Clean Distances: " + string.Join(",", pairedPoints.Select(d => d.Data.Distance)));
+            Debug.WriteLine("Clean Slopes: " + string.Join(",", pairedPoints.Select(d => d.Data.Slope)));
+            Debug.WriteLine("Clean X: " + string.Join(",", pairedPoints.Select(d => Math.Abs(d.Point1.X - d.Point2.X))));
+            Debug.WriteLine("Clean Y: " + string.Join(",", pairedPoints.Select(d => Math.Abs(d.Point1.Y - d.Point2.Y))));
+
+            var points1 = pairedPoints.Select(p => new SKPoint(p.Point1.X, p.Point1.Y)).ToArray();
+            var points2 = pairedPoints.Select(p => new SKPoint(p.Point2.X, p.Point2.Y)).ToArray();
 
 
 
+            var translation1 = FindTranslation(points1, points2, secondImage);
+            var translated1 = SKMatrix.MakeTranslation(0, translation1);
+            points2 = translated1.MapPoints(points2);
 
-            #region translation1
-            var translation = FindTranslation(pointsFrom1, pointsFrom2, secondImage);
-            var translated = SKMatrix.MakeTranslation(0, translation);
-            pointsFrom2 = translated.MapPoints(pointsFrom2);
-            #endregion
+            var rotation1 = FindRotation(points1, points2, secondImage);
+            var rotated1 = SKMatrix.MakeRotation(rotation1, secondImage.Width / 2f, secondImage.Height / 2f);
+            points2 = rotated1.MapPoints(points2);
 
-            #region rotation1
-            var rotation = FindRotation(pointsFrom1, pointsFrom2, secondImage);
-            var rotated = SKMatrix.MakeRotation(rotation, secondImage.Width / 2f, secondImage.Height / 2f);
-            pointsFrom2 = rotated.MapPoints(pointsFrom2);
-            #endregion
+            var zoom1 = FindZoom(points1, points2);
+            var zoomed1 = SKMatrix.MakeScale(zoom1, zoom1);
+            points2 = zoomed1.MapPoints(points2);
 
-            #region zoom1
-            var finalZoom = FindZoom(pointsFrom1, pointsFrom2);
-            var zoomed = SKMatrix.MakeScale(finalZoom, finalZoom);
-            pointsFrom2 = zoomed.MapPoints(pointsFrom2);
-            #endregion
 
-            #region finalMatrixConstruction
-            var translateRotateCombo = new SKMatrix();
-            SKMatrix.Concat(ref translateRotateCombo, translated, rotated);
-            var finalMatrix = new SKMatrix();
-            SKMatrix.Concat(ref finalMatrix, translateRotateCombo, zoomed);
+
+            var translation2 = FindTranslation(points1, points2, secondImage);
+            var translated2 = SKMatrix.MakeTranslation(0, translation2);
+            points2 = translated2.MapPoints(points2);
+
+            var rotation2 = FindRotation(points1, points2, secondImage);
+            var rotated2 = SKMatrix.MakeRotation(rotation2, secondImage.Width / 2f, secondImage.Height / 2f);
+            points2 = rotated2.MapPoints(points2);
+
+            var zoom2 = FindZoom(points1, points2);
+            var zoomed2 = SKMatrix.MakeScale(zoom2, zoom2);
+            points2 = zoomed2.MapPoints(points2);
+
+            
+
+            var translation3 = FindTranslation(points1, points2, secondImage);
+            var translated3 = SKMatrix.MakeTranslation(0, translation3);
+            points2 = translated3.MapPoints(points2);
+
+            var rotation3 = FindRotation(points1, points2, secondImage);
+            var rotated3 = SKMatrix.MakeRotation(rotation3, secondImage.Width / 2f, secondImage.Height / 2f);
+            points2 = rotated3.MapPoints(points2);
+
+            var zoom3 = FindZoom(points1, points2);
+            var zoomed3 = SKMatrix.MakeScale(zoom3, zoom3);
+            points2 = zoomed3.MapPoints(points2);
+
+
+
+            var tempMatrix1 = new SKMatrix();
+            SKMatrix.Concat(ref tempMatrix1, translated1, rotated1);
+            var tempMatrix2 = new SKMatrix();
+            SKMatrix.Concat(ref tempMatrix2, tempMatrix1, zoomed1);
+
+            var tempMatrix3 = new SKMatrix();
+            SKMatrix.Concat(ref tempMatrix3, tempMatrix2, translated2);
+            var tempMatrix4 = new SKMatrix();
+            SKMatrix.Concat(ref tempMatrix4, tempMatrix3, rotated2);
+            var tempMatrix5 = new SKMatrix();
+            SKMatrix.Concat(ref tempMatrix5, tempMatrix4, zoomed2);
+
+            var tempMatrix6 = new SKMatrix();
+            SKMatrix.Concat(ref tempMatrix6, tempMatrix5, translated3);
+            var tempMatrix7 = new SKMatrix();
+            SKMatrix.Concat(ref tempMatrix7, tempMatrix6, rotated3);
+            var tempMatrix8 = new SKMatrix();
+            SKMatrix.Concat(ref tempMatrix8, tempMatrix7, zoomed3);
+
+
+
             result.TransformMatrix = SKMatrix.MakeIdentity();//finalMatrix;
             var rotatedImage = new SKBitmap(secondImage.Width, secondImage.Height);
             using (var canvas = new SKCanvas(rotatedImage))
             {
-                canvas.SetMatrix(finalMatrix);
+                canvas.SetMatrix(tempMatrix8);
                 canvas.DrawBitmap(secondImage, 0, 0);
             }
             result.AlignedBitmap = rotatedImage;
-            #endregion
 
 
 
@@ -338,6 +411,19 @@ namespace AutoAlignment
             return result;
         }
 
+        private class KeyPointOutlierDetectorData
+        {
+            public float Distance { get; set; }
+            public float Slope { get; set; }
+        }
+
+        private class PointForCleaning
+        {
+            public PointF Point1 { get; set; }
+            public PointF Point2 { get; set; }
+            public KeyPointOutlierDetectorData Data { get; set; }
+        }
+
         //private static SKMatrix ConcatenateMatrices(params SKMatrix[] matrices)
         //{
         //    var finalMatrix = new SKMatrix();
@@ -351,12 +437,12 @@ namespace AutoAlignment
         //    return finalMatrix;
         //}
 
-        private static float FindTranslation(SKPoint[] good1, SKPoint[] good2, SKBitmap secondImage, float seed = 0)
+        private static float FindTranslation(SKPoint[] good1, SKPoint[] good2, SKBitmap secondImage)
         {
             var baseOffset = GetNetYOffset(good1, good2);
             const int FINAL_TRANSLATION_DELTA = 1;
             var translationInc = secondImage.Height / 2;
-            var finalTranslation = seed;
+            var finalTranslation = 0f;
 
             while (translationInc > FINAL_TRANSLATION_DELTA)
             {
@@ -383,12 +469,12 @@ namespace AutoAlignment
             return finalTranslation;
         }
 
-        private static float FindRotation(SKPoint[] good1, SKPoint[] good2, SKBitmap secondImage, float seed = 0)
+        private static float FindRotation(SKPoint[] good1, SKPoint[] good2, SKBitmap secondImage)
         {
             var baseOffset = GetNetYOffset(good1, good2);
             const float FINAL_ROTATION_DELTA = 0.0001f; //TODO: make configurable?
             var rotationInc = (float)Math.PI / 2f;
-            var finalRotation = seed;
+            var finalRotation = 0f;
 
             while (rotationInc > FINAL_ROTATION_DELTA)
             {
@@ -415,12 +501,12 @@ namespace AutoAlignment
             return finalRotation;
         }
 
-        private static float FindZoom(SKPoint[] good1, SKPoint[] good2, float seed = 1f)
+        private static float FindZoom(SKPoint[] good1, SKPoint[] good2)
         {
             var baseOffset = GetNetYOffset(good1, good2);
             const float FINAL_ZOOM_DELTA = 0.0001f; //TODO: make configurable?
             var zoomInc = 1f;
-            var finalZoom = seed;
+            var finalZoom = 1f;
 
             while (zoomInc > FINAL_ZOOM_DELTA)
             {
