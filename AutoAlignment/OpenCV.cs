@@ -127,15 +127,8 @@ namespace AutoAlignment
             return result;
         }
 
-        //TODO: when this one has good keypoints (its own challenge):
-        //TODO: - rigid transform seems to make perfectly built stereograms *worse* (it's trying to minimize keypoint changes, which isn't really what we want
-        //TODO: - allowing full affine makes the horizontal alignment better, but it causes skewing which can make the picture totally trippy and unrealistic
-        //TODO: - using stereoRectifyUncalibrated gives me weird results that mess up perfect pictures and absolutely destroys imperfect ones
-        //TODO:       ^is stereo rectification even what I want? or is that more like allowing two camera/computers to see "perpendicularly" without being perpendicular? (coincidence that rectified stereograms are sometimes good viewing?)
-        //TODO: - look into alignment as one would use for a panorama?
-        //TODO: ???? roll my own optimization based on horizontal lines and keypoints?
         public AlignedResult CreateAlignedSecondImageKeypoints(SKBitmap firstImage, SKBitmap secondImage,
-            bool discardTransX, bool fullAffine)
+            bool discardTransX, bool crossCheck)
         {
 #if __NO_EMGU__
             return null;
@@ -157,83 +150,41 @@ namespace AutoAlignment
             CvInvoke.Imdecode(GetBytes(secondImage, 1), READ_MODE, mat2);
             detector.DetectAndCompute(mat2, null, allKeyPointsVector2, descriptors2, false);
 
-            // OPTION 1A
-
-            ////filtering keypoint matching by physical distance between keypoints as proportion of image size
             const double THRESHOLD_PROPORTION = 1 / 4d;
-            var thresholdDistance = Math.Sqrt(Math.Pow(firstImage.Width, 2) + Math.Pow(firstImage.Height, 2)) * THRESHOLD_PROPORTION; //TODO: idk, something else?
+            var thresholdDistance = Math.Sqrt(Math.Pow(firstImage.Width, 2) + Math.Pow(firstImage.Height, 2)) * THRESHOLD_PROPORTION;
 
-            //OPTION 1B
-
-            ////filtering keypoint matching by physical distance as proportion of eccWarpMatrix translation distance
-            const double THRESHOLD = 2;
-            //var thresholdDistance = Math.Sqrt(Math.Pow(skMatrix.TransX, 2) + Math.Pow(skMatrix.TransY, 2)) * THRESHOLD; //TODO: account for rotation?
-
-            var mask = new Mat(allKeyPointsVector2.Size, allKeyPointsVector1.Size, DepthType.Cv8U, 1);
-            unsafe
+            var distanceThresholdMask = new Mat(allKeyPointsVector2.Size, allKeyPointsVector1.Size, DepthType.Cv8U, 1);
+            if (!crossCheck)
             {
-                var maskPtr = (byte*)mask.DataPointer.ToPointer();
-                for (var i = 0; i < allKeyPointsVector2.Size; i++)
+                unsafe
                 {
-                    var keyPoint2 = allKeyPointsVector2[i];
-                    for (var j = 0; j < allKeyPointsVector1.Size; j++)
+                    var maskPtr = (byte*)distanceThresholdMask.DataPointer.ToPointer();
+                    for (var i = 0; i < allKeyPointsVector2.Size; i++)
                     {
-                        var keyPoint1 = allKeyPointsVector1[j];
-                        var physicalDistance = CalculatePhysicalDistanceBetweenPoints(keyPoint2.Point, keyPoint1.Point);
-                        if (physicalDistance < thresholdDistance)
+                        var keyPoint2 = allKeyPointsVector2[i];
+                        for (var j = 0; j < allKeyPointsVector1.Size; j++)
                         {
-                            *maskPtr = 255;
-                        }
-                        else
-                        {
-                            *maskPtr = 0;
-                        }
+                            var keyPoint1 = allKeyPointsVector1[j];
+                            var physicalDistance = CalculatePhysicalDistanceBetweenPoints(keyPoint2.Point, keyPoint1.Point);
+                            if (physicalDistance < thresholdDistance)
+                            {
+                                *maskPtr = 255;
+                            }
+                            else
+                            {
+                                *maskPtr = 0;
+                            }
 
-                        maskPtr++;
+                            maskPtr++;
+                        }
                     }
                 }
             }
 
-
-            // OPTION 2
-
-            ////filtering keypoint matching by physical distance from expected keypoint location when transformed by eccWarpMatrix
-            //var transformedKeypoints2 = new VectorOfPointF();
-            //CvInvoke.Transform(new VectorOfPointF(allKeyPointsVector2.ToArray().Select(v => v.Point).ToArray()), transformedKeypoints2, eccWarpMatrix);
-            //const double THRESHOLD_DISTANCE_PROPORTION = 1/20d;
-            //var thresholdDistance = Math.Sqrt(Math.Pow(firstImage.Width, 2) + Math.Pow(firstImage.Height, 2)) * THRESHOLD_DISTANCE_PROPORTION;
-            //var mask = new Mat(allKeyPointsVector2.Size, allKeyPointsVector1.Size, DepthType.Cv8U, 1);
-            //unsafe
-            //{
-            //    var maskPtr = (byte*)mask.DataPointer.ToPointer();
-            //    for (var i = 0; i < transformedKeypoints2.Size; i++)
-            //    {
-            //        var transformedKeyPoint2 = transformedKeypoints2[i];
-            //        for (var j = 0; j < allKeyPointsVector1.Size; j++)
-            //        {
-            //            var keyPoint1 = allKeyPointsVector1[j];
-            //            var physicalDistance = CalculatePhysicalDistanceBetweenPoints(transformedKeyPoint2, keyPoint1.Point);
-            //            if (physicalDistance < thresholdDistance)
-            //            {
-            //                *maskPtr = 255;
-            //            }
-            //            else
-            //            {
-            //                *maskPtr = 0;
-            //            }
-
-            //            maskPtr++;
-            //        }
-            //    }
-            //}
-
-
-
-
             var vectorOfMatches = new VectorOfVectorOfDMatch();
-            var matcher = new BFMatcher(DistanceType.Hamming, true); //TODO: messing with crosscheck, it's turned on... good? if using, don't need unique match check below.
+            var matcher = new BFMatcher(DistanceType.Hamming, crossCheck);
             matcher.Add(descriptors1);
-            matcher.KnnMatch(descriptors2, vectorOfMatches, 1, new VectorOfMat()); //TODO: am not using the mask... is that good?
+            matcher.KnnMatch(descriptors2, vectorOfMatches, crossCheck ? 1 : 2, crossCheck ? new VectorOfMat() : new VectorOfMat(distanceThresholdMask));
 
             var goodMatches = new List<MDMatch>();
             for (var i = 0; i < vectorOfMatches.Size; i++)
@@ -250,9 +201,7 @@ namespace AutoAlignment
                 }
             }
 
-            var tempGoodPoints1List = new List<PointF>();
             var tempGoodKeyPoints1 = new List<MKeyPoint>();
-            var tempGoodPoints2List = new List<PointF>();
             var tempGoodKeyPoints2 = new List<MKeyPoint>();
 
             var tempAllKeyPoints1List = allKeyPointsVector1.ToArray().ToList();
@@ -262,9 +211,7 @@ namespace AutoAlignment
             {
                 var queryIndex = goodMatches[ii].QueryIdx;
                 var trainIndex = goodMatches[ii].TrainIdx;
-                tempGoodPoints1List.Add(tempAllKeyPoints1List.ElementAt(trainIndex).Point);
                 tempGoodKeyPoints1.Add(tempAllKeyPoints1List.ElementAt(trainIndex));
-                tempGoodPoints2List.Add(tempAllKeyPoints2List.ElementAt(queryIndex).Point);
                 tempGoodKeyPoints2.Add(tempAllKeyPoints2List.ElementAt(queryIndex));
                 goodMatchesVectorList.Add(new[]{new MDMatch
                 {
@@ -306,10 +253,17 @@ namespace AutoAlignment
             Debug.WriteLine("Dirty X: " + string.Join(",", pairedPoints.Select(d => Math.Abs(d.Point1.X - d.Point2.X))));
             Debug.WriteLine("Dirty Y: " + string.Join(",", pairedPoints.Select(d => Math.Abs(d.Point1.Y - d.Point2.Y))));
 
-            var rejectCountOnEnds = pairedPoints.Count * 0.05;
-            pairedPoints = pairedPoints.OrderBy(p => p.Data.Slope).ToList();
-            pairedPoints.RemoveRange(0, (int)rejectCountOnEnds);
-            pairedPoints.RemoveRange((int)(pairedPoints.Count - rejectCountOnEnds), (int)rejectCountOnEnds);
+            // reject ends of slope strat for cleaning
+            //var rejectCountOnEnds = pairedPoints.Count * 0.05;
+            //pairedPoints = pairedPoints.OrderBy(p => p.Data.Slope).ToList();
+            //pairedPoints.RemoveRange(0, (int)rejectCountOnEnds);
+            //pairedPoints.RemoveRange((int)(pairedPoints.Count - rejectCountOnEnds), (int)rejectCountOnEnds);
+
+            // reject slopes outside 2 standard deviations
+            var medianSlope = pairedPoints.OrderBy(p => p.Data.Slope).ElementAt(pairedPoints.Count / 2).Data.Slope;
+            const double SLOPE_REJECT_THRESHOLD = 0.15;
+            pairedPoints = pairedPoints.Where(p =>
+                Math.Abs(p.Data.Slope - medianSlope) < Math.Abs(medianSlope* SLOPE_REJECT_THRESHOLD)).ToList();
 
             Debug.WriteLine("Clean Distances: " + string.Join(",", pairedPoints.Select(d => d.Data.Distance)));
             Debug.WriteLine("Clean Slopes: " + string.Join(",", pairedPoints.Select(d => d.Data.Slope)));

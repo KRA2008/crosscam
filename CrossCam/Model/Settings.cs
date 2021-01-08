@@ -278,7 +278,7 @@ namespace CrossCam.Model
 
         public bool AlignHorizontallySideBySide { get; set; }
         public bool AlignWithKeypoints { get; set; }
-        public bool AlignFullAffine { get; set; }
+        public bool AlignUseCrossCheck { get; set; }
 
         private int _alignmentEpsilonLevel2;
         public int AlignmentEpsilonLevel2
@@ -410,7 +410,7 @@ namespace CrossCam.Model
             AlignmentPyramidLayers2 = 4;
             AlignmentDrawMatches = false;
             AlignWithKeypoints = true;
-            AlignFullAffine = true;
+            AlignUseCrossCheck = true;
 
             ResolutionProportion = 100;
             BorderWidthProportion = 15;

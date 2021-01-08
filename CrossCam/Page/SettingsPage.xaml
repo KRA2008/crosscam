@@ -135,14 +135,14 @@
                         IsEnabled="{Binding Settings.IsAutomaticAlignmentOn}"/>
             </StackLayout>
             <StackLayout Orientation="Horizontal">
-                <Label Text="Use keypoint alignment (rather than ECC)"/>
+                <Label Text="Use keypoint alignment (vs ECC)"/>
                 <Switch IsToggled="{Binding Settings.AlignWithKeypoints}"
                         IsEnabled="{Binding Settings.IsAutomaticAlignmentOn}"/>
             </StackLayout>
             <StackLayout Orientation="Horizontal"
                          IsVisible="{ce:DebugMarkupExtension}">
-                <Label Text="Allow full affine transformation"/>
-                <Switch IsToggled="{Binding Settings.AlignFullAffine}"/>
+                <Label Text="Crosscheck keypoints (vs ratio checks)"/>
+                <Switch IsToggled="{Binding Settings.AlignUseCrossCheck}"/>
             </StackLayout>
             <StackLayout Orientation="Horizontal"
                          IsVisible="{ce:DebugMarkupExtension}">

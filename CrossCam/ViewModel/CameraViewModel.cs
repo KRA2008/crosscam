@@ -1175,7 +1175,7 @@ namespace CrossCam.ViewModel
                             if (Settings.AlignWithKeypoints)
                             {
                                 alignedResult = openCv.CreateAlignedSecondImageKeypoints(firstImage, secondImage,
-                                    discardTransX, Settings.AlignFullAffine);
+                                    discardTransX, Settings.AlignUseCrossCheck);
                             }
                             else
                             {
@@ -1356,6 +1356,7 @@ namespace CrossCam.ViewModel
                 }
                 else
                 {
+                    CheckAndCorrectResolutionDifferences();
                     if (BluetoothOperator.IsPrimary &&
                         BluetoothOperator.PairStatus == PairStatus.Connected)
                     {
@@ -1394,6 +1395,7 @@ namespace CrossCam.ViewModel
                 }
                 else
                 {
+                    CheckAndCorrectResolutionDifferences();
                     if (BluetoothOperator.IsPrimary &&
                         BluetoothOperator.PairStatus == PairStatus.Connected)
                     {
@@ -1408,6 +1410,37 @@ namespace CrossCam.ViewModel
                     CameraColumn = IsCaptureLeftFirst ? 0 : 1;
                     WorkflowStage = WorkflowStage.Final;
                     AutoAlign();
+                }
+            }
+        }
+
+        private void CheckAndCorrectResolutionDifferences()
+        {
+            var leftRatio = LeftBitmap.Width / (1f * LeftBitmap.Height);
+            var rightRatio = RightBitmap.Width / (1f * RightBitmap.Height);
+            if (leftRatio != rightRatio)// TODO: something
+            {
+
+            }
+            else
+            {
+                if (LeftBitmap.Width < RightBitmap.Width)
+                {
+                    var corrected = new SKBitmap(LeftBitmap.Width, LeftBitmap.Height);
+                    using (var surface = new SKCanvas(corrected))
+                    {
+                        surface.DrawBitmap(RightBitmap,0,0);
+                    }
+                    RightBitmap = corrected;
+                }
+                else if (RightBitmap.Width < LeftBitmap.Width)
+                {
+                    var corrected = new SKBitmap(RightBitmap.Width, RightBitmap.Height);
+                    using (var surface = new SKCanvas(corrected))
+                    {
+                        surface.DrawBitmap(LeftBitmap, 0, 0);
+                    }
+                    LeftBitmap = corrected;
                 }
             }
         }
