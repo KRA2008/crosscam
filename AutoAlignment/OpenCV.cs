@@ -402,7 +402,7 @@ namespace AutoAlignment
             CvInvoke.Imdecode(GetBytes(secondImage, 1), ImreadModes.Color, fullSizeColor2);
 
             using var drawnResult = new Mat();
-            Features2DToolbox.DrawMatches(fullSizeColor1, goodKeyPointsVector1, fullSizeColor2, goodKeyPointsVector2, goodMatchesVector, drawnResult, new MCvScalar(0, 255, 0), new MCvScalar(255, 255, 0));
+            Features2DToolbox.DrawMatches(fullSizeColor1, goodKeyPointsVector1, fullSizeColor2, goodKeyPointsVector2, goodMatchesVector, drawnResult, new MCvScalar(0, 255, 0), new MCvScalar(255, 255, 0), new Mat());
 #if __IOS__
             result.DrawnMatches = drawnResult.ToCGImage().ToSKBitmap();
 #elif __ANDROID__
