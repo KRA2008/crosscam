@@ -128,7 +128,7 @@ namespace AutoAlignment
         }
 
         public AlignedResult CreateAlignedSecondImageKeypoints(SKBitmap firstImage, SKBitmap secondImage,
-            bool discardTransX, bool crossCheck)
+            bool discardTransX, bool crossCheck, bool drawMatches)
         {
 #if __NO_EMGU__
             return null;
@@ -201,57 +201,55 @@ namespace AutoAlignment
                 }
             }
 
-            var tempGoodKeyPoints1 = new List<MKeyPoint>();
-            var tempGoodKeyPoints2 = new List<MKeyPoint>();
-
-            var tempAllKeyPoints1List = allKeyPointsVector1.ToArray().ToList();
-            var tempAllKeyPoints2List = allKeyPointsVector2.ToArray().ToList();
-            var goodMatchesVectorList = new List<MDMatch[]>();
+            var pairedPoints = new List<PointForCleaning>();
             for (var ii = 0; ii < goodMatches.Count; ii++)
             {
-                var queryIndex = goodMatches[ii].QueryIdx;
-                var trainIndex = goodMatches[ii].TrainIdx;
-                tempGoodKeyPoints1.Add(tempAllKeyPoints1List.ElementAt(trainIndex));
-                tempGoodKeyPoints2.Add(tempAllKeyPoints2List.ElementAt(queryIndex));
-                goodMatchesVectorList.Add(new[]{new MDMatch
-                {
-                    Distance = goodMatches[ii].Distance,
-                    ImgIdx = goodMatches[ii].ImgIdx,
-                    QueryIdx = ii,
-                    TrainIdx = ii
-                }});
-            }
-
-            var goodMatchesVector = new VectorOfVectorOfDMatch(goodMatchesVectorList.ToArray());
-            var goodKeyPointsVector1 = new VectorOfKeyPoint(tempGoodKeyPoints1.ToArray());
-            var goodKeyPointsVector2 = new VectorOfKeyPoint(tempGoodKeyPoints2.ToArray());
-
-            var pointsFrom1 = tempGoodKeyPoints1.Select(p => p.Point).ToList();
-            var pointsFrom2 = tempGoodKeyPoints2.Select(p => p.Point).ToList();
-
-            if(pointsFrom1.Count != pointsFrom2.Count) Debug.WriteLine("crap.");
-
-            var pairedPoints = new List<PointForCleaning>();
-            for (var ii = 0; ii < pointsFrom1.Count; ii++)
-            {
-                var point1 = pointsFrom1[ii];
-                var point2 = pointsFrom2[ii];
+                var keyPoint1 = allKeyPointsVector1[goodMatches[ii].TrainIdx];
+                var keyPoint2 = allKeyPointsVector2[goodMatches[ii].QueryIdx];
                 pairedPoints.Add(new PointForCleaning
                 {
-                    Point1 = point1,
-                    Point2 = point2,
+                    KeyPoint1 = keyPoint1,
+                    KeyPoint2 = keyPoint2,
                     Data = new KeyPointOutlierDetectorData
                     {
-                        Distance = (float)CalculatePhysicalDistanceBetweenPoints(point1, point2),
-                        Slope = (point2.Y - point1.Y) / (point2.X - point1.X)
+                        Distance = (float)CalculatePhysicalDistanceBetweenPoints(keyPoint1.Point, keyPoint2.Point),
+                        Slope = (keyPoint2.Point.Y - keyPoint1.Point.Y) / (keyPoint2.Point.X - keyPoint1.Point.X)
+                    },
+                    Match = new MDMatch
+                    {
+                        Distance = goodMatches[ii].Distance,
+                        ImgIdx = goodMatches[ii].ImgIdx,
+                        QueryIdx = ii,
+                        TrainIdx = ii
                     }
                 });
             }
 
+            if (drawMatches)
+            {
+                using var fullSizeColor1 = new Mat();
+                using var fullSizeColor2 = new Mat();
+                CvInvoke.Imdecode(GetBytes(firstImage, 1), ImreadModes.Color, fullSizeColor1);
+                CvInvoke.Imdecode(GetBytes(secondImage, 1), ImreadModes.Color, fullSizeColor2);
+
+                using var drawnResult = new Mat();
+                Features2DToolbox.DrawMatches(
+                    fullSizeColor1, new VectorOfKeyPoint(pairedPoints.Select(m => m.KeyPoint1).ToArray()),
+                    fullSizeColor2, new VectorOfKeyPoint(pairedPoints.Select(m => m.KeyPoint2).ToArray()),
+                    new VectorOfVectorOfDMatch(pairedPoints.Select(p => new[] { p.Match }).ToArray()),
+                    drawnResult, new MCvScalar(0, 255, 0), new MCvScalar(255, 255, 0), new Mat());
+#if __IOS__
+                result.DrawnDirtyMatches = drawnResult.ToCGImage().ToSKBitmap();
+#elif __ANDROID__
+                result.DrawnDirtyMatches = drawnResult.ToBitmap().ToSKBitmap();
+#endif
+            }
+
             Debug.WriteLine("Dirty Distances: " + string.Join(",", pairedPoints.Select(d => d.Data.Distance)));
             Debug.WriteLine("Dirty Slopes: " + string.Join(",", pairedPoints.Select(d => d.Data.Slope)));
-            Debug.WriteLine("Dirty X: " + string.Join(",", pairedPoints.Select(d => Math.Abs(d.Point1.X - d.Point2.X))));
-            Debug.WriteLine("Dirty Y: " + string.Join(",", pairedPoints.Select(d => Math.Abs(d.Point1.Y - d.Point2.Y))));
+            Debug.WriteLine("Dirty X: " + string.Join(",", pairedPoints.Select(d => Math.Abs(d.KeyPoint1.Point.X - d.KeyPoint2.Point.X))));
+            Debug.WriteLine("Dirty Y: " + string.Join(",", pairedPoints.Select(d => Math.Abs(d.KeyPoint1.Point.Y - d.KeyPoint2.Point.Y))));
+            Debug.WriteLine("Dirty points: " + pairedPoints.Count);
 
             // reject ends of slope strat for cleaning
             //var rejectCountOnEnds = pairedPoints.Count * 0.05;
@@ -259,21 +257,61 @@ namespace AutoAlignment
             //pairedPoints.RemoveRange(0, (int)rejectCountOnEnds);
             //pairedPoints.RemoveRange((int)(pairedPoints.Count - rejectCountOnEnds), (int)rejectCountOnEnds);
 
-            // reject slopes outside 2 standard deviations
+            // reject slopes too far from median
+            //var medianSlope = pairedPoints.OrderBy(p => p.Data.Slope).ElementAt(pairedPoints.Count / 2).Data.Slope;
+            //const double SLOPE_RANGE_THRESHOLD = 0.5d;
+            //pairedPoints = pairedPoints.Where(p =>
+            //    Math.Abs(p.Data.Slope - medianSlope) < SLOPE_RANGE_THRESHOLD).ToList();
+            //Debug.WriteLine("Median Slope: " + medianSlope);
+            //Debug.WriteLine("Slope Cleaned Points: " + pairedPoints.Count);
+
+            // reject distances too far from median
+            //var medianDistance = pairedPoints.OrderBy(p => p.Data.Distance).ElementAt(pairedPoints.Count / 2).Data.Distance;
+            //const double DISTANCE_RANGE_THRESHOLD = 0.5d;
+            //pairedPoints = pairedPoints.Where(p => Math.Abs(p.Data.Distance - medianDistance) < Math.Abs(medianDistance * DISTANCE_RANGE_THRESHOLD)).ToList();
+            //Debug.WriteLine("Median Distance: " + medianDistance);
+            //Debug.WriteLine("Distance Cleaned Points: " + pairedPoints.Count);
+
+            // reject distances and slopes more than some number of standard deviations from the median
+            const double STD_DEV_INTERVALS = 2; //TODO: make configurable?
+            var medianDistance = pairedPoints.OrderBy(p => p.Data.Distance).ElementAt(pairedPoints.Count / 2).Data.Distance;
+            var distanceStdDev = CalcStandardDeviation(pairedPoints.Select(p => p.Data.Distance).ToArray());
+            pairedPoints = pairedPoints.Where(p => Math.Abs(p.Data.Distance - medianDistance) < Math.Abs(distanceStdDev * STD_DEV_INTERVALS)).ToList();
+            Debug.WriteLine("Median Distance: " + medianDistance);
+            Debug.WriteLine("Distance Cleaned Points: " + pairedPoints.Count);
             var medianSlope = pairedPoints.OrderBy(p => p.Data.Slope).ElementAt(pairedPoints.Count / 2).Data.Slope;
-            const double SLOPE_REJECT_THRESHOLD = 0.15;
-            pairedPoints = pairedPoints.Where(p =>
-                Math.Abs(p.Data.Slope - medianSlope) < Math.Abs(medianSlope* SLOPE_REJECT_THRESHOLD)).ToList();
+            var slopeStdDev = CalcStandardDeviation(pairedPoints.Select(p => p.Data.Slope).ToArray());
+            pairedPoints = pairedPoints.Where(p => Math.Abs(p.Data.Slope - medianSlope) < Math.Abs(slopeStdDev * STD_DEV_INTERVALS)).ToList();
+            Debug.WriteLine("Median Slope: " + medianSlope);
+            Debug.WriteLine("Slope Cleaned Points: " + pairedPoints.Count);
 
             Debug.WriteLine("Clean Distances: " + string.Join(",", pairedPoints.Select(d => d.Data.Distance)));
             Debug.WriteLine("Clean Slopes: " + string.Join(",", pairedPoints.Select(d => d.Data.Slope)));
-            Debug.WriteLine("Clean X: " + string.Join(",", pairedPoints.Select(d => Math.Abs(d.Point1.X - d.Point2.X))));
-            Debug.WriteLine("Clean Y: " + string.Join(",", pairedPoints.Select(d => Math.Abs(d.Point1.Y - d.Point2.Y))));
+            Debug.WriteLine("Clean X: " + string.Join(",", pairedPoints.Select(d => Math.Abs(d.KeyPoint1.Point.X - d.KeyPoint2.Point.X))));
+            Debug.WriteLine("Clean Y: " + string.Join(",", pairedPoints.Select(d => Math.Abs(d.KeyPoint1.Point.Y - d.KeyPoint2.Point.Y))));
 
-            var points1 = pairedPoints.Select(p => new SKPoint(p.Point1.X, p.Point1.Y)).ToArray();
-            var points2 = pairedPoints.Select(p => new SKPoint(p.Point2.X, p.Point2.Y)).ToArray();
+            if (drawMatches)
+            {
+                using var fullSizeColor1 = new Mat();
+                using var fullSizeColor2 = new Mat();
+                CvInvoke.Imdecode(GetBytes(firstImage, 1), ImreadModes.Color, fullSizeColor1);
+                CvInvoke.Imdecode(GetBytes(secondImage, 1), ImreadModes.Color, fullSizeColor2);
 
+                using var drawnResult = new Mat();
+                Features2DToolbox.DrawMatches(
+                    fullSizeColor1, new VectorOfKeyPoint(pairedPoints.Select(m => m.KeyPoint1).ToArray()),
+                    fullSizeColor2, new VectorOfKeyPoint(pairedPoints.Select(m => m.KeyPoint2).ToArray()),
+                    new VectorOfVectorOfDMatch(pairedPoints.Select(p => new[] { p.Match }).ToArray()),
+                    drawnResult, new MCvScalar(0, 255, 0), new MCvScalar(255, 255, 0), new Mat());
+#if __IOS__
+                result.DrawnCleanMatches = drawnResult.ToCGImage().ToSKBitmap();
+#elif __ANDROID__
+                result.DrawnCleanMatches = drawnResult.ToBitmap().ToSKBitmap();
+#endif
+            }
 
+            var points1 = pairedPoints.Select(p => new SKPoint(p.KeyPoint1.Point.X, p.KeyPoint1.Point.Y)).ToArray();
+            var points2 = pairedPoints.Select(p => new SKPoint(p.KeyPoint2.Point.X, p.KeyPoint2.Point.Y)).ToArray();
 
             var translation1 = FindTranslation(points1, points2, secondImage);
             var translated1 = SKMatrix.MakeTranslation(0, translation1);
@@ -311,7 +349,7 @@ namespace AutoAlignment
             var rotated3 = SKMatrix.MakeRotation(rotation3, secondImage.Width / 2f, secondImage.Height / 2f);
             points2 = rotated3.MapPoints(points2);
 
-            var zoom3 = FindZoom(points1, points2); //TODO: how am i handling different resolutions on the way in?
+            var zoom3 = FindZoom(points1, points2);
             var zoomed3 = SKMatrix.MakeScale(zoom3, zoom3);
             points2 = zoomed3.MapPoints(points2);
 
@@ -348,21 +386,14 @@ namespace AutoAlignment
             result.AlignedBitmap = alignedImage;
 
 
-
-
-            using var fullSizeColor1 = new Mat();
-            using var fullSizeColor2 = new Mat();
-            CvInvoke.Imdecode(GetBytes(firstImage, 1), ImreadModes.Color, fullSizeColor1);
-            CvInvoke.Imdecode(GetBytes(secondImage, 1), ImreadModes.Color, fullSizeColor2);
-
-            using var drawnResult = new Mat();
-            Features2DToolbox.DrawMatches(fullSizeColor1, goodKeyPointsVector1, fullSizeColor2, goodKeyPointsVector2, goodMatchesVector, drawnResult, new MCvScalar(0, 255, 0), new MCvScalar(255, 255, 0), new Mat());
-#if __IOS__
-            result.DrawnMatches = drawnResult.ToCGImage().ToSKBitmap();
-#elif __ANDROID__
-            result.DrawnMatches = drawnResult.ToBitmap().ToSKBitmap();
-#endif
             return result;
+        }
+
+        private static double CalcStandardDeviation(float[] data)
+        {
+            var mean = data.Sum() / (1f * data.Length);
+            var sumOfSquaresOfDeviations = data.Select(d => Math.Pow(d - mean, 2)).Sum();
+            return Math.Sqrt(sumOfSquaresOfDeviations / (1f * data.Length));
         }
 
         private class KeyPointOutlierDetectorData
@@ -373,9 +404,10 @@ namespace AutoAlignment
 
         private class PointForCleaning
         {
-            public PointF Point1 { get; set; }
-            public PointF Point2 { get; set; }
+            public MKeyPoint KeyPoint1 { get; set; }
+            public MKeyPoint KeyPoint2 { get; set; }
             public KeyPointOutlierDetectorData Data { get; set; }
+            public MDMatch Match { get; set; }
         }
 
         private static float FindTranslation(SKPoint[] good1, SKPoint[] good2, SKBitmap secondImage)

@@ -124,7 +124,7 @@
       <HintPath>D:\Kevin\CrossCamDocs\libemgucv-pro-4.4.0.4099\libs\Emgu.CV.Platform.Android.dll</HintPath>
     </Reference>
     <Reference Include="Emgu.CV.Platform.NetStandard">
-      <HintPath>D:\Kevin\CrossCamDocs\libemgucv-pro-4.4.0.4099\libs\Emgu.CV.Platform.NetStandard.dll</HintPath>
+      <HintPath>..\..\CrossCamDocs\libemgucv-pro-4.4.0.4099\libs\Emgu.CV.Platform.NetStandard.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Xml" />

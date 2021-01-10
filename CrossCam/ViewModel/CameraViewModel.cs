@@ -1175,7 +1175,7 @@ namespace CrossCam.ViewModel
                             if (Settings.AlignWithKeypoints)
                             {
                                 alignedResult = openCv.CreateAlignedSecondImageKeypoints(firstImage, secondImage,
-                                    discardTransX, Settings.AlignUseCrossCheck);
+                                    discardTransX, Settings.AlignUseCrossCheck, Settings.AlignmentDrawMatches);
                             }
                             else
                             {
@@ -1201,38 +1201,37 @@ namespace CrossCam.ViewModel
                         if (Settings.AlignWithKeypoints && Settings.AlignmentDrawMatches)
                         {
                             using (var tempSurface =
-                                SKSurface.Create(new SKImageInfo(alignedResult.DrawnMatches.Width, alignedResult.DrawnMatches.Height)))
+                                SKSurface.Create(new SKImageInfo(alignedResult.DrawnDirtyMatches.Width, alignedResult.DrawnDirtyMatches.Height)))
                             {
                                 var canvas = tempSurface.Canvas;
                                 canvas.Clear();
                                 if (Device.RuntimePlatform == Device.iOS && IsViewInverted)
                                 {
                                     canvas.RotateDegrees(180);
-                                    canvas.Translate(-1f * alignedResult.DrawnMatches.Width, -1f * alignedResult.DrawnMatches.Height);
+                                    canvas.Translate(-1f * alignedResult.DrawnDirtyMatches.Width, -1f * alignedResult.DrawnDirtyMatches.Height);
                                 }
 
-                                canvas.DrawBitmap(alignedResult.DrawnMatches,0,0);
+                                canvas.DrawBitmap(alignedResult.DrawnDirtyMatches, 0, 0);
+
+                                await SaveSurfaceSnapshot(tempSurface);
+                            }
+
+                            using (var tempSurface =
+                                SKSurface.Create(new SKImageInfo(alignedResult.DrawnCleanMatches.Width, alignedResult.DrawnCleanMatches.Height)))
+                            {
+                                var canvas = tempSurface.Canvas;
+                                canvas.Clear();
+                                if (Device.RuntimePlatform == Device.iOS && IsViewInverted)
+                                {
+                                    canvas.RotateDegrees(180);
+                                    canvas.Translate(-1f * alignedResult.DrawnCleanMatches.Width, -1f * alignedResult.DrawnCleanMatches.Height);
+                                }
+
+                                canvas.DrawBitmap(alignedResult.DrawnCleanMatches,0,0);
 
                                 await SaveSurfaceSnapshot(tempSurface);
                             }
                         }
-
-                        //using (var tempSurface =
-                        //    SKSurface.Create(new SKImageInfo(alignedResult.Rectified1.Width*2, alignedResult.Rectified1.Height)))
-                        //{
-                        //    var canvas = tempSurface.Canvas;
-                        //    canvas.Clear();
-                        //    if (Device.RuntimePlatform == Device.iOS && IsViewInverted)
-                        //    {
-                        //        canvas.RotateDegrees(180);
-                        //        canvas.Translate(-1f * alignedResult.Rectified1.Width * 2, -1f * alignedResult.Rectified1.Height);
-                        //    }
-
-                        //    canvas.DrawBitmap(alignedResult.Rectified1, 0, 0);
-                        //    canvas.DrawBitmap(alignedResult.Rectified2, alignedResult.Rectified2.Width, 0);
-
-                        //    await SaveSurfaceSnapshot(tempSurface);
-                        //}
 
                         _wasAlignmentWithHorizontalRun = Settings.SaveForRedCyanAnaglyph || Settings.AlignHorizontallySideBySide;
                         _wasAlignmentWithoutHorizontalRun = !Settings.SaveForRedCyanAnaglyph && !Settings.AlignHorizontallySideBySide;
