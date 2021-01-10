@@ -404,11 +404,6 @@ namespace CrossCam.ViewModel
                     case WorkflowStage.Edits:
                         WorkflowStage = WorkflowStage.Final;
                         break;
-                    case WorkflowStage.FovCorrection:
-                        Settings.IsFovCorrectionSet = true;
-                        PersistentStorage.Save(PersistentStorage.SETTINGS_KEY, Settings);
-                        WorkflowStage = WorkflowStage.Final;
-                        break;
                     default:
                         WorkflowStage = WorkflowStage.Edits;
                         break;
@@ -1198,38 +1193,54 @@ namespace CrossCam.ViewModel
 
                     if (alignedResult != null)
                     {
-                        if (Settings.AlignWithKeypoints && Settings.AlignmentDrawMatches)
+                        if (Settings.AlignWithKeypoints)
                         {
-                            using (var tempSurface =
-                                SKSurface.Create(new SKImageInfo(alignedResult.DrawnDirtyMatches.Width, alignedResult.DrawnDirtyMatches.Height)))
+                            if (alignedResult.TransformMatrix.ScaleX == alignedResult.TransformMatrix.ScaleY)
                             {
-                                var canvas = tempSurface.Canvas;
-                                canvas.Clear();
-                                if (Device.RuntimePlatform == Device.iOS && IsViewInverted)
+                                if (alignedResult.TransformMatrix.ScaleX > 1)
                                 {
-                                    canvas.RotateDegrees(180);
-                                    canvas.Translate(-1f * alignedResult.DrawnDirtyMatches.Width, -1f * alignedResult.DrawnDirtyMatches.Height);
+                                    Settings.FovSecondaryCorrection = alignedResult.TransformMatrix.ScaleX - 1; //TODO: good?
                                 }
-
-                                canvas.DrawBitmap(alignedResult.DrawnDirtyMatches, 0, 0);
-
-                                await SaveSurfaceSnapshot(tempSurface);
+                                else
+                                {
+                                    Settings.FovPrimaryCorrection = 1 / alignedResult.TransformMatrix.ScaleX - 1; //TODO: good?
+                                }
+                                Settings.IsFovCorrectionSet = true;
+                                PersistentStorage.Save(PersistentStorage.SETTINGS_KEY, Settings);
                             }
-
-                            using (var tempSurface =
-                                SKSurface.Create(new SKImageInfo(alignedResult.DrawnCleanMatches.Width, alignedResult.DrawnCleanMatches.Height)))
+                            if (Settings.AlignmentDrawMatches)
                             {
-                                var canvas = tempSurface.Canvas;
-                                canvas.Clear();
-                                if (Device.RuntimePlatform == Device.iOS && IsViewInverted)
+                                using (var tempSurface =
+                                    SKSurface.Create(new SKImageInfo(alignedResult.DrawnDirtyMatches.Width, alignedResult.DrawnDirtyMatches.Height)))
                                 {
-                                    canvas.RotateDegrees(180);
-                                    canvas.Translate(-1f * alignedResult.DrawnCleanMatches.Width, -1f * alignedResult.DrawnCleanMatches.Height);
+                                    var canvas = tempSurface.Canvas;
+                                    canvas.Clear();
+                                    if (Device.RuntimePlatform == Device.iOS && IsViewInverted)
+                                    {
+                                        canvas.RotateDegrees(180);
+                                        canvas.Translate(-1f * alignedResult.DrawnDirtyMatches.Width, -1f * alignedResult.DrawnDirtyMatches.Height);
+                                    }
+
+                                    canvas.DrawBitmap(alignedResult.DrawnDirtyMatches, 0, 0);
+
+                                    await SaveSurfaceSnapshot(tempSurface);
                                 }
 
-                                canvas.DrawBitmap(alignedResult.DrawnCleanMatches,0,0);
+                                using (var tempSurface =
+                                    SKSurface.Create(new SKImageInfo(alignedResult.DrawnCleanMatches.Width, alignedResult.DrawnCleanMatches.Height)))
+                                {
+                                    var canvas = tempSurface.Canvas;
+                                    canvas.Clear();
+                                    if (Device.RuntimePlatform == Device.iOS && IsViewInverted)
+                                    {
+                                        canvas.RotateDegrees(180);
+                                        canvas.Translate(-1f * alignedResult.DrawnCleanMatches.Width, -1f * alignedResult.DrawnCleanMatches.Height);
+                                    }
 
-                                await SaveSurfaceSnapshot(tempSurface);
+                                    canvas.DrawBitmap(alignedResult.DrawnCleanMatches, 0, 0);
+
+                                    await SaveSurfaceSnapshot(tempSurface);
+                                }
                             }
                         }
 
@@ -1356,16 +1367,6 @@ namespace CrossCam.ViewModel
                 else
                 {
                     CheckAndCorrectResolutionDifferences();
-                    if (BluetoothOperator.IsPrimary &&
-                        BluetoothOperator.PairStatus == PairStatus.Connected)
-                    {
-                        if (!Settings.IsFovCorrectionSet)
-                        {
-                            WorkflowStage = WorkflowStage.FovCorrection; //TODO: pop an explanation popup, give some better wording on the pair page
-                            ShowFovDialog();
-                            return;
-                        }
-                    }
                     WasCaptureCross = Settings.Mode != DrawMode.Parallel;
                     CameraColumn = IsCaptureLeftFirst ? 0 : 1;
                     WorkflowStage = WorkflowStage.Final;
@@ -1395,16 +1396,6 @@ namespace CrossCam.ViewModel
                 else
                 {
                     CheckAndCorrectResolutionDifferences();
-                    if (BluetoothOperator.IsPrimary &&
-                        BluetoothOperator.PairStatus == PairStatus.Connected)
-                    {
-                        if (!Settings.IsFovCorrectionSet)
-                        {
-                            WorkflowStage = WorkflowStage.FovCorrection;
-                            ShowFovDialog();
-                            return;
-                        }
-                    }
                     WasCaptureCross = Settings.Mode != DrawMode.Parallel;
                     CameraColumn = IsCaptureLeftFirst ? 0 : 1;
                     WorkflowStage = WorkflowStage.Final;

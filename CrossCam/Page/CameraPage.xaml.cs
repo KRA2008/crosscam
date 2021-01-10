@@ -340,7 +340,7 @@ namespace CrossCam.Page
                             (float)newX,
                             (float)newY,
                             (float)(newX + zoomedWidth),
-                            (float)(newY + zoomedHeight)));
+                            (float)(newY + zoomedHeight))); //TODO: preview isn't centered vertically... not sure if math for fov set from auto alignment is good, also no averaging/whatever being done now
                 }
             }
 

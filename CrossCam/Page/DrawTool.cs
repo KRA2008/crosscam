@@ -25,7 +25,7 @@ namespace CrossCam.Page
                         edits.TopCrop, edits.BottomCrop,
                         edits.LeftRotation, edits.RightRotation,
                         edits.VerticalAlignment,
-                        edits.LeftZoom + edits.FovLeftCorrection, edits.RightZoom + edits.FovRightCorrection,
+                        edits.LeftZoom, edits.RightZoom,
                         edits.LeftKeystone, edits.RightKeystone,
                         drawMode);
                     break;
@@ -37,7 +37,7 @@ namespace CrossCam.Page
                         edits.TopCrop, edits.BottomCrop,
                         edits.RightRotation, edits.LeftRotation,
                         edits.VerticalAlignment,
-                        edits.RightZoom + edits.FovRightCorrection, edits.LeftZoom + edits.FovLeftCorrection,
+                        edits.RightZoom, edits.LeftZoom,
                         edits.RightKeystone, edits.LeftKeystone,
                         drawMode);
                     break;
