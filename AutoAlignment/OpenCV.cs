@@ -5,6 +5,7 @@ using System.Drawing.Drawing2D;
 using System.Linq;
 using AutoAlignment;
 using CrossCam.Model;
+using CrossCam.Page;
 using CrossCam.Wrappers;
 #if !__NO_EMGU__
 using System.Drawing;
@@ -321,11 +322,12 @@ namespace AutoAlignment
             var rotated1 = SKMatrix.MakeRotation(rotation1, secondImage.Width / 2f, secondImage.Height / 2f);
             points2 = rotated1.MapPoints(points2);
 
-            var zoom1 = FindZoom(points1, points2);
-            var zoomed1 = SKMatrix.MakeScale(zoom1, zoom1);
+            var zoom1 = FindZoom(points1, points2, secondImage);
+            var zoomed1 = SKMatrix.MakeScale(zoom1, zoom1, secondImage.Width / 2f, secondImage.Height / 2f);
             points2 = zoomed1.MapPoints(points2);
 
-
+            //TODO: add keystoning (probably to both images too)
+            //var keystoned1 = TaperTransform.Make(new SKSize(secondImage.Width, secondImage.Height) )
 
             var translation2 = FindTranslation(points1, points2, secondImage);
             var translated2 = SKMatrix.MakeTranslation(0, translation2);
@@ -335,8 +337,8 @@ namespace AutoAlignment
             var rotated2 = SKMatrix.MakeRotation(rotation2, secondImage.Width / 2f, secondImage.Height / 2f);
             points2 = rotated2.MapPoints(points2);
 
-            var zoom2 = FindZoom(points1, points2);
-            var zoomed2 = SKMatrix.MakeScale(zoom2, zoom2);
+            var zoom2 = FindZoom(points1, points2, secondImage);
+            var zoomed2 = SKMatrix.MakeScale(zoom2, zoom2, secondImage.Width / 2f, secondImage.Height / 2f);
             points2 = zoomed2.MapPoints(points2);
 
             
@@ -349,9 +351,18 @@ namespace AutoAlignment
             var rotated3 = SKMatrix.MakeRotation(rotation3, secondImage.Width / 2f, secondImage.Height / 2f);
             points2 = rotated3.MapPoints(points2);
 
-            var zoom3 = FindZoom(points1, points2);
-            var zoomed3 = SKMatrix.MakeScale(zoom3, zoom3);
+            var zoom3 = FindZoom(points1, points2, secondImage);
+            var zoomed3 = SKMatrix.MakeScale(zoom3, zoom3, secondImage.Width / 2f, secondImage.Height / 2f);
             points2 = zoomed3.MapPoints(points2);
+
+
+            var horizontaled = SKMatrix.MakeIdentity();
+            if (!discardTransX)
+            {
+                var horizontalAdj = FindTranslationHorizontal(points1, points2, secondImage);
+                horizontaled = SKMatrix.MakeTranslation(horizontalAdj, 0);
+                points2 = horizontaled.MapPoints(points2);
+            }
 
 
 
@@ -375,12 +386,16 @@ namespace AutoAlignment
             SKMatrix.Concat(ref tempMatrix8, tempMatrix7, zoomed3);
 
 
+            var tempMatrix9 = new SKMatrix();
+            SKMatrix.Concat(ref tempMatrix9, tempMatrix8, horizontaled);
 
-            result.TransformMatrix = tempMatrix8; //TODO: this doesn't translate horizontally right now - add that as an option
+
+            var finalMatrix = tempMatrix9;
+            result.TransformMatrix = finalMatrix;
             var alignedImage = new SKBitmap(secondImage.Width, secondImage.Height);
             using (var canvas = new SKCanvas(alignedImage))
             {
-                canvas.SetMatrix(tempMatrix8);
+                canvas.SetMatrix(finalMatrix);
                 canvas.DrawBitmap(secondImage, 0, 0);
             }
             result.AlignedBitmap = alignedImage;
@@ -442,6 +457,38 @@ namespace AutoAlignment
             return finalTranslation;
         }
 
+        private static float FindTranslationHorizontal(SKPoint[] good1, SKPoint[] good2, SKBitmap secondImage)
+        {
+            var baseOffset = GetNetXOffset(good1, good2);
+            const int FINAL_TRANSLATION_DELTA = 1;
+            var translationInc = secondImage.Width / 2;
+            var finalTranslation = 0f;
+
+            while (translationInc > FINAL_TRANSLATION_DELTA)
+            {
+                var translateA = SKMatrix.MakeTranslation(finalTranslation + translationInc, 0);
+                var translateB = SKMatrix.MakeTranslation(finalTranslation - translationInc, 0);
+                var attemptA = translateA.MapPoints(good2);
+                var offsetA = GetNetXOffset(good1, attemptA);
+                var attemptB = translateB.MapPoints(good2);
+                var offsetB = GetNetXOffset(good1, attemptB);
+
+                if (offsetA < baseOffset)
+                {
+                    baseOffset = offsetA;
+                    finalTranslation += translationInc;
+                }
+                else if (offsetB < baseOffset)
+                {
+                    baseOffset = offsetB;
+                    finalTranslation -= translationInc;
+                }
+                translationInc /= 2;
+            }
+
+            return finalTranslation;
+        }
+
         private static float FindRotation(SKPoint[] good1, SKPoint[] good2, SKBitmap secondImage)
         {
             var baseOffset = GetNetYOffset(good1, good2);
@@ -474,8 +521,61 @@ namespace AutoAlignment
             return finalRotation;
         }
 
-        private static float FindZoom(SKPoint[] good1, SKPoint[] good2)
+        private static float FindZoom(SKPoint[] good1, SKPoint[] good2, SKBitmap secondImage)
         {
+            //slow search
+
+            //var baseOffset = GetNetYOffset(good1, good2);
+            //const float ZOOM_INC = 0.01f;
+            //var finalZoom = 1f;
+
+            //var zoomIn = SKMatrix.MakeScale(finalZoom + ZOOM_INC, finalZoom + ZOOM_INC, secondImage.Width / 2f, secondImage.Height / 2f);
+            //var zoomOut = SKMatrix.MakeScale(finalZoom - ZOOM_INC, finalZoom - ZOOM_INC, secondImage.Width / 2f, secondImage.Height / 2f);
+
+            //var attemptIn = zoomIn.MapPoints(good2);
+            //var offsetIn = GetNetYOffset(good1, attemptIn);
+            //var attemptOut = zoomOut.MapPoints(good2);
+            //var offsetOut = GetNetYOffset(good1, attemptOut);
+
+            //if (offsetIn < baseOffset ||
+            //    offsetOut < baseOffset)
+            //{
+            //    double newOffset;
+            //    var oldOffset = baseOffset;
+            //    if (offsetIn < offsetOut)
+            //    {
+            //        finalZoom += ZOOM_INC;
+            //        newOffset = offsetIn;
+            //        while (newOffset < oldOffset)
+            //        {
+            //            oldOffset = newOffset;
+            //            finalZoom += ZOOM_INC;
+            //            zoomIn = SKMatrix.MakeScale(finalZoom, finalZoom, secondImage.Width / 2f, secondImage.Height / 2f);
+            //            var nextAttempt = zoomIn.MapPoints(good2);
+            //            newOffset = GetNetYOffset(good1, nextAttempt);
+            //        }
+            //        finalZoom -= ZOOM_INC; //one less
+            //    }
+            //    else
+            //    {
+            //        newOffset = offsetOut;
+            //        finalZoom -= ZOOM_INC;
+            //        while (newOffset < oldOffset)
+            //        {
+            //            oldOffset = newOffset;
+            //            finalZoom -= ZOOM_INC;
+            //            zoomOut = SKMatrix.MakeScale(finalZoom, finalZoom, secondImage.Width / 2f, secondImage.Height / 2f);
+            //            var nextAttempt = zoomOut.MapPoints(good2);
+            //            newOffset = GetNetYOffset(good1, nextAttempt);
+            //        }
+            //        finalZoom += ZOOM_INC; //one less
+            //    }
+            //}
+
+            //return finalZoom;
+
+            //binary search BELOW
+
             var baseOffset = GetNetYOffset(good1, good2);
             const float FINAL_ZOOM_DELTA = 0.0001f; //TODO: make configurable?
             var zoomInc = 1f;
@@ -483,8 +583,8 @@ namespace AutoAlignment
 
             while (zoomInc > FINAL_ZOOM_DELTA)
             {
-                var zoomA = SKMatrix.MakeScale(finalZoom + zoomInc, finalZoom + zoomInc);
-                var zoomB = SKMatrix.MakeScale(finalZoom - zoomInc, finalZoom - zoomInc);
+                var zoomA = SKMatrix.MakeScale(finalZoom + zoomInc, finalZoom + zoomInc, secondImage.Width / 2f, secondImage.Height / 2f);
+                var zoomB = SKMatrix.MakeScale(finalZoom - zoomInc, finalZoom - zoomInc, secondImage.Width / 2f, secondImage.Height / 2f);
                 var attemptA = zoomA.MapPoints(good2);
                 var offsetA = GetNetYOffset(good1, attemptA);
                 var attemptB = zoomB.MapPoints(good2);
@@ -504,6 +604,16 @@ namespace AutoAlignment
             }
 
             return finalZoom;
+        }
+
+        private static double GetNetXOffset(SKPoint[] points1, SKPoint[] points2)
+        {
+            var netOffset = 0d;
+            for (var ii = 0; ii < points1.Length; ii++)
+            {
+                netOffset += Math.Abs(points1[ii].X - points2[ii].X);
+            }
+            return netOffset;
         }
 
         private static double GetNetYOffset(SKPoint[] points1, SKPoint[] points2)
