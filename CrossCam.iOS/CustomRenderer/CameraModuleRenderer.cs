@@ -301,7 +301,11 @@ namespace CrossCam.iOS.CustomRenderer
                     var videoConnection = _stillImageOutput.ConnectionFromMediaType(AVMediaType.Video);
                     var sampleBuffer = await _stillImageOutput.CaptureStillImageTaskAsync(videoConnection);
 
-                    _cameraModule.CaptureSuccess = !_cameraModule.CaptureSuccess;
+                    if (_cameraModule.BluetoothOperator.IsPrimary ||
+                        _cameraModule.BluetoothOperator.PairStatus != PairStatus.Connected)
+                    {
+                        _cameraModule.CaptureSuccess = !_cameraModule.CaptureSuccess;
+                    }
 
                     if (!(_cameraModule.BluetoothOperator.PairStatus == PairStatus.Connected &&
                         !_cameraModule.BluetoothOperator.IsPrimary))
@@ -439,7 +443,11 @@ namespace CrossCam.iOS.CustomRenderer
         // ReSharper disable once UnusedMember.Local
         private void PhotoJustGotCaptured(AVCapturePhotoOutput photoOutput, AVCaptureResolvedPhotoSettings settings)
         {
-            _cameraModule.CaptureSuccess = !_cameraModule.CaptureSuccess;
+            if (_cameraModule.BluetoothOperator.IsPrimary ||
+                _cameraModule.BluetoothOperator.PairStatus != PairStatus.Connected)
+            {
+                _cameraModule.CaptureSuccess = !_cameraModule.CaptureSuccess;
+            }
         }
         
         private void PreviewWasTapped(UIGestureRecognizer recognizer)

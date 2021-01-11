@@ -11,7 +11,7 @@ namespace CrossCam.Page
         public const float FLOATY_ZERO = 0.00001f;
 
         public static void DrawImagesOnCanvas(SKCanvas canvas, SKBitmap leftBitmap, SKBitmap rightBitmap,
-            Settings settings, Edits edits, DrawMode drawMode)
+            Settings settings, Edits edits, DrawMode drawMode, bool isFov = false)
         {
             switch (drawMode)
             {
@@ -25,7 +25,7 @@ namespace CrossCam.Page
                         edits.TopCrop, edits.BottomCrop,
                         edits.LeftRotation, edits.RightRotation,
                         edits.VerticalAlignment,
-                        edits.LeftZoom, edits.RightZoom,
+                        edits.LeftZoom + (isFov ? edits.FovLeftCorrection : 0), edits.RightZoom + (isFov ? edits.FovRightCorrection : 0),
                         edits.LeftKeystone, edits.RightKeystone,
                         drawMode);
                     break;
@@ -37,7 +37,7 @@ namespace CrossCam.Page
                         edits.TopCrop, edits.BottomCrop,
                         edits.RightRotation, edits.LeftRotation,
                         edits.VerticalAlignment,
-                        edits.RightZoom, edits.LeftZoom,
+                        edits.RightZoom + (isFov ? edits.FovRightCorrection : 0), edits.LeftZoom + (isFov ? edits.FovLeftCorrection : 0),
                         edits.RightKeystone, edits.LeftKeystone,
                         drawMode);
                     break;

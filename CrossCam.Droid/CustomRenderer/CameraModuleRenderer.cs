@@ -857,7 +857,11 @@ namespace CrossCam.Droid.CustomRenderer
 
         public void OnShutter()
         {
-            _cameraModule.CaptureSuccess = !_cameraModule.CaptureSuccess;
+            if (_cameraModule.BluetoothOperator.IsPrimary ||
+                _cameraModule.BluetoothOperator.PairStatus != PairStatus.Connected)
+            {
+                _cameraModule.CaptureSuccess = !_cameraModule.CaptureSuccess;
+            }
         }
 
         public void OnPictureTaken(byte[] data, Camera camera)
@@ -1406,7 +1410,11 @@ namespace CrossCam.Droid.CustomRenderer
                 _previewRequestBuilder.SetTag(CameraState.PictureTaken.ToString());
 
                 _camera2Session.Capture(captureBuilder.Build(), captureListener, null);
-                _cameraModule.CaptureSuccess = !_cameraModule.CaptureSuccess;
+                if (_cameraModule.BluetoothOperator.IsPrimary ||
+                    _cameraModule.BluetoothOperator.PairStatus != PairStatus.Connected)
+                {
+                    _cameraModule.CaptureSuccess = !_cameraModule.CaptureSuccess;
+                }
             }
             catch (System.Exception e)
             {

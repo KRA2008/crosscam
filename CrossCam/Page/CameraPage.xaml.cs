@@ -1,9 +1,7 @@
 ﻿using System;
 using System.ComponentModel;
-using System.Diagnostics;
 using System.Threading.Tasks;
 using CrossCam.CustomElement;
-using CrossCam.Model;
 using CrossCam.ViewModel;
 using SkiaSharp;
 using SkiaSharp.Views.Forms;
@@ -302,7 +300,8 @@ namespace CrossCam.Page
                 canvas, _viewModel.LeftBitmap, _viewModel.RightBitmap, 
                 _viewModel.Settings,
                 _viewModel.Edits,
-                DrawMode.Cross); // strange but true, its really just saying "don't swap the sides" from how they're shown, and also no anaglyph preview yet
+                DrawMode.Cross, // strange but true, its really just saying "don't swap the sides" from how they're shown, and also no anaglyph preview yet
+                _viewModel.WorkflowStage == WorkflowStage.FovCorrection);
         }
 
         private void OnPairedPreviewCanvasInvalidated(object sender, SKPaintSurfaceEventArgs e)
@@ -320,7 +319,7 @@ namespace CrossCam.Page
                     var canvasWidth = canvas.DeviceClipBounds.Width;
                     var canvasHeight = canvas.DeviceClipBounds.Height;
 
-                    var aspectRatio = bitmap.Height / (bitmap.Width * 1f);
+                    var aspectRatio = bitmap.Height / (bitmap.Width * 1d);
 
                     var zoomDirection = _viewModel.Settings.FovPrimaryCorrection > _viewModel.Settings.FovSecondaryCorrection; // true means zoom out on secondary, false means zoom in
                     var zoomAmount = zoomDirection
@@ -331,7 +330,6 @@ namespace CrossCam.Page
                     var zoomedHeight = zoomedWidth * aspectRatio;
 
                     var newX = (canvasWidth - zoomedWidth) / 2;
-
                     var newY = (canvasHeight - zoomedHeight) / 2f;
 
                     canvas.DrawBitmap(bitmap,
@@ -340,7 +338,7 @@ namespace CrossCam.Page
                             (float)newX,
                             (float)newY,
                             (float)(newX + zoomedWidth),
-                            (float)(newY + zoomedHeight))); //TODO: preview isn't centered vertically... not sure if math for fov set from auto alignment is good, also no averaging/whatever being done now
+                            (float)(newY + zoomedHeight)));
                 }
             }
 
