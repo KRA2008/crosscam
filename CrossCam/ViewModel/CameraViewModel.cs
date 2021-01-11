@@ -893,6 +893,7 @@ namespace CrossCam.ViewModel
 
         private void BluetoothOperatorOnConnected(object sender, EventArgs e)
         {
+            ShowFovPreparationPopup();
             RaisePropertyChanged(nameof(ShouldLeftCaptureBeVisible));
             RaisePropertyChanged(nameof(ShouldCenterCaptureBeVisible));
             RaisePropertyChanged(nameof(ShouldRightCaptureBeVisible));
@@ -1031,6 +1032,16 @@ namespace CrossCam.ViewModel
 
             await Task.Delay(100);
             await EvaluateAndShowWelcomePopup();
+        }
+
+        private async void ShowFovPreparationPopup()
+        {
+            if (!Settings.IsFovCorrectionSet)
+            {
+                await CoreMethods.DisplayAlert("Field of View Correction",
+                    "Different device models can have different fields of view. CrossCam will help you correct for this after you do your first capture. Frame up and capture something with a distinctive points near the top and bottom of the frame, making sure the points are visible on both devices.",
+                    "OK");
+            }
         }
 
         private void BluetoothOperatorOnErrorOccurred(object sender, ErrorEventArgs e)
@@ -1484,7 +1495,7 @@ namespace CrossCam.ViewModel
 
         private async void ShowFovDialog()
         {
-            await CoreMethods.DisplayAlert("Field of View Correction", "Different model phones have different fields of view. On the next screen you'll need to zoom in on the side that shows objects appearing smaller. This correction will be saved but you can reset it on the Settings page. If you're using two of the same phone just save without changing anything.", "OK");
+            await CoreMethods.DisplayAlert("Field of View Correction", "To correct for field of view differences, zoom and slide the pictures so the distinctive points line up between the two photos. You can drag the white lines around to help you visualize the alignment. This correction will be applied to future previews. It will be saved but you can reset it on the Settings page.", "OK");
         }
 
         private static SKBitmap GetHalfOfFullStereoImage(byte[] bytes, bool wantLeft, bool clipBorder) 
