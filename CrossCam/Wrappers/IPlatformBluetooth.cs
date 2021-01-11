@@ -14,10 +14,4 @@ namespace CrossCam.Wrappers
         void SendPayload(byte[] bytes);
         event EventHandler<byte[]> PayloadReceived;
     }
-
-    public class PartnerDevice
-    {
-        public string Name { get; set; }
-        public string Address { get; set; }
-    }
 }

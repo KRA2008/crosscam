@@ -254,6 +254,8 @@ namespace CrossCam.ViewModel
             BluetoothOperator.CapturedImageReceived += BluetoothOperatorOnCapturedImageReceived;
             BluetoothOperator.InitialSyncStarted += BluetoothOperatorInitialSyncStarted;
             BluetoothOperator.InitialSyncCompleted += BluetoothOperatorInitialSyncCompleted;
+            BluetoothOperator.TransmissionStarted += BluetoothOperatorTransmissionStarted;
+            BluetoothOperator.TransmissionComplete += BluetoothOperatorTransmissionComplete;
 
             IsCaptureLeftFirst = Settings.IsCaptureLeftFirst;
             CameraColumn = IsCaptureLeftFirst ? 0 : 1;
@@ -409,7 +411,7 @@ namespace CrossCam.ViewModel
                         PersistentStorage.Save(PersistentStorage.SETTINGS_KEY, Settings);
                         WorkflowStage = WorkflowStage.Final;
                         Edits.VerticalAlignment = 0;
-                        AutoAlign(); //TODO: it goes black after this. why?
+                        AutoAlign();
                         break;
                     default:
                         WorkflowStage = WorkflowStage.Edits;
@@ -852,6 +854,16 @@ namespace CrossCam.ViewModel
             });
         }
 
+        private void BluetoothOperatorTransmissionComplete(object sender, EventArgs e)
+        {
+            WorkflowStage = WorkflowStage.Capture;
+        }
+
+        private void BluetoothOperatorTransmissionStarted(object sender, EventArgs e)
+        {
+            WorkflowStage = WorkflowStage.Transmitting;
+        }
+
         private void BluetoothOperatorInitialSyncStarted(object sender, EventArgs e)
         {
             WorkflowStage = WorkflowStage.Syncing;
@@ -1038,6 +1050,8 @@ namespace CrossCam.ViewModel
             {
                 SetLeftBitmap(bitmap, false, true);
             }
+
+            BluetoothOperator.SendTransmissionComplete();
         }
 
         private void TriggerMovementHint()

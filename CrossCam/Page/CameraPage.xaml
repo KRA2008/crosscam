@@ -1609,6 +1609,9 @@
         <Label Text="Loading..."
                Style="{StaticResource _feedback}"
                IsVisible="{Binding WorkflowStage, Converter={vc:EnumCompareConverter}, ConverterParameter={x:Static vm:WorkflowStage.Loading}}"/>
+        <Label Text="Transmitting... &#10; (keep device unlocked)"
+               Style="{StaticResource _feedback}"
+               IsVisible="{Binding WorkflowStage, Converter={vc:EnumCompareConverter}, ConverterParameter={x:Static vm:WorkflowStage.Transmitting}}"/>
         <Label Text="{Binding BluetoothOperatorBindable.InitialSyncProgress, StringFormat='Syncing ({0}%)'}"
                Style="{StaticResource _feedback}"
                IsVisible="{Binding WorkflowStage, Converter={vc:EnumCompareConverter}, ConverterParameter={x:Static vm:WorkflowStage.Syncing}}"/>

@@ -135,7 +135,6 @@ namespace CrossCam.Droid.CustomRenderer
         {
             try
             {
-                //Debug.WriteLine("### SENDING: " + (BluetoothOperator.CrossCommand)bytes[2]);
                 var sendingStream = new MemoryStream(bytes); //TODO: dispose/close correctly - i keep doing it wrong
                 if ((BluetoothOperator.CrossCommand)bytes[2] == BluetoothOperator.CrossCommand.CapturedImage)
                 {
@@ -169,13 +168,6 @@ namespace CrossCam.Droid.CustomRenderer
         {
             var handler = Disconnected;
             handler?.Invoke(this, new EventArgs());
-        }
-
-        public event EventHandler<PartnerDevice> DeviceDiscovered;
-        private void OnDeviceDiscovered(PartnerDevice e)
-        {
-            var handler = DeviceDiscovered;
-            handler?.Invoke(this, e);
         }
 
         public void OnConnected(Bundle connectionHint)

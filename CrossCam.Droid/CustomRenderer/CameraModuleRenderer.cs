@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.IO;
 using System.Linq;
@@ -23,7 +22,6 @@ using CrossCam.Model;
 using CrossCam.Page;
 using CrossCam.ViewModel;
 using CrossCam.Wrappers;
-using Java.IO;
 using Java.Lang;
 using Xamarin.Forms;
 using Xamarin.Forms.Platform.Android;

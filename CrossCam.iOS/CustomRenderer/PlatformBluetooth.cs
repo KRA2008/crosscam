@@ -31,16 +31,13 @@ namespace CrossCam.iOS.CustomRenderer
             handler?.Invoke(this, new EventArgs());
         }
 
-        public event EventHandler<PartnerDevice> DeviceDiscovered;
-        private void OnDeviceDiscovered(PartnerDevice e)
-        {
-            var handler = DeviceDiscovered;
-            handler?.Invoke(this, e);
-        }
-
-        public void SendPayload(byte[] bytes)
+        public async void SendPayload(byte[] bytes)
         {
             NSError error = null;
+            if ((BluetoothOperator.CrossCommand)bytes[2] == BluetoothOperator.CrossCommand.CapturedImage)
+            {
+                await Task.Delay(1000);
+            }
             _session?.SendData(NSData.FromArray(bytes), _session.ConnectedPeers, MCSessionSendDataMode.Reliable, out error); //TODO: how to indicate transmitting on secondary?
             if (error != null)
             {

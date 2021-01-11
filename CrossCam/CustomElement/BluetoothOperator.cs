@@ -56,6 +56,7 @@ namespace CrossCam.CustomElement
             ClockReading,
             Sync,
             CapturedImage,
+            TransmissionComplete,
             Error
         }
 
@@ -122,6 +123,20 @@ namespace CrossCam.CustomElement
         {
             var handler = PreviewFrameReceived;
             handler?.Invoke(this, frame);
+        }
+
+        public event EventHandler TransmissionStarted;
+        private void OnTransmittingCaptureStarted()
+        {
+            var handler = TransmissionStarted;
+            handler?.Invoke(this, null);
+        }
+
+        public event EventHandler TransmissionComplete;
+        private void OnTransmissionComplete()
+        {
+            var handler = TransmissionComplete;
+            handler?.Invoke(this, null);
         }
 
         public event ElapsedEventHandler CaptureSyncTimeElapsed;
@@ -220,6 +235,9 @@ namespace CrossCam.CustomElement
                             //_platformBluetooth.OnSecondaryErrorReceived();
                             // TODO: handle
                             break;
+                        case (byte)CrossCommand.TransmissionComplete:
+                            TransmissionCompleted();
+                            break;
                     }
                 }
             }
@@ -227,6 +245,11 @@ namespace CrossCam.CustomElement
             {
                 Debug.WriteLine("### payload received with header too short???");
             }
+        }
+
+        private void TransmissionCompleted()
+        {
+            OnTransmissionComplete();
         }
 
         private void SendReadyForPreviewFrame()
@@ -561,6 +584,7 @@ namespace CrossCam.CustomElement
             try
             {
                 var message = AddPayloadHeader(CrossCommand.CapturedImage, frame);
+                OnTransmittingCaptureStarted();
                 _platformBluetooth.SendPayload(message);
             }
             catch (Exception e)
@@ -569,6 +593,23 @@ namespace CrossCam.CustomElement
                 {
                     Exception = e,
                     Step = "send captured frame"
+                });
+            }
+        }
+
+        public void SendTransmissionComplete()
+        {
+            try
+            {
+                var message = AddPayloadHeader(CrossCommand.TransmissionComplete, Enumerable.Empty<byte>().ToArray());
+                _platformBluetooth.SendPayload(message);
+            }
+            catch (Exception e)
+            {
+                OnErrorOccurred(new ErrorEventArgs
+                {
+                    Exception = e,
+                    Step = "send transmission complete"
                 });
             }
         }

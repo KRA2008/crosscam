@@ -13,6 +13,7 @@
         AutomaticAlign,
         Loading,
         Syncing,
-        FovCorrection
+        FovCorrection,
+        Transmitting
     }
 }
