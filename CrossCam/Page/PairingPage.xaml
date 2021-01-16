@@ -81,8 +81,6 @@
                        Text="Go back to the home screen on both devices and tap the pair button in the lower corner"/>
             </Grid>
             <Label Text=" "/>
-            <Label Text="Different devices have different angular fields of view because different devices have different focal lengths and image sensor sizes. If your photos have different fields of view the 3D effect will be gross. To correct for this, CrossCam will prompt you to crop the image from the device with the larger field of view after your first capture and it will remember the correction so it can correct future previews and future captures."/>
-            <Label Text=" "/>
             <Label Text="To connect again later, make sure you have Wi-Fi enabled and then just tap the connect button on the home screen on both devices."/>
             <Label Text=" "/>
             <Label Text="A Note About Permissions:"/>
