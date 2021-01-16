@@ -16,6 +16,7 @@ using SkiaSharp;
 using Xamarin.Essentials;
 using Xamarin.Forms;
 using ErrorEventArgs = CrossCam.CustomElement.ErrorEventArgs;
+using Exception = System.Exception;
 
 namespace CrossCam.ViewModel
 {
@@ -1203,8 +1204,24 @@ namespace CrossCam.ViewModel
                                                 !Settings.AlignHorizontallySideBySide;
                             if (Settings.AlignWithKeypoints)
                             {
-                                alignedResult = openCv.CreateAlignedSecondImageKeypoints(firstImage, secondImage,
-                                    discardTransX, Settings.AlignUseCrossCheck, Settings.AlignmentDrawMatches);
+                                try
+                                {
+                                    alignedResult = openCv.CreateAlignedSecondImageKeypoints(firstImage, secondImage,
+                                        discardTransX, Settings.AlignUseCrossCheck, Settings.AlignmentDrawMatches);
+                                }
+                                catch (Exception e)
+                                {
+                                    ErrorMessage = e.ToString();
+                                    alignedResult = openCv.CreateAlignedSecondImageEcc( //fallback
+                                        firstImage,
+                                        secondImage,
+                                        Settings.AlignmentDownsizePercentage2,
+                                        Settings.AlignmentIterations2,
+                                        Settings.AlignmentEpsilonLevel2,
+                                        Settings.AlignmentEccThresholdPercentage2,
+                                        Settings.AlignmentPyramidLayers2,
+                                        discardTransX);
+                                }
                             }
                             else
                             {
