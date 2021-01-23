@@ -129,7 +129,7 @@ namespace AutoAlignment
         }
 
         public AlignedResult CreateAlignedSecondImageKeypoints(SKBitmap firstImage, SKBitmap secondImage,
-            bool discardTransX, bool crossCheck, bool drawMatches)
+            bool discardTransX, bool crossCheck, bool drawMatches, int minimumKeypoints)
         {
 #if __NO_EMGU__
             return null;
@@ -201,6 +201,8 @@ namespace AutoAlignment
                     goodMatches.Add(vectorOfMatches[i][0]);
                 }
             }
+
+            if (goodMatches.Count < minimumKeypoints) return null;
 
             var pairedPoints = new List<PointForCleaning>();
             for (var ii = 0; ii < goodMatches.Count; ii++)

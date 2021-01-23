@@ -136,13 +136,21 @@
             </StackLayout>
             <StackLayout Orientation="Horizontal">
                 <Label Text="Use keypoint alignment (vs ECC)"/>
-                <Switch IsToggled="{Binding Settings.AlignWithKeypoints}"
+                <Switch IsToggled="{Binding Settings.AlignmentUseKeypoints}"
                         IsEnabled="{Binding Settings.IsAutomaticAlignmentOn}"/>
             </StackLayout>
             <StackLayout Orientation="Horizontal"
                          IsVisible="{ce:DebugMarkupExtension}">
                 <Label Text="Crosscheck keypoints (vs ratio checks)"/>
-                <Switch IsToggled="{Binding Settings.AlignUseCrossCheck}"/>
+                <Switch IsToggled="{Binding Settings.AlignmentUseCrossCheck}"/>
+            </StackLayout>
+            <StackLayout Orientation="Horizontal"
+                         IsVisible="{ce:DebugMarkupExtension}">
+                <Label Text="Minimum keypoints"/>
+                <Picker ItemsSource="{Binding ZeroToOneHundred}"
+                        SelectedIndex="{Binding Settings.AlignmentMinimumKeypoints}"
+                        WidthRequest="50"
+                        HorizontalOptions="EndAndExpand"/>
             </StackLayout>
             <StackLayout Orientation="Horizontal"
                          IsVisible="{ce:DebugMarkupExtension}">

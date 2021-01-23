@@ -1202,17 +1202,26 @@ namespace CrossCam.ViewModel
                         {
                             var discardTransX = !Settings.SaveForRedCyanAnaglyph &&
                                                 !Settings.AlignHorizontallySideBySide;
-                            if (Settings.AlignWithKeypoints)
+                            if (Settings.AlignmentUseKeypoints)
                             {
+                                var needsFallback = false;
                                 try
                                 {
                                     alignedResult = openCv.CreateAlignedSecondImageKeypoints(firstImage, secondImage,
-                                        discardTransX, Settings.AlignUseCrossCheck, Settings.AlignmentDrawMatches);
+                                        discardTransX, Settings.AlignmentUseCrossCheck, Settings.AlignmentDrawMatches, Settings.AlignmentMinimumKeypoints);
+                                    if (alignedResult == null)
+                                    {
+                                        needsFallback = true;
+                                    }
                                 }
                                 catch (Exception e)
                                 {
                                     ErrorMessage = e.ToString();
-                                    alignedResult = openCv.CreateAlignedSecondImageEcc( //fallback
+                                    needsFallback = true;
+                                }
+                                if (needsFallback)
+                                {
+                                    alignedResult = openCv.CreateAlignedSecondImageEcc(
                                         firstImage,
                                         secondImage,
                                         Settings.AlignmentDownsizePercentage2,
@@ -1244,7 +1253,7 @@ namespace CrossCam.ViewModel
 
                     if (alignedResult != null)
                     {
-                        if (Settings.AlignWithKeypoints && Settings.AlignmentDrawMatches)
+                        if (Settings.AlignmentUseKeypoints && Settings.AlignmentDrawMatches)
                         {
                             using (var tempSurface =
                                 SKSurface.Create(new SKImageInfo(alignedResult.DrawnDirtyMatches.Width, alignedResult.DrawnDirtyMatches.Height)))
