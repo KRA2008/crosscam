@@ -1673,11 +1673,12 @@
                 <TapGestureRecognizer Command="{Binding ToggleViewModeCommand}"/>
             </ContentView.GestureRecognizers>
         </ContentView>
+
         <StackLayout AbsoluteLayout.LayoutFlags="All"
                      AbsoluteLayout.LayoutBounds="0,0.5,1,0.5"
                      InputTransparent="True">
             <StackLayout.Behaviors>
-                <ce:FadeInAndOutBehavior Trigger="{Binding MoveLeftTrigger}"
+                <ce:FadeInAndOutBehavior Trigger="{Binding MoveHintTrigger}"
                                          InTimeMs="0"
                                          OutTimeMs="500"
                                          VisibleTimeMs="2500"/>
@@ -1685,67 +1686,98 @@
             <Image Source="left"
                    Aspect="AspectFit"
                    HorizontalOptions="Center"
-                   VerticalOptions="EndAndExpand"/>
-            <Label Text="MOVE LEFT"
-                   FontSize="Large"
-                   FontAttributes="Bold"
-                   HorizontalOptions="Center">
-                <Label.Triggers>
-                    <DataTrigger TargetType="Label"
-                                 Binding="{Binding BluetoothOperatorBindable.PairStatus, Converter={vc:EnumCompareConverter}, ConverterParameter={x:Static vm:PairStatus.Connected}}"
-                                 Value="true">
-                        <Setter Property="Text"
-                                Value="SECONDARY LEFT"/>
-                    </DataTrigger>
-                </Label.Triggers>
-            </Label>
-            <Label Text="for cross"
-                   FontSize="Medium"
-                   HorizontalOptions="Center"
-                   VerticalOptions="StartAndExpand"
-                   IsVisible="{Binding Settings.Mode, Converter={vc:EnumCompareInvertConverter}, ConverterParameter={x:Static vm:DrawMode.Parallel}}"/>
-            <Label Text="for parallel"
-                   FontSize="Medium"
-                   HorizontalOptions="Center"
-                   VerticalOptions="StartAndExpand"
-                   IsVisible="{Binding Settings.Mode, Converter={vc:EnumCompareConverter}, ConverterParameter={x:Static vm:DrawMode.Parallel}}"/>
-        </StackLayout>
-        <StackLayout AbsoluteLayout.LayoutFlags="All"
-                     AbsoluteLayout.LayoutBounds="0,0.5,1,0.5"
-                     InputTransparent="True">
-            <StackLayout.Behaviors>
-                <ce:FadeInAndOutBehavior Trigger="{Binding MoveRightTrigger}"
-                                         InTimeMs="0"
-                                         OutTimeMs="500"
-                                         VisibleTimeMs="2500"/>
-            </StackLayout.Behaviors>
-            <Image Source="right"
-                   Aspect="AspectFit"
-                   HorizontalOptions="Center"
-                   VerticalOptions="EndAndExpand"/>
-            <Label Text="MOVE RIGHT"
-                   FontSize="Large"
-                   FontAttributes="Bold"
-                   HorizontalOptions="Center">
-                <Label.Triggers>
-                    <DataTrigger TargetType="Label"
-                                 Binding="{Binding BluetoothOperatorBindable.PairStatus, Converter={vc:EnumCompareConverter}, ConverterParameter={x:Static vm:PairStatus.Connected}}"
-                                 Value="true">
-                        <Setter Property="Text"
-                                Value="SECONDARY RIGHT"/>
-                    </DataTrigger>
-                </Label.Triggers>
-            </Label>
-            <Label Text="for cross"
-                   FontSize="Medium"
-                   HorizontalOptions="Center"
-                   VerticalOptions="StartAndExpand"
-                   IsVisible="{Binding Settings.Mode, Converter={vc:EnumCompareInvertConverter}, ConverterParameter={x:Static vm:DrawMode.Parallel}}"/>
-            <Label Text="for parallel"
-                   FontSize="Medium"
-                   HorizontalOptions="Center"
-                   VerticalOptions="StartAndExpand"
-                   IsVisible="{Binding Settings.Mode, Converter={vc:EnumCompareConverter}, ConverterParameter={x:Static vm:DrawMode.Parallel}}"/>
+                   VerticalOptions="EndAndExpand">
+                <Image.Triggers>
+                    <MultiTrigger TargetType="Image">
+                        <MultiTrigger.Conditions>
+                            <BindingCondition Binding="{Binding Settings.Mode, Converter={vc:EnumCompareConverter}, ConverterParameter={x:Static vm:DrawMode.Parallel}}"
+                                              Value="True"/>
+                            <BindingCondition Binding="{Binding Settings.IsCaptureLeftFirst}"
+                                              Value="True"/>
+                        </MultiTrigger.Conditions>
+                        <MultiTrigger.Setters>
+                            <Setter Property="Source"
+                                    Value="right"/>
+                        </MultiTrigger.Setters>
+                    </MultiTrigger>
+                    <MultiTrigger TargetType="Image">
+                        <MultiTrigger.Conditions>
+                            <BindingCondition Binding="{Binding Settings.Mode, Converter={vc:EnumCompareConverter}, ConverterParameter={x:Static vm:DrawMode.Parallel}}"
+                                              Value="False"/>
+                            <BindingCondition Binding="{Binding Settings.IsCaptureLeftFirst}"
+                                              Value="False"/>
+                        </MultiTrigger.Conditions>
+                        <MultiTrigger.Setters>
+                            <Setter Property="Source"
+                                    Value="right"/>
+                        </MultiTrigger.Setters>
+                    </MultiTrigger>
+                </Image.Triggers>
+            </Image>
+            <StackLayout Orientation="Horizontal">
+                <Label Text="MOVE"                   
+                       FontSize="Large"
+                       FontAttributes="Bold"
+                       HorizontalOptions="EndAndExpand">
+                    <Label.Triggers>
+                        <DataTrigger TargetType="Label"
+                                     Binding="{Binding BluetoothOperatorBindable.PairStatus, Converter={vc:EnumCompareConverter}, ConverterParameter={x:Static vm:PairStatus.Connected}}"
+                                     Value="true">
+                            <Setter Property="Text"
+                                    Value="SECONDARY"/>
+                        </DataTrigger>
+                    </Label.Triggers>
+                </Label>
+                <Label Text="LEFT"                   
+                       FontSize="Large"
+                       FontAttributes="Bold"
+                       HorizontalOptions="StartAndExpand">
+                    <Label.Triggers>
+                        <MultiTrigger TargetType="Label">
+                            <MultiTrigger.Conditions>
+                                <BindingCondition Binding="{Binding Settings.Mode, Converter={vc:EnumCompareConverter}, ConverterParameter={x:Static vm:DrawMode.Parallel}}"
+                                                  Value="True"/>
+                                <BindingCondition Binding="{Binding Settings.IsCaptureLeftFirst}"
+                                                  Value="True"/>
+                            </MultiTrigger.Conditions>
+                            <MultiTrigger.Setters>
+                                <Setter Property="Text"
+                                        Value="RIGHT"/>
+                            </MultiTrigger.Setters>
+                        </MultiTrigger>
+                        <MultiTrigger TargetType="Label">
+                            <MultiTrigger.Conditions>
+                                <BindingCondition Binding="{Binding Settings.Mode, Converter={vc:EnumCompareConverter}, ConverterParameter={x:Static vm:DrawMode.Parallel}}"
+                                                  Value="False"/>
+                                <BindingCondition Binding="{Binding Settings.IsCaptureLeftFirst}"
+                                                  Value="False"/>
+                            </MultiTrigger.Conditions>
+                            <MultiTrigger.Setters>
+                                <Setter Property="Text"
+                                        Value="RIGHT"/>
+                            </MultiTrigger.Setters>
+                        </MultiTrigger>
+                    </Label.Triggers>
+                </Label>
+            </StackLayout>
+            <StackLayout Orientation="Horizontal"
+                         VerticalOptions="StartAndExpand">
+                <Label Text="for"
+                       FontSize="Medium"
+                       HorizontalOptions="EndAndExpand"/>
+                <Label Text="cross"
+                       FontSize="Medium"
+                       HorizontalOptions="StartAndExpand">
+                    <Label.Triggers>
+                        <DataTrigger TargetType="Label"
+                                     Binding="{Binding Settings.Mode, Converter={vc:EnumCompareConverter}, ConverterParameter={x:Static vm:DrawMode.Parallel}}"
+                                     Value="true">
+                            <Setter Property="Text"
+                                    Value="parallel"/>
+                        </DataTrigger>
+                    </Label.Triggers>
+                </Label>
+            </StackLayout>
         </StackLayout>
 
         <BoxView x:Name="_upperLine" 

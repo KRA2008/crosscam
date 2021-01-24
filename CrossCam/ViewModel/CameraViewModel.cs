@@ -80,8 +80,7 @@ namespace CrossCam.ViewModel
         public Command CapturePictureCommand { get; set; }
         public bool CapturePictureTrigger { get; set; }
 
-        public bool MoveLeftTrigger { get; set; }
-        public bool MoveRightTrigger { get; set; }
+        public bool MoveHintTrigger { get; set; }
         public bool WasSwipedTrigger { get; set; }
 
         public Command SaveCapturesCommand { get; set; }
@@ -1066,48 +1065,13 @@ namespace CrossCam.ViewModel
 
         private void TriggerMovementHint()
         {
-            if (LeftBitmap != null &&
-                RightBitmap == null)
-            {
-                if (Settings.Mode != DrawMode.Parallel)
-                {
-                    MoveLeftTrigger = !MoveLeftTrigger;
-                }
-                else
-                {
-                    MoveRightTrigger = !MoveRightTrigger;
-                }
-            }
-
             if (LeftBitmap == null &&
-                RightBitmap != null)
-            {
-
-                if (Settings.Mode != DrawMode.Parallel)
-                {
-                    MoveRightTrigger = !MoveRightTrigger;
-                }
-                else
-                {
-                    MoveLeftTrigger = !MoveLeftTrigger;
-                }
-            }
-
-            if (LeftBitmap == null &&
-                RightBitmap == null &&
+                RightBitmap != null ||
+                LeftBitmap != null &&
+                RightBitmap == null ||
                 BluetoothOperator.PairStatus == PairStatus.Connected)
             {
-                if (Settings.IsCaptureLeftFirst &&
-                    Settings.Mode != DrawMode.Parallel ||
-                    !Settings.IsCaptureLeftFirst &&
-                    Settings.Mode == DrawMode.Parallel)
-                {
-                    MoveLeftTrigger = !MoveLeftTrigger;
-                }
-                else
-                {
-                    MoveRightTrigger = !MoveRightTrigger;
-                }
+                MoveHintTrigger = !MoveHintTrigger;
             }
         }
 
