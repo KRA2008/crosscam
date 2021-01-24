@@ -2,6 +2,7 @@
 using System.ComponentModel;
 using System.Threading.Tasks;
 using CrossCam.CustomElement;
+using CrossCam.Model;
 using CrossCam.ViewModel;
 using SkiaSharp;
 using SkiaSharp.Views.Forms;
@@ -242,7 +243,7 @@ namespace CrossCam.Page
                         ResetLineAndDonutGuides();
                         break;
                     case nameof(CameraViewModel.CameraColumn):
-                    case nameof(CameraViewModel.IsCaptureLeftFirst):
+                    case nameof(Settings.IsCaptureLeftFirst):
                         PlaceRollGuide();
                         break;
                     case nameof(CameraViewModel.IsViewPortrait):

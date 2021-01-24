@@ -141,7 +141,6 @@ namespace CrossCam.ViewModel
 
         public bool IsViewPortrait { get; set; }
         public bool IsViewInverted { get; set; }
-        public bool IsCaptureLeftFirst { get; set; }
         public bool WasCapturePortrait { get; set; }
         public bool WasCaptureCross { get; set; }
 
@@ -258,8 +257,7 @@ namespace CrossCam.ViewModel
             BluetoothOperator.TransmissionStarted += BluetoothOperatorTransmissionStarted;
             BluetoothOperator.TransmissionComplete += BluetoothOperatorTransmissionComplete;
 
-            IsCaptureLeftFirst = Settings.IsCaptureLeftFirst;
-            CameraColumn = IsCaptureLeftFirst ? 0 : 1;
+            CameraColumn = Settings.IsCaptureLeftFirst ? 0 : 1;
             AvailableCameras = new ObservableCollection<AvailableCamera>();
 
             PropertyChanged += (sender, args) =>
@@ -320,7 +318,7 @@ namespace CrossCam.ViewModel
                         otherAlignmentModeWasRun)
                     {
                         ClearCrops(true);
-                        if (IsCaptureLeftFirst)
+                        if (Settings.IsCaptureLeftFirst)
                         {
                             SetRightBitmap(_originalUnalignedBitmap, true, true); //calls autoalign internally
                         }
@@ -555,8 +553,6 @@ namespace CrossCam.ViewModel
                     WorkflowStage == WorkflowStage.Edits ||
                     forced.HasValue && forced.Value)
                 {
-                    IsCaptureLeftFirst = !IsCaptureLeftFirst;
-
                     var tempArray = LeftBitmap;
                     LeftBitmap = RightBitmap;
                     RightBitmap = tempArray;
@@ -565,8 +561,6 @@ namespace CrossCam.ViewModel
                     {
                         CameraColumn = CameraColumn == 0 ? 1 : 0;
                     }
-
-                    TriggerMovementHint();
 
                     var tempCrop = Edits.InsideCrop;
                     Edits.InsideCrop = Edits.OutsideCrop;
@@ -586,8 +580,11 @@ namespace CrossCam.ViewModel
 
                     Edits.VerticalAlignment = -Edits.VerticalAlignment;
 
-                    Settings.IsCaptureLeftFirst = IsCaptureLeftFirst;
+                    Settings.IsCaptureLeftFirst = !Settings.IsCaptureLeftFirst;
+                    Settings.RaisePropertyChanged(nameof(Settings.IsCaptureLeftFirst));
                     PersistentStorage.Save(PersistentStorage.SETTINGS_KEY, Settings);
+
+                    TriggerMovementHint();
                 }
             });
 
@@ -637,7 +634,7 @@ namespace CrossCam.ViewModel
 
                                 SKBitmap innerLeftBitmap;
                                 SKBitmap innerRightBitmap;
-                                if (IsCaptureLeftFirst)
+                                if (Settings.IsCaptureLeftFirst)
                                 {
                                     innerLeftBitmap = LeftBitmap;
                                     if (_wasAlignmentWithHorizontalRun ||
@@ -767,7 +764,7 @@ namespace CrossCam.ViewModel
                                     canvas.Translate(-1f * LeftBitmap.Width, -1f * LeftBitmap.Height);
                                 }
 
-                                canvas.DrawBitmap(IsCaptureLeftFirst ? LeftBitmap : RightBitmap, 0, 0);
+                                canvas.DrawBitmap(Settings.IsCaptureLeftFirst ? LeftBitmap : RightBitmap, 0, 0);
 
                                 await SaveSurfaceSnapshot(tempSurface);
                             }
@@ -872,6 +869,7 @@ namespace CrossCam.ViewModel
 
         private void BluetoothOperatorInitialSyncCompleted(object sender, EventArgs e)
         {
+            TriggerMovementHint();
             WorkflowStage = WorkflowStage.Capture;
         }
 
@@ -1054,7 +1052,7 @@ namespace CrossCam.ViewModel
         {
             PreviewFrame = null;
             var bitmap = DecodeBitmapAndCorrectOrientation(e);
-            if (IsCaptureLeftFirst)
+            if (Settings.IsCaptureLeftFirst)
             {
                 SetRightBitmap(bitmap, false, true);
             }
@@ -1092,6 +1090,23 @@ namespace CrossCam.ViewModel
                 else
                 {
                     MoveLeftTrigger = !MoveLeftTrigger;
+                }
+            }
+
+            if (LeftBitmap == null &&
+                RightBitmap == null &&
+                BluetoothOperator.PairStatus == PairStatus.Connected)
+            {
+                if (Settings.IsCaptureLeftFirst &&
+                    Settings.Mode != DrawMode.Parallel ||
+                    !Settings.IsCaptureLeftFirst &&
+                    Settings.Mode == DrawMode.Parallel)
+                {
+                    MoveLeftTrigger = !MoveLeftTrigger;
+                }
+                else
+                {
+                    MoveRightTrigger = !MoveRightTrigger;
                 }
             }
         }
@@ -1194,8 +1209,8 @@ namespace CrossCam.ViewModel
                 AlignedResult alignedResult = null;
                 if (openCv.IsOpenCvSupported())
                 {
-                    var firstImage = IsCaptureLeftFirst ? LeftBitmap : RightBitmap;
-                    var secondImage = IsCaptureLeftFirst ? RightBitmap : LeftBitmap;
+                    var firstImage = Settings.IsCaptureLeftFirst ? LeftBitmap : RightBitmap;
+                    var secondImage = Settings.IsCaptureLeftFirst ? RightBitmap : LeftBitmap;
                     try
                     {
                         await Task.Run(() =>
@@ -1363,7 +1378,7 @@ namespace CrossCam.ViewModel
                             }
                         }
 
-                        if (IsCaptureLeftFirst)
+                        if (Settings.IsCaptureLeftFirst)
                         {
                             _originalUnalignedBitmap = RightBitmap;
                             SetRightBitmap(alignedResult.AlignedBitmap, false, true);
@@ -1442,7 +1457,7 @@ namespace CrossCam.ViewModel
                         }
                     }
                     WasCaptureCross = Settings.Mode != DrawMode.Parallel;
-                    CameraColumn = IsCaptureLeftFirst ? 0 : 1;
+                    CameraColumn = Settings.IsCaptureLeftFirst ? 0 : 1;
                     WorkflowStage = WorkflowStage.Final;
                     AutoAlign();
                 }
@@ -1481,7 +1496,7 @@ namespace CrossCam.ViewModel
                         }
                     }
                     WasCaptureCross = Settings.Mode != DrawMode.Parallel;
-                    CameraColumn = IsCaptureLeftFirst ? 0 : 1;
+                    CameraColumn = Settings.IsCaptureLeftFirst ? 0 : 1;
                     WorkflowStage = WorkflowStage.Final;
                     AutoAlign();
                 }

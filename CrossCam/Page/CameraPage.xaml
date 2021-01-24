@@ -1674,7 +1674,8 @@
             </ContentView.GestureRecognizers>
         </ContentView>
         <StackLayout AbsoluteLayout.LayoutFlags="All"
-                     AbsoluteLayout.LayoutBounds="0.5,0.5,0.5,0.5">
+                     AbsoluteLayout.LayoutBounds="0,0.5,1,0.5"
+                     InputTransparent="True">
             <StackLayout.Behaviors>
                 <ce:FadeInAndOutBehavior Trigger="{Binding MoveLeftTrigger}"
                                          InTimeMs="0"
@@ -1688,7 +1689,16 @@
             <Label Text="MOVE LEFT"
                    FontSize="Large"
                    FontAttributes="Bold"
-                   HorizontalOptions="Center"/>
+                   HorizontalOptions="Center">
+                <Label.Triggers>
+                    <DataTrigger TargetType="Label"
+                                 Binding="{Binding BluetoothOperatorBindable.PairStatus, Converter={vc:EnumCompareConverter}, ConverterParameter={x:Static vm:PairStatus.Connected}}"
+                                 Value="true">
+                        <Setter Property="Text"
+                                Value="SECONDARY LEFT"/>
+                    </DataTrigger>
+                </Label.Triggers>
+            </Label>
             <Label Text="for cross"
                    FontSize="Medium"
                    HorizontalOptions="Center"
@@ -1701,7 +1711,8 @@
                    IsVisible="{Binding Settings.Mode, Converter={vc:EnumCompareConverter}, ConverterParameter={x:Static vm:DrawMode.Parallel}}"/>
         </StackLayout>
         <StackLayout AbsoluteLayout.LayoutFlags="All"
-                     AbsoluteLayout.LayoutBounds="0.5,0.5,0.5,0.5">
+                     AbsoluteLayout.LayoutBounds="0,0.5,1,0.5"
+                     InputTransparent="True">
             <StackLayout.Behaviors>
                 <ce:FadeInAndOutBehavior Trigger="{Binding MoveRightTrigger}"
                                          InTimeMs="0"
@@ -1715,7 +1726,16 @@
             <Label Text="MOVE RIGHT"
                    FontSize="Large"
                    FontAttributes="Bold"
-                   HorizontalOptions="Center"/>
+                   HorizontalOptions="Center">
+                <Label.Triggers>
+                    <DataTrigger TargetType="Label"
+                                 Binding="{Binding BluetoothOperatorBindable.PairStatus, Converter={vc:EnumCompareConverter}, ConverterParameter={x:Static vm:PairStatus.Connected}}"
+                                 Value="true">
+                        <Setter Property="Text"
+                                Value="SECONDARY RIGHT"/>
+                    </DataTrigger>
+                </Label.Triggers>
+            </Label>
             <Label Text="for cross"
                    FontSize="Medium"
                    HorizontalOptions="Center"

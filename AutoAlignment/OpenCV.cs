@@ -252,28 +252,10 @@ namespace AutoAlignment
             Debug.WriteLine("Dirty Slopes: " + string.Join(",", pairedPoints.Select(d => d.Data.Slope)));
             Debug.WriteLine("Dirty X: " + string.Join(",", pairedPoints.Select(d => Math.Abs(d.KeyPoint1.Point.X - d.KeyPoint2.Point.X))));
             Debug.WriteLine("Dirty Y: " + string.Join(",", pairedPoints.Select(d => Math.Abs(d.KeyPoint1.Point.Y - d.KeyPoint2.Point.Y))));
-            Debug.WriteLine("Dirty points: " + pairedPoints.Count);
+            Debug.WriteLine("Dirty points count: " + pairedPoints.Count);
 
-            // reject ends of slope strat for cleaning
-            //var rejectCountOnEnds = pairedPoints.Count * 0.05;
-            //pairedPoints = pairedPoints.OrderBy(p => p.Data.Slope).ToList();
-            //pairedPoints.RemoveRange(0, (int)rejectCountOnEnds);
-            //pairedPoints.RemoveRange((int)(pairedPoints.Count - rejectCountOnEnds), (int)rejectCountOnEnds);
-
-            // reject slopes too far from median
-            //var medianSlope = pairedPoints.OrderBy(p => p.Data.Slope).ElementAt(pairedPoints.Count / 2).Data.Slope;
-            //const double SLOPE_RANGE_THRESHOLD = 0.5d;
-            //pairedPoints = pairedPoints.Where(p =>
-            //    Math.Abs(p.Data.Slope - medianSlope) < SLOPE_RANGE_THRESHOLD).ToList();
-            //Debug.WriteLine("Median Slope: " + medianSlope);
-            //Debug.WriteLine("Slope Cleaned Points: " + pairedPoints.Count);
-
-            // reject distances too far from median
-            //var medianDistance = pairedPoints.OrderBy(p => p.Data.Distance).ElementAt(pairedPoints.Count / 2).Data.Distance;
-            //const double DISTANCE_RANGE_THRESHOLD = 0.5d;
-            //pairedPoints = pairedPoints.Where(p => Math.Abs(p.Data.Distance - medianDistance) < Math.Abs(medianDistance * DISTANCE_RANGE_THRESHOLD)).ToList();
-            //Debug.WriteLine("Median Distance: " + medianDistance);
-            //Debug.WriteLine("Distance Cleaned Points: " + pairedPoints.Count);
+            Debug.WriteLine("DIRTY PAIRS:");
+            PrintPairs(pairedPoints);
 
             // reject distances and slopes more than some number of standard deviations from the median
             const double STD_DEV_INTERVALS = 2; //TODO: make configurable?
@@ -281,17 +263,20 @@ namespace AutoAlignment
             var distanceStdDev = CalcStandardDeviation(pairedPoints.Select(p => p.Data.Distance).ToArray());
             pairedPoints = pairedPoints.Where(p => Math.Abs(p.Data.Distance - medianDistance) < Math.Abs(distanceStdDev * STD_DEV_INTERVALS)).ToList();
             Debug.WriteLine("Median Distance: " + medianDistance);
-            Debug.WriteLine("Distance Cleaned Points: " + pairedPoints.Count);
+            Debug.WriteLine("Distance Cleaned Points count: " + pairedPoints.Count);
             var medianSlope = pairedPoints.OrderBy(p => p.Data.Slope).ElementAt(pairedPoints.Count / 2).Data.Slope;
             var slopeStdDev = CalcStandardDeviation(pairedPoints.Select(p => p.Data.Slope).ToArray());
             pairedPoints = pairedPoints.Where(p => Math.Abs(p.Data.Slope - medianSlope) < Math.Abs(slopeStdDev * STD_DEV_INTERVALS)).ToList();
             Debug.WriteLine("Median Slope: " + medianSlope);
-            Debug.WriteLine("Slope Cleaned Points: " + pairedPoints.Count);
+            Debug.WriteLine("Slope Cleaned Points count: " + pairedPoints.Count);
 
             Debug.WriteLine("Clean Distances: " + string.Join(",", pairedPoints.Select(d => d.Data.Distance)));
             Debug.WriteLine("Clean Slopes: " + string.Join(",", pairedPoints.Select(d => d.Data.Slope)));
             Debug.WriteLine("Clean X: " + string.Join(",", pairedPoints.Select(d => Math.Abs(d.KeyPoint1.Point.X - d.KeyPoint2.Point.X))));
             Debug.WriteLine("Clean Y: " + string.Join(",", pairedPoints.Select(d => Math.Abs(d.KeyPoint1.Point.Y - d.KeyPoint2.Point.Y))));
+
+            Debug.WriteLine("CLEANED PAIRS:");
+            PrintPairs(pairedPoints);
 
             if (drawMatches)
             {
@@ -404,6 +389,14 @@ namespace AutoAlignment
 
 
             return result;
+        }
+
+        private static void PrintPairs(IEnumerable<PointForCleaning> pairedPoints)
+        {
+            foreach (var pair in pairedPoints)
+            {
+                Debug.WriteLine(pair.KeyPoint1.Point.X + "," + pair.KeyPoint1.Point.Y + "," + pair.KeyPoint2.Point.X + "," + pair.KeyPoint2.Point.Y);
+            }
         }
 
         private static double CalcStandardDeviation(float[] data)
