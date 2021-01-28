@@ -21,6 +21,7 @@
             <Label Text="Please be aware that this feature is still experimental and may have issues. Also please be aware that at this time the devices must be the same platform in order to connect (both Android or both iOS)."/>
 
             <Label Text="Before two devices can be used together their roles have to be assigned. The PRIMARY device is the one that will show both previews, trigger the capture, and hold/save the final captures. To assign roles, navigate both devices to this page and then follow the steps below:"/>
+            <Label Text=" "/>
             <Grid>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto"/>
@@ -83,22 +84,22 @@
             <Label Text=" "/>
             <Label Text="To connect again later, make sure you have Wi-Fi enabled and then just tap the connect button on the home screen on both devices."/>
             <Label Text=" "/>
-            <Label Text="A Note About Permissions:"/>
-            <Label Text="CrossCam will request permissions and power on components as needed in order to connect your devices. Please note: CrossCam requires location permission and for location services to be turned on on the primary device in order to connect to the secondary device. This is simply an Android requirement and is completely outside my control. CrossCam does not actually USE your location in any way, but because the act of searching for nearby devices could theoretically be used to roughly locate you, CrossCam requires permission to access your location. Note that CrossCam still does not use an internet connection or even request internet permission, so it can't transmit location data anywhere even if it did collect it.">
-                <Label.IsVisible>
+            <StackLayout>
+                <StackLayout.IsVisible>
                     <OnPlatform x:TypeArguments="system:Boolean">
                         <On Platform="Android"
                             Value="True"/>
                         <On Platform="iOS"
                             Value="False"/>
                     </OnPlatform>
-                </Label.IsVisible>
-            </Label>
-            <Label Text=" "/>
+                </StackLayout.IsVisible>
+                <Label Text="A Note About Permissions:"/>
+                <Label Text="CrossCam will request permissions and power on components as needed in order to connect your devices. Please note: CrossCam requires location permission and for location services to be turned on on the primary device in order to connect to the secondary device. This is simply an Android requirement and is completely outside my control. CrossCam does not actually USE your location in any way, but because the act of searching for nearby devices could theoretically be used to roughly locate you, CrossCam requires permission to access your location. Note that CrossCam still does not use an internet connection or even request internet permission, so it can't transmit location data anywhere even if it did collect it."/>
+                <Label Text=" "/>
+            </StackLayout>
             <Label Text="If you have trouble, PLEASE NOTE:"/>
-            <Label Text=" &#x2022; Every camera is different. Different model cameras or cameras with different manufacturers will have vast differences, but even two of the same model of phone will behave slightly differently. These differences can include but are not limited to: angular field of view, focus, exposure, and white balance behavior, timing and more. I prefer to use a pair of identical old phones (in my case, a pair of iPhone 6)."/>
+            <Label Text=" &#x2022; Every camera is different. Even two of the same model of phone will behave slightly differently. These differences can include but are not limited to: angular field of view, focus, exposure, and white balance behavior, timing and more. I prefer to use a pair of identical old phones (in my case, a pair of iPhone 6)."/>
             <Label Text=" &#x2022; CrossCam is software, not hardware, so capturing the photos may be slightly out of sync depending on what else the processors and memory are doing at the precise moment the capture is triggered. As a result, the synchronization may sometimes not be perfect, but it should generally be very close."/>
-            <Label Text=" &#x2022; The &quot;flash&quot; that happens at capture may not appear synced between the two phones, but it actually happens after the captures are complete and (just like the capture) may happen at a different time depending on what the processors are busy with (for example, processing the picture that was just taken)." />
             <customElement:EmailMeLabel/>
         </StackLayout>
     </ScrollView>

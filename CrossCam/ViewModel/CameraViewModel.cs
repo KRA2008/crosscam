@@ -829,7 +829,7 @@ namespace CrossCam.ViewModel
                     if (!Settings.IsPairedPrimary.HasValue)
                     {
                         await CoreMethods.DisplayAlert("Pair Role Not Selected",
-                            "Please go to Pairing page (via the Settings page) and choose a pairing role for this device before attempting to pair.",
+                            "Please go to the Pairing page (via the Settings page) and choose a pairing role for this device before attempting to pair.",
                             "Ok");
                     }
                     else
