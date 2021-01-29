@@ -158,11 +158,9 @@
     </PackageReference>
   </ItemGroup>
   <ItemGroup>
-    <Reference Include="Emgu.CV.Platform.IOS">
-      <HintPath>D:\Kevin\CrossCamDocs\libemgucv-pro-4.4.0.4099\libs\Emgu.CV.Platform.IOS.dll</HintPath>
-    </Reference>
-    <Reference Include="Emgu.CV.Platform.NetStandard">
-      <HintPath>D:\Kevin\CrossCamDocs\libemgucv-pro-4.4.0.4099\libs\Emgu.CV.Platform.NetStandard.dll</HintPath>
+    <Reference Include="Emgu.CV.World.IOS, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>D:\Kevin\CrossCamDocs\libemgucv-pro-3.4.3.3027\libs\Emgu.CV.World.IOS.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Xml" />

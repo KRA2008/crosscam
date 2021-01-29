@@ -120,11 +120,8 @@
     </PackageReference>
   </ItemGroup>
   <ItemGroup>
-    <Reference Include="Emgu.CV.Platform.Android">
-      <HintPath>D:\Kevin\CrossCamDocs\libemgucv-pro-4.4.0.4099\libs\Emgu.CV.Platform.Android.dll</HintPath>
-    </Reference>
-    <Reference Include="Emgu.CV.Platform.NetStandard">
-      <HintPath>..\..\CrossCamDocs\libemgucv-pro-4.4.0.4099\libs\Emgu.CV.Platform.NetStandard.dll</HintPath>
+    <Reference Include="Emgu.CV.World.Android">
+      <HintPath>D:\Kevin\CrossCamDocs\libemgucv-pro-3.4.3.3027\libs\Emgu.CV.World.Android.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Xml" />

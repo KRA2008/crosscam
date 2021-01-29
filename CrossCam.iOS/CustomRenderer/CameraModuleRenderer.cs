@@ -166,13 +166,17 @@ namespace CrossCam.iOS.CustomRenderer
                     };
                     if (!_cameraModule.AvailableCameras.Any())
                     {
+                        var deviceTypes = new List<AVCaptureDeviceType>
+                        {
+                            AVCaptureDeviceType.BuiltInWideAngleCamera,
+                            AVCaptureDeviceType.BuiltInTelephotoCamera
+                        };
+                        if (UIDevice.CurrentDevice.CheckSystemVersion(13, 0))
+                        {
+                            deviceTypes.Add(AVCaptureDeviceType.BuiltInUltraWideCamera);
+                        }
                         var session = AVCaptureDeviceDiscoverySession.Create(
-                            new []
-                            {
-                                AVCaptureDeviceType.BuiltInWideAngleCamera, 
-                                AVCaptureDeviceType.BuiltInTelephotoCamera,
-                                AVCaptureDeviceType.BuiltInUltraWideCamera
-                            }, AVMediaType.Video, AVCaptureDevicePosition.Unspecified);
+                            deviceTypes.ToArray(), AVMediaType.Video, AVCaptureDevicePosition.Unspecified);
                         _devices = session.Devices;
                         foreach (var avCaptureDevice in _devices)
                         {

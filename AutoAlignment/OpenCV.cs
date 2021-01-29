@@ -240,7 +240,7 @@ namespace AutoAlignment
                     fullSizeColor1, new VectorOfKeyPoint(pairedPoints.Select(m => m.KeyPoint1).ToArray()),
                     fullSizeColor2, new VectorOfKeyPoint(pairedPoints.Select(m => m.KeyPoint2).ToArray()),
                     new VectorOfVectorOfDMatch(pairedPoints.Select(p => new[] { p.Match }).ToArray()),
-                    drawnResult, new MCvScalar(0, 255, 0), new MCvScalar(255, 255, 0), new Mat());
+                    drawnResult, new MCvScalar(0, 255, 0), new MCvScalar(255, 255, 0));
 #if __IOS__
                 result.DrawnDirtyMatches = drawnResult.ToCGImage().ToSKBitmap();
 #elif __ANDROID__
@@ -290,7 +290,7 @@ namespace AutoAlignment
                     fullSizeColor1, new VectorOfKeyPoint(pairedPoints.Select(m => m.KeyPoint1).ToArray()),
                     fullSizeColor2, new VectorOfKeyPoint(pairedPoints.Select(m => m.KeyPoint2).ToArray()),
                     new VectorOfVectorOfDMatch(pairedPoints.Select(p => new[] { p.Match }).ToArray()),
-                    drawnResult, new MCvScalar(0, 255, 0), new MCvScalar(255, 255, 0), new Mat());
+                    drawnResult, new MCvScalar(0, 255, 0), new MCvScalar(255, 255, 0));
 #if __IOS__
                 result.DrawnCleanMatches = drawnResult.ToCGImage().ToSKBitmap();
 #elif __ANDROID__
