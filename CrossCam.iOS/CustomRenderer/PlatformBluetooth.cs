@@ -70,6 +70,7 @@ namespace CrossCam.iOS.CustomRenderer
                 };
                 browser.StartBrowsingForPeers();
             });
+            Debug.WriteLine("### SCANNING START");
             return Task.FromResult((string)null);
         }
 
@@ -79,6 +80,7 @@ namespace CrossCam.iOS.CustomRenderer
             _session = new MCSession(myPeerId) {Delegate = new SessionDelegate(this)};
             var assistant = new MCAdvertiserAssistant(BluetoothOperator.CROSSCAM_SERVICE, new NSDictionary(), _session);
             assistant.Start();
+            Debug.WriteLine("### DISCOVERABLE START");
             return Task.FromResult(true);
         }
 
@@ -115,19 +117,23 @@ namespace CrossCam.iOS.CustomRenderer
 
             public override void DidStartReceivingResource(MCSession session, string resourceName, MCPeerID fromPeer, NSProgress progress)
             {
+                //Debug.WriteLine("### DATA START RECEIVING");
             }
 
             public override void DidFinishReceivingResource(MCSession session, string resourceName, MCPeerID fromPeer, NSUrl localUrl,
                 NSError error)
             {
+                //Debug.WriteLine("### DATA RECEIVE FINISH");
             }
 
             public override void DidReceiveStream(MCSession session, NSInputStream stream, string streamName, MCPeerID peerID)
             {
+                //Debug.WriteLine("### STREAM RECEIVE");
             }
 
             public override void DidReceiveData(MCSession session, NSData data, MCPeerID peerID)
             {
+                //Debug.WriteLine("### DATA RECEIVED");
                 _platformBluetooth.OnPayloadReceived(data.ToArray());
             }
         }
@@ -141,14 +147,21 @@ namespace CrossCam.iOS.CustomRenderer
                 _platformBluetooth = platformBluetooth;
             }
 
+            public override void DidNotStartBrowsingForPeers(MCNearbyServiceBrowser browser, NSError error)
+            {
+                Debug.WriteLine("### DID NOT START BROWSING: " + error);
+            }
+
             public override void FoundPeer(MCNearbyServiceBrowser browser, MCPeerID peerID, NSDictionary info)
             {
+                Debug.WriteLine("### FOUND PEER: " + peerID.DisplayName);
                 browser.InvitePeer(peerID, _platformBluetooth._session, null, 30);
                 browser.StopBrowsingForPeers();
             }
 
             public override void LostPeer(MCNearbyServiceBrowser browser, MCPeerID peerID)
             {
+                Debug.WriteLine("### LOST PEER: " + peerID.DisplayName);
             }
         }
     }

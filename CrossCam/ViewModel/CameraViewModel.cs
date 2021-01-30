@@ -198,6 +198,7 @@ namespace CrossCam.ViewModel
         public bool IsBusy => WorkflowStage == WorkflowStage.Loading ||
                               WorkflowStage == WorkflowStage.AutomaticAlign ||
                               WorkflowStage == WorkflowStage.Saving;
+        public bool IsHoldSteadySecondary { get; set; }
         public bool ShouldSaveCapturesButtonBeVisible => WorkflowStage == WorkflowStage.Final &&
                                                          (Settings.SaveForCrossView ||
                                                           Settings.SaveForParallel ||
@@ -255,6 +256,7 @@ namespace CrossCam.ViewModel
             BluetoothOperator.InitialSyncCompleted += BluetoothOperatorInitialSyncCompleted;
             BluetoothOperator.TransmissionStarted += BluetoothOperatorTransmissionStarted;
             BluetoothOperator.TransmissionComplete += BluetoothOperatorTransmissionComplete;
+            BluetoothOperator.CountdownTimerSyncComplete += BluetoothOperatorCountdownTimerSyncComplete;
 
             CameraColumn = Settings.IsCaptureLeftFirst ? 0 : 1;
             AvailableCameras = new ObservableCollection<AvailableCamera>();
@@ -444,12 +446,15 @@ namespace CrossCam.ViewModel
             {
                 try
                 {
-                    var confirmClear = await CoreMethods.DisplayAlert("Really clear?",
-                        "Are you sure you want to clear your pictures and start over?", "Yes, clear", "No");
-                    if (confirmClear)
+                    await Device.InvokeOnMainThreadAsync(async () =>
                     {
-                        ClearCaptures();
-                    }
+                        var confirmClear = await CoreMethods.DisplayAlert("Really clear?",
+                            "Are you sure you want to clear your pictures and start over?", "Yes, clear", "No");
+                        if (confirmClear)
+                        {
+                            ClearCaptures();
+                        }
+                    });
                 }
                 catch (Exception e)
                 {
@@ -775,8 +780,11 @@ namespace CrossCam.ViewModel
                     SaveFailFadeTrigger = !SaveFailFadeTrigger;
                     WorkflowStage = WorkflowStage.Final;
 
-                    await CoreMethods.DisplayAlert("Directory Not Found",
-                        "The save destination could not be found. Please choose another on the settings page.", "OK");
+                    await Device.InvokeOnMainThreadAsync(async () =>
+                    {
+                        await CoreMethods.DisplayAlert("Directory Not Found",
+                            "The save destination could not be found. Please choose another on the settings page.", "OK");
+                    });
 
                     return;
                 }
@@ -828,9 +836,12 @@ namespace CrossCam.ViewModel
                 {
                     if (!Settings.IsPairedPrimary.HasValue)
                     {
-                        await CoreMethods.DisplayAlert("Pair Role Not Selected",
-                            "Please go to the Pairing page (via the Settings page) and choose a pairing role for this device before attempting to pair.",
-                            "Ok");
+                        await Device.InvokeOnMainThreadAsync(async () =>
+                        {
+                            await CoreMethods.DisplayAlert("Pair Role Not Selected",
+                                "Please go to the Pairing page (via the Settings page) and choose a pairing role for this device before attempting to pair.",
+                                "Ok");
+                        });
                     }
                     else
                     {
@@ -851,6 +862,14 @@ namespace CrossCam.ViewModel
             });
         }
 
+        private void BluetoothOperatorCountdownTimerSyncComplete(object sender, EventArgs e)
+        {
+            if (!BluetoothOperator.IsPrimary)
+            {
+                IsHoldSteadySecondary = true;
+            }
+        }
+
         private void BluetoothOperatorTransmissionComplete(object sender, EventArgs e)
         {
             WorkflowStage = WorkflowStage.Capture;
@@ -858,6 +877,7 @@ namespace CrossCam.ViewModel
 
         private void BluetoothOperatorTransmissionStarted(object sender, EventArgs e)
         {
+            IsHoldSteadySecondary = false;
             WorkflowStage = WorkflowStage.Transmitting;
         }
 
@@ -1034,11 +1054,17 @@ namespace CrossCam.ViewModel
 
         private async void ShowFovPreparationPopup()
         {
-            if (!Settings.IsFovCorrectionSet)
+            if (!Settings.IsFovCorrectionSet &&
+                Settings.IsPairedPrimary.HasValue &&
+                Settings.IsPairedPrimary.Value &&
+                BluetoothOperator.PairStatus == PairStatus.Connected)
             {
-                await CoreMethods.DisplayAlert("Field of View Correction",
-                    "Different device models can have different fields of view. CrossCam will help you correct for this after you do your first capture. Frame up and capture something with a distinctive points near the top and bottom of the frame, making sure the points are visible on both devices.",
-                    "OK");
+                await Device.InvokeOnMainThreadAsync(async () =>
+                {
+                    await CoreMethods.DisplayAlert("Field of View Correction",
+                        "Different device models can have different fields of view. CrossCam will help you correct for this after you do your first capture. Frame up and capture something with distinctive points near the top and bottom of the frame, making sure the points are visible on both devices.",
+                        "OK");
+                });
             }
         }
 
@@ -1121,8 +1147,8 @@ namespace CrossCam.ViewModel
 
         private async Task<string> OpenLoadingPopup()
         {
-            return await CoreMethods.DisplayActionSheet("Choose an action:", CANCEL, null,
-                FULL_IMAGE, SINGLE_SIDE);
+            return await Device.InvokeOnMainThreadAsync(async () => await CoreMethods.DisplayActionSheet("Choose an action:", CANCEL, null,
+                FULL_IMAGE, SINGLE_SIDE));
         }
 
         private async Task LoadFullStereoImage(byte[] image)
@@ -1500,7 +1526,10 @@ namespace CrossCam.ViewModel
 
         private async void ShowFovDialog()
         {
-            await CoreMethods.DisplayAlert("Field of View Correction", "To correct for field of view differences, zoom and slide the pictures so the distinctive points line up between the two photos. You can drag the white lines around to help you visualize the alignment. This correction will be applied to future previews. It will be saved but you can reset it on the Settings page.", "OK");
+            await Device.InvokeOnMainThreadAsync(async () =>
+            {
+                await CoreMethods.DisplayAlert("Field of View Correction", "To correct for field of view differences, zoom and slide the pictures so the distinctive points line up between the two photos. You can drag the white lines around to help you visualize the alignment. This correction will be applied to future previews. It will be saved but you can reset it on the Settings page.", "OK");
+            });
         }
 
         private static SKBitmap GetHalfOfFullStereoImage(byte[] bytes, bool wantLeft, bool clipBorder) 
@@ -1759,33 +1788,36 @@ namespace CrossCam.ViewModel
         {
 #if DEBUG
 #else
-            if (!Settings.HasOfferedTechniqueHelpBefore)
+            await Device.InvokeOnMainThreadAsync(async () =>
             {
-                var showTechniquePage = await CoreMethods.DisplayAlert("Welcome to CrossCam!",
-                    "CrossCam was made to help you take 3D photos. The photos are 3D just like VR or 3D movies, but you don't need any special equipment or glasses - just your phone. The technique to view the 3D photos is a little tricky and takes some practice to get it right. Before I tell you how to use CrossCam, would you first like to learn more about the viewing technique?",
-                    "Yes", "No");
-                Settings.HasOfferedTechniqueHelpBefore = true;
-                PersistentStorage.Save(PersistentStorage.SETTINGS_KEY, Settings);
-                if (showTechniquePage)
+                if (!Settings.HasOfferedTechniqueHelpBefore)
                 {
-                    await CoreMethods.PushPageModel<TechniqueHelpViewModel>(Settings);
+                    var showTechniquePage = await CoreMethods.DisplayAlert("Welcome to CrossCam!",
+                        "CrossCam was made to help you take 3D photos. The photos are 3D just like VR or 3D movies, but you don't need any special equipment or glasses - just your phone. The technique to view the 3D photos is a little tricky and takes some practice to get it right. Before I tell you how to use CrossCam, would you first like to learn more about the viewing technique?",
+                        "Yes", "No");
+                    Settings.HasOfferedTechniqueHelpBefore = true;
+                    PersistentStorage.Save(PersistentStorage.SETTINGS_KEY, Settings);
+                    if (showTechniquePage)
+                    {
+                        await CoreMethods.PushPageModel<TechniqueHelpViewModel>(Settings);
+                    }
+                    else
+                    {
+                        await CoreMethods.PushPageModel<DirectionsViewModel>(Settings);
+                        Settings.HasShownDirectionsBefore = true;
+                        PersistentStorage.Save(PersistentStorage.SETTINGS_KEY, Settings);
+                    }
                 }
                 else
                 {
-                    await CoreMethods.PushPageModel<DirectionsViewModel>(Settings);
-                    Settings.HasShownDirectionsBefore = true;
-                    PersistentStorage.Save(PersistentStorage.SETTINGS_KEY, Settings);
+                    if (!Settings.HasShownDirectionsBefore)
+                    {
+                        await CoreMethods.PushPageModel<DirectionsViewModel>(Settings);
+                        Settings.HasShownDirectionsBefore = true;
+                        PersistentStorage.Save(PersistentStorage.SETTINGS_KEY, Settings);
+                    }
                 }
-            }
-            else
-            {
-                if (!Settings.HasShownDirectionsBefore)
-                {
-                    await CoreMethods.PushPageModel<DirectionsViewModel>(Settings);
-                    Settings.HasShownDirectionsBefore = true;
-                    PersistentStorage.Save(PersistentStorage.SETTINGS_KEY, Settings);
-                }
-            }
+            });
 #endif
         }
 

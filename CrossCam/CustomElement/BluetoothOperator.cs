@@ -160,6 +160,7 @@ namespace CrossCam.CustomElement
             }
         }
 
+        public event EventHandler CountdownTimerSyncComplete;
         private void OnCountdownTimerSyncComplete(object sender, ElapsedEventArgs e)
         {
             CountdownTimeRemaining = SECONDS_COUNTDOWN;
@@ -167,6 +168,8 @@ namespace CrossCam.CustomElement
             _countdownTimer.Interval = 1000;
             _countdownTimer.Elapsed += OnCountdownTimerSecondElapsed;
             _countdownTimer.Start();
+            var handler = CountdownTimerSyncComplete;
+            handler?.Invoke(this, e);
         }
 
         public event EventHandler<byte[]> CapturedImageReceived;
@@ -319,7 +322,6 @@ namespace CrossCam.CustomElement
 
         private void HandleHelloReceived()
         {
-            OnConnected();
             RequestClockReading();
         }
 

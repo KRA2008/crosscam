@@ -1617,24 +1617,7 @@
                IsVisible="{Binding WorkflowStage, Converter={vc:EnumCompareConverter}, ConverterParameter={x:Static vm:WorkflowStage.Syncing}}"/>
         <Label Text="Steady..."
                Style="{StaticResource _feedback}"
-               IsVisible="False">
-            <Label.Triggers>
-                <MultiTrigger TargetType="Label">
-                    <MultiTrigger.Conditions>
-                        <BindingCondition Binding="{Binding BluetoothOperatorBindable.CountdownTimeRemaining, Converter={vc:GreaterThanZeroValueConverter}}"
-                                          Value="true"/>
-                        <BindingCondition Binding="{Binding BluetoothOperatorBindable.PairStatus, Converter={vc:EnumCompareConverter}, ConverterParameter={x:Static vm:PairStatus.Connected}}"
-                                          Value="true"/>
-                        <BindingCondition Binding="{Binding BluetoothOperatorBindable.IsPrimary, Converter={vc:NullableBooleanInvertConverter}}"
-                                          Value="true"/>
-                    </MultiTrigger.Conditions>
-                    <MultiTrigger.Setters>
-                        <Setter Property="IsVisible"
-                                Value="True"/>
-                    </MultiTrigger.Setters>
-                </MultiTrigger>
-            </Label.Triggers>
-        </Label>
+               IsVisible="{Binding IsHoldSteadySecondary}"/>
 
         <Label Style="{StaticResource _feedback}"
                Text="{Binding BluetoothOperatorBindable.CountdownTimeRemaining}"

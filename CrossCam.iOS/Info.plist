@@ -72,5 +72,12 @@
   <false/>
   <key>UIUserInterfaceStyle</key>
   <string>Light</string>
+  <key>NSLocalNetworkUsageDescription</key>
+  <string>This app scans for nearby CrossCam-enabled devices for simultaneous capture.</string>
+  <key>NSBonjourServices</key>
+  <array>
+    <string>_CrossCam._tcp</string>
+    <string>_CrossCam._udp</string>
+  </array>
 </dict>
 </plist>
