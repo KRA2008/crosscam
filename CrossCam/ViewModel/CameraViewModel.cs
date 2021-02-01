@@ -1508,7 +1508,9 @@ namespace CrossCam.ViewModel
                     var corrected = new SKBitmap(LeftBitmap.Width, LeftBitmap.Height);
                     using (var surface = new SKCanvas(corrected))
                     {
-                        surface.DrawBitmap(RightBitmap,0,0);
+                        surface.DrawBitmap(
+                            RightBitmap,
+                            new SKRect(0, 0, LeftBitmap.Width, LeftBitmap.Height));
                     }
                     RightBitmap = corrected;
                 }
@@ -1517,7 +1519,9 @@ namespace CrossCam.ViewModel
                     var corrected = new SKBitmap(RightBitmap.Width, RightBitmap.Height);
                     using (var surface = new SKCanvas(corrected))
                     {
-                        surface.DrawBitmap(LeftBitmap, 0, 0);
+                        surface.DrawBitmap(
+                            LeftBitmap,
+                            new SKRect(0, 0, RightBitmap.Width, RightBitmap.Height));
                     }
                     LeftBitmap = corrected;
                 }
