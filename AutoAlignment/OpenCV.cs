@@ -278,6 +278,18 @@ namespace AutoAlignment
             Debug.WriteLine("CLEANED PAIRS:");
             PrintPairs(pairedPoints);
 
+            for (var ii = 0; ii < pairedPoints.Count; ii++)
+            {
+                var oldMatch = pairedPoints[ii].Match;
+                pairedPoints[ii].Match = new MDMatch
+                {
+                    Distance = oldMatch.Distance,
+                    ImgIdx = oldMatch.ImgIdx,
+                    QueryIdx = ii,
+                    TrainIdx = ii
+                };
+            }
+
             if (drawMatches)
             {
                 using var fullSizeColor1 = new Mat();
