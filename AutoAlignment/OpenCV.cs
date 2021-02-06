@@ -246,10 +246,10 @@ namespace AutoAlignment
 #endif
             }
 
-            Debug.WriteLine("DIRTY POINTS START (ham,dist,slope), count: " + pairedPoints.Count);
+            Debug.WriteLine("DIRTY POINTS START (ham,dist,slope,ydiff), count: " + pairedPoints.Count);
             foreach (var pointForCleaning in pairedPoints)
             {
-                Debug.WriteLine(pointForCleaning.Match.Distance  + "," + pointForCleaning.Data.Distance + "," + pointForCleaning.Data.Slope);
+                Debug.WriteLine(pointForCleaning.Match.Distance  + "," + pointForCleaning.Data.Distance + "," + pointForCleaning.Data.Slope + "," + Math.Abs(pointForCleaning.KeyPoint1.Point.Y - pointForCleaning.KeyPoint2.Point.Y));
             }
 
             //Debug.WriteLine("DIRTY PAIRS:");
@@ -267,10 +267,10 @@ namespace AutoAlignment
             Debug.WriteLine("Median Slope: " + medianSlope);
             Debug.WriteLine("Slope Cleaned Points count: " + pairedPoints.Count);
 
-            Debug.WriteLine("CLEAN POINTS START (ham,dist,slope), count: " + pairedPoints.Count);
+            Debug.WriteLine("CLEAN POINTS START (ham,dist,slope,ydiff), count: " + pairedPoints.Count);
             foreach (var pointForCleaning in pairedPoints)
             {
-                Debug.WriteLine(pointForCleaning.Match.Distance + "," + pointForCleaning.Data.Distance + "," + pointForCleaning.Data.Slope);
+                Debug.WriteLine(pointForCleaning.Match.Distance + "," + pointForCleaning.Data.Distance + "," + pointForCleaning.Data.Slope + "," + Math.Abs(pointForCleaning.KeyPoint1.Point.Y - pointForCleaning.KeyPoint2.Point.Y));
             }
 
             //Debug.WriteLine("CLEANED PAIRS:");
