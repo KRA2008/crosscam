@@ -246,11 +246,11 @@ namespace AutoAlignment
 #endif
             }
 
-            Debug.WriteLine("DIRTY POINTS START (ham,dist,slope,ydiff), count: " + pairedPoints.Count);
-            foreach (var pointForCleaning in pairedPoints)
-            {
-                Debug.WriteLine(pointForCleaning.Match.Distance  + "," + pointForCleaning.Data.Distance + "," + pointForCleaning.Data.Slope + "," + Math.Abs(pointForCleaning.KeyPoint1.Point.Y - pointForCleaning.KeyPoint2.Point.Y));
-            }
+            //Debug.WriteLine("DIRTY POINTS START (ham,dist,slope,ydiff), count: " + pairedPoints.Count);
+            //foreach (var pointForCleaning in pairedPoints)
+            //{
+            //    Debug.WriteLine(pointForCleaning.Match.Distance  + "," + pointForCleaning.Data.Distance + "," + pointForCleaning.Data.Slope + "," + Math.Abs(pointForCleaning.KeyPoint1.Point.Y - pointForCleaning.KeyPoint2.Point.Y));
+            //}
 
             //Debug.WriteLine("DIRTY PAIRS:");
             //PrintPairs(pairedPoints);
@@ -259,19 +259,19 @@ namespace AutoAlignment
             var medianDistance = pairedPoints.OrderBy(p => p.Data.Distance).ElementAt(pairedPoints.Count / 2).Data.Distance;
             var distanceStdDev = CalcStandardDeviation(pairedPoints.Select(p => p.Data.Distance).ToArray());
             pairedPoints = pairedPoints.Where(p => Math.Abs(p.Data.Distance - medianDistance) < Math.Abs(distanceStdDev * (settings.AlignmentKeypointOutlierThresholdTenths / 10d))).ToList();
-            Debug.WriteLine("Median Distance: " + medianDistance);
-            Debug.WriteLine("Distance Cleaned Points count: " + pairedPoints.Count);
+            //Debug.WriteLine("Median Distance: " + medianDistance);
+            //Debug.WriteLine("Distance Cleaned Points count: " + pairedPoints.Count);
             var medianSlope = pairedPoints.OrderBy(p => p.Data.Slope).ElementAt(pairedPoints.Count / 2).Data.Slope;
             var slopeStdDev = CalcStandardDeviation(pairedPoints.Select(p => p.Data.Slope).ToArray());
             pairedPoints = pairedPoints.Where(p => Math.Abs(p.Data.Slope - medianSlope) < Math.Abs(slopeStdDev * (settings.AlignmentKeypointOutlierThresholdTenths / 10d))).ToList();
-            Debug.WriteLine("Median Slope: " + medianSlope);
-            Debug.WriteLine("Slope Cleaned Points count: " + pairedPoints.Count);
+            //Debug.WriteLine("Median Slope: " + medianSlope);
+            //Debug.WriteLine("Slope Cleaned Points count: " + pairedPoints.Count);
 
-            Debug.WriteLine("CLEAN POINTS START (ham,dist,slope,ydiff), count: " + pairedPoints.Count);
-            foreach (var pointForCleaning in pairedPoints)
-            {
-                Debug.WriteLine(pointForCleaning.Match.Distance + "," + pointForCleaning.Data.Distance + "," + pointForCleaning.Data.Slope + "," + Math.Abs(pointForCleaning.KeyPoint1.Point.Y - pointForCleaning.KeyPoint2.Point.Y));
-            }
+            //Debug.WriteLine("CLEAN POINTS START (ham,dist,slope,ydiff), count: " + pairedPoints.Count);
+            //foreach (var pointForCleaning in pairedPoints)
+            //{
+            //    Debug.WriteLine(pointForCleaning.Match.Distance + "," + pointForCleaning.Data.Distance + "," + pointForCleaning.Data.Slope + "," + Math.Abs(pointForCleaning.KeyPoint1.Point.Y - pointForCleaning.KeyPoint2.Point.Y));
+            //}
 
             //Debug.WriteLine("CLEANED PAIRS:");
             //PrintPairs(pairedPoints);
