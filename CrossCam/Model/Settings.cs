@@ -281,6 +281,19 @@ namespace CrossCam.Model
         public bool AlignmentUseCrossCheck { get; set; }
         public int AlignmentMinimumKeypoints { get; set; }
 
+        private int _alignmentKeypointOutlierThresholdTenths;
+        public int AlignmentKeypointOutlierThresholdTenths
+        {
+            get => _alignmentKeypointOutlierThresholdTenths;
+            set
+            {
+                if (value > 0)
+                {
+                    _alignmentKeypointOutlierThresholdTenths = value;
+                }
+            }
+        }
+
         private int _alignmentEpsilonLevel2;
         public int AlignmentEpsilonLevel2
         {
@@ -413,7 +426,8 @@ namespace CrossCam.Model
             AlignmentDrawMatches = false;
             AlignmentUseKeypoints = true;
             AlignmentUseCrossCheck = true;
-            AlignmentMinimumKeypoints = 5; 
+            AlignmentMinimumKeypoints = 5;
+            AlignmentKeypointOutlierThresholdTenths = 10;
 
             ResolutionProportion = 100;
             BorderWidthProportion = 15;

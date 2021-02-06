@@ -9,6 +9,6 @@ namespace CrossCam.Wrappers
         AlignedResult CreateAlignedSecondImageEcc(SKBitmap firstImage, SKBitmap secondImage, 
             int downsizePercentage, int iterations, int epsilonLevel, int eccCutoff, int pyramidLayers, bool discardTransX);
         AlignedResult CreateAlignedSecondImageKeypoints(SKBitmap firstImage, SKBitmap secondImage,
-            bool discardTransX, bool crossCheck, bool drawMatches, int minimumKeypoints);
+            bool discardTransX, Settings settings);
     }
 }

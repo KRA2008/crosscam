@@ -154,6 +154,14 @@
             </StackLayout>
             <StackLayout Orientation="Horizontal"
                          IsVisible="{ce:DebugMarkupExtension}">
+                <Label Text="Keypoint outlier threshold (tenths of standard deviation)"/>
+                <Picker ItemsSource="{Binding ZeroToOneHundred}"
+                        SelectedIndex="{Binding Settings.AlignmentKeypointOutlierThresholdTenths}"
+                        WidthRequest="50"
+                        HorizontalOptions="EndAndExpand"/>
+            </StackLayout>
+            <StackLayout Orientation="Horizontal"
+                         IsVisible="{ce:DebugMarkupExtension}">
                 <Label Text="Iterations"/>
                 <Frame>
                     <Picker ItemsSource="{Binding ZeroToOneThousand}"

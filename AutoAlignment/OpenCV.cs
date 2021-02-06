@@ -1,11 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
-using System.Drawing.Drawing2D;
 using System.Linq;
 using AutoAlignment;
 using CrossCam.Model;
-using CrossCam.Page;
 using CrossCam.Wrappers;
 #if !__NO_EMGU__
 using System.Drawing;
@@ -129,7 +127,7 @@ namespace AutoAlignment
         }
 
         public AlignedResult CreateAlignedSecondImageKeypoints(SKBitmap firstImage, SKBitmap secondImage,
-            bool discardTransX, bool crossCheck, bool drawMatches, int minimumKeypoints)
+            bool discardTransX, Settings settings)
         {
 #if __NO_EMGU__
             return null;
@@ -155,7 +153,7 @@ namespace AutoAlignment
             var thresholdDistance = Math.Sqrt(Math.Pow(firstImage.Width, 2) + Math.Pow(firstImage.Height, 2)) * THRESHOLD_PROPORTION;
 
             var distanceThresholdMask = new Mat(allKeyPointsVector2.Size, allKeyPointsVector1.Size, DepthType.Cv8U, 1);
-            if (!crossCheck)
+            if (!settings.AlignmentUseCrossCheck)
             {
                 unsafe
                 {
@@ -183,9 +181,9 @@ namespace AutoAlignment
             }
 
             var vectorOfMatches = new VectorOfVectorOfDMatch();
-            var matcher = new BFMatcher(DistanceType.Hamming, crossCheck);
+            var matcher = new BFMatcher(DistanceType.Hamming, settings.AlignmentUseCrossCheck);
             matcher.Add(descriptors1);
-            matcher.KnnMatch(descriptors2, vectorOfMatches, crossCheck ? 1 : 2, crossCheck ? new VectorOfMat() : new VectorOfMat(distanceThresholdMask));
+            matcher.KnnMatch(descriptors2, vectorOfMatches, settings.AlignmentUseCrossCheck ? 1 : 2, settings.AlignmentUseCrossCheck ? new VectorOfMat() : new VectorOfMat(distanceThresholdMask));
 
             var goodMatches = new List<MDMatch>();
             for (var i = 0; i < vectorOfMatches.Size; i++)
@@ -202,7 +200,7 @@ namespace AutoAlignment
                 }
             }
 
-            if (goodMatches.Count < minimumKeypoints) return null;
+            if (goodMatches.Count < settings.AlignmentMinimumKeypoints) return null;
 
             var pairedPoints = new List<PointForCleaning>();
             for (var ii = 0; ii < goodMatches.Count; ii++)
@@ -228,7 +226,7 @@ namespace AutoAlignment
                 });
             }
 
-            if (drawMatches)
+            if (settings.AlignmentDrawMatches)
             {
                 using var fullSizeColor1 = new Mat();
                 using var fullSizeColor2 = new Mat();
@@ -248,35 +246,35 @@ namespace AutoAlignment
 #endif
             }
 
-            Debug.WriteLine("Dirty Distances: " + string.Join(",", pairedPoints.Select(d => d.Data.Distance)));
-            Debug.WriteLine("Dirty Slopes: " + string.Join(",", pairedPoints.Select(d => d.Data.Slope)));
-            Debug.WriteLine("Dirty X: " + string.Join(",", pairedPoints.Select(d => Math.Abs(d.KeyPoint1.Point.X - d.KeyPoint2.Point.X))));
-            Debug.WriteLine("Dirty Y: " + string.Join(",", pairedPoints.Select(d => Math.Abs(d.KeyPoint1.Point.Y - d.KeyPoint2.Point.Y))));
-            Debug.WriteLine("Dirty points count: " + pairedPoints.Count);
+            Debug.WriteLine("DIRTY POINTS START (ham,dist,slope), count: " + pairedPoints.Count);
+            foreach (var pointForCleaning in pairedPoints)
+            {
+                Debug.WriteLine(pointForCleaning.Match.Distance  + "," + pointForCleaning.Data.Distance + "," + pointForCleaning.Data.Slope);
+            }
 
-            Debug.WriteLine("DIRTY PAIRS:");
-            PrintPairs(pairedPoints);
+            //Debug.WriteLine("DIRTY PAIRS:");
+            //PrintPairs(pairedPoints);
 
             // reject distances and slopes more than some number of standard deviations from the median
-            const double STD_DEV_INTERVALS = 2; //TODO: make configurable?
             var medianDistance = pairedPoints.OrderBy(p => p.Data.Distance).ElementAt(pairedPoints.Count / 2).Data.Distance;
             var distanceStdDev = CalcStandardDeviation(pairedPoints.Select(p => p.Data.Distance).ToArray());
-            pairedPoints = pairedPoints.Where(p => Math.Abs(p.Data.Distance - medianDistance) < Math.Abs(distanceStdDev * STD_DEV_INTERVALS)).ToList();
+            pairedPoints = pairedPoints.Where(p => Math.Abs(p.Data.Distance - medianDistance) < Math.Abs(distanceStdDev * (settings.AlignmentKeypointOutlierThresholdTenths / 10d))).ToList();
             Debug.WriteLine("Median Distance: " + medianDistance);
             Debug.WriteLine("Distance Cleaned Points count: " + pairedPoints.Count);
             var medianSlope = pairedPoints.OrderBy(p => p.Data.Slope).ElementAt(pairedPoints.Count / 2).Data.Slope;
             var slopeStdDev = CalcStandardDeviation(pairedPoints.Select(p => p.Data.Slope).ToArray());
-            pairedPoints = pairedPoints.Where(p => Math.Abs(p.Data.Slope - medianSlope) < Math.Abs(slopeStdDev * STD_DEV_INTERVALS)).ToList();
+            pairedPoints = pairedPoints.Where(p => Math.Abs(p.Data.Slope - medianSlope) < Math.Abs(slopeStdDev * (settings.AlignmentKeypointOutlierThresholdTenths / 10d))).ToList();
             Debug.WriteLine("Median Slope: " + medianSlope);
             Debug.WriteLine("Slope Cleaned Points count: " + pairedPoints.Count);
 
-            Debug.WriteLine("Clean Distances: " + string.Join(",", pairedPoints.Select(d => d.Data.Distance)));
-            Debug.WriteLine("Clean Slopes: " + string.Join(",", pairedPoints.Select(d => d.Data.Slope)));
-            Debug.WriteLine("Clean X: " + string.Join(",", pairedPoints.Select(d => Math.Abs(d.KeyPoint1.Point.X - d.KeyPoint2.Point.X))));
-            Debug.WriteLine("Clean Y: " + string.Join(",", pairedPoints.Select(d => Math.Abs(d.KeyPoint1.Point.Y - d.KeyPoint2.Point.Y))));
+            Debug.WriteLine("CLEAN POINTS START (ham,dist,slope), count: " + pairedPoints.Count);
+            foreach (var pointForCleaning in pairedPoints)
+            {
+                Debug.WriteLine(pointForCleaning.Match.Distance + "," + pointForCleaning.Data.Distance + "," + pointForCleaning.Data.Slope);
+            }
 
-            Debug.WriteLine("CLEANED PAIRS:");
-            PrintPairs(pairedPoints);
+            //Debug.WriteLine("CLEANED PAIRS:");
+            //PrintPairs(pairedPoints);
 
             for (var ii = 0; ii < pairedPoints.Count; ii++)
             {
@@ -290,7 +288,7 @@ namespace AutoAlignment
                 };
             }
 
-            if (drawMatches)
+            if (settings.AlignmentDrawMatches)
             {
                 using var fullSizeColor1 = new Mat();
                 using var fullSizeColor2 = new Mat();

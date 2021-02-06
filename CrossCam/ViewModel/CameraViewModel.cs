@@ -1212,8 +1212,7 @@ namespace CrossCam.ViewModel
                                 var needsFallback = false;
                                 try
                                 {
-                                    alignedResult = openCv.CreateAlignedSecondImageKeypoints(firstImage, secondImage,
-                                        discardTransX, Settings.AlignmentUseCrossCheck, Settings.AlignmentDrawMatches, Settings.AlignmentMinimumKeypoints);
+                                    alignedResult = openCv.CreateAlignedSecondImageKeypoints(firstImage, secondImage, discardTransX, Settings);
                                     if (alignedResult == null)
                                     {
                                         needsFallback = true;
@@ -1441,7 +1440,7 @@ namespace CrossCam.ViewModel
                     {
                         if (!Settings.IsFovCorrectionSet)
                         {
-                            WorkflowStage = WorkflowStage.FovCorrection; //TODO: pop an explanation popup, give some better wording on the pair page
+                            WorkflowStage = WorkflowStage.FovCorrection;
                             ShowFovDialog();
                             return;
                         }
