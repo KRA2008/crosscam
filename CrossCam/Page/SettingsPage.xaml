@@ -127,28 +127,28 @@
                    Style="{DynamicResource header}"/>
             <StackLayout Orientation="Horizontal">
                 <Label Text="Automatically align after capture"/>
-                <Switch IsToggled="{Binding Settings.IsAutomaticAlignmentOn}"/>
+                <Switch IsToggled="{Binding Settings.AlignmentSettings.IsAutomaticAlignmentOn}"/>
             </StackLayout>
             <StackLayout Orientation="Horizontal">
                 <Label Text="Align horizontally (for side by side)"/>
-                <Switch IsToggled="{Binding Settings.AlignHorizontallySideBySide}"
-                        IsEnabled="{Binding Settings.IsAutomaticAlignmentOn}"/>
+                <Switch IsToggled="{Binding Settings.AlignmentSettings.AlignHorizontallySideBySide}"
+                        IsEnabled="{Binding Settings.AlignmentSettings.IsAutomaticAlignmentOn}"/>
             </StackLayout>
             <StackLayout Orientation="Horizontal">
                 <Label Text="Use keypoint alignment (vs ECC)"/>
-                <Switch IsToggled="{Binding Settings.AlignmentUseKeypoints}"
-                        IsEnabled="{Binding Settings.IsAutomaticAlignmentOn}"/>
+                <Switch IsToggled="{Binding Settings.AlignmentSettings.AlignmentUseKeypoints}"
+                        IsEnabled="{Binding Settings.AlignmentSettings.IsAutomaticAlignmentOn}"/>
             </StackLayout>
             <StackLayout Orientation="Horizontal"
                          IsVisible="{ce:DebugMarkupExtension}">
                 <Label Text="Crosscheck keypoints (vs ratio checks)"/>
-                <Switch IsToggled="{Binding Settings.AlignmentUseCrossCheck}"/>
+                <Switch IsToggled="{Binding Settings.AlignmentSettings.AlignmentUseCrossCheck}"/>
             </StackLayout>
             <StackLayout Orientation="Horizontal"
                          IsVisible="{ce:DebugMarkupExtension}">
                 <Label Text="Minimum keypoints"/>
                 <Picker ItemsSource="{Binding ZeroToOneHundred}"
-                        SelectedIndex="{Binding Settings.AlignmentMinimumKeypoints}"
+                        SelectedIndex="{Binding Settings.AlignmentSettings.AlignmentMinimumKeypoints}"
                         WidthRequest="50"
                         HorizontalOptions="EndAndExpand"/>
             </StackLayout>
@@ -156,7 +156,7 @@
                          IsVisible="{ce:DebugMarkupExtension}">
                 <Label Text="Keypoint outlier threshold (tenths of standard deviation)"/>
                 <Picker ItemsSource="{Binding ZeroToOneHundred}"
-                        SelectedIndex="{Binding Settings.AlignmentKeypointOutlierThresholdTenths}"
+                        SelectedIndex="{Binding Settings.AlignmentSettings.AlignmentKeypointOutlierThresholdTenths}"
                         WidthRequest="50"
                         HorizontalOptions="EndAndExpand"/>
             </StackLayout>
@@ -165,7 +165,7 @@
                 <Label Text="Iterations"/>
                 <Frame>
                     <Picker ItemsSource="{Binding ZeroToOneThousand}"
-                        SelectedIndex="{Binding Settings.AlignmentIterations2}"
+                        SelectedIndex="{Binding Settings.AlignmentSettings.AlignmentIterations2}"
                         WidthRequest="50"
                         HorizontalOptions="EndAndExpand"/>
                 </Frame>
@@ -175,7 +175,7 @@
                 <Label Text="Epsilon level"/>
                 <Frame>
                     <Picker ItemsSource="{Binding ZeroToTen}"
-                        SelectedIndex="{Binding Settings.AlignmentEpsilonLevel2}"
+                        SelectedIndex="{Binding Settings.AlignmentSettings.AlignmentEpsilonLevel2}"
                         WidthRequest="50"
                         HorizontalOptions="EndAndExpand"/>
                 </Frame>
@@ -185,7 +185,7 @@
                 <Label Text="Downsized pyramid estimating layers"/>
                 <Frame>
                     <Picker ItemsSource="{Binding ZeroToTen}"
-                        SelectedIndex="{Binding Settings.AlignmentPyramidLayers2}"
+                        SelectedIndex="{Binding Settings.AlignmentSettings.AlignmentPyramidLayers2}"
                         WidthRequest="50"
                         HorizontalOptions="EndAndExpand"/>
                 </Frame>
@@ -195,7 +195,7 @@
                 <Label Text="Intermediate downsize percentage"/>
                 <Frame>
                     <Picker ItemsSource="{Binding ZeroToOneHundred}"
-                            SelectedIndex="{Binding Settings.AlignmentDownsizePercentage2}"
+                            SelectedIndex="{Binding Settings.AlignmentSettings.AlignmentDownsizePercentage2}"
                             WidthRequest="50"
                             HorizontalOptions="EndAndExpand"/>
                 </Frame>
@@ -206,14 +206,14 @@
                 <Frame>
                     <Picker ItemsSource="{Binding ZeroToOneHundred}"
                             WidthRequest="50"
-                            SelectedIndex="{Binding Settings.AlignmentEccThresholdPercentage2}"
+                            SelectedIndex="{Binding Settings.AlignmentSettings.AlignmentEccThresholdPercentage2}"
                             HorizontalOptions="EndAndExpand"/>
                 </Frame>
             </StackLayout>
             <StackLayout Orientation="Horizontal"
                          IsVisible="{ce:DebugMarkupExtension}">
                 <Label Text="Save matches"/>
-                <Switch IsToggled="{Binding Settings.AlignmentDrawMatches}"/>
+                <Switch IsToggled="{Binding Settings.AlignmentSettings.AlignmentDrawMatches}"/>
             </StackLayout>
             <BoxView/>
             <Label Text="Saving"

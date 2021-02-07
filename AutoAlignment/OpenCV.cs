@@ -46,7 +46,7 @@ namespace AutoAlignment
         }
 
         //TODO: the problem with this one is that it is unable to scale, this is important for using two devices with different fields of view
-        public AlignedResult CreateAlignedSecondImageEcc(SKBitmap firstImage, SKBitmap secondImage, bool discardTransX, Settings settings)
+        public AlignedResult CreateAlignedSecondImageEcc(SKBitmap firstImage, SKBitmap secondImage, bool discardTransX, AlignmentSettings settings)
         {
 #if __NO_EMGU__
             return null;
@@ -126,7 +126,7 @@ namespace AutoAlignment
         }
 
         public AlignedResult CreateAlignedSecondImageKeypoints(SKBitmap firstImage, SKBitmap secondImage,
-            bool discardTransX, Settings settings)
+            bool discardTransX, AlignmentSettings settings)
         {
 #if __NO_EMGU__
             return null;

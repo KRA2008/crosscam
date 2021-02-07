@@ -1,11 +1,9 @@
-﻿using CrossCam.ViewModel;
-using SkiaSharp;
+﻿using SkiaSharp;
 
 namespace CrossCam.Model
 {
     public class AlignedResult
     {
-        public AlignmentMode AlignmentMode { get; set; }
         public SKBitmap AlignedBitmap { get; set; }
         public SKBitmap DrawnCleanMatches { get; set; }
         public SKBitmap DrawnDirtyMatches { get; set; }
