@@ -5,6 +5,13 @@ namespace CrossCam.Model
 {
     public class AlignmentSettings : INotifyPropertyChanged
     {
+
+        public bool AlignHorizontallySideBySide { get; set; }
+        public bool UseKeypoints { get; set; }
+        public bool UseCrossCheck { get; set; }
+        public bool DrawKeypointMatches { get; set; }
+        public bool DiscardOutlierMatches { get; set; }
+
         private bool _isAutomaticAlignmentOn;
         public bool IsAutomaticAlignmentOn
         {
@@ -16,107 +23,114 @@ namespace CrossCam.Model
             }
         }
 
-        public bool AlignHorizontallySideBySide { get; set; }
-        public bool AlignmentUseKeypoints { get; set; }
-        public bool AlignmentUseCrossCheck { get; set; }
-        public int AlignmentMinimumKeypoints { get; set; }
-
-        private int _alignmentKeypointOutlierThresholdTenths;
-        public int AlignmentKeypointOutlierThresholdTenths
+        private int _minimumKeypoints;
+        public int MinimumKeypoints
         {
-            get => _alignmentKeypointOutlierThresholdTenths;
+            get => _minimumKeypoints;
             set
             {
                 if (value > 0)
                 {
-                    _alignmentKeypointOutlierThresholdTenths = value;
+                    _minimumKeypoints = value;
                 }
             }
         }
 
-        private int _alignmentEpsilonLevel2;
-        public int AlignmentEpsilonLevel2
+        private int _keypointOutlierThresholdTenths;
+        public int KeypointOutlierThresholdTenths
         {
-            get => _alignmentEpsilonLevel2;
+            get => _keypointOutlierThresholdTenths;
             set
             {
                 if (value > 0)
                 {
-                    _alignmentEpsilonLevel2 = value;
+                    _keypointOutlierThresholdTenths = value;
                 }
             }
         }
 
-        private int _alignmentIterations2;
-        public int AlignmentIterations2
+        private int _eccEpsilonLevel;
+        public int EccEpsilonLevel
         {
-            get => _alignmentIterations2;
+            get => _eccEpsilonLevel;
             set
             {
                 if (value > 0)
                 {
-                    _alignmentIterations2 = value;
+                    _eccEpsilonLevel = value;
                 }
             }
         }
 
-        private int _alignmentPyramidLayers2;
-        public int AlignmentPyramidLayers2
+        private int _eccIterations;
+        public int EccIterations
         {
-            get => _alignmentPyramidLayers2;
+            get => _eccIterations;
             set
             {
                 if (value > 0)
                 {
-                    _alignmentPyramidLayers2 = value;
+                    _eccIterations = value;
                 }
             }
         }
 
-        private int _alignmentDownsizePercentage2;
-        public int AlignmentDownsizePercentage2
+        private int _eccPyramidLayers;
+        public int EccPyramidLayers
         {
-            get => _alignmentDownsizePercentage2;
+            get => _eccPyramidLayers;
             set
             {
                 if (value > 0)
                 {
-                    _alignmentDownsizePercentage2 = value;
+                    _eccPyramidLayers = value;
                 }
             }
         }
 
-        private int _alignmentEccThresholdPercentage2;
-        public int AlignmentEccThresholdPercentage2
+        private int _eccDownsizePercentage;
+        public int EccDownsizePercentage
         {
-            get => _alignmentEccThresholdPercentage2;
+            get => _eccDownsizePercentage;
             set
             {
                 if (value > 0)
                 {
-                    _alignmentEccThresholdPercentage2 = value;
+                    _eccDownsizePercentage = value;
                 }
             }
         }
 
-        public bool AlignmentDrawMatches { get; set; }
+        private int _eccThresholdPercentage;
+        public int EccThresholdPercentage
+        {
+            get => _eccThresholdPercentage;
+            set
+            {
+                if (value > 0)
+                {
+                    _eccThresholdPercentage = value;
+                }
+            }
+        }
 
         public void ResetToDefaults()
         {
             IsAutomaticAlignmentOn = true;
             AlignHorizontallySideBySide = true;
 
-            AlignmentDownsizePercentage2 = 35;
-            AlignmentEpsilonLevel2 = 3;
-            AlignmentIterations2 = 50;
-            AlignmentEccThresholdPercentage2 = 60;
-            AlignmentPyramidLayers2 = 4;
+            EccDownsizePercentage = 35;
+            EccEpsilonLevel = 3;
+            EccIterations = 50;
+            EccThresholdPercentage = 60;
+            EccPyramidLayers = 4;
 
-            AlignmentDrawMatches = false;
-            AlignmentUseKeypoints = true;
-            AlignmentUseCrossCheck = true;
-            AlignmentMinimumKeypoints = 5;
-            AlignmentKeypointOutlierThresholdTenths = 10;
+            DrawKeypointMatches = false;
+            UseKeypoints = true;
+            UseCrossCheck = false;
+            DiscardOutlierMatches = true;
+            MinimumKeypoints = 5;
+            KeypointOutlierThresholdTenths = 20;
         }
 
         public event PropertyChangedEventHandler PropertyChanged;

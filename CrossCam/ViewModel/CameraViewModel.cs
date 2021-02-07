@@ -239,7 +239,7 @@ namespace CrossCam.ViewModel
 
         private WorkflowStage _stageBeforeView;
         private int _alignmentThreadLock;
-        private bool _isAlignmentInvalid;
+        private bool _isAlignmentInvalid = true;
         private readonly IPhotoSaver _photoSaver;
         private bool _secondaryErrorOccurred;
 
@@ -1197,7 +1197,7 @@ namespace CrossCam.ViewModel
                                                 Settings.Mode != DrawMode.RedCyanAnaglyph &&
                                                 Settings.Mode != DrawMode.GrayscaleRedCyanAnaglyph &&
                                                 !Settings.AlignmentSettings.AlignHorizontallySideBySide;
-                            if (Settings.AlignmentSettings.AlignmentUseKeypoints)
+                            if (Settings.AlignmentSettings.UseKeypoints)
                             {
                                 var needsFallback = false;
                                 try
@@ -1243,7 +1243,7 @@ namespace CrossCam.ViewModel
 
                     if (alignedResult != null)
                     {
-                        if (Settings.AlignmentSettings.AlignmentUseKeypoints && Settings.AlignmentSettings.AlignmentDrawMatches)
+                        if (Settings.AlignmentSettings.UseKeypoints && Settings.AlignmentSettings.DrawKeypointMatches)
                         {
                             using (var tempSurface =
                                 SKSurface.Create(new SKImageInfo(alignedResult.DrawnDirtyMatches.Width, alignedResult.DrawnDirtyMatches.Height)))
@@ -1261,20 +1261,23 @@ namespace CrossCam.ViewModel
                                 await SaveSurfaceSnapshot(tempSurface);
                             }
 
-                            using (var tempSurface =
-                                SKSurface.Create(new SKImageInfo(alignedResult.DrawnCleanMatches.Width, alignedResult.DrawnCleanMatches.Height)))
+                            if (Settings.AlignmentSettings.DiscardOutlierMatches)
                             {
-                                var canvas = tempSurface.Canvas;
-                                canvas.Clear();
-                                if (Device.RuntimePlatform == Device.iOS && IsViewInverted)
+                                using (var tempSurface =
+                                    SKSurface.Create(new SKImageInfo(alignedResult.DrawnCleanMatches.Width, alignedResult.DrawnCleanMatches.Height)))
                                 {
-                                    canvas.RotateDegrees(180);
-                                    canvas.Translate(-1f * alignedResult.DrawnCleanMatches.Width, -1f * alignedResult.DrawnCleanMatches.Height);
+                                    var canvas = tempSurface.Canvas;
+                                    canvas.Clear();
+                                    if (Device.RuntimePlatform == Device.iOS && IsViewInverted)
+                                    {
+                                        canvas.RotateDegrees(180);
+                                        canvas.Translate(-1f * alignedResult.DrawnCleanMatches.Width, -1f * alignedResult.DrawnCleanMatches.Height);
+                                    }
+
+                                    canvas.DrawBitmap(alignedResult.DrawnCleanMatches, 0, 0);
+
+                                    await SaveSurfaceSnapshot(tempSurface);
                                 }
-
-                                canvas.DrawBitmap(alignedResult.DrawnCleanMatches,0,0);
-
-                                await SaveSurfaceSnapshot(tempSurface);
                             }
                         }
 

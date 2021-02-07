@@ -51,14 +51,14 @@ namespace AutoAlignment
 #if __NO_EMGU__
             return null;
 #endif
-            var topDownsizeFactor = settings.AlignmentDownsizePercentage2 / 100f;
+            var topDownsizeFactor = settings.EccDownsizePercentage / 100f;
 
             var eccs = new List<double>();
             using var mat1 = new Mat();
             using var mat2 = new Mat();
             using var warpMatrix = Mat.Eye(2, 3, DepthType.Cv32F, 1);
-            var termCriteria = new MCvTermCriteria(settings.AlignmentIterations2, Math.Pow(10, -settings.AlignmentEpsilonLevel2));
-            for (var ii = settings.AlignmentPyramidLayers2 - 1; ii >= 0; ii--)
+            var termCriteria = new MCvTermCriteria(settings.EccIterations, Math.Pow(10, -settings.EccEpsilonLevel));
+            for (var ii = settings.EccPyramidLayers - 1; ii >= 0; ii--)
             {
                 var downsize = topDownsizeFactor / Math.Pow(2, ii);
                 CvInvoke.Imdecode(GetBytes(firstImage, downsize), ImreadModes.Grayscale, mat1);
@@ -99,7 +99,7 @@ namespace AutoAlignment
             var lastUpscaleFactor = 1 / (2 * topDownsizeFactor);
             ScaleUpCvMatOfFloats(warpMatrix, lastUpscaleFactor);
 
-            if (eccs.Last() * 100 < settings.AlignmentEccThresholdPercentage2)
+            if (eccs.Last() * 100 < settings.EccThresholdPercentage)
             {
                 return null;
             }
@@ -152,7 +152,7 @@ namespace AutoAlignment
             var thresholdDistance = Math.Sqrt(Math.Pow(firstImage.Width, 2) + Math.Pow(firstImage.Height, 2)) * THRESHOLD_PROPORTION;
 
             var distanceThresholdMask = new Mat(allKeyPointsVector2.Size, allKeyPointsVector1.Size, DepthType.Cv8U, 1);
-            if (!settings.AlignmentUseCrossCheck)
+            if (!settings.UseCrossCheck)
             {
                 unsafe
                 {
@@ -180,9 +180,9 @@ namespace AutoAlignment
             }
 
             var vectorOfMatches = new VectorOfVectorOfDMatch();
-            var matcher = new BFMatcher(DistanceType.Hamming, settings.AlignmentUseCrossCheck);
+            var matcher = new BFMatcher(DistanceType.Hamming, settings.UseCrossCheck);
             matcher.Add(descriptors1);
-            matcher.KnnMatch(descriptors2, vectorOfMatches, settings.AlignmentUseCrossCheck ? 1 : 2, settings.AlignmentUseCrossCheck ? new VectorOfMat() : new VectorOfMat(distanceThresholdMask));
+            matcher.KnnMatch(descriptors2, vectorOfMatches, settings.UseCrossCheck ? 1 : 2, settings.UseCrossCheck ? new VectorOfMat() : new VectorOfMat(distanceThresholdMask));
 
             var goodMatches = new List<MDMatch>();
             for (var i = 0; i < vectorOfMatches.Size; i++)
@@ -199,7 +199,7 @@ namespace AutoAlignment
                 }
             }
 
-            if (goodMatches.Count < settings.AlignmentMinimumKeypoints) return null;
+            if (goodMatches.Count < settings.MinimumKeypoints) return null;
 
             var pairedPoints = new List<PointForCleaning>();
             for (var ii = 0; ii < goodMatches.Count; ii++)
@@ -225,7 +225,7 @@ namespace AutoAlignment
                 });
             }
 
-            if (settings.AlignmentDrawMatches)
+            if (settings.DrawKeypointMatches)
             {
                 using var fullSizeColor1 = new Mat();
                 using var fullSizeColor2 = new Mat();
@@ -245,66 +245,69 @@ namespace AutoAlignment
 #endif
             }
 
-            //Debug.WriteLine("DIRTY POINTS START (ham,dist,slope,ydiff), count: " + pairedPoints.Count);
-            //foreach (var pointForCleaning in pairedPoints)
-            //{
-            //    Debug.WriteLine(pointForCleaning.Match.Distance  + "," + pointForCleaning.Data.Distance + "," + pointForCleaning.Data.Slope + "," + Math.Abs(pointForCleaning.KeyPoint1.Point.Y - pointForCleaning.KeyPoint2.Point.Y));
-            //}
-
-            //Debug.WriteLine("DIRTY PAIRS:");
-            //PrintPairs(pairedPoints);
-
-            // reject distances and slopes more than some number of standard deviations from the median
-            var medianDistance = pairedPoints.OrderBy(p => p.Data.Distance).ElementAt(pairedPoints.Count / 2).Data.Distance;
-            var distanceStdDev = CalcStandardDeviation(pairedPoints.Select(p => p.Data.Distance).ToArray());
-            pairedPoints = pairedPoints.Where(p => Math.Abs(p.Data.Distance - medianDistance) < Math.Abs(distanceStdDev * (settings.AlignmentKeypointOutlierThresholdTenths / 10d))).ToList();
-            //Debug.WriteLine("Median Distance: " + medianDistance);
-            //Debug.WriteLine("Distance Cleaned Points count: " + pairedPoints.Count);
-            var medianSlope = pairedPoints.OrderBy(p => p.Data.Slope).ElementAt(pairedPoints.Count / 2).Data.Slope;
-            var slopeStdDev = CalcStandardDeviation(pairedPoints.Select(p => p.Data.Slope).ToArray());
-            pairedPoints = pairedPoints.Where(p => Math.Abs(p.Data.Slope - medianSlope) < Math.Abs(slopeStdDev * (settings.AlignmentKeypointOutlierThresholdTenths / 10d))).ToList();
-            //Debug.WriteLine("Median Slope: " + medianSlope);
-            //Debug.WriteLine("Slope Cleaned Points count: " + pairedPoints.Count);
-
-            //Debug.WriteLine("CLEAN POINTS START (ham,dist,slope,ydiff), count: " + pairedPoints.Count);
-            //foreach (var pointForCleaning in pairedPoints)
-            //{
-            //    Debug.WriteLine(pointForCleaning.Match.Distance + "," + pointForCleaning.Data.Distance + "," + pointForCleaning.Data.Slope + "," + Math.Abs(pointForCleaning.KeyPoint1.Point.Y - pointForCleaning.KeyPoint2.Point.Y));
-            //}
-
-            //Debug.WriteLine("CLEANED PAIRS:");
-            //PrintPairs(pairedPoints);
-
-            for (var ii = 0; ii < pairedPoints.Count; ii++)
+            if (settings.DiscardOutlierMatches)
             {
-                var oldMatch = pairedPoints[ii].Match;
-                pairedPoints[ii].Match = new MDMatch
+                //Debug.WriteLine("DIRTY POINTS START (ham,dist,slope,ydiff), count: " + pairedPoints.Count);
+                //foreach (var pointForCleaning in pairedPoints)
+                //{
+                //    Debug.WriteLine(pointForCleaning.Match.Distance  + "," + pointForCleaning.Data.Distance + "," + pointForCleaning.Data.Slope + "," + Math.Abs(pointForCleaning.KeyPoint1.Point.Y - pointForCleaning.KeyPoint2.Point.Y));
+                //}
+
+                //Debug.WriteLine("DIRTY PAIRS:");
+                //PrintPairs(pairedPoints);
+
+                // reject distances and slopes more than some number of standard deviations from the median
+                var medianDistance = pairedPoints.OrderBy(p => p.Data.Distance).ElementAt(pairedPoints.Count / 2).Data.Distance;
+                var distanceStdDev = CalcStandardDeviation(pairedPoints.Select(p => p.Data.Distance).ToArray());
+                pairedPoints = pairedPoints.Where(p => Math.Abs(p.Data.Distance - medianDistance) < Math.Abs(distanceStdDev * (settings.KeypointOutlierThresholdTenths / 10d))).ToList();
+                //Debug.WriteLine("Median Distance: " + medianDistance);
+                //Debug.WriteLine("Distance Cleaned Points count: " + pairedPoints.Count);
+                var medianSlope = pairedPoints.OrderBy(p => p.Data.Slope).ElementAt(pairedPoints.Count / 2).Data.Slope;
+                var slopeStdDev = CalcStandardDeviation(pairedPoints.Select(p => p.Data.Slope).ToArray());
+                pairedPoints = pairedPoints.Where(p => Math.Abs(p.Data.Slope - medianSlope) < Math.Abs(slopeStdDev * (settings.KeypointOutlierThresholdTenths / 10d))).ToList();
+                //Debug.WriteLine("Median Slope: " + medianSlope);
+                //Debug.WriteLine("Slope Cleaned Points count: " + pairedPoints.Count);
+
+                //Debug.WriteLine("CLEAN POINTS START (ham,dist,slope,ydiff), count: " + pairedPoints.Count);
+                //foreach (var pointForCleaning in pairedPoints)
+                //{
+                //    Debug.WriteLine(pointForCleaning.Match.Distance + "," + pointForCleaning.Data.Distance + "," + pointForCleaning.Data.Slope + "," + Math.Abs(pointForCleaning.KeyPoint1.Point.Y - pointForCleaning.KeyPoint2.Point.Y));
+                //}
+
+                //Debug.WriteLine("CLEANED PAIRS:");
+                //PrintPairs(pairedPoints);
+
+                for (var ii = 0; ii < pairedPoints.Count; ii++)
                 {
-                    Distance = oldMatch.Distance,
-                    ImgIdx = oldMatch.ImgIdx,
-                    QueryIdx = ii,
-                    TrainIdx = ii
-                };
-            }
+                    var oldMatch = pairedPoints[ii].Match;
+                    pairedPoints[ii].Match = new MDMatch
+                    {
+                        Distance = oldMatch.Distance,
+                        ImgIdx = oldMatch.ImgIdx,
+                        QueryIdx = ii,
+                        TrainIdx = ii
+                    };
+                }
 
-            if (settings.AlignmentDrawMatches)
-            {
-                using var fullSizeColor1 = new Mat();
-                using var fullSizeColor2 = new Mat();
-                CvInvoke.Imdecode(GetBytes(firstImage, 1), ImreadModes.Color, fullSizeColor1);
-                CvInvoke.Imdecode(GetBytes(secondImage, 1), ImreadModes.Color, fullSizeColor2);
+                if (settings.DrawKeypointMatches)
+                {
+                    using var fullSizeColor1 = new Mat();
+                    using var fullSizeColor2 = new Mat();
+                    CvInvoke.Imdecode(GetBytes(firstImage, 1), ImreadModes.Color, fullSizeColor1);
+                    CvInvoke.Imdecode(GetBytes(secondImage, 1), ImreadModes.Color, fullSizeColor2);
 
-                using var drawnResult = new Mat();
-                Features2DToolbox.DrawMatches(
-                    fullSizeColor1, new VectorOfKeyPoint(pairedPoints.Select(m => m.KeyPoint1).ToArray()),
-                    fullSizeColor2, new VectorOfKeyPoint(pairedPoints.Select(m => m.KeyPoint2).ToArray()),
-                    new VectorOfVectorOfDMatch(pairedPoints.Select(p => new[] { p.Match }).ToArray()),
-                    drawnResult, new MCvScalar(0, 255, 0), new MCvScalar(255, 255, 0));
+                    using var drawnResult = new Mat();
+                    Features2DToolbox.DrawMatches(
+                        fullSizeColor1, new VectorOfKeyPoint(pairedPoints.Select(m => m.KeyPoint1).ToArray()),
+                        fullSizeColor2, new VectorOfKeyPoint(pairedPoints.Select(m => m.KeyPoint2).ToArray()),
+                        new VectorOfVectorOfDMatch(pairedPoints.Select(p => new[] { p.Match }).ToArray()),
+                        drawnResult, new MCvScalar(0, 255, 0), new MCvScalar(255, 255, 0));
 #if __IOS__
-                result.DrawnCleanMatches = drawnResult.ToCGImage().ToSKBitmap();
+                    result.DrawnCleanMatches = drawnResult.ToCGImage().ToSKBitmap();
 #elif __ANDROID__
-                result.DrawnCleanMatches = drawnResult.ToBitmap().ToSKBitmap();
+                    result.DrawnCleanMatches = drawnResult.ToBitmap().ToSKBitmap();
 #endif
+                }
             }
 
             var points1 = pairedPoints.Select(p => new SKPoint(p.KeyPoint1.Point.X, p.KeyPoint1.Point.Y)).ToArray();
