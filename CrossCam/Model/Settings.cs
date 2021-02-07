@@ -115,7 +115,18 @@ namespace CrossCam.Model
 
         public bool ClipBorderOnNextLoad { get; set; }
 
-        public bool? IsPairedPrimary { get; set; }
+        private bool? _isPairedPrimary;
+        public bool? IsPairedPrimary
+        {
+            get => _isPairedPrimary;
+            set
+            {
+                _isPairedPrimary = value;
+                IsFovCorrectionSet = false;
+                FovPrimaryCorrection = 0;
+                FovSecondaryCorrection = 0;
+            }
+        }
 
         private int _pairedPreviewFrameDelayMs;
         public int PairedPreviewFrameDelayMs
@@ -131,34 +142,8 @@ namespace CrossCam.Model
         }
 
         public bool IsFovCorrectionSet { get; set; }
-
-        private double _fovPrimaryCorrection;
-        public double FovPrimaryCorrection
-        {
-            get => _fovPrimaryCorrection;
-            set
-            {
-                if (_fovSecondaryCorrection > 0)
-                {
-                    _fovSecondaryCorrection = 0;
-                }
-                _fovPrimaryCorrection = value;
-            }
-        }
-
-        private double _fovSecondaryCorrection;
-        public double FovSecondaryCorrection
-        {
-            get => _fovSecondaryCorrection;
-            set
-            {
-                if (_fovPrimaryCorrection > 0)
-                {
-                    _fovPrimaryCorrection = 0;
-                }
-                _fovSecondaryCorrection = value;
-            }
-        }
+        public double FovPrimaryCorrection { get; set; }
+        public double FovSecondaryCorrection { get; set; }
 
         private int _pairPreviewSampleCount;
         public int PairSyncSampleCount

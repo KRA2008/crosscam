@@ -227,22 +227,8 @@ namespace AutoAlignment
 
             if (settings.DrawKeypointMatches)
             {
-                using var fullSizeColor1 = new Mat();
-                using var fullSizeColor2 = new Mat();
-                CvInvoke.Imdecode(GetBytes(firstImage, 1), ImreadModes.Color, fullSizeColor1);
-                CvInvoke.Imdecode(GetBytes(secondImage, 1), ImreadModes.Color, fullSizeColor2);
-
-                using var drawnResult = new Mat();
-                Features2DToolbox.DrawMatches(
-                    fullSizeColor1, new VectorOfKeyPoint(pairedPoints.Select(m => m.KeyPoint1).ToArray()),
-                    fullSizeColor2, new VectorOfKeyPoint(pairedPoints.Select(m => m.KeyPoint2).ToArray()),
-                    new VectorOfVectorOfDMatch(pairedPoints.Select(p => new[] { p.Match }).ToArray()),
-                    drawnResult, new MCvScalar(0, 255, 0), new MCvScalar(255, 255, 0));
-#if __IOS__
-                result.DrawnDirtyMatches = drawnResult.ToCGImage().ToSKBitmap();
-#elif __ANDROID__
-                result.DrawnDirtyMatches = drawnResult.ToBitmap().ToSKBitmap();
-#endif
+                result.DirtyMatchesCount = pairedPoints.Count;
+                result.DrawnDirtyMatches = DrawMatches(firstImage, secondImage, pairedPoints);
             }
 
             if (settings.DiscardOutlierMatches)
@@ -291,22 +277,8 @@ namespace AutoAlignment
 
                 if (settings.DrawKeypointMatches)
                 {
-                    using var fullSizeColor1 = new Mat();
-                    using var fullSizeColor2 = new Mat();
-                    CvInvoke.Imdecode(GetBytes(firstImage, 1), ImreadModes.Color, fullSizeColor1);
-                    CvInvoke.Imdecode(GetBytes(secondImage, 1), ImreadModes.Color, fullSizeColor2);
-
-                    using var drawnResult = new Mat();
-                    Features2DToolbox.DrawMatches(
-                        fullSizeColor1, new VectorOfKeyPoint(pairedPoints.Select(m => m.KeyPoint1).ToArray()),
-                        fullSizeColor2, new VectorOfKeyPoint(pairedPoints.Select(m => m.KeyPoint2).ToArray()),
-                        new VectorOfVectorOfDMatch(pairedPoints.Select(p => new[] { p.Match }).ToArray()),
-                        drawnResult, new MCvScalar(0, 255, 0), new MCvScalar(255, 255, 0));
-#if __IOS__
-                    result.DrawnCleanMatches = drawnResult.ToCGImage().ToSKBitmap();
-#elif __ANDROID__
-                    result.DrawnCleanMatches = drawnResult.ToBitmap().ToSKBitmap();
-#endif
+                    result.CleanMatchesCount = pairedPoints.Count;
+                    result.DrawnCleanMatches = DrawMatches(firstImage, secondImage, pairedPoints);
                 }
             }
 
@@ -401,6 +373,26 @@ namespace AutoAlignment
 
 
             return result;
+        }
+
+        private static SKBitmap DrawMatches(SKBitmap image1, SKBitmap image2, List<PointForCleaning> points)
+        {
+            using var fullSizeColor1 = new Mat();
+            using var fullSizeColor2 = new Mat();
+            CvInvoke.Imdecode(GetBytes(image1, 1), ImreadModes.Color, fullSizeColor1);
+            CvInvoke.Imdecode(GetBytes(image2, 1), ImreadModes.Color, fullSizeColor2);
+
+            using var drawnResult = new Mat();
+            Features2DToolbox.DrawMatches(
+                fullSizeColor1, new VectorOfKeyPoint(points.Select(m => m.KeyPoint1).ToArray()),
+                fullSizeColor2, new VectorOfKeyPoint(points.Select(m => m.KeyPoint2).ToArray()),
+                new VectorOfVectorOfDMatch(points.Select(p => new[] { p.Match }).ToArray()),
+                drawnResult, new MCvScalar(0, 255, 0), new MCvScalar(255, 255, 0));
+#if __IOS__
+            return drawnResult.ToCGImage().ToSKBitmap();
+#elif __ANDROID__
+            return drawnResult.ToBitmap().ToSKBitmap();
+#endif
         }
 
         private static void PrintPairs(IEnumerable<PointForCleaning> pairedPoints)
