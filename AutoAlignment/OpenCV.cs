@@ -46,20 +46,19 @@ namespace AutoAlignment
         }
 
         //TODO: the problem with this one is that it is unable to scale, this is important for using two devices with different fields of view
-        public AlignedResult CreateAlignedSecondImageEcc(SKBitmap firstImage, SKBitmap secondImage, int downsizePercentage, int iterations,
-            int epsilonLevel, int eccCutoff, int pyramidLayers, bool discardTransX)
+        public AlignedResult CreateAlignedSecondImageEcc(SKBitmap firstImage, SKBitmap secondImage, bool discardTransX, Settings settings)
         {
 #if __NO_EMGU__
             return null;
 #endif
-            var topDownsizeFactor = downsizePercentage / 100f;
+            var topDownsizeFactor = settings.AlignmentDownsizePercentage2 / 100f;
 
             var eccs = new List<double>();
             using var mat1 = new Mat();
             using var mat2 = new Mat();
             using var warpMatrix = Mat.Eye(2, 3, DepthType.Cv32F, 1);
-            var termCriteria = new MCvTermCriteria(iterations, Math.Pow(10, -epsilonLevel));
-            for (var ii = pyramidLayers - 1; ii >= 0; ii--)
+            var termCriteria = new MCvTermCriteria(settings.AlignmentIterations2, Math.Pow(10, -settings.AlignmentEpsilonLevel2));
+            for (var ii = settings.AlignmentPyramidLayers2 - 1; ii >= 0; ii--)
             {
                 var downsize = topDownsizeFactor / Math.Pow(2, ii);
                 CvInvoke.Imdecode(GetBytes(firstImage, downsize), ImreadModes.Grayscale, mat1);
@@ -100,7 +99,7 @@ namespace AutoAlignment
             var lastUpscaleFactor = 1 / (2 * topDownsizeFactor);
             ScaleUpCvMatOfFloats(warpMatrix, lastUpscaleFactor);
 
-            if (eccs.Last() * 100 < eccCutoff)
+            if (eccs.Last() * 100 < settings.AlignmentEccThresholdPercentage2)
             {
                 return null;
             }

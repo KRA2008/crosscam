@@ -142,6 +142,7 @@ namespace CrossCam.ViewModel
         public bool IsViewInverted { get; set; }
         public bool WasCapturePortrait { get; set; }
         public bool WasCaptureCross { get; set; }
+        public bool WasCapturePaired { get; set; }
 
         public bool AutomaticAlignmentNotSupportedTrigger { get; set; }
         public bool AlignmentFailFadeTrigger { get; set; }
@@ -1212,7 +1213,11 @@ namespace CrossCam.ViewModel
                                 var needsFallback = false;
                                 try
                                 {
-                                    alignedResult = openCv.CreateAlignedSecondImageKeypoints(firstImage, secondImage, discardTransX, Settings);
+                                    alignedResult = openCv.CreateAlignedSecondImageKeypoints(
+                                        firstImage, 
+                                        secondImage, 
+                                        discardTransX, 
+                                        Settings);
                                     if (alignedResult == null)
                                     {
                                         needsFallback = true;
@@ -1228,12 +1233,8 @@ namespace CrossCam.ViewModel
                                     alignedResult = openCv.CreateAlignedSecondImageEcc(
                                         firstImage,
                                         secondImage,
-                                        Settings.AlignmentDownsizePercentage2,
-                                        Settings.AlignmentIterations2,
-                                        Settings.AlignmentEpsilonLevel2,
-                                        Settings.AlignmentEccThresholdPercentage2,
-                                        Settings.AlignmentPyramidLayers2,
-                                        discardTransX);
+                                        discardTransX,
+                                        Settings);
                                 }
                             }
                             else
@@ -1241,12 +1242,8 @@ namespace CrossCam.ViewModel
                                 alignedResult = openCv.CreateAlignedSecondImageEcc(
                                     firstImage,
                                     secondImage,
-                                    Settings.AlignmentDownsizePercentage2,
-                                    Settings.AlignmentIterations2,
-                                    Settings.AlignmentEpsilonLevel2,
-                                    Settings.AlignmentEccThresholdPercentage2,
-                                    Settings.AlignmentPyramidLayers2,
-                                    discardTransX);
+                                    discardTransX,
+                                    Settings);
                             }
                         });
                     }
