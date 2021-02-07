@@ -1245,6 +1245,12 @@ namespace CrossCam.ViewModel
                     {
                         if (Settings.AlignmentSettings.UseKeypoints && Settings.AlignmentSettings.DrawKeypointMatches)
                         {
+                            var countPoint = new SKPoint(0, alignedResult.DrawnDirtyMatches.Height / 16f);
+                            var countPaint = new SKPaint
+                            {
+                                Color = SKColor.Parse("#00ff00"),
+                                TextSize = alignedResult.DrawnDirtyMatches.Height / 16f
+                            };
                             using (var tempSurface =
                                 SKSurface.Create(new SKImageInfo(alignedResult.DrawnDirtyMatches.Width, alignedResult.DrawnDirtyMatches.Height)))
                             {
@@ -1257,6 +1263,11 @@ namespace CrossCam.ViewModel
                                 }
 
                                 canvas.DrawBitmap(alignedResult.DrawnDirtyMatches, 0, 0);
+
+                                canvas.DrawText(
+                                    alignedResult.DirtyMatchesCount.ToString(),
+                                    countPoint, 
+                                    countPaint);
 
                                 await SaveSurfaceSnapshot(tempSurface);
                             }
@@ -1275,6 +1286,10 @@ namespace CrossCam.ViewModel
                                     }
 
                                     canvas.DrawBitmap(alignedResult.DrawnCleanMatches, 0, 0);
+                                    canvas.DrawText(
+                                        alignedResult.CleanMatchesCount.ToString(),
+                                        countPoint,
+                                        countPaint);
 
                                     await SaveSurfaceSnapshot(tempSurface);
                                 }
