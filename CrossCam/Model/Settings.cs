@@ -311,7 +311,12 @@ namespace CrossCam.Model
 
             MaximumParallelWidth = (int)PARALLEL_BASE_WIDTH;
 
-            IsPairedPrimary = null;
+            //IsPairedPrimary = null; //deliberately do NOT reset this.
+
+            FovPrimaryCorrection = 0;
+            FovSecondaryCorrection = 0;
+            IsFovCorrectionSet = false;
+
             PairedPreviewFrameDelayMs = 250;
             PairSyncSampleCount = 50;
 

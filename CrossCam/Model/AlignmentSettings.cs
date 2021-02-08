@@ -127,7 +127,7 @@ namespace CrossCam.Model
             EccPyramidLayers = 4;
 
             DrawKeypointMatches = false;
-            UseKeypoints = true;
+            UseKeypoints = true; //TODO: decide if this should be default on or off before shipping to store for real
             UseCrossCheck = false;
             DiscardOutlierMatches = true;
             MinimumKeypoints = 5;

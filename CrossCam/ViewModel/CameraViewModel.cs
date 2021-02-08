@@ -303,6 +303,10 @@ namespace CrossCam.ViewModel
                             RaisePropertyChanged(nameof(ShouldLineGuidesBeVisible));
                             RaisePropertyChanged(nameof(ShouldDonutGuideBeVisible));
                         }
+                        else
+                        {
+                            WasCapturePaired = false;
+                        }
                     }
                 }
                 else if (args.PropertyName == nameof(ErrorMessage))
@@ -1197,7 +1201,10 @@ namespace CrossCam.ViewModel
                                                 Settings.Mode != DrawMode.RedCyanAnaglyph &&
                                                 Settings.Mode != DrawMode.GrayscaleRedCyanAnaglyph &&
                                                 !Settings.AlignmentSettings.AlignHorizontallySideBySide;
-                            if (Settings.AlignmentSettings.UseKeypoints)
+                            if ((WasCapturePaired &&
+                                (Settings.FovPrimaryCorrection > 0 ||
+                                Settings.FovSecondaryCorrection > 0)) || 
+                                Settings.AlignmentSettings.UseKeypoints)
                             {
                                 var needsFallback = false;
                                 try
