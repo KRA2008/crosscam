@@ -1549,7 +1549,7 @@ namespace CrossCam.ViewModel
         {
             var leftRatio = LeftBitmap.Width / (1f * LeftBitmap.Height);
             var rightRatio = RightBitmap.Width / (1f * RightBitmap.Height);
-            if (leftRatio != rightRatio)// TODO: something
+            if (leftRatio != rightRatio)// TODO: handle different aspect ratios
             {
 
             }
@@ -1584,7 +1584,7 @@ namespace CrossCam.ViewModel
         {
             await Device.InvokeOnMainThreadAsync(async () =>
             {
-                await CoreMethods.DisplayAlert("Field of View Correction", "To correct for field of view differences, zoom and slide the pictures so the distinctive points line up between the two photos. You can drag the white lines around to help you visualize the alignment. This correction will be applied to future previews. It will be saved but you can reset it on the Settings page.", "OK");
+                await CoreMethods.DisplayAlert("Field of View Correction", "To correct for field of view differences, zoom and slide the pictures so the distinctive points line up between the two photos. You can drag the white lines around to help you visualize the alignment. This correction will be applied to future previews. It will be saved but you can reset it on the Settings page. If you're using identical devices just save without adjusting.", "OK");
             });
         }
 

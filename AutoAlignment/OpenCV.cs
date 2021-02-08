@@ -46,7 +46,6 @@ namespace AutoAlignment
             return true;
         }
 
-        //TODO: the problem with this one is that it is unable to scale, this is important for using two devices with different fields of view
         public AlignedResult CreateAlignedSecondImageEcc(SKBitmap firstImage, SKBitmap secondImage, bool discardTransX, AlignmentSettings settings)
         {
 #if __NO_EMGU__

@@ -317,6 +317,7 @@ namespace CrossCam.Page
 
                 if (bitmap != null)
                 {
+                    //TODO: handle different aspect ratios?
                     var canvasWidth = canvas.DeviceClipBounds.Width;
                     var canvasHeight = canvas.DeviceClipBounds.Height;
 

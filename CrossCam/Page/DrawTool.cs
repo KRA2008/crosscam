@@ -54,7 +54,6 @@ namespace CrossCam.Page
             float leftKeystone, float rightKeystone,
             DrawMode drawMode)
         {
-            //TODO: chop different aspect ratios, but at the moment my paired test devices all have matching ratios (4:3 on iOS, 16:9 on Android)...
             if (leftBitmap == null && rightBitmap == null) return;
 
             var canvasWidth = canvas.DeviceClipBounds.Width;
