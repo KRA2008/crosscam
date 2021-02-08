@@ -8,6 +8,6 @@ namespace CrossCam.Wrappers
         bool IsOpenCvSupported();
         AlignedResult CreateAlignedSecondImageEcc(SKBitmap firstImage, SKBitmap secondImage, bool discardTransX, AlignmentSettings settings);
         AlignedResult CreateAlignedSecondImageKeypoints(SKBitmap firstImage, SKBitmap secondImage,
-            bool discardTransX, AlignmentSettings settings);
+            bool discardTransX, AlignmentSettings settings, bool keystoneRightOnFirst);
     }
 }

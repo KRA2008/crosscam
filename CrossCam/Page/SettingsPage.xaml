@@ -177,6 +177,11 @@
             </StackLayout>
             <StackLayout Orientation="Horizontal"
                          IsVisible="{ce:DebugMarkupExtension}">
+                <Label Text="Do keystone correction"/>
+                <Switch IsToggled="{Binding Settings.AlignmentSettings.DoKeystoneCorrection}"/>
+            </StackLayout>
+            <StackLayout Orientation="Horizontal"
+                         IsVisible="{ce:DebugMarkupExtension}">
                 <Label Text="Ecc iterations"/>
                 <Frame>
                     <Picker ItemsSource="{Binding ZeroToOneThousand}"

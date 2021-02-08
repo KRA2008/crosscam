@@ -4,6 +4,7 @@ using System.Diagnostics;
 using System.Linq;
 using AutoAlignment;
 using CrossCam.Model;
+using CrossCam.Page;
 using CrossCam.Wrappers;
 #if !__NO_EMGU__
 using System.Drawing;
@@ -108,7 +109,7 @@ namespace AutoAlignment
 
             var result = new AlignedResult
             {
-                TransformMatrix = skMatrix
+                TransformMatrix2 = skMatrix
             };
 
             using var alignedMat = new Mat();
@@ -120,13 +121,13 @@ namespace AutoAlignment
 #if __IOS__
             result.AlignedBitmap = alignedMat.ToCGImage().ToSKBitmap();
 #elif __ANDROID__
-            result.AlignedBitmap = alignedMat.ToBitmap().ToSKBitmap();
+            result.AlignedBitmap2 = alignedMat.ToBitmap().ToSKBitmap();
 #endif
             return result;
         }
 
         public AlignedResult CreateAlignedSecondImageKeypoints(SKBitmap firstImage, SKBitmap secondImage,
-            bool discardTransX, AlignmentSettings settings)
+            bool discardTransX, AlignmentSettings settings, bool keystoneRightOnFirst)
         {
 #if __NO_EMGU__
             return null;
@@ -297,8 +298,7 @@ namespace AutoAlignment
             var zoomed1 = SKMatrix.MakeScale(zoom1, zoom1, secondImage.Width / 2f, secondImage.Height / 2f);
             points2 = zoomed1.MapPoints(points2);
 
-            //TODO: add keystoning (probably to both images too)
-            //var keystoned1 = TaperTransform.Make(new SKSize(secondImage.Width, secondImage.Height) )
+
 
             var translation2 = FindTranslation(points1, points2, secondImage);
             var translated2 = SKMatrix.MakeTranslation(0, translation2);
@@ -325,6 +325,17 @@ namespace AutoAlignment
             var zoom3 = FindZoom(points1, points2, secondImage);
             var zoomed3 = SKMatrix.MakeScale(zoom3, zoom3, secondImage.Width / 2f, secondImage.Height / 2f);
             points2 = zoomed3.MapPoints(points2);
+
+
+            var keystoned1 = SKMatrix.MakeIdentity();
+            var keystoned2 = SKMatrix.MakeIdentity();
+            if (settings.DoKeystoneCorrection)
+            {
+                keystoned1 = FindTaper(points2, points1, secondImage, keystoneRightOnFirst);
+                points1 = keystoned1.MapPoints(points1);
+                keystoned2 = FindTaper(points1, points2, secondImage, !keystoneRightOnFirst);
+                points2 = keystoned2.MapPoints(points2);
+            }
 
 
             var horizontaled = SKMatrix.MakeIdentity();
@@ -356,20 +367,31 @@ namespace AutoAlignment
             var tempMatrix8 = new SKMatrix();
             SKMatrix.Concat(ref tempMatrix8, tempMatrix7, zoomed3);
 
-
             var tempMatrix9 = new SKMatrix();
-            SKMatrix.Concat(ref tempMatrix9, tempMatrix8, horizontaled);
+            SKMatrix.Concat(ref tempMatrix9, tempMatrix8, keystoned2);
 
+            var tempMatrix10 = new SKMatrix();
+            SKMatrix.Concat(ref tempMatrix10, tempMatrix9, horizontaled);
 
-            var finalMatrix = tempMatrix9;
-            result.TransformMatrix = finalMatrix;
-            var alignedImage = new SKBitmap(secondImage.Width, secondImage.Height);
-            using (var canvas = new SKCanvas(alignedImage))
+            var finalMatrix = tempMatrix10;
+            result.TransformMatrix2 = finalMatrix;
+            var alignedImage2 = new SKBitmap(secondImage.Width, secondImage.Height);
+            using (var canvas = new SKCanvas(alignedImage2))
             {
                 canvas.SetMatrix(finalMatrix);
                 canvas.DrawBitmap(secondImage, 0, 0);
             }
-            result.AlignedBitmap = alignedImage;
+            result.AlignedBitmap2 = alignedImage2;
+
+
+            result.TransformMatrix1 = keystoned1;
+            var alignedImage1 = new SKBitmap(firstImage.Width, firstImage.Height);
+            using (var canvas = new SKCanvas(alignedImage1))
+            {
+                canvas.SetMatrix(keystoned1);
+                canvas.DrawBitmap(firstImage, 0, 0);
+            }
+            result.AlignedBitmap1 = alignedImage1;
 
 
             return result;
@@ -522,59 +544,6 @@ namespace AutoAlignment
 
         private static float FindZoom(SKPoint[] good1, SKPoint[] good2, SKBitmap secondImage)
         {
-            //slow search
-
-            //var baseOffset = GetNetYOffset(good1, good2);
-            //const float ZOOM_INC = 0.01f;
-            //var finalZoom = 1f;
-
-            //var zoomIn = SKMatrix.MakeScale(finalZoom + ZOOM_INC, finalZoom + ZOOM_INC, secondImage.Width / 2f, secondImage.Height / 2f);
-            //var zoomOut = SKMatrix.MakeScale(finalZoom - ZOOM_INC, finalZoom - ZOOM_INC, secondImage.Width / 2f, secondImage.Height / 2f);
-
-            //var attemptIn = zoomIn.MapPoints(good2);
-            //var offsetIn = GetNetYOffset(good1, attemptIn);
-            //var attemptOut = zoomOut.MapPoints(good2);
-            //var offsetOut = GetNetYOffset(good1, attemptOut);
-
-            //if (offsetIn < baseOffset ||
-            //    offsetOut < baseOffset)
-            //{
-            //    double newOffset;
-            //    var oldOffset = baseOffset;
-            //    if (offsetIn < offsetOut)
-            //    {
-            //        finalZoom += ZOOM_INC;
-            //        newOffset = offsetIn;
-            //        while (newOffset < oldOffset)
-            //        {
-            //            oldOffset = newOffset;
-            //            finalZoom += ZOOM_INC;
-            //            zoomIn = SKMatrix.MakeScale(finalZoom, finalZoom, secondImage.Width / 2f, secondImage.Height / 2f);
-            //            var nextAttempt = zoomIn.MapPoints(good2);
-            //            newOffset = GetNetYOffset(good1, nextAttempt);
-            //        }
-            //        finalZoom -= ZOOM_INC; //one less
-            //    }
-            //    else
-            //    {
-            //        newOffset = offsetOut;
-            //        finalZoom -= ZOOM_INC;
-            //        while (newOffset < oldOffset)
-            //        {
-            //            oldOffset = newOffset;
-            //            finalZoom -= ZOOM_INC;
-            //            zoomOut = SKMatrix.MakeScale(finalZoom, finalZoom, secondImage.Width / 2f, secondImage.Height / 2f);
-            //            var nextAttempt = zoomOut.MapPoints(good2);
-            //            newOffset = GetNetYOffset(good1, nextAttempt);
-            //        }
-            //        finalZoom += ZOOM_INC; //one less
-            //    }
-            //}
-
-            //return finalZoom;
-
-            //binary search BELOW
-
             var baseOffset = GetNetYOffset(good1, good2);
             const float FINAL_ZOOM_DELTA = 0.0001f; //TODO: make configurable?
             var zoomInc = 1f;
@@ -603,6 +572,40 @@ namespace AutoAlignment
             }
 
             return finalZoom;
+        }
+
+        private static SKMatrix FindTaper(SKPoint[] pointsToMatch, SKPoint[] pointsToCorrect, SKBitmap image, bool keystoneRight)
+        {
+            var baseOffset = GetNetYOffset(pointsToMatch, pointsToCorrect);
+            const float FINAL_TAPER_DELTA = 0.0001f; //TODO: make configurable?
+            var taperInc = 0.5f;
+            var finalTaper = 1f;
+            var taperSide = keystoneRight ? TaperSide.Right : TaperSide.Left;
+
+            while (taperInc > FINAL_TAPER_DELTA)
+            {
+                var taperA = TaperTransform.Make(new SKSize(image.Width, image.Height), taperSide, TaperCorner.Both, finalTaper + taperInc);
+                var taperB = TaperTransform.Make(new SKSize(image.Width, image.Height), taperSide, TaperCorner.Both, finalTaper - taperInc);
+                var attemptA = taperA.MapPoints(pointsToCorrect);
+                var offsetA = GetNetYOffset(pointsToMatch, attemptA);
+                var attemptB = taperB.MapPoints(pointsToCorrect);
+                var offsetB = GetNetYOffset(pointsToMatch, attemptB);
+
+                if (offsetA < baseOffset)
+                {
+                    baseOffset = offsetA;
+                    finalTaper += taperInc;
+                }
+                else if (offsetB < baseOffset)
+                {
+                    baseOffset = offsetB;
+                    finalTaper -= taperInc;
+                }
+
+                taperInc /= 2f;
+            }
+
+            return TaperTransform.Make(new SKSize(image.Width, image.Height), taperSide, TaperCorner.Both, finalTaper);
         }
 
         private static double GetNetXOffset(SKPoint[] points1, SKPoint[] points2)

@@ -11,6 +11,7 @@ namespace CrossCam.Model
         public bool UseCrossCheck { get; set; }
         public bool DrawKeypointMatches { get; set; }
         public bool DiscardOutlierMatches { get; set; }
+        public bool DoKeystoneCorrection { get; set; }
 
         private bool _isAutomaticAlignmentOn;
         public bool IsAutomaticAlignmentOn
@@ -131,6 +132,8 @@ namespace CrossCam.Model
             DiscardOutlierMatches = true;
             MinimumKeypoints = 5;
             KeypointOutlierThresholdTenths = 20;
+
+            DoKeystoneCorrection = false;
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
