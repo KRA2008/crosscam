@@ -1549,34 +1549,90 @@ namespace CrossCam.ViewModel
         {
             var leftRatio = LeftBitmap.Width / (1f * LeftBitmap.Height);
             var rightRatio = RightBitmap.Width / (1f * RightBitmap.Height);
-            if (leftRatio != rightRatio)// TODO: handle different aspect ratios
+            if (leftRatio != rightRatio)
             {
-
+                //working approach: chop off the long ends of the picture that is 'longer' (proportionally) and then proceed with the resolution correction below
+                if (LeftBitmap.Height > LeftBitmap.Width) // portrait
+                {
+                    if (leftRatio < rightRatio) // left is taller
+                    {
+                        var newHeight = (int) (LeftBitmap.Height * rightRatio);
+                        var corrected = new SKBitmap(LeftBitmap.Width, newHeight);
+                        using (var surface = new SKCanvas(corrected))
+                        {
+                            surface.DrawBitmap(
+                                LeftBitmap,
+                                new SKRect(0, (LeftBitmap.Height - newHeight) / 2f, LeftBitmap.Width, LeftBitmap.Height - (LeftBitmap.Height - newHeight) / 2f),
+                                new SKRect(0, 0, LeftBitmap.Width, newHeight));
+                        }
+                        LeftBitmap = corrected;
+                    }
+                    else
+                    {
+                        var newHeight = (int)(RightBitmap.Height * leftRatio);
+                        var corrected = new SKBitmap(RightBitmap.Width, newHeight);
+                        using (var surface = new SKCanvas(corrected))
+                        {
+                            surface.DrawBitmap(
+                                RightBitmap,
+                                new SKRect(0, (RightBitmap.Height - newHeight) / 2f, RightBitmap.Width, RightBitmap.Height - (RightBitmap.Height - newHeight) / 2f),
+                                new SKRect(0, 0, RightBitmap.Width, newHeight));
+                        }
+                        RightBitmap = corrected;
+                    }
+                }
+                else //landscape
+                {
+                    if (leftRatio > rightRatio) // left is wider
+                    {
+                        var newWidth = (int)(LeftBitmap.Width / rightRatio);
+                        var corrected = new SKBitmap(newWidth, LeftBitmap.Height);
+                        using (var surface = new SKCanvas(corrected))
+                        {
+                            surface.DrawBitmap(
+                                LeftBitmap,
+                                new SKRect((LeftBitmap.Width - newWidth) / 2f, 0, LeftBitmap.Width - (LeftBitmap.Width - newWidth) / 2f, LeftBitmap.Height),
+                                new SKRect(0, 0, newWidth, LeftBitmap.Height));
+                        }
+                        LeftBitmap = corrected;
+                    }
+                    else
+                    {
+                        var newWidth = (int)(RightBitmap.Width / leftRatio);
+                        var corrected = new SKBitmap(newWidth, RightBitmap.Height);
+                        using (var surface = new SKCanvas(corrected))
+                        {
+                            surface.DrawBitmap(
+                                RightBitmap,
+                                new SKRect((RightBitmap.Width - newWidth) / 2f, 0, RightBitmap.Width - (RightBitmap.Width - newWidth) / 2f, RightBitmap.Height),
+                                new SKRect(0, 0, newWidth, RightBitmap.Height));
+                        }
+                        RightBitmap = corrected;
+                    }
+                }
             }
-            else
+
+            if (LeftBitmap.Width < RightBitmap.Width)
             {
-                if (LeftBitmap.Width < RightBitmap.Width)
+                var corrected = new SKBitmap(LeftBitmap.Width, LeftBitmap.Height);
+                using (var surface = new SKCanvas(corrected))
                 {
-                    var corrected = new SKBitmap(LeftBitmap.Width, LeftBitmap.Height);
-                    using (var surface = new SKCanvas(corrected))
-                    {
-                        surface.DrawBitmap(
-                            RightBitmap,
-                            new SKRect(0, 0, LeftBitmap.Width, LeftBitmap.Height));
-                    }
-                    RightBitmap = corrected;
+                    surface.DrawBitmap(
+                        RightBitmap,
+                        new SKRect(0, 0, LeftBitmap.Width, LeftBitmap.Height));
                 }
-                else if (RightBitmap.Width < LeftBitmap.Width)
+                RightBitmap = corrected;
+            }
+            else if (RightBitmap.Width < LeftBitmap.Width)
+            {
+                var corrected = new SKBitmap(RightBitmap.Width, RightBitmap.Height);
+                using (var surface = new SKCanvas(corrected))
                 {
-                    var corrected = new SKBitmap(RightBitmap.Width, RightBitmap.Height);
-                    using (var surface = new SKCanvas(corrected))
-                    {
-                        surface.DrawBitmap(
-                            LeftBitmap,
-                            new SKRect(0, 0, RightBitmap.Width, RightBitmap.Height));
-                    }
-                    LeftBitmap = corrected;
+                    surface.DrawBitmap(
+                        LeftBitmap,
+                        new SKRect(0, 0, RightBitmap.Width, RightBitmap.Height));
                 }
+                LeftBitmap = corrected;
             }
         }
 

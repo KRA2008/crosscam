@@ -85,6 +85,7 @@ namespace CrossCam.Droid.CustomRenderer
         private CameraState _camera2State;
         private int _cameraRotation1;
         private int _displayRotation1;
+        private float _pairedPreviewOrientationCorrection2;
 
         private enum CameraState
         {
@@ -378,7 +379,7 @@ namespace CrossCam.Droid.CustomRenderer
                 {
                     var stream = new MemoryStream();
                     _textureView.Bitmap.Compress(Bitmap.CompressFormat.Jpeg, 50, stream);
-                    _cameraModule.BluetoothOperator.SendLatestPreviewFrame(stream.ToArray());
+                    _cameraModule.BluetoothOperator.SendLatestPreviewFrame(stream.ToArray(), (byte)(_pairedPreviewOrientationCorrection2 / 90f));
                 }
             }
         }
@@ -613,6 +614,7 @@ namespace CrossCam.Droid.CustomRenderer
                         yAdjust2 = verticalOffset;
                         previewWidth2 = moduleWidth;
                         previewHeight2 = proportionalPreviewHeight;
+                        _pairedPreviewOrientationCorrection2 = 0;
                         break;
                     case SurfaceOrientation.Rotation90:
                         _cameraModule.IsViewInverted = false;
@@ -633,6 +635,7 @@ namespace CrossCam.Droid.CustomRenderer
                         yAdjust2 = proportionalPreviewHeight + verticalOffset;
                         previewWidth2 = proportionalPreviewHeight;
                         previewHeight2 = moduleWidth;
+                        _pairedPreviewOrientationCorrection2 = 270;
                         break;
                     case SurfaceOrientation.Rotation180:
                         _cameraModule.IsViewInverted = true;
@@ -645,6 +648,7 @@ namespace CrossCam.Droid.CustomRenderer
                         yAdjust2 = verticalOffset + proportionalPreviewHeight;
                         previewWidth2 = moduleWidth;
                         previewHeight2 = proportionalPreviewHeight;
+                        _pairedPreviewOrientationCorrection2 = 180;
                         break;
                     case SurfaceOrientation.Rotation270:
                     default:
@@ -666,6 +670,7 @@ namespace CrossCam.Droid.CustomRenderer
                         yAdjust2 = verticalOffset;
                         previewWidth2 = proportionalPreviewHeight;
                         previewHeight2 = moduleWidth;
+                        _pairedPreviewOrientationCorrection2 = 90;
                         break;
                 }
 
@@ -1018,8 +1023,9 @@ namespace CrossCam.Droid.CustomRenderer
             var map = (StreamConfigurationMap)characteristics.Get(CameraCharacteristics
                 .ScalerStreamConfigurationMap);
 
-            var highResSizes = map.GetHighResolutionOutputSizes((int) ImageFormatType.Jpeg)?.Where(p => p.Width > p.Height).ToList();
+            var highResSizes = map.GetHighResolutionOutputSizes((int)ImageFormatType.Jpeg)?.Where(p => p.Width > p.Height).ToList();
             var normalSizes = map.GetOutputSizes((int)ImageFormatType.Jpeg).Where(p => p.Width > p.Height).ToList();
+
             _picture2Size = highResSizes != null
                 ? highResSizes.Concat(normalSizes).OrderByDescending(s => s.Width * s.Height).First()
                 : normalSizes.OrderByDescending(s => s.Width * s.Height).First();
@@ -1030,7 +1036,7 @@ namespace CrossCam.Droid.CustomRenderer
 
             var bigger = new List<Size>();
             var smaller = new List<Size>();
-            
+
             foreach (var previewSize in previewSizes)
             {
                 if (Math.Abs(previewSize.Width / (1f * previewSize.Height) - pictureAspectRatio) < 0.01)
