@@ -85,7 +85,6 @@ namespace CrossCam.Droid.CustomRenderer
         private CameraState _camera2State;
         private int _cameraRotation1;
         private int _displayRotation1;
-        private float _pairedPreviewOrientationCorrection2;
 
         private enum CameraState
         {
@@ -379,7 +378,7 @@ namespace CrossCam.Droid.CustomRenderer
                 {
                     var stream = new MemoryStream();
                     _textureView.Bitmap.Compress(Bitmap.CompressFormat.Jpeg, 50, stream);
-                    _cameraModule.BluetoothOperator.SendLatestPreviewFrame(stream.ToArray(), (byte)(_pairedPreviewOrientationCorrection2 / 90f));
+                    _cameraModule.BluetoothOperator.SendLatestPreviewFrame(stream.ToArray(), (byte)(_textureView.Rotation / 90f));
                 }
             }
         }
@@ -608,13 +607,12 @@ namespace CrossCam.Droid.CustomRenderer
                         _cameraModule.IsPortrait = true;
                         proportionalPreviewHeight = previewSizeWidth * moduleWidth / previewSizeHeight;
                         _cameraRotation1 = _displayRotation1 = 90;
-                        rotation2 = _camera2SensorOrientation - 90;
+                        rotation2 = (_camera2SensorOrientation + 270) % 360;
                         verticalOffset = (moduleHeight - proportionalPreviewHeight) / 2f;
                         xAdjust2 = 0;
                         yAdjust2 = verticalOffset;
                         previewWidth2 = moduleWidth;
                         previewHeight2 = proportionalPreviewHeight;
-                        _pairedPreviewOrientationCorrection2 = 0;
                         break;
                     case SurfaceOrientation.Rotation90:
                         _cameraModule.IsViewInverted = false;
@@ -629,26 +627,24 @@ namespace CrossCam.Droid.CustomRenderer
                         {
                             _cameraRotation1 = _displayRotation1 = 0;
                         }
-                        rotation2 = _camera2SensorOrientation - 180;
+                        rotation2 = (_camera2SensorOrientation + 180) % 360;
                         verticalOffset = (moduleHeight - proportionalPreviewHeight) / 2f;
                         xAdjust2 = 0;
                         yAdjust2 = proportionalPreviewHeight + verticalOffset;
                         previewWidth2 = proportionalPreviewHeight;
                         previewHeight2 = moduleWidth;
-                        _pairedPreviewOrientationCorrection2 = 270;
                         break;
                     case SurfaceOrientation.Rotation180:
                         _cameraModule.IsViewInverted = true;
                         _cameraModule.IsPortrait = true;
                         proportionalPreviewHeight = previewSizeWidth * moduleWidth / previewSizeHeight;
                         _cameraRotation1 = _displayRotation1 = 270;
-                        rotation2 = _camera2SensorOrientation - 270;
+                        rotation2 = (_camera2SensorOrientation + 90) % 360;
                         verticalOffset = (moduleHeight - proportionalPreviewHeight) / 2f;
                         xAdjust2 = moduleWidth;
                         yAdjust2 = verticalOffset + proportionalPreviewHeight;
                         previewWidth2 = moduleWidth;
                         previewHeight2 = proportionalPreviewHeight;
-                        _pairedPreviewOrientationCorrection2 = 180;
                         break;
                     case SurfaceOrientation.Rotation270:
                     default:
@@ -670,7 +666,6 @@ namespace CrossCam.Droid.CustomRenderer
                         yAdjust2 = verticalOffset;
                         previewWidth2 = proportionalPreviewHeight;
                         previewHeight2 = moduleWidth;
-                        _pairedPreviewOrientationCorrection2 = 90;
                         break;
                 }
 
@@ -1026,9 +1021,13 @@ namespace CrossCam.Droid.CustomRenderer
             var highResSizes = map.GetHighResolutionOutputSizes((int)ImageFormatType.Jpeg)?.Where(p => p.Width > p.Height).ToList();
             var normalSizes = map.GetOutputSizes((int)ImageFormatType.Jpeg).Where(p => p.Width > p.Height).ToList();
 
-            _picture2Size = highResSizes != null
-                ? highResSizes.Concat(normalSizes).OrderByDescending(s => s.Width * s.Height).First()
-                : normalSizes.OrderByDescending(s => s.Width * s.Height).First();
+            const float FORCED_ASPECT_RATIO = 4 / 3f;
+
+            var allSizes = highResSizes != null
+                ? highResSizes.Concat(normalSizes).OrderByDescending(s => s.Width * s.Height)
+                : normalSizes.OrderByDescending(s => s.Width * s.Height);
+            var allSizesArray = allSizes.ToArray();
+            _picture2Size = allSizesArray.FirstOrDefault(s => s.Width / (1f * s.Height) == FORCED_ASPECT_RATIO) ?? allSizesArray.First();
             var pictureAspectRatio = _picture2Size.Width / (1f * _picture2Size.Height);
 
             var previewSizes = map.GetOutputSizes(Class.FromType(typeof(SurfaceTexture))).Where(p => p.Width > p.Height)
