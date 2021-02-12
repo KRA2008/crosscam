@@ -317,7 +317,8 @@ namespace CrossCam.Page
 
                 if (bitmap != null)
                 {
-                    //TODO: handle different aspect ratios?
+
+                    //TODO: handle different aspect ratios as in cameraviewmodel, but will need weird adding of black space like with zoom
                     var canvasWidth = canvas.DeviceClipBounds.Width;
                     var canvasHeight = canvas.DeviceClipBounds.Height;
 

@@ -688,6 +688,7 @@ namespace CrossCam.Droid.CustomRenderer
                     _camera1.SetParameters(parameters);
                 }
 
+
                 _cameraModule.PreviewBottomY = (moduleHeight - verticalOffset) / metrics.Density;
 
                 if (_useCamera2)
@@ -825,6 +826,8 @@ namespace CrossCam.Droid.CustomRenderer
                         {
                             _previewSize = previewSizes.First();
                         }
+
+                        _cameraModule.PreviewAspectRatio = _previewSize.Width / (1d * _previewSize.Height);
 
                         parameters.SetPictureSize(_pictureSize.Width, _pictureSize.Height);
                         parameters.SetPreviewSize(_previewSize.Width, _previewSize.Height);
@@ -1021,13 +1024,8 @@ namespace CrossCam.Droid.CustomRenderer
             var highResSizes = map.GetHighResolutionOutputSizes((int)ImageFormatType.Jpeg)?.Where(p => p.Width > p.Height).ToList();
             var normalSizes = map.GetOutputSizes((int)ImageFormatType.Jpeg).Where(p => p.Width > p.Height).ToList();
 
-            const float FORCED_ASPECT_RATIO = 4 / 3f;
-
-            var allSizes = highResSizes != null
-                ? highResSizes.Concat(normalSizes).OrderByDescending(s => s.Width * s.Height)
-                : normalSizes.OrderByDescending(s => s.Width * s.Height);
-            var allSizesArray = allSizes.ToArray();
-            _picture2Size = allSizesArray.FirstOrDefault(s => s.Width / (1f * s.Height) == FORCED_ASPECT_RATIO) ?? allSizesArray.First();
+            var allSizes = highResSizes != null ? highResSizes.Concat(normalSizes) : normalSizes;
+            _picture2Size = allSizes.OrderByDescending(s => s.Width * s.Height).First();
             var pictureAspectRatio = _picture2Size.Width / (1f * _picture2Size.Height);
 
             var previewSizes = map.GetOutputSizes(Class.FromType(typeof(SurfaceTexture))).Where(p => p.Width > p.Height)
@@ -1064,6 +1062,8 @@ namespace CrossCam.Droid.CustomRenderer
             {
                 return (int) InfoSupportedHardwareLevel.Legacy; // cannot find appropriate sizes with camera2. fall back to camera1.
             }
+
+            _cameraModule.PreviewAspectRatio = _preview2Size.Width / (1d * _preview2Size.Height);
 
             _stateListener = new CameraStateListener(this);
 

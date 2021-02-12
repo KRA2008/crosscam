@@ -44,7 +44,10 @@ namespace CrossCam.CustomElement
 	    public static readonly BindableProperty IsNothingCapturedProperty = BindableProperty.Create(nameof(IsNothingCaptured),
 	        typeof(bool), typeof(CameraModule), true);
 
-	    public static readonly BindableProperty PreviewBottomYProperty = BindableProperty.Create(nameof(PreviewBottomY),
+        public static readonly BindableProperty PreviewBottomYProperty = BindableProperty.Create(nameof(PreviewBottomY),
+            typeof(double), typeof(CameraModule), 0d, BindingMode.OneWayToSource);
+
+        public static readonly BindableProperty PreviewAspectRatioProperty = BindableProperty.Create(nameof(PreviewAspectRatio),
 	        typeof(double), typeof(CameraModule), 0d, BindingMode.OneWayToSource);
 
         public static readonly BindableProperty IsFocusCircleVisibleProperty = BindableProperty.Create(nameof(IsFocusCircleVisible),
@@ -132,12 +135,18 @@ namespace CrossCam.CustomElement
 	    {
 	        get => (bool)GetValue(IsNothingCapturedProperty);
 	        set => SetValue(IsNothingCapturedProperty, value);
-	    }
+        }
 
-	    public double PreviewBottomY
+        public double PreviewBottomY
+        {
+            get => (double)GetValue(PreviewBottomYProperty);
+            set => SetValue(PreviewBottomYProperty, value);
+        }
+
+        public double PreviewAspectRatio
 	    {
-	        get => (double) GetValue(PreviewBottomYProperty);
-	        set => SetValue(PreviewBottomYProperty, value);
+	        get => (double) GetValue(PreviewAspectRatioProperty);
+	        set => SetValue(PreviewAspectRatioProperty, value);
         }
 
         public bool IsFocusCircleVisible

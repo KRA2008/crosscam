@@ -73,6 +73,7 @@ namespace CrossCam.iOS.CustomRenderer
                 {
                     NativeView.Bounds = new CGRect(0, 0, _cameraModule.Width, _cameraModule.Height);
                     SetupCamera();
+                    _cameraModule.PreviewAspectRatio = 4 / 3d; // always 4:3 on iOS
                     double previewHeight;
                     var orientation = UIDevice.CurrentDevice.Orientation;
                     switch (orientation)

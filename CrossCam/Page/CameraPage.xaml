@@ -147,6 +147,7 @@
                              CaptureSuccess="{Binding CaptureSuccess}"
                              IsNothingCaptured="{Binding IsNothingCaptured}"
                              PreviewBottomY="{Binding PreviewBottomY}"
+                             PreviewAspectRatio="{Binding PreviewAspectRatio}"
                              ErrorMessage="{Binding ErrorMessage}"
                              IsFocusCircleVisible="{Binding IsFocusCircleVisible}"
                              FocusCircleX="{Binding FocusCircleX}"
