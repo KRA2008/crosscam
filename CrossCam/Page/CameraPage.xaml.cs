@@ -334,28 +334,13 @@ namespace CrossCam.Page
                     double width;
                     if (bitmap.Height > bitmap.Width) // portrait
                     {
-                        if (secondaryRatio < _viewModel.PreviewAspectRatio) //secondary is wider
-                        {
-                            height = canvas.DeviceClipBounds.Width * _viewModel.PreviewAspectRatio;
-                            width = height / secondaryRatio;
-                        }
-                        else //secondary is narrower OR aspect ratios are the same
-                        {
-                            height = canvas.DeviceClipBounds.Width * _viewModel.PreviewAspectRatio;
-                            width = height / secondaryRatio;
-                        }
+                        height = canvas.DeviceClipBounds.Width * _viewModel.PreviewAspectRatio;
+                        width = height / secondaryRatio;
                     }
                     else //landscape
                     {
                         width = canvas.DeviceClipBounds.Width;
-                        if (secondaryRatio > _viewModel.PreviewAspectRatio) // secondary is wider
-                        {
-                            height = canvas.DeviceClipBounds.Width / secondaryRatio;
-                        }
-                        else //secondary is narrower OR aspect ratios are the same
-                        {
-                            height = canvas.DeviceClipBounds.Width / _viewModel.PreviewAspectRatio;
-                        }
+                        height = width / secondaryRatio;
                     }
 
                     var zoomDirection = _viewModel.Settings.FovPrimaryCorrection > _viewModel.Settings.FovSecondaryCorrection; // true means zoom out on secondary, false means zoom in
