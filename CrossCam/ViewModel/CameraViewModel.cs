@@ -1564,7 +1564,6 @@ namespace CrossCam.ViewModel
             }
             if (leftRatio != rightRatio)
             {
-                // cut the edges off of the wider picture, banking on 4:3 being the real sensors, and FOV differences being the smaller difference than the difference in visible height due to aspect ratio (e.g. 16:9 is narrower, NOT longer)
                 if (LeftBitmap.Height > LeftBitmap.Width) // portrait
                 {
                     if (leftRatio < rightRatio) // right is taller

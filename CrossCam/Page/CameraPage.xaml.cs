@@ -317,23 +317,57 @@ namespace CrossCam.Page
 
                 if (bitmap != null)
                 {
+                    float secondaryRatio;
+                    if (bitmap.Width < bitmap.Height) //portrait
+                    {
+                        secondaryRatio = bitmap.Height / (1f * bitmap.Width);
+                    }
+                    else //landscape
+                    {
+                        secondaryRatio = bitmap.Width / (1f * bitmap.Height);
+                    }
 
-                    //TODO: handle different aspect ratios as in cameraviewmodel, but will need weird adding of black space like with zoom
-                    var canvasWidth = canvas.DeviceClipBounds.Width;
-                    var canvasHeight = canvas.DeviceClipBounds.Height;
+                    // when portrait, the wider side sets the height for both
+                    // when landscape, fill width
 
-                    var aspectRatio = bitmap.Height / (bitmap.Width * 1d);
+                    double height;
+                    double width;
+                    if (bitmap.Height > bitmap.Width) // portrait
+                    {
+                        if (secondaryRatio < _viewModel.PreviewAspectRatio) //secondary is wider
+                        {
+                            height = canvas.DeviceClipBounds.Width * _viewModel.PreviewAspectRatio;
+                            width = height / secondaryRatio;
+                        }
+                        else //secondary is narrower OR aspect ratios are the same
+                        {
+                            height = canvas.DeviceClipBounds.Width * _viewModel.PreviewAspectRatio;
+                            width = height / secondaryRatio;
+                        }
+                    }
+                    else //landscape
+                    {
+                        width = canvas.DeviceClipBounds.Width;
+                        if (secondaryRatio > _viewModel.PreviewAspectRatio) // secondary is wider
+                        {
+                            height = canvas.DeviceClipBounds.Width / secondaryRatio;
+                        }
+                        else //secondary is narrower OR aspect ratios are the same
+                        {
+                            height = canvas.DeviceClipBounds.Width / _viewModel.PreviewAspectRatio;
+                        }
+                    }
 
                     var zoomDirection = _viewModel.Settings.FovPrimaryCorrection > _viewModel.Settings.FovSecondaryCorrection; // true means zoom out on secondary, false means zoom in
                     var zoomAmount = zoomDirection
                         ? 1 / (1 + _viewModel.Settings.FovPrimaryCorrection)
                         : 1 + _viewModel.Settings.FovSecondaryCorrection;
 
-                    var zoomedWidth = canvasWidth * zoomAmount;
-                    var zoomedHeight = zoomedWidth * aspectRatio;
+                    var zoomedWidth = width * zoomAmount;
+                    var zoomedHeight = height * zoomAmount;
 
-                    var newX = (canvasWidth - zoomedWidth) / 2;
-                    var newY = (canvasHeight - zoomedHeight) / 2f;
+                    var newX = (canvas.DeviceClipBounds.Width - zoomedWidth) / 2;
+                    var newY = (canvas.DeviceClipBounds.Height - zoomedHeight) / 2f;
 
                     canvas.DrawBitmap(bitmap,
                         new SKRect(0, 0, bitmap.Width, bitmap.Height),
