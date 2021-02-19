@@ -118,7 +118,7 @@ namespace AutoAlignment
                 fullSizeColorSecondMat.Size);
 
 #if __IOS__
-            result.AlignedBitmap = alignedMat.ToCGImage().ToSKBitmap();
+            result.AlignedBitmap2 = alignedMat.ToCGImage().ToSKBitmap();
 #elif __ANDROID__
             result.AlignedBitmap2 = alignedMat.ToBitmap().ToSKBitmap();
 #endif

@@ -1491,14 +1491,12 @@ namespace CrossCam.ViewModel
                 {
                     CheckAndCorrectResolutionDifferences();
                     if (BluetoothOperator.IsPrimary &&
-                        BluetoothOperator.PairStatus == PairStatus.Connected)
+                        BluetoothOperator.PairStatus == PairStatus.Connected &&
+                        !Settings.IsFovCorrectionSet)
                     {
-                        if (!Settings.IsFovCorrectionSet)
-                        {
-                            WorkflowStage = WorkflowStage.FovCorrection;
-                            ShowFovDialog();
-                            return;
-                        }
+                        WorkflowStage = WorkflowStage.FovCorrection;
+                        ShowFovDialog();
+                        return;
                     }
                     WasCaptureCross = Settings.Mode != DrawMode.Parallel;
                     CameraColumn = Settings.IsCaptureLeftFirst ? 0 : 1;
@@ -1530,14 +1528,12 @@ namespace CrossCam.ViewModel
                 {
                     CheckAndCorrectResolutionDifferences();
                     if (BluetoothOperator.IsPrimary &&
-                        BluetoothOperator.PairStatus == PairStatus.Connected)
+                        BluetoothOperator.PairStatus == PairStatus.Connected &&
+                        !Settings.IsFovCorrectionSet)
                     {
-                        if (!Settings.IsFovCorrectionSet)
-                        {
-                            WorkflowStage = WorkflowStage.FovCorrection;
-                            ShowFovDialog();
-                            return;
-                        }
+                        WorkflowStage = WorkflowStage.FovCorrection;
+                        ShowFovDialog();
+                        return;
                     }
                     WasCaptureCross = Settings.Mode != DrawMode.Parallel;
                     CameraColumn = Settings.IsCaptureLeftFirst ? 0 : 1;
@@ -1549,7 +1545,6 @@ namespace CrossCam.ViewModel
 
         private void CheckAndCorrectResolutionDifferences()
         {
-            //TODO: should FOV be applied or just leave it up to auto-alignment?
             float leftRatio;
             float rightRatio;
             if (LeftBitmap.Width < LeftBitmap.Height) //portrait
@@ -1624,6 +1619,39 @@ namespace CrossCam.ViewModel
                 }
             }
 
+
+            if (Settings.IsFovCorrectionSet &&
+                (Settings.FovPrimaryCorrection != 0 ||
+                 Settings.FovSecondaryCorrection != 0))
+            {
+                double zoomAmount;
+                if (Settings.FovPrimaryCorrection > 0)
+                {
+                    zoomAmount = Settings.FovPrimaryCorrection + 1;
+                    if (Settings.IsCaptureLeftFirst)
+                    {
+                        LeftBitmap = ZoomBitmap(zoomAmount, LeftBitmap);
+                    }
+                    else
+                    {
+                        RightBitmap = ZoomBitmap(zoomAmount, RightBitmap);
+                    }
+                }
+                else
+                {
+                    zoomAmount = Settings.FovSecondaryCorrection + 1;
+                    if (Settings.IsCaptureLeftFirst)
+                    {
+                        RightBitmap = ZoomBitmap(zoomAmount, RightBitmap);
+                    }
+                    else
+                    {
+                        LeftBitmap = ZoomBitmap(zoomAmount, LeftBitmap);
+                    }
+                }
+            }
+
+
             if (LeftBitmap.Width < RightBitmap.Width)
             {
                 var corrected = new SKBitmap(LeftBitmap.Width, LeftBitmap.Height);
@@ -1646,6 +1674,28 @@ namespace CrossCam.ViewModel
                 }
                 LeftBitmap = corrected;
             }
+        }
+
+        private static SKBitmap ZoomBitmap(double zoom, SKBitmap originalBitmap)
+        {
+            var zoomedWidth = originalBitmap.Width * zoom;
+            var zoomedHeight = originalBitmap.Height * zoom;
+
+            var newX = (originalBitmap.Width - zoomedWidth) / 2;
+            var newY = (originalBitmap.Height - zoomedHeight) / 2f;
+
+            var corrected = new SKBitmap(originalBitmap.Width, originalBitmap.Height);
+            using (var surface = new SKCanvas(corrected))
+            {
+                surface.DrawBitmap(originalBitmap,
+                    new SKRect(0, 0, originalBitmap.Width, originalBitmap.Height),
+                    new SKRect(
+                        (float)newX,
+                        (float)newY,
+                        (float)(newX + zoomedWidth),
+                        (float)(newY + zoomedHeight)));
+            }
+            return corrected;
         }
 
         private async void ShowFovDialog()
