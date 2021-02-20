@@ -1489,7 +1489,10 @@ namespace CrossCam.ViewModel
                 }
                 else
                 {
-                    CheckAndCorrectResolutionDifferences();
+                    if (WasCapturePaired)
+                    {
+                        CheckAndCorrectResolutionDifferences();
+                    }
                     if (BluetoothOperator.IsPrimary &&
                         BluetoothOperator.PairStatus == PairStatus.Connected &&
                         !Settings.IsFovCorrectionSet)
@@ -1526,7 +1529,10 @@ namespace CrossCam.ViewModel
                 }
                 else
                 {
-                    CheckAndCorrectResolutionDifferences();
+                    if (WasCapturePaired)
+                    {
+                        CheckAndCorrectResolutionDifferences();
+                    }
                     if (BluetoothOperator.IsPrimary &&
                         BluetoothOperator.PairStatus == PairStatus.Connected &&
                         !Settings.IsFovCorrectionSet)
