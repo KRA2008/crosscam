@@ -288,15 +288,6 @@ namespace CrossCam.ViewModel
                     }
                     else
                     {
-                        if (CameraColumn == 0)
-                        {
-                            LeftBytesCaptured(CapturedImageBytes, BluetoothOperator.PairStatus == PairStatus.Disconnected); // not awaiting. ok.
-                        }
-                        else
-                        {
-                            RightBytesCaptured(CapturedImageBytes, BluetoothOperator.PairStatus == PairStatus.Disconnected); // not awaiting. ok.
-                        }
-
                         if (BluetoothOperator.IsPrimary &&
                             BluetoothOperator.PairStatus == PairStatus.Connected)
                         {
@@ -308,6 +299,15 @@ namespace CrossCam.ViewModel
                         else
                         {
                             WasCapturePaired = false;
+                        }
+
+                        if (CameraColumn == 0)
+                        {
+                            LeftBytesCaptured(CapturedImageBytes, BluetoothOperator.PairStatus == PairStatus.Disconnected); // not awaiting. ok.
+                        }
+                        else
+                        {
+                            RightBytesCaptured(CapturedImageBytes, BluetoothOperator.PairStatus == PairStatus.Disconnected); // not awaiting. ok.
                         }
                     }
                 }
@@ -415,6 +415,10 @@ namespace CrossCam.ViewModel
                         PersistentStorage.Save(PersistentStorage.SETTINGS_KEY, Settings);
                         WorkflowStage = WorkflowStage.Final;
                         Edits.VerticalAlignment = 0;
+                        if (WasCapturePaired)
+                        {
+                            CheckAndCorrectResolutionFovAndAspectDifferences();
+                        }
                         AutoAlign();
                         break;
                     default:
@@ -1491,7 +1495,7 @@ namespace CrossCam.ViewModel
                 {
                     if (WasCapturePaired)
                     {
-                        CheckAndCorrectResolutionDifferences();
+                        CheckAndCorrectResolutionFovAndAspectDifferences();
                     }
                     if (BluetoothOperator.IsPrimary &&
                         BluetoothOperator.PairStatus == PairStatus.Connected &&
@@ -1531,7 +1535,7 @@ namespace CrossCam.ViewModel
                 {
                     if (WasCapturePaired)
                     {
-                        CheckAndCorrectResolutionDifferences();
+                        CheckAndCorrectResolutionFovAndAspectDifferences();
                     }
                     if (BluetoothOperator.IsPrimary &&
                         BluetoothOperator.PairStatus == PairStatus.Connected &&
@@ -1549,7 +1553,7 @@ namespace CrossCam.ViewModel
             }
         }
 
-        private void CheckAndCorrectResolutionDifferences()
+        private void CheckAndCorrectResolutionFovAndAspectDifferences()
         {
             float leftRatio;
             float rightRatio;
@@ -2068,6 +2072,7 @@ namespace CrossCam.ViewModel
             OriginalUnalignedRight = null;
             _secondaryErrorOccurred = false;
             WorkflowStage = WorkflowStage.Capture;
+            WasCapturePaired = false;
 
             if (Settings.IsTapToFocusEnabled2)
             {
