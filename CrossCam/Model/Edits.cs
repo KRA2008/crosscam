@@ -35,10 +35,14 @@ namespace CrossCam.Model
                 if (_settings.IsCaptureLeftFirst)
                 {
                     _settings.FovSecondaryCorrection = value;
+                    _settings.FovPrimaryCorrection = 0;
+                    OnPropertyChanged(nameof(FovLeftCorrection));
                 }
                 else
                 {
                     _settings.FovPrimaryCorrection = value;
+                    _settings.FovSecondaryCorrection = 0;
+                    OnPropertyChanged(nameof(FovLeftCorrection));
                 }
             }
         }
@@ -50,10 +54,14 @@ namespace CrossCam.Model
                 if (_settings.IsCaptureLeftFirst)
                 {
                     _settings.FovPrimaryCorrection = value;
+                    _settings.FovSecondaryCorrection = 0;
+                    OnPropertyChanged(nameof(FovRightCorrection));
                 }
                 else
                 {
                     _settings.FovSecondaryCorrection = value;
+                    _settings.FovPrimaryCorrection = 0;
+                    OnPropertyChanged(nameof(FovRightCorrection));
                 }
             }
         }

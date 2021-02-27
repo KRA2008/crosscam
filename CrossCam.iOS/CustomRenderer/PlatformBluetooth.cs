@@ -154,9 +154,12 @@ namespace CrossCam.iOS.CustomRenderer
 
             public override void FoundPeer(MCNearbyServiceBrowser browser, MCPeerID peerID, NSDictionary info)
             {
-                Debug.WriteLine("### FOUND PEER: " + peerID.DisplayName);
-                browser.InvitePeer(peerID, _platformBluetooth._session, null, 30);
-                browser.StopBrowsingForPeers();
+                if (_platformBluetooth._session != null)
+                {
+                    Debug.WriteLine("### FOUND PEER: " + peerID.DisplayName);
+                    browser.InvitePeer(peerID, _platformBluetooth._session, null, 30);
+                    browser.StopBrowsingForPeers();
+                }
             }
 
             public override void LostPeer(MCNearbyServiceBrowser browser, MCPeerID peerID)

@@ -244,6 +244,7 @@ namespace CrossCam.ViewModel
         private bool _isAlignmentInvalid = true;
         private readonly IPhotoSaver _photoSaver;
         private bool _secondaryErrorOccurred;
+        private bool _isFovCorrected;
 
         public CameraViewModel()
         {
@@ -414,11 +415,7 @@ namespace CrossCam.ViewModel
                         Settings.IsFovCorrectionSet = true;
                         PersistentStorage.Save(PersistentStorage.SETTINGS_KEY, Settings);
                         WorkflowStage = WorkflowStage.Final;
-                        Edits.VerticalAlignment = 0;
-                        if (WasCapturePaired)
-                        {
-                            CheckAndCorrectResolutionFovAndAspectDifferences();
-                        }
+                        CheckAndCorrectResolutionFovAndAspectDifferences();
                         AutoAlign();
                         break;
                     default:
@@ -1493,17 +1490,19 @@ namespace CrossCam.ViewModel
                 }
                 else
                 {
-                    if (WasCapturePaired)
+                    if (WasCapturePaired &&
+                        BluetoothOperator.IsPrimary)
                     {
-                        CheckAndCorrectResolutionFovAndAspectDifferences();
-                    }
-                    if (BluetoothOperator.IsPrimary &&
-                        BluetoothOperator.PairStatus == PairStatus.Connected &&
-                        !Settings.IsFovCorrectionSet)
-                    {
-                        WorkflowStage = WorkflowStage.FovCorrection;
-                        ShowFovDialog();
-                        return;
+                        if (Settings.IsFovCorrectionSet)
+                        {
+                            CheckAndCorrectResolutionFovAndAspectDifferences();
+                        }
+                        else
+                        {
+                            WorkflowStage = WorkflowStage.FovCorrection;
+                            ShowFovDialog();
+                            return;
+                        }
                     }
                     WasCaptureCross = Settings.Mode != DrawMode.Parallel;
                     CameraColumn = Settings.IsCaptureLeftFirst ? 0 : 1;
@@ -1533,17 +1532,19 @@ namespace CrossCam.ViewModel
                 }
                 else
                 {
-                    if (WasCapturePaired)
+                    if (WasCapturePaired &&
+                        BluetoothOperator.IsPrimary)
                     {
-                        CheckAndCorrectResolutionFovAndAspectDifferences();
-                    }
-                    if (BluetoothOperator.IsPrimary &&
-                        BluetoothOperator.PairStatus == PairStatus.Connected &&
-                        !Settings.IsFovCorrectionSet)
-                    {
-                        WorkflowStage = WorkflowStage.FovCorrection;
-                        ShowFovDialog();
-                        return;
+                        if (Settings.IsFovCorrectionSet)
+                        {
+                            CheckAndCorrectResolutionFovAndAspectDifferences();
+                        }
+                        else
+                        {
+                            WorkflowStage = WorkflowStage.FovCorrection;
+                            ShowFovDialog();
+                            return;
+                        }
                     }
                     WasCaptureCross = Settings.Mode != DrawMode.Parallel;
                     CameraColumn = Settings.IsCaptureLeftFirst ? 0 : 1;
@@ -1555,134 +1556,137 @@ namespace CrossCam.ViewModel
 
         private void CheckAndCorrectResolutionFovAndAspectDifferences()
         {
-            float leftRatio;
-            float rightRatio;
-            if (LeftBitmap.Width < LeftBitmap.Height) //portrait
+            if (!_isFovCorrected)
             {
-                leftRatio = LeftBitmap.Height / (1f * LeftBitmap.Width);
-                rightRatio = RightBitmap.Height / (1f * RightBitmap.Width);
-            }
-            else //landscape
-            {
-                leftRatio = LeftBitmap.Width / (1f * LeftBitmap.Height);
-                rightRatio = RightBitmap.Width / (1f * RightBitmap.Height);
-            }
-            if (leftRatio != rightRatio)
-            {
-                if (LeftBitmap.Height > LeftBitmap.Width) // portrait
+                _isFovCorrected = true;
+                float leftRatio;
+                float rightRatio;
+                if (LeftBitmap.Width < LeftBitmap.Height) //portrait
                 {
-                    if (leftRatio < rightRatio) // right is taller
-                    {
-                        var newWidth = (int)(LeftBitmap.Height / rightRatio);
-                        var corrected = new SKBitmap(newWidth, LeftBitmap.Height);
-                        using (var surface = new SKCanvas(corrected))
-                        {
-                            surface.DrawBitmap(
-                                LeftBitmap,
-                                new SKRect((LeftBitmap.Width - newWidth) / 2f, 0, LeftBitmap.Width - (LeftBitmap.Width - newWidth) / 2f, LeftBitmap.Height),
-                                new SKRect(0, 0, newWidth, LeftBitmap.Height));
-                        }
-                        LeftBitmap = corrected;
-                    }
-                    else
-                    {
-                        var newWidth = (int)(RightBitmap.Height / leftRatio);
-                        var corrected = new SKBitmap(newWidth, RightBitmap.Height);
-                        using (var surface = new SKCanvas(corrected))
-                        {
-                            surface.DrawBitmap(
-                                RightBitmap,
-                                new SKRect((RightBitmap.Width - newWidth) / 2f, 0, RightBitmap.Width - (RightBitmap.Width - newWidth) / 2f, RightBitmap.Height),
-                                new SKRect(0, 0, newWidth, RightBitmap.Height));
-                        }
-                        RightBitmap = corrected;
-                    }
+                    leftRatio = LeftBitmap.Height / (1f * LeftBitmap.Width);
+                    rightRatio = RightBitmap.Height / (1f * RightBitmap.Width);
                 }
                 else //landscape
                 {
-                    if (leftRatio > rightRatio) // left is wider
+                    leftRatio = LeftBitmap.Width / (1f * LeftBitmap.Height);
+                    rightRatio = RightBitmap.Width / (1f * RightBitmap.Height);
+                }
+                if (leftRatio != rightRatio)
+                {
+                    if (LeftBitmap.Height > LeftBitmap.Width) // portrait
                     {
-                        var newHeight = (int)(RightBitmap.Width * leftRatio);
-                        var corrected = new SKBitmap(RightBitmap.Width, newHeight);
-                        using (var surface = new SKCanvas(corrected))
+                        if (leftRatio < rightRatio) // right is taller
                         {
-                            surface.DrawBitmap(
-                                RightBitmap,
-                                new SKRect(0, (RightBitmap.Height - newHeight) / 2f, RightBitmap.Width, RightBitmap.Height - (RightBitmap.Height - newHeight) / 2f),
-                                new SKRect(0, 0, RightBitmap.Width, newHeight));
+                            var newWidth = (int)(LeftBitmap.Height / rightRatio);
+                            var corrected = new SKBitmap(newWidth, LeftBitmap.Height);
+                            using (var surface = new SKCanvas(corrected))
+                            {
+                                surface.DrawBitmap(
+                                    LeftBitmap,
+                                    new SKRect((LeftBitmap.Width - newWidth) / 2f, 0, LeftBitmap.Width - (LeftBitmap.Width - newWidth) / 2f, LeftBitmap.Height),
+                                    new SKRect(0, 0, newWidth, LeftBitmap.Height));
+                            }
+                            LeftBitmap = corrected;
                         }
-                        RightBitmap = corrected;
-                    }
-                    else
-                    {
-                        var newHeight = (int)(LeftBitmap.Width * rightRatio);
-                        var corrected = new SKBitmap(LeftBitmap.Width, newHeight);
-                        using (var surface = new SKCanvas(corrected))
+                        else
                         {
-                            surface.DrawBitmap(
-                                LeftBitmap,
-                                new SKRect(0, (LeftBitmap.Height - newHeight) / 2f, LeftBitmap.Width, LeftBitmap.Height - (LeftBitmap.Height - newHeight) / 2f),
-                                new SKRect(0, 0, LeftBitmap.Width, newHeight));
+                            var newWidth = (int)(RightBitmap.Height / leftRatio);
+                            var corrected = new SKBitmap(newWidth, RightBitmap.Height);
+                            using (var surface = new SKCanvas(corrected))
+                            {
+                                surface.DrawBitmap(
+                                    RightBitmap,
+                                    new SKRect((RightBitmap.Width - newWidth) / 2f, 0, RightBitmap.Width - (RightBitmap.Width - newWidth) / 2f, RightBitmap.Height),
+                                    new SKRect(0, 0, newWidth, RightBitmap.Height));
+                            }
+                            RightBitmap = corrected;
                         }
-                        LeftBitmap = corrected;
+                    }
+                    else //landscape
+                    {
+                        if (leftRatio > rightRatio) // left is wider
+                        {
+                            var newHeight = (int)(RightBitmap.Width * leftRatio);
+                            var corrected = new SKBitmap(RightBitmap.Width, newHeight);
+                            using (var surface = new SKCanvas(corrected))
+                            {
+                                surface.DrawBitmap(
+                                    RightBitmap,
+                                    new SKRect(0, (RightBitmap.Height - newHeight) / 2f, RightBitmap.Width, RightBitmap.Height - (RightBitmap.Height - newHeight) / 2f),
+                                    new SKRect(0, 0, RightBitmap.Width, newHeight));
+                            }
+                            RightBitmap = corrected;
+                        }
+                        else
+                        {
+                            var newHeight = (int)(LeftBitmap.Width * rightRatio);
+                            var corrected = new SKBitmap(LeftBitmap.Width, newHeight);
+                            using (var surface = new SKCanvas(corrected))
+                            {
+                                surface.DrawBitmap(
+                                    LeftBitmap,
+                                    new SKRect(0, (LeftBitmap.Height - newHeight) / 2f, LeftBitmap.Width, LeftBitmap.Height - (LeftBitmap.Height - newHeight) / 2f),
+                                    new SKRect(0, 0, LeftBitmap.Width, newHeight));
+                            }
+                            LeftBitmap = corrected;
+                        }
                     }
                 }
-            }
 
-
-            if (Settings.IsFovCorrectionSet &&
-                (Settings.FovPrimaryCorrection != 0 ||
-                 Settings.FovSecondaryCorrection != 0))
-            {
-                double zoomAmount;
-                if (Settings.FovPrimaryCorrection > 0)
+                if (Settings.IsFovCorrectionSet &&
+                    (Settings.FovPrimaryCorrection != 0 ||
+                     Settings.FovSecondaryCorrection != 0))
                 {
-                    zoomAmount = Settings.FovPrimaryCorrection + 1;
-                    if (Settings.IsCaptureLeftFirst)
+                    double zoomAmount;
+                    if (Settings.FovPrimaryCorrection > 0)
                     {
-                        LeftBitmap = ZoomBitmap(zoomAmount, LeftBitmap);
+                        zoomAmount = Settings.FovPrimaryCorrection + 1;
+                        if (Settings.IsCaptureLeftFirst)
+                        {
+                            LeftBitmap = ZoomBitmap(zoomAmount, LeftBitmap);
+                        }
+                        else
+                        {
+                            RightBitmap = ZoomBitmap(zoomAmount, RightBitmap);
+                        }
                     }
                     else
                     {
-                        RightBitmap = ZoomBitmap(zoomAmount, RightBitmap);
+                        zoomAmount = Settings.FovSecondaryCorrection + 1;
+                        if (Settings.IsCaptureLeftFirst)
+                        {
+                            RightBitmap = ZoomBitmap(zoomAmount, RightBitmap);
+                        }
+                        else
+                        {
+                            LeftBitmap = ZoomBitmap(zoomAmount, LeftBitmap);
+                        }
                     }
                 }
-                else
-                {
-                    zoomAmount = Settings.FovSecondaryCorrection + 1;
-                    if (Settings.IsCaptureLeftFirst)
-                    {
-                        RightBitmap = ZoomBitmap(zoomAmount, RightBitmap);
-                    }
-                    else
-                    {
-                        LeftBitmap = ZoomBitmap(zoomAmount, LeftBitmap);
-                    }
-                }
-            }
 
 
-            if (LeftBitmap.Width < RightBitmap.Width)
-            {
-                var corrected = new SKBitmap(LeftBitmap.Width, LeftBitmap.Height);
-                using (var surface = new SKCanvas(corrected))
+                if (LeftBitmap.Width < RightBitmap.Width)
                 {
-                    surface.DrawBitmap(
-                        RightBitmap,
-                        new SKRect(0, 0, LeftBitmap.Width, LeftBitmap.Height));
+                    var corrected = new SKBitmap(LeftBitmap.Width, LeftBitmap.Height);
+                    using (var surface = new SKCanvas(corrected))
+                    {
+                        surface.DrawBitmap(
+                            RightBitmap,
+                            new SKRect(0, 0, LeftBitmap.Width, LeftBitmap.Height));
+                    }
+                    RightBitmap = corrected;
                 }
-                RightBitmap = corrected;
-            }
-            else if (RightBitmap.Width < LeftBitmap.Width)
-            {
-                var corrected = new SKBitmap(RightBitmap.Width, RightBitmap.Height);
-                using (var surface = new SKCanvas(corrected))
+                else if (RightBitmap.Width < LeftBitmap.Width)
                 {
-                    surface.DrawBitmap(
-                        LeftBitmap,
-                        new SKRect(0, 0, RightBitmap.Width, RightBitmap.Height));
+                    var corrected = new SKBitmap(RightBitmap.Width, RightBitmap.Height);
+                    using (var surface = new SKCanvas(corrected))
+                    {
+                        surface.DrawBitmap(
+                            LeftBitmap,
+                            new SKRect(0, 0, RightBitmap.Width, RightBitmap.Height));
+                    }
+                    LeftBitmap = corrected;
                 }
-                LeftBitmap = corrected;
             }
         }
 
@@ -2073,6 +2077,7 @@ namespace CrossCam.ViewModel
             _secondaryErrorOccurred = false;
             WorkflowStage = WorkflowStage.Capture;
             WasCapturePaired = false;
+            _isFovCorrected = false;
 
             if (Settings.IsTapToFocusEnabled2)
             {
