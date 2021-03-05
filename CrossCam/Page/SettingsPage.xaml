@@ -156,8 +156,13 @@
             </StackLayout>
             <StackLayout Orientation="Horizontal"
                          IsVisible="{ce:DebugMarkupExtension}">
-                <Label Text="Discard outlier matches"/>
-                <Switch IsToggled="{Binding Settings.AlignmentSettings.DiscardOutlierMatches}"/>
+                <Label Text="Discard outliers by distance"/>
+                <Switch IsToggled="{Binding Settings.AlignmentSettings.DiscardOutliersByDistance}"/>
+            </StackLayout>
+            <StackLayout Orientation="Horizontal"
+                         IsVisible="{ce:DebugMarkupExtension}">
+                <Label Text="Discard outliers by slope"/>
+                <Switch IsToggled="{Binding Settings.AlignmentSettings.DiscardOutliersBySlope}"/>
             </StackLayout>
             <StackLayout Orientation="Horizontal"
                          IsVisible="{ce:DebugMarkupExtension}">
@@ -165,7 +170,6 @@
                 <Frame>
                     <Picker ItemsSource="{Binding ZeroToOneHundred}"
                             SelectedIndex="{Binding Settings.AlignmentSettings.KeypointOutlierThresholdTenths}"
-                            IsEnabled="{Binding Settings.AlignmentSettings.DiscardOutlierMatches}"
                             WidthRequest="50"
                             HorizontalOptions="EndAndExpand"/>
                 </Frame>
@@ -511,6 +515,11 @@
                             SelectedIndex="{Binding Settings.Handedness, Converter={vc:HandednessValueConverter}}"
                             HorizontalOptions="EndAndExpand"/>
                 </Frame>
+            </StackLayout>
+            <BoxView/>
+            <StackLayout Orientation="Horizontal">
+                <Label Text="Send error reports"/>
+                <Switch IsToggled="{Binding Settings.SendErrorReports1}"/>
             </StackLayout>
             <BoxView/>
             <Button Text="Reset to Defaults"

@@ -106,6 +106,8 @@ namespace CrossCam.Model
         public bool SaveForRedCyanAnaglyph { get; set; }
         public bool SaveForGrayscaleAnaglyph { get; set; }
 
+        public bool SendErrorReports1 { get; set; }
+
         [Obsolete("Use SaveForRedCyanAnaglyph - kept for backward compatibility")]
         public bool RedCyanAnaglyphMode { get => SaveForRedCyanAnaglyph; set => SaveForRedCyanAnaglyph = value; }
         [Obsolete("Use SaveForGrayscaleAnaglyph - kept for backward compatibility")]
@@ -319,6 +321,8 @@ namespace CrossCam.Model
 
             PairedPreviewFrameDelayMs = 250;
             PairSyncSampleCount = 50;
+
+            SendErrorReports1 = true; //TODO: consider turning this off when shipping to production
 
             AlignmentSettings.ResetToDefaults();
         }

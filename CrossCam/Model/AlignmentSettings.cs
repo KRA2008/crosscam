@@ -10,7 +10,8 @@ namespace CrossCam.Model
         public bool UseKeypoints { get; set; }
         public bool UseCrossCheck { get; set; }
         public bool DrawKeypointMatches { get; set; }
-        public bool DiscardOutlierMatches { get; set; }
+        public bool DiscardOutliersByDistance { get; set; }
+        public bool DiscardOutliersBySlope { get; set; }
         public bool DoKeystoneCorrection { get; set; }
 
         private bool _isAutomaticAlignmentOn;
@@ -129,7 +130,8 @@ namespace CrossCam.Model
             DrawKeypointMatches = false;
             UseKeypoints = true; //TODO: decide if this should be default on or off before shipping to store for real
             UseCrossCheck = false;
-            DiscardOutlierMatches = true;
+            DiscardOutliersByDistance = false;
+            DiscardOutliersBySlope = true;
             MinimumKeypoints = 5;
             KeypointOutlierThresholdTenths = 20;
 

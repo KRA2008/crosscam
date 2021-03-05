@@ -231,7 +231,7 @@ namespace AutoAlignment
                 result.DrawnDirtyMatches = DrawMatches(firstImage, secondImage, pairedPoints);
             }
 
-            if (settings.DiscardOutlierMatches)
+            if (settings.DiscardOutliersByDistance || settings.DiscardOutliersBySlope)
             {
                 //Debug.WriteLine("DIRTY POINTS START (ham,dist,slope,ydiff), count: " + pairedPoints.Count);
                 //foreach (var pointForCleaning in pairedPoints)
@@ -242,18 +242,25 @@ namespace AutoAlignment
                 //Debug.WriteLine("DIRTY PAIRS:");
                 //PrintPairs(pairedPoints);
 
-                // reject distances and slopes more than some number of standard deviations from the median
-                var medianDistance = pairedPoints.OrderBy(p => p.Data.Distance).ElementAt(pairedPoints.Count / 2).Data.Distance;
-                var distanceStdDev = CalcStandardDeviation(pairedPoints.Select(p => p.Data.Distance).ToArray());
-                pairedPoints = pairedPoints.Where(p => Math.Abs(p.Data.Distance - medianDistance) < Math.Abs(distanceStdDev * (settings.KeypointOutlierThresholdTenths / 10d))).ToList();
-                //Debug.WriteLine("Median Distance: " + medianDistance);
-                //Debug.WriteLine("Distance Cleaned Points count: " + pairedPoints.Count);
-                var validSlopes = pairedPoints.Where(p => !float.IsNaN(p.Data.Slope) && float.IsFinite(p.Data.Slope)).ToArray();
-                var medianSlope = validSlopes.OrderBy(p => p.Data.Slope).ElementAt(validSlopes.Length / 2).Data.Slope;
-                var slopeStdDev = CalcStandardDeviation(validSlopes.Select(p => p.Data.Slope).ToArray());
-                pairedPoints = validSlopes.Where(p => Math.Abs(p.Data.Slope - medianSlope) < Math.Abs(slopeStdDev * (settings.KeypointOutlierThresholdTenths / 10d))).ToList();
-                //Debug.WriteLine("Median Slope: " + medianSlope);
-                //Debug.WriteLine("Slope Cleaned Points count: " + pairedPoints.Count);
+                if (settings.DiscardOutliersByDistance)
+                {
+                    // reject distances and slopes more than some number of standard deviations from the median
+                    var medianDistance = pairedPoints.OrderBy(p => p.Data.Distance).ElementAt(pairedPoints.Count / 2).Data.Distance;
+                    var distanceStdDev = CalcStandardDeviation(pairedPoints.Select(p => p.Data.Distance).ToArray());
+                    pairedPoints = pairedPoints.Where(p => Math.Abs(p.Data.Distance - medianDistance) < Math.Abs(distanceStdDev * (settings.KeypointOutlierThresholdTenths / 10d))).ToList();
+                    //Debug.WriteLine("Median Distance: " + medianDistance);
+                    //Debug.WriteLine("Distance Cleaned Points count: " + pairedPoints.Count);
+                }
+
+                if (settings.DiscardOutliersBySlope)
+                {
+                    var validSlopes = pairedPoints.Where(p => !float.IsNaN(p.Data.Slope) && float.IsFinite(p.Data.Slope)).ToArray();
+                    var medianSlope = validSlopes.OrderBy(p => p.Data.Slope).ElementAt(validSlopes.Length / 2).Data.Slope;
+                    var slopeStdDev = CalcStandardDeviation(validSlopes.Select(p => p.Data.Slope).ToArray());
+                    pairedPoints = validSlopes.Where(p => Math.Abs(p.Data.Slope - medianSlope) < Math.Abs(slopeStdDev * (settings.KeypointOutlierThresholdTenths / 10d))).ToList();
+                    //Debug.WriteLine("Median Slope: " + medianSlope);
+                    //Debug.WriteLine("Slope Cleaned Points count: " + pairedPoints.Count);
+                }
 
                 //Debug.WriteLine("CLEAN POINTS START (ham,dist,slope,ydiff), count: " + pairedPoints.Count);
                 //foreach (var pointForCleaning in pairedPoints)

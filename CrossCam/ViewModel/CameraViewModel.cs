@@ -314,7 +314,8 @@ namespace CrossCam.ViewModel
                 }
                 else if (args.PropertyName == nameof(ErrorMessage))
                 {
-                    if (ErrorMessage != null)
+                    if (ErrorMessage != null &&
+                        Settings.SendErrorReports1)
                     {
                         PromptForPermissionAndSendErrorEmailCommand.Execute(null);
                     }
@@ -1288,7 +1289,7 @@ namespace CrossCam.ViewModel
                                 await SaveSurfaceSnapshot(tempSurface);
                             }
 
-                            if (Settings.AlignmentSettings.DiscardOutlierMatches &&
+                            if ((Settings.AlignmentSettings.DiscardOutliersBySlope || Settings.AlignmentSettings.DiscardOutliersByDistance) &&
                                 alignedResult.DrawnCleanMatches != null)
                             {
                                 using (var tempSurface =
