@@ -1195,6 +1195,7 @@ namespace CrossCam.ViewModel
                 _isAlignmentInvalid && 
                 0 == Interlocked.Exchange(ref _alignmentThreadLock, 1))
             {
+                _isAlignmentInvalid = false;
                 WorkflowStage = WorkflowStage.AutomaticAlign;
 
                 var openCv = DependencyService.Get<IOpenCv>();
@@ -1321,8 +1322,6 @@ namespace CrossCam.ViewModel
                                 }
                             }
                         }
-
-                        _isAlignmentInvalid = false;
 
                         var edits2 = GetBorderEdits(alignedResult.TransformMatrix2, alignedResult.AlignedBitmap2);
                         if (alignedResult.AlignedBitmap1 != null)
