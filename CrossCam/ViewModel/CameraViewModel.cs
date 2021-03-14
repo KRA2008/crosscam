@@ -35,6 +35,7 @@ namespace CrossCam.ViewModel
         public ManualAlignMode ManualAlignMode { get; set; }
         public KeystoneMode KeystoneMode { get; set; }
         public CameraSettingMode CameraSettingMode { get; set; }
+        public bool IsCameraSelectVisible { get; set; }
         public FovCorrectionMode FovCorrectionMode { get; set; }
 
         public SKBitmap LeftBitmap { get; set; }
@@ -103,6 +104,8 @@ namespace CrossCam.ViewModel
 
         public Command NavigateToSettingsCommand { get; set; }
         public Command NavigateToHelpCommand { get; set; }
+
+        public Command ToggleCameraSelectVisible { get; set; }
 
         public Command SwapSidesCommand { get; set; }
 
@@ -502,6 +505,11 @@ namespace CrossCam.ViewModel
             NavigateToHelpCommand = new Command(async () =>
             {
                 await CoreMethods.PushPageModel<HelpViewModel>(Settings);
+            });
+
+            ToggleCameraSelectVisible = new Command(() =>
+            {
+                IsCameraSelectVisible = !IsCameraSelectVisible;
             });
 
             OpenCameraSettingsCommand = new Command(() =>
