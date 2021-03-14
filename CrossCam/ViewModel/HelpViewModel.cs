@@ -16,6 +16,7 @@ namespace CrossCam.ViewModel
         public Command PrivacyPolicyCommand { get; set; }
         public Command AboutTheDeveloperCommand { get; set; }
         public Command CrossViewSubredditCommand { get; set; }
+        public Command ParallelViewSubredditCommand { get; set; }
         public Command GithubCodeCommand { get; set; }
         private Settings _settings;
 
@@ -61,6 +62,11 @@ namespace CrossCam.ViewModel
             CrossViewSubredditCommand = new Command(() =>
             {
                 Device.OpenUri(new Uri("https://old.reddit.com/r/CrossView/"));
+            });
+
+            ParallelViewSubredditCommand = new Command(() =>
+            {
+                Device.OpenUri(new Uri("https://old.reddit.com/r/ParallelView/"));
             });
 
             GithubCodeCommand = new Command(() =>
