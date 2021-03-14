@@ -10,7 +10,7 @@ using Android.Gms.Location;
 using Android.Gms.Nearby;
 using Android.Gms.Nearby.Connection;
 using Android.OS;
-using Android.Support.V7.App;
+using AndroidX.AppCompat.App;
 using CrossCam.CustomElement;
 using CrossCam.Droid.CustomRenderer;
 using CrossCam.Wrappers;
