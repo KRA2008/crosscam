@@ -51,7 +51,7 @@
     <EnableLLVM>false</EnableLLVM>
     <BundleAssemblies>false</BundleAssemblies>
     <EmbedAssembliesIntoApk>true</EmbedAssembliesIntoApk>
-    <AndroidLinkMode>Full</AndroidLinkMode>
+    <AndroidLinkMode>None</AndroidLinkMode>
     <DefineConstants>__ANDROID__</DefineConstants>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
     <AndroidLinkSkip>CrossCam;CrossCam.Droid</AndroidLinkSkip>
