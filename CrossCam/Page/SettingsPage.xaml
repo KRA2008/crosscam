@@ -60,6 +60,7 @@
     </ContentPage.Resources>
     <ScrollView VerticalOptions="StartAndExpand">
         <StackLayout>
+
             <BoxView/>
             <Label Text="Capture/Preview Method"
                    Style="{DynamicResource header}"/>
@@ -81,7 +82,166 @@
                 </Frame>
             </StackLayout>
             <BoxView/>
-            <Label Text="Saving Method"
+            <Label Text="Pairing"
+                   Style="{DynamicResource header}"/>
+            <Button Text="Go to Pairing Setup Page"
+                    Command="{Binding NavigateToPairingPageCommand}"/>
+            <StackLayout Orientation="Horizontal"
+                         IsVisible="{Binding Settings.IsPairedPrimary, Converter={vc:NullableBooleanConverter}}">
+                <Label Text="Preview frame delay (higher number will reduce frame rate but save battery)"/>
+                <Frame>
+                    <Picker ItemsSource="{Binding ZeroToOneThousand}"
+                            SelectedIndex="{Binding Settings.PairedPreviewFrameDelayMs}"
+                            WidthRequest="50"
+                            HorizontalOptions="EndAndExpand"/>
+                </Frame>
+            </StackLayout>
+            <StackLayout Orientation="Horizontal"
+                         IsVisible="{Binding Settings.IsPairedPrimary, Converter={vc:NullableBooleanConverter}}">
+                <Label Text="Clock sample count (lower number will decrease time required for initial sync but may decrease sync accuracy)"/>
+                <Frame>
+                    <Picker ItemsSource="{Binding ZeroToOneThousand}"
+                            SelectedIndex="{Binding Settings.PairSyncSampleCount}"
+                            WidthRequest="50"
+                            HorizontalOptions="EndAndExpand"/>
+                </Frame>
+            </StackLayout>
+            <Label Text="Field of view correction"
+                   HorizontalOptions="CenterAndExpand"
+                   IsVisible="{Binding Settings.IsPairedPrimary, Converter={vc:NullableBooleanConverter}}"/>
+            <StackLayout Orientation="Horizontal"
+                         IsVisible="{Binding Settings.IsPairedPrimary, Converter={vc:NullableBooleanConverter}}">
+                <StackLayout HorizontalOptions="EndAndExpand">
+                    <Label Text="{Binding Settings.FovPrimaryCorrection, StringFormat='Primary: {0}'}"
+                           HorizontalOptions="EndAndExpand"/>
+                    <Label Text="{Binding Settings.FovSecondaryCorrection, StringFormat='Secondary: {0}'}"
+                           HorizontalOptions="EndAndExpand"/>
+                </StackLayout>
+                <Button Text="Reset"
+                        Command="{Binding ResetFovCorrectionCommand}"
+                        HorizontalOptions="StartAndExpand"
+                        VerticalOptions="CenterAndExpand"/>
+            </StackLayout>
+            <BoxView/>
+            <Label Text="Automatic Alignment"
+                   Style="{DynamicResource header}"/>
+            <StackLayout Orientation="Horizontal">
+                <Label Text="Automatically align after capture"/>
+                <Switch IsToggled="{Binding Settings.AlignmentSettings.IsAutomaticAlignmentOn}"/>
+            </StackLayout>
+            <StackLayout Orientation="Horizontal">
+                <Label Text="Align horizontally (for side by side)"/>
+                <Switch IsToggled="{Binding Settings.AlignmentSettings.AlignHorizontallySideBySide}"
+                        IsEnabled="{Binding Settings.AlignmentSettings.IsAutomaticAlignmentOn}"/>
+            </StackLayout>
+            <StackLayout Orientation="Horizontal">
+                <Label Text="Use keypoint alignment always (vs ECC whenever possible)"/>
+                <Switch IsToggled="{Binding Settings.AlignmentSettings.UseKeypoints}"
+                        IsEnabled="{Binding Settings.AlignmentSettings.IsAutomaticAlignmentOn}"/>
+            </StackLayout>
+            <StackLayout Orientation="Horizontal">
+                <Label Text="Show advanced alignment settings"/>
+                <Switch IsToggled="{Binding Settings.AlignmentSettings.ShowAdvancedAlignmentSettings}"/>
+            </StackLayout>
+            <StackLayout Orientation="Horizontal"
+                         IsVisible="{Binding Settings.AlignmentSettings.ShowAdvancedAlignmentSettings}">
+                <Label Text="Crosscheck keypoints (vs ratio checks)"/>
+                <Switch IsToggled="{Binding Settings.AlignmentSettings.UseCrossCheck}"/>
+            </StackLayout>
+            <StackLayout Orientation="Horizontal"
+                         IsVisible="{Binding Settings.AlignmentSettings.ShowAdvancedAlignmentSettings}">
+                <Label Text="Minimum keypoints"/>
+                <Frame>
+                    <Picker ItemsSource="{Binding ZeroToOneHundred}"
+                            SelectedIndex="{Binding Settings.AlignmentSettings.MinimumKeypoints}"
+                            WidthRequest="50"
+                            HorizontalOptions="EndAndExpand"/>
+                </Frame>
+            </StackLayout>
+            <StackLayout Orientation="Horizontal"
+                         IsVisible="{Binding Settings.AlignmentSettings.ShowAdvancedAlignmentSettings}">
+                <Label Text="Discard outliers by distance"/>
+                <Switch IsToggled="{Binding Settings.AlignmentSettings.DiscardOutliersByDistance}"/>
+            </StackLayout>
+            <StackLayout Orientation="Horizontal"
+                         IsVisible="{Binding Settings.AlignmentSettings.ShowAdvancedAlignmentSettings}">
+                <Label Text="Discard outliers by slope"/>
+                <Switch IsToggled="{Binding Settings.AlignmentSettings.DiscardOutliersBySlope}"/>
+            </StackLayout>
+            <StackLayout Orientation="Horizontal"
+                         IsVisible="{Binding Settings.AlignmentSettings.ShowAdvancedAlignmentSettings}">
+                <Label Text="Keypoint outlier threshold (tenths of standard deviation)"/>
+                <Frame>
+                    <Picker ItemsSource="{Binding ZeroToOneHundred}"
+                            SelectedIndex="{Binding Settings.AlignmentSettings.KeypointOutlierThresholdTenths}"
+                            WidthRequest="50"
+                            HorizontalOptions="EndAndExpand"/>
+                </Frame>
+            </StackLayout>
+            <StackLayout Orientation="Horizontal"
+                         IsVisible="{Binding Settings.AlignmentSettings.ShowAdvancedAlignmentSettings}">
+                <Label Text="Save an unaligned joined copy with matches drawn"/>
+                <Switch IsToggled="{Binding Settings.AlignmentSettings.DrawKeypointMatches}"/>
+            </StackLayout>
+            <StackLayout Orientation="Horizontal"
+                         IsVisible="{Binding Settings.AlignmentSettings.ShowAdvancedAlignmentSettings}">
+                <Label Text="Do keystone correction"/>
+                <Switch IsToggled="{Binding Settings.AlignmentSettings.DoKeystoneCorrection}"/>
+            </StackLayout>
+            <StackLayout Orientation="Horizontal"
+                         IsVisible="{Binding Settings.AlignmentSettings.ShowAdvancedAlignmentSettings}">
+                <Label Text="Ecc iterations"/>
+                <Frame>
+                    <Picker ItemsSource="{Binding ZeroToOneThousand}"
+                        SelectedIndex="{Binding Settings.AlignmentSettings.EccIterations}"
+                        WidthRequest="50"
+                        HorizontalOptions="EndAndExpand"/>
+                </Frame>
+            </StackLayout>
+            <StackLayout Orientation="Horizontal"
+                         IsVisible="{Binding Settings.AlignmentSettings.ShowAdvancedAlignmentSettings}">
+                <Label Text="Ecc epsilon level"/>
+                <Frame>
+                    <Picker ItemsSource="{Binding ZeroToTen}"
+                        SelectedIndex="{Binding Settings.AlignmentSettings.EccEpsilonLevel}"
+                        WidthRequest="50"
+                        HorizontalOptions="EndAndExpand"/>
+                </Frame>
+            </StackLayout>
+            <StackLayout Orientation="Horizontal"
+                         IsVisible="{Binding Settings.AlignmentSettings.ShowAdvancedAlignmentSettings}">
+                <Label Text="Ecc downsized pyramid estimating layers"/>
+                <Frame>
+                    <Picker ItemsSource="{Binding ZeroToTen}"
+                        SelectedIndex="{Binding Settings.AlignmentSettings.EccPyramidLayers}"
+                        WidthRequest="50"
+                        HorizontalOptions="EndAndExpand"/>
+                </Frame>
+            </StackLayout>
+            <StackLayout Orientation="Horizontal"
+                         IsVisible="{Binding Settings.AlignmentSettings.ShowAdvancedAlignmentSettings}">
+                <Label Text="Ecc intermediate downsize percentage"/>
+                <Frame>
+                    <Picker ItemsSource="{Binding ZeroToOneHundred}"
+                            SelectedIndex="{Binding Settings.AlignmentSettings.EccDownsizePercentage}"
+                            WidthRequest="50"
+                            HorizontalOptions="EndAndExpand"/>
+                </Frame>
+            </StackLayout>
+            <StackLayout Orientation="Horizontal"
+                         IsVisible="{Binding Settings.AlignmentSettings.ShowAdvancedAlignmentSettings}">
+                <Label Text="Ecc minimum required correlation coefficient"/>
+                <Frame>
+                    <Picker ItemsSource="{Binding ZeroToOneHundred}"
+                            WidthRequest="50"
+                            SelectedIndex="{Binding Settings.AlignmentSettings.EccThresholdPercentage}"
+                            HorizontalOptions="EndAndExpand"/>
+                </Frame>
+            </StackLayout>
+            <Button Text="Reset to Defaults"
+                    Command="{Binding ResetAlignmentToDefaults}"/>
+            <BoxView/>
+            <Label Text="Saving"
                    Style="{DynamicResource header}"/>
             <Grid ColumnSpacing="0">
                 <Grid.ColumnDefinitions>
@@ -302,71 +462,9 @@
                 </Frame>
             </StackLayout>
             <StackLayout Orientation="Horizontal">
-                <Label Text="Clip border off when loading stereo pair"/>
-                <Switch IsToggled="{Binding Settings.ClipBorderOnLoad}"
+                <Label Text="Clip border off when loading next stereo pair"/>
+                <Switch IsToggled="{Binding Settings.ClipBorderOnNextLoad}"
                         HorizontalOptions="EndAndExpand"/>
-            </StackLayout>
-            <BoxView/>
-            <Label Text="Automatic Alignment"
-                   Style="{DynamicResource header}"/>
-            <StackLayout Orientation="Horizontal">
-                <Label Text="Automatically align after capture"/>
-                <Switch IsToggled="{Binding Settings.IsAutomaticAlignmentOn}"/>
-            </StackLayout>
-            <StackLayout Orientation="Horizontal">
-                <Label Text="Align horizontally (for side by side)"/>
-                <Switch IsToggled="{Binding Settings.AlignHorizontallySideBySide}"
-                        IsEnabled="{Binding Settings.IsAutomaticAlignmentOn}"/>
-            </StackLayout>
-            <StackLayout Orientation="Horizontal"
-                         IsVisible="{ce:DebugMarkupExtension}">
-                <Label Text="Iterations"/>
-                <Frame>
-                    <Picker ItemsSource="{Binding ZeroToOneThousand}"
-                        SelectedIndex="{Binding Settings.AlignmentIterations2}"
-                        WidthRequest="50"
-                        HorizontalOptions="EndAndExpand"/>
-                </Frame>
-            </StackLayout>
-            <StackLayout Orientation="Horizontal"
-                         IsVisible="{ce:DebugMarkupExtension}">
-                <Label Text="Epsilon level"/>
-                <Frame>
-                    <Picker ItemsSource="{Binding ZeroToTen}"
-                        SelectedIndex="{Binding Settings.AlignmentEpsilonLevel2}"
-                        WidthRequest="50"
-                        HorizontalOptions="EndAndExpand"/>
-                </Frame>
-            </StackLayout>
-            <StackLayout Orientation="Horizontal"
-                         IsVisible="{ce:DebugMarkupExtension}">
-                <Label Text="Downsized pyramid estimating layers"/>
-                <Frame>
-                    <Picker ItemsSource="{Binding ZeroToTen}"
-                        SelectedIndex="{Binding Settings.AlignmentPyramidLayers2}"
-                        WidthRequest="50"
-                        HorizontalOptions="EndAndExpand"/>
-                </Frame>
-            </StackLayout>
-            <StackLayout Orientation="Horizontal"
-                         IsVisible="{ce:DebugMarkupExtension}">
-                <Label Text="Intermediate downsize percentage"/>
-                <Frame>
-                    <Picker ItemsSource="{Binding ZeroToOneHundred}"
-                            SelectedIndex="{Binding Settings.AlignmentDownsizePercentage2}"
-                            WidthRequest="50"
-                            HorizontalOptions="EndAndExpand"/>
-                </Frame>
-            </StackLayout>
-            <StackLayout Orientation="Horizontal"
-                         IsVisible="{ce:DebugMarkupExtension}">
-                <Label Text="Minimum required correlation coefficient"/>
-                <Frame>
-                    <Picker ItemsSource="{Binding ZeroToOneHundred}"
-                            WidthRequest="50"
-                            SelectedIndex="{Binding Settings.AlignmentEccThresholdPercentage2}"
-                            HorizontalOptions="EndAndExpand"/>
-                </Frame>
             </StackLayout>
             <BoxView/>
             <Label Text="Guides"
@@ -397,10 +495,6 @@
             <Label Text="Camera"
                    Style="{DynamicResource header}"/>
             <StackLayout Orientation="Horizontal">
-                <Label Text="Front camera"/>
-                <Switch IsToggled="{Binding Settings.IsFrontCamera}"/>
-            </StackLayout>
-            <StackLayout Orientation="Horizontal">
                 <Label Text="Tap to point focus, double tap to switch back to continuous focus (or save or clear)"/>
                 <Switch IsToggled="{Binding Settings.IsTapToFocusEnabled2}"/>
             </StackLayout>
@@ -427,6 +521,11 @@
                             SelectedIndex="{Binding Settings.Handedness, Converter={vc:HandednessValueConverter}}"
                             HorizontalOptions="EndAndExpand"/>
                 </Frame>
+            </StackLayout>
+            <BoxView/>
+            <StackLayout Orientation="Horizontal">
+                <Label Text="Send error reports"/>
+                <Switch IsToggled="{Binding Settings.SendErrorReports1}"/>
             </StackLayout>
             <BoxView/>
             <Button Text="Reset to Defaults"

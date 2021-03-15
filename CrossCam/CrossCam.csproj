@@ -18,7 +18,7 @@
     <PackageReference Include="PropertyChanged.Fody" Version="2.5.9" />
     <PackageReference Include="SkiaSharp.Views.Forms" Version="1.60.3" />
     <PackageReference Include="Xam.Plugin.DeviceInfo" Version="4.1.1" />
-    <PackageReference Include="Xamarin.Essentials" Version="1.5.3.2" />
+    <PackageReference Include="Xamarin.Essentials" Version="1.6.1" />
     <PackageReference Include="Xamarin.Forms" Version="4.6.0.800" />
     <PackageReference Include="xcc" Version="1.0.8" />
   </ItemGroup>
@@ -40,6 +40,9 @@
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
     <EmbeddedResource Update="CustomElement\EmailMeLabel.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Page\PairingPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
     <EmbeddedResource Update="Page\CameraPage.xaml">
@@ -68,6 +71,9 @@
   <ItemGroup>
     <Compile Update="CustomElement\CameraSuccessOutline.xaml.cs">
       <DependentUpon>CameraSuccessOutline.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Page\PairingPage.xaml.cs">
+      <DependentUpon>PairingPage.xaml</DependentUpon>
     </Compile>
     <Compile Update="Page\CameraPage.xaml.cs">
       <DependentUpon>CameraPage.xaml</DependentUpon>

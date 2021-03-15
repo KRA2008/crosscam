@@ -1,8 +1,8 @@
 ﻿using System;
 using System.ComponentModel;
-using System.Security.Cryptography;
 using System.Threading.Tasks;
 using CrossCam.CustomElement;
+using CrossCam.Model;
 using CrossCam.ViewModel;
 using SkiaSharp;
 using SkiaSharp.Views.Forms;
@@ -55,8 +55,6 @@ namespace CrossCam.Page
             InitializeComponent();
             NavigationPage.SetHasNavigationBar(this, false);
 
-		    var bubbleBounds = AbsoluteLayout.GetLayoutBounds(_horizontalLevelBubble);
-		    AbsoluteLayout.SetLayoutBounds(_horizontalLevelBubble, bubbleBounds);
 		    _horizontalLevelBubble.Source = _levelBubbleImage;
 		    _horizontalLevelOutside.Source = _levelOutsideImage;
 
@@ -144,58 +142,61 @@ namespace CrossCam.Page
 
         private void UpdateLevelFromAccelerometerData()
         {
-            _averageRoll *= (ACCELEROMETER_MEASURMENT_WEIGHT - 1) / ACCELEROMETER_MEASURMENT_WEIGHT;
-
-            if (_viewModel != null)
+            Device.BeginInvokeOnMainThread(() =>
             {
-                if (Math.Abs(_lastAccelerometerReadingX) < Math.Abs(_lastAccelerometerReadingY)) //portrait
+                _averageRoll *= (ACCELEROMETER_MEASURMENT_WEIGHT - 1) / ACCELEROMETER_MEASURMENT_WEIGHT;
+
+                if (_viewModel != null)
                 {
-                    if (_viewModel.IsViewInverted)
+                    if (Math.Abs(_lastAccelerometerReadingX) < Math.Abs(_lastAccelerometerReadingY)) //portrait
                     {
-                        _averageRoll -= _lastAccelerometerReadingX / ACCELEROMETER_MEASURMENT_WEIGHT;
+                        if (_viewModel.IsViewInverted)
+                        {
+                            _averageRoll -= _lastAccelerometerReadingX / ACCELEROMETER_MEASURMENT_WEIGHT;
+                        }
+                        else
+                        {
+                            _averageRoll += _lastAccelerometerReadingX / ACCELEROMETER_MEASURMENT_WEIGHT;
+                        }
                     }
-                    else
+                    else //landscape
                     {
-                        _averageRoll += _lastAccelerometerReadingX / ACCELEROMETER_MEASURMENT_WEIGHT;
+                        if (_viewModel.IsViewInverted)
+                        {
+                            _averageRoll += _lastAccelerometerReadingY / ACCELEROMETER_MEASURMENT_WEIGHT;
+                        }
+                        else
+                        {
+                            _averageRoll -= _lastAccelerometerReadingY / ACCELEROMETER_MEASURMENT_WEIGHT;
+                        }
                     }
-                }
-                else //landscape
-                {
-                    if (_viewModel.IsViewInverted)
+
+                    if (Math.Abs(_averageRoll) < ROLL_GOOD_THRESHOLD &&
+                        _horizontalLevelBubble.Source == _levelBubbleImage)
                     {
-                        _averageRoll += _lastAccelerometerReadingY / ACCELEROMETER_MEASURMENT_WEIGHT;
+                        _horizontalLevelBubble.Source = _levelBubbleGreenImage;
+                        _horizontalLevelOutside.Source = _levelOutsideGreenImage;
                     }
-                    else
+                    else if (Math.Abs(_averageRoll) > ROLL_GOOD_THRESHOLD &&
+                            _horizontalLevelBubble.Source == _levelBubbleGreenImage)
                     {
-                        _averageRoll -= _lastAccelerometerReadingY / ACCELEROMETER_MEASURMENT_WEIGHT;
+                        _horizontalLevelBubble.Source = _levelBubbleImage;
+                        _horizontalLevelOutside.Source = _levelOutsideImage;
                     }
                 }
 
-                if (Math.Abs(_averageRoll) < ROLL_GOOD_THRESHOLD &&
-                    _horizontalLevelBubble.Source == _levelBubbleImage)
+                var newX = 0.5 + _averageRoll / BUBBLE_LEVEL_MAX_TIP / 2;
+                if (newX > 1)
                 {
-                    _horizontalLevelBubble.Source = _levelBubbleGreenImage;
-                    _horizontalLevelOutside.Source = _levelOutsideGreenImage;
-                }
-                else if (Math.Abs(_averageRoll) > ROLL_GOOD_THRESHOLD &&
-                        _horizontalLevelBubble.Source == _levelBubbleGreenImage)
+                    newX = 1;
+                } else if (newX < 0)
                 {
-                    _horizontalLevelBubble.Source = _levelBubbleImage;
-                    _horizontalLevelOutside.Source = _levelOutsideImage;
+                    newX = 0;
                 }
-            }
-
-            var newX = 0.5 + _averageRoll / BUBBLE_LEVEL_MAX_TIP / 2;
-            if (newX > 1)
-            {
-                newX = 1;
-            } else if (newX < 0)
-            {
-                newX = 0;
-            }
-            var bubbleBounds = AbsoluteLayout.GetLayoutBounds(_horizontalLevelBubble);
-            bubbleBounds.X = newX;
-            AbsoluteLayout.SetLayoutBounds(_horizontalLevelBubble, bubbleBounds);
+                var bubbleBounds = AbsoluteLayout.GetLayoutBounds(_horizontalLevelBubble);
+                bubbleBounds.X = newX;
+                AbsoluteLayout.SetLayoutBounds(_horizontalLevelBubble, bubbleBounds);
+            });
         }
 
         protected override void OnBindingContextChanged()
@@ -205,59 +206,76 @@ namespace CrossCam.Page
 	        {
 	            _viewModel = (CameraViewModel) BindingContext;
 	            _viewModel.PropertyChanged += ViewModelPropertyChanged;
-                EvaluateSensors();
-                ResetLineAndDonutGuides();
-                PlaceRollGuide();
+                _viewModel.Edits.PropertyChanged += EditsPropertyChanged;
+                Device.BeginInvokeOnMainThread(() =>
+                {
+                    EvaluateSensors();
+                    ResetLineAndDonutGuides();
+                    PlaceRollGuide();
+                });
             }
 	    }
 
-	    private void ViewModelPropertyChanged(object sender, PropertyChangedEventArgs e)
+        private void EditsPropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+            Device.BeginInvokeOnMainThread(() =>
+            {
+                _capturedCanvas.InvalidateSurface();
+            });
+        }
+
+        private void ViewModelPropertyChanged(object sender, PropertyChangedEventArgs e)
 	    {
-	        switch (e.PropertyName)
-	        {
-                case nameof(CameraViewModel.FocusCircleX):
-                case nameof(CameraViewModel.FocusCircleY):
-                    MoveFocusCircle();
-                    break;
-                case nameof(CameraViewModel.WorkflowStage):
-                    EvaluateSensors();
-                    break;
-                case nameof(CameraViewModel.Settings):
-                    EvaluateSensors();
-                    _canvasView.InvalidateSurface();
-                    ResetLineAndDonutGuides();
-                    break;
-                case nameof(CameraViewModel.CameraColumn):
-                case nameof(CameraViewModel.IsCaptureLeftFirst):
-                    PlaceRollGuide();
-                    break;
-                case nameof(CameraViewModel.IsViewPortrait):
-                    SetMarginsForNotch();
-                    _canvasView.InvalidateSurface();
-                    ResetLineAndDonutGuides();
-                    break;
-                case nameof(CameraViewModel.PreviewBottomY):
-                    SetSensorGuidesY();
-                    break;
-	            case nameof(CameraViewModel.LeftBitmap):
-                case nameof(CameraViewModel.RightBitmap):
-	            case nameof(CameraViewModel.RightCrop):
-                case nameof(CameraViewModel.LeftCrop):
-                case nameof(CameraViewModel.InsideCrop):
-	            case nameof(CameraViewModel.OutsideCrop):
-	            case nameof(CameraViewModel.TopCrop):
-	            case nameof(CameraViewModel.BottomCrop):
-                case nameof(CameraViewModel.LeftRotation):
-	            case nameof(CameraViewModel.RightRotation):
-                case nameof(CameraViewModel.VerticalAlignment):
-                case nameof(CameraViewModel.LeftZoom):
-	            case nameof(CameraViewModel.RightZoom):
-	            case nameof(CameraViewModel.LeftKeystone):
-	            case nameof(CameraViewModel.RightKeystone):
-                    _canvasView.InvalidateSurface();
-                    break;
-	        }
+            Device.BeginInvokeOnMainThread(() =>
+            {
+                switch (e.PropertyName)
+                {
+                    case nameof(CameraViewModel.FocusCircleX):
+                    case nameof(CameraViewModel.FocusCircleY):
+                        MoveFocusCircle();
+                        break;
+                    case nameof(CameraViewModel.WorkflowStage):
+                        EvaluateSensors();
+                        break;
+                    case nameof(CameraViewModel.Settings):
+                        EvaluateSensors();
+                        _capturedCanvas.InvalidateSurface();
+                        ResetLineAndDonutGuides();
+                        break;
+                    case nameof(CameraViewModel.CameraColumn):
+                    case nameof(Settings.IsCaptureLeftFirst):
+                        PlaceRollGuide();
+                        break;
+                    case nameof(CameraViewModel.IsViewPortrait):
+                        _capturedCanvas.InvalidateSurface();
+                        _pairedPreviewCanvas.InvalidateSurface();
+                        ResetLineAndDonutGuides();
+                        SetMarginsForNotch();
+                        break;
+                    case nameof(CameraViewModel.PreviewBottomY):
+                        PlaceRollGuide();
+                        PlaceSettingsRibbon();
+                        break;
+                    case nameof(CameraViewModel.LeftBitmap):
+                    case nameof(CameraViewModel.RightBitmap):
+                        _capturedCanvas.InvalidateSurface();
+                        break;
+                    case nameof(CameraViewModel.PreviewFrame):
+                        _pairedPreviewCanvas.InvalidateSurface();
+                        break;
+                }
+            });
 	    }
+
+        private void PlaceSettingsRibbon()
+        {
+            if (_viewModel != null)
+            {
+                var originalBounds = AbsoluteLayout.GetLayoutBounds(_cameraSettingsRibbon);
+                originalBounds.Y = _viewModel.PreviewBottomY - originalBounds.Height;
+                AbsoluteLayout.SetLayoutBounds(_cameraSettingsRibbon, originalBounds);
+            }
+        }
 
         private void MoveFocusCircle()
         {
@@ -273,61 +291,114 @@ namespace CrossCam.Page
             }
         }
 
-        private void OnPaintSurface(object sender, SKPaintSurfaceEventArgs e)
+        private void OnCapturedCanvasInvalidated(object sender, SKPaintSurfaceEventArgs e)
 	    {
 	        var canvas = e.Surface.Canvas;
 
-	        canvas.Clear(SKColor.Empty);
+	        canvas.Clear();
 
             DrawTool.DrawImagesOnCanvas(
-                canvas, _viewModel.LeftBitmap, _viewModel.RightBitmap,
-                _viewModel.Settings.BorderWidthProportion, _viewModel.Settings.AddBorder,
-                _viewModel.Settings.BorderColor,
-                _viewModel.LeftCrop + _viewModel.OutsideCrop, _viewModel.InsideCrop + _viewModel.RightCrop,
-                _viewModel.InsideCrop + _viewModel.LeftCrop, _viewModel.RightCrop + _viewModel.OutsideCrop,
-                _viewModel.TopCrop, _viewModel.BottomCrop,
-                _viewModel.LeftRotation, _viewModel.RightRotation,
-                _viewModel.VerticalAlignment,
-                _viewModel.LeftZoom, _viewModel.RightZoom,
-                _viewModel.LeftKeystone, _viewModel.RightKeystone,
-                (_viewModel.Settings.Mode == DrawMode.RedCyanAnaglyph ||
-                 _viewModel.Settings.Mode == DrawMode.GrayscaleRedCyanAnaglyph) && 
-                _viewModel.WorkflowStage == WorkflowStage.Capture
-                    ? DrawMode.Cross
-                    : _viewModel.Settings.Mode);
+                canvas, _viewModel.LeftBitmap, _viewModel.RightBitmap, 
+                _viewModel.Settings,
+                _viewModel.Edits,
+                DrawMode.Cross, // strange but true, its really just saying "don't swap the sides" from how they're shown, and also no anaglyph preview yet
+                _viewModel.WorkflowStage == WorkflowStage.FovCorrection);
         }
 
-	    private void SetSensorGuidesY()
-	    {
-	        var rollBounds = AbsoluteLayout.GetLayoutBounds(_horizontalLevelWhole);
-	        rollBounds.Y = _viewModel.PreviewBottomY - LEVEL_ICON_WIDTH / 5;
-            AbsoluteLayout.SetLayoutBounds(_horizontalLevelWhole, rollBounds);
+        private void OnPairedPreviewCanvasInvalidated(object sender, SKPaintSurfaceEventArgs e)
+        {
+            var canvas = e.Surface.Canvas;
+
+            canvas.Clear();
+
+            if (_viewModel.PreviewFrame != null)
+            {
+                var bitmap = _viewModel.DecodeBitmapAndCorrectOrientation(_viewModel.PreviewFrame, true);
+
+                if (bitmap != null)
+                {
+                    float secondaryRatio;
+                    if (bitmap.Width < bitmap.Height) //portrait
+                    {
+                        secondaryRatio = bitmap.Height / (1f * bitmap.Width);
+                    }
+                    else //landscape
+                    {
+                        secondaryRatio = bitmap.Width / (1f * bitmap.Height);
+                    }
+
+                    // when portrait, the wider side sets the height for both
+                    // when landscape, fill width
+
+                    double height;
+                    double width;
+                    if (bitmap.Height > bitmap.Width) // portrait
+                    {
+                        height = canvas.DeviceClipBounds.Width * _viewModel.PreviewAspectRatio;
+                        width = height / secondaryRatio;
+                    }
+                    else //landscape
+                    {
+                        width = canvas.DeviceClipBounds.Width;
+                        height = width / secondaryRatio;
+                    }
+
+                    var zoomDirection = _viewModel.Settings.FovPrimaryCorrection > _viewModel.Settings.FovSecondaryCorrection; // true means zoom out on secondary, false means zoom in
+                    var zoomAmount = zoomDirection
+                        ? 1 / (1 + _viewModel.Settings.FovPrimaryCorrection)
+                        : 1 + _viewModel.Settings.FovSecondaryCorrection;
+
+                    var zoomedWidth = width * zoomAmount;
+                    var zoomedHeight = height * zoomAmount;
+
+                    var newX = (canvas.DeviceClipBounds.Width - zoomedWidth) / 2;
+                    var newY = (canvas.DeviceClipBounds.Height - zoomedHeight) / 2f;
+
+                    canvas.DrawBitmap(bitmap,
+                        new SKRect(0, 0, bitmap.Width, bitmap.Height),
+                        new SKRect(
+                            (float)newX,
+                            (float)newY,
+                            (float)(newX + zoomedWidth),
+                            (float)(newY + zoomedHeight)));
+                }
+            }
+
+            _viewModel.BluetoothOperatorBindable.RequestPreviewFrame();
         }
 
         private void ResetLineAndDonutGuides()
         {
             if (_viewModel == null || _viewModel.IsViewPortrait)
             {
-                AbsoluteLayout.SetLayoutFlags(_upperLine, AbsoluteLayoutFlags.YProportional | AbsoluteLayoutFlags.WidthProportional);
+                AbsoluteLayout.SetLayoutFlags(_upperLine,
+                    AbsoluteLayoutFlags.YProportional | AbsoluteLayoutFlags.WidthProportional);
                 AbsoluteLayout.SetLayoutBounds(_upperLine, _upperLineBoundsPortrait);
-                AbsoluteLayout.SetLayoutFlags(_upperLinePanner, AbsoluteLayoutFlags.YProportional | AbsoluteLayoutFlags.WidthProportional);
+                AbsoluteLayout.SetLayoutFlags(_upperLinePanner,
+                    AbsoluteLayoutFlags.YProportional | AbsoluteLayoutFlags.WidthProportional);
                 AbsoluteLayout.SetLayoutBounds(_upperLinePanner, _upperLineBoundsPortrait);
 
-                AbsoluteLayout.SetLayoutFlags(_lowerLine, AbsoluteLayoutFlags.YProportional | AbsoluteLayoutFlags.WidthProportional);
+                AbsoluteLayout.SetLayoutFlags(_lowerLine,
+                    AbsoluteLayoutFlags.YProportional | AbsoluteLayoutFlags.WidthProportional);
                 AbsoluteLayout.SetLayoutBounds(_lowerLine, _lowerLinesBoundsPortrait);
-                AbsoluteLayout.SetLayoutFlags(_lowerLinePanner, AbsoluteLayoutFlags.YProportional | AbsoluteLayoutFlags.WidthProportional);
+                AbsoluteLayout.SetLayoutFlags(_lowerLinePanner,
+                    AbsoluteLayoutFlags.YProportional | AbsoluteLayoutFlags.WidthProportional);
                 AbsoluteLayout.SetLayoutBounds(_lowerLinePanner, _lowerLinesBoundsPortrait);
             }
             else
             {
-                AbsoluteLayout.SetLayoutFlags(_upperLine, AbsoluteLayoutFlags.YProportional | AbsoluteLayoutFlags.WidthProportional);
+                AbsoluteLayout.SetLayoutFlags(_upperLine,
+                    AbsoluteLayoutFlags.YProportional | AbsoluteLayoutFlags.WidthProportional);
                 AbsoluteLayout.SetLayoutBounds(_upperLine, _upperLineBoundsLandscape);
-                AbsoluteLayout.SetLayoutFlags(_upperLinePanner, AbsoluteLayoutFlags.YProportional | AbsoluteLayoutFlags.WidthProportional);
+                AbsoluteLayout.SetLayoutFlags(_upperLinePanner,
+                    AbsoluteLayoutFlags.YProportional | AbsoluteLayoutFlags.WidthProportional);
                 AbsoluteLayout.SetLayoutBounds(_upperLinePanner, _upperLineBoundsLandscape);
 
-                AbsoluteLayout.SetLayoutFlags(_lowerLine, AbsoluteLayoutFlags.YProportional | AbsoluteLayoutFlags.WidthProportional);
+                AbsoluteLayout.SetLayoutFlags(_lowerLine,
+                    AbsoluteLayoutFlags.YProportional | AbsoluteLayoutFlags.WidthProportional);
                 AbsoluteLayout.SetLayoutBounds(_lowerLine, _lowerLineBoundsLandscape);
-                AbsoluteLayout.SetLayoutFlags(_lowerLinePanner, AbsoluteLayoutFlags.YProportional | AbsoluteLayoutFlags.WidthProportional);
+                AbsoluteLayout.SetLayoutFlags(_lowerLinePanner,
+                    AbsoluteLayoutFlags.YProportional | AbsoluteLayoutFlags.WidthProportional);
                 AbsoluteLayout.SetLayoutBounds(_lowerLinePanner, _lowerLineBoundsLandscape);
             }
 
@@ -348,6 +419,10 @@ namespace CrossCam.Page
             rollBounds.Width = LEVEL_ICON_WIDTH;
             rollBounds.Height = LEVEL_ICON_WIDTH;
             rollBounds.X = _viewModel == null || _viewModel.CameraColumn == 0 ? 0.2 : 0.8;
+            if (_viewModel != null)
+            {
+                rollBounds.Y = _viewModel.PreviewBottomY - LEVEL_ICON_WIDTH / 5;
+            }
             AbsoluteLayout.SetLayoutBounds(_horizontalLevelWhole, rollBounds);
         }
 
@@ -450,5 +525,5 @@ namespace CrossCam.Page
 	                lineHeight));
 	        }
         }
-	}
+    }
 }

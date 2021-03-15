@@ -24,13 +24,16 @@ namespace CrossCam.CustomElement
 
         private static async void OnTriggerChanged(BindableObject bindable, object oldvalue, object newvalue)
         {
-            var behavior = (FadeInAndOutBehavior)bindable;
-            behavior._element.Opacity = 0;
-            behavior._element.IsVisible = true;
-            await behavior._element.FadeTo(1, behavior.InTimeMs, Easing.Linear);
-            await Task.Delay(behavior.VisibleTimeMs);
-            await behavior._element.FadeTo(0, behavior.OutTimeMs, Easing.Linear);
-            behavior._element.IsVisible = false;
+            await Device.InvokeOnMainThreadAsync(async () =>
+            {
+                var behavior = (FadeInAndOutBehavior) bindable;
+                behavior._element.Opacity = 0;
+                behavior._element.IsVisible = true;
+                await behavior._element.FadeTo(1, behavior.InTimeMs, Easing.Linear);
+                await Task.Delay(behavior.VisibleTimeMs);
+                await behavior._element.FadeTo(0, behavior.OutTimeMs, Easing.Linear);
+                behavior._element.IsVisible = false;
+            });
         }
         
         public bool Trigger
@@ -61,8 +64,11 @@ namespace CrossCam.CustomElement
         {
             base.OnAttachedTo(element);
             _element = element;
-            _element.Opacity = 0;
-            _element.IsVisible = false;
+            Device.BeginInvokeOnMainThread(() =>
+            {
+                _element.Opacity = 0;
+                _element.IsVisible = false;
+            });
             _element.BindingContextChanged += SetBindingContext;
         }
 

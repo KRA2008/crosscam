@@ -85,8 +85,6 @@ namespace CrossCam.Model
         public bool HasOfferedTechniqueHelpBefore { get; set; }
         public bool HasShownDirectionsBefore { get; set; }
 
-        public bool IsFrontCamera { get; set; }
-
         public bool ShowGuideLinesWithFirstCapture { get; set; }
         public bool ShowGuideDonutWithFirstCapture { get; set; }
         public bool ShowRollGuide { get; set; }
@@ -108,6 +106,8 @@ namespace CrossCam.Model
         public bool SaveForRedCyanAnaglyph { get; set; }
         public bool SaveForGrayscaleAnaglyph { get; set; }
 
+        public bool SendErrorReports1 { get; set; }
+
         [Obsolete("Use SaveForRedCyanAnaglyph - kept for backward compatibility")]
         public bool RedCyanAnaglyphMode { get => SaveForRedCyanAnaglyph; set => SaveForRedCyanAnaglyph = value; }
         [Obsolete("Use SaveForGrayscaleAnaglyph - kept for backward compatibility")]
@@ -115,7 +115,50 @@ namespace CrossCam.Model
 
         public bool AddBorder { get; set; }
 
-        public bool ClipBorderOnLoad { get; set; }
+        public bool ClipBorderOnNextLoad { get; set; }
+
+        private bool? _isPairedPrimary;
+        public bool? IsPairedPrimary
+        {
+            get => _isPairedPrimary;
+            set
+            {
+                _isPairedPrimary = value;
+                IsFovCorrectionSet = false;
+                FovPrimaryCorrection = 0;
+                FovSecondaryCorrection = 0;
+            }
+        }
+
+        private int _pairedPreviewFrameDelayMs;
+        public int PairedPreviewFrameDelayMs
+        {
+            get => _pairedPreviewFrameDelayMs;
+            set
+            {
+                if (value >= 0)
+                {
+                    _pairedPreviewFrameDelayMs = value;
+                }
+            }
+        }
+
+        public bool IsFovCorrectionSet { get; set; }
+        public double FovPrimaryCorrection { get; set; }
+        public double FovSecondaryCorrection { get; set; }
+
+        private int _pairPreviewSampleCount;
+        public int PairSyncSampleCount
+        {
+            get => _pairPreviewSampleCount;
+            set
+            {
+                if (value > 0)
+                {
+                    _pairPreviewSampleCount = value;
+                }
+            }
+        }
 
         private Handedness _handedness;
         public Handedness Handedness
@@ -209,84 +252,6 @@ namespace CrossCam.Model
             }
         }
 
-        private bool _isAutomaticAlignmentOn;
-        public bool IsAutomaticAlignmentOn
-        {
-            get => _isAutomaticAlignmentOn;
-            set
-            {
-                _isAutomaticAlignmentOn = value;
-                AlignHorizontallySideBySide = value;
-            }
-        }
-
-        public bool AlignHorizontallySideBySide { get; set; }
-
-        private int _alignmentEpsilonLevel2;
-        public int AlignmentEpsilonLevel2
-        {
-            get => _alignmentEpsilonLevel2;
-            set
-            {
-                if (value > 0)
-                {
-                    _alignmentEpsilonLevel2 = value;
-                }
-            }
-        }
-
-        private int _alignmentIterations2;
-        public int AlignmentIterations2
-        {
-            get => _alignmentIterations2;
-            set
-            {
-                if (value > 0)
-                {
-                    _alignmentIterations2 = value;
-                }
-            }
-        }
-
-        private int _alignmentPyramidLayers2;
-        public int AlignmentPyramidLayers2
-        {
-            get => _alignmentPyramidLayers2;
-            set
-            {
-                if (value > 0)
-                {
-                    _alignmentPyramidLayers2 = value;
-                }
-            }
-        }
-
-        private int _alignmentDownsizePercentage2;
-        public int AlignmentDownsizePercentage2
-        {
-            get => _alignmentDownsizePercentage2;
-            set
-            {
-                if (value > 0)
-                {
-                    _alignmentDownsizePercentage2 = value;
-                }
-            }
-        }
-
-        private int _alignmentEccThresholdPercentage2;
-        public int AlignmentEccThresholdPercentage2
-        {
-            get => _alignmentEccThresholdPercentage2;
-            set
-            {
-                if (value > 0)
-                {
-                    _alignmentEccThresholdPercentage2 = value;
-                }
-            }
-        }
-
         private int _maximumParallelWidth;
         public int MaximumParallelWidth
         {
@@ -300,10 +265,13 @@ namespace CrossCam.Model
             }
         }
 
+        public AlignmentSettings AlignmentSettings { get; set; }
+
         public Settings()
         {
             HasOfferedTechniqueHelpBefore = false;
             HasShownDirectionsBefore = false;
+            AlignmentSettings = new AlignmentSettings();
             ResetToDefaults();
         }
 
@@ -316,7 +284,7 @@ namespace CrossCam.Model
             ShowRollGuide = true;
 
             AddBorder = false;
-            ClipBorderOnLoad = true;
+            ClipBorderOnNextLoad = false;
 
             ShowGuideLinesWithFirstCapture = false;
             IsGuideDonutVisible = false;
@@ -336,25 +304,27 @@ namespace CrossCam.Model
             SavingDirectory = null;
             SaveToExternal = false;
 
-            IsFrontCamera = false;
-
             Handedness = Handedness.Right;
 
             BorderColor = BorderColor.Black;
-
-            IsAutomaticAlignmentOn = true;
-            AlignHorizontallySideBySide = true;
-
-            AlignmentDownsizePercentage2 = 35;
-            AlignmentEpsilonLevel2 = 3;
-            AlignmentIterations2 = 50;
-            AlignmentEccThresholdPercentage2 = 60;
-            AlignmentPyramidLayers2 = 4;
 
             ResolutionProportion = 100;
             BorderWidthProportion = 15;
 
             MaximumParallelWidth = (int)PARALLEL_BASE_WIDTH;
+
+            //IsPairedPrimary = null; //deliberately do NOT reset this.
+
+            FovPrimaryCorrection = 0;
+            FovSecondaryCorrection = 0;
+            IsFovCorrectionSet = false;
+
+            PairedPreviewFrameDelayMs = 250;
+            PairSyncSampleCount = 50;
+
+            SendErrorReports1 = true; //TODO: consider turning this off when shipping to production
+
+            AlignmentSettings.ResetToDefaults();
         }
 
         public event PropertyChangedEventHandler PropertyChanged;

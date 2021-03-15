@@ -1,4 +1,6 @@
-﻿using Xamarin.Forms;
+﻿using System.Collections.ObjectModel;
+using CrossCam.ViewModel;
+using Xamarin.Forms;
 
 namespace CrossCam.CustomElement
 {
@@ -42,7 +44,10 @@ namespace CrossCam.CustomElement
 	    public static readonly BindableProperty IsNothingCapturedProperty = BindableProperty.Create(nameof(IsNothingCaptured),
 	        typeof(bool), typeof(CameraModule), true);
 
-	    public static readonly BindableProperty PreviewBottomYProperty = BindableProperty.Create(nameof(PreviewBottomY),
+        public static readonly BindableProperty PreviewBottomYProperty = BindableProperty.Create(nameof(PreviewBottomY),
+            typeof(double), typeof(CameraModule), 0d, BindingMode.OneWayToSource);
+
+        public static readonly BindableProperty PreviewAspectRatioProperty = BindableProperty.Create(nameof(PreviewAspectRatio),
 	        typeof(double), typeof(CameraModule), 0d, BindingMode.OneWayToSource);
 
         public static readonly BindableProperty IsFocusCircleVisibleProperty = BindableProperty.Create(nameof(IsFocusCircleVisible),
@@ -57,8 +62,14 @@ namespace CrossCam.CustomElement
         public static readonly BindableProperty FocusCircleYProperty = BindableProperty.Create(nameof(FocusCircleY),
             typeof(double), typeof(CameraModule), 0d, BindingMode.OneWayToSource);
 
-        public static readonly BindableProperty IsFrontCameraProperty = BindableProperty.Create(nameof(IsFrontCamera),
-            typeof(bool), typeof(CameraModule), false);
+        public static readonly BindableProperty BluetoothOperatorProperty = BindableProperty.Create(nameof(BluetoothOperator),
+            typeof(BluetoothOperator), typeof(CameraModule));
+
+        public static readonly BindableProperty AvailableCamerasProperty = BindableProperty.Create(nameof(AvailableCameras),
+            typeof(ObservableCollection<AvailableCamera>), typeof(CameraModule), defaultBindingMode:BindingMode.TwoWay);
+
+        public static readonly BindableProperty ChosenCameraProperty = BindableProperty.Create(nameof(ChosenCamera),
+            typeof(AvailableCamera), typeof(CameraModule), defaultBindingMode:BindingMode.TwoWay);
 
         public byte[] CapturedImage
         {
@@ -124,12 +135,18 @@ namespace CrossCam.CustomElement
 	    {
 	        get => (bool)GetValue(IsNothingCapturedProperty);
 	        set => SetValue(IsNothingCapturedProperty, value);
-	    }
+        }
 
-	    public double PreviewBottomY
+        public double PreviewBottomY
+        {
+            get => (double)GetValue(PreviewBottomYProperty);
+            set => SetValue(PreviewBottomYProperty, value);
+        }
+
+        public double PreviewAspectRatio
 	    {
-	        get => (double) GetValue(PreviewBottomYProperty);
-	        set => SetValue(PreviewBottomYProperty, value);
+	        get => (double) GetValue(PreviewAspectRatioProperty);
+	        set => SetValue(PreviewAspectRatioProperty, value);
         }
 
         public bool IsFocusCircleVisible
@@ -156,10 +173,22 @@ namespace CrossCam.CustomElement
             set => SetValue(FocusCircleYProperty, value);
         }
 
-        public bool IsFrontCamera
+        public BluetoothOperator BluetoothOperator
         {
-            get => (bool)GetValue(IsFrontCameraProperty);
-            set => SetValue(IsFrontCameraProperty, value);
+            get => (BluetoothOperator)GetValue(BluetoothOperatorProperty);
+            set => SetValue(BluetoothOperatorProperty, value);
+        }
+
+        public ObservableCollection<AvailableCamera> AvailableCameras
+        {
+            get => (ObservableCollection<AvailableCamera>)GetValue(AvailableCamerasProperty);
+            set => SetValue(AvailableCamerasProperty, value);
+        }
+
+        public AvailableCamera ChosenCamera
+        {
+            get => (AvailableCamera)GetValue(ChosenCameraProperty);
+            set => SetValue(ChosenCameraProperty, value);
         }
     }
 }

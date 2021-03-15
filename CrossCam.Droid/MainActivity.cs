@@ -3,18 +3,17 @@ using System.Linq;
 using System.Threading.Tasks;
 using Android;
 using Android.App;
+using Android.Bluetooth;
 using Android.Content;
 using Android.Content.PM;
-using Android.Net;
 using Android.OS;
 using Android.Support.V4.App;
 using Android.Support.V4.Content;
-using Android.Support.V4.OS;
-using Android.Support.V4.Provider;
 using Android.Views;
 using CrossCam.Droid.CustomRenderer;
 using Java.Lang;
 using Xamarin.Forms;
+using Uri = Android.Net.Uri;
 
 namespace CrossCam.Droid
 {
@@ -31,6 +30,8 @@ namespace CrossCam.Droid
         Categories = new[] {Intent.CategoryDefault},
         DataMimeType = "image/*", 
         Icon = "@drawable/icon")]
+    [IntentFilter(
+        new [] {BluetoothDevice.ActionFound})]
     public class MainActivity : Xamarin.Forms.Platform.Android.FormsAppCompatActivity
     {
         public LifecycleEventListener LifecycleEventListener;
@@ -39,9 +40,17 @@ namespace CrossCam.Droid
 
         private App _app;
 
-        private const int CAMERA_PERMISSION_REQUEST_CODE = 50;
-        private const int WRITE_TO_STORAGE_REQUEST_CODE = 51;
-        public const int BROWSE_DIRECTORIES_REQUEST_CODE = 52;
+        public enum RequestCodes
+        {
+            CameraPermissionRequestCode,    
+            WriteToStorageRequestCode,
+            BrowseDirectoriesRequestCode,
+            BluetoothBasicRequestCode,
+            BluetoothAdminRequestCode,
+            FineLocationRequestCode,
+            CoarseLocationRequestCode,
+            TurnLocationServicesOnRequestCode
+        }
 
         public const int PICK_PHOTO_ID = 1000;
         public TaskCompletionSource<byte[][]> PickPhotoTaskCompletionSource { set; get; }
@@ -63,7 +72,7 @@ namespace CrossCam.Droid
             
             if (Build.VERSION.SdkInt >= BuildVersionCodes.M)
             {
-                if (CheckForAndRequestPermissions())
+                if (CheckForAndRequestRequiredPermissions())
                 {
                     return;
                 }
@@ -75,13 +84,13 @@ namespace CrossCam.Droid
         
         protected override void OnPause()
         {
-            base.OnPause();
             LifecycleEventListener.OnAppMinimized();
+            base.OnPause();
         }
 
         protected override async void OnResume()
         {
-            base.OnResume();
+            base.OnResume(); 
             LifecycleEventListener.OnAppMaximized();
 
             if (Intent.ActionSend.Equals(Intent.Action) && 
@@ -141,7 +150,7 @@ namespace CrossCam.Droid
                     PickPhotoTaskCompletionSource.SetResult(null);
                 }
             }
-            else if (requestCode == BROWSE_DIRECTORIES_REQUEST_CODE)
+            else if (requestCode == (int)RequestCodes.BrowseDirectoriesRequestCode)
             {
                 if (resultCode == Result.Ok)
                 {
@@ -152,12 +161,17 @@ namespace CrossCam.Droid
                     DirectorySelector.DirectorySelectionCancelled();
                 }
             }
+            else if (requestCode == (int) RequestCodes.TurnLocationServicesOnRequestCode)
+            {
+                await PlatformBluetooth.CheckForAndTurnOnLocationServices(true);
+            }
         }
 
         public override void OnRequestPermissionsResult(int requestCode, string[] permissions, Permission[] grantResults)
         {
             Xamarin.Essentials.Platform.OnRequestPermissionsResult(requestCode, permissions, grantResults);
-            if (requestCode == CAMERA_PERMISSION_REQUEST_CODE)
+            if (requestCode == (int)RequestCodes.CameraPermissionRequestCode ||
+                requestCode == (int)RequestCodes.WriteToStorageRequestCode)
             {
                 if (!grantResults.Contains(Permission.Granted))
                 {
@@ -166,16 +180,33 @@ namespace CrossCam.Droid
                 }
             }
 
-            if (requestCode == WRITE_TO_STORAGE_REQUEST_CODE)
+            if (requestCode == (int) RequestCodes.BluetoothBasicRequestCode ||
+                requestCode == (int) RequestCodes.BluetoothAdminRequestCode)
             {
                 if (!grantResults.Contains(Permission.Granted))
                 {
-                    JavaSystem.Exit(0);
+                    PlatformBluetooth.BluetoothPermissionsTask.SetResult(false);
                     return;
                 }
+
+                CheckForAndRequestBluetoothPermissions();
+                return;
             }
 
-            if (CheckForAndRequestPermissions())
+            if (requestCode == (int)RequestCodes.FineLocationRequestCode ||
+                requestCode == (int)RequestCodes.CoarseLocationRequestCode)
+            {
+                if (!grantResults.Contains(Permission.Granted))
+                {
+                    PlatformBluetooth.LocationPermissionsTask.SetResult(false);
+                    return;
+                }
+
+                CheckForAndRequestLocationPermissions();
+                return;
+            }
+
+            if (CheckForAndRequestRequiredPermissions())
             {
                 return;
             }
@@ -186,11 +217,54 @@ namespace CrossCam.Droid
             base.OnRequestPermissionsResult(requestCode, permissions, grantResults);
         }
 
-        private bool CheckForAndRequestPermissions()
+
+        public void CheckForAndRequestLocationPermissions()
+        {
+            if (ContextCompat.CheckSelfPermission(this, Manifest.Permission.AccessFineLocation) !=
+                (int)Permission.Granted)
+            {
+                ActivityCompat.RequestPermissions(Instance, new[] { Manifest.Permission.AccessFineLocation },
+                    (int)RequestCodes.FineLocationRequestCode);
+                return;
+            }
+
+            if (ContextCompat.CheckSelfPermission(this, Manifest.Permission.AccessCoarseLocation) !=
+                (int)Permission.Granted)
+            {
+                ActivityCompat.RequestPermissions(Instance, new[] { Manifest.Permission.AccessCoarseLocation },
+                    (int)RequestCodes.CoarseLocationRequestCode);
+                return;
+            }
+
+            PlatformBluetooth.LocationPermissionsTask.SetResult(true);
+        }
+
+        public void CheckForAndRequestBluetoothPermissions()
+        {
+            if (ContextCompat.CheckSelfPermission(this, Manifest.Permission.Bluetooth) != (int)Permission.Granted)
+            {
+                ActivityCompat.RequestPermissions(Instance, new[] { Manifest.Permission.Bluetooth },
+                    (int)RequestCodes.BluetoothBasicRequestCode);
+                return;
+            }
+
+            if (ContextCompat.CheckSelfPermission(this, Manifest.Permission.BluetoothAdmin) !=
+                (int)Permission.Granted)
+            {
+                ActivityCompat.RequestPermissions(Instance, new[] { Manifest.Permission.BluetoothAdmin },
+                    (int)RequestCodes.BluetoothAdminRequestCode);
+                return;
+            }
+
+            PlatformBluetooth.BluetoothPermissionsTask.SetResult(true);
+        }
+
+        private bool CheckForAndRequestRequiredPermissions()
         {
             if (ContextCompat.CheckSelfPermission(this, Manifest.Permission.Camera) != (int)Permission.Granted)
             {
-                ActivityCompat.RequestPermissions(Instance, new[] { Manifest.Permission.Camera }, CAMERA_PERMISSION_REQUEST_CODE);
+                ActivityCompat.RequestPermissions(Instance, new[] {Manifest.Permission.Camera},
+                    (int) RequestCodes.CameraPermissionRequestCode);
                 return true;
             }
 
@@ -198,7 +272,7 @@ namespace CrossCam.Droid
                 (int)Permission.Granted)
             {
                 ActivityCompat.RequestPermissions(Instance, new[] { Manifest.Permission.WriteExternalStorage },
-                    WRITE_TO_STORAGE_REQUEST_CODE);
+                    (int)RequestCodes.WriteToStorageRequestCode);
                 return true;
             }
 

@@ -1,0 +1,108 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<freshMvvm:FreshBaseContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:freshMvvm="clr-namespace:FreshMvvm;assembly=FreshMvvm"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:viewModel="clr-namespace:CrossCam.ViewModel;assembly=CrossCam"
+             xmlns:system="clr-namespace:System;assembly=netstandard"
+             xmlns:customElement="clr-namespace:CrossCam.CustomElement;assembly=CrossCam"
+             mc:Ignorable="d"
+
+             d:DataContext="{d:DesignInstance Type=viewModel:PairingViewModel, IsDesignTimeCreatable=False}"
+             x:Class="CrossCam.Page.PairingPage"
+             Title="Pairing">
+    <ScrollView>
+        <StackLayout Padding="10">
+            <Label Text=""/>
+
+            <Label Text="If you have two devices with CrossCam installed, you can connect them in order to take simultaneous photos from two perspectives. This makes the best cross views possible."/>
+
+            <Label Text="Please be aware that this feature is still experimental and may have issues. Also please be aware that at this time the devices must be the same platform in order to connect (both Android or both iOS)."/>
+
+            <Label Text="Before two devices can be used together their roles have to be assigned. The PRIMARY device is the one that will show both previews, trigger the capture, and hold/save the final captures. To assign roles, navigate both devices to this page and then follow the steps below:"/>
+            <Label Text=" "/>
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+
+                <Label Grid.Row="0"
+                       Grid.Column="1"
+                       Text="1)"
+                       VerticalOptions="Center"/>
+                <Frame Grid.Row="0" 
+                       Grid.Column="2" 
+                       Padding="1"
+                       HorizontalOptions="Start">
+                    <Button VerticalOptions="Center"
+                            Text="TAP HERE ON THE PRIMARY"
+                            Command="{Binding SetDevicePrimaryCommand}"/>
+                </Frame>
+
+                <Label Grid.Row="1"
+                       Grid.Column="1"
+                       Text="2)"
+                       VerticalOptions="Center"/>
+                <Frame Grid.Row="1" 
+                       Grid.Column="2" 
+                       Padding="1"
+                       HorizontalOptions="Start">
+                    <Button VerticalOptions="Center"
+                            Text="TAP HERE ON THE SECONDARY"
+                            Command="{Binding SetDeviceSecondaryCommand}"/>
+                </Frame>
+
+                <Label Grid.Row="2"
+                       Grid.Column="1"
+                       Text="3)"
+                       HorizontalOptions="End"
+                       VerticalOptions="Center"/>
+                <Label Grid.Row="2"
+                       Grid.Column="2"
+                       Text="Make sure Wi-Fi is enabled on both devices (but it doesn't need to be connected to anything)"/>
+
+                <Label Grid.Row="3"
+                       Grid.Column="1"
+                       Text="4)"
+                       VerticalOptions="Center"/>
+                <Label Grid.Row="3" 
+                       Grid.Column="2"
+                       HorizontalOptions="Start" 
+                       VerticalOptions="Center"
+                       Text="Go back to the camera screen on both devices and tap the pair button in the lower corner"/>
+            </Grid>
+            <Label Text=" "/>
+            <Label Text="To connect again later, make sure you have Wi-Fi enabled and then just tap the connect button on the home screen on both devices."/>
+            <Label Text=" "/>
+            <StackLayout>
+                <StackLayout.IsVisible>
+                    <OnPlatform x:TypeArguments="system:Boolean">
+                        <On Platform="Android"
+                            Value="True"/>
+                        <On Platform="iOS"
+                            Value="False"/>
+                    </OnPlatform>
+                </StackLayout.IsVisible>
+                <Label Text="A Note About Permissions:"/>
+                <Label Text="CrossCam will request permissions and power on components as needed in order to connect your devices. Please note: CrossCam requires location permission and for location services to be turned on on the primary device in order to connect to the secondary device. This is simply an Android requirement and is completely outside my control. CrossCam does not actually USE your location in any way, but because the act of searching for (and finding) nearby devices could theoretically be used to roughly locate you, CrossCam requires permission to access your location. Note that CrossCam still does not use an internet connection or even request internet permission, so it can't transmit location data anywhere even if it did collect it."/>
+                <Label Text=" "/>
+            </StackLayout>
+            <Label Text="If you have trouble, PLEASE NOTE:"/>
+            <Label Text=" &#x2022; After beginning the pairing process, the pairing button can be tapped again at any time to stop it or to disconnect."/>
+            <Label Text=" &#x2022; It may help to stop pairing on both devices and restart it at the same time."/>
+            <Label Text=" &#x2022; Every camera is different. These differences can include angular field of view, focus, exposure, and white balance behavior, timing, and more. Even two of the same model of phone will behave slightly differently. I prefer to use a pair of identical old phones (in my case, a pair of iPhone 6)."/>
+            <Label Text=" &#x2022; CrossCam is software, not hardware, so capturing the photos may be slightly out of sync depending on what else the processors and memory are doing at the precise moment the capture is triggered. As a result, the synchronization may sometimes not be perfect, but it should generally be very close."/>
+            <customElement:EmailMeLabel/>
+        </StackLayout>
+    </ScrollView>
+</freshMvvm:FreshBaseContentPage>

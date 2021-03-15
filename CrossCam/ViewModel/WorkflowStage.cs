@@ -11,6 +11,9 @@
         View,
         Saving,
         AutomaticAlign,
-        Loading
+        Loading,
+        Syncing,
+        FovCorrection,
+        Transmitting
     }
 }

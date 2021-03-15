@@ -1,8 +1,12 @@
 ﻿using System;
+using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.IO;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Web;
+using CrossCam.CustomElement;
 using CrossCam.Model;
 using CrossCam.Page;
 using CrossCam.Wrappers;
@@ -12,6 +16,8 @@ using Plugin.DeviceInfo;
 using SkiaSharp;
 using Xamarin.Essentials;
 using Xamarin.Forms;
+using ErrorEventArgs = CrossCam.CustomElement.ErrorEventArgs;
+using Exception = System.Exception;
 
 namespace CrossCam.ViewModel
 {
@@ -21,10 +27,16 @@ namespace CrossCam.ViewModel
         private const string SINGLE_SIDE = "Load single side";
         private const string CANCEL = "Cancel";
 
+        public static BluetoothOperator BluetoothOperator;
+        public BluetoothOperator BluetoothOperatorBindable => BluetoothOperator;
+
         public WorkflowStage WorkflowStage { get; set; }
         public CropMode CropMode { get; set; }
         public ManualAlignMode ManualAlignMode { get; set; }
         public KeystoneMode KeystoneMode { get; set; }
+        public CameraSettingMode CameraSettingMode { get; set; }
+        public bool IsCameraSelectVisible { get; set; }
+        public FovCorrectionMode FovCorrectionMode { get; set; }
 
         public SKBitmap LeftBitmap { get; set; }
         public Command RetakeLeftCommand { get; set; }
@@ -34,12 +46,14 @@ namespace CrossCam.ViewModel
         public Command RetakeRightCommand { get; set; }
         public bool RightCaptureSuccess { get; set; }
 
-        private SKBitmap _originalUnalignedBitmap { get; set; }
+        private SKBitmap OriginalUnalignedLeft { get; set; }
+        private SKBitmap OriginalUnalignedRight { get; set; }
 
-        public bool IsCameraVisible { get; set; }
         public byte[] CapturedImageBytes { get; set; }
         public bool CaptureSuccess { get; set; }
         public int CameraColumn { get; set; }
+
+        public byte[] PreviewFrame { get; set; }
 
         public AbsoluteLayoutFlags CanvasRectangleFlags => Settings.Mode == DrawMode.Parallel
             ? AbsoluteLayoutFlags.YProportional | AbsoluteLayoutFlags.HeightProportional | AbsoluteLayoutFlags.XProportional : 
@@ -66,11 +80,12 @@ namespace CrossCam.ViewModel
 
         public double PreviewBottomY { get; set; }
 
+        public double PreviewAspectRatio { get; set; }
+
         public Command CapturePictureCommand { get; set; }
         public bool CapturePictureTrigger { get; set; }
 
-        public bool MoveLeftTrigger { get; set; }
-        public bool MoveRightTrigger { get; set; }
+        public bool MoveHintTrigger { get; set; }
         public bool WasSwipedTrigger { get; set; }
 
         public Command SaveCapturesCommand { get; set; }
@@ -79,8 +94,18 @@ namespace CrossCam.ViewModel
 
         public Command ClearCapturesCommand { get; set; }
 
+        public Command OpenCameraSettingsCommand { get; set; }
+        public Command SaveCameraSettingCommand { get; set; }
+        public Command ResetCameraSettingCommand { get; set; }
+        public Command<CameraSettingMode> SetCameraSettingModeCommand { get; set; }
+        public bool CameraSettingsVisible { get; set; }
+        public ObservableCollection<AvailableCamera> AvailableCameras { get; set; }
+        public AvailableCamera ChosenCamera { get; set; }
+
         public Command NavigateToSettingsCommand { get; set; }
         public Command NavigateToHelpCommand { get; set; }
+
+        public Command ToggleCameraSelectVisible { get; set; }
 
         public Command SwapSidesCommand { get; set; }
 
@@ -94,46 +119,37 @@ namespace CrossCam.ViewModel
 
         public Settings Settings { get; set; }
 
+        public Edits Edits { get; set; }
+
         public Command SetManualAlignMode { get; set; }
 
-        public int ZoomMax { get; set; }
-        public int LeftZoom { get; set; }
-        public int RightZoom { get; set; }
+        public Command SetFovCorrectionMode { get; set; }
 
-        public int LeftCrop { get; set; }
-        public int RightCrop { get; set; }
-        public int InsideCrop { get; set; }
-        public int OutsideCrop { get; set; }
-        public int TopCrop { get; set; }
-        public int BottomCrop { get; set; }
+        public Command PairCommand { get; set; }
 
-        public int SideCropMax { get; set; }
-        public int TopOrBottomCropMax { get; set; }
+        public double ZoomMax => 1 / 4d;
+        public double SideCropMax => 1 / 2d;
+        public double TopOrBottomCropMax => 1 / 2d;
 
         public Command SetCropMode { get; set; }
 
-        public int VerticalAlignmentMax { get; set; }
-        public int VerticalAlignment { get; set; }
-        public int VerticalAlignmentMin => -VerticalAlignmentMax;
+        public double VerticalAlignmentMax => 1 / 8d;
+        public double VerticalAlignmentMin => -VerticalAlignmentMax;
 
         public float RotationMax => 5;
-        public float LeftRotation { get; set; }
-        public float RightRotation { get; set; }
         public float RotationMin => -RotationMax;
 
         public Command SetKeystoneMode { get; set; }
 
-        public float MaxKeystone => 0.25f;
-        public float LeftKeystone { get; set; }
-        public float RightKeystone { get; set; }
+        public float MaxKeystone => 1 / 4f;
 
         public Command LoadPhotoCommand { get; set; }
 
         public bool IsViewPortrait { get; set; }
         public bool IsViewInverted { get; set; }
-        public bool IsCaptureLeftFirst { get; set; }
         public bool WasCapturePortrait { get; set; }
         public bool WasCaptureCross { get; set; }
+        public bool WasCapturePaired { get; set; }
 
         public bool AutomaticAlignmentNotSupportedTrigger { get; set; }
         public bool AlignmentFailFadeTrigger { get; set; }
@@ -148,22 +164,37 @@ namespace CrossCam.ViewModel
 
         public bool IsNothingCaptured => LeftBitmap == null && RightBitmap == null;
         public bool ShouldIconBeVisible => IsNothingCaptured && IconColumn != CameraColumn && WorkflowStage == WorkflowStage.Capture;
+        public bool ShouldLeftPairBeVisible => IsNothingCaptured && Settings.Handedness == Handedness.Right;
+        public bool ShouldRightPairBeVisible => IsNothingCaptured && Settings.Handedness == Handedness.Left;
         public bool ShouldLeftLeftRetakeBeVisible => LeftBitmap != null && (WorkflowStage == WorkflowStage.Final && DoesCaptureOrientationMatchViewOrientation || WorkflowStage == WorkflowStage.Capture && (Settings.Handedness == Handedness.Right || Settings.Handedness == Handedness.Center));
         public bool ShouldLeftRightRetakeBeVisible => LeftBitmap != null && WorkflowStage == WorkflowStage.Capture && Settings.Handedness == Handedness.Left;
         public bool ShouldRightLeftRetakeBeVisible => RightBitmap != null && WorkflowStage == WorkflowStage.Capture && Settings.Handedness == Handedness.Right;
         public bool ShouldRightRightRetakeBeVisible => RightBitmap != null && (WorkflowStage == WorkflowStage.Final && DoesCaptureOrientationMatchViewOrientation || WorkflowStage == WorkflowStage.Capture && (Settings.Handedness == Handedness.Left || Settings.Handedness == Handedness.Center));
-        public bool ShouldCenterLoadBeVisible => WorkflowStage == WorkflowStage.Capture && Settings.Handedness != Handedness.Center;
-        public bool ShouldLeftLoadBeVisible => CameraColumn == 0 && WorkflowStage == WorkflowStage.Capture && Settings.Handedness == Handedness.Center;
-        public bool ShouldRightLoadBeVisible => CameraColumn == 1 && WorkflowStage == WorkflowStage.Capture && Settings.Handedness == Handedness.Center;
+        
+        public bool ShouldCenterLoadBeVisible => WorkflowStage == WorkflowStage.Capture && Settings.Handedness != Handedness.Center && BluetoothOperator.PairStatus != PairStatus.Connected;
+        public bool ShouldLeftLoadBeVisible => CameraColumn == 0 && WorkflowStage == WorkflowStage.Capture && Settings.Handedness == Handedness.Center && BluetoothOperator.PairStatus != PairStatus.Connected;
+        public bool ShouldRightLoadBeVisible => CameraColumn == 1 && WorkflowStage == WorkflowStage.Capture && Settings.Handedness == Handedness.Center && BluetoothOperator.PairStatus != PairStatus.Connected;
+        
         public bool DoesCaptureOrientationMatchViewOrientation => WasCapturePortrait == IsViewPortrait;
         public bool ShouldSettingsAndHelpBeVisible => !IsBusy && 
                                                       WorkflowStage != WorkflowStage.View;
         public bool IsExactlyOnePictureTaken => LeftBitmap == null ^ RightBitmap == null;
-        public bool ShouldRightCaptureBeVisible => WorkflowStage == WorkflowStage.Capture && Settings.Handedness == Handedness.Right;
-        public bool ShouldCenterCaptureBeVisible => WorkflowStage == WorkflowStage.Capture && Settings.Handedness == Handedness.Center;
-        public bool ShouldLeftCaptureBeVisible => WorkflowStage == WorkflowStage.Capture && Settings.Handedness == Handedness.Left;
-        public bool ShouldLineGuidesBeVisible => (IsExactlyOnePictureTaken || Settings.ShowGuideLinesWithFirstCapture && WorkflowStage == WorkflowStage.Capture) && Settings.AreGuideLinesVisible || WorkflowStage == WorkflowStage.Keystone || WorkflowStage == WorkflowStage.ManualAlign;
-        public bool ShouldDonutGuideBeVisible => (IsExactlyOnePictureTaken || Settings.ShowGuideDonutWithFirstCapture && WorkflowStage == WorkflowStage.Capture) && Settings.IsGuideDonutVisible;
+        public bool ShouldRightCaptureBeVisible => WorkflowStage == WorkflowStage.Capture && Settings.Handedness == Handedness.Right && (BluetoothOperatorBindable.PairStatus == PairStatus.Disconnected || Settings.IsPairedPrimary.HasValue && Settings.IsPairedPrimary.Value);
+        public bool ShouldCenterCaptureBeVisible => WorkflowStage == WorkflowStage.Capture && Settings.Handedness == Handedness.Center && (BluetoothOperatorBindable.PairStatus == PairStatus.Disconnected || Settings.IsPairedPrimary.HasValue && Settings.IsPairedPrimary.Value);
+        public bool ShouldLeftCaptureBeVisible => WorkflowStage == WorkflowStage.Capture && Settings.Handedness == Handedness.Left && (BluetoothOperatorBindable.PairStatus == PairStatus.Disconnected || Settings.IsPairedPrimary.HasValue && Settings.IsPairedPrimary.Value);
+
+        public bool ShouldLineGuidesBeVisible => ((IsNothingCaptured && Settings.ShowGuideLinesWithFirstCapture)
+                                                  || (IsExactlyOnePictureTaken && WorkflowStage != WorkflowStage.Loading)
+                                                  || (BluetoothOperator.IsPrimary && BluetoothOperator.PairStatus == PairStatus.Connected && WorkflowStage == WorkflowStage.Capture))
+                                                  && Settings.AreGuideLinesVisible
+                                                  || WorkflowStage == WorkflowStage.Keystone
+                                                  || WorkflowStage == WorkflowStage.ManualAlign
+                                                  || WorkflowStage == WorkflowStage.FovCorrection;
+        public bool ShouldDonutGuideBeVisible => ((IsNothingCaptured && Settings.ShowGuideDonutWithFirstCapture)
+                                                 || (IsExactlyOnePictureTaken && WorkflowStage != WorkflowStage.Loading)
+                                                 || (BluetoothOperator.IsPrimary && BluetoothOperator.PairStatus == PairStatus.Connected && WorkflowStage == WorkflowStage.Capture))
+                                                 && Settings.IsGuideDonutVisible;
+
         public bool ShouldRollGuideBeVisible => WorkflowStage == WorkflowStage.Capture && Settings.ShowRollGuide;
         public bool ShouldViewButtonBeVisible => WorkflowStage == WorkflowStage.Final ||
                                                  WorkflowStage == WorkflowStage.Crop ||
@@ -175,6 +206,7 @@ namespace CrossCam.ViewModel
         public bool IsBusy => WorkflowStage == WorkflowStage.Loading ||
                               WorkflowStage == WorkflowStage.AutomaticAlign ||
                               WorkflowStage == WorkflowStage.Saving;
+        public bool IsHoldSteadySecondary { get; set; }
         public bool ShouldSaveCapturesButtonBeVisible => WorkflowStage == WorkflowStage.Final &&
                                                          (Settings.SaveForCrossView ||
                                                           Settings.SaveForParallel ||
@@ -182,6 +214,10 @@ namespace CrossCam.ViewModel
                                                           Settings.SaveRedundantFirstSide ||
                                                           Settings.SaveForRedCyanAnaglyph ||
                                                           Settings.SaveForGrayscaleAnaglyph);
+
+        public bool ShouldPairPreviewBeVisible => BluetoothOperator.PairStatus == PairStatus.Connected &&
+                                                  BluetoothOperator.IsPrimary &&
+                                                  WorkflowStage == WorkflowStage.Capture;
 
         public int IconColumn => CameraColumn == 0 ? 1 : 0;
 
@@ -195,12 +231,8 @@ namespace CrossCam.ViewModel
         private bool IsPictureWiderThanTall => LeftBitmap != null &&
                                                RightBitmap != null &&
                                                Settings.Mode != DrawMode.Parallel && 
-                                               DrawTool.CalculateJoinedCanvasWidthLessBorder(LeftBitmap, RightBitmap,
-                                                   LeftCrop + OutsideCrop, InsideCrop + RightCrop, InsideCrop + LeftCrop,
-                                                   RightCrop + OutsideCrop) >
-                                               DrawTool.CalculateCanvasHeightLessBorder(LeftBitmap, RightBitmap,
-                                                   TopCrop, BottomCrop,
-                                                   VerticalAlignment);
+                                               DrawTool.CalculateJoinedCanvasWidthLessBorder(LeftBitmap, RightBitmap, Edits) >
+                                               DrawTool.CalculateCanvasHeightLessBorder(LeftBitmap, RightBitmap, Edits);
 
         public string SavedSuccessMessage => "Saved to " + (Settings.SaveToExternal
                                                  ? "external"
@@ -212,25 +244,33 @@ namespace CrossCam.ViewModel
 
         private WorkflowStage _stageBeforeView;
         private int _alignmentThreadLock;
-        private bool _wasAlignmentWithHorizontalRun;
-        private bool _wasAlignmentWithoutHorizontalRun;
+        private bool _isAlignmentInvalid = true;
         private readonly IPhotoSaver _photoSaver;
+        private bool _secondaryErrorOccurred;
+        private bool _isFovCorrected;
 
         public CameraViewModel()
         {
             _photoSaver = DependencyService.Get<IPhotoSaver>();
-            IsCameraVisible = true;
 
             Settings = PersistentStorage.LoadOrDefault(PersistentStorage.SETTINGS_KEY, new Settings());
+            Edits = new Edits(Settings);
+            Settings.PropertyChanged += SettingsOnPropertyChanged;
+            Settings.AlignmentSettings.PropertyChanged += AlignmentSettingsOnPropertyChanged;
+            BluetoothOperator = new BluetoothOperator(Settings);
+            BluetoothOperator.Connected += BluetoothOperatorOnConnected;
+            BluetoothOperator.Disconnected += BluetoothOperatorOnDisconnected;
+            BluetoothOperator.PreviewFrameReceived += BluetoothOperatorOnPreviewFrameReceived;
+            BluetoothOperator.CapturedImageReceived += BluetoothOperatorOnCapturedImageReceived;
+            BluetoothOperator.InitialSyncStarted += BluetoothOperatorInitialSyncStarted;
+            BluetoothOperator.InitialSyncCompleted += BluetoothOperatorInitialSyncCompleted;
+            BluetoothOperator.TransmissionStarted += BluetoothOperatorTransmissionStarted;
+            BluetoothOperator.TransmissionComplete += BluetoothOperatorTransmissionComplete;
+            BluetoothOperator.CountdownTimerSyncComplete += BluetoothOperatorCountdownTimerSyncComplete;
 
-            IsCaptureLeftFirst = Settings.IsCaptureLeftFirst;
-            CameraColumn = IsCaptureLeftFirst ? 0 : 1;
+            CameraColumn = Settings.IsCaptureLeftFirst ? 0 : 1;
+            AvailableCameras = new ObservableCollection<AvailableCamera>();
 
-            SideCropMax = 1;
-            TopOrBottomCropMax = 1;
-            VerticalAlignmentMax = 1;
-            ZoomMax = 1;
-            
             PropertyChanged += (sender, args) =>
             {
                 if (args.PropertyName == nameof(CaptureSuccess))
@@ -246,41 +286,55 @@ namespace CrossCam.ViewModel
                 }
                 else if (args.PropertyName == nameof(CapturedImageBytes))
                 {
-                    if (CameraColumn == 0)
+                    if (_secondaryErrorOccurred)
                     {
-                        LeftBytesCaptured(CapturedImageBytes); // not awaiting. ok.
+                        ClearCaptures();
                     }
                     else
                     {
-                        RightBytesCaptured(CapturedImageBytes); // not awaiting. ok.
+                        if (BluetoothOperator.IsPrimary &&
+                            BluetoothOperator.PairStatus == PairStatus.Connected)
+                        {
+                            WasCapturePaired = true;
+                            WorkflowStage = WorkflowStage.Loading;
+                            RaisePropertyChanged(nameof(ShouldLineGuidesBeVisible));
+                            RaisePropertyChanged(nameof(ShouldDonutGuideBeVisible));
+                        }
+                        else
+                        {
+                            WasCapturePaired = false;
+                        }
+
+                        if (CameraColumn == 0)
+                        {
+                            LeftBytesCaptured(CapturedImageBytes, BluetoothOperator.PairStatus == PairStatus.Disconnected); // not awaiting. ok.
+                        }
+                        else
+                        {
+                            RightBytesCaptured(CapturedImageBytes, BluetoothOperator.PairStatus == PairStatus.Disconnected); // not awaiting. ok.
+                        }
                     }
                 }
                 else if (args.PropertyName == nameof(ErrorMessage))
                 {
-                    if (ErrorMessage != null)
+                    if (ErrorMessage != null &&
+                        Settings.SendErrorReports1)
                     {
                         PromptForPermissionAndSendErrorEmailCommand.Execute(null);
                     }
                 }
                 else if (args.PropertyName == nameof(Settings))
                 {
-                    var alignmentWasRunButIsOffNow = !Settings.IsAutomaticAlignmentOn &&
-                                                      (_wasAlignmentWithoutHorizontalRun ||
-                                                       _wasAlignmentWithHorizontalRun);
-                    var otherAlignmentModeWasRun = Settings.IsAutomaticAlignmentOn &&
-                                                   (_wasAlignmentWithHorizontalRun && !Settings.SaveForRedCyanAnaglyph && !Settings.AlignHorizontallySideBySide ||
-                                                    _wasAlignmentWithoutHorizontalRun && (Settings.SaveForRedCyanAnaglyph || Settings.AlignHorizontallySideBySide));
-                    if (alignmentWasRunButIsOffNow ||
-                        otherAlignmentModeWasRun)
+                    if (_isAlignmentInvalid)
                     {
                         ClearCrops(true);
-                        if (IsCaptureLeftFirst)
+                        if (Settings.IsCaptureLeftFirst)
                         {
-                            SetRightBitmap(_originalUnalignedBitmap); //calls autoalign internally
+                            SetRightBitmap(OriginalUnalignedRight, true, true); //calls autoalign internally
                         }
                         else
                         {
-                            SetLeftBitmap(_originalUnalignedBitmap); //calls autoalign internally
+                            SetLeftBitmap(OriginalUnalignedLeft, true, true); //calls autoalign internally
                         }
                     }
 
@@ -305,13 +359,19 @@ namespace CrossCam.ViewModel
             {
                 try
                 {
-                    ClearEdits();
-                    CameraColumn = 0;
-                    IsCameraVisible = true;
-                    LeftBitmap?.Dispose();
-                    LeftBitmap = null;
-                    TriggerMovementHint();
-                    WorkflowStage = WorkflowStage.Capture;
+                    if (BluetoothOperator.PairStatus == PairStatus.Connected)
+                    {
+                        ClearCaptures();
+                    }
+                    else
+                    {
+                        ClearEdits();
+                        CameraColumn = 0;
+                        LeftBitmap?.Dispose();
+                        LeftBitmap = null;
+                        TriggerMovementHint();
+                        WorkflowStage = WorkflowStage.Capture;
+                    }
                 }
                 catch (Exception e)
                 {
@@ -323,13 +383,19 @@ namespace CrossCam.ViewModel
             {
                 try
                 {
-                    ClearEdits();
-                    CameraColumn = 1;
-                    IsCameraVisible = true;
-                    RightBitmap?.Dispose();
-                    RightBitmap = null;
-                    TriggerMovementHint();
-                    WorkflowStage = WorkflowStage.Capture;
+                    if (BluetoothOperator.PairStatus == PairStatus.Connected)
+                    {
+                        ClearCaptures();
+                    }
+                    else
+                    {
+                        ClearEdits();
+                        CameraColumn = 1;
+                        RightBitmap?.Dispose();
+                        RightBitmap = null;
+                        TriggerMovementHint();
+                        WorkflowStage = WorkflowStage.Capture;
+                    }
                 }
                 catch (Exception e)
                 {
@@ -344,7 +410,22 @@ namespace CrossCam.ViewModel
 
             SaveEditCommand = new Command(() =>
             {
-                WorkflowStage = WorkflowStage == WorkflowStage.Edits ? WorkflowStage.Final : WorkflowStage.Edits;
+                switch (WorkflowStage)
+                {
+                    case WorkflowStage.Edits:
+                        WorkflowStage = WorkflowStage.Final;
+                        break;
+                    case WorkflowStage.FovCorrection:
+                        Settings.IsFovCorrectionSet = true;
+                        PersistentStorage.Save(PersistentStorage.SETTINGS_KEY, Settings);
+                        WorkflowStage = WorkflowStage.Final;
+                        CheckAndCorrectResolutionFovAndAspectDifferences();
+                        AutoAlign();
+                        break;
+                    default:
+                        WorkflowStage = WorkflowStage.Edits;
+                        break;
+                }
             });
 
             ClearEditCommand = new Command(() =>
@@ -374,12 +455,15 @@ namespace CrossCam.ViewModel
             {
                 try
                 {
-                    var confirmClear = await CoreMethods.DisplayAlert("Really clear?",
-                        "Are you sure you want to clear your pictures and start over?", "Yes, clear", "No");
-                    if (confirmClear)
+                    await Device.InvokeOnMainThreadAsync(async () =>
                     {
-                        ClearCaptures();
-                    }
+                        var confirmClear = await CoreMethods.DisplayAlert("Really clear?",
+                            "Are you sure you want to clear your pictures and start over?", "Yes, clear", "No");
+                        if (confirmClear)
+                        {
+                            ClearCaptures();
+                        }
+                    });
                 }
                 catch (Exception e)
                 {
@@ -389,7 +473,15 @@ namespace CrossCam.ViewModel
 
             CapturePictureCommand = new Command(() =>
             {
-                CapturePictureTrigger = !CapturePictureTrigger;
+                if (BluetoothOperator.IsPrimary &&
+                    BluetoothOperator.PairStatus == PairStatus.Connected)
+                {
+                    BluetoothOperator.BeginSyncedCapture();
+                }
+                else
+                {
+                    CapturePictureTrigger = !CapturePictureTrigger;
+                }
             });
 
             ToggleViewModeCommand = new Command(() =>
@@ -415,6 +507,62 @@ namespace CrossCam.ViewModel
                 await CoreMethods.PushPageModel<HelpViewModel>(Settings);
             });
 
+            ToggleCameraSelectVisible = new Command(() =>
+            {
+                IsCameraSelectVisible = !IsCameraSelectVisible;
+            });
+
+            OpenCameraSettingsCommand = new Command(() =>
+            {
+                CameraSettingsVisible = !CameraSettingsVisible;
+                if (!CameraSettingsVisible)
+                {
+                    CameraSettingMode = CameraSettingMode.Menu;
+                }
+            });
+
+            SetCameraSettingModeCommand = new Command<CameraSettingMode>(mode =>
+            {
+                CameraSettingMode = mode;
+            });
+
+            SaveCameraSettingCommand = new Command(() =>
+            {
+                if (CameraSettingMode == CameraSettingMode.Menu)
+                {
+                    CameraSettingsVisible = false;
+                }
+                else
+                {
+                    CameraSettingMode = CameraSettingMode.Menu;
+                }
+            });
+
+            ResetCameraSettingCommand = new Command(() =>
+            {
+                switch (CameraSettingMode)
+                {
+                    case CameraSettingMode.Camera:
+                        ChosenCamera = AvailableCameras.FirstOrDefault(c => !c.IsFront);
+                        break;
+                    case CameraSettingMode.ISO:
+                        break;
+                    case CameraSettingMode.Exposure:
+                        break;
+                    case CameraSettingMode.FrameDuration:
+                        break;
+                    case CameraSettingMode.WhiteBalance:
+                        break;
+                    case CameraSettingMode.Flash:
+                        break;
+                    case CameraSettingMode.Menu:
+                        ChosenCamera = AvailableCameras.FirstOrDefault(c => !c.IsFront);
+                        break;
+                    default:
+                        throw new ArgumentOutOfRangeException();
+                }
+            });
+
             SwapSidesCommand = new Command(obj =>
             {
                 var forced = obj as bool?;
@@ -423,37 +571,38 @@ namespace CrossCam.ViewModel
                     WorkflowStage == WorkflowStage.Edits ||
                     forced.HasValue && forced.Value)
                 {
-                    IsCaptureLeftFirst = !IsCaptureLeftFirst;
-
                     var tempArray = LeftBitmap;
                     LeftBitmap = RightBitmap;
                     RightBitmap = tempArray;
 
-                    if (IsCameraVisible)
+                    if (WorkflowStage == WorkflowStage.Capture)
                     {
                         CameraColumn = CameraColumn == 0 ? 1 : 0;
                     }
 
-                    TriggerMovementHint();
+                    var tempCrop = Edits.InsideCrop;
+                    Edits.InsideCrop = Edits.OutsideCrop;
+                    Edits.OutsideCrop = tempCrop;
 
-                    var tempCrop = InsideCrop;
-                    InsideCrop = OutsideCrop;
-                    OutsideCrop = tempCrop;
+                    var tempRotate = Edits.LeftRotation;
+                    Edits.LeftRotation = Edits.RightRotation;
+                    Edits.RightRotation = tempRotate;
 
-                    var tempRotate = LeftRotation;
-                    LeftRotation = RightRotation;
-                    RightRotation = tempRotate;
+                    var tempKeystone = Edits.LeftKeystone;
+                    Edits.LeftKeystone = Edits.RightKeystone;
+                    Edits.RightKeystone = tempKeystone;
 
-                    var tempKeystone = LeftKeystone;
-                    LeftKeystone = RightKeystone;
-                    RightKeystone = tempKeystone;
+                    var tempZoom = Edits.LeftZoom;
+                    Edits.LeftZoom = Edits.RightZoom;
+                    Edits.RightZoom = tempZoom;
 
-                    var tempZoom = LeftZoom;
-                    LeftZoom = RightZoom;
-                    RightZoom = tempZoom;
+                    Edits.VerticalAlignment = -Edits.VerticalAlignment;
 
-                    Settings.IsCaptureLeftFirst = IsCaptureLeftFirst;
+                    Settings.IsCaptureLeftFirst = !Settings.IsCaptureLeftFirst;
+                    Settings.RaisePropertyChanged(nameof(Settings.IsCaptureLeftFirst));
                     PersistentStorage.Save(PersistentStorage.SETTINGS_KEY, Settings);
+
+                    TriggerMovementHint();
                 }
             });
 
@@ -465,6 +614,11 @@ namespace CrossCam.ViewModel
             SetManualAlignMode = new Command(mode =>
             {
                 ManualAlignMode = (ManualAlignMode) mode;
+            });
+
+            SetFovCorrectionMode = new Command(mode =>
+            {
+                FovCorrectionMode = (FovCorrectionMode) mode;
             });
 
             SetKeystoneMode = new Command(mode =>
@@ -496,58 +650,25 @@ namespace CrossCam.ViewModel
                                     canvas.Translate(-1f * LeftBitmap.Width, -1f * LeftBitmap.Height);
                                 }
 
-                                SKBitmap innerLeftBitmap;
-                                SKBitmap innerRightBitmap;
-                                if (IsCaptureLeftFirst)
-                                {
-                                    innerLeftBitmap = LeftBitmap;
-                                    if (_wasAlignmentWithHorizontalRun ||
-                                        _wasAlignmentWithoutHorizontalRun)
-                                    {
-                                        innerRightBitmap = _originalUnalignedBitmap;
-                                    }
-                                    else
-                                    {
-                                        innerRightBitmap = RightBitmap;
-                                    }
-                                }
-                                else
-                                {
-                                    innerRightBitmap = RightBitmap;
-                                    if (_wasAlignmentWithHorizontalRun ||
-                                        _wasAlignmentWithoutHorizontalRun)
-                                    {
-                                        innerLeftBitmap = _originalUnalignedBitmap;
-                                    }
-                                    else
-                                    {
-                                        innerLeftBitmap = LeftBitmap;
-                                    }
-                                }
-
-                                canvas.DrawBitmap(innerLeftBitmap, 0, 0);
+                                canvas.DrawBitmap(OriginalUnalignedLeft, 0, 0);
 
                                 await SaveSurfaceSnapshot(tempSurface);
 
                                 canvas.Clear();
 
-                                canvas.DrawBitmap(innerRightBitmap, 0, 0);
+                                canvas.DrawBitmap(OriginalUnalignedRight, 0, 0);
 
                                 await SaveSurfaceSnapshot(tempSurface);
                             }
                         }
 
-                        var finalImageWidth = DrawTool.CalculateJoinedCanvasWidthLessBorder(LeftBitmap, RightBitmap,
-                            LeftCrop + OutsideCrop, InsideCrop + RightCrop, InsideCrop + LeftCrop,
-                            RightCrop + OutsideCrop);
+                        var finalImageWidth = DrawTool.CalculateJoinedCanvasWidthLessBorder(LeftBitmap, RightBitmap, Edits);
                         var borderThickness = Settings.AddBorder
                             ? (int) (DrawTool.BORDER_CONVERSION_FACTOR * Settings.BorderWidthProportion *
                                      finalImageWidth)
                             : 0;
                         finalImageWidth += 3 * borderThickness;
-                        var finalImageHeight = DrawTool.CalculateCanvasHeightLessBorder(LeftBitmap, RightBitmap,
-                                                   TopCrop, BottomCrop,
-                                                   VerticalAlignment) +
+                        var finalImageHeight = DrawTool.CalculateCanvasHeightLessBorder(LeftBitmap, RightBitmap, Edits) +
                                                2 * borderThickness;
 
                         finalImageWidth = (int) (finalImageWidth * (Settings.ResolutionProportion / 100d));
@@ -573,15 +694,10 @@ namespace CrossCam.ViewModel
                                     canvas.Translate(-1f * finalImageWidth, -1f * finalImageHeight);
                                 }
 
-                                DrawTool.DrawImagesOnCanvas(canvas, LeftBitmap, RightBitmap,
-                                    Settings.BorderWidthProportion, Settings.AddBorder, Settings.BorderColor,
-                                    LeftCrop + OutsideCrop, InsideCrop + RightCrop, InsideCrop + LeftCrop,
-                                    RightCrop + OutsideCrop,
-                                    TopCrop, BottomCrop,
-                                    LeftRotation, RightRotation,
-                                    VerticalAlignment,
-                                    LeftZoom, RightZoom,
-                                    LeftKeystone, RightKeystone,
+                                DrawTool.DrawImagesOnCanvas(
+                                    canvas, LeftBitmap, RightBitmap, 
+                                    Settings,
+                                    Edits, 
                                     DrawMode.Cross);
 
                                 await SaveSurfaceSnapshot(tempSurface);
@@ -604,15 +720,10 @@ namespace CrossCam.ViewModel
                                     canvas.Translate(-1f * finalImageWidth, -1f * finalImageHeight);
                                 }
 
-                                DrawTool.DrawImagesOnCanvas(canvas, RightBitmap, LeftBitmap,
-                                    Settings.BorderWidthProportion, Settings.AddBorder, Settings.BorderColor,
-                                    InsideCrop + LeftCrop, RightCrop + OutsideCrop,
-                                    LeftCrop + OutsideCrop, InsideCrop + RightCrop, 
-                                    TopCrop, BottomCrop,
-                                    RightRotation, LeftRotation,
-                                    VerticalAlignment,
-                                    RightZoom, LeftZoom,
-                                    RightKeystone, LeftKeystone,
+                                DrawTool.DrawImagesOnCanvas(
+                                    canvas, LeftBitmap, RightBitmap, 
+                                    Settings, 
+                                    Edits, 
                                     DrawMode.Parallel);
 
                                 await SaveSurfaceSnapshot(tempSurface);
@@ -642,7 +753,7 @@ namespace CrossCam.ViewModel
                                     canvas.Translate(-1f * LeftBitmap.Width, -1f * LeftBitmap.Height);
                                 }
 
-                                canvas.DrawBitmap(IsCaptureLeftFirst ? LeftBitmap : RightBitmap, 0, 0);
+                                canvas.DrawBitmap(Settings.IsCaptureLeftFirst ? LeftBitmap : RightBitmap, 0, 0);
 
                                 await SaveSurfaceSnapshot(tempSurface);
                             }
@@ -654,8 +765,11 @@ namespace CrossCam.ViewModel
                     SaveFailFadeTrigger = !SaveFailFadeTrigger;
                     WorkflowStage = WorkflowStage.Final;
 
-                    await CoreMethods.DisplayAlert("Directory Not Found",
-                        "The save destination could not be found. Please choose another on the settings page.", "OK");
+                    await Device.InvokeOnMainThreadAsync(async () =>
+                    {
+                        await CoreMethods.DisplayAlert("Directory Not Found",
+                            "The save destination could not be found. Please choose another on the settings page.", "OK");
+                    });
 
                     return;
                 }
@@ -674,29 +788,143 @@ namespace CrossCam.ViewModel
 
             PromptForPermissionAndSendErrorEmailCommand = new Command(async () =>
             {
-                var sendReport = await CoreMethods.DisplayAlert("Oops",
-                    "Sorry, CrossCam did an error. Please send me an error report so I can fix it!", "Send", "Don't Send");
-                if (sendReport)
+                await Device.InvokeOnMainThreadAsync(async () =>
                 {
-                    var errorMessage = ErrorMessage + "\n" +
-                                       "\n" +
-                                       "Device Platform: " + DeviceInfo.Platform + "\n" +
-                                       "Device Manufacturer: " + DeviceInfo.Manufacturer + "\n" +
-                                       "Device Model: " + DeviceInfo.Model + "\n" +
-                                       "Device Width: " + Application.Current.MainPage.Width + "\n" +
-                                       "Device Height: " + Application.Current.MainPage.Height + "\n" +
-                                       "OS Version Number: " + DeviceInfo.Version + "\n" +
-                                       "OS Version String: " + DeviceInfo.VersionString + "\n" +
-                                       "App Version: " + CrossDeviceInfo.Current.AppVersion + "\n" +
-                                       "App Build: " + CrossDeviceInfo.Current.AppBuild + "\n" +
-                                       "Idiom: " + CrossDeviceInfo.Current.Idiom + " \n" +
-                                       "Settings: " + JsonConvert.SerializeObject(Settings);
-                    Device.OpenUri(new Uri("mailto:me@kra2008.com?subject=CrossCam%20error%20report&body=" +
-                                           HttpUtility.UrlEncode(errorMessage)));
-                }
+                    var sendReport = await CoreMethods.DisplayAlert("Oops",
+                        "Sorry, CrossCam did an error. Please send me an error report so I can fix it!", "Send", "Don't Send");
+                    if (sendReport)
+                    {
+                        var errorMessage = ErrorMessage + "\n" +
+                                           "\n" +
+                                           "Device Platform: " + DeviceInfo.Platform + "\n" +
+                                           "Device Manufacturer: " + DeviceInfo.Manufacturer + "\n" +
+                                           "Device Model: " + DeviceInfo.Model + "\n" +
+                                           "Device Width: " + Application.Current.MainPage.Width + "\n" +
+                                           "Device Height: " + Application.Current.MainPage.Height + "\n" +
+                                           "OS Version Number: " + DeviceInfo.Version + "\n" +
+                                           "OS Version String: " + DeviceInfo.VersionString + "\n" +
+                                           "App Version: " + CrossDeviceInfo.Current.AppVersion + "\n" +
+                                           "App Build: " + CrossDeviceInfo.Current.AppBuild + "\n" +
+                                           "Idiom: " + CrossDeviceInfo.Current.Idiom + " \n" +
+                                           "Settings: " + JsonConvert.SerializeObject(Settings);
+                        Device.OpenUri(new Uri("mailto:me@kra2008.com?subject=CrossCam%20error%20report&body=" +
+                                               HttpUtility.UrlEncode(errorMessage)));
+                    }
 
-                ErrorMessage = null;
+                    ErrorMessage = null;
+                });
             });
+
+            PairCommand = new Command(async () =>
+            {
+                if (BluetoothOperator.PairStatus == PairStatus.Disconnected)
+                {
+                    if (!Settings.IsPairedPrimary.HasValue)
+                    {
+                        await Device.InvokeOnMainThreadAsync(async () =>
+                        {
+                            await CoreMethods.DisplayAlert("Pair Role Not Selected",
+                                "Please go to the Pairing page (via the Settings page) and choose a pairing role for this device before attempting to pair.",
+                                "Ok");
+                        });
+                    }
+                    else
+                    {
+                        if (Settings.IsPairedPrimary.Value)
+                        {
+                            await BluetoothOperator.SetUpPrimaryForPairing();
+                        }
+                        else
+                        {
+                            await BluetoothOperator.SetUpSecondaryForPairing();
+                        }
+                    }
+                }
+                else
+                {
+                    BluetoothOperator.Disconnect();
+                }
+            });
+        }
+
+        private void SettingsOnPropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+            switch (e.PropertyName)
+            {
+                case nameof(Settings.Mode):
+                case nameof(Settings.SaveForRedCyanAnaglyph):
+                case nameof(Settings.SaveForCrossView):
+                case nameof(Settings.SaveForGrayscaleAnaglyph):
+                case nameof(Settings.SaveForParallel):
+                    _isAlignmentInvalid = true;
+                    break;
+            }
+        }
+
+        private void AlignmentSettingsOnPropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+            _isAlignmentInvalid = true;
+        }
+
+        private void BluetoothOperatorCountdownTimerSyncComplete(object sender, EventArgs e)
+        {
+            if (!BluetoothOperator.IsPrimary)
+            {
+                IsHoldSteadySecondary = true;
+            }
+        }
+
+        private void BluetoothOperatorTransmissionComplete(object sender, EventArgs e)
+        {
+            WorkflowStage = WorkflowStage.Capture;
+        }
+
+        private void BluetoothOperatorTransmissionStarted(object sender, EventArgs e)
+        {
+            IsHoldSteadySecondary = false;
+            WorkflowStage = WorkflowStage.Transmitting;
+        }
+
+        private void BluetoothOperatorInitialSyncStarted(object sender, EventArgs e)
+        {
+            WorkflowStage = WorkflowStage.Syncing;
+        }
+
+        private void BluetoothOperatorInitialSyncCompleted(object sender, EventArgs e)
+        {
+            TriggerMovementHint();
+            WorkflowStage = WorkflowStage.Capture;
+        }
+
+        private void BluetoothOperatorOnDisconnected(object sender, EventArgs e)
+        {
+            if (WorkflowStage == WorkflowStage.Syncing)
+            {
+                WorkflowStage = WorkflowStage.Capture;
+            }
+            RaisePropertyChanged(nameof(ShouldLeftCaptureBeVisible));
+            RaisePropertyChanged(nameof(ShouldCenterCaptureBeVisible));
+            RaisePropertyChanged(nameof(ShouldRightCaptureBeVisible));
+            RaisePropertyChanged(nameof(ShouldLineGuidesBeVisible));
+            RaisePropertyChanged(nameof(ShouldPairPreviewBeVisible));
+            RaisePropertyChanged(nameof(ShouldDonutGuideBeVisible));
+            RaisePropertyChanged(nameof(ShouldLeftLoadBeVisible));
+            RaisePropertyChanged(nameof(ShouldCenterLoadBeVisible));
+            RaisePropertyChanged(nameof(ShouldRightLoadBeVisible));
+        }
+
+        private void BluetoothOperatorOnConnected(object sender, EventArgs e)
+        {
+            ShowFovPreparationPopup();
+            RaisePropertyChanged(nameof(ShouldLeftCaptureBeVisible));
+            RaisePropertyChanged(nameof(ShouldCenterCaptureBeVisible));
+            RaisePropertyChanged(nameof(ShouldRightCaptureBeVisible));
+            RaisePropertyChanged(nameof(ShouldLineGuidesBeVisible));
+            RaisePropertyChanged(nameof(ShouldPairPreviewBeVisible));
+            RaisePropertyChanged(nameof(ShouldDonutGuideBeVisible));
+            RaisePropertyChanged(nameof(ShouldLeftLoadBeVisible));
+            RaisePropertyChanged(nameof(ShouldCenterLoadBeVisible));
+            RaisePropertyChanged(nameof(ShouldRightLoadBeVisible));
         }
 
         public bool BackButtonPressed()
@@ -808,6 +1036,9 @@ namespace CrossCam.ViewModel
             RaisePropertyChanged(nameof(SavedSuccessMessage));
             RaisePropertyChanged(nameof(CanvasRectangle));
             RaisePropertyChanged(nameof(CanvasRectangleFlags));
+            RaisePropertyChanged(nameof(ShouldLeftPairBeVisible));
+            RaisePropertyChanged(nameof(ShouldRightPairBeVisible));
+            RaisePropertyChanged(nameof(CameraViewModel));
             RaisePropertyChanged(nameof(Settings)); // this doesn't cause reevaluation for above stuff (but I'd like it to), but it does trigger redraw of canvas and evaluation of whether to run auto alignment
             Settings.RaisePropertyChanged();
 
@@ -818,61 +1049,93 @@ namespace CrossCam.ViewModel
                 WasCaptureCross = !WasCaptureCross;
             }
 
+            BluetoothOperator.CurrentCoreMethods = CoreMethods;
+            BluetoothOperator.ErrorOccurred += BluetoothOperatorOnErrorOccurred;
+
             await Task.Delay(100);
             await EvaluateAndShowWelcomePopup();
         }
 
-        private void TriggerMovementHint()
+        private async void ShowFovPreparationPopup()
         {
-            if (LeftBitmap != null &&
-                RightBitmap == null)
+            if (!Settings.IsFovCorrectionSet &&
+                Settings.IsPairedPrimary.HasValue &&
+                Settings.IsPairedPrimary.Value &&
+                BluetoothOperator.PairStatus == PairStatus.Connected)
             {
-                if (Settings.Mode != DrawMode.Parallel)
+                await Device.InvokeOnMainThreadAsync(async () =>
                 {
-                    MoveLeftTrigger = !MoveLeftTrigger;
-                }
-                else
-                {
-                    MoveRightTrigger = !MoveRightTrigger;
-                }
+                    await CoreMethods.DisplayAlert("Field of View Correction",
+                        "Different device models can have different fields of view. CrossCam will help you correct for this after you do your first capture. Frame up and capture something with distinctive points near the top and bottom of the frame, making sure the points are visible on both devices.",
+                        "OK");
+                });
+            }
+        }
+
+        private void BluetoothOperatorOnErrorOccurred(object sender, ErrorEventArgs e)
+        {
+            _secondaryErrorOccurred = true;
+        }
+
+        private void BluetoothOperatorOnCapturedImageReceived(object sender, byte[] e)
+        {
+            PreviewFrame = null;
+            var bitmap = DecodeBitmapAndCorrectOrientation(e);
+            if (Settings.IsCaptureLeftFirst)
+            {
+                SetRightBitmap(bitmap, false, true);
+            }
+            else
+            {
+                SetLeftBitmap(bitmap, false, true);
             }
 
-            if (LeftBitmap == null &&
-                RightBitmap != null)
-            {
+            BluetoothOperator.SendTransmissionComplete();
+        }
 
-                if (Settings.Mode != DrawMode.Parallel)
-                {
-                    MoveRightTrigger = !MoveRightTrigger;
-                }
-                else
-                {
-                    MoveLeftTrigger = !MoveLeftTrigger;
-                }
+        private void TriggerMovementHint()
+        {
+            if ((LeftBitmap == null && RightBitmap != null) ||
+                (LeftBitmap != null && RightBitmap == null) ||
+                (BluetoothOperator.PairStatus == PairStatus.Connected &&
+                RightBitmap == null &&
+                LeftBitmap == null))
+            {
+                MoveHintTrigger = !MoveHintTrigger;
             }
         }
 
         private async Task DrawAnaglyph(bool grayscale)
         {
-            var canvasWidth = LeftBitmap.Width - LeftCrop - InsideCrop - OutsideCrop - RightCrop;
-            var canvasHeight = DrawTool.CalculateCanvasHeightLessBorder(LeftBitmap, RightBitmap,
-                TopCrop, BottomCrop, VerticalAlignment);
+            var baseWidth = Math.Min(LeftBitmap.Width, RightBitmap.Width);
+            var canvasWidth = (int)(baseWidth - baseWidth * (Edits.LeftCrop + Edits.InsideCrop + Edits.OutsideCrop + Edits.RightCrop));
+            var canvasHeight = DrawTool.CalculateCanvasHeightLessBorder(LeftBitmap, RightBitmap, Edits);
             using (var tempSurface =
                 SKSurface.Create(new SKImageInfo(canvasWidth, canvasHeight)))
             {
                 var canvas = tempSurface.Canvas;
                 canvas.Clear(SKColor.Empty);
 
-                DrawTool.DrawImagesOnCanvas(canvas, LeftBitmap, RightBitmap,
-                    Settings.BorderWidthProportion, Settings.AddBorder, Settings.BorderColor,
-                    LeftCrop + OutsideCrop, InsideCrop + RightCrop, InsideCrop + LeftCrop,
-                    RightCrop + OutsideCrop,
-                    TopCrop, BottomCrop, LeftRotation, RightRotation,
-                    VerticalAlignment, LeftZoom, RightZoom,
-                    LeftKeystone, RightKeystone, grayscale ? DrawMode.GrayscaleRedCyanAnaglyph : DrawMode.RedCyanAnaglyph);
+                DrawTool.DrawImagesOnCanvas(
+                    canvas, LeftBitmap, RightBitmap, 
+                    Settings, 
+                    Edits,
+                    grayscale ? DrawMode.GrayscaleRedCyanAnaglyph : DrawMode.RedCyanAnaglyph);
 
                 await SaveSurfaceSnapshot(tempSurface);
             }
+        }
+
+        protected override void ViewIsDisappearing(object sender, EventArgs e)
+        {
+            BluetoothOperator.ErrorOccurred -= BluetoothOperatorOnErrorOccurred;
+
+            base.ViewIsDisappearing(sender, e);
+        }
+
+        private void BluetoothOperatorOnPreviewFrameReceived(object sender, byte[] bytes)
+        {
+            PreviewFrame = bytes;
         }
 
         private async Task SaveSurfaceSnapshot(SKSurface surface)
@@ -888,18 +1151,23 @@ namespace CrossCam.ViewModel
 
         private async Task<string> OpenLoadingPopup()
         {
-            return await CoreMethods.DisplayActionSheet("Choose an action:", CANCEL, null,
-                FULL_IMAGE, SINGLE_SIDE);
+            return await Device.InvokeOnMainThreadAsync(async () => await CoreMethods.DisplayActionSheet("Choose an action:", CANCEL, null,
+                FULL_IMAGE, SINGLE_SIDE));
         }
 
         private async Task LoadFullStereoImage(byte[] image)
         {
             try
             {
-                var leftHalf = await Task.Run(() => GetHalfOfFullStereoImage(image, true, Settings.ClipBorderOnLoad));
-                SetLeftBitmap(leftHalf, false);
-                var rightHalf = await Task.Run(() => GetHalfOfFullStereoImage(image, false, Settings.ClipBorderOnLoad));
-                SetRightBitmap(rightHalf, false);
+                var leftHalf = await Task.Run(() => GetHalfOfFullStereoImage(image, true, Settings.ClipBorderOnNextLoad));
+                SetLeftBitmap(leftHalf, false, true);
+                var rightHalf = await Task.Run(() => GetHalfOfFullStereoImage(image, false, Settings.ClipBorderOnNextLoad));
+                SetRightBitmap(rightHalf, false, true);
+                if (Settings.ClipBorderOnNextLoad)
+                {
+                    Settings.ClipBorderOnNextLoad = false;
+                    PersistentStorage.Save(PersistentStorage.SETTINGS_KEY, Settings);
+                }
             }
             catch (Exception e)
             {
@@ -907,27 +1175,27 @@ namespace CrossCam.ViewModel
             }
         }
 
-        private async Task LeftBytesCaptured(byte[] capturedBytes)
+        private async Task LeftBytesCaptured(byte[] capturedBytes, bool withMovementAndStep = true)
         {
             var bitmap = await Task.Run(() => DecodeBitmapAndCorrectOrientation(capturedBytes));
-            SetLeftBitmap(bitmap);
+            SetLeftBitmap(bitmap, withMovementAndStep, withMovementAndStep);
         }
 
-        private async Task RightBytesCaptured(byte[] capturedBytes)
+        private async Task RightBytesCaptured(byte[] capturedBytes, bool withMovementAndStep = true)
         {
             var bitmap = await Task.Run(() => DecodeBitmapAndCorrectOrientation(capturedBytes));
-            SetRightBitmap(bitmap);
+            SetRightBitmap(bitmap, withMovementAndStep, withMovementAndStep);
         }
 
         private async void AutoAlign()
         {
-            if (Settings.IsAutomaticAlignmentOn &&
+            if (Settings.AlignmentSettings.IsAutomaticAlignmentOn &&
                 LeftBitmap != null &&
                 RightBitmap != null &&
-                !_wasAlignmentWithHorizontalRun &&
-                !_wasAlignmentWithoutHorizontalRun &&
+                _isAlignmentInvalid && 
                 0 == Interlocked.Exchange(ref _alignmentThreadLock, 1))
             {
+                _isAlignmentInvalid = false;
                 WorkflowStage = WorkflowStage.AutomaticAlign;
 
                 var openCv = DependencyService.Get<IOpenCv>();
@@ -935,19 +1203,61 @@ namespace CrossCam.ViewModel
                 AlignedResult alignedResult = null;
                 if (openCv.IsOpenCvSupported())
                 {
+                    var firstImage = Settings.IsCaptureLeftFirst ? LeftBitmap : RightBitmap;
+                    var secondImage = Settings.IsCaptureLeftFirst ? RightBitmap : LeftBitmap;
                     try
                     {
                         await Task.Run(() =>
                         {
-                            alignedResult = openCv.CreateAlignedSecondImage(
-                                IsCaptureLeftFirst ? LeftBitmap : RightBitmap,
-                                IsCaptureLeftFirst ? RightBitmap : LeftBitmap,
-                                Settings.AlignmentDownsizePercentage2,
-                                Settings.AlignmentIterations2,
-                                Settings.AlignmentEpsilonLevel2,
-                                Settings.AlignmentEccThresholdPercentage2,
-                                Settings.AlignmentPyramidLayers2,
-                                !Settings.SaveForRedCyanAnaglyph && !Settings.AlignHorizontallySideBySide);
+                            var discardTransX = !Settings.SaveForRedCyanAnaglyph &&
+                                                !Settings.SaveForGrayscaleAnaglyph &&
+                                                Settings.Mode != DrawMode.RedCyanAnaglyph &&
+                                                Settings.Mode != DrawMode.GrayscaleRedCyanAnaglyph &&
+                                                !Settings.AlignmentSettings.AlignHorizontallySideBySide;
+                            if ((WasCapturePaired &&
+                                (Settings.FovPrimaryCorrection > 0 ||
+                                Settings.FovSecondaryCorrection > 0)) || 
+                                Settings.AlignmentSettings.UseKeypoints)
+                            {
+                                var needsFallback = false;
+                                try
+                                {
+                                    alignedResult = openCv.CreateAlignedSecondImageKeypoints(
+                                        firstImage, 
+                                        secondImage, 
+                                        discardTransX,
+                                        Settings.AlignmentSettings,
+                                        (Settings.IsCaptureLeftFirst && 
+                                        Settings.Mode != DrawMode.Parallel) ||
+                                        (!Settings.IsCaptureLeftFirst &&
+                                         Settings.Mode == DrawMode.Parallel));
+                                    if (alignedResult == null)
+                                    {
+                                        needsFallback = true;
+                                    }
+                                }
+                                catch (Exception e)
+                                {
+                                    ErrorMessage = e.ToString();
+                                    needsFallback = true;
+                                }
+                                if (needsFallback)
+                                {
+                                    alignedResult = openCv.CreateAlignedSecondImageEcc(
+                                        firstImage,
+                                        secondImage,
+                                        discardTransX,
+                                        Settings.AlignmentSettings);
+                                }
+                            }
+                            else
+                            {
+                                alignedResult = openCv.CreateAlignedSecondImageEcc(
+                                    firstImage,
+                                    secondImage,
+                                    discardTransX,
+                                    Settings.AlignmentSettings);
+                            }
                         });
                     }
                     catch (Exception e)
@@ -957,99 +1267,113 @@ namespace CrossCam.ViewModel
 
                     if (alignedResult != null)
                     {
-                        _wasAlignmentWithHorizontalRun = Settings.SaveForRedCyanAnaglyph || Settings.AlignHorizontallySideBySide;
-                        _wasAlignmentWithoutHorizontalRun = !Settings.SaveForRedCyanAnaglyph && !Settings.AlignHorizontallySideBySide;
-
-                        var topLeft = alignedResult.TransformMatrix.MapPoint(0, 0);
-                        var topRight = alignedResult.TransformMatrix.MapPoint(alignedResult.AlignedBitmap.Width - 1, 0);
-                        var bottomRight = alignedResult.TransformMatrix.MapPoint(alignedResult.AlignedBitmap.Width - 1,
-                            alignedResult.AlignedBitmap.Height - 1);
-                        var bottomLeft =
-                            alignedResult.TransformMatrix.MapPoint(0, alignedResult.AlignedBitmap.Height - 1);
-
-                        //this actually cuts off a bit more than it has to, but it is inconsequential for small deviations
-                        //(it cuts at the corner of the original image, not at the point where the original border crosses the new border)
-
-                        if (topLeft.Y > topRight.Y)
+                        if (Settings.AlignmentSettings.UseKeypoints && 
+                            Settings.AlignmentSettings.DrawKeypointMatches &&
+                            alignedResult.DrawnDirtyMatches != null)
                         {
-                            if (topLeft.Y > 0)
+                            var countPoint = new SKPoint(0, alignedResult.DrawnDirtyMatches.Height / 16f);
+                            var countPaint = new SKPaint
                             {
-                                TopCrop = (int) topLeft.Y;
+                                Color = SKColor.Parse("#00ff00"),
+                                TextSize = alignedResult.DrawnDirtyMatches.Height / 16f
+                            };
+                            using (var tempSurface =
+                                SKSurface.Create(new SKImageInfo(alignedResult.DrawnDirtyMatches.Width, alignedResult.DrawnDirtyMatches.Height)))
+                            {
+                                var canvas = tempSurface.Canvas;
+                                canvas.Clear();
+                                if (Device.RuntimePlatform == Device.iOS && IsViewInverted)
+                                {
+                                    canvas.RotateDegrees(180);
+                                    canvas.Translate(-1f * alignedResult.DrawnDirtyMatches.Width, -1f * alignedResult.DrawnDirtyMatches.Height);
+                                }
+
+                                canvas.DrawBitmap(alignedResult.DrawnDirtyMatches, 0, 0);
+
+                                canvas.DrawText(
+                                    alignedResult.DirtyMatchesCount.ToString(),
+                                    countPoint, 
+                                    countPaint);
+
+                                await SaveSurfaceSnapshot(tempSurface);
                             }
+
+                            if ((Settings.AlignmentSettings.DiscardOutliersBySlope || Settings.AlignmentSettings.DiscardOutliersByDistance) &&
+                                alignedResult.DrawnCleanMatches != null)
+                            {
+                                using (var tempSurface =
+                                    SKSurface.Create(new SKImageInfo(alignedResult.DrawnCleanMatches.Width, alignedResult.DrawnCleanMatches.Height)))
+                                {
+                                    var canvas = tempSurface.Canvas;
+                                    canvas.Clear();
+                                    if (Device.RuntimePlatform == Device.iOS && IsViewInverted)
+                                    {
+                                        canvas.RotateDegrees(180);
+                                        canvas.Translate(-1f * alignedResult.DrawnCleanMatches.Width, -1f * alignedResult.DrawnCleanMatches.Height);
+                                    }
+
+                                    canvas.DrawBitmap(alignedResult.DrawnCleanMatches, 0, 0);
+                                    canvas.DrawText(
+                                        alignedResult.CleanMatchesCount.ToString(),
+                                        countPoint,
+                                        countPaint);
+
+                                    await SaveSurfaceSnapshot(tempSurface);
+                                }
+                            }
+                        }
+
+                        var edits2 = GetBorderEdits(alignedResult.TransformMatrix2, alignedResult.AlignedBitmap2);
+                        if (alignedResult.AlignedBitmap1 != null)
+                        {
+                            var edits1 = GetBorderEdits(alignedResult.TransformMatrix1, alignedResult.AlignedBitmap1);
+                            Edits.InsideCrop = Math.Max(edits1.InsideCrop, edits2.InsideCrop);
+                            Edits.OutsideCrop = Math.Max(edits1.OutsideCrop, edits2.OutsideCrop);
+                            Edits.LeftCrop = Math.Max(edits1.LeftCrop, edits2.LeftCrop);
+                            Edits.RightCrop = Math.Max(edits1.RightCrop, edits2.RightCrop);
+                            Edits.TopCrop = Math.Max(edits1.TopCrop, edits2.TopCrop);
+                            Edits.BottomCrop = Math.Max(edits1.BottomCrop, edits2.BottomCrop);
                         }
                         else
                         {
-                            if (topRight.Y > 0)
-                            {
-                                TopCrop = (int) topRight.Y;
-                            }
+                            Edits.InsideCrop = edits2.InsideCrop;
+                            Edits.OutsideCrop = edits2.OutsideCrop;
+                            Edits.LeftCrop = edits2.LeftCrop;
+                            Edits.RightCrop = edits2.RightCrop;
+                            Edits.TopCrop = edits2.TopCrop;
+                            Edits.BottomCrop = edits2.BottomCrop;
                         }
 
-                        var maxY = alignedResult.AlignedBitmap.Height - 1;
-                        if (bottomLeft.Y < bottomRight.Y)
+
+                        OriginalUnalignedRight = RightBitmap;
+                        OriginalUnalignedLeft = LeftBitmap;
+
+                        if (Settings.IsCaptureLeftFirst)
                         {
-                            if (bottomLeft.Y < maxY)
+                            if (alignedResult.AlignedBitmap1 != null)
                             {
-                                BottomCrop = (int) (maxY - bottomLeft.Y);
+                                SetLeftBitmap(alignedResult.AlignedBitmap1, false, true);
                             }
+                            SetRightBitmap(alignedResult.AlignedBitmap2, false, true);
                         }
                         else
                         {
-                            if (bottomRight.Y < maxY)
+                            if (alignedResult.AlignedBitmap1 != null)
                             {
-                                BottomCrop = (int) (maxY - bottomRight.Y);
+                                SetRightBitmap(alignedResult.AlignedBitmap1, false, true);
                             }
-                        }
-
-                        if (topLeft.X > bottomLeft.X)
-                        {
-                            if (topLeft.X > 0)
-                            {
-                                LeftCrop = (int) topLeft.X;
-                            }
-                        }
-                        else
-                        {
-                            if (bottomLeft.X > 0)
-                            {
-                                LeftCrop = (int) bottomLeft.X;
-                            }
-                        }
-
-                        var maxX = alignedResult.AlignedBitmap.Width - 1;
-                        if (topRight.X < bottomRight.X)
-                        {
-                            if (topRight.X < maxX)
-                            {
-                                RightCrop = (int) (maxX - topRight.X);
-                            }
-                        }
-                        else
-                        {
-                            if (bottomRight.X < maxX)
-                            {
-                                RightCrop = (int) (maxX - bottomRight.X);
-                            }
-                        }
-
-                        if (IsCaptureLeftFirst)
-                        {
-                            _originalUnalignedBitmap = RightBitmap;
-                            SetRightBitmap(alignedResult.AlignedBitmap);
-                        }
-                        else
-                        {
-                            _originalUnalignedBitmap = LeftBitmap;
-                            SetLeftBitmap(alignedResult.AlignedBitmap);
+                            SetLeftBitmap(alignedResult.AlignedBitmap2, false, true);
                         }
                     }
                     else
                     {
+                        ApplyFovCorrectionToZoom();
                         AlignmentFailFadeTrigger = !AlignmentFailFadeTrigger;
                     }
                 }
                 else
                 {
+                    ApplyFovCorrectionToZoom();
                     AutomaticAlignmentNotSupportedTrigger = !AutomaticAlignmentNotSupportedTrigger;
                 }
 
@@ -1059,66 +1383,349 @@ namespace CrossCam.ViewModel
             }
         }
 
-        private void SetLeftBitmap(SKBitmap bitmap, bool withMovementTrigger = true)
+        private Edits GetBorderEdits(SKMatrix matrix, SKBitmap bitmap)
+        {
+            var edits = new Edits(Settings);
+
+            var topLeft = matrix.MapPoint(0, 0);
+            var topRight = matrix.MapPoint(bitmap.Width - 1, 0);
+            var bottomRight = matrix.MapPoint(bitmap.Width - 1, bitmap.Height - 1);
+            var bottomLeft = matrix.MapPoint(0, bitmap.Height - 1);
+
+            //this actually cuts off a bit more than it has to, but it is inconsequential for small deviations
+            //(it cuts at the corner of the original image, not at the point where the original border crosses the new border)
+
+            if (topLeft.Y > topRight.Y)
+            {
+                if (topLeft.Y > 0)
+                {
+                    edits.TopCrop = topLeft.Y / bitmap.Height;
+                }
+            }
+            else
+            {
+                if (topRight.Y > 0)
+                {
+                    edits.TopCrop = topRight.Y / bitmap.Height;
+                }
+            }
+
+            var maxY = bitmap.Height - 1;
+            if (bottomLeft.Y < bottomRight.Y)
+            {
+                if (bottomLeft.Y < maxY)
+                {
+                    edits.BottomCrop = (maxY - bottomLeft.Y) / bitmap.Height;
+                }
+            }
+            else
+            {
+                if (bottomRight.Y < maxY)
+                {
+                    edits.BottomCrop = (maxY - bottomRight.Y) / bitmap.Height;
+                }
+            }
+
+            if (topLeft.X > bottomLeft.X)
+            {
+                if (topLeft.X > 0)
+                {
+                    edits.LeftCrop = topLeft.X / bitmap.Width;
+                }
+            }
+            else
+            {
+                if (bottomLeft.X > 0)
+                {
+                    edits.LeftCrop = bottomLeft.X / bitmap.Width;
+                }
+            }
+
+            var maxX = bitmap.Width - 1;
+            if (topRight.X < bottomRight.X)
+            {
+                if (topRight.X < maxX)
+                {
+                    edits.RightCrop = (maxX - topRight.X) / bitmap.Width;
+                }
+            }
+            else
+            {
+                if (bottomRight.X < maxX)
+                {
+                    edits.RightCrop = (maxX - bottomRight.X) / bitmap.Width;
+                }
+            }
+
+            return edits;
+        }
+
+        private void ApplyFovCorrectionToZoom()
+        {
+            if (BluetoothOperator.IsPrimary &&
+                BluetoothOperator.PairStatus == PairStatus.Connected)
+            {
+                if (Settings.IsCaptureLeftFirst)
+                {
+                    Edits.FovLeftCorrection = Settings.FovPrimaryCorrection;
+                    Edits.FovRightCorrection = Settings.FovSecondaryCorrection;
+                }
+                else
+                {
+                    Edits.FovRightCorrection = Settings.FovPrimaryCorrection;
+                    Edits.FovLeftCorrection = Settings.FovSecondaryCorrection;
+                }
+            }
+        }
+
+        public void SetLeftBitmap(SKBitmap bitmap, bool withMovementTrigger, bool stepForward)
         {
             if (bitmap == null) return;
 
             LeftBitmap = bitmap;
             WasCapturePortrait = LeftBitmap.Width < LeftBitmap.Height;
 
-            if (RightBitmap == null)
+            if (stepForward)
             {
-                if (withMovementTrigger)
+                if (RightBitmap == null)
                 {
-                    TriggerMovementHint();
+                    if (withMovementTrigger)
+                    {
+                        TriggerMovementHint();
+                    }
+                    CameraColumn = 1;
+                    WorkflowStage = WorkflowStage.Capture;
                 }
-                CameraColumn = 1;
-                WorkflowStage = WorkflowStage.Capture;
-            }
-            else
-            {
-                WasCaptureCross = Settings.Mode != DrawMode.Parallel;
-                CameraColumn = IsCaptureLeftFirst ? 0 : 1;
-                IsCameraVisible = false;
-                WorkflowStage = WorkflowStage.Final;
-                SetMaxEdits(bitmap);
-                AutoAlign();
+                else
+                {
+                    if (WasCapturePaired &&
+                        BluetoothOperator.IsPrimary)
+                    {
+                        if (Settings.IsFovCorrectionSet)
+                        {
+                            CheckAndCorrectResolutionFovAndAspectDifferences();
+                        }
+                        else
+                        {
+                            WorkflowStage = WorkflowStage.FovCorrection;
+                            ShowFovDialog();
+                            return;
+                        }
+                    }
+                    WasCaptureCross = Settings.Mode != DrawMode.Parallel;
+                    CameraColumn = Settings.IsCaptureLeftFirst ? 0 : 1;
+                    WorkflowStage = WorkflowStage.Final;
+                    AutoAlign();
+                }
             }
         }
 
-        private void SetRightBitmap(SKBitmap bitmap, bool withMovementTrigger = true)
+        public void SetRightBitmap(SKBitmap bitmap, bool withMovementTrigger, bool stepForward)
         {
             if (bitmap == null) return;
 
             RightBitmap = bitmap;
             WasCapturePortrait = RightBitmap.Width < RightBitmap.Height;
 
-            if (LeftBitmap == null)
+            if (stepForward)
             {
-                if (withMovementTrigger)
+                if (LeftBitmap == null)
                 {
-                    TriggerMovementHint();
+                    if (withMovementTrigger)
+                    {
+                        TriggerMovementHint();
+                    }
+                    CameraColumn = 0;
+                    WorkflowStage = WorkflowStage.Capture;
                 }
-                CameraColumn = 0;
-                WorkflowStage = WorkflowStage.Capture;
-            }
-            else
-            {
-                WasCaptureCross = Settings.Mode != DrawMode.Parallel;
-                CameraColumn = IsCaptureLeftFirst ? 0 : 1;
-                IsCameraVisible = false;
-                WorkflowStage = WorkflowStage.Final;
-                SetMaxEdits(bitmap);
-                AutoAlign();
+                else
+                {
+                    if (WasCapturePaired &&
+                        BluetoothOperator.IsPrimary)
+                    {
+                        if (Settings.IsFovCorrectionSet)
+                        {
+                            CheckAndCorrectResolutionFovAndAspectDifferences();
+                        }
+                        else
+                        {
+                            WorkflowStage = WorkflowStage.FovCorrection;
+                            ShowFovDialog();
+                            return;
+                        }
+                    }
+                    WasCaptureCross = Settings.Mode != DrawMode.Parallel;
+                    CameraColumn = Settings.IsCaptureLeftFirst ? 0 : 1;
+                    WorkflowStage = WorkflowStage.Final;
+                    AutoAlign();
+                }
             }
         }
 
-        private void SetMaxEdits(SKBitmap bitmap)
+        private void CheckAndCorrectResolutionFovAndAspectDifferences()
         {
-            SideCropMax = bitmap.Width / 2;
-            TopOrBottomCropMax = bitmap.Height / 2;
-            VerticalAlignmentMax = bitmap.Height / 8;
-            ZoomMax = bitmap.Height / 12;
+            if (!_isFovCorrected)
+            {
+                _isFovCorrected = true;
+                float leftRatio;
+                float rightRatio;
+                if (LeftBitmap.Width < LeftBitmap.Height) //portrait
+                {
+                    leftRatio = LeftBitmap.Height / (1f * LeftBitmap.Width);
+                    rightRatio = RightBitmap.Height / (1f * RightBitmap.Width);
+                }
+                else //landscape
+                {
+                    leftRatio = LeftBitmap.Width / (1f * LeftBitmap.Height);
+                    rightRatio = RightBitmap.Width / (1f * RightBitmap.Height);
+                }
+                if (leftRatio != rightRatio)
+                {
+                    if (LeftBitmap.Height > LeftBitmap.Width) // portrait
+                    {
+                        if (leftRatio < rightRatio) // right is taller
+                        {
+                            var newWidth = (int)(LeftBitmap.Height / rightRatio);
+                            var corrected = new SKBitmap(newWidth, LeftBitmap.Height);
+                            using (var surface = new SKCanvas(corrected))
+                            {
+                                surface.DrawBitmap(
+                                    LeftBitmap,
+                                    new SKRect((LeftBitmap.Width - newWidth) / 2f, 0, LeftBitmap.Width - (LeftBitmap.Width - newWidth) / 2f, LeftBitmap.Height),
+                                    new SKRect(0, 0, newWidth, LeftBitmap.Height));
+                            }
+                            LeftBitmap = corrected;
+                        }
+                        else
+                        {
+                            var newWidth = (int)(RightBitmap.Height / leftRatio);
+                            var corrected = new SKBitmap(newWidth, RightBitmap.Height);
+                            using (var surface = new SKCanvas(corrected))
+                            {
+                                surface.DrawBitmap(
+                                    RightBitmap,
+                                    new SKRect((RightBitmap.Width - newWidth) / 2f, 0, RightBitmap.Width - (RightBitmap.Width - newWidth) / 2f, RightBitmap.Height),
+                                    new SKRect(0, 0, newWidth, RightBitmap.Height));
+                            }
+                            RightBitmap = corrected;
+                        }
+                    }
+                    else //landscape
+                    {
+                        if (leftRatio > rightRatio) // left is wider
+                        {
+                            var newHeight = (int)(RightBitmap.Width * leftRatio);
+                            var corrected = new SKBitmap(RightBitmap.Width, newHeight);
+                            using (var surface = new SKCanvas(corrected))
+                            {
+                                surface.DrawBitmap(
+                                    RightBitmap,
+                                    new SKRect(0, (RightBitmap.Height - newHeight) / 2f, RightBitmap.Width, RightBitmap.Height - (RightBitmap.Height - newHeight) / 2f),
+                                    new SKRect(0, 0, RightBitmap.Width, newHeight));
+                            }
+                            RightBitmap = corrected;
+                        }
+                        else
+                        {
+                            var newHeight = (int)(LeftBitmap.Width * rightRatio);
+                            var corrected = new SKBitmap(LeftBitmap.Width, newHeight);
+                            using (var surface = new SKCanvas(corrected))
+                            {
+                                surface.DrawBitmap(
+                                    LeftBitmap,
+                                    new SKRect(0, (LeftBitmap.Height - newHeight) / 2f, LeftBitmap.Width, LeftBitmap.Height - (LeftBitmap.Height - newHeight) / 2f),
+                                    new SKRect(0, 0, LeftBitmap.Width, newHeight));
+                            }
+                            LeftBitmap = corrected;
+                        }
+                    }
+                }
+
+                if (Settings.IsFovCorrectionSet &&
+                    (Settings.FovPrimaryCorrection != 0 ||
+                     Settings.FovSecondaryCorrection != 0))
+                {
+                    double zoomAmount;
+                    if (Settings.FovPrimaryCorrection > 0)
+                    {
+                        zoomAmount = Settings.FovPrimaryCorrection + 1;
+                        if (Settings.IsCaptureLeftFirst)
+                        {
+                            LeftBitmap = ZoomBitmap(zoomAmount, LeftBitmap);
+                        }
+                        else
+                        {
+                            RightBitmap = ZoomBitmap(zoomAmount, RightBitmap);
+                        }
+                    }
+                    else
+                    {
+                        zoomAmount = Settings.FovSecondaryCorrection + 1;
+                        if (Settings.IsCaptureLeftFirst)
+                        {
+                            RightBitmap = ZoomBitmap(zoomAmount, RightBitmap);
+                        }
+                        else
+                        {
+                            LeftBitmap = ZoomBitmap(zoomAmount, LeftBitmap);
+                        }
+                    }
+                }
+
+
+                if (LeftBitmap.Width < RightBitmap.Width)
+                {
+                    var corrected = new SKBitmap(LeftBitmap.Width, LeftBitmap.Height);
+                    using (var surface = new SKCanvas(corrected))
+                    {
+                        surface.DrawBitmap(
+                            RightBitmap,
+                            new SKRect(0, 0, LeftBitmap.Width, LeftBitmap.Height));
+                    }
+                    RightBitmap = corrected;
+                }
+                else if (RightBitmap.Width < LeftBitmap.Width)
+                {
+                    var corrected = new SKBitmap(RightBitmap.Width, RightBitmap.Height);
+                    using (var surface = new SKCanvas(corrected))
+                    {
+                        surface.DrawBitmap(
+                            LeftBitmap,
+                            new SKRect(0, 0, RightBitmap.Width, RightBitmap.Height));
+                    }
+                    LeftBitmap = corrected;
+                }
+            }
+        }
+
+        private static SKBitmap ZoomBitmap(double zoom, SKBitmap originalBitmap)
+        {
+            var zoomedWidth = originalBitmap.Width * zoom;
+            var zoomedHeight = originalBitmap.Height * zoom;
+
+            var newX = (originalBitmap.Width - zoomedWidth) / 2;
+            var newY = (originalBitmap.Height - zoomedHeight) / 2f;
+
+            var corrected = new SKBitmap(originalBitmap.Width, originalBitmap.Height);
+            using (var surface = new SKCanvas(corrected))
+            {
+                surface.DrawBitmap(originalBitmap,
+                    new SKRect(0, 0, originalBitmap.Width, originalBitmap.Height),
+                    new SKRect(
+                        (float)newX,
+                        (float)newY,
+                        (float)(newX + zoomedWidth),
+                        (float)(newY + zoomedHeight)));
+            }
+            return corrected;
+        }
+
+        private async void ShowFovDialog()
+        {
+            await Device.InvokeOnMainThreadAsync(async () =>
+            {
+                await CoreMethods.DisplayAlert("Field of View Correction", "To correct for field of view differences, zoom and slide the pictures so the distinctive points line up between the two photos. You can drag the white lines around to help you visualize the alignment. This correction will be applied to future previews. It will be saved but you can reset it on the Settings page. If you're using identical devices just save without adjusting.", "OK");
+            });
         }
 
         private static SKBitmap GetHalfOfFullStereoImage(byte[] bytes, bool wantLeft, bool clipBorder) 
@@ -1158,6 +1765,7 @@ namespace CrossCam.ViewModel
                     Math.Abs(topLeftColor - bottomRightColor) < BORDER_DIFF_THRESHOLD &&
                     Math.Abs(topRightColor - bottomLeftColor) < BORDER_DIFF_THRESHOLD)
                 {
+
                     for (var ii = startX; ii < startX + (endX - startX) / 2; ii++)
                     {
                         var color = original.GetPixel(ii, endY / 2);
@@ -1226,36 +1834,23 @@ namespace CrossCam.ViewModel
             return color.Red + color.Green + color.Blue;
         }
 
-        private SKBitmap DecodeBitmapAndCorrectOrientation(byte[] bytes)
+        public SKBitmap DecodeBitmapAndCorrectOrientation(byte[] bytes, bool withOrientationByte = false)
         {
             try
             {
-                SKCodecOrigin origin = 0;
 
-                using (var stream = new MemoryStream(bytes))
-                using (var data = SKData.Create(stream))
-                using (var codec = SKCodec.Create(data))
+                withOrientationByte = withOrientationByte && Device.RuntimePlatform == Device.Android;
+                if (withOrientationByte)
                 {
-                    if (codec != null)
+                    using (var stream = new MemoryStream(bytes, 0, bytes.Length - 1))
                     {
-                        origin = codec.Origin;
+                        return InternalDecodeAndCorrect(stream, bytes.Last());
                     }
                 }
 
-                switch (origin)
+                using (var stream = new MemoryStream(bytes))
                 {
-                    case SKCodecOrigin.BottomRight when !Settings.IsFrontCamera:
-                        return BitmapRotate180(SKBitmap.Decode(bytes), false);
-                    case SKCodecOrigin.BottomRight when Settings.IsFrontCamera:
-                        return BitmapHorizontalMirror(SKBitmap.Decode(bytes));
-                    case SKCodecOrigin.RightTop:
-                        return BitmapRotate90(SKBitmap.Decode(bytes), Settings.IsFrontCamera);
-                    case SKCodecOrigin.LeftBottom:
-                        return BitmapRotate270(SKBitmap.Decode(bytes), Settings.IsFrontCamera);
-                    case SKCodecOrigin.TopLeft when Settings.IsFrontCamera:
-                        return BitmapRotate180(SKBitmap.Decode(bytes), true);
-                    default:
-                        return SKBitmap.Decode(bytes);
+                    return InternalDecodeAndCorrect(stream, null);
                 }
             }
             catch (Exception e)
@@ -1265,6 +1860,52 @@ namespace CrossCam.ViewModel
                     ErrorMessage = e.ToString();
                 });
                 return null;
+            }
+        }
+
+        private SKBitmap InternalDecodeAndCorrect(Stream stream, byte? orientationByte)
+        {
+            SKCodecOrigin origin = 0;
+            using (var data = SKData.Create(stream))
+            using (var codec = SKCodec.Create(data))
+            {
+                var bitmap = SKBitmap.Decode(data);
+
+                if (codec != null)
+                {
+                    origin = codec.Origin;
+                }
+                
+                if (!orientationByte.HasValue)
+                {
+                    switch (origin)
+                    {
+                        case SKCodecOrigin.BottomRight when !ChosenCamera.IsFront:
+                            return BitmapRotate180(bitmap, false);
+                        case SKCodecOrigin.BottomRight when ChosenCamera.IsFront:
+                            return BitmapHorizontalMirror(bitmap);
+                        case SKCodecOrigin.RightTop:
+                            return BitmapRotate90(bitmap, ChosenCamera.IsFront);
+                        case SKCodecOrigin.LeftBottom:
+                            return BitmapRotate270(bitmap, ChosenCamera.IsFront);
+                        case SKCodecOrigin.TopLeft when ChosenCamera.IsFront:
+                            return BitmapRotate180(bitmap, true);
+                        default:
+                            return bitmap;
+                    }
+                }
+
+                switch (orientationByte)
+                {
+                    case 1:
+                        return BitmapRotate90(bitmap, false);
+                    case 2:
+                        return BitmapRotate180(bitmap, false);
+                    case 3:
+                        return BitmapRotate270(bitmap, false);
+                    default:
+                        return bitmap;
+                }
             }
         }
 
@@ -1341,81 +1982,85 @@ namespace CrossCam.ViewModel
 
         private async Task EvaluateAndShowWelcomePopup()
         {
-            if (!Settings.HasOfferedTechniqueHelpBefore)
+#if DEBUG
+#else
+            await Device.InvokeOnMainThreadAsync(async () =>
             {
-                var showTechniquePage = await CoreMethods.DisplayAlert("Welcome to CrossCam!",
-                    "CrossCam was made to help you take 3D photos. The photos are 3D just like VR or 3D movies, but you don't need any special equipment or glasses - just your phone. The technique to view the 3D photos is a little tricky and takes some practice to get it right. Before I tell you how to use CrossCam, would you first like to learn more about the viewing technique?",
-                    "Yes", "No");
-                Settings.HasOfferedTechniqueHelpBefore = true;
-                PersistentStorage.Save(PersistentStorage.SETTINGS_KEY, Settings);
-                if (showTechniquePage)
+                if (!Settings.HasOfferedTechniqueHelpBefore)
                 {
-                    await CoreMethods.PushPageModel<TechniqueHelpViewModel>(Settings);
+                    var showTechniquePage = await CoreMethods.DisplayAlert("Welcome to CrossCam!",
+                        "CrossCam was made to help you take 3D photos. The photos are 3D just like VR or 3D movies, but you don't need any special equipment or glasses - just your phone. The technique to view the 3D photos is a little tricky and takes some practice to get it right. Before I tell you how to use CrossCam, would you first like to learn more about the viewing technique?",
+                        "Yes", "No");
+                    Settings.HasOfferedTechniqueHelpBefore = true;
+                    PersistentStorage.Save(PersistentStorage.SETTINGS_KEY, Settings);
+                    if (showTechniquePage)
+                    {
+                        await CoreMethods.PushPageModel<TechniqueHelpViewModel>(Settings);
+                    }
+                    else
+                    {
+                        await CoreMethods.PushPageModel<DirectionsViewModel>(Settings);
+                        Settings.HasShownDirectionsBefore = true;
+                        PersistentStorage.Save(PersistentStorage.SETTINGS_KEY, Settings);
+                    }
                 }
                 else
                 {
-                    await CoreMethods.PushPageModel<DirectionsViewModel>(Settings);
-                    Settings.HasShownDirectionsBefore = true;
-                    PersistentStorage.Save(PersistentStorage.SETTINGS_KEY, Settings);
+                    if (!Settings.HasShownDirectionsBefore)
+                    {
+                        await CoreMethods.PushPageModel<DirectionsViewModel>(Settings);
+                        Settings.HasShownDirectionsBefore = true;
+                        PersistentStorage.Save(PersistentStorage.SETTINGS_KEY, Settings);
+                    }
                 }
-            }
-            else
-            {
-                if (!Settings.HasShownDirectionsBefore)
-                {
-                    await CoreMethods.PushPageModel<DirectionsViewModel>(Settings);
-                    Settings.HasShownDirectionsBefore = true;
-                    PersistentStorage.Save(PersistentStorage.SETTINGS_KEY, Settings);
-                }
-            }
+            });
+#endif
         }
 
         private void ClearCrops(bool andAutomaticAlignmentFlags)
         {
-            OutsideCrop = 0;
-            InsideCrop = 0;
-            RightCrop = 0;
-            LeftCrop = 0;
-            TopCrop = 0;
-            BottomCrop = 0;
+            Edits.OutsideCrop = 0;
+            Edits.InsideCrop = 0;
+            Edits.RightCrop = 0;
+            Edits.LeftCrop = 0;
+            Edits.TopCrop = 0;
+            Edits.BottomCrop = 0;
             CropMode = CropMode.Inside;
             if (andAutomaticAlignmentFlags)
             {
-                _wasAlignmentWithoutHorizontalRun = false;
-                _wasAlignmentWithHorizontalRun = false;
+                _isAlignmentInvalid = true;
             }
         }
 
         private void ClearAlignments()
         {
-            LeftRotation = 0;
-            RightRotation = 0;
-            LeftZoom = 0;
-            RightZoom = 0;
-            VerticalAlignment = 0;
+            Edits.LeftRotation = 0;
+            Edits.RightRotation = 0;
+            Edits.LeftZoom = 0;
+            Edits.RightZoom = 0;
+            Edits.VerticalAlignment = 0;
             ManualAlignMode = ManualAlignMode.VerticalAlign;
         }
 
         private void ClearKeystone()
         {
-            LeftKeystone = 0;
-            RightKeystone = 0;
+            Edits.LeftKeystone = 0;
+            Edits.RightKeystone = 0;
             KeystoneMode = KeystoneMode.Left;
         }
 
         private void ClearEdits()
         {
-            if (_originalUnalignedBitmap != null)
+            if (OriginalUnalignedLeft != null)
             {
-                if (Settings.IsCaptureLeftFirst)
-                {
-                    RightBitmap = _originalUnalignedBitmap;
-                }
-                else
-                {
-                    LeftBitmap = _originalUnalignedBitmap;
-                }
+                LeftBitmap = OriginalUnalignedLeft;
             }
+
+            if (OriginalUnalignedRight != null)
+            {
+                RightBitmap = OriginalUnalignedRight;
+            }
+
             ClearCrops(true);
             ClearAlignments();
             ClearKeystone();
@@ -1423,15 +2068,24 @@ namespace CrossCam.ViewModel
 
         private void ClearCaptures()
         {
+            if (BluetoothOperator.PairStatus == PairStatus.Connected &&
+                BluetoothOperator.IsPrimary)
+            {
+                BluetoothOperator.RequestPreviewFrame();
+            }
             ClearEdits();
             LeftBitmap?.Dispose();
             LeftBitmap = null;
             RightBitmap?.Dispose();
             RightBitmap = null;
-            _originalUnalignedBitmap?.Dispose();
-            _originalUnalignedBitmap = null;
-            IsCameraVisible = true;
+            OriginalUnalignedLeft?.Dispose();
+            OriginalUnalignedLeft = null;
+            OriginalUnalignedRight?.Dispose();
+            OriginalUnalignedRight = null;
+            _secondaryErrorOccurred = false;
             WorkflowStage = WorkflowStage.Capture;
+            WasCapturePaired = false;
+            _isFovCorrected = false;
 
             if (Settings.IsTapToFocusEnabled2)
             {

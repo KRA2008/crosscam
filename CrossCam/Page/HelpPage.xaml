@@ -32,6 +32,9 @@
             <Button Text="CrossView Subreddit"
                     Command="{Binding CrossViewSubredditCommand}"/>
             <BoxView/>
+            <Button Text="ParallelView Subreddit"
+                    Command="{Binding ParallelViewSubredditCommand}"/>
+            <BoxView/>
             <Button Text="Privacy Policy"
                     Command="{Binding PrivacyPolicyCommand}"/>
             <BoxView/>

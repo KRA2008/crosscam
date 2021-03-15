@@ -31,6 +31,7 @@
     <DeviceSpecificBuild>true</DeviceSpecificBuild>
     <MtouchFloat32>true</MtouchFloat32>
     <MtouchNoSymbolStrip>true</MtouchNoSymbolStrip>
+    <LangVersion>8</LangVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|iPhone' ">
     <DebugType>full</DebugType>
@@ -53,6 +54,7 @@
     <CodesignExtraArgs />
     <CodesignResourceRules />
     <CodesignProvision>CrossCam Dist</CodesignProvision>
+    <LangVersion>8</LangVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|iPhoneSimulator' ">
     <DebugType>full</DebugType>
@@ -63,6 +65,7 @@
     <MtouchArch>x86_64</MtouchArch>
     <ConsolePause>false</ConsolePause>
     <MtouchLink>None</MtouchLink>
+    <LangVersion>8</LangVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|iPhone' ">
     <DebugSymbols>true</DebugSymbols>
@@ -73,7 +76,7 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <ConsolePause>false</ConsolePause>
-    <MtouchArch>ARMv7, ARM64</MtouchArch>
+    <MtouchArch>ARM64</MtouchArch>
     <CodesignEntitlements>
     </CodesignEntitlements>
     <MtouchProfiling>false</MtouchProfiling>
@@ -82,7 +85,7 @@
     <CodesignProvision>CrossCam Dev</CodesignProvision>
     <IpaPackageName />
     <MtouchFastDev>true</MtouchFastDev>
-    <DeviceSpecificBuild>true</DeviceSpecificBuild>
+    <DeviceSpecificBuild>false</DeviceSpecificBuild>
     <OptimizePNGs>false</OptimizePNGs>
     <CodesignExtraArgs />
     <CodesignResourceRules />
@@ -90,7 +93,10 @@
     <MtouchLink>None</MtouchLink>
     <MtouchExtraArgs>--optimize=experimental-xforms-product-type</MtouchExtraArgs>
     <MtouchFloat32>true</MtouchFloat32>
+    <MtouchInterpreter>
+    </MtouchInterpreter>
     <MtouchNoSymbolStrip>true</MtouchNoSymbolStrip>
+    <LangVersion>8</LangVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(RunConfiguration)' == 'Default' ">
     <AppExtensionDebugBundleId />
@@ -111,6 +117,7 @@
     <MtouchFloat32>true</MtouchFloat32>
     <MtouchLink>None</MtouchLink>
     <MtouchNoSymbolStrip>true</MtouchNoSymbolStrip>
+    <LangVersion>8</LangVersion>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug Without Emgu|iPhone'">
     <DebugSymbols>true</DebugSymbols>
@@ -132,6 +139,9 @@
     <MtouchFastDev>true</MtouchFastDev>
     <DeviceSpecificBuild>true</DeviceSpecificBuild>
     <MtouchLink>None</MtouchLink>
+    <CodesignKey>iPhone Developer</CodesignKey>
+    <CodesignProvision />
+    <LangVersion>8</LangVersion>
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="FreshMvvm">
@@ -141,7 +151,7 @@
       <Version>4.1.1</Version>
     </PackageReference>
     <PackageReference Include="Xamarin.Essentials">
-      <Version>1.5.3.2</Version>
+      <Version>1.6.1</Version>
     </PackageReference>
     <PackageReference Include="Xamarin.Forms">
       <Version>4.6.0.800</Version>
@@ -169,6 +179,7 @@
     <ITunesArtwork Include="iTunesArtwork" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CustomRenderer\PlatformBluetooth.cs" />
     <Compile Include="CustomRenderer\DirectorySelector.cs" />
     <Compile Include="CustomRenderer\NotchHeightProvider.cs" />
     <Compile Include="CustomRenderer\PhotoPicker.cs" />
@@ -457,14 +468,18 @@
     <BundleResource Include="Resources\bloodrootOverlapping.png" />
     <BundleResource Include="Resources\bloodrootParallel.png" />
     <BundleResource Include="Resources\bloodrootReduced.png" />
+    <BundleResource Include="Resources\pair.png" />
+    <BundleResource Include="Resources\pair%402x.png" />
+    <BundleResource Include="Resources\pairPrimary.png" />
+    <BundleResource Include="Resources\pairPrimary%402x.png" />
+    <BundleResource Include="Resources\pairSecondary.png" />
+    <BundleResource Include="Resources\pairSecondary%402x.png" />
+    <BundleResource Include="Resources\cameraSettings.png" />
+    <BundleResource Include="Resources\cameraSettings%402x.png" />
+    <BundleResource Include="Resources\cameraFlip.png" />
+    <BundleResource Include="Resources\cameraFlip%402x.png" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\CrossCam.iOS.Extension\CrossCam.iOS.Extension.csproj">
-      <Project>{292f6a1e-e003-4bd7-8baf-ac64b80d0bba}</Project>
-      <Name>CrossCam.iOS.Extension</Name>
-      <IsAppExtension>true</IsAppExtension>
-      <IsWatchApp>false</IsWatchApp>
-    </ProjectReference>
     <ProjectReference Include="..\CrossCam\CrossCam.csproj">
       <Project>{C67DAD12-9B8D-4AE3-B7B2-5F84E4E26EA8}</Project>
       <Name>CrossCam</Name>
@@ -475,4 +490,9 @@
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup />
   </Target>
+  <ProjectExtensions>
+    <VisualStudio>
+      <UserProperties XamarinHotReloadMonoInterpreterErrorInfoBarCrossCamiOSHideInfoBar="True" />
+    </VisualStudio>
+  </ProjectExtensions>
 </Project>

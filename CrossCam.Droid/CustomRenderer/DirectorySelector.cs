@@ -47,7 +47,7 @@ namespace CrossCam.Droid.CustomRenderer
             if (Build.VERSION.SdkInt >= BuildVersionCodes.Lollipop)
             {
                 var intent = new Intent(Intent.ActionOpenDocumentTree);
-                MainActivity.Instance.StartActivityForResult(intent, MainActivity.BROWSE_DIRECTORIES_REQUEST_CODE);
+                MainActivity.Instance.StartActivityForResult(intent, (int)MainActivity.RequestCodes.BrowseDirectoriesRequestCode);
                 _completionSource = new TaskCompletionSource<string>();
                 return await _completionSource.Task;
             }

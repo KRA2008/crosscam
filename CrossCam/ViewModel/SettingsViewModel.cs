@@ -14,8 +14,11 @@ namespace CrossCam.ViewModel
     {
         public Settings Settings { get; set; }
         public Command ResetToDefaults { get; set; }
+        public Command ResetAlignmentToDefaults { get; set; }
         public Command ChooseDirectory { get; set; }
         public Command ClearDirectory { get; set; }
+        public Command NavigateToPairingPageCommand { get; set; }
+        public Command ResetFovCorrectionCommand { get; set; }
         public string SaveDirectory => Settings?.SavingDirectory == null
             ? "Pictures"
             : WebUtility.UrlDecode(Settings.SavingDirectory);
@@ -45,6 +48,11 @@ namespace CrossCam.ViewModel
                 Settings.ResetToDefaults();
             });
 
+            ResetAlignmentToDefaults = new Command(() =>
+            {
+                Settings.AlignmentSettings.ResetToDefaults();
+            });
+
             ChooseDirectory = new Command(async () =>
             {
                 var newDirectory = await _directorySelector.SelectDirectory();
@@ -61,6 +69,19 @@ namespace CrossCam.ViewModel
                 Settings.SavingDirectory = null;
                 RaisePropertyChanged(nameof(SaveDirectory));
                 SaveSettings(null, null);
+            });
+
+            NavigateToPairingPageCommand = new Command(async () =>
+            {
+                await CoreMethods.PushPageModel<PairingViewModel>(Settings);
+            });
+
+            ResetFovCorrectionCommand = new Command(() =>
+            {
+                Settings.IsFovCorrectionSet = false;
+                Settings.FovPrimaryCorrection = 0;
+                Settings.FovSecondaryCorrection = 0;
+                PersistentStorage.Save(PersistentStorage.SETTINGS_KEY, Settings);
             });
         }
 
@@ -80,6 +101,12 @@ namespace CrossCam.ViewModel
             base.ViewIsDisappearing(sender, e);
             SaveSettings(null, null);
             Settings.PropertyChanged -= SaveSettings;
+        }
+
+        protected override void ViewIsAppearing(object sender, EventArgs e)
+        {
+            base.ViewIsAppearing(sender, e);
+            CameraViewModel.BluetoothOperator.CurrentCoreMethods = CoreMethods;
         }
 
         private void SaveSettings(object sender, PropertyChangedEventArgs e)
