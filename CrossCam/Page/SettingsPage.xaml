@@ -180,7 +180,7 @@
             </StackLayout>
             <StackLayout Orientation="Horizontal"
                          IsVisible="{Binding Settings.AlignmentSettings.ShowAdvancedAlignmentSettings}">
-                <Label Text="Save keypoint matches"/>
+                <Label Text="Save an unaligned joined copy with matches drawn"/>
                 <Switch IsToggled="{Binding Settings.AlignmentSettings.DrawKeypointMatches}"/>
             </StackLayout>
             <StackLayout Orientation="Horizontal"
