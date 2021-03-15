@@ -139,13 +139,17 @@
                 <Switch IsToggled="{Binding Settings.AlignmentSettings.UseKeypoints}"
                         IsEnabled="{Binding Settings.AlignmentSettings.IsAutomaticAlignmentOn}"/>
             </StackLayout>
+            <StackLayout Orientation="Horizontal">
+                <Label Text="Show advanced alignment settings"/>
+                <Switch IsToggled="{Binding Settings.AlignmentSettings.ShowAdvancedAlignmentSettings}"/>
+            </StackLayout>
             <StackLayout Orientation="Horizontal"
-                         IsVisible="{ce:DebugMarkupExtension}">
+                         IsVisible="{Binding Settings.AlignmentSettings.ShowAdvancedAlignmentSettings}">
                 <Label Text="Crosscheck keypoints (vs ratio checks)"/>
                 <Switch IsToggled="{Binding Settings.AlignmentSettings.UseCrossCheck}"/>
             </StackLayout>
             <StackLayout Orientation="Horizontal"
-                         IsVisible="{ce:DebugMarkupExtension}">
+                         IsVisible="{Binding Settings.AlignmentSettings.ShowAdvancedAlignmentSettings}">
                 <Label Text="Minimum keypoints"/>
                 <Frame>
                     <Picker ItemsSource="{Binding ZeroToOneHundred}"
@@ -155,17 +159,17 @@
                 </Frame>
             </StackLayout>
             <StackLayout Orientation="Horizontal"
-                         IsVisible="{ce:DebugMarkupExtension}">
+                         IsVisible="{Binding Settings.AlignmentSettings.ShowAdvancedAlignmentSettings}">
                 <Label Text="Discard outliers by distance"/>
                 <Switch IsToggled="{Binding Settings.AlignmentSettings.DiscardOutliersByDistance}"/>
             </StackLayout>
             <StackLayout Orientation="Horizontal"
-                         IsVisible="{ce:DebugMarkupExtension}">
+                         IsVisible="{Binding Settings.AlignmentSettings.ShowAdvancedAlignmentSettings}">
                 <Label Text="Discard outliers by slope"/>
                 <Switch IsToggled="{Binding Settings.AlignmentSettings.DiscardOutliersBySlope}"/>
             </StackLayout>
             <StackLayout Orientation="Horizontal"
-                         IsVisible="{ce:DebugMarkupExtension}">
+                         IsVisible="{Binding Settings.AlignmentSettings.ShowAdvancedAlignmentSettings}">
                 <Label Text="Keypoint outlier threshold (tenths of standard deviation)"/>
                 <Frame>
                     <Picker ItemsSource="{Binding ZeroToOneHundred}"
@@ -175,17 +179,17 @@
                 </Frame>
             </StackLayout>
             <StackLayout Orientation="Horizontal"
-                         IsVisible="{ce:DebugMarkupExtension}">
+                         IsVisible="{Binding Settings.AlignmentSettings.ShowAdvancedAlignmentSettings}">
                 <Label Text="Save keypoint matches"/>
                 <Switch IsToggled="{Binding Settings.AlignmentSettings.DrawKeypointMatches}"/>
             </StackLayout>
             <StackLayout Orientation="Horizontal"
-                         IsVisible="{ce:DebugMarkupExtension}">
+                         IsVisible="{Binding Settings.AlignmentSettings.ShowAdvancedAlignmentSettings}">
                 <Label Text="Do keystone correction"/>
                 <Switch IsToggled="{Binding Settings.AlignmentSettings.DoKeystoneCorrection}"/>
             </StackLayout>
             <StackLayout Orientation="Horizontal"
-                         IsVisible="{ce:DebugMarkupExtension}">
+                         IsVisible="{Binding Settings.AlignmentSettings.ShowAdvancedAlignmentSettings}">
                 <Label Text="Ecc iterations"/>
                 <Frame>
                     <Picker ItemsSource="{Binding ZeroToOneThousand}"
@@ -195,7 +199,7 @@
                 </Frame>
             </StackLayout>
             <StackLayout Orientation="Horizontal"
-                         IsVisible="{ce:DebugMarkupExtension}">
+                         IsVisible="{Binding Settings.AlignmentSettings.ShowAdvancedAlignmentSettings}">
                 <Label Text="Ecc epsilon level"/>
                 <Frame>
                     <Picker ItemsSource="{Binding ZeroToTen}"
@@ -205,7 +209,7 @@
                 </Frame>
             </StackLayout>
             <StackLayout Orientation="Horizontal"
-                         IsVisible="{ce:DebugMarkupExtension}">
+                         IsVisible="{Binding Settings.AlignmentSettings.ShowAdvancedAlignmentSettings}">
                 <Label Text="Ecc downsized pyramid estimating layers"/>
                 <Frame>
                     <Picker ItemsSource="{Binding ZeroToTen}"
@@ -215,7 +219,7 @@
                 </Frame>
             </StackLayout>
             <StackLayout Orientation="Horizontal"
-                         IsVisible="{ce:DebugMarkupExtension}">
+                         IsVisible="{Binding Settings.AlignmentSettings.ShowAdvancedAlignmentSettings}">
                 <Label Text="Ecc intermediate downsize percentage"/>
                 <Frame>
                     <Picker ItemsSource="{Binding ZeroToOneHundred}"
@@ -225,7 +229,7 @@
                 </Frame>
             </StackLayout>
             <StackLayout Orientation="Horizontal"
-                         IsVisible="{ce:DebugMarkupExtension}">
+                         IsVisible="{Binding Settings.AlignmentSettings.ShowAdvancedAlignmentSettings}">
                 <Label Text="Ecc minimum required correlation coefficient"/>
                 <Frame>
                     <Picker ItemsSource="{Binding ZeroToOneHundred}"
@@ -234,6 +238,8 @@
                             HorizontalOptions="EndAndExpand"/>
                 </Frame>
             </StackLayout>
+            <Button Text="Reset to Defaults"
+                    Command="{Binding ResetAlignmentToDefaults}"/>
             <BoxView/>
             <Label Text="Saving"
                    Style="{DynamicResource header}"/>

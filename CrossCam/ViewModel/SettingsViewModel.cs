@@ -14,6 +14,7 @@ namespace CrossCam.ViewModel
     {
         public Settings Settings { get; set; }
         public Command ResetToDefaults { get; set; }
+        public Command ResetAlignmentToDefaults { get; set; }
         public Command ChooseDirectory { get; set; }
         public Command ClearDirectory { get; set; }
         public Command NavigateToPairingPageCommand { get; set; }
@@ -45,6 +46,11 @@ namespace CrossCam.ViewModel
             ResetToDefaults = new Command(() =>
             {
                 Settings.ResetToDefaults();
+            });
+
+            ResetAlignmentToDefaults = new Command(() =>
+            {
+                Settings.AlignmentSettings.ResetToDefaults();
             });
 
             ChooseDirectory = new Command(async () =>

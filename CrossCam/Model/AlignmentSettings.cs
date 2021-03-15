@@ -14,6 +14,8 @@ namespace CrossCam.Model
         public bool DiscardOutliersBySlope { get; set; }
         public bool DoKeystoneCorrection { get; set; }
 
+        public bool ShowAdvancedAlignmentSettings { get; set; }
+
         private bool _isAutomaticAlignmentOn;
         public bool IsAutomaticAlignmentOn
         {
@@ -120,6 +122,7 @@ namespace CrossCam.Model
         {
             IsAutomaticAlignmentOn = true;
             AlignHorizontallySideBySide = true;
+            ShowAdvancedAlignmentSettings = false;
 
             EccDownsizePercentage = 35;
             EccEpsilonLevel = 3;
