@@ -163,6 +163,7 @@ namespace CrossCam.Droid
             }
             else if (requestCode == (int) RequestCodes.TurnLocationServicesOnRequestCode)
             {
+
                 await PlatformBluetooth.CheckForAndTurnOnLocationServices(true);
             }
         }

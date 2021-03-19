@@ -61,69 +61,36 @@ namespace CrossCam.Droid.CustomRenderer
             return CheckForAndTurnOnLocationServices();
         }
 
-        public static Task<bool> CheckForAndTurnOnLocationServices(bool checkOnly = false)
+        public static async Task<bool> CheckForAndTurnOnLocationServices(bool checkOnly = false)
         {
             //Debug.WriteLine("### DoingLocationStuff");
             if (!checkOnly)
             {
                 _isLocationOnTask = new TaskCompletionSource<bool>();
             }
-            
-            var googleApiClient = 
-                new GoogleApiClient.Builder(MainActivity.Instance).AddApi(LocationServices.API).Build();
-            googleApiClient.Connect();
 
-            var builder = new LocationSettingsRequest.Builder().AddLocationRequest(new LocationRequest());
-            builder.SetAlwaysShow(true);
-
-            var result = LocationServices.SettingsApi.CheckLocationSettings(googleApiClient, builder.Build());
-            result.SetResultCallback((LocationSettingsResult callback) =>
+            try
             {
-                switch (callback.Status.StatusCode)
+                var builder = new LocationSettingsRequest.Builder().AddLocationRequest(LocationRequest.Create())
+                    .SetAlwaysShow(true);
+
+                var response = await LocationServices.GetSettingsClient(MainActivity.Instance)
+                    .CheckLocationSettingsAsync(builder.Build());
+                _isLocationOnTask.SetResult(response.LocationSettingsStates.IsLocationUsable);
+            }
+            catch (Exception e)
+            {
+                if (e is ResolvableApiException exc &&
+                    !checkOnly)
                 {
-                    case CommonStatusCodes.Success:
-                    {
-                        _isLocationOnTask.SetResult(true);
-                        break;
-                    }
-                    case CommonStatusCodes.ResolutionRequired:
-                    {
-                        if (!checkOnly)
-                        {
-                            try
-                            {
-                                callback.Status.StartResolutionForResult(MainActivity.Instance,
-                                    (int) MainActivity.RequestCodes.TurnLocationServicesOnRequestCode);
-                            }
-                            catch (IntentSender.SendIntentException e)
-                            {
-                                _isLocationOnTask.SetResult(false);
-                            }
-                        }
-                        else
-                        {
-                            _isLocationOnTask.SetResult(false);
-                        }
-
-                        break;
-                    }
-                    default:
-                    {
-                        if (!checkOnly)
-                        {
-                            MainActivity.Instance.StartActivity(new Intent(Android.Provider.Settings
-                                .ActionLocationSourceSettings));
-                        }
-                        else
-                        {
-                            _isLocationOnTask.SetResult(false);
-                        }
-                        break;
-                    }
+                    exc.StartResolutionForResult(MainActivity.Instance,(int)MainActivity.RequestCodes.TurnLocationServicesOnRequestCode);
+                    return await _isLocationOnTask.Task;
                 }
-            });
+                Debug.WriteLine("### Location error: " + e);
+                _isLocationOnTask.SetResult(false);
+            }
 
-            return _isLocationOnTask.Task;
+            return await _isLocationOnTask.Task;
         }
 
         public async void SendPayload(byte[] bytes)
@@ -189,13 +156,17 @@ namespace CrossCam.Droid.CustomRenderer
         public async Task<string> StartScanning()
         {
             //Debug.WriteLine("### StartingScanning");
-            await RequestLocationPermissions();
-            await TurnOnLocationServices();
-
-            await _client.StartDiscoveryAsync(BluetoothOperator.CROSSCAM_SERVICE, new MyEndpointDiscoveryCallback(this),
-            new DiscoveryOptions.Builder().SetStrategy(Strategy.P2pPointToPoint).Build());
-
-            return null; //TODO: just kill this return type, iOS doesn't use it either
+            if (await RequestLocationPermissions())
+            {
+                if (await TurnOnLocationServices())
+                {
+                    await _client.StartDiscoveryAsync(BluetoothOperator.CROSSCAM_SERVICE, new MyEndpointDiscoveryCallback(this),
+                        new DiscoveryOptions.Builder().SetStrategy(Strategy.P2pPointToPoint).Build());
+                    return null;
+                }
+                return "Location services not activated. Cannot scan for devices.";
+            }
+            return "Location permission not granted. Cannot scan for devices.";
         }
 
         private class MyConnectionLifecycleCallback : ConnectionLifecycleCallback
