@@ -28,17 +28,12 @@ namespace CrossCam.Droid.CustomRenderer
 
         private static TaskCompletionSource<bool> _isLocationOnTask = new TaskCompletionSource<bool>();
 
-        private readonly GoogleApiClient _googleApiClient;
+        private readonly ConnectionsClient _client;
         private string _connectedPartnerId;
 
         public PlatformBluetooth()
         {
-            _googleApiClient = new GoogleApiClient.Builder(MainActivity.Instance)
-                .AddConnectionCallbacks(this)
-                .AddOnConnectionFailedListener(this)
-                .AddApi(NearbyClass.CONNECTIONS_API)
-                .Build(); 
-            _googleApiClient.Connect();
+            _client = NearbyClass.GetConnectionsClient(MainActivity.Instance);
         }
 
         public void Disconnect()
@@ -46,11 +41,11 @@ namespace CrossCam.Droid.CustomRenderer
             Debug.WriteLine("### Disconnecting");
             if (!string.IsNullOrWhiteSpace(_connectedPartnerId))
             {
-                NearbyClass.Connections.DisconnectFromEndpoint(_googleApiClient, _connectedPartnerId);
+                _client.DisconnectFromEndpoint(_connectedPartnerId);
             }
-            NearbyClass.Connections.StopDiscovery(_googleApiClient);
-            NearbyClass.Connections.StopAdvertising(_googleApiClient);
-            NearbyClass.Connections.StopAllEndpoints(_googleApiClient);
+            _client.StopDiscovery();
+            _client.StopAdvertising();
+            _client.StopAllEndpoints();
             OnDisconnected();
         }
 
@@ -66,7 +61,7 @@ namespace CrossCam.Droid.CustomRenderer
             return CheckForAndTurnOnLocationServices();
         }
 
-        public static Task<bool> CheckForAndTurnOnLocationServices(bool checkOnly = false)
+        public static async Task<bool> CheckForAndTurnOnLocationServices(bool checkOnly = false)
         {
             //Debug.WriteLine("### DoingLocationStuff");
             if (!checkOnly)
@@ -74,61 +69,28 @@ namespace CrossCam.Droid.CustomRenderer
                 _isLocationOnTask = new TaskCompletionSource<bool>();
             }
 
-            var googleApiClient =
-                new GoogleApiClient.Builder(MainActivity.Instance).AddApi(LocationServices.API).Build();
-            googleApiClient.Connect();
-
-            var builder = new LocationSettingsRequest.Builder().AddLocationRequest(new LocationRequest());
-            builder.SetAlwaysShow(true);
-
-            var result = LocationServices.SettingsApi.CheckLocationSettings(googleApiClient, builder.Build());
-            result.SetResultCallback((LocationSettingsResult callback) =>
+            try
             {
-                switch (callback.Status.StatusCode)
+                var builder = new LocationSettingsRequest.Builder().AddLocationRequest(LocationRequest.Create())
+                    .SetAlwaysShow(true);
+
+                var response = await LocationServices.GetSettingsClient(MainActivity.Instance)
+                    .CheckLocationSettingsAsync(builder.Build());
+                _isLocationOnTask.SetResult(response.LocationSettingsStates.IsLocationUsable);
+            }
+            catch (Exception e)
+            {
+                if (e is ResolvableApiException exc &&
+                    !checkOnly)
                 {
-                    case CommonStatusCodes.Success:
-                    {
-                        _isLocationOnTask.SetResult(true);
-                        break;
-                    }
-                    case CommonStatusCodes.ResolutionRequired:
-                    {
-                        if (!checkOnly)
-                        {
-                            try
-                            {
-                                callback.Status.StartResolutionForResult(MainActivity.Instance,
-                                    (int) MainActivity.RequestCodes.TurnLocationServicesOnRequestCode);
-                            }
-                            catch (IntentSender.SendIntentException e)
-                            {
-                                _isLocationOnTask.SetResult(false);
-                            }
-                        }
-                        else
-                        {
-                            _isLocationOnTask.SetResult(false);
-                        }
-
-                        break;
-                    }
-                    default:
-                    {
-                        if (!checkOnly)
-                        {
-                            MainActivity.Instance.StartActivity(new Intent(Android.Provider.Settings
-                                .ActionLocationSourceSettings));
-                        }
-                        else
-                        {
-                            _isLocationOnTask.SetResult(false);
-                        }
-                        break;
-                    }
+                    exc.StartResolutionForResult(MainActivity.Instance,(int)MainActivity.RequestCodes.TurnLocationServicesOnRequestCode);
+                    return await _isLocationOnTask.Task;
                 }
-            });
+                Debug.WriteLine("### Location error: " + e);
+                _isLocationOnTask.SetResult(false);
+            }
 
-            return _isLocationOnTask.Task;
+            return await _isLocationOnTask.Task;
         }
 
         public async void SendPayload(byte[] bytes)
@@ -140,8 +102,7 @@ namespace CrossCam.Droid.CustomRenderer
                 {
                     await Task.Delay(1000);
                 }
-                await NearbyClass.Connections.SendPayloadAsync(_googleApiClient, _connectedPartnerId,
-                    Payload.FromStream(sendingStream));
+                await _client.SendPayloadAsync(_connectedPartnerId, Payload.FromStream(sendingStream));
             }
             catch (Exception e)
             {
@@ -187,23 +148,25 @@ namespace CrossCam.Droid.CustomRenderer
 
         public async Task<bool> BecomeDiscoverable()
         {
-            //Debug.WriteLine("### BecomingDiscoverable");
-            var result = await NearbyClass.Connections.StartAdvertisingAsync(_googleApiClient, DeviceInfo.Name, BluetoothOperator.CROSSCAM_SERVICE,
+            await _client.StartAdvertisingAsync(DeviceInfo.Name, BluetoothOperator.CROSSCAM_SERVICE,
                 new MyConnectionLifecycleCallback(this), new AdvertisingOptions.Builder().SetStrategy(Strategy.P2pPointToPoint).Build());
-            return result.Status.IsSuccess;
+            return true; //TODO: just kill this return type, iOS doesn't use it either
         }
 
         public async Task<string> StartScanning()
         {
             //Debug.WriteLine("### StartingScanning");
-            await RequestLocationPermissions();
-            await TurnOnLocationServices();
-
-            var statuses = await NearbyClass.Connections.StartDiscoveryAsync(_googleApiClient,
-            BluetoothOperator.CROSSCAM_SERVICE, new MyEndpointDiscoveryCallback(this),
-            new DiscoveryOptions.Builder().SetStrategy(Strategy.P2pPointToPoint).Build());
-
-            return statuses.IsSuccess ? null : statuses.StatusMessage;
+            if (await RequestLocationPermissions())
+            {
+                if (await TurnOnLocationServices())
+                {
+                    await _client.StartDiscoveryAsync(BluetoothOperator.CROSSCAM_SERVICE, new MyEndpointDiscoveryCallback(this),
+                        new DiscoveryOptions.Builder().SetStrategy(Strategy.P2pPointToPoint).Build());
+                    return null;
+                }
+                return "Location services not activated. Cannot scan for devices.";
+            }
+            return "Location permission not granted. Cannot scan for devices.";
         }
 
         private class MyConnectionLifecycleCallback : ConnectionLifecycleCallback
@@ -221,14 +184,13 @@ namespace CrossCam.Droid.CustomRenderer
                 new AlertDialog.Builder(MainActivity.Instance).SetTitle("Accept connection to " + p1.EndpointName + "?")
                     .SetMessage("Confirm the code matches on both devices: " + p1.AuthenticationToken)
                     .SetPositiveButton("Accept",
-                        (sender, args) =>
+                        async (sender, args) =>
                         {
-                            NearbyClass.Connections.AcceptConnection(_platformBluetooth._googleApiClient, p0,
-                                new MyPayloadCallback(_platformBluetooth));
+                            await _platformBluetooth._client.AcceptConnectionAsync(p0, new MyPayloadCallback(_platformBluetooth));
                         }).SetNegativeButton("Cancel",
-                        (sender, args) =>
+                        async (sender, args) =>
                         {
-                            NearbyClass.Connections.RejectConnection(_platformBluetooth._googleApiClient, p0);
+                            await _platformBluetooth._client.RejectConnectionAsync(p0);
                             _platformBluetooth.Disconnect();
                             _platformBluetooth.OnDisconnected();
                         }).Show();
@@ -241,8 +203,8 @@ namespace CrossCam.Droid.CustomRenderer
                 {
                     _platformBluetooth._connectedPartnerId = p0;
                     _platformBluetooth.OnConnected();
-                    NearbyClass.Connections.StopDiscovery(_platformBluetooth._googleApiClient);
-                    NearbyClass.Connections.StopAdvertising(_platformBluetooth._googleApiClient);
+                    _platformBluetooth._client.StopDiscovery();
+                    _platformBluetooth._client.StopAdvertising();
                 }
                 else
                 {
@@ -356,8 +318,7 @@ namespace CrossCam.Droid.CustomRenderer
                 Debug.WriteLine("### OnEndpointFound " + p0 + ", " + p1.EndpointName);
                 if (p1.ServiceId == BluetoothOperator.CROSSCAM_SERVICE)
                 {
-                    await NearbyClass.Connections.RequestConnectionAsync(_bluetooth._googleApiClient, DeviceInfo.Name,
-                        p0, new MyConnectionLifecycleCallback(_bluetooth));
+                    await _bluetooth._client.RequestConnectionAsync(DeviceInfo.Name, p0, new MyConnectionLifecycleCallback(_bluetooth));
                 }
             }
 

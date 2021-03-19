@@ -345,6 +345,7 @@ namespace CrossCam.CustomElement
                    var resultMessage = await _platformBluetooth.StartScanning();
                    if (resultMessage != null)
                    {
+                       _platformBluetooth.Disconnect();
                        await HandleBluetoothException(new Exception(resultMessage));
                    }
                 }
@@ -370,6 +371,7 @@ namespace CrossCam.CustomElement
                 }
                 catch (Exception e)
                 {
+                    _platformBluetooth.Disconnect();
                     await HandleBluetoothException(e);
                 }
                 finally
