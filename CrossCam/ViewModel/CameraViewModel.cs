@@ -1196,6 +1196,7 @@ namespace CrossCam.ViewModel
                 0 == Interlocked.Exchange(ref _alignmentThreadLock, 1))
             {
                 _isAlignmentInvalid = false;
+                ClearEdits();
                 WorkflowStage = WorkflowStage.AutomaticAlign;
 
                 var openCv = DependencyService.Get<IOpenCv>();
