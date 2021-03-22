@@ -190,9 +190,11 @@ namespace CrossCam.Droid.CustomRenderer
                         }).SetNegativeButton("Cancel",
                         async (sender, args) =>
                         {
-                            await _platformBluetooth._client.RejectConnectionAsync(p0);
+                            try
+                            {
+                                await _platformBluetooth._client.RejectConnectionAsync(p0);
+                            } catch {}
                             _platformBluetooth.Disconnect();
-                            _platformBluetooth.OnDisconnected();
                         }).Show();
             }
 
@@ -209,7 +211,6 @@ namespace CrossCam.Droid.CustomRenderer
                 else
                 {
                     _platformBluetooth.Disconnect();
-                    _platformBluetooth.OnDisconnected();
                 }
             }
 
