@@ -777,8 +777,15 @@ namespace CrossCam.Droid.CustomRenderer
                         }
 
                         var parameters = _camera1.GetParameters();
-                        parameters.FlashMode = Camera.Parameters.FlashModeOff;
-                        parameters.VideoStabilization = false;
+                        if (parameters.SupportedFlashModes != null &&
+                            parameters.SupportedFlashModes.Contains(Camera.Parameters.FlashModeOff))
+                        {
+                            parameters.FlashMode = Camera.Parameters.FlashModeOff;
+                        }
+                        if (parameters.IsVideoStabilizationSupported)
+                        {
+                            parameters.VideoStabilization = false;
+                        }
                         parameters.JpegQuality = 100;
                         TurnOnContinuousFocus(parameters);
 

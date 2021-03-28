@@ -523,7 +523,7 @@
                             Value="True"/>
                     </OnPlatform>
                 </StackLayout.IsVisible>
-                <Label Text="Force camera2 API (may be helpful if you're experiencing errors but may make more, requires a force quit/restart to take effect)"/>
+                <Label Text="Force camera2 API (must be on Android 6 or above, may be helpful if you're experiencing errors but may make more, requires a force quit/restart to take effect)"/>
                 <Switch IsToggled="{Binding Settings.IsForceCamera2Enabled}"/>
             </StackLayout>
             <StackLayout Orientation="Horizontal">
