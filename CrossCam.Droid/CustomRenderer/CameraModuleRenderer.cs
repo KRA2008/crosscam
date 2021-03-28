@@ -181,11 +181,10 @@ namespace CrossCam.Droid.CustomRenderer
                     try
                     {
                         var settings = PersistentStorage.LoadOrDefault(PersistentStorage.SETTINGS_KEY, new Settings());
-                        var forceCamera1 = settings.IsForceCamera1Enabled;
-                        if (Build.VERSION.SdkInt >= BuildVersionCodes.M && !forceCamera1) // camera2 is introduced in 21, but i need the af cancel trigger which is 23
+                        if (Build.VERSION.SdkInt >= BuildVersionCodes.M && !settings.IsForceCamera1Enabled) // camera2 is introduced in 21, but i need the af cancel trigger which is 23
                         {
                             var level = FindCamera2();
-                            _useCamera2 = level != (int)InfoSupportedHardwareLevel.Legacy;
+                            _useCamera2 = level != (int)InfoSupportedHardwareLevel.Legacy || settings.IsForceCamera2Enabled;
                         }
                     }
                     catch (System.Exception ex)

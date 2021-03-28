@@ -511,8 +511,20 @@
                             Value="True"/>
                     </OnPlatform>
                 </StackLayout.IsVisible>
-                <Label Text="Force camera1 (may be helpful if you're experiencing weirdness but will result in limited functionality, requires a force quit/restart to take effect)"/>
+                <Label Text="Force camera1 API (may be helpful if you're experiencing weirdness but will result in limited functionality, requires a force quit/restart to take effect)"/>
                 <Switch IsToggled="{Binding Settings.IsForceCamera1Enabled}"/>
+            </StackLayout>
+            <StackLayout Orientation="Horizontal">
+                <StackLayout.IsVisible>
+                    <OnPlatform x:TypeArguments="system:Boolean">
+                        <On Platform="iOS"
+                            Value="False"/>
+                        <On Platform="Android"
+                            Value="True"/>
+                    </OnPlatform>
+                </StackLayout.IsVisible>
+                <Label Text="Force camera2 API (may be helpful if you're experiencing errors but may make more, requires a force quit/restart to take effect)"/>
+                <Switch IsToggled="{Binding Settings.IsForceCamera2Enabled}"/>
             </StackLayout>
             <StackLayout Orientation="Horizontal">
                 <Label Text="Handedness (placement of the capture/aperture button on the screen)"/>

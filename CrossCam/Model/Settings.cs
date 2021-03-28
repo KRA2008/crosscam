@@ -91,7 +91,34 @@ namespace CrossCam.Model
 
         public bool IsCaptureLeftFirst { get; set; }
 
-        public bool IsForceCamera1Enabled { get; set; }
+        private bool _isForceCamera1Enabled;
+        public bool IsForceCamera1Enabled
+        {
+            get => _isForceCamera1Enabled;
+            set
+            {
+                if (value)
+                {
+                    IsForceCamera2Enabled = false;
+                }
+                _isForceCamera1Enabled = value;
+            }
+        }
+
+        private bool _isForceCamera2Enabled;
+        public bool IsForceCamera2Enabled
+        {
+            get => _isForceCamera2Enabled;
+            set
+            {
+                if (value)
+                {
+                    IsForceCamera1Enabled = false;
+                }
+                _isForceCamera2Enabled = value;
+            }
+        }
+
         public bool IsLockToFirstEnabled { get; set; }
         public bool IsTapToFocusEnabled2 { get; set; }
 
@@ -298,6 +325,7 @@ namespace CrossCam.Model
             SaveForRedCyanAnaglyph = false;
 
             IsForceCamera1Enabled = false;
+            IsForceCamera2Enabled = false;
             IsTapToFocusEnabled2 = true;
             IsLockToFirstEnabled = true;
 
