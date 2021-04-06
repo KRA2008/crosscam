@@ -105,7 +105,7 @@ namespace CrossCam.ViewModel
         public Command NavigateToSettingsCommand { get; set; }
         public Command NavigateToHelpCommand { get; set; }
 
-        public Command ToggleCameraSelectVisible { get; set; }
+        public Command FlipCameraCommand { get; set; }
 
         public Command SwapSidesCommand { get; set; }
 
@@ -507,9 +507,16 @@ namespace CrossCam.ViewModel
                 await CoreMethods.PushPageModel<HelpViewModel>(Settings);
             });
 
-            ToggleCameraSelectVisible = new Command(() =>
+            FlipCameraCommand = new Command(() =>
             {
-                IsCameraSelectVisible = !IsCameraSelectVisible;
+                var index = AvailableCameras.IndexOf(ChosenCamera);
+                index++;
+                if (index > AvailableCameras.Count - 1)
+                {
+                    index = 0;
+                }
+
+                ChosenCamera = AvailableCameras.ElementAt(index);
             });
 
             OpenCameraSettingsCommand = new Command(() =>

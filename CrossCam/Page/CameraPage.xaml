@@ -1541,9 +1541,9 @@
             <ContentView Padding="{StaticResource _topBarSmallButtonPadding}"
                          IsVisible="{Binding WorkflowStage, Converter={vc:EnumCompareConverter}, ConverterParameter={x:Static vm:WorkflowStage.Capture}}">
                 <ContentView.GestureRecognizers>
-                    <TapGestureRecognizer Command="{Binding ToggleCameraSelectVisible}"/>
+                    <TapGestureRecognizer Command="{Binding FlipCameraCommand}"/>
                 </ContentView.GestureRecognizers>
-                <Image Source="cameraSettings"
+                <Image Source="cameraFlip"
                        InputTransparent="True"/>
             </ContentView>
             <ContentView Padding="{StaticResource _topBarSmallButtonPadding}"
