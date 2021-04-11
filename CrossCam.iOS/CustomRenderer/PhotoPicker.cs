@@ -1,7 +1,9 @@
 ﻿using System;
+using System.Linq;
 using System.Threading.Tasks;
 using CrossCam.iOS.CustomRenderer;
 using CrossCam.Wrappers;
+using PhotosUI;
 using UIKit;
 using Xamarin.Forms;
 
@@ -13,26 +15,40 @@ namespace CrossCam.iOS.CustomRenderer
     {
         private TaskCompletionSource<byte[][]> _taskCompletionSource;
         private UIImagePickerController _imagePicker;
+        private UIViewController _viewController;
 
         public Task<byte[][]> GetImages()
         {
-            // Create and define UIImagePickerController
-            _imagePicker = new UIImagePickerController
-            {
-                SourceType = UIImagePickerControllerSourceType.PhotoLibrary,
-                MediaTypes = UIImagePickerController.AvailableMediaTypes(UIImagePickerControllerSourceType.PhotoLibrary)
-            };
-
-            // Set event handlers
-            _imagePicker.FinishedPickingMedia += OnImagePickerFinishedPickingMedia;
-            _imagePicker.Canceled += OnImagePickerCancelled;
-
-            // Present UIImagePickerController;
             var window = UIApplication.SharedApplication.KeyWindow;
-            var viewController = window.RootViewController;
-            viewController.PresentModalViewController(_imagePicker, true);
+            _viewController = window.RootViewController;
 
-            // Return Task object
+            if (UIDevice.CurrentDevice.CheckSystemVersion(14, 0))
+            {
+                var phPicker = new PHPickerViewController(new PHPickerConfiguration
+                {
+                    Filter = PHPickerFilter.ImagesFilter,
+                    SelectionLimit = 2
+                })
+                {
+                    Delegate = new PHPickerDelegate(this)
+                };
+
+                _viewController.PresentModalViewController(phPicker, true);
+            }
+            else
+            {
+                _imagePicker = new UIImagePickerController
+                {
+                    SourceType = UIImagePickerControllerSourceType.PhotoLibrary,
+                    MediaTypes = UIImagePickerController.AvailableMediaTypes(UIImagePickerControllerSourceType.PhotoLibrary)
+                };
+
+                _imagePicker.FinishedPickingMedia += OnImagePickerFinishedPickingMedia;
+                _imagePicker.Canceled += OnImagePickerCancelled;
+
+                _viewController.PresentModalViewController(_imagePicker, true);
+            }
+
             _taskCompletionSource = new TaskCompletionSource<byte[][]>();
             return _taskCompletionSource.Task;
         }
@@ -71,5 +87,41 @@ namespace CrossCam.iOS.CustomRenderer
             _imagePicker.FinishedPickingMedia -= OnImagePickerFinishedPickingMedia;
             _imagePicker.Canceled -= OnImagePickerCancelled;
         }
+
+        private class PHPickerDelegate : PHPickerViewControllerDelegate
+        {
+            private readonly PhotoPicker _photoPicker;
+
+            public PHPickerDelegate(PhotoPicker photoPicker)
+            {
+                _photoPicker = photoPicker;
+            }
+
+            public override async void DidFinishPicking(PHPickerViewController picker, PHPickerResult[] results)
+            {
+                if (results.Length == 0)
+                {
+                    _photoPicker._taskCompletionSource.SetResult(null);
+                    _photoPicker._viewController.DismissModalViewController(true);
+                    return;
+                }
+
+                var item1 = results.ElementAt(0).ItemProvider;
+                var identifier = item1.RegisteredTypeIdentifiers.First();
+                var data1 = await item1.LoadDataRepresentationAsync(identifier);
+                var bytes1 = data1.ToArray();
+
+                byte[] bytes2 = null;
+                if (results.Length == 2)
+                {
+                    var data2 = await results.ElementAt(1).ItemProvider.LoadDataRepresentationAsync(identifier);
+                    bytes2 = data2.ToArray();
+                }
+
+                _photoPicker._taskCompletionSource.SetResult(new[] {bytes1, bytes2});
+                _photoPicker._viewController.DismissModalViewController(true);
+            }
+        }
     }
+
 }
