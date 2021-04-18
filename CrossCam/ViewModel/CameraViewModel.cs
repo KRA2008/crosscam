@@ -1229,7 +1229,7 @@ namespace CrossCam.ViewModel
                             if ((WasCapturePaired &&
                                 (Settings.FovPrimaryCorrection > 0 ||
                                 Settings.FovSecondaryCorrection > 0)) || 
-                                Settings.AlignmentSettings.UseKeypoints)
+                                Settings.AlignmentSettings.UseKeypoints2)
                             {
                                 var needsFallback = false;
                                 try
@@ -1279,7 +1279,7 @@ namespace CrossCam.ViewModel
 
                     if (alignedResult != null)
                     {
-                        if (Settings.AlignmentSettings.UseKeypoints && 
+                        if (Settings.AlignmentSettings.UseKeypoints2 && 
                             Settings.AlignmentSettings.DrawKeypointMatches &&
                             alignedResult.DrawnDirtyMatches != null)
                         {
