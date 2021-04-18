@@ -578,9 +578,13 @@ namespace CrossCam.ViewModel
                     WorkflowStage == WorkflowStage.Edits ||
                     forced.HasValue && forced.Value)
                 {
-                    var tempArray = LeftBitmap;
+                    var tempBitmap = LeftBitmap;
                     LeftBitmap = RightBitmap;
-                    RightBitmap = tempArray;
+                    RightBitmap = tempBitmap;
+
+                    tempBitmap = OriginalUnalignedLeft;
+                    OriginalUnalignedLeft = OriginalUnalignedRight;
+                    OriginalUnalignedRight = tempBitmap;
 
                     if (WorkflowStage == WorkflowStage.Capture)
                     {

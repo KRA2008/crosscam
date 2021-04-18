@@ -18,7 +18,7 @@
 
             <Label Text="If you have two devices with CrossCam installed, you can connect them in order to take simultaneous photos from two perspectives. This makes the best cross views possible."/>
 
-            <Label Text="Please be aware that this feature is still experimental and may have issues. Also please be aware that at this time the devices must be the same platform in order to connect (both Android or both iOS)."/>
+            <Label Text="Please be aware that this feature is still experimental and may have issues. It may not work perfectly all the time and it may eat up your battery. Also please be aware that at this time the devices must be the same platform in order to connect (both Android or both iOS)."/>
 
             <Label Text="Before two devices can be used together their roles have to be assigned. The PRIMARY device is the one that will show both previews, trigger the capture, and hold/save the final captures. To assign roles, navigate both devices to this page and then follow the steps below:"/>
             <Label Text=" "/>
