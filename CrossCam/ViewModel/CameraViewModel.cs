@@ -802,7 +802,7 @@ namespace CrossCam.ViewModel
                 await Device.InvokeOnMainThreadAsync(async () =>
                 {
                     var sendReport = await CoreMethods.DisplayAlert("Oops",
-                        "Sorry, CrossCam did an error. Please send me an error report so I can fix it!", "Send", "Don't Send");
+                        "Sorry, CrossCam did an error. Please send me an error report so I can fix it! (Go to the Settings page to stop these popups.)", "Send", "Don't Send");
                     if (sendReport)
                     {
                         var errorMessage = ErrorMessage + "\n" +

@@ -350,7 +350,7 @@ namespace CrossCam.Model
             PairedPreviewFrameDelayMs = 250;
             PairSyncSampleCount = 50;
 
-            SendErrorReports1 = true; //TODO: consider turning this off when shipping to production
+            SendErrorReports1 = true;
 
             AlignmentSettings.ResetToDefaults();
         }
