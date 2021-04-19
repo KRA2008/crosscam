@@ -266,7 +266,7 @@ namespace CrossCam.ViewModel
             BluetoothOperator.InitialSyncCompleted += BluetoothOperatorInitialSyncCompleted;
             BluetoothOperator.TransmissionStarted += BluetoothOperatorTransmissionStarted;
             BluetoothOperator.TransmissionComplete += BluetoothOperatorTransmissionComplete;
-            BluetoothOperator.CountdownTimerSyncComplete += BluetoothOperatorCountdownTimerSyncComplete;
+            BluetoothOperator.CountdownTimerSyncCompleteSecondary += BluetoothOperatorCountdownTimerSyncCompleteSecondary;
 
             CameraColumn = Settings.IsCaptureLeftFirst ? 0 : 1;
             AvailableCameras = new ObservableCollection<AvailableCamera>();
@@ -877,7 +877,7 @@ namespace CrossCam.ViewModel
             _isAlignmentInvalid = true;
         }
 
-        private void BluetoothOperatorCountdownTimerSyncComplete(object sender, EventArgs e)
+        private void BluetoothOperatorCountdownTimerSyncCompleteSecondary(object sender, EventArgs e)
         {
             if (!BluetoothOperator.IsPrimary)
             {

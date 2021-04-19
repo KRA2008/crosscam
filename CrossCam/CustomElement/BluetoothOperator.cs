@@ -25,7 +25,6 @@ namespace CrossCam.CustomElement
 
         private readonly IPlatformBluetooth _platformBluetooth;
         public const string CROSSCAM_SERVICE = "CrossCam";
-        private const int SECONDS_COUNTDOWN = 3;
         private readonly Timer _captureSyncTimer = new Timer{AutoReset = false};
         private readonly Timer _countdownTimer = new Timer{AutoReset = false};
 
@@ -39,11 +38,13 @@ namespace CrossCam.CustomElement
         private DateTime? _captureMomentUtc;
 
         public PairStatus PairStatus { get; set; }
-        public int CountdownTimeRemaining { get; set; }
+        public int CountdownTimeRemainingSec { get; set; }
 
         private bool _primaryIsRequestingDisconnect;
         private int _initializeThreadLocker;
         private bool _initialSyncComplete;
+
+        private long _countdownTimeTicks;
 
         public const int HEADER_LENGTH = 6;
         private const byte SYNC_MASK = 170; // 0xAA (do it twice)
@@ -66,7 +67,7 @@ namespace CrossCam.CustomElement
             PairStatus = PairStatus.Disconnected;
             OnPropertyChanged(nameof(IsPrimary));
             OnPropertyChanged(nameof(PairStatus));
-            OnPropertyChanged(nameof(CountdownTimeRemaining));
+            OnPropertyChanged(nameof(CountdownTimeRemainingSec));
             _settings.RaisePropertyChanged(nameof(Settings.IsPairedPrimary));
             var handler = Disconnected;
             handler?.Invoke(this, new EventArgs());
@@ -82,7 +83,7 @@ namespace CrossCam.CustomElement
             }
             OnPropertyChanged(nameof(IsPrimary));
             OnPropertyChanged(nameof(PairStatus));
-            OnPropertyChanged(nameof(CountdownTimeRemaining));
+            OnPropertyChanged(nameof(CountdownTimeRemainingSec));
             _settings.RaisePropertyChanged(nameof(Settings.IsPairedPrimary));
             var handler = Connected;
             handler?.Invoke(this, new EventArgs());
@@ -150,9 +151,9 @@ namespace CrossCam.CustomElement
 
         private void OnCountdownTimerSecondElapsed(object sender, ElapsedEventArgs e)
         {
-            CountdownTimeRemaining--;
+            CountdownTimeRemainingSec--;
             _countdownTimer.Elapsed -= OnCountdownTimerSecondElapsed;
-            if (CountdownTimeRemaining > 0)
+            if (CountdownTimeRemainingSec > 0)
             {
                 _countdownTimer.Interval = 1000;
                 _countdownTimer.Elapsed += OnCountdownTimerSecondElapsed;
@@ -160,15 +161,22 @@ namespace CrossCam.CustomElement
             }
         }
 
-        public event EventHandler CountdownTimerSyncComplete;
-        private void OnCountdownTimerSyncComplete(object sender, ElapsedEventArgs e)
+        public event EventHandler CountdownTimerSyncCompletePrimary;
+        private void OnCountdownTimerSyncCompletePrimary(object sender, ElapsedEventArgs e)
         {
-            CountdownTimeRemaining = SECONDS_COUNTDOWN;
-            _countdownTimer.Elapsed -= OnCountdownTimerSyncComplete;
+            CountdownTimeRemainingSec = _settings.PairedCaptureCountdown;
+            _countdownTimer.Elapsed -= OnCountdownTimerSyncCompletePrimary;
             _countdownTimer.Interval = 1000;
             _countdownTimer.Elapsed += OnCountdownTimerSecondElapsed;
             _countdownTimer.Start();
-            var handler = CountdownTimerSyncComplete;
+            var handler = CountdownTimerSyncCompletePrimary;
+            handler?.Invoke(this, e);
+        }
+
+        public event EventHandler CountdownTimerSyncCompleteSecondary;
+        private void OnCountdownTimerSyncCompleteSecondary(object sender, ElapsedEventArgs e)
+        {
+            var handler = CountdownTimerSyncCompleteSecondary;
             handler?.Invoke(this, e);
         }
 
@@ -490,9 +498,17 @@ namespace CrossCam.CustomElement
                 //Debug.WriteLine("TRIPS: " + string.Join(",", trips));
                 //Debug.WriteLine("MAX TRIP: " + trip);
 
-                var targetSyncMoment = DateTime.UtcNow.AddSeconds(SECONDS_COUNTDOWN);
-                SyncCapture(targetSyncMoment);
+                if (_settings.PairedCaptureCountdown > 0)
+                {
+                    _countdownTimeTicks = _settings.PairedCaptureCountdown * 1000 * 10000;
+                }
+                else
+                {
+                    _countdownTimeTicks = trip;
+                }
+                var targetSyncMoment = DateTime.UtcNow.AddTicks(_countdownTimeTicks);
                 var partnerSyncMoment = targetSyncMoment.AddTicks(offset);
+                SyncCapture(targetSyncMoment);
                 //Debug.WriteLine("Target sync: " + targetSyncMoment.ToString("O"));
                 //Debug.WriteLine("Partner sync: " + partnerSyncMoment.ToString("O"));
                 SendSync(partnerSyncMoment);
@@ -526,9 +542,19 @@ namespace CrossCam.CustomElement
                 _captureSyncTimer.Elapsed += OnCaptureSyncTimeElapsed;
                 _captureSyncTimer.Interval = interval;
                 _captureSyncTimer.Start();
-                _countdownTimer.Elapsed += OnCountdownTimerSyncComplete;
-                _countdownTimer.Interval = SECONDS_COUNTDOWN * 1000 - interval;
-                _countdownTimer.Start();
+                if (_settings.IsPairedPrimary.HasValue &&
+                    _settings.IsPairedPrimary.Value &&
+                    _settings.PairedCaptureCountdown > 0)
+                {
+                    _countdownTimer.Elapsed += OnCountdownTimerSyncCompletePrimary;
+                    _countdownTimer.Interval = _settings.PairedCaptureCountdown * 1000 - interval;
+                    _countdownTimer.Start();
+                } 
+                else if (_settings.IsPairedPrimary.HasValue &&
+                         !_settings.IsPairedPrimary.Value)
+                {
+                    OnCountdownTimerSyncCompleteSecondary(null, null);
+                }
                 //Debug.WriteLine("Sync interval set: " + interval);
                 //Debug.WriteLine("Sync time: " + syncTime.ToString("O"));
                 _captureMomentUtc = syncTime;

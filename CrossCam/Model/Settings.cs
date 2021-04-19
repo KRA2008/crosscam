@@ -187,6 +187,17 @@ namespace CrossCam.Model
             }
         }
 
+        private int _pairedCaptureCountdown;
+        public int PairedCaptureCountdown
+        {
+            get => _pairedCaptureCountdown;
+            set
+            {
+                if (value < 0) return;
+                _pairedCaptureCountdown = value;
+            }
+        }
+
         private Handedness _handedness;
         public Handedness Handedness
         {
@@ -349,6 +360,7 @@ namespace CrossCam.Model
 
             PairedPreviewFrameDelayMs = 250;
             PairSyncSampleCount = 50;
+            PairedCaptureCountdown = 0; //TODO: 0 or 3?
 
             SendErrorReports1 = true;
 

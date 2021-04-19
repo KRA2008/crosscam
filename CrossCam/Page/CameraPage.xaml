@@ -1619,13 +1619,13 @@
                IsVisible="{Binding IsHoldSteadySecondary}"/>
 
         <Label Style="{StaticResource _feedback}"
-               Text="{Binding BluetoothOperatorBindable.CountdownTimeRemaining}"
+               Text="{Binding BluetoothOperatorBindable.CountdownTimeRemainingSec}"
                FontSize="32"
                IsVisible="False">
             <Label.Triggers>
                 <MultiTrigger TargetType="Label">
                     <MultiTrigger.Conditions>
-                        <BindingCondition Binding="{Binding BluetoothOperatorBindable.CountdownTimeRemaining, Converter={vc:GreaterThanZeroValueConverter}}"
+                        <BindingCondition Binding="{Binding BluetoothOperatorBindable.CountdownTimeRemainingSec, Converter={vc:GreaterThanZeroValueConverter}}"
                                           Value="true"/>
                         <BindingCondition Binding="{Binding BluetoothOperatorBindable.PairStatus, Converter={vc:EnumCompareConverter}, ConverterParameter={x:Static vm:PairStatus.Connected}}"
                                           Value="true"/>
