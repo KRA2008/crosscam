@@ -7,7 +7,7 @@ namespace CrossCam.Model
     {
 
         public bool AlignHorizontallySideBySide { get; set; }
-        public bool UseKeypoints2 { get; set; }
+        public bool UseKeypoints1 { get; set; }
         public bool UseCrossCheck { get; set; }
         public bool DrawKeypointMatches { get; set; }
         public bool DiscardOutliersByDistance { get; set; }
@@ -131,7 +131,7 @@ namespace CrossCam.Model
             EccPyramidLayers = 4;
 
             DrawKeypointMatches = false;
-            UseKeypoints2 = false;
+            UseKeypoints1 = false;
             UseCrossCheck = false;
             DiscardOutliersByDistance = false;
             DiscardOutliersBySlope = true;

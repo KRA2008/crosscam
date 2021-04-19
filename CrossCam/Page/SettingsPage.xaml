@@ -136,7 +136,7 @@
             </StackLayout>
             <StackLayout Orientation="Horizontal">
                 <Label Text="Use keypoint alignment always (vs ECC whenever possible)"/>
-                <Switch IsToggled="{Binding Settings.AlignmentSettings.UseKeypoints2}"
+                <Switch IsToggled="{Binding Settings.AlignmentSettings.UseKeypoints1}"
                         IsEnabled="{Binding Settings.AlignmentSettings.IsAutomaticAlignmentOn}"/>
             </StackLayout>
             <StackLayout Orientation="Horizontal">
