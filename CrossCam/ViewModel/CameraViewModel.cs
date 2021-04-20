@@ -164,8 +164,8 @@ namespace CrossCam.ViewModel
 
         public bool IsNothingCaptured => LeftBitmap == null && RightBitmap == null;
         public bool ShouldIconBeVisible => IsNothingCaptured && IconColumn != CameraColumn && WorkflowStage == WorkflowStage.Capture;
-        public bool ShouldLeftPairBeVisible => IsNothingCaptured && Settings.Handedness == Handedness.Right;
-        public bool ShouldRightPairBeVisible => IsNothingCaptured && Settings.Handedness == Handedness.Left;
+        public bool ShouldLeftPairBeVisible => IsNothingCaptured && (Settings.Handedness == Handedness.Right || Settings.Handedness == Handedness.Center && !Settings.IsCaptureLeftFirst);
+        public bool ShouldRightPairBeVisible => IsNothingCaptured && (Settings.Handedness == Handedness.Left || Settings.Handedness == Handedness.Center && Settings.IsCaptureLeftFirst);
         public bool ShouldLeftLeftRetakeBeVisible => LeftBitmap != null && (WorkflowStage == WorkflowStage.Final && DoesCaptureOrientationMatchViewOrientation || WorkflowStage == WorkflowStage.Capture && (Settings.Handedness == Handedness.Right || Settings.Handedness == Handedness.Center));
         public bool ShouldLeftRightRetakeBeVisible => LeftBitmap != null && WorkflowStage == WorkflowStage.Capture && Settings.Handedness == Handedness.Left;
         public bool ShouldRightLeftRetakeBeVisible => RightBitmap != null && WorkflowStage == WorkflowStage.Capture && Settings.Handedness == Handedness.Right;
@@ -611,6 +611,8 @@ namespace CrossCam.ViewModel
 
                     Settings.IsCaptureLeftFirst = !Settings.IsCaptureLeftFirst;
                     Settings.RaisePropertyChanged(nameof(Settings.IsCaptureLeftFirst));
+                    RaisePropertyChanged(nameof(ShouldLeftPairBeVisible));
+                    RaisePropertyChanged(nameof(ShouldRightPairBeVisible));
                     PersistentStorage.Save(PersistentStorage.SETTINGS_KEY, Settings);
 
                     TriggerMovementHint();
