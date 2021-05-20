@@ -365,7 +365,7 @@ namespace CrossCam.ViewModel
                     }
                     else
                     {
-                        ClearEdits();
+                        ClearEdits(true);
                         CameraColumn = 0;
                         LeftBitmap?.Dispose();
                         LeftBitmap = null;
@@ -389,7 +389,7 @@ namespace CrossCam.ViewModel
                     }
                     else
                     {
-                        ClearEdits();
+                        ClearEdits(true);
                         CameraColumn = 1;
                         RightBitmap?.Dispose();
                         RightBitmap = null;
@@ -1209,7 +1209,7 @@ namespace CrossCam.ViewModel
                 0 == Interlocked.Exchange(ref _alignmentThreadLock, 1))
             {
                 _isAlignmentInvalid = false;
-                ClearEdits();
+                ClearEdits(false);
                 WorkflowStage = WorkflowStage.AutomaticAlign;
 
                 var openCv = DependencyService.Get<IOpenCv>();
@@ -2063,7 +2063,7 @@ namespace CrossCam.ViewModel
             KeystoneMode = KeystoneMode.Left;
         }
 
-        private void ClearEdits()
+        private void ClearEdits(bool andAutoAligmentFlags)
         {
             if (OriginalUnalignedLeft != null)
             {
@@ -2075,7 +2075,7 @@ namespace CrossCam.ViewModel
                 RightBitmap = OriginalUnalignedRight;
             }
 
-            ClearCrops(true);
+            ClearCrops(andAutoAligmentFlags);
             ClearAlignments();
             ClearKeystone();
         }
@@ -2087,7 +2087,7 @@ namespace CrossCam.ViewModel
             {
                 BluetoothOperator.RequestPreviewFrame();
             }
-            ClearEdits();
+            ClearEdits(true);
             LeftBitmap?.Dispose();
             LeftBitmap = null;
             RightBitmap?.Dispose();
