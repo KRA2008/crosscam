@@ -73,7 +73,7 @@
   <key>UIUserInterfaceStyle</key>
   <string>Light</string>
   <key>NSLocalNetworkUsageDescription</key>
-  <string>This app scans for nearby CrossCam-enabled devices for simultaneous capture.</string>
+  <string>This app scans for nearby CrossCam devices for simultaneous capture. You don't need to be on a network for this, but Wi-Fi needs to be turned on, and iOS requires that CrossCam gets this permission regardless.</string>
   <key>NSBonjourServices</key>
   <array>
     <string>_CrossCam._tcp</string>

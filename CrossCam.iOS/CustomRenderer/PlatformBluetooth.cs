@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Diagnostics;
+using System.Runtime.InteropServices;
 using System.Threading.Tasks;
 using CrossCam.CustomElement;
 using CrossCam.iOS.CustomRenderer;
@@ -54,12 +55,15 @@ namespace CrossCam.iOS.CustomRenderer
 
         public void Disconnect()
         {
-            _session.Disconnect();
+            _session?.Disconnect();
             OnDisconnected();
         }
 
-        public Task<string> StartScanning()
+        public Task StartScanning()
         {
+            var isWifiEnabled = NetworkInterfaces.IsWifiEnabled();
+            if(!isWifiEnabled) throw new WiFiTurnedOffException();
+
             var myPeerId = new MCPeerID(UIDevice.CurrentDevice.Name);
             _session = new MCSession(myPeerId) { Delegate = new SessionDelegate(this) };
             MainThread.BeginInvokeOnMainThread(() =>
@@ -71,16 +75,19 @@ namespace CrossCam.iOS.CustomRenderer
                 browser.StartBrowsingForPeers();
             });
             Debug.WriteLine("### SCANNING START");
-            return Task.FromResult((string)null);
+            return Task.FromResult(true);
         }
 
-        public Task<bool> BecomeDiscoverable()
+        public Task BecomeDiscoverable()
         {
+            var isWifiEnabled = NetworkInterfaces.IsWifiEnabled();
+            if (!isWifiEnabled) throw new WiFiTurnedOffException();
+
             var myPeerId = new MCPeerID(UIDevice.CurrentDevice.Name);
             _session = new MCSession(myPeerId) {Delegate = new SessionDelegate(this)};
             var assistant = new MCAdvertiserAssistant(BluetoothOperator.CROSSCAM_SERVICE, new NSDictionary(), _session);
             assistant.Start();
-            Debug.WriteLine("### DISCOVERABLE START");
+            Debug.WriteLine("### DISCOVERABLE START"); 
             return Task.FromResult(true);
         }
 
@@ -165,6 +172,58 @@ namespace CrossCam.iOS.CustomRenderer
             public override void LostPeer(MCNearbyServiceBrowser browser, MCPeerID peerID)
             {
                 Debug.WriteLine("### LOST PEER: " + peerID.DisplayName);
+            }
+        }
+
+        private class NetworkInterfaces
+        {
+            //from https://gist.github.com/brendanzagaeski/9979929
+
+            struct ifaddrs
+            {
+                public IntPtr ifa_next;
+                public string ifa_name;
+                public uint ifa_flags;
+                public IntPtr ifa_addr;
+                public IntPtr ifa_netmask;
+                public IntPtr ifa_dstaddr;
+                public IntPtr ifa_data;
+            }
+
+            [DllImport("libc")]
+            static extern int getifaddrs(out IntPtr ifap);
+
+            [DllImport("libc")]
+            static extern void freeifaddrs(IntPtr ifap);
+
+            public static bool IsWifiEnabled()
+            {
+                var awdl0Count = 0;
+
+                if (getifaddrs(out var ifap) != 0)
+                    throw new SystemException("getifaddrs() failed");
+
+                try
+                {
+                    var next = ifap;
+                    while (next != IntPtr.Zero)
+                    {
+                        var addr = (ifaddrs)Marshal.PtrToStructure(next, typeof(ifaddrs));
+
+                        if (addr.ifa_name == "awdl0")
+                        {
+                            awdl0Count++;
+                        }
+
+                        next = addr.ifa_next;
+                    }
+                }
+                finally
+                {
+                    freeifaddrs(ifap);
+                }
+
+                return awdl0Count == 2;
             }
         }
     }

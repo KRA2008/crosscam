@@ -350,15 +350,11 @@ namespace CrossCam.CustomElement
                 {
                     PairStatus = PairStatus.Connecting;
                     _primaryIsRequestingDisconnect = false;
-                   var resultMessage = await _platformBluetooth.StartScanning();
-                   if (resultMessage != null)
-                   {
-                       _platformBluetooth.Disconnect();
-                       await HandleBluetoothException(new Exception(resultMessage));
-                   }
+                   await _platformBluetooth.StartScanning();
                 }
                 catch (Exception e)
                 {
+                    _platformBluetooth.Disconnect();
                     await HandleBluetoothException(e);
                 }
                 finally
@@ -666,6 +662,18 @@ namespace CrossCam.CustomElement
                         await CurrentCoreMethods.DisplayAlert("Bluetooth Not On",
                             "The device failed to power on Bluetooth. Exception: " + e, "OK");
                         break;
+                    case WiFiTurnedOffException _:
+                        await CurrentCoreMethods.DisplayAlert("Wi-Fi Off", 
+                            "Wi-Fi is turned off. Please turn Wi-Fi on.", "OK");
+                        break;
+                    case LocationServicesNotEnabledException _:
+                        await CurrentCoreMethods.DisplayAlert("Location Services Needed",
+                            "Location services not activated. Cannot scan for devices. See the pairing page for more details.", "OK");
+                        break;
+                    case LocationPermissionNotGrantedException _:
+                        await CurrentCoreMethods.DisplayAlert("Location Permission Needed",
+                            "Location permission not granted. Cannot scan for devices. See the pairing page for more details.", "OK");
+                        break;
                     default:
                         await CurrentCoreMethods.DisplayAlert("Error",
                             "An error occurred. Exception: " + e, "OK");
@@ -728,4 +736,7 @@ namespace CrossCam.CustomElement
     public class BluetoothNotSupportedException : Exception {}
     public class BluetoothNotTurnedOnException : Exception {}
     public class BluetoothFailedToSearchException : Exception {}
+    public class WiFiTurnedOffException : Exception {}
+    public class LocationServicesNotEnabledException : Exception {}
+    public class LocationPermissionNotGrantedException : Exception {}
 }

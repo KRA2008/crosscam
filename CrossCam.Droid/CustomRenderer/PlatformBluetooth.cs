@@ -146,14 +146,13 @@ namespace CrossCam.Droid.CustomRenderer
             //Debug.WriteLine("### OnConnectionFailed " + result.ErrorMessage);
         }
 
-        public async Task<bool> BecomeDiscoverable()
+        public async Task BecomeDiscoverable()
         {
             await _client.StartAdvertisingAsync(DeviceInfo.Name, BluetoothOperator.CROSSCAM_SERVICE,
                 new MyConnectionLifecycleCallback(this), new AdvertisingOptions.Builder().SetStrategy(Strategy.P2pPointToPoint).Build());
-            return true; //TODO: just kill this return type, iOS doesn't use it either
         }
 
-        public async Task<string> StartScanning()
+        public async Task StartScanning()
         {
             //Debug.WriteLine("### StartingScanning");
             if (await RequestLocationPermissions())
@@ -162,11 +161,13 @@ namespace CrossCam.Droid.CustomRenderer
                 {
                     await _client.StartDiscoveryAsync(BluetoothOperator.CROSSCAM_SERVICE, new MyEndpointDiscoveryCallback(this),
                         new DiscoveryOptions.Builder().SetStrategy(Strategy.P2pPointToPoint).Build());
-                    return null;
+                    return;
                 }
-                return "Location services not activated. Cannot scan for devices.";
+
+                throw new LocationServicesNotEnabledException();
             }
-            return "Location permission not granted. Cannot scan for devices.";
+
+            throw new LocationPermissionNotGrantedException();
         }
 
         private class MyConnectionLifecycleCallback : ConnectionLifecycleCallback

@@ -6,8 +6,8 @@ namespace CrossCam.Wrappers
     public interface IPlatformBluetooth
     {
         void Disconnect();
-        Task<string> StartScanning();
-        Task<bool> BecomeDiscoverable();
+        Task StartScanning();
+        Task BecomeDiscoverable();
         event EventHandler Connected;
         event EventHandler Disconnected;
 

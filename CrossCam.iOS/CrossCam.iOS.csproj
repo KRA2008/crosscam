@@ -10,7 +10,7 @@
     <IPhoneResourcePrefix>Resources</IPhoneResourcePrefix>
     <AssemblyName>CrossCam.iOS</AssemblyName>
     <NuGetPackageImportStamp />
-    <ProvisioningType>manual</ProvisioningType>
+    <ProvisioningType>automatic</ProvisioningType>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|iPhoneSimulator' ">
     <DebugSymbols>true</DebugSymbols>
@@ -25,13 +25,14 @@
     <MtouchLink>None</MtouchLink>
     <MtouchDebug>true</MtouchDebug>
     <MtouchProfiling>false</MtouchProfiling>
-    <CodesignKey>iPhone Developer</CodesignKey>
+    <CodesignKey>Apple Development: Kevin Anderson (288S2529U3)</CodesignKey>
     <MtouchI18n />
     <MtouchFastDev>true</MtouchFastDev>
     <DeviceSpecificBuild>true</DeviceSpecificBuild>
     <MtouchFloat32>true</MtouchFloat32>
     <MtouchNoSymbolStrip>true</MtouchNoSymbolStrip>
     <LangVersion>8</LangVersion>
+    <CodesignProvision>VS: WildCard Development</CodesignProvision>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|iPhone' ">
     <DebugType>full</DebugType>
@@ -82,7 +83,7 @@
     <MtouchProfiling>false</MtouchProfiling>
     <CodesignKey>Apple Development: Kevin Anderson (288S2529U3)</CodesignKey>
     <MtouchDebug>true</MtouchDebug>
-    <CodesignProvision>CrossCam Dev</CodesignProvision>
+    <CodesignProvision>VS: WildCard Development</CodesignProvision>
     <IpaPackageName />
     <MtouchFastDev>true</MtouchFastDev>
     <DeviceSpecificBuild>false</DeviceSpecificBuild>
