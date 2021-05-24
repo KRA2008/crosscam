@@ -1,9 +1,9 @@
 ﻿namespace CrossCam.Model
 {
-    public enum Handedness
+    public enum PortraitCaptureButtonPosition
     {
         Right = 0,
-        Center = 1,
+        Middle = 1,
         Left = 2
     }
 }

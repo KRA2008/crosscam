@@ -34,7 +34,9 @@ namespace CrossCam.ViewModel
         public IEnumerable<int> ZeroToOneHundred => Enumerable.Range(0, 101).ToList();
         public IEnumerable<int> ZeroToTen => Enumerable.Range(0, 11).ToList();
         public IEnumerable<string> BorderColors => Enum.GetNames(typeof(BorderColor)).ToList();
-        public IEnumerable<string> Handednesses => Enum.GetNames(typeof(Handedness)).ToList();
+        public IEnumerable<string> PortraitCaptureButtonPosition => Enum.GetNames(typeof(PortraitCaptureButtonPosition)).ToList();
+        public IEnumerable<string> LandscapeCaptureButtonHorizontalPosition => Enum.GetNames(typeof(LandscapeCaptureButtonHorizontalPosition)).ToList();
+        public IEnumerable<string> LandscapeCaptureButtonVerticalPosition => Enum.GetNames(typeof(LandscapeCaptureButtonVerticalPosition)).ToList();
         // ReSharper restore MemberCanBeMadeStatic.Global
 
         public bool EnableFirstSideAloneSwitch { get; set; }

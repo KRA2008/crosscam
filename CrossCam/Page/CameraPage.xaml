@@ -29,14 +29,11 @@
             <x:Double x:Key="_axisGuidesWidth">20</x:Double>
             <x:Double x:Key="_halfMediumIconWidth">20</x:Double>
             <x:Double x:Key="_mediumIconWidth">40</x:Double>
-            <x:Double x:Key="_smallerButtonWidth">50</x:Double>
             <x:Double x:Key="_doubleSmallerButtonWidth">100</x:Double>
             <x:Double x:Key="_mediumIconWidthPlusCropLineThickness">43</x:Double>
             <x:Double x:Key="_doubleMediumIconWidth">80</x:Double>
             <x:Double x:Key="_mediumIconWidthPlusTopPadding">60</x:Double>
             <x:Double x:Key="_smallerButtonWidthPlusTopPadding">60</x:Double>
-            <x:Double x:Key="_largeIconWidth">80</x:Double>
-            <x:Double x:Key="_giantIconWidth">100</x:Double>
             <x:Double x:Key="_3dLeftLeft">0.1</x:Double>
             <x:Double x:Key="_3dLeftMiddle">0.15</x:Double>
             <x:Double x:Key="_3dLeftRight">0.3</x:Double>
@@ -44,9 +41,6 @@
             <x:Double x:Key="_3dRightMiddle">0.85</x:Double>
             <x:Double x:Key="_3dRightRight">0.9</x:Double>
             <x:Double x:Key="_editModeInnerButtons">0.8</x:Double>
-            <Rectangle x:Key="_rightHandCaptureBounds" X="1" Y="1" Width="{StaticResource _giantIconWidth}" Height="{StaticResource _giantIconWidth}"/>
-            <Rectangle x:Key="_centerHandCaptureBounds" X="0.5" Y="1" Width="{StaticResource _giantIconWidth}" Height="{StaticResource _giantIconWidth}"/>
-            <Rectangle x:Key="_leftHandCaptureBounds" X="0" Y="1" Width="{StaticResource _giantIconWidth}" Height="{StaticResource _giantIconWidth}"/>
             <Rectangle x:Key="_finalSaveBounds" X="0.5" Y="1" Width="{StaticResource _giantIconWidth}" Height="{StaticResource _giantIconWidth}"/>
             <Rectangle x:Key="_clearBounds" X="0.5" Y="{StaticResource _topMiddleButtonY}" Width="{StaticResource _largeIconWidth}" Height="{StaticResource _largeIconWidth}"/>
             <Rectangle x:Key="_swipeBounds" X="0.5" Y="{StaticResource _topMiddleButtonY}" Width="150" Height="60"/>
@@ -57,8 +51,6 @@
             <Rectangle x:Key="_keystoneBounds" X="0" Y="{StaticResource _secondMiddleButtonY}" Width="1" Height="{StaticResource _mediumIconWidth}"/>
             <Rectangle x:Key="_editBounds" X="0.5" Y="0.6" Width="{StaticResource _mediumIconWidth}" Height="{StaticResource _mediumIconWidth}"/>
             <Rectangle x:Key="_loadBounds" X="0.5" Y="1" Width="{StaticResource _smallerButtonWidth}" Height="{StaticResource _smallerButtonWidth}"/>
-            <Rectangle x:Key="_pairLeftBounds" X="0" Y="1" Width="{StaticResource _largeIconWidth}" Height="{StaticResource _smallerButtonWidth}"/>
-            <Rectangle x:Key="_pairRightBounds" X="1" Y="1" Width="{StaticResource _largeIconWidth}" Height="{StaticResource _smallerButtonWidth}"/>
             <Rectangle x:Key="_retakeLeftLeftBounds" X="{StaticResource _3dLeftMiddle}" Y="1" Width="{StaticResource _smallerButtonWidth}" Height="{StaticResource _smallerButtonWidth}"/>
             <Rectangle x:Key="_retakeLeftRightBounds" X="{StaticResource _3dLeftRight}" Y="1" Width="{StaticResource _smallerButtonWidth}" Height="{StaticResource _smallerButtonWidth}"/>
             <Rectangle x:Key="_retakeRightLeftBounds" X="{StaticResource _3dRightLeft}" Y="1" Width="{StaticResource _smallerButtonWidth}" Height="{StaticResource _smallerButtonWidth}"/>
@@ -240,64 +232,9 @@
         </Grid>
 
         <Frame AbsoluteLayout.LayoutFlags="PositionProportional"
-               AbsoluteLayout.LayoutBounds="{StaticResource _pairLeftBounds}"
+               AbsoluteLayout.LayoutBounds="{Binding PairButtonPosition}"
                Padding="{StaticResource _bottomPadding}"
-               IsVisible="{Binding ShouldLeftPairBeVisible}"
-               BackgroundColor="Transparent">
-            <Frame.Triggers>
-                <DataTrigger TargetType="Frame"
-                             Binding="{Binding BluetoothOperatorBindable.PairStatus, Converter={vc:EnumCompareConverter}, ConverterParameter={x:Static vm:PairStatus.Disconnected}}"
-                             Value="true">
-                    <DataTrigger.Setters>
-                        <Setter Property="BorderColor"
-                                Value="Transparent"/>
-                    </DataTrigger.Setters>
-                </DataTrigger>
-                <DataTrigger TargetType="Frame"
-                             Binding="{Binding BluetoothOperatorBindable.PairStatus, Converter={vc:EnumCompareConverter}, ConverterParameter={x:Static vm:PairStatus.Connecting}}"
-                             Value="true">
-                    <DataTrigger.Setters>
-                        <Setter Property="BorderColor"
-                                Value="Yellow"/>
-                    </DataTrigger.Setters>
-                </DataTrigger>
-                <DataTrigger TargetType="Frame"
-                             Binding="{Binding BluetoothOperatorBindable.PairStatus, Converter={vc:EnumCompareConverter}, ConverterParameter={x:Static vm:PairStatus.Connected}}"
-                             Value="true">
-                    <DataTrigger.Setters>
-                        <Setter Property="BorderColor"
-                                Value="Green"/>
-                    </DataTrigger.Setters>
-                </DataTrigger>
-            </Frame.Triggers>
-            <AbsoluteLayout>
-                <StackLayout AbsoluteLayout.LayoutFlags="All"
-                             AbsoluteLayout.LayoutBounds="0,0,1,1">
-                    <StackLayout.GestureRecognizers>
-                        <TapGestureRecognizer Command="{Binding PairCommand}"/>
-                    </StackLayout.GestureRecognizers>
-                    <Image Source="pair"
-                           InputTransparent="True"
-                           IsVisible="{Binding Settings.IsPairedPrimary, Converter={vc:NullableBooleanHasValueInvertConverter}}"/>
-                    <Image Source="pairPrimary"
-                           InputTransparent="True"
-                           IsVisible="{Binding Settings.IsPairedPrimary, Converter={vc:NullableBooleanConverter}}"/>
-                    <Image Source="pairSecondary"
-                           InputTransparent="True"
-                           IsVisible="{Binding Settings.IsPairedPrimary, Converter={vc:NullableBooleanInvertConverter}}"/>
-                </StackLayout>
-                <ActivityIndicator AbsoluteLayout.LayoutFlags="All"
-                                   AbsoluteLayout.LayoutBounds="0,0,1,1"
-                                   IsVisible="{Binding BluetoothOperatorBindable.PairStatus, Converter={vc:EnumCompareConverter}, ConverterParameter={x:Static vm:PairStatus.Connecting}}"
-                                   IsRunning="{Binding BluetoothOperatorBindable.PairStatus, Converter={vc:EnumCompareConverter}, ConverterParameter={x:Static vm:PairStatus.Connecting}}"
-                                   InputTransparent="True"
-                                   Color="White"/>
-            </AbsoluteLayout>
-        </Frame>
-        <Frame AbsoluteLayout.LayoutFlags="PositionProportional"
-               AbsoluteLayout.LayoutBounds="{StaticResource _pairRightBounds}"
-               Padding="{StaticResource _bottomPadding}"
-               IsVisible="{Binding ShouldRightPairBeVisible}"
+               IsVisible="{Binding IsNothingCaptured}"
                BackgroundColor="Transparent">
             <Frame.Triggers>
                 <DataTrigger TargetType="Frame"
@@ -439,26 +376,6 @@
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto"/>
                 </Grid.RowDefinitions>
-                <!--<Image Grid.Column="0"
-                       Grid.Row="0" 
-                       Source="undo">
-                    <Image.GestureRecognizers>
-                        <TapGestureRecognizer Command="{Binding ResetCameraSettingCommand}"/>
-                    </Image.GestureRecognizers>
-                </Image>-->
-                <!--<StackLayout Grid.Column="1"
-                             Grid.ColumnSpan="2"
-                             Grid.Row="0" 
-                             Orientation="Horizontal"
-                             HorizontalOptions="CenterAndExpand"
-                             IsVisible="{Binding CameraSettingMode, Converter={vc:EnumCompareConverter}, ConverterParameter={x:Static vm:CameraSettingMode.Menu}}">
-                    <Image Source="cameraFlip">
-                        <Image.GestureRecognizers>
-                            <TapGestureRecognizer Command="{Binding SetCameraSettingModeCommand}"
-                                                  CommandParameter="{x:Static vm:CameraSettingMode.Camera}"/>
-                        </Image.GestureRecognizers>
-                    </Image>
-                </StackLayout>-->
                 <Label Grid.Column="1"
                        Grid.Row="0"
                        Text="Camera:"
@@ -475,13 +392,6 @@
                         SelectedItem="{Binding ChosenCamera}"
                         ItemDisplayBinding="{Binding DisplayName}"
                         HeightRequest="{Binding Source={x:Reference _cameraSettingsRibbon}, Path=Height}"/>
-                <!--<Image Grid.Column="3"
-                       Grid.Row="0"
-                       Source="check">
-                    <Image.GestureRecognizers>
-                        <TapGestureRecognizer Command="{Binding SaveCameraSettingCommand}"/>
-                    </Image.GestureRecognizers>
-                </Image>-->
             </Grid>
         </ContentView>
 
@@ -513,27 +423,9 @@
                    HorizontalTextAlignment="Center"/>
         </ContentView>
         <ContentView AbsoluteLayout.LayoutFlags="PositionProportional"
-                     AbsoluteLayout.LayoutBounds="{StaticResource _leftHandCaptureBounds}"
+                     AbsoluteLayout.LayoutBounds="{Binding CaptureButtonPosition}"
                      Padding="{StaticResource _bottomPadding}"
-                     IsVisible="{Binding ShouldLeftCaptureBeVisible}">
-            <ContentView.GestureRecognizers>
-                <TapGestureRecognizer Command="{Binding CapturePictureCommand}"/>
-            </ContentView.GestureRecognizers>
-            <Image Source="aperture"/>
-        </ContentView>
-        <ContentView AbsoluteLayout.LayoutFlags="PositionProportional"
-                     AbsoluteLayout.LayoutBounds="{StaticResource _centerHandCaptureBounds}"
-                     Padding="{StaticResource _bottomPadding}"
-                     IsVisible="{Binding ShouldCenterCaptureBeVisible}">
-            <ContentView.GestureRecognizers>
-                <TapGestureRecognizer Command="{Binding CapturePictureCommand}"/>
-            </ContentView.GestureRecognizers>
-            <Image Source="aperture"/>
-        </ContentView>
-        <ContentView AbsoluteLayout.LayoutFlags="PositionProportional"
-                     AbsoluteLayout.LayoutBounds="{StaticResource _rightHandCaptureBounds}"
-                     Padding="{StaticResource _bottomPadding}"
-                     IsVisible="{Binding ShouldRightCaptureBeVisible}">
+                     IsVisible="{Binding IsCaptureModeAndEitherPrimaryOrDisconnected}">
             <ContentView.GestureRecognizers>
                 <TapGestureRecognizer Command="{Binding CapturePictureCommand}"/>
             </ContentView.GestureRecognizers>
@@ -773,12 +665,6 @@
             <AbsoluteLayout.LayoutBounds>
                 <Rectangle X="0" Y="1" Width="1" Height="{StaticResource _largeIconWidth}"/>
             </AbsoluteLayout.LayoutBounds>
-            <Image Source="check"
-                   IsVisible="{Binding Settings.Handedness, Converter={vc:EnumCompareConverter}, ConverterParameter={x:Static model:Handedness.Left}}">
-                <Image.GestureRecognizers>
-                    <TapGestureRecognizer Command="{Binding SaveEditCommand}"/>
-                </Image.GestureRecognizers>
-            </Image>
             <Slider Value="{Binding Edits.LeftKeystone, Mode=TwoWay}"
                     Maximum="{Binding MaxKeystone}"
                     Minimum="0"
@@ -789,8 +675,7 @@
                     Minimum="0"
                     HorizontalOptions="FillAndExpand"
                     IsVisible="{Binding KeystoneMode, Converter={vc:EnumCompareConverter}, ConverterParameter={x:Static vm:KeystoneMode.Right}}"/>
-            <Image Source="check"
-                   IsVisible="{Binding Settings.Handedness, Converter={vc:EnumCompareInvertConverter}, ConverterParameter={x:Static model:Handedness.Left}}">
+            <Image Source="check">
                 <Image.GestureRecognizers>
                     <TapGestureRecognizer Command="{Binding SaveEditCommand}"/>
                 </Image.GestureRecognizers>
@@ -1020,12 +905,6 @@
             <AbsoluteLayout.LayoutBounds>
                 <Rectangle X="0" Y="1" Width="1" Height="{StaticResource _largeIconWidth}"/>
             </AbsoluteLayout.LayoutBounds>
-            <Image Source="check"
-                   IsVisible="{Binding Settings.Handedness, Converter={vc:EnumCompareConverter}, ConverterParameter={x:Static model:Handedness.Left}}">
-                <Image.GestureRecognizers>
-                    <TapGestureRecognizer Command="{Binding SaveEditCommand}"/>
-                </Image.GestureRecognizers>
-            </Image>
             <Slider Value="{Binding Edits.LeftRotation, Mode=TwoWay}"
                     Maximum="{Binding RotationMax}"
                     Minimum="{Binding RotationMin}"
@@ -1051,8 +930,7 @@
                     Minimum="{Binding VerticalAlignmentMin}"
                     HorizontalOptions="FillAndExpand"
                     IsVisible="{Binding ManualAlignMode, Converter={vc:EnumCompareConverter}, ConverterParameter={x:Static vm:ManualAlignMode.VerticalAlign}}"/>
-            <Image Source="check"
-                   IsVisible="{Binding Settings.Handedness, Converter={vc:EnumCompareInvertConverter}, ConverterParameter={x:Static model:Handedness.Left}}">
+            <Image Source="check">
                 <Image.GestureRecognizers>
                     <TapGestureRecognizer Command="{Binding SaveEditCommand}"/>
                 </Image.GestureRecognizers>
@@ -1198,12 +1076,6 @@
             <AbsoluteLayout.LayoutBounds>
                 <Rectangle X="0" Y="1" Width="1" Height="{StaticResource _largeIconWidth}"/>
             </AbsoluteLayout.LayoutBounds>
-            <Image Source="check"
-                   IsVisible="{Binding Settings.Handedness, Converter={vc:EnumCompareConverter}, ConverterParameter={x:Static model:Handedness.Left}}">
-                <Image.GestureRecognizers>
-                    <TapGestureRecognizer Command="{Binding SaveEditCommand}"/>
-                </Image.GestureRecognizers>
-            </Image>
             <Slider Value="{Binding Edits.FovLeftCorrection, Mode=TwoWay}"
                     Maximum="{Binding ZoomMax}"
                     Minimum="0"
@@ -1219,8 +1091,7 @@
                     Minimum="{Binding VerticalAlignmentMin}"
                     HorizontalOptions="FillAndExpand"
                     IsVisible="{Binding FovCorrectionMode, Converter={vc:EnumCompareConverter}, ConverterParameter={x:Static vm:FovCorrectionMode.Vertical}}"/>
-            <Image Source="check"
-                   IsVisible="{Binding Settings.Handedness, Converter={vc:EnumCompareInvertConverter}, ConverterParameter={x:Static model:Handedness.Left}}">
+            <Image Source="check">
                 <Image.GestureRecognizers>
                     <TapGestureRecognizer Command="{Binding SaveEditCommand}"/>
                 </Image.GestureRecognizers>
@@ -1480,12 +1351,6 @@
             <AbsoluteLayout.LayoutBounds>
                 <Rectangle X="0" Y="1" Width="1" Height="{StaticResource _largeIconWidth}"/>
             </AbsoluteLayout.LayoutBounds>
-            <Image Source="check"
-                   IsVisible="{Binding Settings.Handedness, Converter={vc:EnumCompareConverter}, ConverterParameter={x:Static model:Handedness.Left}}">
-                <Image.GestureRecognizers>
-                    <TapGestureRecognizer Command="{Binding SaveEditCommand}"/>
-                </Image.GestureRecognizers>
-            </Image>
             <Slider Value="{Binding Edits.InsideCrop, Mode=TwoWay}"
                     Maximum="{Binding SideCropMax}"
                     Minimum="0"
@@ -1516,8 +1381,7 @@
                     Minimum="0"
                     HorizontalOptions="FillAndExpand"
                     IsVisible="{Binding CropMode, Converter={vc:EnumCompareConverter}, ConverterParameter={x:Static vm:CropMode.Right}}"/>
-            <Image Source="check"
-                   IsVisible="{Binding Settings.Handedness, Converter={vc:EnumCompareInvertConverter}, ConverterParameter={x:Static model:Handedness.Left}}">
+            <Image Source="check">
                 <Image.GestureRecognizers>
                     <TapGestureRecognizer Command="{Binding SaveEditCommand}"/>
                 </Image.GestureRecognizers>

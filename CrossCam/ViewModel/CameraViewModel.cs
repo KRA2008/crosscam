@@ -164,24 +164,130 @@ namespace CrossCam.ViewModel
 
         public bool IsNothingCaptured => LeftBitmap == null && RightBitmap == null;
         public bool ShouldIconBeVisible => IsNothingCaptured && IconColumn != CameraColumn && WorkflowStage == WorkflowStage.Capture;
-        public bool ShouldLeftPairBeVisible => IsNothingCaptured && (Settings.Handedness == Handedness.Right || Settings.Handedness == Handedness.Center && !Settings.IsCaptureLeftFirst);
-        public bool ShouldRightPairBeVisible => IsNothingCaptured && (Settings.Handedness == Handedness.Left || Settings.Handedness == Handedness.Center && Settings.IsCaptureLeftFirst);
-        public bool ShouldLeftLeftRetakeBeVisible => LeftBitmap != null && (WorkflowStage == WorkflowStage.Final && DoesCaptureOrientationMatchViewOrientation || WorkflowStage == WorkflowStage.Capture && (Settings.Handedness == Handedness.Right || Settings.Handedness == Handedness.Center));
-        public bool ShouldLeftRightRetakeBeVisible => LeftBitmap != null && WorkflowStage == WorkflowStage.Capture && Settings.Handedness == Handedness.Left;
-        public bool ShouldRightLeftRetakeBeVisible => RightBitmap != null && WorkflowStage == WorkflowStage.Capture && Settings.Handedness == Handedness.Right;
-        public bool ShouldRightRightRetakeBeVisible => RightBitmap != null && (WorkflowStage == WorkflowStage.Final && DoesCaptureOrientationMatchViewOrientation || WorkflowStage == WorkflowStage.Capture && (Settings.Handedness == Handedness.Left || Settings.Handedness == Handedness.Center));
+
+        public Rectangle PairButtonPosition
+        {
+            get
+            {
+                var width = (double)Application.Current.Resources["_largeIconWidth"];
+                var height = (double)Application.Current.Resources["_smallerButtonWidth"];
+                double x = 0;
+                var captureButtonX = CaptureButtonPosition.X;
+                if (captureButtonX == 0)
+                {
+                    x = 1;
+                } 
+                else if (captureButtonX == 1 ||
+                         !IsViewPortrait)
+                {
+                    x = 0;
+                }
+                else
+                {
+                    if (IsViewPortrait)
+                    {
+                        x = CameraColumn == 0 ? 1 : 0;
+                    }
+                }
+                return new Rectangle(x, 1, width, height);
+            }
+        }
+
+        public bool ShouldLeftLeftRetakeBeVisible => LeftBitmap != null && 
+                                                     (WorkflowStage == WorkflowStage.Final && 
+                                                      DoesCaptureOrientationMatchViewOrientation || 
+                                                      WorkflowStage == WorkflowStage.Capture && 
+                                                      (Settings.PortraitCaptureButtonPosition == PortraitCaptureButtonPosition.Right || 
+                                                       Settings.PortraitCaptureButtonPosition == PortraitCaptureButtonPosition.Middle));
+        public bool ShouldLeftRightRetakeBeVisible => LeftBitmap != null && 
+                                                      WorkflowStage == WorkflowStage.Capture && 
+                                                      Settings.PortraitCaptureButtonPosition == PortraitCaptureButtonPosition.Left;
+        public bool ShouldRightLeftRetakeBeVisible => RightBitmap != null && 
+                                                      WorkflowStage == WorkflowStage.Capture && 
+                                                      Settings.PortraitCaptureButtonPosition == PortraitCaptureButtonPosition.Right;
+        public bool ShouldRightRightRetakeBeVisible => RightBitmap != null && 
+                                                       (WorkflowStage == WorkflowStage.Final && 
+                                                        DoesCaptureOrientationMatchViewOrientation || 
+                                                        WorkflowStage == WorkflowStage.Capture && 
+                                                        (Settings.PortraitCaptureButtonPosition == PortraitCaptureButtonPosition.Left || 
+                                                         Settings.PortraitCaptureButtonPosition == PortraitCaptureButtonPosition.Middle));
         
-        public bool ShouldCenterLoadBeVisible => WorkflowStage == WorkflowStage.Capture && Settings.Handedness != Handedness.Center && BluetoothOperator.PairStatus != PairStatus.Connected;
-        public bool ShouldLeftLoadBeVisible => CameraColumn == 0 && WorkflowStage == WorkflowStage.Capture && Settings.Handedness == Handedness.Center && BluetoothOperator.PairStatus != PairStatus.Connected;
-        public bool ShouldRightLoadBeVisible => CameraColumn == 1 && WorkflowStage == WorkflowStage.Capture && Settings.Handedness == Handedness.Center && BluetoothOperator.PairStatus != PairStatus.Connected;
+        public bool ShouldCenterLoadBeVisible => WorkflowStage == WorkflowStage.Capture && 
+                                                 Settings.PortraitCaptureButtonPosition != PortraitCaptureButtonPosition.Middle && 
+                                                 BluetoothOperator.PairStatus != PairStatus.Connected;
+        public bool ShouldLeftLoadBeVisible => CameraColumn == 0 && 
+                                               WorkflowStage == WorkflowStage.Capture && 
+                                               Settings.PortraitCaptureButtonPosition == PortraitCaptureButtonPosition.Middle && 
+                                               BluetoothOperator.PairStatus != PairStatus.Connected;
+        public bool ShouldRightLoadBeVisible => CameraColumn == 1 && 
+                                                WorkflowStage == WorkflowStage.Capture && 
+                                                Settings.PortraitCaptureButtonPosition == PortraitCaptureButtonPosition.Middle && 
+                                                BluetoothOperator.PairStatus != PairStatus.Connected;
         
         public bool DoesCaptureOrientationMatchViewOrientation => WasCapturePortrait == IsViewPortrait;
         public bool ShouldSettingsAndHelpBeVisible => !IsBusy && 
                                                       WorkflowStage != WorkflowStage.View;
         public bool IsExactlyOnePictureTaken => LeftBitmap == null ^ RightBitmap == null;
-        public bool ShouldRightCaptureBeVisible => WorkflowStage == WorkflowStage.Capture && Settings.Handedness == Handedness.Right && (BluetoothOperatorBindable.PairStatus == PairStatus.Disconnected || Settings.IsPairedPrimary.HasValue && Settings.IsPairedPrimary.Value);
-        public bool ShouldCenterCaptureBeVisible => WorkflowStage == WorkflowStage.Capture && Settings.Handedness == Handedness.Center && (BluetoothOperatorBindable.PairStatus == PairStatus.Disconnected || Settings.IsPairedPrimary.HasValue && Settings.IsPairedPrimary.Value);
-        public bool ShouldLeftCaptureBeVisible => WorkflowStage == WorkflowStage.Capture && Settings.Handedness == Handedness.Left && (BluetoothOperatorBindable.PairStatus == PairStatus.Disconnected || Settings.IsPairedPrimary.HasValue && Settings.IsPairedPrimary.Value);
+        public bool IsCaptureModeAndEitherPrimaryOrDisconnected => WorkflowStage == WorkflowStage.Capture && 
+                                                                    (BluetoothOperatorBindable.PairStatus == PairStatus.Disconnected || 
+                                                                     Settings.IsPairedPrimary.HasValue && Settings.IsPairedPrimary.Value);
+
+        public Rectangle CaptureButtonPosition
+        {
+            get
+            {
+                var width = (double)Application.Current.Resources["_giantIconWidth"];
+                double x = 0;
+                double y = 0;
+                if (IsViewPortrait)
+                {
+                    y = 1;
+                    switch (Settings.PortraitCaptureButtonPosition)
+                    {
+                        case PortraitCaptureButtonPosition.Right:
+                            x = 1;
+                            break;
+                        case PortraitCaptureButtonPosition.Middle:
+                            x = 0.5;
+                            break;
+                        case PortraitCaptureButtonPosition.Left:
+                            x = 0;
+                            break;
+                    }
+                }
+                else
+                {
+                    switch (Settings.LandscapeCaptureButtonVerticalPosition)
+                    {
+                        case LandscapeCaptureButtonVerticalPosition.Middle:
+                            y = 0.5;
+                            break;
+                        case LandscapeCaptureButtonVerticalPosition.Bottom:
+                            y = 1;
+                            break;
+                    }
+                    switch (Settings.LandscapeCaptureButtonHorizontalPosition)
+                    {
+                        case LandscapeCaptureButtonHorizontalPosition.HomeEnd when IsViewInverted:
+                            x = 0;
+                            break;
+                        case LandscapeCaptureButtonHorizontalPosition.HomeEnd when !IsViewInverted:
+                            x = 1;
+                            break;
+                        case LandscapeCaptureButtonHorizontalPosition.Middle:
+                            x = 0.5;
+                            break;
+                        case LandscapeCaptureButtonHorizontalPosition.CameraEnd when IsViewInverted:
+                            x = 1;
+                            break;
+                        case LandscapeCaptureButtonHorizontalPosition.CameraEnd when !IsViewInverted:
+                            x = 0;
+                            break;
+                    }
+                }
+                return new Rectangle(x, y, width, width);
+            }
+        }
 
         public bool ShouldLineGuidesBeVisible => ((IsNothingCaptured && Settings.ShowGuideLinesWithFirstCapture)
                                                   || (IsExactlyOnePictureTaken && WorkflowStage != WorkflowStage.Loading)
@@ -611,8 +717,7 @@ namespace CrossCam.ViewModel
 
                     Settings.IsCaptureLeftFirst = !Settings.IsCaptureLeftFirst;
                     Settings.RaisePropertyChanged(nameof(Settings.IsCaptureLeftFirst));
-                    RaisePropertyChanged(nameof(ShouldLeftPairBeVisible));
-                    RaisePropertyChanged(nameof(ShouldRightPairBeVisible));
+                    RaisePropertyChanged(nameof(PairButtonPosition));
                     PersistentStorage.Save(PersistentStorage.SETTINGS_KEY, Settings);
 
                     TriggerMovementHint();
@@ -915,9 +1020,7 @@ namespace CrossCam.ViewModel
             {
                 WorkflowStage = WorkflowStage.Capture;
             }
-            RaisePropertyChanged(nameof(ShouldLeftCaptureBeVisible));
-            RaisePropertyChanged(nameof(ShouldCenterCaptureBeVisible));
-            RaisePropertyChanged(nameof(ShouldRightCaptureBeVisible));
+            RaisePropertyChanged(nameof(CaptureButtonPosition));
             RaisePropertyChanged(nameof(ShouldLineGuidesBeVisible));
             RaisePropertyChanged(nameof(ShouldPairPreviewBeVisible));
             RaisePropertyChanged(nameof(ShouldDonutGuideBeVisible));
@@ -929,9 +1032,7 @@ namespace CrossCam.ViewModel
         private void BluetoothOperatorOnConnected(object sender, EventArgs e)
         {
             ShowFovPreparationPopup();
-            RaisePropertyChanged(nameof(ShouldLeftCaptureBeVisible));
-            RaisePropertyChanged(nameof(ShouldCenterCaptureBeVisible));
-            RaisePropertyChanged(nameof(ShouldRightCaptureBeVisible));
+            RaisePropertyChanged(nameof(CaptureButtonPosition));
             RaisePropertyChanged(nameof(ShouldLineGuidesBeVisible));
             RaisePropertyChanged(nameof(ShouldPairPreviewBeVisible));
             RaisePropertyChanged(nameof(ShouldDonutGuideBeVisible));
@@ -1040,17 +1141,14 @@ namespace CrossCam.ViewModel
             RaisePropertyChanged(nameof(ShouldLeftRightRetakeBeVisible));
             RaisePropertyChanged(nameof(ShouldRightLeftRetakeBeVisible));
             RaisePropertyChanged(nameof(ShouldRightRightRetakeBeVisible));
-            RaisePropertyChanged(nameof(ShouldLeftCaptureBeVisible));
-            RaisePropertyChanged(nameof(ShouldCenterCaptureBeVisible));
-            RaisePropertyChanged(nameof(ShouldRightCaptureBeVisible));
+            RaisePropertyChanged(nameof(CaptureButtonPosition));
             RaisePropertyChanged(nameof(ShouldCenterLoadBeVisible));
             RaisePropertyChanged(nameof(ShouldLeftLoadBeVisible));
             RaisePropertyChanged(nameof(ShouldRightLoadBeVisible));
             RaisePropertyChanged(nameof(SavedSuccessMessage));
             RaisePropertyChanged(nameof(CanvasRectangle));
             RaisePropertyChanged(nameof(CanvasRectangleFlags));
-            RaisePropertyChanged(nameof(ShouldLeftPairBeVisible));
-            RaisePropertyChanged(nameof(ShouldRightPairBeVisible));
+            RaisePropertyChanged(nameof(PairButtonPosition));
             RaisePropertyChanged(nameof(CameraViewModel));
             RaisePropertyChanged(nameof(Settings)); // this doesn't cause reevaluation for above stuff (but I'd like it to), but it does trigger redraw of canvas and evaluation of whether to run auto alignment
             Settings.RaisePropertyChanged();

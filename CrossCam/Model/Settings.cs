@@ -198,15 +198,39 @@ namespace CrossCam.Model
             }
         }
 
-        private Handedness _handedness;
-        public Handedness Handedness
+        private PortraitCaptureButtonPosition _portraitPortraitCaptureButtonPosition;
+        public PortraitCaptureButtonPosition PortraitCaptureButtonPosition
         {
-            get => _handedness;
+            get => _portraitPortraitCaptureButtonPosition;
             set
             {
                 var intValue = (int)value;
                 if (intValue < 0) return;
-                _handedness = value;
+                _portraitPortraitCaptureButtonPosition = value;
+            }
+        }
+
+        private LandscapeCaptureButtonHorizontalPosition _landscapeCaptureButtonHorizontalPosition;
+        public LandscapeCaptureButtonHorizontalPosition LandscapeCaptureButtonHorizontalPosition
+        {
+            get => _landscapeCaptureButtonHorizontalPosition;
+            set
+            {
+                var intValue = (int)value;
+                if (intValue < 0) return;
+                _landscapeCaptureButtonHorizontalPosition = value;
+            }
+        }
+
+        private LandscapeCaptureButtonVerticalPosition _landscapeCaptureButtonVerticalPosition;
+        public LandscapeCaptureButtonVerticalPosition LandscapeCaptureButtonVerticalPosition
+        {
+            get => _landscapeCaptureButtonVerticalPosition;
+            set
+            {
+                var intValue = (int)value;
+                if (intValue < 0) return;
+                _landscapeCaptureButtonVerticalPosition = value;
             }
         }
 
@@ -343,7 +367,9 @@ namespace CrossCam.Model
             SavingDirectory = null;
             SaveToExternal = false;
 
-            Handedness = Handedness.Right;
+            PortraitCaptureButtonPosition = PortraitCaptureButtonPosition.Middle;
+            LandscapeCaptureButtonHorizontalPosition = LandscapeCaptureButtonHorizontalPosition.HomeEnd;
+            LandscapeCaptureButtonVerticalPosition = LandscapeCaptureButtonVerticalPosition.Bottom;
 
             BorderColor = BorderColor.Black;
 

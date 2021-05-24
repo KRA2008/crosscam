@@ -537,10 +537,26 @@
                 <Switch IsToggled="{Binding Settings.IsForceCamera2Enabled}"/>
             </StackLayout>
             <StackLayout Orientation="Horizontal">
-                <Label Text="Handedness (placement of the capture/aperture button on the screen)"/>
+                <Label Text="Portrait capture button placement"/>
                 <Frame>
-                    <Picker ItemsSource="{Binding Handednesses}"
-                            SelectedIndex="{Binding Settings.Handedness, Converter={vc:HandednessValueConverter}}"
+                    <Picker ItemsSource="{Binding PortraitCaptureButtonPosition}"
+                            SelectedIndex="{Binding Settings.PortraitCaptureButtonPosition, Converter={vc:PortraitCaptureButtonPositionValueConverter}}"
+                            HorizontalOptions="EndAndExpand"/>
+                </Frame>
+            </StackLayout>
+            <StackLayout Orientation="Horizontal">
+                <Label Text="Landscape capture button horizontal placement"/>
+                <Frame>
+                    <Picker ItemsSource="{Binding LandscapeCaptureButtonHorizontalPosition}"
+                            SelectedIndex="{Binding Settings.LandscapeCaptureButtonHorizontalPosition, Converter={vc:LandscapeCaptureButtonHorizontalPositionValueConverter}}"
+                            HorizontalOptions="EndAndExpand"/>
+                </Frame>
+            </StackLayout>
+            <StackLayout Orientation="Horizontal">
+                <Label Text="Landscape capture button vertical placement"/>
+                <Frame>
+                    <Picker ItemsSource="{Binding LandscapeCaptureButtonVerticalPosition}"
+                            SelectedIndex="{Binding Settings.LandscapeCaptureButtonVerticalPosition, Converter={vc:LandscapeCaptureButtonVerticalPositionValueConverter}}"
                             HorizontalOptions="EndAndExpand"/>
                 </Frame>
             </StackLayout>
