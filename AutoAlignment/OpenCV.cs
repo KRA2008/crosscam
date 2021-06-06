@@ -16,6 +16,7 @@ using Emgu.CV.Util;
 #endif
 using SkiaSharp;
 using Xamarin.Forms;
+using Point = System.Drawing.Point;
 #if __ANDROID__
 using SkiaSharp.Views.Android;
 #elif __IOS__
@@ -293,7 +294,8 @@ namespace AutoAlignment
             var points1 = pairedPoints.Select(p => new SKPoint(p.KeyPoint1.Point.X, p.KeyPoint1.Point.Y)).ToArray();
             var points2 = pairedPoints.Select(p => new SKPoint(p.KeyPoint2.Point.X, p.KeyPoint2.Point.Y)).ToArray();
 
-            var translation1 = FindTranslation(points1, points2, secondImage);
+
+            var translation1 = FindVerticalTranslation(points1, points2, secondImage);
             var translated1 = SKMatrix.MakeTranslation(0, translation1);
             points2 = translated1.MapPoints(points2);
 
@@ -307,7 +309,7 @@ namespace AutoAlignment
 
 
 
-            var translation2 = FindTranslation(points1, points2, secondImage);
+            var translation2 = FindVerticalTranslation(points1, points2, secondImage);
             var translated2 = SKMatrix.MakeTranslation(0, translation2);
             points2 = translated2.MapPoints(points2);
 
@@ -321,7 +323,7 @@ namespace AutoAlignment
 
             
 
-            var translation3 = FindTranslation(points1, points2, secondImage);
+            var translation3 = FindVerticalTranslation(points1, points2, secondImage);
             var translated3 = SKMatrix.MakeTranslation(0, translation3);
             points2 = translated3.MapPoints(points2);
 
@@ -348,7 +350,7 @@ namespace AutoAlignment
             var horizontaled = SKMatrix.MakeIdentity();
             if (!discardTransX)
             {
-                var horizontalAdj = FindTranslationHorizontal(points1, points2, secondImage);
+                var horizontalAdj = FindHorizontalTranslation(points1, points2, secondImage);
                 horizontaled = SKMatrix.MakeTranslation(horizontalAdj, 0);
                 points2 = horizontaled.MapPoints(points2);
             }
@@ -373,6 +375,7 @@ namespace AutoAlignment
             SKMatrix.Concat(ref tempMatrix7, tempMatrix6, rotated3);
             var tempMatrix8 = new SKMatrix();
             SKMatrix.Concat(ref tempMatrix8, tempMatrix7, zoomed3);
+
 
             var tempMatrix9 = new SKMatrix();
             SKMatrix.Concat(ref tempMatrix9, tempMatrix8, keystoned2);
@@ -453,166 +456,81 @@ namespace AutoAlignment
             public MDMatch Match { get; set; }
         }
 
-        private static float FindTranslation(SKPoint[] good1, SKPoint[] good2, SKBitmap secondImage)
+        private static float FindVerticalTranslation(SKPoint[] points1, SKPoint[] points2, SKBitmap secondImage)
         {
-            var baseOffset = GetNetYOffset(good1, good2);
-            const int FINAL_TRANSLATION_DELTA = 1;
+            const int TRANSLATION_TERMINATION_THRESHOLD = 1;
             var translationInc = secondImage.Height / 2;
-            var finalTranslation = 0f;
 
-            while (translationInc > FINAL_TRANSLATION_DELTA)
-            {
-                var translateA = SKMatrix.MakeTranslation(0, finalTranslation + translationInc);
-                var translateB = SKMatrix.MakeTranslation(0, finalTranslation - translationInc);
-                var attemptA = translateA.MapPoints(good2);
-                var offsetA = GetNetYOffset(good1, attemptA);
-                var attemptB = translateB.MapPoints(good2);
-                var offsetB = GetNetYOffset(good1, attemptB);
-
-                if (offsetA < baseOffset)
-                {
-                    baseOffset = offsetA;
-                    finalTranslation += translationInc;
-                }
-                else if (offsetB < baseOffset)
-                {
-                    baseOffset = offsetB;
-                    finalTranslation -= translationInc;
-                }
-                translationInc /= 2;
-            }
-
-            return finalTranslation;
+            return BinarySearchFindComponent(points1, points2, t => SKMatrix.MakeTranslation(0, t), translationInc, TRANSLATION_TERMINATION_THRESHOLD);
         }
 
-        private static float FindTranslationHorizontal(SKPoint[] good1, SKPoint[] good2, SKBitmap secondImage)
+        private static float FindHorizontalTranslation(SKPoint[] points1, SKPoint[] points2, SKBitmap secondImage)
         {
-            var baseOffset = GetNetXOffset(good1, good2);
-            const int FINAL_TRANSLATION_DELTA = 1;
+            const int TRANSLATION_TERMINATION_THRESHOLD = 1;
             var translationInc = secondImage.Width / 2;
-            var finalTranslation = 0f;
 
-            while (translationInc > FINAL_TRANSLATION_DELTA)
-            {
-                var translateA = SKMatrix.MakeTranslation(finalTranslation + translationInc, 0);
-                var translateB = SKMatrix.MakeTranslation(finalTranslation - translationInc, 0);
-                var attemptA = translateA.MapPoints(good2);
-                var offsetA = GetNetXOffset(good1, attemptA);
-                var attemptB = translateB.MapPoints(good2);
-                var offsetB = GetNetXOffset(good1, attemptB);
-
-                if (offsetA < baseOffset)
-                {
-                    baseOffset = offsetA;
-                    finalTranslation += translationInc;
-                }
-                else if (offsetB < baseOffset)
-                {
-                    baseOffset = offsetB;
-                    finalTranslation -= translationInc;
-                }
-                translationInc /= 2;
-            }
-
-            return finalTranslation;
+            return BinarySearchFindComponent(points1, points2, t => SKMatrix.MakeTranslation(t, 0), translationInc, TRANSLATION_TERMINATION_THRESHOLD, 0, true);
         }
 
-        private static float FindRotation(SKPoint[] good1, SKPoint[] good2, SKBitmap secondImage)
+        private static float FindRotation(SKPoint[] points1, SKPoint[] points2, SKBitmap secondImage)
         {
-            var baseOffset = GetNetYOffset(good1, good2);
-            const float FINAL_ROTATION_DELTA = 0.0001f; //TODO: make configurable?
-            var rotationInc = (float)Math.PI / 2f;
-            var finalRotation = 0f;
+            const float FINAL_ROTATION_DELTA = 0.0001f;
+            const float ROTATION_INC = (float)Math.PI / 2f;
 
-            while (rotationInc > FINAL_ROTATION_DELTA)
-            {
-                var rotateA = SKMatrix.MakeRotation(finalRotation + rotationInc, secondImage.Width / 2f, secondImage.Height / 2f);
-                var rotateB = SKMatrix.MakeRotation(finalRotation - rotationInc, secondImage.Width / 2f, secondImage.Height / 2f);
-                var attemptA = rotateA.MapPoints(good2);
-                var offsetA = GetNetYOffset(good1, attemptA);
-                var attemptB = rotateB.MapPoints(good2);
-                var offsetB = GetNetYOffset(good1, attemptB);
-
-                if (offsetA < baseOffset)
-                {
-                    baseOffset = offsetA;
-                    finalRotation += rotationInc;
-                }
-                else if (offsetB < baseOffset)
-                {
-                    baseOffset = offsetB;
-                    finalRotation -= rotationInc;
-                }
-                rotationInc /= 2f;
-            }
-
-            return finalRotation;
+            return BinarySearchFindComponent(points1, points2,
+                t => SKMatrix.MakeRotation(t, secondImage.Width / 2f, secondImage.Height / 2f), ROTATION_INC,
+                FINAL_ROTATION_DELTA);
         }
 
-        private static float FindZoom(SKPoint[] good1, SKPoint[] good2, SKBitmap secondImage)
+        private static float FindZoom(SKPoint[] points1, SKPoint[] points2, SKBitmap secondImage)
         {
-            var baseOffset = GetNetYOffset(good1, good2);
-            const float FINAL_ZOOM_DELTA = 0.0001f; //TODO: make configurable?
-            var zoomInc = 1f;
-            var finalZoom = 1f;
+            const float FINAL_ZOOM_DELTA = 0.0001f;
+            const float ZOOM_INC = 1f;
 
-            while (zoomInc > FINAL_ZOOM_DELTA)
-            {
-                var zoomA = SKMatrix.MakeScale(finalZoom + zoomInc, finalZoom + zoomInc, secondImage.Width / 2f, secondImage.Height / 2f);
-                var zoomB = SKMatrix.MakeScale(finalZoom - zoomInc, finalZoom - zoomInc, secondImage.Width / 2f, secondImage.Height / 2f);
-                var attemptA = zoomA.MapPoints(good2);
-                var offsetA = GetNetYOffset(good1, attemptA);
-                var attemptB = zoomB.MapPoints(good2);
-                var offsetB = GetNetYOffset(good1, attemptB);
-
-                if (offsetA < baseOffset)
-                {
-                    baseOffset = offsetA;
-                    finalZoom += zoomInc;
-                }
-                else if (offsetB < baseOffset)
-                {
-                    baseOffset = offsetB;
-                    finalZoom -= zoomInc;
-                }
-                zoomInc /= 2f;
-            }
-
-            return finalZoom;
+            return BinarySearchFindComponent(points1, points2,
+                t => SKMatrix.MakeScale(t, t, secondImage.Width / 2f,
+                    secondImage.Height / 2f), ZOOM_INC, FINAL_ZOOM_DELTA, 1);
         }
 
         private static SKMatrix FindTaper(SKPoint[] pointsToMatch, SKPoint[] pointsToCorrect, SKBitmap image, bool keystoneRight)
         {
-            var baseOffset = GetNetYOffset(pointsToMatch, pointsToCorrect);
-            const float FINAL_TAPER_DELTA = 0.0001f; //TODO: make configurable?
-            var taperInc = 0.5f;
-            var finalTaper = 1f;
+            const float FINAL_TAPER_DELTA = 0.0001f;
+            const float TAPER_INC = 0.5f;
             var taperSide = keystoneRight ? TaperSide.Right : TaperSide.Left;
 
-            while (taperInc > FINAL_TAPER_DELTA)
+            var taper = BinarySearchFindComponent(pointsToMatch, pointsToCorrect,
+                t => TaperTransform.Make(new SKSize(image.Width, image.Height), taperSide, TaperCorner.Both, t),
+                TAPER_INC, FINAL_TAPER_DELTA, 1);
+            return TaperTransform.Make(new SKSize(image.Width, image.Height), taperSide, TaperCorner.Both, taper);
+        }
+
+        private static float BinarySearchFindComponent(SKPoint[] basePoints, SKPoint[] pointsToTransform, Func<float, SKMatrix> testerFunction, float searchingIncrement, float terminationThreshold, float componentStart = 0, bool useXDisplacement = false)
+        {
+            var baseOffset = useXDisplacement ? GetNetXOffset(basePoints, pointsToTransform) : GetNetYOffset(basePoints, pointsToTransform);
+
+            while (searchingIncrement > terminationThreshold)
             {
-                var taperA = TaperTransform.Make(new SKSize(image.Width, image.Height), taperSide, TaperCorner.Both, finalTaper + taperInc);
-                var taperB = TaperTransform.Make(new SKSize(image.Width, image.Height), taperSide, TaperCorner.Both, finalTaper - taperInc);
-                var attemptA = taperA.MapPoints(pointsToCorrect);
-                var offsetA = GetNetYOffset(pointsToMatch, attemptA);
-                var attemptB = taperB.MapPoints(pointsToCorrect);
-                var offsetB = GetNetYOffset(pointsToMatch, attemptB);
+                var versionA = testerFunction(componentStart + searchingIncrement);
+                var versionB = testerFunction(componentStart - searchingIncrement);
+                var attemptA = versionA.MapPoints(pointsToTransform);
+                var offsetA = useXDisplacement ? GetNetXOffset(basePoints, attemptA) : GetNetYOffset(basePoints, attemptA);
+                var attemptB = versionB.MapPoints(pointsToTransform);
+                var offsetB = useXDisplacement ? GetNetXOffset(basePoints, attemptB) : GetNetYOffset(basePoints, attemptB);
 
                 if (offsetA < baseOffset)
                 {
                     baseOffset = offsetA;
-                    finalTaper += taperInc;
+                    componentStart += searchingIncrement;
                 }
                 else if (offsetB < baseOffset)
                 {
                     baseOffset = offsetB;
-                    finalTaper -= taperInc;
+                    componentStart -= searchingIncrement;
                 }
-
-                taperInc /= 2f;
+                searchingIncrement /= 2;
             }
 
-            return TaperTransform.Make(new SKSize(image.Width, image.Height), taperSide, TaperCorner.Both, finalTaper);
+            return componentStart;
         }
 
         private static double GetNetXOffset(SKPoint[] points1, SKPoint[] points2)
