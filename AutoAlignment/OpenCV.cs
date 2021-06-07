@@ -419,7 +419,7 @@ namespace AutoAlignment
                 fullSizeColor1, new VectorOfKeyPoint(points.Select(m => m.KeyPoint1).ToArray()),
                 fullSizeColor2, new VectorOfKeyPoint(points.Select(m => m.KeyPoint2).ToArray()),
                 new VectorOfVectorOfDMatch(points.Select(p => new[] { p.Match }).ToArray()),
-                drawnResult, new MCvScalar(0, 255, 0), new MCvScalar(255, 255, 0));
+                drawnResult, new MCvScalar(0, 255, 0), new MCvScalar(255, 255, 0), null, Features2DToolbox.KeypointDrawType.Default);
 #if __IOS__
             return drawnResult.ToCGImage().ToSKBitmap();
 #elif __ANDROID__
