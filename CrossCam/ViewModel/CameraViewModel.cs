@@ -768,13 +768,13 @@ namespace CrossCam.ViewModel
                                     canvas.Translate(-1f * LeftBitmap.Width, -1f * LeftBitmap.Height);
                                 }
 
-                                canvas.DrawBitmap(OriginalUnalignedLeft, 0, 0);
+                                canvas.DrawBitmap(OriginalUnalignedLeft ?? LeftBitmap, 0, 0);
 
                                 await SaveSurfaceSnapshot(tempSurface);
 
                                 canvas.Clear();
 
-                                canvas.DrawBitmap(OriginalUnalignedRight, 0, 0);
+                                canvas.DrawBitmap(OriginalUnalignedRight ?? RightBitmap, 0, 0);
 
                                 await SaveSurfaceSnapshot(tempSurface);
                             }
