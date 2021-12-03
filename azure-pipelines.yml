@@ -1,7 +1,8 @@
 # Xamarin.iOS
-- task: InstallAppleCertificate@2
+- task: InstallAppleProvisioningProfile@1
   inputs:
-    keychain: 'temp'
+    provisioningProfileLocation: 'secureFiles'
+    provProfileSecureFile: 'CrossCam_Store_Dist.mobileprovision'
 - task: InstallAppleProvisioningProfile@1
   inputs:
     provisioningProfileLocation: 'secureFiles'
