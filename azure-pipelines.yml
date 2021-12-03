@@ -1,17 +1,3 @@
-# Xamarin.iOS
-- task: InstallAppleCertificate@1
-  inputs:
-    certSecureFile: 'distro.p12'
-    certPwd: 'BipBop123'
-    keychain: 'temp'
-- task: InstallAppleProvisioningProfile@1
-  inputs:
-    provisioningProfileLocation: 'secureFiles'
-    provProfileSecureFile: 'CrossCam_Store_Dist.mobileprovision'
-- task: InstallAppleProvisioningProfile@2
-  inputs:
-    provisioningProfileLocation: 'secureFiles'
-    provProfileSecureFile: 'CrossCam_Share_Extension_Store_Dist.mobileprovision'
 # Build a Xamarin.iOS project.
 # Add steps that install certificates, test, sign, and distribute an app, save build artifacts, and more:
 # https://docs.microsoft.com/azure/devops/pipelines/languages/xamarin
@@ -30,6 +16,23 @@ steps:
 - script: sudo $AGENT_HOMEDIRECTORY/scripts/select-xamarin-sdk.sh 5_12_0
   displayName: 'Select the Xamarin SDK version'
   enabled: false
+
+# Xamarin.iOS
+- task: InstallAppleCertificate@2
+  inputs:
+    certSecureFile: 'distro.p12'
+    certPwd: 'BipBop123'
+    keychain: 'temp'
+
+- task: InstallAppleProvisioningProfile@1
+  inputs:
+    provisioningProfileLocation: 'secureFiles'
+    provProfileSecureFile: 'CrossCam_Store_Dist.mobileprovision'
+
+- task: InstallAppleProvisioningProfile@1
+  inputs:
+    provisioningProfileLocation: 'secureFiles'
+    provProfileSecureFile: 'CrossCam_Share_Extension_Store_Dist.mobileprovision'
 
 - task: NuGetToolInstaller@1
 
