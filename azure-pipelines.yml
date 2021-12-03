@@ -1,6 +1,7 @@
 # Xamarin.iOS
 - task: InstallAppleCertificate@2
   inputs:
+    certSecureFile: 'distro.p12'
     certPwd: 'BipBop123'
     keychain: 'temp'
 # Build a Xamarin.iOS project.
