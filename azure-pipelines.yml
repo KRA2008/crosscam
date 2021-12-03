@@ -1,4 +1,7 @@
 # Xamarin.iOS
+- task: InstallAppleProvisioningProfile@1
+  inputs:
+    provisioningProfileLocation: 'secureFiles'
 - task: InstallAppleCertificate@2
   inputs:
     keychain: 'temp'
