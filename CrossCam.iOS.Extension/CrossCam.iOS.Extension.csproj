@@ -48,7 +48,7 @@
     <MtouchArch>ARMv7, ARM64</MtouchArch>
     <CodesignEntitlements>
     </CodesignEntitlements>
-    <CodesignKey>Apple Development: Kevin Anderson (288S2529U3)</CodesignKey>
+    <CodesignKey>iPhone Developer</CodesignKey>
     <MtouchDebug>true</MtouchDebug>
     <OptimizePNGs>true</OptimizePNGs>
     <MtouchFastDev>true</MtouchFastDev>
@@ -69,12 +69,12 @@
     </CodesignEntitlements>
     <MtouchArch>ARMv7, ARM64</MtouchArch>
     <ConsolePause>false</ConsolePause>
-    <CodesignKey>Apple Distribution: Kevin Anderson (G656MA2J22)</CodesignKey>
+    <CodesignKey>iPhone Distribution</CodesignKey>
     <OptimizePNGs>true</OptimizePNGs>
     <MtouchLink>Full</MtouchLink>
     <MtouchFloat32>true</MtouchFloat32>
     <MtouchUseLlvm>true</MtouchUseLlvm>
-    <CodesignProvision>CrossCam Share Extension Dist</CodesignProvision>
+    <CodesignProvision>CrossCam Share Extension Store Dist</CodesignProvision>
     <CodesignExtraArgs />
     <CodesignResourceRules />
   </PropertyGroup>

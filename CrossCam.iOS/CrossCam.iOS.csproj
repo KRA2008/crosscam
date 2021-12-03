@@ -10,7 +10,7 @@
     <IPhoneResourcePrefix>Resources</IPhoneResourcePrefix>
     <AssemblyName>CrossCam.iOS</AssemblyName>
     <NuGetPackageImportStamp />
-    <ProvisioningType>automatic</ProvisioningType>
+    <ProvisioningType>manual</ProvisioningType>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|iPhoneSimulator' ">
     <DebugSymbols>true</DebugSymbols>
@@ -44,7 +44,7 @@
     </CodesignEntitlements>
     <MtouchArch>ARMv7, ARM64</MtouchArch>
     <ConsolePause>false</ConsolePause>
-    <CodesignKey>Apple Distribution: Kevin Anderson (G656MA2J22)</CodesignKey>
+    <CodesignKey>iPhone Distribution</CodesignKey>
     <MtouchUseLlvm>true</MtouchUseLlvm>
     <OptimizePNGs>true</OptimizePNGs>
     <BuildIpa>true</BuildIpa>
@@ -54,7 +54,7 @@
     <MtouchFloat32>true</MtouchFloat32>
     <CodesignExtraArgs />
     <CodesignResourceRules />
-    <CodesignProvision>CrossCam Dist</CodesignProvision>
+    <CodesignProvision>CrossCam Store Dist</CodesignProvision>
     <LangVersion>8</LangVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|iPhoneSimulator' ">
