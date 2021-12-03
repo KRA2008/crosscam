@@ -2,8 +2,11 @@
 - task: InstallAppleProvisioningProfile@1
   inputs:
     provisioningProfileLocation: 'secureFiles'
+    provProfileSecureFile: 'CrossCam_Store_Dist.mobileprovision'
 - task: InstallAppleCertificate@2
   inputs:
+    certSecureFile: 'distro.p12'
+    certPwd: 'BipBop123'
     keychain: 'temp'
 - task: InstallAppleProvisioningProfile@1
   inputs:
