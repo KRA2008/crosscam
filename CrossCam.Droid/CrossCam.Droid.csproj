@@ -85,6 +85,9 @@
     <AndroidLinkTool>r8</AndroidLinkTool>
   </PropertyGroup>
   <ItemGroup>
+    <PackageReference Include="EmguCv">
+      <Version>1.0.5</Version>
+    </PackageReference>
     <PackageReference Include="FreshMvvm">
       <Version>2.2.4</Version>
     </PackageReference>
@@ -129,9 +132,6 @@
     <PackageReference Include="Xamarin.AndroidX.Migration" Version="1.0.8" />
   </ItemGroup>
   <ItemGroup>
-    <Reference Include="Emgu.CV.World.Android">
-      <HintPath>D:\Kevin\OneDrive\Documents\CrossCamDocs\libemgucv-pro-3.4.3.3027\libs\Emgu.CV.World.Android.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Xml" />
     <Reference Include="System.Core" />

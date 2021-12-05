@@ -145,6 +145,9 @@
     <LangVersion>8</LangVersion>
   </PropertyGroup>
   <ItemGroup>
+    <PackageReference Include="EmguCv">
+      <Version>1.0.5</Version>
+    </PackageReference>
     <PackageReference Include="FreshMvvm">
       <Version>2.2.4</Version>
     </PackageReference>
@@ -159,10 +162,6 @@
     </PackageReference>
   </ItemGroup>
   <ItemGroup>
-    <Reference Include="Emgu.CV.World.IOS, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>D:\Kevin\OneDrive\Documents\CrossCamDocs\libemgucv-pro-3.4.3.3027\libs\Emgu.CV.World.IOS.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Xml" />
     <Reference Include="System.Core" />
