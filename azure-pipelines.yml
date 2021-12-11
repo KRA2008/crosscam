@@ -3,7 +3,7 @@
 # https://docs.microsoft.com/azure/devops/pipelines/languages/xamarin
 
 trigger:
-- develop
+-
 
 pool:
   vmImage: 'macos-latest'
