@@ -88,7 +88,7 @@ jobs:
 # Add steps that test, sign, and distribute an app, save build artifacts, and more:
 # https://docs.microsoft.com/azure/devops/pipelines/languages/xamarin
   pool:
-    vmImage: 'macos-latest'
+    vmImage: 'windows-2019'
 
   variables:
     buildConfiguration: 'Release'
@@ -99,7 +99,18 @@ jobs:
 
   - task: NuGetCommand@2
     inputs:
+      command: 'restore'
       restoreSolution: '**/*.sln'
+      feedsToUse: 'config'
+      nugetConfigPath: 'nuget.config'
+      externalFeedCredentials: 'NuGet'
+
+  - task: Bash@3
+    inputs:
+      targetType: 'inline'
+      script: |
+        sed -i 's/android:versionCode="1"/android:versionCode="$(buildNumber)"/g' CrossCam.Droid/Properties/AndroidManifest.xml
+        sed -i 's/android:versionName="1.0"/android:versionName="$(myVersionNumber)"/g' CrossCam.Droid/Properties/AndroidManifest.xml
 
   - task: XamarinAndroid@1
     inputs:
