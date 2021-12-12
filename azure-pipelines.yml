@@ -129,16 +129,16 @@ jobs:
 
   - task: PublishPipelineArtifact@1
     inputs:
-      targetPath: '$(Pipeline.Workspace)'
+      targetPath: '$(Pipeline.Workspace)\s\CrossCam.Droid\obj\Release\100\android\bin\com.kra2008.crosscam.apk'
       publishLocation: 'pipeline'
 
-#  - task: AppCenterDistribute@3
-#    inputs:
-#      serverEndpoint: 'App Center'
-#      appSlug: 'kra3030/CrossCam-1'
-#      appFile: '$(Pipeline.Workspace)'
-#      symbolsOption: 'Android'
-#      releaseNotesOption: 'input'
-#      releaseNotesInput: '☃'
-#      destinationType: 'groups'
-#      isSilent: true
+  - task: AppCenterDistribute@3
+    inputs:
+      serverEndpoint: 'App Center'
+      appSlug: 'kra3030/CrossCam-1'
+      appFile: '$(Pipeline.Workspace)\s\CrossCam.Droid\obj\Release\100\android\bin\com.kra2008.crosscam.apk'
+      symbolsOption: 'Android'
+      releaseNotesOption: 'input'
+      releaseNotesInput: '☃'
+      destinationType: 'groups'
+      isSilent: true
