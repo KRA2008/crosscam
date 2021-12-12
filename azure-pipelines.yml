@@ -116,3 +116,11 @@ jobs:
       projectFile: '**/*droid*.csproj'
       outputDirectory: '$(outputDirectory)'
       configuration: '$(buildConfiguration)'
+
+  - task: AndroidSigning@3
+    inputs:
+      apkFiles: '**/*.apk'
+      apksignerKeystoreFile: 'kra2008Android.keystore'
+      apksignerKeystorePassword: '$(keystorePassword)'
+      apksignerKeystoreAlias: 'kra2008android'
+      apksignerKeyPassword: '$(keystorePassword)'
