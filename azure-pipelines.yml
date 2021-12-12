@@ -111,6 +111,7 @@ jobs:
       script: |
         sed -i 's/android:versionCode="1"/android:versionCode="$(buildNumber)"/g' CrossCam.Droid/Properties/AndroidManifest.xml
         sed -i 's/android:versionName="1.0"/android:versionName="$(myVersionNumber)"/g' CrossCam.Droid/Properties/AndroidManifest.xml
+        cat CrossCam.Droid/Properties/AndroidManifest.xml
 
   - task: XamarinAndroid@1
     inputs:
