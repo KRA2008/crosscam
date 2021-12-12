@@ -124,3 +124,8 @@ jobs:
       apksignerKeystorePassword: '$(keystorePassword)'
       apksignerKeystoreAlias: 'kra2008android'
       apksignerKeyPassword: '$(keystorePassword)'
+
+  - task: PublishPipelineArtifact@1
+    inputs:
+      targetPath: '$(Pipeline.Workspace)'
+      publishLocation: 'pipeline'
