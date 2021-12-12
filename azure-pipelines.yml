@@ -7,7 +7,7 @@ trigger:
 
 jobs:
 - job: iOS
-  displayName: 'CrossCam iOS'
+  displayName: 'iOS'
   pool:
     vmImage: 'macos-latest'
 
@@ -83,6 +83,7 @@ jobs:
       shouldSkipWaitingForProcessing: true
 
 - job: Android
+  displayName: 'Android'
   # Xamarin.Android
 # Build a Xamarin.Android project.
 # Add steps that test, sign, and distribute an app, save build artifacts, and more:
