@@ -55,8 +55,6 @@
                 <BoxView/>
                 <Label Text="There is an experimental &quot;guide donut/dot&quot; on the settings page you can turn on which may help you keep your perspectives parallel for a large scene. Ideally you would drag it onto the horizon, sky, or other very distant point. Be careful, using it on smaller scenes may make things painful (see keystone tip above)."/>
                 <BoxView/>
-                <Label Text="There's a 'handedness' setting on the settings page in case you want that. It can put the capture/aperture button right, left, or centered."/>
-                <BoxView/>
                 <customElement:EmailMeLabel/>
             </StackLayout>
         </ScrollView>
