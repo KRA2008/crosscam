@@ -2,22 +2,18 @@
 using CrossCam.Model;
 using CrossCam.Wrappers;
 using FreshMvvm;
+using Xamarin.Essentials;
 using Xamarin.Forms;
 
 namespace CrossCam.ViewModel
 {
     public class TechniqueHelpViewModel : FreshBasePageModel
     {
-        public Command OpenWeirdVideoTutorialCommand { get; set; }
-        public Command OpenShortVideoTutorialCommand { get; set; }
-        public Command OpenPromotionalAlbumCommand { get; set; }
-        public Command OpenIAStateTutorialCommand { get; set; }
-        public Command OpenFrankfurterTutorialCommand { get; set; }
-        public Command OpenVoxParallelVideoCommand { get; set; }
         public Command ViewCrossTutorialCommand { get; set; }
         public Command ViewParallelTutorialCommand { get; set; }
         public Command NavigateToSettingsCommand { get; set; }
         public Command ChooseMethodCommand { get; set; }
+        public Command<string> OpenLinkCommand { get; set; }
         public bool IsCrossViewMode { get; set; }
         private Settings _settings;
 
@@ -25,34 +21,12 @@ namespace CrossCam.ViewModel
         {
             IsCrossViewMode = true;
 
-            OpenIAStateTutorialCommand = new Command(() =>
+            OpenLinkCommand = new Command<string>(async url =>
             {
-                Device.OpenUri(new Uri("https://mslagell.public.iastate.edu/xtut/index.html"));
-            });
-
-            OpenShortVideoTutorialCommand = new Command(() =>
-            {
-                Device.OpenUri(new Uri("https://www.youtube.com/watch?v=zBa-bCxsZDk"));
-            });
-
-            OpenWeirdVideoTutorialCommand = new Command(() =>
-            {
-                Device.OpenUri(new Uri("https://www.youtube.com/watch?v=cvShotHl1As"));
-            });
-
-            OpenPromotionalAlbumCommand = new Command(() =>
-            {
-                Device.OpenUri(new Uri("https://imgur.com/a/Crw232n"));
-            });
-
-            OpenFrankfurterTutorialCommand = new Command(() =>
-            {
-                Device.OpenUri(new Uri("https://www.vision3d.com/fftext.html"));
-            });
-
-            OpenVoxParallelVideoCommand = new Command(() =>
-            {
-                Device.OpenUri(new Uri("https://www.youtube.com/watch?v=v8O8Em_RPNg"));
+                await Device.InvokeOnMainThreadAsync(async () =>
+                {
+                    await Browser.OpenAsync(new Uri(url));
+                });
             });
 
             ViewCrossTutorialCommand = new Command(() =>

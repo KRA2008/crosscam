@@ -72,14 +72,21 @@
                 <Label Text=" "/>
                 <Label Text="Additional tutorials:"/>
                 <Button Text="A nice text tutorial"
-                    Command="{Binding OpenIAStateTutorialCommand}"/>
+                        Command="{Binding OpenLinkCommand}"
+                        CommandParameter="http://www.3ddigitalphoto.com/crossviewtutorial.asp"/>
+                <Button Text="Another nice text tutorial"
+                        Command="{Binding OpenLinkCommand}"
+                        CommandParameter="https://www.lockhaven.edu/~dsimanek/3d/view3d.htm"/>
                 <Button Text="A short YouTube tutorial"
-                    Command="{Binding OpenShortVideoTutorialCommand}"/>
-                <Button Text="A long, odd, helpful YouTube tutorial"
-                    Command="{Binding OpenWeirdVideoTutorialCommand}"/>
+                        Command="{Binding OpenLinkCommand}"
+                        CommandParameter="https://www.youtube.com/watch?v=zBa-bCxsZDk"/>
+                <Button Text="A long, odd, but helpful YouTube tutorial"
+                        Command="{Binding OpenLinkCommand}"
+                        CommandParameter="https://www.youtube.com/watch?v=cvShotHl1As"/>
                 <Label Text=" "/>
                 <Button Text="Images I've taken that you can practice on"
-                    Command="{Binding OpenPromotionalAlbumCommand}"/>
+                        Command="{Binding OpenLinkCommand}"
+                        CommandParameter="https://imgur.com/a/Crw232n"/>
                 <Label Text=" "/>
             </StackLayout>
 
@@ -112,10 +119,15 @@
                         CommandParameter="False"/>
                 <Label Text=" "/>
                 <Label Text="Additional tutorials:"/>
+                <Button Text="A nice text tutorial"
+                        Command="{Binding OpenLinkCommand}"
+                        CommandParameter="https://www.lockhaven.edu/~dsimanek/3d/view3d.htm"/>
                 <Button Text="Magic Frankfurter Tutorial"
-                        Command="{Binding OpenFrankfurterTutorialCommand}"/>
+                        Command="{Binding OpenLinkCommand}"
+                        CommandParameter="https://www.vision3d.com/fftext.html"/>
                 <Button Text="A nice video about Magic Eye"
-                        Command="{Binding OpenVoxParallelVideoCommand}"/>
+                        Command="{Binding OpenLinkCommand}"
+                        CommandParameter="https://www.youtube.com/watch?v=v8O8Em_RPNg"/>
             </StackLayout>
 
             <BoxView/>
