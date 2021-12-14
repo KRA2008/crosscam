@@ -37,6 +37,7 @@ namespace CrossCam.ViewModel
         public IEnumerable<string> PortraitCaptureButtonPosition => Enum.GetNames(typeof(PortraitCaptureButtonPosition)).ToList();
         public IEnumerable<string> LandscapeCaptureButtonHorizontalPosition => Enum.GetNames(typeof(LandscapeCaptureButtonHorizontalPosition)).ToList();
         public IEnumerable<string> LandscapeCaptureButtonVerticalPosition => Enum.GetNames(typeof(LandscapeCaptureButtonVerticalPosition)).ToList();
+        public IEnumerable<string> PairButtonHorizontalPosition => Enum.GetNames(typeof(PairButtonHorizontalPosition)).ToList();
         // ReSharper restore MemberCanBeMadeStatic.Global
 
         public bool EnableFirstSideAloneSwitch { get; set; }

@@ -234,6 +234,18 @@ namespace CrossCam.Model
             }
         }
 
+        private PairButtonHorizontalPosition _pairButtonHorizontalPosition;
+        public PairButtonHorizontalPosition PairButtonHorizontalPosition
+        {
+            get => _pairButtonHorizontalPosition;
+            set
+            {
+                var intValue = (int)value;
+                if (intValue < 0) return;
+                _pairButtonHorizontalPosition = value;
+            }
+        }
+
         private BorderColor _borderColor;
         public BorderColor BorderColor
         {
@@ -370,6 +382,7 @@ namespace CrossCam.Model
             PortraitCaptureButtonPosition = PortraitCaptureButtonPosition.Middle;
             LandscapeCaptureButtonHorizontalPosition = LandscapeCaptureButtonHorizontalPosition.HomeEnd;
             LandscapeCaptureButtonVerticalPosition = LandscapeCaptureButtonVerticalPosition.Bottom;
+            PairButtonHorizontalPosition = PairButtonHorizontalPosition.Left;
 
             BorderColor = BorderColor.Black;
 

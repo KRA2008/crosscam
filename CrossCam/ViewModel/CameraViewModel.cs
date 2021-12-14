@@ -171,23 +171,19 @@ namespace CrossCam.ViewModel
             {
                 var width = (double)Application.Current.Resources["_largeIconWidth"];
                 var height = (double)Application.Current.Resources["_smallerButtonWidth"];
-                double x = 0;
+                double x;
                 var captureButtonX = CaptureButtonPosition.X;
                 if (captureButtonX == 0)
                 {
                     x = 1;
                 } 
-                else if (captureButtonX == 1 ||
-                         !IsViewPortrait)
+                else if (captureButtonX == 1)
                 {
                     x = 0;
                 }
                 else
                 {
-                    if (IsViewPortrait)
-                    {
-                        x = CameraColumn == 0 ? 1 : 0;
-                    }
+                    x = Settings.PairButtonHorizontalPosition == PairButtonHorizontalPosition.Left ? 0 : 1;
                 }
                 return new Rectangle(x, 1, width, height);
             }

@@ -560,6 +560,14 @@
                             HorizontalOptions="EndAndExpand"/>
                 </Frame>
             </StackLayout>
+            <StackLayout Orientation="Horizontal">
+                <Label Text="Pair button horizontal placement (when capture button is centered)"/>
+                <Frame>
+                    <Picker ItemsSource="{Binding PairButtonHorizontalPosition}"
+                            SelectedIndex="{Binding Settings.PairButtonHorizontalPosition, Converter={vc:PairButtonHorizontalPositionValueConverter}}"
+                            HorizontalOptions="EndAndExpand"/>
+                </Frame>
+            </StackLayout>
             <BoxView/>
             <StackLayout Orientation="Horizontal">
                 <Label Text="Send error reports"/>
