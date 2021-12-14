@@ -53,11 +53,6 @@ jobs:
       script: |
         sed -i '' 's/<string>1.0<\/string>/<string>$(myVersionNumber)<\/string>/g' CrossCam.iOS/Info.plist
         sed -i '' 's/<string>10.0<\/string>/<string>$(myVersionNumber)<\/string>/g' CrossCam.iOS.Extension/Info.plist
-
-  - task: Bash@3
-    inputs:
-      targetType: 'inline'
-      script: |
         echo "MAIN PLIST"
         cat CrossCam.iOS/Info.plist
         echo "EXTENSION PLIST"
