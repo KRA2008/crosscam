@@ -458,6 +458,10 @@
                        IsVisible="{Binding Settings.SaveForRedCyanAnaglyph}"/>
                 <Image Source="grayscaleAnaglyph"
                        IsVisible="{Binding Settings.SaveForGrayscaleAnaglyph}"/>
+                <Image Source="triple"
+                       IsVisible="{Binding Settings.SaveForTriple}"/>
+                <Image Source="quad"
+                       IsVisible="{Binding Settings.SaveForQuad}"/>
                 <Label Text="{Binding Settings.ResolutionProportion, StringFormat=' {0}%'}"
                        FontSize="15"/>
             </StackLayout>
