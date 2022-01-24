@@ -132,6 +132,8 @@ namespace CrossCam.Model
         public bool SaveForParallel { get; set; }
         public bool SaveForRedCyanAnaglyph { get; set; }
         public bool SaveForGrayscaleAnaglyph { get; set; }
+        public bool SaveForTriple { get; set; }
+        public bool SaveForQuad { get; set; }
 
         public bool SendErrorReports1 { get; set; }
 
@@ -370,6 +372,8 @@ namespace CrossCam.Model
             SaveForParallel = false;
             SaveForGrayscaleAnaglyph = false;
             SaveForRedCyanAnaglyph = false;
+            SaveForTriple = false;
+            SaveForQuad = false;
 
             IsForceCamera1Enabled = false;
             IsForceCamera2Enabled = false;

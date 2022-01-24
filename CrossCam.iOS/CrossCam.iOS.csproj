@@ -478,6 +478,10 @@
     <BundleResource Include="Resources\cameraSettings%402x.png" />
     <BundleResource Include="Resources\cameraFlip.png" />
     <BundleResource Include="Resources\cameraFlip%402x.png" />
+    <BundleResource Include="Resources\quad.png" />
+    <BundleResource Include="Resources\quad%402x.png" />
+    <BundleResource Include="Resources\triple.png" />
+    <BundleResource Include="Resources\triple%402x.png" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\CrossCam\CrossCam.csproj">

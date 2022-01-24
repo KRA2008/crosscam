@@ -271,6 +271,8 @@
                     <RowDefinition Height="Auto"/>
                     <RowDefinition Height="Auto"/>
                     <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
                 </Grid.RowDefinitions>
                 <Label Grid.Row="0"
                        Grid.Column="0"
@@ -406,12 +408,33 @@
                         Grid.Column="2"
                         IsToggled="{Binding Settings.SaveRedundantFirstSide}"
                         IsEnabled="{Binding EnableFirstSideAloneSwitch}"/>
+                <Image Grid.Row="8"
+                       Grid.Column="0"
+                       Source="triple"
+                       Style="{StaticResource saveModes}"/>
                 <Label Grid.Row="8"
+                       Grid.Column="1"
+                       Text="Save for triple combination"/>
+                <Switch Grid.Row="8"
+                        Grid.Column="2"
+                        IsToggled="{Binding Settings.SaveForTriple}"/>
+                <Image Grid.Row="9"
+                       Grid.Column="0"
+                       Source="quad"
+                       Style="{StaticResource saveModes}"
+                       HeightRequest="25"/>
+                <Label Grid.Row="9"
+                       Grid.Column="1"
+                       Text="Save for quad combination"/>
+                <Switch Grid.Row="9"
+                        Grid.Column="2"
+                        IsToggled="{Binding Settings.SaveForQuad}"/>
+                <Label Grid.Row="10"
                        Grid.Column="0"
                        Grid.ColumnSpan="2"
                        Text="{Binding SaveDirectory, StringFormat='Save to: {0}'}"
                        IsVisible="{Binding CanSaveToArbitraryDirectory}"/>
-                <Button Grid.Row="8"
+                <Button Grid.Row="10"
                         Grid.Column="2"
                         Command="{Binding ChooseDirectory}"
                         Text="Browse..."
@@ -431,17 +454,17 @@
                         </MultiTrigger>
                     </Button.Triggers>
                 </Button>
-                <Button Grid.Row="9"
+                <Button Grid.Row="11"
                         Grid.Column="2"
                         Command="{Binding ClearDirectory}"
                         Text="Reset"
                         IsVisible="{Binding Settings.SavingDirectory, Converter={vc:IsNotNullConverter}}"/>
-                <Label Grid.Row="10"
+                <Label Grid.Row="12"
                        Grid.Column="0"
                        Grid.ColumnSpan="2"
                        Text="{Binding ExternalDirectory, StringFormat='Save to external CrossCam directory at: {0} (warning: pictures there will be deleted if CrossCam is uninstalled)'}"
                        IsVisible="{Binding CanSaveToExternalDirectory}"/>
-                <Switch Grid.Row="10"
+                <Switch Grid.Row="12"
                         Grid.Column="2"
                         IsToggled="{Binding Settings.SaveToExternal}"
                         IsVisible="{Binding CanSaveToExternalDirectory}"/>

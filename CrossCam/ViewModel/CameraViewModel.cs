@@ -315,7 +315,9 @@ namespace CrossCam.ViewModel
                                                           Settings.SaveSidesSeparately ||
                                                           Settings.SaveRedundantFirstSide ||
                                                           Settings.SaveForRedCyanAnaglyph ||
-                                                          Settings.SaveForGrayscaleAnaglyph);
+                                                          Settings.SaveForGrayscaleAnaglyph ||
+                                                          Settings.SaveForTriple ||
+                                                          Settings.SaveForQuad);
 
         public bool ShouldPairPreviewBeVisible => BluetoothOperator.PairStatus == PairStatus.Connected &&
                                                   BluetoothOperator.IsPrimary &&
@@ -777,14 +779,21 @@ namespace CrossCam.ViewModel
                         }
 
                         var finalImageWidth = DrawTool.CalculateJoinedCanvasWidthLessBorder(LeftBitmap, RightBitmap, Edits);
+                        var finalTripleWidth = (int) (1.5 * finalImageWidth);
                         var borderThickness = Settings.AddBorder
                             ? (int) (DrawTool.BORDER_CONVERSION_FACTOR * Settings.BorderWidthProportion *
                                      finalImageWidth)
                             : 0;
-                        finalImageWidth += 3 * borderThickness;
+                        finalImageWidth += (3 * borderThickness);
+                        finalTripleWidth += (4 * borderThickness);
+                        var tripleHalfOffset = (int) (finalImageWidth - borderThickness / 2d); //I don't know why 1/2 but that's what it is.
                         var finalImageHeight = DrawTool.CalculateCanvasHeightLessBorder(LeftBitmap, RightBitmap, Edits) +
                                                2 * borderThickness;
+                        var quadHeight = (int) (finalImageHeight * 2 - borderThickness /2d); //I don't know why 1/2 but that's what it is.
+                        var quadOffset = (int) (finalImageHeight - borderThickness / 2d); //I don't know why 1/2 but that's what it is.
 
+                        tripleHalfOffset = (int) (tripleHalfOffset * (Settings.ResolutionProportion / 100d));
+                        finalTripleWidth = (int) (finalTripleWidth * (Settings.ResolutionProportion / 100d));
                         finalImageWidth = (int) (finalImageWidth * (Settings.ResolutionProportion / 100d));
                         finalImageHeight = (int) (finalImageHeight * (Settings.ResolutionProportion / 100d));
 
@@ -841,6 +850,97 @@ namespace CrossCam.ViewModel
                                     DrawMode.Parallel);
 
                                 await SaveSurfaceSnapshot(tempSurface);
+                            }
+                        }
+
+                        if (Settings.SaveForTriple)
+                        {
+                            using (var doubleSurface = SKSurface.Create(new SKImageInfo(finalImageWidth, finalImageHeight)))
+                            {
+                                var doubleCanvas = doubleSurface.Canvas;
+                                doubleCanvas.Clear();
+                                if (needs180Flip)
+                                {
+                                    doubleCanvas.RotateDegrees(180);
+                                    doubleCanvas.Translate(-1f * finalImageWidth, -1f * finalImageHeight);
+                                }
+
+                                DrawTool.DrawImagesOnCanvas(
+                                    doubleCanvas, LeftBitmap, RightBitmap,
+                                    Settings,
+                                    Edits,
+                                    DrawMode.Cross);
+
+                                using (var tripleSurface = SKSurface.Create(new SKImageInfo(finalTripleWidth, finalImageHeight)))
+                                {
+                                    var tripleCanvas = tripleSurface.Canvas;
+                                    tripleCanvas.Clear();
+                                    //if (needs180Flip) //TODO: try on iOS to see if this is needed
+                                    //{
+                                    //    tripleCanvas.RotateDegrees(180);
+                                    //    tripleCanvas.Translate(-1f * finalTripleWidth, -1f * finalImageHeight);
+                                    //}
+
+                                    tripleCanvas.DrawSurface(doubleSurface,0,0);
+                                    tripleCanvas.DrawSurface(doubleSurface,tripleHalfOffset,0);
+
+                                    await SaveSurfaceSnapshot(tripleSurface);
+                                }
+                            }
+                        }
+
+                        if (Settings.SaveForQuad)
+                        {
+                            using (var doublePlainSurface = SKSurface.Create(new SKImageInfo(finalImageWidth, finalImageHeight)))
+                            {
+                                var doublePlainCanvas = doublePlainSurface.Canvas;
+                                doublePlainCanvas.Clear();
+                                if (needs180Flip)
+                                {
+                                    doublePlainCanvas.RotateDegrees(180);
+                                    doublePlainCanvas.Translate(-1f * finalImageWidth, -1f * finalImageHeight);
+                                }
+
+                                DrawTool.DrawImagesOnCanvas(
+                                    doublePlainCanvas, LeftBitmap, RightBitmap,
+                                    Settings,
+                                    Edits,
+                                    DrawMode.Cross);
+
+                                using (var doubleSwapSurface =
+                                       SKSurface.Create(new SKImageInfo(finalImageWidth, finalImageHeight)))
+                                {
+                                    var doubleSwapCanvas = doubleSwapSurface.Canvas;
+                                    doubleSwapCanvas.Clear();
+                                    if (needs180Flip)
+                                    {
+                                        doubleSwapCanvas.RotateDegrees(180);
+                                        doubleSwapCanvas.Translate(-1f * finalImageWidth, -1f * finalImageHeight);
+                                    }
+
+                                    DrawTool.DrawImagesOnCanvas(
+                                        doubleSwapCanvas, LeftBitmap, RightBitmap,
+                                        Settings,
+                                        Edits,
+                                        DrawMode.Parallel);
+
+                                    using (var quadSurface =
+                                           SKSurface.Create(new SKImageInfo(finalImageWidth, quadHeight)))
+                                    {
+                                        var quadCanvas = quadSurface.Canvas;
+                                        quadCanvas.Clear();
+                                        //if (needs180Flip) //TODO: try on iOS to see if this is needed
+                                        //{
+                                        //    tripleCanvas.RotateDegrees(180);
+                                        //    tripleCanvas.Translate(-1f * finalTripleWidth, -1f * finalImageHeight);
+                                        //}
+
+                                        quadCanvas.DrawSurface(doublePlainSurface, 0, 0);
+                                        quadCanvas.DrawSurface(doubleSwapSurface, 0, quadOffset);
+
+                                        await SaveSurfaceSnapshot(quadSurface);
+                                    }
+                                }
                             }
                         }
 

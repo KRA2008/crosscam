@@ -23,7 +23,11 @@ namespace CrossCam.iOS
 		    return success;
 		}
 
-	    public override bool OpenUrl(UIApplication application, NSUrl url, string sourceApplication, NSObject annotation)
+        public override void ReceiveMemoryWarning(UIApplication application)
+        {
+        }
+
+        public override bool OpenUrl(UIApplication application, NSUrl url, string sourceApplication, NSObject annotation)
 	    {
 	        var query = url.Query;
 	        var image1Start = query.IndexOf("=", StringComparison.Ordinal) + 1;
