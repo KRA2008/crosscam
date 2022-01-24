@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using System.Net;
 using AVFoundation;
 using Foundation;
@@ -25,6 +26,7 @@ namespace CrossCam.iOS
 
         public override void ReceiveMemoryWarning(UIApplication application)
         {
+			Debug.WriteLine("### LOW MEMORY! OH NO!");
         }
 
         public override bool OpenUrl(UIApplication application, NSUrl url, string sourceApplication, NSObject annotation)
