@@ -9,6 +9,8 @@ namespace CrossCam.Page
     {
         public const double BORDER_CONVERSION_FACTOR = 0.001;
         public const float FLOATY_ZERO = 0.00001f;
+        private const double FUSE_GUIDE_WIDTH_RATIO = 0.0127;
+        private const int FUSE_GUIDE_MARGIN_HEIGHT_RATIO = 7;
 
         public static void DrawImagesOnCanvas(SKCanvas canvas, SKBitmap leftBitmap, SKBitmap rightBitmap,
             Settings settings, Edits edits, DrawMode drawMode, bool isFov = false)
@@ -27,7 +29,7 @@ namespace CrossCam.Page
                         edits.VerticalAlignment,
                         edits.LeftZoom + (isFov ? edits.FovLeftCorrection : 0), edits.RightZoom + (isFov ? edits.FovRightCorrection : 0),
                         edits.LeftKeystone, edits.RightKeystone,
-                        drawMode);
+                        drawMode, settings.SaveWithFuseGuide);
                     break;
                 case DrawMode.Parallel:
                     DrawImagesOnCanvasInternal(canvas, rightBitmap, leftBitmap,
@@ -39,7 +41,7 @@ namespace CrossCam.Page
                         edits.VerticalAlignment,
                         edits.RightZoom + (isFov ? edits.FovRightCorrection : 0), edits.LeftZoom + (isFov ? edits.FovLeftCorrection : 0),
                         edits.RightKeystone, edits.LeftKeystone,
-                        drawMode);
+                        drawMode, settings.SaveWithFuseGuide);
                     break;
             }
         }
@@ -52,7 +54,7 @@ namespace CrossCam.Page
             float leftRotation, float rightRotation, double alignment,
             double leftZoom, double rightZoom,
             float leftKeystone, float rightKeystone,
-            DrawMode drawMode)
+            DrawMode drawMode, bool fuseGuideRequested)
         {
             if (leftBitmap == null && rightBitmap == null) return;
 
@@ -70,14 +72,14 @@ namespace CrossCam.Page
             else
             {
                 leftBitmapWidthLessCrop = (int)(rightBitmap.Width - rightBitmap.Width * (rightLeftCrop + rightRightCrop));
-                leftBitmapHeightLessCrop = (int)(rightBitmap.Height - rightBitmap.Height * (topCrop + bottomCrop + Math.Abs(alignment))); //TODO: why did this become just one side? was it abandoned incomplete work?
+                leftBitmapHeightLessCrop = (int)(rightBitmap.Height - rightBitmap.Height * (topCrop + bottomCrop + Math.Abs(alignment)));
             }
 
             var innerBorderThicknessProportion = leftBitmap != null && 
-                                       rightBitmap != null && 
-                                       addBorder && 
-                                       drawMode != DrawMode.RedCyanAnaglyph &&
-                                       drawMode != DrawMode.GrayscaleRedCyanAnaglyph ? 
+                                                 rightBitmap != null && 
+                                                 addBorder && 
+                                                 drawMode != DrawMode.RedCyanAnaglyph &&
+                                                 drawMode != DrawMode.GrayscaleRedCyanAnaglyph ? 
                 BORDER_CONVERSION_FACTOR * borderThickness : 
                 0;
 
@@ -87,14 +89,33 @@ namespace CrossCam.Page
             {
                 widthRatio /= 2;
             }
-            var heightRatio = (leftBitmapHeightLessCrop + leftBitmapWidthLessCrop * innerBorderThicknessProportion * 2) / (1f * canvasHeight);
+
+            var bitmapHeightWithEditsAndBorder = leftBitmapHeightLessCrop + leftBitmapWidthLessCrop * innerBorderThicknessProportion * 2;
+            var drawFuseGuide = fuseGuideRequested &&
+                                drawMode != DrawMode.RedCyanAnaglyph &&
+                                drawMode != DrawMode.GrayscaleRedCyanAnaglyph &&
+                                leftBitmap != null && rightBitmap != null;
+
+            float fuseGuideIconWidth = 0;
+            float fuseGuideMarginHeight = 0;
+            if (drawFuseGuide)
+            {
+                fuseGuideIconWidth = CalculateFuseGuideWidth((float)bitmapHeightWithEditsAndBorder);
+                fuseGuideMarginHeight = CalculateFuseGuideMarginHeight((float)bitmapHeightWithEditsAndBorder);
+                bitmapHeightWithEditsAndBorder += fuseGuideMarginHeight;
+            }
+            var heightRatio = bitmapHeightWithEditsAndBorder / (1f * canvasHeight);
             var scalingRatio = widthRatio > heightRatio ? widthRatio : heightRatio;
+
+            fuseGuideIconWidth = (float)(fuseGuideIconWidth / scalingRatio);
+            fuseGuideMarginHeight = (float)(fuseGuideMarginHeight / scalingRatio);
 
             float leftPreviewX;
             float rightPreviewX;
             float previewY;
             var sidePreviewWidthLessCrop = (float)(leftBitmapWidthLessCrop / scalingRatio);
             var previewHeightLessCrop = (float)(leftBitmapHeightLessCrop / scalingRatio);
+
             switch (drawMode)
             {
                 case DrawMode.GrayscaleRedCyanAnaglyph:
@@ -103,11 +124,17 @@ namespace CrossCam.Page
                     previewY = canvasHeight / 2f - previewHeightLessCrop / 2f;
                     break;
                 default:
-                    leftPreviewX = (float)(canvasWidth / 2f - sidePreviewWidthLessCrop - innerBorderThicknessProportion * sidePreviewWidthLessCrop / 2f);
+                    leftPreviewX = (float)(canvasWidth / 2f - (sidePreviewWidthLessCrop + innerBorderThicknessProportion * sidePreviewWidthLessCrop / 2f));
                     rightPreviewX = (float)(canvasWidth / 2f + innerBorderThicknessProportion * sidePreviewWidthLessCrop / 2f );
                     previewY = canvasHeight / 2f - previewHeightLessCrop / 2f;
                     break;
             }
+
+            if (drawFuseGuide)
+            {
+                previewY += fuseGuideMarginHeight / 2f;
+            }
+
             var isRightRotated = Math.Abs(rightRotation) > FLOATY_ZERO;
             var isLeftRotated = Math.Abs(leftRotation) > FLOATY_ZERO;
             var isRightKeystoned = Math.Abs(rightKeystone) > FLOATY_ZERO;
@@ -241,6 +268,22 @@ namespace CrossCam.Page
                 canvas.DrawRect(endX, originY, scaledBorderThickness, fullPreviewHeight, borderPaint);
                 canvas.DrawRect(originX, endY, fullPreviewWidth, scaledBorderThickness, borderPaint);
             }
+
+            if (drawFuseGuide)
+            {
+                var previewBorderThickness = canvasWidth / 2f - (leftPreviewX + sidePreviewWidthLessCrop);
+                var fuseGuideY = previewY - 2 * previewBorderThickness - fuseGuideMarginHeight / 2f; //why 2x border? why doesn't this have to account for icon height? i don't know.
+                var whitePaint = new SKPaint
+                {
+                    Color = new SKColor(byte.MaxValue, byte.MaxValue, byte.MaxValue)
+                };
+                canvas.DrawRect(
+                    canvasWidth / 2f - previewBorderThickness - sidePreviewWidthLessCrop / 2f - fuseGuideIconWidth / 2f,
+                    fuseGuideY, fuseGuideIconWidth, fuseGuideIconWidth, whitePaint);
+                canvas.DrawRect(
+                    canvasWidth / 2f + previewBorderThickness + sidePreviewWidthLessCrop / 2f + fuseGuideIconWidth / 2f,
+                    fuseGuideY, fuseGuideIconWidth, fuseGuideIconWidth, whitePaint);
+            }
         }
 
         private static SKBitmap FilterToGrayscale(SKBitmap originalBitmap)
@@ -316,16 +359,16 @@ namespace CrossCam.Page
             return keystoned ?? rotatedAndZoomed;
         }
 
-        public static int CalculateJoinedCanvasWidthLessBorder(SKBitmap leftBitmap, SKBitmap rightBitmap,
+        public static int CalculateJoinedCanvasWidthWithEditsNoBorder(SKBitmap leftBitmap, SKBitmap rightBitmap,
             Edits edits)
         {
-            return CalculateJoinedCanvasWidthLessBorderInternal(leftBitmap, rightBitmap,
+            return CalculateJoinedCanvasWidthWithEditsNoBorderInternal(leftBitmap, rightBitmap,
                 edits.LeftCrop + edits.OutsideCrop, edits.InsideCrop + edits.RightCrop,
                 edits.InsideCrop + edits.LeftCrop,
                 edits.RightCrop + edits.OutsideCrop);
         }
 
-        private static int CalculateJoinedCanvasWidthLessBorderInternal(SKBitmap leftBitmap, SKBitmap rightBitmap, 
+        private static int CalculateJoinedCanvasWidthWithEditsNoBorderInternal(SKBitmap leftBitmap, SKBitmap rightBitmap, 
             double leftLeftCrop, double leftRightCrop, double rightLeftCrop, double rightRightCrop)
         {
             if (leftBitmap == null && rightBitmap == null) return 0;
@@ -345,14 +388,14 @@ namespace CrossCam.Page
                 baseWidth * (leftLeftCrop + leftRightCrop + rightLeftCrop + rightRightCrop));
         }
 
-        public static int CalculateCanvasHeightLessBorder(SKBitmap leftBitmap, SKBitmap rightBitmap, Edits edits)
+        public static int CalculateCanvasHeightWithEditsNoBorder(SKBitmap leftBitmap, SKBitmap rightBitmap, Edits edits)
         {
-            return CalculateCanvasHeightLessBorderInternal(leftBitmap, rightBitmap,
+            return CalculateCanvasHeightWithEditsNoBorderInternal(leftBitmap, rightBitmap,
                 edits.TopCrop, edits.BottomCrop,
                 edits.VerticalAlignment);
         }
 
-        private static int CalculateCanvasHeightLessBorderInternal(SKBitmap leftBitmap, SKBitmap rightBitmap,
+        private static int CalculateCanvasHeightWithEditsNoBorderInternal(SKBitmap leftBitmap, SKBitmap rightBitmap,
             double topCrop, double bottomCrop, double alignment)
         {
             if (leftBitmap == null && rightBitmap == null) return 0;
@@ -364,6 +407,16 @@ namespace CrossCam.Page
 
             var baseHeight = Math.Min(leftBitmap.Height, rightBitmap.Height);
             return (int)(baseHeight - baseHeight * (topCrop + bottomCrop + Math.Abs(alignment)));
+        }
+
+        public static float CalculateFuseGuideMarginHeight(float baseHeight)
+        {
+            return CalculateFuseGuideWidth(baseHeight) * FUSE_GUIDE_MARGIN_HEIGHT_RATIO;
+        }
+
+        public static float CalculateFuseGuideWidth(float baseHeight)
+        {
+            return (float)(baseHeight * FUSE_GUIDE_WIDTH_RATIO);
         }
     }
 }

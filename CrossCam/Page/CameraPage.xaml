@@ -92,7 +92,8 @@
         </ResourceDictionary>
     </ContentPage.Resources>
     <AbsoluteLayout>
-        <Grid AbsoluteLayout.LayoutFlags="{Binding CanvasRectangleFlags}"
+        <Grid x:Name="_previewGrid"
+              AbsoluteLayout.LayoutFlags="{Binding CanvasRectangleFlags}"
               AbsoluteLayout.LayoutBounds="{Binding CanvasRectangle}"
               ColumnSpacing="0">
             <Grid.ColumnDefinitions>
@@ -230,6 +231,47 @@
                 </ContentView>
             </AbsoluteLayout>
         </Grid>
+
+        <BoxView x:Name="_leftFuseGuide"
+                 Style="{StaticResource _fuseGuide}"
+                 AbsoluteLayout.LayoutBounds="0,0,0,0"
+                 AbsoluteLayout.LayoutFlags="None"
+                 IsVisible="False">
+            <BoxView.Triggers>
+                <MultiTrigger TargetType="BoxView">
+                    <MultiTrigger.Conditions>
+                        <BindingCondition Binding="{Binding Settings.ShowPreviewFuseGuide}"
+                                          Value="True"/>
+                        <BindingCondition Binding="{Binding WorkflowStage, Converter={vc:EnumCompareConverter}, ConverterParameter={x:Static vm:WorkflowStage.Capture}}"
+                                          Value="True"/>
+                        <BindingCondition Binding="{Binding IsExactlyOnePictureTaken}"
+                                          Value="True"/>
+                    </MultiTrigger.Conditions>
+                    <Setter Property="IsVisible"
+                            Value="True"/>
+                </MultiTrigger>
+            </BoxView.Triggers>
+        </BoxView>
+        <BoxView x:Name="_rightFuseGuide"
+                 Style="{StaticResource _fuseGuide}"
+                 AbsoluteLayout.LayoutBounds="0,0,0,0"
+                 AbsoluteLayout.LayoutFlags="None"
+                 IsVisible="False">
+            <BoxView.Triggers>
+                <MultiTrigger TargetType="BoxView">
+                    <MultiTrigger.Conditions>
+                        <BindingCondition Binding="{Binding Settings.ShowPreviewFuseGuide}"
+                                          Value="True"/>
+                        <BindingCondition Binding="{Binding WorkflowStage, Converter={vc:EnumCompareConverter}, ConverterParameter={x:Static vm:WorkflowStage.Capture}}"
+                                          Value="True"/>
+                        <BindingCondition Binding="{Binding IsExactlyOnePictureTaken}"
+                                          Value="True"/>
+                    </MultiTrigger.Conditions>
+                    <Setter Property="IsVisible"
+                            Value="True"/>
+                </MultiTrigger>
+            </BoxView.Triggers>
+        </BoxView>
 
         <Frame AbsoluteLayout.LayoutFlags="PositionProportional"
                AbsoluteLayout.LayoutBounds="{Binding PairButtonPosition}"

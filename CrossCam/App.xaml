@@ -52,6 +52,15 @@
                 <Setter Property="BackgroundColor"
                         Value="White"/>
             </Style>
+            <Style TargetType="BoxView"
+                   x:Key="_fuseGuide">
+                <Setter Property="Color"
+                        Value="White"/>
+                <Setter Property="HeightRequest"
+                        Value="5"/>
+                <Setter Property="WidthRequest"
+                        Value="5"/>
+            </Style>
         </ResourceDictionary>
     </Application.Resources>
 </Application>

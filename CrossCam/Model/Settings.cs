@@ -88,6 +88,7 @@ namespace CrossCam.Model
         public bool ShowGuideLinesWithFirstCapture { get; set; }
         public bool ShowGuideDonutWithFirstCapture { get; set; }
         public bool ShowRollGuide { get; set; }
+        public bool ShowPreviewFuseGuide { get; set; }
 
         public bool IsCaptureLeftFirst { get; set; }
 
@@ -134,6 +135,7 @@ namespace CrossCam.Model
         public bool SaveForGrayscaleAnaglyph { get; set; }
         public bool SaveForTriple { get; set; }
         public bool SaveForQuad { get; set; }
+        public bool SaveWithFuseGuide { get; set; }
 
         public bool SendErrorReports1 { get; set; }
 
@@ -365,6 +367,7 @@ namespace CrossCam.Model
             ShowGuideLinesWithFirstCapture = false;
             IsGuideDonutVisible = false;
             ShowGuideDonutWithFirstCapture = false;
+            ShowPreviewFuseGuide = true;
 
             SaveForCrossView = true;
             SaveSidesSeparately = false;
@@ -374,6 +377,7 @@ namespace CrossCam.Model
             SaveForRedCyanAnaglyph = false;
             SaveForTriple = false;
             SaveForQuad = false;
+            SaveWithFuseGuide = false;
 
             IsForceCamera1Enabled = false;
             IsForceCamera2Enabled = false;

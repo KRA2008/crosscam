@@ -335,8 +335,8 @@ namespace CrossCam.ViewModel
         private bool IsPictureWiderThanTall => LeftBitmap != null &&
                                                RightBitmap != null &&
                                                Settings.Mode != DrawMode.Parallel && 
-                                               DrawTool.CalculateJoinedCanvasWidthLessBorder(LeftBitmap, RightBitmap, Edits) >
-                                               DrawTool.CalculateCanvasHeightLessBorder(LeftBitmap, RightBitmap, Edits);
+                                               DrawTool.CalculateJoinedCanvasWidthWithEditsNoBorder(LeftBitmap, RightBitmap, Edits) >
+                                               DrawTool.CalculateCanvasHeightWithEditsNoBorder(LeftBitmap, RightBitmap, Edits);
 
         public string SavedSuccessMessage => "Saved to " + (Settings.SaveToExternal
                                                  ? "external"
@@ -778,17 +778,21 @@ namespace CrossCam.ViewModel
                             }
                         }
 
-                        var finalImageWidth = DrawTool.CalculateJoinedCanvasWidthLessBorder(LeftBitmap, RightBitmap, Edits);
+                        var finalImageWidth = DrawTool.CalculateJoinedCanvasWidthWithEditsNoBorder(LeftBitmap, RightBitmap, Edits);
                         var finalTripleWidth = (int) (1.5 * finalImageWidth);
                         var borderThickness = Settings.AddBorder
                             ? (int) (DrawTool.BORDER_CONVERSION_FACTOR * Settings.BorderWidthProportion *
                                      finalImageWidth)
                             : 0;
                         finalImageWidth += (3 * borderThickness);
-                        finalTripleWidth += (4 * borderThickness);
+                        finalTripleWidth += (int)(4.25d * borderThickness); //I don't know why 1/4 but that's what it is.
                         var tripleHalfOffset = (int) (finalImageWidth - borderThickness / 2d); //I don't know why 1/2 but that's what it is.
-                        var finalImageHeight = DrawTool.CalculateCanvasHeightLessBorder(LeftBitmap, RightBitmap, Edits) +
+                        var finalImageHeight = DrawTool.CalculateCanvasHeightWithEditsNoBorder(LeftBitmap, RightBitmap, Edits) +
                                                2 * borderThickness;
+                        if (Settings.SaveWithFuseGuide)
+                        {
+                            finalImageHeight += (int)DrawTool.CalculateFuseGuideMarginHeight(finalImageHeight);
+                        }
                         var quadHeight = (int) (finalImageHeight * 2 - borderThickness /2d); //I don't know why 1/2 but that's what it is.
                         var quadOffset = (int) (finalImageHeight - borderThickness / 2d); //I don't know why 1/2 but that's what it is.
 
@@ -824,6 +828,8 @@ namespace CrossCam.ViewModel
                                     DrawMode.Cross);
 
                                 await SaveSurfaceSnapshot(tempSurface);
+
+                                //tempSurface.
                             }
                         }
 
@@ -1316,7 +1322,7 @@ namespace CrossCam.ViewModel
         {
             var baseWidth = Math.Min(LeftBitmap.Width, RightBitmap.Width);
             var canvasWidth = (int)(baseWidth - baseWidth * (Edits.LeftCrop + Edits.InsideCrop + Edits.OutsideCrop + Edits.RightCrop));
-            var canvasHeight = DrawTool.CalculateCanvasHeightLessBorder(LeftBitmap, RightBitmap, Edits);
+            var canvasHeight = DrawTool.CalculateCanvasHeightWithEditsNoBorder(LeftBitmap, RightBitmap, Edits);
             using (var tempSurface =
                 SKSurface.Create(new SKImageInfo(canvasWidth, canvasHeight)))
             {

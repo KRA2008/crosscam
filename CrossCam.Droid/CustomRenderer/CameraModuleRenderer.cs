@@ -686,8 +686,7 @@ namespace CrossCam.Droid.CustomRenderer
                     _camera1.SetDisplayOrientation(_displayRotation1);
                     _camera1.SetParameters(parameters);
                 }
-
-
+                
                 _cameraModule.PreviewBottomY = (moduleHeight - verticalOffset) / metrics.Density;
 
                 if (_useCamera2)

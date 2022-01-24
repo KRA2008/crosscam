@@ -424,6 +424,26 @@ namespace CrossCam.Page
                 rollBounds.Y = _viewModel.PreviewBottomY - LEVEL_ICON_WIDTH / 5;
             }
             AbsoluteLayout.SetLayoutBounds(_horizontalLevelWhole, rollBounds);
+
+            var leftFuseGuideBounds = AbsoluteLayout.GetLayoutBounds(_leftFuseGuide);
+            var rightFuseGuideBounds = AbsoluteLayout.GetLayoutBounds(_rightFuseGuide);
+            if (_viewModel != null)
+            {
+                var previewY = Height - _viewModel.PreviewBottomY;
+                var previewHeight = (float)(_viewModel.PreviewBottomY - previewY);
+                var iconWidth = DrawTool.CalculateFuseGuideWidth(previewHeight);
+                leftFuseGuideBounds.Width = iconWidth;
+                leftFuseGuideBounds.Height = iconWidth;
+                rightFuseGuideBounds.Width = iconWidth;
+                rightFuseGuideBounds.Height = iconWidth;
+                var fuseGuideY = previewY - DrawTool.CalculateFuseGuideMarginHeight(previewHeight) / 2d - iconWidth / 2d; 
+                leftFuseGuideBounds.Y = fuseGuideY;
+                rightFuseGuideBounds.Y = fuseGuideY;
+                leftFuseGuideBounds.X = Width / 2d - _previewGrid.Width / 4d;
+                rightFuseGuideBounds.X = Width / 2d + _previewGrid.Width / 4d;
+                AbsoluteLayout.SetLayoutBounds(_leftFuseGuide, leftFuseGuideBounds);
+                AbsoluteLayout.SetLayoutBounds(_rightFuseGuide, rightFuseGuideBounds);
+            }
         }
 
         private void ReticlePanned(object sender, PanUpdatedEventArgs e)
