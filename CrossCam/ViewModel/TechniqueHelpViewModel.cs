@@ -46,7 +46,8 @@ namespace CrossCam.ViewModel
 
             ChooseMethodCommand = new Command(async isCrossString =>
             {
-                if (bool.TryParse((string)isCrossString, out var isCross))
+                if (bool.TryParse((string)isCrossString, out var isCross) &&
+                    _settings != null)
                 {
                     _settings.Mode = isCross ? DrawMode.Cross : DrawMode.Parallel;
                     PersistentStorage.Save(PersistentStorage.SETTINGS_KEY, _settings);
