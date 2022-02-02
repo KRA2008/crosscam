@@ -111,7 +111,7 @@ jobs:
   - task: XamarinAndroid@1
     inputs:
       projectFile: '**/*droid*.csproj'
-      outputDirectory: '$(outputDirectory)'
+      outputDirectory: 'output'
       configuration: '$(buildConfiguration)'
 
   - task: AndroidSigning@3
