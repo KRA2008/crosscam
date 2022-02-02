@@ -127,6 +127,11 @@ jobs:
       targetPath: '$(Pipeline.Workspace)\s\CrossCam.Droid\obj\Release\100\android\bin\com.kra2008.crosscam.apk'
       publishLocation: 'pipeline'
 
+  - task: PublishPipelineArtifact@1
+    inputs:
+      targetPath: 
+      publishLocation: 'pipeline'
+
   - task: AppCenterDistribute@3
     inputs:
       serverEndpoint: 'App Center'
