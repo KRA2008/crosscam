@@ -6,76 +6,76 @@ trigger:
 - 
 
 jobs:
-- job: iOS
-  displayName: 'iOS'
-  pool:
-    vmImage: 'macos-latest'
-
-  steps:
-  # To manually select a Xamarin SDK version on the Microsoft-hosted macOS agent,
-  # configure this task with the *Mono* version that is associated with the
-  # Xamarin SDK version that you need, and set the "enabled" property to true.
-  # See https://go.microsoft.com/fwlink/?linkid=871629
-  - script: sudo $AGENT_HOMEDIRECTORY/scripts/select-xamarin-sdk.sh 5_12_0
-    displayName: 'Select the Xamarin SDK version'
-    enabled: false
-
-  # Xamarin.iOS
-  - task: InstallAppleCertificate@2
-    inputs:
-      certSecureFile: 'distro.p12'
-      certPwd: '$(p12pwd)'
-      keychain: 'temp'
-
-  - task: InstallAppleProvisioningProfile@1
-    inputs:
-      provisioningProfileLocation: 'secureFiles'
-      provProfileSecureFile: 'CrossCam_Store_Dist.mobileprovision'
-
-  - task: InstallAppleProvisioningProfile@1
-    inputs:
-      provisioningProfileLocation: 'secureFiles'
-      provProfileSecureFile: 'CrossCam_Share_Extension_Store_Dist.mobileprovision'
-
-  - task: NuGetToolInstaller@1
-
-  - task: NuGetCommand@2
-    inputs:
-      command: 'restore'
-      restoreSolution: '**/*.sln'
-      feedsToUse: 'config'
-      nugetConfigPath: 'nuget.config'
-      externalFeedCredentials: 'NuGet'
-
-  - task: Bash@3
-    inputs:
-      targetType: 'inline'
-      script: |
-        sed -i '' 's/<string>1.0<\/string>/<string>$(myVersionNumber)<\/string>/g' CrossCam.iOS/Info.plist
-        sed -i '' 's/<string>10.0<\/string>/<string>$(myVersionNumber)<\/string>/g' CrossCam.iOS.Extension/Info.plist
-        echo "MAIN PLIST"
-        cat CrossCam.iOS/Info.plist
-        echo "EXTENSION PLIST"
-        cat CrossCam.iOS.Extension/Info.plist
-
-  - task: XamariniOS@2
-    inputs:
-      solutionFile: '**/*.sln'
-      configuration: 'Release'
-      buildForSimulator: false
-      packageApp: true
-
-  - task: PublishPipelineArtifact@1
-    inputs:
-      targetPath: '$(Pipeline.Workspace)/s/CrossCam.iOS/bin/iPhone/Release/CrossCam.iOS.ipa'
-      publishLocation: 'pipeline'
-
-  - task: AppStoreRelease@1
-    inputs:
-      serviceEndpoint: 'App Store Connect API'
-      releaseTrack: 'TestFlight'
-      appType: 'iOS'
-      shouldSkipWaitingForProcessing: true
+#- job: iOS
+#  displayName: 'iOS'
+#  pool:
+#    vmImage: 'macos-latest'
+#
+#  steps:
+#  # To manually select a Xamarin SDK version on the Microsoft-hosted macOS agent,
+#  # configure this task with the *Mono* version that is associated with the
+#  # Xamarin SDK version that you need, and set the "enabled" property to true.
+#  # See https://go.microsoft.com/fwlink/?linkid=871629
+#  - script: sudo $AGENT_HOMEDIRECTORY/scripts/select-xamarin-sdk.sh 5_12_0
+#    displayName: 'Select the Xamarin SDK version'
+#    enabled: false
+#
+#  # Xamarin.iOS
+#  - task: InstallAppleCertificate@2
+#    inputs:
+#      certSecureFile: 'distro.p12'
+#      certPwd: '$(p12pwd)'
+#      keychain: 'temp'
+#
+#  - task: InstallAppleProvisioningProfile@1
+#    inputs:
+#      provisioningProfileLocation: 'secureFiles'
+#      provProfileSecureFile: 'CrossCam_Store_Dist.mobileprovision'
+#
+#  - task: InstallAppleProvisioningProfile@1
+#    inputs:
+#      provisioningProfileLocation: 'secureFiles'
+#      provProfileSecureFile: 'CrossCam_Share_Extension_Store_Dist.mobileprovision'
+#
+#  - task: NuGetToolInstaller@1
+#
+#  - task: NuGetCommand@2
+#    inputs:
+#      command: 'restore'
+#      restoreSolution: '**/*.sln'
+#      feedsToUse: 'config'
+#      nugetConfigPath: 'nuget.config'
+#      externalFeedCredentials: 'NuGet'
+#
+#  - task: Bash@3
+#    inputs:
+#      targetType: 'inline'
+#      script: |
+#        sed -i '' 's/<string>1.0<\/string>/<string>$(myVersionNumber)<\/string>/g' CrossCam.iOS/Info.plist
+#        sed -i '' 's/<string>10.0<\/string>/<string>$(myVersionNumber)<\/string>/g' CrossCam.iOS.Extension/Info.plist
+#        echo "MAIN PLIST"
+#        cat CrossCam.iOS/Info.plist
+#        echo "EXTENSION PLIST"
+#        cat CrossCam.iOS.Extension/Info.plist
+#
+#  - task: XamariniOS@2
+#    inputs:
+#      solutionFile: '**/*.sln'
+#      configuration: 'Release'
+#      buildForSimulator: false
+#      packageApp: true
+#
+#  - task: PublishPipelineArtifact@1
+#    inputs:
+#      targetPath: '$(Pipeline.Workspace)/s/CrossCam.iOS/bin/iPhone/Release/CrossCam.iOS.ipa'
+#      publishLocation: 'pipeline'
+#
+#  - task: AppStoreRelease@1
+#    inputs:
+#      serviceEndpoint: 'App Store Connect API'
+#      releaseTrack: 'TestFlight'
+#      appType: 'iOS'
+#      shouldSkipWaitingForProcessing: true
 
 - job: Android
   displayName: 'Android'
