@@ -9,5 +9,6 @@ namespace CrossCam.Wrappers
         AlignedResult CreateAlignedSecondImageEcc(SKBitmap firstImage, SKBitmap secondImage, bool discardTransX, AlignmentSettings settings);
         AlignedResult CreateAlignedSecondImageKeypoints(SKBitmap firstImage, SKBitmap secondImage,
             bool discardTransX, AlignmentSettings settings, bool keystoneRightOnFirst);
+        SKBitmap TransformImageForVr(SKBitmap originalImage);
     }
 }

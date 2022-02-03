@@ -274,6 +274,7 @@
                     <RowDefinition Height="Auto"/>
                     <RowDefinition Height="Auto"/>
                     <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
                 </Grid.RowDefinitions>
                 <Label Grid.Row="0"
                        Grid.Column="0"
@@ -446,10 +447,19 @@
                         IsToggled="{Binding Settings.SaveForQuad}"/>
                 <Label Grid.Row="11"
                        Grid.Column="0"
+                       Text="VR"/>
+                <Label Grid.Row="11"
+                       Grid.Column="1"
+                       Text="Save for VR"/>
+                <Switch Grid.Row="11"
+                        Grid.Column="2"
+                        IsToggled="{Binding Settings.SaveForVr}"/>
+                <Label Grid.Row="12"
+                       Grid.Column="0"
                        Grid.ColumnSpan="2"
                        Text="{Binding SaveDirectory, StringFormat='Save to: {0}'}"
                        IsVisible="{Binding CanSaveToArbitraryDirectory}"/>
-                <Button Grid.Row="11"
+                <Button Grid.Row="12"
                         Grid.Column="2"
                         Command="{Binding ChooseDirectory}"
                         Text="Browse..."
@@ -469,17 +479,17 @@
                         </MultiTrigger>
                     </Button.Triggers>
                 </Button>
-                <Button Grid.Row="12"
+                <Button Grid.Row="13"
                         Grid.Column="2"
                         Command="{Binding ClearDirectory}"
                         Text="Reset"
                         IsVisible="{Binding Settings.SavingDirectory, Converter={vc:IsNotNullConverter}}"/>
-                <Label Grid.Row="13"
+                <Label Grid.Row="14"
                        Grid.Column="0"
                        Grid.ColumnSpan="2"
                        Text="{Binding ExternalDirectory, StringFormat='Save to external CrossCam directory at: {0} (warning: pictures there will be deleted if CrossCam is uninstalled)'}"
                        IsVisible="{Binding CanSaveToExternalDirectory}"/>
-                <Switch Grid.Row="13"
+                <Switch Grid.Row="14"
                         Grid.Column="2"
                         IsToggled="{Binding Settings.SaveToExternal}"
                         IsVisible="{Binding CanSaveToExternalDirectory}"/>

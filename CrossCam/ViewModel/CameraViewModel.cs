@@ -317,7 +317,8 @@ namespace CrossCam.ViewModel
                                                           Settings.SaveForRedCyanAnaglyph ||
                                                           Settings.SaveForGrayscaleAnaglyph ||
                                                           Settings.SaveForTriple ||
-                                                          Settings.SaveForQuad);
+                                                          Settings.SaveForQuad ||
+                                                          Settings.SaveForVr);
 
         public bool ShouldPairPreviewBeVisible => BluetoothOperator.PairStatus == PairStatus.Connected &&
                                                   BluetoothOperator.IsPrimary &&
@@ -828,8 +829,6 @@ namespace CrossCam.ViewModel
                                     DrawMode.Cross);
 
                                 await SaveSurfaceSnapshot(tempSurface);
-
-                                //tempSurface.
                             }
                         }
 
@@ -946,6 +945,33 @@ namespace CrossCam.ViewModel
 
                                         await SaveSurfaceSnapshot(quadSurface);
                                     }
+                                }
+                            }
+                        }
+
+                        if (Settings.SaveForVr)
+                        {
+                            using (var tempSurface =
+                                   SKSurface.Create(new SKImageInfo(LeftBitmap.Width, LeftBitmap.Height)))
+                            {
+                                var canvas = tempSurface.Canvas;
+                                canvas.Clear();
+                                if (needs180Flip)
+                                {
+                                    canvas.RotateDegrees(180);
+                                    canvas.Translate(-1f * finalImageWidth, -1f * finalImageHeight);
+                                }
+
+                                var openCv = DependencyService.Get<IOpenCv>();
+                                if (openCv.IsOpenCvSupported())
+                                {
+                                    var vrDistorted = openCv.TransformImageForVr(LeftBitmap);
+                                    canvas.DrawBitmap(vrDistorted,0,0);
+                                    canvas.DrawRect(0,0,20,20, new SKPaint
+                                    {
+                                        Color = new SKColor(byte.MaxValue, byte.MaxValue, byte.MaxValue)
+                                    });
+                                    await SaveSurfaceSnapshot(tempSurface);
                                 }
                             }
                         }

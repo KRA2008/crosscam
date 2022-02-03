@@ -136,6 +136,7 @@ namespace CrossCam.Model
         public bool SaveForTriple { get; set; }
         public bool SaveForQuad { get; set; }
         public bool SaveWithFuseGuide { get; set; }
+        public bool SaveForVr { get; set; }
 
         public bool SendErrorReports1 { get; set; }
 
@@ -378,6 +379,7 @@ namespace CrossCam.Model
             SaveForTriple = false;
             SaveForQuad = false;
             SaveWithFuseGuide = false;
+            SaveForVr = false;
 
             IsForceCamera1Enabled = false;
             IsForceCamera2Enabled = false;
