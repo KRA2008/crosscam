@@ -411,59 +411,40 @@ namespace AutoAlignment
         {
             using var cvImage = new Mat();
             CvInvoke.Imdecode(GetBytes(originalImage, 1), ImreadModes.Color, cvImage);
-            using var originOrientedImage = new Mat();
-            using var originOrientationWarp = Mat.Zeros(2, 3, DepthType.Cv32F, 1);
-            unsafe
-            {
-                var ptr = (float*)originOrientationWarp.DataPointer.ToPointer();
-                *ptr = 1;
-                ptr++;
-                ptr++; //tx
-                *ptr = - originalImage.Width / 2f;
-                ptr++;
-                ptr++;
-                *ptr = 1;
-                ptr++; //ty
-                *ptr = - originalImage.Height / 2f;
-            }
-            CvInvoke.WarpAffine(cvImage, originOrientedImage, originOrientationWarp, cvImage.Size);
 
-            using var transformedImage = new Mat();
-            using var identity = Mat.Eye(3, 3, DepthType.Cv32F, 1);
-            using var distMat = Mat.Zeros(1, 5, DepthType.Cv32F, 1);
+            using var cameraMatrix = Mat.Eye(3, 3, DepthType.Cv32F, 1);
             unsafe
             {
-                var ptr = (float*)distMat.DataPointer.ToPointer(); //k1
+                var ptr = (float*)cameraMatrix.DataPointer.ToPointer(); //fx
+                ptr++; //0
+                ptr++; //cx
+                *ptr = originalImage.Width / 2f;
+                ptr++; //0
+                ptr++; //fy
+                ptr++; //cy
+                *ptr = originalImage.Height / 2f;
+                ptr++; //0
+                ptr++; //0
+                ptr++; //1
+            }
+
+            using var distortionMatrix = Mat.Zeros(1, 5, DepthType.Cv32F, 1);
+            unsafe
+            {
+                var ptr = (float*)distortionMatrix.DataPointer.ToPointer(); //k1
                 *ptr = 0.0000001f;
                 ptr++; //k2
-                //*ptr = 0.0000001f;
                 ptr++; //p1
                 ptr++; //p2
                 ptr++; //k3
-                //*ptr = 0.00001f;
             }
-            CvInvoke.Undistort(originOrientedImage, transformedImage, identity, distMat);
 
-            using var viewOrientedImage = new Mat();
-            using var viewOrientingWarp = Mat.Zeros(2, 3, DepthType.Cv32F, 1);
-            unsafe
-            {
-                var ptr = (float*)viewOrientingWarp.DataPointer.ToPointer();
-                *ptr = 1;
-                ptr++;
-                ptr++; //tx
-                *ptr = originalImage.Width / 2f;
-                ptr++;
-                ptr++;
-                *ptr = 1;
-                ptr++; //ty
-                *ptr = originalImage.Height / 2f;
-            }
-            CvInvoke.WarpAffine(transformedImage, viewOrientedImage, viewOrientingWarp, cvImage.Size);
+            using var transformedImage = new Mat();
+            CvInvoke.Undistort(cvImage, transformedImage, cameraMatrix, distortionMatrix);
 #if __IOS__
-            return viewOrientedImage.ToCGImage().ToSKBitmap();
+            return transformedImage.ToCGImage().ToSKBitmap();
 #elif __ANDROID__
-            return viewOrientedImage.ToBitmap().ToSKBitmap();
+            return transformedImage.ToBitmap().ToSKBitmap();
 #endif
         }
 
