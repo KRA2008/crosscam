@@ -407,7 +407,7 @@ namespace AutoAlignment
             return result;
         }
 
-        public SKBitmap TransformImageForVr(SKBitmap originalImage)
+        public SKBitmap AddBarrelDistortion(SKBitmap originalImage, float strength)
         {
             using var cvImage = new Mat();
             CvInvoke.Imdecode(GetBytes(originalImage, 1), ImreadModes.Color, cvImage);
@@ -432,11 +432,15 @@ namespace AutoAlignment
             unsafe
             {
                 var ptr = (float*)distortionMatrix.DataPointer.ToPointer(); //k1
-                *ptr = 0.0000001f;
-                ptr++; //k2
-                ptr++; //p1
-                ptr++; //p2
-                ptr++; //k3
+                *ptr = strength; //0.0000001f;
+                ptr++; //k2 ?
+                //*ptr = 0.0000000000001f;
+                ptr++; //p1 - top and bottom keystone kind of
+                //*ptr = 0.0001f;
+                ptr++; //p2 - left and right keystone kind of
+                //*ptr = 0.0001f;
+                ptr++; //k3 ?
+                //*ptr = 0.0000001f;
             }
 
             using var transformedImage = new Mat();

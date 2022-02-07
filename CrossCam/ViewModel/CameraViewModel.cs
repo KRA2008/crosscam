@@ -951,28 +951,49 @@ namespace CrossCam.ViewModel
 
                         if (Settings.SaveForVr)
                         {
-                            using (var tempSurface =
-                                   SKSurface.Create(new SKImageInfo(LeftBitmap.Width, LeftBitmap.Height)))
-                            {
-                                var canvas = tempSurface.Canvas;
-                                canvas.Clear();
-                                if (needs180Flip)
-                                {
-                                    canvas.RotateDegrees(180);
-                                    canvas.Translate(-1f * finalImageWidth, -1f * finalImageHeight);
-                                }
+                            var xOffset = 0;
+                            var yOffset = 0;
+                            var squareDimension = Math.Min(LeftBitmap.Width, LeftBitmap.Height);
 
-                                var openCv = DependencyService.Get<IOpenCv>();
-                                if (openCv.IsOpenCvSupported())
+                            if (LeftBitmap.Width >= LeftBitmap.Height)
+                            {
+                                xOffset = squareDimension / 2 - LeftBitmap.Width / 2;
+                            }
+                            else
+                            {
+                                yOffset = squareDimension / 2 - LeftBitmap.Height / 2;
+                            }
+
+                            var leftBitmap = new SKBitmap(squareDimension, squareDimension);
+                            var rightBitmap = new SKBitmap(squareDimension, squareDimension);
+                            using (var leftSquareCanvas = new SKCanvas(leftBitmap))
+                            {
+                                leftSquareCanvas.Clear();
+                                leftSquareCanvas.DrawBitmap(LeftBitmap, xOffset, yOffset);
+
+                                using (var rightSquareCanvas = new SKCanvas(rightBitmap))
                                 {
-                                    var vrDistorted = openCv.TransformImageForVr(LeftBitmap);
-                                    canvas.DrawBitmap(vrDistorted,0,0);
-                                    canvas.DrawRect(0,0,20,20, new SKPaint
+                                    rightSquareCanvas.Clear();
+                                    rightSquareCanvas.DrawBitmap(RightBitmap, xOffset, yOffset);
+
+                                    var openCv = DependencyService.Get<IOpenCv>();
+                                    if (openCv.IsOpenCvSupported())
                                     {
-                                        Color = new SKColor(byte.MaxValue, byte.MaxValue, byte.MaxValue)
-                                    });
-                                    await SaveSurfaceSnapshot(tempSurface);
+                                        var barrelLevel = 0.0000001f;
+                                        leftBitmap = openCv.AddBarrelDistortion(leftBitmap, barrelLevel);
+                                        rightBitmap = openCv.AddBarrelDistortion(rightBitmap, barrelLevel);
+                                    }
                                 }
+                            }
+
+                            using (var joinedSurface =
+                                   SKSurface.Create(new SKImageInfo(2 * squareDimension, squareDimension)))
+                            {
+                                var joinedCanvas = joinedSurface.Canvas;
+                                joinedCanvas.DrawBitmap(leftBitmap, 0, 0);
+                                joinedCanvas.DrawBitmap(rightBitmap, squareDimension, 0);
+
+                                await SaveSurfaceSnapshot(joinedSurface);
                             }
                         }
 
