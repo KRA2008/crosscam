@@ -26,7 +26,6 @@ namespace CrossCam.ViewModel
         public bool CanSaveToArbitraryDirectory { get; set; }
         public bool CanSaveToExternalDirectory => !string.IsNullOrWhiteSpace(ExternalDirectory);
         private readonly IDirectorySelector _directorySelector;
-        public bool IsAnaglyphMode => Settings.Mode == DrawMode.RedCyanAnaglyph || Settings.Mode == DrawMode.GrayscaleRedCyanAnaglyph;
 
         // ReSharper disable MemberCanBeMadeStatic.Global
         public IEnumerable<string> Modes => Enum.GetNames(typeof(DrawMode)).ToList();
@@ -114,7 +113,6 @@ namespace CrossCam.ViewModel
 
         private void SaveSettings(object sender, PropertyChangedEventArgs e)
         {
-            RaisePropertyChanged(nameof(IsAnaglyphMode));
             EnableFirstSideAloneSwitch = (Settings.SaveForCrossView || Settings.SaveForParallel || Settings.SaveForRedCyanAnaglyph) &&
                                          !Settings.SaveSidesSeparately;
 

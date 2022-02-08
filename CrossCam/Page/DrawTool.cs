@@ -1,7 +1,9 @@
 ﻿using System;
 using CrossCam.Model;
 using CrossCam.ViewModel;
+using CrossCam.Wrappers;
 using SkiaSharp;
+using Xamarin.Forms;
 
 namespace CrossCam.Page
 {
@@ -17,20 +19,6 @@ namespace CrossCam.Page
         {
             switch (drawMode)
             {
-                case DrawMode.Cross:
-                case DrawMode.GrayscaleRedCyanAnaglyph:
-                case DrawMode.RedCyanAnaglyph:
-                    DrawImagesOnCanvasInternal(canvas, leftBitmap, rightBitmap,
-                        settings.BorderWidthProportion, settings.AddBorder, settings.BorderColor,
-                        edits.LeftCrop + edits.OutsideCrop, edits.InsideCrop + edits.RightCrop, edits.InsideCrop + edits.LeftCrop,
-                        edits.RightCrop + edits.OutsideCrop,
-                        edits.TopCrop, edits.BottomCrop,
-                        edits.LeftRotation, edits.RightRotation,
-                        edits.VerticalAlignment,
-                        edits.LeftZoom + (isFov ? edits.FovLeftCorrection : 0), edits.RightZoom + (isFov ? edits.FovRightCorrection : 0),
-                        edits.LeftKeystone, edits.RightKeystone,
-                        drawMode, settings.SaveWithFuseGuide);
-                    break;
                 case DrawMode.Parallel:
                     DrawImagesOnCanvasInternal(canvas, rightBitmap, leftBitmap,
                         settings.BorderWidthProportion, settings.AddBorder, settings.BorderColor,
@@ -41,6 +29,18 @@ namespace CrossCam.Page
                         edits.VerticalAlignment,
                         edits.RightZoom + (isFov ? edits.FovRightCorrection : 0), edits.LeftZoom + (isFov ? edits.FovLeftCorrection : 0),
                         edits.RightKeystone, edits.LeftKeystone,
+                        drawMode, settings.SaveWithFuseGuide);
+                    break;
+                default:
+                    DrawImagesOnCanvasInternal(canvas, leftBitmap, rightBitmap,
+                        settings.BorderWidthProportion, settings.AddBorder, settings.BorderColor,
+                        edits.LeftCrop + edits.OutsideCrop, edits.InsideCrop + edits.RightCrop, edits.InsideCrop + edits.LeftCrop,
+                        edits.RightCrop + edits.OutsideCrop,
+                        edits.TopCrop, edits.BottomCrop,
+                        edits.LeftRotation, edits.RightRotation,
+                        edits.VerticalAlignment,
+                        edits.LeftZoom + (isFov ? edits.FovLeftCorrection : 0), edits.RightZoom + (isFov ? edits.FovRightCorrection : 0),
+                        edits.LeftKeystone, edits.RightKeystone,
                         drawMode, settings.SaveWithFuseGuide);
                     break;
             }
@@ -62,22 +62,48 @@ namespace CrossCam.Page
             var canvasHeight = canvas.DeviceClipBounds.Height;
 
             int leftBitmapWidthLessCrop;
-            int leftBitmapHeightLessCrop;
+            int baseHeight;
+            var cardboardHeightCrop = 0;
 
             if (leftBitmap != null)
             {
-                leftBitmapWidthLessCrop = (int)(leftBitmap.Width - leftBitmap.Width * (leftLeftCrop + leftRightCrop));
-                leftBitmapHeightLessCrop = (int)(leftBitmap.Height - leftBitmap.Height * (topCrop + bottomCrop + Math.Abs(alignment)));
+                baseHeight = leftBitmap.Height;
+                leftBitmapWidthLessCrop = (int)(leftBitmap.Width * (1 - (leftLeftCrop + leftRightCrop)));
+                if (drawMode == DrawMode.Cardboard)
+                {
+                    if (leftBitmap.Height > leftBitmap.Width)
+                    {
+                        cardboardHeightCrop = leftBitmap.Height - leftBitmap.Width;
+                    }
+                    else
+                    {
+                        leftBitmapWidthLessCrop -= leftBitmap.Width - leftBitmap.Height;
+                    }
+                }
             }
             else
             {
-                leftBitmapWidthLessCrop = (int)(rightBitmap.Width - rightBitmap.Width * (rightLeftCrop + rightRightCrop));
-                leftBitmapHeightLessCrop = (int)(rightBitmap.Height - rightBitmap.Height * (topCrop + bottomCrop + Math.Abs(alignment)));
+                baseHeight = rightBitmap.Height;
+                leftBitmapWidthLessCrop = (int)(rightBitmap.Width * (1 - (rightLeftCrop + rightRightCrop)));
+                if (drawMode == DrawMode.Cardboard)
+                {
+                    if (rightBitmap.Height > rightBitmap.Width)
+                    {
+                        cardboardHeightCrop = rightBitmap.Height - rightBitmap.Width;
+                    }
+                    else
+                    {
+                        leftBitmapWidthLessCrop -= rightBitmap.Width - rightBitmap.Height;
+                    }
+                }
             }
+
+            var leftBitmapHeightLessCrop = (int)(baseHeight * (1 - (topCrop + bottomCrop + Math.Abs(alignment))) - cardboardHeightCrop);
 
             var innerBorderThicknessProportion = leftBitmap != null && 
                                                  rightBitmap != null && 
                                                  addBorder && 
+                                                 drawMode != DrawMode.Cardboard &&
                                                  drawMode != DrawMode.RedCyanAnaglyph &&
                                                  drawMode != DrawMode.GrayscaleRedCyanAnaglyph ? 
                 BORDER_CONVERSION_FACTOR * borderThickness : 
@@ -92,6 +118,7 @@ namespace CrossCam.Page
 
             var bitmapHeightWithEditsAndBorder = leftBitmapHeightLessCrop + leftBitmapWidthLessCrop * innerBorderThicknessProportion * 2;
             var drawFuseGuide = fuseGuideRequested &&
+                                drawMode != DrawMode.Cardboard &&
                                 drawMode != DrawMode.RedCyanAnaglyph &&
                                 drawMode != DrawMode.GrayscaleRedCyanAnaglyph &&
                                 leftBitmap != null && rightBitmap != null;
@@ -357,6 +384,37 @@ namespace CrossCam.Page
             }
 
             return keystoned ?? rotatedAndZoomed;
+        }
+
+        private static SKBitmap SquareAndBarrelDistort(SKBitmap originalBitmap, float distortionCoeff)
+        {
+            var xOffset = 0;
+            var yOffset = 0;
+            var squareDimension = Math.Min(originalBitmap.Width, originalBitmap.Height);
+
+            if (originalBitmap.Width >= originalBitmap.Height)
+            {
+                xOffset = squareDimension / 2 - originalBitmap.Width / 2;
+            }
+            else
+            {
+                yOffset = squareDimension / 2 - originalBitmap.Height / 2;
+            }
+
+            var squaredBitmap = new SKBitmap(squareDimension, squareDimension);
+            using (var leftSquareCanvas = new SKCanvas(squaredBitmap))
+            {
+                leftSquareCanvas.Clear();
+                leftSquareCanvas.DrawBitmap(originalBitmap, xOffset, yOffset);
+
+                var openCv = DependencyService.Get<IOpenCv>();
+                if (openCv.IsOpenCvSupported())
+                {
+                    squaredBitmap = openCv.AddBarrelDistortion(squaredBitmap, distortionCoeff);
+                }
+            }
+
+            return squaredBitmap;
         }
 
         public static int CalculateJoinedCanvasWidthWithEditsNoBorder(SKBitmap leftBitmap, SKBitmap rightBitmap,

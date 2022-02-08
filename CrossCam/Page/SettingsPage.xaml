@@ -70,7 +70,24 @@
                         HorizontalOptions="FillAndExpand"/>
             </Frame>
             <Label Text="(Anaglyph while capturing is not yet supported, but editing and saving is)"
-                   IsVisible="{Binding IsAnaglyphMode}"/>
+                   IsVisible="False">
+                <Label.Triggers>
+                    <DataTrigger TargetType="Label"
+                                 Binding="{Binding Settings.Mode, Converter={vc:EnumCompareConverter}, ConverterParameter={x:Static vm:DrawMode.RedCyanAnaglyph}}"
+                                 Value="True">
+                         <Setter Property="IsVisible"
+                                 Value="True"/>
+                    </DataTrigger>
+                    <DataTrigger TargetType="Label"
+                                 Binding="{Binding Settings.Mode, Converter={vc:EnumCompareConverter}, ConverterParameter={x:Static vm:DrawMode.GrayscaleRedCyanAnaglyph}}"
+                                 Value="True">
+                        <Setter Property="IsVisible"
+                                Value="True"/>
+                    </DataTrigger>
+                </Label.Triggers>
+            </Label>
+            <Label Text="(Cardboard while capturing is not yet supported, but editing and saving is)"
+                   IsVisible="{Binding Settings.Mode, Converter={vc:EnumCompareConverter}, ConverterParameter={x:Static vm:DrawMode.Cardboard}}"/>
             <StackLayout Orientation="Horizontal"
                          IsVisible="{Binding Settings.Mode, Converter={vc:EnumCompareConverter}, ConverterParameter={x:Static vm:DrawMode.Parallel}}">
                 <Label Text="Maximum parallel view image width (points)"/>

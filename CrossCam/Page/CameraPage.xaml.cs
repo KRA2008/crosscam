@@ -301,7 +301,10 @@ namespace CrossCam.Page
                 canvas, _viewModel.LeftBitmap, _viewModel.RightBitmap, 
                 _viewModel.Settings,
                 _viewModel.Edits,
-                DrawMode.Cross, // strange but true, its really just saying "don't swap the sides" from how they're shown, and also no anaglyph preview yet
+                (_viewModel.IsExactlyOnePictureTaken || 
+                 _viewModel.Settings.Mode == DrawMode.Parallel) ? 
+                    DrawMode.Cross :
+                    _viewModel.Settings.Mode, // strange but true, its really just saying "don't swap the sides" from how they're shown, and also no anaglyph preview yet
                 _viewModel.WorkflowStage == WorkflowStage.FovCorrection);
         }
 
