@@ -58,8 +58,8 @@ namespace CrossCam.Page
             DrawMode drawMode, bool fuseGuideRequested)
         {
             if (leftBitmap == null && rightBitmap == null) return;
-
-            var barrelCoeff = 0.0000001f;
+            
+            var barrelCoeff = 0.0000002f;
 
             var canvasWidth = canvas.DeviceClipBounds.Width;
             var canvasHeight = canvas.DeviceClipBounds.Height;
@@ -72,36 +72,26 @@ namespace CrossCam.Page
             {
                 baseHeight = leftBitmap.Height;
                 leftBitmapWidthLessCrop = (int)(leftBitmap.Width * (1 - (leftLeftCrop + leftRightCrop)));
-                if (drawMode == DrawMode.Cardboard)
-                {
-                    if (leftBitmap.Height > leftBitmap.Width)
-                    {
-                        cardboardHeightCrop = leftBitmap.Height - leftBitmap.Width;
-                    }
-                    else
-                    {
-                        leftBitmapWidthLessCrop -= leftBitmap.Width - leftBitmap.Height;
-                    }
-                }
             }
             else
             {
                 baseHeight = rightBitmap.Height;
                 leftBitmapWidthLessCrop = (int)(rightBitmap.Width * (1 - (rightLeftCrop + rightRightCrop)));
-                if (drawMode == DrawMode.Cardboard)
-                {
-                    if (rightBitmap.Height > rightBitmap.Width)
-                    {
-                        cardboardHeightCrop = rightBitmap.Height - rightBitmap.Width;
-                    }
-                    else
-                    {
-                        leftBitmapWidthLessCrop -= rightBitmap.Width - rightBitmap.Height;
-                    }
-                }
             }
 
             var leftBitmapHeightLessCrop = (int)(baseHeight * (1 - (topCrop + bottomCrop + Math.Abs(alignment))) - cardboardHeightCrop);
+            
+            if (drawMode == DrawMode.Cardboard)
+            {
+                if (leftBitmapHeightLessCrop > leftBitmapWidthLessCrop)
+                {
+                    leftBitmapHeightLessCrop -= leftBitmapHeightLessCrop - leftBitmapWidthLessCrop;
+                }
+                else
+                {
+                    leftBitmapWidthLessCrop -= leftBitmapWidthLessCrop - leftBitmapHeightLessCrop;
+                }
+            }
 
             var innerBorderThicknessProportion = leftBitmap != null && 
                                                  rightBitmap != null && 
