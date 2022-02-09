@@ -20,6 +20,7 @@ namespace CrossCam.Page
             switch (drawMode)
             {
                 case DrawMode.Parallel:
+                case DrawMode.Cardboard:
                     DrawImagesOnCanvasInternal(canvas, rightBitmap, leftBitmap,
                         settings.BorderWidthProportion, settings.AddBorder, settings.BorderColor,
                         edits.InsideCrop + edits.LeftCrop, edits.RightCrop + edits.OutsideCrop,
@@ -57,6 +58,8 @@ namespace CrossCam.Page
             DrawMode drawMode, bool fuseGuideRequested)
         {
             if (leftBitmap == null && rightBitmap == null) return;
+
+            var barrelCoeff = 0.0000001f;
 
             var canvasWidth = canvas.DeviceClipBounds.Width;
             var canvasHeight = canvas.DeviceClipBounds.Height;
@@ -198,22 +201,91 @@ namespace CrossCam.Page
                             });
                     }
 
-                    var width = transformed?.Width ?? grayscale?.Width ?? leftBitmap.Width;
-                    var height = transformed?.Height ?? grayscale?.Height ?? leftBitmap.Height;
+                    var targetBitmap = transformed ?? grayscale ?? leftBitmap;
+                    var width = targetBitmap.Width;
+                    var height = targetBitmap.Height;
 
-                    canvas.DrawBitmap(
-                        transformed ?? grayscale ?? leftBitmap,
-                        SKRect.Create(
-                            (float)(width * leftLeftCrop),
-                            (float)(height * topCrop + (alignment > 0 ? alignment * height : 0)),
-                            (float)(width - width * (leftLeftCrop + leftRightCrop)),
-                            (float)(height - height * (topCrop + bottomCrop + Math.Abs(alignment)))),
-                        SKRect.Create(
-                            leftPreviewX,
-                            previewY,
-                            sidePreviewWidthLessCrop,
-                            previewHeightLessCrop),
-                        paint);
+                    var srcX = (float)(width * leftLeftCrop);
+                    var srcY = (float)(height * topCrop + (alignment > 0 ? alignment * height : 0));
+                    var srcWidth = (float)(width - width * (leftLeftCrop + leftRightCrop));
+                    var srcHeight = (float)(height - height * (topCrop + bottomCrop + Math.Abs(alignment)));
+
+                    if (drawMode == DrawMode.Cardboard)
+                    {
+                        var xOffset = 0f;
+                        var yOffset = 0f;
+                        var widthDelta = 0f;
+                        var heightDelta = 0f;
+                        var squareDimension = Math.Min(srcWidth, srcHeight);
+
+                        if (srcWidth >= srcHeight)
+                        {
+                            xOffset = squareDimension / 2 - srcWidth / 2;
+                            widthDelta = xOffset * 2;
+                        }
+                        else
+                        {
+                            yOffset = squareDimension / 2 - srcHeight / 2;
+                            heightDelta = yOffset * 2;
+                        }
+
+                        var croppedWidth = srcWidth + widthDelta;
+                        var croppedHeight = srcHeight + heightDelta;
+                        var cropBitmap = new SKBitmap(new SKImageInfo((int)croppedWidth, (int)croppedHeight));
+                        using (var cropCanvas = new SKCanvas(cropBitmap))
+                        {
+                            cropCanvas.DrawBitmap(
+                                targetBitmap,
+                                SKRect.Create(
+                                    srcX - xOffset,
+                                    srcY - yOffset,
+                                    croppedWidth,
+                                    croppedHeight),
+                                SKRect.Create(
+                                    0,
+                                    0,
+                                    croppedWidth,
+                                    croppedHeight));
+                        }
+
+                        var openCv = DependencyService.Get<IOpenCv>();
+                        if (openCv.IsOpenCvSupported())
+                        {
+                            cropBitmap = openCv.AddBarrelDistortion(cropBitmap, barrelCoeff);
+                        }
+
+                        canvas.DrawBitmap(
+                            cropBitmap,
+                            SKRect.Create(
+                                0,
+                                0,
+                                cropBitmap.Width,
+                                cropBitmap.Height),
+                            SKRect.Create(
+                                leftPreviewX,
+                                previewY,
+                                sidePreviewWidthLessCrop,
+                                previewHeightLessCrop),
+                            paint);
+
+                        cropBitmap?.Dispose();
+                    }
+                    else
+                    {
+                        canvas.DrawBitmap(
+                            targetBitmap,
+                            SKRect.Create(
+                                srcX,
+                                srcY,
+                                srcWidth,
+                                srcHeight),
+                            SKRect.Create(
+                                leftPreviewX,
+                                previewY,
+                                sidePreviewWidthLessCrop,
+                                previewHeightLessCrop),
+                            paint);
+                    }
                 }
 
                 grayscale?.Dispose();
@@ -252,22 +324,91 @@ namespace CrossCam.Page
                         paint.BlendMode = SKBlendMode.Plus;
                     }
 
-                    var width = transformed?.Width ?? grayscale?.Width ?? rightBitmap.Width;
-                    var height = transformed?.Height ?? grayscale?.Height ?? rightBitmap.Height;
+                    var targetBitmap = transformed ?? grayscale ?? rightBitmap;
+                    var width = targetBitmap.Width;
+                    var height = targetBitmap.Height;
 
-                    canvas.DrawBitmap(
-                        transformed ?? grayscale ?? rightBitmap,
-                        SKRect.Create(
-                            (float)(width * rightLeftCrop),
-                            (float)(height * topCrop - (alignment < 0 ? alignment * height : 0)),
-                            (float)(width - width * (rightLeftCrop + rightRightCrop)),
-                            (float)(height - height * (topCrop + bottomCrop + Math.Abs(alignment)))),
-                        SKRect.Create(
-                            rightPreviewX,
-                            previewY,
-                            sidePreviewWidthLessCrop,
-                            previewHeightLessCrop),
-                        paint);
+                    var srcX = (float) (width * rightLeftCrop);
+                    var srcY = (float) (height * topCrop - (alignment < 0 ? alignment * height : 0));
+                    var srcWidth = (float) (width - width * (rightLeftCrop + rightRightCrop));
+                    var srcHeight = (float) (height - height * (topCrop + bottomCrop + Math.Abs(alignment)));
+
+                    if (drawMode == DrawMode.Cardboard)
+                    {
+                        var xOffset = 0f;
+                        var yOffset = 0f;
+                        var widthDelta = 0f;
+                        var heightDelta = 0f;
+                        var squareDimension = Math.Min(srcWidth, srcHeight);
+
+                        if (srcWidth >= srcHeight)
+                        {
+                            xOffset = squareDimension / 2 - srcWidth / 2;
+                            widthDelta = xOffset * 2;
+                        }
+                        else
+                        {
+                            yOffset = squareDimension / 2 - srcHeight / 2;
+                            heightDelta = yOffset * 2;
+                        }
+
+                        var croppedWidth = srcWidth + widthDelta;
+                        var croppedHeight = srcHeight + heightDelta;
+                        var cropBitmap = new SKBitmap(new SKImageInfo((int)croppedWidth, (int)croppedHeight));
+                        using (var cropCanvas = new SKCanvas(cropBitmap))
+                        {
+                            cropCanvas.DrawBitmap(
+                                targetBitmap,
+                                SKRect.Create(
+                                    srcX - xOffset,
+                                    srcY - yOffset,
+                                    croppedWidth,
+                                    croppedHeight),
+                                SKRect.Create(
+                                    0,
+                                    0,
+                                    croppedWidth,
+                                    croppedHeight));
+                        }
+
+                        var openCv = DependencyService.Get<IOpenCv>();
+                        if (openCv.IsOpenCvSupported())
+                        {
+                            cropBitmap = openCv.AddBarrelDistortion(cropBitmap, barrelCoeff);
+                        }
+
+                        canvas.DrawBitmap(
+                            cropBitmap,
+                            SKRect.Create(
+                                0,
+                                0,
+                                cropBitmap.Width,
+                                cropBitmap.Height),
+                            SKRect.Create(
+                                rightPreviewX,
+                                previewY,
+                                sidePreviewWidthLessCrop,
+                                previewHeightLessCrop),
+                            paint);
+
+                        cropBitmap?.Dispose();
+                    }
+                    else
+                    {
+                        canvas.DrawBitmap(
+                            targetBitmap,
+                            SKRect.Create(
+                                srcX,
+                                srcY,
+                                srcWidth,
+                                srcHeight),
+                            SKRect.Create(
+                                rightPreviewX,
+                                previewY,
+                                sidePreviewWidthLessCrop,
+                                previewHeightLessCrop),
+                            paint);
+                    }
                 }
 
                 grayscale?.Dispose();
