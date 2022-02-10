@@ -1,8 +1,10 @@
 ﻿using System;
+using System.Diagnostics;
 using CrossCam.Model;
 using CrossCam.ViewModel;
 using CrossCam.Wrappers;
 using SkiaSharp;
+using Xamarin.Essentials;
 using Xamarin.Forms;
 
 namespace CrossCam.Page
@@ -237,7 +239,7 @@ namespace CrossCam.Page
                                     croppedWidth,
                                     croppedHeight));
                         }
-
+                        
                         var openCv = DependencyService.Get<IOpenCv>();
                         if (openCv.IsOpenCvSupported())
                         {
@@ -360,7 +362,7 @@ namespace CrossCam.Page
                                     croppedWidth,
                                     croppedHeight));
                         }
-
+                        
                         var openCv = DependencyService.Get<IOpenCv>();
                         if (openCv.IsOpenCvSupported())
                         {
@@ -515,37 +517,6 @@ namespace CrossCam.Page
             }
 
             return keystoned ?? rotatedAndZoomed;
-        }
-
-        private static SKBitmap SquareAndBarrelDistort(SKBitmap originalBitmap, float distortionCoeff)
-        {
-            var xOffset = 0;
-            var yOffset = 0;
-            var squareDimension = Math.Min(originalBitmap.Width, originalBitmap.Height);
-
-            if (originalBitmap.Width >= originalBitmap.Height)
-            {
-                xOffset = squareDimension / 2 - originalBitmap.Width / 2;
-            }
-            else
-            {
-                yOffset = squareDimension / 2 - originalBitmap.Height / 2;
-            }
-
-            var squaredBitmap = new SKBitmap(squareDimension, squareDimension);
-            using (var leftSquareCanvas = new SKCanvas(squaredBitmap))
-            {
-                leftSquareCanvas.Clear();
-                leftSquareCanvas.DrawBitmap(originalBitmap, xOffset, yOffset);
-
-                var openCv = DependencyService.Get<IOpenCv>();
-                if (openCv.IsOpenCvSupported())
-                {
-                    squaredBitmap = openCv.AddBarrelDistortion(squaredBitmap, distortionCoeff);
-                }
-            }
-
-            return squaredBitmap;
         }
 
         public static int CalculateJoinedCanvasWidthWithEditsNoBorder(SKBitmap leftBitmap, SKBitmap rightBitmap,

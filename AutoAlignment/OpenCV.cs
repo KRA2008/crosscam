@@ -412,7 +412,21 @@ namespace AutoAlignment
             using var cvImage = new Mat();
             CvInvoke.Imdecode(GetBytes(originalImage, 1), ImreadModes.Color, cvImage);
 
-            using var cameraMatrix = Mat.Eye(3, 3, DepthType.Cv32F, 1);
+            using var cameraMatrix = GetCameraMatrix(originalImage);
+            using var distortionMatrix = GetDistortionMatrix(strength);
+
+            using var transformedImage = new Mat();
+            CvInvoke.Undistort(cvImage, transformedImage, cameraMatrix, distortionMatrix);
+#if __IOS__
+            return transformedImage.ToCGImage().ToSKBitmap();
+#elif __ANDROID__
+            return transformedImage.ToBitmap().ToSKBitmap();
+#endif
+        }
+
+        private static Mat GetCameraMatrix(SKBitmap originalImage)
+        {
+            var cameraMatrix = Mat.Eye(3, 3, DepthType.Cv32F, 1);
             unsafe
             {
                 var ptr = (float*)cameraMatrix.DataPointer.ToPointer(); //fx
@@ -428,7 +442,12 @@ namespace AutoAlignment
                 ptr++; //1
             }
 
-            using var distortionMatrix = Mat.Zeros(1, 5, DepthType.Cv32F, 1);
+            return cameraMatrix;
+        }
+
+        private static Mat GetDistortionMatrix(float strength)
+        {
+            var distortionMatrix = Mat.Zeros(1, 5, DepthType.Cv32F, 1);
             unsafe
             {
                 var ptr = (float*)distortionMatrix.DataPointer.ToPointer(); //k1
@@ -443,13 +462,7 @@ namespace AutoAlignment
                 //*ptr = 0.0000001f;
             }
 
-            using var transformedImage = new Mat();
-            CvInvoke.Undistort(cvImage, transformedImage, cameraMatrix, distortionMatrix);
-#if __IOS__
-            return transformedImage.ToCGImage().ToSKBitmap();
-#elif __ANDROID__
-            return transformedImage.ToBitmap().ToSKBitmap();
-#endif
+            return distortionMatrix;
         }
 
         private static SKBitmap DrawMatches(SKBitmap image1, SKBitmap image2, List<PointForCleaning> points)
