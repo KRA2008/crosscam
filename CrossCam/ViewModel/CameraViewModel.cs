@@ -324,7 +324,7 @@ namespace CrossCam.ViewModel
                                                           Settings.SaveForGrayscaleAnaglyph ||
                                                           Settings.SaveForTriple ||
                                                           Settings.SaveForQuad ||
-                                                          Settings.SaveForVr);
+                                                          Settings.SaveForCardboard);
 
         public bool ShouldPairPreviewBeVisible => BluetoothOperator.PairStatus == PairStatus.Connected &&
                                                   BluetoothOperator.IsPrimary &&
@@ -933,7 +933,7 @@ namespace CrossCam.ViewModel
                             }
                         }
 
-                        if (Settings.SaveForVr)
+                        if (Settings.SaveForCardboard)
                         {
                             //TODO: if draw tool vr is changed with cropping, change here too
                             var width = DrawTool.CalculateJoinedCanvasWidthWithEditsNoBorder(LeftBitmap, RightBitmap,
@@ -1435,7 +1435,9 @@ namespace CrossCam.ViewModel
                     {
                         await Task.Run(() =>
                         {
-                            var discardTransX = !Settings.SaveForRedCyanAnaglyph &&
+                            var discardTransX = Settings.SaveForCardboard ||
+                                                Settings.Mode == DrawMode.Cardboard ||
+                                                !Settings.SaveForRedCyanAnaglyph &&
                                                 !Settings.SaveForGrayscaleAnaglyph &&
                                                 Settings.Mode != DrawMode.RedCyanAnaglyph &&
                                                 Settings.Mode != DrawMode.GrayscaleRedCyanAnaglyph &&

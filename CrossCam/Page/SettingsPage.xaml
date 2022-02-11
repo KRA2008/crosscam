@@ -343,7 +343,7 @@
                                      Binding="{Binding Settings.Mode, Converter={vc:EnumCompareConverter}, ConverterParameter={x:Static vm:DrawMode.Parallel}}"
                                      Value="True">
                             <Setter Property="Grid.Row"
-                                    Value="4"/>
+                                    Value="5"/>
                         </DataTrigger>
                     </Image.Triggers>
                 </Image>
@@ -355,7 +355,7 @@
                                      Binding="{Binding Settings.Mode, Converter={vc:EnumCompareConverter}, ConverterParameter={x:Static vm:DrawMode.Parallel}}"
                                      Value="True">
                             <Setter Property="Grid.Row"
-                                    Value="4"/>
+                                    Value="5"/>
                         </DataTrigger>
                     </Label.Triggers>
                 </Label>
@@ -367,7 +367,7 @@
                                      Binding="{Binding Settings.Mode, Converter={vc:EnumCompareConverter}, ConverterParameter={x:Static vm:DrawMode.Parallel}}"
                                      Value="True">
                             <Setter Property="Grid.Row"
-                                    Value="4"/>
+                                    Value="5"/>
                         </DataTrigger>
                     </Switch.Triggers>
                 </Switch>
@@ -380,7 +380,7 @@
                                      Binding="{Binding Settings.Mode, Converter={vc:EnumCompareConverter}, ConverterParameter={x:Static vm:DrawMode.Parallel}}"
                                      Value="True">
                             <Setter Property="Grid.Row"
-                                    Value="3"/>
+                                    Value="4"/>
                         </DataTrigger>
                     </Image.Triggers>
                 </Image>
@@ -392,7 +392,7 @@
                                      Binding="{Binding Settings.Mode, Converter={vc:EnumCompareConverter}, ConverterParameter={x:Static vm:DrawMode.Parallel}}"
                                      Value="True">
                             <Setter Property="Grid.Row"
-                                    Value="3"/>
+                                    Value="4"/>
                         </DataTrigger>
                     </Label.Triggers>
                 </Label>
@@ -404,7 +404,7 @@
                                      Binding="{Binding Settings.Mode, Converter={vc:EnumCompareConverter}, ConverterParameter={x:Static vm:DrawMode.Parallel}}"
                                      Value="True">
                             <Setter Property="Grid.Row"
-                                    Value="3"/>
+                                    Value="4"/>
                         </DataTrigger>
                     </Switch.Triggers>
                 </Switch>
@@ -462,13 +462,14 @@
                         IsToggled="{Binding Settings.SaveForQuad}"/>
                 <Label Grid.Row="11"
                        Grid.Column="0"
+                       HorizontalOptions="Center"
                        Text="VR"/>
                 <Label Grid.Row="11"
                        Grid.Column="1"
-                       Text="Save for VR"/>
+                       Text="Save for Cardboard"/>
                 <Switch Grid.Row="11"
                         Grid.Column="2"
-                        IsToggled="{Binding Settings.SaveForVr}"/>
+                        IsToggled="{Binding Settings.SaveForCardboard}"/>
                 <Label Grid.Row="12"
                        Grid.Column="0"
                        Grid.ColumnSpan="2"

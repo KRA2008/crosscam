@@ -34,11 +34,7 @@ namespace CrossCam.Model
                 {
                     totalSaveModes++;
                 }
-                if (SaveSidesSeparately)
-                {
-                    totalSaveModes++;
-                }
-                if (SaveRedundantFirstSide)
+                if (SaveForCardboard)
                 {
                     totalSaveModes++;
                 }
@@ -59,6 +55,9 @@ namespace CrossCam.Model
                         case DrawMode.GrayscaleRedCyanAnaglyph when value != DrawMode.GrayscaleRedCyanAnaglyph:
                             SaveForGrayscaleAnaglyph = false;
                             break;
+                        case DrawMode.Cardboard when value != DrawMode.Cardboard:
+                            SaveForCardboard = false;
+                            break;
                     }
                 }
 
@@ -75,6 +74,9 @@ namespace CrossCam.Model
                         break;
                     case DrawMode.GrayscaleRedCyanAnaglyph:
                         SaveForGrayscaleAnaglyph = true;
+                        break;
+                    case DrawMode.Cardboard:
+                        SaveForCardboard = true;
                         break;
                 }
 
@@ -136,7 +138,7 @@ namespace CrossCam.Model
         public bool SaveForTriple { get; set; }
         public bool SaveForQuad { get; set; }
         public bool SaveWithFuseGuide { get; set; }
-        public bool SaveForVr { get; set; }
+        public bool SaveForCardboard { get; set; }
 
         public bool SendErrorReports1 { get; set; }
 
@@ -379,7 +381,7 @@ namespace CrossCam.Model
             SaveForTriple = false;
             SaveForQuad = false;
             SaveWithFuseGuide = false;
-            SaveForVr = false;
+            SaveForCardboard = false;
 
             IsForceCamera1Enabled = false;
             IsForceCamera2Enabled = false;
