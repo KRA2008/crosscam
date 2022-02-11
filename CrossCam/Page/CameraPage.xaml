@@ -1,17 +1,12 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 <freshMvvm:FreshBaseContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-             xmlns:model="clr-namespace:CrossCam.Model;assembly=CrossCam"
              xmlns:vm="clr-namespace:CrossCam.ViewModel;assembly=CrossCam"
              xmlns:ce="clr-namespace:CrossCam.CustomElement;assembly=CrossCam"
              xmlns:vc="clr-namespace:CrossCam.ValueConverter;assembly=CrossCam"
              xmlns:forms="clr-namespace:SkiaSharp.Views.Forms;assembly=SkiaSharp.Views.Forms"
              xmlns:freshMvvm="clr-namespace:FreshMvvm;assembly=FreshMvvm"
-             mc:Ignorable="d"
-             
-             d:DataContext="{d:DesignInstance Type=vm:CameraViewModel, IsDesignTimeCreatable=False}"
+             x:DataType="vm:CameraViewModel"
 			 x:Class="CrossCam.Page.CameraPage">
     <ContentPage.Resources>
         <ResourceDictionary>

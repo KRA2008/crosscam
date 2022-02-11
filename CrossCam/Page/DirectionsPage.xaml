@@ -1,14 +1,10 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <fresh:FreshBaseContentPage xmlns="http://xamarin.com/schemas/2014/forms"
                             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-                            xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-                            xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
                             xmlns:vm="clr-namespace:CrossCam.ViewModel;assembly=CrossCam"
                             xmlns:fresh="clr-namespace:FreshMvvm;assembly=FreshMvvm"
                             xmlns:customElement="clr-namespace:CrossCam.CustomElement;assembly=CrossCam"
-                            mc:Ignorable="d"
-             
-                            d:DataContext="{d:DesignInstance Type=vm:DirectionsViewModel, IsDesignTimeCreatable=False}"
+                            x:DataType="vm:DirectionsViewModel"
                             Title="How to Use CrossCam"
                             x:Class="CrossCam.Page.DirectionsPage">
     <ScrollView>
