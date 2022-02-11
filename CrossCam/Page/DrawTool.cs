@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using CrossCam.Model;
 using CrossCam.ViewModel;
 using CrossCam.Wrappers;
@@ -161,53 +162,52 @@ namespace CrossCam.Page
                     transformed = ZoomAndRotate(grayscale ?? leftBitmap, leftZoom, isLeftRotated, leftRotation, isLeftKeystoned, -leftKeystone);
                 }
 
-                using (var paint = new SKPaint())
+                using var paint = new SKPaint();
+                
+                if (drawMode == DrawMode.RedCyanAnaglyph ||
+                    drawMode == DrawMode.GrayscaleRedCyanAnaglyph)
                 {
-                    if (drawMode == DrawMode.RedCyanAnaglyph ||
-                        drawMode == DrawMode.GrayscaleRedCyanAnaglyph)
-                    {
-                        paint.ColorFilter =
-                            SKColorFilter.CreateColorMatrix(new float[]
-                            {
-                                0, 0, 0, 0, 0,
-                                0, 1, 0, 0, 0,
-                                0, 0, 1, 0, 0,
-                                0, 0, 0, 1, 0
-                            });
-                    }
-
-                    var targetBitmap = transformed ?? grayscale ?? leftBitmap;
-                    var width = targetBitmap.Width;
-                    var height = targetBitmap.Height;
-
-                    var srcX = (float)(width * leftLeftCrop);
-                    var srcY = (float)(height * topCrop + (alignment > 0 ? alignment * height : 0));
-                    var srcWidth = (float)(width - width * (leftLeftCrop + leftRightCrop));
-                    var srcHeight = (float)(height - height * (topCrop + bottomCrop + Math.Abs(alignment)));
-                    
-                    if (drawMode == DrawMode.Cardboard)
-                    {
-                        var openCv = DependencyService.Get<IOpenCv>();
-                        if (openCv.IsOpenCvSupported())
+                    paint.ColorFilter =
+                        SKColorFilter.CreateColorMatrix(new float[]
                         {
-                            targetBitmap = openCv.AddBarrelDistortion(targetBitmap, barrelCoeff);
-                        }
-                    }
-
-                    canvas.DrawBitmap(
-                        targetBitmap,
-                        SKRect.Create(
-                            srcX,
-                            srcY,
-                            srcWidth,
-                            srcHeight),
-                        SKRect.Create(
-                            leftPreviewX,
-                            previewY,
-                            sidePreviewWidthLessCrop,
-                            previewHeightLessCrop),
-                        paint);
+                            0, 0, 0, 0, 0,
+                            0, 1, 0, 0, 0,
+                            0, 0, 1, 0, 0,
+                            0, 0, 0, 1, 0
+                        });
                 }
+
+                var targetBitmap = transformed ?? grayscale ?? leftBitmap;
+                var width = targetBitmap.Width;
+                var height = targetBitmap.Height;
+
+                var srcX = (float)(width * leftLeftCrop);
+                var srcY = (float)(height * topCrop + (alignment > 0 ? alignment * height : 0));
+                var srcWidth = (float)(width - width * (leftLeftCrop + leftRightCrop));
+                var srcHeight = (float)(height - height * (topCrop + bottomCrop + Math.Abs(alignment)));
+                
+                if (drawMode == DrawMode.Cardboard)
+                {
+                    var openCv = DependencyService.Get<IOpenCv>();
+                    if (openCv.IsOpenCvSupported())
+                    {
+                        targetBitmap = openCv.AddBarrelDistortion(targetBitmap, barrelCoeff);
+                    }
+                }
+
+                canvas.DrawBitmap(
+                    targetBitmap,
+                    SKRect.Create(
+                        srcX,
+                        srcY,
+                        srcWidth,
+                        srcHeight),
+                    SKRect.Create(
+                        leftPreviewX,
+                        previewY,
+                        sidePreviewWidthLessCrop,
+                        previewHeightLessCrop),
+                    paint);
 
                 grayscale?.Dispose();
                 transformed?.Dispose();
@@ -229,54 +229,53 @@ namespace CrossCam.Page
                     transformed = ZoomAndRotate(grayscale ?? rightBitmap, rightZoom, isRightRotated, rightRotation, isRightKeystoned, rightKeystone);
                 }
 
-                using (var paint = new SKPaint())
+                using var paint = new SKPaint();
+
+                if (drawMode == DrawMode.RedCyanAnaglyph ||
+                    drawMode == DrawMode.GrayscaleRedCyanAnaglyph)
                 {
-                    if (drawMode == DrawMode.RedCyanAnaglyph ||
-                        drawMode == DrawMode.GrayscaleRedCyanAnaglyph)
-                    {
-                        paint.ColorFilter =
-                            SKColorFilter.CreateColorMatrix(new float[]
-                            {
-                                1, 0, 0, 0, 0,
-                                0, 0, 0, 0, 0,
-                                0, 0, 0, 0, 0,
-                                0, 0, 0, 1, 0
-                            });
-                        paint.BlendMode = SKBlendMode.Plus;
-                    }
-
-                    var targetBitmap = transformed ?? grayscale ?? rightBitmap;
-                    var width = targetBitmap.Width;
-                    var height = targetBitmap.Height;
-
-                    var srcX = (float) (width * rightLeftCrop);
-                    var srcY = (float) (height * topCrop - (alignment < 0 ? alignment * height : 0));
-                    var srcWidth = (float) (width - width * (rightLeftCrop + rightRightCrop));
-                    var srcHeight = (float) (height - height * (topCrop + bottomCrop + Math.Abs(alignment)));
-
-                    if (drawMode == DrawMode.Cardboard)
-                    {
-                        var openCv = DependencyService.Get<IOpenCv>();
-                        if (openCv.IsOpenCvSupported())
+                    paint.ColorFilter =
+                        SKColorFilter.CreateColorMatrix(new float[]
                         {
-                            targetBitmap = openCv.AddBarrelDistortion(targetBitmap, barrelCoeff);
-                        }
-                    }
-
-                    canvas.DrawBitmap(
-                        targetBitmap,
-                        SKRect.Create(
-                            srcX,
-                            srcY,
-                            srcWidth,
-                            srcHeight),
-                        SKRect.Create(
-                            rightPreviewX,
-                            previewY,
-                            sidePreviewWidthLessCrop,
-                            previewHeightLessCrop),
-                        paint);
+                            1, 0, 0, 0, 0,
+                            0, 0, 0, 0, 0,
+                            0, 0, 0, 0, 0,
+                            0, 0, 0, 1, 0
+                        });
+                    paint.BlendMode = SKBlendMode.Plus;
                 }
+
+                var targetBitmap = transformed ?? grayscale ?? rightBitmap;
+                var width = targetBitmap.Width;
+                var height = targetBitmap.Height;
+
+                var srcX = (float) (width * rightLeftCrop);
+                var srcY = (float) (height * topCrop - (alignment < 0 ? alignment * height : 0));
+                var srcWidth = (float) (width - width * (rightLeftCrop + rightRightCrop));
+                var srcHeight = (float) (height - height * (topCrop + bottomCrop + Math.Abs(alignment)));
+
+                if (drawMode == DrawMode.Cardboard)
+                {
+                    var openCv = DependencyService.Get<IOpenCv>();
+                    if (openCv.IsOpenCvSupported())
+                    {
+                        targetBitmap = openCv.AddBarrelDistortion(targetBitmap, barrelCoeff);
+                    }
+                }
+
+                canvas.DrawBitmap(
+                    targetBitmap,
+                    SKRect.Create(
+                        srcX,
+                        srcY,
+                        srcWidth,
+                        srcHeight),
+                    SKRect.Create(
+                        rightPreviewX,
+                        previewY,
+                        sidePreviewWidthLessCrop,
+                        previewHeightLessCrop),
+                    paint);
 
                 grayscale?.Dispose();
                 transformed?.Dispose();
@@ -284,7 +283,7 @@ namespace CrossCam.Page
 
             if (innerBorderThicknessProportion > 0)
             {
-                var borderPaint = new SKPaint
+                using var borderPaint = new SKPaint
                 {
                     Color = borderColor == BorderColor.Black ? SKColor.Parse("000000") : SKColor.Parse("ffffff"),
                     Style = SKPaintStyle.StrokeAndFill
@@ -308,7 +307,7 @@ namespace CrossCam.Page
             {
                 var previewBorderThickness = canvasWidth / 2f - (leftPreviewX + sidePreviewWidthLessCrop);
                 var fuseGuideY = previewY - 2 * previewBorderThickness - fuseGuideMarginHeight / 2f; //why 2x border? why doesn't this have to account for icon height? i don't know.
-                var whitePaint = new SKPaint
+                using var whitePaint = new SKPaint
                 {
                     Color = new SKColor(byte.MaxValue, byte.MaxValue, byte.MaxValue)
                 };
@@ -325,25 +324,21 @@ namespace CrossCam.Page
         {
             var grayed = new SKBitmap(originalBitmap.Width, originalBitmap.Height);
 
-            using (var graybrush = new SKPaint())
-            {
-                graybrush.ColorFilter =
-                    SKColorFilter.CreateColorMatrix(new[]
-                    {
-                        0.21f, 0.72f, 0.07f, 0.0f, 0.0f,
-                        0.21f, 0.72f, 0.07f, 0.0f, 0.0f,
-                        0.21f, 0.72f, 0.07f, 0.0f, 0.0f,
-                        0.0f,  0.0f,  0.0f,  1.0f, 0.0f
-                    });
-                using (var tempCanvas = new SKCanvas(grayed))
+            using SKPaint graybrush = new SKPaint();
+            graybrush.ColorFilter =
+                SKColorFilter.CreateColorMatrix(new[]
                 {
-                    tempCanvas.DrawBitmap(
-                        originalBitmap,
-                        0,
-                        0,
-                        graybrush);
-                }
-            }
+                    0.21f, 0.72f, 0.07f, 0.0f, 0.0f,
+                    0.21f, 0.72f, 0.07f, 0.0f, 0.0f,
+                    0.21f, 0.72f, 0.07f, 0.0f, 0.0f,
+                    0.0f,  0.0f,  0.0f,  1.0f, 0.0f
+                });
+            using var tempCanvas = new SKCanvas(grayed);
+            tempCanvas.DrawBitmap(
+                originalBitmap,
+                0,
+                0,
+                graybrush);
 
             return grayed;
         }
@@ -382,13 +377,11 @@ namespace CrossCam.Page
             if (isKeystoned)
             {
                 keystoned = new SKBitmap(originalBitmap.Width, originalBitmap.Height);
-                using (var tempCanvas = new SKCanvas(keystoned))
-                {
-                    tempCanvas.SetMatrix(TaperTransform.Make(new SKSize(originalBitmap.Width, originalBitmap.Height),
-                        keystone > 0 ? TaperSide.Left : TaperSide.Right, TaperCorner.Both, 1 - Math.Abs(keystone)));
-                    tempCanvas.DrawBitmap(rotatedAndZoomed, 0, 0);
-                    rotatedAndZoomed.Dispose();
-                }
+                using var tempCanvas = new SKCanvas(keystoned);
+                tempCanvas.SetMatrix(TaperTransform.Make(new SKSize(originalBitmap.Width, originalBitmap.Height),
+                    keystone > 0 ? TaperSide.Left : TaperSide.Right, TaperCorner.Both, 1 - Math.Abs(keystone)));
+                tempCanvas.DrawBitmap(rotatedAndZoomed, 0, 0);
+                rotatedAndZoomed.Dispose();
             }
 
             return keystoned ?? rotatedAndZoomed;
@@ -406,22 +399,15 @@ namespace CrossCam.Page
         private static int CalculateJoinedCanvasWidthWithEditsNoBorderInternal(SKBitmap leftBitmap, SKBitmap rightBitmap, 
             double leftLeftCrop, double leftRightCrop, double rightLeftCrop, double rightRightCrop)
         {
-            if (leftBitmap == null && rightBitmap == null) return 0;
-
             if (leftBitmap == null || rightBitmap == null)
             {
-                if (leftBitmap != null)
-                {
-                    return leftBitmap.Width * 2;
-                }
-
-                return rightBitmap.Width * 2;
+                return leftBitmap?.Width * 2 ?? rightBitmap?.Width * 2 ?? 0;
             }
 
             var baseWidth = Math.Min(leftBitmap.Width, rightBitmap.Width);
-            return (int)(2 * baseWidth -
-                baseWidth * (leftLeftCrop + leftRightCrop + rightLeftCrop + rightRightCrop));
-        }
+            return (int) (2 * baseWidth -
+                          baseWidth * (leftLeftCrop + leftRightCrop + rightLeftCrop + rightRightCrop));
+            }
 
         public static int CalculateCanvasHeightWithEditsNoBorder(SKBitmap leftBitmap, SKBitmap rightBitmap, Edits edits)
         {
@@ -433,15 +419,13 @@ namespace CrossCam.Page
         private static int CalculateCanvasHeightWithEditsNoBorderInternal(SKBitmap leftBitmap, SKBitmap rightBitmap,
             double topCrop, double bottomCrop, double alignment)
         {
-            if (leftBitmap == null && rightBitmap == null) return 0;
-
             if (leftBitmap == null || rightBitmap == null)
             {
-                return leftBitmap?.Height ?? rightBitmap.Height;
+                return leftBitmap?.Height ?? rightBitmap?.Height ?? 0;
             }
 
             var baseHeight = Math.Min(leftBitmap.Height, rightBitmap.Height);
-            return (int)(baseHeight - baseHeight * (topCrop + bottomCrop + Math.Abs(alignment)));
+            return (int) (baseHeight - baseHeight * (topCrop + bottomCrop + Math.Abs(alignment)));
         }
 
         public static float CalculateFuseGuideMarginHeight(float baseHeight)
