@@ -1,10 +1,8 @@
 ﻿using System;
-using System.Diagnostics;
 using CrossCam.Model;
 using CrossCam.ViewModel;
 using CrossCam.Wrappers;
 using SkiaSharp;
-using Xamarin.Essentials;
 using Xamarin.Forms;
 
 namespace CrossCam.Page
@@ -17,35 +15,33 @@ namespace CrossCam.Page
         private const int FUSE_GUIDE_MARGIN_HEIGHT_RATIO = 7;
 
         public static void DrawImagesOnCanvas(SKCanvas canvas, SKBitmap leftBitmap, SKBitmap rightBitmap,
-            Settings settings, Edits edits, DrawMode drawMode, bool isFov = false)
+            Settings settings, Edits edits, DrawMode drawMode, bool isFov = false, bool withSwap = false)
         {
-            switch (drawMode)
+            if (withSwap)
             {
-                case DrawMode.Parallel:
-                case DrawMode.Cardboard:
-                    DrawImagesOnCanvasInternal(canvas, rightBitmap, leftBitmap,
-                        settings.BorderWidthProportion, settings.AddBorder, settings.BorderColor,
-                        edits.InsideCrop + edits.LeftCrop, edits.RightCrop + edits.OutsideCrop,
-                        edits.LeftCrop + edits.OutsideCrop, edits.InsideCrop + edits.RightCrop,
-                        edits.TopCrop, edits.BottomCrop,
-                        edits.RightRotation, edits.LeftRotation,
-                        edits.VerticalAlignment,
-                        edits.RightZoom + (isFov ? edits.FovRightCorrection : 0), edits.LeftZoom + (isFov ? edits.FovLeftCorrection : 0),
-                        edits.RightKeystone, edits.LeftKeystone,
-                        drawMode, settings.SaveWithFuseGuide);
-                    break;
-                default:
-                    DrawImagesOnCanvasInternal(canvas, leftBitmap, rightBitmap,
-                        settings.BorderWidthProportion, settings.AddBorder, settings.BorderColor,
-                        edits.LeftCrop + edits.OutsideCrop, edits.InsideCrop + edits.RightCrop, edits.InsideCrop + edits.LeftCrop,
-                        edits.RightCrop + edits.OutsideCrop,
-                        edits.TopCrop, edits.BottomCrop,
-                        edits.LeftRotation, edits.RightRotation,
-                        edits.VerticalAlignment,
-                        edits.LeftZoom + (isFov ? edits.FovLeftCorrection : 0), edits.RightZoom + (isFov ? edits.FovRightCorrection : 0),
-                        edits.LeftKeystone, edits.RightKeystone,
-                        drawMode, settings.SaveWithFuseGuide);
-                    break;
+                DrawImagesOnCanvasInternal(canvas, rightBitmap, leftBitmap,
+                    settings.BorderWidthProportion, settings.AddBorder, settings.BorderColor,
+                    edits.InsideCrop + edits.LeftCrop, edits.RightCrop + edits.OutsideCrop,
+                    edits.LeftCrop + edits.OutsideCrop, edits.InsideCrop + edits.RightCrop,
+                    edits.TopCrop, edits.BottomCrop,
+                    edits.RightRotation, edits.LeftRotation,
+                    edits.VerticalAlignment,
+                    edits.RightZoom + (isFov ? edits.FovRightCorrection : 0), edits.LeftZoom + (isFov ? edits.FovLeftCorrection : 0),
+                    edits.RightKeystone, edits.LeftKeystone,
+                    drawMode, settings.SaveWithFuseGuide);
+            }
+            else
+            {
+                DrawImagesOnCanvasInternal(canvas, leftBitmap, rightBitmap,
+                    settings.BorderWidthProportion, settings.AddBorder, settings.BorderColor,
+                    edits.LeftCrop + edits.OutsideCrop, edits.InsideCrop + edits.RightCrop, edits.InsideCrop + edits.LeftCrop,
+                    edits.RightCrop + edits.OutsideCrop,
+                    edits.TopCrop, edits.BottomCrop,
+                    edits.LeftRotation, edits.RightRotation,
+                    edits.VerticalAlignment,
+                    edits.LeftZoom + (isFov ? edits.FovLeftCorrection : 0), edits.RightZoom + (isFov ? edits.FovRightCorrection : 0),
+                    edits.LeftKeystone, edits.RightKeystone,
+                    drawMode, settings.SaveWithFuseGuide);
             }
         }
 
@@ -68,7 +64,6 @@ namespace CrossCam.Page
 
             int leftBitmapWidthLessCrop;
             int baseHeight;
-            var cardboardHeightCrop = 0;
 
             if (leftBitmap != null)
             {
@@ -81,19 +76,7 @@ namespace CrossCam.Page
                 leftBitmapWidthLessCrop = (int)(rightBitmap.Width * (1 - (rightLeftCrop + rightRightCrop)));
             }
 
-            var leftBitmapHeightLessCrop = (int)(baseHeight * (1 - (topCrop + bottomCrop + Math.Abs(alignment))) - cardboardHeightCrop);
-            
-            if (drawMode == DrawMode.Cardboard)
-            {
-                if (leftBitmapHeightLessCrop > leftBitmapWidthLessCrop)
-                {
-                    leftBitmapHeightLessCrop -= leftBitmapHeightLessCrop - leftBitmapWidthLessCrop;
-                }
-                else
-                {
-                    leftBitmapWidthLessCrop -= leftBitmapWidthLessCrop - leftBitmapHeightLessCrop;
-                }
-            }
+            var leftBitmapHeightLessCrop = (int)(baseHeight * (1 - (topCrop + bottomCrop + Math.Abs(alignment))));
 
             var innerBorderThicknessProportion = leftBitmap != null && 
                                                  rightBitmap != null && 
@@ -201,83 +184,29 @@ namespace CrossCam.Page
                     var srcY = (float)(height * topCrop + (alignment > 0 ? alignment * height : 0));
                     var srcWidth = (float)(width - width * (leftLeftCrop + leftRightCrop));
                     var srcHeight = (float)(height - height * (topCrop + bottomCrop + Math.Abs(alignment)));
-
+                    
                     if (drawMode == DrawMode.Cardboard)
                     {
-                        var xOffset = 0f;
-                        var yOffset = 0f;
-                        var widthDelta = 0f;
-                        var heightDelta = 0f;
-                        var squareDimension = Math.Min(srcWidth, srcHeight);
-
-                        if (srcWidth >= srcHeight)
-                        {
-                            xOffset = squareDimension / 2 - srcWidth / 2;
-                            widthDelta = xOffset * 2;
-                        }
-                        else
-                        {
-                            yOffset = squareDimension / 2 - srcHeight / 2;
-                            heightDelta = yOffset * 2;
-                        }
-
-                        var croppedWidth = srcWidth + widthDelta;
-                        var croppedHeight = srcHeight + heightDelta;
-                        var cropBitmap = new SKBitmap(new SKImageInfo((int)croppedWidth, (int)croppedHeight));
-                        using (var cropCanvas = new SKCanvas(cropBitmap))
-                        {
-                            cropCanvas.DrawBitmap(
-                                targetBitmap,
-                                SKRect.Create(
-                                    srcX - xOffset,
-                                    srcY - yOffset,
-                                    croppedWidth,
-                                    croppedHeight),
-                                SKRect.Create(
-                                    0,
-                                    0,
-                                    croppedWidth,
-                                    croppedHeight));
-                        }
-                        
                         var openCv = DependencyService.Get<IOpenCv>();
                         if (openCv.IsOpenCvSupported())
                         {
-                            cropBitmap = openCv.AddBarrelDistortion(cropBitmap, barrelCoeff);
+                            targetBitmap = openCv.AddBarrelDistortion(targetBitmap, barrelCoeff);
                         }
-
-                        canvas.DrawBitmap(
-                            cropBitmap,
-                            SKRect.Create(
-                                0,
-                                0,
-                                cropBitmap.Width,
-                                cropBitmap.Height),
-                            SKRect.Create(
-                                leftPreviewX,
-                                previewY,
-                                sidePreviewWidthLessCrop,
-                                previewHeightLessCrop),
-                            paint);
-
-                        cropBitmap?.Dispose();
                     }
-                    else
-                    {
-                        canvas.DrawBitmap(
-                            targetBitmap,
-                            SKRect.Create(
-                                srcX,
-                                srcY,
-                                srcWidth,
-                                srcHeight),
-                            SKRect.Create(
-                                leftPreviewX,
-                                previewY,
-                                sidePreviewWidthLessCrop,
-                                previewHeightLessCrop),
-                            paint);
-                    }
+
+                    canvas.DrawBitmap(
+                        targetBitmap,
+                        SKRect.Create(
+                            srcX,
+                            srcY,
+                            srcWidth,
+                            srcHeight),
+                        SKRect.Create(
+                            leftPreviewX,
+                            previewY,
+                            sidePreviewWidthLessCrop,
+                            previewHeightLessCrop),
+                        paint);
                 }
 
                 grayscale?.Dispose();
@@ -327,80 +256,26 @@ namespace CrossCam.Page
 
                     if (drawMode == DrawMode.Cardboard)
                     {
-                        var xOffset = 0f;
-                        var yOffset = 0f;
-                        var widthDelta = 0f;
-                        var heightDelta = 0f;
-                        var squareDimension = Math.Min(srcWidth, srcHeight);
-
-                        if (srcWidth >= srcHeight)
-                        {
-                            xOffset = squareDimension / 2 - srcWidth / 2;
-                            widthDelta = xOffset * 2;
-                        }
-                        else
-                        {
-                            yOffset = squareDimension / 2 - srcHeight / 2;
-                            heightDelta = yOffset * 2;
-                        }
-
-                        var croppedWidth = srcWidth + widthDelta;
-                        var croppedHeight = srcHeight + heightDelta;
-                        var cropBitmap = new SKBitmap(new SKImageInfo((int)croppedWidth, (int)croppedHeight));
-                        using (var cropCanvas = new SKCanvas(cropBitmap))
-                        {
-                            cropCanvas.DrawBitmap(
-                                targetBitmap,
-                                SKRect.Create(
-                                    srcX - xOffset,
-                                    srcY - yOffset,
-                                    croppedWidth,
-                                    croppedHeight),
-                                SKRect.Create(
-                                    0,
-                                    0,
-                                    croppedWidth,
-                                    croppedHeight));
-                        }
-                        
                         var openCv = DependencyService.Get<IOpenCv>();
                         if (openCv.IsOpenCvSupported())
                         {
-                            cropBitmap = openCv.AddBarrelDistortion(cropBitmap, barrelCoeff);
+                            targetBitmap = openCv.AddBarrelDistortion(targetBitmap, barrelCoeff);
                         }
-
-                        canvas.DrawBitmap(
-                            cropBitmap,
-                            SKRect.Create(
-                                0,
-                                0,
-                                cropBitmap.Width,
-                                cropBitmap.Height),
-                            SKRect.Create(
-                                rightPreviewX,
-                                previewY,
-                                sidePreviewWidthLessCrop,
-                                previewHeightLessCrop),
-                            paint);
-
-                        cropBitmap?.Dispose();
                     }
-                    else
-                    {
-                        canvas.DrawBitmap(
-                            targetBitmap,
-                            SKRect.Create(
-                                srcX,
-                                srcY,
-                                srcWidth,
-                                srcHeight),
-                            SKRect.Create(
-                                rightPreviewX,
-                                previewY,
-                                sidePreviewWidthLessCrop,
-                                previewHeightLessCrop),
-                            paint);
-                    }
+
+                    canvas.DrawBitmap(
+                        targetBitmap,
+                        SKRect.Create(
+                            srcX,
+                            srcY,
+                            srcWidth,
+                            srcHeight),
+                        SKRect.Create(
+                            rightPreviewX,
+                            previewY,
+                            sidePreviewWidthLessCrop,
+                            previewHeightLessCrop),
+                        paint);
                 }
 
                 grayscale?.Dispose();

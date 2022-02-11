@@ -85,7 +85,8 @@ namespace CrossCam.ViewModel
         public Command CapturePictureCommand { get; set; }
         public bool CapturePictureTrigger { get; set; }
 
-        public bool MoveHintTrigger { get; set; }
+        public bool SingleMoveHintTrigger { get; set; }
+        public bool DoubleMoveHintTrigger { get; set; }
         public bool WasSwipedTrigger { get; set; }
 
         public Command SaveCapturesCommand { get; set; }
@@ -235,53 +236,58 @@ namespace CrossCam.ViewModel
                 var width = (double)Application.Current.Resources["_giantIconWidth"];
                 double x = 0;
                 double y = 0;
-                if (IsViewPortrait)
+                if (Settings.Mode != DrawMode.Cardboard)
                 {
-                    y = 1;
-                    switch (Settings.PortraitCaptureButtonPosition)
+                    if (IsViewPortrait)
                     {
-                        case PortraitCaptureButtonPosition.Right:
-                            x = 1;
-                            break;
-                        case PortraitCaptureButtonPosition.Middle:
-                            x = 0.5;
-                            break;
-                        case PortraitCaptureButtonPosition.Left:
-                            x = 0;
-                            break;
+                        y = 1;
+                        switch (Settings.PortraitCaptureButtonPosition)
+                        {
+                            case PortraitCaptureButtonPosition.Right:
+                                x = 1;
+                                break;
+                            case PortraitCaptureButtonPosition.Middle:
+                                x = 0.5;
+                                break;
+                            case PortraitCaptureButtonPosition.Left:
+                                x = 0;
+                                break;
+                        }
                     }
+                    else
+                    {
+                        switch (Settings.LandscapeCaptureButtonVerticalPosition)
+                        {
+                            case LandscapeCaptureButtonVerticalPosition.Middle:
+                                y = 0.5;
+                                break;
+                            case LandscapeCaptureButtonVerticalPosition.Bottom:
+                                y = 1;
+                                break;
+                        }
+                        switch (Settings.LandscapeCaptureButtonHorizontalPosition)
+                        {
+                            case LandscapeCaptureButtonHorizontalPosition.HomeEnd when IsViewInverted:
+                                x = 0;
+                                break;
+                            case LandscapeCaptureButtonHorizontalPosition.HomeEnd when !IsViewInverted:
+                                x = 1;
+                                break;
+                            case LandscapeCaptureButtonHorizontalPosition.Middle:
+                                x = 0.5;
+                                break;
+                            case LandscapeCaptureButtonHorizontalPosition.CameraEnd when IsViewInverted:
+                                x = 1;
+                                break;
+                            case LandscapeCaptureButtonHorizontalPosition.CameraEnd when !IsViewInverted:
+                                x = 0;
+                                break;
+                        }
+                    }
+                    return new Rectangle(x, y, width, width);
                 }
-                else
-                {
-                    switch (Settings.LandscapeCaptureButtonVerticalPosition)
-                    {
-                        case LandscapeCaptureButtonVerticalPosition.Middle:
-                            y = 0.5;
-                            break;
-                        case LandscapeCaptureButtonVerticalPosition.Bottom:
-                            y = 1;
-                            break;
-                    }
-                    switch (Settings.LandscapeCaptureButtonHorizontalPosition)
-                    {
-                        case LandscapeCaptureButtonHorizontalPosition.HomeEnd when IsViewInverted:
-                            x = 0;
-                            break;
-                        case LandscapeCaptureButtonHorizontalPosition.HomeEnd when !IsViewInverted:
-                            x = 1;
-                            break;
-                        case LandscapeCaptureButtonHorizontalPosition.Middle:
-                            x = 0.5;
-                            break;
-                        case LandscapeCaptureButtonHorizontalPosition.CameraEnd when IsViewInverted:
-                            x = 1;
-                            break;
-                        case LandscapeCaptureButtonHorizontalPosition.CameraEnd when !IsViewInverted:
-                            x = 0;
-                            break;
-                    }
-                }
-                return new Rectangle(x, y, width, width);
+
+                return new Rectangle(0.5, 0, width, width);
             }
         }
 
@@ -677,40 +683,27 @@ namespace CrossCam.ViewModel
 
             SwapSidesCommand = new Command(obj =>
             {
-                var forced = obj as bool?;
                 if (WorkflowStage == WorkflowStage.Capture ||
                     WorkflowStage == WorkflowStage.Final ||
                     WorkflowStage == WorkflowStage.Edits ||
-                    forced.HasValue && forced.Value)
+                    obj is bool forced && forced)
                 {
-                    var tempBitmap = LeftBitmap;
-                    LeftBitmap = RightBitmap;
-                    RightBitmap = tempBitmap;
+                    (LeftBitmap, RightBitmap) = (RightBitmap, LeftBitmap);
 
-                    tempBitmap = OriginalUnalignedLeft;
-                    OriginalUnalignedLeft = OriginalUnalignedRight;
-                    OriginalUnalignedRight = tempBitmap;
+                    (OriginalUnalignedLeft, OriginalUnalignedRight) = (OriginalUnalignedRight, OriginalUnalignedLeft);
 
                     if (WorkflowStage == WorkflowStage.Capture)
                     {
                         CameraColumn = CameraColumn == 0 ? 1 : 0;
                     }
 
-                    var tempCrop = Edits.InsideCrop;
-                    Edits.InsideCrop = Edits.OutsideCrop;
-                    Edits.OutsideCrop = tempCrop;
+                    (Edits.InsideCrop, Edits.OutsideCrop) = (Edits.OutsideCrop, Edits.InsideCrop);
 
-                    var tempRotate = Edits.LeftRotation;
-                    Edits.LeftRotation = Edits.RightRotation;
-                    Edits.RightRotation = tempRotate;
+                    (Edits.LeftRotation, Edits.RightRotation) = (Edits.RightRotation, Edits.LeftRotation);
 
-                    var tempKeystone = Edits.LeftKeystone;
-                    Edits.LeftKeystone = Edits.RightKeystone;
-                    Edits.RightKeystone = tempKeystone;
+                    (Edits.LeftKeystone, Edits.RightKeystone) = (Edits.RightKeystone, Edits.LeftKeystone);
 
-                    var tempZoom = Edits.LeftZoom;
-                    Edits.LeftZoom = Edits.RightZoom;
-                    Edits.RightZoom = tempZoom;
+                    (Edits.LeftZoom, Edits.RightZoom) = (Edits.RightZoom, Edits.LeftZoom);
 
                     Edits.VerticalAlignment = -Edits.VerticalAlignment;
 
@@ -852,7 +845,8 @@ namespace CrossCam.ViewModel
                                     canvas, LeftBitmap, RightBitmap, 
                                     Settings, 
                                     Edits, 
-                                    DrawMode.Parallel);
+                                    DrawMode.Parallel,
+                                    withSwap: true);
 
                                 await SaveSurfaceSnapshot(tempSurface);
                             }
@@ -880,11 +874,6 @@ namespace CrossCam.ViewModel
                                 {
                                     var tripleCanvas = tripleSurface.Canvas;
                                     tripleCanvas.Clear();
-                                    //if (needs180Flip) //TODO: try on iOS to see if this is needed
-                                    //{
-                                    //    tripleCanvas.RotateDegrees(180);
-                                    //    tripleCanvas.Translate(-1f * finalTripleWidth, -1f * finalImageHeight);
-                                    //}
 
                                     tripleCanvas.DrawSurface(doubleSurface,0,0);
                                     tripleCanvas.DrawSurface(doubleSurface,tripleHalfOffset,0);
@@ -934,11 +923,6 @@ namespace CrossCam.ViewModel
                                     {
                                         var quadCanvas = quadSurface.Canvas;
                                         quadCanvas.Clear();
-                                        //if (needs180Flip) //TODO: try on iOS to see if this is needed
-                                        //{
-                                        //    tripleCanvas.RotateDegrees(180);
-                                        //    tripleCanvas.Translate(-1f * finalTripleWidth, -1f * finalImageHeight);
-                                        //}
 
                                         quadCanvas.DrawSurface(doublePlainSurface, 0, 0);
                                         quadCanvas.DrawSurface(doubleSwapSurface, 0, quadOffset);
@@ -951,6 +935,7 @@ namespace CrossCam.ViewModel
 
                         if (Settings.SaveForVr)
                         {
+                            //TODO: if draw tool vr is changed with cropping, change here too
                             var width = DrawTool.CalculateJoinedCanvasWidthWithEditsNoBorder(LeftBitmap, RightBitmap,
                                 Edits);
                             var height =
@@ -964,7 +949,7 @@ namespace CrossCam.ViewModel
                                 canvas.Clear();
 
                                 DrawTool.DrawImagesOnCanvas(canvas, LeftBitmap, RightBitmap, Settings, Edits,
-                                    DrawMode.Cardboard);
+                                    DrawMode.Cardboard); // decide if swap needed
 
                                 await SaveSurfaceSnapshot(tempSurface);
                             }
@@ -1334,7 +1319,14 @@ namespace CrossCam.ViewModel
                 RightBitmap == null &&
                 LeftBitmap == null))
             {
-                MoveHintTrigger = !MoveHintTrigger;
+                if (Settings.Mode == DrawMode.Cardboard)
+                {
+                    DoubleMoveHintTrigger = !DoubleMoveHintTrigger;
+                }
+                else
+                {
+                    SingleMoveHintTrigger = !SingleMoveHintTrigger;
+                }
             }
         }
 
