@@ -919,20 +919,17 @@ namespace CrossCam.ViewModel
 
                         if (Settings.SaveForCardboard)
                         {
-                            //TODO: if draw tool vr is changed with cropping, change here too
                             var width = DrawTool.CalculateJoinedCanvasWidthWithEditsNoBorder(LeftBitmap, RightBitmap,
                                 Edits);
                             var height =
                                 DrawTool.CalculateCanvasHeightWithEditsNoBorder(LeftBitmap, RightBitmap, Edits);
-                            var squareDimension = Math.Min(width / 2, height);
 
-                            using var tempSurface =
-                                SKSurface.Create(new SKImageInfo(2 * squareDimension, squareDimension));
+                            using var tempSurface = SKSurface.Create(new SKImageInfo(width, height));
                             var canvas = tempSurface.Canvas;
                             canvas.Clear();
 
                             DrawTool.DrawImagesOnCanvas(canvas, LeftBitmap, RightBitmap, Settings, Edits,
-                                DrawMode.Cardboard); // decide if swap needed
+                                DrawMode.Cardboard);
 
                             await SaveSurfaceSnapshot(tempSurface);
                         }
