@@ -484,7 +484,6 @@ namespace CrossCam.ViewModel
                         {
                             ClearEdits(true);
                             CameraColumn = 0;
-                            LeftBitmap?.Dispose();
                             LeftBitmap = null;
                             TriggerMovementHint();
                             WorkflowStage = WorkflowStage.Capture;
@@ -515,7 +514,6 @@ namespace CrossCam.ViewModel
                         {
                             ClearEdits(true);
                             CameraColumn = 1;
-                            RightBitmap?.Dispose();
                             RightBitmap = null;
                             TriggerMovementHint();
                             WorkflowStage = WorkflowStage.Capture;
@@ -2266,13 +2264,9 @@ namespace CrossCam.ViewModel
                 BluetoothOperator.RequestPreviewFrame();
             }
             ClearEdits(true);
-            LeftBitmap?.Dispose();
             LeftBitmap = null;
-            RightBitmap?.Dispose();
             RightBitmap = null;
-            OriginalUnalignedLeft?.Dispose();
             OriginalUnalignedLeft = null;
-            OriginalUnalignedRight?.Dispose();
             OriginalUnalignedRight = null;
             _secondaryErrorOccurred = false;
             WorkflowStage = WorkflowStage.Capture;
