@@ -482,9 +482,10 @@ namespace CrossCam.ViewModel
                         }
                         else
                         {
+                            LeftBitmap = null;
+                            OriginalUnalignedLeft = null;
                             ClearEdits(true);
                             CameraColumn = 0;
-                            LeftBitmap = null;
                             TriggerMovementHint();
                             WorkflowStage = WorkflowStage.Capture;
                         }
@@ -512,9 +513,10 @@ namespace CrossCam.ViewModel
                         }
                         else
                         {
+                            RightBitmap = null;
+                            OriginalUnalignedRight = null;
                             ClearEdits(true);
                             CameraColumn = 1;
-                            RightBitmap = null;
                             TriggerMovementHint();
                             WorkflowStage = WorkflowStage.Capture;
                         }
@@ -2263,11 +2265,11 @@ namespace CrossCam.ViewModel
             {
                 BluetoothOperator.RequestPreviewFrame();
             }
-            ClearEdits(true);
             LeftBitmap = null;
             RightBitmap = null;
             OriginalUnalignedLeft = null;
             OriginalUnalignedRight = null;
+            ClearEdits(true);
             _secondaryErrorOccurred = false;
             WorkflowStage = WorkflowStage.Capture;
             WasCapturePaired = false;
