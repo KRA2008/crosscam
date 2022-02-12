@@ -476,12 +476,19 @@ namespace CrossCam.ViewModel
                     }
                     else
                     {
-                        ClearEdits(true);
-                        CameraColumn = 0;
-                        LeftBitmap?.Dispose();
-                        LeftBitmap = null;
-                        TriggerMovementHint();
-                        WorkflowStage = WorkflowStage.Capture;
+                        if (RightBitmap == null)
+                        {
+                            ClearCaptures();
+                        }
+                        else
+                        {
+                            ClearEdits(true);
+                            CameraColumn = 0;
+                            LeftBitmap?.Dispose();
+                            LeftBitmap = null;
+                            TriggerMovementHint();
+                            WorkflowStage = WorkflowStage.Capture;
+                        }
                     }
                 }
                 catch (Exception e)
@@ -500,12 +507,19 @@ namespace CrossCam.ViewModel
                     }
                     else
                     {
-                        ClearEdits(true);
-                        CameraColumn = 1;
-                        RightBitmap?.Dispose();
-                        RightBitmap = null;
-                        TriggerMovementHint();
-                        WorkflowStage = WorkflowStage.Capture;
+                        if (LeftBitmap == null)
+                        {
+                            ClearCaptures();
+                        }
+                        else
+                        {
+                            ClearEdits(true);
+                            CameraColumn = 1;
+                            RightBitmap?.Dispose();
+                            RightBitmap = null;
+                            TriggerMovementHint();
+                            WorkflowStage = WorkflowStage.Capture;
+                        }
                     }
                 }
                 catch (Exception e)
