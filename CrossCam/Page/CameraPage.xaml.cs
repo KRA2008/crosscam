@@ -315,7 +315,7 @@ namespace CrossCam.Page
 
             if (_viewModel.PreviewFrame != null)
             {
-                var bitmap = _viewModel.DecodeBitmapAndCorrectOrientation(_viewModel.PreviewFrame, true);
+                var bitmap = _viewModel.DecodeBitmapAndCorrectOrientation(_viewModel.PreviewFrame, _viewModel.BluetoothOperatorBindable.PairStatus == PairStatus.Connected); //TODO: add a using
 
                 if (bitmap != null)
                 {

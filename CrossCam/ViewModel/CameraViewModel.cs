@@ -326,8 +326,8 @@ namespace CrossCam.ViewModel
                                                           Settings.SaveForQuad ||
                                                           Settings.SaveForCardboard);
 
-        public bool ShouldPairPreviewBeVisible => BluetoothOperator.PairStatus == PairStatus.Connected &&
-                                                  BluetoothOperator.IsPrimary &&
+        public bool ShouldPairPreviewBeVisible => (BluetoothOperator.PairStatus == PairStatus.Connected &&
+                                                      BluetoothOperator.IsPrimary || Settings.Mode == DrawMode.Cardboard)  &&
                                                   WorkflowStage == WorkflowStage.Capture;
 
         public int IconColumn => CameraColumn == 0 ? 1 : 0;
@@ -378,6 +378,11 @@ namespace CrossCam.ViewModel
             BluetoothOperator.TransmissionStarted += BluetoothOperatorTransmissionStarted;
             BluetoothOperator.TransmissionComplete += BluetoothOperatorTransmissionComplete;
             BluetoothOperator.CountdownTimerSyncCompleteSecondary += BluetoothOperatorCountdownTimerSyncCompleteSecondary;
+
+            MessagingCenter.Subscribe<object,byte[]>(this, "previewFrame", (o, bytes) =>
+            {
+                PreviewFrame = bytes;
+            });
 
             CameraColumn = Settings.IsCaptureLeftFirst ? 0 : 1;
             AvailableCameras = new ObservableCollection<AvailableCamera>();

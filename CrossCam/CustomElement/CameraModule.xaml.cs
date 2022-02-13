@@ -70,6 +70,9 @@ namespace CrossCam.CustomElement
 
         public static readonly BindableProperty ChosenCameraProperty = BindableProperty.Create(nameof(ChosenCamera),
             typeof(AvailableCamera), typeof(CameraModule), defaultBindingMode:BindingMode.TwoWay);
+        
+        public static readonly BindableProperty PreviewModeProperty = BindableProperty.Create(nameof(PreviewMode),
+            typeof(DrawMode), typeof(CameraModule), DrawMode.Cross);
 
         public byte[] CapturedImage
         {
@@ -189,6 +192,12 @@ namespace CrossCam.CustomElement
         {
             get => (AvailableCamera)GetValue(ChosenCameraProperty);
             set => SetValue(ChosenCameraProperty, value);
+        }
+
+        public DrawMode PreviewMode
+        {
+            get => (DrawMode)GetValue(PreviewModeProperty);
+            set => SetValue(PreviewModeProperty, value);
         }
     }
 }

@@ -144,7 +144,8 @@
                              IsFocusCircleLocked="{Binding IsFocusCircleLocked}"
                              BluetoothOperator="{Binding BluetoothOperatorBindable}"
                              AvailableCameras="{Binding AvailableCameras}"
-                             ChosenCamera="{Binding ChosenCamera}"/>
+                             ChosenCamera="{Binding ChosenCamera}"
+                             PreviewMode="{Binding Settings.Mode}"/>
             <AbsoluteLayout Grid.Column="{Binding CameraColumn}"
                             IsVisible="{Binding WorkflowStage, Converter={vc:EnumCompareConverter}, ConverterParameter={x:Static vm:WorkflowStage.Capture}}"
                             InputTransparent="True">

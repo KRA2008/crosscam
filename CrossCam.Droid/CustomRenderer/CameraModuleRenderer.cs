@@ -380,6 +380,12 @@ namespace CrossCam.Droid.CustomRenderer
                     _cameraModule.BluetoothOperator.SendLatestPreviewFrame(stream.ToArray(), (byte)(_textureView.Rotation / 90f));
                 }
             }
+            else if (_cameraModule.PreviewMode == DrawMode.Cardboard)
+            {
+                var stream = new MemoryStream();
+                _textureView.Bitmap.Compress(Bitmap.CompressFormat.Jpeg, 50, stream);
+                MessagingCenter.Send(new object(),"previewFrame",stream.ToArray());
+            }
         }
 
         public void OnSurfaceTextureAvailable(SurfaceTexture surface, int width, int height)
@@ -973,6 +979,13 @@ namespace CrossCam.Droid.CustomRenderer
                         yuv.CompressToJpeg(new Rect(0, 0, _previewSize.Width, _previewSize.Height), 50, stream);
                         _cameraModule.BluetoothOperator.SendLatestPreviewFrame(stream.ToArray(), (byte)(_renderer._cameraRotation1 / 90));
                     }
+                }
+                else if (_cameraModule.PreviewMode == DrawMode.Cardboard)
+                {
+                    var stream = new MemoryStream();
+                    var yuv = new YuvImage(data, ImageFormatType.Nv21, _previewSize.Width, _previewSize.Height, null);
+                    yuv.CompressToJpeg(new Rect(0, 0, _previewSize.Width, _previewSize.Height), 50, stream);
+                    MessagingCenter.Send(this, "previewFrame", stream.ToArray()); //TODO: need to be jpeg? no?
                 }
             }
         }

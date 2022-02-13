@@ -16,6 +16,9 @@ using Timer = System.Timers.Timer;
 
 namespace CrossCam.CustomElement
 {
+    /// <summary>
+    /// This isn't actually Bluetooth, it more often uses Wi-Fi Direct, but it's abstracted away so I don't actually know or have to care
+    /// </summary>
     public sealed class BluetoothOperator : INotifyPropertyChanged
     {
         private readonly Settings _settings;
