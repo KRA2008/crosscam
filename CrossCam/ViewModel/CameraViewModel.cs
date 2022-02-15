@@ -3,6 +3,7 @@ using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.IO;
 using System.Linq;
+using System.Security.Cryptography;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Web;
@@ -359,6 +360,9 @@ namespace CrossCam.ViewModel
         private readonly IPhotoSaver _photoSaver;
         private bool _secondaryErrorOccurred;
         private bool _isFovCorrected;
+
+        private int FrameLimiter = 0;
+        private int upper = 0;
 
         public CameraViewModel()
         {
@@ -1252,6 +1256,7 @@ namespace CrossCam.ViewModel
             RaisePropertyChanged(nameof(CanvasRectangle));
             RaisePropertyChanged(nameof(CanvasRectangleFlags));
             RaisePropertyChanged(nameof(PairButtonPosition));
+            RaisePropertyChanged(nameof(ShouldPairPreviewBeVisible));
             RaisePropertyChanged(nameof(CameraViewModel));
             RaisePropertyChanged(nameof(Settings)); // this doesn't cause reevaluation for above stuff (but I'd like it to), but it does trigger redraw of canvas and evaluation of whether to run auto alignment
             Settings.RaisePropertyChanged();

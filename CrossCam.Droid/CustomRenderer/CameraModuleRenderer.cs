@@ -384,7 +384,7 @@ namespace CrossCam.Droid.CustomRenderer
             {
                 var stream = new MemoryStream();
                 _textureView.Bitmap.Compress(Bitmap.CompressFormat.Jpeg, 50, stream);
-                MessagingCenter.Send(new object(),"previewFrame",stream.ToArray());
+                MessagingCenter.Send(new object(), "previewFrame", stream.ToArray());
             }
         }
 
