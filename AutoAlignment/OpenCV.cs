@@ -16,7 +16,6 @@ using Emgu.CV.Util;
 #endif
 using SkiaSharp;
 using Xamarin.Forms;
-using Point = System.Drawing.Point;
 #if __ANDROID__
 using SkiaSharp.Views.Android;
 #elif __IOS__

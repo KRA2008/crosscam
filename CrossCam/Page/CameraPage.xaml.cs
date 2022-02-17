@@ -324,6 +324,18 @@ namespace CrossCam.Page
                 left = right = preview;
             }
 
+            if (_viewModel.Settings.Mode == DrawMode.Cardboard &&
+                left?.Width > right?.Width)
+            {
+                left = CameraViewModel.BitmapDownsize(left, right.Width / (left.Width * 1d));
+            }
+
+            if (_viewModel.Settings.Mode == DrawMode.Cardboard &&
+                left?.Width < right?.Width)
+            {
+                right = CameraViewModel.BitmapDownsize(right, left.Width / (right.Width * 1d));
+            }
+
             DrawTool.DrawImagesOnCanvas(
                 canvas, left, right,
                 _viewModel.Settings,

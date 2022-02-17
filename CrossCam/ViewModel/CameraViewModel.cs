@@ -3,7 +3,6 @@ using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.IO;
 using System.Linq;
-using System.Security.Cryptography;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Web;
@@ -2078,7 +2077,7 @@ namespace CrossCam.ViewModel
             }
         }
 
-        private SKBitmap InternalDecodeAndCorrect(Stream stream, byte? orientationByte)
+        private SKBitmap InternalDecodeAndCorrect(Stream stream, byte? orientationByte, double downsizeProportion = 1)
         {
             SKCodecOrigin origin = 0;
             using var data = SKData.Create(stream);
@@ -2094,16 +2093,18 @@ namespace CrossCam.ViewModel
             {
                 switch (origin)
                 {
+                    case SKCodecOrigin.TopLeft when downsizeProportion != 1:
+                        return BitmapDownsize(bitmap, downsizeProportion);
                     case SKCodecOrigin.BottomRight when !ChosenCamera.IsFront:
-                        return BitmapRotate180(bitmap, false);
+                        return BitmapRotate180(bitmap, false, downsizeProportion);
                     case SKCodecOrigin.BottomRight when ChosenCamera.IsFront:
-                        return BitmapHorizontalMirror(bitmap);
+                        return BitmapHorizontalMirror(bitmap, downsizeProportion);
                     case SKCodecOrigin.RightTop:
-                        return BitmapRotate90(bitmap, ChosenCamera.IsFront);
+                        return BitmapRotate90(bitmap, ChosenCamera.IsFront, downsizeProportion);
                     case SKCodecOrigin.LeftBottom:
-                        return BitmapRotate270(bitmap, ChosenCamera.IsFront);
+                        return BitmapRotate270(bitmap, ChosenCamera.IsFront, downsizeProportion);
                     case SKCodecOrigin.TopLeft when ChosenCamera.IsFront:
-                        return BitmapRotate180(bitmap, true);
+                        return BitmapRotate180(bitmap, true, downsizeProportion);
                     default:
                         return bitmap;
                 }
@@ -2112,24 +2113,41 @@ namespace CrossCam.ViewModel
             return CorrectBitmapOrientation(bitmap, orientationByte.Value);
         }
 
-        public SKBitmap CorrectBitmapOrientation(SKBitmap bitmap, byte orientation)
+        public SKBitmap CorrectBitmapOrientation(SKBitmap bitmap, byte orientation, double downsizeProportion = 1)
         {
             switch (orientation)
             {
+                case 0 when downsizeProportion != 1:
+                    return BitmapDownsize(bitmap, downsizeProportion);
                 case 1:
-                    return BitmapRotate90(bitmap, false);
+                    return BitmapRotate90(bitmap, false, downsizeProportion);
                 case 2:
-                    return BitmapRotate180(bitmap, false);
+                    return BitmapRotate180(bitmap, false, downsizeProportion);
                 case 3:
-                    return BitmapRotate270(bitmap, false);
+                    return BitmapRotate270(bitmap, false, downsizeProportion);
                 default:
                     return bitmap;
             }
         }
 
-        private static SKBitmap BitmapRotate90(SKBitmap originalBitmap, bool withHorizontalMirror)
+        public static SKBitmap BitmapDownsize(SKBitmap originalBitmap, double downsizeProportion)
         {
-            var rotated = new SKBitmap(originalBitmap.Height, originalBitmap.Width);
+            var downsizeWidth = (int) (originalBitmap.Width * downsizeProportion);
+            var downsizeHeight = (int) (originalBitmap.Height * downsizeProportion);
+            var downsized = new SKBitmap(downsizeWidth, downsizeHeight);
+
+            using var surface = new SKCanvas(downsized);
+            surface.DrawBitmap(originalBitmap,
+                new SKRect(0,0,downsizeWidth,downsizeHeight));
+
+            return downsized;
+        }
+
+        private static SKBitmap BitmapRotate90(SKBitmap originalBitmap, bool withHorizontalMirror, double downsizeProportion)
+        {
+            var downsizeWidth = (int)(originalBitmap.Width * downsizeProportion);
+            var downsizeHeight = (int)(originalBitmap.Height * downsizeProportion);
+            var rotated = new SKBitmap(downsizeHeight, downsizeWidth);
 
             using var surface = new SKCanvas(rotated);
             surface.Translate(rotated.Width, 0);
@@ -2139,14 +2157,17 @@ namespace CrossCam.ViewModel
                 surface.Translate(0, rotated.Width);
                 surface.Scale(1, -1, 0, 0);
             }
-            surface.DrawBitmap(originalBitmap, 0, 0);
+            surface.DrawBitmap(originalBitmap,
+                new SKRect(0, 0, downsizeWidth, downsizeHeight));
 
             return rotated;
         }
 
-        private static SKBitmap BitmapRotate180(SKBitmap originalBitmap, bool withHorizontalMirror)
+        private static SKBitmap BitmapRotate180(SKBitmap originalBitmap, bool withHorizontalMirror, double downsizeProportion)
         {
-            var rotated = new SKBitmap(originalBitmap.Width, originalBitmap.Height);
+            var downsizeWidth = (int)(originalBitmap.Width * downsizeProportion);
+            var downsizeHeight = (int)(originalBitmap.Height * downsizeProportion);
+            var rotated = new SKBitmap(downsizeWidth, downsizeHeight);
 
             using var surface = new SKCanvas(rotated);
             surface.Translate(rotated.Width, rotated.Height);
@@ -2156,14 +2177,17 @@ namespace CrossCam.ViewModel
                 surface.Translate(rotated.Width, 0);
                 surface.Scale(-1, 1, 0, 0);
             }
-            surface.DrawBitmap(originalBitmap, 0, 0);
+            surface.DrawBitmap(originalBitmap,
+                new SKRect(0, 0, downsizeWidth, downsizeHeight));
 
             return rotated;
         }
 
-        private static SKBitmap BitmapRotate270(SKBitmap originalBitmap, bool withHorizontalMirror)
+        private static SKBitmap BitmapRotate270(SKBitmap originalBitmap, bool withHorizontalMirror, double downsizeProportion)
         {
-            var rotated = new SKBitmap(originalBitmap.Height, originalBitmap.Width);
+            var downsizeWidth = (int)(originalBitmap.Width * downsizeProportion);
+            var downsizeHeight = (int)(originalBitmap.Height * downsizeProportion);
+            var rotated = new SKBitmap(downsizeHeight, downsizeWidth);
 
             using var surface = new SKCanvas(rotated);
             surface.Translate(0, rotated.Height);
@@ -2173,19 +2197,23 @@ namespace CrossCam.ViewModel
                 surface.Translate(0, rotated.Width);
                 surface.Scale(1, -1, 0, 0);
             }
-            surface.DrawBitmap(originalBitmap, 0, 0);
+            surface.DrawBitmap(originalBitmap,
+                new SKRect(0, 0, downsizeWidth, downsizeHeight));
 
             return rotated;
         }
 
-        private static SKBitmap BitmapHorizontalMirror(SKBitmap originalBitmap)
+        private static SKBitmap BitmapHorizontalMirror(SKBitmap originalBitmap, double downsizeProportion)
         {
-            var transformed = new SKBitmap(originalBitmap.Width, originalBitmap.Height);
+            var downsizeWidth = (int)(originalBitmap.Width * downsizeProportion);
+            var downsizeHeight = (int)(originalBitmap.Height * downsizeProportion);
+            var transformed = new SKBitmap(downsizeWidth, downsizeHeight);
 
             using var surface = new SKCanvas(transformed);
             surface.Translate(transformed.Width, 0);
             surface.Scale(-1, 1, 0, 0);
-            surface.DrawBitmap(originalBitmap, 0, 0);
+            surface.DrawBitmap(originalBitmap,
+                new SKRect(0, 0, downsizeWidth, downsizeHeight));
 
             return transformed;
         }
