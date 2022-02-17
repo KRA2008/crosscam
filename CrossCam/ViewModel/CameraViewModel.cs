@@ -2311,6 +2311,9 @@ namespace CrossCam.ViewModel
             {
                 BluetoothOperator.RequestPreviewFrame();
             }
+
+            CameraColumn = Settings.IsCaptureLeftFirst ? 0 : 1;
+
             LeftBitmap = null;
             RightBitmap = null;
             OriginalUnalignedLeft = null;
