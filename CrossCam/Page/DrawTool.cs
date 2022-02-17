@@ -61,7 +61,7 @@ namespace CrossCam.Page
         {
             if (leftBitmap == null && rightBitmap == null) return;
             
-            var barrelCoeff = 0.0000002f;
+            var barrelCoeff = 2f;
 
             var canvasWidth = canvas.DeviceClipBounds.Width;
             var canvasHeight = canvas.DeviceClipBounds.Height;
@@ -197,7 +197,9 @@ namespace CrossCam.Page
                     var openCv = DependencyService.Get<IOpenCv>();
                     if (openCv.IsOpenCvSupported())
                     {
-                        targetBitmap = openCv.AddBarrelDistortion(targetBitmap, barrelCoeff);
+                        var size = Math.Sqrt(Math.Pow(width, 2) + Math.Pow(height, 2));
+                        var scaledCoeff = barrelCoeff / Math.Pow(size, 2);
+                        targetBitmap = openCv.AddBarrelDistortion(targetBitmap, (float)scaledCoeff);
                     }
                 }
 
@@ -268,7 +270,9 @@ namespace CrossCam.Page
                     var openCv = DependencyService.Get<IOpenCv>();
                     if (openCv.IsOpenCvSupported())
                     {
-                        targetBitmap = openCv.AddBarrelDistortion(targetBitmap, barrelCoeff);
+                        var size = Math.Sqrt(Math.Pow(width, 2) + Math.Pow(height, 2));
+                        var scaledCoeff = barrelCoeff / Math.Pow(size, 2);
+                        targetBitmap = openCv.AddBarrelDistortion(targetBitmap, (float)scaledCoeff);
                     }
                 }
 
