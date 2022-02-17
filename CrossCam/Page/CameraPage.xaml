@@ -95,18 +95,14 @@
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
-            <forms:SKCanvasView x:Name="_capturedCanvas"
-                           Grid.Column="0"
-                           Grid.ColumnSpan="2"
-                           PaintSurface="OnCapturedCanvasInvalidated">
-                <View.GestureRecognizers>
-                    <SwipeGestureRecognizer Command="{Binding SwapSidesCommand}"
-                                            Direction="Left,Right"
-                                            Threshold="50"/>
-                </View.GestureRecognizers>
-            </forms:SKCanvasView>
-            <Image Grid.Column="{Binding IconColumn}"
-                   IsVisible="{Binding ShouldIconBeVisible}"
+            <Image Grid.Column="0"
+                   Source="iconInverse"
+                   Opacity="0.2"
+                   HorizontalOptions="Center"
+                   VerticalOptions="Center"
+                   WidthRequest="{StaticResource _doubleMediumIconWidth}"
+                   HeightRequest="{StaticResource _doubleMediumIconWidth}"/>
+            <Image Grid.Column="1"
                    Source="iconInverse"
                    Opacity="0.2"
                    HorizontalOptions="Center"
@@ -146,6 +142,16 @@
                              AvailableCameras="{Binding AvailableCameras}"
                              ChosenCamera="{Binding ChosenCamera}"
                              PreviewMode="{Binding Settings.Mode}"/>
+            <forms:SKCanvasView x:Name="_capturedCanvas"
+                                Grid.Column="0"
+                                Grid.ColumnSpan="2"
+                                PaintSurface="OnCapturedCanvasInvalidated">
+                <View.GestureRecognizers>
+                    <SwipeGestureRecognizer Command="{Binding SwapSidesCommand}"
+                                            Direction="Left,Right"
+                                            Threshold="50"/>
+                </View.GestureRecognizers>
+            </forms:SKCanvasView>
             <AbsoluteLayout Grid.Column="{Binding CameraColumn}"
                             IsVisible="{Binding WorkflowStage, Converter={vc:EnumCompareConverter}, ConverterParameter={x:Static vm:WorkflowStage.Capture}}"
                             InputTransparent="True">
@@ -1668,6 +1674,18 @@
                                      Value="true">
                             <Setter Property="Text"
                                     Value="cardboard"/>
+                        </DataTrigger>
+                        <DataTrigger TargetType="Label"
+                                     Binding="{Binding Settings.Mode, Converter={vc:EnumCompareConverter}, ConverterParameter={x:Static vm:DrawMode.RedCyanAnaglyph}}"
+                                     Value="true">
+                            <Setter Property="Text"
+                                    Value="anaglyph"/>
+                        </DataTrigger>
+                        <DataTrigger TargetType="Label"
+                                     Binding="{Binding Settings.Mode, Converter={vc:EnumCompareConverter}, ConverterParameter={x:Static vm:DrawMode.GrayscaleRedCyanAnaglyph}}"
+                                     Value="true">
+                            <Setter Property="Text"
+                                    Value="anaglyph"/>
                         </DataTrigger>
                     </Label.Triggers>
                 </Label>

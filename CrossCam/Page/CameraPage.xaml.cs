@@ -258,9 +258,10 @@ namespace CrossCam.Page
                         break;
                     case nameof(CameraViewModel.LeftBitmap):
                     case nameof(CameraViewModel.RightBitmap):
+                    case nameof(CameraViewModel.LocalPreviewFrame):
                         _capturedCanvas.InvalidateSurface();
                         break;
-                    case nameof(CameraViewModel.PreviewFrame):
+                    case nameof(CameraViewModel.RemotePreviewFrame):
                         _pairedPreviewCanvas.InvalidateSurface();
                         break;
                 }
@@ -295,16 +296,41 @@ namespace CrossCam.Page
 	    {
 	        var canvas = e.Surface.Canvas;
 
-	        canvas.Clear();
+            canvas.Clear();
+
+            SKBitmap preview = null;
+            if (_viewModel.LocalPreviewFrame != null)
+            {
+                preview = _viewModel.CorrectBitmapOrientation(
+                    SKBitmap.Decode(_viewModel.LocalPreviewFrame.Frame),
+                    _viewModel.LocalPreviewFrame.Orientation.GetValueOrDefault());
+            }
+
+            var left = _viewModel.LeftBitmap ?? 
+                       (_viewModel.Settings.IsCaptureLeftFirst || 
+                        !_viewModel.Settings.IsCaptureLeftFirst && _viewModel.RightBitmap != null ?
+                           preview : 
+                           null);
+            var right = _viewModel.RightBitmap ?? 
+                        (!_viewModel.Settings.IsCaptureLeftFirst || 
+                         _viewModel.Settings.IsCaptureLeftFirst && _viewModel.LeftBitmap != null ? 
+                            preview : 
+                            null);
+
+            if (_viewModel.LeftBitmap == null &&
+                _viewModel.RightBitmap == null &&
+                _viewModel.Settings.Mode == DrawMode.Cardboard)
+            {
+                left = right = preview;
+            }
 
             DrawTool.DrawImagesOnCanvas(
-                canvas, _viewModel.LeftBitmap, _viewModel.RightBitmap, 
+                canvas, left, right,
                 _viewModel.Settings,
                 _viewModel.Edits,
-                _viewModel.IsExactlyOnePictureTaken ? 
-                    DrawMode.Cross : 
-                    _viewModel.Settings.Mode,
-                _viewModel.WorkflowStage == WorkflowStage.FovCorrection);
+                _viewModel.Settings.Mode,
+                _viewModel.WorkflowStage == WorkflowStage.FovCorrection,
+                quality:SKFilterQuality.Low);
         }
 
         private void OnPairedPreviewCanvasInvalidated(object sender, SKPaintSurfaceEventArgs e)
@@ -313,9 +339,9 @@ namespace CrossCam.Page
 
             canvas.Clear();
 
-            if (_viewModel.PreviewFrame != null)
+            if (_viewModel.RemotePreviewFrame != null)
             {
-                var bitmap = _viewModel.DecodeBitmapAndCorrectOrientation(_viewModel.PreviewFrame, _viewModel.BluetoothOperatorBindable.PairStatus == PairStatus.Connected); //TODO: add a using
+                var bitmap = _viewModel.DecodeBitmapAndCorrectOrientation(_viewModel.RemotePreviewFrame, _viewModel.BluetoothOperatorBindable.PairStatus == PairStatus.Connected); //TODO: add a using
 
                 if (bitmap != null)
                 {

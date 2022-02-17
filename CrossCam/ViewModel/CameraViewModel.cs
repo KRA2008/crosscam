@@ -28,6 +28,8 @@ namespace CrossCam.ViewModel
         private const string SINGLE_SIDE = "Load single side";
         private const string CANCEL = "Cancel";
 
+        public const string PREVIEW_FRAME_MESSAGE = "previewFrame";
+
         public static BluetoothOperator BluetoothOperator;
         public BluetoothOperator BluetoothOperatorBindable => BluetoothOperator;
 
@@ -54,7 +56,8 @@ namespace CrossCam.ViewModel
         public bool CaptureSuccess { get; set; }
         public int CameraColumn { get; set; }
 
-        public byte[] PreviewFrame { get; set; }
+        public byte[] RemotePreviewFrame { get; set; }
+        public PreviewFrame LocalPreviewFrame { get; set; }
 
         public AbsoluteLayoutFlags CanvasRectangleFlags => Settings.Mode == DrawMode.Parallel
             ? AbsoluteLayoutFlags.YProportional | AbsoluteLayoutFlags.HeightProportional | AbsoluteLayoutFlags.XProportional : 
@@ -383,9 +386,9 @@ namespace CrossCam.ViewModel
             BluetoothOperator.TransmissionComplete += BluetoothOperatorTransmissionComplete;
             BluetoothOperator.CountdownTimerSyncCompleteSecondary += BluetoothOperatorCountdownTimerSyncCompleteSecondary;
 
-            MessagingCenter.Subscribe<object,byte[]>(this, "previewFrame", (o, bytes) =>
+            MessagingCenter.Subscribe<object, PreviewFrame>(this, PREVIEW_FRAME_MESSAGE, (o, frame) =>
             {
-                PreviewFrame = bytes;
+                LocalPreviewFrame = frame;
             });
 
             CameraColumn = Settings.IsCaptureLeftFirst ? 0 : 1;
@@ -1298,7 +1301,7 @@ namespace CrossCam.ViewModel
 
         private void BluetoothOperatorOnCapturedImageReceived(object sender, byte[] e)
         {
-            PreviewFrame = null;
+            RemotePreviewFrame = null;
             var bitmap = DecodeBitmapAndCorrectOrientation(e);
             if (Settings.IsCaptureLeftFirst)
             {
@@ -1359,7 +1362,7 @@ namespace CrossCam.ViewModel
 
         private void BluetoothOperatorOnPreviewFrameReceived(object sender, byte[] bytes)
         {
-            PreviewFrame = bytes;
+            RemotePreviewFrame = bytes;
         }
 
         private async Task SaveSurfaceSnapshot(SKSurface surface)
@@ -2106,7 +2109,12 @@ namespace CrossCam.ViewModel
                 }
             }
 
-            switch (orientationByte)
+            return CorrectBitmapOrientation(bitmap, orientationByte.Value);
+        }
+
+        public SKBitmap CorrectBitmapOrientation(SKBitmap bitmap, byte orientation)
+        {
+            switch (orientation)
             {
                 case 1:
                     return BitmapRotate90(bitmap, false);

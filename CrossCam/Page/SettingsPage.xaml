@@ -65,23 +65,6 @@
                         SelectedIndex="{Binding Settings.Mode, Converter={vc:ModeValueConverter}}"
                         HorizontalOptions="FillAndExpand"/>
             </Frame>
-            <Label Text="(Anaglyph while capturing is not yet supported, but editing and saving is)"
-                   IsVisible="False">
-                <Label.Triggers>
-                    <DataTrigger TargetType="Label"
-                                 Binding="{Binding Settings.Mode, Converter={vc:EnumCompareConverter}, ConverterParameter={x:Static vm:DrawMode.RedCyanAnaglyph}}"
-                                 Value="True">
-                        <Setter Property="IsVisible"
-                                 Value="True"/>
-                    </DataTrigger>
-                    <DataTrigger TargetType="Label"
-                                 Binding="{Binding Settings.Mode, Converter={vc:EnumCompareConverter}, ConverterParameter={x:Static vm:DrawMode.GrayscaleRedCyanAnaglyph}}"
-                                 Value="True">
-                        <Setter Property="IsVisible"
-                                Value="True"/>
-                    </DataTrigger>
-                </Label.Triggers>
-            </Label>
             <StackLayout Orientation="Horizontal"
                          IsVisible="{Binding Settings.Mode, Converter={vc:EnumCompareConverter}, ConverterParameter={x:Static vm:DrawMode.Parallel}}">
                 <Label Text="Maximum parallel view image width (points)"/>
