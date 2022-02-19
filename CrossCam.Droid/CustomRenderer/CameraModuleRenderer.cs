@@ -371,25 +371,23 @@ namespace CrossCam.Droid.CustomRenderer
 
         public void OnSurfaceTextureUpdated(SurfaceTexture surface)
         {
+            using var stream = new MemoryStream();
+            _textureView.Bitmap.Compress(Bitmap.CompressFormat.Jpeg, 50, stream);
+
             if (_cameraModule.BluetoothOperator.PairStatus == PairStatus.Connected)
             {
                 if (Interlocked.Exchange(ref _readyToCapturePreviewFrameInterlocked, 0) == 1)
                 {
-                    var stream = new MemoryStream();
-                    _textureView.Bitmap.Compress(Bitmap.CompressFormat.Jpeg, 50, stream);
                     _cameraModule.BluetoothOperator.SendLatestPreviewFrame(stream.ToArray(), (byte)(_textureView.Rotation / 90f));
                 }
             }
-            else
+
+            MessagingCenter.Send(new object(), CameraViewModel.PREVIEW_FRAME_MESSAGE, new PreviewFrame //TODO: this might be done faster by sending to GPU using OpenGL ES then read out to RGB: https://stackoverflow.com/questions/10775942/android-sdk-get-raw-preview-camera-image-without-displaying-it/10776349
             {
-                var stream = new MemoryStream();
-                _textureView.Bitmap.Compress(Bitmap.CompressFormat.Jpeg, 50, stream); //TODO: this might be done faster by sending to GPU using OpenGL ES then read out to RGB: https://stackoverflow.com/questions/10775942/android-sdk-get-raw-preview-camera-image-without-displaying-it/10776349
-                MessagingCenter.Send(new object(), CameraViewModel.PREVIEW_FRAME_MESSAGE, new PreviewFrame
-                {
-                    Frame = stream.ToArray(),
-                    Orientation = (byte)(_textureView.Rotation / 90f)
-                });
-            }
+                Frame = stream.ToArray(),
+                Orientation = (byte)(_textureView.Rotation / 90f)
+            });
+            
         }
 
         public void OnSurfaceTextureAvailable(SurfaceTexture surface, int width, int height)
@@ -974,21 +972,18 @@ namespace CrossCam.Droid.CustomRenderer
 
             public void OnPreviewFrame(byte[] data, Camera camera)
             {
+                using var stream = new MemoryStream();
+                using var yuv = new YuvImage(data, ImageFormatType.Nv21, _previewSize.Width, _previewSize.Height, null);
+                yuv.CompressToJpeg(new Rect(0, 0, _previewSize.Width, _previewSize.Height), 50, stream);
                 if (_cameraModule.BluetoothOperator.PairStatus == PairStatus.Connected)
                 {
                     if (Interlocked.Exchange(ref _readyToCapturePreviewFrameInterlocked, 0) == 1)
                     {
-                        var stream = new MemoryStream();
-                        var yuv = new YuvImage(data, ImageFormatType.Nv21, _previewSize.Width, _previewSize.Height, null);
-                        yuv.CompressToJpeg(new Rect(0, 0, _previewSize.Width, _previewSize.Height), 50, stream);
                         _cameraModule.BluetoothOperator.SendLatestPreviewFrame(stream.ToArray(), (byte)(_renderer._cameraRotation1 / 90));
                     }
                 }
                 else //TODO: test this on old phone
                 {
-                    var stream = new MemoryStream();
-                    var yuv = new YuvImage(data, ImageFormatType.Nv21, _previewSize.Width, _previewSize.Height, null);
-                    yuv.CompressToJpeg(new Rect(0, 0, _previewSize.Width, _previewSize.Height), 50, stream);
                     MessagingCenter.Send(this, CameraViewModel.PREVIEW_FRAME_MESSAGE, new PreviewFrame
                     {
                         Frame = stream.ToArray(),
