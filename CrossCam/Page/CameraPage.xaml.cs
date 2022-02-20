@@ -301,9 +301,16 @@ namespace CrossCam.Page
             SKBitmap preview = null;
             if (_viewModel.LocalPreviewFrame != null)
             {
-                preview = _viewModel.CorrectBitmapOrientation(
-                    SKBitmap.Decode(_viewModel.LocalPreviewFrame.Frame),
-                    _viewModel.LocalPreviewFrame.Orientation.GetValueOrDefault());
+                if (_viewModel.LocalPreviewFrame.Orientation.HasValue)
+                {
+                    preview = _viewModel.CorrectBitmapOrientation(
+                        SKBitmap.Decode(_viewModel.LocalPreviewFrame.Frame),
+                        _viewModel.LocalPreviewFrame.Orientation.Value);
+                }
+                else
+                {
+                    preview = _viewModel.DecodeBitmapAndCorrectOrientation(_viewModel.LocalPreviewFrame.Frame);
+                }
             }
 
             var left = _viewModel.LeftBitmap ?? 
