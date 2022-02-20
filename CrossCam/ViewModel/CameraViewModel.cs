@@ -290,7 +290,7 @@ namespace CrossCam.ViewModel
                     return new Rectangle(x, y, width, width);
                 }
 
-                return new Rectangle(0.5, 0, width, width);
+                return new Rectangle(0.5, 0, width, 4000);
             }
         }
 
@@ -387,7 +387,10 @@ namespace CrossCam.ViewModel
 
             MessagingCenter.Subscribe<object, PreviewFrame>(this, PREVIEW_FRAME_MESSAGE, (o, frame) =>
             {
-                LocalPreviewFrame = frame;
+                if (LeftBitmap == null || RightBitmap == null)
+                {
+                    LocalPreviewFrame = frame;
+                }
             });
 
             CameraColumn = Settings.IsCaptureLeftFirst ? 0 : 1;
