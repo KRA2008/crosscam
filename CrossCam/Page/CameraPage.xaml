@@ -1830,5 +1830,21 @@
                 <PanGestureRecognizer PanUpdated="LowerLinePanned"/>
             </ContentView.GestureRecognizers>
         </ContentView>
+        <!--<StackLayout AbsoluteLayout.LayoutFlags="PositionProportional,HeightProportional"
+                     AbsoluteLayout.LayoutBounds="0.5,0,400,1"
+                     IsVisible="{Binding Settings.Mode, Converter={vc:EnumCompareConverter}, ConverterParameter={x:Static vm:DrawMode.Cardboard}}"
+                     Orientation="Horizontal"
+                     InputTransparent="True">
+            <BoxView WidthRequest="10"
+                     HeightRequest="10"
+                     Color="White"
+                     HorizontalOptions="StartAndExpand"
+                     VerticalOptions="CenterAndExpand"/>
+            <BoxView WidthRequest="10"
+                     HeightRequest="10"
+                     Color="White"
+                     HorizontalOptions="EndAndExpand"
+                     VerticalOptions="CenterAndExpand"/>
+        </StackLayout>-->
     </AbsoluteLayout>
 </freshMvvm:FreshBaseContentPage>
