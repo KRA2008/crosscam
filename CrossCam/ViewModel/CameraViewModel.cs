@@ -1435,9 +1435,7 @@ namespace CrossCam.ViewModel
                     {
                         await Task.Run(() =>
                         {
-                            var discardTransX = Settings.SaveForCardboard ||
-                                                Settings.Mode == DrawMode.Cardboard ||
-                                                !Settings.SaveForRedCyanAnaglyph &&
+                            var discardTransX = !Settings.SaveForRedCyanAnaglyph &&
                                                 !Settings.SaveForGrayscaleAnaglyph &&
                                                 Settings.Mode != DrawMode.RedCyanAnaglyph &&
                                                 Settings.Mode != DrawMode.GrayscaleRedCyanAnaglyph &&

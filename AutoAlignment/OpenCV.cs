@@ -406,12 +406,12 @@ namespace AutoAlignment
             return result;
         }
 
-        public SKBitmap AddBarrelDistortion(SKBitmap originalImage, float strength)
+        public SKBitmap AddBarrelDistortion(SKBitmap originalImage, float strength, float cx, float cy)
         {
             using var cvImage = new Mat();
             CvInvoke.Imdecode(GetBytes(originalImage, 1), ImreadModes.Color, cvImage);
 
-            using var cameraMatrix = GetCameraMatrix(originalImage);
+            using var cameraMatrix = GetCameraMatrix(cx, cy);
             using var distortionMatrix = GetDistortionMatrix(strength);
 
             using var transformedImage = new Mat();
@@ -423,7 +423,7 @@ namespace AutoAlignment
 #endif
         }
 
-        private static Mat GetCameraMatrix(SKBitmap originalImage)
+        private static Mat GetCameraMatrix(float cx, float cy)
         {
             var cameraMatrix = Mat.Eye(3, 3, DepthType.Cv32F, 1);
             unsafe
@@ -431,11 +431,11 @@ namespace AutoAlignment
                 var ptr = (float*)cameraMatrix.DataPointer.ToPointer(); //fx
                 ptr++; //0
                 ptr++; //cx
-                *ptr = originalImage.Width / 2f;
+                *ptr = cx;
                 ptr++; //0
                 ptr++; //fy
                 ptr++; //cy
-                *ptr = originalImage.Height / 2f;
+                *ptr = cy;
                 ptr++; //0
                 ptr++; //0
                 ptr++; //1
