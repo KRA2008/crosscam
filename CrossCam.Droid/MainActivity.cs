@@ -24,7 +24,8 @@ namespace CrossCam.Droid
         MainLauncher = false,
         ConfigurationChanges = ConfigChanges.ScreenSize | ConfigChanges.Orientation,
         ScreenOrientation = ScreenOrientation.FullUser,
-        LaunchMode = LaunchMode.SingleTop)]
+        LaunchMode = LaunchMode.SingleTop,
+        Exported = true)]
     [IntentFilter(
         new[] {Intent.ActionSend,Intent.ActionSendMultiple}, 
         Categories = new[] {Intent.CategoryDefault},
