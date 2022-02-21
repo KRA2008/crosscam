@@ -50,6 +50,8 @@ namespace CrossCam.Page
         private double _lastAccelerometerReadingX;
         private double _lastAccelerometerReadingY;
 
+        private int _cardboardPreviewWidth;
+
         public CameraPage()
 		{
             InitializeComponent();
@@ -324,23 +326,35 @@ namespace CrossCam.Page
                             preview : 
                             null);
 
-            if (_viewModel.LeftBitmap == null &&
-                _viewModel.RightBitmap == null &&
-                _viewModel.Settings.Mode == DrawMode.Cardboard)
+            if (_viewModel.Settings.Mode == DrawMode.Cardboard)
             {
-                left = right = preview;
-            }
+                if (_viewModel.LeftBitmap == null &&
+                    _viewModel.RightBitmap == null)
+                {
+                    left = right = preview;
+                }
 
-            if (_viewModel.Settings.Mode == DrawMode.Cardboard &&
-                left?.Width > right?.Width)
-            {
-                left = CameraViewModel.BitmapDownsize(left, right.Width / (left.Width * 1d));
-            }
+                if (left?.Width > right?.Width)
+                {
+                    _cardboardPreviewWidth = right.Width;
+                }
 
-            if (_viewModel.Settings.Mode == DrawMode.Cardboard &&
-                left?.Width < right?.Width)
-            {
-                right = CameraViewModel.BitmapDownsize(right, left.Width / (right.Width * 1d));
+                if (left?.Width < right?.Width)
+                {
+                    _cardboardPreviewWidth = left.Width;
+                }
+
+                if (left?.Width > _cardboardPreviewWidth &&
+                    _cardboardPreviewWidth > 0)
+                {
+                    left = CameraViewModel.BitmapDownsize(left, _cardboardPreviewWidth / (left.Width * 1d));
+                }
+
+                if (right?.Width > _cardboardPreviewWidth &&
+                    _cardboardPreviewWidth > 0)
+                {
+                    right = CameraViewModel.BitmapDownsize(right, _cardboardPreviewWidth / (right.Width * 1d));
+                }
             }
 
             DrawTool.DrawImagesOnCanvas(

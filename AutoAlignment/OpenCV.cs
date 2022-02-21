@@ -406,13 +406,16 @@ namespace AutoAlignment
             return result;
         }
 
-        public SKBitmap AddBarrelDistortion(SKBitmap originalImage, float strength, float cx, float cy)
+        public SKBitmap AddBarrelDistortion(SKBitmap originalImage, float strength, float cx, float cy, float editedWidth, float editedHeight)
         {
             using var cvImage = new Mat();
             CvInvoke.Imdecode(GetBytes(originalImage, 1), ImreadModes.Color, cvImage);
 
             using var cameraMatrix = GetCameraMatrix(cx, cy);
-            using var distortionMatrix = GetDistortionMatrix(strength);
+
+            var size = Math.Sqrt(Math.Pow(editedWidth, 2) + Math.Pow(editedHeight, 2));
+            var scaledCoeff = strength / Math.Pow(size, 2);
+            using var distortionMatrix = GetDistortionMatrix((float)scaledCoeff);
 
             using var transformedImage = new Mat();
             CvInvoke.Undistort(cvImage, transformedImage, cameraMatrix, distortionMatrix);

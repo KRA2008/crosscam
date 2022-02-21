@@ -196,9 +196,7 @@ namespace CrossCam.Page
                     var openCv = DependencyService.Get<IOpenCv>();
                     if (openCv.IsOpenCvSupported())
                     {
-                        var size = Math.Sqrt(Math.Pow(width, 2) + Math.Pow(height, 2));
-                        var scaledCoeff = barrelCoeff / Math.Pow(size, 2);
-                        targetBitmap = openCv.AddBarrelDistortion(targetBitmap, (float)scaledCoeff, srcWidth / 2f, srcHeight / 2f);
+                        targetBitmap = openCv.AddBarrelDistortion(targetBitmap, barrelCoeff, srcX + srcWidth / 2f, srcY + srcHeight / 2f, srcWidth, srcHeight);
                     }
                 }
 
@@ -269,9 +267,7 @@ namespace CrossCam.Page
                     var openCv = DependencyService.Get<IOpenCv>();
                     if (openCv.IsOpenCvSupported())
                     {
-                        var size = Math.Sqrt(Math.Pow(width, 2) + Math.Pow(height, 2));
-                        var scaledCoeff = barrelCoeff / Math.Pow(size, 2);
-                        targetBitmap = openCv.AddBarrelDistortion(targetBitmap, (float)scaledCoeff, srcWidth / 2f, srcHeight / 2f);
+                        targetBitmap = openCv.AddBarrelDistortion(targetBitmap, barrelCoeff, srcX + srcWidth / 2f, srcY + srcHeight / 2f, srcWidth, srcHeight);
                     }
                 }
 
