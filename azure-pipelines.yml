@@ -131,7 +131,7 @@ jobs:
 
   - task: AndroidSigning@3
     inputs:
-      apkFiles: '**/*.apk'
+      apkFiles: '$(Pipeline.Workspace)\s\CrossCam.Droid\output\com.kra2008.crosscam.apk'
       apksignerKeystoreFile: 'kra2008Android.keystore'
       apksignerKeystorePassword: '$(keystorePassword)'
       apksignerKeystoreAlias: 'kra2008android'
@@ -139,14 +139,14 @@ jobs:
 
   - task: PublishPipelineArtifact@1
     inputs:
-      targetPath: '$(Pipeline.Workspace)\s\CrossCam.Droid\obj\Release\100\android\bin\com.kra2008.crosscam.apk'
+      targetPath: '$(Pipeline.Workspace)\s\CrossCam.Droid\output\com.kra2008.crosscam.apk'
       publishLocation: 'pipeline'
 
   - task: AppCenterDistribute@3
     inputs:
       serverEndpoint: 'App Center'
       appSlug: 'kra3030/CrossCam-1'
-      appFile: '$(Pipeline.Workspace)\s\CrossCam.Droid\obj\Release\100\android\bin\com.kra2008.crosscam.apk'
+      appFile: '$(Pipeline.Workspace)\s\CrossCam.Droid\output\com.kra2008.crosscam.apk'
       symbolsOption: 'Android'
       releaseNotesOption: 'input'
       releaseNotesInput: '☃'
