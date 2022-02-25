@@ -467,7 +467,7 @@ namespace CrossCam.ViewModel
                 }
                 else if (args.PropertyName == nameof(WasSwipedTrigger))
                 {
-                    SwapSidesCommand.Execute(null);
+                    SwapSidesCommand?.Execute(null);
                 }
             };
 

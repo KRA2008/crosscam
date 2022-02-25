@@ -1,6 +1,8 @@
-﻿using System.Collections.ObjectModel;
+﻿using System;
+using System.Collections.ObjectModel;
 using CrossCam.ViewModel;
 using Xamarin.Forms;
+using Point = System.Drawing.Point;
 
 namespace CrossCam.CustomElement
 {
@@ -11,7 +13,19 @@ namespace CrossCam.CustomElement
 			InitializeComponent ();
 	    }
 
-	    public static readonly BindableProperty CapturedImageProperty = BindableProperty.Create(nameof(CapturedImage),
+        public EventHandler<Point> SingleTapped;
+        public void OnSingleTapped(Point point)
+        {
+            SingleTapped?.Invoke(this, point);
+        }
+
+        public EventHandler DoubleTapped;
+        public void OnDoubleTapped()
+        {
+            DoubleTapped?.Invoke(this, EventArgs.Empty);
+        }
+
+        public static readonly BindableProperty CapturedImageProperty = BindableProperty.Create(nameof(CapturedImage),
 	        typeof(byte[]), typeof(CameraModule), null, BindingMode.OneWayToSource);
 
         public static readonly BindableProperty CaptureTriggerProperty = BindableProperty.Create(nameof(CaptureTrigger),

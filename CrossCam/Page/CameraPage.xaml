@@ -119,7 +119,8 @@
                                             Threshold="50"/>
                 </View.GestureRecognizers>
             </forms:SKCanvasView>
-            <ce:CameraModule Grid.Column="{Binding CameraColumn}"
+            <ce:CameraModule x:Name="_cameraModule"
+                             Grid.Column="{Binding CameraColumn}"
                              SwitchToContinuousFocusTrigger="{Binding SwitchToContinuousFocusTrigger}"
                              IsTapToFocusEnabled="{Binding Settings.IsTapToFocusEnabled2}"
                              IsLockToFirstEnabled="{Binding Settings.IsLockToFirstEnabled}"
@@ -145,13 +146,9 @@
             <forms:SKCanvasView x:Name="_capturedCanvas"
                                 Grid.Column="0"
                                 Grid.ColumnSpan="2"
-                                PaintSurface="OnCapturedCanvasInvalidated">
-                <View.GestureRecognizers>
-                    <SwipeGestureRecognizer Command="{Binding SwapSidesCommand}"
-                                            Direction="Left,Right"
-                                            Threshold="50"/>
-                </View.GestureRecognizers>
-            </forms:SKCanvasView>
+                                Touch="_capturedCanvas_OnTouch"
+                                EnableTouchEvents="True"
+                                PaintSurface="OnCapturedCanvasInvalidated"/>
             <AbsoluteLayout Grid.Column="{Binding CameraColumn}"
                             IsVisible="{Binding WorkflowStage, Converter={vc:EnumCompareConverter}, ConverterParameter={x:Static vm:WorkflowStage.Capture}}"
                             InputTransparent="True">

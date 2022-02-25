@@ -1,6 +1,9 @@
 ﻿using System;
 using System.ComponentModel;
+using System.Diagnostics;
+using System.Drawing;
 using System.Threading.Tasks;
+using System.Timers;
 using CrossCam.CustomElement;
 using CrossCam.Model;
 using CrossCam.ViewModel;
@@ -8,6 +11,7 @@ using SkiaSharp;
 using SkiaSharp.Views.Forms;
 using Xamarin.Essentials;
 using Xamarin.Forms;
+using Rectangle = Xamarin.Forms.Rectangle;
 
 namespace CrossCam.Page
 {
@@ -63,6 +67,10 @@ namespace CrossCam.Page
             Accelerometer.ReadingChanged += StoreAccelerometerReading;
             MessagingCenter.Subscribe<App>(this, App.APP_PAUSING_EVENT, o => EvaluateSensors(false));
 		    MessagingCenter.Subscribe<App>(this, App.APP_UNPAUSING_EVENT, o => EvaluateSensors());
+            _doubleTapTimer.Elapsed += (sender, args) =>
+            {
+                TapExpired();
+            };
         }
 
         protected override bool OnBackButtonPressed()
@@ -604,7 +612,86 @@ namespace CrossCam.Page
 	                newLineBounds.Y,
 	                1,
 	                lineHeight));
-	        }
+            }
+        }
+
+        private System.Drawing.Point? _tapLocation;
+        private int _dragCounter;
+        private int _releaseCounter;
+        private readonly Timer _doubleTapTimer = new Timer
+        {
+            Interval = 250,
+            AutoReset = false
+        };
+        private const int MIN_MOVE_COUNTER = 5;
+        private void _capturedCanvas_OnTouch(object sender, SKTouchEventArgs e)
+        {
+            switch (e.ActionType)
+            {
+                case SKTouchAction.Entered:
+                    break;
+                case SKTouchAction.Pressed:
+                    if (!_doubleTapTimer.Enabled)
+                    {
+                        _doubleTapTimer.Start();
+                        _tapLocation = new System.Drawing.Point
+                        {
+                            X = (int)e.Location.X,
+                            Y = (int)e.Location.Y
+                        };
+                    }
+                    break;
+                case SKTouchAction.Moved:
+                    _dragCounter++;
+                    break;
+                case SKTouchAction.Released:
+                    if (_dragCounter <= MIN_MOVE_COUNTER)
+                    {
+                        if (_doubleTapTimer.Enabled)
+                        {
+                            if (_releaseCounter == 2)
+                            {
+                                _cameraModule.OnDoubleTapped();
+                                Debug.WriteLine("Double tapped!");
+                                ClearAllTaps();
+                            }
+                        }
+                    }
+                    else
+                    {
+                        _viewModel?.SwapSidesCommand.Execute(null);
+                        ClearAllTaps();
+                    }
+                    _releaseCounter++;
+                    break;
+                case SKTouchAction.Cancelled:
+                    break;
+                case SKTouchAction.Exited:
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException();
+            }
+            e.Handled = true;
+        }
+
+        private void TapExpired()
+        {
+            if (_dragCounter <= MIN_MOVE_COUNTER &&
+                _releaseCounter == 1 &&
+                _tapLocation.HasValue)
+            {
+                //TODO: convert to preview location and ignore if off of preview
+                _cameraModule.OnSingleTapped(_tapLocation.Value);
+            }
+            ClearAllTaps();
+        }
+
+        private void ClearAllTaps()
+        {
+            _doubleTapTimer.Stop();
+            _releaseCounter = 0;
+            _dragCounter = 0;
+            _tapLocation = null;
         }
     }
 }
