@@ -404,6 +404,21 @@ namespace CrossCam.Page
             return keystoned ?? rotatedAndZoomed;
         }
 
+        public static int CalculateOverlayedCanvasWidthWithEditsNoBorder(SKBitmap leftBitmap, SKBitmap rightBitmap, Edits edits)
+        {
+            int baseWidth;
+            if (leftBitmap == null || rightBitmap == null)
+            {
+                baseWidth = leftBitmap?.Width ?? rightBitmap?.Width ?? 0;
+            }
+            else
+            {
+                baseWidth = Math.Min(leftBitmap.Width, rightBitmap.Width);
+            }
+            return (int)(baseWidth - baseWidth *
+                (edits.LeftCrop + edits.InsideCrop + edits.OutsideCrop + edits.RightCrop));
+        }
+
         public static int CalculateJoinedCanvasWidthWithEditsNoBorder(SKBitmap leftBitmap, SKBitmap rightBitmap,
             Edits edits)
         {

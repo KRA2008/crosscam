@@ -134,9 +134,6 @@
                              PreviewBottomY="{Binding PreviewBottomY}"
                              PreviewAspectRatio="{Binding PreviewAspectRatio}"
                              ErrorMessage="{Binding ErrorMessage}"
-                             IsFocusCircleVisible="{Binding IsFocusCircleVisible}"
-                             FocusCircleX="{Binding FocusCircleX}"
-                             FocusCircleY="{Binding FocusCircleY}"
                              WasSwipedTrigger="{Binding WasSwipedTrigger}"
                              IsFocusCircleLocked="{Binding IsFocusCircleLocked}"
                              BluetoothOperator="{Binding BluetoothOperatorBindable}"
@@ -149,29 +146,7 @@
                                 Touch="_capturedCanvas_OnTouch"
                                 EnableTouchEvents="True"
                                 PaintSurface="OnCapturedCanvasInvalidated"/>
-            <AbsoluteLayout Grid.Column="{Binding CameraColumn}"
-                            IsVisible="{Binding WorkflowStage, Converter={vc:EnumCompareConverter}, ConverterParameter={x:Static vm:WorkflowStage.Capture}}"
-                            InputTransparent="True">
-                <Image x:Name="_focusCircle"
-                       AbsoluteLayout.LayoutFlags="None"
-                       AbsoluteLayout.LayoutBounds="0,0,0,0"
-                       IsVisible="{Binding IsFocusCircleVisible}">
-                    <Image.Triggers>
-                        <DataTrigger TargetType="Image" 
-                                     Binding="{Binding IsFocusCircleLocked}"
-                                     Value="true">
-                            <Setter Property="Source"
-                                    Value="focusCircleGreen"/>
-                        </DataTrigger>
-                        <DataTrigger TargetType="Image" 
-                                     Binding="{Binding IsFocusCircleLocked}"
-                                     Value="false">
-                            <Setter Property="Source"
-                                    Value="focusCircle"/>
-                        </DataTrigger>
-                    </Image.Triggers>
-                </Image>
-            </AbsoluteLayout>
+            
             <ce:CameraSuccessOutline Grid.Column="0">
                 <ce:CameraSuccessOutline.Behaviors>
                     <ce:FadeInAndOutBehavior Trigger="{Binding LeftCaptureSuccess}"
@@ -230,6 +205,29 @@
                 </ContentView>
             </AbsoluteLayout>
         </Grid>
+
+        <AbsoluteLayout IsVisible="{Binding WorkflowStage, Converter={vc:EnumCompareConverter}, ConverterParameter={x:Static vm:WorkflowStage.Capture}}"
+                        InputTransparent="True">
+            <Image x:Name="_focusCircle"
+                   AbsoluteLayout.LayoutFlags="None"
+                   AbsoluteLayout.LayoutBounds="0,0,0,0"
+                   IsVisible="{Binding IsFocusCircleVisible}">
+                <Image.Triggers>
+                    <DataTrigger TargetType="Image" 
+                                 Binding="{Binding IsFocusCircleLocked}"
+                                 Value="true">
+                        <Setter Property="Source"
+                                Value="focusCircleGreen"/>
+                    </DataTrigger>
+                    <DataTrigger TargetType="Image" 
+                                 Binding="{Binding IsFocusCircleLocked}"
+                                 Value="false">
+                        <Setter Property="Source"
+                                Value="focusCircle"/>
+                    </DataTrigger>
+                </Image.Triggers>
+            </Image>
+        </AbsoluteLayout>
 
         <BoxView x:Name="_leftFuseGuide"
                  Style="{StaticResource _fuseGuide}"
@@ -438,6 +436,7 @@
 
         <AbsoluteLayout x:Name="_horizontalLevelWhole"
                         AbsoluteLayout.LayoutFlags="XProportional"
+                        InputTransparent="True"
                         IsVisible="{Binding ShouldRollGuideBeVisible}">
             <AbsoluteLayout.LayoutBounds>
                 <Rectangle X="0" Y="0" Width="0" Height="0"/>

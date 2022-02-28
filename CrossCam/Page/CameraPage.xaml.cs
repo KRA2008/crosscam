@@ -268,7 +268,7 @@ namespace CrossCam.Page
                         break;
                     case nameof(CameraViewModel.LeftBitmap):
                     case nameof(CameraViewModel.RightBitmap):
-                    case nameof(CameraViewModel.LocalPreviewFrame):
+                    case nameof(CameraViewModel.LocalPreviewBitmap):
                         _capturedCanvas.InvalidateSurface();
                         break;
                     case nameof(CameraViewModel.RemotePreviewFrame):
@@ -308,30 +308,15 @@ namespace CrossCam.Page
 
             canvas.Clear();
 
-            SKBitmap preview = null;
-            if (_viewModel.LocalPreviewFrame != null)
-            {
-                if (_viewModel.LocalPreviewFrame.Orientation.HasValue)
-                {
-                    preview = _viewModel.CorrectBitmapOrientation(
-                        SKBitmap.Decode(_viewModel.LocalPreviewFrame.Frame),
-                        _viewModel.LocalPreviewFrame.Orientation.Value);
-                }
-                else
-                {
-                    preview = _viewModel.DecodeBitmapAndCorrectOrientation(_viewModel.LocalPreviewFrame.Frame);
-                }
-            }
-
             var left = _viewModel.LeftBitmap ?? 
                        (_viewModel.Settings.IsCaptureLeftFirst || 
                         !_viewModel.Settings.IsCaptureLeftFirst && _viewModel.RightBitmap != null ?
-                           preview : 
+                           _viewModel.LocalPreviewBitmap : 
                            null);
             var right = _viewModel.RightBitmap ?? 
                         (!_viewModel.Settings.IsCaptureLeftFirst || 
-                         _viewModel.Settings.IsCaptureLeftFirst && _viewModel.LeftBitmap != null ? 
-                            preview : 
+                         _viewModel.Settings.IsCaptureLeftFirst && _viewModel.LeftBitmap != null ?
+                            _viewModel.LocalPreviewBitmap : 
                             null);
 
             if (_viewModel.Settings.Mode == DrawMode.Cardboard)
@@ -339,7 +324,7 @@ namespace CrossCam.Page
                 if (_viewModel.LeftBitmap == null &&
                     _viewModel.RightBitmap == null)
                 {
-                    left = right = preview;
+                    left = right = _viewModel.LocalPreviewBitmap;
                 }
 
                 if (left?.Width > right?.Width)
@@ -615,17 +600,20 @@ namespace CrossCam.Page
             }
         }
 
-        private System.Drawing.Point? _tapLocation;
+        private PointF _tapLocation;
         private int _dragCounter;
         private int _releaseCounter;
         private readonly Timer _doubleTapTimer = new Timer
         {
-            Interval = 250,
+            Interval = 500,
             AutoReset = false
         };
-        private const int MIN_MOVE_COUNTER = 5;
+        private const int MIN_MOVE_COUNTER = 4; //TODO: handle these mechanics better
+        private bool _didSwap;
         private void _capturedCanvas_OnTouch(object sender, SKTouchEventArgs e)
         {
+            if (_viewModel == null) return;
+
             switch (e.ActionType)
             {
                 case SKTouchAction.Entered:
@@ -634,35 +622,38 @@ namespace CrossCam.Page
                     if (!_doubleTapTimer.Enabled)
                     {
                         _doubleTapTimer.Start();
-                        _tapLocation = new System.Drawing.Point
+                        _tapLocation = new PointF
                         {
-                            X = (int)e.Location.X,
-                            Y = (int)e.Location.Y
+                            X = e.Location.X,
+                            Y = e.Location.Y
                         };
                     }
                     break;
                 case SKTouchAction.Moved:
                     _dragCounter++;
+                    if (_dragCounter >= MIN_MOVE_COUNTER &&
+                        !_didSwap)
+                    {
+                        ProcessDoubleTap();
+                        _viewModel?.SwapSidesCommand.Execute(null);
+                        _didSwap = true;
+                    }
                     break;
                 case SKTouchAction.Released:
-                    if (_dragCounter <= MIN_MOVE_COUNTER)
+                    _releaseCounter++;
+                    if (!_didSwap)
                     {
-                        if (_doubleTapTimer.Enabled)
+                        if (_doubleTapTimer.Enabled &&
+                            _releaseCounter == 2)
                         {
-                            if (_releaseCounter == 2)
-                            {
-                                _cameraModule.OnDoubleTapped();
-                                Debug.WriteLine("Double tapped!");
-                                ClearAllTaps();
-                            }
+                            ProcessDoubleTap();
+                        }
+                        else
+                        {
+                            ProcessSingleTap();
                         }
                     }
-                    else
-                    {
-                        _viewModel?.SwapSidesCommand.Execute(null);
-                        ClearAllTaps();
-                    }
-                    _releaseCounter++;
+                    _didSwap = false;
                     break;
                 case SKTouchAction.Cancelled:
                     break;
@@ -676,14 +667,124 @@ namespace CrossCam.Page
 
         private void TapExpired()
         {
-            if (_dragCounter <= MIN_MOVE_COUNTER &&
-                _releaseCounter == 1 &&
-                _tapLocation.HasValue)
-            {
-                //TODO: convert to preview location and ignore if off of preview
-                _cameraModule.OnSingleTapped(_tapLocation.Value);
-            }
             ClearAllTaps();
+        }
+
+        private void ProcessDoubleTap()
+        {
+            _cameraModule.OnDoubleTapped();
+            _viewModel.IsFocusCircleVisible = false;
+            Debug.WriteLine("Double tapped!");
+            ClearAllTaps();
+        }
+
+        private void ProcessSingleTap()
+        {
+            Debug.WriteLine("Single tapped!");
+
+            if (_viewModel.Settings.Mode == DrawMode.Cardboard) return;
+
+            var xProportion = 0f;
+            var yProportion = 0f;
+            var aspect = _viewModel.LocalPreviewBitmap.Height / (_viewModel.LocalPreviewBitmap.Width * 1f);
+            var isPortrait = _viewModel.LocalPreviewBitmap.Height > _viewModel.LocalPreviewBitmap.Width;
+
+            switch (_viewModel.Settings.Mode)
+            {
+                case DrawMode.Cross:
+                case DrawMode.Parallel:
+                {
+                    double baseWidth;
+                    if (_viewModel.Settings.Mode == DrawMode.Cross)
+                    {
+                        baseWidth = Width * DeviceDisplay.MainDisplayInfo.Density / 2f;
+                    }
+                    else
+                    {
+                        baseWidth = _viewModel.Settings.MaximumParallelWidth * DeviceDisplay.MainDisplayInfo.Density / 2f;
+                    }
+                    var leftBufferX = Width * DeviceDisplay.MainDisplayInfo.Density / 2f - baseWidth;
+                    if (_viewModel.Settings.IsCaptureLeftFirst &&
+                        _viewModel.IsNothingCaptured ||
+                        !_viewModel.Settings.IsCaptureLeftFirst &&
+                        _viewModel.IsExactlyOnePictureTaken)
+                    {
+                        xProportion = (float)(_tapLocation.X / baseWidth);
+                    }
+                    else
+                    {
+                        xProportion = (float)((_tapLocation.X - baseWidth) / baseWidth);
+                        leftBufferX += baseWidth;
+                    }
+                    xProportion = Math.Clamp(xProportion, 0, 1);
+
+                    var baseHeight = baseWidth * aspect;
+                    var minY = (Height * DeviceDisplay.MainDisplayInfo.Density - baseHeight) / 2f;
+
+                    yProportion = (float)((_tapLocation.Y - minY) / baseHeight);
+                    yProportion = Math.Clamp(yProportion, 0, 1);
+
+                    _viewModel.FocusCircleX = (xProportion * baseWidth + leftBufferX) / DeviceDisplay.MainDisplayInfo.Density;
+                    _viewModel.FocusCircleY = (yProportion * baseHeight + minY) / DeviceDisplay.MainDisplayInfo.Density;
+                    break;
+                }
+                case DrawMode.RedCyanAnaglyph:
+                case DrawMode.GrayscaleRedCyanAnaglyph:
+                {
+                    double longNativeLength;
+                    double shortNativeLength;
+                    double tapLong;
+                    double tapShort;
+
+                    if (isPortrait)
+                    {
+                        aspect = _viewModel.LocalPreviewBitmap.Height / (_viewModel.LocalPreviewBitmap.Width * 1f);
+                        longNativeLength = Height * DeviceDisplay.MainDisplayInfo.Density;
+                        shortNativeLength = Width * DeviceDisplay.MainDisplayInfo.Density;
+                        tapLong = _tapLocation.Y;
+                        tapShort = _tapLocation.X;
+                    }
+                    else
+                    {
+                        aspect = _viewModel.LocalPreviewBitmap.Width / (_viewModel.LocalPreviewBitmap.Height * 1f);
+                        longNativeLength = Width * DeviceDisplay.MainDisplayInfo.Density;
+                        shortNativeLength = Height * DeviceDisplay.MainDisplayInfo.Density;
+                        tapLong = _tapLocation.X;
+                        tapShort = _tapLocation.Y;
+                    }
+
+                    var minLong = (longNativeLength - shortNativeLength * aspect) / 2f;
+
+                    var longProportion = (float)((tapLong - minLong) / (shortNativeLength * aspect));
+                    longProportion = Math.Clamp(longProportion, 0, 1);
+                    double shortProportion = (float)(tapShort / shortNativeLength);
+
+                    if (isPortrait)
+                    {
+                        xProportion = (float)shortProportion;
+                        yProportion = longProportion;
+                        _viewModel.FocusCircleX = shortProportion * Width;
+                        _viewModel.FocusCircleY = longProportion * (Width * aspect) + minLong / DeviceDisplay.MainDisplayInfo.Density;
+                    }
+                    else
+                    {
+                        xProportion = longProportion;
+                        yProportion = (float)shortProportion;
+                        _viewModel.FocusCircleY = shortProportion * Height;
+                        _viewModel.FocusCircleX = longProportion * (Height * aspect) + minLong / DeviceDisplay.MainDisplayInfo.Density;
+                    }
+                    break;
+                }
+            }
+
+            var convertedPoint = new PointF
+            {
+                X = xProportion,
+                Y = yProportion
+            };
+            
+            _cameraModule.OnSingleTapped(convertedPoint);
+            _viewModel.IsFocusCircleVisible = true;
         }
 
         private void ClearAllTaps()
@@ -691,7 +792,6 @@ namespace CrossCam.Page
             _doubleTapTimer.Stop();
             _releaseCounter = 0;
             _dragCounter = 0;
-            _tapLocation = null;
         }
     }
 }

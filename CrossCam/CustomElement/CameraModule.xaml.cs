@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.ObjectModel;
+using System.Drawing;
 using CrossCam.ViewModel;
 using Xamarin.Forms;
-using Point = System.Drawing.Point;
 
 namespace CrossCam.CustomElement
 {
@@ -13,8 +13,8 @@ namespace CrossCam.CustomElement
 			InitializeComponent ();
 	    }
 
-        public EventHandler<Point> SingleTapped;
-        public void OnSingleTapped(Point point)
+        public EventHandler<PointF> SingleTapped;
+        public void OnSingleTapped(PointF point)
         {
             SingleTapped?.Invoke(this, point);
         }
@@ -64,17 +64,8 @@ namespace CrossCam.CustomElement
         public static readonly BindableProperty PreviewAspectRatioProperty = BindableProperty.Create(nameof(PreviewAspectRatio),
 	        typeof(double), typeof(CameraModule), 0d, BindingMode.OneWayToSource);
 
-        public static readonly BindableProperty IsFocusCircleVisibleProperty = BindableProperty.Create(nameof(IsFocusCircleVisible),
-            typeof(bool), typeof(CameraModule), false, BindingMode.OneWayToSource);
-
         public static readonly BindableProperty IsFocusCircleLockedProperty = BindableProperty.Create(nameof(IsFocusCircleLocked),
             typeof(bool), typeof(CameraModule), false, BindingMode.OneWayToSource);
-
-        public static readonly BindableProperty FocusCircleXProperty = BindableProperty.Create(nameof(FocusCircleX),
-            typeof(double), typeof(CameraModule), 0d, BindingMode.OneWayToSource);
-
-        public static readonly BindableProperty FocusCircleYProperty = BindableProperty.Create(nameof(FocusCircleY),
-            typeof(double), typeof(CameraModule), 0d, BindingMode.OneWayToSource);
 
         public static readonly BindableProperty BluetoothOperatorProperty = BindableProperty.Create(nameof(BluetoothOperator),
             typeof(BluetoothOperator), typeof(CameraModule));
@@ -166,28 +157,10 @@ namespace CrossCam.CustomElement
 	        set => SetValue(PreviewAspectRatioProperty, value);
         }
 
-        public bool IsFocusCircleVisible
-        {
-            get => (bool)GetValue(IsFocusCircleVisibleProperty);
-            set => SetValue(IsFocusCircleVisibleProperty, value);
-        }
-
         public bool IsFocusCircleLocked
         {
             get => (bool)GetValue(IsFocusCircleLockedProperty);
             set => SetValue(IsFocusCircleLockedProperty, value);
-        }
-
-        public double FocusCircleX
-        {
-            get => (double)GetValue(FocusCircleXProperty);
-            set => SetValue(FocusCircleXProperty, value);
-        }
-
-        public double FocusCircleY
-        {
-            get => (double)GetValue(FocusCircleYProperty);
-            set => SetValue(FocusCircleYProperty, value);
         }
 
         public BluetoothOperator BluetoothOperator

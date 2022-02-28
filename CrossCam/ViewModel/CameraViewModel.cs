@@ -56,7 +56,7 @@ namespace CrossCam.ViewModel
         public int CameraColumn { get; set; }
 
         public byte[] RemotePreviewFrame { get; set; }
-        public PreviewFrame LocalPreviewFrame { get; set; }
+        public SKBitmap LocalPreviewBitmap { get; set; }
 
         public AbsoluteLayoutFlags CanvasRectangleFlags => Settings.Mode == DrawMode.Parallel
             ? AbsoluteLayoutFlags.YProportional | AbsoluteLayoutFlags.HeightProportional | AbsoluteLayoutFlags.XProportional : 
@@ -167,7 +167,6 @@ namespace CrossCam.ViewModel
         public double FocusCircleY { get; set; }
 
         public bool IsNothingCaptured => LeftBitmap == null && RightBitmap == null;
-        public bool ShouldIconBeVisible => IsNothingCaptured && IconColumn != CameraColumn && WorkflowStage == WorkflowStage.Capture;
 
         public Rectangle PairButtonPosition
         {
@@ -389,7 +388,16 @@ namespace CrossCam.ViewModel
             {
                 if (LeftBitmap == null || RightBitmap == null)
                 {
-                    LocalPreviewFrame = frame;
+                    if (frame.Orientation.HasValue)
+                    {
+                        LocalPreviewBitmap = CorrectBitmapOrientation(
+                            SKBitmap.Decode(frame.Frame),
+                            frame.Orientation.Value);
+                    }
+                    else
+                    {
+                        LocalPreviewBitmap = DecodeBitmapAndCorrectOrientation(frame.Frame);
+                    }
                 }
             });
 
@@ -1338,8 +1346,7 @@ namespace CrossCam.ViewModel
 
         private async Task DrawAnaglyph(bool grayscale)
         {
-            var baseWidth = Math.Min(LeftBitmap.Width, RightBitmap.Width);
-            var canvasWidth = (int)(baseWidth - baseWidth * (Edits.LeftCrop + Edits.InsideCrop + Edits.OutsideCrop + Edits.RightCrop));
+            var canvasWidth = DrawTool.CalculateOverlayedCanvasWidthWithEditsNoBorder(LeftBitmap, RightBitmap, Edits);
             var canvasHeight = DrawTool.CalculateCanvasHeightWithEditsNoBorder(LeftBitmap, RightBitmap, Edits);
             using var tempSurface =
                 SKSurface.Create(new SKImageInfo(canvasWidth, canvasHeight));

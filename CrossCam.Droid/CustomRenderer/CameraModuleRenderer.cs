@@ -30,6 +30,7 @@ using CameraError = Android.Hardware.CameraError;
 using CameraModule = CrossCam.CustomElement.CameraModule;
 using Math = System.Math;
 using Point = System.Drawing.Point;
+using PointF = System.Drawing.PointF;
 using Size = Android.Util.Size;
 using View = Android.Views.View;
 #pragma warning disable 618
@@ -104,8 +105,8 @@ namespace CrossCam.Droid.CustomRenderer
             MainActivity.Instance.LifecycleEventListener.AppMaximized += AppWasMaximized;
             MainActivity.Instance.LifecycleEventListener.AppMinimized += AppWasMinimized;
 
-            _landscapePreviewAllottedWidth = Resources.DisplayMetrics.HeightPixels / 2f; // when in landscape (the larger of the two), preview width will be half the height of the screen
-                                                                                         // ("height" of a screen is the larger of the two dimensions, which is opposite of camera/preview sizes)
+            var maxSize = Math.Max(Resources.DisplayMetrics.HeightPixels, Resources.DisplayMetrics.WidthPixels);
+            _landscapePreviewAllottedWidth = maxSize / 2f;
 
              _orientations.Append((int)SurfaceOrientation.Rotation0, 0);
              _orientations.Append((int)SurfaceOrientation.Rotation90, 90);
@@ -289,7 +290,6 @@ namespace CrossCam.Droid.CustomRenderer
         {
             try
             {
-                _cameraModule.IsFocusCircleVisible = false;
                 _cameraModule.IsFocusCircleLocked = false;
                 if (_useCamera2)
                 {
@@ -475,7 +475,7 @@ namespace CrossCam.Droid.CustomRenderer
             TurnOnContinuousFocus();
         }
 
-        private void PreviewSingleTapped(Point p)
+        private void PreviewSingleTapped(System.Drawing.PointF p)
         {
             try
             {
@@ -554,13 +554,6 @@ namespace CrossCam.Droid.CustomRenderer
                         _camera1.SetParameters(parameters);
 
                         _camera1.AutoFocus(this);
-
-                        double focusCircleX = p.X + _textureView.GetX();
-                        double focusCircleY = p.Y + _textureView.GetY();
-
-                        _cameraModule.FocusCircleX = focusCircleX / metrics.Density;
-                        _cameraModule.FocusCircleY = focusCircleY / metrics.Density;
-                        _cameraModule.IsFocusCircleVisible = true;
                     }
                 }
             }
@@ -1454,13 +1447,10 @@ namespace CrossCam.Droid.CustomRenderer
             }
         }
         
-        private void TapToFocus2(Point p)
+        private void TapToFocus2(PointF p)
         {
             var metrics = new DisplayMetrics();
             Display.GetMetrics(metrics);
-
-            double focusCircleX;
-            double focusCircleY;
 
             var characteristics = _cameraManager.GetCameraCharacteristics(_camera2Device.Id);
             var arraySize = (Rect)characteristics.Get(CameraCharacteristics.SensorInfoActiveArraySize);
@@ -1471,54 +1461,36 @@ namespace CrossCam.Droid.CustomRenderer
             var sensorScreenSum = (_camera2SensorOrientation + screenRotation + 360 + frontFacingModifier) % 360;
             float x;
             float y;
-            float displayHorizontalProportion;
-            float displayVerticalProportion;
             if (sensorScreenSum == 0)
             {
                 //landscape tipped right
-                displayVerticalProportion = p.X * 1f / _textureView.Width;
-                displayHorizontalProportion = (_textureView.Height - p.Y * 1f) / _textureView.Height;
-                x = (1 - displayHorizontalProportion) * arraySize.Width();
-                y = (1 - displayVerticalProportion) * arraySize.Height();
-                focusCircleX = _textureView.Height - p.Y;
-                focusCircleY = p.X + _textureView.GetY();
+                x = (1 - p.X) * arraySize.Width();
+                y = (1 - p.Y) * arraySize.Height();
             }
             else if (sensorScreenSum == 90)
             {
                 //portrait
-                displayHorizontalProportion = p.X * 1f / _textureView.Width;
-                displayVerticalProportion = p.Y * 1f / _textureView.Height;
-                x = displayVerticalProportion * arraySize.Width();
+                x = p.Y * arraySize.Width();
                 if (_cameraModule.ChosenCamera.IsFront)
                 {
-                    y = displayHorizontalProportion * arraySize.Height();
+                    y = p.X * arraySize.Height();
                 }
                 else
                 {
-                    y = (1 - displayHorizontalProportion) * arraySize.Height();
+                    y = (1 - p.X) * arraySize.Height();
                 }
-                focusCircleX = p.X + _textureView.GetX();
-                focusCircleY = p.Y + _textureView.GetY();
             }
             else if (sensorScreenSum == 180)
             {
                 //landscape tipped left
-                displayVerticalProportion = (_textureView.Width - p.X * 1f) / _textureView.Width;
-                displayHorizontalProportion = p.Y * 1f / _textureView.Height;
-                x = displayHorizontalProportion * arraySize.Width();
-                y = displayVerticalProportion * arraySize.Height();
-                focusCircleX = p.Y;
-                focusCircleY = _textureView.GetY() - p.X;
+                x = p.X * arraySize.Width();
+                y = p.Y * arraySize.Height();
             }
             else //  i.e. if (sensorScreenSum == 270)
             {
                 //upside down portrait
-                displayHorizontalProportion = (_textureView.Width - p.X * 1f) / _textureView.Width;
-                displayVerticalProportion = (_textureView.Height - p.Y * 1f) / _textureView.Height;
-                x = (1 - displayVerticalProportion) * arraySize.Width();
-                y = displayHorizontalProportion * arraySize.Height();
-                focusCircleX = _textureView.Width - p.X;
-                focusCircleY = _textureView.GetY() - p.Y;
+                x = (1 - p.Y) * arraySize.Width();
+                y = p.X * arraySize.Height();
             }
             var sizingRatio = arraySize.Width() / (1f * _textureView.Height);
             var focusSquareSide = (float)CameraPage.FOCUS_CIRCLE_WIDTH * metrics.Density * sizingRatio;
@@ -1602,9 +1574,6 @@ namespace CrossCam.Droid.CustomRenderer
                 _previewRequestBuilder.Set(CaptureRequest.ControlAePrecaptureTrigger, null);
                 _camera2Session.SetRepeatingRequest(_previewRequestBuilder.Build(), _captureListener, _backgroundHandler);
 
-                _cameraModule.FocusCircleX = focusCircleX / metrics.Density;
-                _cameraModule.FocusCircleY = focusCircleY / metrics.Density;
-                _cameraModule.IsFocusCircleVisible = true;
                 _cameraModule.IsFocusCircleLocked = false;
             }
         }
@@ -1616,7 +1585,6 @@ namespace CrossCam.Droid.CustomRenderer
             try
             {
                 var characteristics = _cameraManager.GetCameraCharacteristics(_camera2Id);
-                _cameraModule.IsFocusCircleVisible = false;
                 _cameraModule.IsFocusCircleLocked = false;
                 _camera2FoundGoodCaptureInterlocked = 0;
 
