@@ -472,9 +472,21 @@ namespace CrossCam.Page
             var rollBounds = AbsoluteLayout.GetLayoutBounds(_horizontalLevelWhole);
             rollBounds.Width = LEVEL_ICON_WIDTH;
             rollBounds.Height = LEVEL_ICON_WIDTH;
-            rollBounds.X = _viewModel == null || _viewModel.CameraColumn == 0 ? 0.2 : 0.8;
-            if (_viewModel != null)
+            if (_viewModel == null)
             {
+                rollBounds.X = 0.2;
+            }
+            else
+            {
+                if (_viewModel.Settings.Mode == DrawMode.RedCyanAnaglyph ||
+                    _viewModel.Settings.Mode == DrawMode.GrayscaleRedCyanAnaglyph)
+                {
+                    rollBounds.X = 0.5;
+                }
+                else
+                {
+                    rollBounds.X = _viewModel.CameraColumn == 0 ? 0.2 : 0.8;
+                }
                 rollBounds.Y = _viewModel.PreviewBottomY - LEVEL_ICON_WIDTH / 5;
             }
             AbsoluteLayout.SetLayoutBounds(_horizontalLevelWhole, rollBounds);
