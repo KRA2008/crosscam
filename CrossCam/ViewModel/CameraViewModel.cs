@@ -882,6 +882,33 @@ namespace CrossCam.ViewModel
                             await SaveSurfaceSnapshot(tempSurface);
                         }
 
+                        if (Settings.SaveForRedCyanAnaglyph)
+                        {
+                            await DrawAnaglyph(false);
+                        }
+
+                        if (Settings.SaveForGrayscaleAnaglyph)
+                        {
+                            await DrawAnaglyph(true);
+                        }
+
+                        if (Settings.SaveRedundantFirstSide)
+                        {
+                            using var tempSurface =
+                                SKSurface.Create(new SKImageInfo(LeftBitmap.Width, LeftBitmap.Height));
+                            var canvas = tempSurface.Canvas;
+                            canvas.Clear();
+                            if (needs180Flip)
+                            {
+                                canvas.RotateDegrees(180);
+                                canvas.Translate(-1f * LeftBitmap.Width, -1f * LeftBitmap.Height);
+                            }
+
+                            canvas.DrawBitmap(Settings.IsCaptureLeftFirst ? LeftBitmap : RightBitmap, 0, 0);
+
+                            await SaveSurfaceSnapshot(tempSurface);
+                        }
+
                         if (Settings.SaveForTriple)
                         {
                             using var doubleSurface = SKSurface.Create(new SKImageInfo(finalImageWidth, finalImageHeight));
@@ -903,8 +930,8 @@ namespace CrossCam.ViewModel
                             var tripleCanvas = tripleSurface.Canvas;
                             tripleCanvas.Clear();
 
-                            tripleCanvas.DrawSurface(doubleSurface,0,0);
-                            tripleCanvas.DrawSurface(doubleSurface,tripleHalfOffset,0);
+                            tripleCanvas.DrawSurface(doubleSurface, 0, 0);
+                            tripleCanvas.DrawSurface(doubleSurface, tripleHalfOffset, 0);
 
                             await SaveSurfaceSnapshot(tripleSurface);
                         }
@@ -966,33 +993,6 @@ namespace CrossCam.ViewModel
 
                             DrawTool.DrawImagesOnCanvas(canvas, LeftBitmap, RightBitmap, Settings, Edits,
                                 DrawMode.Cardboard);
-
-                            await SaveSurfaceSnapshot(tempSurface);
-                        }
-
-                        if (Settings.SaveForRedCyanAnaglyph)
-                        {
-                            await DrawAnaglyph(false);
-                        }
-
-                        if (Settings.SaveForGrayscaleAnaglyph)
-                        {
-                            await DrawAnaglyph(true);
-                        }
-
-                        if (Settings.SaveRedundantFirstSide)
-                        {
-                            using var tempSurface =
-                                SKSurface.Create(new SKImageInfo(LeftBitmap.Width, LeftBitmap.Height));
-                            var canvas = tempSurface.Canvas;
-                            canvas.Clear();
-                            if (needs180Flip)
-                            {
-                                canvas.RotateDegrees(180);
-                                canvas.Translate(-1f * LeftBitmap.Width, -1f * LeftBitmap.Height);
-                            }
-
-                            canvas.DrawBitmap(Settings.IsCaptureLeftFirst ? LeftBitmap : RightBitmap, 0, 0);
 
                             await SaveSurfaceSnapshot(tempSurface);
                         }

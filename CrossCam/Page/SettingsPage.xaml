@@ -365,7 +365,7 @@
                 </Image>
                 <Label Grid.Row="5"
                        Grid.Column="1"
-                       Text="Save joined parallel view/VR version (with edits and border)">
+                       Text="Save joined parallel view version (with edits and border)">
                     <Label.Triggers>
                         <DataTrigger TargetType="Label"
                                      Binding="{Binding Settings.Mode, Converter={vc:EnumCompareConverter}, ConverterParameter={x:Static vm:DrawMode.Parallel}}"

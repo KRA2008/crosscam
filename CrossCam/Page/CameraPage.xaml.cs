@@ -356,7 +356,7 @@ namespace CrossCam.Page
                 _viewModel.Edits,
                 _viewModel.Settings.Mode,
                 _viewModel.WorkflowStage == WorkflowStage.FovCorrection,
-                quality:SKFilterQuality.Low);
+                isPreview: _viewModel.IsExactlyOnePictureTaken || _viewModel.IsNothingCaptured);
         }
 
         private void OnPairedPreviewCanvasInvalidated(object sender, SKPaintSurfaceEventArgs e)
@@ -608,7 +608,7 @@ namespace CrossCam.Page
             Interval = 500,
             AutoReset = false
         };
-        private const int MIN_MOVE_COUNTER = 4; //TODO: handle these mechanics better
+        private const int MIN_MOVE_COUNTER = 4;
         private bool _didSwap;
         private void _capturedCanvas_OnTouch(object sender, SKTouchEventArgs e)
         {

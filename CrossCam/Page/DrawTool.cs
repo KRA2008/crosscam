@@ -15,7 +15,7 @@ namespace CrossCam.Page
         private const int FUSE_GUIDE_MARGIN_HEIGHT_RATIO = 7;
 
         public static void DrawImagesOnCanvas(SKCanvas canvas, SKBitmap leftBitmap, SKBitmap rightBitmap,
-            Settings settings, Edits edits, DrawMode drawMode, bool isFov = false, bool withSwap = false, SKFilterQuality quality = SKFilterQuality.High)
+            Settings settings, Edits edits, DrawMode drawMode, bool isFov = false, bool withSwap = false, bool isPreview = false)
         {
             if (withSwap)
             {
@@ -28,8 +28,8 @@ namespace CrossCam.Page
                     edits.VerticalAlignment,
                     edits.RightZoom + (isFov ? edits.FovRightCorrection : 0), edits.LeftZoom + (isFov ? edits.FovLeftCorrection : 0),
                     edits.RightKeystone, edits.LeftKeystone,
-                    drawMode, settings.SaveWithFuseGuide,
-                    quality);
+                    drawMode, !isPreview && settings.SaveWithFuseGuide,
+                    isPreview ? SKFilterQuality.Low : SKFilterQuality.High);
             }
             else
             {
@@ -42,8 +42,8 @@ namespace CrossCam.Page
                     edits.VerticalAlignment,
                     edits.LeftZoom + (isFov ? edits.FovLeftCorrection : 0), edits.RightZoom + (isFov ? edits.FovRightCorrection : 0),
                     edits.LeftKeystone, edits.RightKeystone,
-                    drawMode, settings.SaveWithFuseGuide,
-                    quality);
+                    drawMode, !isPreview && settings.SaveWithFuseGuide,
+                    isPreview ? SKFilterQuality.Low : SKFilterQuality.High);
             }
         }
 

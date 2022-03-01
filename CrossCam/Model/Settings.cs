@@ -132,13 +132,37 @@ namespace CrossCam.Model
         public bool SaveToExternal { get; set; }
 
         public bool SaveForCrossView { get; set; }
-        public bool SaveForParallel { get; set; }
+        private bool _saveForParallel;
+        public bool SaveForParallel
+        {
+            get => _saveForParallel;
+            set
+            {
+                _saveForParallel = value;
+                if (!_saveForParallel)
+                {
+                    SaveForCardboard = false;
+                }
+            }
+        }
         public bool SaveForRedCyanAnaglyph { get; set; }
         public bool SaveForGrayscaleAnaglyph { get; set; }
         public bool SaveForTriple { get; set; }
         public bool SaveForQuad { get; set; }
         public bool SaveWithFuseGuide { get; set; }
-        public bool SaveForCardboard { get; set; }
+        private bool _saveForCardboard;
+        public bool SaveForCardboard
+        {
+            get => _saveForCardboard;
+            set
+            {
+                _saveForCardboard = value;
+                if (_saveForCardboard)
+                {
+                    SaveForParallel = true;
+                }
+            }
+        }
 
         public bool SendErrorReports1 { get; set; }
 
