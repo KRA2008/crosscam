@@ -640,9 +640,9 @@ namespace CrossCam.Page
                     }
                     break;
                 case SKTouchAction.Released:
-                    _releaseCounter++;
                     if (!_didSwap)
                     {
+                        _releaseCounter++;
                         if (_doubleTapTimer.Enabled &&
                             _releaseCounter == 2)
                         {
@@ -674,14 +674,11 @@ namespace CrossCam.Page
         {
             _cameraModule.OnDoubleTapped();
             _viewModel.IsFocusCircleVisible = false;
-            Debug.WriteLine("Double tapped!");
             ClearAllTaps();
         }
 
         private void ProcessSingleTap()
         {
-            Debug.WriteLine("Single tapped!");
-
             if (_viewModel.Settings.Mode == DrawMode.Cardboard) return;
 
             var xProportion = 0f;
