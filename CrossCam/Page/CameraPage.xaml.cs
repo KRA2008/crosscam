@@ -691,7 +691,8 @@ namespace CrossCam.Page
 
         private void ProcessSingleTap()
         {
-            if (_viewModel.Settings.Mode == DrawMode.Cardboard) return;
+            if (_viewModel?.LocalPreviewBitmap == null || 
+                _viewModel.Settings.Mode == DrawMode.Cardboard) return;
 
             var xProportion = 0f;
             var yProportion = 0f;
