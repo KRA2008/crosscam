@@ -134,7 +134,6 @@ namespace CrossCam.iOS.CustomRenderer
         {
             if (_cameraModule.IsNothingCaptured && _cameraModule.IsLockToFirstEnabled)
             {
-                _cameraModule.IsFocusCircleVisible = false;
 
                 _device.LockForConfiguration(out var error);
                 if (error != null) return;
@@ -543,10 +542,6 @@ namespace CrossCam.iOS.CustomRenderer
                     _device.WhiteBalanceMode = AVCaptureWhiteBalanceMode.AutoWhiteBalance; //not sure about this
                 }
 
-                _cameraModule.FocusCircleX = focusCircleX;
-                _cameraModule.FocusCircleY = focusCircleY;
-                _cameraModule.IsFocusCircleVisible = true;
-
                 _device.UnlockForConfiguration();
             }
         }
@@ -577,8 +572,6 @@ namespace CrossCam.iOS.CustomRenderer
             {
                 device.WhiteBalanceMode = AVCaptureWhiteBalanceMode.ContinuousAutoWhiteBalance;
             }
-
-            _cameraModule.IsFocusCircleVisible = false;
 
             device.UnlockForConfiguration();
         }
