@@ -197,22 +197,26 @@ namespace CrossCam.Page
                     var openCv = DependencyService.Get<IOpenCv>();
                     if (openCv.IsOpenCvSupported())
                     {
-                        var proportion = 200 / (DeviceDisplay.MainDisplayInfo.Width /
-                                         DeviceDisplay.MainDisplayInfo.Density / 2d);
-                        var halfScreenAspect = DeviceDisplay.MainDisplayInfo.Height / (DeviceDisplay.MainDisplayInfo.Width / 2);
+                        var proportion = 200d / ((DeviceDisplay.MainDisplayInfo.Width * 1d) /
+                                         (DeviceDisplay.MainDisplayInfo.Density * 1d) / 2d);
+                        var halfScreenAspect = (DeviceDisplay.MainDisplayInfo.Height * 1d) / ((DeviceDisplay.MainDisplayInfo.Width * 1d) / 2d);
                         var bitmapAspect = srcHeight / srcWidth; //TODO: here and below I'm not sure srcWidth is what's needed... maybe srcX incorporated somehow too
                         float cx;
                         if (bitmapAspect < halfScreenAspect)
                         {
                             //bitmap will be full width
-                            cx = (float)((1 - proportion) * srcWidth);
+                            cx = (float)((1 - proportion) * srcWidth + srcX);
                         }
                         else
                         {
                             //bitmap will be full height
+                            var restoredWidth = srcHeight / halfScreenAspect;
                             cx = (float)((1 - proportion) * (srcHeight / halfScreenAspect));
                         }
-                        targetBitmap = openCv.AddBarrelDistortion(targetBitmap, barrelCoeff, cx, (srcY + srcHeight) / 2f, srcWidth, srcHeight);
+
+                        using var blah = new SKCanvas(targetBitmap);
+                        blah.DrawCircle(cx, (srcY + srcHeight) / 2f,10, new SKPaint{Color = SKColor.Parse("#ff00ff")});
+                        //targetBitmap = openCv.AddBarrelDistortion(targetBitmap, barrelCoeff, cx, (srcY + srcHeight) / 2f, srcWidth, srcHeight);
                     }
                 }
 
@@ -298,7 +302,10 @@ namespace CrossCam.Page
                             //bitmap will be full height
                             cx = (float)(proportion * (srcHeight / halfScreenAspect));
                         }
-                        targetBitmap = openCv.AddBarrelDistortion(targetBitmap, barrelCoeff, cx, (srcY + srcHeight) / 2f, srcWidth, srcHeight);
+
+                        using var blah = new SKCanvas(targetBitmap);
+                        blah.DrawCircle(cx, (srcY + srcHeight) / 2f, 10, new SKPaint { Color = SKColor.Parse("#00ff00") });
+                        //targetBitmap = openCv.AddBarrelDistortion(targetBitmap, barrelCoeff, cx, (srcY + srcHeight) / 2f, srcWidth, srcHeight);
                     }
                 }
 

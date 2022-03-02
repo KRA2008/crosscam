@@ -61,8 +61,32 @@ namespace CrossCam.Droid
             base.OnCreate(bundle);
             Xamarin.Essentials.Platform.Init(this, bundle);
 
-            Window.AddFlags(WindowManagerFlags.Fullscreen);
-            Window.ClearFlags(WindowManagerFlags.ForceNotFullscreen);
+            if (Window != null)
+            {
+                Window.AddFlags(WindowManagerFlags.Fullscreen);
+                Window.AddFlags(WindowManagerFlags.HardwareAccelerated);
+                Window.ClearFlags(WindowManagerFlags.ForceNotFullscreen);
+                if (Build.VERSION.SdkInt >= BuildVersionCodes.R)
+                {
+                    Window.SetDecorFitsSystemWindows(false);
+                    var insetsController = Window.InsetsController;
+                    insetsController?.Hide(WindowInsets.Type.NavigationBars());
+                }
+                else
+                {
+#pragma warning disable CS0618 // Type or member is obsolete
+                    var uiOptions = (int)Window.DecorView.SystemUiVisibility;
+                    uiOptions |= (int)SystemUiFlags.LowProfile;
+                    uiOptions |= (int)SystemUiFlags.Fullscreen;
+                    uiOptions |= (int)SystemUiFlags.HideNavigation;
+                    uiOptions |= (int)SystemUiFlags.ImmersiveSticky;
+                    uiOptions |= (int)SystemUiFlags.LayoutStable;
+
+                    Window.DecorView.SystemUiVisibility = (StatusBarVisibility)uiOptions;
+#pragma warning restore CS0618 // Type or member is obsolete
+                }
+            }
+
 
             LifecycleEventListener = new LifecycleEventListener(this, WindowManager);
             LifecycleEventListener.Enable();
@@ -82,7 +106,7 @@ namespace CrossCam.Droid
             _app = new App();
             LoadApplication(_app);
         }
-        
+
         protected override void OnPause()
         {
             LifecycleEventListener.OnAppMinimized();
