@@ -10,7 +10,7 @@
     <IPhoneResourcePrefix>Resources</IPhoneResourcePrefix>
     <AssemblyName>CrossCam.iOS</AssemblyName>
     <NuGetPackageImportStamp />
-    <ProvisioningType>manual</ProvisioningType>
+    <ProvisioningType>automatic</ProvisioningType>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|iPhoneSimulator' ">
     <DebugSymbols>true</DebugSymbols>
@@ -92,7 +92,8 @@
     <CodesignResourceRules />
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
     <MtouchLink>None</MtouchLink>
-    <MtouchExtraArgs>--optimize=experimental-xforms-product-type</MtouchExtraArgs>
+    <MtouchExtraArgs>
+    </MtouchExtraArgs>
     <MtouchFloat32>true</MtouchFloat32>
     <MtouchInterpreter>
     </MtouchInterpreter>

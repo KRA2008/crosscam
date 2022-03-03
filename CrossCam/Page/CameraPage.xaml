@@ -460,7 +460,14 @@
                                         Threshold="50"/>
             </ContentView.GestureRecognizers>
             <Label Text="(swipe to swap)"
-                   HorizontalTextAlignment="Center"/>
+                   HorizontalTextAlignment="Center">
+                <Label.Triggers>
+                    <DataTrigger TargetType="Label">
+                        <Setter Property="Text"
+                                Value="(tip to swap)"/>
+                    </DataTrigger>
+                </Label.Triggers>
+            </Label>
         </ContentView>
         <ContentView AbsoluteLayout.LayoutFlags="PositionProportional"
                      AbsoluteLayout.LayoutBounds="{Binding CaptureButtonPosition}"
@@ -471,6 +478,11 @@
             </ContentView.GestureRecognizers>
             <Image Source="aperture"/>
         </ContentView>
+        <BoxView AbsoluteLayout.LayoutFlags="PositionProportional,HeightProportional"
+                 AbsoluteLayout.LayoutBounds="0.5,0,2,1"
+                 Color="White"
+                 InputTransparent="true"
+                 IsVisible="{Binding Settings.Mode, Converter={vc:EnumCompareConverter}, ConverterParameter={x:Static vm:DrawMode.Cardboard}}"/>
         <Grid AbsoluteLayout.LayoutFlags="PositionProportional,WidthProportional"
               RowSpacing="0"
               ColumnSpacing="0"
@@ -502,6 +514,8 @@
                        IsVisible="{Binding Settings.SaveForTriple}"/>
                 <Image Source="quad"
                        IsVisible="{Binding Settings.SaveForQuad}"/>
+                <Label Text="VR"
+                       IsVisible="{Binding Settings.SaveForCardboard}"/>
                 <Label Text="{Binding Settings.ResolutionProportion, StringFormat=' {0}%'}"
                        FontSize="15"/>
             </StackLayout>
@@ -513,6 +527,14 @@
             <ContentView.GestureRecognizers>
                 <TapGestureRecognizer Command="{Binding ClearCapturesCommand}"/>
             </ContentView.GestureRecognizers>
+            <ContentView.Triggers>
+                <DataTrigger TargetType="ContentView"
+                             Binding="{Binding Settings.Mode, Converter={vc:EnumCompareConverter}, ConverterParameter={x:Static vm:DrawMode.Cardboard}}"
+                             Value="True">
+                    <Setter Property="AbsoluteLayout.LayoutBounds"
+                            Value="{StaticResource _finalSaveBounds}"/>
+                </DataTrigger>
+            </ContentView.Triggers>
             <Image Source="clearBox"/>
         </ContentView>
         <Image Source="eye"
@@ -539,6 +561,14 @@
             <ContentView.GestureRecognizers>
                 <TapGestureRecognizer Command="{Binding SaveCapturesCommand}"/>
             </ContentView.GestureRecognizers>
+            <ContentView.Triggers>
+                <DataTrigger TargetType="ContentView"
+                             Binding="{Binding Settings.Mode, Converter={vc:EnumCompareConverter}, ConverterParameter={x:Static vm:DrawMode.Cardboard}}"
+                             Value="True">
+                    <Setter Property="AbsoluteLayout.LayoutBounds"
+                            Value="{StaticResource _clearBounds}"/>
+                </DataTrigger>
+            </ContentView.Triggers>
             <Image Source="checkBox"/>
         </ContentView>
 

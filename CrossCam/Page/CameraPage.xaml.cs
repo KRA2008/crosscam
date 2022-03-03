@@ -260,6 +260,7 @@ namespace CrossCam.Page
                         _pairedPreviewCanvas.InvalidateSurface();
                         ResetLineAndDonutGuides();
                         SetMarginsForNotch();
+                        SwapSidesIfCardboard();
                         break;
                     case nameof(CameraViewModel.PreviewBottomY):
                         PlaceRollGuide();
@@ -276,6 +277,20 @@ namespace CrossCam.Page
                 }
             });
 	    }
+
+        private void SwapSidesIfCardboard()
+        {
+            if (_viewModel.Settings.Mode == DrawMode.Cardboard &&
+                !_viewModel.IsViewPortrait)
+            {
+                switch (_viewModel.WorkflowStage)
+                {
+                    case WorkflowStage.Capture:
+                        _viewModel?.SwapSidesCommand.Execute(null);
+                        break;
+                }
+            }
+        }
 
         private void PlaceSettingsRibbon()
         {

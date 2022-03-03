@@ -14,6 +14,13 @@ namespace CrossCam.Page
         public const float FLOATY_ZERO = 0.00001f;
         private const double FUSE_GUIDE_WIDTH_RATIO = 0.0127;
         private const int FUSE_GUIDE_MARGIN_HEIGHT_RATIO = 7;
+        private static readonly double proportion = 200 /
+                                                    (Math.Max(DeviceDisplay.MainDisplayInfo.Width, // in case of initializing in portrait
+                                                         DeviceDisplay.MainDisplayInfo.Height) /
+                                                     DeviceDisplay.MainDisplayInfo.Density / 2d);
+        private static readonly double halfScreenAspect =
+            Math.Min(DeviceDisplay.MainDisplayInfo.Width, DeviceDisplay.MainDisplayInfo.Height) / // in case of initializing in portrait
+            (Math.Max(DeviceDisplay.MainDisplayInfo.Width, DeviceDisplay.MainDisplayInfo.Height) / 2);
 
         public static void DrawImagesOnCanvas(SKCanvas canvas, SKBitmap leftBitmap, SKBitmap rightBitmap,
             Settings settings, Edits edits, DrawMode drawMode, bool isFov = false, bool withSwap = false, bool isPreview = false)
@@ -197,10 +204,7 @@ namespace CrossCam.Page
                     var openCv = DependencyService.Get<IOpenCv>();
                     if (openCv.IsOpenCvSupported())
                     {
-                        var proportion = 200d / ((DeviceDisplay.MainDisplayInfo.Width * 1d) /
-                                         (DeviceDisplay.MainDisplayInfo.Density * 1d) / 2d);
-                        var halfScreenAspect = (DeviceDisplay.MainDisplayInfo.Height * 1d) / ((DeviceDisplay.MainDisplayInfo.Width * 1d) / 2d);
-                        var bitmapAspect = srcHeight / srcWidth; //TODO: here and below I'm not sure srcWidth is what's needed... maybe srcX incorporated somehow too
+                        var bitmapAspect = srcHeight / srcWidth;
                         float cx;
                         if (bitmapAspect < halfScreenAspect)
                         {
@@ -211,12 +215,11 @@ namespace CrossCam.Page
                         {
                             //bitmap will be full height
                             var restoredWidth = srcHeight / halfScreenAspect;
-                            cx = (float)((1 - proportion) * (srcHeight / halfScreenAspect));
+                            var missingRestoredWidth = restoredWidth - srcWidth;
+                            cx = (float)((1 - proportion) * (srcWidth - missingRestoredWidth) + srcX);
                         }
-
-                        using var blah = new SKCanvas(targetBitmap);
-                        blah.DrawCircle(cx, (srcY + srcHeight) / 2f,10, new SKPaint{Color = SKColor.Parse("#ff00ff")});
-                        //targetBitmap = openCv.AddBarrelDistortion(targetBitmap, barrelCoeff, cx, (srcY + srcHeight) / 2f, srcWidth, srcHeight);
+                        
+                        targetBitmap = openCv.AddBarrelDistortion(targetBitmap, barrelCoeff, cx, srcY + srcHeight / 2f, srcWidth, srcHeight);
                     }
                 }
 
@@ -287,25 +290,22 @@ namespace CrossCam.Page
                     var openCv = DependencyService.Get<IOpenCv>();
                     if (openCv.IsOpenCvSupported())
                     {
-                        var proportion = 200 / (DeviceDisplay.MainDisplayInfo.Width /
-                                                DeviceDisplay.MainDisplayInfo.Density / 2d);
-                        var halfScreenAspect = DeviceDisplay.MainDisplayInfo.Height / (DeviceDisplay.MainDisplayInfo.Width / 2);
-                        var bitmapAspect = srcHeight / srcWidth; //TODO: here and below I'm not sure srcWidth is what's needed... maybe srcX incorporated somehow too
+                        var bitmapAspect = srcHeight / srcWidth;
                         float cx;
                         if (bitmapAspect < halfScreenAspect)
                         {
                             //bitmap will be full width
-                            cx = (float)(proportion * srcWidth);
+                            cx = (float)(proportion * srcWidth + srcX);
                         }
                         else
                         {
                             //bitmap will be full height
-                            cx = (float)(proportion * (srcHeight / halfScreenAspect));
+                            var restoredWidth = srcHeight / halfScreenAspect;
+                            var missingRestoredWidth = restoredWidth - srcWidth;
+                            cx = (float)(proportion * (srcWidth + missingRestoredWidth) + srcX);
                         }
-
-                        using var blah = new SKCanvas(targetBitmap);
-                        blah.DrawCircle(cx, (srcY + srcHeight) / 2f, 10, new SKPaint { Color = SKColor.Parse("#00ff00") });
-                        //targetBitmap = openCv.AddBarrelDistortion(targetBitmap, barrelCoeff, cx, (srcY + srcHeight) / 2f, srcWidth, srcHeight);
+                        
+                        targetBitmap = openCv.AddBarrelDistortion(targetBitmap, barrelCoeff, cx, srcY + srcHeight / 2f, srcWidth, srcHeight);
                     }
                 }
 
