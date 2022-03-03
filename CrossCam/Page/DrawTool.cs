@@ -218,7 +218,7 @@ namespace CrossCam.Page
                             var missingRestoredWidth = restoredWidth - srcWidth;
                             cx = (float)((1 - proportion) * (srcWidth - missingRestoredWidth) + srcX);
                         }
-                        
+
                         targetBitmap = openCv.AddBarrelDistortion(targetBitmap, barrelCoeff, cx, srcY + srcHeight / 2f, srcWidth, srcHeight);
                     }
                 }
@@ -304,7 +304,7 @@ namespace CrossCam.Page
                             var missingRestoredWidth = restoredWidth - srcWidth;
                             cx = (float)(proportion * (srcWidth + missingRestoredWidth) + srcX);
                         }
-                        
+
                         targetBitmap = openCv.AddBarrelDistortion(targetBitmap, barrelCoeff, cx, srcY + srcHeight / 2f, srcWidth, srcHeight);
                     }
                 }

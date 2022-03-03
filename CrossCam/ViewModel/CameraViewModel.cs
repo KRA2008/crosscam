@@ -293,13 +293,14 @@ namespace CrossCam.ViewModel
             }
         }
 
-        public bool ShouldLineGuidesBeVisible => ((IsNothingCaptured && Settings.ShowGuideLinesWithFirstCapture)
+        public bool ShouldLineGuidesBeVisible => (((IsNothingCaptured && Settings.ShowGuideLinesWithFirstCapture)
                                                   || (IsExactlyOnePictureTaken && WorkflowStage != WorkflowStage.Loading)
                                                   || (BluetoothOperator.IsPrimary && BluetoothOperator.PairStatus == PairStatus.Connected && WorkflowStage == WorkflowStage.Capture))
                                                   && Settings.AreGuideLinesVisible
                                                   || WorkflowStage == WorkflowStage.Keystone
                                                   || WorkflowStage == WorkflowStage.ManualAlign
-                                                  || WorkflowStage == WorkflowStage.FovCorrection;
+                                                  || WorkflowStage == WorkflowStage.FovCorrection) && 
+                                                 Settings.Mode != DrawMode.Cardboard;
         public bool ShouldDonutGuideBeVisible => ((IsNothingCaptured && Settings.ShowGuideDonutWithFirstCapture)
                                                  || (IsExactlyOnePictureTaken && WorkflowStage != WorkflowStage.Loading)
                                                  || (BluetoothOperator.IsPrimary && BluetoothOperator.PairStatus == PairStatus.Connected && WorkflowStage == WorkflowStage.Capture))
@@ -1442,7 +1443,9 @@ namespace CrossCam.ViewModel
                     {
                         await Task.Run(() =>
                         {
-                            var discardTransX = !Settings.SaveForRedCyanAnaglyph &&
+                            var discardTransX = Settings.Mode == DrawMode.Cardboard ||
+                                                Settings.SaveForCardboard || 
+                                                !Settings.SaveForRedCyanAnaglyph &&
                                                 !Settings.SaveForGrayscaleAnaglyph &&
                                                 Settings.Mode != DrawMode.RedCyanAnaglyph &&
                                                 Settings.Mode != DrawMode.GrayscaleRedCyanAnaglyph &&
