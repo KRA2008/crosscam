@@ -14,7 +14,7 @@ namespace CrossCam.Page
         public const float FLOATY_ZERO = 0.00001f;
         private const double FUSE_GUIDE_WIDTH_RATIO = 0.0127;
         private const int FUSE_GUIDE_MARGIN_HEIGHT_RATIO = 7;
-        private const int CARDBOARD_IPD = 400;
+        public const int CARDBOARD_IPD = 400;
         private static readonly double proportion = CARDBOARD_IPD /
                                                     (Math.Max(DeviceDisplay.MainDisplayInfo.Width, // in case of initializing in portrait
                                                          DeviceDisplay.MainDisplayInfo.Height) /
@@ -219,7 +219,7 @@ namespace CrossCam.Page
                             var missingRestoredWidth = restoredWidth - srcWidth;
                             cx = (float)((1 - proportion) * (srcWidth - missingRestoredWidth) + srcX);
                         }
-
+                        
                         targetBitmap = openCv.AddBarrelDistortion(targetBitmap, barrelCoeff, cx, srcY + srcHeight / 2f, srcWidth, srcHeight);
                     }
                 }
@@ -305,7 +305,7 @@ namespace CrossCam.Page
                             var missingRestoredWidth = restoredWidth - srcWidth;
                             cx = (float)(proportion * (srcWidth + missingRestoredWidth) + srcX);
                         }
-
+                        
                         targetBitmap = openCv.AddBarrelDistortion(targetBitmap, barrelCoeff, cx, srcY + srcHeight / 2f, srcWidth, srcHeight);
                     }
                 }

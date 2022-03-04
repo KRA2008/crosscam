@@ -218,6 +218,10 @@ namespace CrossCam.Page
                 _viewModel.Edits.PropertyChanged += EditsPropertyChanged;
                 Device.BeginInvokeOnMainThread(() =>
                 {
+                    var layout = AbsoluteLayout.GetLayoutBounds(_doubleMoveHintStack);
+                    layout.Width = DrawTool.CARDBOARD_IPD + 120;
+                    AbsoluteLayout.SetLayoutBounds(_doubleMoveHintStack, layout);
+
                     EvaluateSensors();
                     ResetLineAndDonutGuides();
                     PlaceRollGuide();
