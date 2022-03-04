@@ -333,6 +333,8 @@ namespace CrossCam.Page
                             _viewModel.LocalPreviewBitmap : 
                             null);
 
+            var isPreview = _viewModel.IsExactlyOnePictureTaken || _viewModel.IsNothingCaptured;
+
             if (_viewModel.Settings.Mode == DrawMode.Cardboard)
             {
                 if (_viewModel.LeftBitmap == null &&
@@ -362,6 +364,21 @@ namespace CrossCam.Page
                 {
                     right = CameraViewModel.BitmapDownsize(right, _cardboardPreviewWidth / (right.Width * 1d));
                 }
+
+                if (_viewModel.Edits.OutsideCrop == 0 &&
+                    _viewModel.Edits.InsideCrop == 0 &&
+                    isPreview)
+                {
+                    var neededCrop = DrawTool.CalculateOutsideCropForCardboardWidthFit(left, right);
+                    if (neededCrop > 0)
+                    {
+                        _viewModel.Edits.OutsideCrop = neededCrop;
+                    }
+                    else
+                    {
+                        _viewModel.Edits.InsideCrop = neededCrop;
+                    }
+                }
             }
 
             DrawTool.DrawImagesOnCanvas(
@@ -370,7 +387,7 @@ namespace CrossCam.Page
                 _viewModel.Edits,
                 _viewModel.Settings.Mode,
                 _viewModel.WorkflowStage == WorkflowStage.FovCorrection,
-                isPreview: _viewModel.IsExactlyOnePictureTaken || _viewModel.IsNothingCaptured);
+                isPreview: isPreview);
         }
 
         private void OnPairedPreviewCanvasInvalidated(object sender, SKPaintSurfaceEventArgs e)

@@ -462,7 +462,9 @@
             <Label Text="(swipe to swap)"
                    HorizontalTextAlignment="Center">
                 <Label.Triggers>
-                    <DataTrigger TargetType="Label">
+                    <DataTrigger TargetType="Label"
+                                 Binding="{Binding Settings.Mode, Converter={vc:EnumCompareConverter}, ConverterParameter={x:Static vm:DrawMode.Cardboard}}"
+                                 Value="True">
                         <Setter Property="Text"
                                 Value="(tip to swap)"/>
                     </DataTrigger>
