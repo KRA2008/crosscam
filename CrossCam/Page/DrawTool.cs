@@ -14,13 +14,8 @@ namespace CrossCam.Page
         public const float FLOATY_ZERO = 0.00001f;
         private const double FUSE_GUIDE_WIDTH_RATIO = 0.0127;
         private const int FUSE_GUIDE_MARGIN_HEIGHT_RATIO = 7;
-        public const int CARDBOARD_IPD = 400;
-        private static readonly double proportion = CARDBOARD_IPD /
-                                                    (Math.Max(DeviceDisplay.MainDisplayInfo.Width, // in case of initializing in portrait
-                                                         DeviceDisplay.MainDisplayInfo.Height) /
-                                                     DeviceDisplay.MainDisplayInfo.Density / 2d) / 2d;
         private static readonly double halfScreenAspect =
-            Math.Min(DeviceDisplay.MainDisplayInfo.Width, DeviceDisplay.MainDisplayInfo.Height) / // in case of initializing in portrait
+            Math.Min(DeviceDisplay.MainDisplayInfo.Width, DeviceDisplay.MainDisplayInfo.Height) /
             (Math.Max(DeviceDisplay.MainDisplayInfo.Width, DeviceDisplay.MainDisplayInfo.Height) / 2);
 
         public static void DrawImagesOnCanvas(SKCanvas canvas, SKBitmap leftBitmap, SKBitmap rightBitmap,
@@ -38,6 +33,7 @@ namespace CrossCam.Page
                     edits.RightZoom + (isFov ? edits.FovRightCorrection : 0), edits.LeftZoom + (isFov ? edits.FovLeftCorrection : 0),
                     edits.RightKeystone, edits.LeftKeystone,
                     drawMode, !isPreview && settings.SaveWithFuseGuide,
+                    settings.CardboardIpd, settings.CardboardBarrelDistortion,
                     isPreview ? SKFilterQuality.Low : SKFilterQuality.High);
             }
             else
@@ -52,6 +48,7 @@ namespace CrossCam.Page
                     edits.LeftZoom + (isFov ? edits.FovLeftCorrection : 0), edits.RightZoom + (isFov ? edits.FovRightCorrection : 0),
                     edits.LeftKeystone, edits.RightKeystone,
                     drawMode, !isPreview && settings.SaveWithFuseGuide,
+                    settings.CardboardIpd, settings.CardboardBarrelDistortion,
                     isPreview ? SKFilterQuality.Low : SKFilterQuality.High);
             }
         }
@@ -65,11 +62,10 @@ namespace CrossCam.Page
             double leftZoom, double rightZoom,
             float leftKeystone, float rightKeystone,
             DrawMode drawMode, bool fuseGuideRequested,
+            int cardboardIpd, int barrelStrength,
             SKFilterQuality quality)
         {
             if (leftBitmap == null && rightBitmap == null) return;
-            
-            var barrelCoeff = 2f;
 
             var canvasWidth = canvas.DeviceClipBounds.Width;
             var canvasHeight = canvas.DeviceClipBounds.Height;
@@ -157,6 +153,15 @@ namespace CrossCam.Page
             var isRightKeystoned = Math.Abs(rightKeystone) > FLOATY_ZERO;
             var isLeftKeystoned = Math.Abs(leftKeystone) > FLOATY_ZERO;
 
+            double cardboardProportion = 0;
+            if(drawMode == DrawMode.Cardboard)
+            {
+                cardboardProportion = cardboardIpd /
+                                      (Math.Max(DeviceDisplay.MainDisplayInfo.Width,
+                                           DeviceDisplay.MainDisplayInfo.Height) /
+                                       DeviceDisplay.MainDisplayInfo.Density / 2d) / 2d;
+            }
+
             if (leftBitmap != null)
             {
                 SKBitmap grayscale = null;
@@ -199,7 +204,7 @@ namespace CrossCam.Page
                 var srcY = (float)(height * topCrop + (alignment > 0 ? alignment * height : 0));
                 var srcWidth = (float)(width - width * (leftLeftCrop + leftRightCrop));
                 var srcHeight = (float)(height - height * (topCrop + bottomCrop + Math.Abs(alignment)));
-                
+
                 if (drawMode == DrawMode.Cardboard)
                 {
                     var openCv = DependencyService.Get<IOpenCv>();
@@ -210,17 +215,17 @@ namespace CrossCam.Page
                         if (bitmapAspect < halfScreenAspect)
                         {
                             //bitmap will be full width
-                            cx = (float)((1 - proportion) * srcWidth + srcX);
+                            cx = (float)((1 - cardboardProportion) * srcWidth + srcX);
                         }
                         else
                         {
                             //bitmap will be full height
                             var restoredWidth = srcHeight / halfScreenAspect;
                             var missingRestoredWidth = restoredWidth - srcWidth;
-                            cx = (float)((1 - proportion) * (srcWidth - missingRestoredWidth) + srcX);
+                            cx = (float)((1 - cardboardProportion) * (srcWidth - missingRestoredWidth) + srcX);
                         }
                         
-                        targetBitmap = openCv.AddBarrelDistortion(targetBitmap, barrelCoeff, cx, srcY + srcHeight / 2f, srcWidth, srcHeight);
+                        targetBitmap = openCv.AddBarrelDistortion(targetBitmap, barrelStrength / 100f, cx, srcY + srcHeight / 2f, srcWidth, srcHeight);
                     }
                 }
 
@@ -296,17 +301,17 @@ namespace CrossCam.Page
                         if (bitmapAspect < halfScreenAspect)
                         {
                             //bitmap will be full width
-                            cx = (float)(proportion * srcWidth + srcX);
+                            cx = (float)(cardboardProportion * srcWidth + srcX);
                         }
                         else
                         {
                             //bitmap will be full height
                             var restoredWidth = srcHeight / halfScreenAspect;
                             var missingRestoredWidth = restoredWidth - srcWidth;
-                            cx = (float)(proportion * (srcWidth + missingRestoredWidth) + srcX);
+                            cx = (float)(cardboardProportion * (srcWidth + missingRestoredWidth) + srcX);
                         }
                         
-                        targetBitmap = openCv.AddBarrelDistortion(targetBitmap, barrelCoeff, cx, srcY + srcHeight / 2f, srcWidth, srcHeight);
+                        targetBitmap = openCv.AddBarrelDistortion(targetBitmap, barrelStrength / 100f, cx, srcY + srcHeight / 2f, srcWidth, srcHeight);
                     }
                 }
 
@@ -458,26 +463,12 @@ namespace CrossCam.Page
                 (edits.LeftCrop + edits.InsideCrop + edits.OutsideCrop + edits.RightCrop));
         }
 
-        public static double CalculateOutsideCropForCardboardWidthFit(SKBitmap leftBitmap, SKBitmap rightBitmap)
+        public static double CalculateOutsideCropForCardboardWidthFit(Settings settings)
         {
-            SKBitmap keyBitmap;
-            switch (leftBitmap)
-            {
-                case null when rightBitmap == null:
-                    return 0;
-                case null:
-                    keyBitmap = rightBitmap;
-                    break;
-                default:
-                    keyBitmap = leftBitmap;
-                    break;
-            }
-
-            var bitmapLandscapeWidth = Math.Max(keyBitmap.Width, keyBitmap.Height);
             var displayLandscapeSideWidth =
                 Math.Max(DeviceDisplay.MainDisplayInfo.Width, DeviceDisplay.MainDisplayInfo.Height) /
                 (2d * DeviceDisplay.MainDisplayInfo.Density);
-            var overrun = CARDBOARD_IPD - displayLandscapeSideWidth;
+            var overrun = settings.CardboardIpd - displayLandscapeSideWidth;
             return overrun / displayLandscapeSideWidth;
         }
 

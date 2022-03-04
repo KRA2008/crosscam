@@ -219,7 +219,7 @@ namespace CrossCam.Page
                 Device.BeginInvokeOnMainThread(() =>
                 {
                     var layout = AbsoluteLayout.GetLayoutBounds(_doubleMoveHintStack);
-                    layout.Width = DrawTool.CARDBOARD_IPD + 120;
+                    layout.Width = _viewModel.Settings.CardboardIpd + 120;
                     AbsoluteLayout.SetLayoutBounds(_doubleMoveHintStack, layout);
 
                     EvaluateSensors();
@@ -373,7 +373,7 @@ namespace CrossCam.Page
                     _viewModel.Edits.InsideCrop == 0 &&
                     isPreview)
                 {
-                    var neededCrop = DrawTool.CalculateOutsideCropForCardboardWidthFit(left, right);
+                    var neededCrop = DrawTool.CalculateOutsideCropForCardboardWidthFit(_viewModel.Settings);
                     if (neededCrop > 0)
                     {
                         _viewModel.Edits.OutsideCrop = neededCrop;

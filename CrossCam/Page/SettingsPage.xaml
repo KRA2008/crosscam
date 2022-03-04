@@ -58,13 +58,33 @@
         <StackLayout>
 
             <BoxView/>
-            <Label Text="Capture/Preview Method"
+            <Label Text="Viewing Method"
                    Style="{DynamicResource header}"/>
             <Frame>
                 <Picker ItemsSource="{Binding Modes}"
                         SelectedIndex="{Binding Settings.Mode, Converter={vc:ModeValueConverter}}"
                         HorizontalOptions="FillAndExpand"/>
             </Frame>
+            <StackLayout Orientation="Horizontal"
+                         IsVisible="{Binding Settings.Mode, Converter={vc:EnumCompareConverter}, ConverterParameter={x:Static vm:DrawMode.Cardboard}}">
+                <Label Text="Cardboard separation distance"/>
+                <Frame>
+                    <Picker ItemsSource="{Binding ZeroToOneThousand}"
+                            SelectedIndex="{Binding Settings.CardboardIpd}"
+                            WidthRequest="50"
+                            HorizontalOptions="EndAndExpand"/>
+                </Frame>
+            </StackLayout>
+            <StackLayout Orientation="Horizontal"
+                         IsVisible="{Binding Settings.Mode, Converter={vc:EnumCompareConverter}, ConverterParameter={x:Static vm:DrawMode.Cardboard}}">
+                <Label Text="Cardboard barrel distortion strength"/>
+                <Frame>
+                    <Picker ItemsSource="{Binding ZeroToOneThousand}"
+                            SelectedIndex="{Binding Settings.CardboardBarrelDistortion}"
+                            WidthRequest="50"
+                            HorizontalOptions="EndAndExpand"/>
+                </Frame>
+            </StackLayout>
             <StackLayout Orientation="Horizontal"
                          IsVisible="{Binding Settings.Mode, Converter={vc:EnumCompareConverter}, ConverterParameter={x:Static vm:DrawMode.Parallel}}">
                 <Label Text="Maximum parallel view image width (points)"/>
