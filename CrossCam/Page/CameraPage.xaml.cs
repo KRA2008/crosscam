@@ -292,6 +292,9 @@ namespace CrossCam.Page
                     case WorkflowStage.Capture:
                         _viewModel?.SwapSidesCommand.Execute(null);
                         break;
+                    case WorkflowStage.Final:
+                        _viewModel?.ClearCapturesCommand.Execute(null);
+                        break;
                 }
             }
         }
