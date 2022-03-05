@@ -371,21 +371,6 @@ namespace CrossCam.Page
                 {
                     right = CameraViewModel.BitmapDownsize(right, _cardboardPreviewWidth / (right.Width * 1d));
                 }
-
-                if (_viewModel.Edits.OutsideCrop == 0 &&
-                    _viewModel.Edits.InsideCrop == 0 &&
-                    isPreview)
-                {
-                    var neededCrop = DrawTool.CalculateOutsideCropForCardboardWidthFit(_viewModel.Settings);
-                    if (neededCrop > 0)
-                    {
-                        _viewModel.Edits.OutsideCrop = neededCrop;
-                    }
-                    else
-                    {
-                        _viewModel.Edits.InsideCrop = neededCrop;
-                    }
-                }
             }
 
             DrawTool.DrawImagesOnCanvas(

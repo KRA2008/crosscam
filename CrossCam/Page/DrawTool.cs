@@ -21,6 +21,22 @@ namespace CrossCam.Page
         public static void DrawImagesOnCanvas(SKCanvas canvas, SKBitmap leftBitmap, SKBitmap rightBitmap,
             Settings settings, Edits edits, DrawMode drawMode, bool isFov = false, bool withSwap = false, bool isPreview = false)
         {
+
+            if (drawMode == DrawMode.Cardboard &&
+                edits.OutsideCrop == 0 &&
+                edits.InsideCrop == 0)
+            {
+                var neededCrop = CalculateOutsideCropForCardboardWidthFit(settings);
+                if (neededCrop > 0)
+                {
+                    edits.OutsideCrop = neededCrop;
+                }
+                else
+                {
+                    edits.InsideCrop = neededCrop;
+                }
+            }
+
             if (withSwap)
             {
                 DrawImagesOnCanvasInternal(canvas, rightBitmap, leftBitmap,
