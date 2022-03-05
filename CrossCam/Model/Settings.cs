@@ -84,48 +84,14 @@ namespace CrossCam.Model
             }
         }
 
-        public bool HasOfferedTechniqueHelpBefore
-        {
-            get => _hasOfferedTechniqueHelpBefore;
-            set => _hasOfferedTechniqueHelpBefore = value;
-        }
-
-        public bool HasShownDirectionsBefore
-        {
-            get => _hasShownDirectionsBefore;
-            set => _hasShownDirectionsBefore = value;
-        }
-
-        public bool ShowGuideLinesWithFirstCapture
-        {
-            get => _showGuideLinesWithFirstCapture;
-            set => _showGuideLinesWithFirstCapture = value;
-        }
-
-        public bool ShowGuideDonutWithFirstCapture
-        {
-            get => _showGuideDonutWithFirstCapture;
-            set => _showGuideDonutWithFirstCapture = value;
-        }
-
-        public bool ShowRollGuide
-        {
-            get => _showRollGuide;
-            set => _showRollGuide = value;
-        }
-
-        public bool ShowPreviewFuseGuide
-        {
-            get => _showPreviewFuseGuide;
-            set => _showPreviewFuseGuide = value;
-        }
-
-        public bool IsCaptureLeftFirst
-        {
-            get => _isCaptureLeftFirst;
-            set => _isCaptureLeftFirst = value;
-        }
-
+        public bool HasOfferedTechniqueHelpBefore { get; set; }
+        public bool HasShownDirectionsBefore { get; set; }
+        public bool ShowGuideLinesWithFirstCapture { get; set; }
+        public bool ShowGuideDonutWithFirstCapture { get; set; }
+        public bool ShowRollGuide { get; set; }
+        public bool ShowGhostCaptures { get; set; }
+        public bool ShowPreviewFuseGuide { get; set; }
+        public bool IsCaptureLeftFirst { get; set; }
         private bool _isForceCamera1Enabled;
         public bool IsForceCamera1Enabled
         {
@@ -154,77 +120,18 @@ namespace CrossCam.Model
             }
         }
 
-        public bool IsLockToFirstEnabled
-        {
-            get => _isLockToFirstEnabled;
-            set => _isLockToFirstEnabled = value;
-        }
-
-        public bool IsTapToFocusEnabled2
-        {
-            get => _isTapToFocusEnabled2;
-            set => _isTapToFocusEnabled2 = value;
-        }
-
-        public bool SaveRedundantFirstSide
-        {
-            get => _saveRedundantFirstSide;
-            set => _saveRedundantFirstSide = value;
-        }
-
-        public string SavingDirectory
-        {
-            get => _savingDirectory;
-            set => _savingDirectory = value;
-        }
-
-        public bool SaveToExternal
-        {
-            get => _saveToExternal;
-            set => _saveToExternal = value;
-        }
-
-        public bool SaveForCrossView
-        {
-            get => _saveForCrossView;
-            set => _saveForCrossView = value;
-        }
-
-        public bool SaveForParallel
-        {
-            get => _saveForParallel;
-            set => _saveForParallel = value;
-        }
-
-        public bool SaveForRedCyanAnaglyph
-        {
-            get => _saveForRedCyanAnaglyph;
-            set => _saveForRedCyanAnaglyph = value;
-        }
-
-        public bool SaveForGrayscaleAnaglyph
-        {
-            get => _saveForGrayscaleAnaglyph;
-            set => _saveForGrayscaleAnaglyph = value;
-        }
-
-        public bool SaveForTriple
-        {
-            get => _saveForTriple;
-            set => _saveForTriple = value;
-        }
-
-        public bool SaveForQuad
-        {
-            get => _saveForQuad;
-            set => _saveForQuad = value;
-        }
-
-        public bool SaveWithFuseGuide
-        {
-            get => _saveWithFuseGuide;
-            set => _saveWithFuseGuide = value;
-        }
+        public bool IsLockToFirstEnabled { get; set; }
+        public bool IsTapToFocusEnabled2 { get; set; }
+        public bool SaveRedundantFirstSide { get; set; }
+        public string SavingDirectory { get; set; }
+        public bool SaveToExternal { get; set; }
+        public bool SaveForCrossView { get; set; }
+        public bool SaveForParallel { get; set; }
+        public bool SaveForRedCyanAnaglyph { get; set; }
+        public bool SaveForGrayscaleAnaglyph { get; set; }
+        public bool SaveForTriple { get; set; }
+        public bool SaveForQuad { get; set; }
+        public bool SaveWithFuseGuide { get; set; }
 
         private bool _saveForCardboard;
         public bool SaveForCardboard
@@ -240,28 +147,15 @@ namespace CrossCam.Model
             }
         }
 
-        public bool SendErrorReports1
-        {
-            get => _sendErrorReports1;
-            set => _sendErrorReports1 = value;
-        }
+        public bool SendErrorReports1 { get; set; }
 
         [Obsolete("Use SaveForRedCyanAnaglyph - kept for backward compatibility")]
         public bool RedCyanAnaglyphMode { get => SaveForRedCyanAnaglyph; set => SaveForRedCyanAnaglyph = value; }
         [Obsolete("Use SaveForGrayscaleAnaglyph - kept for backward compatibility")]
         public bool GrayscaleAnaglyphMode { get => SaveForGrayscaleAnaglyph; set => SaveForGrayscaleAnaglyph = value; }
 
-        public bool AddBorder
-        {
-            get => _addBorder;
-            set => _addBorder = value;
-        }
-
-        public bool ClipBorderOnNextLoad
-        {
-            get => _clipBorderOnNextLoad;
-            set => _clipBorderOnNextLoad = value;
-        }
+        public bool AddBorder { get; set; }
+        public bool ClipBorderOnNextLoad { get; set; }
 
         private bool? _isPairedPrimary;
         public bool? IsPairedPrimary
@@ -289,23 +183,9 @@ namespace CrossCam.Model
             }
         }
 
-        public bool IsFovCorrectionSet
-        {
-            get => _isFovCorrectionSet;
-            set => _isFovCorrectionSet = value;
-        }
-
-        public double FovPrimaryCorrection
-        {
-            get => _fovPrimaryCorrection;
-            set => _fovPrimaryCorrection = value;
-        }
-
-        public double FovSecondaryCorrection
-        {
-            get => _fovSecondaryCorrection;
-            set => _fovSecondaryCorrection = value;
-        }
+        public bool IsFovCorrectionSet { get; set; }
+        public double FovPrimaryCorrection { get; set; }
+        public double FovSecondaryCorrection { get; set; }
 
         private int _pairPreviewSampleCount;
         public int PairSyncSampleCount
@@ -465,32 +345,6 @@ namespace CrossCam.Model
         }
 
         private int _maximumParallelWidth;
-        private bool _hasOfferedTechniqueHelpBefore;
-        private bool _hasShownDirectionsBefore;
-        private bool _showGuideLinesWithFirstCapture;
-        private bool _showGuideDonutWithFirstCapture;
-        private bool _showRollGuide;
-        private bool _showPreviewFuseGuide;
-        private bool _isCaptureLeftFirst;
-        private bool _isLockToFirstEnabled;
-        private bool _isTapToFocusEnabled2;
-        private bool _saveRedundantFirstSide;
-        private string _savingDirectory;
-        private bool _saveToExternal;
-        private bool _saveForCrossView;
-        private bool _saveForParallel;
-        private bool _saveForRedCyanAnaglyph;
-        private bool _saveForGrayscaleAnaglyph;
-        private bool _saveForTriple;
-        private bool _saveForQuad;
-        private bool _saveWithFuseGuide;
-        private bool _sendErrorReports1;
-        private bool _addBorder;
-        private bool _clipBorderOnNextLoad;
-        private bool _isFovCorrectionSet;
-        private double _fovPrimaryCorrection;
-        private double _fovSecondaryCorrection;
-        private AlignmentSettings _alignmentSettings;
 
         public int MaximumParallelWidth
         {
@@ -530,11 +384,7 @@ namespace CrossCam.Model
             }
         }
 
-        public AlignmentSettings AlignmentSettings
-        {
-            get => _alignmentSettings;
-            set => _alignmentSettings = value;
-        }
+        public AlignmentSettings AlignmentSettings { get; set; }
 
         public Settings()
         {
@@ -559,6 +409,7 @@ namespace CrossCam.Model
             IsGuideDonutVisible = false;
             ShowGuideDonutWithFirstCapture = false;
             ShowPreviewFuseGuide = true;
+            ShowGhostCaptures = false;
 
             SaveForCrossView = true;
             SaveSidesSeparately = false;

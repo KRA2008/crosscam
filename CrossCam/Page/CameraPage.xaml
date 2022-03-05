@@ -243,6 +243,14 @@
                                           Value="True"/>
                         <BindingCondition Binding="{Binding IsExactlyOnePictureTaken}"
                                           Value="True"/>
+                        <BindingCondition Binding="{Binding Settings.ShowGhostCaptures}"
+                                          Value="False"/>
+                        <BindingCondition Binding="{Binding Settings.Mode, Converter={vc:EnumCompareConverter}, ConverterParameter={x:Static vm:DrawMode.GrayscaleRedCyanAnaglyph}}"
+                                          Value="False"/>
+                        <BindingCondition Binding="{Binding Settings.Mode, Converter={vc:EnumCompareConverter}, ConverterParameter={x:Static vm:DrawMode.RedCyanAnaglyph}}"
+                                          Value="False"/>
+                        <BindingCondition Binding="{Binding Settings.Mode, Converter={vc:EnumCompareConverter}, ConverterParameter={x:Static vm:DrawMode.Cardboard}}"
+                                          Value="False"/>
                     </MultiTrigger.Conditions>
                     <Setter Property="IsVisible"
                             Value="True"/>
@@ -263,6 +271,14 @@
                                           Value="True"/>
                         <BindingCondition Binding="{Binding IsExactlyOnePictureTaken}"
                                           Value="True"/>
+                        <BindingCondition Binding="{Binding Settings.ShowGhostCaptures}"
+                                          Value="False"/>
+                        <BindingCondition Binding="{Binding Settings.Mode, Converter={vc:EnumCompareConverter}, ConverterParameter={x:Static vm:DrawMode.GrayscaleRedCyanAnaglyph}}"
+                                          Value="False"/>
+                        <BindingCondition Binding="{Binding Settings.Mode, Converter={vc:EnumCompareConverter}, ConverterParameter={x:Static vm:DrawMode.RedCyanAnaglyph}}"
+                                          Value="False"/>
+                        <BindingCondition Binding="{Binding Settings.Mode, Converter={vc:EnumCompareConverter}, ConverterParameter={x:Static vm:DrawMode.Cardboard}}"
+                                          Value="False"/>
                     </MultiTrigger.Conditions>
                     <Setter Property="IsVisible"
                             Value="True"/>

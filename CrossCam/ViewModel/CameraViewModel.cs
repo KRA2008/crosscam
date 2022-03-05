@@ -58,14 +58,19 @@ namespace CrossCam.ViewModel
         public byte[] RemotePreviewFrame { get; set; }
         public SKBitmap LocalPreviewBitmap { get; set; }
 
-        public AbsoluteLayoutFlags CanvasRectangleFlags => Settings.Mode == DrawMode.Parallel
+        public AbsoluteLayoutFlags CanvasRectangleFlags => 
+            Settings.Mode == DrawMode.Parallel && 
+            !(WorkflowStage == WorkflowStage.Capture && 
+              Settings.ShowGhostCaptures)
             ? AbsoluteLayoutFlags.YProportional | AbsoluteLayoutFlags.HeightProportional | AbsoluteLayoutFlags.XProportional : 
             AbsoluteLayoutFlags.All;
         public Rectangle CanvasRectangle 
         {
             get 
             {
-                if(Settings.Mode != DrawMode.Parallel) return new Rectangle(0,0,1,1);
+                if(Settings.Mode != DrawMode.Parallel ||
+                   WorkflowStage == WorkflowStage.Capture &&
+                   Settings.ShowGhostCaptures) return new Rectangle(0,0,1,1);
                 var mainPage = Application.Current?.MainPage;
                 var windowWidth = int.MaxValue;
                 if (mainPage != null &&
@@ -362,6 +367,7 @@ namespace CrossCam.ViewModel
         private readonly IPhotoSaver _photoSaver;
         private bool _secondaryErrorOccurred;
         private bool _isFovCorrected;
+        private bool _isInitialized;
 
         private int FrameLimiter = 0;
         private int upper = 0;
@@ -1253,26 +1259,30 @@ namespace CrossCam.ViewModel
             base.ViewIsAppearing(sender, e);
             TriggerMovementHint();
 
-            RaisePropertyChanged(nameof(ShouldLineGuidesBeVisible)); //TODO: figure out how to have Fody do this (just firing 'null' has bad behavior)
-            RaisePropertyChanged(nameof(ShouldDonutGuideBeVisible));
-            RaisePropertyChanged(nameof(ShouldRollGuideBeVisible));
-            RaisePropertyChanged(nameof(ShouldSaveCapturesButtonBeVisible));
-            RaisePropertyChanged(nameof(ShouldLeftLeftRetakeBeVisible));
-            RaisePropertyChanged(nameof(ShouldLeftRightRetakeBeVisible));
-            RaisePropertyChanged(nameof(ShouldRightLeftRetakeBeVisible));
-            RaisePropertyChanged(nameof(ShouldRightRightRetakeBeVisible));
-            RaisePropertyChanged(nameof(CaptureButtonPosition));
-            RaisePropertyChanged(nameof(ShouldCenterLoadBeVisible));
-            RaisePropertyChanged(nameof(ShouldLeftLoadBeVisible));
-            RaisePropertyChanged(nameof(ShouldRightLoadBeVisible));
-            RaisePropertyChanged(nameof(SavedSuccessMessage));
-            RaisePropertyChanged(nameof(CanvasRectangle));
-            RaisePropertyChanged(nameof(CanvasRectangleFlags));
-            RaisePropertyChanged(nameof(PairButtonPosition));
-            RaisePropertyChanged(nameof(ShouldPairPreviewBeVisible));
-            RaisePropertyChanged(nameof(CameraViewModel));
-            RaisePropertyChanged(nameof(Settings)); // this doesn't cause reevaluation for above stuff (but I'd like it to), but it does trigger redraw of canvas and evaluation of whether to run auto alignment
-            Settings.RaisePropertyChanged();
+            if (_isInitialized)
+            {
+                RaisePropertyChanged(nameof(ShouldLineGuidesBeVisible)); //TODO: figure out how to have Fody do this (just firing 'null' has bad behavior)
+                RaisePropertyChanged(nameof(ShouldDonutGuideBeVisible));
+                RaisePropertyChanged(nameof(ShouldRollGuideBeVisible));
+                RaisePropertyChanged(nameof(ShouldSaveCapturesButtonBeVisible));
+                RaisePropertyChanged(nameof(ShouldLeftLeftRetakeBeVisible));
+                RaisePropertyChanged(nameof(ShouldLeftRightRetakeBeVisible));
+                RaisePropertyChanged(nameof(ShouldRightLeftRetakeBeVisible));
+                RaisePropertyChanged(nameof(ShouldRightRightRetakeBeVisible));
+                RaisePropertyChanged(nameof(CaptureButtonPosition));
+                RaisePropertyChanged(nameof(ShouldCenterLoadBeVisible));
+                RaisePropertyChanged(nameof(ShouldLeftLoadBeVisible));
+                RaisePropertyChanged(nameof(ShouldRightLoadBeVisible));
+                RaisePropertyChanged(nameof(SavedSuccessMessage));
+                RaisePropertyChanged(nameof(CanvasRectangle));
+                RaisePropertyChanged(nameof(CanvasRectangleFlags));
+                RaisePropertyChanged(nameof(PairButtonPosition));
+                RaisePropertyChanged(nameof(ShouldPairPreviewBeVisible));
+                RaisePropertyChanged(nameof(CameraViewModel));
+                RaisePropertyChanged(nameof(Settings)); // this doesn't cause reevaluation for above stuff (but I'd like it to), but it does trigger redraw of canvas and evaluation of whether to run auto alignment
+                Settings.RaisePropertyChanged();
+            }
+            _isInitialized = true;
 
             if ((((Settings.Mode == DrawMode.Cross || Settings.Mode == DrawMode.RedCyanAnaglyph || Settings.Mode == DrawMode.GrayscaleRedCyanAnaglyph) && !WasCaptureCross) ||
                 (Settings.Mode == DrawMode.Parallel && WasCaptureCross)) && LeftBitmap != null && RightBitmap != null)

@@ -37,6 +37,16 @@ namespace CrossCam.Page
                 }
             }
 
+            var useGhosts = isPreview &&
+                            settings.ShowGhostCaptures &&
+                            (drawMode == DrawMode.Cross ||
+                             drawMode == DrawMode.Parallel);
+
+            var fuseGuideRequested = !isPreview && 
+                                     settings.SaveWithFuseGuide;
+
+            var drawQuality = isPreview ? SKFilterQuality.Low : SKFilterQuality.High;
+
             if (withSwap)
             {
                 DrawImagesOnCanvasInternal(canvas, rightBitmap, leftBitmap,
@@ -48,9 +58,10 @@ namespace CrossCam.Page
                     edits.VerticalAlignment,
                     edits.RightZoom + (isFov ? edits.FovRightCorrection : 0), edits.LeftZoom + (isFov ? edits.FovLeftCorrection : 0),
                     edits.RightKeystone, edits.LeftKeystone,
-                    drawMode, !isPreview && settings.SaveWithFuseGuide,
+                    drawMode, fuseGuideRequested,
                     settings.CardboardIpd, settings.CardboardBarrelDistortion,
-                    isPreview ? SKFilterQuality.Low : SKFilterQuality.High);
+                    drawQuality,
+                    useGhosts);
             }
             else
             {
@@ -63,9 +74,10 @@ namespace CrossCam.Page
                     edits.VerticalAlignment,
                     edits.LeftZoom + (isFov ? edits.FovLeftCorrection : 0), edits.RightZoom + (isFov ? edits.FovRightCorrection : 0),
                     edits.LeftKeystone, edits.RightKeystone,
-                    drawMode, !isPreview && settings.SaveWithFuseGuide,
+                    drawMode, fuseGuideRequested,
                     settings.CardboardIpd, settings.CardboardBarrelDistortion,
-                    isPreview ? SKFilterQuality.Low : SKFilterQuality.High);
+                    drawQuality,
+                    useGhosts);
             }
         }
 
@@ -79,7 +91,7 @@ namespace CrossCam.Page
             float leftKeystone, float rightKeystone,
             DrawMode drawMode, bool fuseGuideRequested,
             int cardboardIpd, int barrelStrength,
-            SKFilterQuality quality)
+            SKFilterQuality quality, bool useGhosts)
         {
             if (leftBitmap == null && rightBitmap == null) return;
 
@@ -101,19 +113,20 @@ namespace CrossCam.Page
             }
 
             var leftBitmapHeightLessCrop = (int)(baseHeight * (1 - (topCrop + bottomCrop + Math.Abs(alignment))));
-
+            var overlayDrawing =
+                drawMode == DrawMode.GrayscaleRedCyanAnaglyph ||
+                drawMode == DrawMode.RedCyanAnaglyph ||
+                useGhosts;
             var innerBorderThicknessProportion = leftBitmap != null && 
                                                  rightBitmap != null && 
-                                                 addBorder && 
+                                                 addBorder &&
                                                  drawMode != DrawMode.Cardboard &&
-                                                 drawMode != DrawMode.RedCyanAnaglyph &&
-                                                 drawMode != DrawMode.GrayscaleRedCyanAnaglyph ? 
+                                                 !overlayDrawing ? 
                 BORDER_CONVERSION_FACTOR * borderThickness : 
                 0;
 
             var widthRatio = (leftBitmapWidthLessCrop + leftBitmapWidthLessCrop * innerBorderThicknessProportion * 1.5) / (canvasWidth / 2f);
-            if (drawMode == DrawMode.RedCyanAnaglyph ||
-                drawMode == DrawMode.GrayscaleRedCyanAnaglyph)
+            if (overlayDrawing)
             {
                 widthRatio /= 2;
             }
@@ -121,8 +134,7 @@ namespace CrossCam.Page
             var bitmapHeightWithEditsAndBorder = leftBitmapHeightLessCrop + leftBitmapWidthLessCrop * innerBorderThicknessProportion * 2;
             var drawFuseGuide = fuseGuideRequested &&
                                 drawMode != DrawMode.Cardboard &&
-                                drawMode != DrawMode.RedCyanAnaglyph &&
-                                drawMode != DrawMode.GrayscaleRedCyanAnaglyph &&
+                                !overlayDrawing &&
                                 leftBitmap != null && rightBitmap != null;
 
             float fuseGuideIconWidth = 0;
@@ -145,18 +157,16 @@ namespace CrossCam.Page
             var sidePreviewWidthLessCrop = (float)(leftBitmapWidthLessCrop / scalingRatio);
             var previewHeightLessCrop = (float)(leftBitmapHeightLessCrop / scalingRatio);
 
-            switch (drawMode)
+            if (overlayDrawing)
             {
-                case DrawMode.GrayscaleRedCyanAnaglyph:
-                case DrawMode.RedCyanAnaglyph:
-                    leftPreviewX = rightPreviewX = canvasWidth / 2f - sidePreviewWidthLessCrop / 2f; 
-                    previewY = canvasHeight / 2f - previewHeightLessCrop / 2f;
-                    break;
-                default:
-                    leftPreviewX = (float)(canvasWidth / 2f - (sidePreviewWidthLessCrop + innerBorderThicknessProportion * sidePreviewWidthLessCrop / 2f));
-                    rightPreviewX = (float)(canvasWidth / 2f + innerBorderThicknessProportion * sidePreviewWidthLessCrop / 2f );
-                    previewY = canvasHeight / 2f - previewHeightLessCrop / 2f;
-                    break;
+                leftPreviewX = rightPreviewX = canvasWidth / 2f - sidePreviewWidthLessCrop / 2f;
+                previewY = canvasHeight / 2f - previewHeightLessCrop / 2f;
+            }
+            else
+            {
+                leftPreviewX = (float)(canvasWidth / 2f - (sidePreviewWidthLessCrop + innerBorderThicknessProportion * sidePreviewWidthLessCrop / 2f));
+                rightPreviewX = (float)(canvasWidth / 2f + innerBorderThicknessProportion * sidePreviewWidthLessCrop / 2f);
+                previewY = canvasHeight / 2f - previewHeightLessCrop / 2f;
             }
 
             if (drawFuseGuide)
@@ -296,6 +306,13 @@ namespace CrossCam.Page
                             0, 0, 0, 1, 0
                         });
                     paint.BlendMode = SKBlendMode.Plus;
+                }
+
+                if (useGhosts && 
+                    leftBitmap != null &&
+                    rightBitmap != null)
+                {
+                    paint.Color = paint.Color.WithAlpha((byte) (0xFF * 0.5f));
                 }
 
                 var targetBitmap = transformed ?? grayscale ?? rightBitmap;

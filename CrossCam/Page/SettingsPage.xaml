@@ -568,6 +568,10 @@
                 <Label Text="Show fuse guide (a dot above each side)"/>
                 <Switch IsToggled="{Binding Settings.ShowPreviewFuseGuide}"/>
             </StackLayout>
+            <StackLayout Orientation="Horizontal">
+                <Label Text="Capture with ghosts"/>
+                <Switch IsToggled="{Binding Settings.ShowGhostCaptures}"/>
+            </StackLayout>
             <BoxView/>
             <Label Text="Camera"
                    Style="{DynamicResource header}"/>

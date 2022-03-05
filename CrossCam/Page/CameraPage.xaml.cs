@@ -502,7 +502,10 @@ namespace CrossCam.Page
             else
             {
                 if (_viewModel.Settings.Mode == DrawMode.RedCyanAnaglyph ||
-                    _viewModel.Settings.Mode == DrawMode.GrayscaleRedCyanAnaglyph)
+                    _viewModel.Settings.Mode == DrawMode.GrayscaleRedCyanAnaglyph ||
+                    _viewModel.Settings.ShowGhostCaptures && 
+                    (_viewModel.Settings.Mode == DrawMode.Cross ||
+                     _viewModel.Settings.Mode == DrawMode.Parallel))
                 {
                     rollBounds.X = 0.5;
                 }
@@ -717,97 +720,94 @@ namespace CrossCam.Page
             if (_viewModel?.LocalPreviewBitmap == null || 
                 _viewModel.Settings.Mode == DrawMode.Cardboard) return;
 
-            var xProportion = 0f;
-            var yProportion = 0f;
+            float xProportion;
+            float yProportion;
             var aspect = _viewModel.LocalPreviewBitmap.Height / (_viewModel.LocalPreviewBitmap.Width * 1f);
             var isPortrait = _viewModel.LocalPreviewBitmap.Height > _viewModel.LocalPreviewBitmap.Width;
 
-            switch (_viewModel.Settings.Mode)
+            var overlayDisplay = _viewModel.Settings.Mode == DrawMode.RedCyanAnaglyph ||
+                                 _viewModel.Settings.Mode == DrawMode.GrayscaleRedCyanAnaglyph ||
+                                 _viewModel.Settings.ShowGhostCaptures;
+
+            if (overlayDisplay)
             {
-                case DrawMode.Cross:
-                case DrawMode.Parallel:
+                double longNativeLength;
+                double shortNativeLength;
+                double tapLong;
+                double tapShort;
+
+                if (isPortrait)
                 {
-                    double baseWidth;
-                    if (_viewModel.Settings.Mode == DrawMode.Cross)
-                    {
-                        baseWidth = Width * DeviceDisplay.MainDisplayInfo.Density / 2f;
-                    }
-                    else
-                    {
-                        baseWidth = _viewModel.Settings.MaximumParallelWidth * DeviceDisplay.MainDisplayInfo.Density / 2f;
-                    }
-                    var leftBufferX = Width * DeviceDisplay.MainDisplayInfo.Density / 2f - baseWidth;
-                    if (_viewModel.Settings.IsCaptureLeftFirst &&
-                        _viewModel.IsNothingCaptured ||
-                        !_viewModel.Settings.IsCaptureLeftFirst &&
-                        _viewModel.IsExactlyOnePictureTaken)
-                    {
-                        xProportion = (float)(_tapLocation.X / baseWidth);
-                    }
-                    else
-                    {
-                        xProportion = (float)((_tapLocation.X - baseWidth) / baseWidth);
-                        leftBufferX += baseWidth;
-                    }
-                    xProportion = Math.Clamp(xProportion, 0, 1);
-
-                    var baseHeight = baseWidth * aspect;
-                    var minY = (Height * DeviceDisplay.MainDisplayInfo.Density - baseHeight) / 2f;
-
-                    yProportion = (float)((_tapLocation.Y - minY) / baseHeight);
-                    yProportion = Math.Clamp(yProportion, 0, 1);
-
-                    _viewModel.FocusCircleX = (xProportion * baseWidth + leftBufferX) / DeviceDisplay.MainDisplayInfo.Density;
-                    _viewModel.FocusCircleY = (yProportion * baseHeight + minY) / DeviceDisplay.MainDisplayInfo.Density;
-                    break;
+                    aspect = _viewModel.LocalPreviewBitmap.Height / (_viewModel.LocalPreviewBitmap.Width * 1f);
+                    longNativeLength = Height * DeviceDisplay.MainDisplayInfo.Density;
+                    shortNativeLength = Width * DeviceDisplay.MainDisplayInfo.Density;
+                    tapLong = _tapLocation.Y;
+                    tapShort = _tapLocation.X;
                 }
-                case DrawMode.RedCyanAnaglyph:
-                case DrawMode.GrayscaleRedCyanAnaglyph:
+                else
                 {
-                    double longNativeLength;
-                    double shortNativeLength;
-                    double tapLong;
-                    double tapShort;
-
-                    if (isPortrait)
-                    {
-                        aspect = _viewModel.LocalPreviewBitmap.Height / (_viewModel.LocalPreviewBitmap.Width * 1f);
-                        longNativeLength = Height * DeviceDisplay.MainDisplayInfo.Density;
-                        shortNativeLength = Width * DeviceDisplay.MainDisplayInfo.Density;
-                        tapLong = _tapLocation.Y;
-                        tapShort = _tapLocation.X;
-                    }
-                    else
-                    {
-                        aspect = _viewModel.LocalPreviewBitmap.Width / (_viewModel.LocalPreviewBitmap.Height * 1f);
-                        longNativeLength = Width * DeviceDisplay.MainDisplayInfo.Density;
-                        shortNativeLength = Height * DeviceDisplay.MainDisplayInfo.Density;
-                        tapLong = _tapLocation.X;
-                        tapShort = _tapLocation.Y;
-                    }
-
-                    var minLong = (longNativeLength - shortNativeLength * aspect) / 2f;
-
-                    var longProportion = (float)((tapLong - minLong) / (shortNativeLength * aspect));
-                    longProportion = Math.Clamp(longProportion, 0, 1);
-                    double shortProportion = (float)(tapShort / shortNativeLength);
-
-                    if (isPortrait)
-                    {
-                        xProportion = (float)shortProportion;
-                        yProportion = longProportion;
-                        _viewModel.FocusCircleX = shortProportion * Width;
-                        _viewModel.FocusCircleY = longProportion * (Width * aspect) + minLong / DeviceDisplay.MainDisplayInfo.Density;
-                    }
-                    else
-                    {
-                        xProportion = longProportion;
-                        yProportion = (float)shortProportion;
-                        _viewModel.FocusCircleY = shortProportion * Height;
-                        _viewModel.FocusCircleX = longProportion * (Height * aspect) + minLong / DeviceDisplay.MainDisplayInfo.Density;
-                    }
-                    break;
+                    aspect = _viewModel.LocalPreviewBitmap.Width / (_viewModel.LocalPreviewBitmap.Height * 1f);
+                    longNativeLength = Width * DeviceDisplay.MainDisplayInfo.Density;
+                    shortNativeLength = Height * DeviceDisplay.MainDisplayInfo.Density;
+                    tapLong = _tapLocation.X;
+                    tapShort = _tapLocation.Y;
                 }
+
+                var minLong = (longNativeLength - shortNativeLength * aspect) / 2f;
+
+                var longProportion = (float)((tapLong - minLong) / (shortNativeLength * aspect));
+                longProportion = Math.Clamp(longProportion, 0, 1);
+                double shortProportion = (float)(tapShort / shortNativeLength);
+
+                if (isPortrait)
+                {
+                    xProportion = (float)shortProportion;
+                    yProportion = longProportion;
+                    _viewModel.FocusCircleX = shortProportion * Width;
+                    _viewModel.FocusCircleY = longProportion * (Width * aspect) + minLong / DeviceDisplay.MainDisplayInfo.Density;
+                }
+                else
+                {
+                    xProportion = longProportion;
+                    yProportion = (float)shortProportion;
+                    _viewModel.FocusCircleY = shortProportion * Height;
+                    _viewModel.FocusCircleX = longProportion * (Height * aspect) + minLong / DeviceDisplay.MainDisplayInfo.Density;
+                }
+            }
+            else
+            {
+                double baseWidth;
+                if (_viewModel.Settings.Mode == DrawMode.Cross)
+                {
+                    baseWidth = Width * DeviceDisplay.MainDisplayInfo.Density / 2f;
+                }
+                else
+                {
+                    baseWidth = _viewModel.Settings.MaximumParallelWidth * DeviceDisplay.MainDisplayInfo.Density / 2f;
+                }
+                var leftBufferX = Width * DeviceDisplay.MainDisplayInfo.Density / 2f - baseWidth;
+                if (_viewModel.Settings.IsCaptureLeftFirst &&
+                    _viewModel.IsNothingCaptured ||
+                    !_viewModel.Settings.IsCaptureLeftFirst &&
+                    _viewModel.IsExactlyOnePictureTaken)
+                {
+                    xProportion = (float)(_tapLocation.X / baseWidth);
+                }
+                else
+                {
+                    xProportion = (float)((_tapLocation.X - baseWidth) / baseWidth);
+                    leftBufferX += baseWidth;
+                }
+                xProportion = Math.Clamp(xProportion, 0, 1);
+
+                var baseHeight = baseWidth * aspect;
+                var minY = (Height * DeviceDisplay.MainDisplayInfo.Density - baseHeight) / 2f;
+
+                yProportion = (float)((_tapLocation.Y - minY) / baseHeight);
+                yProportion = Math.Clamp(yProportion, 0, 1);
+
+                _viewModel.FocusCircleX = (xProportion * baseWidth + leftBufferX) / DeviceDisplay.MainDisplayInfo.Density;
+                _viewModel.FocusCircleY = (yProportion * baseHeight + minY) / DeviceDisplay.MainDisplayInfo.Density;
             }
 
             var convertedPoint = new PointF
