@@ -734,15 +734,14 @@ namespace CrossCam.ViewModel
                         CameraColumn = CameraColumn == 0 ? 1 : 0;
                     }
 
-                    (Edits.InsideCrop, Edits.OutsideCrop) = (Edits.OutsideCrop, Edits.InsideCrop);
-
-                    (Edits.LeftRotation, Edits.RightRotation) = (Edits.RightRotation, Edits.LeftRotation);
-
-                    (Edits.LeftKeystone, Edits.RightKeystone) = (Edits.RightKeystone, Edits.LeftKeystone);
-
-                    (Edits.LeftZoom, Edits.RightZoom) = (Edits.RightZoom, Edits.LeftZoom);
-
-                    Edits.VerticalAlignment = -Edits.VerticalAlignment;
+                    if (WorkflowStage != WorkflowStage.Capture)
+                    {
+                        (Edits.InsideCrop, Edits.OutsideCrop) = (Edits.OutsideCrop, Edits.InsideCrop);
+                        (Edits.LeftRotation, Edits.RightRotation) = (Edits.RightRotation, Edits.LeftRotation);
+                        (Edits.LeftKeystone, Edits.RightKeystone) = (Edits.RightKeystone, Edits.LeftKeystone);
+                        (Edits.LeftZoom, Edits.RightZoom) = (Edits.RightZoom, Edits.LeftZoom);
+                        Edits.VerticalAlignment = -Edits.VerticalAlignment;
+                    }
 
                     Settings.IsCaptureLeftFirst = !Settings.IsCaptureLeftFirst;
                     Settings.RaisePropertyChanged(nameof(Settings.IsCaptureLeftFirst));
