@@ -390,7 +390,7 @@ namespace CrossCam.Droid.CustomRenderer
                 }
             }
 
-            MessagingCenter.Send(new object(), CameraViewModel.PREVIEW_FRAME_MESSAGE, new PreviewFrame //TODO: this might be done faster by sending to GPU using OpenGL ES then read out to RGB: https://stackoverflow.com/questions/10775942/android-sdk-get-raw-preview-camera-image-without-displaying-it/10776349
+            MessagingCenter.Send(new object(), CameraViewModel.PREVIEW_FRAME_MESSAGE, new PreviewFrame
             {
                 Frame = stream.ToArray(),
                 Orientation = (byte)(_textureView.Rotation / 90f)
