@@ -274,10 +274,12 @@ namespace CrossCam.Page
                         PlaceSettingsRibbon();
                         break;
                     case nameof(CameraViewModel.LeftBitmap):
+                        ProcessDoubleTap();
                         _newLeftCapture = true;
                         _capturedCanvas.InvalidateSurface();
                         break;
                     case nameof(CameraViewModel.RightBitmap):
+                        ProcessDoubleTap();
                         _newRightCapture = true;
                         _capturedCanvas.InvalidateSurface();
                         break;
