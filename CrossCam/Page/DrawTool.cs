@@ -50,7 +50,7 @@ namespace CrossCam.Page
             if (withSwap)
             {
                 DrawImagesOnCanvasInternal(canvas, rightBitmap, leftBitmap,
-                    settings.BorderWidthProportion, settings.AddBorder, settings.BorderColor,
+                    settings.BorderWidthProportion, settings.AddBorder && isPreview, settings.BorderColor,
                     edits.InsideCrop + edits.LeftCrop, edits.RightCrop + edits.OutsideCrop,
                     edits.LeftCrop + edits.OutsideCrop, edits.InsideCrop + edits.RightCrop,
                     edits.TopCrop, edits.BottomCrop,
@@ -66,7 +66,7 @@ namespace CrossCam.Page
             else
             {
                 DrawImagesOnCanvasInternal(canvas, leftBitmap, rightBitmap,
-                    settings.BorderWidthProportion, settings.AddBorder, settings.BorderColor,
+                    settings.BorderWidthProportion, settings.AddBorder && isPreview, settings.BorderColor,
                     edits.LeftCrop + edits.OutsideCrop, edits.InsideCrop + edits.RightCrop, edits.InsideCrop + edits.LeftCrop,
                     edits.RightCrop + edits.OutsideCrop,
                     edits.TopCrop, edits.BottomCrop,

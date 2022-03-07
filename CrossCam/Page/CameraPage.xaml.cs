@@ -55,6 +55,9 @@ namespace CrossCam.Page
 
         private int _cardboardPreviewWidth;
 
+        private bool _newLeftCapture;
+        private bool _newRightCapture;
+
         public CameraPage()
 		{
             InitializeComponent();
@@ -271,7 +274,13 @@ namespace CrossCam.Page
                         PlaceSettingsRibbon();
                         break;
                     case nameof(CameraViewModel.LeftBitmap):
+                        _newLeftCapture = true;
+                        _capturedCanvas.InvalidateSurface();
+                        break;
                     case nameof(CameraViewModel.RightBitmap):
+                        _newRightCapture = true;
+                        _capturedCanvas.InvalidateSurface();
+                        break;
                     case nameof(CameraViewModel.LocalPreviewBitmap):
                         _capturedCanvas.InvalidateSurface();
                         break;
@@ -327,18 +336,40 @@ namespace CrossCam.Page
 	    {
 	        var canvas = e.Surface.Canvas;
 
-            canvas.Clear();
+            if (_viewModel.LeftBitmap == null &&
+                _viewModel.RightBitmap == null)
+            {
+                canvas.Clear();
+            }
 
-            var left = _viewModel.LeftBitmap ?? 
-                       (_viewModel.Settings.IsCaptureLeftFirst || 
-                        !_viewModel.Settings.IsCaptureLeftFirst && _viewModel.RightBitmap != null ?
-                           _viewModel.LocalPreviewBitmap : 
-                           null);
-            var right = _viewModel.RightBitmap ?? 
-                        (!_viewModel.Settings.IsCaptureLeftFirst || 
-                         _viewModel.Settings.IsCaptureLeftFirst && _viewModel.LeftBitmap != null ?
-                            _viewModel.LocalPreviewBitmap : 
-                            null);
+            SKBitmap left;
+            SKBitmap right;
+            if (_viewModel.LeftBitmap != null &&
+                _viewModel.RightBitmap != null)
+            {
+                canvas.Clear();
+
+                left = _viewModel.LeftBitmap;
+                right = _viewModel.RightBitmap;
+            }
+            else
+            {
+                left = _viewModel.CameraColumn == 0 ? 
+                    _viewModel.LocalPreviewBitmap
+                    : _newLeftCapture ? _viewModel.LeftBitmap : null;
+                if (_newLeftCapture)
+                {
+                    _newLeftCapture = false;
+                }
+
+                right = _viewModel.CameraColumn == 1 ? 
+                    _viewModel.LocalPreviewBitmap
+                    : _newRightCapture ? _viewModel.RightBitmap : null;
+                if (_newRightCapture)
+                {
+                    _newRightCapture = false;
+                }
+            }
 
             var isPreview = _viewModel.IsExactlyOnePictureTaken || _viewModel.IsNothingCaptured;
 
