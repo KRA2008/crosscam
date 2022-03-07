@@ -569,7 +569,7 @@
                 <Switch IsToggled="{Binding Settings.ShowPreviewFuseGuide}"/>
             </StackLayout>
             <StackLayout Orientation="Horizontal">
-                <Label Text="Capture with ghosts"/>
+                <Label Text="Capture with ghost overlay during second capture"/>
                 <Switch IsToggled="{Binding Settings.ShowGhostCaptures}"/>
             </StackLayout>
             <BoxView/>
