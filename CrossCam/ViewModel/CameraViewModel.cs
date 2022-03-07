@@ -173,6 +173,8 @@ namespace CrossCam.ViewModel
 
         public bool IsNothingCaptured => LeftBitmap == null && RightBitmap == null;
 
+        private bool _isClearPromptOpen;
+
         public Rectangle PairButtonPosition
         {
             get
@@ -611,11 +613,16 @@ namespace CrossCam.ViewModel
                 {
                     await Device.InvokeOnMainThreadAsync(async () =>
                     {
-                        var confirmClear = await CoreMethods.DisplayAlert("Really clear?",
-                            "Are you sure you want to clear your pictures and start over?", "Yes, clear", "No");
-                        if (confirmClear)
+                        if (!_isClearPromptOpen)
                         {
-                            ClearCaptures();
+                            _isClearPromptOpen = true;
+                            var confirmClear = await CoreMethods.DisplayAlert("Really clear?",
+                                "Are you sure you want to clear your pictures and start over?", "Yes, clear", "No");
+                            if (confirmClear)
+                            {
+                                ClearCaptures();
+                            }
+                            _isClearPromptOpen = false;
                         }
                     });
                 }
