@@ -132,20 +132,7 @@ namespace CrossCam.Model
         public bool SaveForTriple { get; set; }
         public bool SaveForQuad { get; set; }
         public bool SaveWithFuseGuide { get; set; }
-
-        private bool _saveForCardboard;
-        public bool SaveForCardboard
-        {
-            get => _saveForCardboard;
-            set
-            {
-                _saveForCardboard = value;
-                if (_saveForCardboard)
-                {
-                    SaveSidesSeparately = true;
-                }
-            }
-        }
+        public bool SaveForCardboard { get; set; }
 
         public bool SendErrorReports1 { get; set; }
 
@@ -309,11 +296,6 @@ namespace CrossCam.Model
                 if (value)
                 {
                     SaveRedundantFirstSide = false;
-                }
-
-                if (!value)
-                {
-                    SaveForCardboard = false;
                 }
             }
         }
