@@ -1876,6 +1876,34 @@
                 <PanGestureRecognizer PanUpdated="LowerLinePanned"/>
             </ContentView.GestureRecognizers>
         </ContentView>
+        <StackLayout AbsoluteLayout.LayoutFlags="PositionProportional,HeightProportional"
+                     AbsoluteLayout.LayoutBounds="0.5,0,420,1"
+                     Orientation="Horizontal"
+                     IsVisible="False"
+                     InputTransparent="True">
+            <StackLayout.Triggers>
+                <MultiTrigger TargetType="StackLayout">
+                    <MultiTrigger.Conditions>
+                        <BindingCondition Binding="{Binding Settings.Mode, Converter={vc:EnumCompareConverter}, ConverterParameter={x:Static vm:DrawMode.Cardboard}}"
+                                          Value="True"/>
+                        <BindingCondition Binding="{Binding IsBusy}"
+                                          Value="True"/>
+                    </MultiTrigger.Conditions>
+                    <Setter Property="IsVisible"
+                            Value="True"/>
+                </MultiTrigger>
+            </StackLayout.Triggers>
+            <ActivityIndicator Color="White"
+                               HorizontalOptions="StartAndExpand"
+                               VerticalOptions="CenterAndExpand"
+                               IsVisible="True"
+                               IsRunning="True"/>
+            <ActivityIndicator Color="White"
+                               HorizontalOptions="EndAndExpand"
+                               VerticalOptions="CenterAndExpand"
+                               IsVisible="True"
+                               IsRunning="True"/>
+        </StackLayout>
         <!--<StackLayout AbsoluteLayout.LayoutFlags="PositionProportional,HeightProportional"
                      AbsoluteLayout.LayoutBounds="0.5,0,400,1"
                      IsVisible="{Binding Settings.Mode, Converter={vc:EnumCompareConverter}, ConverterParameter={x:Static vm:DrawMode.Cardboard}}"

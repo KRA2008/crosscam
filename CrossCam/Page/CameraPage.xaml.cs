@@ -222,7 +222,7 @@ namespace CrossCam.Page
                 Device.BeginInvokeOnMainThread(() =>
                 {
                     var layout = AbsoluteLayout.GetLayoutBounds(_doubleMoveHintStack);
-                    layout.Width = _viewModel.Settings.CardboardIpd + 120;
+                    layout.Width = _viewModel.Settings.CardboardIpd + 100;
                     AbsoluteLayout.SetLayoutBounds(_doubleMoveHintStack, layout);
 
                     EvaluateSensors();
@@ -344,8 +344,9 @@ namespace CrossCam.Page
                 canvas.Clear();
             }
 
-            SKBitmap left;
-            SKBitmap right;
+            var isPreview = _viewModel.IsExactlyOnePictureTaken || _viewModel.IsNothingCaptured;
+            SKBitmap left = null;
+            SKBitmap right = null;
             if (_viewModel.LeftBitmap != null &&
                 _viewModel.RightBitmap != null)
             {
@@ -356,24 +357,26 @@ namespace CrossCam.Page
             }
             else
             {
-                left = _viewModel.CameraColumn == 0 ? 
-                    _viewModel.LocalPreviewBitmap
-                    : _newLeftCapture ? _viewModel.LeftBitmap : null;
                 if (_newLeftCapture)
                 {
+                    left = _viewModel.LeftBitmap;
                     _newLeftCapture = false;
                 }
+                else if (_viewModel.CameraColumn == 0)
+                {
+                    left = _viewModel.LocalPreviewBitmap;
+                }
 
-                right = _viewModel.CameraColumn == 1 ? 
-                    _viewModel.LocalPreviewBitmap
-                    : _newRightCapture ? _viewModel.RightBitmap : null;
                 if (_newRightCapture)
                 {
+                    right = _viewModel.RightBitmap;
                     _newRightCapture = false;
                 }
+                else if (_viewModel.CameraColumn == 1)
+                {
+                    right = _viewModel.LocalPreviewBitmap;
+                }
             }
-
-            var isPreview = _viewModel.IsExactlyOnePictureTaken || _viewModel.IsNothingCaptured;
 
             if (_viewModel.Settings.Mode == DrawMode.Cardboard)
             {
@@ -382,37 +385,15 @@ namespace CrossCam.Page
                 {
                     left = right = _viewModel.LocalPreviewBitmap;
                 }
-
-                if (left?.Width > right?.Width)
-                {
-                    _cardboardPreviewWidth = right.Width;
-                }
-
-                if (left?.Width < right?.Width)
-                {
-                    _cardboardPreviewWidth = left.Width;
-                }
-
-                if (left?.Width > _cardboardPreviewWidth &&
-                    _cardboardPreviewWidth > 0)
-                {
-                    left = CameraViewModel.BitmapDownsize(left, _cardboardPreviewWidth / (left.Width * 1d));
-                }
-
-                if (right?.Width > _cardboardPreviewWidth &&
-                    _cardboardPreviewWidth > 0)
-                {
-                    right = CameraViewModel.BitmapDownsize(right, _cardboardPreviewWidth / (right.Width * 1d));
-                }
             }
 
             DrawTool.DrawImagesOnCanvas(
-                canvas, left, right,
-                _viewModel.Settings,
-                _viewModel.Edits,
-                _viewModel.Settings.Mode,
-                _viewModel.WorkflowStage == WorkflowStage.FovCorrection,
-                isPreview: isPreview);
+            canvas, left, right,
+            _viewModel.Settings,
+            _viewModel.Edits,
+            _viewModel.Settings.Mode,
+            _viewModel.WorkflowStage == WorkflowStage.FovCorrection,
+            isPreview: isPreview);
         }
 
         private void OnPairedPreviewCanvasInvalidated(object sender, SKPaintSurfaceEventArgs e)
