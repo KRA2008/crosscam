@@ -21,19 +21,18 @@ namespace CrossCam.Page
         public static void DrawImagesOnCanvas(SKCanvas canvas, SKBitmap leftBitmap, SKBitmap rightBitmap,
             Settings settings, Edits edits, DrawMode drawMode, bool isFov = false, bool withSwap = false, bool isPreview = false)
         {
-
-            if (drawMode == DrawMode.Cardboard &&
-                edits.OutsideCrop == 0 &&
-                edits.InsideCrop == 0)
+            double innerCardboardCrop = 0;
+            double outerCardboardCrop = 0;
+            if (drawMode == DrawMode.Cardboard)
             {
-                var neededCrop = CalculateOutsideCropForCardboardWidthFit(settings);
-                if (neededCrop > 0)
+                var cardboardCrop = CalculateOutsideCropForCardboardWidthFit(settings);
+                if (cardboardCrop > 0)
                 {
-                    edits.OutsideCrop = neededCrop;
+                    outerCardboardCrop = cardboardCrop;
                 }
                 else
                 {
-                    edits.InsideCrop = neededCrop;
+                    innerCardboardCrop = cardboardCrop;
                 }
             }
 
@@ -47,19 +46,23 @@ namespace CrossCam.Page
 
             var drawQuality = isPreview ? SKFilterQuality.Low : SKFilterQuality.High;
 
+            var addBarrelDistortion =
+                settings.AddBarrelDistortion && settings.AddBarrelDistortionFinalOnly && !isPreview ||
+                settings.AddBarrelDistortion && !settings.AddBarrelDistortionFinalOnly;
+
             if (withSwap)
             {
                 DrawImagesOnCanvasInternal(canvas, rightBitmap, leftBitmap,
                     settings.BorderWidthProportion, settings.AddBorder && isPreview, settings.BorderColor,
-                    edits.InsideCrop + edits.LeftCrop, edits.RightCrop + edits.OutsideCrop,
-                    edits.LeftCrop + edits.OutsideCrop, edits.InsideCrop + edits.RightCrop,
+                    edits.InsideCrop + edits.LeftCrop + innerCardboardCrop, edits.RightCrop + edits.OutsideCrop + outerCardboardCrop,
+                    edits.LeftCrop + edits.OutsideCrop + outerCardboardCrop, edits.InsideCrop + edits.RightCrop + innerCardboardCrop,
                     edits.TopCrop, edits.BottomCrop,
                     edits.RightRotation, edits.LeftRotation,
                     edits.VerticalAlignment,
                     edits.RightZoom + (isFov ? edits.FovRightCorrection : 0), edits.LeftZoom + (isFov ? edits.FovLeftCorrection : 0),
                     edits.RightKeystone, edits.LeftKeystone,
                     drawMode, fuseGuideRequested,
-                    settings.CardboardIpd, settings.CardboardBarrelDistortion,
+                    settings.CardboardIpd, addBarrelDistortion, settings.CardboardBarrelDistortion,
                     drawQuality,
                     useGhosts);
             }
@@ -67,15 +70,15 @@ namespace CrossCam.Page
             {
                 DrawImagesOnCanvasInternal(canvas, leftBitmap, rightBitmap,
                     settings.BorderWidthProportion, settings.AddBorder && isPreview, settings.BorderColor,
-                    edits.LeftCrop + edits.OutsideCrop, edits.InsideCrop + edits.RightCrop, edits.InsideCrop + edits.LeftCrop,
-                    edits.RightCrop + edits.OutsideCrop,
+                    edits.LeftCrop + edits.OutsideCrop + outerCardboardCrop, edits.InsideCrop + edits.RightCrop + innerCardboardCrop, edits.InsideCrop + edits.LeftCrop + innerCardboardCrop,
+                    edits.RightCrop + edits.OutsideCrop + outerCardboardCrop,
                     edits.TopCrop, edits.BottomCrop,
                     edits.LeftRotation, edits.RightRotation,
                     edits.VerticalAlignment,
                     edits.LeftZoom + (isFov ? edits.FovLeftCorrection : 0), edits.RightZoom + (isFov ? edits.FovRightCorrection : 0),
                     edits.LeftKeystone, edits.RightKeystone,
                     drawMode, fuseGuideRequested,
-                    settings.CardboardIpd, settings.CardboardBarrelDistortion,
+                    settings.CardboardIpd, addBarrelDistortion, settings.CardboardBarrelDistortion,
                     drawQuality,
                     useGhosts);
             }
@@ -90,7 +93,7 @@ namespace CrossCam.Page
             double leftZoom, double rightZoom,
             float leftKeystone, float rightKeystone,
             DrawMode drawMode, bool fuseGuideRequested,
-            int cardboardIpd, int barrelStrength,
+            int cardboardIpd, bool addBarrelDistortion, int barrelStrength,
             SKFilterQuality quality, bool useGhosts)
         {
             if (leftBitmap == null && rightBitmap == null) return;
@@ -231,7 +234,8 @@ namespace CrossCam.Page
                 var srcWidth = (float)(width - width * (leftLeftCrop + leftRightCrop));
                 var srcHeight = (float)(height - height * (topCrop + bottomCrop + Math.Abs(alignment)));
 
-                if (drawMode == DrawMode.Cardboard)
+                if (drawMode == DrawMode.Cardboard &&
+                    addBarrelDistortion)
                 {
                     var openCv = DependencyService.Get<IOpenCv>();
                     if (openCv.IsOpenCvSupported())
@@ -324,7 +328,8 @@ namespace CrossCam.Page
                 var srcWidth = (float) (width - width * (rightLeftCrop + rightRightCrop));
                 var srcHeight = (float) (height - height * (topCrop + bottomCrop + Math.Abs(alignment)));
 
-                if (drawMode == DrawMode.Cardboard)
+                if (drawMode == DrawMode.Cardboard &&
+                    addBarrelDistortion)
                 {
                     var openCv = DependencyService.Get<IOpenCv>();
                     if (openCv.IsOpenCvSupported())

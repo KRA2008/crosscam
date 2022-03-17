@@ -77,10 +77,54 @@
             </StackLayout>
             <StackLayout Orientation="Horizontal"
                          IsVisible="{Binding Settings.Mode, Converter={vc:EnumCompareConverter}, ConverterParameter={x:Static vm:DrawMode.Cardboard}}">
-                <Label Text="Cardboard barrel distortion strength"/>
+                <Label Text="Add lens correction (may lower frame rate)"/>
+                <Switch IsToggled="{Binding Settings.AddBarrelDistortion}"/>
+            </StackLayout>
+            <StackLayout Orientation="Horizontal"
+                         IsVisible="False">
+                <StackLayout.Triggers>
+                    <MultiTrigger TargetType="StackLayout">
+                        <MultiTrigger.Conditions>
+                            <BindingCondition Binding="{Binding Settings.Mode, Converter={vc:EnumCompareConverter}, ConverterParameter={x:Static vm:DrawMode.Cardboard}}"
+                                              Value="True"/>
+                            <BindingCondition Binding="{Binding Settings.AddBarrelDistortion}"
+                                              Value="True"/>
+                        </MultiTrigger.Conditions>
+                        <Setter Property="IsVisible"
+                                Value="True"/>
+                    </MultiTrigger>
+                </StackLayout.Triggers>
+                <Label Text="Add lens correction to final images only (may slow down final display)"/>
+                <Switch IsToggled="{Binding Settings.AddBarrelDistortionFinalOnly}"/>
+            </StackLayout>
+            <StackLayout Orientation="Horizontal"
+                         IsVisible="False">
+                <StackLayout.Triggers>
+                    <MultiTrigger TargetType="StackLayout">
+                        <MultiTrigger.Conditions>
+                            <BindingCondition Binding="{Binding Settings.Mode, Converter={vc:EnumCompareConverter}, ConverterParameter={x:Static vm:DrawMode.Cardboard}}"
+                                              Value="True"/>
+                            <BindingCondition Binding="{Binding Settings.AddBarrelDistortion}"
+                                              Value="True"/>
+                        </MultiTrigger.Conditions>
+                        <Setter Property="IsVisible"
+                                Value="True"/>
+                    </MultiTrigger>
+                </StackLayout.Triggers>
+                <Label Text="Lens correction strength"/>
                 <Frame>
                     <Picker ItemsSource="{Binding ZeroToOneThousand}"
                             SelectedIndex="{Binding Settings.CardboardBarrelDistortion}"
+                            WidthRequest="50"
+                            HorizontalOptions="EndAndExpand"/>
+                </Frame>
+            </StackLayout>
+            <StackLayout Orientation="Horizontal"
+                         IsVisible="{Binding Settings.Mode, Converter={vc:EnumCompareConverter}, ConverterParameter={x:Static vm:DrawMode.Cardboard}}">
+                <Label Text="Preview resolution proportion (decreasing may increase frame rate)"/>
+                <Frame>
+                    <Picker ItemsSource="{Binding ZeroToOneHundred}"
+                            SelectedIndex="{Binding Settings.CardboardResolutionPercentage}"
                             WidthRequest="50"
                             HorizontalOptions="EndAndExpand"/>
                 </Frame>

@@ -18,7 +18,7 @@ namespace CrossCam.Model
                 if (intValue < 0) return;
 
                 var totalSaveModes = 0;
-                if(SaveForCrossView)
+                if (SaveForCrossView)
                 {
                     totalSaveModes++;
                 }
@@ -252,7 +252,7 @@ namespace CrossCam.Model
             get => _borderColor;
             set
             {
-                var intValue = (int) value;
+                var intValue = (int)value;
                 if (intValue < 0) return;
                 _borderColor = value;
             }
@@ -327,7 +327,6 @@ namespace CrossCam.Model
         }
 
         private int _maximumParallelWidth;
-
         public int MaximumParallelWidth
         {
             get => _maximumParallelWidth;
@@ -365,6 +364,36 @@ namespace CrossCam.Model
                 }
             }
         }
+
+        private bool _addBarrelDistortion;
+
+        public bool AddBarrelDistortion
+        {
+            get => _addBarrelDistortion;
+            set
+            {
+                _addBarrelDistortion = value;
+                if (!value)
+                {
+                    AddBarrelDistortionFinalOnly = false;
+                }
+            }
+        }
+
+        private int _cardboardResolutionPercentage;
+        public int CardboardResolutionPercentage 
+        { 
+            get => _cardboardResolutionPercentage;
+            set
+            {
+                if (value > 0)
+                {
+                    _cardboardResolutionPercentage = value;
+                }
+            }
+        }
+
+        public bool AddBarrelDistortionFinalOnly { get; set; }
 
         public AlignmentSettings AlignmentSettings { get; set; }
 
@@ -436,6 +465,9 @@ namespace CrossCam.Model
 
             CardboardIpd = 400;
             CardboardBarrelDistortion = 200;
+            AddBarrelDistortion = false;
+            AddBarrelDistortionFinalOnly = false;
+            CardboardResolutionPercentage = 100;
 
             SendErrorReports1 = true;
 

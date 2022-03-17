@@ -397,16 +397,12 @@ namespace CrossCam.ViewModel
             {
                 if (LeftBitmap == null || RightBitmap == null)
                 {
-                    if (frame.Orientation.HasValue)
-                    {
-                        LocalPreviewBitmap = CorrectBitmapOrientation(
+                    LocalPreviewBitmap = frame.Orientation.HasValue
+                        ? CorrectBitmapOrientation(
                             SKBitmap.Decode(frame.Frame),
-                            frame.Orientation.Value);
-                    }
-                    else
-                    {
-                        LocalPreviewBitmap = DecodeBitmapAndCorrectOrientation(frame.Frame);
-                    }
+                            frame.Orientation.Value, Settings.CardboardResolutionPercentage / 100d)
+                        : DecodeBitmapAndCorrectOrientation(frame.Frame,
+                            downsizeProportion: Settings.CardboardResolutionPercentage / 100d);
                 }
             });
 
@@ -2077,21 +2073,20 @@ namespace CrossCam.ViewModel
             return color.Red + color.Green + color.Blue;
         }
 
-        public SKBitmap DecodeBitmapAndCorrectOrientation(byte[] bytes, bool withOrientationByte = false)
+        public SKBitmap DecodeBitmapAndCorrectOrientation(byte[] bytes, bool withOrientationByte = false, double downsizeProportion = 1)
         {
             try
             {
-
                 withOrientationByte = withOrientationByte && Device.RuntimePlatform == Device.Android;
                 if (withOrientationByte)
                 {
                     using var stream = new MemoryStream(bytes, 0, bytes.Length - 1);
-                    return InternalDecodeAndCorrect(stream, bytes.Last());
+                    return InternalDecodeAndCorrect(stream, bytes.Last(), downsizeProportion);
                 }
 
                 using (var stream = new MemoryStream(bytes))
                 {
-                    return InternalDecodeAndCorrect(stream, null);
+                    return InternalDecodeAndCorrect(stream, null, downsizeProportion);
                 }
             }
             catch (Exception e)
@@ -2104,7 +2099,7 @@ namespace CrossCam.ViewModel
             }
         }
 
-        private SKBitmap InternalDecodeAndCorrect(Stream stream, byte? orientationByte, double downsizeProportion = 1)
+        private SKBitmap InternalDecodeAndCorrect(Stream stream, byte? orientationByte, double downsizeProportion)
         {
             SKCodecOrigin origin = 0;
             using var data = SKData.Create(stream);

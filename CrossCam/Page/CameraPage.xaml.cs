@@ -336,10 +336,16 @@ namespace CrossCam.Page
 
         private void OnCapturedCanvasInvalidated(object sender, SKPaintSurfaceEventArgs e)
 	    {
-	        var canvas = e.Surface.Canvas;
+            var canvas = e.Surface.Canvas;
 
             if (_viewModel.LeftBitmap == null &&
                 _viewModel.RightBitmap == null)
+            {
+                canvas.Clear();
+            }
+
+            if (_viewModel.Settings.Mode == DrawMode.RedCyanAnaglyph ||
+                _viewModel.Settings.Mode == DrawMode.GrayscaleRedCyanAnaglyph)
             {
                 canvas.Clear();
             }
@@ -357,7 +363,10 @@ namespace CrossCam.Page
             }
             else
             {
-                if (_newLeftCapture)
+                if (_newLeftCapture || 
+                    (_viewModel.Settings.Mode == DrawMode.RedCyanAnaglyph || 
+                     _viewModel.Settings.Mode == DrawMode.GrayscaleRedCyanAnaglyph) &&
+                    _viewModel.LeftBitmap != null)
                 {
                     left = _viewModel.LeftBitmap;
                     _newLeftCapture = false;
@@ -367,7 +376,10 @@ namespace CrossCam.Page
                     left = _viewModel.LocalPreviewBitmap;
                 }
 
-                if (_newRightCapture)
+                if (_newRightCapture || 
+                    (_viewModel.Settings.Mode == DrawMode.RedCyanAnaglyph || 
+                    _viewModel.Settings.Mode == DrawMode.GrayscaleRedCyanAnaglyph) &&
+                    _viewModel.RightBitmap != null)
                 {
                     right = _viewModel.RightBitmap;
                     _newRightCapture = false;
