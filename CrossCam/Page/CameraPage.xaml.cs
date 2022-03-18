@@ -27,7 +27,7 @@ namespace CrossCam.Page
         
 	    private const double LEVEL_ICON_WIDTH = 60;
         private const double BUBBLE_LEVEL_MAX_TIP = 0.1;
-        private const double ACCELEROMETER_MEASURMENT_WEIGHT = 12;
+        private const double ROLL_GUIDE_MEASURMENT_WEIGHT = 12;
         private const double ROLL_GOOD_THRESHOLD = 0.01;
         private readonly ImageSource _levelBubbleImage = ImageSource.FromFile("horizontalLevelInside");
 	    private readonly ImageSource _levelOutsideImage = ImageSource.FromFile("horizontalLevelOutside");
@@ -56,9 +56,10 @@ namespace CrossCam.Page
         private double _lastAccelerometerReadingY;
         private double _lastAccelerometerReadingZ;
 
-        private double _cardboardDeltaTheta;
+        private double _cardboardTipAverageActive;
         private double? _cardboardCenterTheta;
-        private const double CardboardThetaThreshold = 0.001;
+        private const double CardboardThetaThreshold = 0.00001;
+        private const double CARDBOARD_DELTA_MEASUREMENT_WEIGHT = 12;
 
         private int _cardboardPreviewWidth;
 
@@ -110,9 +111,7 @@ namespace CrossCam.Page
 	    {
 	        if (_viewModel != null)
 	        {
-	            if (_viewModel.Settings.ShowRollGuide && 
-	                _viewModel.WorkflowStage == WorkflowStage.Capture &&
-	                isAppRunning)
+	            if (isAppRunning)
 	            {
 	                if (!Accelerometer.IsMonitoring)
 	                {
@@ -158,15 +157,15 @@ namespace CrossCam.Page
             _lastAccelerometerReadingX = args.Reading.Acceleration.X;
             _lastAccelerometerReadingY = args.Reading.Acceleration.Y;
             _lastAccelerometerReadingZ = args.Reading.Acceleration.Z;
-            Debug.WriteLine("angle: " + Math.Atan2(_lastAccelerometerReadingX, _lastAccelerometerReadingZ) * 180 / Math.PI);
-            Debug.WriteLine("X: " + _lastAccelerometerReadingX + " Y: " + _lastAccelerometerReadingY + " Z: " + _lastAccelerometerReadingZ);
+            //Debug.WriteLine("angle: " + Math.Atan2(_lastAccelerometerReadingX, _lastAccelerometerReadingZ) * 180 / Math.PI);
+            //Debug.WriteLine("X: " + _lastAccelerometerReadingX + " Y: " + _lastAccelerometerReadingY + " Z: " + _lastAccelerometerReadingZ);
         }
 
         private void UpdateLevelFromAccelerometerData()
         {
             Device.BeginInvokeOnMainThread(() =>
             {
-                _averageRoll *= (ACCELEROMETER_MEASURMENT_WEIGHT - 1) / ACCELEROMETER_MEASURMENT_WEIGHT;
+                _averageRoll *= (ROLL_GUIDE_MEASURMENT_WEIGHT - 1) / ROLL_GUIDE_MEASURMENT_WEIGHT;
 
                 if (_viewModel != null)
                 {
@@ -177,29 +176,37 @@ namespace CrossCam.Page
                     {
                         if (_viewModel.IsViewInverted)
                         {
-                            _averageRoll -= xReading / ACCELEROMETER_MEASURMENT_WEIGHT;
+                            _averageRoll -= xReading / ROLL_GUIDE_MEASURMENT_WEIGHT;
                         }
                         else
                         {
-                            _averageRoll += xReading / ACCELEROMETER_MEASURMENT_WEIGHT;
+                            _averageRoll += xReading / ROLL_GUIDE_MEASURMENT_WEIGHT;
                         }
                     }
                     else //landscape
                     {
                         if (_viewModel.IsViewInverted)
                         {
-                            _averageRoll += yReading / ACCELEROMETER_MEASURMENT_WEIGHT;
+                            _averageRoll += yReading / ROLL_GUIDE_MEASURMENT_WEIGHT;
                         }
                         else
                         {
-                            _averageRoll -= yReading / ACCELEROMETER_MEASURMENT_WEIGHT;
+                            _averageRoll -= yReading / ROLL_GUIDE_MEASURMENT_WEIGHT;
                         }
                     }
 
-                    if (_cardboardCenterTheta.HasValue &&
-                        Math.Abs(Math.Atan2(_lastAccelerometerReadingX, _lastAccelerometerReadingZ) - _cardboardCenterTheta.Value) > CardboardThetaThreshold)
+                    if (_cardboardCenterTheta.HasValue)
                     {
-                        _cardboardDeltaTheta = Math.Atan2(_lastAccelerometerReadingX, _lastAccelerometerReadingZ) - _cardboardCenterTheta.Value;
+                        var delta = _cardboardCenterTheta.Value - Math.Atan2(_lastAccelerometerReadingX, _lastAccelerometerReadingZ);
+                        _cardboardTipAverageActive *= (CARDBOARD_DELTA_MEASUREMENT_WEIGHT - 1) / CARDBOARD_DELTA_MEASUREMENT_WEIGHT;
+                        if (_viewModel.IsViewInverted)
+                        {
+                            _cardboardTipAverageActive -= delta;
+                        }
+                        else
+                        {
+                            _cardboardTipAverageActive += delta;
+                        }
                         _capturedCanvas.InvalidateSurface();
                     }
 
@@ -317,9 +324,14 @@ namespace CrossCam.Page
 
         private void CardboardAccelerometerCheckAndSaveOrientationSnapshot()
         {
-            if (_viewModel?.LeftBitmap != null && 
-                _viewModel.RightBitmap != null &&
-                _viewModel.Settings.Mode == DrawMode.Cardboard)
+            if (_viewModel.LeftBitmap == null ||
+                _viewModel.RightBitmap == null)
+            {
+                _cardboardCenterTheta = null;
+            } 
+            else if (_viewModel?.LeftBitmap != null && 
+                     _viewModel.RightBitmap != null && 
+                     _viewModel.Settings.Mode == DrawMode.Cardboard)
             {
                 _cardboardCenterTheta = Math.Atan2(_lastAccelerometerReadingX, _lastAccelerometerReadingZ);
             }
@@ -438,9 +450,7 @@ namespace CrossCam.Page
             _viewModel.Settings.Mode,
             _viewModel.WorkflowStage == WorkflowStage.FovCorrection,
             isPreview: isPreview,
-            cardboardDeltaTheta: _cardboardDeltaTheta);
-
-            _cardboardDeltaTheta = 0;
+            cardboardDeltaTheta: _cardboardCenterTheta.HasValue ? _cardboardTipAverageActive - _cardboardCenterTheta.Value : 0);
         }
 
         private void OnPairedPreviewCanvasInvalidated(object sender, SKPaintSurfaceEventArgs e)
