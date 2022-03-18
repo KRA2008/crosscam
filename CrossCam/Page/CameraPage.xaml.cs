@@ -1,5 +1,6 @@
 ﻿using System;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.Drawing;
 using System.Threading.Tasks;
 using System.Timers;
@@ -50,8 +51,14 @@ namespace CrossCam.Page
 	    private double _lowerLineHeight;
 
         private double _averageRoll;
+
         private double _lastAccelerometerReadingX;
         private double _lastAccelerometerReadingY;
+        private double _lastAccelerometerReadingZ;
+
+        private double _cardboardDeltaTheta;
+        private double? _cardboardCenterTheta;
+        private const double CardboardThetaThreshold = 0.001;
 
         private int _cardboardPreviewWidth;
 
@@ -150,6 +157,9 @@ namespace CrossCam.Page
         {
             _lastAccelerometerReadingX = args.Reading.Acceleration.X;
             _lastAccelerometerReadingY = args.Reading.Acceleration.Y;
+            _lastAccelerometerReadingZ = args.Reading.Acceleration.Z;
+            Debug.WriteLine("angle: " + Math.Atan2(_lastAccelerometerReadingX, _lastAccelerometerReadingZ) * 180 / Math.PI);
+            Debug.WriteLine("X: " + _lastAccelerometerReadingX + " Y: " + _lastAccelerometerReadingY + " Z: " + _lastAccelerometerReadingZ);
         }
 
         private void UpdateLevelFromAccelerometerData()
@@ -160,27 +170,37 @@ namespace CrossCam.Page
 
                 if (_viewModel != null)
                 {
-                    if (Math.Abs(_lastAccelerometerReadingX) < Math.Abs(_lastAccelerometerReadingY)) //portrait
+                    var xReading = _lastAccelerometerReadingX; //thread protection
+                    var yReading = _lastAccelerometerReadingY;
+                    var zReading = _lastAccelerometerReadingZ;
+                    if (Math.Abs(xReading) < Math.Abs(yReading)) //portrait
                     {
                         if (_viewModel.IsViewInverted)
                         {
-                            _averageRoll -= _lastAccelerometerReadingX / ACCELEROMETER_MEASURMENT_WEIGHT;
+                            _averageRoll -= xReading / ACCELEROMETER_MEASURMENT_WEIGHT;
                         }
                         else
                         {
-                            _averageRoll += _lastAccelerometerReadingX / ACCELEROMETER_MEASURMENT_WEIGHT;
+                            _averageRoll += xReading / ACCELEROMETER_MEASURMENT_WEIGHT;
                         }
                     }
                     else //landscape
                     {
                         if (_viewModel.IsViewInverted)
                         {
-                            _averageRoll += _lastAccelerometerReadingY / ACCELEROMETER_MEASURMENT_WEIGHT;
+                            _averageRoll += yReading / ACCELEROMETER_MEASURMENT_WEIGHT;
                         }
                         else
                         {
-                            _averageRoll -= _lastAccelerometerReadingY / ACCELEROMETER_MEASURMENT_WEIGHT;
+                            _averageRoll -= yReading / ACCELEROMETER_MEASURMENT_WEIGHT;
                         }
+                    }
+
+                    if (_cardboardCenterTheta.HasValue &&
+                        Math.Abs(Math.Atan2(_lastAccelerometerReadingX, _lastAccelerometerReadingZ) - _cardboardCenterTheta.Value) > CardboardThetaThreshold)
+                    {
+                        _cardboardDeltaTheta = Math.Atan2(_lastAccelerometerReadingX, _lastAccelerometerReadingZ) - _cardboardCenterTheta.Value;
+                        _capturedCanvas.InvalidateSurface();
                     }
 
                     if (Math.Abs(_averageRoll) < ROLL_GOOD_THRESHOLD &&
@@ -276,11 +296,13 @@ namespace CrossCam.Page
                     case nameof(CameraViewModel.LeftBitmap):
                         ProcessDoubleTap();
                         _newLeftCapture = true;
+                        CardboardAccelerometerCheckAndSaveOrientationSnapshot();
                         _capturedCanvas.InvalidateSurface();
                         break;
                     case nameof(CameraViewModel.RightBitmap):
                         ProcessDoubleTap();
                         _newRightCapture = true;
+                        CardboardAccelerometerCheckAndSaveOrientationSnapshot();
                         _capturedCanvas.InvalidateSurface();
                         break;
                     case nameof(CameraViewModel.LocalPreviewBitmap):
@@ -292,6 +314,16 @@ namespace CrossCam.Page
                 }
             });
 	    }
+
+        private void CardboardAccelerometerCheckAndSaveOrientationSnapshot()
+        {
+            if (_viewModel?.LeftBitmap != null && 
+                _viewModel.RightBitmap != null &&
+                _viewModel.Settings.Mode == DrawMode.Cardboard)
+            {
+                _cardboardCenterTheta = Math.Atan2(_lastAccelerometerReadingX, _lastAccelerometerReadingZ);
+            }
+        }
 
         private void SwapSidesIfCardboard()
         {
@@ -405,7 +437,10 @@ namespace CrossCam.Page
             _viewModel.Edits,
             _viewModel.Settings.Mode,
             _viewModel.WorkflowStage == WorkflowStage.FovCorrection,
-            isPreview: isPreview);
+            isPreview: isPreview,
+            cardboardDeltaTheta: _cardboardDeltaTheta);
+
+            _cardboardDeltaTheta = 0;
         }
 
         private void OnPairedPreviewCanvasInvalidated(object sender, SKPaintSurfaceEventArgs e)
