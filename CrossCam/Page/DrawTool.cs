@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using CrossCam.Model;
 using CrossCam.ViewModel;
 using CrossCam.Wrappers;
