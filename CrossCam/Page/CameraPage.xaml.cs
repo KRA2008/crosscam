@@ -56,10 +56,10 @@ namespace CrossCam.Page
         private double _lastAccelerometerReadingY;
         private double _lastAccelerometerReadingZ;
 
-        private double _cardboardTipAverageActive;
-        private double? _cardboardCenterTheta;
+        private double _cardboardPanDeltaVertAngle;
+        private double? _cardboardPanHomeVertAngle;
         private const double CardboardThetaThreshold = 0.00001;
-        private const double CARDBOARD_DELTA_MEASUREMENT_WEIGHT = 12;
+        private const double CARDBOARD_DELTA_MEASUREMENT_WEIGHT = 100;
 
         private int _cardboardPreviewWidth;
 
@@ -111,7 +111,11 @@ namespace CrossCam.Page
 	    {
 	        if (_viewModel != null)
 	        {
-	            if (isAppRunning)
+	            if ((_viewModel.Settings.ShowRollGuide &&
+                     _viewModel.WorkflowStage == WorkflowStage.Capture ||
+                    _viewModel.Settings.Mode == DrawMode.Cardboard && 
+                    _viewModel.WorkflowStage == WorkflowStage.Final) &&
+                    isAppRunning)
 	            {
 	                if (!Accelerometer.IsMonitoring)
 	                {
@@ -195,17 +199,17 @@ namespace CrossCam.Page
                         }
                     }
 
-                    if (_cardboardCenterTheta.HasValue)
+                    if (_cardboardPanHomeVertAngle.HasValue)
                     {
-                        var delta = _cardboardCenterTheta.Value - Math.Atan2(_lastAccelerometerReadingX, _lastAccelerometerReadingZ);
-                        _cardboardTipAverageActive *= (CARDBOARD_DELTA_MEASUREMENT_WEIGHT - 1) / CARDBOARD_DELTA_MEASUREMENT_WEIGHT;
+                        var delta = _cardboardPanHomeVertAngle.Value - Math.Atan2(_lastAccelerometerReadingX, _lastAccelerometerReadingZ);
+                        _cardboardPanDeltaVertAngle *= (CARDBOARD_DELTA_MEASUREMENT_WEIGHT - 1) / CARDBOARD_DELTA_MEASUREMENT_WEIGHT;
                         if (_viewModel.IsViewInverted)
                         {
-                            _cardboardTipAverageActive -= delta;
+                            _cardboardPanDeltaVertAngle -= delta;
                         }
                         else
                         {
-                            _cardboardTipAverageActive += delta;
+                            _cardboardPanDeltaVertAngle += delta;
                         }
                         _capturedCanvas.InvalidateSurface();
                     }
@@ -327,13 +331,13 @@ namespace CrossCam.Page
             if (_viewModel.LeftBitmap == null ||
                 _viewModel.RightBitmap == null)
             {
-                _cardboardCenterTheta = null;
+                _cardboardPanHomeVertAngle = null;
             } 
             else if (_viewModel?.LeftBitmap != null && 
                      _viewModel.RightBitmap != null && 
                      _viewModel.Settings.Mode == DrawMode.Cardboard)
             {
-                _cardboardCenterTheta = Math.Atan2(_lastAccelerometerReadingX, _lastAccelerometerReadingZ);
+                _cardboardPanHomeVertAngle = Math.Atan2(_lastAccelerometerReadingX, _lastAccelerometerReadingZ);
             }
         }
 
@@ -450,7 +454,7 @@ namespace CrossCam.Page
             _viewModel.Settings.Mode,
             _viewModel.WorkflowStage == WorkflowStage.FovCorrection,
             isPreview: isPreview,
-            cardboardDeltaTheta: _cardboardCenterTheta.HasValue ? _cardboardTipAverageActive - _cardboardCenterTheta.Value : 0);
+            cardboardDeltaTheta: _cardboardPanHomeVertAngle.HasValue ? _cardboardPanDeltaVertAngle - _cardboardPanHomeVertAngle.Value : 0);
         }
 
         private void OnPairedPreviewCanvasInvalidated(object sender, SKPaintSurfaceEventArgs e)

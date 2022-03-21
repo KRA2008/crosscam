@@ -397,12 +397,15 @@ namespace CrossCam.ViewModel
             {
                 if (LeftBitmap == null || RightBitmap == null)
                 {
+                    var downsizeProportion = Settings.Mode == DrawMode.Cardboard
+                        ? Settings.CardboardResolutionPercentage / 100d
+                        : 1d;
                     LocalPreviewBitmap = frame.Orientation.HasValue
                         ? CorrectBitmapOrientation(
                             SKBitmap.Decode(frame.Frame),
-                            frame.Orientation.Value, Settings.CardboardResolutionPercentage / 100d)
+                            frame.Orientation.Value, downsizeProportion)
                         : DecodeBitmapAndCorrectOrientation(frame.Frame,
-                            downsizeProportion: Settings.CardboardResolutionPercentage / 100d);
+                            downsizeProportion: downsizeProportion);
                 }
             });
 
