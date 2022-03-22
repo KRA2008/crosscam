@@ -69,7 +69,7 @@ namespace CrossCam.Page
         private bool _newRightCapture;
 
         private const SensorSpeed SENSOR_SPEED = SensorSpeed.Fastest;
-        private const int SENSOR_FRAME_DELAY = 50;
+        private const int SENSOR_FRAME_DELAY = 10;
 
         public CameraPage()
 		{
@@ -221,10 +221,10 @@ namespace CrossCam.Page
                 _cardboardHorDelta = (_lastCompassReading +
                                           _cardboardHorDelta * (COMPASS_MEASUREMENT_WEIGHT - 1)) /
                                          COMPASS_MEASUREMENT_WEIGHT;
-                if (_cardboardHomeHor.HasValue)
-                {
-                    _capturedCanvas.InvalidateSurface();
-                }
+                //if (_cardboardHomeHor.HasValue) //leaving this out keeps things smoother?
+                //{
+                //    _capturedCanvas.InvalidateSurface();
+                //}
             });
         }
 
@@ -555,17 +555,16 @@ namespace CrossCam.Page
                     cardboardHor = -0.5;
                 }
             }
-
-            Debug.WriteLine("Vert: " + cardboardVert + " Hor: " + cardboardHor);
+            
             DrawTool.DrawImagesOnCanvas(
-            canvas, left, right,
-            _viewModel.Settings,
-            _viewModel.Edits,
-            _viewModel.Settings.Mode,
-            _viewModel.WorkflowStage == WorkflowStage.FovCorrection,
-            isPreview: isPreview,
-            cardboardVert: cardboardVert,
-            cardboardHor: cardboardHor); //TODO: why are you able to pan horizontally while aligning
+                canvas, left, right,
+                _viewModel.Settings,
+                _viewModel.Edits,
+                _viewModel.Settings.Mode,
+                _viewModel.WorkflowStage == WorkflowStage.FovCorrection,
+                isPreview: isPreview,
+                cardboardVert: cardboardVert,
+                cardboardHor: cardboardHor); //TODO: why are you able to pan horizontally while aligning
         }
 
         private void OnPairedPreviewCanvasInvalidated(object sender, SKPaintSurfaceEventArgs e)
