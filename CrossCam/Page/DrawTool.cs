@@ -20,8 +20,8 @@ namespace CrossCam.Page
             (Math.Max(DeviceDisplay.MainDisplayInfo.Width, DeviceDisplay.MainDisplayInfo.Height) / 2);
 
         public static void DrawImagesOnCanvas(SKCanvas canvas, SKBitmap leftBitmap, SKBitmap rightBitmap,
-            Settings settings, Edits edits, DrawMode drawMode, bool isFov = false, bool withSwap = false, 
-            bool isPreview = false, double cardboardDeltaTheta = 0)
+            Settings settings, Edits edits, DrawMode drawMode, bool isFov = false, bool withSwap = false,
+            bool isPreview = false, double cardboardVert = 0, double cardboardHor = 0)
         {
             double innerCardboardCrop = 0;
             double outerCardboardCrop = 0;
@@ -66,7 +66,7 @@ namespace CrossCam.Page
                     drawMode, fuseGuideRequested,
                     settings.CardboardIpd, addBarrelDistortion, settings.CardboardBarrelDistortion,
                     drawQuality,
-                    useGhosts, cardboardDeltaTheta);
+                    useGhosts, cardboardVert, cardboardHor);
             }
             else
             {
@@ -82,7 +82,7 @@ namespace CrossCam.Page
                     drawMode, fuseGuideRequested,
                     settings.CardboardIpd, addBarrelDistortion, settings.CardboardBarrelDistortion,
                     drawQuality,
-                    useGhosts, cardboardDeltaTheta);
+                    useGhosts, cardboardVert, cardboardHor);
             }
         }
 
@@ -97,7 +97,8 @@ namespace CrossCam.Page
             DrawMode drawMode, bool fuseGuideRequested,
             int cardboardIpd, bool addBarrelDistortion, int barrelStrength,
             SKFilterQuality quality, bool useGhosts, 
-            double cardboardDeltaTheta)
+            double cardboardVert,
+            double cardboardHor)
         {
             if (leftBitmap == null && rightBitmap == null) return;
 
@@ -232,10 +233,10 @@ namespace CrossCam.Page
                 var width = targetBitmap.Width;
                 var height = targetBitmap.Height;
 
-                var srcX = (float)(width * leftLeftCrop);
                 var srcWidth = (float)(width - width * (leftLeftCrop + leftRightCrop));
+                var srcX = (float)(width * leftLeftCrop + cardboardHor * srcWidth);
                 var srcHeight = (float)(height - height * (topCrop + bottomCrop + Math.Abs(alignment)));
-                var srcY = (float)((height * topCrop + (alignment > 0 ? alignment * height : 0)) + cardboardDeltaTheta * srcHeight);
+                var srcY = (float)(height * topCrop + (alignment > 0 ? alignment * height : 0) + cardboardVert * srcHeight);
 
                 if (drawMode == DrawMode.Cardboard &&
                     addBarrelDistortion)
@@ -326,10 +327,10 @@ namespace CrossCam.Page
                 var width = targetBitmap.Width;
                 var height = targetBitmap.Height;
 
-                var srcX = (float) (width * rightLeftCrop);
                 var srcWidth = (float) (width - width * (rightLeftCrop + rightRightCrop));
+                var srcX = (float)(width * rightLeftCrop + cardboardHor * srcWidth);
                 var srcHeight = (float) (height - height * (topCrop + bottomCrop + Math.Abs(alignment)));
-                var srcY = (float)((height * topCrop - (alignment < 0 ? alignment * height : 0)) + cardboardDeltaTheta * srcHeight);
+                var srcY = (float)(height * topCrop - (alignment < 0 ? alignment * height : 0) + cardboardVert * srcHeight);
 
                 if (drawMode == DrawMode.Cardboard &&
                     addBarrelDistortion)

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.Drawing;
 using System.Threading.Tasks;
 using System.Timers;
@@ -55,12 +56,20 @@ namespace CrossCam.Page
         private double _lastAccelerometerReadingY;
         private double _lastAccelerometerReadingZ;
 
-        private double _cardboardPanVertAngle;
-        private double? _cardboardPanHomeVertAngle;
-        private const double CARDBOARD_DELTA_MEASUREMENT_WEIGHT = 4;
+        private double _lastCompassReading;
+        private double _cardboardHorDelta;
+        private const double COMPASS_MEASUREMENT_WEIGHT = 6;
+
+        private double _cardboardVertDelta;
+        private double? _cardboardHomeVert;
+        private double? _cardboardHomeHor;
+        private const double CARDBOARD_DELTA_MEASUREMENT_WEIGHT = 6; //TODO: smooth on Android but laggy
 
         private bool _newLeftCapture;
         private bool _newRightCapture;
+
+        private const SensorSpeed SENSOR_SPEED = SensorSpeed.Fastest;
+        private const int SENSOR_FRAME_DELAY = 50;
 
         public CameraPage()
 		{
@@ -71,6 +80,7 @@ namespace CrossCam.Page
 		    _horizontalLevelOutside.Source = _levelOutsideImage;
 
             Accelerometer.ReadingChanged += StoreAccelerometerReading;
+            Compass.ReadingChanged += StoreCompassReading;
             MessagingCenter.Subscribe<App>(this, App.APP_PAUSING_EVENT, o => EvaluateSensors(false));
 		    MessagingCenter.Subscribe<App>(this, App.APP_UNPAUSING_EVENT, o => EvaluateSensors());
             _doubleTapTimer.Elapsed += (sender, args) =>
@@ -117,7 +127,7 @@ namespace CrossCam.Page
 	                {
 	                    try
 	                    {
-	                        Accelerometer.Start(SensorSpeed.Game);
+	                        Accelerometer.Start(SENSOR_SPEED);
                             StartAccelerometerCycling();
                         }
 	                    catch
@@ -140,16 +150,61 @@ namespace CrossCam.Page
 	                    }
                     }
 	            }
-	        }
+
+                if (_viewModel.Settings.Mode == DrawMode.Cardboard &&
+                    isAppRunning)
+                {
+                    if (!Compass.IsMonitoring)
+                    {
+                        try
+                        {
+                            Compass.Start(SENSOR_SPEED);
+                            StartCompassCycling();
+                        }
+                        catch
+                        {
+                            //oh well
+                        }
+                    }
+                }
+                else
+                {
+                    if (Compass.IsMonitoring)
+                    {
+                        try
+                        {
+                            Compass.Stop();
+                        }
+                        catch
+                        {
+                            //oh well
+                        }
+                    }
+                }
+            }
+        }
+
+        private async void StartCompassCycling()
+        {
+            while (Compass.IsMonitoring)
+            {
+                await Task.Delay(SENSOR_FRAME_DELAY);
+                UpdateOrientationFromCompassData();
+            }
         }
 
         private async void StartAccelerometerCycling()
         {
             while (Accelerometer.IsMonitoring)
             {
-                await Task.Delay(50);
+                await Task.Delay(SENSOR_FRAME_DELAY);
                 UpdateLevelFromAccelerometerData();
             }
+        }
+
+        private void StoreCompassReading(object sender, CompassChangedEventArgs args)
+        {
+            _lastCompassReading = args.Reading.HeadingMagneticNorth;
         }
 
         private void StoreAccelerometerReading(object sender, AccelerometerChangedEventArgs args)
@@ -157,8 +212,20 @@ namespace CrossCam.Page
             _lastAccelerometerReadingX = args.Reading.Acceleration.X;
             _lastAccelerometerReadingY = args.Reading.Acceleration.Y;
             _lastAccelerometerReadingZ = args.Reading.Acceleration.Z;
-            //Debug.WriteLine("angle: " + Math.Atan2(_lastAccelerometerReadingX, _lastAccelerometerReadingZ) * 180 / Math.PI);
-            //Debug.WriteLine("X: " + _lastAccelerometerReadingX + " Y: " + _lastAccelerometerReadingY + " Z: " + _lastAccelerometerReadingZ);
+        }
+
+        private void UpdateOrientationFromCompassData()
+        {
+            Device.BeginInvokeOnMainThread(() =>
+            {
+                _cardboardHorDelta = (_lastCompassReading +
+                                          _cardboardHorDelta * (COMPASS_MEASUREMENT_WEIGHT - 1)) /
+                                         COMPASS_MEASUREMENT_WEIGHT;
+                if (_cardboardHomeHor.HasValue)
+                {
+                    _capturedCanvas.InvalidateSurface();
+                }
+            });
         }
 
         private void UpdateLevelFromAccelerometerData()
@@ -195,12 +262,12 @@ namespace CrossCam.Page
                         }
                     }
 
-                    if (_cardboardPanHomeVertAngle.HasValue)
+                    _cardboardVertDelta =
+                        (Math.Atan2(xReading, zReading) +
+                         _cardboardVertDelta * (CARDBOARD_DELTA_MEASUREMENT_WEIGHT - 1)) /
+                        CARDBOARD_DELTA_MEASUREMENT_WEIGHT;
+                    if (_cardboardHomeVert.HasValue)
                     {
-                        _cardboardPanVertAngle =
-                            (Math.Atan2(xReading, zReading) +
-                             _cardboardPanVertAngle * (CARDBOARD_DELTA_MEASUREMENT_WEIGHT - 1)) /
-                            CARDBOARD_DELTA_MEASUREMENT_WEIGHT;
                         _capturedCanvas.InvalidateSurface();
                     }
 
@@ -297,13 +364,13 @@ namespace CrossCam.Page
                     case nameof(CameraViewModel.LeftBitmap):
                         ProcessDoubleTap();
                         _newLeftCapture = true;
-                        CardboardAccelerometerCheckAndSaveOrientationSnapshot();
+                        CardboardCheckAndSaveOrientationSnapshot();
                         _capturedCanvas.InvalidateSurface();
                         break;
                     case nameof(CameraViewModel.RightBitmap):
                         ProcessDoubleTap();
                         _newRightCapture = true;
-                        CardboardAccelerometerCheckAndSaveOrientationSnapshot();
+                        CardboardCheckAndSaveOrientationSnapshot();
                         _capturedCanvas.InvalidateSurface();
                         break;
                     case nameof(CameraViewModel.LocalPreviewBitmap):
@@ -316,18 +383,19 @@ namespace CrossCam.Page
             });
 	    }
 
-        private void CardboardAccelerometerCheckAndSaveOrientationSnapshot()
+        private void CardboardCheckAndSaveOrientationSnapshot()
         {
             if (_viewModel.LeftBitmap == null ||
                 _viewModel.RightBitmap == null)
             {
-                _cardboardPanHomeVertAngle = null;
+                _cardboardHomeVert = _cardboardHomeHor = null;
             } 
             else if (_viewModel?.LeftBitmap != null && 
                      _viewModel.RightBitmap != null && 
                      _viewModel.Settings.Mode == DrawMode.Cardboard)
             {
-                _cardboardPanHomeVertAngle = _cardboardPanVertAngle = Math.Atan2(_lastAccelerometerReadingX, _lastAccelerometerReadingZ);
+                _cardboardHomeVert = _cardboardVertDelta = Math.Atan2(_lastAccelerometerReadingX, _lastAccelerometerReadingZ);
+                _cardboardHomeHor = _cardboardHorDelta;
             }
         }
 
@@ -380,6 +448,8 @@ namespace CrossCam.Page
                 _viewModel.RightBitmap == null)
             {
                 canvas.Clear();
+                _cardboardHomeHor = null;
+                _cardboardHomeVert = null;
             }
 
             if (_viewModel.Settings.Mode == DrawMode.RedCyanAnaglyph ||
@@ -437,25 +507,56 @@ namespace CrossCam.Page
                 }
             }
 
-            //if (_cardboardPanHomeVertAngle.HasValue)
-            //{
-            //    Debug.WriteLine("### Home: " + _cardboardPanHomeVertAngle.Value * 180 / Math.PI);
-            //    Debug.WriteLine("### Delta: " + _cardboardPanVertAngle * 180 / Math.PI);
-            //}
-
-            double cardboardDeltaTheta = 0;
-            if (_cardboardPanHomeVertAngle.HasValue)
+            double cardboardVert = 0;
+            if (_cardboardHomeVert.HasValue)
             {
                 if (_viewModel.IsViewInverted)
                 {
-                    cardboardDeltaTheta = _cardboardPanVertAngle - _cardboardPanHomeVertAngle.Value;
+                    cardboardVert = _cardboardVertDelta - _cardboardHomeVert.Value;
+                    if (cardboardVert > 0.5)
+                    {
+                        _cardboardHomeVert = _cardboardHomeVert.Value + (cardboardVert - 0.5);
+                        cardboardVert = 0.5;
+                    }
+                    else if (cardboardVert < -0.5)
+                    {
+                        _cardboardHomeVert = _cardboardHomeVert.Value + (cardboardVert + 0.5);
+                        cardboardVert = -0.5;
+                    }
                 }
                 else
                 {
-                    cardboardDeltaTheta = _cardboardPanHomeVertAngle.Value - _cardboardPanVertAngle;
+                    cardboardVert = _cardboardHomeVert.Value - _cardboardVertDelta;
+                    if (cardboardVert > 0.5)
+                    {
+                        _cardboardHomeVert = _cardboardHomeVert.Value - (cardboardVert - 0.5);
+                        cardboardVert = 0.5;
+                    }
+                    else if (cardboardVert < -0.5)
+                    {
+                        _cardboardHomeVert = _cardboardHomeVert.Value - (cardboardVert + 0.5);
+                        cardboardVert = -0.5;
+                    }
                 }
             }
 
+            double cardboardHor = 0;
+            if (_cardboardHomeHor.HasValue)
+            {
+                cardboardHor = (_cardboardHorDelta - _cardboardHomeHor.Value) * Math.PI / 180d;
+                if (cardboardHor > 0.5)
+                {
+                    _cardboardHomeHor = _cardboardHomeHor.Value + (cardboardHor - 0.5) * 180d / Math.PI;
+                    cardboardHor = 0.5;
+                }
+                else if (cardboardHor < -0.5)
+                {
+                    _cardboardHomeHor = _cardboardHomeHor.Value + (cardboardHor + 0.5) * 180d / Math.PI;
+                    cardboardHor = -0.5;
+                }
+            }
+
+            Debug.WriteLine("Vert: " + cardboardVert + " Hor: " + cardboardHor);
             DrawTool.DrawImagesOnCanvas(
             canvas, left, right,
             _viewModel.Settings,
@@ -463,7 +564,8 @@ namespace CrossCam.Page
             _viewModel.Settings.Mode,
             _viewModel.WorkflowStage == WorkflowStage.FovCorrection,
             isPreview: isPreview,
-            cardboardDeltaTheta: cardboardDeltaTheta);
+            cardboardVert: cardboardVert,
+            cardboardHor: cardboardHor); //TODO: why are you able to pan horizontally while aligning
         }
 
         private void OnPairedPreviewCanvasInvalidated(object sender, SKPaintSurfaceEventArgs e)
