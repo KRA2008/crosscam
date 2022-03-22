@@ -1,6 +1,5 @@
 ﻿using System;
 using System.ComponentModel;
-using System.Diagnostics;
 using System.Drawing;
 using System.Threading.Tasks;
 using System.Timers;
@@ -16,7 +15,7 @@ using Rectangle = Xamarin.Forms.Rectangle;
 namespace CrossCam.Page
 {
     // ReSharper disable once UnusedMember.Global
-	public partial class CameraPage
+    public partial class CameraPage
 	{
 	    private CameraViewModel _viewModel;
 
@@ -58,10 +57,7 @@ namespace CrossCam.Page
 
         private double _cardboardPanVertAngle;
         private double? _cardboardPanHomeVertAngle;
-        private const double CardboardThetaThreshold = 0.00001;
-        private const double CARDBOARD_DELTA_MEASUREMENT_WEIGHT = 3;
-
-        private int _cardboardPreviewWidth;
+        private const double CARDBOARD_DELTA_MEASUREMENT_WEIGHT = 4;
 
         private bool _newLeftCapture;
         private bool _newRightCapture;
@@ -201,18 +197,10 @@ namespace CrossCam.Page
 
                     if (_cardboardPanHomeVertAngle.HasValue)
                     {
-                        var currentAngle = Math.Atan2(xReading, zReading);
-                        var tempAngle = _cardboardPanVertAngle;
-                        tempAngle *= (CARDBOARD_DELTA_MEASUREMENT_WEIGHT - 1) / CARDBOARD_DELTA_MEASUREMENT_WEIGHT;
-                        if (_viewModel.IsViewInverted)
-                        {
-                            tempAngle -= currentAngle / CARDBOARD_DELTA_MEASUREMENT_WEIGHT;
-                        }
-                        else
-                        {
-                            tempAngle += currentAngle / CARDBOARD_DELTA_MEASUREMENT_WEIGHT;
-                        }
-                        _cardboardPanVertAngle = tempAngle;
+                        _cardboardPanVertAngle =
+                            (Math.Atan2(xReading, zReading) +
+                             _cardboardPanVertAngle * (CARDBOARD_DELTA_MEASUREMENT_WEIGHT - 1)) /
+                            CARDBOARD_DELTA_MEASUREMENT_WEIGHT;
                         _capturedCanvas.InvalidateSurface();
                     }
 
@@ -339,7 +327,7 @@ namespace CrossCam.Page
                      _viewModel.RightBitmap != null && 
                      _viewModel.Settings.Mode == DrawMode.Cardboard)
             {
-                _cardboardPanHomeVertAngle = Math.Atan2(_lastAccelerometerReadingX, _lastAccelerometerReadingZ);
+                _cardboardPanHomeVertAngle = _cardboardPanVertAngle = Math.Atan2(_lastAccelerometerReadingX, _lastAccelerometerReadingZ);
             }
         }
 
@@ -455,6 +443,19 @@ namespace CrossCam.Page
             //    Debug.WriteLine("### Delta: " + _cardboardPanVertAngle * 180 / Math.PI);
             //}
 
+            double cardboardDeltaTheta = 0;
+            if (_cardboardPanHomeVertAngle.HasValue)
+            {
+                if (_viewModel.IsViewInverted)
+                {
+                    cardboardDeltaTheta = _cardboardPanVertAngle - _cardboardPanHomeVertAngle.Value;
+                }
+                else
+                {
+                    cardboardDeltaTheta = _cardboardPanHomeVertAngle.Value - _cardboardPanVertAngle;
+                }
+            }
+
             DrawTool.DrawImagesOnCanvas(
             canvas, left, right,
             _viewModel.Settings,
@@ -462,7 +463,7 @@ namespace CrossCam.Page
             _viewModel.Settings.Mode,
             _viewModel.WorkflowStage == WorkflowStage.FovCorrection,
             isPreview: isPreview,
-            cardboardDeltaTheta: _cardboardPanHomeVertAngle.HasValue ? _cardboardPanHomeVertAngle.Value - _cardboardPanVertAngle : 0);
+            cardboardDeltaTheta: cardboardDeltaTheta);
         }
 
         private void OnPairedPreviewCanvasInvalidated(object sender, SKPaintSurfaceEventArgs e)
