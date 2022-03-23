@@ -57,20 +57,22 @@ namespace CrossCam.Page
                 rightBitmapOriginal != null)
             {
                 double downsizeProportion = 1;
-                if (isPreview)
+                switch (settings.Mode)
                 {
-                    switch (settings.Mode)
-                    {
-                        case DrawMode.Cross:
-                        case DrawMode.Parallel:
-                        case DrawMode.Cardboard:
-                            downsizeProportion = (canvas.DeviceClipBounds.Width / 2d) / ((leftBitmapOriginal?.Width ?? rightBitmapOriginal.Width) * 1d);
-                            break;
-                        case DrawMode.RedCyanAnaglyph:
-                        case DrawMode.GrayscaleRedCyanAnaglyph:
-                            downsizeProportion = canvas.DeviceClipBounds.Width / ((leftBitmapOriginal?.Width ?? rightBitmapOriginal.Width) * 1d);
-                            break;
-                    }
+                    case DrawMode.Cross:
+                    case DrawMode.Parallel:
+                    case DrawMode.Cardboard:
+                        downsizeProportion = (canvas.DeviceClipBounds.Width / 2d) / ((leftBitmapOriginal?.Width ?? rightBitmapOriginal.Width) * 1d);
+                        break;
+                    case DrawMode.RedCyanAnaglyph:
+                    case DrawMode.GrayscaleRedCyanAnaglyph:
+                        downsizeProportion = canvas.DeviceClipBounds.Width / ((leftBitmapOriginal?.Width ?? rightBitmapOriginal.Width) * 1d);
+                        break;
+                }
+
+                if (settings.Mode == DrawMode.Cardboard)
+                {
+                    downsizeProportion *= settings.CardboardResolutionPercentage / 100d;
                 }
 
                 if (downsizeProportion < 1)
@@ -106,8 +108,7 @@ namespace CrossCam.Page
                     drawMode, fuseGuideRequested,
                     settings.CardboardIpd, addBarrelDistortion, settings.CardboardBarrelDistortion,
                     drawQuality,
-                    useGhosts, settings.ImmersiveCardboardFinal ? cardboardVert : 0, settings.ImmersiveCardboardFinal ? cardboardHor : 0,
-                    settings.CardboardResolutionPercentage);
+                    useGhosts, settings.ImmersiveCardboardFinal ? cardboardVert : 0, settings.ImmersiveCardboardFinal ? cardboardHor : 0);
             }
             else
             {
@@ -123,8 +124,7 @@ namespace CrossCam.Page
                     drawMode, fuseGuideRequested,
                     settings.CardboardIpd, addBarrelDistortion, settings.CardboardBarrelDistortion,
                     drawQuality,
-                    useGhosts, settings.ImmersiveCardboardFinal ? cardboardVert : 0, settings.ImmersiveCardboardFinal ? cardboardHor : 0, 
-                    settings.CardboardResolutionPercentage);
+                    useGhosts, settings.ImmersiveCardboardFinal ? cardboardVert : 0, settings.ImmersiveCardboardFinal ? cardboardHor : 0);
             }
         }
 
@@ -140,8 +140,7 @@ namespace CrossCam.Page
             int cardboardIpd, bool addBarrelDistortion, int barrelStrength,
             SKFilterQuality quality, bool useGhosts, 
             double cardboardVert,
-            double cardboardHor,
-            double cardboardDownsize)
+            double cardboardHor)
         {
             if (leftBitmap == null && rightBitmap == null) return;
 
@@ -280,14 +279,6 @@ namespace CrossCam.Page
                 }
 
                 var targetBitmap = transformed ?? grayscale ?? leftBitmap;
-
-                if (drawMode == DrawMode.Cardboard &&
-                    addBarrelDistortion)
-                {
-                    targetBitmap = CameraViewModel.BitmapDownsize(targetBitmap,
-                        canvas.DeviceClipBounds.Width / 2d / (targetBitmap.Width * 1d) * (cardboardDownsize / 100d));
-                }
-
                 var width = targetBitmap.Width;
                 var height = targetBitmap.Height;
 
@@ -385,14 +376,6 @@ namespace CrossCam.Page
                 }
 
                 var targetBitmap = transformed ?? grayscale ?? rightBitmap;
-
-                if (drawMode == DrawMode.Cardboard &&
-                    addBarrelDistortion)
-                {
-                    targetBitmap = CameraViewModel.BitmapDownsize(targetBitmap,
-                        canvas.DeviceClipBounds.Width / 2d / (targetBitmap.Width * 1d) * (cardboardDownsize / 100d));
-                }
-
                 var width = targetBitmap.Width;
                 var height = targetBitmap.Height;
 
