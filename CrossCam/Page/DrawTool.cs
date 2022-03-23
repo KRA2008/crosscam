@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Diagnostics;
 using CrossCam.Model;
 using CrossCam.ViewModel;
 using CrossCam.Wrappers;
@@ -19,7 +18,7 @@ namespace CrossCam.Page
             Math.Min(DeviceDisplay.MainDisplayInfo.Width, DeviceDisplay.MainDisplayInfo.Height) /
             (Math.Max(DeviceDisplay.MainDisplayInfo.Width, DeviceDisplay.MainDisplayInfo.Height) / 2);
 
-        public static void DrawImagesOnCanvas(SKCanvas canvas, SKBitmap leftBitmap, SKBitmap rightBitmap,
+        public static void DrawImagesOnCanvas(SKCanvas canvas, SKBitmap leftBitmapOriginal, SKBitmap rightBitmapOriginal,
             Settings settings, Edits edits, DrawMode drawMode, bool isFov = false, bool withSwap = false,
             bool isPreview = false, double cardboardVert = 0, double cardboardHor = 0)
         {
@@ -52,9 +51,50 @@ namespace CrossCam.Page
                 settings.AddBarrelDistortion && settings.AddBarrelDistortionFinalOnly && !isPreview ||
                 settings.AddBarrelDistortion && !settings.AddBarrelDistortionFinalOnly;
 
+            SKBitmap leftDownsize = null;
+            SKBitmap rightDownsize = null;
+            if (leftBitmapOriginal != null ||
+                rightBitmapOriginal != null)
+            {
+                double downsizeProportion = 1;
+                if (isPreview)
+                {
+                    switch (settings.Mode)
+                    {
+                        case DrawMode.Cross:
+                        case DrawMode.Parallel:
+                        case DrawMode.Cardboard:
+                            downsizeProportion = (canvas.DeviceClipBounds.Width / 2d) / ((leftBitmapOriginal?.Width ?? rightBitmapOriginal.Width) * 1d);
+                            break;
+                        case DrawMode.RedCyanAnaglyph:
+                        case DrawMode.GrayscaleRedCyanAnaglyph:
+                            downsizeProportion = canvas.DeviceClipBounds.Width / ((leftBitmapOriginal?.Width ?? rightBitmapOriginal.Width) * 1d);
+                            break;
+                    }
+                }
+
+                if (downsizeProportion < 1)
+                {
+                    if (leftBitmapOriginal != null)
+                    {
+                        leftDownsize = CameraViewModel.BitmapDownsize(leftBitmapOriginal, downsizeProportion);
+                    }
+
+                    if (rightBitmapOriginal != null)
+                    {
+                        rightDownsize = CameraViewModel.BitmapDownsize(rightBitmapOriginal, downsizeProportion);
+                    }
+                }
+                else
+                {
+                    leftDownsize = leftBitmapOriginal;
+                    rightDownsize = rightBitmapOriginal;
+                }
+            }
+            
             if (withSwap)
             {
-                DrawImagesOnCanvasInternal(canvas, rightBitmap, leftBitmap,
+                DrawImagesOnCanvasInternal(canvas, rightDownsize, leftDownsize,
                     settings.BorderWidthProportion, settings.AddBorder && isPreview, settings.BorderColor,
                     edits.InsideCrop + edits.LeftCrop + innerCardboardCrop, edits.RightCrop + edits.OutsideCrop + outerCardboardCrop,
                     edits.LeftCrop + edits.OutsideCrop + outerCardboardCrop, edits.InsideCrop + edits.RightCrop + innerCardboardCrop,
@@ -66,11 +106,12 @@ namespace CrossCam.Page
                     drawMode, fuseGuideRequested,
                     settings.CardboardIpd, addBarrelDistortion, settings.CardboardBarrelDistortion,
                     drawQuality,
-                    useGhosts, cardboardVert, cardboardHor);
+                    useGhosts, settings.ImmersiveCardboardFinal ? cardboardVert : 0, settings.ImmersiveCardboardFinal ? cardboardHor : 0,
+                    settings.CardboardResolutionPercentage);
             }
             else
             {
-                DrawImagesOnCanvasInternal(canvas, leftBitmap, rightBitmap,
+                DrawImagesOnCanvasInternal(canvas, leftDownsize, rightDownsize,
                     settings.BorderWidthProportion, settings.AddBorder && isPreview, settings.BorderColor,
                     edits.LeftCrop + edits.OutsideCrop + outerCardboardCrop, edits.InsideCrop + edits.RightCrop + innerCardboardCrop, edits.InsideCrop + edits.LeftCrop + innerCardboardCrop,
                     edits.RightCrop + edits.OutsideCrop + outerCardboardCrop,
@@ -82,7 +123,8 @@ namespace CrossCam.Page
                     drawMode, fuseGuideRequested,
                     settings.CardboardIpd, addBarrelDistortion, settings.CardboardBarrelDistortion,
                     drawQuality,
-                    useGhosts, cardboardVert, cardboardHor);
+                    useGhosts, settings.ImmersiveCardboardFinal ? cardboardVert : 0, settings.ImmersiveCardboardFinal ? cardboardHor : 0, 
+                    settings.CardboardResolutionPercentage);
             }
         }
 
@@ -98,7 +140,8 @@ namespace CrossCam.Page
             int cardboardIpd, bool addBarrelDistortion, int barrelStrength,
             SKFilterQuality quality, bool useGhosts, 
             double cardboardVert,
-            double cardboardHor)
+            double cardboardHor,
+            double cardboardDownsize)
         {
             if (leftBitmap == null && rightBitmap == null) return;
 
@@ -132,13 +175,16 @@ namespace CrossCam.Page
                 BORDER_CONVERSION_FACTOR * borderThickness : 
                 0;
 
-            var widthRatio = (leftBitmapWidthLessCrop + leftBitmapWidthLessCrop * innerBorderThicknessProportion * 1.5) / (canvasWidth / 2f);
+            var widthRatio =
+                (leftBitmapWidthLessCrop + leftBitmapWidthLessCrop * innerBorderThicknessProportion * 1.5) /
+                (canvasWidth / 2f);
             if (overlayDrawing)
             {
                 widthRatio /= 2;
             }
 
-            var bitmapHeightWithEditsAndBorder = leftBitmapHeightLessCrop + leftBitmapWidthLessCrop * innerBorderThicknessProportion * 2;
+            var bitmapHeightWithEditsAndBorder =
+                leftBitmapHeightLessCrop + leftBitmapWidthLessCrop * innerBorderThicknessProportion * 2;
             var drawFuseGuide = fuseGuideRequested &&
                                 drawMode != DrawMode.Cardboard &&
                                 !overlayDrawing &&
@@ -149,7 +195,7 @@ namespace CrossCam.Page
             if (drawFuseGuide)
             {
                 fuseGuideIconWidth = CalculateFuseGuideWidth((float)bitmapHeightWithEditsAndBorder);
-                fuseGuideMarginHeight = CalculateFuseGuideMarginHeight((float)bitmapHeightWithEditsAndBorder);
+                fuseGuideMarginHeight = CalculateFuseGuideMarginHeight((float) bitmapHeightWithEditsAndBorder);
                 bitmapHeightWithEditsAndBorder += fuseGuideMarginHeight;
             }
             var heightRatio = bitmapHeightWithEditsAndBorder / (1f * canvasHeight);
@@ -171,8 +217,11 @@ namespace CrossCam.Page
             }
             else
             {
-                leftPreviewX = (float)(canvasWidth / 2f - (sidePreviewWidthLessCrop + innerBorderThicknessProportion * sidePreviewWidthLessCrop / 2f));
-                rightPreviewX = (float)(canvasWidth / 2f + innerBorderThicknessProportion * sidePreviewWidthLessCrop / 2f);
+                leftPreviewX = (float) (canvasWidth / 2f - (sidePreviewWidthLessCrop +
+                                                            innerBorderThicknessProportion * sidePreviewWidthLessCrop /
+                                                            2f));
+                rightPreviewX =
+                    (float) (canvasWidth / 2f + innerBorderThicknessProportion * sidePreviewWidthLessCrop / 2f);
                 previewY = canvasHeight / 2f - previewHeightLessCrop / 2f;
             }
 
@@ -208,7 +257,8 @@ namespace CrossCam.Page
                     leftZoom > 0 ||
                     isLeftKeystoned)
                 {
-                    transformed = ZoomAndRotate(grayscale ?? leftBitmap, leftZoom, isLeftRotated, leftRotation, isLeftKeystoned, -leftKeystone, quality);
+                    transformed = ZoomAndRotate(grayscale ?? leftBitmap, leftZoom, isLeftRotated, leftRotation,
+                        isLeftKeystoned, -leftKeystone, quality);
                 }
 
                 using var paint = new SKPaint
@@ -230,13 +280,22 @@ namespace CrossCam.Page
                 }
 
                 var targetBitmap = transformed ?? grayscale ?? leftBitmap;
+
+                if (drawMode == DrawMode.Cardboard &&
+                    addBarrelDistortion)
+                {
+                    targetBitmap = CameraViewModel.BitmapDownsize(targetBitmap,
+                        canvas.DeviceClipBounds.Width / 2d / (targetBitmap.Width * 1d) * (cardboardDownsize / 100d));
+                }
+
                 var width = targetBitmap.Width;
                 var height = targetBitmap.Height;
 
                 var srcWidth = (float)(width - width * (leftLeftCrop + leftRightCrop));
-                var srcX = (float)(width * leftLeftCrop + cardboardHor * srcWidth);
                 var srcHeight = (float)(height - height * (topCrop + bottomCrop + Math.Abs(alignment)));
-                var srcY = (float)(height * topCrop + (alignment > 0 ? alignment * height : 0) + cardboardVert * srcHeight);
+                var srcX = (float)(width * leftLeftCrop + cardboardHor * srcWidth);
+                var srcY = (float) (height * topCrop + (alignment > 0 ? alignment * height : 0) +
+                                    cardboardVert * srcHeight);
 
                 if (drawMode == DrawMode.Cardboard &&
                     addBarrelDistortion)
@@ -258,8 +317,9 @@ namespace CrossCam.Page
                             var missingRestoredWidth = restoredWidth - srcWidth;
                             cx = (float)((1 - cardboardProportion) * (srcWidth - missingRestoredWidth) + srcX);
                         }
-                        
-                        targetBitmap = openCv.AddBarrelDistortion(targetBitmap, barrelStrength / 100f, cx, srcY + srcHeight / 2f, srcWidth, srcHeight);
+
+                        targetBitmap = openCv.AddBarrelDistortion(targetBitmap, barrelStrength / 100f, cx,
+                            srcY + srcHeight / 2f, srcWidth, srcHeight);
                     }
                 }
 
@@ -294,7 +354,8 @@ namespace CrossCam.Page
                     rightZoom > 0 || 
                     isRightKeystoned)
                 {
-                    transformed = ZoomAndRotate(grayscale ?? rightBitmap, rightZoom, isRightRotated, rightRotation, isRightKeystoned, rightKeystone, quality);
+                    transformed = ZoomAndRotate(grayscale ?? rightBitmap, rightZoom, isRightRotated, rightRotation,
+                        isRightKeystoned, rightKeystone, quality);
                 }
 
                 using var paint = new SKPaint
@@ -324,13 +385,22 @@ namespace CrossCam.Page
                 }
 
                 var targetBitmap = transformed ?? grayscale ?? rightBitmap;
+
+                if (drawMode == DrawMode.Cardboard &&
+                    addBarrelDistortion)
+                {
+                    targetBitmap = CameraViewModel.BitmapDownsize(targetBitmap,
+                        canvas.DeviceClipBounds.Width / 2d / (targetBitmap.Width * 1d) * (cardboardDownsize / 100d));
+                }
+
                 var width = targetBitmap.Width;
                 var height = targetBitmap.Height;
 
                 var srcWidth = (float) (width - width * (rightLeftCrop + rightRightCrop));
-                var srcX = (float)(width * rightLeftCrop + cardboardHor * srcWidth);
                 var srcHeight = (float) (height - height * (topCrop + bottomCrop + Math.Abs(alignment)));
-                var srcY = (float)(height * topCrop - (alignment < 0 ? alignment * height : 0) + cardboardVert * srcHeight);
+                var srcX = (float)(width * rightLeftCrop + cardboardHor * srcWidth);
+                var srcY = (float) (height * topCrop - (alignment < 0 ? alignment * height : 0) +
+                                    cardboardVert * srcHeight);
 
                 if (drawMode == DrawMode.Cardboard &&
                     addBarrelDistortion)

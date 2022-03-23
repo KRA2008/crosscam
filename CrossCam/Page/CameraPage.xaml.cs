@@ -390,11 +390,13 @@ namespace CrossCam.Page
             {
                 _cardboardHomeVert = _cardboardHomeHor = null;
             } 
-            else if (_viewModel?.LeftBitmap != null && 
-                     _viewModel.RightBitmap != null && 
+            else if (_viewModel?.LeftBitmap != null &&
+                     _viewModel.RightBitmap != null &&
+                     !_cardboardHomeVert.HasValue &&
+                     !_cardboardHomeHor.HasValue &&
                      _viewModel.Settings.Mode == DrawMode.Cardboard)
             {
-                _cardboardHomeVert = _cardboardVertDelta = Math.Atan2(_lastAccelerometerReadingX, _lastAccelerometerReadingZ);
+                _cardboardHomeVert = _cardboardVertDelta;
                 _cardboardHomeHor = _cardboardHorDelta;
             }
         }
@@ -457,8 +459,7 @@ namespace CrossCam.Page
             {
                 canvas.Clear();
             }
-
-            var isPreview = _viewModel.IsExactlyOnePictureTaken || _viewModel.IsNothingCaptured;
+            
             SKBitmap left = null;
             SKBitmap right = null;
             if (_viewModel.LeftBitmap != null &&
@@ -562,7 +563,7 @@ namespace CrossCam.Page
                 _viewModel.Edits,
                 _viewModel.Settings.Mode,
                 _viewModel.WorkflowStage == WorkflowStage.FovCorrection,
-                isPreview: isPreview,
+                isPreview: _viewModel.IsExactlyOnePictureTaken || _viewModel.IsNothingCaptured,
                 cardboardVert: cardboardVert,
                 cardboardHor: cardboardHor); //TODO: why are you able to pan horizontally while aligning
         }

@@ -130,6 +130,11 @@
                 </Frame>
             </StackLayout>
             <StackLayout Orientation="Horizontal"
+                         IsVisible="{Binding Settings.Mode, Converter={vc:EnumCompareConverter}, ConverterParameter={x:Static vm:DrawMode.Cardboard}}">
+                <Label Text="Immersive final viewing"/>
+                <Switch IsToggled="{Binding Settings.ImmersiveCardboardFinal}"/>
+            </StackLayout>
+            <StackLayout Orientation="Horizontal"
                          IsVisible="{Binding Settings.Mode, Converter={vc:EnumCompareConverter}, ConverterParameter={x:Static vm:DrawMode.Parallel}}">
                 <Label Text="Maximum parallel view image width (points)"/>
                 <Frame>

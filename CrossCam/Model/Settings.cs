@@ -366,7 +366,6 @@ namespace CrossCam.Model
         }
 
         private bool _addBarrelDistortion;
-
         public bool AddBarrelDistortion
         {
             get => _addBarrelDistortion;
@@ -392,6 +391,8 @@ namespace CrossCam.Model
                 }
             }
         }
+
+        public bool ImmersiveCardboardFinal { get; set; }
 
         public bool AddBarrelDistortionFinalOnly { get; set; }
 
@@ -468,6 +469,7 @@ namespace CrossCam.Model
             AddBarrelDistortion = false;
             AddBarrelDistortionFinalOnly = false;
             CardboardResolutionPercentage = 100;
+            ImmersiveCardboardFinal = true;
 
             SendErrorReports1 = true;
 
