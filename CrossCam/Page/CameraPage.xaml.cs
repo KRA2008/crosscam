@@ -57,14 +57,12 @@ namespace CrossCam.Page
         private Stopwatch _gyroscopeStopwatch;
         private double _cardboardViewVert;
         private double _cardboardViewHor;
-        private double _gyroscopeMoveZ;
 
         private double _lastAccelerometerReadingX;
         private double _lastAccelerometerReadingY;
         
         private double? _cardboardHomeVert;
         private double? _cardboardHomeHor;
-        private const double CARDBOARD_DELTA_MEASUREMENT_WEIGHT = 6; //TODO: smooth on Android but laggy
 
         private bool _newLeftCapture;
         private bool _newRightCapture;
@@ -193,24 +191,16 @@ namespace CrossCam.Page
             }
         }
 
-        private const int GyroscopeFrameCount = 30;
-        private int _gyroCountUpdate;
         private void StoreGyroscopeReading(object sender, GyroscopeChangedEventArgs e)
         {
             var seconds = _gyroscopeStopwatch.ElapsedTicks / 10000000d;
             _cardboardViewVert -= e.Reading.AngularVelocity.Y * seconds;
             _cardboardViewHor += e.Reading.AngularVelocity.X * seconds;
-            _gyroscopeMoveZ += e.Reading.AngularVelocity.Z * seconds;
             _gyroscopeStopwatch.Restart();
-            _gyroCountUpdate++;
-            if (Interlocked.CompareExchange(ref _gyroCountUpdate, 0, GyroscopeFrameCount) == GyroscopeFrameCount &&
-                _cardboardHomeVert.HasValue)
+            Device.BeginInvokeOnMainThread(() =>
             {
-                Device.BeginInvokeOnMainThread(() =>
-                {
-                    _capturedCanvas.InvalidateSurface();
-                });
-            }
+                _capturedCanvas.InvalidateSurface();
+            });
         }
 
         private void StoreAccelerometerReading(object sender, AccelerometerChangedEventArgs args)
