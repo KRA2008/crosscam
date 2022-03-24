@@ -52,15 +52,21 @@ namespace CrossCam.Page
 
         private double _averageRoll;
 
+        private Stopwatch _gyroscopeStopwatch;
+        private double _gyroscopeMoveX;
+        private double _gyroscopeMoveY;
+        private double _gyroscopeMoveZ;
+
         private double _lastAccelerometerReadingX;
         private double _lastAccelerometerReadingY;
         private double _lastAccelerometerReadingZ;
 
         private double _lastCompassReading;
-        private double _cardboardHorDelta;
-        private const double COMPASS_MEASUREMENT_WEIGHT = 6;
+        private double _compassOffset;
+        private const double COMPASS_MEASUREMENT_WEIGHT = 2;
 
-        private double _cardboardVertDelta;
+        private double _cardboardViewVert;
+        private double _cardboardViewHor;
         private double? _cardboardHomeVert;
         private double? _cardboardHomeHor;
         private const double CARDBOARD_DELTA_MEASUREMENT_WEIGHT = 6; //TODO: smooth on Android but laggy
@@ -81,6 +87,8 @@ namespace CrossCam.Page
 
             Accelerometer.ReadingChanged += StoreAccelerometerReading;
             Compass.ReadingChanged += StoreCompassReading;
+            Gyroscope.ReadingChanged += StoreGyroscopeReading;
+            _gyroscopeStopwatch = new Stopwatch();
             MessagingCenter.Subscribe<App>(this, App.APP_PAUSING_EVENT, o => EvaluateSensors(false));
 		    MessagingCenter.Subscribe<App>(this, App.APP_UNPAUSING_EVENT, o => EvaluateSensors());
             _doubleTapTimer.Elapsed += (sender, args) =>
@@ -158,6 +166,7 @@ namespace CrossCam.Page
                     {
                         try
                         {
+                            _gyroscopeStopwatch.Start();
                             Compass.Start(SENSOR_SPEED);
                             StartCompassCycling();
                         }
@@ -174,6 +183,35 @@ namespace CrossCam.Page
                         try
                         {
                             Compass.Stop();
+                        }
+                        catch
+                        {
+                            //oh well
+                        }
+                    }
+                }
+
+                if (isAppRunning)
+                {
+                    if (!Gyroscope.IsMonitoring)
+                    {
+                        try
+                        {
+                            Gyroscope.Start(SENSOR_SPEED);
+                        }
+                        catch
+                        {
+                            //oh well
+                        }
+                    }
+                }
+                else
+                {
+                    if (Gyroscope.IsMonitoring)
+                    {
+                        try
+                        {
+                            Gyroscope.Stop();
                         }
                         catch
                         {
@@ -201,6 +239,15 @@ namespace CrossCam.Page
                 UpdateLevelFromAccelerometerData();
             }
         }
+        
+        private void StoreGyroscopeReading(object sender, GyroscopeChangedEventArgs e)
+        {
+            var seconds = _gyroscopeStopwatch.ElapsedTicks / 10000000d;
+            _gyroscopeMoveX += e.Reading.AngularVelocity.X * seconds;
+            _gyroscopeMoveY += e.Reading.AngularVelocity.Y * seconds;
+            _gyroscopeMoveZ += e.Reading.AngularVelocity.Z * seconds;
+            _gyroscopeStopwatch.Restart();
+        }
 
         private void StoreCompassReading(object sender, CompassChangedEventArgs args)
         {
@@ -218,8 +265,8 @@ namespace CrossCam.Page
         {
             Device.BeginInvokeOnMainThread(() =>
             {
-                _cardboardHorDelta = (_lastCompassReading +
-                                          _cardboardHorDelta * (COMPASS_MEASUREMENT_WEIGHT - 1)) /
+                _cardboardViewHor = (_lastCompassReading +
+                                          _cardboardViewHor * (COMPASS_MEASUREMENT_WEIGHT - 1)) /
                                          COMPASS_MEASUREMENT_WEIGHT;
                 //if (_cardboardHomeHor.HasValue) //leaving this out keeps things smoother?
                 //{
@@ -262,9 +309,9 @@ namespace CrossCam.Page
                         }
                     }
 
-                    _cardboardVertDelta =
+                    _cardboardViewVert =
                         (Math.Atan2(xReading, zReading) +
-                         _cardboardVertDelta * (CARDBOARD_DELTA_MEASUREMENT_WEIGHT - 1)) /
+                         _cardboardViewVert * (CARDBOARD_DELTA_MEASUREMENT_WEIGHT - 1)) /
                         CARDBOARD_DELTA_MEASUREMENT_WEIGHT;
                     if (_cardboardHomeVert.HasValue)
                     {
@@ -396,8 +443,8 @@ namespace CrossCam.Page
                      !_cardboardHomeHor.HasValue &&
                      _viewModel.Settings.Mode == DrawMode.Cardboard)
             {
-                _cardboardHomeVert = _cardboardVertDelta;
-                _cardboardHomeHor = _cardboardHorDelta;
+                _cardboardHomeVert = _cardboardViewVert;
+                _cardboardHomeHor = _cardboardViewHor;
             }
         }
 
@@ -513,7 +560,7 @@ namespace CrossCam.Page
             {
                 if (_viewModel.IsViewInverted)
                 {
-                    cardboardVert = _cardboardVertDelta - _cardboardHomeVert.Value;
+                    cardboardVert = _cardboardViewVert - _cardboardHomeVert.Value;
                     if (cardboardVert > 0.5)
                     {
                         _cardboardHomeVert = _cardboardHomeVert.Value + (cardboardVert - 0.5);
@@ -527,7 +574,7 @@ namespace CrossCam.Page
                 }
                 else
                 {
-                    cardboardVert = _cardboardHomeVert.Value - _cardboardVertDelta;
+                    cardboardVert = _cardboardHomeVert.Value - _cardboardViewVert;
                     if (cardboardVert > 0.5)
                     {
                         _cardboardHomeVert = _cardboardHomeVert.Value - (cardboardVert - 0.5);
@@ -544,17 +591,43 @@ namespace CrossCam.Page
             double cardboardHor = 0;
             if (_cardboardHomeHor.HasValue)
             {
-                cardboardHor = (_cardboardHorDelta - _cardboardHomeHor.Value) * Math.PI / 180d;
+                var degrees = _cardboardViewHor - _cardboardHomeHor.Value;
+
+                if (degrees > 180)
+                {
+                    degrees -= 360;
+                }
+
+                if (degrees < -180)
+                {
+                    degrees += 360;
+                }
+
+
+                cardboardHor = degrees * Math.PI / 180d;
                 if (cardboardHor > 0.5)
                 {
-                    _cardboardHomeHor = _cardboardHomeHor.Value + (cardboardHor - 0.5) * 180d / Math.PI;
+                    //_cardboardHomeHor = _cardboardHomeHor.Value + (cardboardHor - 0.5) * 180d / Math.PI;
                     cardboardHor = 0.5;
                 }
                 else if (cardboardHor < -0.5)
                 {
-                    _cardboardHomeHor = _cardboardHomeHor.Value + (cardboardHor + 0.5) * 180d / Math.PI;
+                    //_cardboardHomeHor = _cardboardHomeHor.Value + (cardboardHor + 0.5) * 180d / Math.PI;
                     cardboardHor = -0.5;
                 }
+
+                //Debug.WriteLine("Before: " + _cardboardHomeHor.Value);
+
+                //if (_cardboardHomeHor.Value < 0)
+                //{
+                //    _cardboardHomeHor = _cardboardHomeHor.Value + 360;
+                //    Debug.WriteLine("After: " + _cardboardHomeHor.Value);
+                //} else if (_cardboardHomeHor.Value > 360)
+                //{
+                //    _cardboardHomeHor = _cardboardHomeHor.Value - 360;
+                //    Debug.WriteLine("After: " + _cardboardHomeHor.Value);
+                //}
+
             }
             
             DrawTool.DrawImagesOnCanvas(
