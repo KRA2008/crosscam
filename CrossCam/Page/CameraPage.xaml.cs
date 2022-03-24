@@ -2,8 +2,8 @@
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Drawing;
+using System.Threading;
 using System.Threading.Tasks;
-using System.Timers;
 using CrossCam.CustomElement;
 using CrossCam.Model;
 using CrossCam.ViewModel;
@@ -11,7 +11,9 @@ using SkiaSharp;
 using SkiaSharp.Views.Forms;
 using Xamarin.Essentials;
 using Xamarin.Forms;
+using Xamarin.Forms.Internals;
 using Rectangle = Xamarin.Forms.Rectangle;
+using Timer = System.Timers.Timer;
 
 namespace CrossCam.Page
 {
@@ -53,20 +55,13 @@ namespace CrossCam.Page
         private double _averageRoll;
 
         private Stopwatch _gyroscopeStopwatch;
-        private double _gyroscopeMoveX;
-        private double _gyroscopeMoveY;
+        private double _cardboardViewVert;
+        private double _cardboardViewHor;
         private double _gyroscopeMoveZ;
 
         private double _lastAccelerometerReadingX;
         private double _lastAccelerometerReadingY;
-        private double _lastAccelerometerReadingZ;
-
-        private double _lastCompassReading;
-        private double _compassOffset;
-        private const double COMPASS_MEASUREMENT_WEIGHT = 2;
-
-        private double _cardboardViewVert;
-        private double _cardboardViewHor;
+        
         private double? _cardboardHomeVert;
         private double? _cardboardHomeHor;
         private const double CARDBOARD_DELTA_MEASUREMENT_WEIGHT = 6; //TODO: smooth on Android but laggy
@@ -86,7 +81,6 @@ namespace CrossCam.Page
 		    _horizontalLevelOutside.Source = _levelOutsideImage;
 
             Accelerometer.ReadingChanged += StoreAccelerometerReading;
-            Compass.ReadingChanged += StoreCompassReading;
             Gyroscope.ReadingChanged += StoreGyroscopeReading;
             _gyroscopeStopwatch = new Stopwatch();
             MessagingCenter.Subscribe<App>(this, App.APP_PAUSING_EVENT, o => EvaluateSensors(false));
@@ -125,10 +119,8 @@ namespace CrossCam.Page
 	    {
 	        if (_viewModel != null)
 	        {
-	            if ((_viewModel.Settings.ShowRollGuide &&
-                     _viewModel.WorkflowStage == WorkflowStage.Capture ||
-                    _viewModel.Settings.Mode == DrawMode.Cardboard && 
-                    _viewModel.WorkflowStage == WorkflowStage.Final) &&
+	            if (_viewModel.Settings.ShowRollGuide &&
+                    _viewModel.WorkflowStage == WorkflowStage.Capture &&
                     isAppRunning)
 	            {
 	                if (!Accelerometer.IsMonitoring)
@@ -162,41 +154,11 @@ namespace CrossCam.Page
                 if (_viewModel.Settings.Mode == DrawMode.Cardboard &&
                     isAppRunning)
                 {
-                    if (!Compass.IsMonitoring)
-                    {
-                        try
-                        {
-                            _gyroscopeStopwatch.Start();
-                            Compass.Start(SENSOR_SPEED);
-                            StartCompassCycling();
-                        }
-                        catch
-                        {
-                            //oh well
-                        }
-                    }
-                }
-                else
-                {
-                    if (Compass.IsMonitoring)
-                    {
-                        try
-                        {
-                            Compass.Stop();
-                        }
-                        catch
-                        {
-                            //oh well
-                        }
-                    }
-                }
-
-                if (isAppRunning)
-                {
                     if (!Gyroscope.IsMonitoring)
                     {
                         try
                         {
+                            _gyroscopeStopwatch.Start();
                             Gyroscope.Start(SENSOR_SPEED);
                         }
                         catch
@@ -222,15 +184,6 @@ namespace CrossCam.Page
             }
         }
 
-        private async void StartCompassCycling()
-        {
-            while (Compass.IsMonitoring)
-            {
-                await Task.Delay(SENSOR_FRAME_DELAY);
-                UpdateOrientationFromCompassData();
-            }
-        }
-
         private async void StartAccelerometerCycling()
         {
             while (Accelerometer.IsMonitoring)
@@ -239,40 +192,31 @@ namespace CrossCam.Page
                 UpdateLevelFromAccelerometerData();
             }
         }
-        
+
+        private const int GyroscopeFrameCount = 30;
+        private int _gyroCountUpdate;
         private void StoreGyroscopeReading(object sender, GyroscopeChangedEventArgs e)
         {
             var seconds = _gyroscopeStopwatch.ElapsedTicks / 10000000d;
-            _gyroscopeMoveX += e.Reading.AngularVelocity.X * seconds;
-            _gyroscopeMoveY += e.Reading.AngularVelocity.Y * seconds;
+            _cardboardViewVert -= e.Reading.AngularVelocity.Y * seconds;
+            _cardboardViewHor += e.Reading.AngularVelocity.X * seconds;
             _gyroscopeMoveZ += e.Reading.AngularVelocity.Z * seconds;
             _gyroscopeStopwatch.Restart();
-        }
-
-        private void StoreCompassReading(object sender, CompassChangedEventArgs args)
-        {
-            _lastCompassReading = args.Reading.HeadingMagneticNorth;
+            _gyroCountUpdate++;
+            if (Interlocked.CompareExchange(ref _gyroCountUpdate, 0, GyroscopeFrameCount) == GyroscopeFrameCount &&
+                _cardboardHomeVert.HasValue)
+            {
+                Device.BeginInvokeOnMainThread(() =>
+                {
+                    _capturedCanvas.InvalidateSurface();
+                });
+            }
         }
 
         private void StoreAccelerometerReading(object sender, AccelerometerChangedEventArgs args)
         {
             _lastAccelerometerReadingX = args.Reading.Acceleration.X;
             _lastAccelerometerReadingY = args.Reading.Acceleration.Y;
-            _lastAccelerometerReadingZ = args.Reading.Acceleration.Z;
-        }
-
-        private void UpdateOrientationFromCompassData()
-        {
-            Device.BeginInvokeOnMainThread(() =>
-            {
-                _cardboardViewHor = (_lastCompassReading +
-                                          _cardboardViewHor * (COMPASS_MEASUREMENT_WEIGHT - 1)) /
-                                         COMPASS_MEASUREMENT_WEIGHT;
-                //if (_cardboardHomeHor.HasValue) //leaving this out keeps things smoother?
-                //{
-                //    _capturedCanvas.InvalidateSurface();
-                //}
-            });
         }
 
         private void UpdateLevelFromAccelerometerData()
@@ -285,7 +229,6 @@ namespace CrossCam.Page
                 {
                     var xReading = _lastAccelerometerReadingX; //thread protection
                     var yReading = _lastAccelerometerReadingY;
-                    var zReading = _lastAccelerometerReadingZ;
                     if (Math.Abs(xReading) < Math.Abs(yReading)) //portrait
                     {
                         if (_viewModel.IsViewInverted)
@@ -307,15 +250,6 @@ namespace CrossCam.Page
                         {
                             _averageRoll -= yReading / ROLL_GUIDE_MEASURMENT_WEIGHT;
                         }
-                    }
-
-                    _cardboardViewVert =
-                        (Math.Atan2(xReading, zReading) +
-                         _cardboardViewVert * (CARDBOARD_DELTA_MEASUREMENT_WEIGHT - 1)) /
-                        CARDBOARD_DELTA_MEASUREMENT_WEIGHT;
-                    if (_cardboardHomeVert.HasValue)
-                    {
-                        _capturedCanvas.InvalidateSurface();
                     }
 
                     if (Math.Abs(_averageRoll) < ROLL_GOOD_THRESHOLD &&
@@ -591,45 +525,36 @@ namespace CrossCam.Page
             double cardboardHor = 0;
             if (_cardboardHomeHor.HasValue)
             {
-                var degrees = _cardboardViewHor - _cardboardHomeHor.Value;
-
-                if (degrees > 180)
+                if (_viewModel.IsViewInverted)
                 {
-                    degrees -= 360;
+                    cardboardHor = _cardboardViewHor - _cardboardHomeHor.Value;
+                    if (cardboardHor > 0.5)
+                    {
+                        _cardboardHomeHor = _cardboardHomeHor.Value + (cardboardHor - 0.5);
+                        cardboardHor = 0.5;
+                    }
+                    else if (cardboardHor < -0.5)
+                    {
+                        _cardboardHomeHor = _cardboardHomeHor.Value + (cardboardHor + 0.5);
+                        cardboardHor = -0.5;
+                    }
                 }
-
-                if (degrees < -180)
+                else
                 {
-                    degrees += 360;
+                    cardboardHor = _cardboardHomeHor.Value - _cardboardViewHor;
+                    if (cardboardHor > 0.5)
+                    {
+                        _cardboardHomeHor = _cardboardHomeHor.Value - (cardboardHor - 0.5);
+                        cardboardHor = 0.5;
+                    }
+                    else if (cardboardHor < -0.5)
+                    {
+                        _cardboardHomeHor = _cardboardHomeHor.Value - (cardboardHor + 0.5);
+                        cardboardHor = -0.5;
+                    }
                 }
-
-
-                cardboardHor = degrees * Math.PI / 180d;
-                if (cardboardHor > 0.5)
-                {
-                    //_cardboardHomeHor = _cardboardHomeHor.Value + (cardboardHor - 0.5) * 180d / Math.PI;
-                    cardboardHor = 0.5;
-                }
-                else if (cardboardHor < -0.5)
-                {
-                    //_cardboardHomeHor = _cardboardHomeHor.Value + (cardboardHor + 0.5) * 180d / Math.PI;
-                    cardboardHor = -0.5;
-                }
-
-                //Debug.WriteLine("Before: " + _cardboardHomeHor.Value);
-
-                //if (_cardboardHomeHor.Value < 0)
-                //{
-                //    _cardboardHomeHor = _cardboardHomeHor.Value + 360;
-                //    Debug.WriteLine("After: " + _cardboardHomeHor.Value);
-                //} else if (_cardboardHomeHor.Value > 360)
-                //{
-                //    _cardboardHomeHor = _cardboardHomeHor.Value - 360;
-                //    Debug.WriteLine("After: " + _cardboardHomeHor.Value);
-                //}
-
             }
-            
+
             DrawTool.DrawImagesOnCanvas(
                 canvas, left, right,
                 _viewModel.Settings,
