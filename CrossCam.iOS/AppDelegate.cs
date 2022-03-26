@@ -27,7 +27,20 @@ namespace CrossCam.iOS
         public override void ReceiveMemoryWarning(UIApplication application)
         {
 			Debug.WriteLine("### LOW MEMORY! OH NO!");
-        }
+            Debug.WriteLine("state: " + application.ApplicationState);
+		}
+
+        public override void WillTerminate(UIApplication uiApplication)
+        {
+			Debug.WriteLine("### TERMINATING.");
+            Debug.WriteLine("state: " + uiApplication.ApplicationState);
+		}
+
+        public override void OnResignActivation(UIApplication uiApplication)
+        {
+			Debug.WriteLine("### RESIGNING ACTIVATION");
+            Debug.WriteLine("state: " + uiApplication.ApplicationState);
+		}
 
         public override bool OpenUrl(UIApplication application, NSUrl url, string sourceApplication, NSObject annotation)
 	    {

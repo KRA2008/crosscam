@@ -57,19 +57,6 @@ namespace CrossCam.Page
                 rightBitmapOriginal != null)
             {
                 double downsizeProportion = 1;
-                switch (settings.Mode)
-                {
-                    case DrawMode.Cross:
-                    case DrawMode.Parallel:
-                    case DrawMode.Cardboard:
-                        downsizeProportion = (canvas.DeviceClipBounds.Width / 2d) / ((leftBitmapOriginal?.Width ?? rightBitmapOriginal.Width) * 1d);
-                        break;
-                    case DrawMode.RedCyanAnaglyph:
-                    case DrawMode.GrayscaleRedCyanAnaglyph:
-                        downsizeProportion = canvas.DeviceClipBounds.Width / ((leftBitmapOriginal?.Width ?? rightBitmapOriginal.Width) * 1d);
-                        break;
-                }
-
                 if (settings.Mode == DrawMode.Cardboard)
                 {
                     downsizeProportion *= settings.CardboardResolutionPercentage / 100d;
@@ -87,16 +74,11 @@ namespace CrossCam.Page
                         rightDownsize = CameraViewModel.BitmapDownsize(rightBitmapOriginal, downsizeProportion);
                     }
                 }
-                else
-                {
-                    leftDownsize = leftBitmapOriginal;
-                    rightDownsize = rightBitmapOriginal;
-                }
             }
-            
+
             if (withSwap)
             {
-                DrawImagesOnCanvasInternal(canvas, rightDownsize, leftDownsize,
+                DrawImagesOnCanvasInternal(canvas, rightDownsize ?? rightBitmapOriginal, leftDownsize ?? leftBitmapOriginal,
                     settings.BorderWidthProportion, settings.AddBorder && isPreview, settings.BorderColor,
                     edits.InsideCrop + edits.LeftCrop + innerCardboardCrop, edits.RightCrop + edits.OutsideCrop + outerCardboardCrop,
                     edits.LeftCrop + edits.OutsideCrop + outerCardboardCrop, edits.InsideCrop + edits.RightCrop + innerCardboardCrop,
@@ -112,7 +94,7 @@ namespace CrossCam.Page
             }
             else
             {
-                DrawImagesOnCanvasInternal(canvas, leftDownsize, rightDownsize,
+                DrawImagesOnCanvasInternal(canvas, leftDownsize ?? leftBitmapOriginal, rightDownsize ?? rightBitmapOriginal,
                     settings.BorderWidthProportion, settings.AddBorder && isPreview, settings.BorderColor,
                     edits.LeftCrop + edits.OutsideCrop + outerCardboardCrop, edits.InsideCrop + edits.RightCrop + innerCardboardCrop, edits.InsideCrop + edits.LeftCrop + innerCardboardCrop,
                     edits.RightCrop + edits.OutsideCrop + outerCardboardCrop,
@@ -234,10 +216,10 @@ namespace CrossCam.Page
             var isRightKeystoned = Math.Abs(rightKeystone) > FLOATY_ZERO;
             var isLeftKeystoned = Math.Abs(leftKeystone) > FLOATY_ZERO;
 
-            double cardboardProportion = 0;
+            double cardboardWidthProportion = 0;
             if(drawMode == DrawMode.Cardboard)
             {
-                cardboardProportion = cardboardIpd /
+                cardboardWidthProportion = cardboardIpd /
                                       (Math.Max(DeviceDisplay.MainDisplayInfo.Width,
                                            DeviceDisplay.MainDisplayInfo.Height) /
                                        DeviceDisplay.MainDisplayInfo.Density / 2d) / 2d;
@@ -299,14 +281,14 @@ namespace CrossCam.Page
                         if (bitmapAspect < halfScreenAspect)
                         {
                             //bitmap will be full width
-                            cx = (float)((1 - cardboardProportion) * srcWidth + srcX);
+                            cx = (float)((1 - cardboardWidthProportion) * srcWidth + srcX);
                         }
                         else
                         {
                             //bitmap will be full height
                             var restoredWidth = srcHeight / halfScreenAspect;
                             var missingRestoredWidth = restoredWidth - srcWidth;
-                            cx = (float)((1 - cardboardProportion) * (srcWidth - missingRestoredWidth) + srcX);
+                            cx = (float)((1 - cardboardWidthProportion) * (srcWidth - missingRestoredWidth) + srcX);
                         }
 
                         targetBitmap = openCv.AddBarrelDistortion(targetBitmap, barrelStrength / 100f, cx,
@@ -396,14 +378,14 @@ namespace CrossCam.Page
                         if (bitmapAspect < halfScreenAspect)
                         {
                             //bitmap will be full width
-                            cx = (float)(cardboardProportion * srcWidth + srcX);
+                            cx = (float)(cardboardWidthProportion * srcWidth + srcX);
                         }
                         else
                         {
                             //bitmap will be full height
                             var restoredWidth = srcHeight / halfScreenAspect;
                             var missingRestoredWidth = restoredWidth - srcWidth;
-                            cx = (float)(cardboardProportion * (srcWidth + missingRestoredWidth) + srcX);
+                            cx = (float)(cardboardWidthProportion * (srcWidth + missingRestoredWidth) + srcX);
                         }
                         
                         targetBitmap = openCv.AddBarrelDistortion(targetBitmap, barrelStrength / 100f, cx, srcY + srcHeight / 2f, srcWidth, srcHeight);
