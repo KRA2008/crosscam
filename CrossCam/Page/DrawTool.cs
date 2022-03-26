@@ -57,9 +57,12 @@ namespace CrossCam.Page
                 rightBitmapOriginal != null)
             {
                 double downsizeProportion = 1;
-                if (settings.Mode == DrawMode.Cardboard)
+                if (settings.Mode == DrawMode.Cardboard &&
+                    settings.CardboardSetMaxResolution)
                 {
-                    downsizeProportion *= settings.CardboardResolutionPercentage / 100d;
+                    //TODO: this math is broken
+                    downsizeProportion *= settings.CardboardMaxResolution / leftBitmapOriginal?.Width ??
+                                          rightBitmapOriginal.Width;
                 }
 
                 if (downsizeProportion < 1)

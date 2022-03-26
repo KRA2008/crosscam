@@ -29,6 +29,7 @@ namespace CrossCam.ViewModel
 
         // ReSharper disable MemberCanBeMadeStatic.Global
         public IEnumerable<string> Modes => Enum.GetNames(typeof(DrawMode)).ToList();
+        public IEnumerable<int> ZeroToTenThousand => Enumerable.Range(0, 10001).ToList();
         public IEnumerable<int> ZeroToOneThousand => Enumerable.Range(0, 1001).ToList();
         public IEnumerable<int> ZeroToOneHundred => Enumerable.Range(0, 101).ToList();
         public IEnumerable<int> ZeroToTen => Enumerable.Range(0, 11).ToList();

@@ -1,6 +1,8 @@
 ﻿using System;
 using System.ComponentModel;
 using CrossCam.ViewModel;
+using Xamarin.Essentials;
+using Xamarin.Forms;
 
 namespace CrossCam.Model
 {
@@ -379,15 +381,19 @@ namespace CrossCam.Model
             }
         }
 
-        private int _cardboardResolutionPercentage;
-        public int CardboardResolutionPercentage 
+        public bool CardboardSetMaxResolution { get; set; }
+
+        private int _cardboardMaxResolution;
+        public int CardboardMaxResolution
         { 
-            get => _cardboardResolutionPercentage;
+            get => _cardboardMaxResolution;
             set
             {
-                if (value > 0)
+                if (value > 0 && 
+                    value <= (int)(Math.Max(DeviceDisplay.MainDisplayInfo.Width, DeviceDisplay.MainDisplayInfo.Height) *
+                                                DeviceDisplay.MainDisplayInfo.Density))
                 {
-                    _cardboardResolutionPercentage = value;
+                    _cardboardMaxResolution = value;
                 }
             }
         }
@@ -468,7 +474,10 @@ namespace CrossCam.Model
             CardboardBarrelDistortion = 200;
             AddBarrelDistortion = false;
             AddBarrelDistortionFinalOnly = false;
-            CardboardResolutionPercentage = 100;
+            CardboardSetMaxResolution = false;
+            CardboardMaxResolution =
+                (int) (Math.Max(DeviceDisplay.MainDisplayInfo.Width, DeviceDisplay.MainDisplayInfo.Height) *
+                       DeviceDisplay.MainDisplayInfo.Density);
             ImmersiveCardboardFinal = true;
 
             SendErrorReports1 = true;
