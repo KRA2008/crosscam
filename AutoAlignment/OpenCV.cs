@@ -406,14 +406,15 @@ namespace AutoAlignment
             return result;
         }
 
-        public SKBitmap AddBarrelDistortion(SKBitmap originalImage, float strength, float cx, float cy, float editedWidth, float editedHeight)
+        public SKBitmap AddBarrelDistortion(SKBitmap originalImage, float strength, float cx, float cy, 
+            float editedWidth, float editedHeight, double downsize)
         {
             using var cvImage = new Mat();
-            CvInvoke.Imdecode(GetBytes(originalImage, 1), ImreadModes.Color, cvImage);
+            CvInvoke.Imdecode(GetBytes(originalImage, downsize), ImreadModes.Color, cvImage); //or load without downsize option to increase speed?
 
-            using var cameraMatrix = GetCameraMatrix(cx, cy);
+            using var cameraMatrix = GetCameraMatrix((float)(cx * downsize), (float)(cy * downsize));
 
-            var size = Math.Sqrt(Math.Pow(editedWidth, 2) + Math.Pow(editedHeight, 2));
+            var size = Math.Sqrt(Math.Pow(editedWidth * downsize, 2) + Math.Pow(editedHeight * downsize, 2));
             var scaledCoeff = strength / Math.Pow(size, 2);
             using var distortionMatrix = GetDistortionMatrix((float)scaledCoeff);
 

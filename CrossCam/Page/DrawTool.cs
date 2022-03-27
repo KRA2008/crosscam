@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using CrossCam.Model;
 using CrossCam.ViewModel;
 using CrossCam.Wrappers;
@@ -194,6 +195,7 @@ namespace CrossCam.Page
             }
             var heightRatio = bitmapHeightWithEditsAndBorder / (1f * canvasHeight);
             var scalingRatio = widthRatio > heightRatio ? widthRatio : heightRatio;
+            Debug.WriteLine("### Scaling ratio: " + scalingRatio);
 
             fuseGuideIconWidth = (float)(fuseGuideIconWidth / scalingRatio);
             fuseGuideMarginHeight = (float)(fuseGuideMarginHeight / scalingRatio);
@@ -296,7 +298,7 @@ namespace CrossCam.Page
                         }
 
                         targetBitmap = openCv.AddBarrelDistortion(targetBitmap, barrelStrength / 100f, cx,
-                            srcY + srcHeight / 2f, srcWidth, srcHeight);
+                            srcY + srcHeight / 2f, srcWidth, srcHeight, 1 / scalingRatio);
                     }
                 }
 
@@ -391,8 +393,9 @@ namespace CrossCam.Page
                             var missingRestoredWidth = restoredWidth - srcWidth;
                             cx = (float)(cardboardWidthProportion * (srcWidth + missingRestoredWidth) + srcX);
                         }
-                        
-                        targetBitmap = openCv.AddBarrelDistortion(targetBitmap, barrelStrength / 100f, cx, srcY + srcHeight / 2f, srcWidth, srcHeight);
+
+                        targetBitmap = openCv.AddBarrelDistortion(targetBitmap, barrelStrength / 100f, cx,
+                            srcY + srcHeight / 2f, srcWidth, srcHeight, 1 / scalingRatio);
                     }
                 }
 
