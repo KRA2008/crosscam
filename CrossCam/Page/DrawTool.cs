@@ -18,7 +18,7 @@ namespace CrossCam.Page
             Math.Min(DeviceDisplay.MainDisplayInfo.Width, DeviceDisplay.MainDisplayInfo.Height) /
             (Math.Max(DeviceDisplay.MainDisplayInfo.Width, DeviceDisplay.MainDisplayInfo.Height) / 2);
 
-        public static void DrawImagesOnCanvas(SKCanvas canvas, SKBitmap leftBitmapOriginal, SKBitmap rightBitmapOriginal,
+        public static void DrawImagesOnCanvas(SKCanvas canvas, SKBitmap leftBitmap, SKBitmap rightBitmap,
             Settings settings, Edits edits, DrawMode drawMode, bool isFov = false, bool withSwap = false,
             bool isPreview = false, double cardboardVert = 0, double cardboardHor = 0)
         {
@@ -51,37 +51,44 @@ namespace CrossCam.Page
                 settings.AddBarrelDistortion && settings.AddBarrelDistortionFinalOnly && !isPreview ||
                 settings.AddBarrelDistortion && !settings.AddBarrelDistortionFinalOnly;
 
-            SKBitmap leftDownsize = null;
-            SKBitmap rightDownsize = null;
-            if (leftBitmapOriginal != null ||
-                rightBitmapOriginal != null)
+            double cardboardWidthProportion = 0;
+            if (drawMode == DrawMode.Cardboard)
             {
-                double downsizeProportion = 1;
-                if (settings.Mode == DrawMode.Cardboard &&
-                    settings.CardboardSetMaxResolution)
-                {
-                    //TODO: this math is broken
-                    downsizeProportion *= settings.CardboardMaxResolution / leftBitmapOriginal?.Width ??
-                                          rightBitmapOriginal.Width;
-                }
-
-                if (downsizeProportion < 1)
-                {
-                    if (leftBitmapOriginal != null)
-                    {
-                        leftDownsize = CameraViewModel.BitmapDownsize(leftBitmapOriginal, downsizeProportion);
-                    }
-
-                    if (rightBitmapOriginal != null)
-                    {
-                        rightDownsize = CameraViewModel.BitmapDownsize(rightBitmapOriginal, downsizeProportion);
-                    }
-                }
+                cardboardWidthProportion = settings.CardboardIpd /
+                                           (Math.Max(DeviceDisplay.MainDisplayInfo.Width,
+                                                DeviceDisplay.MainDisplayInfo.Height) /
+                                            DeviceDisplay.MainDisplayInfo.Density / 2d) / 2d;
             }
+
+            //int downsizedWidth;
+            //int downsizedHeight;
+            //if (leftBitmap != null ||
+            //    rightBitmap != null)
+            //{
+            //    double downsizeProportion = 1;
+            //    if (settings.Mode == DrawMode.Cardboard &&
+            //        settings.CardboardSetMaxResolution)
+            //    {
+            //        var maxWidthRes = Math.Max(canvas.DeviceClipBounds.Width, canvas.DeviceClipBounds.Height);
+            //        var actualWidth = leftBitmap?.Width ?? rightBitmap.Width;
+            //        if (settings.Mode == DrawMode.Cross ||
+            //            settings.Mode == DrawMode.Parallel ||
+            //            settings.Mode == DrawMode.Cardboard)
+            //        {
+            //            maxWidthRes /= 2;
+            //        }
+            //        if (actualWidth > maxWidthRes)
+            //        {
+            //            downsizeProportion = maxWidthRes / (actualWidth * 1d);
+            //            //TODO: move downsizing into later drawing
+            //        }
+            //    }
+            //}
+
 
             if (withSwap)
             {
-                DrawImagesOnCanvasInternal(canvas, rightDownsize ?? rightBitmapOriginal, leftDownsize ?? leftBitmapOriginal,
+                DrawImagesOnCanvasInternal(canvas, rightBitmap, leftBitmap,
                     settings.BorderWidthProportion, settings.AddBorder && isPreview, settings.BorderColor,
                     edits.InsideCrop + edits.LeftCrop + innerCardboardCrop, edits.RightCrop + edits.OutsideCrop + outerCardboardCrop,
                     edits.LeftCrop + edits.OutsideCrop + outerCardboardCrop, edits.InsideCrop + edits.RightCrop + innerCardboardCrop,
@@ -91,13 +98,14 @@ namespace CrossCam.Page
                     edits.RightZoom + (isFov ? edits.FovRightCorrection : 0), edits.LeftZoom + (isFov ? edits.FovLeftCorrection : 0),
                     edits.RightKeystone, edits.LeftKeystone,
                     drawMode, fuseGuideRequested,
-                    settings.CardboardIpd, addBarrelDistortion, settings.CardboardBarrelDistortion,
+                    addBarrelDistortion, settings.CardboardBarrelDistortion,
                     drawQuality,
-                    useGhosts, settings.ImmersiveCardboardFinal ? cardboardVert : 0, settings.ImmersiveCardboardFinal ? cardboardHor : 0);
+                    useGhosts,
+                    cardboardWidthProportion, settings.ImmersiveCardboardFinal ? cardboardVert : 0, settings.ImmersiveCardboardFinal ? cardboardHor : 0);
             }
             else
             {
-                DrawImagesOnCanvasInternal(canvas, leftDownsize ?? leftBitmapOriginal, rightDownsize ?? rightBitmapOriginal,
+                DrawImagesOnCanvasInternal(canvas, leftBitmap, rightBitmap,
                     settings.BorderWidthProportion, settings.AddBorder && isPreview, settings.BorderColor,
                     edits.LeftCrop + edits.OutsideCrop + outerCardboardCrop, edits.InsideCrop + edits.RightCrop + innerCardboardCrop, edits.InsideCrop + edits.LeftCrop + innerCardboardCrop,
                     edits.RightCrop + edits.OutsideCrop + outerCardboardCrop,
@@ -107,9 +115,10 @@ namespace CrossCam.Page
                     edits.LeftZoom + (isFov ? edits.FovLeftCorrection : 0), edits.RightZoom + (isFov ? edits.FovRightCorrection : 0),
                     edits.LeftKeystone, edits.RightKeystone,
                     drawMode, fuseGuideRequested,
-                    settings.CardboardIpd, addBarrelDistortion, settings.CardboardBarrelDistortion,
+                    addBarrelDistortion, settings.CardboardBarrelDistortion,
                     drawQuality,
-                    useGhosts, settings.ImmersiveCardboardFinal ? cardboardVert : 0, settings.ImmersiveCardboardFinal ? cardboardHor : 0);
+                    useGhosts,
+                    cardboardWidthProportion, settings.ImmersiveCardboardFinal ? cardboardVert : 0, settings.ImmersiveCardboardFinal ? cardboardHor : 0);
             }
         }
 
@@ -122,8 +131,9 @@ namespace CrossCam.Page
             double leftZoom, double rightZoom,
             float leftKeystone, float rightKeystone,
             DrawMode drawMode, bool fuseGuideRequested,
-            int cardboardIpd, bool addBarrelDistortion, int barrelStrength,
+            bool addBarrelDistortion, int barrelStrength,
             SKFilterQuality quality, bool useGhosts, 
+            double cardboardWidthProportion,
             double cardboardVert,
             double cardboardHor)
         {
@@ -219,21 +229,12 @@ namespace CrossCam.Page
             var isRightKeystoned = Math.Abs(rightKeystone) > FLOATY_ZERO;
             var isLeftKeystoned = Math.Abs(leftKeystone) > FLOATY_ZERO;
 
-            double cardboardWidthProportion = 0;
-            if(drawMode == DrawMode.Cardboard)
-            {
-                cardboardWidthProportion = cardboardIpd /
-                                      (Math.Max(DeviceDisplay.MainDisplayInfo.Width,
-                                           DeviceDisplay.MainDisplayInfo.Height) /
-                                       DeviceDisplay.MainDisplayInfo.Density / 2d) / 2d;
-            }
-
             if (leftBitmap != null)
             {
                 SKBitmap grayscale = null;
                 if (drawMode == DrawMode.GrayscaleRedCyanAnaglyph)
                 {
-                    grayscale = FilterToGrayscale(leftBitmap, quality);
+                    grayscale = FilterToGrayscale(leftBitmap, quality, sidePreviewWidthLessCrop, previewHeightLessCrop);
                 }
 
                 SKBitmap transformed = null;
@@ -242,7 +243,7 @@ namespace CrossCam.Page
                     isLeftKeystoned)
                 {
                     transformed = ZoomAndRotate(grayscale ?? leftBitmap, leftZoom, isLeftRotated, leftRotation,
-                        isLeftKeystoned, -leftKeystone, quality);
+                        isLeftKeystoned, -leftKeystone, quality, sidePreviewWidthLessCrop, previewHeightLessCrop);
                 }
 
                 using var paint = new SKPaint
@@ -322,7 +323,7 @@ namespace CrossCam.Page
                 SKBitmap grayscale = null;
                 if (drawMode == DrawMode.GrayscaleRedCyanAnaglyph)
                 {
-                    grayscale = FilterToGrayscale(rightBitmap, quality);
+                    grayscale = FilterToGrayscale(rightBitmap, quality, sidePreviewWidthLessCrop, previewHeightLessCrop);
                 }
 
                 SKBitmap transformed = null;
@@ -331,7 +332,7 @@ namespace CrossCam.Page
                     isRightKeystoned)
                 {
                     transformed = ZoomAndRotate(grayscale ?? rightBitmap, rightZoom, isRightRotated, rightRotation,
-                        isRightKeystoned, rightKeystone, quality);
+                        isRightKeystoned, rightKeystone, quality, sidePreviewWidthLessCrop, previewHeightLessCrop);
                 }
 
                 using var paint = new SKPaint
@@ -454,15 +455,15 @@ namespace CrossCam.Page
             }
         }
 
-        private static SKBitmap FilterToGrayscale(SKBitmap originalBitmap, SKFilterQuality quality)
+        private static SKBitmap FilterToGrayscale(SKBitmap originalBitmap, SKFilterQuality quality, float finalWidth, float finalHeight)
         {
-            var grayed = new SKBitmap(originalBitmap.Width, originalBitmap.Height);
+            var grayed = new SKBitmap((int) finalWidth, (int) finalHeight);
 
-            using var graybrush = new SKPaint
+            using var grayBrush = new SKPaint
             {
                 FilterQuality = quality
             };
-            graybrush.ColorFilter =
+            grayBrush.ColorFilter =
                 SKColorFilter.CreateColorMatrix(new[]
                 {
                     0.21f, 0.72f, 0.07f, 0.0f, 0.0f,
@@ -473,16 +474,17 @@ namespace CrossCam.Page
             using var tempCanvas = new SKCanvas(grayed);
             tempCanvas.DrawBitmap(
                 originalBitmap,
-                0,
-                0,
-                graybrush);
+                SKRect.Create(0, 0, originalBitmap.Width, originalBitmap.Height),
+                SKRect.Create(0, 0, finalWidth, finalHeight),
+                grayBrush);
 
             return grayed;
         }
 
-        private static SKBitmap ZoomAndRotate(SKBitmap originalBitmap, double zoom, bool isRotated, float rotation, bool isKeystoned, float keystone, SKFilterQuality quality)
+        private static SKBitmap ZoomAndRotate(SKBitmap originalBitmap, double zoom, bool isRotated, float rotation, bool isKeystoned, 
+            float keystone, SKFilterQuality quality, float finalWidth, float finalHeight)
         {
-            var rotatedAndZoomed = new SKBitmap(originalBitmap.Width, originalBitmap.Height);
+            var rotatedAndZoomed = new SKBitmap((int) finalWidth, (int) finalHeight);
 
             using var skPaint = new SKPaint
             {
@@ -490,38 +492,41 @@ namespace CrossCam.Page
             };
             using (var tempCanvas = new SKCanvas(rotatedAndZoomed))
             {
-                var zoomedX = originalBitmap.Width * zoom / -2f;
-                var zoomedY = originalBitmap.Height * zoom / -2f;
-                var zoomedWidth = originalBitmap.Width * (1 + zoom);
-                var zoomedHeight = originalBitmap.Height * (1 + zoom);
+                var zoomedX = finalWidth * zoom / -2f;
+                var zoomedY = finalHeight * zoom / -2f;
+                var zoomedWidth = finalWidth * (1 + zoom);
+                var zoomedHeight = finalHeight * (1 + zoom);
                 if (isRotated)
                 {
-                    tempCanvas.RotateDegrees(rotation, originalBitmap.Width / 2f,
-                        originalBitmap.Height / 2f);
+                    tempCanvas.RotateDegrees(rotation, finalWidth / 2f,
+                        finalHeight / 2f);
                 }
+                tempCanvas.Clear();
                 tempCanvas.DrawBitmap(
                     originalBitmap,
-                    SKRect.Create(
-                        (float)zoomedX,
-                        (float)zoomedY,
-                        (float)zoomedWidth,
-                        (float)zoomedHeight
-                    ), skPaint); // blows up the bitmap, which is cut off later
+                    SKRect.Create(0, 0, originalBitmap.Width, originalBitmap.Height),
+                    SKRect.Create((float) zoomedX, (float) zoomedY, (float) zoomedWidth, (float) zoomedHeight),
+                    skPaint);
                 if (isRotated)
                 {
-                    tempCanvas.RotateDegrees(rotation, -1 * originalBitmap.Width / 2f,
-                        originalBitmap.Height / 2f);
+                    tempCanvas.RotateDegrees(rotation, -1 * finalWidth / 2f,
+                        finalHeight / 2f);
                 }
             }
 
             SKBitmap keystoned = null;
             if (isKeystoned)
             {
-                keystoned = new SKBitmap(originalBitmap.Width, originalBitmap.Height);
+                keystoned = new SKBitmap((int) finalWidth, (int) finalHeight);
                 using var tempCanvas = new SKCanvas(keystoned);
-                tempCanvas.SetMatrix(TaperTransform.Make(new SKSize(originalBitmap.Width, originalBitmap.Height),
+                tempCanvas.SetMatrix(TaperTransform.Make(new SKSize(finalWidth, finalHeight),
                     keystone > 0 ? TaperSide.Left : TaperSide.Right, TaperCorner.Both, 1 - Math.Abs(keystone)));
-                tempCanvas.DrawBitmap(rotatedAndZoomed, 0, 0, skPaint);
+                tempCanvas.Clear();
+                tempCanvas.DrawBitmap(
+                    rotatedAndZoomed,
+                    SKRect.Create(0, 0, rotatedAndZoomed.Width, rotatedAndZoomed.Height),
+                    SKRect.Create(0, 0, finalWidth, finalHeight),
+                    skPaint);
                 rotatedAndZoomed.Dispose();
             }
 

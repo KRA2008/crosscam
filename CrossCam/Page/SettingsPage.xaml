@@ -121,30 +121,8 @@
             </StackLayout>
             <StackLayout Orientation="Horizontal"
                          IsVisible="{Binding Settings.Mode, Converter={vc:EnumCompareConverter}, ConverterParameter={x:Static vm:DrawMode.Cardboard}}">
-                <Label Text="Set maximum display resolution (may increase frame rate)"/>
+                <Label Text="Downsize preview (may increase frame rate)"/>
                 <Switch IsToggled="{Binding Settings.CardboardSetMaxResolution}"/>
-            </StackLayout>
-            <StackLayout Orientation="Horizontal"
-                         IsVisible="False">
-                <StackLayout.Triggers>
-                    <MultiTrigger TargetType="StackLayout">
-                        <MultiTrigger.Conditions>
-                            <BindingCondition Binding="{Binding Settings.Mode, Converter={vc:EnumCompareConverter}, ConverterParameter={x:Static vm:DrawMode.Cardboard}}"
-                                              Value="True"/>
-                            <BindingCondition Binding="{Binding Settings.CardboardSetMaxResolution}"
-                                              Value="True"/>
-                        </MultiTrigger.Conditions>
-                        <Setter Property="IsVisible"
-                                Value="True"/>
-                    </MultiTrigger>
-                </StackLayout.Triggers>
-                <Label Text="Maximum preview resolution (decreasing may increase frame rate)"/>
-                <Frame>
-                    <Picker ItemsSource="{Binding ZeroToTenThousand}"
-                            SelectedIndex="{Binding Settings.CardboardMaxResolution}"
-                            WidthRequest="50"
-                            HorizontalOptions="EndAndExpand"/>
-                </Frame>
             </StackLayout>
             <StackLayout Orientation="Horizontal"
                          IsVisible="{Binding Settings.Mode, Converter={vc:EnumCompareConverter}, ConverterParameter={x:Static vm:DrawMode.Cardboard}}">

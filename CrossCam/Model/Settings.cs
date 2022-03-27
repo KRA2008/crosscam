@@ -383,21 +383,6 @@ namespace CrossCam.Model
 
         public bool CardboardSetMaxResolution { get; set; }
 
-        private int _cardboardMaxResolution;
-        public int CardboardMaxResolution
-        { 
-            get => _cardboardMaxResolution;
-            set
-            {
-                if (value > 0 && 
-                    value <= (int)(Math.Max(DeviceDisplay.MainDisplayInfo.Width, DeviceDisplay.MainDisplayInfo.Height) *
-                                                DeviceDisplay.MainDisplayInfo.Density))
-                {
-                    _cardboardMaxResolution = value;
-                }
-            }
-        }
-
         public bool ImmersiveCardboardFinal { get; set; }
 
         public bool AddBarrelDistortionFinalOnly { get; set; }
@@ -475,9 +460,6 @@ namespace CrossCam.Model
             AddBarrelDistortion = false;
             AddBarrelDistortionFinalOnly = false;
             CardboardSetMaxResolution = false;
-            CardboardMaxResolution =
-                (int) (Math.Max(DeviceDisplay.MainDisplayInfo.Width, DeviceDisplay.MainDisplayInfo.Height) *
-                       DeviceDisplay.MainDisplayInfo.Density);
             ImmersiveCardboardFinal = true;
 
             SendErrorReports1 = true;
