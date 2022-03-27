@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Diagnostics;
 using CrossCam.Model;
 using CrossCam.ViewModel;
 using CrossCam.Wrappers;
@@ -195,7 +194,6 @@ namespace CrossCam.Page
             }
             var heightRatio = bitmapHeightWithEditsAndBorder / (1f * canvasHeight);
             var scalingRatio = widthRatio > heightRatio ? widthRatio : heightRatio;
-            Debug.WriteLine("### Scaling ratio: " + scalingRatio);
 
             fuseGuideIconWidth = (float)(fuseGuideIconWidth / scalingRatio);
             fuseGuideMarginHeight = (float)(fuseGuideMarginHeight / scalingRatio);
@@ -233,18 +231,16 @@ namespace CrossCam.Page
 
             if (leftBitmap != null)
             {
-                SKBitmap grayscale = null;
                 if (drawMode == DrawMode.GrayscaleRedCyanAnaglyph)
                 {
-                    grayscale = FilterToGrayscale(leftBitmap, quality, sidePreviewWidthLessCrop, previewHeightLessCrop);
+                    leftBitmap = FilterToGrayscale(leftBitmap, quality, sidePreviewWidthLessCrop, previewHeightLessCrop);
                 }
-
-                SKBitmap transformed = null;
+                
                 if (isLeftRotated ||
                     leftZoom > 0 ||
                     isLeftKeystoned)
                 {
-                    transformed = ZoomAndRotate(grayscale ?? leftBitmap, leftZoom, isLeftRotated, leftRotation,
+                    leftBitmap = ZoomAndRotate(leftBitmap, leftZoom, isLeftRotated, leftRotation,
                         isLeftKeystoned, -leftKeystone, quality, sidePreviewWidthLessCrop, previewHeightLessCrop);
                 }
 
@@ -265,10 +261,9 @@ namespace CrossCam.Page
                             0, 0, 0, 1, 0
                         });
                 }
-
-                var targetBitmap = transformed ?? grayscale ?? leftBitmap;
-                var width = targetBitmap.Width;
-                var height = targetBitmap.Height;
+                
+                var width = leftBitmap.Width;
+                var height = leftBitmap.Height;
 
                 var srcWidth = (float)(width - width * (leftLeftCrop + leftRightCrop));
                 var srcHeight = (float)(height - height * (topCrop + bottomCrop + Math.Abs(alignment)));
@@ -297,13 +292,13 @@ namespace CrossCam.Page
                             cx = (float)((1 - cardboardWidthProportion) * (srcWidth - missingRestoredWidth) + srcX);
                         }
 
-                        targetBitmap = openCv.AddBarrelDistortion(targetBitmap, barrelStrength / 100f, cx,
+                        leftBitmap = openCv.AddBarrelDistortion(leftBitmap, barrelStrength / 100f, cx,
                             srcY + srcHeight / 2f, srcWidth, srcHeight, 1 / scalingRatio);
                     }
                 }
 
                 canvas.DrawBitmap(
-                    targetBitmap,
+                    leftBitmap,
                     SKRect.Create(
                         srcX,
                         srcY,
@@ -315,25 +310,20 @@ namespace CrossCam.Page
                         sidePreviewWidthLessCrop,
                         previewHeightLessCrop),
                     paint);
-
-                grayscale?.Dispose();
-                transformed?.Dispose();
             }
 
             if (rightBitmap != null)
             {
-                SKBitmap grayscale = null;
                 if (drawMode == DrawMode.GrayscaleRedCyanAnaglyph)
                 {
-                    grayscale = FilterToGrayscale(rightBitmap, quality, sidePreviewWidthLessCrop, previewHeightLessCrop);
+                    rightBitmap = FilterToGrayscale(rightBitmap, quality, sidePreviewWidthLessCrop, previewHeightLessCrop);
                 }
-
-                SKBitmap transformed = null;
+                
                 if (isRightRotated ||
                     rightZoom > 0 || 
                     isRightKeystoned)
                 {
-                    transformed = ZoomAndRotate(grayscale ?? rightBitmap, rightZoom, isRightRotated, rightRotation,
+                    rightBitmap = ZoomAndRotate(rightBitmap, rightZoom, isRightRotated, rightRotation,
                         isRightKeystoned, rightKeystone, quality, sidePreviewWidthLessCrop, previewHeightLessCrop);
                 }
 
@@ -362,10 +352,9 @@ namespace CrossCam.Page
                 {
                     paint.Color = paint.Color.WithAlpha((byte) (0xFF * 0.5f));
                 }
-
-                var targetBitmap = transformed ?? grayscale ?? rightBitmap;
-                var width = targetBitmap.Width;
-                var height = targetBitmap.Height;
+                
+                var width = rightBitmap.Width;
+                var height = rightBitmap.Height;
 
                 var srcWidth = (float) (width - width * (rightLeftCrop + rightRightCrop));
                 var srcHeight = (float) (height - height * (topCrop + bottomCrop + Math.Abs(alignment)));
@@ -394,13 +383,13 @@ namespace CrossCam.Page
                             cx = (float)(cardboardWidthProportion * (srcWidth + missingRestoredWidth) + srcX);
                         }
 
-                        targetBitmap = openCv.AddBarrelDistortion(targetBitmap, barrelStrength / 100f, cx,
+                        rightBitmap = openCv.AddBarrelDistortion(rightBitmap, barrelStrength / 100f, cx,
                             srcY + srcHeight / 2f, srcWidth, srcHeight, 1 / scalingRatio);
                     }
                 }
 
                 canvas.DrawBitmap(
-                    targetBitmap,
+                    rightBitmap,
                     SKRect.Create(
                         srcX,
                         srcY,
@@ -412,9 +401,6 @@ namespace CrossCam.Page
                         sidePreviewWidthLessCrop,
                         previewHeightLessCrop),
                     paint);
-
-                grayscale?.Dispose();
-                transformed?.Dispose();
             }
 
             if (innerBorderThicknessProportion > 0)
