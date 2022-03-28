@@ -75,7 +75,8 @@ namespace CrossCam.Page
                     addBarrelDistortion, settings.CardboardBarrelDistortion,
                     drawQuality,
                     useGhosts,
-                    cardboardWidthProportion, settings.ImmersiveCardboardFinal ? cardboardVert : 0, settings.ImmersiveCardboardFinal ? cardboardHor : 0);
+                    cardboardWidthProportion, settings.ImmersiveCardboardFinal ? cardboardVert : 0, settings.ImmersiveCardboardFinal ? cardboardHor : 0,
+                    drawMode == DrawMode.Cardboard && settings.CardboardDownsize ? settings.CardboardDownsizePercentage / 100d : 1);
             }
             else
             {
@@ -92,7 +93,8 @@ namespace CrossCam.Page
                     addBarrelDistortion, settings.CardboardBarrelDistortion,
                     drawQuality,
                     useGhosts,
-                    cardboardWidthProportion, settings.ImmersiveCardboardFinal ? cardboardVert : 0, settings.ImmersiveCardboardFinal ? cardboardHor : 0);
+                    cardboardWidthProportion, settings.ImmersiveCardboardFinal ? cardboardVert : 0, settings.ImmersiveCardboardFinal ? cardboardHor : 0,
+                    drawMode == DrawMode.Cardboard && settings.CardboardDownsize ? settings.CardboardDownsizePercentage / 100d : 1);
             }
         }
 
@@ -109,7 +111,8 @@ namespace CrossCam.Page
             SKFilterQuality quality, bool useGhosts, 
             double cardboardWidthProportion,
             double cardboardVert,
-            double cardboardHor)
+            double cardboardHor,
+            double cardboardDownsize)
         {
             if (leftBitmap == null && rightBitmap == null) return;
 
@@ -206,7 +209,7 @@ namespace CrossCam.Page
 
             if (leftBitmap != null)
             {
-                leftBitmap = CameraViewModel.BitmapDownsize(leftBitmap, 1 / scalingRatio);
+                leftBitmap = CameraViewModel.BitmapDownsize(leftBitmap, cardboardDownsize / scalingRatio);
 
                 if (drawMode == DrawMode.GrayscaleRedCyanAnaglyph)
                 {
@@ -291,7 +294,7 @@ namespace CrossCam.Page
 
             if (rightBitmap != null)
             {
-                rightBitmap = CameraViewModel.BitmapDownsize(rightBitmap, 1 / scalingRatio);
+                rightBitmap = CameraViewModel.BitmapDownsize(rightBitmap, cardboardDownsize / scalingRatio);
 
                 if (drawMode == DrawMode.GrayscaleRedCyanAnaglyph)
                 {

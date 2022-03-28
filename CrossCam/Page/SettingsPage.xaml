@@ -67,6 +67,11 @@
             </Frame>
             <StackLayout Orientation="Horizontal"
                          IsVisible="{Binding Settings.Mode, Converter={vc:EnumCompareConverter}, ConverterParameter={x:Static vm:DrawMode.Cardboard}}">
+                <Label Text="Immersive final viewing"/>
+                <Switch IsToggled="{Binding Settings.ImmersiveCardboardFinal}"/>
+            </StackLayout>
+            <StackLayout Orientation="Horizontal"
+                         IsVisible="{Binding Settings.Mode, Converter={vc:EnumCompareConverter}, ConverterParameter={x:Static vm:DrawMode.Cardboard}}">
                 <Label Text="Cardboard separation distance"/>
                 <Frame>
                     <Picker ItemsSource="{Binding ZeroToOneThousand}"
@@ -122,12 +127,29 @@
             <StackLayout Orientation="Horizontal"
                          IsVisible="{Binding Settings.Mode, Converter={vc:EnumCompareConverter}, ConverterParameter={x:Static vm:DrawMode.Cardboard}}">
                 <Label Text="Downsize preview (may increase frame rate)"/>
-                <Switch IsToggled="{Binding Settings.CardboardSetMaxResolution}"/>
+                <Switch IsToggled="{Binding Settings.CardboardDownsize}"/>
             </StackLayout>
             <StackLayout Orientation="Horizontal"
-                         IsVisible="{Binding Settings.Mode, Converter={vc:EnumCompareConverter}, ConverterParameter={x:Static vm:DrawMode.Cardboard}}">
-                <Label Text="Immersive final viewing"/>
-                <Switch IsToggled="{Binding Settings.ImmersiveCardboardFinal}"/>
+                         IsVisible="False">
+                <StackLayout.Triggers>
+                    <MultiTrigger TargetType="StackLayout">
+                        <MultiTrigger.Conditions>
+                            <BindingCondition Binding="{Binding Settings.Mode, Converter={vc:EnumCompareConverter}, ConverterParameter={x:Static vm:DrawMode.Cardboard}}"
+                                              Value="True"/>
+                            <BindingCondition Binding="{Binding Settings.CardboardDownsize}"
+                                              Value="True"/>
+                        </MultiTrigger.Conditions>
+                        <Setter Property="IsVisible"
+                                Value="True"/>
+                    </MultiTrigger>
+                </StackLayout.Triggers>
+                <Label Text="Lens correction strength"/>
+                <Frame>
+                    <Picker ItemsSource="{Binding ZeroToOneHundred}"
+                            SelectedIndex="{Binding Settings.CardboardDownsizePercentage}"
+                            WidthRequest="50"
+                            HorizontalOptions="EndAndExpand"/>
+                </Frame>
             </StackLayout>
             <StackLayout Orientation="Horizontal"
                          IsVisible="{Binding Settings.Mode, Converter={vc:EnumCompareConverter}, ConverterParameter={x:Static vm:DrawMode.Parallel}}">

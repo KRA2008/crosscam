@@ -381,7 +381,20 @@ namespace CrossCam.Model
             }
         }
 
-        public bool CardboardSetMaxResolution { get; set; }
+        public bool CardboardDownsize { get; set; }
+
+        private int _cardboardDownsizePercentage;
+        public int CardboardDownsizePercentage
+        {
+            get => _cardboardDownsizePercentage;
+            set
+            {
+                if (value > 0)
+                {
+                    _cardboardDownsizePercentage = value;
+                }
+            }
+        }
 
         public bool ImmersiveCardboardFinal { get; set; }
 
@@ -459,7 +472,8 @@ namespace CrossCam.Model
             CardboardBarrelDistortion = 200;
             AddBarrelDistortion = false;
             AddBarrelDistortionFinalOnly = false;
-            CardboardSetMaxResolution = false;
+            CardboardDownsize = false;
+            CardboardDownsizePercentage = 100;
             ImmersiveCardboardFinal = true;
 
             SendErrorReports1 = true;
