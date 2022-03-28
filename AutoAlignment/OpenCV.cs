@@ -407,14 +407,14 @@ namespace AutoAlignment
         }
 
         public SKBitmap AddBarrelDistortion(SKBitmap originalImage, float strength, float cx, float cy, 
-            float editedWidth, float editedHeight, double downsize)
+            float editedWidth, float editedHeight, bool isPreview)
         {
             using var cvImage = new Mat();
-            CvInvoke.Imdecode(GetBytes(originalImage, downsize), ImreadModes.Color, cvImage); //or load without downsize option to increase speed?
+            CvInvoke.Imdecode(GetBytes(originalImage, 1, isPreview), ImreadModes.Color, cvImage); //or load without downsize option to increase speed?
 
-            using var cameraMatrix = GetCameraMatrix((float)(cx * downsize), (float)(cy * downsize));
+            using var cameraMatrix = GetCameraMatrix(cx, cy);
 
-            var size = Math.Sqrt(Math.Pow(editedWidth * downsize, 2) + Math.Pow(editedHeight * downsize, 2));
+            var size = Math.Sqrt(Math.Pow(editedWidth, 2) + Math.Pow(editedHeight, 2));
             var scaledCoeff = strength / Math.Pow(size, 2);
             using var distortionMatrix = GetDistortionMatrix((float)scaledCoeff);
 
@@ -686,8 +686,14 @@ namespace AutoAlignment
             return Math.Sqrt(Math.Pow(from.X - to.X, 2) + Math.Pow(from.Y - to.Y, 2));
         }
 
-        private static byte[] GetBytes(SKBitmap bitmap, double downsize)
+        private static byte[] GetBytes(SKBitmap bitmap, double downsize, bool isPreview = false)
         {
+            var quality = isPreview ? 0 : 100;
+            if (downsize == 1)
+            {
+               return SKImage.FromBitmap(bitmap).Encode(SKEncodedImageFormat.Jpeg, quality).ToArray();
+            }
+
             var width = (int)(bitmap.Width * downsize);
             var height = (int)(bitmap.Height * downsize);
             using var tempSurface =
@@ -699,7 +705,7 @@ namespace AutoAlignment
                 SKRect.Create(0, 0, bitmap.Width, bitmap.Height),
                 SKRect.Create(0, 0, width, height));
 
-            using var data = tempSurface.Snapshot().Encode(SKEncodedImageFormat.Jpeg, 100);
+            using var data = tempSurface.Snapshot().Encode(SKEncodedImageFormat.Jpeg, quality);
             return data.ToArray();
         }
     }
