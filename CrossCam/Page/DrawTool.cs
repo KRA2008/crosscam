@@ -221,11 +221,14 @@ namespace CrossCam.Page
                 }
                 
                 if (isLeftRotated ||
-                    leftZoom > 0 ||
-                    isLeftKeystoned)
+                    leftZoom > 0)
                 {
-                    leftBitmap = ZoomAndRotate(leftBitmap, leftZoom, isLeftRotated, leftRotation,
-                        isLeftKeystoned, -leftKeystone, skFilterQuality);
+                    leftBitmap = ZoomAndRotate(leftBitmap, leftZoom, isLeftRotated, leftRotation, skFilterQuality);
+                }
+
+                if (isLeftKeystoned)
+                {
+                    leftBitmap = Keystone(leftBitmap, -leftKeystone, skFilterQuality);
                 }
 
                 using var paint = new SKPaint
@@ -311,11 +314,14 @@ namespace CrossCam.Page
                 }
                 
                 if (isRightRotated ||
-                    rightZoom > 0 || 
-                    isRightKeystoned)
+                    rightZoom > 0)
                 {
-                    rightBitmap = ZoomAndRotate(rightBitmap, rightZoom, isRightRotated, rightRotation,
-                        isRightKeystoned, rightKeystone, skFilterQuality);
+                    rightBitmap = ZoomAndRotate(rightBitmap, rightZoom, isRightRotated, rightRotation, skFilterQuality);
+                }
+
+                if (isRightKeystoned)
+                {
+                    rightBitmap = Keystone(rightBitmap, rightKeystone, skFilterQuality);
                 }
 
                 using var paint = new SKPaint
@@ -467,8 +473,8 @@ namespace CrossCam.Page
             return grayed;
         }
 
-        private static SKBitmap ZoomAndRotate(SKBitmap originalBitmap, double zoom, bool isRotated, float rotation, bool isKeystoned, 
-            float keystone, SKFilterQuality quality)
+        private static SKBitmap ZoomAndRotate(SKBitmap originalBitmap, double zoom, bool isRotated, float rotation, 
+             SKFilterQuality quality)
         {
             var resultBitmap = new SKBitmap(originalBitmap.Width, originalBitmap.Height);
 
@@ -498,23 +504,27 @@ namespace CrossCam.Page
                 zoomAndRotateCanvas.RotateDegrees(rotation, -1 * originalBitmap.Width / 2f,
                     originalBitmap.Height / 2f);
             }
-            
-            if (isKeystoned)
-            {
-                var keystoned = new SKBitmap(originalBitmap.Width, originalBitmap.Height);
-                using var tempCanvas = new SKCanvas(keystoned);
-                tempCanvas.SetMatrix(TaperTransform.Make(new SKSize(originalBitmap.Width, originalBitmap.Height),
-                    keystone > 0 ? TaperSide.Left : TaperSide.Right, TaperCorner.Both, 1 - Math.Abs(keystone)));
-                tempCanvas.Clear();
-                tempCanvas.DrawBitmap(
-                    resultBitmap,
-                    0,
-                    0,
-                    skPaint);
-                return keystoned;
-            }
 
             return resultBitmap;
+        }
+
+        private static SKBitmap Keystone(SKBitmap originalBitmap, float keystone, SKFilterQuality quality)
+        {
+            using var skPaint = new SKPaint
+            {
+                FilterQuality = quality
+            };
+            var keystoned = new SKBitmap(originalBitmap.Width, originalBitmap.Height);
+            using var tempCanvas = new SKCanvas(keystoned);
+            tempCanvas.SetMatrix(TaperTransform.Make(new SKSize(originalBitmap.Width, originalBitmap.Height),
+                keystone > 0 ? TaperSide.Left : TaperSide.Right, TaperCorner.Both, 1 - Math.Abs(keystone)));
+            tempCanvas.Clear();
+            tempCanvas.DrawBitmap(
+                originalBitmap,
+                0,
+                0,
+                skPaint);
+            return keystoned;
         }
 
         public static int CalculateOverlayedCanvasWidthWithEditsNoBorder(SKBitmap leftBitmap, SKBitmap rightBitmap, Edits edits)
