@@ -407,10 +407,10 @@ namespace AutoAlignment
         }
 
         public SKBitmap AddBarrelDistortion(SKBitmap originalImage, float strength, float cx, float cy, 
-            float editedWidth, float editedHeight, bool isPreview)
+            float editedWidth, float editedHeight)
         {
             using var cvImage = new Mat();
-            CvInvoke.Imdecode(GetBytes(originalImage, 1, isPreview), ImreadModes.Color, cvImage); //or load without downsize option to increase speed?
+            CvInvoke.Imdecode(GetBytes(originalImage, 1), ImreadModes.Color, cvImage);
 
             using var cameraMatrix = GetCameraMatrix(cx, cy);
 
@@ -686,12 +686,11 @@ namespace AutoAlignment
             return Math.Sqrt(Math.Pow(from.X - to.X, 2) + Math.Pow(from.Y - to.Y, 2));
         }
 
-        private static byte[] GetBytes(SKBitmap bitmap, double downsize, bool isPreview = false)
+        private static byte[] GetBytes(SKBitmap bitmap, double downsize, SKFilterQuality filterQuality = SKFilterQuality.High)
         {
-            var quality = isPreview ? 0 : 100;
             if (downsize == 1)
             {
-               return SKImage.FromBitmap(bitmap).Encode(SKEncodedImageFormat.Jpeg, quality).ToArray();
+               return SKImage.FromBitmap(bitmap).Encode(SKEncodedImageFormat.Jpeg, 100).ToArray();
             }
 
             var width = (int)(bitmap.Width * downsize);
@@ -701,11 +700,13 @@ namespace AutoAlignment
             var canvas = tempSurface.Canvas;
             canvas.Clear();
 
+            using var paint = new SKPaint {FilterQuality = filterQuality};
             canvas.DrawBitmap(bitmap,
                 SKRect.Create(0, 0, bitmap.Width, bitmap.Height),
-                SKRect.Create(0, 0, width, height));
+                SKRect.Create(0, 0, width, height),
+                paint);
 
-            using var data = tempSurface.Snapshot().Encode(SKEncodedImageFormat.Jpeg, quality);
+            using var data = tempSurface.Snapshot().Encode(SKEncodedImageFormat.Jpeg, 100);
             return data.ToArray();
         }
     }
