@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using CrossCam.Model;
 using CrossCam.ViewModel;
 using CrossCam.Wrappers;
@@ -483,7 +484,20 @@ namespace CrossCam.Page
                 var currentMatrix = canvas.TotalMatrix;
                 var keystoneMatrix = TaperTransform.Make(new SKSize(originalBitmap.Width, originalBitmap.Height),
                     keystone > 0 ? TaperSide.Left : TaperSide.Right, TaperCorner.Both, 1 - Math.Abs(keystone));
-                SKMatrix.PreConcat(ref currentMatrix, keystoneMatrix); //TODO: do pre or post? how to decide?
+                var targetMatrix = SKMatrix.MakeIdentity();
+                if (keystone > 0)
+                {
+                    //SKMatrix.
+                    SKMatrix.Concat(ref targetMatrix, currentMatrix, keystoneMatrix);
+                    //SKMatrix.PreConcat(ref currentMatrix, keystoneMatrix); //TODO: do pre or post? how to decide?
+                    Debug.WriteLine(targetMatrix);
+                }
+                else
+                {
+                    SKMatrix.Concat(ref targetMatrix, keystoneMatrix, currentMatrix);
+                    //SKMatrix.PostConcat(ref currentMatrix, keystoneMatrix); //TODO: do pre or post? how to decide?
+                    Debug.WriteLine(targetMatrix);
+                }
                 canvas.SetMatrix(currentMatrix);
             }
             canvas.Clear();
