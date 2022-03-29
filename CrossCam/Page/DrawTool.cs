@@ -215,17 +215,19 @@ namespace CrossCam.Page
 
             if (leftBitmap != null)
             {
+                SKBitmap edited = null;
                 if (isLeftRotated ||
                     leftZoom > 0 ||
-                    drawMode == DrawMode.GrayscaleRedCyanAnaglyph)
+                    drawMode == DrawMode.GrayscaleRedCyanAnaglyph ||
+                    isLeftKeystoned)
                 {
-                    leftBitmap = DoSolitaryEdits(leftBitmap, drawMode, leftZoom, isLeftRotated, leftRotation, skFilterQuality);
+                    edited = DoSolitaryEdits(leftBitmap, drawMode, leftZoom, isLeftRotated, leftRotation, isLeftKeystoned, -leftKeystone, skFilterQuality);
                 }
 
-                if (isLeftKeystoned)
-                {
-                    leftBitmap = Keystone(leftBitmap, -leftKeystone, skFilterQuality);
-                }
+                //if (isLeftKeystoned)
+                //{
+                //    leftBitmap = Keystone(leftBitmap, -leftKeystone, skFilterQuality);
+                //}
 
                 using var paint = new SKPaint
                 {
@@ -288,7 +290,7 @@ namespace CrossCam.Page
                 }
 
                 canvas.DrawBitmap(
-                    leftBitmap,
+                    edited ?? leftBitmap,
                     SKRect.Create(
                         srcX,
                         srcY,
@@ -300,21 +302,24 @@ namespace CrossCam.Page
                         sidePreviewWidthLessCrop,
                         previewHeightLessCrop),
                     paint);
+                edited?.Dispose();
             }
 
             if (rightBitmap != null)
             {
+                SKBitmap edited = null;
                 if (isRightRotated ||
                     rightZoom > 0 ||
-                    drawMode == DrawMode.GrayscaleRedCyanAnaglyph)
+                    drawMode == DrawMode.GrayscaleRedCyanAnaglyph ||
+                    isRightKeystoned)
                 {
-                    rightBitmap = DoSolitaryEdits(rightBitmap, drawMode, rightZoom, isRightRotated, rightRotation, skFilterQuality);
+                    edited = DoSolitaryEdits(rightBitmap, drawMode, rightZoom, isRightRotated, rightRotation, isRightKeystoned, rightKeystone, skFilterQuality);
                 }
 
-                if (isRightKeystoned)
-                {
-                    rightBitmap = Keystone(rightBitmap, rightKeystone, skFilterQuality);
-                }
+                //if (isRightKeystoned)
+                //{
+                //    rightBitmap = Keystone(rightBitmap, rightKeystone, skFilterQuality);
+                //}
 
                 using var paint = new SKPaint
                 {
@@ -384,7 +389,7 @@ namespace CrossCam.Page
                 }
 
                 canvas.DrawBitmap(
-                    rightBitmap,
+                    edited ?? rightBitmap,
                     SKRect.Create(
                         srcX,
                         srcY,
@@ -396,6 +401,7 @@ namespace CrossCam.Page
                         sidePreviewWidthLessCrop,
                         previewHeightLessCrop),
                     paint);
+                edited?.Dispose();
             }
 
             if (innerBorderThicknessProportion > 0)
@@ -439,7 +445,7 @@ namespace CrossCam.Page
             }
         }
 
-        private static SKBitmap DoSolitaryEdits(SKBitmap originalBitmap, DrawMode drawMode, double zoom, bool isRotated, float rotation, 
+        private static SKBitmap DoSolitaryEdits(SKBitmap originalBitmap, DrawMode drawMode, double zoom, bool isRotated, float rotation, bool isKeystoned, float keystone,
              SKFilterQuality quality)
         {
             var resultBitmap = new SKBitmap(originalBitmap.Width, originalBitmap.Height);
@@ -459,7 +465,8 @@ namespace CrossCam.Page
                         0.0f,  0.0f,  0.0f,  1.0f, 0.0f
                     });
             }
-            using var zoomAndRotateCanvas = new SKCanvas(resultBitmap);
+
+            using var canvas = new SKCanvas(resultBitmap);
 
             var zoomedX = originalBitmap.Width * zoom / -2f;
             var zoomedY = originalBitmap.Height * zoom / -2f;
@@ -467,20 +474,24 @@ namespace CrossCam.Page
             var zoomedHeight = originalBitmap.Height * (1 + zoom);
             if (isRotated)
             {
-                zoomAndRotateCanvas.RotateDegrees(rotation, originalBitmap.Width / 2f,
+                canvas.RotateDegrees(rotation, originalBitmap.Width / 2f,
                     originalBitmap.Height / 2f);
             }
-            zoomAndRotateCanvas.Clear();
-            zoomAndRotateCanvas.DrawBitmap(
+
+            if (isKeystoned)
+            {
+                var currentMatrix = canvas.TotalMatrix;
+                var keystoneMatrix = TaperTransform.Make(new SKSize(originalBitmap.Width, originalBitmap.Height),
+                    keystone > 0 ? TaperSide.Left : TaperSide.Right, TaperCorner.Both, 1 - Math.Abs(keystone));
+                SKMatrix.PreConcat(ref currentMatrix, keystoneMatrix); //TODO: do pre or post? how to decide?
+                canvas.SetMatrix(currentMatrix);
+            }
+            canvas.Clear();
+            canvas.DrawBitmap(
                 originalBitmap,
                 SKRect.Create(0, 0, originalBitmap.Width, originalBitmap.Height),
                 SKRect.Create((float) zoomedX, (float) zoomedY, (float) zoomedWidth, (float) zoomedHeight),
                 skPaint);
-            if (isRotated)
-            {
-                zoomAndRotateCanvas.RotateDegrees(rotation, -1 * originalBitmap.Width / 2f,
-                    originalBitmap.Height / 2f);
-            }
 
             return resultBitmap;
         }
