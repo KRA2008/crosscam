@@ -230,7 +230,7 @@ namespace CrossCam.Page
                 }
                 else
                 {
-                    //leftBitmap = CameraViewModel.BitmapDownsize(leftBitmap, cardboardDownsize / scalingRatio);
+                    leftBitmap = CameraViewModel.BitmapDownsize(leftBitmap, cardboardDownsize / scalingRatio, skFilterQuality);
                 }
 
                 using var paint = new SKPaint
@@ -318,7 +318,7 @@ namespace CrossCam.Page
                 }
                 else
                 {
-                    //rightBitmap = CameraViewModel.BitmapDownsize(rightBitmap, cardboardDownsize / scalingRatio);
+                    rightBitmap = CameraViewModel.BitmapDownsize(rightBitmap, cardboardDownsize / scalingRatio, skFilterQuality);
                 }
 
                 using var paint = new SKPaint

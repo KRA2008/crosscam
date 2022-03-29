@@ -2151,15 +2151,17 @@ namespace CrossCam.ViewModel
             }
         }
 
-        public static SKBitmap BitmapDownsize(SKBitmap originalBitmap, double downsizeProportion)
+        public static SKBitmap BitmapDownsize(SKBitmap originalBitmap, double downsizeProportion, SKFilterQuality quality = SKFilterQuality.High)
         {
             var downsizeWidth = (int) (originalBitmap.Width * downsizeProportion);
             var downsizeHeight = (int) (originalBitmap.Height * downsizeProportion);
             var downsized = new SKBitmap(downsizeWidth, downsizeHeight);
 
+            using var paint = new SKPaint {FilterQuality = quality};
             using var surface = new SKCanvas(downsized);
             surface.DrawBitmap(originalBitmap,
-                SKRect.Create(0, 0, downsizeWidth, downsizeHeight));
+                SKRect.Create(0, 0, downsizeWidth, downsizeHeight),
+                paint);
 
             return downsized;
         }
