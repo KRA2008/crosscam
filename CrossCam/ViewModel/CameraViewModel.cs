@@ -2159,7 +2159,7 @@ namespace CrossCam.ViewModel
 
             using var surface = new SKCanvas(downsized);
             surface.DrawBitmap(originalBitmap,
-                new SKRect(0,0,downsizeWidth,downsizeHeight));
+                SKRect.Create(0, 0, downsizeWidth, downsizeHeight));
 
             return downsized;
         }

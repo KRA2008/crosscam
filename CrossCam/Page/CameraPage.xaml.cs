@@ -551,9 +551,11 @@ namespace CrossCam.Page
                 _viewModel.Edits,
                 _viewModel.Settings.Mode,
                 _viewModel.WorkflowStage == WorkflowStage.FovCorrection,
-                isPreview: _viewModel.IsExactlyOnePictureTaken || _viewModel.IsNothingCaptured,
+                drawQuality: _viewModel.IsExactlyOnePictureTaken || 
+                             _viewModel.IsNothingCaptured ? 
+                             DrawQuality.Preview : DrawQuality.Review,
                 cardboardVert: cardboardVert,
-                cardboardHor: cardboardHor); //TODO: why are you able to pan horizontally while aligning
+                cardboardHor: cardboardHor);
         }
 
         private void OnPairedPreviewCanvasInvalidated(object sender, SKPaintSurfaceEventArgs e)
