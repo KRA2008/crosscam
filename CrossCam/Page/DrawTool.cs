@@ -215,15 +215,11 @@ namespace CrossCam.Page
 
             if (leftBitmap != null)
             {
-                if (drawMode == DrawMode.GrayscaleRedCyanAnaglyph)
-                {
-                    leftBitmap = FilterToGrayscale(leftBitmap, skFilterQuality);
-                }
-                
                 if (isLeftRotated ||
-                    leftZoom > 0)
+                    leftZoom > 0 ||
+                    drawMode == DrawMode.GrayscaleRedCyanAnaglyph)
                 {
-                    leftBitmap = ZoomAndRotate(leftBitmap, leftZoom, isLeftRotated, leftRotation, skFilterQuality);
+                    leftBitmap = DoSolitaryEdits(leftBitmap, drawMode, leftZoom, isLeftRotated, leftRotation, skFilterQuality);
                 }
 
                 if (isLeftKeystoned)
@@ -308,15 +304,11 @@ namespace CrossCam.Page
 
             if (rightBitmap != null)
             {
-                if (drawMode == DrawMode.GrayscaleRedCyanAnaglyph)
-                {
-                    rightBitmap = FilterToGrayscale(rightBitmap, skFilterQuality);
-                }
-                
                 if (isRightRotated ||
-                    rightZoom > 0)
+                    rightZoom > 0 ||
+                    drawMode == DrawMode.GrayscaleRedCyanAnaglyph)
                 {
-                    rightBitmap = ZoomAndRotate(rightBitmap, rightZoom, isRightRotated, rightRotation, skFilterQuality);
+                    rightBitmap = DoSolitaryEdits(rightBitmap, drawMode, rightZoom, isRightRotated, rightRotation, skFilterQuality);
                 }
 
                 if (isRightKeystoned)
@@ -447,33 +439,7 @@ namespace CrossCam.Page
             }
         }
 
-        private static SKBitmap FilterToGrayscale(SKBitmap originalBitmap, SKFilterQuality quality)
-        {
-            var grayed = new SKBitmap(originalBitmap.Width, originalBitmap.Height);
-
-            using var grayBrush = new SKPaint
-            {
-                FilterQuality = quality
-            };
-            grayBrush.ColorFilter =
-                SKColorFilter.CreateColorMatrix(new[]
-                {
-                    0.21f, 0.72f, 0.07f, 0.0f, 0.0f,
-                    0.21f, 0.72f, 0.07f, 0.0f, 0.0f,
-                    0.21f, 0.72f, 0.07f, 0.0f, 0.0f,
-                    0.0f,  0.0f,  0.0f,  1.0f, 0.0f
-                });
-            using var tempCanvas = new SKCanvas(grayed);
-            tempCanvas.DrawBitmap(
-                originalBitmap,
-                0,
-                0,
-                grayBrush);
-
-            return grayed;
-        }
-
-        private static SKBitmap ZoomAndRotate(SKBitmap originalBitmap, double zoom, bool isRotated, float rotation, 
+        private static SKBitmap DoSolitaryEdits(SKBitmap originalBitmap, DrawMode drawMode, double zoom, bool isRotated, float rotation, 
              SKFilterQuality quality)
         {
             var resultBitmap = new SKBitmap(originalBitmap.Width, originalBitmap.Height);
@@ -482,6 +448,17 @@ namespace CrossCam.Page
             {
                 FilterQuality = quality
             };
+            if (drawMode == DrawMode.GrayscaleRedCyanAnaglyph)
+            {
+                skPaint.ColorFilter =
+                    SKColorFilter.CreateColorMatrix(new[]
+                    {
+                        0.21f, 0.72f, 0.07f, 0.0f, 0.0f,
+                        0.21f, 0.72f, 0.07f, 0.0f, 0.0f,
+                        0.21f, 0.72f, 0.07f, 0.0f, 0.0f,
+                        0.0f,  0.0f,  0.0f,  1.0f, 0.0f
+                    });
+            }
             using var zoomAndRotateCanvas = new SKCanvas(resultBitmap);
 
             var zoomedX = originalBitmap.Width * zoom / -2f;
