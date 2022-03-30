@@ -471,32 +471,24 @@ namespace CrossCam.Page
             using var canvas = new SKCanvas(resultBitmap);
             var fullTransform4D = SKMatrix44.CreateIdentity();
 
-            SKMatrix44 zRotMat, perspMat, yRotMat, zRotCenteringMat, zRotUncenteringMat, yRotCenteringMat, yRotUncenteringMat;
-            zRotMat = perspMat = yRotMat = zRotCenteringMat = zRotUncenteringMat = yRotCenteringMat = yRotUncenteringMat = SKMatrix44.CreateIdentity();
+            if (isKeystoned)
+            {
+                fullTransform4D.PreConcat(SKMatrix44.CreateTranslate(0, originalBitmap.Height / 2f, 0));
+                fullTransform4D.PreConcat(MakePerspective(originalBitmap.Width));
+                fullTransform4D.PreConcat(SKMatrix44.CreateRotationDegrees(0, 1, 0, -keystone));
+                fullTransform4D.PreConcat(SKMatrix44.CreateTranslate(0, -originalBitmap.Height / 2f, 0));
+            }
 
             if (isRotated)
             {
-                zRotCenteringMat = SKMatrix44.CreateTranslate(-originalBitmap.Width / 2f, -originalBitmap.Height / 2f, 0);
-                zRotMat = SKMatrix44.CreateRotationDegrees(0, 0, 1, rotation); //TODO: tip this axis according to keystone?
-                zRotUncenteringMat = SKMatrix44.CreateTranslate(originalBitmap.Width / 2f, originalBitmap.Height / 2f, 0);
+                fullTransform4D.PreConcat(SKMatrix44.CreateTranslate(originalBitmap.Width / 2f, originalBitmap.Height / 2f, 0));
+                fullTransform4D.PreConcat(SKMatrix44.CreateRotationDegrees(
+                    0,
+                    0,
+                    1,
+                    rotation));
+                fullTransform4D.PreConcat(SKMatrix44.CreateTranslate(-originalBitmap.Width / 2f, -originalBitmap.Height / 2f, 0));
             }
-
-            if (isKeystoned)
-            {
-                yRotCenteringMat = SKMatrix44.CreateTranslate(0, -originalBitmap.Height / 2f, 0);
-                perspMat = MakePerspective(originalBitmap.Width);
-                yRotMat = SKMatrix44.CreateRotationDegrees(0, 1, 0, -keystone * 150);
-                yRotUncenteringMat = SKMatrix44.CreateTranslate(0, originalBitmap.Height / 2f, 0);
-            }
-
-            fullTransform4D.PreConcat(yRotUncenteringMat);
-            fullTransform4D.PreConcat(perspMat);
-            fullTransform4D.PreConcat(yRotMat);
-            fullTransform4D.PreConcat(yRotCenteringMat);
-
-            fullTransform4D.PreConcat(zRotUncenteringMat);
-            fullTransform4D.PreConcat(zRotMat);
-            fullTransform4D.PreConcat(zRotCenteringMat);
 
             var fullTransform3D = fullTransform4D.Matrix;
             canvas.Concat(ref fullTransform3D);

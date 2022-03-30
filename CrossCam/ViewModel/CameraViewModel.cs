@@ -150,7 +150,7 @@ namespace CrossCam.ViewModel
 
         public Command SetKeystoneMode { get; set; }
 
-        public float MaxKeystone => 1 / 4f;
+        public float MaxKeystone => 15f;
 
         public Command LoadPhotoCommand { get; set; }
 
