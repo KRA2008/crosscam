@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Diagnostics;
+using System.Linq;
 using CrossCam.Model;
 using CrossCam.ViewModel;
 using CrossCam.Wrappers;
@@ -468,46 +469,56 @@ namespace CrossCam.Page
             }
 
             using var canvas = new SKCanvas(resultBitmap);
+            var fullTransform4D = SKMatrix44.CreateIdentity();
+
+            SKMatrix44 zRotMat, perspMat, yRotMat, zRotCenteringMat, zRotUncenteringMat, yRotCenteringMat, yRotUncenteringMat;
+            zRotMat = perspMat = yRotMat = zRotCenteringMat = zRotUncenteringMat = yRotCenteringMat = yRotUncenteringMat = SKMatrix44.CreateIdentity();
+
+            if (isRotated)
+            {
+                zRotCenteringMat = SKMatrix44.CreateTranslate(-originalBitmap.Width / 2f, -originalBitmap.Height / 2f, 0);
+                zRotMat = SKMatrix44.CreateRotationDegrees(0, 0, 1, rotation); //TODO: tip this axis according to keystone?
+                zRotUncenteringMat = SKMatrix44.CreateTranslate(originalBitmap.Width / 2f, originalBitmap.Height / 2f, 0);
+            }
+
+            if (isKeystoned)
+            {
+                yRotCenteringMat = SKMatrix44.CreateTranslate(0, -originalBitmap.Height / 2f, 0);
+                perspMat = MakePerspective(originalBitmap.Width);
+                yRotMat = SKMatrix44.CreateRotationDegrees(0, 1, 0, -keystone * 150);
+                yRotUncenteringMat = SKMatrix44.CreateTranslate(0, originalBitmap.Height / 2f, 0);
+            }
+
+            fullTransform4D.PreConcat(yRotUncenteringMat);
+            fullTransform4D.PreConcat(perspMat);
+            fullTransform4D.PreConcat(yRotMat);
+            fullTransform4D.PreConcat(yRotCenteringMat);
+
+            fullTransform4D.PreConcat(zRotUncenteringMat);
+            fullTransform4D.PreConcat(zRotMat);
+            fullTransform4D.PreConcat(zRotCenteringMat);
+
+            var fullTransform3D = fullTransform4D.Matrix;
+            canvas.Concat(ref fullTransform3D);
 
             var zoomedX = originalBitmap.Width * zoom / -2f;
             var zoomedY = originalBitmap.Height * zoom / -2f;
             var zoomedWidth = originalBitmap.Width * (1 + zoom);
             var zoomedHeight = originalBitmap.Height * (1 + zoom);
-            if (isRotated)
-            {
-                canvas.RotateDegrees(rotation, originalBitmap.Width / 2f,
-                    originalBitmap.Height / 2f);
-            }
-
-            if (isKeystoned)
-            {
-                var currentMatrix = canvas.TotalMatrix;
-                var keystoneMatrix = TaperTransform.Make(new SKSize(originalBitmap.Width, originalBitmap.Height),
-                    keystone > 0 ? TaperSide.Left : TaperSide.Right, TaperCorner.Both, 1 - Math.Abs(keystone));
-                var targetMatrix = SKMatrix.MakeIdentity();
-                if (keystone > 0)
-                {
-                    //SKMatrix.
-                    SKMatrix.Concat(ref targetMatrix, currentMatrix, keystoneMatrix);
-                    //SKMatrix.PreConcat(ref currentMatrix, keystoneMatrix); //TODO: do pre or post? how to decide?
-                    Debug.WriteLine(targetMatrix);
-                }
-                else
-                {
-                    SKMatrix.Concat(ref targetMatrix, keystoneMatrix, currentMatrix);
-                    //SKMatrix.PostConcat(ref currentMatrix, keystoneMatrix); //TODO: do pre or post? how to decide?
-                    Debug.WriteLine(targetMatrix);
-                }
-                canvas.SetMatrix(currentMatrix);
-            }
-            canvas.Clear();
             canvas.DrawBitmap(
                 originalBitmap,
                 SKRect.Create(0, 0, originalBitmap.Width, originalBitmap.Height),
-                SKRect.Create((float) zoomedX, (float) zoomedY, (float) zoomedWidth, (float) zoomedHeight),
+                SKRect.Create((float)zoomedX, (float)zoomedY, (float)zoomedWidth, (float)zoomedHeight),
                 skPaint);
 
             return resultBitmap;
+        }
+
+        private static SKMatrix44 MakePerspective(float maxDepth)
+        {
+            var perspectiveMatrix = SKMatrix44.CreateIdentity();
+            perspectiveMatrix[3, 2] = -1 / maxDepth;
+            return perspectiveMatrix;
         }
 
         private static SKBitmap Keystone(SKBitmap originalBitmap, float keystone, SKFilterQuality quality)
