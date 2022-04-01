@@ -270,6 +270,8 @@ namespace CrossCam.Page
                     canvasWidth / 2f + previewBorderThickness + sidePreviewWidthLessCrop / 2f + fuseGuideIconWidth / 2f,
                     fuseGuideY, fuseGuideIconWidth, fuseGuideIconWidth, whitePaint);
             }
+
+            //canvas.RestoreToCount(-1);
         }
 
         private static void DrawSide(SKCanvas canvas, SKBitmap bitmap, bool isLeft, DrawMode drawMode, double zoom,
@@ -279,13 +281,34 @@ namespace CrossCam.Page
             float previewY, float sidePreviewWidthLessCrop, float previewHeightLessCrop,
             double cardboardWidthProportion, SKFilterQuality quality)
         {
-            SKBitmap edited = null;
             if (isRotated ||
                 zoom > 0 ||
                 drawMode == DrawMode.GrayscaleRedCyanAnaglyph ||
                 isKeystoned)
             {
-                edited = DoSolitaryEdits(bitmap, drawMode, zoom, isRotated, rotation, isKeystoned, isLeft ? -keystone : keystone, quality);
+                var fullTransform4D = SKMatrix44.CreateIdentity();
+                
+                if (isKeystoned)
+                { //TODO (or TODON'T): the axis of this rotation is fixed, but it could be needed in any direction really, so enable that?
+                    var xCorrection = isLeft ? previewX : previewX + sidePreviewWidthLessCrop;
+                    var yCorrection = previewY + previewHeightLessCrop / 2f;
+                    fullTransform4D.PreConcat(SKMatrix44.CreateTranslate(xCorrection, yCorrection, 0));
+                    fullTransform4D.PreConcat(MakePerspective(sidePreviewWidthLessCrop));
+                    fullTransform4D.PreConcat(SKMatrix44.CreateRotationDegrees(0, 1, 0, isLeft ? keystone : -keystone));
+                    fullTransform4D.PreConcat(SKMatrix44.CreateTranslate(-xCorrection, -yCorrection, 0));
+                }
+
+                if (isRotated)
+                {
+                    var xCorrection = previewX + sidePreviewWidthLessCrop / 2f;
+                    var yCorrection = previewY + previewHeightLessCrop / 2f;
+                    fullTransform4D.PreConcat(SKMatrix44.CreateTranslate(xCorrection, yCorrection, 0));
+                    fullTransform4D.PreConcat(SKMatrix44.CreateRotationDegrees(0, 0, 1, rotation));
+                    fullTransform4D.PreConcat(SKMatrix44.CreateTranslate(-xCorrection, -yCorrection, 0));
+                }
+
+                var fullTransform3D = fullTransform4D.Matrix;
+                canvas.SetMatrix(fullTransform3D);
             }
 
             using var paint = new SKPaint
@@ -293,7 +316,7 @@ namespace CrossCam.Page
                 FilterQuality = quality
             };
 
-            if (drawMode == DrawMode.RedCyanAnaglyph ||
+            if (drawMode == DrawMode.RedCyanAnaglyph || //TODO: handle grayscale
                 drawMode == DrawMode.GrayscaleRedCyanAnaglyph)
             {
                 if (isLeft)
@@ -369,19 +392,19 @@ namespace CrossCam.Page
             }
 
             canvas.DrawBitmap(
-                edited ?? bitmap,
+                bitmap,
                 SKRect.Create(
                     srcX,
                     srcY,
                     srcWidth,
                     srcHeight),
                 SKRect.Create(
-                    previewX,
+                    previewX, //TODO: handle zooming and add clipping
                     previewY,
                     sidePreviewWidthLessCrop,
                     previewHeightLessCrop),
                 paint);
-            edited?.Dispose();
+            canvas.ResetMatrix();
         }
 
         private static SKBitmap DoSolitaryEdits(SKBitmap originalBitmap, DrawMode drawMode, double zoom, bool isRotated, float rotation, bool isKeystoned, float keystone,
