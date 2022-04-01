@@ -226,11 +226,6 @@ namespace CrossCam.Page
                     edited = DoSolitaryEdits(leftBitmap, drawMode, leftZoom, isLeftRotated, leftRotation, isLeftKeystoned, -leftKeystone, skFilterQuality);
                 }
 
-                //if (isLeftKeystoned)
-                //{
-                //    leftBitmap = Keystone(leftBitmap, -leftKeystone, skFilterQuality);
-                //}
-
                 using var paint = new SKPaint
                 {
                     FilterQuality = skFilterQuality
@@ -317,11 +312,6 @@ namespace CrossCam.Page
                 {
                     edited = DoSolitaryEdits(rightBitmap, drawMode, rightZoom, isRightRotated, rightRotation, isRightKeystoned, rightKeystone, skFilterQuality);
                 }
-
-                //if (isRightKeystoned)
-                //{
-                //    rightBitmap = Keystone(rightBitmap, rightKeystone, skFilterQuality);
-                //}
 
                 using var paint = new SKPaint
                 {
@@ -445,6 +435,118 @@ namespace CrossCam.Page
                     canvasWidth / 2f + previewBorderThickness + sidePreviewWidthLessCrop / 2f + fuseGuideIconWidth / 2f,
                     fuseGuideY, fuseGuideIconWidth, fuseGuideIconWidth, whitePaint);
             }
+        }
+
+        private static void DrawSide(SKCanvas canvas, SKBitmap bitmap, bool isLeft, DrawMode drawMode, double zoom,
+            bool isRotated, float rotation, bool isKeystoned, float keystone, bool barrelDistort, int barrelStrength,
+            double cardboardDownsize, double scalingRatio, double leftCrop, double rightCrop, double topCrop,
+            double bottomCrop, double cardboardHor, double cardboardVert, double alignment, float previewX,
+            float previewY, float sidePreviewWidthLessCrop, float previewHeightLessCrop,
+            double cardboardWidthProportion, SKFilterQuality quality)
+        {
+            SKBitmap edited = null;
+            if (isRotated ||
+                zoom > 0 ||
+                drawMode == DrawMode.GrayscaleRedCyanAnaglyph ||
+                isKeystoned)
+            {
+                edited = DoSolitaryEdits(bitmap, drawMode, zoom, isRotated, rotation, isKeystoned, isLeft ? -keystone : keystone, quality);
+            }
+
+            using var paint = new SKPaint
+            {
+                FilterQuality = quality
+            };
+
+            if (drawMode == DrawMode.RedCyanAnaglyph ||
+                drawMode == DrawMode.GrayscaleRedCyanAnaglyph)
+            {
+                if (isLeft)
+                {
+                    paint.ColorFilter =
+                        SKColorFilter.CreateColorMatrix(new float[]
+                        {
+                            0, 0, 0, 0, 0,
+                            0, 1, 0, 0, 0,
+                            0, 0, 1, 0, 0,
+                            0, 0, 0, 1, 0
+                        });
+                }
+                else
+                {
+                    paint.ColorFilter =
+                        SKColorFilter.CreateColorMatrix(new float[]
+                        {
+                            1, 0, 0, 0, 0,
+                            0, 0, 0, 0, 0,
+                            0, 0, 0, 0, 0,
+                            0, 0, 0, 1, 0
+                        });
+                    paint.BlendMode = SKBlendMode.Plus;
+                }
+            }
+
+            if (drawMode == DrawMode.Cardboard &&
+                barrelDistort)
+            {
+                bitmap = CameraViewModel.BitmapDownsize(bitmap, cardboardDownsize / scalingRatio,
+                    quality);
+            }
+
+            var width = bitmap.Width;
+            var height = bitmap.Height;
+
+            var srcWidth = (float)(width - width * (leftCrop + rightCrop));
+            var srcHeight = (float)(height - height * (topCrop + bottomCrop + Math.Abs(alignment)));
+            var srcX = (float)(width * leftCrop + cardboardHor * srcWidth);
+            var srcY = (float) (height * topCrop + (isLeft
+                ? alignment > 0 ? alignment * height : 0
+                : alignment < 0 ? -alignment * height : 0) + cardboardVert * srcHeight);
+
+            if (drawMode == DrawMode.Cardboard &&
+                barrelDistort)
+            {
+                var openCv = DependencyService.Get<IOpenCv>();
+                if (openCv.IsOpenCvSupported())
+                {
+                    var bitmapAspect = srcHeight / srcWidth;
+                    float cx;
+                    if (bitmapAspect < halfScreenAspect)
+                    {
+                        //bitmap will be full width
+                        cx = isLeft ? 
+                            (float) ((1 - cardboardWidthProportion) * srcWidth + srcX) : 
+                            (float) (cardboardWidthProportion * srcWidth + srcX);
+                    }
+                    else
+                    {
+                        //bitmap will be full height
+                        var restoredWidth = srcHeight / halfScreenAspect;
+                        var missingRestoredWidth = restoredWidth - srcWidth;
+                        cx = isLeft ? 
+                            (float) ((1 - cardboardWidthProportion) * (srcWidth - missingRestoredWidth) + srcX) : 
+                            (float) (cardboardWidthProportion * (srcWidth + missingRestoredWidth) + srcX);
+                    }
+
+                    bitmap = openCv.AddBarrelDistortion(bitmap, barrelStrength / 100f, cx,
+                        srcY + srcHeight / 2f, srcWidth, srcHeight);
+                }
+            }
+
+            canvas.DrawBitmap(
+                edited ?? bitmap,
+                SKRect.Create(
+                    srcX,
+                    srcY,
+                    srcWidth,
+                    srcHeight),
+                SKRect.Create(
+                    previewX,
+                    previewY,
+                    sidePreviewWidthLessCrop,
+                    previewHeightLessCrop),
+                paint);
+            edited?.Dispose();
         }
 
         private static SKBitmap DoSolitaryEdits(SKBitmap originalBitmap, DrawMode drawMode, double zoom, bool isRotated, float rotation, bool isKeystoned, float keystone,
