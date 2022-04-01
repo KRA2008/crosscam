@@ -472,21 +472,18 @@ namespace CrossCam.Page
             var fullTransform4D = SKMatrix44.CreateIdentity();
 
             if (isKeystoned)
-            {
-                fullTransform4D.PreConcat(SKMatrix44.CreateTranslate(0, originalBitmap.Height / 2f, 0));
+            { //TODO (or TODON'T): the axis of this rotation is fixed, but it could be needed in any direction really, so enable that?
+                var rotationDirectionCorrection = keystone < 0 ? 0 : originalBitmap.Width;
+                fullTransform4D.PreConcat(SKMatrix44.CreateTranslate(rotationDirectionCorrection, originalBitmap.Height / 2f, 0));
                 fullTransform4D.PreConcat(MakePerspective(originalBitmap.Width));
                 fullTransform4D.PreConcat(SKMatrix44.CreateRotationDegrees(0, 1, 0, -keystone));
-                fullTransform4D.PreConcat(SKMatrix44.CreateTranslate(0, -originalBitmap.Height / 2f, 0));
+                fullTransform4D.PreConcat(SKMatrix44.CreateTranslate(-rotationDirectionCorrection, -originalBitmap.Height / 2f, 0));
             }
 
             if (isRotated)
             {
                 fullTransform4D.PreConcat(SKMatrix44.CreateTranslate(originalBitmap.Width / 2f, originalBitmap.Height / 2f, 0));
-                fullTransform4D.PreConcat(SKMatrix44.CreateRotationDegrees(
-                    0,
-                    0,
-                    1,
-                    rotation));
+                fullTransform4D.PreConcat(SKMatrix44.CreateRotationDegrees(0, 0, 1, rotation));
                 fullTransform4D.PreConcat(SKMatrix44.CreateTranslate(-originalBitmap.Width / 2f, -originalBitmap.Height / 2f, 0));
             }
 
@@ -511,25 +508,6 @@ namespace CrossCam.Page
             var perspectiveMatrix = SKMatrix44.CreateIdentity();
             perspectiveMatrix[3, 2] = -1 / maxDepth;
             return perspectiveMatrix;
-        }
-
-        private static SKBitmap Keystone(SKBitmap originalBitmap, float keystone, SKFilterQuality quality)
-        {
-            using var skPaint = new SKPaint
-            {
-                FilterQuality = quality
-            };
-            var keystoned = new SKBitmap(originalBitmap.Width, originalBitmap.Height);
-            using var tempCanvas = new SKCanvas(keystoned);
-            tempCanvas.SetMatrix(TaperTransform.Make(new SKSize(originalBitmap.Width, originalBitmap.Height),
-                keystone > 0 ? TaperSide.Left : TaperSide.Right, TaperCorner.Both, 1 - Math.Abs(keystone)));
-            tempCanvas.Clear();
-            tempCanvas.DrawBitmap(
-                originalBitmap,
-                0,
-                0,
-                skPaint);
-            return keystoned;
         }
 
         public static int CalculateOverlayedCanvasWidthWithEditsNoBorder(SKBitmap leftBitmap, SKBitmap rightBitmap, Edits edits)

@@ -555,14 +555,16 @@ namespace AutoAlignment
 
         private static SKMatrix FindTaper(SKPoint[] pointsToMatch, SKPoint[] pointsToCorrect, SKBitmap image, bool keystoneRight)
         {
-            const float FINAL_TAPER_DELTA = 0.0001f;
-            const float TAPER_INC = 0.5f;
-            var taperSide = keystoneRight ? TaperSide.Right : TaperSide.Left;
+            //TODO: fix this
+            throw new NotImplementedException();
+            //const float FINAL_TAPER_DELTA = 0.0001f;
+            //const float TAPER_INC = 0.5f;
+            //var taperSide = keystoneRight ? TaperSide.Right : TaperSide.Left;
 
-            var taper = BinarySearchFindComponent(pointsToMatch, pointsToCorrect,
-                t => TaperTransform.Make(new SKSize(image.Width, image.Height), taperSide, TaperCorner.Both, t),
-                TAPER_INC, FINAL_TAPER_DELTA, 1);
-            return TaperTransform.Make(new SKSize(image.Width, image.Height), taperSide, TaperCorner.Both, taper);
+            //var taper = BinarySearchFindComponent(pointsToMatch, pointsToCorrect,
+            //    t => TaperTransform.Make(new SKSize(image.Width, image.Height), taperSide, TaperCorner.Both, t),
+            //    TAPER_INC, FINAL_TAPER_DELTA, 1);
+            //return TaperTransform.Make(new SKSize(image.Width, image.Height), taperSide, TaperCorner.Both, taper);
         }
 
         private static float BinarySearchFindComponent(SKPoint[] basePoints, SKPoint[] pointsToTransform, Func<float, SKMatrix> testerFunction, float searchingIncrement, float terminationThreshold, float componentStart = 0, bool useXDisplacement = false)
