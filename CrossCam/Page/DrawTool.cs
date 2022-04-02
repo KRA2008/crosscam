@@ -397,6 +397,8 @@ namespace CrossCam.Page
                     sidePreviewWidthLessCrop,
                     previewHeightLessCrop));
 
+            var zoomedWidth = sidePreviewWidthLessCrop * (1 + zoom);
+            var zoomedHeight = previewHeightLessCrop * (1 + zoom);
             canvas.SetMatrix(fullTransform3D);
             canvas.DrawBitmap(
                 bitmap,
@@ -406,10 +408,10 @@ namespace CrossCam.Page
                     srcWidth,
                     srcHeight),
                 SKRect.Create(
-                    previewX, //TODO: handle zooming and add clipping
-                    previewY,
-                    sidePreviewWidthLessCrop,
-                    previewHeightLessCrop),
+                    (float)(previewX + (sidePreviewWidthLessCrop - zoomedWidth) / 2f),
+                    (float)(previewY + (previewHeightLessCrop - zoomedHeight) / 2f),
+                    (float)zoomedWidth,
+                    (float)zoomedHeight),
                 paint);
             canvas.ResetMatrix();
 
