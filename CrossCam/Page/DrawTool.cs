@@ -270,8 +270,6 @@ namespace CrossCam.Page
                     canvasWidth / 2f + previewBorderThickness + sidePreviewWidthLessCrop / 2f + fuseGuideIconWidth / 2f,
                     fuseGuideY, fuseGuideIconWidth, fuseGuideIconWidth, whitePaint);
             }
-
-            //canvas.RestoreToCount(-1);
         }
 
         private static void DrawSide(SKCanvas canvas, SKBitmap bitmap, bool isLeft, DrawMode drawMode, double zoom,
@@ -281,6 +279,7 @@ namespace CrossCam.Page
             float previewY, float sidePreviewWidthLessCrop, float previewHeightLessCrop,
             double cardboardWidthProportion, SKFilterQuality quality)
         {
+            var fullTransform3D = SKMatrix.Identity;
             if (isRotated ||
                 zoom > 0 ||
                 drawMode == DrawMode.GrayscaleRedCyanAnaglyph ||
@@ -307,8 +306,7 @@ namespace CrossCam.Page
                     fullTransform4D.PreConcat(SKMatrix44.CreateTranslate(-xCorrection, -yCorrection, 0));
                 }
 
-                var fullTransform3D = fullTransform4D.Matrix;
-                canvas.SetMatrix(fullTransform3D);
+                fullTransform3D = fullTransform4D.Matrix;
             }
 
             using var paint = new SKPaint
@@ -391,6 +389,15 @@ namespace CrossCam.Page
                 }
             }
 
+            canvas.Save();
+            canvas.ClipRect(
+                SKRect.Create(
+                    previewX,
+                    previewY,
+                    sidePreviewWidthLessCrop,
+                    previewHeightLessCrop));
+
+            canvas.SetMatrix(fullTransform3D);
             canvas.DrawBitmap(
                 bitmap,
                 SKRect.Create(
@@ -405,6 +412,8 @@ namespace CrossCam.Page
                     previewHeightLessCrop),
                 paint);
             canvas.ResetMatrix();
+
+            canvas.Restore();
         }
 
         private static SKBitmap DoSolitaryEdits(SKBitmap originalBitmap, DrawMode drawMode, double zoom, bool isRotated, float rotation, bool isKeystoned, float keystone,
