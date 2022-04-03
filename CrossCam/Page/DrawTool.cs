@@ -20,6 +20,35 @@ namespace CrossCam.Page
             Math.Min(DeviceDisplay.MainDisplayInfo.Width, DeviceDisplay.MainDisplayInfo.Height) /
             (Math.Max(DeviceDisplay.MainDisplayInfo.Width, DeviceDisplay.MainDisplayInfo.Height) / 2);
 
+        private static readonly SKColorFilter CyanAnaglyph = SKColorFilter.CreateColorMatrix(new float[]
+        {
+            0, 0, 0, 0, 0,
+            0, 1, 0, 0, 0,
+            0, 0, 1, 0, 0,
+            0, 0, 0, 1, 0
+        }); 
+        private static readonly SKColorFilter RedAnaglyph = SKColorFilter.CreateColorMatrix(new float[]
+        {
+            1, 0, 0, 0, 0,
+            0, 0, 0, 0, 0,
+            0, 0, 0, 0, 0,
+            0, 0, 0, 1, 0
+        }); 
+        private static readonly SKColorFilter CyanGrayAnaglyph = SKColorFilter.CreateColorMatrix(new float[]
+        {
+               0f,    0f,    0f, 0f, 0f,
+            0.21f, 0.72f, 0.07f, 0f, 0f,
+            0.21f, 0.72f, 0.07f, 0f, 0f,
+               0f,    0f,    0f, 1f, 0f
+        });
+        private static readonly SKColorFilter RedGrayAnaglyph = SKColorFilter.CreateColorMatrix(new float[]
+        {
+            0.21f, 0.72f, 0.07f, 0f, 0f,
+               0f,    0f,    0f, 0f, 0f,
+               0f,    0f,    0f, 0f, 0f,
+               0f,    0f,    0f, 1f, 0f
+        });
+
         public static void DrawImagesOnCanvas(SKCanvas canvas, SKBitmap leftBitmap, SKBitmap rightBitmap,
             Settings settings, Edits edits, DrawMode drawMode, bool isFov = false, bool withSwap = false,
             DrawQuality drawQuality = DrawQuality.Save, double cardboardVert = 0, double cardboardHor = 0)
@@ -314,31 +343,32 @@ namespace CrossCam.Page
                 FilterQuality = quality
             };
 
-            if (drawMode == DrawMode.RedCyanAnaglyph || //TODO: handle grayscale
+            if (drawMode == DrawMode.RedCyanAnaglyph ||
                 drawMode == DrawMode.GrayscaleRedCyanAnaglyph)
             {
-                if (isLeft)
+                if (drawMode == DrawMode.RedCyanAnaglyph)
                 {
-                    paint.ColorFilter =
-                        SKColorFilter.CreateColorMatrix(new float[]
-                        {
-                            0, 0, 0, 0, 0,
-                            0, 1, 0, 0, 0,
-                            0, 0, 1, 0, 0,
-                            0, 0, 0, 1, 0
-                        });
+                    if (isLeft)
+                    {
+                        paint.ColorFilter = CyanAnaglyph;
+                    }
+                    else
+                    {
+                        paint.ColorFilter = RedAnaglyph;
+                        paint.BlendMode = SKBlendMode.Plus;
+                    }
                 }
                 else
                 {
-                    paint.ColorFilter =
-                        SKColorFilter.CreateColorMatrix(new float[]
-                        {
-                            1, 0, 0, 0, 0,
-                            0, 0, 0, 0, 0,
-                            0, 0, 0, 0, 0,
-                            0, 0, 0, 1, 0
-                        });
-                    paint.BlendMode = SKBlendMode.Plus;
+                    if (isLeft)
+                    {
+                        paint.ColorFilter = CyanGrayAnaglyph;
+                    }
+                    else
+                    {
+                        paint.ColorFilter = RedGrayAnaglyph;
+                        paint.BlendMode = SKBlendMode.Plus;
+                    }
                 }
             }
 
@@ -346,7 +376,7 @@ namespace CrossCam.Page
                 barrelDistort)
             {
                 bitmap = CameraViewModel.BitmapDownsize(bitmap, cardboardDownsize / scalingRatio,
-                    quality);
+                    quality); //TODO: more efficient way to do this? (must be done here for math below, but can it be done faster?)
             }
 
             var width = bitmap.Width;
@@ -416,62 +446,6 @@ namespace CrossCam.Page
             canvas.ResetMatrix();
 
             canvas.Restore();
-        }
-
-        private static SKBitmap DoSolitaryEdits(SKBitmap originalBitmap, DrawMode drawMode, double zoom, bool isRotated, float rotation, bool isKeystoned, float keystone,
-             SKFilterQuality quality)
-        {
-            var resultBitmap = new SKBitmap(originalBitmap.Width, originalBitmap.Height);
-
-            using var skPaint = new SKPaint
-            {
-                FilterQuality = quality
-            };
-            if (drawMode == DrawMode.GrayscaleRedCyanAnaglyph)
-            {
-                skPaint.ColorFilter =
-                    SKColorFilter.CreateColorMatrix(new[]
-                    {
-                        0.21f, 0.72f, 0.07f, 0.0f, 0.0f,
-                        0.21f, 0.72f, 0.07f, 0.0f, 0.0f,
-                        0.21f, 0.72f, 0.07f, 0.0f, 0.0f,
-                        0.0f,  0.0f,  0.0f,  1.0f, 0.0f
-                    });
-            }
-
-            using var canvas = new SKCanvas(resultBitmap);
-            var fullTransform4D = SKMatrix44.CreateIdentity();
-
-            if (isKeystoned)
-            { //TODO (or TODON'T): the axis of this rotation is fixed, but it could be needed in any direction really, so enable that?
-                var rotationDirectionCorrection = keystone < 0 ? 0 : originalBitmap.Width;
-                fullTransform4D.PreConcat(SKMatrix44.CreateTranslate(rotationDirectionCorrection, originalBitmap.Height / 2f, 0));
-                fullTransform4D.PreConcat(MakePerspective(originalBitmap.Width));
-                fullTransform4D.PreConcat(SKMatrix44.CreateRotationDegrees(0, 1, 0, -keystone));
-                fullTransform4D.PreConcat(SKMatrix44.CreateTranslate(-rotationDirectionCorrection, -originalBitmap.Height / 2f, 0));
-            }
-
-            if (isRotated)
-            {
-                fullTransform4D.PreConcat(SKMatrix44.CreateTranslate(originalBitmap.Width / 2f, originalBitmap.Height / 2f, 0));
-                fullTransform4D.PreConcat(SKMatrix44.CreateRotationDegrees(0, 0, 1, rotation));
-                fullTransform4D.PreConcat(SKMatrix44.CreateTranslate(-originalBitmap.Width / 2f, -originalBitmap.Height / 2f, 0));
-            }
-
-            var fullTransform3D = fullTransform4D.Matrix;
-            canvas.Concat(ref fullTransform3D);
-
-            var zoomedX = originalBitmap.Width * zoom / -2f;
-            var zoomedY = originalBitmap.Height * zoom / -2f;
-            var zoomedWidth = originalBitmap.Width * (1 + zoom);
-            var zoomedHeight = originalBitmap.Height * (1 + zoom);
-            canvas.DrawBitmap(
-                originalBitmap,
-                SKRect.Create(0, 0, originalBitmap.Width, originalBitmap.Height),
-                SKRect.Create((float)zoomedX, (float)zoomedY, (float)zoomedWidth, (float)zoomedHeight),
-                skPaint);
-
-            return resultBitmap;
         }
 
         private static SKMatrix44 MakePerspective(float maxDepth)
