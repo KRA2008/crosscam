@@ -594,35 +594,10 @@ namespace CrossCam.iOS.CustomRenderer
                     case UIDeviceOrientation.Portrait:
                     case UIDeviceOrientation.LandscapeLeft:
                     case UIDeviceOrientation.LandscapeRight:
-                        if (_previousValidOrientation != UIDevice.CurrentDevice.Orientation)
-                        {
-                            switch (UIDevice.CurrentDevice.Orientation)
-                            {
-                                case UIDeviceOrientation.Portrait:
-                                    _cameraModule.IsPortrait = true;
-                                    _cameraModule.IsViewInverted = false;
-                                    break;
-                                case UIDeviceOrientation.LandscapeLeft:
-                                    _cameraModule.IsPortrait = false;
-                                    _cameraModule.IsViewInverted = false;
-                                    break;
-                                case UIDeviceOrientation.LandscapeRight:
-                                    _cameraModule.IsPortrait = false;
-                                    _cameraModule.IsViewInverted = true;
-                                    break;
-                            }
-                            
-                            _previousValidOrientation = UIDevice.CurrentDevice.Orientation;
-                        }
-
+                        _previousValidOrientation = UIDevice.CurrentDevice.Orientation;
                         break;
                     default:
-                        if (!_previousValidOrientation.HasValue)
-                        {
-                            _cameraModule.IsPortrait = true;
-                            _cameraModule.IsViewInverted = false;
-                            _previousValidOrientation = UIDeviceOrientation.Portrait;
-                        }
+                        _previousValidOrientation ??= UIDeviceOrientation.Portrait;
                         break;
                 }
             }

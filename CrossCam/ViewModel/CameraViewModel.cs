@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Threading;
@@ -392,6 +393,29 @@ namespace CrossCam.ViewModel
             BluetoothOperator.TransmissionStarted += BluetoothOperatorTransmissionStarted;
             BluetoothOperator.TransmissionComplete += BluetoothOperatorTransmissionComplete;
             BluetoothOperator.CountdownTimerSyncCompleteSecondary += BluetoothOperatorCountdownTimerSyncCompleteSecondary;
+
+            DeviceDisplay.MainDisplayInfoChanged += (sender, args) =>
+            {
+                switch (args.DisplayInfo.Rotation)
+                {
+                    case DisplayRotation.Rotation0:
+                        IsViewInverted = false;
+                        IsViewPortrait = true;
+                        break;
+                    case DisplayRotation.Rotation90:
+                        IsViewInverted = false;
+                        IsViewPortrait = false;
+                        break;
+                    case DisplayRotation.Rotation180:
+                        IsViewInverted = true;
+                        IsViewPortrait = true;
+                        break;
+                    case DisplayRotation.Rotation270:
+                        IsViewInverted = true;
+                        IsViewPortrait = false;
+                        break;
+                }
+            };
 
             MessagingCenter.Subscribe<object, PreviewFrame>(this, PREVIEW_FRAME_MESSAGE, (o, frame) =>
             {

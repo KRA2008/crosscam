@@ -611,8 +611,6 @@ namespace CrossCam.Droid.CustomRenderer
                 switch (Display.Rotation)
                 {
                     case SurfaceOrientation.Rotation0:
-                        _cameraModule.IsViewInverted = false;
-                        _cameraModule.IsPortrait = true;
                         proportionalPreviewHeight = previewSizeWidth * moduleWidth / previewSizeHeight;
                         _cameraRotation1 = _displayRotation1 = 90;
                         rotation2 = (_camera2SensorOrientation + 270) % 360;
@@ -623,8 +621,6 @@ namespace CrossCam.Droid.CustomRenderer
                         previewHeight2 = proportionalPreviewHeight;
                         break;
                     case SurfaceOrientation.Rotation90:
-                        _cameraModule.IsViewInverted = false;
-                        _cameraModule.IsPortrait = false;
                         proportionalPreviewHeight = previewSizeHeight * moduleWidth / previewSizeWidth;
                         if (_cameraModule.ChosenCamera.IsFront)
                         {
@@ -643,8 +639,6 @@ namespace CrossCam.Droid.CustomRenderer
                         previewHeight2 = moduleWidth;
                         break;
                     case SurfaceOrientation.Rotation180:
-                        _cameraModule.IsViewInverted = true;
-                        _cameraModule.IsPortrait = true;
                         proportionalPreviewHeight = previewSizeWidth * moduleWidth / previewSizeHeight;
                         _cameraRotation1 = _displayRotation1 = 270;
                         rotation2 = (_camera2SensorOrientation + 90) % 360;
@@ -656,8 +650,6 @@ namespace CrossCam.Droid.CustomRenderer
                         break;
                     case SurfaceOrientation.Rotation270:
                     default:
-                        _cameraModule.IsPortrait = false;
-                        _cameraModule.IsViewInverted = true;
                         proportionalPreviewHeight = previewSizeHeight * moduleWidth / previewSizeWidth;
                         if (_cameraModule.ChosenCamera.IsFront)
                         {

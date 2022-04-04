@@ -34,12 +34,6 @@ namespace CrossCam.CustomElement
 	    public static readonly BindableProperty CaptureSuccessProperty = BindableProperty.Create(nameof(CaptureSuccess),
 	        typeof(bool), typeof(CameraModule), false, BindingMode.OneWayToSource);
 
-	    public static readonly BindableProperty IsPortraitProperty = BindableProperty.Create(nameof(IsPortrait),
-	        typeof(bool), typeof(CameraModule), false, BindingMode.OneWayToSource);
-
-	    public static readonly BindableProperty IsViewInvertedProperty = BindableProperty.Create(nameof(IsViewInverted),
-	        typeof(bool), typeof(CameraModule), false, BindingMode.OneWayToSource);
-
         public static readonly BindableProperty IsTapToFocusEnabledProperty = BindableProperty.Create(nameof(IsTapToFocusEnabled),
 	        typeof(bool), typeof(CameraModule), false);
 
@@ -95,18 +89,6 @@ namespace CrossCam.CustomElement
 	    {
 	        get => (bool)GetValue(CaptureSuccessProperty);
 	        set => SetValue(CaptureSuccessProperty, value);
-	    }
-
-	    public bool IsPortrait
-	    {
-	        get => (bool)GetValue(IsPortraitProperty);
-	        set => SetValue(IsPortraitProperty, value);
-	    }
-
-	    public bool IsViewInverted
-        {
-	        get => (bool)GetValue(IsViewInvertedProperty);
-	        set => SetValue(IsViewInvertedProperty, value);
 	    }
 
         public bool IsTapToFocusEnabled

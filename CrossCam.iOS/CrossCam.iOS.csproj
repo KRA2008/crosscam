@@ -86,7 +86,7 @@
     <CodesignProvision>VS: WildCard Development</CodesignProvision>
     <IpaPackageName />
     <MtouchFastDev>true</MtouchFastDev>
-    <DeviceSpecificBuild>false</DeviceSpecificBuild>
+    <DeviceSpecificBuild>true</DeviceSpecificBuild>
     <OptimizePNGs>false</OptimizePNGs>
     <CodesignExtraArgs />
     <CodesignResourceRules />
@@ -99,6 +99,7 @@
     </MtouchInterpreter>
     <MtouchNoSymbolStrip>true</MtouchNoSymbolStrip>
     <LangVersion>8</LangVersion>
+    <MtouchEnableSGenConc>false</MtouchEnableSGenConc>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(RunConfiguration)' == 'Default' ">
     <AppExtensionDebugBundleId />
