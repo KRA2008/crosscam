@@ -396,25 +396,7 @@ namespace CrossCam.ViewModel
 
             DeviceDisplay.MainDisplayInfoChanged += (sender, args) =>
             {
-                switch (args.DisplayInfo.Rotation)
-                {
-                    case DisplayRotation.Rotation0:
-                        IsViewInverted = false;
-                        IsViewPortrait = true;
-                        break;
-                    case DisplayRotation.Rotation90:
-                        IsViewInverted = false;
-                        IsViewPortrait = false;
-                        break;
-                    case DisplayRotation.Rotation180:
-                        IsViewInverted = true;
-                        IsViewPortrait = true;
-                        break;
-                    case DisplayRotation.Rotation270:
-                        IsViewInverted = true;
-                        IsViewPortrait = false;
-                        break;
-                }
+                EvaluateOrientation(args.DisplayInfo.Rotation);
             };
 
             MessagingCenter.Subscribe<object, PreviewFrame>(this, PREVIEW_FRAME_MESSAGE, (o, frame) =>
@@ -1117,6 +1099,29 @@ namespace CrossCam.ViewModel
             });
         }
 
+        private void EvaluateOrientation(DisplayRotation rotation)
+        {
+            switch (rotation)
+            {
+                case DisplayRotation.Rotation0:
+                    IsViewInverted = false;
+                    IsViewPortrait = true;
+                    break;
+                case DisplayRotation.Rotation90:
+                    IsViewInverted = false;
+                    IsViewPortrait = false;
+                    break;
+                case DisplayRotation.Rotation180:
+                    IsViewInverted = true;
+                    IsViewPortrait = true;
+                    break;
+                case DisplayRotation.Rotation270:
+                    IsViewInverted = true;
+                    IsViewPortrait = false;
+                    break;
+            }
+        }
+
         private void SettingsOnPropertyChanged(object sender, PropertyChangedEventArgs e)
         {
             switch (e.PropertyName)
@@ -1284,6 +1289,7 @@ namespace CrossCam.ViewModel
         {
             base.ViewIsAppearing(sender, e);
             TriggerMovementHint();
+            EvaluateOrientation(DeviceDisplay.MainDisplayInfo.Rotation);
 
             if (_isInitialized)
             {
