@@ -156,21 +156,21 @@ namespace CrossCam.Page
             var canvasWidth = canvas.DeviceClipBounds.Width;
             var canvasHeight = canvas.DeviceClipBounds.Height;
 
-            int leftBitmapWidthLessCrop;
-            int baseHeight;
+            double sideBitmapWidthLessCrop;
+            double baseHeight;
 
             if (leftBitmap != null)
             {
                 baseHeight = leftBitmap.Height;
-                leftBitmapWidthLessCrop = (int)(leftBitmap.Width * (1 - (leftLeftCrop + leftRightCrop)));
+                sideBitmapWidthLessCrop = leftBitmap.Width * (1 - (leftLeftCrop + leftRightCrop));
             }
             else
             {
                 baseHeight = rightBitmap.Height;
-                leftBitmapWidthLessCrop = (int)(rightBitmap.Width * (1 - (rightLeftCrop + rightRightCrop)));
+                sideBitmapWidthLessCrop = rightBitmap.Width * (1 - (rightLeftCrop + rightRightCrop));
             }
 
-            var leftBitmapHeightLessCrop = (int)(baseHeight * (1 - (topCrop + bottomCrop + Math.Abs(alignment))));
+            var sideBitmapHeightLessCrop = baseHeight * (1 - (topCrop + bottomCrop + Math.Abs(alignment)));
             var overlayDrawing =
                 drawMode == DrawMode.GrayscaleRedCyanAnaglyph ||
                 drawMode == DrawMode.RedCyanAnaglyph ||
@@ -184,15 +184,15 @@ namespace CrossCam.Page
                 0;
 
             var widthRatio =
-                (leftBitmapWidthLessCrop + leftBitmapWidthLessCrop * innerBorderThicknessProportion * 1.5) /
-                (canvasWidth / 2f);
+                (sideBitmapWidthLessCrop + sideBitmapWidthLessCrop * innerBorderThicknessProportion * 1.5) /
+                (canvasWidth / 2d);
             if (overlayDrawing)
             {
-                widthRatio /= 2;
+                widthRatio /= 2d;
             }
 
             var bitmapHeightWithEditsAndBorder =
-                leftBitmapHeightLessCrop + leftBitmapWidthLessCrop * innerBorderThicknessProportion * 2;
+                sideBitmapHeightLessCrop + sideBitmapWidthLessCrop * innerBorderThicknessProportion * 2;
             var drawFuseGuide = fuseGuideRequested &&
                                 drawMode != DrawMode.Cardboard &&
                                 !overlayDrawing &&
@@ -216,8 +216,8 @@ namespace CrossCam.Page
             float leftPreviewX;
             float rightPreviewX;
             float previewY;
-            var sidePreviewWidthLessCrop = (float) (leftBitmapWidthLessCrop / scalingRatio);
-            var previewHeightLessCrop = (float) (leftBitmapHeightLessCrop / scalingRatio);
+            var sidePreviewWidthLessCrop = (float) (sideBitmapWidthLessCrop / scalingRatio);
+            var previewHeightLessCrop = (float) (sideBitmapHeightLessCrop / scalingRatio);
 
             if (overlayDrawing)
             {
@@ -432,11 +432,6 @@ namespace CrossCam.Page
             canvas.SetMatrix(fullTransform3D);
             canvas.DrawBitmap(
                 bitmap,
-                SKRect.Create(
-                    srcX,
-                    srcY,
-                    srcWidth,
-                    srcHeight),
                 SKRect.Create(
                     (float)(previewX + (sidePreviewWidthLessCrop - zoomedWidth) / 2f),
                     (float)(previewY + (previewHeightLessCrop - zoomedHeight) / 2f),
