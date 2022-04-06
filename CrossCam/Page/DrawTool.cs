@@ -365,11 +365,9 @@ namespace CrossCam.Page
                 FilterQuality = quality
             };
 
-            if (drawMode == DrawMode.RedCyanAnaglyph ||
-                drawMode == DrawMode.GrayscaleRedCyanAnaglyph)
+            switch (drawMode)
             {
-                if (drawMode == DrawMode.RedCyanAnaglyph)
-                {
+                case DrawMode.RedCyanAnaglyph:
                     if (isLeft)
                     {
                         paint.ColorFilter = CyanAnaglyph;
@@ -379,9 +377,8 @@ namespace CrossCam.Page
                         paint.ColorFilter = RedAnaglyph;
                         paint.BlendMode = SKBlendMode.Plus;
                     }
-                }
-                else
-                {
+                    break;
+                case DrawMode.GrayscaleRedCyanAnaglyph:
                     if (isLeft)
                     {
                         paint.ColorFilter = CyanGrayAnaglyph;
@@ -391,26 +388,12 @@ namespace CrossCam.Page
                         paint.ColorFilter = RedGrayAnaglyph;
                         paint.BlendMode = SKBlendMode.Plus;
                     }
-                }
+                    break;
+                case DrawMode.Cardboard when barrelDistort:
+                    bitmap = CameraViewModel.BitmapDownsize(bitmap, cardboardDownsize / scalingRatio,
+                        quality); //TODO: more efficient way to do this? (must be done here for math below, but can it be done faster?)
+                    break;
             }
-
-            if (drawMode == DrawMode.Cardboard &&
-                barrelDistort)
-            {
-                bitmap = CameraViewModel.BitmapDownsize(bitmap, cardboardDownsize / scalingRatio,
-                    quality); //TODO: more efficient way to do this? (must be done here for math below, but can it be done faster?)
-            }
-
-            //var width = bitmap.Width;
-            //var height = bitmap.Height;
-
-            //var srcWidth = (float)(width - width * (leftCrop + rightCrop));
-            //var srcHeight = (float)(height - height * (topCrop + bottomCrop + Math.Abs(alignment)));
-            //var srcX = (float)(width * leftCrop + cardboardHor * srcWidth);
-            //var srcY = (float) (height * topCrop + (isLeft
-            //    ? alignment > 0 ? alignment * height : 0
-            //    : alignment < 0 ? -alignment * height : 0) + cardboardVert * srcHeight);
-
 
             //TODO: figure out how to make distortion work for new crops...
             if (drawMode == DrawMode.Cardboard &&
@@ -444,17 +427,19 @@ namespace CrossCam.Page
             }
 
             canvas.Save();
-            //canvas.ClipRect(
-            //    SKRect.Create(
-            //        (float) Math.Clamp(visiblePreviewX - cardboardHorDelta, visiblePreviewX, double.MaxValue),
-            //        (float) Math.Clamp(visiblePreviewY - cardboardVertDelta, 0, double.MaxValue),
-            //        (float) Math.Clamp(visiblePreviewWidth - cardboardHorDelta, 0, visiblePreviewX),
-            //        (float) Math.Clamp(visiblePreviewHeight - cardboardVertDelta, 0, visiblePreviewHeight)));
             var xClip = (float) Math.Clamp(visiblePreviewX - cardboardHorDelta, visiblePreviewX,
                 visiblePreviewX + visiblePreviewWidth);
             var yClip = (float) Math.Clamp(visiblePreviewY - cardboardVertDelta, 0, double.MaxValue);
-            var widthClip = (float) visiblePreviewWidth; //TODO: do right
-            var heightClip = (float) visiblePreviewHeight; //TODO: do right
+            float widthClip;
+            if (cardboardHorDelta > 0)
+            {
+                widthClip = (float) (visiblePreviewWidth - cardboardHorDelta);
+            }
+            else
+            {
+                widthClip = (float) (visiblePreviewWidth + cardboardHorDelta);
+            }
+            var heightClip = visiblePreviewHeight;
             canvas.ClipRect(
                 SKRect.Create(
                     xClip,
@@ -463,7 +448,8 @@ namespace CrossCam.Page
                     heightClip));
 
             var destWidth = visiblePreviewWidth * (1 + zoom) + rightCrop + leftCrop;
-            var destHeight = visiblePreviewHeight * (1 + zoom) + bottomCrop + topCrop + visiblePreviewHeight * Math.Abs(alignment);
+            var destHeight = visiblePreviewHeight * (1 + zoom) + bottomCrop + topCrop +
+                             visiblePreviewHeight * Math.Abs(alignment);
             var destX = visiblePreviewX - leftCrop - zoom * visiblePreviewWidth / 2f - cardboardHorDelta;
             var destY = visiblePreviewY - topCrop - zoom * visiblePreviewHeight / 2f + (isLeft
                 ? alignment > 0 ? -alignment * visiblePreviewHeight : 0
