@@ -447,18 +447,22 @@ namespace CrossCam.Page
                     sidePreviewWidthLessCrop,
                     previewHeightLessCrop));
 
-            var zoomedWidth = sidePreviewWidthLessCrop * (1 + zoom);
-            var zoomedHeight = previewHeightLessCrop * (1 + zoom);
+            var destWidth = sidePreviewWidthLessCrop * (1 + zoom) + rightCrop + leftCrop;
+            var destHeight = previewHeightLessCrop * (1 + zoom) + bottomCrop + topCrop + previewHeightLessCrop * Math.Abs(alignment);
+            var destX = previewX - leftCrop - zoom * sidePreviewWidthLessCrop / 2f;
+            var destY = previewY - topCrop - zoom * previewHeightLessCrop / 2f + (isLeft
+                ? alignment > 0 ? -alignment * previewHeightLessCrop : 0
+                : alignment < 0
+                    ? alignment * previewHeightLessCrop
+                    : 0);
             canvas.SetMatrix(fullTransform3D);
             canvas.DrawBitmap(
                 bitmap,
                 SKRect.Create(
-                    (float)(previewX + (sidePreviewWidthLessCrop - zoomedWidth) / 2f - leftCrop),
-                    (float)(previewY + (previewHeightLessCrop - zoomedHeight) / 2f - topCrop + (isLeft
-                                    ? alignment > 0 ? alignment * previewHeightLessCrop : 0
-                                    : alignment < 0 ? -alignment * previewHeightLessCrop : 0)), //previewHeightLessCrop vs originalHeight
-                    (float)(zoomedWidth + rightCrop + leftCrop),
-                    (float)(zoomedHeight + bottomCrop + topCrop - zoomedHeight * Math.Abs(alignment))),
+                    (float)destX,
+                    (float)destY,
+                    (float)destWidth,
+                    (float)destHeight),
                 paint);
             canvas.ResetMatrix();
 
