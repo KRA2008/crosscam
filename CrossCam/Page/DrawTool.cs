@@ -450,12 +450,17 @@ namespace CrossCam.Page
             //        (float) Math.Clamp(visiblePreviewY - cardboardVertDelta, 0, double.MaxValue),
             //        (float) Math.Clamp(visiblePreviewWidth - cardboardHorDelta, 0, visiblePreviewX),
             //        (float) Math.Clamp(visiblePreviewHeight - cardboardVertDelta, 0, visiblePreviewHeight)));
+            var xClip = (float) Math.Clamp(visiblePreviewX - cardboardHorDelta, visiblePreviewX,
+                visiblePreviewX + visiblePreviewWidth);
+            var yClip = (float) Math.Clamp(visiblePreviewY - cardboardVertDelta, 0, double.MaxValue);
+            var widthClip = (float) visiblePreviewWidth; //TODO: do right
+            var heightClip = (float) visiblePreviewHeight; //TODO: do right
             canvas.ClipRect(
                 SKRect.Create(
-                    visiblePreviewX,
-                    (float)Math.Clamp(visiblePreviewY - cardboardVertDelta, 0, double.MaxValue),
-                    visiblePreviewWidth,
-                    visiblePreviewHeight));
+                    xClip,
+                    yClip,
+                    widthClip,
+                    heightClip));
 
             var destWidth = visiblePreviewWidth * (1 + zoom) + rightCrop + leftCrop;
             var destHeight = visiblePreviewHeight * (1 + zoom) + bottomCrop + topCrop + visiblePreviewHeight * Math.Abs(alignment);
