@@ -157,7 +157,7 @@ namespace CrossCam.Page
             var canvasHeight = canvas.DeviceClipBounds.Height;
 
             double sideBitmapWidthLessCrop, baseHeight;
-            double leftBitmapLeftCrop = 0, leftBitmapRightCrop = 0, rightBitmapLeftCrop = 0, rightBitmapRightCrop = 0, bitmapTopCrop = 0, bitmapBottomCrop = 0;
+            double leftBitmapLeftCrop = 0, leftBitmapRightCrop = 0, rightBitmapLeftCrop = 0, rightBitmapRightCrop = 0;
 
             if (leftBitmap != null)
             {
@@ -171,6 +171,7 @@ namespace CrossCam.Page
                 rightBitmapRightCrop = rightRightCrop * rightBitmap.Width;
             }
 
+            double bitmapTopCrop, bitmapBottomCrop;
             if (leftBitmap != null)
             {
                 bitmapTopCrop = topCrop * leftBitmap.Height;
@@ -322,10 +323,13 @@ namespace CrossCam.Page
         private static void DrawSide(SKCanvas canvas, SKBitmap bitmap, bool isLeft, DrawMode drawMode, double zoom,
             bool isRotated, float rotation, bool isKeystoned, float keystone, bool barrelDistort, int barrelStrength,
             double cardboardDownsize, double scalingRatio, double leftCrop, double rightCrop, double topCrop,
-            double bottomCrop, double cardboardHor, double cardboardVert, double alignment, float previewX,
-            float previewY, float sidePreviewWidthLessCrop, float previewHeightLessCrop,
+            double bottomCrop, double cardboardHor, double cardboardVert, double alignment, float visiblePreviewX,
+            float visiblePreviewY, float visiblePreviewWidth, float visiblePreviewHeight,
             double cardboardWidthProportion, SKFilterQuality quality)
         {
+            var cardboardHorDelta = cardboardHor * visiblePreviewWidth;
+            var cardboardVertDelta = cardboardVert * visiblePreviewHeight;
+
             var fullTransform3D = SKMatrix.Identity;
             if (isRotated ||
                 zoom > 0 ||
@@ -336,18 +340,18 @@ namespace CrossCam.Page
                 
                 if (isKeystoned)
                 { //TODO (or TODON'T): the axis of this rotation is fixed, but it could be needed in any direction really, so enable that?
-                    var xCorrection = isLeft ? previewX : previewX + sidePreviewWidthLessCrop;
-                    var yCorrection = previewY + previewHeightLessCrop / 2f;
+                    var xCorrection = (float) ((isLeft ? visiblePreviewX : visiblePreviewX + visiblePreviewWidth) - cardboardHorDelta);
+                    var yCorrection = (float) (visiblePreviewY + visiblePreviewHeight / 2f - cardboardVertDelta);
                     fullTransform4D.PreConcat(SKMatrix44.CreateTranslate(xCorrection, yCorrection, 0));
-                    fullTransform4D.PreConcat(MakePerspective(sidePreviewWidthLessCrop));
+                    fullTransform4D.PreConcat(MakePerspective(visiblePreviewWidth));
                     fullTransform4D.PreConcat(SKMatrix44.CreateRotationDegrees(0, 1, 0, isLeft ? keystone : -keystone));
                     fullTransform4D.PreConcat(SKMatrix44.CreateTranslate(-xCorrection, -yCorrection, 0));
                 }
 
                 if (isRotated)
                 {
-                    var xCorrection = previewX + sidePreviewWidthLessCrop / 2f;
-                    var yCorrection = previewY + previewHeightLessCrop / 2f;
+                    var xCorrection = (float) (visiblePreviewX + visiblePreviewWidth / 2f - cardboardHorDelta);
+                    var yCorrection = (float) (visiblePreviewY + visiblePreviewHeight / 2f - cardboardVertDelta);
                     fullTransform4D.PreConcat(SKMatrix44.CreateTranslate(xCorrection, yCorrection, 0));
                     fullTransform4D.PreConcat(SKMatrix44.CreateRotationDegrees(0, 0, 1, rotation));
                     fullTransform4D.PreConcat(SKMatrix44.CreateTranslate(-xCorrection, -yCorrection, 0));
@@ -390,12 +394,12 @@ namespace CrossCam.Page
                 }
             }
 
-            //if (drawMode == DrawMode.Cardboard &&
-            //    barrelDistort)
-            //{
-            //    bitmap = CameraViewModel.BitmapDownsize(bitmap, cardboardDownsize / scalingRatio,
-            //        quality); //TODO: more efficient way to do this? (must be done here for math below, but can it be done faster?)
-            //}
+            if (drawMode == DrawMode.Cardboard &&
+                barrelDistort)
+            {
+                bitmap = CameraViewModel.BitmapDownsize(bitmap, cardboardDownsize / scalingRatio,
+                    quality); //TODO: more efficient way to do this? (must be done here for math below, but can it be done faster?)
+            }
 
             //var width = bitmap.Width;
             //var height = bitmap.Height;
@@ -409,52 +413,57 @@ namespace CrossCam.Page
 
 
             //TODO: figure out how to make distortion work for new crops...
-            //if (drawMode == DrawMode.Cardboard &&
-            //    barrelDistort)
-            //{
-            //    var openCv = DependencyService.Get<IOpenCv>();
-            //    if (openCv.IsOpenCvSupported())
-            //    {
-            //        var bitmapAspect = srcHeight / srcWidth;
-            //        float cx;
-            //        if (bitmapAspect < halfScreenAspect)
-            //        {
-            //            //bitmap will be full width
-            //            cx = isLeft ? 
-            //                (float) ((1 - cardboardWidthProportion) * srcWidth + srcX) : 
-            //                (float) (cardboardWidthProportion * srcWidth + srcX);
-            //        }
-            //        else
-            //        {
-            //            //bitmap will be full height
-            //            var restoredWidth = srcHeight / halfScreenAspect;
-            //            var missingRestoredWidth = restoredWidth - srcWidth;
-            //            cx = isLeft ? 
-            //                (float) ((1 - cardboardWidthProportion) * (srcWidth - missingRestoredWidth) + srcX) : 
-            //                (float) (cardboardWidthProportion * (srcWidth + missingRestoredWidth) + srcX);
-            //        }
+            if (drawMode == DrawMode.Cardboard &&
+                barrelDistort)
+            {
+                var openCv = DependencyService.Get<IOpenCv>();
+                if (openCv.IsOpenCvSupported())
+                {
+                    var bitmapAspect = visiblePreviewHeight / visiblePreviewWidth;
+                    float cx;
+                    if (bitmapAspect < halfScreenAspect)
+                    {
+                        //bitmap will be full width
+                        cx = isLeft ?
+                            (float)((1 - cardboardWidthProportion) * visiblePreviewWidth + visiblePreviewX) :
+                            (float)(cardboardWidthProportion * visiblePreviewWidth + visiblePreviewX);
+                    }
+                    else
+                    {
+                        //bitmap will be full height
+                        var restoredWidth = visiblePreviewHeight / halfScreenAspect;
+                        var missingRestoredWidth = restoredWidth - visiblePreviewWidth;
+                        cx = isLeft ?
+                            (float)((1 - cardboardWidthProportion) * (visiblePreviewWidth - missingRestoredWidth) + visiblePreviewX) :
+                            (float)(cardboardWidthProportion * (visiblePreviewWidth + missingRestoredWidth) + visiblePreviewX);
+                    }
 
-            //        bitmap = openCv.AddBarrelDistortion(bitmap, barrelStrength / 100f, cx,
-            //            srcY + srcHeight / 2f, srcWidth, srcHeight);
-            //    }
-            //}
+                    bitmap = openCv.AddBarrelDistortion(bitmap, barrelStrength / 100f, cx,
+                        visiblePreviewY + visiblePreviewHeight / 2f, visiblePreviewWidth, visiblePreviewHeight);
+                }
+            }
 
             canvas.Save();
+            //canvas.ClipRect(
+            //    SKRect.Create(
+            //        (float) Math.Clamp(visiblePreviewX - cardboardHorDelta, visiblePreviewX, double.MaxValue),
+            //        (float) Math.Clamp(visiblePreviewY - cardboardVertDelta, 0, double.MaxValue),
+            //        (float) Math.Clamp(visiblePreviewWidth - cardboardHorDelta, 0, visiblePreviewX),
+            //        (float) Math.Clamp(visiblePreviewHeight - cardboardVertDelta, 0, visiblePreviewHeight)));
             canvas.ClipRect(
                 SKRect.Create(
-                    previewX,
-                    previewY,
-                    sidePreviewWidthLessCrop,
-                    previewHeightLessCrop));
+                    visiblePreviewX,
+                    (float)Math.Clamp(visiblePreviewY - cardboardVertDelta, 0, double.MaxValue),
+                    visiblePreviewWidth,
+                    visiblePreviewHeight));
 
-            var destWidth = sidePreviewWidthLessCrop * (1 + zoom) + rightCrop + leftCrop;
-            var destHeight = previewHeightLessCrop * (1 + zoom) + bottomCrop + topCrop + previewHeightLessCrop * Math.Abs(alignment);
-            var destX = previewX - leftCrop - zoom * sidePreviewWidthLessCrop / 2f;
-            var destY = previewY - topCrop - zoom * previewHeightLessCrop / 2f + (isLeft
-                ? alignment > 0 ? -alignment * previewHeightLessCrop : 0
-                : alignment < 0
-                    ? alignment * previewHeightLessCrop
-                    : 0);
+            var destWidth = visiblePreviewWidth * (1 + zoom) + rightCrop + leftCrop;
+            var destHeight = visiblePreviewHeight * (1 + zoom) + bottomCrop + topCrop + visiblePreviewHeight * Math.Abs(alignment);
+            var destX = visiblePreviewX - leftCrop - zoom * visiblePreviewWidth / 2f - cardboardHorDelta;
+            var destY = visiblePreviewY - topCrop - zoom * visiblePreviewHeight / 2f + (isLeft
+                ? alignment > 0 ? -alignment * visiblePreviewHeight : 0
+                : alignment < 0 ? alignment * visiblePreviewHeight : 0)
+                - cardboardVertDelta;
             canvas.SetMatrix(fullTransform3D);
             canvas.DrawBitmap(
                 bitmap,
