@@ -407,6 +407,7 @@ namespace CrossCam.Page
                     if (bitmapAspect < halfScreenAspect)
                     {
                         //bitmap will be full width
+                        //cx = isLeft ? 500 : 1000;
                         cx = isLeft ?
                             (float)((1 - cardboardWidthProportion) * visiblePreviewWidth + visiblePreviewX) :
                             (float)(cardboardWidthProportion * visiblePreviewWidth + visiblePreviewX);
@@ -420,7 +421,7 @@ namespace CrossCam.Page
                             (float)((1 - cardboardWidthProportion) * (visiblePreviewWidth - missingRestoredWidth) + visiblePreviewX) :
                             (float)(cardboardWidthProportion * (visiblePreviewWidth + missingRestoredWidth) + visiblePreviewX);
                     }
-
+                    
                     bitmap = openCv.AddBarrelDistortion(bitmap, barrelStrength / 100f, cx,
                         visiblePreviewY + visiblePreviewHeight / 2f, visiblePreviewWidth, visiblePreviewHeight);
                 }
