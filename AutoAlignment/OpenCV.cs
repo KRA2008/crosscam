@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using Android.App.AppSearch;
 using AutoAlignment;
 using CrossCam.Model;
 using CrossCam.Page;
@@ -406,11 +407,11 @@ namespace AutoAlignment
             return result;
         }
 
-        public SKBitmap AddBarrelDistortion(SKBitmap originalImage, float strength, float cx, float cy, 
+        public SKBitmap AddBarrelDistortion(byte[] bytes, float strength, float cx, float cy, 
             float editedWidth, float editedHeight)
         {
             using var cvImage = new Mat();
-            CvInvoke.Imdecode(GetBytes(originalImage, 1), ImreadModes.Color, cvImage);
+            CvInvoke.Imdecode(bytes, ImreadModes.Color, cvImage);
 
             using var cameraMatrix = GetCameraMatrix(cx, cy);
 
