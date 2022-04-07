@@ -863,7 +863,7 @@ namespace CrossCam.ViewModel
                             }
 
                             DrawTool.DrawImagesOnCanvas(
-                                canvas, LeftBitmap, RightBitmap, 
+                                tempSurface, LeftBitmap, RightBitmap, 
                                 Settings,
                                 Edits, 
                                 DrawMode.Cross);
@@ -887,7 +887,7 @@ namespace CrossCam.ViewModel
                             }
 
                             DrawTool.DrawImagesOnCanvas(
-                                canvas, LeftBitmap, RightBitmap, 
+                                tempSurface, LeftBitmap, RightBitmap, 
                                 Settings, 
                                 Edits, 
                                 DrawMode.Parallel,
@@ -935,7 +935,7 @@ namespace CrossCam.ViewModel
                             }
 
                             DrawTool.DrawImagesOnCanvas(
-                                doubleCanvas, LeftBitmap, RightBitmap,
+                                doubleSurface, LeftBitmap, RightBitmap,
                                 Settings,
                                 Edits,
                                 DrawMode.Cross);
@@ -962,7 +962,7 @@ namespace CrossCam.ViewModel
                             }
 
                             DrawTool.DrawImagesOnCanvas(
-                                doublePlainCanvas, LeftBitmap, RightBitmap,
+                                doublePlainSurface, LeftBitmap, RightBitmap,
                                 Settings,
                                 Edits,
                                 DrawMode.Cross);
@@ -978,7 +978,7 @@ namespace CrossCam.ViewModel
                             }
 
                             DrawTool.DrawImagesOnCanvas(
-                                doubleSwapCanvas, LeftBitmap, RightBitmap,
+                                doubleSwapSurface, LeftBitmap, RightBitmap,
                                 Settings,
                                 Edits,
                                 DrawMode.Parallel);
@@ -1005,7 +1005,7 @@ namespace CrossCam.ViewModel
                             var canvas = tempSurface.Canvas;
                             canvas.Clear();
 
-                            DrawTool.DrawImagesOnCanvas(canvas, LeftBitmap, RightBitmap, Settings, Edits,
+                            DrawTool.DrawImagesOnCanvas(tempSurface, LeftBitmap, RightBitmap, Settings, Edits,
                                 DrawMode.Cardboard);
 
                             await SaveSurfaceSnapshot(tempSurface);
@@ -1396,7 +1396,7 @@ namespace CrossCam.ViewModel
             canvas.Clear(SKColor.Empty);
 
             DrawTool.DrawImagesOnCanvas(
-                canvas, LeftBitmap, RightBitmap, 
+                tempSurface, LeftBitmap, RightBitmap, 
                 Settings, 
                 Edits,
                 grayscale ? DrawMode.GrayscaleRedCyanAnaglyph : DrawMode.RedCyanAnaglyph);

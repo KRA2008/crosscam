@@ -415,12 +415,12 @@ namespace CrossCam.Page
 
         private void OnCapturedCanvasInvalidated(object sender, SKPaintSurfaceEventArgs e)
 	    {
-            var canvas = e.Surface.Canvas;
+            var surface = e.Surface;
 
             if (_viewModel.LeftBitmap == null &&
                 _viewModel.RightBitmap == null)
             {
-                canvas.Clear();
+                surface.Canvas.Clear();
                 _cardboardHomeHor = null;
                 _cardboardHomeVert = null;
             }
@@ -428,7 +428,7 @@ namespace CrossCam.Page
             if (_viewModel.Settings.Mode == DrawMode.RedCyanAnaglyph ||
                 _viewModel.Settings.Mode == DrawMode.GrayscaleRedCyanAnaglyph)
             {
-                canvas.Clear();
+                surface.Canvas.Clear();
             }
             
             SKBitmap left = null;
@@ -436,7 +436,7 @@ namespace CrossCam.Page
             if (_viewModel.LeftBitmap != null &&
                 _viewModel.RightBitmap != null)
             {
-                canvas.Clear();
+                surface.Canvas.Clear();
 
                 left = _viewModel.LeftBitmap;
                 right = _viewModel.RightBitmap;
@@ -546,7 +546,7 @@ namespace CrossCam.Page
             }
 
             DrawTool.DrawImagesOnCanvas(
-                canvas, left, right,
+                surface, left, right,
                 _viewModel.Settings,
                 _viewModel.Edits,
                 _viewModel.Settings.Mode,

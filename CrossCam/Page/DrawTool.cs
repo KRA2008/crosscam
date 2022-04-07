@@ -49,7 +49,7 @@ namespace CrossCam.Page
                0f,    0f,    0f, 1f, 0f
         });
 
-        public static void DrawImagesOnCanvas(SKCanvas canvas, SKBitmap leftBitmap, SKBitmap rightBitmap,
+        public static void DrawImagesOnCanvas(SKSurface surface, SKBitmap leftBitmap, SKBitmap rightBitmap,
             Settings settings, Edits edits, DrawMode drawMode, bool isFov = false, bool withSwap = false,
             DrawQuality drawQuality = DrawQuality.Save, double cardboardVert = 0, double cardboardHor = 0)
         {
@@ -99,7 +99,7 @@ namespace CrossCam.Page
 
             if (withSwap)
             {
-                DrawImagesOnCanvasInternal(canvas, rightBitmap, leftBitmap,
+                DrawImagesOnCanvasInternal(surface, rightBitmap, leftBitmap,
                     settings.BorderWidthProportion, settings.AddBorder && drawQuality != DrawQuality.Preview, settings.BorderColor,
                     edits.InsideCrop + edits.LeftCrop + innerCardboardCrop, edits.RightCrop + edits.OutsideCrop + outerCardboardCrop,
                     edits.LeftCrop + edits.OutsideCrop + outerCardboardCrop, edits.InsideCrop + edits.RightCrop + innerCardboardCrop,
@@ -117,7 +117,7 @@ namespace CrossCam.Page
             }
             else
             {
-                DrawImagesOnCanvasInternal(canvas, leftBitmap, rightBitmap,
+                DrawImagesOnCanvasInternal(surface, leftBitmap, rightBitmap,
                     settings.BorderWidthProportion, settings.AddBorder && drawQuality != DrawQuality.Preview, settings.BorderColor,
                     edits.LeftCrop + edits.OutsideCrop + outerCardboardCrop, edits.InsideCrop + edits.RightCrop + innerCardboardCrop, edits.InsideCrop + edits.LeftCrop + innerCardboardCrop,
                     edits.RightCrop + edits.OutsideCrop + outerCardboardCrop,
@@ -136,7 +136,7 @@ namespace CrossCam.Page
         }
 
         private static void DrawImagesOnCanvasInternal(
-            SKCanvas canvas, SKBitmap leftBitmap, SKBitmap rightBitmap,
+            SKSurface surface, SKBitmap leftBitmap, SKBitmap rightBitmap,
             int borderThickness, bool addBorder, BorderColor borderColor,
             double leftLeftCrop, double leftRightCrop, double rightLeftCrop, double rightRightCrop,
             double topCrop, double bottomCrop,
@@ -153,8 +153,8 @@ namespace CrossCam.Page
         {
             if (leftBitmap == null && rightBitmap == null) return;
 
-            var canvasWidth = canvas.DeviceClipBounds.Width;
-            var canvasHeight = canvas.DeviceClipBounds.Height;
+            var canvasWidth = surface.Canvas.DeviceClipBounds.Width;
+            var canvasHeight = surface.Canvas.DeviceClipBounds.Height;
 
             double sideBitmapWidthLessCrop, baseHeight;
             double leftBitmapLeftCrop = 0, leftBitmapRightCrop = 0, rightBitmapLeftCrop = 0, rightBitmapRightCrop = 0;
@@ -263,7 +263,7 @@ namespace CrossCam.Page
 
             if (leftBitmap != null)
             {
-                DrawSide(canvas, leftBitmap, true, drawMode, leftZoom, isLeftRotated, leftRotation, isLeftKeystoned,
+                DrawSide(surface, leftBitmap, true, drawMode, leftZoom, isLeftRotated, leftRotation, isLeftKeystoned,
                     leftKeystone, addBarrelDistortion, barrelStrength, cardboardDownsize, scalingRatio, 
                     leftBitmapLeftCrop / scalingRatio, leftBitmapRightCrop / scalingRatio, bitmapTopCrop / scalingRatio, 
                     bitmapBottomCrop / scalingRatio, cardboardHor, cardboardVert, alignment, leftPreviewX, previewY,
@@ -272,7 +272,7 @@ namespace CrossCam.Page
 
             if (rightBitmap != null)
             {
-                DrawSide(canvas, rightBitmap, false, drawMode, rightZoom, isRightRotated, rightRotation, isRightKeystoned,
+                DrawSide(surface, rightBitmap, false, drawMode, rightZoom, isRightRotated, rightRotation, isRightKeystoned,
                     rightKeystone, addBarrelDistortion, barrelStrength, cardboardDownsize, scalingRatio, 
                     rightBitmapLeftCrop / scalingRatio, rightBitmapRightCrop / scalingRatio, bitmapTopCrop / scalingRatio, 
                     bitmapBottomCrop / scalingRatio, cardboardHor, cardboardVert, alignment, rightPreviewX, previewY,
@@ -295,11 +295,11 @@ namespace CrossCam.Page
                 var scaledBorderThickness = (float)(innerBorderThicknessProportion * sidePreviewWidthLessCrop);
                 var endX = rightPreviewX + sidePreviewWidthLessCrop;
                 var endY = previewY + previewHeightLessCrop;
-                canvas.DrawRect(originX, originY, fullPreviewWidth, scaledBorderThickness, borderPaint);
-                canvas.DrawRect(originX, originY, scaledBorderThickness, fullPreviewHeight, borderPaint);
-                canvas.DrawRect(canvasWidth / 2f - scaledBorderThickness / 2f, originY, scaledBorderThickness, fullPreviewHeight, borderPaint);
-                canvas.DrawRect(endX, originY, scaledBorderThickness, fullPreviewHeight, borderPaint);
-                canvas.DrawRect(originX, endY, fullPreviewWidth, scaledBorderThickness, borderPaint);
+                surface.Canvas.DrawRect(originX, originY, fullPreviewWidth, scaledBorderThickness, borderPaint);
+                surface.Canvas.DrawRect(originX, originY, scaledBorderThickness, fullPreviewHeight, borderPaint);
+                surface.Canvas.DrawRect(canvasWidth / 2f - scaledBorderThickness / 2f, originY, scaledBorderThickness, fullPreviewHeight, borderPaint);
+                surface.Canvas.DrawRect(endX, originY, scaledBorderThickness, fullPreviewHeight, borderPaint);
+                surface.Canvas.DrawRect(originX, endY, fullPreviewWidth, scaledBorderThickness, borderPaint);
             }
 
             if (drawFuseGuide)
@@ -311,16 +311,16 @@ namespace CrossCam.Page
                     Color = new SKColor(byte.MaxValue, byte.MaxValue, byte.MaxValue),
                     FilterQuality = skFilterQuality
                 };
-                canvas.DrawRect(
+                surface.Canvas.DrawRect(
                     canvasWidth / 2f - previewBorderThickness - sidePreviewWidthLessCrop / 2f - fuseGuideIconWidth / 2f,
                     fuseGuideY, fuseGuideIconWidth, fuseGuideIconWidth, whitePaint);
-                canvas.DrawRect(
+                surface.Canvas.DrawRect(
                     canvasWidth / 2f + previewBorderThickness + sidePreviewWidthLessCrop / 2f + fuseGuideIconWidth / 2f,
                     fuseGuideY, fuseGuideIconWidth, fuseGuideIconWidth, whitePaint);
             }
         }
 
-        private static void DrawSide(SKCanvas canvas, SKBitmap bitmap, bool isLeft, DrawMode drawMode, double zoom,
+        private static void DrawSide(SKSurface surface, SKBitmap bitmap, bool isLeft, DrawMode drawMode, double zoom,
             bool isRotated, float rotation, bool isKeystoned, float keystone, bool barrelDistort, int barrelStrength,
             double cardboardDownsize, double scalingRatio, double leftCrop, double rightCrop, double topCrop,
             double bottomCrop, double cardboardHor, double cardboardVert, double alignment, float visiblePreviewX,
@@ -426,7 +426,7 @@ namespace CrossCam.Page
                 }
             }
 
-            canvas.Save();
+            surface.Canvas.Save();
             var xClip = (float) Math.Clamp(visiblePreviewX - cardboardHorDelta, visiblePreviewX,
                 visiblePreviewX + visiblePreviewWidth);
             var yClip = (float) Math.Clamp(visiblePreviewY - cardboardVertDelta, 0, double.MaxValue);
@@ -440,7 +440,7 @@ namespace CrossCam.Page
                 widthClip = (float) (visiblePreviewWidth + cardboardHorDelta);
             }
             var heightClip = visiblePreviewHeight;
-            canvas.ClipRect(
+            surface.Canvas.ClipRect(
                 SKRect.Create(
                     xClip,
                     yClip,
@@ -455,8 +455,8 @@ namespace CrossCam.Page
                 ? alignment > 0 ? -alignment * visiblePreviewHeight : 0
                 : alignment < 0 ? alignment * visiblePreviewHeight : 0)
                 - cardboardVertDelta;
-            canvas.SetMatrix(fullTransform3D);
-            canvas.DrawBitmap(
+            surface.Canvas.SetMatrix(fullTransform3D);
+            surface.Canvas.DrawBitmap(
                 bitmap,
                 SKRect.Create(
                     (float)destX,
@@ -464,9 +464,9 @@ namespace CrossCam.Page
                     (float)destWidth,
                     (float)destHeight),
                 paint);
-            canvas.ResetMatrix();
+            surface.Canvas.ResetMatrix();
 
-            canvas.Restore();
+            surface.Canvas.Restore();
         }
 
         private static SKMatrix44 MakePerspective(float maxDepth)
