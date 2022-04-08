@@ -199,7 +199,10 @@ namespace CrossCam.Page
             _gyroscopeStopwatch.Restart();
             Device.BeginInvokeOnMainThread(() =>
             {
-                _capturedCanvas.InvalidateSurface();
+                if (!_viewModel.IsBusy)
+                {
+                    _capturedCanvas.InvalidateSurface();
+                }
             });
         }
 
