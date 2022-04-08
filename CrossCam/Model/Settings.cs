@@ -470,10 +470,10 @@ namespace CrossCam.Model
 
             CardboardIpd = 400;
             CardboardBarrelDistortion = 200;
-            AddBarrelDistortion = true; //TODO: UNDO THIS, jUST FOR DEBUGGGGGG
+            AddBarrelDistortion = false;
             AddBarrelDistortionFinalOnly = false;
-            CardboardDownsize = true; //TODO: UNDO THIS _ DEBUG;
-            CardboardDownsizePercentage = 20; //TODO: UNDO HTIS DUBE
+            CardboardDownsize = false;
+            CardboardDownsizePercentage = 100;
             ImmersiveCardboardFinal = true;
 
             SendErrorReports1 = true;

@@ -101,14 +101,36 @@
                    HorizontalOptions="Center"
                    VerticalOptions="Center"
                    WidthRequest="{StaticResource _doubleMediumIconWidth}"
-                   HeightRequest="{StaticResource _doubleMediumIconWidth}"/>
+                   HeightRequest="{StaticResource _doubleMediumIconWidth}">
+                <Image.Triggers>
+                    <DataTrigger TargetType="Image" 
+                                 Binding="{Binding Settings.Mode, Converter={vc:EnumCompareConverter}, ConverterParameter={x:Static vm:DrawMode.Cardboard}}"
+                                 Value="True">
+                        <DataTrigger.Setters>
+                            <Setter Property="IsVisible"
+                                    Value="False"/>
+                        </DataTrigger.Setters>
+                    </DataTrigger>
+                </Image.Triggers>
+            </Image>
             <Image Grid.Column="1"
                    Source="iconInverse"
                    Opacity="0.2"
                    HorizontalOptions="Center"
                    VerticalOptions="Center"
                    WidthRequest="{StaticResource _doubleMediumIconWidth}"
-                   HeightRequest="{StaticResource _doubleMediumIconWidth}"/>
+                   HeightRequest="{StaticResource _doubleMediumIconWidth}">
+                <Image.Triggers>
+                    <DataTrigger TargetType="Image" 
+                                 Binding="{Binding Settings.Mode, Converter={vc:EnumCompareConverter}, ConverterParameter={x:Static vm:DrawMode.Cardboard}}"
+                                 Value="True">
+                        <DataTrigger.Setters>
+                            <Setter Property="IsVisible"
+                                    Value="False"/>
+                        </DataTrigger.Setters>
+                    </DataTrigger>
+                </Image.Triggers>
+            </Image>
             <forms:SKCanvasView x:Name="_pairedPreviewCanvas"
                                 Grid.Column="{Binding IconColumn}"
                                 PaintSurface="OnPairedPreviewCanvasInvalidated"
