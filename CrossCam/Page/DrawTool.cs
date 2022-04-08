@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Diagnostics;
-using System.Linq;
 using CrossCam.Model;
 using CrossCam.ViewModel;
 using CrossCam.Wrappers;
@@ -16,9 +14,6 @@ namespace CrossCam.Page
         public const float FLOATY_ZERO = 0.00001f;
         private const double FUSE_GUIDE_WIDTH_RATIO = 0.0127;
         private const int FUSE_GUIDE_MARGIN_HEIGHT_RATIO = 7;
-        private static readonly double halfScreenAspect =
-            Math.Min(DeviceDisplay.MainDisplayInfo.Width, DeviceDisplay.MainDisplayInfo.Height) /
-            (Math.Max(DeviceDisplay.MainDisplayInfo.Width, DeviceDisplay.MainDisplayInfo.Height) / 2);
 
         private static readonly SKColorFilter CyanAnaglyph = SKColorFilter.CreateColorMatrix(new float[]
         {
@@ -263,20 +258,20 @@ namespace CrossCam.Page
 
             if (leftBitmap != null)
             {
-                DrawSide(surface.Canvas, leftBitmap, true, drawMode, leftZoom, isLeftRotated, leftRotation, isLeftKeystoned,
-                    leftKeystone, addBarrelDistortion, barrelStrength, cardboardDownsize, scalingRatio, 
-                    leftBitmapLeftCrop / scalingRatio, leftBitmapRightCrop / scalingRatio, bitmapTopCrop / scalingRatio, 
-                    bitmapBottomCrop / scalingRatio, cardboardHor, cardboardVert, alignment, leftPreviewX, previewY,
-                    sidePreviewWidthLessCrop, previewHeightLessCrop, cardboardWidthProportion, skFilterQuality);
+                DrawSide(surface.Canvas, leftBitmap, true, drawMode, leftZoom, isLeftRotated, leftRotation,
+                    isLeftKeystoned, leftKeystone, leftBitmapLeftCrop / scalingRatio,
+                    leftBitmapRightCrop / scalingRatio, bitmapTopCrop / scalingRatio, bitmapBottomCrop / scalingRatio,
+                    cardboardHor, cardboardVert, alignment, leftPreviewX, previewY, sidePreviewWidthLessCrop,
+                    previewHeightLessCrop, skFilterQuality);
             }
 
             if (rightBitmap != null)
             {
-                DrawSide(surface.Canvas, rightBitmap, false, drawMode, rightZoom, isRightRotated, rightRotation, isRightKeystoned,
-                    rightKeystone, addBarrelDistortion, barrelStrength, cardboardDownsize, scalingRatio, 
-                    rightBitmapLeftCrop / scalingRatio, rightBitmapRightCrop / scalingRatio, bitmapTopCrop / scalingRatio, 
-                    bitmapBottomCrop / scalingRatio, cardboardHor, cardboardVert, alignment, rightPreviewX, previewY,
-                    sidePreviewWidthLessCrop, previewHeightLessCrop, cardboardWidthProportion, skFilterQuality);
+                DrawSide(surface.Canvas, rightBitmap, false, drawMode, rightZoom, isRightRotated, rightRotation,
+                    isRightKeystoned, rightKeystone, rightBitmapLeftCrop / scalingRatio,
+                    rightBitmapRightCrop / scalingRatio, bitmapTopCrop / scalingRatio, bitmapBottomCrop / scalingRatio,
+                    cardboardHor, cardboardVert, alignment, rightPreviewX, previewY, sidePreviewWidthLessCrop,
+                    previewHeightLessCrop, skFilterQuality);
             }
 
             var openCv = DependencyService.Get<IOpenCv>();
@@ -292,7 +287,6 @@ namespace CrossCam.Page
                 var sideWidth = surface.Canvas.DeviceClipBounds.Width / 2f;
                 var sideHeight = surface.Canvas.DeviceClipBounds.Height;
 
-                //TODO: compare jpeg 100 vs png 100 vs png 0
                 using var smallSurface = SKSurface.Create(new SKImageInfo((int) sideWidth, sideHeight));
 
                 if (leftBitmap != null)
@@ -374,11 +368,9 @@ namespace CrossCam.Page
         }
 
         private static void DrawSide(SKCanvas canvas, SKBitmap bitmap, bool isLeft, DrawMode drawMode, double zoom,
-            bool isRotated, float rotation, bool isKeystoned, float keystone, bool barrelDistort, int barrelStrength,
-            double cardboardDownsize, double scalingRatio, double leftCrop, double rightCrop, double topCrop,
+            bool isRotated, float rotation, bool isKeystoned, float keystone, double leftCrop, double rightCrop, double topCrop,
             double bottomCrop, double cardboardHor, double cardboardVert, double alignment, float visiblePreviewX,
-            float visiblePreviewY, float visiblePreviewWidth, float visiblePreviewHeight,
-            double cardboardWidthProportion, SKFilterQuality quality)
+            float visiblePreviewY, float visiblePreviewWidth, float visiblePreviewHeight, SKFilterQuality quality)
         {
             var cardboardHorDelta = cardboardHor * visiblePreviewWidth;
             var cardboardVertDelta = cardboardVert * visiblePreviewHeight;

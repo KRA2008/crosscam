@@ -688,6 +688,7 @@ namespace AutoAlignment
 
         public byte[] GetBytes(SKBitmap bitmap, double downsize, SKFilterQuality filterQuality = SKFilterQuality.High)
         {
+            //TODO: compare jpeg 100 vs png 100 vs png 0
             if (downsize == 1)
             {
                return SKImage.FromBitmap(bitmap).Encode(SKEncodedImageFormat.Png, 0).ToArray();
@@ -702,7 +703,6 @@ namespace AutoAlignment
 
             using var paint = new SKPaint {FilterQuality = filterQuality};
             canvas.DrawBitmap(bitmap,
-                SKRect.Create(0, 0, bitmap.Width, bitmap.Height),
                 SKRect.Create(0, 0, targetWidth, targetHeight),
                 paint);
 
