@@ -413,6 +413,12 @@ namespace CrossCam.Page
                 fullTransform4D.PostConcat(SKMatrix44.CreateTranslate(0, (float) yCorrection, 0));
             }
 
+            if (cardboardHorDelta != 0 ||
+                cardboardVertDelta != 0)
+            {
+                fullTransform4D.PostConcat(SKMatrix44.CreateTranslate((float) -cardboardHorDelta, (float) -cardboardVertDelta, 0));
+            }
+
             var fullTransform3D = fullTransform4D.Matrix;
 
             using var paint = new SKPaint
@@ -470,8 +476,8 @@ namespace CrossCam.Page
             var destWidth = visiblePreviewWidth + rightCrop + leftCrop;
             var destHeight = visiblePreviewHeight + bottomCrop + topCrop +
                              visiblePreviewHeight * Math.Abs(alignment);
-            var destX = visiblePreviewX - leftCrop - cardboardHorDelta;
-            var destY = visiblePreviewY - topCrop - cardboardVertDelta;
+            var destX = visiblePreviewX - leftCrop;
+            var destY = visiblePreviewY - topCrop;
             canvas.SetMatrix(fullTransform3D);
             canvas.DrawBitmap(
                 bitmap,
