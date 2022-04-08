@@ -113,7 +113,7 @@ namespace CrossCam.Page
                     skFilterQuality,
                     useGhosts,
                     cardboardWidthProportion, settings.ImmersiveCardboardFinal ? cardboardVert : 0, settings.ImmersiveCardboardFinal ? cardboardHor : 0,
-                    cardboardDownsizeProportion);
+                    (float)cardboardDownsizeProportion);
             }
             else
             {
@@ -131,7 +131,7 @@ namespace CrossCam.Page
                     skFilterQuality,
                     useGhosts,
                     cardboardWidthProportion, settings.ImmersiveCardboardFinal ? cardboardVert : 0, settings.ImmersiveCardboardFinal ? cardboardHor : 0,
-                    cardboardDownsizeProportion);
+                    (float)cardboardDownsizeProportion);
             }
         }
 
@@ -149,7 +149,7 @@ namespace CrossCam.Page
             double cardboardWidthProportion,
             double cardboardVert,
             double cardboardHor,
-            double cardboardDownsize)
+            float cardboardDownsize)
         {
             if (leftBitmap == null && rightBitmap == null) return;
 
@@ -284,36 +284,44 @@ namespace CrossCam.Page
                 addBarrelDistortion &&
                 openCv?.IsOpenCvSupported() == true)
             {
-                //using var snapshot = surface.Snapshot();
-                //using var undistortedBitmap = SKBitmap.Decode(snapshot.Encode()); //TODO: may need to be jpeg
+                using var paint = new SKPaint
+                {
+                    FilterQuality = skFilterQuality
+                };
+
                 var sideWidth = surface.Canvas.DeviceClipBounds.Width / 2f;
                 var sideHeight = surface.Canvas.DeviceClipBounds.Height;
 
-                var cxLeft = (float) ((1 - cardboardWidthProportion) * sideWidth);
-                var cxRight = (float) (cardboardWidthProportion * sideWidth);
-
+                //TODO: compare jpeg 100 vs png 100 vs png 0
                 using var smallSurface = SKSurface.Create(new SKImageInfo((int) sideWidth, sideHeight));
-                //surface.Canvas.Clear(SKColor.Parse("#ff0000"));
-                smallSurface.Canvas.DrawSurface(surface, 0, 0);
-                using var smallSnapshot = smallSurface.Snapshot();
-                smallSurface.Canvas.Clear();
-                //using var leftSnapshot = leftSurface.Snapshot();
-                using var distortedLeft = openCv.AddBarrelDistortion(smallSnapshot.Encode(SKEncodedImageFormat.Jpeg,0).ToArray(), barrelStrength / 100f, cxLeft, sideHeight / 2f, sideWidth, sideHeight);
-                //using var distortedLeft = SKBitmap.Decode(leftSnapshot.Encode(SKEncodedImageFormat.Png, 0));
+                smallSurface.Canvas.DrawSurface(surface, 0, 0, paint);
+                using var leftSnapshot = smallSurface.Snapshot();
+                using var distortedLeft = openCv.AddBarrelDistortion(SKBitmap.FromImage(leftSnapshot),
+                    cardboardDownsize, barrelStrength / 100f, (float)(1 - cardboardWidthProportion), skFilterQuality);
 
-                //surface.Canvas.Clear(SKColor.Parse("#00ffff"));
-                smallSurface.Canvas.DrawSurface(surface, -sideWidth, 0);
-                using var smallSnapshot2 = smallSurface.Snapshot();
                 smallSurface.Canvas.Clear();
-                //using var rightSnapshot = rightSurface.Snapshot();
-                using var distortedRight = openCv.AddBarrelDistortion(smallSnapshot2.Encode(SKEncodedImageFormat.Jpeg,0).ToArray(), barrelStrength / 100f, cxRight, sideHeight / 2f, sideWidth, sideHeight);
-                //using var distortedRight = SKBitmap.Decode(rightSnapshot.Encode(SKEncodedImageFormat.Png, 0));
+                smallSurface.Canvas.DrawSurface(surface, -sideWidth, 0, paint);
+                using var rightSnapshot = smallSurface.Snapshot();
+                using var distortedRight = openCv.AddBarrelDistortion(SKBitmap.FromImage(rightSnapshot),
+                    cardboardDownsize, barrelStrength / 100f, (float)cardboardWidthProportion, skFilterQuality);
 
-                //surface.Canvas.Clear(SKColor.Parse("#00ff00"));
-                //surface.Canvas.DrawImage(leftSnapshot, 0 , 0);
-                //surface.Canvas.DrawImage(rightImage, sideWidth, 0);
-                surface.Canvas.DrawBitmap(distortedLeft, 0, 0);
-                surface.Canvas.DrawBitmap(distortedRight, sideWidth, 0);
+                surface.Canvas.Clear();
+                surface.Canvas.DrawBitmap(
+                    distortedLeft,
+                    SKRect.Create(
+                        0,
+                        0,
+                        sideWidth,
+                        sideHeight),
+                    paint);
+                surface.Canvas.DrawBitmap(
+                    distortedRight,
+                    SKRect.Create(
+                        sideWidth,
+                        0,
+                        sideWidth,
+                        sideHeight),
+                    paint);
             }
 
             if (innerBorderThicknessProportion > 0)

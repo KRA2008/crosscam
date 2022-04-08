@@ -412,7 +412,7 @@ namespace CrossCam.Model
 
         public void ResetToDefaults()
         {
-            Mode = DrawMode.Cross;
+            Mode = DrawMode.Cardboard; //TODO: UNDO THIS, JUST FOR DEBUGGGGGG
 
             AreGuideLinesVisible = true;
             IsCaptureLeftFirst = true;
@@ -470,10 +470,10 @@ namespace CrossCam.Model
 
             CardboardIpd = 400;
             CardboardBarrelDistortion = 200;
-            AddBarrelDistortion = false;
+            AddBarrelDistortion = true; //TODO: UNDO THIS, jUST FOR DEBUGGGGGG
             AddBarrelDistortionFinalOnly = false;
-            CardboardDownsize = false;
-            CardboardDownsizePercentage = 100;
+            CardboardDownsize = true; //TODO: UNDO THIS _ DEBUG;
+            CardboardDownsizePercentage = 20; //TODO: UNDO HTIS DUBE
             ImmersiveCardboardFinal = true;
 
             SendErrorReports1 = true;

@@ -407,15 +407,14 @@ namespace AutoAlignment
             return result;
         }
 
-        public SKBitmap AddBarrelDistortion(byte[] bytes, float strength, float cx, float cy, 
-            float editedWidth, float editedHeight)
+        public SKBitmap AddBarrelDistortion(SKBitmap bitmap, float downsize, float strength, float cxProportion, SKFilterQuality filterQuality = SKFilterQuality.High)
         {
             using var cvImage = new Mat();
-            CvInvoke.Imdecode(bytes, ImreadModes.Color, cvImage);
+            CvInvoke.Imdecode(GetBytes(bitmap, downsize, filterQuality), ImreadModes.Color, cvImage);
 
-            using var cameraMatrix = GetCameraMatrix(cx, cy);
+            using var cameraMatrix = GetCameraMatrix(bitmap.Width * downsize * cxProportion, bitmap.Height * downsize / 2f);
 
-            var size = Math.Sqrt(Math.Pow(editedWidth, 2) + Math.Pow(editedHeight, 2));
+            var size = Math.Sqrt(Math.Pow(bitmap.Width * downsize, 2) + Math.Pow(bitmap.Height * downsize, 2));
             var scaledCoeff = strength / Math.Pow(size, 2);
             using var distortionMatrix = GetDistortionMatrix((float)scaledCoeff);
 
@@ -469,7 +468,7 @@ namespace AutoAlignment
             return distortionMatrix;
         }
 
-        private static SKBitmap DrawMatches(SKBitmap image1, SKBitmap image2, List<PointForCleaning> points)
+        private SKBitmap DrawMatches(SKBitmap image1, SKBitmap image2, List<PointForCleaning> points)
         {
             using var fullSizeColor1 = new Mat();
             using var fullSizeColor2 = new Mat();
@@ -689,27 +688,27 @@ namespace AutoAlignment
             return Math.Sqrt(Math.Pow(from.X - to.X, 2) + Math.Pow(from.Y - to.Y, 2));
         }
 
-        private static byte[] GetBytes(SKBitmap bitmap, double downsize, SKFilterQuality filterQuality = SKFilterQuality.High)
+        public byte[] GetBytes(SKBitmap bitmap, double downsize, SKFilterQuality filterQuality = SKFilterQuality.High)
         {
             if (downsize == 1)
             {
-               return SKImage.FromBitmap(bitmap).Encode(SKEncodedImageFormat.Jpeg, 100).ToArray();
+               return SKImage.FromBitmap(bitmap).Encode(SKEncodedImageFormat.Png, 0).ToArray();
             }
 
-            var width = (int)(bitmap.Width * downsize);
-            var height = (int)(bitmap.Height * downsize);
+            var targetWidth = (int)(bitmap.Width * downsize);
+            var targetHeight = (int)(bitmap.Height * downsize);
             using var tempSurface =
-                SKSurface.Create(new SKImageInfo(width, height));
+                SKSurface.Create(new SKImageInfo(targetWidth, targetHeight));
             var canvas = tempSurface.Canvas;
             canvas.Clear();
 
             using var paint = new SKPaint {FilterQuality = filterQuality};
             canvas.DrawBitmap(bitmap,
                 SKRect.Create(0, 0, bitmap.Width, bitmap.Height),
-                SKRect.Create(0, 0, width, height),
+                SKRect.Create(0, 0, targetWidth, targetHeight),
                 paint);
 
-            using var data = tempSurface.Snapshot().Encode(SKEncodedImageFormat.Jpeg, 100);
+            using var data = tempSurface.Snapshot().Encode(SKEncodedImageFormat.Png, 0);
             return data.ToArray();
         }
     }
