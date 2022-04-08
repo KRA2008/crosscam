@@ -377,29 +377,27 @@ namespace CrossCam.Page
 
             var fullTransform3D = SKMatrix.Identity;
             if (isRotated ||
-                zoom > 0 ||
-                drawMode == DrawMode.GrayscaleRedCyanAnaglyph ||
                 isKeystoned)
             {
                 var fullTransform4D = SKMatrix44.CreateIdentity();
-                
+
+                if (isRotated)
+                {
+                    var xCorrection = (float)(visiblePreviewX + visiblePreviewWidth / 2f - cardboardHorDelta);
+                    var yCorrection = (float)(visiblePreviewY + visiblePreviewHeight / 2f - cardboardVertDelta);
+                    fullTransform4D.PostConcat(SKMatrix44.CreateTranslate(-xCorrection, -yCorrection, 0));
+                    fullTransform4D.PostConcat(SKMatrix44.CreateRotationDegrees(0, 0, 1, rotation));
+                    fullTransform4D.PostConcat(SKMatrix44.CreateTranslate(xCorrection, yCorrection, 0));
+                }
+
                 if (isKeystoned)
                 { //TODO (or TODON'T): the axis of this rotation is fixed, but it could be needed in any direction really, so enable that?
                     var xCorrection = (float) ((isLeft ? visiblePreviewX : visiblePreviewX + visiblePreviewWidth) - cardboardHorDelta);
                     var yCorrection = (float) (visiblePreviewY + visiblePreviewHeight / 2f - cardboardVertDelta);
-                    fullTransform4D.PreConcat(SKMatrix44.CreateTranslate(xCorrection, yCorrection, 0));
-                    fullTransform4D.PreConcat(MakePerspective(visiblePreviewWidth));
-                    fullTransform4D.PreConcat(SKMatrix44.CreateRotationDegrees(0, 1, 0, isLeft ? keystone : -keystone));
-                    fullTransform4D.PreConcat(SKMatrix44.CreateTranslate(-xCorrection, -yCorrection, 0));
-                }
-
-                if (isRotated)
-                {
-                    var xCorrection = (float) (visiblePreviewX + visiblePreviewWidth / 2f - cardboardHorDelta);
-                    var yCorrection = (float) (visiblePreviewY + visiblePreviewHeight / 2f - cardboardVertDelta);
-                    fullTransform4D.PreConcat(SKMatrix44.CreateTranslate(xCorrection, yCorrection, 0));
-                    fullTransform4D.PreConcat(SKMatrix44.CreateRotationDegrees(0, 0, 1, rotation));
-                    fullTransform4D.PreConcat(SKMatrix44.CreateTranslate(-xCorrection, -yCorrection, 0));
+                    fullTransform4D.PostConcat(SKMatrix44.CreateTranslate(-xCorrection, -yCorrection, 0));
+                    fullTransform4D.PostConcat(SKMatrix44.CreateRotationDegrees(0, 1, 0, isLeft ? keystone : -keystone));
+                    fullTransform4D.PostConcat(MakePerspective(visiblePreviewWidth));
+                    fullTransform4D.PostConcat(SKMatrix44.CreateTranslate(xCorrection, yCorrection, 0));
                 }
 
                 fullTransform3D = fullTransform4D.Matrix;
