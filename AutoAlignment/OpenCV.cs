@@ -2,10 +2,8 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
-using Android.App.AppSearch;
 using AutoAlignment;
 using CrossCam.Model;
-using CrossCam.Page;
 using CrossCam.Wrappers;
 #if !__NO_EMGU__
 using System.Drawing;
