@@ -473,7 +473,7 @@ namespace CrossCam.Model
             AddBarrelDistortion = false;
             AddBarrelDistortionFinalOnly = false;
             CardboardDownsize = false;
-            CardboardDownsizePercentage = 100;
+            CardboardDownsizePercentage = 50;
             ImmersiveCardboardFinal = true;
 
             SendErrorReports1 = true;
