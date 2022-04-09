@@ -1,8 +1,6 @@
 ﻿using System;
 using System.ComponentModel;
 using CrossCam.ViewModel;
-using Xamarin.Essentials;
-using Xamarin.Forms;
 
 namespace CrossCam.Model
 {

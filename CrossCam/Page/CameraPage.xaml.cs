@@ -2,7 +2,6 @@
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Drawing;
-using System.Threading;
 using System.Threading.Tasks;
 using CrossCam.CustomElement;
 using CrossCam.Model;
@@ -11,7 +10,6 @@ using SkiaSharp;
 using SkiaSharp.Views.Forms;
 using Xamarin.Essentials;
 using Xamarin.Forms;
-using Xamarin.Forms.Internals;
 using Rectangle = Xamarin.Forms.Rectangle;
 using Timer = System.Timers.Timer;
 
