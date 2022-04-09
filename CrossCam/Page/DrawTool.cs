@@ -63,7 +63,7 @@ namespace CrossCam.Page
                 }
             }
 
-            var useGhosts = drawQuality == DrawQuality.Preview &&
+            var useGhost = drawQuality == DrawQuality.Preview &&
                             settings.ShowGhostCaptures &&
                             (drawMode == DrawMode.Cross ||
                              drawMode == DrawMode.Parallel);
@@ -106,7 +106,7 @@ namespace CrossCam.Page
                     drawMode, fuseGuideRequested,
                     addBarrelDistortion, settings.CardboardBarrelDistortion,
                     skFilterQuality,
-                    useGhosts,
+                    useGhost,
                     cardboardWidthProportion, settings.ImmersiveCardboardFinal ? cardboardVert : 0, settings.ImmersiveCardboardFinal ? cardboardHor : 0,
                     (float)cardboardDownsizeProportion);
             }
@@ -124,7 +124,7 @@ namespace CrossCam.Page
                     drawMode, fuseGuideRequested,
                     addBarrelDistortion, settings.CardboardBarrelDistortion,
                     skFilterQuality,
-                    useGhosts,
+                    useGhost,
                     cardboardWidthProportion, settings.ImmersiveCardboardFinal ? cardboardVert : 0, settings.ImmersiveCardboardFinal ? cardboardHor : 0,
                     (float)cardboardDownsizeProportion);
             }
@@ -140,7 +140,7 @@ namespace CrossCam.Page
             float leftKeystone, float rightKeystone,
             DrawMode drawMode, bool fuseGuideRequested,
             bool addBarrelDistortion, int barrelStrength,
-            SKFilterQuality skFilterQuality, bool useGhosts, 
+            SKFilterQuality skFilterQuality, bool useGhost, 
             double cardboardWidthProportion,
             double cardboardVert,
             double cardboardHor,
@@ -186,7 +186,7 @@ namespace CrossCam.Page
             var overlayDrawing =
                 drawMode == DrawMode.GrayscaleRedCyanAnaglyph ||
                 drawMode == DrawMode.RedCyanAnaglyph ||
-                useGhosts;
+                useGhost;
             var innerBorderThicknessProportion = leftBitmap != null &&
                                                  rightBitmap != null &&
                                                  addBorder &&
@@ -262,7 +262,7 @@ namespace CrossCam.Page
                     isLeftKeystoned, leftKeystone, leftBitmapLeftCrop / scalingRatio,
                     leftBitmapRightCrop / scalingRatio, bitmapTopCrop / scalingRatio, bitmapBottomCrop / scalingRatio,
                     cardboardHor, cardboardVert, alignment, leftPreviewX, previewY, sidePreviewWidthLessCrop,
-                    previewHeightLessCrop, skFilterQuality);
+                    previewHeightLessCrop, false, skFilterQuality);
             }
 
             if (rightBitmap != null)
@@ -271,7 +271,7 @@ namespace CrossCam.Page
                     isRightKeystoned, rightKeystone, rightBitmapLeftCrop / scalingRatio,
                     rightBitmapRightCrop / scalingRatio, bitmapTopCrop / scalingRatio, bitmapBottomCrop / scalingRatio,
                     cardboardHor, cardboardVert, alignment, rightPreviewX, previewY, sidePreviewWidthLessCrop,
-                    previewHeightLessCrop, skFilterQuality);
+                    previewHeightLessCrop, leftBitmap != null && useGhost, skFilterQuality);
             }
 
             var openCv = DependencyService.Get<IOpenCv>();
@@ -368,9 +368,9 @@ namespace CrossCam.Page
         }
 
         private static void DrawSide(SKCanvas canvas, SKBitmap bitmap, bool isLeft, DrawMode drawMode, double zoom,
-            bool isRotated, float rotation, bool isKeystoned, float keystone, double leftCrop, double rightCrop, double topCrop,
-            double bottomCrop, double cardboardHor, double cardboardVert, double alignment, float visiblePreviewX,
-            float visiblePreviewY, float visiblePreviewWidth, float visiblePreviewHeight, SKFilterQuality quality)
+            bool isRotated, float rotation, bool isKeystoned, float keystone, double leftCrop, double rightCrop,
+            double topCrop, double bottomCrop, double cardboardHor, double cardboardVert, double alignment, float visiblePreviewX,
+            float visiblePreviewY, float visiblePreviewWidth, float visiblePreviewHeight, bool useGhostOverlay, SKFilterQuality quality)
         {
             var cardboardHorDelta = cardboardHor * visiblePreviewWidth;
             var cardboardVertDelta = cardboardVert * visiblePreviewHeight;
@@ -450,6 +450,11 @@ namespace CrossCam.Page
                         paint.BlendMode = SKBlendMode.Plus;
                     }
                     break;
+            }
+
+            if (useGhostOverlay)
+            {
+                paint.Color = paint.Color.WithAlpha((byte)(0xFF * 0.5f));
             }
 
             canvas.Save();

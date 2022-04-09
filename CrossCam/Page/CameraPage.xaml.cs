@@ -420,6 +420,10 @@ namespace CrossCam.Page
 	    {
             var surface = e.Surface;
 
+            var useOverlay = _viewModel.Settings.Mode == DrawMode.RedCyanAnaglyph ||
+                              _viewModel.Settings.Mode == DrawMode.GrayscaleRedCyanAnaglyph ||
+                              _viewModel.Settings.ShowGhostCaptures;
+
             if (_viewModel.LeftBitmap == null &&
                 _viewModel.RightBitmap == null)
             {
@@ -428,8 +432,7 @@ namespace CrossCam.Page
                 _cardboardHomeVert = null;
             }
 
-            if (_viewModel.Settings.Mode == DrawMode.RedCyanAnaglyph ||
-                _viewModel.Settings.Mode == DrawMode.GrayscaleRedCyanAnaglyph)
+            if (useOverlay)
             {
                 surface.Canvas.Clear();
             }
@@ -447,8 +450,7 @@ namespace CrossCam.Page
             else
             {
                 if (_newLeftCapture || 
-                    (_viewModel.Settings.Mode == DrawMode.RedCyanAnaglyph || 
-                     _viewModel.Settings.Mode == DrawMode.GrayscaleRedCyanAnaglyph) &&
+                    useOverlay &&
                     _viewModel.LeftBitmap != null)
                 {
                     left = _viewModel.LeftBitmap;
@@ -460,8 +462,7 @@ namespace CrossCam.Page
                 }
 
                 if (_newRightCapture || 
-                    (_viewModel.Settings.Mode == DrawMode.RedCyanAnaglyph || 
-                    _viewModel.Settings.Mode == DrawMode.GrayscaleRedCyanAnaglyph) &&
+                    useOverlay &&
                     _viewModel.RightBitmap != null)
                 {
                     right = _viewModel.RightBitmap;
