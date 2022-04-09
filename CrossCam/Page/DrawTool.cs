@@ -387,13 +387,22 @@ namespace CrossCam.Page
             }
 
             if (isKeystoned)
-            { //TODO (or TODON'T): the axis of this rotation is fixed, but it could be needed in any direction really, so enable that?
-                var xCorrection = (float) ((isLeft ? visiblePreviewX : visiblePreviewX + visiblePreviewWidth) - cardboardHorDelta);
-                var yCorrection = (float) (visiblePreviewY + visiblePreviewHeight / 2f - cardboardVertDelta);
+            {
+                // TODO cropping sides a lot makes the keystoning act weird
+                // TODO looking far left and right in immersive cardboard like crops the inside edge???
+                // TODO (or TODON'T): the axis of this rotation is fixed, but it could be needed in any direction really, so enable that?
+                var isKeystoneSwapped = drawMode == DrawMode.Parallel || drawMode == DrawMode.Cardboard;
+                var xCorrection =
+                    (float) ((isLeft && !isKeystoneSwapped || !isLeft && isKeystoneSwapped
+                        ? visiblePreviewX
+                        : visiblePreviewX + visiblePreviewWidth) + cardboardHorDelta);
+                var yCorrection = (float)(visiblePreviewY + visiblePreviewHeight / 2f - cardboardVertDelta);
                 fullTransform4D.PostConcat(SKMatrix44.CreateTranslate(-xCorrection, -yCorrection, 0));
-                fullTransform4D.PostConcat(SKMatrix44.CreateRotationDegrees(0, 1, 0, isLeft ? keystone : -keystone));
+                fullTransform4D.PostConcat(SKMatrix44.CreateRotationDegrees(0, 1, 0,
+                    isLeft && !isKeystoneSwapped || !isLeft && isKeystoneSwapped ? keystone : -keystone));
                 fullTransform4D.PostConcat(MakePerspective(visiblePreviewWidth));
                 fullTransform4D.PostConcat(SKMatrix44.CreateTranslate(xCorrection, yCorrection, 0));
+                
             }
 
             if (zoom != 0)

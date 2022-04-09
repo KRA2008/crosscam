@@ -712,9 +712,42 @@
                      Grid.RowSpan="3"
                      Color="White"
                      IsVisible="{Binding KeystoneMode, Converter={vc:EnumCompareConverter}, ConverterParameter={x:Static vm:KeystoneMode.Left}}"/>
-            <Image Grid.Row="1"
+            <Image IsVisible="False"
+                   Grid.Row="1"
                    Grid.Column="1"
-                   Source="keystoneLeft"/>
+                   Source="keystoneLeft">
+                <Image.Triggers>
+                    <MultiTrigger TargetType="Image">
+                        <MultiTrigger.Conditions>
+                            <BindingCondition Binding="{Binding Settings.Mode, Converter={vc:EnumCompareConverter}, ConverterParameter={x:Static vm:DrawMode.Parallel}}"
+                                              Value="False"/>
+                            <BindingCondition Binding="{Binding Settings.Mode, Converter={vc:EnumCompareConverter}, ConverterParameter={x:Static vm:DrawMode.Cardboard}}"
+                                              Value="False"/>
+                        </MultiTrigger.Conditions>
+                        <Setter Property="IsVisible"
+                                Value="True"/>
+                    </MultiTrigger>
+                </Image.Triggers>
+            </Image>
+            <Image IsVisible="False"
+                   Grid.Row="1"
+                   Grid.Column="1"
+                   Source="keystoneRight">
+                <Image.Triggers>
+                    <MultiTrigger TargetType="Image">
+                        <MultiTrigger.Conditions>
+                            <BindingCondition Binding="{Binding Settings.Mode, Converter={vc:EnumCompareConverter}, ConverterParameter={x:Static vm:DrawMode.Cross}}"
+                                              Value="False"/>
+                            <BindingCondition Binding="{Binding Settings.Mode, Converter={vc:EnumCompareConverter}, ConverterParameter={x:Static vm:DrawMode.RedCyanAnaglyph}}"
+                                              Value="False"/>
+                            <BindingCondition Binding="{Binding Settings.Mode, Converter={vc:EnumCompareConverter}, ConverterParameter={x:Static vm:DrawMode.GrayscaleRedCyanAnaglyph}}"
+                                              Value="False"/>
+                        </MultiTrigger.Conditions>
+                        <Setter Property="IsVisible"
+                                Value="True"/>
+                    </MultiTrigger>
+                </Image.Triggers>
+            </Image>
             <BoxView Grid.Row="2" 
                      Grid.Column="0"
                      Grid.ColumnSpan="3"
@@ -755,9 +788,42 @@
                      Grid.RowSpan="3"
                      Color="White"
                      IsVisible="{Binding KeystoneMode, Converter={vc:EnumCompareConverter}, ConverterParameter={x:Static vm:KeystoneMode.Right}}"/>
-            <Image Grid.Row="1"
+            <Image IsVisible="False" 
+                   Grid.Row="1"
                    Grid.Column="1"
-                   Source="keystoneRight"/>
+                   Source="keystoneRight">
+                <Image.Triggers>
+                    <MultiTrigger TargetType="Image">
+                        <MultiTrigger.Conditions>
+                            <BindingCondition Binding="{Binding Settings.Mode, Converter={vc:EnumCompareConverter}, ConverterParameter={x:Static vm:DrawMode.Parallel}}"
+                                              Value="False"/>
+                            <BindingCondition Binding="{Binding Settings.Mode, Converter={vc:EnumCompareConverter}, ConverterParameter={x:Static vm:DrawMode.Cardboard}}"
+                                              Value="False"/>
+                        </MultiTrigger.Conditions>
+                        <Setter Property="IsVisible"
+                                Value="True"/>
+                    </MultiTrigger>
+                </Image.Triggers>
+            </Image>
+            <Image IsVisible="False"
+                   Grid.Row="1"
+                   Grid.Column="1"
+                   Source="keystoneLeft">
+                <Image.Triggers>
+                    <MultiTrigger TargetType="Image">
+                        <MultiTrigger.Conditions>
+                            <BindingCondition Binding="{Binding Settings.Mode, Converter={vc:EnumCompareConverter}, ConverterParameter={x:Static vm:DrawMode.Cross}}"
+                                              Value="False"/>
+                            <BindingCondition Binding="{Binding Settings.Mode, Converter={vc:EnumCompareConverter}, ConverterParameter={x:Static vm:DrawMode.RedCyanAnaglyph}}"
+                                              Value="False"/>
+                            <BindingCondition Binding="{Binding Settings.Mode, Converter={vc:EnumCompareConverter}, ConverterParameter={x:Static vm:DrawMode.GrayscaleRedCyanAnaglyph}}"
+                                              Value="False"/>
+                        </MultiTrigger.Conditions>
+                        <Setter Property="IsVisible"
+                                Value="True"/>
+                    </MultiTrigger>
+                </Image.Triggers>
+            </Image>
             <BoxView Grid.Row="2" 
                      Grid.Column="0"
                      Grid.ColumnSpan="3"

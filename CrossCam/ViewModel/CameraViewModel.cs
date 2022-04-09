@@ -1312,6 +1312,7 @@ namespace CrossCam.ViewModel
                 RaisePropertyChanged(nameof(ShouldPairPreviewBeVisible));
                 RaisePropertyChanged(nameof(CameraViewModel));
                 RaisePropertyChanged(nameof(Settings)); // this doesn't cause reevaluation for above stuff (but I'd like it to), but it does trigger redraw of canvas and evaluation of whether to run auto alignment
+                RaisePropertyChanged(nameof(Settings.Mode));
                 Settings.RaisePropertyChanged();
             }
             _isInitialized = true;
