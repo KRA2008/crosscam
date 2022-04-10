@@ -216,7 +216,6 @@ namespace CrossCam.Page
             var clipHeight = (float) (sideBitmapHeightLessCrop / scalingRatio);
 
             float leftClipX, rightClipX, clipY;
-            float leftDestX, rightDestX, destY, destWidth, destHeight;
             if (overlayDrawing)
             {
                 leftClipX = rightClipX = canvasWidth / 2f - clipWidth / 2f;
@@ -231,43 +230,32 @@ namespace CrossCam.Page
                 clipY = canvasHeight / 2f - clipHeight / 2f;
             }
 
-            leftDestX = (float)(leftClipX - baseWidth / scalingRatio * leftLeftCrop);
-            rightDestX = (float)(rightClipX - baseWidth / scalingRatio * rightLeftCrop);
-            destY = (float)(clipY - baseHeight / scalingRatio * topCrop);
-            destWidth = (float)(baseWidth / scalingRatio);
-            destHeight = (float)(baseHeight / scalingRatio);
+            var leftDestX = (float)(leftClipX - baseWidth / scalingRatio * leftLeftCrop);
+            var rightDestX = (float)(rightClipX - baseWidth / scalingRatio * rightLeftCrop);
+            var destY = (float)(clipY - baseHeight / scalingRatio * topCrop);
+            var destWidth = (float)(baseWidth / scalingRatio);
+            var destHeight = (float)(baseHeight / scalingRatio);
 
             if (drawFuseGuide)
             {
                 clipY += fuseGuideMarginHeight / 2f;
             }
 
-            var isRightRotated = Math.Abs(rightRotation) > FLOATY_ZERO;
-            var isLeftRotated = Math.Abs(leftRotation) > FLOATY_ZERO;
-            var isRightKeystoned = Math.Abs(rightKeystone) > FLOATY_ZERO;
-            var isLeftKeystoned = Math.Abs(leftKeystone) > FLOATY_ZERO;
-
             if (leftBitmap != null)
             {
-                DrawSide(surface.Canvas, leftBitmap, true, drawMode, leftZoom,
-                    isLeftRotated, leftRotation, isLeftKeystoned, leftKeystone,
-                    leftLeftCrop, leftRightCrop, topCrop, bottomCrop,
+                DrawSide(surface.Canvas, leftBitmap, true, drawMode, leftZoom, leftRotation, leftKeystone,
                     cardboardHor, cardboardVert, alignment,
                     leftClipX, clipY, clipWidth, clipHeight,
                     leftDestX, destY, destWidth, destHeight,
-                    (float)scalingRatio,
                     false, skFilterQuality);
             }
 
             if (rightBitmap != null)
             {
-                DrawSide(surface.Canvas, rightBitmap, false, drawMode, rightZoom,
-                    isRightRotated, rightRotation, isRightKeystoned, rightKeystone,
-                    rightLeftCrop, rightRightCrop, topCrop, bottomCrop,
+                DrawSide(surface.Canvas, rightBitmap, false, drawMode, rightZoom, rightRotation, rightKeystone,
                     cardboardHor, cardboardVert, alignment,
                     rightClipX, clipY, clipWidth, clipHeight,
                     rightDestX, destY, destWidth, destHeight,
-                    (float)scalingRatio,
                     leftBitmap != null && useGhost, skFilterQuality);
             }
 
@@ -364,13 +352,11 @@ namespace CrossCam.Page
             }
         }
 
-        private static void DrawSide(SKCanvas canvas, SKBitmap bitmap, bool isLeft, DrawMode drawMode, double zoom,
-            bool isRotated, float rotation, bool isKeystoned, float keystone,
-            double leftCrop, double rightCrop, double topCrop, double bottomCrop,
+        private static void DrawSide(SKCanvas canvas, SKBitmap bitmap, bool isLeft, DrawMode drawMode, 
+            double zoom, float rotation, float keystone,
             double cardboardHor, double cardboardVert, double alignment,
             float clipX, float clipY, float clipWidth, float clipHeight,
             float destX, float destY, float destWidth, float destHeight,
-            float scalingRatio,
             bool useGhostOverlay, SKFilterQuality quality)
         {
             // TODO: test "whole for overlay, plus mod for border and fuse guide (height)"
@@ -379,7 +365,7 @@ namespace CrossCam.Page
 
             var fullTransform4D = SKMatrix44.CreateIdentity();
 
-            if (isRotated)
+            if (Math.Abs(rotation) > 0)
             {
                 var xCorrection = (float) (destX + destWidth / 2f - cardboardHorDelta);
                 var yCorrection = (float) (destY + destHeight / 2f - cardboardVertDelta);
@@ -388,7 +374,7 @@ namespace CrossCam.Page
                 fullTransform4D.PostConcat(SKMatrix44.CreateTranslate(xCorrection, yCorrection, 0));
             }
 
-            if (isKeystoned)
+            if (Math.Abs(keystone) > 0)
             {
                 // TODO cropping sides a lot makes the keystoning act weird
                 // TODO looking far left and right in immersive cardboard like crops the inside edge???
@@ -407,7 +393,7 @@ namespace CrossCam.Page
                 
             }
 
-            if (zoom != 0)
+            if (Math.Abs(zoom) > 0)
             {
                 var xCorrection = (float) (destX + destWidth / 2f - cardboardHorDelta);
                 var yCorrection = (float) (destY + destHeight / 2f - cardboardVertDelta);
@@ -416,7 +402,7 @@ namespace CrossCam.Page
                 fullTransform4D.PostConcat(SKMatrix44.CreateTranslate(xCorrection, yCorrection, 0));
             }
 
-            if (alignment != 0)
+            if (Math.Abs(alignment) > 0)
             {
                 var yCorrection = isLeft
                     ? alignment > 0 ? -alignment * destHeight : 0
@@ -424,8 +410,8 @@ namespace CrossCam.Page
                 fullTransform4D.PostConcat(SKMatrix44.CreateTranslate(0, (float) yCorrection, 0));
             }
 
-            if (cardboardHorDelta != 0 ||
-                cardboardVertDelta != 0)
+            if (Math.Abs(cardboardHorDelta) > 0 ||
+                Math.Abs(cardboardVertDelta) > 0)
             {
                 fullTransform4D.PostConcat(SKMatrix44.CreateTranslate((float) -cardboardHorDelta, (float) -cardboardVertDelta, 0));
             }
