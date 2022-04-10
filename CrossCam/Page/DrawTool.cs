@@ -360,15 +360,15 @@ namespace CrossCam.Page
             bool useGhostOverlay, SKFilterQuality quality)
         {
             // TODO: test "whole for overlay, plus mod for border and fuse guide (height)"
-            var cardboardHorDelta = cardboardHor * bitmap.Width; //TODO: are these appropriate here? or should be added after transforms?
-            var cardboardVertDelta = cardboardVert * bitmap.Height; //TODO: DON'T JUDGE CORRECTNESS OF EDITS UNTIL CROPPING IS GOOD AND THE ABOVE CAN BE TESTED
+            var cardboardHorDelta = cardboardHor * bitmap.Width;
+            var cardboardVertDelta = cardboardVert * bitmap.Height;
 
             var fullTransform4D = SKMatrix44.CreateIdentity();
 
             if (Math.Abs(rotation) > 0)
             {
-                var xCorrection = (float) (destX + destWidth / 2f - cardboardHorDelta);
-                var yCorrection = (float) (destY + destHeight / 2f - cardboardVertDelta);
+                var xCorrection = destX + destWidth / 2f;
+                var yCorrection = destY + destHeight / 2f;
                 fullTransform4D.PostConcat(SKMatrix44.CreateTranslate(-xCorrection, -yCorrection, 0));
                 fullTransform4D.PostConcat(SKMatrix44.CreateRotationDegrees(0, 0, 1, rotation));
                 fullTransform4D.PostConcat(SKMatrix44.CreateTranslate(xCorrection, yCorrection, 0));
@@ -376,15 +376,13 @@ namespace CrossCam.Page
 
             if (Math.Abs(keystone) > 0)
             {
-                // TODO cropping sides a lot makes the keystoning act weird
-                // TODO looking far left and right in immersive cardboard like crops the inside edge???
                 // TODO (or TODON'T): the axis of this rotation is fixed, but it could be needed in any direction really, so enable that?
                 var isKeystoneSwapped = drawMode == DrawMode.Parallel || drawMode == DrawMode.Cardboard;
                 var xCorrection =
-                    (float) ((isLeft && !isKeystoneSwapped || !isLeft && isKeystoneSwapped
+                    isLeft && !isKeystoneSwapped || !isLeft && isKeystoneSwapped
                         ? destX
-                        : destX + destWidth) + cardboardHorDelta);
-                var yCorrection = (float) (destY + destHeight / 2f - cardboardVertDelta);
+                        : destX + destWidth;
+                var yCorrection = destY + destHeight / 2f;
                 fullTransform4D.PostConcat(SKMatrix44.CreateTranslate(-xCorrection, -yCorrection, 0));
                 fullTransform4D.PostConcat(SKMatrix44.CreateRotationDegrees(0, 1, 0,
                     isLeft && !isKeystoneSwapped || !isLeft && isKeystoneSwapped ? keystone : -keystone));
@@ -395,8 +393,8 @@ namespace CrossCam.Page
 
             if (Math.Abs(zoom) > 0)
             {
-                var xCorrection = (float) (destX + destWidth / 2f - cardboardHorDelta);
-                var yCorrection = (float) (destY + destHeight / 2f - cardboardVertDelta);
+                var xCorrection = destX + destWidth / 2f;
+                var yCorrection = destY + destHeight / 2f;
                 fullTransform4D.PostConcat(SKMatrix44.CreateTranslate(-xCorrection, -yCorrection, 0));
                 fullTransform4D.PostConcat(SKMatrix44.CreateScale((float) (1 + zoom), (float) (1 + zoom), 0));
                 fullTransform4D.PostConcat(SKMatrix44.CreateTranslate(xCorrection, yCorrection, 0));
@@ -413,7 +411,7 @@ namespace CrossCam.Page
             if (Math.Abs(cardboardHorDelta) > 0 ||
                 Math.Abs(cardboardVertDelta) > 0)
             {
-                fullTransform4D.PostConcat(SKMatrix44.CreateTranslate((float) -cardboardHorDelta, (float) -cardboardVertDelta, 0));
+                fullTransform4D.PostConcat(SKMatrix44.CreateTranslate((float)-cardboardHorDelta, (float)-cardboardVertDelta, 0));
             }
 
             var fullTransform3D = fullTransform4D.Matrix;
