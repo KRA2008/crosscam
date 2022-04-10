@@ -453,11 +453,16 @@ namespace CrossCam.Page
             }
 
             canvas.Save();
+            
+            var adjClipX = Math.Max(clipX - cardboardHorDelta, clipX);
+            var adjClipWidth = Math.Min(clipWidth + cardboardHorDelta, clipWidth);
+            var adjClipY = clipY - cardboardVertDelta;
+
             canvas.ClipRect(
                 SKRect.Create(
-                    (float) (clipX - cardboardHorDelta), //TODO: add a ceiling
-                    (float) (clipY - cardboardVertDelta),
-                    clipWidth,
+                    (float) adjClipX,
+                    (float) adjClipY,
+                    (float) adjClipWidth,
                     clipHeight));
 
             canvas.SetMatrix(fullTransform3D);
@@ -472,11 +477,6 @@ namespace CrossCam.Page
             canvas.ResetMatrix();
 
             canvas.Restore();
-
-            //canvas.DrawRect(clipX, clipY, clipWidth, clipHeight, new SKPaint
-            //{
-            //    Color = new SKColor(isLeft ? byte.MaxValue : (byte)0, byte.MaxValue, 0, byte.MaxValue / 3)
-            //});
         }
 
         private static SKMatrix44 MakePerspective(float maxDepth)
