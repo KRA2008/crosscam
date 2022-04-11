@@ -410,13 +410,13 @@ namespace CrossCam.Model
 
         public void ResetToDefaults()
         {
-            Mode = DrawMode.Cardboard; //TODO: UNDO THIS, JUST FOR DEBUGGGGGG
+            Mode = DrawMode.Cross;
 
             AreGuideLinesVisible = true;
             IsCaptureLeftFirst = true;
             ShowRollGuide = true;
 
-            AddBorder = false;
+            AddBorder = true; //TODO: UNDO THIS< DEUB
             ClipBorderOnNextLoad = false;
 
             ShowGuideLinesWithFirstCapture = false;
@@ -433,7 +433,7 @@ namespace CrossCam.Model
             SaveForRedCyanAnaglyph = false;
             SaveForTriple = false;
             SaveForQuad = false;
-            SaveWithFuseGuide = false;
+            SaveWithFuseGuide = true; //TODO: undo this for debugging (OR DON'T? keep it?)
             SaveForCardboard = false;
 
             IsForceCamera1Enabled = false;

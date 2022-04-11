@@ -239,6 +239,7 @@ namespace CrossCam.Page
 
             if (drawFuseGuide)
             {
+                destY += fuseGuideMarginHeight / 2f;
                 clipY += fuseGuideMarginHeight / 2f;
             }
 
