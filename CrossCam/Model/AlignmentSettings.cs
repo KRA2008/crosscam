@@ -120,7 +120,7 @@ namespace CrossCam.Model
 
         public void ResetToDefaults()
         {
-            IsAutomaticAlignmentOn = false; //TODO: UNDO THIS _ DEBUGN ONLLLL
+            IsAutomaticAlignmentOn = false; //TODO: turn back on!!! debug only!
             AlignHorizontallySideBySide = true;
             ShowAdvancedAlignmentSettings = false;
 

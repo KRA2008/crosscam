@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using CrossCam.Model;
 using CrossCam.ViewModel;
 using CrossCam.Wrappers;
@@ -360,8 +361,8 @@ namespace CrossCam.Page
             bool useGhostOverlay, SKFilterQuality quality)
         {
             // TODO: test "whole for overlay, plus mod for border and fuse guide (height)"
-            var cardboardHorDelta = cardboardHor * bitmap.Width;
-            var cardboardVertDelta = cardboardVert * bitmap.Height;
+            var cardboardHorDelta = cardboardHor * destWidth;
+            var cardboardVertDelta = cardboardVert * destHeight; //TODO: use same property for both to make move speed the same?
 
             var fullTransform4D = SKMatrix44.CreateIdentity();
 
@@ -453,10 +454,9 @@ namespace CrossCam.Page
             }
 
             canvas.Save();
-
-            var virtualAdjClipX = clipX - cardboardHorDelta;
-            var adjClipX = Math.Max(virtualAdjClipX, clipX);
-            var adjClipWidth = Math.Min(clipWidth + cardboardHorDelta, virtualAdjClipX + clipWidth);
+            
+            var adjClipX = Math.Max(clipX - cardboardHorDelta, clipX);
+            var adjClipWidth = clipWidth - Math.Abs(cardboardHorDelta);
             var adjClipY = clipY - cardboardVertDelta;
 
             canvas.ClipRect(
