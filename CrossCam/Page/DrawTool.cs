@@ -453,9 +453,10 @@ namespace CrossCam.Page
             }
 
             canvas.Save();
-            
-            var adjClipX = Math.Max(clipX - cardboardHorDelta, clipX);
-            var adjClipWidth = Math.Min(clipWidth + cardboardHorDelta, clipWidth);
+
+            var virtualAdjClipX = clipX - cardboardHorDelta;
+            var adjClipX = Math.Max(virtualAdjClipX, clipX);
+            var adjClipWidth = Math.Min(clipWidth + cardboardHorDelta, virtualAdjClipX + clipWidth);
             var adjClipY = clipY - cardboardVertDelta;
 
             canvas.ClipRect(
