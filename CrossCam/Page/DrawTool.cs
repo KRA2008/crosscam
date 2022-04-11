@@ -12,7 +12,6 @@ namespace CrossCam.Page
     public class DrawTool
     {
         public const double BORDER_CONVERSION_FACTOR = 0.001;
-        public const float FLOATY_ZERO = 0.00001f;
         private const double FUSE_GUIDE_WIDTH_RATIO = 0.0127;
         private const int FUSE_GUIDE_MARGIN_HEIGHT_RATIO = 7;
 
@@ -92,6 +91,13 @@ namespace CrossCam.Page
             var cardboardDownsizeProportion = drawQuality != DrawQuality.Save &&
                                               drawMode == DrawMode.Cardboard &&
                                               settings.CardboardDownsize ? settings.CardboardDownsizePercentage / 100d : 1;
+            double vert = 0, hor = 0;
+            if (settings.ImmersiveCardboardFinal && 
+                settings.Mode == DrawMode.Cardboard)
+            {
+                vert = cardboardVert;
+                hor = cardboardHor;
+            }
 
             if (withSwap)
             {
@@ -108,7 +114,7 @@ namespace CrossCam.Page
                     addBarrelDistortion, settings.CardboardBarrelDistortion,
                     skFilterQuality,
                     useGhost,
-                    cardboardWidthProportion, settings.ImmersiveCardboardFinal ? cardboardVert : 0, settings.ImmersiveCardboardFinal ? cardboardHor : 0,
+                    cardboardWidthProportion, vert, hor,
                     (float)cardboardDownsizeProportion);
             }
             else
@@ -126,7 +132,7 @@ namespace CrossCam.Page
                     addBarrelDistortion, settings.CardboardBarrelDistortion,
                     skFilterQuality,
                     useGhost,
-                    cardboardWidthProportion, settings.ImmersiveCardboardFinal ? cardboardVert : 0, settings.ImmersiveCardboardFinal ? cardboardHor : 0,
+                    cardboardWidthProportion, vert, hor,
                     (float)cardboardDownsizeProportion);
             }
         }
@@ -361,7 +367,6 @@ namespace CrossCam.Page
             float destX, float destY, float destWidth, float destHeight,
             bool useGhostOverlay, SKFilterQuality quality)
         {
-            // TODO: test "whole for overlay, plus mod for border and fuse guide (height)"
             var cardboardHorDelta = cardboardHor * destWidth;
             var cardboardVertDelta = cardboardVert * destHeight; //TODO: use same property for both to make move speed the same?
 
