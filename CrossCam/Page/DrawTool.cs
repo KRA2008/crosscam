@@ -47,15 +47,6 @@ namespace CrossCam.Page
             Settings settings, Edits edits, DrawMode drawMode, bool isFov = false, bool withSwap = false,
             DrawQuality drawQuality = DrawQuality.Save, double cardboardVert = 0, double cardboardHor = 0)
         {
-            var cardboardSeparationMod = 0d;
-            if (drawMode == DrawMode.Cardboard)
-            {
-                var displayLandscapeSideWidth =
-                    Math.Max(DeviceDisplay.MainDisplayInfo.Width, DeviceDisplay.MainDisplayInfo.Height) /
-                    (2d * DeviceDisplay.MainDisplayInfo.Density);
-                cardboardSeparationMod = settings.CardboardIpd - displayLandscapeSideWidth;
-            }
-
             var useGhost = drawQuality == DrawQuality.Preview &&
                             settings.ShowGhostCaptures &&
                             (drawMode == DrawMode.Cross ||
@@ -109,7 +100,7 @@ namespace CrossCam.Page
                     useGhost,
                     cardboardWidthProportion, vert, hor,
                     (float)cardboardDownsizeProportion,
-                    cardboardSeparationMod);
+                    settings.CardboardIpd);
             }
             else
             {
@@ -128,7 +119,7 @@ namespace CrossCam.Page
                     useGhost,
                     cardboardWidthProportion, vert, hor,
                     (float)cardboardDownsizeProportion,
-                    cardboardSeparationMod);
+                    settings.CardboardIpd);
             }
         }
 
@@ -147,25 +138,26 @@ namespace CrossCam.Page
             double cardboardVert,
             double cardboardHor,
             float cardboardDownsize,
-            double cardboardSeparationMod)
+            int cardboardIpd)
         {
             if (leftBitmap == null && rightBitmap == null) return;
 
             var canvasWidth = surface.Canvas.DeviceClipBounds.Width;
             var canvasHeight = surface.Canvas.DeviceClipBounds.Height;
 
-            double sideBitmapWidthLessCrop, baseHeight, baseWidth;
-
+            double sideBitmapWidthLessCrop, baseHeight, baseWidth, netSideCrop;
             if (leftBitmap != null)
             {
+                netSideCrop = leftLeftCrop + leftRightCrop;
                 baseHeight = leftBitmap.Height;
-                sideBitmapWidthLessCrop = leftBitmap.Width * (1 - (leftLeftCrop + leftRightCrop));
+                sideBitmapWidthLessCrop = leftBitmap.Width * (1 - netSideCrop);
                 baseWidth = leftBitmap.Width;
             }
             else
             {
+                netSideCrop = rightLeftCrop + rightRightCrop;
                 baseHeight = rightBitmap.Height;
-                sideBitmapWidthLessCrop = rightBitmap.Width * (1 - (rightLeftCrop + rightRightCrop));
+                sideBitmapWidthLessCrop = rightBitmap.Width * (1 - netSideCrop);
                 baseWidth = rightBitmap.Width;
             }
 
@@ -243,6 +235,13 @@ namespace CrossCam.Page
             {
                 destY += fuseGuideMarginHeight / 2f;
                 clipY += fuseGuideMarginHeight / 2f;
+            }
+
+            var cardboardSeparationMod = 0d;
+            if (drawMode == DrawMode.Cardboard)
+            {
+                var displayLandscapeSideWidth = (rightClipX - leftClipX) / DeviceDisplay.MainDisplayInfo.Density;
+                cardboardSeparationMod = (cardboardIpd - displayLandscapeSideWidth) * DeviceDisplay.MainDisplayInfo.Density / 2d;
             }
 
             if (leftBitmap != null)
@@ -459,7 +458,7 @@ namespace CrossCam.Page
             canvas.Save();
             
             var adjClipX = Math.Max(clipX - cardboardHorDelta + cardboardSeparationMod, clipX);
-            var adjClipWidth = clipWidth - Math.Abs(cardboardHorDelta - cardboardSeparationMod);
+            var adjClipWidth = clipWidth - Math.Abs(cardboardHorDelta - cardboardSeparationMod); //TODO: due to some other stuff, the left and right ends never go further than the clip width from the middle (fix it?)
             var adjClipY = clipY - cardboardVertDelta;
 
             canvas.ClipRect(
@@ -481,6 +480,11 @@ namespace CrossCam.Page
             canvas.ResetMatrix();
 
             canvas.Restore();
+
+            //canvas.DrawRect((float) adjClipX, (float) adjClipY, (float) adjClipWidth, clipHeight, new SKPaint
+            //{
+            //    Color = new SKColor(isLeft ? byte.MaxValue : (byte)0, byte.MaxValue, 0, byte.MaxValue / 3)
+            //});
         }
 
         private static SKMatrix44 MakePerspective(float maxDepth)

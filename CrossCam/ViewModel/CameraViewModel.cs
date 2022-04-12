@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
-using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Threading;
@@ -371,9 +370,6 @@ namespace CrossCam.ViewModel
         private bool _secondaryErrorOccurred;
         private bool _isFovCorrected;
         private bool _isInitialized;
-
-        private int FrameLimiter = 0;
-        private int upper = 0;
 
         public CameraViewModel()
         {
@@ -1467,7 +1463,7 @@ namespace CrossCam.ViewModel
             if (Settings.AlignmentSettings.IsAutomaticAlignmentOn &&
                 LeftBitmap != null &&
                 RightBitmap != null &&
-                _isAlignmentInvalid && 
+                _isAlignmentInvalid &&
                 0 == Interlocked.Exchange(ref _alignmentThreadLock, 1))
             {
                 _isAlignmentInvalid = false;
@@ -1485,27 +1481,25 @@ namespace CrossCam.ViewModel
                     {
                         await Task.Run(() =>
                         {
-                            var discardTransX = Settings.Mode == DrawMode.Cardboard ||
-                                                Settings.SaveForCardboard || 
-                                                !Settings.SaveForRedCyanAnaglyph &&
+                            var discardTransX = !Settings.SaveForRedCyanAnaglyph &&
                                                 !Settings.SaveForGrayscaleAnaglyph &&
                                                 Settings.Mode != DrawMode.RedCyanAnaglyph &&
                                                 Settings.Mode != DrawMode.GrayscaleRedCyanAnaglyph &&
                                                 !Settings.AlignmentSettings.AlignHorizontallySideBySide;
                             if ((WasCapturePaired &&
                                 (Settings.FovPrimaryCorrection > 0 ||
-                                Settings.FovSecondaryCorrection > 0)) || 
+                                Settings.FovSecondaryCorrection > 0)) ||
                                 Settings.AlignmentSettings.UseKeypoints1)
                             {
                                 var needsFallback = false;
                                 try
                                 {
                                     alignedResult = openCv.CreateAlignedSecondImageKeypoints(
-                                        firstImage, 
-                                        secondImage, 
+                                        firstImage,
+                                        secondImage,
                                         discardTransX,
                                         Settings.AlignmentSettings,
-                                        (Settings.IsCaptureLeftFirst && 
+                                        (Settings.IsCaptureLeftFirst &&
                                         Settings.Mode != DrawMode.Parallel) ||
                                         (!Settings.IsCaptureLeftFirst &&
                                          Settings.Mode == DrawMode.Parallel));
@@ -1545,7 +1539,7 @@ namespace CrossCam.ViewModel
 
                     if (alignedResult != null)
                     {
-                        if (Settings.AlignmentSettings.UseKeypoints1 && 
+                        if (Settings.AlignmentSettings.UseKeypoints1 &&
                             Settings.AlignmentSettings.DrawKeypointMatches &&
                             alignedResult.DrawnDirtyMatches != null)
                         {
@@ -1571,7 +1565,7 @@ namespace CrossCam.ViewModel
 
                             dirtyMatchesCanvas.DrawText(
                                 alignedResult.DirtyMatchesCount.ToString(),
-                                countPoint, 
+                                countPoint,
                                 countPaint);
 
                             await SaveSurfaceSnapshot(dirtyMatchesSurface);
