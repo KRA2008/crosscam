@@ -201,6 +201,10 @@ namespace CrossCam.Page
                 {
                     _capturedCanvas.InvalidateSurface();
                 }
+                else
+                {
+                    _cardboardViewVert = _cardboardViewHor = 0;
+                }
             });
         }
 
