@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Diagnostics;
 using CrossCam.Model;
 using CrossCam.ViewModel;
 using CrossCam.Wrappers;
@@ -48,19 +47,13 @@ namespace CrossCam.Page
             Settings settings, Edits edits, DrawMode drawMode, bool isFov = false, bool withSwap = false,
             DrawQuality drawQuality = DrawQuality.Save, double cardboardVert = 0, double cardboardHor = 0)
         {
-            double innerCardboardCrop = 0;
-            double outerCardboardCrop = 0;
+            var cardboardSeparationMod = 0d;
             if (drawMode == DrawMode.Cardboard)
             {
-                var cardboardCrop = CalculateOutsideCropForCardboardWidthFit(settings);
-                if (cardboardCrop > 0)
-                {
-                    outerCardboardCrop = cardboardCrop;
-                }
-                else
-                {
-                    innerCardboardCrop = Math.Abs(cardboardCrop);
-                }
+                var displayLandscapeSideWidth =
+                    Math.Max(DeviceDisplay.MainDisplayInfo.Width, DeviceDisplay.MainDisplayInfo.Height) /
+                    (2d * DeviceDisplay.MainDisplayInfo.Density);
+                cardboardSeparationMod = settings.CardboardIpd - displayLandscapeSideWidth;
             }
 
             var useGhost = drawQuality == DrawQuality.Preview &&
@@ -103,8 +96,8 @@ namespace CrossCam.Page
             {
                 DrawImagesOnCanvasInternal(surface, rightBitmap, leftBitmap,
                     settings.BorderWidthProportion, settings.AddBorder && drawQuality != DrawQuality.Preview, settings.BorderColor,
-                    edits.InsideCrop + edits.LeftCrop + innerCardboardCrop, edits.RightCrop + edits.OutsideCrop + outerCardboardCrop,
-                    edits.LeftCrop + edits.OutsideCrop + outerCardboardCrop, edits.InsideCrop + edits.RightCrop + innerCardboardCrop,
+                    edits.InsideCrop + edits.LeftCrop, edits.RightCrop + edits.OutsideCrop,
+                    edits.LeftCrop + edits.OutsideCrop, edits.InsideCrop + edits.RightCrop,
                     edits.TopCrop, edits.BottomCrop,
                     edits.RightRotation, edits.LeftRotation,
                     edits.VerticalAlignment,
@@ -115,14 +108,15 @@ namespace CrossCam.Page
                     skFilterQuality,
                     useGhost,
                     cardboardWidthProportion, vert, hor,
-                    (float)cardboardDownsizeProportion);
+                    (float)cardboardDownsizeProportion,
+                    cardboardSeparationMod);
             }
             else
             {
                 DrawImagesOnCanvasInternal(surface, leftBitmap, rightBitmap,
                     settings.BorderWidthProportion, settings.AddBorder && drawQuality != DrawQuality.Preview, settings.BorderColor,
-                    edits.LeftCrop + edits.OutsideCrop + outerCardboardCrop, edits.InsideCrop + edits.RightCrop + innerCardboardCrop, edits.InsideCrop + edits.LeftCrop + innerCardboardCrop,
-                    edits.RightCrop + edits.OutsideCrop + outerCardboardCrop,
+                    edits.LeftCrop + edits.OutsideCrop, edits.InsideCrop + edits.RightCrop, edits.InsideCrop + edits.LeftCrop,
+                    edits.RightCrop + edits.OutsideCrop,
                     edits.TopCrop, edits.BottomCrop,
                     edits.LeftRotation, edits.RightRotation,
                     edits.VerticalAlignment,
@@ -133,7 +127,8 @@ namespace CrossCam.Page
                     skFilterQuality,
                     useGhost,
                     cardboardWidthProportion, vert, hor,
-                    (float)cardboardDownsizeProportion);
+                    (float)cardboardDownsizeProportion,
+                    cardboardSeparationMod);
             }
         }
 
@@ -151,7 +146,8 @@ namespace CrossCam.Page
             double cardboardWidthProportion,
             double cardboardVert,
             double cardboardHor,
-            float cardboardDownsize)
+            float cardboardDownsize,
+            double cardboardSeparationMod)
         {
             if (leftBitmap == null && rightBitmap == null) return;
 
@@ -255,7 +251,7 @@ namespace CrossCam.Page
                     cardboardHor, cardboardVert, alignment,
                     leftClipX, clipY, clipWidth, clipHeight,
                     leftDestX, destY, destWidth, destHeight,
-                    false, skFilterQuality);
+                    false, -cardboardSeparationMod, skFilterQuality);
             }
 
             if (rightBitmap != null)
@@ -264,7 +260,7 @@ namespace CrossCam.Page
                     cardboardHor, cardboardVert, alignment,
                     rightClipX, clipY, clipWidth, clipHeight,
                     rightDestX, destY, destWidth, destHeight,
-                    leftBitmap != null && useGhost, skFilterQuality);
+                    leftBitmap != null && useGhost, cardboardSeparationMod, skFilterQuality);
             }
 
             var openCv = DependencyService.Get<IOpenCv>();
@@ -365,7 +361,7 @@ namespace CrossCam.Page
             double cardboardHor, double cardboardVert, double alignment,
             float clipX, float clipY, float clipWidth, float clipHeight,
             float destX, float destY, float destWidth, float destHeight,
-            bool useGhostOverlay, SKFilterQuality quality)
+            bool useGhostOverlay, double cardboardSeparationMod, SKFilterQuality quality)
         {
             var cardboardHorDelta = cardboardHor * destWidth;
             var cardboardVertDelta = cardboardVert * destHeight; //TODO: use same property for both to make move speed the same?
@@ -416,9 +412,10 @@ namespace CrossCam.Page
             }
 
             if (Math.Abs(cardboardHorDelta) > 0 ||
-                Math.Abs(cardboardVertDelta) > 0)
+                Math.Abs(cardboardVertDelta) > 0 ||
+                Math.Abs(cardboardSeparationMod) > 0)
             {
-                fullTransform4D.PostConcat(SKMatrix44.CreateTranslate((float)-cardboardHorDelta, (float)-cardboardVertDelta, 0));
+                fullTransform4D.PostConcat(SKMatrix44.CreateTranslate((float)(-cardboardHorDelta + cardboardSeparationMod), (float)-cardboardVertDelta, 0));
             }
 
             var fullTransform3D = fullTransform4D.Matrix;
@@ -461,8 +458,8 @@ namespace CrossCam.Page
 
             canvas.Save();
             
-            var adjClipX = Math.Max(clipX - cardboardHorDelta, clipX);
-            var adjClipWidth = clipWidth - Math.Abs(cardboardHorDelta);
+            var adjClipX = Math.Max(clipX - cardboardHorDelta + cardboardSeparationMod, clipX);
+            var adjClipWidth = clipWidth - Math.Abs(cardboardHorDelta - cardboardSeparationMod);
             var adjClipY = clipY - cardboardVertDelta;
 
             canvas.ClipRect(
@@ -506,15 +503,6 @@ namespace CrossCam.Page
             }
             return (int)(baseWidth - baseWidth *
                 (edits.LeftCrop + edits.InsideCrop + edits.OutsideCrop + edits.RightCrop));
-        }
-
-        public static double CalculateOutsideCropForCardboardWidthFit(Settings settings)
-        {
-            var displayLandscapeSideWidth =
-                Math.Max(DeviceDisplay.MainDisplayInfo.Width, DeviceDisplay.MainDisplayInfo.Height) /
-                (2d * DeviceDisplay.MainDisplayInfo.Density);
-            var overrun = settings.CardboardIpd - displayLandscapeSideWidth;
-            return overrun / displayLandscapeSideWidth;
         }
 
         public static int CalculateJoinedCanvasWidthWithEditsNoBorder(SKBitmap leftBitmap, SKBitmap rightBitmap,
