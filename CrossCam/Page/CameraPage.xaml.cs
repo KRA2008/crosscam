@@ -1,5 +1,7 @@
 ﻿using System;
 using System.ComponentModel;
+using System.Diagnostics;
+using System.Drawing;
 using System.Threading.Tasks;
 using CrossCam.CustomElement;
 using CrossCam.Model;
@@ -8,11 +10,13 @@ using SkiaSharp;
 using SkiaSharp.Views.Forms;
 using Xamarin.Essentials;
 using Xamarin.Forms;
+using Rectangle = Xamarin.Forms.Rectangle;
+using Timer = System.Timers.Timer;
 
 namespace CrossCam.Page
 {
     // ReSharper disable once UnusedMember.Global
-	public partial class CameraPage
+    public partial class CameraPage
 	{
 	    private CameraViewModel _viewModel;
 
@@ -23,7 +27,7 @@ namespace CrossCam.Page
         
 	    private const double LEVEL_ICON_WIDTH = 60;
         private const double BUBBLE_LEVEL_MAX_TIP = 0.1;
-        private const double ACCELEROMETER_MEASURMENT_WEIGHT = 12;
+        private const double ROLL_GUIDE_MEASURMENT_WEIGHT = 12;
         private const double ROLL_GOOD_THRESHOLD = 0.01;
         private readonly ImageSource _levelBubbleImage = ImageSource.FromFile("horizontalLevelInside");
 	    private readonly ImageSource _levelOutsideImage = ImageSource.FromFile("horizontalLevelOutside");
@@ -47,8 +51,22 @@ namespace CrossCam.Page
 	    private double _lowerLineHeight;
 
         private double _averageRoll;
+
+        private Stopwatch _gyroscopeStopwatch;
+        private double _cardboardViewVert;
+        private double _cardboardViewHor;
+
         private double _lastAccelerometerReadingX;
         private double _lastAccelerometerReadingY;
+        
+        private double? _cardboardHomeVert;
+        private double? _cardboardHomeHor;
+
+        private bool _newLeftCapture;
+        private bool _newRightCapture;
+
+        private const SensorSpeed SENSOR_SPEED = SensorSpeed.Fastest;
+        private const int SENSOR_FRAME_DELAY = 10;
 
         public CameraPage()
 		{
@@ -59,8 +77,14 @@ namespace CrossCam.Page
 		    _horizontalLevelOutside.Source = _levelOutsideImage;
 
             Accelerometer.ReadingChanged += StoreAccelerometerReading;
+            Gyroscope.ReadingChanged += StoreGyroscopeReading;
+            _gyroscopeStopwatch = new Stopwatch();
             MessagingCenter.Subscribe<App>(this, App.APP_PAUSING_EVENT, o => EvaluateSensors(false));
 		    MessagingCenter.Subscribe<App>(this, App.APP_UNPAUSING_EVENT, o => EvaluateSensors());
+            _doubleTapTimer.Elapsed += (sender, args) =>
+            {
+                TapExpired();
+            };
         }
 
         protected override bool OnBackButtonPressed()
@@ -91,15 +115,15 @@ namespace CrossCam.Page
 	    {
 	        if (_viewModel != null)
 	        {
-	            if (_viewModel.Settings.ShowRollGuide && 
-	                _viewModel.WorkflowStage == WorkflowStage.Capture &&
-	                isAppRunning)
+	            if (_viewModel.Settings.ShowRollGuide &&
+                    _viewModel.WorkflowStage == WorkflowStage.Capture &&
+                    isAppRunning)
 	            {
 	                if (!Accelerometer.IsMonitoring)
 	                {
 	                    try
 	                    {
-	                        Accelerometer.Start(SensorSpeed.Game);
+	                        Accelerometer.Start(SENSOR_SPEED);
                             StartAccelerometerCycling();
                         }
 	                    catch
@@ -122,16 +146,66 @@ namespace CrossCam.Page
 	                    }
                     }
 	            }
-	        }
+
+                if (_viewModel.Settings.Mode == DrawMode.Cardboard &&
+                    isAppRunning)
+                {
+                    if (!Gyroscope.IsMonitoring)
+                    {
+                        try
+                        {
+                            _gyroscopeStopwatch.Start();
+                            Gyroscope.Start(SENSOR_SPEED);
+                        }
+                        catch
+                        {
+                            //oh well
+                        }
+                    }
+                }
+                else
+                {
+                    if (Gyroscope.IsMonitoring)
+                    {
+                        try
+                        {
+                            Gyroscope.Stop();
+                        }
+                        catch
+                        {
+                            //oh well
+                        }
+                    }
+                }
+            }
         }
 
         private async void StartAccelerometerCycling()
         {
             while (Accelerometer.IsMonitoring)
             {
-                await Task.Delay(50);
+                await Task.Delay(SENSOR_FRAME_DELAY);
                 UpdateLevelFromAccelerometerData();
             }
+        }
+
+        private void StoreGyroscopeReading(object sender, GyroscopeChangedEventArgs e)
+        {
+            var seconds = _gyroscopeStopwatch.ElapsedTicks / 10000000d;
+            _cardboardViewVert -= e.Reading.AngularVelocity.Y * seconds;
+            _cardboardViewHor += e.Reading.AngularVelocity.X * seconds;
+            _gyroscopeStopwatch.Restart();
+            Device.BeginInvokeOnMainThread(() =>
+            {
+                if (!_viewModel.IsBusy)
+                {
+                    _capturedCanvas.InvalidateSurface();
+                }
+                else
+                {
+                    _cardboardViewVert = _cardboardViewHor = 0;
+                }
+            });
         }
 
         private void StoreAccelerometerReading(object sender, AccelerometerChangedEventArgs args)
@@ -144,30 +218,32 @@ namespace CrossCam.Page
         {
             Device.BeginInvokeOnMainThread(() =>
             {
-                _averageRoll *= (ACCELEROMETER_MEASURMENT_WEIGHT - 1) / ACCELEROMETER_MEASURMENT_WEIGHT;
+                _averageRoll *= (ROLL_GUIDE_MEASURMENT_WEIGHT - 1) / ROLL_GUIDE_MEASURMENT_WEIGHT;
 
                 if (_viewModel != null)
                 {
-                    if (Math.Abs(_lastAccelerometerReadingX) < Math.Abs(_lastAccelerometerReadingY)) //portrait
+                    var xReading = _lastAccelerometerReadingX; //thread protection
+                    var yReading = _lastAccelerometerReadingY;
+                    if (Math.Abs(xReading) < Math.Abs(yReading)) //portrait
                     {
                         if (_viewModel.IsViewInverted)
                         {
-                            _averageRoll -= _lastAccelerometerReadingX / ACCELEROMETER_MEASURMENT_WEIGHT;
+                            _averageRoll -= xReading / ROLL_GUIDE_MEASURMENT_WEIGHT;
                         }
                         else
                         {
-                            _averageRoll += _lastAccelerometerReadingX / ACCELEROMETER_MEASURMENT_WEIGHT;
+                            _averageRoll += xReading / ROLL_GUIDE_MEASURMENT_WEIGHT;
                         }
                     }
                     else //landscape
                     {
                         if (_viewModel.IsViewInverted)
                         {
-                            _averageRoll += _lastAccelerometerReadingY / ACCELEROMETER_MEASURMENT_WEIGHT;
+                            _averageRoll += yReading / ROLL_GUIDE_MEASURMENT_WEIGHT;
                         }
                         else
                         {
-                            _averageRoll -= _lastAccelerometerReadingY / ACCELEROMETER_MEASURMENT_WEIGHT;
+                            _averageRoll -= yReading / ROLL_GUIDE_MEASURMENT_WEIGHT;
                         }
                     }
 
@@ -209,6 +285,10 @@ namespace CrossCam.Page
                 _viewModel.Edits.PropertyChanged += EditsPropertyChanged;
                 Device.BeginInvokeOnMainThread(() =>
                 {
+                    var layout = AbsoluteLayout.GetLayoutBounds(_doubleMoveHintStack);
+                    layout.Width = _viewModel.Settings.CardboardIpd + 100;
+                    AbsoluteLayout.SetLayoutBounds(_doubleMoveHintStack, layout);
+
                     EvaluateSensors();
                     ResetLineAndDonutGuides();
                     PlaceRollGuide();
@@ -251,21 +331,68 @@ namespace CrossCam.Page
                         _pairedPreviewCanvas.InvalidateSurface();
                         ResetLineAndDonutGuides();
                         SetMarginsForNotch();
+                        SwapSidesIfCardboard();
                         break;
                     case nameof(CameraViewModel.PreviewBottomY):
                         PlaceRollGuide();
                         PlaceSettingsRibbon();
                         break;
                     case nameof(CameraViewModel.LeftBitmap):
-                    case nameof(CameraViewModel.RightBitmap):
+                        ProcessDoubleTap();
+                        _newLeftCapture = true;
+                        CardboardCheckAndSaveOrientationSnapshot();
                         _capturedCanvas.InvalidateSurface();
                         break;
-                    case nameof(CameraViewModel.PreviewFrame):
+                    case nameof(CameraViewModel.RightBitmap):
+                        ProcessDoubleTap();
+                        _newRightCapture = true;
+                        CardboardCheckAndSaveOrientationSnapshot();
+                        _capturedCanvas.InvalidateSurface();
+                        break;
+                    case nameof(CameraViewModel.LocalPreviewBitmap):
+                        _capturedCanvas.InvalidateSurface();
+                        break;
+                    case nameof(CameraViewModel.RemotePreviewFrame):
                         _pairedPreviewCanvas.InvalidateSurface();
                         break;
                 }
             });
 	    }
+
+        private void CardboardCheckAndSaveOrientationSnapshot()
+        {
+            if (_viewModel.LeftBitmap == null ||
+                _viewModel.RightBitmap == null)
+            {
+                _cardboardHomeVert = _cardboardHomeHor = null;
+            } 
+            else if (_viewModel?.LeftBitmap != null &&
+                     _viewModel.RightBitmap != null &&
+                     !_cardboardHomeVert.HasValue &&
+                     !_cardboardHomeHor.HasValue &&
+                     _viewModel.Settings.Mode == DrawMode.Cardboard)
+            {
+                _cardboardHomeVert = _cardboardViewVert;
+                _cardboardHomeHor = _cardboardViewHor;
+            }
+        }
+
+        private void SwapSidesIfCardboard()
+        {
+            if (_viewModel.Settings.Mode == DrawMode.Cardboard &&
+                !_viewModel.IsViewPortrait)
+            {
+                switch (_viewModel.WorkflowStage)
+                {
+                    case WorkflowStage.Capture:
+                        _viewModel?.SwapSidesCommand.Execute(null);
+                        break;
+                    case WorkflowStage.Final:
+                        _viewModel?.ClearCapturesCommand.Execute(null);
+                        break;
+                }
+            }
+        }
 
         private void PlaceSettingsRibbon()
         {
@@ -293,16 +420,148 @@ namespace CrossCam.Page
 
         private void OnCapturedCanvasInvalidated(object sender, SKPaintSurfaceEventArgs e)
 	    {
-	        var canvas = e.Surface.Canvas;
+            var surface = e.Surface;
 
-	        canvas.Clear();
+            var useOverlay = _viewModel.Settings.Mode == DrawMode.RedCyanAnaglyph ||
+                              _viewModel.Settings.Mode == DrawMode.GrayscaleRedCyanAnaglyph ||
+                              _viewModel.Settings.ShowGhostCaptures;
+
+            if (_viewModel.LeftBitmap == null &&
+                _viewModel.RightBitmap == null)
+            {
+                surface.Canvas.Clear();
+                _cardboardHomeHor = null;
+                _cardboardHomeVert = null;
+            }
+
+            if (useOverlay)
+            {
+                surface.Canvas.Clear();
+            }
+            
+            SKBitmap left = null;
+            SKBitmap right = null;
+            if (_viewModel.LeftBitmap != null &&
+                _viewModel.RightBitmap != null)
+            {
+                surface.Canvas.Clear();
+
+                left = _viewModel.LeftBitmap;
+                right = _viewModel.RightBitmap;
+            }
+            else
+            {
+                if (_newLeftCapture || 
+                    useOverlay &&
+                    _viewModel.LeftBitmap != null)
+                {
+                    left = _viewModel.LeftBitmap;
+                    _newLeftCapture = false;
+                }
+                else if (_viewModel.CameraColumn == 0)
+                {
+                    left = _viewModel.LocalPreviewBitmap;
+                }
+
+                if (_newRightCapture || 
+                    useOverlay &&
+                    _viewModel.RightBitmap != null)
+                {
+                    right = _viewModel.RightBitmap;
+                    _newRightCapture = false;
+                }
+                else if (_viewModel.CameraColumn == 1)
+                {
+                    right = _viewModel.LocalPreviewBitmap;
+                }
+            }
+
+            if (_viewModel.Settings.Mode == DrawMode.Cardboard)
+            {
+                if (_viewModel.LeftBitmap == null &&
+                    _viewModel.RightBitmap == null)
+                {
+                    left = right = _viewModel.LocalPreviewBitmap;
+                }
+            }
+
+            double cardboardVert = 0;
+            if (_cardboardHomeVert.HasValue)
+            {
+                if (_viewModel.IsViewInverted)
+                {
+                    cardboardVert = _cardboardViewVert - _cardboardHomeVert.Value;
+                    if (cardboardVert > 0.5)
+                    {
+                        _cardboardHomeVert = _cardboardHomeVert.Value + (cardboardVert - 0.5);
+                        cardboardVert = 0.5;
+                    }
+                    else if (cardboardVert < -0.5)
+                    {
+                        _cardboardHomeVert = _cardboardHomeVert.Value + (cardboardVert + 0.5);
+                        cardboardVert = -0.5;
+                    }
+                }
+                else
+                {
+                    cardboardVert = _cardboardHomeVert.Value - _cardboardViewVert;
+                    if (cardboardVert > 0.5)
+                    {
+                        _cardboardHomeVert = _cardboardHomeVert.Value - (cardboardVert - 0.5);
+                        cardboardVert = 0.5;
+                    }
+                    else if (cardboardVert < -0.5)
+                    {
+                        _cardboardHomeVert = _cardboardHomeVert.Value - (cardboardVert + 0.5);
+                        cardboardVert = -0.5;
+                    }
+                }
+            }
+
+            double cardboardHor = 0;
+            if (_cardboardHomeHor.HasValue)
+            {
+                if (_viewModel.IsViewInverted)
+                {
+                    cardboardHor = _cardboardViewHor - _cardboardHomeHor.Value;
+                    if (cardboardHor > 0.5)
+                    {
+                        _cardboardHomeHor = _cardboardHomeHor.Value + (cardboardHor - 0.5);
+                        cardboardHor = 0.5;
+                    }
+                    else if (cardboardHor < -0.5)
+                    {
+                        _cardboardHomeHor = _cardboardHomeHor.Value + (cardboardHor + 0.5);
+                        cardboardHor = -0.5;
+                    }
+                }
+                else
+                {
+                    cardboardHor = _cardboardHomeHor.Value - _cardboardViewHor;
+                    if (cardboardHor > 0.5)
+                    {
+                        _cardboardHomeHor = _cardboardHomeHor.Value - (cardboardHor - 0.5);
+                        cardboardHor = 0.5;
+                    }
+                    else if (cardboardHor < -0.5)
+                    {
+                        _cardboardHomeHor = _cardboardHomeHor.Value - (cardboardHor + 0.5);
+                        cardboardHor = -0.5;
+                    }
+                }
+            }
 
             DrawTool.DrawImagesOnCanvas(
-                canvas, _viewModel.LeftBitmap, _viewModel.RightBitmap, 
+                surface, left, right,
                 _viewModel.Settings,
                 _viewModel.Edits,
-                DrawMode.Cross, // strange but true, its really just saying "don't swap the sides" from how they're shown, and also no anaglyph preview yet
-                _viewModel.WorkflowStage == WorkflowStage.FovCorrection);
+                _viewModel.Settings.Mode,
+                _viewModel.WorkflowStage == WorkflowStage.FovCorrection,
+                drawQuality: _viewModel.IsExactlyOnePictureTaken || 
+                             _viewModel.IsNothingCaptured ? 
+                             DrawQuality.Preview : DrawQuality.Review,
+                cardboardVert: cardboardVert,
+                cardboardHor: cardboardHor);
         }
 
         private void OnPairedPreviewCanvasInvalidated(object sender, SKPaintSurfaceEventArgs e)
@@ -311,9 +570,9 @@ namespace CrossCam.Page
 
             canvas.Clear();
 
-            if (_viewModel.PreviewFrame != null)
+            if (_viewModel.RemotePreviewFrame != null)
             {
-                var bitmap = _viewModel.DecodeBitmapAndCorrectOrientation(_viewModel.PreviewFrame, true);
+                var bitmap = _viewModel.DecodeBitmapAndCorrectOrientation(_viewModel.RemotePreviewFrame, _viewModel.BluetoothOperatorBindable.PairStatus == PairStatus.Connected); //TODO: add a using
 
                 if (bitmap != null)
                 {
@@ -418,9 +677,24 @@ namespace CrossCam.Page
             var rollBounds = AbsoluteLayout.GetLayoutBounds(_horizontalLevelWhole);
             rollBounds.Width = LEVEL_ICON_WIDTH;
             rollBounds.Height = LEVEL_ICON_WIDTH;
-            rollBounds.X = _viewModel == null || _viewModel.CameraColumn == 0 ? 0.2 : 0.8;
-            if (_viewModel != null)
+            if (_viewModel == null)
             {
+                rollBounds.X = 0.2;
+            }
+            else
+            {
+                if (_viewModel.Settings.Mode == DrawMode.RedCyanAnaglyph ||
+                    _viewModel.Settings.Mode == DrawMode.GrayscaleRedCyanAnaglyph ||
+                    _viewModel.Settings.ShowGhostCaptures && 
+                    (_viewModel.Settings.Mode == DrawMode.Cross ||
+                     _viewModel.Settings.Mode == DrawMode.Parallel))
+                {
+                    rollBounds.X = 0.5;
+                }
+                else
+                {
+                    rollBounds.X = _viewModel.CameraColumn == 0 ? 0.2 : 0.8;
+                }
                 rollBounds.Y = _viewModel.PreviewBottomY - LEVEL_ICON_WIDTH / 5;
             }
             AbsoluteLayout.SetLayoutBounds(_horizontalLevelWhole, rollBounds);
@@ -543,7 +817,196 @@ namespace CrossCam.Page
 	                newLineBounds.Y,
 	                1,
 	                lineHeight));
-	        }
+            }
+        }
+
+        private PointF _tapLocation;
+        private int _dragCounter;
+        private int _releaseCounter;
+        private readonly Timer _doubleTapTimer = new Timer
+        {
+            Interval = 500,
+            AutoReset = false
+        };
+        private const int MIN_MOVE_COUNTER = 4;
+        private bool _didSwap;
+        private void _capturedCanvas_OnTouch(object sender, SKTouchEventArgs e)
+        {
+            if (_viewModel == null) return;
+
+            switch (e.ActionType)
+            {
+                case SKTouchAction.Entered:
+                    break;
+                case SKTouchAction.Pressed:
+                    if (!_doubleTapTimer.Enabled)
+                    {
+                        _doubleTapTimer.Start();
+                        _tapLocation = new PointF
+                        {
+                            X = e.Location.X,
+                            Y = e.Location.Y
+                        };
+                    }
+                    break;
+                case SKTouchAction.Moved:
+                    _dragCounter++;
+                    if (_dragCounter >= MIN_MOVE_COUNTER &&
+                        !_didSwap)
+                    {
+                        ProcessDoubleTap();
+                        _viewModel?.SwapSidesCommand.Execute(null);
+                        _didSwap = true;
+                    }
+                    break;
+                case SKTouchAction.Released:
+                    if (!_didSwap)
+                    {
+                        _releaseCounter++;
+                        if (_doubleTapTimer.Enabled &&
+                            _releaseCounter == 2)
+                        {
+                            ProcessDoubleTap();
+                        }
+                        else
+                        {
+                            ProcessSingleTap();
+                        }
+                    }
+                    _didSwap = false;
+                    break;
+                case SKTouchAction.Cancelled:
+                    break;
+                case SKTouchAction.Exited:
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException();
+            }
+            e.Handled = true;
+        }
+
+        private void TapExpired()
+        {
+            ClearAllTaps();
+        }
+
+        private void ProcessDoubleTap()
+        {
+            _cameraModule.OnDoubleTapped();
+            _viewModel.IsFocusCircleVisible = false;
+            ClearAllTaps();
+        }
+
+        private void ProcessSingleTap()
+        {
+            if (_viewModel?.LocalPreviewBitmap == null || 
+                _viewModel.Settings.Mode == DrawMode.Cardboard) return;
+
+            float xProportion;
+            float yProportion;
+            var aspect = _viewModel.LocalPreviewBitmap.Height / (_viewModel.LocalPreviewBitmap.Width * 1f);
+            var isPortrait = _viewModel.LocalPreviewBitmap.Height > _viewModel.LocalPreviewBitmap.Width;
+
+            var overlayDisplay = _viewModel.Settings.Mode == DrawMode.RedCyanAnaglyph ||
+                                 _viewModel.Settings.Mode == DrawMode.GrayscaleRedCyanAnaglyph ||
+                                 _viewModel.Settings.ShowGhostCaptures;
+
+            if (overlayDisplay)
+            {
+                double longNativeLength;
+                double shortNativeLength;
+                double tapLong;
+                double tapShort;
+
+                if (isPortrait)
+                {
+                    aspect = _viewModel.LocalPreviewBitmap.Height / (_viewModel.LocalPreviewBitmap.Width * 1f);
+                    longNativeLength = Height * DeviceDisplay.MainDisplayInfo.Density;
+                    shortNativeLength = Width * DeviceDisplay.MainDisplayInfo.Density;
+                    tapLong = _tapLocation.Y;
+                    tapShort = _tapLocation.X;
+                }
+                else
+                {
+                    aspect = _viewModel.LocalPreviewBitmap.Width / (_viewModel.LocalPreviewBitmap.Height * 1f);
+                    longNativeLength = Width * DeviceDisplay.MainDisplayInfo.Density;
+                    shortNativeLength = Height * DeviceDisplay.MainDisplayInfo.Density;
+                    tapLong = _tapLocation.X;
+                    tapShort = _tapLocation.Y;
+                }
+
+                var minLong = (longNativeLength - shortNativeLength * aspect) / 2f;
+
+                var longProportion = (float)((tapLong - minLong) / (shortNativeLength * aspect));
+                longProportion = Math.Clamp(longProportion, 0, 1);
+                double shortProportion = (float)(tapShort / shortNativeLength);
+
+                if (isPortrait)
+                {
+                    xProportion = (float)shortProportion;
+                    yProportion = longProportion;
+                    _viewModel.FocusCircleX = shortProportion * Width;
+                    _viewModel.FocusCircleY = longProportion * (Width * aspect) + minLong / DeviceDisplay.MainDisplayInfo.Density;
+                }
+                else
+                {
+                    xProportion = longProportion;
+                    yProportion = (float)shortProportion;
+                    _viewModel.FocusCircleY = shortProportion * Height;
+                    _viewModel.FocusCircleX = longProportion * (Height * aspect) + minLong / DeviceDisplay.MainDisplayInfo.Density;
+                }
+            }
+            else
+            {
+                double baseWidth;
+                if (_viewModel.Settings.Mode == DrawMode.Cross)
+                {
+                    baseWidth = Width * DeviceDisplay.MainDisplayInfo.Density / 2f;
+                }
+                else
+                {
+                    baseWidth = _viewModel.Settings.MaximumParallelWidth * DeviceDisplay.MainDisplayInfo.Density / 2f;
+                }
+                var leftBufferX = Width * DeviceDisplay.MainDisplayInfo.Density / 2f - baseWidth;
+                if (_viewModel.Settings.IsCaptureLeftFirst &&
+                    _viewModel.IsNothingCaptured ||
+                    !_viewModel.Settings.IsCaptureLeftFirst &&
+                    _viewModel.IsExactlyOnePictureTaken)
+                {
+                    xProportion = (float)(_tapLocation.X / baseWidth);
+                }
+                else
+                {
+                    xProportion = (float)((_tapLocation.X - baseWidth) / baseWidth);
+                    leftBufferX += baseWidth;
+                }
+                xProportion = Math.Clamp(xProportion, 0, 1);
+
+                var baseHeight = baseWidth * aspect;
+                var minY = (Height * DeviceDisplay.MainDisplayInfo.Density - baseHeight) / 2f;
+
+                yProportion = (float)((_tapLocation.Y - minY) / baseHeight);
+                yProportion = Math.Clamp(yProportion, 0, 1);
+
+                _viewModel.FocusCircleX = (xProportion * baseWidth + leftBufferX) / DeviceDisplay.MainDisplayInfo.Density;
+                _viewModel.FocusCircleY = (yProportion * baseHeight + minY) / DeviceDisplay.MainDisplayInfo.Density;
+            }
+
+            var convertedPoint = new PointF
+            {
+                X = xProportion,
+                Y = yProportion
+            };
+            
+            _cameraModule.OnSingleTapped(convertedPoint);
+            _viewModel.IsFocusCircleVisible = true;
+        }
+
+        private void ClearAllTaps()
+        {
+            _doubleTapTimer.Stop();
+            _releaseCounter = 0;
+            _dragCounter = 0;
         }
     }
 }

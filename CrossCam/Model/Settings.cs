@@ -18,7 +18,7 @@ namespace CrossCam.Model
                 if (intValue < 0) return;
 
                 var totalSaveModes = 0;
-                if(SaveForCrossView)
+                if (SaveForCrossView)
                 {
                     totalSaveModes++;
                 }
@@ -34,11 +34,7 @@ namespace CrossCam.Model
                 {
                     totalSaveModes++;
                 }
-                if (SaveSidesSeparately)
-                {
-                    totalSaveModes++;
-                }
-                if (SaveRedundantFirstSide)
+                if (SaveForCardboard)
                 {
                     totalSaveModes++;
                 }
@@ -59,6 +55,9 @@ namespace CrossCam.Model
                         case DrawMode.GrayscaleRedCyanAnaglyph when value != DrawMode.GrayscaleRedCyanAnaglyph:
                             SaveForGrayscaleAnaglyph = false;
                             break;
+                        case DrawMode.Cardboard when value != DrawMode.Cardboard:
+                            SaveForCardboard = false;
+                            break;
                     }
                 }
 
@@ -76,6 +75,9 @@ namespace CrossCam.Model
                     case DrawMode.GrayscaleRedCyanAnaglyph:
                         SaveForGrayscaleAnaglyph = true;
                         break;
+                    case DrawMode.Cardboard:
+                        SaveForCardboard = true;
+                        break;
                 }
 
                 _mode = value;
@@ -84,14 +86,12 @@ namespace CrossCam.Model
 
         public bool HasOfferedTechniqueHelpBefore { get; set; }
         public bool HasShownDirectionsBefore { get; set; }
-
         public bool ShowGuideLinesWithFirstCapture { get; set; }
         public bool ShowGuideDonutWithFirstCapture { get; set; }
         public bool ShowRollGuide { get; set; }
+        public bool ShowGhostCaptures { get; set; }
         public bool ShowPreviewFuseGuide { get; set; }
-
         public bool IsCaptureLeftFirst { get; set; }
-
         private bool _isForceCamera1Enabled;
         public bool IsForceCamera1Enabled
         {
@@ -122,13 +122,9 @@ namespace CrossCam.Model
 
         public bool IsLockToFirstEnabled { get; set; }
         public bool IsTapToFocusEnabled2 { get; set; }
-
         public bool SaveRedundantFirstSide { get; set; }
-
         public string SavingDirectory { get; set; }
-
         public bool SaveToExternal { get; set; }
-
         public bool SaveForCrossView { get; set; }
         public bool SaveForParallel { get; set; }
         public bool SaveForRedCyanAnaglyph { get; set; }
@@ -136,6 +132,7 @@ namespace CrossCam.Model
         public bool SaveForTriple { get; set; }
         public bool SaveForQuad { get; set; }
         public bool SaveWithFuseGuide { get; set; }
+        public bool SaveForCardboard { get; set; }
 
         public bool SendErrorReports1 { get; set; }
 
@@ -145,7 +142,6 @@ namespace CrossCam.Model
         public bool GrayscaleAnaglyphMode { get => SaveForGrayscaleAnaglyph; set => SaveForGrayscaleAnaglyph = value; }
 
         public bool AddBorder { get; set; }
-
         public bool ClipBorderOnNextLoad { get; set; }
 
         private bool? _isPairedPrimary;
@@ -256,7 +252,7 @@ namespace CrossCam.Model
             get => _borderColor;
             set
             {
-                var intValue = (int) value;
+                var intValue = (int)value;
                 if (intValue < 0) return;
                 _borderColor = value;
             }
@@ -343,6 +339,65 @@ namespace CrossCam.Model
             }
         }
 
+        private int _cardboardIpd;
+        public int CardboardIpd
+        {
+            get => _cardboardIpd;
+            set
+            {
+                if (value > 0)
+                {
+                    _cardboardIpd = value;
+                }
+            }
+        }
+
+        private int _cardboardBarrelDistortion;
+        public int CardboardBarrelDistortion
+        {
+            get => _cardboardBarrelDistortion;
+            set
+            {
+                if (value > 0)
+                {
+                    _cardboardBarrelDistortion = value;
+                }
+            }
+        }
+
+        private bool _addBarrelDistortion;
+        public bool AddBarrelDistortion
+        {
+            get => _addBarrelDistortion;
+            set
+            {
+                _addBarrelDistortion = value;
+                if (!value)
+                {
+                    AddBarrelDistortionFinalOnly = false;
+                }
+            }
+        }
+
+        public bool CardboardDownsize { get; set; }
+
+        private int _cardboardDownsizePercentage;
+        public int CardboardDownsizePercentage
+        {
+            get => _cardboardDownsizePercentage;
+            set
+            {
+                if (value > 0)
+                {
+                    _cardboardDownsizePercentage = value;
+                }
+            }
+        }
+
+        public bool ImmersiveCardboardFinal { get; set; }
+
+        public bool AddBarrelDistortionFinalOnly { get; set; }
+
         public AlignmentSettings AlignmentSettings { get; set; }
 
         public Settings()
@@ -361,13 +416,14 @@ namespace CrossCam.Model
             IsCaptureLeftFirst = true;
             ShowRollGuide = true;
 
-            AddBorder = false;
+            AddBorder = true; //TODO: UNDO THIS< DEUB
             ClipBorderOnNextLoad = false;
 
             ShowGuideLinesWithFirstCapture = false;
             IsGuideDonutVisible = false;
             ShowGuideDonutWithFirstCapture = false;
             ShowPreviewFuseGuide = true;
+            ShowGhostCaptures = false;
 
             SaveForCrossView = true;
             SaveSidesSeparately = false;
@@ -377,7 +433,8 @@ namespace CrossCam.Model
             SaveForRedCyanAnaglyph = false;
             SaveForTriple = false;
             SaveForQuad = false;
-            SaveWithFuseGuide = false;
+            SaveWithFuseGuide = true; //TODO: undo this for debugging (OR DON'T? keep it?)
+            SaveForCardboard = false;
 
             IsForceCamera1Enabled = false;
             IsForceCamera2Enabled = false;
@@ -408,6 +465,14 @@ namespace CrossCam.Model
             PairedPreviewFrameDelayMs = 250;
             PairSyncSampleCount = 50;
             PairedCaptureCountdown = 0; //TODO: 0 or 3?
+
+            CardboardIpd = 400;
+            CardboardBarrelDistortion = 200;
+            AddBarrelDistortion = false;
+            AddBarrelDistortionFinalOnly = false;
+            CardboardDownsize = false;
+            CardboardDownsizePercentage = 50;
+            ImmersiveCardboardFinal = true;
 
             SendErrorReports1 = true;
 

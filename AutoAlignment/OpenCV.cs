@@ -4,7 +4,6 @@ using System.Diagnostics;
 using System.Linq;
 using AutoAlignment;
 using CrossCam.Model;
-using CrossCam.Page;
 using CrossCam.Wrappers;
 #if !__NO_EMGU__
 using System.Drawing;
@@ -16,7 +15,6 @@ using Emgu.CV.Util;
 #endif
 using SkiaSharp;
 using Xamarin.Forms;
-using Point = System.Drawing.Point;
 #if __ANDROID__
 using SkiaSharp.Views.Android;
 #elif __IOS__
@@ -407,7 +405,68 @@ namespace AutoAlignment
             return result;
         }
 
-        private static SKBitmap DrawMatches(SKBitmap image1, SKBitmap image2, List<PointForCleaning> points)
+        public SKBitmap AddBarrelDistortion(SKBitmap bitmap, float downsize, float strength, float cxProportion, SKFilterQuality filterQuality = SKFilterQuality.High)
+        {
+            using var cvImage = new Mat();
+            CvInvoke.Imdecode(GetBytes(bitmap, downsize, filterQuality), ImreadModes.Color, cvImage);
+
+            using var cameraMatrix = GetCameraMatrix(bitmap.Width * downsize * cxProportion, bitmap.Height * downsize / 2f);
+
+            var size = Math.Sqrt(Math.Pow(bitmap.Width * downsize, 2) + Math.Pow(bitmap.Height * downsize, 2));
+            var scaledCoeff = strength / Math.Pow(size, 2);
+            using var distortionMatrix = GetDistortionMatrix((float)scaledCoeff);
+
+            using var transformedImage = new Mat();
+            CvInvoke.Undistort(cvImage, transformedImage, cameraMatrix, distortionMatrix);
+#if __IOS__
+            return transformedImage.ToCGImage().ToSKBitmap();
+#elif __ANDROID__
+            return transformedImage.ToBitmap().ToSKBitmap();
+#endif
+        }
+
+        private static Mat GetCameraMatrix(float cx, float cy)
+        {
+            var cameraMatrix = Mat.Eye(3, 3, DepthType.Cv32F, 1);
+            unsafe
+            {
+                var ptr = (float*)cameraMatrix.DataPointer.ToPointer(); //fx
+                ptr++; //0
+                ptr++; //cx
+                *ptr = cx;
+                ptr++; //0
+                ptr++; //fy
+                ptr++; //cy
+                *ptr = cy;
+                ptr++; //0
+                ptr++; //0
+                ptr++; //1
+            }
+
+            return cameraMatrix;
+        }
+
+        private static Mat GetDistortionMatrix(float strength)
+        {
+            var distortionMatrix = Mat.Zeros(1, 5, DepthType.Cv32F, 1);
+            unsafe
+            {
+                var ptr = (float*)distortionMatrix.DataPointer.ToPointer(); //k1
+                *ptr = strength; //0.0000001f;
+                ptr++; //k2 ?
+                //*ptr = 0.0000000000001f;
+                ptr++; //p1 - top and bottom keystone kind of
+                //*ptr = 0.0001f;
+                ptr++; //p2 - left and right keystone kind of
+                //*ptr = 0.0001f;
+                ptr++; //k3 ?
+                //*ptr = 0.0000001f;
+            }
+
+            return distortionMatrix;
+        }
+
+        private SKBitmap DrawMatches(SKBitmap image1, SKBitmap image2, List<PointForCleaning> points)
         {
             using var fullSizeColor1 = new Mat();
             using var fullSizeColor2 = new Mat();
@@ -494,14 +553,16 @@ namespace AutoAlignment
 
         private static SKMatrix FindTaper(SKPoint[] pointsToMatch, SKPoint[] pointsToCorrect, SKBitmap image, bool keystoneRight)
         {
-            const float FINAL_TAPER_DELTA = 0.0001f;
-            const float TAPER_INC = 0.5f;
-            var taperSide = keystoneRight ? TaperSide.Right : TaperSide.Left;
+            //TODO: fix this
+            throw new NotImplementedException();
+            //const float FINAL_TAPER_DELTA = 0.0001f;
+            //const float TAPER_INC = 0.5f;
+            //var taperSide = keystoneRight ? TaperSide.Right : TaperSide.Left;
 
-            var taper = BinarySearchFindComponent(pointsToMatch, pointsToCorrect,
-                t => TaperTransform.Make(new SKSize(image.Width, image.Height), taperSide, TaperCorner.Both, t),
-                TAPER_INC, FINAL_TAPER_DELTA, 1);
-            return TaperTransform.Make(new SKSize(image.Width, image.Height), taperSide, TaperCorner.Both, taper);
+            //var taper = BinarySearchFindComponent(pointsToMatch, pointsToCorrect,
+            //    t => TaperTransform.Make(new SKSize(image.Width, image.Height), taperSide, TaperCorner.Both, t),
+            //    TAPER_INC, FINAL_TAPER_DELTA, 1);
+            //return TaperTransform.Make(new SKSize(image.Width, image.Height), taperSide, TaperCorner.Both, taper);
         }
 
         private static float BinarySearchFindComponent(SKPoint[] basePoints, SKPoint[] pointsToTransform, Func<float, SKMatrix> testerFunction, float searchingIncrement, float terminationThreshold, float componentStart = 0, bool useXDisplacement = false)
@@ -625,20 +686,27 @@ namespace AutoAlignment
             return Math.Sqrt(Math.Pow(from.X - to.X, 2) + Math.Pow(from.Y - to.Y, 2));
         }
 
-        private static byte[] GetBytes(SKBitmap bitmap, double downsize)
+        public byte[] GetBytes(SKBitmap bitmap, double downsize, SKFilterQuality filterQuality = SKFilterQuality.High)
         {
-            var width = (int)(bitmap.Width * downsize);
-            var height = (int)(bitmap.Height * downsize);
+            //TODO: compare jpeg 100 vs png 100 vs png 0
+            if (downsize == 1)
+            {
+               return SKImage.FromBitmap(bitmap).Encode(SKEncodedImageFormat.Png, 0).ToArray();
+            }
+
+            var targetWidth = (int)(bitmap.Width * downsize);
+            var targetHeight = (int)(bitmap.Height * downsize);
             using var tempSurface =
-                SKSurface.Create(new SKImageInfo(width, height));
+                SKSurface.Create(new SKImageInfo(targetWidth, targetHeight));
             var canvas = tempSurface.Canvas;
             canvas.Clear();
 
+            using var paint = new SKPaint {FilterQuality = filterQuality};
             canvas.DrawBitmap(bitmap,
-                SKRect.Create(0, 0, bitmap.Width, bitmap.Height),
-                SKRect.Create(0, 0, width, height));
+                SKRect.Create(0, 0, targetWidth, targetHeight),
+                paint);
 
-            using var data = tempSurface.Snapshot().Encode(SKEncodedImageFormat.Jpeg, 100);
+            using var data = tempSurface.Snapshot().Encode(SKEncodedImageFormat.Png, 0);
             return data.ToArray();
         }
     }

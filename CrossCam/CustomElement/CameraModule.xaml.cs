@@ -1,4 +1,6 @@
-﻿using System.Collections.ObjectModel;
+﻿using System;
+using System.Collections.ObjectModel;
+using System.Drawing;
 using CrossCam.ViewModel;
 using Xamarin.Forms;
 
@@ -11,19 +13,25 @@ namespace CrossCam.CustomElement
 			InitializeComponent ();
 	    }
 
-	    public static readonly BindableProperty CapturedImageProperty = BindableProperty.Create(nameof(CapturedImage),
+        public EventHandler<PointF> SingleTapped;
+        public void OnSingleTapped(PointF point)
+        {
+            SingleTapped?.Invoke(this, point);
+        }
+
+        public EventHandler DoubleTapped;
+        public void OnDoubleTapped()
+        {
+            DoubleTapped?.Invoke(this, EventArgs.Empty);
+        }
+
+        public static readonly BindableProperty CapturedImageProperty = BindableProperty.Create(nameof(CapturedImage),
 	        typeof(byte[]), typeof(CameraModule), null, BindingMode.OneWayToSource);
 
         public static readonly BindableProperty CaptureTriggerProperty = BindableProperty.Create(nameof(CaptureTrigger),
             typeof(bool), typeof(CameraModule), false);
 
 	    public static readonly BindableProperty CaptureSuccessProperty = BindableProperty.Create(nameof(CaptureSuccess),
-	        typeof(bool), typeof(CameraModule), false, BindingMode.OneWayToSource);
-
-	    public static readonly BindableProperty IsPortraitProperty = BindableProperty.Create(nameof(IsPortrait),
-	        typeof(bool), typeof(CameraModule), false, BindingMode.OneWayToSource);
-
-	    public static readonly BindableProperty IsViewInvertedProperty = BindableProperty.Create(nameof(IsViewInverted),
 	        typeof(bool), typeof(CameraModule), false, BindingMode.OneWayToSource);
 
         public static readonly BindableProperty IsTapToFocusEnabledProperty = BindableProperty.Create(nameof(IsTapToFocusEnabled),
@@ -50,17 +58,8 @@ namespace CrossCam.CustomElement
         public static readonly BindableProperty PreviewAspectRatioProperty = BindableProperty.Create(nameof(PreviewAspectRatio),
 	        typeof(double), typeof(CameraModule), 0d, BindingMode.OneWayToSource);
 
-        public static readonly BindableProperty IsFocusCircleVisibleProperty = BindableProperty.Create(nameof(IsFocusCircleVisible),
-            typeof(bool), typeof(CameraModule), false, BindingMode.OneWayToSource);
-
         public static readonly BindableProperty IsFocusCircleLockedProperty = BindableProperty.Create(nameof(IsFocusCircleLocked),
             typeof(bool), typeof(CameraModule), false, BindingMode.OneWayToSource);
-
-        public static readonly BindableProperty FocusCircleXProperty = BindableProperty.Create(nameof(FocusCircleX),
-            typeof(double), typeof(CameraModule), 0d, BindingMode.OneWayToSource);
-
-        public static readonly BindableProperty FocusCircleYProperty = BindableProperty.Create(nameof(FocusCircleY),
-            typeof(double), typeof(CameraModule), 0d, BindingMode.OneWayToSource);
 
         public static readonly BindableProperty BluetoothOperatorProperty = BindableProperty.Create(nameof(BluetoothOperator),
             typeof(BluetoothOperator), typeof(CameraModule));
@@ -70,6 +69,9 @@ namespace CrossCam.CustomElement
 
         public static readonly BindableProperty ChosenCameraProperty = BindableProperty.Create(nameof(ChosenCamera),
             typeof(AvailableCamera), typeof(CameraModule), defaultBindingMode:BindingMode.TwoWay);
+        
+        public static readonly BindableProperty PreviewModeProperty = BindableProperty.Create(nameof(PreviewMode),
+            typeof(DrawMode), typeof(CameraModule), DrawMode.Cross);
 
         public byte[] CapturedImage
         {
@@ -87,18 +89,6 @@ namespace CrossCam.CustomElement
 	    {
 	        get => (bool)GetValue(CaptureSuccessProperty);
 	        set => SetValue(CaptureSuccessProperty, value);
-	    }
-
-	    public bool IsPortrait
-	    {
-	        get => (bool)GetValue(IsPortraitProperty);
-	        set => SetValue(IsPortraitProperty, value);
-	    }
-
-	    public bool IsViewInverted
-        {
-	        get => (bool)GetValue(IsViewInvertedProperty);
-	        set => SetValue(IsViewInvertedProperty, value);
 	    }
 
         public bool IsTapToFocusEnabled
@@ -149,28 +139,10 @@ namespace CrossCam.CustomElement
 	        set => SetValue(PreviewAspectRatioProperty, value);
         }
 
-        public bool IsFocusCircleVisible
-        {
-            get => (bool)GetValue(IsFocusCircleVisibleProperty);
-            set => SetValue(IsFocusCircleVisibleProperty, value);
-        }
-
         public bool IsFocusCircleLocked
         {
             get => (bool)GetValue(IsFocusCircleLockedProperty);
             set => SetValue(IsFocusCircleLockedProperty, value);
-        }
-
-        public double FocusCircleX
-        {
-            get => (double)GetValue(FocusCircleXProperty);
-            set => SetValue(FocusCircleXProperty, value);
-        }
-
-        public double FocusCircleY
-        {
-            get => (double)GetValue(FocusCircleYProperty);
-            set => SetValue(FocusCircleYProperty, value);
         }
 
         public BluetoothOperator BluetoothOperator
@@ -189,6 +161,12 @@ namespace CrossCam.CustomElement
         {
             get => (AvailableCamera)GetValue(ChosenCameraProperty);
             set => SetValue(ChosenCameraProperty, value);
+        }
+
+        public DrawMode PreviewMode
+        {
+            get => (DrawMode)GetValue(PreviewModeProperty);
+            set => SetValue(PreviewModeProperty, value);
         }
     }
 }

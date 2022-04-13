@@ -16,6 +16,9 @@ using Timer = System.Timers.Timer;
 
 namespace CrossCam.CustomElement
 {
+    /// <summary>
+    /// This isn't actually Bluetooth, it more often uses Wi-Fi Direct, but it's abstracted away so I don't actually know or have to care
+    /// </summary>
     public sealed class BluetoothOperator : INotifyPropertyChanged
     {
         private readonly Settings _settings;
@@ -211,7 +214,7 @@ namespace CrossCam.CustomElement
                         Debug.WriteLine("### payload stated length (" + payload.Length + ") was not equal to payload observed length (" + payloadLength + ")");
                     }
 
-                    //if ((CrossCommand) bytes[2] != CrossCommand.PreviewFrame &&
+                    //if ((CrossCommand) bytes[2] != CrossCommand.RemotePreviewFrame &&
                     //    (CrossCommand) bytes[2] != CrossCommand.CapturedImage)
                     //{
                     //    Debug.WriteLine("### PAYLOAD RECEIVED: " + string.Join(",",bytes));
@@ -321,7 +324,7 @@ namespace CrossCam.CustomElement
             };
             var fullPayload = header.Concat(payload).ToArray();
             //if (crossCommand != CrossCommand.CapturedImage &&
-            //    crossCommand != CrossCommand.PreviewFrame)
+            //    crossCommand != CrossCommand.RemotePreviewFrame)
             //{
             //    Debug.WriteLine("### PAYLOAD SENT: " + string.Join(",", fullPayload));
             //}

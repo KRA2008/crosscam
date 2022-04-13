@@ -10,6 +10,7 @@ using CoreGraphics;
 using CoreMedia;
 using CoreVideo;
 using CrossCam.iOS.CustomRenderer;
+using CrossCam.Model;
 using CrossCam.ViewModel;
 using Foundation;
 using UIKit;
@@ -71,7 +72,7 @@ namespace CrossCam.iOS.CustomRenderer
                 if (e.PropertyName == nameof(_cameraModule.Width) ||
                     e.PropertyName == nameof(_cameraModule.Height))
                 {
-                    NativeView.Bounds = new CGRect(0, 0, _cameraModule.Width, _cameraModule.Height);
+                    NativeView.Bounds = new CGRect(0, -10000, _cameraModule.Width, _cameraModule.Height);
                     SetupCamera();
                     _cameraModule.PreviewAspectRatio = 4 / 3d; // always 4:3 on iOS
                     double previewHeight;
@@ -133,7 +134,6 @@ namespace CrossCam.iOS.CustomRenderer
         {
             if (_cameraModule.IsNothingCaptured && _cameraModule.IsLockToFirstEnabled)
             {
-                _cameraModule.IsFocusCircleVisible = false;
 
                 _device.LockForConfiguration(out var error);
                 if (error != null) return;
@@ -318,20 +318,18 @@ namespace CrossCam.iOS.CustomRenderer
                     }
 
                     var jpegImageAsNsData = AVCaptureStillImageOutput.JpegStillToNSData(sampleBuffer);
-                    using (var image = UIImage.LoadFromData(jpegImageAsNsData))
-                    using (var cgImage = image.CGImage)
-                    using (var rotatedImage = UIImage.FromImage(cgImage, 1, GetOrientationForCorrection()))
+                    using var image = UIImage.LoadFromData(jpegImageAsNsData);
+                    using var cgImage = image.CGImage;
+                    using var rotatedImage = UIImage.FromImage(cgImage, 1, GetOrientationForCorrection());
+                    var imageBytes = rotatedImage.AsJPEG().ToArray();
+                    if (_cameraModule.BluetoothOperator.PairStatus == PairStatus.Connected &&
+                        !_cameraModule.BluetoothOperator.IsPrimary)
                     {
-                        var imageBytes = rotatedImage.AsJPEG().ToArray();
-                        if (_cameraModule.BluetoothOperator.PairStatus == PairStatus.Connected &&
-                            !_cameraModule.BluetoothOperator.IsPrimary)
-                        {
-                            _cameraModule.BluetoothOperator.SendCapture(imageBytes);
-                        }
-                        else
-                        {
-                            _cameraModule.CapturedImage = imageBytes;
-                        }
+                        _cameraModule.BluetoothOperator.SendCapture(imageBytes);
+                    }
+                    else
+                    {
+                        _cameraModule.CapturedImage = imageBytes;
                     }
                 }
             }
@@ -359,21 +357,19 @@ namespace CrossCam.iOS.CustomRenderer
                         LockPictureSpecificSettingsIfApplicable();
                     }
 
-                    using (var image = AVCapturePhotoOutput.GetJpegPhotoDataRepresentation(finishedPhotoBuffer, previewPhotoBuffer))
-                    using (var imgDataProvider = new CGDataProvider(image))
-                    using (var cgImage = CGImage.FromJPEG(imgDataProvider, null, false, CGColorRenderingIntent.Default))
-                    using (var uiImage = UIImage.FromImage(cgImage, 1, GetOrientationForCorrection()))
+                    using var image = AVCapturePhotoOutput.GetJpegPhotoDataRepresentation(finishedPhotoBuffer, previewPhotoBuffer);
+                    using var imgDataProvider = new CGDataProvider(image);
+                    using var cgImage = CGImage.FromJPEG(imgDataProvider, null, false, CGColorRenderingIntent.Default);
+                    using var uiImage = UIImage.FromImage(cgImage, 1, GetOrientationForCorrection());
+                    var imageBytes = uiImage.AsJPEG().ToArray();
+                    if (_cameraModule.BluetoothOperator.PairStatus == PairStatus.Connected &&
+                        !_cameraModule.BluetoothOperator.IsPrimary)
                     {
-                        var imageBytes = uiImage.AsJPEG().ToArray();
-                        if (_cameraModule.BluetoothOperator.PairStatus == PairStatus.Connected &&
-                            !_cameraModule.BluetoothOperator.IsPrimary)
-                        {
-                            _cameraModule.BluetoothOperator.SendCapture(imageBytes);
-                        }
-                        else
-                        {
-                            _cameraModule.CapturedImage = imageBytes;
-                        }
+                        _cameraModule.BluetoothOperator.SendCapture(imageBytes);
+                    }
+                    else
+                    {
+                        _cameraModule.CapturedImage = imageBytes;
                     }
                 }
             }
@@ -401,19 +397,17 @@ namespace CrossCam.iOS.CustomRenderer
                         LockPictureSpecificSettingsIfApplicable();
                     }
 
-                    using (var cgImage = photo.CGImageRepresentation)
-                    using (var uiImage = UIImage.FromImage(cgImage, 1, GetOrientationForCorrection()))
+                    using var cgImage = photo.CGImageRepresentation;
+                    using var uiImage = UIImage.FromImage(cgImage, 1, GetOrientationForCorrection());
+                    var imageBytes = uiImage.AsJPEG().ToArray();
+                    if (_cameraModule.BluetoothOperator.PairStatus == PairStatus.Connected &&
+                        !_cameraModule.BluetoothOperator.IsPrimary)
                     {
-                        var imageBytes = uiImage.AsJPEG().ToArray();
-                        if (_cameraModule.BluetoothOperator.PairStatus == PairStatus.Connected &&
-                            !_cameraModule.BluetoothOperator.IsPrimary)
-                        {
-                            _cameraModule.BluetoothOperator.SendCapture(imageBytes);
-                        }
-                        else
-                        {
-                            _cameraModule.CapturedImage = imageBytes;
-                        }
+                        _cameraModule.BluetoothOperator.SendCapture(imageBytes);
+                    }
+                    else
+                    {
+                        _cameraModule.CapturedImage = imageBytes;
                     }
                 }
             }
@@ -548,10 +542,6 @@ namespace CrossCam.iOS.CustomRenderer
                     _device.WhiteBalanceMode = AVCaptureWhiteBalanceMode.AutoWhiteBalance; //not sure about this
                 }
 
-                _cameraModule.FocusCircleX = focusCircleX;
-                _cameraModule.FocusCircleY = focusCircleY;
-                _cameraModule.IsFocusCircleVisible = true;
-
                 _device.UnlockForConfiguration();
             }
         }
@@ -583,8 +573,6 @@ namespace CrossCam.iOS.CustomRenderer
                 device.WhiteBalanceMode = AVCaptureWhiteBalanceMode.ContinuousAutoWhiteBalance;
             }
 
-            _cameraModule.IsFocusCircleVisible = false;
-
             device.UnlockForConfiguration();
         }
 
@@ -606,35 +594,10 @@ namespace CrossCam.iOS.CustomRenderer
                     case UIDeviceOrientation.Portrait:
                     case UIDeviceOrientation.LandscapeLeft:
                     case UIDeviceOrientation.LandscapeRight:
-                        if (_previousValidOrientation != UIDevice.CurrentDevice.Orientation)
-                        {
-                            switch (UIDevice.CurrentDevice.Orientation)
-                            {
-                                case UIDeviceOrientation.Portrait:
-                                    _cameraModule.IsPortrait = true;
-                                    _cameraModule.IsViewInverted = false;
-                                    break;
-                                case UIDeviceOrientation.LandscapeLeft:
-                                    _cameraModule.IsPortrait = false;
-                                    _cameraModule.IsViewInverted = false;
-                                    break;
-                                case UIDeviceOrientation.LandscapeRight:
-                                    _cameraModule.IsPortrait = false;
-                                    _cameraModule.IsViewInverted = true;
-                                    break;
-                            }
-                            
-                            _previousValidOrientation = UIDevice.CurrentDevice.Orientation;
-                        }
-
+                        _previousValidOrientation = UIDevice.CurrentDevice.Orientation;
                         break;
                     default:
-                        if (!_previousValidOrientation.HasValue)
-                        {
-                            _cameraModule.IsPortrait = true;
-                            _cameraModule.IsViewInverted = false;
-                            _previousValidOrientation = UIDeviceOrientation.Portrait;
-                        }
+                        _previousValidOrientation ??= UIDeviceOrientation.Portrait;
                         break;
                 }
             }
@@ -724,15 +687,20 @@ namespace CrossCam.iOS.CustomRenderer
             {
                 try
                 {
+                    var image = GetImageFromSampleBuffer(sampleBuffer);
+                    var bytes = image.AsJPEG(0).ToArray();
+                    MessagingCenter.Send(new object(), CameraViewModel.PREVIEW_FRAME_MESSAGE, new PreviewFrame
+                    {
+                        Frame = bytes
+                    });
                     if (_camera.BluetoothOperator.PairStatus == PairStatus.Connected)
                     {
                         if (Interlocked.Exchange(ref _readyToCapturePreviewFrameInterlocked, 0) == 1)
                         {
-                            var image = GetImageFromSampleBuffer(sampleBuffer);
-                            var bytes = image.AsJPEG(0).ToArray();
                             _camera.BluetoothOperator.SendLatestPreviewFrame(bytes);
                         }
                     }
+
                 }
                 catch (Exception e)
                 {
@@ -746,40 +714,29 @@ namespace CrossCam.iOS.CustomRenderer
 
             private static UIImage GetImageFromSampleBuffer(CMSampleBuffer sampleBuffer)
             {
-
                 // Get a pixel buffer from the sample buffer
-                using (var pixelBuffer = sampleBuffer.GetImageBuffer() as CVPixelBuffer)
-                {
-                    // Lock the base address
-                    pixelBuffer.Lock(CVPixelBufferLock.None);
+                using var pixelBuffer = sampleBuffer.GetImageBuffer() as CVPixelBuffer;
+                // Lock the base address
+                pixelBuffer.Lock(CVPixelBufferLock.None);
 
-                    // Prepare to decode buffer
-                    const CGBitmapFlags FLAGS = CGBitmapFlags.PremultipliedFirst | CGBitmapFlags.ByteOrder32Little;
+                // Prepare to decode buffer
+                const CGBitmapFlags FLAGS = CGBitmapFlags.PremultipliedFirst | CGBitmapFlags.ByteOrder32Little;
 
-                    // Decode buffer - Create a new colorspace
-                    using (var cs = CGColorSpace.CreateDeviceRGB())
-                    {
-
-                        // Create new context from buffer
-                        using (var context = new CGBitmapContext(pixelBuffer.BaseAddress,
-                            pixelBuffer.Width,
-                            pixelBuffer.Height,
-                            8,
-                            pixelBuffer.BytesPerRow,
-                            cs,
-                            (CGImageAlphaInfo)FLAGS))
-                        {
-
-                            // Get the image from the context
-                            using (var cgImage = context.ToImage())
-                            {
-                                // Unlock and return image
-                                pixelBuffer.Unlock(CVPixelBufferLock.None);
-                                return UIImage.FromImage(cgImage, new nfloat(0.1), GetOrientationForCorrection());
-                            }
-                        }
-                    }
-                }
+                // Decode buffer - Create a new colorspace
+                using var cs = CGColorSpace.CreateDeviceRGB();
+                // Create new context from buffer
+                using var context = new CGBitmapContext(pixelBuffer.BaseAddress,
+                    pixelBuffer.Width,
+                    pixelBuffer.Height,
+                    8,
+                    pixelBuffer.BytesPerRow,
+                    cs,
+                    (CGImageAlphaInfo)FLAGS);
+                // Get the image from the context
+                using var cgImage = context.ToImage();
+                // Unlock and return image
+                pixelBuffer.Unlock(CVPixelBufferLock.None);
+                return UIImage.FromImage(cgImage, new nfloat(0.1), GetOrientationForCorrection());
             }
         }
     }

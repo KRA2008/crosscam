@@ -1,362 +1,512 @@
 ﻿using System;
 using CrossCam.Model;
 using CrossCam.ViewModel;
+using CrossCam.Wrappers;
 using SkiaSharp;
+using Xamarin.Essentials;
+using Xamarin.Forms;
 
 namespace CrossCam.Page
 {
     public class DrawTool
     {
         public const double BORDER_CONVERSION_FACTOR = 0.001;
-        public const float FLOATY_ZERO = 0.00001f;
         private const double FUSE_GUIDE_WIDTH_RATIO = 0.0127;
         private const int FUSE_GUIDE_MARGIN_HEIGHT_RATIO = 7;
 
-        public static void DrawImagesOnCanvas(SKCanvas canvas, SKBitmap leftBitmap, SKBitmap rightBitmap,
-            Settings settings, Edits edits, DrawMode drawMode, bool isFov = false)
+        private static readonly SKColorFilter CyanAnaglyph = SKColorFilter.CreateColorMatrix(new float[]
         {
-            switch (drawMode)
+            0, 0, 0, 0, 0,
+            0, 1, 0, 0, 0,
+            0, 0, 1, 0, 0,
+            0, 0, 0, 1, 0
+        }); 
+        private static readonly SKColorFilter RedAnaglyph = SKColorFilter.CreateColorMatrix(new float[]
+        {
+            1, 0, 0, 0, 0,
+            0, 0, 0, 0, 0,
+            0, 0, 0, 0, 0,
+            0, 0, 0, 1, 0
+        }); 
+        private static readonly SKColorFilter CyanGrayAnaglyph = SKColorFilter.CreateColorMatrix(new float[]
+        {
+               0f,    0f,    0f, 0f, 0f,
+            0.21f, 0.72f, 0.07f, 0f, 0f,
+            0.21f, 0.72f, 0.07f, 0f, 0f,
+               0f,    0f,    0f, 1f, 0f
+        });
+        private static readonly SKColorFilter RedGrayAnaglyph = SKColorFilter.CreateColorMatrix(new float[]
+        {
+            0.21f, 0.72f, 0.07f, 0f, 0f,
+               0f,    0f,    0f, 0f, 0f,
+               0f,    0f,    0f, 0f, 0f,
+               0f,    0f,    0f, 1f, 0f
+        });
+
+        public static void DrawImagesOnCanvas(SKSurface surface, SKBitmap leftBitmap, SKBitmap rightBitmap,
+            Settings settings, Edits edits, DrawMode drawMode, bool isFov = false, bool withSwap = false,
+            DrawQuality drawQuality = DrawQuality.Save, double cardboardVert = 0, double cardboardHor = 0)
+        {
+            var useGhost = drawQuality == DrawQuality.Preview &&
+                            settings.ShowGhostCaptures &&
+                            (drawMode == DrawMode.Cross ||
+                             drawMode == DrawMode.Parallel);
+
+            var fuseGuideRequested = drawQuality != DrawQuality.Preview && 
+                                     settings.SaveWithFuseGuide;
+
+            var skFilterQuality = drawQuality == DrawQuality.Preview || 
+                                  drawQuality == DrawQuality.Review ? 
+                                  SKFilterQuality.Low : SKFilterQuality.High;
+
+            var addBarrelDistortion =
+                settings.AddBarrelDistortion && settings.AddBarrelDistortionFinalOnly && drawQuality != DrawQuality.Preview ||
+                settings.AddBarrelDistortion && !settings.AddBarrelDistortionFinalOnly;
+
+            double cardboardWidthProportion = 0;
+            if (drawMode == DrawMode.Cardboard)
             {
-                case DrawMode.Cross:
-                case DrawMode.GrayscaleRedCyanAnaglyph:
-                case DrawMode.RedCyanAnaglyph:
-                    DrawImagesOnCanvasInternal(canvas, leftBitmap, rightBitmap,
-                        settings.BorderWidthProportion, settings.AddBorder, settings.BorderColor,
-                        edits.LeftCrop + edits.OutsideCrop, edits.InsideCrop + edits.RightCrop, edits.InsideCrop + edits.LeftCrop,
-                        edits.RightCrop + edits.OutsideCrop,
-                        edits.TopCrop, edits.BottomCrop,
-                        edits.LeftRotation, edits.RightRotation,
-                        edits.VerticalAlignment,
-                        edits.LeftZoom + (isFov ? edits.FovLeftCorrection : 0), edits.RightZoom + (isFov ? edits.FovRightCorrection : 0),
-                        edits.LeftKeystone, edits.RightKeystone,
-                        drawMode, settings.SaveWithFuseGuide);
-                    break;
-                case DrawMode.Parallel:
-                    DrawImagesOnCanvasInternal(canvas, rightBitmap, leftBitmap,
-                        settings.BorderWidthProportion, settings.AddBorder, settings.BorderColor,
-                        edits.InsideCrop + edits.LeftCrop, edits.RightCrop + edits.OutsideCrop,
-                        edits.LeftCrop + edits.OutsideCrop, edits.InsideCrop + edits.RightCrop,
-                        edits.TopCrop, edits.BottomCrop,
-                        edits.RightRotation, edits.LeftRotation,
-                        edits.VerticalAlignment,
-                        edits.RightZoom + (isFov ? edits.FovRightCorrection : 0), edits.LeftZoom + (isFov ? edits.FovLeftCorrection : 0),
-                        edits.RightKeystone, edits.LeftKeystone,
-                        drawMode, settings.SaveWithFuseGuide);
-                    break;
+                cardboardWidthProportion = settings.CardboardIpd /
+                                           (Math.Max(DeviceDisplay.MainDisplayInfo.Width,
+                                                DeviceDisplay.MainDisplayInfo.Height) /
+                                            DeviceDisplay.MainDisplayInfo.Density / 2d) / 2d;
+            }
+
+            var cardboardDownsizeProportion = drawQuality != DrawQuality.Save &&
+                                              drawMode == DrawMode.Cardboard &&
+                                              settings.CardboardDownsize ? settings.CardboardDownsizePercentage / 100d : 1;
+            double vert = 0, hor = 0;
+            if (settings.ImmersiveCardboardFinal && 
+                settings.Mode == DrawMode.Cardboard)
+            {
+                vert = cardboardVert;
+                hor = cardboardHor;
+            }
+
+            if (withSwap)
+            {
+                DrawImagesOnCanvasInternal(surface, rightBitmap, leftBitmap,
+                    settings.BorderWidthProportion, settings.AddBorder && drawQuality != DrawQuality.Preview, settings.BorderColor,
+                    edits.InsideCrop + edits.LeftCrop, edits.RightCrop + edits.OutsideCrop,
+                    edits.LeftCrop + edits.OutsideCrop, edits.InsideCrop + edits.RightCrop,
+                    edits.TopCrop, edits.BottomCrop,
+                    edits.RightRotation, edits.LeftRotation,
+                    edits.VerticalAlignment,
+                    edits.RightZoom + (isFov ? edits.FovRightCorrection : 0), edits.LeftZoom + (isFov ? edits.FovLeftCorrection : 0),
+                    edits.RightKeystone, edits.LeftKeystone,
+                    drawMode, fuseGuideRequested,
+                    addBarrelDistortion, settings.CardboardBarrelDistortion,
+                    skFilterQuality,
+                    useGhost,
+                    cardboardWidthProportion, vert, hor,
+                    (float)cardboardDownsizeProportion,
+                    settings.CardboardIpd);
+            }
+            else
+            {
+                DrawImagesOnCanvasInternal(surface, leftBitmap, rightBitmap,
+                    settings.BorderWidthProportion, settings.AddBorder && drawQuality != DrawQuality.Preview, settings.BorderColor,
+                    edits.LeftCrop + edits.OutsideCrop, edits.InsideCrop + edits.RightCrop, edits.InsideCrop + edits.LeftCrop,
+                    edits.RightCrop + edits.OutsideCrop,
+                    edits.TopCrop, edits.BottomCrop,
+                    edits.LeftRotation, edits.RightRotation,
+                    edits.VerticalAlignment,
+                    edits.LeftZoom + (isFov ? edits.FovLeftCorrection : 0), edits.RightZoom + (isFov ? edits.FovRightCorrection : 0),
+                    edits.LeftKeystone, edits.RightKeystone,
+                    drawMode, fuseGuideRequested,
+                    addBarrelDistortion, settings.CardboardBarrelDistortion,
+                    skFilterQuality,
+                    useGhost,
+                    cardboardWidthProportion, vert, hor,
+                    (float)cardboardDownsizeProportion,
+                    settings.CardboardIpd);
             }
         }
 
         private static void DrawImagesOnCanvasInternal(
-            SKCanvas canvas, SKBitmap leftBitmap, SKBitmap rightBitmap,
+            SKSurface surface, SKBitmap leftBitmap, SKBitmap rightBitmap,
             int borderThickness, bool addBorder, BorderColor borderColor,
             double leftLeftCrop, double leftRightCrop, double rightLeftCrop, double rightRightCrop,
             double topCrop, double bottomCrop,
             float leftRotation, float rightRotation, double alignment,
             double leftZoom, double rightZoom,
             float leftKeystone, float rightKeystone,
-            DrawMode drawMode, bool fuseGuideRequested)
+            DrawMode drawMode, bool fuseGuideRequested,
+            bool addBarrelDistortion, int barrelStrength,
+            SKFilterQuality skFilterQuality, bool useGhost, 
+            double cardboardWidthProportion,
+            double cardboardVert,
+            double cardboardHor,
+            float cardboardDownsize,
+            int cardboardIpd)
         {
             if (leftBitmap == null && rightBitmap == null) return;
 
-            var canvasWidth = canvas.DeviceClipBounds.Width;
-            var canvasHeight = canvas.DeviceClipBounds.Height;
+            var canvasWidth = surface.Canvas.DeviceClipBounds.Width;
+            var canvasHeight = surface.Canvas.DeviceClipBounds.Height;
 
-            int leftBitmapWidthLessCrop;
-            int leftBitmapHeightLessCrop;
-
+            double sideBitmapWidthLessCrop, baseHeight, baseWidth, netSideCrop;
             if (leftBitmap != null)
             {
-                leftBitmapWidthLessCrop = (int)(leftBitmap.Width - leftBitmap.Width * (leftLeftCrop + leftRightCrop));
-                leftBitmapHeightLessCrop = (int)(leftBitmap.Height - leftBitmap.Height * (topCrop + bottomCrop + Math.Abs(alignment)));
+                netSideCrop = leftLeftCrop + leftRightCrop;
+                baseHeight = leftBitmap.Height;
+                sideBitmapWidthLessCrop = leftBitmap.Width * (1 - netSideCrop);
+                baseWidth = leftBitmap.Width;
             }
             else
             {
-                leftBitmapWidthLessCrop = (int)(rightBitmap.Width - rightBitmap.Width * (rightLeftCrop + rightRightCrop));
-                leftBitmapHeightLessCrop = (int)(rightBitmap.Height - rightBitmap.Height * (topCrop + bottomCrop + Math.Abs(alignment)));
+                netSideCrop = rightLeftCrop + rightRightCrop;
+                baseHeight = rightBitmap.Height;
+                sideBitmapWidthLessCrop = rightBitmap.Width * (1 - netSideCrop);
+                baseWidth = rightBitmap.Width;
             }
 
-            var innerBorderThicknessProportion = leftBitmap != null && 
-                                                 rightBitmap != null && 
-                                                 addBorder && 
-                                                 drawMode != DrawMode.RedCyanAnaglyph &&
-                                                 drawMode != DrawMode.GrayscaleRedCyanAnaglyph ? 
-                BORDER_CONVERSION_FACTOR * borderThickness : 
+            var sideBitmapHeightLessCrop = baseHeight * (1 - (topCrop + bottomCrop + Math.Abs(alignment)));
+            var overlayDrawing =
+                drawMode == DrawMode.GrayscaleRedCyanAnaglyph ||
+                drawMode == DrawMode.RedCyanAnaglyph ||
+                useGhost;
+            var innerBorderThicknessProportion = leftBitmap != null &&
+                                                 rightBitmap != null &&
+                                                 addBorder &&
+                                                 drawMode != DrawMode.Cardboard &&
+                                                 !overlayDrawing ?
+                BORDER_CONVERSION_FACTOR * borderThickness :
                 0;
 
-            var widthRatio = (leftBitmapWidthLessCrop + leftBitmapWidthLessCrop * innerBorderThicknessProportion * 1.5) / (canvasWidth / 2f);
-            if (drawMode == DrawMode.RedCyanAnaglyph ||
-                drawMode == DrawMode.GrayscaleRedCyanAnaglyph)
+            var widthRatio =
+                (sideBitmapWidthLessCrop + sideBitmapWidthLessCrop * innerBorderThicknessProportion * 1.5) /
+                (canvasWidth / 2d);
+            if (overlayDrawing)
             {
-                widthRatio /= 2;
+                widthRatio /= 2d;
             }
 
-            var bitmapHeightWithEditsAndBorder = leftBitmapHeightLessCrop + leftBitmapWidthLessCrop * innerBorderThicknessProportion * 2;
+            var bitmapHeightWithEditsAndBorder =
+                sideBitmapHeightLessCrop + sideBitmapWidthLessCrop * innerBorderThicknessProportion * 2;
             var drawFuseGuide = fuseGuideRequested &&
-                                drawMode != DrawMode.RedCyanAnaglyph &&
-                                drawMode != DrawMode.GrayscaleRedCyanAnaglyph &&
+                                drawMode != DrawMode.Cardboard &&
+                                !overlayDrawing &&
                                 leftBitmap != null && rightBitmap != null;
 
             float fuseGuideIconWidth = 0;
             float fuseGuideMarginHeight = 0;
             if (drawFuseGuide)
             {
-                fuseGuideIconWidth = CalculateFuseGuideWidth((float)bitmapHeightWithEditsAndBorder);
-                fuseGuideMarginHeight = CalculateFuseGuideMarginHeight((float)bitmapHeightWithEditsAndBorder);
+                fuseGuideIconWidth = CalculateFuseGuideWidth((float) bitmapHeightWithEditsAndBorder);
+                fuseGuideMarginHeight = CalculateFuseGuideMarginHeight((float) bitmapHeightWithEditsAndBorder);
                 bitmapHeightWithEditsAndBorder += fuseGuideMarginHeight;
             }
-            var heightRatio = bitmapHeightWithEditsAndBorder / (1f * canvasHeight);
-            var scalingRatio = widthRatio > heightRatio ? widthRatio : heightRatio;
 
-            fuseGuideIconWidth = (float)(fuseGuideIconWidth / scalingRatio);
-            fuseGuideMarginHeight = (float)(fuseGuideMarginHeight / scalingRatio);
+            var heightRatio = bitmapHeightWithEditsAndBorder / (1d * canvasHeight);
 
-            float leftPreviewX;
-            float rightPreviewX;
-            float previewY;
-            var sidePreviewWidthLessCrop = (float)(leftBitmapWidthLessCrop / scalingRatio);
-            var previewHeightLessCrop = (float)(leftBitmapHeightLessCrop / scalingRatio);
+            var fillsWidth = widthRatio > heightRatio;
 
-            switch (drawMode)
+            var scalingRatio = fillsWidth ? widthRatio : heightRatio;
+
+            fuseGuideIconWidth = (float) (fuseGuideIconWidth / scalingRatio);
+            fuseGuideMarginHeight = (float) (fuseGuideMarginHeight / scalingRatio);
+
+            var clipWidth = (float) (sideBitmapWidthLessCrop / scalingRatio);
+            var clipHeight = (float) (sideBitmapHeightLessCrop / scalingRatio);
+
+            float leftClipX, rightClipX, clipY;
+            if (overlayDrawing)
             {
-                case DrawMode.GrayscaleRedCyanAnaglyph:
-                case DrawMode.RedCyanAnaglyph:
-                    leftPreviewX = rightPreviewX = canvasWidth / 2f - sidePreviewWidthLessCrop / 2f; 
-                    previewY = canvasHeight / 2f - previewHeightLessCrop / 2f;
-                    break;
-                default:
-                    leftPreviewX = (float)(canvasWidth / 2f - (sidePreviewWidthLessCrop + innerBorderThicknessProportion * sidePreviewWidthLessCrop / 2f));
-                    rightPreviewX = (float)(canvasWidth / 2f + innerBorderThicknessProportion * sidePreviewWidthLessCrop / 2f );
-                    previewY = canvasHeight / 2f - previewHeightLessCrop / 2f;
-                    break;
+                leftClipX = rightClipX = canvasWidth / 2f - clipWidth / 2f;
+                clipY = canvasHeight / 2f - clipHeight / 2f;
             }
+            else
+            {
+                leftClipX = (float) (canvasWidth / 2f - 
+                                     (clipWidth + innerBorderThicknessProportion * clipWidth / 2f));
+                rightClipX = (float) (canvasWidth / 2f + 
+                                      innerBorderThicknessProportion * clipWidth / 2f);
+                clipY = canvasHeight / 2f - clipHeight / 2f;
+            }
+
+            var leftDestX = (float)(leftClipX - baseWidth / scalingRatio * leftLeftCrop);
+            var rightDestX = (float)(rightClipX - baseWidth / scalingRatio * rightLeftCrop);
+            var destY = (float)(clipY - baseHeight / scalingRatio * topCrop);
+            var destWidth = (float)(baseWidth / scalingRatio);
+            var destHeight = (float)(baseHeight / scalingRatio);
 
             if (drawFuseGuide)
             {
-                previewY += fuseGuideMarginHeight / 2f;
+                destY += fuseGuideMarginHeight / 2f;
+                clipY += fuseGuideMarginHeight / 2f;
             }
 
-            var isRightRotated = Math.Abs(rightRotation) > FLOATY_ZERO;
-            var isLeftRotated = Math.Abs(leftRotation) > FLOATY_ZERO;
-            var isRightKeystoned = Math.Abs(rightKeystone) > FLOATY_ZERO;
-            var isLeftKeystoned = Math.Abs(leftKeystone) > FLOATY_ZERO;
+            var cardboardSeparationMod = 0d;
+            if (drawMode == DrawMode.Cardboard)
+            {
+                var displayLandscapeSideWidth = (rightClipX - leftClipX) / DeviceDisplay.MainDisplayInfo.Density;
+                cardboardSeparationMod = (cardboardIpd - displayLandscapeSideWidth) * DeviceDisplay.MainDisplayInfo.Density / 2d;
+            }
 
             if (leftBitmap != null)
             {
-                SKBitmap grayscale = null;
-                if (drawMode == DrawMode.GrayscaleRedCyanAnaglyph)
-                {
-                    grayscale = FilterToGrayscale(leftBitmap);
-                }
-
-                SKBitmap transformed = null;
-                if (isLeftRotated ||
-                    leftZoom > 0 ||
-                    isLeftKeystoned)
-                {
-                    transformed = ZoomAndRotate(grayscale ?? leftBitmap, leftZoom, isLeftRotated, leftRotation, isLeftKeystoned, -leftKeystone);
-                }
-
-                using (var paint = new SKPaint())
-                {
-                    if (drawMode == DrawMode.RedCyanAnaglyph ||
-                        drawMode == DrawMode.GrayscaleRedCyanAnaglyph)
-                    {
-                        paint.ColorFilter =
-                            SKColorFilter.CreateColorMatrix(new float[]
-                            {
-                                0, 0, 0, 0, 0,
-                                0, 1, 0, 0, 0,
-                                0, 0, 1, 0, 0,
-                                0, 0, 0, 1, 0
-                            });
-                    }
-
-                    var width = transformed?.Width ?? grayscale?.Width ?? leftBitmap.Width;
-                    var height = transformed?.Height ?? grayscale?.Height ?? leftBitmap.Height;
-
-                    canvas.DrawBitmap(
-                        transformed ?? grayscale ?? leftBitmap,
-                        SKRect.Create(
-                            (float)(width * leftLeftCrop),
-                            (float)(height * topCrop + (alignment > 0 ? alignment * height : 0)),
-                            (float)(width - width * (leftLeftCrop + leftRightCrop)),
-                            (float)(height - height * (topCrop + bottomCrop + Math.Abs(alignment)))),
-                        SKRect.Create(
-                            leftPreviewX,
-                            previewY,
-                            sidePreviewWidthLessCrop,
-                            previewHeightLessCrop),
-                        paint);
-                }
-
-                grayscale?.Dispose();
-                transformed?.Dispose();
+                DrawSide(surface.Canvas, leftBitmap, true, drawMode, leftZoom, leftRotation, leftKeystone,
+                    cardboardHor, cardboardVert, alignment,
+                    leftClipX, clipY, clipWidth, clipHeight,
+                    leftDestX, destY, destWidth, destHeight,
+                    false, -cardboardSeparationMod, skFilterQuality);
             }
 
             if (rightBitmap != null)
             {
-                SKBitmap grayscale = null;
-                if (drawMode == DrawMode.GrayscaleRedCyanAnaglyph)
+                DrawSide(surface.Canvas, rightBitmap, false, drawMode, rightZoom, rightRotation, rightKeystone,
+                    cardboardHor, cardboardVert, alignment,
+                    rightClipX, clipY, clipWidth, clipHeight,
+                    rightDestX, destY, destWidth, destHeight,
+                    leftBitmap != null && useGhost, cardboardSeparationMod, skFilterQuality);
+            }
+
+            var openCv = DependencyService.Get<IOpenCv>();
+            if (drawMode == DrawMode.Cardboard &&
+                addBarrelDistortion &&
+                openCv?.IsOpenCvSupported() == true)
+            {
+                using var paint = new SKPaint
                 {
-                    grayscale = FilterToGrayscale(rightBitmap);
-                }
+                    FilterQuality = skFilterQuality
+                };
 
-                SKBitmap transformed = null;
-                if (isRightRotated ||
-                    rightZoom > 0 || 
-                    isRightKeystoned)
+                var sideWidth = surface.Canvas.DeviceClipBounds.Width / 2f;
+                var sideHeight = surface.Canvas.DeviceClipBounds.Height;
+
+                using var smallSurface = SKSurface.Create(new SKImageInfo((int) sideWidth, sideHeight));
+
+                if (leftBitmap != null)
                 {
-                    transformed = ZoomAndRotate(grayscale ?? rightBitmap, rightZoom, isRightRotated, rightRotation, isRightKeystoned, rightKeystone);
-                }
+                    smallSurface.Canvas.Clear();
+                    smallSurface.Canvas.DrawSurface(surface, 0, 0, paint);
+                    using var leftSnapshot = smallSurface.Snapshot();
+                    using var distortedLeft = openCv.AddBarrelDistortion(SKBitmap.FromImage(leftSnapshot),
+                        cardboardDownsize, barrelStrength / 100f, (float)(1 - cardboardWidthProportion), skFilterQuality);
 
-                using (var paint = new SKPaint())
-                {
-                    if (drawMode == DrawMode.RedCyanAnaglyph ||
-                        drawMode == DrawMode.GrayscaleRedCyanAnaglyph)
-                    {
-                        paint.ColorFilter =
-                            SKColorFilter.CreateColorMatrix(new float[]
-                            {
-                                1, 0, 0, 0, 0,
-                                0, 0, 0, 0, 0,
-                                0, 0, 0, 0, 0,
-                                0, 0, 0, 1, 0
-                            });
-                        paint.BlendMode = SKBlendMode.Plus;
-                    }
-
-                    var width = transformed?.Width ?? grayscale?.Width ?? rightBitmap.Width;
-                    var height = transformed?.Height ?? grayscale?.Height ?? rightBitmap.Height;
-
-                    canvas.DrawBitmap(
-                        transformed ?? grayscale ?? rightBitmap,
+                    surface.Canvas.DrawBitmap(
+                        distortedLeft,
                         SKRect.Create(
-                            (float)(width * rightLeftCrop),
-                            (float)(height * topCrop - (alignment < 0 ? alignment * height : 0)),
-                            (float)(width - width * (rightLeftCrop + rightRightCrop)),
-                            (float)(height - height * (topCrop + bottomCrop + Math.Abs(alignment)))),
-                        SKRect.Create(
-                            rightPreviewX,
-                            previewY,
-                            sidePreviewWidthLessCrop,
-                            previewHeightLessCrop),
+                            0,
+                            0,
+                            sideWidth,
+                            sideHeight),
                         paint);
                 }
 
-                grayscale?.Dispose();
-                transformed?.Dispose();
+                if (rightBitmap != null)
+                {
+                    smallSurface.Canvas.Clear();
+                    smallSurface.Canvas.DrawSurface(surface, -sideWidth, 0, paint);
+                    using var rightSnapshot = smallSurface.Snapshot();
+                    using var distortedRight = openCv.AddBarrelDistortion(SKBitmap.FromImage(rightSnapshot),
+                        cardboardDownsize, barrelStrength / 100f, (float)cardboardWidthProportion, skFilterQuality);
+
+                    surface.Canvas.DrawBitmap(
+                        distortedRight,
+                        SKRect.Create(
+                            sideWidth,
+                            0,
+                            sideWidth,
+                            sideHeight),
+                        paint);
+                }
             }
 
             if (innerBorderThicknessProportion > 0)
             {
-                var borderPaint = new SKPaint
+                using var borderPaint = new SKPaint
                 {
                     Color = borderColor == BorderColor.Black ? SKColor.Parse("000000") : SKColor.Parse("ffffff"),
-                    Style = SKPaintStyle.StrokeAndFill
+                    Style = SKPaintStyle.StrokeAndFill,
+                    FilterQuality = skFilterQuality
                 };
 
-                var originX = (float)(leftPreviewX - innerBorderThicknessProportion * sidePreviewWidthLessCrop);
-                var originY = (float)(previewY - innerBorderThicknessProportion * sidePreviewWidthLessCrop);
-                var fullPreviewWidth = (float)(2 * sidePreviewWidthLessCrop + 3 * innerBorderThicknessProportion * sidePreviewWidthLessCrop);
-                var fullPreviewHeight = (float)(previewHeightLessCrop + 2 * innerBorderThicknessProportion * sidePreviewWidthLessCrop);
-                var scaledBorderThickness = (float)(innerBorderThicknessProportion * sidePreviewWidthLessCrop);
-                var endX = rightPreviewX + sidePreviewWidthLessCrop;
-                var endY = previewY + previewHeightLessCrop;
-                canvas.DrawRect(originX, originY, fullPreviewWidth, scaledBorderThickness, borderPaint);
-                canvas.DrawRect(originX, originY, scaledBorderThickness, fullPreviewHeight, borderPaint);
-                canvas.DrawRect(canvasWidth / 2f - scaledBorderThickness / 2f, originY, scaledBorderThickness, fullPreviewHeight, borderPaint);
-                canvas.DrawRect(endX, originY, scaledBorderThickness, fullPreviewHeight, borderPaint);
-                canvas.DrawRect(originX, endY, fullPreviewWidth, scaledBorderThickness, borderPaint);
+                var originX = (float)(leftClipX - innerBorderThicknessProportion * clipWidth);
+                var originY = (float)(clipY - innerBorderThicknessProportion * clipWidth);
+                var fullPreviewWidth = (float)(2 * clipWidth + 3 * innerBorderThicknessProportion * clipWidth);
+                var fullPreviewHeight = (float)(clipHeight + 2 * innerBorderThicknessProportion * clipWidth);
+                var scaledBorderThickness = (float)(innerBorderThicknessProportion * clipWidth);
+                var endX = rightClipX + clipWidth;
+                var endY = clipY + clipHeight;
+                surface.Canvas.DrawRect(originX, originY, fullPreviewWidth, scaledBorderThickness, borderPaint);
+                surface.Canvas.DrawRect(originX, originY, scaledBorderThickness, fullPreviewHeight, borderPaint);
+                surface.Canvas.DrawRect(canvasWidth / 2f - scaledBorderThickness / 2f, originY, scaledBorderThickness, fullPreviewHeight, borderPaint);
+                surface.Canvas.DrawRect(endX, originY, scaledBorderThickness, fullPreviewHeight, borderPaint);
+                surface.Canvas.DrawRect(originX, endY, fullPreviewWidth, scaledBorderThickness, borderPaint);
             }
 
             if (drawFuseGuide)
             {
-                var previewBorderThickness = canvasWidth / 2f - (leftPreviewX + sidePreviewWidthLessCrop);
-                var fuseGuideY = previewY - 2 * previewBorderThickness - fuseGuideMarginHeight / 2f; //why 2x border? why doesn't this have to account for icon height? i don't know.
-                var whitePaint = new SKPaint
+                var previewBorderThickness = canvasWidth / 2f - (leftClipX + clipWidth);
+                var fuseGuideY = clipY - 2 * previewBorderThickness - fuseGuideMarginHeight / 2f; //why 2x border? why doesn't this have to account for icon height? i don't know.
+                using var whitePaint = new SKPaint
                 {
-                    Color = new SKColor(byte.MaxValue, byte.MaxValue, byte.MaxValue)
+                    Color = new SKColor(byte.MaxValue, byte.MaxValue, byte.MaxValue),
+                    FilterQuality = skFilterQuality
                 };
-                canvas.DrawRect(
-                    canvasWidth / 2f - previewBorderThickness - sidePreviewWidthLessCrop / 2f - fuseGuideIconWidth / 2f,
+                surface.Canvas.DrawRect(
+                    canvasWidth / 2f - previewBorderThickness - clipWidth / 2f - fuseGuideIconWidth / 2f,
                     fuseGuideY, fuseGuideIconWidth, fuseGuideIconWidth, whitePaint);
-                canvas.DrawRect(
-                    canvasWidth / 2f + previewBorderThickness + sidePreviewWidthLessCrop / 2f + fuseGuideIconWidth / 2f,
+                surface.Canvas.DrawRect(
+                    canvasWidth / 2f + previewBorderThickness + clipWidth / 2f + fuseGuideIconWidth / 2f,
                     fuseGuideY, fuseGuideIconWidth, fuseGuideIconWidth, whitePaint);
             }
         }
 
-        private static SKBitmap FilterToGrayscale(SKBitmap originalBitmap)
+        private static void DrawSide(SKCanvas canvas, SKBitmap bitmap, bool isLeft, DrawMode drawMode, 
+            double zoom, float rotation, float keystone,
+            double cardboardHor, double cardboardVert, double alignment,
+            float clipX, float clipY, float clipWidth, float clipHeight,
+            float destX, float destY, float destWidth, float destHeight,
+            bool useGhostOverlay, double cardboardSeparationMod, SKFilterQuality quality)
         {
-            var grayed = new SKBitmap(originalBitmap.Width, originalBitmap.Height);
+            var cardboardHorDelta = cardboardHor * destWidth;
+            var cardboardVertDelta = cardboardVert * destHeight; //TODO: use same property for both to make move speed the same?
 
-            using (var graybrush = new SKPaint())
+            var fullTransform4D = SKMatrix44.CreateIdentity();
+
+            if (Math.Abs(rotation) > 0)
             {
-                graybrush.ColorFilter =
-                    SKColorFilter.CreateColorMatrix(new[]
+                var xCorrection = destX + destWidth / 2f;
+                var yCorrection = destY + destHeight / 2f;
+                fullTransform4D.PostConcat(SKMatrix44.CreateTranslate(-xCorrection, -yCorrection, 0));
+                fullTransform4D.PostConcat(SKMatrix44.CreateRotationDegrees(0, 0, 1, rotation));
+                fullTransform4D.PostConcat(SKMatrix44.CreateTranslate(xCorrection, yCorrection, 0));
+            }
+
+            if (Math.Abs(keystone) > 0)
+            {
+                // TODO (or TODON'T): the axis of this rotation is fixed, but it could be needed in any direction really, so enable that?
+                var isKeystoneSwapped = drawMode == DrawMode.Parallel || drawMode == DrawMode.Cardboard;
+                var xCorrection =
+                    isLeft && !isKeystoneSwapped || !isLeft && isKeystoneSwapped
+                        ? destX
+                        : destX + destWidth;
+                var yCorrection = destY + destHeight / 2f;
+                fullTransform4D.PostConcat(SKMatrix44.CreateTranslate(-xCorrection, -yCorrection, 0));
+                fullTransform4D.PostConcat(SKMatrix44.CreateRotationDegrees(0, 1, 0,
+                    isLeft && !isKeystoneSwapped || !isLeft && isKeystoneSwapped ? keystone : -keystone));
+                fullTransform4D.PostConcat(MakePerspective(destWidth));
+                fullTransform4D.PostConcat(SKMatrix44.CreateTranslate(xCorrection, yCorrection, 0));
+                
+            }
+
+            if (Math.Abs(zoom) > 0)
+            {
+                var xCorrection = destX + destWidth / 2f;
+                var yCorrection = destY + destHeight / 2f;
+                fullTransform4D.PostConcat(SKMatrix44.CreateTranslate(-xCorrection, -yCorrection, 0));
+                fullTransform4D.PostConcat(SKMatrix44.CreateScale((float) (1 + zoom), (float) (1 + zoom), 0));
+                fullTransform4D.PostConcat(SKMatrix44.CreateTranslate(xCorrection, yCorrection, 0));
+            }
+
+            if (Math.Abs(alignment) > 0)
+            {
+                var yCorrection = isLeft
+                    ? alignment > 0 ? -alignment * destHeight : 0
+                    : alignment < 0 ? alignment * destHeight : 0;
+                fullTransform4D.PostConcat(SKMatrix44.CreateTranslate(0, (float) yCorrection, 0));
+            }
+
+            if (Math.Abs(cardboardHorDelta) > 0 ||
+                Math.Abs(cardboardVertDelta) > 0 ||
+                Math.Abs(cardboardSeparationMod) > 0)
+            {
+                fullTransform4D.PostConcat(SKMatrix44.CreateTranslate((float)(-cardboardHorDelta + cardboardSeparationMod), (float)-cardboardVertDelta, 0));
+            }
+
+            var fullTransform3D = fullTransform4D.Matrix;
+
+            using var paint = new SKPaint
+            {
+                FilterQuality = quality
+            };
+
+            switch (drawMode)
+            {
+                case DrawMode.RedCyanAnaglyph:
+                    if (isLeft)
                     {
-                        0.21f, 0.72f, 0.07f, 0.0f, 0.0f,
-                        0.21f, 0.72f, 0.07f, 0.0f, 0.0f,
-                        0.21f, 0.72f, 0.07f, 0.0f, 0.0f,
-                        0.0f,  0.0f,  0.0f,  1.0f, 0.0f
-                    });
-                using (var tempCanvas = new SKCanvas(grayed))
-                {
-                    tempCanvas.DrawBitmap(
-                        originalBitmap,
-                        0,
-                        0,
-                        graybrush);
-                }
+                        paint.ColorFilter = CyanAnaglyph;
+                    }
+                    else
+                    {
+                        paint.ColorFilter = RedAnaglyph;
+                        paint.BlendMode = SKBlendMode.Plus;
+                    }
+                    break;
+                case DrawMode.GrayscaleRedCyanAnaglyph:
+                    if (isLeft)
+                    {
+                        paint.ColorFilter = CyanGrayAnaglyph;
+                    }
+                    else
+                    {
+                        paint.ColorFilter = RedGrayAnaglyph;
+                        paint.BlendMode = SKBlendMode.Plus;
+                    }
+                    break;
             }
 
-            return grayed;
+            if (useGhostOverlay)
+            {
+                paint.Color = paint.Color.WithAlpha((byte)(0xFF * 0.5f));
+            }
+
+            canvas.Save();
+            
+            var adjClipX = Math.Max(clipX - cardboardHorDelta + cardboardSeparationMod, clipX);
+            var adjClipWidth = clipWidth - Math.Abs(cardboardHorDelta - cardboardSeparationMod); //TODO: due to some other stuff, the left and right ends never go further than the clip width from the middle (fix it?)
+            var adjClipY = clipY - cardboardVertDelta;
+
+            canvas.ClipRect(
+                SKRect.Create(
+                    (float) adjClipX,
+                    (float) adjClipY,
+                    (float) adjClipWidth,
+                    clipHeight));
+
+            canvas.SetMatrix(fullTransform3D);
+            canvas.DrawBitmap(
+                bitmap,
+                SKRect.Create(
+                    destX,
+                    destY,
+                    destWidth,
+                    destHeight),
+                paint);
+            canvas.ResetMatrix();
+
+            canvas.Restore();
+
+            //canvas.DrawRect((float) adjClipX, (float) adjClipY, (float) adjClipWidth, clipHeight, new SKPaint
+            //{
+            //    Color = new SKColor(isLeft ? byte.MaxValue : (byte)0, byte.MaxValue, 0, byte.MaxValue / 3)
+            //});
         }
 
-        private static SKBitmap ZoomAndRotate(SKBitmap originalBitmap, double zoom, bool isRotated, float rotation, bool isKeystoned, float keystone)
+        private static SKMatrix44 MakePerspective(float maxDepth)
         {
-            var rotatedAndZoomed = new SKBitmap(originalBitmap.Width, originalBitmap.Height);
+            var perspectiveMatrix = SKMatrix44.CreateIdentity();
+            perspectiveMatrix[3, 2] = -1 / maxDepth;
+            return perspectiveMatrix;
+        }
 
-            using (var tempCanvas = new SKCanvas(rotatedAndZoomed))
+        public static int CalculateOverlayedCanvasWidthWithEditsNoBorder(SKBitmap leftBitmap, SKBitmap rightBitmap, Edits edits)
+        {
+            int baseWidth;
+            if (leftBitmap == null || rightBitmap == null)
             {
-                var zoomedX = originalBitmap.Width * zoom / -2f;
-                var zoomedY = originalBitmap.Height * zoom / -2f;
-                var zoomedWidth = originalBitmap.Width * (1 + zoom);
-                var zoomedHeight = originalBitmap.Height * (1 + zoom);
-                if (isRotated)
-                {
-                    tempCanvas.RotateDegrees(rotation, originalBitmap.Width / 2f,
-                        originalBitmap.Height / 2f);
-                }
-                tempCanvas.DrawBitmap(
-                    originalBitmap,
-                    SKRect.Create(
-                        (float)zoomedX,
-                        (float)zoomedY,
-                        (float)zoomedWidth,
-                        (float)zoomedHeight
-                    )); // blows up the bitmap, which is cut off later
-                if (isRotated)
-                {
-                    tempCanvas.RotateDegrees(rotation, -1 * originalBitmap.Width / 2f,
-                        originalBitmap.Height / 2f);
-                }
+                baseWidth = leftBitmap?.Width ?? rightBitmap?.Width ?? 0;
             }
-
-            SKBitmap keystoned = null;
-            if (isKeystoned)
+            else
             {
-                keystoned = new SKBitmap(originalBitmap.Width, originalBitmap.Height);
-                using (var tempCanvas = new SKCanvas(keystoned))
-                {
-                    tempCanvas.SetMatrix(TaperTransform.Make(new SKSize(originalBitmap.Width, originalBitmap.Height),
-                        keystone > 0 ? TaperSide.Left : TaperSide.Right, TaperCorner.Both, 1 - Math.Abs(keystone)));
-                    tempCanvas.DrawBitmap(rotatedAndZoomed, 0, 0);
-                    rotatedAndZoomed.Dispose();
-                }
+                baseWidth = Math.Min(leftBitmap.Width, rightBitmap.Width);
             }
-
-            return keystoned ?? rotatedAndZoomed;
+            return (int)(baseWidth - baseWidth *
+                (edits.LeftCrop + edits.InsideCrop + edits.OutsideCrop + edits.RightCrop));
         }
 
         public static int CalculateJoinedCanvasWidthWithEditsNoBorder(SKBitmap leftBitmap, SKBitmap rightBitmap,
@@ -371,22 +521,15 @@ namespace CrossCam.Page
         private static int CalculateJoinedCanvasWidthWithEditsNoBorderInternal(SKBitmap leftBitmap, SKBitmap rightBitmap, 
             double leftLeftCrop, double leftRightCrop, double rightLeftCrop, double rightRightCrop)
         {
-            if (leftBitmap == null && rightBitmap == null) return 0;
-
             if (leftBitmap == null || rightBitmap == null)
             {
-                if (leftBitmap != null)
-                {
-                    return leftBitmap.Width * 2;
-                }
-
-                return rightBitmap.Width * 2;
+                return leftBitmap?.Width * 2 ?? rightBitmap?.Width * 2 ?? 0;
             }
 
             var baseWidth = Math.Min(leftBitmap.Width, rightBitmap.Width);
-            return (int)(2 * baseWidth -
-                baseWidth * (leftLeftCrop + leftRightCrop + rightLeftCrop + rightRightCrop));
-        }
+            return (int) (2 * baseWidth -
+                          baseWidth * (leftLeftCrop + leftRightCrop + rightLeftCrop + rightRightCrop));
+            }
 
         public static int CalculateCanvasHeightWithEditsNoBorder(SKBitmap leftBitmap, SKBitmap rightBitmap, Edits edits)
         {
@@ -398,15 +541,13 @@ namespace CrossCam.Page
         private static int CalculateCanvasHeightWithEditsNoBorderInternal(SKBitmap leftBitmap, SKBitmap rightBitmap,
             double topCrop, double bottomCrop, double alignment)
         {
-            if (leftBitmap == null && rightBitmap == null) return 0;
-
             if (leftBitmap == null || rightBitmap == null)
             {
-                return leftBitmap?.Height ?? rightBitmap.Height;
+                return leftBitmap?.Height ?? rightBitmap?.Height ?? 0;
             }
 
             var baseHeight = Math.Min(leftBitmap.Height, rightBitmap.Height);
-            return (int)(baseHeight - baseHeight * (topCrop + bottomCrop + Math.Abs(alignment)));
+            return (int) (baseHeight - baseHeight * (topCrop + bottomCrop + Math.Abs(alignment)));
         }
 
         public static float CalculateFuseGuideMarginHeight(float baseHeight)

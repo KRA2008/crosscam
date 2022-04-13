@@ -6,8 +6,12 @@ namespace CrossCam.Wrappers
     public interface IOpenCv
     {
         bool IsOpenCvSupported();
-        AlignedResult CreateAlignedSecondImageEcc(SKBitmap firstImage, SKBitmap secondImage, bool discardTransX, AlignmentSettings settings);
+
+        AlignedResult CreateAlignedSecondImageEcc(SKBitmap firstImage, SKBitmap secondImage, bool discardTransX,
+            AlignmentSettings settings);
         AlignedResult CreateAlignedSecondImageKeypoints(SKBitmap firstImage, SKBitmap secondImage,
             bool discardTransX, AlignmentSettings settings, bool keystoneRightOnFirst);
+        SKBitmap AddBarrelDistortion(SKBitmap originalImage, float downsize, float strength, float cxProportion, SKFilterQuality filterQuality = SKFilterQuality.High);
+        byte[] GetBytes(SKBitmap bitmap, double downsize, SKFilterQuality filterQuality = SKFilterQuality.High);
     }
 }

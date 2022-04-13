@@ -1,17 +1,12 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 <freshMvvm:FreshBaseContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-             xmlns:model="clr-namespace:CrossCam.Model;assembly=CrossCam"
              xmlns:vm="clr-namespace:CrossCam.ViewModel;assembly=CrossCam"
              xmlns:ce="clr-namespace:CrossCam.CustomElement;assembly=CrossCam"
              xmlns:vc="clr-namespace:CrossCam.ValueConverter;assembly=CrossCam"
              xmlns:forms="clr-namespace:SkiaSharp.Views.Forms;assembly=SkiaSharp.Views.Forms"
              xmlns:freshMvvm="clr-namespace:FreshMvvm;assembly=FreshMvvm"
-             mc:Ignorable="d"
-             
-             d:DataContext="{d:DesignInstance Type=vm:CameraViewModel, IsDesignTimeCreatable=False}"
+             x:DataType="vm:CameraViewModel"
 			 x:Class="CrossCam.Page.CameraPage">
     <ContentPage.Resources>
         <ResourceDictionary>
@@ -100,24 +95,42 @@
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
-            <forms:SKCanvasView x:Name="_capturedCanvas"
-                           Grid.Column="0"
-                           Grid.ColumnSpan="2"
-                           PaintSurface="OnCapturedCanvasInvalidated">
-                <View.GestureRecognizers>
-                    <SwipeGestureRecognizer Command="{Binding SwapSidesCommand}"
-                                            Direction="Left,Right"
-                                            Threshold="50"/>
-                </View.GestureRecognizers>
-            </forms:SKCanvasView>
-            <Image Grid.Column="{Binding IconColumn}"
-                   IsVisible="{Binding ShouldIconBeVisible}"
+            <Image Grid.Column="0"
                    Source="iconInverse"
                    Opacity="0.2"
                    HorizontalOptions="Center"
                    VerticalOptions="Center"
                    WidthRequest="{StaticResource _doubleMediumIconWidth}"
-                   HeightRequest="{StaticResource _doubleMediumIconWidth}"/>
+                   HeightRequest="{StaticResource _doubleMediumIconWidth}">
+                <Image.Triggers>
+                    <DataTrigger TargetType="Image" 
+                                 Binding="{Binding Settings.Mode, Converter={vc:EnumCompareConverter}, ConverterParameter={x:Static vm:DrawMode.Cardboard}}"
+                                 Value="True">
+                        <DataTrigger.Setters>
+                            <Setter Property="IsVisible"
+                                    Value="False"/>
+                        </DataTrigger.Setters>
+                    </DataTrigger>
+                </Image.Triggers>
+            </Image>
+            <Image Grid.Column="1"
+                   Source="iconInverse"
+                   Opacity="0.2"
+                   HorizontalOptions="Center"
+                   VerticalOptions="Center"
+                   WidthRequest="{StaticResource _doubleMediumIconWidth}"
+                   HeightRequest="{StaticResource _doubleMediumIconWidth}">
+                <Image.Triggers>
+                    <DataTrigger TargetType="Image" 
+                                 Binding="{Binding Settings.Mode, Converter={vc:EnumCompareConverter}, ConverterParameter={x:Static vm:DrawMode.Cardboard}}"
+                                 Value="True">
+                        <DataTrigger.Setters>
+                            <Setter Property="IsVisible"
+                                    Value="False"/>
+                        </DataTrigger.Setters>
+                    </DataTrigger>
+                </Image.Triggers>
+            </Image>
             <forms:SKCanvasView x:Name="_pairedPreviewCanvas"
                                 Grid.Column="{Binding IconColumn}"
                                 PaintSurface="OnPairedPreviewCanvasInvalidated"
@@ -128,51 +141,32 @@
                                             Threshold="50"/>
                 </View.GestureRecognizers>
             </forms:SKCanvasView>
-            <ce:CameraModule Grid.Column="{Binding CameraColumn}"
+            <ce:CameraModule x:Name="_cameraModule"
+                             Grid.Column="{Binding CameraColumn}"
                              SwitchToContinuousFocusTrigger="{Binding SwitchToContinuousFocusTrigger}"
                              IsTapToFocusEnabled="{Binding Settings.IsTapToFocusEnabled2}"
                              IsLockToFirstEnabled="{Binding Settings.IsLockToFirstEnabled}"
-                             IsPortrait="{Binding IsViewPortrait}"
                              CaptureTrigger="{Binding CapturePictureTrigger}"
                              IsVisible="{Binding WorkflowStage, Converter={vc:EnumCompareConverter}, ConverterParameter={x:Static vm:WorkflowStage.Capture}}"
-                             IsViewInverted="{Binding IsViewInverted}"
                              CapturedImage="{Binding CapturedImageBytes}"
                              CaptureSuccess="{Binding CaptureSuccess}"
                              IsNothingCaptured="{Binding IsNothingCaptured}"
                              PreviewBottomY="{Binding PreviewBottomY}"
                              PreviewAspectRatio="{Binding PreviewAspectRatio}"
                              ErrorMessage="{Binding ErrorMessage}"
-                             IsFocusCircleVisible="{Binding IsFocusCircleVisible}"
-                             FocusCircleX="{Binding FocusCircleX}"
-                             FocusCircleY="{Binding FocusCircleY}"
                              WasSwipedTrigger="{Binding WasSwipedTrigger}"
                              IsFocusCircleLocked="{Binding IsFocusCircleLocked}"
                              BluetoothOperator="{Binding BluetoothOperatorBindable}"
                              AvailableCameras="{Binding AvailableCameras}"
-                             ChosenCamera="{Binding ChosenCamera}"/>
-            <AbsoluteLayout Grid.Column="{Binding CameraColumn}"
-                            IsVisible="{Binding WorkflowStage, Converter={vc:EnumCompareConverter}, ConverterParameter={x:Static vm:WorkflowStage.Capture}}"
-                            InputTransparent="True">
-                <Image x:Name="_focusCircle"
-                       AbsoluteLayout.LayoutFlags="None"
-                       AbsoluteLayout.LayoutBounds="0,0,0,0"
-                       IsVisible="{Binding IsFocusCircleVisible}">
-                    <Image.Triggers>
-                        <DataTrigger TargetType="Image" 
-                                     Binding="{Binding IsFocusCircleLocked}"
-                                     Value="true">
-                            <Setter Property="Source"
-                                    Value="focusCircleGreen"/>
-                        </DataTrigger>
-                        <DataTrigger TargetType="Image" 
-                                     Binding="{Binding IsFocusCircleLocked}"
-                                     Value="false">
-                            <Setter Property="Source"
-                                    Value="focusCircle"/>
-                        </DataTrigger>
-                    </Image.Triggers>
-                </Image>
-            </AbsoluteLayout>
+                             ChosenCamera="{Binding ChosenCamera}"
+                             PreviewMode="{Binding Settings.Mode}"/>
+            <forms:SKCanvasView x:Name="_capturedCanvas"
+                                Grid.Column="0"
+                                Grid.ColumnSpan="2"
+                                Touch="_capturedCanvas_OnTouch"
+                                EnableTouchEvents="True"
+                                PaintSurface="OnCapturedCanvasInvalidated"/>
+            
             <ce:CameraSuccessOutline Grid.Column="0">
                 <ce:CameraSuccessOutline.Behaviors>
                     <ce:FadeInAndOutBehavior Trigger="{Binding LeftCaptureSuccess}"
@@ -232,6 +226,29 @@
             </AbsoluteLayout>
         </Grid>
 
+        <AbsoluteLayout IsVisible="{Binding WorkflowStage, Converter={vc:EnumCompareConverter}, ConverterParameter={x:Static vm:WorkflowStage.Capture}}"
+                        InputTransparent="True">
+            <Image x:Name="_focusCircle"
+                   AbsoluteLayout.LayoutFlags="None"
+                   AbsoluteLayout.LayoutBounds="0,0,0,0"
+                   IsVisible="{Binding IsFocusCircleVisible}">
+                <Image.Triggers>
+                    <DataTrigger TargetType="Image" 
+                                 Binding="{Binding IsFocusCircleLocked}"
+                                 Value="true">
+                        <Setter Property="Source"
+                                Value="focusCircleGreen"/>
+                    </DataTrigger>
+                    <DataTrigger TargetType="Image" 
+                                 Binding="{Binding IsFocusCircleLocked}"
+                                 Value="false">
+                        <Setter Property="Source"
+                                Value="focusCircle"/>
+                    </DataTrigger>
+                </Image.Triggers>
+            </Image>
+        </AbsoluteLayout>
+
         <BoxView x:Name="_leftFuseGuide"
                  Style="{StaticResource _fuseGuide}"
                  AbsoluteLayout.LayoutBounds="0,0,0,0"
@@ -246,6 +263,14 @@
                                           Value="True"/>
                         <BindingCondition Binding="{Binding IsExactlyOnePictureTaken}"
                                           Value="True"/>
+                        <BindingCondition Binding="{Binding Settings.ShowGhostCaptures}"
+                                          Value="False"/>
+                        <BindingCondition Binding="{Binding Settings.Mode, Converter={vc:EnumCompareConverter}, ConverterParameter={x:Static vm:DrawMode.GrayscaleRedCyanAnaglyph}}"
+                                          Value="False"/>
+                        <BindingCondition Binding="{Binding Settings.Mode, Converter={vc:EnumCompareConverter}, ConverterParameter={x:Static vm:DrawMode.RedCyanAnaglyph}}"
+                                          Value="False"/>
+                        <BindingCondition Binding="{Binding Settings.Mode, Converter={vc:EnumCompareConverter}, ConverterParameter={x:Static vm:DrawMode.Cardboard}}"
+                                          Value="False"/>
                     </MultiTrigger.Conditions>
                     <Setter Property="IsVisible"
                             Value="True"/>
@@ -266,6 +291,14 @@
                                           Value="True"/>
                         <BindingCondition Binding="{Binding IsExactlyOnePictureTaken}"
                                           Value="True"/>
+                        <BindingCondition Binding="{Binding Settings.ShowGhostCaptures}"
+                                          Value="False"/>
+                        <BindingCondition Binding="{Binding Settings.Mode, Converter={vc:EnumCompareConverter}, ConverterParameter={x:Static vm:DrawMode.GrayscaleRedCyanAnaglyph}}"
+                                          Value="False"/>
+                        <BindingCondition Binding="{Binding Settings.Mode, Converter={vc:EnumCompareConverter}, ConverterParameter={x:Static vm:DrawMode.RedCyanAnaglyph}}"
+                                          Value="False"/>
+                        <BindingCondition Binding="{Binding Settings.Mode, Converter={vc:EnumCompareConverter}, ConverterParameter={x:Static vm:DrawMode.Cardboard}}"
+                                          Value="False"/>
                     </MultiTrigger.Conditions>
                     <Setter Property="IsVisible"
                             Value="True"/>
@@ -439,6 +472,7 @@
 
         <AbsoluteLayout x:Name="_horizontalLevelWhole"
                         AbsoluteLayout.LayoutFlags="XProportional"
+                        InputTransparent="True"
                         IsVisible="{Binding ShouldRollGuideBeVisible}">
             <AbsoluteLayout.LayoutBounds>
                 <Rectangle X="0" Y="0" Width="0" Height="0"/>
@@ -462,7 +496,16 @@
                                         Threshold="50"/>
             </ContentView.GestureRecognizers>
             <Label Text="(swipe to swap)"
-                   HorizontalTextAlignment="Center"/>
+                   HorizontalTextAlignment="Center">
+                <Label.Triggers>
+                    <DataTrigger TargetType="Label"
+                                 Binding="{Binding Settings.Mode, Converter={vc:EnumCompareConverter}, ConverterParameter={x:Static vm:DrawMode.Cardboard}}"
+                                 Value="True">
+                        <Setter Property="Text"
+                                Value="(tip to swap)"/>
+                    </DataTrigger>
+                </Label.Triggers>
+            </Label>
         </ContentView>
         <ContentView AbsoluteLayout.LayoutFlags="PositionProportional"
                      AbsoluteLayout.LayoutBounds="{Binding CaptureButtonPosition}"
@@ -473,6 +516,11 @@
             </ContentView.GestureRecognizers>
             <Image Source="aperture"/>
         </ContentView>
+        <BoxView AbsoluteLayout.LayoutFlags="PositionProportional,HeightProportional"
+                 AbsoluteLayout.LayoutBounds="0.5,0,2,1"
+                 Color="White"
+                 InputTransparent="true"
+                 IsVisible="{Binding Settings.Mode, Converter={vc:EnumCompareConverter}, ConverterParameter={x:Static vm:DrawMode.Cardboard}}"/>
         <Grid AbsoluteLayout.LayoutFlags="PositionProportional,WidthProportional"
               RowSpacing="0"
               ColumnSpacing="0"
@@ -504,6 +552,8 @@
                        IsVisible="{Binding Settings.SaveForTriple}"/>
                 <Image Source="quad"
                        IsVisible="{Binding Settings.SaveForQuad}"/>
+                <Label Text="VR"
+                       IsVisible="{Binding Settings.SaveForCardboard}"/>
                 <Label Text="{Binding Settings.ResolutionProportion, StringFormat=' {0}%'}"
                        FontSize="15"/>
             </StackLayout>
@@ -515,6 +565,14 @@
             <ContentView.GestureRecognizers>
                 <TapGestureRecognizer Command="{Binding ClearCapturesCommand}"/>
             </ContentView.GestureRecognizers>
+            <ContentView.Triggers>
+                <DataTrigger TargetType="ContentView"
+                             Binding="{Binding Settings.Mode, Converter={vc:EnumCompareConverter}, ConverterParameter={x:Static vm:DrawMode.Cardboard}}"
+                             Value="True">
+                    <Setter Property="AbsoluteLayout.LayoutBounds"
+                            Value="{StaticResource _finalSaveBounds}"/>
+                </DataTrigger>
+            </ContentView.Triggers>
             <Image Source="clearBox"/>
         </ContentView>
         <Image Source="eye"
@@ -541,6 +599,14 @@
             <ContentView.GestureRecognizers>
                 <TapGestureRecognizer Command="{Binding SaveCapturesCommand}"/>
             </ContentView.GestureRecognizers>
+            <ContentView.Triggers>
+                <DataTrigger TargetType="ContentView"
+                             Binding="{Binding Settings.Mode, Converter={vc:EnumCompareConverter}, ConverterParameter={x:Static vm:DrawMode.Cardboard}}"
+                             Value="True">
+                    <Setter Property="AbsoluteLayout.LayoutBounds"
+                            Value="{StaticResource _clearBounds}"/>
+                </DataTrigger>
+            </ContentView.Triggers>
             <Image Source="checkBox"/>
         </ContentView>
 
@@ -648,7 +714,22 @@
                      IsVisible="{Binding KeystoneMode, Converter={vc:EnumCompareConverter}, ConverterParameter={x:Static vm:KeystoneMode.Left}}"/>
             <Image Grid.Row="1"
                    Grid.Column="1"
-                   Source="keystoneLeft"/>
+                   Source="keystoneLeft">
+                <Image.Triggers>
+                    <DataTrigger TargetType="Image"
+                                 Binding="{Binding Settings.Mode, Converter={vc:EnumCompareConverter}, ConverterParameter={x:Static vm:DrawMode.Parallel}}"
+                                 Value="True">
+                        <Setter Property="Source"
+                                Value="keystoneRight"/>
+                    </DataTrigger>
+                    <DataTrigger TargetType="Image"
+                                 Binding="{Binding Settings.Mode, Converter={vc:EnumCompareConverter}, ConverterParameter={x:Static vm:DrawMode.Cardboard}}"
+                                 Value="True">
+                        <Setter Property="Source"
+                                Value="keystoneRight"/>
+                    </DataTrigger>
+                </Image.Triggers>
+            </Image>
             <BoxView Grid.Row="2" 
                      Grid.Column="0"
                      Grid.ColumnSpan="3"
@@ -691,7 +772,22 @@
                      IsVisible="{Binding KeystoneMode, Converter={vc:EnumCompareConverter}, ConverterParameter={x:Static vm:KeystoneMode.Right}}"/>
             <Image Grid.Row="1"
                    Grid.Column="1"
-                   Source="keystoneRight"/>
+                   Source="keystoneRight">
+                <Image.Triggers>
+                    <DataTrigger TargetType="Image"
+                                 Binding="{Binding Settings.Mode, Converter={vc:EnumCompareConverter}, ConverterParameter={x:Static vm:DrawMode.Parallel}}"
+                                 Value="True">
+                        <Setter Property="Source"
+                                Value="keystoneLeft"/>
+                    </DataTrigger>
+                    <DataTrigger TargetType="Image"
+                                 Binding="{Binding Settings.Mode, Converter={vc:EnumCompareConverter}, ConverterParameter={x:Static vm:DrawMode.Cardboard}}"
+                                 Value="True">
+                        <Setter Property="Source"
+                                Value="keystoneLeft"/>
+                    </DataTrigger>
+                </Image.Triggers>
+            </Image>
             <BoxView Grid.Row="2" 
                      Grid.Column="0"
                      Grid.ColumnSpan="3"
@@ -1570,7 +1666,7 @@
                      AbsoluteLayout.LayoutBounds="0,0.5,1,0.5"
                      InputTransparent="True">
             <StackLayout.Behaviors>
-                <ce:FadeInAndOutBehavior Trigger="{Binding MoveHintTrigger}"
+                <ce:FadeInAndOutBehavior Trigger="{Binding SingleMoveHintTrigger}"
                                          InTimeMs="0"
                                          OutTimeMs="500"
                                          VisibleTimeMs="2500"/>
@@ -1667,8 +1763,134 @@
                             <Setter Property="Text"
                                     Value="parallel"/>
                         </DataTrigger>
+                        <DataTrigger TargetType="Label"
+                                     Binding="{Binding Settings.Mode, Converter={vc:EnumCompareConverter}, ConverterParameter={x:Static vm:DrawMode.Cardboard}}"
+                                     Value="true">
+                            <Setter Property="Text"
+                                    Value="cardboard"/>
+                        </DataTrigger>
+                        <DataTrigger TargetType="Label"
+                                     Binding="{Binding Settings.Mode, Converter={vc:EnumCompareConverter}, ConverterParameter={x:Static vm:DrawMode.RedCyanAnaglyph}}"
+                                     Value="true">
+                            <Setter Property="Text"
+                                    Value="anaglyph"/>
+                        </DataTrigger>
+                        <DataTrigger TargetType="Label"
+                                     Binding="{Binding Settings.Mode, Converter={vc:EnumCompareConverter}, ConverterParameter={x:Static vm:DrawMode.GrayscaleRedCyanAnaglyph}}"
+                                     Value="true">
+                            <Setter Property="Text"
+                                    Value="anaglyph"/>
+                        </DataTrigger>
                     </Label.Triggers>
                 </Label>
+            </StackLayout>
+        </StackLayout>
+        <StackLayout x:Name="_doubleMoveHintStack"
+                     AbsoluteLayout.LayoutFlags="PositionProportional,HeightProportional"
+                     AbsoluteLayout.LayoutBounds="0.5,0,0,1"
+                     InputTransparent="True"
+                     Orientation="Horizontal">
+            <StackLayout HorizontalOptions="StartAndExpand">
+                <StackLayout.Behaviors>
+                    <ce:FadeInAndOutBehavior Trigger="{Binding DoubleMoveHintTrigger}"
+                                             InTimeMs="0"
+                                             OutTimeMs="500"
+                                             VisibleTimeMs="2500"/>
+                </StackLayout.Behaviors>
+                <Image Source="left"
+                       Aspect="AspectFit"
+                       HorizontalOptions="Center"
+                       VerticalOptions="EndAndExpand">
+                    <Image.Triggers>
+                        <DataTrigger TargetType="Image"
+                                     Binding="{Binding Settings.IsCaptureLeftFirst}"
+                                     Value="True">
+                            <Setter Property="Source"
+                                    Value="right"/>
+                        </DataTrigger>
+                    </Image.Triggers>
+                </Image>
+                <StackLayout Orientation="Horizontal"
+                             HorizontalOptions="Center"
+                             VerticalOptions="StartAndExpand">
+                    <Label Text="MOVE"                   
+                           FontSize="Large"
+                           FontAttributes="Bold"
+                           HorizontalOptions="EndAndExpand">
+                        <Label.Triggers>
+                            <DataTrigger TargetType="Label"
+                                         Binding="{Binding BluetoothOperatorBindable.PairStatus, Converter={vc:EnumCompareConverter}, ConverterParameter={x:Static vm:PairStatus.Connected}}"
+                                         Value="true">
+                                <Setter Property="Text"
+                                        Value="SECONDARY"/>
+                            </DataTrigger>
+                        </Label.Triggers>
+                    </Label>
+                    <Label Text="LEFT"                   
+                           FontSize="Large"
+                           FontAttributes="Bold"
+                           HorizontalOptions="StartAndExpand">
+                        <Label.Triggers>
+                            <DataTrigger TargetType="Label"
+                                         Binding="{Binding Settings.IsCaptureLeftFirst}"
+                                         Value="True">
+                                <Setter Property="Text"
+                                        Value="RIGHT"/>
+                            </DataTrigger>
+                        </Label.Triggers>
+                    </Label>
+                </StackLayout>
+            </StackLayout>
+            <StackLayout HorizontalOptions="EndAndExpand">
+                <StackLayout.Behaviors>
+                    <ce:FadeInAndOutBehavior Trigger="{Binding DoubleMoveHintTrigger}"
+                                             InTimeMs="0"
+                                             OutTimeMs="500"
+                                             VisibleTimeMs="2500"/>
+                </StackLayout.Behaviors>
+                <Image Source="left"
+                       Aspect="AspectFit"
+                       HorizontalOptions="Center"
+                       VerticalOptions="EndAndExpand">
+                    <Image.Triggers>
+                        <DataTrigger TargetType="Image"
+                                     Binding="{Binding Settings.IsCaptureLeftFirst}"
+                                     Value="True">
+                            <Setter Property="Source"
+                                    Value="right"/>
+                        </DataTrigger>
+                    </Image.Triggers>
+                </Image>
+                <StackLayout Orientation="Horizontal"
+                             HorizontalOptions="Center"
+                             VerticalOptions="StartAndExpand">
+                    <Label Text="MOVE"                   
+                           FontSize="Large"
+                           FontAttributes="Bold"
+                           HorizontalOptions="EndAndExpand">
+                        <Label.Triggers>
+                            <DataTrigger TargetType="Label"
+                                         Binding="{Binding BluetoothOperatorBindable.PairStatus, Converter={vc:EnumCompareConverter}, ConverterParameter={x:Static vm:PairStatus.Connected}}"
+                                         Value="true">
+                                <Setter Property="Text"
+                                        Value="SECONDARY"/>
+                            </DataTrigger>
+                        </Label.Triggers>
+                    </Label>
+                    <Label Text="LEFT"                   
+                           FontSize="Large"
+                           FontAttributes="Bold"
+                           HorizontalOptions="StartAndExpand">
+                        <Label.Triggers>
+                            <DataTrigger TargetType="Label"
+                                         Binding="{Binding Settings.IsCaptureLeftFirst}"
+                                         Value="True">
+                                <Setter Property="Text"
+                                        Value="RIGHT"/>
+                            </DataTrigger>
+                        </Label.Triggers>
+                    </Label>
+                </StackLayout>
             </StackLayout>
         </StackLayout>
 
@@ -1704,5 +1926,49 @@
                 <PanGestureRecognizer PanUpdated="LowerLinePanned"/>
             </ContentView.GestureRecognizers>
         </ContentView>
+        <StackLayout AbsoluteLayout.LayoutFlags="PositionProportional,HeightProportional"
+                     AbsoluteLayout.LayoutBounds="0.5,0,420,1"
+                     Orientation="Horizontal"
+                     IsVisible="False"
+                     InputTransparent="True">
+            <StackLayout.Triggers>
+                <MultiTrigger TargetType="StackLayout">
+                    <MultiTrigger.Conditions>
+                        <BindingCondition Binding="{Binding Settings.Mode, Converter={vc:EnumCompareConverter}, ConverterParameter={x:Static vm:DrawMode.Cardboard}}"
+                                          Value="True"/>
+                        <BindingCondition Binding="{Binding IsBusy}"
+                                          Value="True"/>
+                    </MultiTrigger.Conditions>
+                    <Setter Property="IsVisible"
+                            Value="True"/>
+                </MultiTrigger>
+            </StackLayout.Triggers>
+            <ActivityIndicator Color="White"
+                               HorizontalOptions="StartAndExpand"
+                               VerticalOptions="CenterAndExpand"
+                               IsVisible="True"
+                               IsRunning="True"/>
+            <ActivityIndicator Color="White"
+                               HorizontalOptions="EndAndExpand"
+                               VerticalOptions="CenterAndExpand"
+                               IsVisible="True"
+                               IsRunning="True"/>
+        </StackLayout>
+        <!--<StackLayout AbsoluteLayout.LayoutFlags="PositionProportional,HeightProportional"
+                     AbsoluteLayout.LayoutBounds="0.5,0,400,1"
+                     IsVisible="{Binding Settings.Mode, Converter={vc:EnumCompareConverter}, ConverterParameter={x:Static vm:DrawMode.Cardboard}}"
+                     Orientation="Horizontal"
+                     InputTransparent="True">
+            <BoxView WidthRequest="10"
+                     HeightRequest="10"
+                     Color="White"
+                     HorizontalOptions="StartAndExpand"
+                     VerticalOptions="CenterAndExpand"/>
+            <BoxView WidthRequest="10"
+                     HeightRequest="10"
+                     Color="White"
+                     HorizontalOptions="EndAndExpand"
+                     VerticalOptions="CenterAndExpand"/>
+        </StackLayout>-->
     </AbsoluteLayout>
 </freshMvvm:FreshBaseContentPage>

@@ -1,16 +1,12 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <fresh:FreshBaseContentPage xmlns="http://xamarin.com/schemas/2014/forms"
                             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-                            xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-                            xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
                             xmlns:fresh="clr-namespace:FreshMvvm;assembly=FreshMvvm"
                             xmlns:vm="clr-namespace:CrossCam.ViewModel;assembly=CrossCam"
                             xmlns:vc="clr-namespace:CrossCam.ValueConverter;assembly=CrossCam"
                             xmlns:ce="clr-namespace:CrossCam.CustomElement;assembly=CrossCam"
                             xmlns:system="clr-namespace:System;assembly=netstandard"
-                            mc:Ignorable="d"
-
-                            d:DataContext="{d:DesignInstance Type=vm:SettingsViewModel, IsDesignTimeCreatable=False}"
+                            x:DataType="vm:SettingsViewModel"
                             x:Class="CrossCam.Page.SettingsPage"
                             Title="Settings">
     <ContentPage.Resources>
@@ -62,15 +58,99 @@
         <StackLayout>
 
             <BoxView/>
-            <Label Text="Capture/Preview Method"
+            <Label Text="Viewing Method"
                    Style="{DynamicResource header}"/>
             <Frame>
                 <Picker ItemsSource="{Binding Modes}"
                         SelectedIndex="{Binding Settings.Mode, Converter={vc:ModeValueConverter}}"
                         HorizontalOptions="FillAndExpand"/>
             </Frame>
-            <Label Text="(Anaglyph while capturing is not yet supported, but editing and saving is)"
-                   IsVisible="{Binding IsAnaglyphMode}"/>
+            <StackLayout Orientation="Horizontal"
+                         IsVisible="{Binding Settings.Mode, Converter={vc:EnumCompareConverter}, ConverterParameter={x:Static vm:DrawMode.Cardboard}}">
+                <Label Text="Immersive final viewing"/>
+                <Switch IsToggled="{Binding Settings.ImmersiveCardboardFinal}"/>
+            </StackLayout>
+            <StackLayout Orientation="Horizontal"
+                         IsVisible="{Binding Settings.Mode, Converter={vc:EnumCompareConverter}, ConverterParameter={x:Static vm:DrawMode.Cardboard}}">
+                <Label Text="Cardboard separation distance"/>
+                <Frame>
+                    <Picker ItemsSource="{Binding ZeroToOneThousand}"
+                            SelectedIndex="{Binding Settings.CardboardIpd}"
+                            WidthRequest="50"
+                            HorizontalOptions="EndAndExpand"/>
+                </Frame>
+            </StackLayout>
+            <StackLayout Orientation="Horizontal"
+                         IsVisible="{Binding Settings.Mode, Converter={vc:EnumCompareConverter}, ConverterParameter={x:Static vm:DrawMode.Cardboard}}">
+                <Label Text="Add lens correction (may lower frame rate)"/>
+                <Switch IsToggled="{Binding Settings.AddBarrelDistortion}"/>
+            </StackLayout>
+            <StackLayout Orientation="Horizontal"
+                         IsVisible="False">
+                <StackLayout.Triggers>
+                    <MultiTrigger TargetType="StackLayout">
+                        <MultiTrigger.Conditions>
+                            <BindingCondition Binding="{Binding Settings.Mode, Converter={vc:EnumCompareConverter}, ConverterParameter={x:Static vm:DrawMode.Cardboard}}"
+                                              Value="True"/>
+                            <BindingCondition Binding="{Binding Settings.AddBarrelDistortion}"
+                                              Value="True"/>
+                        </MultiTrigger.Conditions>
+                        <Setter Property="IsVisible"
+                                Value="True"/>
+                    </MultiTrigger>
+                </StackLayout.Triggers>
+                <Label Text="Add lens correction to final images only (may slow down final display)"/>
+                <Switch IsToggled="{Binding Settings.AddBarrelDistortionFinalOnly}"/>
+            </StackLayout>
+            <StackLayout Orientation="Horizontal"
+                         IsVisible="False">
+                <StackLayout.Triggers>
+                    <MultiTrigger TargetType="StackLayout">
+                        <MultiTrigger.Conditions>
+                            <BindingCondition Binding="{Binding Settings.Mode, Converter={vc:EnumCompareConverter}, ConverterParameter={x:Static vm:DrawMode.Cardboard}}"
+                                              Value="True"/>
+                            <BindingCondition Binding="{Binding Settings.AddBarrelDistortion}"
+                                              Value="True"/>
+                        </MultiTrigger.Conditions>
+                        <Setter Property="IsVisible"
+                                Value="True"/>
+                    </MultiTrigger>
+                </StackLayout.Triggers>
+                <Label Text="Lens correction strength"/>
+                <Frame>
+                    <Picker ItemsSource="{Binding ZeroToOneThousand}"
+                            SelectedIndex="{Binding Settings.CardboardBarrelDistortion}"
+                            WidthRequest="50"
+                            HorizontalOptions="EndAndExpand"/>
+                </Frame>
+            </StackLayout>
+            <StackLayout Orientation="Horizontal"
+                         IsVisible="{Binding Settings.Mode, Converter={vc:EnumCompareConverter}, ConverterParameter={x:Static vm:DrawMode.Cardboard}}">
+                <Label Text="Downsize preview (may increase frame rate)"/>
+                <Switch IsToggled="{Binding Settings.CardboardDownsize}"/>
+            </StackLayout>
+            <StackLayout Orientation="Horizontal"
+                         IsVisible="False">
+                <StackLayout.Triggers>
+                    <MultiTrigger TargetType="StackLayout">
+                        <MultiTrigger.Conditions>
+                            <BindingCondition Binding="{Binding Settings.Mode, Converter={vc:EnumCompareConverter}, ConverterParameter={x:Static vm:DrawMode.Cardboard}}"
+                                              Value="True"/>
+                            <BindingCondition Binding="{Binding Settings.CardboardDownsize}"
+                                              Value="True"/>
+                        </MultiTrigger.Conditions>
+                        <Setter Property="IsVisible"
+                                Value="True"/>
+                    </MultiTrigger>
+                </StackLayout.Triggers>
+                <Label Text="Downsize preview percentage"/>
+                <Frame>
+                    <Picker ItemsSource="{Binding ZeroToOneHundred}"
+                            SelectedIndex="{Binding Settings.CardboardDownsizePercentage}"
+                            WidthRequest="50"
+                            HorizontalOptions="EndAndExpand"/>
+                </Frame>
+            </StackLayout>
             <StackLayout Orientation="Horizontal"
                          IsVisible="{Binding Settings.Mode, Converter={vc:EnumCompareConverter}, ConverterParameter={x:Static vm:DrawMode.Parallel}}">
                 <Label Text="Maximum parallel view image width (points)"/>
@@ -274,6 +354,7 @@
                     <RowDefinition Height="Auto"/>
                     <RowDefinition Height="Auto"/>
                     <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
                 </Grid.RowDefinitions>
                 <Label Grid.Row="0"
                        Grid.Column="0"
@@ -327,7 +408,7 @@
                                      Binding="{Binding Settings.Mode, Converter={vc:EnumCompareConverter}, ConverterParameter={x:Static vm:DrawMode.Parallel}}"
                                      Value="True">
                             <Setter Property="Grid.Row"
-                                    Value="4"/>
+                                    Value="5"/>
                         </DataTrigger>
                     </Image.Triggers>
                 </Image>
@@ -339,7 +420,7 @@
                                      Binding="{Binding Settings.Mode, Converter={vc:EnumCompareConverter}, ConverterParameter={x:Static vm:DrawMode.Parallel}}"
                                      Value="True">
                             <Setter Property="Grid.Row"
-                                    Value="4"/>
+                                    Value="5"/>
                         </DataTrigger>
                     </Label.Triggers>
                 </Label>
@@ -351,7 +432,7 @@
                                      Binding="{Binding Settings.Mode, Converter={vc:EnumCompareConverter}, ConverterParameter={x:Static vm:DrawMode.Parallel}}"
                                      Value="True">
                             <Setter Property="Grid.Row"
-                                    Value="4"/>
+                                    Value="5"/>
                         </DataTrigger>
                     </Switch.Triggers>
                 </Switch>
@@ -364,19 +445,19 @@
                                      Binding="{Binding Settings.Mode, Converter={vc:EnumCompareConverter}, ConverterParameter={x:Static vm:DrawMode.Parallel}}"
                                      Value="True">
                             <Setter Property="Grid.Row"
-                                    Value="3"/>
+                                    Value="4"/>
                         </DataTrigger>
                     </Image.Triggers>
                 </Image>
                 <Label Grid.Row="5"
                        Grid.Column="1"
-                       Text="Save joined parallel view/VR version (with edits and border)">
+                       Text="Save joined parallel view version (with edits and border)">
                     <Label.Triggers>
                         <DataTrigger TargetType="Label"
                                      Binding="{Binding Settings.Mode, Converter={vc:EnumCompareConverter}, ConverterParameter={x:Static vm:DrawMode.Parallel}}"
                                      Value="True">
                             <Setter Property="Grid.Row"
-                                    Value="3"/>
+                                    Value="4"/>
                         </DataTrigger>
                     </Label.Triggers>
                 </Label>
@@ -388,7 +469,7 @@
                                      Binding="{Binding Settings.Mode, Converter={vc:EnumCompareConverter}, ConverterParameter={x:Static vm:DrawMode.Parallel}}"
                                      Value="True">
                             <Setter Property="Grid.Row"
-                                    Value="3"/>
+                                    Value="4"/>
                         </DataTrigger>
                     </Switch.Triggers>
                 </Switch>
@@ -446,10 +527,20 @@
                         IsToggled="{Binding Settings.SaveForQuad}"/>
                 <Label Grid.Row="11"
                        Grid.Column="0"
+                       HorizontalOptions="Center"
+                       Text="VR"/>
+                <Label Grid.Row="11"
+                       Grid.Column="1"
+                       Text="Save for Cardboard"/>
+                <Switch Grid.Row="11"
+                        Grid.Column="2"
+                        IsToggled="{Binding Settings.SaveForCardboard}"/>
+                <Label Grid.Row="12"
+                       Grid.Column="0"
                        Grid.ColumnSpan="2"
                        Text="{Binding SaveDirectory, StringFormat='Save to: {0}'}"
                        IsVisible="{Binding CanSaveToArbitraryDirectory}"/>
-                <Button Grid.Row="11"
+                <Button Grid.Row="12"
                         Grid.Column="2"
                         Command="{Binding ChooseDirectory}"
                         Text="Browse..."
@@ -469,17 +560,17 @@
                         </MultiTrigger>
                     </Button.Triggers>
                 </Button>
-                <Button Grid.Row="12"
+                <Button Grid.Row="13"
                         Grid.Column="2"
                         Command="{Binding ClearDirectory}"
                         Text="Reset"
                         IsVisible="{Binding Settings.SavingDirectory, Converter={vc:IsNotNullConverter}}"/>
-                <Label Grid.Row="13"
+                <Label Grid.Row="14"
                        Grid.Column="0"
                        Grid.ColumnSpan="2"
                        Text="{Binding ExternalDirectory, StringFormat='Save to external CrossCam directory at: {0} (warning: pictures there will be deleted if CrossCam is uninstalled)'}"
                        IsVisible="{Binding CanSaveToExternalDirectory}"/>
-                <Switch Grid.Row="13"
+                <Switch Grid.Row="14"
                         Grid.Column="2"
                         IsToggled="{Binding Settings.SaveToExternal}"
                         IsVisible="{Binding CanSaveToExternalDirectory}"/>
@@ -542,6 +633,10 @@
             <StackLayout Orientation="Horizontal">
                 <Label Text="Show fuse guide (a dot above each side)"/>
                 <Switch IsToggled="{Binding Settings.ShowPreviewFuseGuide}"/>
+            </StackLayout>
+            <StackLayout Orientation="Horizontal">
+                <Label Text="Capture with ghost overlay during second capture"/>
+                <Switch IsToggled="{Binding Settings.ShowGhostCaptures}"/>
             </StackLayout>
             <BoxView/>
             <Label Text="Camera"

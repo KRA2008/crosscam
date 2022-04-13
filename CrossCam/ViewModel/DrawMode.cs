@@ -5,6 +5,7 @@
         Cross,
         Parallel,
         RedCyanAnaglyph,
-        GrayscaleRedCyanAnaglyph
+        GrayscaleRedCyanAnaglyph,
+        Cardboard
     }
 }

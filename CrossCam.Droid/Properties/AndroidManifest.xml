@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android" android:versionCode="1" android:versionName="1.0" package="com.kra2008.crosscam" android:installLocation="auto">
 	<uses-sdk android:minSdkVersion="16" android:targetSdkVersion="31" />
-	<application android:label="CrossCam" android:largeHeap="true" />
+	<application android:label="CrossCam" android:largeHeap="true" android:hardwareAccelerated="true" />
 	<uses-feature android:name="android.hardware.camera" />
 	<uses-feature android:name="android.hardware.camera.autofocus" />
 	<uses-feature android:name="android.hardware.camera2.full" android:required="false" />
@@ -14,4 +14,5 @@
 	<uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
 	<uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
 	<uses-permission android:name="android.permission.NFC" />
+	<uses-permission android:name="android.permission.HIGH_SAMPLING_RATE_SENSORS" />
 </manifest>
