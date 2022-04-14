@@ -120,7 +120,7 @@ namespace CrossCam.Model
 
         public void ResetToDefaults()
         {
-            IsAutomaticAlignmentOn = false; //TODO: turn back on!!! debug only!
+            IsAutomaticAlignmentOn = true;
             AlignHorizontallySideBySide = true;
             ShowAdvancedAlignmentSettings = false;
 
@@ -130,8 +130,8 @@ namespace CrossCam.Model
             EccThresholdPercentage = 60;
             EccPyramidLayers = 4;
 
-            DrawKeypointMatches = false;
-            UseKeypoints1 = false;
+            DrawKeypointMatches = true;  //TODO: undo for DEBUG ONL!!!!Y
+            UseKeypoints1 = true; //TODO: undo? or make it good!
             UseCrossCheck = false;
             DiscardOutliersByDistance = false;
             DiscardOutliersBySlope = true;
