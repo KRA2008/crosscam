@@ -191,21 +191,21 @@ namespace CrossCam.Page
 
         private void StoreGyroscopeReading(object sender, GyroscopeChangedEventArgs e)
         {
-            var seconds = _gyroscopeStopwatch.ElapsedTicks / 10000000d;
-            _cardboardViewVert -= e.Reading.AngularVelocity.Y * seconds;
-            _cardboardViewHor += e.Reading.AngularVelocity.X * seconds;
-            _gyroscopeStopwatch.Restart();
-            Device.BeginInvokeOnMainThread(() =>
+            if (!_viewModel.IsBusy)
             {
-                if (!_viewModel.IsBusy)
+                var seconds = _gyroscopeStopwatch.ElapsedTicks / 10000000d;
+                _cardboardViewVert -= e.Reading.AngularVelocity.Y * seconds;
+                _cardboardViewHor += e.Reading.AngularVelocity.X * seconds;
+                _gyroscopeStopwatch.Restart();
+                Device.BeginInvokeOnMainThread(() =>
                 {
                     _capturedCanvas.InvalidateSurface();
-                }
-                else
-                {
-                    _cardboardViewVert = _cardboardViewHor = 0;
-                }
-            });
+                });
+            }
+            else
+            {
+                _cardboardViewVert = _cardboardViewHor = 0;
+            }
         }
 
         private void StoreAccelerometerReading(object sender, AccelerometerChangedEventArgs args)

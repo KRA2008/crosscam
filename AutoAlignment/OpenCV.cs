@@ -134,25 +134,25 @@ namespace AutoAlignment
 #endif
             var result = new AlignedResult();
 
-            var detector = new ORBDetector();
+            using var detector = new ORBDetector();
             const ImreadModes READ_MODE = ImreadModes.Color;
 
-            var image1Mat = new Mat();
-            var descriptors1 = new Mat();
-            var allKeyPointsVector1 = new VectorOfKeyPoint();
+            using var image1Mat = new Mat();
+            using var descriptors1 = new Mat();
+            using var allKeyPointsVector1 = new VectorOfKeyPoint();
             CvInvoke.Imdecode(GetBytes(firstImage, 1), READ_MODE, image1Mat);
             detector.DetectAndCompute(image1Mat, null, allKeyPointsVector1, descriptors1, false);
 
-            var image2Mat = new Mat();
-            var descriptors2 = new Mat();
-            var allKeyPointsVector2 = new VectorOfKeyPoint();
+            using var image2Mat = new Mat();
+            using var descriptors2 = new Mat();
+            using var allKeyPointsVector2 = new VectorOfKeyPoint();
             CvInvoke.Imdecode(GetBytes(secondImage, 1), READ_MODE, image2Mat);
             detector.DetectAndCompute(image2Mat, null, allKeyPointsVector2, descriptors2, false);
 
             const double THRESHOLD_PROPORTION = 1 / 4d;
             var thresholdDistance = Math.Sqrt(Math.Pow(firstImage.Width, 2) + Math.Pow(firstImage.Height, 2)) * THRESHOLD_PROPORTION;
 
-            var distanceThresholdMask = new Mat(allKeyPointsVector2.Size, allKeyPointsVector1.Size, DepthType.Cv8U, 1);
+            using var distanceThresholdMask = new Mat(allKeyPointsVector2.Size, allKeyPointsVector1.Size, DepthType.Cv8U, 1);
             if (!settings.UseCrossCheck)
             {
                 unsafe
@@ -180,8 +180,8 @@ namespace AutoAlignment
                 }
             }
 
-            var vectorOfMatches = new VectorOfVectorOfDMatch();
-            var matcher = new BFMatcher(DistanceType.Hamming, settings.UseCrossCheck);
+            using var vectorOfMatches = new VectorOfVectorOfDMatch();
+            using var matcher = new BFMatcher(DistanceType.Hamming, settings.UseCrossCheck);
             matcher.Add(descriptors1);
             matcher.KnnMatch(descriptors2, vectorOfMatches, settings.UseCrossCheck ? 1 : 2, settings.UseCrossCheck ? new VectorOfMat() : new VectorOfMat(distanceThresholdMask));
 
@@ -292,13 +292,13 @@ namespace AutoAlignment
             }
 
 
-            var points1 = new VectorOfPointF(pairedPoints.Select(p => new PointF(p.KeyPoint1.Point.X, p.KeyPoint1.Point.Y)).ToArray());
-            var points2 = new VectorOfPointF(pairedPoints.Select(p => new PointF(p.KeyPoint2.Point.X, p.KeyPoint2.Point.Y)).ToArray());
+            using var points1 = new VectorOfPointF(pairedPoints.Select(p => new PointF(p.KeyPoint1.Point.X, p.KeyPoint1.Point.Y)).ToArray());
+            using var points2 = new VectorOfPointF(pairedPoints.Select(p => new PointF(p.KeyPoint2.Point.X, p.KeyPoint2.Point.Y)).ToArray());
 
 
-            var homography = CvInvoke.FindHomography(points2, points1, HomographyMethod.Ransac);
+            using var homography = CvInvoke.FindHomography(points2, points1, HomographyMethod.Ransac);
             if (homography.IsEmpty) throw new System.Exception("poo");
-            var alignedImageMat2 = new Mat();
+            using var alignedImageMat2 = new Mat();
             CvInvoke.WarpPerspective(image2Mat, alignedImageMat2, homography, image2Mat.Size);
 
             if (alignedImageMat2.IsEmpty) throw new System.Exception("crap");
@@ -722,7 +722,7 @@ namespace AutoAlignment
             var targetHeight = (int)(bitmap.Height * downsize);
             using var tempSurface =
                 SKSurface.Create(new SKImageInfo(targetWidth, targetHeight));
-            var canvas = tempSurface.Canvas;
+            using var canvas = tempSurface.Canvas;
             canvas.Clear();
 
             using var paint = new SKPaint {FilterQuality = filterQuality};

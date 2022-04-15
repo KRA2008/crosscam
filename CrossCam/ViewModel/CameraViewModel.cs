@@ -796,7 +796,7 @@ namespace CrossCam.ViewModel
                         {
                             using var tempSurface =
                                 SKSurface.Create(new SKImageInfo(LeftBitmap.Width, LeftBitmap.Height));
-                            var canvas = tempSurface.Canvas;
+                            using var canvas = tempSurface.Canvas;
 
                             canvas.Clear();
                             if (needs180Flip)
@@ -850,7 +850,7 @@ namespace CrossCam.ViewModel
                         {
                             using var tempSurface =
                                 SKSurface.Create(new SKImageInfo(finalImageWidth, finalImageHeight));
-                            var canvas = tempSurface.Canvas;
+                            using var canvas = tempSurface.Canvas;
                             canvas.Clear();
                             if (needs180Flip)
                             {
@@ -874,7 +874,7 @@ namespace CrossCam.ViewModel
                         {
                             using var tempSurface =
                                 SKSurface.Create(new SKImageInfo(finalImageWidth, finalImageHeight));
-                            var canvas = tempSurface.Canvas;
+                            using var canvas = tempSurface.Canvas;
                             canvas.Clear();
                             if (needs180Flip)
                             {
@@ -906,7 +906,7 @@ namespace CrossCam.ViewModel
                         {
                             using var tempSurface =
                                 SKSurface.Create(new SKImageInfo(LeftBitmap.Width, LeftBitmap.Height));
-                            var canvas = tempSurface.Canvas;
+                            using var canvas = tempSurface.Canvas;
                             canvas.Clear();
                             if (needs180Flip)
                             {
@@ -922,7 +922,7 @@ namespace CrossCam.ViewModel
                         if (Settings.SaveForTriple)
                         {
                             using var doubleSurface = SKSurface.Create(new SKImageInfo(finalImageWidth, finalImageHeight));
-                            var doubleCanvas = doubleSurface.Canvas;
+                            using var doubleCanvas = doubleSurface.Canvas;
                             doubleCanvas.Clear();
                             if (needs180Flip)
                             {
@@ -937,7 +937,7 @@ namespace CrossCam.ViewModel
                                 DrawMode.Cross);
 
                             using var tripleSurface = SKSurface.Create(new SKImageInfo(finalTripleWidth, finalImageHeight));
-                            var tripleCanvas = tripleSurface.Canvas;
+                            using var tripleCanvas = tripleSurface.Canvas;
                             tripleCanvas.Clear();
 
                             tripleCanvas.DrawSurface(doubleSurface, 0, 0);
@@ -949,7 +949,7 @@ namespace CrossCam.ViewModel
                         if (Settings.SaveForQuad)
                         {
                             using var doublePlainSurface = SKSurface.Create(new SKImageInfo(finalImageWidth, finalImageHeight));
-                            var doublePlainCanvas = doublePlainSurface.Canvas;
+                            using var doublePlainCanvas = doublePlainSurface.Canvas;
                             doublePlainCanvas.Clear();
                             if (needs180Flip)
                             {
@@ -965,7 +965,7 @@ namespace CrossCam.ViewModel
 
                             using var doubleSwapSurface =
                                 SKSurface.Create(new SKImageInfo(finalImageWidth, finalImageHeight));
-                            var doubleSwapCanvas = doubleSwapSurface.Canvas;
+                            using var doubleSwapCanvas = doubleSwapSurface.Canvas;
                             doubleSwapCanvas.Clear();
                             if (needs180Flip)
                             {
@@ -981,7 +981,7 @@ namespace CrossCam.ViewModel
 
                             using var quadSurface =
                                 SKSurface.Create(new SKImageInfo(finalImageWidth, quadHeight));
-                            var quadCanvas = quadSurface.Canvas;
+                            using var quadCanvas = quadSurface.Canvas;
                             quadCanvas.Clear();
 
                             quadCanvas.DrawSurface(doublePlainSurface, 0, 0);
@@ -998,7 +998,7 @@ namespace CrossCam.ViewModel
                                 DrawTool.CalculateCanvasHeightWithEditsNoBorder(LeftBitmap, RightBitmap, Edits);
 
                             using var tempSurface = SKSurface.Create(new SKImageInfo(width, height));
-                            var canvas = tempSurface.Canvas;
+                            using var canvas = tempSurface.Canvas;
                             canvas.Clear();
 
                             DrawTool.DrawImagesOnCanvas(tempSurface, LeftBitmap, RightBitmap, Settings, Edits,

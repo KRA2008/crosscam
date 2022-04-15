@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using CrossCam.Model;
 using CrossCam.ViewModel;
 using CrossCam.Wrappers;
@@ -365,7 +366,7 @@ namespace CrossCam.Page
             var cardboardHorDelta = cardboardHor * destWidth;
             var cardboardVertDelta = cardboardVert * destHeight; //TODO: use same property for both to make move speed the same?
 
-            var fullTransform4D = SKMatrix44.CreateIdentity();
+            using var fullTransform4D = SKMatrix44.CreateIdentity();
 
             if (Math.Abs(rotation) > 0)
             {
