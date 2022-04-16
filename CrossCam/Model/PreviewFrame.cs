@@ -1,8 +1,10 @@
-﻿namespace CrossCam.Model
+﻿using SkiaSharp;
+
+namespace CrossCam.Model
 {
     public class PreviewFrame
     {
-        public byte[] Frame { get; set; }
+        public SKBitmap Frame { get; set; }
         public byte? Orientation { get; set; }
     }
 }

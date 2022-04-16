@@ -552,7 +552,8 @@ namespace CrossCam.Page
             }
 
             DrawTool.DrawImagesOnCanvas(
-                surface, left, right,
+                surface, left, _viewModel.LeftAlignmentTransform, 
+                right, _viewModel.RightAlignmentTransform,
                 _viewModel.Settings,
                 _viewModel.Edits,
                 _viewModel.Settings.Mode,

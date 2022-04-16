@@ -5,7 +5,6 @@ using System.Linq;
 using AutoAlignment;
 using CrossCam.Model;
 using CrossCam.Wrappers;
-using Java.Lang;
 #if !__NO_EMGU__
 using System.Drawing;
 using Emgu.CV;
@@ -105,25 +104,10 @@ namespace AutoAlignment
                 return null;
             }
 
-            var skMatrix = ConvertCvMatOfFloatsToSkMatrix(warpMatrix, discardTransX);
-
-            var result = new AlignedResult
+            return new AlignedResult
             {
-                TransformMatrix2 = skMatrix
+                TransformMatrix2 = ConvertCvMatOfFloatsToSkMatrix(warpMatrix, discardTransX)
             };
-
-            using var alignedMat = new Mat();
-            using var fullSizeColorSecondMat = new Mat();
-            CvInvoke.Imdecode(GetBytes(secondImage, 1), ImreadModes.Color, fullSizeColorSecondMat);
-            CvInvoke.WarpAffine(fullSizeColorSecondMat, alignedMat, warpMatrix,
-                fullSizeColorSecondMat.Size);
-
-#if __IOS__
-            result.AlignedBitmap2 = alignedMat.ToCGImage().ToSKBitmap();
-#elif __ANDROID__
-            result.AlignedBitmap2 = alignedMat.ToBitmap().ToSKBitmap();
-#endif
-            return result;
         }
 
         public AlignedResult CreateAlignedSecondImageKeypoints(SKBitmap firstImage, SKBitmap secondImage,
@@ -303,12 +287,6 @@ namespace AutoAlignment
 
             if (alignedImageMat2.IsEmpty) throw new System.Exception("crap");
 
-            result.AlignedBitmap1 = firstImage;
-#if __IOS__
-            result.AlignedBitmap2 = alignedImageMat2.ToCGImage().ToSKBitmap();
-#elif __ANDROID__
-            result.AlignedBitmap2 = alignedImageMat2.ToBitmap().ToSKBitmap();
-#endif
             result.TransformMatrix1 = SKMatrix.Identity;
             result.TransformMatrix2 = SKMatrix.Identity; //ConvertCvMatOfFloatsToSkMatrix(homography, discardTransX);
             return result;

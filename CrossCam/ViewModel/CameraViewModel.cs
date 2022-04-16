@@ -51,6 +51,9 @@ namespace CrossCam.ViewModel
         private SKBitmap OriginalUnalignedLeft { get; set; }
         private SKBitmap OriginalUnalignedRight { get; set; }
 
+        public SKMatrix LeftAlignmentTransform { get; set; }
+        public SKMatrix RightAlignmentTransform { get; set; }
+
         public byte[] CapturedImageBytes { get; set; }
         public bool CaptureSuccess { get; set; }
         public int CameraColumn { get; set; }
@@ -377,6 +380,8 @@ namespace CrossCam.ViewModel
 
             Settings = PersistentStorage.LoadOrDefault(PersistentStorage.SETTINGS_KEY, new Settings());
             Edits = new Edits(Settings);
+            LeftAlignmentTransform = SKMatrix.Identity;
+            RightAlignmentTransform = SKMatrix.Identity;
             Settings.PropertyChanged += SettingsOnPropertyChanged;
             Settings.AlignmentSettings.PropertyChanged += AlignmentSettingsOnPropertyChanged;
             BluetoothOperator = new BluetoothOperator(Settings);
@@ -399,11 +404,8 @@ namespace CrossCam.ViewModel
             {
                 if (LeftBitmap == null || RightBitmap == null)
                 {
-                    LocalPreviewBitmap = frame.Orientation.HasValue
-                        ? CorrectBitmapOrientation(
-                            SKBitmap.Decode(frame.Frame),
-                            frame.Orientation.Value)
-                        : DecodeBitmapAndCorrectOrientation(frame.Frame);
+                    LocalPreviewBitmap?.Dispose();
+                    LocalPreviewBitmap = CorrectBitmapOrientation(frame.Frame, frame.Orientation ?? 4);
                 }
             });
 
@@ -859,7 +861,8 @@ namespace CrossCam.ViewModel
                             }
 
                             DrawTool.DrawImagesOnCanvas(
-                                tempSurface, LeftBitmap, RightBitmap, 
+                                tempSurface, LeftBitmap, LeftAlignmentTransform, 
+                                RightBitmap, RightAlignmentTransform,
                                 Settings,
                                 Edits, 
                                 DrawMode.Cross);
@@ -883,7 +886,8 @@ namespace CrossCam.ViewModel
                             }
 
                             DrawTool.DrawImagesOnCanvas(
-                                tempSurface, LeftBitmap, RightBitmap, 
+                                tempSurface, LeftBitmap, LeftAlignmentTransform, 
+                                RightBitmap, RightAlignmentTransform,
                                 Settings, 
                                 Edits, 
                                 DrawMode.Parallel,
@@ -931,7 +935,8 @@ namespace CrossCam.ViewModel
                             }
 
                             DrawTool.DrawImagesOnCanvas(
-                                doubleSurface, LeftBitmap, RightBitmap,
+                                doubleSurface, LeftBitmap, LeftAlignmentTransform, 
+                                RightBitmap, RightAlignmentTransform,
                                 Settings,
                                 Edits,
                                 DrawMode.Cross);
@@ -958,7 +963,8 @@ namespace CrossCam.ViewModel
                             }
 
                             DrawTool.DrawImagesOnCanvas(
-                                doublePlainSurface, LeftBitmap, RightBitmap,
+                                doublePlainSurface, LeftBitmap, LeftAlignmentTransform,
+                                RightBitmap, RightAlignmentTransform,
                                 Settings,
                                 Edits,
                                 DrawMode.Cross);
@@ -974,7 +980,8 @@ namespace CrossCam.ViewModel
                             }
 
                             DrawTool.DrawImagesOnCanvas(
-                                doubleSwapSurface, LeftBitmap, RightBitmap,
+                                doubleSwapSurface, LeftBitmap, LeftAlignmentTransform,
+                                RightBitmap, RightAlignmentTransform,
                                 Settings,
                                 Edits,
                                 DrawMode.Parallel);
@@ -1001,8 +1008,8 @@ namespace CrossCam.ViewModel
                             using var canvas = tempSurface.Canvas;
                             canvas.Clear();
 
-                            DrawTool.DrawImagesOnCanvas(tempSurface, LeftBitmap, RightBitmap, Settings, Edits,
-                                DrawMode.Cardboard);
+                            DrawTool.DrawImagesOnCanvas(tempSurface, LeftBitmap, LeftAlignmentTransform, 
+                                RightBitmap, RightAlignmentTransform, Settings, Edits, DrawMode.Cardboard);
 
                             await SaveSurfaceSnapshot(tempSurface);
                         }
@@ -1393,10 +1400,8 @@ namespace CrossCam.ViewModel
             canvas.Clear(SKColor.Empty);
 
             DrawTool.DrawImagesOnCanvas(
-                tempSurface, LeftBitmap, RightBitmap, 
-                Settings, 
-                Edits,
-                grayscale ? DrawMode.GrayscaleRedCyanAnaglyph : DrawMode.RedCyanAnaglyph);
+                tempSurface, LeftBitmap, LeftAlignmentTransform, RightBitmap, RightAlignmentTransform,
+                Settings, Edits, grayscale ? DrawMode.GrayscaleRedCyanAnaglyph : DrawMode.RedCyanAnaglyph);
 
             await SaveSurfaceSnapshot(tempSurface);
         }
@@ -1596,10 +1601,12 @@ namespace CrossCam.ViewModel
                             }
                         }
 
-                        var edits2 = GetBorderEdits(alignedResult.TransformMatrix2, alignedResult.AlignedBitmap2);
-                        if (alignedResult.AlignedBitmap1 != null)
+                        var edits2 = GetBorderEdits(alignedResult.TransformMatrix2,
+                            Settings.IsCaptureLeftFirst ? RightBitmap : LeftBitmap);
+                        if (!alignedResult.TransformMatrix1.IsIdentity)
                         {
-                            var edits1 = GetBorderEdits(alignedResult.TransformMatrix1, alignedResult.AlignedBitmap1);
+                            var edits1 = GetBorderEdits(alignedResult.TransformMatrix1,
+                                Settings.IsCaptureLeftFirst ? LeftBitmap : RightBitmap);
                             Edits.InsideCrop = Math.Max(edits1.InsideCrop, edits2.InsideCrop);
                             Edits.OutsideCrop = Math.Max(edits1.OutsideCrop, edits2.OutsideCrop);
                             Edits.LeftCrop = Math.Max(edits1.LeftCrop, edits2.LeftCrop);
@@ -1617,25 +1624,24 @@ namespace CrossCam.ViewModel
                             Edits.BottomCrop = edits2.BottomCrop;
                         }
 
-
                         OriginalUnalignedRight = RightBitmap;
                         OriginalUnalignedLeft = LeftBitmap;
 
                         if (Settings.IsCaptureLeftFirst)
                         {
-                            if (alignedResult.AlignedBitmap1 != null)
+                            if (!alignedResult.TransformMatrix1.IsIdentity)
                             {
-                                SetLeftBitmap(alignedResult.AlignedBitmap1, false, true);
+                                LeftAlignmentTransform = alignedResult.TransformMatrix1;
                             }
-                            SetRightBitmap(alignedResult.AlignedBitmap2, false, true);
+                            RightAlignmentTransform = alignedResult.TransformMatrix2;
                         }
                         else
                         {
-                            if (alignedResult.AlignedBitmap1 != null)
+                            if (!alignedResult.TransformMatrix1.IsIdentity)
                             {
-                                SetRightBitmap(alignedResult.AlignedBitmap1, false, true);
+                                RightAlignmentTransform = alignedResult.TransformMatrix1;
                             }
-                            SetLeftBitmap(alignedResult.AlignedBitmap2, false, true);
+                            LeftAlignmentTransform = alignedResult.TransformMatrix2;
                         }
                     }
                     else
@@ -2187,6 +2193,7 @@ namespace CrossCam.ViewModel
             surface.DrawBitmap(originalBitmap,
                 SKRect.Create(0, 0, downsizeWidth, downsizeHeight),
                 paint);
+            originalBitmap.Dispose();
 
             return downsized;
         }
@@ -2207,6 +2214,7 @@ namespace CrossCam.ViewModel
             }
             surface.DrawBitmap(originalBitmap,
                 new SKRect(0, 0, downsizeWidth, downsizeHeight));
+            originalBitmap.Dispose();
 
             return rotated;
         }
@@ -2227,6 +2235,7 @@ namespace CrossCam.ViewModel
             }
             surface.DrawBitmap(originalBitmap,
                 new SKRect(0, 0, downsizeWidth, downsizeHeight));
+            originalBitmap.Dispose();
 
             return rotated;
         }
@@ -2247,6 +2256,7 @@ namespace CrossCam.ViewModel
             }
             surface.DrawBitmap(originalBitmap,
                 new SKRect(0, 0, downsizeWidth, downsizeHeight));
+            originalBitmap.Dispose();
 
             return rotated;
         }
@@ -2262,6 +2272,7 @@ namespace CrossCam.ViewModel
             surface.Scale(-1, 1, 0, 0);
             surface.DrawBitmap(originalBitmap,
                 new SKRect(0, 0, downsizeWidth, downsizeHeight));
+            originalBitmap.Dispose();
 
             return transformed;
         }
@@ -2340,11 +2351,13 @@ namespace CrossCam.ViewModel
             if (OriginalUnalignedLeft != null)
             {
                 LeftBitmap = OriginalUnalignedLeft;
+                LeftAlignmentTransform = SKMatrix.Identity;
             }
 
             if (OriginalUnalignedRight != null)
             {
                 RightBitmap = OriginalUnalignedRight;
+                RightAlignmentTransform = SKMatrix.Identity;
             }
 
             ClearCrops(andAutoAligmentFlags);
@@ -2371,7 +2384,8 @@ namespace CrossCam.ViewModel
             WorkflowStage = WorkflowStage.Capture;
             WasCapturePaired = false;
             _isFovCorrected = false;
-
+            LeftAlignmentTransform = SKMatrix.Identity;
+            RightAlignmentTransform = SKMatrix.Identity;
             if (Settings.IsTapToFocusEnabled2)
             {
                 SwitchToContinuousFocusTrigger = !SwitchToContinuousFocusTrigger;

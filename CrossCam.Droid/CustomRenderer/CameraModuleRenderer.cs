@@ -23,6 +23,7 @@ using CrossCam.Page;
 using CrossCam.ViewModel;
 using CrossCam.Wrappers;
 using Java.Lang;
+using SkiaSharp.Views.Android;
 using Xamarin.Forms;
 using Xamarin.Forms.Platform.Android;
 using Boolean = Java.Lang.Boolean;
@@ -379,20 +380,19 @@ namespace CrossCam.Droid.CustomRenderer
 
         public void OnSurfaceTextureUpdated(SurfaceTexture surface)
         {
-            using var stream = new MemoryStream();
-            _textureView.Bitmap.Compress(Bitmap.CompressFormat.Jpeg, 50, stream);
-
             if (_cameraModule.BluetoothOperator.PairStatus == PairStatus.Connected)
             {
                 if (Interlocked.Exchange(ref _readyToCapturePreviewFrameInterlocked, 0) == 1)
                 {
+                    using var stream = new MemoryStream();
+                    _textureView.Bitmap.Compress(Bitmap.CompressFormat.Jpeg, 50, stream);
                     _cameraModule.BluetoothOperator.SendLatestPreviewFrame(stream.ToArray(), (byte)(_textureView.Rotation / 90f));
                 }
             }
 
             MessagingCenter.Send(new object(), CameraViewModel.PREVIEW_FRAME_MESSAGE, new PreviewFrame
             {
-                Frame = stream.ToArray(),
+                Frame = _textureView.Bitmap.ToSKBitmap(),
                 Orientation = (byte)(_textureView.Rotation / 90f)
             });
             
@@ -979,7 +979,7 @@ namespace CrossCam.Droid.CustomRenderer
                 {
                     MessagingCenter.Send(this, CameraViewModel.PREVIEW_FRAME_MESSAGE, new PreviewFrame
                     {
-                        Frame = stream.ToArray(),
+                        Frame = null,//stream.ToArray(),
                         Orientation = (byte)(_renderer._cameraRotation1 / 90)
                     });
                 }

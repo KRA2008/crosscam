@@ -44,7 +44,8 @@ namespace CrossCam.Page
                0f,    0f,    0f, 1f, 0f
         });
 
-        public static void DrawImagesOnCanvas(SKSurface surface, SKBitmap leftBitmap, SKBitmap rightBitmap,
+        public static void DrawImagesOnCanvas(SKSurface surface, SKBitmap leftBitmap, SKMatrix leftAlignmentMatrix, 
+            SKBitmap rightBitmap, SKMatrix rightAlignmentMatrix,
             Settings settings, Edits edits, DrawMode drawMode, bool isFov = false, bool withSwap = false,
             DrawQuality drawQuality = DrawQuality.Save, double cardboardVert = 0, double cardboardHor = 0)
         {
@@ -86,7 +87,7 @@ namespace CrossCam.Page
 
             if (withSwap)
             {
-                DrawImagesOnCanvasInternal(surface, rightBitmap, leftBitmap,
+                DrawImagesOnCanvasInternal(surface, rightBitmap, rightAlignmentMatrix, leftBitmap, leftAlignmentMatrix,
                     settings.BorderWidthProportion, settings.AddBorder && drawQuality != DrawQuality.Preview, settings.BorderColor,
                     edits.InsideCrop + edits.LeftCrop, edits.RightCrop + edits.OutsideCrop,
                     edits.LeftCrop + edits.OutsideCrop, edits.InsideCrop + edits.RightCrop,
@@ -105,7 +106,7 @@ namespace CrossCam.Page
             }
             else
             {
-                DrawImagesOnCanvasInternal(surface, leftBitmap, rightBitmap,
+                DrawImagesOnCanvasInternal(surface, leftBitmap, leftAlignmentMatrix, rightBitmap, rightAlignmentMatrix,
                     settings.BorderWidthProportion, settings.AddBorder && drawQuality != DrawQuality.Preview, settings.BorderColor,
                     edits.LeftCrop + edits.OutsideCrop, edits.InsideCrop + edits.RightCrop, edits.InsideCrop + edits.LeftCrop,
                     edits.RightCrop + edits.OutsideCrop,
@@ -125,7 +126,8 @@ namespace CrossCam.Page
         }
 
         private static void DrawImagesOnCanvasInternal(
-            SKSurface surface, SKBitmap leftBitmap, SKBitmap rightBitmap,
+            SKSurface surface, SKBitmap leftBitmap, SKMatrix leftAlignmentMatrix, 
+            SKBitmap rightBitmap, SKMatrix rightAlignmentMatrix,
             int borderThickness, bool addBorder, BorderColor borderColor,
             double leftLeftCrop, double leftRightCrop, double rightLeftCrop, double rightRightCrop,
             double topCrop, double bottomCrop,
@@ -247,7 +249,8 @@ namespace CrossCam.Page
 
             if (leftBitmap != null)
             {
-                DrawSide(surface.Canvas, leftBitmap, true, drawMode, leftZoom, leftRotation, leftKeystone,
+                DrawSide(surface.Canvas, leftBitmap, leftAlignmentMatrix, 
+                    true, drawMode, leftZoom, leftRotation, leftKeystone,
                     cardboardHor, cardboardVert, alignment,
                     leftClipX, clipY, clipWidth, clipHeight,
                     leftDestX, destY, destWidth, destHeight,
@@ -256,7 +259,8 @@ namespace CrossCam.Page
 
             if (rightBitmap != null)
             {
-                DrawSide(surface.Canvas, rightBitmap, false, drawMode, rightZoom, rightRotation, rightKeystone,
+                DrawSide(surface.Canvas, rightBitmap, rightAlignmentMatrix, 
+                    false, drawMode, rightZoom, rightRotation, rightKeystone,
                     cardboardHor, cardboardVert, alignment,
                     rightClipX, clipY, clipWidth, clipHeight,
                     rightDestX, destY, destWidth, destHeight,
@@ -356,7 +360,8 @@ namespace CrossCam.Page
             }
         }
 
-        private static void DrawSide(SKCanvas canvas, SKBitmap bitmap, bool isLeft, DrawMode drawMode, 
+        private static void DrawSide(SKCanvas canvas, SKBitmap bitmap, SKMatrix alignmentMatrix, 
+            bool isLeft, DrawMode drawMode, 
             double zoom, float rotation, float keystone,
             double cardboardHor, double cardboardVert, double alignment,
             float clipX, float clipY, float clipWidth, float clipHeight,
@@ -418,8 +423,6 @@ namespace CrossCam.Page
                 fullTransform4D.PostConcat(SKMatrix44.CreateTranslate((float)(-cardboardHorDelta + cardboardSeparationMod), (float)-cardboardVertDelta, 0));
             }
 
-            var fullTransform3D = fullTransform4D.Matrix;
-
             using var paint = new SKPaint
             {
                 FilterQuality = quality
@@ -469,7 +472,7 @@ namespace CrossCam.Page
                     (float) adjClipWidth,
                     clipHeight));
 
-            canvas.SetMatrix(fullTransform3D);
+            canvas.SetMatrix(alignmentMatrix.PreConcat(fullTransform4D.Matrix));
             canvas.DrawBitmap(
                 bitmap,
                 SKRect.Create(
