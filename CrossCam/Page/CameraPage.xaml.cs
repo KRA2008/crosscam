@@ -350,6 +350,8 @@ namespace CrossCam.Page
                         _capturedCanvas.InvalidateSurface();
                         break;
                     case nameof(CameraViewModel.LocalPreviewBitmap):
+                    case nameof(CameraViewModel.LeftAlignmentTransform):
+                    case nameof(CameraViewModel.RightAlignmentTransform):
                         _capturedCanvas.InvalidateSurface();
                         break;
                     case nameof(CameraViewModel.RemotePreviewFrame):

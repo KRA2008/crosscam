@@ -252,10 +252,10 @@ namespace CrossCam.Page
 
             if (leftBitmap != null)
             {
-                var leftMatrix = CreateEditMatrix(true, drawMode, leftZoom, leftRotation, leftKeystone,
+                var leftMatrix = FindTransformMatrix(true, drawMode, leftZoom, leftRotation, leftKeystone,
                     cardboardHorDelta, cardboardVertDelta, alignment,
                     leftDestX, destY, destWidth, destHeight,
-                    -cardboardSeparationMod);
+                    -cardboardSeparationMod, scalingRatio, leftAlignmentMatrix);
                 DrawSide(surface.Canvas, leftBitmap, true, drawMode, 
                     cardboardHorDelta, cardboardVertDelta,
                     leftClipX, clipY, clipWidth, clipHeight,
@@ -265,10 +265,10 @@ namespace CrossCam.Page
 
             if (rightBitmap != null)
             {
-                var rightMatrix = CreateEditMatrix(false, drawMode, rightZoom, rightRotation, rightKeystone,
+                var rightMatrix = FindTransformMatrix(false, drawMode, rightZoom, rightRotation, rightKeystone,
                     cardboardHorDelta, cardboardVertDelta, alignment,
                     rightDestX, destY, destWidth, destHeight,
-                    cardboardSeparationMod);
+                    cardboardSeparationMod, scalingRatio, rightAlignmentMatrix);
                 DrawSide(surface.Canvas, rightBitmap, false, drawMode,
                     cardboardHorDelta, cardboardVertDelta,
                     rightClipX, clipY, clipWidth, clipHeight,
@@ -369,21 +369,35 @@ namespace CrossCam.Page
             }
         }
 
-        private static SKMatrix CreateEditMatrix(bool isLeft, DrawMode drawMode,
+        private static SKMatrix FindTransformMatrix(bool isLeft, DrawMode drawMode,
             double zoom, float rotation, float keystone,
             double cardboardHorDelta, double cardboardVertDelta, double alignment,
-            float destX, float destY, float destWidth, float destHeight, 
-            double cardboardSeparationMod)
+            float destX, float destY, float destWidth, float destHeight,
+            double cardboardSeparationMod, double scalingRatio, SKMatrix alignmentMatrix)
         {
-            using var fullTransform4D = SKMatrix44.CreateIdentity();
+            var transform3D = SKMatrix.Identity;
+
+            var xCorrectionToOrigin = destX + destWidth / 2f;
+            var yCorrectionToOrigin = destY + destHeight / 2f;
+
+            if (!alignmentMatrix.IsIdentity)
+            {
+                transform3D = transform3D.PostConcat(SKMatrix.CreateTranslation(-xCorrectionToOrigin, -yCorrectionToOrigin));
+                transform3D = transform3D.PostConcat(SKMatrix.CreateScale((float) scalingRatio, (float) scalingRatio));
+                transform3D = transform3D.PostConcat(SKMatrix.CreateTranslation((float)(destWidth * scalingRatio / 2f), (float)(destHeight * scalingRatio / 2f)));
+                transform3D = transform3D.PostConcat(alignmentMatrix);
+                transform3D = transform3D.PostConcat(SKMatrix.CreateTranslation((float)(-destWidth * scalingRatio / 2f), (float)(-destHeight * scalingRatio / 2f)));
+                transform3D = transform3D.PostConcat(SKMatrix.CreateScale((float) (1 / scalingRatio), (float) (1 / scalingRatio)));
+                transform3D = transform3D.PostConcat(SKMatrix.CreateTranslation(xCorrectionToOrigin, yCorrectionToOrigin));
+            }
+
+            using var transform4D = SKMatrix44.CreateIdentity();
 
             if (Math.Abs(rotation) > 0)
             {
-                var xCorrection = destX + destWidth / 2f;
-                var yCorrection = destY + destHeight / 2f;
-                fullTransform4D.PostConcat(SKMatrix44.CreateTranslate(-xCorrection, -yCorrection, 0));
-                fullTransform4D.PostConcat(SKMatrix44.CreateRotationDegrees(0, 0, 1, rotation));
-                fullTransform4D.PostConcat(SKMatrix44.CreateTranslate(xCorrection, yCorrection, 0));
+                transform4D.PostConcat(SKMatrix44.CreateTranslate(-xCorrectionToOrigin, -yCorrectionToOrigin, 0));
+                transform4D.PostConcat(SKMatrix44.CreateRotationDegrees(0, 0, 1, rotation));
+                transform4D.PostConcat(SKMatrix44.CreateTranslate(xCorrectionToOrigin, yCorrectionToOrigin, 0));
             }
 
             if (Math.Abs(keystone) > 0)
@@ -394,22 +408,19 @@ namespace CrossCam.Page
                     isLeft && !isKeystoneSwapped || !isLeft && isKeystoneSwapped
                         ? destX
                         : destX + destWidth;
-                var yCorrection = destY + destHeight / 2f;
-                fullTransform4D.PostConcat(SKMatrix44.CreateTranslate(-xCorrection, -yCorrection, 0));
-                fullTransform4D.PostConcat(SKMatrix44.CreateRotationDegrees(0, 1, 0,
+                transform4D.PostConcat(SKMatrix44.CreateTranslate(-xCorrection, -yCorrectionToOrigin, 0));
+                transform4D.PostConcat(SKMatrix44.CreateRotationDegrees(0, 1, 0,
                     isLeft && !isKeystoneSwapped || !isLeft && isKeystoneSwapped ? keystone : -keystone));
-                fullTransform4D.PostConcat(MakePerspective(destWidth));
-                fullTransform4D.PostConcat(SKMatrix44.CreateTranslate(xCorrection, yCorrection, 0));
+                transform4D.PostConcat(MakePerspective(destWidth));
+                transform4D.PostConcat(SKMatrix44.CreateTranslate(xCorrection, yCorrectionToOrigin, 0));
                 
             }
 
             if (Math.Abs(zoom) > 0)
             {
-                var xCorrection = destX + destWidth / 2f;
-                var yCorrection = destY + destHeight / 2f;
-                fullTransform4D.PostConcat(SKMatrix44.CreateTranslate(-xCorrection, -yCorrection, 0));
-                fullTransform4D.PostConcat(SKMatrix44.CreateScale((float) (1 + zoom), (float) (1 + zoom), 0));
-                fullTransform4D.PostConcat(SKMatrix44.CreateTranslate(xCorrection, yCorrection, 0));
+                transform4D.PostConcat(SKMatrix44.CreateTranslate(-xCorrectionToOrigin, -yCorrectionToOrigin, 0));
+                transform4D.PostConcat(SKMatrix44.CreateScale((float) (1 + zoom), (float) (1 + zoom), 0));
+                transform4D.PostConcat(SKMatrix44.CreateTranslate(xCorrectionToOrigin, yCorrectionToOrigin, 0));
             }
 
             if (Math.Abs(alignment) > 0)
@@ -417,17 +428,17 @@ namespace CrossCam.Page
                 var yCorrection = isLeft
                     ? alignment > 0 ? -alignment * destHeight : 0
                     : alignment < 0 ? alignment * destHeight : 0;
-                fullTransform4D.PostConcat(SKMatrix44.CreateTranslate(0, (float) yCorrection, 0));
+                transform4D.PostConcat(SKMatrix44.CreateTranslate(0, (float) yCorrection, 0));
             }
 
             if (Math.Abs(cardboardHorDelta) > 0 ||
                 Math.Abs(cardboardVertDelta) > 0 ||
                 Math.Abs(cardboardSeparationMod) > 0)
             {
-                fullTransform4D.PostConcat(SKMatrix44.CreateTranslate((float)(-cardboardHorDelta + cardboardSeparationMod), (float)-cardboardVertDelta, 0));
+                transform4D.PostConcat(SKMatrix44.CreateTranslate((float)(-cardboardHorDelta + cardboardSeparationMod), (float)-cardboardVertDelta, 0));
             }
 
-            return fullTransform4D.Matrix;
+            return transform3D.PostConcat(transform4D.Matrix);
         }
 
         private static void DrawSide(SKCanvas canvas, SKBitmap bitmap, 

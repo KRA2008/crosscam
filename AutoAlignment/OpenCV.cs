@@ -106,6 +106,7 @@ namespace AutoAlignment
 
             return new AlignedResult
             {
+                TransformMatrix1 = SKMatrix.Identity,
                 TransformMatrix2 = ConvertCvMatOfFloatsToSkMatrix(warpMatrix, discardTransX)
             };
         }
