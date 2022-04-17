@@ -247,24 +247,33 @@ namespace CrossCam.Page
                 cardboardSeparationMod = (cardboardIpd - displayLandscapeSideWidth) * DeviceDisplay.MainDisplayInfo.Density / 2d;
             }
 
+            var cardboardHorDelta = cardboardHor * destWidth;
+            var cardboardVertDelta = cardboardVert * destHeight; //TODO: use same property for both to make move speed the same?
+
             if (leftBitmap != null)
             {
-                DrawSide(surface.Canvas, leftBitmap, leftAlignmentMatrix, 
-                    true, drawMode, leftZoom, leftRotation, leftKeystone,
-                    cardboardHor, cardboardVert, alignment,
+                var leftMatrix = CreateEditMatrix(true, drawMode, leftZoom, leftRotation, leftKeystone,
+                    cardboardHorDelta, cardboardVertDelta, alignment,
+                    leftDestX, destY, destWidth, destHeight,
+                    -cardboardSeparationMod);
+                DrawSide(surface.Canvas, leftBitmap, true, drawMode, 
+                    cardboardHorDelta, cardboardVertDelta,
                     leftClipX, clipY, clipWidth, clipHeight,
                     leftDestX, destY, destWidth, destHeight,
-                    false, -cardboardSeparationMod, skFilterQuality);
+                    false, -cardboardSeparationMod, leftMatrix, skFilterQuality);
             }
 
             if (rightBitmap != null)
             {
-                DrawSide(surface.Canvas, rightBitmap, rightAlignmentMatrix, 
-                    false, drawMode, rightZoom, rightRotation, rightKeystone,
-                    cardboardHor, cardboardVert, alignment,
+                var rightMatrix = CreateEditMatrix(false, drawMode, rightZoom, rightRotation, rightKeystone,
+                    cardboardHorDelta, cardboardVertDelta, alignment,
+                    rightDestX, destY, destWidth, destHeight,
+                    cardboardSeparationMod);
+                DrawSide(surface.Canvas, rightBitmap, false, drawMode,
+                    cardboardHorDelta, cardboardVertDelta,
                     rightClipX, clipY, clipWidth, clipHeight,
                     rightDestX, destY, destWidth, destHeight,
-                    leftBitmap != null && useGhost, cardboardSeparationMod, skFilterQuality);
+                    leftBitmap != null && useGhost, cardboardSeparationMod, rightMatrix, skFilterQuality);
             }
 
             var openCv = DependencyService.Get<IOpenCv>();
@@ -360,17 +369,12 @@ namespace CrossCam.Page
             }
         }
 
-        private static void DrawSide(SKCanvas canvas, SKBitmap bitmap, SKMatrix alignmentMatrix, 
-            bool isLeft, DrawMode drawMode, 
+        private static SKMatrix CreateEditMatrix(bool isLeft, DrawMode drawMode,
             double zoom, float rotation, float keystone,
-            double cardboardHor, double cardboardVert, double alignment,
-            float clipX, float clipY, float clipWidth, float clipHeight,
-            float destX, float destY, float destWidth, float destHeight,
-            bool useGhostOverlay, double cardboardSeparationMod, SKFilterQuality quality)
+            double cardboardHorDelta, double cardboardVertDelta, double alignment,
+            float destX, float destY, float destWidth, float destHeight, 
+            double cardboardSeparationMod)
         {
-            var cardboardHorDelta = cardboardHor * destWidth;
-            var cardboardVertDelta = cardboardVert * destHeight; //TODO: use same property for both to make move speed the same?
-
             using var fullTransform4D = SKMatrix44.CreateIdentity();
 
             if (Math.Abs(rotation) > 0)
@@ -423,6 +427,17 @@ namespace CrossCam.Page
                 fullTransform4D.PostConcat(SKMatrix44.CreateTranslate((float)(-cardboardHorDelta + cardboardSeparationMod), (float)-cardboardVertDelta, 0));
             }
 
+            return fullTransform4D.Matrix;
+        }
+
+        private static void DrawSide(SKCanvas canvas, SKBitmap bitmap, 
+            bool isLeft, DrawMode drawMode,
+            double cardboardHorDelta, double cardboardVertDelta,
+            float clipX, float clipY, float clipWidth, float clipHeight,
+            float destX, float destY, float destWidth, float destHeight,
+            bool useGhostOverlay, double cardboardSeparationMod, SKMatrix transformMatrix, 
+            SKFilterQuality quality)
+        {
             using var paint = new SKPaint
             {
                 FilterQuality = quality
@@ -472,7 +487,7 @@ namespace CrossCam.Page
                     (float) adjClipWidth,
                     clipHeight));
 
-            canvas.SetMatrix(alignmentMatrix.PreConcat(fullTransform4D.Matrix));
+            canvas.SetMatrix(transformMatrix);
             canvas.DrawBitmap(
                 bitmap,
                 SKRect.Create(
