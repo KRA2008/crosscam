@@ -400,39 +400,50 @@ namespace CrossCam.Page
             double cardboardSeparationMod, double scalingRatio, SKMatrix alignmentMatrix,
             SKEncodedOrigin orientation)
         {
-            Debug.WriteLine("ORIENTATION: " + orientation);
             var transform3D = SKMatrix.Identity;
 
             var xCorrectionToOrigin = destX + destWidth / 2f;
             var yCorrectionToOrigin = destY + destHeight / 2f;
 
-            transform3D = transform3D.PostConcat(SKMatrix.CreateTranslation(-xCorrectionToOrigin, -yCorrectionToOrigin));
+            float orientationRotation = 0;
+            var isXYSwap = false;
+
             switch (orientation)
             {
                 case SKEncodedOrigin.TopLeft:
-                    //nothing to do
+                    orientationRotation = 0;
+                    isXYSwap = false;
                     break;
                 case SKEncodedOrigin.TopRight:
                     break;
                 case SKEncodedOrigin.BottomRight:
-                    transform3D = transform3D.PostConcat(SKMatrix.CreateRotation((float) Math.PI));
+                    orientationRotation = (float) Math.PI;
+                    isXYSwap = false;
                     break;
                 case SKEncodedOrigin.BottomLeft:
                     break;
                 case SKEncodedOrigin.LeftTop:
                     break;
                 case SKEncodedOrigin.RightTop:
-                    transform3D = transform3D.PostConcat(SKMatrix.CreateRotation((float) Math.PI / 2f));
+                    orientationRotation = (float) (Math.PI / 2f);
+                    isXYSwap = true;
                     break;
                 case SKEncodedOrigin.RightBottom:
                     break;
                 case SKEncodedOrigin.LeftBottom:
-                    transform3D = transform3D.PostConcat(SKMatrix.CreateRotation((float) (3 * Math.PI / 2f)));
+                    orientationRotation = (float) (3 * Math.PI / 2f);
+                    isXYSwap = true;
                     break;
                 default:
                     throw new ArgumentOutOfRangeException(nameof(orientation), orientation, null);
             }
-            transform3D = transform3D.PostConcat(SKMatrix.CreateTranslation(xCorrectionToOrigin, yCorrectionToOrigin));
+
+            //isXYSwap = false;
+            //transform3D = transform3D.PostConcat(SKMatrix.CreateTranslation(
+            //    isXYSwap ? -yCorrectionToOrigin : -xCorrectionToOrigin,
+            //    isXYSwap ? -xCorrectionToOrigin : -yCorrectionToOrigin));
+            //transform3D = transform3D.PostConcat(SKMatrix.CreateRotation(orientationRotation));
+            //transform3D = transform3D.PostConcat(SKMatrix.CreateTranslation(xCorrectionToOrigin, yCorrectionToOrigin));
 
             if (!alignmentMatrix.IsIdentity)
             {
@@ -545,16 +556,21 @@ namespace CrossCam.Page
             var adjClipWidth = clipWidth - Math.Abs(cardboardHorDelta - cardboardSeparationMod); //TODO: due to some other stuff, the left and right ends never go further than the clip width from the middle (fix it?)
             var adjClipY = clipY - cardboardVertDelta;
 
-            canvas.ClipRect(
-                SKRect.Create(
-                    (float) adjClipX,
-                    (float) adjClipY,
-                    (float) adjClipWidth,
-                    clipHeight));
+            //canvas.ClipRect(
+            //    SKRect.Create(
+            //        (float) adjClipX,
+            //        (float) adjClipY,
+            //        (float) adjClipWidth,
+            //        clipHeight));
 
             canvas.SetMatrix(transformMatrix);
             canvas.DrawBitmap(
                 bitmap,
+                //SKRect.Create(
+                //    0,
+                //    0,
+                //    bitmap.Height, //TODO: watch swap
+                //    bitmap.Width),
                 SKRect.Create(
                     destX,
                     destY,
