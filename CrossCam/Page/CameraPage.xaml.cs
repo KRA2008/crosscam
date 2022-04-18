@@ -443,13 +443,21 @@ namespace CrossCam.Page
             
             SKBitmap left = null;
             SKBitmap right = null;
+            var leftAlignment = SKMatrix.Identity;
+            var rightAlignment = SKMatrix.Identity;
+            var leftOrientation = SKEncodedOrigin.Default;
+            var rightOrientation = SKEncodedOrigin.Default;
             if (_viewModel.LeftBitmap != null &&
                 _viewModel.RightBitmap != null)
             {
                 surface.Canvas.Clear();
 
                 left = _viewModel.LeftBitmap;
+                leftAlignment = _viewModel.LeftAlignmentTransform;
+                leftOrientation = _viewModel.LeftOrientation;
                 right = _viewModel.RightBitmap;
+                rightAlignment = _viewModel.RightAlignmentTransform;
+                rightOrientation = _viewModel.RightOrientation;
             }
             else
             {
@@ -458,11 +466,14 @@ namespace CrossCam.Page
                     _viewModel.LeftBitmap != null)
                 {
                     left = _viewModel.LeftBitmap;
+                    leftAlignment = _viewModel.LeftAlignmentTransform;
+                    leftOrientation = _viewModel.LeftOrientation;
                     _newLeftCapture = false;
                 }
                 else if (_viewModel.CameraColumn == 0)
                 {
                     left = _viewModel.LocalPreviewBitmap;
+                    leftOrientation = _viewModel.LocalPreviewOrientation;
                 }
 
                 if (_newRightCapture || 
@@ -470,11 +481,14 @@ namespace CrossCam.Page
                     _viewModel.RightBitmap != null)
                 {
                     right = _viewModel.RightBitmap;
+                    rightAlignment = _viewModel.RightAlignmentTransform;
+                    rightOrientation = _viewModel.RightOrientation;
                     _newRightCapture = false;
                 }
                 else if (_viewModel.CameraColumn == 1)
                 {
                     right = _viewModel.LocalPreviewBitmap;
+                    rightOrientation = _viewModel.LocalPreviewOrientation;
                 }
             }
 
@@ -484,6 +498,7 @@ namespace CrossCam.Page
                     _viewModel.RightBitmap == null)
                 {
                     left = right = _viewModel.LocalPreviewBitmap;
+                    leftOrientation = rightOrientation = _viewModel.LocalPreviewOrientation;
                 }
             }
 
@@ -554,8 +569,9 @@ namespace CrossCam.Page
             }
 
             DrawTool.DrawImagesOnCanvas(
-                surface, left, _viewModel.LeftAlignmentTransform, 
-                right, _viewModel.RightAlignmentTransform,
+                surface, 
+                left, leftAlignment, leftOrientation,
+                right, rightAlignment, rightOrientation,
                 _viewModel.Settings,
                 _viewModel.Edits,
                 _viewModel.Settings.Mode,
@@ -575,7 +591,7 @@ namespace CrossCam.Page
 
             if (_viewModel.RemotePreviewFrame != null)
             {
-                var bitmap = _viewModel.DecodeBitmapAndCorrectOrientation(_viewModel.RemotePreviewFrame, _viewModel.BluetoothOperatorBindable.PairStatus == PairStatus.Connected); //TODO: add a using
+                var bitmap = SKBitmap.Decode(_viewModel.RemotePreviewFrame); //, _viewModel.BluetoothOperatorBindable.PairStatus == PairStatus.Connected); //TODO: add handle orientation
 
                 if (bitmap != null)
                 {

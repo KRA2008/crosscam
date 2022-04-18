@@ -15,37 +15,38 @@ namespace CrossCam.Page
         private const double FUSE_GUIDE_WIDTH_RATIO = 0.0127;
         private const int FUSE_GUIDE_MARGIN_HEIGHT_RATIO = 7;
 
-        private static readonly SKColorFilter CyanAnaglyph = SKColorFilter.CreateColorMatrix(new float[]
+        private static readonly SKColorFilter CyanAnaglyph = SKColorFilter.CreateColorMatrix(new[]
         {
-            0, 0, 0, 0, 0,
-            0, 1, 0, 0, 0,
-            0, 0, 1, 0, 0,
-            0, 0, 0, 1, 0
+            0f, 0, 0, 0, 0,
+             0, 1, 0, 0, 0,
+             0, 0, 1, 0, 0,
+             0, 0, 0, 1, 0
         }); 
-        private static readonly SKColorFilter RedAnaglyph = SKColorFilter.CreateColorMatrix(new float[]
+        private static readonly SKColorFilter RedAnaglyph = SKColorFilter.CreateColorMatrix(new[]
         {
-            1, 0, 0, 0, 0,
-            0, 0, 0, 0, 0,
-            0, 0, 0, 0, 0,
-            0, 0, 0, 1, 0
+            1f, 0, 0, 0, 0,
+             0, 0, 0, 0, 0,
+             0, 0, 0, 0, 0,
+             0, 0, 0, 1, 0
         }); 
-        private static readonly SKColorFilter CyanGrayAnaglyph = SKColorFilter.CreateColorMatrix(new float[]
+        private static readonly SKColorFilter CyanGrayAnaglyph = SKColorFilter.CreateColorMatrix(new[]
         {
-               0f,    0f,    0f, 0f, 0f,
-            0.21f, 0.72f, 0.07f, 0f, 0f,
-            0.21f, 0.72f, 0.07f, 0f, 0f,
-               0f,    0f,    0f, 1f, 0f
+                0,     0,     0, 0, 0,
+            0.21f, 0.72f, 0.07f, 0, 0,
+            0.21f, 0.72f, 0.07f, 0, 0,
+                0,     0,     0, 1, 0
         });
-        private static readonly SKColorFilter RedGrayAnaglyph = SKColorFilter.CreateColorMatrix(new float[]
+        private static readonly SKColorFilter RedGrayAnaglyph = SKColorFilter.CreateColorMatrix(new[]
         {
-            0.21f, 0.72f, 0.07f, 0f, 0f,
-               0f,    0f,    0f, 0f, 0f,
-               0f,    0f,    0f, 0f, 0f,
-               0f,    0f,    0f, 1f, 0f
+            0.21f, 0.72f, 0.07f, 0, 0,
+                0,     0,     0, 0, 0,
+                0,     0,     0, 0, 0,
+                0,     0,     0, 1, 0
         });
 
-        public static void DrawImagesOnCanvas(SKSurface surface, SKBitmap leftBitmap, SKMatrix leftAlignmentMatrix, 
-            SKBitmap rightBitmap, SKMatrix rightAlignmentMatrix,
+        public static void DrawImagesOnCanvas(SKSurface surface, 
+            SKBitmap leftBitmap, SKMatrix leftAlignmentMatrix, SKEncodedOrigin leftOrientation,
+            SKBitmap rightBitmap, SKMatrix rightAlignmentMatrix, SKEncodedOrigin rightOrientation,
             Settings settings, Edits edits, DrawMode drawMode, bool isFov = false, bool withSwap = false,
             DrawQuality drawQuality = DrawQuality.Save, double cardboardVert = 0, double cardboardHor = 0)
         {
@@ -76,7 +77,7 @@ namespace CrossCam.Page
 
             var cardboardDownsizeProportion = drawQuality != DrawQuality.Save &&
                                               drawMode == DrawMode.Cardboard &&
-                                              settings.CardboardDownsize ? settings.CardboardDownsizePercentage / 100d : 1;
+                                              settings.CardboardDownsize ? settings.CardboardDownsizePercentage / 100d : 1d;
             double vert = 0, hor = 0;
             if (settings.ImmersiveCardboardFinal && 
                 settings.Mode == DrawMode.Cardboard)
@@ -87,7 +88,9 @@ namespace CrossCam.Page
 
             if (withSwap)
             {
-                DrawImagesOnCanvasInternal(surface, rightBitmap, rightAlignmentMatrix, leftBitmap, leftAlignmentMatrix,
+                DrawImagesOnCanvasInternal(surface, 
+                    rightBitmap, rightAlignmentMatrix, rightOrientation,
+                    leftBitmap, leftAlignmentMatrix, leftOrientation,
                     settings.BorderWidthProportion, settings.AddBorder && drawQuality != DrawQuality.Preview, settings.BorderColor,
                     edits.InsideCrop + edits.LeftCrop, edits.RightCrop + edits.OutsideCrop,
                     edits.LeftCrop + edits.OutsideCrop, edits.InsideCrop + edits.RightCrop,
@@ -106,7 +109,9 @@ namespace CrossCam.Page
             }
             else
             {
-                DrawImagesOnCanvasInternal(surface, leftBitmap, leftAlignmentMatrix, rightBitmap, rightAlignmentMatrix,
+                DrawImagesOnCanvasInternal(surface, 
+                    leftBitmap, leftAlignmentMatrix, leftOrientation,
+                    rightBitmap, rightAlignmentMatrix, rightOrientation,
                     settings.BorderWidthProportion, settings.AddBorder && drawQuality != DrawQuality.Preview, settings.BorderColor,
                     edits.LeftCrop + edits.OutsideCrop, edits.InsideCrop + edits.RightCrop, edits.InsideCrop + edits.LeftCrop,
                     edits.RightCrop + edits.OutsideCrop,
@@ -126,8 +131,9 @@ namespace CrossCam.Page
         }
 
         private static void DrawImagesOnCanvasInternal(
-            SKSurface surface, SKBitmap leftBitmap, SKMatrix leftAlignmentMatrix, 
-            SKBitmap rightBitmap, SKMatrix rightAlignmentMatrix,
+            SKSurface surface, 
+            SKBitmap leftBitmap, SKMatrix leftAlignmentMatrix, SKEncodedOrigin leftOrientation,
+            SKBitmap rightBitmap, SKMatrix rightAlignmentMatrix, SKEncodedOrigin rightOrientation,
             int borderThickness, bool addBorder, BorderColor borderColor,
             double leftLeftCrop, double leftRightCrop, double rightLeftCrop, double rightRightCrop,
             double topCrop, double bottomCrop,
@@ -151,17 +157,35 @@ namespace CrossCam.Page
             double sideBitmapWidthLessCrop, baseHeight, baseWidth, netSideCrop;
             if (leftBitmap != null)
             {
+                if (leftOrientation == SKEncodedOrigin.RightTop ||
+                    leftOrientation == SKEncodedOrigin.LeftBottom)
+                {
+                    baseWidth = leftBitmap.Height;
+                    baseHeight = leftBitmap.Width;
+                }
+                else
+                {
+                    baseWidth = leftBitmap.Width;
+                    baseHeight = leftBitmap.Height;
+                }
                 netSideCrop = leftLeftCrop + leftRightCrop;
-                baseHeight = leftBitmap.Height;
-                sideBitmapWidthLessCrop = leftBitmap.Width * (1 - netSideCrop);
-                baseWidth = leftBitmap.Width;
+                sideBitmapWidthLessCrop = baseWidth * (1 - netSideCrop);
             }
             else
             {
+                if (rightOrientation == SKEncodedOrigin.RightTop ||
+                    rightOrientation == SKEncodedOrigin.LeftBottom)
+                {
+                    baseHeight = rightBitmap.Width;
+                    baseWidth = rightBitmap.Height;
+                }
+                else
+                {
+                    baseHeight = rightBitmap.Height;
+                    baseWidth = rightBitmap.Width;
+                }
                 netSideCrop = rightLeftCrop + rightRightCrop;
-                baseHeight = rightBitmap.Height;
-                sideBitmapWidthLessCrop = rightBitmap.Width * (1 - netSideCrop);
-                baseWidth = rightBitmap.Width;
+                sideBitmapWidthLessCrop = baseWidth * (1 - netSideCrop);
             }
 
             var sideBitmapHeightLessCrop = baseHeight * (1 - (topCrop + bottomCrop + Math.Abs(alignment)));
@@ -255,7 +279,7 @@ namespace CrossCam.Page
                 var leftMatrix = FindTransformMatrix(true, drawMode, leftZoom, leftRotation, leftKeystone,
                     cardboardHorDelta, cardboardVertDelta, alignment,
                     leftDestX, destY, destWidth, destHeight,
-                    -cardboardSeparationMod, scalingRatio, leftAlignmentMatrix);
+                    -cardboardSeparationMod, scalingRatio, leftAlignmentMatrix, leftOrientation);
                 DrawSide(surface.Canvas, leftBitmap, true, drawMode, 
                     cardboardHorDelta, cardboardVertDelta,
                     leftClipX, clipY, clipWidth, clipHeight,
@@ -268,7 +292,7 @@ namespace CrossCam.Page
                 var rightMatrix = FindTransformMatrix(false, drawMode, rightZoom, rightRotation, rightKeystone,
                     cardboardHorDelta, cardboardVertDelta, alignment,
                     rightDestX, destY, destWidth, destHeight,
-                    cardboardSeparationMod, scalingRatio, rightAlignmentMatrix);
+                    cardboardSeparationMod, scalingRatio, rightAlignmentMatrix, rightOrientation);
                 DrawSide(surface.Canvas, rightBitmap, false, drawMode,
                     cardboardHorDelta, cardboardVertDelta,
                     rightClipX, clipY, clipWidth, clipHeight,
@@ -373,12 +397,42 @@ namespace CrossCam.Page
             double zoom, float rotation, float keystone,
             double cardboardHorDelta, double cardboardVertDelta, double alignment,
             float destX, float destY, float destWidth, float destHeight,
-            double cardboardSeparationMod, double scalingRatio, SKMatrix alignmentMatrix)
+            double cardboardSeparationMod, double scalingRatio, SKMatrix alignmentMatrix,
+            SKEncodedOrigin orientation)
         {
+            Debug.WriteLine("ORIENTATION: " + orientation);
             var transform3D = SKMatrix.Identity;
 
             var xCorrectionToOrigin = destX + destWidth / 2f;
             var yCorrectionToOrigin = destY + destHeight / 2f;
+
+            transform3D = transform3D.PostConcat(SKMatrix.CreateTranslation(-xCorrectionToOrigin, -yCorrectionToOrigin));
+            switch (orientation)
+            {
+                case SKEncodedOrigin.TopLeft:
+                    //nothing to do
+                    break;
+                case SKEncodedOrigin.TopRight:
+                    break;
+                case SKEncodedOrigin.BottomRight:
+                    transform3D = transform3D.PostConcat(SKMatrix.CreateRotation((float) Math.PI));
+                    break;
+                case SKEncodedOrigin.BottomLeft:
+                    break;
+                case SKEncodedOrigin.LeftTop:
+                    break;
+                case SKEncodedOrigin.RightTop:
+                    transform3D = transform3D.PostConcat(SKMatrix.CreateRotation((float) Math.PI / 2f));
+                    break;
+                case SKEncodedOrigin.RightBottom:
+                    break;
+                case SKEncodedOrigin.LeftBottom:
+                    transform3D = transform3D.PostConcat(SKMatrix.CreateRotation((float) (3 * Math.PI / 2f)));
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException(nameof(orientation), orientation, null);
+            }
+            transform3D = transform3D.PostConcat(SKMatrix.CreateTranslation(xCorrectionToOrigin, yCorrectionToOrigin));
 
             if (!alignmentMatrix.IsIdentity)
             {

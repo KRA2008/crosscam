@@ -23,14 +23,13 @@ using CrossCam.Page;
 using CrossCam.ViewModel;
 using CrossCam.Wrappers;
 using Java.Lang;
-using SkiaSharp.Views.Android;
+using SkiaSharp;
 using Xamarin.Forms;
 using Xamarin.Forms.Platform.Android;
 using Boolean = Java.Lang.Boolean;
 using CameraError = Android.Hardware.CameraError;
 using CameraModule = CrossCam.CustomElement.CameraModule;
 using Math = System.Math;
-using Point = System.Drawing.Point;
 using PointF = System.Drawing.PointF;
 using Size = Android.Util.Size;
 using View = Android.Views.View;
@@ -380,20 +379,31 @@ namespace CrossCam.Droid.CustomRenderer
 
         public void OnSurfaceTextureUpdated(SurfaceTexture surface)
         {
+            using var stream = new MemoryStream();
+            _textureView.Bitmap.Compress(Bitmap.CompressFormat.Jpeg, 50, stream);
+
             if (_cameraModule.BluetoothOperator.PairStatus == PairStatus.Connected)
             {
                 if (Interlocked.Exchange(ref _readyToCapturePreviewFrameInterlocked, 0) == 1)
                 {
-                    using var stream = new MemoryStream();
-                    _textureView.Bitmap.Compress(Bitmap.CompressFormat.Jpeg, 50, stream);
                     _cameraModule.BluetoothOperator.SendLatestPreviewFrame(stream.ToArray(), (byte)(_textureView.Rotation / 90f));
                 }
             }
 
+            var bitmap = SKBitmap.Decode(stream.ToArray());
+            var origin = (int) (_textureView.Rotation / 90) switch
+            {
+                0 => SKEncodedOrigin.TopLeft,
+                1 => SKEncodedOrigin.RightTop,
+                2 => SKEncodedOrigin.BottomRight,
+                3 => SKEncodedOrigin.LeftBottom,
+                _ => SKEncodedOrigin.Default
+            }; //TODO: handle mirror
+
             MessagingCenter.Send(new object(), CameraViewModel.PREVIEW_FRAME_MESSAGE, new PreviewFrame
             {
-                Frame = _textureView.Bitmap.ToSKBitmap(),
-                Orientation = (byte)(_textureView.Rotation / 90f)
+                Frame = bitmap,
+                Orientation = origin
             });
             
         }
@@ -975,14 +985,15 @@ namespace CrossCam.Droid.CustomRenderer
                         _cameraModule.BluetoothOperator.SendLatestPreviewFrame(stream.ToArray(), (byte)(_renderer._cameraRotation1 / 90));
                     }
                 }
-                else //TODO: test this on old phone
+                using var skData = SKData.Create(stream);
+                using var codec = SKCodec.Create(skData);
+                var bitmap = SKBitmap.Decode(skData);
+                //TODO: test this on old phone
+                MessagingCenter.Send(this, CameraViewModel.PREVIEW_FRAME_MESSAGE, new PreviewFrame
                 {
-                    MessagingCenter.Send(this, CameraViewModel.PREVIEW_FRAME_MESSAGE, new PreviewFrame
-                    {
-                        Frame = null,//stream.ToArray(),
-                        Orientation = (byte)(_renderer._cameraRotation1 / 90)
-                    });
-                }
+                    Frame = bitmap,
+                    Orientation = codec.EncodedOrigin //TODO: i think this is shit on Android, need to handle above
+                });
             }
         }
 

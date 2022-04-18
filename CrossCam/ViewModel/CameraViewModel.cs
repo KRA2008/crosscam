@@ -54,12 +54,16 @@ namespace CrossCam.ViewModel
         public SKMatrix LeftAlignmentTransform { get; set; }
         public SKMatrix RightAlignmentTransform { get; set; }
 
+        public SKEncodedOrigin LeftOrientation { get; set; }
+        public SKEncodedOrigin RightOrientation { get; set; }
+
         public byte[] CapturedImageBytes { get; set; }
         public bool CaptureSuccess { get; set; }
         public int CameraColumn { get; set; }
 
         public byte[] RemotePreviewFrame { get; set; }
         public SKBitmap LocalPreviewBitmap { get; set; }
+        public SKEncodedOrigin LocalPreviewOrientation { get; set; }
 
         public AbsoluteLayoutFlags CanvasRectangleFlags => 
             Settings.Mode == DrawMode.Parallel && 
@@ -404,8 +408,8 @@ namespace CrossCam.ViewModel
             {
                 if (LeftBitmap == null || RightBitmap == null)
                 {
-                    LocalPreviewBitmap?.Dispose();
-                    LocalPreviewBitmap = CorrectBitmapOrientation(frame.Frame, frame.Orientation ?? 4);
+                    LocalPreviewBitmap = frame.Frame;
+                    LocalPreviewOrientation = frame.Orientation;
                 }
             });
 
@@ -861,8 +865,9 @@ namespace CrossCam.ViewModel
                             }
 
                             DrawTool.DrawImagesOnCanvas(
-                                tempSurface, LeftBitmap, LeftAlignmentTransform, 
-                                RightBitmap, RightAlignmentTransform,
+                                tempSurface, 
+                                LeftBitmap, LeftAlignmentTransform, LeftOrientation,
+                                RightBitmap, RightAlignmentTransform, RightOrientation,
                                 Settings,
                                 Edits, 
                                 DrawMode.Cross);
@@ -886,8 +891,9 @@ namespace CrossCam.ViewModel
                             }
 
                             DrawTool.DrawImagesOnCanvas(
-                                tempSurface, LeftBitmap, LeftAlignmentTransform, 
-                                RightBitmap, RightAlignmentTransform,
+                                tempSurface, 
+                                LeftBitmap, LeftAlignmentTransform, LeftOrientation,
+                                RightBitmap, RightAlignmentTransform, RightOrientation,
                                 Settings, 
                                 Edits, 
                                 DrawMode.Parallel,
@@ -935,8 +941,9 @@ namespace CrossCam.ViewModel
                             }
 
                             DrawTool.DrawImagesOnCanvas(
-                                doubleSurface, LeftBitmap, LeftAlignmentTransform, 
-                                RightBitmap, RightAlignmentTransform,
+                                doubleSurface, 
+                                LeftBitmap, LeftAlignmentTransform, LeftOrientation,
+                                RightBitmap, RightAlignmentTransform, RightOrientation,
                                 Settings,
                                 Edits,
                                 DrawMode.Cross);
@@ -963,8 +970,9 @@ namespace CrossCam.ViewModel
                             }
 
                             DrawTool.DrawImagesOnCanvas(
-                                doublePlainSurface, LeftBitmap, LeftAlignmentTransform,
-                                RightBitmap, RightAlignmentTransform,
+                                doublePlainSurface, 
+                                LeftBitmap, LeftAlignmentTransform, LeftOrientation,
+                                RightBitmap, RightAlignmentTransform, RightOrientation,
                                 Settings,
                                 Edits,
                                 DrawMode.Cross);
@@ -980,8 +988,9 @@ namespace CrossCam.ViewModel
                             }
 
                             DrawTool.DrawImagesOnCanvas(
-                                doubleSwapSurface, LeftBitmap, LeftAlignmentTransform,
-                                RightBitmap, RightAlignmentTransform,
+                                doubleSwapSurface, 
+                                LeftBitmap, LeftAlignmentTransform, LeftOrientation,
+                                RightBitmap, RightAlignmentTransform, RightOrientation,
                                 Settings,
                                 Edits,
                                 DrawMode.Parallel);
@@ -1008,8 +1017,10 @@ namespace CrossCam.ViewModel
                             using var canvas = tempSurface.Canvas;
                             canvas.Clear();
 
-                            DrawTool.DrawImagesOnCanvas(tempSurface, LeftBitmap, LeftAlignmentTransform, 
-                                RightBitmap, RightAlignmentTransform, Settings, Edits, DrawMode.Cardboard);
+                            DrawTool.DrawImagesOnCanvas(tempSurface, 
+                                LeftBitmap, LeftAlignmentTransform, LeftOrientation,
+                                RightBitmap, RightAlignmentTransform, RightOrientation,
+                                Settings, Edits, DrawMode.Cardboard);
 
                             await SaveSurfaceSnapshot(tempSurface);
                         }
@@ -1358,7 +1369,7 @@ namespace CrossCam.ViewModel
         private void BluetoothOperatorOnCapturedImageReceived(object sender, byte[] e)
         {
             RemotePreviewFrame = null;
-            var bitmap = DecodeBitmapAndCorrectOrientation(e);
+            var bitmap = SKBitmap.Decode(e);
             if (Settings.IsCaptureLeftFirst)
             {
                 SetRightBitmap(bitmap, false, true);
@@ -1400,7 +1411,9 @@ namespace CrossCam.ViewModel
             canvas.Clear(SKColor.Empty);
 
             DrawTool.DrawImagesOnCanvas(
-                tempSurface, LeftBitmap, LeftAlignmentTransform, RightBitmap, RightAlignmentTransform,
+                tempSurface, 
+                LeftBitmap, LeftAlignmentTransform, LeftOrientation,
+                RightBitmap, RightAlignmentTransform, RightOrientation,
                 Settings, Edits, grayscale ? DrawMode.GrayscaleRedCyanAnaglyph : DrawMode.RedCyanAnaglyph);
 
             await SaveSurfaceSnapshot(tempSurface);
@@ -1453,13 +1466,13 @@ namespace CrossCam.ViewModel
 
         private async Task LeftBytesCaptured(byte[] capturedBytes, bool withMovementAndStep = true)
         {
-            var bitmap = await Task.Run(() => DecodeBitmapAndCorrectOrientation(capturedBytes));
+            var bitmap = await Task.Run(() => SKBitmap.Decode(capturedBytes));
             SetLeftBitmap(bitmap, withMovementAndStep, withMovementAndStep);
         }
 
         private async Task RightBytesCaptured(byte[] capturedBytes, bool withMovementAndStep = true)
         {
-            var bitmap = await Task.Run(() => DecodeBitmapAndCorrectOrientation(capturedBytes));
+            var bitmap = await Task.Run(() => SKBitmap.Decode(capturedBytes));
             SetRightBitmap(bitmap, withMovementAndStep, withMovementAndStep);
         }
 
@@ -2101,180 +2114,6 @@ namespace CrossCam.ViewModel
         private static int GetTotalColor(SKColor color)
         {
             return color.Red + color.Green + color.Blue;
-        }
-
-        public SKBitmap DecodeBitmapAndCorrectOrientation(byte[] bytes, bool withOrientationByte = false, double downsizeProportion = 1)
-        {
-            try
-            {
-                withOrientationByte = withOrientationByte && Device.RuntimePlatform == Device.Android;
-                if (withOrientationByte)
-                {
-                    using var stream = new MemoryStream(bytes, 0, bytes.Length - 1);
-                    return InternalDecodeAndCorrect(stream, bytes.Last(), downsizeProportion);
-                }
-
-                using (var stream = new MemoryStream(bytes))
-                {
-                    return InternalDecodeAndCorrect(stream, null, downsizeProportion);
-                }
-            }
-            catch (Exception e)
-            {
-                Device.BeginInvokeOnMainThread(() =>
-                {
-                    ErrorMessage = e.ToString();
-                });
-                return null;
-            }
-        }
-
-        private SKBitmap InternalDecodeAndCorrect(Stream stream, byte? orientationByte, double downsizeProportion)
-        {
-            SKCodecOrigin origin = 0;
-            using var data = SKData.Create(stream);
-            using var codec = SKCodec.Create(data);
-            var bitmap = SKBitmap.Decode(data);
-
-            if (codec != null)
-            {
-                origin = codec.Origin;
-            }
-                
-            if (!orientationByte.HasValue)
-            {
-                switch (origin)
-                {
-                    case SKCodecOrigin.TopLeft when downsizeProportion != 1:
-                        return BitmapDownsize(bitmap, downsizeProportion);
-                    case SKCodecOrigin.BottomRight when !ChosenCamera.IsFront:
-                        return BitmapRotate180(bitmap, false, downsizeProportion);
-                    case SKCodecOrigin.BottomRight when ChosenCamera.IsFront:
-                        return BitmapHorizontalMirror(bitmap, downsizeProportion);
-                    case SKCodecOrigin.RightTop:
-                        return BitmapRotate90(bitmap, ChosenCamera.IsFront, downsizeProportion);
-                    case SKCodecOrigin.LeftBottom:
-                        return BitmapRotate270(bitmap, ChosenCamera.IsFront, downsizeProportion);
-                    case SKCodecOrigin.TopLeft when ChosenCamera.IsFront:
-                        return BitmapRotate180(bitmap, true, downsizeProportion);
-                    default:
-                        return bitmap;
-                }
-            }
-
-            return CorrectBitmapOrientation(bitmap, orientationByte.Value);
-        }
-
-        public SKBitmap CorrectBitmapOrientation(SKBitmap bitmap, byte orientation, double downsizeProportion = 1)
-        {
-            switch (orientation)
-            {
-                case 0 when downsizeProportion != 1:
-                    return BitmapDownsize(bitmap, downsizeProportion);
-                case 1:
-                    return BitmapRotate90(bitmap, false, downsizeProportion);
-                case 2:
-                    return BitmapRotate180(bitmap, false, downsizeProportion);
-                case 3:
-                    return BitmapRotate270(bitmap, false, downsizeProportion);
-                default:
-                    return bitmap;
-            }
-        }
-
-        public static SKBitmap BitmapDownsize(SKBitmap originalBitmap, double downsizeProportion, SKFilterQuality quality = SKFilterQuality.High)
-        {
-            var downsizeWidth = (int) (originalBitmap.Width * downsizeProportion);
-            var downsizeHeight = (int) (originalBitmap.Height * downsizeProportion);
-            var downsized = new SKBitmap(downsizeWidth, downsizeHeight);
-
-            using var paint = new SKPaint {FilterQuality = quality};
-            using var surface = new SKCanvas(downsized);
-            surface.DrawBitmap(originalBitmap,
-                SKRect.Create(0, 0, downsizeWidth, downsizeHeight),
-                paint);
-            originalBitmap.Dispose();
-
-            return downsized;
-        }
-
-        private static SKBitmap BitmapRotate90(SKBitmap originalBitmap, bool withHorizontalMirror, double downsizeProportion)
-        {
-            var downsizeWidth = (int)(originalBitmap.Width * downsizeProportion);
-            var downsizeHeight = (int)(originalBitmap.Height * downsizeProportion);
-            var rotated = new SKBitmap(downsizeHeight, downsizeWidth);
-
-            using var surface = new SKCanvas(rotated);
-            surface.Translate(rotated.Width, 0);
-            surface.RotateDegrees(90);
-            if (withHorizontalMirror)
-            {
-                surface.Translate(0, rotated.Width);
-                surface.Scale(1, -1, 0, 0);
-            }
-            surface.DrawBitmap(originalBitmap,
-                new SKRect(0, 0, downsizeWidth, downsizeHeight));
-            originalBitmap.Dispose();
-
-            return rotated;
-        }
-
-        private static SKBitmap BitmapRotate180(SKBitmap originalBitmap, bool withHorizontalMirror, double downsizeProportion)
-        {
-            var downsizeWidth = (int)(originalBitmap.Width * downsizeProportion);
-            var downsizeHeight = (int)(originalBitmap.Height * downsizeProportion);
-            var rotated = new SKBitmap(downsizeWidth, downsizeHeight);
-
-            using var surface = new SKCanvas(rotated);
-            surface.Translate(rotated.Width, rotated.Height);
-            surface.RotateDegrees(180);
-            if (withHorizontalMirror)
-            {
-                surface.Translate(rotated.Width, 0);
-                surface.Scale(-1, 1, 0, 0);
-            }
-            surface.DrawBitmap(originalBitmap,
-                new SKRect(0, 0, downsizeWidth, downsizeHeight));
-            originalBitmap.Dispose();
-
-            return rotated;
-        }
-
-        private static SKBitmap BitmapRotate270(SKBitmap originalBitmap, bool withHorizontalMirror, double downsizeProportion)
-        {
-            var downsizeWidth = (int)(originalBitmap.Width * downsizeProportion);
-            var downsizeHeight = (int)(originalBitmap.Height * downsizeProportion);
-            var rotated = new SKBitmap(downsizeHeight, downsizeWidth);
-
-            using var surface = new SKCanvas(rotated);
-            surface.Translate(0, rotated.Height);
-            surface.RotateDegrees(270);
-            if (withHorizontalMirror)
-            {
-                surface.Translate(0, rotated.Width);
-                surface.Scale(1, -1, 0, 0);
-            }
-            surface.DrawBitmap(originalBitmap,
-                new SKRect(0, 0, downsizeWidth, downsizeHeight));
-            originalBitmap.Dispose();
-
-            return rotated;
-        }
-
-        private static SKBitmap BitmapHorizontalMirror(SKBitmap originalBitmap, double downsizeProportion)
-        {
-            var downsizeWidth = (int)(originalBitmap.Width * downsizeProportion);
-            var downsizeHeight = (int)(originalBitmap.Height * downsizeProportion);
-            var transformed = new SKBitmap(downsizeWidth, downsizeHeight);
-
-            using var surface = new SKCanvas(transformed);
-            surface.Translate(transformed.Width, 0);
-            surface.Scale(-1, 1, 0, 0);
-            surface.DrawBitmap(originalBitmap,
-                new SKRect(0, 0, downsizeWidth, downsizeHeight));
-            originalBitmap.Dispose();
-
-            return transformed;
         }
 
         private async Task EvaluateAndShowWelcomePopup()

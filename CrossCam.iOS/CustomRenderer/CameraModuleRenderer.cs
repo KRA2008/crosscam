@@ -13,6 +13,7 @@ using CrossCam.iOS.CustomRenderer;
 using CrossCam.Model;
 using CrossCam.ViewModel;
 using Foundation;
+using SkiaSharp;
 using UIKit;
 using Xamarin.Forms;
 using Xamarin.Forms.Platform.iOS;
@@ -688,11 +689,18 @@ namespace CrossCam.iOS.CustomRenderer
                 try
                 {
                     var image = GetImageFromSampleBuffer(sampleBuffer);
-                    var bytes = image.AsJPEG(0).ToArray();
+                    var bytes = image.AsJPEG(0).ToArray(); 
+                    
+                    using var data = SKData.Create(new SKMemoryStream(bytes));
+                    using var codec = SKCodec.Create(data);
+                    var bitmap = SKBitmap.Decode(data);
+
                     MessagingCenter.Send(new object(), CameraViewModel.PREVIEW_FRAME_MESSAGE, new PreviewFrame
                     {
-                        Frame = bytes
+                        Frame = bitmap,
+                        Orientation = codec.EncodedOrigin
                     });
+
                     if (_camera.BluetoothOperator.PairStatus == PairStatus.Connected)
                     {
                         if (Interlocked.Exchange(ref _readyToCapturePreviewFrameInterlocked, 0) == 1)
