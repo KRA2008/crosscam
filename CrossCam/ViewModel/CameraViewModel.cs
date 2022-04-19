@@ -27,8 +27,6 @@ namespace CrossCam.ViewModel
         private const string SINGLE_SIDE = "Load single side";
         private const string CANCEL = "Cancel";
 
-        public const string PREVIEW_FRAME_MESSAGE = "previewFrame";
-
         public static BluetoothOperator BluetoothOperator;
         public BluetoothOperator BluetoothOperatorBindable => BluetoothOperator;
 
@@ -41,29 +39,27 @@ namespace CrossCam.ViewModel
         public FovCorrectionMode FovCorrectionMode { get; set; }
 
         public SKBitmap LeftBitmap { get; set; }
+        public SKMatrix LeftAlignmentTransform { get; set; }
+        public SKEncodedOrigin LeftOrientation { get; set; }
+        public bool IsLeftFrontFacing { get; set; }
+        private SKBitmap OriginalUnalignedLeft { get; set; }
         public Command RetakeLeftCommand { get; set; }
         public bool LeftCaptureSuccess { get; set; }
         
         public SKBitmap RightBitmap { get; set; }
+        public SKMatrix RightAlignmentTransform { get; set; }
+        public SKEncodedOrigin RightOrientation { get; set; }
+        public bool IsRightFrontFacing { get; set; }
+        private SKBitmap OriginalUnalignedRight { get; set; }
         public Command RetakeRightCommand { get; set; }
         public bool RightCaptureSuccess { get; set; }
 
-        private SKBitmap OriginalUnalignedLeft { get; set; }
-        private SKBitmap OriginalUnalignedRight { get; set; }
-
-        public SKMatrix LeftAlignmentTransform { get; set; }
-        public SKMatrix RightAlignmentTransform { get; set; }
-
-        public SKEncodedOrigin LeftOrientation { get; set; }
-        public SKEncodedOrigin RightOrientation { get; set; }
-
-        public byte[] CapturedImageBytes { get; set; }
         public bool CaptureSuccess { get; set; }
         public int CameraColumn { get; set; }
 
         public byte[] RemotePreviewFrame { get; set; }
-        public SKBitmap LocalPreviewBitmap { get; set; }
-        public SKEncodedOrigin LocalPreviewOrientation { get; set; }
+        public IncomingFrame LocalPreviewFrame { get; set; }
+        public IncomingFrame LocalCapturedFrame { get; set; }
 
         public AbsoluteLayoutFlags CanvasRectangleFlags => 
             Settings.Mode == DrawMode.Parallel && 
@@ -404,15 +400,6 @@ namespace CrossCam.ViewModel
                 EvaluateOrientation(args.DisplayInfo.Rotation);
             };
 
-            MessagingCenter.Subscribe<object, PreviewFrame>(this, PREVIEW_FRAME_MESSAGE, (o, frame) =>
-            {
-                if (LeftBitmap == null || RightBitmap == null)
-                {
-                    LocalPreviewBitmap = frame.Frame;
-                    LocalPreviewOrientation = frame.Orientation;
-                }
-            });
-
             CameraColumn = Settings.IsCaptureLeftFirst ? 0 : 1;
             AvailableCameras = new ObservableCollection<AvailableCamera>();
 
@@ -429,7 +416,7 @@ namespace CrossCam.ViewModel
                         RightCaptureSuccess = !RightCaptureSuccess;
                     }
                 }
-                else if (args.PropertyName == nameof(CapturedImageBytes))
+                else if (args.PropertyName == nameof(LocalCapturedFrame))
                 {
                     if (_secondaryErrorOccurred)
                     {
@@ -452,11 +439,17 @@ namespace CrossCam.ViewModel
 
                         if (CameraColumn == 0)
                         {
-                            LeftBytesCaptured(CapturedImageBytes, BluetoothOperator.PairStatus == PairStatus.Disconnected); // not awaiting. ok.
+                            SetLeftBitmap(
+                                LocalCapturedFrame.Frame, LocalCapturedFrame.Orientation, LocalCapturedFrame.IsFrontFacing,
+                                BluetoothOperator.PairStatus == PairStatus.Disconnected,
+                                BluetoothOperator.PairStatus == PairStatus.Disconnected);
                         }
                         else
                         {
-                            RightBytesCaptured(CapturedImageBytes, BluetoothOperator.PairStatus == PairStatus.Disconnected); // not awaiting. ok.
+                            SetRightBitmap(
+                                LocalCapturedFrame.Frame, LocalCapturedFrame.Orientation, LocalCapturedFrame.IsFrontFacing,
+                                BluetoothOperator.PairStatus == PairStatus.Disconnected,
+                                BluetoothOperator.PairStatus == PairStatus.Disconnected);
                         }
                     }
                 }
@@ -475,11 +468,11 @@ namespace CrossCam.ViewModel
                         ClearCrops(true);
                         if (Settings.IsCaptureLeftFirst)
                         {
-                            SetRightBitmap(OriginalUnalignedRight, true, true); //calls autoalign internally
+                            SetRightBitmap(OriginalUnalignedRight, RightOrientation, IsRightFrontFacing, true, true); //calls autoalign internally
                         }
                         else
                         {
-                            SetLeftBitmap(OriginalUnalignedLeft, true, true); //calls autoalign internally
+                            SetLeftBitmap(OriginalUnalignedLeft, LeftOrientation, IsLeftFrontFacing, true, true); //calls autoalign internally
                         }
                     }
 
@@ -866,8 +859,8 @@ namespace CrossCam.ViewModel
 
                             DrawTool.DrawImagesOnCanvas(
                                 tempSurface, 
-                                LeftBitmap, LeftAlignmentTransform, LeftOrientation,
-                                RightBitmap, RightAlignmentTransform, RightOrientation,
+                                LeftBitmap, LeftAlignmentTransform, LeftOrientation, IsLeftFrontFacing,
+                                RightBitmap, RightAlignmentTransform, RightOrientation, IsRightFrontFacing,
                                 Settings,
                                 Edits, 
                                 DrawMode.Cross);
@@ -892,8 +885,8 @@ namespace CrossCam.ViewModel
 
                             DrawTool.DrawImagesOnCanvas(
                                 tempSurface, 
-                                LeftBitmap, LeftAlignmentTransform, LeftOrientation,
-                                RightBitmap, RightAlignmentTransform, RightOrientation,
+                                LeftBitmap, LeftAlignmentTransform, LeftOrientation, IsLeftFrontFacing,
+                                RightBitmap, RightAlignmentTransform, RightOrientation, IsRightFrontFacing,
                                 Settings, 
                                 Edits, 
                                 DrawMode.Parallel,
@@ -942,8 +935,8 @@ namespace CrossCam.ViewModel
 
                             DrawTool.DrawImagesOnCanvas(
                                 doubleSurface, 
-                                LeftBitmap, LeftAlignmentTransform, LeftOrientation,
-                                RightBitmap, RightAlignmentTransform, RightOrientation,
+                                LeftBitmap, LeftAlignmentTransform, LeftOrientation, IsLeftFrontFacing,
+                                RightBitmap, RightAlignmentTransform, RightOrientation, IsRightFrontFacing,
                                 Settings,
                                 Edits,
                                 DrawMode.Cross);
@@ -971,8 +964,8 @@ namespace CrossCam.ViewModel
 
                             DrawTool.DrawImagesOnCanvas(
                                 doublePlainSurface, 
-                                LeftBitmap, LeftAlignmentTransform, LeftOrientation,
-                                RightBitmap, RightAlignmentTransform, RightOrientation,
+                                LeftBitmap, LeftAlignmentTransform, LeftOrientation, IsLeftFrontFacing,
+                                RightBitmap, RightAlignmentTransform, RightOrientation, IsRightFrontFacing,
                                 Settings,
                                 Edits,
                                 DrawMode.Cross);
@@ -989,8 +982,8 @@ namespace CrossCam.ViewModel
 
                             DrawTool.DrawImagesOnCanvas(
                                 doubleSwapSurface, 
-                                LeftBitmap, LeftAlignmentTransform, LeftOrientation,
-                                RightBitmap, RightAlignmentTransform, RightOrientation,
+                                LeftBitmap, LeftAlignmentTransform, LeftOrientation, IsLeftFrontFacing,
+                                RightBitmap, RightAlignmentTransform, RightOrientation, IsRightFrontFacing,
                                 Settings,
                                 Edits,
                                 DrawMode.Parallel);
@@ -1018,8 +1011,8 @@ namespace CrossCam.ViewModel
                             canvas.Clear();
 
                             DrawTool.DrawImagesOnCanvas(tempSurface, 
-                                LeftBitmap, LeftAlignmentTransform, LeftOrientation,
-                                RightBitmap, RightAlignmentTransform, RightOrientation,
+                                LeftBitmap, LeftAlignmentTransform, LeftOrientation, IsLeftFrontFacing,
+                                RightBitmap, RightAlignmentTransform, RightOrientation, IsRightFrontFacing,
                                 Settings, Edits, DrawMode.Cardboard);
 
                             await SaveSurfaceSnapshot(tempSurface);
@@ -1261,21 +1254,25 @@ namespace CrossCam.ViewModel
                         if (LeftBitmap == null &&
                             RightBitmap != null)
                         {
-                            await LeftBytesCaptured(image1);
+                            SetLeftBitmap(SKBitmap.Decode(image1), SKEncodedOrigin.Default, false, true, true);
                             return;
                         }
 
                         if (RightBitmap == null &&
                             LeftBitmap != null)
                         {
-                            await RightBytesCaptured(image1);
+                            SetRightBitmap(SKBitmap.Decode(image1), SKEncodedOrigin.Default, false, true, true);
                             return;
                         }
 
                         if (RightBitmap == null &&
                             LeftBitmap == null)
                         {
-                            CapturedImageBytes = image1;
+                            LocalCapturedFrame = new IncomingFrame
+                            {
+                                Frame = SKBitmap.Decode(image1),
+                                Orientation = SKEncodedOrigin.Default
+                            };
                             return;
                         }
                     }
@@ -1288,10 +1285,9 @@ namespace CrossCam.ViewModel
                 else
                 {
                     // i save left first, so i load left first
-                    await LeftBytesCaptured(image1);
-                    await RightBytesCaptured(image2);
+                    SetLeftBitmap(SKBitmap.Decode(image1), SKEncodedOrigin.Default, false, true, true);
+                    SetRightBitmap(SKBitmap.Decode(image2), SKEncodedOrigin.Default, false, true, true);
                 }
-
             }
             catch (Exception e)
             {
@@ -1372,11 +1368,11 @@ namespace CrossCam.ViewModel
             var bitmap = SKBitmap.Decode(e);
             if (Settings.IsCaptureLeftFirst)
             {
-                SetRightBitmap(bitmap, false, true);
+                SetRightBitmap(bitmap, SKEncodedOrigin.Default, false, false, true); //TODO: correct orientation?
             }
             else
             {
-                SetLeftBitmap(bitmap, false, true);
+                SetLeftBitmap(bitmap, SKEncodedOrigin.Default, false, false, true); //TODO: correct orientation?
             }
 
             BluetoothOperator.SendTransmissionComplete();
@@ -1412,8 +1408,8 @@ namespace CrossCam.ViewModel
 
             DrawTool.DrawImagesOnCanvas(
                 tempSurface, 
-                LeftBitmap, LeftAlignmentTransform, LeftOrientation,
-                RightBitmap, RightAlignmentTransform, RightOrientation,
+                LeftBitmap, LeftAlignmentTransform, LeftOrientation, IsLeftFrontFacing,
+                RightBitmap, RightAlignmentTransform, RightOrientation, IsRightFrontFacing,
                 Settings, Edits, grayscale ? DrawMode.GrayscaleRedCyanAnaglyph : DrawMode.RedCyanAnaglyph);
 
             await SaveSurfaceSnapshot(tempSurface);
@@ -1449,9 +1445,9 @@ namespace CrossCam.ViewModel
             try
             {
                 var leftHalf = await Task.Run(() => GetHalfOfFullStereoImage(image, true, Settings.ClipBorderOnNextLoad));
-                SetLeftBitmap(leftHalf, false, true);
+                SetLeftBitmap(leftHalf, SKEncodedOrigin.Default, false, false, true);
                 var rightHalf = await Task.Run(() => GetHalfOfFullStereoImage(image, false, Settings.ClipBorderOnNextLoad));
-                SetRightBitmap(rightHalf, false, true);
+                SetRightBitmap(rightHalf, SKEncodedOrigin.Default, false, false, true);
                 if (Settings.ClipBorderOnNextLoad)
                 {
                     Settings.ClipBorderOnNextLoad = false;
@@ -1462,18 +1458,6 @@ namespace CrossCam.ViewModel
             {
                 ErrorMessage = e.ToString();
             }
-        }
-
-        private async Task LeftBytesCaptured(byte[] capturedBytes, bool withMovementAndStep = true)
-        {
-            var bitmap = await Task.Run(() => SKBitmap.Decode(capturedBytes));
-            SetLeftBitmap(bitmap, withMovementAndStep, withMovementAndStep);
-        }
-
-        private async Task RightBytesCaptured(byte[] capturedBytes, bool withMovementAndStep = true)
-        {
-            var bitmap = await Task.Run(() => SKBitmap.Decode(capturedBytes));
-            SetRightBitmap(bitmap, withMovementAndStep, withMovementAndStep);
         }
 
         private async void AutoAlign()
@@ -1770,10 +1754,13 @@ namespace CrossCam.ViewModel
             }
         }
 
-        public void SetLeftBitmap(SKBitmap bitmap, bool withMovementTrigger, bool stepForward)
+        public void SetLeftBitmap(SKBitmap bitmap, SKEncodedOrigin orientation, bool isFrontFacing,
+            bool withMovementTrigger, bool stepForward)
         {
             if (bitmap == null) return;
 
+            IsLeftFrontFacing = isFrontFacing;
+            LeftOrientation = orientation;
             LeftBitmap = bitmap;
             WasCapturePortrait = LeftBitmap.Width < LeftBitmap.Height;
 
@@ -1812,10 +1799,13 @@ namespace CrossCam.ViewModel
             }
         }
 
-        public void SetRightBitmap(SKBitmap bitmap, bool withMovementTrigger, bool stepForward)
+        public void SetRightBitmap(SKBitmap bitmap, SKEncodedOrigin orientation, bool isFrontFacing,
+            bool withMovementTrigger, bool stepForward)
         {
             if (bitmap == null) return;
 
+            IsRightFrontFacing = isFrontFacing;
+            RightOrientation = orientation;
             RightBitmap = bitmap;
             WasCapturePortrait = RightBitmap.Width < RightBitmap.Height;
 
@@ -2215,16 +2205,22 @@ namespace CrossCam.ViewModel
             CameraColumn = Settings.IsCaptureLeftFirst ? 0 : 1;
 
             LeftBitmap = null;
-            RightBitmap = null;
+            LeftAlignmentTransform = SKMatrix.Identity;
+            LeftOrientation = SKEncodedOrigin.Default;
+            IsLeftFrontFacing = false;
             OriginalUnalignedLeft = null;
+
+            RightBitmap = null;
+            RightAlignmentTransform = SKMatrix.Identity;
+            RightOrientation = SKEncodedOrigin.Default;
+            IsRightFrontFacing = false;
             OriginalUnalignedRight = null;
+
             ClearEdits(true);
             _secondaryErrorOccurred = false;
             WorkflowStage = WorkflowStage.Capture;
             WasCapturePaired = false;
             _isFovCorrected = false;
-            LeftAlignmentTransform = SKMatrix.Identity;
-            RightAlignmentTransform = SKMatrix.Identity;
             if (Settings.IsTapToFocusEnabled2)
             {
                 SwitchToContinuousFocusTrigger = !SwitchToContinuousFocusTrigger;

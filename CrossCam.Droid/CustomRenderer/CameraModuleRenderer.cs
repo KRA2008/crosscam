@@ -24,6 +24,7 @@ using CrossCam.ViewModel;
 using CrossCam.Wrappers;
 using Java.Lang;
 using SkiaSharp;
+using SkiaSharp.Views.Android;
 using Xamarin.Forms;
 using Xamarin.Forms.Platform.Android;
 using Boolean = Java.Lang.Boolean;
@@ -379,33 +380,62 @@ namespace CrossCam.Droid.CustomRenderer
 
         public void OnSurfaceTextureUpdated(SurfaceTexture surface)
         {
-            using var stream = new MemoryStream();
-            _textureView.Bitmap.Compress(Bitmap.CompressFormat.Jpeg, 50, stream);
 
             if (_cameraModule.BluetoothOperator.PairStatus == PairStatus.Connected)
             {
                 if (Interlocked.Exchange(ref _readyToCapturePreviewFrameInterlocked, 0) == 1)
                 {
+                    using var stream = new MemoryStream();
+                    _textureView.Bitmap.Compress(Bitmap.CompressFormat.Jpeg, 50, stream);
                     _cameraModule.BluetoothOperator.SendLatestPreviewFrame(stream.ToArray(), (byte)(_textureView.Rotation / 90f));
                 }
             }
 
-            var bitmap = SKBitmap.Decode(stream.ToArray());
-            var origin = (int) (_textureView.Rotation / 90) switch
+            _cameraModule.PreviewImage = new IncomingFrame
             {
-                0 => SKEncodedOrigin.TopLeft,
-                1 => SKEncodedOrigin.RightTop,
-                2 => SKEncodedOrigin.BottomRight,
-                3 => SKEncodedOrigin.LeftBottom,
-                _ => SKEncodedOrigin.Default
-            }; //TODO: handle mirror
+                Frame = _textureView.Bitmap.ToSKBitmap(), //TODO: does the jpeg compression help speed?
+                Orientation = GetOrientation2(),
+                IsFrontFacing = _cameraModule.ChosenCamera.IsFront
+            };
+        }
 
-            MessagingCenter.Send(new object(), CameraViewModel.PREVIEW_FRAME_MESSAGE, new PreviewFrame
+        private SKEncodedOrigin GetOrientation(int inc90)
+        {
+            var isFrontFacing = _cameraModule.ChosenCamera.IsFront;
+            System.Diagnostics.Debug.WriteLine("inc: " + inc90);
+            switch (inc90)
             {
-                Frame = bitmap,
-                Orientation = origin
-            });
-            
+                case 0 when isFrontFacing:
+                    return SKEncodedOrigin.LeftBottom;
+                case 0:
+                    return SKEncodedOrigin.Default;
+                case 1:
+                    return SKEncodedOrigin.RightTop;
+                case 2 when isFrontFacing:
+                    return SKEncodedOrigin.BottomRight; //TODO: figure out which one this should be using iOS
+                case 2:
+                    return SKEncodedOrigin.BottomRight;
+                case 3 when isFrontFacing:
+                    return SKEncodedOrigin.Default; //TODO: figure out which one this should be using iOS
+                case 3:
+                    return SKEncodedOrigin.LeftBottom;
+                case 4 when isFrontFacing:
+                    return SKEncodedOrigin.RightBottom;
+                case 5 when isFrontFacing:
+                    return SKEncodedOrigin.TopLeft; //TODO: figure out which one this should be using iOS
+                default:
+                    return SKEncodedOrigin.Default;
+            }
+        }
+
+        private SKEncodedOrigin GetOrientation2()
+        {
+            return GetOrientation((int)(_textureView.Rotation / 90));
+        }
+
+        private SKEncodedOrigin GetOrientation1()
+        {
+            return GetOrientation(_cameraRotation1 / 90);
         }
 
         public void OnSurfaceTextureAvailable(SurfaceTexture surface, int width, int height)
@@ -906,7 +936,12 @@ namespace CrossCam.Droid.CustomRenderer
                     }
                     else
                     {
-                        _cameraModule.CapturedImage = data;
+                        _cameraModule.CapturedImage = new IncomingFrame
+                        {
+                            Frame = SKBitmap.Decode(data),
+                            Orientation = GetOrientation1(),
+                            IsFrontFacing = _cameraModule.ChosenCamera.IsFront
+                        };
                     }
 
                     if (!wasPreviewRestarted)
@@ -989,11 +1024,12 @@ namespace CrossCam.Droid.CustomRenderer
                 using var codec = SKCodec.Create(skData);
                 var bitmap = SKBitmap.Decode(skData);
                 //TODO: test this on old phone
-                MessagingCenter.Send(this, CameraViewModel.PREVIEW_FRAME_MESSAGE, new PreviewFrame
+                _cameraModule.PreviewImage = new IncomingFrame
                 {
                     Frame = bitmap,
-                    Orientation = codec.EncodedOrigin //TODO: i think this is shit on Android, need to handle above
-                });
+                    Orientation = _renderer.GetOrientation1(),
+                    IsFrontFacing = _cameraModule.ChosenCamera.IsFront
+                };
             }
         }
 
@@ -1417,10 +1453,16 @@ namespace CrossCam.Droid.CustomRenderer
                     }
                     else
                     {
-                        Device.BeginInvokeOnMainThread(() =>
+                        using var data = SKData.Create(new SKMemoryStream(buffer));
+                        using var codec = SKCodec.Create(data);
+                        var bitmap = SKBitmap.Decode(data);
+                        System.Diagnostics.Debug.WriteLine("Capture orientation: " + codec.EncodedOrigin);
+                        _cameraModule.CapturedImage = new IncomingFrame
                         {
-                            _cameraModule.CapturedImage = buffer;
-                        });
+                            Frame = bitmap,
+                            Orientation = codec.EncodedOrigin,
+                            IsFrontFacing = _cameraModule.ChosenCamera.IsFront
+                        };
                     }
                 };
                 readerListener.Error += (sender, exception) => { _cameraModule.ErrorMessage = exception.ToString(); };

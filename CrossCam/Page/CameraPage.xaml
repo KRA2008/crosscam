@@ -148,7 +148,7 @@
                              IsLockToFirstEnabled="{Binding Settings.IsLockToFirstEnabled}"
                              CaptureTrigger="{Binding CapturePictureTrigger}"
                              IsVisible="{Binding WorkflowStage, Converter={vc:EnumCompareConverter}, ConverterParameter={x:Static vm:WorkflowStage.Capture}}"
-                             CapturedImage="{Binding CapturedImageBytes}"
+                             CapturedImage="{Binding LocalCapturedFrame}"
                              CaptureSuccess="{Binding CaptureSuccess}"
                              IsNothingCaptured="{Binding IsNothingCaptured}"
                              PreviewBottomY="{Binding PreviewBottomY}"
@@ -159,7 +159,8 @@
                              BluetoothOperator="{Binding BluetoothOperatorBindable}"
                              AvailableCameras="{Binding AvailableCameras}"
                              ChosenCamera="{Binding ChosenCamera}"
-                             PreviewMode="{Binding Settings.Mode}"/>
+                             PreviewMode="{Binding Settings.Mode}"
+                             PreviewImage="{Binding LocalPreviewFrame}"/>
             <forms:SKCanvasView x:Name="_capturedCanvas"
                                 Grid.Column="0"
                                 Grid.ColumnSpan="2"

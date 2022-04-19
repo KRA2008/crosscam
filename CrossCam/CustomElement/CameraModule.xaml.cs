@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.ObjectModel;
 using System.Drawing;
+using CrossCam.Model;
 using CrossCam.ViewModel;
 using Xamarin.Forms;
 
@@ -8,9 +9,9 @@ namespace CrossCam.CustomElement
 {
 	public sealed partial class CameraModule
 	{
-		public CameraModule ()
+		public CameraModule()
 		{
-			InitializeComponent ();
+			InitializeComponent();
 	    }
 
         public EventHandler<PointF> SingleTapped;
@@ -26,7 +27,10 @@ namespace CrossCam.CustomElement
         }
 
         public static readonly BindableProperty CapturedImageProperty = BindableProperty.Create(nameof(CapturedImage),
-	        typeof(byte[]), typeof(CameraModule), null, BindingMode.OneWayToSource);
+	        typeof(IncomingFrame), typeof(CameraModule), null, BindingMode.OneWayToSource);
+
+        public static readonly BindableProperty PreviewImageProperty = BindableProperty.Create(nameof(PreviewImage),
+            typeof(IncomingFrame), typeof(CameraModule), null, BindingMode.OneWayToSource);
 
         public static readonly BindableProperty CaptureTriggerProperty = BindableProperty.Create(nameof(CaptureTrigger),
             typeof(bool), typeof(CameraModule), false);
@@ -73,10 +77,16 @@ namespace CrossCam.CustomElement
         public static readonly BindableProperty PreviewModeProperty = BindableProperty.Create(nameof(PreviewMode),
             typeof(DrawMode), typeof(CameraModule), DrawMode.Cross);
 
-        public byte[] CapturedImage
+        public IncomingFrame CapturedImage
         {
-            get => (byte[])GetValue(CapturedImageProperty);
+            get => (IncomingFrame)GetValue(CapturedImageProperty);
             set => SetValue(CapturedImageProperty, value);
+        }
+
+        public IncomingFrame PreviewImage
+        {
+            get => (IncomingFrame)GetValue(PreviewImageProperty);
+            set => SetValue(PreviewImageProperty, value);
         }
 
         public bool CaptureTrigger

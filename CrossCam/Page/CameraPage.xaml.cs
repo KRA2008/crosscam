@@ -337,21 +337,23 @@ namespace CrossCam.Page
                         PlaceRollGuide();
                         PlaceSettingsRibbon();
                         break;
+                    case nameof(CameraViewModel.LeftOrientation):
                     case nameof(CameraViewModel.LeftBitmap):
+                    case nameof(CameraViewModel.LeftAlignmentTransform):
                         ProcessDoubleTap();
                         _newLeftCapture = true;
                         CardboardCheckAndSaveOrientationSnapshot();
                         _capturedCanvas.InvalidateSurface();
                         break;
+                    case nameof(CameraViewModel.RightOrientation):
                     case nameof(CameraViewModel.RightBitmap):
+                    case nameof(CameraViewModel.RightAlignmentTransform):
                         ProcessDoubleTap();
                         _newRightCapture = true;
                         CardboardCheckAndSaveOrientationSnapshot();
                         _capturedCanvas.InvalidateSurface();
                         break;
-                    case nameof(CameraViewModel.LocalPreviewBitmap):
-                    case nameof(CameraViewModel.LeftAlignmentTransform):
-                    case nameof(CameraViewModel.RightAlignmentTransform):
+                    case nameof(CameraViewModel.LocalPreviewFrame):
                         _capturedCanvas.InvalidateSurface();
                         break;
                     case nameof(CameraViewModel.RemotePreviewFrame):
@@ -445,8 +447,10 @@ namespace CrossCam.Page
             SKBitmap right = null;
             var leftAlignment = SKMatrix.Identity;
             var rightAlignment = SKMatrix.Identity;
-            var leftOrientation = SKEncodedOrigin.Default;
-            var rightOrientation = SKEncodedOrigin.Default;
+            SKEncodedOrigin? leftOrientation = SKEncodedOrigin.Default;
+            SKEncodedOrigin? rightOrientation = SKEncodedOrigin.Default;
+            var isLeftFrontFacing = false;
+            var isRightFrontFacing = false;
             if (_viewModel.LeftBitmap != null &&
                 _viewModel.RightBitmap != null)
             {
@@ -455,9 +459,11 @@ namespace CrossCam.Page
                 left = _viewModel.LeftBitmap;
                 leftAlignment = _viewModel.LeftAlignmentTransform;
                 leftOrientation = _viewModel.LeftOrientation;
+                isLeftFrontFacing = _viewModel.IsLeftFrontFacing;
                 right = _viewModel.RightBitmap;
                 rightAlignment = _viewModel.RightAlignmentTransform;
                 rightOrientation = _viewModel.RightOrientation;
+                isRightFrontFacing = _viewModel.IsRightFrontFacing;
             }
             else
             {
@@ -468,12 +474,14 @@ namespace CrossCam.Page
                     left = _viewModel.LeftBitmap;
                     leftAlignment = _viewModel.LeftAlignmentTransform;
                     leftOrientation = _viewModel.LeftOrientation;
+                    isLeftFrontFacing = _viewModel.IsLeftFrontFacing;
                     _newLeftCapture = false;
                 }
                 else if (_viewModel.CameraColumn == 0)
                 {
-                    left = _viewModel.LocalPreviewBitmap;
-                    leftOrientation = _viewModel.LocalPreviewOrientation;
+                    left = _viewModel.LocalPreviewFrame?.Frame;
+                    leftOrientation = _viewModel.LocalPreviewFrame?.Orientation;
+                    isLeftFrontFacing = _viewModel.LocalPreviewFrame?.IsFrontFacing ?? false;
                 }
 
                 if (_newRightCapture || 
@@ -483,12 +491,14 @@ namespace CrossCam.Page
                     right = _viewModel.RightBitmap;
                     rightAlignment = _viewModel.RightAlignmentTransform;
                     rightOrientation = _viewModel.RightOrientation;
+                    isRightFrontFacing = _viewModel.IsRightFrontFacing;
                     _newRightCapture = false;
                 }
                 else if (_viewModel.CameraColumn == 1)
                 {
-                    right = _viewModel.LocalPreviewBitmap;
-                    rightOrientation = _viewModel.LocalPreviewOrientation;
+                    right = _viewModel.LocalPreviewFrame?.Frame;
+                    rightOrientation = _viewModel.LocalPreviewFrame?.Orientation;
+                    isRightFrontFacing = _viewModel.LocalPreviewFrame?.IsFrontFacing ?? false;
                 }
             }
 
@@ -497,8 +507,9 @@ namespace CrossCam.Page
                 if (_viewModel.LeftBitmap == null &&
                     _viewModel.RightBitmap == null)
                 {
-                    left = right = _viewModel.LocalPreviewBitmap;
-                    leftOrientation = rightOrientation = _viewModel.LocalPreviewOrientation;
+                    left = right = _viewModel.LocalPreviewFrame?.Frame;
+                    leftOrientation = rightOrientation = _viewModel.LocalPreviewFrame?.Orientation;
+                    isLeftFrontFacing = isRightFrontFacing = _viewModel.LocalPreviewFrame?.IsFrontFacing ?? false;
                 }
             }
 
@@ -570,8 +581,8 @@ namespace CrossCam.Page
 
             DrawTool.DrawImagesOnCanvas(
                 surface, 
-                left, leftAlignment, leftOrientation,
-                right, rightAlignment, rightOrientation,
+                left, leftAlignment, leftOrientation ?? SKEncodedOrigin.Default, isLeftFrontFacing,
+                right, rightAlignment, rightOrientation ?? SKEncodedOrigin.Default, isRightFrontFacing,
                 _viewModel.Settings,
                 _viewModel.Edits,
                 _viewModel.Settings.Mode,
@@ -918,13 +929,13 @@ namespace CrossCam.Page
 
         private void ProcessSingleTap()
         {
-            if (_viewModel?.LocalPreviewBitmap == null || 
+            if (_viewModel?.LocalPreviewFrame.Frame == null || 
                 _viewModel.Settings.Mode == DrawMode.Cardboard) return;
 
             float xProportion;
             float yProportion;
-            var aspect = _viewModel.LocalPreviewBitmap.Height / (_viewModel.LocalPreviewBitmap.Width * 1f);
-            var isPortrait = _viewModel.LocalPreviewBitmap.Height > _viewModel.LocalPreviewBitmap.Width;
+            var aspect = _viewModel.LocalPreviewFrame.Frame.Height / (_viewModel.LocalPreviewFrame.Frame.Width * 1f);
+            var isPortrait = _viewModel.LocalPreviewFrame.Frame.Height > _viewModel.LocalPreviewFrame.Frame.Width;
 
             var overlayDisplay = _viewModel.Settings.Mode == DrawMode.RedCyanAnaglyph ||
                                  _viewModel.Settings.Mode == DrawMode.GrayscaleRedCyanAnaglyph ||
@@ -939,7 +950,7 @@ namespace CrossCam.Page
 
                 if (isPortrait)
                 {
-                    aspect = _viewModel.LocalPreviewBitmap.Height / (_viewModel.LocalPreviewBitmap.Width * 1f);
+                    aspect = _viewModel.LocalPreviewFrame.Frame.Height / (_viewModel.LocalPreviewFrame.Frame.Width * 1f);
                     longNativeLength = Height * DeviceDisplay.MainDisplayInfo.Density;
                     shortNativeLength = Width * DeviceDisplay.MainDisplayInfo.Density;
                     tapLong = _tapLocation.Y;
@@ -947,7 +958,7 @@ namespace CrossCam.Page
                 }
                 else
                 {
-                    aspect = _viewModel.LocalPreviewBitmap.Width / (_viewModel.LocalPreviewBitmap.Height * 1f);
+                    aspect = _viewModel.LocalPreviewFrame.Frame.Width / (_viewModel.LocalPreviewFrame.Frame.Height * 1f);
                     longNativeLength = Width * DeviceDisplay.MainDisplayInfo.Density;
                     shortNativeLength = Height * DeviceDisplay.MainDisplayInfo.Density;
                     tapLong = _tapLocation.X;

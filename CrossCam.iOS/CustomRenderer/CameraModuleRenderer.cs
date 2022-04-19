@@ -330,7 +330,14 @@ namespace CrossCam.iOS.CustomRenderer
                     }
                     else
                     {
-                        _cameraModule.CapturedImage = imageBytes;
+                        using var skData = SKData.Create(new SKMemoryStream(imageBytes));
+                        using var codec = SKCodec.Create(skData);
+                        _cameraModule.CapturedImage = new IncomingFrame
+                        {
+                            Frame = SKBitmap.Decode(skData),
+                            IsFrontFacing = _cameraModule.ChosenCamera.IsFront,
+                            Orientation = codec.EncodedOrigin
+                        };
                     }
                 }
             }
@@ -370,7 +377,14 @@ namespace CrossCam.iOS.CustomRenderer
                     }
                     else
                     {
-                        _cameraModule.CapturedImage = imageBytes;
+                        using var skData = SKData.Create(new SKMemoryStream(imageBytes));
+                        using var codec = SKCodec.Create(skData);
+                        _cameraModule.CapturedImage = new IncomingFrame
+                        {
+                            Frame = SKBitmap.Decode(skData),
+                            IsFrontFacing = _cameraModule.ChosenCamera.IsFront,
+                            Orientation = codec.EncodedOrigin
+                        };
                     }
                 }
             }
@@ -408,7 +422,14 @@ namespace CrossCam.iOS.CustomRenderer
                     }
                     else
                     {
-                        _cameraModule.CapturedImage = imageBytes;
+                        using var skData = SKData.Create(new SKMemoryStream(imageBytes));
+                        using var codec = SKCodec.Create(skData);
+                        _cameraModule.CapturedImage = new IncomingFrame
+                        {
+                            Frame = SKBitmap.Decode(skData),
+                            IsFrontFacing = _cameraModule.ChosenCamera.IsFront,
+                            Orientation = codec.EncodedOrigin
+                        };
                     }
                 }
             }
@@ -691,15 +712,14 @@ namespace CrossCam.iOS.CustomRenderer
                     var image = GetImageFromSampleBuffer(sampleBuffer);
                     var bytes = image.AsJPEG(0).ToArray(); 
                     
-                    using var data = SKData.Create(new SKMemoryStream(bytes));
-                    using var codec = SKCodec.Create(data);
-                    var bitmap = SKBitmap.Decode(data);
-
-                    MessagingCenter.Send(new object(), CameraViewModel.PREVIEW_FRAME_MESSAGE, new PreviewFrame
+                    using var skData = SKData.Create(new SKMemoryStream(bytes));
+                    using var codec = SKCodec.Create(skData);
+                    _camera.PreviewImage = new IncomingFrame
                     {
-                        Frame = bitmap,
+                        Frame = SKBitmap.Decode(skData),
+                        IsFrontFacing = _camera.ChosenCamera.IsFront,
                         Orientation = codec.EncodedOrigin
-                    });
+                    };
 
                     if (_camera.BluetoothOperator.PairStatus == PairStatus.Connected)
                     {
