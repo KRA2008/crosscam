@@ -406,46 +406,73 @@ namespace CrossCam.Page
         private static SKMatrix FindOrientationMatrix(SKEncodedOrigin orientation, 
             float destX, float destWidth, float destY, float destHeight, bool isFrontFacing)
         {
-            float orientationRotation = 0;
-            var needsMirror = false;
+            float orientationRotation;
+            bool needsMirror;
 
             var xCorrectionToOrigin = destX + destWidth / 2f;
             var yCorrectionToOrigin = destY + destHeight / 2f;
 
-            Debug.WriteLine("orientation: " + orientation);
-            Debug.WriteLine("front: " + isFrontFacing);
-
+            //positive rotation is clockwise for back facing
+            //positive rotation is counterclockwise for front facing
+            //forward facing adds 180 and a mirror
+            //see https://www.nosco.ch/blog/en/2020/10/photo-orientation
             switch (orientation)
             {
-                case SKEncodedOrigin.TopLeft when isFrontFacing:
-                    orientationRotation = (float)Math.PI;
+                case SKEncodedOrigin.TopLeft when isFrontFacing: //confirmed iOS(front), Android(front)
+                    orientationRotation = (float) Math.PI;
                     needsMirror = true;
                     break;
-                case SKEncodedOrigin.TopLeft:
+                case SKEncodedOrigin.TopLeft: //confirmed iOS(back), Android(back)
                     orientationRotation = 0;
+                    needsMirror = false;
+                    break;
+                case SKEncodedOrigin.LeftBottom: //confirmed Android(both)
+                    orientationRotation = (float) (-Math.PI / 2f);
+                    needsMirror = isFrontFacing;
+                    break;
+                case SKEncodedOrigin.BottomRight when isFrontFacing: //confirmed iOS(front), Android(front)
+                    orientationRotation = 0;
+                    needsMirror = true;
+                    break;
+                case SKEncodedOrigin.BottomRight: //confirmed iOS(back), Android(back)
+                    orientationRotation = (float) Math.PI;
+                    needsMirror = false;
+                    break;
+                case SKEncodedOrigin.RightTop: //confirmed iOS(both), Android(both)
+                    orientationRotation = (float) (Math.PI / 2f);
+                    needsMirror = isFrontFacing;
+                    break;
+                case SKEncodedOrigin.TopRight when isFrontFacing:
+                    orientationRotation = (float) Math.PI;
+                    needsMirror = false;
                     break;
                 case SKEncodedOrigin.TopRight:
-                    break;
-                case SKEncodedOrigin.BottomRight when isFrontFacing:
                     orientationRotation = 0;
                     needsMirror = true;
                     break;
-                case SKEncodedOrigin.BottomRight:
-                    orientationRotation = (float)Math.PI;
-                    break;
-                case SKEncodedOrigin.BottomLeft:
-                    break;
-                case SKEncodedOrigin.LeftTop:
-                    break;
-                case SKEncodedOrigin.RightTop:
-                    orientationRotation = (float)(Math.PI / 2f);
-                    needsMirror = isFrontFacing;
+                case SKEncodedOrigin.RightBottom when isFrontFacing:
+                    orientationRotation = (float) -Math.PI / 2;
+                    needsMirror = false;
                     break;
                 case SKEncodedOrigin.RightBottom:
+                    orientationRotation = (float) -Math.PI / 2;
+                    needsMirror = true;
                     break;
-                case SKEncodedOrigin.LeftBottom:
-                    orientationRotation = (float)(-Math.PI / 2f);
-                    needsMirror = isFrontFacing;
+                case SKEncodedOrigin.BottomLeft when isFrontFacing:
+                    orientationRotation = 0;
+                    needsMirror = false;
+                    break;
+                case SKEncodedOrigin.BottomLeft:
+                    orientationRotation = (float) Math.PI;
+                    needsMirror = true;
+                    break;
+                case SKEncodedOrigin.LeftTop when isFrontFacing:
+                    orientationRotation = (float) Math.PI / 2;
+                    needsMirror = false;
+                    break;
+                case SKEncodedOrigin.LeftTop:
+                    orientationRotation = (float) Math.PI / 2;
+                    needsMirror = true;
                     break;
                 default:
                     throw new ArgumentOutOfRangeException(nameof(orientation), orientation, null);
