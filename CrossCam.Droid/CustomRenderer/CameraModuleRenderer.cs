@@ -400,40 +400,41 @@ namespace CrossCam.Droid.CustomRenderer
             };
         }
 
-        private SKEncodedOrigin GetOrientation(int inc90)
+        private SKEncodedOrigin GetOrientation(int normalizedRotationalSum)
         {
-            const SKEncodedOrigin guessedAnswer = SKEncodedOrigin.TopRight;
-            System.Diagnostics.Debug.WriteLine("Front: " + _cameraModule.ChosenCamera.IsFront + " Rotation: " + DeviceDisplay.MainDisplayInfo.Rotation + " Sensor: " + _camera2SensorOrientation + " Answer: " + guessedAnswer);
-            return guessedAnswer;
-            //System.Diagnostics.Debug.WriteLine("inc: " + inc90);
-            //switch (inc90)
-            //{
-            //    case 0 when isFrontFacing:
-            //        return SKEncodedOrigin.LeftBottom;
-            //    case 0:
-            //        return SKEncodedOrigin.Default; //handled back
-            //    case 1:
-            //        return SKEncodedOrigin.RightTop; //handled back
-            //    case 2 when isFrontFacing:
-            //        return SKEncodedOrigin.LeftTop; //TODO: figure out which one this should be using iOS
-            //    case 2:
-            //        return SKEncodedOrigin.BottomRight; //handled back
-            //    case 3 when isFrontFacing:
-            //        return SKEncodedOrigin.LeftTop; //TODO: figure out which one this should be using iOS
-            //    case 3:
-            //        return SKEncodedOrigin.LeftBottom; //handled back
-            //    case 4 when isFrontFacing:
-            //        return SKEncodedOrigin.RightBottom; //handled front
-            //    case 5 when isFrontFacing:
-            //        return SKEncodedOrigin.LeftTop; //TODO: figure out which one this should be using iOS
-            //    default:
-            //        return SKEncodedOrigin.Default;
-            //}
+            switch (normalizedRotationalSum)
+            {
+                case 0 when _cameraModule.ChosenCamera.IsFront:
+                    return SKEncodedOrigin.LeftTop;
+                case 0:
+                    return SKEncodedOrigin.RightTop;
+                case 1 when _cameraModule.ChosenCamera.IsFront:
+                    return SKEncodedOrigin.BottomLeft;
+                case 1:
+                    return SKEncodedOrigin.TopLeft;
+                case 2 when _cameraModule.ChosenCamera.IsFront:
+                    return SKEncodedOrigin.RightBottom;
+                case 2:
+                    return SKEncodedOrigin.LeftBottom;
+                case 3 when _cameraModule.ChosenCamera.IsFront:
+                    return SKEncodedOrigin.TopRight;
+                case 3:
+                    return SKEncodedOrigin.BottomRight;
+                default:
+                    return default;
+            }
         }
 
         private SKEncodedOrigin GetOrientation2()
         {
-            return GetOrientation((int)(DeviceDisplay.MainDisplayInfo.Rotation + _camera2SensorOrientation)); //TODO: probably incorporate sensor orientation somehow but i don't know how
+            var screenOrientation = ((int)DeviceDisplay.MainDisplayInfo.Rotation) - 1;
+            var sensorOrientationInc = _camera2SensorOrientation / 90;
+            if (_cameraModule.ChosenCamera.IsFront)
+            {
+                sensorOrientationInc += 2;
+            }
+            var normalizedRotationSum = (sensorOrientationInc + screenOrientation) % 4;
+            return GetOrientation(normalizedRotationSum);
         }
 
         private SKEncodedOrigin GetOrientation1()

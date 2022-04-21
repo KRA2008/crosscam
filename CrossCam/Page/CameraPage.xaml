@@ -1955,12 +1955,6 @@
                                IsVisible="True"
                                IsRunning="True"/>
         </StackLayout>
-        <StackLayout AbsoluteLayout.LayoutFlags="All"
-                     AbsoluteLayout.LayoutBounds="0,0,1,1"
-                     InputTransparent="True">
-            <Label Text="{Binding LocalPreviewFrame.Orientation}" TextColor="White"/>
-            <Label Text="{Binding LocalCapturedFrame.Orientation}" TextColor="White"/>
-        </StackLayout>
         <!--<StackLayout AbsoluteLayout.LayoutFlags="PositionProportional,HeightProportional"
                      AbsoluteLayout.LayoutBounds="0.5,0,400,1"
                      IsVisible="{Binding Settings.Mode, Converter={vc:EnumCompareConverter}, ConverterParameter={x:Static vm:DrawMode.Cardboard}}"
