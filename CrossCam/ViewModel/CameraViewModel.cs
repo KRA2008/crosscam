@@ -42,7 +42,6 @@ namespace CrossCam.ViewModel
         public SKMatrix LeftAlignmentTransform { get; set; }
         public SKEncodedOrigin LeftOrientation { get; set; }
         public bool IsLeftFrontFacing { get; set; }
-        private SKBitmap OriginalUnalignedLeft { get; set; }
         public Command RetakeLeftCommand { get; set; }
         public bool LeftCaptureSuccess { get; set; }
         
@@ -50,7 +49,6 @@ namespace CrossCam.ViewModel
         public SKMatrix RightAlignmentTransform { get; set; }
         public SKEncodedOrigin RightOrientation { get; set; }
         public bool IsRightFrontFacing { get; set; }
-        private SKBitmap OriginalUnalignedRight { get; set; }
         public Command RetakeRightCommand { get; set; }
         public bool RightCaptureSuccess { get; set; }
 
@@ -468,11 +466,11 @@ namespace CrossCam.ViewModel
                         ClearCrops(true);
                         if (Settings.IsCaptureLeftFirst)
                         {
-                            SetRightBitmap(OriginalUnalignedRight, RightOrientation, IsRightFrontFacing, true, true); //calls autoalign internally
+                            SetRightBitmap(RightBitmap, RightOrientation, IsRightFrontFacing, true, true); //calls autoalign internally
                         }
                         else
                         {
-                            SetLeftBitmap(OriginalUnalignedLeft, LeftOrientation, IsLeftFrontFacing, true, true); //calls autoalign internally
+                            SetLeftBitmap(LeftBitmap, LeftOrientation, IsLeftFrontFacing, true, true); //calls autoalign internally
                         }
                     }
 
@@ -510,7 +508,6 @@ namespace CrossCam.ViewModel
                         else
                         {
                             LeftBitmap = null;
-                            OriginalUnalignedLeft = null;
                             ClearEdits(true);
                             CameraColumn = 0;
                             TriggerMovementHint();
@@ -541,7 +538,6 @@ namespace CrossCam.ViewModel
                         else
                         {
                             RightBitmap = null;
-                            OriginalUnalignedRight = null;
                             ClearEdits(true);
                             CameraColumn = 1;
                             TriggerMovementHint();
@@ -735,8 +731,9 @@ namespace CrossCam.ViewModel
                     obj is bool forced && forced)
                 {
                     (LeftBitmap, RightBitmap) = (RightBitmap, LeftBitmap);
-
-                    (OriginalUnalignedLeft, OriginalUnalignedRight) = (OriginalUnalignedRight, OriginalUnalignedLeft);
+                    (LeftAlignmentTransform, RightAlignmentTransform) = (RightAlignmentTransform, LeftAlignmentTransform);
+                    (LeftOrientation, RightOrientation) = (RightOrientation, LeftOrientation);
+                    (IsLeftFrontFacing, IsRightFrontFacing) = (IsRightFrontFacing, IsLeftFrontFacing);
 
                     if (WorkflowStage == WorkflowStage.Capture)
                     {
@@ -804,13 +801,13 @@ namespace CrossCam.ViewModel
                                 canvas.Translate(-1f * LeftBitmap.Width, -1f * LeftBitmap.Height);
                             }
 
-                            canvas.DrawBitmap(OriginalUnalignedLeft ?? LeftBitmap, 0, 0);
+                            canvas.DrawBitmap(LeftBitmap, 0, 0); //TODO: handle orientation
 
                             await SaveSurfaceSnapshot(tempSurface);
 
                             canvas.Clear();
 
-                            canvas.DrawBitmap(OriginalUnalignedRight ?? RightBitmap, 0, 0);
+                            canvas.DrawBitmap(RightBitmap, 0, 0); //TODO: handle orientation
 
                             await SaveSurfaceSnapshot(tempSurface);
                         }
@@ -1598,31 +1595,28 @@ namespace CrossCam.ViewModel
                             }
                         }
 
-                        var edits2 = GetBorderEdits(alignedResult.TransformMatrix2,
-                            Settings.IsCaptureLeftFirst ? RightBitmap : LeftBitmap);
-                        if (!alignedResult.TransformMatrix1.IsIdentity)
-                        {
-                            var edits1 = GetBorderEdits(alignedResult.TransformMatrix1,
-                                Settings.IsCaptureLeftFirst ? LeftBitmap : RightBitmap);
-                            Edits.InsideCrop = Math.Max(edits1.InsideCrop, edits2.InsideCrop);
-                            Edits.OutsideCrop = Math.Max(edits1.OutsideCrop, edits2.OutsideCrop);
-                            Edits.LeftCrop = Math.Max(edits1.LeftCrop, edits2.LeftCrop);
-                            Edits.RightCrop = Math.Max(edits1.RightCrop, edits2.RightCrop);
-                            Edits.TopCrop = Math.Max(edits1.TopCrop, edits2.TopCrop);
-                            Edits.BottomCrop = Math.Max(edits1.BottomCrop, edits2.BottomCrop);
-                        }
-                        else
-                        {
-                            Edits.InsideCrop = edits2.InsideCrop;
-                            Edits.OutsideCrop = edits2.OutsideCrop;
-                            Edits.LeftCrop = edits2.LeftCrop;
-                            Edits.RightCrop = edits2.RightCrop;
-                            Edits.TopCrop = edits2.TopCrop;
-                            Edits.BottomCrop = edits2.BottomCrop;
-                        }
-
-                        OriginalUnalignedRight = RightBitmap;
-                        OriginalUnalignedLeft = LeftBitmap;
+                        //var edits2 = GetBorderEdits(alignedResult.TransformMatrix2,
+                        //    Settings.IsCaptureLeftFirst ? RightBitmap : LeftBitmap);
+                        //if (!alignedResult.TransformMatrix1.IsIdentity)
+                        //{
+                        //    var edits1 = GetBorderEdits(alignedResult.TransformMatrix1,
+                        //        Settings.IsCaptureLeftFirst ? LeftBitmap : RightBitmap);
+                        //    Edits.InsideCrop = Math.Max(edits1.InsideCrop, edits2.InsideCrop);
+                        //    Edits.OutsideCrop = Math.Max(edits1.OutsideCrop, edits2.OutsideCrop);
+                        //    Edits.LeftCrop = Math.Max(edits1.LeftCrop, edits2.LeftCrop);
+                        //    Edits.RightCrop = Math.Max(edits1.RightCrop, edits2.RightCrop);
+                        //    Edits.TopCrop = Math.Max(edits1.TopCrop, edits2.TopCrop);
+                        //    Edits.BottomCrop = Math.Max(edits1.BottomCrop, edits2.BottomCrop);
+                        //}
+                        //else
+                        //{
+                        //    Edits.InsideCrop = edits2.InsideCrop;
+                        //    Edits.OutsideCrop = edits2.OutsideCrop;
+                        //    Edits.LeftCrop = edits2.LeftCrop;
+                        //    Edits.RightCrop = edits2.RightCrop;
+                        //    Edits.TopCrop = edits2.TopCrop;
+                        //    Edits.BottomCrop = edits2.BottomCrop;
+                        //}
 
                         if (Settings.IsCaptureLeftFirst)
                         {
@@ -2177,17 +2171,8 @@ namespace CrossCam.ViewModel
 
         private void ClearEdits(bool andAutoAligmentFlags)
         {
-            if (OriginalUnalignedLeft != null)
-            {
-                LeftBitmap = OriginalUnalignedLeft;
-                LeftAlignmentTransform = SKMatrix.Identity;
-            }
-
-            if (OriginalUnalignedRight != null)
-            {
-                RightBitmap = OriginalUnalignedRight;
-                RightAlignmentTransform = SKMatrix.Identity;
-            }
+            LeftAlignmentTransform = SKMatrix.Identity;
+            RightAlignmentTransform = SKMatrix.Identity;
 
             ClearCrops(andAutoAligmentFlags);
             ClearAlignments();
@@ -2208,13 +2193,11 @@ namespace CrossCam.ViewModel
             LeftAlignmentTransform = SKMatrix.Identity;
             LeftOrientation = SKEncodedOrigin.Default;
             IsLeftFrontFacing = false;
-            OriginalUnalignedLeft = null;
 
             RightBitmap = null;
             RightAlignmentTransform = SKMatrix.Identity;
             RightOrientation = SKEncodedOrigin.Default;
             IsRightFrontFacing = false;
-            OriginalUnalignedRight = null;
 
             ClearEdits(true);
             _secondaryErrorOccurred = false;

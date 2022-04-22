@@ -130,8 +130,8 @@ namespace CrossCam.Model
             EccThresholdPercentage = 60;
             EccPyramidLayers = 4;
 
-            DrawKeypointMatches = true;  //TODO: undo for DEBUG ONL!!!!Y
-            UseKeypoints1 = true; //TODO: undo? or make it good!
+            DrawKeypointMatches = false;  //TODO: undo for DEBUG ONL!!!!Y
+            UseKeypoints1 = false; //TODO: undo? or make it good!
             UseCrossCheck = false;
             DiscardOutliersByDistance = false;
             DiscardOutliersBySlope = true;

@@ -276,38 +276,40 @@ namespace CrossCam.Page
 
             if (leftBitmap != null)
             {
-                var leftOrientationMatrix = FindOrientationMatrix(leftOrientation,
-                    leftDestX, destWidth, destY, destHeight, isLeftFrontFacing);
-                var leftMatrix = FindTransformMatrix(true, drawMode, leftZoom, leftRotation, leftKeystone,
+                var leftAdjustedAlignmentMatrix = FindAlignmentMatrix(leftDestX, destWidth, destY, destHeight,
+                    leftAlignmentMatrix, scalingRatio);
+                var leftOrientationMatrix = FindOrientationMatrix(leftOrientation, leftDestX, destWidth, destY,
+                    destHeight, isLeftFrontFacing);
+                var leftEditMatrix = FindEditMatrix(true, drawMode, leftZoom, leftRotation, leftKeystone,
                     cardboardHorDelta, cardboardVertDelta, alignment,
                     leftDestX, destY, destWidth, destHeight,
-                    -cardboardSeparationMod, scalingRatio, leftAlignmentMatrix,
-                    leftOrientationMatrix);
+                    -cardboardSeparationMod);
                 DrawSide(surface.Canvas, leftBitmap, true, drawMode, 
                     cardboardHorDelta, cardboardVertDelta,
                     leftClipX, clipY, clipWidth, clipHeight,
                     leftDestX, destY, destWidth, destHeight,
-                    false, -cardboardSeparationMod, 
-                    leftMatrix, leftOrientationMatrix,
-                    skFilterQuality);
+                    false, -cardboardSeparationMod,
+                    leftAdjustedAlignmentMatrix, leftOrientationMatrix,
+                    leftEditMatrix, skFilterQuality);
             }
 
             if (rightBitmap != null)
             {
-                var rightOrientationMatrix = FindOrientationMatrix(rightOrientation,
-                    rightDestX, destWidth, destY, destHeight, isRightFrontFacing);
-                var rightMatrix = FindTransformMatrix(false, drawMode, rightZoom, rightRotation, rightKeystone,
+                var rightAdjustedAlignmentMatrix = FindAlignmentMatrix(rightDestX, destWidth, destY, destHeight,
+                    rightAlignmentMatrix, scalingRatio);
+                var rightOrientationMatrix = FindOrientationMatrix(rightOrientation, rightDestX, destWidth, destY,
+                    destHeight, isRightFrontFacing);
+                var rightEditMatrix = FindEditMatrix(false, drawMode, rightZoom, rightRotation, rightKeystone,
                     cardboardHorDelta, cardboardVertDelta, alignment,
                     rightDestX, destY, destWidth, destHeight,
-                    cardboardSeparationMod, scalingRatio, rightAlignmentMatrix,
-                    rightOrientationMatrix);
+                    cardboardSeparationMod);
                 DrawSide(surface.Canvas, rightBitmap, false, drawMode,
                     cardboardHorDelta, cardboardVertDelta,
                     rightClipX, clipY, clipWidth, clipHeight,
                     rightDestX, destY, destWidth, destHeight,
-                    leftBitmap != null && useGhost, cardboardSeparationMod, 
-                    rightMatrix, rightOrientationMatrix,
-                    skFilterQuality);
+                    leftBitmap != null && useGhost, cardboardSeparationMod,
+                    rightAdjustedAlignmentMatrix, rightOrientationMatrix,
+                    rightEditMatrix, skFilterQuality);
             }
 
             var openCv = DependencyService.Get<IOpenCv>();
@@ -403,7 +405,39 @@ namespace CrossCam.Page
             }
         }
 
-        private static SKMatrix FindOrientationMatrix(SKEncodedOrigin orientation, 
+        private static SKMatrix FindAlignmentMatrix(float destX, float destWidth, float destY, float destHeight, 
+            SKMatrix alignment, double scalingRatio)
+        {
+            var xCorrectionToOrigin = destX + destWidth / 2f;
+            var yCorrectionToOrigin = destY + destHeight / 2f;
+
+            var transform3D = SKMatrix.Identity;
+
+            if (!alignment.IsIdentity)
+            {
+                ////transform3D = transform3D.PostConcat(SKMatrix.CreateTranslation(-xCorrectionToOrigin, -yCorrectionToOrigin));
+                //transform3D = transform3D.PostConcat(SKMatrix.CreateScale((float)scalingRatio, (float)scalingRatio));
+                ////transform3D = transform3D.PostConcat(SKMatrix.CreateTranslation((float)(destWidth * scalingRatio / 2f), (float)(destHeight * scalingRatio / 2f)));
+                //transform3D = transform3D.PostConcat(alignment);
+                ////transform3D = transform3D.PostConcat(SKMatrix.CreateTranslation((float)(-destWidth * scalingRatio / 2f), (float)(-destHeight * scalingRatio / 2f)));
+                //transform3D = transform3D.PostConcat(SKMatrix.CreateScale((float)(1 / scalingRatio), (float)(1 / scalingRatio)));
+                ////transform3D = transform3D.PostConcat(SKMatrix.CreateTranslation(xCorrectionToOrigin, yCorrectionToOrigin));
+
+
+                //transform3D = transform3D.PostConcat(SKMatrix.CreateTranslation(-xCorrectionToOrigin, -yCorrectionToOrigin));
+                transform3D = transform3D.PostConcat(SKMatrix.CreateScale((float)(1 / scalingRatio), (float)(1 / scalingRatio)));
+                //transform3D = transform3D.PostConcat(SKMatrix.CreateTranslation((float)(destWidth * scalingRatio / 2f), (float)(destHeight * scalingRatio / 2f)));
+                transform3D = transform3D.PostConcat(alignment);
+                //transform3D = transform3D.PostConcat(SKMatrix.CreateTranslation((float)(-destWidth * scalingRatio / 2f), (float)(-destHeight * scalingRatio / 2f)));
+                transform3D = transform3D.PostConcat(SKMatrix.CreateScale((float)scalingRatio, (float)scalingRatio));
+                //transform3D = transform3D.PostConcat(SKMatrix.CreateTranslation(xCorrectionToOrigin, yCorrectionToOrigin));
+
+            }
+
+            return transform3D;
+        }
+
+        private static SKMatrix FindOrientationMatrix(SKEncodedOrigin orientation,
             float destX, float destWidth, float destY, float destHeight, bool isFrontFacing)
         {
             float orientationRotation;
@@ -419,35 +453,35 @@ namespace CrossCam.Page
             switch (orientation)
             {
                 case SKEncodedOrigin.TopLeft: //confirmed iOS(both), Android(both)
-                    orientationRotation = (float) (isFrontFacing ? Math.PI : 0);
+                    orientationRotation = (float)(isFrontFacing ? Math.PI : 0);
                     needsMirror = isFrontFacing;
                     break;
                 case SKEncodedOrigin.LeftBottom: //confirmed Android(both)
-                    orientationRotation = (float) (-Math.PI / 2f);
+                    orientationRotation = (float)(-Math.PI / 2f);
                     needsMirror = isFrontFacing;
                     break;
                 case SKEncodedOrigin.BottomRight: //confirmed iOS(both), Android(both)
-                    orientationRotation = (float) (Math.PI - (isFrontFacing ? Math.PI : 0));
+                    orientationRotation = (float)(Math.PI - (isFrontFacing ? Math.PI : 0));
                     needsMirror = isFrontFacing;
                     break;
                 case SKEncodedOrigin.RightTop: //confirmed iOS(both), Android(both)
-                    orientationRotation = (float) (Math.PI / 2f);
+                    orientationRotation = (float)(Math.PI / 2f);
                     needsMirror = isFrontFacing;
                     break;
                 case SKEncodedOrigin.TopRight:
-                    orientationRotation = (float) (isFrontFacing ? Math.PI : 0);
+                    orientationRotation = (float)(isFrontFacing ? Math.PI : 0);
                     needsMirror = !isFrontFacing;
                     break;
                 case SKEncodedOrigin.RightBottom:
-                    orientationRotation = (float) (-Math.PI / 2f);
+                    orientationRotation = (float)(-Math.PI / 2f);
                     needsMirror = !isFrontFacing;
                     break;
                 case SKEncodedOrigin.BottomLeft:
-                    orientationRotation = (float) (Math.PI - (isFrontFacing ? Math.PI : 0));
+                    orientationRotation = (float)(Math.PI - (isFrontFacing ? Math.PI : 0));
                     needsMirror = !isFrontFacing;
                     break;
                 case SKEncodedOrigin.LeftTop:
-                    orientationRotation = (float) (Math.PI / 2f);
+                    orientationRotation = (float)(Math.PI / 2f);
                     needsMirror = !isFrontFacing;
                     break;
                 default:
@@ -466,30 +500,14 @@ namespace CrossCam.Page
             return transform3D;
         }
 
-        private static SKMatrix FindTransformMatrix(bool isLeft, DrawMode drawMode,
+        private static SKMatrix FindEditMatrix(bool isLeft, DrawMode drawMode,
             double zoom, float rotation, float keystone,
             double cardboardHorDelta, double cardboardVertDelta, double alignment,
             float destX, float destY, float destWidth, float destHeight,
-            double cardboardSeparationMod, double scalingRatio, SKMatrix alignmentMatrix,
-            SKMatrix orientationMatrix)
+            double cardboardSeparationMod)
         {
-            var transform3D = SKMatrix.Identity;
-
             var xCorrectionToOrigin = destX + destWidth / 2f;
             var yCorrectionToOrigin = destY + destHeight / 2f;
-
-            transform3D = transform3D.PostConcat(orientationMatrix);
-
-            if (!alignmentMatrix.IsIdentity)
-            {
-                transform3D = transform3D.PostConcat(SKMatrix.CreateTranslation(-xCorrectionToOrigin, -yCorrectionToOrigin));
-                transform3D = transform3D.PostConcat(SKMatrix.CreateScale((float) scalingRatio, (float) scalingRatio));
-                transform3D = transform3D.PostConcat(SKMatrix.CreateTranslation((float)(destWidth * scalingRatio / 2f), (float)(destHeight * scalingRatio / 2f)));
-                transform3D = transform3D.PostConcat(alignmentMatrix);
-                transform3D = transform3D.PostConcat(SKMatrix.CreateTranslation((float)(-destWidth * scalingRatio / 2f), (float)(-destHeight * scalingRatio / 2f)));
-                transform3D = transform3D.PostConcat(SKMatrix.CreateScale((float) (1 / scalingRatio), (float) (1 / scalingRatio)));
-                transform3D = transform3D.PostConcat(SKMatrix.CreateTranslation(xCorrectionToOrigin, yCorrectionToOrigin));
-            }
 
             using var transform4D = SKMatrix44.CreateIdentity();
 
@@ -538,16 +556,16 @@ namespace CrossCam.Page
                 transform4D.PostConcat(SKMatrix44.CreateTranslate((float)(-cardboardHorDelta + cardboardSeparationMod), (float)-cardboardVertDelta, 0));
             }
 
-            return transform3D.PostConcat(transform4D.Matrix);
+            return transform4D.Matrix;
         }
 
-        private static void DrawSide(SKCanvas canvas, SKBitmap bitmap, 
+        private static void DrawSide(SKCanvas canvas, SKBitmap bitmap,
             bool isLeft, DrawMode drawMode,
             double cardboardHorDelta, double cardboardVertDelta,
             float clipX, float clipY, float clipWidth, float clipHeight,
             float destX, float destY, float destWidth, float destHeight,
-            bool useGhostOverlay, double cardboardSeparationMod, 
-            SKMatrix transformMatrix, SKMatrix orientationMatrix,
+            bool useGhostOverlay, double cardboardSeparationMod,
+            SKMatrix alignmentMatrix, SKMatrix orientationMatrix, SKMatrix editMatrix,
             SKFilterQuality quality)
         {
             using var paint = new SKPaint
@@ -605,13 +623,16 @@ namespace CrossCam.Page
                 destWidth,
                 destHeight);
 
-            var destinationInvertMatrix = orientationMatrix.Invert();
-            var invertedRect = destinationInvertMatrix.MapRect(destinationRect);
+            var editInvert = editMatrix.Invert();
+            var orientInvert = orientationMatrix.Invert();
+            var alignInvert = alignmentMatrix.Invert();
+            var destinationCorrectionMatrix = alignmentMatrix.PostConcat(orientInvert).PostConcat(alignInvert);
+            var correctedRect = destinationCorrectionMatrix.MapRect(destinationRect);
 
-            canvas.SetMatrix(transformMatrix);
+            canvas.SetMatrix(alignmentMatrix.PostConcat(orientationMatrix).PostConcat(editMatrix));
             canvas.DrawBitmap(
                 bitmap,
-                invertedRect,
+                correctedRect,
                 paint);
             canvas.ResetMatrix();
 
