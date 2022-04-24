@@ -452,6 +452,10 @@ namespace CrossCam.Page
             //see https://www.nosco.ch/blog/en/2020/10/photo-orientation
             switch (orientation)
             {
+                case 0:
+                    orientationRotation = 0;
+                    needsMirror = false;
+                    break;
                 case SKEncodedOrigin.TopLeft: //confirmed iOS(both), Android(both)
                     orientationRotation = (float)(isFrontFacing ? Math.PI : 0);
                     needsMirror = isFrontFacing;

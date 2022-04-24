@@ -81,7 +81,7 @@ namespace CrossCam.Droid.CustomRenderer
         private MeteringRectangle _camera2MeteringRectangle;
         private int _camera2FoundGoodCaptureInterlocked;
         private bool _isCamera2FocusAndExposureLocked;
-        private int _camera2SensorOrientation; 
+        private int _camera2SensorOrientation;
         private bool _camera2CameraDeviceErrorRetry;
         private readonly SparseIntArray _orientations = new SparseIntArray();
         private int _camera1initThreadlock;
@@ -110,10 +110,10 @@ namespace CrossCam.Droid.CustomRenderer
             var maxSize = Math.Max(Resources.DisplayMetrics.HeightPixels, Resources.DisplayMetrics.WidthPixels);
             _landscapePreviewAllottedWidth = maxSize / 2f;
 
-             _orientations.Append((int)SurfaceOrientation.Rotation0, 0);
-             _orientations.Append((int)SurfaceOrientation.Rotation90, 90);
-             _orientations.Append((int)SurfaceOrientation.Rotation180, 180);
-             _orientations.Append((int)SurfaceOrientation.Rotation270, 270);
+            _orientations.Append((int)SurfaceOrientation.Rotation0, 0);
+            _orientations.Append((int)SurfaceOrientation.Rotation90, 90);
+            _orientations.Append((int)SurfaceOrientation.Rotation180, 180);
+            _orientations.Append((int)SurfaceOrientation.Rotation270, 270);
 
             if (Build.VERSION.SdkInt >= BuildVersionCodes.Lollipop)
             {
@@ -207,7 +207,7 @@ namespace CrossCam.Droid.CustomRenderer
                 }
 
                 System.Diagnostics.Debug.WriteLine("### USE CAMERA2: " + _useCamera2);
-                
+
                 SetupUserInterface();
                 if (_useCamera2)
                 {
@@ -303,7 +303,7 @@ namespace CrossCam.Droid.CustomRenderer
                     if (providedParameters != null)
                     {
                         parameters = providedParameters;
-                    } 
+                    }
                     else if (_camera1 == null)
                     {
                         return;
@@ -313,7 +313,7 @@ namespace CrossCam.Droid.CustomRenderer
                         parameters = _camera1.GetParameters();
                     }
 
-                    if (parameters.SupportedFocusModes != null && 
+                    if (parameters.SupportedFocusModes != null &&
                         parameters.SupportedFocusModes.Contains(Camera.Parameters.FocusModeContinuousPicture))
                     {
                         parameters.FocusMode = Camera.Parameters.FocusModeContinuousPicture;
@@ -381,65 +381,73 @@ namespace CrossCam.Droid.CustomRenderer
 
         public void OnSurfaceTextureUpdated(SurfaceTexture surface)
         {
-
-            if (_cameraModule.BluetoothOperator.PairStatus == PairStatus.Connected)
+            SKEncodedOrigin origin;
+            var bitmap = _textureView.Bitmap;
+            if (_useCamera2)
             {
-                if (Interlocked.Exchange(ref _readyToCapturePreviewFrameInterlocked, 0) == 1)
-                {
-                    using var stream = new MemoryStream();
-                    _textureView.Bitmap.Compress(Bitmap.CompressFormat.Jpeg, 50, stream);
-                    _cameraModule.BluetoothOperator.SendLatestPreviewFrame(stream.ToArray(), (byte)(_textureView.Rotation / 90f));
-                }
+                origin = GetOrientation2();
+            }
+            else
+            {
+                origin = 0;
+            }
+
+            if (_cameraModule.BluetoothOperator.PairStatus == PairStatus.Connected &&
+                Interlocked.Exchange(ref _readyToCapturePreviewFrameInterlocked, 0) == 1 &&
+                bitmap != null)
+            {
+                using var stream = new MemoryStream();
+                bitmap.Compress(Bitmap.CompressFormat.Jpeg, 50, stream);
+                _cameraModule.BluetoothOperator.SendLatestPreviewFrame(stream.ToArray());
             }
 
             _cameraModule.PreviewImage = new IncomingFrame
             {
-                Frame = _textureView.Bitmap.ToSKBitmap(), //TODO: does the jpeg compression help speed?
-                Orientation = GetOrientation2(),
-                IsFrontFacing = _cameraModule.ChosenCamera.IsFront
+                Frame = bitmap.ToSKBitmap(),
+                IsFrontFacing = _cameraModule.ChosenCamera.IsFront,
+                Orientation = origin
             };
+            bitmap?.Recycle();
         }
-
-        private SKEncodedOrigin GetOrientation(int normalizedRotationalSum)
-        {
-            switch (normalizedRotationalSum)
-            {
-                case 0 when _cameraModule.ChosenCamera.IsFront:
-                    return SKEncodedOrigin.LeftTop;
-                case 0:
-                    return SKEncodedOrigin.RightTop;
-                case 1 when _cameraModule.ChosenCamera.IsFront:
-                    return SKEncodedOrigin.BottomLeft;
-                case 1:
-                    return SKEncodedOrigin.TopLeft;
-                case 2 when _cameraModule.ChosenCamera.IsFront:
-                    return SKEncodedOrigin.RightBottom;
-                case 2:
-                    return SKEncodedOrigin.LeftBottom;
-                case 3 when _cameraModule.ChosenCamera.IsFront:
-                    return SKEncodedOrigin.TopRight;
-                case 3:
-                    return SKEncodedOrigin.BottomRight;
-                default:
-                    return default;
-            }
-        }
-
+        
         private SKEncodedOrigin GetOrientation2()
         {
-            var screenOrientation = ((int)DeviceDisplay.MainDisplayInfo.Rotation) - 1;
+            var screenOrientation = (int)DeviceDisplay.MainDisplayInfo.Rotation - 1;
             var sensorOrientationInc = _camera2SensorOrientation / 90;
             if (_cameraModule.ChosenCamera.IsFront)
             {
                 sensorOrientationInc += 2;
             }
+
             var normalizedRotationSum = (sensorOrientationInc + screenOrientation) % 4;
-            return GetOrientation(normalizedRotationSum);
+            var isFrontFacing = _cameraModule.ChosenCamera.IsFront;
+            return normalizedRotationSum switch
+            {
+                0 when isFrontFacing => SKEncodedOrigin.LeftTop,
+                0 => SKEncodedOrigin.RightTop,
+                1 when isFrontFacing => SKEncodedOrigin.BottomLeft,
+                1 => SKEncodedOrigin.TopLeft,
+                2 when isFrontFacing => SKEncodedOrigin.RightBottom,
+                2 => SKEncodedOrigin.LeftBottom,
+                3 when isFrontFacing => SKEncodedOrigin.TopRight,
+                3 => SKEncodedOrigin.BottomRight,
+                _ => default
+            };
         }
 
         private SKEncodedOrigin GetOrientation1()
         {
-            return GetOrientation(_cameraRotation1 / 90);
+            var isFrontFacing = _cameraModule.ChosenCamera.IsFront;
+            return (_cameraRotation1 / 90) switch
+            {
+                0 => SKEncodedOrigin.TopLeft,
+                1 when isFrontFacing => SKEncodedOrigin.LeftBottom,
+                1 => SKEncodedOrigin.RightTop,
+                2 => SKEncodedOrigin.BottomRight,
+                3 when isFrontFacing => SKEncodedOrigin.RightTop,
+                3 => SKEncodedOrigin.LeftBottom,
+                _ => default
+            };
         }
 
         public void OnSurfaceTextureAvailable(SurfaceTexture surface, int width, int height)
@@ -473,7 +481,7 @@ namespace CrossCam.Droid.CustomRenderer
             return true;
         }
 
-        public void OnSurfaceTextureSizeChanged(SurfaceTexture surface, int width, int height) {}
+        public void OnSurfaceTextureSizeChanged(SurfaceTexture surface, int width, int height) { }
 
         private void OrientationChanged()
         {
@@ -545,7 +553,7 @@ namespace CrossCam.Droid.CustomRenderer
                             (int)(tapY - tapRadius),
                             (int)(tapX + tapRadius),
                             (int)(tapY + tapRadius)); //TODO: this thing is going to come out rectangular, not square OH WELL
-                        
+
                         var parameters = _camera1.GetParameters();
                         var targetFocusRect = new RectF(
                             tapRect.Left * 2000 / _textureView.Width - 1000,
@@ -606,7 +614,7 @@ namespace CrossCam.Droid.CustomRenderer
                 _cameraModule.ErrorMessage = ex.ToString();
             }
         }
-        
+
         private static float Clamp(float x, float min, float max)
         {
             return x < min ? min : x < max ? x : max;
@@ -616,7 +624,7 @@ namespace CrossCam.Droid.CustomRenderer
         {
             _cameraModule.ErrorMessage = error.ToString();
         }
-        
+
         private void SetOrientation()
         {
             try
@@ -627,8 +635,8 @@ namespace CrossCam.Droid.CustomRenderer
                 if (Display == null) return;
                 Display.GetMetrics(metrics);
 
-                var moduleWidth = (float) (_cameraModule.Width * metrics.Density);
-                var moduleHeight = (float) (_cameraModule.Height * metrics.Density);
+                var moduleWidth = (float)(_cameraModule.Width * metrics.Density);
+                var moduleHeight = (float)(_cameraModule.Height * metrics.Density);
 
                 float previewSizeWidth;
                 float previewSizeHeight;
@@ -731,22 +739,22 @@ namespace CrossCam.Droid.CustomRenderer
                     _camera1.SetDisplayOrientation(_displayRotation1);
                     _camera1.SetParameters(parameters);
                 }
-                
+
                 _cameraModule.PreviewBottomY = (moduleHeight - verticalOffset) / metrics.Density;
 
                 if (_useCamera2)
                 {
                     _textureView.SetX(xAdjust2);
                     _textureView.SetY(yAdjust2 - 10000);
-                    _textureView.LayoutParameters = new FrameLayout.LayoutParams((int) Math.Round(previewWidth2),
-                        (int) Math.Round(previewHeight2));
+                    _textureView.LayoutParameters = new FrameLayout.LayoutParams((int)Math.Round(previewWidth2),
+                        (int)Math.Round(previewHeight2));
                 }
                 else
                 {
                     _textureView.SetX(0);
                     _textureView.SetY(verticalOffset - 10000);
-                    _textureView.LayoutParameters = new FrameLayout.LayoutParams((int) Math.Round(moduleWidth),
-                        (int) Math.Round(proportionalPreviewHeight));
+                    _textureView.LayoutParameters = new FrameLayout.LayoutParams((int)Math.Round(moduleWidth),
+                        (int)Math.Round(proportionalPreviewHeight));
                 }
             }
             catch (System.Exception e)
@@ -755,7 +763,7 @@ namespace CrossCam.Droid.CustomRenderer
             }
         }
 
-#region camera1
+        #region camera1
 
         private void StopCamera1()
         {
@@ -806,8 +814,8 @@ namespace CrossCam.Droid.CustomRenderer
                             }
                         }
                         _camera1 = _cameraModule.ChosenCamera.IsFront
-                            ? Camera.Open((int) CameraFacing.Front)
-                            : Camera.Open((int) CameraFacing.Back);
+                            ? Camera.Open((int)CameraFacing.Front)
+                            : Camera.Open((int)CameraFacing.Back);
                         _camera1.SetErrorCallback(this);
 
                         for (var ii = 0; ii < Camera.NumberOfCameras - 1; ii++)
@@ -886,7 +894,6 @@ namespace CrossCam.Droid.CustomRenderer
 
                         _camera1.SetParameters(parameters);
                         _camera1.SetPreviewTexture(_surfaceTexture);
-                        _camera1.SetPreviewCallback(new Camera1PreviewCallbackHandler(_cameraModule, this));
 
                         _camera1initThreadlock = 0;
                     }
@@ -996,50 +1003,9 @@ namespace CrossCam.Droid.CustomRenderer
             _cameraModule.IsFocusCircleLocked = success;
         }
 
-        private class Camera1PreviewCallbackHandler : Java.Lang.Object, Camera.IPreviewCallback
-        {
-            private readonly CameraModule _cameraModule;
-            private readonly CameraModuleRenderer _renderer;
-            private int _readyToCapturePreviewFrameInterlocked;
+        #endregion
 
-            public Camera1PreviewCallbackHandler(CameraModule cameraModule, CameraModuleRenderer renderer)
-            {
-                _cameraModule = cameraModule;
-                _renderer = renderer;
-                _cameraModule.BluetoothOperator.PreviewFrameRequestReceived += (sender, args) =>
-                {
-                    _readyToCapturePreviewFrameInterlocked = 1;
-                };
-            }
-
-            public void OnPreviewFrame(byte[] data, Camera camera)
-            {
-                using var stream = new MemoryStream();
-                using var yuv = new YuvImage(data, ImageFormatType.Nv21, _previewSize.Width, _previewSize.Height, null);
-                yuv.CompressToJpeg(new Rect(0, 0, _previewSize.Width, _previewSize.Height), 50, stream);
-                if (_cameraModule.BluetoothOperator.PairStatus == PairStatus.Connected)
-                {
-                    if (Interlocked.Exchange(ref _readyToCapturePreviewFrameInterlocked, 0) == 1)
-                    {
-                        _cameraModule.BluetoothOperator.SendLatestPreviewFrame(stream.ToArray(), (byte)(_renderer._cameraRotation1 / 90));
-                    }
-                }
-                using var skData = SKData.Create(stream);
-                using var codec = SKCodec.Create(skData);
-                var bitmap = SKBitmap.Decode(skData);
-                //TODO: test this on old phone
-                _cameraModule.PreviewImage = new IncomingFrame
-                {
-                    Frame = bitmap,
-                    Orientation = _renderer.GetOrientation1(),
-                    IsFrontFacing = _cameraModule.ChosenCamera.IsFront
-                };
-            }
-        }
-
-#endregion
-
-#region camera2
+        #region camera2
 
         private int FindCamera2()
         {
@@ -1074,7 +1040,7 @@ namespace CrossCam.Droid.CustomRenderer
             }
 
             var characteristics = _cameraManager.GetCameraCharacteristics(_camera2Id);
-            var level = (int) characteristics.Get(CameraCharacteristics.InfoSupportedHardwareLevel);
+            var level = (int)characteristics.Get(CameraCharacteristics.InfoSupportedHardwareLevel);
 
             if (level == (int)InfoSupportedHardwareLevel.Legacy)
             {
@@ -1125,7 +1091,7 @@ namespace CrossCam.Droid.CustomRenderer
 
             if (_preview2Size == null)
             {
-                return (int) InfoSupportedHardwareLevel.Legacy; // cannot find appropriate sizes with camera2. fall back to camera1.
+                return (int)InfoSupportedHardwareLevel.Legacy; // cannot find appropriate sizes with camera2. fall back to camera1.
             }
 
             _cameraModule.PreviewAspectRatio = _preview2Size.Width / (1d * _preview2Size.Height);
@@ -1178,7 +1144,7 @@ namespace CrossCam.Droid.CustomRenderer
                 {
                     _camera2Device = camera;
                 }
-                
+
                 _surfaceTexture.SetDefaultBufferSize(_preview2Size.Width, _preview2Size.Height);
 
                 _finalCaptureImageReader =
@@ -1203,7 +1169,7 @@ namespace CrossCam.Droid.CustomRenderer
                             _previewRequestBuilder.SetTag(CameraState.Preview.ToString());
 
                             _previewRequestBuilder.Set(CaptureRequest.ControlAfMode,
-                                new Integer((int) ControlAFMode.ContinuousPicture));
+                                new Integer((int)ControlAFMode.ContinuousPicture));
 
                             session.SetRepeatingRequest(_previewRequestBuilder.Build(), _captureListener, _backgroundHandler);
                         }
@@ -1256,13 +1222,13 @@ namespace CrossCam.Droid.CustomRenderer
                 ControlAFState afStateEnum = 0;
                 if (afState != null)
                 {
-                    afStateEnum = (ControlAFState) (int) afState;
+                    afStateEnum = (ControlAFState)(int)afState;
                 }
 
                 ControlAEState aeStateEnum = 0;
                 if (aeState != null)
                 {
-                    aeStateEnum = (ControlAEState) (int) aeState;
+                    aeStateEnum = (ControlAEState)(int)aeState;
                 }
 
                 if (afState != null &&
@@ -1290,37 +1256,37 @@ namespace CrossCam.Droid.CustomRenderer
                             CaptureStillPicture2();
                             break;
                         case CameraState.AwaitingTapLock:
-                        {
-                            if ((ControlAFMode) (int) request.Get(CaptureRequest.ControlAfMode) ==
-                                ControlAFMode.ContinuousPicture)
                             {
-                                _camera2FoundGoodCaptureInterlocked = 0;
-                                return;
-                            }
+                                if ((ControlAFMode)(int)request.Get(CaptureRequest.ControlAfMode) ==
+                                    ControlAFMode.ContinuousPicture)
+                                {
+                                    _camera2FoundGoodCaptureInterlocked = 0;
+                                    return;
+                                }
 
-                            _isCamera2FocusAndExposureLocked = true;
-                            _cameraModule.IsFocusCircleLocked = true;
-                            
-                            _camera2Session.StopRepeating();
-                            
-                            var characteristics = _cameraManager.GetCameraCharacteristics(_camera2Device.Id);
-                            TurnOnAeLock(characteristics);
-                            
-                            _previewRequestBuilder.Set(CaptureRequest.ControlAfTrigger, new Integer((int)ControlAFTrigger.Cancel));
-                            _camera2Session.Capture(_previewRequestBuilder.Build(), _captureListener,
-                                _backgroundHandler);
-                            
-                            _previewRequestBuilder.Set(CaptureRequest.ControlAfTrigger, null);
-                            _previewRequestBuilder.Set(CaptureRequest.ControlAePrecaptureTrigger, null);
+                                _isCamera2FocusAndExposureLocked = true;
+                                _cameraModule.IsFocusCircleLocked = true;
 
-                            _camera2State = CameraState.Preview;
-                            _previewRequestBuilder.SetTag(CameraState.Preview.ToString());
+                                _camera2Session.StopRepeating();
+
+                                var characteristics = _cameraManager.GetCameraCharacteristics(_camera2Device.Id);
+                                TurnOnAeLock(characteristics);
+
+                                _previewRequestBuilder.Set(CaptureRequest.ControlAfTrigger, new Integer((int)ControlAFTrigger.Cancel));
+                                _camera2Session.Capture(_previewRequestBuilder.Build(), _captureListener,
+                                    _backgroundHandler);
+
+                                _previewRequestBuilder.Set(CaptureRequest.ControlAfTrigger, null);
+                                _previewRequestBuilder.Set(CaptureRequest.ControlAePrecaptureTrigger, null);
+
+                                _camera2State = CameraState.Preview;
+                                _previewRequestBuilder.SetTag(CameraState.Preview.ToString());
 
                                 _camera2Session.SetRepeatingRequest(_previewRequestBuilder.Build(), _captureListener,
                             _backgroundHandler);
 
-                            break;
-                        }
+                                break;
+                            }
                         default:
                             throw new ArgumentOutOfRangeException();
                     }
@@ -1406,7 +1372,7 @@ namespace CrossCam.Droid.CustomRenderer
                     .JavaCast<IWindowManager>();
                 var rotation = windowManager.DefaultDisplay.Rotation;
 
-                var phoneOrientation = _orientations.Get((int) rotation);
+                var phoneOrientation = _orientations.Get((int)rotation);
                 var neededRotation = 0;
                 switch (phoneOrientation)
                 {
@@ -1433,19 +1399,19 @@ namespace CrossCam.Droid.CustomRenderer
                 {
                     neededRotation %= 360;
                 }
-                
+
                 var captureBuilder = _camera2Device.CreateCaptureRequest(CameraTemplate.StillCapture);
                 captureBuilder.AddTarget(_finalCaptureImageReader.Surface);
                 captureBuilder.Set(CaptureRequest.JpegOrientation, new Integer(neededRotation));
                 var characteristics = _cameraManager.GetCameraCharacteristics(_camera2Id);
                 try
                 {
-                    if ((bool) characteristics.Get(CameraCharacteristics.ControlAeLockAvailable))
+                    if ((bool)characteristics.Get(CameraCharacteristics.ControlAeLockAvailable))
                     {
                         captureBuilder.Set(CaptureRequest.ControlAeLock, new Boolean(true));
                     }
                 }
-                catch (NoSuchFieldError) {}
+                catch (NoSuchFieldError) { }
 
                 var readerListener = new ImageAvailableListener();
                 readerListener.Photo += (sender, buffer) =>
@@ -1460,7 +1426,6 @@ namespace CrossCam.Droid.CustomRenderer
                         using var data = SKData.Create(new SKMemoryStream(buffer));
                         using var codec = SKCodec.Create(data);
                         var bitmap = SKBitmap.Decode(data);
-                        System.Diagnostics.Debug.WriteLine("Capture orientation: " + codec.EncodedOrigin);
                         _cameraModule.CapturedImage = new IncomingFrame
                         {
                             Frame = bitmap,
@@ -1495,7 +1460,7 @@ namespace CrossCam.Droid.CustomRenderer
                 _cameraModule.ErrorMessage = e.ToString();
             }
         }
-        
+
         private void TapToFocus2(PointF p)
         {
             var metrics = new DisplayMetrics();
@@ -1684,7 +1649,7 @@ namespace CrossCam.Droid.CustomRenderer
                     _previewRequestBuilder.Set(CaptureRequest.ControlAeLock, new Boolean(true));
                 }
             }
-            catch (NoSuchFieldError) {}
+            catch (NoSuchFieldError) { }
         }
 
         private void TurnOffAeLock(CameraCharacteristics characteristics)
@@ -1696,7 +1661,7 @@ namespace CrossCam.Droid.CustomRenderer
                     _previewRequestBuilder.Set(CaptureRequest.ControlAeLock, new Boolean(false));
                 }
             }
-            catch (NoSuchFieldError) {}
+            catch (NoSuchFieldError) { }
         }
 
         private void StartBackgroundThread()
@@ -1705,7 +1670,7 @@ namespace CrossCam.Droid.CustomRenderer
             _backgroundThread.Start();
             _backgroundHandler = new Handler(_backgroundThread.Looper);
         }
-        
+
         private void StopBackgroundThread()
         {
             _backgroundThread?.QuitSafely();
@@ -1714,9 +1679,9 @@ namespace CrossCam.Droid.CustomRenderer
             _backgroundHandler = null;
         }
 
-        
 
-#endregion
+
+        #endregion
     }
 }
 
