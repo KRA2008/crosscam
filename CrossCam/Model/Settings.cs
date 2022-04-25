@@ -416,7 +416,7 @@ namespace CrossCam.Model
             IsCaptureLeftFirst = true;
             ShowRollGuide = true;
 
-            AddBorder = true; //TODO: undo this, just for debugging (or don't? keep it?)
+            AddBorder = false; //TODO: decide how to do this
             ClipBorderOnNextLoad = false;
 
             ShowGuideLinesWithFirstCapture = false;
@@ -433,7 +433,7 @@ namespace CrossCam.Model
             SaveForRedCyanAnaglyph = false;
             SaveForTriple = false;
             SaveForQuad = false;
-            SaveWithFuseGuide = true; //TODO: undo this, just for debugging (or don't? keep it?)
+            SaveWithFuseGuide = false; //TODO: decide how to do this
             SaveForCardboard = false;
 
             IsForceCamera1Enabled = false;

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Diagnostics;
+using System.Linq;
 using CrossCam.Model;
 using CrossCam.ViewModel;
 using CrossCam.Wrappers;
@@ -43,6 +44,13 @@ namespace CrossCam.Page
                 0,     0,     0, 0, 0,
                 0,     0,     0, 1, 0
         });
+        private static readonly SKEncodedOrigin[] Orientations90deg = new[]
+        {
+            SKEncodedOrigin.RightTop,
+            SKEncodedOrigin.LeftBottom,
+            SKEncodedOrigin.RightBottom,
+            SKEncodedOrigin.LeftTop
+        };
 
         public static void DrawImagesOnCanvas(SKSurface surface, 
             SKBitmap leftBitmap, SKMatrix leftAlignmentMatrix, SKEncodedOrigin leftOrientation, bool isLeftFrontFacing,
@@ -155,10 +163,12 @@ namespace CrossCam.Page
             var canvasHeight = surface.Canvas.DeviceClipBounds.Height;
 
             double sideBitmapWidthLessCrop, baseHeight, baseWidth, netSideCrop;
+
+            var isLeft90Oriented = Orientations90deg.Contains(leftOrientation);
+            var isRight90Oriented = Orientations90deg.Contains(rightOrientation);
             if (leftBitmap != null)
             {
-                if (leftOrientation == SKEncodedOrigin.RightTop ||
-                    leftOrientation == SKEncodedOrigin.LeftBottom)
+                if (isLeft90Oriented)
                 {
                     baseWidth = leftBitmap.Height;
                     baseHeight = leftBitmap.Width;
@@ -173,8 +183,7 @@ namespace CrossCam.Page
             }
             else
             {
-                if (rightOrientation == SKEncodedOrigin.RightTop ||
-                    rightOrientation == SKEncodedOrigin.LeftBottom)
+                if (isRight90Oriented)
                 {
                     baseHeight = rightBitmap.Width;
                     baseWidth = rightBitmap.Height;
@@ -274,12 +283,34 @@ namespace CrossCam.Page
             var cardboardHorDelta = cardboardHor * destWidth;
             var cardboardVertDelta = cardboardVert * destHeight; //TODO: use same property for both to make move speed the same?
 
+            var leftXCorrectionToOrigin = leftDestX + destWidth /2f;
+            var leftYCorrectionToOrigin = destY + destWidth / 2f;
+            var rightXCorrectionToOrigin = rightDestX + destWidth / 2f;
+            var rightYCorrectionToOrigin = destY + destWidth / 2f;
+            var leftIntermediateWidth = destWidth;
+            var leftIntermediateHeight = destHeight;
+            var rightIntermediateWidth = destWidth;
+            var rightIntermediateHeight = destHeight;
+
+            if (isLeft90Oriented)
+            {
+                (leftXCorrectionToOrigin, leftYCorrectionToOrigin, leftIntermediateWidth, leftIntermediateHeight) = 
+                    (leftYCorrectionToOrigin, leftXCorrectionToOrigin, leftIntermediateHeight, leftIntermediateWidth);
+            }
+
+            if (isRight90Oriented)
+            {
+                (rightXCorrectionToOrigin, rightYCorrectionToOrigin, rightIntermediateWidth, rightIntermediateHeight) = 
+                    (rightYCorrectionToOrigin, rightXCorrectionToOrigin, rightIntermediateHeight, rightIntermediateWidth);
+            }
+
             if (leftBitmap != null)
             {
-                var leftAdjustedAlignmentMatrix = FindAlignmentMatrix(leftDestX, destWidth, destY, destHeight,
+                var leftOrientationMatrix = FindOrientationMatrix(leftOrientation, leftXCorrectionToOrigin,
+                    leftYCorrectionToOrigin, isLeftFrontFacing);
+                var leftScaledAlignmentMatrix = FindScaledAlignmentMatrix(
+                    leftIntermediateWidth, leftIntermediateHeight, leftXCorrectionToOrigin, leftYCorrectionToOrigin,
                     leftAlignmentMatrix, scalingRatio);
-                var leftOrientationMatrix = FindOrientationMatrix(leftOrientation, leftDestX, destWidth, destY,
-                    destHeight, isLeftFrontFacing);
                 var leftEditMatrix = FindEditMatrix(true, drawMode, leftZoom, leftRotation, leftKeystone,
                     cardboardHorDelta, cardboardVertDelta, alignment,
                     leftDestX, destY, destWidth, destHeight,
@@ -289,16 +320,17 @@ namespace CrossCam.Page
                     leftClipX, clipY, clipWidth, clipHeight,
                     leftDestX, destY, destWidth, destHeight,
                     false, -cardboardSeparationMod,
-                    leftAdjustedAlignmentMatrix, leftOrientationMatrix,
-                    leftEditMatrix, skFilterQuality);
+                    leftScaledAlignmentMatrix, leftOrientationMatrix, leftEditMatrix, 
+                    skFilterQuality);
             }
 
             if (rightBitmap != null)
             {
-                var rightAdjustedAlignmentMatrix = FindAlignmentMatrix(rightDestX, destWidth, destY, destHeight,
+                var rightOrientationMatrix = FindOrientationMatrix(rightOrientation, rightXCorrectionToOrigin,
+                    rightYCorrectionToOrigin, isRightFrontFacing);
+                var rightScaledAlignmentMatrix = FindScaledAlignmentMatrix(
+                    rightIntermediateWidth, rightIntermediateHeight, rightXCorrectionToOrigin, rightYCorrectionToOrigin,
                     rightAlignmentMatrix, scalingRatio);
-                var rightOrientationMatrix = FindOrientationMatrix(rightOrientation, rightDestX, destWidth, destY,
-                    destHeight, isRightFrontFacing);
                 var rightEditMatrix = FindEditMatrix(false, drawMode, rightZoom, rightRotation, rightKeystone,
                     cardboardHorDelta, cardboardVertDelta, alignment,
                     rightDestX, destY, destWidth, destHeight,
@@ -308,8 +340,8 @@ namespace CrossCam.Page
                     rightClipX, clipY, clipWidth, clipHeight,
                     rightDestX, destY, destWidth, destHeight,
                     leftBitmap != null && useGhost, cardboardSeparationMod,
-                    rightAdjustedAlignmentMatrix, rightOrientationMatrix,
-                    rightEditMatrix, skFilterQuality);
+                    rightScaledAlignmentMatrix, rightOrientationMatrix, rightEditMatrix, 
+                    skFilterQuality);
             }
 
             var openCv = DependencyService.Get<IOpenCv>();
@@ -405,46 +437,31 @@ namespace CrossCam.Page
             }
         }
 
-        private static SKMatrix FindAlignmentMatrix(float destX, float destWidth, float destY, float destHeight, 
-            SKMatrix alignment, double scalingRatio)
+        private static SKMatrix FindScaledAlignmentMatrix(float destWidth, float destHeight,
+            float xCorrectionToOrigin, float yCorrectionToOrigin,
+            SKMatrix originalAlignment, double scalingRatio)
         {
-            var xCorrectionToOrigin = destX + destWidth / 2f;
-            var yCorrectionToOrigin = destY + destHeight / 2f;
-
             var transform3D = SKMatrix.Identity;
 
-            if (!alignment.IsIdentity)
+            if (!originalAlignment.IsIdentity)
             {
                 transform3D = transform3D.PostConcat(SKMatrix.CreateTranslation(-xCorrectionToOrigin, -yCorrectionToOrigin));
                 transform3D = transform3D.PostConcat(SKMatrix.CreateScale((float)scalingRatio, (float)scalingRatio));
                 transform3D = transform3D.PostConcat(SKMatrix.CreateTranslation((float)(destWidth * scalingRatio / 2f), (float)(destHeight * scalingRatio / 2f)));
-                transform3D = transform3D.PostConcat(alignment);
+                transform3D = transform3D.PostConcat(originalAlignment);
                 transform3D = transform3D.PostConcat(SKMatrix.CreateTranslation((float)(-destWidth * scalingRatio / 2f), (float)(-destHeight * scalingRatio / 2f)));
                 transform3D = transform3D.PostConcat(SKMatrix.CreateScale((float)(1 / scalingRatio), (float)(1 / scalingRatio)));
                 transform3D = transform3D.PostConcat(SKMatrix.CreateTranslation(xCorrectionToOrigin, yCorrectionToOrigin));
-
-
-                //transform3D = transform3D.PostConcat(SKMatrix.CreateTranslation(-xCorrectionToOrigin, -yCorrectionToOrigin));
-                //transform3D = transform3D.PostConcat(SKMatrix.CreateScale((float)(1 / scalingRatio), (float)(1 / scalingRatio)));
-                //transform3D = transform3D.PostConcat(SKMatrix.CreateTranslation((float)(destWidth * scalingRatio / 2f), (float)(destHeight * scalingRatio / 2f)));
-                //transform3D = transform3D.PostConcat(alignment);
-                //transform3D = transform3D.PostConcat(SKMatrix.CreateTranslation((float)(-destWidth * scalingRatio / 2f), (float)(-destHeight * scalingRatio / 2f)));
-                //transform3D = transform3D.PostConcat(SKMatrix.CreateScale((float)scalingRatio, (float)scalingRatio));
-                //transform3D = transform3D.PostConcat(SKMatrix.CreateTranslation(xCorrectionToOrigin, yCorrectionToOrigin));
-
             }
 
             return transform3D;
         }
 
         private static SKMatrix FindOrientationMatrix(SKEncodedOrigin orientation,
-            float destX, float destWidth, float destY, float destHeight, bool isFrontFacing)
+            float xCorrectionToOrigin, float yCorrectionToOrigin, bool isFrontFacing)
         {
             float orientationRotation;
             bool needsMirror;
-
-            var xCorrectionToOrigin = destX + destWidth / 2f;
-            var yCorrectionToOrigin = destY + destHeight / 2f;
 
             //positive rotation is clockwise for back facing
             //positive rotation is counterclockwise for front facing
@@ -626,12 +643,8 @@ namespace CrossCam.Page
                 destY,
                 destWidth,
                 destHeight);
-
-            var editInvert = editMatrix.Invert();
-            var orientInvert = orientationMatrix.Invert();
-            var alignInvert = alignmentMatrix.Invert();
-            var destinationCorrectionMatrix = alignmentMatrix.PostConcat(orientInvert).PostConcat(alignInvert);
-            var correctedRect = destinationCorrectionMatrix.MapRect(destinationRect);
+            
+            var correctedRect = orientationMatrix.Invert().MapRect(destinationRect);
 
             canvas.SetMatrix(alignmentMatrix.PostConcat(orientationMatrix).PostConcat(editMatrix));
             canvas.DrawBitmap(

@@ -120,8 +120,8 @@ namespace CrossCam.Model
 
         public void ResetToDefaults()
         {
-            IsAutomaticAlignmentOn = true;
-            AlignHorizontallySideBySide = true;
+            IsAutomaticAlignmentOn = true; //TODO: UNDO THIS< JUT FOR BEIDBB
+            AlignHorizontallySideBySide = true; //TODO: UNDO THIS< JUT FOR BEIDBB
             ShowAdvancedAlignmentSettings = false;
 
             EccDownsizePercentage = 35;
@@ -130,8 +130,8 @@ namespace CrossCam.Model
             EccThresholdPercentage = 60;
             EccPyramidLayers = 4;
 
-            DrawKeypointMatches = false;  //TODO: undo for DEBUG ONL!!!!Y
-            UseKeypoints1 = false; //TODO: undo? or make it good!
+            DrawKeypointMatches = false;
+            UseKeypoints1 = false;
             UseCrossCheck = false;
             DiscardOutliersByDistance = false;
             DiscardOutliersBySlope = true;
