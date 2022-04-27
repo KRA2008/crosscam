@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Diagnostics;
 using System.Linq;
 using CrossCam.Model;
 using CrossCam.ViewModel;
@@ -162,7 +161,7 @@ namespace CrossCam.Page
             var canvasWidth = surface.Canvas.DeviceClipBounds.Width;
             var canvasHeight = surface.Canvas.DeviceClipBounds.Height;
 
-            double sideBitmapWidthLessCrop, baseHeight, baseWidth, netSideCrop;
+            double baseHeight, baseWidth, netSideCrop;
 
             var isLeft90Oriented = Orientations90deg.Contains(leftOrientation);
             var isRight90Oriented = Orientations90deg.Contains(rightOrientation);
@@ -179,7 +178,6 @@ namespace CrossCam.Page
                     baseHeight = leftBitmap.Height;
                 }
                 netSideCrop = leftLeftCrop + leftRightCrop;
-                sideBitmapWidthLessCrop = baseWidth * (1 - netSideCrop);
             }
             else
             {
@@ -194,10 +192,44 @@ namespace CrossCam.Page
                     baseWidth = rightBitmap.Width;
                 }
                 netSideCrop = rightLeftCrop + rightRightCrop;
-                sideBitmapWidthLessCrop = baseWidth * (1 - netSideCrop);
             }
 
-            var sideBitmapHeightLessCrop = baseHeight * (1 - (topCrop + bottomCrop + Math.Abs(alignment)));
+            var leftAlignmentTrim = new TrimAdjustment();
+            var rightAlignmentTrim = new TrimAdjustment();
+            if (!leftAlignmentMatrix.IsIdentity &&
+                leftBitmap != null)
+            {
+                leftAlignmentTrim = FindAlignmentTrim(leftBitmap, leftAlignmentMatrix, leftOrientation, isLeftFrontFacing);
+            }
+
+            if (!rightAlignmentMatrix.IsIdentity &&
+                rightBitmap != null)
+            {
+                rightAlignmentTrim = FindAlignmentTrim(rightBitmap, rightAlignmentMatrix, rightOrientation, isRightFrontFacing);
+            }
+            var maxAlignmentTrim = CombineMaxTrim(leftAlignmentTrim, rightAlignmentTrim);
+
+            var leftEditTrimMatrix = FindEditMatrix(true, drawMode, leftZoom, leftRotation, leftKeystone,
+                0, 0, alignment, 0, 0, (float) baseWidth, (float) baseHeight, 0);
+            var rightEditTrim = FindEditMatrix(false, drawMode, rightZoom, rightRotation, rightKeystone,
+                0, 0, alignment, 0, 0, (float) baseWidth, (float) baseHeight, 0);
+
+            var maxEditTrim = CombineMaxTrim(
+                FindMatrixTrimAdjustment(leftBitmap, leftEditTrimMatrix), 
+                FindMatrixTrimAdjustment(rightBitmap, rightEditTrim));
+
+            var maxTrim = new TrimAdjustment
+            {
+                Top = maxAlignmentTrim.Top + maxEditTrim.Top,
+                Left = maxAlignmentTrim.Left + maxEditTrim.Left,
+                Right = maxAlignmentTrim.Right + maxEditTrim.Right,
+                Bottom = maxAlignmentTrim.Bottom + maxEditTrim.Bottom
+            };
+
+            netSideCrop += maxTrim.Left + maxTrim.Right;
+            var sideBitmapWidthLessCrop = baseWidth * (1 - netSideCrop);
+
+            var sideBitmapHeightLessCrop = baseHeight * (1 - (topCrop + bottomCrop + Math.Abs(alignment) + maxTrim.Top + maxTrim.Bottom));
             var overlayDrawing =
                 drawMode == DrawMode.GrayscaleRedCyanAnaglyph ||
                 drawMode == DrawMode.RedCyanAnaglyph ||
@@ -261,9 +293,9 @@ namespace CrossCam.Page
                 clipY = canvasHeight / 2f - clipHeight / 2f;
             }
 
-            var leftDestX = (float)(leftClipX - baseWidth / scalingRatio * leftLeftCrop);
-            var rightDestX = (float)(rightClipX - baseWidth / scalingRatio * rightLeftCrop);
-            var destY = (float)(clipY - baseHeight / scalingRatio * topCrop);
+            var leftDestX = (float)(leftClipX - baseWidth / scalingRatio * (leftLeftCrop + maxTrim.Left));
+            var rightDestX = (float)(rightClipX - baseWidth / scalingRatio * (rightLeftCrop + maxTrim.Left));
+            var destY = (float)(clipY - baseHeight / scalingRatio * (topCrop + maxTrim.Top));
             var destWidth = (float)(baseWidth / scalingRatio);
             var destHeight = (float)(baseHeight / scalingRatio);
 
@@ -437,6 +469,76 @@ namespace CrossCam.Page
             }
         }
 
+        private static TrimAdjustment CombineMaxTrim(TrimAdjustment trim1, TrimAdjustment trim2)
+        {
+            return new TrimAdjustment
+            {
+                Left = Math.Max(trim1.Left, trim2.Left),
+                Right = Math.Max(trim1.Right, trim2.Right),
+                Bottom = Math.Max(trim1.Bottom, trim2.Bottom),
+                Top = Math.Max(trim1.Top, trim2.Top)
+            };
+        }
+
+        private static TrimAdjustment FindAlignmentTrim(SKBitmap bitmap, SKMatrix alignmentMatrix,
+            SKEncodedOrigin orientation, bool isFrontFacing)
+        {
+            var trim = FindMatrixTrimAdjustment(bitmap, alignmentMatrix);
+            FindOrientationCorrectionDirections(orientation, isFrontFacing, out var needsMirror,
+                out var rotationalInc);
+
+            switch (rotationalInc)
+            {
+                case 0:
+                    break;
+                case 1:
+                    (trim.Top, trim.Right, trim.Bottom, trim.Left) = 
+                        (trim.Left, trim.Top, trim.Right, trim.Bottom);
+                    break;
+                case 2:
+                    (trim.Top, trim.Right, trim.Bottom, trim.Left) = 
+                        (trim.Bottom, trim.Left, trim.Top, trim.Right);
+                    break;
+                case -1:
+                    (trim.Top, trim.Right, trim.Bottom, trim.Left) = 
+                        (trim.Right, trim.Bottom, trim.Left, trim.Top);
+                    break;
+            }
+
+            if (needsMirror)
+            {
+                (trim.Left, trim.Right) = (trim.Right, trim.Left);
+            }
+
+            return trim;
+        }
+
+        private static TrimAdjustment FindMatrixTrimAdjustment(SKBitmap bitmap, SKMatrix matrix)
+        {
+            if (matrix.IsIdentity) return new TrimAdjustment();
+
+            var mappedPoints = matrix.MapPoints(new[]
+            {
+                new SKPoint(0, 0),
+                new SKPoint(bitmap.Width - 1, 0),
+                new SKPoint(bitmap.Width - 1, bitmap.Height - 1),
+                new SKPoint(0, bitmap.Height - 1)
+            });
+            return new TrimAdjustment
+            {
+                Top = Math.Clamp(Math.Max(mappedPoints[0].Y, mappedPoints[1].Y), 0, bitmap.Height) /
+                      (bitmap.Height * 1f),
+                Left = Math.Clamp(Math.Max(mappedPoints[0].X, mappedPoints[3].X), 0, bitmap.Width) /
+                       (bitmap.Width * 1f),
+                Right =
+                    (bitmap.Width - Math.Clamp(Math.Min(mappedPoints[1].X, mappedPoints[2].X), 0, bitmap.Width)) /
+                    (bitmap.Width * 1f),
+                Bottom = (bitmap.Height -
+                          Math.Clamp(Math.Min(mappedPoints[2].Y, mappedPoints[3].Y), 0, bitmap.Height)) /
+                         (bitmap.Height * 1f)
+            };
+        }
+
         private static SKMatrix FindScaledAlignmentMatrix(float destWidth, float destHeight,
             float xCorrectionToOrigin, float yCorrectionToOrigin,
             SKMatrix originalAlignment, double scalingRatio)
@@ -460,54 +562,8 @@ namespace CrossCam.Page
         private static SKMatrix FindOrientationMatrix(SKEncodedOrigin orientation,
             float xCorrectionToOrigin, float yCorrectionToOrigin, bool isFrontFacing)
         {
-            float orientationRotation;
-            bool needsMirror;
-
-            //positive rotation is clockwise for back facing
-            //positive rotation is counterclockwise for front facing
-            //forward facing adds 180 and a mirror
-            //see https://www.nosco.ch/blog/en/2020/10/photo-orientation
-            switch (orientation)
-            {
-                case 0:
-                    orientationRotation = 0;
-                    needsMirror = false;
-                    break;
-                case SKEncodedOrigin.TopLeft: //confirmed iOS(both), Android(both)
-                    orientationRotation = (float)(isFrontFacing ? Math.PI : 0);
-                    needsMirror = isFrontFacing;
-                    break;
-                case SKEncodedOrigin.LeftBottom: //confirmed Android(both)
-                    orientationRotation = (float)(-Math.PI / 2f);
-                    needsMirror = isFrontFacing;
-                    break;
-                case SKEncodedOrigin.BottomRight: //confirmed iOS(both), Android(both)
-                    orientationRotation = (float)(Math.PI - (isFrontFacing ? Math.PI : 0));
-                    needsMirror = isFrontFacing;
-                    break;
-                case SKEncodedOrigin.RightTop: //confirmed iOS(both), Android(both)
-                    orientationRotation = (float)(Math.PI / 2f);
-                    needsMirror = isFrontFacing;
-                    break;
-                case SKEncodedOrigin.TopRight:
-                    orientationRotation = (float)(isFrontFacing ? Math.PI : 0);
-                    needsMirror = !isFrontFacing;
-                    break;
-                case SKEncodedOrigin.RightBottom:
-                    orientationRotation = (float)(-Math.PI / 2f);
-                    needsMirror = !isFrontFacing;
-                    break;
-                case SKEncodedOrigin.BottomLeft:
-                    orientationRotation = (float)(Math.PI - (isFrontFacing ? Math.PI : 0));
-                    needsMirror = !isFrontFacing;
-                    break;
-                case SKEncodedOrigin.LeftTop:
-                    orientationRotation = (float)(Math.PI / 2f);
-                    needsMirror = !isFrontFacing;
-                    break;
-                default:
-                    throw new ArgumentOutOfRangeException(nameof(orientation), orientation, null);
-            }
+            FindOrientationCorrectionDirections(orientation, isFrontFacing, out var needsMirror, out var rotationalInc);
+            var orientationRotation = (float)(rotationalInc * Math.PI / 2f);
 
             var transform3D = SKMatrix.Identity;
             transform3D = transform3D.PostConcat(SKMatrix.CreateTranslation(-xCorrectionToOrigin, -yCorrectionToOrigin));
@@ -519,6 +575,56 @@ namespace CrossCam.Page
             transform3D = transform3D.PostConcat(SKMatrix.CreateTranslation(xCorrectionToOrigin, yCorrectionToOrigin));
 
             return transform3D;
+        }
+
+        private static void FindOrientationCorrectionDirections(SKEncodedOrigin origin, bool isFrontFacing, 
+            out bool needsMirror, out int rotationalInc)
+        {
+            //positive rotation is clockwise for back facing
+            //positive rotation is counterclockwise for front facing
+            //forward facing adds 180 and a mirror
+            //see https://www.nosco.ch/blog/en/2020/10/photo-orientation
+            switch (origin)
+            {
+                case 0:
+                    rotationalInc = 0;
+                    needsMirror = false;
+                    break;
+                case SKEncodedOrigin.TopLeft:
+                    rotationalInc = isFrontFacing ? 2 : 0;
+                    needsMirror = isFrontFacing;
+                    break;
+                case SKEncodedOrigin.LeftBottom:
+                    rotationalInc = -1;
+                    needsMirror = isFrontFacing;
+                    break;
+                case SKEncodedOrigin.BottomRight:
+                    rotationalInc = 2 - (isFrontFacing ? 2 : 0);
+                    needsMirror = isFrontFacing;
+                    break;
+                case SKEncodedOrigin.RightTop:
+                    rotationalInc = 1;
+                    needsMirror = isFrontFacing;
+                    break;
+                case SKEncodedOrigin.TopRight:
+                    rotationalInc = isFrontFacing ? 2 : 0;
+                    needsMirror = !isFrontFacing;
+                    break;
+                case SKEncodedOrigin.RightBottom:
+                    rotationalInc = -1;
+                    needsMirror = !isFrontFacing;
+                    break;
+                case SKEncodedOrigin.BottomLeft:
+                    rotationalInc = 2 - (isFrontFacing ? 2 : 0);
+                    needsMirror = !isFrontFacing;
+                    break;
+                case SKEncodedOrigin.LeftTop:
+                    rotationalInc = 1;
+                    needsMirror = !isFrontFacing;
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException(nameof(origin), origin, null);
+            }
         }
 
         private static SKMatrix FindEditMatrix(bool isLeft, DrawMode drawMode,

@@ -1595,29 +1595,6 @@ namespace CrossCam.ViewModel
                             }
                         }
 
-                        //var edits2 = GetBorderEdits(alignedResult.TransformMatrix2,
-                        //    Settings.IsCaptureLeftFirst ? RightBitmap : LeftBitmap);
-                        //if (!alignedResult.TransformMatrix1.IsIdentity)
-                        //{
-                        //    var edits1 = GetBorderEdits(alignedResult.TransformMatrix1,
-                        //        Settings.IsCaptureLeftFirst ? LeftBitmap : RightBitmap);
-                        //    Edits.InsideCrop = Math.Max(edits1.InsideCrop, edits2.InsideCrop);
-                        //    Edits.OutsideCrop = Math.Max(edits1.OutsideCrop, edits2.OutsideCrop);
-                        //    Edits.LeftCrop = Math.Max(edits1.LeftCrop, edits2.LeftCrop);
-                        //    Edits.RightCrop = Math.Max(edits1.RightCrop, edits2.RightCrop);
-                        //    Edits.TopCrop = Math.Max(edits1.TopCrop, edits2.TopCrop);
-                        //    Edits.BottomCrop = Math.Max(edits1.BottomCrop, edits2.BottomCrop);
-                        //}
-                        //else
-                        //{
-                        //    Edits.InsideCrop = edits2.InsideCrop;
-                        //    Edits.OutsideCrop = edits2.OutsideCrop;
-                        //    Edits.LeftCrop = edits2.LeftCrop;
-                        //    Edits.RightCrop = edits2.RightCrop;
-                        //    Edits.TopCrop = edits2.TopCrop;
-                        //    Edits.BottomCrop = edits2.BottomCrop;
-                        //}
-
                         if (Settings.IsCaptureLeftFirst)
                         {
                             if (!alignedResult.TransformMatrix1.IsIdentity)
@@ -1651,83 +1628,6 @@ namespace CrossCam.ViewModel
 
                 _alignmentThreadLock = 0;
             }
-        }
-
-        private Edits GetBorderEdits(SKMatrix matrix, SKBitmap bitmap)
-        {
-            var edits = new Edits(Settings);
-
-            var topLeft = matrix.MapPoint(0, 0);
-            var topRight = matrix.MapPoint(bitmap.Width - 1, 0);
-            var bottomRight = matrix.MapPoint(bitmap.Width - 1, bitmap.Height - 1);
-            var bottomLeft = matrix.MapPoint(0, bitmap.Height - 1);
-
-            //this actually cuts off a bit more than it has to, but it is inconsequential for small deviations
-            //(it cuts at the corner of the original image, not at the point where the original border crosses the new border)
-
-            if (topLeft.Y > topRight.Y)
-            {
-                if (topLeft.Y > 0)
-                {
-                    edits.TopCrop = topLeft.Y / bitmap.Height;
-                }
-            }
-            else
-            {
-                if (topRight.Y > 0)
-                {
-                    edits.TopCrop = topRight.Y / bitmap.Height;
-                }
-            }
-
-            var maxY = bitmap.Height - 1;
-            if (bottomLeft.Y < bottomRight.Y)
-            {
-                if (bottomLeft.Y < maxY)
-                {
-                    edits.BottomCrop = (maxY - bottomLeft.Y) / bitmap.Height;
-                }
-            }
-            else
-            {
-                if (bottomRight.Y < maxY)
-                {
-                    edits.BottomCrop = (maxY - bottomRight.Y) / bitmap.Height;
-                }
-            }
-
-            if (topLeft.X > bottomLeft.X)
-            {
-                if (topLeft.X > 0)
-                {
-                    edits.LeftCrop = topLeft.X / bitmap.Width;
-                }
-            }
-            else
-            {
-                if (bottomLeft.X > 0)
-                {
-                    edits.LeftCrop = bottomLeft.X / bitmap.Width;
-                }
-            }
-
-            var maxX = bitmap.Width - 1;
-            if (topRight.X < bottomRight.X)
-            {
-                if (topRight.X < maxX)
-                {
-                    edits.RightCrop = (maxX - topRight.X) / bitmap.Width;
-                }
-            }
-            else
-            {
-                if (bottomRight.X < maxX)
-                {
-                    edits.RightCrop = (maxX - bottomRight.X) / bitmap.Width;
-                }
-            }
-
-            return edits;
         }
 
         private void ApplyFovCorrectionToZoom()
