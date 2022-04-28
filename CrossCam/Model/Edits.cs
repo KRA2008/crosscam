@@ -24,8 +24,7 @@ namespace CrossCam.Model
         public float LeftRotation { get; set; }
         public float RightRotation { get; set; }
 
-        public float LeftKeystone { get; set; }
-        public float RightKeystone { get; set; }
+        public float Keystone { get; set; }
 
         public double FovRightCorrection
         {

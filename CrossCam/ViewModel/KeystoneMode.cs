@@ -2,7 +2,8 @@
 {
     public enum KeystoneMode
     {
-        Left,
-        Right
+        Amount,
+        LeftAxis,
+        RightAxis
     }
 }

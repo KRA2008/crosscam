@@ -33,7 +33,6 @@ namespace CrossCam.ViewModel
         public WorkflowStage WorkflowStage { get; set; }
         public CropMode CropMode { get; set; }
         public ManualAlignMode ManualAlignMode { get; set; }
-        public KeystoneMode KeystoneMode { get; set; }
         public CameraSettingMode CameraSettingMode { get; set; }
         public bool IsCameraSelectVisible { get; set; }
         public FovCorrectionMode FovCorrectionMode { get; set; }
@@ -148,8 +147,6 @@ namespace CrossCam.ViewModel
 
         public float RotationMax => 5;
         public float RotationMin => -RotationMax;
-
-        public Command SetKeystoneMode { get; set; }
 
         public float MaxKeystone => 15f;
 
@@ -744,7 +741,6 @@ namespace CrossCam.ViewModel
                     {
                         (Edits.InsideCrop, Edits.OutsideCrop) = (Edits.OutsideCrop, Edits.InsideCrop);
                         (Edits.LeftRotation, Edits.RightRotation) = (Edits.RightRotation, Edits.LeftRotation);
-                        (Edits.LeftKeystone, Edits.RightKeystone) = (Edits.RightKeystone, Edits.LeftKeystone);
                         (Edits.LeftZoom, Edits.RightZoom) = (Edits.RightZoom, Edits.LeftZoom);
                         Edits.VerticalAlignment = -Edits.VerticalAlignment;
                     }
@@ -771,11 +767,6 @@ namespace CrossCam.ViewModel
             SetFovCorrectionMode = new Command(mode =>
             {
                 FovCorrectionMode = (FovCorrectionMode) mode;
-            });
-
-            SetKeystoneMode = new Command(mode =>
-            {
-                KeystoneMode = (KeystoneMode) mode;
             });
 
             SaveCapturesCommand = new Command(async () =>
@@ -2064,9 +2055,7 @@ namespace CrossCam.ViewModel
 
         private void ClearKeystone()
         {
-            Edits.LeftKeystone = 0;
-            Edits.RightKeystone = 0;
-            KeystoneMode = KeystoneMode.Left;
+            Edits.Keystone = 0;
         }
 
         private void ClearEdits(bool andAutoAligmentFlags)

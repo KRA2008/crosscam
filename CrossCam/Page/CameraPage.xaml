@@ -55,8 +55,8 @@
             <Rectangle x:Key="_helpBounds" X="0" Y="0" Width="{StaticResource _smallerButtonWidth}" Height="{StaticResource _smallerButtonWidthPlusTopPadding}"/>
             <Rectangle x:Key="_gearBounds" X="1" Y="0" Width="{StaticResource _doubleSmallerButtonWidth}" Height="{StaticResource _smallerButtonWidthPlusTopPadding}"/>
 
-            <Rectangle x:Key="_leftKeystone" X="{StaticResource _3dLeftMiddle}" Y="{StaticResource _editModeInnerButtons}" Width="{StaticResource _mediumIconWidth}" Height="{StaticResource _mediumIconWidth}"/>
-            <Rectangle x:Key="_rightKeystone" X="{StaticResource _3dRightMiddle}" Y="{StaticResource _editModeInnerButtons}" Width="{StaticResource _mediumIconWidth}" Height="{StaticResource _mediumIconWidth}"/>
+            <Rectangle x:Key="_leftKeystoneAxis" X="{StaticResource _3dLeftMiddle}" Y="{StaticResource _editModeInnerButtons}" Width="{StaticResource _mediumIconWidth}" Height="{StaticResource _mediumIconWidth}"/>
+            <Rectangle x:Key="_rightKeystoneAxis" X="{StaticResource _3dRightMiddle}" Y="{StaticResource _editModeInnerButtons}" Width="{StaticResource _mediumIconWidth}" Height="{StaticResource _mediumIconWidth}"/>
 
             <Rectangle x:Key="_leftRotate" X="{StaticResource _3dLeftLeft}" Y="{StaticResource _editModeInnerButtons}" Width="{StaticResource _mediumIconWidth}" Height="{StaticResource _mediumIconWidth}"/>
             <Rectangle x:Key="_rightRotate" X="{StaticResource _3dRightLeft}" Y="{StaticResource _editModeInnerButtons}" Width="{StaticResource _mediumIconWidth}" Height="{StaticResource _mediumIconWidth}"/>
@@ -650,8 +650,38 @@
             <StackLayout Grid.Column="1"
                          Spacing="0"
                          Orientation="Horizontal">
-                <Image Source="keystoneLeft"/>
-                <Image Source="keystoneRight"/>
+                <Image Source="keystoneLeft">
+                    <Image.Triggers>
+                        <DataTrigger TargetType="Image"
+                                     Binding="{Binding Settings.Mode, Converter={vc:EnumCompareConverter}, ConverterParameter={x:Static vm:DrawMode.Parallel}}"
+                                     Value="True">
+                            <Setter Property="Source"
+                                    Value="keystoneRight"/>
+                        </DataTrigger>
+                        <DataTrigger TargetType="Image"
+                                     Binding="{Binding Settings.Mode, Converter={vc:EnumCompareConverter}, ConverterParameter={x:Static vm:DrawMode.Cardboard}}"
+                                     Value="True">
+                            <Setter Property="Source"
+                                    Value="keystoneRight"/>
+                        </DataTrigger>
+                    </Image.Triggers>
+                </Image>
+                <Image Source="keystoneRight">
+                    <Image.Triggers>
+                        <DataTrigger TargetType="Image"
+                                     Binding="{Binding Settings.Mode, Converter={vc:EnumCompareConverter}, ConverterParameter={x:Static vm:DrawMode.Parallel}}"
+                                     Value="True">
+                            <Setter Property="Source"
+                                    Value="keystoneLeft"/>
+                        </DataTrigger>
+                        <DataTrigger TargetType="Image"
+                                     Binding="{Binding Settings.Mode, Converter={vc:EnumCompareConverter}, ConverterParameter={x:Static vm:DrawMode.Cardboard}}"
+                                     Value="True">
+                            <Setter Property="Source"
+                                    Value="keystoneLeft"/>
+                        </DataTrigger>
+                    </Image.Triggers>
+                </Image>
             </StackLayout>
         </Grid>
         <Image Source="scissor"
@@ -684,123 +714,6 @@
             <Image Source="check"/>
         </ContentView>
 
-        <Grid AbsoluteLayout.LayoutFlags="PositionProportional"
-              AbsoluteLayout.LayoutBounds="{StaticResource _leftKeystone}"
-              ColumnSpacing="0"
-              RowSpacing="0"
-              IsVisible="{Binding WorkflowStage, Converter={vc:EnumCompareConverter}, ConverterParameter={x:Static vm:WorkflowStage.Keystone}}">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="1"/>
-                <ColumnDefinition Width="Auto"/>
-                <ColumnDefinition Width="1"/>
-            </Grid.ColumnDefinitions>
-            <Grid.RowDefinitions>
-                <RowDefinition Height="1"/>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="1"/>
-            </Grid.RowDefinitions>
-            <Grid.GestureRecognizers>
-                <TapGestureRecognizer Command="{Binding SetKeystoneMode}"
-                                      CommandParameter="{x:Static vm:KeystoneMode.Left}"/>
-            </Grid.GestureRecognizers>
-            <BoxView Grid.Row="0" 
-                     Grid.Column="0"
-                     Grid.ColumnSpan="3"
-                     Color="White"
-                     IsVisible="{Binding KeystoneMode, Converter={vc:EnumCompareConverter}, ConverterParameter={x:Static vm:KeystoneMode.Left}}"/>
-            <BoxView Grid.Row="0" 
-                     Grid.Column="0"
-                     Grid.RowSpan="3"
-                     Color="White"
-                     IsVisible="{Binding KeystoneMode, Converter={vc:EnumCompareConverter}, ConverterParameter={x:Static vm:KeystoneMode.Left}}"/>
-            <Image Grid.Row="1"
-                   Grid.Column="1"
-                   Source="keystoneLeft">
-                <Image.Triggers>
-                    <DataTrigger TargetType="Image"
-                                 Binding="{Binding Settings.Mode, Converter={vc:EnumCompareConverter}, ConverterParameter={x:Static vm:DrawMode.Parallel}}"
-                                 Value="True">
-                        <Setter Property="Source"
-                                Value="keystoneRight"/>
-                    </DataTrigger>
-                    <DataTrigger TargetType="Image"
-                                 Binding="{Binding Settings.Mode, Converter={vc:EnumCompareConverter}, ConverterParameter={x:Static vm:DrawMode.Cardboard}}"
-                                 Value="True">
-                        <Setter Property="Source"
-                                Value="keystoneRight"/>
-                    </DataTrigger>
-                </Image.Triggers>
-            </Image>
-            <BoxView Grid.Row="2" 
-                     Grid.Column="0"
-                     Grid.ColumnSpan="3"
-                     Color="White"
-                     IsVisible="{Binding KeystoneMode, Converter={vc:EnumCompareConverter}, ConverterParameter={x:Static vm:KeystoneMode.Left}}"/>
-            <BoxView Grid.Row="0" 
-                     Grid.Column="2"
-                     Grid.RowSpan="3"
-                     Color="White"
-                     IsVisible="{Binding KeystoneMode, Converter={vc:EnumCompareConverter}, ConverterParameter={x:Static vm:KeystoneMode.Left}}"/>
-        </Grid>
-        <Grid AbsoluteLayout.LayoutFlags="PositionProportional"
-              AbsoluteLayout.LayoutBounds="{StaticResource _rightKeystone}"
-              ColumnSpacing="0"
-              RowSpacing="0"
-              IsVisible="{Binding WorkflowStage, Converter={vc:EnumCompareConverter}, ConverterParameter={x:Static vm:WorkflowStage.Keystone}}">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="1"/>
-                <ColumnDefinition Width="Auto"/>
-                <ColumnDefinition Width="1"/>
-            </Grid.ColumnDefinitions>
-            <Grid.RowDefinitions>
-                <RowDefinition Height="1"/>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="1"/>
-            </Grid.RowDefinitions>
-            <Grid.GestureRecognizers>
-                <TapGestureRecognizer Command="{Binding SetKeystoneMode}"
-                                      CommandParameter="{x:Static vm:KeystoneMode.Right}"/>
-            </Grid.GestureRecognizers>
-            <BoxView Grid.Row="0" 
-                     Grid.Column="0"
-                     Grid.ColumnSpan="3"
-                     Color="White"
-                     IsVisible="{Binding KeystoneMode, Converter={vc:EnumCompareConverter}, ConverterParameter={x:Static vm:KeystoneMode.Right}}"/>
-            <BoxView Grid.Row="0" 
-                     Grid.Column="0"
-                     Grid.RowSpan="3"
-                     Color="White"
-                     IsVisible="{Binding KeystoneMode, Converter={vc:EnumCompareConverter}, ConverterParameter={x:Static vm:KeystoneMode.Right}}"/>
-            <Image Grid.Row="1"
-                   Grid.Column="1"
-                   Source="keystoneRight">
-                <Image.Triggers>
-                    <DataTrigger TargetType="Image"
-                                 Binding="{Binding Settings.Mode, Converter={vc:EnumCompareConverter}, ConverterParameter={x:Static vm:DrawMode.Parallel}}"
-                                 Value="True">
-                        <Setter Property="Source"
-                                Value="keystoneLeft"/>
-                    </DataTrigger>
-                    <DataTrigger TargetType="Image"
-                                 Binding="{Binding Settings.Mode, Converter={vc:EnumCompareConverter}, ConverterParameter={x:Static vm:DrawMode.Cardboard}}"
-                                 Value="True">
-                        <Setter Property="Source"
-                                Value="keystoneLeft"/>
-                    </DataTrigger>
-                </Image.Triggers>
-            </Image>
-            <BoxView Grid.Row="2" 
-                     Grid.Column="0"
-                     Grid.ColumnSpan="3"
-                     Color="White"
-                     IsVisible="{Binding KeystoneMode, Converter={vc:EnumCompareConverter}, ConverterParameter={x:Static vm:KeystoneMode.Right}}"/>
-            <BoxView Grid.Row="0" 
-                     Grid.Column="2"
-                     Grid.RowSpan="3"
-                     Color="White"
-                     IsVisible="{Binding KeystoneMode, Converter={vc:EnumCompareConverter}, ConverterParameter={x:Static vm:KeystoneMode.Right}}"/>
-        </Grid>
-
         <StackLayout AbsoluteLayout.LayoutFlags="PositionProportional,WidthProportional"
                      Orientation="Horizontal"
                      Padding="10"
@@ -808,16 +721,10 @@
             <AbsoluteLayout.LayoutBounds>
                 <Rectangle X="0" Y="1" Width="1" Height="{StaticResource _largeIconWidth}"/>
             </AbsoluteLayout.LayoutBounds>
-            <Slider Value="{Binding Edits.LeftKeystone, Mode=TwoWay}"
+            <Slider Value="{Binding Edits.Keystone, Mode=TwoWay}"
                     Maximum="{Binding MaxKeystone}"
                     Minimum="0"
-                    HorizontalOptions="FillAndExpand"
-                    IsVisible="{Binding KeystoneMode, Converter={vc:EnumCompareConverter}, ConverterParameter={x:Static vm:KeystoneMode.Left}}"/>
-            <Slider Value="{Binding Edits.RightKeystone, Mode=TwoWay}"
-                    Maximum="{Binding MaxKeystone}"
-                    Minimum="0"
-                    HorizontalOptions="FillAndExpand"
-                    IsVisible="{Binding KeystoneMode, Converter={vc:EnumCompareConverter}, ConverterParameter={x:Static vm:KeystoneMode.Right}}"/>
+                    HorizontalOptions="FillAndExpand"/>
             <Image Source="check">
                 <Image.GestureRecognizers>
                     <TapGestureRecognizer Command="{Binding SaveEditCommand}"/>
@@ -1082,7 +989,7 @@
 
 
         <Grid AbsoluteLayout.LayoutFlags="PositionProportional"
-              AbsoluteLayout.LayoutBounds="{StaticResource _leftKeystone}"
+              AbsoluteLayout.LayoutBounds="{StaticResource _leftKeystoneAxis}"
               ColumnSpacing="0"
               RowSpacing="0"
               IsVisible="{Binding WorkflowStage, Converter={vc:EnumCompareConverter}, ConverterParameter={x:Static vm:WorkflowStage.FovCorrection}}">
@@ -1168,7 +1075,7 @@
                      IsVisible="{Binding FovCorrectionMode, Converter={vc:EnumCompareConverter}, ConverterParameter={x:Static vm:FovCorrectionMode.Vertical}}"/>
         </Grid>
         <Grid AbsoluteLayout.LayoutFlags="PositionProportional"
-              AbsoluteLayout.LayoutBounds="{StaticResource _rightKeystone}"
+              AbsoluteLayout.LayoutBounds="{StaticResource _rightKeystoneAxis}"
               ColumnSpacing="0"
               RowSpacing="0"
               IsVisible="{Binding WorkflowStage, Converter={vc:EnumCompareConverter}, ConverterParameter={x:Static vm:WorkflowStage.FovCorrection}}">

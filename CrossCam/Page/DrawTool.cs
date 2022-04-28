@@ -105,7 +105,7 @@ namespace CrossCam.Page
                     edits.RightRotation, edits.LeftRotation,
                     edits.VerticalAlignment,
                     edits.RightZoom + (isFov ? edits.FovRightCorrection : 0), edits.LeftZoom + (isFov ? edits.FovLeftCorrection : 0),
-                    edits.RightKeystone, edits.LeftKeystone,
+                    edits.Keystone,
                     drawMode, fuseGuideRequested,
                     addBarrelDistortion, settings.CardboardBarrelDistortion,
                     skFilterQuality,
@@ -126,7 +126,7 @@ namespace CrossCam.Page
                     edits.LeftRotation, edits.RightRotation,
                     edits.VerticalAlignment,
                     edits.LeftZoom + (isFov ? edits.FovLeftCorrection : 0), edits.RightZoom + (isFov ? edits.FovRightCorrection : 0),
-                    edits.LeftKeystone, edits.RightKeystone,
+                    edits.Keystone,
                     drawMode, fuseGuideRequested,
                     addBarrelDistortion, settings.CardboardBarrelDistortion,
                     skFilterQuality,
@@ -137,19 +137,19 @@ namespace CrossCam.Page
             }
         }
 
-        private static void DrawImagesOnCanvasInternal(
-            SKSurface surface, 
+        private static void DrawImagesOnCanvasInternal(SKSurface surface,
             SKBitmap leftBitmap, SKMatrix leftAlignmentMatrix, SKEncodedOrigin leftOrientation, bool isLeftFrontFacing,
-            SKBitmap rightBitmap, SKMatrix rightAlignmentMatrix, SKEncodedOrigin rightOrientation, bool isRightFrontFacing,
+            SKBitmap rightBitmap, SKMatrix rightAlignmentMatrix, SKEncodedOrigin rightOrientation,
+            bool isRightFrontFacing,
             int borderThickness, bool addBorder, BorderColor borderColor,
             double leftLeftCrop, double leftRightCrop, double rightLeftCrop, double rightRightCrop,
             double topCrop, double bottomCrop,
             float leftRotation, float rightRotation, double alignment,
             double leftZoom, double rightZoom,
-            float leftKeystone, float rightKeystone,
+            float keystone,
             DrawMode drawMode, bool fuseGuideRequested,
             bool addBarrelDistortion, int barrelStrength,
-            SKFilterQuality skFilterQuality, bool useGhost, 
+            SKFilterQuality skFilterQuality, bool useGhost,
             double cardboardWidthProportion,
             double cardboardVert,
             double cardboardHor,
@@ -209,27 +209,34 @@ namespace CrossCam.Page
             }
             var maxAlignmentTrim = CombineMaxTrim(leftAlignmentTrim, rightAlignmentTrim);
 
-            var leftEditTrimMatrix = FindEditMatrix(true, drawMode, leftZoom, leftRotation, leftKeystone,
+            var leftEditTrimMatrix = FindEditMatrix(true, drawMode, leftZoom, leftRotation, keystone,
                 0, 0, alignment, 0, 0, (float) baseWidth, (float) baseHeight, 0);
-            var rightEditTrim = FindEditMatrix(false, drawMode, rightZoom, rightRotation, rightKeystone,
+            var rightEditTrimMatrix = FindEditMatrix(false, drawMode, rightZoom, rightRotation, keystone,
                 0, 0, alignment, 0, 0, (float) baseWidth, (float) baseHeight, 0);
 
-            var maxEditTrim = CombineMaxTrim(
-                FindMatrixTrimAdjustment(leftBitmap, leftEditTrimMatrix), 
-                FindMatrixTrimAdjustment(rightBitmap, rightEditTrim));
-
-            var maxTrim = new TrimAdjustment
+            var leftEditTrim = new TrimAdjustment();
+            if (leftBitmap != null)
             {
-                Top = maxAlignmentTrim.Top + maxEditTrim.Top,
-                Left = maxAlignmentTrim.Left + maxEditTrim.Left,
-                Right = maxAlignmentTrim.Right + maxEditTrim.Right,
-                Bottom = maxAlignmentTrim.Bottom + maxEditTrim.Bottom
-            };
+                leftEditTrim = FindMatrixTrimAdjustment((int) baseWidth, (int) baseHeight, leftEditTrimMatrix);
+            }
 
-            netSideCrop += maxTrim.Left + maxTrim.Right;
+            var rightEditTrim = new TrimAdjustment();
+            if (rightBitmap != null)
+            {
+                rightEditTrim = FindMatrixTrimAdjustment((int) baseWidth, (int) baseHeight, rightEditTrimMatrix);
+            }
+
+            leftEditTrim.Left = rightEditTrim.Right = Math.Max(leftEditTrim.Left, rightEditTrim.Right);
+            leftEditTrim.Right = rightEditTrim.Left = Math.Max(leftEditTrim.Right, rightEditTrim.Left);
+            leftEditTrim.Top = rightEditTrim.Top = Math.Max(leftEditTrim.Top, rightEditTrim.Top);
+            leftEditTrim.Bottom = rightEditTrim.Bottom = Math.Max(leftEditTrim.Bottom, rightEditTrim.Bottom);
+
+            netSideCrop += maxAlignmentTrim.Left + maxAlignmentTrim.Right + leftEditTrim.Left + leftEditTrim.Right;
             var sideBitmapWidthLessCrop = baseWidth * (1 - netSideCrop);
 
-            var sideBitmapHeightLessCrop = baseHeight * (1 - (topCrop + bottomCrop + Math.Abs(alignment) + maxTrim.Top + maxTrim.Bottom));
+            var sideBitmapHeightLessCrop = baseHeight * (1 - (topCrop + bottomCrop + Math.Abs(alignment) +
+                                                              maxAlignmentTrim.Top + maxAlignmentTrim.Bottom +
+                                                              leftEditTrim.Top + leftEditTrim.Bottom));
             var overlayDrawing =
                 drawMode == DrawMode.GrayscaleRedCyanAnaglyph ||
                 drawMode == DrawMode.RedCyanAnaglyph ||
@@ -293,9 +300,9 @@ namespace CrossCam.Page
                 clipY = canvasHeight / 2f - clipHeight / 2f;
             }
 
-            var leftDestX = (float)(leftClipX - baseWidth / scalingRatio * (leftLeftCrop + maxTrim.Left));
-            var rightDestX = (float)(rightClipX - baseWidth / scalingRatio * (rightLeftCrop + maxTrim.Left));
-            var destY = (float)(clipY - baseHeight / scalingRatio * (topCrop + maxTrim.Top));
+            var leftDestX = (float)(leftClipX - baseWidth / scalingRatio * (leftLeftCrop + maxAlignmentTrim.Left + leftEditTrim.Left));
+            var rightDestX = (float)(rightClipX - baseWidth / scalingRatio * (rightLeftCrop + maxAlignmentTrim.Left + rightEditTrim.Left));
+            var destY = (float)(clipY - baseHeight / scalingRatio * (topCrop + maxAlignmentTrim.Top + leftEditTrim.Top));
             var destWidth = (float)(baseWidth / scalingRatio);
             var destHeight = (float)(baseHeight / scalingRatio);
 
@@ -343,7 +350,7 @@ namespace CrossCam.Page
                 var leftScaledAlignmentMatrix = FindScaledAlignmentMatrix(
                     leftIntermediateWidth, leftIntermediateHeight, leftXCorrectionToOrigin, leftYCorrectionToOrigin,
                     leftAlignmentMatrix, scalingRatio);
-                var leftEditMatrix = FindEditMatrix(true, drawMode, leftZoom, leftRotation, leftKeystone,
+                var leftEditMatrix = FindEditMatrix(true, drawMode, leftZoom, leftRotation, keystone,
                     cardboardHorDelta, cardboardVertDelta, alignment,
                     leftDestX, destY, destWidth, destHeight,
                     -cardboardSeparationMod);
@@ -363,7 +370,7 @@ namespace CrossCam.Page
                 var rightScaledAlignmentMatrix = FindScaledAlignmentMatrix(
                     rightIntermediateWidth, rightIntermediateHeight, rightXCorrectionToOrigin, rightYCorrectionToOrigin,
                     rightAlignmentMatrix, scalingRatio);
-                var rightEditMatrix = FindEditMatrix(false, drawMode, rightZoom, rightRotation, rightKeystone,
+                var rightEditMatrix = FindEditMatrix(false, drawMode, rightZoom, rightRotation, keystone,
                     cardboardHorDelta, cardboardVertDelta, alignment,
                     rightDestX, destY, destWidth, destHeight,
                     cardboardSeparationMod);
@@ -483,7 +490,7 @@ namespace CrossCam.Page
         private static TrimAdjustment FindAlignmentTrim(SKBitmap bitmap, SKMatrix alignmentMatrix,
             SKEncodedOrigin orientation, bool isFrontFacing)
         {
-            var trim = FindMatrixTrimAdjustment(bitmap, alignmentMatrix);
+            var trim = FindMatrixTrimAdjustment(bitmap.Width, bitmap.Height, alignmentMatrix);
             FindOrientationCorrectionDirections(orientation, isFrontFacing, out var needsMirror,
                 out var rotationalInc);
 
@@ -513,29 +520,29 @@ namespace CrossCam.Page
             return trim;
         }
 
-        private static TrimAdjustment FindMatrixTrimAdjustment(SKBitmap bitmap, SKMatrix matrix)
+        private static TrimAdjustment FindMatrixTrimAdjustment(int width, int height, SKMatrix matrix)
         {
             if (matrix.IsIdentity) return new TrimAdjustment();
 
             var mappedPoints = matrix.MapPoints(new[]
             {
                 new SKPoint(0, 0),
-                new SKPoint(bitmap.Width - 1, 0),
-                new SKPoint(bitmap.Width - 1, bitmap.Height - 1),
-                new SKPoint(0, bitmap.Height - 1)
+                new SKPoint(width - 1, 0),
+                new SKPoint(width - 1, height - 1),
+                new SKPoint(0, height - 1)
             });
             return new TrimAdjustment
             {
-                Top = Math.Clamp(Math.Max(mappedPoints[0].Y, mappedPoints[1].Y), 0, bitmap.Height) /
-                      (bitmap.Height * 1f),
-                Left = Math.Clamp(Math.Max(mappedPoints[0].X, mappedPoints[3].X), 0, bitmap.Width) /
-                       (bitmap.Width * 1f),
+                Top = Math.Clamp(Math.Max(mappedPoints[0].Y, mappedPoints[1].Y), 0, height) /
+                      (height * 1f),
+                Left = Math.Clamp(Math.Max(mappedPoints[0].X, mappedPoints[3].X), 0, width) /
+                       (width * 1f),
                 Right =
-                    (bitmap.Width - Math.Clamp(Math.Min(mappedPoints[1].X, mappedPoints[2].X), 0, bitmap.Width)) /
-                    (bitmap.Width * 1f),
-                Bottom = (bitmap.Height -
-                          Math.Clamp(Math.Min(mappedPoints[2].Y, mappedPoints[3].Y), 0, bitmap.Height)) /
-                         (bitmap.Height * 1f)
+                    (width - Math.Clamp(Math.Min(mappedPoints[1].X, mappedPoints[2].X), 0, width)) /
+                    (width * 1f),
+                Bottom = (height -
+                          Math.Clamp(Math.Min(mappedPoints[2].Y, mappedPoints[3].Y), 0, height)) /
+                         (height * 1f)
             };
         }
 
