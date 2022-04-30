@@ -1,18 +1,19 @@
-﻿using System.IO;
+﻿using System;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using Android.Content;
 using Android.Graphics;
-using Android.Net;
-using Android.OS;
 using Android.Provider;
 using AndroidX.DocumentFile.Provider;
 using CrossCam.Droid.CustomRenderer;
 using CrossCam.Wrappers;
 using Java.Lang;
 using Xamarin.Forms;
+using Environment = Android.OS.Environment;
 using Exception = System.Exception;
 using Path = System.IO.Path;
+using Uri = Android.Net.Uri;
 
 [assembly: Dependency(typeof(PhotoSaver))]
 namespace CrossCam.Droid.CustomRenderer
@@ -27,34 +28,35 @@ namespace CrossCam.Droid.CustomRenderer
             {
                 try
                 {
-                    var contentResolver = MainActivity.Instance.ContentResolver;
-
+                    var photoId = Guid.NewGuid().ToString("N");
                     var currentTimeSeconds = JavaSystem.CurrentTimeMillis() / 1000;
 
-                    if (external)
+                    var externalDir = MainActivity.Instance?.GetExternalFilesDirs(Environment.DirectoryPictures)
+                        ?.ElementAtOrDefault(1);
+                    if (external && 
+                        externalDir != null)
                     {
-                        var externalPicturesDir = MainActivity.Instance.GetExternalFilesDirs(Environment.DirectoryPictures).ElementAt(1).AbsolutePath;
-                        var newFilePath = Path.Combine(externalPicturesDir, currentTimeSeconds + ".jpg");
-                        using (var stream = new FileStream(newFilePath, FileMode.CreateNew))
+                        var externalPicturesDir = externalDir.AbsolutePath;
+                        var newFilePath = Path.Combine(externalPicturesDir, photoId + ".jpg");
+                        await using var stream = new FileStream(newFilePath, FileMode.CreateNew);
+                        using var bitmap = await BitmapFactory.DecodeByteArrayAsync(image, 0, image.Length);
+                        if (bitmap != null)
                         {
-                            using (var bitmap = BitmapFactory.DecodeByteArray(image, 0, image.Length))
-                            {
-                                await bitmap.CompressAsync(Bitmap.CompressFormat.Jpeg, 100, stream);
-                            }
+                            await bitmap.CompressAsync(Bitmap.CompressFormat.Jpeg, 100, stream);
                         }
 
-                        using (var file = new Java.IO.File(newFilePath))
-                        {
-                            MainActivity.Instance.SendBroadcast(new Intent(Intent.ActionMediaScannerScanFile, Uri.FromFile(file)));
-                        }
+                        using var file = new Java.IO.File(newFilePath);
+                        MainActivity.Instance.SendBroadcast(new Intent(Intent.ActionMediaScannerScanFile,
+                            Uri.FromFile(file)));
                     }
                     else
                     {
+                        var contentResolver = MainActivity.Instance?.ContentResolver;
                         Uri destinationFinalUri;
                         if (destination != null)
                         {
                             var pickedDir = DocumentFile.FromTreeUri(MainActivity.Instance, Uri.Parse(destination));
-                            var newFile = pickedDir.CreateFile("image/jpeg", currentTimeSeconds + ".jpg");
+                            var newFile = pickedDir.CreateFile("image/jpeg", photoId + ".jpg");
                             if (newFile == null)
                             {
                                 throw new DirectoryNotFoundException();
@@ -67,19 +69,23 @@ namespace CrossCam.Droid.CustomRenderer
                             values.Put(MediaStore.Images.Media.InterfaceConsts.MimeType, "image/jpeg");
                             values.Put(MediaStore.Images.Media.InterfaceConsts.DateAdded, currentTimeSeconds);
                             values.Put(MediaStore.Images.Media.InterfaceConsts.DateModified, currentTimeSeconds);
+                            values.Put(MediaStore.Images.Media.InterfaceConsts.RelativePath, "Pictures/CrossCam");
 
-                            destinationFinalUri = contentResolver.Insert(MediaStore.Images.Media.ExternalContentUri, values);
+                            destinationFinalUri = contentResolver?.Insert(MediaStore.Images.Media.ExternalContentUri, values);
                         }
 
-                        using (var stream = contentResolver.OpenOutputStream(destinationFinalUri))
+                        if (destinationFinalUri != null)
                         {
-                            using (var bitmap = BitmapFactory.DecodeByteArray(image, 0, image.Length))
+                            await using var stream = contentResolver?.OpenOutputStream(destinationFinalUri);
+                            using var bitmap = await BitmapFactory.DecodeByteArrayAsync(image, 0, image.Length);
+                            if (bitmap != null)
                             {
                                 await bitmap.CompressAsync(Bitmap.CompressFormat.Jpeg, 100, stream);
                             }
                         }
 
-                        MainActivity.Instance.SendBroadcast(new Intent(Intent.ActionMediaScannerScanFile, destinationFinalUri));
+                        MainActivity.Instance?.SendBroadcast(new Intent(Intent.ActionMediaScannerScanFile,
+                            destinationFinalUri));
                     }
 
                     taskCompletionSource.SetResult(true);
