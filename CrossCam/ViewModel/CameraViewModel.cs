@@ -347,11 +347,15 @@ namespace CrossCam.ViewModel
                                                                 WorkflowStage == WorkflowStage.Edits) && 
                                                                Settings.Mode != DrawMode.GrayscaleRedCyanAnaglyph &&
                                                                Settings.Mode != DrawMode.RedCyanAnaglyph;
+
         private bool IsPictureWiderThanTall => LeftBitmap != null &&
                                                RightBitmap != null &&
-                                               Settings.Mode != DrawMode.Parallel && 
-                                               DrawTool.CalculateJoinedCanvasWidthWithEditsNoBorder(LeftBitmap, RightBitmap, Edits) >
-                                               DrawTool.CalculateCanvasHeightWithEditsNoBorder(LeftBitmap, RightBitmap, Edits);
+                                               Settings.Mode != DrawMode.Parallel &&
+                                               DrawTool.CalculateJoinedCanvasWidthWithEditsNoBorder(LeftBitmap,
+                                                   LeftOrientation, RightBitmap, RightOrientation, Edits) >
+                                               DrawTool.CalculateCanvasHeightWithEditsNoBorder(
+                                                   LeftBitmap, LeftOrientation, RightBitmap, RightOrientation,
+                                                   Edits);
 
         public string SavedSuccessMessage => "Saved to " + (Settings.SaveToExternal
                                                  ? "external"
@@ -781,29 +785,59 @@ namespace CrossCam.ViewModel
 
                         if (Settings.SaveSidesSeparately)
                         {
+                            var leftWidth = LeftBitmap.Width;
+                            var leftHeight = LeftBitmap.Height;
+                            if (DrawTool.Orientations90deg.Contains(LeftOrientation))
+                            {
+                                (leftWidth, leftHeight) = (leftHeight, leftWidth);
+                            }
+
                             using var tempSurface =
-                                SKSurface.Create(new SKImageInfo(LeftBitmap.Width, LeftBitmap.Height));
+                                SKSurface.Create(new SKImageInfo(leftWidth, leftHeight));
                             using var canvas = tempSurface.Canvas;
 
                             canvas.Clear();
                             if (needs180Flip)
                             {
                                 canvas.RotateDegrees(180);
-                                canvas.Translate(-1f * LeftBitmap.Width, -1f * LeftBitmap.Height);
+                                canvas.Translate(-1f * leftWidth, -1f * leftHeight);
                             }
 
-                            canvas.DrawBitmap(LeftBitmap, 0, 0); //TODO: handle orientation
+                            var leftMatrix = DrawTool.FindOrientationMatrix(LeftOrientation, leftWidth / 2f,
+                                leftHeight / 2f, IsLeftFrontFacing);
+                            canvas.SetMatrix(leftMatrix);
+                            var leftDestRect = leftMatrix.Invert().MapRect(SKRect.Create(0, 0, leftWidth, leftHeight));
+                            canvas.DrawBitmap(LeftBitmap, leftDestRect);
 
                             await SaveSurfaceSnapshot(tempSurface);
 
                             canvas.Clear();
+                            canvas.ResetMatrix();
 
-                            canvas.DrawBitmap(RightBitmap, 0, 0); //TODO: handle orientation
+                            var rightWidth = RightBitmap.Width;
+                            var rightHeight = RightBitmap.Height;
+                            if (DrawTool.Orientations90deg.Contains(RightOrientation))
+                            {
+                                (rightWidth, rightHeight) = (rightHeight, rightWidth);
+                            }
+                            if (needs180Flip)
+                            {
+                                canvas.RotateDegrees(180);
+                                canvas.Translate(-1f * rightWidth, -1f * rightHeight);
+                            }
+
+                            var rightMatrix = DrawTool.FindOrientationMatrix(RightOrientation, rightWidth / 2f,
+                                rightHeight / 2f, IsRightFrontFacing);
+                            canvas.SetMatrix(rightMatrix);
+                            var rightDestRect = rightMatrix.Invert()
+                                .MapRect(SKRect.Create(0, 0, rightWidth, rightHeight));
+                            canvas.DrawBitmap(RightBitmap, rightDestRect);
 
                             await SaveSurfaceSnapshot(tempSurface);
                         }
 
-                        var finalImageWidth = DrawTool.CalculateJoinedCanvasWidthWithEditsNoBorder(LeftBitmap, RightBitmap, Edits);
+                        var finalImageWidth = DrawTool.CalculateJoinedCanvasWidthWithEditsNoBorder(LeftBitmap,
+                            LeftOrientation, RightBitmap, RightOrientation, Edits);
                         var finalTripleWidth = (int) (1.5 * finalImageWidth);
                         var borderThickness = Settings.AddBorder
                             ? (int) (DrawTool.BORDER_CONVERSION_FACTOR * Settings.BorderWidthProportion *
@@ -812,7 +846,8 @@ namespace CrossCam.ViewModel
                         finalImageWidth += (3 * borderThickness);
                         finalTripleWidth += (int)(4.25d * borderThickness); //I don't know why 1/4 but that's what it is.
                         var tripleHalfOffset = (int) (finalImageWidth - borderThickness / 2d); //I don't know why 1/2 but that's what it is.
-                        var finalImageHeight = DrawTool.CalculateCanvasHeightWithEditsNoBorder(LeftBitmap, RightBitmap, Edits) +
+                        var finalImageHeight = DrawTool.CalculateCanvasHeightWithEditsNoBorder(LeftBitmap,
+                                                   LeftOrientation, RightBitmap, RightOrientation, Edits) +
                                                2 * borderThickness;
                         if (Settings.SaveWithFuseGuide)
                         {
@@ -895,24 +930,52 @@ namespace CrossCam.ViewModel
 
                         if (Settings.SaveRedundantFirstSide)
                         {
+                            SKBitmap targetBitmap;
+                            SKEncodedOrigin targetOrientation;
+                            bool targetFront;
+                            if (Settings.IsCaptureLeftFirst)
+                            {
+                                targetBitmap = LeftBitmap;
+                                targetOrientation = LeftOrientation;
+                                targetFront = IsLeftFrontFacing;
+                            }
+                            else
+                            {
+                                targetBitmap = RightBitmap;
+                                targetOrientation = RightOrientation;
+                                targetFront = IsRightFrontFacing;
+                            }
+
+                            var width = targetBitmap.Width;
+                            var height = targetBitmap.Height;
+                            if (DrawTool.Orientations90deg.Contains(targetOrientation))
+                            {
+                                (width, height) = (height, width);
+                            }
+
                             using var tempSurface =
-                                SKSurface.Create(new SKImageInfo(LeftBitmap.Width, LeftBitmap.Height));
+                                SKSurface.Create(new SKImageInfo(width, height));
                             using var canvas = tempSurface.Canvas;
                             canvas.Clear();
                             if (needs180Flip)
                             {
                                 canvas.RotateDegrees(180);
-                                canvas.Translate(-1f * LeftBitmap.Width, -1f * LeftBitmap.Height);
+                                canvas.Translate(-1f * width, -1f * height);
                             }
 
-                            canvas.DrawBitmap(Settings.IsCaptureLeftFirst ? LeftBitmap : RightBitmap, 0, 0);
+                            var orientationMatrix = DrawTool.FindOrientationMatrix(targetOrientation, width / 2f,
+                                height / 2f, targetFront);
+                            canvas.SetMatrix(orientationMatrix);
+                            var destRect = orientationMatrix.Invert().MapRect(SKRect.Create(0, 0, width, height));
+                            canvas.DrawBitmap(targetBitmap, destRect);
 
                             await SaveSurfaceSnapshot(tempSurface);
                         }
 
                         if (Settings.SaveForTriple)
                         {
-                            using var doubleSurface = SKSurface.Create(new SKImageInfo(finalImageWidth, finalImageHeight));
+                            using var doubleSurface =
+                                SKSurface.Create(new SKImageInfo(finalImageWidth, finalImageHeight));
                             using var doubleCanvas = doubleSurface.Canvas;
                             doubleCanvas.Clear();
                             if (needs180Flip)
@@ -929,7 +992,8 @@ namespace CrossCam.ViewModel
                                 Edits,
                                 DrawMode.Cross);
 
-                            using var tripleSurface = SKSurface.Create(new SKImageInfo(finalTripleWidth, finalImageHeight));
+                            using var tripleSurface =
+                                SKSurface.Create(new SKImageInfo(finalTripleWidth, finalImageHeight));
                             using var tripleCanvas = tripleSurface.Canvas;
                             tripleCanvas.Clear();
 
@@ -941,7 +1005,8 @@ namespace CrossCam.ViewModel
 
                         if (Settings.SaveForQuad)
                         {
-                            using var doublePlainSurface = SKSurface.Create(new SKImageInfo(finalImageWidth, finalImageHeight));
+                            using var doublePlainSurface =
+                                SKSurface.Create(new SKImageInfo(finalImageWidth, finalImageHeight));
                             using var doublePlainCanvas = doublePlainSurface.Canvas;
                             doublePlainCanvas.Clear();
                             if (needs180Flip)
@@ -974,7 +1039,7 @@ namespace CrossCam.ViewModel
                                 RightBitmap, RightAlignmentTransform, RightOrientation, IsRightFrontFacing,
                                 Settings,
                                 Edits,
-                                DrawMode.Parallel);
+                                DrawMode.Cross, withSwap: true);
 
                             using var quadSurface =
                                 SKSurface.Create(new SKImageInfo(finalImageWidth, quadHeight));
@@ -989,10 +1054,12 @@ namespace CrossCam.ViewModel
 
                         if (Settings.SaveForCardboard)
                         {
-                            var width = DrawTool.CalculateJoinedCanvasWidthWithEditsNoBorder(LeftBitmap, RightBitmap,
+                            var width = DrawTool.CalculateJoinedCanvasWidthWithEditsNoBorder(LeftBitmap,
+                                LeftOrientation, RightBitmap, RightOrientation,
                                 Edits);
                             var height =
-                                DrawTool.CalculateCanvasHeightWithEditsNoBorder(LeftBitmap, RightBitmap, Edits);
+                                DrawTool.CalculateCanvasHeightWithEditsNoBorder(LeftBitmap, LeftOrientation,
+                                    RightBitmap, RightOrientation, Edits);
 
                             using var tempSurface = SKSurface.Create(new SKImageInfo(width, height));
                             using var canvas = tempSurface.Canvas;
@@ -1015,7 +1082,8 @@ namespace CrossCam.ViewModel
                     await Device.InvokeOnMainThreadAsync(async () =>
                     {
                         await CoreMethods.DisplayAlert("Directory Not Found",
-                            "The save destination could not be found. Please choose another on the settings page.", "OK");
+                            "The save destination could not be found. Please choose another on the settings page.",
+                            "OK");
                     });
 
                     return;
@@ -1038,7 +1106,8 @@ namespace CrossCam.ViewModel
                 await Device.InvokeOnMainThreadAsync(async () =>
                 {
                     var sendReport = await CoreMethods.DisplayAlert("Oops",
-                        "Sorry, CrossCam did an error. Please send me an error report so I can fix it! (Go to the Settings page to stop these popups.)", "Send", "Don't Send");
+                        "Sorry, CrossCam did an error. Please send me an error report so I can fix it! (Go to the Settings page to stop these popups.)",
+                        "Send", "Don't Send");
                     if (sendReport)
                     {
                         var errorMessage = ErrorMessage + "\n" +
@@ -1387,8 +1456,10 @@ namespace CrossCam.ViewModel
 
         private async Task DrawAnaglyph(bool grayscale)
         {
-            var canvasWidth = DrawTool.CalculateOverlayedCanvasWidthWithEditsNoBorder(LeftBitmap, RightBitmap, Edits);
-            var canvasHeight = DrawTool.CalculateCanvasHeightWithEditsNoBorder(LeftBitmap, RightBitmap, Edits);
+            var canvasWidth = DrawTool.CalculateOverlayedCanvasWidthWithEditsNoBorder(LeftBitmap, LeftOrientation,
+                RightBitmap, RightOrientation, Edits);
+            var canvasHeight = DrawTool.CalculateCanvasHeightWithEditsNoBorder(LeftBitmap, LeftOrientation, RightBitmap,
+                RightOrientation, Edits);
             using var tempSurface =
                 SKSurface.Create(new SKImageInfo(canvasWidth, canvasHeight));
             var canvas = tempSurface.Canvas;

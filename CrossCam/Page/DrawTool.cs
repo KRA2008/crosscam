@@ -43,7 +43,7 @@ namespace CrossCam.Page
                 0,     0,     0, 0, 0,
                 0,     0,     0, 1, 0
         });
-        private static readonly SKEncodedOrigin[] Orientations90deg = new[]
+        public static readonly SKEncodedOrigin[] Orientations90deg = new[]
         {
             SKEncodedOrigin.RightTop,
             SKEncodedOrigin.LeftBottom,
@@ -139,8 +139,7 @@ namespace CrossCam.Page
 
         private static void DrawImagesOnCanvasInternal(SKSurface surface,
             SKBitmap leftBitmap, SKMatrix leftAlignmentMatrix, SKEncodedOrigin leftOrientation, bool isLeftFrontFacing,
-            SKBitmap rightBitmap, SKMatrix rightAlignmentMatrix, SKEncodedOrigin rightOrientation,
-            bool isRightFrontFacing,
+            SKBitmap rightBitmap, SKMatrix rightAlignmentMatrix, SKEncodedOrigin rightOrientation, bool isRightFrontFacing,
             int borderThickness, bool addBorder, BorderColor borderColor,
             double leftLeftCrop, double leftRightCrop, double rightLeftCrop, double rightRightCrop,
             double topCrop, double bottomCrop,
@@ -566,7 +565,7 @@ namespace CrossCam.Page
             return transform3D;
         }
 
-        private static SKMatrix FindOrientationMatrix(SKEncodedOrigin orientation,
+        public static SKMatrix FindOrientationMatrix(SKEncodedOrigin orientation,
             float xCorrectionToOrigin, float yCorrectionToOrigin, bool isFrontFacing)
         {
             FindOrientationCorrectionDirections(orientation, isFrontFacing, out var needsMirror, out var rotationalInc);
@@ -584,7 +583,7 @@ namespace CrossCam.Page
             return transform3D;
         }
 
-        private static void FindOrientationCorrectionDirections(SKEncodedOrigin origin, bool isFrontFacing, 
+        public static void FindOrientationCorrectionDirections(SKEncodedOrigin origin, bool isFrontFacing, 
             out bool needsMirror, out int rotationalInc)
         {
             //positive rotation is clockwise for back facing
@@ -786,59 +785,132 @@ namespace CrossCam.Page
             return perspectiveMatrix;
         }
 
-        public static int CalculateOverlayedCanvasWidthWithEditsNoBorder(SKBitmap leftBitmap, SKBitmap rightBitmap, Edits edits)
+        public static int CalculateOverlayedCanvasWidthWithEditsNoBorder(
+            SKBitmap leftBitmap, SKEncodedOrigin leftOrientation, 
+            SKBitmap rightBitmap, SKEncodedOrigin rightOrientation, Edits edits)
         {
-            int baseWidth;
-            if (leftBitmap == null || rightBitmap == null)
+            if (leftBitmap == null && rightBitmap == null) return 0;
+
+            if (leftBitmap == null ^ rightBitmap == null)
             {
-                baseWidth = leftBitmap?.Width ?? rightBitmap?.Width ?? 0;
+                SKBitmap targetBitmap;
+                SKEncodedOrigin targetOrientation;
+                if (leftBitmap == null)
+                {
+                    targetBitmap = rightBitmap;
+                    targetOrientation = rightOrientation;
+                }
+                else
+                {
+                    targetBitmap = leftBitmap;
+                    targetOrientation = leftOrientation;
+                }
+
+                return Orientations90deg.Contains(targetOrientation) ? targetBitmap.Height : targetBitmap.Width;
             }
-            else
-            {
-                baseWidth = Math.Min(leftBitmap.Width, rightBitmap.Width);
-            }
+
+            var baseWidth = Math.Min(
+                Orientations90deg.Contains(leftOrientation) ? leftBitmap.Height : leftBitmap.Width,
+                Orientations90deg.Contains(rightOrientation) ? rightBitmap.Height : rightBitmap.Width);
+            
             return (int)(baseWidth - baseWidth *
                 (edits.LeftCrop + edits.InsideCrop + edits.OutsideCrop + edits.RightCrop));
         }
 
-        public static int CalculateJoinedCanvasWidthWithEditsNoBorder(SKBitmap leftBitmap, SKBitmap rightBitmap,
+        public static int CalculateJoinedCanvasWidthWithEditsNoBorder(
+            SKBitmap leftBitmap, SKEncodedOrigin leftOrientation,
+            SKBitmap rightBitmap, SKEncodedOrigin rightOrientation,
             Edits edits)
         {
-            return CalculateJoinedCanvasWidthWithEditsNoBorderInternal(leftBitmap, rightBitmap,
+            return CalculateJoinedCanvasWidthWithEditsNoBorderInternal(
+                leftBitmap, leftOrientation, 
+                rightBitmap, rightOrientation,
                 edits.LeftCrop + edits.OutsideCrop, edits.InsideCrop + edits.RightCrop,
                 edits.InsideCrop + edits.LeftCrop,
                 edits.RightCrop + edits.OutsideCrop);
         }
 
-        private static int CalculateJoinedCanvasWidthWithEditsNoBorderInternal(SKBitmap leftBitmap, SKBitmap rightBitmap, 
+        private static int CalculateJoinedCanvasWidthWithEditsNoBorderInternal(
+            SKBitmap leftBitmap, SKEncodedOrigin leftOrientation, 
+            SKBitmap rightBitmap, SKEncodedOrigin rightOrientation,
             double leftLeftCrop, double leftRightCrop, double rightLeftCrop, double rightRightCrop)
         {
-            if (leftBitmap == null || rightBitmap == null)
+            if (leftBitmap == null && rightBitmap == null) return 0;
+
+            if (leftBitmap == null ^ rightBitmap == null)
             {
-                return leftBitmap?.Width * 2 ?? rightBitmap?.Width * 2 ?? 0;
+                SKBitmap targetBitmap;
+                SKEncodedOrigin targetOrientation;
+                if (leftBitmap == null)
+                {
+                    targetBitmap = rightBitmap;
+                    targetOrientation = rightOrientation;
+                }
+                else
+                {
+                    targetBitmap = leftBitmap;
+                    targetOrientation = leftOrientation;
+                }
+
+                if (Orientations90deg.Contains(targetOrientation))
+                {
+                    return targetBitmap.Height * 2;
+                }
+
+                return targetBitmap.Width * 2;
             }
 
-            var baseWidth = Math.Min(leftBitmap.Width, rightBitmap.Width);
+            var baseWidth = Math.Min(
+                Orientations90deg.Contains(leftOrientation) ? leftBitmap.Height : leftBitmap.Width,
+                Orientations90deg.Contains(rightOrientation) ? rightBitmap.Height : rightBitmap.Width);
             return (int) (2 * baseWidth -
                           baseWidth * (leftLeftCrop + leftRightCrop + rightLeftCrop + rightRightCrop));
             }
 
-        public static int CalculateCanvasHeightWithEditsNoBorder(SKBitmap leftBitmap, SKBitmap rightBitmap, Edits edits)
+        public static int CalculateCanvasHeightWithEditsNoBorder(
+            SKBitmap leftBitmap, SKEncodedOrigin leftOrientation,
+            SKBitmap rightBitmap, SKEncodedOrigin rightOrientation, 
+            Edits edits)
         {
-            return CalculateCanvasHeightWithEditsNoBorderInternal(leftBitmap, rightBitmap,
+            return CalculateCanvasHeightWithEditsNoBorderInternal(
+                leftBitmap, leftOrientation, rightBitmap, rightOrientation,
                 edits.TopCrop, edits.BottomCrop,
                 edits.VerticalAlignment);
         }
 
-        private static int CalculateCanvasHeightWithEditsNoBorderInternal(SKBitmap leftBitmap, SKBitmap rightBitmap,
+        private static int CalculateCanvasHeightWithEditsNoBorderInternal(
+            SKBitmap leftBitmap, SKEncodedOrigin leftOrientation, 
+            SKBitmap rightBitmap, SKEncodedOrigin rightOrientation,
             double topCrop, double bottomCrop, double alignment)
         {
-            if (leftBitmap == null || rightBitmap == null)
+            if (leftBitmap == null && rightBitmap == null) return 0;
+
+            if (leftBitmap == null ^ rightBitmap == null)
             {
-                return leftBitmap?.Height ?? rightBitmap?.Height ?? 0;
+                SKBitmap targetBitmap;
+                SKEncodedOrigin targetOrientation;
+                if (leftBitmap == null)
+                {
+                    targetBitmap = rightBitmap;
+                    targetOrientation = rightOrientation;
+                }
+                else
+                {
+                    targetBitmap = leftBitmap;
+                    targetOrientation = leftOrientation;
+                }
+
+                if (Orientations90deg.Contains(targetOrientation))
+                {
+                    return targetBitmap.Width * 2;
+                }
+
+                return targetBitmap.Height * 2;
             }
 
-            var baseHeight = Math.Min(leftBitmap.Height, rightBitmap.Height);
+            var baseHeight = Math.Min(
+                Orientations90deg.Contains(leftOrientation) ? leftBitmap.Width : leftBitmap.Height, 
+                Orientations90deg.Contains(rightOrientation) ? rightBitmap.Width : rightBitmap.Height);
             return (int) (baseHeight - baseHeight * (topCrop + bottomCrop + Math.Abs(alignment)));
         }
 
