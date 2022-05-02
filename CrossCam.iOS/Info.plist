@@ -42,11 +42,13 @@
 	<key>CFBundleName</key>
 	<string>CrossCam</string>
 	<key>NSCameraUsageDescription</key>
-	<string>This app uses the camera to take 3D pictures.</string>
+	<string>CrossCam uses the camera to take 3D pictures.</string>
 	<key>NSPhotoLibraryAddUsageDescription</key>
-	<string>This app saves the 3D pictures you make to your photo library.</string>
+	<string>CrossCam saves the 3D pictures you make to your photo library.</string>
 	<key>NSPhotoLibraryUsageDescription</key>
-	<string>This app saves and loads the 3D pictures you make to and from your photo library.</string>
+	<string>CrossCam needs access to your photo library (but not to its actual contents) in order to save the 3D pictures you make into a CrossCam album. To allow this, tap "Select Photos..." below and then proceed without actually choosing anything, or tap "Don't Allow" below to proceed with saving without adding to an album.</string>
+	<key>PHPhotoLibraryPreventAutomaticLimitedAccessAlert</key>
+	<true/>
   <key>UIMainStoryboardFile</key>
 	<string>LaunchScreen</string>
 	<key>UIViewControllerBasedStatusBarAppearance</key>

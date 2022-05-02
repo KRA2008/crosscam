@@ -56,6 +56,7 @@
     <CodesignResourceRules />
     <CodesignProvision>CrossCam Store Dist</CodesignProvision>
     <LangVersion>8</LangVersion>
+    <MtouchEnableSGenConc>true</MtouchEnableSGenConc>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|iPhoneSimulator' ">
     <DebugType>full</DebugType>
@@ -85,7 +86,7 @@
     <MtouchDebug>true</MtouchDebug>
     <CodesignProvision>VS: WildCard Development</CodesignProvision>
     <IpaPackageName />
-    <MtouchFastDev>true</MtouchFastDev>
+    <MtouchFastDev>false</MtouchFastDev>
     <DeviceSpecificBuild>true</DeviceSpecificBuild>
     <OptimizePNGs>false</OptimizePNGs>
     <CodesignExtraArgs />
@@ -99,7 +100,7 @@
     </MtouchInterpreter>
     <MtouchNoSymbolStrip>true</MtouchNoSymbolStrip>
     <LangVersion>8</LangVersion>
-    <MtouchEnableSGenConc>false</MtouchEnableSGenConc>
+    <MtouchEnableSGenConc>true</MtouchEnableSGenConc>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(RunConfiguration)' == 'Default' ">
     <AppExtensionDebugBundleId />
