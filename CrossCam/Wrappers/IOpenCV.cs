@@ -11,7 +11,7 @@ namespace CrossCam.Wrappers
             AlignmentSettings settings);
         AlignedResult CreateAlignedSecondImageKeypoints(SKBitmap firstImage, SKBitmap secondImage,
             bool discardTransX, AlignmentSettings settings, bool keystoneRightOnFirst);
-        SKBitmap AddBarrelDistortion(SKBitmap originalImage, float downsize, float strength, float cxProportion, SKFilterQuality filterQuality = SKFilterQuality.High);
+        SKImage AddBarrelDistortion(SKImage originalImage, float downsize, float strength, float cxProportion);
         byte[] GetBytes(SKBitmap bitmap, double downsize, SKFilterQuality filterQuality = SKFilterQuality.High);
     }
 }

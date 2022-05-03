@@ -408,23 +408,23 @@ namespace AutoAlignment
             return result;
         }
 
-        public SKBitmap AddBarrelDistortion(SKBitmap bitmap, float downsize, float strength, float cxProportion, SKFilterQuality filterQuality = SKFilterQuality.High)
+        public SKImage AddBarrelDistortion(SKImage image, float downsize, float strength, float cxProportion)
         {
             using var cvImage = new Mat();
-            CvInvoke.Imdecode(GetBytes(bitmap, downsize, filterQuality), ImreadModes.Color, cvImage);
+            CvInvoke.Imdecode(image.Encode().ToArray(), ImreadModes.Color, cvImage);
 
-            using var cameraMatrix = GetCameraMatrix(bitmap.Width * downsize * cxProportion, bitmap.Height * downsize / 2f);
+            using var cameraMatrix = GetCameraMatrix(image.Width * downsize * cxProportion, image.Height * downsize / 2f);
 
-            var size = Math.Sqrt(Math.Pow(bitmap.Width * downsize, 2) + Math.Pow(bitmap.Height * downsize, 2));
+            var size = Math.Sqrt(Math.Pow(image.Width * downsize, 2) + Math.Pow(image.Height * downsize, 2));
             var scaledCoeff = strength / Math.Pow(size, 2);
             using var distortionMatrix = GetDistortionMatrix((float)scaledCoeff);
 
             using var transformedImage = new Mat();
             CvInvoke.Undistort(cvImage, transformedImage, cameraMatrix, distortionMatrix);
 #if __IOS__
-            return transformedImage.ToCGImage().ToSKBitmap();
+            return transformedImage.ToCGImage().ToSKImage();
 #elif __ANDROID__
-            return transformedImage.ToBitmap().ToSKBitmap();
+            return transformedImage.ToBitmap().ToSKImage();
 #endif
         }
 
@@ -688,7 +688,7 @@ namespace AutoAlignment
         {
             return Math.Sqrt(Math.Pow(from.X - to.X, 2) + Math.Pow(from.Y - to.Y, 2));
         }
-
+        
         public byte[] GetBytes(SKBitmap bitmap, double downsize, SKFilterQuality filterQuality = SKFilterQuality.High)
         {
             //TODO: compare jpeg 100 vs png 100 vs png 0

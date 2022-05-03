@@ -402,10 +402,10 @@ namespace CrossCam.Page
                     smallSurface.Canvas.Clear();
                     smallSurface.Canvas.DrawSurface(surface, 0, 0, paint);
                     using var leftSnapshot = smallSurface.Snapshot();
-                    using var distortedLeft = openCv.AddBarrelDistortion(SKBitmap.FromImage(leftSnapshot),
-                        cardboardDownsize, barrelStrength / 100f, (float)(1 - cardboardWidthProportion), skFilterQuality);
+                    using var distortedLeft = openCv.AddBarrelDistortion(leftSnapshot,
+                        cardboardDownsize, barrelStrength / 100f, (float)(1 - cardboardWidthProportion));
 
-                    surface.Canvas.DrawBitmap(
+                    surface.Canvas.DrawImage(
                         distortedLeft,
                         SKRect.Create(
                             0,
@@ -420,10 +420,10 @@ namespace CrossCam.Page
                     smallSurface.Canvas.Clear();
                     smallSurface.Canvas.DrawSurface(surface, -sideWidth, 0, paint);
                     using var rightSnapshot = smallSurface.Snapshot();
-                    using var distortedRight = openCv.AddBarrelDistortion(SKBitmap.FromImage(rightSnapshot),
-                        cardboardDownsize, barrelStrength / 100f, (float)cardboardWidthProportion, skFilterQuality);
+                    using var distortedRight = openCv.AddBarrelDistortion(rightSnapshot,
+                        cardboardDownsize, barrelStrength / 100f, (float)cardboardWidthProportion);
 
-                    surface.Canvas.DrawBitmap(
+                    surface.Canvas.DrawImage(
                         distortedRight,
                         SKRect.Create(
                             sideWidth,
