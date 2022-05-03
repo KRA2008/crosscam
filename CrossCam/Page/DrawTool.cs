@@ -319,7 +319,7 @@ namespace CrossCam.Page
             }
 
             var cardboardHorDelta = cardboardHor * destWidth;
-            var cardboardVertDelta = cardboardVert * destHeight; //TODO: use same property for both to make move speed the same?
+            var cardboardVertDelta = cardboardVert * destWidth; // use same property for both to make move speed the same
 
             var leftXCorrectionToOrigin = leftDestX + destWidth /2f;
             var leftYCorrectionToOrigin = destY + destWidth / 2f;

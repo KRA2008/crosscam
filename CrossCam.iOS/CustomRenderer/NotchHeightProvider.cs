@@ -20,8 +20,8 @@ namespace CrossCam.iOS.CustomRenderer
 
         private static bool HasInsets()
         {
-            var insets = UIKit.UIApplication.SharedApplication.KeyWindow.SafeAreaInsets;
-            return Device.Idiom == TargetIdiom.Phone && insets.Bottom > 0;
+            var insets = UIKit.UIApplication.SharedApplication.KeyWindow?.SafeAreaInsets;
+            return Device.Idiom == TargetIdiom.Phone && insets.HasValue && insets.Value.Bottom > 0;
         }
     }
 }
