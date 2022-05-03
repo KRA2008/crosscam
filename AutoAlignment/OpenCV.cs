@@ -46,7 +46,7 @@ namespace AutoAlignment
             return true;
         }
 
-        public AlignedResult CreateAlignedSecondImageEcc(SKBitmap firstImage, SKBitmap secondImage, bool discardTransX, AlignmentSettings settings)
+        public AlignedResult CreateAlignedSecondImageEcc(SKBitmap firstImage, SKBitmap secondImage, AlignmentSettings settings)
         {
 #if __NO_EMGU__
             return null;
@@ -107,12 +107,12 @@ namespace AutoAlignment
             return new AlignedResult
             {
                 TransformMatrix1 = SKMatrix.Identity,
-                TransformMatrix2 = ConvertCvMatOfFloatsToSkMatrix(warpMatrix, discardTransX)
+                TransformMatrix2 = ConvertCvMatOfFloatsToSkMatrix(warpMatrix)
             };
         }
 
         public AlignedResult CreateAlignedSecondImageKeypoints(SKBitmap firstImage, SKBitmap secondImage,
-            bool discardTransX, AlignmentSettings settings, bool keystoneRightOnFirst)
+            AlignmentSettings settings, bool keystoneRightOnFirst)
         {
 #if __NO_EMGU__
             return null;
@@ -617,7 +617,7 @@ namespace AutoAlignment
             return netOffset;
         }
 
-        private static SKMatrix ConvertCvMatOfFloatsToSkMatrix(Mat mat, bool discardTransX)
+        private static SKMatrix ConvertCvMatOfFloatsToSkMatrix(Mat mat)
         {
             var skMatrix = SKMatrix.MakeIdentity();
             unsafe
@@ -627,10 +627,6 @@ namespace AutoAlignment
                 ptr++; //SkewX
                 skMatrix.SkewX = *ptr;
                 ptr++; //TransX
-                if (discardTransX)
-                {
-                    *ptr = 0;
-                }
                 skMatrix.TransX = *ptr;
                 ptr++; //SkewY
                 skMatrix.SkewY = *ptr;
@@ -643,7 +639,7 @@ namespace AutoAlignment
             return skMatrix;
         }
 
-        private static SKMatrix ConvertCvMatOfDoublesToSkMatrix(Mat mat, bool discardTransX)
+        private static SKMatrix ConvertCvMatOfDoublesToSkMatrix(Mat mat)
         {
             var skMatrix = SKMatrix.MakeIdentity();
             unsafe
@@ -653,10 +649,6 @@ namespace AutoAlignment
                 ptr++; //SkewX
                 skMatrix.SkewX = (float)*ptr;
                 ptr++; //TransX
-                if (discardTransX)
-                {
-                    *ptr = 0;
-                }
                 skMatrix.TransX = (float)*ptr;
                 ptr++; //SkewY
                 skMatrix.SkewY = (float)*ptr;

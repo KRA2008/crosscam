@@ -1542,14 +1542,9 @@ namespace CrossCam.ViewModel
                     {
                         await Task.Run(() =>
                         {
-                            var discardTransX = !Settings.SaveForRedCyanAnaglyph &&
-                                                !Settings.SaveForGrayscaleAnaglyph &&
-                                                Settings.Mode != DrawMode.RedCyanAnaglyph &&
-                                                Settings.Mode != DrawMode.GrayscaleRedCyanAnaglyph &&
-                                                !Settings.AlignmentSettings.AlignHorizontallySideBySide;
                             if ((WasCapturePaired &&
-                                (Settings.FovPrimaryCorrection > 0 ||
-                                Settings.FovSecondaryCorrection > 0)) ||
+                                 (Settings.FovPrimaryCorrection > 0 ||
+                                  Settings.FovSecondaryCorrection > 0)) ||
                                 Settings.AlignmentSettings.UseKeypoints1)
                             {
                                 var needsFallback = false;
@@ -1558,12 +1553,11 @@ namespace CrossCam.ViewModel
                                     alignedResult = openCv.CreateAlignedSecondImageKeypoints(
                                         firstImage,
                                         secondImage,
-                                        discardTransX,
                                         Settings.AlignmentSettings,
-                                        (Settings.IsCaptureLeftFirst &&
-                                        Settings.Mode != DrawMode.Parallel) ||
-                                        (!Settings.IsCaptureLeftFirst &&
-                                         Settings.Mode == DrawMode.Parallel));
+                                        Settings.IsCaptureLeftFirst &&
+                                        Settings.Mode != DrawMode.Parallel ||
+                                        !Settings.IsCaptureLeftFirst &&
+                                        Settings.Mode == DrawMode.Parallel);
                                     if (alignedResult == null)
                                     {
                                         needsFallback = true;
@@ -1579,7 +1573,6 @@ namespace CrossCam.ViewModel
                                     alignedResult = openCv.CreateAlignedSecondImageEcc(
                                         firstImage,
                                         secondImage,
-                                        discardTransX,
                                         Settings.AlignmentSettings);
                                 }
                             }
@@ -1588,7 +1581,6 @@ namespace CrossCam.ViewModel
                                 alignedResult = openCv.CreateAlignedSecondImageEcc(
                                     firstImage,
                                     secondImage,
-                                    discardTransX,
                                     Settings.AlignmentSettings);
                             }
                         });

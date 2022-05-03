@@ -5,8 +5,6 @@ namespace CrossCam.Model
 {
     public class AlignmentSettings : INotifyPropertyChanged
     {
-
-        public bool AlignHorizontallySideBySide { get; set; }
         public bool UseKeypoints1 { get; set; }
         public bool UseCrossCheck { get; set; }
         public bool DrawKeypointMatches { get; set; }
@@ -16,16 +14,7 @@ namespace CrossCam.Model
 
         public bool ShowAdvancedAlignmentSettings { get; set; }
 
-        private bool _isAutomaticAlignmentOn;
-        public bool IsAutomaticAlignmentOn
-        {
-            get => _isAutomaticAlignmentOn;
-            set
-            {
-                _isAutomaticAlignmentOn = value;
-                AlignHorizontallySideBySide = value;
-            }
-        }
+        public bool IsAutomaticAlignmentOn { get; set; }
 
         private int _minimumKeypoints;
         public int MinimumKeypoints
@@ -121,7 +110,6 @@ namespace CrossCam.Model
         public void ResetToDefaults()
         {
             IsAutomaticAlignmentOn = true; //TODO: UNDO THIS< JUT FOR BEIDBB
-            AlignHorizontallySideBySide = true; //TODO: UNDO THIS< JUT FOR BEIDBB
             ShowAdvancedAlignmentSettings = false;
 
             EccDownsizePercentage = 35;

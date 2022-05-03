@@ -220,11 +220,6 @@
                 <Switch IsToggled="{Binding Settings.AlignmentSettings.IsAutomaticAlignmentOn}"/>
             </StackLayout>
             <StackLayout Orientation="Horizontal">
-                <Label Text="Align horizontally (for side by side)"/>
-                <Switch IsToggled="{Binding Settings.AlignmentSettings.AlignHorizontallySideBySide}"
-                        IsEnabled="{Binding Settings.AlignmentSettings.IsAutomaticAlignmentOn}"/>
-            </StackLayout>
-            <StackLayout Orientation="Horizontal">
                 <Label Text="Use keypoint alignment always (vs ECC whenever possible)"/>
                 <Switch IsToggled="{Binding Settings.AlignmentSettings.UseKeypoints1}"
                         IsEnabled="{Binding Settings.AlignmentSettings.IsAutomaticAlignmentOn}"/>
