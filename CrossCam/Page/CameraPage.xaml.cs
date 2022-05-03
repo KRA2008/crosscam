@@ -2,6 +2,7 @@
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Drawing;
+using System.Linq;
 using System.Threading.Tasks;
 using CrossCam.CustomElement;
 using CrossCam.Model;
@@ -935,8 +936,14 @@ namespace CrossCam.Page
 
             float xProportion;
             float yProportion;
-            var aspect = _viewModel.LocalPreviewFrame.Frame.Height / (_viewModel.LocalPreviewFrame.Frame.Width * 1f);
-            var isPortrait = _viewModel.LocalPreviewFrame.Frame.Height > _viewModel.LocalPreviewFrame.Frame.Width;
+            float aspect;
+            var frameHeight = _viewModel.LocalPreviewFrame.Frame.Height;
+            var frameWidth = _viewModel.LocalPreviewFrame.Frame.Width;
+            if (DrawTool.Orientations90deg.Contains(_viewModel.LocalPreviewFrame.Orientation))
+            {
+                (frameHeight, frameWidth) = (frameWidth, frameHeight);
+            }
+            var isPortrait = frameHeight > frameWidth;
 
             var overlayDisplay = _viewModel.Settings.Mode == DrawMode.RedCyanAnaglyph ||
                                  _viewModel.Settings.Mode == DrawMode.GrayscaleRedCyanAnaglyph ||
@@ -951,7 +958,7 @@ namespace CrossCam.Page
 
                 if (isPortrait)
                 {
-                    aspect = _viewModel.LocalPreviewFrame.Frame.Height / (_viewModel.LocalPreviewFrame.Frame.Width * 1f);
+                    aspect = frameHeight / (frameWidth * 1f);
                     longNativeLength = Height * DeviceDisplay.MainDisplayInfo.Density;
                     shortNativeLength = Width * DeviceDisplay.MainDisplayInfo.Density;
                     tapLong = _tapLocation.Y;
@@ -959,7 +966,7 @@ namespace CrossCam.Page
                 }
                 else
                 {
-                    aspect = _viewModel.LocalPreviewFrame.Frame.Width / (_viewModel.LocalPreviewFrame.Frame.Height * 1f);
+                    aspect = frameWidth / (frameHeight * 1f);
                     longNativeLength = Width * DeviceDisplay.MainDisplayInfo.Density;
                     shortNativeLength = Height * DeviceDisplay.MainDisplayInfo.Density;
                     tapLong = _tapLocation.X;
@@ -969,7 +976,11 @@ namespace CrossCam.Page
                 var minLong = (longNativeLength - shortNativeLength * aspect) / 2f;
 
                 var longProportion = (float)((tapLong - minLong) / (shortNativeLength * aspect));
-                longProportion = Math.Clamp(longProportion, 0, 1);
+                if (longProportion < 0 ||
+                    longProportion > 1)
+                {
+                    return;
+                }
                 double shortProportion = (float)(tapShort / shortNativeLength);
 
                 if (isPortrait)
@@ -989,6 +1000,7 @@ namespace CrossCam.Page
             }
             else
             {
+                aspect = frameHeight / (frameWidth * 1f);
                 double baseWidth;
                 if (_viewModel.Settings.Mode == DrawMode.Cross)
                 {
@@ -1011,13 +1023,21 @@ namespace CrossCam.Page
                     xProportion = (float)((_tapLocation.X - baseWidth) / baseWidth);
                     leftBufferX += baseWidth;
                 }
-                xProportion = Math.Clamp(xProportion, 0, 1);
+                if (xProportion < 0 ||
+                    xProportion > 1)
+                {
+                    return;
+                }
 
                 var baseHeight = baseWidth * aspect;
                 var minY = (Height * DeviceDisplay.MainDisplayInfo.Density - baseHeight) / 2f;
 
                 yProportion = (float)((_tapLocation.Y - minY) / baseHeight);
-                yProportion = Math.Clamp(yProportion, 0, 1);
+                if (yProportion < 0 ||
+                    yProportion > 1)
+                {
+                    return;
+                }
 
                 _viewModel.FocusCircleX = (xProportion * baseWidth + leftBufferX) / DeviceDisplay.MainDisplayInfo.Density;
                 _viewModel.FocusCircleY = (yProportion * baseHeight + minY) / DeviceDisplay.MainDisplayInfo.Density;
