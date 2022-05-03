@@ -205,6 +205,7 @@ namespace CrossCam.Page
             else
             {
                 _cardboardViewVert = _cardboardViewHor = 0;
+                _cardboardHomeVert = _cardboardHomeHor = null;
             }
         }
 
