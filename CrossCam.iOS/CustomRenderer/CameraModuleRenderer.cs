@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Diagnostics;
+using System.Drawing;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Threading;
@@ -58,6 +60,14 @@ namespace CrossCam.iOS.CustomRenderer
                 _cameraModule.BluetoothOperator.CaptureSyncTimeElapsed += (sender2, args) =>
                 {
                     Device.BeginInvokeOnMainThread(CapturePhoto);
+                };
+                _cameraModule.SingleTapped += (sender, point) =>
+                {
+                    PreviewWasTapped(point);
+                };
+                _cameraModule.DoubleTapped += (sender, args) =>
+                {
+                    TurnOffFlashAndSetContinuousAutoMode(_device);
                 };
                 SetupCamera();
                 StartPreview();
@@ -156,6 +166,7 @@ namespace CrossCam.iOS.CustomRenderer
             }
         }
 
+        private bool _hasObserver;
         private void SetupCamera(bool restart = false)
         {
             try
@@ -204,7 +215,15 @@ namespace CrossCam.iOS.CustomRenderer
                     _device = AVCaptureDevice.DeviceWithUniqueID(_cameraModule.ChosenCamera.CameraId);
                 }
 
-                SetPreviewSizing(_device, restart);
+                if (_hasObserver)
+                {
+                    _device?.RemoveObserver(this, "adjustingFocus", IntPtr.Zero);
+                    _hasObserver = false;
+                }
+                _device?.AddObserver(this, "adjustingFocus", NSKeyValueObservingOptions.OldNew, IntPtr.Zero);
+                _hasObserver = true;
+
+                SetPreviewSizing(restart);
 
                 TurnOffFlashAndSetContinuousAutoMode(_device);
 
@@ -257,8 +276,6 @@ namespace CrossCam.iOS.CustomRenderer
                     _captureSession.AddOutput(_previewFrameOutput);
                     _captureSession.AddInput(AVCaptureDeviceInput.FromDevice(_device));
                 }
-
-                _device.AddObserver(this, "adjustingFocus", NSKeyValueObservingOptions.OldNew, IntPtr.Zero);
             }
             catch (Exception e)
             {
@@ -470,10 +487,10 @@ namespace CrossCam.iOS.CustomRenderer
             }
         }
         
-        private void PreviewWasTapped(UIGestureRecognizer recognizer)
+        private void PreviewWasTapped(PointF point)
         {
             _cameraModule.IsFocusCircleLocked = false;
-            var touchLocation = recognizer.LocationInView(recognizer.View);
+            var touchLocation = new CGPoint(point.X, point.Y);
 
             if (_cameraModule.IsTapToFocusEnabled)
             {
@@ -497,51 +514,6 @@ namespace CrossCam.iOS.CustomRenderer
                 if (translatedPoint.Y > 1)
                 {
                     translatedPoint.Y = 1;
-                }
-                
-                double focusCircleX = 0;
-                double focusCircleY = 0;
-                if (_previousValidOrientation == UIDeviceOrientation.Portrait)
-                {
-                    var previewHeight = _cameraModule.Width * (4f / 3f);
-                    var verticalOffset = (_cameraModule.Height - previewHeight) / 2;
-                    if (_cameraModule.ChosenCamera.IsFront)
-                    {
-                        focusCircleX = translatedPoint.Y * _cameraModule.Width;
-                    }
-                    else
-                    {
-                        focusCircleX = (1 - translatedPoint.Y) * _cameraModule.Width;
-                    }
-                    focusCircleY = translatedPoint.X * previewHeight + verticalOffset;
-                }
-                else if (_previousValidOrientation == UIDeviceOrientation.LandscapeLeft)
-                {
-                    var previewHeight = _cameraModule.Width * (3f / 4f);
-                    var verticalOffset = (_cameraModule.Height - previewHeight) / 2;
-                    focusCircleX = translatedPoint.X * _cameraModule.Width;
-                    if (_cameraModule.ChosenCamera.IsFront)
-                    {
-                        focusCircleY = (1 - translatedPoint.Y) * previewHeight + verticalOffset;
-                    }
-                    else
-                    {
-                        focusCircleY = translatedPoint.Y * previewHeight + verticalOffset;
-                    }
-                }
-                else if (_previousValidOrientation == UIDeviceOrientation.LandscapeRight)
-                {
-                    var previewHeight = _cameraModule.Width * (3f / 4f);
-                    var verticalOffset = (_cameraModule.Height - previewHeight) / 2;
-                    focusCircleX = (1 - translatedPoint.X) * _cameraModule.Width;
-                    if (_cameraModule.ChosenCamera.IsFront)
-                    {
-                        focusCircleY = translatedPoint.Y * previewHeight + verticalOffset;
-                    }
-                    else
-                    {
-                        focusCircleY = (1 - translatedPoint.Y) * previewHeight + verticalOffset;
-                    }
                 }
 
                 _device.LockForConfiguration(out var error);
@@ -602,8 +574,12 @@ namespace CrossCam.iOS.CustomRenderer
         {
             SetupCamera(true);
             StartPreview();
-            NativeView.Add(_liveCameraStream);
-            NativeView.ClipsToBounds = true;
+            if (NativeView != null &&
+                _liveCameraStream != null)
+            {
+                NativeView.Add(_liveCameraStream);
+                NativeView.ClipsToBounds = true;
+            }
         }
 
         private void OrientationChanged(NSNotification notification)
@@ -625,7 +601,7 @@ namespace CrossCam.iOS.CustomRenderer
             }
         }
 
-        private void SetPreviewSizing(AVCaptureDevice device, bool restart)
+        private void SetPreviewSizing(bool restart)
         {
             var sideHeight = NativeView.Bounds.Height;
             var sideWidth = NativeView.Bounds.Width;
@@ -633,27 +609,6 @@ namespace CrossCam.iOS.CustomRenderer
             if (_liveCameraStream == null || restart)
             {
                 _liveCameraStream = new UIView(new CGRect(0, 0, sideWidth, sideHeight));
-
-                var singleTapGesture = new UITapGestureRecognizer
-                {
-                    NumberOfTapsRequired = 1
-                };
-                singleTapGesture.AddTarget(() => PreviewWasTapped(singleTapGesture));
-                _liveCameraStream.AddGestureRecognizer(singleTapGesture);
-
-                var doubleTapGesture = new UITapGestureRecognizer
-                {
-                    NumberOfTapsRequired = 2
-                };
-                doubleTapGesture.AddTarget(() => TurnOffFlashAndSetContinuousAutoMode(device));
-                _liveCameraStream.AddGestureRecognizer(doubleTapGesture);
-
-                var swipeGesture = new UISwipeGestureRecognizer
-                {
-                    Direction = UISwipeGestureRecognizerDirection.Left | UISwipeGestureRecognizerDirection.Right
-                };
-                swipeGesture.AddTarget(() => PreviewWasSwiped(swipeGesture));
-                _liveCameraStream.AddGestureRecognizer(swipeGesture);
             }
             else
             {
