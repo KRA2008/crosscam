@@ -1065,10 +1065,17 @@ namespace CrossCam.ViewModel
                             using var canvas = tempSurface.Canvas;
                             canvas.Clear();
 
+                            var withBorderTemp = Settings.AddBorder;
+                            Settings.AddBorder = false;
+
                             DrawTool.DrawImagesOnCanvas(tempSurface, 
                                 LeftBitmap, LeftAlignmentTransform, LeftOrientation, IsLeftFrontFacing,
                                 RightBitmap, RightAlignmentTransform, RightOrientation, IsRightFrontFacing,
-                                Settings, Edits, DrawMode.Cardboard);
+                                Settings, Edits, DrawMode.Parallel, withSwap:Settings.Mode == DrawMode.Cross ||
+                                                                             Settings.Mode == DrawMode.RedCyanAnaglyph ||
+                                                                             Settings.Mode == DrawMode.GrayscaleRedCyanAnaglyph);
+
+                            Settings.AddBorder = withBorderTemp;
 
                             await SaveSurfaceSnapshot(tempSurface);
                         }

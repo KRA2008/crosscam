@@ -526,7 +526,7 @@
                        Text="VR"/>
                 <Label Grid.Row="11"
                        Grid.Column="1"
-                       Text="Save for Cardboard"/>
+                       Text="Save for Cardboard (with edits, no border, no spacing, full width, for loading back into CrossCam later)"/>
                 <Switch Grid.Row="11"
                         Grid.Column="2"
                         IsToggled="{Binding Settings.SaveForCardboard}"/>
