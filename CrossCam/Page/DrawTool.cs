@@ -182,13 +182,13 @@ namespace CrossCam.Page
             {
                 if (isRight90Oriented)
                 {
-                    baseHeight = rightBitmap.Width;
                     baseWidth = rightBitmap.Height;
+                    baseHeight = rightBitmap.Width;
                 }
                 else
                 {
-                    baseHeight = rightBitmap.Height;
                     baseWidth = rightBitmap.Width;
+                    baseHeight = rightBitmap.Height;
                 }
                 netSideCrop = rightLeftCrop + rightRightCrop;
             }
@@ -248,9 +248,8 @@ namespace CrossCam.Page
                 BORDER_CONVERSION_FACTOR * borderThickness :
                 0;
 
-            var widthRatio =
-                (sideBitmapWidthLessCrop + sideBitmapWidthLessCrop * innerBorderThicknessProportion * 1.5) /
-                (canvasWidth / 2d);
+            var widthRatio = sideBitmapWidthLessCrop * (1 + innerBorderThicknessProportion * 1.5) /
+                             (canvasWidth / 2d);
             if (overlayDrawing)
             {
                 widthRatio /= 2d;
@@ -321,34 +320,42 @@ namespace CrossCam.Page
             var cardboardHorDelta = cardboardHor * destWidth;
             var cardboardVertDelta = cardboardVert * destWidth; // use same property for both to make move speed the same
 
-            var leftXCorrectionToOrigin = leftDestX + destWidth /2f;
-            var leftYCorrectionToOrigin = destY + destWidth / 2f;
-            var rightXCorrectionToOrigin = rightDestX + destWidth / 2f;
-            var rightYCorrectionToOrigin = destY + destWidth / 2f;
-            var leftIntermediateWidth = destWidth;
-            var leftIntermediateHeight = destHeight;
-            var rightIntermediateWidth = destWidth;
-            var rightIntermediateHeight = destHeight;
+            float leftIntermediateHeight, leftIntermediateWidth, rightIntermediateHeight, rightIntermediateWidth;
 
             if (isLeft90Oriented)
             {
-                (leftXCorrectionToOrigin, leftYCorrectionToOrigin, leftIntermediateWidth, leftIntermediateHeight) = 
-                    (leftYCorrectionToOrigin, leftXCorrectionToOrigin, leftIntermediateHeight, leftIntermediateWidth);
+                leftIntermediateWidth = destHeight;
+                leftIntermediateHeight = destWidth;
+            }
+            else
+            {
+                leftIntermediateWidth = destWidth;
+                leftIntermediateHeight = destHeight;
             }
 
             if (isRight90Oriented)
             {
-                (rightXCorrectionToOrigin, rightYCorrectionToOrigin, rightIntermediateWidth, rightIntermediateHeight) = 
-                    (rightYCorrectionToOrigin, rightXCorrectionToOrigin, rightIntermediateHeight, rightIntermediateWidth);
+                rightIntermediateWidth = destHeight;
+                rightIntermediateHeight = destWidth;
             }
+            else
+            {
+                rightIntermediateWidth = destWidth;
+                rightIntermediateHeight = destHeight;
+            }
+
+            var leftXCorrectionToOrigin = leftDestX + leftIntermediateWidth / 2f;
+            var leftYCorrectionToOrigin = destY + leftIntermediateHeight / 2f;
+            var rightXCorrectionToOrigin = rightDestX + rightIntermediateWidth / 2f;
+            var rightYCorrectionToOrigin = destY + rightIntermediateHeight / 2f;
 
             if (leftBitmap != null)
             {
-                var leftOrientationMatrix = FindOrientationMatrix(leftOrientation, leftXCorrectionToOrigin,
-                    leftYCorrectionToOrigin, isLeftFrontFacing);
                 var leftScaledAlignmentMatrix = FindScaledAlignmentMatrix(
                     leftIntermediateWidth, leftIntermediateHeight, leftXCorrectionToOrigin, leftYCorrectionToOrigin,
                     leftAlignmentMatrix, scalingRatio);
+                var leftOrientationMatrix = FindOrientationMatrix(leftOrientation, leftXCorrectionToOrigin,
+                    leftYCorrectionToOrigin, isLeftFrontFacing);
                 var leftEditMatrix = FindEditMatrix(true, drawMode, leftZoom, leftRotation, keystone,
                     cardboardHorDelta, cardboardVertDelta, alignment,
                     leftDestX, destY, destWidth, destHeight,
@@ -364,11 +371,11 @@ namespace CrossCam.Page
 
             if (rightBitmap != null)
             {
-                var rightOrientationMatrix = FindOrientationMatrix(rightOrientation, rightXCorrectionToOrigin,
-                    rightYCorrectionToOrigin, isRightFrontFacing);
                 var rightScaledAlignmentMatrix = FindScaledAlignmentMatrix(
                     rightIntermediateWidth, rightIntermediateHeight, rightXCorrectionToOrigin, rightYCorrectionToOrigin,
                     rightAlignmentMatrix, scalingRatio);
+                var rightOrientationMatrix = FindOrientationMatrix(rightOrientation, rightXCorrectionToOrigin,
+                    rightYCorrectionToOrigin, isRightFrontFacing);
                 var rightEditMatrix = FindEditMatrix(false, drawMode, rightZoom, rightRotation, keystone,
                     cardboardHorDelta, cardboardVertDelta, alignment,
                     rightDestX, destY, destWidth, destHeight,
