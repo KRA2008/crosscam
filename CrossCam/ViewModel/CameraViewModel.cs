@@ -809,7 +809,7 @@ namespace CrossCam.ViewModel
                             var leftDestRect = leftMatrix.Invert().MapRect(SKRect.Create(0, 0, leftWidth, leftHeight));
                             canvas.DrawBitmap(LeftBitmap, leftDestRect);
 
-                            await SaveSurfaceSnapshot(tempSurface);
+                            await SaveSurfaceSnapshot(tempSurface, "Separate");
 
                             canvas.Clear();
                             canvas.ResetMatrix();
@@ -833,7 +833,7 @@ namespace CrossCam.ViewModel
                                 .MapRect(SKRect.Create(0, 0, rightWidth, rightHeight));
                             canvas.DrawBitmap(RightBitmap, rightDestRect);
 
-                            await SaveSurfaceSnapshot(tempSurface);
+                            await SaveSurfaceSnapshot(tempSurface, "Separate");
                         }
 
                         var finalImageWidth = DrawTool.CalculateJoinedCanvasWidthWithEditsNoBorder(LeftBitmap,
@@ -888,7 +888,8 @@ namespace CrossCam.ViewModel
                                 Edits, 
                                 DrawMode.Cross);
 
-                            await SaveSurfaceSnapshot(tempSurface);
+                            await SaveSurfaceSnapshot(tempSurface,
+                                Settings.Mode == DrawMode.Parallel ? "Parallel" : "Cross");
                         }
 
                         if (Settings.SaveForParallel &&
@@ -915,7 +916,8 @@ namespace CrossCam.ViewModel
                                 DrawMode.Parallel,
                                 withSwap: true);
 
-                            await SaveSurfaceSnapshot(tempSurface);
+                            await SaveSurfaceSnapshot(tempSurface,
+                                Settings.Mode == DrawMode.Cross ? "Parallel" : "Cross");
                         }
 
                         if (Settings.SaveForRedCyanAnaglyph)
@@ -969,7 +971,7 @@ namespace CrossCam.ViewModel
                             var destRect = orientationMatrix.Invert().MapRect(SKRect.Create(0, 0, width, height));
                             canvas.DrawBitmap(targetBitmap, destRect);
 
-                            await SaveSurfaceSnapshot(tempSurface);
+                            await SaveSurfaceSnapshot(tempSurface, "Single");
                         }
 
                         if (Settings.SaveForTriple)
@@ -1000,7 +1002,7 @@ namespace CrossCam.ViewModel
                             tripleCanvas.DrawSurface(doubleSurface, 0, 0);
                             tripleCanvas.DrawSurface(doubleSurface, tripleHalfOffset, 0);
 
-                            await SaveSurfaceSnapshot(tripleSurface);
+                            await SaveSurfaceSnapshot(tripleSurface, "Triple");
                         }
 
                         if (Settings.SaveForQuad)
@@ -1049,7 +1051,7 @@ namespace CrossCam.ViewModel
                             quadCanvas.DrawSurface(doublePlainSurface, 0, 0);
                             quadCanvas.DrawSurface(doubleSwapSurface, 0, quadOffset);
 
-                            await SaveSurfaceSnapshot(quadSurface);
+                            await SaveSurfaceSnapshot(quadSurface, "Quad");
                         }
 
                         if (Settings.SaveForCardboard)
@@ -1067,6 +1069,8 @@ namespace CrossCam.ViewModel
 
                             var withBorderTemp = Settings.AddBorder;
                             Settings.AddBorder = false;
+                            var fuseGuideTemp = Settings.SaveWithFuseGuide;
+                            Settings.SaveWithFuseGuide = false;
 
                             DrawTool.DrawImagesOnCanvas(tempSurface, 
                                 LeftBitmap, LeftAlignmentTransform, LeftOrientation, IsLeftFrontFacing,
@@ -1076,8 +1080,9 @@ namespace CrossCam.ViewModel
                                                                              Settings.Mode == DrawMode.GrayscaleRedCyanAnaglyph);
 
                             Settings.AddBorder = withBorderTemp;
+                            Settings.SaveWithFuseGuide = fuseGuideTemp;
 
-                            await SaveSurfaceSnapshot(tempSurface);
+                            await SaveSurfaceSnapshot(tempSurface, "Cardboard");
                         }
                     });
                 }
@@ -1478,7 +1483,7 @@ namespace CrossCam.ViewModel
                 RightBitmap, RightAlignmentTransform, RightOrientation, IsRightFrontFacing,
                 Settings, Edits, grayscale ? DrawMode.GrayscaleRedCyanAnaglyph : DrawMode.RedCyanAnaglyph);
 
-            await SaveSurfaceSnapshot(tempSurface);
+            await SaveSurfaceSnapshot(tempSurface, grayscale ? "GrayscaleAnaglyph" : "Anaglyph");
         }
 
         protected override void ViewIsDisappearing(object sender, EventArgs e)
@@ -1493,11 +1498,11 @@ namespace CrossCam.ViewModel
             RemotePreviewFrame = bytes;
         }
 
-        private async Task SaveSurfaceSnapshot(SKSurface surface)
+        private async Task SaveSurfaceSnapshot(SKSurface surface, string saveMode)
         {
             using var skImage = surface.Snapshot();
             using var encoded = skImage.Encode(SKEncodedImageFormat.Jpeg, 100);
-            await _photoSaver.SavePhoto(encoded.ToArray(), Settings.SavingDirectory, Settings.SaveToExternal);
+            await _photoSaver.SavePhoto(encoded.ToArray(), Settings.SavingDirectory, Settings.SaveToExternal, saveMode);
         }
 
         private async Task<string> OpenLoadingPopup()
@@ -1628,7 +1633,7 @@ namespace CrossCam.ViewModel
                                 countPoint,
                                 countPaint);
 
-                            await SaveSurfaceSnapshot(dirtyMatchesSurface);
+                            await SaveSurfaceSnapshot(dirtyMatchesSurface, "KeyPoints");
                             
 
                             if ((Settings.AlignmentSettings.DiscardOutliersBySlope || Settings.AlignmentSettings.DiscardOutliersByDistance) &&
@@ -1652,7 +1657,7 @@ namespace CrossCam.ViewModel
                                     countPoint,
                                     countPaint);
 
-                                await SaveSurfaceSnapshot(cleanMatchesSurface);
+                                await SaveSurfaceSnapshot(cleanMatchesSurface, "KeyPoints");
                             }
                         }
 
