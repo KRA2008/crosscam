@@ -20,7 +20,7 @@ namespace CrossCam.Droid.CustomRenderer
 {
     public class PhotoSaver : IPhotoSaver
     {
-        public Task<bool> SavePhoto(byte[] image, string destination, bool external, string saveMode)
+        public Task<bool> SavePhoto(byte[] image, string saveOuterFolder, string saveInnerFolder, bool saveToSd)
         {
             var taskCompletionSource = new TaskCompletionSource<bool>();
 
@@ -31,14 +31,14 @@ namespace CrossCam.Droid.CustomRenderer
                     var photoId = Guid.NewGuid().ToString("N");
                     var currentTimeSeconds = JavaSystem.CurrentTimeMillis() / 1000;
 
-                    var externalDir = MainActivity.Instance?.GetExternalFilesDirs(Environment.DirectoryPictures)
+                    var outerFolder = MainActivity.Instance?.GetExternalFilesDirs(Environment.DirectoryPictures)
                         ?.ElementAtOrDefault(1);
-                    if (external && 
-                        externalDir != null)
+                    if (saveToSd && 
+                        outerFolder != null)
                     {
-                        var externalPicturesDir = externalDir.AbsolutePath;
-                        Directory.CreateDirectory(Path.Combine(externalPicturesDir,"CrossCam_" + saveMode));
-                        var newFilePath = Path.Combine(externalPicturesDir,"CrossCam_" + saveMode, photoId + ".jpg");
+                        var externalPicturesDir = outerFolder.AbsolutePath;
+                        Directory.CreateDirectory(Path.Combine(externalPicturesDir, saveInnerFolder));
+                        var newFilePath = Path.Combine(externalPicturesDir, saveInnerFolder, photoId + ".jpg");
                         await using var stream = new FileStream(newFilePath, FileMode.CreateNew);
                         using var bitmap = await BitmapFactory.DecodeByteArrayAsync(image, 0, image.Length);
                         if (bitmap != null)
@@ -54,15 +54,15 @@ namespace CrossCam.Droid.CustomRenderer
                     {
                         var contentResolver = MainActivity.Instance?.ContentResolver;
                         Uri destinationFinalUri;
-                        if (destination != null)
+                        if (saveOuterFolder != null)
                         {
-                            var pickedDir = DocumentFile.FromTreeUri(MainActivity.Instance, Uri.Parse(destination));
-                            var innerDir = pickedDir.FindFile("CrossCam_" + saveMode);
+                            var pickedDir = DocumentFile.FromTreeUri(MainActivity.Instance, Uri.Parse(saveOuterFolder));
+                            var innerDir = pickedDir.FindFile(saveInnerFolder);
                             if (innerDir == null ||
                                 !innerDir.Exists() || 
                                 !innerDir.IsDirectory)
                             {
-                                innerDir = pickedDir.CreateDirectory("CrossCam_" + saveMode);
+                                innerDir = pickedDir.CreateDirectory(saveInnerFolder);
                             }
                             var newFile = innerDir.CreateFile("image/jpeg", photoId + ".jpg");
                             if (newFile == null)
@@ -77,7 +77,7 @@ namespace CrossCam.Droid.CustomRenderer
                             values.Put(MediaStore.Images.Media.InterfaceConsts.MimeType, "image/jpeg");
                             values.Put(MediaStore.Images.Media.InterfaceConsts.DateAdded, currentTimeSeconds);
                             values.Put(MediaStore.Images.Media.InterfaceConsts.DateModified, currentTimeSeconds);
-                            values.Put(MediaStore.Images.Media.InterfaceConsts.RelativePath, "Pictures/CrossCam_" + saveMode);
+                            values.Put(MediaStore.Images.Media.InterfaceConsts.RelativePath, "Pictures/" + saveInnerFolder);
 
                             destinationFinalUri = contentResolver?.Insert(MediaStore.Images.Media.ExternalContentUri, values);
                         }

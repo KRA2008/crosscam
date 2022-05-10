@@ -12,7 +12,7 @@ namespace CrossCam.iOS.CustomRenderer
 {
     public class PhotoSaver : IPhotoSaver
     {
-        public Task<bool> SavePhoto(byte[] image, string destination, bool external, string saveMode)
+        public Task<bool> SavePhoto(byte[] image, string saveOuterFolder, string saveInnerFolder, bool saveToSd)
         {
             var taskCompletionSource = new TaskCompletionSource<bool>();
 
@@ -25,18 +25,18 @@ namespace CrossCam.iOS.CustomRenderer
                     uiImage = UIImage.FromImage(cgImage, 1, UIImageOrientation.Down);
                 }
 
-                var existingAlbum = GetCrossCamAlbum(saveMode);
+                var existingAlbum = GetCrossCamAlbum(saveInnerFolder);
                 if (existingAlbum == null)
                 {
                     var didAlbumCreationWork = PHPhotoLibrary.SharedPhotoLibrary.PerformChangesAndWait(() =>
                     {
-                        PHAssetCollectionChangeRequest.CreateAssetCollection("CrossCam_" + saveMode);
+                        PHAssetCollectionChangeRequest.CreateAssetCollection(saveInnerFolder);
                     }, out var albumCreationError);
                     if (existingAlbum == null ||
                         didAlbumCreationWork &&
                         albumCreationError == null)
                     {
-                        existingAlbum = GetCrossCamAlbum(saveMode);
+                        existingAlbum = GetCrossCamAlbum(saveInnerFolder);
                         if (existingAlbum == null)
                         {
                             Device.BeginInvokeOnMainThread(() =>
@@ -91,11 +91,11 @@ namespace CrossCam.iOS.CustomRenderer
             return taskCompletionSource.Task;
         }
 
-        private static PHAssetCollection GetCrossCamAlbum(string saveMode)
+        private static PHAssetCollection GetCrossCamAlbum(string saveInnerFolder)
         {
             var fetchOptions = new PHFetchOptions
             {
-                Predicate = NSPredicate.FromFormat("title=%@", new[] { NSObject.FromObject("CrossCam_" + saveMode) })
+                Predicate = NSPredicate.FromFormat("title=%@", new[] { NSObject.FromObject(saveInnerFolder) })
             };
             var collection = PHAssetCollection.FetchAssetCollections(PHAssetCollectionType.Album,
                 PHAssetCollectionSubtype.AlbumRegular, fetchOptions);

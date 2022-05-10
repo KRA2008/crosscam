@@ -59,6 +59,11 @@ namespace CrossCam.Model
                             SaveForCardboard = false;
                             break;
                     }
+                    SaveIntoSeparateFolders = false;
+                }
+                else
+                {
+                    SaveIntoSeparateFolders = true;
                 }
 
                 switch (value)
@@ -133,6 +138,7 @@ namespace CrossCam.Model
         public bool SaveForQuad { get; set; }
         public bool SaveWithFuseGuide { get; set; }
         public bool SaveForCardboard { get; set; }
+        public bool SaveIntoSeparateFolders { get; set; }
 
         public bool SendErrorReports1 { get; set; }
 
@@ -435,6 +441,7 @@ namespace CrossCam.Model
             SaveForQuad = false;
             SaveWithFuseGuide = false; //TODO: decide how to do this
             SaveForCardboard = false;
+            SaveIntoSeparateFolders = false;
 
             IsForceCamera1Enabled = false;
             IsForceCamera2Enabled = false;

@@ -26,6 +26,7 @@ namespace CrossCam.ViewModel
         private const string FULL_IMAGE = "Load full stereo image";
         private const string SINGLE_SIDE = "Load single side";
         private const string CANCEL = "Cancel";
+        private const string CROSSCAM = "CrossCam";
 
         public static BluetoothOperator BluetoothOperator;
         public BluetoothOperator BluetoothOperatorBindable => BluetoothOperator;
@@ -809,7 +810,7 @@ namespace CrossCam.ViewModel
                             var leftDestRect = leftMatrix.Invert().MapRect(SKRect.Create(0, 0, leftWidth, leftHeight));
                             canvas.DrawBitmap(LeftBitmap, leftDestRect);
 
-                            await SaveSurfaceSnapshot(tempSurface, "Separate");
+                            await SaveSurfaceSnapshot(tempSurface, CROSSCAM + (Settings.SaveIntoSeparateFolders ? "_Separate" : ""));
 
                             canvas.Clear();
                             canvas.ResetMatrix();
@@ -833,7 +834,7 @@ namespace CrossCam.ViewModel
                                 .MapRect(SKRect.Create(0, 0, rightWidth, rightHeight));
                             canvas.DrawBitmap(RightBitmap, rightDestRect);
 
-                            await SaveSurfaceSnapshot(tempSurface, "Separate");
+                            await SaveSurfaceSnapshot(tempSurface, CROSSCAM + (Settings.SaveIntoSeparateFolders ? "_Separate" : ""));
                         }
 
                         var finalImageWidth = DrawTool.CalculateJoinedCanvasWidthWithEditsNoBorder(LeftBitmap,
@@ -888,8 +889,8 @@ namespace CrossCam.ViewModel
                                 Edits, 
                                 DrawMode.Cross);
 
-                            await SaveSurfaceSnapshot(tempSurface,
-                                Settings.Mode == DrawMode.Parallel ? "Parallel" : "Cross");
+                            await SaveSurfaceSnapshot(tempSurface, CROSSCAM + (Settings.SaveIntoSeparateFolders ?
+                                Settings.Mode == DrawMode.Parallel ? "_Parallel" : "_Cross" : ""));
                         }
 
                         if (Settings.SaveForParallel &&
@@ -916,8 +917,8 @@ namespace CrossCam.ViewModel
                                 DrawMode.Parallel,
                                 withSwap: true);
 
-                            await SaveSurfaceSnapshot(tempSurface,
-                                Settings.Mode == DrawMode.Cross ? "Parallel" : "Cross");
+                            await SaveSurfaceSnapshot(tempSurface, CROSSCAM + (Settings.SaveIntoSeparateFolders ?
+                                Settings.Mode == DrawMode.Cross ? "_Parallel" : "_Cross" : ""));
                         }
 
                         if (Settings.SaveForRedCyanAnaglyph)
@@ -971,7 +972,7 @@ namespace CrossCam.ViewModel
                             var destRect = orientationMatrix.Invert().MapRect(SKRect.Create(0, 0, width, height));
                             canvas.DrawBitmap(targetBitmap, destRect);
 
-                            await SaveSurfaceSnapshot(tempSurface, "Single");
+                            await SaveSurfaceSnapshot(tempSurface, CROSSCAM + (Settings.SaveIntoSeparateFolders ? "_Single" : ""));
                         }
 
                         if (Settings.SaveForTriple)
@@ -1002,7 +1003,7 @@ namespace CrossCam.ViewModel
                             tripleCanvas.DrawSurface(doubleSurface, 0, 0);
                             tripleCanvas.DrawSurface(doubleSurface, tripleHalfOffset, 0);
 
-                            await SaveSurfaceSnapshot(tripleSurface, "Triple");
+                            await SaveSurfaceSnapshot(tripleSurface, CROSSCAM + (Settings.SaveIntoSeparateFolders ? "_Triple" : ""));
                         }
 
                         if (Settings.SaveForQuad)
@@ -1051,7 +1052,7 @@ namespace CrossCam.ViewModel
                             quadCanvas.DrawSurface(doublePlainSurface, 0, 0);
                             quadCanvas.DrawSurface(doubleSwapSurface, 0, quadOffset);
 
-                            await SaveSurfaceSnapshot(quadSurface, "Quad");
+                            await SaveSurfaceSnapshot(quadSurface, CROSSCAM + (Settings.SaveIntoSeparateFolders ? "_Quad" : ""));
                         }
 
                         if (Settings.SaveForCardboard)
@@ -1082,7 +1083,7 @@ namespace CrossCam.ViewModel
                             Settings.AddBorder = withBorderTemp;
                             Settings.SaveWithFuseGuide = fuseGuideTemp;
 
-                            await SaveSurfaceSnapshot(tempSurface, "Cardboard");
+                            await SaveSurfaceSnapshot(tempSurface, CROSSCAM + (Settings.SaveIntoSeparateFolders ? "_Cardboard" : ""));
                         }
                     });
                 }
@@ -1483,7 +1484,8 @@ namespace CrossCam.ViewModel
                 RightBitmap, RightAlignmentTransform, RightOrientation, IsRightFrontFacing,
                 Settings, Edits, grayscale ? DrawMode.GrayscaleRedCyanAnaglyph : DrawMode.RedCyanAnaglyph);
 
-            await SaveSurfaceSnapshot(tempSurface, grayscale ? "GrayscaleAnaglyph" : "Anaglyph");
+            await SaveSurfaceSnapshot(tempSurface,
+                CROSSCAM + (Settings.SaveIntoSeparateFolders ? grayscale ? "_GrayscaleAnaglyph" : "_Anaglyph" : ""));
         }
 
         protected override void ViewIsDisappearing(object sender, EventArgs e)
@@ -1498,11 +1500,11 @@ namespace CrossCam.ViewModel
             RemotePreviewFrame = bytes;
         }
 
-        private async Task SaveSurfaceSnapshot(SKSurface surface, string saveMode)
+        private async Task SaveSurfaceSnapshot(SKSurface surface, string saveInnerFolder)
         {
             using var skImage = surface.Snapshot();
             using var encoded = skImage.Encode(SKEncodedImageFormat.Jpeg, 100);
-            await _photoSaver.SavePhoto(encoded.ToArray(), Settings.SavingDirectory, Settings.SaveToExternal, saveMode);
+            await _photoSaver.SavePhoto(encoded.ToArray(), Settings.SavingDirectory, saveInnerFolder, Settings.SaveToExternal);
         }
 
         private async Task<string> OpenLoadingPopup()
