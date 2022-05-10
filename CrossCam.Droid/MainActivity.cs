@@ -13,6 +13,7 @@ using AndroidX.Core.Content;
 using CrossCam.Droid.CustomRenderer;
 using Java.Lang;
 using Xamarin.Forms;
+using Xamarin.Forms.Platform.Android;
 using Uri = Android.Net.Uri;
 
 namespace CrossCam.Droid
@@ -33,7 +34,7 @@ namespace CrossCam.Droid
         Icon = "@drawable/icon")]
     [IntentFilter(
         new [] {BluetoothDevice.ActionFound})]
-    public class MainActivity : Xamarin.Forms.Platform.Android.FormsAppCompatActivity
+    public class MainActivity : FormsAppCompatActivity
     {
         public LifecycleEventListener LifecycleEventListener;
 
@@ -61,32 +62,7 @@ namespace CrossCam.Droid
             base.OnCreate(bundle);
             Xamarin.Essentials.Platform.Init(this, bundle);
 
-            if (Window != null)
-            {
-                Window.AddFlags(WindowManagerFlags.Fullscreen);
-                Window.AddFlags(WindowManagerFlags.HardwareAccelerated);
-                Window.ClearFlags(WindowManagerFlags.ForceNotFullscreen);
-                if (Build.VERSION.SdkInt >= BuildVersionCodes.R)
-                {
-                    Window.SetDecorFitsSystemWindows(false);
-                    var insetsController = Window.InsetsController;
-                    insetsController?.Hide(WindowInsets.Type.NavigationBars());
-                }
-                else
-                {
-#pragma warning disable CS0618 // Type or member is obsolete
-                    var uiOptions = (int)Window.DecorView.SystemUiVisibility;
-                    uiOptions |= (int)SystemUiFlags.LowProfile;
-                    uiOptions |= (int)SystemUiFlags.Fullscreen;
-                    uiOptions |= (int)SystemUiFlags.HideNavigation;
-                    uiOptions |= (int)SystemUiFlags.ImmersiveSticky;
-                    uiOptions |= (int)SystemUiFlags.LayoutStable;
-
-                    Window.DecorView.SystemUiVisibility = (StatusBarVisibility)uiOptions;
-#pragma warning restore CS0618 // Type or member is obsolete
-                }
-            }
-
+            SetFullscreen();
 
             LifecycleEventListener = new LifecycleEventListener(this, WindowManager);
             LifecycleEventListener.Enable();
@@ -191,6 +167,33 @@ namespace CrossCam.Droid
 
                 await PlatformBluetooth.CheckForAndTurnOnLocationServices(true);
             }
+        }
+
+        private void SetFullscreen()
+        {
+            if (Window != null)
+            {
+                if (Build.VERSION.SdkInt >= BuildVersionCodes.R)
+                {
+                    Window.SetDecorFitsSystemWindows(false);
+                    var insetsController = Window.InsetsController;
+                    insetsController?.Hide(WindowInsets.Type.NavigationBars());
+                    Window.SetStatusBarColor(Color.Transparent.ToAndroid());
+                }
+                else
+                {
+                    var uiOptions = 0;
+                    uiOptions |= (int)SystemUiFlags.HideNavigation;
+                    uiOptions |= (int)SystemUiFlags.ImmersiveSticky;
+
+                    Window.DecorView.SystemUiVisibility = (StatusBarVisibility)uiOptions;
+                }
+            }
+        }
+        
+        public override void OnWindowFocusChanged(bool hasFocus)
+        {
+            SetFullscreen();
         }
 
         public override void OnRequestPermissionsResult(int requestCode, string[] permissions, Permission[] grantResults)

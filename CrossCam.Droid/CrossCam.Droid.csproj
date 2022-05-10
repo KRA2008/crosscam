@@ -341,6 +341,7 @@
   <ItemGroup>
     <AndroidResource Include="Resources\drawable-nodpi\quad.png" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="..\AutoAlignment\AutoAlignment.projitems" Label="Shared" />
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
 </Project>
