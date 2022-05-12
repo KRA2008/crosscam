@@ -59,11 +59,6 @@ namespace CrossCam.Model
                             SaveForCardboard = false;
                             break;
                     }
-                    SaveIntoSeparateFolders = false;
-                }
-                else
-                {
-                    SaveIntoSeparateFolders = true;
                 }
 
                 switch (value)
