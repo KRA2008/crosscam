@@ -352,10 +352,13 @@ namespace CrossCam.ViewModel
         private bool IsPictureWiderThanTall => LeftBitmap != null &&
                                                RightBitmap != null &&
                                                Settings.Mode != DrawMode.Parallel &&
-                                               DrawTool.CalculateJoinedCanvasWidthWithEditsNoBorder(LeftBitmap,
-                                                   LeftOrientation, RightBitmap, RightOrientation, Edits) >
+                                               DrawTool.CalculateJoinedCanvasWidthWithEditsNoBorder(
+                                                   LeftBitmap, LeftAlignmentTransform, LeftOrientation, IsLeftFrontFacing, 
+                                                   RightBitmap, RightAlignmentTransform, RightOrientation, IsRightFrontFacing, 
+                                                   Edits) >
                                                DrawTool.CalculateCanvasHeightWithEditsNoBorder(
-                                                   LeftBitmap, LeftOrientation, RightBitmap, RightOrientation,
+                                                   LeftBitmap, LeftAlignmentTransform, LeftOrientation, IsLeftFrontFacing, 
+                                                   RightBitmap, RightAlignmentTransform, RightOrientation, IsRightFrontFacing,
                                                    Edits);
 
         public string SavedSuccessMessage => "Saved to " + (Settings.SaveToExternal
@@ -837,8 +840,9 @@ namespace CrossCam.ViewModel
                             await SaveSurfaceSnapshot(tempSurface, CROSSCAM + (Settings.SaveIntoSeparateFolders ? "_Separate" : ""));
                         }
 
-                        var finalImageWidth = DrawTool.CalculateJoinedCanvasWidthWithEditsNoBorder(LeftBitmap,
-                            LeftOrientation, RightBitmap, RightOrientation, Edits);
+                        var finalImageWidth = DrawTool.CalculateJoinedCanvasWidthWithEditsNoBorder(
+                            LeftBitmap, LeftAlignmentTransform, LeftOrientation, IsLeftFrontFacing, 
+                            RightBitmap, RightAlignmentTransform, RightOrientation, IsRightFrontFacing, Edits);
                         var finalTripleWidth = (int) (1.5 * finalImageWidth);
                         var borderThickness = Settings.AddBorder
                             ? (int) (DrawTool.BORDER_CONVERSION_FACTOR * Settings.BorderWidthProportion *
@@ -847,8 +851,9 @@ namespace CrossCam.ViewModel
                         finalImageWidth += (3 * borderThickness);
                         finalTripleWidth += (int)(4.25d * borderThickness); //I don't know why 1/4 but that's what it is.
                         var tripleHalfOffset = (int) (finalImageWidth - borderThickness / 2d); //I don't know why 1/2 but that's what it is.
-                        var finalImageHeight = DrawTool.CalculateCanvasHeightWithEditsNoBorder(LeftBitmap,
-                                                   LeftOrientation, RightBitmap, RightOrientation, Edits) +
+                        var finalImageHeight = DrawTool.CalculateCanvasHeightWithEditsNoBorder(
+                                                   LeftBitmap, LeftAlignmentTransform, LeftOrientation, IsLeftFrontFacing, 
+                                                   RightBitmap, RightAlignmentTransform, RightOrientation, IsRightFrontFacing, Edits) +
                                                2 * borderThickness;
                         if (Settings.SaveWithFuseGuide)
                         {
@@ -1057,12 +1062,13 @@ namespace CrossCam.ViewModel
 
                         if (Settings.SaveForCardboard)
                         {
-                            var width = DrawTool.CalculateJoinedCanvasWidthWithEditsNoBorder(LeftBitmap,
-                                LeftOrientation, RightBitmap, RightOrientation,
-                                Edits);
+                            var width = DrawTool.CalculateJoinedCanvasWidthWithEditsNoBorder(
+                                LeftBitmap, LeftAlignmentTransform, LeftOrientation, IsLeftFrontFacing, 
+                                RightBitmap, RightAlignmentTransform, RightOrientation, IsRightFrontFacing, Edits);
                             var height =
-                                DrawTool.CalculateCanvasHeightWithEditsNoBorder(LeftBitmap, LeftOrientation,
-                                    RightBitmap, RightOrientation, Edits);
+                                DrawTool.CalculateCanvasHeightWithEditsNoBorder(
+                                    LeftBitmap, LeftAlignmentTransform, LeftOrientation, IsLeftFrontFacing,
+                                    RightBitmap, RightAlignmentTransform, RightOrientation, IsRightFrontFacing, Edits);
 
                             using var tempSurface = SKSurface.Create(new SKImageInfo(width, height));
                             using var canvas = tempSurface.Canvas;
@@ -1469,10 +1475,12 @@ namespace CrossCam.ViewModel
 
         private async Task DrawAnaglyph(bool grayscale)
         {
-            var canvasWidth = DrawTool.CalculateOverlayedCanvasWidthWithEditsNoBorder(LeftBitmap, LeftOrientation,
-                RightBitmap, RightOrientation, Edits);
-            var canvasHeight = DrawTool.CalculateCanvasHeightWithEditsNoBorder(LeftBitmap, LeftOrientation, RightBitmap,
-                RightOrientation, Edits);
+            var canvasWidth = DrawTool.CalculateOverlayedCanvasWidthWithEditsNoBorder(
+                LeftBitmap, LeftAlignmentTransform, LeftOrientation, IsLeftFrontFacing,
+                RightBitmap, RightAlignmentTransform, RightOrientation, IsRightFrontFacing, Edits);
+            var canvasHeight = DrawTool.CalculateCanvasHeightWithEditsNoBorder(
+                LeftBitmap, LeftAlignmentTransform, LeftOrientation, IsLeftFrontFacing, 
+                RightBitmap, RightAlignmentTransform, RightOrientation, IsRightFrontFacing, Edits);
             using var tempSurface =
                 SKSurface.Create(new SKImageInfo(canvasWidth, canvasHeight));
             var canvas = tempSurface.Canvas;
