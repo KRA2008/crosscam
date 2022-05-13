@@ -65,8 +65,8 @@ namespace CrossCam.CustomElement
         public static readonly BindableProperty IsFocusCircleLockedProperty = BindableProperty.Create(nameof(IsFocusCircleLocked),
             typeof(bool), typeof(CameraModule), false, BindingMode.OneWayToSource);
 
-        public static readonly BindableProperty BluetoothOperatorProperty = BindableProperty.Create(nameof(BluetoothOperator),
-            typeof(BluetoothOperator), typeof(CameraModule));
+        public static readonly BindableProperty PairOperatorProperty = BindableProperty.Create(nameof(PairOperator),
+            typeof(PairOperator), typeof(CameraModule));
 
         public static readonly BindableProperty AvailableCamerasProperty = BindableProperty.Create(nameof(AvailableCameras),
             typeof(ObservableCollection<AvailableCamera>), typeof(CameraModule), defaultBindingMode:BindingMode.TwoWay);
@@ -155,10 +155,10 @@ namespace CrossCam.CustomElement
             set => SetValue(IsFocusCircleLockedProperty, value);
         }
 
-        public BluetoothOperator BluetoothOperator
+        public PairOperator PairOperator
         {
-            get => (BluetoothOperator)GetValue(BluetoothOperatorProperty);
-            set => SetValue(BluetoothOperatorProperty, value);
+            get => (PairOperator)GetValue(PairOperatorProperty);
+            set => SetValue(PairOperatorProperty, value);
         }
 
         public ObservableCollection<AvailableCamera> AvailableCameras

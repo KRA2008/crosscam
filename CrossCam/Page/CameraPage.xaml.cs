@@ -655,7 +655,7 @@ namespace CrossCam.Page
                 }
             }
 
-            _viewModel.BluetoothOperatorBindable.RequestPreviewFrame();
+            _viewModel.PairOperatorBindable.RequestPreviewFrame();
         }
 
         private void ResetLineAndDonutGuides()

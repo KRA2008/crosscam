@@ -139,7 +139,7 @@
     <Reference Include="Mono.Android" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="CustomRenderer\PlatformBluetooth.cs" />
+    <Compile Include="CustomRenderer\PlatformPair.cs" />
     <Compile Include="CustomRenderer\Camera2\CameraCaptureListener.cs" />
     <Compile Include="CustomRenderer\Camera2\CameraCaptureStateListener.cs" />
     <Compile Include="CustomRenderer\Camera2\CameraStateListener.cs" />

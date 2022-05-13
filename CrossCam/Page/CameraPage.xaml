@@ -156,7 +156,7 @@
                              ErrorMessage="{Binding ErrorMessage}"
                              WasSwipedTrigger="{Binding WasSwipedTrigger}"
                              IsFocusCircleLocked="{Binding IsFocusCircleLocked}"
-                             BluetoothOperator="{Binding BluetoothOperatorBindable}"
+                             PairOperator="{Binding PairOperatorBindable}"
                              AvailableCameras="{Binding AvailableCameras}"
                              ChosenCamera="{Binding ChosenCamera}"
                              PreviewMode="{Binding Settings.Mode}"
@@ -314,7 +314,7 @@
                BackgroundColor="Transparent">
             <Frame.Triggers>
                 <DataTrigger TargetType="Frame"
-                             Binding="{Binding BluetoothOperatorBindable.PairStatus, Converter={vc:EnumCompareConverter}, ConverterParameter={x:Static vm:PairStatus.Disconnected}}"
+                             Binding="{Binding PairOperatorBindable.PairStatus, Converter={vc:EnumCompareConverter}, ConverterParameter={x:Static vm:PairStatus.Disconnected}}"
                              Value="true">
                     <DataTrigger.Setters>
                         <Setter Property="BorderColor"
@@ -322,7 +322,7 @@
                     </DataTrigger.Setters>
                 </DataTrigger>
                 <DataTrigger TargetType="Frame"
-                             Binding="{Binding BluetoothOperatorBindable.PairStatus, Converter={vc:EnumCompareConverter}, ConverterParameter={x:Static vm:PairStatus.Connecting}}"
+                             Binding="{Binding PairOperatorBindable.PairStatus, Converter={vc:EnumCompareConverter}, ConverterParameter={x:Static vm:PairStatus.Connecting}}"
                              Value="true">
                     <DataTrigger.Setters>
                         <Setter Property="BorderColor"
@@ -330,7 +330,7 @@
                     </DataTrigger.Setters>
                 </DataTrigger>
                 <DataTrigger TargetType="Frame"
-                             Binding="{Binding BluetoothOperatorBindable.PairStatus, Converter={vc:EnumCompareConverter}, ConverterParameter={x:Static vm:PairStatus.Connected}}"
+                             Binding="{Binding PairOperatorBindable.PairStatus, Converter={vc:EnumCompareConverter}, ConverterParameter={x:Static vm:PairStatus.Connected}}"
                              Value="true">
                     <DataTrigger.Setters>
                         <Setter Property="BorderColor"
@@ -356,8 +356,8 @@
                 </StackLayout>
                 <ActivityIndicator AbsoluteLayout.LayoutFlags="All"
                                    AbsoluteLayout.LayoutBounds="0,0,1,1"
-                                   IsVisible="{Binding BluetoothOperatorBindable.PairStatus, Converter={vc:EnumCompareConverter}, ConverterParameter={x:Static vm:PairStatus.Connecting}}"
-                                   IsRunning="{Binding BluetoothOperatorBindable.PairStatus, Converter={vc:EnumCompareConverter}, ConverterParameter={x:Static vm:PairStatus.Connecting}}"
+                                   IsVisible="{Binding PairOperatorBindable.PairStatus, Converter={vc:EnumCompareConverter}, ConverterParameter={x:Static vm:PairStatus.Connecting}}"
+                                   IsRunning="{Binding PairOperatorBindable.PairStatus, Converter={vc:EnumCompareConverter}, ConverterParameter={x:Static vm:PairStatus.Connecting}}"
                                    InputTransparent="True"
                                    Color="White"/>
             </AbsoluteLayout>
@@ -1525,7 +1525,7 @@
         <Label Text="Transmitting... &#10; (keep device unlocked)"
                Style="{StaticResource _feedback}"
                IsVisible="{Binding WorkflowStage, Converter={vc:EnumCompareConverter}, ConverterParameter={x:Static vm:WorkflowStage.Transmitting}}"/>
-        <Label Text="{Binding BluetoothOperatorBindable.InitialSyncProgress, StringFormat='Syncing ({0}%)'}"
+        <Label Text="{Binding PairOperatorBindable.InitialSyncProgress, StringFormat='Syncing ({0}%)'}"
                Style="{StaticResource _feedback}"
                IsVisible="{Binding WorkflowStage, Converter={vc:EnumCompareConverter}, ConverterParameter={x:Static vm:WorkflowStage.Syncing}}"/>
         <Label Text="Steady..."
@@ -1533,17 +1533,17 @@
                IsVisible="{Binding IsHoldSteadySecondary}"/>
 
         <Label Style="{StaticResource _feedback}"
-               Text="{Binding BluetoothOperatorBindable.CountdownTimeRemainingSec}"
+               Text="{Binding PairOperatorBindable.CountdownTimeRemainingSec}"
                FontSize="32"
                IsVisible="False">
             <Label.Triggers>
                 <MultiTrigger TargetType="Label">
                     <MultiTrigger.Conditions>
-                        <BindingCondition Binding="{Binding BluetoothOperatorBindable.CountdownTimeRemainingSec, Converter={vc:GreaterThanZeroValueConverter}}"
+                        <BindingCondition Binding="{Binding PairOperatorBindable.CountdownTimeRemainingSec, Converter={vc:GreaterThanZeroValueConverter}}"
                                           Value="true"/>
-                        <BindingCondition Binding="{Binding BluetoothOperatorBindable.PairStatus, Converter={vc:EnumCompareConverter}, ConverterParameter={x:Static vm:PairStatus.Connected}}"
+                        <BindingCondition Binding="{Binding PairOperatorBindable.PairStatus, Converter={vc:EnumCompareConverter}, ConverterParameter={x:Static vm:PairStatus.Connected}}"
                                           Value="true"/>
-                        <BindingCondition Binding="{Binding BluetoothOperatorBindable.IsPrimary}"
+                        <BindingCondition Binding="{Binding PairOperatorBindable.IsPrimary}"
                                           Value="true"/>
                     </MultiTrigger.Conditions>
                     <MultiTrigger.Setters>
@@ -1617,7 +1617,7 @@
                        HorizontalOptions="EndAndExpand">
                     <Label.Triggers>
                         <DataTrigger TargetType="Label"
-                                     Binding="{Binding BluetoothOperatorBindable.PairStatus, Converter={vc:EnumCompareConverter}, ConverterParameter={x:Static vm:PairStatus.Connected}}"
+                                     Binding="{Binding PairOperatorBindable.PairStatus, Converter={vc:EnumCompareConverter}, ConverterParameter={x:Static vm:PairStatus.Connected}}"
                                      Value="true">
                             <Setter Property="Text"
                                     Value="SECONDARY"/>
@@ -1727,7 +1727,7 @@
                            HorizontalOptions="EndAndExpand">
                         <Label.Triggers>
                             <DataTrigger TargetType="Label"
-                                         Binding="{Binding BluetoothOperatorBindable.PairStatus, Converter={vc:EnumCompareConverter}, ConverterParameter={x:Static vm:PairStatus.Connected}}"
+                                         Binding="{Binding PairOperatorBindable.PairStatus, Converter={vc:EnumCompareConverter}, ConverterParameter={x:Static vm:PairStatus.Connected}}"
                                          Value="true">
                                 <Setter Property="Text"
                                         Value="SECONDARY"/>
@@ -1778,7 +1778,7 @@
                            HorizontalOptions="EndAndExpand">
                         <Label.Triggers>
                             <DataTrigger TargetType="Label"
-                                         Binding="{Binding BluetoothOperatorBindable.PairStatus, Converter={vc:EnumCompareConverter}, ConverterParameter={x:Static vm:PairStatus.Connected}}"
+                                         Binding="{Binding PairOperatorBindable.PairStatus, Converter={vc:EnumCompareConverter}, ConverterParameter={x:Static vm:PairStatus.Connected}}"
                                          Value="true">
                                 <Setter Property="Text"
                                         Value="SECONDARY"/>

@@ -28,8 +28,8 @@ namespace CrossCam.ViewModel
         private const string CANCEL = "Cancel";
         private const string CROSSCAM = "CrossCam";
 
-        public static BluetoothOperator BluetoothOperator;
-        public BluetoothOperator BluetoothOperatorBindable => BluetoothOperator;
+        public static PairOperator PairOperator;
+        public PairOperator PairOperatorBindable => PairOperator;
 
         public WorkflowStage WorkflowStage { get; set; }
         public CropMode CropMode { get; set; }
@@ -219,22 +219,22 @@ namespace CrossCam.ViewModel
         
         public bool ShouldCenterLoadBeVisible => WorkflowStage == WorkflowStage.Capture && 
                                                  Settings.PortraitCaptureButtonPosition != PortraitCaptureButtonPosition.Middle && 
-                                                 BluetoothOperator.PairStatus != PairStatus.Connected;
+                                                 PairOperator.PairStatus != PairStatus.Connected;
         public bool ShouldLeftLoadBeVisible => CameraColumn == 0 && 
                                                WorkflowStage == WorkflowStage.Capture && 
                                                Settings.PortraitCaptureButtonPosition == PortraitCaptureButtonPosition.Middle && 
-                                               BluetoothOperator.PairStatus != PairStatus.Connected;
+                                               PairOperator.PairStatus != PairStatus.Connected;
         public bool ShouldRightLoadBeVisible => CameraColumn == 1 && 
                                                 WorkflowStage == WorkflowStage.Capture && 
                                                 Settings.PortraitCaptureButtonPosition == PortraitCaptureButtonPosition.Middle && 
-                                                BluetoothOperator.PairStatus != PairStatus.Connected;
+                                                PairOperator.PairStatus != PairStatus.Connected;
         
         public bool DoesCaptureOrientationMatchViewOrientation => WasCapturePortrait == IsViewPortrait;
         public bool ShouldSettingsAndHelpBeVisible => !IsBusy && 
                                                       WorkflowStage != WorkflowStage.View;
         public bool IsExactlyOnePictureTaken => LeftBitmap == null ^ RightBitmap == null;
         public bool IsCaptureModeAndEitherPrimaryOrDisconnected => WorkflowStage == WorkflowStage.Capture && 
-                                                                    (BluetoothOperatorBindable.PairStatus == PairStatus.Disconnected || 
+                                                                    (PairOperatorBindable.PairStatus == PairStatus.Disconnected || 
                                                                      Settings.IsPairedPrimary.HasValue && Settings.IsPairedPrimary.Value);
 
         public Rectangle CaptureButtonPosition
@@ -301,7 +301,7 @@ namespace CrossCam.ViewModel
 
         public bool ShouldLineGuidesBeVisible => (((IsNothingCaptured && Settings.ShowGuideLinesWithFirstCapture)
                                                   || (IsExactlyOnePictureTaken && WorkflowStage != WorkflowStage.Loading)
-                                                  || (BluetoothOperator.IsPrimary && BluetoothOperator.PairStatus == PairStatus.Connected && WorkflowStage == WorkflowStage.Capture))
+                                                  || (PairOperator.IsPrimary && PairOperator.PairStatus == PairStatus.Connected && WorkflowStage == WorkflowStage.Capture))
                                                   && Settings.AreGuideLinesVisible
                                                   || WorkflowStage == WorkflowStage.Keystone
                                                   || WorkflowStage == WorkflowStage.ManualAlign
@@ -309,7 +309,7 @@ namespace CrossCam.ViewModel
                                                  Settings.Mode != DrawMode.Cardboard;
         public bool ShouldDonutGuideBeVisible => ((IsNothingCaptured && Settings.ShowGuideDonutWithFirstCapture)
                                                  || (IsExactlyOnePictureTaken && WorkflowStage != WorkflowStage.Loading)
-                                                 || (BluetoothOperator.IsPrimary && BluetoothOperator.PairStatus == PairStatus.Connected && WorkflowStage == WorkflowStage.Capture))
+                                                 || (PairOperator.IsPrimary && PairOperator.PairStatus == PairStatus.Connected && WorkflowStage == WorkflowStage.Capture))
                                                  && Settings.IsGuideDonutVisible;
 
         public bool ShouldRollGuideBeVisible => WorkflowStage == WorkflowStage.Capture && Settings.ShowRollGuide;
@@ -335,8 +335,8 @@ namespace CrossCam.ViewModel
                                                           Settings.SaveForQuad ||
                                                           Settings.SaveForCardboard);
 
-        public bool ShouldPairPreviewBeVisible => (BluetoothOperator.PairStatus == PairStatus.Connected &&
-                                                      BluetoothOperator.IsPrimary || Settings.Mode == DrawMode.Cardboard)  &&
+        public bool ShouldPairPreviewBeVisible => (PairOperator.PairStatus == PairStatus.Connected &&
+                                                      PairOperator.IsPrimary || Settings.Mode == DrawMode.Cardboard)  &&
                                                   WorkflowStage == WorkflowStage.Capture;
 
         public int IconColumn => CameraColumn == 0 ? 1 : 0;
@@ -387,16 +387,16 @@ namespace CrossCam.ViewModel
             RightAlignmentTransform = SKMatrix.Identity;
             Settings.PropertyChanged += SettingsOnPropertyChanged;
             Settings.AlignmentSettings.PropertyChanged += AlignmentSettingsOnPropertyChanged;
-            BluetoothOperator = new BluetoothOperator(Settings);
-            BluetoothOperator.Connected += BluetoothOperatorOnConnected;
-            BluetoothOperator.Disconnected += BluetoothOperatorOnDisconnected;
-            BluetoothOperator.PreviewFrameReceived += BluetoothOperatorOnPreviewFrameReceived;
-            BluetoothOperator.CapturedImageReceived += BluetoothOperatorOnCapturedImageReceived;
-            BluetoothOperator.InitialSyncStarted += BluetoothOperatorInitialSyncStarted;
-            BluetoothOperator.InitialSyncCompleted += BluetoothOperatorInitialSyncCompleted;
-            BluetoothOperator.TransmissionStarted += BluetoothOperatorTransmissionStarted;
-            BluetoothOperator.TransmissionComplete += BluetoothOperatorTransmissionComplete;
-            BluetoothOperator.CountdownTimerSyncCompleteSecondary += BluetoothOperatorCountdownTimerSyncCompleteSecondary;
+            PairOperator = new PairOperator(Settings);
+            PairOperator.Connected += PairOperatorOnConnected;
+            PairOperator.Disconnected += PairOperatorOnDisconnected;
+            PairOperator.PreviewFrameReceived += PairOperatorOnPreviewFrameReceived;
+            PairOperator.CapturedImageReceived += PairOperatorOnCapturedImageReceived;
+            PairOperator.InitialSyncStarted += PairOperatorInitialSyncStarted;
+            PairOperator.InitialSyncCompleted += PairOperatorInitialSyncCompleted;
+            PairOperator.TransmissionStarted += PairOperatorTransmissionStarted;
+            PairOperator.TransmissionComplete += PairOperatorTransmissionComplete;
+            PairOperator.CountdownTimerSyncCompleteSecondary += PairOperatorCountdownTimerSyncCompleteSecondary;
 
             DeviceDisplay.MainDisplayInfoChanged += (sender, args) =>
             {
@@ -427,8 +427,8 @@ namespace CrossCam.ViewModel
                     }
                     else
                     {
-                        if (BluetoothOperator.IsPrimary &&
-                            BluetoothOperator.PairStatus == PairStatus.Connected)
+                        if (PairOperator.IsPrimary &&
+                            PairOperator.PairStatus == PairStatus.Connected)
                         {
                             WasCapturePaired = true;
                             WorkflowStage = WorkflowStage.Loading;
@@ -444,15 +444,15 @@ namespace CrossCam.ViewModel
                         {
                             SetLeftBitmap(
                                 LocalCapturedFrame.Frame, LocalCapturedFrame.Orientation, LocalCapturedFrame.IsFrontFacing,
-                                BluetoothOperator.PairStatus == PairStatus.Disconnected,
-                                BluetoothOperator.PairStatus == PairStatus.Disconnected);
+                                PairOperator.PairStatus == PairStatus.Disconnected,
+                                PairOperator.PairStatus == PairStatus.Disconnected);
                         }
                         else
                         {
                             SetRightBitmap(
                                 LocalCapturedFrame.Frame, LocalCapturedFrame.Orientation, LocalCapturedFrame.IsFrontFacing,
-                                BluetoothOperator.PairStatus == PairStatus.Disconnected,
-                                BluetoothOperator.PairStatus == PairStatus.Disconnected);
+                                PairOperator.PairStatus == PairStatus.Disconnected,
+                                PairOperator.PairStatus == PairStatus.Disconnected);
                         }
                     }
                 }
@@ -500,7 +500,7 @@ namespace CrossCam.ViewModel
             {
                 try
                 {
-                    if (BluetoothOperator.PairStatus == PairStatus.Connected)
+                    if (PairOperator.PairStatus == PairStatus.Connected)
                     {
                         ClearCaptures();
                     }
@@ -530,7 +530,7 @@ namespace CrossCam.ViewModel
             {
                 try
                 {
-                    if (BluetoothOperator.PairStatus == PairStatus.Connected)
+                    if (PairOperator.PairStatus == PairStatus.Connected)
                     {
                         ClearCaptures();
                     }
@@ -631,10 +631,10 @@ namespace CrossCam.ViewModel
 
             CapturePictureCommand = new Command(() =>
             {
-                if (BluetoothOperator.IsPrimary &&
-                    BluetoothOperator.PairStatus == PairStatus.Connected)
+                if (PairOperator.IsPrimary &&
+                    PairOperator.PairStatus == PairStatus.Connected)
                 {
-                    BluetoothOperator.BeginSyncedCapture();
+                    PairOperator.BeginSyncedCapture();
                 }
                 else
                 {
@@ -1152,32 +1152,39 @@ namespace CrossCam.ViewModel
 
             PairCommand = new Command(async () =>
             {
-                if (BluetoothOperator.PairStatus == PairStatus.Disconnected)
+                try
                 {
-                    if (!Settings.IsPairedPrimary.HasValue)
+                    if (PairOperator.PairStatus == PairStatus.Disconnected)
                     {
-                        await Device.InvokeOnMainThreadAsync(async () =>
+                        if (!Settings.IsPairedPrimary.HasValue)
                         {
-                            await CoreMethods.DisplayAlert("Pair Role Not Selected",
-                                "Please go to the Pairing page (via the Settings page) and choose a pairing role for this device before attempting to pair.",
-                                "Ok");
-                        });
-                    }
-                    else
-                    {
-                        if (Settings.IsPairedPrimary.Value)
-                        {
-                            await BluetoothOperator.SetUpPrimaryForPairing();
+                            await Device.InvokeOnMainThreadAsync(async () =>
+                            {
+                                await CoreMethods.DisplayAlert("Pair Role Not Selected",
+                                    "Please go to the Pairing page (via the Settings page) and choose a pairing role for this device before attempting to pair.",
+                                    "Ok");
+                            });
                         }
                         else
                         {
-                            await BluetoothOperator.SetUpSecondaryForPairing();
+                            if (Settings.IsPairedPrimary.Value)
+                            {
+                                await PairOperator.SetUpPrimaryForPairing();
+                            }
+                            else
+                            {
+                                await PairOperator.SetUpSecondaryForPairing();
+                            }
                         }
                     }
+                    else
+                    {
+                        PairOperator.Disconnect();
+                    }
                 }
-                else
+                catch (Exception e)
                 {
-                    BluetoothOperator.Disconnect();
+                    ErrorMessage = e.ToString();
                 }
             });
         }
@@ -1224,37 +1231,37 @@ namespace CrossCam.ViewModel
             _isAlignmentInvalid = true;
         }
 
-        private void BluetoothOperatorCountdownTimerSyncCompleteSecondary(object sender, EventArgs e)
+        private void PairOperatorCountdownTimerSyncCompleteSecondary(object sender, EventArgs e)
         {
-            if (!BluetoothOperator.IsPrimary)
+            if (!PairOperator.IsPrimary)
             {
                 IsHoldSteadySecondary = true;
             }
         }
 
-        private void BluetoothOperatorTransmissionComplete(object sender, EventArgs e)
+        private void PairOperatorTransmissionComplete(object sender, EventArgs e)
         {
             WorkflowStage = WorkflowStage.Capture;
         }
 
-        private void BluetoothOperatorTransmissionStarted(object sender, EventArgs e)
+        private void PairOperatorTransmissionStarted(object sender, EventArgs e)
         {
             IsHoldSteadySecondary = false;
             WorkflowStage = WorkflowStage.Transmitting;
         }
 
-        private void BluetoothOperatorInitialSyncStarted(object sender, EventArgs e)
+        private void PairOperatorInitialSyncStarted(object sender, EventArgs e)
         {
             WorkflowStage = WorkflowStage.Syncing;
         }
 
-        private void BluetoothOperatorInitialSyncCompleted(object sender, EventArgs e)
+        private void PairOperatorInitialSyncCompleted(object sender, EventArgs e)
         {
             TriggerMovementHint();
             WorkflowStage = WorkflowStage.Capture;
         }
 
-        private void BluetoothOperatorOnDisconnected(object sender, EventArgs e)
+        private void PairOperatorOnDisconnected(object sender, EventArgs e)
         {
             if (WorkflowStage == WorkflowStage.Syncing)
             {
@@ -1269,7 +1276,7 @@ namespace CrossCam.ViewModel
             RaisePropertyChanged(nameof(ShouldRightLoadBeVisible));
         }
 
-        private void BluetoothOperatorOnConnected(object sender, EventArgs e)
+        private void PairOperatorOnConnected(object sender, EventArgs e)
         {
             ShowFovPreparationPopup();
             RaisePropertyChanged(nameof(CaptureButtonPosition));
@@ -1410,8 +1417,8 @@ namespace CrossCam.ViewModel
                 WasCaptureCross = !WasCaptureCross;
             }
 
-            BluetoothOperator.CurrentCoreMethods = CoreMethods;
-            BluetoothOperator.ErrorOccurred += BluetoothOperatorOnErrorOccurred;
+            PairOperator.CurrentCoreMethods = CoreMethods;
+            PairOperator.ErrorOccurred += PairOperatorOnErrorOccurred;
 
             await Task.Delay(100);
             await EvaluateAndShowWelcomePopup();
@@ -1422,7 +1429,7 @@ namespace CrossCam.ViewModel
             if (!Settings.IsFovCorrectionSet &&
                 Settings.IsPairedPrimary.HasValue &&
                 Settings.IsPairedPrimary.Value &&
-                BluetoothOperator.PairStatus == PairStatus.Connected)
+                PairOperator.PairStatus == PairStatus.Connected)
             {
                 await Device.InvokeOnMainThreadAsync(async () =>
                 {
@@ -1433,12 +1440,12 @@ namespace CrossCam.ViewModel
             }
         }
 
-        private void BluetoothOperatorOnErrorOccurred(object sender, ErrorEventArgs e)
+        private void PairOperatorOnErrorOccurred(object sender, ErrorEventArgs e)
         {
             _secondaryErrorOccurred = true;
         }
 
-        private void BluetoothOperatorOnCapturedImageReceived(object sender, byte[] e)
+        private void PairOperatorOnCapturedImageReceived(object sender, byte[] e)
         {
             RemotePreviewFrame = null;
             var bitmap = SKBitmap.Decode(e);
@@ -1451,14 +1458,14 @@ namespace CrossCam.ViewModel
                 SetLeftBitmap(bitmap, SKEncodedOrigin.Default, false, false, true); //TODO: correct orientation?
             }
 
-            BluetoothOperator.SendTransmissionComplete();
+            PairOperator.SendTransmissionComplete();
         }
 
         private void TriggerMovementHint()
         {
             if ((LeftBitmap == null && RightBitmap != null) ||
                 (LeftBitmap != null && RightBitmap == null) ||
-                (BluetoothOperator.PairStatus == PairStatus.Connected &&
+                (PairOperator.PairStatus == PairStatus.Connected &&
                 RightBitmap == null &&
                 LeftBitmap == null))
             {
@@ -1498,12 +1505,12 @@ namespace CrossCam.ViewModel
 
         protected override void ViewIsDisappearing(object sender, EventArgs e)
         {
-            BluetoothOperator.ErrorOccurred -= BluetoothOperatorOnErrorOccurred;
+            PairOperator.ErrorOccurred -= PairOperatorOnErrorOccurred;
 
             base.ViewIsDisappearing(sender, e);
         }
 
-        private void BluetoothOperatorOnPreviewFrameReceived(object sender, byte[] bytes)
+        private void PairOperatorOnPreviewFrameReceived(object sender, byte[] bytes)
         {
             RemotePreviewFrame = bytes;
         }
@@ -1708,8 +1715,8 @@ namespace CrossCam.ViewModel
 
         private void ApplyFovCorrectionToZoom()
         {
-            if (BluetoothOperator.IsPrimary &&
-                BluetoothOperator.PairStatus == PairStatus.Connected)
+            if (PairOperator.IsPrimary &&
+                PairOperator.PairStatus == PairStatus.Connected)
             {
                 if (Settings.IsCaptureLeftFirst)
                 {
@@ -1748,7 +1755,7 @@ namespace CrossCam.ViewModel
                 else
                 {
                     if (WasCapturePaired &&
-                        BluetoothOperator.IsPrimary)
+                        PairOperator.IsPrimary)
                     {
                         if (Settings.IsFovCorrectionSet)
                         {
@@ -1793,7 +1800,7 @@ namespace CrossCam.ViewModel
                 else
                 {
                     if (WasCapturePaired &&
-                        BluetoothOperator.IsPrimary)
+                        PairOperator.IsPrimary)
                     {
                         if (Settings.IsFovCorrectionSet)
                         {
@@ -2155,10 +2162,10 @@ namespace CrossCam.ViewModel
 
         private void ClearCaptures()
         {
-            if (BluetoothOperator.PairStatus == PairStatus.Connected &&
-                BluetoothOperator.IsPrimary)
+            if (PairOperator.PairStatus == PairStatus.Connected &&
+                PairOperator.IsPrimary)
             {
-                BluetoothOperator.RequestPreviewFrame();
+                PairOperator.RequestPreviewFrame();
             }
 
             CameraColumn = Settings.IsCaptureLeftFirst ? 0 : 1;

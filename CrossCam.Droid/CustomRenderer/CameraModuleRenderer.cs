@@ -171,14 +171,14 @@ namespace CrossCam.Droid.CustomRenderer
                 if (e.NewElement != null)
                 {
                     _cameraModule = e.NewElement;
-                    _cameraModule.BluetoothOperator.CaptureSyncTimeElapsed += (sender, args) =>
+                    _cameraModule.PairOperator.CaptureSyncTimeElapsed += (sender, args) =>
                     {
                         Device.BeginInvokeOnMainThread(() =>
                         {
                             TakePhotoButtonTapped(true);
                         });
                     };
-                    _cameraModule.BluetoothOperator.PreviewFrameRequestReceived += (sender, args) =>
+                    _cameraModule.PairOperator.PreviewFrameRequestReceived += (sender, args) =>
                     {
                         _readyToCapturePreviewFrameInterlocked = 1;
                     };
@@ -392,13 +392,13 @@ namespace CrossCam.Droid.CustomRenderer
                 origin = 0;
             }
 
-            if (_cameraModule.BluetoothOperator.PairStatus == PairStatus.Connected &&
+            if (_cameraModule.PairOperator.PairStatus == PairStatus.Connected &&
                 Interlocked.Exchange(ref _readyToCapturePreviewFrameInterlocked, 0) == 1 &&
                 bitmap != null)
             {
                 using var stream = new MemoryStream();
                 bitmap.Compress(Bitmap.CompressFormat.Jpeg, 50, stream);
-                _cameraModule.BluetoothOperator.SendLatestPreviewFrame(stream.ToArray());
+                _cameraModule.PairOperator.SendLatestPreviewFrame(stream.ToArray());
             }
 
             _cameraModule.PreviewImage = new IncomingFrame
@@ -493,11 +493,11 @@ namespace CrossCam.Droid.CustomRenderer
 
         private void TakePhotoButtonTapped(bool isSyncReentry = false)
         {
-            if (_cameraModule.BluetoothOperator.PairStatus == PairStatus.Connected &&
-                _cameraModule.BluetoothOperator.IsPrimary &&
+            if (_cameraModule.PairOperator.PairStatus == PairStatus.Connected &&
+                _cameraModule.PairOperator.IsPrimary &&
                 !isSyncReentry)
             {
-                _cameraModule.BluetoothOperator.BeginSyncedCapture();
+                _cameraModule.PairOperator.BeginSyncedCapture();
                 return;
             }
             if (_useCamera2)
@@ -915,8 +915,8 @@ namespace CrossCam.Droid.CustomRenderer
 
         public void OnShutter()
         {
-            if (_cameraModule.BluetoothOperator.IsPrimary ||
-                _cameraModule.BluetoothOperator.PairStatus != PairStatus.Connected)
+            if (_cameraModule.PairOperator.IsPrimary ||
+                _cameraModule.PairOperator.PairStatus != PairStatus.Connected)
             {
                 _cameraModule.CaptureSuccess = !_cameraModule.CaptureSuccess;
             }
@@ -940,10 +940,10 @@ namespace CrossCam.Droid.CustomRenderer
                         // restarting preview failed, try again later, some devices are just weird
                     }
 
-                    if (_cameraModule.BluetoothOperator.PairStatus == PairStatus.Connected &&
-                        !_cameraModule.BluetoothOperator.IsPrimary)
+                    if (_cameraModule.PairOperator.PairStatus == PairStatus.Connected &&
+                        !_cameraModule.PairOperator.IsPrimary)
                     {
-                        _cameraModule.BluetoothOperator.SendCapture(data);
+                        _cameraModule.PairOperator.SendCapture(data);
                     }
                     else
                     {
@@ -1416,10 +1416,10 @@ namespace CrossCam.Droid.CustomRenderer
                 var readerListener = new ImageAvailableListener();
                 readerListener.Photo += (sender, buffer) =>
                 {
-                    if (_cameraModule.BluetoothOperator.PairStatus == PairStatus.Connected &&
-                        !_cameraModule.BluetoothOperator.IsPrimary)
+                    if (_cameraModule.PairOperator.PairStatus == PairStatus.Connected &&
+                        !_cameraModule.PairOperator.IsPrimary)
                     {
-                        _cameraModule.BluetoothOperator.SendCapture(buffer);
+                        _cameraModule.PairOperator.SendCapture(buffer);
                     }
                     else
                     {
@@ -1449,8 +1449,8 @@ namespace CrossCam.Droid.CustomRenderer
                 _previewRequestBuilder.SetTag(CameraState.PictureTaken.ToString());
 
                 _camera2Session.Capture(captureBuilder.Build(), captureListener, null);
-                if (_cameraModule.BluetoothOperator.IsPrimary ||
-                    _cameraModule.BluetoothOperator.PairStatus != PairStatus.Connected)
+                if (_cameraModule.PairOperator.IsPrimary ||
+                    _cameraModule.PairOperator.PairStatus != PairStatus.Connected)
                 {
                     _cameraModule.CaptureSuccess = !_cameraModule.CaptureSuccess;
                 }

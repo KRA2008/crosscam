@@ -5,12 +5,12 @@ namespace CrossCam.CustomElement
 {
     public class PairPreviewView : ContentView
     {
-        public static readonly BindableProperty BluetoothOperatorProperty = BindableProperty.Create(nameof(BluetoothOperator),
-            typeof(BluetoothOperator), typeof(CameraModule));
+        public static readonly BindableProperty BluetoothOperatorProperty = BindableProperty.Create(nameof(PairOperator),
+            typeof(PairOperator), typeof(CameraModule));
 
-        public BluetoothOperator BluetoothOperator
+        public PairOperator PairOperator
         {
-            get => (BluetoothOperator)GetValue(BluetoothOperatorProperty);
+            get => (PairOperator)GetValue(BluetoothOperatorProperty);
             set => SetValue(BluetoothOperatorProperty, value);
         }
     }

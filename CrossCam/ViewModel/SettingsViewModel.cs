@@ -109,7 +109,7 @@ namespace CrossCam.ViewModel
         protected override void ViewIsAppearing(object sender, EventArgs e)
         {
             base.ViewIsAppearing(sender, e);
-            CameraViewModel.BluetoothOperator.CurrentCoreMethods = CoreMethods;
+            CameraViewModel.PairOperator.CurrentCoreMethods = CoreMethods;
         }
 
         private void SaveSettings(object sender, PropertyChangedEventArgs e)
