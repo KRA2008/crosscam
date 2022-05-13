@@ -8,9 +8,19 @@
              x:DataType="viewModel:PairingViewModel"
              x:Class="CrossCam.Page.PairingPage"
              Title="Pairing">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <Style TargetType="BoxView">
+                <Setter Property="Color"
+                        Value="White"/>
+                <Setter Property="HeightRequest"
+                        Value="1"/>
+            </Style>
+        </ResourceDictionary>
+    </ContentPage.Resources>
     <ScrollView>
         <StackLayout Padding="10">
-            <Label Text=""/>
+            <BoxView/>
 
             <Label Text="If you have two devices with CrossCam installed, you can connect them in order to take simultaneous photos from two perspectives. This makes the best cross views possible."/>
 
