@@ -604,55 +604,50 @@ namespace CrossCam.Page
 
             if (_viewModel.RemotePreviewFrame != null)
             {
-                var bitmap = SKBitmap.Decode(_viewModel.RemotePreviewFrame); //, _viewModel.BluetoothOperatorBindable.PairStatus == PairStatus.Connected); //TODO: add handle orientation
-
-                if (bitmap != null)
+                float secondaryRatio;
+                if (bitmap.Width < bitmap.Height) //portrait
                 {
-                    float secondaryRatio;
-                    if (bitmap.Width < bitmap.Height) //portrait
-                    {
-                        secondaryRatio = bitmap.Height / (1f * bitmap.Width);
-                    }
-                    else //landscape
-                    {
-                        secondaryRatio = bitmap.Width / (1f * bitmap.Height);
-                    }
-
-                    // when portrait, the wider side sets the height for both
-                    // when landscape, fill width
-
-                    double height;
-                    double width;
-                    if (bitmap.Height > bitmap.Width) // portrait
-                    {
-                        height = canvas.DeviceClipBounds.Width * _viewModel.PreviewAspectRatio;
-                        width = height / secondaryRatio;
-                    }
-                    else //landscape
-                    {
-                        width = canvas.DeviceClipBounds.Width;
-                        height = width / secondaryRatio;
-                    }
-
-                    var zoomDirection = _viewModel.Settings.FovPrimaryCorrection > _viewModel.Settings.FovSecondaryCorrection; // true means zoom out on secondary, false means zoom in
-                    var zoomAmount = zoomDirection
-                        ? 1 / (1 + _viewModel.Settings.FovPrimaryCorrection)
-                        : 1 + _viewModel.Settings.FovSecondaryCorrection;
-
-                    var zoomedWidth = width * zoomAmount;
-                    var zoomedHeight = height * zoomAmount;
-
-                    var newX = (canvas.DeviceClipBounds.Width - zoomedWidth) / 2;
-                    var newY = (canvas.DeviceClipBounds.Height - zoomedHeight) / 2f;
-
-                    canvas.DrawBitmap(bitmap,
-                        new SKRect(0, 0, bitmap.Width, bitmap.Height),
-                        new SKRect(
-                            (float)newX,
-                            (float)newY,
-                            (float)(newX + zoomedWidth),
-                            (float)(newY + zoomedHeight)));
+                    secondaryRatio = bitmap.Height / (1f * bitmap.Width);
                 }
+                else //landscape
+                {
+                    secondaryRatio = bitmap.Width / (1f * bitmap.Height);
+                }
+
+                // when portrait, the wider side sets the height for both
+                // when landscape, fill width
+
+                double height;
+                double width;
+                if (bitmap.Height > bitmap.Width) // portrait
+                {
+                    height = canvas.DeviceClipBounds.Width * _viewModel.PreviewAspectRatio;
+                    width = height / secondaryRatio;
+                }
+                else //landscape
+                {
+                    width = canvas.DeviceClipBounds.Width;
+                    height = width / secondaryRatio;
+                }
+
+                var zoomDirection = _viewModel.Settings.FovPrimaryCorrection > _viewModel.Settings.FovSecondaryCorrection; // true means zoom out on secondary, false means zoom in
+                var zoomAmount = zoomDirection
+                    ? 1 / (1 + _viewModel.Settings.FovPrimaryCorrection)
+                    : 1 + _viewModel.Settings.FovSecondaryCorrection;
+
+                var zoomedWidth = width * zoomAmount;
+                var zoomedHeight = height * zoomAmount;
+
+                var newX = (canvas.DeviceClipBounds.Width - zoomedWidth) / 2;
+                var newY = (canvas.DeviceClipBounds.Height - zoomedHeight) / 2f;
+
+                canvas.DrawBitmap(bitmap,
+                    new SKRect(0, 0, bitmap.Width, bitmap.Height),
+                    new SKRect(
+                        (float)newX,
+                        (float)newY,
+                        (float)(newX + zoomedWidth),
+                        (float)(newY + zoomedHeight)));
             }
 
             _viewModel.PairOperatorBindable.RequestPreviewFrame();

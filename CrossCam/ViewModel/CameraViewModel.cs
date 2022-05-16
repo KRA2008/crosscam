@@ -16,6 +16,7 @@ using Plugin.DeviceInfo;
 using SkiaSharp;
 using Xamarin.Essentials;
 using Xamarin.Forms;
+using Xamarin.Forms.PlatformConfiguration;
 using ErrorEventArgs = CrossCam.CustomElement.ErrorEventArgs;
 using Exception = System.Exception;
 
@@ -55,7 +56,8 @@ namespace CrossCam.ViewModel
         public bool CaptureSuccess { get; set; }
         public int CameraColumn { get; set; }
 
-        public byte[] RemotePreviewFrame { get; set; }
+        public SKBitmap RemotePreviewFrame { get; set; }
+        public SKEncodedOrigin RemotePreviewOrientation { get; set; }
         public IncomingFrame LocalPreviewFrame { get; set; }
         public IncomingFrame LocalCapturedFrame { get; set; }
 
@@ -1512,7 +1514,34 @@ namespace CrossCam.ViewModel
 
         private void PairOperatorOnPreviewFrameReceived(object sender, byte[] bytes)
         {
-            RemotePreviewFrame = bytes;
+            if (Device.RuntimePlatform == Device.Android)
+            {
+                using var data = SKData.Create(new MemoryStream(bytes, 0, bytes.Length - 1));
+                var orientationByte = bytes.Last();
+                switch (orientationByte)
+                {
+                    case 1:
+                        RemotePreviewOrientation = SKEncodedOrigin.RightTop;
+                        break;
+                    case 2:
+                        RemotePreviewOrientation = SKEncodedOrigin.BottomRight;
+                        break;
+                    case 3:
+                        RemotePreviewOrientation = SKEncodedOrigin.LeftBottom;
+                        break;
+                    default:
+                        RemotePreviewOrientation = SKEncodedOrigin.TopLeft;
+                        break;
+                }
+                RemotePreviewFrame = SKBitmap.Decode(data);
+            }
+            else if (Device.RuntimePlatform == Device.iOS)
+            {
+                using var data = SKData.Create(new SKMemoryStream(bytes));
+                using var codec = SKCodec.Create(data);
+                RemotePreviewOrientation = codec.EncodedOrigin;
+                RemotePreviewFrame = SKBitmap.Decode(data);
+            }
         }
 
         private async Task SaveSurfaceSnapshot(SKSurface surface, string saveInnerFolder)
