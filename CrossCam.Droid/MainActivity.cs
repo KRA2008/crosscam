@@ -49,6 +49,9 @@ namespace CrossCam.Droid
             BrowseDirectoriesRequestCode,
             BluetoothBasicRequestCode,
             BluetoothAdminRequestCode,
+            BluetoothScanRequestCode,
+            BluetoothAdvertiseRequestCode,
+            BluetoothConnectRequestCode,
             FineLocationRequestCode,
             CoarseLocationRequestCode,
             TurnLocationServicesOnRequestCode
@@ -210,7 +213,10 @@ namespace CrossCam.Droid
             }
 
             if (requestCode == (int) RequestCodes.BluetoothBasicRequestCode ||
-                requestCode == (int) RequestCodes.BluetoothAdminRequestCode)
+                requestCode == (int) RequestCodes.BluetoothAdminRequestCode ||
+                requestCode == (int) RequestCodes.BluetoothAdvertiseRequestCode ||
+                requestCode == (int) RequestCodes.BluetoothScanRequestCode ||
+                requestCode == (int) RequestCodes.BluetoothConnectRequestCode)
             {
                 if (!grantResults.Contains(Permission.Granted))
                 {
@@ -282,6 +288,33 @@ namespace CrossCam.Droid
             {
                 ActivityCompat.RequestPermissions(Instance, new[] { Manifest.Permission.BluetoothAdmin },
                     (int)RequestCodes.BluetoothAdminRequestCode);
+                return;
+            }
+
+            if (Build.VERSION.SdkInt >= BuildVersionCodes.S &&
+                ContextCompat.CheckSelfPermission(this, Manifest.Permission.BluetoothAdvertise) !=
+                (int)Permission.Granted)
+            {
+                ActivityCompat.RequestPermissions(Instance, new[] { Manifest.Permission.BluetoothAdvertise },
+                    (int)RequestCodes.BluetoothAdvertiseRequestCode);
+                return;
+            }
+
+            if (Build.VERSION.SdkInt >= BuildVersionCodes.S && 
+                ContextCompat.CheckSelfPermission(this, Manifest.Permission.BluetoothConnect) !=
+                (int)Permission.Granted)
+            {
+                ActivityCompat.RequestPermissions(Instance, new[] { Manifest.Permission.BluetoothConnect },
+                    (int)RequestCodes.BluetoothConnectRequestCode);
+                return;
+            }
+
+            if (Build.VERSION.SdkInt >= BuildVersionCodes.S && 
+                ContextCompat.CheckSelfPermission(this, Manifest.Permission.BluetoothScan) !=
+                (int)Permission.Granted)
+            {
+                ActivityCompat.RequestPermissions(Instance, new[] { Manifest.Permission.BluetoothScan },
+                    (int)RequestCodes.BluetoothScanRequestCode);
                 return;
             }
 
