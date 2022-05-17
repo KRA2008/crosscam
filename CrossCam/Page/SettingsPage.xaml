@@ -201,11 +201,15 @@
                    IsVisible="{Binding Settings.IsPairedPrimary, Converter={vc:NullableBooleanConverter}}"/>
             <StackLayout Orientation="Horizontal"
                          IsVisible="{Binding Settings.IsPairedPrimary, Converter={vc:NullableBooleanConverter}}">
-                <StackLayout HorizontalOptions="EndAndExpand">
+                <StackLayout HorizontalOptions="EndAndExpand"
+                             IsVisible="{Binding Settings.IsFovCorrectionSet}">
                     <Label Text="{Binding Settings.FovPrimaryCorrection, StringFormat='Primary: {0}'}"
                            HorizontalOptions="EndAndExpand"/>
                     <Label Text="{Binding Settings.FovSecondaryCorrection, StringFormat='Secondary: {0}'}"
                            HorizontalOptions="EndAndExpand"/>
+                </StackLayout>
+                <StackLayout IsVisible="{Binding Settings.IsFovCorrectionSet, Converter={vc:BooleanInvertConverter}}">
+                    <Label Text="FOV correction not set (do a capture with paired devices to walk through set up)."/>
                 </StackLayout>
                 <Button Text="Reset"
                         Command="{Binding ResetFovCorrectionCommand}"

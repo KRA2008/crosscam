@@ -55,9 +55,8 @@ namespace CrossCam.ViewModel
 
         public bool CaptureSuccess { get; set; }
         public int CameraColumn { get; set; }
-
-        public SKBitmap RemotePreviewFrame { get; set; }
-        public SKEncodedOrigin RemotePreviewOrientation { get; set; }
+        
+        public IncomingFrame RemotePreviewFrame { get; set; }
         public IncomingFrame LocalPreviewFrame { get; set; }
         public IncomingFrame LocalCapturedFrame { get; set; }
 
@@ -201,8 +200,8 @@ namespace CrossCam.ViewModel
         }
 
         public bool ShouldLeftLeftRetakeBeVisible => LeftBitmap != null && 
-                                                     (WorkflowStage == WorkflowStage.Final && 
-                                                      DoesCaptureOrientationMatchViewOrientation || 
+                                                     (WorkflowStage == WorkflowStage.Final &&
+                                                      WasCapturePortrait == IsViewPortrait || 
                                                       WorkflowStage == WorkflowStage.Capture && 
                                                       (Settings.PortraitCaptureButtonPosition == PortraitCaptureButtonPosition.Right || 
                                                        Settings.PortraitCaptureButtonPosition == PortraitCaptureButtonPosition.Middle));
@@ -213,8 +212,8 @@ namespace CrossCam.ViewModel
                                                       WorkflowStage == WorkflowStage.Capture && 
                                                       Settings.PortraitCaptureButtonPosition == PortraitCaptureButtonPosition.Right;
         public bool ShouldRightRightRetakeBeVisible => RightBitmap != null && 
-                                                       (WorkflowStage == WorkflowStage.Final && 
-                                                        DoesCaptureOrientationMatchViewOrientation || 
+                                                       (WorkflowStage == WorkflowStage.Final &&
+                                                        WasCapturePortrait == IsViewPortrait || 
                                                         WorkflowStage == WorkflowStage.Capture && 
                                                         (Settings.PortraitCaptureButtonPosition == PortraitCaptureButtonPosition.Left || 
                                                          Settings.PortraitCaptureButtonPosition == PortraitCaptureButtonPosition.Middle));
@@ -230,8 +229,7 @@ namespace CrossCam.ViewModel
                                                 WorkflowStage == WorkflowStage.Capture && 
                                                 Settings.PortraitCaptureButtonPosition == PortraitCaptureButtonPosition.Middle && 
                                                 PairOperator.PairStatus != PairStatus.Connected;
-        
-        public bool DoesCaptureOrientationMatchViewOrientation => WasCapturePortrait == IsViewPortrait;
+
         public bool ShouldSettingsAndHelpBeVisible => !IsBusy && 
                                                       WorkflowStage != WorkflowStage.View;
         public bool IsExactlyOnePictureTaken => LeftBitmap == null ^ RightBitmap == null;
@@ -1447,17 +1445,18 @@ namespace CrossCam.ViewModel
             _secondaryErrorOccurred = true;
         }
 
-        private void PairOperatorOnCapturedImageReceived(object sender, byte[] e)
+        private void PairOperatorOnCapturedImageReceived(object sender, byte[] bytes)
         {
             RemotePreviewFrame = null;
-            var bitmap = SKBitmap.Decode(e);
+            using var data = SKData.Create(new SKMemoryStream(bytes));
+            using var codec = SKCodec.Create(data);
             if (Settings.IsCaptureLeftFirst)
             {
-                SetRightBitmap(bitmap, SKEncodedOrigin.Default, false, false, true); //TODO: correct orientation?
+                SetRightBitmap(SKBitmap.Decode(data), codec.EncodedOrigin, IsLeftFrontFacing, false, true);
             }
             else
             {
-                SetLeftBitmap(bitmap, SKEncodedOrigin.Default, false, false, true); //TODO: correct orientation?
+                SetLeftBitmap(SKBitmap.Decode(data), codec.EncodedOrigin, IsRightFrontFacing, false, true);
             }
 
             PairOperator.SendTransmissionComplete();
@@ -1514,33 +1513,46 @@ namespace CrossCam.ViewModel
 
         private void PairOperatorOnPreviewFrameReceived(object sender, byte[] bytes)
         {
+            RemotePreviewFrame = OrientAndDecodeIncomingFrame(bytes);
+        }
+
+        private static IncomingFrame OrientAndDecodeIncomingFrame(byte[] bytes)
+        {
             if (Device.RuntimePlatform == Device.Android)
             {
                 using var data = SKData.Create(new MemoryStream(bytes, 0, bytes.Length - 1));
                 var orientationByte = bytes.Last();
+                SKEncodedOrigin orientation;
                 switch (orientationByte)
                 {
                     case 1:
-                        RemotePreviewOrientation = SKEncodedOrigin.RightTop;
+                        orientation = SKEncodedOrigin.RightTop;
                         break;
                     case 2:
-                        RemotePreviewOrientation = SKEncodedOrigin.BottomRight;
+                        orientation = SKEncodedOrigin.BottomRight;
                         break;
                     case 3:
-                        RemotePreviewOrientation = SKEncodedOrigin.LeftBottom;
+                        orientation = SKEncodedOrigin.LeftBottom;
                         break;
                     default:
-                        RemotePreviewOrientation = SKEncodedOrigin.TopLeft;
+                        orientation = SKEncodedOrigin.TopLeft;
                         break;
                 }
-                RemotePreviewFrame = SKBitmap.Decode(data);
+                return new IncomingFrame
+                {
+                    Orientation = orientation,
+                    Frame = SKBitmap.Decode(data)
+                };
             }
-            else if (Device.RuntimePlatform == Device.iOS)
+            else
             {
                 using var data = SKData.Create(new SKMemoryStream(bytes));
                 using var codec = SKCodec.Create(data);
-                RemotePreviewOrientation = codec.EncodedOrigin;
-                RemotePreviewFrame = SKBitmap.Decode(data);
+                return new IncomingFrame
+                {
+                    Orientation = codec.EncodedOrigin,
+                    Frame = SKBitmap.Decode(data)
+                };
             }
         }
 
@@ -1760,7 +1772,7 @@ namespace CrossCam.ViewModel
             }
         }
 
-        public void SetLeftBitmap(SKBitmap bitmap, SKEncodedOrigin orientation, bool isFrontFacing,
+        private void SetLeftBitmap(SKBitmap bitmap, SKEncodedOrigin orientation, bool isFrontFacing,
             bool withMovementTrigger, bool stepForward)
         {
             if (bitmap == null) return;
@@ -1805,7 +1817,7 @@ namespace CrossCam.ViewModel
             }
         }
 
-        public void SetRightBitmap(SKBitmap bitmap, SKEncodedOrigin orientation, bool isFrontFacing,
+        private void SetRightBitmap(SKBitmap bitmap, SKEncodedOrigin orientation, bool isFrontFacing,
             bool withMovementTrigger, bool stepForward)
         {
             if (bitmap == null) return;

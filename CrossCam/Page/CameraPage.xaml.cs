@@ -200,7 +200,7 @@ namespace CrossCam.Page
                 _gyroscopeStopwatch.Restart();
                 Device.BeginInvokeOnMainThread(() =>
                 {
-                    _capturedCanvas.InvalidateSurface();
+                    _canvas.InvalidateSurface();
                 });
             }
             else
@@ -302,7 +302,7 @@ namespace CrossCam.Page
         {
             Device.BeginInvokeOnMainThread(() =>
             {
-                _capturedCanvas.InvalidateSurface();
+                _canvas.InvalidateSurface();
             });
         }
 
@@ -321,7 +321,7 @@ namespace CrossCam.Page
                         break;
                     case nameof(CameraViewModel.Settings):
                         EvaluateSensors();
-                        _capturedCanvas.InvalidateSurface();
+                        _canvas.InvalidateSurface();
                         ResetLineAndDonutGuides();
                         break;
                     case nameof(CameraViewModel.CameraColumn):
@@ -329,8 +329,7 @@ namespace CrossCam.Page
                         PlaceRollGuide();
                         break;
                     case nameof(CameraViewModel.IsViewPortrait):
-                        _capturedCanvas.InvalidateSurface();
-                        _pairedPreviewCanvas.InvalidateSurface();
+                        _canvas.InvalidateSurface();
                         ResetLineAndDonutGuides();
                         SetMarginsForNotch();
                         SwapSidesIfCardboard();
@@ -345,7 +344,7 @@ namespace CrossCam.Page
                         ProcessDoubleTap();
                         _newLeftCapture = true;
                         CardboardCheckAndSaveOrientationSnapshot();
-                        _capturedCanvas.InvalidateSurface();
+                        _canvas.InvalidateSurface();
                         break;
                     case nameof(CameraViewModel.RightOrientation):
                     case nameof(CameraViewModel.RightBitmap):
@@ -353,13 +352,11 @@ namespace CrossCam.Page
                         ProcessDoubleTap();
                         _newRightCapture = true;
                         CardboardCheckAndSaveOrientationSnapshot();
-                        _capturedCanvas.InvalidateSurface();
-                        break;
-                    case nameof(CameraViewModel.LocalPreviewFrame):
-                        _capturedCanvas.InvalidateSurface();
+                        _canvas.InvalidateSurface();
                         break;
                     case nameof(CameraViewModel.RemotePreviewFrame):
-                        _pairedPreviewCanvas.InvalidateSurface();
+                    case nameof(CameraViewModel.LocalPreviewFrame):
+                        _canvas.InvalidateSurface();
                         break;
                 }
             });
@@ -424,7 +421,7 @@ namespace CrossCam.Page
             }
         }
 
-        private void OnCapturedCanvasInvalidated(object sender, SKPaintSurfaceEventArgs e)
+        private void OnCanvasInvalidated(object sender, SKPaintSurfaceEventArgs e)
 	    {
             var surface = e.Surface;
 
@@ -453,6 +450,7 @@ namespace CrossCam.Page
             SKEncodedOrigin? rightOrientation = SKEncodedOrigin.Default;
             var isLeftFrontFacing = false;
             var isRightFrontFacing = false;
+
             if (_viewModel.LeftBitmap != null &&
                 _viewModel.RightBitmap != null)
             {
@@ -484,6 +482,13 @@ namespace CrossCam.Page
                     left = _viewModel.LocalPreviewFrame?.Frame;
                     leftOrientation = _viewModel.LocalPreviewFrame?.Orientation;
                     isLeftFrontFacing = _viewModel.LocalPreviewFrame?.IsFrontFacing ?? false;
+
+                    if (_viewModel.PairOperatorBindable.PairStatus == PairStatus.Connected)
+                    {
+                        right = _viewModel.RemotePreviewFrame?.Frame;
+                        rightOrientation = _viewModel.RemotePreviewFrame?.Orientation;
+                        isRightFrontFacing = _viewModel.LocalPreviewFrame?.IsFrontFacing ?? false;
+                    }
                 }
 
                 if (_newRightCapture || 
@@ -501,6 +506,13 @@ namespace CrossCam.Page
                     right = _viewModel.LocalPreviewFrame?.Frame;
                     rightOrientation = _viewModel.LocalPreviewFrame?.Orientation;
                     isRightFrontFacing = _viewModel.LocalPreviewFrame?.IsFrontFacing ?? false;
+
+                    if (_viewModel.PairOperatorBindable.PairStatus == PairStatus.Connected)
+                    {
+                        left = _viewModel.RemotePreviewFrame?.Frame;
+                        leftOrientation = _viewModel.RemotePreviewFrame?.Orientation;
+                        isLeftFrontFacing = _viewModel.LocalPreviewFrame?.IsFrontFacing ?? false;
+                    }
                 }
             }
 
@@ -509,9 +521,33 @@ namespace CrossCam.Page
                 if (_viewModel.LeftBitmap == null &&
                     _viewModel.RightBitmap == null)
                 {
-                    left = right = _viewModel.LocalPreviewFrame?.Frame;
-                    leftOrientation = rightOrientation = _viewModel.LocalPreviewFrame?.Orientation;
-                    isLeftFrontFacing = isRightFrontFacing = _viewModel.LocalPreviewFrame?.IsFrontFacing ?? false;
+                    if (_viewModel.PairOperatorBindable.PairStatus == PairStatus.Connected)
+                    {
+                        if (_viewModel.Settings.IsCaptureLeftFirst)
+                        {
+                            left = _viewModel.LocalPreviewFrame?.Frame;
+                            leftOrientation = _viewModel.LocalPreviewFrame?.Orientation;
+                            isLeftFrontFacing = _viewModel.LocalPreviewFrame?.IsFrontFacing ?? false;
+                            right = _viewModel.RemotePreviewFrame?.Frame;
+                            rightOrientation = _viewModel.RemotePreviewFrame?.Orientation;
+                            isRightFrontFacing = _viewModel.LocalPreviewFrame?.IsFrontFacing ?? false;
+                        }
+                        else
+                        {
+                            right = _viewModel.LocalPreviewFrame?.Frame;
+                            rightOrientation = _viewModel.LocalPreviewFrame?.Orientation;
+                            isRightFrontFacing = _viewModel.LocalPreviewFrame?.IsFrontFacing ?? false;
+                            left = _viewModel.RemotePreviewFrame?.Frame;
+                            leftOrientation = _viewModel.RemotePreviewFrame?.Orientation;
+                            isLeftFrontFacing = _viewModel.LocalPreviewFrame?.IsFrontFacing ?? false;
+                        }
+                    }
+                    else
+                    {
+                        left = right = _viewModel.LocalPreviewFrame?.Frame;
+                        leftOrientation = rightOrientation = _viewModel.LocalPreviewFrame?.Orientation;
+                        isLeftFrontFacing = isRightFrontFacing = _viewModel.LocalPreviewFrame?.IsFrontFacing ?? false;
+                    }
                 }
             }
 
@@ -594,63 +630,11 @@ namespace CrossCam.Page
                              DrawQuality.Preview : DrawQuality.Review,
                 cardboardVert: cardboardVert,
                 cardboardHor: cardboardHor);
-        }
 
-        private void OnPairedPreviewCanvasInvalidated(object sender, SKPaintSurfaceEventArgs e)
-        {
-            var canvas = e.Surface.Canvas;
-
-            canvas.Clear();
-
-            if (_viewModel.RemotePreviewFrame != null)
+            if (_viewModel.PairOperatorBindable.PairStatus == PairStatus.Connected)
             {
-                float secondaryRatio;
-                if (bitmap.Width < bitmap.Height) //portrait
-                {
-                    secondaryRatio = bitmap.Height / (1f * bitmap.Width);
-                }
-                else //landscape
-                {
-                    secondaryRatio = bitmap.Width / (1f * bitmap.Height);
-                }
-
-                // when portrait, the wider side sets the height for both
-                // when landscape, fill width
-
-                double height;
-                double width;
-                if (bitmap.Height > bitmap.Width) // portrait
-                {
-                    height = canvas.DeviceClipBounds.Width * _viewModel.PreviewAspectRatio;
-                    width = height / secondaryRatio;
-                }
-                else //landscape
-                {
-                    width = canvas.DeviceClipBounds.Width;
-                    height = width / secondaryRatio;
-                }
-
-                var zoomDirection = _viewModel.Settings.FovPrimaryCorrection > _viewModel.Settings.FovSecondaryCorrection; // true means zoom out on secondary, false means zoom in
-                var zoomAmount = zoomDirection
-                    ? 1 / (1 + _viewModel.Settings.FovPrimaryCorrection)
-                    : 1 + _viewModel.Settings.FovSecondaryCorrection;
-
-                var zoomedWidth = width * zoomAmount;
-                var zoomedHeight = height * zoomAmount;
-
-                var newX = (canvas.DeviceClipBounds.Width - zoomedWidth) / 2;
-                var newY = (canvas.DeviceClipBounds.Height - zoomedHeight) / 2f;
-
-                canvas.DrawBitmap(bitmap,
-                    new SKRect(0, 0, bitmap.Width, bitmap.Height),
-                    new SKRect(
-                        (float)newX,
-                        (float)newY,
-                        (float)(newX + zoomedWidth),
-                        (float)(newY + zoomedHeight)));
+                _viewModel.PairOperatorBindable.RequestPreviewFrame();
             }
-
-            _viewModel.PairOperatorBindable.RequestPreviewFrame();
         }
 
         private void ResetLineAndDonutGuides()
@@ -857,7 +841,7 @@ namespace CrossCam.Page
         };
         private const int MIN_MOVE_COUNTER = 4;
         private bool _didSwap;
-        private void _capturedCanvas_OnTouch(object sender, SKTouchEventArgs e)
+        private void _canvas_OnTouch(object sender, SKTouchEventArgs e)
         {
             if (_viewModel == null) return;
 

@@ -131,16 +131,6 @@
                     </DataTrigger>
                 </Image.Triggers>
             </Image>
-            <forms:SKCanvasView x:Name="_pairedPreviewCanvas"
-                                Grid.Column="{Binding IconColumn}"
-                                PaintSurface="OnPairedPreviewCanvasInvalidated"
-                                IsVisible="{Binding ShouldPairPreviewBeVisible}">
-                <View.GestureRecognizers>
-                    <SwipeGestureRecognizer Command="{Binding SwapSidesCommand}"
-                                            Direction="Left,Right"
-                                            Threshold="50"/>
-                </View.GestureRecognizers>
-            </forms:SKCanvasView>
             <ce:CameraModule x:Name="_cameraModule"
                              Grid.Column="{Binding CameraColumn}"
                              SwitchToContinuousFocusTrigger="{Binding SwitchToContinuousFocusTrigger}"
@@ -161,12 +151,12 @@
                              ChosenCamera="{Binding ChosenCamera}"
                              PreviewMode="{Binding Settings.Mode}"
                              PreviewImage="{Binding LocalPreviewFrame}"/>
-            <forms:SKCanvasView x:Name="_capturedCanvas"
+            <forms:SKCanvasView x:Name="_canvas"
                                 Grid.Column="0"
                                 Grid.ColumnSpan="2"
-                                Touch="_capturedCanvas_OnTouch"
+                                Touch="_canvas_OnTouch"
                                 EnableTouchEvents="True"
-                                PaintSurface="OnCapturedCanvasInvalidated"/>
+                                PaintSurface="OnCanvasInvalidated"/>
             
             <ce:CameraSuccessOutline Grid.Column="0">
                 <ce:CameraSuccessOutline.Behaviors>
