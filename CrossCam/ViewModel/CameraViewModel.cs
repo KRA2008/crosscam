@@ -16,7 +16,6 @@ using Plugin.DeviceInfo;
 using SkiaSharp;
 using Xamarin.Essentials;
 using Xamarin.Forms;
-using Xamarin.Forms.PlatformConfiguration;
 using ErrorEventArgs = CrossCam.CustomElement.ErrorEventArgs;
 using Exception = System.Exception;
 
@@ -892,7 +891,7 @@ namespace CrossCam.ViewModel
                                 RightBitmap, RightAlignmentTransform, RightOrientation, IsRightFrontFacing,
                                 Settings,
                                 Edits, 
-                                DrawMode.Cross);
+                                DrawMode.Cross, WasCapturePaired);
 
                             await SaveSurfaceSnapshot(tempSurface, CROSSCAM + (Settings.SaveIntoSeparateFolders ?
                                 Settings.Mode == DrawMode.Parallel ? "_Parallel" : "_Cross" : ""));
@@ -919,7 +918,7 @@ namespace CrossCam.ViewModel
                                 RightBitmap, RightAlignmentTransform, RightOrientation, IsRightFrontFacing,
                                 Settings, 
                                 Edits, 
-                                DrawMode.Parallel,
+                                DrawMode.Parallel, WasCapturePaired,
                                 withSwap: true);
 
                             await SaveSurfaceSnapshot(tempSurface, CROSSCAM + (Settings.SaveIntoSeparateFolders ?
@@ -998,7 +997,7 @@ namespace CrossCam.ViewModel
                                 RightBitmap, RightAlignmentTransform, RightOrientation, IsRightFrontFacing,
                                 Settings,
                                 Edits,
-                                DrawMode.Cross);
+                                DrawMode.Cross, WasCapturePaired);
 
                             using var tripleSurface =
                                 SKSurface.Create(new SKImageInfo(finalTripleWidth, finalImageHeight));
@@ -1029,7 +1028,7 @@ namespace CrossCam.ViewModel
                                 RightBitmap, RightAlignmentTransform, RightOrientation, IsRightFrontFacing,
                                 Settings,
                                 Edits,
-                                DrawMode.Cross);
+                                DrawMode.Cross, WasCapturePaired);
 
                             using var doubleSwapSurface =
                                 SKSurface.Create(new SKImageInfo(finalImageWidth, finalImageHeight));
@@ -1047,7 +1046,7 @@ namespace CrossCam.ViewModel
                                 RightBitmap, RightAlignmentTransform, RightOrientation, IsRightFrontFacing,
                                 Settings,
                                 Edits,
-                                DrawMode.Cross, withSwap: true);
+                                DrawMode.Cross, WasCapturePaired, withSwap: true);
 
                             using var quadSurface =
                                 SKSurface.Create(new SKImageInfo(finalImageWidth, quadHeight));
@@ -1082,9 +1081,9 @@ namespace CrossCam.ViewModel
                             DrawTool.DrawImagesOnCanvas(tempSurface, 
                                 LeftBitmap, LeftAlignmentTransform, LeftOrientation, IsLeftFrontFacing,
                                 RightBitmap, RightAlignmentTransform, RightOrientation, IsRightFrontFacing,
-                                Settings, Edits, DrawMode.Parallel, withSwap:Settings.Mode == DrawMode.Cross ||
-                                                                             Settings.Mode == DrawMode.RedCyanAnaglyph ||
-                                                                             Settings.Mode == DrawMode.GrayscaleRedCyanAnaglyph);
+                                Settings, Edits, DrawMode.Parallel, WasCapturePaired, withSwap: Settings.Mode == DrawMode.Cross ||
+                                Settings.Mode == DrawMode.RedCyanAnaglyph ||
+                                Settings.Mode == DrawMode.GrayscaleRedCyanAnaglyph);
 
                             Settings.AddBorder = withBorderTemp;
                             Settings.SaveWithFuseGuide = fuseGuideTemp;
@@ -1498,7 +1497,7 @@ namespace CrossCam.ViewModel
                 tempSurface, 
                 LeftBitmap, LeftAlignmentTransform, LeftOrientation, IsLeftFrontFacing,
                 RightBitmap, RightAlignmentTransform, RightOrientation, IsRightFrontFacing,
-                Settings, Edits, grayscale ? DrawMode.GrayscaleRedCyanAnaglyph : DrawMode.RedCyanAnaglyph);
+                Settings, Edits, grayscale ? DrawMode.GrayscaleRedCyanAnaglyph : DrawMode.RedCyanAnaglyph, WasCapturePaired);
 
             await SaveSurfaceSnapshot(tempSurface,
                 CROSSCAM + (Settings.SaveIntoSeparateFolders ? grayscale ? "_GrayscaleAnaglyph" : "_Anaglyph" : ""));

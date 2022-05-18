@@ -623,11 +623,11 @@ namespace CrossCam.Page
                 right, rightAlignment, rightOrientation ?? SKEncodedOrigin.Default, isRightFrontFacing,
                 _viewModel.Settings,
                 _viewModel.Edits,
-                _viewModel.Settings.Mode,
-                _viewModel.WorkflowStage == WorkflowStage.FovCorrection,
+                _viewModel.Settings.Mode, 
+                _viewModel.PairOperatorBindable.PairStatus == PairStatus.Connected || _viewModel.WasCapturePaired,
                 drawQuality: _viewModel.IsExactlyOnePictureTaken || 
                              _viewModel.IsNothingCaptured ? 
-                             DrawQuality.Preview : DrawQuality.Review,
+                    DrawQuality.Preview : DrawQuality.Review,
                 cardboardVert: cardboardVert,
                 cardboardHor: cardboardHor);
 

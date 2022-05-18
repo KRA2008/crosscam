@@ -8,16 +8,6 @@
              x:DataType="viewModel:PairingViewModel"
              x:Class="CrossCam.Page.PairingPage"
              Title="Pairing">
-    <ContentPage.Resources>
-        <ResourceDictionary>
-            <Style TargetType="BoxView">
-                <Setter Property="Color"
-                        Value="White"/>
-                <Setter Property="HeightRequest"
-                        Value="1"/>
-            </Style>
-        </ResourceDictionary>
-    </ContentPage.Resources>
     <ScrollView>
         <StackLayout Spacing="0">
             <BoxView/>
