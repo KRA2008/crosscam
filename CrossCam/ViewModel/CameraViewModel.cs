@@ -571,6 +571,7 @@ namespace CrossCam.ViewModel
                         Settings.IsFovCorrectionSet = true;
                         PersistentStorage.Save(PersistentStorage.SETTINGS_KEY, Settings);
                         WorkflowStage = WorkflowStage.Final;
+                        CheckAndCorrectResolutionFovAndAspectDifferences();
                         AutoAlign();
                         break;
                     default:
@@ -1610,10 +1611,7 @@ namespace CrossCam.ViewModel
                     {
                         await Task.Run(() =>
                         {
-                            if ((WasCapturePaired &&
-                                 (Settings.FovPrimaryCorrection > 0 ||
-                                  Settings.FovSecondaryCorrection > 0)) ||
-                                Settings.AlignmentSettings.UseKeypoints1)
+                            if (Settings.AlignmentSettings.UseKeypoints1)
                             {
                                 var needsFallback = false;
                                 try
@@ -1796,7 +1794,11 @@ namespace CrossCam.ViewModel
                     if (WasCapturePaired &&
                         PairOperator.IsPrimary)
                     {
-                        if (!Settings.IsFovCorrectionSet)
+                        if (Settings.IsFovCorrectionSet)
+                        {
+                            CheckAndCorrectResolutionFovAndAspectDifferences();
+                        }
+                        else
                         {
                             WorkflowStage = WorkflowStage.FovCorrection;
                             ShowFovDialog();
@@ -1837,7 +1839,11 @@ namespace CrossCam.ViewModel
                     if (WasCapturePaired &&
                         PairOperator.IsPrimary)
                     {
-                        if (!Settings.IsFovCorrectionSet)
+                        if (Settings.IsFovCorrectionSet)
+                        {
+                            CheckAndCorrectResolutionFovAndAspectDifferences();
+                        }
+                        else
                         {
                             WorkflowStage = WorkflowStage.FovCorrection;
                             ShowFovDialog();
@@ -1850,6 +1856,161 @@ namespace CrossCam.ViewModel
                     AutoAlign();
                 }
             }
+        }
+
+        // TODO: remove this eventually, but right now it only happens once on final capture
+        // TODO: and is necessary to use ECC alignment.
+
+        // TODO: if keypoint alignment gets good it's going to need to NOT do zooming separately
+        // TODO: in draw tool because the alignment matrix will handle it.
+        private void CheckAndCorrectResolutionFovAndAspectDifferences()
+        {
+            if (!_isFovCorrected)
+            {
+                _isFovCorrected = true;
+                float leftRatio;
+                float rightRatio;
+                if (LeftBitmap.Width < LeftBitmap.Height) //portrait
+                {
+                    leftRatio = LeftBitmap.Height / (1f * LeftBitmap.Width);
+                    rightRatio = RightBitmap.Height / (1f * RightBitmap.Width);
+                }
+                else //landscape
+                {
+                    leftRatio = LeftBitmap.Width / (1f * LeftBitmap.Height);
+                    rightRatio = RightBitmap.Width / (1f * RightBitmap.Height);
+                }
+                if (leftRatio != rightRatio)
+                {
+                    if (LeftBitmap.Height > LeftBitmap.Width) // portrait
+                    {
+                        if (leftRatio < rightRatio) // right is taller
+                        {
+                            var newWidth = (int)(LeftBitmap.Height / rightRatio);
+                            var corrected = new SKBitmap(newWidth, LeftBitmap.Height);
+                            using var canvas = new SKCanvas(corrected);
+                            canvas.DrawBitmap(
+                                LeftBitmap,
+                                new SKRect((LeftBitmap.Width - newWidth) / 2f, 0, LeftBitmap.Width - (LeftBitmap.Width - newWidth) / 2f, LeftBitmap.Height),
+                                new SKRect(0, 0, newWidth, LeftBitmap.Height));
+
+                            LeftBitmap = corrected;
+                        }
+                        else
+                        {
+                            var newWidth = (int)(RightBitmap.Height / leftRatio);
+                            var corrected = new SKBitmap(newWidth, RightBitmap.Height);
+                            using var canvas = new SKCanvas(corrected);
+                            canvas.DrawBitmap(
+                                RightBitmap,
+                                new SKRect((RightBitmap.Width - newWidth) / 2f, 0, RightBitmap.Width - (RightBitmap.Width - newWidth) / 2f, RightBitmap.Height),
+                                new SKRect(0, 0, newWidth, RightBitmap.Height));
+
+                            RightBitmap = corrected;
+                        }
+                    }
+                    else //landscape
+                    {
+                        if (leftRatio > rightRatio) // left is wider
+                        {
+                            var newHeight = (int)(RightBitmap.Width * leftRatio);
+                            var corrected = new SKBitmap(RightBitmap.Width, newHeight);
+                            using var canvas = new SKCanvas(corrected);
+                            canvas.DrawBitmap(
+                                RightBitmap,
+                                new SKRect(0, (RightBitmap.Height - newHeight) / 2f, RightBitmap.Width, RightBitmap.Height - (RightBitmap.Height - newHeight) / 2f),
+                                new SKRect(0, 0, RightBitmap.Width, newHeight));
+
+                            RightBitmap = corrected;
+                        }
+                        else
+                        {
+                            var newHeight = (int)(LeftBitmap.Width * rightRatio);
+                            var corrected = new SKBitmap(LeftBitmap.Width, newHeight);
+                            using var canvas = new SKCanvas(corrected);
+                            canvas.DrawBitmap(
+                                LeftBitmap,
+                                new SKRect(0, (LeftBitmap.Height - newHeight) / 2f, LeftBitmap.Width, LeftBitmap.Height - (LeftBitmap.Height - newHeight) / 2f),
+                                new SKRect(0, 0, LeftBitmap.Width, newHeight));
+
+                            LeftBitmap = corrected;
+                        }
+                    }
+                }
+
+                if (Settings.IsFovCorrectionSet &&
+                    (Settings.FovPrimaryCorrection != 0 ||
+                     Settings.FovSecondaryCorrection != 0))
+                {
+                    double zoomAmount;
+                    if (Settings.FovPrimaryCorrection > 0)
+                    {
+                        zoomAmount = Settings.FovPrimaryCorrection + 1;
+                        if (Settings.IsCaptureLeftFirst)
+                        {
+                            LeftBitmap = ZoomBitmap(zoomAmount, LeftBitmap);
+                        }
+                        else
+                        {
+                            RightBitmap = ZoomBitmap(zoomAmount, RightBitmap);
+                        }
+                    }
+                    else
+                    {
+                        zoomAmount = Settings.FovSecondaryCorrection + 1;
+                        if (Settings.IsCaptureLeftFirst)
+                        {
+                            RightBitmap = ZoomBitmap(zoomAmount, RightBitmap);
+                        }
+                        else
+                        {
+                            LeftBitmap = ZoomBitmap(zoomAmount, LeftBitmap);
+                        }
+                    }
+                }
+
+
+                if (LeftBitmap.Width < RightBitmap.Width)
+                {
+                    var corrected = new SKBitmap(LeftBitmap.Width, LeftBitmap.Height);
+                    using var canvas = new SKCanvas(corrected);
+                    canvas.DrawBitmap(
+                        RightBitmap,
+                        new SKRect(0, 0, LeftBitmap.Width, LeftBitmap.Height));
+
+                    RightBitmap = corrected;
+                }
+                else if (RightBitmap.Width < LeftBitmap.Width)
+                {
+                    var corrected = new SKBitmap(RightBitmap.Width, RightBitmap.Height);
+                    using var surface = new SKCanvas(corrected);
+                    surface.DrawBitmap(
+                        LeftBitmap,
+                        new SKRect(0, 0, RightBitmap.Width, RightBitmap.Height));
+
+                    LeftBitmap = corrected;
+                }
+            }
+        }
+
+        private static SKBitmap ZoomBitmap(double zoom, SKBitmap originalBitmap)
+        {
+            var zoomedWidth = originalBitmap.Width * zoom;
+            var zoomedHeight = originalBitmap.Height * zoom;
+
+            var newX = (originalBitmap.Width - zoomedWidth) / 2;
+            var newY = (originalBitmap.Height - zoomedHeight) / 2f;
+
+            var corrected = new SKBitmap(originalBitmap.Width, originalBitmap.Height);
+            using var surface = new SKCanvas(corrected);
+            surface.DrawBitmap(originalBitmap,
+                new SKRect(0, 0, originalBitmap.Width, originalBitmap.Height),
+                new SKRect(
+                    (float)newX,
+                    (float)newY,
+                    (float)(newX + zoomedWidth),
+                    (float)(newY + zoomedHeight)));
+            return corrected;
         }
 
         private async void ShowFovDialog()

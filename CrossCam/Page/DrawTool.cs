@@ -55,7 +55,7 @@ namespace CrossCam.Page
             SKBitmap leftBitmap, SKMatrix leftAlignmentMatrix, SKEncodedOrigin leftOrientation, bool isLeftFrontFacing,
             SKBitmap rightBitmap, SKMatrix rightAlignmentMatrix, SKEncodedOrigin rightOrientation, bool isRightFrontFacing,
             Settings settings, Edits edits, DrawMode drawMode, bool wasPairedCapture, bool withSwap = false,
-            DrawQuality drawQuality = DrawQuality.Save, double cardboardVert = 0, double cardboardHor = 0)
+            DrawQuality drawQuality = DrawQuality.Save, double cardboardVert = 0, double cardboardHor = 0, bool isFovStage = false)
         {
             var useGhost = drawQuality == DrawQuality.Preview &&
                             settings.ShowGhostCaptures &&
@@ -105,7 +105,8 @@ namespace CrossCam.Page
                     edits.RightRotation, edits.LeftRotation,
                     edits.VerticalAlignment,
                     edits.RightZoom, edits.LeftZoom,
-                    wasPairedCapture ? edits.FovRightCorrection : 0, wasPairedCapture ? edits.FovLeftCorrection : 0,
+                    wasPairedCapture && drawQuality == DrawQuality.Preview || isFovStage ? edits.FovRightCorrection : 0,
+                    wasPairedCapture && drawQuality == DrawQuality.Preview || isFovStage ? edits.FovLeftCorrection : 0,
                     edits.Keystone,
                     drawMode, fuseGuideRequested,
                     addBarrelDistortion, settings.CardboardBarrelDistortion,
@@ -127,7 +128,8 @@ namespace CrossCam.Page
                     edits.LeftRotation, edits.RightRotation,
                     edits.VerticalAlignment,
                     edits.LeftZoom, edits.RightZoom,
-                    wasPairedCapture ? edits.FovLeftCorrection : 0, wasPairedCapture ? edits.FovRightCorrection : 0,
+                    wasPairedCapture && drawQuality == DrawQuality.Preview || isFovStage ? edits.FovLeftCorrection : 0,
+                    wasPairedCapture && drawQuality == DrawQuality.Preview || isFovStage ? edits.FovRightCorrection : 0,
                     edits.Keystone,
                     drawMode, fuseGuideRequested,
                     addBarrelDistortion, settings.CardboardBarrelDistortion,
@@ -201,7 +203,8 @@ namespace CrossCam.Page
             var alignmentTrim = GetAlignmentTrim(
                 leftBitmap, leftAlignmentMatrix, leftOrientation, isLeftFrontFacing,
                 rightBitmap, rightAlignmentMatrix, rightOrientation, isRightFrontFacing);
-
+            
+            //TODO: use each side width and height to find center because they could be different when FOV accounted for
             var leftEditTrimMatrix = FindEditMatrix(true, drawMode, leftZoom + leftFovCorrection, leftRotation, keystone,
                 0, 0, alignment, 0, 0, (float) baseWidth, (float) baseHeight, 0);
             var rightEditTrimMatrix = FindEditMatrix(false, drawMode, rightZoom + rightFovCorrection, rightRotation, keystone,
@@ -348,8 +351,10 @@ namespace CrossCam.Page
                 var leftScaledAlignmentMatrix = FindScaledAlignmentMatrix(
                     leftIntermediateWidth, leftIntermediateHeight, leftXCorrectionToOrigin, leftYCorrectionToOrigin,
                     leftAlignmentMatrix, scalingRatio);
+                //TODO: use each side width and height to find center because they could be different when FOV accounted for
                 var leftOrientationMatrix = FindOrientationMatrix(leftOrientation, leftXCorrectionToOrigin,
                     leftYCorrectionToOrigin, isLeftFrontFacing);
+                //TODO: use each side width and height to find center because they could be different when FOV accounted for
                 var leftEditMatrix = FindEditMatrix(true, drawMode, leftZoom + leftFovCorrection, leftRotation, keystone,
                     cardboardHorDelta, cardboardVertDelta, alignment,
                     leftDestX, destY, destWidth, destHeight,
@@ -368,8 +373,10 @@ namespace CrossCam.Page
                 var rightScaledAlignmentMatrix = FindScaledAlignmentMatrix(
                     rightIntermediateWidth, rightIntermediateHeight, rightXCorrectionToOrigin, rightYCorrectionToOrigin,
                     rightAlignmentMatrix, scalingRatio);
+                //TODO: use each side width and height to find center because they could be different when FOV accounted for
                 var rightOrientationMatrix = FindOrientationMatrix(rightOrientation, rightXCorrectionToOrigin,
                     rightYCorrectionToOrigin, isRightFrontFacing);
+                //TODO: use each side width and height to find center because they could be different when FOV accounted for
                 var rightEditMatrix = FindEditMatrix(false, drawMode, rightZoom + rightFovCorrection, rightRotation, keystone,
                     cardboardHorDelta, cardboardVertDelta, alignment,
                     rightDestX, destY, destWidth, destHeight,

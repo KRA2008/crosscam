@@ -629,7 +629,8 @@ namespace CrossCam.Page
                              _viewModel.IsNothingCaptured ? 
                     DrawQuality.Preview : DrawQuality.Review,
                 cardboardVert: cardboardVert,
-                cardboardHor: cardboardHor);
+                cardboardHor: cardboardHor,
+                isFovStage: _viewModel.WorkflowStage == WorkflowStage.FovCorrection);
 
             if (_viewModel.PairOperatorBindable.PairStatus == PairStatus.Connected)
             {
