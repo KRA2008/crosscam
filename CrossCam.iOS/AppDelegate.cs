@@ -9,12 +9,14 @@ using Xamarin.Forms;
 namespace CrossCam.iOS
 {
 	[Register ("AppDelegate")]
-	public partial class AppDelegate : Xamarin.Forms.Platform.iOS.FormsApplicationDelegate
+	public class AppDelegate : Xamarin.Forms.Platform.iOS.FormsApplicationDelegate
 	{
 	    private App _app;
+        public static AppDelegate Instance;
 
 		public override bool FinishedLaunching (UIApplication app, NSDictionary options)
-		{
+        {
+            Instance = this;
 			Forms.Init();
 
             _app = new App();

@@ -22,14 +22,14 @@ namespace CrossCam.iOS.CustomRenderer
         private void OnConnected()
         {
             var handler = Connected;
-            handler?.Invoke(this, new EventArgs());
+            handler?.Invoke(this, EventArgs.Empty);
         }
 
         public event EventHandler Disconnected;
         private void OnDisconnected()
         {
             var handler = Disconnected;
-            handler?.Invoke(this, new EventArgs());
+            handler?.Invoke(this, EventArgs.Empty);
         }
 
         public async void SendPayload(byte[] bytes)
@@ -70,9 +70,16 @@ namespace CrossCam.iOS.CustomRenderer
             {
                 var browser = new MCNearbyServiceBrowser(myPeerId, PairOperator.CROSSCAM_SERVICE)
                 {
-                    Delegate = new NewBrowserDelegate(this)
+                    Delegate = new BrowserDelegate(this)
                 };
                 browser.StartBrowsingForPeers();
+                //var browser = new MCBrowserViewController(PairOperator.CROSSCAM_SERVICE, _session)
+                //{
+                //    Delegate = new BrowserViewControllerDelegate(),
+                //    MaximumNumberOfPeers = 1,
+                //    MinimumNumberOfPeers = 1
+                //};
+                //AppDelegate.Instance.Window.RootViewController?.PresentViewController(browser, true, null);
             });
             Debug.WriteLine("### SCANNING START");
             return Task.FromResult(true);
@@ -85,8 +92,16 @@ namespace CrossCam.iOS.CustomRenderer
 
             var myPeerId = new MCPeerID(UIDevice.CurrentDevice.Name);
             _session = new MCSession(myPeerId) {Delegate = new SessionDelegate(this)};
-            var assistant = new MCAdvertiserAssistant(PairOperator.CROSSCAM_SERVICE, new NSDictionary(), _session);
+            var discoveryInfo = new NSMutableDictionary<NSString,NSString>();
+            discoveryInfo.Add(new NSString("Device Type"),new NSString(UIDevice.CurrentDevice.Name));
+            discoveryInfo.Add(new NSString("OS"), new NSString(UIDevice.CurrentDevice.SystemName));
+            discoveryInfo.Add(new NSString("OS Version"), new NSString(UIDevice.CurrentDevice.SystemVersion));
+            var assistant = new MCAdvertiserAssistant(PairOperator.CROSSCAM_SERVICE, discoveryInfo, _session);
+            assistant.Delegate = new AdvertiserAssistantDelegate();
             assistant.Start();
+            //var advertiser = new MCNearbyServiceAdvertiser(myPeerId, discoveryInfo, PairOperator.CROSSCAM_SERVICE);
+            //advertiser.Delegate = new NearbyServiceAdvertiserDelegate();
+            //advertiser.StartAdvertisingPeer();
             Debug.WriteLine("### DISCOVERABLE START"); 
             return Task.FromResult(true);
         }
@@ -105,51 +120,59 @@ namespace CrossCam.iOS.CustomRenderer
                 switch (state)
                 {
                     case MCSessionState.Connected:
-                        Debug.WriteLine("Connected to " + peerID.DisplayName);
+                        Debug.WriteLine("### Connected to " + peerID.DisplayName);
                         _platformPair.OnConnected();
                         break;
                     case MCSessionState.Connecting:
-                        Debug.WriteLine("Connecting to " + peerID.DisplayName);
+                        Debug.WriteLine("### Connecting to " + peerID.DisplayName);
                         break;
                     case MCSessionState.NotConnected:
+                        Debug.WriteLine("### Not connected to " + peerID.DisplayName);
                         if (_platformPair._session != null)
                         {
                             _platformPair.OnDisconnected();
                         }
                         _platformPair._session = null;
-                        Debug.WriteLine("Not Connected to " + peerID.DisplayName);
+                        Debug.WriteLine("### Not Connected to " + peerID.DisplayName);
+                        break;
+                    default:
+                        Debug.WriteLine("### Unkown state change!");
                         break;
                 }
             }
 
             public override void DidStartReceivingResource(MCSession session, string resourceName, MCPeerID fromPeer, NSProgress progress)
             {
-                //Debug.WriteLine("### DATA START RECEIVING");
+                Debug.WriteLine("### DATA START RECEIVING");
             }
 
             public override void DidFinishReceivingResource(MCSession session, string resourceName, MCPeerID fromPeer, NSUrl localUrl,
                 NSError error)
             {
-                //Debug.WriteLine("### DATA RECEIVE FINISH");
+                Debug.WriteLine("### DATA RECEIVE FINISH");
+                if (error != null)
+                {
+                    Debug.WriteLine("### DATA RECEIVE HAD ERROR: " + error);
+                }
             }
 
             public override void DidReceiveStream(MCSession session, NSInputStream stream, string streamName, MCPeerID peerID)
             {
-                //Debug.WriteLine("### STREAM RECEIVE");
+                Debug.WriteLine("### STREAM RECEIVE");
             }
 
             public override void DidReceiveData(MCSession session, NSData data, MCPeerID peerID)
             {
-                //Debug.WriteLine("### DATA RECEIVED");
+                Debug.WriteLine("### DATA RECEIVED");
                 _platformPair.OnPayloadReceived(data.ToArray());
             }
         }
 
-        private class NewBrowserDelegate : MCNearbyServiceBrowserDelegate
+        private class BrowserDelegate : MCNearbyServiceBrowserDelegate
         {
             private readonly PlatformPair _platformPair;
 
-            public NewBrowserDelegate(PlatformPair platformPair)
+            public BrowserDelegate(PlatformPair platformPair)
             {
                 _platformPair = platformPair;
             }
@@ -172,6 +195,58 @@ namespace CrossCam.iOS.CustomRenderer
             public override void LostPeer(MCNearbyServiceBrowser browser, MCPeerID peerID)
             {
                 Debug.WriteLine("### LOST PEER: " + peerID.DisplayName);
+            }
+        }
+
+        private class BrowserViewControllerDelegate : MCBrowserViewControllerDelegate
+        {
+            public override void WasCancelled(MCBrowserViewController browserViewController)
+            {
+                Debug.WriteLine("### MCBrowserVC was cancelled...");
+                browserViewController.DismissViewController(true, null);
+            }
+
+            public override void DidFinish(MCBrowserViewController browserViewController)
+            {
+                Debug.WriteLine("### MCBrowserVC finished...");
+                browserViewController.DismissViewController(true, null);
+            }
+        }
+
+        private class NearbyServiceAdvertiserDelegate : MCNearbyServiceAdvertiserDelegate
+        {
+            public override void DidNotStartAdvertisingPeer(MCNearbyServiceAdvertiser advertiser, NSError error)
+            {
+                Debug.WriteLine("### ADVERTISING FAILED: " + error);
+            }
+
+            public override void WillChangeValue(string forKey)
+            {
+                Debug.WriteLine("### ADVERTISER WILL CHANGE KEY: " + forKey);
+            }
+
+            public override void DidReceiveInvitationFromPeer(MCNearbyServiceAdvertiser advertiser, MCPeerID peerID, NSData? context,
+                MCNearbyServiceAdvertiserInvitationHandler invitationHandler)
+            {
+                Debug.WriteLine("### INVITATION RECEIVED FROM: " + peerID.DisplayName);
+            }
+        }
+
+        private class AdvertiserAssistantDelegate : MCAdvertiserAssistantDelegate
+        {
+            public override void WillPresentInvitation(MCAdvertiserAssistant advertiserAssistant)
+            {
+                Debug.WriteLine("### WILL PRESENT INVITATION");
+            }
+
+            public override void DidDismissInvitation(MCAdvertiserAssistant advertiserAssistant)
+            {
+                Debug.WriteLine("### DID DISMISS INVITATION");
+            }
+
+            public override void WillChangeValue(string forKey)
+            {
+                Debug.WriteLine("### ADVERTISER WILL CHANGE VALUE: " + forKey);
             }
         }
 
@@ -200,10 +275,9 @@ namespace CrossCam.iOS.CustomRenderer
             {
                 var awdl0Count = 0;
 
-                if (getifaddrs(out var ifap) != 0)
-                    throw new SystemException("getifaddrs() failed");
+                if (getifaddrs(out var ifap) != 0) return true; // we can't tell, just go on.
 
-                try
+                    try
                 {
                     var next = ifap;
                     while (next != IntPtr.Zero)
