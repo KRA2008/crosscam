@@ -70,7 +70,7 @@ namespace CrossCam.CustomElement
             OnPropertyChanged(nameof(CountdownTimeRemainingSec));
             _settings.RaisePropertyChanged(nameof(Settings.IsPairedPrimary));
             var handler = Disconnected;
-            handler?.Invoke(this, EventArgs.Empty);
+            handler?.Invoke(this, new EventArgs());
         }
 
         public event EventHandler Connected;
@@ -86,7 +86,7 @@ namespace CrossCam.CustomElement
             OnPropertyChanged(nameof(CountdownTimeRemainingSec));
             _settings.RaisePropertyChanged(nameof(Settings.IsPairedPrimary));
             var handler = Connected;
-            handler?.Invoke(this, EventArgs.Empty);
+            handler?.Invoke(this, new EventArgs());
         }
 
         public event EventHandler<ErrorEventArgs> ErrorOccurred;
@@ -101,7 +101,7 @@ namespace CrossCam.CustomElement
         private void OnInitialSyncStarted()
         {
             var handler = InitialSyncStarted;
-            handler?.Invoke(this, EventArgs.Empty);
+            handler?.Invoke(this, new EventArgs());
         }
 
         public event EventHandler InitialSyncCompleted;
@@ -109,14 +109,14 @@ namespace CrossCam.CustomElement
         {
             _initialSyncComplete = true;
             var handler = InitialSyncCompleted;
-            handler?.Invoke(this, EventArgs.Empty);
+            handler?.Invoke(this, new EventArgs());
         }
 
         public event EventHandler PreviewFrameRequestReceived;
         private void OnPreviewFrameRequested()
         {
             var handler = PreviewFrameRequestReceived;
-            handler?.Invoke(this, EventArgs.Empty);
+            handler?.Invoke(this, null);
         }
 
         public event EventHandler<byte[]> PreviewFrameReceived;
@@ -130,14 +130,14 @@ namespace CrossCam.CustomElement
         private void OnTransmittingCaptureStarted()
         {
             var handler = TransmissionStarted;
-            handler?.Invoke(this, EventArgs.Empty);
+            handler?.Invoke(this, null);
         }
 
         public event EventHandler TransmissionComplete;
         private void OnTransmissionComplete()
         {
             var handler = TransmissionComplete;
-            handler?.Invoke(this, EventArgs.Empty);
+            handler?.Invoke(this, null);
         }
 
         public event ElapsedEventHandler CaptureSyncTimeElapsed;

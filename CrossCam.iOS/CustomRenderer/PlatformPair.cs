@@ -22,14 +22,14 @@ namespace CrossCam.iOS.CustomRenderer
         private void OnConnected()
         {
             var handler = Connected;
-            handler?.Invoke(this, EventArgs.Empty);
+            handler?.Invoke(this, new EventArgs());
         }
 
         public event EventHandler Disconnected;
         private void OnDisconnected()
         {
             var handler = Disconnected;
-            handler?.Invoke(this, EventArgs.Empty);
+            handler?.Invoke(this, new EventArgs());
         }
 
         public async void SendPayload(byte[] bytes)
@@ -133,37 +133,36 @@ namespace CrossCam.iOS.CustomRenderer
                             _platformPair.OnDisconnected();
                         }
                         _platformPair._session = null;
-                        Debug.WriteLine("### Not Connected to " + peerID.DisplayName);
                         break;
                     default:
-                        Debug.WriteLine("### Unkown state change!");
+                        Debug.WriteLine("### Unknown state change! " + state);
                         break;
                 }
             }
 
             public override void DidStartReceivingResource(MCSession session, string resourceName, MCPeerID fromPeer, NSProgress progress)
             {
-                Debug.WriteLine("### DATA START RECEIVING");
+                //Debug.WriteLine("### DATA START RECEIVING");
             }
 
             public override void DidFinishReceivingResource(MCSession session, string resourceName, MCPeerID fromPeer, NSUrl localUrl,
                 NSError error)
             {
-                Debug.WriteLine("### DATA RECEIVE FINISH");
-                if (error != null)
-                {
-                    Debug.WriteLine("### DATA RECEIVE HAD ERROR: " + error);
-                }
+                //Debug.WriteLine("### DATA RECEIVE FINISH");
+                //if (error != null)
+                //{
+                //    Debug.WriteLine("### DATA RECEIVE HAD ERROR: " + error);
+                //}
             }
 
             public override void DidReceiveStream(MCSession session, NSInputStream stream, string streamName, MCPeerID peerID)
             {
-                Debug.WriteLine("### STREAM RECEIVE");
+                //Debug.WriteLine("### STREAM RECEIVE");
             }
 
             public override void DidReceiveData(MCSession session, NSData data, MCPeerID peerID)
             {
-                Debug.WriteLine("### DATA RECEIVED");
+                //Debug.WriteLine("### DATA RECEIVED");
                 _platformPair.OnPayloadReceived(data.ToArray());
             }
         }

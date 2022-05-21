@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Threading;
@@ -1121,6 +1122,7 @@ namespace CrossCam.ViewModel
 
             PromptForPermissionAndSendErrorEmailCommand = new Command(async () =>
             {
+                Debugger.Break();
                 await Device.InvokeOnMainThreadAsync(async () =>
                 {
                     var sendReport = await CoreMethods.DisplayAlert("Oops",
