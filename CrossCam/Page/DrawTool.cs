@@ -166,60 +166,84 @@ namespace CrossCam.Page
             var canvasWidth = surface.Canvas.DeviceClipBounds.Width;
             var canvasHeight = surface.Canvas.DeviceClipBounds.Height;
 
-            double baseHeight, baseWidth, netSideCrop;
+            double baseHeight, baseWidth, leftWidth = 0, leftHeight = 0, rightWidth = 0, rightHeight = 0, netSideCrop = 0;
 
             var isLeft90Oriented = Orientations90deg.Contains(leftOrientation);
             var isRight90Oriented = Orientations90deg.Contains(rightOrientation);
-            if (leftBitmap != null &&
-                (rightBitmap == null || rightFovCorrection != 0))
+            if (leftBitmap != null)
             {
                 if (isLeft90Oriented)
                 {
-                    baseWidth = leftBitmap.Height;
-                    baseHeight = leftBitmap.Width;
+                    leftWidth = leftBitmap.Height;
+                    leftHeight = leftBitmap.Width;
                 }
                 else
                 {
-                    baseWidth = leftBitmap.Width;
-                    baseHeight = leftBitmap.Height;
+                    leftWidth = leftBitmap.Width;
+                    leftHeight = leftBitmap.Height;
                 }
+
+                if (rightBitmap == null)
+                {
+                    rightWidth = leftWidth;
+                    rightHeight = rightWidth;
+                }
+
                 netSideCrop = leftLeftCrop + leftRightCrop;
             }
-            else
+
+            if (rightBitmap != null)
             {
                 if (isRight90Oriented)
                 {
-                    baseWidth = rightBitmap.Height;
-                    baseHeight = rightBitmap.Width;
+                    rightWidth = rightBitmap.Height;
+                    rightHeight = rightBitmap.Width;
                 }
                 else
                 {
-                    baseWidth = rightBitmap.Width;
-                    baseHeight = rightBitmap.Height;
+                    rightWidth = rightBitmap.Width;
+                    rightHeight = rightBitmap.Height;
                 }
+
+                if (leftBitmap == null)
+                {
+                    leftWidth = rightWidth;
+                    leftHeight = rightHeight;
+                }
+
                 netSideCrop = rightLeftCrop + rightRightCrop;
+            }
+
+            if (rightFovCorrection != 0)
+            {
+                baseWidth = leftWidth;
+                baseHeight = leftHeight;
+            }
+            else
+            {
+                baseWidth = rightWidth;
+                baseHeight = rightHeight;
             }
 
             var alignmentTrim = GetAlignmentTrim(
                 leftBitmap, leftAlignmentMatrix, leftOrientation, isLeftFrontFacing,
                 rightBitmap, rightAlignmentMatrix, rightOrientation, isRightFrontFacing);
             
-            //TODO: use each side width and height to find center because they could be different when FOV accounted for
             var leftEditTrimMatrix = FindEditMatrix(true, drawMode, leftZoom + leftFovCorrection, leftRotation, keystone,
-                0, 0, alignment, 0, 0, (float) baseWidth, (float) baseHeight, 0);
+                0, 0, alignment, 0, 0, (float) leftWidth, (float) leftHeight, 0);
             var rightEditTrimMatrix = FindEditMatrix(false, drawMode, rightZoom + rightFovCorrection, rightRotation, keystone,
-                0, 0, alignment, 0, 0, (float) baseWidth, (float) baseHeight, 0);
+                0, 0, alignment, 0, 0, (float) rightWidth, (float) rightHeight, 0);
 
             var leftEditTrim = new TrimAdjustment();
             if (leftBitmap != null)
             {
-                leftEditTrim = FindMatrixTrimAdjustment((int) baseWidth, (int) baseHeight, leftEditTrimMatrix);
+                leftEditTrim = FindMatrixTrimAdjustment((int) leftWidth, (int) leftHeight, leftEditTrimMatrix);
             }
 
             var rightEditTrim = new TrimAdjustment();
             if (rightBitmap != null)
             {
-                rightEditTrim = FindMatrixTrimAdjustment((int) baseWidth, (int) baseHeight, rightEditTrimMatrix);
+                rightEditTrim = FindMatrixTrimAdjustment((int) rightWidth, (int) rightHeight, rightEditTrimMatrix);
             }
 
             leftEditTrim.Left = rightEditTrim.Right = Math.Max(leftEditTrim.Left, rightEditTrim.Right);
@@ -317,29 +341,11 @@ namespace CrossCam.Page
             var cardboardHorDelta = cardboardHor * destWidth;
             var cardboardVertDelta = cardboardVert * destWidth; // use same property for both to make move speed the same
 
-            float leftIntermediateHeight, leftIntermediateWidth, rightIntermediateHeight, rightIntermediateWidth;
+            var leftIntermediateWidth = (float) (leftWidth / scalingRatio);
+            var leftIntermediateHeight = (float) (leftHeight / scalingRatio);
 
-            if (isLeft90Oriented)
-            {
-                leftIntermediateWidth = destHeight;
-                leftIntermediateHeight = destWidth;
-            }
-            else
-            {
-                leftIntermediateWidth = destWidth;
-                leftIntermediateHeight = destHeight;
-            }
-
-            if (isRight90Oriented)
-            {
-                rightIntermediateWidth = destHeight;
-                rightIntermediateHeight = destWidth;
-            }
-            else
-            {
-                rightIntermediateWidth = destWidth;
-                rightIntermediateHeight = destHeight;
-            }
+            var rightIntermediateWidth = (float) (rightWidth / scalingRatio);
+            var rightIntermediateHeight = (float) (rightHeight / scalingRatio);
 
             var leftXCorrectionToOrigin = leftDestX + leftIntermediateWidth / 2f;
             var leftYCorrectionToOrigin = destY + leftIntermediateHeight / 2f;
@@ -351,10 +357,8 @@ namespace CrossCam.Page
                 var leftScaledAlignmentMatrix = FindScaledAlignmentMatrix(
                     leftIntermediateWidth, leftIntermediateHeight, leftXCorrectionToOrigin, leftYCorrectionToOrigin,
                     leftAlignmentMatrix, scalingRatio);
-                //TODO: use each side width and height to find center because they could be different when FOV accounted for
                 var leftOrientationMatrix = FindOrientationMatrix(leftOrientation, leftXCorrectionToOrigin,
                     leftYCorrectionToOrigin, isLeftFrontFacing);
-                //TODO: use each side width and height to find center because they could be different when FOV accounted for
                 var leftEditMatrix = FindEditMatrix(true, drawMode, leftZoom + leftFovCorrection, leftRotation, keystone,
                     cardboardHorDelta, cardboardVertDelta, alignment,
                     leftDestX, destY, destWidth, destHeight,
@@ -373,10 +377,8 @@ namespace CrossCam.Page
                 var rightScaledAlignmentMatrix = FindScaledAlignmentMatrix(
                     rightIntermediateWidth, rightIntermediateHeight, rightXCorrectionToOrigin, rightYCorrectionToOrigin,
                     rightAlignmentMatrix, scalingRatio);
-                //TODO: use each side width and height to find center because they could be different when FOV accounted for
                 var rightOrientationMatrix = FindOrientationMatrix(rightOrientation, rightXCorrectionToOrigin,
                     rightYCorrectionToOrigin, isRightFrontFacing);
-                //TODO: use each side width and height to find center because they could be different when FOV accounted for
                 var rightEditMatrix = FindEditMatrix(false, drawMode, rightZoom + rightFovCorrection, rightRotation, keystone,
                     cardboardHorDelta, cardboardVertDelta, alignment,
                     rightDestX, destY, destWidth, destHeight,
