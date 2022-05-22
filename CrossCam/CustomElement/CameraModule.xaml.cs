@@ -59,9 +59,6 @@ namespace CrossCam.CustomElement
         public static readonly BindableProperty PreviewBottomYProperty = BindableProperty.Create(nameof(PreviewBottomY),
             typeof(double), typeof(CameraModule), 0d, BindingMode.OneWayToSource);
 
-        public static readonly BindableProperty PreviewAspectRatioProperty = BindableProperty.Create(nameof(PreviewAspectRatio),
-	        typeof(double), typeof(CameraModule), 0d, BindingMode.OneWayToSource);
-
         public static readonly BindableProperty IsFocusCircleLockedProperty = BindableProperty.Create(nameof(IsFocusCircleLocked),
             typeof(bool), typeof(CameraModule), false, BindingMode.OneWayToSource);
 
@@ -141,12 +138,6 @@ namespace CrossCam.CustomElement
         {
             get => (double)GetValue(PreviewBottomYProperty);
             set => SetValue(PreviewBottomYProperty, value);
-        }
-
-        public double PreviewAspectRatio
-	    {
-	        get => (double) GetValue(PreviewAspectRatioProperty);
-	        set => SetValue(PreviewAspectRatioProperty, value);
         }
 
         public bool IsFocusCircleLocked

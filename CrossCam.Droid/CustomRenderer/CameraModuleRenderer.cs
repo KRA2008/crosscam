@@ -890,8 +890,6 @@ namespace CrossCam.Droid.CustomRenderer
                             _previewSize = previewSizes.First();
                         }
 
-                        _cameraModule.PreviewAspectRatio = _previewSize.Width / (1d * _previewSize.Height);
-
                         parameters.SetPictureSize(_pictureSize.Width, _pictureSize.Height);
                         parameters.SetPreviewSize(_previewSize.Width, _previewSize.Height);
 
@@ -1098,8 +1096,6 @@ namespace CrossCam.Droid.CustomRenderer
             {
                 return (int)InfoSupportedHardwareLevel.Legacy; // cannot find appropriate sizes with camera2. fall back to camera1.
             }
-
-            _cameraModule.PreviewAspectRatio = _preview2Size.Width / (1d * _preview2Size.Height);
 
             _stateListener = new CameraStateListener(this);
 

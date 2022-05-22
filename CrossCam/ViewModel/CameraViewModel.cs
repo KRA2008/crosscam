@@ -90,8 +90,6 @@ namespace CrossCam.ViewModel
 
         public double PreviewBottomY { get; set; }
 
-        public double PreviewAspectRatio { get; set; }
-
         public Command CapturePictureCommand { get; set; }
         public bool CapturePictureTrigger { get; set; }
 
