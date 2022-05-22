@@ -36,6 +36,8 @@ namespace CrossCam.CustomElement
         private long[] _t3Samples;
         private bool _isCaptureRequested;
         private DateTime? _captureMomentUtc;
+        private DateTime _lastPreviewFrameUtc;
+        private int _requestingPreviewFrameInterlocked;
 
         public PairStatus PairStatus { get; set; }
         public int CountdownTimeRemainingSec { get; set; }
@@ -122,6 +124,7 @@ namespace CrossCam.CustomElement
         public event EventHandler<byte[]> PreviewFrameReceived;
         private void OnPreviewFrameReceived(byte[] frame)
         {
+            _requestingPreviewFrameInterlocked = 0;
             var handler = PreviewFrameReceived;
             handler?.Invoke(this, frame);
         }
@@ -408,7 +411,6 @@ namespace CrossCam.CustomElement
             else
             {
                 OnInitialSyncCompleted();
-                SendReadyForPreviewFrame();
             }
         }
 
@@ -554,10 +556,6 @@ namespace CrossCam.CustomElement
                 //Debug.WriteLine("Sync interval set: " + interval);
                 //Debug.WriteLine("Sync time: " + syncTime.ToString("O"));
                 _captureMomentUtc = syncTime;
-                if (IsPrimary)
-                {
-                    RequestPreviewFrame();
-                }
             }
             catch (Exception e)
             {
@@ -680,7 +678,7 @@ namespace CrossCam.CustomElement
             });
         }
 
-        public async void RequestPreviewFrame()
+        public void RequestPreviewFrame()
         {
             try
             {
@@ -698,10 +696,14 @@ namespace CrossCam.CustomElement
                         
                         if (!_isCaptureRequested)
                         {
-                            if (!_captureMomentUtc.HasValue ||
-                                _captureMomentUtc.Value > DateTime.UtcNow.AddSeconds(1).AddMilliseconds(_settings.PairedPreviewFrameDelayMs))
+                            if (_initialSyncComplete &&
+                                (!_captureMomentUtc.HasValue ||
+                                _captureMomentUtc.Value > DateTime.UtcNow.AddSeconds(1).AddMilliseconds(_settings.PairedPreviewFrameDelayMs)) &&
+                                _lastPreviewFrameUtc < DateTime.UtcNow.AddMilliseconds(-_settings.PairedPreviewFrameDelayMs) &&
+                                Interlocked.CompareExchange(ref _requestingPreviewFrameInterlocked, 1, 0) == 0)
                             {
-                                await Task.Delay(_settings.PairedPreviewFrameDelayMs);
+                                Debug.WriteLine("### requesting preview frame");
+                                _lastPreviewFrameUtc = DateTime.UtcNow;
                                 SendReadyForPreviewFrame();
                             }
                                 

@@ -632,7 +632,8 @@ namespace CrossCam.Page
                 cardboardHor: cardboardHor,
                 isFovStage: _viewModel.WorkflowStage == WorkflowStage.FovCorrection);
 
-            if (_viewModel.PairOperatorBindable.PairStatus == PairStatus.Connected)
+            if (_viewModel.PairOperatorBindable.PairStatus == PairStatus.Connected &&
+                _viewModel.WorkflowStage == WorkflowStage.Capture)
             {
                 _viewModel.PairOperatorBindable.RequestPreviewFrame();
             }

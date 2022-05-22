@@ -2198,12 +2198,6 @@ namespace CrossCam.ViewModel
 
         private void ClearCaptures()
         {
-            if (PairOperator.PairStatus == PairStatus.Connected &&
-                PairOperator.IsPrimary)
-            {
-                PairOperator.RequestPreviewFrame();
-            }
-
             CameraColumn = Settings.IsCaptureLeftFirst ? 0 : 1;
 
             LeftBitmap = null;
