@@ -471,7 +471,10 @@ namespace CrossCam.ViewModel
                         }
                     }
 
-                    AutoAlign();
+                    if (WorkflowStage == WorkflowStage.Final)
+                    {
+                        AutoAlign();
+                    }
                 }
                 else if (args.PropertyName == nameof(WasSwipedTrigger))
                 {
