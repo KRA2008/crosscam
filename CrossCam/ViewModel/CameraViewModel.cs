@@ -335,19 +335,13 @@ namespace CrossCam.ViewModel
                                                           Settings.SaveForQuad ||
                                                           Settings.SaveForCardboard);
 
-        public bool ShouldPairPreviewBeVisible => (PairOperator.PairStatus == PairStatus.Connected &&
-                                                      PairOperator.IsPrimary || Settings.Mode == DrawMode.Cardboard)  &&
-                                                  WorkflowStage == WorkflowStage.Capture;
-
-        public int IconColumn => CameraColumn == 0 ? 1 : 0;
-
         public bool ShouldPortraitViewModeWarningBeVisible => IsViewPortrait && 
                                                               IsPictureWiderThanTall &&
                                                               WorkflowStage != WorkflowStage.Saving &&
                                                               (WorkflowStage == WorkflowStage.Final ||
-                                                                WorkflowStage == WorkflowStage.Edits) && 
-                                                               Settings.Mode != DrawMode.GrayscaleRedCyanAnaglyph &&
-                                                               Settings.Mode != DrawMode.RedCyanAnaglyph;
+                                                               WorkflowStage == WorkflowStage.Edits) && 
+                                                              Settings.Mode != DrawMode.GrayscaleRedCyanAnaglyph &&
+                                                              Settings.Mode != DrawMode.RedCyanAnaglyph;
 
         private bool IsPictureWiderThanTall => LeftBitmap != null &&
                                                RightBitmap != null &&
@@ -1268,9 +1262,8 @@ namespace CrossCam.ViewModel
             {
                 WorkflowStage = WorkflowStage.Capture;
             }
-            RaisePropertyChanged(nameof(CaptureButtonPosition));
+            RaisePropertyChanged(nameof(IsCaptureModeAndEitherPrimaryOrDisconnected));
             RaisePropertyChanged(nameof(ShouldLineGuidesBeVisible));
-            RaisePropertyChanged(nameof(ShouldPairPreviewBeVisible));
             RaisePropertyChanged(nameof(ShouldDonutGuideBeVisible));
             RaisePropertyChanged(nameof(ShouldLeftLoadBeVisible));
             RaisePropertyChanged(nameof(ShouldCenterLoadBeVisible));
@@ -1280,9 +1273,8 @@ namespace CrossCam.ViewModel
         private void PairOperatorOnConnected(object sender, EventArgs e)
         {
             ShowFovPreparationPopup();
-            RaisePropertyChanged(nameof(CaptureButtonPosition));
+            RaisePropertyChanged(nameof(IsCaptureModeAndEitherPrimaryOrDisconnected));
             RaisePropertyChanged(nameof(ShouldLineGuidesBeVisible));
-            RaisePropertyChanged(nameof(ShouldPairPreviewBeVisible));
             RaisePropertyChanged(nameof(ShouldDonutGuideBeVisible));
             RaisePropertyChanged(nameof(ShouldLeftLoadBeVisible));
             RaisePropertyChanged(nameof(ShouldCenterLoadBeVisible));
@@ -1403,7 +1395,6 @@ namespace CrossCam.ViewModel
                 RaisePropertyChanged(nameof(CanvasRectangle));
                 RaisePropertyChanged(nameof(CanvasRectangleFlags));
                 RaisePropertyChanged(nameof(PairButtonPosition));
-                RaisePropertyChanged(nameof(ShouldPairPreviewBeVisible));
                 RaisePropertyChanged(nameof(CameraViewModel));
                 RaisePropertyChanged(nameof(Settings)); // this doesn't cause reevaluation for above stuff (but I'd like it to), but it does trigger redraw of canvas and evaluation of whether to run auto alignment
                 RaisePropertyChanged(nameof(Settings.Mode));
