@@ -186,7 +186,7 @@ namespace CrossCam.Page
                 if (rightBitmap == null)
                 {
                     rightWidth = leftWidth;
-                    rightHeight = rightWidth;
+                    rightHeight = leftHeight;
                 }
 
                 netSideCrop = leftLeftCrop + leftRightCrop;
