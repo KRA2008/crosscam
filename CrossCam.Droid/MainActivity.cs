@@ -12,6 +12,7 @@ using AndroidX.Core.App;
 using AndroidX.Core.Content;
 using CrossCam.Droid.CustomRenderer;
 using Java.Lang;
+using Xamarin.Essentials;
 using Xamarin.Forms;
 using Xamarin.Forms.Platform.Android;
 using Uri = Android.Net.Uri;
@@ -65,7 +66,8 @@ namespace CrossCam.Droid
             base.OnCreate(bundle);
             Xamarin.Essentials.Platform.Init(this, bundle);
 
-            SetFullscreen();
+            DeviceDisplay.MainDisplayInfoChanged += SetFullscreen; 
+            SetFullscreen(null, null);
 
             LifecycleEventListener = new LifecycleEventListener(this, WindowManager);
             LifecycleEventListener.Enable();
@@ -172,31 +174,49 @@ namespace CrossCam.Droid
             }
         }
 
-        private void SetFullscreen()
+        private void SetFullscreen(object sender, DisplayInfoChangedEventArgs e)
         {
             if (Window != null)
             {
-                if (Build.VERSION.SdkInt >= BuildVersionCodes.R)
+                if (DeviceDisplay.MainDisplayInfo.Orientation == DisplayOrientation.Landscape)
                 {
-                    Window.SetDecorFitsSystemWindows(false);
-                    var insetsController = Window.InsetsController;
-                    insetsController?.Hide(WindowInsets.Type.NavigationBars());
                     Window.SetStatusBarColor(Color.Transparent.ToAndroid());
+                    if (Build.VERSION.SdkInt >= BuildVersionCodes.R)
+                    {
+                        Window.SetDecorFitsSystemWindows(false);
+                        var insetsController = Window.InsetsController;
+                        insetsController?.Hide(WindowInsets.Type.NavigationBars());
+                    }
+                    else
+                    {
+                        var uiOptions = 0;
+                        uiOptions |= (int)SystemUiFlags.HideNavigation;
+                        uiOptions |= (int)SystemUiFlags.ImmersiveSticky;
+                        uiOptions |= (int)SystemUiFlags.LayoutFullscreen;
+
+                        Window.DecorView.SystemUiVisibility = (StatusBarVisibility)uiOptions;
+                    }
                 }
                 else
                 {
-                    var uiOptions = 0;
-                    uiOptions |= (int)SystemUiFlags.HideNavigation;
-                    uiOptions |= (int)SystemUiFlags.ImmersiveSticky;
-
-                    Window.DecorView.SystemUiVisibility = (StatusBarVisibility)uiOptions;
+                    Window.SetStatusBarColor(Color.Black.ToAndroid());
+                    if (Build.VERSION.SdkInt >= BuildVersionCodes.R)
+                    {
+                        Window.SetDecorFitsSystemWindows(true);
+                        var insetsController = Window.InsetsController;
+                        insetsController?.Show(WindowInsets.Type.NavigationBars());
+                    }
+                    else
+                    {
+                        Window.DecorView.SystemUiVisibility = 0;
+                    }
                 }
             }
         }
         
         public override void OnWindowFocusChanged(bool hasFocus)
         {
-            SetFullscreen();
+            SetFullscreen(null, null);
         }
 
         public override void OnRequestPermissionsResult(int requestCode, string[] permissions, Permission[] grantResults)
