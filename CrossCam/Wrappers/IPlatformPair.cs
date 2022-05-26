@@ -13,5 +13,6 @@ namespace CrossCam.Wrappers
 
         void SendPayload(byte[] bytes);
         event EventHandler<byte[]> PayloadReceived;
+        event EventHandler<string> ErrorOccurred;
     }
 }

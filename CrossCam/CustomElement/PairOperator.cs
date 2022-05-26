@@ -71,8 +71,7 @@ namespace CrossCam.CustomElement
             OnPropertyChanged(nameof(PairStatus));
             OnPropertyChanged(nameof(CountdownTimeRemainingSec));
             _settings.RaisePropertyChanged(nameof(Settings.IsPairedPrimary));
-            var handler = Disconnected;
-            handler?.Invoke(this, new EventArgs());
+            Disconnected?.Invoke(this, EventArgs.Empty);
         }
 
         public event EventHandler Connected;
@@ -87,60 +86,52 @@ namespace CrossCam.CustomElement
             OnPropertyChanged(nameof(PairStatus));
             OnPropertyChanged(nameof(CountdownTimeRemainingSec));
             _settings.RaisePropertyChanged(nameof(Settings.IsPairedPrimary));
-            var handler = Connected;
-            handler?.Invoke(this, new EventArgs());
+            Connected?.Invoke(this, EventArgs.Empty);
         }
 
         public event EventHandler<ErrorEventArgs> ErrorOccurred;
         private void OnErrorOccurred(ErrorEventArgs e)
         {
             ShowPairErrorOccurred(e.Step, e.Exception.ToString());
-            var handler = ErrorOccurred;
-            handler?.Invoke(this, e);
+            ErrorOccurred?.Invoke(this, e);
         }
 
         public event EventHandler InitialSyncStarted;
         private void OnInitialSyncStarted()
         {
-            var handler = InitialSyncStarted;
-            handler?.Invoke(this, new EventArgs());
+            InitialSyncStarted?.Invoke(this, EventArgs.Empty);
         }
 
         public event EventHandler InitialSyncCompleted;
         private void OnInitialSyncCompleted()
         {
             _initialSyncComplete = true;
-            var handler = InitialSyncCompleted;
-            handler?.Invoke(this, new EventArgs());
+            InitialSyncCompleted?.Invoke(this, EventArgs.Empty);
         }
 
         public event EventHandler PreviewFrameRequestReceived;
         private void OnPreviewFrameRequested()
         {
-            var handler = PreviewFrameRequestReceived;
-            handler?.Invoke(this, null);
+            PreviewFrameRequestReceived?.Invoke(this, null);
         }
 
         public event EventHandler<byte[]> PreviewFrameReceived;
         private void OnPreviewFrameReceived(byte[] frame)
         {
             _requestingPreviewFrameInterlocked = 0;
-            var handler = PreviewFrameReceived;
-            handler?.Invoke(this, frame);
+            PreviewFrameReceived?.Invoke(this, frame);
         }
 
         public event EventHandler TransmissionStarted;
         private void OnTransmittingCaptureStarted()
         {
-            var handler = TransmissionStarted;
-            handler?.Invoke(this, null);
+            TransmissionStarted?.Invoke(this, null);
         }
 
         public event EventHandler TransmissionComplete;
         private void OnTransmissionComplete()
         {
-            var handler = TransmissionComplete;
-            handler?.Invoke(this, null);
+            TransmissionComplete?.Invoke(this, null);
         }
 
         public event ElapsedEventHandler CaptureSyncTimeElapsed;
@@ -148,8 +139,7 @@ namespace CrossCam.CustomElement
         {
             Debug.WriteLine("CAPTURE NOW!!!!");
             _captureSyncTimer.Elapsed -= OnCaptureSyncTimeElapsed;
-            var handler = CaptureSyncTimeElapsed;
-            handler?.Invoke(this, e);
+            CaptureSyncTimeElapsed?.Invoke(this, e);
         }
 
         private void OnCountdownTimerSecondElapsed(object sender, ElapsedEventArgs e)
@@ -172,23 +162,20 @@ namespace CrossCam.CustomElement
             _countdownTimer.Interval = 1000;
             _countdownTimer.Elapsed += OnCountdownTimerSecondElapsed;
             _countdownTimer.Start();
-            var handler = CountdownTimerSyncCompletePrimary;
-            handler?.Invoke(this, e);
+            CountdownTimerSyncCompletePrimary?.Invoke(this, e);
         }
 
         public event EventHandler CountdownTimerSyncCompleteSecondary;
         private void OnCountdownTimerSyncCompleteSecondary(object sender, ElapsedEventArgs e)
         {
-            var handler = CountdownTimerSyncCompleteSecondary;
-            handler?.Invoke(this, e);
+            CountdownTimerSyncCompleteSecondary?.Invoke(this, e);
         }
 
         public event EventHandler<byte[]> CapturedImageReceived;
         private void OnCapturedImageReceived(byte[] frame)
         {
             _captureMomentUtc = null;
-            var handler = CapturedImageReceived;
-            handler?.Invoke(this, frame);
+            CapturedImageReceived?.Invoke(this, frame);
         }
 
         public PairOperator(Settings settings)
@@ -292,7 +279,6 @@ namespace CrossCam.CustomElement
         private void SendHello()
         {
             var fullMessage = AddPayloadHeader(CrossCommand.Hello, Enumerable.Empty<byte>().ToArray());
-
             _platformPair.SendPayload(fullMessage);
         }
 

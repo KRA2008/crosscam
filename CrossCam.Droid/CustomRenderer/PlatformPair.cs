@@ -111,29 +111,32 @@ namespace CrossCam.Droid.CustomRenderer
             }
             catch (Exception e)
             {
-                Debug.WriteLine("### EXCEPTION SENDING: " + e);
+                OnErrorOccurred(e.ToString());
             }
         }
 
         public event EventHandler<byte[]> PayloadReceived;
         private void ProcessReceivedPayload(byte[] payload)
         {
-            var handler = PayloadReceived;
-            handler?.Invoke(this, payload);
+            PayloadReceived?.Invoke(this, payload);
+        }
+
+        public event EventHandler<string> ErrorOccurred;
+        private void OnErrorOccurred(string error)
+        {
+            ErrorOccurred?.Invoke(this, error);
         }
 
         public event EventHandler Connected;
         private void OnConnected()
         {
-            var handler = Connected;
-            handler?.Invoke(this, EventArgs.Empty);
+            Connected?.Invoke(this, EventArgs.Empty);
         }
 
         public event EventHandler Disconnected;
         private void OnDisconnected()
         {
-            var handler = Disconnected;
-            handler?.Invoke(this, EventArgs.Empty);
+            Disconnected?.Invoke(this, EventArgs.Empty);
         }
 
         public void OnConnected(Bundle connectionHint)

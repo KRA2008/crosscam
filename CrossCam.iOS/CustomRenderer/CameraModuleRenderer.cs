@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
 using System.Threading.Tasks;
@@ -30,14 +31,21 @@ namespace CrossCam.iOS.CustomRenderer
         private AVCapturePhotoOutput _photoOutput;
         private AVCaptureStillImageOutput _stillImageOutput;
         private AVCaptureVideoDataOutput _previewFrameOutput;
+        private AVCaptureDeviceInput _deviceInput;
         private PreviewFrameDelegate _previewFrameDelegate;
         private CameraModule _cameraModule;
         private AVCaptureDevice _device;
-        private bool _isInitialized;
         private AVCaptureVideoPreviewLayer _avCaptureVideoPreviewLayer;
         private static UIDeviceOrientation? _previousValidOrientation;
         private bool _is10OrHigher;
         private IEnumerable<AVCaptureDevice> _devices;
+        private const string adjustingFocus = "adjustingFocus";
+        private List<string> _setupProperties = new List<string>
+        {
+            "Height",
+            "Width",
+            "Renderer"
+        };
 
         public CameraModuleRenderer()
         {
@@ -46,7 +54,7 @@ namespace CrossCam.iOS.CustomRenderer
                 n => TurnOffFlashAndSetContinuousAutoMode(_device)); // after minimizing or locking phone with first picture taken, preview of second will become super dark and locked that way - seems to be outside my control
 
             UIApplication.Notifications.ObserveDidEnterBackground(StopPreview);
-            UIApplication.Notifications.ObserveWillEnterForeground(FullInit);
+            UIApplication.Notifications.ObserveWillEnterForeground(StartPreview);
         }
 
         protected override void OnElementChanged(ElementChangedEventArgs<CameraModule> e)
@@ -68,8 +76,6 @@ namespace CrossCam.iOS.CustomRenderer
                 {
                     TurnOffFlashAndSetContinuousAutoMode(_device);
                 };
-                SetupCamera();
-                StartPreview();
             }
         }
 
@@ -79,11 +85,19 @@ namespace CrossCam.iOS.CustomRenderer
 
             try
             {
+                if (_setupProperties.Contains(e.PropertyName))
+                {
+                    _setupProperties.Remove(e.PropertyName);
+                    if (!_setupProperties.Any())
+                    {
+                        FullInit();
+                    }
+                }
+
                 if (e.PropertyName == nameof(_cameraModule.Width) ||
                     e.PropertyName == nameof(_cameraModule.Height))
                 {
                     NativeView.Bounds = new CGRect(0, -10000, _cameraModule.Width, _cameraModule.Height);
-                    SetupCamera();
                     double previewHeight;
                     var orientation = UIDevice.CurrentDevice.Orientation;
                     switch (orientation)
@@ -98,14 +112,6 @@ namespace CrossCam.iOS.CustomRenderer
                             _cameraModule.PreviewBottomY = (previewHeight + _cameraModule.Height) / 2;
                             break;
                     }
-                }
-
-                if (_cameraModule.Width > 0 &&
-                    _cameraModule.Height > 0 &&
-                    !_isInitialized)
-                {
-                    FullInit();
-                    _isInitialized = true;
                 }
 
                 if (e.PropertyName == nameof(_cameraModule.CaptureTrigger))
@@ -130,12 +136,35 @@ namespace CrossCam.iOS.CustomRenderer
 
                 if (e.PropertyName == nameof(_cameraModule.ChosenCamera))
                 {
-                    FullInit();
+                    ChosenCameraChanged();
                 }
             }
             catch (Exception ex)
             {
                 _cameraModule.ErrorMessage = ex.ToString();
+            }
+        }
+
+        private void ChosenCameraChanged()
+        {
+            if (_device != null &&
+                _cameraModule.ChosenCamera?.CameraId != null)
+            {
+                var chosenDevice = AVCaptureDevice.DeviceWithUniqueID(_cameraModule.ChosenCamera.CameraId);
+                if (chosenDevice?.UniqueID != _device.UniqueID)
+                {
+                    _device = chosenDevice;
+                    _device?.AddObserver(this, adjustingFocus, NSKeyValueObservingOptions.OldNew, IntPtr.Zero);
+
+                    TurnOffFlashAndSetContinuousAutoMode(_device);
+
+                    if (_deviceInput != null)
+                    {
+                        _captureSession.RemoveInput(_deviceInput);
+                    }
+                    _deviceInput = AVCaptureDeviceInput.FromDevice(_device);
+                    _captureSession.AddInput(_deviceInput);
+                }
             }
         }
 
@@ -163,71 +192,54 @@ namespace CrossCam.iOS.CustomRenderer
                 _device.UnlockForConfiguration();
             }
         }
-
-        private bool _hasObserver;
-        private void SetupCamera(bool restart = false)
+        
+        private void SetupCamera()
         {
             try
             {
-                if (_captureSession == null || restart)
+                _captureSession = new AVCaptureSession
                 {
-                    _captureSession = new AVCaptureSession
+                    SessionPreset = AVCaptureSession.PresetPhoto
+                };
+                if (!_cameraModule.AvailableCameras.Any())
+                {
+                    var deviceTypes = new List<AVCaptureDeviceType>
                     {
-                        SessionPreset = AVCaptureSession.PresetPhoto
+                        AVCaptureDeviceType.BuiltInWideAngleCamera,
+                        AVCaptureDeviceType.BuiltInTelephotoCamera
                     };
-                    if (!_cameraModule.AvailableCameras.Any())
+                    if (UIDevice.CurrentDevice.CheckSystemVersion(13, 0))
                     {
-                        var deviceTypes = new List<AVCaptureDeviceType>
+                        deviceTypes.Add(AVCaptureDeviceType.BuiltInUltraWideCamera);
+                    }
+                    var session = AVCaptureDeviceDiscoverySession.Create(
+                        deviceTypes.ToArray(), AVMediaType.Video, AVCaptureDevicePosition.Unspecified);
+                    _devices = session.Devices;
+                    foreach (var avCaptureDevice in _devices)
+                    {
+                        _cameraModule.AvailableCameras.Add(new AvailableCamera
                         {
-                            AVCaptureDeviceType.BuiltInWideAngleCamera,
-                            AVCaptureDeviceType.BuiltInTelephotoCamera
-                        };
-                        if (UIDevice.CurrentDevice.CheckSystemVersion(13, 0))
-                        {
-                            deviceTypes.Add(AVCaptureDeviceType.BuiltInUltraWideCamera);
-                        }
-                        var session = AVCaptureDeviceDiscoverySession.Create(
-                            deviceTypes.ToArray(), AVMediaType.Video, AVCaptureDevicePosition.Unspecified);
-                        _devices = session.Devices;
-                        foreach (var avCaptureDevice in _devices)
-                        {
-                            _cameraModule.AvailableCameras.Add(new AvailableCamera
-                            {
-                                DisplayName = avCaptureDevice.LocalizedName,
-                                CameraId = avCaptureDevice.UniqueID,
-                                IsFront = avCaptureDevice.Position == AVCaptureDevicePosition.Front
-                            });
-                        }
+                            DisplayName = avCaptureDevice.LocalizedName,
+                            CameraId = avCaptureDevice.UniqueID,
+                            IsFront = avCaptureDevice.Position == AVCaptureDevicePosition.Front
+                        });
                     }
                 }
 
                 SetPreviewOrientation();
 
-                if (_device == null)
-                {
-                    _device = AVCaptureDevice.GetDefaultDevice(AVMediaTypes.Video);
-                    _cameraModule.ChosenCamera = _cameraModule.AvailableCameras.First(c => c.CameraId == _device.UniqueID);
-                }
-                else
-                {
-                    _device = AVCaptureDevice.DeviceWithUniqueID(_cameraModule.ChosenCamera.CameraId);
-                }
+                _device = AVCaptureDevice.GetDefaultDevice(AVMediaTypes.Video);
+                _cameraModule.ChosenCamera = _cameraModule.AvailableCameras.First(c => c.CameraId == _device.UniqueID);
 
-                if (_hasObserver)
-                {
-                    _device?.RemoveObserver(this, "adjustingFocus", IntPtr.Zero);
-                    _hasObserver = false;
-                }
-                _device?.AddObserver(this, "adjustingFocus", NSKeyValueObservingOptions.OldNew, IntPtr.Zero);
-                _hasObserver = true;
+                _device?.AddObserver(this, adjustingFocus, NSKeyValueObservingOptions.OldNew, IntPtr.Zero);
 
-                SetPreviewSizing(restart);
+                SetPreviewSizing();
 
                 TurnOffFlashAndSetContinuousAutoMode(_device);
 
                 _is10OrHigher = UIDevice.CurrentDevice.CheckSystemVersion(10, 0);
-                var isRestart = false;
-                if (_is10OrHigher && (_photoOutput == null || restart))
+
+                if (_is10OrHigher)
                 {
                     _photoOutput = new AVCapturePhotoOutput
                     {
@@ -235,9 +247,8 @@ namespace CrossCam.iOS.CustomRenderer
                     };
 
                     _captureSession.AddOutput(_photoOutput);
-                    isRestart = true;
                 }
-                else if (!_is10OrHigher && (_stillImageOutput == null || restart))
+                else if (!_is10OrHigher)
                 {
                     _stillImageOutput = new AVCaptureStillImageOutput
                     {
@@ -246,34 +257,33 @@ namespace CrossCam.iOS.CustomRenderer
                     };
 
                     _captureSession.AddOutput(_stillImageOutput);
-                    isRestart = true;
                 }
-
-                if (isRestart)
+                
+                var settings = new AVVideoSettingsUncompressed
                 {
-                    var settings = new AVVideoSettingsUncompressed
-                    {
-                        PixelFormatType = CVPixelFormatType.CV32BGRA
-                    };
-                    _previewFrameOutput = new AVCaptureVideoDataOutput
-                    {
-                        AlwaysDiscardsLateVideoFrames = true,
-                        MinFrameDuration = new CMTime(1, 30),
-                        UncompressedVideoSetting = settings
-                    };
-                    //if (UIDevice.CurrentDevice.CheckSystemVersion(13, 0)) //TODO: what is this?
-                    //{
-                    //    _previewFrameOutput.DeliversPreviewSizedOutputBuffers = true;
-                    //    _previewFrameOutput.AutomaticallyConfiguresOutputBufferDimensions = false;
-                    //}
-                    _previewFrameDelegate = new PreviewFrameDelegate(_cameraModule);
-                    var queue = new DispatchQueue("PreviewFrameQueue");
-                    _previewFrameOutput.WeakVideoSettings = settings.Dictionary;
-                    _previewFrameOutput.SetSampleBufferDelegate(_previewFrameDelegate, queue);
+                    PixelFormatType = CVPixelFormatType.CV32BGRA
+                };
 
-                    _captureSession.AddOutput(_previewFrameOutput);
-                    _captureSession.AddInput(AVCaptureDeviceInput.FromDevice(_device));
-                }
+                _previewFrameOutput = new AVCaptureVideoDataOutput
+                {
+                    AlwaysDiscardsLateVideoFrames = true,
+                    MinFrameDuration = new CMTime(1, 30),
+                    UncompressedVideoSetting = settings
+                };
+                //if (UIDevice.CurrentDevice.CheckSystemVersion(13, 0)) //TODO: what is this?
+                //{
+                //    _previewFrameOutput.DeliversPreviewSizedOutputBuffers = true;
+                //    _previewFrameOutput.AutomaticallyConfiguresOutputBufferDimensions = false;
+                //}
+                _previewFrameDelegate = new PreviewFrameDelegate(_cameraModule);
+                var queue = new DispatchQueue("PreviewFrameQueue");
+                _previewFrameOutput.WeakVideoSettings = settings.Dictionary;
+                _previewFrameOutput.SetSampleBufferDelegate(_previewFrameDelegate, queue);
+
+                _captureSession.AddOutput(_previewFrameOutput);
+
+                _deviceInput = AVCaptureDeviceInput.FromDevice(_device);
+                _captureSession.AddInput(_deviceInput);
             }
             catch (Exception e)
             {
@@ -299,10 +309,13 @@ namespace CrossCam.iOS.CustomRenderer
 
         private async void StopPreview(object o = null, NSNotificationEventArgs args = null)
         {
-            await Task.Run(() =>
+            if (_captureSession != null)
             {
-                _captureSession.StopRunning();
-            });
+                await Task.Run(() =>
+                {
+                    _captureSession.StopRunning();
+                });
+            }
         }
 
         private async void CapturePhoto()
@@ -317,7 +330,6 @@ namespace CrossCam.iOS.CustomRenderer
                 }
                 else
                 {
-
                     var videoConnection = _stillImageOutput.ConnectionFromMediaType(AVMediaType.Video);
                     var sampleBuffer = await _stillImageOutput.CaptureStillImageTaskAsync(videoConnection);
 
@@ -568,9 +580,9 @@ namespace CrossCam.iOS.CustomRenderer
             device.UnlockForConfiguration();
         }
 
-        private void FullInit(object o = null, NSNotificationEventArgs args = null)
+        private void FullInit()
         {
-            SetupCamera(true);
+            SetupCamera();
             StartPreview();
             if (NativeView != null &&
                 _liveCameraStream != null)
@@ -582,42 +594,28 @@ namespace CrossCam.iOS.CustomRenderer
 
         private void OrientationChanged(NSNotification notification)
         {
-            if (_isInitialized)
+            switch (UIDevice.CurrentDevice.Orientation)
             {
-                SetupCamera();
-                switch (UIDevice.CurrentDevice.Orientation)
-                {
-                    case UIDeviceOrientation.Portrait:
-                    case UIDeviceOrientation.LandscapeLeft:
-                    case UIDeviceOrientation.LandscapeRight:
-                        _previousValidOrientation = UIDevice.CurrentDevice.Orientation;
-                        break;
-                    default:
-                        _previousValidOrientation ??= UIDeviceOrientation.Portrait;
-                        break;
-                }
+                case UIDeviceOrientation.Portrait:
+                case UIDeviceOrientation.LandscapeLeft:
+                case UIDeviceOrientation.LandscapeRight:
+                    _previousValidOrientation = UIDevice.CurrentDevice.Orientation;
+                    break;
+                default:
+                    _previousValidOrientation ??= UIDeviceOrientation.Portrait;
+                    break;
             }
         }
 
-        private void SetPreviewSizing(bool restart)
+        private void SetPreviewSizing()
         {
             var sideHeight = NativeView.Bounds.Height;
             var sideWidth = NativeView.Bounds.Width;
+            
+            _liveCameraStream = new UIView(new CGRect(0, 0, sideWidth, sideHeight));
 
-            if (_liveCameraStream == null || restart)
-            {
-                _liveCameraStream = new UIView(new CGRect(0, 0, sideWidth, sideHeight));
-            }
-            else
-            {
-                _liveCameraStream.Frame = new CGRect(0, 0, sideWidth, sideHeight);
-            }
-
-            if (_avCaptureVideoPreviewLayer == null || restart)
-            {
-                _avCaptureVideoPreviewLayer = new AVCaptureVideoPreviewLayer(_captureSession);
-                _liveCameraStream.Layer.AddSublayer(_avCaptureVideoPreviewLayer);
-            }
+            _avCaptureVideoPreviewLayer = new AVCaptureVideoPreviewLayer(_captureSession);
+            _liveCameraStream.Layer.AddSublayer(_avCaptureVideoPreviewLayer);
 
             _avCaptureVideoPreviewLayer.Frame = _liveCameraStream.Bounds;
         }
@@ -638,7 +636,8 @@ namespace CrossCam.iOS.CustomRenderer
                     break;
             }
             
-            if (videoOrientation != 0)
+            if (videoOrientation != 0 &&
+                _avCaptureVideoPreviewLayer != null)
             {
                 _avCaptureVideoPreviewLayer.Orientation = videoOrientation;
             }
@@ -685,7 +684,7 @@ namespace CrossCam.iOS.CustomRenderer
                 }
                 catch (Exception e)
                 {
-                    Console.WriteLine("Error sampling buffer: {0}", e.Message);
+                    Debug.WriteLine("Error sampling buffer: {0}", e.Message);
                 }
                 finally
                 {

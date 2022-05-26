@@ -21,36 +21,48 @@ namespace CrossCam.iOS.CustomRenderer
         public event EventHandler Connected;
         private void OnConnected()
         {
-            var handler = Connected;
-            handler?.Invoke(this, new EventArgs());
+            Connected?.Invoke(this, EventArgs.Empty);
         }
 
         public event EventHandler Disconnected;
         private void OnDisconnected()
         {
-            var handler = Disconnected;
-            handler?.Invoke(this, new EventArgs());
+            Disconnected?.Invoke(this, EventArgs.Empty);
         }
 
         public async void SendPayload(byte[] bytes)
         {
-            NSError error = null;
-            if ((PairOperator.CrossCommand)bytes[2] == PairOperator.CrossCommand.CapturedImage)
+            try
             {
-                await Task.Delay(1000);
+                NSError error = null;
+                if ((PairOperator.CrossCommand) bytes[2] == PairOperator.CrossCommand.CapturedImage)
+                {
+                    await Task.Delay(1000);
+                }
+
+                _session?.SendData(NSData.FromArray(bytes), _session.ConnectedPeers, MCSessionSendDataMode.Reliable,
+                    out error); //TODO: how to indicate transmitting on secondary?
+                if (error != null)
+                {
+                    throw new Exception(error.ToString());
+                }
             }
-            _session?.SendData(NSData.FromArray(bytes), _session.ConnectedPeers, MCSessionSendDataMode.Reliable, out error); //TODO: how to indicate transmitting on secondary?
-            if (error != null)
+            catch (Exception e)
             {
-                throw new Exception(error.ToString());
+                OnErrorOccurred(e.ToString());
             }
+        }
+
+        public event EventHandler<string> ErrorOccurred;
+        private void OnErrorOccurred(string error)
+        {
+            ErrorOccurred?.Invoke(this, error);
         }
 
         public event EventHandler<byte[]> PayloadReceived;
         private void OnPayloadReceived(byte[] bytes)
         {
-            var handler = PayloadReceived;
-            handler?.Invoke(this, bytes);
+            PayloadReceived?.Invoke(this, bytes);
         }
 
         public void Disconnect()
