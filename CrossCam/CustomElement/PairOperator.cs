@@ -573,7 +573,7 @@ namespace CrossCam.CustomElement
             });
         }
 
-        public void SendLatestPreviewFrame(byte[] frame, byte? rotationNeeded = null)
+        public void SendLatestPreviewFrame(byte[] frame, byte? rotationNeeded = null) //TODO: the optional parameter is never used?
         {
             try
             {
@@ -688,7 +688,6 @@ namespace CrossCam.CustomElement
                                 _lastPreviewFrameUtc < DateTime.UtcNow.AddMilliseconds(-_settings.PairedPreviewFrameDelayMs) &&
                                 Interlocked.CompareExchange(ref _requestingPreviewFrameInterlocked, 1, 0) == 0)
                             {
-                                Debug.WriteLine("### requesting preview frame");
                                 _lastPreviewFrameUtc = DateTime.UtcNow;
                                 SendReadyForPreviewFrame();
                             }

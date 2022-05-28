@@ -39,8 +39,8 @@ namespace CrossCam.iOS.CustomRenderer
         private static UIDeviceOrientation? _previousValidOrientation;
         private bool _is10OrHigher;
         private IEnumerable<AVCaptureDevice> _devices;
-        private const string adjustingFocus = "adjustingFocus";
-        private List<string> _setupProperties = new List<string>
+        private const string ADJUSTING_FOCUS = "adjustingFocus";
+        private readonly List<string> _setupProperties = new List<string>
         {
             "Height",
             "Width",
@@ -154,7 +154,7 @@ namespace CrossCam.iOS.CustomRenderer
                 if (chosenDevice?.UniqueID != _device.UniqueID)
                 {
                     _device = chosenDevice;
-                    _device?.AddObserver(this, adjustingFocus, NSKeyValueObservingOptions.OldNew, IntPtr.Zero);
+                    _device?.AddObserver(this, ADJUSTING_FOCUS, NSKeyValueObservingOptions.OldNew, IntPtr.Zero);
 
                     TurnOffFlashAndSetContinuousAutoMode(_device);
 
@@ -231,7 +231,7 @@ namespace CrossCam.iOS.CustomRenderer
                 _device = AVCaptureDevice.GetDefaultDevice(AVMediaTypes.Video);
                 _cameraModule.ChosenCamera = _cameraModule.AvailableCameras.First(c => c.CameraId == _device.UniqueID);
 
-                _device?.AddObserver(this, adjustingFocus, NSKeyValueObservingOptions.OldNew, IntPtr.Zero);
+                _device?.AddObserver(this, ADJUSTING_FOCUS, NSKeyValueObservingOptions.OldNew, IntPtr.Zero);
 
                 SetPreviewSizing();
 
@@ -324,14 +324,14 @@ namespace CrossCam.iOS.CustomRenderer
             {
                 if (_is10OrHigher)
                 {
-                    var photoSettings = AVCapturePhotoSettings.Create();
+                    using var photoSettings = AVCapturePhotoSettings.Create();
                     photoSettings.IsHighResolutionPhotoEnabled = true;
                     _photoOutput.CapturePhoto(photoSettings, this);
                 }
                 else
                 {
-                    var videoConnection = _stillImageOutput.ConnectionFromMediaType(AVMediaType.Video);
-                    var sampleBuffer = await _stillImageOutput.CaptureStillImageTaskAsync(videoConnection);
+                    using var videoConnection = _stillImageOutput.ConnectionFromMediaType(AVMediaType.Video);
+                    using var sampleBuffer = await _stillImageOutput.CaptureStillImageTaskAsync(videoConnection);
 
                     if (_cameraModule.PairOperator.IsPrimary ||
                         _cameraModule.PairOperator.PairStatus != PairStatus.Connected)
@@ -345,7 +345,7 @@ namespace CrossCam.iOS.CustomRenderer
                         LockPictureSpecificSettingsIfApplicable();
                     }
 
-                    var jpegImageAsNsData = AVCaptureStillImageOutput.JpegStillToNSData(sampleBuffer);
+                    using var jpegImageAsNsData = AVCaptureStillImageOutput.JpegStillToNSData(sampleBuffer);
                     using var image = UIImage.LoadFromData(jpegImageAsNsData);
                     using var cgImage = image.CGImage;
                     using var rotatedImage = UIImage.FromImage(cgImage, 1, GetOrientationForCorrection());
@@ -357,7 +357,8 @@ namespace CrossCam.iOS.CustomRenderer
                     }
                     else
                     {
-                        using var skData = SKData.Create(new SKMemoryStream(imageBytes));
+                        using var stream = new SKMemoryStream(imageBytes);
+                        using var skData = SKData.Create(stream);
                         using var codec = SKCodec.Create(skData);
                         _cameraModule.CapturedImage = new IncomingFrame
                         {
@@ -404,7 +405,8 @@ namespace CrossCam.iOS.CustomRenderer
                     }
                     else
                     {
-                        using var skData = SKData.Create(new SKMemoryStream(imageBytes));
+                        using var stream = new SKMemoryStream(imageBytes);
+                        using var skData = SKData.Create(stream);
                         using var codec = SKCodec.Create(skData);
                         _cameraModule.CapturedImage = new IncomingFrame
                         {
@@ -661,10 +663,10 @@ namespace CrossCam.iOS.CustomRenderer
             {
                 try
                 {
-                    var image = GetImageFromSampleBuffer(sampleBuffer);
-                    var bytes = image.AsJPEG(0).ToArray(); 
-                    
-                    using var skData = SKData.Create(new SKMemoryStream(bytes));
+                    using var image = GetImageFromSampleBuffer(sampleBuffer);
+                    var bytes = image.AsJPEG(0).ToArray();
+                    using var stream = new SKMemoryStream(image.AsJPEG(0).ToArray());
+                    using var skData = SKData.Create(stream);
                     using var codec = SKCodec.Create(skData);
                     _camera.PreviewImage = new IncomingFrame
                     {

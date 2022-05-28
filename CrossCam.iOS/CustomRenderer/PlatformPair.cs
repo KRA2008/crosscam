@@ -17,6 +17,8 @@ namespace CrossCam.iOS.CustomRenderer
     public class PlatformPair : IPlatformPair
     {
         private MCSession _session;
+        private MCNearbyServiceBrowser _serviceBrowser; // technically these two could be variables in methods, but then iOS sometimes clips them off and it doesn't connect
+        private MCAdvertiserAssistant _advertiserAssistant;
 
         public event EventHandler Connected;
         private void OnConnected()
@@ -78,21 +80,18 @@ namespace CrossCam.iOS.CustomRenderer
 
             var myPeerId = new MCPeerID(UIDevice.CurrentDevice.Name);
             _session = new MCSession(myPeerId) { Delegate = new SessionDelegate(this) };
-            MainThread.BeginInvokeOnMainThread(() =>
+            _serviceBrowser = new MCNearbyServiceBrowser(myPeerId, PairOperator.CROSSCAM_SERVICE)
             {
-                var browser = new MCNearbyServiceBrowser(myPeerId, PairOperator.CROSSCAM_SERVICE)
-                {
-                    Delegate = new BrowserDelegate(this)
-                };
-                browser.StartBrowsingForPeers();
-                //var browser = new MCBrowserViewController(PairOperator.CROSSCAM_SERVICE, _session)
-                //{
-                //    Delegate = new BrowserViewControllerDelegate(),
-                //    MaximumNumberOfPeers = 1,
-                //    MinimumNumberOfPeers = 1
-                //};
-                //AppDelegate.Instance.Window.RootViewController?.PresentViewController(browser, true, null);
-            });
+                Delegate = new BrowserDelegate(this)
+            };
+            _serviceBrowser.StartBrowsingForPeers();
+            //var browser = new MCBrowserViewController(PairOperator.CROSSCAM_SERVICE, _session)
+            //{
+            //    Delegate = new BrowserViewControllerDelegate(),
+            //    MaximumNumberOfPeers = 1,
+            //    MinimumNumberOfPeers = 1
+            //};
+            //AppDelegate.Instance.Window.RootViewController?.PresentViewController(browser, true, null);
             Debug.WriteLine("### SCANNING START");
             return Task.FromResult(true);
         }
@@ -108,9 +107,9 @@ namespace CrossCam.iOS.CustomRenderer
             discoveryInfo.Add(new NSString("Device Type"),new NSString(UIDevice.CurrentDevice.Name));
             discoveryInfo.Add(new NSString("OS"), new NSString(UIDevice.CurrentDevice.SystemName));
             discoveryInfo.Add(new NSString("OS Version"), new NSString(UIDevice.CurrentDevice.SystemVersion));
-            var assistant = new MCAdvertiserAssistant(PairOperator.CROSSCAM_SERVICE, discoveryInfo, _session);
-            assistant.Delegate = new AdvertiserAssistantDelegate();
-            assistant.Start();
+            _advertiserAssistant = new MCAdvertiserAssistant(PairOperator.CROSSCAM_SERVICE, discoveryInfo, _session);
+            _advertiserAssistant.Delegate = new AdvertiserAssistantDelegate();
+            _advertiserAssistant.Start();
             //var advertiser = new MCNearbyServiceAdvertiser(myPeerId, discoveryInfo, PairOperator.CROSSCAM_SERVICE);
             //advertiser.Delegate = new NearbyServiceAdvertiserDelegate();
             //advertiser.StartAdvertisingPeer();
@@ -198,8 +197,11 @@ namespace CrossCam.iOS.CustomRenderer
                 if (_platformPair._session != null)
                 {
                     Debug.WriteLine("### FOUND PEER: " + peerID.DisplayName);
-                    browser.InvitePeer(peerID, _platformPair._session, null, 30);
-                    browser.StopBrowsingForPeers();
+                    MainThread.BeginInvokeOnMainThread(() =>
+                    {
+                        browser.InvitePeer(peerID, _platformPair._session, null, 30);
+                        browser.StopBrowsingForPeers();
+                    });
                 }
             }
 
