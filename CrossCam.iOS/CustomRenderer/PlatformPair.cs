@@ -149,6 +149,7 @@ namespace CrossCam.iOS.CustomRenderer
                         Debug.WriteLine("### Unknown state change! " + state);
                         break;
                 }
+                _platformPair._advertiserAssistant?.Stop();
             }
 
             public override void DidStartReceivingResource(MCSession session, string resourceName, MCPeerID fromPeer, NSProgress progress)
