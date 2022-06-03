@@ -403,9 +403,9 @@ namespace CrossCam.Droid.CustomRenderer
             {
                 using var stream = new MemoryStream();
                 bitmap.Compress(Bitmap.CompressFormat.Jpeg, 50, stream);
-                _cameraModule.PairOperator.SendLatestPreviewFrame(stream.ToArray());
+                _cameraModule.PairOperator.SendLatestPreviewFrame(stream.ToArray(), (byte) origin);
             }
-
+            
             _cameraModule.PreviewImage = new IncomingFrame
             {
                 Frame = bitmap.ToSKBitmap(),
