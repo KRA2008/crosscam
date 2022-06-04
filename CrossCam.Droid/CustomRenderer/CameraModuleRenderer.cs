@@ -1433,7 +1433,8 @@ namespace CrossCam.Droid.CustomRenderer
                     }
                     else
                     {
-                        using var data = SKData.Create(new SKMemoryStream(buffer));
+                        using var stream = new SKMemoryStream(buffer);
+                        using var data = SKData.Create(stream);
                         using var codec = SKCodec.Create(data);
                         var bitmap = SKBitmap.Decode(data);
                         _cameraModule.CapturedImage = new IncomingFrame
