@@ -106,6 +106,7 @@ namespace CrossCam.CustomElement
         private void OnInitialSyncCompleted()
         {
             _initialSyncComplete = true;
+            _requestingPreviewFrameInterlocked = 0;
             InitialSyncCompleted?.Invoke(this, EventArgs.Empty);
         }
 

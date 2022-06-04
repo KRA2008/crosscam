@@ -1515,25 +1515,9 @@ namespace CrossCam.ViewModel
             {
                 using var data = SKData.Create(new MemoryStream(bytes, 0, bytes.Length - 1));
                 var orientationByte = bytes.Last();
-                SKEncodedOrigin orientation;
-                switch (orientationByte)
-                {
-                    case 1:
-                        orientation = SKEncodedOrigin.RightTop;
-                        break;
-                    case 2:
-                        orientation = SKEncodedOrigin.BottomRight;
-                        break;
-                    case 3:
-                        orientation = SKEncodedOrigin.LeftBottom;
-                        break;
-                    default:
-                        orientation = SKEncodedOrigin.TopLeft;
-                        break;
-                }
                 return new IncomingFrame
                 {
-                    Orientation = orientation,
+                    Orientation = (SKEncodedOrigin)orientationByte,
                     Frame = SKBitmap.Decode(data)
                 };
             }
