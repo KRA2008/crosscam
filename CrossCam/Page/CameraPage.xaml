@@ -299,7 +299,7 @@
         <Frame AbsoluteLayout.LayoutFlags="PositionProportional"
                AbsoluteLayout.LayoutBounds="{Binding PairButtonPosition}"
                Padding="{StaticResource _bottomPadding}"
-               IsVisible="{Binding IsNothingCaptured}"
+               IsVisible="{Binding ShouldPairButtonBeVisible}"
                BackgroundColor="Transparent">
             <Frame.Triggers>
                 <DataTrigger TargetType="Frame"

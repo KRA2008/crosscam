@@ -41,8 +41,7 @@ namespace CrossCam.CustomElement
 
         public PairStatus PairStatus { get; set; }
         public int CountdownTimeRemainingSec { get; set; }
-
-        private bool _primaryIsRequestingDisconnect;
+        
         private int _initializeThreadLocker;
         private bool _initialSyncComplete;
 
@@ -339,7 +338,6 @@ namespace CrossCam.CustomElement
                 try
                 {
                     PairStatus = PairStatus.Connecting;
-                    _primaryIsRequestingDisconnect = false;
                    await _platformPair.StartScanning();
                 }
                 catch (Exception e)
@@ -419,14 +417,7 @@ namespace CrossCam.CustomElement
 
         public void Disconnect()
         {
-            if (IsPrimary && PairStatus == PairStatus.Connected)
-            {
-                _primaryIsRequestingDisconnect = true;
-            }
-            else
-            {
-                _platformPair.Disconnect();
-            }
+            _platformPair.Disconnect();
         }
 
         public void BeginSyncedCapture()
@@ -673,31 +664,21 @@ namespace CrossCam.CustomElement
                     PairStatus == PairStatus.Connected && 
                     _initialSyncComplete)
                 {
-                    if (_primaryIsRequestingDisconnect)
+                    if (!_isCaptureRequested)
                     {
-                        _platformPair.Disconnect();
-                        _primaryIsRequestingDisconnect = false;
+                        if (_initialSyncComplete &&
+                            (!_captureMomentUtc.HasValue ||
+                            _captureMomentUtc.Value > DateTime.UtcNow.AddSeconds(1).AddMilliseconds(_settings.PairedPreviewFrameDelayMs)) &&
+                            _lastPreviewFrameUtc < DateTime.UtcNow.AddMilliseconds(-_settings.PairedPreviewFrameDelayMs) &&
+                            Interlocked.CompareExchange(ref _requestingPreviewFrameInterlocked, 1, 0) == 0)
+                        {
+                            _lastPreviewFrameUtc = DateTime.UtcNow;
+                            SendReadyForPreviewFrame();
+                        }
                     }
                     else
                     {
-                        
-                        if (!_isCaptureRequested)
-                        {
-                            if (_initialSyncComplete &&
-                                (!_captureMomentUtc.HasValue ||
-                                _captureMomentUtc.Value > DateTime.UtcNow.AddSeconds(1).AddMilliseconds(_settings.PairedPreviewFrameDelayMs)) &&
-                                _lastPreviewFrameUtc < DateTime.UtcNow.AddMilliseconds(-_settings.PairedPreviewFrameDelayMs) &&
-                                Interlocked.CompareExchange(ref _requestingPreviewFrameInterlocked, 1, 0) == 0)
-                            {
-                                _lastPreviewFrameUtc = DateTime.UtcNow;
-                                SendReadyForPreviewFrame();
-                            }
-                                
-                        }
-                        else
-                        {
-                            CalculateAndApplySyncMoment();
-                        }
+                        CalculateAndApplySyncMoment();
                     }
                 }
             }

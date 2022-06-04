@@ -173,6 +173,9 @@ namespace CrossCam.ViewModel
 
         private bool _isClearPromptOpen;
 
+        public bool ShouldPairButtonBeVisible => IsNothingCaptured ||
+                                                 WorkflowStage == WorkflowStage.Final ||
+                                                 WorkflowStage == WorkflowStage.Edits;
         public Rectangle PairButtonPosition
         {
             get
@@ -554,6 +557,7 @@ namespace CrossCam.ViewModel
             GoToModeCommand = new Command<WorkflowStage>(arg =>
             {
                 WorkflowStage = arg;
+                RaisePropertyChanged(nameof(ShouldPairButtonBeVisible));
             });
 
             SaveEditCommand = new Command(() =>
