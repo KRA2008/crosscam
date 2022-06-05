@@ -4,6 +4,7 @@ using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
 using System.Threading.Tasks;
+using System.Timers;
 using CrossCam.CustomElement;
 using CrossCam.Model;
 using CrossCam.ViewModel;
@@ -69,6 +70,17 @@ namespace CrossCam.Page
         private const SensorSpeed SENSOR_SPEED = SensorSpeed.Fastest;
         private const int SENSOR_FRAME_DELAY = 10;
 
+        private PointF _tapLocation;
+        private int _dragCounter;
+        private int _releaseCounter;
+        private readonly Timer _doubleTapTimer = new Timer
+        {
+            Interval = 500,
+            AutoReset = false
+        };
+        private const int MIN_MOVE_COUNTER = 4;
+        private bool _didSwap;
+
         public CameraPage()
 		{
             InitializeComponent();
@@ -77,15 +89,7 @@ namespace CrossCam.Page
 		    _horizontalLevelBubble.Source = _levelBubbleImage;
 		    _horizontalLevelOutside.Source = _levelOutsideImage;
 
-            Accelerometer.ReadingChanged += StoreAccelerometerReading;
-            Gyroscope.ReadingChanged += StoreGyroscopeReading;
             _gyroscopeStopwatch = new Stopwatch();
-            MessagingCenter.Subscribe<App>(this, App.APP_PAUSING_EVENT, o => EvaluateSensors(false));
-		    MessagingCenter.Subscribe<App>(this, App.APP_UNPAUSING_EVENT, o => EvaluateSensors());
-            _doubleTapTimer.Elapsed += (sender, args) =>
-            {
-                TapExpired();
-            };
         }
 
         protected override bool OnBackButtonPressed()
@@ -96,7 +100,22 @@ namespace CrossCam.Page
         protected override void OnAppearing()
         {
             base.OnAppearing();
+            Accelerometer.ReadingChanged += StoreAccelerometerReading;
+            Gyroscope.ReadingChanged += StoreGyroscopeReading;
+            _doubleTapTimer.Elapsed += TapExpired;
+            MessagingCenter.Subscribe<App>(this, App.APP_PAUSING_EVENT, o => EvaluateSensors(false));
+            MessagingCenter.Subscribe<App>(this, App.APP_UNPAUSING_EVENT, o => EvaluateSensors());
             SetMarginsForNotch();
+        }
+
+        protected override void OnDisappearing()
+        {
+            base.OnDisappearing();
+            Accelerometer.ReadingChanged -= StoreAccelerometerReading;
+            Gyroscope.ReadingChanged -= StoreGyroscopeReading;
+            _doubleTapTimer.Elapsed -= TapExpired;
+            MessagingCenter.Unsubscribe<App>(this, App.APP_PAUSING_EVENT);
+            MessagingCenter.Unsubscribe<App>(this, App.APP_UNPAUSING_EVENT);
         }
 
         private void SetMarginsForNotch()
@@ -833,16 +852,6 @@ namespace CrossCam.Page
             }
         }
 
-        private PointF _tapLocation;
-        private int _dragCounter;
-        private int _releaseCounter;
-        private readonly Timer _doubleTapTimer = new Timer
-        {
-            Interval = 500,
-            AutoReset = false
-        };
-        private const int MIN_MOVE_COUNTER = 4;
-        private bool _didSwap;
         private void _canvas_OnTouch(object sender, SKTouchEventArgs e)
         {
             if (_viewModel == null) return;
@@ -898,7 +907,7 @@ namespace CrossCam.Page
             e.Handled = true;
         }
 
-        private void TapExpired()
+        private void TapExpired(object sender, ElapsedEventArgs elapsedEventArgs)
         {
             ClearAllTaps();
         }

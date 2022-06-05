@@ -93,7 +93,6 @@ namespace CrossCam.ViewModel
             base.Init(initData);
             Settings = (Settings) initData;
             SaveSettings(null, null);
-            Settings.PropertyChanged += SaveSettings;
 
             ExternalDirectory = _directorySelector.GetExternalSaveDirectory();
             CanSaveToArbitraryDirectory = _directorySelector.CanSaveToArbitraryDirectory();
@@ -110,6 +109,7 @@ namespace CrossCam.ViewModel
         {
             base.ViewIsAppearing(sender, e);
             CameraViewModel.PairOperator.CurrentCoreMethods = CoreMethods;
+            Settings.PropertyChanged += SaveSettings;
         }
 
         private void SaveSettings(object sender, PropertyChangedEventArgs e)

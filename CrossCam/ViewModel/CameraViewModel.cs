@@ -380,110 +380,10 @@ namespace CrossCam.ViewModel
             Edits = new Edits(Settings);
             LeftAlignmentTransform = SKMatrix.Identity;
             RightAlignmentTransform = SKMatrix.Identity;
-            Settings.PropertyChanged += SettingsOnPropertyChanged;
-            Settings.AlignmentSettings.PropertyChanged += AlignmentSettingsOnPropertyChanged;
             PairOperator = new PairOperator(Settings);
-            PairOperator.Connected += PairOperatorOnConnected;
-            PairOperator.Disconnected += PairOperatorOnDisconnected;
-            PairOperator.PreviewFrameReceived += PairOperatorOnPreviewFrameReceived;
-            PairOperator.CapturedImageReceived += PairOperatorOnCapturedImageReceived;
-            PairOperator.InitialSyncStarted += PairOperatorInitialSyncStarted;
-            PairOperator.InitialSyncCompleted += PairOperatorInitialSyncCompleted;
-            PairOperator.TransmissionStarted += PairOperatorTransmissionStarted;
-            PairOperator.TransmissionComplete += PairOperatorTransmissionComplete;
-            PairOperator.CountdownTimerSyncCompleteSecondary += PairOperatorCountdownTimerSyncCompleteSecondary;
-
-            DeviceDisplay.MainDisplayInfoChanged += (sender, args) =>
-            {
-                EvaluateOrientation(args.DisplayInfo.Rotation);
-            };
 
             CameraColumn = Settings.IsCaptureLeftFirst ? 0 : 1;
             AvailableCameras = new ObservableCollection<AvailableCamera>();
-
-            PropertyChanged += (sender, args) =>
-            {
-                if (args.PropertyName == nameof(CaptureSuccess))
-                {
-                    if (CameraColumn == 0)
-                    {
-                        LeftCaptureSuccess = !LeftCaptureSuccess;
-                    }
-                    else
-                    {
-                        RightCaptureSuccess = !RightCaptureSuccess;
-                    }
-                }
-                else if (args.PropertyName == nameof(LocalCapturedFrame))
-                {
-                    if (_secondaryErrorOccurred)
-                    {
-                        ClearCaptures();
-                    }
-                    else
-                    {
-                        if (PairOperator.IsPrimary &&
-                            PairOperator.PairStatus == PairStatus.Connected)
-                        {
-                            WasCapturePaired = true;
-                            WorkflowStage = WorkflowStage.Loading;
-                            RaisePropertyChanged(nameof(ShouldLineGuidesBeVisible));
-                            RaisePropertyChanged(nameof(ShouldDonutGuideBeVisible));
-                        }
-                        else
-                        {
-                            WasCapturePaired = false;
-                        }
-
-                        if (CameraColumn == 0)
-                        {
-                            SetLeftBitmap(
-                                LocalCapturedFrame.Frame, LocalCapturedFrame.Orientation, LocalCapturedFrame.IsFrontFacing,
-                                PairOperator.PairStatus == PairStatus.Disconnected,
-                                PairOperator.PairStatus == PairStatus.Disconnected);
-                        }
-                        else
-                        {
-                            SetRightBitmap(
-                                LocalCapturedFrame.Frame, LocalCapturedFrame.Orientation, LocalCapturedFrame.IsFrontFacing,
-                                PairOperator.PairStatus == PairStatus.Disconnected,
-                                PairOperator.PairStatus == PairStatus.Disconnected);
-                        }
-                    }
-                }
-                else if (args.PropertyName == nameof(ErrorMessage))
-                {
-                    if (ErrorMessage != null &&
-                        Settings.SendErrorReports1)
-                    {
-                        PromptForPermissionAndSendErrorEmailCommand.Execute(null);
-                    }
-                }
-                else if (args.PropertyName == nameof(Settings))
-                {
-                    if (_isAlignmentInvalid)
-                    {
-                        ClearCrops(true);
-                        if (Settings.IsCaptureLeftFirst)
-                        {
-                            SetRightBitmap(RightBitmap, RightOrientation, IsRightFrontFacing, true, true); //calls autoalign internally
-                        }
-                        else
-                        {
-                            SetLeftBitmap(LeftBitmap, LeftOrientation, IsLeftFrontFacing, true, true); //calls autoalign internally
-                        }
-                    }
-
-                    if (WorkflowStage == WorkflowStage.Final)
-                    {
-                        AutoAlign();
-                    }
-                }
-                else if (args.PropertyName == nameof(WasSwipedTrigger))
-                {
-                    SwapSidesCommand?.Execute(null);
-                }
-            };
 
             LoadPhotoCommand = new Command(async () =>
             {
@@ -1189,6 +1089,51 @@ namespace CrossCam.ViewModel
             });
         }
 
+        public override void Init(object initData)
+        {
+            base.Init(initData);
+
+            PropertyChanged += HandlePropertyChanged;
+            DeviceDisplay.MainDisplayInfoChanged += EvaluateOrientationEvent;
+            Settings.PropertyChanged += SettingsOnPropertyChanged;
+            Settings.AlignmentSettings.PropertyChanged += AlignmentSettingsOnPropertyChanged;
+            PairOperator.Connected += PairOperatorOnConnected;
+            PairOperator.Disconnected += PairOperatorOnDisconnected;
+            PairOperator.PreviewFrameReceived += PairOperatorOnPreviewFrameReceived;
+            PairOperator.CapturedImageReceived += PairOperatorOnCapturedImageReceived;
+            PairOperator.InitialSyncStarted += PairOperatorInitialSyncStarted;
+            PairOperator.InitialSyncCompleted += PairOperatorInitialSyncCompleted;
+            PairOperator.TransmissionStarted += PairOperatorTransmissionStarted;
+            PairOperator.TransmissionComplete += PairOperatorTransmissionComplete;
+            PairOperator.CountdownTimerSyncCompleteSecondary += PairOperatorCountdownTimerSyncCompleteSecondary;
+            PairOperator.ErrorOccurred += PairOperatorOnErrorOccurred;
+        }
+
+        public override void ReverseInit(object returnedData)
+        {
+            base.ReverseInit(returnedData);
+
+            PropertyChanged -= HandlePropertyChanged;
+            DeviceDisplay.MainDisplayInfoChanged -= EvaluateOrientationEvent;
+            Settings.PropertyChanged -= SettingsOnPropertyChanged;
+            Settings.AlignmentSettings.PropertyChanged -= AlignmentSettingsOnPropertyChanged;
+            PairOperator.Connected -= PairOperatorOnConnected;
+            PairOperator.Disconnected -= PairOperatorOnDisconnected;
+            PairOperator.PreviewFrameReceived -= PairOperatorOnPreviewFrameReceived;
+            PairOperator.CapturedImageReceived -= PairOperatorOnCapturedImageReceived;
+            PairOperator.InitialSyncStarted -= PairOperatorInitialSyncStarted;
+            PairOperator.InitialSyncCompleted -= PairOperatorInitialSyncCompleted;
+            PairOperator.TransmissionStarted -= PairOperatorTransmissionStarted;
+            PairOperator.TransmissionComplete -= PairOperatorTransmissionComplete;
+            PairOperator.CountdownTimerSyncCompleteSecondary -= PairOperatorCountdownTimerSyncCompleteSecondary;
+            PairOperator.ErrorOccurred -= PairOperatorOnErrorOccurred;
+        }
+
+        private void EvaluateOrientationEvent(object sender, DisplayInfoChangedEventArgs eventArgs)
+        {
+            EvaluateOrientation(eventArgs.DisplayInfo.Rotation);
+        }
+
         private void EvaluateOrientation(DisplayRotation rotation)
         {
             switch (rotation)
@@ -1209,6 +1154,90 @@ namespace CrossCam.ViewModel
                     IsViewInverted = true;
                     IsViewPortrait = false;
                     break;
+            }
+        }
+
+        private void HandlePropertyChanged(object sender, PropertyChangedEventArgs args)
+        {
+            if (args.PropertyName == nameof(CaptureSuccess))
+            {
+                if (CameraColumn == 0)
+                {
+                    LeftCaptureSuccess = !LeftCaptureSuccess;
+                }
+                else
+                {
+                    RightCaptureSuccess = !RightCaptureSuccess;
+                }
+            }
+            else if (args.PropertyName == nameof(LocalCapturedFrame))
+            {
+                if (_secondaryErrorOccurred)
+                {
+                    ClearCaptures();
+                }
+                else
+                {
+                    if (PairOperator.IsPrimary &&
+                        PairOperator.PairStatus == PairStatus.Connected)
+                    {
+                        WasCapturePaired = true;
+                        WorkflowStage = WorkflowStage.Loading;
+                        RaisePropertyChanged(nameof(ShouldLineGuidesBeVisible));
+                        RaisePropertyChanged(nameof(ShouldDonutGuideBeVisible));
+                    }
+                    else
+                    {
+                        WasCapturePaired = false;
+                    }
+
+                    if (CameraColumn == 0)
+                    {
+                        SetLeftBitmap(
+                            LocalCapturedFrame.Frame, LocalCapturedFrame.Orientation, LocalCapturedFrame.IsFrontFacing,
+                            PairOperator.PairStatus == PairStatus.Disconnected,
+                            PairOperator.PairStatus == PairStatus.Disconnected);
+                    }
+                    else
+                    {
+                        SetRightBitmap(
+                            LocalCapturedFrame.Frame, LocalCapturedFrame.Orientation, LocalCapturedFrame.IsFrontFacing,
+                            PairOperator.PairStatus == PairStatus.Disconnected,
+                            PairOperator.PairStatus == PairStatus.Disconnected);
+                    }
+                }
+            }
+            else if (args.PropertyName == nameof(ErrorMessage))
+            {
+                if (ErrorMessage != null &&
+                    Settings.SendErrorReports1)
+                {
+                    PromptForPermissionAndSendErrorEmailCommand.Execute(null);
+                }
+            }
+            else if (args.PropertyName == nameof(Settings))
+            {
+                if (_isAlignmentInvalid)
+                {
+                    ClearCrops(true);
+                    if (Settings.IsCaptureLeftFirst)
+                    {
+                        SetRightBitmap(RightBitmap, RightOrientation, IsRightFrontFacing, true, true); //calls autoalign internally
+                    }
+                    else
+                    {
+                        SetLeftBitmap(LeftBitmap, LeftOrientation, IsLeftFrontFacing, true, true); //calls autoalign internally
+                    }
+                }
+
+                if (WorkflowStage == WorkflowStage.Final)
+                {
+                    AutoAlign();
+                }
+            }
+            else if (args.PropertyName == nameof(WasSwipedTrigger))
+            {
+                SwapSidesCommand?.Execute(null);
             }
         }
 
@@ -1415,7 +1444,6 @@ namespace CrossCam.ViewModel
             }
 
             PairOperator.CurrentCoreMethods = CoreMethods;
-            PairOperator.ErrorOccurred += PairOperatorOnErrorOccurred;
 
             await Task.Delay(100);
             await EvaluateAndShowWelcomePopup();

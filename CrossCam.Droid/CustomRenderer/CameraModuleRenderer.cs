@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.IO;
 using System.Linq;
 using System.Threading;
+using System.Timers;
 using Android.App;
 using Android.Content;
 using Android.Graphics;
@@ -31,6 +32,7 @@ using Xamarin.Forms.Platform.Android;
 using Boolean = Java.Lang.Boolean;
 using CameraError = Android.Hardware.CameraError;
 using CameraModule = CrossCam.CustomElement.CameraModule;
+using Exception = System.Exception;
 using Math = System.Math;
 using PointF = System.Drawing.PointF;
 using Size = Android.Util.Size;
@@ -69,8 +71,10 @@ namespace CrossCam.Droid.CustomRenderer
         private CameraCaptureSession _camera2Session;
         private CaptureRequest.Builder _previewRequestBuilder;
         private int _readyToCapturePreviewFrameInterlocked;
-        private CameraCaptureListener _captureListener;
+        private CameraCaptureListener _previewCaptureListener;
+        private CameraCaptureListener _finalCaptureListener;
         private CameraStateListener _stateListener;
+        private ImageAvailableListener _imageAvailableListener;
         private ImageReader _finalCaptureImageReader;
         private HandlerThread _backgroundThread;
         private Handler _backgroundHandler;
@@ -101,13 +105,6 @@ namespace CrossCam.Droid.CustomRenderer
 
         public CameraModuleRenderer(Context context) : base(context)
         {
-            MainActivity.Instance.LifecycleEventListener.OrientationChanged += (sender, args) =>
-            {
-                OrientationChanged();
-            };
-            MainActivity.Instance.LifecycleEventListener.AppMaximized += AppWasMaximized;
-            MainActivity.Instance.LifecycleEventListener.AppMinimized += AppWasMinimized;
-
             var maxSize = Math.Max(Resources.DisplayMetrics.HeightPixels, Resources.DisplayMetrics.WidthPixels);
             _landscapePreviewAllottedWidth = maxSize / 2f;
 
@@ -180,33 +177,41 @@ namespace CrossCam.Droid.CustomRenderer
 
             try
             {
-                if (e.OldElement != null || e.NewElement == null)
+                if (e.OldElement != null)
                 {
+                    MainActivity.Instance.LifecycleEventListener.OrientationChanged -= HandleOrientationChangedEvent;
+                    MainActivity.Instance.LifecycleEventListener.AppMaximized -= AppWasMaximized;
+                    MainActivity.Instance.LifecycleEventListener.AppMinimized -= AppWasMinimized;
+                    _cameraModule.PairOperator.PreviewFrameRequestReceived -= HandlePreviewFrameRequestReceived;
+                    _cameraModule.PairOperator.CaptureSyncTimeElapsed -= HandleCaptureSyncTimeElapsed;
+                    _cameraModule.SingleTapped -= PreviewSingleTapped;
+                    _cameraModule.DoubleTapped -= PreviewDoubleTapped;
+
+                    if (_useCamera2)
+                    {
+                        _previewCaptureListener.CaptureComplete -= HandlePreviewCaptureComplete;
+                        _previewCaptureListener.CaptureProgressed -= HandlePreviewCaptureProgressed;
+
+                        _imageAvailableListener.Photo -= HandleImageAvailablePhoto;
+                        _imageAvailableListener.Error -= HandleImageAvailableListenerError;
+
+                        _finalCaptureListener.CaptureComplete -= HandleFinalCaptureComplete;
+                    }
+
                     return;
                 }
 
                 if (e.NewElement != null)
                 {
+                    MainActivity.Instance.LifecycleEventListener.OrientationChanged += HandleOrientationChangedEvent;
+                    MainActivity.Instance.LifecycleEventListener.AppMaximized += AppWasMaximized;
+                    MainActivity.Instance.LifecycleEventListener.AppMinimized += AppWasMinimized;
                     _cameraModule = e.NewElement;
-                    _cameraModule.PairOperator.CaptureSyncTimeElapsed += (sender, args) =>
-                    {
-                        Device.BeginInvokeOnMainThread(() =>
-                        {
-                            TakePhotoButtonTapped(true);
-                        });
-                    };
-                    _cameraModule.PairOperator.PreviewFrameRequestReceived += (sender, args) =>
-                    {
-                        _readyToCapturePreviewFrameInterlocked = 1;
-                    };
-                    _cameraModule.SingleTapped += (sender, point) =>
-                    {
-                        PreviewSingleTapped(point);
-                    };
-                    _cameraModule.DoubleTapped += (sender, args) =>
-                    {
-                        PreviewDoubleTapped();
-                    };
+                    _cameraModule.SingleTapped += PreviewSingleTapped;
+                    _cameraModule.DoubleTapped += PreviewDoubleTapped;
+                    _cameraModule.PairOperator.PreviewFrameRequestReceived += HandlePreviewFrameRequestReceived;
+                    _cameraModule.PairOperator.CaptureSyncTimeElapsed += HandleCaptureSyncTimeElapsed;
+                    
                     try
                     {
                         var settings = PersistentStorage.LoadOrDefault(PersistentStorage.SETTINGS_KEY, new Settings());
@@ -216,21 +221,58 @@ namespace CrossCam.Droid.CustomRenderer
                             _useCamera2 = level != (int)InfoSupportedHardwareLevel.Legacy || settings.IsForceCamera2Enabled;
                         }
                     }
-                    catch (System.Exception ex)
+                    catch (Exception ex)
                     {
                         _cameraModule.ErrorMessage = ex.ToString();
                         _useCamera2 = false;
                     }
+
+                    if (_useCamera2)
+                    {
+                        _previewCaptureListener = new CameraCaptureListener();
+                        _previewCaptureListener.CaptureComplete += HandlePreviewCaptureComplete;
+                        _previewCaptureListener.CaptureProgressed += HandlePreviewCaptureProgressed;
+
+                        _imageAvailableListener = new ImageAvailableListener();
+                        _imageAvailableListener.Photo += HandleImageAvailablePhoto;
+                        _imageAvailableListener.Error += HandleImageAvailableListenerError;
+
+                        _finalCaptureListener = new CameraCaptureListener();
+                        _finalCaptureListener.CaptureComplete += HandleFinalCaptureComplete;
+                    }
+
+                    System.Diagnostics.Debug.WriteLine("### USE CAMERA2: " + _useCamera2);
+
+                    SetupUserInterface();
                 }
-
-                System.Diagnostics.Debug.WriteLine("### USE CAMERA2: " + _useCamera2);
-
-                SetupUserInterface();
             }
-            catch (System.Exception ex)
+            catch (Exception ex)
             {
                 _cameraModule.ErrorMessage = ex.ToString();
             }
+        }
+
+        private void HandlePreviewCaptureComplete(object sender, CameraCaptureListener.CameraCaptureListenerEventArgs args)
+        {
+            HandleCaptureResult(args.CaptureRequest, args.CaptureResult);
+        }
+
+        private void HandlePreviewCaptureProgressed(object sender, CameraCaptureListener.CameraCaptureListenerEventArgs args)
+        {
+            HandleCaptureResult(args.CaptureRequest, args.CaptureResult);
+        }
+
+        private void HandlePreviewFrameRequestReceived(object sender, EventArgs e)
+        {
+            _readyToCapturePreviewFrameInterlocked = 1;
+        }
+
+        private void HandleCaptureSyncTimeElapsed(object sender, ElapsedEventArgs e)
+        {
+            Device.BeginInvokeOnMainThread(() =>
+            {
+                TakePhotoButtonTapped(true);
+            });
         }
 
         protected override void OnElementPropertyChanged(object sender, PropertyChangedEventArgs e)
@@ -256,7 +298,7 @@ namespace CrossCam.Droid.CustomRenderer
                 if (e.PropertyName == nameof(_cameraModule.Width) ||
                     e.PropertyName == nameof(_cameraModule.Height))
                 {
-                    OrientationChanged();
+                    SetOrientation();
                 }
 
                 if (e.PropertyName == nameof(_cameraModule.CaptureTrigger))
@@ -488,12 +530,9 @@ namespace CrossCam.Droid.CustomRenderer
 
         public void OnSurfaceTextureSizeChanged(SurfaceTexture surface, int width, int height) { }
 
-        private void OrientationChanged()
+        private void HandleOrientationChangedEvent(object sender, EventArgs eventArgs)
         {
-            if (_surfaceTexture != null)
-            {
-                SetOrientation();
-            }
+            SetOrientation();
         }
 
         private void TakePhotoButtonTapped(bool isSyncReentry = false)
@@ -527,12 +566,12 @@ namespace CrossCam.Droid.CustomRenderer
             return _gestureDetector.OnTouchEvent(e);
         }
 
-        private void PreviewDoubleTapped()
+        private void PreviewDoubleTapped(object sender, EventArgs eventArgs)
         {
             TurnOnContinuousFocus();
         }
 
-        private void PreviewSingleTapped(PointF p)
+        private void PreviewSingleTapped(object sender, PointF p)
         {
             try
             {
@@ -634,7 +673,7 @@ namespace CrossCam.Droid.CustomRenderer
         {
             try
             {
-                if (_textureView == null) return;
+                if (_textureView == null || _surfaceTexture == null) return;
 
                 var metrics = new DisplayMetrics();
                 if (Display == null) return;
@@ -1150,13 +1189,10 @@ namespace CrossCam.Droid.CustomRenderer
 
                 _surfaceTexture.SetDefaultBufferSize(_preview2Size.Width, _preview2Size.Height);
 
-                _finalCaptureImageReader =
-                    ImageReader.NewInstance(_picture2Size.Width, _picture2Size.Height, ImageFormatType.Jpeg, 1);
+                _finalCaptureImageReader?.SetOnImageAvailableListener(null,null);
+                _finalCaptureImageReader = ImageReader.NewInstance(_picture2Size.Width, _picture2Size.Height, ImageFormatType.Jpeg, 1);
+                _finalCaptureImageReader.SetOnImageAvailableListener(_imageAvailableListener, _backgroundHandler);
 
-                _captureListener = new CameraCaptureListener();
-                _captureListener.CaptureComplete += (sender, args) => { HandleCaptureResult(args.CaptureRequest, args.CaptureResult); };
-                _captureListener.CaptureProgressed += (sender, args) => { HandleCaptureResult(args.CaptureRequest, args.CaptureResult); };
-                
                 _camera2Device.CreateCaptureSession(new List<Surface> { _surface, _finalCaptureImageReader.Surface },
                     new CameraCaptureStateListener
                     {
@@ -1175,7 +1211,7 @@ namespace CrossCam.Droid.CustomRenderer
                                 _previewRequestBuilder.Set(CaptureRequest.ControlAfMode,
                                     new Integer((int) ControlAFMode.ContinuousPicture));
 
-                                session.SetRepeatingRequest(_previewRequestBuilder.Build(), _captureListener,
+                                session.SetRepeatingRequest(_previewRequestBuilder.Build(), _previewCaptureListener,
                                     _backgroundHandler);
                             }
                             catch (System.Exception ex)
@@ -1283,7 +1319,7 @@ namespace CrossCam.Droid.CustomRenderer
                                 TurnOnAeLock(characteristics);
 
                                 _previewRequestBuilder.Set(CaptureRequest.ControlAfTrigger, new Integer((int)ControlAFTrigger.Cancel));
-                                _camera2Session.Capture(_previewRequestBuilder.Build(), _captureListener,
+                                _camera2Session.Capture(_previewRequestBuilder.Build(), _previewCaptureListener,
                                     _backgroundHandler);
 
                                 _previewRequestBuilder.Set(CaptureRequest.ControlAfTrigger, null);
@@ -1292,7 +1328,7 @@ namespace CrossCam.Droid.CustomRenderer
                                 _camera2State = CameraState.Preview;
                                 _previewRequestBuilder.SetTag(CameraState.Preview.ToString());
                                 
-                                _camera2Session.SetRepeatingRequest(_previewRequestBuilder.Build(), _captureListener,
+                                _camera2Session.SetRepeatingRequest(_previewRequestBuilder.Build(), _previewCaptureListener,
                             _backgroundHandler);
 
                                 break;
@@ -1323,7 +1359,7 @@ namespace CrossCam.Droid.CustomRenderer
                     _camera2State = CameraState.AwaitingPhotoCapture;
                     _previewRequestBuilder.SetTag(CameraState.AwaitingPhotoCapture.ToString());
                     
-                    _camera2Session.SetRepeatingRequest(_previewRequestBuilder.Build(), _captureListener, _backgroundHandler);
+                    _camera2Session.SetRepeatingRequest(_previewRequestBuilder.Build(), _previewCaptureListener, _backgroundHandler);
                 }
             }
             catch (System.Exception e)
@@ -1423,43 +1459,12 @@ namespace CrossCam.Droid.CustomRenderer
                 }
                 catch (NoSuchFieldError) { }
 
-                var readerListener = new ImageAvailableListener();
-                readerListener.Photo += (sender, buffer) =>
-                {
-                    if (_cameraModule.PairOperator.PairStatus == PairStatus.Connected &&
-                        !_cameraModule.PairOperator.IsPrimary)
-                    {
-                        _cameraModule.PairOperator.SendCapture(buffer);
-                    }
-                    else
-                    {
-                        using var stream = new SKMemoryStream(buffer);
-                        using var data = SKData.Create(stream);
-                        using var codec = SKCodec.Create(data);
-                        var bitmap = SKBitmap.Decode(data);
-                        _cameraModule.CapturedImage = new IncomingFrame
-                        {
-                            Frame = bitmap,
-                            Orientation = codec.EncodedOrigin,
-                            IsFrontFacing = _cameraModule.ChosenCamera.IsFront
-                        };
-                    }
-                };
-                readerListener.Error += (sender, exception) => { _cameraModule.ErrorMessage = exception.ToString(); };
-                _finalCaptureImageReader.SetOnImageAvailableListener(readerListener, _backgroundHandler);
-
-                var captureListener = new CameraCaptureListener();
-                captureListener.CaptureComplete += (sender, e) =>
-                {
-                    RestartPreview2(true);
-                };
-                
                 _camera2Session.StopRepeating();
 
                 _camera2State = CameraState.PictureTaken;
                 _previewRequestBuilder.SetTag(CameraState.PictureTaken.ToString());
                 
-                _camera2Session.Capture(captureBuilder.Build(), captureListener, null);
+                _camera2Session.Capture(captureBuilder.Build(), _finalCaptureListener, null);
                 if (_cameraModule.PairOperator.IsPrimary ||
                     _cameraModule.PairOperator.PairStatus != PairStatus.Connected)
                 {
@@ -1469,6 +1474,38 @@ namespace CrossCam.Droid.CustomRenderer
             catch (System.Exception e)
             {
                 _cameraModule.ErrorMessage = e.ToString();
+            }
+        }
+
+        private void HandleFinalCaptureComplete(object sender, CameraCaptureListener.CameraCaptureListenerEventArgs e)
+        {
+            RestartPreview2(true);
+        }
+
+        private void HandleImageAvailableListenerError(object sender, Exception e)
+        {
+            _cameraModule.ErrorMessage = e.ToString();
+        }
+
+        private void HandleImageAvailablePhoto(object sender, byte[] buffer)
+        {
+            if (_cameraModule.PairOperator.PairStatus == PairStatus.Connected &&
+                !_cameraModule.PairOperator.IsPrimary)
+            {
+                _cameraModule.PairOperator.SendCapture(buffer);
+            }
+            else
+            {
+                using var stream = new SKMemoryStream(buffer);
+                using var data = SKData.Create(stream);
+                using var codec = SKCodec.Create(data);
+                var bitmap = SKBitmap.Decode(data);
+                _cameraModule.CapturedImage = new IncomingFrame
+                {
+                    Frame = bitmap,
+                    Orientation = codec.EncodedOrigin,
+                    IsFrontFacing = _cameraModule.ChosenCamera.IsFront
+                };
             }
         }
 
@@ -1590,14 +1627,14 @@ namespace CrossCam.Droid.CustomRenderer
                 _camera2FoundGoodCaptureInterlocked = 0;
                 
                 _camera2Session.StopRepeating();
-                _camera2Session.Capture(_previewRequestBuilder.Build(), _captureListener, _backgroundHandler);
+                _camera2Session.Capture(_previewRequestBuilder.Build(), _previewCaptureListener, _backgroundHandler);
 
                 _camera2State = CameraState.AwaitingTapLock;
                 _previewRequestBuilder.SetTag(CameraState.AwaitingTapLock.ToString());
 
                 _previewRequestBuilder.Set(CaptureRequest.ControlAfTrigger, null);
                 _previewRequestBuilder.Set(CaptureRequest.ControlAePrecaptureTrigger, null);
-                _camera2Session.SetRepeatingRequest(_previewRequestBuilder.Build(), _captureListener, _backgroundHandler);
+                _camera2Session.SetRepeatingRequest(_previewRequestBuilder.Build(), _previewCaptureListener, _backgroundHandler);
 
                 _cameraModule.IsFocusCircleLocked = false;
             }
@@ -1622,7 +1659,7 @@ namespace CrossCam.Droid.CustomRenderer
                     TurnOnAeLock(characteristics);
 
                     _isCamera2FocusAndExposureLocked = true;
-                    _camera2Session.SetRepeatingRequest(_previewRequestBuilder.Build(), _captureListener, _backgroundHandler);
+                    _camera2Session.SetRepeatingRequest(_previewRequestBuilder.Build(), _previewCaptureListener, _backgroundHandler);
                 }
                 else
                 {
@@ -1637,12 +1674,12 @@ namespace CrossCam.Droid.CustomRenderer
                     _isCamera2FocusAndExposureLocked = false;
                     
                     _camera2Session.StopRepeating();
-                    _camera2Session.Capture(_previewRequestBuilder.Build(), _captureListener, _backgroundHandler);
+                    _camera2Session.Capture(_previewRequestBuilder.Build(), _previewCaptureListener, _backgroundHandler);
 
                     _previewRequestBuilder.Set(CaptureRequest.ControlAfTrigger, null);
                     _previewRequestBuilder.Set(CaptureRequest.ControlAePrecaptureTrigger, null);
                     
-                    _camera2Session.SetRepeatingRequest(_previewRequestBuilder.Build(), _captureListener, _backgroundHandler);
+                    _camera2Session.SetRepeatingRequest(_previewRequestBuilder.Build(), _previewCaptureListener, _backgroundHandler);
                 }
             }
             catch (System.Exception e)
