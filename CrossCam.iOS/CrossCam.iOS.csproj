@@ -81,7 +81,7 @@
     <MtouchArch>ARM64</MtouchArch>
     <CodesignEntitlements>
     </CodesignEntitlements>
-    <MtouchProfiling>false</MtouchProfiling>
+    <MtouchProfiling>true</MtouchProfiling>
     <CodesignKey>Apple Development: Kevin Anderson (288S2529U3)</CodesignKey>
     <MtouchDebug>true</MtouchDebug>
     <CodesignProvision>VS: WildCard Development</CodesignProvision>
@@ -96,8 +96,7 @@
     <MtouchExtraArgs>
     </MtouchExtraArgs>
     <MtouchFloat32>true</MtouchFloat32>
-    <MtouchInterpreter>
-    </MtouchInterpreter>
+    <MtouchInterpreter>-all</MtouchInterpreter>
     <MtouchNoSymbolStrip>true</MtouchNoSymbolStrip>
     <LangVersion>8</LangVersion>
     <MtouchEnableSGenConc>true</MtouchEnableSGenConc>
