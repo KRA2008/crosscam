@@ -66,12 +66,12 @@
                         HorizontalOptions="FillAndExpand"/>
             </Frame>
             <StackLayout Orientation="Horizontal"
-                         IsVisible="{Binding Settings.Mode, Converter={vc:EnumCompareConverter}, ConverterParameter={x:Static vm:DrawMode.Cardboard}}">
+                         IsVisible="{Binding Settings.Mode, Converter={StaticResource enumCompare}, ConverterParameter={x:Static vm:DrawMode.Cardboard}}">
                 <Label Text="Immersive final viewing"/>
                 <Switch IsToggled="{Binding Settings.ImmersiveCardboardFinal}"/>
             </StackLayout>
             <StackLayout Orientation="Horizontal"
-                         IsVisible="{Binding Settings.Mode, Converter={vc:EnumCompareConverter}, ConverterParameter={x:Static vm:DrawMode.Cardboard}}">
+                         IsVisible="{Binding Settings.Mode, Converter={StaticResource enumCompare}, ConverterParameter={x:Static vm:DrawMode.Cardboard}}">
                 <Label Text="Cardboard separation distance"/>
                 <Frame>
                     <Picker ItemsSource="{Binding ZeroToOneThousand}"
@@ -81,7 +81,7 @@
                 </Frame>
             </StackLayout>
             <StackLayout Orientation="Horizontal"
-                         IsVisible="{Binding Settings.Mode, Converter={vc:EnumCompareConverter}, ConverterParameter={x:Static vm:DrawMode.Cardboard}}">
+                         IsVisible="{Binding Settings.Mode, Converter={StaticResource enumCompare}, ConverterParameter={x:Static vm:DrawMode.Cardboard}}">
                 <Label Text="Add lens correction (may lower frame rate)"/>
                 <Switch IsToggled="{Binding Settings.AddBarrelDistortion}"/>
             </StackLayout>
@@ -90,7 +90,7 @@
                 <StackLayout.Triggers>
                     <MultiTrigger TargetType="StackLayout">
                         <MultiTrigger.Conditions>
-                            <BindingCondition Binding="{Binding Settings.Mode, Converter={vc:EnumCompareConverter}, ConverterParameter={x:Static vm:DrawMode.Cardboard}}"
+                            <BindingCondition Binding="{Binding Settings.Mode, Converter={StaticResource enumCompare}, ConverterParameter={x:Static vm:DrawMode.Cardboard}}"
                                               Value="True"/>
                             <BindingCondition Binding="{Binding Settings.AddBarrelDistortion}"
                                               Value="True"/>
@@ -107,7 +107,7 @@
                 <StackLayout.Triggers>
                     <MultiTrigger TargetType="StackLayout">
                         <MultiTrigger.Conditions>
-                            <BindingCondition Binding="{Binding Settings.Mode, Converter={vc:EnumCompareConverter}, ConverterParameter={x:Static vm:DrawMode.Cardboard}}"
+                            <BindingCondition Binding="{Binding Settings.Mode, Converter={StaticResource enumCompare}, ConverterParameter={x:Static vm:DrawMode.Cardboard}}"
                                               Value="True"/>
                             <BindingCondition Binding="{Binding Settings.AddBarrelDistortion}"
                                               Value="True"/>
@@ -125,7 +125,7 @@
                 </Frame>
             </StackLayout>
             <StackLayout Orientation="Horizontal"
-                         IsVisible="{Binding Settings.Mode, Converter={vc:EnumCompareConverter}, ConverterParameter={x:Static vm:DrawMode.Cardboard}}">
+                         IsVisible="{Binding Settings.Mode, Converter={StaticResource enumCompare}, ConverterParameter={x:Static vm:DrawMode.Cardboard}}">
                 <Label Text="Downsize preview (may increase frame rate)"/>
                 <Switch IsToggled="{Binding Settings.CardboardDownsize}"/>
             </StackLayout>
@@ -134,7 +134,7 @@
                 <StackLayout.Triggers>
                     <MultiTrigger TargetType="StackLayout">
                         <MultiTrigger.Conditions>
-                            <BindingCondition Binding="{Binding Settings.Mode, Converter={vc:EnumCompareConverter}, ConverterParameter={x:Static vm:DrawMode.Cardboard}}"
+                            <BindingCondition Binding="{Binding Settings.Mode, Converter={StaticResource enumCompare}, ConverterParameter={x:Static vm:DrawMode.Cardboard}}"
                                               Value="True"/>
                             <BindingCondition Binding="{Binding Settings.CardboardDownsize}"
                                               Value="True"/>
@@ -152,7 +152,7 @@
                 </Frame>
             </StackLayout>
             <StackLayout Orientation="Horizontal"
-                         IsVisible="{Binding Settings.Mode, Converter={vc:EnumCompareConverter}, ConverterParameter={x:Static vm:DrawMode.Parallel}}">
+                         IsVisible="{Binding Settings.Mode, Converter={StaticResource enumCompare}, ConverterParameter={x:Static vm:DrawMode.Parallel}}">
                 <Label Text="Maximum parallel view image width (points)"/>
                 <Frame>
                     <Picker ItemsSource="{Binding ZeroToOneThousand}"
@@ -167,7 +167,7 @@
             <Button Text="Go to Pairing Setup Page"
                     Command="{Binding NavigateToPairingPageCommand}"/>
             <StackLayout Orientation="Horizontal"
-                         IsVisible="{Binding Settings.IsPairedPrimary, Converter={vc:NullableBooleanConverter}}">
+                         IsVisible="{Binding Settings.IsPairedPrimary, Converter={StaticResource nullableBoolean}}">
                 <Label Text="Preview frame delay (higher number will reduce frame rate but save battery)"/>
                 <Frame>
                     <Picker ItemsSource="{Binding ZeroToOneThousand}"
@@ -177,7 +177,7 @@
                 </Frame>
             </StackLayout>
             <StackLayout Orientation="Horizontal"
-                         IsVisible="{Binding Settings.IsPairedPrimary, Converter={vc:NullableBooleanConverter}}">
+                         IsVisible="{Binding Settings.IsPairedPrimary, Converter={StaticResource nullableBoolean}}">
                 <Label Text="Capture countdown length (timer)"/>
                 <Frame>
                     <Picker ItemsSource="{Binding ZeroToOneHundred}"
@@ -187,7 +187,7 @@
                 </Frame>
             </StackLayout>
             <StackLayout Orientation="Horizontal"
-                         IsVisible="{Binding Settings.IsPairedPrimary, Converter={vc:NullableBooleanConverter}}">
+                         IsVisible="{Binding Settings.IsPairedPrimary, Converter={StaticResource nullableBoolean}}">
                 <Label Text="Clock sample count (lower number will decrease time required for initial sync but may decrease sync accuracy)"/>
                 <Frame>
                     <Picker ItemsSource="{Binding ZeroToOneThousand}"
@@ -198,9 +198,9 @@
             </StackLayout>
             <Label Text="Field of view correction"
                    HorizontalOptions="CenterAndExpand"
-                   IsVisible="{Binding Settings.IsPairedPrimary, Converter={vc:NullableBooleanConverter}}"/>
+                   IsVisible="{Binding Settings.IsPairedPrimary, Converter={StaticResource nullableBoolean}}"/>
             <StackLayout Orientation="Horizontal"
-                         IsVisible="{Binding Settings.IsPairedPrimary, Converter={vc:NullableBooleanConverter}}">
+                         IsVisible="{Binding Settings.IsPairedPrimary, Converter={StaticResource nullableBoolean}}">
                 <StackLayout HorizontalOptions="EndAndExpand"
                              IsVisible="{Binding Settings.IsFovCorrectionSet}">
                     <Label Text="{Binding Settings.FovPrimaryCorrection, StringFormat='Primary: {0}'}"
@@ -208,7 +208,7 @@
                     <Label Text="{Binding Settings.FovSecondaryCorrection, StringFormat='Secondary: {0}'}"
                            HorizontalOptions="EndAndExpand"/>
                 </StackLayout>
-                <StackLayout IsVisible="{Binding Settings.IsFovCorrectionSet, Converter={vc:BooleanInvertConverter}}">
+                <StackLayout IsVisible="{Binding Settings.IsFovCorrectionSet, Converter={StaticResource invert}}">
                     <Label Text="FOV correction not set (do a capture with paired devices to walk through set up)."/>
                 </StackLayout>
                 <Button Text="Reset"
@@ -412,7 +412,7 @@
                        Style="{StaticResource saveModes}">
                     <Image.Triggers>
                         <DataTrigger TargetType="Image"
-                                     Binding="{Binding Settings.Mode, Converter={vc:EnumCompareConverter}, ConverterParameter={x:Static vm:DrawMode.Parallel}}"
+                                     Binding="{Binding Settings.Mode, Converter={StaticResource enumCompare}, ConverterParameter={x:Static vm:DrawMode.Parallel}}"
                                      Value="True">
                             <Setter Property="Grid.Row"
                                     Value="5"/>
@@ -424,7 +424,7 @@
                        Text="Save joined cross view version (with edits and border)">
                     <Label.Triggers>
                         <DataTrigger TargetType="Label"
-                                     Binding="{Binding Settings.Mode, Converter={vc:EnumCompareConverter}, ConverterParameter={x:Static vm:DrawMode.Parallel}}"
+                                     Binding="{Binding Settings.Mode, Converter={StaticResource enumCompare}, ConverterParameter={x:Static vm:DrawMode.Parallel}}"
                                      Value="True">
                             <Setter Property="Grid.Row"
                                     Value="5"/>
@@ -436,7 +436,7 @@
                         IsToggled="{Binding Settings.SaveForCrossView}">
                     <Switch.Triggers>
                         <DataTrigger TargetType="Switch"
-                                     Binding="{Binding Settings.Mode, Converter={vc:EnumCompareConverter}, ConverterParameter={x:Static vm:DrawMode.Parallel}}"
+                                     Binding="{Binding Settings.Mode, Converter={StaticResource enumCompare}, ConverterParameter={x:Static vm:DrawMode.Parallel}}"
                                      Value="True">
                             <Setter Property="Grid.Row"
                                     Value="5"/>
@@ -449,7 +449,7 @@
                        Style="{StaticResource saveModes}">
                     <Image.Triggers>
                         <DataTrigger TargetType="Image"
-                                     Binding="{Binding Settings.Mode, Converter={vc:EnumCompareConverter}, ConverterParameter={x:Static vm:DrawMode.Parallel}}"
+                                     Binding="{Binding Settings.Mode, Converter={StaticResource enumCompare}, ConverterParameter={x:Static vm:DrawMode.Parallel}}"
                                      Value="True">
                             <Setter Property="Grid.Row"
                                     Value="4"/>
@@ -461,7 +461,7 @@
                        Text="Save joined parallel view version (with edits and border)">
                     <Label.Triggers>
                         <DataTrigger TargetType="Label"
-                                     Binding="{Binding Settings.Mode, Converter={vc:EnumCompareConverter}, ConverterParameter={x:Static vm:DrawMode.Parallel}}"
+                                     Binding="{Binding Settings.Mode, Converter={StaticResource enumCompare}, ConverterParameter={x:Static vm:DrawMode.Parallel}}"
                                      Value="True">
                             <Setter Property="Grid.Row"
                                     Value="4"/>
@@ -473,7 +473,7 @@
                         IsToggled="{Binding Settings.SaveForParallel}">
                     <Switch.Triggers>
                         <DataTrigger TargetType="Switch"
-                                     Binding="{Binding Settings.Mode, Converter={vc:EnumCompareConverter}, ConverterParameter={x:Static vm:DrawMode.Parallel}}"
+                                     Binding="{Binding Settings.Mode, Converter={StaticResource enumCompare}, ConverterParameter={x:Static vm:DrawMode.Parallel}}"
                                      Value="True">
                             <Setter Property="Grid.Row"
                                     Value="4"/>

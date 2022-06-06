@@ -1,6 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <Application xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:valueConverter="clr-namespace:CrossCam.ValueConverter;assembly=CrossCam"
              x:Class="CrossCam.App">
     <Application.Resources>
         <ResourceDictionary>
@@ -61,6 +62,9 @@
                 <Setter Property="WidthRequest"
                         Value="5"/>
             </Style>
+            <valueConverter:EnumCompareConverter x:Key="enumCompare"/>
+            <valueConverter:BooleanInvertConverter x:Key="invert"/>
+            <valueConverter:NullableBooleanConverter x:Key="nullableBoolean"/>
         </ResourceDictionary>
     </Application.Resources>
 </Application>

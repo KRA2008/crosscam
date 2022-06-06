@@ -104,7 +104,7 @@
                    HeightRequest="{StaticResource _doubleMediumIconWidth}">
                 <Image.Triggers>
                     <DataTrigger TargetType="Image" 
-                                 Binding="{Binding Settings.Mode, Converter={vc:EnumCompareConverter}, ConverterParameter={x:Static vm:DrawMode.Cardboard}}"
+                                 Binding="{Binding Settings.Mode, Converter={StaticResource enumCompare}, ConverterParameter={x:Static vm:DrawMode.Cardboard}}"
                                  Value="True">
                         <DataTrigger.Setters>
                             <Setter Property="IsVisible"
@@ -122,7 +122,7 @@
                    HeightRequest="{StaticResource _doubleMediumIconWidth}">
                 <Image.Triggers>
                     <DataTrigger TargetType="Image" 
-                                 Binding="{Binding Settings.Mode, Converter={vc:EnumCompareConverter}, ConverterParameter={x:Static vm:DrawMode.Cardboard}}"
+                                 Binding="{Binding Settings.Mode, Converter={StaticResource enumCompare}, ConverterParameter={x:Static vm:DrawMode.Cardboard}}"
                                  Value="True">
                         <DataTrigger.Setters>
                             <Setter Property="IsVisible"
@@ -137,7 +137,7 @@
                              IsTapToFocusEnabled="{Binding Settings.IsTapToFocusEnabled2}"
                              IsLockToFirstEnabled="{Binding Settings.IsLockToFirstEnabled}"
                              CaptureTrigger="{Binding CapturePictureTrigger}"
-                             IsVisible="{Binding WorkflowStage, Converter={vc:EnumCompareConverter}, ConverterParameter={x:Static vm:WorkflowStage.Capture}}"
+                             IsVisible="{Binding WorkflowStage, Converter={StaticResource enumCompare}, ConverterParameter={x:Static vm:WorkflowStage.Capture}}"
                              CapturedImage="{Binding LocalCapturedFrame}"
                              CaptureSuccess="{Binding CaptureSuccess}"
                              IsNothingCaptured="{Binding IsNothingCaptured}"
@@ -216,7 +216,7 @@
             </AbsoluteLayout>
         </Grid>
 
-        <AbsoluteLayout IsVisible="{Binding WorkflowStage, Converter={vc:EnumCompareConverter}, ConverterParameter={x:Static vm:WorkflowStage.Capture}}"
+        <AbsoluteLayout IsVisible="{Binding WorkflowStage, Converter={StaticResource enumCompare}, ConverterParameter={x:Static vm:WorkflowStage.Capture}}"
                         InputTransparent="True">
             <Image x:Name="_focusCircle"
                    AbsoluteLayout.LayoutFlags="None"
@@ -249,17 +249,17 @@
                     <MultiTrigger.Conditions>
                         <BindingCondition Binding="{Binding Settings.ShowPreviewFuseGuide}"
                                           Value="True"/>
-                        <BindingCondition Binding="{Binding WorkflowStage, Converter={vc:EnumCompareConverter}, ConverterParameter={x:Static vm:WorkflowStage.Capture}}"
+                        <BindingCondition Binding="{Binding WorkflowStage, Converter={StaticResource enumCompare}, ConverterParameter={x:Static vm:WorkflowStage.Capture}}"
                                           Value="True"/>
                         <BindingCondition Binding="{Binding IsExactlyOnePictureTaken}"
                                           Value="True"/>
                         <BindingCondition Binding="{Binding Settings.ShowGhostCaptures}"
                                           Value="False"/>
-                        <BindingCondition Binding="{Binding Settings.Mode, Converter={vc:EnumCompareConverter}, ConverterParameter={x:Static vm:DrawMode.GrayscaleRedCyanAnaglyph}}"
+                        <BindingCondition Binding="{Binding Settings.Mode, Converter={StaticResource enumCompare}, ConverterParameter={x:Static vm:DrawMode.GrayscaleRedCyanAnaglyph}}"
                                           Value="False"/>
-                        <BindingCondition Binding="{Binding Settings.Mode, Converter={vc:EnumCompareConverter}, ConverterParameter={x:Static vm:DrawMode.RedCyanAnaglyph}}"
+                        <BindingCondition Binding="{Binding Settings.Mode, Converter={StaticResource enumCompare}, ConverterParameter={x:Static vm:DrawMode.RedCyanAnaglyph}}"
                                           Value="False"/>
-                        <BindingCondition Binding="{Binding Settings.Mode, Converter={vc:EnumCompareConverter}, ConverterParameter={x:Static vm:DrawMode.Cardboard}}"
+                        <BindingCondition Binding="{Binding Settings.Mode, Converter={StaticResource enumCompare}, ConverterParameter={x:Static vm:DrawMode.Cardboard}}"
                                           Value="False"/>
                     </MultiTrigger.Conditions>
                     <Setter Property="IsVisible"
@@ -277,17 +277,17 @@
                     <MultiTrigger.Conditions>
                         <BindingCondition Binding="{Binding Settings.ShowPreviewFuseGuide}"
                                           Value="True"/>
-                        <BindingCondition Binding="{Binding WorkflowStage, Converter={vc:EnumCompareConverter}, ConverterParameter={x:Static vm:WorkflowStage.Capture}}"
+                        <BindingCondition Binding="{Binding WorkflowStage, Converter={StaticResource enumCompare}, ConverterParameter={x:Static vm:WorkflowStage.Capture}}"
                                           Value="True"/>
                         <BindingCondition Binding="{Binding IsExactlyOnePictureTaken}"
                                           Value="True"/>
                         <BindingCondition Binding="{Binding Settings.ShowGhostCaptures}"
                                           Value="False"/>
-                        <BindingCondition Binding="{Binding Settings.Mode, Converter={vc:EnumCompareConverter}, ConverterParameter={x:Static vm:DrawMode.GrayscaleRedCyanAnaglyph}}"
+                        <BindingCondition Binding="{Binding Settings.Mode, Converter={StaticResource enumCompare}, ConverterParameter={x:Static vm:DrawMode.GrayscaleRedCyanAnaglyph}}"
                                           Value="False"/>
-                        <BindingCondition Binding="{Binding Settings.Mode, Converter={vc:EnumCompareConverter}, ConverterParameter={x:Static vm:DrawMode.RedCyanAnaglyph}}"
+                        <BindingCondition Binding="{Binding Settings.Mode, Converter={StaticResource enumCompare}, ConverterParameter={x:Static vm:DrawMode.RedCyanAnaglyph}}"
                                           Value="False"/>
-                        <BindingCondition Binding="{Binding Settings.Mode, Converter={vc:EnumCompareConverter}, ConverterParameter={x:Static vm:DrawMode.Cardboard}}"
+                        <BindingCondition Binding="{Binding Settings.Mode, Converter={StaticResource enumCompare}, ConverterParameter={x:Static vm:DrawMode.Cardboard}}"
                                           Value="False"/>
                     </MultiTrigger.Conditions>
                     <Setter Property="IsVisible"
@@ -303,7 +303,7 @@
                BackgroundColor="Transparent">
             <Frame.Triggers>
                 <DataTrigger TargetType="Frame"
-                             Binding="{Binding PairOperatorBindable.PairStatus, Converter={vc:EnumCompareConverter}, ConverterParameter={x:Static vm:PairStatus.Disconnected}}"
+                             Binding="{Binding PairOperatorBindable.PairStatus, Converter={StaticResource enumCompare}, ConverterParameter={x:Static vm:PairStatus.Disconnected}}"
                              Value="true">
                     <DataTrigger.Setters>
                         <Setter Property="BorderColor"
@@ -311,7 +311,7 @@
                     </DataTrigger.Setters>
                 </DataTrigger>
                 <DataTrigger TargetType="Frame"
-                             Binding="{Binding PairOperatorBindable.PairStatus, Converter={vc:EnumCompareConverter}, ConverterParameter={x:Static vm:PairStatus.Connecting}}"
+                             Binding="{Binding PairOperatorBindable.PairStatus, Converter={StaticResource enumCompare}, ConverterParameter={x:Static vm:PairStatus.Connecting}}"
                              Value="true">
                     <DataTrigger.Setters>
                         <Setter Property="BorderColor"
@@ -319,7 +319,7 @@
                     </DataTrigger.Setters>
                 </DataTrigger>
                 <DataTrigger TargetType="Frame"
-                             Binding="{Binding PairOperatorBindable.PairStatus, Converter={vc:EnumCompareConverter}, ConverterParameter={x:Static vm:PairStatus.Connected}}"
+                             Binding="{Binding PairOperatorBindable.PairStatus, Converter={StaticResource enumCompare}, ConverterParameter={x:Static vm:PairStatus.Connected}}"
                              Value="true">
                     <DataTrigger.Setters>
                         <Setter Property="BorderColor"
@@ -338,15 +338,15 @@
                            IsVisible="{Binding Settings.IsPairedPrimary, Converter={vc:NullableBooleanHasValueInvertConverter}}"/>
                     <Image Source="pairPrimary"
                            InputTransparent="True"
-                           IsVisible="{Binding Settings.IsPairedPrimary, Converter={vc:NullableBooleanConverter}}"/>
+                           IsVisible="{Binding Settings.IsPairedPrimary, Converter={StaticResource nullableBoolean}}"/>
                     <Image Source="pairSecondary"
                            InputTransparent="True"
                            IsVisible="{Binding Settings.IsPairedPrimary, Converter={vc:NullableBooleanInvertConverter}}"/>
                 </StackLayout>
                 <ActivityIndicator AbsoluteLayout.LayoutFlags="All"
                                    AbsoluteLayout.LayoutBounds="0,0,1,1"
-                                   IsVisible="{Binding PairOperatorBindable.PairStatus, Converter={vc:EnumCompareConverter}, ConverterParameter={x:Static vm:PairStatus.Connecting}}"
-                                   IsRunning="{Binding PairOperatorBindable.PairStatus, Converter={vc:EnumCompareConverter}, ConverterParameter={x:Static vm:PairStatus.Connecting}}"
+                                   IsVisible="{Binding PairOperatorBindable.PairStatus, Converter={StaticResource enumCompare}, ConverterParameter={x:Static vm:PairStatus.Connecting}}"
+                                   IsRunning="{Binding PairOperatorBindable.PairStatus, Converter={StaticResource enumCompare}, ConverterParameter={x:Static vm:PairStatus.Connecting}}"
                                    InputTransparent="True"
                                    Color="White"/>
             </AbsoluteLayout>
@@ -478,7 +478,7 @@
         <ContentView AbsoluteLayout.LayoutFlags="PositionProportional"
                      AbsoluteLayout.LayoutBounds="{StaticResource _swipeBounds}"
                      Padding="{StaticResource _topBarButtonPadding}"
-                     IsVisible="{Binding WorkflowStage, Converter={vc:EnumCompareConverter}, ConverterParameter={x:Static vm:WorkflowStage.Capture}}">
+                     IsVisible="{Binding WorkflowStage, Converter={StaticResource enumCompare}, ConverterParameter={x:Static vm:WorkflowStage.Capture}}">
             <ContentView.GestureRecognizers>
                 <TapGestureRecognizer Command="{Binding SwapSidesCommand}"/>
                 <SwipeGestureRecognizer Command="{Binding SwapSidesCommand}"
@@ -489,7 +489,7 @@
                    HorizontalTextAlignment="Center">
                 <Label.Triggers>
                     <DataTrigger TargetType="Label"
-                                 Binding="{Binding Settings.Mode, Converter={vc:EnumCompareConverter}, ConverterParameter={x:Static vm:DrawMode.Cardboard}}"
+                                 Binding="{Binding Settings.Mode, Converter={StaticResource enumCompare}, ConverterParameter={x:Static vm:DrawMode.Cardboard}}"
                                  Value="True">
                         <Setter Property="Text"
                                 Value="(tip to swap)"/>
@@ -510,7 +510,7 @@
                  AbsoluteLayout.LayoutBounds="0.5,0,2,1"
                  Color="White"
                  InputTransparent="true"
-                 IsVisible="{Binding Settings.Mode, Converter={vc:EnumCompareConverter}, ConverterParameter={x:Static vm:DrawMode.Cardboard}}"/>
+                 IsVisible="{Binding Settings.Mode, Converter={StaticResource enumCompare}, ConverterParameter={x:Static vm:DrawMode.Cardboard}}"/>
         <Grid AbsoluteLayout.LayoutFlags="PositionProportional,WidthProportional"
               RowSpacing="0"
               ColumnSpacing="0"
@@ -551,13 +551,13 @@
         <ContentView AbsoluteLayout.LayoutFlags="PositionProportional"
                      AbsoluteLayout.LayoutBounds="{StaticResource _clearBounds}"
                      Padding="{StaticResource _topBarButtonPadding}"
-                     IsVisible="{Binding WorkflowStage, Converter={vc:EnumCompareConverter}, ConverterParameter={x:Static vm:WorkflowStage.Final}}">
+                     IsVisible="{Binding WorkflowStage, Converter={StaticResource enumCompare}, ConverterParameter={x:Static vm:WorkflowStage.Final}}">
             <ContentView.GestureRecognizers>
                 <TapGestureRecognizer Command="{Binding ClearCapturesCommand}"/>
             </ContentView.GestureRecognizers>
             <ContentView.Triggers>
                 <DataTrigger TargetType="ContentView"
-                             Binding="{Binding Settings.Mode, Converter={vc:EnumCompareConverter}, ConverterParameter={x:Static vm:DrawMode.Cardboard}}"
+                             Binding="{Binding Settings.Mode, Converter={StaticResource enumCompare}, ConverterParameter={x:Static vm:DrawMode.Cardboard}}"
                              Value="True">
                     <Setter Property="AbsoluteLayout.LayoutBounds"
                             Value="{StaticResource _finalSaveBounds}"/>
@@ -576,7 +576,7 @@
         <Image Source="edit"
                AbsoluteLayout.LayoutFlags="PositionProportional"
                AbsoluteLayout.LayoutBounds="{StaticResource _editBounds}"
-               IsVisible="{Binding WorkflowStage, Converter={vc:EnumCompareConverter}, ConverterParameter={x:Static vm:WorkflowStage.Final}}">
+               IsVisible="{Binding WorkflowStage, Converter={StaticResource enumCompare}, ConverterParameter={x:Static vm:WorkflowStage.Final}}">
             <Image.GestureRecognizers>
                 <TapGestureRecognizer Command="{Binding GoToModeCommand}"
                                       CommandParameter="{x:Static vm:WorkflowStage.Edits}"/>
@@ -591,7 +591,7 @@
             </ContentView.GestureRecognizers>
             <ContentView.Triggers>
                 <DataTrigger TargetType="ContentView"
-                             Binding="{Binding Settings.Mode, Converter={vc:EnumCompareConverter}, ConverterParameter={x:Static vm:DrawMode.Cardboard}}"
+                             Binding="{Binding Settings.Mode, Converter={StaticResource enumCompare}, ConverterParameter={x:Static vm:DrawMode.Cardboard}}"
                              Value="True">
                     <Setter Property="AbsoluteLayout.LayoutBounds"
                             Value="{StaticResource _clearBounds}"/>
@@ -603,7 +603,7 @@
         <Grid AbsoluteLayout.LayoutFlags="PositionProportional,WidthProportional"
               AbsoluteLayout.LayoutBounds="{StaticResource _alignBounds}"
               Padding="{StaticResource _topBarButtonPadding}"
-              IsVisible="{Binding WorkflowStage, Converter={vc:EnumCompareConverter}, ConverterParameter={x:Static vm:WorkflowStage.Edits}}">
+              IsVisible="{Binding WorkflowStage, Converter={StaticResource enumCompare}, ConverterParameter={x:Static vm:WorkflowStage.Edits}}">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="Auto"/>
@@ -626,7 +626,7 @@
         </Grid>
         <Grid AbsoluteLayout.LayoutFlags="PositionProportional,WidthProportional"
               AbsoluteLayout.LayoutBounds="{StaticResource _keystoneBounds}"
-              IsVisible="{Binding WorkflowStage, Converter={vc:EnumCompareConverter}, ConverterParameter={x:Static vm:WorkflowStage.Edits}}">
+              IsVisible="{Binding WorkflowStage, Converter={StaticResource enumCompare}, ConverterParameter={x:Static vm:WorkflowStage.Edits}}">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="Auto"/>
@@ -642,13 +642,13 @@
                 <Image Source="keystoneLeft">
                     <Image.Triggers>
                         <DataTrigger TargetType="Image"
-                                     Binding="{Binding Settings.Mode, Converter={vc:EnumCompareConverter}, ConverterParameter={x:Static vm:DrawMode.Parallel}}"
+                                     Binding="{Binding Settings.Mode, Converter={StaticResource enumCompare}, ConverterParameter={x:Static vm:DrawMode.Parallel}}"
                                      Value="True">
                             <Setter Property="Source"
                                     Value="keystoneRight"/>
                         </DataTrigger>
                         <DataTrigger TargetType="Image"
-                                     Binding="{Binding Settings.Mode, Converter={vc:EnumCompareConverter}, ConverterParameter={x:Static vm:DrawMode.Cardboard}}"
+                                     Binding="{Binding Settings.Mode, Converter={StaticResource enumCompare}, ConverterParameter={x:Static vm:DrawMode.Cardboard}}"
                                      Value="True">
                             <Setter Property="Source"
                                     Value="keystoneRight"/>
@@ -658,13 +658,13 @@
                 <Image Source="keystoneRight">
                     <Image.Triggers>
                         <DataTrigger TargetType="Image"
-                                     Binding="{Binding Settings.Mode, Converter={vc:EnumCompareConverter}, ConverterParameter={x:Static vm:DrawMode.Parallel}}"
+                                     Binding="{Binding Settings.Mode, Converter={StaticResource enumCompare}, ConverterParameter={x:Static vm:DrawMode.Parallel}}"
                                      Value="True">
                             <Setter Property="Source"
                                     Value="keystoneLeft"/>
                         </DataTrigger>
                         <DataTrigger TargetType="Image"
-                                     Binding="{Binding Settings.Mode, Converter={vc:EnumCompareConverter}, ConverterParameter={x:Static vm:DrawMode.Cardboard}}"
+                                     Binding="{Binding Settings.Mode, Converter={StaticResource enumCompare}, ConverterParameter={x:Static vm:DrawMode.Cardboard}}"
                                      Value="True">
                             <Setter Property="Source"
                                     Value="keystoneLeft"/>
@@ -676,7 +676,7 @@
         <Image Source="scissor"
                AbsoluteLayout.LayoutFlags="PositionProportional"
                AbsoluteLayout.LayoutBounds="{StaticResource _cropBounds}"
-               IsVisible="{Binding WorkflowStage, Converter={vc:EnumCompareConverter}, ConverterParameter={x:Static vm:WorkflowStage.Edits}}">
+               IsVisible="{Binding WorkflowStage, Converter={StaticResource enumCompare}, ConverterParameter={x:Static vm:WorkflowStage.Edits}}">
             <Image.GestureRecognizers>
                 <TapGestureRecognizer Command="{Binding GoToModeCommand}"
                                       CommandParameter="{x:Static vm:WorkflowStage.Crop}"/>
@@ -696,7 +696,7 @@
         <ContentView AbsoluteLayout.LayoutFlags="PositionProportional"
                      AbsoluteLayout.LayoutBounds="{StaticResource _checkBounds}"
                      Padding="{StaticResource _bottomPadding}"
-                     IsVisible="{Binding WorkflowStage, Converter={vc:EnumCompareConverter}, ConverterParameter={x:Static vm:WorkflowStage.Edits}}">
+                     IsVisible="{Binding WorkflowStage, Converter={StaticResource enumCompare}, ConverterParameter={x:Static vm:WorkflowStage.Edits}}">
             <ContentView.GestureRecognizers>
                 <TapGestureRecognizer Command="{Binding SaveEditCommand}"/>
             </ContentView.GestureRecognizers>
@@ -706,7 +706,7 @@
         <StackLayout AbsoluteLayout.LayoutFlags="PositionProportional,WidthProportional"
                      Orientation="Horizontal"
                      Padding="10"
-                     IsVisible="{Binding WorkflowStage, Converter={vc:EnumCompareConverter}, ConverterParameter={x:Static vm:WorkflowStage.Keystone}}">
+                     IsVisible="{Binding WorkflowStage, Converter={StaticResource enumCompare}, ConverterParameter={x:Static vm:WorkflowStage.Keystone}}">
             <AbsoluteLayout.LayoutBounds>
                 <Rectangle X="0" Y="1" Width="1" Height="{StaticResource _largeIconWidth}"/>
             </AbsoluteLayout.LayoutBounds>
@@ -725,7 +725,7 @@
               AbsoluteLayout.LayoutBounds="{StaticResource _leftRotate}"
               ColumnSpacing="0"
               RowSpacing="0"
-              IsVisible="{Binding WorkflowStage, Converter={vc:EnumCompareConverter}, ConverterParameter={x:Static vm:WorkflowStage.ManualAlign}}">
+              IsVisible="{Binding WorkflowStage, Converter={StaticResource enumCompare}, ConverterParameter={x:Static vm:WorkflowStage.ManualAlign}}">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="1"/>
                 <ColumnDefinition Width="Auto"/>
@@ -744,12 +744,12 @@
                      Grid.Column="0"
                      Grid.ColumnSpan="3"
                      Color="White"
-                     IsVisible="{Binding ManualAlignMode, Converter={vc:EnumCompareConverter}, ConverterParameter={x:Static vm:ManualAlignMode.RotateLeft}}"/>
+                     IsVisible="{Binding ManualAlignMode, Converter={StaticResource enumCompare}, ConverterParameter={x:Static vm:ManualAlignMode.RotateLeft}}"/>
             <BoxView Grid.Row="0" 
                      Grid.Column="0"
                      Grid.RowSpan="3"
                      Color="White"
-                     IsVisible="{Binding ManualAlignMode, Converter={vc:EnumCompareConverter}, ConverterParameter={x:Static vm:ManualAlignMode.RotateLeft}}"/>
+                     IsVisible="{Binding ManualAlignMode, Converter={StaticResource enumCompare}, ConverterParameter={x:Static vm:ManualAlignMode.RotateLeft}}"/>
             <Image Grid.Row="1"
                    Grid.Column="1"
                    Source="rotate"/>
@@ -757,18 +757,18 @@
                      Grid.Column="0"
                      Grid.ColumnSpan="3"
                      Color="White"
-                     IsVisible="{Binding ManualAlignMode, Converter={vc:EnumCompareConverter}, ConverterParameter={x:Static vm:ManualAlignMode.RotateLeft}}"/>
+                     IsVisible="{Binding ManualAlignMode, Converter={StaticResource enumCompare}, ConverterParameter={x:Static vm:ManualAlignMode.RotateLeft}}"/>
             <BoxView Grid.Row="0" 
                      Grid.Column="2"
                      Grid.RowSpan="3"
                      Color="White"
-                     IsVisible="{Binding ManualAlignMode, Converter={vc:EnumCompareConverter}, ConverterParameter={x:Static vm:ManualAlignMode.RotateLeft}}"/>
+                     IsVisible="{Binding ManualAlignMode, Converter={StaticResource enumCompare}, ConverterParameter={x:Static vm:ManualAlignMode.RotateLeft}}"/>
         </Grid>
         <Grid AbsoluteLayout.LayoutFlags="PositionProportional"
               AbsoluteLayout.LayoutBounds="{StaticResource _leftZoom}"
               ColumnSpacing="0"
               RowSpacing="0"
-              IsVisible="{Binding WorkflowStage, Converter={vc:EnumCompareConverter}, ConverterParameter={x:Static vm:WorkflowStage.ManualAlign}}">
+              IsVisible="{Binding WorkflowStage, Converter={StaticResource enumCompare}, ConverterParameter={x:Static vm:WorkflowStage.ManualAlign}}">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="1"/>
                 <ColumnDefinition Width="Auto"/>
@@ -787,12 +787,12 @@
                      Grid.Column="0"
                      Grid.ColumnSpan="3"
                      Color="White"
-                     IsVisible="{Binding ManualAlignMode, Converter={vc:EnumCompareConverter}, ConverterParameter={x:Static vm:ManualAlignMode.ZoomLeft}}"/>
+                     IsVisible="{Binding ManualAlignMode, Converter={StaticResource enumCompare}, ConverterParameter={x:Static vm:ManualAlignMode.ZoomLeft}}"/>
             <BoxView Grid.Row="0" 
                      Grid.Column="0"
                      Grid.RowSpan="3"
                      Color="White"
-                     IsVisible="{Binding ManualAlignMode, Converter={vc:EnumCompareConverter}, ConverterParameter={x:Static vm:ManualAlignMode.ZoomLeft}}"/>
+                     IsVisible="{Binding ManualAlignMode, Converter={StaticResource enumCompare}, ConverterParameter={x:Static vm:ManualAlignMode.ZoomLeft}}"/>
             <Image Grid.Row="1"
                    Grid.Column="1"
                    Source="zoom"/>
@@ -800,18 +800,18 @@
                      Grid.Column="0"
                      Grid.ColumnSpan="3"
                      Color="White"
-                     IsVisible="{Binding ManualAlignMode, Converter={vc:EnumCompareConverter}, ConverterParameter={x:Static vm:ManualAlignMode.ZoomLeft}}"/>
+                     IsVisible="{Binding ManualAlignMode, Converter={StaticResource enumCompare}, ConverterParameter={x:Static vm:ManualAlignMode.ZoomLeft}}"/>
             <BoxView Grid.Row="0" 
                      Grid.Column="2"
                      Grid.RowSpan="3"
                      Color="White"
-                     IsVisible="{Binding ManualAlignMode, Converter={vc:EnumCompareConverter}, ConverterParameter={x:Static vm:ManualAlignMode.ZoomLeft}}"/>
+                     IsVisible="{Binding ManualAlignMode, Converter={StaticResource enumCompare}, ConverterParameter={x:Static vm:ManualAlignMode.ZoomLeft}}"/>
         </Grid>
         <Grid AbsoluteLayout.LayoutFlags="PositionProportional"
               AbsoluteLayout.LayoutBounds="{StaticResource _manualVerticalAlign}"
               ColumnSpacing="0"
               RowSpacing="0"
-              IsVisible="{Binding WorkflowStage, Converter={vc:EnumCompareConverter}, ConverterParameter={x:Static vm:WorkflowStage.ManualAlign}}">
+              IsVisible="{Binding WorkflowStage, Converter={StaticResource enumCompare}, ConverterParameter={x:Static vm:WorkflowStage.ManualAlign}}">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="1"/>
                 <ColumnDefinition Width="Auto"/>
@@ -830,12 +830,12 @@
                      Grid.Column="0"
                      Grid.ColumnSpan="3"
                      Color="White"
-                     IsVisible="{Binding ManualAlignMode, Converter={vc:EnumCompareConverter}, ConverterParameter={x:Static vm:ManualAlignMode.VerticalAlign}}"/>
+                     IsVisible="{Binding ManualAlignMode, Converter={StaticResource enumCompare}, ConverterParameter={x:Static vm:ManualAlignMode.VerticalAlign}}"/>
             <BoxView Grid.Row="0" 
                      Grid.Column="0"
                      Grid.RowSpan="3"
                      Color="White"
-                     IsVisible="{Binding ManualAlignMode, Converter={vc:EnumCompareConverter}, ConverterParameter={x:Static vm:ManualAlignMode.VerticalAlign}}"/>
+                     IsVisible="{Binding ManualAlignMode, Converter={StaticResource enumCompare}, ConverterParameter={x:Static vm:ManualAlignMode.VerticalAlign}}"/>
             <Image Grid.Row="1"
                    Grid.Column="1"
                    Source="vertAlign"/>
@@ -843,18 +843,18 @@
                      Grid.Column="0"
                      Grid.ColumnSpan="3"
                      Color="White"
-                     IsVisible="{Binding ManualAlignMode, Converter={vc:EnumCompareConverter}, ConverterParameter={x:Static vm:ManualAlignMode.VerticalAlign}}"/>
+                     IsVisible="{Binding ManualAlignMode, Converter={StaticResource enumCompare}, ConverterParameter={x:Static vm:ManualAlignMode.VerticalAlign}}"/>
             <BoxView Grid.Row="0" 
                      Grid.Column="2"
                      Grid.RowSpan="3"
                      Color="White"
-                     IsVisible="{Binding ManualAlignMode, Converter={vc:EnumCompareConverter}, ConverterParameter={x:Static vm:ManualAlignMode.VerticalAlign}}"/>
+                     IsVisible="{Binding ManualAlignMode, Converter={StaticResource enumCompare}, ConverterParameter={x:Static vm:ManualAlignMode.VerticalAlign}}"/>
         </Grid>
         <Grid AbsoluteLayout.LayoutFlags="PositionProportional"
               AbsoluteLayout.LayoutBounds="{StaticResource _rightRotate}"
               ColumnSpacing="0"
               RowSpacing="0"
-              IsVisible="{Binding WorkflowStage, Converter={vc:EnumCompareConverter}, ConverterParameter={x:Static vm:WorkflowStage.ManualAlign}}">
+              IsVisible="{Binding WorkflowStage, Converter={StaticResource enumCompare}, ConverterParameter={x:Static vm:WorkflowStage.ManualAlign}}">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="1"/>
                 <ColumnDefinition Width="Auto"/>
@@ -873,12 +873,12 @@
                      Grid.Column="0"
                      Grid.ColumnSpan="3"
                      Color="White"
-                     IsVisible="{Binding ManualAlignMode, Converter={vc:EnumCompareConverter}, ConverterParameter={x:Static vm:ManualAlignMode.RotateRight}}"/>
+                     IsVisible="{Binding ManualAlignMode, Converter={StaticResource enumCompare}, ConverterParameter={x:Static vm:ManualAlignMode.RotateRight}}"/>
             <BoxView Grid.Row="0" 
                      Grid.Column="0"
                      Grid.RowSpan="3"
                      Color="White"
-                     IsVisible="{Binding ManualAlignMode, Converter={vc:EnumCompareConverter}, ConverterParameter={x:Static vm:ManualAlignMode.RotateRight}}"/>
+                     IsVisible="{Binding ManualAlignMode, Converter={StaticResource enumCompare}, ConverterParameter={x:Static vm:ManualAlignMode.RotateRight}}"/>
             <Image Grid.Row="1"
                    Grid.Column="1"
                    Source="rotate"/>
@@ -886,18 +886,18 @@
                      Grid.Column="0"
                      Grid.ColumnSpan="3"
                      Color="White"
-                     IsVisible="{Binding ManualAlignMode, Converter={vc:EnumCompareConverter}, ConverterParameter={x:Static vm:ManualAlignMode.RotateRight}}"/>
+                     IsVisible="{Binding ManualAlignMode, Converter={StaticResource enumCompare}, ConverterParameter={x:Static vm:ManualAlignMode.RotateRight}}"/>
             <BoxView Grid.Row="0" 
                      Grid.Column="2"
                      Grid.RowSpan="3"
                      Color="White"
-                     IsVisible="{Binding ManualAlignMode, Converter={vc:EnumCompareConverter}, ConverterParameter={x:Static vm:ManualAlignMode.RotateRight}}"/>
+                     IsVisible="{Binding ManualAlignMode, Converter={StaticResource enumCompare}, ConverterParameter={x:Static vm:ManualAlignMode.RotateRight}}"/>
         </Grid>
         <Grid AbsoluteLayout.LayoutFlags="PositionProportional"
               AbsoluteLayout.LayoutBounds="{StaticResource _rightZoom}"
               ColumnSpacing="0"
               RowSpacing="0"
-              IsVisible="{Binding WorkflowStage, Converter={vc:EnumCompareConverter}, ConverterParameter={x:Static vm:WorkflowStage.ManualAlign}}">
+              IsVisible="{Binding WorkflowStage, Converter={StaticResource enumCompare}, ConverterParameter={x:Static vm:WorkflowStage.ManualAlign}}">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="1"/>
                 <ColumnDefinition Width="Auto"/>
@@ -916,12 +916,12 @@
                      Grid.Column="0"
                      Grid.ColumnSpan="3"
                      Color="White"
-                     IsVisible="{Binding ManualAlignMode, Converter={vc:EnumCompareConverter}, ConverterParameter={x:Static vm:ManualAlignMode.ZoomRight}}"/>
+                     IsVisible="{Binding ManualAlignMode, Converter={StaticResource enumCompare}, ConverterParameter={x:Static vm:ManualAlignMode.ZoomRight}}"/>
             <BoxView Grid.Row="0" 
                      Grid.Column="0"
                      Grid.RowSpan="3"
                      Color="White"
-                     IsVisible="{Binding ManualAlignMode, Converter={vc:EnumCompareConverter}, ConverterParameter={x:Static vm:ManualAlignMode.ZoomRight}}"/>
+                     IsVisible="{Binding ManualAlignMode, Converter={StaticResource enumCompare}, ConverterParameter={x:Static vm:ManualAlignMode.ZoomRight}}"/>
             <Image Grid.Row="1"
                    Grid.Column="1"
                    Source="zoom"/>
@@ -929,18 +929,18 @@
                      Grid.Column="0"
                      Grid.ColumnSpan="3"
                      Color="White"
-                     IsVisible="{Binding ManualAlignMode, Converter={vc:EnumCompareConverter}, ConverterParameter={x:Static vm:ManualAlignMode.ZoomRight}}"/>
+                     IsVisible="{Binding ManualAlignMode, Converter={StaticResource enumCompare}, ConverterParameter={x:Static vm:ManualAlignMode.ZoomRight}}"/>
             <BoxView Grid.Row="0" 
                      Grid.Column="2"
                      Grid.RowSpan="3"
                      Color="White"
-                     IsVisible="{Binding ManualAlignMode, Converter={vc:EnumCompareConverter}, ConverterParameter={x:Static vm:ManualAlignMode.ZoomRight}}"/>
+                     IsVisible="{Binding ManualAlignMode, Converter={StaticResource enumCompare}, ConverterParameter={x:Static vm:ManualAlignMode.ZoomRight}}"/>
         </Grid>
 
         <StackLayout AbsoluteLayout.LayoutFlags="PositionProportional,WidthProportional"
                      Orientation="Horizontal"
                      Padding="10"
-                     IsVisible="{Binding WorkflowStage, Converter={vc:EnumCompareConverter}, ConverterParameter={x:Static vm:WorkflowStage.ManualAlign}}">
+                     IsVisible="{Binding WorkflowStage, Converter={StaticResource enumCompare}, ConverterParameter={x:Static vm:WorkflowStage.ManualAlign}}">
             <AbsoluteLayout.LayoutBounds>
                 <Rectangle X="0" Y="1" Width="1" Height="{StaticResource _largeIconWidth}"/>
             </AbsoluteLayout.LayoutBounds>
@@ -948,27 +948,27 @@
                     Maximum="{Binding RotationMax}"
                     Minimum="{Binding RotationMin}"
                     HorizontalOptions="FillAndExpand"
-                    IsVisible="{Binding ManualAlignMode, Converter={vc:EnumCompareConverter}, ConverterParameter={x:Static vm:ManualAlignMode.RotateLeft}}"/>
+                    IsVisible="{Binding ManualAlignMode, Converter={StaticResource enumCompare}, ConverterParameter={x:Static vm:ManualAlignMode.RotateLeft}}"/>
             <Slider Value="{Binding Edits.RightRotation, Mode=TwoWay}"
                     Maximum="{Binding RotationMax}"
                     Minimum="{Binding RotationMin}"
                     HorizontalOptions="FillAndExpand"
-                    IsVisible="{Binding ManualAlignMode, Converter={vc:EnumCompareConverter}, ConverterParameter={x:Static vm:ManualAlignMode.RotateRight}}"/>
+                    IsVisible="{Binding ManualAlignMode, Converter={StaticResource enumCompare}, ConverterParameter={x:Static vm:ManualAlignMode.RotateRight}}"/>
             <Slider Value="{Binding Edits.LeftZoom, Mode=TwoWay}"
                     Maximum="{Binding ZoomMax}"
                     Minimum="0"
                     HorizontalOptions="FillAndExpand"
-                    IsVisible="{Binding ManualAlignMode, Converter={vc:EnumCompareConverter}, ConverterParameter={x:Static vm:ManualAlignMode.ZoomLeft}}"/>
+                    IsVisible="{Binding ManualAlignMode, Converter={StaticResource enumCompare}, ConverterParameter={x:Static vm:ManualAlignMode.ZoomLeft}}"/>
             <Slider Value="{Binding Edits.RightZoom, Mode=TwoWay}"
                     Maximum="{Binding ZoomMax}"
                     Minimum="0"
                     HorizontalOptions="FillAndExpand"
-                    IsVisible="{Binding ManualAlignMode, Converter={vc:EnumCompareConverter}, ConverterParameter={x:Static vm:ManualAlignMode.ZoomRight}}"/>
+                    IsVisible="{Binding ManualAlignMode, Converter={StaticResource enumCompare}, ConverterParameter={x:Static vm:ManualAlignMode.ZoomRight}}"/>
             <Slider Value="{Binding Edits.VerticalAlignment, Mode=TwoWay}"
                     Maximum="{Binding VerticalAlignmentMax}"
                     Minimum="{Binding VerticalAlignmentMin}"
                     HorizontalOptions="FillAndExpand"
-                    IsVisible="{Binding ManualAlignMode, Converter={vc:EnumCompareConverter}, ConverterParameter={x:Static vm:ManualAlignMode.VerticalAlign}}"/>
+                    IsVisible="{Binding ManualAlignMode, Converter={StaticResource enumCompare}, ConverterParameter={x:Static vm:ManualAlignMode.VerticalAlign}}"/>
             <Image Source="check">
                 <Image.GestureRecognizers>
                     <TapGestureRecognizer Command="{Binding SaveEditCommand}"/>
@@ -981,7 +981,7 @@
               AbsoluteLayout.LayoutBounds="{StaticResource _leftKeystoneAxis}"
               ColumnSpacing="0"
               RowSpacing="0"
-              IsVisible="{Binding WorkflowStage, Converter={vc:EnumCompareConverter}, ConverterParameter={x:Static vm:WorkflowStage.FovCorrection}}">
+              IsVisible="{Binding WorkflowStage, Converter={StaticResource enumCompare}, ConverterParameter={x:Static vm:WorkflowStage.FovCorrection}}">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="1"/>
                 <ColumnDefinition Width="Auto"/>
@@ -1000,12 +1000,12 @@
                      Grid.Column="0"
                      Grid.ColumnSpan="3"
                      Color="White"
-                     IsVisible="{Binding FovCorrectionMode, Converter={vc:EnumCompareConverter}, ConverterParameter={x:Static vm:FovCorrectionMode.LeftZoom}}"/>
+                     IsVisible="{Binding FovCorrectionMode, Converter={StaticResource enumCompare}, ConverterParameter={x:Static vm:FovCorrectionMode.LeftZoom}}"/>
             <BoxView Grid.Row="0" 
                      Grid.Column="0"
                      Grid.RowSpan="3"
                      Color="White"
-                     IsVisible="{Binding FovCorrectionMode, Converter={vc:EnumCompareConverter}, ConverterParameter={x:Static vm:FovCorrectionMode.LeftZoom}}"/>
+                     IsVisible="{Binding FovCorrectionMode, Converter={StaticResource enumCompare}, ConverterParameter={x:Static vm:FovCorrectionMode.LeftZoom}}"/>
             <Image Grid.Row="1"
                    Grid.Column="1"
                    Source="zoom"/>
@@ -1013,18 +1013,18 @@
                      Grid.Column="0"
                      Grid.ColumnSpan="3"
                      Color="White"
-                     IsVisible="{Binding FovCorrectionMode, Converter={vc:EnumCompareConverter}, ConverterParameter={x:Static vm:FovCorrectionMode.LeftZoom}}"/>
+                     IsVisible="{Binding FovCorrectionMode, Converter={StaticResource enumCompare}, ConverterParameter={x:Static vm:FovCorrectionMode.LeftZoom}}"/>
             <BoxView Grid.Row="0" 
                      Grid.Column="2"
                      Grid.RowSpan="3"
                      Color="White"
-                     IsVisible="{Binding FovCorrectionMode, Converter={vc:EnumCompareConverter}, ConverterParameter={x:Static vm:FovCorrectionMode.LeftZoom}}"/>
+                     IsVisible="{Binding FovCorrectionMode, Converter={StaticResource enumCompare}, ConverterParameter={x:Static vm:FovCorrectionMode.LeftZoom}}"/>
         </Grid>
         <Grid AbsoluteLayout.LayoutFlags="PositionProportional"
               AbsoluteLayout.LayoutBounds="{StaticResource _manualVerticalAlign}"
               ColumnSpacing="0"
               RowSpacing="0"
-              IsVisible="{Binding WorkflowStage, Converter={vc:EnumCompareConverter}, ConverterParameter={x:Static vm:WorkflowStage.FovCorrection}}">
+              IsVisible="{Binding WorkflowStage, Converter={StaticResource enumCompare}, ConverterParameter={x:Static vm:WorkflowStage.FovCorrection}}">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="1"/>
                 <ColumnDefinition Width="Auto"/>
@@ -1043,12 +1043,12 @@
                      Grid.Column="0"
                      Grid.ColumnSpan="3"
                      Color="White"
-                     IsVisible="{Binding FovCorrectionMode, Converter={vc:EnumCompareConverter}, ConverterParameter={x:Static vm:FovCorrectionMode.Vertical}}"/>
+                     IsVisible="{Binding FovCorrectionMode, Converter={StaticResource enumCompare}, ConverterParameter={x:Static vm:FovCorrectionMode.Vertical}}"/>
             <BoxView Grid.Row="0" 
                      Grid.Column="0"
                      Grid.RowSpan="3"
                      Color="White"
-                     IsVisible="{Binding FovCorrectionMode, Converter={vc:EnumCompareConverter}, ConverterParameter={x:Static vm:FovCorrectionMode.Vertical}}"/>
+                     IsVisible="{Binding FovCorrectionMode, Converter={StaticResource enumCompare}, ConverterParameter={x:Static vm:FovCorrectionMode.Vertical}}"/>
             <Image Grid.Row="1"
                    Grid.Column="1"
                    Source="vertAlign"/>
@@ -1056,18 +1056,18 @@
                      Grid.Column="0"
                      Grid.ColumnSpan="3"
                      Color="White"
-                     IsVisible="{Binding FovCorrectionMode, Converter={vc:EnumCompareConverter}, ConverterParameter={x:Static vm:FovCorrectionMode.Vertical}}"/>
+                     IsVisible="{Binding FovCorrectionMode, Converter={StaticResource enumCompare}, ConverterParameter={x:Static vm:FovCorrectionMode.Vertical}}"/>
             <BoxView Grid.Row="0" 
                      Grid.Column="2"
                      Grid.RowSpan="3"
                      Color="White"
-                     IsVisible="{Binding FovCorrectionMode, Converter={vc:EnumCompareConverter}, ConverterParameter={x:Static vm:FovCorrectionMode.Vertical}}"/>
+                     IsVisible="{Binding FovCorrectionMode, Converter={StaticResource enumCompare}, ConverterParameter={x:Static vm:FovCorrectionMode.Vertical}}"/>
         </Grid>
         <Grid AbsoluteLayout.LayoutFlags="PositionProportional"
               AbsoluteLayout.LayoutBounds="{StaticResource _rightKeystoneAxis}"
               ColumnSpacing="0"
               RowSpacing="0"
-              IsVisible="{Binding WorkflowStage, Converter={vc:EnumCompareConverter}, ConverterParameter={x:Static vm:WorkflowStage.FovCorrection}}">
+              IsVisible="{Binding WorkflowStage, Converter={StaticResource enumCompare}, ConverterParameter={x:Static vm:WorkflowStage.FovCorrection}}">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="1"/>
                 <ColumnDefinition Width="Auto"/>
@@ -1086,12 +1086,12 @@
                      Grid.Column="0"
                      Grid.ColumnSpan="3"
                      Color="White"
-                     IsVisible="{Binding FovCorrectionMode, Converter={vc:EnumCompareConverter}, ConverterParameter={x:Static vm:FovCorrectionMode.RightZoom}}"/>
+                     IsVisible="{Binding FovCorrectionMode, Converter={StaticResource enumCompare}, ConverterParameter={x:Static vm:FovCorrectionMode.RightZoom}}"/>
             <BoxView Grid.Row="0" 
                      Grid.Column="0"
                      Grid.RowSpan="3"
                      Color="White"
-                     IsVisible="{Binding FovCorrectionMode, Converter={vc:EnumCompareConverter}, ConverterParameter={x:Static vm:FovCorrectionMode.RightZoom}}"/>
+                     IsVisible="{Binding FovCorrectionMode, Converter={StaticResource enumCompare}, ConverterParameter={x:Static vm:FovCorrectionMode.RightZoom}}"/>
             <Image Grid.Row="1"
                    Grid.Column="1"
                    Source="zoom"/>
@@ -1099,19 +1099,19 @@
                      Grid.Column="0"
                      Grid.ColumnSpan="3"
                      Color="White"
-                     IsVisible="{Binding FovCorrectionMode, Converter={vc:EnumCompareConverter}, ConverterParameter={x:Static vm:FovCorrectionMode.RightZoom}}"/>
+                     IsVisible="{Binding FovCorrectionMode, Converter={StaticResource enumCompare}, ConverterParameter={x:Static vm:FovCorrectionMode.RightZoom}}"/>
             <BoxView Grid.Row="0" 
                      Grid.Column="2"
                      Grid.RowSpan="3"
                      Color="White"
-                     IsVisible="{Binding FovCorrectionMode, Converter={vc:EnumCompareConverter}, ConverterParameter={x:Static vm:FovCorrectionMode.RightZoom}}"/>
+                     IsVisible="{Binding FovCorrectionMode, Converter={StaticResource enumCompare}, ConverterParameter={x:Static vm:FovCorrectionMode.RightZoom}}"/>
         </Grid>
 
 
         <StackLayout AbsoluteLayout.LayoutFlags="PositionProportional,WidthProportional"
                      Orientation="Horizontal"
                      Padding="10"
-                     IsVisible="{Binding WorkflowStage, Converter={vc:EnumCompareConverter}, ConverterParameter={x:Static vm:WorkflowStage.FovCorrection}}">
+                     IsVisible="{Binding WorkflowStage, Converter={StaticResource enumCompare}, ConverterParameter={x:Static vm:WorkflowStage.FovCorrection}}">
             <AbsoluteLayout.LayoutBounds>
                 <Rectangle X="0" Y="1" Width="1" Height="{StaticResource _largeIconWidth}"/>
             </AbsoluteLayout.LayoutBounds>
@@ -1119,17 +1119,17 @@
                     Maximum="{Binding ZoomMax}"
                     Minimum="0"
                     HorizontalOptions="FillAndExpand"
-                    IsVisible="{Binding FovCorrectionMode, Converter={vc:EnumCompareConverter}, ConverterParameter={x:Static vm:FovCorrectionMode.LeftZoom}}"/>
+                    IsVisible="{Binding FovCorrectionMode, Converter={StaticResource enumCompare}, ConverterParameter={x:Static vm:FovCorrectionMode.LeftZoom}}"/>
             <Slider Value="{Binding Edits.FovRightCorrection, Mode=TwoWay}"
                     Maximum="{Binding ZoomMax}"
                     Minimum="0"
                     HorizontalOptions="FillAndExpand"
-                    IsVisible="{Binding FovCorrectionMode, Converter={vc:EnumCompareConverter}, ConverterParameter={x:Static vm:FovCorrectionMode.RightZoom}}"/>
+                    IsVisible="{Binding FovCorrectionMode, Converter={StaticResource enumCompare}, ConverterParameter={x:Static vm:FovCorrectionMode.RightZoom}}"/>
             <Slider Value="{Binding Edits.VerticalAlignment, Mode=TwoWay}"
                     Maximum="{Binding VerticalAlignmentMax}"
                     Minimum="{Binding VerticalAlignmentMin}"
                     HorizontalOptions="FillAndExpand"
-                    IsVisible="{Binding FovCorrectionMode, Converter={vc:EnumCompareConverter}, ConverterParameter={x:Static vm:FovCorrectionMode.Vertical}}"/>
+                    IsVisible="{Binding FovCorrectionMode, Converter={StaticResource enumCompare}, ConverterParameter={x:Static vm:FovCorrectionMode.Vertical}}"/>
             <Image Source="check">
                 <Image.GestureRecognizers>
                     <TapGestureRecognizer Command="{Binding SaveEditCommand}"/>
@@ -1141,7 +1141,7 @@
         <Grid AbsoluteLayout.LayoutFlags="PositionProportional,WidthProportional"
               RowSpacing="0"
               ColumnSpacing="0"
-              IsVisible="{Binding WorkflowStage, Converter={vc:EnumCompareConverter}, ConverterParameter={x:Static vm:WorkflowStage.Crop}}">
+              IsVisible="{Binding WorkflowStage, Converter={StaticResource enumCompare}, ConverterParameter={x:Static vm:WorkflowStage.Crop}}">
             <AbsoluteLayout.LayoutBounds>
                 <Rectangle X="0" Y="{StaticResource _editModeInnerButtons}" Width="1" Height="50"/>
             </AbsoluteLayout.LayoutBounds>
@@ -1182,25 +1182,25 @@
                      Grid.Row="0"
                      Grid.RowSpan="3"
                      Color="White"
-                     IsVisible="{Binding CropMode, Converter={vc:EnumCompareConverter}, ConverterParameter={x:Static vm:CropMode.Left}}">
+                     IsVisible="{Binding CropMode, Converter={StaticResource enumCompare}, ConverterParameter={x:Static vm:CropMode.Left}}">
             </BoxView>
             <BoxView Grid.Column="1"
                      Grid.Row="0"
                      Grid.ColumnSpan="3"
                      Color="White"
-                     IsVisible="{Binding CropMode, Converter={vc:EnumCompareConverter}, ConverterParameter={x:Static vm:CropMode.Left}}">
+                     IsVisible="{Binding CropMode, Converter={StaticResource enumCompare}, ConverterParameter={x:Static vm:CropMode.Left}}">
             </BoxView>
             <BoxView Grid.Column="3"
                      Grid.Row="0"
                      Grid.RowSpan="3"
                      Color="White"
-                     IsVisible="{Binding CropMode, Converter={vc:EnumCompareConverter}, ConverterParameter={x:Static vm:CropMode.Left}}">
+                     IsVisible="{Binding CropMode, Converter={StaticResource enumCompare}, ConverterParameter={x:Static vm:CropMode.Left}}">
             </BoxView>
             <BoxView Grid.Column="1"
                      Grid.Row="2"
                      Grid.ColumnSpan="3"
                      Color="White"
-                     IsVisible="{Binding CropMode, Converter={vc:EnumCompareConverter}, ConverterParameter={x:Static vm:CropMode.Left}}">
+                     IsVisible="{Binding CropMode, Converter={StaticResource enumCompare}, ConverterParameter={x:Static vm:CropMode.Left}}">
             </BoxView>
             <Image Grid.Column="2"
                    Grid.Row="1"
@@ -1216,25 +1216,25 @@
                      Grid.Row="0"
                      Grid.RowSpan="3"
                      Color="White"
-                     IsVisible="{Binding CropMode, Converter={vc:EnumCompareConverter}, ConverterParameter={x:Static vm:CropMode.Right}}">
+                     IsVisible="{Binding CropMode, Converter={StaticResource enumCompare}, ConverterParameter={x:Static vm:CropMode.Right}}">
             </BoxView>
             <BoxView Grid.Column="5"
                      Grid.Row="0"
                      Grid.ColumnSpan="3"
                      Color="White"
-                     IsVisible="{Binding CropMode, Converter={vc:EnumCompareConverter}, ConverterParameter={x:Static vm:CropMode.Right}}">
+                     IsVisible="{Binding CropMode, Converter={StaticResource enumCompare}, ConverterParameter={x:Static vm:CropMode.Right}}">
             </BoxView>
             <BoxView Grid.Column="7"
                      Grid.Row="0"
                      Grid.RowSpan="3"
                      Color="White"
-                     IsVisible="{Binding CropMode, Converter={vc:EnumCompareConverter}, ConverterParameter={x:Static vm:CropMode.Right}}">
+                     IsVisible="{Binding CropMode, Converter={StaticResource enumCompare}, ConverterParameter={x:Static vm:CropMode.Right}}">
             </BoxView>
             <BoxView Grid.Column="5"
                      Grid.Row="2"
                      Grid.ColumnSpan="3"
                      Color="White"
-                     IsVisible="{Binding CropMode, Converter={vc:EnumCompareConverter}, ConverterParameter={x:Static vm:CropMode.Right}}">
+                     IsVisible="{Binding CropMode, Converter={StaticResource enumCompare}, ConverterParameter={x:Static vm:CropMode.Right}}">
             </BoxView>
             <Image Grid.Column="6"
                    Grid.Row="1"
@@ -1250,25 +1250,25 @@
                      Grid.Row="0"
                      Grid.RowSpan="3"
                      Color="White"
-                     IsVisible="{Binding CropMode, Converter={vc:EnumCompareConverter}, ConverterParameter={x:Static vm:CropMode.Inside}}">
+                     IsVisible="{Binding CropMode, Converter={StaticResource enumCompare}, ConverterParameter={x:Static vm:CropMode.Inside}}">
             </BoxView>
             <BoxView Grid.Column="9"
                      Grid.Row="0"
                      Grid.ColumnSpan="3"
                      Color="White"
-                     IsVisible="{Binding CropMode, Converter={vc:EnumCompareConverter}, ConverterParameter={x:Static vm:CropMode.Inside}}">
+                     IsVisible="{Binding CropMode, Converter={StaticResource enumCompare}, ConverterParameter={x:Static vm:CropMode.Inside}}">
             </BoxView>
             <BoxView Grid.Column="11"
                      Grid.Row="0"
                      Grid.RowSpan="3"
                      Color="White"
-                     IsVisible="{Binding CropMode, Converter={vc:EnumCompareConverter}, ConverterParameter={x:Static vm:CropMode.Inside}}">
+                     IsVisible="{Binding CropMode, Converter={StaticResource enumCompare}, ConverterParameter={x:Static vm:CropMode.Inside}}">
             </BoxView>
             <BoxView Grid.Column="9"
                      Grid.Row="2"
                      Grid.ColumnSpan="3"
                      Color="White"
-                     IsVisible="{Binding CropMode, Converter={vc:EnumCompareConverter}, ConverterParameter={x:Static vm:CropMode.Inside}}">
+                     IsVisible="{Binding CropMode, Converter={StaticResource enumCompare}, ConverterParameter={x:Static vm:CropMode.Inside}}">
             </BoxView>
             <Image Grid.Column="10"
                    Grid.Row="1"
@@ -1284,25 +1284,25 @@
                      Grid.Row="0"
                      Grid.RowSpan="3"
                      Color="White"
-                     IsVisible="{Binding CropMode, Converter={vc:EnumCompareConverter}, ConverterParameter={x:Static vm:CropMode.Outside}}">
+                     IsVisible="{Binding CropMode, Converter={StaticResource enumCompare}, ConverterParameter={x:Static vm:CropMode.Outside}}">
             </BoxView>
             <BoxView Grid.Column="13"
                      Grid.Row="0"
                      Grid.ColumnSpan="3"
                      Color="White"
-                     IsVisible="{Binding CropMode, Converter={vc:EnumCompareConverter}, ConverterParameter={x:Static vm:CropMode.Outside}}">
+                     IsVisible="{Binding CropMode, Converter={StaticResource enumCompare}, ConverterParameter={x:Static vm:CropMode.Outside}}">
             </BoxView>
             <BoxView Grid.Column="15"
                      Grid.Row="0"
                      Grid.RowSpan="3"
                      Color="White"
-                     IsVisible="{Binding CropMode, Converter={vc:EnumCompareConverter}, ConverterParameter={x:Static vm:CropMode.Outside}}">
+                     IsVisible="{Binding CropMode, Converter={StaticResource enumCompare}, ConverterParameter={x:Static vm:CropMode.Outside}}">
             </BoxView>
             <BoxView Grid.Column="13"
                      Grid.Row="2"
                      Grid.ColumnSpan="3"
                      Color="White"
-                     IsVisible="{Binding CropMode, Converter={vc:EnumCompareConverter}, ConverterParameter={x:Static vm:CropMode.Outside}}">
+                     IsVisible="{Binding CropMode, Converter={StaticResource enumCompare}, ConverterParameter={x:Static vm:CropMode.Outside}}">
             </BoxView>
             <Image Grid.Column="14"
                    Grid.Row="1"
@@ -1318,25 +1318,25 @@
                      Grid.Row="0"
                      Grid.RowSpan="3"
                      Color="White"
-                     IsVisible="{Binding CropMode, Converter={vc:EnumCompareConverter}, ConverterParameter={x:Static vm:CropMode.Top}}">
+                     IsVisible="{Binding CropMode, Converter={StaticResource enumCompare}, ConverterParameter={x:Static vm:CropMode.Top}}">
             </BoxView>
             <BoxView Grid.Column="17"
                      Grid.Row="0"
                      Grid.ColumnSpan="3"
                      Color="White"
-                     IsVisible="{Binding CropMode, Converter={vc:EnumCompareConverter}, ConverterParameter={x:Static vm:CropMode.Top}}">
+                     IsVisible="{Binding CropMode, Converter={StaticResource enumCompare}, ConverterParameter={x:Static vm:CropMode.Top}}">
             </BoxView>
             <BoxView Grid.Column="19"
                      Grid.Row="0"
                      Grid.RowSpan="3"
                      Color="White"
-                     IsVisible="{Binding CropMode, Converter={vc:EnumCompareConverter}, ConverterParameter={x:Static vm:CropMode.Top}}">
+                     IsVisible="{Binding CropMode, Converter={StaticResource enumCompare}, ConverterParameter={x:Static vm:CropMode.Top}}">
             </BoxView>
             <BoxView Grid.Column="17"
                      Grid.Row="2"
                      Grid.ColumnSpan="3"
                      Color="White"
-                     IsVisible="{Binding CropMode, Converter={vc:EnumCompareConverter}, ConverterParameter={x:Static vm:CropMode.Top}}">
+                     IsVisible="{Binding CropMode, Converter={StaticResource enumCompare}, ConverterParameter={x:Static vm:CropMode.Top}}">
             </BoxView>
             <Image Grid.Column="18"
                    Grid.Row="1"
@@ -1352,25 +1352,25 @@
                      Grid.Row="0"
                      Grid.RowSpan="3"
                      Color="White"
-                     IsVisible="{Binding CropMode, Converter={vc:EnumCompareConverter}, ConverterParameter={x:Static vm:CropMode.Bottom}}">
+                     IsVisible="{Binding CropMode, Converter={StaticResource enumCompare}, ConverterParameter={x:Static vm:CropMode.Bottom}}">
             </BoxView>
             <BoxView Grid.Column="21"
                      Grid.Row="0"
                      Grid.ColumnSpan="3"
                      Color="White"
-                     IsVisible="{Binding CropMode, Converter={vc:EnumCompareConverter}, ConverterParameter={x:Static vm:CropMode.Bottom}}">
+                     IsVisible="{Binding CropMode, Converter={StaticResource enumCompare}, ConverterParameter={x:Static vm:CropMode.Bottom}}">
             </BoxView>
             <BoxView Grid.Column="23"
                      Grid.Row="0"
                      Grid.RowSpan="3"
                      Color="White"
-                     IsVisible="{Binding CropMode, Converter={vc:EnumCompareConverter}, ConverterParameter={x:Static vm:CropMode.Bottom}}">
+                     IsVisible="{Binding CropMode, Converter={StaticResource enumCompare}, ConverterParameter={x:Static vm:CropMode.Bottom}}">
             </BoxView>
             <BoxView Grid.Column="21"
                      Grid.Row="2"
                      Grid.ColumnSpan="3"
                      Color="White"
-                     IsVisible="{Binding CropMode, Converter={vc:EnumCompareConverter}, ConverterParameter={x:Static vm:CropMode.Bottom}}">
+                     IsVisible="{Binding CropMode, Converter={StaticResource enumCompare}, ConverterParameter={x:Static vm:CropMode.Bottom}}">
             </BoxView>
             <Image Grid.Column="22"
                    Grid.Row="1"
@@ -1386,7 +1386,7 @@
         <StackLayout AbsoluteLayout.LayoutFlags="PositionProportional,WidthProportional"
                      Orientation="Horizontal"
                      Padding="10"
-                     IsVisible="{Binding WorkflowStage, Converter={vc:EnumCompareConverter}, ConverterParameter={x:Static vm:WorkflowStage.Crop}}">
+                     IsVisible="{Binding WorkflowStage, Converter={StaticResource enumCompare}, ConverterParameter={x:Static vm:WorkflowStage.Crop}}">
             <AbsoluteLayout.LayoutBounds>
                 <Rectangle X="0" Y="1" Width="1" Height="{StaticResource _largeIconWidth}"/>
             </AbsoluteLayout.LayoutBounds>
@@ -1394,32 +1394,32 @@
                     Maximum="{Binding SideCropMax}"
                     Minimum="0"
                     HorizontalOptions="FillAndExpand"
-                    IsVisible="{Binding CropMode, Converter={vc:EnumCompareConverter}, ConverterParameter={x:Static vm:CropMode.Inside}}"/>
+                    IsVisible="{Binding CropMode, Converter={StaticResource enumCompare}, ConverterParameter={x:Static vm:CropMode.Inside}}"/>
             <Slider Value="{Binding Edits.OutsideCrop, Mode=TwoWay}"
                     Maximum="{Binding SideCropMax}"
                     Minimum="0"
                     HorizontalOptions="FillAndExpand"
-                    IsVisible="{Binding CropMode, Converter={vc:EnumCompareConverter}, ConverterParameter={x:Static vm:CropMode.Outside}}"/>
+                    IsVisible="{Binding CropMode, Converter={StaticResource enumCompare}, ConverterParameter={x:Static vm:CropMode.Outside}}"/>
             <Slider Value="{Binding Edits.TopCrop, Mode=TwoWay}"
                     Maximum="{Binding TopOrBottomCropMax}"
                     Minimum="0"
                     HorizontalOptions="FillAndExpand"
-                    IsVisible="{Binding CropMode, Converter={vc:EnumCompareConverter}, ConverterParameter={x:Static vm:CropMode.Top}}"/>
+                    IsVisible="{Binding CropMode, Converter={StaticResource enumCompare}, ConverterParameter={x:Static vm:CropMode.Top}}"/>
             <Slider Value="{Binding Edits.BottomCrop, Mode=TwoWay}"
                     Maximum="{Binding TopOrBottomCropMax}"
                     Minimum="0"
                     HorizontalOptions="FillAndExpand"
-                    IsVisible="{Binding CropMode, Converter={vc:EnumCompareConverter}, ConverterParameter={x:Static vm:CropMode.Bottom}}"/>
+                    IsVisible="{Binding CropMode, Converter={StaticResource enumCompare}, ConverterParameter={x:Static vm:CropMode.Bottom}}"/>
             <Slider Value="{Binding Edits.LeftCrop, Mode=TwoWay}"
                     Maximum="{Binding SideCropMax}"
                     Minimum="0"
                     HorizontalOptions="FillAndExpand"
-                    IsVisible="{Binding CropMode, Converter={vc:EnumCompareConverter}, ConverterParameter={x:Static vm:CropMode.Left}}"/>
+                    IsVisible="{Binding CropMode, Converter={StaticResource enumCompare}, ConverterParameter={x:Static vm:CropMode.Left}}"/>
             <Slider Value="{Binding Edits.RightCrop, Mode=TwoWay}"
                     Maximum="{Binding SideCropMax}"
                     Minimum="0"
                     HorizontalOptions="FillAndExpand"
-                    IsVisible="{Binding CropMode, Converter={vc:EnumCompareConverter}, ConverterParameter={x:Static vm:CropMode.Right}}"/>
+                    IsVisible="{Binding CropMode, Converter={StaticResource enumCompare}, ConverterParameter={x:Static vm:CropMode.Right}}"/>
             <Image Source="check">
                 <Image.GestureRecognizers>
                     <TapGestureRecognizer Command="{Binding SaveEditCommand}"/>
@@ -1442,7 +1442,7 @@
                      IsVisible="{Binding ShouldSettingsAndHelpBeVisible}"
                      Orientation="Horizontal">
             <ContentView Padding="{StaticResource _topBarSmallButtonPadding}"
-                         IsVisible="{Binding WorkflowStage, Converter={vc:EnumCompareConverter}, ConverterParameter={x:Static vm:WorkflowStage.Capture}}">
+                         IsVisible="{Binding WorkflowStage, Converter={StaticResource enumCompare}, ConverterParameter={x:Static vm:WorkflowStage.Capture}}">
                 <ContentView.GestureRecognizers>
                     <TapGestureRecognizer Command="{Binding FlipCameraCommand}"/>
                 </ContentView.GestureRecognizers>
@@ -1504,19 +1504,19 @@
                InputTransparent="True"/>
         <Label Text="Saving..."
                Style="{StaticResource _feedback}"
-               IsVisible="{Binding WorkflowStage, Converter={vc:EnumCompareConverter}, ConverterParameter={x:Static vm:WorkflowStage.Saving}}"/>
+               IsVisible="{Binding WorkflowStage, Converter={StaticResource enumCompare}, ConverterParameter={x:Static vm:WorkflowStage.Saving}}"/>
         <Label Text="Aligning..."
                Style="{StaticResource _feedback}"
-               IsVisible="{Binding WorkflowStage, Converter={vc:EnumCompareConverter}, ConverterParameter={x:Static vm:WorkflowStage.AutomaticAlign}}"/>
+               IsVisible="{Binding WorkflowStage, Converter={StaticResource enumCompare}, ConverterParameter={x:Static vm:WorkflowStage.AutomaticAlign}}"/>
         <Label Text="Loading..."
                Style="{StaticResource _feedback}"
-               IsVisible="{Binding WorkflowStage, Converter={vc:EnumCompareConverter}, ConverterParameter={x:Static vm:WorkflowStage.Loading}}"/>
+               IsVisible="{Binding WorkflowStage, Converter={StaticResource enumCompare}, ConverterParameter={x:Static vm:WorkflowStage.Loading}}"/>
         <Label Text="Transmitting... &#10; (keep device unlocked)"
                Style="{StaticResource _feedback}"
-               IsVisible="{Binding WorkflowStage, Converter={vc:EnumCompareConverter}, ConverterParameter={x:Static vm:WorkflowStage.Transmitting}}"/>
+               IsVisible="{Binding WorkflowStage, Converter={StaticResource enumCompare}, ConverterParameter={x:Static vm:WorkflowStage.Transmitting}}"/>
         <Label Text="{Binding PairOperatorBindable.InitialSyncProgress, StringFormat='Syncing ({0}%)'}"
                Style="{StaticResource _feedback}"
-               IsVisible="{Binding WorkflowStage, Converter={vc:EnumCompareConverter}, ConverterParameter={x:Static vm:WorkflowStage.Syncing}}"/>
+               IsVisible="{Binding WorkflowStage, Converter={StaticResource enumCompare}, ConverterParameter={x:Static vm:WorkflowStage.Syncing}}"/>
         <Label Text="Steady..."
                Style="{StaticResource _feedback}"
                IsVisible="{Binding IsHoldSteadySecondary}"/>
@@ -1530,7 +1530,7 @@
                     <MultiTrigger.Conditions>
                         <BindingCondition Binding="{Binding PairOperatorBindable.CountdownTimeRemainingSec, Converter={vc:GreaterThanZeroValueConverter}}"
                                           Value="true"/>
-                        <BindingCondition Binding="{Binding PairOperatorBindable.PairStatus, Converter={vc:EnumCompareConverter}, ConverterParameter={x:Static vm:PairStatus.Connected}}"
+                        <BindingCondition Binding="{Binding PairOperatorBindable.PairStatus, Converter={StaticResource enumCompare}, ConverterParameter={x:Static vm:PairStatus.Connected}}"
                                           Value="true"/>
                         <BindingCondition Binding="{Binding PairOperatorBindable.IsPrimary}"
                                           Value="true"/>
@@ -1553,7 +1553,7 @@
         </Label>
         <ContentView AbsoluteLayout.LayoutFlags="All"
                      AbsoluteLayout.LayoutBounds="0,0,1,1"
-                     IsVisible="{Binding WorkflowStage, Converter={vc:EnumCompareConverter}, ConverterParameter={x:Static vm:WorkflowStage.View}}">
+                     IsVisible="{Binding WorkflowStage, Converter={StaticResource enumCompare}, ConverterParameter={x:Static vm:WorkflowStage.View}}">
             <ContentView.GestureRecognizers>
                 <TapGestureRecognizer Command="{Binding ToggleViewModeCommand}"/>
             </ContentView.GestureRecognizers>
@@ -1575,7 +1575,7 @@
                 <Image.Triggers>
                     <MultiTrigger TargetType="Image">
                         <MultiTrigger.Conditions>
-                            <BindingCondition Binding="{Binding Settings.Mode, Converter={vc:EnumCompareConverter}, ConverterParameter={x:Static vm:DrawMode.Parallel}}"
+                            <BindingCondition Binding="{Binding Settings.Mode, Converter={StaticResource enumCompare}, ConverterParameter={x:Static vm:DrawMode.Parallel}}"
                                               Value="True"/>
                             <BindingCondition Binding="{Binding Settings.IsCaptureLeftFirst}"
                                               Value="True"/>
@@ -1587,7 +1587,7 @@
                     </MultiTrigger>
                     <MultiTrigger TargetType="Image">
                         <MultiTrigger.Conditions>
-                            <BindingCondition Binding="{Binding Settings.Mode, Converter={vc:EnumCompareConverter}, ConverterParameter={x:Static vm:DrawMode.Parallel}}"
+                            <BindingCondition Binding="{Binding Settings.Mode, Converter={StaticResource enumCompare}, ConverterParameter={x:Static vm:DrawMode.Parallel}}"
                                               Value="False"/>
                             <BindingCondition Binding="{Binding Settings.IsCaptureLeftFirst}"
                                               Value="False"/>
@@ -1606,7 +1606,7 @@
                        HorizontalOptions="EndAndExpand">
                     <Label.Triggers>
                         <DataTrigger TargetType="Label"
-                                     Binding="{Binding PairOperatorBindable.PairStatus, Converter={vc:EnumCompareConverter}, ConverterParameter={x:Static vm:PairStatus.Connected}}"
+                                     Binding="{Binding PairOperatorBindable.PairStatus, Converter={StaticResource enumCompare}, ConverterParameter={x:Static vm:PairStatus.Connected}}"
                                      Value="true">
                             <Setter Property="Text"
                                     Value="SECONDARY"/>
@@ -1620,7 +1620,7 @@
                     <Label.Triggers>
                         <MultiTrigger TargetType="Label">
                             <MultiTrigger.Conditions>
-                                <BindingCondition Binding="{Binding Settings.Mode, Converter={vc:EnumCompareConverter}, ConverterParameter={x:Static vm:DrawMode.Parallel}}"
+                                <BindingCondition Binding="{Binding Settings.Mode, Converter={StaticResource enumCompare}, ConverterParameter={x:Static vm:DrawMode.Parallel}}"
                                                   Value="True"/>
                                 <BindingCondition Binding="{Binding Settings.IsCaptureLeftFirst}"
                                                   Value="True"/>
@@ -1632,7 +1632,7 @@
                         </MultiTrigger>
                         <MultiTrigger TargetType="Label">
                             <MultiTrigger.Conditions>
-                                <BindingCondition Binding="{Binding Settings.Mode, Converter={vc:EnumCompareConverter}, ConverterParameter={x:Static vm:DrawMode.Parallel}}"
+                                <BindingCondition Binding="{Binding Settings.Mode, Converter={StaticResource enumCompare}, ConverterParameter={x:Static vm:DrawMode.Parallel}}"
                                                   Value="False"/>
                                 <BindingCondition Binding="{Binding Settings.IsCaptureLeftFirst}"
                                                   Value="False"/>
@@ -1655,25 +1655,25 @@
                        HorizontalOptions="StartAndExpand">
                     <Label.Triggers>
                         <DataTrigger TargetType="Label"
-                                     Binding="{Binding Settings.Mode, Converter={vc:EnumCompareConverter}, ConverterParameter={x:Static vm:DrawMode.Parallel}}"
+                                     Binding="{Binding Settings.Mode, Converter={StaticResource enumCompare}, ConverterParameter={x:Static vm:DrawMode.Parallel}}"
                                      Value="true">
                             <Setter Property="Text"
                                     Value="parallel"/>
                         </DataTrigger>
                         <DataTrigger TargetType="Label"
-                                     Binding="{Binding Settings.Mode, Converter={vc:EnumCompareConverter}, ConverterParameter={x:Static vm:DrawMode.Cardboard}}"
+                                     Binding="{Binding Settings.Mode, Converter={StaticResource enumCompare}, ConverterParameter={x:Static vm:DrawMode.Cardboard}}"
                                      Value="true">
                             <Setter Property="Text"
                                     Value="cardboard"/>
                         </DataTrigger>
                         <DataTrigger TargetType="Label"
-                                     Binding="{Binding Settings.Mode, Converter={vc:EnumCompareConverter}, ConverterParameter={x:Static vm:DrawMode.RedCyanAnaglyph}}"
+                                     Binding="{Binding Settings.Mode, Converter={StaticResource enumCompare}, ConverterParameter={x:Static vm:DrawMode.RedCyanAnaglyph}}"
                                      Value="true">
                             <Setter Property="Text"
                                     Value="anaglyph"/>
                         </DataTrigger>
                         <DataTrigger TargetType="Label"
-                                     Binding="{Binding Settings.Mode, Converter={vc:EnumCompareConverter}, ConverterParameter={x:Static vm:DrawMode.GrayscaleRedCyanAnaglyph}}"
+                                     Binding="{Binding Settings.Mode, Converter={StaticResource enumCompare}, ConverterParameter={x:Static vm:DrawMode.GrayscaleRedCyanAnaglyph}}"
                                      Value="true">
                             <Setter Property="Text"
                                     Value="anaglyph"/>
@@ -1716,7 +1716,7 @@
                            HorizontalOptions="EndAndExpand">
                         <Label.Triggers>
                             <DataTrigger TargetType="Label"
-                                         Binding="{Binding PairOperatorBindable.PairStatus, Converter={vc:EnumCompareConverter}, ConverterParameter={x:Static vm:PairStatus.Connected}}"
+                                         Binding="{Binding PairOperatorBindable.PairStatus, Converter={StaticResource enumCompare}, ConverterParameter={x:Static vm:PairStatus.Connected}}"
                                          Value="true">
                                 <Setter Property="Text"
                                         Value="SECONDARY"/>
@@ -1767,7 +1767,7 @@
                            HorizontalOptions="EndAndExpand">
                         <Label.Triggers>
                             <DataTrigger TargetType="Label"
-                                         Binding="{Binding PairOperatorBindable.PairStatus, Converter={vc:EnumCompareConverter}, ConverterParameter={x:Static vm:PairStatus.Connected}}"
+                                         Binding="{Binding PairOperatorBindable.PairStatus, Converter={StaticResource enumCompare}, ConverterParameter={x:Static vm:PairStatus.Connected}}"
                                          Value="true">
                                 <Setter Property="Text"
                                         Value="SECONDARY"/>
@@ -1831,7 +1831,7 @@
             <StackLayout.Triggers>
                 <MultiTrigger TargetType="StackLayout">
                     <MultiTrigger.Conditions>
-                        <BindingCondition Binding="{Binding Settings.Mode, Converter={vc:EnumCompareConverter}, ConverterParameter={x:Static vm:DrawMode.Cardboard}}"
+                        <BindingCondition Binding="{Binding Settings.Mode, Converter={StaticResource enumCompare}, ConverterParameter={x:Static vm:DrawMode.Cardboard}}"
                                           Value="True"/>
                         <BindingCondition Binding="{Binding IsBusy}"
                                           Value="True"/>
@@ -1853,7 +1853,7 @@
         </StackLayout>
         <!--<StackLayout AbsoluteLayout.LayoutFlags="PositionProportional,HeightProportional"
                      AbsoluteLayout.LayoutBounds="0.5,0,400,1"
-                     IsVisible="{Binding Settings.Mode, Converter={vc:EnumCompareConverter}, ConverterParameter={x:Static vm:DrawMode.Cardboard}}"
+                     IsVisible="{Binding Settings.Mode, Converter={StaticResource enumCompare}, ConverterParameter={x:Static vm:DrawMode.Cardboard}}"
                      Orientation="Horizontal"
                      InputTransparent="True">
             <BoxView WidthRequest="10"
