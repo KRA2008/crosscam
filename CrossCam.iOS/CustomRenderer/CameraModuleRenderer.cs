@@ -6,6 +6,7 @@ using System.Drawing;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Threading;
+using System.Timers;
 using AVFoundation;
 using CoreFoundation;
 using CoreGraphics;
@@ -47,36 +48,49 @@ namespace CrossCam.iOS.CustomRenderer
             "Renderer"
         };
 
-        public CameraModuleRenderer()
-        {
-            NSNotificationCenter.DefaultCenter.AddObserver(new NSString("UIDeviceOrientationDidChangeNotification"), OrientationChanged);
-            NSNotificationCenter.DefaultCenter.AddObserver(new NSString("UIApplicationWillResignActiveNotification"),
-                n => TurnOffFlashAndSetContinuousAutoMode(_device)); // after minimizing or locking phone with first picture taken, preview of second will become super dark and locked that way - seems to be outside my control
-
-            UIApplication.Notifications.ObserveDidEnterBackground(StopPreview);
-            UIApplication.Notifications.ObserveWillEnterForeground(StartPreview);
-        }
-
         protected override void OnElementChanged(ElementChangedEventArgs<CameraModule> e)
         {
             base.OnElementChanged(e);
 
+            if (e.OldElement != null)
+            {
+                _cameraModule.PairOperator.CaptureSyncTimeElapsed -= HandleCaptureSyncTimeElapsed;
+                _cameraModule.SingleTapped -= HandleSingleTap;
+                _cameraModule.DoubleTapped -= HandleDoubleTap;
+                NSNotificationCenter.DefaultCenter.RemoveObservers(new[]
+                {
+                    new NSString("UIDeviceOrientationDidChangeNotification"),
+                    new NSString("UIApplicationWillResignActiveNotification")
+                });
+            }
+
             if (e.NewElement != null)
             {
                 _cameraModule = e.NewElement;
-                _cameraModule.PairOperator.CaptureSyncTimeElapsed += (sender2, args) =>
-                {
-                    Device.BeginInvokeOnMainThread(CapturePhoto);
-                };
-                _cameraModule.SingleTapped += (sender, point) =>
-                {
-                    PreviewWasTapped(point);
-                };
-                _cameraModule.DoubleTapped += (sender, args) =>
-                {
-                    TurnOffFlashAndSetContinuousAutoMode(_device);
-                };
+                _cameraModule.PairOperator.CaptureSyncTimeElapsed += HandleCaptureSyncTimeElapsed;
+                _cameraModule.SingleTapped += HandleSingleTap;
+                _cameraModule.DoubleTapped += HandleDoubleTap;
+                NSNotificationCenter.DefaultCenter.AddObserver(new NSString("UIDeviceOrientationDidChangeNotification"), OrientationChanged);
+                NSNotificationCenter.DefaultCenter.AddObserver(new NSString("UIApplicationWillResignActiveNotification"),
+                    n => TurnOffFlashAndSetContinuousAutoMode(_device)); // after minimizing or locking phone with first picture taken, preview of second will become super dark and locked that way - seems to be outside my control
+                UIApplication.Notifications.ObserveDidEnterBackground(StopPreview);
+                UIApplication.Notifications.ObserveWillEnterForeground(StartPreview);
             }
+        }
+
+        private void HandleCaptureSyncTimeElapsed(object sender, ElapsedEventArgs e)
+        {
+            Device.BeginInvokeOnMainThread(CapturePhoto);
+        }
+
+        private void HandleDoubleTap(object sender, EventArgs e)
+        {
+            TurnOffFlashAndSetContinuousAutoMode(_device);
+        }
+
+        private void HandleSingleTap(object sender, PointF point)
+        {
+            PreviewWasTapped(point);
         }
 
         protected override void OnElementPropertyChanged(object sender, PropertyChangedEventArgs e)
