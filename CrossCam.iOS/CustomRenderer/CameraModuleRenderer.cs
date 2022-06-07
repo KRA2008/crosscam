@@ -93,6 +93,7 @@ namespace CrossCam.iOS.CustomRenderer
             PreviewWasTapped(point);
         }
 
+#if !__SIMULATOR__
         protected override void OnElementPropertyChanged(object sender, PropertyChangedEventArgs e)
         {
             base.OnElementPropertyChanged(sender, e);
@@ -158,6 +159,7 @@ namespace CrossCam.iOS.CustomRenderer
                 _cameraModule.ErrorMessage = ex.ToString();
             }
         }
+#endif
 
         private void ChosenCameraChanged()
         {

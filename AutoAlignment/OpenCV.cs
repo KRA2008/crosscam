@@ -31,7 +31,8 @@ namespace AutoAlignment
         {
 #if __NO_EMGU__
             return false;
-#endif
+
+#else
             try
             {
                 using (new Mat())
@@ -44,13 +45,14 @@ namespace AutoAlignment
             }
 
             return true;
+#endif
         }
 
         public AlignedResult CreateAlignedSecondImageEcc(SKBitmap firstImage, SKBitmap secondImage, AlignmentSettings settings)
         {
 #if __NO_EMGU__
             return null;
-#endif
+#else
             var topDownsizeFactor = settings.EccDownsizePercentage / 100f;
 
             var eccs = new List<double>();
@@ -109,6 +111,7 @@ namespace AutoAlignment
                 TransformMatrix1 = SKMatrix.Identity,
                 TransformMatrix2 = ConvertCvMatOfFloatsToSkMatrix(warpMatrix)
             };
+#endif
         }
 
         public AlignedResult CreateAlignedSecondImageKeypoints(SKBitmap firstImage, SKBitmap secondImage,
@@ -116,7 +119,7 @@ namespace AutoAlignment
         {
 #if __NO_EMGU__
             return null;
-#endif
+#else
             var result = new AlignedResult();
 
             using var detector = new ORBDetector();
@@ -406,10 +409,14 @@ namespace AutoAlignment
 
 
             return result;
+#endif
         }
 
         public SKImage AddBarrelDistortion(SKImage image, float downsize, float strength, float cxProportion)
         {
+#if __NO_EMGU__
+            return SKImage.Create(new SKImageInfo());
+#else
             using var cvImage = new Mat();
             CvInvoke.Imdecode(image.Encode().ToArray(), ImreadModes.Color, cvImage);
 
@@ -426,8 +433,34 @@ namespace AutoAlignment
 #elif __ANDROID__
             return transformedImage.ToBitmap().ToSKImage();
 #endif
+#endif
         }
 
+        public byte[] GetBytes(SKBitmap bitmap, double downsize, SKFilterQuality filterQuality = SKFilterQuality.High)
+        {
+            //TODO: compare jpeg 100 vs png 100 vs png 0
+            if (downsize == 1)
+            {
+                return SKImage.FromBitmap(bitmap).Encode(SKEncodedImageFormat.Png, 0).ToArray();
+            }
+
+            var targetWidth = (int)(bitmap.Width * downsize);
+            var targetHeight = (int)(bitmap.Height * downsize);
+            using var tempSurface =
+                SKSurface.Create(new SKImageInfo(targetWidth, targetHeight));
+            using var canvas = tempSurface.Canvas;
+            canvas.Clear();
+
+            using var paint = new SKPaint { FilterQuality = filterQuality };
+            canvas.DrawBitmap(bitmap,
+                SKRect.Create(0, 0, targetWidth, targetHeight),
+                paint);
+
+            using var data = tempSurface.Snapshot().Encode(SKEncodedImageFormat.Png, 0);
+            return data.ToArray();
+        }
+
+#if !__NO_EMGU__
         private static Mat GetCameraMatrix(float cx, float cy)
         {
             var cameraMatrix = Mat.Eye(3, 3, DepthType.Cv32F, 1);
@@ -680,29 +713,6 @@ namespace AutoAlignment
         {
             return Math.Sqrt(Math.Pow(from.X - to.X, 2) + Math.Pow(from.Y - to.Y, 2));
         }
-        
-        public byte[] GetBytes(SKBitmap bitmap, double downsize, SKFilterQuality filterQuality = SKFilterQuality.High)
-        {
-            //TODO: compare jpeg 100 vs png 100 vs png 0
-            if (downsize == 1)
-            {
-               return SKImage.FromBitmap(bitmap).Encode(SKEncodedImageFormat.Png, 0).ToArray();
-            }
-
-            var targetWidth = (int)(bitmap.Width * downsize);
-            var targetHeight = (int)(bitmap.Height * downsize);
-            using var tempSurface =
-                SKSurface.Create(new SKImageInfo(targetWidth, targetHeight));
-            using var canvas = tempSurface.Canvas;
-            canvas.Clear();
-
-            using var paint = new SKPaint {FilterQuality = filterQuality};
-            canvas.DrawBitmap(bitmap,
-                SKRect.Create(0, 0, targetWidth, targetHeight),
-                paint);
-
-            using var data = tempSurface.Snapshot().Encode(SKEncodedImageFormat.Png, 0);
-            return data.ToArray();
-        }
+#endif
     }
 }
