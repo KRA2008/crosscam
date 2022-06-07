@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 16.0.29911.84
+# Visual Studio Version 17
+VisualStudioVersion = 17.2.32526.322
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CrossCam", "CrossCam\CrossCam.csproj", "{C67DAD12-9B8D-4AE3-B7B2-5F84E4E26EA8}"
 EndProject
@@ -14,11 +14,6 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CrossCam.iOS.Extension", "CrossCam.iOS.Extension\CrossCam.iOS.Extension.csproj", "{292F6A1E-E003-4BD7-8BAF-AC64B80D0BBA}"
 EndProject
 Global
-	GlobalSection(SharedMSBuildProjectFiles) = preSolution
-		AutoAlignment\AutoAlignment.projitems*{169d5c20-8fda-48fc-96af-2f6e09bb9b4f}*SharedItemsImports = 4
-		AutoAlignment\AutoAlignment.projitems*{a47f6f63-d74d-4c78-bb34-518c57c41dee}*SharedItemsImports = 4
-		AutoAlignment\AutoAlignment.projitems*{f9d4dfbf-a407-473c-aa27-36e2e0f5fcf8}*SharedItemsImports = 13
-	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug Without Emgu|Any CPU = Debug Without Emgu|Any CPU
 		Debug Without Emgu|iPhone = Debug Without Emgu|iPhone
@@ -89,6 +84,7 @@ Global
 		{292F6A1E-E003-4BD7-8BAF-AC64B80D0BBA}.Debug Without Emgu|iPhoneSimulator.Build.0 = Debug|iPhoneSimulator
 		{292F6A1E-E003-4BD7-8BAF-AC64B80D0BBA}.Debug|Any CPU.ActiveCfg = Debug|iPhone
 		{292F6A1E-E003-4BD7-8BAF-AC64B80D0BBA}.Debug|iPhone.ActiveCfg = Debug|iPhone
+		{292F6A1E-E003-4BD7-8BAF-AC64B80D0BBA}.Debug|iPhone.Build.0 = Debug|iPhone
 		{292F6A1E-E003-4BD7-8BAF-AC64B80D0BBA}.Debug|iPhoneSimulator.ActiveCfg = Debug|iPhoneSimulator
 		{292F6A1E-E003-4BD7-8BAF-AC64B80D0BBA}.Debug|iPhoneSimulator.Build.0 = Debug|iPhoneSimulator
 		{292F6A1E-E003-4BD7-8BAF-AC64B80D0BBA}.Release|Any CPU.ActiveCfg = Release|iPhone
@@ -102,5 +98,10 @@ Global
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {088D83CF-C15E-4922-B5B1-D1DECA743640}
+	EndGlobalSection
+	GlobalSection(SharedMSBuildProjectFiles) = preSolution
+		AutoAlignment\AutoAlignment.projitems*{169d5c20-8fda-48fc-96af-2f6e09bb9b4f}*SharedItemsImports = 4
+		AutoAlignment\AutoAlignment.projitems*{a47f6f63-d74d-4c78-bb34-518c57c41dee}*SharedItemsImports = 4
+		AutoAlignment\AutoAlignment.projitems*{f9d4dfbf-a407-473c-aa27-36e2e0f5fcf8}*SharedItemsImports = 13
 	EndGlobalSection
 EndGlobal
