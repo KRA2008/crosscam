@@ -31,6 +31,7 @@
     <MtouchEnableSGenConc>true</MtouchEnableSGenConc>
     <MtouchFastDev>true</MtouchFastDev>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <OptimizePNGs>false</OptimizePNGs>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|iPhoneSimulator' ">
     <DebugType>none</DebugType>
@@ -75,6 +76,7 @@
     <MtouchNoSymbolStrip>true</MtouchNoSymbolStrip>
     <MtouchEnableSGenConc>true</MtouchEnableSGenConc>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <MtouchInterpreter>-all</MtouchInterpreter>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|iPhone' ">
     <DebugType>none</DebugType>

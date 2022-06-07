@@ -35,6 +35,7 @@
     <CodesignProvision>VS: WildCard Development</CodesignProvision>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
     <MtouchEnableSGenConc>true</MtouchEnableSGenConc>
+    <OptimizePNGs>false</OptimizePNGs>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|iPhone' ">
     <DebugType>full</DebugType>
@@ -72,6 +73,9 @@
     <LangVersion>8</LangVersion>
     <DefineConstants>__IOS__;__MOBILE__;__UNIFIED__;__SIMULATOR__;</DefineConstants>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <MtouchFloat32>true</MtouchFloat32>
+    <MtouchUseLlvm>true</MtouchUseLlvm>
+    <MtouchEnableSGenConc>true</MtouchEnableSGenConc>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|iPhone' ">
     <DebugSymbols>true</DebugSymbols>
@@ -128,6 +132,7 @@
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
     <MtouchEnableSGenConc>true</MtouchEnableSGenConc>
     <MtouchProfiling>true</MtouchProfiling>
+    <OptimizePNGs>false</OptimizePNGs>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug Without Emgu|iPhone'">
     <DebugSymbols>true</DebugSymbols>
@@ -155,6 +160,7 @@
     <MtouchInterpreter>-all</MtouchInterpreter>
     <MtouchEnableSGenConc>true</MtouchEnableSGenConc>
     <MtouchProfiling>true</MtouchProfiling>
+    <OptimizePNGs>false</OptimizePNGs>
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="EmguCv">
