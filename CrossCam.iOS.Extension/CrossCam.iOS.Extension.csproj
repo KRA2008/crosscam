@@ -46,6 +46,7 @@
     <OptimizePNGs>true</OptimizePNGs>
     <MtouchEnableSGenConc>true</MtouchEnableSGenConc>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <CodesignKey>iPhone Distribution</CodesignKey>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|iPhone' ">
     <DebugSymbols>true</DebugSymbols>
@@ -68,7 +69,8 @@
     <MtouchFloat32>true</MtouchFloat32>
     <CodesignExtraArgs />
     <CodesignResourceRules />
-    <CodesignProvision>CrossCam Share Extension Dev</CodesignProvision>
+    <CodesignProvision>
+    </CodesignProvision>
     <MtouchProfiling>true</MtouchProfiling>
     <MtouchNoSymbolStrip>true</MtouchNoSymbolStrip>
     <MtouchEnableSGenConc>true</MtouchEnableSGenConc>
@@ -89,7 +91,8 @@
     <MtouchLink>Full</MtouchLink>
     <MtouchFloat32>true</MtouchFloat32>
     <MtouchUseLlvm>true</MtouchUseLlvm>
-    <CodesignProvision>CrossCam Share Extension Store Dist</CodesignProvision>
+    <CodesignProvision>
+    </CodesignProvision>
     <CodesignExtraArgs />
     <CodesignResourceRules />
     <MtouchEnableSGenConc>true</MtouchEnableSGenConc>
