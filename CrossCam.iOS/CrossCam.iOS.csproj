@@ -24,15 +24,17 @@
     <MtouchArch>i386, x86_64</MtouchArch>
     <MtouchLink>None</MtouchLink>
     <MtouchDebug>true</MtouchDebug>
-    <MtouchProfiling>false</MtouchProfiling>
+    <MtouchProfiling>true</MtouchProfiling>
     <CodesignKey>Apple Development: Kevin Anderson (288S2529U3)</CodesignKey>
     <MtouchI18n />
-    <MtouchFastDev>true</MtouchFastDev>
+    <MtouchFastDev>false</MtouchFastDev>
     <DeviceSpecificBuild>true</DeviceSpecificBuild>
     <MtouchFloat32>true</MtouchFloat32>
     <MtouchNoSymbolStrip>true</MtouchNoSymbolStrip>
     <LangVersion>8</LangVersion>
     <CodesignProvision>VS: WildCard Development</CodesignProvision>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <MtouchEnableSGenConc>true</MtouchEnableSGenConc>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|iPhone' ">
     <DebugType>full</DebugType>
@@ -115,12 +117,15 @@
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
     <MtouchDebug>true</MtouchDebug>
     <MtouchArch>i386, x86_64</MtouchArch>
-    <MtouchFastDev>true</MtouchFastDev>
+    <MtouchFastDev>false</MtouchFastDev>
     <DeviceSpecificBuild>true</DeviceSpecificBuild>
     <MtouchFloat32>true</MtouchFloat32>
     <MtouchLink>None</MtouchLink>
     <MtouchNoSymbolStrip>true</MtouchNoSymbolStrip>
     <LangVersion>8</LangVersion>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <MtouchEnableSGenConc>true</MtouchEnableSGenConc>
+    <MtouchProfiling>true</MtouchProfiling>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug Without Emgu|iPhone'">
     <DebugSymbols>true</DebugSymbols>
@@ -139,12 +144,15 @@
     <MtouchArch>ARMv7, ARM64</MtouchArch>
     <MtouchFloat32>true</MtouchFloat32>
     <MtouchNoSymbolStrip>true</MtouchNoSymbolStrip>
-    <MtouchFastDev>true</MtouchFastDev>
+    <MtouchFastDev>false</MtouchFastDev>
     <DeviceSpecificBuild>true</DeviceSpecificBuild>
     <MtouchLink>None</MtouchLink>
     <CodesignKey>iPhone Developer</CodesignKey>
     <CodesignProvision />
     <LangVersion>8</LangVersion>
+    <MtouchInterpreter>-all</MtouchInterpreter>
+    <MtouchEnableSGenConc>true</MtouchEnableSGenConc>
+    <MtouchProfiling>true</MtouchProfiling>
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="EmguCv">
