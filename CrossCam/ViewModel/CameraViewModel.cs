@@ -1016,7 +1016,14 @@ namespace CrossCam.ViewModel
                 }
                 
                 SaveSuccessFadeTrigger = !SaveSuccessFadeTrigger;
-                ClearCaptures();
+                if (Settings.ClearCapturesAfterSave)
+                {
+                    ClearCaptures();
+                }
+                else
+                {
+                    WorkflowStage = WorkflowStage.Final;
+                }
             });
 
             PromptForPermissionAndSendErrorEmailCommand = new Command(async () =>

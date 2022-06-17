@@ -134,6 +134,7 @@ namespace CrossCam.Model
         public bool SaveWithFuseGuide { get; set; }
         public bool SaveForCardboard { get; set; }
         public bool SaveIntoSeparateFolders { get; set; }
+        public bool ClearCapturesAfterSave { get; set; }
 
         public bool SendErrorReports1 { get; set; }
 
@@ -437,6 +438,7 @@ namespace CrossCam.Model
             SaveWithFuseGuide = false; //TODO: decide how to do this
             SaveForCardboard = false;
             SaveIntoSeparateFolders = false;
+            ClearCapturesAfterSave = true;
 
             IsForceCamera1Enabled = false;
             IsForceCamera2Enabled = false;
