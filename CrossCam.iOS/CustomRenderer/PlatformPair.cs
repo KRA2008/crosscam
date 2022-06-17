@@ -149,7 +149,9 @@ namespace CrossCam.iOS.CustomRenderer
                         Debug.WriteLine("### Unknown state change! " + state);
                         break;
                 }
+                Debug.WriteLine("### stop browsing and stop being discoverable");
                 _platformPair._advertiserAssistant?.Stop();
+                _platformPair._serviceBrowser?.StopBrowsingForPeers();
             }
 
             public override void DidStartReceivingResource(MCSession session, string resourceName, MCPeerID fromPeer, NSProgress progress)
@@ -201,8 +203,9 @@ namespace CrossCam.iOS.CustomRenderer
                     MainThread.BeginInvokeOnMainThread(() =>
                     {
                         browser.InvitePeer(peerID, _platformPair._session, null, 30);
-                        browser.StopBrowsingForPeers();
                     });
+                    Debug.WriteLine("### stop browsing");
+                    browser.StopBrowsingForPeers();
                 }
             }
 
