@@ -22,9 +22,9 @@ namespace CrossCam.Droid.CustomRenderer
 {
     public sealed class PlatformPair : BluetoothGattCallback, IPlatformPair, GoogleApiClient.IConnectionCallbacks, GoogleApiClient.IOnConnectionFailedListener
     {
-        public static TaskCompletionSource<bool> BluetoothPermissionsTask = new TaskCompletionSource<bool>();
-        public static TaskCompletionSource<bool> LocationPermissionsTask = new TaskCompletionSource<bool>();
-        public static TaskCompletionSource<bool> TurnOnLocationTask = new TaskCompletionSource<bool>();
+        public static TaskCompletionSource<bool> BluetoothPermissionsTask;
+        public static TaskCompletionSource<bool> LocationPermissionsTask;
+        public static TaskCompletionSource<bool> TurnOnLocationTask;
 
         private readonly ConnectionsClient _client;
         private string _connectedPartnerId;

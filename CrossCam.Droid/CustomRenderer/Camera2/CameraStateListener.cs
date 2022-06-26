@@ -11,6 +11,10 @@ namespace CrossCam.Droid.CustomRenderer.Camera2
             _cameraModuleRenderer = cameraModuleRenderer;
         }
 
+        public override void OnClosed(CameraDevice camera)
+        {
+        }
+
         public override void OnOpened(CameraDevice camera)
         {
             _cameraModuleRenderer.CreateCamera2PreviewSession(camera);
