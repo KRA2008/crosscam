@@ -500,6 +500,8 @@
     <BundleResource Include="Resources\quad%402x.png" />
     <BundleResource Include="Resources\triple.png" />
     <BundleResource Include="Resources\triple%402x.png" />
+    <BundleResource Include="Resources\collapse.png" />
+    <BundleResource Include="Resources\expand.png" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\CrossCam\CrossCam.csproj">
