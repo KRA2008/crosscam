@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using System.Linq;
 using CrossCam.Model;
 using CrossCam.ViewModel;
@@ -168,6 +169,8 @@ namespace CrossCam.Page
 
             double baseHeight, baseWidth, leftWidth = 0, leftHeight = 0, rightWidth = 0, rightHeight = 0, netSideCrop = 0;
 
+            Debug.WriteLine("leftOrientation: " + leftOrientation);
+            Debug.WriteLine("rightOrientation: " + rightOrientation);
             var isLeft90Oriented = Orientations90deg.Contains(leftOrientation);
             var isRight90Oriented = Orientations90deg.Contains(rightOrientation);
             if (leftBitmap != null)
@@ -368,7 +371,7 @@ namespace CrossCam.Page
                     leftClipX, clipY, clipWidth, clipHeight,
                     leftDestX, destY, destWidth, destHeight,
                     false, -cardboardSeparationMod,
-                    leftScaledAlignmentMatrix, leftOrientationMatrix, leftEditMatrix, 
+                    leftScaledAlignmentMatrix, leftOrientationMatrix, leftEditMatrix,
                     skFilterQuality);
             }
 
@@ -388,7 +391,7 @@ namespace CrossCam.Page
                     rightClipX, clipY, clipWidth, clipHeight,
                     rightDestX, destY, destWidth, destHeight,
                     leftBitmap != null && useGhost, cardboardSeparationMod,
-                    rightScaledAlignmentMatrix, rightOrientationMatrix, rightEditMatrix, 
+                    rightScaledAlignmentMatrix, rightOrientationMatrix, rightEditMatrix,
                     skFilterQuality);
             }
 
@@ -785,10 +788,14 @@ namespace CrossCam.Page
                 destY,
                 destWidth,
                 destHeight);
-            
+
             var correctedRect = orientationMatrix.Invert().MapRect(destinationRect);
 
-            canvas.SetMatrix(alignmentMatrix.PostConcat(orientationMatrix).PostConcat(editMatrix));
+            var transform = 
+                alignmentMatrix.PostConcat(
+                orientationMatrix).PostConcat(
+                editMatrix);
+            canvas.SetMatrix(transform);
             canvas.DrawBitmap(
                 bitmap,
                 correctedRect,

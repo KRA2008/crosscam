@@ -19,12 +19,6 @@ namespace CrossCam.iOS.CustomRenderer
             try
             {
                 var uiImage = new UIImage(NSData.FromArray(image));
-                if (UIDevice.CurrentDevice.Orientation == UIDeviceOrientation.LandscapeRight)
-                {
-                    using var cgImage = uiImage.CGImage;
-                    uiImage = UIImage.FromImage(cgImage, 1, UIImageOrientation.Down);
-                }
-
                 var existingAlbum = GetCrossCamAlbum(saveInnerFolder);
                 if (existingAlbum == null)
                 {

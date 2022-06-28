@@ -684,8 +684,6 @@ namespace CrossCam.ViewModel
                 {
                     await Task.Run(async () =>
                     {
-                        var needs180Flip = Device.RuntimePlatform == Device.iOS && IsViewInverted;
-
                         if (Settings.SaveSidesSeparately)
                         {
                             var leftWidth = LeftBitmap.Width;
@@ -698,13 +696,6 @@ namespace CrossCam.ViewModel
                             using var tempSurface =
                                 SKSurface.Create(new SKImageInfo(leftWidth, leftHeight));
                             using var canvas = tempSurface.Canvas;
-
-                            canvas.Clear();
-                            if (needs180Flip)
-                            {
-                                canvas.RotateDegrees(180);
-                                canvas.Translate(-1f * leftWidth, -1f * leftHeight);
-                            }
 
                             var leftMatrix = DrawTool.FindOrientationMatrix(LeftOrientation, leftWidth / 2f,
                                 leftHeight / 2f, IsLeftFrontFacing);
@@ -722,11 +713,6 @@ namespace CrossCam.ViewModel
                             if (DrawTool.Orientations90deg.Contains(RightOrientation))
                             {
                                 (rightWidth, rightHeight) = (rightHeight, rightWidth);
-                            }
-                            if (needs180Flip)
-                            {
-                                canvas.RotateDegrees(180);
-                                canvas.Translate(-1f * rightWidth, -1f * rightHeight);
                             }
 
                             var rightMatrix = DrawTool.FindOrientationMatrix(RightOrientation, rightWidth / 2f,
@@ -777,13 +763,6 @@ namespace CrossCam.ViewModel
                         {
                             using var tempSurface =
                                 SKSurface.Create(new SKImageInfo(finalImageWidth, finalImageHeight));
-                            using var canvas = tempSurface.Canvas;
-                            canvas.Clear();
-                            if (needs180Flip)
-                            {
-                                canvas.RotateDegrees(180);
-                                canvas.Translate(-1f * finalImageWidth, -1f * finalImageHeight);
-                            }
 
                             DrawTool.DrawImagesOnCanvas(
                                 tempSurface, 
@@ -805,12 +784,6 @@ namespace CrossCam.ViewModel
                             using var tempSurface =
                                 SKSurface.Create(new SKImageInfo(finalImageWidth, finalImageHeight));
                             using var canvas = tempSurface.Canvas;
-                            canvas.Clear();
-                            if (needs180Flip)
-                            {
-                                canvas.RotateDegrees(180);
-                                canvas.Translate(-1f * finalImageWidth, -1f * finalImageHeight);
-                            }
 
                             DrawTool.DrawImagesOnCanvas(
                                 tempSurface, 
@@ -863,12 +836,6 @@ namespace CrossCam.ViewModel
                             using var tempSurface =
                                 SKSurface.Create(new SKImageInfo(width, height));
                             using var canvas = tempSurface.Canvas;
-                            canvas.Clear();
-                            if (needs180Flip)
-                            {
-                                canvas.RotateDegrees(180);
-                                canvas.Translate(-1f * width, -1f * height);
-                            }
 
                             var orientationMatrix = DrawTool.FindOrientationMatrix(targetOrientation, width / 2f,
                                 height / 2f, targetFront);
@@ -884,12 +851,6 @@ namespace CrossCam.ViewModel
                             using var doubleSurface =
                                 SKSurface.Create(new SKImageInfo(finalImageWidth, finalImageHeight));
                             using var doubleCanvas = doubleSurface.Canvas;
-                            doubleCanvas.Clear();
-                            if (needs180Flip)
-                            {
-                                doubleCanvas.RotateDegrees(180);
-                                doubleCanvas.Translate(-1f * finalImageWidth, -1f * finalImageHeight);
-                            }
 
                             DrawTool.DrawImagesOnCanvas(
                                 doubleSurface, 
@@ -915,12 +876,6 @@ namespace CrossCam.ViewModel
                             using var doublePlainSurface =
                                 SKSurface.Create(new SKImageInfo(finalImageWidth, finalImageHeight));
                             using var doublePlainCanvas = doublePlainSurface.Canvas;
-                            doublePlainCanvas.Clear();
-                            if (needs180Flip)
-                            {
-                                doublePlainCanvas.RotateDegrees(180);
-                                doublePlainCanvas.Translate(-1f * finalImageWidth, -1f * finalImageHeight);
-                            }
 
                             DrawTool.DrawImagesOnCanvas(
                                 doublePlainSurface, 
@@ -934,11 +889,6 @@ namespace CrossCam.ViewModel
                                 SKSurface.Create(new SKImageInfo(finalImageWidth, finalImageHeight));
                             using var doubleSwapCanvas = doubleSwapSurface.Canvas;
                             doubleSwapCanvas.Clear();
-                            if (needs180Flip)
-                            {
-                                doubleSwapCanvas.RotateDegrees(180);
-                                doubleSwapCanvas.Translate(-1f * finalImageWidth, -1f * finalImageHeight);
-                            }
 
                             DrawTool.DrawImagesOnCanvas(
                                 doubleSwapSurface, 
