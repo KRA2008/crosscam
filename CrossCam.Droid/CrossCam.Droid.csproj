@@ -348,6 +348,12 @@
   <ItemGroup>
     <AndroidResource Include="Resources\drawable-nodpi\expand.png" />
   </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable-nodpi\expandLess.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable-nodpi\expandMore.png" />
+  </ItemGroup>
   <Import Project="..\AutoAlignment\AutoAlignment.projitems" Label="Shared" />
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
 </Project>

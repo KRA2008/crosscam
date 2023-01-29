@@ -169,8 +169,8 @@ namespace CrossCam.Page
 
             double baseHeight, baseWidth, leftWidth = 0, leftHeight = 0, rightWidth = 0, rightHeight = 0, netSideCrop = 0;
 
-            Debug.WriteLine("leftOrientation: " + leftOrientation);
-            Debug.WriteLine("rightOrientation: " + rightOrientation);
+            //Debug.WriteLine("leftOrientation: " + leftOrientation);
+            //Debug.WriteLine("rightOrientation: " + rightOrientation);
             var isLeft90Oriented = Orientations90deg.Contains(leftOrientation);
             var isRight90Oriented = Orientations90deg.Contains(rightOrientation);
             if (leftBitmap != null)

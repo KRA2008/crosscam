@@ -1,6 +1,7 @@
 ﻿using System.ComponentModel;
 using CrossCam.Model;
 using CrossCam.ViewModel;
+using Xamarin.Forms;
 
 namespace CrossCam.Page
 {
@@ -25,6 +26,13 @@ namespace CrossCam.Page
         {
             if (e.PropertyName == nameof(AlignmentSettings.ShowAdvancedAlignmentSettings))
             {
+                foreach (var child in _alignmentExpander.Children)
+                {
+                    if (child is StackLayout stack)
+                    {
+                        stack.ForceLayout();
+                    }
+                }
                 _alignmentExpander.ForceUpdateSize();
             }
         }
@@ -40,11 +48,25 @@ namespace CrossCam.Page
         {
             if (e.PropertyName == nameof(Settings.Mode))
             {
+                foreach (var child in _viewModeExpander.Children)
+                {
+                    if (child is StackLayout stack)
+                    {
+                        stack.ForceLayout();
+                    }
+                }
                 _viewModeExpander.ForceUpdateSize();
             }
 
             if (e.PropertyName == nameof(Settings.IsPairedPrimary))
             {
+                foreach (var child in _pairingExpander.Children)
+                {
+                    if (child is StackLayout stack)
+                    {
+                        stack.ForceLayout();
+                    }
+                }
                 _pairingExpander.ForceUpdateSize();
             }
         }
