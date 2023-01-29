@@ -78,113 +78,109 @@
                         </Image>
                     </Grid>
                 </Expander.Header>
-                <Expander.ContentTemplate>
-                    <DataTemplate>
-                        <StackLayout>
-                            <Frame>
-                                <Picker ItemsSource="{Binding Modes}"
+                <StackLayout> <!-- can't be on demand because of resizing -->
+                    <Frame>
+                        <Picker ItemsSource="{Binding Modes}"
                     SelectedIndex="{Binding Settings.Mode, Converter={vc:ModeValueConverter}}"
                     HorizontalOptions="FillAndExpand"/>
-                            </Frame>
-                            <StackLayout Orientation="Horizontal"
+                    </Frame>
+                    <StackLayout Orientation="Horizontal"
                      IsVisible="{Binding Settings.Mode, Converter={StaticResource enumCompare}, ConverterParameter={x:Static vm:DrawMode.Cardboard}}">
-                                <Label Text="Immersive final viewing"/>
-                                <Switch IsToggled="{Binding Settings.ImmersiveCardboardFinal}"/>
-                            </StackLayout>
-                            <StackLayout Orientation="Horizontal"
+                        <Label Text="Immersive final viewing"/>
+                        <Switch IsToggled="{Binding Settings.ImmersiveCardboardFinal}"/>
+                    </StackLayout>
+                    <StackLayout Orientation="Horizontal"
                      IsVisible="{Binding Settings.Mode, Converter={StaticResource enumCompare}, ConverterParameter={x:Static vm:DrawMode.Cardboard}}">
-                                <Label Text="Cardboard separation distance"/>
-                                <Frame>
-                                    <Picker ItemsSource="{Binding ZeroToOneThousand}"
+                        <Label Text="Cardboard separation distance"/>
+                        <Frame>
+                            <Picker ItemsSource="{Binding ZeroToOneThousand}"
                         SelectedIndex="{Binding Settings.CardboardIpd}"
                         WidthRequest="50"
                         HorizontalOptions="EndAndExpand"/>
-                                </Frame>
-                            </StackLayout>
-                            <StackLayout Orientation="Horizontal"
+                        </Frame>
+                    </StackLayout>
+                    <StackLayout Orientation="Horizontal"
                      IsVisible="{Binding Settings.Mode, Converter={StaticResource enumCompare}, ConverterParameter={x:Static vm:DrawMode.Cardboard}}">
-                                <Label Text="Add lens correction (may lower frame rate)"/>
-                                <Switch IsToggled="{Binding Settings.AddBarrelDistortion}"/>
-                            </StackLayout>
-                            <StackLayout Orientation="Horizontal"
+                        <Label Text="Add lens correction (may lower frame rate)"/>
+                        <Switch IsToggled="{Binding Settings.AddBarrelDistortion}"/>
+                    </StackLayout>
+                    <StackLayout Orientation="Horizontal"
                      IsVisible="False">
-                                <StackLayout.Triggers>
-                                    <MultiTrigger TargetType="StackLayout">
-                                        <MultiTrigger.Conditions>
-                                            <BindingCondition Binding="{Binding Settings.Mode, Converter={StaticResource enumCompare}, ConverterParameter={x:Static vm:DrawMode.Cardboard}}"
+                        <StackLayout.Triggers>
+                            <MultiTrigger TargetType="StackLayout">
+                                <MultiTrigger.Conditions>
+                                    <BindingCondition Binding="{Binding Settings.Mode, Converter={StaticResource enumCompare}, ConverterParameter={x:Static vm:DrawMode.Cardboard}}"
                                           Value="True"/>
-                                            <BindingCondition Binding="{Binding Settings.AddBarrelDistortion}"
+                                    <BindingCondition Binding="{Binding Settings.AddBarrelDistortion}"
                                           Value="True"/>
-                                        </MultiTrigger.Conditions>
-                                        <Setter Property="IsVisible"
+                                </MultiTrigger.Conditions>
+                                <Setter Property="IsVisible"
                             Value="True"/>
-                                    </MultiTrigger>
-                                </StackLayout.Triggers>
-                                <Label Text="Add lens correction to final images only (may slow down final display)"/>
-                                <Switch IsToggled="{Binding Settings.AddBarrelDistortionFinalOnly}"/>
-                            </StackLayout>
-                            <StackLayout Orientation="Horizontal"
+                            </MultiTrigger>
+                        </StackLayout.Triggers>
+                        <Label Text="Add lens correction to final images only (may slow down final display)"/>
+                        <Switch IsToggled="{Binding Settings.AddBarrelDistortionFinalOnly}"/>
+                    </StackLayout>
+                    <StackLayout Orientation="Horizontal"
                      IsVisible="False">
-                                <StackLayout.Triggers>
-                                    <MultiTrigger TargetType="StackLayout">
-                                        <MultiTrigger.Conditions>
-                                            <BindingCondition Binding="{Binding Settings.Mode, Converter={StaticResource enumCompare}, ConverterParameter={x:Static vm:DrawMode.Cardboard}}"
+                        <StackLayout.Triggers>
+                            <MultiTrigger TargetType="StackLayout">
+                                <MultiTrigger.Conditions>
+                                    <BindingCondition Binding="{Binding Settings.Mode, Converter={StaticResource enumCompare}, ConverterParameter={x:Static vm:DrawMode.Cardboard}}"
                                           Value="True"/>
-                                            <BindingCondition Binding="{Binding Settings.AddBarrelDistortion}"
+                                    <BindingCondition Binding="{Binding Settings.AddBarrelDistortion}"
                                           Value="True"/>
-                                        </MultiTrigger.Conditions>
-                                        <Setter Property="IsVisible"
+                                </MultiTrigger.Conditions>
+                                <Setter Property="IsVisible"
                             Value="True"/>
-                                    </MultiTrigger>
-                                </StackLayout.Triggers>
-                                <Label Text="Lens correction strength"/>
-                                <Frame>
-                                    <Picker ItemsSource="{Binding ZeroToOneThousand}"
+                            </MultiTrigger>
+                        </StackLayout.Triggers>
+                        <Label Text="Lens correction strength"/>
+                        <Frame>
+                            <Picker ItemsSource="{Binding ZeroToOneThousand}"
                         SelectedIndex="{Binding Settings.CardboardBarrelDistortion}"
                         WidthRequest="50"
                         HorizontalOptions="EndAndExpand"/>
-                                </Frame>
-                            </StackLayout>
-                            <StackLayout Orientation="Horizontal"
+                        </Frame>
+                    </StackLayout>
+                    <StackLayout Orientation="Horizontal"
                      IsVisible="{Binding Settings.Mode, Converter={StaticResource enumCompare}, ConverterParameter={x:Static vm:DrawMode.Cardboard}}">
-                                <Label Text="Downsize preview (may increase frame rate)"/>
-                                <Switch IsToggled="{Binding Settings.CardboardDownsize}"/>
-                            </StackLayout>
-                            <StackLayout Orientation="Horizontal"
+                        <Label Text="Downsize preview (may increase frame rate)"/>
+                        <Switch IsToggled="{Binding Settings.CardboardDownsize}"/>
+                    </StackLayout>
+                    <StackLayout Orientation="Horizontal"
                      IsVisible="False">
-                                <StackLayout.Triggers>
-                                    <MultiTrigger TargetType="StackLayout">
-                                        <MultiTrigger.Conditions>
-                                            <BindingCondition Binding="{Binding Settings.Mode, Converter={StaticResource enumCompare}, ConverterParameter={x:Static vm:DrawMode.Cardboard}}"
+                        <StackLayout.Triggers>
+                            <MultiTrigger TargetType="StackLayout">
+                                <MultiTrigger.Conditions>
+                                    <BindingCondition Binding="{Binding Settings.Mode, Converter={StaticResource enumCompare}, ConverterParameter={x:Static vm:DrawMode.Cardboard}}"
                                           Value="True"/>
-                                            <BindingCondition Binding="{Binding Settings.CardboardDownsize}"
+                                    <BindingCondition Binding="{Binding Settings.CardboardDownsize}"
                                           Value="True"/>
-                                        </MultiTrigger.Conditions>
-                                        <Setter Property="IsVisible"
+                                </MultiTrigger.Conditions>
+                                <Setter Property="IsVisible"
                             Value="True"/>
-                                    </MultiTrigger>
-                                </StackLayout.Triggers>
-                                <Label Text="Downsize preview percentage"/>
-                                <Frame>
-                                    <Picker ItemsSource="{Binding ZeroToOneHundred}"
+                            </MultiTrigger>
+                        </StackLayout.Triggers>
+                        <Label Text="Downsize preview percentage"/>
+                        <Frame>
+                            <Picker ItemsSource="{Binding ZeroToOneHundred}"
                         SelectedIndex="{Binding Settings.CardboardDownsizePercentage}"
                         WidthRequest="50"
                         HorizontalOptions="EndAndExpand"/>
-                                </Frame>
-                            </StackLayout>
-                            <StackLayout Orientation="Horizontal"
+                        </Frame>
+                    </StackLayout>
+                    <StackLayout Orientation="Horizontal"
                      IsVisible="{Binding Settings.Mode, Converter={StaticResource enumCompare}, ConverterParameter={x:Static vm:DrawMode.Parallel}}">
-                                <Label Text="Maximum parallel view image width (points)"/>
-                                <Frame>
-                                    <Picker ItemsSource="{Binding ZeroToOneThousand}"
+                        <Label Text="Maximum parallel view image width (points)"/>
+                        <Frame>
+                            <Picker ItemsSource="{Binding ZeroToOneThousand}"
                     SelectedIndex="{Binding Settings.MaximumParallelWidth}"
                     WidthRequest="50"
                     HorizontalOptions="EndAndExpand"/>
-                                </Frame>
-                            </StackLayout>
-                        </StackLayout>
-                    </DataTemplate>
-                </Expander.ContentTemplate>
+                        </Frame>
+                    </StackLayout>
+                </StackLayout>
             </Expander>
 
             <BoxView/>
@@ -208,64 +204,60 @@
                         </Image>
                     </Grid>
                 </Expander.Header>
-                <Expander.ContentTemplate>
-                    <DataTemplate>
-                        <StackLayout>
-                            <Button Text="Go to Pairing Setup Page"
+                <StackLayout> <!-- can't be on demand because of resizing -->
+                    <Button Text="Go to Pairing Setup Page"
                         Command="{Binding NavigateToPairingPageCommand}"/>
-                            <StackLayout Orientation="Horizontal"
+                    <StackLayout Orientation="Horizontal"
                              IsVisible="{Binding Settings.IsPairedPrimary, Converter={StaticResource nullableBoolean}}">
-                                <Label Text="Preview frame delay (higher number will reduce frame rate but save battery)"/>
-                                <Frame>
-                                    <Picker ItemsSource="{Binding ZeroToOneThousand}"
+                        <Label Text="Preview frame delay (higher number will reduce frame rate but save battery)"/>
+                        <Frame>
+                            <Picker ItemsSource="{Binding ZeroToOneThousand}"
                                 SelectedIndex="{Binding Settings.PairedPreviewFrameDelayMs}"
                                 WidthRequest="50"
                                 HorizontalOptions="EndAndExpand"/>
-                                </Frame>
-                            </StackLayout>
-                            <StackLayout Orientation="Horizontal"
+                        </Frame>
+                    </StackLayout>
+                    <StackLayout Orientation="Horizontal"
                              IsVisible="{Binding Settings.IsPairedPrimary, Converter={StaticResource nullableBoolean}}">
-                                <Label Text="Capture countdown length (timer)"/>
-                                <Frame>
-                                    <Picker ItemsSource="{Binding ZeroToOneHundred}"
+                        <Label Text="Capture countdown length (timer)"/>
+                        <Frame>
+                            <Picker ItemsSource="{Binding ZeroToOneHundred}"
                                 SelectedIndex="{Binding Settings.PairedCaptureCountdown}"
                                 WidthRequest="50"
                                 HorizontalOptions="EndAndExpand"/>
-                                </Frame>
-                            </StackLayout>
-                            <StackLayout Orientation="Horizontal"
+                        </Frame>
+                    </StackLayout>
+                    <StackLayout Orientation="Horizontal"
                              IsVisible="{Binding Settings.IsPairedPrimary, Converter={StaticResource nullableBoolean}}">
-                                <Label Text="Clock sample count (lower number will decrease time required for initial sync but may decrease sync accuracy)"/>
-                                <Frame>
-                                    <Picker ItemsSource="{Binding ZeroToOneThousand}"
+                        <Label Text="Clock sample count (lower number will decrease time required for initial sync but may decrease sync accuracy)"/>
+                        <Frame>
+                            <Picker ItemsSource="{Binding ZeroToOneThousand}"
                                 SelectedIndex="{Binding Settings.PairSyncSampleCount}"
                                 WidthRequest="50"
                                 HorizontalOptions="EndAndExpand"/>
-                                </Frame>
-                            </StackLayout>
-                            <Label Text="Field of view correction"
+                        </Frame>
+                    </StackLayout>
+                    <Label Text="Field of view correction"
                        HorizontalOptions="CenterAndExpand"
                        IsVisible="{Binding Settings.IsPairedPrimary, Converter={StaticResource nullableBoolean}}"/>
-                            <StackLayout Orientation="Horizontal"
+                    <StackLayout Orientation="Horizontal"
                              IsVisible="{Binding Settings.IsPairedPrimary, Converter={StaticResource nullableBoolean}}">
-                                <StackLayout HorizontalOptions="EndAndExpand"
+                        <StackLayout HorizontalOptions="EndAndExpand"
                                  IsVisible="{Binding Settings.IsFovCorrectionSet}">
-                                    <Label Text="{Binding Settings.FovPrimaryCorrection, StringFormat='Primary: {0}'}"
+                            <Label Text="{Binding Settings.FovPrimaryCorrection, StringFormat='Primary: {0}'}"
                                HorizontalOptions="EndAndExpand"/>
-                                    <Label Text="{Binding Settings.FovSecondaryCorrection, StringFormat='Secondary: {0}'}"
+                            <Label Text="{Binding Settings.FovSecondaryCorrection, StringFormat='Secondary: {0}'}"
                                HorizontalOptions="EndAndExpand"/>
-                                </StackLayout>
-                                <StackLayout IsVisible="{Binding Settings.IsFovCorrectionSet, Converter={StaticResource invert}}">
-                                    <Label Text="FOV correction not set (do a capture with paired devices to walk through set up)."/>
-                                </StackLayout>
-                                <Button Text="Reset"
+                        </StackLayout>
+                        <StackLayout IsVisible="{Binding Settings.IsFovCorrectionSet, Converter={StaticResource invert}}">
+                            <Label Text="FOV correction not set (do a capture with paired devices to walk through set up)."/>
+                        </StackLayout>
+                        <Button Text="Reset"
                             Command="{Binding ResetFovCorrectionCommand}"
                             HorizontalOptions="StartAndExpand"
                             VerticalOptions="CenterAndExpand"/>
-                            </StackLayout>
-                        </StackLayout>
-                    </DataTemplate>
-                </Expander.ContentTemplate>
+                    </StackLayout>
+                </StackLayout>
             </Expander>
 
             <BoxView/>
@@ -289,122 +281,119 @@
                         </Image>
                     </Grid>
                 </Expander.Header>
-                <Expander.ContentTemplate>
-                    <DataTemplate>
-                        <StackLayout>
-                            <StackLayout Orientation="Horizontal">
-                                <Label Text="Automatically align after capture"/>
-                                <Switch IsToggled="{Binding Settings.AlignmentSettings.IsAutomaticAlignmentOn}"/>
-                            </StackLayout>
-                            <StackLayout Orientation="Horizontal">
-                                <Label Text="Use keypoint alignment always (vs ECC whenever possible)"/>
-                                <Switch IsToggled="{Binding Settings.AlignmentSettings.UseKeypoints1}"
-                        IsEnabled="{Binding Settings.AlignmentSettings.IsAutomaticAlignmentOn}"/>
-                            </StackLayout>
-                            <StackLayout Orientation="Horizontal">
-                                <Label Text="Show advanced alignment settings"/>
-                                <Switch IsToggled="{Binding Settings.AlignmentSettings.ShowAdvancedAlignmentSettings}"/>
-                            </StackLayout>
-                            <StackLayout Orientation="Horizontal"
+                <StackLayout> <!-- can't be on demand because of resizing -->
+                    <StackLayout Orientation="Horizontal">
+                        <Label Text="Automatically align after capture"/>
+                        <Switch IsToggled="{Binding Settings.AlignmentSettings.IsAutomaticAlignmentOn}"/>
+                    </StackLayout>
+                    <StackLayout Orientation="Horizontal"
+                                 IsVisible="{Binding Settings.AlignmentSettings.IsAutomaticAlignmentOn}">
+                        <Label Text="Use keypoint alignment always (vs ECC whenever possible)"/>
+                        <Switch IsToggled="{Binding Settings.AlignmentSettings.UseKeypoints1}"/>
+                    </StackLayout>
+                    <StackLayout Orientation="Horizontal"
+                                 IsVisible="{Binding Settings.AlignmentSettings.IsAutomaticAlignmentOn}">
+                        <Label Text="Show advanced alignment settings"/>
+                        <Switch IsToggled="{Binding Settings.AlignmentSettings.ShowAdvancedAlignmentSettings}"/>
+                    </StackLayout>
+                    <StackLayout Orientation="Horizontal"
                          IsVisible="{Binding Settings.AlignmentSettings.ShowAdvancedAlignmentSettings}">
-                                <Label Text="Crosscheck keypoints (vs ratio checks)"/>
-                                <Switch IsToggled="{Binding Settings.AlignmentSettings.UseCrossCheck}"/>
-                            </StackLayout>
-                            <StackLayout Orientation="Horizontal"
+                        <Label Text="Crosscheck keypoints (vs ratio checks)"/>
+                        <Switch IsToggled="{Binding Settings.AlignmentSettings.UseCrossCheck}"/>
+                    </StackLayout>
+                    <StackLayout Orientation="Horizontal"
                          IsVisible="{Binding Settings.AlignmentSettings.ShowAdvancedAlignmentSettings}">
-                                <Label Text="Minimum keypoints"/>
-                                <Frame>
-                                    <Picker ItemsSource="{Binding ZeroToOneHundred}"
+                        <Label Text="Minimum keypoints"/>
+                        <Frame>
+                            <Picker ItemsSource="{Binding ZeroToOneHundred}"
                             SelectedIndex="{Binding Settings.AlignmentSettings.MinimumKeypoints}"
                             WidthRequest="50"
                             HorizontalOptions="EndAndExpand"/>
-                                </Frame>
-                            </StackLayout>
-                            <StackLayout Orientation="Horizontal"
+                        </Frame>
+                    </StackLayout>
+                    <StackLayout Orientation="Horizontal"
                          IsVisible="{Binding Settings.AlignmentSettings.ShowAdvancedAlignmentSettings}">
-                                <Label Text="Discard outliers by distance"/>
-                                <Switch IsToggled="{Binding Settings.AlignmentSettings.DiscardOutliersByDistance}"/>
-                            </StackLayout>
-                            <StackLayout Orientation="Horizontal"
+                        <Label Text="Discard outliers by distance"/>
+                        <Switch IsToggled="{Binding Settings.AlignmentSettings.DiscardOutliersByDistance}"/>
+                    </StackLayout>
+                    <StackLayout Orientation="Horizontal"
                          IsVisible="{Binding Settings.AlignmentSettings.ShowAdvancedAlignmentSettings}">
-                                <Label Text="Discard outliers by slope"/>
-                                <Switch IsToggled="{Binding Settings.AlignmentSettings.DiscardOutliersBySlope}"/>
-                            </StackLayout>
-                            <StackLayout Orientation="Horizontal"
+                        <Label Text="Discard outliers by slope"/>
+                        <Switch IsToggled="{Binding Settings.AlignmentSettings.DiscardOutliersBySlope}"/>
+                    </StackLayout>
+                    <StackLayout Orientation="Horizontal"
                          IsVisible="{Binding Settings.AlignmentSettings.ShowAdvancedAlignmentSettings}">
-                                <Label Text="Keypoint outlier threshold (tenths of standard deviation)"/>
-                                <Frame>
-                                    <Picker ItemsSource="{Binding ZeroToOneHundred}"
+                        <Label Text="Keypoint outlier threshold (tenths of standard deviation)"/>
+                        <Frame>
+                            <Picker ItemsSource="{Binding ZeroToOneHundred}"
                             SelectedIndex="{Binding Settings.AlignmentSettings.KeypointOutlierThresholdTenths}"
                             WidthRequest="50"
                             HorizontalOptions="EndAndExpand"/>
-                                </Frame>
-                            </StackLayout>
-                            <StackLayout Orientation="Horizontal"
+                        </Frame>
+                    </StackLayout>
+                    <StackLayout Orientation="Horizontal"
                          IsVisible="{Binding Settings.AlignmentSettings.ShowAdvancedAlignmentSettings}">
-                                <Label Text="Save an unaligned joined copy with matches drawn"/>
-                                <Switch IsToggled="{Binding Settings.AlignmentSettings.DrawKeypointMatches}"/>
-                            </StackLayout>
-                            <StackLayout Orientation="Horizontal"
+                        <Label Text="Save an unaligned joined copy with matches drawn"/>
+                        <Switch IsToggled="{Binding Settings.AlignmentSettings.DrawKeypointMatches}"/>
+                    </StackLayout>
+                    <StackLayout Orientation="Horizontal"
                          IsVisible="{Binding Settings.AlignmentSettings.ShowAdvancedAlignmentSettings}">
-                                <Label Text="Do keystone correction"/>
-                                <Switch IsToggled="{Binding Settings.AlignmentSettings.DoKeystoneCorrection}"/>
-                            </StackLayout>
-                            <StackLayout Orientation="Horizontal"
+                        <Label Text="Do keystone correction"/>
+                        <Switch IsToggled="{Binding Settings.AlignmentSettings.DoKeystoneCorrection}"/>
+                    </StackLayout>
+                    <StackLayout Orientation="Horizontal"
                          IsVisible="{Binding Settings.AlignmentSettings.ShowAdvancedAlignmentSettings}">
-                                <Label Text="Ecc iterations"/>
-                                <Frame>
-                                    <Picker ItemsSource="{Binding ZeroToOneThousand}"
+                        <Label Text="Ecc iterations"/>
+                        <Frame>
+                            <Picker ItemsSource="{Binding ZeroToOneThousand}"
                         SelectedIndex="{Binding Settings.AlignmentSettings.EccIterations}"
                         WidthRequest="50"
                         HorizontalOptions="EndAndExpand"/>
-                                </Frame>
-                            </StackLayout>
-                            <StackLayout Orientation="Horizontal"
+                        </Frame>
+                    </StackLayout>
+                    <StackLayout Orientation="Horizontal"
                          IsVisible="{Binding Settings.AlignmentSettings.ShowAdvancedAlignmentSettings}">
-                                <Label Text="Ecc epsilon level"/>
-                                <Frame>
-                                    <Picker ItemsSource="{Binding ZeroToTen}"
+                        <Label Text="Ecc epsilon level"/>
+                        <Frame>
+                            <Picker ItemsSource="{Binding ZeroToTen}"
                         SelectedIndex="{Binding Settings.AlignmentSettings.EccEpsilonLevel}"
                         WidthRequest="50"
                         HorizontalOptions="EndAndExpand"/>
-                                </Frame>
-                            </StackLayout>
-                            <StackLayout Orientation="Horizontal"
+                        </Frame>
+                    </StackLayout>
+                    <StackLayout Orientation="Horizontal"
                          IsVisible="{Binding Settings.AlignmentSettings.ShowAdvancedAlignmentSettings}">
-                                <Label Text="Ecc downsized pyramid estimating layers"/>
-                                <Frame>
-                                    <Picker ItemsSource="{Binding ZeroToTen}"
+                        <Label Text="Ecc downsized pyramid estimating layers"/>
+                        <Frame>
+                            <Picker ItemsSource="{Binding ZeroToTen}"
                         SelectedIndex="{Binding Settings.AlignmentSettings.EccPyramidLayers}"
                         WidthRequest="50"
                         HorizontalOptions="EndAndExpand"/>
-                                </Frame>
-                            </StackLayout>
-                            <StackLayout Orientation="Horizontal"
+                        </Frame>
+                    </StackLayout>
+                    <StackLayout Orientation="Horizontal"
                          IsVisible="{Binding Settings.AlignmentSettings.ShowAdvancedAlignmentSettings}">
-                                <Label Text="Ecc intermediate downsize percentage"/>
-                                <Frame>
-                                    <Picker ItemsSource="{Binding ZeroToOneHundred}"
+                        <Label Text="Ecc intermediate downsize percentage"/>
+                        <Frame>
+                            <Picker ItemsSource="{Binding ZeroToOneHundred}"
                             SelectedIndex="{Binding Settings.AlignmentSettings.EccDownsizePercentage}"
                             WidthRequest="50"
                             HorizontalOptions="EndAndExpand"/>
-                                </Frame>
-                            </StackLayout>
-                            <StackLayout Orientation="Horizontal"
+                        </Frame>
+                    </StackLayout>
+                    <StackLayout Orientation="Horizontal"
                          IsVisible="{Binding Settings.AlignmentSettings.ShowAdvancedAlignmentSettings}">
-                                <Label Text="Ecc minimum required correlation coefficient"/>
-                                <Frame>
-                                    <Picker ItemsSource="{Binding ZeroToOneHundred}"
+                        <Label Text="Ecc minimum required correlation coefficient"/>
+                        <Frame>
+                            <Picker ItemsSource="{Binding ZeroToOneHundred}"
                             WidthRequest="50"
                             SelectedIndex="{Binding Settings.AlignmentSettings.EccThresholdPercentage}"
                             HorizontalOptions="EndAndExpand"/>
-                                </Frame>
-                            </StackLayout>
-                            <Button Text="Reset to Defaults"
+                        </Frame>
+                    </StackLayout>
+                    <Button Text="Reset to Defaults"
                     Command="{Binding ResetAlignmentToDefaults}"/>
-                        </StackLayout>
-                    </DataTemplate>
-                </Expander.ContentTemplate>
+                </StackLayout>
             </Expander>
 
             <BoxView/>
@@ -694,7 +683,7 @@
 
             <BoxView/>
 
-            <Expander>
+            <Expander x:Name="_borderExpander">
                 <Expander.Header>
                     <Grid>
                         <Label Text="Border"
@@ -713,44 +702,42 @@
                         </Image>
                     </Grid>
                 </Expander.Header>
-                <Expander.ContentTemplate>
-                    <DataTemplate>
-                        <StackLayout>
-                            <StackLayout Orientation="Horizontal">
-                                <Label Text="Add border"/>
-                                <Switch IsToggled="{Binding Settings.AddBorder}"
+                <StackLayout>
+                    <StackLayout Orientation="Horizontal">
+                        <Label Text="Add border"/>
+                        <Switch IsToggled="{Binding Settings.AddBorder}"
                                         HorizontalOptions="EndAndExpand"/>
-                            </StackLayout>
-                            <StackLayout Orientation="Horizontal">
-                                <Label Text="Border color"/>
-                                <Frame>
-                                    <Picker ItemsSource="{Binding BorderColors}"
+                    </StackLayout>
+                    <StackLayout Orientation="Horizontal"
+                                         IsVisible="{Binding Settings.AddBorder}">
+                        <Label Text="Border color"/>
+                        <Frame>
+                            <Picker ItemsSource="{Binding BorderColors}"
                                             SelectedIndex="{Binding Settings.BorderColor, Converter={vc:BorderColorValueConverter}}"
                                             HorizontalOptions="EndAndExpand"/>
-                                </Frame>
-                            </StackLayout>
-                            <StackLayout Orientation="Horizontal">
-                                <Label Text="Border thickness (tenths of percentage of width)"/>
-                                <Frame>
-                                    <Picker ItemsSource="{Binding ZeroToOneHundred}"
+                        </Frame>
+                    </StackLayout>
+                    <StackLayout Orientation="Horizontal"
+                                         IsVisible="{Binding Settings.AddBorder}">
+                        <Label Text="Border thickness (tenths of percentage of width)"/>
+                        <Frame>
+                            <Picker ItemsSource="{Binding ZeroToOneHundred}"
                                             SelectedIndex="{Binding Settings.BorderWidthProportion}"
                                             WidthRequest="50"
                                             HorizontalOptions="EndAndExpand"/>
-                                </Frame>
-                            </StackLayout>
-                            <StackLayout Orientation="Horizontal">
-                                <Label Text="Clip border off when loading next stereo pair"/>
-                                <Switch IsToggled="{Binding Settings.ClipBorderOnNextLoad}"
+                        </Frame>
+                    </StackLayout>
+                    <StackLayout Orientation="Horizontal">
+                        <Label Text="Clip border off when loading next stereo pair"/>
+                        <Switch IsToggled="{Binding Settings.ClipBorderOnNextLoad}"
                                         HorizontalOptions="EndAndExpand"/>
-                            </StackLayout>
-                        </StackLayout>
-                    </DataTemplate>
-                </Expander.ContentTemplate>
+                    </StackLayout>
+                </StackLayout>
             </Expander>
 
             <BoxView/>
 
-            <Expander>
+            <Expander x:Name="_guidesExpander">
                 <Expander.Header>
                     <Grid>
                         <Label Text="Capture Guides"
@@ -769,42 +756,38 @@
                         </Image>
                     </Grid>
                 </Expander.Header>
-                <Expander.ContentTemplate>
-                    <DataTemplate>
-                        <StackLayout>
-                            <StackLayout Orientation="Horizontal">
-                                <Label Text="Lines visible"/>
-                                <Switch IsToggled="{Binding Settings.AreGuideLinesVisible}"/>
-                            </StackLayout>
-                            <StackLayout Orientation="Horizontal">
-                                <Label Text="Lines visible before first capture"/>
-                                <Switch IsEnabled="{Binding Settings.AreGuideLinesVisible}"
-                                IsToggled="{Binding Settings.ShowGuideLinesWithFirstCapture}"/>
-                            </StackLayout>
-                            <StackLayout Orientation="Horizontal">
-                                <Label Text="Roll guide visible"/>
-                                <Switch IsToggled="{Binding Settings.ShowRollGuide}"/>
-                            </StackLayout>
-                            <StackLayout Orientation="Horizontal">
-                                <Label Text="Donut/dot visible (will cause toe-in, so may require keystone editing)"/>
-                                <Switch IsToggled="{Binding Settings.IsGuideDonutVisible}"/>
-                            </StackLayout>
-                            <StackLayout Orientation="Horizontal">
-                                <Label Text="Donut/dot visible before first capture"/>
-                                <Switch IsEnabled="{Binding Settings.IsGuideDonutVisible}"
-                                IsToggled="{Binding Settings.ShowGuideDonutWithFirstCapture}"/>
-                            </StackLayout>
-                            <StackLayout Orientation="Horizontal">
-                                <Label Text="Show fuse guide (a dot above each side)"/>
-                                <Switch IsToggled="{Binding Settings.ShowPreviewFuseGuide}"/>
-                            </StackLayout>
-                            <StackLayout Orientation="Horizontal">
-                                <Label Text="Capture with ghost overlay during second capture"/>
-                                <Switch IsToggled="{Binding Settings.ShowGhostCaptures}"/>
-                            </StackLayout>
-                        </StackLayout>
-                    </DataTemplate>
-                </Expander.ContentTemplate>
+                <StackLayout>
+                    <StackLayout Orientation="Horizontal">
+                        <Label Text="Lines visible"/>
+                        <Switch IsToggled="{Binding Settings.AreGuideLinesVisible}"/>
+                    </StackLayout>
+                    <StackLayout Orientation="Horizontal"
+                                         IsVisible="{Binding Settings.AreGuideLinesVisible}">
+                        <Label Text="Lines visible before first capture"/>
+                        <Switch IsToggled="{Binding Settings.ShowGuideLinesWithFirstCapture}"/>
+                    </StackLayout>
+                    <StackLayout Orientation="Horizontal">
+                        <Label Text="Roll guide visible"/>
+                        <Switch IsToggled="{Binding Settings.ShowRollGuide}"/>
+                    </StackLayout>
+                    <StackLayout Orientation="Horizontal">
+                        <Label Text="Donut/dot visible (will cause toe-in, so may require keystone editing)"/>
+                        <Switch IsToggled="{Binding Settings.IsGuideDonutVisible}"/>
+                    </StackLayout>
+                    <StackLayout Orientation="Horizontal"
+                                 IsVisible="{Binding Settings.IsGuideDonutVisible}">
+                        <Label Text="Donut/dot visible before first capture"/>
+                        <Switch IsToggled="{Binding Settings.ShowGuideDonutWithFirstCapture}"/>
+                    </StackLayout>
+                    <StackLayout Orientation="Horizontal">
+                        <Label Text="Show fuse guide (a dot above each side)"/>
+                        <Switch IsToggled="{Binding Settings.ShowPreviewFuseGuide}"/>
+                    </StackLayout>
+                    <StackLayout Orientation="Horizontal">
+                        <Label Text="Capture with ghost overlay during second capture"/>
+                        <Switch IsToggled="{Binding Settings.ShowGhostCaptures}"/>
+                    </StackLayout>
+                </StackLayout>
             </Expander>
 
             <BoxView/>
@@ -905,7 +888,7 @@
             <BoxView/>
 
             <StackLayout Orientation="Horizontal">
-                <Label Text="Send error reports"/>
+                <Label Text="Prompt to send error reports"/>
                 <Switch IsToggled="{Binding Settings.SendErrorReports1}"/>
             </StackLayout>
             <BoxView/>

@@ -17,57 +17,48 @@ namespace CrossCam.Page
         protected override void OnBindingContextChanged()
         {
             base.OnBindingContextChanged();
-            _viewModel = BindingContext as SettingsViewModel;
-            _viewModel.Settings.PropertyChanged += SettingsOnPropertyChanged;
-            _viewModel.Settings.AlignmentSettings.PropertyChanged += AlignmentSettingsOnPropertyChanged;
+            if (BindingContext is SettingsViewModel viewModel)
+            {
+                _viewModel = viewModel;
+                _viewModel.Settings.PropertyChanged += SettingsOnPropertyChanged;
+                _viewModel.Settings.AlignmentSettings.PropertyChanged += AlignmentSettingsOnPropertyChanged;
+            }
+            else if (BindingContext == null && _viewModel != null)
+            {
+                _viewModel.Settings.PropertyChanged -= SettingsOnPropertyChanged;
+                _viewModel.Settings.AlignmentSettings.PropertyChanged -= AlignmentSettingsOnPropertyChanged;
+            }
         }
 
         private void AlignmentSettingsOnPropertyChanged(object sender, PropertyChangedEventArgs e)
         {
-            if (e.PropertyName == nameof(AlignmentSettings.ShowAdvancedAlignmentSettings))
+            if (e.PropertyName == nameof(AlignmentSettings.ShowAdvancedAlignmentSettings) ||
+                e.PropertyName == nameof(AlignmentSettings.IsAutomaticAlignmentOn))
             {
-                foreach (var child in _alignmentExpander.Children)
-                {
-                    if (child is StackLayout stack)
-                    {
-                        stack.ForceLayout();
-                    }
-                }
                 _alignmentExpander.ForceUpdateSize();
             }
         }
 
-        protected override void OnDisappearing()
-        {
-            base.OnDisappearing();
-            _viewModel.Settings.PropertyChanged -= SettingsOnPropertyChanged;
-            _viewModel.Settings.AlignmentSettings.PropertyChanged -= AlignmentSettingsOnPropertyChanged;
-        }
-
         private void SettingsOnPropertyChanged(object sender, PropertyChangedEventArgs e)
         {
-            if (e.PropertyName == nameof(Settings.Mode))
+            if (e.PropertyName == nameof(Settings.Mode) ||
+                e.PropertyName == nameof(Settings.AddBarrelDistortion) ||
+                e.PropertyName == nameof(Settings.CardboardDownsize))
             {
-                foreach (var child in _viewModeExpander.Children)
-                {
-                    if (child is StackLayout stack)
-                    {
-                        stack.ForceLayout();
-                    }
-                }
                 _viewModeExpander.ForceUpdateSize();
-            }
-
-            if (e.PropertyName == nameof(Settings.IsPairedPrimary))
+            } 
+            else if (e.PropertyName == nameof(Settings.IsPairedPrimary))
             {
-                foreach (var child in _pairingExpander.Children)
-                {
-                    if (child is StackLayout stack)
-                    {
-                        stack.ForceLayout();
-                    }
-                }
                 _pairingExpander.ForceUpdateSize();
+            } 
+            else if (e.PropertyName == nameof(Settings.AddBorder))
+            {
+                _borderExpander.ForceUpdateSize();
+            }
+            else if (e.PropertyName == nameof(Settings.AreGuideLinesVisible) ||
+                     e.PropertyName == nameof(Settings.IsGuideDonutVisible))
+            {
+                _guidesExpander.ForceUpdateSize();
             }
         }
     }

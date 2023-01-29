@@ -156,6 +156,7 @@ namespace CrossCam.Model
                 IsFovCorrectionSet = false;
                 FovPrimaryCorrection = 0;
                 FovSecondaryCorrection = 0;
+                RaisePropertyChanged(nameof(IsPairedPrimary));
             }
         }
 

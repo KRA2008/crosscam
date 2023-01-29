@@ -90,9 +90,9 @@
     <CodesignEntitlements>
     </CodesignEntitlements>
     <MtouchProfiling>true</MtouchProfiling>
-    <CodesignKey>Apple Development: Kevin Anderson (288S2529U3)</CodesignKey>
+    <CodesignKey>Apple Development: Created via API (TW2AV56Z4U)</CodesignKey>
     <MtouchDebug>true</MtouchDebug>
-    <CodesignProvision>VS: WildCard Development</CodesignProvision>
+    <CodesignProvision>VS: com.kra2008.crosscam Development</CodesignProvision>
     <IpaPackageName />
     <MtouchFastDev>false</MtouchFastDev>
     <DeviceSpecificBuild>true</DeviceSpecificBuild>
@@ -502,6 +502,10 @@
     <BundleResource Include="Resources\triple%402x.png" />
     <BundleResource Include="Resources\collapse.png" />
     <BundleResource Include="Resources\expand.png" />
+    <BundleResource Include="Resources\expandLess.png" />
+    <BundleResource Include="Resources\expandLess%402x.png" />
+    <BundleResource Include="Resources\expandMore.png" />
+    <BundleResource Include="Resources\expandMore%402x.png" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\CrossCam\CrossCam.csproj">

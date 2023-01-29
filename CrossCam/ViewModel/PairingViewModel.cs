@@ -10,7 +10,7 @@ namespace CrossCam.ViewModel
         public Command SetDevicePrimaryCommand { get; set; }
         public Command SetDeviceSecondaryCommand { get; set; }
 
-        private Settings _settings;
+        public Settings _settings;
 
         public PairingViewModel()
         {

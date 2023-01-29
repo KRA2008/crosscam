@@ -14,7 +14,20 @@ namespace CrossCam.Model
 
         public bool ShowAdvancedAlignmentSettings { get; set; }
 
-        public bool IsAutomaticAlignmentOn { get; set; }
+        private bool _isAutomaticAlignmentOn;
+
+        public bool IsAutomaticAlignmentOn
+        {
+            get => _isAutomaticAlignmentOn;
+            set
+            {
+                _isAutomaticAlignmentOn = value;
+                if (!_isAutomaticAlignmentOn)
+                {
+                    ShowAdvancedAlignmentSettings = false;
+                }
+            }
+        }
 
         private int _minimumKeypoints;
         public int MinimumKeypoints
