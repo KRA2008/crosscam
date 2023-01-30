@@ -78,109 +78,183 @@
                         </Image>
                     </Grid>
                 </Expander.Header>
-                <StackLayout> <!-- can't be on demand because of resizing -->
+                <Grid ColumnSpacing="0"
+                      RowSpacing="0"> <!-- can't be on demand because of resizing -->
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="70"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
                     <Frame>
                         <Picker ItemsSource="{Binding Modes}"
-                    SelectedIndex="{Binding Settings.Mode, Converter={vc:ModeValueConverter}}"
-                    HorizontalOptions="FillAndExpand"/>
+                                SelectedIndex="{Binding Settings.Mode, Converter={vc:ModeValueConverter}}"/>
                     </Frame>
-                    <StackLayout Orientation="Horizontal"
-                     IsVisible="{Binding Settings.Mode, Converter={StaticResource enumCompare}, ConverterParameter={x:Static vm:DrawMode.Cardboard}}">
-                        <Label Text="Immersive final viewing"/>
-                        <Switch IsToggled="{Binding Settings.ImmersiveCardboardFinal}"/>
-                    </StackLayout>
-                    <StackLayout Orientation="Horizontal"
-                     IsVisible="{Binding Settings.Mode, Converter={StaticResource enumCompare}, ConverterParameter={x:Static vm:DrawMode.Cardboard}}">
-                        <Label Text="Cardboard separation distance"/>
-                        <Frame>
-                            <Picker ItemsSource="{Binding ZeroToOneThousand}"
-                        SelectedIndex="{Binding Settings.CardboardIpd}"
-                        WidthRequest="50"
-                        HorizontalOptions="EndAndExpand"/>
-                        </Frame>
-                    </StackLayout>
-                    <StackLayout Orientation="Horizontal"
-                     IsVisible="{Binding Settings.Mode, Converter={StaticResource enumCompare}, ConverterParameter={x:Static vm:DrawMode.Cardboard}}">
-                        <Label Text="Add lens correction (may lower frame rate)"/>
-                        <Switch IsToggled="{Binding Settings.AddBarrelDistortion}"/>
-                    </StackLayout>
-                    <StackLayout Orientation="Horizontal"
-                     IsVisible="False">
-                        <StackLayout.Triggers>
-                            <MultiTrigger TargetType="StackLayout">
+                    
+                    <Label Grid.Row="1"
+                           Grid.Column="0"
+                           Text="Immersive final viewing"
+                           IsVisible="{Binding Settings.Mode, Converter={StaticResource enumCompare}, ConverterParameter={x:Static vm:DrawMode.Cardboard}}"/>
+                    <Switch Grid.Row="1"
+                            Grid.Column="1"
+                            IsToggled="{Binding Settings.ImmersiveCardboardFinal}"
+                            IsVisible="{Binding Settings.Mode, Converter={StaticResource enumCompare}, ConverterParameter={x:Static vm:DrawMode.Cardboard}}"/>
+                    
+                    <Label Grid.Row="2"
+                           Grid.Column="0" 
+                           Text="Cardboard separation distance"
+                           IsVisible="{Binding Settings.Mode, Converter={StaticResource enumCompare}, ConverterParameter={x:Static vm:DrawMode.Cardboard}}"/>
+                    <Frame Grid.Row="2" 
+                           Grid.Column="1" 
+                           IsVisible="{Binding Settings.Mode, Converter={StaticResource enumCompare}, ConverterParameter={x:Static vm:DrawMode.Cardboard}}">
+                        <Picker ItemsSource="{Binding ZeroToOneThousand}"
+                                SelectedIndex="{Binding Settings.CardboardIpd}"/>
+                    </Frame>
+
+                    <Label Grid.Row="3"
+                           Grid.Column="0"
+                           Text="Add lens correction (may lower frame rate)"
+                           IsVisible="{Binding Settings.Mode, Converter={StaticResource enumCompare}, ConverterParameter={x:Static vm:DrawMode.Cardboard}}"/>
+                    <Switch Grid.Row="3" 
+                            Grid.Column="1" 
+                            IsToggled="{Binding Settings.AddBarrelDistortion}"
+                            IsVisible="{Binding Settings.Mode, Converter={StaticResource enumCompare}, ConverterParameter={x:Static vm:DrawMode.Cardboard}}"/>
+
+                    <Label Grid.Row="4"
+                           Grid.Column="0" 
+                           Text="Add lens correction to final images only (may slow down final display)"
+                           IsVisible="False">
+                        <Label.Triggers>
+                            <MultiTrigger TargetType="Label">
                                 <MultiTrigger.Conditions>
                                     <BindingCondition Binding="{Binding Settings.Mode, Converter={StaticResource enumCompare}, ConverterParameter={x:Static vm:DrawMode.Cardboard}}"
-                                          Value="True"/>
+                                                      Value="True"/>
                                     <BindingCondition Binding="{Binding Settings.AddBarrelDistortion}"
-                                          Value="True"/>
+                                                      Value="True"/>
                                 </MultiTrigger.Conditions>
                                 <Setter Property="IsVisible"
-                            Value="True"/>
+                                        Value="True"/>
                             </MultiTrigger>
-                        </StackLayout.Triggers>
-                        <Label Text="Add lens correction to final images only (may slow down final display)"/>
-                        <Switch IsToggled="{Binding Settings.AddBarrelDistortionFinalOnly}"/>
-                    </StackLayout>
-                    <StackLayout Orientation="Horizontal"
-                     IsVisible="False">
-                        <StackLayout.Triggers>
-                            <MultiTrigger TargetType="StackLayout">
+                        </Label.Triggers>
+                    </Label>
+                    <Switch Grid.Row="4"
+                            Grid.Column="1" 
+                            IsToggled="{Binding Settings.AddBarrelDistortionFinalOnly}"
+                            IsVisible="False">
+                        <Switch.Triggers>
+                            <MultiTrigger TargetType="Switch">
                                 <MultiTrigger.Conditions>
                                     <BindingCondition Binding="{Binding Settings.Mode, Converter={StaticResource enumCompare}, ConverterParameter={x:Static vm:DrawMode.Cardboard}}"
-                                          Value="True"/>
+                                                      Value="True"/>
                                     <BindingCondition Binding="{Binding Settings.AddBarrelDistortion}"
-                                          Value="True"/>
+                                                      Value="True"/>
                                 </MultiTrigger.Conditions>
                                 <Setter Property="IsVisible"
-                            Value="True"/>
+                                        Value="True"/>
                             </MultiTrigger>
-                        </StackLayout.Triggers>
-                        <Label Text="Lens correction strength"/>
-                        <Frame>
-                            <Picker ItemsSource="{Binding ZeroToOneThousand}"
-                        SelectedIndex="{Binding Settings.CardboardBarrelDistortion}"
-                        WidthRequest="50"
-                        HorizontalOptions="EndAndExpand"/>
-                        </Frame>
-                    </StackLayout>
-                    <StackLayout Orientation="Horizontal"
-                     IsVisible="{Binding Settings.Mode, Converter={StaticResource enumCompare}, ConverterParameter={x:Static vm:DrawMode.Cardboard}}">
-                        <Label Text="Downsize preview (may increase frame rate)"/>
-                        <Switch IsToggled="{Binding Settings.CardboardDownsize}"/>
-                    </StackLayout>
-                    <StackLayout Orientation="Horizontal"
-                     IsVisible="False">
-                        <StackLayout.Triggers>
-                            <MultiTrigger TargetType="StackLayout">
+                        </Switch.Triggers>
+                    </Switch>
+
+                    <Label Grid.Row="5"
+                           Grid.Column="0" 
+                           Text="Lens correction strength"
+                           IsVisible="False">
+                        <Label.Triggers>
+                            <MultiTrigger TargetType="Label">
                                 <MultiTrigger.Conditions>
                                     <BindingCondition Binding="{Binding Settings.Mode, Converter={StaticResource enumCompare}, ConverterParameter={x:Static vm:DrawMode.Cardboard}}"
-                                          Value="True"/>
+                                                      Value="True"/>
+                                    <BindingCondition Binding="{Binding Settings.AddBarrelDistortion}"
+                                                      Value="True"/>
+                                </MultiTrigger.Conditions>
+                                <Setter Property="IsVisible"
+                                        Value="True"/>
+                            </MultiTrigger>
+                        </Label.Triggers>
+                    </Label>
+                    <Frame Grid.Row="5"
+                           Grid.Column="1" 
+                           IsVisible="False">
+                        <Frame.Triggers>
+                            <MultiTrigger TargetType="Frame">
+                                <MultiTrigger.Conditions>
+                                    <BindingCondition Binding="{Binding Settings.Mode, Converter={StaticResource enumCompare}, ConverterParameter={x:Static vm:DrawMode.Cardboard}}"
+                                                          Value="True"/>
+                                    <BindingCondition Binding="{Binding Settings.AddBarrelDistortion}"
+                                                          Value="True"/>
+                                </MultiTrigger.Conditions>
+                                <Setter Property="IsVisible"
+                                            Value="True"/>
+                            </MultiTrigger>
+                        </Frame.Triggers>
+                        <Picker ItemsSource="{Binding ZeroToOneThousand}"
+                                SelectedIndex="{Binding Settings.CardboardBarrelDistortion}"/>
+                    </Frame>
+
+                    <Label Grid.Row="6"
+                           Grid.Column="0"
+                           Text="Downsize preview (may increase frame rate)"
+                           IsVisible="{Binding Settings.Mode, Converter={StaticResource enumCompare}, ConverterParameter={x:Static vm:DrawMode.Cardboard}}"/>
+                    <Switch Grid.Row="6"
+                            Grid.Column="1"
+                            IsToggled="{Binding Settings.CardboardDownsize}"
+                            IsVisible="{Binding Settings.Mode, Converter={StaticResource enumCompare}, ConverterParameter={x:Static vm:DrawMode.Cardboard}}"/>
+
+                    <Label Grid.Row="7"
+                           Grid.Column="0"
+                           Text="Downsize preview percentage"
+                           IsVisible="False">
+                        <Label.Triggers>
+                            <MultiTrigger TargetType="Label">
+                                <MultiTrigger.Conditions>
+                                    <BindingCondition Binding="{Binding Settings.Mode, Converter={StaticResource enumCompare}, ConverterParameter={x:Static vm:DrawMode.Cardboard}}"
+                                                      Value="True"/>
                                     <BindingCondition Binding="{Binding Settings.CardboardDownsize}"
-                                          Value="True"/>
+                                                      Value="True"/>
                                 </MultiTrigger.Conditions>
                                 <Setter Property="IsVisible"
-                            Value="True"/>
+                                        Value="True"/>
                             </MultiTrigger>
-                        </StackLayout.Triggers>
-                        <Label Text="Downsize preview percentage"/>
-                        <Frame>
-                            <Picker ItemsSource="{Binding ZeroToOneHundred}"
-                        SelectedIndex="{Binding Settings.CardboardDownsizePercentage}"
-                        WidthRequest="50"
-                        HorizontalOptions="EndAndExpand"/>
-                        </Frame>
-                    </StackLayout>
-                    <StackLayout Orientation="Horizontal"
-                     IsVisible="{Binding Settings.Mode, Converter={StaticResource enumCompare}, ConverterParameter={x:Static vm:DrawMode.Parallel}}">
-                        <Label Text="Maximum parallel view image width (points)"/>
-                        <Frame>
-                            <Picker ItemsSource="{Binding ZeroToOneThousand}"
-                    SelectedIndex="{Binding Settings.MaximumParallelWidth}"
-                    WidthRequest="50"
-                    HorizontalOptions="EndAndExpand"/>
-                        </Frame>
-                    </StackLayout>
-                </StackLayout>
+                        </Label.Triggers>
+                    </Label>
+                    <Frame Grid.Row="7"
+                           Grid.Column="1"
+                           IsVisible="False">
+                        <Frame.Triggers>
+                            <MultiTrigger TargetType="Frame">
+                                <MultiTrigger.Conditions>
+                                    <BindingCondition Binding="{Binding Settings.Mode, Converter={StaticResource enumCompare}, ConverterParameter={x:Static vm:DrawMode.Cardboard}}"
+                                                      Value="True"/>
+                                    <BindingCondition Binding="{Binding Settings.CardboardDownsize}"
+                                                      Value="True"/>
+                                </MultiTrigger.Conditions>
+                                <Setter Property="IsVisible"
+                                        Value="True"/>
+                            </MultiTrigger>
+                        </Frame.Triggers>
+                        <Picker ItemsSource="{Binding ZeroToOneHundred}"
+                                SelectedIndex="{Binding Settings.CardboardDownsizePercentage}"/>
+                    </Frame>
+
+                    <Label Grid.Row="1"
+                           Grid.Column="0" 
+                           Text="Maximum parallel view image width (points)"
+                           IsVisible="{Binding Settings.Mode, Converter={StaticResource enumCompare}, ConverterParameter={x:Static vm:DrawMode.Parallel}}"/>
+                    <Frame Grid.Row="1"
+                           Grid.Column="1" 
+                           IsVisible="{Binding Settings.Mode, Converter={StaticResource enumCompare}, ConverterParameter={x:Static vm:DrawMode.Parallel}}">
+                        <Picker ItemsSource="{Binding ZeroToOneThousand}"
+                                SelectedIndex="{Binding Settings.MaximumParallelWidth}"/>
+                    </Frame>
+                </Grid>
             </Expander>
 
             <BoxView/>
@@ -204,60 +278,110 @@
                         </Image>
                     </Grid>
                 </Expander.Header>
-                <StackLayout> <!-- can't be on demand because of resizing -->
-                    <Button Text="Go to Pairing Setup Page"
-                        Command="{Binding NavigateToPairingPageCommand}"/>
-                    <StackLayout Orientation="Horizontal"
-                             IsVisible="{Binding Settings.IsPairedPrimary, Converter={StaticResource nullableBoolean}}">
-                        <Label Text="Preview frame delay (higher number will reduce frame rate but save battery)"/>
-                        <Frame>
-                            <Picker ItemsSource="{Binding ZeroToOneThousand}"
-                                SelectedIndex="{Binding Settings.PairedPreviewFrameDelayMs}"
-                                WidthRequest="50"
-                                HorizontalOptions="EndAndExpand"/>
-                        </Frame>
-                    </StackLayout>
-                    <StackLayout Orientation="Horizontal"
-                             IsVisible="{Binding Settings.IsPairedPrimary, Converter={StaticResource nullableBoolean}}">
-                        <Label Text="Capture countdown length (timer)"/>
-                        <Frame>
-                            <Picker ItemsSource="{Binding ZeroToOneHundred}"
-                                SelectedIndex="{Binding Settings.PairedCaptureCountdown}"
-                                WidthRequest="50"
-                                HorizontalOptions="EndAndExpand"/>
-                        </Frame>
-                    </StackLayout>
-                    <StackLayout Orientation="Horizontal"
-                             IsVisible="{Binding Settings.IsPairedPrimary, Converter={StaticResource nullableBoolean}}">
-                        <Label Text="Clock sample count (lower number will decrease time required for initial sync but may decrease sync accuracy)"/>
-                        <Frame>
-                            <Picker ItemsSource="{Binding ZeroToOneThousand}"
-                                SelectedIndex="{Binding Settings.PairSyncSampleCount}"
-                                WidthRequest="50"
-                                HorizontalOptions="EndAndExpand"/>
-                        </Frame>
-                    </StackLayout>
-                    <Label Text="Field of view correction"
-                       HorizontalOptions="CenterAndExpand"
-                       IsVisible="{Binding Settings.IsPairedPrimary, Converter={StaticResource nullableBoolean}}"/>
-                    <StackLayout Orientation="Horizontal"
-                             IsVisible="{Binding Settings.IsPairedPrimary, Converter={StaticResource nullableBoolean}}">
-                        <StackLayout HorizontalOptions="EndAndExpand"
-                                 IsVisible="{Binding Settings.IsFovCorrectionSet}">
-                            <Label Text="{Binding Settings.FovPrimaryCorrection, StringFormat='Primary: {0}'}"
-                               HorizontalOptions="EndAndExpand"/>
-                            <Label Text="{Binding Settings.FovSecondaryCorrection, StringFormat='Secondary: {0}'}"
-                               HorizontalOptions="EndAndExpand"/>
-                        </StackLayout>
-                        <StackLayout IsVisible="{Binding Settings.IsFovCorrectionSet, Converter={StaticResource invert}}">
-                            <Label Text="FOV correction not set (do a capture with paired devices to walk through set up)."/>
-                        </StackLayout>
-                        <Button Text="Reset"
-                            Command="{Binding ResetFovCorrectionCommand}"
-                            HorizontalOptions="StartAndExpand"
-                            VerticalOptions="CenterAndExpand"/>
-                    </StackLayout>
-                </StackLayout>
+                <Grid ColumnSpacing="0"
+                      RowSpacing="0"> <!-- can't be on demand because of resizing -->
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="70"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+
+                    <Button Grid.Column="0"
+                            Grid.ColumnSpan="2"
+                            Grid.Row="5"
+                            Text="Go to Pairing Setup Page"
+                            Command="{Binding NavigateToPairingPageCommand}"/>
+
+                    <Label Grid.Column="0"
+                           Grid.Row="0"
+                           Text="Preview frame delay (higher number will reduce frame rate but save battery)"
+                           IsVisible="{Binding Settings.IsPairedPrimary, Converter={StaticResource nullableBoolean}}"/>
+                    <Frame Grid.Column="1"
+                           Grid.Row="0"
+                           IsVisible="{Binding Settings.IsPairedPrimary, Converter={StaticResource nullableBoolean}}">
+                        <Picker ItemsSource="{Binding ZeroToOneThousand}"
+                                SelectedIndex="{Binding Settings.PairedPreviewFrameDelayMs}"/>
+                    </Frame>
+
+                    <Label Grid.Column="0"
+                           Grid.Row="1"
+                           Text="Capture countdown length (timer)"
+                           IsVisible="{Binding Settings.IsPairedPrimary, Converter={StaticResource nullableBoolean}}"/>
+                    <Frame Grid.Column="1"
+                           Grid.Row="1"
+                           IsVisible="{Binding Settings.IsPairedPrimary, Converter={StaticResource nullableBoolean}}">
+                        <Picker ItemsSource="{Binding ZeroToOneHundred}"
+                                SelectedIndex="{Binding Settings.PairedCaptureCountdown}"/>
+                    </Frame>
+
+                    <Label Grid.Column="0"
+                           Grid.Row="2"
+                           Text="Clock sample count (lower number will decrease time required for initial sync but may decrease sync accuracy)"
+                           IsVisible="{Binding Settings.IsPairedPrimary, Converter={StaticResource nullableBoolean}}"/>
+                    <Frame Grid.Column="1"
+                           Grid.Row="2"
+                           IsVisible="{Binding Settings.IsPairedPrimary, Converter={StaticResource nullableBoolean}}">
+                        <Picker ItemsSource="{Binding ZeroToOneThousand}"
+                                SelectedIndex="{Binding Settings.PairSyncSampleCount}"/>
+                    </Frame>
+
+                    <Label Grid.Column="0"
+                           Grid.ColumnSpan="2"
+                           Grid.Row="3"
+                           Text="Field of view correction"
+                           HorizontalOptions="CenterAndExpand"
+                           IsVisible="{Binding Settings.IsPairedPrimary, Converter={StaticResource nullableBoolean}}"/>
+
+                    <Grid Grid.Column="0"
+                          Grid.ColumnSpan="2"
+                          Grid.Row="4"
+                          ColumnSpacing="0"
+                          RowSpacing="0"
+                          IsVisible="{Binding Settings.IsPairedPrimary, Converter={StaticResource nullableBoolean}}">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+
+                        <Label Grid.Column="0"
+                               Grid.Row="0"
+                               IsVisible="{Binding Settings.IsFovCorrectionSet}"
+                               Text="{Binding Settings.FovPrimaryCorrection, StringFormat='Primary: {0}'}"
+                               HorizontalOptions="End"/>
+                        <Label Grid.Column="0"
+                               Grid.Row="1"
+                               IsVisible="{Binding Settings.IsFovCorrectionSet}"
+                               Text="{Binding Settings.FovSecondaryCorrection, StringFormat='Secondary: {0}'}"
+                               HorizontalOptions="End"/>
+
+                        <Label Grid.Column="0"
+                               Grid.Row="0"
+                               Grid.ColumnSpan="2"
+                               IsVisible="{Binding Settings.IsFovCorrectionSet, Converter={StaticResource invert}}"
+                               Text="FOV correction not set (do a capture with paired devices to walk through set up)."/>
+
+                        <Button Grid.Column="1"
+                                Grid.Row="0"
+                                Grid.RowSpan="2"
+                                Text="Reset"
+                                Command="{Binding ResetFovCorrectionCommand}"
+                                HorizontalOptions="StartAndExpand"
+                                VerticalOptions="CenterAndExpand"
+                                IsVisible="{Binding Settings.IsFovCorrectionSet}"/>
+                    </Grid>
+                </Grid>
             </Expander>
 
             <BoxView/>
@@ -281,119 +405,184 @@
                         </Image>
                     </Grid>
                 </Expander.Header>
-                <StackLayout> <!-- can't be on demand because of resizing -->
-                    <StackLayout Orientation="Horizontal">
-                        <Label Text="Automatically align after capture"/>
-                        <Switch IsToggled="{Binding Settings.AlignmentSettings.IsAutomaticAlignmentOn}"/>
-                    </StackLayout>
-                    <StackLayout Orientation="Horizontal"
-                                 IsVisible="{Binding Settings.AlignmentSettings.IsAutomaticAlignmentOn}">
-                        <Label Text="Use keypoint alignment always (vs ECC whenever possible)"/>
-                        <Switch IsToggled="{Binding Settings.AlignmentSettings.UseKeypoints1}"/>
-                    </StackLayout>
-                    <StackLayout Orientation="Horizontal"
-                                 IsVisible="{Binding Settings.AlignmentSettings.IsAutomaticAlignmentOn}">
-                        <Label Text="Show advanced alignment settings"/>
-                        <Switch IsToggled="{Binding Settings.AlignmentSettings.ShowAdvancedAlignmentSettings}"/>
-                    </StackLayout>
-                    <StackLayout Orientation="Horizontal"
-                         IsVisible="{Binding Settings.AlignmentSettings.ShowAdvancedAlignmentSettings}">
-                        <Label Text="Crosscheck keypoints (vs ratio checks)"/>
-                        <Switch IsToggled="{Binding Settings.AlignmentSettings.UseCrossCheck}"/>
-                    </StackLayout>
-                    <StackLayout Orientation="Horizontal"
-                         IsVisible="{Binding Settings.AlignmentSettings.ShowAdvancedAlignmentSettings}">
-                        <Label Text="Minimum keypoints"/>
-                        <Frame>
-                            <Picker ItemsSource="{Binding ZeroToOneHundred}"
-                            SelectedIndex="{Binding Settings.AlignmentSettings.MinimumKeypoints}"
-                            WidthRequest="50"
-                            HorizontalOptions="EndAndExpand"/>
-                        </Frame>
-                    </StackLayout>
-                    <StackLayout Orientation="Horizontal"
-                         IsVisible="{Binding Settings.AlignmentSettings.ShowAdvancedAlignmentSettings}">
-                        <Label Text="Discard outliers by distance"/>
-                        <Switch IsToggled="{Binding Settings.AlignmentSettings.DiscardOutliersByDistance}"/>
-                    </StackLayout>
-                    <StackLayout Orientation="Horizontal"
-                         IsVisible="{Binding Settings.AlignmentSettings.ShowAdvancedAlignmentSettings}">
-                        <Label Text="Discard outliers by slope"/>
-                        <Switch IsToggled="{Binding Settings.AlignmentSettings.DiscardOutliersBySlope}"/>
-                    </StackLayout>
-                    <StackLayout Orientation="Horizontal"
-                         IsVisible="{Binding Settings.AlignmentSettings.ShowAdvancedAlignmentSettings}">
-                        <Label Text="Keypoint outlier threshold (tenths of standard deviation)"/>
-                        <Frame>
-                            <Picker ItemsSource="{Binding ZeroToOneHundred}"
-                            SelectedIndex="{Binding Settings.AlignmentSettings.KeypointOutlierThresholdTenths}"
-                            WidthRequest="50"
-                            HorizontalOptions="EndAndExpand"/>
-                        </Frame>
-                    </StackLayout>
-                    <StackLayout Orientation="Horizontal"
-                         IsVisible="{Binding Settings.AlignmentSettings.ShowAdvancedAlignmentSettings}">
-                        <Label Text="Save an unaligned joined copy with matches drawn"/>
-                        <Switch IsToggled="{Binding Settings.AlignmentSettings.DrawKeypointMatches}"/>
-                    </StackLayout>
-                    <StackLayout Orientation="Horizontal"
-                         IsVisible="{Binding Settings.AlignmentSettings.ShowAdvancedAlignmentSettings}">
-                        <Label Text="Do keystone correction"/>
-                        <Switch IsToggled="{Binding Settings.AlignmentSettings.DoKeystoneCorrection}"/>
-                    </StackLayout>
-                    <StackLayout Orientation="Horizontal"
-                         IsVisible="{Binding Settings.AlignmentSettings.ShowAdvancedAlignmentSettings}">
-                        <Label Text="Ecc iterations"/>
-                        <Frame>
-                            <Picker ItemsSource="{Binding ZeroToOneThousand}"
-                        SelectedIndex="{Binding Settings.AlignmentSettings.EccIterations}"
-                        WidthRequest="50"
-                        HorizontalOptions="EndAndExpand"/>
-                        </Frame>
-                    </StackLayout>
-                    <StackLayout Orientation="Horizontal"
-                         IsVisible="{Binding Settings.AlignmentSettings.ShowAdvancedAlignmentSettings}">
-                        <Label Text="Ecc epsilon level"/>
-                        <Frame>
-                            <Picker ItemsSource="{Binding ZeroToTen}"
-                        SelectedIndex="{Binding Settings.AlignmentSettings.EccEpsilonLevel}"
-                        WidthRequest="50"
-                        HorizontalOptions="EndAndExpand"/>
-                        </Frame>
-                    </StackLayout>
-                    <StackLayout Orientation="Horizontal"
-                         IsVisible="{Binding Settings.AlignmentSettings.ShowAdvancedAlignmentSettings}">
-                        <Label Text="Ecc downsized pyramid estimating layers"/>
-                        <Frame>
-                            <Picker ItemsSource="{Binding ZeroToTen}"
-                        SelectedIndex="{Binding Settings.AlignmentSettings.EccPyramidLayers}"
-                        WidthRequest="50"
-                        HorizontalOptions="EndAndExpand"/>
-                        </Frame>
-                    </StackLayout>
-                    <StackLayout Orientation="Horizontal"
-                         IsVisible="{Binding Settings.AlignmentSettings.ShowAdvancedAlignmentSettings}">
-                        <Label Text="Ecc intermediate downsize percentage"/>
-                        <Frame>
-                            <Picker ItemsSource="{Binding ZeroToOneHundred}"
-                            SelectedIndex="{Binding Settings.AlignmentSettings.EccDownsizePercentage}"
-                            WidthRequest="50"
-                            HorizontalOptions="EndAndExpand"/>
-                        </Frame>
-                    </StackLayout>
-                    <StackLayout Orientation="Horizontal"
-                         IsVisible="{Binding Settings.AlignmentSettings.ShowAdvancedAlignmentSettings}">
-                        <Label Text="Ecc minimum required correlation coefficient"/>
-                        <Frame>
-                            <Picker ItemsSource="{Binding ZeroToOneHundred}"
-                            WidthRequest="50"
-                            SelectedIndex="{Binding Settings.AlignmentSettings.EccThresholdPercentage}"
-                            HorizontalOptions="EndAndExpand"/>
-                        </Frame>
-                    </StackLayout>
-                    <Button Text="Reset to Defaults"
-                    Command="{Binding ResetAlignmentToDefaults}"/>
-                </StackLayout>
+                <Grid RowSpacing="0"
+                      ColumnSpacing="0"> <!-- can't be on demand because of resizing -->
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="70"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+
+                    <Label Grid.Column="0" 
+                           Grid.Row="0" 
+                           Text="Automatically align after capture"/>
+                    <Switch Grid.Column="1" 
+                            Grid.Row="0" 
+                            IsToggled="{Binding Settings.AlignmentSettings.IsAutomaticAlignmentOn}"/>
+
+                    <Label Grid.Column="0" 
+                           Grid.Row="1" 
+                           Text="Use keypoint alignment always (vs ECC whenever possible)"
+                           IsVisible="{Binding Settings.AlignmentSettings.IsAutomaticAlignmentOn}"/>
+                    <Switch Grid.Column="1" 
+                            Grid.Row="1" 
+                            IsToggled="{Binding Settings.AlignmentSettings.UseKeypoints1}"
+                            IsVisible="{Binding Settings.AlignmentSettings.IsAutomaticAlignmentOn}"/>
+
+                    <Label Grid.Column="0"
+                           Grid.Row="2"
+                           Text="Show advanced alignment settings"
+                           IsVisible="{Binding Settings.AlignmentSettings.IsAutomaticAlignmentOn}"/>
+                    <Switch Grid.Column="1"
+                            Grid.Row="2"
+                            IsToggled="{Binding Settings.AlignmentSettings.ShowAdvancedAlignmentSettings}"
+                            IsVisible="{Binding Settings.AlignmentSettings.IsAutomaticAlignmentOn}"/>
+
+                    <Label Grid.Column="0" 
+                           Grid.Row="3" 
+                           Text="Crosscheck keypoints (vs ratio checks)"
+                           IsVisible="{Binding Settings.AlignmentSettings.ShowAdvancedAlignmentSettings}"/>
+                    <Switch Grid.Column="1" 
+                            Grid.Row="3" 
+                            IsToggled="{Binding Settings.AlignmentSettings.UseCrossCheck}"
+                            IsVisible="{Binding Settings.AlignmentSettings.ShowAdvancedAlignmentSettings}"/>
+
+                    <Label Grid.Column="0" 
+                           Grid.Row="4" 
+                           Text="Minimum keypoints"
+                           IsVisible="{Binding Settings.AlignmentSettings.ShowAdvancedAlignmentSettings}"/>
+                    <Frame Grid.Column="1" 
+                           Grid.Row="4"
+                           IsVisible="{Binding Settings.AlignmentSettings.ShowAdvancedAlignmentSettings}">
+                        <Picker ItemsSource="{Binding ZeroToOneHundred}"
+                                SelectedIndex="{Binding Settings.AlignmentSettings.MinimumKeypoints}"/>
+                    </Frame>
+
+                    <Label Grid.Column="0" 
+                           Grid.Row="5" 
+                           Text="Discard outliers by distance"
+                           IsVisible="{Binding Settings.AlignmentSettings.ShowAdvancedAlignmentSettings}"/>
+                    <Switch Grid.Column="1" 
+                            Grid.Row="5" 
+                            IsToggled="{Binding Settings.AlignmentSettings.DiscardOutliersByDistance}"
+                            IsVisible="{Binding Settings.AlignmentSettings.ShowAdvancedAlignmentSettings}"/>
+
+                    <Label Grid.Column="0" 
+                           Grid.Row="6" 
+                           Text="Discard outliers by slope"
+                           IsVisible="{Binding Settings.AlignmentSettings.ShowAdvancedAlignmentSettings}"/>
+                    <Switch Grid.Column="1" 
+                            Grid.Row="6" 
+                            IsToggled="{Binding Settings.AlignmentSettings.DiscardOutliersBySlope}"
+                            IsVisible="{Binding Settings.AlignmentSettings.ShowAdvancedAlignmentSettings}"/>
+
+                    <Label Grid.Column="0" 
+                           Grid.Row="7" 
+                           Text="Keypoint outlier threshold (tenths of standard deviation)"
+                           IsVisible="{Binding Settings.AlignmentSettings.ShowAdvancedAlignmentSettings}"/>
+                    <Frame Grid.Column="1" 
+                           Grid.Row="7"
+                           IsVisible="{Binding Settings.AlignmentSettings.ShowAdvancedAlignmentSettings}">
+                        <Picker ItemsSource="{Binding ZeroToOneHundred}"
+                                SelectedIndex="{Binding Settings.AlignmentSettings.KeypointOutlierThresholdTenths}"/>
+                    </Frame>
+
+                    <Label Grid.Column="0" 
+                           Grid.Row="8" 
+                           Text="Save an unaligned joined copy with matches drawn"
+                           IsVisible="{Binding Settings.AlignmentSettings.ShowAdvancedAlignmentSettings}"/>
+                    <Switch Grid.Column="1" 
+                            Grid.Row="8" 
+                            IsToggled="{Binding Settings.AlignmentSettings.DrawKeypointMatches}"
+                            IsVisible="{Binding Settings.AlignmentSettings.ShowAdvancedAlignmentSettings}"/>
+
+                    <Label Grid.Column="0" 
+                           Grid.Row="9" 
+                           Text="Do keystone correction"
+                           IsVisible="{Binding Settings.AlignmentSettings.ShowAdvancedAlignmentSettings}"/>
+                    <Switch Grid.Column="1" 
+                            Grid.Row="9" 
+                            IsToggled="{Binding Settings.AlignmentSettings.DoKeystoneCorrection}"
+                            IsVisible="{Binding Settings.AlignmentSettings.ShowAdvancedAlignmentSettings}"/>
+
+                    <Label Grid.Column="0" 
+                           Grid.Row="10" 
+                           Text="Ecc iterations"
+                           IsVisible="{Binding Settings.AlignmentSettings.ShowAdvancedAlignmentSettings}"/>
+                    <Frame Grid.Column="1" 
+                           Grid.Row="10"
+                           IsVisible="{Binding Settings.AlignmentSettings.ShowAdvancedAlignmentSettings}">
+                        <Picker ItemsSource="{Binding ZeroToOneThousand}"
+                                SelectedIndex="{Binding Settings.AlignmentSettings.EccIterations}"/>
+                    </Frame>
+
+                    <Label Grid.Column="0" 
+                           Grid.Row="11" 
+                           Text="Ecc epsilon level"
+                           IsVisible="{Binding Settings.AlignmentSettings.ShowAdvancedAlignmentSettings}"/>
+                    <Frame Grid.Column="1" 
+                           Grid.Row="11"
+                           IsVisible="{Binding Settings.AlignmentSettings.ShowAdvancedAlignmentSettings}">
+                        <Picker ItemsSource="{Binding ZeroToTen}"
+                                SelectedIndex="{Binding Settings.AlignmentSettings.EccEpsilonLevel}"/>
+                    </Frame>
+
+                    <Label Grid.Column="0" 
+                           Grid.Row="12" 
+                           Text="Ecc downsized pyramid estimating layers"
+                           IsVisible="{Binding Settings.AlignmentSettings.ShowAdvancedAlignmentSettings}"/>
+                    <Frame Grid.Column="1" 
+                           Grid.Row="12"
+                           IsVisible="{Binding Settings.AlignmentSettings.ShowAdvancedAlignmentSettings}">
+                        <Picker ItemsSource="{Binding ZeroToTen}"
+                                SelectedIndex="{Binding Settings.AlignmentSettings.EccPyramidLayers}"/>
+                    </Frame>
+
+                    <Label Grid.Column="0" 
+                           Grid.Row="13" 
+                           Text="Ecc intermediate downsize percentage"
+                           IsVisible="{Binding Settings.AlignmentSettings.ShowAdvancedAlignmentSettings}"/>
+                    <Frame Grid.Column="1"
+                           Grid.Row="13"
+                           IsVisible="{Binding Settings.AlignmentSettings.ShowAdvancedAlignmentSettings}">
+                        <Picker ItemsSource="{Binding ZeroToOneHundred}"
+                                SelectedIndex="{Binding Settings.AlignmentSettings.EccDownsizePercentage}"/>
+                    </Frame>
+
+                    <Label Grid.Column="0" 
+                           Grid.Row="14" 
+                           Text="Ecc minimum required correlation coefficient"
+                           IsVisible="{Binding Settings.AlignmentSettings.ShowAdvancedAlignmentSettings}"/>
+                    <Frame Grid.Column="1" 
+                           Grid.Row="14"
+                           IsVisible="{Binding Settings.AlignmentSettings.ShowAdvancedAlignmentSettings}">
+                        <Picker ItemsSource="{Binding ZeroToOneHundred}"
+                                SelectedIndex="{Binding Settings.AlignmentSettings.EccThresholdPercentage}"/>
+                    </Frame>
+
+                    <Button Grid.Column="0"
+                            Grid.ColumnSpan="2"
+                            Grid.Row="15" 
+                            Text="Reset to Defaults"
+                            Command="{Binding ResetAlignmentToDefaults}"/>
+                </Grid>
             </Expander>
 
             <BoxView/>
@@ -421,9 +610,9 @@
                     <DataTemplate>
                         <Grid ColumnSpacing="0">
                             <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="60"/>
                                 <ColumnDefinition Width="*"/>
-                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="100"/>
                             </Grid.ColumnDefinitions>
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="Auto"/>
@@ -444,209 +633,224 @@
                                 <RowDefinition Height="Auto"/>
                                 <RowDefinition Height="Auto"/>
                             </Grid.RowDefinitions>
+
                             <Label Grid.Row="0"
-                           Grid.Column="0"
-                           Text="{Binding Settings.ResolutionProportion, StringFormat='{0}%'}"
-                           FontSize="{StaticResource saveModesHeight}"/>
+                                   Grid.Column="0"
+                                   Text="{Binding Settings.ResolutionProportion, StringFormat='{0}%'}"
+                                   FontSize="{StaticResource saveModesHeight}"/>
                             <Label Grid.Row="0"
-                           Grid.Column="1"
-                           Text="Resolution proportion"/>
+                                   Grid.Column="1"
+                                   Text="Resolution proportion"/>
                             <Frame Grid.Row="0"
-                           Grid.Column="2"
-                           WidthRequest="50"
-                           HorizontalOptions="End">
+                                   Grid.Column="2"
+                                   WidthRequest="50"
+                                   HorizontalOptions="End">
                                 <Picker ItemsSource="{Binding ZeroToOneHundred}"
-                                SelectedIndex="{Binding Settings.ResolutionProportion}"
-                                HorizontalOptions="FillAndExpand"/>
+                                        SelectedIndex="{Binding Settings.ResolutionProportion}"
+                                        HorizontalOptions="FillAndExpand"/>
                             </Frame>
+
                             <StackLayout Grid.Row="1" 
-                                 Grid.Column="0" 
-                                 Orientation="Horizontal"
-                                 VerticalOptions="Center"
-                                 HorizontalOptions="Center">
+                                         Grid.Column="0" 
+                                         Orientation="Horizontal"
+                                         VerticalOptions="Center"
+                                         HorizontalOptions="Center">
                                 <BoxView Style="{StaticResource _fuseGuide}"/>
                                 <BoxView Style="{StaticResource _fuseGuide}"/>
                             </StackLayout>
                             <Label Grid.Column="1"
-                           Grid.Row="1"
-                           Text="Save with fuse guide (a dot above each side)"/>
+                                   Grid.Row="1"
+                                   Text="Save with fuse guide (a dot above each side)"/>
                             <Switch Grid.Column="2" 
-                            Grid.Row="1"
-                            IsToggled="{Binding Settings.SaveWithFuseGuide}"/>
+                                    Grid.Row="1"
+                                    IsToggled="{Binding Settings.SaveWithFuseGuide}"/>
+
                             <Label Grid.Row="2"
-                           Grid.Column="0"
-                           Grid.ColumnSpan="2"
-                           Text="Save to subfolders/albums labeled by view method"/>
+                                   Grid.Column="0"
+                                   Grid.ColumnSpan="2"
+                                   Text="Save to subfolders/albums labeled by view method"/>
                             <Switch Grid.Row="2"
-                            Grid.Column="2"
-                            IsToggled="{Binding Settings.SaveIntoSeparateFolders}"/>
+                                    Grid.Column="2"
+                                    IsToggled="{Binding Settings.SaveIntoSeparateFolders}"/>
+
                             <Label Grid.Row="3"
-                           Grid.Column="0"
-                           Grid.ColumnSpan="2"
-                           Text="Automatically clear captures after saving"/>
+                                   Grid.Column="0"
+                                   Grid.ColumnSpan="2"
+                                   Text="Automatically clear captures after saving"/>
                             <Switch Grid.Row="3"
-                            Grid.Column="2"
-                            IsToggled="{Binding Settings.ClearCapturesAfterSave}"/>
+                                    Grid.Column="2"
+                                    IsToggled="{Binding Settings.ClearCapturesAfterSave}"/>
+
                             <Label Grid.Row="4"
-                           Grid.Column="0"
-                           Grid.ColumnSpan="3"
-                           Text="(Saving will happen in order from top to bottom)"/>
+                                   Grid.Column="0"
+                                   Grid.ColumnSpan="3"
+                                   Text="(Saving will happen in order from top to bottom)"/>
+
                             <Image Grid.Row="5"
-                           Grid.Column="0"
-                           Source="saveBoth"
-                           Style="{StaticResource saveModes}"/>
+                                   Grid.Column="0"
+                                   Source="saveBoth"
+                                   Style="{StaticResource saveModes}"/>
                             <Label Grid.Row="5"
-                           Grid.Column="1"
-                           Text="Save each side separately (with no edits or border for easier post processing, left side saves first)"/>
+                                   Grid.Column="1"
+                                   Text="Save each side separately (with no edits or border for easier post processing, left side saves first)"/>
                             <Switch Grid.Row="5"
-                            Grid.Column="2"
-                            IsToggled="{Binding Settings.SaveSidesSeparately}"/>
+                                    Grid.Column="2"
+                                    IsToggled="{Binding Settings.SaveSidesSeparately}"/>
+
                             <Image Grid.Row="6"
-                           Grid.Column="0"
-                           Source="crossed"
-                           Style="{StaticResource saveModes}">
+                                   Grid.Column="0"
+                                   Source="crossed"
+                                   Style="{StaticResource saveModes}">
                                 <Image.Triggers>
                                     <DataTrigger TargetType="Image"
-                                         Binding="{Binding Settings.Mode, Converter={StaticResource enumCompare}, ConverterParameter={x:Static vm:DrawMode.Parallel}}"
-                                         Value="True">
+                                                 Binding="{Binding Settings.Mode, Converter={StaticResource enumCompare}, ConverterParameter={x:Static vm:DrawMode.Parallel}}"
+                                                 Value="True">
                                         <Setter Property="Grid.Row"
-                                        Value="5"/>
+                                                Value="5"/>
                                     </DataTrigger>
                                 </Image.Triggers>
                             </Image>
                             <Label Grid.Row="6"
-                           Grid.Column="1"
-                           Text="Save joined cross view version (with edits and border)">
+                                   Grid.Column="1"
+                                   Text="Save joined cross view version (with edits and border)">
                                 <Label.Triggers>
                                     <DataTrigger TargetType="Label"
-                                         Binding="{Binding Settings.Mode, Converter={StaticResource enumCompare}, ConverterParameter={x:Static vm:DrawMode.Parallel}}"
-                                         Value="True">
+                                                 Binding="{Binding Settings.Mode, Converter={StaticResource enumCompare}, ConverterParameter={x:Static vm:DrawMode.Parallel}}"
+                                                 Value="True">
                                         <Setter Property="Grid.Row"
-                                        Value="5"/>
+                                                Value="5"/>
                                     </DataTrigger>
                                 </Label.Triggers>
                             </Label>
                             <Switch Grid.Row="6"
-                            Grid.Column="2"
-                            IsToggled="{Binding Settings.SaveForCrossView}">
+                                    Grid.Column="2"
+                                    IsToggled="{Binding Settings.SaveForCrossView}">
                                 <Switch.Triggers>
                                     <DataTrigger TargetType="Switch"
-                                         Binding="{Binding Settings.Mode, Converter={StaticResource enumCompare}, ConverterParameter={x:Static vm:DrawMode.Parallel}}"
-                                         Value="True">
+                                                 Binding="{Binding Settings.Mode, Converter={StaticResource enumCompare}, ConverterParameter={x:Static vm:DrawMode.Parallel}}"
+                                                 Value="True">
                                         <Setter Property="Grid.Row"
-                                        Value="5"/>
+                                                Value="5"/>
                                     </DataTrigger>
                                 </Switch.Triggers>
                             </Switch>
+
                             <Image Grid.Row="7"
-                           Grid.Column="0"
-                           Source="parallel"
-                           Style="{StaticResource saveModes}">
+                                   Grid.Column="0"
+                                   Source="parallel"
+                                   Style="{StaticResource saveModes}">
                                 <Image.Triggers>
                                     <DataTrigger TargetType="Image"
-                                         Binding="{Binding Settings.Mode, Converter={StaticResource enumCompare}, ConverterParameter={x:Static vm:DrawMode.Parallel}}"
-                                         Value="True">
+                                                 Binding="{Binding Settings.Mode, Converter={StaticResource enumCompare}, ConverterParameter={x:Static vm:DrawMode.Parallel}}"
+                                                 Value="True">
                                         <Setter Property="Grid.Row"
-                                        Value="4"/>
+                                                Value="4"/>
                                     </DataTrigger>
                                 </Image.Triggers>
                             </Image>
                             <Label Grid.Row="7"
-                           Grid.Column="1"
-                           Text="Save joined parallel view version (with edits and border)">
+                                   Grid.Column="1"
+                                   Text="Save joined parallel view version (with edits and border)">
                                 <Label.Triggers>
                                     <DataTrigger TargetType="Label"
-                                         Binding="{Binding Settings.Mode, Converter={StaticResource enumCompare}, ConverterParameter={x:Static vm:DrawMode.Parallel}}"
-                                         Value="True">
+                                                 Binding="{Binding Settings.Mode, Converter={StaticResource enumCompare}, ConverterParameter={x:Static vm:DrawMode.Parallel}}"
+                                                 Value="True">
                                         <Setter Property="Grid.Row"
-                                        Value="4"/>
+                                                Value="4"/>
                                     </DataTrigger>
                                 </Label.Triggers>
                             </Label>
                             <Switch Grid.Row="7"
-                            Grid.Column="2"
-                            IsToggled="{Binding Settings.SaveForParallel}">
+                                    Grid.Column="2"
+                                    IsToggled="{Binding Settings.SaveForParallel}">
                                 <Switch.Triggers>
                                     <DataTrigger TargetType="Switch"
-                                         Binding="{Binding Settings.Mode, Converter={StaticResource enumCompare}, ConverterParameter={x:Static vm:DrawMode.Parallel}}"
-                                         Value="True">
+                                                 Binding="{Binding Settings.Mode, Converter={StaticResource enumCompare}, ConverterParameter={x:Static vm:DrawMode.Parallel}}"
+                                                 Value="True">
                                         <Setter Property="Grid.Row"
-                                        Value="4"/>
+                                                Value="4"/>
                                     </DataTrigger>
                                 </Switch.Triggers>
                             </Switch>
+
                             <Image Grid.Row="8"
-                           Grid.Column="0"
-                           Source="anaglyph"
-                           Style="{StaticResource saveModes}"/>
+                                   Grid.Column="0"
+                                   Source="anaglyph"
+                                   Style="{StaticResource saveModes}"/>
                             <Label Grid.Row="8"
-                           Grid.Column="1"
-                           Text="Save red/cyan anaglyph version (with edits but no border)"/>
+                                   Grid.Column="1"
+                                   Text="Save red/cyan anaglyph version (with edits but no border)"/>
                             <Switch Grid.Row="8"
-                            Grid.Column="2"
-                            IsToggled="{Binding Settings.SaveForRedCyanAnaglyph}"/>
+                                    Grid.Column="2"
+                                    IsToggled="{Binding Settings.SaveForRedCyanAnaglyph}"/>
+
                             <Image Grid.Row="9"
-                           Grid.Column="0"
-                           Source="grayscaleAnaglyph"
-                           Style="{StaticResource saveModes}"/>
+                                   Grid.Column="0"
+                                   Source="grayscaleAnaglyph"
+                                   Style="{StaticResource saveModes}"/>
                             <Label Grid.Row="9"
-                           Grid.Column="1"
-                           Text="Save grayscale red/cyan anaglyph version (with edits but no border)"/>
+                                   Grid.Column="1"
+                                   Text="Save grayscale red/cyan anaglyph version (with edits but no border)"/>
                             <Switch Grid.Row="9"
-                            Grid.Column="2"
-                            IsToggled="{Binding Settings.SaveForGrayscaleAnaglyph}"/>
+                                    Grid.Column="2"
+                                    IsToggled="{Binding Settings.SaveForGrayscaleAnaglyph}"/>
+
                             <Image Grid.Row="10"
-                           Grid.Column="0"
-                           Source="saveOne"
-                           Style="{StaticResource saveModes}"/>
+                                   Grid.Column="0"
+                                   Source="saveOne"
+                                   Style="{StaticResource saveModes}"/>
                             <Label Grid.Row="10"
-                           Grid.Column="1"
-                           Text="Save first side alone (with no edits or border) (for easy sharing of flat photo with flat view people)"/>
+                                   Grid.Column="1"
+                                   Text="Save first side alone (with no edits or border) (for easy sharing of flat photo with flat view people)"/>
                             <Switch Grid.Row="10"
-                            Grid.Column="2"
-                            IsToggled="{Binding Settings.SaveRedundantFirstSide}"
-                            IsEnabled="{Binding EnableFirstSideAloneSwitch}"/>
+                                    Grid.Column="2"
+                                    IsToggled="{Binding Settings.SaveRedundantFirstSide}"
+                                    IsEnabled="{Binding EnableFirstSideAloneSwitch}"/>
+
                             <Image Grid.Row="11"
-                           Grid.Column="0"
-                           Source="triple"
-                           Style="{StaticResource saveModes}"/>
+                                   Grid.Column="0"
+                                   Source="triple"
+                                   Style="{StaticResource saveModes}"/>
                             <Label Grid.Row="11"
-                           Grid.Column="1"
-                           Text="Save triple combination (with edits and border)"/>
+                                   Grid.Column="1"
+                                   Text="Save triple combination (with edits and border)"/>
                             <Switch Grid.Row="11"
-                            Grid.Column="2"
-                            IsToggled="{Binding Settings.SaveForTriple}"/>
+                                    Grid.Column="2"
+                                    IsToggled="{Binding Settings.SaveForTriple}"/>
+
                             <Image Grid.Row="12"
-                           Grid.Column="0"
-                           Source="quad"
-                           Style="{StaticResource saveModes}"
-                           HeightRequest="25"/>
+                                   Grid.Column="0"
+                                   Source="quad"
+                                   Style="{StaticResource saveModes}"
+                                   HeightRequest="25"/>
                             <Label Grid.Row="12"
-                           Grid.Column="1"
-                           Text="Save quad combination (with edits and border)"/>
+                                   Grid.Column="1"
+                                   Text="Save quad combination (with edits and border)"/>
                             <Switch Grid.Row="12"
-                            Grid.Column="2"
-                            IsToggled="{Binding Settings.SaveForQuad}"/>
+                                    Grid.Column="2"
+                                    IsToggled="{Binding Settings.SaveForQuad}"/>
+
                             <Label Grid.Row="13"
-                           Grid.Column="0"
-                           HorizontalOptions="Center"
-                           Text="VR"/>
+                                   Grid.Column="0"
+                                   HorizontalOptions="Center"
+                                   Text="VR"/>
                             <Label Grid.Row="13"
-                           Grid.Column="1"
-                           Text="Save for Cardboard (with edits, no border, no spacing, full width, for loading back into CrossCam later)"/>
+                                   Grid.Column="1"
+                                   Text="Save for Cardboard (with edits, no border, no spacing, full width, for loading back into CrossCam later)"/>
                             <Switch Grid.Row="13"
-                            Grid.Column="2"
-                            IsToggled="{Binding Settings.SaveForCardboard}"/>
+                                    Grid.Column="2"
+                                    IsToggled="{Binding Settings.SaveForCardboard}"/>
+
                             <Label Grid.Row="14"
-                           Grid.Column="0"
-                           Grid.ColumnSpan="2"
-                           Text="{Binding SaveDirectory, StringFormat='Save to: {0}'}"
-                           IsVisible="{Binding CanSaveToArbitraryDirectory}"/>
+                                   Grid.Column="0"
+                                   Grid.ColumnSpan="2"
+                                   Text="{Binding SaveDirectory, StringFormat='Save to: {0}'}"
+                                   IsVisible="{Binding CanSaveToArbitraryDirectory}"/>
                             <Button Grid.Row="14"
-                            Grid.Column="2"
-                            Command="{Binding ChooseDirectory}"
-                            Text="Browse..."
-                            IsVisible="False">
+                                    Grid.Column="2"
+                                    Command="{Binding ChooseDirectory}"
+                                    Text="Browse..."
+                                    IsVisible="False">
                                 <Button.Triggers>
                                     <MultiTrigger TargetType="Button">
                                         <MultiTrigger.Conditions>
@@ -662,20 +866,22 @@
                                     </MultiTrigger>
                                 </Button.Triggers>
                             </Button>
+
                             <Button Grid.Row="15"
-                            Grid.Column="2"
-                            Command="{Binding ClearDirectory}"
-                            Text="Reset"
-                            IsVisible="{Binding Settings.SavingDirectory, Converter={vc:IsNotNullConverter}}"/>
+                                    Grid.Column="2"
+                                    Command="{Binding ClearDirectory}"
+                                    Text="Reset"
+                                    IsVisible="{Binding Settings.SavingDirectory, Converter={vc:IsNotNullConverter}}"/>
+
                             <Label Grid.Row="16"
-                           Grid.Column="0"
-                           Grid.ColumnSpan="2"
-                           Text="{Binding ExternalDirectory, StringFormat='Save to external CrossCam directory at: {0} (warning: pictures there will be deleted if CrossCam is uninstalled)'}"
-                           IsVisible="{Binding CanSaveToExternalDirectory}"/>
+                                   Grid.Column="0"
+                                   Grid.ColumnSpan="2"
+                                   Text="{Binding ExternalDirectory, StringFormat='Save to external CrossCam directory at: {0} (warning: pictures there will be deleted if CrossCam is uninstalled)'}"
+                                   IsVisible="{Binding CanSaveToExternalDirectory}"/>
                             <Switch Grid.Row="16"
-                            Grid.Column="2"
-                            IsToggled="{Binding Settings.SaveToExternal}"
-                            IsVisible="{Binding CanSaveToExternalDirectory}"/>
+                                    Grid.Column="2"
+                                    IsToggled="{Binding Settings.SaveToExternal}"
+                                    IsVisible="{Binding CanSaveToExternalDirectory}"/>
                         </Grid>
                     </DataTemplate>
                 </Expander.ContentTemplate>
@@ -702,37 +908,55 @@
                         </Image>
                     </Grid>
                 </Expander.Header>
-                <StackLayout>
-                    <StackLayout Orientation="Horizontal">
-                        <Label Text="Add border"/>
-                        <Switch IsToggled="{Binding Settings.AddBorder}"
-                                        HorizontalOptions="EndAndExpand"/>
-                    </StackLayout>
-                    <StackLayout Orientation="Horizontal"
-                                         IsVisible="{Binding Settings.AddBorder}">
-                        <Label Text="Border color"/>
-                        <Frame>
-                            <Picker ItemsSource="{Binding BorderColors}"
-                                            SelectedIndex="{Binding Settings.BorderColor, Converter={vc:BorderColorValueConverter}}"
-                                            HorizontalOptions="EndAndExpand"/>
-                        </Frame>
-                    </StackLayout>
-                    <StackLayout Orientation="Horizontal"
-                                         IsVisible="{Binding Settings.AddBorder}">
-                        <Label Text="Border thickness (tenths of percentage of width)"/>
-                        <Frame>
-                            <Picker ItemsSource="{Binding ZeroToOneHundred}"
-                                            SelectedIndex="{Binding Settings.BorderWidthProportion}"
-                                            WidthRequest="50"
-                                            HorizontalOptions="EndAndExpand"/>
-                        </Frame>
-                    </StackLayout>
-                    <StackLayout Orientation="Horizontal">
-                        <Label Text="Clip border off when loading next stereo pair"/>
-                        <Switch IsToggled="{Binding Settings.ClipBorderOnNextLoad}"
-                                        HorizontalOptions="EndAndExpand"/>
-                    </StackLayout>
-                </StackLayout>
+                <Grid RowSpacing="0"
+                      ColumnSpacing="0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="70"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+
+                    <Label Grid.Column="0"
+                           Grid.Row="0" 
+                           Text="Add border"/>
+                    <Switch Grid.Column="1"
+                            Grid.Row="0" 
+                            IsToggled="{Binding Settings.AddBorder}"/>
+
+                    <Label Grid.Column="0"
+                           Grid.Row="1" 
+                           Text="Border color"
+                           IsVisible="{Binding Settings.AddBorder}"/>
+                    <Frame Grid.Column="1"
+                           Grid.Row="1" 
+                           IsVisible="{Binding Settings.AddBorder}">
+                        <Picker ItemsSource="{Binding BorderColors}"
+                                SelectedIndex="{Binding Settings.BorderColor, Converter={vc:BorderColorValueConverter}}"/>
+                    </Frame>
+
+                    <Label Grid.Column="0"
+                           Grid.Row="2" 
+                           IsVisible="{Binding Settings.AddBorder}" 
+                           Text="Border thickness (tenths of percentage of width)"/>
+                    <Frame Grid.Column="1"
+                           Grid.Row="2" 
+                           IsVisible="{Binding Settings.AddBorder}">
+                        <Picker ItemsSource="{Binding ZeroToOneHundred}"
+                                SelectedIndex="{Binding Settings.BorderWidthProportion}"/>
+                    </Frame>
+
+                    <Label Grid.Column="0"
+                           Grid.Row="3" 
+                           Text="Clip border off when loading next stereo pair"/>
+                    <Switch Grid.Column="1"
+                            Grid.Row="3" 
+                            IsToggled="{Binding Settings.ClipBorderOnNextLoad}"/>
+                </Grid>
             </Expander>
 
             <BoxView/>
@@ -756,38 +980,75 @@
                         </Image>
                     </Grid>
                 </Expander.Header>
-                <StackLayout>
-                    <StackLayout Orientation="Horizontal">
-                        <Label Text="Lines visible"/>
-                        <Switch IsToggled="{Binding Settings.AreGuideLinesVisible}"/>
-                    </StackLayout>
-                    <StackLayout Orientation="Horizontal"
-                                         IsVisible="{Binding Settings.AreGuideLinesVisible}">
-                        <Label Text="Lines visible before first capture"/>
-                        <Switch IsToggled="{Binding Settings.ShowGuideLinesWithFirstCapture}"/>
-                    </StackLayout>
-                    <StackLayout Orientation="Horizontal">
-                        <Label Text="Roll guide visible"/>
-                        <Switch IsToggled="{Binding Settings.ShowRollGuide}"/>
-                    </StackLayout>
-                    <StackLayout Orientation="Horizontal">
-                        <Label Text="Donut/dot visible (will cause toe-in, so may require keystone editing)"/>
-                        <Switch IsToggled="{Binding Settings.IsGuideDonutVisible}"/>
-                    </StackLayout>
-                    <StackLayout Orientation="Horizontal"
-                                 IsVisible="{Binding Settings.IsGuideDonutVisible}">
-                        <Label Text="Donut/dot visible before first capture"/>
-                        <Switch IsToggled="{Binding Settings.ShowGuideDonutWithFirstCapture}"/>
-                    </StackLayout>
-                    <StackLayout Orientation="Horizontal">
-                        <Label Text="Show fuse guide (a dot above each side)"/>
-                        <Switch IsToggled="{Binding Settings.ShowPreviewFuseGuide}"/>
-                    </StackLayout>
-                    <StackLayout Orientation="Horizontal">
-                        <Label Text="Capture with ghost overlay during second capture"/>
-                        <Switch IsToggled="{Binding Settings.ShowGhostCaptures}"/>
-                    </StackLayout>
-                </StackLayout>
+                <Grid ColumnSpacing="0"
+                      RowSpacing="0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="70"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+
+                    <Label Grid.Column="0"
+                           Grid.Row="0" 
+                           Text="Lines visible"/>
+                    <Switch Grid.Column="1"
+                            Grid.Row="0" 
+                            IsToggled="{Binding Settings.AreGuideLinesVisible}"/>
+
+                    <Label Grid.Column="0"
+                           Grid.Row="1"
+                           Text="Lines visible before first capture"
+                           IsVisible="{Binding Settings.AreGuideLinesVisible}"/>
+                    <Switch Grid.Column="1"
+                            Grid.Row="1"
+                            IsToggled="{Binding Settings.ShowGuideLinesWithFirstCapture}"
+                            IsVisible="{Binding Settings.AreGuideLinesVisible}"/>
+
+                    <Label Grid.Column="0"
+                           Grid.Row="2"
+                           Text="Roll guide visible"/>
+                    <Switch Grid.Column="1"
+                            Grid.Row="2" 
+                            IsToggled="{Binding Settings.ShowRollGuide}"/>
+
+                    <Label Grid.Column="0"
+                           Grid.Row="3"
+                           Text="Donut/dot visible (will cause toe-in, so may require keystone editing)"/>
+                    <Switch Grid.Column="1"
+                            Grid.Row="3"
+                            IsToggled="{Binding Settings.IsGuideDonutVisible}"/>
+
+                    <Label Grid.Column="0"
+                           Grid.Row="4"
+                           Text="Donut/dot visible before first capture"
+                           IsVisible="{Binding Settings.IsGuideDonutVisible}"/>
+                    <Switch Grid.Column="1"
+                            Grid.Row="4"
+                            IsToggled="{Binding Settings.ShowGuideDonutWithFirstCapture}"
+                            IsVisible="{Binding Settings.IsGuideDonutVisible}"/>
+
+                    <Label Grid.Column="0"
+                           Grid.Row="5" 
+                           Text="Show fuse guide (a dot above each side)"/>
+                    <Switch Grid.Column="1"
+                            Grid.Row="5" 
+                            IsToggled="{Binding Settings.ShowPreviewFuseGuide}"/>
+
+                    <Label Grid.Column="0"
+                           Grid.Row="6" 
+                           Text="Capture with ghost overlay during second capture"/>
+                    <Switch Grid.Column="1"
+                            Grid.Row="6" 
+                            IsToggled="{Binding Settings.ShowGhostCaptures}"/>
+                </Grid>
             </Expander>
 
             <BoxView/>
@@ -813,73 +1074,123 @@
                 </Expander.Header>
                 <Expander.ContentTemplate>
                     <DataTemplate>
-                        <StackLayout>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="100"/>
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                            </Grid.RowDefinitions>
 
-                            <StackLayout Orientation="Horizontal">
-                                <Label Text="Tap to point focus, double tap to switch back to continuous focus (or save or clear)"/>
-                                <Switch IsToggled="{Binding Settings.IsTapToFocusEnabled2}"/>
-                            </StackLayout>
-                            <StackLayout Orientation="Horizontal">
-                                <Label Text="Lock focus and exposure for second picture to focus and exposure from first picture"/>
-                                <Switch IsToggled="{Binding Settings.IsLockToFirstEnabled}"/>
-                            </StackLayout>
-                            <StackLayout Orientation="Horizontal">
-                                <StackLayout.IsVisible>
+                            <Label Grid.Row="0" 
+                                   Grid.Column="0" 
+                                   Text="Tap to point focus, double tap to switch back to continuous focus (or save or clear)"/>
+                            <Switch Grid.Row="0" 
+                                    Grid.Column="1" 
+                                    IsToggled="{Binding Settings.IsTapToFocusEnabled2}"/>
+
+                            <Label Grid.Row="1" 
+                                   Grid.Column="0" 
+                                   Text="Lock focus and exposure for second picture to focus and exposure from first picture"/>
+                            <Switch Grid.Row="1" 
+                                    Grid.Column="1" 
+                                    IsToggled="{Binding Settings.IsLockToFirstEnabled}"/>
+
+                            <Label Grid.Row="2" 
+                                   Grid.Column="0" 
+                                   Text="Force camera1 API (may be helpful if you're experiencing weirdness but will result in limited functionality, requires a force quit/restart to take effect)">
+                                <Label.IsVisible>
                                     <OnPlatform x:TypeArguments="system:Boolean">
                                         <On Platform="iOS"
-                                    Value="False"/>
+                                            Value="False"/>
                                         <On Platform="Android"
-                                    Value="True"/>
+                                            Value="True"/>
                                     </OnPlatform>
-                                </StackLayout.IsVisible>
-                                <Label Text="Force camera1 API (may be helpful if you're experiencing weirdness but will result in limited functionality, requires a force quit/restart to take effect)"/>
-                                <Switch IsToggled="{Binding Settings.IsForceCamera1Enabled}"/>
-                            </StackLayout>
-                            <StackLayout Orientation="Horizontal">
-                                <StackLayout.IsVisible>
+                                </Label.IsVisible>
+                            </Label>
+                            <Switch Grid.Row="2" 
+                                    Grid.Column="1" 
+                                    IsToggled="{Binding Settings.IsForceCamera1Enabled}">
+                                <Switch.IsVisible>
                                     <OnPlatform x:TypeArguments="system:Boolean">
                                         <On Platform="iOS"
-                                    Value="False"/>
+                                            Value="False"/>
                                         <On Platform="Android"
-                                    Value="True"/>
+                                            Value="True"/>
                                     </OnPlatform>
-                                </StackLayout.IsVisible>
-                                <Label Text="Force camera2 API (must be on Android 6 or above, may be helpful if you're experiencing errors but may make more, requires a force quit/restart to take effect)"/>
-                                <Switch IsToggled="{Binding Settings.IsForceCamera2Enabled}"/>
-                            </StackLayout>
-                            <StackLayout Orientation="Horizontal">
-                                <Label Text="Portrait capture button placement"/>
-                                <Frame>
-                                    <Picker ItemsSource="{Binding PortraitCaptureButtonPosition}"
-                                    SelectedIndex="{Binding Settings.PortraitCaptureButtonPosition, Converter={vc:PortraitCaptureButtonPositionValueConverter}}"
-                                    HorizontalOptions="EndAndExpand"/>
-                                </Frame>
-                            </StackLayout>
-                            <StackLayout Orientation="Horizontal">
-                                <Label Text="Landscape capture button horizontal placement"/>
-                                <Frame>
-                                    <Picker ItemsSource="{Binding LandscapeCaptureButtonHorizontalPosition}"
-                                    SelectedIndex="{Binding Settings.LandscapeCaptureButtonHorizontalPosition, Converter={vc:LandscapeCaptureButtonHorizontalPositionValueConverter}}"
-                                    HorizontalOptions="EndAndExpand"/>
-                                </Frame>
-                            </StackLayout>
-                            <StackLayout Orientation="Horizontal">
-                                <Label Text="Landscape capture button vertical placement"/>
-                                <Frame>
-                                    <Picker ItemsSource="{Binding LandscapeCaptureButtonVerticalPosition}"
-                                    SelectedIndex="{Binding Settings.LandscapeCaptureButtonVerticalPosition, Converter={vc:LandscapeCaptureButtonVerticalPositionValueConverter}}"
-                                    HorizontalOptions="EndAndExpand"/>
-                                </Frame>
-                            </StackLayout>
-                            <StackLayout Orientation="Horizontal">
-                                <Label Text="Pair button horizontal placement (when capture button is centered)"/>
-                                <Frame>
-                                    <Picker ItemsSource="{Binding PairButtonHorizontalPosition}"
-                                    SelectedIndex="{Binding Settings.PairButtonHorizontalPosition, Converter={vc:PairButtonHorizontalPositionValueConverter}}"
-                                    HorizontalOptions="EndAndExpand"/>
-                                </Frame>
-                            </StackLayout>
-                        </StackLayout>
+                                </Switch.IsVisible>
+                            </Switch>
+
+                            <Label Grid.Row="3" 
+                                   Grid.Column="0" 
+                                   Text="Force camera2 API (must be on Android 6 or above, may be helpful if you're experiencing errors but may make more, requires a force quit/restart to take effect)">
+                                <Label.IsVisible>
+                                    <OnPlatform x:TypeArguments="system:Boolean">
+                                        <On Platform="iOS"
+                                            Value="False"/>
+                                        <On Platform="Android"
+                                            Value="True"/>
+                                    </OnPlatform>
+                                </Label.IsVisible>
+                            </Label>
+                            <Switch Grid.Row="3" 
+                                    Grid.Column="1" 
+                                    IsToggled="{Binding Settings.IsForceCamera2Enabled}">
+                                <Switch.IsVisible>
+                                    <OnPlatform x:TypeArguments="system:Boolean">
+                                        <On Platform="iOS"
+                                            Value="False"/>
+                                        <On Platform="Android"
+                                            Value="True"/>
+                                    </OnPlatform>
+                                </Switch.IsVisible>
+                            </Switch>
+
+                            <Label Grid.Row="4" 
+                                   Grid.Column="0" 
+                                   Text="Portrait capture button placement"/>
+                            <Frame Grid.Row="4" 
+                                   Grid.Column="1">
+                                <Picker ItemsSource="{Binding PortraitCaptureButtonPosition}"
+                                        SelectedIndex="{Binding Settings.PortraitCaptureButtonPosition, Converter={vc:PortraitCaptureButtonPositionValueConverter}}"/>
+                            </Frame>
+
+                            <Label Grid.Row="5" 
+                                   Grid.Column="0" 
+                                   Text="Landscape capture button horizontal placement"/>
+                            <Frame Grid.Row="5" 
+                                   Grid.Column="1">
+                                <Picker ItemsSource="{Binding LandscapeCaptureButtonHorizontalPosition}"
+                                        SelectedIndex="{Binding Settings.LandscapeCaptureButtonHorizontalPosition, Converter={vc:LandscapeCaptureButtonHorizontalPositionValueConverter}}"/>
+                            </Frame>
+
+                            <Label Grid.Row="6" 
+                                   Grid.Column="0" 
+                                   Text="Landscape capture button vertical placement"/>
+                            <Frame Grid.Row="6" 
+                                   Grid.Column="1">
+                                <Picker ItemsSource="{Binding LandscapeCaptureButtonVerticalPosition}"
+                                        SelectedIndex="{Binding Settings.LandscapeCaptureButtonVerticalPosition, Converter={vc:LandscapeCaptureButtonVerticalPositionValueConverter}}"/>
+                            </Frame>
+
+                            <Label Grid.Row="7" 
+                                   Grid.Column="0" 
+                                   Text="Pair button horizontal placement (when capture button is centered)"/>
+                            <Frame Grid.Row="7" 
+                                   Grid.Column="1">
+                                <Picker ItemsSource="{Binding PairButtonHorizontalPosition}"
+                                        SelectedIndex="{Binding Settings.PairButtonHorizontalPosition, Converter={vc:PairButtonHorizontalPositionValueConverter}}"/>
+                            </Frame>
+
+                        </Grid>
                     </DataTemplate>
                 </Expander.ContentTemplate>
                 
