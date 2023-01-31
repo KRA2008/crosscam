@@ -455,6 +455,7 @@ namespace CrossCam.Droid.CustomRenderer
                 IsFrontFacing = _cameraModule.ChosenCamera.IsFront,
                 Orientation = origin
             };
+            bitmap?.Recycle();
             bitmap?.Dispose();
         }
         
