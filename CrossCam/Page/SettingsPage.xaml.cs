@@ -45,7 +45,7 @@ namespace CrossCam.Page
                 e.PropertyName == nameof(Settings.AddBarrelDistortion) ||
                 e.PropertyName == nameof(Settings.CardboardDownsize))
             {
-                _viewModeExpander.ForceUpdateSize();
+                //_viewModeExpander.ForceUpdateSize();
             } 
             else if (e.PropertyName == nameof(Settings.IsPairedPrimary))
             {
