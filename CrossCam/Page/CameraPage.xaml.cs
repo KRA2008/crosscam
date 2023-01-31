@@ -141,15 +141,19 @@ namespace CrossCam.Page
 	            {
 	                if (!Accelerometer.IsMonitoring)
 	                {
-	                    try
-	                    {
-	                        Accelerometer.Start(SENSOR_SPEED);
+                        try
+                        {
+                            Accelerometer.Start(SENSOR_SPEED);
                             StartAccelerometerCycling();
                         }
-	                    catch
-	                    {
-                            //oh well
-	                    }
+                        catch (FeatureNotSupportedException e)
+                        {
+                            //now what?
+                        }
+                        catch (Exception e)
+                        {
+                            _viewModel.ErrorMessage = e.ToString();
+                        }
                     }
 	            }
 	            else
@@ -177,9 +181,13 @@ namespace CrossCam.Page
                             _gyroscopeStopwatch.Start();
                             Gyroscope.Start(SENSOR_SPEED);
                         }
-                        catch
+                        catch (FeatureNotSupportedException e)
                         {
-                            //oh well
+                            //now what?
+                        }
+                        catch (Exception e)
+                        {
+                            _viewModel.ErrorMessage = e.ToString();
                         }
                     }
                 }
