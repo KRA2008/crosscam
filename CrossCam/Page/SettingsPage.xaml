@@ -278,38 +278,38 @@
 
                     <Button Grid.Column="0"
                             Grid.ColumnSpan="2"
-                            Grid.Row="5"
+                            Grid.Row="0"
                             Text="Go to Pairing Setup Page"
                             Command="{Binding NavigateToPairingPageCommand}"/>
 
                     <Label Grid.Column="0"
-                           Grid.Row="0"
+                           Grid.Row="1"
                            Text="Preview frame delay (higher number will reduce frame rate but save battery)"
                            IsVisible="{Binding Settings.IsPairedPrimary, Converter={StaticResource nullableBoolean}}"/>
                     <Frame Grid.Column="1"
-                           Grid.Row="0"
+                           Grid.Row="1"
                            IsVisible="{Binding Settings.IsPairedPrimary, Converter={StaticResource nullableBoolean}}">
                         <Picker ItemsSource="{Binding ZeroToOneThousand}"
                                 SelectedIndex="{Binding Settings.PairedPreviewFrameDelayMs}"/>
                     </Frame>
 
                     <Label Grid.Column="0"
-                           Grid.Row="1"
+                           Grid.Row="2"
                            Text="Capture countdown length (timer)"
                            IsVisible="{Binding Settings.IsPairedPrimary, Converter={StaticResource nullableBoolean}}"/>
                     <Frame Grid.Column="1"
-                           Grid.Row="1"
+                           Grid.Row="2"
                            IsVisible="{Binding Settings.IsPairedPrimary, Converter={StaticResource nullableBoolean}}">
                         <Picker ItemsSource="{Binding ZeroToOneHundred}"
                                 SelectedIndex="{Binding Settings.PairedCaptureCountdown}"/>
                     </Frame>
 
                     <Label Grid.Column="0"
-                           Grid.Row="2"
+                           Grid.Row="3"
                            Text="Clock sample count (lower number will decrease time required for initial sync but may decrease sync accuracy)"
                            IsVisible="{Binding Settings.IsPairedPrimary, Converter={StaticResource nullableBoolean}}"/>
                     <Frame Grid.Column="1"
-                           Grid.Row="2"
+                           Grid.Row="3"
                            IsVisible="{Binding Settings.IsPairedPrimary, Converter={StaticResource nullableBoolean}}">
                         <Picker ItemsSource="{Binding ZeroToOneThousand}"
                                 SelectedIndex="{Binding Settings.PairSyncSampleCount}"/>
@@ -317,14 +317,14 @@
 
                     <Label Grid.Column="0"
                            Grid.ColumnSpan="2"
-                           Grid.Row="3"
+                           Grid.Row="4"
                            Text="Field of view correction"
                            HorizontalOptions="CenterAndExpand"
                            IsVisible="{Binding Settings.IsPairedPrimary, Converter={StaticResource nullableBoolean}}"/>
 
                     <Grid Grid.Column="0"
                           Grid.ColumnSpan="2"
-                          Grid.Row="4"
+                          Grid.Row="5"
                           ColumnSpacing="0"
                           RowSpacing="0"
                           IsVisible="{Binding Settings.IsPairedPrimary, Converter={StaticResource nullableBoolean}}">
@@ -356,8 +356,7 @@
                                Text="FOV correction not set (do a capture with paired devices to walk through set up)."/>
 
                         <Button Grid.Column="1"
-                                Grid.Row="0"
-                                Grid.RowSpan="2"
+                                Grid.Row="2"
                                 Text="Reset"
                                 Command="{Binding ResetFovCorrectionCommand}"
                                 HorizontalOptions="StartAndExpand"
