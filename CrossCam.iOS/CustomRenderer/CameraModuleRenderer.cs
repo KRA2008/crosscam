@@ -106,27 +106,14 @@ namespace CrossCam.iOS.CustomRenderer
                     if (!_setupProperties.Any())
                     {
                         FullInit();
+                        SetPreviewBottomY();
                     }
                 }
 
                 if (e.PropertyName == nameof(_cameraModule.Width) ||
                     e.PropertyName == nameof(_cameraModule.Height))
                 {
-                    NativeView.Bounds = new CGRect(0, -10000, _cameraModule.Width, _cameraModule.Height);
-                    double previewHeight;
-                    var orientation = UIDevice.CurrentDevice.Orientation;
-                    switch (orientation)
-                    {
-                        case UIDeviceOrientation.LandscapeLeft:
-                        case UIDeviceOrientation.LandscapeRight:
-                            previewHeight = 0.75 * _cameraModule.Width;
-                            _cameraModule.PreviewBottomY = (previewHeight + _cameraModule.Height) / 2;
-                            break;
-                        case UIDeviceOrientation.Portrait:
-                            previewHeight = 1.33 * _cameraModule.Width;
-                            _cameraModule.PreviewBottomY = (previewHeight + _cameraModule.Height) / 2;
-                            break;
-                    }
+                    SetPreviewBottomY();
                 }
 
                 if (e.PropertyName == nameof(_cameraModule.CaptureTrigger))
@@ -157,6 +144,25 @@ namespace CrossCam.iOS.CustomRenderer
             catch (Exception ex)
             {
                 _cameraModule.ErrorMessage = ex.ToString();
+            }
+        }
+
+        private void SetPreviewBottomY()
+        {
+            NativeView.Bounds = new CGRect(0, -10000, _cameraModule.Width, _cameraModule.Height);
+            double previewHeight;
+            var orientation = UIDevice.CurrentDevice.Orientation;
+            switch (orientation)
+            {
+                case UIDeviceOrientation.LandscapeLeft:
+                case UIDeviceOrientation.LandscapeRight:
+                    previewHeight = 0.75 * _cameraModule.Width;
+                    _cameraModule.PreviewBottomY = (previewHeight + _cameraModule.Height) / 2;
+                    break;
+                default:
+                    previewHeight = 1.33 * _cameraModule.Width;
+                    _cameraModule.PreviewBottomY = (previewHeight + _cameraModule.Height) / 2;
+                    break;
             }
         }
 #endif
