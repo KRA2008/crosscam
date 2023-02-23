@@ -36,35 +36,35 @@
             <x:Double x:Key="_3dRightMiddle">0.85</x:Double>
             <x:Double x:Key="_3dRightRight">0.9</x:Double>
             <x:Double x:Key="_editModeInnerButtons">0.8</x:Double>
-            <Rectangle x:Key="_finalSaveBounds" X="0.5" Y="1" Width="{StaticResource _giantIconWidth}" Height="{StaticResource _giantIconWidth}"/>
-            <Rectangle x:Key="_clearBounds" X="0.5" Y="{StaticResource _topMiddleButtonY}" Width="{StaticResource _largeIconWidth}" Height="{StaticResource _largeIconWidth}"/>
-            <Rectangle x:Key="_swipeBounds" X="0.5" Y="{StaticResource _topMiddleButtonY}" Width="150" Height="60"/>
-            <Rectangle x:Key="_swipeHintBounds" X="0" Y="{StaticResource _topMiddleButtonY}" Width="1" Height="{StaticResource _largeIconWidth}"/>
-            <Rectangle x:Key="_cropBounds" X="0.5" Y="0.6" Width="{StaticResource _mediumIconWidth}" Height="{StaticResource _mediumIconWidth}"/>
-            <Rectangle x:Key="_viewBounds" X="0.5" Y="{StaticResource _secondMiddleButtonY}" Width="{StaticResource _mediumIconWidth}" Height="{StaticResource _mediumIconWidth}"/>
-            <Rectangle x:Key="_alignBounds" X="0" Y="{StaticResource _topMiddleButtonY}" Width="1" Height="{StaticResource _mediumIconWidthPlusTopPadding}"/>
-            <Rectangle x:Key="_keystoneBounds" X="0" Y="{StaticResource _secondMiddleButtonY}" Width="1" Height="{StaticResource _mediumIconWidth}"/>
-            <Rectangle x:Key="_editBounds" X="0.5" Y="0.6" Width="{StaticResource _mediumIconWidth}" Height="{StaticResource _mediumIconWidth}"/>
-            <Rectangle x:Key="_loadBounds" X="0.5" Y="1" Width="{StaticResource _smallerButtonWidth}" Height="{StaticResource _smallerButtonWidth}"/>
-            <Rectangle x:Key="_retakeLeftLeftBounds" X="{StaticResource _3dLeftMiddle}" Y="1" Width="{StaticResource _smallerButtonWidth}" Height="{StaticResource _smallerButtonWidth}"/>
-            <Rectangle x:Key="_retakeLeftRightBounds" X="{StaticResource _3dLeftRight}" Y="1" Width="{StaticResource _smallerButtonWidth}" Height="{StaticResource _smallerButtonWidth}"/>
-            <Rectangle x:Key="_retakeRightLeftBounds" X="{StaticResource _3dRightLeft}" Y="1" Width="{StaticResource _smallerButtonWidth}" Height="{StaticResource _smallerButtonWidth}"/>
-            <Rectangle x:Key="_retakeRightRightBounds" X="{StaticResource _3dRightMiddle}" Y="1" Width="{StaticResource _smallerButtonWidth}" Height="{StaticResource _smallerButtonWidth}"/>
-            <Rectangle x:Key="_undoBounds" X="0.5" Y="{StaticResource _topMiddleButtonY}" Width="{StaticResource _mediumIconWidth}" Height="{StaticResource _mediumIconWidthPlusTopPadding}"/>
-            <Rectangle x:Key="_checkBounds" X="0.5" Y="1" Width="{StaticResource _largeIconWidth}" Height="{StaticResource _largeIconWidth}"/>
-            <Rectangle x:Key="_helpBounds" X="0" Y="0" Width="{StaticResource _smallerButtonWidth}" Height="{StaticResource _smallerButtonWidthPlusTopPadding}"/>
-            <Rectangle x:Key="_gearBounds" X="1" Y="0" Width="{StaticResource _doubleSmallerButtonWidth}" Height="{StaticResource _smallerButtonWidthPlusTopPadding}"/>
+            <Rect x:Key="_finalSaveBounds" X="0.5" Y="1" Width="{StaticResource _giantIconWidth}" Height="{StaticResource _giantIconWidth}"/>
+            <Rect x:Key="_clearBounds" X="0.5" Y="{StaticResource _topMiddleButtonY}" Width="{StaticResource _largeIconWidth}" Height="{StaticResource _largeIconWidth}"/>
+            <Rect x:Key="_swipeBounds" X="0.5" Y="{StaticResource _topMiddleButtonY}" Width="150" Height="60"/>
+            <Rect x:Key="_swipeHintBounds" X="0" Y="{StaticResource _topMiddleButtonY}" Width="1" Height="{StaticResource _largeIconWidth}"/>
+            <Rect x:Key="_cropBounds" X="0.5" Y="0.6" Width="{StaticResource _mediumIconWidth}" Height="{StaticResource _mediumIconWidth}"/>
+            <Rect x:Key="_viewBounds" X="0.5" Y="{StaticResource _secondMiddleButtonY}" Width="{StaticResource _mediumIconWidth}" Height="{StaticResource _mediumIconWidth}"/>
+            <Rect x:Key="_alignBounds" X="0" Y="{StaticResource _topMiddleButtonY}" Width="1" Height="{StaticResource _mediumIconWidthPlusTopPadding}"/>
+            <Rect x:Key="_keystoneBounds" X="0" Y="{StaticResource _secondMiddleButtonY}" Width="1" Height="{StaticResource _mediumIconWidth}"/>
+            <Rect x:Key="_editBounds" X="0.5" Y="0.6" Width="{StaticResource _mediumIconWidth}" Height="{StaticResource _mediumIconWidth}"/>
+            <Rect x:Key="_loadBounds" X="0.5" Y="1" Width="{StaticResource _smallerButtonWidth}" Height="{StaticResource _smallerButtonWidth}"/>
+            <Rect x:Key="_retakeLeftLeftBounds" X="{StaticResource _3dLeftMiddle}" Y="1" Width="{StaticResource _smallerButtonWidth}" Height="{StaticResource _smallerButtonWidth}"/>
+            <Rect x:Key="_retakeLeftRightBounds" X="{StaticResource _3dLeftRight}" Y="1" Width="{StaticResource _smallerButtonWidth}" Height="{StaticResource _smallerButtonWidth}"/>
+            <Rect x:Key="_retakeRightLeftBounds" X="{StaticResource _3dRightLeft}" Y="1" Width="{StaticResource _smallerButtonWidth}" Height="{StaticResource _smallerButtonWidth}"/>
+            <Rect x:Key="_retakeRightRightBounds" X="{StaticResource _3dRightMiddle}" Y="1" Width="{StaticResource _smallerButtonWidth}" Height="{StaticResource _smallerButtonWidth}"/>
+            <Rect x:Key="_undoBounds" X="0.5" Y="{StaticResource _topMiddleButtonY}" Width="{StaticResource _mediumIconWidth}" Height="{StaticResource _mediumIconWidthPlusTopPadding}"/>
+            <Rect x:Key="_checkBounds" X="0.5" Y="1" Width="{StaticResource _largeIconWidth}" Height="{StaticResource _largeIconWidth}"/>
+            <Rect x:Key="_helpBounds" X="0" Y="0" Width="{StaticResource _smallerButtonWidth}" Height="{StaticResource _smallerButtonWidthPlusTopPadding}"/>
+            <Rect x:Key="_gearBounds" X="1" Y="0" Width="{StaticResource _doubleSmallerButtonWidth}" Height="{StaticResource _smallerButtonWidthPlusTopPadding}"/>
 
-            <Rectangle x:Key="_leftKeystoneAxis" X="{StaticResource _3dLeftMiddle}" Y="{StaticResource _editModeInnerButtons}" Width="{StaticResource _mediumIconWidth}" Height="{StaticResource _mediumIconWidth}"/>
-            <Rectangle x:Key="_rightKeystoneAxis" X="{StaticResource _3dRightMiddle}" Y="{StaticResource _editModeInnerButtons}" Width="{StaticResource _mediumIconWidth}" Height="{StaticResource _mediumIconWidth}"/>
+            <Rect x:Key="_leftKeystoneAxis" X="{StaticResource _3dLeftMiddle}" Y="{StaticResource _editModeInnerButtons}" Width="{StaticResource _mediumIconWidth}" Height="{StaticResource _mediumIconWidth}"/>
+            <Rect x:Key="_rightKeystoneAxis" X="{StaticResource _3dRightMiddle}" Y="{StaticResource _editModeInnerButtons}" Width="{StaticResource _mediumIconWidth}" Height="{StaticResource _mediumIconWidth}"/>
 
-            <Rectangle x:Key="_leftRotate" X="{StaticResource _3dLeftLeft}" Y="{StaticResource _editModeInnerButtons}" Width="{StaticResource _mediumIconWidth}" Height="{StaticResource _mediumIconWidth}"/>
-            <Rectangle x:Key="_rightRotate" X="{StaticResource _3dRightLeft}" Y="{StaticResource _editModeInnerButtons}" Width="{StaticResource _mediumIconWidth}" Height="{StaticResource _mediumIconWidth}"/>
+            <Rect x:Key="_leftRotate" X="{StaticResource _3dLeftLeft}" Y="{StaticResource _editModeInnerButtons}" Width="{StaticResource _mediumIconWidth}" Height="{StaticResource _mediumIconWidth}"/>
+            <Rect x:Key="_rightRotate" X="{StaticResource _3dRightLeft}" Y="{StaticResource _editModeInnerButtons}" Width="{StaticResource _mediumIconWidth}" Height="{StaticResource _mediumIconWidth}"/>
 
-            <Rectangle x:Key="_manualVerticalAlign" X="0.5" Y="{StaticResource _editModeInnerButtons}" Width="{StaticResource _mediumIconWidth}" Height="{StaticResource _mediumIconWidth}"/>
+            <Rect x:Key="_manualVerticalAlign" X="0.5" Y="{StaticResource _editModeInnerButtons}" Width="{StaticResource _mediumIconWidth}" Height="{StaticResource _mediumIconWidth}"/>
 
-            <Rectangle x:Key="_leftZoom" X="{StaticResource _3dLeftRight}" Y="{StaticResource _editModeInnerButtons}" Width="{StaticResource _mediumIconWidth}" Height="{StaticResource _mediumIconWidth}"/>
-            <Rectangle x:Key="_rightZoom" X="{StaticResource _3dRightRight}" Y="{StaticResource _editModeInnerButtons}" Width="{StaticResource _mediumIconWidth}" Height="{StaticResource _mediumIconWidth}"/>
+            <Rect x:Key="_leftZoom" X="{StaticResource _3dLeftRight}" Y="{StaticResource _editModeInnerButtons}" Width="{StaticResource _mediumIconWidth}" Height="{StaticResource _mediumIconWidth}"/>
+            <Rect x:Key="_rightZoom" X="{StaticResource _3dRightRight}" Y="{StaticResource _editModeInnerButtons}" Width="{StaticResource _mediumIconWidth}" Height="{StaticResource _mediumIconWidth}"/>
 
             <Thickness x:Key="_reticlePadding">10</Thickness>
             <Thickness x:Key="_linePadding">0,10,0,10</Thickness>
@@ -465,7 +465,7 @@
                         InputTransparent="True"
                         IsVisible="{Binding ShouldRollGuideBeVisible}">
             <AbsoluteLayout.LayoutBounds>
-                <Rectangle X="0" Y="0" Width="0" Height="0"/>
+                <Rect X="0" Y="0" Width="0" Height="0"/>
             </AbsoluteLayout.LayoutBounds>
             <Image x:Name="_horizontalLevelOutside"
                    AbsoluteLayout.LayoutFlags="All" 
@@ -516,7 +516,7 @@
               ColumnSpacing="0"
               IsVisible="{Binding ShouldSaveCapturesButtonBeVisible}">
             <AbsoluteLayout.LayoutBounds>
-                <Rectangle X="0" Y="1" Width="1" Height="15"/>
+                <Rect X="0" Y="1" Width="1" Height="15"/>
             </AbsoluteLayout.LayoutBounds>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
@@ -708,7 +708,7 @@
                      Padding="10"
                      IsVisible="{Binding WorkflowStage, Converter={StaticResource enumCompare}, ConverterParameter={x:Static vm:WorkflowStage.Keystone}}">
             <AbsoluteLayout.LayoutBounds>
-                <Rectangle X="0" Y="1" Width="1" Height="{StaticResource _largeIconWidth}"/>
+                <Rect X="0" Y="1" Width="1" Height="{StaticResource _largeIconWidth}"/>
             </AbsoluteLayout.LayoutBounds>
             <Slider Value="{Binding Edits.Keystone, Mode=TwoWay}"
                     Maximum="{Binding MaxKeystone}"
@@ -942,7 +942,7 @@
                      Padding="10"
                      IsVisible="{Binding WorkflowStage, Converter={StaticResource enumCompare}, ConverterParameter={x:Static vm:WorkflowStage.ManualAlign}}">
             <AbsoluteLayout.LayoutBounds>
-                <Rectangle X="0" Y="1" Width="1" Height="{StaticResource _largeIconWidth}"/>
+                <Rect X="0" Y="1" Width="1" Height="{StaticResource _largeIconWidth}"/>
             </AbsoluteLayout.LayoutBounds>
             <Slider Value="{Binding Edits.LeftRotation, Mode=TwoWay}"
                     Maximum="{Binding RotationMax}"
@@ -1113,7 +1113,7 @@
                      Padding="10"
                      IsVisible="{Binding WorkflowStage, Converter={StaticResource enumCompare}, ConverterParameter={x:Static vm:WorkflowStage.FovCorrection}}">
             <AbsoluteLayout.LayoutBounds>
-                <Rectangle X="0" Y="1" Width="1" Height="{StaticResource _largeIconWidth}"/>
+                <Rect X="0" Y="1" Width="1" Height="{StaticResource _largeIconWidth}"/>
             </AbsoluteLayout.LayoutBounds>
             <Slider Value="{Binding Edits.FovLeftCorrection, Mode=TwoWay}"
                     Maximum="{Binding ZoomMax}"
@@ -1143,7 +1143,7 @@
               ColumnSpacing="0"
               IsVisible="{Binding WorkflowStage, Converter={StaticResource enumCompare}, ConverterParameter={x:Static vm:WorkflowStage.Crop}}">
             <AbsoluteLayout.LayoutBounds>
-                <Rectangle X="0" Y="{StaticResource _editModeInnerButtons}" Width="1" Height="50"/>
+                <Rect X="0" Y="{StaticResource _editModeInnerButtons}" Width="1" Height="50"/>
             </AbsoluteLayout.LayoutBounds>
             <Grid.RowDefinitions>
                 <RowDefinition Height="1"/>
@@ -1388,7 +1388,7 @@
                      Padding="10"
                      IsVisible="{Binding WorkflowStage, Converter={StaticResource enumCompare}, ConverterParameter={x:Static vm:WorkflowStage.Crop}}">
             <AbsoluteLayout.LayoutBounds>
-                <Rectangle X="0" Y="1" Width="1" Height="{StaticResource _largeIconWidth}"/>
+                <Rect X="0" Y="1" Width="1" Height="{StaticResource _largeIconWidth}"/>
             </AbsoluteLayout.LayoutBounds>
             <Slider Value="{Binding Edits.InsideCrop, Mode=TwoWay}"
                     Maximum="{Binding SideCropMax}"

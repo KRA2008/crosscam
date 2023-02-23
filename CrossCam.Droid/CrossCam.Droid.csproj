@@ -38,6 +38,7 @@
     <AndroidUseSharedRuntime>true</AndroidUseSharedRuntime>
     <EmbedAssembliesIntoApk>false</EmbedAssembliesIntoApk>
     <AndroidEnableSGenConcurrent>true</AndroidEnableSGenConcurrent>
+    <AndroidEnableMultiDex>true</AndroidEnableMultiDex>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>full</DebugType>
@@ -97,33 +98,36 @@
       <Version>4.1.1</Version>
     </PackageReference>
     <PackageReference Include="Xamarin.AndroidX.Annotation">
-      <Version>1.1.0.9</Version>
+      <Version>1.5.0.2</Version>
     </PackageReference>
     <PackageReference Include="Xamarin.AndroidX.AppCompat.AppCompatResources">
-      <Version>1.2.0.7</Version>
+      <Version>1.6.0.1</Version>
     </PackageReference>
     <PackageReference Include="Xamarin.AndroidX.AppCompat.Resources">
-      <Version>1.1.0</Version>
+      <Version>1.1.0.2</Version>
     </PackageReference>
     <PackageReference Include="Xamarin.AndroidX.Core">
-      <Version>1.3.2.3</Version>
+      <Version>1.9.0.1</Version>
     </PackageReference>
     <PackageReference Include="Xamarin.AndroidX.Browser">
-      <Version>1.3.0.5</Version>
+      <Version>1.3.0.10</Version>
     </PackageReference>
-    <PackageReference Include="Xamarin.Google.Android.Material" Version="1.3.0.1" />
-    <PackageReference Include="Xamarin.AndroidX.Legacy.Support.V4" Version="1.0.0.7" />
-    <PackageReference Include="Xamarin.AndroidX.AppCompat" Version="1.2.0.7" />
-    <PackageReference Include="Xamarin.AndroidX.CardView" Version="1.0.0.8" />
-    <PackageReference Include="Xamarin.AndroidX.MediaRouter" Version="1.2.2.1" />
+    <PackageReference Include="Xamarin.CommunityToolkit">
+      <Version>2.0.5</Version>
+    </PackageReference>
+    <PackageReference Include="Xamarin.Google.Android.Material" Version="1.4.0.6" />
+    <PackageReference Include="Xamarin.AndroidX.Legacy.Support.V4" Version="1.0.0.16" />
+    <PackageReference Include="Xamarin.AndroidX.AppCompat" Version="1.6.0.1" />
+    <PackageReference Include="Xamarin.AndroidX.CardView" Version="1.0.0.18" />
+    <PackageReference Include="Xamarin.AndroidX.MediaRouter" Version="1.3.1.2" />
     <PackageReference Include="Xamarin.AndroidX.VectorDrawable">
-      <Version>1.1.0.7</Version>
+      <Version>1.1.0.16</Version>
     </PackageReference>
     <PackageReference Include="Xamarin.Essentials">
-      <Version>1.7.0</Version>
+      <Version>1.7.5</Version>
     </PackageReference>
     <PackageReference Include="Xamarin.Forms">
-      <Version>4.6.0.800</Version>
+      <Version>5.0.0.2545</Version>
     </PackageReference>
     <PackageReference Include="Xamarin.GooglePlayServices.Location">
       <Version>118.0.0</Version>
@@ -131,7 +135,7 @@
     <PackageReference Include="Xamarin.GooglePlayServices.Nearby">
       <Version>117.0.0</Version>
     </PackageReference>
-    <PackageReference Include="Xamarin.AndroidX.Migration" Version="1.0.8" />
+    <PackageReference Include="Xamarin.AndroidX.Migration" Version="1.0.10" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="System" />

@@ -6,6 +6,7 @@
                             xmlns:vc="clr-namespace:CrossCam.ValueConverter;assembly=CrossCam"
                             xmlns:ce="clr-namespace:CrossCam.CustomElement;assembly=CrossCam"
                             xmlns:system="clr-namespace:System;assembly=netstandard"
+                            xmlns:views="http://xamarin.com/schemas/2020/toolkit"
                             x:DataType="vm:SettingsViewModel"
                             x:Class="CrossCam.Page.SettingsPage"
                             Title="Settings">
@@ -69,7 +70,7 @@
                     <ColumnDefinition Width="70"/>
                 </Grid.ColumnDefinitions>
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="50"/>
                     <RowDefinition Height="Auto"/>
                     <RowDefinition Height="Auto"/>
                     <RowDefinition Height="Auto"/>
@@ -242,8 +243,8 @@
 
             <BoxView/>
 
-            <Expander x:Name="_pairingExpander">
-                <Expander.Header>
+            <views:Expander x:Name="_pairingExpander">
+                <views:Expander.Header>
                     <Grid>
                         <Label Text="Pairing"
                                Style="{DynamicResource header}"/>
@@ -252,7 +253,7 @@
                                VerticalOptions="Center">
                             <Image.Triggers>
                                 <DataTrigger TargetType="Image"
-                                             Binding="{Binding Source={RelativeSource AncestorType={x:Type Expander}}, Path=IsExpanded}"
+                                             Binding="{Binding Source={RelativeSource AncestorType={x:Type views:Expander}}, Path=IsExpanded}"
                                              Value="True">
                                     <Setter Property="Source"
                                             Value="expandLess.png" />
@@ -260,7 +261,7 @@
                             </Image.Triggers>
                         </Image>
                     </Grid>
-                </Expander.Header>
+                </views:Expander.Header>
                 <Grid ColumnSpacing="0"
                       RowSpacing="0"> <!-- can't be on demand because of resizing -->
                     <Grid.ColumnDefinitions>
@@ -268,7 +269,7 @@
                         <ColumnDefinition Width="70"/>
                     </Grid.ColumnDefinitions>
                     <Grid.RowDefinitions>
-                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="50"/>
                         <RowDefinition Height="Auto"/>
                         <RowDefinition Height="Auto"/>
                         <RowDefinition Height="Auto"/>
@@ -364,12 +365,12 @@
                                 IsVisible="{Binding Settings.IsFovCorrectionSet}"/>
                     </Grid>
                 </Grid>
-            </Expander>
+            </views:Expander>
 
             <BoxView/>
 
-            <Expander x:Name="_alignmentExpander">
-                <Expander.Header>
+            <views:Expander x:Name="_alignmentExpander">
+                <views:Expander.Header>
                     <Grid>
                         <Label Text="Automatic Alignment"
                                Style="{DynamicResource header}"/>
@@ -378,7 +379,7 @@
                                VerticalOptions="Center">
                             <Image.Triggers>
                                 <DataTrigger TargetType="Image"
-                                             Binding="{Binding Source={RelativeSource AncestorType={x:Type Expander}}, Path=IsExpanded}"
+                                             Binding="{Binding Source={RelativeSource AncestorType={x:Type views:Expander}}, Path=IsExpanded}"
                                              Value="True">
                                     <Setter Property="Source"
                                             Value="expandLess.png" />
@@ -386,7 +387,7 @@
                             </Image.Triggers>
                         </Image>
                     </Grid>
-                </Expander.Header>
+                </views:Expander.Header>
                 <Grid RowSpacing="0"
                       ColumnSpacing="0"> <!-- can't be on demand because of resizing -->
                     <Grid.ColumnDefinitions>
@@ -394,6 +395,9 @@
                         <ColumnDefinition Width="70"/>
                     </Grid.ColumnDefinitions>
                     <Grid.RowDefinitions>
+                        <RowDefinition Height="50"/>
+                        <RowDefinition Height="60"/>
+                        <RowDefinition Height="50"/>
                         <RowDefinition Height="Auto"/>
                         <RowDefinition Height="Auto"/>
                         <RowDefinition Height="Auto"/>
@@ -406,10 +410,7 @@
                         <RowDefinition Height="Auto"/>
                         <RowDefinition Height="Auto"/>
                         <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="50"/>
                     </Grid.RowDefinitions>
 
                     <Label Grid.Column="0" 
@@ -565,12 +566,12 @@
                             Text="Reset to Defaults"
                             Command="{Binding ResetAlignmentToDefaults}"/>
                 </Grid>
-            </Expander>
+            </views:Expander>
 
             <BoxView/>
 
-            <Expander>
-                <Expander.Header>
+            <views:Expander>
+                <views:Expander.Header>
                     <Grid>
                         <Label Text="Saving"
                                Style="{DynamicResource header}"/>
@@ -579,7 +580,7 @@
                                VerticalOptions="Center">
                             <Image.Triggers>
                                 <DataTrigger TargetType="Image"
-                                             Binding="{Binding Source={RelativeSource AncestorType={x:Type Expander}}, Path=IsExpanded}"
+                                             Binding="{Binding Source={RelativeSource AncestorType={x:Type views:Expander}}, Path=IsExpanded}"
                                              Value="True">
                                     <Setter Property="Source"
                                             Value="expandLess.png" />
@@ -587,8 +588,8 @@
                             </Image.Triggers>
                         </Image>
                     </Grid>
-                </Expander.Header>
-                <Expander.ContentTemplate>
+                </views:Expander.Header>
+                <views:Expander.ContentTemplate>
                     <DataTemplate>
                         <Grid ColumnSpacing="0">
                             <Grid.ColumnDefinitions>
@@ -597,20 +598,20 @@
                                 <ColumnDefinition Width="100"/>
                             </Grid.ColumnDefinitions>
                             <Grid.RowDefinitions>
-                                <RowDefinition Height="Auto"/>
-                                <RowDefinition Height="Auto"/>
-                                <RowDefinition Height="Auto"/>
-                                <RowDefinition Height="Auto"/>
-                                <RowDefinition Height="Auto"/>
-                                <RowDefinition Height="Auto"/>
-                                <RowDefinition Height="Auto"/>
-                                <RowDefinition Height="Auto"/>
-                                <RowDefinition Height="Auto"/>
-                                <RowDefinition Height="Auto"/>
-                                <RowDefinition Height="Auto"/>
-                                <RowDefinition Height="Auto"/>
-                                <RowDefinition Height="Auto"/>
-                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="50"/>
+                                <RowDefinition Height="60"/>
+                                <RowDefinition Height="60"/>
+                                <RowDefinition Height="60"/>
+                                <RowDefinition Height="60"/>
+                                <RowDefinition Height="70"/>
+                                <RowDefinition Height="70"/>
+                                <RowDefinition Height="70"/>
+                                <RowDefinition Height="70"/>
+                                <RowDefinition Height="70"/>
+                                <RowDefinition Height="70"/>
+                                <RowDefinition Height="70"/>
+                                <RowDefinition Height="70"/>
+                                <RowDefinition Height="70"/>
                                 <RowDefinition Height="Auto"/>
                                 <RowDefinition Height="Auto"/>
                                 <RowDefinition Height="Auto"/>
@@ -866,13 +867,13 @@
                                     IsVisible="{Binding CanSaveToExternalDirectory}"/>
                         </Grid>
                     </DataTemplate>
-                </Expander.ContentTemplate>
-            </Expander>
+                </views:Expander.ContentTemplate>
+            </views:Expander>
 
             <BoxView/>
 
-            <Expander x:Name="_borderExpander">
-                <Expander.Header>
+            <views:Expander x:Name="_borderExpander">
+                <views:Expander.Header>
                     <Grid>
                         <Label Text="Border"
                                Style="{DynamicResource header}"/>
@@ -881,7 +882,7 @@
                                VerticalOptions="Center">
                             <Image.Triggers>
                                 <DataTrigger TargetType="Image"
-                                             Binding="{Binding Source={RelativeSource AncestorType={x:Type Expander}}, Path=IsExpanded}"
+                                             Binding="{Binding Source={RelativeSource AncestorType={x:Type views:Expander}}, Path=IsExpanded}"
                                              Value="True">
                                     <Setter Property="Source"
                                             Value="expandLess.png" />
@@ -889,7 +890,7 @@
                             </Image.Triggers>
                         </Image>
                     </Grid>
-                </Expander.Header>
+                </views:Expander.Header>
                 <Grid RowSpacing="0"
                       ColumnSpacing="0">
                     <Grid.ColumnDefinitions>
@@ -897,10 +898,10 @@
                         <ColumnDefinition Width="70"/>
                     </Grid.ColumnDefinitions>
                     <Grid.RowDefinitions>
+                        <RowDefinition Height="50"/>
                         <RowDefinition Height="Auto"/>
                         <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="50"/>
                     </Grid.RowDefinitions>
 
                     <Label Grid.Column="0"
@@ -939,12 +940,12 @@
                             Grid.Row="3" 
                             IsToggled="{Binding Settings.ClipBorderOnNextLoad}"/>
                 </Grid>
-            </Expander>
+            </views:Expander>
 
             <BoxView/>
 
-            <Expander x:Name="_guidesExpander">
-                <Expander.Header>
+            <views:Expander x:Name="_guidesExpander">
+                <views:Expander.Header>
                     <Grid>
                         <Label Text="Capture Guides"
                                Style="{DynamicResource header}"/>
@@ -953,7 +954,7 @@
                                VerticalOptions="Center">
                             <Image.Triggers>
                                 <DataTrigger TargetType="Image"
-                                             Binding="{Binding Source={RelativeSource AncestorType={x:Type Expander}}, Path=IsExpanded}"
+                                             Binding="{Binding Source={RelativeSource AncestorType={x:Type views:Expander}}, Path=IsExpanded}"
                                              Value="True">
                                     <Setter Property="Source"
                                             Value="expandLess.png" />
@@ -961,7 +962,7 @@
                             </Image.Triggers>
                         </Image>
                     </Grid>
-                </Expander.Header>
+                </views:Expander.Header>
                 <Grid ColumnSpacing="0"
                       RowSpacing="0">
                     <Grid.ColumnDefinitions>
@@ -969,13 +970,13 @@
                         <ColumnDefinition Width="70"/>
                     </Grid.ColumnDefinitions>
                     <Grid.RowDefinitions>
+                        <RowDefinition Height="50"/>
                         <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="50"/>
+                        <RowDefinition Height="60"/>
                         <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="60"/>
+                        <RowDefinition Height="60"/>
                     </Grid.RowDefinitions>
 
                     <Label Grid.Column="0"
@@ -1031,12 +1032,12 @@
                             Grid.Row="6" 
                             IsToggled="{Binding Settings.ShowGhostCaptures}"/>
                 </Grid>
-            </Expander>
+            </views:Expander>
 
             <BoxView/>
 
-            <Expander>
-                <Expander.Header>
+            <views:Expander>
+                <views:Expander.Header>
                     <Grid>
                         <Label Text="Camera"
                                Style="{DynamicResource header}"/>
@@ -1045,7 +1046,7 @@
                                VerticalOptions="Center">
                             <Image.Triggers>
                                 <DataTrigger TargetType="Image"
-                                             Binding="{Binding Source={RelativeSource AncestorType={x:Type Expander}}, Path=IsExpanded}"
+                                             Binding="{Binding Source={RelativeSource AncestorType={x:Type views:Expander}}, Path=IsExpanded}"
                                              Value="True">
                                     <Setter Property="Source"
                                             Value="expandLess.png" />
@@ -1053,8 +1054,8 @@
                             </Image.Triggers>
                         </Image>
                     </Grid>
-                </Expander.Header>
-                <Expander.ContentTemplate>
+                </views:Expander.Header>
+                <views:Expander.ContentTemplate>
                     <DataTemplate>
                         <Grid>
                             <Grid.ColumnDefinitions>
@@ -1174,9 +1175,9 @@
 
                         </Grid>
                     </DataTemplate>
-                </Expander.ContentTemplate>
+                </views:Expander.ContentTemplate>
                 
-            </Expander>
+            </views:Expander>
 
             <BoxView/>
 

@@ -36,6 +36,7 @@ using CameraModule = CrossCam.CustomElement.CameraModule;
 using Exception = System.Exception;
 using Math = System.Math;
 using PointF = System.Drawing.PointF;
+using Rect = Android.Graphics.Rect;
 using Size = Android.Util.Size;
 using View = Android.Views.View;
 #pragma warning disable 618

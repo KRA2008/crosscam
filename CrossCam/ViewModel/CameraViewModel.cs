@@ -979,6 +979,7 @@ namespace CrossCam.ViewModel
             PromptForPermissionAndSendErrorEmailCommand = new Command(async () =>
             {
                 Debugger.Break();
+                Debug.WriteLine("### ERROR: " + ErrorMessage);
                 await Device.InvokeOnMainThreadAsync(async () =>
                 {
                     var sendReport = await CoreMethods.DisplayAlert("Oops",
