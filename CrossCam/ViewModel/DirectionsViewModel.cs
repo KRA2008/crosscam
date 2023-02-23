@@ -1,5 +1,4 @@
-﻿using System;
-using CrossCam.Model;
+﻿using CrossCam.Model;
 using FreshMvvm;
 
 namespace CrossCam.ViewModel
@@ -22,10 +21,10 @@ namespace CrossCam.ViewModel
                         retString = "cross";
                         break;
                     case DrawMode.RedCyanAnaglyph:
-                        retString = "cross";
+                        retString = "anaglyph";
                         break;
                     case DrawMode.GrayscaleRedCyanAnaglyph:
-                        retString = "cross";
+                        retString = "anaglyph";
                         break;
                     case DrawMode.Cardboard:
                         retString = "cardboard";
@@ -35,17 +34,6 @@ namespace CrossCam.ViewModel
                 retString += " viewing";
 
                 return retString;
-            }
-        }
-        
-        public string DirectionToMove
-        {
-            get
-            {
-                if (_settings.IsCaptureLeftFirst && (_settings.Mode == DrawMode.Parallel || _settings.Mode == DrawMode.Cardboard) ||
-                    !_settings.IsCaptureLeftFirst && _settings.Mode != DrawMode.Parallel && _settings.Mode != DrawMode.Cardboard)
-                    return "RIGHT";
-                return "LEFT";
             }
         }
 
