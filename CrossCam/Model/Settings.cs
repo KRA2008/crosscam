@@ -469,7 +469,7 @@ namespace CrossCam.Model
 
             PairedPreviewFrameDelayMs = 250;
             PairSyncSampleCount = 50;
-            PairedCaptureCountdown = 0; //TODO: 0 or 3?
+            PairedCaptureCountdown = 0;
 
             CardboardIpd = 400;
             CardboardBarrelDistortion = 200;

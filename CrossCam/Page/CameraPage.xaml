@@ -424,42 +424,6 @@
                    InputTransparent="True"/>
         </ContentView>
 
-        <ContentView x:Name="_cameraSettingsRibbon"
-                     AbsoluteLayout.LayoutFlags="WidthProportional"
-                     AbsoluteLayout.LayoutBounds="0,0,1,40"
-                     IsVisible="{Binding IsCameraSelectVisible}"
-                     HorizontalOptions="FillAndExpand" 
-                     BackgroundColor="Black"
-                     Opacity="0.7">
-            <Grid>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="40"/>
-                    <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="40"/>
-                </Grid.ColumnDefinitions>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="Auto"/>
-                </Grid.RowDefinitions>
-                <Label Grid.Column="1"
-                       Grid.Row="0"
-                       Text="Camera:"
-                       VerticalTextAlignment="Center"
-                       HorizontalOptions="EndAndExpand"/>
-                <Picker Grid.Column="2"
-                        Grid.Row="0"
-                        Title="Camera"
-                        TitleColor="Black"
-                        TextColor="White"
-                        BackgroundColor="Black"
-                        FontSize="Small"
-                        ItemsSource="{Binding AvailableCameras}"
-                        SelectedItem="{Binding ChosenCamera}"
-                        ItemDisplayBinding="{Binding DisplayName}"
-                        HeightRequest="{Binding Source={x:Reference _cameraSettingsRibbon}, Path=Height}"/>
-            </Grid>
-        </ContentView>
-
         <AbsoluteLayout x:Name="_horizontalLevelWhole"
                         AbsoluteLayout.LayoutFlags="XProportional"
                         InputTransparent="True"
@@ -1851,6 +1815,28 @@
                                IsVisible="True"
                                IsRunning="True"/>
         </StackLayout>
+
+        <StackLayout AbsoluteLayout.LayoutFlags="All"
+                     AbsoluteLayout.LayoutBounds="0,0,1,1"
+                     InputTransparent="True"
+                     IsVisible="False">
+            <StackLayout.Triggers>
+                <MultiTrigger TargetType="StackLayout">
+                    <MultiTrigger.Conditions>
+                        <BindingCondition Binding="{Binding Settings.Mode, Converter={StaticResource enumCompare}, ConverterParameter={x:Static vm:DrawMode.Cardboard}}"
+                                          Value="True"/>
+                        <BindingCondition Binding="{Binding IsViewPortrait}"
+                                          Value="True"/>
+                    </MultiTrigger.Conditions>
+                    <Setter Property="IsVisible"
+                            Value="True"/>
+                </MultiTrigger>
+            </StackLayout.Triggers>
+            <Label Text="Flip to landscape when in cardboard mode."
+                   HorizontalOptions="Center"
+                   VerticalOptions="CenterAndExpand"/>
+        </StackLayout>
+
         <!--<StackLayout AbsoluteLayout.LayoutFlags="PositionProportional,HeightProportional"
                      AbsoluteLayout.LayoutBounds="0.5,0,400,1"
                      IsVisible="{Binding Settings.Mode, Converter={StaticResource enumCompare}, ConverterParameter={x:Static vm:DrawMode.Cardboard}}"

@@ -363,7 +363,6 @@ namespace CrossCam.Page
                         break;
                     case nameof(CameraViewModel.PreviewBottomY):
                         PlaceRollGuide();
-                        PlaceSettingsRibbon();
                         break;
                     case nameof(CameraViewModel.LeftOrientation):
                     case nameof(CameraViewModel.LeftBitmap):
@@ -421,16 +420,6 @@ namespace CrossCam.Page
                         _viewModel?.ClearCapturesCommand.Execute(null);
                         break;
                 }
-            }
-        }
-
-        private void PlaceSettingsRibbon()
-        {
-            if (_viewModel != null)
-            {
-                var originalBounds = AbsoluteLayout.GetLayoutBounds(_cameraSettingsRibbon);
-                originalBounds.Y = _viewModel.PreviewBottomY - originalBounds.Height;
-                AbsoluteLayout.SetLayoutBounds(_cameraSettingsRibbon, originalBounds);
             }
         }
 
