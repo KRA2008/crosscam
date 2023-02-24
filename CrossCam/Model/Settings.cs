@@ -436,7 +436,7 @@ namespace CrossCam.Model
             SaveForRedCyanAnaglyph = false;
             SaveForTriple = false;
             SaveForQuad = false;
-            SaveWithFuseGuide = false; //TODO: decide how to do this
+            SaveWithFuseGuide = true;
             SaveForCardboard = false;
             SaveIntoSeparateFolders = false;
             ClearCapturesAfterSave = true;
