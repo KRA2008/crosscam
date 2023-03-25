@@ -742,8 +742,8 @@ namespace CrossCam.Page
                 var fuseGuideY = previewY - DrawTool.CalculateFuseGuideMarginHeight(previewHeight) / 2d - iconWidth / 2d; 
                 leftFuseGuideBounds.Y = fuseGuideY;
                 rightFuseGuideBounds.Y = fuseGuideY;
-                leftFuseGuideBounds.X = Width / 2d - _previewGrid.Width / 4d;
-                rightFuseGuideBounds.X = Width / 2d + _previewGrid.Width / 4d;
+                leftFuseGuideBounds.X = Width / 2d - _previewGrid.Width / 4d - iconWidth;
+                rightFuseGuideBounds.X = Width / 2d + _previewGrid.Width / 4d + iconWidth;
                 AbsoluteLayout.SetLayoutBounds(_leftFuseGuide, leftFuseGuideBounds);
                 AbsoluteLayout.SetLayoutBounds(_rightFuseGuide, rightFuseGuideBounds);
             }

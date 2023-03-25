@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Diagnostics;
 using System.Linq;
 using CrossCam.Model;
 using CrossCam.ViewModel;
@@ -14,7 +13,7 @@ namespace CrossCam.Page
     {
         public const double BORDER_CONVERSION_FACTOR = 0.001;
         private const double FUSE_GUIDE_WIDTH_RATIO = 0.0127;
-        private const int FUSE_GUIDE_MARGIN_HEIGHT_RATIO = 7;
+        private const int FUSE_GUIDE_MARGIN_HEIGHT_RATIO = 5;
 
         private static readonly SKColorFilter CyanAnaglyph = SKColorFilter.CreateColorMatrix(new[]
         {
@@ -279,21 +278,31 @@ namespace CrossCam.Page
                 widthRatio /= 2d;
             }
 
+            var realBorderTopHeight = sideBitmapWidthLessCrop * innerBorderThicknessProportion;
             var bitmapHeightWithEditsAndBorder =
-                sideBitmapHeightLessCrop + sideBitmapWidthLessCrop * innerBorderThicknessProportion * 2;
+                sideBitmapHeightLessCrop + realBorderTopHeight * 2;
             var drawFuseGuide = fuseGuideRequested &&
                                 drawMode != DrawMode.Cardboard &&
                                 !overlayDrawing &&
                                 leftBitmap != null && rightBitmap != null;
 
-            float fuseGuideIconWidth = 0;
-            float fuseGuideMarginHeight = 0;
+            var fuseGuideIconWidth = CalculateFuseGuideWidth((float)bitmapHeightWithEditsAndBorder);
+            var fuseGuideMarginMinimum = CalculateFuseGuideMarginHeight((float)bitmapHeightWithEditsAndBorder);
+            var topMarginFuseGuideModifier = 0f;
+
             if (drawFuseGuide)
             {
-                fuseGuideIconWidth = CalculateFuseGuideWidth((float) bitmapHeightWithEditsAndBorder);
-                fuseGuideMarginHeight = CalculateFuseGuideMarginHeight((float) bitmapHeightWithEditsAndBorder);
-                bitmapHeightWithEditsAndBorder += fuseGuideMarginHeight;
+                if (realBorderTopHeight < fuseGuideMarginMinimum)
+                {
+                    topMarginFuseGuideModifier = (float) (fuseGuideMarginMinimum - realBorderTopHeight);
+                }
+                else
+                {
+                    topMarginFuseGuideModifier = 0;
+                }
             }
+
+            bitmapHeightWithEditsAndBorder += topMarginFuseGuideModifier;
 
             var heightRatio = bitmapHeightWithEditsAndBorder / (1d * canvasHeight);
 
@@ -302,7 +311,8 @@ namespace CrossCam.Page
             var scalingRatio = fillsWidth ? widthRatio : heightRatio;
 
             fuseGuideIconWidth = (float) (fuseGuideIconWidth / scalingRatio);
-            fuseGuideMarginHeight = (float) (fuseGuideMarginHeight / scalingRatio);
+            topMarginFuseGuideModifier = (float) (topMarginFuseGuideModifier / scalingRatio);
+            fuseGuideMarginMinimum = (float) (fuseGuideMarginMinimum / scalingRatio);
 
             var clipWidth = (float) (sideBitmapWidthLessCrop / scalingRatio);
             var clipHeight = (float) (sideBitmapHeightLessCrop / scalingRatio);
@@ -330,8 +340,8 @@ namespace CrossCam.Page
 
             if (drawFuseGuide)
             {
-                destY += fuseGuideMarginHeight / 2f;
-                clipY += fuseGuideMarginHeight / 2f;
+                destY += topMarginFuseGuideModifier / 2f;
+                clipY += topMarginFuseGuideModifier / 2f;
             }
 
             var cardboardSeparationMod = 0d;
@@ -473,18 +483,20 @@ namespace CrossCam.Page
             if (drawFuseGuide)
             {
                 var previewBorderThickness = canvasWidth / 2f - (leftClipX + clipWidth);
-                var fuseGuideY = clipY - 2 * previewBorderThickness - fuseGuideMarginHeight / 2f; //why 2x border? why doesn't this have to account for icon height? i don't know.
-                using var whitePaint = new SKPaint
+                var fuseGuideY = clipY - fuseGuideIconWidth / 2f - fuseGuideMarginMinimum / 2f;
+                using var guidePaint = new SKPaint
                 {
-                    Color = new SKColor(byte.MaxValue, byte.MaxValue, byte.MaxValue),
+                    Color = borderColor == BorderColor.Black ? 
+                        new SKColor(byte.MaxValue, byte.MaxValue, byte.MaxValue) :
+                        new SKColor(0,0,0),
                     FilterQuality = skFilterQuality
                 };
                 surface.Canvas.DrawRect(
-                    canvasWidth / 2f - previewBorderThickness - clipWidth / 2f - fuseGuideIconWidth / 2f,
-                    fuseGuideY, fuseGuideIconWidth, fuseGuideIconWidth, whitePaint);
+                    canvasWidth / 2f - previewBorderThickness / 2f - clipWidth / 2f - fuseGuideIconWidth,
+                    fuseGuideY, fuseGuideIconWidth, fuseGuideIconWidth, guidePaint);
                 surface.Canvas.DrawRect(
-                    canvasWidth / 2f + previewBorderThickness + clipWidth / 2f + fuseGuideIconWidth / 2f,
-                    fuseGuideY, fuseGuideIconWidth, fuseGuideIconWidth, whitePaint);
+                    canvasWidth / 2f + previewBorderThickness / 2f + clipWidth / 2f + fuseGuideIconWidth,
+                    fuseGuideY, fuseGuideIconWidth, fuseGuideIconWidth, guidePaint);
             }
         }
 
