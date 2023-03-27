@@ -457,6 +457,11 @@ namespace CrossCam.Page
                 }
             }
 
+            var originX = (float)(leftClipX - innerBorderThicknessProportion * clipWidth);
+            var originY = (float)(clipY - innerBorderThicknessProportion * clipWidth);
+            var fullPreviewWidth = (float)(2 * clipWidth + 3 * innerBorderThicknessProportion * clipWidth);
+
+
             if (innerBorderThicknessProportion > 0)
             {
                 using var borderPaint = new SKPaint
@@ -466,9 +471,6 @@ namespace CrossCam.Page
                     FilterQuality = skFilterQuality
                 };
 
-                var originX = (float)(leftClipX - innerBorderThicknessProportion * clipWidth);
-                var originY = (float)(clipY - innerBorderThicknessProportion * clipWidth);
-                var fullPreviewWidth = (float)(2 * clipWidth + 3 * innerBorderThicknessProportion * clipWidth);
                 var fullPreviewHeight = (float)(clipHeight + 2 * innerBorderThicknessProportion * clipWidth);
                 var scaledBorderThickness = (float)(innerBorderThicknessProportion * clipWidth);
                 var endX = rightClipX + clipWidth;
@@ -491,6 +493,16 @@ namespace CrossCam.Page
                         new SKColor(0,0,0),
                     FilterQuality = skFilterQuality
                 };
+                surface.Canvas.DrawRect(
+                    originX,
+                    originY - topMarginFuseGuideModifier,
+                    fullPreviewWidth, topMarginFuseGuideModifier,
+                    new SKPaint
+                    {
+                        Color = borderColor == BorderColor.Black ?
+                            new SKColor(0, 0, 0) :
+                            new SKColor(byte.MaxValue, byte.MaxValue, byte.MaxValue)
+                    });
                 surface.Canvas.DrawRect(
                     canvasWidth / 2f - previewBorderThickness / 2f - clipWidth / 2f - fuseGuideIconWidth,
                     fuseGuideY, fuseGuideIconWidth, fuseGuideIconWidth, guidePaint);
