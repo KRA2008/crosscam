@@ -1,23 +1,15 @@
-﻿using System;
-using CrossCam.Model;
-using FreshMvvm;
+﻿using CrossCam.Model;
 using Plugin.DeviceInfo;
 using Xamarin.Forms;
 
 namespace CrossCam.ViewModel
 {
-    public class HelpViewModel : FreshBasePageModel
+    public class HelpViewModel : BasePageModel
     {
         public Command NavigateToTechniqueHelpPage { get; set; }
         public Command NavigateToDirectionsPage { get; set; }
         public Command NavigateToTipsPage { get; set; }
         public Command NavigateToContactPage { get; set; }
-        public Command OpenPromotionalAlbumCommand { get; set; }
-        public Command PrivacyPolicyCommand { get; set; }
-        public Command AboutTheDeveloperCommand { get; set; }
-        public Command CrossViewSubredditCommand { get; set; }
-        public Command ParallelViewSubredditCommand { get; set; }
-        public Command GithubCodeCommand { get; set; }
         public Command NavigateToTipMePage { get; set; }
         private Settings _settings;
 
@@ -43,36 +35,6 @@ namespace CrossCam.ViewModel
             NavigateToContactPage = new Command(async () =>
             {
                 await  CoreMethods.PushPageModel<ContactViewModel>();
-            });
-            
-            OpenPromotionalAlbumCommand = new Command(() =>
-            {
-                Device.OpenUri(new Uri("https://imgur.com/a/Crw232n"));
-            });
-
-            PrivacyPolicyCommand = new Command(() =>
-            {
-                Device.OpenUri(new Uri("http://kra2008.com/crosscam/privacypolicy.html"));
-            });
-
-            AboutTheDeveloperCommand = new Command(() =>
-            {
-                Device.OpenUri(new Uri("http://kra2008.com/"));
-            });
-
-            CrossViewSubredditCommand = new Command(() =>
-            {
-                Device.OpenUri(new Uri("https://old.reddit.com/r/CrossView/"));
-            });
-
-            ParallelViewSubredditCommand = new Command(() =>
-            {
-                Device.OpenUri(new Uri("https://old.reddit.com/r/ParallelView/"));
-            });
-
-            GithubCodeCommand = new Command(() =>
-            {
-                Device.OpenUri(new Uri("https://github.com/KRA2008/crosscam"));
             });
 
             NavigateToTipMePage = new Command(async () =>

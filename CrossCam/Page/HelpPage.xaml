@@ -23,25 +23,31 @@
                     Command="{Binding NavigateToTipsPage}"/>
             <BoxView/>
             <Button Text="See Pictures I've Taken"
-                    Command="{Binding OpenPromotionalAlbumCommand}"/>
+                    Command="{Binding OpenLink}"
+                    CommandParameter="https://imgur.com/a/Crw232n"/>
             <BoxView/>
             <Button Text="Feedback/Contact"
                     Command="{Binding NavigateToContactPage}"/>
             <BoxView/>
             <Button Text="CrossView Subreddit"
-                    Command="{Binding CrossViewSubredditCommand}"/>
+                    Command="{Binding OpenLink}"
+                    CommandParameter="https://reddit.com/r/CrossView/"/>
             <BoxView/>
             <Button Text="ParallelView Subreddit"
-                    Command="{Binding ParallelViewSubredditCommand}"/>
+                    Command="{Binding OpenLink}"
+                    CommandParameter="https://reddit.com/r/ParallelView/"/>
             <BoxView/>
             <Button Text="Privacy Policy"
-                    Command="{Binding PrivacyPolicyCommand}"/>
+                    Command="{Binding OpenLink}"
+                    CommandParameter="http://kra2008.com/crosscam/privacypolicy.html"/>
             <BoxView/>
             <Button Text="See the Code"
-                    Command="{Binding GithubCodeCommand}"/>
+                    Command="{Binding OpenLink}"
+                    CommandParameter="https://github.com/KRA2008/crosscam"/>
             <BoxView/>
             <Button Text="About the Developer"
-                    Command="{Binding AboutTheDeveloperCommand}"/>
+                    Command="{Binding OpenLink}"
+                    CommandParameter="http://kra2008.com/"/>
             <BoxView/>
             <customElement:EmailMeLabel/>
             <Label Text="{Binding AppVersion}"

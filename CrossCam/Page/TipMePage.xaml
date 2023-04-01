@@ -2,28 +2,34 @@
 <freshMvvm:FreshBaseContentPage xmlns="http://xamarin.com/schemas/2014/forms"
                       xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
                       xmlns:freshMvvm="clr-namespace:FreshMvvm;assembly=FreshMvvm"
+                      xmlns:customElement="clr-namespace:CrossCam.CustomElement;assembly=CrossCam"
+                      xmlns:viewModel="clr-namespace:CrossCam.ViewModel;assembly=CrossCam"
                       x:Class="CrossCam.Page.TipMePage"
+                      x:DataType="viewModel:TipMeViewModel"
                       Title="Tip Me!">
-    <StackLayout Spacing="15">
-        <BoxView/>
-        <Label Text="CrossCam is free to use, ad-free, and open-source. If you like CrossCam, please consider sending me a tip. Tips are greatly appreciated!"
-               Padding="15,0,15,0"/>
-        <BoxView/>
-        <Button Text="Ko-fi"
-                Command="{Binding OpenLink}"
-                CommandParameter="https://ko-fi.com/kra2008"/>
-        <BoxView/>
-        <Button Text="PayPal"
-                Command="{Binding OpenLink}"
-                CommandParameter="https://paypal.com/paypalme/KRA2008"/>
-        <BoxView/>
-        <Button Text="Patreon"
-                Command="{Binding OpenLink}"
-                CommandParameter="https://patreon.com/kra2008"/>
-        <BoxView/>
-        <Button Text="Venmo"
-                Command="{Binding OpenLink}"
-                CommandParameter="https://account.venmo.com/u/kra2008"/>
-        <BoxView/>
-    </StackLayout>
+    <ScrollView>
+        <StackLayout Spacing="15">
+            <BoxView/>
+            <Label Text="CrossCam is free to use, ad-free, and open-source. If you like CrossCam, please consider sending me a tip. Tips are greatly appreciated!"
+                   Padding="15,0,15,0"/>
+            <BoxView/>
+            <Button Text="Ko-fi"
+                    Command="{Binding OpenLink}"
+                    CommandParameter="https://ko-fi.com/kra2008"/>
+            <BoxView/>
+            <Button Text="PayPal"
+                    Command="{Binding OpenLink}"
+                    CommandParameter="https://paypal.com/paypalme/KRA2008"/>
+            <BoxView/>
+            <Button Text="Patreon"
+                    Command="{Binding OpenLink}"
+                    CommandParameter="https://patreon.com/kra2008"/>
+            <BoxView/>
+            <Button Text="Venmo"
+                    Command="{Binding OpenLink}"
+                    CommandParameter="https://account.venmo.com/u/kra2008"/>
+            <BoxView/>
+            <customElement:EmailMeLabel/>
+        </StackLayout>
+    </ScrollView>
 </freshMvvm:FreshBaseContentPage>

@@ -2102,6 +2102,7 @@ namespace CrossCam.ViewModel
         private async Task EvaluateAndShowWelcomePopup()
         {
 #if DEBUG
+            await Task.CompletedTask;
 #else
             await Device.InvokeOnMainThreadAsync(async () =>
             {
