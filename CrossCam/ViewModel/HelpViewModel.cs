@@ -18,6 +18,7 @@ namespace CrossCam.ViewModel
         public Command CrossViewSubredditCommand { get; set; }
         public Command ParallelViewSubredditCommand { get; set; }
         public Command GithubCodeCommand { get; set; }
+        public Command NavigateToTipMePage { get; set; }
         private Settings _settings;
 
         public string AppVersion => "v" + CrossDeviceInfo.Current.AppVersion;
@@ -72,6 +73,11 @@ namespace CrossCam.ViewModel
             GithubCodeCommand = new Command(() =>
             {
                 Device.OpenUri(new Uri("https://github.com/KRA2008/crosscam"));
+            });
+
+            NavigateToTipMePage = new Command(async () =>
+            {
+                await CoreMethods.PushPageModel<TipMeViewModel>();
             });
         }
 
