@@ -70,7 +70,7 @@ namespace CrossCam.Droid
             Xamarin.Essentials.Platform.Init(this, bundle); 
             AppCenter.Start("febfa1c4-10aa-4087-9594-71d287579841", // plz don't abuse this.
                 typeof(Analytics), typeof(Crashes));
-            
+
             DeviceDisplay.MainDisplayInfoChanged += SetFullscreen; 
             SetFullscreen(null, null);
 

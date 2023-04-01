@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Diagnostics;
@@ -10,6 +11,8 @@ using CrossCam.CustomElement;
 using CrossCam.Model;
 using CrossCam.Page;
 using CrossCam.Wrappers;
+using Microsoft.AppCenter.Analytics;
+using Microsoft.AppCenter.Crashes;
 using Newtonsoft.Json;
 using Plugin.DeviceInfo;
 using SkiaSharp;
@@ -676,6 +679,8 @@ namespace CrossCam.ViewModel
 
             SaveCapturesCommand = new Command(async () =>
             {
+                const string SAVE_EVENT = "key";
+                const string SAVE_TYPE = "type";
                 WorkflowStage = WorkflowStage.Saving;
 
                 try
@@ -684,6 +689,10 @@ namespace CrossCam.ViewModel
                     {
                         if (Settings.SaveSidesSeparately)
                         {
+                            Analytics.TrackEvent(SAVE_EVENT, new Dictionary<string, string>
+                            {
+                                {SAVE_TYPE, "separate sides"}
+                            });
                             var leftWidth = LeftBitmap.Width;
                             var leftHeight = LeftBitmap.Height;
                             if (DrawTool.Orientations90deg.Contains(LeftOrientation))
@@ -759,6 +768,10 @@ namespace CrossCam.ViewModel
                             Settings.SaveForCrossView &&
                             Settings.Mode == DrawMode.GrayscaleRedCyanAnaglyph)
                         {
+                            Analytics.TrackEvent(SAVE_EVENT, new Dictionary<string, string>
+                            {
+                                {SAVE_TYPE, Settings.Mode == DrawMode.Parallel ? "parallel" : "cross"}
+                            });
                             using var tempSurface =
                                 SKSurface.Create(new SKImageInfo(finalImageWidth, finalImageHeight));
 
@@ -779,6 +792,10 @@ namespace CrossCam.ViewModel
                             Settings.SaveForCrossView &&
                             Settings.Mode == DrawMode.Parallel)
                         {
+                            Analytics.TrackEvent(SAVE_EVENT, new Dictionary<string, string>
+                            {
+                                {SAVE_TYPE, Settings.Mode == DrawMode.Cross ? "parallel" : "cross"}
+                            });
                             using var tempSurface =
                                 SKSurface.Create(new SKImageInfo(finalImageWidth, finalImageHeight));
                             using var canvas = tempSurface.Canvas;
@@ -798,16 +815,28 @@ namespace CrossCam.ViewModel
 
                         if (Settings.SaveForRedCyanAnaglyph)
                         {
+                            Analytics.TrackEvent(SAVE_EVENT, new Dictionary<string, string>
+                            {
+                                {SAVE_TYPE, "red cyan anaglyph"}
+                            });
                             await DrawAnaglyph(false);
                         }
 
                         if (Settings.SaveForGrayscaleAnaglyph)
                         {
+                            Analytics.TrackEvent(SAVE_EVENT, new Dictionary<string, string>
+                            {
+                                {SAVE_TYPE, "grayscale anaglyph"}
+                            });
                             await DrawAnaglyph(true);
                         }
 
                         if (Settings.SaveRedundantFirstSide)
                         {
+                            Analytics.TrackEvent(SAVE_EVENT, new Dictionary<string, string>
+                            {
+                                {SAVE_TYPE, "first side"}
+                            });
                             SKBitmap targetBitmap;
                             SKEncodedOrigin targetOrientation;
                             bool targetFront;
@@ -846,6 +875,10 @@ namespace CrossCam.ViewModel
 
                         if (Settings.SaveForTriple)
                         {
+                            Analytics.TrackEvent(SAVE_EVENT, new Dictionary<string, string>
+                            {
+                                {SAVE_TYPE, "triple"}
+                            });
                             using var doubleSurface =
                                 SKSurface.Create(new SKImageInfo(finalImageWidth, finalImageHeight));
                             using var doubleCanvas = doubleSurface.Canvas;
@@ -871,6 +904,10 @@ namespace CrossCam.ViewModel
 
                         if (Settings.SaveForQuad)
                         {
+                            Analytics.TrackEvent(SAVE_EVENT, new Dictionary<string, string>
+                            {
+                                {SAVE_TYPE, "quad"}
+                            });
                             using var doublePlainSurface =
                                 SKSurface.Create(new SKImageInfo(finalImageWidth, finalImageHeight));
                             using var doublePlainCanvas = doublePlainSurface.Canvas;
@@ -909,6 +946,10 @@ namespace CrossCam.ViewModel
 
                         if (Settings.SaveForCardboard)
                         {
+                            Analytics.TrackEvent(SAVE_EVENT, new Dictionary<string, string>
+                            {
+                                {SAVE_TYPE, "cardboard"}
+                            });
                             var width = DrawTool.CalculateJoinedCanvasWidthWithEditsNoBorder(
                                 LeftBitmap, LeftAlignmentTransform, LeftOrientation, IsLeftFrontFacing, 
                                 RightBitmap, RightAlignmentTransform, RightOrientation, IsRightFrontFacing, Edits);
@@ -1031,6 +1072,7 @@ namespace CrossCam.ViewModel
                         {
                             if (Settings.IsPairedPrimary.Value)
                             {
+                                Analytics.TrackEvent("attempt primary pairing");
                                 await PairOperator.SetUpPrimaryForPairing();
                             }
                             else
@@ -1069,6 +1111,15 @@ namespace CrossCam.ViewModel
             PairOperator.TransmissionComplete += PairOperatorTransmissionComplete;
             PairOperator.CountdownTimerSyncCompleteSecondary += PairOperatorCountdownTimerSyncCompleteSecondary;
             PairOperator.ErrorOccurred += PairOperatorOnErrorOccurred;
+
+            var settingsDictionary = JsonConvert
+                .DeserializeObject<Dictionary<string, object>>(JsonConvert.SerializeObject(Settings))
+                .ToDictionary(pair => pair.Key, pair => pair.Value?.ToString());
+            Analytics.TrackEvent("settings at launch", settingsDictionary);
+            var alignmentDictionary = JsonConvert
+                .DeserializeObject<Dictionary<string, object>>(JsonConvert.SerializeObject(Settings.AlignmentSettings))
+                .ToDictionary(pair => pair.Key, pair => pair.Value?.ToString());
+            Analytics.TrackEvent("alignment settings at launch", alignmentDictionary);
         }
 
         public override void ReverseInit(object returnedData)
@@ -1171,6 +1222,11 @@ namespace CrossCam.ViewModel
             }
             else if (args.PropertyName == nameof(ErrorMessage))
             {
+                Crashes.TrackError(null, new Dictionary<string, string>()
+                {
+                    {"error message", ErrorMessage},
+                    {"settings", JsonConvert.SerializeObject(Settings)}
+                });
                 if (ErrorMessage != null &&
                     Settings.SendErrorReports1)
                 {
