@@ -51,7 +51,7 @@ namespace CrossCam.Page
             {
                 _pairingExpander.ForceUpdateSize();
             } 
-            else if (e.PropertyName == nameof(Settings.AddBorder))
+            else if (e.PropertyName == nameof(Settings.AddBorder2))
             {
                 _borderExpander.ForceUpdateSize();
             }

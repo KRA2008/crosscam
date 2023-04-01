@@ -143,7 +143,7 @@ namespace CrossCam.Model
         [Obsolete("Use SaveForGrayscaleAnaglyph - kept for backward compatibility")]
         public bool GrayscaleAnaglyphMode { get => SaveForGrayscaleAnaglyph; set => SaveForGrayscaleAnaglyph = value; }
 
-        public bool AddBorder { get; set; }
+        public bool AddBorder2 { get; set; }
         public bool ClipBorderOnNextLoad { get; set; }
 
         private bool? _isPairedPrimary;
@@ -419,7 +419,7 @@ namespace CrossCam.Model
             IsCaptureLeftFirst = true;
             ShowRollGuide = true;
 
-            AddBorder = false; //TODO: decide how to do this
+            AddBorder2 = true;
             ClipBorderOnNextLoad = false;
 
             ShowGuideLinesWithFirstCapture = false;

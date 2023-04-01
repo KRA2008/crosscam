@@ -909,26 +909,26 @@
                            Text="Add border"/>
                     <Switch Grid.Column="1"
                             Grid.Row="0" 
-                            IsToggled="{Binding Settings.AddBorder}"/>
+                            IsToggled="{Binding Settings.AddBorder2}"/>
 
                     <Label Grid.Column="0"
                            Grid.Row="1" 
                            Text="Border color"
-                           IsVisible="{Binding Settings.AddBorder}"/>
+                           IsVisible="{Binding Settings.AddBorder2}"/>
                     <Frame Grid.Column="1"
                            Grid.Row="1" 
-                           IsVisible="{Binding Settings.AddBorder}">
+                           IsVisible="{Binding Settings.AddBorder2}">
                         <Picker ItemsSource="{Binding BorderColors}"
                                 SelectedIndex="{Binding Settings.BorderColor, Converter={vc:BorderColorValueConverter}}"/>
                     </Frame>
 
                     <Label Grid.Column="0"
                            Grid.Row="2" 
-                           IsVisible="{Binding Settings.AddBorder}" 
+                           IsVisible="{Binding Settings.AddBorder2}" 
                            Text="Border thickness (tenths of percentage of width)"/>
                     <Frame Grid.Column="1"
                            Grid.Row="2" 
-                           IsVisible="{Binding Settings.AddBorder}">
+                           IsVisible="{Binding Settings.AddBorder2}">
                         <Picker ItemsSource="{Binding ZeroToOneHundred}"
                                 SelectedIndex="{Binding Settings.BorderWidthProportion}"/>
                     </Frame>

@@ -736,7 +736,7 @@ namespace CrossCam.ViewModel
                             LeftBitmap, LeftAlignmentTransform, LeftOrientation, IsLeftFrontFacing, 
                             RightBitmap, RightAlignmentTransform, RightOrientation, IsRightFrontFacing, Edits);
                         var finalTripleWidth = (int) (1.5 * finalImageWidth);
-                        var borderThickness = Settings.AddBorder
+                        var borderThickness = Settings.AddBorder2
                             ? (int) (DrawTool.BORDER_CONVERSION_FACTOR * Settings.BorderWidthProportion *
                                      finalImageWidth)
                             : 0;
@@ -962,8 +962,8 @@ namespace CrossCam.ViewModel
                             using var canvas = tempSurface.Canvas;
                             canvas.Clear();
 
-                            var withBorderTemp = Settings.AddBorder;
-                            Settings.AddBorder = false;
+                            var withBorderTemp = Settings.AddBorder2;
+                            Settings.AddBorder2 = false;
                             var fuseGuideTemp = Settings.SaveWithFuseGuide;
                             Settings.SaveWithFuseGuide = false;
 
@@ -974,7 +974,7 @@ namespace CrossCam.ViewModel
                                 Settings.Mode == DrawMode.RedCyanAnaglyph ||
                                 Settings.Mode == DrawMode.GrayscaleRedCyanAnaglyph);
 
-                            Settings.AddBorder = withBorderTemp;
+                            Settings.AddBorder2 = withBorderTemp;
                             Settings.SaveWithFuseGuide = fuseGuideTemp;
 
                             await SaveSurfaceSnapshot(tempSurface, CROSSCAM + (Settings.SaveIntoSeparateFolders ? "_Cardboard" : ""));
