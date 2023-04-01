@@ -1,5 +1,5 @@
 ﻿using System;
-using Xamarin.Forms;
+using Xamarin.Essentials;
 
 namespace CrossCam.CustomElement
 {
@@ -10,9 +10,9 @@ namespace CrossCam.CustomElement
             InitializeComponent();
         }
 
-        private void TapGestureRecognizer_OnTapped(object sender, EventArgs e)
+        private async void TapGestureRecognizer_OnTapped(object sender, EventArgs e)
         {
-            Device.OpenUri(new Uri("mailto:me@kra2008.com?subject=CrossCam+feedback"));
+            await Launcher.OpenAsync("mailto:me@kra2008.com?subject=CrossCam+feedback");
         }
     }
 }
