@@ -1,14 +1,14 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<fresh:FreshBaseContentPage xmlns="http://xamarin.com/schemas/2014/forms"
-                            xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-                            xmlns:vm="clr-namespace:CrossCam.ViewModel;assembly=CrossCam"
-                            xmlns:fresh="clr-namespace:FreshMvvm;assembly=FreshMvvm"
-                            xmlns:customElement="clr-namespace:CrossCam.CustomElement;assembly=CrossCam"
-                            xmlns:valueConverter="clr-namespace:CrossCam.ValueConverter;assembly=CrossCam"
-                            xmlns:model="clr-namespace:CrossCam.Model;assembly=CrossCam"
-                            x:DataType="vm:TechniqueHelpViewModel"
-                            Title="3D Viewing Technique"
-                            x:Class="CrossCam.Page.TechniqueHelpPage">
+<page:BasePage xmlns="http://xamarin.com/schemas/2014/forms"
+               xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+               xmlns:vm="clr-namespace:CrossCam.ViewModel;assembly=CrossCam"
+               xmlns:customElement="clr-namespace:CrossCam.CustomElement;assembly=CrossCam"
+               xmlns:valueConverter="clr-namespace:CrossCam.ValueConverter;assembly=CrossCam"
+               xmlns:model="clr-namespace:CrossCam.Model;assembly=CrossCam"
+               xmlns:page="clr-namespace:CrossCam.Page;assembly=CrossCam"
+               x:DataType="vm:TechniqueHelpViewModel"
+               Title="3D Viewing Technique"
+               x:Class="CrossCam.Page.TechniqueHelpPage">
     <ScrollView>
         <StackLayout Spacing="0">
             <BoxView/>
@@ -154,4 +154,4 @@
             </StackLayout>
         </StackLayout>
     </ScrollView>
-</fresh:FreshBaseContentPage>
+</page:BasePage>

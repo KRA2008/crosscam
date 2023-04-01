@@ -1,12 +1,13 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<fresh:FreshBaseContentPage xmlns="http://xamarin.com/schemas/2014/forms"
-                            xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-                            xmlns:vm="clr-namespace:CrossCam.ViewModel;assembly=CrossCam"
-                            xmlns:fresh="clr-namespace:FreshMvvm;assembly=FreshMvvm"
-                            xmlns:customElement="clr-namespace:CrossCam.CustomElement;assembly=CrossCam"
-                            x:DataType="vm:TipsViewModel"
-                            Title="Tips"
-                            x:Class="CrossCam.Page.TipsPage">
+<page:BasePage xmlns="http://xamarin.com/schemas/2014/forms"
+               xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+               xmlns:vm="clr-namespace:CrossCam.ViewModel;assembly=CrossCam"
+               xmlns:fresh="clr-namespace:FreshMvvm;assembly=FreshMvvm"
+               xmlns:customElement="clr-namespace:CrossCam.CustomElement;assembly=CrossCam"
+               xmlns:page="clr-namespace:CrossCam.Page;assembly=CrossCam"
+               x:DataType="vm:TipsViewModel"
+               Title="Tips"
+               x:Class="CrossCam.Page.TipsPage">
     <fresh:FreshBaseContentPage.Resources>
         <ResourceDictionary>
             <Style TargetType="Label">
@@ -55,4 +56,4 @@
             </StackLayout>
         </ScrollView>
     </ContentPage.Content>
-</fresh:FreshBaseContentPage>
+</page:BasePage>

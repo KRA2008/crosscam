@@ -5,12 +5,11 @@ using System.Linq;
 using System.Net;
 using CrossCam.Model;
 using CrossCam.Wrappers;
-using FreshMvvm;
 using Xamarin.Forms;
 
 namespace CrossCam.ViewModel
 {
-    public class SettingsViewModel : FreshBasePageModel
+    public class SettingsViewModel : BasePageModel
     {
         public Settings Settings { get; set; }
         public Command ResetToDefaults { get; set; }

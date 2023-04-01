@@ -1,11 +1,11 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
-<freshMvvm:FreshBaseContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+<page:BasePage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:vm="clr-namespace:CrossCam.ViewModel;assembly=CrossCam"
              xmlns:ce="clr-namespace:CrossCam.CustomElement;assembly=CrossCam"
              xmlns:vc="clr-namespace:CrossCam.ValueConverter;assembly=CrossCam"
              xmlns:forms="clr-namespace:SkiaSharp.Views.Forms;assembly=SkiaSharp.Views.Forms"
-             xmlns:freshMvvm="clr-namespace:FreshMvvm;assembly=FreshMvvm"
+             xmlns:page="clr-namespace:CrossCam.Page;assembly=CrossCam"
              x:DataType="vm:CameraViewModel"
 			 x:Class="CrossCam.Page.CameraPage">
     <ContentPage.Resources>
@@ -1854,4 +1854,4 @@
                      VerticalOptions="CenterAndExpand"/>
         </StackLayout>-->
     </AbsoluteLayout>
-</freshMvvm:FreshBaseContentPage>
+</page:BasePage>

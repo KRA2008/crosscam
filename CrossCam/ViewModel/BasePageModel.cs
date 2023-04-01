@@ -4,9 +4,8 @@ using Xamarin.Forms;
 
 namespace CrossCam.ViewModel
 {
-    public class BasePageModel : FreshBasePageModel
+    public abstract class BasePageModel : FreshBasePageModel
     {
-        // ReSharper disable once MemberCanBePrivate.Global
         public Command OpenLink { get; }
 
         protected BasePageModel()

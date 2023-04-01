@@ -6,12 +6,10 @@ using System.IO;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using System.Web;
 using CrossCam.CustomElement;
 using CrossCam.Model;
 using CrossCam.Page;
 using CrossCam.Wrappers;
-using FreshMvvm;
 using Newtonsoft.Json;
 using Plugin.DeviceInfo;
 using SkiaSharp;
@@ -22,7 +20,7 @@ using Exception = System.Exception;
 
 namespace CrossCam.ViewModel
 {
-    public sealed class CameraViewModel : FreshBasePageModel
+    public sealed class CameraViewModel : BasePageModel
     {
         private const string FULL_IMAGE = "Load full stereo image";
         private const string SINGLE_SIDE = "Load single side";

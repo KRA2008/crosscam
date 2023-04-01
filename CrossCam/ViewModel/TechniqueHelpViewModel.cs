@@ -1,13 +1,12 @@
 ﻿using System;
 using CrossCam.Model;
 using CrossCam.Wrappers;
-using FreshMvvm;
 using Xamarin.Essentials;
 using Xamarin.Forms;
 
 namespace CrossCam.ViewModel
 {
-    public class TechniqueHelpViewModel : FreshBasePageModel
+    public class TechniqueHelpViewModel : BasePageModel
     {
         public Command ViewCrossTutorialCommand { get; set; }
         public Command ViewParallelTutorialCommand { get; set; }

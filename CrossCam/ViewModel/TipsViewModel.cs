@@ -2,7 +2,7 @@
 
 namespace CrossCam.ViewModel
 {
-    public class TipsViewModel : FreshBasePageModel
+    public class TipsViewModel : BasePageModel
     {
     }
 }

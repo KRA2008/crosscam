@@ -1,15 +1,15 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<fresh:FreshBaseContentPage xmlns="http://xamarin.com/schemas/2014/forms"
-                            xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-                            xmlns:fresh="clr-namespace:FreshMvvm;assembly=FreshMvvm"
-                            xmlns:vm="clr-namespace:CrossCam.ViewModel;assembly=CrossCam"
-                            xmlns:vc="clr-namespace:CrossCam.ValueConverter;assembly=CrossCam"
-                            xmlns:ce="clr-namespace:CrossCam.CustomElement;assembly=CrossCam"
-                            xmlns:system="clr-namespace:System;assembly=netstandard"
-                            xmlns:views="http://xamarin.com/schemas/2020/toolkit"
-                            x:DataType="vm:SettingsViewModel"
-                            x:Class="CrossCam.Page.SettingsPage"
-                            Title="Settings">
+<page:BasePage xmlns="http://xamarin.com/schemas/2014/forms"
+               xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+               xmlns:vm="clr-namespace:CrossCam.ViewModel;assembly=CrossCam"
+               xmlns:vc="clr-namespace:CrossCam.ValueConverter;assembly=CrossCam"
+               xmlns:ce="clr-namespace:CrossCam.CustomElement;assembly=CrossCam"
+               xmlns:system="clr-namespace:System;assembly=netstandard"
+               xmlns:views="http://xamarin.com/schemas/2020/toolkit"
+               xmlns:page="clr-namespace:CrossCam.Page;assembly=CrossCam"
+               x:DataType="vm:SettingsViewModel"
+               x:Class="CrossCam.Page.SettingsPage"
+               Title="Settings">
     <ContentPage.Resources>
         <ResourceDictionary>
             <Style TargetType="BoxView">
@@ -1191,4 +1191,4 @@
             <ce:EmailMeLabel/>
         </StackLayout>
     </ScrollView>
-</fresh:FreshBaseContentPage>
+</page:BasePage>

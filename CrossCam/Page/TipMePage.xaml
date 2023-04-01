@@ -1,12 +1,12 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<freshMvvm:FreshBaseContentPage xmlns="http://xamarin.com/schemas/2014/forms"
-                      xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-                      xmlns:freshMvvm="clr-namespace:FreshMvvm;assembly=FreshMvvm"
-                      xmlns:customElement="clr-namespace:CrossCam.CustomElement;assembly=CrossCam"
-                      xmlns:viewModel="clr-namespace:CrossCam.ViewModel;assembly=CrossCam"
-                      x:Class="CrossCam.Page.TipMePage"
-                      x:DataType="viewModel:TipMeViewModel"
-                      Title="Tip Me!">
+<page:BasePage xmlns="http://xamarin.com/schemas/2014/forms"
+               xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+               xmlns:customElement="clr-namespace:CrossCam.CustomElement;assembly=CrossCam"
+               xmlns:viewModel="clr-namespace:CrossCam.ViewModel;assembly=CrossCam"
+               xmlns:page="clr-namespace:CrossCam.Page;assembly=CrossCam"
+               x:Class="CrossCam.Page.TipMePage"
+               x:DataType="viewModel:TipMeViewModel"
+               Title="Tip Me!">
     <ScrollView>
         <StackLayout Spacing="15">
             <BoxView/>
@@ -32,4 +32,4 @@
             <customElement:EmailMeLabel/>
         </StackLayout>
     </ScrollView>
-</freshMvvm:FreshBaseContentPage>
+</page:BasePage>

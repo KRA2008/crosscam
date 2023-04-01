@@ -1,13 +1,13 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<freshMvvm:FreshBaseContentPage xmlns="http://xamarin.com/schemas/2014/forms"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:freshMvvm="clr-namespace:FreshMvvm;assembly=FreshMvvm"
-             xmlns:viewModel="clr-namespace:CrossCam.ViewModel;assembly=CrossCam"
-             xmlns:system="clr-namespace:System;assembly=netstandard"
-             xmlns:customElement="clr-namespace:CrossCam.CustomElement;assembly=CrossCam"
-             x:DataType="viewModel:PairingViewModel"
-             x:Class="CrossCam.Page.PairingPage"
-             Title="Pairing">
+<page:BasePage xmlns="http://xamarin.com/schemas/2014/forms"
+               xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+               xmlns:viewModel="clr-namespace:CrossCam.ViewModel;assembly=CrossCam"
+               xmlns:system="clr-namespace:System;assembly=netstandard"
+               xmlns:customElement="clr-namespace:CrossCam.CustomElement;assembly=CrossCam"
+               xmlns:page="clr-namespace:CrossCam.Page;assembly=CrossCam"
+               x:DataType="viewModel:PairingViewModel"
+               x:Class="CrossCam.Page.PairingPage"
+               Title="Pairing">
     <ScrollView>
         <StackLayout Spacing="0">
             <BoxView/>
@@ -115,4 +115,4 @@
             </StackLayout>
         </StackLayout>
     </ScrollView>
-</freshMvvm:FreshBaseContentPage>
+</page:BasePage>

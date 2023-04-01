@@ -1,11 +1,10 @@
 ﻿using CrossCam.Model;
 using CrossCam.Wrappers;
-using FreshMvvm;
 using Xamarin.Forms;
 
 namespace CrossCam.ViewModel
 {
-    public class PairingViewModel : FreshBasePageModel
+    public class PairingViewModel : BasePageModel
     {
         public Command SetDevicePrimaryCommand { get; set; }
         public Command SetDeviceSecondaryCommand { get; set; }

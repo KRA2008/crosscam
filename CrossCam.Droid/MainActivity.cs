@@ -12,6 +12,9 @@ using AndroidX.Core.App;
 using AndroidX.Core.Content;
 using CrossCam.Droid.CustomRenderer;
 using Java.Lang;
+using Microsoft.AppCenter;
+using Microsoft.AppCenter.Analytics;
+using Microsoft.AppCenter.Crashes;
 using Xamarin.Essentials;
 using Xamarin.Forms;
 using Xamarin.Forms.Platform.Android;
@@ -64,8 +67,10 @@ namespace CrossCam.Droid
         protected override void OnCreate(Bundle bundle)
         {
             base.OnCreate(bundle);
-            Xamarin.Essentials.Platform.Init(this, bundle);
-
+            Xamarin.Essentials.Platform.Init(this, bundle); 
+            AppCenter.Start("febfa1c4-10aa-4087-9594-71d287579841", // plz don't abuse this.
+                typeof(Analytics), typeof(Crashes));
+            
             DeviceDisplay.MainDisplayInfoChanged += SetFullscreen; 
             SetFullscreen(null, null);
 

@@ -1,9 +1,8 @@
 ﻿using CrossCam.Model;
-using FreshMvvm;
 
 namespace CrossCam.ViewModel
 {
-    public class DirectionsViewModel : FreshBasePageModel
+    public class DirectionsViewModel : BasePageModel
     {
         private Settings _settings;
 
