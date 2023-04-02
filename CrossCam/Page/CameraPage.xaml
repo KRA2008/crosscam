@@ -1398,7 +1398,7 @@
             <ContentView.GestureRecognizers>
                 <TapGestureRecognizer Command="{Binding NavigateToHamburgerPageCommand}"/>
             </ContentView.GestureRecognizers>
-            <Image Source="help"
+            <Image Source="menu"
                    InputTransparent="True"/>
         </ContentView>
         <StackLayout AbsoluteLayout.LayoutFlags="PositionProportional"

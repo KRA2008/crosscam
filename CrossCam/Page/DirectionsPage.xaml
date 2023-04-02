@@ -23,7 +23,7 @@
                 <Label Text="Other stuff you can do:"/>
                 <Label Text="~ Tap once to focus on a point, tap twice to switch back to continuous auto focus."/>
                 <Label Text="~ Tap the gear icon on the top right of the camera screen to open the Settings page. It's full of interesting stuff."/>
-                <Label Text="~ There's a nice Tips page you can get to by tapping the '?' on the top left of the camera screen that can help you make your pictures great."/>
+                <Label Text="~ There's a nice Tips page you can get to by tapping the hamburger icon on the top left of the camera screen that can help you make your pictures great."/>
                 <Label Text="~ If you would prefer to move the other direction for your second shot or would like to swap the sides just do a swipe."/>
                 <Label Text="~ Tap the little folder icon on the bottom to load an image as a side or to load a full stereo image."/>
                 <BoxView/>

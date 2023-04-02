@@ -516,6 +516,8 @@
     <BundleResource Include="Resources\expandLess%402x.png" />
     <BundleResource Include="Resources\expandMore.png" />
     <BundleResource Include="Resources\expandMore%402x.png" />
+    <BundleResource Include="Resources\menu.png" />
+    <BundleResource Include="Resources\menu%402x.png" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\CrossCam\CrossCam.csproj">
