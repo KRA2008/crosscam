@@ -149,8 +149,8 @@
                            Aspect="AspectFit"
                            Source="fyi"/>
                 </AbsoluteLayout>
-
-                <customElement:EmailMeLabel/>
+                <BoxView/>
+                <customElement:FooterLabel/>
             </StackLayout>
         </StackLayout>
     </ScrollView>

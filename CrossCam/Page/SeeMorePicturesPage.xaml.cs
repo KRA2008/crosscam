@@ -3,9 +3,9 @@
 namespace CrossCam.Page
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class HamburgerPage
+    public partial class SeeMorePicturesPage
     {
-        public HamburgerPage()
+        public SeeMorePicturesPage()
         {
             InitializeComponent();
         }

@@ -1188,7 +1188,7 @@
             <BoxView/>
             <Button Text="Reset to Defaults"
                     Command="{Binding ResetToDefaults}"/>
-            <ce:EmailMeLabel/>
+            <ce:FooterLabel/>
         </StackLayout>
     </ScrollView>
 </page:BasePage>

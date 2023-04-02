@@ -113,7 +113,7 @@ namespace CrossCam.ViewModel
         public AvailableCamera ChosenCamera { get; set; }
 
         public Command NavigateToSettingsCommand { get; set; }
-        public Command NavigateToHelpCommand { get; set; }
+        public Command NavigateToHamburgerPageCommand { get; set; }
 
         public Command FlipCameraCommand { get; set; }
 
@@ -562,9 +562,9 @@ namespace CrossCam.ViewModel
                 await CoreMethods.PushPageModel<SettingsViewModel>(Settings);
             });
 
-            NavigateToHelpCommand = new Command(async () =>
+            NavigateToHamburgerPageCommand = new Command(async () =>
             {
-                await CoreMethods.PushPageModel<HelpViewModel>(Settings);
+                await CoreMethods.PushPageModel<HamburgerViewModel>(Settings);
             });
 
             FlipCameraCommand = new Command(() =>

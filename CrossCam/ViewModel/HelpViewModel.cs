@@ -1,5 +1,4 @@
 ﻿using CrossCam.Model;
-using Plugin.DeviceInfo;
 using Xamarin.Forms;
 
 namespace CrossCam.ViewModel
@@ -9,11 +8,7 @@ namespace CrossCam.ViewModel
         public Command NavigateToTechniqueHelpPage { get; set; }
         public Command NavigateToDirectionsPage { get; set; }
         public Command NavigateToTipsPage { get; set; }
-        public Command NavigateToContactPage { get; set; }
-        public Command NavigateToTipMePage { get; set; }
         private Settings _settings;
-
-        public string AppVersion => "v" + CrossDeviceInfo.Current.AppVersion;
 
         public HelpViewModel()
         {
@@ -30,16 +25,6 @@ namespace CrossCam.ViewModel
             NavigateToTipsPage = new Command(async () =>
             {
                 await CoreMethods.PushPageModel<TipsViewModel>();
-            });
-
-            NavigateToContactPage = new Command(async () =>
-            {
-                await  CoreMethods.PushPageModel<ContactViewModel>();
-            });
-
-            NavigateToTipMePage = new Command(async () =>
-            {
-                await CoreMethods.PushPageModel<TipMeViewModel>();
             });
         }
 

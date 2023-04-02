@@ -16,9 +16,8 @@
             </Style>
         </ResourceDictionary>
     </fresh:FreshBaseContentPage.Resources>
-    <ContentPage.Content>
-        <ScrollView>
-            <StackLayout Spacing="0">
+    <ScrollView>
+            <StackLayout>
                 <BoxView/>
                 <Label Text="When you move over, try not to rotate your phone at all in any direction, including the natural tendency to turn towards the subject as you move to the side. Some rotation will be necessary (sometimes), but try to minimize it. Imagine the phone is mounted on a straight horizontal rail and can only slide."/>
                 <BoxView/>
@@ -52,8 +51,7 @@
                 <BoxView/>
                 <Label Text="There is an experimental &quot;guide donut/dot&quot; on the settings page you can turn on which may help you keep your perspectives parallel for a large scene. Ideally you would drag it onto the horizon, sky, or other very distant point. Be careful, using it on smaller scenes may make things painful (see keystone tip above)."/>
                 <BoxView/>
-                <customElement:EmailMeLabel/>
+                <customElement:FooterLabel/>
             </StackLayout>
         </ScrollView>
-    </ContentPage.Content>
 </page:BasePage>

@@ -1,0 +1,28 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<page:BasePage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:page="clr-namespace:CrossCam.Page;assembly=CrossCam"
+             xmlns:customElement="clr-namespace:CrossCam.CustomElement;assembly=CrossCam"
+             x:Class="CrossCam.Page.SeeMorePicturesPage">
+    <ScrollView>
+        <StackLayout>
+            <BoxView/>
+            <Button Text="See Pictures I've Taken"
+                    Command="{Binding OpenLink}"
+                    CommandParameter="https://imgur.com/a/Crw232n"/>
+            <BoxView/>
+            <Button Text="CrossView Subreddit"
+                    Command="{Binding OpenLink}"
+                    CommandParameter="https://reddit.com/r/CrossView/"/>
+            <BoxView/>
+            <Button Text="ParallelView Subreddit"
+                    Command="{Binding OpenLink}"
+                    CommandParameter="https://reddit.com/r/ParallelView/"/>
+            <BoxView/>
+            <BoxView/>
+            <BoxView/>
+            <BoxView/>
+            <customElement:FooterLabel/>
+        </StackLayout>
+    </ScrollView>
+</page:BasePage>

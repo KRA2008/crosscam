@@ -1396,7 +1396,7 @@
                      Padding="{StaticResource _topBarSmallButtonPadding}"
                      IsVisible="{Binding ShouldSettingsAndHelpBeVisible}">
             <ContentView.GestureRecognizers>
-                <TapGestureRecognizer Command="{Binding NavigateToHelpCommand}"/>
+                <TapGestureRecognizer Command="{Binding NavigateToHamburgerPageCommand}"/>
             </ContentView.GestureRecognizers>
             <Image Source="help"
                    InputTransparent="True"/>

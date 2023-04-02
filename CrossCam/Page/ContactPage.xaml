@@ -3,21 +3,35 @@
                xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
                xmlns:vm="clr-namespace:CrossCam.ViewModel;assembly=CrossCam"
                xmlns:page="clr-namespace:CrossCam.Page;assembly=CrossCam"
+               xmlns:customElement="clr-namespace:CrossCam.CustomElement;assembly=CrossCam"
                x:DataType="vm:ContactViewModel"
-               Title="Feedback/Contact"
+               Title="Contact"
                x:Class="CrossCam.Page.ContactPage">
     <ContentPage.Content>
         <ScrollView>
             <StackLayout>
                 <BoxView/>
-                <Button Text="Send me an email"
+                <Button Text="Email Me"
                         Command="{Binding OpenLink}"
                         CommandParameter="mailto:me@kra2008.com?subject=CrossCam%20feedback"/>
                 <BoxView/>
-                <Button Text="Add an issue on Github"
+                <Button Text="Add an Issue on Github"
                         Command="{Binding OpenLink}"
                         CommandParameter="https://github.com/KRA2008/crosscam/issues"/>
                 <BoxView/>
+                <Button Text="See the Code"
+                        Command="{Binding OpenLink}"
+                        CommandParameter="https://github.com/KRA2008/crosscam"/>
+                <BoxView/>
+                <Button Text="Privacy Policy"
+                        Command="{Binding OpenLink}"
+                        CommandParameter="http://kra2008.com/crosscam/privacypolicy.html"/>
+                <BoxView/>
+                <Button Text="About the Developer"
+                        Command="{Binding OpenLink}"
+                        CommandParameter="http://kra2008.com/"/>
+                <BoxView/>
+                <customElement:FooterLabel/>
             </StackLayout>
         </ScrollView>
     </ContentPage.Content>

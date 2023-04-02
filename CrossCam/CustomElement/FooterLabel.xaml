@@ -1,0 +1,25 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<StackLayout xmlns="http://xamarin.com/schemas/2014/forms" 
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+             x:Class="CrossCam.CustomElement.FooterLabel"
+             Padding="15">
+    <StackLayout.GestureRecognizers>
+        <TapGestureRecognizer Tapped="TapGestureRecognizer_OnTapped"/>
+    </StackLayout.GestureRecognizers>
+    <Label Margin="0">
+        <Label.FormattedText>
+            <FormattedString>
+                <Span Text="If you have any trouble, questions, or feedback, please email "/>
+                <Span Text="me@kra2008.com" 
+                      TextDecorations="Underline"
+                      TextColor="LightBlue"/>
+                <Span Text=". I'm happy to coach, fix bugs, and hear your ideas."/>
+            </FormattedString>
+        </Label.FormattedText>
+    </Label>
+    <Label x:Name="_versionLabel"
+           Margin="0"/>
+</StackLayout>

@@ -10,50 +10,16 @@
     <ScrollView>
         <StackLayout>
             <BoxView/>
-            <Button Text="Support the Developer"
-                    Command="{Binding NavigateToTipMePage}"/>
+            <Button Text="How to Use CrossCam"
+                    Command="{Binding NavigateToDirectionsPage}"/>
             <BoxView/>
             <Button Text="3D Viewing Technique"
                     Command="{Binding NavigateToTechniqueHelpPage}"/>
             <BoxView/>
-            <Button Text="How to Use CrossCam"
-                    Command="{Binding NavigateToDirectionsPage}"/>
-            <BoxView/>
             <Button Text="Tips"
                     Command="{Binding NavigateToTipsPage}"/>
             <BoxView/>
-            <Button Text="See Pictures I've Taken"
-                    Command="{Binding OpenLink}"
-                    CommandParameter="https://imgur.com/a/Crw232n"/>
-            <BoxView/>
-            <Button Text="Feedback/Contact"
-                    Command="{Binding NavigateToContactPage}"/>
-            <BoxView/>
-            <Button Text="CrossView Subreddit"
-                    Command="{Binding OpenLink}"
-                    CommandParameter="https://reddit.com/r/CrossView/"/>
-            <BoxView/>
-            <Button Text="ParallelView Subreddit"
-                    Command="{Binding OpenLink}"
-                    CommandParameter="https://reddit.com/r/ParallelView/"/>
-            <BoxView/>
-            <Button Text="Privacy Policy"
-                    Command="{Binding OpenLink}"
-                    CommandParameter="http://kra2008.com/crosscam/privacypolicy.html"/>
-            <BoxView/>
-            <Button Text="See the Code"
-                    Command="{Binding OpenLink}"
-                    CommandParameter="https://github.com/KRA2008/crosscam"/>
-            <BoxView/>
-            <Button Text="About the Developer"
-                    Command="{Binding OpenLink}"
-                    CommandParameter="http://kra2008.com/"/>
-            <BoxView/>
-            <customElement:EmailMeLabel/>
-            <Label Text="{Binding AppVersion}"
-                   HorizontalOptions="StartAndExpand"
-                   VerticalOptions="EndAndExpand"
-                   Margin="10"/>
+            <customElement:FooterLabel/>
         </StackLayout>
     </ScrollView>
 </page:BasePage>
