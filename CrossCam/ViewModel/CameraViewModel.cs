@@ -1026,11 +1026,7 @@ namespace CrossCam.ViewModel
                             TotalSavesCompleted > 0)
                         {
 #endif
-                    var opener = DependencyService.Get<IStoreReviewOpener>();
-                    if (opener != null)
-                    {
-                        await opener.TryOpenStoreReview();
-                    }
+                    DependencyService.Get<IStoreReviewOpener>()?.TryOpenStoreReview();
                 }
             });
 

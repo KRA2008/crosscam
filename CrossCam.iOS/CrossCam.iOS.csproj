@@ -206,6 +206,7 @@
     <ITunesArtwork Include="iTunesArtwork" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CustomRenderer\LinkSharer.cs" />
     <Compile Include="CustomRenderer\PlatformPair.cs" />
     <Compile Include="CustomRenderer\DirectorySelector.cs" />
     <Compile Include="CustomRenderer\NotchHeightProvider.cs" />

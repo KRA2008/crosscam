@@ -15,9 +15,20 @@
             <Button Text="Support the Developer"
                     Command="{Binding NavigateToTipMePage}"/>
             <BoxView/>
-            <Button Text="Write a Review"/>
+            <Button Text="Write a Review"
+                    Command="{Binding OpenLink}">
+                <Button.CommandParameter>
+                    <OnPlatform x:TypeArguments="x:String">
+                        <On Platform="iOS"
+                            Value="https://apps.apple.com/us/app/crosscam/id1436262905?action=write-review"/>
+                        <On Platform="Android"
+                            Value="https://play.google.com/store/apps/details?id=com.kra2008.crosscam"/>
+                    </OnPlatform>
+                </Button.CommandParameter>
+            </Button>
             <BoxView/>
-            <Button Text="Share CrossCam"/>
+            <Button Text="Share CrossCam"
+                    Command="{Binding OpenLinkSharer}"/>
             <BoxView/>
             <Button Text="Contact"
                     Command="{Binding NavigateToContactPage}"/>
