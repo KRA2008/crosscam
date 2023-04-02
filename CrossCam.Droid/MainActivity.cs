@@ -6,6 +6,7 @@ using Android.App;
 using Android.Bluetooth;
 using Android.Content;
 using Android.Content.PM;
+using Android.Gms.Tasks;
 using Android.OS;
 using Android.Views;
 using AndroidX.Core.App;
@@ -18,6 +19,9 @@ using Microsoft.AppCenter.Crashes;
 using Xamarin.Essentials;
 using Xamarin.Forms;
 using Xamarin.Forms.Platform.Android;
+using Xamarin.Google.Android.Play.Core.Review;
+using Xamarin.Google.Android.Play.Core.Review.Testing;
+using Task = System.Threading.Tasks.Task;
 using Uri = Android.Net.Uri;
 
 namespace CrossCam.Droid
@@ -38,13 +42,16 @@ namespace CrossCam.Droid
         Icon = "@drawable/icon")]
     [IntentFilter(
         new [] {BluetoothDevice.ActionFound})]
-    public class MainActivity : FormsAppCompatActivity
+    public class MainActivity : FormsAppCompatActivity, IOnCompleteListener
     {
         public LifecycleEventListener LifecycleEventListener;
 
         internal static MainActivity Instance { get; private set; }
 
         private App _app;
+        private TaskCompletionSource<bool> _requestReviewTaskCompletionSource;
+        private bool _requestReviewCheckComplete;
+        private IReviewManager _reviewManager;
 
         public enum RequestCodes
         {
@@ -382,6 +389,46 @@ namespace CrossCam.Droid
                 imageStream.CopyTo(imageMemStream);
                 return imageMemStream.ToArray();
             });
+        }
+
+        public void RequestReview(TaskCompletionSource<bool> requestReviewTaskCompletionSource)
+        {
+            _requestReviewTaskCompletionSource = requestReviewTaskCompletionSource;
+            _requestReviewCheckComplete = false;
+#if DEBUG
+            _reviewManager ??= new FakeReviewManager(this);
+#else
+            _reviewManager ??= ReviewManagerFactory.Create(this);
+#endif
+            var request = _reviewManager.RequestReviewFlow();
+            request.AddOnCompleteListener(this);
+        }
+
+        public void OnComplete(Android.Gms.Tasks.Task task)
+        {
+            if (task.IsSuccessful && _requestReviewCheckComplete)
+            {
+                _requestReviewTaskCompletionSource.SetResult(true);
+                return;
+            }
+            
+            if (!task.IsSuccessful)
+            {
+                _requestReviewTaskCompletionSource.SetResult(false);
+            }
+
+            try
+            {
+                var reviewInfo = (ReviewInfo)task.GetResult(Class.FromType(typeof(ReviewInfo)));
+                _requestReviewCheckComplete = true;
+                var launchTask = _reviewManager.LaunchReviewFlow(this, reviewInfo);
+                launchTask.AddOnCompleteListener(this);
+            }
+            catch (Exception ex)
+            {
+                Crashes.TrackError(ex);
+                _requestReviewTaskCompletionSource.TrySetResult(false);
+            }
         }
     }
 }

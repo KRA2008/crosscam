@@ -6,6 +6,7 @@ namespace CrossCam.Wrappers
     public class PersistentStorage
     {
         public const string SETTINGS_KEY = "settings";
+        public const string TOTAL_SAVES_KEY = "saves";
 
         public static T LoadOrDefault<T>(string key, T defaultValue)
         {

@@ -136,6 +136,9 @@
     <PackageReference Include="Xamarin.Forms">
       <Version>5.0.0.2545</Version>
     </PackageReference>
+    <PackageReference Include="Xamarin.Google.Android.Play.Review">
+      <Version>2.0.1.1</Version>
+    </PackageReference>
     <PackageReference Include="Xamarin.GooglePlayServices.Location">
       <Version>118.0.0</Version>
     </PackageReference>
@@ -160,6 +163,7 @@
     <Compile Include="CustomRenderer\HandsomePickerRenderer.cs" />
     <Compile Include="CustomRenderer\PhotoPicker.cs" />
     <Compile Include="CustomRenderer\PhotoSaver.cs" />
+    <Compile Include="CustomRenderer\StoreReviewOpener.cs" />
     <Compile Include="MainActivity.cs" />
     <Compile Include="LifecycleEventListener.cs" />
     <Compile Include="Resources\Resource.designer.cs" />

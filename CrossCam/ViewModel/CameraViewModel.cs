@@ -128,6 +128,7 @@ namespace CrossCam.ViewModel
         public string ErrorMessage { get; set; }
 
         public Settings Settings { get; set; }
+        public int TotalSavesCompleted { get; set; }
 
         public Edits Edits { get; set; }
 
@@ -378,6 +379,7 @@ namespace CrossCam.ViewModel
             _photoSaver = DependencyService.Get<IPhotoSaver>();
 
             Settings = PersistentStorage.LoadOrDefault(PersistentStorage.SETTINGS_KEY, new Settings());
+            TotalSavesCompleted = PersistentStorage.LoadOrDefault(PersistentStorage.TOTAL_SAVES_KEY, 0);
             Edits = new Edits(Settings);
             LeftAlignmentTransform = SKMatrix.Identity;
             RightAlignmentTransform = SKMatrix.Identity;
@@ -979,6 +981,9 @@ namespace CrossCam.ViewModel
 
                             await SaveSurfaceSnapshot(tempSurface, CROSSCAM + (Settings.SaveIntoSeparateFolders ? "_Cardboard" : ""));
                         }
+
+                        TotalSavesCompleted++;
+                        PersistentStorage.Save(PersistentStorage.TOTAL_SAVES_KEY, TotalSavesCompleted);
                     });
                 }
                 catch (DirectoryNotFoundException)
@@ -1012,6 +1017,20 @@ namespace CrossCam.ViewModel
                 else
                 {
                     WorkflowStage = WorkflowStage.Final;
+                }
+#if DEBUG
+                if (false)
+                {
+#else
+                        if (TotalSavesCompleted % 10 == 0 &&
+                            TotalSavesCompleted > 0)
+                        {
+#endif
+                    var opener = DependencyService.Get<IStoreReviewOpener>();
+                    if (opener != null)
+                    {
+                        await opener.TryOpenStoreReview();
+                    }
                 }
             });
 

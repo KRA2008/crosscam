@@ -83,7 +83,7 @@ namespace CrossCam.Model
                 _mode = value;
             }
         }
-
+        
         public bool HasOfferedTechniqueHelpBefore { get; set; }
         public bool HasShownDirectionsBefore { get; set; }
         public bool ShowGuideLinesWithFirstCapture { get; set; }
