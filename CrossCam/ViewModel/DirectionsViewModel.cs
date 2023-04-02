@@ -2,7 +2,7 @@
 
 namespace CrossCam.ViewModel
 {
-    public class DirectionsViewModel : BasePageModel
+    public class DirectionsViewModel : BaseViewModel
     {
         private Settings _settings;
 

@@ -6,7 +6,7 @@ using Xamarin.Forms;
 
 namespace CrossCam.ViewModel
 {
-    public class TechniqueHelpViewModel : BasePageModel
+    public class TechniqueHelpViewModel : BaseViewModel
     {
         public Command ViewCrossTutorialCommand { get; set; }
         public Command ViewParallelTutorialCommand { get; set; }

@@ -4,11 +4,11 @@ using Xamarin.Forms;
 
 namespace CrossCam.ViewModel
 {
-    public abstract class BasePageModel : FreshBasePageModel
+    public abstract class BaseViewModel : FreshBasePageModel
     {
         public Command OpenLink { get; }
 
-        protected BasePageModel()
+        protected BaseViewModel()
         {
             OpenLink = new Command(async url =>
             {

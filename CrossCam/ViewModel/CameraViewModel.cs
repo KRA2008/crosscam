@@ -23,7 +23,7 @@ using Exception = System.Exception;
 
 namespace CrossCam.ViewModel
 {
-    public sealed class CameraViewModel : BasePageModel
+    public sealed class CameraViewModel : BaseViewModel
     {
         private const string FULL_IMAGE = "Load full stereo image";
         private const string SINGLE_SIDE = "Load single side";

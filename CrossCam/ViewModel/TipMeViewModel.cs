@@ -1,4 +1,4 @@
 ﻿namespace CrossCam.ViewModel
 {
-    public class TipMeViewModel : BasePageModel {}
+    public class TipMeViewModel : BaseViewModel {}
 }

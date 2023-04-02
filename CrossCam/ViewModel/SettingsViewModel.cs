@@ -9,7 +9,7 @@ using Xamarin.Forms;
 
 namespace CrossCam.ViewModel
 {
-    public class SettingsViewModel : BasePageModel
+    public class SettingsViewModel : BaseViewModel
     {
         public Settings Settings { get; set; }
         public Command ResetToDefaults { get; set; }

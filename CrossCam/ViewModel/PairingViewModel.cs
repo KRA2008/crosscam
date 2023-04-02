@@ -5,7 +5,7 @@ using Xamarin.Forms;
 
 namespace CrossCam.ViewModel
 {
-    public class PairingViewModel : BasePageModel
+    public class PairingViewModel : BaseViewModel
     {
         public Command SetDevicePrimaryCommand { get; set; }
         public Command SetDeviceSecondaryCommand { get; set; }

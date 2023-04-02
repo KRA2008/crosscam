@@ -1,6 +1,6 @@
 ﻿namespace CrossCam.ViewModel
 {
-    public class ContactViewModel : BasePageModel
+    public class ContactViewModel : BaseViewModel
     {
     }
 }

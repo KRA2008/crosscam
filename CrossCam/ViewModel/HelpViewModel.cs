@@ -4,7 +4,7 @@ using Xamarin.Forms;
 
 namespace CrossCam.ViewModel
 {
-    public class HelpViewModel : BasePageModel
+    public class HelpViewModel : BaseViewModel
     {
         public Command NavigateToTechniqueHelpPage { get; set; }
         public Command NavigateToDirectionsPage { get; set; }
