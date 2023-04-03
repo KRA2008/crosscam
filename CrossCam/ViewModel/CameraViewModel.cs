@@ -985,7 +985,6 @@ namespace CrossCam.ViewModel
 
                         TotalSavesCompleted++;
                         PersistentStorage.Save(PersistentStorage.TOTAL_SAVES_KEY, TotalSavesCompleted);
-                        throw new Exception("outer", new Exception("middle", new Exception("inner")));
                     });
                 }
                 catch (DirectoryNotFoundException)
