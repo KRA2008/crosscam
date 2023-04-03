@@ -152,7 +152,7 @@ namespace CrossCam.Page
                         }
                         catch (Exception e)
                         {
-                            _viewModel.ErrorMessage = e.ToString();
+                            _viewModel.Error = e;
                         }
                     }
 	            }
@@ -187,7 +187,7 @@ namespace CrossCam.Page
                         }
                         catch (Exception e)
                         {
-                            _viewModel.ErrorMessage = e.ToString();
+                            _viewModel.Error = e;
                         }
                     }
                 }

@@ -142,7 +142,7 @@
                              CaptureSuccess="{Binding CaptureSuccess}"
                              IsNothingCaptured="{Binding IsNothingCaptured}"
                              PreviewBottomY="{Binding PreviewBottomY}"
-                             ErrorMessage="{Binding ErrorMessage}"
+                             Error="{Binding Error}"
                              WasSwipedTrigger="{Binding WasSwipedTrigger}"
                              IsFocusCircleLocked="{Binding IsFocusCircleLocked}"
                              PairOperator="{Binding PairOperatorBindable}"

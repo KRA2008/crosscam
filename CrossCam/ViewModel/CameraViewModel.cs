@@ -7,6 +7,7 @@ using System.IO;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using System.Web;
 using CrossCam.CustomElement;
 using CrossCam.Model;
 using CrossCam.Page;
@@ -125,7 +126,7 @@ namespace CrossCam.ViewModel
         public Command ClearEditCommand { get; set; }
 
         public Command PromptForPermissionAndSendErrorEmailCommand { get; set; }
-        public string ErrorMessage { get; set; }
+        public Exception Error { get; set; }
 
         public Settings Settings { get; set; }
         public int TotalSavesCompleted { get; set; }
@@ -423,7 +424,7 @@ namespace CrossCam.ViewModel
                 }
                 catch (Exception e)
                 {
-                    ErrorMessage = e.ToString();
+                    Error = e;
                 }
             });
 
@@ -453,7 +454,7 @@ namespace CrossCam.ViewModel
                 }
                 catch (Exception e)
                 {
-                    ErrorMessage = e.ToString();
+                    Error = e;
                 }
             });
 
@@ -502,7 +503,7 @@ namespace CrossCam.ViewModel
                 }
                 catch (Exception e)
                 {
-                    ErrorMessage = e.ToString();
+                    Error = e;
                 }
             });
 
@@ -527,7 +528,7 @@ namespace CrossCam.ViewModel
                 }
                 catch (Exception e)
                 {
-                    ErrorMessage = e.ToString();
+                    Error = e;
                 }
             });
 
@@ -984,6 +985,7 @@ namespace CrossCam.ViewModel
 
                         TotalSavesCompleted++;
                         PersistentStorage.Save(PersistentStorage.TOTAL_SAVES_KEY, TotalSavesCompleted);
+                        throw new Exception("outer", new Exception("middle", new Exception("inner")));
                     });
                 }
                 catch (DirectoryNotFoundException)
@@ -1003,7 +1005,7 @@ namespace CrossCam.ViewModel
                 catch (Exception e)
                 {
                     SaveFailFadeTrigger = !SaveFailFadeTrigger;
-                    ErrorMessage = e.ToString();
+                    Error = e;
                     WorkflowStage = WorkflowStage.Final;
 
                     return;
@@ -1033,39 +1035,48 @@ namespace CrossCam.ViewModel
             PromptForPermissionAndSendErrorEmailCommand = new Command(async () =>
             {
                 Debugger.Break();
-                Debug.WriteLine("### ERROR: " + ErrorMessage);
+                Debug.WriteLine("### ERROR: " + Error);
 
-
-                await Device.InvokeOnMainThreadAsync(async () =>
+                Crashes.TrackError(Error, new Dictionary<string, string>
                 {
-                    var errorMessage = ErrorMessage + "\n" +
-                                       "\n" +
-                                       "Device Platform: " + DeviceInfo.Platform + "\n" +
-                                       "Device Manufacturer: " + DeviceInfo.Manufacturer + "\n" +
-                                       "Device Model: " + DeviceInfo.Model + "\n" +
-                                       "Device Width: " + Application.Current.MainPage.Width + "\n" +
-                                       "Device Height: " + Application.Current.MainPage.Height + "\n" +
-                                       "OS Version Number: " + DeviceInfo.Version + "\n" +
-                                       "OS Version String: " + DeviceInfo.VersionString + "\n" +
-                                       "App Version: " + CrossDeviceInfo.Current.AppVersion + "\n" +
-                                       "App Build: " + CrossDeviceInfo.Current.AppBuild + "\n" +
-                                       "Idiom: " + CrossDeviceInfo.Current.Idiom + " \n" +
-                                       "Settings: " + JsonConvert.SerializeObject(Settings);
-#if DEBUG
-                    await CoreMethods.DisplayAlert("ERROR", errorMessage, "OK");
-#else
+                    {"Device Platform", DeviceInfo.Platform.ToString()},
+                    {"Device Manufacturer", DeviceInfo.Manufacturer},
+                    {"Device Model", DeviceInfo.Model},
+                    {"Device Width", Application.Current.MainPage.Width.ToString()},
+                    {"Device Height", Application.Current.MainPage.Height.ToString()},
+                    {"OS Version Number", DeviceInfo.Version.ToString()},
+                    {"OS Version String", DeviceInfo.VersionString},
+                    {"App Version", CrossDeviceInfo.Current.AppVersion},
+                    {"App Build", CrossDeviceInfo.Current.AppBuild},
+                    {"Idiom", CrossDeviceInfo.Current.Idiom.ToString()},
+                    {"Settings", JsonConvert.SerializeObject(Settings)}
+                });
+//
+                    //await CoreMethods.DisplayAlert("ERROR", Error.ToString(), "OK");
+//#else
+                if (Settings.SendErrorReports1)
+                {
                     var sendReport = await CoreMethods.DisplayAlert("Oops",
-                        "Sorry, CrossCam did an error. Please send me an error report so I can fix it! (Go to the Settings page to stop these popups.)",
-                        "Send", "Don't Send");
+                        "Sorry, CrossCam did an error. An error report has been automatically sent. You may not notice anything wrong at all, but if you do, try restarting the application. If this keeps happening, please email me and tell me about it. (Go to the Settings page to stop these popups.)",
+                        "Email me now", "Don't email me now");
                     if (sendReport)
                     {
-                        Device.OpenUri(new Uri("mailto:me@kra2008.com?subject=CrossCam%20error%20report&body=" +
-                                               HttpUtility.UrlEncode(errorMessage)));
+                        OpenLink.Execute(
+                            "mailto:me@kra2008.com?subject=CrossCam%20error%20report&body=" +
+                            "What did you do just before the error happened? Please describe even the small things.\n\n\n\n\n\nDid CrossCam still work after the error? If not, how is it broken?\n\n\n\n\n\nDoes this repeatedly happen?\n\n\n\n\n\nCan you force the error to happen on command? If so, how?\n\n\n\n\n\n" +
+                            HttpUtility.UrlEncode(Error.ToString()));
                     }
-#endif
+                    else
+                    {
+                        Analytics.TrackEvent("declined to send error report");
+                    }
+                }
+                else
+                {
+                    Analytics.TrackEvent("error, but error reports turned off");
+                }
 
-                    ErrorMessage = null;
-                });
+                Error = null;
             });
 
             PairCommand = new Command(async () =>
@@ -1103,7 +1114,7 @@ namespace CrossCam.ViewModel
                 }
                 catch (Exception e)
                 {
-                    ErrorMessage = e.ToString();
+                    Error = e;
                 }
             });
         }
@@ -1235,15 +1246,9 @@ namespace CrossCam.ViewModel
                     }
                 }
             }
-            else if (args.PropertyName == nameof(ErrorMessage))
+            else if (args.PropertyName == nameof(Error))
             {
-                Crashes.TrackError(null, new Dictionary<string, string>()
-                {
-                    {"error message", ErrorMessage},
-                    {"settings", JsonConvert.SerializeObject(Settings)}
-                });
-                if (ErrorMessage != null &&
-                    Settings.SendErrorReports1)
+                if (Error != null)
                 {
                     PromptForPermissionAndSendErrorEmailCommand.Execute(null);
                 }
@@ -1434,7 +1439,7 @@ namespace CrossCam.ViewModel
             }
             catch (Exception e)
             {
-                ErrorMessage = e.ToString();
+                Error = e;
             }
         }
 
@@ -1627,7 +1632,7 @@ namespace CrossCam.ViewModel
             }
             catch (Exception e)
             {
-                ErrorMessage = e.ToString();
+                Error = e;
             }
         }
 
@@ -1674,7 +1679,7 @@ namespace CrossCam.ViewModel
                                 }
                                 catch (Exception e)
                                 {
-                                    ErrorMessage = e.ToString();
+                                    Error = e;
                                     needsFallback = true;
                                 }
                                 if (needsFallback)
@@ -1696,7 +1701,7 @@ namespace CrossCam.ViewModel
                     }
                     catch (Exception e)
                     {
-                        ErrorMessage = e.ToString();
+                        Error = e;
                     }
 
                     if (alignedResult != null)

@@ -50,8 +50,8 @@ namespace CrossCam.CustomElement
         public static readonly BindableProperty WasSwipedTriggerProperty = BindableProperty.Create(nameof(WasSwipedTrigger),
             typeof(bool), typeof(CameraModule), false, BindingMode.OneWayToSource);
 
-        public static readonly BindableProperty ErrorMessageProperty = BindableProperty.Create(nameof(ErrorMessage),
-	        typeof(string), typeof(CameraModule), null, BindingMode.OneWayToSource);
+        public static readonly BindableProperty ErrorProperty = BindableProperty.Create(nameof(Error),
+	        typeof(Exception), typeof(CameraModule), null, BindingMode.OneWayToSource);
 
 	    public static readonly BindableProperty IsNothingCapturedProperty = BindableProperty.Create(nameof(IsNothingCaptured),
 	        typeof(bool), typeof(CameraModule), true);
@@ -122,10 +122,10 @@ namespace CrossCam.CustomElement
             set => SetValue(WasSwipedTriggerProperty, value);
         }
 
-        public string ErrorMessage
+        public Exception Error
 	    {
-	        get => (string)GetValue(ErrorMessageProperty);
-	        set => SetValue(ErrorMessageProperty, value);
+	        get => (Exception)GetValue(ErrorProperty);
+	        set => SetValue(ErrorProperty, value);
 	    }
 
 	    public bool IsNothingCaptured

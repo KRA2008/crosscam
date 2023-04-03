@@ -225,7 +225,7 @@ namespace CrossCam.Droid.CustomRenderer
                     }
                     catch (Exception ex)
                     {
-                        _cameraModule.ErrorMessage = ex.ToString();
+                        _cameraModule.Error = ex;
                         _useCamera2 = false;
                     }
 
@@ -250,7 +250,7 @@ namespace CrossCam.Droid.CustomRenderer
             }
             catch (Exception ex)
             {
-                _cameraModule.ErrorMessage = ex.ToString();
+                _cameraModule.Error = ex;
             }
         }
 
@@ -341,7 +341,7 @@ namespace CrossCam.Droid.CustomRenderer
             }
             catch (System.Exception ex)
             {
-                _cameraModule.ErrorMessage = ex.ToString();
+                _cameraModule.Error = ex;
             }
         }
 
@@ -409,7 +409,7 @@ namespace CrossCam.Droid.CustomRenderer
             }
             catch (System.Exception e)
             {
-                _cameraModule.ErrorMessage = e.ToString();
+                _cameraModule.Error = e;
             }
         }
 
@@ -658,7 +658,7 @@ namespace CrossCam.Droid.CustomRenderer
             }
             catch (System.Exception ex)
             {
-                _cameraModule.ErrorMessage = ex.ToString();
+                _cameraModule.Error = ex;
             }
         }
 
@@ -669,7 +669,7 @@ namespace CrossCam.Droid.CustomRenderer
 
         public void OnError(CameraError error, Camera camera)
         {
-            _cameraModule.ErrorMessage = error.ToString();
+            _cameraModule.Error = new Exception(error.ToString());
         }
 
         private void SetOrientation()
@@ -806,7 +806,7 @@ namespace CrossCam.Droid.CustomRenderer
             }
             catch (System.Exception e)
             {
-                _cameraModule.ErrorMessage = e.ToString();
+                _cameraModule.Error = e;
             }
         }
 
@@ -954,7 +954,7 @@ namespace CrossCam.Droid.CustomRenderer
             }
             catch (System.Exception e)
             {
-                _cameraModule.ErrorMessage = e.ToString();
+                _cameraModule.Error = e;
             }
         }
 
@@ -1014,7 +1014,7 @@ namespace CrossCam.Droid.CustomRenderer
                 }
                 catch (System.Exception e)
                 {
-                    _cameraModule.ErrorMessage = e.ToString();
+                    _cameraModule.Error = e;
                 }
             }
         }
@@ -1164,7 +1164,7 @@ namespace CrossCam.Droid.CustomRenderer
             }
             catch (System.Exception e)
             {
-                _cameraModule.ErrorMessage = e.ToString();
+                _cameraModule.Error = e;
             }
         }
 
@@ -1219,7 +1219,7 @@ namespace CrossCam.Droid.CustomRenderer
                             }
                             catch (System.Exception ex)
                             {
-                                _cameraModule.ErrorMessage = ex.ToString();
+                                _cameraModule.Error = ex;
                             }
                         }
                     },
@@ -1228,7 +1228,7 @@ namespace CrossCam.Droid.CustomRenderer
             }
             catch (System.Exception e)
             {
-                _cameraModule.ErrorMessage = e.ToString();
+                _cameraModule.Error = e;
             }
         }
 
@@ -1343,7 +1343,7 @@ namespace CrossCam.Droid.CustomRenderer
             }
             catch (System.Exception e)
             {
-                _cameraModule.ErrorMessage = e.ToString();
+                _cameraModule.Error = e;
             }
         }
 
@@ -1367,7 +1367,7 @@ namespace CrossCam.Droid.CustomRenderer
             }
             catch (System.Exception e)
             {
-                _cameraModule.ErrorMessage = e.ToString();
+                _cameraModule.Error = e;
             }
         }
 
@@ -1402,7 +1402,7 @@ namespace CrossCam.Droid.CustomRenderer
             }
             else
             {
-                _cameraModule.ErrorMessage = error.ToString();
+                _cameraModule.Error = new Exception(error.ToString());
             }
 
             _camera2CameraDeviceErrorRetry = false;
@@ -1474,9 +1474,9 @@ namespace CrossCam.Droid.CustomRenderer
                     _cameraModule.CaptureSuccess = !_cameraModule.CaptureSuccess;
                 }
             }
-            catch (System.Exception e)
+            catch (Exception e)
             {
-                _cameraModule.ErrorMessage = e.ToString();
+                _cameraModule.Error = e;
             }
         }
 
@@ -1487,7 +1487,7 @@ namespace CrossCam.Droid.CustomRenderer
 
         private void HandleImageAvailableListenerError(object sender, Exception e)
         {
-            _cameraModule.ErrorMessage = e.ToString();
+            _cameraModule.Error = e;
         }
 
         private void HandleImageAvailablePhoto(object sender, byte[] buffer)
@@ -1687,7 +1687,7 @@ namespace CrossCam.Droid.CustomRenderer
             }
             catch (System.Exception e)
             {
-                _cameraModule.ErrorMessage = e.ToString();
+                _cameraModule.Error = e;
             }
         }
 
