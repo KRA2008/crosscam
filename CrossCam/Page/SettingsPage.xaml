@@ -595,7 +595,7 @@
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="60"/>
                                 <ColumnDefinition Width="*"/>
-                                <ColumnDefinition Width="70"/>
+                                <ColumnDefinition Width="95"/>
                             </Grid.ColumnDefinitions>
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="50"/>
@@ -667,7 +667,8 @@
                             <Label Grid.Row="4"
                                    Grid.Column="0"
                                    Grid.ColumnSpan="3"
-                                   Text="(Saving will happen in order from top to bottom)"/>
+                                   Text="(Saving will happen in order from top to bottom)"
+                                   HorizontalOptions="CenterAndExpand"/>
 
                             <Image Grid.Row="5"
                                    Grid.Column="0"
@@ -1024,13 +1025,6 @@
                     <Switch Grid.Column="1"
                             Grid.Row="5" 
                             IsToggled="{Binding Settings.ShowPreviewFuseGuide}"/>
-
-                    <Label Grid.Column="0"
-                           Grid.Row="6" 
-                           Text="Capture with ghost overlay during second capture"/>
-                    <Switch Grid.Column="1"
-                            Grid.Row="6" 
-                            IsToggled="{Binding Settings.ShowGhostCaptures}"/>
                 </Grid>
             </views:Expander>
 

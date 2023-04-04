@@ -58,7 +58,7 @@ namespace CrossCam.Page
             DrawQuality drawQuality = DrawQuality.Save, double cardboardVert = 0, double cardboardHor = 0, bool isFovStage = false)
         {
             var useGhost = drawQuality == DrawQuality.Preview &&
-                            settings.ShowGhostCaptures &&
+                            settings.FullscreenCapturing &&
                             (drawMode == DrawMode.Cross ||
                              drawMode == DrawMode.Parallel);
 

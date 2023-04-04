@@ -52,7 +52,7 @@
             <Rect x:Key="_retakeRightRightBounds" X="{StaticResource _3dRightMiddle}" Y="1" Width="{StaticResource _smallerButtonWidth}" Height="{StaticResource _smallerButtonWidth}"/>
             <Rect x:Key="_undoBounds" X="0.5" Y="{StaticResource _topMiddleButtonY}" Width="{StaticResource _mediumIconWidth}" Height="{StaticResource _mediumIconWidthPlusTopPadding}"/>
             <Rect x:Key="_checkBounds" X="0.5" Y="1" Width="{StaticResource _largeIconWidth}" Height="{StaticResource _largeIconWidth}"/>
-            <Rect x:Key="_helpBounds" X="0" Y="0" Width="{StaticResource _smallerButtonWidth}" Height="{StaticResource _smallerButtonWidthPlusTopPadding}"/>
+            <Rect x:Key="_helpBounds" X="0" Y="0" Width="{StaticResource _doubleSmallerButtonWidth}" Height="{StaticResource _smallerButtonWidthPlusTopPadding}"/>
             <Rect x:Key="_gearBounds" X="1" Y="0" Width="{StaticResource _doubleSmallerButtonWidth}" Height="{StaticResource _smallerButtonWidthPlusTopPadding}"/>
 
             <Rect x:Key="_leftKeystoneAxis" X="{StaticResource _3dLeftMiddle}" Y="{StaticResource _editModeInnerButtons}" Width="{StaticResource _mediumIconWidth}" Height="{StaticResource _mediumIconWidth}"/>
@@ -253,7 +253,9 @@
                                           Value="True"/>
                         <BindingCondition Binding="{Binding IsExactlyOnePictureTaken}"
                                           Value="True"/>
-                        <BindingCondition Binding="{Binding Settings.ShowGhostCaptures}"
+                        <BindingCondition Binding="{Binding Settings.FullscreenCapturing}"
+                                          Value="False"/>
+                        <BindingCondition Binding="{Binding Settings.FullscreenEditing}"
                                           Value="False"/>
                         <BindingCondition Binding="{Binding Settings.Mode, Converter={StaticResource enumCompare}, ConverterParameter={x:Static vm:DrawMode.GrayscaleRedCyanAnaglyph}}"
                                           Value="False"/>
@@ -281,7 +283,9 @@
                                           Value="True"/>
                         <BindingCondition Binding="{Binding IsExactlyOnePictureTaken}"
                                           Value="True"/>
-                        <BindingCondition Binding="{Binding Settings.ShowGhostCaptures}"
+                        <BindingCondition Binding="{Binding Settings.FullscreenCapturing}"
+                                          Value="False"/>
+                        <BindingCondition Binding="{Binding Settings.FullscreenEditing}"
                                           Value="False"/>
                         <BindingCondition Binding="{Binding Settings.Mode, Converter={StaticResource enumCompare}, ConverterParameter={x:Static vm:DrawMode.GrayscaleRedCyanAnaglyph}}"
                                           Value="False"/>
@@ -1391,16 +1395,37 @@
             </Image>
         </StackLayout>
 
-        <ContentView AbsoluteLayout.LayoutFlags="PositionProportional"
+        <StackLayout AbsoluteLayout.LayoutFlags="PositionProportional"
                      AbsoluteLayout.LayoutBounds="{StaticResource _helpBounds}"
+                     Orientation="Horizontal"
                      Padding="{StaticResource _topBarSmallButtonPadding}"
                      IsVisible="{Binding ShouldSettingsAndHelpBeVisible}">
-            <ContentView.GestureRecognizers>
-                <TapGestureRecognizer Command="{Binding NavigateToHamburgerPageCommand}"/>
-            </ContentView.GestureRecognizers>
             <Image Source="menu"
-                   InputTransparent="True"/>
-        </ContentView>
+                   InputTransparent="True">
+                <Image.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding NavigateToHamburgerPageCommand}"/>
+                </Image.GestureRecognizers>
+            </Image>
+            <Image Source="fullscreen">
+                <Image.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding ToggleFullscreen}"/>
+                </Image.GestureRecognizers>
+                <Image.Triggers>
+                    <DataTrigger TargetType="Image"
+                                 Binding="{Binding IsFullscreen}"
+                                 Value="True">
+                        <Setter Property="Source"
+                                Value="closeFullscreen"/>
+                    </DataTrigger>
+                    <DataTrigger TargetType="Image"
+                                 Binding="{Binding IsFullscreen}"
+                                 Value="False">
+                        <Setter Property="Source"
+                                Value="fullscreen"/>
+                    </DataTrigger>
+                </Image.Triggers>
+            </Image>
+        </StackLayout>
         <StackLayout AbsoluteLayout.LayoutFlags="PositionProportional"
                      AbsoluteLayout.LayoutBounds="{StaticResource _gearBounds}"
                      IsVisible="{Binding ShouldSettingsAndHelpBeVisible}"

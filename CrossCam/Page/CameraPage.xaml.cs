@@ -443,7 +443,8 @@ namespace CrossCam.Page
 
             var useOverlay = _viewModel.Settings.Mode == DrawMode.RedCyanAnaglyph ||
                               _viewModel.Settings.Mode == DrawMode.GrayscaleRedCyanAnaglyph ||
-                              _viewModel.Settings.ShowGhostCaptures;
+                              _viewModel.Settings.FullscreenCapturing ||
+                              _viewModel.Settings.FullscreenEditing;
 
             if (_viewModel.LeftBitmap == null &&
                 _viewModel.RightBitmap == null)
@@ -714,7 +715,8 @@ namespace CrossCam.Page
             {
                 if (_viewModel.Settings.Mode == DrawMode.RedCyanAnaglyph ||
                     _viewModel.Settings.Mode == DrawMode.GrayscaleRedCyanAnaglyph ||
-                    _viewModel.Settings.ShowGhostCaptures && 
+                    (_viewModel.Settings.FullscreenCapturing || 
+                    _viewModel.Settings.FullscreenEditing) && 
                     (_viewModel.Settings.Mode == DrawMode.Cross ||
                      _viewModel.Settings.Mode == DrawMode.Parallel))
                 {
@@ -934,7 +936,8 @@ namespace CrossCam.Page
 
             var overlayDisplay = _viewModel.Settings.Mode == DrawMode.RedCyanAnaglyph ||
                                  _viewModel.Settings.Mode == DrawMode.GrayscaleRedCyanAnaglyph ||
-                                 _viewModel.Settings.ShowGhostCaptures;
+                                 _viewModel.Settings.FullscreenCapturing ||
+                                 _viewModel.Settings.FullscreenEditing;
 
             if (overlayDisplay)
             {

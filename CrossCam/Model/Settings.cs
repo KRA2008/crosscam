@@ -89,7 +89,8 @@ namespace CrossCam.Model
         public bool ShowGuideLinesWithFirstCapture { get; set; }
         public bool ShowGuideDonutWithFirstCapture { get; set; }
         public bool ShowRollGuide { get; set; }
-        public bool ShowGhostCaptures { get; set; }
+        public bool FullscreenCapturing { get; set; }
+        public bool FullscreenEditing { get; set; }
         public bool ShowPreviewFuseGuide { get; set; }
         public bool IsCaptureLeftFirst { get; set; }
         private bool _isForceCamera1Enabled;
@@ -426,7 +427,8 @@ namespace CrossCam.Model
             IsGuideDonutVisible = false;
             ShowGuideDonutWithFirstCapture = false;
             ShowPreviewFuseGuide = true;
-            ShowGhostCaptures = false;
+            FullscreenCapturing = false;
+            FullscreenEditing = false;
 
             SaveForCrossView = true;
             SaveSidesSeparately = false;

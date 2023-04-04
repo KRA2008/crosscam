@@ -40,7 +40,6 @@ namespace CrossCam.ViewModel
         public CropMode CropMode { get; set; }
         public ManualAlignMode ManualAlignMode { get; set; }
         public CameraSettingMode CameraSettingMode { get; set; }
-        public bool IsCameraSelectVisible { get; set; }
         public FovCorrectionMode FovCorrectionMode { get; set; }
 
         public SKBitmap LeftBitmap { get; set; }
@@ -67,7 +66,8 @@ namespace CrossCam.ViewModel
         public AbsoluteLayoutFlags CanvasRectangleFlags => 
             Settings.Mode == DrawMode.Parallel && 
             !(WorkflowStage == WorkflowStage.Capture && 
-              Settings.ShowGhostCaptures)
+              (Settings.FullscreenCapturing ||
+              Settings.FullscreenEditing))
             ? AbsoluteLayoutFlags.YProportional | AbsoluteLayoutFlags.HeightProportional | AbsoluteLayoutFlags.XProportional : 
             AbsoluteLayoutFlags.All;
         public Rectangle CanvasRectangle 
@@ -76,7 +76,8 @@ namespace CrossCam.ViewModel
             {
                 if(Settings.Mode != DrawMode.Parallel ||
                    WorkflowStage == WorkflowStage.Capture &&
-                   Settings.ShowGhostCaptures) return new Rectangle(0,0,1,1);
+                   (Settings.FullscreenCapturing ||
+                    Settings.FullscreenEditing)) return new Rectangle(0,0,1,1);
                 var mainPage = Application.Current?.MainPage;
                 var windowWidth = int.MaxValue;
                 if (mainPage != null &&
@@ -100,6 +101,27 @@ namespace CrossCam.ViewModel
         public bool SingleMoveHintTrigger { get; set; }
         public bool DoubleMoveHintTrigger { get; set; }
         public bool WasSwipedTrigger { get; set; }
+
+        public Command ToggleFullscreen { get; set; }
+        public bool IsFullscreen
+        {
+            get =>
+                WorkflowStage == WorkflowStage.Capture &&
+                Settings.FullscreenCapturing ||
+                WorkflowStage != WorkflowStage.Capture &&
+                Settings.FullscreenEditing;
+            set
+            {
+                if (WorkflowStage == WorkflowStage.Capture)
+                {
+                    Settings.FullscreenCapturing = value;
+                }
+                else
+                {
+                    Settings.FullscreenEditing = value;
+                }
+            }
+        }
 
         public Command SaveCapturesCommand { get; set; }
 
@@ -705,7 +727,7 @@ namespace CrossCam.ViewModel
             SaveCapturesCommand = new Command(async () =>
             {
                 SendCommandStartAnalyticsEvent(nameof(SaveCapturesCommand));
-                const string SAVE_EVENT = "key";
+                const string SAVE_EVENT = "image saved";
                 const string SAVE_TYPE = "type";
                 WorkflowStage = WorkflowStage.Saving;
 
@@ -1141,6 +1163,11 @@ namespace CrossCam.ViewModel
                     Error = e;
                 }
             });
+
+            ToggleFullscreen = new Command(() =>
+            {
+                IsFullscreen = !IsFullscreen;
+            });
         }
 
         public override void Init(object initData)
@@ -1190,6 +1217,14 @@ namespace CrossCam.ViewModel
             PairOperator.TransmissionComplete -= PairOperatorTransmissionComplete;
             PairOperator.CountdownTimerSyncCompleteSecondary -= PairOperatorCountdownTimerSyncCompleteSecondary;
             PairOperator.ErrorOccurred -= PairOperatorOnErrorOccurred;
+        }
+
+        private static void SendCommandStartAnalyticsEvent(string name)
+        {
+            Analytics.TrackEvent(COMMAND_ANALYTICS_EVENT, new Dictionary<string, string>
+            {
+                {COMMAND_ANALYTICS_KEY_NAME, name}
+            });
         }
 
         private void EvaluateOrientationEvent(object sender, DisplayInfoChangedEventArgs eventArgs)
