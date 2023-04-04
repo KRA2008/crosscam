@@ -376,6 +376,14 @@
   <ItemGroup>
     <AndroidResource Include="Resources\drawable-nodpi\fullscreen.png" />
   </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable-nodpi\closeFullscreen.png" />
+  </ItemGroup>
   <Import Project="..\AutoAlignment\AutoAlignment.projitems" Label="Shared" />
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
+  <ProjectExtensions>
+    <VisualStudio>
+      <UserProperties XamarinHotReloadDebuggerTimeoutExceptionCrossCamDroidHideInfoBar="True" />
+    </VisualStudio>
+  </ProjectExtensions>
 </Project>

@@ -76,8 +76,9 @@ namespace CrossCam.ViewModel
             {
                 if(Settings.Mode != DrawMode.Parallel ||
                    WorkflowStage == WorkflowStage.Capture &&
-                   (Settings.FullscreenCapturing ||
-                    Settings.FullscreenEditing)) return new Rectangle(0,0,1,1);
+                   Settings.FullscreenCapturing ||
+                    WorkflowStage != WorkflowStage.Capture &&
+                    Settings.FullscreenEditing) return new Rectangle(0,0,1,1);
                 var mainPage = Application.Current?.MainPage;
                 var windowWidth = int.MaxValue;
                 if (mainPage != null &&

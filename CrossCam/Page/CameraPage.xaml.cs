@@ -80,6 +80,7 @@ namespace CrossCam.Page
         };
         private const int MIN_MOVE_COUNTER = 4;
         private bool _didSwap;
+        private bool _forceCanvasClear;
 
         public CameraPage()
 		{
@@ -321,6 +322,7 @@ namespace CrossCam.Page
                     EvaluateSensors();
                     ResetLineAndDonutGuides();
                     PlaceRollGuide();
+                    DrawFuseGuide();
                 });
             }
 	    }
@@ -354,6 +356,7 @@ namespace CrossCam.Page
                     case nameof(CameraViewModel.CameraColumn):
                     case nameof(Settings.IsCaptureLeftFirst):
                         PlaceRollGuide();
+                        DrawFuseGuide();
                         break;
                     case nameof(CameraViewModel.IsViewPortrait):
                         _canvas.InvalidateSurface();
@@ -363,6 +366,7 @@ namespace CrossCam.Page
                         break;
                     case nameof(CameraViewModel.PreviewBottomY):
                         PlaceRollGuide();
+                        DrawFuseGuide();
                         break;
                     case nameof(CameraViewModel.LeftOrientation):
                     case nameof(CameraViewModel.LeftBitmap):
@@ -371,6 +375,7 @@ namespace CrossCam.Page
                         _newLeftCapture = true;
                         CardboardCheckAndSaveOrientationSnapshot();
                         _canvas.InvalidateSurface();
+                        DrawFuseGuide();
                         break;
                     case nameof(CameraViewModel.RightOrientation):
                     case nameof(CameraViewModel.RightBitmap):
@@ -379,11 +384,17 @@ namespace CrossCam.Page
                         _newRightCapture = true;
                         CardboardCheckAndSaveOrientationSnapshot();
                         _canvas.InvalidateSurface();
+                        DrawFuseGuide();
                         break;
                     case nameof(CameraViewModel.RemotePreviewFrame):
                     case nameof(CameraViewModel.LocalPreviewFrame):
                         _canvas.InvalidateSurface();
                         break;
+                    case nameof(CameraViewModel.IsFullscreen):
+                        _canvas.InvalidateSurface();
+                        _forceCanvasClear = true;
+                        break;
+
                 }
             });
 	    }
@@ -441,10 +452,11 @@ namespace CrossCam.Page
 	    {
             var surface = e.Surface;
 
-            var useOverlay = _viewModel.Settings.Mode == DrawMode.RedCyanAnaglyph ||
+            var clearCanvas = _viewModel.Settings.Mode == DrawMode.RedCyanAnaglyph ||
                               _viewModel.Settings.Mode == DrawMode.GrayscaleRedCyanAnaglyph ||
                               _viewModel.Settings.FullscreenCapturing ||
-                              _viewModel.Settings.FullscreenEditing;
+                              _viewModel.Settings.FullscreenEditing ||
+                              _forceCanvasClear;
 
             if (_viewModel.LeftBitmap == null &&
                 _viewModel.RightBitmap == null)
@@ -454,7 +466,7 @@ namespace CrossCam.Page
                 _cardboardHomeVert = null;
             }
 
-            if (useOverlay)
+            if (clearCanvas)
             {
                 surface.Canvas.Clear();
             }
@@ -485,7 +497,7 @@ namespace CrossCam.Page
             else
             {
                 if (_newLeftCapture || 
-                    useOverlay &&
+                    clearCanvas &&
                     _viewModel.LeftBitmap != null)
                 {
                     left = _viewModel.LeftBitmap;
@@ -509,7 +521,7 @@ namespace CrossCam.Page
                 }
 
                 if (_newRightCapture || 
-                    useOverlay &&
+                    clearCanvas &&
                     _viewModel.RightBitmap != null)
                 {
                     right = _viewModel.RightBitmap;
@@ -729,7 +741,11 @@ namespace CrossCam.Page
                 rollBounds.Y = _viewModel.PreviewBottomY - LEVEL_ICON_WIDTH / 5;
             }
             AbsoluteLayout.SetLayoutBounds(_horizontalLevelWhole, rollBounds);
+        }
 
+        private void DrawFuseGuide()
+        {
+            //TODO: remove this fuse guide drawing and leave it to drawtool once canvas is doing the full preview and not the CameraModule
             var leftFuseGuideBounds = AbsoluteLayout.GetLayoutBounds(_leftFuseGuide);
             var rightFuseGuideBounds = AbsoluteLayout.GetLayoutBounds(_rightFuseGuide);
             if (_viewModel != null)
@@ -741,7 +757,7 @@ namespace CrossCam.Page
                 leftFuseGuideBounds.Height = iconWidth;
                 rightFuseGuideBounds.Width = iconWidth;
                 rightFuseGuideBounds.Height = iconWidth;
-                var fuseGuideY = previewY - DrawTool.CalculateFuseGuideMarginHeight(previewHeight) / 2d - iconWidth / 2d; 
+                var fuseGuideY = previewY - DrawTool.CalculateFuseGuideMarginHeight(previewHeight) / 2d - iconWidth / 2d;
                 leftFuseGuideBounds.Y = fuseGuideY;
                 rightFuseGuideBounds.Y = fuseGuideY;
                 leftFuseGuideBounds.X = Width / 2d - _previewGrid.Width / 4d - iconWidth;

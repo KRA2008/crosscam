@@ -57,8 +57,10 @@ namespace CrossCam.Page
             Settings settings, Edits edits, DrawMode drawMode, bool wasPairedCapture, bool withSwap = false,
             DrawQuality drawQuality = DrawQuality.Save, double cardboardVert = 0, double cardboardHor = 0, bool isFovStage = false)
         {
-            var useGhost = drawQuality == DrawQuality.Preview &&
-                            settings.FullscreenCapturing &&
+            var useGhost = (drawQuality == DrawQuality.Preview &&
+                            settings.FullscreenCapturing ||
+                           drawQuality == DrawQuality.Review &&
+                           settings.FullscreenEditing) &&
                             (drawMode == DrawMode.Cross ||
                              drawMode == DrawMode.Parallel);
 

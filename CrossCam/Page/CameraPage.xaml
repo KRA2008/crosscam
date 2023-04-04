@@ -255,8 +255,6 @@
                                           Value="True"/>
                         <BindingCondition Binding="{Binding Settings.FullscreenCapturing}"
                                           Value="False"/>
-                        <BindingCondition Binding="{Binding Settings.FullscreenEditing}"
-                                          Value="False"/>
                         <BindingCondition Binding="{Binding Settings.Mode, Converter={StaticResource enumCompare}, ConverterParameter={x:Static vm:DrawMode.GrayscaleRedCyanAnaglyph}}"
                                           Value="False"/>
                         <BindingCondition Binding="{Binding Settings.Mode, Converter={StaticResource enumCompare}, ConverterParameter={x:Static vm:DrawMode.RedCyanAnaglyph}}"
@@ -284,8 +282,6 @@
                         <BindingCondition Binding="{Binding IsExactlyOnePictureTaken}"
                                           Value="True"/>
                         <BindingCondition Binding="{Binding Settings.FullscreenCapturing}"
-                                          Value="False"/>
-                        <BindingCondition Binding="{Binding Settings.FullscreenEditing}"
                                           Value="False"/>
                         <BindingCondition Binding="{Binding Settings.Mode, Converter={StaticResource enumCompare}, ConverterParameter={x:Static vm:DrawMode.GrayscaleRedCyanAnaglyph}}"
                                           Value="False"/>
@@ -1398,33 +1394,38 @@
         <StackLayout AbsoluteLayout.LayoutFlags="PositionProportional"
                      AbsoluteLayout.LayoutBounds="{StaticResource _helpBounds}"
                      Orientation="Horizontal"
-                     Padding="{StaticResource _topBarSmallButtonPadding}"
                      IsVisible="{Binding ShouldSettingsAndHelpBeVisible}">
-            <Image Source="menu"
-                   InputTransparent="True">
-                <Image.GestureRecognizers>
+            <ContentView Padding="{StaticResource _topBarSmallButtonPadding}">
+                <ContentView.GestureRecognizers>
                     <TapGestureRecognizer Command="{Binding NavigateToHamburgerPageCommand}"/>
-                </Image.GestureRecognizers>
-            </Image>
-            <Image Source="fullscreen">
-                <Image.GestureRecognizers>
+                </ContentView.GestureRecognizers>
+                <Image Source="menu"
+                       InputTransparent="True">
+                </Image>
+            </ContentView>
+            <ContentView Padding="{StaticResource _topBarSmallButtonPadding}"
+                         HorizontalOptions="EndAndExpand">
+                <ContentView.GestureRecognizers>
                     <TapGestureRecognizer Command="{Binding ToggleFullscreen}"/>
-                </Image.GestureRecognizers>
-                <Image.Triggers>
-                    <DataTrigger TargetType="Image"
-                                 Binding="{Binding IsFullscreen}"
-                                 Value="True">
-                        <Setter Property="Source"
-                                Value="closeFullscreen"/>
-                    </DataTrigger>
-                    <DataTrigger TargetType="Image"
-                                 Binding="{Binding IsFullscreen}"
-                                 Value="False">
-                        <Setter Property="Source"
-                                Value="fullscreen"/>
-                    </DataTrigger>
-                </Image.Triggers>
-            </Image>
+                </ContentView.GestureRecognizers>
+                <Image Source="fullscreen"
+                       InputTransparent="True">
+                    <Image.Triggers>
+                        <DataTrigger TargetType="Image"
+                                     Binding="{Binding IsFullscreen}"
+                                     Value="True">
+                            <Setter Property="Source"
+                                    Value="closeFullscreen"/>
+                        </DataTrigger>
+                        <DataTrigger TargetType="Image"
+                                     Binding="{Binding IsFullscreen}"
+                                     Value="False">
+                            <Setter Property="Source"
+                                    Value="fullscreen"/>
+                        </DataTrigger>
+                    </Image.Triggers>
+                </Image>
+            </ContentView>
         </StackLayout>
         <StackLayout AbsoluteLayout.LayoutFlags="PositionProportional"
                      AbsoluteLayout.LayoutBounds="{StaticResource _gearBounds}"
