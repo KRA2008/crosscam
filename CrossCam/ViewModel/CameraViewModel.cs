@@ -29,7 +29,9 @@ namespace CrossCam.ViewModel
         private const string FULL_IMAGE = "Load full stereo image";
         private const string SINGLE_SIDE = "Load single side";
         private const string CANCEL = "Cancel";
-        private const string CROSSCAM = "CrossCam";
+        private const string CROSSCAM = "CrossCam"; 
+        private const string COMMAND_ANALYTICS_EVENT = "command start";
+        private const string COMMAND_ANALYTICS_KEY_NAME = "command name";
 
         public static PairOperator PairOperator;
         public PairOperator PairOperatorBindable => PairOperator;
@@ -391,6 +393,7 @@ namespace CrossCam.ViewModel
 
             LoadPhotoCommand = new Command(async () =>
             {
+                SendCommandStartAnalyticsEvent(nameof(LoadPhotoCommand));
                 var photos = await DependencyService.Get<IPhotoPicker>().GetImages();
                 if (photos != null)
                 {
@@ -400,6 +403,7 @@ namespace CrossCam.ViewModel
 
             RetakeLeftCommand = new Command(() =>
             {
+                SendCommandStartAnalyticsEvent(nameof(RetakeLeftCommand));
                 try
                 {
                     if (PairOperator.PairStatus == PairStatus.Connected)
@@ -430,6 +434,7 @@ namespace CrossCam.ViewModel
 
             RetakeRightCommand = new Command(() =>
             {
+                SendCommandStartAnalyticsEvent(nameof(RetakeRightCommand));
                 try
                 {
                     if (PairOperator.PairStatus == PairStatus.Connected)
@@ -460,12 +465,14 @@ namespace CrossCam.ViewModel
 
             GoToModeCommand = new Command<WorkflowStage>(arg =>
             {
+                SendCommandStartAnalyticsEvent(nameof(GoToModeCommand));
                 WorkflowStage = arg;
                 RaisePropertyChanged(nameof(ShouldPairButtonBeVisible));
             });
 
             SaveEditCommand = new Command(() =>
             {
+                SendCommandStartAnalyticsEvent(nameof(SaveEditCommand));
                 switch (WorkflowStage)
                 {
                     case WorkflowStage.Edits:
@@ -486,6 +493,7 @@ namespace CrossCam.ViewModel
 
             ClearEditCommand = new Command(() =>
             {
+                SendCommandStartAnalyticsEvent(nameof(ClearEditCommand));
                 try
                 {
                     switch (WorkflowStage)
@@ -509,6 +517,7 @@ namespace CrossCam.ViewModel
 
             ClearCapturesCommand = new Command(async() =>
             {
+                SendCommandStartAnalyticsEvent(nameof(ClearCapturesCommand));
                 try
                 {
                     await Device.InvokeOnMainThreadAsync(async () =>
@@ -534,6 +543,7 @@ namespace CrossCam.ViewModel
 
             CapturePictureCommand = new Command(() =>
             {
+                SendCommandStartAnalyticsEvent(nameof(CapturePictureCommand));
                 if (PairOperator.IsPrimary &&
                     PairOperator.PairStatus == PairStatus.Connected)
                 {
@@ -547,6 +557,7 @@ namespace CrossCam.ViewModel
 
             ToggleViewModeCommand = new Command(() =>
             {
+                SendCommandStartAnalyticsEvent(nameof(ToggleViewModeCommand));
                 if (WorkflowStage != WorkflowStage.View)
                 {
                     _stageBeforeView = WorkflowStage;
@@ -560,16 +571,19 @@ namespace CrossCam.ViewModel
 
             NavigateToSettingsCommand = new Command(async () =>
             {
+                SendCommandStartAnalyticsEvent(nameof(NavigateToSettingsCommand));
                 await CoreMethods.PushPageModel<SettingsViewModel>(Settings);
             });
 
             NavigateToHamburgerPageCommand = new Command(async () =>
             {
+                SendCommandStartAnalyticsEvent(nameof(NavigateToHamburgerPageCommand));
                 await CoreMethods.PushPageModel<HamburgerViewModel>(Settings);
             });
 
             FlipCameraCommand = new Command(() =>
             {
+                SendCommandStartAnalyticsEvent(nameof(FlipCameraCommand));
                 var index = AvailableCameras.IndexOf(ChosenCamera);
                 index++;
                 if (index > AvailableCameras.Count - 1)
@@ -582,6 +596,7 @@ namespace CrossCam.ViewModel
 
             OpenCameraSettingsCommand = new Command(() =>
             {
+                SendCommandStartAnalyticsEvent(nameof(OpenCameraSettingsCommand));
                 CameraSettingsVisible = !CameraSettingsVisible;
                 if (!CameraSettingsVisible)
                 {
@@ -591,11 +606,13 @@ namespace CrossCam.ViewModel
 
             SetCameraSettingModeCommand = new Command<CameraSettingMode>(mode =>
             {
+                SendCommandStartAnalyticsEvent(nameof(SetCameraSettingModeCommand));
                 CameraSettingMode = mode;
             });
 
             SaveCameraSettingCommand = new Command(() =>
             {
+                SendCommandStartAnalyticsEvent(nameof(SaveCameraSettingCommand));
                 if (CameraSettingMode == CameraSettingMode.Menu)
                 {
                     CameraSettingsVisible = false;
@@ -608,6 +625,7 @@ namespace CrossCam.ViewModel
 
             ResetCameraSettingCommand = new Command(() =>
             {
+                SendCommandStartAnalyticsEvent(nameof(ResetCameraSettingCommand));
                 switch (CameraSettingMode)
                 {
                     case CameraSettingMode.Camera:
@@ -633,6 +651,7 @@ namespace CrossCam.ViewModel
 
             SwapSidesCommand = new Command(obj =>
             {
+                SendCommandStartAnalyticsEvent(nameof(SwapSidesCommand));
                 if (WorkflowStage == WorkflowStage.Capture ||
                     WorkflowStage == WorkflowStage.Final ||
                     WorkflowStage == WorkflowStage.Edits ||
@@ -667,21 +686,25 @@ namespace CrossCam.ViewModel
 
             SetCropMode = new Command(mode =>
             {
+                SendCommandStartAnalyticsEvent(nameof(SetCropMode));
                 CropMode = (CropMode) mode;
             });
 
             SetManualAlignMode = new Command(mode =>
             {
+                SendCommandStartAnalyticsEvent(nameof(SetManualAlignMode));
                 ManualAlignMode = (ManualAlignMode) mode;
             });
 
             SetFovCorrectionMode = new Command(mode =>
             {
+                SendCommandStartAnalyticsEvent(nameof(SetFovCorrectionMode));
                 FovCorrectionMode = (FovCorrectionMode) mode;
             });
 
             SaveCapturesCommand = new Command(async () =>
             {
+                SendCommandStartAnalyticsEvent(nameof(SaveCapturesCommand));
                 const string SAVE_EVENT = "key";
                 const string SAVE_TYPE = "type";
                 WorkflowStage = WorkflowStage.Saving;
@@ -1033,6 +1056,7 @@ namespace CrossCam.ViewModel
 
             PromptForPermissionAndSendErrorEmailCommand = new Command(async () =>
             {
+                SendCommandStartAnalyticsEvent(nameof(PromptForPermissionAndSendErrorEmailCommand));
                 Debugger.Break();
                 Debug.WriteLine("### ERROR: " + Error);
 
@@ -1080,6 +1104,7 @@ namespace CrossCam.ViewModel
 
             PairCommand = new Command(async () =>
             {
+                SendCommandStartAnalyticsEvent(nameof(PairCommand));
                 try
                 {
                     if (PairOperator.PairStatus == PairStatus.Disconnected)
