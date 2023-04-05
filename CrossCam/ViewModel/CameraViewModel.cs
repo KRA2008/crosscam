@@ -64,12 +64,11 @@ namespace CrossCam.ViewModel
         public IncomingFrame LocalCapturedFrame { get; set; }
 
         public AbsoluteLayoutFlags CanvasRectangleFlags => 
-            Settings.Mode == DrawMode.Parallel && 
-            !(WorkflowStage == WorkflowStage.Capture && 
-              (Settings.FullscreenCapturing ||
-              Settings.FullscreenEditing))
-            ? AbsoluteLayoutFlags.YProportional | AbsoluteLayoutFlags.HeightProportional | AbsoluteLayoutFlags.XProportional : 
-            AbsoluteLayoutFlags.All;
+            Settings.Mode != DrawMode.Parallel || WorkflowStage == WorkflowStage.Capture && 
+            Settings.FullscreenCapturing || WorkflowStage != WorkflowStage.Capture &&
+            Settings.FullscreenEditing
+            ? AbsoluteLayoutFlags.All : 
+            AbsoluteLayoutFlags.YProportional | AbsoluteLayoutFlags.HeightProportional | AbsoluteLayoutFlags.XProportional;
         public Rectangle CanvasRectangle 
         {
             get 
@@ -90,7 +89,17 @@ namespace CrossCam.ViewModel
 
                     windowWidth = (int) (IsViewPortrait ? Math.Min(appWidth, appHeight) : Math.Max(appWidth, appHeight));
                 }
-                return new Rectangle(0.5, 0, Math.Min(Settings.MaximumParallelWidth, windowWidth), 1);
+                return new Rectangle(
+                    0.5, 
+                    0, 
+                    WorkflowStage == WorkflowStage.Capture && 
+                    !Settings.FullscreenCapturing && 
+                    WorkflowStage != WorkflowStage.Capture && 
+                    !Settings.FullscreenEditing ? 
+                        windowWidth : 
+                        Math.Min(Settings.MaximumParallelWidth, windowWidth)
+                    , 
+                    1);
             }
         }
 
@@ -1336,6 +1345,10 @@ namespace CrossCam.ViewModel
             else if (args.PropertyName == nameof(WasSwipedTrigger))
             {
                 SwapSidesCommand?.Execute(null);
+            } else if (args.PropertyName == nameof(IsFullscreen))
+            {
+                RaisePropertyChanged(nameof(CanvasRectangle));
+                RaisePropertyChanged(nameof(CanvasRectangleFlags));
             }
         }
 
