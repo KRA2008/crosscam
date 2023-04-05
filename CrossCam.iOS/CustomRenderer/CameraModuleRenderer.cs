@@ -143,7 +143,7 @@ namespace CrossCam.iOS.CustomRenderer
             }
             catch (Exception ex)
             {
-                _cameraModule.ErrorMessage = ex.ToString();
+                _cameraModule.Error = ex;
             }
         }
 
@@ -309,7 +309,7 @@ namespace CrossCam.iOS.CustomRenderer
             }
             catch (Exception e)
             {
-                _cameraModule.ErrorMessage = e.ToString();
+                _cameraModule.Error = e;
             }
         }
 
@@ -393,7 +393,7 @@ namespace CrossCam.iOS.CustomRenderer
             }
             catch (Exception e)
             {
-                _cameraModule.ErrorMessage = e.ToString();
+                _cameraModule.Error = e;
             }
         }
 
@@ -405,7 +405,7 @@ namespace CrossCam.iOS.CustomRenderer
             {
                 if (error != null)
                 {
-                    _cameraModule.ErrorMessage = error.ToString();
+                    _cameraModule.Error = new Exception(error.ToString());
                 }
                 else if (finishedPhotoBuffer != null)
                 {
@@ -441,7 +441,7 @@ namespace CrossCam.iOS.CustomRenderer
             }
             catch (Exception e)
             {
-                _cameraModule.ErrorMessage = e.ToString();
+                _cameraModule.Error = e;
             }
         }
 
@@ -453,7 +453,7 @@ namespace CrossCam.iOS.CustomRenderer
             {
                 if (error != null)
                 {
-                    _cameraModule.ErrorMessage = error.ToString();
+                    _cameraModule.Error = new Exception(error.ToString());
                 }
                 else if (photo != null)
                 {
@@ -486,7 +486,7 @@ namespace CrossCam.iOS.CustomRenderer
             }
             catch (Exception e)
             {
-                _cameraModule.ErrorMessage = e.ToString();
+                _cameraModule.Error = e;
             }
         }
 
