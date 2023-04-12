@@ -51,12 +51,16 @@ namespace CrossCam.iOS.CustomRenderer
             }
             catch (Exception e)
             {
-                OnErrorOccurred(e.ToString());
+                OnErrorOccurred(new ErrorEventArgs
+                {
+                    Exception = e,
+                    Step = "Send payload"
+                });
             }
         }
 
-        public event EventHandler<string> ErrorOccurred;
-        private void OnErrorOccurred(string error)
+        public event EventHandler<ErrorEventArgs> ErrorOccurred;
+        private void OnErrorOccurred(ErrorEventArgs error)
         {
             ErrorOccurred?.Invoke(this, error);
         }

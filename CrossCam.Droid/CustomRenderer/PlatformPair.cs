@@ -16,17 +16,18 @@ using CrossCam.Wrappers;
 using Xamarin.Forms;
 using Xamarin.Essentials;
 using Debug = System.Diagnostics.Debug;
+using ErrorEventArgs = CrossCam.CustomElement.ErrorEventArgs;
 
 [assembly: Dependency(typeof(PlatformPair))]
 namespace CrossCam.Droid.CustomRenderer
 {
-    public sealed class PlatformPair : BluetoothGattCallback, IPlatformPair, GoogleApiClient.IConnectionCallbacks, GoogleApiClient.IOnConnectionFailedListener
+    public sealed class PlatformPair : BluetoothGattCallback, IPlatformPair
     {
         public static TaskCompletionSource<bool> BluetoothPermissionsTask;
         public static TaskCompletionSource<bool> LocationPermissionsTask;
         public static TaskCompletionSource<bool> TurnOnLocationTask;
 
-        private readonly ConnectionsClient _client;
+        private readonly IConnectionsClient _client;
         private string _connectedPartnerId;
 
         public PlatformPair()
@@ -102,16 +103,20 @@ namespace CrossCam.Droid.CustomRenderer
         {
             try
             {
-                var sendingStream = new MemoryStream(bytes); //TODO: dispose/close correctly - i keep doing it wrong
                 if ((PairOperator.CrossCommand)bytes[2] == PairOperator.CrossCommand.CapturedImage)
                 {
                     await Task.Delay(1000);
                 }
-                await _client.SendPayloadAsync(_connectedPartnerId, Payload.FromStream(sendingStream));
+                using var payload = Payload.FromStream(new MemoryStream(bytes)); // i want to dispose of stream but it doesn't work.
+                await _client.SendPayloadAsync(_connectedPartnerId, payload);
             }
             catch (Exception e)
             {
-                OnErrorOccurred(e.ToString());
+                OnErrorOccurred(new ErrorEventArgs
+                {
+                    Exception = e,
+                    Step = "Send payload"
+                });
             }
         }
 
@@ -121,8 +126,8 @@ namespace CrossCam.Droid.CustomRenderer
             PayloadReceived?.Invoke(this, payload);
         }
 
-        public event EventHandler<string> ErrorOccurred;
-        private void OnErrorOccurred(string error)
+        public event EventHandler<ErrorEventArgs> ErrorOccurred;
+        private void OnErrorOccurred(ErrorEventArgs error)
         {
             ErrorOccurred?.Invoke(this, error);
         }
@@ -137,21 +142,6 @@ namespace CrossCam.Droid.CustomRenderer
         private void OnDisconnected()
         {
             Disconnected?.Invoke(this, EventArgs.Empty);
-        }
-
-        public void OnConnected(Bundle connectionHint)
-        {
-            //Debug.WriteLine("### OnConnected " + (connectionHint != null ? string.Join(",", connectionHint.KeySet()) : ""));
-        }
-
-        public void OnConnectionSuspended(int cause)
-        {
-            //Debug.WriteLine("### OnConnectionSuspended " + cause);
-        }
-
-        public void OnConnectionFailed(ConnectionResult result)
-        {
-            //Debug.WriteLine("### OnConnectionFailed " + result.ErrorMessage);
         }
 
         public async Task BecomeDiscoverable()
@@ -186,18 +176,37 @@ namespace CrossCam.Droid.CustomRenderer
             {
                 Debug.WriteLine("### OnConnectionInitiated: " + p0 + ", " + p1.EndpointName);
                 new AlertDialog.Builder(MainActivity.Instance).SetTitle("Accept connection to " + p1.EndpointName + "?")
-                    .SetMessage("Confirm the code matches on both devices: " + p1.AuthenticationToken)
+                    .SetMessage("Confirm the code matches on both devices: " + p1.AuthenticationDigits)
                     .SetPositiveButton("Accept",
                         async (sender, args) =>
                         {
-                            await _platformPair._client.AcceptConnectionAsync(p0, new MyPayloadCallback(_platformPair));
+                            try
+                            {
+                                await _platformPair._client.AcceptConnectionAsync(p0, new MyPayloadCallback(_platformPair));
+                            }
+                            catch (Exception e)
+                            {
+                                _platformPair.OnErrorOccurred(new ErrorEventArgs
+                                {
+                                    Exception = e,
+                                    Step = "Accept connection"
+                                });
+                            }
                         }).SetNegativeButton("Cancel",
                         async (sender, args) =>
                         {
                             try
                             {
                                 await _platformPair._client.RejectConnectionAsync(p0);
-                            } catch {}
+                            }
+                            catch (Exception e)
+                            {
+                                _platformPair.OnErrorOccurred(new ErrorEventArgs
+                                {
+                                    Exception = e,
+                                    Step = "Reject connection"
+                                });
+                            }
                             _platformPair.Disconnect();
                         }).Show();
             }
@@ -291,11 +300,18 @@ namespace CrossCam.Droid.CustomRenderer
                                 _expectedLength - _incomingBytesCounter);
                             _incomingBytesCounter += readBytes;
 
-                            //Debug.WriteLine("### ProcessReceivedPayload: " + _incomingBytesCounter + " of " + _expectedLength + ", Id: " + p1.PayloadId);
                             _platformPair.ProcessReceivedPayload(_incomingBytes);
                             break;
                         default: //failure
-                            Debug.WriteLine("### Transfer failed!");
+                            Debug.WriteLine("### transfer failed!");
+                            _platformPair.OnErrorOccurred(new ErrorEventArgs
+                            {
+                                Exception = new Exception(
+                                    "Payload transfer failed. " + 
+                                    "Bytes transferred: " + p1.BytesTransferred +
+                                    "Total bytes: " + p1.TotalBytes),
+                                Step = "Receive payload"
+                            });
                             break;
                     }
                 }
@@ -303,7 +319,6 @@ namespace CrossCam.Droid.CustomRenderer
                 {
                     if (p1.TransferStatus == PayloadTransferUpdate.Status.Success)
                     {
-                        //Debug.WriteLine("### Closing due to sent success");
                     }
                 }
             }

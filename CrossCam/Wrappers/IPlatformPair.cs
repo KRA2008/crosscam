@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Threading.Tasks;
+using CrossCam.CustomElement;
 
 namespace CrossCam.Wrappers
 {
@@ -13,6 +14,6 @@ namespace CrossCam.Wrappers
 
         void SendPayload(byte[] bytes);
         event EventHandler<byte[]> PayloadReceived;
-        event EventHandler<string> ErrorOccurred;
+        event EventHandler<ErrorEventArgs> ErrorOccurred;
     }
 }

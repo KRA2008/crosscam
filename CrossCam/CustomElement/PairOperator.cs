@@ -185,6 +185,12 @@ namespace CrossCam.CustomElement
             _platformPair.Connected += PlatformPairOnConnected;
             _platformPair.Disconnected += PlatformPairOnDisconnected;
             _platformPair.PayloadReceived += PlatformPairOnPayloadReceived;
+            _platformPair.ErrorOccurred += PlatformPairOnErrorOccurred;
+        }
+
+        private void PlatformPairOnErrorOccurred(object sender, ErrorEventArgs args)
+        {
+            OnErrorOccurred(args);
         }
 
         private void PlatformPairOnPayloadReceived(object sender, byte[] bytes)
