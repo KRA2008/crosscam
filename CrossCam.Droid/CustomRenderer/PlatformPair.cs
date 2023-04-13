@@ -107,7 +107,7 @@ namespace CrossCam.Droid.CustomRenderer
                 {
                     await Task.Delay(1000);
                 }
-                using var payload = Payload.FromStream(new MemoryStream(bytes)); // i want to dispose of stream but it doesn't work.
+                using var payload = Payload.FromStream(new MemoryStream(bytes));
                 await _client.SendPayloadAsync(_connectedPartnerId, payload);
             }
             catch (Exception e)
@@ -237,30 +237,29 @@ namespace CrossCam.Droid.CustomRenderer
         private class MyPayloadCallback : PayloadCallback
         {
             private readonly PlatformPair _platformPair;
-            private Payload _mostRecentReceivedPayload;
             private byte[] _incomingBytes;
             private int _incomingBytesCounter;
             private int _expectedLength;
             private readonly byte[] _headerBytes = new byte[PairOperator.HEADER_LENGTH];
+            private long _payloadId;
+            private Stream _payloadStream;
 
             public MyPayloadCallback(PlatformPair platformPair)
             {
                 _platformPair = platformPair;
             }
 
-            //TODO: handle closing and disposing better, what's with the "failed to call close" stuff?
-            //TODO: consider a constant sized buffer
             public override void OnPayloadReceived(string p0, Payload p1)
             {
                 //Debug.WriteLine("### OnPayloadReceived, Id: " + p1.Id);
-                _mostRecentReceivedPayload = p1;
+                _payloadId = p1.Id;
 
                 try
                 {
-                    var receivingStream = _mostRecentReceivedPayload.AsStream().AsInputStream(); //TODO: dispose/close correctly - i keep doing it wrong
+                    _payloadStream = p1.AsStream().AsInputStream();
                     for (var ii = 0; ii < PairOperator.HEADER_LENGTH; ii++)
                     {
-                        var nextByte = receivingStream.ReadByte();
+                        var nextByte = _payloadStream.ReadByte();
                         _headerBytes[ii] = (byte)nextByte;
                     }
                     _expectedLength = PairOperator.HEADER_LENGTH + ((_headerBytes.ElementAt(3) << 16) | (_headerBytes.ElementAt(4) << 8) | _headerBytes.ElementAt(5));
@@ -272,46 +271,67 @@ namespace CrossCam.Droid.CustomRenderer
                         _incomingBytes[ii] = _headerBytes[ii];
                     }
 
-                    var readBytes = receivingStream.Read(_incomingBytes, _incomingBytesCounter, _expectedLength - _incomingBytesCounter);
+                    var readBytes = _payloadStream.Read(_incomingBytes, _incomingBytesCounter, _expectedLength - _incomingBytesCounter);
                     _incomingBytesCounter += readBytes;
                 }
                 catch (Exception e)
                 {
-                    Debug.WriteLine("### EXCEPTION UPDATING: " + e);
+                    _platformPair.OnErrorOccurred(new ErrorEventArgs
+                    {
+                        Exception = e,
+                        Step = "Receive data"
+                    });
                 }
             }
 
             public override void OnPayloadTransferUpdate(string p0, PayloadTransferUpdate p1)
             {
                 //Debug.WriteLine("### OnPayloadTransferUpdate " + (_mostRecentReceivedPayload?.Id == p1.PayloadId ? "RECEIVE" : "SEND") + " Id: " + p1.PayloadId + " status: " + p1.TransferStatus + " progress: " + p1.BytesTransferred + "/" + _expectedLength);
-                if (p1.PayloadId == _mostRecentReceivedPayload?.Id) //only care about receiving
+                var statusName = "";
+                switch (p1.TransferStatus)
                 {
-                    var receivingStream = _mostRecentReceivedPayload.AsStream().AsInputStream(); //TODO: dispose/close correctly - i keep doing it wrong
+                    case PayloadTransferUpdate.Status.Canceled:
+                        statusName += "Cancelled";
+                        break;
+                    case PayloadTransferUpdate.Status.Failure:
+                        statusName += "Failure";
+                        break;
+                    case PayloadTransferUpdate.Status.Success:
+                        statusName += "Success";
+                        break;
+                    case PayloadTransferUpdate.Status.InProgress:
+                        statusName += "InProgress";
+                        break;
+                }
+                if (p1.TransferStatus == PayloadTransferUpdate.Status.Failure ||
+                    p1.TransferStatus == PayloadTransferUpdate.Status.Canceled)
+                {
+                    _platformPair.OnErrorOccurred(new ErrorEventArgs
+                    {
+                        Exception = new Exception(
+                            (p1.PayloadId == _payloadId ? "receiving " : "sending ") + statusName),
+                        Step = "Transfer update"
+                    });
+                }
+                
+                if (p1.PayloadId == _payloadId) //only care about receiving
+                {
                     int readBytes;
                     switch (p1.TransferStatus)
                     {
                         case PayloadTransferUpdate.Status.InProgress:
-                            readBytes = receivingStream.Read(_incomingBytes, _incomingBytesCounter,
+                            readBytes = _payloadStream.Read(_incomingBytes, _incomingBytesCounter,
                                 _expectedLength - _incomingBytesCounter);
                             _incomingBytesCounter += readBytes;
                             break;
                         case PayloadTransferUpdate.Status.Success:
-                            readBytes = receivingStream.Read(_incomingBytes, _incomingBytesCounter,
+                            readBytes = _payloadStream.Read(_incomingBytes, _incomingBytesCounter,
                                 _expectedLength - _incomingBytesCounter);
                             _incomingBytesCounter += readBytes;
 
                             _platformPair.ProcessReceivedPayload(_incomingBytes);
-                            break;
-                        default: //failure
-                            Debug.WriteLine("### transfer failed!");
-                            _platformPair.OnErrorOccurred(new ErrorEventArgs
-                            {
-                                Exception = new Exception(
-                                    "Payload transfer failed. " + 
-                                    "Bytes transferred: " + p1.BytesTransferred +
-                                    "Total bytes: " + p1.TotalBytes),
-                                Step = "Receive payload"
-                            });
+
+                            _payloadStream?.Dispose();
                             break;
                     }
                 }
