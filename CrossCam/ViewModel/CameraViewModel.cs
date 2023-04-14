@@ -63,21 +63,21 @@ namespace CrossCam.ViewModel
         public IncomingFrame LocalPreviewFrame { get; set; }
         public IncomingFrame LocalCapturedFrame { get; set; }
 
-        public AbsoluteLayoutFlags CanvasRectangleFlags => 
-            Settings.Mode != DrawMode.Parallel || WorkflowStage == WorkflowStage.Capture && 
-            Settings.FullscreenCapturing || WorkflowStage != WorkflowStage.Capture &&
-            Settings.FullscreenEditing
-            ? AbsoluteLayoutFlags.All : 
+        private bool UseFullScreenWidth => Settings.Mode != DrawMode.Parallel ||
+                                           WorkflowStage == WorkflowStage.Capture &&
+                                           Settings.FullscreenCapturing ||
+                                           WorkflowStage != WorkflowStage.Capture &&
+                                           Settings.FullscreenEditing ||
+                                           IsNothingCaptured &&
+                                           Settings.Mode != DrawMode.Cardboard;
+        public AbsoluteLayoutFlags CanvasRectangleFlags =>
+            UseFullScreenWidth ? AbsoluteLayoutFlags.All : 
             AbsoluteLayoutFlags.YProportional | AbsoluteLayoutFlags.HeightProportional | AbsoluteLayoutFlags.XProportional;
         public Rectangle CanvasRectangle 
         {
             get 
             {
-                if(Settings.Mode != DrawMode.Parallel ||
-                   WorkflowStage == WorkflowStage.Capture &&
-                   Settings.FullscreenCapturing ||
-                    WorkflowStage != WorkflowStage.Capture &&
-                    Settings.FullscreenEditing) return new Rectangle(0,0,1,1);
+                if (UseFullScreenWidth) return new Rectangle(0,0,1,1);
                 var mainPage = Application.Current?.MainPage;
                 var windowWidth = int.MaxValue;
                 if (mainPage != null &&
@@ -97,8 +97,7 @@ namespace CrossCam.ViewModel
                     WorkflowStage != WorkflowStage.Capture && 
                     !Settings.FullscreenEditing ? 
                         windowWidth : 
-                        Math.Min(Settings.MaximumParallelWidth, windowWidth)
-                    , 
+                        Math.Min(Settings.MaximumParallelWidth, windowWidth), 
                     1);
             }
         }
@@ -113,7 +112,11 @@ namespace CrossCam.ViewModel
         public bool WasSwipedTrigger { get; set; }
 
         public Command ToggleFullscreen { get; set; }
-        public bool IsFullscreen
+        public bool IsFullscreenToggleVisible =>
+            (Settings.Mode == DrawMode.Cross || 
+             Settings.Mode == DrawMode.Parallel) && 
+            !IsNothingCaptured;
+        public bool IsFullscreenToggle
         {
             get =>
                 WorkflowStage == WorkflowStage.Capture &&
@@ -1176,7 +1179,7 @@ namespace CrossCam.ViewModel
 
             ToggleFullscreen = new Command(() =>
             {
-                IsFullscreen = !IsFullscreen;
+                IsFullscreenToggle = !IsFullscreenToggle;
             });
         }
 
@@ -1345,10 +1348,15 @@ namespace CrossCam.ViewModel
             else if (args.PropertyName == nameof(WasSwipedTrigger))
             {
                 SwapSidesCommand?.Execute(null);
-            } else if (args.PropertyName == nameof(IsFullscreen))
+            } 
+            else if (args.PropertyName == nameof(IsFullscreenToggle))
             {
                 RaisePropertyChanged(nameof(CanvasRectangle));
                 RaisePropertyChanged(nameof(CanvasRectangleFlags));
+            }
+            else if (args.PropertyName == nameof(IsNothingCaptured))
+            {
+                RaisePropertyChanged(nameof(IsFullscreenToggleVisible));
             }
         }
 

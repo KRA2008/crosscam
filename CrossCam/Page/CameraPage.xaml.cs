@@ -390,9 +390,10 @@ namespace CrossCam.Page
                     case nameof(CameraViewModel.LocalPreviewFrame):
                         _canvas.InvalidateSurface();
                         break;
-                    case nameof(CameraViewModel.IsFullscreen):
-                        _canvas.InvalidateSurface();
+                    case nameof(CameraViewModel.IsFullscreenToggle):
+                    case nameof(CameraViewModel.IsNothingCaptured):
                         _forceCanvasClear = true;
+                        _canvas.InvalidateSurface();
                         break;
 
                 }
@@ -457,6 +458,7 @@ namespace CrossCam.Page
                               _viewModel.Settings.FullscreenCapturing ||
                               _viewModel.Settings.FullscreenEditing ||
                               _forceCanvasClear;
+            _forceCanvasClear = false;
 
             if (_viewModel.LeftBitmap == null &&
                 _viewModel.RightBitmap == null)
@@ -646,20 +648,31 @@ namespace CrossCam.Page
                 }
             }
 
+            var drawQuality = 
+                _viewModel.IsExactlyOnePictureTaken || _viewModel.IsNothingCaptured
+                ? DrawQuality.Preview
+                : DrawQuality.Review;
             DrawTool.DrawImagesOnCanvas(
-                surface, 
+                surface,
                 left, leftAlignment, leftOrientation ?? SKEncodedOrigin.Default, isLeftFrontFacing,
                 right, rightAlignment, rightOrientation ?? SKEncodedOrigin.Default, isRightFrontFacing,
                 _viewModel.Settings,
                 _viewModel.Edits,
-                _viewModel.Settings.Mode, 
+                _viewModel.Settings.Mode,
                 _viewModel.PairOperatorBindable.PairStatus == PairStatus.Connected || _viewModel.WasCapturePaired,
-                drawQuality: _viewModel.IsExactlyOnePictureTaken || 
-                             _viewModel.IsNothingCaptured ? 
-                    DrawQuality.Preview : DrawQuality.Review,
+                drawQuality: drawQuality,
                 cardboardVert: cardboardVert,
                 cardboardHor: cardboardHor,
-                isFovStage: _viewModel.WorkflowStage == WorkflowStage.FovCorrection);
+                isFovStage: _viewModel.WorkflowStage == WorkflowStage.FovCorrection,
+                useFullscreen:
+                (drawQuality == DrawQuality.Preview &&
+                 _viewModel.Settings.FullscreenCapturing ||
+                 drawQuality == DrawQuality.Review &&
+                 _viewModel.Settings.FullscreenEditing) &&
+                (_viewModel.Settings.Mode == DrawMode.Cross ||
+                 _viewModel.Settings.Mode == DrawMode.Parallel) ||
+                _viewModel.IsNothingCaptured && 
+                _viewModel.Settings.Mode != DrawMode.Cardboard);
 
             if (_viewModel.PairOperatorBindable.PairStatus == PairStatus.Connected &&
                 _viewModel.WorkflowStage == WorkflowStage.Capture)

@@ -1404,7 +1404,8 @@
                 </Image>
             </ContentView>
             <ContentView Padding="{StaticResource _topBarSmallButtonPadding}"
-                         HorizontalOptions="EndAndExpand">
+                         HorizontalOptions="EndAndExpand"
+                         IsVisible="{Binding IsFullscreenToggleVisible}">
                 <ContentView.GestureRecognizers>
                     <TapGestureRecognizer Command="{Binding ToggleFullscreen}"/>
                 </ContentView.GestureRecognizers>
@@ -1412,13 +1413,13 @@
                        InputTransparent="True">
                     <Image.Triggers>
                         <DataTrigger TargetType="Image"
-                                     Binding="{Binding IsFullscreen}"
+                                     Binding="{Binding IsFullscreenToggle}"
                                      Value="True">
                             <Setter Property="Source"
                                     Value="closeFullscreen"/>
                         </DataTrigger>
                         <DataTrigger TargetType="Image"
-                                     Binding="{Binding IsFullscreen}"
+                                     Binding="{Binding IsFullscreenToggle}"
                                      Value="False">
                             <Setter Property="Source"
                                     Value="fullscreen"/>

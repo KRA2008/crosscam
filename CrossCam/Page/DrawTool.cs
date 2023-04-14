@@ -55,15 +55,9 @@ namespace CrossCam.Page
             SKBitmap leftBitmap, SKMatrix leftAlignmentMatrix, SKEncodedOrigin leftOrientation, bool isLeftFrontFacing,
             SKBitmap rightBitmap, SKMatrix rightAlignmentMatrix, SKEncodedOrigin rightOrientation, bool isRightFrontFacing,
             Settings settings, Edits edits, DrawMode drawMode, bool wasPairedCapture, bool withSwap = false,
-            DrawQuality drawQuality = DrawQuality.Save, double cardboardVert = 0, double cardboardHor = 0, bool isFovStage = false)
+            DrawQuality drawQuality = DrawQuality.Save, double cardboardVert = 0, double cardboardHor = 0, bool isFovStage = false,
+            bool useFullscreen = false)
         {
-            var useGhost = (drawQuality == DrawQuality.Preview &&
-                            settings.FullscreenCapturing ||
-                           drawQuality == DrawQuality.Review &&
-                           settings.FullscreenEditing) &&
-                            (drawMode == DrawMode.Cross ||
-                             drawMode == DrawMode.Parallel);
-
             var fuseGuideRequested = drawQuality != DrawQuality.Preview && 
                                      settings.SaveWithFuseGuide;
 
@@ -113,7 +107,7 @@ namespace CrossCam.Page
                     drawMode, fuseGuideRequested,
                     addBarrelDistortion, settings.CardboardBarrelDistortion,
                     skFilterQuality,
-                    useGhost,
+                    useFullscreen,
                     cardboardWidthProportion, vert, hor,
                     (float)cardboardDownsizeProportion,
                     settings.CardboardIpd);
@@ -136,7 +130,7 @@ namespace CrossCam.Page
                     drawMode, fuseGuideRequested,
                     addBarrelDistortion, settings.CardboardBarrelDistortion,
                     skFilterQuality,
-                    useGhost,
+                    useFullscreen,
                     cardboardWidthProportion, vert, hor,
                     (float)cardboardDownsizeProportion,
                     settings.CardboardIpd);
@@ -156,7 +150,7 @@ namespace CrossCam.Page
             float keystone,
             DrawMode drawMode, bool fuseGuideRequested,
             bool addBarrelDistortion, int barrelStrength,
-            SKFilterQuality skFilterQuality, bool useGhost,
+            SKFilterQuality skFilterQuality, bool useFullscreen,
             double cardboardWidthProportion,
             double cardboardVert,
             double cardboardHor,
@@ -264,7 +258,7 @@ namespace CrossCam.Page
             var overlayDrawing =
                 drawMode == DrawMode.GrayscaleRedCyanAnaglyph ||
                 drawMode == DrawMode.RedCyanAnaglyph ||
-                useGhost;
+                useFullscreen;
             var innerBorderThicknessProportion = leftBitmap != null &&
                                                  rightBitmap != null &&
                                                  addBorder &&
@@ -402,7 +396,7 @@ namespace CrossCam.Page
                     cardboardHorDelta, cardboardVertDelta,
                     rightClipX, clipY, clipWidth, clipHeight,
                     rightDestX, destY, destWidth, destHeight,
-                    leftBitmap != null && useGhost, cardboardSeparationMod,
+                    leftBitmap != null && useFullscreen, cardboardSeparationMod,
                     rightScaledAlignmentMatrix, rightOrientationMatrix, rightEditMatrix,
                     skFilterQuality);
             }
