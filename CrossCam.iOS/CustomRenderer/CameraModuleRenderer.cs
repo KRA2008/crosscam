@@ -149,7 +149,7 @@ namespace CrossCam.iOS.CustomRenderer
 
         private void SetPreviewBottomY()
         {
-            NativeView.Bounds = new CGRect(0, -10000, _cameraModule.Width, _cameraModule.Height);
+            //Debug.WriteLine("### _cameraModule: " + _cameraModule.Width + " " + _cameraModule.Height);
             double previewHeight;
             var orientation = UIDevice.CurrentDevice.Orientation;
             switch (orientation)
@@ -164,6 +164,7 @@ namespace CrossCam.iOS.CustomRenderer
                     _cameraModule.PreviewBottomY = (previewHeight + _cameraModule.Height) / 2;
                     break;
             }
+            NativeView.Bounds = new CGRect(0, -10000, _cameraModule.Width, previewHeight);
         }
 #endif
 
@@ -524,12 +525,37 @@ namespace CrossCam.iOS.CustomRenderer
         private void PreviewWasTapped(PointF point)
         {
             _cameraModule.IsFocusCircleLocked = false;
-            var touchLocation = new CGPoint(point.X, point.Y);
+            Debug.WriteLine("### single tap pointf: " + point.X + ", " + point.Y);
+
+            CGPoint touchPoint;
+
+            switch (UIDevice.CurrentDevice.Orientation)
+            {
+                case UIDeviceOrientation.LandscapeRight:
+                    touchPoint = new CGPoint(
+                        point.Y * _avCaptureVideoPreviewLayer.Frame.Width,
+                        (1-point.X) * _avCaptureVideoPreviewLayer.Frame.Height);
+                    break;
+                case UIDeviceOrientation.LandscapeLeft:
+                    touchPoint = new CGPoint(
+                        (1-point.Y) * _avCaptureVideoPreviewLayer.Frame.Width,
+                        point.X * _avCaptureVideoPreviewLayer.Frame.Height);
+                    break;
+                case UIDeviceOrientation.Portrait:
+                default:
+                    touchPoint = new CGPoint(
+                        point.X * _avCaptureVideoPreviewLayer.Frame.Width,
+                        point.Y * _avCaptureVideoPreviewLayer.Frame.Height);
+                    break;
+            }
+
+            Debug.WriteLine("### single tap cgpoint: " + point.X + ", " + point.Y);
 
             if (_cameraModule.IsTapToFocusEnabled)
             {
-                var translatedPoint = _avCaptureVideoPreviewLayer.CaptureDevicePointOfInterestForPoint(touchLocation);
+                var translatedPoint = _avCaptureVideoPreviewLayer.CaptureDevicePointOfInterestForPoint(touchPoint);
 
+                Debug.WriteLine("### translated tap location: " + translatedPoint.X + ", " + translatedPoint.Y);
                 if (translatedPoint.X < 0)
                 {
                     translatedPoint.X = 0;
@@ -633,8 +659,9 @@ namespace CrossCam.iOS.CustomRenderer
 
         private void SetPreviewSizing()
         {
-            var sideHeight = NativeView.Bounds.Height;
             var sideWidth = NativeView.Bounds.Width;
+            var sideHeight = NativeView.Bounds.Height;
+            Debug.WriteLine("### native view: " + sideWidth + " " + sideHeight);
             
             _liveCameraStream = new UIView(new CGRect(0, 0, sideWidth, sideHeight));
 

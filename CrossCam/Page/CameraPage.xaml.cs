@@ -963,12 +963,13 @@ namespace CrossCam.Page
             }
             var isPortrait = frameHeight > frameWidth;
 
-            var overlayDisplay = _viewModel.Settings.Mode == DrawMode.RedCyanAnaglyph ||
+            var fullscreenPreview = _viewModel.Settings.Mode == DrawMode.RedCyanAnaglyph ||
                                  _viewModel.Settings.Mode == DrawMode.GrayscaleRedCyanAnaglyph ||
                                  _viewModel.Settings.FullscreenCapturing ||
-                                 _viewModel.Settings.FullscreenEditing;
+                                 _viewModel.Settings.FullscreenEditing ||
+                                 _viewModel.IsNothingCaptured;
 
-            if (overlayDisplay)
+            if (fullscreenPreview)
             {
                 double longNativeLength;
                 double shortNativeLength;
