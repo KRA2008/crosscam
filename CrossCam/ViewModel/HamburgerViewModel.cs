@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using CrossCam.Model;
+﻿using CrossCam.Model;
 using CrossCam.Wrappers;
 using Microsoft.AppCenter.Analytics;
 using Xamarin.Forms;
@@ -37,21 +36,21 @@ namespace CrossCam.ViewModel
                 await CoreMethods.PushPageModel<SeeMorePicturesViewModel>();
             });
 
-            OpenLinkSharer = new Command(async () =>
+            OpenLinkSharer = new Command(() =>
             {
-                const string iOS = "Apple App Store";
-                const string Android = "Google Play app store";
-                var whichLink = await CoreMethods.DisplayActionSheet("Share link to " + iOS + " or "+ Android +"?", null, null,
-                    iOS, Android);
-                if (whichLink == iOS)
+                const string iOSlisting = "https://apps.apple.com/us/app/crosscam/id1436262905";
+                const string AndroidListing = "https://play.google.com/store/apps/details?id=com.kra2008.crosscam";
+
+                Analytics.TrackEvent("share link tapped");
+                var sharer = DependencyService.Get<ILinkSharer>();
+
+                if (Device.RuntimePlatform == Device.iOS)
                 {
-                    Analytics.TrackEvent("share link tapped", new Dictionary<string, string> {{"platform", "iOS"}});
-                    DependencyService.Get<ILinkSharer>()?.ShareLink("https://apps.apple.com/us/app/crosscam/id1436262905");
-                } 
-                else if (whichLink == Android)
+                    sharer?.ShareLink(iOSlisting + "\n\n" + AndroidListing);
+                }
+                else
                 {
-                    Analytics.TrackEvent("share link tapped", new Dictionary<string, string> {{"platform", "Android"}});
-                    DependencyService.Get<ILinkSharer>()?.ShareLink("https://play.google.com/store/apps/details?id=com.kra2008.crosscam");
+                    sharer?.ShareLink(AndroidListing + "\n\n" + iOSlisting);
                 }
             });
         }

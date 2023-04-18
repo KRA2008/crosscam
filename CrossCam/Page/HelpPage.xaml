@@ -19,6 +19,10 @@
             <Button Text="Tips"
                     Command="{Binding NavigateToTipsPage}"/>
             <BoxView/>
+            <Button Text="Google Doc of Great Stuff"
+                    Command="{Binding OpenLink}"
+                    CommandParameter="https://docs.google.com/document/d/1WWkI2cj4FdOxiV-Wc_0Dm__5BFWjof-GSuV9AkFUZ1I/"/>
+            <BoxView/>
             <customElement:FooterLabel/>
         </StackLayout>
     </ScrollView>

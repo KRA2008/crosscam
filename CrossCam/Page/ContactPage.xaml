@@ -15,6 +15,10 @@
                         Command="{Binding OpenLink}"
                         CommandParameter="mailto:me@kra2008.com?subject=CrossCam%20feedback"/>
                 <BoxView/>
+                <Button Text="Test Pre-release Versions"
+                        Command="{Binding OpenLink}"
+                        CommandParameter="https://reddit.com/r/crosscam"/>
+                <BoxView/>
                 <Button Text="Add an Issue on Github"
                         Command="{Binding OpenLink}"
                         CommandParameter="https://github.com/KRA2008/crosscam/issues"/>
