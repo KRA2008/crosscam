@@ -2199,7 +2199,7 @@ namespace CrossCam.ViewModel
                     }
                     for (var ii = startY; ii < endY / 2; ii++)
                     {
-                        var color = original.GetPixel(startX + (endX - startX) / 2, ii);
+                        var color = original.GetPixel(startX + (endX - startX) / 4, ii); // 4 so as to not hit the guide dot if there is one
                         if (Math.Abs(color.Red + color.Green + color.Blue - topLeftColor) > BORDER_DIFF_THRESHOLD)
                         {
                             topBorder = ii - startY;
