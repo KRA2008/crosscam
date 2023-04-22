@@ -15,7 +15,7 @@ namespace CrossCam.ViewModel
         public Command<string> OpenLinkCommand { get; set; }
         public bool IsCrossViewMode { get; set; }
         private Settings _settings;
-
+        
         public TechniqueHelpViewModel()
         {
             IsCrossViewMode = true;

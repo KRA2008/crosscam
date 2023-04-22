@@ -56,13 +56,13 @@
                             Command="{Binding ChooseMethodCommand}"
                             CommandParameter="True"/>
                     <Label Text=" "/>
-                    <Image Source="bloodrootReduced"/>
-                    <Label Text="Carefully cross your eyes while looking at the pair of pictures above. When you cross your eyes, things will get blurry and see-through and you'll start to see 4 flowers instead of 2 (2 pairs of 2). The harder you cross your eyes, the further apart the pairs of pictures will move - it will look a little like this:"/>
-                    <Image Source="bloodrootBlurry" />
-                    <Label Text="Uncross your eyes carefully, so that the flowers on the inside of each pair start to overlap. It will start to look like there are only 3 flowers instead of 4. It will still be blurry and see-through and look something like this:"/>
-                    <Image Source="bloodrootOverlapping" />
-                    <Label Text="Once you have the middle overlap working you just have to relax your eyes and allow them to focus the picture. At that point you'll have one sharp 3D flower in the middle with a transparent flower floating off on each side that will look like this (except the middle will be 3D):"/>
-                    <Image Source="bloodrootOverlapped" />
+                    <Image Source="bouquetCross"/>
+                    <Label Text="Carefully cross your eyes while looking at the pair of pictures above. When you cross your eyes, things will get blurry and see-through and you'll start to see 4 pictures instead of 2 (2 pairs). The harder you cross your eyes, the further apart the pairs of pictures will move - it will look a little like this:"/>
+                    <Image Source="bouquetBlurry" />
+                    <Label Text="Uncross your eyes carefully, so that the pictures on the inside of each pair start to overlap. It will start to look like there are only 3 pictures instead of 4. It will still be blurry and see-through and look something like this:"/>
+                    <Image Source="bouquetOverlapping" />
+                    <Label Text="Once you have the middle overlap working you just have to relax your eyes and allow them to focus the picture. At that point you'll have one sharp 3D picture in the middle with a transparent picture floating off on each side that will look like this (except the middle will be 3D):"/>
+                    <Image Source="bouquetOverlapped" />
                     <Label Text="If you have trouble crossing your eyes, you can also try staring at your finger while you hold it halfway between your eyes and the screen. You should see the pictures starting to separate and overlap behind your finger."/>
                     <Button Text="TAP HERE TO CHOOSE CROSS"
                             Command="{Binding ChooseMethodCommand}"
@@ -104,17 +104,18 @@
                             <ColumnDefinition Width="*"/>
                         </Grid.ColumnDefinitions>
                         <Image Grid.Column="1"
-                               Source="bloodrootParallel"
+                               Source="bouquetParallel"
                                Aspect="AspectFill"/>
                     </Grid>
                     <AbsoluteLayout>
                     </AbsoluteLayout>
                     <Label Text="If the above image doesn't fit on your screen, turn your phone to landscape - CrossCam is trying to make the pair of images above the easiest size for this. You don't always have to use CrossCam in landscape, but a perfectly sized image makes learning the technique easier."/>
-                    <Label Text="Relax your eyes and look &quot;through&quot; the pair of pictures above like you're kind of zoning out with your eyes pointing at the pictures. You should start to see 3 flowers with a 3D flower in the middle, a little bit like this:"/>
-                    <Image Source="bloodrootOverlapped" />
-                    <Label Text="If you start to see 4 flowers, you've gone too far. Try moving your eyes around a tiny bit if you find yourself at that point again. Relaxing too far will look a little like this:"/>
-                    <Image Source="bloodrootOverlapping"/>
+                    <Label Text="Relax your eyes and look &quot;through&quot; the pair of pictures above like you're kind of zoning out with your eyes pointing at the pictures. You should start to see 3 pictures with a 3D picture in the middle, a little bit like this:"/>
+                    <Image Source="bouquetOverlapped" />
+                    <Label Text="If you start to see 4 pictures, you've gone too far. Try moving your eyes around a tiny bit if you find yourself at that point again. Relaxing too far will look a little like this:"/>
+                    <Image Source="bouquetOverlapping"/>
                     <Label Text="If you're having trouble, try bringing your screen right up against your face with the pair of pictures right in front of your eyes. Relax and look &quot;through&quot; the screen and then slowly pull your screen away from your face while keeping your eyes relaxed. Eventually the image should &quot;click&quot; into focus."/>
+                    <Label Text="If you still keep seeing four images, increase the &quot;Maximum parallel view image width&quot; on the Settings page."/>
                     <Button Text="TAP HERE TO CHOOSE PARALLEL"
                             Command="{Binding ChooseMethodCommand}"
                             CommandParameter="False"/>

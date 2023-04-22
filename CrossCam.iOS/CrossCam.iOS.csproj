@@ -492,11 +492,6 @@
     <BundleResource Include="Resources\focusCircleGreen%403x.png" />
     <BundleResource Include="Resources\grayscaleAnaglyph.png" />
     <BundleResource Include="Resources\grayscaleAnaglyph%402x.png" />
-    <BundleResource Include="Resources\bloodrootBlurry.png" />
-    <BundleResource Include="Resources\bloodrootOverlapped.png" />
-    <BundleResource Include="Resources\bloodrootOverlapping.png" />
-    <BundleResource Include="Resources\bloodrootParallel.png" />
-    <BundleResource Include="Resources\bloodrootReduced.png" />
     <BundleResource Include="Resources\pair.png" />
     <BundleResource Include="Resources\pair%402x.png" />
     <BundleResource Include="Resources\pairPrimary.png" />
@@ -523,6 +518,11 @@
     <BundleResource Include="Resources\fullscreen%402x.png" />
     <BundleResource Include="Resources\closeFullscreen.png" />
     <BundleResource Include="Resources\closeFullscreen%402x.png" />
+    <BundleResource Include="Resources\bouquetBlurry.png" />
+    <BundleResource Include="Resources\bouquetCross.png" />
+    <BundleResource Include="Resources\bouquetOverlapped.png" />
+    <BundleResource Include="Resources\bouquetOverlapping.png" />
+    <BundleResource Include="Resources\bouquetParallel.png" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\CrossCam\CrossCam.csproj">
