@@ -392,6 +392,7 @@ namespace CrossCam.Page
                         break;
                     case nameof(CameraViewModel.IsFullscreenToggle):
                     case nameof(CameraViewModel.IsNothingCaptured):
+                        PlaceRollGuide();
                         _forceCanvasClear = true;
                         _canvas.InvalidateSurface();
                         break;
@@ -672,15 +673,16 @@ namespace CrossCam.Page
                 cardboardHor: cardboardHor,
                 isFovStage: _viewModel.WorkflowStage == WorkflowStage.FovCorrection,
                 useFullscreen:
-                ((drawQuality == DrawQuality.Preview &&
+                (drawQuality == DrawQuality.Preview &&
                  _viewModel.Settings.FullscreenCapturing ||
                  drawQuality == DrawQuality.Review &&
                  _viewModel.Settings.FullscreenEditing) &&
                 (_viewModel.Settings.Mode == DrawMode.Cross ||
                  _viewModel.Settings.Mode == DrawMode.Parallel) ||
-                _viewModel.IsNothingCaptured && 
-                _viewModel.Settings.Mode != DrawMode.Cardboard) && 
-                !_viewModel.Settings.IsCaptureInMirrorMode,
+                _viewModel.IsNothingCaptured &&
+                _viewModel.Settings.Mode != DrawMode.Cardboard &&
+                !(_viewModel.Settings.IsCaptureInMirrorMode &&
+                  !_viewModel.Settings.FullscreenCapturing),
                 useMirrorCapture: _viewModel.Settings.IsCaptureInMirrorMode);
 
             if (_viewModel.PairOperatorBindable.PairStatus == PairStatus.Connected &&
