@@ -1610,11 +1610,13 @@ namespace CrossCam.ViewModel
 
         private void TriggerMovementHint()
         {
-            if ((LeftBitmap == null && RightBitmap != null) ||
-                (LeftBitmap != null && RightBitmap == null) ||
-                (PairOperator.PairStatus == PairStatus.Connected &&
+            if (LeftBitmap == null ^ RightBitmap == null ||
+                PairOperator.PairStatus == PairStatus.Connected &&
                 RightBitmap == null &&
-                LeftBitmap == null))
+                LeftBitmap == null || 
+                Settings.IsCaptureInMirrorMode &&
+                RightBitmap == null &&
+                LeftBitmap == null)
             {
                 if (Settings.Mode == DrawMode.Cardboard)
                 {

@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Threading;
 using System.Threading.Tasks;
+using Microsoft.AppCenter.Crashes;
 using Xamarin.Forms;
 
 namespace CrossCam.CustomElement
@@ -8,6 +10,8 @@ namespace CrossCam.CustomElement
     public sealed class FadeInAndOutBehavior : Behavior<VisualElement>
     {
         private VisualElement _element;
+        private Task _fadingTask;
+        private CancellationTokenSource _cancellationTokenSource;
 
         public static readonly BindableProperty TriggerProperty = BindableProperty.Create(nameof(Trigger), typeof(bool),
             typeof(FadeInAndOutBehavior), false, propertyChanged: OnTriggerChanged,
@@ -22,17 +26,48 @@ namespace CrossCam.CustomElement
         public static readonly BindableProperty VisibleTimeMsProperty = BindableProperty.Create(nameof(VisibleTimeMs), typeof(int),
             typeof(FadeInAndOutBehavior), 2000, BindingMode.TwoWay);
 
+
         private static async void OnTriggerChanged(BindableObject bindable, object oldvalue, object newvalue)
         {
             await Device.InvokeOnMainThreadAsync(async () =>
             {
                 var behavior = (FadeInAndOutBehavior) bindable;
-                behavior._element.Opacity = 0;
-                behavior._element.IsVisible = true;
-                await behavior._element.FadeTo(1, behavior.InTimeMs, Easing.Linear);
-                await Task.Delay(behavior.VisibleTimeMs);
-                await behavior._element.FadeTo(0, behavior.OutTimeMs, Easing.Linear);
-                behavior._element.IsVisible = false;
+                if (behavior._fadingTask?.IsCompleted == false)
+                {
+                    behavior._cancellationTokenSource?.Cancel();
+                    behavior._element?.CancelAnimations();
+                }
+
+                behavior._cancellationTokenSource = new CancellationTokenSource();
+                var token = behavior._cancellationTokenSource.Token;
+
+                try
+                {
+                    behavior._fadingTask = Task.Run(async () =>
+                    {
+                        await Device.InvokeOnMainThreadAsync(async () =>
+                        {
+                            behavior._element.Opacity = 0;
+                            behavior._element.IsVisible = true;
+                            await behavior._element.FadeTo(1, behavior.InTimeMs, Easing.Linear);
+                            await Task.Delay(behavior.VisibleTimeMs, token);
+                            await behavior._element.FadeTo(0, behavior.OutTimeMs, Easing.Linear);
+                            behavior._element.IsVisible = false;
+                        });
+                    }, token);
+                    await behavior._fadingTask;
+                }
+                catch (Exception ex)
+                {
+                    if (ex is TaskCanceledException)
+                    {
+                        //Debug.WriteLine("### fade task cancelled: "+ex);
+                    }
+                    else
+                    {
+                        Crashes.TrackError(ex);
+                    }
+                }
             });
         }
         

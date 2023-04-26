@@ -1600,7 +1600,13 @@
                                      Binding="{Binding PairOperatorBindable.PairStatus, Converter={StaticResource enumCompare}, ConverterParameter={x:Static vm:PairStatus.Connected}}"
                                      Value="true">
                             <Setter Property="Text"
-                                    Value="SECONDARY"/>
+                                    Value="SECONDARY ON"/>
+                        </DataTrigger>
+                        <DataTrigger TargetType="Label"
+                                     Binding="{Binding Settings.IsCaptureInMirrorMode}"
+                                     Value="true">
+                            <Setter Property="Text"
+                                    Value="MIRROR ON"/>
                         </DataTrigger>
                     </Label.Triggers>
                 </Label>
@@ -1711,6 +1717,12 @@
                                          Value="true">
                                 <Setter Property="Text"
                                         Value="SECONDARY"/>
+                            </DataTrigger>
+                            <DataTrigger TargetType="Label"
+                                         Binding="{Binding Settings.IsCaptureInMirrorMode}"
+                                         Value="true">
+                                <Setter Property="Text"
+                                        Value="MIRROR ON"/>
                             </DataTrigger>
                         </Label.Triggers>
                     </Label>
