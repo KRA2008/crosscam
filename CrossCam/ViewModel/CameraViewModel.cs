@@ -1390,12 +1390,17 @@ namespace CrossCam.ViewModel
             } 
             else if (args.PropertyName == nameof(IsFullscreenToggle))
             {
+                TriggerMovementHint();
                 RaisePropertyChanged(nameof(CanvasRectangle));
                 RaisePropertyChanged(nameof(CanvasRectangleFlags));
             }
             else if (args.PropertyName == nameof(IsNothingCaptured))
             {
                 RaisePropertyChanged(nameof(IsFullscreenToggleVisible));
+            } 
+            else if (args.PropertyName == nameof(IsViewPortrait))
+            {
+                TriggerMovementHint();
             }
         }
 
@@ -1587,6 +1592,7 @@ namespace CrossCam.ViewModel
                 RaisePropertyChanged(nameof(CanvasRectangle));
                 RaisePropertyChanged(nameof(CanvasRectangleFlags));
                 RaisePropertyChanged(nameof(PairButtonPosition));
+                RaisePropertyChanged(nameof(IsFullscreenToggleVisible));
                 RaisePropertyChanged(nameof(CameraViewModel));
                 RaisePropertyChanged(nameof(Settings)); // this doesn't cause reevaluation for above stuff (but I'd like it to), but it does trigger redraw of canvas and evaluation of whether to run auto alignment
                 RaisePropertyChanged(nameof(Settings.Mode));
@@ -2338,12 +2344,16 @@ namespace CrossCam.ViewModel
 #else
             await Device.InvokeOnMainThreadAsync(async () =>
             {
-                if (!Settings.HasOfferedTechniqueHelpBefore)
+                if (!Settings.HasOfferedTechniqueHelpBefore2)
                 {
                     var showTechniquePage = await CoreMethods.DisplayAlert("Welcome to CrossCam!",
-                        "CrossCam was made to help you take 3D photos. The photos are 3D just like VR or 3D movies, but you don't need any special equipment or glasses - just your phone. The technique to view the 3D photos is a little tricky and takes some practice to get it right. Before I tell you how to use CrossCam, would you first like to learn more about the viewing technique?",
+                        "CrossCam was made to help you make 3D photos. " +
+                        "The photos are 3D just like VR or 3D movies, but you don't need any special equipment or glasses - just your phone " +
+                        "(but if you do have a pair of red/cyan 3D glasses or a Google Cardboard viewer, you can use those with CrossCam too). " +
+                        "The 'free viewing' technique that uses just your phone and your eyes takes some practice to learn. "+
+                        "Before I tell you how to use CrossCam, would you first like to learn more about the viewing technique?",
                         "Yes", "No");
-                    Settings.HasOfferedTechniqueHelpBefore = true;
+                    Settings.HasOfferedTechniqueHelpBefore2 = true;
                     PersistentStorage.Save(PersistentStorage.SETTINGS_KEY, Settings);
                     if (showTechniquePage)
                     {

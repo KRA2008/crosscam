@@ -84,7 +84,7 @@ namespace CrossCam.Model
             }
         }
         
-        public bool HasOfferedTechniqueHelpBefore { get; set; }
+        public bool HasOfferedTechniqueHelpBefore2 { get; set; }
         public bool HasShownDirectionsBefore { get; set; }
         public bool ShowGuideLinesWithFirstCapture { get; set; }
         public bool ShowGuideDonutWithFirstCapture { get; set; }
@@ -407,7 +407,7 @@ namespace CrossCam.Model
 
         public Settings()
         {
-            HasOfferedTechniqueHelpBefore = false;
+            HasOfferedTechniqueHelpBefore2 = false;
             HasShownDirectionsBefore = false;
             AlignmentSettings = new AlignmentSettings();
             ResetToDefaults();
