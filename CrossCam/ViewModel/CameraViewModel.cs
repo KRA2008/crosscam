@@ -21,6 +21,7 @@ using Xamarin.Essentials;
 using Xamarin.Forms;
 using ErrorEventArgs = CrossCam.CustomElement.ErrorEventArgs;
 using Exception = System.Exception;
+using Rectangle = Xamarin.Forms.Rectangle;
 
 namespace CrossCam.ViewModel
 {
@@ -1304,19 +1305,55 @@ namespace CrossCam.ViewModel
                         WasCapturePaired = false;
                     }
 
-                    if (CameraColumn == 0)
+                    if (Settings.IsCaptureInMirrorMode)
                     {
-                        SetLeftBitmap(
-                            LocalCapturedFrame.Frame, LocalCapturedFrame.Orientation, LocalCapturedFrame.IsFrontFacing,
-                            PairOperator.PairStatus == PairStatus.Disconnected,
-                            PairOperator.PairStatus == PairStatus.Disconnected);
+                        if (Settings.IsCaptureLeftFirst)
+                        {
+                            SetLeftBitmap(
+                                GetHalfOfImage(LocalCapturedFrame.Frame, true, false),
+                                LocalCapturedFrame.Orientation,
+                                LocalCapturedFrame.IsFrontFacing,
+                                PairOperator.PairStatus == PairStatus.Disconnected,
+                                PairOperator.PairStatus == PairStatus.Disconnected);
+                            SetRightBitmap(
+                                GetHalfOfImage(LocalCapturedFrame.Frame, false, false, true),
+                                LocalCapturedFrame.Orientation,
+                                LocalCapturedFrame.IsFrontFacing,
+                                PairOperator.PairStatus == PairStatus.Disconnected,
+                                PairOperator.PairStatus == PairStatus.Disconnected);
+                        }
+                        else
+                        {
+                            SetLeftBitmap(
+                                GetHalfOfImage(LocalCapturedFrame.Frame, true, false, true),
+                                LocalCapturedFrame.Orientation,
+                                LocalCapturedFrame.IsFrontFacing,
+                                PairOperator.PairStatus == PairStatus.Disconnected,
+                                PairOperator.PairStatus == PairStatus.Disconnected);
+                            SetRightBitmap(
+                                GetHalfOfImage(LocalCapturedFrame.Frame, false, false),
+                                LocalCapturedFrame.Orientation,
+                                LocalCapturedFrame.IsFrontFacing,
+                                PairOperator.PairStatus == PairStatus.Disconnected,
+                                PairOperator.PairStatus == PairStatus.Disconnected);
+                        }
                     }
                     else
                     {
-                        SetRightBitmap(
-                            LocalCapturedFrame.Frame, LocalCapturedFrame.Orientation, LocalCapturedFrame.IsFrontFacing,
-                            PairOperator.PairStatus == PairStatus.Disconnected,
-                            PairOperator.PairStatus == PairStatus.Disconnected);
+                        if (CameraColumn == 0)
+                        {
+                            SetLeftBitmap(
+                                LocalCapturedFrame.Frame, LocalCapturedFrame.Orientation, LocalCapturedFrame.IsFrontFacing,
+                                PairOperator.PairStatus == PairStatus.Disconnected,
+                                PairOperator.PairStatus == PairStatus.Disconnected);
+                        }
+                        else
+                        {
+                            SetRightBitmap(
+                                LocalCapturedFrame.Frame, LocalCapturedFrame.Orientation, LocalCapturedFrame.IsFrontFacing,
+                                PairOperator.PairStatus == PairStatus.Disconnected,
+                                PairOperator.PairStatus == PairStatus.Disconnected);
+                        }
                     }
                 }
             }
@@ -1705,9 +1742,9 @@ namespace CrossCam.ViewModel
         {
             try
             {
-                var leftHalf = await Task.Run(() => GetHalfOfFullStereoImage(image, true, Settings.ClipBorderOnNextLoad));
+                var leftHalf = await Task.Run(() => GetHalfOfImage(image, true, Settings.ClipBorderOnNextLoad));
                 SetLeftBitmap(leftHalf, SKEncodedOrigin.Default, false, false, true);
-                var rightHalf = await Task.Run(() => GetHalfOfFullStereoImage(image, false, Settings.ClipBorderOnNextLoad));
+                var rightHalf = await Task.Run(() => GetHalfOfImage(image, false, Settings.ClipBorderOnNextLoad));
                 SetRightBitmap(rightHalf, SKEncodedOrigin.Default, false, false, true);
                 if (Settings.ClipBorderOnNextLoad)
                 {
@@ -1991,6 +2028,28 @@ namespace CrossCam.ViewModel
             }
         }
 
+        //private void ProcessMirrorCapture(SKBitmap bitmap)
+        //{
+        //    var leftHalf = new SKBitmap(bitmap.Width/2, bitmap.Height);
+        //    var 
+
+        //    using var surface = new SKCanvas(leftHalf);
+        //    surface.DrawBitmap(
+        //        original,
+        //        SKRect.Create(
+        //            startX + leftBorder,
+        //            topBorder,
+        //            width,
+        //            height),
+        //        SKRect.Create(
+        //            0,
+        //            0,
+        //            width,
+        //            height));
+
+        //    return leftHalf;
+        //}
+
         // TODO: remove this eventually, but right now it only happens once on final capture
         // TODO: and is necessary to use ECC alignment.
 
@@ -2154,10 +2213,8 @@ namespace CrossCam.ViewModel
             });
         }
 
-        private static SKBitmap GetHalfOfFullStereoImage(byte[] bytes, bool wantLeft, bool clipBorder) 
+        private static SKBitmap GetHalfOfImage(SKBitmap original, bool wantLeft, bool clipBorder, bool withMirror = false)
         {
-            var original = SKBitmap.Decode(bytes);
-
             if (original == null) return null;
 
             const int BORDER_DIFF_THRESHOLD = 25;
@@ -2237,6 +2294,16 @@ namespace CrossCam.ViewModel
             var extracted = new SKBitmap(width, height);
 
             using var surface = new SKCanvas(extracted);
+            var matrix = SKMatrix.CreateIdentity();
+            if (withMirror)
+            {
+                var xFix =  -original.Width / 2f;
+                var yFix =  -original.Height / 2f;
+                matrix = matrix.PostConcat(SKMatrix.CreateTranslation(xFix, yFix));
+                matrix = matrix.PostConcat(SKMatrix.CreateScale(-1, 1));
+                matrix = matrix.PostConcat(SKMatrix.CreateTranslation(-xFix, -yFix));
+            }
+            surface.SetMatrix(matrix);
             surface.DrawBitmap(
                 original,
                 SKRect.Create(
@@ -2251,6 +2318,12 @@ namespace CrossCam.ViewModel
                     height));
 
             return extracted;
+        }
+
+        private static SKBitmap GetHalfOfImage(byte[] bytes, bool wantLeft, bool clipBorder, bool withMirror = false)
+        {
+            var original = SKBitmap.Decode(bytes);
+            return GetHalfOfImage(original, wantLeft, clipBorder, withMirror);
         }
 
         private static int GetTotalColor(SKColor color)
