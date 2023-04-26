@@ -56,7 +56,7 @@ namespace CrossCam.Page
             SKBitmap rightBitmap, SKMatrix rightAlignmentMatrix, SKEncodedOrigin rightOrientation, bool isRightFrontFacing,
             Settings settings, Edits edits, DrawMode drawMode, bool wasPairedCapture, bool withSwap = false,
             DrawQuality drawQuality = DrawQuality.Save, double cardboardVert = 0, double cardboardHor = 0, bool isFovStage = false,
-            bool useFullscreen = false)
+            bool useFullscreen = false, bool useMirrorCapture = false)
         {
             var fuseGuideRequested = drawQuality != DrawQuality.Preview && 
                                      settings.SaveWithFuseGuide;
@@ -89,11 +89,14 @@ namespace CrossCam.Page
                 hor = cardboardHor;
             }
 
+            var mirrorLeft = useMirrorCapture && settings.IsCaptureLeftFirst;
+            var mirrorRight = useMirrorCapture && !settings.IsCaptureLeftFirst;
+
             if (withSwap)
-            {
+            {//TODO do mirror modifier for swap...?... or not?
                 DrawImagesOnCanvasInternal(surface, 
-                    rightBitmap, rightAlignmentMatrix, rightOrientation, isRightFrontFacing,
-                    leftBitmap, leftAlignmentMatrix, leftOrientation, isLeftFrontFacing,
+                    rightBitmap, rightAlignmentMatrix, rightOrientation, isRightFrontFacing, mirrorRight,
+                    leftBitmap, leftAlignmentMatrix, leftOrientation, isLeftFrontFacing, mirrorLeft,
                     settings.BorderWidthProportion, settings.AddBorder2 && drawQuality != DrawQuality.Preview, settings.BorderColor,
                     edits.InsideCrop + edits.LeftCrop, edits.RightCrop + edits.OutsideCrop,
                     edits.LeftCrop + edits.OutsideCrop, edits.InsideCrop + edits.RightCrop,
@@ -115,10 +118,10 @@ namespace CrossCam.Page
             else
             {
                 DrawImagesOnCanvasInternal(surface, 
-                    leftBitmap, leftAlignmentMatrix, leftOrientation, isLeftFrontFacing,
-                    rightBitmap, rightAlignmentMatrix, rightOrientation, isRightFrontFacing,
+                    leftBitmap, leftAlignmentMatrix, leftOrientation, isLeftFrontFacing, mirrorLeft,
+                    rightBitmap, rightAlignmentMatrix, rightOrientation, isRightFrontFacing, mirrorRight,
                     settings.BorderWidthProportion, settings.AddBorder2 && drawQuality != DrawQuality.Preview, settings.BorderColor,
-                    edits.LeftCrop + edits.OutsideCrop, edits.InsideCrop + edits.RightCrop, edits.InsideCrop + edits.LeftCrop,
+                    edits.LeftCrop + edits.OutsideCrop, edits.InsideCrop + edits.RightCrop + (useMirrorCapture ? 0.5 : 0), edits.InsideCrop + edits.LeftCrop + (useMirrorCapture ? 0.5 : 0),
                     edits.RightCrop + edits.OutsideCrop,
                     edits.TopCrop, edits.BottomCrop,
                     edits.LeftRotation, edits.RightRotation,
@@ -138,9 +141,8 @@ namespace CrossCam.Page
         }
 
         private static void DrawImagesOnCanvasInternal(SKSurface surface,
-            SKBitmap leftBitmap, SKMatrix leftAlignmentMatrix, SKEncodedOrigin leftOrientation, bool isLeftFrontFacing,
-            SKBitmap rightBitmap, SKMatrix rightAlignmentMatrix, SKEncodedOrigin rightOrientation,
-            bool isRightFrontFacing,
+            SKBitmap leftBitmap, SKMatrix leftAlignmentMatrix, SKEncodedOrigin leftOrientation, bool isLeftFrontFacing, bool mirrorLeft,
+            SKBitmap rightBitmap, SKMatrix rightAlignmentMatrix, SKEncodedOrigin rightOrientation, bool isRightFrontFacing, bool mirrorRight,
             int borderThickness, bool addBorder, BorderColor borderColor,
             double leftLeftCrop, double leftRightCrop, double rightLeftCrop, double rightRightCrop,
             double topCrop, double bottomCrop,
@@ -378,7 +380,7 @@ namespace CrossCam.Page
                     leftDestX, destY, destWidth, destHeight,
                     false, -cardboardSeparationMod,
                     leftScaledAlignmentMatrix, leftOrientationMatrix, leftEditMatrix,
-                    skFilterQuality);
+                    skFilterQuality, mirrorLeft);
             }
 
             if (rightBitmap != null)
@@ -398,7 +400,7 @@ namespace CrossCam.Page
                     rightDestX, destY, destWidth, destHeight,
                     leftBitmap != null && useFullscreen, cardboardSeparationMod,
                     rightScaledAlignmentMatrix, rightOrientationMatrix, rightEditMatrix,
-                    skFilterQuality);
+                    skFilterQuality, mirrorRight);
             }
 
             var openCv = DependencyService.Get<IOpenCv>();
@@ -752,7 +754,7 @@ namespace CrossCam.Page
             float destX, float destY, float destWidth, float destHeight,
             bool useGhostOverlay, double cardboardSeparationMod,
             SKMatrix alignmentMatrix, SKMatrix orientationMatrix, SKMatrix editMatrix,
-            SKFilterQuality quality)
+            SKFilterQuality quality, bool withMirror)
         {
             using var paint = new SKPaint
             {
@@ -815,6 +817,15 @@ namespace CrossCam.Page
                 alignmentMatrix.PostConcat(
                 orientationMatrix).PostConcat(
                 editMatrix);
+            if (withMirror)
+            {
+                var xFix = -correctedRect.Location.X - correctedRect.Width / 2f;
+                var yFix = -correctedRect.Location.Y - correctedRect.Height / 2f;
+                transform = transform.PostConcat(SKMatrix.CreateTranslation(xFix, yFix));
+                transform = transform.PostConcat(SKMatrix.CreateScale(-1, 1));
+                transform = transform.PostConcat(SKMatrix.CreateTranslation(-xFix, -yFix));
+                transform = transform.PostConcat(SKMatrix.CreateTranslation(0.5f * correctedRect.Width, 0));
+            }
             canvas.SetMatrix(transform);
             canvas.DrawBitmap(
                 bitmap,

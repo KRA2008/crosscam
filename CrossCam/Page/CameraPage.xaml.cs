@@ -547,38 +547,45 @@ namespace CrossCam.Page
                 }
             }
 
-            if (_viewModel.Settings.Mode == DrawMode.Cardboard)
+            if (_viewModel.Settings.IsCaptureInMirrorMode &&
+                _viewModel.PairOperatorBindable.PairStatus != PairStatus.Connected)
             {
-                if (_viewModel.LeftBitmap == null &&
-                    _viewModel.RightBitmap == null)
+                left = right = _viewModel.LocalPreviewFrame?.Frame;
+                leftOrientation = rightOrientation = _viewModel.LocalPreviewFrame?.Orientation;
+                isLeftFrontFacing = isRightFrontFacing = _viewModel.LocalPreviewFrame?.IsFrontFacing ?? false;
+            }
+
+
+            if (_viewModel.Settings.Mode == DrawMode.Cardboard &&
+                _viewModel.LeftBitmap == null &&
+                _viewModel.RightBitmap == null)
+            {
+                if (_viewModel.PairOperatorBindable.PairStatus == PairStatus.Connected)
                 {
-                    if (_viewModel.PairOperatorBindable.PairStatus == PairStatus.Connected)
+                    if (_viewModel.Settings.IsCaptureLeftFirst)
                     {
-                        if (_viewModel.Settings.IsCaptureLeftFirst)
-                        {
-                            left = _viewModel.LocalPreviewFrame?.Frame;
-                            leftOrientation = _viewModel.LocalPreviewFrame?.Orientation;
-                            isLeftFrontFacing = _viewModel.LocalPreviewFrame?.IsFrontFacing ?? false;
-                            right = _viewModel.RemotePreviewFrame?.Frame;
-                            rightOrientation = _viewModel.RemotePreviewFrame?.Orientation;
-                            isRightFrontFacing = _viewModel.LocalPreviewFrame?.IsFrontFacing ?? false;
-                        }
-                        else
-                        {
-                            right = _viewModel.LocalPreviewFrame?.Frame;
-                            rightOrientation = _viewModel.LocalPreviewFrame?.Orientation;
-                            isRightFrontFacing = _viewModel.LocalPreviewFrame?.IsFrontFacing ?? false;
-                            left = _viewModel.RemotePreviewFrame?.Frame;
-                            leftOrientation = _viewModel.RemotePreviewFrame?.Orientation;
-                            isLeftFrontFacing = _viewModel.LocalPreviewFrame?.IsFrontFacing ?? false;
-                        }
+                        left = _viewModel.LocalPreviewFrame?.Frame;
+                        leftOrientation = _viewModel.LocalPreviewFrame?.Orientation;
+                        isLeftFrontFacing = _viewModel.LocalPreviewFrame?.IsFrontFacing ?? false;
+                        right = _viewModel.RemotePreviewFrame?.Frame;
+                        rightOrientation = _viewModel.RemotePreviewFrame?.Orientation;
+                        isRightFrontFacing = _viewModel.LocalPreviewFrame?.IsFrontFacing ?? false;
                     }
                     else
                     {
-                        left = right = _viewModel.LocalPreviewFrame?.Frame;
-                        leftOrientation = rightOrientation = _viewModel.LocalPreviewFrame?.Orientation;
-                        isLeftFrontFacing = isRightFrontFacing = _viewModel.LocalPreviewFrame?.IsFrontFacing ?? false;
+                        right = _viewModel.LocalPreviewFrame?.Frame;
+                        rightOrientation = _viewModel.LocalPreviewFrame?.Orientation;
+                        isRightFrontFacing = _viewModel.LocalPreviewFrame?.IsFrontFacing ?? false;
+                        left = _viewModel.RemotePreviewFrame?.Frame;
+                        leftOrientation = _viewModel.RemotePreviewFrame?.Orientation;
+                        isLeftFrontFacing = _viewModel.LocalPreviewFrame?.IsFrontFacing ?? false;
                     }
+                }
+                else
+                {
+                    left = right = _viewModel.LocalPreviewFrame?.Frame;
+                    leftOrientation = rightOrientation = _viewModel.LocalPreviewFrame?.Orientation;
+                    isLeftFrontFacing = isRightFrontFacing = _viewModel.LocalPreviewFrame?.IsFrontFacing ?? false;
                 }
             }
 
@@ -665,14 +672,16 @@ namespace CrossCam.Page
                 cardboardHor: cardboardHor,
                 isFovStage: _viewModel.WorkflowStage == WorkflowStage.FovCorrection,
                 useFullscreen:
-                (drawQuality == DrawQuality.Preview &&
+                ((drawQuality == DrawQuality.Preview &&
                  _viewModel.Settings.FullscreenCapturing ||
                  drawQuality == DrawQuality.Review &&
                  _viewModel.Settings.FullscreenEditing) &&
                 (_viewModel.Settings.Mode == DrawMode.Cross ||
                  _viewModel.Settings.Mode == DrawMode.Parallel) ||
                 _viewModel.IsNothingCaptured && 
-                _viewModel.Settings.Mode != DrawMode.Cardboard);
+                _viewModel.Settings.Mode != DrawMode.Cardboard) && 
+                !_viewModel.Settings.IsCaptureInMirrorMode,
+                useMirrorCapture: _viewModel.Settings.IsCaptureInMirrorMode);
 
             if (_viewModel.PairOperatorBindable.PairStatus == PairStatus.Connected &&
                 _viewModel.WorkflowStage == WorkflowStage.Capture)

@@ -60,16 +60,17 @@
 
             <BoxView/>
 
-                <Label Text="Viewing Method"
-                       Style="{DynamicResource header}"/>
+            <Label Text="Preview Viewing Method"
+                   Style="{DynamicResource header}"/>
 
-                <Grid ColumnSpacing="0"
-                      RowSpacing="0">
+            <Grid ColumnSpacing="0"
+                  RowSpacing="0">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*"/>
                     <ColumnDefinition Width="70"/>
                 </Grid.ColumnDefinitions>
                 <Grid.RowDefinitions>
+                    <RowDefinition Height="50"/>
                     <RowDefinition Height="50"/>
                     <RowDefinition Height="Auto"/>
                     <RowDefinition Height="Auto"/>
@@ -79,41 +80,51 @@
                     <RowDefinition Height="Auto"/>
                     <RowDefinition Height="Auto"/>
                 </Grid.RowDefinitions>
-                <Frame>
+                    
+                <Frame Grid.Row="0"
+                       Grid.Column="0"
+                       Grid.ColumnSpan="2">
                     <Picker ItemsSource="{Binding Modes}"
-                                SelectedIndex="{Binding Settings.Mode, Converter={vc:ModeValueConverter}}"/>
+                            SelectedIndex="{Binding Settings.Mode, Converter={vc:ModeValueConverter}}"/>
                 </Frame>
 
                 <Label Grid.Row="1"
+                       Grid.Column="0"
+                       Text="Capture using mirror mode"/>
+                <Switch Grid.Row="1"
+                        Grid.Column="1"
+                        IsToggled="{Binding Settings.IsCaptureInMirrorMode}"/>
+
+                <Label Grid.Row="2"
                            Grid.Column="0"
                            Text="Immersive final viewing"
                            IsVisible="{Binding Settings.Mode, Converter={StaticResource enumCompare}, ConverterParameter={x:Static vm:DrawMode.Cardboard}}"/>
-                <Switch Grid.Row="1"
+                <Switch Grid.Row="2"
                             Grid.Column="1"
                             IsToggled="{Binding Settings.ImmersiveCardboardFinal}"
                             IsVisible="{Binding Settings.Mode, Converter={StaticResource enumCompare}, ConverterParameter={x:Static vm:DrawMode.Cardboard}}"/>
 
-                <Label Grid.Row="2"
+                <Label Grid.Row="3"
                            Grid.Column="0" 
                            Text="Cardboard separation distance"
                            IsVisible="{Binding Settings.Mode, Converter={StaticResource enumCompare}, ConverterParameter={x:Static vm:DrawMode.Cardboard}}"/>
-                <Frame Grid.Row="2" 
+                <Frame Grid.Row="3" 
                            Grid.Column="1" 
                            IsVisible="{Binding Settings.Mode, Converter={StaticResource enumCompare}, ConverterParameter={x:Static vm:DrawMode.Cardboard}}">
                     <Picker ItemsSource="{Binding ZeroToOneThousand}"
                                 SelectedIndex="{Binding Settings.CardboardIpd}"/>
                 </Frame>
 
-                <Label Grid.Row="3"
+                <Label Grid.Row="4"
                            Grid.Column="0"
                            Text="Add lens correction (may lower frame rate)"
                            IsVisible="{Binding Settings.Mode, Converter={StaticResource enumCompare}, ConverterParameter={x:Static vm:DrawMode.Cardboard}}"/>
-                <Switch Grid.Row="3" 
+                <Switch Grid.Row="4" 
                             Grid.Column="1" 
                             IsToggled="{Binding Settings.AddBarrelDistortion}"
                             IsVisible="{Binding Settings.Mode, Converter={StaticResource enumCompare}, ConverterParameter={x:Static vm:DrawMode.Cardboard}}"/>
 
-                <Label Grid.Row="4"
+                <Label Grid.Row="5"
                            Grid.Column="0" 
                            Text="Add lens correction to final images only (may slow down final display)"
                            IsVisible="False">
@@ -130,7 +141,7 @@
                         </MultiTrigger>
                     </Label.Triggers>
                 </Label>
-                <Switch Grid.Row="4"
+                <Switch Grid.Row="5"
                             Grid.Column="1" 
                             IsToggled="{Binding Settings.AddBarrelDistortionFinalOnly}"
                             IsVisible="False">
@@ -148,7 +159,7 @@
                     </Switch.Triggers>
                 </Switch>
 
-                <Label Grid.Row="5"
+                <Label Grid.Row="6"
                            Grid.Column="0" 
                            Text="Lens correction strength"
                            IsVisible="False">
@@ -165,7 +176,7 @@
                         </MultiTrigger>
                     </Label.Triggers>
                 </Label>
-                <Frame Grid.Row="5"
+                <Frame Grid.Row="6"
                            Grid.Column="1" 
                            IsVisible="False">
                     <Frame.Triggers>
@@ -184,7 +195,7 @@
                                 SelectedIndex="{Binding Settings.CardboardBarrelDistortion}"/>
                 </Frame>
 
-                <Label Grid.Row="6"
+                <Label Grid.Row="7"
                            Grid.Column="0"
                            Text="Downsize preview (may increase frame rate)"
                            IsVisible="{Binding Settings.Mode, Converter={StaticResource enumCompare}, ConverterParameter={x:Static vm:DrawMode.Cardboard}}"/>
@@ -193,7 +204,7 @@
                             IsToggled="{Binding Settings.CardboardDownsize}"
                             IsVisible="{Binding Settings.Mode, Converter={StaticResource enumCompare}, ConverterParameter={x:Static vm:DrawMode.Cardboard}}"/>
 
-                <Label Grid.Row="7"
+                <Label Grid.Row="8"
                            Grid.Column="0"
                            Text="Downsize preview percentage"
                            IsVisible="False">
@@ -210,7 +221,7 @@
                         </MultiTrigger>
                     </Label.Triggers>
                 </Label>
-                <Frame Grid.Row="7"
+                <Frame Grid.Row="8"
                            Grid.Column="1"
                            IsVisible="False">
                     <Frame.Triggers>
@@ -229,11 +240,11 @@
                                 SelectedIndex="{Binding Settings.CardboardDownsizePercentage}"/>
                 </Frame>
 
-                <Label Grid.Row="1"
+                <Label Grid.Row="2"
                            Grid.Column="0" 
                            Text="Maximum parallel view image width (points)"
                            IsVisible="{Binding Settings.Mode, Converter={StaticResource enumCompare}, ConverterParameter={x:Static vm:DrawMode.Parallel}}"/>
-                <Frame Grid.Row="1"
+                <Frame Grid.Row="2"
                            Grid.Column="1" 
                            IsVisible="{Binding Settings.Mode, Converter={StaticResource enumCompare}, ConverterParameter={x:Static vm:DrawMode.Parallel}}">
                     <Picker ItemsSource="{Binding ZeroToOneThousand}"
@@ -976,7 +987,6 @@
                         <RowDefinition Height="50"/>
                         <RowDefinition Height="60"/>
                         <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="60"/>
                         <RowDefinition Height="60"/>
                     </Grid.RowDefinitions>
 

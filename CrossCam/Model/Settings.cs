@@ -121,6 +121,7 @@ namespace CrossCam.Model
             }
         }
 
+        public bool IsCaptureInMirrorMode { get; set; }
         public bool IsLockToFirstEnabled { get; set; }
         public bool IsTapToFocusEnabled2 { get; set; }
         public bool SaveRedundantFirstSide { get; set; }
@@ -419,6 +420,7 @@ namespace CrossCam.Model
             AreGuideLinesVisible = true;
             IsCaptureLeftFirst = true;
             ShowRollGuide = true;
+            IsCaptureInMirrorMode = false;
 
             AddBorder2 = true;
             ClipBorderOnNextLoad = false;
