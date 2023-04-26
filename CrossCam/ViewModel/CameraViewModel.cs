@@ -68,7 +68,7 @@ namespace CrossCam.ViewModel
                                            Settings.FullscreenCapturing ||
                                            WorkflowStage != WorkflowStage.Capture &&
                                            Settings.FullscreenEditing ||
-                                           IsNothingCaptured &&
+                                           IsNothingCaptured && !(Settings.Mode == DrawMode.Parallel && Settings.IsCaptureInMirrorMode) &&
                                            Settings.Mode != DrawMode.Cardboard;
         public AbsoluteLayoutFlags CanvasRectangleFlags =>
             UseFullScreenWidth ? AbsoluteLayoutFlags.All : 
@@ -113,9 +113,11 @@ namespace CrossCam.ViewModel
 
         public Command ToggleFullscreen { get; set; }
         public bool IsFullscreenToggleVisible =>
-            (Settings.Mode == DrawMode.Cross || 
-             Settings.Mode == DrawMode.Parallel) && 
-            !IsNothingCaptured;
+            (Settings.Mode == DrawMode.Cross ||
+             Settings.Mode == DrawMode.Parallel) &&
+            (!IsNothingCaptured ||
+            PairOperator.PairStatus == PairStatus.Connected ||
+            Settings.IsCaptureInMirrorMode);
         public bool IsFullscreenToggle
         {
             get =>

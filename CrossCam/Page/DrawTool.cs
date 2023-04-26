@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using System.Linq;
 using CrossCam.Model;
 using CrossCam.ViewModel;
@@ -89,18 +90,21 @@ namespace CrossCam.Page
                 hor = cardboardHor;
             }
 
-            var mirrorLeft = useMirrorCapture && settings.IsCaptureLeftFirst;
-            var mirrorRight = useMirrorCapture && !settings.IsCaptureLeftFirst;
+            var shouldMirrorLeft = useMirrorCapture && !settings.IsCaptureLeftFirst;
+            var shouldMirrorRight = useMirrorCapture && settings.IsCaptureLeftFirst;
 
             if (withSwap)
-            {//TODO do mirror modifier for swap...?... or not?
+            {
                 DrawImagesOnCanvasInternal(surface, 
-                    rightBitmap, rightAlignmentMatrix, rightOrientation, isRightFrontFacing, mirrorRight,
-                    leftBitmap, leftAlignmentMatrix, leftOrientation, isLeftFrontFacing, mirrorLeft,
+                    rightBitmap, rightAlignmentMatrix, rightOrientation, isRightFrontFacing, shouldMirrorRight,
+                    leftBitmap, leftAlignmentMatrix, leftOrientation, isLeftFrontFacing, shouldMirrorLeft,
                     settings.BorderWidthProportion, settings.AddBorder2 && drawQuality != DrawQuality.Preview, settings.BorderColor,
-                    edits.InsideCrop + edits.LeftCrop, edits.RightCrop + edits.OutsideCrop,
-                    edits.LeftCrop + edits.OutsideCrop, edits.InsideCrop + edits.RightCrop,
-                    edits.TopCrop, edits.BottomCrop,
+                    edits.InsideCrop + edits.LeftCrop + (useMirrorCapture ? 0.5 : 0), 
+                    edits.RightCrop + edits.OutsideCrop, 
+                    edits.LeftCrop + edits.OutsideCrop + (useMirrorCapture ? 0.5 : 0), 
+                    edits.InsideCrop + edits.RightCrop, 
+                    edits.TopCrop, 
+                    edits.BottomCrop,
                     edits.RightRotation, edits.LeftRotation,
                     edits.VerticalAlignment,
                     edits.RightZoom, edits.LeftZoom,
@@ -118,12 +122,15 @@ namespace CrossCam.Page
             else
             {
                 DrawImagesOnCanvasInternal(surface, 
-                    leftBitmap, leftAlignmentMatrix, leftOrientation, isLeftFrontFacing, mirrorLeft,
-                    rightBitmap, rightAlignmentMatrix, rightOrientation, isRightFrontFacing, mirrorRight,
+                    leftBitmap, leftAlignmentMatrix, leftOrientation, isLeftFrontFacing, shouldMirrorLeft,
+                    rightBitmap, rightAlignmentMatrix, rightOrientation, isRightFrontFacing, shouldMirrorRight,
                     settings.BorderWidthProportion, settings.AddBorder2 && drawQuality != DrawQuality.Preview, settings.BorderColor,
-                    edits.LeftCrop + edits.OutsideCrop, edits.InsideCrop + edits.RightCrop + (useMirrorCapture ? 0.5 : 0), edits.InsideCrop + edits.LeftCrop + (useMirrorCapture ? 0.5 : 0),
-                    edits.RightCrop + edits.OutsideCrop,
-                    edits.TopCrop, edits.BottomCrop,
+                    edits.LeftCrop + edits.OutsideCrop, 
+                    edits.InsideCrop + edits.RightCrop + (useMirrorCapture ? 0.5 : 0), 
+                    edits.InsideCrop + edits.LeftCrop, 
+                    edits.RightCrop + edits.OutsideCrop + (useMirrorCapture ? 0.5 : 0),
+                    edits.TopCrop, 
+                    edits.BottomCrop,
                     edits.LeftRotation, edits.RightRotation,
                     edits.VerticalAlignment,
                     edits.LeftZoom, edits.RightZoom,
@@ -824,7 +831,6 @@ namespace CrossCam.Page
                 transform = transform.PostConcat(SKMatrix.CreateTranslation(xFix, yFix));
                 transform = transform.PostConcat(SKMatrix.CreateScale(-1, 1));
                 transform = transform.PostConcat(SKMatrix.CreateTranslation(-xFix, -yFix));
-                transform = transform.PostConcat(SKMatrix.CreateTranslation(0.5f * correctedRect.Width, 0));
             }
             canvas.SetMatrix(transform);
             canvas.DrawBitmap(
