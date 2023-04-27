@@ -90,7 +90,7 @@
 
                 <Label Grid.Row="1"
                        Grid.Column="0"
-                       Text="Capture using mirror mode"/>
+                       Text="Capture using single-shot mirror division method"/>
                 <Switch Grid.Row="1"
                         Grid.Column="1"
                         IsToggled="{Binding Settings.IsCaptureInMirrorMode}"/>

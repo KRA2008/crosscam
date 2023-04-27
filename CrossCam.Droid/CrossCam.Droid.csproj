@@ -377,7 +377,7 @@
     <AndroidResource Include="Resources\drawable-nodpi\bouquetParallel.JPG" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\drawable-nodpi\bouquetCross.JPG" />
+    <AndroidResource Include="Resources\drawable-nodpi\bouquetCross.png" />
   </ItemGroup>
   <Import Project="..\AutoAlignment\AutoAlignment.projitems" Label="Shared" />
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
