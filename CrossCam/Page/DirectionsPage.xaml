@@ -11,7 +11,7 @@
         <StackLayout Spacing="0">
             <BoxView/>
             <StackLayout Padding="10">
-                <Label Text="If you want to see this again, tap the '?' on the top left of the camera screen."/>
+                <Label Text="If you want to see this again, tap the '☰' on the top left of the camera screen and tap &quot;Help&quot; button."/>
                 <Label Text=" "/>
                 <Label Text="1) Frame up and take the first picture."/>
                 <Label Text="{Binding ViewModeIng, StringFormat='2) Start {0} the first picture with the preview that appears next to it.'}"/>

@@ -13,7 +13,7 @@
         <StackLayout Spacing="0">
             <BoxView/>
             <StackLayout Padding="10">
-                <Label Text="If you want to see this again, tap the '?' on the top left of the camera screen."/>
+                <Label Text="If you want to see this again, tap the '☰' on the top left of the camera screen and tap &quot;Help&quot; button."/>
                 <Label Text=" "/>
                 <Label Text="To see the 3D in CrossCam, you have to do something special with your eyes. There are two ways to do it, but you have to learn at least one of the ways or CrossCam will be useless to you. You also need to tell CrossCam which one you're going to do or it won't work right. Don't worry, you can always change this again in Settings."/>
                 <Label Text=" "/>

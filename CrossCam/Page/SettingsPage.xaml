@@ -199,7 +199,7 @@
                            Grid.Column="0"
                            Text="Downsize preview (may increase frame rate)"
                            IsVisible="{Binding Settings.Mode, Converter={StaticResource enumCompare}, ConverterParameter={x:Static vm:DrawMode.Cardboard}}"/>
-                <Switch Grid.Row="6"
+                <Switch Grid.Row="7"
                             Grid.Column="1"
                             IsToggled="{Binding Settings.CardboardDownsize}"
                             IsVisible="{Binding Settings.Mode, Converter={StaticResource enumCompare}, ConverterParameter={x:Static vm:DrawMode.Cardboard}}"/>
