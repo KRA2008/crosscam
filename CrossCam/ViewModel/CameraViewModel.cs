@@ -136,6 +136,7 @@ namespace CrossCam.ViewModel
                 {
                     Settings.FullscreenEditing = value;
                 }
+                PersistentStorage.Save(PersistentStorage.SETTINGS_KEY,Settings);
             }
         }
 
@@ -1286,6 +1287,8 @@ namespace CrossCam.ViewModel
             }
             else if (args.PropertyName == nameof(LocalCapturedFrame))
             {
+                if (LocalCapturedFrame == null) return;
+
                 if (_secondaryErrorOccurred)
                 {
                     ClearCaptures();
@@ -1310,14 +1313,14 @@ namespace CrossCam.ViewModel
                         if (Settings.IsCaptureLeftFirst)
                         {
                             SetLeftBitmap(
-                                GetHalfOfImage(LocalCapturedFrame.Frame, true, false),
-                                LocalCapturedFrame.Orientation,
+                                GetHalfOfImage(LocalCapturedFrame.Frame, true, false, LocalCapturedFrame.Orientation,isFrontFacing:LocalCapturedFrame.IsFrontFacing),
+                                SKEncodedOrigin.Default,
                                 LocalCapturedFrame.IsFrontFacing,
                                 PairOperator.PairStatus == PairStatus.Disconnected,
                                 PairOperator.PairStatus == PairStatus.Disconnected);
                             SetRightBitmap(
-                                GetHalfOfImage(LocalCapturedFrame.Frame, false, false, true),
-                                LocalCapturedFrame.Orientation,
+                                GetHalfOfImage(LocalCapturedFrame.Frame, false, false, LocalCapturedFrame.Orientation, true, LocalCapturedFrame.IsFrontFacing),
+                                SKEncodedOrigin.Default,
                                 LocalCapturedFrame.IsFrontFacing,
                                 PairOperator.PairStatus == PairStatus.Disconnected,
                                 PairOperator.PairStatus == PairStatus.Disconnected);
@@ -1325,14 +1328,14 @@ namespace CrossCam.ViewModel
                         else
                         {
                             SetLeftBitmap(
-                                GetHalfOfImage(LocalCapturedFrame.Frame, true, false, true),
-                                LocalCapturedFrame.Orientation,
+                                GetHalfOfImage(LocalCapturedFrame.Frame, false, false, LocalCapturedFrame.Orientation, true, LocalCapturedFrame.IsFrontFacing),
+                                SKEncodedOrigin.Default,
                                 LocalCapturedFrame.IsFrontFacing,
                                 PairOperator.PairStatus == PairStatus.Disconnected,
                                 PairOperator.PairStatus == PairStatus.Disconnected);
                             SetRightBitmap(
-                                GetHalfOfImage(LocalCapturedFrame.Frame, false, false),
-                                LocalCapturedFrame.Orientation,
+                                GetHalfOfImage(LocalCapturedFrame.Frame, true, false, LocalCapturedFrame.Orientation, isFrontFacing: LocalCapturedFrame.IsFrontFacing),
+                                SKEncodedOrigin.Default,
                                 LocalCapturedFrame.IsFrontFacing,
                                 PairOperator.PairStatus == PairStatus.Disconnected,
                                 PairOperator.PairStatus == PairStatus.Disconnected);
@@ -1356,6 +1359,8 @@ namespace CrossCam.ViewModel
                         }
                     }
                 }
+
+                LocalCapturedFrame = null;
             }
             else if (args.PropertyName == nameof(Error))
             {
@@ -2034,28 +2039,6 @@ namespace CrossCam.ViewModel
             }
         }
 
-        //private void ProcessMirrorCapture(SKBitmap bitmap)
-        //{
-        //    var leftHalf = new SKBitmap(bitmap.Width/2, bitmap.Height);
-        //    var 
-
-        //    using var surface = new SKCanvas(leftHalf);
-        //    surface.DrawBitmap(
-        //        original,
-        //        SKRect.Create(
-        //            startX + leftBorder,
-        //            topBorder,
-        //            width,
-        //            height),
-        //        SKRect.Create(
-        //            0,
-        //            0,
-        //            width,
-        //            height));
-
-        //    return leftHalf;
-        //}
-
         // TODO: remove this eventually, but right now it only happens once on final capture
         // TODO: and is necessary to use ECC alignment.
 
@@ -2219,9 +2202,14 @@ namespace CrossCam.ViewModel
             });
         }
 
-        private static SKBitmap GetHalfOfImage(SKBitmap original, bool wantLeft, bool clipBorder, bool withMirror = false)
+        private static SKBitmap GetHalfOfImage(SKBitmap original, bool wantLeft, bool clipBorder, SKEncodedOrigin orientationToCorrect = SKEncodedOrigin.Default, bool withMirror = false, bool isFrontFacing = false)
         {
             if (original == null) return null;
+
+            if (orientationToCorrect != SKEncodedOrigin.Default)
+            {
+                original = AutoOrient(original, orientationToCorrect, isFrontFacing);//TODO: it would be neat to use matrix stuff and shared code but i can't get it to work for all orientations - portrait is particularly weird
+            }
 
             const int BORDER_DIFF_THRESHOLD = 25;
             var bottomBorder = 0;
@@ -2235,6 +2223,7 @@ namespace CrossCam.ViewModel
             {
                 midX -= 1;
             }
+
             var startX = wantLeft ? 0 : midX;
             var endX = wantLeft ? midX : original.Width - 1;
             var startY = 0;
@@ -2300,15 +2289,17 @@ namespace CrossCam.ViewModel
             var extracted = new SKBitmap(width, height);
 
             using var surface = new SKCanvas(extracted);
+
             var matrix = SKMatrix.CreateIdentity();
             if (withMirror)
             {
-                var xFix =  -original.Width / 2f;
-                var yFix =  -original.Height / 2f;
+                var xFix = -original.Width / 4f;
+                var yFix = -original.Height / 2f;
                 matrix = matrix.PostConcat(SKMatrix.CreateTranslation(xFix, yFix));
                 matrix = matrix.PostConcat(SKMatrix.CreateScale(-1, 1));
                 matrix = matrix.PostConcat(SKMatrix.CreateTranslation(-xFix, -yFix));
             }
+
             surface.SetMatrix(matrix);
             surface.DrawBitmap(
                 original,
@@ -2326,10 +2317,49 @@ namespace CrossCam.ViewModel
             return extracted;
         }
 
-        private static SKBitmap GetHalfOfImage(byte[] bytes, bool wantLeft, bool clipBorder, bool withMirror = false)
+        private static SKBitmap AutoOrient(SKBitmap bitmap, SKEncodedOrigin origin, bool isFrontFacing)
+        {
+            Debug.WriteLine("### orientation: " + origin);
+            SKBitmap rotated;
+            switch (origin)
+            {
+                case SKEncodedOrigin.BottomRight:
+                    rotated = new SKBitmap(bitmap.Width, bitmap.Height);
+                    using (var surface = new SKCanvas(rotated))
+                    {
+                        surface.RotateDegrees(180, bitmap.Width / 2f, bitmap.Height / 2f);
+                        surface.DrawBitmap(bitmap, 0, 0);
+                    }
+                    return rotated;
+                case SKEncodedOrigin.RightTop:
+                    rotated = new SKBitmap(bitmap.Height, bitmap.Width);
+                    using (var surface = new SKCanvas(rotated))
+                    {
+                        surface.Translate(rotated.Width, 0);
+                        surface.RotateDegrees(90);
+                        if (isFrontFacing) surface.RotateDegrees(180, bitmap.Width / 2f, bitmap.Height / 2f);
+                        surface.DrawBitmap(bitmap, 0, 0);
+                    }
+                    return rotated;
+                case SKEncodedOrigin.LeftBottom:
+                    rotated = new SKBitmap(bitmap.Height, bitmap.Width);
+                    using (var surface = new SKCanvas(rotated))
+                    {
+                        surface.Translate(0, rotated.Height);
+                        surface.RotateDegrees(270);
+                        if (isFrontFacing) surface.RotateDegrees(180, bitmap.Width / 2f, bitmap.Height / 2f);
+                        surface.DrawBitmap(bitmap, 0, 0);
+                    }
+                    return rotated;
+                default:
+                    return bitmap;
+            }
+        }
+
+        private static SKBitmap GetHalfOfImage(byte[] bytes, bool wantLeft, bool clipBorder, SKEncodedOrigin orientationToCorrect = SKEncodedOrigin.Default, bool withMirror = false)
         {
             var original = SKBitmap.Decode(bytes);
-            return GetHalfOfImage(original, wantLeft, clipBorder, withMirror);
+            return GetHalfOfImage(original, wantLeft, clipBorder, orientationToCorrect, withMirror);
         }
 
         private static int GetTotalColor(SKColor color)

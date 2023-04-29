@@ -452,6 +452,7 @@ namespace CrossCam.Page
 
         private void OnCanvasInvalidated(object sender, SKPaintSurfaceEventArgs e)
 	    {
+            //Debug.WriteLine("### left: " + _viewModel.LeftBitmap + " right: " + _viewModel.RightBitmap + " preview: " + _viewModel.LocalPreviewFrame + " captured: " + _viewModel.LocalCapturedFrame);
             var surface = e.Surface;
 
             var clearCanvas = _viewModel.Settings.Mode == DrawMode.RedCyanAnaglyph ||
@@ -549,13 +550,14 @@ namespace CrossCam.Page
             }
 
             if (_viewModel.Settings.IsCaptureInMirrorMode &&
-                _viewModel.PairOperatorBindable.PairStatus != PairStatus.Connected)
+                _viewModel.PairOperatorBindable.PairStatus != PairStatus.Connected &&
+                (_viewModel.LeftBitmap == null ||
+                _viewModel.RightBitmap == null))
             {
                 left = right = _viewModel.LocalPreviewFrame?.Frame;
                 leftOrientation = rightOrientation = _viewModel.LocalPreviewFrame?.Orientation;
                 isLeftFrontFacing = isRightFrontFacing = _viewModel.LocalPreviewFrame?.IsFrontFacing ?? false;
             }
-
 
             if (_viewModel.Settings.Mode == DrawMode.Cardboard &&
                 _viewModel.LeftBitmap == null &&
@@ -683,7 +685,8 @@ namespace CrossCam.Page
                 _viewModel.Settings.Mode != DrawMode.Cardboard &&
                 !(_viewModel.Settings.IsCaptureInMirrorMode &&
                   !_viewModel.Settings.FullscreenCapturing),
-                useMirrorCapture: _viewModel.Settings.IsCaptureInMirrorMode);
+                useMirrorCapture: _viewModel.Settings.IsCaptureInMirrorMode &&
+                                  drawQuality == DrawQuality.Preview);
 
             if (_viewModel.PairOperatorBindable.PairStatus == PairStatus.Connected &&
                 _viewModel.WorkflowStage == WorkflowStage.Capture)
