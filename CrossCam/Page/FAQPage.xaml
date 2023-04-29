@@ -1,0 +1,15 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<page:BasePage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:page="clr-namespace:CrossCam.Page;assembly=CrossCam"
+             xmlns:viewModel="clr-namespace:CrossCam.ViewModel;assembly=CrossCam"
+             xmlns:views="http://xamarin.com/schemas/2020/toolkit"
+             x:Class="CrossCam.Page.FAQPage"
+             Title="FAQ"
+             x:DataType="viewModel:FAQViewModel">
+    <ScrollView>
+        <StackLayout>
+            <views:Expander></views:Expander>
+        </StackLayout>
+    </ScrollView>
+</page:BasePage>
