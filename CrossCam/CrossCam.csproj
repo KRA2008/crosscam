@@ -84,14 +84,17 @@
     <EmbeddedResource Update="Page\TipsPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Update="Page\TroubleshootingPage.xaml">
-      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
-    </EmbeddedResource>
   </ItemGroup>
 
   <ItemGroup>
     <Compile Update="CustomElement\CameraSuccessOutline.xaml.cs">
       <DependentUpon>CameraSuccessOutline.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="CustomElement\BasicExpander.xaml.cs">
+      <DependentUpon>BasicExpander.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="CustomElement\ExpanderHeader.xaml.cs">
+      <DependentUpon>ExpanderHeader.xaml</DependentUpon>
     </Compile>
     <Compile Update="CustomElement\FooterLabel.xaml.cs">
       <DependentUpon>FooterLabel.xaml</DependentUpon>

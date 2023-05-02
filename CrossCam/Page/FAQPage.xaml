@@ -4,12 +4,214 @@
              xmlns:page="clr-namespace:CrossCam.Page;assembly=CrossCam"
              xmlns:viewModel="clr-namespace:CrossCam.ViewModel;assembly=CrossCam"
              xmlns:views="http://xamarin.com/schemas/2020/toolkit"
+             xmlns:customElement="clr-namespace:CrossCam.CustomElement;assembly=CrossCam"
              x:Class="CrossCam.Page.FAQPage"
              Title="FAQ"
              x:DataType="viewModel:FAQViewModel">
     <ScrollView>
-        <StackLayout>
-            <views:Expander></views:Expander>
+        <StackLayout Padding="10">
+
+            <BoxView/>
+
+            <views:Expander>
+                <views:Expander.Header>
+                    <customElement:ExpanderHeader Title="How does this work?"/>
+                </views:Expander.Header>
+                <views:Expander.ContentTemplate>
+                    <DataTemplate>
+                        <StackLayout Padding="10">
+                            <Label>
+                                <Label.FormattedText>
+                                    <FormattedString>
+                                        <Span Text="The 3D effect CrossCam uses is a well-studied discipline known as &quot;stereoscopy&quot;, and the method where you cross your eyes (or relax them) to view the two sides is called &quot;free viewing&quot;. When we look around at the world, each of our eyes sees from a different perspective. In stereoscopy all we do is present one (artificial) perspective to each eye, and our brains just do the rest. There are lots of different ways to make each eye see a different image. Here's "/>
+                                        <Span Text="a Wikipedia link"
+                                              TextDecorations="Underline"
+                                              TextColor="{StaticResource linkBlue}">
+                                            <Span.GestureRecognizers>
+                                                <TapGestureRecognizer Command="{Binding OpenLink}"
+                                                                      CommandParameter="https://en.wikipedia.org/wiki/Stereoscopy"/>
+                                            </Span.GestureRecognizers>
+                                        </Span>
+                                        <Span Text="."/>
+                                    </FormattedString>
+                                </Label.FormattedText>
+                            </Label>
+                            <Label Text="The 3D pictures you make with CrossCam are called &quot;stereograms&quot;. Magic Eye™ books contain what is called &quot;autostereograms&quot;."/>
+                        </StackLayout>
+                    </DataTemplate>
+                </views:Expander.ContentTemplate>
+            </views:Expander>
+
+            <BoxView/>
+
+            <views:Expander>
+                <views:Expander.Header>
+                    <customElement:ExpanderHeader Title="Is this bad for my eyes?"/>
+                </views:Expander.Header>
+                <views:Expander.ContentTemplate>
+                    <DataTemplate>
+                        <StackLayout Padding="10">
+                            <Label Text="I don't know, but I don't think so. However, if it feels bad just take a break. With practice the discomfort usually lessens. Any viewing method could cause discomfort due to an effect called the &quot;vergence-accomodation conflict&quot;. If you're using the cross-eyed method, the feeling may also be due to your eyes not being used to pointing as though they are looking at something so close for so long a time. When cross viewing, your eyes converge on a point about halfway between your eyes and the screen. If looking at something that close for a long time would also cause you discomfort, we have our explanation."/>
+                            <Label>
+                                <Label.FormattedText>
+                                    <FormattedString>
+                                        <Span Text="My opinion on it is that your eyes aren't doing anything outside of their everyday capabilities, but you're combining two different abilities that aren't typically used that way. You're focusing your lenses on something at one place that is normally comfortable to focus on, and you're pointing your eyes somewhere where it's normally comfortable for them to point, but the place where your lenses are focusing and where your eyes are converging is just not the same point. I don't see how that could be bad for you as long as your vision isn't still developing. Here's a "/>
+                                        <Span Text="a Wikipedia link"
+                                  TextDecorations="Underline"
+                                  TextColor="{StaticResource linkBlue}">
+                                            <Span.GestureRecognizers>
+                                                <TapGestureRecognizer Command="{Binding OpenLink}"
+                                                          CommandParameter="https://en.wikipedia.org/wiki/Vergence-accommodation_conflict"/>
+                                            </Span.GestureRecognizers>
+                                        </Span>
+                                        <Span Text=" on vergence-accomodation conflict."/>
+                                    </FormattedString>
+                                </Label.FormattedText>
+                            </Label>
+                        </StackLayout>
+                    </DataTemplate>
+                </views:Expander.ContentTemplate>
+            </views:Expander>
+
+            <BoxView/>
+
+            <views:Expander>
+                <views:Expander.Header>
+                    <customElement:ExpanderHeader Title="Why did you make CrossCam?"/>
+                </views:Expander.Header>
+                <views:Expander.ContentTemplate>
+                    <DataTemplate>
+                        <StackLayout Padding="10">
+                            <Label Text="As I was starting to get interested in stereoscopy I happened to take a trip to Yellowstone. While I was there, I realized it might be fun to try to use a 3D camera mobile app to capture things there in 3D. I was very disappointed by the existing options. I found they all required you to make two captures and then afterward find out if they were any good. They often were not, as I had to repeatedly make complete guesses on my separation distance, as well as the quality of the subject."/>
+                            <Label Text="Over the next few weeks my simmering frustration led me to imagine simply providing a live preview of the second capture alongside the first. I already had a background in mobile development, so then it was just a matter of putting in the time. CrossCam has been awesome for me to use just for myself to preserve memories, and I'm happy to share it with you too."/>
+                        </StackLayout>
+                    </DataTemplate>
+                </views:Expander.ContentTemplate>
+            </views:Expander>
+
+            <BoxView/>
+
+            <views:Expander>
+                <views:Expander.Header>
+                    <customElement:ExpanderHeader Title="How did you get into stereoscopy?"/>
+                </views:Expander.Header>
+                <views:Expander.ContentTemplate>
+                    <DataTemplate>
+                        <StackLayout Padding="10">
+                            <Label Text="While I was getting my physics degree, I had the opportunity to experiment with creating my own holograms using lasers. The type of holograms I was making were 3D because they used what is called a &quot;diffraction grating&quot; to cause destructive interference in the light that reflects off of the glass plate's surface, which causes the reflected image to look different from different places. When each of our eyes sees an image that looks like it's from a different perspective (if they aren't too different), our brains perceive that as depth."/>
+                            <Label>
+                                <Label.FormattedText>
+                                    <FormattedString>
+                                        <Span Text="I had been aware of that principle of stereoscopic perception for a long time, but at that point in my life I was also taking some programming classes, so I decided I wanted to try to make a simple computer program for stereoscopic 3D drawing. That effort became StereoSketcher. The original version was written in Java, but I rewrote it with Javascript and SVG and now it lives on the web "/>
+                                        <Span Text="at this link."
+                                      TextDecorations="Underline"
+                                      TextColor="{StaticResource linkBlue}">
+                                            <Span.GestureRecognizers>
+                                                <TapGestureRecognizer Command="{Binding OpenLink}"
+                                                          CommandParameter="https://stereosketcher.com"/>
+                                            </Span.GestureRecognizers>
+                                        </Span>
+                                        <Span Text=" It isn't popular by any means, and it may not be easy for anybody but me to use, but it works. While working on StereoSketcher I got to experiment with the principles of stereoscopy, and I became enamored with the way such an immersive and compelling experience can be produced using a few simple rules."/>
+                                    </FormattedString>
+                                </Label.FormattedText>
+                            </Label>
+                        </StackLayout>
+                    </DataTemplate>
+                </views:Expander.ContentTemplate>
+            </views:Expander>
+
+            <BoxView/>
+
+            <views:Expander>
+                <views:Expander.Header>
+                    <customElement:ExpanderHeader Title="Why does the 3D not look right OR why does the 3D look inverted?"/>
+                </views:Expander.Header>
+                <views:Expander.ContentTemplate>
+                    <DataTemplate>
+                        <StackLayout Padding="10">
+                            <Label Text="When free viewing with either the cross or parallel method, it's important to look at the pictures using the same method that was used to create them. Otherwise, your right eye will look at the perspective intended for the left eye and vice versa. This makes the depth of the image invert, because the direction of parallax has been swapped."/>
+                            <Label Text="Parallax means that from the perspective of your right eye, when objects are further away they seem to be further to the right than closer objects when seen from your left eye. It's confusing when described in sentence format, but very intuitive when demonstrated."/>
+                            <Label Text="To demonstrate, hold one finger up in front of you at about arm's length, then with your other hand hold another finger about halfway between the first finger and your face. If you alternately close each eye and pay attention to where your fingers are, you'll see that each eye sees them in different places. So naturally, if each eye saw that movement the opposite way that it's supposed to, the depth will be inverted."/>
+                            <Label Text="It's very easy to accidentally use the wrong viewing method because it turns out it's very hard for most people to tell whether they are crossing or relaxing their eyes just by feeling or by looking at the confusing double image of the world that results. Instead, it's best to either have someone else look at what your eyes are doing, or try out this tester image:"/>
+                            <AbsoluteLayout HorizontalOptions="Center"
+                                    HeightRequest="179"
+                                    WidthRequest="302">
+                                <Image AbsoluteLayout.LayoutFlags="All" 
+                               AbsoluteLayout.LayoutBounds="0,0,1,1" 
+                               Aspect="AspectFit"
+                               Source="fyi"/>
+                            </AbsoluteLayout>
+                            <Label Text="Many people have gotten quite comfortable with viewing Magic Eye™ books, which are intended to be viewed using the parallel view method. If you cross view them then the robust 3D objects that are supposed to pop off the page instead look like holes. Both methods allow you to see *something* but if you couldn't tell what it was, you're probably cross viewing them."/>
+                        </StackLayout>
+                    </DataTemplate>
+                </views:Expander.ContentTemplate>
+            </views:Expander>
+
+            <BoxView/>
+
+            <views:Expander>
+                <views:Expander.Header>
+                    <customElement:ExpanderHeader Title="My subject is moving, how do I take 3D pictures of it?"/>
+                </views:Expander.Header>
+                <views:Expander.ContentTemplate>
+                    <DataTemplate>
+                        <StackLayout Padding="10">
+                            <Label Text="CrossCam allows you two methods for capturing both perspectives at the same moment. One method uses two phones, and one method uses a mirror."/>
+                            <Label Text="To use the two phone setup, check out the Pairing Setup page, which you can get to from the Settings page (tap the gear icon)."/>
+                            <Label Text="To use the mirror method, check out the other FAQ question about it."/>
+                        </StackLayout>
+                    </DataTemplate>
+                </views:Expander.ContentTemplate>
+            </views:Expander>
+
+            <BoxView/>
+
+            <views:Expander>
+                <views:Expander.Header>
+                    <customElement:ExpanderHeader Title="How do I do the mirror method?"/>
+                </views:Expander.Header>
+                <views:Expander.ContentTemplate>
+                    <DataTemplate>
+                        <StackLayout Padding="10">
+                            <Label Text="The &quot;mirror method&quot; could either refer to using a mirror to capture or to view stereograms. Just because you do one doesn't mean you have to do the other - they're completely independent."/>
+                            <Label Text="Capturing with the mirror method divides the frame in half so you can capture both sides at the same moment. To use the mirror method when capturing, flip the switch on for mirror mode on the Settings page in the section with the preview viewing method (tap the gear icon to get there). You can use mirror mode with any preview viewing method you want. After you turn on mirror mode, CrossCam will tell you which side to hold your mirror on. Hold your mirror on that side and fuss with the alignment between your phone and the mirror and your subject. With some patience, you'll be able to line them all up so that the mirror shows the correct perspective for one of the sides. Because using the mirror method splits your image in half vertically, it's usually best to do landscape with the mirror method."/>
+                            <Label Text="CrossCam doesn't support viewing using the mirror method right now, but it may in the future. Email me if you're really interested in this and I'll do it. Using the mirror method to view means holding the mirror between the two sides of the image, basically lined up with your nose. By pointing your eyes to look at one side, but placing a mirror in the way of one of your eyes, you can make the mirrored eye see something else (the intended side). For some people this might be the easiest way for them to view stereograms."/>
+                        </StackLayout>
+                    </DataTemplate>
+                </views:Expander.ContentTemplate>
+            </views:Expander>
+
+            <BoxView/>
+
+            <views:Expander>
+                <views:Expander.Header>
+                    <customElement:ExpanderHeader Title="What are wigglegrams?"/>
+                </views:Expander.Header>
+                <views:Expander.ContentTemplate>
+                    <DataTemplate>
+                        <StackLayout Padding="10">
+                            <Label Text="Wigglegrams are a way to view stereograms that doesn't rely on binocular vision. They're usually a gif that flips back and forth between the two perspectives, showing each in its entirety in the same spot. CrossCam doesn't support making them right now, but email me if you're really interested in them and I'll do it."/>
+                        </StackLayout>
+                    </DataTemplate>
+                </views:Expander.ContentTemplate>
+            </views:Expander>
+
+            <BoxView/>
+
+            <!--<views:Expander>
+                <views:Expander.Header>
+                    <customElement:ExpanderHeader Title=""/>
+                </views:Expander.Header>
+                <views:Expander.ContentTemplate>
+                    <DataTemplate>
+                        <StackLayout Padding="10">
+
+                        </StackLayout>
+                    </DataTemplate>
+                </views:Expander.ContentTemplate>
+            </views:Expander>-->
+
+            <customElement:FooterLabel/>
         </StackLayout>
     </ScrollView>
 </page:BasePage>

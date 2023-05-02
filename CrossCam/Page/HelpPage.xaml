@@ -16,6 +16,9 @@
             <Button Text="3D Viewing Technique"
                     Command="{Binding NavigateToTechniqueHelpPage}"/>
             <BoxView/>
+            <Button Text="FAQ"
+                    Command="{Binding NavigateToFAQPage}"/>
+            <BoxView/>
             <Button Text="Tips"
                     Command="{Binding NavigateToTipsPage}"/>
             <BoxView/>

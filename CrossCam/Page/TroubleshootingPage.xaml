@@ -1,9 +1,0 @@
-﻿<?xml version="1.0" encoding="utf-8" ?>
-<page:BasePage xmlns="http://xamarin.com/schemas/2014/forms"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:page="clr-namespace:CrossCam.Page;assembly=CrossCam"
-             xmlns:viewModel="clr-namespace:CrossCam.ViewModel;assembly=CrossCam"
-             x:Class="CrossCam.Page.TroubleshootingPage"
-             Title="Troubleshooting"
-             x:DataType="viewModel:TroubleshootingViewModel">
-</page:BasePage>

@@ -1,18 +1,16 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
-<AbsoluteLayout xmlns="http://xamarin.com/schemas/2014/forms" 
+<StackLayout xmlns="http://xamarin.com/schemas/2014/forms" 
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:views="http://xamarin.com/schemas/2020/toolkit"
              xmlns:customElement="clr-namespace:CrossCam.CustomElement;assembly=CrossCam"
              x:Class="CrossCam.CustomElement.ExpanderHeader"
-             x:DataType="customElement:ExpanderHeader">
-    <Label AbsoluteLayout.LayoutFlags="All"
-           AbsoluteLayout.LayoutBounds="0,0,1,1"
-           Text="{Binding HeaderTitle}"
-           Style="{DynamicResource header}"/>
-    <Image AbsoluteLayout.LayoutFlags="All" 
-           AbsoluteLayout.LayoutBounds="0,0,1,1"
-           Source="expandMore.png"
-           HorizontalOptions="End"
+             x:DataType="customElement:ExpanderHeader"
+             Orientation="Horizontal">
+    <Label Text="{Binding Title}"
+           Style="{StaticResource header}" 
+           Padding="10"/>
+    <Image Source="expandMore.png"
+           HorizontalOptions="EndAndExpand"
            VerticalOptions="Center">
         <Image.Triggers>
             <DataTrigger TargetType="Image"
@@ -23,4 +21,4 @@
             </DataTrigger>
         </Image.Triggers>
     </Image>
-</AbsoluteLayout>
+</StackLayout>

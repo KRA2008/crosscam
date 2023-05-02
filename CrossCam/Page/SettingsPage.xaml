@@ -26,13 +26,6 @@
                 <Setter Property="HorizontalOptions"
                         Value="StartAndExpand"/>
             </Style>
-            <Style TargetType="Label" 
-                   x:Key="header">
-                <Setter Property="FontSize"
-                        Value="Large"/>
-                <Setter Property="FontAttributes"
-                        Value="Bold"/>
-            </Style>
             <Style TargetType="Switch">
                 <Setter Property="Margin"
                         Value="10"/>
@@ -61,7 +54,7 @@
             <BoxView/>
 
             <Label Text="Preview Viewing Method"
-                   Style="{DynamicResource header}"/>
+                   Style="{StaticResource header}"/>
 
             <Grid ColumnSpacing="0"
                   RowSpacing="0">
@@ -256,7 +249,7 @@
 
             <views:Expander x:Name="_pairingExpander">
                 <views:Expander.Header>
-                    <ce:ExpanderHeader HeaderTitle="Pairing"/>
+                    <ce:ExpanderHeader Title="Pairing"/>
                 </views:Expander.Header>
                 <Grid ColumnSpacing="0"
                       RowSpacing="0"> <!-- can't be on demand because of resizing -->
@@ -367,7 +360,7 @@
 
             <views:Expander x:Name="_alignmentExpander">
                 <views:Expander.Header>
-                    <ce:ExpanderHeader HeaderTitle="Automatic Alignment"/>
+                    <ce:ExpanderHeader Title="Automatic Alignment"/>
                 </views:Expander.Header>
                 <Grid RowSpacing="0"
                       ColumnSpacing="0"> <!-- can't be on demand because of resizing -->
@@ -553,7 +546,7 @@
 
             <views:Expander>
                 <views:Expander.Header>
-                    <ce:ExpanderHeader HeaderTitle="Saving"/>
+                    <ce:ExpanderHeader Title="Saving"/>
                 </views:Expander.Header>
                 <views:Expander.ContentTemplate>
                     <DataTemplate>
@@ -841,7 +834,7 @@
 
             <views:Expander x:Name="_borderExpander">
                 <views:Expander.Header>
-                    <ce:ExpanderHeader HeaderTitle="Border"/>
+                    <ce:ExpanderHeader Title="Border"/>
                 </views:Expander.Header>
                 <Grid RowSpacing="0"
                       ColumnSpacing="0">
@@ -898,7 +891,7 @@
 
             <views:Expander x:Name="_guidesExpander">
                 <views:Expander.Header>
-                    <ce:ExpanderHeader HeaderTitle="Capture Guides"/>
+                    <ce:ExpanderHeader Title="Capture Guides"/>
                 </views:Expander.Header>
                 <Grid ColumnSpacing="0"
                       RowSpacing="0">
@@ -967,7 +960,7 @@
 
             <views:Expander>
                 <views:Expander.Header>
-                    <ce:ExpanderHeader HeaderTitle="Camera"/>
+                    <ce:ExpanderHeader Title="Camera"/>
                 </views:Expander.Header>
                 <views:Expander.ContentTemplate>
                     <DataTemplate>

@@ -13,9 +13,9 @@
         <StackLayout Spacing="0">
             <BoxView/>
             <StackLayout Padding="10">
-                <Label Text="If you want to see this again, tap the '☰' on the top left of the camera screen and tap &quot;Help&quot; button."/>
+                <Label Text="If you want to see this again, tap the hamburger (three lines) icon on the top left of the camera screen and tap &quot;Help&quot; button."/>
                 <Label Text=" "/>
-                <Label Text="To see the 3D in CrossCam you can use red/cyan 3D glasses, a Google Cardboard viewer, or you can do &quot;free viewing&quot; using just your eyes and your screen. There are two ways to free view, and CrossCam can help you learn both of them. You need to tell CrossCam how you're going to view the pictures or it won't work right. Don't worry, you can always change this again in Settings."/>
+                <Label Text="To see the 3D in CrossCam (called &quot;stereograms&quot;) you can use red/cyan 3D glasses, a Google Cardboard viewer, a mirror, or you can do &quot;free viewing&quot; using just your eyes and your screen. There are two ways to free view, and CrossCam can help you learn both of them. You need to tell CrossCam how you're going to view the pictures or it won't work right. Don't worry, you can always change this again in Settings."/>
                 <Label Text=" "/>
                 <Label Text="If you're able to comfortably cross your eyes, you should try the cross method first, otherwise you should try the parallel method. If you're used to Magic Eye™ books, you're probably already able to do the parallel method, but you might also be able to do the cross method. Tap a method below to learn it, and make sure to tell CrossCam which one works for you by pressing the corresponding CHOOSE button."/>
                 <Label Text=" "/>
@@ -39,53 +39,53 @@
                             <RowDefinition Height="1"/>
                         </Grid.RowDefinitions>
                         <BoxView Grid.Column="0"
-                             Grid.Row="0" 
-                             Grid.ColumnSpan="3"
-                             IsVisible="{Binding IsCrossViewMode}"/>
+                                 Grid.Row="0" 
+                                 Grid.ColumnSpan="3"
+                                 IsVisible="{Binding IsCrossViewMode}"/>
                         <BoxView Grid.Column="0"
-                             Grid.Row="0"
-                             Grid.RowSpan="4"
-                             IsVisible="{Binding IsCrossViewMode}"/>
+                                 Grid.Row="0"
+                                 Grid.RowSpan="4"
+                                 IsVisible="{Binding IsCrossViewMode}"/>
                         <BoxView Grid.Column="0"
-                             Grid.Row="2"
-                             Grid.ColumnSpan="3"
-                             IsVisible="{Binding IsCrossViewMode, Converter={valueConverter:BooleanInvertConverter}}"/>
+                                 Grid.Row="2"
+                                 Grid.ColumnSpan="3"
+                                 IsVisible="{Binding IsCrossViewMode, Converter={valueConverter:BooleanInvertConverter}}"/>
                         <Button Grid.Column="1"
-                            Grid.Row="1"
-                            Text="LEARN CROSS"
-                            HorizontalOptions="FillAndExpand"
-                            Command="{Binding ViewCrossTutorialCommand}"/>
+                                Grid.Row="1"
+                                Text="LEARN CROSS"
+                                HorizontalOptions="FillAndExpand"
+                                Command="{Binding ViewCrossTutorialCommand}"/>
                         <BoxView Grid.Column="2"
-                             Grid.Row="0"
-                             Grid.RowSpan="3"/>
+                                 Grid.Row="0"
+                                 Grid.RowSpan="3"/>
                         <BoxView Grid.Column="2"
-                             Grid.Row="0"
-                             Grid.ColumnSpan="3"
-                             IsVisible="{Binding IsCrossViewMode, Converter={valueConverter:BooleanInvertConverter}}"/>
+                                 Grid.Row="0"
+                                 Grid.ColumnSpan="3"
+                                 IsVisible="{Binding IsCrossViewMode, Converter={valueConverter:BooleanInvertConverter}}"/>
                         <BoxView Grid.Column="2"
-                             Grid.Row="2"
-                             Grid.ColumnSpan="3"
-                             IsVisible="{Binding IsCrossViewMode}"/>
+                                 Grid.Row="2"
+                                 Grid.ColumnSpan="3"
+                                 IsVisible="{Binding IsCrossViewMode}"/>
                         <Button Grid.Column="3" 
-                            Grid.Row="1"
-                            Text="LEARN PARALLEL"
-                            HorizontalOptions="FillAndExpand"
-                            Command="{Binding ViewParallelTutorialCommand}"/>
+                                Grid.Row="1"
+                                Text="LEARN PARALLEL"
+                                HorizontalOptions="FillAndExpand"
+                                Command="{Binding ViewParallelTutorialCommand}"/>
                         <BoxView Grid.Column="4"
-                             Grid.Row="0"
-                             Grid.RowSpan="3"
-                             IsVisible="{Binding IsCrossViewMode, Converter={valueConverter:BooleanInvertConverter}}"/>
+                                 Grid.Row="0"
+                                 Grid.RowSpan="3"
+                                 IsVisible="{Binding IsCrossViewMode, Converter={valueConverter:BooleanInvertConverter}}"/>
                         <BoxView Grid.Column="0"
-                             Grid.Row="2"
-                             Grid.RowSpan="3"/>
+                                 Grid.Row="2"
+                                 Grid.RowSpan="3"/>
                         <StackLayout IsVisible="{Binding IsCrossViewMode}"
-                                 Grid.Row="3"
-                                 Grid.Column="1"
-                                 Grid.ColumnSpan="3">
+                                     Grid.Row="3"
+                                     Grid.Column="1"
+                                     Grid.ColumnSpan="3">
                             <Label Text="CROSS VIEWING" HorizontalOptions="CenterAndExpand"/>
                             <Button Text="TAP HERE TO CHOOSE CROSS"
-                            Command="{Binding ChooseMethodCommand}"
-                            CommandParameter="True"/>
+                                    Command="{Binding ChooseMethodCommand}"
+                                    CommandParameter="True"/>
                             <Label Text=" "/>
                             <Image Source="bouquetCross"/>
                             <Label Text="Carefully cross your eyes while looking at the pair of pictures above. When you cross your eyes, things will get blurry and see-through and you'll start to see 4 pictures instead of 2 (2 pairs). The harder you cross your eyes, the further apart the pairs of pictures will move - it will look a little like this:"/>
@@ -96,45 +96,45 @@
                             <Image Source="bouquetOverlapped" />
                             <Label Text="If you have trouble crossing your eyes, you can also try staring at your finger while you hold it halfway between your eyes and the screen. You should see the pictures starting to separate and overlap behind your finger."/>
                             <Button Text="TAP HERE TO CHOOSE CROSS"
-                            Command="{Binding ChooseMethodCommand}"
-                            CommandParameter="True"/>
+                                    Command="{Binding ChooseMethodCommand}"
+                                    CommandParameter="True"/>
                             <Label Text=" "/>
                             <Label Text="Additional tutorials:"/>
 
                             <Button Text="A nice text tutorial"
-                            Command="{Binding OpenLinkCommand}"
-                            CommandParameter="http://www.3ddigitalphoto.com/crossviewtutorial.asp"/>
+                                    Command="{Binding OpenLinkCommand}"
+                                    CommandParameter="http://www.3ddigitalphoto.com/crossviewtutorial.asp"/>
                             <Button Text="Yet another nice text tutorial"
-                            Command="{Binding OpenLinkCommand}"
-                            CommandParameter="https://www.angelfire.com/ca/erker/freeview.html"/>
+                                    Command="{Binding OpenLinkCommand}"
+                                    CommandParameter="https://www.angelfire.com/ca/erker/freeview.html"/>
 
                             <Button Text="A short YouTube tutorial"
-                            Command="{Binding OpenLinkCommand}"
-                            CommandParameter="https://www.youtube.com/watch?v=zBa-bCxsZDk"/>
+                                    Command="{Binding OpenLinkCommand}"
+                                    CommandParameter="https://www.youtube.com/watch?v=zBa-bCxsZDk"/>
                             <Button Text="A long, odd, but helpful YouTube tutorial"
-                            Command="{Binding OpenLinkCommand}"
-                            CommandParameter="https://www.youtube.com/watch?v=cvShotHl1As"/>
+                                    Command="{Binding OpenLinkCommand}"
+                                    CommandParameter="https://www.youtube.com/watch?v=cvShotHl1As"/>
                             <Button Text="Another YouTube tutorial"
-                            Command="{Binding OpenLinkCommand}"
-                            CommandParameter="https://www.youtube.com/watch?v=yNpIDSqTJ_Y"/>
+                                    Command="{Binding OpenLinkCommand}"
+                                    CommandParameter="https://www.youtube.com/watch?v=yNpIDSqTJ_Y"/>
                             <Button Text="A dual camera project with a tutorial"
-                            Command="{Binding OpenLinkCommand}"
-                            CommandParameter="https://www.youtube.com/watch?v=4S5pZEnIbrQ"/>
+                                    Command="{Binding OpenLinkCommand}"
+                                    CommandParameter="https://www.youtube.com/watch?v=4S5pZEnIbrQ"/>
 
                             <Label Text=" "/>
                             <Button Text="Images I've made that you can practice on"
-                                Command="{Binding OpenLinkCommand}"
-                                CommandParameter="https://imgur.com/a/Crw232n"/>
+                                    Command="{Binding OpenLinkCommand}"
+                                    CommandParameter="https://imgur.com/a/Crw232n"/>
                         </StackLayout>
 
                         <StackLayout IsVisible="{Binding IsCrossViewMode, Converter={valueConverter:BooleanInvertConverter}}"
-                                 Grid.Row="3"
-                                 Grid.Column="1"
-                                 Grid.ColumnSpan="3">
+                                     Grid.Row="3"
+                                     Grid.Column="1"
+                                     Grid.ColumnSpan="3">
                             <Label Text="PARALLEL VIEWING" HorizontalOptions="CenterAndExpand"/>
                             <Button Text="TAP HERE TO CHOOSE PARALLEL"
-                            Command="{Binding ChooseMethodCommand}"
-                            CommandParameter="False"/>
+                                    Command="{Binding ChooseMethodCommand}"
+                                    CommandParameter="False"/>
                             <Label Text=" " />
                             <Grid>
                                 <Grid.ColumnDefinitions>
@@ -143,8 +143,8 @@
                                     <ColumnDefinition Width="*"/>
                                 </Grid.ColumnDefinitions>
                                 <Image Grid.Column="1"
-                               Source="bouquetParallel"
-                               Aspect="AspectFill"/>
+                                       Source="bouquetParallel"
+                                       Aspect="AspectFill"/>
                             </Grid>
                             <Label Text="If the above image doesn't fit on your screen, turn your phone to landscape - CrossCam is trying to make the pair of images above the easiest size for this. You don't always have to use CrossCam in landscape, but a perfectly sized image makes learning the technique easier."/>
                             <Label Text="Relax your eyes and look &quot;through&quot; the pair of pictures above like you're kind of zoning out with your eyes pointing at the pictures. You should start to see 3 pictures with a 3D picture in the middle, a little bit like this:"/>
@@ -154,29 +154,32 @@
                             <Label Text="If you're having trouble, try bringing your screen right up against your face with the pair of pictures right in front of your eyes. Relax and look &quot;through&quot; the screen and then slowly pull your screen away from your face while keeping your eyes relaxed. Eventually the image should &quot;click&quot; into focus."/>
                             <Label Text="If you still keep seeing four images, increase the &quot;Maximum parallel view image width&quot; on the Settings page."/>
                             <Button Text="TAP HERE TO CHOOSE PARALLEL"
-                            Command="{Binding ChooseMethodCommand}"
-                            CommandParameter="False"/>
+                                    Command="{Binding ChooseMethodCommand}"
+                                    CommandParameter="False"/>
                             <Label Text=" "/>
                             <Label Text="Additional tutorials:"/>
                             <Button Text="A nice text tutorial"
-                            Command="{Binding OpenLinkCommand}"
-                            CommandParameter="https://www.lockhaven.edu/~dsimanek/3d/view3d.htm"/>
+                                    Command="{Binding OpenLinkCommand}"
+                                    CommandParameter="https://www.lockhaven.edu/~dsimanek/3d/view3d.htm"/>
                             <Button Text="Another nice text tutorial"
-                            Command="{Binding OpenLinkCommand}"
-                            CommandParameter="https://www.angelfire.com/ca/erker/freeview.html"/>
+                                    Command="{Binding OpenLinkCommand}"
+                                    CommandParameter="https://www.angelfire.com/ca/erker/freeview.html"/>
+                            <Button Text="Yet ANOTHER nice text tutorial"
+                                    Command="{Binding OpenLinkCommand}"
+                                    CommandParameter="https://hidden3d.com/howto-view-stereograms/"/>
                             <Button Text="Magic Frankfurter Tutorial"
-                            Command="{Binding OpenLinkCommand}"
-                            CommandParameter="https://www.vision3d.com/fftext.html"/>
+                                    Command="{Binding OpenLinkCommand}"
+                                    CommandParameter="https://www.vision3d.com/fftext.html"/>
                             <Button Text="A nice video about Magic Eye"
-                            Command="{Binding OpenLinkCommand}"
-                            CommandParameter="https://www.youtube.com/watch?v=v8O8Em_RPNg"/>
+                                    Command="{Binding OpenLinkCommand}"
+                                    CommandParameter="https://www.youtube.com/watch?v=v8O8Em_RPNg"/>
                         </StackLayout>
                         <BoxView Grid.Column="4"
-                             Grid.Row="2"
-                             Grid.RowSpan="2"/>
+                                 Grid.Row="2"
+                                 Grid.RowSpan="2"/>
                         <BoxView Grid.Column="0"
-                             Grid.Row="4"
-                             Grid.ColumnSpan="5"/>
+                                 Grid.Row="4"
+                                 Grid.ColumnSpan="5"/>
                     </Grid>
                 </StackLayout>
 

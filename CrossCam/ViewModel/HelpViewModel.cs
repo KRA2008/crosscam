@@ -8,6 +8,7 @@ namespace CrossCam.ViewModel
         public Command NavigateToTechniqueHelpPage { get; set; }
         public Command NavigateToDirectionsPage { get; set; }
         public Command NavigateToTipsPage { get; set; }
+        public Command NavigateToFAQPage { get; set; }
         private Settings _settings;
 
         public HelpViewModel()
@@ -25,6 +26,11 @@ namespace CrossCam.ViewModel
             NavigateToTipsPage = new Command(async () =>
             {
                 await CoreMethods.PushPageModel<TipsViewModel>();
+            });
+
+            NavigateToFAQPage = new Command(async () =>
+            {
+                await CoreMethods.PushPageModel<FAQViewModel>();
             });
         }
 
