@@ -86,7 +86,8 @@
                        Text="Capture using single-shot mirror division method"/>
                 <Switch Grid.Row="1"
                         Grid.Column="1"
-                        IsToggled="{Binding Settings.IsCaptureInMirrorMode}"/>
+                        IsToggled="{Binding Settings.IsCaptureInMirrorMode}"
+                        IsEnabled="{Binding Settings.Mode, Converter={vc:EnumCompareInvertConverter}, ConverterParameter={x:Static vm:DrawMode.Cardboard}}"/>
 
                 <Label Grid.Row="2"
                            Grid.Column="0"

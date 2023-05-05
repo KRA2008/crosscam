@@ -77,6 +77,7 @@ namespace CrossCam.Model
                         break;
                     case DrawMode.Cardboard:
                         SaveForCardboard = true;
+                        IsCaptureInMirrorMode = false;
                         break;
                 }
 

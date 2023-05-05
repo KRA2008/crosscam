@@ -747,10 +747,11 @@ namespace CrossCam.Page
             {
                 if (_viewModel.Settings.Mode == DrawMode.RedCyanAnaglyph ||
                     _viewModel.Settings.Mode == DrawMode.GrayscaleRedCyanAnaglyph ||
-                    (_viewModel.Settings.FullscreenCapturing || 
-                    _viewModel.Settings.FullscreenEditing) && 
+                    _viewModel.Settings.FullscreenCapturing && 
                     (_viewModel.Settings.Mode == DrawMode.Cross ||
-                     _viewModel.Settings.Mode == DrawMode.Parallel))
+                     _viewModel.Settings.Mode == DrawMode.Parallel) ||
+                    _viewModel.IsNothingCaptured && 
+                    _viewModel.Settings.Mode != DrawMode.Cardboard)
                 {
                     rollBounds.X = 0.5;
                 }
