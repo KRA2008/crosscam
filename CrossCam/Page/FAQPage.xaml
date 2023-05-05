@@ -24,7 +24,7 @@
                                 <Label.FormattedText>
                                     <FormattedString>
                                         <Span Text="The 3D effect CrossCam uses is a well-studied discipline known as &quot;stereoscopy&quot;, and the method where you cross your eyes (or relax them) to view the two sides is called &quot;free viewing&quot;. When we look around at the world, each of our eyes sees from a different perspective. In stereoscopy all we do is present one (artificial) perspective to each eye, and our brains just do the rest. There are lots of different ways to make each eye see a different image. Here's "/>
-                                        <Span Text="a Wikipedia link"
+                                        <Span Text="a Wikipedia link on stereoscopy"
                                               TextDecorations="Underline"
                                               TextColor="{StaticResource linkBlue}">
                                             <Span.GestureRecognizers>
@@ -51,23 +51,23 @@
                 <views:Expander.ContentTemplate>
                     <DataTemplate>
                         <StackLayout Padding="10">
-                            <Label Text="I don't know, but I don't think so. However, if it feels bad just take a break. With practice the discomfort usually lessens. Any viewing method could cause discomfort due to an effect called the &quot;vergence-accomodation conflict&quot;. If you're using the cross-eyed method, the feeling may also be due to your eyes not being used to pointing as though they are looking at something so close for so long a time. When cross viewing, your eyes converge on a point about halfway between your eyes and the screen. If looking at something that close for a long time would also cause you discomfort, we have our explanation."/>
                             <Label>
                                 <Label.FormattedText>
                                     <FormattedString>
-                                        <Span Text="My opinion on it is that your eyes aren't doing anything outside of their everyday capabilities, but you're combining two different abilities that aren't typically used that way. You're focusing your lenses on something at one place that is normally comfortable to focus on, and you're pointing your eyes somewhere where it's normally comfortable for them to point, but the place where your lenses are focusing and where your eyes are converging is just not the same point. I don't see how that could be bad for you as long as your vision isn't still developing. Here's a "/>
-                                        <Span Text="a Wikipedia link"
-                                  TextDecorations="Underline"
-                                  TextColor="{StaticResource linkBlue}">
+                                        <Span Text="I don't know, but I don't think so. However, if it feels bad just take a break. With practice the discomfort usually lessens. Any viewing method could cause discomfort due to an effect called the &quot;vergence-accomodation conflict&quot;. Here's "/>
+                                        <Span Text="a Wikipedia link on the vergence-accomodation conflict."
+                                              TextDecorations="Underline"
+                                              TextColor="{StaticResource linkBlue}">
                                             <Span.GestureRecognizers>
                                                 <TapGestureRecognizer Command="{Binding OpenLink}"
-                                                          CommandParameter="https://en.wikipedia.org/wiki/Vergence-accommodation_conflict"/>
+                                                                      CommandParameter="https://en.wikipedia.org/wiki/Vergence-accommodation_conflict"/>
                                             </Span.GestureRecognizers>
                                         </Span>
-                                        <Span Text=" on vergence-accomodation conflict."/>
                                     </FormattedString>
                                 </Label.FormattedText>
                             </Label>
+                            <Label Text="If you're using the cross-eyed method, the feeling may also be due to your eyes not being used to pointing as though they are looking at something so close for so long a time. When cross viewing, your eyes converge on a point about halfway between your eyes and the screen. If looking at something that close for a long time would also cause you discomfort, we have our explanation."/>
+                            <Label Text="My opinion on it is that your eyes aren't doing anything outside of their everyday capabilities, but you're combining two different abilities that aren't typically used that way. You're focusing your lenses on something at one place that is normally comfortable to focus on, and you're pointing your eyes somewhere where it's normally comfortable for them to point, but the place where your lenses are focusing and where your eyes are converging is just not the same point. I don't see how that could be bad for you as long as your vision isn't still developing. "/>
                         </StackLayout>
                     </DataTemplate>
                 </views:Expander.ContentTemplate>
@@ -98,7 +98,7 @@
                 <views:Expander.ContentTemplate>
                     <DataTemplate>
                         <StackLayout Padding="10">
-                            <Label Text="While I was getting my physics degree, I had the opportunity to experiment with creating my own holograms using lasers. The type of holograms I was making were 3D because they used what is called a &quot;diffraction grating&quot; to cause destructive interference in the light that reflects off of the glass plate's surface, which causes the reflected image to look different from different places. When each of our eyes sees an image that looks like it's from a different perspective (if they aren't too different), our brains perceive that as depth."/>
+                            <Label Text="While I was getting my physics degree, I had the opportunity to experiment with creating my own holograms using lasers. The type of holograms I was making were 3D because they used what is called a &quot;diffraction grating&quot; to cause destructive interference in the light that reflects off of a glass plate's surface, which causes the reflected image to look different from different places. When each of our eyes sees an image that looks like it's from a different perspective (if they aren't too different), our brains perceive that as depth."/>
                             <Label>
                                 <Label.FormattedText>
                                     <FormattedString>

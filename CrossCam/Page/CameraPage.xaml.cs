@@ -322,7 +322,6 @@ namespace CrossCam.Page
                     EvaluateSensors();
                     ResetLineAndDonutGuides();
                     PlaceRollGuide();
-                    DrawFuseGuide();
                 });
             }
 	    }
@@ -355,18 +354,14 @@ namespace CrossCam.Page
                         break;
                     case nameof(CameraViewModel.CameraColumn):
                     case nameof(Settings.IsCaptureLeftFirst):
+                    case nameof(CameraViewModel.PreviewBottomY):
                         PlaceRollGuide();
-                        DrawFuseGuide();
                         break;
                     case nameof(CameraViewModel.IsViewPortrait):
                         _canvas.InvalidateSurface();
                         ResetLineAndDonutGuides();
                         SetMarginsForNotch();
                         SwapSidesIfCardboard();
-                        break;
-                    case nameof(CameraViewModel.PreviewBottomY):
-                        PlaceRollGuide();
-                        DrawFuseGuide();
                         break;
                     case nameof(CameraViewModel.LeftOrientation):
                     case nameof(CameraViewModel.LeftBitmap):
@@ -375,7 +370,6 @@ namespace CrossCam.Page
                         _newLeftCapture = true;
                         CardboardCheckAndSaveOrientationSnapshot();
                         _canvas.InvalidateSurface();
-                        DrawFuseGuide();
                         break;
                     case nameof(CameraViewModel.RightOrientation):
                     case nameof(CameraViewModel.RightBitmap):
@@ -384,7 +378,6 @@ namespace CrossCam.Page
                         _newRightCapture = true;
                         CardboardCheckAndSaveOrientationSnapshot();
                         _canvas.InvalidateSurface();
-                        DrawFuseGuide();
                         break;
                     case nameof(CameraViewModel.RemotePreviewFrame):
                     case nameof(CameraViewModel.LocalPreviewFrame):
@@ -768,30 +761,6 @@ namespace CrossCam.Page
                 rollBounds.Y = _viewModel.PreviewBottomY - LEVEL_ICON_WIDTH / 5;
             }
             AbsoluteLayout.SetLayoutBounds(_horizontalLevelWhole, rollBounds);
-        }
-
-        private void DrawFuseGuide()
-        {
-            //TODO: remove this fuse guide drawing and leave it to drawtool once canvas is doing the full preview and not the CameraModule
-            var leftFuseGuideBounds = AbsoluteLayout.GetLayoutBounds(_leftFuseGuide);
-            var rightFuseGuideBounds = AbsoluteLayout.GetLayoutBounds(_rightFuseGuide);
-            if (_viewModel != null)
-            {
-                var previewY = Height - _viewModel.PreviewBottomY;
-                var previewHeight = (float)(_viewModel.PreviewBottomY - previewY);
-                var iconWidth = DrawTool.CalculateFuseGuideWidth(previewHeight);
-                leftFuseGuideBounds.Width = iconWidth;
-                leftFuseGuideBounds.Height = iconWidth;
-                rightFuseGuideBounds.Width = iconWidth;
-                rightFuseGuideBounds.Height = iconWidth;
-                var fuseGuideY = previewY - DrawTool.CalculateFuseGuideMarginHeight(previewHeight) / 2d - iconWidth / 2d;
-                leftFuseGuideBounds.Y = fuseGuideY;
-                rightFuseGuideBounds.Y = fuseGuideY;
-                leftFuseGuideBounds.X = Width / 2d - _previewGrid.Width / 4d - iconWidth;
-                rightFuseGuideBounds.X = Width / 2d + _previewGrid.Width / 4d + iconWidth;
-                AbsoluteLayout.SetLayoutBounds(_leftFuseGuide, leftFuseGuideBounds);
-                AbsoluteLayout.SetLayoutBounds(_rightFuseGuide, rightFuseGuideBounds);
-            }
         }
 
         private void ReticlePanned(object sender, PanUpdatedEventArgs e)

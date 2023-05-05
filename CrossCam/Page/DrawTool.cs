@@ -58,8 +58,10 @@ namespace CrossCam.Page
             DrawQuality drawQuality = DrawQuality.Save, double cardboardVert = 0, double cardboardHor = 0, bool isFovStage = false,
             bool useFullscreen = false, bool useMirrorCapture = false)
         {
-            var fuseGuideRequested = drawQuality != DrawQuality.Preview && 
-                                     settings.SaveWithFuseGuide;
+            var fuseGuideRequested = (drawQuality != DrawQuality.Preview && 
+                                     settings.SaveWithFuseGuide) ||
+                                     (drawQuality == DrawQuality.Preview &&
+                                      settings.ShowPreviewFuseGuide);
 
             var skFilterQuality = drawQuality == DrawQuality.Preview || 
                                   drawQuality == DrawQuality.Review ? 
@@ -287,8 +289,7 @@ namespace CrossCam.Page
                 sideBitmapHeightLessCrop + realBorderTopHeight * 2;
             var drawFuseGuide = fuseGuideRequested &&
                                 drawMode != DrawMode.Cardboard &&
-                                !overlayDrawing &&
-                                leftBitmap != null && rightBitmap != null;
+                                !overlayDrawing;
 
             var fuseGuideIconWidth = CalculateFuseGuideWidth((float)bitmapHeightWithEditsAndBorder);
             var fuseGuideMarginMinimum = CalculateFuseGuideMarginHeight((float)bitmapHeightWithEditsAndBorder);
