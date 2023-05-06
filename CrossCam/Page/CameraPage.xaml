@@ -87,50 +87,13 @@
         </ResourceDictionary>
     </ContentPage.Resources>
     <AbsoluteLayout>
-        <Grid x:Name="_previewGrid"
-              AbsoluteLayout.LayoutFlags="{Binding CanvasRectangleFlags}"
+        <Grid AbsoluteLayout.LayoutFlags="{Binding CanvasRectangleFlags}"
               AbsoluteLayout.LayoutBounds="{Binding CanvasRectangle}"
               ColumnSpacing="0">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
-            <Image Grid.Column="0"
-                   Source="iconInverse"
-                   Opacity="0.2"
-                   HorizontalOptions="Center"
-                   VerticalOptions="Center"
-                   WidthRequest="{StaticResource _doubleMediumIconWidth}"
-                   HeightRequest="{StaticResource _doubleMediumIconWidth}">
-                <Image.Triggers>
-                    <DataTrigger TargetType="Image" 
-                                 Binding="{Binding Settings.Mode, Converter={StaticResource enumCompare}, ConverterParameter={x:Static vm:DrawMode.Cardboard}}"
-                                 Value="True">
-                        <DataTrigger.Setters>
-                            <Setter Property="IsVisible"
-                                    Value="False"/>
-                        </DataTrigger.Setters>
-                    </DataTrigger>
-                </Image.Triggers>
-            </Image>
-            <Image Grid.Column="1"
-                   Source="iconInverse"
-                   Opacity="0.2"
-                   HorizontalOptions="Center"
-                   VerticalOptions="Center"
-                   WidthRequest="{StaticResource _doubleMediumIconWidth}"
-                   HeightRequest="{StaticResource _doubleMediumIconWidth}">
-                <Image.Triggers>
-                    <DataTrigger TargetType="Image" 
-                                 Binding="{Binding Settings.Mode, Converter={StaticResource enumCompare}, ConverterParameter={x:Static vm:DrawMode.Cardboard}}"
-                                 Value="True">
-                        <DataTrigger.Setters>
-                            <Setter Property="IsVisible"
-                                    Value="False"/>
-                        </DataTrigger.Setters>
-                    </DataTrigger>
-                </Image.Triggers>
-            </Image>
             <ce:CameraModule x:Name="_cameraModule"
                              Grid.Column="{Binding CameraColumn}"
                              SwitchToContinuousFocusTrigger="{Binding SwitchToContinuousFocusTrigger}"
