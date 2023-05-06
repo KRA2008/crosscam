@@ -239,63 +239,6 @@
             </Image>
         </AbsoluteLayout>
 
-        <BoxView x:Name="_leftFuseGuide"
-                 Style="{StaticResource _fuseGuide}"
-                 AbsoluteLayout.LayoutBounds="0,0,0,0"
-                 AbsoluteLayout.LayoutFlags="None"
-                 IsVisible="False">
-            <BoxView.Triggers>
-                <MultiTrigger TargetType="BoxView">
-                    <MultiTrigger.Conditions>
-                        <BindingCondition Binding="{Binding Settings.ShowPreviewFuseGuide}"
-                                          Value="True"/>
-                        <BindingCondition Binding="{Binding WorkflowStage, Converter={StaticResource enumCompare}, ConverterParameter={x:Static vm:WorkflowStage.Capture}}"
-                                          Value="True"/>
-                        <BindingCondition Binding="{Binding IsExactlyOnePictureTaken}"
-                                          Value="True"/>
-                        <BindingCondition Binding="{Binding Settings.FullscreenCapturing}"
-                                          Value="False"/>
-                        <BindingCondition Binding="{Binding Settings.Mode, Converter={StaticResource enumCompare}, ConverterParameter={x:Static vm:DrawMode.GrayscaleRedCyanAnaglyph}}"
-                                          Value="False"/>
-                        <BindingCondition Binding="{Binding Settings.Mode, Converter={StaticResource enumCompare}, ConverterParameter={x:Static vm:DrawMode.RedCyanAnaglyph}}"
-                                          Value="False"/>
-                        <BindingCondition Binding="{Binding Settings.Mode, Converter={StaticResource enumCompare}, ConverterParameter={x:Static vm:DrawMode.Cardboard}}"
-                                          Value="False"/>
-                    </MultiTrigger.Conditions>
-                    <Setter Property="IsVisible"
-                            Value="True"/>
-                </MultiTrigger>
-            </BoxView.Triggers>
-        </BoxView>
-        <BoxView x:Name="_rightFuseGuide"
-                 Style="{StaticResource _fuseGuide}"
-                 AbsoluteLayout.LayoutBounds="0,0,0,0"
-                 AbsoluteLayout.LayoutFlags="None"
-                 IsVisible="False">
-            <BoxView.Triggers>
-                <MultiTrigger TargetType="BoxView">
-                    <MultiTrigger.Conditions>
-                        <BindingCondition Binding="{Binding Settings.ShowPreviewFuseGuide}"
-                                          Value="True"/>
-                        <BindingCondition Binding="{Binding WorkflowStage, Converter={StaticResource enumCompare}, ConverterParameter={x:Static vm:WorkflowStage.Capture}}"
-                                          Value="True"/>
-                        <BindingCondition Binding="{Binding IsExactlyOnePictureTaken}"
-                                          Value="True"/>
-                        <BindingCondition Binding="{Binding Settings.FullscreenCapturing}"
-                                          Value="False"/>
-                        <BindingCondition Binding="{Binding Settings.Mode, Converter={StaticResource enumCompare}, ConverterParameter={x:Static vm:DrawMode.GrayscaleRedCyanAnaglyph}}"
-                                          Value="False"/>
-                        <BindingCondition Binding="{Binding Settings.Mode, Converter={StaticResource enumCompare}, ConverterParameter={x:Static vm:DrawMode.RedCyanAnaglyph}}"
-                                          Value="False"/>
-                        <BindingCondition Binding="{Binding Settings.Mode, Converter={StaticResource enumCompare}, ConverterParameter={x:Static vm:DrawMode.Cardboard}}"
-                                          Value="False"/>
-                    </MultiTrigger.Conditions>
-                    <Setter Property="IsVisible"
-                            Value="True"/>
-                </MultiTrigger>
-            </BoxView.Triggers>
-        </BoxView>
-
         <Frame AbsoluteLayout.LayoutFlags="PositionProportional"
                AbsoluteLayout.LayoutBounds="{Binding PairButtonPosition}"
                Padding="{StaticResource _bottomPadding}"
@@ -677,7 +620,9 @@
             <Slider Value="{Binding Edits.Keystone, Mode=TwoWay}"
                     Maximum="{Binding MaxKeystone}"
                     Minimum="0"
-                    HorizontalOptions="FillAndExpand"/>
+                    HorizontalOptions="FillAndExpand"
+                    DragStartedCommand="{Binding SlidingStartedCommand}"
+                    DragCompletedCommand="{Binding SlidingFinishedCommand}"/>
             <Image Source="check">
                 <Image.GestureRecognizers>
                     <TapGestureRecognizer Command="{Binding SaveEditCommand}"/>
@@ -689,7 +634,21 @@
               AbsoluteLayout.LayoutBounds="{StaticResource _leftRotate}"
               ColumnSpacing="0"
               RowSpacing="0"
-              IsVisible="{Binding WorkflowStage, Converter={StaticResource enumCompare}, ConverterParameter={x:Static vm:WorkflowStage.ManualAlign}}">
+              IsVisible="False">
+            <Grid.Triggers>
+                <MultiTrigger TargetType="Grid">
+                    <MultiTrigger.Conditions>
+                        <BindingCondition Binding="{Binding WorkflowStage, Converter={StaticResource enumCompare}, ConverterParameter={x:Static vm:WorkflowStage.ManualAlign}}"
+                                          Value="True"/>
+                        <BindingCondition Binding="{Binding IsSlidingHappening}"
+                                          Value="False"/>
+                    </MultiTrigger.Conditions>
+                    <MultiTrigger.Setters>
+                        <Setter Property="IsVisible"
+                                Value="True"/>
+                    </MultiTrigger.Setters>
+                </MultiTrigger>
+            </Grid.Triggers>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="1"/>
                 <ColumnDefinition Width="Auto"/>
@@ -732,7 +691,21 @@
               AbsoluteLayout.LayoutBounds="{StaticResource _leftZoom}"
               ColumnSpacing="0"
               RowSpacing="0"
-              IsVisible="{Binding WorkflowStage, Converter={StaticResource enumCompare}, ConverterParameter={x:Static vm:WorkflowStage.ManualAlign}}">
+              IsVisible="False">
+            <Grid.Triggers>
+                <MultiTrigger TargetType="Grid">
+                    <MultiTrigger.Conditions>
+                        <BindingCondition Binding="{Binding WorkflowStage, Converter={StaticResource enumCompare}, ConverterParameter={x:Static vm:WorkflowStage.ManualAlign}}"
+                                          Value="True"/>
+                        <BindingCondition Binding="{Binding IsSlidingHappening}"
+                                          Value="False"/>
+                    </MultiTrigger.Conditions>
+                    <MultiTrigger.Setters>
+                        <Setter Property="IsVisible"
+                                Value="True"/>
+                    </MultiTrigger.Setters>
+                </MultiTrigger>
+            </Grid.Triggers>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="1"/>
                 <ColumnDefinition Width="Auto"/>
@@ -775,7 +748,21 @@
               AbsoluteLayout.LayoutBounds="{StaticResource _manualVerticalAlign}"
               ColumnSpacing="0"
               RowSpacing="0"
-              IsVisible="{Binding WorkflowStage, Converter={StaticResource enumCompare}, ConverterParameter={x:Static vm:WorkflowStage.ManualAlign}}">
+              IsVisible="False">
+            <Grid.Triggers>
+                <MultiTrigger TargetType="Grid">
+                    <MultiTrigger.Conditions>
+                        <BindingCondition Binding="{Binding WorkflowStage, Converter={StaticResource enumCompare}, ConverterParameter={x:Static vm:WorkflowStage.ManualAlign}}"
+                                          Value="True"/>
+                        <BindingCondition Binding="{Binding IsSlidingHappening}"
+                                          Value="False"/>
+                    </MultiTrigger.Conditions>
+                    <MultiTrigger.Setters>
+                        <Setter Property="IsVisible"
+                                Value="True"/>
+                    </MultiTrigger.Setters>
+                </MultiTrigger>
+            </Grid.Triggers>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="1"/>
                 <ColumnDefinition Width="Auto"/>
@@ -818,7 +805,21 @@
               AbsoluteLayout.LayoutBounds="{StaticResource _rightRotate}"
               ColumnSpacing="0"
               RowSpacing="0"
-              IsVisible="{Binding WorkflowStage, Converter={StaticResource enumCompare}, ConverterParameter={x:Static vm:WorkflowStage.ManualAlign}}">
+              IsVisible="False">
+            <Grid.Triggers>
+                <MultiTrigger TargetType="Grid">
+                    <MultiTrigger.Conditions>
+                        <BindingCondition Binding="{Binding WorkflowStage, Converter={StaticResource enumCompare}, ConverterParameter={x:Static vm:WorkflowStage.ManualAlign}}"
+                                          Value="True"/>
+                        <BindingCondition Binding="{Binding IsSlidingHappening}"
+                                          Value="False"/>
+                    </MultiTrigger.Conditions>
+                    <MultiTrigger.Setters>
+                        <Setter Property="IsVisible"
+                                Value="True"/>
+                    </MultiTrigger.Setters>
+                </MultiTrigger>
+            </Grid.Triggers>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="1"/>
                 <ColumnDefinition Width="Auto"/>
@@ -861,7 +862,21 @@
               AbsoluteLayout.LayoutBounds="{StaticResource _rightZoom}"
               ColumnSpacing="0"
               RowSpacing="0"
-              IsVisible="{Binding WorkflowStage, Converter={StaticResource enumCompare}, ConverterParameter={x:Static vm:WorkflowStage.ManualAlign}}">
+              IsVisible="False">
+            <Grid.Triggers>
+                <MultiTrigger TargetType="Grid">
+                    <MultiTrigger.Conditions>
+                        <BindingCondition Binding="{Binding WorkflowStage, Converter={StaticResource enumCompare}, ConverterParameter={x:Static vm:WorkflowStage.ManualAlign}}"
+                                          Value="True"/>
+                        <BindingCondition Binding="{Binding IsSlidingHappening}"
+                                          Value="False"/>
+                    </MultiTrigger.Conditions>
+                    <MultiTrigger.Setters>
+                        <Setter Property="IsVisible"
+                                Value="True"/>
+                    </MultiTrigger.Setters>
+                </MultiTrigger>
+            </Grid.Triggers>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="1"/>
                 <ColumnDefinition Width="Auto"/>
@@ -912,26 +927,36 @@
                     Maximum="{Binding RotationMax}"
                     Minimum="{Binding RotationMin}"
                     HorizontalOptions="FillAndExpand"
+                    DragStartedCommand="{Binding SlidingStartedCommand}"
+                    DragCompletedCommand="{Binding SlidingFinishedCommand}"
                     IsVisible="{Binding ManualAlignMode, Converter={StaticResource enumCompare}, ConverterParameter={x:Static vm:ManualAlignMode.RotateLeft}}"/>
             <Slider Value="{Binding Edits.RightRotation, Mode=TwoWay}"
                     Maximum="{Binding RotationMax}"
                     Minimum="{Binding RotationMin}"
                     HorizontalOptions="FillAndExpand"
+                    DragStartedCommand="{Binding SlidingStartedCommand}"
+                    DragCompletedCommand="{Binding SlidingFinishedCommand}"
                     IsVisible="{Binding ManualAlignMode, Converter={StaticResource enumCompare}, ConverterParameter={x:Static vm:ManualAlignMode.RotateRight}}"/>
             <Slider Value="{Binding Edits.LeftZoom, Mode=TwoWay}"
                     Maximum="{Binding ZoomMax}"
                     Minimum="0"
                     HorizontalOptions="FillAndExpand"
+                    DragStartedCommand="{Binding SlidingStartedCommand}"
+                    DragCompletedCommand="{Binding SlidingFinishedCommand}"
                     IsVisible="{Binding ManualAlignMode, Converter={StaticResource enumCompare}, ConverterParameter={x:Static vm:ManualAlignMode.ZoomLeft}}"/>
             <Slider Value="{Binding Edits.RightZoom, Mode=TwoWay}"
                     Maximum="{Binding ZoomMax}"
                     Minimum="0"
                     HorizontalOptions="FillAndExpand"
+                    DragStartedCommand="{Binding SlidingStartedCommand}"
+                    DragCompletedCommand="{Binding SlidingFinishedCommand}"
                     IsVisible="{Binding ManualAlignMode, Converter={StaticResource enumCompare}, ConverterParameter={x:Static vm:ManualAlignMode.ZoomRight}}"/>
             <Slider Value="{Binding Edits.VerticalAlignment, Mode=TwoWay}"
                     Maximum="{Binding VerticalAlignmentMax}"
                     Minimum="{Binding VerticalAlignmentMin}"
                     HorizontalOptions="FillAndExpand"
+                    DragStartedCommand="{Binding SlidingStartedCommand}"
+                    DragCompletedCommand="{Binding SlidingFinishedCommand}"
                     IsVisible="{Binding ManualAlignMode, Converter={StaticResource enumCompare}, ConverterParameter={x:Static vm:ManualAlignMode.VerticalAlign}}"/>
             <Image Source="check">
                 <Image.GestureRecognizers>
@@ -945,7 +970,21 @@
               AbsoluteLayout.LayoutBounds="{StaticResource _leftKeystoneAxis}"
               ColumnSpacing="0"
               RowSpacing="0"
-              IsVisible="{Binding WorkflowStage, Converter={StaticResource enumCompare}, ConverterParameter={x:Static vm:WorkflowStage.FovCorrection}}">
+              IsVisible="False">
+            <Grid.Triggers>
+                <MultiTrigger TargetType="Grid">
+                    <MultiTrigger.Conditions>
+                        <BindingCondition Binding="{Binding WorkflowStage, Converter={StaticResource enumCompare}, ConverterParameter={x:Static vm:WorkflowStage.FovCorrection}}"
+                                          Value="True"/>
+                        <BindingCondition Binding="{Binding IsSlidingHappening}"
+                                          Value="False"/>
+                    </MultiTrigger.Conditions>
+                    <MultiTrigger.Setters>
+                        <Setter Property="IsVisible"
+                                Value="True"/>
+                    </MultiTrigger.Setters>
+                </MultiTrigger>
+            </Grid.Triggers>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="1"/>
                 <ColumnDefinition Width="Auto"/>
@@ -988,7 +1027,21 @@
               AbsoluteLayout.LayoutBounds="{StaticResource _manualVerticalAlign}"
               ColumnSpacing="0"
               RowSpacing="0"
-              IsVisible="{Binding WorkflowStage, Converter={StaticResource enumCompare}, ConverterParameter={x:Static vm:WorkflowStage.FovCorrection}}">
+              IsVisible="False">
+            <Grid.Triggers>
+                <MultiTrigger TargetType="Grid">
+                    <MultiTrigger.Conditions>
+                        <BindingCondition Binding="{Binding WorkflowStage, Converter={StaticResource enumCompare}, ConverterParameter={x:Static vm:WorkflowStage.FovCorrection}}"
+                                          Value="True"/>
+                        <BindingCondition Binding="{Binding IsSlidingHappening}"
+                                          Value="False"/>
+                    </MultiTrigger.Conditions>
+                    <MultiTrigger.Setters>
+                        <Setter Property="IsVisible"
+                                Value="True"/>
+                    </MultiTrigger.Setters>
+                </MultiTrigger>
+            </Grid.Triggers>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="1"/>
                 <ColumnDefinition Width="Auto"/>
@@ -1031,7 +1084,21 @@
               AbsoluteLayout.LayoutBounds="{StaticResource _rightKeystoneAxis}"
               ColumnSpacing="0"
               RowSpacing="0"
-              IsVisible="{Binding WorkflowStage, Converter={StaticResource enumCompare}, ConverterParameter={x:Static vm:WorkflowStage.FovCorrection}}">
+              IsVisible="False">
+            <Grid.Triggers>
+                <MultiTrigger TargetType="Grid">
+                    <MultiTrigger.Conditions>
+                        <BindingCondition Binding="{Binding WorkflowStage, Converter={StaticResource enumCompare}, ConverterParameter={x:Static vm:WorkflowStage.FovCorrection}}"
+                                          Value="True"/>
+                        <BindingCondition Binding="{Binding IsSlidingHappening}"
+                                          Value="False"/>
+                    </MultiTrigger.Conditions>
+                    <MultiTrigger.Setters>
+                        <Setter Property="IsVisible"
+                                Value="True"/>
+                    </MultiTrigger.Setters>
+                </MultiTrigger>
+            </Grid.Triggers>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="1"/>
                 <ColumnDefinition Width="Auto"/>
@@ -1083,16 +1150,22 @@
                     Maximum="{Binding ZoomMax}"
                     Minimum="0"
                     HorizontalOptions="FillAndExpand"
+                    DragStartedCommand="{Binding SlidingStartedCommand}"
+                    DragCompletedCommand="{Binding SlidingFinishedCommand}"
                     IsVisible="{Binding FovCorrectionMode, Converter={StaticResource enumCompare}, ConverterParameter={x:Static vm:FovCorrectionMode.LeftZoom}}"/>
             <Slider Value="{Binding Edits.FovRightCorrection, Mode=TwoWay}"
                     Maximum="{Binding ZoomMax}"
                     Minimum="0"
                     HorizontalOptions="FillAndExpand"
+                    DragStartedCommand="{Binding SlidingStartedCommand}"
+                    DragCompletedCommand="{Binding SlidingFinishedCommand}"
                     IsVisible="{Binding FovCorrectionMode, Converter={StaticResource enumCompare}, ConverterParameter={x:Static vm:FovCorrectionMode.RightZoom}}"/>
             <Slider Value="{Binding Edits.VerticalAlignment, Mode=TwoWay}"
                     Maximum="{Binding VerticalAlignmentMax}"
                     Minimum="{Binding VerticalAlignmentMin}"
                     HorizontalOptions="FillAndExpand"
+                    DragStartedCommand="{Binding SlidingStartedCommand}"
+                    DragCompletedCommand="{Binding SlidingFinishedCommand}"
                     IsVisible="{Binding FovCorrectionMode, Converter={StaticResource enumCompare}, ConverterParameter={x:Static vm:FovCorrectionMode.Vertical}}"/>
             <Image Source="check">
                 <Image.GestureRecognizers>
@@ -1105,7 +1178,21 @@
         <Grid AbsoluteLayout.LayoutFlags="PositionProportional,WidthProportional"
               RowSpacing="0"
               ColumnSpacing="0"
-              IsVisible="{Binding WorkflowStage, Converter={StaticResource enumCompare}, ConverterParameter={x:Static vm:WorkflowStage.Crop}}">
+              IsVisible="False">
+            <Grid.Triggers>
+                <MultiTrigger TargetType="Grid">
+                    <MultiTrigger.Conditions>
+                        <BindingCondition Binding="{Binding WorkflowStage, Converter={StaticResource enumCompare}, ConverterParameter={x:Static vm:WorkflowStage.Crop}}"
+                                          Value="True"/>
+                        <BindingCondition Binding="{Binding IsSlidingHappening}"
+                                          Value="False"/>
+                    </MultiTrigger.Conditions>
+                    <MultiTrigger.Setters>
+                        <Setter Property="IsVisible"
+                                Value="True"/>
+                    </MultiTrigger.Setters>
+                </MultiTrigger>
+            </Grid.Triggers>
             <AbsoluteLayout.LayoutBounds>
                 <Rect X="0" Y="{StaticResource _editModeInnerButtons}" Width="1" Height="50"/>
             </AbsoluteLayout.LayoutBounds>
@@ -1358,31 +1445,43 @@
                     Maximum="{Binding SideCropMax}"
                     Minimum="0"
                     HorizontalOptions="FillAndExpand"
+                    DragStartedCommand="{Binding SlidingStartedCommand}"
+                    DragCompletedCommand="{Binding SlidingFinishedCommand}"
                     IsVisible="{Binding CropMode, Converter={StaticResource enumCompare}, ConverterParameter={x:Static vm:CropMode.Inside}}"/>
             <Slider Value="{Binding Edits.OutsideCrop, Mode=TwoWay}"
                     Maximum="{Binding SideCropMax}"
                     Minimum="0"
                     HorizontalOptions="FillAndExpand"
+                    DragStartedCommand="{Binding SlidingStartedCommand}"
+                    DragCompletedCommand="{Binding SlidingFinishedCommand}"
                     IsVisible="{Binding CropMode, Converter={StaticResource enumCompare}, ConverterParameter={x:Static vm:CropMode.Outside}}"/>
             <Slider Value="{Binding Edits.TopCrop, Mode=TwoWay}"
                     Maximum="{Binding TopOrBottomCropMax}"
                     Minimum="0"
                     HorizontalOptions="FillAndExpand"
+                    DragStartedCommand="{Binding SlidingStartedCommand}"
+                    DragCompletedCommand="{Binding SlidingFinishedCommand}"
                     IsVisible="{Binding CropMode, Converter={StaticResource enumCompare}, ConverterParameter={x:Static vm:CropMode.Top}}"/>
             <Slider Value="{Binding Edits.BottomCrop, Mode=TwoWay}"
                     Maximum="{Binding TopOrBottomCropMax}"
                     Minimum="0"
                     HorizontalOptions="FillAndExpand"
+                    DragStartedCommand="{Binding SlidingStartedCommand}"
+                    DragCompletedCommand="{Binding SlidingFinishedCommand}"
                     IsVisible="{Binding CropMode, Converter={StaticResource enumCompare}, ConverterParameter={x:Static vm:CropMode.Bottom}}"/>
             <Slider Value="{Binding Edits.LeftCrop, Mode=TwoWay}"
                     Maximum="{Binding SideCropMax}"
                     Minimum="0"
                     HorizontalOptions="FillAndExpand"
+                    DragStartedCommand="{Binding SlidingStartedCommand}"
+                    DragCompletedCommand="{Binding SlidingFinishedCommand}"
                     IsVisible="{Binding CropMode, Converter={StaticResource enumCompare}, ConverterParameter={x:Static vm:CropMode.Left}}"/>
             <Slider Value="{Binding Edits.RightCrop, Mode=TwoWay}"
                     Maximum="{Binding SideCropMax}"
                     Minimum="0"
                     HorizontalOptions="FillAndExpand"
+                    DragStartedCommand="{Binding SlidingStartedCommand}"
+                    DragCompletedCommand="{Binding SlidingFinishedCommand}"
                     IsVisible="{Binding CropMode, Converter={StaticResource enumCompare}, ConverterParameter={x:Static vm:CropMode.Right}}"/>
             <Image Source="check">
                 <Image.GestureRecognizers>
@@ -1394,7 +1493,21 @@
         <StackLayout AbsoluteLayout.LayoutFlags="PositionProportional"
                      AbsoluteLayout.LayoutBounds="{StaticResource _helpBounds}"
                      Orientation="Horizontal"
-                     IsVisible="{Binding ShouldSettingsAndHelpBeVisible}">
+                     IsVisible="False">
+            <StackLayout.Triggers>
+                <MultiTrigger TargetType="StackLayout">
+                    <MultiTrigger.Conditions>
+                        <BindingCondition Binding="{Binding ShouldSettingsAndHelpBeVisible}"
+                                          Value="True"/>
+                        <BindingCondition Binding="{Binding IsSlidingHappening}"
+                                          Value="False"/>
+                    </MultiTrigger.Conditions>
+                    <MultiTrigger.Setters>
+                        <Setter Property="IsVisible"
+                                Value="True"/>
+                    </MultiTrigger.Setters>
+                </MultiTrigger>
+            </StackLayout.Triggers>
             <ContentView Padding="{StaticResource _topBarSmallButtonPadding}">
                 <ContentView.GestureRecognizers>
                     <TapGestureRecognizer Command="{Binding NavigateToHamburgerPageCommand}"/>
@@ -1430,8 +1543,22 @@
         </StackLayout>
         <StackLayout AbsoluteLayout.LayoutFlags="PositionProportional"
                      AbsoluteLayout.LayoutBounds="{StaticResource _gearBounds}"
-                     IsVisible="{Binding ShouldSettingsAndHelpBeVisible}"
+                     IsVisible="False"
                      Orientation="Horizontal">
+            <StackLayout.Triggers>
+                <MultiTrigger TargetType="StackLayout">
+                    <MultiTrigger.Conditions>
+                        <BindingCondition Binding="{Binding ShouldSettingsAndHelpBeVisible}"
+                                          Value="True"/>
+                        <BindingCondition Binding="{Binding IsSlidingHappening}"
+                                          Value="False"/>
+                    </MultiTrigger.Conditions>
+                    <MultiTrigger.Setters>
+                        <Setter Property="IsVisible"
+                                Value="True"/>
+                    </MultiTrigger.Setters>
+                </MultiTrigger>
+            </StackLayout.Triggers>
             <ContentView Padding="{StaticResource _topBarSmallButtonPadding}"
                          IsVisible="{Binding WorkflowStage, Converter={StaticResource enumCompare}, ConverterParameter={x:Static vm:WorkflowStage.Capture}}">
                 <ContentView.GestureRecognizers>

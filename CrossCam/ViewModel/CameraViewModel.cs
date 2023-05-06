@@ -344,6 +344,10 @@ namespace CrossCam.ViewModel
             }
         }
 
+        public bool IsSlidingHappening { get; set; }
+        public Command SlidingStartedCommand { get; set; }
+        public Command SlidingFinishedCommand { get; set; }
+
         public bool ShouldLineGuidesBeVisible => (((IsNothingCaptured && Settings.ShowGuideLinesWithFirstCapture)
                                                   || (IsExactlyOnePictureTaken && WorkflowStage != WorkflowStage.Loading)
                                                   || (PairOperator.IsPrimary && PairOperator.PairStatus == PairStatus.Connected && WorkflowStage == WorkflowStage.Capture))
@@ -358,13 +362,15 @@ namespace CrossCam.ViewModel
                                                  && Settings.IsGuideDonutVisible;
 
         public bool ShouldRollGuideBeVisible => WorkflowStage == WorkflowStage.Capture && Settings.ShowRollGuide;
-        public bool ShouldViewButtonBeVisible => WorkflowStage == WorkflowStage.Final ||
+        public bool ShouldViewButtonBeVisible => (WorkflowStage == WorkflowStage.Final ||
                                                  WorkflowStage == WorkflowStage.Crop ||
                                                  WorkflowStage == WorkflowStage.Keystone ||
-                                                 WorkflowStage == WorkflowStage.ManualAlign;
-        public bool ShouldClearEditButtonBeVisible => WorkflowStage == WorkflowStage.Crop ||
+                                                 WorkflowStage == WorkflowStage.ManualAlign) &&
+                                                 !IsSlidingHappening;
+        public bool ShouldClearEditButtonBeVisible => (WorkflowStage == WorkflowStage.Crop ||
                                                       WorkflowStage == WorkflowStage.Keystone ||
-                                                      WorkflowStage == WorkflowStage.ManualAlign;
+                                                      WorkflowStage == WorkflowStage.ManualAlign) &&
+                                                      !IsSlidingHappening;
         public bool IsBusy => WorkflowStage == WorkflowStage.Loading ||
                               WorkflowStage == WorkflowStage.AutomaticAlign ||
                               WorkflowStage == WorkflowStage.Saving;
@@ -739,6 +745,16 @@ namespace CrossCam.ViewModel
             {
                 SendCommandStartAnalyticsEvent(nameof(SetFovCorrectionMode));
                 FovCorrectionMode = (FovCorrectionMode) mode;
+            });
+
+            SlidingStartedCommand = new Command(() =>
+            {
+                IsSlidingHappening = true;
+            });
+
+            SlidingFinishedCommand = new Command(() =>
+            {
+                IsSlidingHappening = false;
             });
 
             SaveCapturesCommand = new Command(async () =>
