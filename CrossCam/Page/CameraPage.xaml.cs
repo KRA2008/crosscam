@@ -754,12 +754,14 @@ namespace CrossCam.Page
                     _viewModel.Settings.Mode != DrawMode.Cardboard)
                 {
                     rollBounds.X = 0.5;
+                    rollBounds.Y = Math.Min(_viewModel.PreviewBottomY +
+                                            (_viewModel.PreviewBottomY - Height / 2f) / 2f, Height - LEVEL_ICON_WIDTH);
                 }
                 else
                 {
                     rollBounds.X = _viewModel.CameraColumn == 0 ? 0.2 : 0.8;
+                    rollBounds.Y = _viewModel.PreviewBottomY - LEVEL_ICON_WIDTH / 5;
                 }
-                rollBounds.Y = _viewModel.PreviewBottomY - LEVEL_ICON_WIDTH / 5;
             }
             AbsoluteLayout.SetLayoutBounds(_horizontalLevelWhole, rollBounds);
         }
