@@ -214,6 +214,7 @@ namespace CrossCam.ViewModel
         public double FocusCircleY { get; set; }
 
         public bool IsNothingCaptured => LeftBitmap == null && RightBitmap == null;
+        public bool AreBothSidesCaptured => LeftBitmap != null && RightBitmap != null;
 
         private bool _isClearPromptOpen;
 

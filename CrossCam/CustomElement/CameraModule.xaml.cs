@@ -56,6 +56,9 @@ namespace CrossCam.CustomElement
 	    public static readonly BindableProperty IsNothingCapturedProperty = BindableProperty.Create(nameof(IsNothingCaptured),
 	        typeof(bool), typeof(CameraModule), true);
 
+        public static readonly BindableProperty AreBothSidesCapturedProperty = BindableProperty.Create(nameof(AreBothSidesCaptured),
+            typeof(bool), typeof(CameraModule), true);
+
         public static readonly BindableProperty PreviewBottomYProperty = BindableProperty.Create(nameof(PreviewBottomY),
             typeof(double), typeof(CameraModule), 0d, BindingMode.OneWayToSource);
 
@@ -132,6 +135,12 @@ namespace CrossCam.CustomElement
 	    {
 	        get => (bool)GetValue(IsNothingCapturedProperty);
 	        set => SetValue(IsNothingCapturedProperty, value);
+        }
+
+        public bool AreBothSidesCaptured
+        {
+            get => (bool)GetValue(AreBothSidesCapturedProperty);
+            set => SetValue(AreBothSidesCapturedProperty, value);
         }
 
         public double PreviewBottomY

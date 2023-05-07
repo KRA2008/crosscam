@@ -112,7 +112,8 @@
                              AvailableCameras="{Binding AvailableCameras}"
                              ChosenCamera="{Binding ChosenCamera}"
                              PreviewMode="{Binding Settings.Mode}"
-                             PreviewImage="{Binding LocalPreviewFrame}"/>
+                             PreviewImage="{Binding LocalPreviewFrame}"
+                             AreBothSidesCaptured="{Binding AreBothSidesCaptured}"/>
             <forms:SKCanvasView x:Name="_canvas"
                                 Grid.Column="0"
                                 Grid.ColumnSpan="2"

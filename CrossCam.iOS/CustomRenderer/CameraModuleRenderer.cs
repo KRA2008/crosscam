@@ -124,6 +124,18 @@ namespace CrossCam.iOS.CustomRenderer
                     }
                 }
 
+                if (e.PropertyName == nameof(_cameraModule.AreBothSidesCaptured))
+                {
+                    if (_cameraModule.AreBothSidesCaptured)
+                    {
+                        StopPreview();
+                    }
+                    else
+                    {
+                        StartPreview();
+                    }
+                }
+
                 if (e.PropertyName == nameof(_cameraModule.IsNothingCaptured) &&
                     _cameraModule.IsNothingCaptured ||
                     e.PropertyName == nameof(_cameraModule.IsTapToFocusEnabled) &&
