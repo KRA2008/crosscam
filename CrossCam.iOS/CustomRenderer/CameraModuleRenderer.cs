@@ -136,6 +136,11 @@ namespace CrossCam.iOS.CustomRenderer
                     }
                 }
 
+                if (e.PropertyName == nameof(_cameraModule.RestartPreviewTrigger))
+                {
+                    StartPreview();
+                }
+
                 if (e.PropertyName == nameof(_cameraModule.IsNothingCaptured) &&
                     _cameraModule.IsNothingCaptured ||
                     e.PropertyName == nameof(_cameraModule.IsTapToFocusEnabled) &&
@@ -310,7 +315,7 @@ namespace CrossCam.iOS.CustomRenderer
                 //    _previewFrameOutput.DeliversPreviewSizedOutputBuffers = true;
                 //    _previewFrameOutput.AutomaticallyConfiguresOutputBufferDimensions = false;
                 //}
-                _previewFrameDelegate = new PreviewFrameDelegate(_cameraModule);
+                _previewFrameDelegate = new PreviewFrameDelegate(_cameraModule, this);
                 var queue = new DispatchQueue("PreviewFrameQueue");
                 _previewFrameOutput.WeakVideoSettings = settings.Dictionary;
                 _previewFrameOutput.SetSampleBufferDelegate(_previewFrameDelegate, queue);
@@ -331,25 +336,19 @@ namespace CrossCam.iOS.CustomRenderer
             _cameraModule.IsFocusCircleLocked = !_device.AdjustingFocus;
         }
 
-        private async void StartPreview(object o = null, NSNotificationEventArgs args = null)
+        private void StartPreview(object o = null, NSNotificationEventArgs args = null)
         {
-            if (_captureSession != null)
+            if (_captureSession?.Running == false)
             {
-                await Task.Run(() =>
-                {
-                    _captureSession.StartRunning();
-                });
+                _captureSession.StartRunning();
             }
         }
 
-        private async void StopPreview(object o = null, NSNotificationEventArgs args = null)
+        private void StopPreview(object o = null, NSNotificationEventArgs args = null)
         {
-            if (_captureSession != null)
+            if (_captureSession?.Running == true)
             {
-                await Task.Run(() =>
-                {
-                    _captureSession.StopRunning();
-                });
+                _captureSession.StopRunning();
             }
         }
 
@@ -382,31 +381,41 @@ namespace CrossCam.iOS.CustomRenderer
 
                     using var jpegImageAsNsData = AVCaptureStillImageOutput.JpegStillToNSData(sampleBuffer);
                     using var image = UIImage.LoadFromData(jpegImageAsNsData);
-                    using var cgImage = image.CGImage;
-                    using var rotatedImage = UIImage.FromImage(cgImage, 1, GetOrientationForCorrection());
-                    var imageBytes = rotatedImage.AsJPEG().ToArray();
-                    if (_cameraModule.PairOperator.PairStatus == PairStatus.Connected &&
-                        !_cameraModule.PairOperator.IsPrimary)
-                    {
-                        _cameraModule.PairOperator.SendCapture(imageBytes);
-                    }
-                    else
-                    {
-                        using var stream = new SKMemoryStream(imageBytes);
-                        using var skData = SKData.Create(stream);
-                        using var codec = SKCodec.Create(skData);
-                        _cameraModule.CapturedImage = new IncomingFrame
-                        {
-                            Frame = SKBitmap.Decode(skData),
-                            IsFrontFacing = _cameraModule.ChosenCamera.IsFront,
-                            Orientation = codec.EncodedOrigin
-                        };
-                    }
+                    HandleCapturedPhoto(image.CGImage);
                 }
             }
             catch (Exception e)
             {
                 _cameraModule.Error = e;
+            }
+        }
+
+        private void HandleCapturedPhoto(CGImage cgImage)
+        {
+            using var uiImage = UIImage.FromImage(cgImage, 1, GetOrientationForCorrection());
+            var imageBytes = uiImage.AsJPEG().ToArray();
+
+            if (_cameraModule.PairOperator.PairStatus == PairStatus.Connected &&
+                !_cameraModule.PairOperator.IsPrimary)
+            {
+                _cameraModule.PairOperator.SendCapture(imageBytes);
+                StopPreview();
+            }
+            else
+            {
+                if (_cameraModule.PairOperator.PairStatus == PairStatus.Connected)
+                {
+                    StopPreview();
+                }
+                using var stream = new SKMemoryStream(imageBytes);
+                using var skData = SKData.Create(stream);
+                using var codec = SKCodec.Create(skData);
+                _cameraModule.CapturedImage = new IncomingFrame
+                {
+                    Frame = SKBitmap.Decode(skData),
+                    IsFrontFacing = _cameraModule.ChosenCamera.IsFront,
+                    Orientation = codec.EncodedOrigin
+                };
             }
         }
 
@@ -430,26 +439,7 @@ namespace CrossCam.iOS.CustomRenderer
 
                     using var image = AVCapturePhotoOutput.GetJpegPhotoDataRepresentation(finishedPhotoBuffer, previewPhotoBuffer);
                     using var imgDataProvider = new CGDataProvider(image);
-                    using var cgImage = CGImage.FromJPEG(imgDataProvider, null, false, CGColorRenderingIntent.Default);
-                    using var uiImage = UIImage.FromImage(cgImage, 1, GetOrientationForCorrection());
-                    var imageBytes = uiImage.AsJPEG().ToArray();
-                    if (_cameraModule.PairOperator.PairStatus == PairStatus.Connected &&
-                        !_cameraModule.PairOperator.IsPrimary)
-                    {
-                        _cameraModule.PairOperator.SendCapture(imageBytes);
-                    }
-                    else
-                    {
-                        using var stream = new SKMemoryStream(imageBytes);
-                        using var skData = SKData.Create(stream);
-                        using var codec = SKCodec.Create(skData);
-                        _cameraModule.CapturedImage = new IncomingFrame
-                        {
-                            Frame = SKBitmap.Decode(skData),
-                            IsFrontFacing = _cameraModule.ChosenCamera.IsFront,
-                            Orientation = codec.EncodedOrigin
-                        };
-                    }
+                    HandleCapturedPhoto(CGImage.FromJPEG(imgDataProvider, null, false, CGColorRenderingIntent.Default));
                 }
             }
             catch (Exception e)
@@ -476,25 +466,7 @@ namespace CrossCam.iOS.CustomRenderer
                         LockPictureSpecificSettingsIfApplicable();
                     }
 
-                    using var cgImage = photo.CGImageRepresentation;
-                    using var uiImage = UIImage.FromImage(cgImage, 1, GetOrientationForCorrection());
-                    var imageBytes = uiImage.AsJPEG().ToArray();
-                    if (_cameraModule.PairOperator.PairStatus == PairStatus.Connected &&
-                        !_cameraModule.PairOperator.IsPrimary)
-                    {
-                        _cameraModule.PairOperator.SendCapture(imageBytes);
-                    }
-                    else
-                    {
-                        using var skData = SKData.Create(new SKMemoryStream(imageBytes));
-                        using var codec = SKCodec.Create(skData);
-                        _cameraModule.CapturedImage = new IncomingFrame
-                        {
-                            Frame = SKBitmap.Decode(skData),
-                            IsFrontFacing = _cameraModule.ChosenCamera.IsFront,
-                            Orientation = codec.EncodedOrigin
-                        };
-                    }
+                    HandleCapturedPhoto(photo.CGImageRepresentation);
                 }
             }
             catch (Exception e)
@@ -711,11 +683,15 @@ namespace CrossCam.iOS.CustomRenderer
             private readonly CameraModule _camera;
             private int _readyToCapturePreviewFrameInterlocked;
 
-            public PreviewFrameDelegate(CameraModule camera)
+            public PreviewFrameDelegate(CameraModule camera, CameraModuleRenderer renderer)
             {
                 _camera = camera;
                 _camera.PairOperator.PreviewFrameRequestReceived += (sender, args) =>
                 {
+                    if (!renderer._captureSession.Running)
+                    {
+                        renderer.StartPreview();
+                    }
                     _readyToCapturePreviewFrameInterlocked = 1;
                 };
             }

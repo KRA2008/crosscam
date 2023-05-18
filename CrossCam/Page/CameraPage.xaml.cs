@@ -389,7 +389,6 @@ namespace CrossCam.Page
                         _forceCanvasClear = true;
                         _canvas.InvalidateSurface();
                         break;
-
                 }
             });
 	    }

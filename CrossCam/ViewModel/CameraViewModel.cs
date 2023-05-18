@@ -117,7 +117,9 @@ namespace CrossCam.ViewModel
             (Settings.Mode == DrawMode.Cross ||
              Settings.Mode == DrawMode.Parallel) &&
             (!IsNothingCaptured ||
-            PairOperator.PairStatus == PairStatus.Connected ||
+            PairOperator.PairStatus == PairStatus.Connected &&
+            Settings.IsPairedPrimary.HasValue &&
+            Settings.IsPairedPrimary.Value ||
             Settings.IsCaptureInMirrorMode);
         public bool IsFullscreenToggle
         {
@@ -213,14 +215,16 @@ namespace CrossCam.ViewModel
         public double FocusCircleX { get; set; }
         public double FocusCircleY { get; set; }
 
+        public bool RestartPreviewTrigger { get; set; }
         public bool IsNothingCaptured => LeftBitmap == null && RightBitmap == null;
         public bool AreBothSidesCaptured => LeftBitmap != null && RightBitmap != null;
 
         private bool _isClearPromptOpen;
 
-        public bool ShouldPairButtonBeVisible => IsNothingCaptured ||
-                                                 WorkflowStage == WorkflowStage.Final ||
-                                                 WorkflowStage == WorkflowStage.Edits;
+        public bool ShouldPairButtonBeVisible => IsNothingCaptured || 
+                                                 (WorkflowStage == WorkflowStage.Final || 
+                                                  WorkflowStage == WorkflowStage.Edits) && 
+                                                 PairOperator.PairStatus == PairStatus.Connected;
         public Rectangle PairButtonPosition
         {
             get
@@ -1488,6 +1492,12 @@ namespace CrossCam.ViewModel
             RaisePropertyChanged(nameof(ShouldCenterLoadBeVisible));
             RaisePropertyChanged(nameof(ShouldRightLoadBeVisible));
             RaisePropertyChanged(nameof(IsFullscreenToggleVisible));
+            RaisePropertyChanged(nameof(ShouldPairButtonBeVisible));
+            if (Settings.IsPairedPrimary.HasValue &&
+                !Settings.IsPairedPrimary.Value)
+            {
+                RestartPreviewTrigger = !RestartPreviewTrigger;
+            }
         }
 
         private void PairOperatorOnConnected(object sender, EventArgs e)
