@@ -674,7 +674,8 @@ namespace CrossCam.Page
                  _viewModel.Settings.FullscreenEditing) &&
                 (_viewModel.Settings.Mode == DrawMode.Cross ||
                  _viewModel.Settings.Mode == DrawMode.Parallel) ||
-                _viewModel.IsNothingCaptured &&
+                (_viewModel.IsNothingCaptured && 
+                 _viewModel.PairOperatorBindable.PairStatus != PairStatus.Connected) &&
                 _viewModel.Settings.Mode != DrawMode.Cardboard &&
                 !(_viewModel.Settings.IsCaptureInMirrorMode &&
                   !_viewModel.Settings.FullscreenCapturing),

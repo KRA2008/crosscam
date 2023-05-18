@@ -1412,7 +1412,7 @@ namespace CrossCam.ViewModel
             } 
             else if (args.PropertyName == nameof(IsFullscreenToggle))
             {
-                TriggerMovementHint();
+                TriggerMovementHint(false);
                 RaisePropertyChanged(nameof(CanvasRectangle));
                 RaisePropertyChanged(nameof(CanvasRectangleFlags));
             }
@@ -1487,6 +1487,7 @@ namespace CrossCam.ViewModel
             RaisePropertyChanged(nameof(ShouldLeftLoadBeVisible));
             RaisePropertyChanged(nameof(ShouldCenterLoadBeVisible));
             RaisePropertyChanged(nameof(ShouldRightLoadBeVisible));
+            RaisePropertyChanged(nameof(IsFullscreenToggleVisible));
         }
 
         private void PairOperatorOnConnected(object sender, EventArgs e)
@@ -1498,6 +1499,7 @@ namespace CrossCam.ViewModel
             RaisePropertyChanged(nameof(ShouldLeftLoadBeVisible));
             RaisePropertyChanged(nameof(ShouldCenterLoadBeVisible));
             RaisePropertyChanged(nameof(ShouldRightLoadBeVisible));
+            RaisePropertyChanged(nameof(IsFullscreenToggleVisible));
         }
 
         public bool BackButtonPressed()
@@ -1673,12 +1675,15 @@ namespace CrossCam.ViewModel
             PairOperator.SendTransmissionComplete();
         }
 
-        private void TriggerMovementHint()
+        private void TriggerMovementHint(bool wasCapture = true)
         {
             if (LeftBitmap == null ^ RightBitmap == null ||
                 PairOperator.PairStatus == PairStatus.Connected &&
+                Settings.IsPairedPrimary.HasValue &&
+                Settings.IsPairedPrimary.Value &&
                 RightBitmap == null &&
-                LeftBitmap == null || 
+                LeftBitmap == null &&
+                wasCapture || 
                 Settings.IsCaptureInMirrorMode &&
                 RightBitmap == null &&
                 LeftBitmap == null)

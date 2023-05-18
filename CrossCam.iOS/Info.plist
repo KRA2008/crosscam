@@ -13,7 +13,7 @@
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 	<key>MinimumOSVersion</key>
-	<string>9.0</string>
+	<string>11.4</string>
 	<key>UIDeviceFamily</key>
 	<array>
 		<integer>1</integer>
@@ -28,6 +28,7 @@
 	<key>UISupportedInterfaceOrientations</key>
 	<array>
 		<string>UIInterfaceOrientationPortrait</string>
+		<string>UIInterfaceOrientationPortraitUpsideDown</string>
 		<string>UIInterfaceOrientationLandscapeLeft</string>
 		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
@@ -46,10 +47,10 @@
 	<key>NSPhotoLibraryAddUsageDescription</key>
 	<string>CrossCam saves the 3D pictures you make to your photo library.</string>
 	<key>NSPhotoLibraryUsageDescription</key>
-	<string>CrossCam needs access to your photo library (but not to its actual contents) in order to save the 3D pictures you make into a CrossCam album. To allow this, tap "Select Photos..." below and then tap "Done" without actually selecting anything, or tap "Don't Allow" below to proceed with saving without adding to an album.</string>
+	<string>CrossCam needs access to your photo library (but not to its actual contents) in order to save the 3D pictures you make into a CrossCam album. To allow this, tap &quot;Select Photos...&quot; below and then tap &quot;Done&quot; without actually selecting anything, or tap &quot;Don&apos;t Allow&quot; below to proceed with saving without adding to an album.</string>
 	<key>PHPhotoLibraryPreventAutomaticLimitedAccessAlert</key>
 	<true/>
-  <key>UIMainStoryboardFile</key>
+	<key>UIMainStoryboardFile</key>
 	<string>LaunchScreen</string>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<false/>
@@ -59,27 +60,27 @@
 	<true/>
 	<key>XSAppIconAssets</key>
 	<string>Assets.xcassets/AppIcons.appiconset</string>
-  <key>CFBundleURLTypes</key>
-  <array>
-    <dict>
-      <key>CFBundleURLName</key>
-      <string>crosscam</string>
-      <key>CFBundleURLSchemes</key>
-      <array>
-        <string>crosscam</string>
-      </array>
-    </dict>
-  </array>
-  <key>ITSAppUsesNonExemptEncryption</key>
-  <false/>
-  <key>UIUserInterfaceStyle</key>
-  <string>Light</string>
-  <key>NSLocalNetworkUsageDescription</key>
-  <string>This app scans for nearby CrossCam devices for simultaneous capture. You don't need to be on a network for this, but Wi-Fi needs to be turned on, and iOS requires that CrossCam gets this permission regardless.</string>
-  <key>NSBonjourServices</key>
-  <array>
-    <string>_CrossCam._tcp</string>
-    <string>_CrossCam._udp</string>
-  </array>
+	<key>CFBundleURLTypes</key>
+	<array>
+		<dict>
+			<key>CFBundleURLName</key>
+			<string>crosscam</string>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>crosscam</string>
+			</array>
+		</dict>
+	</array>
+	<key>ITSAppUsesNonExemptEncryption</key>
+	<false/>
+	<key>UIUserInterfaceStyle</key>
+	<string>Light</string>
+	<key>NSLocalNetworkUsageDescription</key>
+	<string>This app scans for nearby CrossCam devices for simultaneous capture. You don&apos;t need to be on a network for this, but Wi-Fi needs to be turned on, and iOS requires that CrossCam gets this permission regardless.</string>
+	<key>NSBonjourServices</key>
+	<array>
+		<string>_CrossCam._tcp</string>
+		<string>_CrossCam._udp</string>
+	</array>
 </dict>
 </plist>
