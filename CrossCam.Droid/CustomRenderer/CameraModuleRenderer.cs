@@ -266,6 +266,20 @@ namespace CrossCam.Droid.CustomRenderer
         private void HandlePreviewFrameRequestReceived(object sender, EventArgs e)
         {
             _readyToCapturePreviewFrameInterlocked = 1;
+            if (_useCamera2)
+            {
+                if (_camera2Session == null)
+                {
+                    OpenCamera2();
+                }
+            }
+            else
+            {
+                if (!_isRunning)
+                {
+                    SetupAndStartCamera1();
+                }
+            }
         }
 
         private void HandleCaptureSyncTimeElapsed(object sender, ElapsedEventArgs e)
@@ -282,20 +296,6 @@ namespace CrossCam.Droid.CustomRenderer
 
             try
             {
-                if (e.PropertyName == nameof(_cameraModule.IsVisible))
-                {
-                    if (_cameraModule.IsVisible)
-                    {
-                        if (_surfaceTexture != null)
-                        {
-                            if (!_useCamera2)
-                            {
-                                SetupAndStartCamera1();
-                            }
-                        }
-                    }
-                }
-
                 if (e.PropertyName == nameof(_cameraModule.Width) ||
                     e.PropertyName == nameof(_cameraModule.Height))
                 {
@@ -335,6 +335,21 @@ namespace CrossCam.Droid.CustomRenderer
                     {
                         StopCamera1();
                         SetupAndStartCamera1(null, true);
+                    }
+                }
+
+                if (e.PropertyName == nameof(_cameraModule.RestartPreviewTrigger))
+                {
+                    if (_useCamera2)
+                    {
+                        OpenCamera2();
+                    }
+                    else
+                    {
+                        if (!_isRunning)
+                        {
+                            SetupAndStartCamera1();
+                        }
                     }
                 }
             }
@@ -988,6 +1003,7 @@ namespace CrossCam.Droid.CustomRenderer
                         !_cameraModule.PairOperator.IsPrimary)
                     {
                         _cameraModule.PairOperator.SendCapture(data);
+                        StopCamera1();
                     }
                     else
                     {
@@ -1495,6 +1511,7 @@ namespace CrossCam.Droid.CustomRenderer
                 !_cameraModule.PairOperator.IsPrimary)
             {
                 _cameraModule.PairOperator.SendCapture(buffer);
+                StopCamera2();
             }
             else
             {

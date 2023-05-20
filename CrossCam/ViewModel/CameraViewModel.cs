@@ -473,7 +473,7 @@ namespace CrossCam.ViewModel
                             LeftBitmap = null;
                             ClearEdits(true);
                             CameraColumn = 0;
-                            TriggerMovementHint();
+                            TryTriggerMovementHint();
                             WorkflowStage = WorkflowStage.Capture;
                         }
                     }
@@ -504,7 +504,7 @@ namespace CrossCam.ViewModel
                             RightBitmap = null;
                             ClearEdits(true);
                             CameraColumn = 1;
-                            TriggerMovementHint();
+                            TryTriggerMovementHint();
                             WorkflowStage = WorkflowStage.Capture;
                         }
                     }
@@ -732,7 +732,7 @@ namespace CrossCam.ViewModel
                     RaisePropertyChanged(nameof(PairButtonPosition));
                     PersistentStorage.Save(PersistentStorage.SETTINGS_KEY, Settings);
 
-                    TriggerMovementHint();
+                    TryTriggerMovementHint();
                 }
             });
 
@@ -1418,7 +1418,7 @@ namespace CrossCam.ViewModel
             } 
             else if (args.PropertyName == nameof(IsFullscreenToggle))
             {
-                TriggerMovementHint(false);
+                TryTriggerMovementHint(true);
                 RaisePropertyChanged(nameof(CanvasRectangle));
                 RaisePropertyChanged(nameof(CanvasRectangleFlags));
             }
@@ -1428,7 +1428,7 @@ namespace CrossCam.ViewModel
             } 
             else if (args.PropertyName == nameof(IsViewPortrait))
             {
-                TriggerMovementHint();
+                TryTriggerMovementHint();
             }
         }
 
@@ -1477,7 +1477,7 @@ namespace CrossCam.ViewModel
 
         private void PairOperatorInitialSyncCompleted(object sender, EventArgs e)
         {
-            TriggerMovementHint();
+            TryTriggerMovementHint();
             WorkflowStage = WorkflowStage.Capture;
         }
 
@@ -1607,7 +1607,7 @@ namespace CrossCam.ViewModel
         protected override async void ViewIsAppearing(object sender, EventArgs e)
         {
             base.ViewIsAppearing(sender, e);
-            TriggerMovementHint();
+            TryTriggerMovementHint();
             EvaluateOrientation(DeviceDisplay.MainDisplayInfo.Rotation);
 
             if (_isInitialized)
@@ -1687,7 +1687,7 @@ namespace CrossCam.ViewModel
             PairOperator.SendTransmissionComplete();
         }
 
-        private void TriggerMovementHint(bool wasCapture = true)
+        private void TryTriggerMovementHint(bool suppressWhenPaired = false)
         {
             if (LeftBitmap == null ^ RightBitmap == null ||
                 PairOperator.PairStatus == PairStatus.Connected &&
@@ -1695,7 +1695,7 @@ namespace CrossCam.ViewModel
                 Settings.IsPairedPrimary.Value &&
                 RightBitmap == null &&
                 LeftBitmap == null &&
-                wasCapture || 
+                !suppressWhenPaired || 
                 Settings.IsCaptureInMirrorMode &&
                 RightBitmap == null &&
                 LeftBitmap == null)
@@ -1999,7 +1999,7 @@ namespace CrossCam.ViewModel
                 {
                     if (withMovementTrigger)
                     {
-                        TriggerMovementHint();
+                        TryTriggerMovementHint();
                     }
                     CameraColumn = 1;
                     WorkflowStage = WorkflowStage.Capture;
@@ -2044,7 +2044,7 @@ namespace CrossCam.ViewModel
                 {
                     if (withMovementTrigger)
                     {
-                        TriggerMovementHint();
+                        TryTriggerMovementHint();
                     }
                     CameraColumn = 0;
                     WorkflowStage = WorkflowStage.Capture;
@@ -2506,6 +2506,7 @@ namespace CrossCam.ViewModel
             {
                 SwitchToContinuousFocusTrigger = !SwitchToContinuousFocusTrigger;
             }
+            TryTriggerMovementHint();
         }
     }
 }
