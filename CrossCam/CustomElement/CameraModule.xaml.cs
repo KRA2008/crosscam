@@ -80,6 +80,9 @@ namespace CrossCam.CustomElement
         public static readonly BindableProperty RestartPreviewTriggerProperty = BindableProperty.Create(nameof(RestartPreviewTrigger),
             typeof(bool), typeof(CameraModule), false);
 
+        public static readonly BindableProperty StopPreviewTriggerProperty = BindableProperty.Create(nameof(StopPreviewTrigger),
+            typeof(bool), typeof(CameraModule), false);
+
         public IncomingFrame CapturedImage
         {
             get => (IncomingFrame)GetValue(CapturedImageProperty);
@@ -186,6 +189,12 @@ namespace CrossCam.CustomElement
         {
             get => (bool)GetValue(RestartPreviewTriggerProperty);
             set => SetValue(RestartPreviewTriggerProperty, value);
+        }
+
+        public bool StopPreviewTrigger
+        {
+            get => (bool)GetValue(StopPreviewTriggerProperty);
+            set => SetValue(StopPreviewTriggerProperty, value);
         }
     }
 }

@@ -338,6 +338,18 @@ namespace CrossCam.Droid.CustomRenderer
                     }
                 }
 
+                if (e.PropertyName == nameof(_cameraModule.StopPreviewTrigger))
+                {
+                    if (_useCamera2)
+                    {
+                        StopCamera2();
+                    }
+                    else
+                    {
+                        StopCamera1();
+                    }
+                }
+
                 if (e.PropertyName == nameof(_cameraModule.RestartPreviewTrigger))
                 {
                     if (_useCamera2)

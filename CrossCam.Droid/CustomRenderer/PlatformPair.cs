@@ -358,7 +358,10 @@ namespace CrossCam.Droid.CustomRenderer
                 Debug.WriteLine("### OnEndpointFound " + p0 + ", " + p1.EndpointName);
                 if (p1.ServiceId == PairOperator.CROSSCAM_SERVICE)
                 {
-                    await _pair._client.RequestConnectionAsync(DeviceInfo.Name, p0, new MyConnectionLifecycleCallback(_pair));
+                    await Device.InvokeOnMainThreadAsync(async () =>
+                    {
+                        await _pair._client.RequestConnectionAsync(DeviceInfo.Name, p0, new MyConnectionLifecycleCallback(_pair));
+                    });
                 }
             }
 

@@ -45,6 +45,8 @@ namespace CrossCam.CustomElement
         private int _initializeThreadLocker;
         private bool _initialSyncComplete;
 
+        private bool _isDisconnectRequested;
+
         private long _countdownTimeTicks;
 
         public const int HEADER_LENGTH = 6;
@@ -76,6 +78,7 @@ namespace CrossCam.CustomElement
         public event EventHandler Connected;
         private void OnConnected()
         {
+            _isDisconnectRequested = false;
             PairStatus = PairStatus.Connected;
             if (!IsPrimary)
             {
@@ -107,6 +110,12 @@ namespace CrossCam.CustomElement
             _initialSyncComplete = true;
             _requestingPreviewFrameInterlocked = 0;
             InitialSyncCompleted?.Invoke(this, EventArgs.Empty);
+        }
+
+        public event EventHandler SyncRequested;
+        private void OnSyncRequested()
+        {
+            SyncRequested?.Invoke(this, EventArgs.Empty);
         }
 
         public event EventHandler PreviewFrameRequestReceived;
@@ -195,6 +204,13 @@ namespace CrossCam.CustomElement
 
         private void PlatformPairOnPayloadReceived(object sender, byte[] bytes)
         {
+            if (_isDisconnectRequested)
+            {
+                _platformPair.Disconnect();
+                _isDisconnectRequested = false;
+                return;
+            }
+
             if (bytes.Length >= HEADER_LENGTH)
             {
                 if (bytes[0] == SYNC_MASK &&
@@ -299,6 +315,7 @@ namespace CrossCam.CustomElement
             var ticks = DateTime.UtcNow.Ticks;
             var message = AddPayloadHeader(CrossCommand.ClockReading, BitConverter.GetBytes(ticks));
             _platformPair.SendPayload(message);
+            OnSyncRequested();
         }
 
         private static byte[] AddPayloadHeader(CrossCommand crossCommand, byte[] payload)
@@ -421,9 +438,16 @@ namespace CrossCam.CustomElement
             OnConnected();
         }
 
-        public void Disconnect()
+        public void Disconnect(bool forceInstant = false)
         {
-            _platformPair.Disconnect();
+            if (forceInstant)
+            {
+                _platformPair.Disconnect();
+            }
+            else
+            {
+                _isDisconnectRequested = true;
+            }
         }
 
         public void BeginSyncedCapture()

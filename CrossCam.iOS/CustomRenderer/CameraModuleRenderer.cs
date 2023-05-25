@@ -136,6 +136,11 @@ namespace CrossCam.iOS.CustomRenderer
                     }
                 }
 
+                if (e.PropertyName == nameof(_cameraModule.StopPreviewTrigger))
+                {
+                    StopPreview();
+                }
+
                 if (e.PropertyName == nameof(_cameraModule.RestartPreviewTrigger))
                 {
                     StartPreview();

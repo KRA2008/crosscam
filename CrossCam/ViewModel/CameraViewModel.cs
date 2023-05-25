@@ -218,6 +218,7 @@ namespace CrossCam.ViewModel
         public double FocusCircleY { get; set; }
 
         public bool RestartPreviewTrigger { get; set; }
+        public bool StopPreviewTrigger { get; set; }
         public bool IsNothingCaptured => LeftBitmap == null && RightBitmap == null;
         public bool AreBothSidesCaptured => LeftBitmap != null && RightBitmap != null;
 
@@ -380,6 +381,8 @@ namespace CrossCam.ViewModel
                                                       !IsSlidingHappening;
         public bool IsBusy => WorkflowStage == WorkflowStage.Loading ||
                               WorkflowStage == WorkflowStage.AutomaticAlign ||
+                              WorkflowStage == WorkflowStage.Transmitting ||
+                              WorkflowStage == WorkflowStage.Syncing ||
                               WorkflowStage == WorkflowStage.Saving;
         public bool IsHoldSteadySecondary { get; set; }
         public bool ShouldSaveCapturesButtonBeVisible => WorkflowStage == WorkflowStage.Final &&
@@ -1195,7 +1198,8 @@ namespace CrossCam.ViewModel
                     }
                     else
                     {
-                        PairOperator.Disconnect();
+                        PairOperator.Disconnect(WorkflowStage != WorkflowStage.Capture &&
+                                                WorkflowStage != WorkflowStage.Syncing);
                     }
                 }
                 catch (Exception e)
@@ -1221,7 +1225,9 @@ namespace CrossCam.ViewModel
             PairOperator.Connected += PairOperatorOnConnected;
             PairOperator.Disconnected += PairOperatorOnDisconnected;
             PairOperator.PreviewFrameReceived += PairOperatorOnPreviewFrameReceived;
+            PairOperator.PreviewFrameRequestReceived += PairOperatorOnPreviewFrameRequestReceived;
             PairOperator.CapturedImageReceived += PairOperatorOnCapturedImageReceived;
+            PairOperator.SyncRequested += PairOperatorOnSyncRequested;
             PairOperator.InitialSyncStarted += PairOperatorInitialSyncStarted;
             PairOperator.InitialSyncCompleted += PairOperatorInitialSyncCompleted;
             PairOperator.TransmissionStarted += PairOperatorTransmissionStarted;
@@ -1239,6 +1245,11 @@ namespace CrossCam.ViewModel
             Analytics.TrackEvent("alignment settings at launch", alignmentDictionary);
         }
 
+        private void PairOperatorOnSyncRequested(object sender, EventArgs e)
+        {
+            WorkflowStage = WorkflowStage.Syncing;
+        }
+
         public override void ReverseInit(object returnedData)
         {
             base.ReverseInit(returnedData);
@@ -1250,13 +1261,23 @@ namespace CrossCam.ViewModel
             PairOperator.Connected -= PairOperatorOnConnected;
             PairOperator.Disconnected -= PairOperatorOnDisconnected;
             PairOperator.PreviewFrameReceived -= PairOperatorOnPreviewFrameReceived;
+            PairOperator.PreviewFrameRequestReceived -= PairOperatorOnPreviewFrameRequestReceived;
             PairOperator.CapturedImageReceived -= PairOperatorOnCapturedImageReceived;
             PairOperator.InitialSyncStarted -= PairOperatorInitialSyncStarted;
             PairOperator.InitialSyncCompleted -= PairOperatorInitialSyncCompleted;
+            PairOperator.SyncRequested -= PairOperatorOnSyncRequested;
             PairOperator.TransmissionStarted -= PairOperatorTransmissionStarted;
             PairOperator.TransmissionComplete -= PairOperatorTransmissionComplete;
             PairOperator.CountdownTimerSyncCompleteSecondary -= PairOperatorCountdownTimerSyncCompleteSecondary;
             PairOperator.ErrorOccurred -= PairOperatorOnErrorOccurred;
+        }
+
+        private void PairOperatorOnPreviewFrameRequestReceived(object sender, EventArgs e)
+        {
+            if (WorkflowStage == WorkflowStage.Syncing)
+            {
+                WorkflowStage = WorkflowStage.Capture;
+            }
         }
 
         private static void SendCommandStartAnalyticsEvent(string name)
@@ -1477,13 +1498,15 @@ namespace CrossCam.ViewModel
 
         private void PairOperatorInitialSyncCompleted(object sender, EventArgs e)
         {
+            RestartPreviewTrigger = !RestartPreviewTrigger;
             TryTriggerMovementHint();
             WorkflowStage = WorkflowStage.Capture;
         }
 
         private void PairOperatorOnDisconnected(object sender, EventArgs e)
         {
-            if (WorkflowStage == WorkflowStage.Syncing)
+            if (WorkflowStage == WorkflowStage.Syncing || 
+                WorkflowStage == WorkflowStage.Transmitting)
             {
                 WorkflowStage = WorkflowStage.Capture;
             }
@@ -1495,11 +1518,7 @@ namespace CrossCam.ViewModel
             RaisePropertyChanged(nameof(ShouldRightLoadBeVisible));
             RaisePropertyChanged(nameof(IsFullscreenToggleVisible));
             RaisePropertyChanged(nameof(ShouldPairButtonBeVisible));
-            if (Settings.IsPairedPrimary.HasValue &&
-                !Settings.IsPairedPrimary.Value)
-            {
-                RestartPreviewTrigger = !RestartPreviewTrigger;
-            }
+            RestartPreviewTrigger = !RestartPreviewTrigger;
         }
 
         private void PairOperatorOnConnected(object sender, EventArgs e)
@@ -1512,6 +1531,7 @@ namespace CrossCam.ViewModel
             RaisePropertyChanged(nameof(ShouldCenterLoadBeVisible));
             RaisePropertyChanged(nameof(ShouldRightLoadBeVisible));
             RaisePropertyChanged(nameof(IsFullscreenToggleVisible));
+            StopPreviewTrigger = !StopPreviewTrigger;
         }
 
         public bool BackButtonPressed()

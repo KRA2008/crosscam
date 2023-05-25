@@ -114,7 +114,8 @@
                              PreviewMode="{Binding Settings.Mode}"
                              PreviewImage="{Binding LocalPreviewFrame}"
                              AreBothSidesCaptured="{Binding AreBothSidesCaptured}"
-                             RestartPreviewTrigger="{Binding RestartPreviewTrigger}"/>
+                             RestartPreviewTrigger="{Binding RestartPreviewTrigger}"
+                             StopPreviewTrigger="{Binding StopPreviewTrigger}"/>
             <forms:SKCanvasView x:Name="_canvas"
                                 Grid.Column="0"
                                 Grid.ColumnSpan="2"
@@ -1599,7 +1600,40 @@
                IsVisible="{Binding WorkflowStage, Converter={StaticResource enumCompare}, ConverterParameter={x:Static vm:WorkflowStage.Transmitting}}"/>
         <Label Text="{Binding PairOperatorBindable.InitialSyncProgress, StringFormat='Syncing ({0}%)'}"
                Style="{StaticResource _feedback}"
-               IsVisible="{Binding WorkflowStage, Converter={StaticResource enumCompare}, ConverterParameter={x:Static vm:WorkflowStage.Syncing}}"/>
+               IsVisible="False">
+            <Label.Triggers>
+                <MultiTrigger TargetType="Label">
+                    <MultiTrigger.Conditions>
+                        <BindingCondition Binding="{Binding WorkflowStage, Converter={StaticResource enumCompare}, ConverterParameter={x:Static vm:WorkflowStage.Syncing}}"
+                                          Value="True"/>
+                        <BindingCondition Binding="{Binding PairOperatorBindable.IsPrimary}"
+                                          Value="True"/>
+                    </MultiTrigger.Conditions>
+                    <MultiTrigger.Setters>
+                        <Setter Property="IsVisible"
+                                Value="True"/>
+                    </MultiTrigger.Setters>
+                </MultiTrigger>
+            </Label.Triggers>
+        </Label>
+        <Label Text="{Binding PairOperatorBindable.InitialSyncProgress, StringFormat='Syncing...'}"
+               Style="{StaticResource _feedback}"
+               IsVisible="False">
+            <Label.Triggers>
+                <MultiTrigger TargetType="Label">
+                    <MultiTrigger.Conditions>
+                        <BindingCondition Binding="{Binding WorkflowStage, Converter={StaticResource enumCompare}, ConverterParameter={x:Static vm:WorkflowStage.Syncing}}"
+                                          Value="True"/>
+                        <BindingCondition Binding="{Binding PairOperatorBindable.IsPrimary}"
+                                          Value="False"/>
+                    </MultiTrigger.Conditions>
+                    <MultiTrigger.Setters>
+                        <Setter Property="IsVisible"
+                                Value="True"/>
+                    </MultiTrigger.Setters>
+                </MultiTrigger>
+            </Label.Triggers>
+        </Label>
         <Label Text="Steady..."
                Style="{StaticResource _feedback}"
                IsVisible="{Binding IsHoldSteadySecondary}"/>
