@@ -168,6 +168,21 @@
 
             <views:Expander>
                 <views:Expander.Header>
+                    <customElement:ExpanderHeader Title="How do I use CrossCam with Google Cardboard?"/>
+                </views:Expander.Header>
+                <views:Expander.ContentTemplate>
+                    <DataTemplate>
+                        <StackLayout Padding="10">
+                            <Label Text="Switch your Preview Viewing Method (on the Settings page) to Cardboard, then return to the camera page and stick your phone in the viewer. Your viewer will need to have a place for your phone's camera to see through. You may need to cut/drill a hole. Press the button on your viewer to capture images, and press the button to save the captures."/>
+                        </StackLayout>
+                    </DataTemplate>
+                </views:Expander.ContentTemplate>
+            </views:Expander>
+
+            <BoxView/>
+
+            <views:Expander>
+                <views:Expander.Header>
                     <customElement:ExpanderHeader Title="How do I do the mirror method?"/>
                 </views:Expander.Header>
                 <views:Expander.ContentTemplate>
