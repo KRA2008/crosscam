@@ -47,7 +47,7 @@
 	<key>NSPhotoLibraryAddUsageDescription</key>
 	<string>CrossCam saves the 3D pictures you make to your photo library.</string>
 	<key>NSPhotoLibraryUsageDescription</key>
-	<string>CrossCam needs access to your photo library (but not to its actual contents) in order to save the 3D pictures you make into a CrossCam album. To allow this, tap &quot;Select Photos...&quot; below and then tap &quot;Done&quot; without actually selecting anything, or tap &quot;Don&apos;t Allow&quot; below to proceed with saving without adding to an album.</string>
+	<string>CrossCam needs access to your photo library (but not to its actual contents) in order to save the 3D pictures you make into a CrossCam album. To allow this, tap &quot;OK&quot;/&quot;Select Photos...&quot; below and then tap &quot;Done&quot; without actually selecting anything, or tap &quot;Don&apos;t Allow&quot; below to proceed with saving without adding to an album.</string>
 	<key>PHPhotoLibraryPreventAutomaticLimitedAccessAlert</key>
 	<true/>
 	<key>UIMainStoryboardFile</key>
