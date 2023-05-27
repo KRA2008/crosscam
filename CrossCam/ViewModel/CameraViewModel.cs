@@ -2310,6 +2310,7 @@ namespace CrossCam.ViewModel
                     using (var surface = new SKCanvas(rotated))
                     {
                         surface.RotateDegrees(180, bitmap.Width / 2f, bitmap.Height / 2f);
+                        if (isFrontFacing) surface.Scale(1, -1, bitmap.Width / 2f, bitmap.Height / 2f);
                         surface.DrawBitmap(bitmap, 0, 0);
                     }
                     return rotated;
@@ -2319,7 +2320,7 @@ namespace CrossCam.ViewModel
                     {
                         surface.Translate(rotated.Width, 0);
                         surface.RotateDegrees(90);
-                        if (isFrontFacing) surface.RotateDegrees(180, bitmap.Width / 2f, bitmap.Height / 2f);
+                        if (isFrontFacing) surface.Scale(1, -1, bitmap.Width / 2f, bitmap.Height / 2f);
                         surface.DrawBitmap(bitmap, 0, 0);
                     }
                     return rotated;
@@ -2329,7 +2330,15 @@ namespace CrossCam.ViewModel
                     {
                         surface.Translate(0, rotated.Height);
                         surface.RotateDegrees(270);
-                        if (isFrontFacing) surface.RotateDegrees(180, bitmap.Width / 2f, bitmap.Height / 2f);
+                        if(isFrontFacing) surface.Scale(1, -1, bitmap.Width / 2f, bitmap.Height / 2f);
+                        surface.DrawBitmap(bitmap, 0, 0);
+                    }
+                    return rotated;
+                case SKEncodedOrigin.Default:
+                    rotated = new SKBitmap(bitmap.Width, bitmap.Height);
+                    using (var surface = new SKCanvas(rotated))
+                    {
+                        if (isFrontFacing) surface.Scale(1, -1, bitmap.Width / 2f, bitmap.Height / 2f);
                         surface.DrawBitmap(bitmap, 0, 0);
                     }
                     return rotated;
