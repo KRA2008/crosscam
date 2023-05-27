@@ -363,7 +363,6 @@ namespace CrossCam.Page
                         SetMarginsForNotch();
                         SwapSidesIfCardboard();
                         break;
-                    case nameof(CameraViewModel.LeftOrientation):
                     case nameof(CameraViewModel.LeftBitmap):
                     case nameof(CameraViewModel.LeftAlignmentTransform):
                         ProcessDoubleTap();
@@ -371,7 +370,6 @@ namespace CrossCam.Page
                         CardboardCheckAndSaveOrientationSnapshot();
                         _canvas.InvalidateSurface();
                         break;
-                    case nameof(CameraViewModel.RightOrientation):
                     case nameof(CameraViewModel.RightBitmap):
                     case nameof(CameraViewModel.RightAlignmentTransform):
                         ProcessDoubleTap();
@@ -483,12 +481,12 @@ namespace CrossCam.Page
 
                 left = _viewModel.LeftBitmap;
                 leftAlignment = _viewModel.LeftAlignmentTransform;
-                leftOrientation = _viewModel.LeftOrientation;
-                isLeftFrontFacing = _viewModel.IsLeftFrontFacing;
+                leftOrientation = SKEncodedOrigin.Default;
+                isLeftFrontFacing = false;
                 right = _viewModel.RightBitmap;
                 rightAlignment = _viewModel.RightAlignmentTransform;
-                rightOrientation = _viewModel.RightOrientation;
-                isRightFrontFacing = _viewModel.IsRightFrontFacing;
+                rightOrientation = SKEncodedOrigin.Default;
+                isRightFrontFacing = false;
             }
             else
             {
@@ -498,8 +496,8 @@ namespace CrossCam.Page
                 {
                     left = _viewModel.LeftBitmap;
                     leftAlignment = _viewModel.LeftAlignmentTransform;
-                    leftOrientation = _viewModel.LeftOrientation;
-                    isLeftFrontFacing = _viewModel.IsLeftFrontFacing;
+                    leftOrientation = SKEncodedOrigin.Default;
+                    isLeftFrontFacing = false;
                     _newLeftCapture = false;
                 }
                 else if (_viewModel.CameraColumn == 0)
@@ -522,8 +520,8 @@ namespace CrossCam.Page
                 {
                     right = _viewModel.RightBitmap;
                     rightAlignment = _viewModel.RightAlignmentTransform;
-                    rightOrientation = _viewModel.RightOrientation;
-                    isRightFrontFacing = _viewModel.IsRightFrontFacing;
+                    rightOrientation = SKEncodedOrigin.Default;
+                    isRightFrontFacing = false;
                     _newRightCapture = false;
                 }
                 else if (_viewModel.CameraColumn == 1)
@@ -656,12 +654,16 @@ namespace CrossCam.Page
                 : DrawQuality.Review;
             DrawTool.DrawImagesOnCanvas(
                 surface,
-                left, leftAlignment, leftOrientation ?? SKEncodedOrigin.Default, isLeftFrontFacing,
-                right, rightAlignment, rightOrientation ?? SKEncodedOrigin.Default, isRightFrontFacing,
+                left, leftAlignment,
+                right, rightAlignment,
                 _viewModel.Settings,
                 _viewModel.Edits,
                 _viewModel.Settings.Mode,
                 _viewModel.PairOperatorBindable.PairStatus == PairStatus.Connected || _viewModel.WasCapturePaired,
+                isLeftFrontFacing,
+                leftOrientation ?? SKEncodedOrigin.Default,
+                isRightFrontFacing,
+                rightOrientation ?? SKEncodedOrigin.Default,
                 drawQuality: drawQuality,
                 cardboardVert: cardboardVert,
                 cardboardHor: cardboardHor,

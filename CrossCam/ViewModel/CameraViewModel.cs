@@ -45,15 +45,11 @@ namespace CrossCam.ViewModel
 
         public SKBitmap LeftBitmap { get; set; }
         public SKMatrix LeftAlignmentTransform { get; set; }
-        public SKEncodedOrigin LeftOrientation { get; set; }
-        public bool IsLeftFrontFacing { get; set; }
         public Command RetakeLeftCommand { get; set; }
         public bool LeftCaptureSuccess { get; set; }
         
         public SKBitmap RightBitmap { get; set; }
         public SKMatrix RightAlignmentTransform { get; set; }
-        public SKEncodedOrigin RightOrientation { get; set; }
-        public bool IsRightFrontFacing { get; set; }
         public Command RetakeRightCommand { get; set; }
         public bool RightCaptureSuccess { get; set; }
 
@@ -408,13 +404,9 @@ namespace CrossCam.ViewModel
                                                RightBitmap != null &&
                                                Settings.Mode != DrawMode.Parallel &&
                                                DrawTool.CalculateJoinedCanvasWidthWithEditsNoBorder(
-                                                   LeftBitmap, LeftAlignmentTransform, LeftOrientation, IsLeftFrontFacing, 
-                                                   RightBitmap, RightAlignmentTransform, RightOrientation, IsRightFrontFacing, 
-                                                   Edits) >
+                                                   LeftBitmap, LeftAlignmentTransform, RightBitmap, RightAlignmentTransform, Edits) >
                                                DrawTool.CalculateCanvasHeightWithEditsNoBorder(
-                                                   LeftBitmap, LeftAlignmentTransform, LeftOrientation, IsLeftFrontFacing, 
-                                                   RightBitmap, RightAlignmentTransform, RightOrientation, IsRightFrontFacing,
-                                                   Edits);
+                                                   LeftBitmap, LeftAlignmentTransform, RightBitmap, RightAlignmentTransform, Edits);
 
         public string SavedSuccessMessage => "Saved to " + (Settings.SaveToExternal
                                                  ? "external"
@@ -714,8 +706,6 @@ namespace CrossCam.ViewModel
                 {
                     (LeftBitmap, RightBitmap) = (RightBitmap, LeftBitmap);
                     (LeftAlignmentTransform, RightAlignmentTransform) = (RightAlignmentTransform, LeftAlignmentTransform);
-                    (LeftOrientation, RightOrientation) = (RightOrientation, LeftOrientation);
-                    (IsLeftFrontFacing, IsRightFrontFacing) = (IsRightFrontFacing, IsLeftFrontFacing);
 
                     if (WorkflowStage == WorkflowStage.Capture)
                     {
@@ -786,46 +776,24 @@ namespace CrossCam.ViewModel
                             });
                             var leftWidth = LeftBitmap.Width;
                             var leftHeight = LeftBitmap.Height;
-                            if (DrawTool.Orientations90deg.Contains(LeftOrientation))
-                            {
-                                (leftWidth, leftHeight) = (leftHeight, leftWidth);
-                            }
 
                             using var tempSurface =
                                 SKSurface.Create(new SKImageInfo(leftWidth, leftHeight));
                             using var canvas = tempSurface.Canvas;
 
-                            var leftMatrix = DrawTool.FindOrientationMatrix(LeftOrientation, leftWidth / 2f,
-                                leftHeight / 2f, IsLeftFrontFacing);
-                            canvas.SetMatrix(leftMatrix);
-                            var leftDestRect = leftMatrix.Invert().MapRect(SKRect.Create(0, 0, leftWidth, leftHeight));
-                            canvas.DrawBitmap(LeftBitmap, leftDestRect);
+                            canvas.DrawBitmap(LeftBitmap, 0, 0);
 
                             await SaveSurfaceSnapshot(tempSurface, CROSSCAM + (Settings.SaveIntoSeparateFolders ? "_Separate" : ""));
 
                             canvas.Clear();
-                            canvas.ResetMatrix();
 
-                            var rightWidth = RightBitmap.Width;
-                            var rightHeight = RightBitmap.Height;
-                            if (DrawTool.Orientations90deg.Contains(RightOrientation))
-                            {
-                                (rightWidth, rightHeight) = (rightHeight, rightWidth);
-                            }
-
-                            var rightMatrix = DrawTool.FindOrientationMatrix(RightOrientation, rightWidth / 2f,
-                                rightHeight / 2f, IsRightFrontFacing);
-                            canvas.SetMatrix(rightMatrix);
-                            var rightDestRect = rightMatrix.Invert()
-                                .MapRect(SKRect.Create(0, 0, rightWidth, rightHeight));
-                            canvas.DrawBitmap(RightBitmap, rightDestRect);
+                            canvas.DrawBitmap(RightBitmap, 0, 0);
 
                             await SaveSurfaceSnapshot(tempSurface, CROSSCAM + (Settings.SaveIntoSeparateFolders ? "_Separate" : ""));
                         }
 
                         var finalImageWidth = DrawTool.CalculateJoinedCanvasWidthWithEditsNoBorder(
-                            LeftBitmap, LeftAlignmentTransform, LeftOrientation, IsLeftFrontFacing, 
-                            RightBitmap, RightAlignmentTransform, RightOrientation, IsRightFrontFacing, Edits);
+                            LeftBitmap, LeftAlignmentTransform, RightBitmap, RightAlignmentTransform, Edits);
                         var finalTripleWidth = (int) (1.5 * finalImageWidth);
                         var borderThickness = Settings.AddBorder2
                             ? (int) (DrawTool.BORDER_CONVERSION_FACTOR * Settings.BorderWidthProportion *
@@ -835,8 +803,7 @@ namespace CrossCam.ViewModel
                         finalTripleWidth += (int)(4.25d * borderThickness); //I don't know why 1/4 but that's what it is.
                         var tripleHalfOffset = (int) (finalImageWidth - borderThickness / 2d); //I don't know why 1/2 but that's what it is.
                         var finalImageHeight = DrawTool.CalculateCanvasHeightWithEditsNoBorder(
-                                                   LeftBitmap, LeftAlignmentTransform, LeftOrientation, IsLeftFrontFacing, 
-                                                   RightBitmap, RightAlignmentTransform, RightOrientation, IsRightFrontFacing, Edits) +
+                                                   LeftBitmap, LeftAlignmentTransform, RightBitmap, RightAlignmentTransform, Edits) +
                                                2 * borderThickness;
                         if (Settings.SaveWithFuseGuide)
                         {
@@ -868,8 +835,8 @@ namespace CrossCam.ViewModel
 
                             DrawTool.DrawImagesOnCanvas(
                                 tempSurface, 
-                                LeftBitmap, LeftAlignmentTransform, LeftOrientation, IsLeftFrontFacing,
-                                RightBitmap, RightAlignmentTransform, RightOrientation, IsRightFrontFacing,
+                                LeftBitmap, LeftAlignmentTransform,
+                                RightBitmap, RightAlignmentTransform,
                                 Settings,
                                 Edits, 
                                 DrawMode.Cross, WasCapturePaired);
@@ -893,8 +860,8 @@ namespace CrossCam.ViewModel
 
                             DrawTool.DrawImagesOnCanvas(
                                 tempSurface, 
-                                LeftBitmap, LeftAlignmentTransform, LeftOrientation, IsLeftFrontFacing,
-                                RightBitmap, RightAlignmentTransform, RightOrientation, IsRightFrontFacing,
+                                LeftBitmap, LeftAlignmentTransform,
+                                RightBitmap, RightAlignmentTransform,
                                 Settings, 
                                 Edits, 
                                 DrawMode.Parallel, WasCapturePaired,
@@ -929,37 +896,16 @@ namespace CrossCam.ViewModel
                                 {SAVE_TYPE, "first side"}
                             });
                             SKBitmap targetBitmap;
-                            SKEncodedOrigin targetOrientation;
-                            bool targetFront;
-                            if (Settings.IsCaptureLeftFirst)
-                            {
-                                targetBitmap = LeftBitmap;
-                                targetOrientation = LeftOrientation;
-                                targetFront = IsLeftFrontFacing;
-                            }
-                            else
-                            {
-                                targetBitmap = RightBitmap;
-                                targetOrientation = RightOrientation;
-                                targetFront = IsRightFrontFacing;
-                            }
+                            targetBitmap = Settings.IsCaptureLeftFirst ? LeftBitmap : RightBitmap;
 
                             var width = targetBitmap.Width;
                             var height = targetBitmap.Height;
-                            if (DrawTool.Orientations90deg.Contains(targetOrientation))
-                            {
-                                (width, height) = (height, width);
-                            }
 
                             using var tempSurface =
                                 SKSurface.Create(new SKImageInfo(width, height));
                             using var canvas = tempSurface.Canvas;
 
-                            var orientationMatrix = DrawTool.FindOrientationMatrix(targetOrientation, width / 2f,
-                                height / 2f, targetFront);
-                            canvas.SetMatrix(orientationMatrix);
-                            var destRect = orientationMatrix.Invert().MapRect(SKRect.Create(0, 0, width, height));
-                            canvas.DrawBitmap(targetBitmap, destRect);
+                            canvas.DrawBitmap(targetBitmap, 0, 0);
 
                             await SaveSurfaceSnapshot(tempSurface, CROSSCAM + (Settings.SaveIntoSeparateFolders ? "_Single" : ""));
                         }
@@ -976,8 +922,8 @@ namespace CrossCam.ViewModel
 
                             DrawTool.DrawImagesOnCanvas(
                                 doubleSurface, 
-                                LeftBitmap, LeftAlignmentTransform, LeftOrientation, IsLeftFrontFacing,
-                                RightBitmap, RightAlignmentTransform, RightOrientation, IsRightFrontFacing,
+                                LeftBitmap, LeftAlignmentTransform,
+                                RightBitmap, RightAlignmentTransform,
                                 Settings,
                                 Edits,
                                 DrawMode.Cross, WasCapturePaired);
@@ -1005,8 +951,8 @@ namespace CrossCam.ViewModel
 
                             DrawTool.DrawImagesOnCanvas(
                                 doublePlainSurface, 
-                                LeftBitmap, LeftAlignmentTransform, LeftOrientation, IsLeftFrontFacing,
-                                RightBitmap, RightAlignmentTransform, RightOrientation, IsRightFrontFacing,
+                                LeftBitmap, LeftAlignmentTransform,
+                                RightBitmap, RightAlignmentTransform,
                                 Settings,
                                 Edits,
                                 DrawMode.Cross, WasCapturePaired);
@@ -1018,8 +964,8 @@ namespace CrossCam.ViewModel
 
                             DrawTool.DrawImagesOnCanvas(
                                 doubleSwapSurface, 
-                                LeftBitmap, LeftAlignmentTransform, LeftOrientation, IsLeftFrontFacing,
-                                RightBitmap, RightAlignmentTransform, RightOrientation, IsRightFrontFacing,
+                                LeftBitmap, LeftAlignmentTransform,
+                                RightBitmap, RightAlignmentTransform,
                                 Settings,
                                 Edits,
                                 DrawMode.Cross, WasCapturePaired, withSwap: true);
@@ -1042,12 +988,10 @@ namespace CrossCam.ViewModel
                                 {SAVE_TYPE, "cardboard"}
                             });
                             var width = DrawTool.CalculateJoinedCanvasWidthWithEditsNoBorder(
-                                LeftBitmap, LeftAlignmentTransform, LeftOrientation, IsLeftFrontFacing, 
-                                RightBitmap, RightAlignmentTransform, RightOrientation, IsRightFrontFacing, Edits);
+                                LeftBitmap, LeftAlignmentTransform, RightBitmap, RightAlignmentTransform, Edits);
                             var height =
                                 DrawTool.CalculateCanvasHeightWithEditsNoBorder(
-                                    LeftBitmap, LeftAlignmentTransform, LeftOrientation, IsLeftFrontFacing,
-                                    RightBitmap, RightAlignmentTransform, RightOrientation, IsRightFrontFacing, Edits);
+                                    LeftBitmap, LeftAlignmentTransform, RightBitmap, RightAlignmentTransform, Edits);
 
                             using var tempSurface = SKSurface.Create(new SKImageInfo(width, height));
                             using var canvas = tempSurface.Canvas;
@@ -1059,8 +1003,8 @@ namespace CrossCam.ViewModel
                             Settings.SaveWithFuseGuide = false;
 
                             DrawTool.DrawImagesOnCanvas(tempSurface, 
-                                LeftBitmap, LeftAlignmentTransform, LeftOrientation, IsLeftFrontFacing,
-                                RightBitmap, RightAlignmentTransform, RightOrientation, IsRightFrontFacing,
+                                LeftBitmap, LeftAlignmentTransform,
+                                RightBitmap, RightAlignmentTransform,
                                 Settings, Edits, DrawMode.Parallel, WasCapturePaired, withSwap: Settings.Mode == DrawMode.Cross ||
                                 Settings.Mode == DrawMode.RedCyanAnaglyph ||
                                 Settings.Mode == DrawMode.GrayscaleRedCyanAnaglyph);
@@ -1358,14 +1302,10 @@ namespace CrossCam.ViewModel
                         {
                             SetLeftBitmap(
                                 GetHalfOfImage(LocalCapturedFrame.Frame, true, false, LocalCapturedFrame.Orientation,isFrontFacing:LocalCapturedFrame.IsFrontFacing),
-                                SKEncodedOrigin.Default,
-                                LocalCapturedFrame.IsFrontFacing,
                                 PairOperator.PairStatus == PairStatus.Disconnected,
                                 PairOperator.PairStatus == PairStatus.Disconnected);
                             SetRightBitmap(
                                 GetHalfOfImage(LocalCapturedFrame.Frame, false, false, LocalCapturedFrame.Orientation, true, LocalCapturedFrame.IsFrontFacing),
-                                SKEncodedOrigin.Default,
-                                LocalCapturedFrame.IsFrontFacing,
                                 PairOperator.PairStatus == PairStatus.Disconnected,
                                 PairOperator.PairStatus == PairStatus.Disconnected);
                         }
@@ -1373,14 +1313,10 @@ namespace CrossCam.ViewModel
                         {
                             SetLeftBitmap(
                                 GetHalfOfImage(LocalCapturedFrame.Frame, false, false, LocalCapturedFrame.Orientation, true, LocalCapturedFrame.IsFrontFacing),
-                                SKEncodedOrigin.Default,
-                                LocalCapturedFrame.IsFrontFacing,
                                 PairOperator.PairStatus == PairStatus.Disconnected,
                                 PairOperator.PairStatus == PairStatus.Disconnected);
                             SetRightBitmap(
                                 GetHalfOfImage(LocalCapturedFrame.Frame, true, false, LocalCapturedFrame.Orientation, isFrontFacing: LocalCapturedFrame.IsFrontFacing),
-                                SKEncodedOrigin.Default,
-                                LocalCapturedFrame.IsFrontFacing,
                                 PairOperator.PairStatus == PairStatus.Disconnected,
                                 PairOperator.PairStatus == PairStatus.Disconnected);
                         }
@@ -1390,8 +1326,7 @@ namespace CrossCam.ViewModel
                         if (CameraColumn == 0)
                         {
                             SetLeftBitmap(
-                                AutoOrient(LocalCapturedFrame.Frame, LocalCapturedFrame.Orientation, LocalCapturedFrame.IsFrontFacing), 
-                                SKEncodedOrigin.Default, LocalCapturedFrame.IsFrontFacing,
+                                AutoOrient(LocalCapturedFrame.Frame, LocalCapturedFrame.Orientation, LocalCapturedFrame.IsFrontFacing),
                                 PairOperator.PairStatus == PairStatus.Disconnected,
                                 PairOperator.PairStatus == PairStatus.Disconnected);
                         }
@@ -1399,7 +1334,6 @@ namespace CrossCam.ViewModel
                         {
                             SetRightBitmap(
                                 AutoOrient(LocalCapturedFrame.Frame, LocalCapturedFrame.Orientation, LocalCapturedFrame.IsFrontFacing),
-                                SKEncodedOrigin.Default, LocalCapturedFrame.IsFrontFacing,
                                 PairOperator.PairStatus == PairStatus.Disconnected,
                                 PairOperator.PairStatus == PairStatus.Disconnected);
                         }
@@ -1422,11 +1356,11 @@ namespace CrossCam.ViewModel
                     ClearCrops(true);
                     if (Settings.IsCaptureLeftFirst)
                     {
-                        SetRightBitmap(RightBitmap, RightOrientation, IsRightFrontFacing, true, true); //calls autoalign internally
+                        SetRightBitmap(RightBitmap, true, true); //calls autoalign internally
                     }
                     else
                     {
-                        SetLeftBitmap(LeftBitmap, LeftOrientation, IsLeftFrontFacing, true, true); //calls autoalign internally
+                        SetLeftBitmap(LeftBitmap, true, true); //calls autoalign internally
                     }
                 }
 
@@ -1585,14 +1519,14 @@ namespace CrossCam.ViewModel
                         if (LeftBitmap == null &&
                             RightBitmap != null)
                         {
-                            SetLeftBitmap(SKBitmap.Decode(image1), SKEncodedOrigin.Default, false, true, true);
+                            SetLeftBitmap(SKBitmap.Decode(image1), true, true);
                             return;
                         }
 
                         if (RightBitmap == null &&
                             LeftBitmap != null)
                         {
-                            SetRightBitmap(SKBitmap.Decode(image1), SKEncodedOrigin.Default, false, true, true);
+                            SetRightBitmap(SKBitmap.Decode(image1), true, true);
                             return;
                         }
 
@@ -1616,8 +1550,8 @@ namespace CrossCam.ViewModel
                 else
                 {
                     // i save left first, so i load left first
-                    SetLeftBitmap(SKBitmap.Decode(image1), SKEncodedOrigin.Default, false, true, true);
-                    SetRightBitmap(SKBitmap.Decode(image2), SKEncodedOrigin.Default, false, true, true);
+                    SetLeftBitmap(SKBitmap.Decode(image1), true, true);
+                    SetRightBitmap(SKBitmap.Decode(image2), true, true);
                 }
             }
             catch (Exception e)
@@ -1699,11 +1633,11 @@ namespace CrossCam.ViewModel
             using var codec = SKCodec.Create(data);
             if (Settings.IsCaptureLeftFirst)
             {
-                SetRightBitmap(SKBitmap.Decode(data), codec.EncodedOrigin, IsLeftFrontFacing, false, true);
+                SetRightBitmap(SKBitmap.Decode(data), false, true);
             }
             else
             {
-                SetLeftBitmap(SKBitmap.Decode(data), codec.EncodedOrigin, IsRightFrontFacing, false, true);
+                SetLeftBitmap(SKBitmap.Decode(data), false, true);
             }
 
             PairOperator.SendTransmissionComplete();
@@ -1736,11 +1670,9 @@ namespace CrossCam.ViewModel
         private async Task DrawAnaglyph(bool grayscale)
         {
             var canvasWidth = DrawTool.CalculateOverlayedCanvasWidthWithEditsNoBorder(
-                LeftBitmap, LeftAlignmentTransform, LeftOrientation, IsLeftFrontFacing,
-                RightBitmap, RightAlignmentTransform, RightOrientation, IsRightFrontFacing, Edits);
+                LeftBitmap, LeftAlignmentTransform, RightBitmap, RightAlignmentTransform, Edits);
             var canvasHeight = DrawTool.CalculateCanvasHeightWithEditsNoBorder(
-                LeftBitmap, LeftAlignmentTransform, LeftOrientation, IsLeftFrontFacing, 
-                RightBitmap, RightAlignmentTransform, RightOrientation, IsRightFrontFacing, Edits);
+                LeftBitmap, LeftAlignmentTransform, RightBitmap, RightAlignmentTransform, Edits);
             using var tempSurface =
                 SKSurface.Create(new SKImageInfo(canvasWidth, canvasHeight));
             var canvas = tempSurface.Canvas;
@@ -1748,8 +1680,8 @@ namespace CrossCam.ViewModel
 
             DrawTool.DrawImagesOnCanvas(
                 tempSurface, 
-                LeftBitmap, LeftAlignmentTransform, LeftOrientation, IsLeftFrontFacing,
-                RightBitmap, RightAlignmentTransform, RightOrientation, IsRightFrontFacing,
+                LeftBitmap, LeftAlignmentTransform,
+                RightBitmap, RightAlignmentTransform,
                 Settings, Edits, grayscale ? DrawMode.GrayscaleRedCyanAnaglyph : DrawMode.RedCyanAnaglyph, WasCapturePaired);
 
             await SaveSurfaceSnapshot(tempSurface,
@@ -1810,9 +1742,9 @@ namespace CrossCam.ViewModel
             try
             {
                 var leftHalf = await Task.Run(() => GetHalfOfImage(image, true, Settings.ClipBorderOnNextLoad));
-                SetLeftBitmap(leftHalf, SKEncodedOrigin.Default, false, false, true);
+                SetLeftBitmap(leftHalf, false, true);
                 var rightHalf = await Task.Run(() => GetHalfOfImage(image, false, Settings.ClipBorderOnNextLoad));
-                SetRightBitmap(rightHalf, SKEncodedOrigin.Default, false, false, true);
+                SetRightBitmap(rightHalf, false, true);
                 if (Settings.ClipBorderOnNextLoad)
                 {
                     Settings.ClipBorderOnNextLoad = false;
@@ -2005,13 +1937,10 @@ namespace CrossCam.ViewModel
             }
         }
 
-        private void SetLeftBitmap(SKBitmap bitmap, SKEncodedOrigin orientation, bool isFrontFacing,
-            bool withMovementTrigger, bool stepForward)
+        private void SetLeftBitmap(SKBitmap bitmap, bool withMovementTrigger, bool stepForward)
         {
             if (bitmap == null) return;
-
-            IsLeftFrontFacing = isFrontFacing;
-            LeftOrientation = orientation;
+            
             LeftBitmap = bitmap;
             WasCapturePortrait = LeftBitmap.Width < LeftBitmap.Height;
 
@@ -2050,13 +1979,10 @@ namespace CrossCam.ViewModel
             }
         }
 
-        private void SetRightBitmap(SKBitmap bitmap, SKEncodedOrigin orientation, bool isFrontFacing,
-            bool withMovementTrigger, bool stepForward)
+        private void SetRightBitmap(SKBitmap bitmap, bool withMovementTrigger, bool stepForward)
         {
             if (bitmap == null) return;
 
-            IsRightFrontFacing = isFrontFacing;
-            RightOrientation = orientation;
             RightBitmap = bitmap;
             WasCapturePortrait = RightBitmap.Width < RightBitmap.Height;
 
@@ -2511,13 +2437,9 @@ namespace CrossCam.ViewModel
 
             LeftBitmap = null;
             LeftAlignmentTransform = SKMatrix.Identity;
-            LeftOrientation = SKEncodedOrigin.Default;
-            IsLeftFrontFacing = false;
 
             RightBitmap = null;
             RightAlignmentTransform = SKMatrix.Identity;
-            RightOrientation = SKEncodedOrigin.Default;
-            IsRightFrontFacing = false;
 
             ClearEdits(true);
             _secondaryErrorOccurred = false;

@@ -52,9 +52,11 @@ namespace CrossCam.Page
         };
 
         public static void DrawImagesOnCanvas(SKSurface surface,
-            SKBitmap leftBitmap, SKMatrix leftAlignmentMatrix, SKEncodedOrigin leftOrientation, bool isLeftFrontFacing,
-            SKBitmap rightBitmap, SKMatrix rightAlignmentMatrix, SKEncodedOrigin rightOrientation, bool isRightFrontFacing,
-            Settings settings, Edits edits, DrawMode drawMode, bool wasPairedCapture, bool withSwap = false,
+            SKBitmap leftBitmap, SKMatrix leftAlignmentMatrix, 
+            SKBitmap rightBitmap, SKMatrix rightAlignmentMatrix,
+            Settings settings, Edits edits, DrawMode drawMode, bool wasPairedCapture, 
+            bool isLeftFrontFacing = false, SKEncodedOrigin leftOrientation = SKEncodedOrigin.Default, 
+            bool isRightFrontFacing = false, SKEncodedOrigin rightOrientation = SKEncodedOrigin.Default, bool withSwap = false,
             DrawQuality drawQuality = DrawQuality.Save, double cardboardVert = 0, double cardboardHor = 0, bool isFovStage = false,
             bool useFullscreen = false, bool useMirrorCapture = false)
         {
@@ -860,37 +862,20 @@ namespace CrossCam.Page
         }
 
         public static int CalculateOverlayedCanvasWidthWithEditsNoBorder(
-            SKBitmap leftBitmap, SKMatrix leftAlignment, SKEncodedOrigin leftOrientation, bool isLeftFrontFacing,
-            SKBitmap rightBitmap, SKMatrix rightAlignment, SKEncodedOrigin rightOrientation, bool isRightFrontFacing,
-            Edits edits)
+            SKBitmap leftBitmap, SKMatrix leftAlignment, SKBitmap rightBitmap, SKMatrix rightAlignment, Edits edits)
         {
             if (leftBitmap == null && rightBitmap == null) return 0;
 
             if (leftBitmap == null ^ rightBitmap == null)
             {
-                SKBitmap targetBitmap;
-                SKEncodedOrigin targetOrientation;
-                if (leftBitmap == null)
-                {
-                    targetBitmap = rightBitmap;
-                    targetOrientation = rightOrientation;
-                }
-                else
-                {
-                    targetBitmap = leftBitmap;
-                    targetOrientation = leftOrientation;
-                }
-
-                return Orientations90deg.Contains(targetOrientation) ? targetBitmap.Height : targetBitmap.Width;
+                return leftBitmap?.Width ?? rightBitmap.Width;
             }
 
             var alignmentTrim = GetAlignmentTrim(
-                leftBitmap, leftAlignment, leftOrientation, isLeftFrontFacing,
-                rightBitmap, rightAlignment, rightOrientation, isRightFrontFacing);
+                leftBitmap, leftAlignment, SKEncodedOrigin.Default, false,
+                rightBitmap, rightAlignment, SKEncodedOrigin.Default, false);
 
-            var baseWidth = Math.Min(
-                Orientations90deg.Contains(leftOrientation) ? leftBitmap.Height : leftBitmap.Width,
-                Orientations90deg.Contains(rightOrientation) ? rightBitmap.Height : rightBitmap.Width);
+            var baseWidth = Math.Min(leftBitmap.Width, rightBitmap.Width);
             
             return (int)(baseWidth *
                 (1 - (edits.LeftCrop + edits.InsideCrop + edits.OutsideCrop + edits.RightCrop +
@@ -898,53 +883,27 @@ namespace CrossCam.Page
         }
 
         public static int CalculateJoinedCanvasWidthWithEditsNoBorder(
-            SKBitmap leftBitmap, SKMatrix leftAlignment, SKEncodedOrigin leftOrientation, bool isLeftFrontFacing,
-            SKBitmap rightBitmap, SKMatrix rightAlignment, SKEncodedOrigin rightOrientation, bool isRightFrontFacing,
-            Edits edits)
+            SKBitmap leftBitmap, SKMatrix leftAlignment, SKBitmap rightBitmap, SKMatrix rightAlignment, Edits edits)
         {
             return 2 * CalculateOverlayedCanvasWidthWithEditsNoBorder(
-                leftBitmap, leftAlignment, leftOrientation, isLeftFrontFacing,
-                rightBitmap, rightAlignment, rightOrientation, isRightFrontFacing,
-                edits);
+                leftBitmap, leftAlignment, rightBitmap, rightAlignment, edits);
             }
 
         public static int CalculateCanvasHeightWithEditsNoBorder(
-            SKBitmap leftBitmap, SKMatrix leftAlignment, SKEncodedOrigin leftOrientation, bool isLeftFrontFacing,
-            SKBitmap rightBitmap, SKMatrix rightAlignment, SKEncodedOrigin rightOrientation, bool isRightFrontFacing,
-            Edits edits)
+            SKBitmap leftBitmap, SKMatrix leftAlignment, SKBitmap rightBitmap, SKMatrix rightAlignment, Edits edits)
         {
             if (leftBitmap == null && rightBitmap == null) return 0;
 
             if (leftBitmap == null ^ rightBitmap == null)
             {
-                SKBitmap targetBitmap;
-                SKEncodedOrigin targetOrientation;
-                if (leftBitmap == null)
-                {
-                    targetBitmap = rightBitmap;
-                    targetOrientation = rightOrientation;
-                }
-                else
-                {
-                    targetBitmap = leftBitmap;
-                    targetOrientation = leftOrientation;
-                }
-
-                if (Orientations90deg.Contains(targetOrientation))
-                {
-                    return targetBitmap.Width * 2;
-                }
-
-                return targetBitmap.Height * 2;
+                return leftBitmap?.Height ?? rightBitmap.Height;
             }
 
             var alignmentTrim = GetAlignmentTrim(
-                leftBitmap, leftAlignment, leftOrientation, isLeftFrontFacing,
-                rightBitmap, rightAlignment, rightOrientation, isRightFrontFacing);
+                leftBitmap, leftAlignment, SKEncodedOrigin.Default, false,
+                rightBitmap, rightAlignment, SKEncodedOrigin.Default, false);
 
-            var baseHeight = Math.Min(
-                Orientations90deg.Contains(leftOrientation) ? leftBitmap.Width : leftBitmap.Height, 
-                Orientations90deg.Contains(rightOrientation) ? rightBitmap.Width : rightBitmap.Height);
+            var baseHeight = Math.Min(leftBitmap.Height, rightBitmap.Height);
             return (int) (baseHeight * 
                           (1 - (edits.TopCrop + edits.BottomCrop + Math.Abs(edits.VerticalAlignment) +
                                 alignmentTrim.Top + alignmentTrim.Bottom)));
