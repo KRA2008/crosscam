@@ -1390,14 +1390,16 @@ namespace CrossCam.ViewModel
                         if (CameraColumn == 0)
                         {
                             SetLeftBitmap(
-                                LocalCapturedFrame.Frame, LocalCapturedFrame.Orientation, LocalCapturedFrame.IsFrontFacing,
+                                AutoOrient(LocalCapturedFrame.Frame, LocalCapturedFrame.Orientation, LocalCapturedFrame.IsFrontFacing), 
+                                SKEncodedOrigin.Default, LocalCapturedFrame.IsFrontFacing,
                                 PairOperator.PairStatus == PairStatus.Disconnected,
                                 PairOperator.PairStatus == PairStatus.Disconnected);
                         }
                         else
                         {
                             SetRightBitmap(
-                                LocalCapturedFrame.Frame, LocalCapturedFrame.Orientation, LocalCapturedFrame.IsFrontFacing,
+                                AutoOrient(LocalCapturedFrame.Frame, LocalCapturedFrame.Orientation, LocalCapturedFrame.IsFrontFacing),
+                                SKEncodedOrigin.Default, LocalCapturedFrame.IsFrontFacing,
                                 PairOperator.PairStatus == PairStatus.Disconnected,
                                 PairOperator.PairStatus == PairStatus.Disconnected);
                         }

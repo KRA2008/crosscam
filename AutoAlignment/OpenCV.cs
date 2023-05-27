@@ -285,14 +285,17 @@ namespace AutoAlignment
 
 
             using var homography = CvInvoke.FindHomography(points2, points1, HomographyMethod.Ransac);
-            if (homography.IsEmpty) throw new System.Exception("poo");
+            if (homography.IsEmpty) throw new Exception("poo");
             using var alignedImageMat2 = new Mat();
             CvInvoke.WarpPerspective(image2Mat, alignedImageMat2, homography, image2Mat.Size);
 
-            if (alignedImageMat2.IsEmpty) throw new System.Exception("crap");
+            if (alignedImageMat2.IsEmpty) throw new Exception("crap");
 
-            result.TransformMatrix1 = SKMatrix.Identity;
-            result.TransformMatrix2 = SKMatrix.Identity; //ConvertCvMatOfFloatsToSkMatrix(homography, discardTransX);
+            result.TransformMatrix1 = ConvertCvMatOfFloatsToSkMatrix(homography);
+            result.TransformMatrix2 = SKMatrix.Identity;
+
+            //result.TransformMatrix1 = SKMatrix.Identity;
+            //result.TransformMatrix2 = SKMatrix.Identity; //ConvertCvMatOfFloatsToSkMatrix(homography, discardTransX);
             return result;
 
             //var points1 = pairedPoints.Select(p => new SKPoint(p.KeyPoint1.Point.X, p.KeyPoint1.Point.Y)).ToArray();
