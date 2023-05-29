@@ -1338,9 +1338,12 @@ namespace CrossCam.ViewModel
                                 PairOperator.PairStatus == PairStatus.Disconnected);
                         }
                     }
-                }
 
-                LocalCapturedFrame = null;
+                    if (!WasCapturePaired)
+                    {
+                        LocalCapturedFrame = null;
+                    }
+                }
             }
             else if (args.PropertyName == nameof(Error))
             {
@@ -1629,15 +1632,19 @@ namespace CrossCam.ViewModel
         private void PairOperatorOnCapturedImageReceived(object sender, byte[] bytes)
         {
             RemotePreviewFrame = null;
+            var wasOtherSideFrontFacing = LocalCapturedFrame.IsFrontFacing;
+            LocalCapturedFrame = null;
             using var data = SKData.Create(new SKMemoryStream(bytes));
             using var codec = SKCodec.Create(data);
+            var bitmap = AutoOrient(
+                SKBitmap.Decode(data), codec.EncodedOrigin, wasOtherSideFrontFacing);
             if (Settings.IsCaptureLeftFirst)
             {
-                SetRightBitmap(SKBitmap.Decode(data), false, true);
+                SetRightBitmap(bitmap, false, true);
             }
             else
             {
-                SetLeftBitmap(SKBitmap.Decode(data), false, true);
+                SetLeftBitmap(bitmap, false, true);
             }
 
             PairOperator.SendTransmissionComplete();
