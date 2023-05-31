@@ -385,6 +385,7 @@
                         <RowDefinition Height="Auto"/>
                         <RowDefinition Height="Auto"/>
                         <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
                         <RowDefinition Height="50"/>
                     </Grid.RowDefinitions>
 
@@ -535,9 +536,20 @@
                                 SelectedIndex="{Binding Settings.AlignmentSettings.EccThresholdPercentage}"/>
                     </Frame>
 
+                    <Label Grid.Column="0" 
+                           Grid.Row="15" 
+                           Text="Ecc motion type"
+                           IsVisible="{Binding Settings.AlignmentSettings.ShowAdvancedAlignmentSettings}"/>
+                    <Frame Grid.Column="1" 
+                           Grid.Row="15"
+                           IsVisible="{Binding Settings.AlignmentSettings.ShowAdvancedAlignmentSettings}">
+                        <Picker ItemsSource="{Binding MotionTypes}"
+                                SelectedIndex="{Binding Settings.AlignmentSettings.EccMotionType}"/>
+                    </Frame>
+
                     <Button Grid.Column="0"
                             Grid.ColumnSpan="2"
-                            Grid.Row="15" 
+                            Grid.Row="16" 
                             Text="Reset to Defaults"
                             Command="{Binding ResetAlignmentToDefaults}"/>
                 </Grid>

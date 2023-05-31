@@ -120,9 +120,22 @@ namespace CrossCam.Model
             }
         }
 
+        private int _eccEmguMotionType;
+        public int EccMotionType
+        {
+            get => _eccEmguMotionType;
+            set
+            {
+                if (value >= 0)
+                {
+                    _eccEmguMotionType = value;
+                }
+            }
+        }
+
         public void ResetToDefaults()
         {
-            IsAutomaticAlignmentOn = true; //TODO: UNDO THIS< JUT FOR BEIDBB
+            IsAutomaticAlignmentOn = true;
             ShowAdvancedAlignmentSettings = false;
 
             EccDownsizePercentage = 35;
@@ -130,6 +143,7 @@ namespace CrossCam.Model
             EccIterations = 50;
             EccThresholdPercentage = 60;
             EccPyramidLayers = 4;
+            EccMotionType = (int)EccEmguMotionType.Euclidean; //why can't this be the enum? i don't know but it can't.
 
             DrawKeypointMatches = false;
             UseKeypoints1 = false;
@@ -147,6 +161,14 @@ namespace CrossCam.Model
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
+
+        public enum EccEmguMotionType
+        {
+            Translation,
+            Euclidean,
+            Affine,
+            Homography,
         }
     }
 }

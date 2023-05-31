@@ -854,7 +854,7 @@ namespace CrossCam.Page
             //});
         }
 
-        private static SKMatrix44 MakePerspective(float maxDepth)
+        public static SKMatrix44 MakePerspective(float maxDepth)
         {
             var perspectiveMatrix = SKMatrix44.CreateIdentity();
             perspectiveMatrix[3, 2] = -1 / maxDepth;
