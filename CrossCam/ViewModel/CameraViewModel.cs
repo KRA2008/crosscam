@@ -1298,25 +1298,28 @@ namespace CrossCam.ViewModel
 
                     if (Settings.IsCaptureInMirrorMode)
                     {
+                        var isParallelType = 
+                            Settings.Mode == DrawMode.Parallel || 
+                            Settings.Mode == DrawMode.Cardboard;
                         if (Settings.IsCaptureLeftFirst)
                         {
                             SetLeftBitmap(
-                                GetHalfOfImage(LocalCapturedFrame.Frame, true, false, LocalCapturedFrame.Orientation,isFrontFacing:LocalCapturedFrame.IsFrontFacing),
+                                GetHalfOfImage(LocalCapturedFrame.Frame, isParallelType, false, LocalCapturedFrame.Orientation,isFrontFacing:LocalCapturedFrame.IsFrontFacing),
                                 PairOperator.PairStatus == PairStatus.Disconnected,
                                 PairOperator.PairStatus == PairStatus.Disconnected);
                             SetRightBitmap(
-                                GetHalfOfImage(LocalCapturedFrame.Frame, false, false, LocalCapturedFrame.Orientation, true, LocalCapturedFrame.IsFrontFacing),
+                                GetHalfOfImage(LocalCapturedFrame.Frame, !isParallelType, false, LocalCapturedFrame.Orientation, true, LocalCapturedFrame.IsFrontFacing),
                                 PairOperator.PairStatus == PairStatus.Disconnected,
                                 PairOperator.PairStatus == PairStatus.Disconnected);
                         }
                         else
                         {
                             SetLeftBitmap(
-                                GetHalfOfImage(LocalCapturedFrame.Frame, false, false, LocalCapturedFrame.Orientation, true, LocalCapturedFrame.IsFrontFacing),
+                                GetHalfOfImage(LocalCapturedFrame.Frame, isParallelType, false, LocalCapturedFrame.Orientation, true, LocalCapturedFrame.IsFrontFacing),
                                 PairOperator.PairStatus == PairStatus.Disconnected,
                                 PairOperator.PairStatus == PairStatus.Disconnected);
                             SetRightBitmap(
-                                GetHalfOfImage(LocalCapturedFrame.Frame, true, false, LocalCapturedFrame.Orientation, isFrontFacing: LocalCapturedFrame.IsFrontFacing),
+                                GetHalfOfImage(LocalCapturedFrame.Frame, !isParallelType, false, LocalCapturedFrame.Orientation, isFrontFacing: LocalCapturedFrame.IsFrontFacing),
                                 PairOperator.PairStatus == PairStatus.Disconnected,
                                 PairOperator.PairStatus == PairStatus.Disconnected);
                         }

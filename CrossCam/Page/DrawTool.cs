@@ -93,10 +93,26 @@ namespace CrossCam.Page
                 hor = cardboardHor;
             }
 
-            var shouldMirrorLeftParallel = useMirrorCapture && !settings.IsCaptureLeftFirst && drawMode == DrawMode.Parallel;
-            var shouldMirrorRightParallel = useMirrorCapture && settings.IsCaptureLeftFirst && drawMode == DrawMode.Parallel;
-            var shouldMirrorLeftDefault = useMirrorCapture && !settings.IsCaptureLeftFirst && drawMode != DrawMode.Parallel;
-            var shouldMirrorRightDefault = useMirrorCapture && settings.IsCaptureLeftFirst && drawMode != DrawMode.Parallel;
+            bool shouldMirrorLeftParallel = false, 
+                shouldMirrorRightParallel = false, 
+                shouldMirrorLeftDefault = false, 
+                shouldMirrorRightDefault = false;
+
+            if (useMirrorCapture)
+            {
+                switch (drawMode)
+                {
+                    case DrawMode.Parallel:
+                    case DrawMode.Cardboard:
+                        shouldMirrorLeftParallel = !settings.IsCaptureLeftFirst;
+                        shouldMirrorRightParallel = settings.IsCaptureLeftFirst;
+                        break;
+                    default:
+                        shouldMirrorLeftDefault = !settings.IsCaptureLeftFirst;
+                        shouldMirrorRightDefault = settings.IsCaptureLeftFirst;
+                        break;
+                }
+            }
 
             if (withSwap)
             {
