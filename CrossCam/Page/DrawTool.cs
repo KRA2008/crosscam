@@ -93,14 +93,16 @@ namespace CrossCam.Page
                 hor = cardboardHor;
             }
 
-            var shouldMirrorLeft = useMirrorCapture && !settings.IsCaptureLeftFirst;
-            var shouldMirrorRight = useMirrorCapture && settings.IsCaptureLeftFirst;
+            var shouldMirrorLeftParallel = useMirrorCapture && !settings.IsCaptureLeftFirst && drawMode == DrawMode.Parallel;
+            var shouldMirrorRightParallel = useMirrorCapture && settings.IsCaptureLeftFirst && drawMode == DrawMode.Parallel;
+            var shouldMirrorLeftDefault = useMirrorCapture && !settings.IsCaptureLeftFirst && drawMode != DrawMode.Parallel;
+            var shouldMirrorRightDefault = useMirrorCapture && settings.IsCaptureLeftFirst && drawMode != DrawMode.Parallel;
 
             if (withSwap)
             {
                 DrawImagesOnCanvasInternal(surface, 
-                    rightBitmap, rightAlignmentMatrix, rightOrientation, isRightFrontFacing, shouldMirrorRight,
-                    leftBitmap, leftAlignmentMatrix, leftOrientation, isLeftFrontFacing, shouldMirrorLeft,
+                    rightBitmap, rightAlignmentMatrix, rightOrientation, isRightFrontFacing, shouldMirrorRightParallel,
+                    leftBitmap, leftAlignmentMatrix, leftOrientation, isLeftFrontFacing, shouldMirrorLeftParallel,
                     settings.BorderWidthProportion, settings.AddBorder2 && drawQuality != DrawQuality.Preview, settings.BorderColor,
                     edits.InsideCrop + edits.LeftCrop,
                     edits.RightCrop + edits.OutsideCrop,
@@ -125,13 +127,13 @@ namespace CrossCam.Page
             else
             {
                 DrawImagesOnCanvasInternal(surface, 
-                    leftBitmap, leftAlignmentMatrix, leftOrientation, isLeftFrontFacing, shouldMirrorLeft,
-                    rightBitmap, rightAlignmentMatrix, rightOrientation, isRightFrontFacing, shouldMirrorRight,
+                    leftBitmap, leftAlignmentMatrix, leftOrientation, isLeftFrontFacing, shouldMirrorLeftDefault || shouldMirrorLeftParallel,
+                    rightBitmap, rightAlignmentMatrix, rightOrientation, isRightFrontFacing, shouldMirrorRightDefault || shouldMirrorRightParallel,
                     settings.BorderWidthProportion, settings.AddBorder2 && drawQuality != DrawQuality.Preview, settings.BorderColor,
-                    edits.LeftCrop + edits.OutsideCrop + (shouldMirrorLeft ? 0.5 : 0),
-                    edits.InsideCrop + edits.RightCrop + (shouldMirrorRight ? 0.5 : 0),
-                    edits.InsideCrop + edits.LeftCrop + (shouldMirrorLeft ? 0.5 : 0),
-                    edits.RightCrop + edits.OutsideCrop + (shouldMirrorRight ? 0.5 : 0),
+                    edits.LeftCrop + edits.OutsideCrop + (shouldMirrorRightDefault || shouldMirrorLeftParallel ? 0.5 : 0),
+                    edits.InsideCrop + edits.RightCrop + (shouldMirrorLeftDefault || shouldMirrorRightParallel ? 0.5 : 0),
+                    edits.InsideCrop + edits.LeftCrop + (shouldMirrorRightDefault || shouldMirrorLeftParallel ? 0.5 : 0),
+                    edits.RightCrop + edits.OutsideCrop + (shouldMirrorLeftDefault || shouldMirrorRightParallel ? 0.5 : 0),
                     edits.TopCrop, 
                     edits.BottomCrop,
                     edits.LeftRotation, edits.RightRotation,
