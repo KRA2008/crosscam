@@ -383,7 +383,22 @@
                  AbsoluteLayout.LayoutBounds="0.5,0,2,1"
                  Color="White"
                  InputTransparent="true"
-                 IsVisible="{Binding Settings.Mode, Converter={StaticResource enumCompare}, ConverterParameter={x:Static vm:DrawMode.Cardboard}}"/>
+                 IsVisible="False">
+            <BoxView.Triggers>
+                <MultiTrigger TargetType="BoxView">
+                    <MultiTrigger.Conditions>
+                        <BindingCondition Binding="{Binding Settings.Mode, Converter={StaticResource enumCompare}, ConverterParameter={x:Static vm:DrawMode.Cardboard}}"
+                                          Value="True"/>
+                        <BindingCondition Binding="{Binding IsFullscreenToggle}"
+                                          Value="False"/>
+                    </MultiTrigger.Conditions>
+                    <MultiTrigger.Setters>
+                        <Setter Property="IsVisible"
+                                Value="True"/>
+                    </MultiTrigger.Setters>
+                </MultiTrigger>
+            </BoxView.Triggers>
+        </BoxView>
         <Grid AbsoluteLayout.LayoutFlags="PositionProportional,WidthProportional"
               RowSpacing="0"
               ColumnSpacing="0"
@@ -1692,7 +1707,7 @@
                 <Image.Triggers>
                     <MultiTrigger TargetType="Image">
                         <MultiTrigger.Conditions>
-                            <BindingCondition Binding="{Binding Settings.Mode, Converter={StaticResource enumCompare}, ConverterParameter={x:Static vm:DrawMode.Parallel}}"
+                            <BindingCondition Binding="{Binding IsParallelTypeMode}"
                                               Value="True"/>
                             <BindingCondition Binding="{Binding Settings.IsCaptureLeftFirst}"
                                               Value="True"/>
@@ -1704,7 +1719,7 @@
                     </MultiTrigger>
                     <MultiTrigger TargetType="Image">
                         <MultiTrigger.Conditions>
-                            <BindingCondition Binding="{Binding Settings.Mode, Converter={StaticResource enumCompare}, ConverterParameter={x:Static vm:DrawMode.Parallel}}"
+                            <BindingCondition Binding="{Binding IsParallelTypeMode}"
                                               Value="False"/>
                             <BindingCondition Binding="{Binding Settings.IsCaptureLeftFirst}"
                                               Value="False"/>
@@ -1743,7 +1758,7 @@
                     <Label.Triggers>
                         <MultiTrigger TargetType="Label">
                             <MultiTrigger.Conditions>
-                                <BindingCondition Binding="{Binding Settings.Mode, Converter={StaticResource enumCompare}, ConverterParameter={x:Static vm:DrawMode.Parallel}}"
+                                <BindingCondition Binding="{Binding IsParallelTypeMode}"
                                                   Value="True"/>
                                 <BindingCondition Binding="{Binding Settings.IsCaptureLeftFirst}"
                                                   Value="True"/>
@@ -1755,7 +1770,7 @@
                         </MultiTrigger>
                         <MultiTrigger TargetType="Label">
                             <MultiTrigger.Conditions>
-                                <BindingCondition Binding="{Binding Settings.Mode, Converter={StaticResource enumCompare}, ConverterParameter={x:Static vm:DrawMode.Parallel}}"
+                                <BindingCondition Binding="{Binding IsParallelTypeMode}"
                                                   Value="False"/>
                                 <BindingCondition Binding="{Binding Settings.IsCaptureLeftFirst}"
                                                   Value="False"/>
@@ -1773,10 +1788,16 @@
                 <Label Text="for"
                        FontSize="Medium"
                        HorizontalOptions="EndAndExpand"/>
-                <Label Text="cross"
+                <Label Text=""
                        FontSize="Medium"
                        HorizontalOptions="StartAndExpand">
                     <Label.Triggers>
+                        <DataTrigger TargetType="Label"
+                                     Binding="{Binding Settings.Mode, Converter={StaticResource enumCompare}, ConverterParameter={x:Static vm:DrawMode.Cross}}"
+                                     Value="true">
+                            <Setter Property="Text"
+                                    Value="cross"/>
+                        </DataTrigger>
                         <DataTrigger TargetType="Label"
                                      Binding="{Binding Settings.Mode, Converter={StaticResource enumCompare}, ConverterParameter={x:Static vm:DrawMode.Parallel}}"
                                      Value="true">
@@ -1842,7 +1863,7 @@
                                          Binding="{Binding PairOperatorBindable.PairStatus, Converter={StaticResource enumCompare}, ConverterParameter={x:Static vm:PairStatus.Connected}}"
                                          Value="true">
                                 <Setter Property="Text"
-                                        Value="SECONDARY"/>
+                                        Value="SECONDARY ON"/>
                             </DataTrigger>
                             <DataTrigger TargetType="Label"
                                          Binding="{Binding Settings.IsCaptureInMirrorMode}"
@@ -1899,7 +1920,13 @@
                                          Binding="{Binding PairOperatorBindable.PairStatus, Converter={StaticResource enumCompare}, ConverterParameter={x:Static vm:PairStatus.Connected}}"
                                          Value="true">
                                 <Setter Property="Text"
-                                        Value="SECONDARY"/>
+                                        Value="SECONDARY ON"/>
+                            </DataTrigger>
+                            <DataTrigger TargetType="Label"
+                                         Binding="{Binding Settings.IsCaptureInMirrorMode}"
+                                         Value="true">
+                                <Setter Property="Text"
+                                        Value="MIRROR ON"/>
                             </DataTrigger>
                         </Label.Triggers>
                     </Label>

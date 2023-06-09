@@ -60,10 +60,10 @@ namespace CrossCam.Page
             DrawQuality drawQuality = DrawQuality.Save, double cardboardVert = 0, double cardboardHor = 0, bool isFovStage = false,
             bool useFullscreen = false, bool useMirrorCapture = false)
         {
-            var fuseGuideRequested = (drawQuality != DrawQuality.Preview && 
-                                     settings.SaveWithFuseGuide) ||
-                                     (drawQuality == DrawQuality.Preview &&
-                                      settings.ShowPreviewFuseGuide);
+            var fuseGuideRequested = drawQuality != DrawQuality.Preview && 
+                                     settings.SaveWithFuseGuide ||
+                                     drawQuality == DrawQuality.Preview &&
+                                     settings.ShowPreviewFuseGuide;
 
             var skFilterQuality = drawQuality == DrawQuality.Preview || 
                                   drawQuality == DrawQuality.Review ? 
@@ -72,6 +72,15 @@ namespace CrossCam.Page
             var addBarrelDistortion =
                 settings.AddBarrelDistortion && settings.AddBarrelDistortionFinalOnly && drawQuality != DrawQuality.Preview ||
                 settings.AddBarrelDistortion && !settings.AddBarrelDistortionFinalOnly;
+
+            if (drawMode == DrawMode.Cardboard &&
+                useFullscreen &&
+                drawQuality == DrawQuality.Review)
+            {
+                drawMode = DrawMode.Parallel;
+                cardboardHor = 0;
+                cardboardVert = 0;
+            }
 
             double cardboardWidthProportion = 0;
             if (drawMode == DrawMode.Cardboard)
@@ -372,8 +381,8 @@ namespace CrossCam.Page
             var cardboardSeparationMod = 0d;
             if (drawMode == DrawMode.Cardboard)
             {
-                var displayLandscapeSideWidth = (rightClipX - leftClipX) / DeviceDisplay.MainDisplayInfo.Density;
-                cardboardSeparationMod = (cardboardIpd - displayLandscapeSideWidth) * DeviceDisplay.MainDisplayInfo.Density / 2d;
+                var croppedSeparation = (rightClipX - leftClipX) / DeviceDisplay.MainDisplayInfo.Density;
+                cardboardSeparationMod = (cardboardIpd - croppedSeparation) * DeviceDisplay.MainDisplayInfo.Density / 2d;
             }
 
             var cardboardHorDelta = cardboardHor * destWidth;
@@ -764,12 +773,7 @@ namespace CrossCam.Page
                 transform4D.PostConcat(SKMatrix44.CreateTranslate(0, (float) yCorrection, 0));
             }
 
-            if (Math.Abs(cardboardHorDelta) > 0 ||
-                Math.Abs(cardboardVertDelta) > 0 ||
-                Math.Abs(cardboardSeparationMod) > 0)
-            {
-                transform4D.PostConcat(SKMatrix44.CreateTranslate((float)(-cardboardHorDelta + cardboardSeparationMod), (float)-cardboardVertDelta, 0));
-            }
+            transform4D.PostConcat(FindCardboardMovementMatrix(cardboardHorDelta, cardboardVertDelta, cardboardSeparationMod));
 
             return transform4D.Matrix;
         }
@@ -820,17 +824,35 @@ namespace CrossCam.Page
             }
 
             canvas.Save();
-            
-            var adjClipX = Math.Max(clipX - cardboardHorDelta + cardboardSeparationMod, clipX);
-            var adjClipWidth = clipWidth - Math.Abs(cardboardHorDelta - cardboardSeparationMod); //TODO: due to some other stuff, the left and right ends never go further than the clip width from the middle (fix it?)
-            var adjClipY = clipY - cardboardVertDelta;
 
-            canvas.ClipRect(
-                SKRect.Create(
-                    (float)adjClipX,
-                    (float)adjClipY,
-                    (float)adjClipWidth,
-                    clipHeight));
+            var clipRect = SKRect.Create(clipX, clipY, clipWidth, clipHeight);
+            if (drawMode == DrawMode.Cardboard)
+            {
+                var cardboardClipRect =
+                    FindCardboardMovementMatrix(cardboardHorDelta, cardboardVertDelta, cardboardSeparationMod)
+                        .Matrix.MapRect(clipRect);
+
+                if (isLeft)
+                {
+                    if (cardboardClipRect.Right > DeviceDisplay.MainDisplayInfo.Width / 2f)
+                    {
+                        cardboardClipRect.Right = (float)(DeviceDisplay.MainDisplayInfo.Width / 2f);
+                    }
+                }
+                else
+                {
+                    if (cardboardClipRect.Left < DeviceDisplay.MainDisplayInfo.Width / 2f)
+                    {
+                        cardboardClipRect.Left = (float)(DeviceDisplay.MainDisplayInfo.Width / 2f);
+                    }
+                }
+                canvas.ClipRect(cardboardClipRect);
+            }
+            else
+            {
+                canvas.ClipRect(clipRect);
+            }
+
 
             var destinationRect = SKRect.Create(
                 destX,
@@ -870,6 +892,18 @@ namespace CrossCam.Page
             //{
             //    Color = new SKColor(isLeft ? byte.MaxValue : (byte)0, byte.MaxValue, 0, byte.MaxValue / 3)
             //});
+        }
+
+        private static SKMatrix44 FindCardboardMovementMatrix(double cardboardHorDelta, double cardboardVertDelta, double cardboardSeparationMod)
+        {
+            var transform4D = SKMatrix44.CreateIdentity();
+            if (Math.Abs(cardboardHorDelta) > 0 ||
+                Math.Abs(cardboardVertDelta) > 0 ||
+                Math.Abs(cardboardSeparationMod) > 0)
+            {
+                transform4D.PostConcat(SKMatrix44.CreateTranslate((float)(-cardboardHorDelta + cardboardSeparationMod), (float)-cardboardVertDelta, 0));
+            }
+            return transform4D;
         }
 
         public static SKMatrix44 MakePerspective(float maxDepth)

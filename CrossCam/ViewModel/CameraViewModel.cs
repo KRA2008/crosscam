@@ -67,8 +67,7 @@ namespace CrossCam.ViewModel
                                            Settings.FullscreenEditing ||
                                            IsNothingCaptured && 
                                            !(Settings.Mode == DrawMode.Parallel && 
-                                             Settings.IsCaptureInMirrorMode) &&
-                                           Settings.Mode != DrawMode.Cardboard;
+                                             Settings.IsCaptureInMirrorMode);
         public AbsoluteLayoutFlags CanvasRectangleFlags =>
             UseFullScreenWidth ? AbsoluteLayoutFlags.All : 
             AbsoluteLayoutFlags.YProportional | AbsoluteLayoutFlags.HeightProportional | AbsoluteLayoutFlags.XProportional;
@@ -113,7 +112,9 @@ namespace CrossCam.ViewModel
         public Command ToggleFullscreen { get; set; }
         public bool IsFullscreenToggleVisible =>
             (Settings.Mode == DrawMode.Cross ||
-             Settings.Mode == DrawMode.Parallel) &&
+             Settings.Mode == DrawMode.Parallel ||
+             Settings.Mode == DrawMode.Cardboard &&
+             WorkflowStage != WorkflowStage.Capture) &&
             (!IsNothingCaptured ||
             PairOperator.PairStatus == PairStatus.Connected &&
             Settings.IsPairedPrimary.HasValue &&
@@ -123,7 +124,8 @@ namespace CrossCam.ViewModel
         {
             get =>
                 WorkflowStage == WorkflowStage.Capture &&
-                Settings.FullscreenCapturing ||
+                Settings.FullscreenCapturing && 
+                Settings.Mode != DrawMode.Cardboard ||
                 WorkflowStage != WorkflowStage.Capture &&
                 Settings.FullscreenEditing;
             set
@@ -286,6 +288,10 @@ namespace CrossCam.ViewModel
                                                                     (PairOperatorBindable.PairStatus == PairStatus.Disconnected || 
                                                                      Settings.IsPairedPrimary.HasValue && Settings.IsPairedPrimary.Value);
 
+        public bool IsParallelTypeMode => 
+            Settings.Mode == DrawMode.Parallel || 
+            Settings.Mode == DrawMode.Cardboard;
+
         public Rectangle CaptureButtonPosition
         {
             get
@@ -352,17 +358,16 @@ namespace CrossCam.ViewModel
         public Command SlidingStartedCommand { get; set; }
         public Command SlidingFinishedCommand { get; set; }
 
-        public bool ShouldLineGuidesBeVisible => (((IsNothingCaptured && Settings.ShowGuideLinesWithFirstCapture)
-                                                  || (IsExactlyOnePictureTaken && WorkflowStage != WorkflowStage.Loading)
-                                                  || (PairOperator.IsPrimary && PairOperator.PairStatus == PairStatus.Connected && WorkflowStage == WorkflowStage.Capture))
-                                                  && Settings.AreGuideLinesVisible
-                                                  || WorkflowStage == WorkflowStage.Keystone
-                                                  || WorkflowStage == WorkflowStage.ManualAlign
-                                                  || WorkflowStage == WorkflowStage.FovCorrection) && 
-                                                 Settings.Mode != DrawMode.Cardboard;
-        public bool ShouldDonutGuideBeVisible => ((IsNothingCaptured && Settings.ShowGuideDonutWithFirstCapture)
-                                                 || (IsExactlyOnePictureTaken && WorkflowStage != WorkflowStage.Loading)
-                                                 || (PairOperator.IsPrimary && PairOperator.PairStatus == PairStatus.Connected && WorkflowStage == WorkflowStage.Capture))
+        public bool ShouldLineGuidesBeVisible => (IsNothingCaptured && Settings.ShowGuideLinesWithFirstCapture
+                                                  || IsExactlyOnePictureTaken && WorkflowStage != WorkflowStage.Loading
+                                                  || PairOperator.IsPrimary && PairOperator.PairStatus == PairStatus.Connected && WorkflowStage == WorkflowStage.Capture)
+                                                 && Settings.AreGuideLinesVisible
+                                                 || WorkflowStage == WorkflowStage.Keystone
+                                                 || WorkflowStage == WorkflowStage.ManualAlign
+                                                 || WorkflowStage == WorkflowStage.FovCorrection;
+        public bool ShouldDonutGuideBeVisible => (IsNothingCaptured && Settings.ShowGuideDonutWithFirstCapture
+                                                 || IsExactlyOnePictureTaken && WorkflowStage != WorkflowStage.Loading
+                                                 || PairOperator.IsPrimary && PairOperator.PairStatus == PairStatus.Connected && WorkflowStage == WorkflowStage.Capture)
                                                  && Settings.IsGuideDonutVisible;
 
         public bool ShouldRollGuideBeVisible => WorkflowStage == WorkflowStage.Capture && Settings.ShowRollGuide;
