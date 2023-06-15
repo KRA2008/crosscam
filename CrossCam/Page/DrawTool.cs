@@ -126,8 +126,8 @@ namespace CrossCam.Page
             if (withSwap)
             {
                 DrawImagesOnCanvasInternal(surface, 
-                    rightBitmap, rightAlignmentMatrix, rightOrientation, isRightFrontFacing, shouldMirrorRightParallel,
-                    leftBitmap, leftAlignmentMatrix, leftOrientation, isLeftFrontFacing, shouldMirrorLeftParallel,
+                    rightBitmap, rightAlignmentMatrix, rightOrientation, isRightFrontFacing, false,
+                    leftBitmap, leftAlignmentMatrix, leftOrientation, isLeftFrontFacing, false,
                     settings.BorderWidthProportion, settings.AddBorder2 && drawQuality != DrawQuality.Preview, settings.BorderColor,
                     edits.InsideCrop + edits.LeftCrop,
                     edits.RightCrop + edits.OutsideCrop,

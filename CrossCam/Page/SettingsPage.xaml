@@ -661,7 +661,7 @@
                                                  Binding="{Binding Settings.Mode, Converter={StaticResource enumCompare}, ConverterParameter={x:Static vm:DrawMode.Parallel}}"
                                                  Value="True">
                                         <Setter Property="Grid.Row"
-                                                Value="5"/>
+                                                Value="7"/>
                                     </DataTrigger>
                                 </Image.Triggers>
                             </Image>
@@ -673,7 +673,7 @@
                                                  Binding="{Binding Settings.Mode, Converter={StaticResource enumCompare}, ConverterParameter={x:Static vm:DrawMode.Parallel}}"
                                                  Value="True">
                                         <Setter Property="Grid.Row"
-                                                Value="5"/>
+                                                Value="7"/>
                                     </DataTrigger>
                                 </Label.Triggers>
                             </Label>
@@ -685,7 +685,7 @@
                                                  Binding="{Binding Settings.Mode, Converter={StaticResource enumCompare}, ConverterParameter={x:Static vm:DrawMode.Parallel}}"
                                                  Value="True">
                                         <Setter Property="Grid.Row"
-                                                Value="5"/>
+                                                Value="7"/>
                                     </DataTrigger>
                                 </Switch.Triggers>
                             </Switch>
@@ -699,7 +699,7 @@
                                                  Binding="{Binding Settings.Mode, Converter={StaticResource enumCompare}, ConverterParameter={x:Static vm:DrawMode.Parallel}}"
                                                  Value="True">
                                         <Setter Property="Grid.Row"
-                                                Value="4"/>
+                                                Value="6"/>
                                     </DataTrigger>
                                 </Image.Triggers>
                             </Image>
@@ -711,7 +711,7 @@
                                                  Binding="{Binding Settings.Mode, Converter={StaticResource enumCompare}, ConverterParameter={x:Static vm:DrawMode.Parallel}}"
                                                  Value="True">
                                         <Setter Property="Grid.Row"
-                                                Value="4"/>
+                                                Value="6"/>
                                     </DataTrigger>
                                 </Label.Triggers>
                             </Label>
@@ -723,7 +723,7 @@
                                                  Binding="{Binding Settings.Mode, Converter={StaticResource enumCompare}, ConverterParameter={x:Static vm:DrawMode.Parallel}}"
                                                  Value="True">
                                         <Setter Property="Grid.Row"
-                                                Value="4"/>
+                                                Value="6"/>
                                     </DataTrigger>
                                 </Switch.Triggers>
                             </Switch>
