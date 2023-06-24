@@ -12,6 +12,10 @@ EndProject
 Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "AutoAlignment", "AutoAlignment\AutoAlignment.shproj", "{F9D4DFBF-A407-473C-AA27-36E2E0F5FCF8}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CrossCam.iOS.Extension", "CrossCam.iOS.Extension\CrossCam.iOS.Extension.csproj", "{292F6A1E-E003-4BD7-8BAF-AC64B80D0BBA}"
+	ProjectSection(ProjectDependencies) = postProject
+		{169D5C20-8FDA-48FC-96AF-2F6E09BB9B4F} = {169D5C20-8FDA-48FC-96AF-2F6E09BB9B4F}
+		{C67DAD12-9B8D-4AE3-B7B2-5F84E4E26EA8} = {C67DAD12-9B8D-4AE3-B7B2-5F84E4E26EA8}
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
