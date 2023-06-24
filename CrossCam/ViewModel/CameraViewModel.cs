@@ -1762,8 +1762,6 @@ namespace CrossCam.ViewModel
 
         private async void AutoAlign()
         {
-            Debug.WriteLine("### requested: " + Settings.AlignmentSettings.IsAutomaticAlignmentOn);
-            Debug.WriteLine("### is valid: " + !_isAlignmentInvalid);
             if (!Settings.AlignmentSettings.IsAutomaticAlignmentOn &&
                 _isAlignmentInvalid)
             {
@@ -1778,7 +1776,6 @@ namespace CrossCam.ViewModel
                 _isAlignmentInvalid &&
                 0 == Interlocked.Exchange(ref _alignmentThreadLock, 1))
             {
-                Debug.WriteLine("### beginning auto align process");
                 WorkflowStage = WorkflowStage.AutomaticAlign;
 
                 var openCv = DependencyService.Get<IOpenCv>();
@@ -2438,7 +2435,6 @@ namespace CrossCam.ViewModel
 
         private void ClearAutoAlignment()
         {
-            Debug.WriteLine("### Clearing auto alignment");
             LeftAlignmentTransform = SKMatrix.Identity;
             RightAlignmentTransform = SKMatrix.Identity;
         }
