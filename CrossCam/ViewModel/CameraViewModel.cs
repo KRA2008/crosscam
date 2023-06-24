@@ -460,18 +460,18 @@ namespace CrossCam.ViewModel
                 {
                     if (PairOperator.PairStatus == PairStatus.Connected)
                     {
-                        ClearCaptures();
+                        FullWipe();
                     }
                     else
                     {
                         if (RightBitmap == null)
                         {
-                            ClearCaptures();
+                            FullWipe();
                         }
                         else
                         {
                             LeftBitmap = null;
-                            ClearEdits(true);
+                            ClearEverythingButCaptures();
                             CameraColumn = 0;
                             TryTriggerMovementHint();
                             WorkflowStage = WorkflowStage.Capture;
@@ -491,18 +491,18 @@ namespace CrossCam.ViewModel
                 {
                     if (PairOperator.PairStatus == PairStatus.Connected)
                     {
-                        ClearCaptures();
+                        FullWipe();
                     }
                     else
                     {
                         if (LeftBitmap == null)
                         {
-                            ClearCaptures();
+                            FullWipe();
                         }
                         else
                         {
                             RightBitmap = null;
-                            ClearEdits(true);
+                            ClearEverythingButCaptures();
                             CameraColumn = 1;
                             TryTriggerMovementHint();
                             WorkflowStage = WorkflowStage.Capture;
@@ -551,10 +551,10 @@ namespace CrossCam.ViewModel
                     switch (WorkflowStage)
                     {
                         case WorkflowStage.Crop:
-                            ClearCrops(false);
+                            ClearCrops();
                             break;
                         case WorkflowStage.ManualAlign:
-                            ClearAlignments();
+                            ClearManualAlignments();
                             break;
                         case WorkflowStage.Keystone:
                             ClearKeystone();
@@ -581,7 +581,7 @@ namespace CrossCam.ViewModel
                                 "Are you sure you want to clear your pictures and start over?", "Yes, clear", "No");
                             if (confirmClear)
                             {
-                                ClearCaptures();
+                                FullWipe();
                             }
                             _isClearPromptOpen = false;
                         }
@@ -1050,7 +1050,7 @@ namespace CrossCam.ViewModel
                 SaveSuccessFadeTrigger = !SaveSuccessFadeTrigger;
                 if (Settings.ClearCapturesAfterSave)
                 {
-                    ClearCaptures();
+                    FullWipe();
                 }
                 else
                 {
@@ -1284,7 +1284,7 @@ namespace CrossCam.ViewModel
 
                 if (_secondaryErrorOccurred)
                 {
-                    ClearCaptures();
+                    FullWipe();
                 }
                 else
                 {
@@ -1362,21 +1362,9 @@ namespace CrossCam.ViewModel
             }
             else if (args.PropertyName == nameof(Settings))
             {
-                if (_isAlignmentInvalid)
-                {
-                    ClearCrops(true);
-                    if (Settings.IsCaptureLeftFirst)
-                    {
-                        SetRightBitmap(RightBitmap, true, true); //calls autoalign internally
-                    }
-                    else
-                    {
-                        SetLeftBitmap(LeftBitmap, true, true); //calls autoalign internally
-                    }
-                }
-
                 if (WorkflowStage == WorkflowStage.Final)
                 {
+                    Debug.WriteLine("### Sending to auto align");
                     AutoAlign();
                 }
             }
@@ -1774,12 +1762,23 @@ namespace CrossCam.ViewModel
 
         private async void AutoAlign()
         {
+            Debug.WriteLine("### requested: " + Settings.AlignmentSettings.IsAutomaticAlignmentOn);
+            Debug.WriteLine("### is valid: " + !_isAlignmentInvalid);
+            if (!Settings.AlignmentSettings.IsAutomaticAlignmentOn &&
+                _isAlignmentInvalid)
+            {
+                ClearAutoAlignment();
+                _isAlignmentInvalid = false;
+                return;
+            }
+
             if (Settings.AlignmentSettings.IsAutomaticAlignmentOn &&
                 LeftBitmap != null &&
                 RightBitmap != null &&
                 _isAlignmentInvalid &&
                 0 == Interlocked.Exchange(ref _alignmentThreadLock, 1))
             {
+                Debug.WriteLine("### beginning auto align process");
                 WorkflowStage = WorkflowStage.AutomaticAlign;
 
                 var openCv = DependencyService.Get<IOpenCv>();
@@ -1840,7 +1839,7 @@ namespace CrossCam.ViewModel
 
                     if (alignedResult != null)
                     {
-                        ClearEdits(false);
+                        ClearEdits();
                         _isAlignmentInvalid = false;
 
                         if (Settings.AlignmentSettings.UseKeypoints1 &&
@@ -2416,7 +2415,7 @@ namespace CrossCam.ViewModel
 #endif
         }
 
-        private void ClearCrops(bool andAutomaticAlignmentFlags)
+        private void ClearCrops()
         {
             Edits.OutsideCrop = 0;
             Edits.InsideCrop = 0;
@@ -2425,13 +2424,9 @@ namespace CrossCam.ViewModel
             Edits.TopCrop = 0;
             Edits.BottomCrop = 0;
             CropMode = CropMode.Inside;
-            if (andAutomaticAlignmentFlags)
-            {
-                _isAlignmentInvalid = true;
-            }
         }
 
-        private void ClearAlignments()
+        private void ClearManualAlignments()
         {
             Edits.LeftRotation = 0;
             Edits.RightRotation = 0;
@@ -2441,22 +2436,32 @@ namespace CrossCam.ViewModel
             ManualAlignMode = ManualAlignMode.VerticalAlign;
         }
 
+        private void ClearAutoAlignment()
+        {
+            Debug.WriteLine("### Clearing auto alignment");
+            LeftAlignmentTransform = SKMatrix.Identity;
+            RightAlignmentTransform = SKMatrix.Identity;
+        }
+
         private void ClearKeystone()
         {
             Edits.Keystone = 0;
         }
 
-        private void ClearEdits(bool andAutoAligmentFlags)
+        private void ClearEdits()
         {
-            LeftAlignmentTransform = SKMatrix.Identity;
-            RightAlignmentTransform = SKMatrix.Identity;
-
-            ClearCrops(andAutoAligmentFlags);
-            ClearAlignments();
+            ClearCrops();
+            ClearManualAlignments();
             ClearKeystone();
         }
 
-        private void ClearCaptures()
+        private void ClearEverythingButCaptures()
+        {
+            ClearEdits();
+            ClearAutoAlignment();
+        }
+
+        private void FullWipe()
         {
             CameraColumn = Settings.IsCaptureLeftFirst ? 0 : 1;
 
@@ -2466,7 +2471,7 @@ namespace CrossCam.ViewModel
             RightBitmap = null;
             RightAlignmentTransform = SKMatrix.Identity;
 
-            ClearEdits(true);
+            ClearEverythingButCaptures();
             _secondaryErrorOccurred = false;
             WorkflowStage = WorkflowStage.Capture;
             WasCapturePaired = false;
