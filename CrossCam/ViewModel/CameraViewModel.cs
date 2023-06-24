@@ -1780,8 +1780,6 @@ namespace CrossCam.ViewModel
                 _isAlignmentInvalid &&
                 0 == Interlocked.Exchange(ref _alignmentThreadLock, 1))
             {
-                _isAlignmentInvalid = false;
-                ClearEdits(false);
                 WorkflowStage = WorkflowStage.AutomaticAlign;
 
                 var openCv = DependencyService.Get<IOpenCv>();
@@ -1842,6 +1840,9 @@ namespace CrossCam.ViewModel
 
                     if (alignedResult != null)
                     {
+                        ClearEdits(false);
+                        _isAlignmentInvalid = false;
+
                         if (Settings.AlignmentSettings.UseKeypoints1 &&
                             Settings.AlignmentSettings.DrawKeypointMatches &&
                             alignedResult.DrawnDirtyMatches != null)
