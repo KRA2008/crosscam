@@ -136,7 +136,7 @@ namespace CrossCam.Page
                     edits.TopCrop, 
                     edits.BottomCrop,
                     edits.RightRotation, edits.LeftRotation,
-                    edits.VerticalAlignment,
+                    -edits.VerticalAlignment,
                     edits.RightZoom, edits.LeftZoom,
                     wasPairedCapture && drawQuality == DrawQuality.Preview || isFovStage ? edits.FovRightCorrection : 0,
                     wasPairedCapture && drawQuality == DrawQuality.Preview || isFovStage ? edits.FovLeftCorrection : 0,

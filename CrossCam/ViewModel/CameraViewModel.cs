@@ -861,7 +861,6 @@ namespace CrossCam.ViewModel
                             });
                             using var tempSurface =
                                 SKSurface.Create(new SKImageInfo(finalImageWidth, finalImageHeight));
-                            using var canvas = tempSurface.Canvas;
 
                             DrawTool.DrawImagesOnCanvas(
                                 tempSurface, 
@@ -869,8 +868,7 @@ namespace CrossCam.ViewModel
                                 RightBitmap, RightAlignmentTransform,
                                 Settings, 
                                 Edits, 
-                                DrawMode.Parallel, WasCapturePaired,
-                                withSwap: true);
+                                DrawMode.Parallel, WasCapturePaired, withSwap: true);
 
                             await SaveSurfaceSnapshot(tempSurface, CROSSCAM + (Settings.SaveIntoSeparateFolders ?
                                 Settings.Mode == DrawMode.Cross ? "_Parallel" : "_Cross" : ""));
