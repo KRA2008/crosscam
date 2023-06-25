@@ -19,7 +19,7 @@ namespace CrossCam.CustomElement
     public sealed class PairOperator : INotifyPropertyChanged
     {
         private readonly Settings _settings;
-        public bool IsPrimary => _settings.IsPairedPrimary.HasValue && _settings.IsPairedPrimary.Value;
+        public bool IsPrimary => _settings.PairSettings.IsPairedPrimary.HasValue && _settings.PairSettings.IsPairedPrimary.Value;
 
         public IPageModelCoreMethods CurrentCoreMethods { get; set; }
 
@@ -29,7 +29,7 @@ namespace CrossCam.CustomElement
         private readonly Timer _countdownTimer = new Timer{AutoReset = false};
 
         public decimal InitialSyncProgress { get; set; }
-        private int TimerTotalSamples => _settings.PairSyncSampleCount;
+        private uint TimerTotalSamples => _settings.PairSettings.PairSyncSampleCount;
         private int _timerSampleIndex;
         private long[] _t0Samples;
         private long[] _t1t2Samples;
@@ -40,7 +40,7 @@ namespace CrossCam.CustomElement
         private int _requestingPreviewFrameInterlocked;
 
         public PairStatus PairStatus { get; set; }
-        public int CountdownTimeRemainingSec { get; set; }
+        public uint CountdownTimeRemainingSec { get; set; }
         
         private int _initializeThreadLocker;
         private bool _initialSyncComplete;
@@ -71,7 +71,7 @@ namespace CrossCam.CustomElement
             OnPropertyChanged(nameof(IsPrimary));
             OnPropertyChanged(nameof(PairStatus));
             OnPropertyChanged(nameof(CountdownTimeRemainingSec));
-            _settings.RaisePropertyChanged(nameof(Settings.IsPairedPrimary));
+            _settings.RaisePropertyChanged(nameof(Settings.PairSettings.IsPairedPrimary));
             Disconnected?.Invoke(this, EventArgs.Empty);
         }
 
@@ -87,7 +87,7 @@ namespace CrossCam.CustomElement
             OnPropertyChanged(nameof(IsPrimary));
             OnPropertyChanged(nameof(PairStatus));
             OnPropertyChanged(nameof(CountdownTimeRemainingSec));
-            _settings.RaisePropertyChanged(nameof(Settings.IsPairedPrimary));
+            _settings.RaisePropertyChanged(nameof(Settings.PairSettings.IsPairedPrimary));
             Connected?.Invoke(this, EventArgs.Empty);
         }
 
@@ -166,7 +166,7 @@ namespace CrossCam.CustomElement
         public event EventHandler CountdownTimerSyncCompletePrimary;
         private void OnCountdownTimerSyncCompletePrimary(object sender, ElapsedEventArgs e)
         {
-            CountdownTimeRemainingSec = _settings.PairedCaptureCountdown;
+            CountdownTimeRemainingSec = _settings.PairSettings.PairedCaptureCountdown;
             _countdownTimer.Elapsed -= OnCountdownTimerSyncCompletePrimary;
             _countdownTimer.Interval = 1000;
             _countdownTimer.Elapsed += OnCountdownTimerSecondElapsed;
@@ -504,9 +504,9 @@ namespace CrossCam.CustomElement
                 //Debug.WriteLine("TRIPS: " + string.Join(",", trips));
                 //Debug.WriteLine("MAX TRIP: " + trip);
 
-                if (_settings.PairedCaptureCountdown > 0)
+                if (_settings.PairSettings.PairedCaptureCountdown > 0)
                 {
-                    _countdownTimeTicks = _settings.PairedCaptureCountdown * 1000 * 10000;
+                    _countdownTimeTicks = _settings.PairSettings.PairedCaptureCountdown * 1000 * 10000;
                 }
                 else
                 {
@@ -548,16 +548,16 @@ namespace CrossCam.CustomElement
                 _captureSyncTimer.Elapsed += OnCaptureSyncTimeElapsed;
                 _captureSyncTimer.Interval = interval;
                 _captureSyncTimer.Start();
-                if (_settings.IsPairedPrimary.HasValue &&
-                    _settings.IsPairedPrimary.Value &&
-                    _settings.PairedCaptureCountdown > 0)
+                if (_settings.PairSettings.IsPairedPrimary.HasValue &&
+                    _settings.PairSettings.IsPairedPrimary.Value &&
+                    _settings.PairSettings.PairedCaptureCountdown > 0)
                 {
                     _countdownTimer.Elapsed += OnCountdownTimerSyncCompletePrimary;
-                    _countdownTimer.Interval = _settings.PairedCaptureCountdown * 1000 - interval;
+                    _countdownTimer.Interval = _settings.PairSettings.PairedCaptureCountdown * 1000 - interval;
                     _countdownTimer.Start();
                 } 
-                else if (_settings.IsPairedPrimary.HasValue &&
-                         !_settings.IsPairedPrimary.Value)
+                else if (_settings.PairSettings.IsPairedPrimary.HasValue &&
+                         !_settings.PairSettings.IsPairedPrimary.Value)
                 {
                     OnCountdownTimerSyncCompleteSecondary(null, null);
                 }
@@ -698,8 +698,8 @@ namespace CrossCam.CustomElement
                     {
                         if (_initialSyncComplete &&
                             (!_captureMomentUtc.HasValue ||
-                            _captureMomentUtc.Value > DateTime.UtcNow.AddSeconds(1).AddMilliseconds(_settings.PairedPreviewFrameDelayMs)) &&
-                            _lastPreviewFrameUtc < DateTime.UtcNow.AddMilliseconds(-_settings.PairedPreviewFrameDelayMs) &&
+                            _captureMomentUtc.Value > DateTime.UtcNow.AddSeconds(1).AddMilliseconds(_settings.PairSettings.PairedPreviewFrameDelayMs)) &&
+                            _lastPreviewFrameUtc < DateTime.UtcNow.AddMilliseconds(-_settings.PairSettings.PairedPreviewFrameDelayMs) &&
                             Interlocked.CompareExchange(ref _requestingPreviewFrameInterlocked, 1, 0) == 0)
                         {
                             _lastPreviewFrameUtc = DateTime.UtcNow;

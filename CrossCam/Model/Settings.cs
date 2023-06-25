@@ -148,61 +148,6 @@ namespace CrossCam.Model
         public bool AddBorder2 { get; set; }
         public bool ClipBorderOnNextLoad { get; set; }
 
-        private bool? _isPairedPrimary;
-        public bool? IsPairedPrimary
-        {
-            get => _isPairedPrimary;
-            set
-            {
-                _isPairedPrimary = value;
-                IsFovCorrectionSet = false;
-                FovPrimaryCorrection = 0;
-                FovSecondaryCorrection = 0;
-                RaisePropertyChanged(nameof(IsPairedPrimary));
-            }
-        }
-
-        private int _pairedPreviewFrameDelayMs;
-        public int PairedPreviewFrameDelayMs
-        {
-            get => _pairedPreviewFrameDelayMs;
-            set
-            {
-                if (value >= 0)
-                {
-                    _pairedPreviewFrameDelayMs = value;
-                }
-            }
-        }
-
-        public bool IsFovCorrectionSet { get; set; }
-        public double FovPrimaryCorrection { get; set; }
-        public double FovSecondaryCorrection { get; set; }
-
-        private int _pairPreviewSampleCount;
-        public int PairSyncSampleCount
-        {
-            get => _pairPreviewSampleCount;
-            set
-            {
-                if (value > 0)
-                {
-                    _pairPreviewSampleCount = value;
-                }
-            }
-        }
-
-        private int _pairedCaptureCountdown;
-        public int PairedCaptureCountdown
-        {
-            get => _pairedCaptureCountdown;
-            set
-            {
-                if (value < 0) return;
-                _pairedCaptureCountdown = value;
-            }
-        }
-
         private PortraitCaptureButtonPosition _portraitPortraitCaptureButtonPosition;
         public PortraitCaptureButtonPosition PortraitCaptureButtonPosition
         {
@@ -305,111 +250,23 @@ namespace CrossCam.Model
             }
         }
 
-        private int _resolutionProportion;
-        public int ResolutionProportion
-        {
-            get => _resolutionProportion;
-            set
-            {
-                if (value > 0)
-                {
-                    _resolutionProportion = value;
-                }
-            }
-        }
+        public uint ResolutionProportion { get; set; }
+        public uint BorderWidthProportion { get; set; }
+        public uint MaximumParallelWidth { get; set; }
 
-        private int _borderWidthProportion;
-        public int BorderWidthProportion
-        {
-            get => _borderWidthProportion;
-            set
-            {
-                if (value > 0)
-                {
-                    _borderWidthProportion = value;
-                }
-            }
-        }
-
-        private int _maximumParallelWidth;
-        public int MaximumParallelWidth
-        {
-            get => _maximumParallelWidth;
-            set
-            {
-                if (value > 0)
-                {
-                    _maximumParallelWidth = value;
-                }
-            }
-        }
-
-        private int _cardboardIpd;
-        public int CardboardIpd
-        {
-            get => _cardboardIpd;
-            set
-            {
-                if (value > 0)
-                {
-                    _cardboardIpd = value;
-                }
-            }
-        }
-
-        private int _cardboardBarrelDistortion;
-        public int CardboardBarrelDistortion
-        {
-            get => _cardboardBarrelDistortion;
-            set
-            {
-                if (value > 0)
-                {
-                    _cardboardBarrelDistortion = value;
-                }
-            }
-        }
-
-        private bool _addBarrelDistortion;
-        public bool AddBarrelDistortion
-        {
-            get => _addBarrelDistortion;
-            set
-            {
-                _addBarrelDistortion = value;
-                if (!value)
-                {
-                    AddBarrelDistortionFinalOnly = false;
-                }
-            }
-        }
-
-        public bool CardboardDownsize { get; set; }
-
-        private int _cardboardDownsizePercentage;
-        public int CardboardDownsizePercentage
-        {
-            get => _cardboardDownsizePercentage;
-            set
-            {
-                if (value > 0)
-                {
-                    _cardboardDownsizePercentage = value;
-                }
-            }
-        }
-
-        public bool ImmersiveCardboardFinal { get; set; }
-
-        public bool AddBarrelDistortionFinalOnly { get; set; }
-
+        public CardboardSettings CardboardSettings { get; set; }
         public AlignmentSettings AlignmentSettings { get; set; }
+        public EditsSettings EditsSettings { get; set; }
+        public PairSettings PairSettings { get; set; }
 
         public Settings()
         {
             HasOfferedTechniqueHelpBefore2 = false;
             HasShownDirectionsBefore = false;
             AlignmentSettings = new AlignmentSettings();
+            EditsSettings = new EditsSettings();
+            CardboardSettings = new CardboardSettings();
+            PairSettings = new PairSettings();
             ResetToDefaults();
         }
 
@@ -465,27 +322,12 @@ namespace CrossCam.Model
 
             MaximumParallelWidth = (int)PARALLEL_BASE_WIDTH;
 
-            //IsPairedPrimary = null; //deliberately do NOT reset this.
-
-            FovPrimaryCorrection = 0;
-            FovSecondaryCorrection = 0;
-            IsFovCorrectionSet = false;
-
-            PairedPreviewFrameDelayMs = 250;
-            PairSyncSampleCount = 50;
-            PairedCaptureCountdown = 0;
-
-            CardboardIpd = 400;
-            CardboardBarrelDistortion = 200;
-            AddBarrelDistortion = false;
-            AddBarrelDistortionFinalOnly = false;
-            CardboardDownsize = false;
-            CardboardDownsizePercentage = 50;
-            ImmersiveCardboardFinal = true;
-
             SendErrorReports1 = true;
 
             AlignmentSettings.ResetToDefaults();
+            EditsSettings.ResetToDefaults();
+            CardboardSettings.ResetToDefaults();
+            PairSettings.ResetToDefaults();
         }
 
         public event PropertyChangedEventHandler PropertyChanged;

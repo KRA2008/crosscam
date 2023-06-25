@@ -17,7 +17,7 @@ namespace CrossCam.ViewModel
             SetDevicePrimaryCommand = new Command(async () =>
             {
                 Analytics.TrackEvent("pair role assigned");
-                Settings.IsPairedPrimary = true;
+                Settings.PairSettings.IsPairedPrimary = true;
                 PersistentStorage.Save(PersistentStorage.SETTINGS_KEY, Settings);
                 await CoreMethods.DisplayAlert("Primary Role Selected",
                     "This device is now set as the primary.", "OK");
@@ -25,7 +25,7 @@ namespace CrossCam.ViewModel
 
             SetDeviceSecondaryCommand = new Command(async () =>
             {
-                Settings.IsPairedPrimary = false;
+                Settings.PairSettings.IsPairedPrimary = false;
                 PersistentStorage.Save(PersistentStorage.SETTINGS_KEY, Settings);
                 await CoreMethods.DisplayAlert("Secondary Role Selected",
                     "This device is now set as the secondary.", "OK");

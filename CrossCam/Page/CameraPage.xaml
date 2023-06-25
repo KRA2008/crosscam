@@ -244,13 +244,13 @@
                     </StackLayout.GestureRecognizers>
                     <Image Source="pair"
                            InputTransparent="True"
-                           IsVisible="{Binding Settings.IsPairedPrimary, Converter={vc:NullableBooleanHasValueInvertConverter}}"/>
+                           IsVisible="{Binding Settings.PairSettings.IsPairedPrimary, Converter={vc:NullableBooleanHasValueInvertConverter}}"/>
                     <Image Source="pairPrimary"
                            InputTransparent="True"
-                           IsVisible="{Binding Settings.IsPairedPrimary, Converter={StaticResource nullableBoolean}}"/>
+                           IsVisible="{Binding Settings.PairSettings.IsPairedPrimary, Converter={StaticResource nullableBoolean}}"/>
                     <Image Source="pairSecondary"
                            InputTransparent="True"
-                           IsVisible="{Binding Settings.IsPairedPrimary, Converter={vc:NullableBooleanInvertConverter}}"/>
+                           IsVisible="{Binding Settings.PairSettings.IsPairedPrimary, Converter={vc:NullableBooleanInvertConverter}}"/>
                 </StackLayout>
                 <ActivityIndicator AbsoluteLayout.LayoutFlags="All"
                                    AbsoluteLayout.LayoutBounds="0,0,1,1"

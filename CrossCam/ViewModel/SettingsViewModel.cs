@@ -14,6 +14,9 @@ namespace CrossCam.ViewModel
         public Settings Settings { get; set; }
         public Command ResetToDefaults { get; set; }
         public Command ResetAlignmentToDefaults { get; set; }
+        public Command ResetEditsToDefaults { get; set; }
+        public Command ResetCardboardToDefaults { get; set; }
+        public Command ResetPairToDefaults { get; set; }
         public Command ChooseDirectory { get; set; }
         public Command ClearDirectory { get; set; }
         public Command NavigateToPairingPageCommand { get; set; }
@@ -56,6 +59,21 @@ namespace CrossCam.ViewModel
                 Settings.AlignmentSettings.ResetToDefaults();
             });
 
+            ResetEditsToDefaults = new Command(() =>
+            {
+                Settings.EditsSettings.ResetToDefaults();
+            });
+
+            ResetCardboardToDefaults = new Command(() =>
+            {
+                Settings.CardboardSettings.ResetToDefaults();
+            });
+
+            ResetPairToDefaults = new Command(() =>
+            {
+                Settings.PairSettings.ResetToDefaults();
+            });
+
             ChooseDirectory = new Command(async () =>
             {
                 var newDirectory = await _directorySelector.SelectDirectory();
@@ -81,9 +99,9 @@ namespace CrossCam.ViewModel
 
             ResetFovCorrectionCommand = new Command(() =>
             {
-                Settings.IsFovCorrectionSet = false;
-                Settings.FovPrimaryCorrection = 0;
-                Settings.FovSecondaryCorrection = 0;
+                Settings.PairSettings.IsFovCorrectionSet = false;
+                Settings.PairSettings.FovPrimaryCorrection = 0;
+                Settings.PairSettings.FovSecondaryCorrection = 0;
                 PersistentStorage.Save(PersistentStorage.SETTINGS_KEY, Settings);
             });
         }

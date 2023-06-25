@@ -28,38 +28,38 @@ namespace CrossCam.Model
 
         public double FovRightCorrection
         {
-            get => _settings.IsCaptureLeftFirst ? _settings.FovSecondaryCorrection : _settings.FovPrimaryCorrection;
+            get => _settings.IsCaptureLeftFirst ? _settings.PairSettings.FovSecondaryCorrection : _settings.PairSettings.FovPrimaryCorrection;
             set
             {
                 if (_settings.IsCaptureLeftFirst)
                 {
-                    _settings.FovSecondaryCorrection = value;
-                    _settings.FovPrimaryCorrection = 0;
+                    _settings.PairSettings.FovSecondaryCorrection = value;
+                    _settings.PairSettings.FovPrimaryCorrection = 0;
                     OnPropertyChanged(nameof(FovLeftCorrection));
                 }
                 else
                 {
-                    _settings.FovPrimaryCorrection = value;
-                    _settings.FovSecondaryCorrection = 0;
+                    _settings.PairSettings.FovPrimaryCorrection = value;
+                    _settings.PairSettings.FovSecondaryCorrection = 0;
                     OnPropertyChanged(nameof(FovLeftCorrection));
                 }
             }
         }
         public double FovLeftCorrection
         {
-            get => _settings.IsCaptureLeftFirst ? _settings.FovPrimaryCorrection : _settings.FovSecondaryCorrection;
+            get => _settings.IsCaptureLeftFirst ? _settings.PairSettings.FovPrimaryCorrection : _settings.PairSettings.FovSecondaryCorrection;
             set
             {
                 if (_settings.IsCaptureLeftFirst)
                 {
-                    _settings.FovPrimaryCorrection = value;
-                    _settings.FovSecondaryCorrection = 0;
+                    _settings.PairSettings.FovPrimaryCorrection = value;
+                    _settings.PairSettings.FovSecondaryCorrection = 0;
                     OnPropertyChanged(nameof(FovRightCorrection));
                 }
                 else
                 {
-                    _settings.FovSecondaryCorrection = value;
-                    _settings.FovPrimaryCorrection = 0;
+                    _settings.PairSettings.FovSecondaryCorrection = value;
+                    _settings.PairSettings.FovPrimaryCorrection = 0;
                     OnPropertyChanged(nameof(FovRightCorrection));
                 }
             }

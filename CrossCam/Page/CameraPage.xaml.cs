@@ -316,7 +316,7 @@ namespace CrossCam.Page
                 Device.BeginInvokeOnMainThread(() =>
                 {
                     var layout = AbsoluteLayout.GetLayoutBounds(_doubleMoveHintStack);
-                    layout.Width = _viewModel.Settings.CardboardIpd + 100;
+                    layout.Width = _viewModel.Settings.CardboardSettings.CardboardIpd + 100;
                     AbsoluteLayout.SetLayoutBounds(_doubleMoveHintStack, layout);
 
                     EvaluateSensors();
@@ -680,8 +680,8 @@ namespace CrossCam.Page
                 _viewModel.IsNothingCaptured && 
                 (_viewModel.PairOperatorBindable.PairStatus != PairStatus.Connected ||
                  _viewModel.PairOperatorBindable.PairStatus == PairStatus.Connected &&
-                 _viewModel.Settings.IsPairedPrimary.HasValue &&
-                 !_viewModel.Settings.IsPairedPrimary.Value) &&
+                 _viewModel.Settings.PairSettings.IsPairedPrimary.HasValue &&
+                 !_viewModel.Settings.PairSettings.IsPairedPrimary.Value) &&
                 _viewModel.Settings.Mode != DrawMode.Cardboard &&
                 !(_viewModel.Settings.IsCaptureInMirrorMode &&
                   !_viewModel.Settings.FullscreenCapturing),

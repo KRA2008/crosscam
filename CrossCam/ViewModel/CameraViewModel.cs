@@ -117,8 +117,8 @@ namespace CrossCam.ViewModel
              WorkflowStage != WorkflowStage.Capture) &&
             (!IsNothingCaptured ||
             PairOperator.PairStatus == PairStatus.Connected &&
-            Settings.IsPairedPrimary.HasValue &&
-            Settings.IsPairedPrimary.Value ||
+            Settings.PairSettings.IsPairedPrimary.HasValue &&
+            Settings.PairSettings.IsPairedPrimary.Value ||
             Settings.IsCaptureInMirrorMode);
         public bool IsFullscreenToggle
         {
@@ -182,19 +182,19 @@ namespace CrossCam.ViewModel
 
         public Command PairCommand { get; set; }
 
-        public double ZoomMax => 1 / 4d;
-        public double SideCropMax => 1 / 2d;
-        public double TopOrBottomCropMax => 1 / 2d;
+        public double ZoomMax => Settings.EditsSettings.ZoomMax;
+        public double SideCropMax => Settings.EditsSettings.SideCropMax;
+        public double TopOrBottomCropMax => Settings.EditsSettings.TopOrBottomCropMax;
 
         public Command SetCropMode { get; set; }
 
-        public double VerticalAlignmentMax => 1 / 8d;
+        public double VerticalAlignmentMax => Settings.EditsSettings.VerticalAlignmentMax;
         public double VerticalAlignmentMin => -VerticalAlignmentMax;
 
-        public float RotationMax => 5;
+        public float RotationMax => Settings.EditsSettings.RotationMax;
         public float RotationMin => -RotationMax;
 
-        public float MaxKeystone => 15f;
+        public float MaxKeystone => Settings.EditsSettings.KeystoneMax;
 
         public Command LoadPhotoCommand { get; set; }
 
@@ -286,7 +286,7 @@ namespace CrossCam.ViewModel
         public bool IsExactlyOnePictureTaken => LeftBitmap == null ^ RightBitmap == null;
         public bool IsCaptureModeAndEitherPrimaryOrDisconnected => WorkflowStage == WorkflowStage.Capture && 
                                                                     (PairOperatorBindable.PairStatus == PairStatus.Disconnected || 
-                                                                     Settings.IsPairedPrimary.HasValue && Settings.IsPairedPrimary.Value);
+                                                                     Settings.PairSettings.IsPairedPrimary.HasValue && Settings.PairSettings.IsPairedPrimary.Value);
 
         public bool IsParallelTypeMode => 
             Settings.Mode == DrawMode.Parallel || 
@@ -531,7 +531,7 @@ namespace CrossCam.ViewModel
                         WorkflowStage = WorkflowStage.Final;
                         break;
                     case WorkflowStage.FovCorrection:
-                        Settings.IsFovCorrectionSet = true;
+                        Settings.PairSettings.IsFovCorrectionSet = true;
                         PersistentStorage.Save(PersistentStorage.SETTINGS_KEY, Settings);
                         WorkflowStage = WorkflowStage.Final;
                         CheckAndCorrectResolutionFovAndAspectDifferences();
@@ -1121,7 +1121,7 @@ namespace CrossCam.ViewModel
                 {
                     if (PairOperator.PairStatus == PairStatus.Disconnected)
                     {
-                        if (!Settings.IsPairedPrimary.HasValue)
+                        if (!Settings.PairSettings.IsPairedPrimary.HasValue)
                         {
                             await Device.InvokeOnMainThreadAsync(async () =>
                             {
@@ -1132,7 +1132,7 @@ namespace CrossCam.ViewModel
                         }
                         else
                         {
-                            if (Settings.IsPairedPrimary.Value)
+                            if (Settings.PairSettings.IsPairedPrimary.Value)
                             {
                                 Analytics.TrackEvent("attempt primary pairing");
                                 await PairOperator.SetUpPrimaryForPairing();
@@ -1573,18 +1573,30 @@ namespace CrossCam.ViewModel
                 RaisePropertyChanged(nameof(ShouldLeftRightRetakeBeVisible));
                 RaisePropertyChanged(nameof(ShouldRightLeftRetakeBeVisible));
                 RaisePropertyChanged(nameof(ShouldRightRightRetakeBeVisible));
-                RaisePropertyChanged(nameof(CaptureButtonPosition));
                 RaisePropertyChanged(nameof(ShouldCenterLoadBeVisible));
                 RaisePropertyChanged(nameof(ShouldLeftLoadBeVisible));
                 RaisePropertyChanged(nameof(ShouldRightLoadBeVisible));
+                RaisePropertyChanged(nameof(IsFullscreenToggleVisible));
+
+                RaisePropertyChanged(nameof(CaptureButtonPosition));
+                RaisePropertyChanged(nameof(PairButtonPosition));
+
                 RaisePropertyChanged(nameof(SavedSuccessMessage));
                 RaisePropertyChanged(nameof(CanvasRectangle));
                 RaisePropertyChanged(nameof(CanvasRectangleFlags));
-                RaisePropertyChanged(nameof(PairButtonPosition));
-                RaisePropertyChanged(nameof(IsFullscreenToggleVisible));
                 RaisePropertyChanged(nameof(CameraViewModel));
                 RaisePropertyChanged(nameof(Settings)); // this doesn't cause reevaluation for above stuff (but I'd like it to), but it does trigger redraw of canvas and evaluation of whether to run auto alignment
                 RaisePropertyChanged(nameof(Settings.Mode));
+
+                RaisePropertyChanged(nameof(ZoomMax));
+                RaisePropertyChanged(nameof(VerticalAlignmentMax));
+                RaisePropertyChanged(nameof(VerticalAlignmentMin));
+                RaisePropertyChanged(nameof(RotationMax));
+                RaisePropertyChanged(nameof(RotationMin));
+                RaisePropertyChanged(nameof(SideCropMax));
+                RaisePropertyChanged(nameof(TopOrBottomCropMax));
+                RaisePropertyChanged(nameof(MaxKeystone));
+
                 Settings.RaisePropertyChanged();
             }
             _isInitialized = true;
@@ -1604,9 +1616,9 @@ namespace CrossCam.ViewModel
 
         private async void ShowFovPreparationPopup()
         {
-            if (!Settings.IsFovCorrectionSet &&
-                Settings.IsPairedPrimary.HasValue &&
-                Settings.IsPairedPrimary.Value &&
+            if (!Settings.PairSettings.IsFovCorrectionSet &&
+                Settings.PairSettings.IsPairedPrimary.HasValue &&
+                Settings.PairSettings.IsPairedPrimary.Value &&
                 PairOperator.PairStatus == PairStatus.Connected)
             {
                 await Device.InvokeOnMainThreadAsync(async () =>
@@ -1648,8 +1660,8 @@ namespace CrossCam.ViewModel
         {
             if (LeftBitmap == null ^ RightBitmap == null ||
                 PairOperator.PairStatus == PairStatus.Connected &&
-                Settings.IsPairedPrimary.HasValue &&
-                Settings.IsPairedPrimary.Value &&
+                Settings.PairSettings.IsPairedPrimary.HasValue &&
+                Settings.PairSettings.IsPairedPrimary.Value &&
                 RightBitmap == null &&
                 LeftBitmap == null &&
                 !suppressWhenPaired || 
@@ -1936,13 +1948,13 @@ namespace CrossCam.ViewModel
             {
                 if (Settings.IsCaptureLeftFirst)
                 {
-                    Edits.FovLeftCorrection = Settings.FovPrimaryCorrection;
-                    Edits.FovRightCorrection = Settings.FovSecondaryCorrection;
+                    Edits.FovLeftCorrection = Settings.PairSettings.FovPrimaryCorrection;
+                    Edits.FovRightCorrection = Settings.PairSettings.FovSecondaryCorrection;
                 }
                 else
                 {
-                    Edits.FovRightCorrection = Settings.FovPrimaryCorrection;
-                    Edits.FovLeftCorrection = Settings.FovSecondaryCorrection;
+                    Edits.FovRightCorrection = Settings.PairSettings.FovPrimaryCorrection;
+                    Edits.FovLeftCorrection = Settings.PairSettings.FovSecondaryCorrection;
                 }
             }
         }
@@ -1970,7 +1982,7 @@ namespace CrossCam.ViewModel
                     if (WasCapturePaired &&
                         PairOperator.IsPrimary)
                     {
-                        if (Settings.IsFovCorrectionSet)
+                        if (Settings.PairSettings.IsFovCorrectionSet)
                         {
                             CheckAndCorrectResolutionFovAndAspectDifferences();
                         }
@@ -2012,7 +2024,7 @@ namespace CrossCam.ViewModel
                     if (WasCapturePaired &&
                         PairOperator.IsPrimary)
                     {
-                        if (Settings.IsFovCorrectionSet)
+                        if (Settings.PairSettings.IsFovCorrectionSet)
                         {
                             CheckAndCorrectResolutionFovAndAspectDifferences();
                         }
@@ -2111,14 +2123,14 @@ namespace CrossCam.ViewModel
                     }
                 }
 
-                if (Settings.IsFovCorrectionSet &&
-                    (Settings.FovPrimaryCorrection != 0 ||
-                     Settings.FovSecondaryCorrection != 0))
+                if (Settings.PairSettings.IsFovCorrectionSet &&
+                    (Settings.PairSettings.FovPrimaryCorrection != 0 ||
+                     Settings.PairSettings.FovSecondaryCorrection != 0))
                 {
                     double zoomAmount;
-                    if (Settings.FovPrimaryCorrection > 0)
+                    if (Settings.PairSettings.FovPrimaryCorrection > 0)
                     {
-                        zoomAmount = Settings.FovPrimaryCorrection + 1;
+                        zoomAmount = Settings.PairSettings.FovPrimaryCorrection + 1;
                         if (Settings.IsCaptureLeftFirst)
                         {
                             LeftBitmap = ZoomBitmap(zoomAmount, LeftBitmap);
@@ -2130,7 +2142,7 @@ namespace CrossCam.ViewModel
                     }
                     else
                     {
-                        zoomAmount = Settings.FovSecondaryCorrection + 1;
+                        zoomAmount = Settings.PairSettings.FovSecondaryCorrection + 1;
                         if (Settings.IsCaptureLeftFirst)
                         {
                             RightBitmap = ZoomBitmap(zoomAmount, RightBitmap);

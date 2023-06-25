@@ -60,8 +60,8 @@ namespace AutoAlignment
             using var mat1 = new Mat();
             using var mat2 = new Mat();
             using var warpMatrix = Mat.Eye(2, 3, DepthType.Cv32F, 1);
-            var termCriteria = new MCvTermCriteria(settings.EccIterations, Math.Pow(10, -settings.EccEpsilonLevel));
-            for (var ii = settings.EccPyramidLayers - 1; ii >= 0; ii--)
+            var termCriteria = new MCvTermCriteria((int)settings.EccIterations, Math.Pow(10, -settings.EccEpsilonLevel));
+            for (var ii = (int)settings.EccPyramidLayers - 1; ii >= 0; ii--)
             {
                 var downsize = topDownsizeFactor / Math.Pow(2, ii);
                 CvInvoke.Imdecode(GetBytes(firstImage, downsize), ImreadModes.Grayscale, mat1);
