@@ -1362,7 +1362,6 @@ namespace CrossCam.ViewModel
             {
                 if (WorkflowStage == WorkflowStage.Final)
                 {
-                    Debug.WriteLine("### Sending to auto align");
                     AutoAlign();
                 }
             }
@@ -2323,7 +2322,6 @@ namespace CrossCam.ViewModel
 
         private static SKBitmap AutoOrient(SKBitmap bitmap, SKEncodedOrigin origin, bool isFrontFacing)
         {
-            Debug.WriteLine("### orientation: " + origin);
             SKBitmap rotated;
             switch (origin)
             {
