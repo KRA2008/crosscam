@@ -15,6 +15,7 @@ using CrossCam.Wrappers;
 using Microsoft.AppCenter.Analytics;
 using Microsoft.AppCenter.Crashes;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using Plugin.DeviceInfo;
 using SkiaSharp;
 using Xamarin.Essentials;
@@ -223,10 +224,11 @@ namespace CrossCam.ViewModel
 
         private bool _isClearPromptOpen;
 
-        public bool ShouldPairButtonBeVisible => IsNothingCaptured || 
+        public bool ShouldPairButtonBeVisible => (IsNothingCaptured || 
                                                  (WorkflowStage == WorkflowStage.Final || 
                                                   WorkflowStage == WorkflowStage.Edits) && 
-                                                 PairOperator.PairStatus == PairStatus.Connected;
+                                                 PairOperator.PairStatus == PairStatus.Connected) &&
+                                                 !Settings.IsCaptureInMirrorMode;
         public Rectangle PairButtonPosition
         {
             get
@@ -1069,27 +1071,56 @@ namespace CrossCam.ViewModel
 
             PromptForPermissionAndSendErrorEmailCommand = new Command(async () =>
             {
+                const int APP_CENTER_PROPERTY_COUNT_LIMIT = 20;
+                const int APP_CENTER_PROPERTY_LENGTH_LIMIT = 125;
                 SendCommandStartAnalyticsEvent(nameof(PromptForPermissionAndSendErrorEmailCommand));
                 Debugger.Break();
                 Debug.WriteLine("### ERROR: " + Error);
 
-                Crashes.TrackError(Error, new Dictionary<string, string>
+                var deviceInfoDictionary = new Dictionary<string, string>
                 {
-                    {"Device Platform", DeviceInfo.Platform.ToString()},
-                    {"Device Manufacturer", DeviceInfo.Manufacturer},
-                    {"Device Model", DeviceInfo.Model},
-                    {"Device Width", Application.Current.MainPage.Width.ToString()},
-                    {"Device Height", Application.Current.MainPage.Height.ToString()},
-                    {"OS Version Number", DeviceInfo.Version.ToString()},
-                    {"OS Version String", DeviceInfo.VersionString},
+                    {"Platform", DeviceInfo.Platform.ToString()},
+                    {"Manufacturer", DeviceInfo.Manufacturer},
+                    {"Model", DeviceInfo.Model},
+                    {"Width", Math.Round(Application.Current.MainPage.Width).ToString()},
+                    {"Height", Math.Round(Application.Current.MainPage.Height).ToString()},
+                    {"vNumber", DeviceInfo.Version.ToString()},
+                    {"vString", DeviceInfo.VersionString},
                     {"App Version", CrossDeviceInfo.Current.AppVersion},
                     {"App Build", CrossDeviceInfo.Current.AppBuild},
-                    {"Idiom", CrossDeviceInfo.Current.Idiom.ToString()},
-                    {"Settings", JsonConvert.SerializeObject(Settings)}
-                });
-//
-                    //await CoreMethods.DisplayAlert("ERROR", Error.ToString(), "OK");
-//#else
+                    {"Idiom", CrossDeviceInfo.Current.Idiom.ToString()}
+                };
+                var propertiesString = JsonConvert.SerializeObject(deviceInfoDictionary);
+                propertiesString += JsonConvert.SerializeObject(Settings);
+                propertiesString = propertiesString
+                    .Replace("a", "")
+                    .Replace("e", "")
+                    .Replace("i", "")
+                    .Replace("o", "")
+                    .Replace("u", "")
+                    .Replace("y", "")
+                    .Replace("{", "")
+                    .Replace("}", "")
+                    .Replace("\"","");
+                var propertiesDictionary = new Dictionary<string, string>();
+                for (var ii = 0; ii < APP_CENTER_PROPERTY_COUNT_LIMIT; ii++)
+                {
+                    var startIndex = APP_CENTER_PROPERTY_LENGTH_LIMIT * ii;
+                    string stringChunk;
+                    if (startIndex + APP_CENTER_PROPERTY_LENGTH_LIMIT >= propertiesString.Length)
+                    {
+                        stringChunk = propertiesString.Substring(startIndex);
+                        propertiesDictionary.Add(ii.ToString(), stringChunk);
+                        break;
+                    }
+
+                    stringChunk = propertiesString.Substring(startIndex, APP_CENTER_PROPERTY_LENGTH_LIMIT);
+                    propertiesDictionary.Add(ii.ToString(), stringChunk);
+                }
+                Crashes.TrackError(Error, propertiesDictionary);
+#if DEBUG
+                await CoreMethods.DisplayAlert("ERROR", Error.ToString(), "OK");
+#else
                 if (Settings.SendErrorReports1)
                 {
                     var sendReport = await CoreMethods.DisplayAlert("Oops",
@@ -1111,7 +1142,7 @@ namespace CrossCam.ViewModel
                 {
                     Analytics.TrackEvent("error, but error reports turned off");
                 }
-
+#endif
                 Error = null;
             });
 
@@ -1147,7 +1178,8 @@ namespace CrossCam.ViewModel
                     else
                     {
                         PairOperator.Disconnect(WorkflowStage != WorkflowStage.Capture &&
-                                                WorkflowStage != WorkflowStage.Syncing);
+                                                WorkflowStage != WorkflowStage.Syncing ||
+                                                PairOperator.PairStatus == PairStatus.Connecting);
                     }
                 }
                 catch (Exception e)
@@ -1577,6 +1609,7 @@ namespace CrossCam.ViewModel
                 RaisePropertyChanged(nameof(ShouldLeftLoadBeVisible));
                 RaisePropertyChanged(nameof(ShouldRightLoadBeVisible));
                 RaisePropertyChanged(nameof(IsFullscreenToggleVisible));
+                RaisePropertyChanged(nameof(ShouldPairButtonBeVisible));
 
                 RaisePropertyChanged(nameof(CaptureButtonPosition));
                 RaisePropertyChanged(nameof(PairButtonPosition));

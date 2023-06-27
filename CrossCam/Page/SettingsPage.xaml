@@ -276,18 +276,18 @@
                         <RowDefinition Height="Auto"/>
                     </Grid.RowDefinitions>
 
-                    <Button Grid.Column="0"
-                            Grid.ColumnSpan="2"
-                            Grid.Row="0"
-                            Text="Go to Pairing Setup Page"
-                            Command="{Binding NavigateToPairingPageCommand}"/>
-
                     <Label Grid.Column="0"
                            Grid.ColumnSpan="2"
-                           Grid.Row="1"
+                           Grid.Row="0"
                            HorizontalOptions="CenterAndExpand"
-                           IsVisible="{Binding Settings.PairSettings.IsPairedPrimary.HasValue}">
+                           Text="Role not selected">
                         <Label.Triggers>
+                            <DataTrigger TargetType="Label"
+                                         Binding="{Binding Settings.PairSettings.IsPairedPrimary.HasValue}"
+                                         Value="False">
+                                <Setter Property="Text"
+                                        Value="Role not selected"/>
+                            </DataTrigger>
                             <DataTrigger TargetType="Label"
                                          Binding="{Binding Settings.PairSettings.IsPairedPrimary, Converter={StaticResource nullableBoolean}}"
                                          Value="True">
@@ -302,6 +302,12 @@
                             </DataTrigger>
                         </Label.Triggers>
                     </Label>
+
+                    <Button Grid.Column="0"
+                            Grid.ColumnSpan="2"
+                            Grid.Row="1"
+                            Text="Go to Pairing Setup Page"
+                            Command="{Binding NavigateToPairingPageCommand}"/>
 
                     <Label Grid.Column="0"
                            Grid.Row="2"
