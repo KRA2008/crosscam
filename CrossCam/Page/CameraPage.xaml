@@ -1683,6 +1683,14 @@
                                          Trigger="{Binding AutomaticAlignmentNotSupportedTrigger}"/>
             </Label.Behaviors>
         </Label>
+        <Label Text="Automatic alignment not supported for mirror mode - remember to do manual alignment."
+               Style="{StaticResource _feedback}"
+               IsVisible="False">
+            <Label.Behaviors>
+                <ce:FadeInAndOutBehavior VisibleTimeMs="3000"
+                                         Trigger="{Binding MirrorModeNoAutoAlignTrigger}"/>
+            </Label.Behaviors>
+        </Label>
         <ContentView AbsoluteLayout.LayoutFlags="All"
                      AbsoluteLayout.LayoutBounds="0,0,1,1"
                      IsVisible="{Binding WorkflowStage, Converter={StaticResource enumCompare}, ConverterParameter={x:Static vm:WorkflowStage.View}}">

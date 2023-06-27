@@ -208,6 +208,7 @@ namespace CrossCam.ViewModel
         public bool AlignmentFailFadeTrigger { get; set; }
         public bool SaveFailFadeTrigger { get; set; }
         public bool SaveSuccessFadeTrigger { get; set; }
+        public bool MirrorModeNoAutoAlignTrigger { get; set; }
 
         public bool SwitchToContinuousFocusTrigger { get; set; }
         public bool IsFocusCircleVisible { get; set; }
@@ -1657,7 +1658,8 @@ namespace CrossCam.ViewModel
 
         private void TryTriggerMovementHint(bool suppressWhenPaired = false)
         {
-            if (LeftBitmap == null ^ RightBitmap == null ||
+            if (LeftBitmap == null ^ RightBitmap == null && 
+                !Settings.IsCaptureInMirrorMode ||
                 PairOperator.PairStatus == PairStatus.Connected &&
                 Settings.PairSettings.IsPairedPrimary.HasValue &&
                 Settings.PairSettings.IsPairedPrimary.Value &&
@@ -1776,6 +1778,13 @@ namespace CrossCam.ViewModel
             {
                 ClearAutoAlignment();
                 _isAlignmentInvalid = false;
+                return;
+            }
+
+            if (Settings.AlignmentSettings.IsAutomaticAlignmentOn &&
+                Settings.IsCaptureInMirrorMode)
+            {
+                MirrorModeNoAutoAlignTrigger = !MirrorModeNoAutoAlignTrigger;
                 return;
             }
 
