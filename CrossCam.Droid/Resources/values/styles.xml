@@ -19,12 +19,14 @@
     <!-- You can also set colorControlNormal, colorControlActivated
       colorControlHighlight and colorSwitchThumbNormal. -->
     <item name="windowActionModeOverlay">true</item>
+    <item name="android:windowBackground">#000000</item>
+    <item name="android:windowSplashScreenBackground">#000000</item>
     <item name="drawerArrowStyle">@style/DrawerArrowStyle</item>
   </style>
 
   <style name="DrawerArrowStyle" parent="@style/Widget.AppCompat.DrawerArrowToggle">
     <item name="spinBars">true</item>
-    <item name="color">#ffffff</item>
+    <item name="color">#000000</item>
   </style>
 
   <style name="SplashTheme" parent ="Theme.AppCompat.Light.NoActionBar">
