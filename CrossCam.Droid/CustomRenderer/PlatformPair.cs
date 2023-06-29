@@ -213,7 +213,7 @@ namespace CrossCam.Droid.CustomRenderer
 
             public override void OnConnectionResult(string p0, ConnectionResolution p1)
             {
-                //Debug.WriteLine("### OnConnectionResult " + p0 + ", " + p1.Status.StatusMessage);
+                Debug.WriteLine("### OnConnectionResult " + p0 + ", " + p1.Status.StatusMessage);
                 if (p1.Status.IsSuccess)
                 {
                     _platformPair._connectedPartnerId = p0;

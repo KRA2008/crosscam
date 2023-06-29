@@ -352,6 +352,7 @@ namespace CrossCam.Droid.CustomRenderer
 
                 if (e.PropertyName == nameof(_cameraModule.RestartPreviewTrigger))
                 {
+                    System.Diagnostics.Debug.WriteLine("### Restarting preview");
                     if (_useCamera2)
                     {
                         OpenCamera2();
@@ -365,7 +366,7 @@ namespace CrossCam.Droid.CustomRenderer
                     }
                 }
             }
-            catch (System.Exception ex)
+            catch (Exception ex)
             {
                 _cameraModule.Error = ex;
             }
@@ -433,7 +434,7 @@ namespace CrossCam.Droid.CustomRenderer
                     }
                 }
             }
-            catch (System.Exception e)
+            catch (Exception e)
             {
                 _cameraModule.Error = e;
             }
@@ -682,7 +683,7 @@ namespace CrossCam.Droid.CustomRenderer
                     }
                 }
             }
-            catch (System.Exception ex)
+            catch (Exception ex)
             {
                 _cameraModule.Error = ex;
             }
@@ -1175,8 +1176,17 @@ namespace CrossCam.Droid.CustomRenderer
         {
             try
             {
-                if (_openingCamera2 || _surfaceTexture == null || _camera2Id == null)
+                if (_openingCamera2 || 
+                    _surfaceTexture == null || 
+                    _camera2Id == null)
                 {
+                    System.Diagnostics.Debug.WriteLine("### opening camera averted because not initialized fully");
+                    return;
+                }
+
+                if (_camera2Session != null)
+                {
+                    System.Diagnostics.Debug.WriteLine("### opening camera averted because session already running");
                     return;
                 }
 
@@ -1189,7 +1199,7 @@ namespace CrossCam.Droid.CustomRenderer
                 StartBackgroundThread();
                 _cameraManager.OpenCamera(_camera2Id, _stateListener, null);
             }
-            catch (System.Exception e)
+            catch (Exception e)
             {
                 _cameraModule.Error = e;
             }
@@ -1244,7 +1254,7 @@ namespace CrossCam.Droid.CustomRenderer
                                 session.SetRepeatingRequest(_previewRequestBuilder.Build(), _previewCaptureListener,
                                     _backgroundHandler);
                             }
-                            catch (System.Exception ex)
+                            catch (Exception ex)
                             {
                                 _cameraModule.Error = ex;
                             }
@@ -1253,7 +1263,7 @@ namespace CrossCam.Droid.CustomRenderer
                     null);
                 _openingCamera2 = false;
             }
-            catch (System.Exception e)
+            catch (Exception e)
             {
                 _cameraModule.Error = e;
             }
@@ -1368,7 +1378,7 @@ namespace CrossCam.Droid.CustomRenderer
                     }
                 }
             }
-            catch (System.Exception e)
+            catch (Exception e)
             {
                 _cameraModule.Error = e;
             }

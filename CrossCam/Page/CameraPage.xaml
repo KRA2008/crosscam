@@ -38,7 +38,7 @@
             <x:Double x:Key="_editModeInnerButtons">0.8</x:Double>
             <Rect x:Key="_finalSaveBounds" X="0.5" Y="1" Width="{StaticResource _giantIconWidth}" Height="{StaticResource _giantIconWidth}"/>
             <Rect x:Key="_clearBounds" X="0.5" Y="{StaticResource _topMiddleButtonY}" Width="{StaticResource _largeIconWidth}" Height="{StaticResource _largeIconWidth}"/>
-            <Rect x:Key="_swipeBounds" X="0.5" Y="{StaticResource _topMiddleButtonY}" Width="150" Height="60"/>
+            <Rect x:Key="_swipeBounds" X="0.5" Y="0" Width="150" Height="60"/>
             <Rect x:Key="_swipeHintBounds" X="0" Y="{StaticResource _topMiddleButtonY}" Width="1" Height="{StaticResource _largeIconWidth}"/>
             <Rect x:Key="_cropBounds" X="0.5" Y="0.6" Width="{StaticResource _mediumIconWidth}" Height="{StaticResource _mediumIconWidth}"/>
             <Rect x:Key="_viewBounds" X="0.5" Y="{StaticResource _secondMiddleButtonY}" Width="{StaticResource _mediumIconWidth}" Height="{StaticResource _mediumIconWidth}"/>
@@ -348,28 +348,29 @@
                    AbsoluteLayout.LayoutBounds="0.5,0,15,1"/>
         </AbsoluteLayout>
 
-        <ContentView AbsoluteLayout.LayoutFlags="PositionProportional"
+        <StackLayout AbsoluteLayout.LayoutFlags="PositionProportional"
                      AbsoluteLayout.LayoutBounds="{StaticResource _swipeBounds}"
-                     Padding="{StaticResource _topBarButtonPadding}"
-                     IsVisible="{Binding WorkflowStage, Converter={StaticResource enumCompare}, ConverterParameter={x:Static vm:WorkflowStage.Capture}}">
-            <ContentView.GestureRecognizers>
+                     IsVisible="{Binding ShouldSwapSidesBeVisible}">
+            <StackLayout.GestureRecognizers>
                 <TapGestureRecognizer Command="{Binding SwapSidesCommand}"/>
                 <SwipeGestureRecognizer Command="{Binding SwapSidesCommand}"
                                         Direction="Left,Right"
                                         Threshold="50"/>
-            </ContentView.GestureRecognizers>
-            <Label Text="(swipe to swap)"
+            </StackLayout.GestureRecognizers>
+            <Image Source="swap"
+                   HorizontalOptions="Center"/>
+            <Label Text="(or swipe)"
                    HorizontalTextAlignment="Center">
                 <Label.Triggers>
                     <DataTrigger TargetType="Label"
                                  Binding="{Binding Settings.Mode, Converter={StaticResource enumCompare}, ConverterParameter={x:Static vm:DrawMode.Cardboard}}"
                                  Value="True">
                         <Setter Property="Text"
-                                Value="(tip to swap)"/>
+                                Value="(or tip)"/>
                     </DataTrigger>
                 </Label.Triggers>
             </Label>
-        </ContentView>
+        </StackLayout>
         <ContentView AbsoluteLayout.LayoutFlags="PositionProportional"
                      AbsoluteLayout.LayoutBounds="{Binding CaptureButtonPosition}"
                      Padding="{StaticResource _bottomPadding}"

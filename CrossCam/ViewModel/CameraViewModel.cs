@@ -283,7 +283,10 @@ namespace CrossCam.ViewModel
                                                 WorkflowStage == WorkflowStage.Capture && 
                                                 Settings.PortraitCaptureButtonPosition == PortraitCaptureButtonPosition.Middle && 
                                                 PairOperator.PairStatus != PairStatus.Connected;
-
+        public bool ShouldSwapSidesBeVisible => WorkflowStage == WorkflowStage.Capture &&
+                                                IsExactlyOnePictureTaken ||
+                                                Settings.IsCaptureInMirrorMode ||
+                                                PairOperatorBindable.PairStatus == PairStatus.Connected;
         public bool ShouldSettingsAndHelpBeVisible => !IsBusy && 
                                                       WorkflowStage != WorkflowStage.View;
         public bool IsExactlyOnePictureTaken => LeftBitmap == null ^ RightBitmap == null;
@@ -1212,7 +1215,7 @@ namespace CrossCam.ViewModel
             PairOperator.InitialSyncCompleted += PairOperatorInitialSyncCompleted;
             PairOperator.TransmissionStarted += PairOperatorTransmissionStarted;
             PairOperator.TransmissionComplete += PairOperatorTransmissionComplete;
-            PairOperator.CountdownTimerSyncCompleteSecondary += PairOperatorCountdownTimerSyncCompleteSecondary;
+            PairOperator.CountdownDisplayTimerCompleteSecondary += PairOperatorCountdownDisplayTimerCompleteSecondary;
             PairOperator.ErrorOccurred += PairOperatorOnErrorOccurred;
 
             var settingsDictionary = JsonConvert
@@ -1248,7 +1251,7 @@ namespace CrossCam.ViewModel
             PairOperator.SyncRequested -= PairOperatorOnSyncRequested;
             PairOperator.TransmissionStarted -= PairOperatorTransmissionStarted;
             PairOperator.TransmissionComplete -= PairOperatorTransmissionComplete;
-            PairOperator.CountdownTimerSyncCompleteSecondary -= PairOperatorCountdownTimerSyncCompleteSecondary;
+            PairOperator.CountdownDisplayTimerCompleteSecondary -= PairOperatorCountdownDisplayTimerCompleteSecondary;
             PairOperator.ErrorOccurred -= PairOperatorOnErrorOccurred;
         }
 
@@ -1437,7 +1440,7 @@ namespace CrossCam.ViewModel
             _isAlignmentInvalid = true;
         }
 
-        private void PairOperatorCountdownTimerSyncCompleteSecondary(object sender, EventArgs e)
+        private void PairOperatorCountdownDisplayTimerCompleteSecondary(object sender, EventArgs e)
         {
             if (!PairOperator.IsPrimary)
             {
@@ -1483,6 +1486,7 @@ namespace CrossCam.ViewModel
             RaisePropertyChanged(nameof(ShouldRightLoadBeVisible));
             RaisePropertyChanged(nameof(IsFullscreenToggleVisible));
             RaisePropertyChanged(nameof(ShouldPairButtonBeVisible));
+            RaisePropertyChanged(nameof(ShouldSwapSidesBeVisible));
             RestartPreviewTrigger = !RestartPreviewTrigger;
         }
 
@@ -1496,6 +1500,7 @@ namespace CrossCam.ViewModel
             RaisePropertyChanged(nameof(ShouldCenterLoadBeVisible));
             RaisePropertyChanged(nameof(ShouldRightLoadBeVisible));
             RaisePropertyChanged(nameof(IsFullscreenToggleVisible));
+            RaisePropertyChanged(nameof(ShouldSwapSidesBeVisible));
             StopPreviewTrigger = !StopPreviewTrigger;
         }
 
@@ -1610,6 +1615,7 @@ namespace CrossCam.ViewModel
                 RaisePropertyChanged(nameof(ShouldRightLoadBeVisible));
                 RaisePropertyChanged(nameof(IsFullscreenToggleVisible));
                 RaisePropertyChanged(nameof(ShouldPairButtonBeVisible));
+                RaisePropertyChanged(nameof(ShouldSwapSidesBeVisible));
 
                 RaisePropertyChanged(nameof(CaptureButtonPosition));
                 RaisePropertyChanged(nameof(PairButtonPosition));
