@@ -12,7 +12,7 @@ using Xamarin.Forms;
 namespace CrossCam.iOS
 {
 	[Register ("AppDelegate")]
-	public partial class AppDelegate : Xamarin.Forms.Platform.iOS.FormsApplicationDelegate
+	public class AppDelegate : Xamarin.Forms.Platform.iOS.FormsApplicationDelegate
 	{
 	    private App _app;
 
@@ -30,9 +30,15 @@ namespace CrossCam.iOS
 		    return success;
 		}
 
+        public override UIInterfaceOrientationMask GetSupportedInterfaceOrientations(UIApplication application, UIWindow forWindow)
+        {
+            return UIInterfaceOrientationMask.All;
+        }
+
         public override void ReceiveMemoryWarning(UIApplication application)
         {
 			Debug.WriteLine("### LOW MEMORY! OH NO!");
+			Analytics.TrackEvent("low memory");
             Debug.WriteLine("state: " + application.ApplicationState);
 		}
 
