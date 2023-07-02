@@ -282,9 +282,9 @@ namespace CrossCam.ViewModel
                                                 Settings.PortraitCaptureButtonPosition == PortraitCaptureButtonPosition.Middle && 
                                                 PairOperator.PairStatus != PairStatus.Connected;
         public bool ShouldSwapSidesBeVisible => WorkflowStage == WorkflowStage.Capture &&
-                                                IsExactlyOnePictureTaken ||
+                                                (IsExactlyOnePictureTaken ||
                                                 Settings.IsCaptureInMirrorMode ||
-                                                PairOperatorBindable.PairStatus == PairStatus.Connected;
+                                                PairOperatorBindable.PairStatus == PairStatus.Connected);
         public bool ShouldSettingsAndHelpBeVisible => !IsBusy && 
                                                       WorkflowStage != WorkflowStage.View;
         public bool IsExactlyOnePictureTaken => LeftBitmap == null ^ RightBitmap == null;
@@ -362,28 +362,27 @@ namespace CrossCam.ViewModel
         public Command SlidingStartedCommand { get; set; }
         public Command SlidingFinishedCommand { get; set; }
 
-        public bool ShouldLineGuidesBeVisible => (IsNothingCaptured && Settings.ShowGuideLinesWithFirstCapture
-                                                  || IsExactlyOnePictureTaken && WorkflowStage != WorkflowStage.Loading
-                                                  || PairOperator.IsPrimary && PairOperator.PairStatus == PairStatus.Connected && WorkflowStage == WorkflowStage.Capture)
-                                                 && Settings.AreGuideLinesVisible
-                                                 || WorkflowStage == WorkflowStage.Keystone
-                                                 || WorkflowStage == WorkflowStage.ManualAlign
-                                                 || WorkflowStage == WorkflowStage.FovCorrection;
-        public bool ShouldDonutGuideBeVisible => (IsNothingCaptured && Settings.ShowGuideDonutWithFirstCapture
-                                                 || IsExactlyOnePictureTaken && WorkflowStage != WorkflowStage.Loading
-                                                 || PairOperator.IsPrimary && PairOperator.PairStatus == PairStatus.Connected && WorkflowStage == WorkflowStage.Capture)
-                                                 && Settings.IsGuideDonutVisible;
-
+        public bool ShouldLineGuidesBeVisible => 
+            (IsNothingCaptured && Settings.ShowGuideLinesWithFirstCapture || 
+             IsExactlyOnePictureTaken && WorkflowStage != WorkflowStage.Loading || 
+             PairOperator.IsPrimary && PairOperator.PairStatus == PairStatus.Connected && 
+             WorkflowStage == WorkflowStage.Capture) && Settings.AreGuideLinesVisible || 
+            WorkflowStage == WorkflowStage.Keystone || WorkflowStage == WorkflowStage.ManualAlign || 
+            WorkflowStage == WorkflowStage.FovCorrection;
+        public bool ShouldDonutGuideBeVisible => 
+            ((IsExactlyOnePictureTaken || IsNothingCaptured && Settings.IsCaptureInMirrorMode) && 
+             WorkflowStage != WorkflowStage.Loading || PairOperator.IsPrimary && 
+             PairOperator.PairStatus == PairStatus.Connected && WorkflowStage == WorkflowStage.Capture) && 
+            Settings.IsGuideDonutVisible && Settings.Mode != DrawMode.RedCyanAnaglyph && 
+            Settings.Mode != DrawMode.GrayscaleRedCyanAnaglyph && !IsFullscreenToggle;
         public bool ShouldRollGuideBeVisible => WorkflowStage == WorkflowStage.Capture && Settings.ShowRollGuide;
-        public bool ShouldViewButtonBeVisible => (WorkflowStage == WorkflowStage.Final ||
-                                                 WorkflowStage == WorkflowStage.Crop ||
-                                                 WorkflowStage == WorkflowStage.Keystone ||
-                                                 WorkflowStage == WorkflowStage.ManualAlign) &&
-                                                 !IsSlidingHappening;
-        public bool ShouldClearEditButtonBeVisible => (WorkflowStage == WorkflowStage.Crop ||
-                                                      WorkflowStage == WorkflowStage.Keystone ||
-                                                      WorkflowStage == WorkflowStage.ManualAlign) &&
-                                                      !IsSlidingHappening;
+        public bool ShouldViewButtonBeVisible => 
+            (WorkflowStage == WorkflowStage.Final || WorkflowStage == WorkflowStage.Crop ||
+             WorkflowStage == WorkflowStage.Keystone || WorkflowStage == WorkflowStage.ManualAlign) &&
+            !IsSlidingHappening;
+        public bool ShouldClearEditButtonBeVisible => 
+            (WorkflowStage == WorkflowStage.Crop || WorkflowStage == WorkflowStage.Keystone ||
+             WorkflowStage == WorkflowStage.ManualAlign) && !IsSlidingHappening;
         public bool IsBusy => WorkflowStage == WorkflowStage.Loading ||
                               WorkflowStage == WorkflowStage.AutomaticAlign ||
                               WorkflowStage == WorkflowStage.Transmitting ||

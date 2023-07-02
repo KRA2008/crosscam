@@ -37,8 +37,8 @@ namespace CrossCam.Page
 	    private readonly ImageSource _levelOutsideGreenImage = ImageSource.FromFile("horizontalLevelOutsideGreen");
 
         private const double RETICLE_WIDTH = 30;
-        private readonly Rectangle _leftReticleBounds = new Rectangle(0.5, 0.5, RETICLE_WIDTH, RETICLE_WIDTH);
-        private readonly Rectangle _rightReticleBounds = new Rectangle(0.5, 0.5, RETICLE_WIDTH, RETICLE_WIDTH);
+        private readonly Rectangle _leftReticleNonMirrorBounds = new Rectangle(0.5, 0.5, RETICLE_WIDTH, RETICLE_WIDTH);
+        private readonly Rectangle _rightReticleNonMirrorBounds = new Rectangle(0.5, 0.5, RETICLE_WIDTH, RETICLE_WIDTH);
 
         public const double FOCUS_CIRCLE_WIDTH = 30;
 
@@ -730,15 +730,51 @@ namespace CrossCam.Page
                 AbsoluteLayout.SetLayoutBounds(_lowerLinePanner, _lowerLineBoundsLandscape);
             }
 
-            AbsoluteLayout.SetLayoutFlags(_leftReticle, AbsoluteLayoutFlags.PositionProportional);
-            AbsoluteLayout.SetLayoutBounds(_leftReticle, _leftReticleBounds);
-            AbsoluteLayout.SetLayoutFlags(_leftReticlePanner, AbsoluteLayoutFlags.PositionProportional);
-            AbsoluteLayout.SetLayoutBounds(_leftReticlePanner, _leftReticleBounds);
+            Rectangle leftTempBounds, rightTempBounds;
+            if (_viewModel?.Settings.IsCaptureInMirrorMode == true &&
+                !_viewModel.IsViewPortrait &&
+                _viewModel.LocalPreviewFrame != null)
+            {
+                float previewWidth = Math.Max(_viewModel.LocalPreviewFrame.Frame.Width,
+                    _viewModel.LocalPreviewFrame.Frame.Height);
+                float previewHeight = Math.Min(_viewModel.LocalPreviewFrame.Frame.Width,
+                    _viewModel.LocalPreviewFrame.Frame.Height);
+                //previewHeight += DrawTool.CalculateFuseGuideMarginHeight(previewHeight);
+                var previewAspectRatio = previewWidth / (2d * previewHeight);
+                var screenSideWidth = Math.Max(Height, Width) / 2d;
+                var screenHeight = Math.Min(Height, Width);
+                var sideWidth = previewAspectRatio * screenHeight;
+                var proportion = sideWidth / screenSideWidth;
 
-            AbsoluteLayout.SetLayoutFlags(_rightReticle, AbsoluteLayoutFlags.PositionProportional);
-            AbsoluteLayout.SetLayoutBounds(_rightReticle, _rightReticleBounds);
-            AbsoluteLayout.SetLayoutFlags(_rightReticlePanner, AbsoluteLayoutFlags.PositionProportional);
-            AbsoluteLayout.SetLayoutBounds(_rightReticlePanner, _rightReticleBounds);
+                leftTempBounds = new Rectangle(1- proportion, 0.5, RETICLE_WIDTH, RETICLE_WIDTH);
+                rightTempBounds = new Rectangle(proportion, 0.5, RETICLE_WIDTH, RETICLE_WIDTH);
+
+
+                AbsoluteLayout.SetLayoutFlags(_leftReticle, AbsoluteLayoutFlags.PositionProportional);
+                AbsoluteLayout.SetLayoutBounds(_leftReticle, leftTempBounds);
+                AbsoluteLayout.SetLayoutFlags(_leftReticlePanner, AbsoluteLayoutFlags.PositionProportional);
+                AbsoluteLayout.SetLayoutBounds(_leftReticlePanner, leftTempBounds);
+
+                AbsoluteLayout.SetLayoutFlags(_rightReticle, AbsoluteLayoutFlags.PositionProportional);
+                AbsoluteLayout.SetLayoutBounds(_rightReticle, rightTempBounds);
+                AbsoluteLayout.SetLayoutFlags(_rightReticlePanner, AbsoluteLayoutFlags.PositionProportional);
+                AbsoluteLayout.SetLayoutBounds(_rightReticlePanner, rightTempBounds);
+            }
+            else
+            {
+                leftTempBounds = _leftReticleNonMirrorBounds;
+                rightTempBounds = _rightReticleNonMirrorBounds;
+
+                AbsoluteLayout.SetLayoutFlags(_leftReticle, AbsoluteLayoutFlags.PositionProportional);
+                AbsoluteLayout.SetLayoutBounds(_leftReticle, leftTempBounds);
+                AbsoluteLayout.SetLayoutFlags(_leftReticlePanner, AbsoluteLayoutFlags.PositionProportional);
+                AbsoluteLayout.SetLayoutBounds(_leftReticlePanner, leftTempBounds);
+
+                AbsoluteLayout.SetLayoutFlags(_rightReticle, AbsoluteLayoutFlags.PositionProportional);
+                AbsoluteLayout.SetLayoutBounds(_rightReticle, rightTempBounds);
+                AbsoluteLayout.SetLayoutFlags(_rightReticlePanner, AbsoluteLayoutFlags.PositionProportional);
+                AbsoluteLayout.SetLayoutBounds(_rightReticlePanner, rightTempBounds);
+            }
         }
 
         private void PlaceRollGuide()

@@ -949,7 +949,6 @@
                         <RowDefinition Height="Auto"/>
                         <RowDefinition Height="50"/>
                         <RowDefinition Height="60"/>
-                        <RowDefinition Height="Auto"/>
                         <RowDefinition Height="60"/>
                     </Grid.RowDefinitions>
 
@@ -984,19 +983,10 @@
                             IsToggled="{Binding Settings.IsGuideDonutVisible}"/>
 
                     <Label Grid.Column="0"
-                           Grid.Row="4"
-                           Text="Donut/dot visible before first capture"
-                           IsVisible="{Binding Settings.IsGuideDonutVisible}"/>
-                    <Switch Grid.Column="1"
-                            Grid.Row="4"
-                            IsToggled="{Binding Settings.ShowGuideDonutWithFirstCapture}"
-                            IsVisible="{Binding Settings.IsGuideDonutVisible}"/>
-
-                    <Label Grid.Column="0"
-                           Grid.Row="5" 
+                           Grid.Row="4" 
                            Text="Show fuse guide (a dot above each side)"/>
                     <Switch Grid.Column="1"
-                            Grid.Row="5" 
+                            Grid.Row="4" 
                             IsToggled="{Binding Settings.ShowPreviewFuseGuide}"/>
                 </Grid>
             </views:Expander>

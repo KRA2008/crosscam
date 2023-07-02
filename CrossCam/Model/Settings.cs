@@ -87,7 +87,6 @@ namespace CrossCam.Model
         public bool HasOfferedTechniqueHelpBefore2 { get; set; }
         public bool HasShownDirectionsBefore { get; set; }
         public bool ShowGuideLinesWithFirstCapture { get; set; }
-        public bool ShowGuideDonutWithFirstCapture { get; set; }
         public bool ShowRollGuide { get; set; }
         public bool FullscreenCapturing { get; set; }
         public bool FullscreenEditing { get; set; }
@@ -222,19 +221,7 @@ namespace CrossCam.Model
             }
         }
 
-        private bool _isGuideDonutVisible;
-        public bool IsGuideDonutVisible
-        {
-            get => _isGuideDonutVisible;
-            set
-            {
-                _isGuideDonutVisible = value;
-                if (!value)
-                {
-                    ShowGuideDonutWithFirstCapture = false;
-                }
-            }
-        }
+        public bool IsGuideDonutVisible { get; set; }
 
         private bool _saveSidesSeparately;
         public bool SaveSidesSeparately
@@ -284,7 +271,6 @@ namespace CrossCam.Model
 
             ShowGuideLinesWithFirstCapture = false;
             IsGuideDonutVisible = false;
-            ShowGuideDonutWithFirstCapture = false;
             ShowPreviewFuseGuide = true;
             FullscreenCapturing = false;
             FullscreenEditing = false;
