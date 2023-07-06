@@ -18,6 +18,7 @@ using Plugin.DeviceInfo;
 using SkiaSharp;
 using Xamarin.Essentials;
 using Xamarin.Forms;
+using DeviceInfo = Xamarin.Essentials.DeviceInfo;
 using ErrorEventArgs = CrossCam.CustomElement.ErrorEventArgs;
 using Exception = System.Exception;
 using Rectangle = Xamarin.Forms.Rectangle;
@@ -100,6 +101,7 @@ namespace CrossCam.ViewModel
         }
 
         public double PreviewBottomY { get; set; }
+        public double PreviewAspectRatio { get; set; }
 
         public Command CapturePictureCommand { get; set; }
         public bool CapturePictureTrigger { get; set; }
@@ -197,8 +199,9 @@ namespace CrossCam.ViewModel
 
         public Command LoadPhotoCommand { get; set; }
 
-        public bool IsViewPortrait { get; set; }
-        public bool IsViewInverted { get; set; }
+        public bool IsViewPortrait => DeviceDisplay.MainDisplayInfo.Orientation == DisplayOrientation.Portrait;
+        public bool IsViewInverted => DeviceDisplay.MainDisplayInfo.Rotation == DisplayRotation.Rotation180 ||
+                                      DeviceDisplay.MainDisplayInfo.Rotation == DisplayRotation.Rotation270;
         public bool WasCapturePortrait { get; set; }
         public bool WasCaptureCross { get; set; }
         public bool WasCapturePaired { get; set; }
@@ -295,7 +298,7 @@ namespace CrossCam.ViewModel
         public bool IsParallelTypeMode => 
             Settings.Mode == DrawMode.Parallel || 
             Settings.Mode == DrawMode.Cardboard;
-
+        
         public Rectangle CaptureButtonPosition
         {
             get
@@ -430,7 +433,6 @@ namespace CrossCam.ViewModel
         private readonly IPhotoSaver _photoSaver;
         private bool _secondaryErrorOccurred;
         private bool _isFovCorrected;
-        private bool _isInitialized;
 
         public CameraViewModel()
         {
@@ -522,7 +524,6 @@ namespace CrossCam.ViewModel
             {
                 SendCommandStartAnalyticsEvent(nameof(GoToModeCommand));
                 WorkflowStage = arg;
-                RaisePropertyChanged(nameof(ShouldPairButtonBeVisible));
             });
 
             SaveEditCommand = new Command(() =>
@@ -729,8 +730,6 @@ namespace CrossCam.ViewModel
                     }
 
                     Settings.IsCaptureLeftFirst = !Settings.IsCaptureLeftFirst;
-                    Settings.RaisePropertyChanged(nameof(Settings.IsCaptureLeftFirst));
-                    RaisePropertyChanged(nameof(PairButtonPosition));
                     PersistentStorage.Save(PersistentStorage.SETTINGS_KEY, Settings);
 
                     TryTriggerMovementHint();
@@ -1199,9 +1198,11 @@ namespace CrossCam.ViewModel
             base.Init(initData);
 
             PropertyChanged += HandlePropertyChanged;
-            DeviceDisplay.MainDisplayInfoChanged += EvaluateOrientationEvent;
             Settings.PropertyChanged += SettingsOnPropertyChanged;
             Settings.AlignmentSettings.PropertyChanged += AlignmentSettingsOnPropertyChanged;
+            Settings.PairSettings.PropertyChanged += PairSettingsOnPropertyChanged;
+            Settings.EditsSettings.PropertyChanged += EditsSettingsOnPropertyChanged;
+            PairOperator.PropertyChanged += PairOperatorOnPropertyChanged;
             PairOperator.Connected += PairOperatorOnConnected;
             PairOperator.Disconnected += PairOperatorOnDisconnected;
             PairOperator.PreviewFrameReceived += PairOperatorOnPreviewFrameReceived;
@@ -1215,6 +1216,8 @@ namespace CrossCam.ViewModel
             PairOperator.CountdownDisplayTimerCompleteSecondary += PairOperatorCountdownDisplayTimerCompleteSecondary;
             PairOperator.ErrorOccurred += PairOperatorOnErrorOccurred;
 
+            DeviceDisplay.MainDisplayInfoChanged += DeviceDisplayOnMainDisplayInfoChanged;
+
             var settingsDictionary = JsonConvert
                 .DeserializeObject<Dictionary<string, object>>(JsonConvert.SerializeObject(Settings))
                 .ToDictionary(pair => pair.Key, pair => pair.Value?.ToString());
@@ -1225,31 +1228,42 @@ namespace CrossCam.ViewModel
             Analytics.TrackEvent("alignment settings at launch", alignmentDictionary);
         }
 
+        private void EditsSettingsOnPropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+            switch (e.PropertyName)
+            {
+                case nameof(EditsSettings.ZoomMax):
+                    RaisePropertyChanged(nameof(ZoomMax));
+                    break;
+                case nameof(EditsSettings.SideCropMax):
+                    RaisePropertyChanged(nameof(SideCropMax));
+                    break;
+                case nameof(EditsSettings.TopOrBottomCropMax):
+                    RaisePropertyChanged(nameof(TopOrBottomCropMax));
+                    break;
+                case nameof(EditsSettings.KeystoneMax):
+                    RaisePropertyChanged(nameof(MaxKeystone));
+                    break;
+                case nameof(EditsSettings.RotationMax):
+                    RaisePropertyChanged(nameof(RotationMax));
+                    RaisePropertyChanged(nameof(RotationMin));
+                    break;
+                case nameof(EditsSettings.VerticalAlignmentMax):
+                    RaisePropertyChanged(nameof(VerticalAlignmentMax));
+                    RaisePropertyChanged(nameof(VerticalAlignmentMin));
+                    break;
+            }
+        }
+
+        private void DeviceDisplayOnMainDisplayInfoChanged(object sender, DisplayInfoChangedEventArgs e)
+        {
+            RaisePropertyChanged(nameof(IsViewPortrait));
+            RaisePropertyChanged(nameof(IsViewInverted));
+        }
+
         private void PairOperatorOnSyncRequested(object sender, EventArgs e)
         {
             WorkflowStage = WorkflowStage.Syncing;
-        }
-
-        public override void ReverseInit(object returnedData)
-        {
-            base.ReverseInit(returnedData);
-
-            PropertyChanged -= HandlePropertyChanged;
-            DeviceDisplay.MainDisplayInfoChanged -= EvaluateOrientationEvent;
-            Settings.PropertyChanged -= SettingsOnPropertyChanged;
-            Settings.AlignmentSettings.PropertyChanged -= AlignmentSettingsOnPropertyChanged;
-            PairOperator.Connected -= PairOperatorOnConnected;
-            PairOperator.Disconnected -= PairOperatorOnDisconnected;
-            PairOperator.PreviewFrameReceived -= PairOperatorOnPreviewFrameReceived;
-            PairOperator.PreviewFrameRequestReceived -= PairOperatorOnPreviewFrameRequestReceived;
-            PairOperator.CapturedImageReceived -= PairOperatorOnCapturedImageReceived;
-            PairOperator.InitialSyncStarted -= PairOperatorInitialSyncStarted;
-            PairOperator.InitialSyncCompleted -= PairOperatorInitialSyncCompleted;
-            PairOperator.SyncRequested -= PairOperatorOnSyncRequested;
-            PairOperator.TransmissionStarted -= PairOperatorTransmissionStarted;
-            PairOperator.TransmissionComplete -= PairOperatorTransmissionComplete;
-            PairOperator.CountdownDisplayTimerCompleteSecondary -= PairOperatorCountdownDisplayTimerCompleteSecondary;
-            PairOperator.ErrorOccurred -= PairOperatorOnErrorOccurred;
         }
 
         private void PairOperatorOnPreviewFrameRequestReceived(object sender, EventArgs e)
@@ -1268,57 +1282,22 @@ namespace CrossCam.ViewModel
             });
         }
 
-        private void EvaluateOrientationEvent(object sender, DisplayInfoChangedEventArgs eventArgs)
-        {
-            EvaluateOrientation(eventArgs.DisplayInfo.Rotation);
-        }
-
-        private void EvaluateOrientation(DisplayRotation rotation)
-        {
-            switch (rotation)
-            {
-                case DisplayRotation.Rotation0:
-                    IsViewInverted = false;
-                    IsViewPortrait = true;
-                    break;
-                case DisplayRotation.Rotation90:
-                    IsViewInverted = false;
-                    IsViewPortrait = false;
-                    break;
-                case DisplayRotation.Rotation180:
-                    IsViewInverted = true;
-                    IsViewPortrait = true;
-                    break;
-                case DisplayRotation.Rotation270:
-                    IsViewInverted = true;
-                    IsViewPortrait = false;
-                    break;
-            }
-        }
-
         private void HandlePropertyChanged(object sender, PropertyChangedEventArgs args)
         {
-            if (args.PropertyName == nameof(CaptureSuccess))
+            switch (args.PropertyName)
             {
-                if (CameraColumn == 0)
-                {
+                case nameof(CaptureSuccess) when CameraColumn == 0:
                     LeftCaptureSuccess = !LeftCaptureSuccess;
-                }
-                else
-                {
+                    break;
+                case nameof(CaptureSuccess):
                     RightCaptureSuccess = !RightCaptureSuccess;
-                }
-            }
-            else if (args.PropertyName == nameof(LocalCapturedFrame))
-            {
-                if (LocalCapturedFrame == null) return;
-
-                if (_secondaryErrorOccurred)
-                {
+                    break;
+                case nameof(LocalCapturedFrame) when LocalCapturedFrame == null:
+                    return;
+                case nameof(LocalCapturedFrame) when _secondaryErrorOccurred:
                     FullWipe();
-                }
-                else
-                {
+                    break;
+                case nameof(LocalCapturedFrame):
                     if (PairOperator.IsPrimary &&
                         PairOperator.PairStatus == PairStatus.Connected)
                     {
@@ -1334,28 +1313,25 @@ namespace CrossCam.ViewModel
 
                     if (Settings.IsCaptureInMirrorMode)
                     {
-                        var isParallelType = 
-                            Settings.Mode == DrawMode.Parallel || 
-                            Settings.Mode == DrawMode.Cardboard;
                         if (Settings.IsCaptureLeftFirst)
                         {
                             SetLeftBitmap(
-                                GetHalfOfImage(LocalCapturedFrame.Frame, isParallelType, false, LocalCapturedFrame.Orientation,isFrontFacing:LocalCapturedFrame.IsFrontFacing),
+                                GetHalfOfImage(LocalCapturedFrame.Frame, IsParallelTypeMode, false, LocalCapturedFrame.Orientation,isFrontFacing:LocalCapturedFrame.IsFrontFacing),
                                 PairOperator.PairStatus == PairStatus.Disconnected,
                                 PairOperator.PairStatus == PairStatus.Disconnected);
                             SetRightBitmap(
-                                GetHalfOfImage(LocalCapturedFrame.Frame, !isParallelType, false, LocalCapturedFrame.Orientation, true, LocalCapturedFrame.IsFrontFacing),
+                                GetHalfOfImage(LocalCapturedFrame.Frame, !IsParallelTypeMode, false, LocalCapturedFrame.Orientation, true, LocalCapturedFrame.IsFrontFacing),
                                 PairOperator.PairStatus == PairStatus.Disconnected,
                                 PairOperator.PairStatus == PairStatus.Disconnected);
                         }
                         else
                         {
                             SetLeftBitmap(
-                                GetHalfOfImage(LocalCapturedFrame.Frame, isParallelType, false, LocalCapturedFrame.Orientation, true, LocalCapturedFrame.IsFrontFacing),
+                                GetHalfOfImage(LocalCapturedFrame.Frame, IsParallelTypeMode, false, LocalCapturedFrame.Orientation, true, LocalCapturedFrame.IsFrontFacing),
                                 PairOperator.PairStatus == PairStatus.Disconnected,
                                 PairOperator.PairStatus == PairStatus.Disconnected);
                             SetRightBitmap(
-                                GetHalfOfImage(LocalCapturedFrame.Frame, !isParallelType, false, LocalCapturedFrame.Orientation, isFrontFacing: LocalCapturedFrame.IsFrontFacing),
+                                GetHalfOfImage(LocalCapturedFrame.Frame, !IsParallelTypeMode, false, LocalCapturedFrame.Orientation, isFrontFacing: LocalCapturedFrame.IsFrontFacing),
                                 PairOperator.PairStatus == PairStatus.Disconnected,
                                 PairOperator.PairStatus == PairStatus.Disconnected);
                         }
@@ -1382,39 +1358,77 @@ namespace CrossCam.ViewModel
                     {
                         LocalCapturedFrame = null;
                     }
-                }
-            }
-            else if (args.PropertyName == nameof(Error))
-            {
-                if (Error != null)
-                {
-                    PromptForPermissionAndSendErrorEmailCommand.Execute(null);
-                }
-            }
-            else if (args.PropertyName == nameof(Settings))
-            {
-                if (WorkflowStage == WorkflowStage.Final)
-                {
-                    AutoAlign();
-                }
-            }
-            else if (args.PropertyName == nameof(WasSwipedTrigger))
-            {
-                SwapSidesCommand?.Execute(null);
-            } 
-            else if (args.PropertyName == nameof(IsFullscreenToggle))
-            {
-                TryTriggerMovementHint(true);
-                RaisePropertyChanged(nameof(CanvasRectangle));
-                RaisePropertyChanged(nameof(CanvasRectangleFlags));
-            }
-            else if (args.PropertyName == nameof(IsNothingCaptured))
-            {
-                RaisePropertyChanged(nameof(IsFullscreenToggleVisible));
-            } 
-            else if (args.PropertyName == nameof(IsViewPortrait))
-            {
-                TryTriggerMovementHint();
+
+                    break;
+                case nameof(Error):
+                    if (Error != null)
+                    {
+                        PromptForPermissionAndSendErrorEmailCommand.Execute(null);
+                    }
+
+                    break;
+                case nameof(WasSwipedTrigger):
+                    SwapSidesCommand?.Execute(null);
+                    break;
+                case nameof(IsFullscreenToggle):
+                    TryTriggerMovementHint(true);
+                    RaisePropertyChanged(nameof(CanvasRectangle));
+                    RaisePropertyChanged(nameof(CanvasRectangleFlags));
+                    break;
+                case nameof(IsNothingCaptured):
+                    RaisePropertyChanged(nameof(IsFullscreenToggleVisible));
+                    RaisePropertyChanged(nameof(UseFullScreenWidth));
+                    RaisePropertyChanged(nameof(ShouldPairButtonBeVisible));
+                    RaisePropertyChanged(nameof(ShouldLineGuidesBeVisible));
+                    RaisePropertyChanged(nameof(ShouldDonutGuideBeVisible));
+                    break;
+                case nameof(IsViewPortrait):
+                    RaisePropertyChanged(nameof(CaptureButtonPosition));
+                    RaisePropertyChanged(nameof(CanvasRectangle));
+                    RaisePropertyChanged(nameof(ShouldLeftLeftRetakeBeVisible));
+                    RaisePropertyChanged(nameof(ShouldRightRightRetakeBeVisible));
+                    RaisePropertyChanged(nameof(ShouldPortraitViewModeWarningBeVisible));
+                    TryTriggerMovementHint();
+                    break;
+                case nameof(IsViewInverted):
+                    RaisePropertyChanged(nameof(CaptureButtonPosition));
+                    break;
+                case nameof(WorkflowStage):
+                    RaisePropertyChanged(nameof(ShouldPairButtonBeVisible));
+                    RaisePropertyChanged(nameof(ShouldRollGuideBeVisible));
+                    RaisePropertyChanged(nameof(UseFullScreenWidth));
+                    RaisePropertyChanged(nameof(CanvasRectangle));
+                    RaisePropertyChanged(nameof(IsFullscreenToggleVisible));
+                    RaisePropertyChanged(nameof(IsFullscreenToggle));
+                    RaisePropertyChanged(nameof(ShouldLeftLeftRetakeBeVisible));
+                    RaisePropertyChanged(nameof(ShouldLeftRightRetakeBeVisible));
+                    RaisePropertyChanged(nameof(ShouldRightLeftRetakeBeVisible));
+                    RaisePropertyChanged(nameof(ShouldRightRightRetakeBeVisible));
+                    RaisePropertyChanged(nameof(ShouldCenterLoadBeVisible));
+                    RaisePropertyChanged(nameof(ShouldLeftLoadBeVisible));
+                    RaisePropertyChanged(nameof(ShouldRightLoadBeVisible));
+                    RaisePropertyChanged(nameof(ShouldSwapSidesBeVisible));
+                    RaisePropertyChanged(nameof(ShouldSettingsAndHelpBeVisible));
+                    RaisePropertyChanged(nameof(IsCaptureModeAndEitherPrimaryOrDisconnected));
+                    RaisePropertyChanged(nameof(ShouldLineGuidesBeVisible));
+                    RaisePropertyChanged(nameof(ShouldDonutGuideBeVisible));
+                    RaisePropertyChanged(nameof(ShouldRollGuideBeVisible));
+                    RaisePropertyChanged(nameof(ShouldViewButtonBeVisible));
+                    RaisePropertyChanged(nameof(ShouldClearEditButtonBeVisible));
+                    RaisePropertyChanged(nameof(IsBusy));
+                    RaisePropertyChanged(nameof(ShouldSaveCapturesButtonBeVisible));
+                    RaisePropertyChanged(nameof(ShouldPortraitViewModeWarningBeVisible));
+                    break;
+                case nameof(IsExactlyOnePictureTaken):
+                    RaisePropertyChanged(nameof(ShouldSwapSidesBeVisible));
+                    break;
+                case nameof(CaptureButtonPosition):
+                    RaisePropertyChanged(nameof(PairButtonPosition));
+                    break;
+                case nameof(UseFullScreenWidth):
+                    RaisePropertyChanged(nameof(CanvasRectangle));
+                    RaisePropertyChanged(nameof(CanvasRectangleFlags));
+                    break;
             }
         }
 
@@ -1428,6 +1442,106 @@ namespace CrossCam.ViewModel
                 case nameof(Settings.SaveForGrayscaleAnaglyph):
                 case nameof(Settings.SaveForParallel):
                     _isAlignmentInvalid = true;
+                    goto case nameof(Settings.SaveForCardboard);
+                case nameof(Settings.SaveForCardboard):
+                case nameof(Settings.SaveForQuad):
+                case nameof(Settings.SaveForTriple):
+                case nameof(Settings.SaveRedundantFirstSide):
+                case nameof(Settings.SaveSidesSeparately):
+                    RaisePropertyChanged(nameof(ShouldSaveCapturesButtonBeVisible));
+                    break;
+                case nameof(Settings.AreGuideLinesVisible):
+                case nameof(Settings.ShowGuideLinesWithFirstCapture):
+                    RaisePropertyChanged(nameof(ShouldLineGuidesBeVisible));
+                    break;
+                case nameof(Settings.ShowRollGuide):
+                    RaisePropertyChanged(nameof(ShouldRollGuideBeVisible));
+                    break;
+                case nameof(Settings.IsGuideDonutVisible):
+                    RaisePropertyChanged(nameof(ShouldDonutGuideBeVisible));
+                    break;
+                case nameof(Settings.PortraitCaptureButtonPosition):
+                    RaisePropertyChanged(nameof(ShouldLeftLeftRetakeBeVisible));
+                    RaisePropertyChanged(nameof(ShouldLeftRightRetakeBeVisible));
+                    RaisePropertyChanged(nameof(ShouldRightLeftRetakeBeVisible));
+                    RaisePropertyChanged(nameof(ShouldRightRightRetakeBeVisible));
+                    RaisePropertyChanged(nameof(ShouldLeftLoadBeVisible));
+                    RaisePropertyChanged(nameof(ShouldCenterLoadBeVisible));
+                    RaisePropertyChanged(nameof(ShouldRightLoadBeVisible));
+                    RaisePropertyChanged(nameof(CaptureButtonPosition));
+                    break;
+                case nameof(Settings.LandscapeCaptureButtonHorizontalPosition):
+                case nameof(Settings.LandscapeCaptureButtonVerticalPosition):
+                    RaisePropertyChanged(nameof(CaptureButtonPosition));
+                    break;
+                case nameof(Settings.IsCaptureInMirrorMode):
+                    RaisePropertyChanged(nameof(IsFullscreenToggleVisible));
+                    RaisePropertyChanged(nameof(ShouldPairButtonBeVisible));
+                    RaisePropertyChanged(nameof(ShouldSwapSidesBeVisible));
+                    RaisePropertyChanged(nameof(UseFullScreenWidth));
+                    break;
+                case nameof(Settings.IsCaptureLeftFirst):
+                    RaisePropertyChanged(nameof(PairButtonPosition));
+                    break;
+                case nameof(Settings.PairButtonHorizontalPosition):
+                    RaisePropertyChanged(nameof(PairButtonPosition));
+                    break;
+                case nameof(Settings.SaveToExternal):
+                case nameof(Settings.SavingDirectory):
+                    RaisePropertyChanged(nameof(SavedSuccessMessage));
+                    break;
+                case nameof(Settings.FullscreenEditing):
+                    RaisePropertyChanged(nameof(CanvasRectangle));
+                    RaisePropertyChanged(nameof(UseFullScreenWidth));
+                    break;
+                case nameof(Settings.FullscreenCapturing):
+                    RaisePropertyChanged(nameof(CanvasRectangle));
+                    RaisePropertyChanged(nameof(UseFullScreenWidth));
+                    break;
+                case nameof(Settings.MaximumParallelWidth):
+                    RaisePropertyChanged(nameof(CanvasRectangle));
+                    break;
+            }
+
+            if (e.PropertyName == nameof(Settings.Mode))
+            {
+                RaisePropertyChanged(nameof(IsFullscreenToggleVisible));
+                RaisePropertyChanged(nameof(CaptureButtonPosition));
+                RaisePropertyChanged(nameof(UseFullScreenWidth));
+                RaisePropertyChanged(nameof(IsFullscreenToggle));
+                RaisePropertyChanged(nameof(IsParallelTypeMode));
+                RaisePropertyChanged(nameof(CaptureButtonPosition));
+                RaisePropertyChanged(nameof(ShouldDonutGuideBeVisible));
+                RaisePropertyChanged(nameof(ShouldPortraitViewModeWarningBeVisible));
+                RaisePropertyChanged(nameof(IsPictureWiderThanTall));
+            }
+        }
+
+        private void PairOperatorOnPropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+            switch (e.PropertyName)
+            {
+                case nameof(PairOperator.PairStatus):
+                    RaisePropertyChanged(nameof(IsCaptureModeAndEitherPrimaryOrDisconnected));
+                    RaisePropertyChanged(nameof(ShouldLineGuidesBeVisible));
+                    RaisePropertyChanged(nameof(ShouldDonutGuideBeVisible));
+                    RaisePropertyChanged(nameof(ShouldLeftLoadBeVisible));
+                    RaisePropertyChanged(nameof(ShouldCenterLoadBeVisible));
+                    RaisePropertyChanged(nameof(ShouldRightLoadBeVisible));
+                    RaisePropertyChanged(nameof(IsFullscreenToggleVisible));
+                    RaisePropertyChanged(nameof(ShouldPairButtonBeVisible));
+                    RaisePropertyChanged(nameof(ShouldSwapSidesBeVisible));
+                    break;
+            }
+        }
+
+        private void PairSettingsOnPropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+            switch (e.PropertyName)
+            {
+                case nameof(PairSettings.IsPairedPrimary.HasValue):
+                case nameof(PairSettings.IsPairedPrimary.Value):
+                    RaisePropertyChanged(nameof(IsFullscreenToggleVisible));
                     break;
             }
         }
@@ -1475,29 +1589,12 @@ namespace CrossCam.ViewModel
             {
                 WorkflowStage = WorkflowStage.Capture;
             }
-            RaisePropertyChanged(nameof(IsCaptureModeAndEitherPrimaryOrDisconnected));
-            RaisePropertyChanged(nameof(ShouldLineGuidesBeVisible));
-            RaisePropertyChanged(nameof(ShouldDonutGuideBeVisible));
-            RaisePropertyChanged(nameof(ShouldLeftLoadBeVisible));
-            RaisePropertyChanged(nameof(ShouldCenterLoadBeVisible));
-            RaisePropertyChanged(nameof(ShouldRightLoadBeVisible));
-            RaisePropertyChanged(nameof(IsFullscreenToggleVisible));
-            RaisePropertyChanged(nameof(ShouldPairButtonBeVisible));
-            RaisePropertyChanged(nameof(ShouldSwapSidesBeVisible));
             RestartPreviewTrigger = !RestartPreviewTrigger;
         }
 
         private void PairOperatorOnConnected(object sender, EventArgs e)
         {
             ShowFovPreparationPopup();
-            RaisePropertyChanged(nameof(IsCaptureModeAndEitherPrimaryOrDisconnected));
-            RaisePropertyChanged(nameof(ShouldLineGuidesBeVisible));
-            RaisePropertyChanged(nameof(ShouldDonutGuideBeVisible));
-            RaisePropertyChanged(nameof(ShouldLeftLoadBeVisible));
-            RaisePropertyChanged(nameof(ShouldCenterLoadBeVisible));
-            RaisePropertyChanged(nameof(ShouldRightLoadBeVisible));
-            RaisePropertyChanged(nameof(IsFullscreenToggleVisible));
-            RaisePropertyChanged(nameof(ShouldSwapSidesBeVisible));
             StopPreviewTrigger = !StopPreviewTrigger;
         }
 
@@ -1595,50 +1692,14 @@ namespace CrossCam.ViewModel
         {
             base.ViewIsAppearing(sender, e);
             TryTriggerMovementHint();
-            EvaluateOrientation(DeviceDisplay.MainDisplayInfo.Rotation);
 
-            if (_isInitialized)
+            if (WorkflowStage == WorkflowStage.Final)
             {
-                RaisePropertyChanged(nameof(ShouldLineGuidesBeVisible)); //TODO: figure out how to have Fody do this (just firing 'null' has bad behavior)
-                RaisePropertyChanged(nameof(ShouldDonutGuideBeVisible));
-                RaisePropertyChanged(nameof(ShouldRollGuideBeVisible));
-                RaisePropertyChanged(nameof(ShouldSaveCapturesButtonBeVisible));
-                RaisePropertyChanged(nameof(ShouldLeftLeftRetakeBeVisible));
-                RaisePropertyChanged(nameof(ShouldLeftRightRetakeBeVisible));
-                RaisePropertyChanged(nameof(ShouldRightLeftRetakeBeVisible));
-                RaisePropertyChanged(nameof(ShouldRightRightRetakeBeVisible));
-                RaisePropertyChanged(nameof(ShouldCenterLoadBeVisible));
-                RaisePropertyChanged(nameof(ShouldLeftLoadBeVisible));
-                RaisePropertyChanged(nameof(ShouldRightLoadBeVisible));
-                RaisePropertyChanged(nameof(IsFullscreenToggleVisible));
-                RaisePropertyChanged(nameof(ShouldPairButtonBeVisible));
-                RaisePropertyChanged(nameof(ShouldSwapSidesBeVisible));
-
-                RaisePropertyChanged(nameof(CaptureButtonPosition));
-                RaisePropertyChanged(nameof(PairButtonPosition));
-
-                RaisePropertyChanged(nameof(SavedSuccessMessage));
-                RaisePropertyChanged(nameof(CanvasRectangle));
-                RaisePropertyChanged(nameof(CanvasRectangleFlags));
-                RaisePropertyChanged(nameof(CameraViewModel));
-                RaisePropertyChanged(nameof(Settings)); // this doesn't cause reevaluation for above stuff (but I'd like it to), but it does trigger redraw of canvas and evaluation of whether to run auto alignment
-                RaisePropertyChanged(nameof(Settings.Mode));
-
-                RaisePropertyChanged(nameof(ZoomMax));
-                RaisePropertyChanged(nameof(VerticalAlignmentMax));
-                RaisePropertyChanged(nameof(VerticalAlignmentMin));
-                RaisePropertyChanged(nameof(RotationMax));
-                RaisePropertyChanged(nameof(RotationMin));
-                RaisePropertyChanged(nameof(SideCropMax));
-                RaisePropertyChanged(nameof(TopOrBottomCropMax));
-                RaisePropertyChanged(nameof(MaxKeystone));
-
-                Settings.RaisePropertyChanged();
+                AutoAlign();
             }
-            _isInitialized = true;
 
             if ((((Settings.Mode == DrawMode.Cross || Settings.Mode == DrawMode.RedCyanAnaglyph || Settings.Mode == DrawMode.GrayscaleRedCyanAnaglyph) && !WasCaptureCross) ||
-                (Settings.Mode == DrawMode.Parallel && WasCaptureCross)) && LeftBitmap != null && RightBitmap != null)
+                 (Settings.Mode == DrawMode.Parallel && WasCaptureCross)) && LeftBitmap != null && RightBitmap != null)
             {
                 SwapSidesCommand.Execute(true);
                 WasCaptureCross = !WasCaptureCross;

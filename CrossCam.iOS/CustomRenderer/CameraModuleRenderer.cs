@@ -174,6 +174,7 @@ namespace CrossCam.iOS.CustomRenderer
             //Debug.WriteLine("### _cameraModule: " + _cameraModule.Width + " " + _cameraModule.Height);
             double previewHeight;
             var orientation = UIDevice.CurrentDevice.Orientation;
+            _cameraModule.PreviewAspectRatio = 4 / 3d;
             switch (orientation)
             {
                 case UIDeviceOrientation.LandscapeLeft:

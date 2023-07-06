@@ -12,6 +12,7 @@ using SkiaSharp;
 using SkiaSharp.Views.Forms;
 using Xamarin.Essentials;
 using Xamarin.Forms;
+using Xamarin.Forms.Internals;
 using Rectangle = Xamarin.Forms.Rectangle;
 using Timer = System.Timers.Timer;
 
@@ -36,9 +37,8 @@ namespace CrossCam.Page
 	    private readonly ImageSource _levelBubbleGreenImage = ImageSource.FromFile("horizontalLevelInsideGreen");
 	    private readonly ImageSource _levelOutsideGreenImage = ImageSource.FromFile("horizontalLevelOutsideGreen");
 
-        private const double RETICLE_WIDTH = 30;
-        private readonly Rectangle _leftReticleNonMirrorBounds = new Rectangle(0.5, 0.5, RETICLE_WIDTH, RETICLE_WIDTH);
-        private readonly Rectangle _rightReticleNonMirrorBounds = new Rectangle(0.5, 0.5, RETICLE_WIDTH, RETICLE_WIDTH);
+        private const double RETICLE_PANNER_WIDTH = 30;
+        private const double RETICLE_IMAGE_WIDTH = 10;
 
         public const double FOCUS_CIRCLE_WIDTH = 30;
 
@@ -90,7 +90,38 @@ namespace CrossCam.Page
 		    _horizontalLevelBubble.Source = _levelBubbleImage;
 		    _horizontalLevelOutside.Source = _levelOutsideImage;
 
+            _baseLayout.PropertyChanged += BaseLayoutOnPropertyChanged;
+            _leftReticleLayout.PropertyChanged += LeftReticleLayoutOnPropertyChanged;
+            _rightReticleLayout.PropertyChanged += RightReticleLayoutOnPropertyChanged;
+
             _gyroscopeStopwatch = new Stopwatch();
+        }
+
+        private void RightReticleLayoutOnPropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+            if (e.PropertyName == nameof(_rightReticleLayout.Width) ||
+                e.PropertyName == nameof(_rightReticleLayout.Height))
+            {
+                ResetDonutGuide(_rightReticleLayout, _rightReticle, _rightReticlePanner, false);
+            }
+        }
+
+        private void LeftReticleLayoutOnPropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+            if (e.PropertyName == nameof(_leftReticleLayout.Width) ||
+                e.PropertyName == nameof(_leftReticleLayout.Height))
+            {
+                ResetDonutGuide(_leftReticleLayout, _leftReticle, _leftReticlePanner, true);
+            }
+        }
+
+        private void BaseLayoutOnPropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+            if (e.PropertyName == nameof(_baseLayout.Height) ||
+                e.PropertyName == nameof(_baseLayout.Width))
+            {
+                ResetLineGuides();
+            }
         }
 
         protected override bool OnBackButtonPressed()
@@ -312,7 +343,10 @@ namespace CrossCam.Page
 	        {
 	            _viewModel = (CameraViewModel) BindingContext;
 	            _viewModel.PropertyChanged += ViewModelPropertyChanged;
-                _viewModel.Edits.PropertyChanged += EditsPropertyChanged;
+                _viewModel.Settings.PropertyChanged += SettingsOnPropertyChanged;
+                _viewModel.Edits.PropertyChanged += InvalidateCanvasBecausePropertyChanged;
+                _viewModel.Settings.CardboardSettings.PropertyChanged += InvalidateCanvasBecausePropertyChanged;
+
                 Device.BeginInvokeOnMainThread(() =>
                 {
                     var layout = AbsoluteLayout.GetLayoutBounds(_doubleMoveHintStack);
@@ -320,13 +354,26 @@ namespace CrossCam.Page
                     AbsoluteLayout.SetLayoutBounds(_doubleMoveHintStack, layout);
 
                     EvaluateSensors();
-                    ResetLineAndDonutGuides();
                     PlaceRollGuide();
                 });
             }
 	    }
 
-        private void EditsPropertyChanged(object sender, PropertyChangedEventArgs e)
+        private void SettingsOnPropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+            switch (e.PropertyName)
+            {
+                case nameof(Settings.ShowRollGuide):
+                case nameof(Settings.Mode):
+                    EvaluateSensors();
+                    break;
+                case nameof(Settings.IsCaptureLeftFirst):
+                    PlaceRollGuide();
+                    break;
+            }
+        }
+
+        private void InvalidateCanvasBecausePropertyChanged(object sender, PropertyChangedEventArgs e)
         {
             Device.BeginInvokeOnMainThread(() =>
             {
@@ -347,19 +394,12 @@ namespace CrossCam.Page
                     case nameof(CameraViewModel.WorkflowStage):
                         EvaluateSensors();
                         break;
-                    case nameof(CameraViewModel.Settings):
-                        EvaluateSensors();
-                        _canvas.InvalidateSurface();
-                        ResetLineAndDonutGuides();
-                        break;
                     case nameof(CameraViewModel.CameraColumn):
-                    case nameof(Settings.IsCaptureLeftFirst):
                     case nameof(CameraViewModel.PreviewBottomY):
                         PlaceRollGuide();
                         break;
                     case nameof(CameraViewModel.IsViewPortrait):
                         _canvas.InvalidateSurface();
-                        ResetLineAndDonutGuides();
                         SetMarginsForNotch();
                         SwapSidesIfCardboard();
                         break;
@@ -695,85 +735,91 @@ namespace CrossCam.Page
             }
         }
 
-        private void ResetLineAndDonutGuides()
+        private void ResetLineGuides()
         {
-            if (_viewModel == null || _viewModel.IsViewPortrait)
+            Rectangle upperLineBounds, lowerLineBounds;
+            if (DeviceDisplay.MainDisplayInfo.Orientation == DisplayOrientation.Portrait)
             {
-                AbsoluteLayout.SetLayoutFlags(_upperLine,
-                    AbsoluteLayoutFlags.YProportional | AbsoluteLayoutFlags.WidthProportional);
-                AbsoluteLayout.SetLayoutBounds(_upperLine, _upperLineBoundsPortrait);
-                AbsoluteLayout.SetLayoutFlags(_upperLinePanner,
-                    AbsoluteLayoutFlags.YProportional | AbsoluteLayoutFlags.WidthProportional);
-                AbsoluteLayout.SetLayoutBounds(_upperLinePanner, _upperLineBoundsPortrait);
-
-                AbsoluteLayout.SetLayoutFlags(_lowerLine,
-                    AbsoluteLayoutFlags.YProportional | AbsoluteLayoutFlags.WidthProportional);
-                AbsoluteLayout.SetLayoutBounds(_lowerLine, _lowerLinesBoundsPortrait);
-                AbsoluteLayout.SetLayoutFlags(_lowerLinePanner,
-                    AbsoluteLayoutFlags.YProportional | AbsoluteLayoutFlags.WidthProportional);
-                AbsoluteLayout.SetLayoutBounds(_lowerLinePanner, _lowerLinesBoundsPortrait);
+                upperLineBounds = _upperLineBoundsPortrait;
+                lowerLineBounds = _lowerLinesBoundsPortrait;
             }
             else
             {
-                AbsoluteLayout.SetLayoutFlags(_upperLine,
-                    AbsoluteLayoutFlags.YProportional | AbsoluteLayoutFlags.WidthProportional);
-                AbsoluteLayout.SetLayoutBounds(_upperLine, _upperLineBoundsLandscape);
-                AbsoluteLayout.SetLayoutFlags(_upperLinePanner,
-                    AbsoluteLayoutFlags.YProportional | AbsoluteLayoutFlags.WidthProportional);
-                AbsoluteLayout.SetLayoutBounds(_upperLinePanner, _upperLineBoundsLandscape);
-
-                AbsoluteLayout.SetLayoutFlags(_lowerLine,
-                    AbsoluteLayoutFlags.YProportional | AbsoluteLayoutFlags.WidthProportional);
-                AbsoluteLayout.SetLayoutBounds(_lowerLine, _lowerLineBoundsLandscape);
-                AbsoluteLayout.SetLayoutFlags(_lowerLinePanner,
-                    AbsoluteLayoutFlags.YProportional | AbsoluteLayoutFlags.WidthProportional);
-                AbsoluteLayout.SetLayoutBounds(_lowerLinePanner, _lowerLineBoundsLandscape);
+                upperLineBounds = _upperLineBoundsLandscape;
+                lowerLineBounds = _lowerLineBoundsLandscape;
             }
 
-            Rectangle leftTempBounds, rightTempBounds;
+            AbsoluteLayout.SetLayoutFlags(_upperLine, AbsoluteLayoutFlags.YProportional | AbsoluteLayoutFlags.WidthProportional);
+            AbsoluteLayout.SetLayoutBounds(_upperLine, upperLineBounds);
+            AbsoluteLayout.SetLayoutFlags(_upperLinePanner, AbsoluteLayoutFlags.YProportional | AbsoluteLayoutFlags.WidthProportional);
+            AbsoluteLayout.SetLayoutBounds(_upperLinePanner, upperLineBounds);
+
+            AbsoluteLayout.SetLayoutFlags(_lowerLine, AbsoluteLayoutFlags.YProportional | AbsoluteLayoutFlags.WidthProportional);
+            AbsoluteLayout.SetLayoutBounds(_lowerLine, lowerLineBounds);
+            AbsoluteLayout.SetLayoutFlags(_lowerLinePanner, AbsoluteLayoutFlags.YProportional | AbsoluteLayoutFlags.WidthProportional);
+            AbsoluteLayout.SetLayoutBounds(_lowerLinePanner, lowerLineBounds);
+        }
+
+        private void ResetDonutGuide(AbsoluteLayout layout, Image reticle, ContentView reticlePanner, bool isLeft)
+        {
             if (_viewModel?.Settings.IsCaptureInMirrorMode == true &&
-                !_viewModel.IsViewPortrait &&
-                _viewModel.LocalPreviewFrame != null)
+                DeviceDisplay.MainDisplayInfo.Orientation == DisplayOrientation.Landscape)
             {
-                float previewWidth = Math.Max(_viewModel.LocalPreviewFrame.Frame.Width,
-                    _viewModel.LocalPreviewFrame.Frame.Height);
-                float previewHeight = Math.Min(_viewModel.LocalPreviewFrame.Frame.Width,
-                    _viewModel.LocalPreviewFrame.Frame.Height);
-                //previewHeight += DrawTool.CalculateFuseGuideMarginHeight(previewHeight);
-                var previewAspectRatio = previewWidth / (2d * previewHeight);
-                var screenSideWidth = Math.Max(Height, Width) / 2d;
-                var screenHeight = Math.Min(Height, Width);
-                var sideWidth = previewAspectRatio * screenHeight;
-                var proportion = sideWidth / screenSideWidth;
+                var previewHeight = Math.Min(layout.Height, layout.Width);
+                var sidePreviewWidth = _viewModel.PreviewAspectRatio * previewHeight / 2d;
+                var fullPreviewWidth = Math.Max(layout.Height, layout.Width);
+                if (_viewModel.Settings.ShowPreviewFuseGuide)
+                {
+                    var previewHeightWithFuseGuide = previewHeight + DrawTool.CalculateFuseGuideMarginHeight((float) previewHeight);
+                    var aspectRatioWithFuseGuide = sidePreviewWidth / previewHeightWithFuseGuide;
+                    sidePreviewWidth = aspectRatioWithFuseGuide * previewHeight / 2d;
+                }
 
-                leftTempBounds = new Rectangle(1- proportion, 0.5, RETICLE_WIDTH, RETICLE_WIDTH);
-                rightTempBounds = new Rectangle(proportion, 0.5, RETICLE_WIDTH, RETICLE_WIDTH);
-
-
-                AbsoluteLayout.SetLayoutFlags(_leftReticle, AbsoluteLayoutFlags.PositionProportional);
-                AbsoluteLayout.SetLayoutBounds(_leftReticle, leftTempBounds);
-                AbsoluteLayout.SetLayoutFlags(_leftReticlePanner, AbsoluteLayoutFlags.PositionProportional);
-                AbsoluteLayout.SetLayoutBounds(_leftReticlePanner, leftTempBounds);
-
-                AbsoluteLayout.SetLayoutFlags(_rightReticle, AbsoluteLayoutFlags.PositionProportional);
-                AbsoluteLayout.SetLayoutBounds(_rightReticle, rightTempBounds);
-                AbsoluteLayout.SetLayoutFlags(_rightReticlePanner, AbsoluteLayoutFlags.PositionProportional);
-                AbsoluteLayout.SetLayoutBounds(_rightReticlePanner, rightTempBounds);
+                if (isLeft)
+                {
+                    AbsoluteLayout.SetLayoutBounds(reticle,
+                        new Rectangle(fullPreviewWidth - sidePreviewWidth / 2d - RETICLE_IMAGE_WIDTH / 2d,
+                            previewHeight / 2d - RETICLE_IMAGE_WIDTH / 2d,
+                            RETICLE_IMAGE_WIDTH, RETICLE_IMAGE_WIDTH));
+                    AbsoluteLayout.SetLayoutBounds(reticlePanner,
+                        new Rectangle(fullPreviewWidth - sidePreviewWidth / 2d - RETICLE_PANNER_WIDTH / 2d,
+                            previewHeight / 2d - RETICLE_PANNER_WIDTH / 2d,
+                            RETICLE_PANNER_WIDTH, RETICLE_PANNER_WIDTH));
+                }
+                else
+                {
+                    AbsoluteLayout.SetLayoutBounds(reticle,
+                        new Rectangle(sidePreviewWidth / 2d - RETICLE_IMAGE_WIDTH / 2d,
+                            previewHeight / 2d - RETICLE_IMAGE_WIDTH / 2d,
+                            RETICLE_IMAGE_WIDTH, RETICLE_IMAGE_WIDTH));
+                    AbsoluteLayout.SetLayoutBounds(reticlePanner,
+                        new Rectangle(sidePreviewWidth / 2d - RETICLE_PANNER_WIDTH / 2d,
+                            previewHeight / 2d - RETICLE_PANNER_WIDTH / 2d,
+                            RETICLE_PANNER_WIDTH, RETICLE_PANNER_WIDTH));
+                }
             }
             else
             {
-                leftTempBounds = _leftReticleNonMirrorBounds;
-                rightTempBounds = _rightReticleNonMirrorBounds;
+                double sideWidth, sideHeight;
+                if (Device.Info.CurrentOrientation == DeviceOrientation.Portrait)
+                {
+                    sideWidth = Math.Min(layout.Width, layout.Height);
+                    sideHeight = Math.Max(layout.Width, layout.Height);
+                }
+                else
+                {
+                    sideWidth = Math.Max(layout.Width, layout.Height);
+                    sideHeight = Math.Min(layout.Width, layout.Height);
+                }
 
-                AbsoluteLayout.SetLayoutFlags(_leftReticle, AbsoluteLayoutFlags.PositionProportional);
-                AbsoluteLayout.SetLayoutBounds(_leftReticle, leftTempBounds);
-                AbsoluteLayout.SetLayoutFlags(_leftReticlePanner, AbsoluteLayoutFlags.PositionProportional);
-                AbsoluteLayout.SetLayoutBounds(_leftReticlePanner, leftTempBounds);
-
-                AbsoluteLayout.SetLayoutFlags(_rightReticle, AbsoluteLayoutFlags.PositionProportional);
-                AbsoluteLayout.SetLayoutBounds(_rightReticle, rightTempBounds);
-                AbsoluteLayout.SetLayoutFlags(_rightReticlePanner, AbsoluteLayoutFlags.PositionProportional);
-                AbsoluteLayout.SetLayoutBounds(_rightReticlePanner, rightTempBounds);
+                AbsoluteLayout.SetLayoutBounds(reticle,
+                    new Rectangle(sideWidth / 2d - RETICLE_IMAGE_WIDTH / 2d,
+                        sideHeight / 2d - RETICLE_IMAGE_WIDTH / 2d,
+                        RETICLE_IMAGE_WIDTH, RETICLE_IMAGE_WIDTH));
+                AbsoluteLayout.SetLayoutBounds(reticlePanner,
+                    new Rectangle(sideWidth / 2d - RETICLE_PANNER_WIDTH / 2d,
+                        sideHeight / 2d - RETICLE_PANNER_WIDTH / 2d,
+                        RETICLE_PANNER_WIDTH, RETICLE_PANNER_WIDTH));
             }
         }
 
@@ -819,46 +865,34 @@ namespace CrossCam.Page
             }
 	        else if (e.StatusType == GestureStatus.Running)
 	        {
-	            if (AbsoluteLayout.GetLayoutFlags(_leftReticle) != AbsoluteLayoutFlags.None)
-	            {
-	                AbsoluteLayout.SetLayoutFlags(_leftReticle, AbsoluteLayoutFlags.None);
-	                AbsoluteLayout.SetLayoutFlags(_rightReticle, AbsoluteLayoutFlags.None);
-	            }
-
                 AbsoluteLayout.SetLayoutBounds(_leftReticle, new Rectangle(
-	                _reticleLeftX + e.TotalX - RETICLE_WIDTH/2d,
-	                _reticleY + e.TotalY - RETICLE_WIDTH / 2d,
-	                RETICLE_WIDTH,
-	                RETICLE_WIDTH));
+                    _reticleLeftX + e.TotalX,
+                    _reticleY + e.TotalY,
+                    RETICLE_IMAGE_WIDTH,
+                    RETICLE_IMAGE_WIDTH));
 
-	            AbsoluteLayout.SetLayoutBounds(_rightReticle, new Rectangle(
-	                _reticleRightX + e.TotalX - RETICLE_WIDTH / 2d,
-	                _reticleY + e.TotalY - RETICLE_WIDTH / 2d,
-	                RETICLE_WIDTH,
-	                RETICLE_WIDTH));
+                AbsoluteLayout.SetLayoutBounds(_rightReticle, new Rectangle(
+                    _reticleRightX + e.TotalX,
+                    _reticleY + e.TotalY,
+                    RETICLE_IMAGE_WIDTH,
+                    RETICLE_IMAGE_WIDTH));
             }
 	        else if (e.StatusType == GestureStatus.Completed)
 	        {
-	            if (AbsoluteLayout.GetLayoutFlags(_leftReticlePanner) != AbsoluteLayoutFlags.None)
-	            {
-	                AbsoluteLayout.SetLayoutFlags(_leftReticlePanner, AbsoluteLayoutFlags.None);
-	                AbsoluteLayout.SetLayoutFlags(_rightReticlePanner, AbsoluteLayoutFlags.None);
-	            }
+                var newLeftReticleBounds = AbsoluteLayout.GetLayoutBounds(_leftReticle);
+                AbsoluteLayout.SetLayoutBounds(_leftReticlePanner, new Rectangle(
+                    newLeftReticleBounds.X - RETICLE_PANNER_WIDTH / 2d + RETICLE_IMAGE_WIDTH / 2d,
+                    newLeftReticleBounds.Y - RETICLE_PANNER_WIDTH / 2d + RETICLE_IMAGE_WIDTH / 2d,
+                    RETICLE_PANNER_WIDTH,
+                    RETICLE_PANNER_WIDTH));
 
-	            var newLeftReticleBounds = AbsoluteLayout.GetLayoutBounds(_leftReticle);
-	            AbsoluteLayout.SetLayoutBounds(_leftReticlePanner, new Rectangle(
-	                newLeftReticleBounds.X,
-	                newLeftReticleBounds.Y,
-	                RETICLE_WIDTH,
-	                RETICLE_WIDTH));
-
-	            var newRightReticleBounds = AbsoluteLayout.GetLayoutBounds(_rightReticle);
-	            AbsoluteLayout.SetLayoutBounds(_rightReticlePanner, new Rectangle(
-	                newRightReticleBounds.X,
-	                newRightReticleBounds.Y,
-	                RETICLE_WIDTH,
-	                RETICLE_WIDTH));
-	        }
+                var newRightReticleBounds = AbsoluteLayout.GetLayoutBounds(_rightReticle);
+                AbsoluteLayout.SetLayoutBounds(_rightReticlePanner, new Rectangle(
+                    newRightReticleBounds.X - RETICLE_PANNER_WIDTH / 2d + RETICLE_IMAGE_WIDTH / 2d,
+                    newRightReticleBounds.Y - RETICLE_PANNER_WIDTH / 2d + RETICLE_IMAGE_WIDTH / 2d,
+                    RETICLE_PANNER_WIDTH,
+                    RETICLE_PANNER_WIDTH));
+            }
         }
 
 	    private void UpperLinePanned(object sender, PanUpdatedEventArgs e)
