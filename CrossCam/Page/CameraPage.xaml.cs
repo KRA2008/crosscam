@@ -393,15 +393,18 @@ namespace CrossCam.Page
                         break;
                     case nameof(CameraViewModel.WorkflowStage):
                         EvaluateSensors();
+                        _forceCanvasClear = true;
+                        _canvas.InvalidateSurface();
                         break;
                     case nameof(CameraViewModel.CameraColumn):
                     case nameof(CameraViewModel.PreviewBottomY):
                         PlaceRollGuide();
                         break;
                     case nameof(CameraViewModel.IsViewPortrait):
-                        _canvas.InvalidateSurface();
                         SetMarginsForNotch();
                         SwapSidesIfCardboard();
+                        _forceCanvasClear = true;
+                        _canvas.InvalidateSurface();
                         break;
                     case nameof(CameraViewModel.LeftBitmap):
                     case nameof(CameraViewModel.LeftAlignmentTransform):
