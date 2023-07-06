@@ -496,6 +496,7 @@ namespace CrossCam.Page
             var fullPreviewWidth = (float)(2 * clipWidth + 3 * innerBorderThicknessProportion * clipWidth);
 
 
+            var scaledBorderThickness = (float)(innerBorderThicknessProportion * clipWidth);
             if (innerBorderThicknessProportion > 0)
             {
                 using var borderPaint = new SKPaint
@@ -506,7 +507,6 @@ namespace CrossCam.Page
                 };
 
                 var fullPreviewHeight = (float)(clipHeight + 2 * innerBorderThicknessProportion * clipWidth);
-                var scaledBorderThickness = (float)(innerBorderThicknessProportion * clipWidth);
                 var endX = rightClipX + clipWidth;
                 var endY = clipY + clipHeight;
                 surface.Canvas.DrawRect(originX, originY, fullPreviewWidth, scaledBorderThickness, borderPaint);
@@ -518,7 +518,6 @@ namespace CrossCam.Page
 
             if (drawFuseGuide)
             {
-                var previewBorderThickness = canvasWidth / 2f - (leftClipX + clipWidth);
                 var fuseGuideY = clipY - fuseGuideIconWidth / 2f - fuseGuideMarginMinimum / 2f;
                 using var guidePaint = new SKPaint
                 {
@@ -538,10 +537,10 @@ namespace CrossCam.Page
                             new SKColor(byte.MaxValue, byte.MaxValue, byte.MaxValue)
                     });
                 surface.Canvas.DrawRect(
-                    canvasWidth / 2f - previewBorderThickness / 2f - clipWidth / 2f - fuseGuideIconWidth,
+                    canvasWidth / 2f - scaledBorderThickness / 2f - clipWidth / 2f - fuseGuideIconWidth / 2f,
                     fuseGuideY, fuseGuideIconWidth, fuseGuideIconWidth, guidePaint);
                 surface.Canvas.DrawRect(
-                    canvasWidth / 2f + previewBorderThickness / 2f + clipWidth / 2f + fuseGuideIconWidth,
+                    canvasWidth / 2f + scaledBorderThickness / 2f + clipWidth / 2f - fuseGuideIconWidth / 2f,
                     fuseGuideY, fuseGuideIconWidth, fuseGuideIconWidth, guidePaint);
             }
         }

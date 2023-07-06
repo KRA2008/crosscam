@@ -2605,6 +2605,7 @@ namespace CrossCam.ViewModel
         {
             LeftAlignmentTransform = SKMatrix.Identity;
             RightAlignmentTransform = SKMatrix.Identity;
+            _isAlignmentInvalid = true;
         }
 
         private void ClearKeystone()
