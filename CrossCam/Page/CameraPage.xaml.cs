@@ -766,13 +766,16 @@ namespace CrossCam.Page
                 DeviceDisplay.MainDisplayInfo.Orientation == DisplayOrientation.Landscape)
             {
                 var previewHeight = Math.Min(layout.Height, layout.Width);
-                var sidePreviewWidth = _viewModel.PreviewAspectRatio * previewHeight / 2d;
                 var fullPreviewWidth = Math.Max(layout.Height, layout.Width);
+                double sidePreviewWidth;
                 if (_viewModel.Settings.ShowPreviewFuseGuide)
                 {
-                    var previewHeightWithFuseGuide = previewHeight + DrawTool.CalculateFuseGuideMarginHeight((float) previewHeight);
-                    var aspectRatioWithFuseGuide = sidePreviewWidth / previewHeightWithFuseGuide;
-                    sidePreviewWidth = aspectRatioWithFuseGuide * previewHeight / 2d;
+                    var previewHeightWithFuseGuide = previewHeight - DrawTool.CalculateFuseGuideMarginHeight((float) previewHeight);
+                    sidePreviewWidth = _viewModel.PreviewAspectRatio * previewHeightWithFuseGuide / 2d;
+                }
+                else
+                {
+                    sidePreviewWidth = _viewModel.PreviewAspectRatio * previewHeight / 2d;
                 }
 
                 if (isLeft)

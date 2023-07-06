@@ -167,7 +167,7 @@
                        AbsoluteLayout.LayoutFlags="None"
                        AbsoluteLayout.LayoutBounds="0, 0, 0, 0"
                        InputTransparent="True" 
-                       Source="squareInner"
+                       Source="squareOuter"
                        IsVisible="{Binding ShouldDonutGuideBeVisible}"/>
                 <ContentView x:Name="_rightReticlePanner"
                              AbsoluteLayout.LayoutFlags="None"

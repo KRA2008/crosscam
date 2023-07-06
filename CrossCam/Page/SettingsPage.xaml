@@ -976,18 +976,18 @@
                             IsToggled="{Binding Settings.ShowRollGuide}"/>
 
                     <Label Grid.Column="0"
-                           Grid.Row="3"
-                           Text="Donut/dot visible (will cause toe-in, so may require keystone editing)"/>
-                    <Switch Grid.Column="1"
-                            Grid.Row="3"
-                            IsToggled="{Binding Settings.IsGuideDonutVisible}"/>
-
-                    <Label Grid.Column="0"
-                           Grid.Row="4" 
+                           Grid.Row="3" 
                            Text="Show fuse guide (a dot above each side)"/>
                     <Switch Grid.Column="1"
-                            Grid.Row="4" 
+                            Grid.Row="3" 
                             IsToggled="{Binding Settings.ShowPreviewFuseGuide}"/>
+
+                    <Label Grid.Column="0"
+                           Grid.Row="4"
+                           Text="Show donut guide (will cause toe-in, so may require keystone editing)"/>
+                    <Switch Grid.Column="1"
+                            Grid.Row="4"
+                            IsToggled="{Binding Settings.IsGuideDonutVisible}"/>
                 </Grid>
             </views:Expander>
 

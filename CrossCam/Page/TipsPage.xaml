@@ -105,8 +105,8 @@
 
             <BoxView/>
 
-            <customElement:BasicExpander Title="The dot/donut guide can help your window"
-                                         Text="There is an experimental &quot;guide donut/dot&quot; on the Settings page you can turn on which may help you preserve your stereo window. Ideally you would drag it onto the horizon, sky, or other very distant point. Be careful, using it on smaller scenes may make things painful (see keystone tip above)."/>
+            <customElement:BasicExpander Title="The donut guide can help your window"
+                                         Text="There is an experimental &quot;guide donut&quot; on the Settings page you can turn on which may help you preserve your stereo window while maximizing the useable width. By turning left and right the depth on the donut will change relative to the rest of the scene - set the donut's depth so it is either on or behind the most distant point in your scene. Be careful, using it on smaller scenes may make things painful (see keystone tip above)."/>
 
             <BoxView/>
             <customElement:FooterLabel/>

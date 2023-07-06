@@ -1198,6 +1198,7 @@ namespace CrossCam.ViewModel
             base.Init(initData);
 
             PropertyChanged += HandlePropertyChanged;
+            Edits.PropertyChanged += EditsOnPropertyChanged;
             Settings.PropertyChanged += SettingsOnPropertyChanged;
             Settings.AlignmentSettings.PropertyChanged += AlignmentSettingsOnPropertyChanged;
             Settings.PairSettings.PropertyChanged += PairSettingsOnPropertyChanged;
@@ -1228,31 +1229,9 @@ namespace CrossCam.ViewModel
             Analytics.TrackEvent("alignment settings at launch", alignmentDictionary);
         }
 
-        private void EditsSettingsOnPropertyChanged(object sender, PropertyChangedEventArgs e)
+        private void EditsOnPropertyChanged(object sender, PropertyChangedEventArgs e)
         {
-            switch (e.PropertyName)
-            {
-                case nameof(EditsSettings.ZoomMax):
-                    RaisePropertyChanged(nameof(ZoomMax));
-                    break;
-                case nameof(EditsSettings.SideCropMax):
-                    RaisePropertyChanged(nameof(SideCropMax));
-                    break;
-                case nameof(EditsSettings.TopOrBottomCropMax):
-                    RaisePropertyChanged(nameof(TopOrBottomCropMax));
-                    break;
-                case nameof(EditsSettings.KeystoneMax):
-                    RaisePropertyChanged(nameof(MaxKeystone));
-                    break;
-                case nameof(EditsSettings.RotationMax):
-                    RaisePropertyChanged(nameof(RotationMax));
-                    RaisePropertyChanged(nameof(RotationMin));
-                    break;
-                case nameof(EditsSettings.VerticalAlignmentMax):
-                    RaisePropertyChanged(nameof(VerticalAlignmentMax));
-                    RaisePropertyChanged(nameof(VerticalAlignmentMin));
-                    break;
-            }
+            RaisePropertyChanged(nameof(IsPictureWiderThanTall));
         }
 
         private void DeviceDisplayOnMainDisplayInfoChanged(object sender, DisplayInfoChangedEventArgs e)
@@ -1374,6 +1353,7 @@ namespace CrossCam.ViewModel
                     TryTriggerMovementHint(true);
                     RaisePropertyChanged(nameof(CanvasRectangle));
                     RaisePropertyChanged(nameof(CanvasRectangleFlags));
+                    RaisePropertyChanged(nameof(ShouldDonutGuideBeVisible));
                     break;
                 case nameof(IsNothingCaptured):
                     RaisePropertyChanged(nameof(IsFullscreenToggleVisible));
@@ -1412,7 +1392,6 @@ namespace CrossCam.ViewModel
                     RaisePropertyChanged(nameof(IsCaptureModeAndEitherPrimaryOrDisconnected));
                     RaisePropertyChanged(nameof(ShouldLineGuidesBeVisible));
                     RaisePropertyChanged(nameof(ShouldDonutGuideBeVisible));
-                    RaisePropertyChanged(nameof(ShouldRollGuideBeVisible));
                     RaisePropertyChanged(nameof(ShouldViewButtonBeVisible));
                     RaisePropertyChanged(nameof(ShouldClearEditButtonBeVisible));
                     RaisePropertyChanged(nameof(IsBusy));
@@ -1421,6 +1400,8 @@ namespace CrossCam.ViewModel
                     break;
                 case nameof(IsExactlyOnePictureTaken):
                     RaisePropertyChanged(nameof(ShouldSwapSidesBeVisible));
+                    RaisePropertyChanged(nameof(ShouldDonutGuideBeVisible));
+                    RaisePropertyChanged(nameof(ShouldLineGuidesBeVisible));
                     break;
                 case nameof(CaptureButtonPosition):
                     RaisePropertyChanged(nameof(PairButtonPosition));
@@ -1428,6 +1409,42 @@ namespace CrossCam.ViewModel
                 case nameof(UseFullScreenWidth):
                     RaisePropertyChanged(nameof(CanvasRectangle));
                     RaisePropertyChanged(nameof(CanvasRectangleFlags));
+                    break;
+                case nameof(IsSlidingHappening):
+                    RaisePropertyChanged(nameof(ShouldViewButtonBeVisible));
+                    RaisePropertyChanged(nameof(ShouldClearEditButtonBeVisible));
+                    break;
+                case nameof(LeftBitmap):
+                    RaisePropertyChanged(nameof(IsNothingCaptured));
+                    RaisePropertyChanged(nameof(AreBothSidesCaptured));
+                    RaisePropertyChanged(nameof(ShouldLeftLeftRetakeBeVisible));
+                    RaisePropertyChanged(nameof(ShouldLeftRightRetakeBeVisible));
+                    RaisePropertyChanged(nameof(IsExactlyOnePictureTaken));
+                    RaisePropertyChanged(nameof(IsPictureWiderThanTall));
+                    break;
+                case nameof(RightBitmap):
+                    RaisePropertyChanged(nameof(IsNothingCaptured));
+                    RaisePropertyChanged(nameof(AreBothSidesCaptured));
+                    RaisePropertyChanged(nameof(ShouldRightLeftRetakeBeVisible));
+                    RaisePropertyChanged(nameof(ShouldRightRightRetakeBeVisible));
+                    RaisePropertyChanged(nameof(IsExactlyOnePictureTaken));
+                    RaisePropertyChanged(nameof(IsPictureWiderThanTall));
+                    break;
+                case nameof(WasCapturePortrait):
+                    RaisePropertyChanged(nameof(ShouldLeftLeftRetakeBeVisible));
+                    RaisePropertyChanged(nameof(ShouldRightRightRetakeBeVisible));
+                    break;
+                case nameof(IsBusy):
+                    RaisePropertyChanged(nameof(ShouldSettingsAndHelpBeVisible));
+                    break;
+                case nameof(IsPictureWiderThanTall):
+                    RaisePropertyChanged(nameof(ShouldPortraitViewModeWarningBeVisible));
+                    break;
+                case nameof(LeftAlignmentTransform):
+                    RaisePropertyChanged(nameof(IsPictureWiderThanTall));
+                    break;
+                case nameof(RightAlignmentTransform):
+                    RaisePropertyChanged(nameof(IsPictureWiderThanTall));
                     break;
             }
         }
@@ -1478,6 +1495,7 @@ namespace CrossCam.ViewModel
                     RaisePropertyChanged(nameof(IsFullscreenToggleVisible));
                     RaisePropertyChanged(nameof(ShouldPairButtonBeVisible));
                     RaisePropertyChanged(nameof(ShouldSwapSidesBeVisible));
+                    RaisePropertyChanged(nameof(ShouldDonutGuideBeVisible));
                     RaisePropertyChanged(nameof(UseFullScreenWidth));
                     break;
                 case nameof(Settings.IsCaptureLeftFirst):
@@ -1493,10 +1511,12 @@ namespace CrossCam.ViewModel
                 case nameof(Settings.FullscreenEditing):
                     RaisePropertyChanged(nameof(CanvasRectangle));
                     RaisePropertyChanged(nameof(UseFullScreenWidth));
+                    RaisePropertyChanged(nameof(IsFullscreenToggle));
                     break;
                 case nameof(Settings.FullscreenCapturing):
                     RaisePropertyChanged(nameof(CanvasRectangle));
                     RaisePropertyChanged(nameof(UseFullScreenWidth));
+                    RaisePropertyChanged(nameof(IsFullscreenToggle));
                     break;
                 case nameof(Settings.MaximumParallelWidth):
                     RaisePropertyChanged(nameof(CanvasRectangle));
@@ -1510,7 +1530,6 @@ namespace CrossCam.ViewModel
                 RaisePropertyChanged(nameof(UseFullScreenWidth));
                 RaisePropertyChanged(nameof(IsFullscreenToggle));
                 RaisePropertyChanged(nameof(IsParallelTypeMode));
-                RaisePropertyChanged(nameof(CaptureButtonPosition));
                 RaisePropertyChanged(nameof(ShouldDonutGuideBeVisible));
                 RaisePropertyChanged(nameof(ShouldPortraitViewModeWarningBeVisible));
                 RaisePropertyChanged(nameof(IsPictureWiderThanTall));
@@ -1541,7 +1560,37 @@ namespace CrossCam.ViewModel
             {
                 case nameof(PairSettings.IsPairedPrimary.HasValue):
                 case nameof(PairSettings.IsPairedPrimary.Value):
+                    RaisePropertyChanged(nameof(IsCaptureModeAndEitherPrimaryOrDisconnected));
                     RaisePropertyChanged(nameof(IsFullscreenToggleVisible));
+                    RaisePropertyChanged(nameof(ShouldDonutGuideBeVisible));
+                    RaisePropertyChanged(nameof(ShouldLineGuidesBeVisible));
+                    break;
+            }
+        }
+
+        private void EditsSettingsOnPropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+            switch (e.PropertyName)
+            {
+                case nameof(EditsSettings.ZoomMax):
+                    RaisePropertyChanged(nameof(ZoomMax));
+                    break;
+                case nameof(EditsSettings.SideCropMax):
+                    RaisePropertyChanged(nameof(SideCropMax));
+                    break;
+                case nameof(EditsSettings.TopOrBottomCropMax):
+                    RaisePropertyChanged(nameof(TopOrBottomCropMax));
+                    break;
+                case nameof(EditsSettings.KeystoneMax):
+                    RaisePropertyChanged(nameof(MaxKeystone));
+                    break;
+                case nameof(EditsSettings.RotationMax):
+                    RaisePropertyChanged(nameof(RotationMax));
+                    RaisePropertyChanged(nameof(RotationMin));
+                    break;
+                case nameof(EditsSettings.VerticalAlignmentMax):
+                    RaisePropertyChanged(nameof(VerticalAlignmentMax));
+                    RaisePropertyChanged(nameof(VerticalAlignmentMin));
                     break;
             }
         }
