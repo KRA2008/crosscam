@@ -13,9 +13,9 @@
         <StackLayout Spacing="0">
             <BoxView/>
             <StackLayout Padding="10">
-                <Label Text="If you want to see this again, tap the hamburger (three lines) icon on the top left of the camera screen and tap &quot;Help&quot; button."/>
+                <Label Text="If you want to see this again, tap the hamburger (three lines) icon on the top left of the camera screen and tap &quot;Help&quot;."/>
                 <Label Text=" "/>
-                <Label Text="To see the 3D in CrossCam (called &quot;stereograms&quot;) you can use red/cyan 3D glasses, a Google Cardboard viewer, a mirror, or you can do &quot;free viewing&quot; using just your eyes and your screen. There are two ways to free view, and CrossCam can help you learn both of them. You need to tell CrossCam how you're going to view the pictures or it won't work right. Don't worry, you can always change this again in Settings."/>
+                <Label Text="To see the 3D in CrossCam (called &quot;stereograms&quot;) you can use red/cyan 3D glasses, a Google Cardboard viewer, or you can do &quot;free viewing&quot; using just your eyes and your screen. There are two ways to free view, and CrossCam can help you learn both of them. You need to tell CrossCam how you're going to view the pictures or it won't work right. Don't worry, you can always change this again in Settings."/>
                 <Label Text=" "/>
                 <Label Text="If you're able to comfortably cross your eyes, you should try the cross method first, otherwise you should try the parallel method. If you're used to Magic Eye™ books, you're probably already able to do the parallel method, but you might also be able to do the cross method. Tap a method below to learn it, and make sure to tell CrossCam which one works for you by pressing the corresponding CHOOSE button."/>
                 <Label Text=" "/>
@@ -117,7 +117,7 @@
                             <Button Text="Another YouTube tutorial"
                                     Command="{Binding OpenLinkCommand}"
                                     CommandParameter="https://www.youtube.com/watch?v=yNpIDSqTJ_Y"/>
-                            <Button Text="A dual camera project with a tutorial"
+                            <Button Text="The 'tunnel method' and other help"
                                     Command="{Binding OpenLinkCommand}"
                                     CommandParameter="https://www.youtube.com/watch?v=4S5pZEnIbrQ"/>
 
