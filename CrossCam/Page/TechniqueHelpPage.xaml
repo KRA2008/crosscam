@@ -117,7 +117,7 @@
                             <Button Text="Another YouTube tutorial"
                                     Command="{Binding OpenLinkCommand}"
                                     CommandParameter="https://www.youtube.com/watch?v=yNpIDSqTJ_Y"/>
-                            <Button Text="The 'tunnel method' and other help"
+                            <Button Text="A dual camera project with a tutorial"
                                     Command="{Binding OpenLinkCommand}"
                                     CommandParameter="https://www.youtube.com/watch?v=4S5pZEnIbrQ"/>
 
@@ -185,6 +185,8 @@
 
                 <Label Text=" "/>
                 <Label Text="If you're still having trouble, try bringing your phone to a dark room so that the only thing your eyes can see well and focus on is the image."/>
+                <Label Text=" "/>
+                <Label Text="Another thing you can try is using toilet paper tubes or your hands to make it so each eye can only see the side of the image it's supposed to see.&#10; &#x2022; For cross view: hold a single tube against the bridge of your nose (centered between your eyes) while pointing it at the center of the image in front of you. Slowly move the tube toward the screen while trying to look down the tube with both eyes. When you reach the right position with the tube the image should snap into place. It may help to concentrate on trying to look at the inside of the far end of the tube. If you can't find the right position, try using a larger image or a smaller tube.&#10; &#x2022; For parallel view: hold a tube in front of each eye, but point them both out sideways, so you can hardly see anything. Slowly turn the tubes inward at the same time so you can start seeing more of the image. The moment you can see most of the image (almost half with each eye), try to relax your eyes and bring the halves together. It may help to use a larger or smaller image."/>
                 <Label Text=" "/>
                 <Label Text="There is an easy exercise you can do to practice fusing with either cross or parallel viewing. Take a marker and draw a portion of a smiley face on each of your thumbnails (or a pair of popsicle sticks or tongue depressors). For example, on one side draw one eye and a mouth, and on the other side draw an eye and a nose. You can then hold them up in front of you and practice fusing the two images together to complete the smiley face."/>
                 <Label Text=" "/>
