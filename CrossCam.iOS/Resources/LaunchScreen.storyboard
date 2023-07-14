@@ -19,16 +19,16 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ic9-LH-K5U">
-                                <rect key="frame" x="96.666666666666686" y="326" width="200" height="200"/>
+                                <rect key="frame" x="96.666666666666686" y="326" width="100" height="100"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="200" id="EGE-dm-A4z"/>
-                                    <constraint firstAttribute="height" constant="200" id="R5M-fa-6ph"/>
+                                    <constraint firstAttribute="width" constant="100" id="EGE-dm-A4z"/>
+                                    <constraint firstAttribute="height" constant="100" id="R5M-fa-6ph"/>
                                 </constraints>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
-                                        <integer key="value" value="100"/>
+                                        <integer key="value" value="50"/>
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                             </view>
