@@ -608,7 +608,7 @@
             </AbsoluteLayout.LayoutBounds>
             <Slider Value="{Binding Edits.Keystone, Mode=TwoWay}"
                     Maximum="{Binding MaxKeystone}"
-                    Minimum="0"
+                    Minimum="{Binding MinKeystone}"
                     HorizontalOptions="FillAndExpand"
                     DragStartedCommand="{Binding SlidingStartedCommand}"
                     DragCompletedCommand="{Binding SlidingFinishedCommand}"/>

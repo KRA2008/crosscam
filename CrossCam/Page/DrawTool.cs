@@ -745,10 +745,7 @@ namespace CrossCam.Page
             {
                 // TODO (or TODON'T): the axis of this rotation is fixed, but it could be needed in any direction really, so enable that?
                 var isKeystoneSwapped = drawMode == DrawMode.Parallel || drawMode == DrawMode.Cardboard;
-                var xCorrection =
-                    isLeft && !isKeystoneSwapped || !isLeft && isKeystoneSwapped
-                        ? destX
-                        : destX + destWidth;
+                var xCorrection = destX + destWidth / 2f;
                 transform4D.PostConcat(SKMatrix44.CreateTranslate(-xCorrection, -yCorrectionToOrigin, 0));
                 transform4D.PostConcat(SKMatrix44.CreateRotationDegrees(0, 1, 0,
                     isLeft && !isKeystoneSwapped || !isLeft && isKeystoneSwapped ? keystone : -keystone));

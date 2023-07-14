@@ -198,6 +198,7 @@ namespace CrossCam.ViewModel
         public float RotationMin => -RotationMax;
 
         public float MaxKeystone => Settings.EditsSettings.KeystoneMax;
+        public float MinKeystone => -MaxKeystone;
 
         public Command LoadPhotoCommand { get; set; }
 
@@ -1588,6 +1589,7 @@ namespace CrossCam.ViewModel
                     break;
                 case nameof(EditsSettings.KeystoneMax):
                     RaisePropertyChanged(nameof(MaxKeystone));
+                    RaisePropertyChanged(nameof(MinKeystone));
                     break;
                 case nameof(EditsSettings.RotationMax):
                     RaisePropertyChanged(nameof(RotationMax));
