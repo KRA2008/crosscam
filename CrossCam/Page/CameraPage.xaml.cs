@@ -401,6 +401,7 @@ namespace CrossCam.Page
                         PlaceRollGuide();
                         break;
                     case nameof(CameraViewModel.IsViewPortrait):
+                        ProcessDoubleTap();
                         SetMarginsForNotch();
                         SwapSidesIfCardboard();
                         _forceCanvasClear = true;
@@ -1019,7 +1020,10 @@ namespace CrossCam.Page
         private void ProcessSingleTap()
         {
             if (_viewModel?.LocalPreviewFrame.Frame == null || 
-                _viewModel.Settings.Mode == DrawMode.Cardboard) return;
+                _viewModel.Settings.Mode == DrawMode.Cardboard || 
+                (_viewModel.Settings.Mode == DrawMode.RedCyanAnaglyph || 
+                 _viewModel.Settings.Mode == DrawMode.GrayscaleRedCyanAnaglyph) &&
+                _viewModel.Settings.IsCaptureInMirrorMode) return;
 
             float xProportion;
             float yProportion;

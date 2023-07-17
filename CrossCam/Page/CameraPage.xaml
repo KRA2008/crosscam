@@ -187,30 +187,32 @@
                     </ContentView.GestureRecognizers>
                 </ContentView>
             </AbsoluteLayout>
-        </Grid>
 
-        <AbsoluteLayout IsVisible="{Binding WorkflowStage, Converter={StaticResource enumCompare}, ConverterParameter={x:Static vm:WorkflowStage.Capture}}"
-                        InputTransparent="True">
-            <Image x:Name="_focusCircle"
-                   AbsoluteLayout.LayoutFlags="None"
-                   AbsoluteLayout.LayoutBounds="0,0,0,0"
-                   IsVisible="{Binding IsFocusCircleVisible}">
-                <Image.Triggers>
-                    <DataTrigger TargetType="Image" 
-                                 Binding="{Binding IsFocusCircleLocked}"
-                                 Value="true">
-                        <Setter Property="Source"
-                                Value="focusCircleGreen"/>
-                    </DataTrigger>
-                    <DataTrigger TargetType="Image" 
-                                 Binding="{Binding IsFocusCircleLocked}"
-                                 Value="false">
-                        <Setter Property="Source"
-                                Value="focusCircle"/>
-                    </DataTrigger>
-                </Image.Triggers>
-            </Image>
-        </AbsoluteLayout>
+            <AbsoluteLayout IsVisible="{Binding WorkflowStage, Converter={StaticResource enumCompare}, ConverterParameter={x:Static vm:WorkflowStage.Capture}}"
+                            InputTransparent="True"
+                            Grid.Column="0"
+                            Grid.ColumnSpan="2">
+                <Image x:Name="_focusCircle"
+                       AbsoluteLayout.LayoutFlags="None"
+                       AbsoluteLayout.LayoutBounds="0,0,0,0"
+                       IsVisible="{Binding IsFocusCircleVisible}">
+                    <Image.Triggers>
+                        <DataTrigger TargetType="Image" 
+                                     Binding="{Binding IsFocusCircleLocked}"
+                                     Value="true">
+                            <Setter Property="Source"
+                                    Value="focusCircleGreen"/>
+                        </DataTrigger>
+                        <DataTrigger TargetType="Image" 
+                                     Binding="{Binding IsFocusCircleLocked}"
+                                     Value="false">
+                            <Setter Property="Source"
+                                    Value="focusCircle"/>
+                        </DataTrigger>
+                    </Image.Triggers>
+                </Image>
+            </AbsoluteLayout>
+        </Grid>
 
         <Frame AbsoluteLayout.LayoutFlags="PositionProportional"
                AbsoluteLayout.LayoutBounds="{Binding PairButtonPosition}"
