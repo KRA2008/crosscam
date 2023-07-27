@@ -18,8 +18,8 @@
         public uint PairedPreviewFrameDelayMs { get; set; }
 
         public bool IsFovCorrectionSet { get; set; }
-        public double FovPrimaryCorrection { get; set; }
-        public double FovSecondaryCorrection { get; set; }
+        public float FovPrimaryCorrection { get; set; }
+        public float FovSecondaryCorrection { get; set; }
 
         public uint PairSyncSampleCount { get; set; }
         public uint PairedCaptureCountdown { get; set; }

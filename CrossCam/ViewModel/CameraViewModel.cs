@@ -417,9 +417,9 @@ namespace CrossCam.ViewModel
         private bool IsPictureWiderThanTall => LeftBitmap != null &&
                                                RightBitmap != null &&
                                                Settings.Mode != DrawMode.Parallel &&
-                                               DrawTool.CalculateJoinedCanvasWidthWithEditsNoBorder(
+                                               DrawTool.CalculateJoinedImageWidthWithEditsNoBorder(
                                                    LeftBitmap, LeftAlignmentTransform, RightBitmap, RightAlignmentTransform, Edits) >
-                                               DrawTool.CalculateCanvasHeightWithEditsNoBorder(
+                                               DrawTool.CalculateImageHeightWithEditsNoBorder(
                                                    LeftBitmap, LeftAlignmentTransform, RightBitmap, RightAlignmentTransform, Edits);
 
         public string SavedSuccessMessage => "Saved to " + (Settings.SaveToExternal
@@ -802,30 +802,40 @@ namespace CrossCam.ViewModel
                             await SaveSurfaceSnapshot(tempSurface, CROSSCAM + (Settings.SaveIntoSeparateFolders ? "_Separate" : ""));
                         }
 
-                        var finalImageWidth = DrawTool.CalculateJoinedCanvasWidthWithEditsNoBorder(
+                        var joinedImageSize = DrawTool.CalculateJoinedImageSizeWithEditsNoBorder(
                             LeftBitmap, LeftAlignmentTransform, RightBitmap, RightAlignmentTransform, Edits);
-                        var finalTripleWidth = (int) (1.5 * finalImageWidth);
-                        var borderThickness = Settings.AddBorder2
-                            ? (int) (DrawTool.BORDER_CONVERSION_FACTOR * Settings.BorderWidthProportion *
-                                     finalImageWidth)
-                            : 0;
-                        finalImageWidth += (3 * borderThickness);
-                        finalTripleWidth += (int)(4.25d * borderThickness); //I don't know why 1/4 but that's what it is.
-                        var tripleHalfOffset = (int) (finalImageWidth - borderThickness / 2d); //I don't know why 1/2 but that's what it is.
-                        var finalImageHeight = DrawTool.CalculateCanvasHeightWithEditsNoBorder(
-                                                   LeftBitmap, LeftAlignmentTransform, RightBitmap, RightAlignmentTransform, Edits) +
-                                               2 * borderThickness;
-                        if (Settings.SaveWithFuseGuide)
-                        {
-                            finalImageHeight += (int)DrawTool.CalculateFuseGuideMarginHeight(finalImageHeight);
-                        }
-                        var quadHeight = (int) (finalImageHeight * 2 - borderThickness /2d); //I don't know why 1/2 but that's what it is.
-                        var quadOffset = (int) (finalImageHeight - borderThickness / 2d); //I don't know why 1/2 but that's what it is.
+                        var tripleWidth = joinedImageSize.Width * 1.5f;
+                        var quadHeight = joinedImageSize.Height * 2f;
+                        var quadOffset = joinedImageSize.Height * 1f;
+                        var tripleOffset = joinedImageSize.Width;
 
-                        tripleHalfOffset = (int) (tripleHalfOffset * (Settings.ResolutionProportion / 100d));
-                        finalTripleWidth = (int) (finalTripleWidth * (Settings.ResolutionProportion / 100d));
-                        finalImageWidth = (int) (finalImageWidth * (Settings.ResolutionProportion / 100d));
-                        finalImageHeight = (int) (finalImageHeight * (Settings.ResolutionProportion / 100d));
+                        var borderThickness = Settings.AddBorder2
+                            ? DrawTool.CalculateBorderThickness(joinedImageSize.Width, Settings.BorderWidthProportion)
+                            : 0;
+                        joinedImageSize.Width += 3 * borderThickness;
+                        joinedImageSize.Height += 2 * borderThickness;
+                        tripleWidth += 4 * borderThickness;
+                        tripleOffset -= borderThickness;
+                        
+
+                        var fuseGuideMarginHeight = Settings.SaveWithFuseGuide
+                            ? DrawTool.CalculateFuseGuideMarginHeight(joinedImageSize.Height)
+                            : 0;
+                        var fuseGuideImageHeightModifier = Math.Max(fuseGuideMarginHeight - borderThickness, 0);
+
+                        joinedImageSize.Height += fuseGuideImageHeightModifier;
+                        quadHeight += fuseGuideImageHeightModifier + 2 * borderThickness;
+                        quadOffset += fuseGuideImageHeightModifier + borderThickness;
+
+                        tripleOffset *= (Settings.ResolutionProportion / 100f);
+                        tripleWidth *= (Settings.ResolutionProportion / 100f);
+                        joinedImageSize.Width *= (Settings.ResolutionProportion / 100f);
+                        joinedImageSize.Height *= (Settings.ResolutionProportion / 100f);
+                        quadHeight *= (Settings.ResolutionProportion / 100f);
+                        quadOffset *= (Settings.ResolutionProportion / 100f);
+
+                        var joinedImageSkInfo =
+                            new SKImageInfo((int) joinedImageSize.Width, (int) joinedImageSize.Height);
 
                         if (Settings.SaveForCrossView &&
                             Settings.Mode == DrawMode.Cross ||
@@ -840,9 +850,8 @@ namespace CrossCam.ViewModel
                             {
                                 {SAVE_TYPE, Settings.Mode == DrawMode.Parallel ? "parallel" : "cross"}
                             });
-                            using var tempSurface =
-                                SKSurface.Create(new SKImageInfo(finalImageWidth, finalImageHeight));
-
+                            using var tempSurface = SKSurface.Create(joinedImageSkInfo);
+                            
                             DrawTool.DrawImagesOnCanvas(
                                 tempSurface, 
                                 LeftBitmap, LeftAlignmentTransform,
@@ -865,7 +874,7 @@ namespace CrossCam.ViewModel
                                 {SAVE_TYPE, Settings.Mode == DrawMode.Cross ? "parallel" : "cross"}
                             });
                             using var tempSurface =
-                                SKSurface.Create(new SKImageInfo(finalImageWidth, finalImageHeight));
+                                SKSurface.Create(joinedImageSkInfo);
 
                             DrawTool.DrawImagesOnCanvas(
                                 tempSurface, 
@@ -903,8 +912,7 @@ namespace CrossCam.ViewModel
                             {
                                 {SAVE_TYPE, "first side"}
                             });
-                            SKBitmap targetBitmap;
-                            targetBitmap = Settings.IsCaptureLeftFirst ? LeftBitmap : RightBitmap;
+                            var targetBitmap = Settings.IsCaptureLeftFirst ? LeftBitmap : RightBitmap;
 
                             var width = targetBitmap.Width;
                             var height = targetBitmap.Height;
@@ -925,7 +933,7 @@ namespace CrossCam.ViewModel
                                 {SAVE_TYPE, "triple"}
                             });
                             using var doubleSurface =
-                                SKSurface.Create(new SKImageInfo(finalImageWidth, finalImageHeight));
+                                SKSurface.Create(joinedImageSkInfo);
                             using var doubleCanvas = doubleSurface.Canvas;
 
                             DrawTool.DrawImagesOnCanvas(
@@ -937,12 +945,12 @@ namespace CrossCam.ViewModel
                                 DrawMode.Cross, WasCapturePaired);
 
                             using var tripleSurface =
-                                SKSurface.Create(new SKImageInfo(finalTripleWidth, finalImageHeight));
+                                SKSurface.Create(new SKImageInfo((int)tripleWidth, (int)joinedImageSize.Height));
                             using var tripleCanvas = tripleSurface.Canvas;
                             tripleCanvas.Clear();
 
                             tripleCanvas.DrawSurface(doubleSurface, 0, 0);
-                            tripleCanvas.DrawSurface(doubleSurface, tripleHalfOffset, 0);
+                            tripleCanvas.DrawSurface(doubleSurface, tripleOffset, 0);
 
                             await SaveSurfaceSnapshot(tripleSurface, CROSSCAM + (Settings.SaveIntoSeparateFolders ? "_Triple" : ""));
                         }
@@ -954,7 +962,7 @@ namespace CrossCam.ViewModel
                                 {SAVE_TYPE, "quad"}
                             });
                             using var doublePlainSurface =
-                                SKSurface.Create(new SKImageInfo(finalImageWidth, finalImageHeight));
+                                SKSurface.Create(joinedImageSkInfo);
                             using var doublePlainCanvas = doublePlainSurface.Canvas;
 
                             DrawTool.DrawImagesOnCanvas(
@@ -966,7 +974,7 @@ namespace CrossCam.ViewModel
                                 DrawMode.Cross, WasCapturePaired);
 
                             using var doubleSwapSurface =
-                                SKSurface.Create(new SKImageInfo(finalImageWidth, finalImageHeight));
+                                SKSurface.Create(joinedImageSkInfo);
                             using var doubleSwapCanvas = doubleSwapSurface.Canvas;
                             doubleSwapCanvas.Clear();
 
@@ -979,12 +987,12 @@ namespace CrossCam.ViewModel
                                 DrawMode.Cross, WasCapturePaired, withSwap: true);
 
                             using var quadSurface =
-                                SKSurface.Create(new SKImageInfo(finalImageWidth, quadHeight));
+                                SKSurface.Create(new SKImageInfo((int)joinedImageSize.Width, (int)quadHeight));
                             using var quadCanvas = quadSurface.Canvas;
                             quadCanvas.Clear();
 
                             quadCanvas.DrawSurface(doublePlainSurface, 0, 0);
-                            quadCanvas.DrawSurface(doubleSwapSurface, 0, quadOffset);
+                            quadCanvas.DrawSurface(doubleSwapSurface, 0, (int)quadOffset);
 
                             await SaveSurfaceSnapshot(quadSurface, CROSSCAM + (Settings.SaveIntoSeparateFolders ? "_Quad" : ""));
                         }
@@ -995,13 +1003,10 @@ namespace CrossCam.ViewModel
                             {
                                 {SAVE_TYPE, "cardboard"}
                             });
-                            var width = DrawTool.CalculateJoinedCanvasWidthWithEditsNoBorder(
-                                LeftBitmap, LeftAlignmentTransform, RightBitmap, RightAlignmentTransform, Edits);
-                            var height =
-                                DrawTool.CalculateCanvasHeightWithEditsNoBorder(
-                                    LeftBitmap, LeftAlignmentTransform, RightBitmap, RightAlignmentTransform, Edits);
+                            var finalSize = DrawTool.CalculateJoinedImageSizeWithEditsNoBorder(LeftBitmap,
+                                LeftAlignmentTransform, RightBitmap, RightAlignmentTransform, Edits);
 
-                            using var tempSurface = SKSurface.Create(new SKImageInfo(width, height));
+                            using var tempSurface = SKSurface.Create(new SKImageInfo((int)finalSize.Width, (int)finalSize.Height));
                             using var canvas = tempSurface.Canvas;
                             canvas.Clear();
 
@@ -1836,12 +1841,10 @@ namespace CrossCam.ViewModel
 
         private async Task DrawAnaglyph(bool grayscale)
         {
-            var canvasWidth = DrawTool.CalculateOverlayedCanvasWidthWithEditsNoBorder(
-                LeftBitmap, LeftAlignmentTransform, RightBitmap, RightAlignmentTransform, Edits);
-            var canvasHeight = DrawTool.CalculateCanvasHeightWithEditsNoBorder(
-                LeftBitmap, LeftAlignmentTransform, RightBitmap, RightAlignmentTransform, Edits);
+            var overlayedSize = DrawTool.CalculateOverlayedImageSizeWithEditsNoBorder(LeftBitmap,
+                LeftAlignmentTransform, RightBitmap, RightAlignmentTransform, Edits);
             using var tempSurface =
-                SKSurface.Create(new SKImageInfo(canvasWidth, canvasHeight));
+                SKSurface.Create(new SKImageInfo((int)overlayedSize.Width, (int)overlayedSize.Height));
             var canvas = tempSurface.Canvas;
             canvas.Clear(SKColor.Empty);
 

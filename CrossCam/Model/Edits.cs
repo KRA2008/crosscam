@@ -11,22 +11,22 @@ namespace CrossCam.Model
             _settings = settings;
         }
 
-        public double LeftCrop { get; set; }
-        public double RightCrop { get; set; }
-        public double InsideCrop { get; set; }
-        public double OutsideCrop { get; set; }
-        public double TopCrop { get; set; }
-        public double BottomCrop { get; set; }
+        public float LeftCrop { get; set; }
+        public float RightCrop { get; set; }
+        public float InsideCrop { get; set; }
+        public float OutsideCrop { get; set; }
+        public float TopCrop { get; set; }
+        public float BottomCrop { get; set; }
 
-        public double VerticalAlignment { get; set; }
-        public double LeftZoom { get; set; }
-        public double RightZoom { get; set; }
+        public float VerticalAlignment { get; set; }
+        public float LeftZoom { get; set; }
+        public float RightZoom { get; set; }
         public float LeftRotation { get; set; }
         public float RightRotation { get; set; }
 
         public float Keystone { get; set; }
 
-        public double FovRightCorrection
+        public float FovRightCorrection
         {
             get => _settings.IsCaptureLeftFirst ? _settings.PairSettings.FovSecondaryCorrection : _settings.PairSettings.FovPrimaryCorrection;
             set
@@ -45,7 +45,7 @@ namespace CrossCam.Model
                 }
             }
         }
-        public double FovLeftCorrection
+        public float FovLeftCorrection
         {
             get => _settings.IsCaptureLeftFirst ? _settings.PairSettings.FovPrimaryCorrection : _settings.PairSettings.FovSecondaryCorrection;
             set

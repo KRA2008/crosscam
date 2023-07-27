@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Drawing;
 using System.Linq;
 using CrossCam.Model;
 using CrossCam.ViewModel;
@@ -11,8 +12,8 @@ namespace CrossCam.Page
 {
     public class DrawTool
     {
-        public const double BORDER_CONVERSION_FACTOR = 0.001;
-        private const double FUSE_GUIDE_WIDTH_RATIO = 0.0127;
+        public const float BORDER_CONVERSION_FACTOR = 0.001f;
+        private const float FUSE_GUIDE_WIDTH_RATIO = 0.0127f;
         private const int FUSE_GUIDE_MARGIN_HEIGHT_RATIO = 5;
 
         private static readonly SKColorFilter CyanAnaglyph = SKColorFilter.CreateColorMatrix(new[]
@@ -43,7 +44,7 @@ namespace CrossCam.Page
                 0,     0,     0, 0, 0,
                 0,     0,     0, 1, 0
         });
-        public static readonly SKEncodedOrigin[] Orientations90deg = new[]
+        public static readonly SKEncodedOrigin[] Orientations90deg = 
         {
             SKEncodedOrigin.RightTop,
             SKEncodedOrigin.LeftBottom,
@@ -57,7 +58,7 @@ namespace CrossCam.Page
             Settings settings, Edits edits, DrawMode drawMode, bool wasPairedCapture, 
             bool isLeftFrontFacing = false, SKEncodedOrigin leftOrientation = SKEncodedOrigin.Default, 
             bool isRightFrontFacing = false, SKEncodedOrigin rightOrientation = SKEncodedOrigin.Default, bool withSwap = false,
-            DrawQuality drawQuality = DrawQuality.Save, double cardboardVert = 0, double cardboardHor = 0, bool isFovStage = false,
+            DrawQuality drawQuality = DrawQuality.Save, float cardboardVert = 0, float cardboardHor = 0, bool isFovStage = false,
             bool useFullscreen = false, bool useMirrorCapture = false)
         {
             var fuseGuideRequested = drawQuality != DrawQuality.Preview && 
@@ -65,8 +66,7 @@ namespace CrossCam.Page
                                      drawQuality == DrawQuality.Preview &&
                                      settings.ShowPreviewFuseGuide;
 
-            var skFilterQuality = drawQuality == DrawQuality.Preview || 
-                                  drawQuality == DrawQuality.Review ? 
+            var skFilterQuality = drawQuality == DrawQuality.Preview ? 
                                   SKFilterQuality.Low : SKFilterQuality.High;
 
             var addBarrelDistortion =
@@ -82,19 +82,19 @@ namespace CrossCam.Page
                 cardboardVert = 0;
             }
 
-            double cardboardWidthProportion = 0;
+            float cardboardWidthProportion = 0;
             if (drawMode == DrawMode.Cardboard)
             {
-                cardboardWidthProportion = settings.CardboardSettings.CardboardIpd /
-                                           (Math.Max(DeviceDisplay.MainDisplayInfo.Width,
-                                                DeviceDisplay.MainDisplayInfo.Height) /
-                                            DeviceDisplay.MainDisplayInfo.Density / 2d) / 2d;
+                cardboardWidthProportion = (float) (settings.CardboardSettings.CardboardIpd /
+                                                    (Math.Max(DeviceDisplay.MainDisplayInfo.Width,
+                                                         DeviceDisplay.MainDisplayInfo.Height) /
+                                                     DeviceDisplay.MainDisplayInfo.Density / 2f) / 2f);
             }
 
             var cardboardDownsizeProportion = drawQuality != DrawQuality.Save &&
                                               drawMode == DrawMode.Cardboard &&
-                                              settings.CardboardSettings.CardboardDownsize ? settings.CardboardSettings.CardboardDownsizePercentage / 100d : 1d;
-            double vert = 0, hor = 0;
+                                              settings.CardboardSettings.CardboardDownsize ? settings.CardboardSettings.CardboardDownsizePercentage / 100f : 1f;
+            float vert = 0, hor = 0;
             if (settings.CardboardSettings.ImmersiveCardboardFinal && 
                 settings.Mode == DrawMode.Cardboard)
             {
@@ -128,13 +128,10 @@ namespace CrossCam.Page
                 DrawImagesOnCanvasInternal(surface, 
                     rightBitmap, rightAlignmentMatrix, rightOrientation, isRightFrontFacing, false,
                     leftBitmap, leftAlignmentMatrix, leftOrientation, isLeftFrontFacing, false,
-                    (int)settings.BorderWidthProportion, settings.AddBorder2 && drawQuality != DrawQuality.Preview, settings.BorderColor,
+                    settings.BorderWidthProportion, settings.AddBorder2 && drawQuality != DrawQuality.Preview, settings.BorderColor,
                     edits.InsideCrop + edits.LeftCrop,
-                    edits.RightCrop + edits.OutsideCrop,
                     edits.LeftCrop + edits.OutsideCrop,
-                    edits.InsideCrop + edits.RightCrop,
-                    edits.TopCrop, 
-                    edits.BottomCrop,
+                    edits.TopCrop,
                     edits.RightRotation, edits.LeftRotation,
                     -edits.VerticalAlignment,
                     edits.RightZoom, edits.LeftZoom,
@@ -142,25 +139,23 @@ namespace CrossCam.Page
                     wasPairedCapture && drawQuality == DrawQuality.Preview || isFovStage ? edits.FovLeftCorrection : 0,
                     edits.Keystone,
                     drawMode, fuseGuideRequested,
-                    addBarrelDistortion, (int)settings.CardboardSettings.CardboardBarrelDistortion,
+                    addBarrelDistortion, settings.CardboardSettings.CardboardBarrelDistortion,
                     skFilterQuality,
                     useFullscreen,
                     cardboardWidthProportion, vert, hor,
-                    (float)cardboardDownsizeProportion,
-                    (int)settings.CardboardSettings.CardboardIpd);
+                    cardboardDownsizeProportion,
+                    settings.CardboardSettings.CardboardIpd,
+                    edits);
             }
             else
             {
                 DrawImagesOnCanvasInternal(surface, 
                     leftBitmap, leftAlignmentMatrix, leftOrientation, isLeftFrontFacing, shouldMirrorLeftDefault || shouldMirrorLeftParallel,
                     rightBitmap, rightAlignmentMatrix, rightOrientation, isRightFrontFacing, shouldMirrorRightDefault || shouldMirrorRightParallel,
-                    (int)settings.BorderWidthProportion, settings.AddBorder2 && drawQuality != DrawQuality.Preview, settings.BorderColor,
-                    edits.LeftCrop + edits.OutsideCrop + (shouldMirrorRightDefault || shouldMirrorLeftParallel ? 0.5 : 0),
-                    edits.InsideCrop + edits.RightCrop + (shouldMirrorLeftDefault || shouldMirrorRightParallel ? 0.5 : 0),
-                    edits.InsideCrop + edits.LeftCrop + (shouldMirrorRightDefault || shouldMirrorLeftParallel ? 0.5 : 0),
-                    edits.RightCrop + edits.OutsideCrop + (shouldMirrorLeftDefault || shouldMirrorRightParallel ? 0.5 : 0),
-                    edits.TopCrop, 
-                    edits.BottomCrop,
+                    settings.BorderWidthProportion, settings.AddBorder2 && drawQuality != DrawQuality.Preview, settings.BorderColor,
+                    edits.LeftCrop + edits.OutsideCrop + (shouldMirrorRightDefault || shouldMirrorLeftParallel ? 0.5f : 0),
+                    edits.InsideCrop + edits.LeftCrop + (shouldMirrorRightDefault || shouldMirrorLeftParallel ? 0.5f : 0),
+                    edits.TopCrop,
                     edits.LeftRotation, edits.RightRotation,
                     edits.VerticalAlignment,
                     edits.LeftZoom, edits.RightZoom,
@@ -168,40 +163,42 @@ namespace CrossCam.Page
                     wasPairedCapture && drawQuality == DrawQuality.Preview || isFovStage ? edits.FovRightCorrection : 0,
                     edits.Keystone,
                     drawMode, fuseGuideRequested,
-                    addBarrelDistortion, (int)settings.CardboardSettings.CardboardBarrelDistortion,
+                    addBarrelDistortion, settings.CardboardSettings.CardboardBarrelDistortion,
                     skFilterQuality,
                     useFullscreen,
                     cardboardWidthProportion, vert, hor,
-                    (float)cardboardDownsizeProportion,
-                    (int)settings.CardboardSettings.CardboardIpd);
+                    cardboardDownsizeProportion,
+                    settings.CardboardSettings.CardboardIpd,
+                    edits);
             }
         }
 
         private static void DrawImagesOnCanvasInternal(SKSurface surface,
             SKBitmap leftBitmap, SKMatrix leftAlignmentMatrix, SKEncodedOrigin leftOrientation, bool isLeftFrontFacing, bool mirrorLeft,
             SKBitmap rightBitmap, SKMatrix rightAlignmentMatrix, SKEncodedOrigin rightOrientation, bool isRightFrontFacing, bool mirrorRight,
-            int borderThickness, bool addBorder, BorderColor borderColor,
-            double leftLeftCrop, double leftRightCrop, double rightLeftCrop, double rightRightCrop,
-            double topCrop, double bottomCrop,
-            float leftRotation, float rightRotation, double alignment,
-            double leftZoom, double rightZoom,
-            double leftFovCorrection, double rightFovCorrection,
+            uint borderThicknessSetting, bool borderRequested, BorderColor borderColor,
+            float leftLeftCrop, float rightLeftCrop,
+            float topCrop,
+            float leftRotation, float rightRotation, float alignment,
+            float leftZoom, float rightZoom,
+            float leftFovCorrection, float rightFovCorrection,
             float keystone,
             DrawMode drawMode, bool fuseGuideRequested,
-            bool addBarrelDistortion, int barrelStrength,
+            bool addBarrelDistortion, uint barrelStrength,
             SKFilterQuality skFilterQuality, bool useFullscreen,
-            double cardboardWidthProportion,
-            double cardboardVert,
-            double cardboardHor,
+            float cardboardWidthProportion,
+            float cardboardVert,
+            float cardboardHor,
             float cardboardDownsize,
-            int cardboardIpd)
+            uint cardboardIpd,
+            Edits edits)
         {
             if (leftBitmap == null && rightBitmap == null) return;
 
             var canvasWidth = surface.Canvas.DeviceClipBounds.Width;
             var canvasHeight = surface.Canvas.DeviceClipBounds.Height;
 
-            double baseHeight, baseWidth, leftWidth = 0, leftHeight = 0, rightWidth = 0, rightHeight = 0, netSideCrop = 0;
+            float baseHeight, baseWidth, leftWidth = 0, leftHeight = 0, rightWidth = 0, rightHeight = 0;
 
             //Debug.WriteLine("leftOrientation: " + leftOrientation);
             //Debug.WriteLine("rightOrientation: " + rightOrientation);
@@ -225,8 +222,6 @@ namespace CrossCam.Page
                     rightWidth = leftWidth;
                     rightHeight = leftHeight;
                 }
-
-                netSideCrop = leftLeftCrop + leftRightCrop;
             }
 
             if (rightBitmap != null)
@@ -247,8 +242,6 @@ namespace CrossCam.Page
                     leftWidth = rightWidth;
                     leftHeight = rightHeight;
                 }
-
-                netSideCrop = rightLeftCrop + rightRightCrop;
             }
 
             if (rightFovCorrection != 0)
@@ -262,95 +255,99 @@ namespace CrossCam.Page
                 baseHeight = rightHeight;
             }
 
-            var alignmentTrim = GetAlignmentTrim(
-                leftBitmap, leftAlignmentMatrix, leftOrientation, isLeftFrontFacing,
-                rightBitmap, rightAlignmentMatrix, rightOrientation, isRightFrontFacing);
+            var alignmentTrim = new TrimAdjustment();
+            SKMatrix leftEditTrimMatrix = SKMatrix.CreateIdentity(), rightEditTrimMatrix = SKMatrix.CreateIdentity();
+            if (skFilterQuality != SKFilterQuality.Low &&
+                leftFovCorrection == 0 &&
+                rightFovCorrection == 0)
+            {
+                alignmentTrim = OrientAndCombineAlignmentTrims(
+                    leftBitmap, leftAlignmentMatrix, leftOrientation, isLeftFrontFacing,
+                    rightBitmap, rightAlignmentMatrix, rightOrientation, isRightFrontFacing);
+                leftEditTrimMatrix = FindEditMatrix(true, drawMode, leftZoom + leftFovCorrection, leftRotation, keystone,
+                    0, 0, alignment, 0, 0, leftWidth, leftHeight, 0);
+                rightEditTrimMatrix = FindEditMatrix(false, drawMode, rightZoom + rightFovCorrection, rightRotation, keystone,
+                    0, 0, alignment, 0, 0, rightWidth, rightHeight, 0);
+            }
             
-            var leftEditTrimMatrix = FindEditMatrix(true, drawMode, leftZoom + leftFovCorrection, leftRotation, keystone,
-                0, 0, alignment, 0, 0, (float) leftWidth, (float) leftHeight, 0);
-            var rightEditTrimMatrix = FindEditMatrix(false, drawMode, rightZoom + rightFovCorrection, rightRotation, keystone,
-                0, 0, alignment, 0, 0, (float) rightWidth, (float) rightHeight, 0);
 
             var leftEditTrim = new TrimAdjustment();
-            if (leftBitmap != null)
+            if (leftBitmap != null &&
+                skFilterQuality != SKFilterQuality.Low)
             {
-                leftEditTrim = FindMatrixTrimAdjustment((int) leftWidth, (int) leftHeight, leftEditTrimMatrix);
+                leftEditTrim = GetTrimAdjustmentFromMatrix(leftWidth, leftHeight, leftEditTrimMatrix);
             }
 
             var rightEditTrim = new TrimAdjustment();
-            if (rightBitmap != null)
+            if (rightBitmap != null &&
+                skFilterQuality != SKFilterQuality.Low)
             {
-                rightEditTrim = FindMatrixTrimAdjustment((int) rightWidth, (int) rightHeight, rightEditTrimMatrix);
+                rightEditTrim = GetTrimAdjustmentFromMatrix(rightWidth, rightHeight, rightEditTrimMatrix);
             }
 
-            leftEditTrim.Left = rightEditTrim.Right = Math.Max(leftEditTrim.Left, rightEditTrim.Right);
-            leftEditTrim.Right = rightEditTrim.Left = Math.Max(leftEditTrim.Right, rightEditTrim.Left);
-            leftEditTrim.Top = rightEditTrim.Top = Math.Max(leftEditTrim.Top, rightEditTrim.Top);
-            leftEditTrim.Bottom = rightEditTrim.Bottom = Math.Max(leftEditTrim.Bottom, rightEditTrim.Bottom);
+            if (skFilterQuality != SKFilterQuality.Low)
+            {
+                leftEditTrim.Left = rightEditTrim.Right = Math.Max(leftEditTrim.Left, rightEditTrim.Right);
+                leftEditTrim.Right = rightEditTrim.Left = Math.Max(leftEditTrim.Right, rightEditTrim.Left);
+                leftEditTrim.Top = rightEditTrim.Top = Math.Max(leftEditTrim.Top, rightEditTrim.Top);
+                leftEditTrim.Bottom = rightEditTrim.Bottom = Math.Max(leftEditTrim.Bottom, rightEditTrim.Bottom);
+            }
+            
+            var sideBitmapWidthLessCrop = CalculateJoinedImageWidthWithEditsNoBorder(leftBitmap, leftAlignmentMatrix,
+                rightBitmap, rightAlignmentMatrix, edits, alignmentTrim, leftOrientation, rightOrientation) / 2f;
 
-            netSideCrop += alignmentTrim.Left + alignmentTrim.Right + leftEditTrim.Left + leftEditTrim.Right;
-            var sideBitmapWidthLessCrop = baseWidth * (1 - netSideCrop);
+            var sideBitmapHeightLessCrop = CalculateImageHeightWithEditsNoBorder(leftBitmap, leftAlignmentMatrix,
+                rightBitmap, rightAlignmentMatrix, edits, alignmentTrim, leftOrientation, rightOrientation);
 
-            var sideBitmapHeightLessCrop = baseHeight * (1 - (topCrop + bottomCrop + Math.Abs(alignment) +
-                                                              alignmentTrim.Top + alignmentTrim.Bottom +
-                                                              leftEditTrim.Top + leftEditTrim.Bottom));
             var overlayDrawing =
                 drawMode == DrawMode.GrayscaleRedCyanAnaglyph ||
                 drawMode == DrawMode.RedCyanAnaglyph ||
                 useFullscreen;
-            var innerBorderThicknessProportion = leftBitmap != null &&
-                                                 rightBitmap != null &&
-                                                 addBorder &&
-                                                 drawMode != DrawMode.Cardboard &&
-                                                 !overlayDrawing ?
-                BORDER_CONVERSION_FACTOR * borderThickness :
+            var addBorder = leftBitmap != null &&
+                            rightBitmap != null &&
+                            borderRequested &&
+                            drawMode != DrawMode.Cardboard &&
+                            !overlayDrawing;
+            var realBorderThickness = addBorder ?
+                CalculateBorderThickness(sideBitmapWidthLessCrop, borderThicknessSetting) :
                 0;
 
-            var widthRatio = sideBitmapWidthLessCrop * (1 + innerBorderThicknessProportion * 1.5) /
-                             (canvasWidth / 2d);
+            var widthRatio = (sideBitmapWidthLessCrop + realBorderThickness * 1.5f) /
+                             (canvasWidth / 2f);
             if (overlayDrawing)
             {
-                widthRatio /= 2d;
+                widthRatio /= 2f;
             }
-
-            var realBorderTopHeight = sideBitmapWidthLessCrop * innerBorderThicknessProportion;
-            var bitmapHeightWithEditsAndBorder =
-                sideBitmapHeightLessCrop + realBorderTopHeight * 2;
+            
+            var bitmapHeightWithEditsAndBorder = sideBitmapHeightLessCrop + realBorderThickness * 2;
             var drawFuseGuide = fuseGuideRequested &&
                                 drawMode != DrawMode.Cardboard &&
                                 !overlayDrawing;
 
-            var fuseGuideIconWidth = CalculateFuseGuideWidth((float)bitmapHeightWithEditsAndBorder);
-            var fuseGuideMarginMinimum = CalculateFuseGuideMarginHeight((float)bitmapHeightWithEditsAndBorder);
-            var topMarginFuseGuideModifier = 0f;
-
+            float fuseGuideIconWidth = 0, fuseGuideMarginMinimum = 0, topMarginFuseGuideModifier = 0;
             if (drawFuseGuide)
             {
-                if (realBorderTopHeight < fuseGuideMarginMinimum)
-                {
-                    topMarginFuseGuideModifier = (float) (fuseGuideMarginMinimum - realBorderTopHeight);
-                }
-                else
-                {
-                    topMarginFuseGuideModifier = 0;
-                }
+                fuseGuideIconWidth = CalculateFuseGuideWidth(bitmapHeightWithEditsAndBorder);
+                fuseGuideMarginMinimum = CalculateFuseGuideMarginHeight(bitmapHeightWithEditsAndBorder);
+                topMarginFuseGuideModifier = Math.Max(fuseGuideMarginMinimum - realBorderThickness, 0);
             }
 
             bitmapHeightWithEditsAndBorder += topMarginFuseGuideModifier;
 
-            var heightRatio = bitmapHeightWithEditsAndBorder / (1d * canvasHeight);
+            var heightRatio = bitmapHeightWithEditsAndBorder / (1f * canvasHeight);
 
             var fillsWidth = widthRatio > heightRatio;
 
             var scalingRatio = fillsWidth ? widthRatio : heightRatio;
 
-            fuseGuideIconWidth = (float) (fuseGuideIconWidth / scalingRatio);
-            topMarginFuseGuideModifier = (float) (topMarginFuseGuideModifier / scalingRatio);
-            fuseGuideMarginMinimum = (float) (fuseGuideMarginMinimum / scalingRatio);
+            fuseGuideIconWidth /= scalingRatio;
+            topMarginFuseGuideModifier /= scalingRatio;
+            fuseGuideMarginMinimum /= scalingRatio;
 
-            var clipWidth = (float) (sideBitmapWidthLessCrop / scalingRatio);
-            var clipHeight = (float) (sideBitmapHeightLessCrop / scalingRatio);
+            var clipWidth = sideBitmapWidthLessCrop / scalingRatio;
+            var clipHeight = sideBitmapHeightLessCrop / scalingRatio;
 
+            var borderProportion = addBorder ? BORDER_CONVERSION_FACTOR * borderThicknessSetting : 0f;
             float leftClipX, rightClipX, clipY;
             if (overlayDrawing)
             {
@@ -359,18 +356,18 @@ namespace CrossCam.Page
             }
             else
             {
-                leftClipX = (float) (canvasWidth / 2f - 
-                                     (clipWidth + innerBorderThicknessProportion * clipWidth / 2f));
-                rightClipX = (float) (canvasWidth / 2f + 
-                                      innerBorderThicknessProportion * clipWidth / 2f);
+                leftClipX = canvasWidth / 2f - 
+                            (clipWidth + borderProportion * clipWidth / 2f);
+                rightClipX = canvasWidth / 2f +
+                             borderProportion * clipWidth / 2f;
                 clipY = canvasHeight / 2f - clipHeight / 2f;
             }
 
-            var leftDestX = (float)(leftClipX - baseWidth / scalingRatio * (leftLeftCrop + alignmentTrim.Left + leftEditTrim.Left));
-            var rightDestX = (float)(rightClipX - baseWidth / scalingRatio * (rightLeftCrop + alignmentTrim.Left + rightEditTrim.Left));
-            var destY = (float)(clipY - baseHeight / scalingRatio * (topCrop + alignmentTrim.Top + leftEditTrim.Top));
-            var destWidth = (float)(baseWidth / scalingRatio);
-            var destHeight = (float)(baseHeight / scalingRatio);
+            var leftDestX = leftClipX - baseWidth / scalingRatio * (leftLeftCrop + alignmentTrim.Left + leftEditTrim.Left);
+            var rightDestX = rightClipX - baseWidth / scalingRatio * (rightLeftCrop + alignmentTrim.Left + rightEditTrim.Left);
+            var destY = clipY - baseHeight / scalingRatio * (topCrop + alignmentTrim.Top + leftEditTrim.Top);
+            var destWidth = baseWidth / scalingRatio;
+            var destHeight = baseHeight / scalingRatio;
 
             if (drawFuseGuide)
             {
@@ -378,21 +375,21 @@ namespace CrossCam.Page
                 clipY += topMarginFuseGuideModifier / 2f;
             }
 
-            var cardboardSeparationMod = 0d;
+            var cardboardSeparationMod = 0f;
             if (drawMode == DrawMode.Cardboard)
             {
                 var croppedSeparation = (rightClipX - leftClipX) / DeviceDisplay.MainDisplayInfo.Density;
-                cardboardSeparationMod = (cardboardIpd - croppedSeparation) * DeviceDisplay.MainDisplayInfo.Density / 2d;
+                cardboardSeparationMod = (float) ((cardboardIpd - croppedSeparation) * DeviceDisplay.MainDisplayInfo.Density / 2f);
             }
 
             var cardboardHorDelta = cardboardHor * destWidth;
             var cardboardVertDelta = cardboardVert * destWidth; // use same property for both to make move speed the same
 
-            var leftIntermediateWidth = (float) (leftWidth / scalingRatio);
-            var leftIntermediateHeight = (float) (leftHeight / scalingRatio);
+            var leftIntermediateWidth = leftWidth / scalingRatio;
+            var leftIntermediateHeight = leftHeight / scalingRatio;
 
-            var rightIntermediateWidth = (float) (rightWidth / scalingRatio);
-            var rightIntermediateHeight = (float) (rightHeight / scalingRatio);
+            var rightIntermediateWidth = rightWidth / scalingRatio;
+            var rightIntermediateHeight = rightHeight / scalingRatio;
 
             var leftXCorrectionToOrigin = leftDestX + leftIntermediateWidth / 2f;
             var leftYCorrectionToOrigin = destY + leftIntermediateHeight / 2f;
@@ -450,9 +447,9 @@ namespace CrossCam.Page
                 };
 
                 var sideWidth = surface.Canvas.DeviceClipBounds.Width / 2f;
-                var sideHeight = surface.Canvas.DeviceClipBounds.Height;
+                var sideHeight = surface.Canvas.DeviceClipBounds.Height * 1f;
 
-                using var smallSurface = SKSurface.Create(new SKImageInfo((int) sideWidth, sideHeight));
+                using var smallSurface = SKSurface.Create(new SKImageInfo((int) sideWidth, (int) sideHeight));
 
                 if (leftBitmap != null)
                 {
@@ -460,7 +457,7 @@ namespace CrossCam.Page
                     smallSurface.Canvas.DrawSurface(surface, 0, 0, paint);
                     using var leftSnapshot = smallSurface.Snapshot();
                     using var distortedLeft = openCv.AddBarrelDistortion(leftSnapshot,
-                        cardboardDownsize, barrelStrength / 100f, (float)(1 - cardboardWidthProportion));
+                        cardboardDownsize, barrelStrength / 100f, 1 - cardboardWidthProportion);
 
                     surface.Canvas.DrawImage(
                         distortedLeft,
@@ -478,7 +475,7 @@ namespace CrossCam.Page
                     smallSurface.Canvas.DrawSurface(surface, -sideWidth, 0, paint);
                     using var rightSnapshot = smallSurface.Snapshot();
                     using var distortedRight = openCv.AddBarrelDistortion(rightSnapshot,
-                        cardboardDownsize, barrelStrength / 100f, (float)cardboardWidthProportion);
+                        cardboardDownsize, barrelStrength / 100f, cardboardWidthProportion);
 
                     surface.Canvas.DrawImage(
                         distortedRight,
@@ -491,13 +488,12 @@ namespace CrossCam.Page
                 }
             }
 
-            var originX = (float)(leftClipX - innerBorderThicknessProportion * clipWidth);
-            var originY = (float)(clipY - innerBorderThicknessProportion * clipWidth);
-            var fullPreviewWidth = (float)(2 * clipWidth + 3 * innerBorderThicknessProportion * clipWidth);
+            var originX = leftClipX - borderProportion * clipWidth;
+            var originY = clipY - borderProportion * clipWidth;
+            var fullPreviewWidth = 2 * clipWidth + 3 * borderProportion * clipWidth;
 
-
-            var scaledBorderThickness = (float)(innerBorderThicknessProportion * clipWidth);
-            if (innerBorderThicknessProportion > 0)
+            var scaledBorderThickness = borderProportion * clipWidth;
+            if (borderProportion > 0)
             {
                 using var borderPaint = new SKPaint
                 {
@@ -506,7 +502,7 @@ namespace CrossCam.Page
                     FilterQuality = skFilterQuality
                 };
 
-                var fullPreviewHeight = (float)(clipHeight + 2 * innerBorderThicknessProportion * clipWidth);
+                var fullPreviewHeight = clipHeight + 2 * borderProportion * clipWidth;
                 var endX = rightClipX + clipWidth;
                 var endY = clipY + clipHeight;
                 surface.Canvas.DrawRect(originX, originY, fullPreviewWidth, scaledBorderThickness, borderPaint);
@@ -545,7 +541,7 @@ namespace CrossCam.Page
             }
         }
 
-        private static TrimAdjustment GetAlignmentTrim(
+        private static TrimAdjustment OrientAndCombineAlignmentTrims(
             SKBitmap leftBitmap, SKMatrix leftAlignment, SKEncodedOrigin leftOrientation, bool isLeftFront,
             SKBitmap rightBitmap, SKMatrix rightAlignment, SKEncodedOrigin rightOrientation, bool isRightFront)
         {
@@ -553,14 +549,14 @@ namespace CrossCam.Page
             if (!leftAlignment.IsIdentity &&
                 leftBitmap != null)
             {
-                leftAlignmentTrim = FindAlignmentTrim(leftBitmap, leftAlignment, leftOrientation, isLeftFront);
+                leftAlignmentTrim = OrientAlignmentTrim(leftBitmap, leftAlignment, leftOrientation, isLeftFront);
             }
 
             var rightAlignmentTrim = new TrimAdjustment();
             if (!rightAlignment.IsIdentity &&
                 rightBitmap != null)
             {
-                rightAlignmentTrim = FindAlignmentTrim(rightBitmap, rightAlignment, rightOrientation, isRightFront);
+                rightAlignmentTrim = OrientAlignmentTrim(rightBitmap, rightAlignment, rightOrientation, isRightFront);
             }
             return CombineMaxTrim(leftAlignmentTrim, rightAlignmentTrim);
         }
@@ -576,10 +572,10 @@ namespace CrossCam.Page
             };
         }
 
-        private static TrimAdjustment FindAlignmentTrim(SKBitmap bitmap, SKMatrix alignmentMatrix,
+        private static TrimAdjustment OrientAlignmentTrim(SKBitmap bitmap, SKMatrix alignmentMatrix,
             SKEncodedOrigin orientation, bool isFrontFacing)
         {
-            var trim = FindMatrixTrimAdjustment(bitmap.Width, bitmap.Height, alignmentMatrix);
+            var trim = GetTrimAdjustmentFromMatrix(bitmap.Width, bitmap.Height, alignmentMatrix);
             FindOrientationCorrectionDirections(orientation, isFrontFacing, out var needsMirror,
                 out var rotationalInc);
 
@@ -609,16 +605,16 @@ namespace CrossCam.Page
             return trim;
         }
 
-        private static TrimAdjustment FindMatrixTrimAdjustment(int width, int height, SKMatrix matrix)
+        private static TrimAdjustment GetTrimAdjustmentFromMatrix(float width, float height, SKMatrix matrix)
         {
             if (matrix.IsIdentity) return new TrimAdjustment();
 
             var mappedPoints = matrix.MapPoints(new[]
             {
                 new SKPoint(0, 0),
-                new SKPoint(width - 1, 0),
-                new SKPoint(width - 1, height - 1),
-                new SKPoint(0, height - 1)
+                new SKPoint(width - 1f, 0),
+                new SKPoint(width - 1f, height - 1f),
+                new SKPoint(0, height - 1f)
             });
             return new TrimAdjustment
             {
@@ -637,18 +633,18 @@ namespace CrossCam.Page
 
         private static SKMatrix FindScaledAlignmentMatrix(float destWidth, float destHeight,
             float xCorrectionToOrigin, float yCorrectionToOrigin,
-            SKMatrix originalAlignment, double scalingRatio)
+            SKMatrix originalAlignment, float scalingRatio)
         {
             var transform3D = SKMatrix.Identity;
 
             if (!originalAlignment.IsIdentity)
             {
                 transform3D = transform3D.PostConcat(SKMatrix.CreateTranslation(-xCorrectionToOrigin, -yCorrectionToOrigin));
-                transform3D = transform3D.PostConcat(SKMatrix.CreateScale((float)scalingRatio, (float)scalingRatio));
-                transform3D = transform3D.PostConcat(SKMatrix.CreateTranslation((float)(destWidth * scalingRatio / 2f), (float)(destHeight * scalingRatio / 2f)));
+                transform3D = transform3D.PostConcat(SKMatrix.CreateScale(scalingRatio, scalingRatio));
+                transform3D = transform3D.PostConcat(SKMatrix.CreateTranslation(destWidth * scalingRatio / 2f, destHeight * scalingRatio / 2f));
                 transform3D = transform3D.PostConcat(originalAlignment);
-                transform3D = transform3D.PostConcat(SKMatrix.CreateTranslation((float)(-destWidth * scalingRatio / 2f), (float)(-destHeight * scalingRatio / 2f)));
-                transform3D = transform3D.PostConcat(SKMatrix.CreateScale((float)(1 / scalingRatio), (float)(1 / scalingRatio)));
+                transform3D = transform3D.PostConcat(SKMatrix.CreateTranslation(-destWidth * scalingRatio / 2f, -destHeight * scalingRatio / 2f));
+                transform3D = transform3D.PostConcat(SKMatrix.CreateScale(1 / scalingRatio, 1 / scalingRatio));
                 transform3D = transform3D.PostConcat(SKMatrix.CreateTranslation(xCorrectionToOrigin, yCorrectionToOrigin));
             }
 
@@ -724,10 +720,10 @@ namespace CrossCam.Page
         }
 
         private static SKMatrix FindEditMatrix(bool isLeft, DrawMode drawMode,
-            double zoom, float rotation, float keystone,
-            double cardboardHorDelta, double cardboardVertDelta, double alignment,
+            float zoom, float rotation, float keystone,
+            float cardboardHorDelta, float cardboardVertDelta, float alignment,
             float destX, float destY, float destWidth, float destHeight,
-            double cardboardSeparationMod)
+            float cardboardSeparationMod)
         {
             var xCorrectionToOrigin = destX + destWidth / 2f;
             var yCorrectionToOrigin = destY + destHeight / 2f;
@@ -743,21 +739,18 @@ namespace CrossCam.Page
 
             if (Math.Abs(keystone) > 0)
             {
-                // TODO (or TODON'T): the axis of this rotation is fixed, but it could be needed in any direction really, so enable that?
                 var isKeystoneSwapped = drawMode == DrawMode.Parallel || drawMode == DrawMode.Cardboard;
-                var xCorrection = destX + destWidth / 2f;
-                transform4D.PostConcat(SKMatrix44.CreateTranslate(-xCorrection, -yCorrectionToOrigin, 0));
+                transform4D.PostConcat(SKMatrix44.CreateTranslate(-xCorrectionToOrigin, -yCorrectionToOrigin, 0));
                 transform4D.PostConcat(SKMatrix44.CreateRotationDegrees(0, 1, 0,
                     isLeft && !isKeystoneSwapped || !isLeft && isKeystoneSwapped ? keystone : -keystone));
                 transform4D.PostConcat(MakePerspective(destWidth));
-                transform4D.PostConcat(SKMatrix44.CreateTranslate(xCorrection, yCorrectionToOrigin, 0));
-                
+                transform4D.PostConcat(SKMatrix44.CreateTranslate(xCorrectionToOrigin, yCorrectionToOrigin, 0));
             }
 
             if (Math.Abs(zoom) > 0)
             {
                 transform4D.PostConcat(SKMatrix44.CreateTranslate(-xCorrectionToOrigin, -yCorrectionToOrigin, 0));
-                transform4D.PostConcat(SKMatrix44.CreateScale((float) (1 + zoom), (float) (1 + zoom), 0));
+                transform4D.PostConcat(SKMatrix44.CreateScale(1 + zoom, 1 + zoom, 0));
                 transform4D.PostConcat(SKMatrix44.CreateTranslate(xCorrectionToOrigin, yCorrectionToOrigin, 0));
             }
 
@@ -766,7 +759,7 @@ namespace CrossCam.Page
                 var yCorrection = isLeft
                     ? alignment > 0 ? -alignment * destHeight : 0
                     : alignment < 0 ? alignment * destHeight : 0;
-                transform4D.PostConcat(SKMatrix44.CreateTranslate(0, (float) yCorrection, 0));
+                transform4D.PostConcat(SKMatrix44.CreateTranslate(0, yCorrection, 0));
             }
 
             transform4D.PostConcat(FindCardboardMovementMatrix(cardboardHorDelta, cardboardVertDelta, cardboardSeparationMod));
@@ -776,10 +769,10 @@ namespace CrossCam.Page
 
         private static void DrawSide(SKCanvas canvas, SKBitmap bitmap,
             bool isLeft, DrawMode drawMode,
-            double cardboardHorDelta, double cardboardVertDelta,
+            float cardboardHorDelta, float cardboardVertDelta,
             float clipX, float clipY, float clipWidth, float clipHeight,
             float destX, float destY, float destWidth, float destHeight,
-            bool useGhostOverlay, double cardboardSeparationMod,
+            bool useGhostOverlay, float cardboardSeparationMod,
             SKMatrix alignmentMatrix, SKMatrix orientationMatrix, SKMatrix editMatrix,
             SKFilterQuality quality)
         {
@@ -883,14 +876,14 @@ namespace CrossCam.Page
             //});
         }
 
-        private static SKMatrix44 FindCardboardMovementMatrix(double cardboardHorDelta, double cardboardVertDelta, double cardboardSeparationMod)
+        private static SKMatrix44 FindCardboardMovementMatrix(float cardboardHorDelta, float cardboardVertDelta, float cardboardSeparationMod)
         {
             var transform4D = SKMatrix44.CreateIdentity();
             if (Math.Abs(cardboardHorDelta) > 0 ||
                 Math.Abs(cardboardVertDelta) > 0 ||
                 Math.Abs(cardboardSeparationMod) > 0)
             {
-                transform4D.PostConcat(SKMatrix44.CreateTranslate((float)(-cardboardHorDelta + cardboardSeparationMod), (float)-cardboardVertDelta, 0));
+                transform4D.PostConcat(SKMatrix44.CreateTranslate(-cardboardHorDelta + cardboardSeparationMod, -cardboardVertDelta, 0));
             }
             return transform4D;
         }
@@ -902,8 +895,9 @@ namespace CrossCam.Page
             return perspectiveMatrix;
         }
 
-        public static int CalculateOverlayedCanvasWidthWithEditsNoBorder(
-            SKBitmap leftBitmap, SKMatrix leftAlignment, SKBitmap rightBitmap, SKMatrix rightAlignment, Edits edits)
+        private static float CalculateOverlayedImageWidthWithEditsNoBorder(
+            SKBitmap leftBitmap, SKMatrix leftAlignment, SKBitmap rightBitmap, SKMatrix rightAlignment, Edits edits, TrimAdjustment alignmentTrimAdjustment = null,
+            SKEncodedOrigin leftOrientation = SKEncodedOrigin.Default, SKEncodedOrigin rightOrientation = SKEncodedOrigin.Default)
         {
             if (leftBitmap == null && rightBitmap == null) return 0;
 
@@ -912,26 +906,29 @@ namespace CrossCam.Page
                 return leftBitmap?.Width ?? rightBitmap.Width;
             }
 
-            var alignmentTrim = GetAlignmentTrim(
-                leftBitmap, leftAlignment, SKEncodedOrigin.Default, false,
-                rightBitmap, rightAlignment, SKEncodedOrigin.Default, false);
+            alignmentTrimAdjustment ??= OrientAndCombineAlignmentTrims(
+                leftBitmap, leftAlignment, leftOrientation, false,
+                rightBitmap, rightAlignment, rightOrientation, false);
 
             var baseWidth = Math.Min(leftBitmap.Width, rightBitmap.Width);
             
-            return (int)(baseWidth *
-                (1 - (edits.LeftCrop + edits.InsideCrop + edits.OutsideCrop + edits.RightCrop +
-                      alignmentTrim.Left + alignmentTrim.Right)));
+            return baseWidth *
+                   (1 - (edits.LeftCrop + edits.InsideCrop + edits.OutsideCrop + edits.RightCrop +
+                         alignmentTrimAdjustment.Left + alignmentTrimAdjustment.Right));
         }
 
-        public static int CalculateJoinedCanvasWidthWithEditsNoBorder(
-            SKBitmap leftBitmap, SKMatrix leftAlignment, SKBitmap rightBitmap, SKMatrix rightAlignment, Edits edits)
+        public static float CalculateJoinedImageWidthWithEditsNoBorder(
+            SKBitmap leftBitmap, SKMatrix leftAlignment, SKBitmap rightBitmap, SKMatrix rightAlignment, Edits edits, TrimAdjustment alignmentTrimAdjustment = null,
+            SKEncodedOrigin leftOrientation = SKEncodedOrigin.Default, SKEncodedOrigin rightOrientation = SKEncodedOrigin.Default)
         {
-            return 2 * CalculateOverlayedCanvasWidthWithEditsNoBorder(
-                leftBitmap, leftAlignment, rightBitmap, rightAlignment, edits);
+            return 2 * CalculateOverlayedImageWidthWithEditsNoBorder(
+                leftBitmap, leftAlignment, rightBitmap, rightAlignment, edits, alignmentTrimAdjustment,
+                leftOrientation, rightOrientation);
             }
 
-        public static int CalculateCanvasHeightWithEditsNoBorder(
-            SKBitmap leftBitmap, SKMatrix leftAlignment, SKBitmap rightBitmap, SKMatrix rightAlignment, Edits edits)
+        public static float CalculateImageHeightWithEditsNoBorder(
+            SKBitmap leftBitmap, SKMatrix leftAlignment, SKBitmap rightBitmap, SKMatrix rightAlignment, Edits edits, TrimAdjustment alignmentTrimAdjustment = null,
+            SKEncodedOrigin leftOrientation = SKEncodedOrigin.Default, SKEncodedOrigin rightOrientation = SKEncodedOrigin.Default)
         {
             if (leftBitmap == null && rightBitmap == null) return 0;
 
@@ -940,24 +937,57 @@ namespace CrossCam.Page
                 return leftBitmap?.Height ?? rightBitmap.Height;
             }
 
-            var alignmentTrim = GetAlignmentTrim(
-                leftBitmap, leftAlignment, SKEncodedOrigin.Default, false,
-                rightBitmap, rightAlignment, SKEncodedOrigin.Default, false);
+            alignmentTrimAdjustment ??= OrientAndCombineAlignmentTrims(
+                leftBitmap, leftAlignment, leftOrientation, false,
+                rightBitmap, rightAlignment, rightOrientation, false);
 
             var baseHeight = Math.Min(leftBitmap.Height, rightBitmap.Height);
-            return (int) (baseHeight * 
-                          (1 - (edits.TopCrop + edits.BottomCrop + Math.Abs(edits.VerticalAlignment) +
-                                alignmentTrim.Top + alignmentTrim.Bottom)));
+            return baseHeight * 
+                   (1 - (edits.TopCrop + edits.BottomCrop + Math.Abs(edits.VerticalAlignment) +
+                         alignmentTrimAdjustment.Top + alignmentTrimAdjustment.Bottom));
         }
 
-        public static float CalculateFuseGuideMarginHeight(float baseHeight)
+        public static SizeF CalculateJoinedImageSizeWithEditsNoBorder(SKBitmap leftBitmap, SKMatrix leftAlignment,
+            SKBitmap rightBitmap, SKMatrix rightAlignment, Edits edits, TrimAdjustment alignmentTrimAdjustment = null,
+            SKEncodedOrigin leftOrientation = SKEncodedOrigin.Default,
+            SKEncodedOrigin rightOrientation = SKEncodedOrigin.Default)
         {
-            return CalculateFuseGuideWidth(baseHeight) * FUSE_GUIDE_MARGIN_HEIGHT_RATIO;
+            var heightNoBorder = CalculateImageHeightWithEditsNoBorder(leftBitmap, leftAlignment, rightBitmap,
+                rightAlignment, edits, alignmentTrimAdjustment, leftOrientation, rightOrientation);
+            var widthNoBorder = CalculateJoinedImageWidthWithEditsNoBorder(leftBitmap, leftAlignment, rightBitmap,
+                rightAlignment, edits,
+                alignmentTrimAdjustment, leftOrientation, rightOrientation);
+
+            return new SizeF(widthNoBorder, heightNoBorder);
         }
 
-        public static float CalculateFuseGuideWidth(float baseHeight)
+        public static SizeF CalculateOverlayedImageSizeWithEditsNoBorder(SKBitmap leftBitmap, SKMatrix leftAlignment,
+            SKBitmap rightBitmap, SKMatrix rightAlignment, Edits edits, TrimAdjustment alignmentTrimAdjustment = null,
+            SKEncodedOrigin leftOrientation = SKEncodedOrigin.Default,
+            SKEncodedOrigin rightOrientation = SKEncodedOrigin.Default)
         {
-            return (float)(baseHeight * FUSE_GUIDE_WIDTH_RATIO);
+            var heightNoBorder = CalculateImageHeightWithEditsNoBorder(leftBitmap, leftAlignment, rightBitmap,
+                rightAlignment, edits, alignmentTrimAdjustment, leftOrientation, rightOrientation);
+            var widthNoBorder = CalculateOverlayedImageWidthWithEditsNoBorder(leftBitmap, leftAlignment, rightBitmap,
+                rightAlignment, edits,
+                alignmentTrimAdjustment, leftOrientation, rightOrientation);
+            
+            return new SizeF(widthNoBorder, heightNoBorder);
+        }
+
+        public static float CalculateBorderThickness(float imageWidth, float thicknessSetting)
+        {
+            return imageWidth * thicknessSetting * BORDER_CONVERSION_FACTOR;
+        }
+
+        public static float CalculateFuseGuideMarginHeight(float imageHeightWithEditsAndBorder)
+        {
+            return CalculateFuseGuideWidth(imageHeightWithEditsAndBorder) * FUSE_GUIDE_MARGIN_HEIGHT_RATIO;
+        }
+
+        private static float CalculateFuseGuideWidth(float imageHeightWithEditsAndBorder)
+        {
+            return imageHeightWithEditsAndBorder * FUSE_GUIDE_WIDTH_RATIO;
         }
     }
 }

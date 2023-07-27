@@ -28,41 +28,41 @@ namespace CrossCam.Page
 	    private readonly Rectangle _upperLineBoundsPortrait = new Rectangle(0, 0.4, 1, 21);
 	    private readonly Rectangle _lowerLinesBoundsPortrait = new Rectangle(0, 0.6, 1, 21);
         
-	    private const double LEVEL_ICON_WIDTH = 60;
-        private const double BUBBLE_LEVEL_MAX_TIP = 0.1;
-        private const double ROLL_GUIDE_MEASURMENT_WEIGHT = 12;
-        private const double ROLL_GOOD_THRESHOLD = 0.01;
+	    private const float LEVEL_ICON_WIDTH = 60;
+        private const float BUBBLE_LEVEL_MAX_TIP = 0.1f;
+        private const float ROLL_GUIDE_MEASURMENT_WEIGHT = 12;
+        private const float ROLL_GOOD_THRESHOLD = 0.01f;
         private readonly ImageSource _levelBubbleImage = ImageSource.FromFile("horizontalLevelInside");
 	    private readonly ImageSource _levelOutsideImage = ImageSource.FromFile("horizontalLevelOutside");
 	    private readonly ImageSource _levelBubbleGreenImage = ImageSource.FromFile("horizontalLevelInsideGreen");
 	    private readonly ImageSource _levelOutsideGreenImage = ImageSource.FromFile("horizontalLevelOutsideGreen");
 
-        private const double RETICLE_PANNER_WIDTH = 30;
-        private const double RETICLE_IMAGE_WIDTH = 10;
+        private const float RETICLE_PANNER_WIDTH = 30;
+        private const float RETICLE_IMAGE_WIDTH = 10;
 
-        public const double FOCUS_CIRCLE_WIDTH = 30;
+        public const float FOCUS_CIRCLE_WIDTH = 30;
 
-	    private double _reticleLeftX;
-	    private double _reticleRightX;
-	    private double _reticleY;
+	    private float _reticleLeftX;
+	    private float _reticleRightX;
+	    private float _reticleY;
 
-	    private double _upperLineY;
-	    private double _upperLineHeight;
+	    private float _upperLineY;
+	    private float _upperLineHeight;
 
-	    private double _lowerLineY;
-	    private double _lowerLineHeight;
+	    private float _lowerLineY;
+	    private float _lowerLineHeight;
 
-        private double _averageRoll;
+        private float _averageRoll;
 
         private Stopwatch _gyroscopeStopwatch;
-        private double _cardboardViewVert;
-        private double _cardboardViewHor;
+        private float _cardboardViewVert;
+        private float _cardboardViewHor;
 
-        private double _lastAccelerometerReadingX;
-        private double _lastAccelerometerReadingY;
+        private float _lastAccelerometerReadingX;
+        private float _lastAccelerometerReadingY;
         
-        private double? _cardboardHomeVert;
-        private double? _cardboardHomeHor;
+        private float? _cardboardHomeVert;
+        private float? _cardboardHomeHor;
 
         private bool _newLeftCapture;
         private bool _newRightCapture;
@@ -253,7 +253,7 @@ namespace CrossCam.Page
         {
             if (!_viewModel.IsBusy)
             {
-                var seconds = _gyroscopeStopwatch.ElapsedTicks / 10000000d;
+                var seconds = _gyroscopeStopwatch.ElapsedTicks / 10000000f;
                 _cardboardViewVert -= e.Reading.AngularVelocity.Y * seconds;
                 _cardboardViewHor += e.Reading.AngularVelocity.X * seconds;
                 _gyroscopeStopwatch.Restart();
@@ -499,14 +499,14 @@ namespace CrossCam.Page
             if (_viewModel.LeftBitmap == null &&
                 _viewModel.RightBitmap == null)
             {
-                surface.Canvas.Clear();
+                surface.Canvas.Clear(SKColor.Parse("#00ffff"));
                 _cardboardHomeHor = null;
                 _cardboardHomeVert = null;
             }
 
             if (clearCanvas)
             {
-                surface.Canvas.Clear();
+                surface.Canvas.Clear(SKColor.Parse("#00ffff"));
             }
             
             SKBitmap left = null;
@@ -521,7 +521,7 @@ namespace CrossCam.Page
             if (_viewModel.LeftBitmap != null &&
                 _viewModel.RightBitmap != null)
             {
-                surface.Canvas.Clear();
+                surface.Canvas.Clear(SKColor.Parse("#00ffff"));
 
                 left = _viewModel.LeftBitmap;
                 leftAlignment = _viewModel.LeftAlignmentTransform;
@@ -626,7 +626,7 @@ namespace CrossCam.Page
                 }
             }
 
-            double cardboardVert = 0;
+            float cardboardVert = 0;
             if (_cardboardHomeVert.HasValue)
             {
                 if (_viewModel.IsViewInverted)
@@ -634,13 +634,13 @@ namespace CrossCam.Page
                     cardboardVert = _cardboardViewVert - _cardboardHomeVert.Value;
                     if (cardboardVert > 0.5)
                     {
-                        _cardboardHomeVert = _cardboardHomeVert.Value + (cardboardVert - 0.5);
-                        cardboardVert = 0.5;
+                        _cardboardHomeVert = _cardboardHomeVert.Value + (cardboardVert - 0.5f);
+                        cardboardVert = 0.5f;
                     }
                     else if (cardboardVert < -0.5)
                     {
-                        _cardboardHomeVert = _cardboardHomeVert.Value + (cardboardVert + 0.5);
-                        cardboardVert = -0.5;
+                        _cardboardHomeVert = _cardboardHomeVert.Value + (cardboardVert + 0.5f);
+                        cardboardVert = -0.5f;
                     }
                 }
                 else
@@ -648,18 +648,18 @@ namespace CrossCam.Page
                     cardboardVert = _cardboardHomeVert.Value - _cardboardViewVert;
                     if (cardboardVert > 0.5)
                     {
-                        _cardboardHomeVert = _cardboardHomeVert.Value - (cardboardVert - 0.5);
-                        cardboardVert = 0.5;
+                        _cardboardHomeVert = _cardboardHomeVert.Value - (cardboardVert - 0.5f);
+                        cardboardVert = 0.5f;
                     }
                     else if (cardboardVert < -0.5)
                     {
-                        _cardboardHomeVert = _cardboardHomeVert.Value - (cardboardVert + 0.5);
-                        cardboardVert = -0.5;
+                        _cardboardHomeVert = _cardboardHomeVert.Value - (cardboardVert + 0.5f);
+                        cardboardVert = -0.5f;
                     }
                 }
             }
 
-            double cardboardHor = 0;
+            float cardboardHor = 0;
             if (_cardboardHomeHor.HasValue)
             {
                 if (_viewModel.IsViewInverted)
@@ -667,13 +667,13 @@ namespace CrossCam.Page
                     cardboardHor = _cardboardViewHor - _cardboardHomeHor.Value;
                     if (cardboardHor > 0.5)
                     {
-                        _cardboardHomeHor = _cardboardHomeHor.Value + (cardboardHor - 0.5);
-                        cardboardHor = 0.5;
+                        _cardboardHomeHor = _cardboardHomeHor.Value + (cardboardHor - 0.5f);
+                        cardboardHor = 0.5f;
                     }
                     else if (cardboardHor < -0.5)
                     {
-                        _cardboardHomeHor = _cardboardHomeHor.Value + (cardboardHor + 0.5);
-                        cardboardHor = -0.5;
+                        _cardboardHomeHor = _cardboardHomeHor.Value + (cardboardHor + 0.5f);
+                        cardboardHor = -0.5f;
                     }
                 }
                 else
@@ -681,13 +681,13 @@ namespace CrossCam.Page
                     cardboardHor = _cardboardHomeHor.Value - _cardboardViewHor;
                     if (cardboardHor > 0.5)
                     {
-                        _cardboardHomeHor = _cardboardHomeHor.Value - (cardboardHor - 0.5);
-                        cardboardHor = 0.5;
+                        _cardboardHomeHor = _cardboardHomeHor.Value - (cardboardHor - 0.5f);
+                        cardboardHor = 0.5f;
                     }
                     else if (cardboardHor < -0.5)
                     {
-                        _cardboardHomeHor = _cardboardHomeHor.Value - (cardboardHor + 0.5);
-                        cardboardHor = -0.5;
+                        _cardboardHomeHor = _cardboardHomeHor.Value - (cardboardHor + 0.5f);
+                        cardboardHor = -0.5f;
                     }
                 }
             }
@@ -866,9 +866,9 @@ namespace CrossCam.Page
 	    {
 	        if (e.StatusType == GestureStatus.Started)
 	        {
-	            _reticleLeftX = _leftReticle.X;
-	            _reticleY = _leftReticle.Y;
-	            _reticleRightX = _rightReticle.X;
+	            _reticleLeftX = (float) _leftReticle.X;
+	            _reticleY = (float) _leftReticle.Y;
+	            _reticleRightX = (float) _rightReticle.X;
             }
 	        else if (e.StatusType == GestureStatus.Running)
 	        {
@@ -913,13 +913,13 @@ namespace CrossCam.Page
 	    }
 
 	    private static void HandleLinePanEvent(PanUpdatedEventArgs e, BoxView line, ContentView panner, 
-	        ref double lineY, ref double lineHeight)
+	        ref float lineY, ref float lineHeight)
 	    {
 	        if (e.StatusType == GestureStatus.Started)
 	        {
 	            var lowerLineBounds = AbsoluteLayout.GetLayoutBounds(line);
-	            lineY = line.Y;
-	            lineHeight = lowerLineBounds.Height;
+	            lineY = (float) line.Y;
+	            lineHeight = (float) lowerLineBounds.Height;
 	        }
 	        else if (e.StatusType == GestureStatus.Running)
 	        {
@@ -1036,11 +1036,11 @@ namespace CrossCam.Page
             }
             var isPortrait = frameHeight > frameWidth;
 
-            var fullscreenPreview = _viewModel.Settings.Mode == DrawMode.RedCyanAnaglyph ||
-                                 _viewModel.Settings.Mode == DrawMode.GrayscaleRedCyanAnaglyph ||
-                                 _viewModel.Settings.FullscreenCapturing ||
-                                 _viewModel.Settings.FullscreenEditing ||
-                                 _viewModel.IsNothingCaptured;
+            var fullscreenPreview = _viewModel.Settings.Mode == DrawMode.RedCyanAnaglyph || 
+                                    _viewModel.Settings.Mode == DrawMode.GrayscaleRedCyanAnaglyph ||
+                                    _viewModel.Settings.FullscreenCapturing ||
+                                    _viewModel.Settings.FullscreenEditing ||
+                                    _viewModel.IsNothingCaptured;
 
             if (fullscreenPreview)
             {
@@ -1052,16 +1052,16 @@ namespace CrossCam.Page
                 if (isPortrait)
                 {
                     aspect = frameHeight / (frameWidth * 1f);
-                    longNativeLength = Height * DeviceDisplay.MainDisplayInfo.Density;
-                    shortNativeLength = Width * DeviceDisplay.MainDisplayInfo.Density;
+                    longNativeLength = _canvas.Height * DeviceDisplay.MainDisplayInfo.Density;
+                    shortNativeLength = _canvas.Width * DeviceDisplay.MainDisplayInfo.Density;
                     tapLong = _tapLocation.Y;
                     tapShort = _tapLocation.X;
                 }
                 else
                 {
                     aspect = frameWidth / (frameHeight * 1f);
-                    longNativeLength = Width * DeviceDisplay.MainDisplayInfo.Density;
-                    shortNativeLength = Height * DeviceDisplay.MainDisplayInfo.Density;
+                    longNativeLength = _canvas.Width * DeviceDisplay.MainDisplayInfo.Density;
+                    shortNativeLength = _canvas.Height * DeviceDisplay.MainDisplayInfo.Density;
                     tapLong = _tapLocation.X;
                     tapShort = _tapLocation.Y;
                 }
@@ -1074,36 +1074,34 @@ namespace CrossCam.Page
                 {
                     return;
                 }
-                double shortProportion = (float)(tapShort / shortNativeLength);
+
+                var shortProportion = (float)(tapShort / shortNativeLength);
+                if (shortProportion < 0 ||
+                    shortProportion > 1)
+                {
+                    return;
+                }
 
                 if (isPortrait)
                 {
-                    xProportion = (float)shortProportion;
+                    xProportion = shortProportion;
                     yProportion = longProportion;
-                    _viewModel.FocusCircleX = shortProportion * Width;
-                    _viewModel.FocusCircleY = longProportion * (Width * aspect) + minLong / DeviceDisplay.MainDisplayInfo.Density;
+                    _viewModel.FocusCircleX = shortProportion * _canvas.Width;
+                    _viewModel.FocusCircleY = longProportion * (_canvas.Width * aspect) + minLong / DeviceDisplay.MainDisplayInfo.Density;
                 }
                 else
                 {
                     xProportion = longProportion;
-                    yProportion = (float)shortProportion;
-                    _viewModel.FocusCircleY = shortProportion * Height;
-                    _viewModel.FocusCircleX = longProportion * (Height * aspect) + minLong / DeviceDisplay.MainDisplayInfo.Density;
+                    yProportion = shortProportion;
+                    _viewModel.FocusCircleY = shortProportion * _canvas.Height;
+                    _viewModel.FocusCircleX = longProportion * (_canvas.Height * aspect) + minLong / DeviceDisplay.MainDisplayInfo.Density;
                 }
             }
             else
             {
                 aspect = frameHeight / (frameWidth * 1f);
-                double baseWidth;
-                if (_viewModel.Settings.Mode == DrawMode.Cross)
-                {
-                    baseWidth = Width * DeviceDisplay.MainDisplayInfo.Density / 2f;
-                }
-                else
-                {
-                    baseWidth = _viewModel.Settings.MaximumParallelWidth * DeviceDisplay.MainDisplayInfo.Density / 2f;
-                }
-                var leftBufferX = Width * DeviceDisplay.MainDisplayInfo.Density / 2f - baseWidth;
+                var baseWidth = _canvas.Width * DeviceDisplay.MainDisplayInfo.Density / 2f;
+                var leftBufferX = _canvas.Width * DeviceDisplay.MainDisplayInfo.Density / 2f - baseWidth;
                 if (_viewModel.Settings.IsCaptureLeftFirst &&
                     _viewModel.IsNothingCaptured ||
                     !_viewModel.Settings.IsCaptureLeftFirst &&
@@ -1123,7 +1121,7 @@ namespace CrossCam.Page
                 }
 
                 var baseHeight = baseWidth * aspect;
-                var minY = (Height * DeviceDisplay.MainDisplayInfo.Density - baseHeight) / 2f;
+                var minY = (_canvas.Height * DeviceDisplay.MainDisplayInfo.Density - baseHeight) / 2f;
 
                 yProportion = (float)((_tapLocation.Y - minY) / baseHeight);
                 if (yProportion < 0 ||
@@ -1141,6 +1139,53 @@ namespace CrossCam.Page
                 X = xProportion,
                 Y = yProportion
             };
+
+            if (_viewModel.Settings.IsCaptureInMirrorMode)
+            {
+                if (_viewModel.Settings.Mode == DrawMode.Cross)
+                {
+                    if (_viewModel.Settings.IsCaptureLeftFirst)
+                    {
+                        if (xProportion > 0.5)
+                        {
+                            convertedPoint.X = 1 - xProportion;
+                        }
+                        else
+                        {
+                            convertedPoint.X = xProportion + 0.5f;
+                        }
+                    }
+                    else
+                    {
+                        if (xProportion > 0.5)
+                        {
+                            convertedPoint.X = xProportion - 0.5f;
+                        }
+                        else
+                        {
+                            convertedPoint.X = 1 - xProportion;
+                        }
+                    }
+                }
+                else if (_viewModel.Settings.Mode == DrawMode.Parallel)
+                {
+
+                    if (_viewModel.Settings.IsCaptureLeftFirst)
+                    {
+                        if (xProportion > 0.5)
+                        {
+                            convertedPoint.X =  1.5f - xProportion;
+                        }
+                    }
+                    else
+                    {
+                        if (xProportion < 0.5)
+                        {
+                            convertedPoint.X = 0.5f - xProportion;
+                        }
+                    }
+                }
+            }
             
             _cameraModule.OnSingleTapped(convertedPoint);
             _viewModel.IsFocusCircleVisible = true;
