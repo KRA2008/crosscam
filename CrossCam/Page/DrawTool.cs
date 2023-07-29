@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
 using CrossCam.Model;
@@ -256,48 +257,28 @@ namespace CrossCam.Page
             }
 
             var alignmentTrim = new TrimAdjustment();
-            SKMatrix leftEditTrimMatrix = SKMatrix.CreateIdentity(), rightEditTrimMatrix = SKMatrix.CreateIdentity();
-            if (skFilterQuality != SKFilterQuality.Low &&
-                leftFovCorrection == 0 &&
-                rightFovCorrection == 0)
+            var leftEditTrim = new TrimAdjustment();
+            var rightEditTrim = new TrimAdjustment();
+            var editTrim = new TrimAdjustment();
+            if (skFilterQuality != SKFilterQuality.Low)
             {
                 alignmentTrim = OrientAndCombineAlignmentTrims(
                     leftBitmap, leftAlignmentMatrix, leftOrientation, isLeftFrontFacing,
                     rightBitmap, rightAlignmentMatrix, rightOrientation, isRightFrontFacing);
-                leftEditTrimMatrix = FindEditMatrix(true, drawMode, leftZoom + leftFovCorrection, leftRotation, keystone,
-                    0, 0, alignment, 0, 0, leftWidth, leftHeight, 0);
-                rightEditTrimMatrix = FindEditMatrix(false, drawMode, rightZoom + rightFovCorrection, rightRotation, keystone,
-                    0, 0, alignment, 0, 0, rightWidth, rightHeight, 0);
-            }
-            
+                editTrim = FindEditTrimAdjustment(edits, drawMode, baseWidth, baseHeight, out leftEditTrim,
+                    out rightEditTrim);
 
-            var leftEditTrim = new TrimAdjustment();
-            if (leftBitmap != null &&
-                skFilterQuality != SKFilterQuality.Low)
-            {
-                leftEditTrim = GetTrimAdjustmentFromMatrix(leftWidth, leftHeight, leftEditTrimMatrix);
-            }
-
-            var rightEditTrim = new TrimAdjustment();
-            if (rightBitmap != null &&
-                skFilterQuality != SKFilterQuality.Low)
-            {
-                rightEditTrim = GetTrimAdjustmentFromMatrix(rightWidth, rightHeight, rightEditTrimMatrix);
-            }
-
-            if (skFilterQuality != SKFilterQuality.Low)
-            {
                 leftEditTrim.Left = rightEditTrim.Right = Math.Max(leftEditTrim.Left, rightEditTrim.Right);
                 leftEditTrim.Right = rightEditTrim.Left = Math.Max(leftEditTrim.Right, rightEditTrim.Left);
                 leftEditTrim.Top = rightEditTrim.Top = Math.Max(leftEditTrim.Top, rightEditTrim.Top);
                 leftEditTrim.Bottom = rightEditTrim.Bottom = Math.Max(leftEditTrim.Bottom, rightEditTrim.Bottom);
             }
             
-            var sideBitmapWidthLessCrop = CalculateJoinedImageWidthWithEditsNoBorder(leftBitmap, leftAlignmentMatrix,
-                rightBitmap, rightAlignmentMatrix, edits, alignmentTrim, leftOrientation, rightOrientation) / 2f;
+            var sideBitmapWidthLessCrop = CalculateJoinedImageWidthWithEditsNoBorder(leftBitmap,
+                rightBitmap, edits, alignmentTrim, editTrim) / 2f;
 
-            var sideBitmapHeightLessCrop = CalculateImageHeightWithEditsNoBorder(leftBitmap, leftAlignmentMatrix,
-                rightBitmap, rightAlignmentMatrix, edits, alignmentTrim, leftOrientation, rightOrientation);
+            var sideBitmapHeightLessCrop = CalculateImageHeightWithEditsNoBorder(leftBitmap,
+                rightBitmap, edits, alignmentTrim, editTrim);
 
             var overlayDrawing =
                 drawMode == DrawMode.GrayscaleRedCyanAnaglyph ||
@@ -541,7 +522,7 @@ namespace CrossCam.Page
             }
         }
 
-        private static TrimAdjustment OrientAndCombineAlignmentTrims(
+        public static TrimAdjustment OrientAndCombineAlignmentTrims(
             SKBitmap leftBitmap, SKMatrix leftAlignment, SKEncodedOrigin leftOrientation, bool isLeftFront,
             SKBitmap rightBitmap, SKMatrix rightAlignment, SKEncodedOrigin rightOrientation, bool isRightFront)
         {
@@ -609,13 +590,19 @@ namespace CrossCam.Page
         {
             if (matrix.IsIdentity) return new TrimAdjustment();
 
-            var mappedPoints = matrix.MapPoints(new[]
+            var originalPoints = new[]
             {
                 new SKPoint(0, 0),
                 new SKPoint(width - 1f, 0),
                 new SKPoint(width - 1f, height - 1f),
                 new SKPoint(0, height - 1f)
-            });
+            };
+            var mappedPoints = matrix.MapPoints(originalPoints);
+            Debug.WriteLine("### points:");
+            for (var i = 0; i < 4; i++)
+            {
+                Debug.WriteLine("(" + originalPoints[i].X + "," + originalPoints[i].Y + ")   (" + mappedPoints[i].X + "," + mappedPoints[i].Y + ")");
+            }
             return new TrimAdjustment
             {
                 Top = Math.Clamp(Math.Max(mappedPoints[0].Y, mappedPoints[1].Y), 0, height) /
@@ -719,7 +706,20 @@ namespace CrossCam.Page
             }
         }
 
-        private static SKMatrix FindEditMatrix(bool isLeft, DrawMode drawMode,
+        public static TrimAdjustment FindEditTrimAdjustment(Edits edits, DrawMode drawMode, float width, float height,
+            out TrimAdjustment leftTrim, out TrimAdjustment rightTrim)
+        {
+            var leftEditTrimMatrix = FindEditMatrix(true, drawMode, edits.LeftZoom + edits.FovLeftCorrection, edits.LeftRotation, edits.Keystone,
+                0, 0, edits.VerticalAlignment, 0, 0, width, height, 0);
+            var rightEditTrimMatrix = FindEditMatrix(false, drawMode, edits.RightZoom + edits.FovRightCorrection, edits.RightRotation, edits.Keystone,
+                0, 0, edits.VerticalAlignment, 0, 0, width, height, 0);
+            leftTrim = GetTrimAdjustmentFromMatrix(width, height, leftEditTrimMatrix);
+            rightTrim = GetTrimAdjustmentFromMatrix(width, height, rightEditTrimMatrix);
+            var combinedTrim = CombineMaxTrim(leftTrim, rightTrim);
+            return combinedTrim;
+        }
+
+        public static SKMatrix FindEditMatrix(bool isLeft, DrawMode drawMode,
             float zoom, float rotation, float keystone,
             float cardboardHorDelta, float cardboardVertDelta, float alignment,
             float destX, float destY, float destWidth, float destHeight,
@@ -896,8 +896,8 @@ namespace CrossCam.Page
         }
 
         private static float CalculateOverlayedImageWidthWithEditsNoBorder(
-            SKBitmap leftBitmap, SKMatrix leftAlignment, SKBitmap rightBitmap, SKMatrix rightAlignment, Edits edits, TrimAdjustment alignmentTrimAdjustment = null,
-            SKEncodedOrigin leftOrientation = SKEncodedOrigin.Default, SKEncodedOrigin rightOrientation = SKEncodedOrigin.Default)
+            SKBitmap leftBitmap, SKBitmap rightBitmap, Edits edits, 
+            TrimAdjustment alignmentTrimAdjustment, TrimAdjustment editTrimAdjustment)
         {
             if (leftBitmap == null && rightBitmap == null) return 0;
 
@@ -906,29 +906,25 @@ namespace CrossCam.Page
                 return leftBitmap?.Width ?? rightBitmap.Width;
             }
 
-            alignmentTrimAdjustment ??= OrientAndCombineAlignmentTrims(
-                leftBitmap, leftAlignment, leftOrientation, false,
-                rightBitmap, rightAlignment, rightOrientation, false);
-
             var baseWidth = Math.Min(leftBitmap.Width, rightBitmap.Width);
             
             return baseWidth *
                    (1 - (edits.LeftCrop + edits.InsideCrop + edits.OutsideCrop + edits.RightCrop +
-                         alignmentTrimAdjustment.Left + alignmentTrimAdjustment.Right));
+                         alignmentTrimAdjustment.Left + alignmentTrimAdjustment.Right +
+                         editTrimAdjustment.Left + editTrimAdjustment.Right));
         }
 
         public static float CalculateJoinedImageWidthWithEditsNoBorder(
-            SKBitmap leftBitmap, SKMatrix leftAlignment, SKBitmap rightBitmap, SKMatrix rightAlignment, Edits edits, TrimAdjustment alignmentTrimAdjustment = null,
-            SKEncodedOrigin leftOrientation = SKEncodedOrigin.Default, SKEncodedOrigin rightOrientation = SKEncodedOrigin.Default)
+            SKBitmap leftBitmap, SKBitmap rightBitmap, Edits edits, 
+            TrimAdjustment alignmentTrimAdjustment, TrimAdjustment editTrimAdjustment)
         {
             return 2 * CalculateOverlayedImageWidthWithEditsNoBorder(
-                leftBitmap, leftAlignment, rightBitmap, rightAlignment, edits, alignmentTrimAdjustment,
-                leftOrientation, rightOrientation);
+                leftBitmap, rightBitmap, edits, alignmentTrimAdjustment, editTrimAdjustment);
             }
 
         public static float CalculateImageHeightWithEditsNoBorder(
-            SKBitmap leftBitmap, SKMatrix leftAlignment, SKBitmap rightBitmap, SKMatrix rightAlignment, Edits edits, TrimAdjustment alignmentTrimAdjustment = null,
-            SKEncodedOrigin leftOrientation = SKEncodedOrigin.Default, SKEncodedOrigin rightOrientation = SKEncodedOrigin.Default)
+            SKBitmap leftBitmap, SKBitmap rightBitmap, Edits edits, 
+            TrimAdjustment alignmentTrimAdjustment, TrimAdjustment editTrimAdjustment)
         {
             if (leftBitmap == null && rightBitmap == null) return 0;
 
@@ -937,42 +933,36 @@ namespace CrossCam.Page
                 return leftBitmap?.Height ?? rightBitmap.Height;
             }
 
-            alignmentTrimAdjustment ??= OrientAndCombineAlignmentTrims(
-                leftBitmap, leftAlignment, leftOrientation, false,
-                rightBitmap, rightAlignment, rightOrientation, false);
-
             var baseHeight = Math.Min(leftBitmap.Height, rightBitmap.Height);
             return baseHeight * 
                    (1 - (edits.TopCrop + edits.BottomCrop + Math.Abs(edits.VerticalAlignment) +
-                         alignmentTrimAdjustment.Top + alignmentTrimAdjustment.Bottom));
+                         alignmentTrimAdjustment.Top + alignmentTrimAdjustment.Bottom +
+                         editTrimAdjustment.Top + editTrimAdjustment.Bottom));
         }
 
-        public static SizeF CalculateJoinedImageSizeWithEditsNoBorder(SKBitmap leftBitmap, SKMatrix leftAlignment,
-            SKBitmap rightBitmap, SKMatrix rightAlignment, Edits edits, TrimAdjustment alignmentTrimAdjustment = null,
-            SKEncodedOrigin leftOrientation = SKEncodedOrigin.Default,
-            SKEncodedOrigin rightOrientation = SKEncodedOrigin.Default)
+        public static SizeF CalculateOverlayedImageSize(Edits edits, Settings settings, SKBitmap leftBitmap,
+            SKMatrix leftAlignmentTransform, SKBitmap rightBitmap, SKMatrix rightAlignmentTransform)
         {
-            var heightNoBorder = CalculateImageHeightWithEditsNoBorder(leftBitmap, leftAlignment, rightBitmap,
-                rightAlignment, edits, alignmentTrimAdjustment, leftOrientation, rightOrientation);
-            var widthNoBorder = CalculateJoinedImageWidthWithEditsNoBorder(leftBitmap, leftAlignment, rightBitmap,
-                rightAlignment, edits,
-                alignmentTrimAdjustment, leftOrientation, rightOrientation);
+            var editTrim = FindEditTrimAdjustment(edits, settings.Mode,
+                leftBitmap.Width, leftBitmap.Height, out _, out _);
+            var alignmentTrim = OrientAndCombineAlignmentTrims(
+                leftBitmap, leftAlignmentTransform, SKEncodedOrigin.Default, false,
+                rightBitmap, rightAlignmentTransform, SKEncodedOrigin.Default, false);
+            var width = CalculateOverlayedImageWidthWithEditsNoBorder(
+                leftBitmap, rightBitmap, edits, alignmentTrim, editTrim);
+            var height = CalculateImageHeightWithEditsNoBorder(
+                leftBitmap, rightBitmap, edits, alignmentTrim, editTrim);
 
-            return new SizeF(widthNoBorder, heightNoBorder);
+            return new SizeF(width, height);
         }
 
-        public static SizeF CalculateOverlayedImageSizeWithEditsNoBorder(SKBitmap leftBitmap, SKMatrix leftAlignment,
-            SKBitmap rightBitmap, SKMatrix rightAlignment, Edits edits, TrimAdjustment alignmentTrimAdjustment = null,
-            SKEncodedOrigin leftOrientation = SKEncodedOrigin.Default,
-            SKEncodedOrigin rightOrientation = SKEncodedOrigin.Default)
+        public static SizeF CalculateJoinedImageSize(Edits edits, Settings settings, SKBitmap leftBitmap, 
+            SKMatrix leftAlignmentTransform, SKBitmap rightBitmap, SKMatrix rightAlignmentTransform)
         {
-            var heightNoBorder = CalculateImageHeightWithEditsNoBorder(leftBitmap, leftAlignment, rightBitmap,
-                rightAlignment, edits, alignmentTrimAdjustment, leftOrientation, rightOrientation);
-            var widthNoBorder = CalculateOverlayedImageWidthWithEditsNoBorder(leftBitmap, leftAlignment, rightBitmap,
-                rightAlignment, edits,
-                alignmentTrimAdjustment, leftOrientation, rightOrientation);
+            var overlayedSize = CalculateOverlayedImageSize(edits, settings, leftBitmap, leftAlignmentTransform,
+                rightBitmap, rightAlignmentTransform);
             
-            return new SizeF(widthNoBorder, heightNoBorder);
+            return new SizeF(2 * overlayedSize.Width, overlayedSize.Height);
         }
 
         public static float CalculateBorderThickness(float imageWidth, float thicknessSetting)

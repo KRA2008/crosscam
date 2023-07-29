@@ -414,13 +414,22 @@ namespace CrossCam.ViewModel
                                                               Settings.Mode != DrawMode.GrayscaleRedCyanAnaglyph &&
                                                               Settings.Mode != DrawMode.RedCyanAnaglyph;
 
-        private bool IsPictureWiderThanTall => LeftBitmap != null &&
-                                               RightBitmap != null &&
-                                               Settings.Mode != DrawMode.Parallel &&
-                                               DrawTool.CalculateJoinedImageWidthWithEditsNoBorder(
-                                                   LeftBitmap, LeftAlignmentTransform, RightBitmap, RightAlignmentTransform, Edits) >
-                                               DrawTool.CalculateImageHeightWithEditsNoBorder(
-                                                   LeftBitmap, LeftAlignmentTransform, RightBitmap, RightAlignmentTransform, Edits);
+        private bool IsPictureWiderThanTall
+        {
+            get
+            {
+                if (LeftBitmap != null &&
+                    RightBitmap != null &&
+                    Settings.Mode != DrawMode.Parallel)
+                {
+                    var size = DrawTool.CalculateJoinedImageSize(Edits, Settings, LeftBitmap, LeftAlignmentTransform,
+                        RightBitmap, RightAlignmentTransform);
+                    return size.Width > size.Height;
+                }
+
+                return false;
+            }
+        } 
 
         public string SavedSuccessMessage => "Saved to " + (Settings.SaveToExternal
                                                  ? "external"
@@ -802,8 +811,9 @@ namespace CrossCam.ViewModel
                             await SaveSurfaceSnapshot(tempSurface, CROSSCAM + (Settings.SaveIntoSeparateFolders ? "_Separate" : ""));
                         }
 
-                        var joinedImageSize = DrawTool.CalculateJoinedImageSizeWithEditsNoBorder(
-                            LeftBitmap, LeftAlignmentTransform, RightBitmap, RightAlignmentTransform, Edits);
+                        var joinedImageSize = DrawTool.CalculateJoinedImageSize(Edits, Settings,
+                            LeftBitmap, LeftAlignmentTransform, RightBitmap, RightAlignmentTransform);
+
                         var tripleWidth = joinedImageSize.Width * 1.5f;
                         var quadHeight = joinedImageSize.Height * 2f;
                         var quadOffset = joinedImageSize.Height * 1f;
@@ -1003,8 +1013,8 @@ namespace CrossCam.ViewModel
                             {
                                 {SAVE_TYPE, "cardboard"}
                             });
-                            var finalSize = DrawTool.CalculateJoinedImageSizeWithEditsNoBorder(LeftBitmap,
-                                LeftAlignmentTransform, RightBitmap, RightAlignmentTransform, Edits);
+                            var finalSize = DrawTool.CalculateJoinedImageSize(Edits, Settings,
+                                LeftBitmap, LeftAlignmentTransform, RightBitmap, RightAlignmentTransform);
 
                             using var tempSurface = SKSurface.Create(new SKImageInfo((int)finalSize.Width, (int)finalSize.Height));
                             using var canvas = tempSurface.Canvas;
@@ -1841,8 +1851,8 @@ namespace CrossCam.ViewModel
 
         private async Task DrawAnaglyph(bool grayscale)
         {
-            var overlayedSize = DrawTool.CalculateOverlayedImageSizeWithEditsNoBorder(LeftBitmap,
-                LeftAlignmentTransform, RightBitmap, RightAlignmentTransform, Edits);
+            var overlayedSize = DrawTool.CalculateOverlayedImageSize(Edits, Settings, LeftBitmap,
+                LeftAlignmentTransform, RightBitmap, RightAlignmentTransform);
             using var tempSurface =
                 SKSurface.Create(new SKImageInfo((int)overlayedSize.Width, (int)overlayedSize.Height));
             var canvas = tempSurface.Canvas;
