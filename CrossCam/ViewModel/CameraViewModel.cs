@@ -837,12 +837,12 @@ namespace CrossCam.ViewModel
                         quadHeight += fuseGuideImageHeightModifier + 2 * borderThickness;
                         quadOffset += fuseGuideImageHeightModifier + borderThickness;
 
-                        tripleOffset *= (Settings.ResolutionProportion / 100f);
-                        tripleWidth *= (Settings.ResolutionProportion / 100f);
-                        joinedImageSize.Width *= (Settings.ResolutionProportion / 100f);
-                        joinedImageSize.Height *= (Settings.ResolutionProportion / 100f);
-                        quadHeight *= (Settings.ResolutionProportion / 100f);
-                        quadOffset *= (Settings.ResolutionProportion / 100f);
+                        tripleOffset *= Settings.ResolutionProportion / 100f;
+                        tripleWidth *= Settings.ResolutionProportion / 100f;
+                        joinedImageSize.Width *= Settings.ResolutionProportion / 100f;
+                        joinedImageSize.Height *= Settings.ResolutionProportion / 100f;
+                        quadHeight *= Settings.ResolutionProportion / 100f;
+                        quadOffset *= Settings.ResolutionProportion / 100f;
 
                         var joinedImageSkInfo =
                             new SKImageInfo((int) joinedImageSize.Width, (int) joinedImageSize.Height);

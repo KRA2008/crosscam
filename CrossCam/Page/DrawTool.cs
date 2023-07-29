@@ -275,10 +275,15 @@ namespace CrossCam.Page
             }
             
             var sideBitmapWidthLessCrop = CalculateJoinedImageWidthWithEditsNoBorder(leftBitmap,
-                rightBitmap, edits, alignmentTrim, editTrim) / 2f;
+                rightBitmap, edits, alignmentTrim, editTrim, isLeft90Oriented || isRight90Oriented) / 2f;
+
+            if (mirrorLeft || mirrorRight)
+            {
+                sideBitmapWidthLessCrop /= 2f;
+            }
 
             var sideBitmapHeightLessCrop = CalculateImageHeightWithEditsNoBorder(leftBitmap,
-                rightBitmap, edits, alignmentTrim, editTrim);
+                rightBitmap, edits, alignmentTrim, editTrim, isLeft90Oriented || isRight90Oriented);
 
             var overlayDrawing =
                 drawMode == DrawMode.GrayscaleRedCyanAnaglyph ||
@@ -897,16 +902,23 @@ namespace CrossCam.Page
 
         private static float CalculateOverlayedImageWidthWithEditsNoBorder(
             SKBitmap leftBitmap, SKBitmap rightBitmap, Edits edits, 
-            TrimAdjustment alignmentTrimAdjustment, TrimAdjustment editTrimAdjustment)
+            TrimAdjustment alignmentTrimAdjustment, TrimAdjustment editTrimAdjustment,
+            bool is90degOrientation = false)
         {
             if (leftBitmap == null && rightBitmap == null) return 0;
 
             if (leftBitmap == null ^ rightBitmap == null)
             {
+                if (is90degOrientation)
+                {
+                    return leftBitmap?.Height ?? rightBitmap.Height;
+                }
                 return leftBitmap?.Width ?? rightBitmap.Width;
             }
 
-            var baseWidth = Math.Min(leftBitmap.Width, rightBitmap.Width);
+            var baseWidth = is90degOrientation
+                ? Math.Min(leftBitmap.Height, rightBitmap.Height)
+                : Math.Min(leftBitmap.Width, rightBitmap.Width);
             
             return baseWidth *
                    (1 - (edits.LeftCrop + edits.InsideCrop + edits.OutsideCrop + edits.RightCrop +
@@ -916,24 +928,33 @@ namespace CrossCam.Page
 
         public static float CalculateJoinedImageWidthWithEditsNoBorder(
             SKBitmap leftBitmap, SKBitmap rightBitmap, Edits edits, 
-            TrimAdjustment alignmentTrimAdjustment, TrimAdjustment editTrimAdjustment)
+            TrimAdjustment alignmentTrimAdjustment, TrimAdjustment editTrimAdjustment,
+            bool is90degOrientation = false)
         {
             return 2 * CalculateOverlayedImageWidthWithEditsNoBorder(
-                leftBitmap, rightBitmap, edits, alignmentTrimAdjustment, editTrimAdjustment);
-            }
+                leftBitmap, rightBitmap, edits, alignmentTrimAdjustment, editTrimAdjustment, 
+                is90degOrientation);
+        }
 
         public static float CalculateImageHeightWithEditsNoBorder(
             SKBitmap leftBitmap, SKBitmap rightBitmap, Edits edits, 
-            TrimAdjustment alignmentTrimAdjustment, TrimAdjustment editTrimAdjustment)
+            TrimAdjustment alignmentTrimAdjustment, TrimAdjustment editTrimAdjustment,
+            bool is90degOrientation = false)
         {
             if (leftBitmap == null && rightBitmap == null) return 0;
 
             if (leftBitmap == null ^ rightBitmap == null)
             {
+                if (is90degOrientation)
+                {
+                    return leftBitmap?.Width ?? rightBitmap.Width;
+                }
                 return leftBitmap?.Height ?? rightBitmap.Height;
             }
 
-            var baseHeight = Math.Min(leftBitmap.Height, rightBitmap.Height);
+            float baseHeight = is90degOrientation
+                ? Math.Min(leftBitmap.Width, rightBitmap.Width)
+                : Math.Min(leftBitmap.Height, rightBitmap.Height);
             return baseHeight * 
                    (1 - (edits.TopCrop + edits.BottomCrop + Math.Abs(edits.VerticalAlignment) +
                          alignmentTrimAdjustment.Top + alignmentTrimAdjustment.Bottom +
