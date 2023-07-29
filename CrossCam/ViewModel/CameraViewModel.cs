@@ -1216,7 +1216,6 @@ namespace CrossCam.ViewModel
             base.Init(initData);
 
             PropertyChanged += HandlePropertyChanged;
-            Edits.PropertyChanged += EditsOnPropertyChanged;
             Settings.PropertyChanged += SettingsOnPropertyChanged;
             Settings.AlignmentSettings.PropertyChanged += AlignmentSettingsOnPropertyChanged;
             Settings.PairSettings.PropertyChanged += PairSettingsOnPropertyChanged;
@@ -1245,11 +1244,6 @@ namespace CrossCam.ViewModel
                 .DeserializeObject<Dictionary<string, object>>(JsonConvert.SerializeObject(Settings.AlignmentSettings))
                 .ToDictionary(pair => pair.Key, pair => pair.Value?.ToString());
             Analytics.TrackEvent("alignment settings at launch", alignmentDictionary);
-        }
-
-        private void EditsOnPropertyChanged(object sender, PropertyChangedEventArgs e)
-        {
-            RaisePropertyChanged(nameof(IsPictureWiderThanTall));
         }
 
         private void DeviceDisplayOnMainDisplayInfoChanged(object sender, DisplayInfoChangedEventArgs e)
@@ -1441,7 +1435,6 @@ namespace CrossCam.ViewModel
                     RaisePropertyChanged(nameof(ShouldLeftLeftRetakeBeVisible));
                     RaisePropertyChanged(nameof(ShouldLeftRightRetakeBeVisible));
                     RaisePropertyChanged(nameof(IsExactlyOnePictureTaken));
-                    RaisePropertyChanged(nameof(IsPictureWiderThanTall));
                     break;
                 case nameof(RightBitmap):
                     RaisePropertyChanged(nameof(IsNothingCaptured));
@@ -1449,7 +1442,6 @@ namespace CrossCam.ViewModel
                     RaisePropertyChanged(nameof(ShouldRightLeftRetakeBeVisible));
                     RaisePropertyChanged(nameof(ShouldRightRightRetakeBeVisible));
                     RaisePropertyChanged(nameof(IsExactlyOnePictureTaken));
-                    RaisePropertyChanged(nameof(IsPictureWiderThanTall));
                     break;
                 case nameof(WasCapturePortrait):
                     RaisePropertyChanged(nameof(ShouldLeftLeftRetakeBeVisible));
@@ -1457,15 +1449,6 @@ namespace CrossCam.ViewModel
                     break;
                 case nameof(IsBusy):
                     RaisePropertyChanged(nameof(ShouldSettingsAndHelpBeVisible));
-                    break;
-                case nameof(IsPictureWiderThanTall):
-                    RaisePropertyChanged(nameof(ShouldPortraitViewModeWarningBeVisible));
-                    break;
-                case nameof(LeftAlignmentTransform):
-                    RaisePropertyChanged(nameof(IsPictureWiderThanTall));
-                    break;
-                case nameof(RightAlignmentTransform):
-                    RaisePropertyChanged(nameof(IsPictureWiderThanTall));
                     break;
             }
         }
