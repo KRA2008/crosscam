@@ -256,10 +256,10 @@ namespace CrossCam.Page
                 baseHeight = rightHeight;
             }
 
-            var alignmentTrim = new TrimAdjustment();
-            var leftEditTrim = new TrimAdjustment();
-            var rightEditTrim = new TrimAdjustment();
-            var editTrim = new TrimAdjustment();
+            TrimAdjustment alignmentTrim = new TrimAdjustment(),
+                leftEditTrim = new TrimAdjustment(),
+                rightEditTrim = new TrimAdjustment(),
+                editTrim = new TrimAdjustment();
             if (skFilterQuality != SKFilterQuality.Low)
             {
                 alignmentTrim = OrientAndCombineAlignmentTrims(
@@ -274,6 +274,8 @@ namespace CrossCam.Page
                 leftEditTrim.Bottom = rightEditTrim.Bottom = Math.Max(leftEditTrim.Bottom, rightEditTrim.Bottom);
             }
             
+
+
             var sideBitmapWidthLessCrop = CalculateJoinedImageWidthWithEditsNoBorder(leftBitmap,
                 rightBitmap, edits, alignmentTrim, editTrim, isLeft90Oriented || isRight90Oriented) / 2f;
 
@@ -281,9 +283,6 @@ namespace CrossCam.Page
             {
                 sideBitmapWidthLessCrop /= 2f;
             }
-
-            var sideBitmapHeightLessCrop = CalculateImageHeightWithEditsNoBorder(leftBitmap,
-                rightBitmap, edits, alignmentTrim, editTrim, isLeft90Oriented || isRight90Oriented);
 
             var overlayDrawing =
                 drawMode == DrawMode.GrayscaleRedCyanAnaglyph ||
@@ -304,7 +303,12 @@ namespace CrossCam.Page
             {
                 widthRatio /= 2f;
             }
-            
+
+
+
+            var sideBitmapHeightLessCrop = CalculateImageHeightWithEditsNoBorder(leftBitmap,
+                rightBitmap, edits, alignmentTrim, editTrim, isLeft90Oriented || isRight90Oriented);
+
             var bitmapHeightWithEditsAndBorder = sideBitmapHeightLessCrop + realBorderThickness * 2;
             var drawFuseGuide = fuseGuideRequested &&
                                 drawMode != DrawMode.Cardboard &&
@@ -322,6 +326,7 @@ namespace CrossCam.Page
 
             var heightRatio = bitmapHeightWithEditsAndBorder / (1f * canvasHeight);
 
+
             var fillsWidth = widthRatio > heightRatio;
 
             var scalingRatio = fillsWidth ? widthRatio : heightRatio;
@@ -332,8 +337,8 @@ namespace CrossCam.Page
 
             var clipWidth = sideBitmapWidthLessCrop / scalingRatio;
             var clipHeight = sideBitmapHeightLessCrop / scalingRatio;
-
-            var borderProportion = addBorder ? BORDER_CONVERSION_FACTOR * borderThicknessSetting : 0f;
+            
+            var scaledBorderThickness = addBorder ? CalculateBorderThickness(clipWidth, borderThicknessSetting) : 0;
             float leftClipX, rightClipX, clipY;
             if (overlayDrawing)
             {
@@ -343,9 +348,9 @@ namespace CrossCam.Page
             else
             {
                 leftClipX = canvasWidth / 2f - 
-                            (clipWidth + borderProportion * clipWidth / 2f);
+                            (clipWidth + scaledBorderThickness / 2f);
                 rightClipX = canvasWidth / 2f +
-                             borderProportion * clipWidth / 2f;
+                             scaledBorderThickness / 2f;
                 clipY = canvasHeight / 2f - clipHeight / 2f;
             }
 
@@ -473,13 +478,12 @@ namespace CrossCam.Page
                         paint);
                 }
             }
+            
+            var originX = leftClipX - scaledBorderThickness;
+            var originY = clipY - scaledBorderThickness;
+            var fullPreviewWidth = 2 * clipWidth + 3 * scaledBorderThickness;
 
-            var originX = leftClipX - borderProportion * clipWidth;
-            var originY = clipY - borderProportion * clipWidth;
-            var fullPreviewWidth = 2 * clipWidth + 3 * borderProportion * clipWidth;
-
-            var scaledBorderThickness = borderProportion * clipWidth;
-            if (borderProportion > 0)
+            if (scaledBorderThickness > 0)
             {
                 using var borderPaint = new SKPaint
                 {
@@ -488,7 +492,7 @@ namespace CrossCam.Page
                     FilterQuality = skFilterQuality
                 };
 
-                var fullPreviewHeight = clipHeight + 2 * borderProportion * clipWidth;
+                var fullPreviewHeight = clipHeight + 2 * scaledBorderThickness;
                 var endX = rightClipX + clipWidth;
                 var endY = clipY + clipHeight;
                 surface.Canvas.DrawRect(originX, originY, fullPreviewWidth, scaledBorderThickness, borderPaint);
@@ -525,6 +529,35 @@ namespace CrossCam.Page
                     canvasWidth / 2f + scaledBorderThickness / 2f + clipWidth / 2f - fuseGuideIconWidth / 2f,
                     fuseGuideY, fuseGuideIconWidth, fuseGuideIconWidth, guidePaint);
             }
+            
+            //var dottedPaint = new SKPaint
+            //{
+            //    Color = SKColors.White,
+            //    Style = SKPaintStyle.Stroke,
+            //    StrokeWidth = 1f,
+            //    StrokeCap = SKStrokeCap.Butt,
+            //    PathEffect = SKPathEffect.CreateDash(new []{1f,1f},0)
+            //};
+
+            //horizontal
+            //var horizontalPath = new SKPath();
+            //horizontalPath.MoveTo(0, surface.Canvas.DeviceClipBounds.MidY);
+            //horizontalPath.LineTo(surface.Canvas.DeviceClipBounds.Width, surface.Canvas.DeviceClipBounds.MidY);
+            //surface.Canvas.DrawPath(horizontalPath, dottedPaint);
+            //surface.Canvas.DrawRect(0,surface.Canvas.DeviceClipBounds.MidY, surface.Canvas.DeviceClipBounds.Width,surface.Canvas.DeviceClipBounds.Height*0.05f, new SKPaint
+            //{
+            //    Color = SKColor.Parse("#ff0000")
+            //});
+
+            //vertical
+            //var verticalPath = new SKPath();
+            //verticalPath.MoveTo(surface.Canvas.DeviceClipBounds.MidX / 2f, 0);
+            //verticalPath.LineTo(surface.Canvas.DeviceClipBounds.MidX / 2f, surface.Canvas.DeviceClipBounds.Height);
+            //surface.Canvas.DrawPath(verticalPath, dottedPaint);
+            //surface.Canvas.DrawRect(surface.Canvas.DeviceClipBounds.MidX / 2f, 0, surface.Canvas.DeviceClipBounds.Width * 0.05f, surface.Canvas.DeviceClipBounds.Height, new SKPaint
+            //{
+            //    Color = SKColor.Parse("#00ff00")
+            //});
         }
 
         public static TrimAdjustment OrientAndCombineAlignmentTrims(
@@ -864,7 +897,7 @@ namespace CrossCam.Page
             canvas.SetMatrix(transform);
             canvas.DrawBitmap(
                 bitmap,
-                correctedRect,
+                correctedRect, //canvas size is int, but drawing is done with rect of floats - so does drawing truncate or round?
                 paint);
             canvas.ResetMatrix();
 
@@ -961,7 +994,7 @@ namespace CrossCam.Page
                          editTrimAdjustment.Top + editTrimAdjustment.Bottom));
         }
 
-        public static SizeF CalculateOverlayedImageSize(Edits edits, Settings settings, SKBitmap leftBitmap,
+        public static SizeF CalculateOverlayedImageSizeOrientedWithEditsNoBorder(Edits edits, Settings settings, SKBitmap leftBitmap,
             SKMatrix leftAlignmentTransform, SKBitmap rightBitmap, SKMatrix rightAlignmentTransform)
         {
             var editTrim = FindEditTrimAdjustment(edits, settings.Mode,
@@ -977,18 +1010,18 @@ namespace CrossCam.Page
             return new SizeF(width, height);
         }
 
-        public static SizeF CalculateJoinedImageSize(Edits edits, Settings settings, SKBitmap leftBitmap, 
+        public static SizeF CalculateJoinedImageSizeOrientedWithEditsNoBorder(Edits edits, Settings settings, SKBitmap leftBitmap, 
             SKMatrix leftAlignmentTransform, SKBitmap rightBitmap, SKMatrix rightAlignmentTransform)
         {
-            var overlayedSize = CalculateOverlayedImageSize(edits, settings, leftBitmap, leftAlignmentTransform,
+            var overlayedSize = CalculateOverlayedImageSizeOrientedWithEditsNoBorder(edits, settings, leftBitmap, leftAlignmentTransform,
                 rightBitmap, rightAlignmentTransform);
             
             return new SizeF(2 * overlayedSize.Width, overlayedSize.Height);
         }
 
-        public static float CalculateBorderThickness(float imageWidth, float thicknessSetting)
+        public static float CalculateBorderThickness(float sideWidth, float thicknessSetting)
         {
-            return imageWidth * thicknessSetting * BORDER_CONVERSION_FACTOR;
+            return sideWidth * thicknessSetting * BORDER_CONVERSION_FACTOR;
         }
 
         public static float CalculateFuseGuideMarginHeight(float imageHeightWithEditsAndBorder)

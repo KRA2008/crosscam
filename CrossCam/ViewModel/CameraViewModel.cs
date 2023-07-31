@@ -422,7 +422,7 @@ namespace CrossCam.ViewModel
                     RightBitmap != null &&
                     Settings.Mode != DrawMode.Parallel)
                 {
-                    var size = DrawTool.CalculateJoinedImageSize(Edits, Settings, LeftBitmap, LeftAlignmentTransform,
+                    var size = DrawTool.CalculateJoinedImageSizeOrientedWithEditsNoBorder(Edits, Settings, LeftBitmap, LeftAlignmentTransform,
                         RightBitmap, RightAlignmentTransform);
                     return size.Width > size.Height;
                 }
@@ -811,21 +811,20 @@ namespace CrossCam.ViewModel
                             await SaveSurfaceSnapshot(tempSurface, CROSSCAM + (Settings.SaveIntoSeparateFolders ? "_Separate" : ""));
                         }
 
-                        var joinedImageSize = DrawTool.CalculateJoinedImageSize(Edits, Settings,
+                        var joinedImageSize = DrawTool.CalculateJoinedImageSizeOrientedWithEditsNoBorder(Edits, Settings,
                             LeftBitmap, LeftAlignmentTransform, RightBitmap, RightAlignmentTransform);
 
                         var tripleWidth = joinedImageSize.Width * 1.5f;
                         var quadHeight = joinedImageSize.Height * 2f;
-                        var quadOffset = joinedImageSize.Height * 1f;
-                        var tripleOffset = joinedImageSize.Width;
+                        var quadOffset = joinedImageSize.Height;
 
                         var borderThickness = Settings.AddBorder2
-                            ? DrawTool.CalculateBorderThickness(joinedImageSize.Width, Settings.BorderWidthProportion)
+                            ? DrawTool.CalculateBorderThickness(joinedImageSize.Width / 2f, Settings.BorderWidthProportion)
                             : 0;
                         joinedImageSize.Width += 3 * borderThickness;
                         joinedImageSize.Height += 2 * borderThickness;
+                        var tripleOffset = joinedImageSize.Width - borderThickness;
                         tripleWidth += 4 * borderThickness;
-                        tripleOffset -= borderThickness;
                         
 
                         var fuseGuideMarginHeight = Settings.SaveWithFuseGuide
@@ -1013,7 +1012,7 @@ namespace CrossCam.ViewModel
                             {
                                 {SAVE_TYPE, "cardboard"}
                             });
-                            var finalSize = DrawTool.CalculateJoinedImageSize(Edits, Settings,
+                            var finalSize = DrawTool.CalculateJoinedImageSizeOrientedWithEditsNoBorder(Edits, Settings,
                                 LeftBitmap, LeftAlignmentTransform, RightBitmap, RightAlignmentTransform);
 
                             using var tempSurface = SKSurface.Create(new SKImageInfo((int)finalSize.Width, (int)finalSize.Height));
@@ -1834,7 +1833,7 @@ namespace CrossCam.ViewModel
 
         private async Task DrawAnaglyph(bool grayscale)
         {
-            var overlayedSize = DrawTool.CalculateOverlayedImageSize(Edits, Settings, LeftBitmap,
+            var overlayedSize = DrawTool.CalculateOverlayedImageSizeOrientedWithEditsNoBorder(Edits, Settings, LeftBitmap,
                 LeftAlignmentTransform, RightBitmap, RightAlignmentTransform);
             using var tempSurface =
                 SKSurface.Create(new SKImageInfo((int)overlayedSize.Width, (int)overlayedSize.Height));
