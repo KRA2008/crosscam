@@ -408,6 +408,7 @@ namespace CrossCam.ViewModel
 
         public bool ShouldPortraitViewModeWarningBeVisible => IsViewPortrait && 
                                                               IsPictureWiderThanTall &&
+                                                              !IsFullscreenToggle &&
                                                               WorkflowStage != WorkflowStage.Saving &&
                                                               (WorkflowStage == WorkflowStage.Final ||
                                                                WorkflowStage == WorkflowStage.Edits) && 
