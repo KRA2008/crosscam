@@ -499,14 +499,14 @@ namespace CrossCam.Page
             if (_viewModel.LeftBitmap == null &&
                 _viewModel.RightBitmap == null)
             {
-                surface.Canvas.Clear(SKColor.Parse("#00ffff"));
+                surface.Canvas.Clear();
                 _cardboardHomeHor = null;
                 _cardboardHomeVert = null;
             }
 
             if (clearCanvas)
             {
-                surface.Canvas.Clear(SKColor.Parse("#00ffff"));
+                surface.Canvas.Clear();
             }
             
             SKBitmap left = null;
@@ -521,7 +521,7 @@ namespace CrossCam.Page
             if (_viewModel.LeftBitmap != null &&
                 _viewModel.RightBitmap != null)
             {
-                surface.Canvas.Clear(SKColor.Parse("#00ffff"));
+                surface.Canvas.Clear();
 
                 left = _viewModel.LeftBitmap;
                 leftAlignment = _viewModel.LeftAlignmentTransform;
@@ -544,7 +544,8 @@ namespace CrossCam.Page
                     isLeftFrontFacing = false;
                     _newLeftCapture = false;
                 }
-                else if (_viewModel.CameraColumn == 0)
+                else if (_viewModel.CameraColumn == 0 &&
+                         !_newRightCapture)
                 {
                     left = _viewModel.LocalPreviewFrame?.Frame;
                     leftOrientation = _viewModel.LocalPreviewFrame?.Orientation;
@@ -568,7 +569,8 @@ namespace CrossCam.Page
                     isRightFrontFacing = false;
                     _newRightCapture = false;
                 }
-                else if (_viewModel.CameraColumn == 1)
+                else if (_viewModel.CameraColumn == 1 &&
+                         !_newLeftCapture)
                 {
                     right = _viewModel.LocalPreviewFrame?.Frame;
                     rightOrientation = _viewModel.LocalPreviewFrame?.Orientation;
