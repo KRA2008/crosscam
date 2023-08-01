@@ -229,7 +229,7 @@ namespace CrossCam.CustomElement
                     //    Debug.WriteLine("### PAYLOAD RECEIVED: " + string.Join(",",bytes));
                     //}
 
-                    Debug.WriteLine("### Command received: " + (CrossCommand)bytes[2]);
+                    //Debug.WriteLine("### Command received: " + (CrossCommand)bytes[2]);
                     switch (bytes[2])
                     {
                         case (byte)CrossCommand.Hello:
@@ -404,7 +404,6 @@ namespace CrossCam.CustomElement
         {
             if (_timerSampleIndex < TimerTotalSamples)
             {
-                Debug.WriteLine("### timer samples: " + _timerSampleIndex);
                 _t3Samples[_timerSampleIndex] = DateTime.UtcNow.Ticks;
                 if (_timerSampleIndex == 0)
                 {
@@ -418,7 +417,6 @@ namespace CrossCam.CustomElement
             }
             else
             {
-                Debug.WriteLine("### finished sampling?");
                 OnInitialSyncCompleted();
             }
         }
@@ -458,7 +456,6 @@ namespace CrossCam.CustomElement
 
         private void RequestClockReading()
         {
-            Debug.WriteLine("### request clock reading");
             if (_timerSampleIndex < TimerTotalSamples)
             {
                 _t0Samples[_timerSampleIndex] = DateTime.UtcNow.Ticks;
@@ -597,7 +594,7 @@ namespace CrossCam.CustomElement
             });
         }
 
-        public void SendLatestPreviewFrame(byte[] frame, byte? rotationNeeded = null) //TODO: the optional parameter is never used?
+        public void SendLatestPreviewFrame(byte[] frame, byte? rotationNeeded = null)
         {
             try
             {

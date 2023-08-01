@@ -1789,7 +1789,7 @@ namespace CrossCam.ViewModel
         private void PairOperatorOnCapturedImageReceived(object sender, byte[] bytes)
         {
             RemotePreviewFrame = null;
-            var wasOtherSideFrontFacing = LocalCapturedFrame.IsFrontFacing;
+            var wasOtherSideFrontFacing = RemotePreviewFrame?.IsFrontFacing ?? LocalCapturedFrame?.IsFrontFacing ?? LocalPreviewFrame?.IsFrontFacing == true;
             LocalCapturedFrame = null;
             using var data = SKData.Create(new SKMemoryStream(bytes));
             using var codec = SKCodec.Create(data);
