@@ -67,9 +67,6 @@ namespace CrossCam.Page
                                      drawQuality == DrawQuality.Preview &&
                                      settings.ShowPreviewFuseGuide;
 
-            var skFilterQuality = drawQuality == DrawQuality.Preview ? 
-                                  SKFilterQuality.Low : SKFilterQuality.High;
-
             var addBarrelDistortion =
                 settings.CardboardSettings.AddBarrelDistortion && settings.CardboardSettings.AddBarrelDistortionFinalOnly && drawQuality != DrawQuality.Preview ||
                 settings.CardboardSettings.AddBarrelDistortion && !settings.CardboardSettings.AddBarrelDistortionFinalOnly;
@@ -141,7 +138,7 @@ namespace CrossCam.Page
                     edits.Keystone,
                     drawMode, fuseGuideRequested,
                     addBarrelDistortion, settings.CardboardSettings.CardboardBarrelDistortion,
-                    skFilterQuality,
+                    drawQuality,
                     useFullscreen,
                     cardboardWidthProportion, vert, hor,
                     cardboardDownsizeProportion,
@@ -165,7 +162,7 @@ namespace CrossCam.Page
                     edits.Keystone,
                     drawMode, fuseGuideRequested,
                     addBarrelDistortion, settings.CardboardSettings.CardboardBarrelDistortion,
-                    skFilterQuality,
+                    drawQuality,
                     useFullscreen,
                     cardboardWidthProportion, vert, hor,
                     cardboardDownsizeProportion,
@@ -186,7 +183,7 @@ namespace CrossCam.Page
             float keystone,
             DrawMode drawMode, bool fuseGuideRequested,
             bool addBarrelDistortion, uint barrelStrength,
-            SKFilterQuality skFilterQuality, bool useFullscreen,
+            DrawQuality drawQuality, bool useFullscreen,
             float cardboardWidthProportion,
             float cardboardVert,
             float cardboardHor,
@@ -260,7 +257,7 @@ namespace CrossCam.Page
                 leftEditTrim = new TrimAdjustment(),
                 rightEditTrim = new TrimAdjustment(),
                 editTrim = new TrimAdjustment();
-            if (skFilterQuality != SKFilterQuality.Low)
+            if (drawQuality != DrawQuality.Preview)
             {
                 alignmentTrim = OrientAndCombineAlignmentTrims(
                     leftBitmap, leftAlignmentMatrix, leftOrientation, isLeftFrontFacing,
@@ -386,6 +383,8 @@ namespace CrossCam.Page
             var leftYCorrectionToOrigin = destY + leftIntermediateHeight / 2f;
             var rightXCorrectionToOrigin = rightDestX + rightIntermediateWidth / 2f;
             var rightYCorrectionToOrigin = destY + rightIntermediateHeight / 2f;
+
+            var skFilterQuality = drawQuality == DrawQuality.Save ? SKFilterQuality.High : SKFilterQuality.Low;
 
             if (leftBitmap != null)
             {
