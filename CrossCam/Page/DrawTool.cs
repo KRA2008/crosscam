@@ -559,7 +559,7 @@ namespace CrossCam.Page
             //});
         }
 
-        public static TrimAdjustment OrientAndCombineAlignmentTrims(
+        private static TrimAdjustment OrientAndCombineAlignmentTrims(
             SKBitmap leftBitmap, SKMatrix leftAlignment, SKEncodedOrigin leftOrientation, bool isLeftFront,
             SKBitmap rightBitmap, SKMatrix rightAlignment, SKEncodedOrigin rightOrientation, bool isRightFront)
         {
@@ -635,11 +635,7 @@ namespace CrossCam.Page
                 new SKPoint(0, height - 1f)
             };
             var mappedPoints = matrix.MapPoints(originalPoints);
-            Debug.WriteLine("### points:");
-            for (var i = 0; i < 4; i++)
-            {
-                Debug.WriteLine("(" + originalPoints[i].X + "," + originalPoints[i].Y + ")   (" + mappedPoints[i].X + "," + mappedPoints[i].Y + ")");
-            }
+
             return new TrimAdjustment
             {
                 Top = Math.Clamp(Math.Max(mappedPoints[0].Y, mappedPoints[1].Y), 0, height) /
@@ -675,7 +671,7 @@ namespace CrossCam.Page
             return transform3D;
         }
 
-        public static SKMatrix FindOrientationMatrix(SKEncodedOrigin orientation,
+        private static SKMatrix FindOrientationMatrix(SKEncodedOrigin orientation,
             float xCorrectionToOrigin, float yCorrectionToOrigin, bool isFrontFacing, bool withMirror)
         {
             FindOrientationCorrectionDirections(orientation, isFrontFacing, out var orientationNeedsMirror, out var rotationalInc);
@@ -693,7 +689,7 @@ namespace CrossCam.Page
             return transform3D;
         }
 
-        public static void FindOrientationCorrectionDirections(SKEncodedOrigin origin, bool isFrontFacing, 
+        private static void FindOrientationCorrectionDirections(SKEncodedOrigin origin, bool isFrontFacing, 
             out bool needsMirror, out int rotationalInc)
         {
             //positive rotation is clockwise for back facing
@@ -743,7 +739,7 @@ namespace CrossCam.Page
             }
         }
 
-        public static TrimAdjustment FindEditTrimAdjustment(Edits edits, DrawMode drawMode, float width, float height,
+        private static TrimAdjustment FindEditTrimAdjustment(Edits edits, DrawMode drawMode, float width, float height,
             out TrimAdjustment leftTrim, out TrimAdjustment rightTrim)
         {
             var leftEditTrimMatrix = FindEditMatrix(true, drawMode, edits.LeftZoom + edits.FovLeftCorrection, edits.LeftRotation, edits.Keystone,
@@ -756,7 +752,7 @@ namespace CrossCam.Page
             return combinedTrim;
         }
 
-        public static SKMatrix FindEditMatrix(bool isLeft, DrawMode drawMode,
+        private static SKMatrix FindEditMatrix(bool isLeft, DrawMode drawMode,
             float zoom, float rotation, float keystone,
             float cardboardHorDelta, float cardboardVertDelta, float alignment,
             float destX, float destY, float destWidth, float destHeight,
@@ -958,7 +954,7 @@ namespace CrossCam.Page
                          editTrimAdjustment.Left + editTrimAdjustment.Right));
         }
 
-        public static float CalculateJoinedImageWidthWithEditsNoBorder(
+        private static float CalculateJoinedImageWidthWithEditsNoBorder(
             SKBitmap leftBitmap, SKBitmap rightBitmap, Edits edits, 
             TrimAdjustment alignmentTrimAdjustment, TrimAdjustment editTrimAdjustment,
             bool is90degOrientation = false)
@@ -968,7 +964,7 @@ namespace CrossCam.Page
                 is90degOrientation);
         }
 
-        public static float CalculateImageHeightWithEditsNoBorder(
+        private static float CalculateImageHeightWithEditsNoBorder(
             SKBitmap leftBitmap, SKBitmap rightBitmap, Edits edits, 
             TrimAdjustment alignmentTrimAdjustment, TrimAdjustment editTrimAdjustment,
             bool is90degOrientation = false)
