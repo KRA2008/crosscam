@@ -10,7 +10,7 @@
     <ScrollView>
         <StackLayout>
             <BoxView/>
-            <Label Text="CrossCam is free to use, ad-free, open-source, collects no personal information from you, and gives you full access to every feature. I love working on CrossCam but it takes a lot of time and effort. I make no money from CrossCam at all except tips people might decide to send me. As of March 2023 I have not received a tip from anybody and I haven't asked for tips in CrossCam before. If you like CrossCam, please consider sending me a tip."
+            <Label Text="CrossCam is free to use, ad-free, open-source, collects no personal information from you, and gives you full access to every feature. I love working on CrossCam but it takes a lot of time and effort. I make no money from CrossCam at all except tips people might decide to send me. If you like CrossCam, please consider sending me a tip."
                    Padding="15,15,15,15"/>
             <BoxView/>
             <Button Text="Ko-fi"
