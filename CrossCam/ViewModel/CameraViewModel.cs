@@ -43,17 +43,15 @@ namespace CrossCam.ViewModel
         public CameraSettingMode CameraSettingMode { get; set; }
         public FovCorrectionMode FovCorrectionMode { get; set; }
 
-        public bool FullscreenCaptureSuccessTrigger { get; set; }
+        public bool CaptureSuccessTrigger { get; set; }
 
         public SKBitmap LeftBitmap { get; set; }
         public SKMatrix LeftAlignmentTransform { get; set; }
         public Command RetakeLeftCommand { get; set; }
-        public bool LeftCaptureSuccessTrigger { get; set; }
         
         public SKBitmap RightBitmap { get; set; }
         public SKMatrix RightAlignmentTransform { get; set; }
         public Command RetakeRightCommand { get; set; }
-        public bool RightCaptureSuccessTrigger { get; set; }
 
         public bool CaptureSuccess { get; set; }
         public int CameraColumn { get; set; }
@@ -1277,14 +1275,8 @@ namespace CrossCam.ViewModel
         {
             switch (args.PropertyName)
             {
-                case nameof(CaptureSuccess) when UseFullScreenWidth:
-                    FullscreenCaptureSuccessTrigger = !FullscreenCaptureSuccessTrigger;
-                    break;
-                case nameof(CaptureSuccess) when CameraColumn == 0:
-                    LeftCaptureSuccessTrigger = !LeftCaptureSuccessTrigger;
-                    break;
                 case nameof(CaptureSuccess):
-                    RightCaptureSuccessTrigger = !RightCaptureSuccessTrigger;
+                    CaptureSuccessTrigger = !CaptureSuccessTrigger;
                     break;
                 case nameof(LocalCapturedFrame) when LocalCapturedFrame == null:
                     return;

@@ -126,23 +126,7 @@
             <ce:CameraSuccessOutline Grid.Column="0"
                                      Grid.ColumnSpan="2">
                 <ce:CameraSuccessOutline.Behaviors>
-                    <ce:FadeInAndOutBehavior Trigger="{Binding FullscreenCaptureSuccessTrigger}"
-                                             InTimeMs="0"
-                                             OutTimeMs="250"
-                                             VisibleTimeMs="0"/>
-                </ce:CameraSuccessOutline.Behaviors>
-            </ce:CameraSuccessOutline>
-            <ce:CameraSuccessOutline Grid.Column="0">
-                <ce:CameraSuccessOutline.Behaviors>
-                    <ce:FadeInAndOutBehavior Trigger="{Binding LeftCaptureSuccessTrigger}"
-                                             InTimeMs="0"
-                                             OutTimeMs="250"
-                                             VisibleTimeMs="0"/>
-                </ce:CameraSuccessOutline.Behaviors>
-            </ce:CameraSuccessOutline>
-            <ce:CameraSuccessOutline Grid.Column="1">
-                <ce:CameraSuccessOutline.Behaviors>
-                    <ce:FadeInAndOutBehavior Trigger="{Binding RightCaptureSuccessTrigger}"
+                    <ce:FadeInAndOutBehavior Trigger="{Binding CaptureSuccessTrigger}"
                                              InTimeMs="0"
                                              OutTimeMs="250"
                                              VisibleTimeMs="0"/>
