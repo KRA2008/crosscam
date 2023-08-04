@@ -3,6 +3,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using CrossCam.iOS.CustomRenderer;
 using CrossCam.Wrappers;
+using Microsoft.AppCenter.Crashes;
 using PhotosUI;
 using UIKit;
 using Xamarin.Forms;
@@ -99,27 +100,36 @@ namespace CrossCam.iOS.CustomRenderer
 
             public override async void DidFinishPicking(PHPickerViewController picker, PHPickerResult[] results)
             {
-                if (results.Length == 0)
+                try
                 {
+                    if (results.Length == 0)
+                    {
+                        _photoPicker._taskCompletionSource.SetResult(null);
+                        _photoPicker._viewController.DismissModalViewController(true);
+                        return;
+                    }
+
+                    var item1 = results.ElementAt(0).ItemProvider;
+                    var identifier = item1.RegisteredTypeIdentifiers.First();
+                    var data1 = await item1.LoadDataRepresentationAsync(identifier);
+                    var bytes1 = data1.ToArray();
+
+                    byte[] bytes2 = null;
+                    if (results.Length == 2)
+                    {
+                        var data2 = await results.ElementAt(1).ItemProvider.LoadDataRepresentationAsync(identifier);
+                        bytes2 = data2.ToArray();
+                    }
+
+                    _photoPicker._taskCompletionSource.SetResult(new[] {bytes1, bytes2});
+                    _photoPicker._viewController.DismissModalViewController(true);
+                }
+                catch (Exception ex)
+                {
+                    Crashes.TrackError(ex);
                     _photoPicker._taskCompletionSource.SetResult(null);
                     _photoPicker._viewController.DismissModalViewController(true);
-                    return;
                 }
-
-                var item1 = results.ElementAt(0).ItemProvider;
-                var identifier = item1.RegisteredTypeIdentifiers.First();
-                var data1 = await item1.LoadDataRepresentationAsync(identifier);
-                var bytes1 = data1.ToArray();
-
-                byte[] bytes2 = null;
-                if (results.Length == 2)
-                {
-                    var data2 = await results.ElementAt(1).ItemProvider.LoadDataRepresentationAsync(identifier);
-                    bytes2 = data2.ToArray();
-                }
-
-                _photoPicker._taskCompletionSource.SetResult(new[] {bytes1, bytes2});
-                _photoPicker._viewController.DismissModalViewController(true);
             }
         }
     }

@@ -6,75 +6,70 @@ using Foundation;
 using Photos;
 using UIKit;
 using Xamarin.Forms;
+// ReSharper disable HeuristicUnreachableCode
 
 [assembly: Dependency(typeof(PhotoSaver))]
 namespace CrossCam.iOS.CustomRenderer
 {
     public class PhotoSaver : IPhotoSaver
     {
-        public Task<bool> SavePhoto(byte[] image, string saveOuterFolder, string saveInnerFolder, bool saveToSd)
+        public async Task<bool> SavePhoto(byte[] image, string saveOuterFolder, string saveInnerFolder, bool saveToSd)
         {
             var taskCompletionSource = new TaskCompletionSource<bool>();
-
             try
             {
-                var uiImage = new UIImage(NSData.FromArray(image));
-                var existingAlbum = GetCrossCamAlbum(saveInnerFolder);
-                if (existingAlbum == null)
+                var authStatus = await PHPhotoLibrary.RequestAuthorizationAsync(PHAccessLevel.ReadWrite);
+
+                UIImage uiImage;
+                if (authStatus == PHAuthorizationStatus.Authorized ||
+                    authStatus == PHAuthorizationStatus.Limited)
                 {
-                    var didAlbumCreationWork = PHPhotoLibrary.SharedPhotoLibrary.PerformChangesAndWait(() =>
+                    uiImage = new UIImage(NSData.FromArray(image));
+                    var existingAlbum = GetCrossCamAlbum(saveInnerFolder); 
+                    
+                    if (existingAlbum == null)
                     {
-                        PHAssetCollectionChangeRequest.CreateAssetCollection(saveInnerFolder);
-                    }, out var albumCreationError);
-                    if (existingAlbum == null ||
-                        didAlbumCreationWork &&
-                        albumCreationError == null)
-                    {
-                        existingAlbum = GetCrossCamAlbum(saveInnerFolder);
-                        if (existingAlbum == null)
+                        var didAlbumCreationWork = PHPhotoLibrary.SharedPhotoLibrary.PerformChangesAndWait(() =>
                         {
-                            Device.BeginInvokeOnMainThread(() =>
+                            PHAssetCollectionChangeRequest.CreateAssetCollection(saveInnerFolder);
+                        }, out var albumCreationError);
+                        if (existingAlbum == null ||
+                            didAlbumCreationWork &&
+                            albumCreationError == null)
+                        {
+                            existingAlbum = GetCrossCamAlbum(saveInnerFolder);
+                            if (existingAlbum == null)
                             {
-                                uiImage.SaveToPhotosAlbum((image1, error) =>
-                                {
-                                    if (error != null)
-                                    {
-                                        taskCompletionSource.SetException(new Exception(error.ToString()));
-                                    }
-                                    else
-                                    {
-                                        taskCompletionSource.SetResult(true);
-                                    }
-                                });
-                            });
-                            return taskCompletionSource.Task;
+                                SavePhotoIntoPhotos(uiImage, taskCompletionSource);
+                            }
+                            else
+                            {
+                                SavePhotoIntoAlbum(uiImage, existingAlbum, taskCompletionSource);
+                            }
+                        }
+                        else
+                        {
+                            SavePhotoIntoPhotos(uiImage, taskCompletionSource);
                         }
                     }
                     else
                     {
-                        taskCompletionSource.SetException(new Exception(albumCreationError.ToString()));
-                        return taskCompletionSource.Task;
+                        SavePhotoIntoAlbum(uiImage, existingAlbum, taskCompletionSource);
                     }
-                }
-
-                var imageSaveWorked = PHPhotoLibrary.SharedPhotoLibrary.PerformChangesAndWait(() =>
-                {
-                    var assetRequest = PHAssetChangeRequest.FromImage(uiImage);
-                    var placeholder = assetRequest.PlaceholderForCreatedAsset;
-                    var albumRequest = PHAssetCollectionChangeRequest.ChangeRequest(existingAlbum);
-                    albumRequest.AddAssets(new PHObject[] { placeholder });
-                }, out var imageSavingError);
-
-                if (imageSaveWorked &&
-                    imageSavingError == null)
-                {
-                    taskCompletionSource.SetResult(true);
                 }
                 else
                 {
-                    taskCompletionSource.SetException(new Exception(imageSavingError.ToString()));
+                    authStatus = await PHPhotoLibrary.RequestAuthorizationAsync(PHAccessLevel.AddOnly);
+                    if (authStatus == PHAuthorizationStatus.Authorized)
+                    {
+                        uiImage = new UIImage(NSData.FromArray(image));
+                        SavePhotoIntoPhotos(uiImage, taskCompletionSource);
+                    }
+                    else
+                    {
+                        throw new Exception("Saving permissions not provided.");
+                    }
                 }
-                return taskCompletionSource.Task;
 
             }
             catch (Exception e)
@@ -82,7 +77,46 @@ namespace CrossCam.iOS.CustomRenderer
                 taskCompletionSource.SetException(e);
             }
 
-            return taskCompletionSource.Task;
+            return await taskCompletionSource.Task;
+        }
+
+        private static void SavePhotoIntoPhotos(UIImage uiImage, TaskCompletionSource<bool> taskCompletionSource)
+        {
+            Device.BeginInvokeOnMainThread(() =>
+            {
+                uiImage.SaveToPhotosAlbum((image1, error) =>
+                {
+                    if (error != null)
+                    {
+                        throw new Exception(error.ToString());
+                    }
+                    else
+                    {
+                        taskCompletionSource.SetResult(true);
+                    }
+                });
+            });
+        }
+
+        private static void SavePhotoIntoAlbum(UIImage uiImage, PHAssetCollection existingAlbum, TaskCompletionSource<bool> taskCompletionSource)
+        {
+            var saveIntoAlbumWorked = PHPhotoLibrary.SharedPhotoLibrary.PerformChangesAndWait(() =>
+            {
+                var assetRequest = PHAssetChangeRequest.FromImage(uiImage);
+                var placeholder = assetRequest.PlaceholderForCreatedAsset;
+                var albumRequest = PHAssetCollectionChangeRequest.ChangeRequest(existingAlbum);
+                albumRequest.AddAssets(new PHObject[] { placeholder });
+            }, out var imageSavingError);
+
+            if (saveIntoAlbumWorked &&
+                imageSavingError == null)
+            {
+                taskCompletionSource.SetResult(true);
+            }
+            else
+            {
+                throw new Exception(imageSavingError.ToString());
+            }
         }
 
         private static PHAssetCollection GetCrossCamAlbum(string saveInnerFolder)
@@ -93,7 +127,8 @@ namespace CrossCam.iOS.CustomRenderer
             };
             var collection = PHAssetCollection.FetchAssetCollections(PHAssetCollectionType.Album,
                 PHAssetCollectionSubtype.AlbumRegular, fetchOptions);
-            return collection.firstObject as PHAssetCollection;
+            var firstObject = collection.FirstObject;
+            return firstObject as PHAssetCollection;
         }
     }
 }

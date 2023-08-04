@@ -5,10 +5,11 @@
              xmlns:customElement="clr-namespace:CrossCam.CustomElement;assembly=CrossCam"
              x:Class="CrossCam.CustomElement.ExpanderHeader"
              x:DataType="customElement:ExpanderHeader"
-             Orientation="Horizontal">
+             Orientation="Horizontal"
+             Padding="10">
     <Label Text="{Binding Title}"
-           Style="{StaticResource header}" 
-           Padding="10"/>
+           Style="{StaticResource header}"
+           VerticalOptions="Center"/>
     <Image Source="expandMore.png"
            HorizontalOptions="EndAndExpand"
            VerticalOptions="Center">

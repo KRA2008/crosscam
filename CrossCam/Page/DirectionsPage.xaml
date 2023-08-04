@@ -11,11 +11,11 @@
         <StackLayout Spacing="0">
             <BoxView/>
             <StackLayout Padding="10">
-                <Label Text="If you want to see this again, tap the hamburger (three line) icon on the top left of the camera screen and tap &quot;Help&quot; button."/>
+                <Label Text="If you want to see this again, tap the hamburger (three line) icon on the top left of the camera screen and tap &quot;Help&quot;."/>
                 <Label Text=" "/>
                 <Label Text="1) Frame up and take the first picture."/>
                 <Label Text="{Binding ViewModeIng, StringFormat='2) Start {0} the first picture with the preview that appears next to it.'}"/>
-                <Label Text="3) Keep your phone steady in front of you and slowly move sideways in the direction CrossCam tells you to. Don't move too far - an inch or less for each foot away your target is. Also, don't turn at all, just move sideways."/>
+                <Label Text="3) Keep your phone steady in front of you and slowly move sideways in the direction CrossCam tells you to. Don't move too far - an inch or less for each foot away your target is. Also, don't turn at all, just slide sideways, or maybe even just lean."/>
                 <Label Text="4) Align the first picture with the preview of the second picture and take the second picture when you like what you see."/>
                 <Label Text="5) CrossCam will automatically align your pictures after you capture them, but it's not perfect, if you don't like how they were aligned, you can turn the automatic alignment off on the settings page. CrossCam also has plenty of manual editing options you can get to by tapping the pencil icon."/>
                 <Label Text="6) Tap the check mark when you're ready to save."/>
