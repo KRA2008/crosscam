@@ -1089,8 +1089,8 @@ namespace CrossCam.ViewModel
                 const int APP_CENTER_PROPERTY_COUNT_LIMIT = 20;
                 const int APP_CENTER_PROPERTY_LENGTH_LIMIT = 125;
                 SendCommandStartAnalyticsEvent(nameof(PromptForPermissionAndSendErrorEmailCommand));
+                Debug.WriteLine("### ERROR: " + Error); 
                 Debugger.Break();
-                Debug.WriteLine("### ERROR: " + Error);
 
                 var deviceInfoDictionary = new Dictionary<string, string>
                 {

@@ -13,6 +13,7 @@ using Emgu.CV.CvEnum;
 using Emgu.CV.Features2D;
 using Emgu.CV.Structure;
 using Emgu.CV.Util;
+using Microsoft.AppCenter.Crashes;
 #endif
 using SkiaSharp;
 using Xamarin.Forms;
@@ -55,12 +56,15 @@ namespace AutoAlignment
             return null;
 #else
             var topDownsizeFactor = settings.EccDownsizePercentage / 100f;
-
-            var eccs = new List<double>();
+            
             using var mat1 = new Mat();
             using var mat2 = new Mat();
-            using var warpMatrix = Mat.Eye(2, 3, DepthType.Cv32F, 1);
-            var termCriteria = new MCvTermCriteria((int)settings.EccIterations, Math.Pow(10, -settings.EccEpsilonLevel));
+            using var warpMatrix = Mat.Eye(
+                settings.EccMotionType == (uint) MotionType.Homography ? 3 : 2, 3,
+                DepthType.Cv32F, 1);
+            var termCriteria =
+                new MCvTermCriteria((int) settings.EccIterations, Math.Pow(10, -settings.EccEpsilonLevel));
+            double ecc = 0;
             for (var ii = (int)settings.EccPyramidLayers - 1; ii >= 0; ii--)
             {
                 var downsize = topDownsizeFactor / Math.Pow(2, ii);
@@ -69,12 +73,13 @@ namespace AutoAlignment
 
                 try
                 {
-                    var ecc = CvInvoke.FindTransformECC(mat2, mat1, warpMatrix, (MotionType) settings.EccMotionType,
+                    ecc = CvInvoke.FindTransformECC(mat2, mat1, warpMatrix, (MotionType) settings.EccMotionType,
                         termCriteria);
-                    eccs.Add(ecc);
                 }
                 catch (CvException e)
                 {
+                    Crashes.TrackError(e);
+                    Debug.WriteLine(e);
                     if (e.Status == (int)ErrorCodes.StsNoConv)
                     {
                         return null;
@@ -103,7 +108,7 @@ namespace AutoAlignment
             var lastUpscaleFactor = 1 / (2 * topDownsizeFactor);
             ScaleUpCvMatOfFloats(warpMatrix, lastUpscaleFactor);
 
-            if (eccs.Last() * 100 < settings.EccThresholdPercentage)
+            if (ecc * 100 < settings.EccThresholdPercentage)
             {
                 return null;
             }
