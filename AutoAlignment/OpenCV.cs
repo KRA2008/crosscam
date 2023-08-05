@@ -130,22 +130,21 @@ namespace AutoAlignment
             var result = new AlignedResult();
 
             using var detector = new ORBDetector();
-            const ImreadModes READ_MODE = ImreadModes.Color;
+            var readMode = settings.ReadModeColor ? ImreadModes.Color : ImreadModes.Grayscale;
 
             using var image1Mat = new Mat();
             using var descriptors1 = new Mat();
             using var allKeyPointsVector1 = new VectorOfKeyPoint();
-            CvInvoke.Imdecode(GetBytes(firstImage, 1), READ_MODE, image1Mat);
+            CvInvoke.Imdecode(GetBytes(firstImage, 1), readMode, image1Mat);
             detector.DetectAndCompute(image1Mat, null, allKeyPointsVector1, descriptors1, false);
 
             using var image2Mat = new Mat();
             using var descriptors2 = new Mat();
             using var allKeyPointsVector2 = new VectorOfKeyPoint();
-            CvInvoke.Imdecode(GetBytes(secondImage, 1), READ_MODE, image2Mat);
+            CvInvoke.Imdecode(GetBytes(secondImage, 1), readMode, image2Mat);
             detector.DetectAndCompute(image2Mat, null, allKeyPointsVector2, descriptors2, false);
-
-            const double THRESHOLD_PROPORTION = 1 / 4d;
-            var thresholdDistance = Math.Sqrt(Math.Pow(firstImage.Width, 2) + Math.Pow(firstImage.Height, 2)) * THRESHOLD_PROPORTION;
+            
+            var thresholdDistance = Math.Sqrt(Math.Pow(firstImage.Width, 2) + Math.Pow(firstImage.Height, 2)) * settings.PhysicalDistanceThreshold;
 
             using var distanceThresholdMask = new Mat(allKeyPointsVector2.Size, allKeyPointsVector1.Size, DepthType.Cv8U, 1);
             if (!settings.UseCrossCheck)
@@ -189,7 +188,7 @@ namespace AutoAlignment
                 }
 
                 if(vectorOfMatches[i].Size == 1 || 
-                   (vectorOfMatches[i][0].Distance < 0.75 * vectorOfMatches[i][1].Distance)) //make sure matches are unique
+                   (vectorOfMatches[i][0].Distance < settings.RatioTest * vectorOfMatches[i][1].Distance)) //make sure matches are unique
                 {
                     goodMatches.Add(vectorOfMatches[i][0]);
                 }
@@ -287,132 +286,121 @@ namespace AutoAlignment
             }
 
 
-            //using var points1 = new VectorOfPointF(pairedPoints.Select(p => new PointF(p.KeyPoint1.Point.X, p.KeyPoint1.Point.Y)).ToArray());
-            //using var points2 = new VectorOfPointF(pairedPoints.Select(p => new PointF(p.KeyPoint2.Point.X, p.KeyPoint2.Point.Y)).ToArray());
 
-
-            //using var homography = CvInvoke.FindHomography(points2, points1, HomographyMethod.Ransac);
-            //if (homography.IsEmpty) throw new Exception("poo");
-            //using var alignedImageMat2 = new Mat();
-            //CvInvoke.WarpPerspective(image2Mat, alignedImageMat2, homography, image2Mat.Size);
-
-            //if (alignedImageMat2.IsEmpty) throw new Exception("crap");
-
-            //result.TransformMatrix1 = ConvertCvMatOfFloatsToSkMatrix(homography);
-            //result.TransformMatrix2 = SKMatrix.Identity;
-
-            ////result.TransformMatrix1 = SKMatrix.Identity;
-            ////result.TransformMatrix2 = SKMatrix.Identity; //ConvertCvMatOfFloatsToSkMatrix(homography, discardTransX);
-            //return result;
-
-            var points1 = pairedPoints.Select(p => new SKPoint(p.KeyPoint1.Point.X, p.KeyPoint1.Point.Y)).ToArray();
-            var points2 = pairedPoints.Select(p => new SKPoint(p.KeyPoint2.Point.X, p.KeyPoint2.Point.Y)).ToArray();
-
-
-            var translation1 = FindVerticalTranslation(points1, points2, secondImage);
-            var translated1 = SKMatrix.CreateTranslation(0, translation1);
-            points2 = translated1.MapPoints(points2);
-
-            var rotation1 = FindRotation(points1, points2, secondImage);
-            var rotated1 = SKMatrix.CreateRotation(rotation1, secondImage.Width / 2f, secondImage.Height / 2f);
-            points2 = rotated1.MapPoints(points2);
-
-            var zoom1 = FindZoom(points1, points2, secondImage);
-            var zoomed1 = SKMatrix.CreateScale(zoom1, zoom1, secondImage.Width / 2f, secondImage.Height / 2f);
-            points2 = zoomed1.MapPoints(points2);
-
-
-
-            var translation2 = FindVerticalTranslation(points1, points2, secondImage);
-            var translated2 = SKMatrix.CreateTranslation(0, translation2);
-            points2 = translated2.MapPoints(points2);
-
-            var rotation2 = FindRotation(points1, points2, secondImage);
-            var rotated2 = SKMatrix.CreateRotation(rotation2, secondImage.Width / 2f, secondImage.Height / 2f);
-            points2 = rotated2.MapPoints(points2);
-
-            var zoom2 = FindZoom(points1, points2, secondImage);
-            var zoomed2 = SKMatrix.CreateScale(zoom2, zoom2, secondImage.Width / 2f, secondImage.Height / 2f);
-            points2 = zoomed2.MapPoints(points2);
-
-
-
-            var translation3 = FindVerticalTranslation(points1, points2, secondImage);
-            var translated3 = SKMatrix.CreateTranslation(0, translation3);
-            points2 = translated3.MapPoints(points2);
-
-            var rotation3 = FindRotation(points1, points2, secondImage);
-            var rotated3 = SKMatrix.CreateRotation(rotation3, secondImage.Width / 2f, secondImage.Height / 2f);
-            points2 = rotated3.MapPoints(points2);
-
-            var zoom3 = FindZoom(points1, points2, secondImage);
-            var zoomed3 = SKMatrix.CreateScale(zoom3, zoom3, secondImage.Width / 2f, secondImage.Height / 2f);
-            points2 = zoomed3.MapPoints(points2);
-
-
-            var keystoned1 = SKMatrix.CreateIdentity();
-            var keystoned2 = SKMatrix.CreateIdentity();
-            if (settings.DoKeystoneCorrection)
+            if (settings.TransformationFindingMethod == 0)
             {
-                keystoned1 = FindTaper(points2, points1, keystoneRightOnFirst);
-                points1 = keystoned1.MapPoints(points1);
-                keystoned2 = FindTaper(points1, points2, !keystoneRightOnFirst);
-                points2 = keystoned2.MapPoints(points2);
+                var points1 = pairedPoints.Select(p => new SKPoint(p.KeyPoint1.Point.X, p.KeyPoint1.Point.Y)).ToArray();
+                var points2 = pairedPoints.Select(p => new SKPoint(p.KeyPoint2.Point.X, p.KeyPoint2.Point.Y)).ToArray();
+
+
+                var translation1 = FindVerticalTranslation(points1, points2, secondImage);
+                var translated1 = SKMatrix.CreateTranslation(0, translation1);
+                points2 = translated1.MapPoints(points2);
+
+                var rotation1 = FindRotation(points1, points2, secondImage);
+                var rotated1 = SKMatrix.CreateRotation(rotation1, secondImage.Width / 2f, secondImage.Height / 2f);
+                points2 = rotated1.MapPoints(points2);
+
+                var zoom1 = FindZoom(points1, points2, secondImage);
+                var zoomed1 = SKMatrix.CreateScale(zoom1, zoom1, secondImage.Width / 2f, secondImage.Height / 2f);
+                points2 = zoomed1.MapPoints(points2);
+
+
+
+                var translation2 = FindVerticalTranslation(points1, points2, secondImage);
+                var translated2 = SKMatrix.CreateTranslation(0, translation2);
+                points2 = translated2.MapPoints(points2);
+
+                var rotation2 = FindRotation(points1, points2, secondImage);
+                var rotated2 = SKMatrix.CreateRotation(rotation2, secondImage.Width / 2f, secondImage.Height / 2f);
+                points2 = rotated2.MapPoints(points2);
+
+                var zoom2 = FindZoom(points1, points2, secondImage);
+                var zoomed2 = SKMatrix.CreateScale(zoom2, zoom2, secondImage.Width / 2f, secondImage.Height / 2f);
+                points2 = zoomed2.MapPoints(points2);
+
+
+
+                var translation3 = FindVerticalTranslation(points1, points2, secondImage);
+                var translated3 = SKMatrix.CreateTranslation(0, translation3);
+                points2 = translated3.MapPoints(points2);
+
+                var rotation3 = FindRotation(points1, points2, secondImage);
+                var rotated3 = SKMatrix.CreateRotation(rotation3, secondImage.Width / 2f, secondImage.Height / 2f);
+                points2 = rotated3.MapPoints(points2);
+
+                var zoom3 = FindZoom(points1, points2, secondImage);
+                var zoomed3 = SKMatrix.CreateScale(zoom3, zoom3, secondImage.Width / 2f, secondImage.Height / 2f);
+                points2 = zoomed3.MapPoints(points2);
+
+
+                var keystoned1 = SKMatrix.CreateIdentity();
+                var keystoned2 = SKMatrix.CreateIdentity();
+                if (settings.DoKeystoneCorrection)
+                {
+                    keystoned1 = FindTaper(points2, points1, keystoneRightOnFirst);
+                    points1 = keystoned1.MapPoints(points1);
+                    keystoned2 = FindTaper(points1, points2, !keystoneRightOnFirst);
+                    points2 = keystoned2.MapPoints(points2);
+                }
+
+
+                var horizontalAdj = FindHorizontalTranslation(points1, points2, secondImage);
+                var horizontaled = SKMatrix.CreateTranslation(horizontalAdj, 0);
+                points2 = horizontaled.MapPoints(points2);
+
+
+
+                var tempMatrix1 = new SKMatrix();
+                SKMatrix.Concat(ref tempMatrix1, translated1, rotated1);
+                var tempMatrix2 = new SKMatrix();
+                SKMatrix.Concat(ref tempMatrix2, tempMatrix1, zoomed1);
+
+                var tempMatrix3 = new SKMatrix();
+                SKMatrix.Concat(ref tempMatrix3, tempMatrix2, translated2);
+                var tempMatrix4 = new SKMatrix();
+                SKMatrix.Concat(ref tempMatrix4, tempMatrix3, rotated2);
+                var tempMatrix5 = new SKMatrix();
+                SKMatrix.Concat(ref tempMatrix5, tempMatrix4, zoomed2);
+
+                var tempMatrix6 = new SKMatrix();
+                SKMatrix.Concat(ref tempMatrix6, tempMatrix5, translated3);
+                var tempMatrix7 = new SKMatrix();
+                SKMatrix.Concat(ref tempMatrix7, tempMatrix6, rotated3);
+                var tempMatrix8 = new SKMatrix();
+                SKMatrix.Concat(ref tempMatrix8, tempMatrix7, zoomed3);
+
+
+                var tempMatrix9 = new SKMatrix();
+                SKMatrix.Concat(ref tempMatrix9, tempMatrix8, keystoned2);
+
+                var tempMatrix10 = new SKMatrix();
+                SKMatrix.Concat(ref tempMatrix10, tempMatrix9, horizontaled);
+
+                var finalMatrix = tempMatrix10;
+                result.TransformMatrix2 = finalMatrix;
+                result.TransformMatrix1 = keystoned1;
             }
+            else
+            {
+                using var points1 = new VectorOfPointF(pairedPoints.Select(p => new PointF(p.KeyPoint1.Point.X, p.KeyPoint1.Point.Y)).ToArray());
+                using var points2 = new VectorOfPointF(pairedPoints.Select(p => new PointF(p.KeyPoint2.Point.X, p.KeyPoint2.Point.Y)).ToArray());
 
+                using var transform = settings.TransformationFindingMethod switch
+                {
+                    1 => CvInvoke.FindHomography(points2, points1, HomographyMethod.Ransac),
+                    2 => CvInvoke.EstimateRigidTransform(points2, points1, false),
+                    3 => CvInvoke.EstimateRigidTransform(points2, points1, true),
+                    _ => throw new NotImplementedException()
+                };
 
-            var horizontalAdj = FindHorizontalTranslation(points1, points2, secondImage);
-            var horizontaled = SKMatrix.CreateTranslation(horizontalAdj, 0);
-            points2 = horizontaled.MapPoints(points2);
+                if (transform.IsEmpty) return null;
 
-
-
-            var tempMatrix1 = new SKMatrix();
-            SKMatrix.Concat(ref tempMatrix1, translated1, rotated1);
-            var tempMatrix2 = new SKMatrix();
-            SKMatrix.Concat(ref tempMatrix2, tempMatrix1, zoomed1);
-
-            var tempMatrix3 = new SKMatrix();
-            SKMatrix.Concat(ref tempMatrix3, tempMatrix2, translated2);
-            var tempMatrix4 = new SKMatrix();
-            SKMatrix.Concat(ref tempMatrix4, tempMatrix3, rotated2);
-            var tempMatrix5 = new SKMatrix();
-            SKMatrix.Concat(ref tempMatrix5, tempMatrix4, zoomed2);
-
-            var tempMatrix6 = new SKMatrix();
-            SKMatrix.Concat(ref tempMatrix6, tempMatrix5, translated3);
-            var tempMatrix7 = new SKMatrix();
-            SKMatrix.Concat(ref tempMatrix7, tempMatrix6, rotated3);
-            var tempMatrix8 = new SKMatrix();
-            SKMatrix.Concat(ref tempMatrix8, tempMatrix7, zoomed3);
-
-
-            var tempMatrix9 = new SKMatrix();
-            SKMatrix.Concat(ref tempMatrix9, tempMatrix8, keystoned2);
-
-            var tempMatrix10 = new SKMatrix();
-            SKMatrix.Concat(ref tempMatrix10, tempMatrix9, horizontaled);
-
-            var finalMatrix = tempMatrix10;
-            result.TransformMatrix2 = finalMatrix;
-            //var alignedImage2 = new SKBitmap(secondImage.Width, secondImage.Height);
-            //using (var canvas = new SKCanvas(alignedImage2))
-            //{
-            //    canvas.SetMatrix(finalMatrix);
-            //    canvas.DrawBitmap(secondImage, 0, 0);
-            //}
-            //result.AlignedBitmap2 = alignedImage2;
-
-
-            result.TransformMatrix1 = keystoned1;
-            //var alignedImage1 = new SKBitmap(firstImage.Width, firstImage.Height);
-            //using (var canvas = new SKCanvas(alignedImage1))
-            //{
-            //    canvas.SetMatrix(keystoned1);
-            //    canvas.DrawBitmap(firstImage, 0, 0);
-            //}
-            //result.AlignedBitmap1 = alignedImage1;
-
+                result.TransformMatrix1 = SKMatrix.Identity;
+                result.TransformMatrix2 = ConvertCvMatOfFloatsToSkMatrix(transform);
+                
+                return result;
+            }
 
             return result;
 #endif
