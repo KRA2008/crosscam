@@ -22,6 +22,7 @@ using Math = System.Math;
 using SkiaSharp.Views.Android;
 #elif __IOS__
 using SkiaSharp.Views.iOS;
+using Xamarin.Forms.Shapes;
 #endif
 
 [assembly: Dependency(typeof(OpenCv))]
@@ -113,11 +114,22 @@ namespace AutoAlignment
                 return null;
             }
 
-            return new AlignedResult
+            var result =  new AlignedResult
             {
                 TransformMatrix1 = SKMatrix.CreateIdentity(),
                 TransformMatrix2 = ConvertCvMatOfFloatsToSkMatrix(warpMatrix)
             };
+
+            if (settings.DrawResultWarpedByOpenCv)
+            {
+                Mat fullSizeColor1 = new Mat(), fullSizeColor2 = new Mat();
+                CvInvoke.Imdecode(GetBytes(firstImage, 1), ImreadModes.Color, fullSizeColor1);
+                CvInvoke.Imdecode(GetBytes(secondImage, 1), ImreadModes.Color, fullSizeColor2);
+                AddWarpedToResult(fullSizeColor1, fullSizeColor2, Mat.Eye(2, 3, DepthType.Cv32F, 1), warpMatrix, result);
+                result.MethodName = "ECC";
+            }
+
+            return result;
 #endif
         }
 
@@ -127,6 +139,8 @@ namespace AutoAlignment
 #if __NO_EMGU__
             return null;
 #else
+            var stopwatch = Stopwatch.StartNew();
+
             var result = new AlignedResult();
 
             using var detector = new ORBDetector();
@@ -136,14 +150,18 @@ namespace AutoAlignment
             using var descriptors1 = new Mat();
             using var allKeyPointsVector1 = new VectorOfKeyPoint();
             CvInvoke.Imdecode(GetBytes(firstImage, 1), readMode, image1Mat);
+            Debug.WriteLine("### decode: " + stopwatch.ElapsedTicks);
+            stopwatch.Restart();
             detector.DetectAndCompute(image1Mat, null, allKeyPointsVector1, descriptors1, false);
+            Debug.WriteLine("### detect: " + stopwatch.ElapsedTicks);
 
             using var image2Mat = new Mat();
             using var descriptors2 = new Mat();
             using var allKeyPointsVector2 = new VectorOfKeyPoint();
             CvInvoke.Imdecode(GetBytes(secondImage, 1), readMode, image2Mat);
             detector.DetectAndCompute(image2Mat, null, allKeyPointsVector2, descriptors2, false);
-            
+
+            stopwatch.Restart();
             var thresholdDistance = Math.Sqrt(Math.Pow(firstImage.Width, 2) + Math.Pow(firstImage.Height, 2)) * settings.PhysicalDistanceThreshold;
 
             using var distanceThresholdMask = new Mat(allKeyPointsVector2.Size, allKeyPointsVector1.Size, DepthType.Cv8U, 1);
@@ -173,11 +191,15 @@ namespace AutoAlignment
                     }
                 }
             }
+            Debug.WriteLine("### physical distance checks: " + stopwatch.ElapsedTicks);
+            stopwatch.Restart();
 
             using var vectorOfMatches = new VectorOfVectorOfDMatch();
             using var matcher = new BFMatcher(DistanceType.Hamming, settings.UseCrossCheck);
             matcher.Add(descriptors1);
             matcher.KnnMatch(descriptors2, vectorOfMatches, settings.UseCrossCheck ? 1 : 2, settings.UseCrossCheck ? new VectorOfMat() : new VectorOfMat(distanceThresholdMask));
+            Debug.WriteLine("### match: " + stopwatch.ElapsedTicks);
+            stopwatch.Restart();
 
             var goodMatches = new List<MDMatch>();
             for (var i = 0; i < vectorOfMatches.Size; i++)
@@ -219,11 +241,15 @@ namespace AutoAlignment
                     }
                 });
             }
+            Debug.WriteLine("### match distance: " + stopwatch.ElapsedTicks);
+            stopwatch.Restart();
 
             if (settings.DrawKeypointMatches)
             {
                 result.DirtyMatchesCount = pairedPoints.Count;
                 result.DrawnDirtyMatches = DrawMatches(firstImage, secondImage, pairedPoints);
+                Debug.WriteLine("### draw matches: " + stopwatch.ElapsedTicks);
+                stopwatch.Restart();
             }
 
             if (settings.DiscardOutliersByDistance || settings.DiscardOutliersBySlope)
@@ -287,7 +313,7 @@ namespace AutoAlignment
 
 
 
-            if (settings.TransformationFindingMethod == 0)
+            if (settings.TransformationFindingMethod == (uint)TransformationFindingMethod.BinarySearch)
             {
                 var points1 = pairedPoints.Select(p => new SKPoint(p.KeyPoint1.Point.X, p.KeyPoint1.Point.Y)).ToArray();
                 var points2 = pairedPoints.Select(p => new SKPoint(p.KeyPoint2.Point.X, p.KeyPoint2.Point.Y)).ToArray();
@@ -380,29 +406,86 @@ namespace AutoAlignment
                 var finalMatrix = tempMatrix10;
                 result.TransformMatrix2 = finalMatrix;
                 result.TransformMatrix1 = keystoned1;
+                Debug.WriteLine("### homebrew matrix finding: " + stopwatch.ElapsedTicks);
+                stopwatch.Restart();
             }
             else
             {
-                using var points1 = new VectorOfPointF(pairedPoints.Select(p => new PointF(p.KeyPoint1.Point.X, p.KeyPoint1.Point.Y)).ToArray());
-                using var points2 = new VectorOfPointF(pairedPoints.Select(p => new PointF(p.KeyPoint2.Point.X, p.KeyPoint2.Point.Y)).ToArray());
+                using var points1 = new VectorOfPointF(pairedPoints.Select(p => p.KeyPoint1.Point).ToArray());
+                using var points2 = new VectorOfPointF(pairedPoints.Select(p => p.KeyPoint2.Point).ToArray());
 
-                using var transform = settings.TransformationFindingMethod switch
+                Mat warp1 = Mat.Eye(3, 3, DepthType.Cv32F, 1), warp2 = Mat.Eye(3, 3, DepthType.Cv32F, 1);
+
+                if (settings.TransformationFindingMethod == (uint)TransformationFindingMethod.StereoRectifyUncalibrated)
                 {
-                    1 => CvInvoke.FindHomography(points2, points1, HomographyMethod.Ransac),
-                    2 => CvInvoke.EstimateRigidTransform(points2, points1, false),
-                    3 => CvInvoke.EstimateRigidTransform(points2, points1, true),
-                    _ => throw new NotImplementedException()
-                };
+                    using var fundamental = CvInvoke.FindFundamentalMat(points1, points2);
+                    if (fundamental == null) return null;
+                    var didRectify = CvInvoke.StereoRectifyUncalibrated(points1, points2, fundamental, image1Mat.Size, warp1, warp2); //TODO: swap points depending on motion?
+                    Debug.WriteLine("### didRectify: " + didRectify);
+                    
+                    if (warp1.IsEmpty || warp2.IsEmpty) return null;
+                }
+                else
+                {
+                    warp2 = (TransformationFindingMethod)settings.TransformationFindingMethod switch
+                    {
+                        TransformationFindingMethod.FindHomography => CvInvoke.FindHomography(points2, points1, HomographyMethod.Ransac),
+                        TransformationFindingMethod.EstimateRigidPartial => CvInvoke.EstimateRigidTransform(points2, points1, false),
+                        TransformationFindingMethod.EstimateRigidFull => CvInvoke.EstimateRigidTransform(points2, points1, true)
+                    };
 
-                if (transform.IsEmpty) return null;
+                    if (warp2 == null || warp2.IsEmpty) return null;
+                }
 
-                result.TransformMatrix1 = SKMatrix.Identity;
-                result.TransformMatrix2 = ConvertCvMatOfFloatsToSkMatrix(transform);
+                Debug.WriteLine("### method " + settings.TransformationFindingMethod + ": " + stopwatch.ElapsedTicks);
+                stopwatch.Restart();
+
+                if (settings.DrawResultWarpedByOpenCv)
+                {
+                    AddWarpedToResult(image1Mat, image2Mat, warp1, warp2, result);
+                    result.MethodName = ((TransformationFindingMethod) settings.TransformationFindingMethod).ToString();
+                }
                 
+                var matrix1 = ConvertCvMatOfDoublesToSkMatrix(warp1);
+                var matrix2 = ConvertCvMatOfDoublesToSkMatrix(warp2);
+
+                result.TransformMatrix1 = matrix1;
+                result.TransformMatrix2 = matrix2;
+
                 return result;
             }
 
             return result;
+#endif
+        }
+
+        private void AddWarpedToResult(Mat image1Mat, Mat image2Mat, Mat warp1, Mat warp2, AlignedResult result)
+        {
+            using Mat warped1 = new Mat(), warped2 = new Mat();
+
+            if (warp1.Rows == 3)
+            {
+                CvInvoke.WarpPerspective(image1Mat, warped1, warp1, image1Mat.Size);
+            }
+            else
+            {
+                CvInvoke.WarpAffine(image1Mat, warped1, warp1, image1Mat.Size);
+            }
+
+            if (warp2.Rows == 3)
+            {
+                CvInvoke.WarpPerspective(image2Mat, warped2, warp2, image2Mat.Size);
+            }
+            else
+            {
+                CvInvoke.WarpAffine(image2Mat, warped2, warp2, image2Mat.Size);
+            }
+#if __IOS__
+            result.Warped1 = warped1.ToCGImage().ToSKBitmap();
+            result.Warped2 = warped2.ToCGImage().ToSKBitmap();
+#elif __ANDROID__
+            result.Warped1 = warped1.ToBitmap().ToSKBitmap();
+            result.Warped2 = warped2.ToBitmap().ToSKBitmap();
 #endif
         }
 

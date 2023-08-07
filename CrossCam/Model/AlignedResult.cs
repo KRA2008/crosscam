@@ -10,5 +10,14 @@ namespace CrossCam.Model
         public SKBitmap DrawnCleanMatches { get; set; }
         public int DirtyMatchesCount { get; set; }
         public SKBitmap DrawnDirtyMatches { get; set; }
+        public SKBitmap Warped1 { get; set; }
+        public SKBitmap Warped2 { get; set; }
+        public string MethodName { get; set; }
+
+        public AlignedResult()
+        {
+            TransformMatrix1 = SKMatrix.CreateIdentity();
+            TransformMatrix2 = SKMatrix.CreateIdentity();
+        }
     }
 }

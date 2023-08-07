@@ -31,17 +31,22 @@ namespace CrossCam.ViewModel
 
         // ReSharper disable MemberCanBeMadeStatic.Global
         public IEnumerable<string> Modes => Enum.GetNames(typeof(DrawMode)).ToList();
-        public IEnumerable<string> MotionTypes => Enum.GetNames(typeof(AlignmentSettings.EccEmguMotionType)).ToList();
-        public IEnumerable<int> KeypointAlignmentMethods => Enumerable.Range(0, 4).ToList();
+        public IEnumerable<string> MotionTypes => Enum.GetNames(typeof(EccMotionType)).ToList();
+        public IEnumerable<string> TransformationFindingMethods =>
+            Enum.GetNames(typeof(TransformationFindingMethod)).ToList();
         public IEnumerable<int> ZeroToTenThousand => Enumerable.Range(0, 10001).ToList();
         public IEnumerable<int> ZeroToOneThousand => Enumerable.Range(0, 1001).ToList();
         public IEnumerable<int> ZeroToOneHundred => Enumerable.Range(0, 101).ToList();
         public IEnumerable<int> ZeroToTen => Enumerable.Range(0, 11).ToList();
         public IEnumerable<string> BorderColors => Enum.GetNames(typeof(BorderColor)).ToList();
-        public IEnumerable<string> PortraitCaptureButtonPosition => Enum.GetNames(typeof(PortraitCaptureButtonPosition)).ToList();
-        public IEnumerable<string> LandscapeCaptureButtonHorizontalPosition => Enum.GetNames(typeof(LandscapeCaptureButtonHorizontalPosition)).ToList();
-        public IEnumerable<string> LandscapeCaptureButtonVerticalPosition => Enum.GetNames(typeof(LandscapeCaptureButtonVerticalPosition)).ToList();
-        public IEnumerable<string> PairButtonHorizontalPosition => Enum.GetNames(typeof(PairButtonHorizontalPosition)).ToList();
+        public IEnumerable<string> PortraitCaptureButtonPosition =>
+            Enum.GetNames(typeof(PortraitCaptureButtonPosition)).ToList();
+        public IEnumerable<string> LandscapeCaptureButtonHorizontalPosition =>
+            Enum.GetNames(typeof(LandscapeCaptureButtonHorizontalPosition)).ToList();
+        public IEnumerable<string> LandscapeCaptureButtonVerticalPosition =>
+            Enum.GetNames(typeof(LandscapeCaptureButtonVerticalPosition)).ToList();
+        public IEnumerable<string> PairButtonHorizontalPosition =>
+            Enum.GetNames(typeof(PairButtonHorizontalPosition)).ToList();
         // ReSharper restore MemberCanBeMadeStatic.Global
 
         public bool EnableFirstSideAloneSwitch { get; set; }

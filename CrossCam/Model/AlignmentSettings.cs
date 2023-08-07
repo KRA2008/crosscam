@@ -5,6 +5,7 @@
         public bool UseKeypoints1 { get; set; }
         public bool UseCrossCheck { get; set; }
         public bool DrawKeypointMatches { get; set; }
+        public bool DrawResultWarpedByOpenCv { get; set; }
         public uint TransformationFindingMethod { get; set; }
         public float RatioTest { get; set; }
         public float PhysicalDistanceThreshold { get; set; }
@@ -50,10 +51,11 @@
             EccIterations = 50;
             EccThresholdPercentage = 60;
             EccPyramidLayers = 4;
-            EccMotionType = (uint)EccEmguMotionType.Euclidean; //why can't this be the enum? i don't know but it can't.
+            EccMotionType = (uint)Model.EccMotionType.Euclidean; //why can't this be the enum? i don't know but it can't.
 
             ReadModeColor = true;
             DrawKeypointMatches = false;
+            DrawResultWarpedByOpenCv = false;
             UseKeypoints1 = false;
             UseCrossCheck = false;
             DiscardOutliersByDistance = false;
@@ -63,17 +65,9 @@
             RatioTest = 0.75f;
             PhysicalDistanceThreshold = 0.25f;
 
-            TransformationFindingMethod = 0;
+            TransformationFindingMethod = (uint)Model.TransformationFindingMethod.BinarySearch; //why not enum?
 
             DoKeystoneCorrection = false;
-        }
-
-        public enum EccEmguMotionType
-        {
-            Translation,
-            Euclidean,
-            Affine,
-            Homography,
         }
     }
 }

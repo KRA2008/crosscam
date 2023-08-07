@@ -2055,6 +2055,29 @@ namespace CrossCam.ViewModel
                             }
                         }
 
+                        if (alignedResult.Warped1 != null &&
+                            alignedResult.Warped2 != null &&
+                            Settings.AlignmentSettings.DrawResultWarpedByOpenCv)
+                        {
+                            using var surface =
+                                SKSurface.Create(new SKImageInfo(LeftBitmap.Width * 2, LeftBitmap.Height));
+                            surface.Canvas.DrawBitmap(alignedResult.Warped1, 0, 0);
+                            surface.Canvas.DrawBitmap(alignedResult.Warped2, LeftBitmap.Width, 0);
+                            var textBlob = SKTextBlob.Create(alignedResult.MethodName, new SKFont
+                            {
+                                Size = 200
+                            });
+                            surface.Canvas.DrawText(textBlob, 200, 200, new SKPaint
+                            {
+                                Color = SKColor.Parse("#00ff00"),
+                                TextSize = 200,
+                                Style = SKPaintStyle.Fill,
+                                StrokeWidth = 5
+                            });
+
+                            await SaveSurfaceSnapshot(surface, "Rectified");
+                        }
+
                         if (Settings.IsCaptureLeftFirst)
                         {
                             if (!alignedResult.TransformMatrix1.IsIdentity)
