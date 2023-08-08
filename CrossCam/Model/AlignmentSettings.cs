@@ -2,22 +2,7 @@
 {
     public class AlignmentSettings : Subsettings
     {
-        public bool UseKeypoints1 { get; set; }
-        public bool UseCrossCheck { get; set; }
-        public bool DrawKeypointMatches { get; set; }
-        public bool DrawResultWarpedByOpenCv { get; set; }
-        public uint TransformationFindingMethod { get; set; }
-        public float RatioTest { get; set; }
-        public float PhysicalDistanceThreshold { get; set; }
-        public bool ReadModeColor { get; set; }
-        public bool DiscardOutliersByDistance { get; set; }
-        public bool DiscardOutliersBySlope { get; set; }
-        public bool DoKeystoneCorrection { get; set; }
-
-        public bool ShowAdvancedAlignmentSettings { get; set; }
-
         private bool _isAutomaticAlignmentOn;
-
         public bool IsAutomaticAlignmentOn
         {
             get => _isAutomaticAlignmentOn;
@@ -30,14 +15,26 @@
                 }
             }
         }
+        public bool UseKeypoints1 { get; set; }
+        public bool ShowAdvancedAlignmentSettings { get; set; }
+        public uint DownsizePercentage { get; set; }
 
+        public bool UseCrossCheck { get; set; }
+        public bool DrawKeypointMatches { get; set; }
+        public bool DrawResultWarpedByOpenCv { get; set; }
+        public uint TransformationFindingMethod { get; set; }
+        public float RatioTest { get; set; }
+        public float PhysicalDistanceThreshold { get; set; }
+        public bool ReadModeColor { get; set; }
+        public bool DiscardOutliersByDistance { get; set; }
+        public bool DiscardOutliersBySlope { get; set; }
+        public bool DoKeystoneCorrection { get; set; }
         public uint MinimumKeypoints { get; set; }
         public uint KeypointOutlierThresholdTenths { get; set; }
 
         public uint EccEpsilonLevel { get; set; }
         public uint EccIterations { get; set; }
         public uint EccPyramidLayers { get; set; }
-        public uint EccDownsizePercentage { get; set; }
         public uint EccThresholdPercentage { get; set; }
         public uint EccMotionType { get; set; }
 
@@ -46,7 +43,7 @@
             IsAutomaticAlignmentOn = true;
             ShowAdvancedAlignmentSettings = false;
 
-            EccDownsizePercentage = 35;
+            DownsizePercentage = 35;
             EccEpsilonLevel = 3;
             EccIterations = 50;
             EccThresholdPercentage = 60;

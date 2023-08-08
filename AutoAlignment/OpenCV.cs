@@ -56,7 +56,7 @@ namespace AutoAlignment
 #if __NO_EMGU__
             return null;
 #else
-            var topDownsizeFactor = settings.EccDownsizePercentage / 100f;
+            var topDownsizeFactor = settings.DownsizePercentage / 100f;
             
             using var mat1 = new Mat();
             using var mat2 = new Mat();
@@ -117,7 +117,7 @@ namespace AutoAlignment
             var result =  new AlignedResult
             {
                 TransformMatrix1 = SKMatrix.CreateIdentity(),
-                TransformMatrix2 = ConvertCvMatOfFloatsToSkMatrix(warpMatrix)
+                TransformMatrix2 = ConvertCvMatToSkMatrix(warpMatrix)
             };
 
             if (settings.DrawResultWarpedByOpenCv)
@@ -149,7 +149,7 @@ namespace AutoAlignment
             using var image1Mat = new Mat();
             using var descriptors1 = new Mat();
             using var allKeyPointsVector1 = new VectorOfKeyPoint();
-            CvInvoke.Imdecode(GetBytes(firstImage, 1), readMode, image1Mat);
+            CvInvoke.Imdecode(GetBytes(firstImage, settings.DownsizePercentage / 100d), readMode, image1Mat);
             Debug.WriteLine("### decode: " + stopwatch.ElapsedTicks);
             stopwatch.Restart();
             detector.DetectAndCompute(image1Mat, null, allKeyPointsVector1, descriptors1, false);
@@ -158,7 +158,7 @@ namespace AutoAlignment
             using var image2Mat = new Mat();
             using var descriptors2 = new Mat();
             using var allKeyPointsVector2 = new VectorOfKeyPoint();
-            CvInvoke.Imdecode(GetBytes(secondImage, 1), readMode, image2Mat);
+            CvInvoke.Imdecode(GetBytes(secondImage, settings.DownsizePercentage / 100d), readMode, image2Mat);
             detector.DetectAndCompute(image2Mat, null, allKeyPointsVector2, descriptors2, false);
 
             stopwatch.Restart();
@@ -247,7 +247,7 @@ namespace AutoAlignment
             if (settings.DrawKeypointMatches)
             {
                 result.DirtyMatchesCount = pairedPoints.Count;
-                result.DrawnDirtyMatches = DrawMatches(firstImage, secondImage, pairedPoints);
+                result.DrawnDirtyMatches = DrawMatches(firstImage, secondImage, pairedPoints, settings.DownsizePercentage);
                 Debug.WriteLine("### draw matches: " + stopwatch.ElapsedTicks);
                 stopwatch.Restart();
             }
@@ -307,7 +307,7 @@ namespace AutoAlignment
                 if (settings.DrawKeypointMatches)
                 {
                     result.CleanMatchesCount = pairedPoints.Count;
-                    result.DrawnCleanMatches = DrawMatches(firstImage, secondImage, pairedPoints);
+                    result.DrawnCleanMatches = DrawMatches(firstImage, secondImage, pairedPoints, settings.DownsizePercentage);
                 }
             }
 
@@ -414,19 +414,23 @@ namespace AutoAlignment
                 using var points1 = new VectorOfPointF(pairedPoints.Select(p => p.KeyPoint1.Point).ToArray());
                 using var points2 = new VectorOfPointF(pairedPoints.Select(p => p.KeyPoint2.Point).ToArray());
 
-                Mat warp1 = Mat.Eye(3, 3, DepthType.Cv32F, 1), warp2 = Mat.Eye(3, 3, DepthType.Cv32F, 1);
-
+                Mat warp1, warp2;
                 if (settings.TransformationFindingMethod == (uint)TransformationFindingMethod.StereoRectifyUncalibrated)
                 {
+                    warp1 = Mat.Eye(3, 3, DepthType.Cv64F, 1);
+                    warp2 = Mat.Eye(3, 3, DepthType.Cv64F, 1);
+
                     using var fundamental = CvInvoke.FindFundamentalMat(points1, points2);
                     if (fundamental == null) return null;
-                    var didRectify = CvInvoke.StereoRectifyUncalibrated(points1, points2, fundamental, image1Mat.Size, warp1, warp2); //TODO: swap points depending on motion?
+                    var didRectify = CvInvoke.StereoRectifyUncalibrated(points1, points2, fundamental, image1Mat.Size,
+                        warp1, warp2); //TODO: this works correctly when warped by OpenCv, but not Skia
                     Debug.WriteLine("### didRectify: " + didRectify);
                     
-                    if (warp1.IsEmpty || warp2.IsEmpty) return null;
+                    if (warp1.IsEmpty || warp2.IsEmpty || !didRectify) return null;
                 }
                 else
                 {
+                    warp1 = Mat.Eye(2, 3, DepthType.Cv64F, 1);
                     warp2 = (TransformationFindingMethod)settings.TransformationFindingMethod switch
                     {
                         TransformationFindingMethod.FindHomography => CvInvoke.FindHomography(points2, points1, HomographyMethod.Ransac),
@@ -437,7 +441,7 @@ namespace AutoAlignment
                     if (warp2 == null || warp2.IsEmpty) return null;
                 }
 
-                Debug.WriteLine("### method " + settings.TransformationFindingMethod + ": " + stopwatch.ElapsedTicks);
+                Debug.WriteLine("### method " + (TransformationFindingMethod)settings.TransformationFindingMethod + ": " + stopwatch.ElapsedTicks);
                 stopwatch.Restart();
 
                 if (settings.DrawResultWarpedByOpenCv)
@@ -445,9 +449,9 @@ namespace AutoAlignment
                     AddWarpedToResult(image1Mat, image2Mat, warp1, warp2, result);
                     result.MethodName = ((TransformationFindingMethod) settings.TransformationFindingMethod).ToString();
                 }
-                
-                var matrix1 = ConvertCvMatOfDoublesToSkMatrix(warp1);
-                var matrix2 = ConvertCvMatOfDoublesToSkMatrix(warp2);
+
+                var matrix1 = ConvertCvMatToSkMatrix(warp1, 1 / (settings.DownsizePercentage / 100f));
+                var matrix2 = ConvertCvMatToSkMatrix(warp2, 1 / (settings.DownsizePercentage / 100f));
 
                 result.TransformMatrix1 = matrix1;
                 result.TransformMatrix2 = matrix2;
@@ -579,12 +583,12 @@ namespace AutoAlignment
             return distortionMatrix;
         }
 
-        private SKBitmap DrawMatches(SKBitmap image1, SKBitmap image2, List<PointForCleaning> points)
+        private SKBitmap DrawMatches(SKBitmap image1, SKBitmap image2, List<PointForCleaning> points, uint downsizePercentage)
         {
             using var fullSizeColor1 = new Mat();
             using var fullSizeColor2 = new Mat();
-            CvInvoke.Imdecode(GetBytes(image1, 1), ImreadModes.Color, fullSizeColor1);
-            CvInvoke.Imdecode(GetBytes(image2, 1), ImreadModes.Color, fullSizeColor2);
+            CvInvoke.Imdecode(GetBytes(image1, downsizePercentage / 100d), ImreadModes.Color, fullSizeColor1);
+            CvInvoke.Imdecode(GetBytes(image2, downsizePercentage / 100d), ImreadModes.Color, fullSizeColor2);
 
             using var drawnResult = new Mat();
             Features2DToolbox.DrawMatches(
@@ -742,45 +746,79 @@ namespace AutoAlignment
             return netOffset;
         }
 
-        private static SKMatrix ConvertCvMatOfFloatsToSkMatrix(Mat mat)
+        private static SKMatrix ConvertCvMatToSkMatrix(Mat mat, float upscaleFactor = 1)
         {
             var skMatrix = SKMatrix.CreateIdentity();
-            unsafe
+
+            if (mat.IsEmpty) return skMatrix;
+
+            if (mat.Cols != 3 || mat.Rows > 3)
             {
-                var ptr = (float*)mat.DataPointer.ToPointer(); //ScaleX
-                skMatrix.ScaleX = *ptr;
-                ptr++; //SkewX
-                skMatrix.SkewX = *ptr;
-                ptr++; //TransX
-                skMatrix.TransX = *ptr;
-                ptr++; //SkewY
-                skMatrix.SkewY = *ptr;
-                ptr++; //ScaleY
-                skMatrix.ScaleY = *ptr;
-                ptr++; //TransY
-                skMatrix.TransY = *ptr;
+                throw new NotImplementedException();
             }
 
-            return skMatrix;
-        }
-
-        private static SKMatrix ConvertCvMatOfDoublesToSkMatrix(Mat mat)
-        {
-            var skMatrix = SKMatrix.CreateIdentity();
-            unsafe
+            if (mat.Depth == DepthType.Cv32F)
             {
-                var ptr = (double*)mat.DataPointer.ToPointer(); //ScaleX
-                skMatrix.ScaleX = (float)*ptr;
-                ptr++; //SkewX
-                skMatrix.SkewX = (float)*ptr;
-                ptr++; //TransX
-                skMatrix.TransX = (float)*ptr;
-                ptr++; //SkewY
-                skMatrix.SkewY = (float)*ptr;
-                ptr++; //ScaleY
-                skMatrix.ScaleY = (float)*ptr;
-                ptr++; //TransY
-                skMatrix.TransY = (float)*ptr;
+                unsafe
+                {
+                    var ptr = (float*) mat.DataPointer.ToPointer();
+                    skMatrix.ScaleX = *ptr;
+                    ptr++;
+                    skMatrix.SkewX = *ptr;
+                    ptr++;
+                    skMatrix.TransX = *ptr;
+                    ptr++;
+                    skMatrix.SkewY = *ptr;
+                    ptr++;
+                    skMatrix.ScaleY = *ptr;
+                    ptr++;
+                    skMatrix.TransY = *ptr;
+                    if (mat.Rows == 3)
+                    {
+                        ptr++;
+                        skMatrix.Persp0 = *ptr;
+                        ptr++;
+                        skMatrix.Persp1 = *ptr;
+                        ptr++;
+                        skMatrix.Persp2 = *ptr;
+                    }
+                }
+            }
+            else if (mat.Depth == DepthType.Cv64F)
+            {
+                unsafe
+                {
+                    var ptr = (double*) mat.DataPointer.ToPointer();
+                    skMatrix.ScaleX = (float) *ptr;
+                    ptr++;
+                    skMatrix.SkewX = (float) *ptr;
+                    ptr++;
+                    skMatrix.TransX = (float) *ptr;
+                    ptr++;
+                    skMatrix.SkewY = (float) *ptr;
+                    ptr++;
+                    skMatrix.ScaleY = (float) *ptr;
+                    ptr++;
+                    skMatrix.TransY = (float) *ptr;
+                    if (mat.Rows == 3)
+                    {
+                        ptr++;
+                        skMatrix.Persp0 = (float) *ptr;
+                        ptr++;
+                        skMatrix.Persp1 = (float) *ptr;
+                        ptr++;
+                        skMatrix.Persp2 = (float) *ptr;
+                    }
+                }
+            }
+
+            if (upscaleFactor != 1)
+            {
+                var scaleMatrix = new SKMatrix(
+                    upscaleFactor, 0, 0,
+                    0, upscaleFactor, 0,
+                    0, 0, 1);
+                skMatrix = scaleMatrix.PreConcat(skMatrix).PreConcat(scaleMatrix.Invert());
             }
 
             return skMatrix;

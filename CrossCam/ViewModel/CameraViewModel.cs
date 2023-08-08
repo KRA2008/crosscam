@@ -1132,32 +1132,37 @@ namespace CrossCam.ViewModel
                     stringChunk = propertiesString.Substring(startIndex, APP_CENTER_PROPERTY_LENGTH_LIMIT);
                     propertiesDictionary.Add(ii.ToString(), stringChunk);
                 }
+
                 Crashes.TrackError(Error, propertiesDictionary);
-#if DEBUG
-                await CoreMethods.DisplayAlert("ERROR", Error.ToString(), "OK");
-#else
-                if (Settings.SendErrorReports1)
+
+                await Device.InvokeOnMainThreadAsync(async () =>
                 {
-                    var sendReport = await CoreMethods.DisplayAlert("Oops",
-                        "Sorry, CrossCam did an error. An error report has been automatically sent. You may not notice anything wrong at all, but if you do, try restarting the application. If this keeps happening, please email me and tell me about it. (Go to the Settings page to stop these popups.)",
-                        "Email me now", "Don't email me now");
-                    if (sendReport)
+#if DEBUG
+                    await CoreMethods.DisplayAlert("ERROR", Error.ToString(), "OK");
+#else
+                    if (Settings.SendErrorReports1)
                     {
-                        OpenLink.Execute(
-                            "mailto:me@kra2008.com?subject=CrossCam%20error%20report&body=" +
-                            "What did you do just before the error happened? Please describe even the small things.\n\n\n\n\n\nDid CrossCam still work after the error? If not, how is it broken?\n\n\n\n\n\nDoes this repeatedly happen?\n\n\n\n\n\nCan you force the error to happen on command? If so, how?\n\n\n\n\n\n" +
-                            HttpUtility.UrlEncode(Error.ToString()));
+                        var sendReport = await CoreMethods.DisplayAlert("Oops",
+                            "Sorry, CrossCam did an error. An error report has been automatically sent. You may not notice anything wrong at all, but if you do, try restarting the application. If this keeps happening, please email me and tell me about it. (Go to the Settings page to stop these popups.)",
+                            "Email me now", "Don't email me now");
+                        if (sendReport)
+                        {
+                            OpenLink.Execute(
+                                "mailto:me@kra2008.com?subject=CrossCam%20error%20report&body=" +
+                                "What did you do just before the error happened? Please describe even the small things.\n\n\n\n\n\nDid CrossCam still work after the error? If not, how is it broken?\n\n\n\n\n\nDoes this repeatedly happen?\n\n\n\n\n\nCan you force the error to happen on command? If so, how?\n\n\n\n\n\n" +
+                                HttpUtility.UrlEncode(Error.ToString()));
+                        }
+                        else
+                        {
+                            Analytics.TrackEvent("declined to send error report");
+                        }
                     }
                     else
                     {
-                        Analytics.TrackEvent("declined to send error report");
+                        Analytics.TrackEvent("error, but error reports turned off");
                     }
-                }
-                else
-                {
-                    Analytics.TrackEvent("error, but error reports turned off");
-                }
 #endif
+                });
                 Error = null;
             });
 
@@ -2060,22 +2065,21 @@ namespace CrossCam.ViewModel
                             Settings.AlignmentSettings.DrawResultWarpedByOpenCv)
                         {
                             using var surface =
-                                SKSurface.Create(new SKImageInfo(LeftBitmap.Width * 2, LeftBitmap.Height));
+                                SKSurface.Create(new SKImageInfo(alignedResult.Warped1.Width * 2, alignedResult.Warped1.Height));
                             surface.Canvas.DrawBitmap(alignedResult.Warped1, 0, 0);
-                            surface.Canvas.DrawBitmap(alignedResult.Warped2, LeftBitmap.Width, 0);
-                            var textBlob = SKTextBlob.Create(alignedResult.MethodName, new SKFont
+                            surface.Canvas.DrawBitmap(alignedResult.Warped2, alignedResult.Warped1.Width, 0);
+                            var textBlob = SKTextBlob.Create(alignedResult.MethodName + " " + Settings.AlignmentSettings.DownsizePercentage, new SKFont
                             {
-                                Size = 200
+                                Size = alignedResult.Warped1.Height / 5f
                             });
-                            surface.Canvas.DrawText(textBlob, 200, 200, new SKPaint
+                            surface.Canvas.DrawText(textBlob, alignedResult.Warped1.Height / 5f, alignedResult.Warped1.Height / 5f, new SKPaint
                             {
                                 Color = SKColor.Parse("#00ff00"),
-                                TextSize = 200,
-                                Style = SKPaintStyle.Fill,
-                                StrokeWidth = 5
+                                TextSize = alignedResult.Warped1.Height / 5f,
+                                Style = SKPaintStyle.Fill
                             });
 
-                            await SaveSurfaceSnapshot(surface, "Rectified");
+                            await SaveSurfaceSnapshot(surface, "Warped");
                         }
 
                         if (Settings.IsCaptureLeftFirst)
