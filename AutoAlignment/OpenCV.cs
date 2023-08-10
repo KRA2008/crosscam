@@ -360,14 +360,37 @@ namespace AutoAlignment
                 points2 = zoomed3.MapPoints(points2);
 
 
-                var keystoned1 = SKMatrix.CreateIdentity();
-                var keystoned2 = SKMatrix.CreateIdentity();
+                var keystonedFirst1 = SKMatrix.CreateIdentity();
+                var keystonedFirst2 = SKMatrix.CreateIdentity();
+                var keystonedFirst3 = SKMatrix.CreateIdentity();
+                var keystonedSecond1 = SKMatrix.CreateIdentity();
+                var keystonedSecond2 = SKMatrix.CreateIdentity();
+                var keystonedSecond3 = SKMatrix.CreateIdentity();
                 if (settings.DoKeystoneCorrection)
                 {
-                    keystoned1 = FindTaper(points2, points1, keystoneRightOnFirst);
-                    points1 = keystoned1.MapPoints(points1);
-                    keystoned2 = FindTaper(points1, points2, !keystoneRightOnFirst);
-                    points2 = keystoned2.MapPoints(points2);
+                    var keystoneFirst1 = FindTaper(points2, points1, firstImage.Width, firstImage.Height);
+                    keystonedFirst1 = CreateTaper(firstImage.Width / 2f, firstImage.Height / 2f, keystoneFirst1);
+                    points1 = keystonedFirst1.MapPoints(points1);
+
+                    var keystoneSecond1 = FindTaper(points1, points2, secondImage.Width, secondImage.Height);
+                    keystonedSecond1 = CreateTaper(secondImage.Width / 2f, secondImage.Height / 2f, keystoneSecond1);
+                    points2 = keystonedSecond1.MapPoints(points2);
+
+                    var keystoneFirst2 = FindTaper(points2, points1, firstImage.Width, firstImage.Height);
+                    keystonedFirst2 = CreateTaper(firstImage.Width / 2f, firstImage.Height / 2f, keystoneFirst2);
+                    points1 = keystonedFirst2.MapPoints(points1);
+
+                    var keystoneSecond2 = FindTaper(points1, points2, secondImage.Width, secondImage.Height);
+                    keystonedSecond2 = CreateTaper(secondImage.Width / 2f, secondImage.Height / 2f, keystoneSecond2);
+                    points2 = keystonedSecond2.MapPoints(points2);
+
+                    var keystoneFirst3 = FindTaper(points2, points1, firstImage.Width, firstImage.Height);
+                    keystonedFirst3 = CreateTaper(firstImage.Width / 2f, firstImage.Height / 2f, keystoneFirst3);
+                    points1 = keystonedFirst3.MapPoints(points1);
+
+                    var keystoneSecond3 = FindTaper(points1, points2, secondImage.Width, secondImage.Height);
+                    keystonedSecond3 = CreateTaper(secondImage.Width / 2f, secondImage.Height / 2f, keystoneSecond3);
+                    points2 = keystonedSecond3.MapPoints(points2);
                 }
 
 
@@ -377,7 +400,7 @@ namespace AutoAlignment
 
 
 
-                var tempMatrix1 = new SKMatrix();
+                var tempMatrix1 = new SKMatrix(); //TODO: chain these together with PostConcat?
                 SKMatrix.Concat(ref tempMatrix1, translated1, rotated1);
                 var tempMatrix2 = new SKMatrix();
                 SKMatrix.Concat(ref tempMatrix2, tempMatrix1, zoomed1);
@@ -398,14 +421,21 @@ namespace AutoAlignment
 
 
                 var tempMatrix9 = new SKMatrix();
-                SKMatrix.Concat(ref tempMatrix9, tempMatrix8, keystoned2);
-
+                SKMatrix.Concat(ref tempMatrix9, tempMatrix8, keystonedSecond1);
                 var tempMatrix10 = new SKMatrix();
-                SKMatrix.Concat(ref tempMatrix10, tempMatrix9, horizontaled);
+                SKMatrix.Concat(ref tempMatrix10, tempMatrix9, keystonedSecond2);
+                var tempMatrix11 = new SKMatrix();
+                SKMatrix.Concat(ref tempMatrix11, tempMatrix10, keystonedSecond3);
+
+                var tempMatrix12 = new SKMatrix();
+                SKMatrix.Concat(ref tempMatrix12, tempMatrix11, horizontaled);
+
+                var keyTempMatrix1 = new SKMatrix(); //TODO: make the keystones for image1
+                SKMatrix.Concat(ref keyTempMatrix1, tempMatrix8, keystonedSecond1);
 
                 var finalMatrix = tempMatrix10;
                 result.TransformMatrix2 = finalMatrix;
-                result.TransformMatrix1 = keystoned1;
+                result.TransformMatrix1 = keystonedFirst;
                 Debug.WriteLine("### homebrew matrix finding: " + stopwatch.ElapsedTicks);
                 stopwatch.Restart();
             }
@@ -668,33 +698,24 @@ namespace AutoAlignment
                     secondImage.Height / 2f), ZOOM_INC, FINAL_ZOOM_DELTA, 1);
         }
 
-        private static SKMatrix FindTaper(SKPoint[] points1, SKPoint[] points2, bool keystoneRight)
+        private static float FindTaper(SKPoint[] points1, SKPoint[] points2, int width, int height)
         {
-            //TODO: fix this
+            const float FINAL_TAPER_DELTA = 0.1f;
+            const float TAPER_INC = 45f;
+            
+            return BinarySearchFindComponent(points1, points2, 
+                f => CreateTaper(width / 2f, height / 2f, f), TAPER_INC,
+                FINAL_TAPER_DELTA);
+        }
 
-            //var isKeystoneSwapped = drawMode == DrawMode.Parallel || drawMode == DrawMode.Cardboard;
-            //var xCorrection =
-            //    isLeft && !isKeystoneSwapped || !isLeft && isKeystoneSwapped
-            //        ? destX
-            //        : destX + destWidth;
-            //transform4D.PostConcat(SKMatrix44.CreateTranslate(-xCorrection, -yCorrectionToOrigin, 0));
-            //transform4D.PostConcat(SKMatrix44.CreateRotationDegrees(0, 1, 0,
-            //    isLeft && !isKeystoneSwapped || !isLeft && isKeystoneSwapped ? keystone : -keystone));
-            //transform4D.PostConcat(MakePerspective(destWidth));
-            //transform4D.PostConcat(SKMatrix44.CreateTranslate(xCorrection, yCorrectionToOrigin, 0));
-
-            for (var ii = 0; ii < 15; ii++)
-            {
-                var transform4D = SKMatrix44.CreateIdentity();
-                transform4D.PostConcat(DrawTool.MakePerspective(ii));
-                var mappedPoints1 = transform4D.MapPoints(points1);
-                var mappedPoints2 = transform4D.MapPoints(points2);
-
-                var yOffset = GetNetYOffset(mappedPoints1, mappedPoints2);
-
-                Debug.WriteLine("### DEPTH: " + yOffset);
-            }
-            return SKMatrix.Identity;
+        private static SKMatrix CreateTaper(float centerX, float centerY, float rotation)
+        {
+            var transform4D = SKMatrix44.CreateIdentity();
+            transform4D.PostConcat(SKMatrix44.CreateTranslate(-centerX, -centerY, 0));
+            transform4D.PostConcat(SKMatrix44.CreateRotationDegrees(0, 1, 0, rotation));
+            transform4D.PostConcat(DrawTool.MakePerspective(centerX));
+            transform4D.PostConcat(SKMatrix44.CreateTranslate(centerX, centerY, 0));
+            return transform4D.Matrix;
         }
 
         private static float BinarySearchFindComponent(SKPoint[] basePoints, SKPoint[] pointsToTransform, Func<float, SKMatrix> testerFunction, float searchingIncrement, float terminationThreshold, float componentStart = 0, bool useXDisplacement = false)
