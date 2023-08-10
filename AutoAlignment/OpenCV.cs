@@ -396,46 +396,16 @@ namespace AutoAlignment
 
                 var horizontalAdj = FindHorizontalTranslation(points1, points2, secondImage);
                 var horizontaled = SKMatrix.CreateTranslation(horizontalAdj, 0);
-                points2 = horizontaled.MapPoints(points2);
+                //points2 = horizontaled.MapPoints(points2); //not necessary, but don't forget if it becomes necessary
 
+                result.TransformMatrix1 = keystonedFirst1.PostConcat(keystonedFirst2).PostConcat(keystonedFirst3);
 
-
-                var tempMatrix1 = new SKMatrix(); //TODO: chain these together with PostConcat?
-                SKMatrix.Concat(ref tempMatrix1, translated1, rotated1);
-                var tempMatrix2 = new SKMatrix();
-                SKMatrix.Concat(ref tempMatrix2, tempMatrix1, zoomed1);
-
-                var tempMatrix3 = new SKMatrix();
-                SKMatrix.Concat(ref tempMatrix3, tempMatrix2, translated2);
-                var tempMatrix4 = new SKMatrix();
-                SKMatrix.Concat(ref tempMatrix4, tempMatrix3, rotated2);
-                var tempMatrix5 = new SKMatrix();
-                SKMatrix.Concat(ref tempMatrix5, tempMatrix4, zoomed2);
-
-                var tempMatrix6 = new SKMatrix();
-                SKMatrix.Concat(ref tempMatrix6, tempMatrix5, translated3);
-                var tempMatrix7 = new SKMatrix();
-                SKMatrix.Concat(ref tempMatrix7, tempMatrix6, rotated3);
-                var tempMatrix8 = new SKMatrix();
-                SKMatrix.Concat(ref tempMatrix8, tempMatrix7, zoomed3);
-
-
-                var tempMatrix9 = new SKMatrix();
-                SKMatrix.Concat(ref tempMatrix9, tempMatrix8, keystonedSecond1);
-                var tempMatrix10 = new SKMatrix();
-                SKMatrix.Concat(ref tempMatrix10, tempMatrix9, keystonedSecond2);
-                var tempMatrix11 = new SKMatrix();
-                SKMatrix.Concat(ref tempMatrix11, tempMatrix10, keystonedSecond3);
-
-                var tempMatrix12 = new SKMatrix();
-                SKMatrix.Concat(ref tempMatrix12, tempMatrix11, horizontaled);
-
-                var keyTempMatrix1 = new SKMatrix(); //TODO: make the keystones for image1
-                SKMatrix.Concat(ref keyTempMatrix1, tempMatrix8, keystonedSecond1);
-
-                var finalMatrix = tempMatrix10;
-                result.TransformMatrix2 = finalMatrix;
-                result.TransformMatrix1 = keystonedFirst;
+                result.TransformMatrix2 = translated1.PostConcat(rotated1).PostConcat(zoomed1)
+                    .PostConcat(translated2).PostConcat(rotated2).PostConcat(zoomed2)
+                    .PostConcat(translated3).PostConcat(rotated3).PostConcat(zoomed3)
+                    .PostConcat(keystonedSecond1).PostConcat(keystonedSecond2).PostConcat(keystonedSecond3)
+                    .PostConcat(horizontaled);
+                
                 Debug.WriteLine("### homebrew matrix finding: " + stopwatch.ElapsedTicks);
                 stopwatch.Restart();
             }
