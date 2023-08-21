@@ -772,11 +772,29 @@ namespace CrossCam.Page
             if (Math.Abs(keystone) > 0)
             {
                 var isKeystoneSwapped = drawMode == DrawMode.Parallel || drawMode == DrawMode.Cardboard;
-                transform4D.PostConcat(SKMatrix44.CreateTranslate(-xCorrectionToOrigin, -yCorrectionToOrigin, 0));
-                transform4D.PostConcat(SKMatrix44.CreateRotationDegrees(0, 1, 0,
-                    isLeft && !isKeystoneSwapped || !isLeft && isKeystoneSwapped ? keystone : -keystone));
-                transform4D.PostConcat(MakePerspective(destWidth));
-                transform4D.PostConcat(SKMatrix44.CreateTranslate(xCorrectionToOrigin, yCorrectionToOrigin, 0));
+                var keystoneRotation = isLeft && !isKeystoneSwapped || !isLeft && isKeystoneSwapped ? keystone : -keystone;
+
+                var axisPositionX = keystoneRotation > 0 ? destX : destX + destWidth;
+
+                var keystoneTransform = SKMatrix44.CreateIdentity();
+                keystoneTransform.PostConcat(SKMatrix44.CreateTranslate(-axisPositionX, -yCorrectionToOrigin, 0));
+                keystoneTransform.PostConcat(SKMatrix44.CreateRotationDegrees(0, 1, 0, keystoneRotation));
+                keystoneTransform.PostConcat(MakePerspective(destWidth));
+                keystoneTransform.PostConcat(SKMatrix44.CreateTranslate(axisPositionX, yCorrectionToOrigin, 0));
+                
+                var leftPoint = new SKPoint(destX, 0);
+                var rightPoint = new SKPoint(destX + destWidth, 0);
+
+                var leftTransformed = keystoneTransform.Matrix.MapPoint(leftPoint);
+                var rightTransformed = keystoneTransform.Matrix.MapPoint(rightPoint);
+
+                var newWidth = rightTransformed.X - leftTransformed.X;
+                var widthChange = destWidth - newWidth;
+
+                keystoneTransform.PostConcat(
+                    SKMatrix44.CreateTranslate((keystoneRotation > 0 ? 1 : -1) * widthChange / 2f, 0, 0));
+
+                transform4D.PostConcat(keystoneTransform);
             }
 
             if (Math.Abs(zoom) > 0)
