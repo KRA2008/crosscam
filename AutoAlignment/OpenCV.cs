@@ -22,7 +22,6 @@ using Math = System.Math;
 using SkiaSharp.Views.Android;
 #elif __IOS__
 using SkiaSharp.Views.iOS;
-using Xamarin.Forms.Shapes;
 #endif
 
 [assembly: Dependency(typeof(OpenCv))]
@@ -674,18 +673,13 @@ namespace AutoAlignment
             const float TAPER_INC = 45f;
             
             return BinarySearchFindComponent(points1, points2, 
-                f => CreateTaper(width / 2f, height / 2f, f), TAPER_INC,
+                f => CreateTaper(width, height / 2f, f), TAPER_INC,
                 FINAL_TAPER_DELTA);
         }
 
-        private static SKMatrix CreateTaper(float centerX, float centerY, float rotation)
+        private static SKMatrix CreateTaper(float width, float centerY, float rotation)
         {
-            var transform4D = SKMatrix44.CreateIdentity();
-            transform4D.PostConcat(SKMatrix44.CreateTranslate(-centerX, -centerY, 0));
-            transform4D.PostConcat(SKMatrix44.CreateRotationDegrees(0, 1, 0, rotation));
-            transform4D.PostConcat(DrawTool.MakePerspective(centerX));
-            transform4D.PostConcat(SKMatrix44.CreateTranslate(centerX, centerY, 0));
-            return transform4D.Matrix;
+            return DrawTool.MakeKeystoneTransform(rotation, 0, width, centerY).Matrix;
         }
 
         private static float BinarySearchFindComponent(SKPoint[] basePoints, SKPoint[] pointsToTransform, Func<float, SKMatrix> testerFunction, float searchingIncrement, float terminationThreshold, float componentStart = 0, bool useXDisplacement = false)

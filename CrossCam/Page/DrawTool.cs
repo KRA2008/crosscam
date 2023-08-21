@@ -774,25 +774,7 @@ namespace CrossCam.Page
                 var isKeystoneSwapped = drawMode == DrawMode.Parallel || drawMode == DrawMode.Cardboard;
                 var keystoneRotation = isLeft && !isKeystoneSwapped || !isLeft && isKeystoneSwapped ? keystone : -keystone;
 
-                var axisPositionX = keystoneRotation > 0 ? destX : destX + destWidth;
-
-                var keystoneTransform = SKMatrix44.CreateIdentity();
-                keystoneTransform.PostConcat(SKMatrix44.CreateTranslate(-axisPositionX, -yCorrectionToOrigin, 0));
-                keystoneTransform.PostConcat(SKMatrix44.CreateRotationDegrees(0, 1, 0, keystoneRotation));
-                keystoneTransform.PostConcat(MakePerspective(destWidth));
-                keystoneTransform.PostConcat(SKMatrix44.CreateTranslate(axisPositionX, yCorrectionToOrigin, 0));
-                
-                var leftPoint = new SKPoint(destX, 0);
-                var rightPoint = new SKPoint(destX + destWidth, 0);
-
-                var leftTransformed = keystoneTransform.Matrix.MapPoint(leftPoint);
-                var rightTransformed = keystoneTransform.Matrix.MapPoint(rightPoint);
-
-                var newWidth = rightTransformed.X - leftTransformed.X;
-                var widthChange = destWidth - newWidth;
-
-                keystoneTransform.PostConcat(
-                    SKMatrix44.CreateTranslate((keystoneRotation > 0 ? 1 : -1) * widthChange / 2f, 0, 0));
+                var keystoneTransform = MakeKeystoneTransform(keystoneRotation, destX, destWidth, yCorrectionToOrigin);
 
                 transform4D.PostConcat(keystoneTransform);
             }
@@ -815,6 +797,31 @@ namespace CrossCam.Page
             transform4D.PostConcat(FindCardboardMovementMatrix(cardboardHorDelta, cardboardVertDelta, cardboardSeparationMod));
 
             return transform4D.Matrix;
+        }
+
+        public static SKMatrix44 MakeKeystoneTransform(float keystoneRotation, float destX, float destWidth, float yCorrectionToOrigin)
+        {
+            var axisPositionX = keystoneRotation > 0 ? destX : destX + destWidth;
+
+            var keystoneTransform = SKMatrix44.CreateIdentity();
+            keystoneTransform.PostConcat(SKMatrix44.CreateTranslate(-axisPositionX, -yCorrectionToOrigin, 0));
+            keystoneTransform.PostConcat(SKMatrix44.CreateRotationDegrees(0, 1, 0, keystoneRotation));
+            keystoneTransform.PostConcat(MakePerspective(destWidth));
+            keystoneTransform.PostConcat(SKMatrix44.CreateTranslate(axisPositionX, yCorrectionToOrigin, 0));
+
+            var leftPoint = new SKPoint(destX, 0);
+            var rightPoint = new SKPoint(destX + destWidth, 0);
+
+            var leftTransformed = keystoneTransform.Matrix.MapPoint(leftPoint);
+            var rightTransformed = keystoneTransform.Matrix.MapPoint(rightPoint);
+
+            var newWidth = rightTransformed.X - leftTransformed.X;
+            var widthChange = destWidth - newWidth;
+
+            keystoneTransform.PostConcat(
+                SKMatrix44.CreateTranslate((keystoneRotation > 0 ? 1 : -1) * widthChange / 2f, 0, 0));
+
+            return keystoneTransform;
         }
 
         private static void DrawSide(SKCanvas canvas, SKBitmap bitmap,
@@ -938,7 +945,7 @@ namespace CrossCam.Page
             return transform4D;
         }
 
-        public static SKMatrix44 MakePerspective(float maxDepth)
+        private static SKMatrix44 MakePerspective(float maxDepth)
         {
             var perspectiveMatrix = SKMatrix44.CreateIdentity();
             perspectiveMatrix[3, 2] = -1 / maxDepth;
