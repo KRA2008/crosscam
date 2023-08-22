@@ -4,6 +4,7 @@ namespace CrossCam.Model
 {
     public class AlignedResult
     {
+        public int Confidence { get; set; }
         public SKMatrix TransformMatrix1 { get; set; }
         public SKMatrix TransformMatrix2 { get; set; }
         public int CleanMatchesCount { get; set; }
@@ -18,6 +19,7 @@ namespace CrossCam.Model
         {
             TransformMatrix1 = SKMatrix.CreateIdentity();
             TransformMatrix2 = SKMatrix.CreateIdentity();
+            Confidence = -1;
         }
     }
 }

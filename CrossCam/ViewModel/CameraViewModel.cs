@@ -53,6 +53,8 @@ namespace CrossCam.ViewModel
         public SKMatrix RightAlignmentTransform { get; set; }
         public Command RetakeRightCommand { get; set; }
 
+        public string AlignmentConfidence { get; set; }
+
         public bool CaptureSuccess { get; set; }
         public int CameraColumn { get; set; }
         
@@ -2011,6 +2013,14 @@ namespace CrossCam.ViewModel
                     {
                         ClearEdits();
                         _isAlignmentInvalid = false;
+                        if (alignedResult.Confidence > 0)
+                        {
+                            AlignmentConfidence = alignedResult.Confidence + "%";
+                        }
+                        else
+                        {
+                            AlignmentConfidence = "KP";
+                        }
 
                         if (Settings.AlignmentSettings.UseKeypoints1 &&
                             Settings.AlignmentSettings.DrawKeypointMatches &&
@@ -2110,12 +2120,14 @@ namespace CrossCam.ViewModel
                     }
                     else
                     {
+                        AlignmentConfidence = "F";
                         ApplyFovCorrectionToZoom();
                         AlignmentFailFadeTrigger = !AlignmentFailFadeTrigger;
                     }
                 }
                 else
                 {
+                    AlignmentConfidence = "n/a";
                     ApplyFovCorrectionToZoom();
                     AutomaticAlignmentNotSupportedTrigger = !AutomaticAlignmentNotSupportedTrigger;
                 }
@@ -2631,6 +2643,7 @@ namespace CrossCam.ViewModel
         {
             LeftAlignmentTransform = SKMatrix.Identity;
             RightAlignmentTransform = SKMatrix.Identity;
+            AlignmentConfidence = "";
             _isAlignmentInvalid = true;
         }
 

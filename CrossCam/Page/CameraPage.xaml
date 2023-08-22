@@ -1556,25 +1556,27 @@
                     </Image.Triggers>
                 </Image>
             </ContentView>
-            <ContentView HorizontalOptions="EndAndExpand"
+            <StackLayout HorizontalOptions="EndAndExpand"
+                         Orientation="Vertical"
+                         Spacing="0"
                          IsVisible="False">
-                <ContentView.Triggers>
-                    <DataTrigger TargetType="ContentView"
+                <StackLayout.Triggers>
+                    <DataTrigger TargetType="StackLayout"
                                  Binding="{Binding WorkflowStage, Converter={vc:EnumCompareConverter}, ConverterParameter={x:Static vm:WorkflowStage.AutomaticAlign}}"
                                  Value="True">
                         <Setter Property="IsVisible"
                                 Value="True"/>
                     </DataTrigger>
-                    <DataTrigger TargetType="ContentView"
+                    <DataTrigger TargetType="StackLayout"
                                  Binding="{Binding WorkflowStage, Converter={vc:EnumCompareConverter}, ConverterParameter={x:Static vm:WorkflowStage.Final}}"
                                  Value="True">
                         <Setter Property="IsVisible"
                                 Value="True"/>
                     </DataTrigger>
-                </ContentView.Triggers>
-                <ContentView.GestureRecognizers>
+                </StackLayout.Triggers>
+                <StackLayout.GestureRecognizers>
                     <TapGestureRecognizer Command="{Binding ToggleAutoalignCommand}"/>
-                </ContentView.GestureRecognizers>
+                </StackLayout.GestureRecognizers>
                 <Image Source="smartToy"
                        InputTransparent="True">
                     <Image.Triggers>
@@ -1592,7 +1594,9 @@
                         </DataTrigger>
                     </Image.Triggers>
                 </Image>
-            </ContentView>
+                <Label Text="{Binding AlignmentConfidence}"
+                       HorizontalOptions="CenterAndExpand"/>
+            </StackLayout>
         </StackLayout>
 
         <Label AbsoluteLayout.LayoutFlags="All"

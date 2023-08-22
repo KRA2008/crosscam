@@ -116,7 +116,8 @@ namespace AutoAlignment
             var result =  new AlignedResult
             {
                 TransformMatrix1 = SKMatrix.CreateIdentity(),
-                TransformMatrix2 = ConvertCvMatToSkMatrix(warpMatrix)
+                TransformMatrix2 = ConvertCvMatToSkMatrix(warpMatrix),
+                Confidence = (int) (ecc * 100)
             };
 
             if (settings.DrawResultWarpedByOpenCv)
