@@ -53,7 +53,7 @@
             <Rect x:Key="_undoBounds" X="0.5" Y="{StaticResource _topMiddleButtonY}" Width="{StaticResource _mediumIconWidth}" Height="{StaticResource _mediumIconWidthPlusTopPadding}"/>
             <Rect x:Key="_checkBounds" X="0.5" Y="1" Width="{StaticResource _largeIconWidth}" Height="{StaticResource _largeIconWidth}"/>
             <Rect x:Key="_helpBounds" X="0" Y="0" Width="{StaticResource _doubleSmallerButtonWidth}" Height="{StaticResource _smallerButtonWidthPlusTopPadding}"/>
-            <Rect x:Key="_gearBounds" X="1" Y="0" Width="{StaticResource _doubleSmallerButtonWidth}" Height="{StaticResource _smallerButtonWidthPlusTopPadding}"/>
+            <Rect x:Key="_gearBounds" X="1" Y="20" Width="{StaticResource _smallerButtonWidthPlusTopPadding}" Height="1"/>
 
             <Rect x:Key="_leftKeystoneAxis" X="{StaticResource _3dLeftMiddle}" Y="{StaticResource _editModeInnerButtons}" Width="{StaticResource _mediumIconWidth}" Height="{StaticResource _mediumIconWidth}"/>
             <Rect x:Key="_rightKeystoneAxis" X="{StaticResource _3dRightMiddle}" Y="{StaticResource _editModeInnerButtons}" Width="{StaticResource _mediumIconWidth}" Height="{StaticResource _mediumIconWidth}"/>
@@ -68,8 +68,17 @@
 
             <Thickness x:Key="_linePadding">0,10,0,10</Thickness>
 
+            <Style TargetType="Element"
+                   x:Key="_feedbackElement">
+                <Setter Property="AbsoluteLayout.LayoutFlags"
+                        Value="All"/>
+                <Setter Property="AbsoluteLayout.LayoutBounds"
+                        Value="1,1,1,0.5"/>
+            </Style>
+
             <Style TargetType="Label"
-                   x:Key="_feedback">
+                   x:Key="_feedback"
+                   BaseResourceKey="_feedbackElement">
                 <Setter Property="FontAttributes"
                         Value="Bold"/>
                 <Setter Property="FontSize"
@@ -78,10 +87,6 @@
                         Value="CenterAndExpand"/>
                 <Setter Property="VerticalOptions"
                         Value="CenterAndExpand"/>
-                <Setter Property="AbsoluteLayout.LayoutFlags"
-                        Value="All"/>
-                <Setter Property="AbsoluteLayout.LayoutBounds"
-                        Value="1,1,1,0.5"/>
             </Style>
         </ResourceDictionary>
     </ContentPage.Resources>
@@ -1491,35 +1496,14 @@
                        InputTransparent="True">
                 </Image>
             </ContentView>
-            <ContentView Padding="{StaticResource _topBarSmallButtonPadding}"
-                         HorizontalOptions="EndAndExpand"
-                         IsVisible="{Binding IsFullscreenToggleVisible}">
-                <ContentView.GestureRecognizers>
-                    <TapGestureRecognizer Command="{Binding ToggleFullscreen}"/>
-                </ContentView.GestureRecognizers>
-                <Image Source="fullscreen"
-                       InputTransparent="True">
-                    <Image.Triggers>
-                        <DataTrigger TargetType="Image"
-                                     Binding="{Binding IsFullscreenToggle}"
-                                     Value="True">
-                            <Setter Property="Source"
-                                    Value="closeFullscreen"/>
-                        </DataTrigger>
-                        <DataTrigger TargetType="Image"
-                                     Binding="{Binding IsFullscreenToggle}"
-                                     Value="False">
-                            <Setter Property="Source"
-                                    Value="fullscreen"/>
-                        </DataTrigger>
-                    </Image.Triggers>
-                </Image>
-            </ContentView>
         </StackLayout>
-        <StackLayout AbsoluteLayout.LayoutFlags="PositionProportional"
+        <StackLayout AbsoluteLayout.LayoutFlags="XProportional,HeightProportional"
                      AbsoluteLayout.LayoutBounds="{StaticResource _gearBounds}"
+                     x:Name="_cameraSettingsBox"
                      IsVisible="False"
-                     Orientation="Horizontal">
+                     Orientation="Vertical"
+                     InputTransparent="True"
+                     CascadeInputTransparent="False">
             <StackLayout.Triggers>
                 <MultiTrigger TargetType="StackLayout">
                     <MultiTrigger.Conditions>
@@ -1534,22 +1518,70 @@
                     </MultiTrigger.Setters>
                 </MultiTrigger>
             </StackLayout.Triggers>
-            <ContentView Padding="{StaticResource _topBarSmallButtonPadding}"
-                         IsVisible="{Binding WorkflowStage, Converter={StaticResource enumCompare}, ConverterParameter={x:Static vm:WorkflowStage.Capture}}">
-                <ContentView.GestureRecognizers>
-                    <TapGestureRecognizer Command="{Binding FlipCameraCommand}"/>
-                </ContentView.GestureRecognizers>
-                <Image Source="cameraFlip"
-                       InputTransparent="True"/>
-            </ContentView>
-            <ContentView Padding="{StaticResource _topBarSmallButtonPadding}"
-                         HorizontalOptions="EndAndExpand">
+            <ContentView HorizontalOptions="EndAndExpand">
                 <ContentView.GestureRecognizers>
                     <TapGestureRecognizer Command="{Binding NavigateToSettingsCommand}"/>
                 </ContentView.GestureRecognizers>
                 <Image Source="gear"
                        InputTransparent="True"/>
             </ContentView>
+            <ContentView IsVisible="{Binding WorkflowStage, Converter={StaticResource enumCompare}, ConverterParameter={x:Static vm:WorkflowStage.Capture}}"
+                         HorizontalOptions="EndAndExpand">
+                <ContentView.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding FlipCameraCommand}"/>
+                </ContentView.GestureRecognizers>
+                <Image Source="cameraFlip"
+                       InputTransparent="True"/>
+            </ContentView>
+            <ContentView HorizontalOptions="EndAndExpand"
+                         IsVisible="{Binding IsFullscreenToggleVisible}">
+                <ContentView.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding ToggleFullscreen}"/>
+                </ContentView.GestureRecognizers>
+                <Image Source="fullscreen"
+                       InputTransparent="True">
+                    <Image.Triggers>
+                        <DataTrigger TargetType="Image"
+                                     Binding="{Binding IsFullscreenToggle}"
+                                     Value="True">
+                            <Setter Property="Source"
+                                    Value="viewColumn2"/>
+                        </DataTrigger>
+                        <DataTrigger TargetType="Image"
+                                     Binding="{Binding IsFullscreenToggle}"
+                                     Value="False">
+                            <Setter Property="Source"
+                                    Value="layers"/>
+                        </DataTrigger>
+                    </Image.Triggers>
+                </Image>
+            </ContentView>
+            <AbsoluteLayout HorizontalOptions="EndAndExpand"
+                            IsVisible="False">
+                <AbsoluteLayout.Triggers>
+                    <DataTrigger TargetType="AbsoluteLayout"
+                                 Binding="{Binding WorkflowStage, Converter={vc:EnumCompareConverter}, ConverterParameter={x:Static vm:WorkflowStage.AutomaticAlign}}"
+                                 Value="True">
+                        <Setter Property="IsVisible"
+                                Value="True"/>
+                    </DataTrigger>
+                    <DataTrigger TargetType="AbsoluteLayout"
+                                 Binding="{Binding WorkflowStage, Converter={vc:EnumCompareConverter}, ConverterParameter={x:Static vm:WorkflowStage.Final}}"
+                                 Value="True">
+                        <Setter Property="IsVisible"
+                                Value="True"/>
+                    </DataTrigger>
+                </AbsoluteLayout.Triggers>
+                <AbsoluteLayout.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding ToggleAutoalignCommand}"/>
+                </AbsoluteLayout.GestureRecognizers>
+                <Image Source="smartToy"
+                       InputTransparent="True">
+                </Image>
+                <Image Source="close"
+                       InputTransparent="True"
+                       IsVisible="{Binding Settings.AlignmentSettings.IsAutomaticAlignmentOn, Converter={vc:BooleanInvertConverter}}"/>
+            </AbsoluteLayout>
         </StackLayout>
 
         <Label AbsoluteLayout.LayoutFlags="All"
@@ -1598,9 +1630,19 @@
         <Label Text="Saving..."
                Style="{StaticResource _feedback}"
                IsVisible="{Binding WorkflowStage, Converter={StaticResource enumCompare}, ConverterParameter={x:Static vm:WorkflowStage.Saving}}"/>
-        <Label Text="Aligning..."
-               Style="{StaticResource _feedback}"
-               IsVisible="{Binding WorkflowStage, Converter={StaticResource enumCompare}, ConverterParameter={x:Static vm:WorkflowStage.AutomaticAlign}}"/>
+        <StackLayout Style="{StaticResource _feedbackElement}"
+                     IsVisible="{Binding WorkflowStage, Converter={StaticResource enumCompare}, ConverterParameter={x:Static vm:WorkflowStage.AutomaticAlign}}"
+                     InputTransparent="True">
+            <Label Text="Aligning..."
+                   HorizontalOptions="CenterAndExpand"
+                   VerticalOptions="EndAndExpand"
+                   Style="{StaticResource _feedback}"
+                   InputTransparent="True"/>
+            <Image Source="smartToy"
+                   HorizontalOptions="CenterAndExpand"
+                   VerticalOptions="StartAndExpand"
+                   InputTransparent="True"/>
+        </StackLayout>
         <Label Text="Loading..."
                Style="{StaticResource _feedback}"
                IsVisible="{Binding WorkflowStage, Converter={StaticResource enumCompare}, ConverterParameter={x:Static vm:WorkflowStage.Loading}}"/>

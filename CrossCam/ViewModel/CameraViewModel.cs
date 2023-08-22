@@ -169,6 +169,8 @@ namespace CrossCam.ViewModel
 
         public Command ClearEditCommand { get; set; }
 
+        public Command ToggleAutoalignCommand { get; set; }
+
         public Command PromptForPermissionAndSendErrorEmailCommand { get; set; }
         public Exception Error { get; set; }
 
@@ -1211,6 +1213,13 @@ namespace CrossCam.ViewModel
             ToggleFullscreen = new Command(() =>
             {
                 IsFullscreenToggle = !IsFullscreenToggle;
+            });
+
+            ToggleAutoalignCommand = new Command(() =>
+            {
+                Settings.AlignmentSettings.IsAutomaticAlignmentOn = !Settings.AlignmentSettings.IsAutomaticAlignmentOn;
+                PersistentStorage.Save(PersistentStorage.SETTINGS_KEY, Settings);
+                AutoAlign();
             });
         }
 

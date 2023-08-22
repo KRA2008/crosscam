@@ -527,6 +527,14 @@
     <BundleResource Include="Resources\bouquetOverlapped.png" />
     <BundleResource Include="Resources\bouquetOverlapping.png" />
     <BundleResource Include="Resources\bouquetParallel.png" />
+    <BundleResource Include="Resources\layers.png" />
+    <BundleResource Include="Resources\layers%402x.png" />
+    <BundleResource Include="Resources\viewColumn2.png" />
+    <BundleResource Include="Resources\viewColumn2%402x.png" />
+    <BundleResource Include="Resources\smartToy.png" />
+    <BundleResource Include="Resources\smartToy%402x.png" />
+    <BundleResource Include="Resources\close.png" />
+    <BundleResource Include="Resources\close%402x.png" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\CrossCam\CrossCam.csproj">

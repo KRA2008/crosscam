@@ -392,6 +392,7 @@ namespace CrossCam.Page
                         MoveFocusCircle();
                         break;
                     case nameof(CameraViewModel.WorkflowStage):
+                        _cameraSettingsBox.ForceLayout();
                         EvaluateSensors();
                         _forceCanvasClear = true;
                         _canvas.InvalidateSurface();
