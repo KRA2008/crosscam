@@ -27,9 +27,9 @@
         public float PhysicalDistanceThreshold { get; set; }
         public bool ReadModeColor { get; set; }
         public bool DiscardOutliersByDistance { get; set; }
-        public bool DiscardOutliersBySlope { get; set; }
+        public bool DiscardOutliersBySlope1 { get; set; }
         public bool DoKeystoneCorrection { get; set; }
-        public uint MinimumKeypoints { get; set; }
+        public uint MinimumKeypoints1 { get; set; }
         public uint KeypointOutlierThresholdTenths { get; set; }
 
         public uint EccEpsilonLevel { get; set; }
@@ -56,8 +56,8 @@
             UseKeypoints1 = false;
             UseCrossCheck = false;
             DiscardOutliersByDistance = false;
-            DiscardOutliersBySlope = true;
-            MinimumKeypoints = 5;
+            DiscardOutliersBySlope1 = false;
+            MinimumKeypoints1 = 15;
             KeypointOutlierThresholdTenths = 20;
             RatioTest = 0.75f;
             PhysicalDistanceThreshold = 0.25f;

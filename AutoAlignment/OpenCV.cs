@@ -216,7 +216,7 @@ namespace AutoAlignment
                 }
             }
 
-            if (goodMatches.Count < settings.MinimumKeypoints) return null;
+            if (goodMatches.Count < settings.MinimumKeypoints1) return null;
 
             var pairedPoints = new List<PointForCleaning>();
             for (var ii = 0; ii < goodMatches.Count; ii++)
@@ -252,7 +252,7 @@ namespace AutoAlignment
                 stopwatch.Restart();
             }
 
-            if (settings.DiscardOutliersByDistance || settings.DiscardOutliersBySlope)
+            if (settings.DiscardOutliersByDistance || settings.DiscardOutliersBySlope1)
             {
                 //Debug.WriteLine("DIRTY POINTS START (ham,dist,slope,ydiff), count: " + pairedPoints.Count);
                 //foreach (var pointForCleaning in pairedPoints)
@@ -273,7 +273,7 @@ namespace AutoAlignment
                     //Debug.WriteLine("Distance Cleaned Points count: " + pairedPoints.Count);
                 }
 
-                if (settings.DiscardOutliersBySlope)
+                if (settings.DiscardOutliersBySlope1)
                 {
                     var validSlopes = pairedPoints.Where(p => !float.IsNaN(p.Data.Slope) && float.IsFinite(p.Data.Slope)).ToArray();
                     var medianSlope = validSlopes.OrderBy(p => p.Data.Slope).ElementAt(validSlopes.Length / 2).Data.Slope;

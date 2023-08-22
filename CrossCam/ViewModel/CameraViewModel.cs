@@ -215,7 +215,7 @@ namespace CrossCam.ViewModel
         public bool AlignmentFailFadeTrigger { get; set; }
         public bool SaveFailFadeTrigger { get; set; }
         public bool SaveSuccessFadeTrigger { get; set; }
-        public bool MirrorModeNoAutoAlignTrigger { get; set; }
+        public bool MirrorModeAutoAlignWarningTrigger { get; set; }
 
         public bool SwitchToContinuousFocusTrigger { get; set; }
         public bool IsFocusCircleVisible { get; set; }
@@ -1939,13 +1939,6 @@ namespace CrossCam.ViewModel
             }
 
             if (Settings.AlignmentSettings.IsAutomaticAlignmentOn &&
-                Settings.IsCaptureInMirrorMode)
-            {
-                MirrorModeNoAutoAlignTrigger = !MirrorModeNoAutoAlignTrigger;
-                return;
-            }
-
-            if (Settings.AlignmentSettings.IsAutomaticAlignmentOn &&
                 LeftBitmap != null &&
                 RightBitmap != null &&
                 _isAlignmentInvalid &&
@@ -1964,9 +1957,9 @@ namespace CrossCam.ViewModel
                     {
                         await Task.Run(() =>
                         {
-                            if (Settings.AlignmentSettings.UseKeypoints1)
+                            if (Settings.AlignmentSettings.UseKeypoints1 ||
+                                Settings.IsCaptureInMirrorMode)
                             {
-                                var needsFallback = false;
                                 try
                                 {
                                     alignedResult = openCv.CreateAlignedSecondImageKeypoints(
@@ -1977,30 +1970,53 @@ namespace CrossCam.ViewModel
                                         Settings.Mode != DrawMode.Parallel ||
                                         !Settings.IsCaptureLeftFirst &&
                                         Settings.Mode == DrawMode.Parallel);
-                                    if (alignedResult == null)
-                                    {
-                                        needsFallback = true;
-                                    }
                                 }
                                 catch (Exception e)
                                 {
                                     Error = e;
-                                    needsFallback = true;
+
+                                    alignedResult = openCv.CreateAlignedSecondImageEcc(
+                                        firstImage,
+                                        secondImage,
+                                        Settings.AlignmentSettings);
                                 }
-                                if (needsFallback)
+
+                                alignedResult ??= openCv.CreateAlignedSecondImageEcc(
+                                    firstImage,
+                                    secondImage,
+                                    Settings.AlignmentSettings);
+                            }
+                            else
+                            {
+                                try
                                 {
                                     alignedResult = openCv.CreateAlignedSecondImageEcc(
                                         firstImage,
                                         secondImage,
                                         Settings.AlignmentSettings);
                                 }
-                            }
-                            else
-                            {
-                                alignedResult = openCv.CreateAlignedSecondImageEcc(
+                                catch (Exception e)
+                                {
+                                    Error = e;
+
+                                    alignedResult = openCv.CreateAlignedSecondImageKeypoints(
+                                        firstImage,
+                                        secondImage,
+                                        Settings.AlignmentSettings,
+                                        Settings.IsCaptureLeftFirst &&
+                                        Settings.Mode != DrawMode.Parallel ||
+                                        !Settings.IsCaptureLeftFirst &&
+                                        Settings.Mode == DrawMode.Parallel);
+                                }
+
+                                alignedResult ??= openCv.CreateAlignedSecondImageKeypoints(
                                     firstImage,
                                     secondImage,
-                                    Settings.AlignmentSettings);
+                                    Settings.AlignmentSettings,
+                                    Settings.IsCaptureLeftFirst &&
+                                    Settings.Mode != DrawMode.Parallel ||
+                                    !Settings.IsCaptureLeftFirst &&
+                                    Settings.Mode == DrawMode.Parallel);
                             }
                         });
                     }
@@ -2022,8 +2038,7 @@ namespace CrossCam.ViewModel
                             AlignmentConfidence = "KP";
                         }
 
-                        if (Settings.AlignmentSettings.UseKeypoints1 &&
-                            Settings.AlignmentSettings.DrawKeypointMatches &&
+                        if (Settings.AlignmentSettings.DrawKeypointMatches &&
                             alignedResult.DrawnDirtyMatches != null)
                         {
                             var countPoint = new SKPoint(0, alignedResult.DrawnDirtyMatches.Height / 16f);
@@ -2054,7 +2069,8 @@ namespace CrossCam.ViewModel
                             await SaveSurfaceSnapshot(dirtyMatchesSurface, "KeyPoints");
                             
 
-                            if ((Settings.AlignmentSettings.DiscardOutliersBySlope || Settings.AlignmentSettings.DiscardOutliersByDistance) &&
+                            if ((Settings.AlignmentSettings.DiscardOutliersBySlope1 || 
+                                 Settings.AlignmentSettings.DiscardOutliersByDistance) && 
                                 alignedResult.DrawnCleanMatches != null)
                             {
                                 using var cleanMatchesSurface =
@@ -2116,6 +2132,11 @@ namespace CrossCam.ViewModel
                                 RightAlignmentTransform = alignedResult.TransformMatrix1;
                             }
                             LeftAlignmentTransform = alignedResult.TransformMatrix2;
+                        }
+
+                        if (Settings.IsCaptureInMirrorMode)
+                        {
+                            MirrorModeAutoAlignWarningTrigger = !MirrorModeAutoAlignWarningTrigger;
                         }
                     }
                     else

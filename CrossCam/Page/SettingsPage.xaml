@@ -504,7 +504,7 @@
                     <Frame Grid.Column="1"
                            Grid.Row="7"
                            IsVisible="{Binding Settings.AlignmentSettings.ShowAdvancedAlignmentSettings}">
-                        <Entry Text="{Binding Settings.AlignmentSettings.MinimumKeypoints}"/>
+                        <Entry Text="{Binding Settings.AlignmentSettings.MinimumKeypoints1}"/>
                     </Frame>
 
                     <Label Grid.Column="0"
@@ -522,7 +522,7 @@
                            IsVisible="{Binding Settings.AlignmentSettings.ShowAdvancedAlignmentSettings}"/>
                     <Switch Grid.Column="1"
                             Grid.Row="9"
-                            IsToggled="{Binding Settings.AlignmentSettings.DiscardOutliersBySlope}"
+                            IsToggled="{Binding Settings.AlignmentSettings.DiscardOutliersBySlope1}"
                             IsVisible="{Binding Settings.AlignmentSettings.ShowAdvancedAlignmentSettings}"/>
 
                     <Label Grid.Column="0"

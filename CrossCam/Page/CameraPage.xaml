@@ -1734,12 +1734,12 @@
                                          Trigger="{Binding AutomaticAlignmentNotSupportedTrigger}"/>
             </Label.Behaviors>
         </Label>
-        <Label Text="Automatic alignment not supported for mirror mode - remember to do manual alignment."
+        <Label Text="Please consider manual corrections too."
                Style="{StaticResource _feedback}"
                IsVisible="False">
             <Label.Behaviors>
                 <ce:FadeInAndOutBehavior VisibleTimeMs="3000"
-                                         Trigger="{Binding MirrorModeNoAutoAlignTrigger}"/>
+                                         Trigger="{Binding MirrorModeAutoAlignWarningTrigger}"/>
             </Label.Behaviors>
         </Label>
         <ContentView AbsoluteLayout.LayoutFlags="All"
