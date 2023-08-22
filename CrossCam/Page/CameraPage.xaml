@@ -1538,50 +1538,61 @@
                 <ContentView.GestureRecognizers>
                     <TapGestureRecognizer Command="{Binding ToggleFullscreen}"/>
                 </ContentView.GestureRecognizers>
-                <Image Source="fullscreen"
+                <Image Source="ghost"
                        InputTransparent="True">
                     <Image.Triggers>
                         <DataTrigger TargetType="Image"
                                      Binding="{Binding IsFullscreenToggle}"
                                      Value="True">
-                            <Setter Property="Source"
-                                    Value="viewColumn2"/>
+                            <Setter Property="Opacity"
+                                    Value="1"/>
                         </DataTrigger>
                         <DataTrigger TargetType="Image"
                                      Binding="{Binding IsFullscreenToggle}"
                                      Value="False">
-                            <Setter Property="Source"
-                                    Value="layers"/>
+                            <Setter Property="Opacity"
+                                    Value="0.25"/>
                         </DataTrigger>
                     </Image.Triggers>
                 </Image>
             </ContentView>
-            <AbsoluteLayout HorizontalOptions="EndAndExpand"
-                            IsVisible="False">
-                <AbsoluteLayout.Triggers>
-                    <DataTrigger TargetType="AbsoluteLayout"
+            <ContentView HorizontalOptions="EndAndExpand"
+                         IsVisible="False">
+                <ContentView.Triggers>
+                    <DataTrigger TargetType="ContentView"
                                  Binding="{Binding WorkflowStage, Converter={vc:EnumCompareConverter}, ConverterParameter={x:Static vm:WorkflowStage.AutomaticAlign}}"
                                  Value="True">
                         <Setter Property="IsVisible"
                                 Value="True"/>
                     </DataTrigger>
-                    <DataTrigger TargetType="AbsoluteLayout"
+                    <DataTrigger TargetType="ContentView"
                                  Binding="{Binding WorkflowStage, Converter={vc:EnumCompareConverter}, ConverterParameter={x:Static vm:WorkflowStage.Final}}"
                                  Value="True">
                         <Setter Property="IsVisible"
                                 Value="True"/>
                     </DataTrigger>
-                </AbsoluteLayout.Triggers>
-                <AbsoluteLayout.GestureRecognizers>
+                </ContentView.Triggers>
+                <ContentView.GestureRecognizers>
                     <TapGestureRecognizer Command="{Binding ToggleAutoalignCommand}"/>
-                </AbsoluteLayout.GestureRecognizers>
+                </ContentView.GestureRecognizers>
                 <Image Source="smartToy"
                        InputTransparent="True">
+                    <Image.Triggers>
+                        <DataTrigger TargetType="Image"
+                                     Binding="{Binding Settings.AlignmentSettings.IsAutomaticAlignmentOn, Converter={vc:BooleanInvertConverter}}"
+                                     Value="False">
+                            <Setter Property="Opacity"
+                                    Value="0.25"/>
+                        </DataTrigger>
+                        <DataTrigger TargetType="Image"
+                                     Binding="{Binding Settings.AlignmentSettings.IsAutomaticAlignmentOn}"
+                                     Value="True">
+                            <Setter Property="Opacity"
+                                    Value="1"/>
+                        </DataTrigger>
+                    </Image.Triggers>
                 </Image>
-                <Image Source="close"
-                       InputTransparent="True"
-                       IsVisible="{Binding Settings.AlignmentSettings.IsAutomaticAlignmentOn, Converter={vc:BooleanInvertConverter}}"/>
-            </AbsoluteLayout>
+            </ContentView>
         </StackLayout>
 
         <Label AbsoluteLayout.LayoutFlags="All"
@@ -1633,14 +1644,14 @@
         <StackLayout Style="{StaticResource _feedbackElement}"
                      IsVisible="{Binding WorkflowStage, Converter={StaticResource enumCompare}, ConverterParameter={x:Static vm:WorkflowStage.AutomaticAlign}}"
                      InputTransparent="True">
-            <Label Text="Aligning..."
-                   HorizontalOptions="CenterAndExpand"
-                   VerticalOptions="EndAndExpand"
-                   Style="{StaticResource _feedback}"
-                   InputTransparent="True"/>
             <Image Source="smartToy"
                    HorizontalOptions="CenterAndExpand"
+                   VerticalOptions="EndAndExpand"
+                   InputTransparent="True"/>
+            <Label Text="Aligning..."
+                   HorizontalOptions="CenterAndExpand"
                    VerticalOptions="StartAndExpand"
+                   Style="{StaticResource _feedback}"
                    InputTransparent="True"/>
         </StackLayout>
         <Label Text="Loading..."

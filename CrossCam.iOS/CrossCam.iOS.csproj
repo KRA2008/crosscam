@@ -535,6 +535,8 @@
     <BundleResource Include="Resources\smartToy%402x.png" />
     <BundleResource Include="Resources\close.png" />
     <BundleResource Include="Resources\close%402x.png" />
+    <BundleResource Include="Resources\ghost.png" />
+    <BundleResource Include="Resources\ghost%402x.png" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\CrossCam\CrossCam.csproj">
