@@ -346,6 +346,7 @@ namespace CrossCam.Page
                 _viewModel.Settings.PropertyChanged += SettingsOnPropertyChanged;
                 _viewModel.Edits.PropertyChanged += InvalidateCanvasBecausePropertyChanged;
                 _viewModel.Settings.CardboardSettings.PropertyChanged += InvalidateCanvasBecausePropertyChanged;
+                _viewModel.Settings.AlignmentSettings.PropertyChanged += InvalidateCanvasBecausePropertyChanged;
 
                 Device.BeginInvokeOnMainThread(() =>
                 {

@@ -1595,7 +1595,23 @@
                     </Image.Triggers>
                 </Image>
                 <Label Text="{Binding AlignmentConfidence}"
-                       HorizontalOptions="CenterAndExpand"/>
+                       HorizontalOptions="CenterAndExpand"
+                       InputTransparent="True">
+                    <Label.Triggers>
+                        <DataTrigger TargetType="Label"
+                                     Binding="{Binding Settings.AlignmentSettings.IsAutomaticAlignmentOn, Converter={vc:BooleanInvertConverter}}"
+                                     Value="False">
+                            <Setter Property="Opacity"
+                                    Value="0.25"/>
+                        </DataTrigger>
+                        <DataTrigger TargetType="Label"
+                                     Binding="{Binding Settings.AlignmentSettings.IsAutomaticAlignmentOn}"
+                                     Value="True">
+                            <Setter Property="Opacity"
+                                    Value="1"/>
+                        </DataTrigger>
+                    </Label.Triggers>
+                </Label>
             </StackLayout>
         </StackLayout>
 

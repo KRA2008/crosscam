@@ -45,12 +45,36 @@ namespace CrossCam.ViewModel
 
         public bool CaptureSuccessTrigger { get; set; }
 
+        private SKMatrix _leftAlignmentTransform;
+        public SKMatrix LeftAlignmentTransform
+        {
+            get
+            {
+                if (Settings.AlignmentSettings.IsAutomaticAlignmentOn)
+                {
+                    return _leftAlignmentTransform;
+                }
+                return SKMatrix.Identity;
+            }
+            set => _leftAlignmentTransform = value;
+        }
         public SKBitmap LeftBitmap { get; set; }
-        public SKMatrix LeftAlignmentTransform { get; set; }
         public Command RetakeLeftCommand { get; set; }
         
+        private SKMatrix _rightAlignmentTransform;
+        public SKMatrix RightAlignmentTransform
+        {
+            get
+            {
+                if (Settings.AlignmentSettings.IsAutomaticAlignmentOn)
+                {
+                    return _rightAlignmentTransform;
+                }
+                return SKMatrix.Identity;
+            }
+            set => _rightAlignmentTransform = value;
+        }
         public SKBitmap RightBitmap { get; set; }
-        public SKMatrix RightAlignmentTransform { get; set; }
         public Command RetakeRightCommand { get; set; }
 
         public string AlignmentConfidence { get; set; }
@@ -1610,7 +1634,10 @@ namespace CrossCam.ViewModel
 
         private void AlignmentSettingsOnPropertyChanged(object sender, PropertyChangedEventArgs e)
         {
-            _isAlignmentInvalid = true;
+            if (e.PropertyName != nameof(AlignmentSettings.IsAutomaticAlignmentOn))
+            {
+                _isAlignmentInvalid = true;
+            }
         }
 
         private void PairOperatorCountdownDisplayTimerCompleteSecondary(object sender, EventArgs e)
@@ -1930,14 +1957,6 @@ namespace CrossCam.ViewModel
 
         private async void AutoAlign()
         {
-            if (!Settings.AlignmentSettings.IsAutomaticAlignmentOn &&
-                _isAlignmentInvalid)
-            {
-                ClearAutoAlignment();
-                _isAlignmentInvalid = false;
-                return;
-            }
-
             if (Settings.AlignmentSettings.IsAutomaticAlignmentOn &&
                 LeftBitmap != null &&
                 RightBitmap != null &&
