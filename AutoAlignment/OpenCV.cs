@@ -366,7 +366,7 @@ namespace AutoAlignment
                 var keystonedSecond1 = SKMatrix.CreateIdentity();
                 var keystonedSecond2 = SKMatrix.CreateIdentity();
                 var keystonedSecond3 = SKMatrix.CreateIdentity();
-                if (settings.DoKeystoneCorrection)
+                if (settings.DoKeystoneCorrection1)
                 {
                     var keystoneFirst1 = FindTaper(points2, points1, firstImage.Width, firstImage.Height);
                     keystonedFirst1 = CreateTaper(firstImage.Width / 2f, firstImage.Height / 2f, keystoneFirst1);

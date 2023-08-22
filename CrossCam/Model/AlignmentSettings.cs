@@ -28,7 +28,7 @@
         public bool ReadModeColor { get; set; }
         public bool DiscardOutliersByDistance { get; set; }
         public bool DiscardOutliersBySlope1 { get; set; }
-        public bool DoKeystoneCorrection { get; set; }
+        public bool DoKeystoneCorrection1 { get; set; }
         public uint MinimumKeypoints1 { get; set; }
         public uint KeypointOutlierThresholdTenths { get; set; }
 
@@ -64,7 +64,7 @@
 
             TransformationFindingMethod = (uint)Model.TransformationFindingMethod.BinarySearch; //why not enum?
 
-            DoKeystoneCorrection = false;
+            DoKeystoneCorrection1 = true;
         }
     }
 }

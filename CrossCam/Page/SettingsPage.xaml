@@ -550,7 +550,7 @@
                            IsVisible="{Binding Settings.AlignmentSettings.ShowAdvancedAlignmentSettings}"/>
                     <Switch Grid.Column="1"
                             Grid.Row="12"
-                            IsToggled="{Binding Settings.AlignmentSettings.DoKeystoneCorrection}"
+                            IsToggled="{Binding Settings.AlignmentSettings.DoKeystoneCorrection1}"
                             IsVisible="{Binding Settings.AlignmentSettings.ShowAdvancedAlignmentSettings}"/>
 
                     <Label Grid.Column="0"
