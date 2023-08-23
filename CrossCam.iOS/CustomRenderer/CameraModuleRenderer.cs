@@ -493,6 +493,9 @@ namespace CrossCam.iOS.CustomRenderer
                 case UIDeviceOrientation.Portrait:
                     imageOrientation = UIImageOrientation.Right;
                     break;
+                case UIDeviceOrientation.PortraitUpsideDown:
+                    imageOrientation = UIImageOrientation.Left;
+                    break;
                 default:
                     imageOrientation = UIImageOrientation.Up;
                     break;
@@ -530,6 +533,11 @@ namespace CrossCam.iOS.CustomRenderer
                     touchPoint = new CGPoint(
                         (1-point.Y) * _avCaptureVideoPreviewLayer.Frame.Width,
                         point.X * _avCaptureVideoPreviewLayer.Frame.Height);
+                    break;
+                case UIDeviceOrientation.PortraitUpsideDown:
+                    touchPoint = new CGPoint(
+                        (1-point.X) * _avCaptureVideoPreviewLayer.Frame.Width,
+                        (1-point.Y) * _avCaptureVideoPreviewLayer.Frame.Height);
                     break;
                 case UIDeviceOrientation.Portrait:
                 default:
@@ -639,6 +647,7 @@ namespace CrossCam.iOS.CustomRenderer
             switch (UIDevice.CurrentDevice.Orientation)
             {
                 case UIDeviceOrientation.Portrait:
+                case UIDeviceOrientation.PortraitUpsideDown:
                 case UIDeviceOrientation.LandscapeLeft:
                 case UIDeviceOrientation.LandscapeRight:
                     _previousValidOrientation = UIDevice.CurrentDevice.Orientation;
@@ -670,6 +679,9 @@ namespace CrossCam.iOS.CustomRenderer
             {
                 case UIDeviceOrientation.Portrait:
                     videoOrientation = AVCaptureVideoOrientation.Portrait;
+                    break;
+                case UIDeviceOrientation.PortraitUpsideDown:
+                    videoOrientation = AVCaptureVideoOrientation.PortraitUpsideDown;
                     break;
                 case UIDeviceOrientation.LandscapeRight:
                     videoOrientation = AVCaptureVideoOrientation.LandscapeLeft;
