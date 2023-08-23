@@ -1,4 +1,5 @@
-﻿using System.IO;
+﻿using System.Collections;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using Android;
@@ -122,9 +123,9 @@ namespace CrossCam.Droid
             }
             else if (Intent.ActionSendMultiple.Equals(Intent.Action) && 
                      Intent.Type != null &&
-                     Intent.Type.StartsWith("image/"))
+                     Intent.Type.StartsWith("image/") &&
+                     Intent.GetParcelableArrayListExtra(Intent.ExtraStream) is {} parcelables)
             {
-                var parcelables = Intent.GetParcelableArrayListExtra(Intent.ExtraStream);
                 if (parcelables[0] is Uri uri1 &&
                     parcelables[1] is Uri uri2)
                 {
@@ -134,6 +135,8 @@ namespace CrossCam.Droid
                     _app.LoadSharedImages(image1Task.Result, image2Task.Result);
                 }
             }
+
+            Intent?.RemoveExtra(Intent.ExtraStream);
         }    
 
         protected override async void OnActivityResult(int requestCode, Result resultCode, Intent intent)
