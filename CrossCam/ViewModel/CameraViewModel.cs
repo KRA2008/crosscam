@@ -437,7 +437,8 @@ namespace CrossCam.ViewModel
                                                               !IsFullscreenToggle &&
                                                               WorkflowStage != WorkflowStage.Saving &&
                                                               (WorkflowStage == WorkflowStage.Final ||
-                                                               WorkflowStage == WorkflowStage.Edits) && 
+                                                               WorkflowStage == WorkflowStage.Edits ||
+                                                               WorkflowStage == WorkflowStage.FovCorrection) && 
                                                               Settings.Mode != DrawMode.GrayscaleRedCyanAnaglyph &&
                                                               Settings.Mode != DrawMode.RedCyanAnaglyph;
 
