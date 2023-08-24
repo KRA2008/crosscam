@@ -22,10 +22,10 @@ using Math = System.Math;
 using SkiaSharp.Views.Android;
 #elif __IOS__
 using SkiaSharp.Views.iOS;
-using Emgu.CV.ML;
 #endif
 
 [assembly: Dependency(typeof(OpenCv))]
+
 namespace AutoAlignment
 {
     public class OpenCv : IOpenCv
@@ -51,13 +51,14 @@ namespace AutoAlignment
 #endif
         }
 
-        public AlignedResult CreateAlignedSecondImageEcc(SKBitmap firstImage, SKBitmap secondImage, AlignmentSettings settings)
+        public AlignedResult CreateAlignedSecondImageEcc(SKBitmap firstImage, SKBitmap secondImage,
+            AlignmentSettings settings)
         {
 #if __NO_EMGU__
             return null;
 #else
             var topDownsizeFactor = settings.DownsizePercentage / 100f;
-            
+
             using var mat1 = new Mat();
             using var mat2 = new Mat();
             using var warpMatrix = Mat.Eye(
@@ -66,7 +67,7 @@ namespace AutoAlignment
             var termCriteria =
                 new MCvTermCriteria((int) settings.EccIterations, Math.Pow(10, -settings.EccEpsilonLevel));
             double ecc = 0;
-            for (var ii = (int)settings.EccPyramidLayers - 1; ii >= 0; ii--)
+            for (var ii = (int) settings.EccPyramidLayers - 1; ii >= 0; ii--)
             {
                 var downsize = topDownsizeFactor / Math.Pow(2, ii);
                 CvInvoke.Imdecode(GetBytes(firstImage, downsize), ImreadModes.Grayscale, mat1);
@@ -81,10 +82,11 @@ namespace AutoAlignment
                 {
                     Crashes.TrackError(e);
                     Debug.WriteLine(e);
-                    if (e.Status == (int)ErrorCodes.StsNoConv)
+                    if (e.Status == (int) ErrorCodes.StsNoConv)
                     {
                         return null;
                     }
+
                     throw;
                 }
 
@@ -95,7 +97,7 @@ namespace AutoAlignment
 
                 unsafe
                 {
-                    var ptr = (float*)warpMatrix.DataPointer.ToPointer(); //ScaleX
+                    var ptr = (float*) warpMatrix.DataPointer.ToPointer(); //ScaleX
                     ptr++; //SkewX
                     ptr++; //TransX
                     *ptr *= 2; //scale up the shifting
@@ -114,7 +116,7 @@ namespace AutoAlignment
                 return null;
             }
 
-            var result =  new AlignedResult
+            var result = new AlignedResult
             {
                 TransformMatrix1 = SKMatrix.CreateIdentity(),
                 TransformMatrix2 = ConvertCvMatToSkMatrix(warpMatrix),
@@ -126,7 +128,8 @@ namespace AutoAlignment
                 Mat fullSizeColor1 = new Mat(), fullSizeColor2 = new Mat();
                 CvInvoke.Imdecode(GetBytes(firstImage, 1), ImreadModes.Color, fullSizeColor1);
                 CvInvoke.Imdecode(GetBytes(secondImage, 1), ImreadModes.Color, fullSizeColor2);
-                AddWarpedToResult(fullSizeColor1, fullSizeColor2, Mat.Eye(2, 3, DepthType.Cv32F, 1), warpMatrix, result);
+                AddWarpedToResult(fullSizeColor1, fullSizeColor2, Mat.Eye(2, 3, DepthType.Cv32F, 1), warpMatrix,
+                    result);
                 result.MethodName = "ECC";
             }
 
@@ -163,21 +166,24 @@ namespace AutoAlignment
             detector.DetectAndCompute(image2Mat, null, allKeyPointsVector2, descriptors2, false);
 
             stopwatch.Restart();
-            var thresholdDistance = Math.Sqrt(Math.Pow(firstImage.Width, 2) + Math.Pow(firstImage.Height, 2)) * settings.PhysicalDistanceThreshold;
+            var thresholdDistance = Math.Sqrt(Math.Pow(firstImage.Width, 2) + Math.Pow(firstImage.Height, 2)) *
+                                    settings.PhysicalDistanceThreshold;
 
-            using var distanceThresholdMask = new Mat(allKeyPointsVector2.Size, allKeyPointsVector1.Size, DepthType.Cv8U, 1);
+            using var distanceThresholdMask =
+                new Mat(allKeyPointsVector2.Size, allKeyPointsVector1.Size, DepthType.Cv8U, 1);
             if (!settings.UseCrossCheck)
             {
                 unsafe
                 {
-                    var maskPtr = (byte*)distanceThresholdMask.DataPointer.ToPointer();
+                    var maskPtr = (byte*) distanceThresholdMask.DataPointer.ToPointer();
                     for (var i = 0; i < allKeyPointsVector2.Size; i++)
                     {
                         var keyPoint2 = allKeyPointsVector2[i];
                         for (var j = 0; j < allKeyPointsVector1.Size; j++)
                         {
                             var keyPoint1 = allKeyPointsVector1[j];
-                            var physicalDistance = CalculatePhysicalDistanceBetweenPoints(keyPoint2.Point, keyPoint1.Point);
+                            var physicalDistance =
+                                CalculatePhysicalDistanceBetweenPoints(keyPoint2.Point, keyPoint1.Point);
                             if (physicalDistance < thresholdDistance)
                             {
                                 *maskPtr = 255;
@@ -192,13 +198,15 @@ namespace AutoAlignment
                     }
                 }
             }
+
             Debug.WriteLine("### physical distance checks: " + stopwatch.ElapsedTicks);
             stopwatch.Restart();
 
             using var vectorOfMatches = new VectorOfVectorOfDMatch();
             using var matcher = new BFMatcher(DistanceType.Hamming, settings.UseCrossCheck);
             matcher.Add(descriptors1);
-            matcher.KnnMatch(descriptors2, vectorOfMatches, settings.UseCrossCheck ? 1 : 2, settings.UseCrossCheck ? new VectorOfMat() : new VectorOfMat(distanceThresholdMask));
+            matcher.KnnMatch(descriptors2, vectorOfMatches, settings.UseCrossCheck ? 1 : 2,
+                settings.UseCrossCheck ? new VectorOfMat() : new VectorOfMat(distanceThresholdMask));
             Debug.WriteLine("### match: " + stopwatch.ElapsedTicks);
             stopwatch.Restart();
 
@@ -210,8 +218,9 @@ namespace AutoAlignment
                     continue;
                 }
 
-                if(vectorOfMatches[i].Size == 1 || 
-                   (vectorOfMatches[i][0].Distance < settings.RatioTest * vectorOfMatches[i][1].Distance)) //make sure matches are unique
+                if (vectorOfMatches[i].Size == 1 ||
+                    (vectorOfMatches[i][0].Distance <
+                     settings.RatioTest * vectorOfMatches[i][1].Distance)) //make sure matches are unique
                 {
                     goodMatches.Add(vectorOfMatches[i][0]);
                 }
@@ -230,7 +239,7 @@ namespace AutoAlignment
                     KeyPoint2 = keyPoint2,
                     Data = new KeyPointOutlierDetectorData
                     {
-                        Distance = (float)CalculatePhysicalDistanceBetweenPoints(keyPoint1.Point, keyPoint2.Point),
+                        Distance = (float) CalculatePhysicalDistanceBetweenPoints(keyPoint1.Point, keyPoint2.Point),
                         Slope = (keyPoint2.Point.Y - keyPoint1.Point.Y) / (keyPoint2.Point.X - keyPoint1.Point.X)
                     },
                     Match = new MDMatch
@@ -242,13 +251,15 @@ namespace AutoAlignment
                     }
                 });
             }
+
             Debug.WriteLine("### match distance: " + stopwatch.ElapsedTicks);
             stopwatch.Restart();
 
             if (settings.DrawKeypointMatches)
             {
                 result.DirtyMatchesCount = pairedPoints.Count;
-                result.DrawnDirtyMatches = DrawMatches(firstImage, secondImage, pairedPoints, settings.DownsizePercentage);
+                result.DrawnDirtyMatches =
+                    DrawMatches(firstImage, secondImage, pairedPoints, settings.DownsizePercentage);
                 Debug.WriteLine("### draw matches: " + stopwatch.ElapsedTicks);
                 stopwatch.Restart();
             }
@@ -267,19 +278,26 @@ namespace AutoAlignment
                 if (settings.DiscardOutliersByDistance)
                 {
                     // reject distances and slopes more than some number of standard deviations from the median
-                    var medianDistance = pairedPoints.OrderBy(p => p.Data.Distance).ElementAt(pairedPoints.Count / 2).Data.Distance;
+                    var medianDistance = pairedPoints.OrderBy(p => p.Data.Distance).ElementAt(pairedPoints.Count / 2)
+                        .Data.Distance;
                     var distanceStdDev = CalcStandardDeviation(pairedPoints.Select(p => p.Data.Distance).ToArray());
-                    pairedPoints = pairedPoints.Where(p => Math.Abs(p.Data.Distance - medianDistance) < Math.Abs(distanceStdDev * (settings.KeypointOutlierThresholdTenths / 10d))).ToList();
+                    pairedPoints = pairedPoints.Where(p =>
+                        Math.Abs(p.Data.Distance - medianDistance) <
+                        Math.Abs(distanceStdDev * (settings.KeypointOutlierThresholdTenths / 10d))).ToList();
                     //Debug.WriteLine("Median Distance: " + medianDistance);
                     //Debug.WriteLine("Distance Cleaned Points count: " + pairedPoints.Count);
                 }
 
                 if (settings.DiscardOutliersBySlope1)
                 {
-                    var validSlopes = pairedPoints.Where(p => !float.IsNaN(p.Data.Slope) && float.IsFinite(p.Data.Slope)).ToArray();
-                    var medianSlope = validSlopes.OrderBy(p => p.Data.Slope).ElementAt(validSlopes.Length / 2).Data.Slope;
+                    var validSlopes = pairedPoints
+                        .Where(p => !float.IsNaN(p.Data.Slope) && float.IsFinite(p.Data.Slope)).ToArray();
+                    var medianSlope = validSlopes.OrderBy(p => p.Data.Slope).ElementAt(validSlopes.Length / 2).Data
+                        .Slope;
                     var slopeStdDev = CalcStandardDeviation(validSlopes.Select(p => p.Data.Slope).ToArray());
-                    pairedPoints = validSlopes.Where(p => Math.Abs(p.Data.Slope - medianSlope) < Math.Abs(slopeStdDev * (settings.KeypointOutlierThresholdTenths / 10d))).ToList();
+                    pairedPoints = validSlopes.Where(p =>
+                        Math.Abs(p.Data.Slope - medianSlope) <
+                        Math.Abs(slopeStdDev * (settings.KeypointOutlierThresholdTenths / 10d))).ToList();
                     //Debug.WriteLine("Median Slope: " + medianSlope);
                     //Debug.WriteLine("Slope Cleaned Points count: " + pairedPoints.Count);
                 }
@@ -308,21 +326,26 @@ namespace AutoAlignment
                 if (settings.DrawKeypointMatches)
                 {
                     result.CleanMatchesCount = pairedPoints.Count;
-                    result.DrawnCleanMatches = DrawMatches(firstImage, secondImage, pairedPoints, settings.DownsizePercentage);
+                    result.DrawnCleanMatches =
+                        DrawMatches(firstImage, secondImage, pairedPoints, settings.DownsizePercentage);
                 }
             }
 
 
 
-            if (settings.TransformationFindingMethod == (uint)TransformationFindingMethod.BinarySearch)
+            if (settings.TransformationFindingMethod == (uint) TransformationFindingMethod.BinarySearch)
             {
                 var points1 = pairedPoints.Select(p => new SKPoint(p.KeyPoint1.Point.X, p.KeyPoint1.Point.Y)).ToArray();
                 var points2 = pairedPoints.Select(p => new SKPoint(p.KeyPoint2.Point.X, p.KeyPoint2.Point.Y)).ToArray();
 
 
-                var translation1 = FindVerticalTranslation(points1, points2, secondImage);
-                var translated1 = SKMatrix.CreateTranslation(0, translation1);
-                points2 = translated1.MapPoints(points2);
+                var vert1 = FindVerticalTranslation(points1, points2, secondImage);
+                var verted1 = SKMatrix.CreateTranslation(0, vert1);
+                points2 = verted1.MapPoints(points2);
+
+                var hor1 = FindHorizontalTranslation(points1, points2, secondImage);
+                var hored1 = SKMatrix.CreateTranslation(hor1, 0);
+                points2 = hored1.MapPoints(points2);
 
                 var rotation1 = FindRotation(points1, points2, secondImage);
                 var rotated1 = SKMatrix.CreateRotation(rotation1, secondImage.Width / 2f, secondImage.Height / 2f);
@@ -332,11 +355,23 @@ namespace AutoAlignment
                 var zoomed1 = SKMatrix.CreateScale(zoom1, zoom1, secondImage.Width / 2f, secondImage.Height / 2f);
                 points2 = zoomed1.MapPoints(points2);
 
+                var keystoned11 = SKMatrix.CreateIdentity();
+                var keystoned21 = SKMatrix.CreateIdentity();
+                if (settings.DoKeystoneCorrection1)
+                {
+                    FindTaperMatricesAndMapPoints(ref points1, ref points2, firstImage.Width, firstImage.Height,
+                        out keystoned11, out keystoned21);
+                }
 
 
-                var translation2 = FindVerticalTranslation(points1, points2, secondImage);
-                var translated2 = SKMatrix.CreateTranslation(0, translation2);
-                points2 = translated2.MapPoints(points2);
+
+                var vert2 = FindVerticalTranslation(points1, points2, secondImage);
+                var verted2 = SKMatrix.CreateTranslation(0, vert2);
+                points2 = verted2.MapPoints(points2);
+
+                var hor2 = FindHorizontalTranslation(points1, points2, secondImage);
+                var hored2 = SKMatrix.CreateTranslation(hor2, 0);
+                points2 = hored2.MapPoints(points2);
 
                 var rotation2 = FindRotation(points1, points2, secondImage);
                 var rotated2 = SKMatrix.CreateRotation(rotation2, secondImage.Width / 2f, secondImage.Height / 2f);
@@ -346,11 +381,22 @@ namespace AutoAlignment
                 var zoomed2 = SKMatrix.CreateScale(zoom2, zoom2, secondImage.Width / 2f, secondImage.Height / 2f);
                 points2 = zoomed2.MapPoints(points2);
 
+                var keystoned12 = SKMatrix.CreateIdentity();
+                var keystoned22 = SKMatrix.CreateIdentity();
+                if (settings.DoKeystoneCorrection1)
+                {
+                    FindTaperMatricesAndMapPoints(ref points1, ref points2, firstImage.Width, firstImage.Height,
+                        out keystoned12, out keystoned22);
+                }
 
 
-                var translation3 = FindVerticalTranslation(points1, points2, secondImage);
-                var translated3 = SKMatrix.CreateTranslation(0, translation3);
-                points2 = translated3.MapPoints(points2);
+                var vert3 = FindVerticalTranslation(points1, points2, secondImage);
+                var verted3 = SKMatrix.CreateTranslation(0, vert3);
+                points2 = verted3.MapPoints(points2);
+
+                var hor3 = FindHorizontalTranslation(points1, points2, secondImage);
+                var hored3 = SKMatrix.CreateTranslation(hor3, 0);
+                points2 = hored3.MapPoints(points2);
 
                 var rotation3 = FindRotation(points1, points2, secondImage);
                 var rotated3 = SKMatrix.CreateRotation(rotation3, secondImage.Width / 2f, secondImage.Height / 2f);
@@ -360,53 +406,21 @@ namespace AutoAlignment
                 var zoomed3 = SKMatrix.CreateScale(zoom3, zoom3, secondImage.Width / 2f, secondImage.Height / 2f);
                 points2 = zoomed3.MapPoints(points2);
 
-
-                var keystonedFirst1 = SKMatrix.CreateIdentity();
-                var keystonedFirst2 = SKMatrix.CreateIdentity();
-                var keystonedFirst3 = SKMatrix.CreateIdentity();
-                var keystonedSecond1 = SKMatrix.CreateIdentity();
-                var keystonedSecond2 = SKMatrix.CreateIdentity();
-                var keystonedSecond3 = SKMatrix.CreateIdentity();
+                var keystoned13 = SKMatrix.CreateIdentity();
+                var keystoned23 = SKMatrix.CreateIdentity();
                 if (settings.DoKeystoneCorrection1)
                 {
-                    var keystoneFirst1 = FindTaper(points2, points1, firstImage.Width, firstImage.Height);
-                    keystonedFirst1 = CreateTaper(firstImage.Width / 2f, firstImage.Height / 2f, keystoneFirst1);
-                    points1 = keystonedFirst1.MapPoints(points1);
-
-                    var keystoneSecond1 = FindTaper(points1, points2, secondImage.Width, secondImage.Height);
-                    keystonedSecond1 = CreateTaper(secondImage.Width / 2f, secondImage.Height / 2f, keystoneSecond1);
-                    points2 = keystonedSecond1.MapPoints(points2);
-
-                    var keystoneFirst2 = FindTaper(points2, points1, firstImage.Width, firstImage.Height);
-                    keystonedFirst2 = CreateTaper(firstImage.Width / 2f, firstImage.Height / 2f, keystoneFirst2);
-                    points1 = keystonedFirst2.MapPoints(points1);
-
-                    var keystoneSecond2 = FindTaper(points1, points2, secondImage.Width, secondImage.Height);
-                    keystonedSecond2 = CreateTaper(secondImage.Width / 2f, secondImage.Height / 2f, keystoneSecond2);
-                    points2 = keystonedSecond2.MapPoints(points2);
-
-                    var keystoneFirst3 = FindTaper(points2, points1, firstImage.Width, firstImage.Height);
-                    keystonedFirst3 = CreateTaper(firstImage.Width / 2f, firstImage.Height / 2f, keystoneFirst3);
-                    points1 = keystonedFirst3.MapPoints(points1);
-
-                    var keystoneSecond3 = FindTaper(points1, points2, secondImage.Width, secondImage.Height);
-                    keystonedSecond3 = CreateTaper(secondImage.Width / 2f, secondImage.Height / 2f, keystoneSecond3);
-                    points2 = keystonedSecond3.MapPoints(points2);
+                    FindTaperMatricesAndMapPoints(ref points1, ref points2, firstImage.Width, firstImage.Height,
+                        out keystoned13, out keystoned23);
                 }
 
+                result.TransformMatrix1 = UpscaleSkMatrix(keystoned11.PostConcat(keystoned12).PostConcat(keystoned13), 1 / (settings.DownsizePercentage / 100f));
 
-                var horizontalAdj = FindHorizontalTranslation(points1, points2, secondImage);
-                var horizontaled = SKMatrix.CreateTranslation(horizontalAdj, 0);
-                //points2 = horizontaled.MapPoints(points2); //not necessary, but don't forget if it becomes necessary
+                result.TransformMatrix2 = UpscaleSkMatrix(
+                                     verted1.PostConcat(hored1).PostConcat(rotated1).PostConcat(zoomed1).PostConcat(keystoned21)
+                        .PostConcat(verted2).PostConcat(hored2).PostConcat(rotated2).PostConcat(zoomed2).PostConcat(keystoned22)
+                        .PostConcat(verted3).PostConcat(hored3).PostConcat(rotated3).PostConcat(zoomed3).PostConcat(keystoned23), 1 / (settings.DownsizePercentage / 100f));
 
-                result.TransformMatrix1 = keystonedFirst1.PostConcat(keystonedFirst2).PostConcat(keystonedFirst3);
-
-                result.TransformMatrix2 = translated1.PostConcat(rotated1).PostConcat(zoomed1)
-                    .PostConcat(translated2).PostConcat(rotated2).PostConcat(zoomed2)
-                    .PostConcat(translated3).PostConcat(rotated3).PostConcat(zoomed3)
-                    .PostConcat(keystonedSecond1).PostConcat(keystonedSecond2).PostConcat(keystonedSecond3)
-                    .PostConcat(horizontaled);
-                
                 Debug.WriteLine("### homebrew matrix finding: " + stopwatch.ElapsedTicks);
                 stopwatch.Restart();
             }
@@ -416,7 +430,8 @@ namespace AutoAlignment
                 using var points2 = new VectorOfPointF(pairedPoints.Select(p => p.KeyPoint2.Point).ToArray());
 
                 Mat warp1, warp2;
-                if (settings.TransformationFindingMethod == (uint)TransformationFindingMethod.StereoRectifyUncalibrated)
+                if (settings.TransformationFindingMethod ==
+                    (uint) TransformationFindingMethod.StereoRectifyUncalibrated)
                 {
                     warp1 = Mat.Eye(3, 3, DepthType.Cv64F, 1);
                     warp2 = Mat.Eye(3, 3, DepthType.Cv64F, 1);
@@ -426,23 +441,27 @@ namespace AutoAlignment
                     var didRectify = CvInvoke.StereoRectifyUncalibrated(points1, points2, fundamental, image1Mat.Size,
                         warp1, warp2); //TODO: this works correctly when warped by OpenCv, but not Skia
                     Debug.WriteLine("### didRectify: " + didRectify);
-                    
+
                     if (warp1.IsEmpty || warp2.IsEmpty || !didRectify) return null;
                 }
                 else
                 {
                     warp1 = Mat.Eye(2, 3, DepthType.Cv64F, 1);
-                    warp2 = (TransformationFindingMethod)settings.TransformationFindingMethod switch
+                    warp2 = (TransformationFindingMethod) settings.TransformationFindingMethod switch
                     {
-                        TransformationFindingMethod.FindHomography => CvInvoke.FindHomography(points2, points1, HomographyMethod.Ransac),
-                        TransformationFindingMethod.EstimateRigidPartial => CvInvoke.EstimateRigidTransform(points2, points1, false),
-                        TransformationFindingMethod.EstimateRigidFull => CvInvoke.EstimateRigidTransform(points2, points1, true)
+                        TransformationFindingMethod.FindHomography => CvInvoke.FindHomography(points2, points1,
+                            HomographyMethod.Ransac),
+                        TransformationFindingMethod.EstimateRigidPartial => CvInvoke.EstimateRigidTransform(points2,
+                            points1, false),
+                        TransformationFindingMethod.EstimateRigidFull => CvInvoke.EstimateRigidTransform(points2,
+                            points1, true)
                     };
 
                     if (warp2 == null || warp2.IsEmpty) return null;
                 }
 
-                Debug.WriteLine("### method " + (TransformationFindingMethod)settings.TransformationFindingMethod + ": " + stopwatch.ElapsedTicks);
+                Debug.WriteLine("### method " + (TransformationFindingMethod) settings.TransformationFindingMethod +
+                                ": " + stopwatch.ElapsedTicks);
                 stopwatch.Restart();
 
                 if (settings.DrawResultWarpedByOpenCv)
@@ -462,6 +481,16 @@ namespace AutoAlignment
 
             return result;
 #endif
+        }
+
+        private void FindTaperMatricesAndMapPoints(ref SKPoint[] points1, ref SKPoint[] points2, int width, int height,
+            out SKMatrix keystone1, out SKMatrix keystone2)
+        {
+            var keystone = FindTaper(points2, points1, width, height);
+            keystone1 = CreateTaper(width / 2f, height / 2f, keystone);
+            keystone2 = CreateTaper(width / 2f, height / 2f, -keystone);
+            points1 = keystone1.MapPoints(points1);
+            points2 = keystone2.MapPoints(points2);
         }
 
         private void AddWarpedToResult(Mat image1Mat, Mat image2Mat, Mat warp1, Mat warp2, AlignedResult result)
@@ -502,11 +531,12 @@ namespace AutoAlignment
             using var cvImage = new Mat();
             CvInvoke.Imdecode(image.Encode().ToArray(), ImreadModes.Color, cvImage);
 
-            using var cameraMatrix = GetCameraMatrix(image.Width * downsize * cxProportion, image.Height * downsize / 2f);
+            using var cameraMatrix =
+                GetCameraMatrix(image.Width * downsize * cxProportion, image.Height * downsize / 2f);
 
             var size = Math.Sqrt(Math.Pow(image.Width * downsize, 2) + Math.Pow(image.Height * downsize, 2));
             var scaledCoeff = strength / Math.Pow(size, 2);
-            using var distortionMatrix = GetDistortionMatrix((float)scaledCoeff);
+            using var distortionMatrix = GetDistortionMatrix((float) scaledCoeff);
 
             using var transformedImage = new Mat();
             CvInvoke.Undistort(cvImage, transformedImage, cameraMatrix, distortionMatrix);
@@ -526,14 +556,14 @@ namespace AutoAlignment
                 return SKImage.FromBitmap(bitmap).Encode(SKEncodedImageFormat.Png, 0).ToArray();
             }
 
-            var targetWidth = (int)(bitmap.Width * downsize);
-            var targetHeight = (int)(bitmap.Height * downsize);
+            var targetWidth = (int) (bitmap.Width * downsize);
+            var targetHeight = (int) (bitmap.Height * downsize);
             using var tempSurface =
                 SKSurface.Create(new SKImageInfo(targetWidth, targetHeight));
             using var canvas = tempSurface.Canvas;
             canvas.Clear();
 
-            using var paint = new SKPaint { FilterQuality = filterQuality };
+            using var paint = new SKPaint {FilterQuality = filterQuality};
             canvas.DrawBitmap(bitmap,
                 SKRect.Create(0, 0, targetWidth, targetHeight),
                 paint);
@@ -548,7 +578,7 @@ namespace AutoAlignment
             var cameraMatrix = Mat.Eye(3, 3, DepthType.Cv32F, 1);
             unsafe
             {
-                var ptr = (float*)cameraMatrix.DataPointer.ToPointer(); //fx
+                var ptr = (float*) cameraMatrix.DataPointer.ToPointer(); //fx
                 ptr++; //0
                 ptr++; //cx
                 *ptr = cx;
@@ -569,7 +599,7 @@ namespace AutoAlignment
             var distortionMatrix = Mat.Zeros(1, 5, DepthType.Cv32F, 1);
             unsafe
             {
-                var ptr = (float*)distortionMatrix.DataPointer.ToPointer(); //k1
+                var ptr = (float*) distortionMatrix.DataPointer.ToPointer(); //k1
                 *ptr = strength; //0.0000001f;
                 ptr++; //k2 ?
                 //*ptr = 0.0000000000001f;
@@ -584,7 +614,8 @@ namespace AutoAlignment
             return distortionMatrix;
         }
 
-        private SKBitmap DrawMatches(SKBitmap image1, SKBitmap image2, List<PointForCleaning> points, uint downsizePercentage)
+        private SKBitmap DrawMatches(SKBitmap image1, SKBitmap image2, List<PointForCleaning> points,
+            uint downsizePercentage)
         {
             using var fullSizeColor1 = new Mat();
             using var fullSizeColor2 = new Mat();
@@ -595,7 +626,7 @@ namespace AutoAlignment
             Features2DToolbox.DrawMatches(
                 fullSizeColor1, new VectorOfKeyPoint(points.Select(m => m.KeyPoint1).ToArray()),
                 fullSizeColor2, new VectorOfKeyPoint(points.Select(m => m.KeyPoint2).ToArray()),
-                new VectorOfVectorOfDMatch(points.Select(p => new[] { p.Match }).ToArray()),
+                new VectorOfVectorOfDMatch(points.Select(p => new[] {p.Match}).ToArray()),
                 drawnResult, new MCvScalar(0, 255, 0), new MCvScalar(255, 255, 0));
 #if __IOS__
             return drawnResult.ToCGImage().ToSKBitmap();
@@ -608,7 +639,8 @@ namespace AutoAlignment
         {
             foreach (var pair in pairedPoints)
             {
-                Debug.WriteLine(pair.KeyPoint1.Point.X + "," + pair.KeyPoint1.Point.Y + "," + pair.KeyPoint2.Point.X + "," + pair.KeyPoint2.Point.Y);
+                Debug.WriteLine(pair.KeyPoint1.Point.X + "," + pair.KeyPoint1.Point.Y + "," + pair.KeyPoint2.Point.X +
+                                "," + pair.KeyPoint2.Point.Y);
             }
         }
 
@@ -636,9 +668,10 @@ namespace AutoAlignment
         private static float FindVerticalTranslation(SKPoint[] points1, SKPoint[] points2, SKBitmap secondImage)
         {
             const int TRANSLATION_TERMINATION_THRESHOLD = 1;
-            var translationInc = (float)(secondImage.Height * EditsSettings.DEFAULT_MAX_VERT_ALIGNMENT * 4d);
+            var translationInc = (float) (secondImage.Height * EditsSettings.DEFAULT_MAX_VERT_ALIGNMENT * 4d);
 
-            return BinarySearchFindComponent(points1, points2, t => SKMatrix.CreateTranslation(0, t), translationInc, TRANSLATION_TERMINATION_THRESHOLD, useMedianDisplacement:true);
+            return BinarySearchFindComponent(points1, points2, t => SKMatrix.CreateTranslation(0, t), translationInc,
+                TRANSLATION_TERMINATION_THRESHOLD, useMedianDisplacement: true);
         }
 
         private static float FindHorizontalTranslation(SKPoint[] points1, SKPoint[] points2, SKBitmap secondImage)
@@ -646,7 +679,8 @@ namespace AutoAlignment
             const int TRANSLATION_TERMINATION_THRESHOLD = 1;
             var translationInc = secondImage.Width / 2f;
 
-            return BinarySearchFindComponent(points1, points2, t => SKMatrix.CreateTranslation(t, 0), translationInc, TRANSLATION_TERMINATION_THRESHOLD, 0, true, true);
+            return BinarySearchFindComponent(points1, points2, t => SKMatrix.CreateTranslation(t, 0), translationInc,
+                TRANSLATION_TERMINATION_THRESHOLD, 0, true, true);
         }
 
         private static float FindRotation(SKPoint[] points1, SKPoint[] points2, SKBitmap secondImage)
@@ -673,8 +707,8 @@ namespace AutoAlignment
         {
             const float FINAL_TAPER_DELTA = 0.01f;
             const float TAPER_INC = EditsSettings.DEFAULT_MAX_KEYSTONE * 3f;
-            
-            return BinarySearchFindComponentMirrored(points1, points2, 
+
+            return BinarySearchFindComponentMirrored(points1, points2,
                 f => CreateTaper(width, height / 2f, f), TAPER_INC,
                 FINAL_TAPER_DELTA);
         }
@@ -684,15 +718,16 @@ namespace AutoAlignment
             return DrawTool.MakeKeystoneTransform(rotation, 0, width, centerY).Matrix;
         }
 
-        private static float BinarySearchFindComponent(SKPoint[] basePoints, SKPoint[] pointsToTransform, Func<float, SKMatrix> testerFunction, float searchingIncrement, float terminationThreshold, float componentStart = 0, bool useXDisplacement = false, bool useMedianDisplacement = false)
+        private static float BinarySearchFindComponent(SKPoint[] basePoints, SKPoint[] pointsToTransform, Func<float, SKMatrix> testerFunction, float searchingIncrement, float terminationThreshold, float componentStart = 0, bool xDisplacement = false, bool useMedianDisplacement = false)
         {
             var baseOffset = useMedianDisplacement
-                ? GetMedianOffset(basePoints, pointsToTransform, useXDisplacement)
-                : GetNetWhiskerOffset(basePoints, pointsToTransform, useXDisplacement);
-            
+                ? GetMedianOffset(basePoints, pointsToTransform, xDisplacement)
+                : GetNetWhiskerOffset(basePoints, pointsToTransform, xDisplacement);
+
             while (searchingIncrement > terminationThreshold)
             {
-                Debug.WriteLine("baseOffset: " + baseOffset + " inc: " + searchingIncrement + " func: " + testerFunction.Method.Name);
+                Debug.WriteLine("baseOffset: " + baseOffset + " inc: " + searchingIncrement + " func: " +
+                                testerFunction.Method.Name);
                 var versionA = testerFunction(componentStart + searchingIncrement);
                 var versionB = testerFunction(componentStart - searchingIncrement);
                 var attemptA = versionA.MapPoints(pointsToTransform);
@@ -700,13 +735,13 @@ namespace AutoAlignment
                 double offsetA, offsetB;
                 if (useMedianDisplacement)
                 {
-                    offsetA = GetMedianOffset(basePoints, attemptA, useXDisplacement);
-                    offsetB = GetMedianOffset(basePoints, attemptB, useXDisplacement);
+                    offsetA = GetMedianOffset(basePoints, attemptA, xDisplacement);
+                    offsetB = GetMedianOffset(basePoints, attemptB, xDisplacement);
                 }
                 else
                 {
-                    offsetA = GetNetWhiskerOffset(basePoints, attemptA, useXDisplacement);
-                    offsetB = GetNetWhiskerOffset(basePoints, attemptB, useXDisplacement);
+                    offsetA = GetNetWhiskerOffset(basePoints, attemptA, xDisplacement);
+                    offsetB = GetNetWhiskerOffset(basePoints, attemptB, xDisplacement);
                 }
 
                 if (offsetA < baseOffset)
@@ -719,21 +754,23 @@ namespace AutoAlignment
                     baseOffset = offsetB;
                     componentStart -= searchingIncrement;
                 }
+
                 searchingIncrement /= 2;
             }
 
             return componentStart;
         }
 
-        private static float BinarySearchFindComponentMirrored(SKPoint[] basePoints1, SKPoint[] basePoints2, Func<float, SKMatrix> testerFunction, float searchingIncrement, float terminationThreshold, float componentStart = 0, bool useXDisplacement = false, bool useMedianDisplacement = false)
+        private static float BinarySearchFindComponentMirrored(SKPoint[] basePoints1, SKPoint[] basePoints2, Func<float, SKMatrix> testerFunction, float searchingIncrement, float terminationThreshold, float componentStart = 0, bool xDisplacement = false, bool useMedianDisplacement = false)
         {
             var baseOffset = useMedianDisplacement
-                ? GetMedianOffset(basePoints1, basePoints2, useXDisplacement)
-                : GetNetWhiskerOffset(basePoints1, basePoints2, useXDisplacement);
-            
+                ? GetMedianOffset(basePoints1, basePoints2, xDisplacement)
+                : GetNetWhiskerOffset(basePoints1, basePoints2, xDisplacement);
+
             while (searchingIncrement > terminationThreshold)
             {
-                Debug.WriteLine("baseOffset: " + baseOffset + " inc: " + searchingIncrement + " func: " + testerFunction.Method.Name);
+                Debug.WriteLine("baseOffset: " + baseOffset + " inc: " + searchingIncrement + " func: " +
+                                testerFunction.Method.Name);
                 var up = testerFunction(componentStart + searchingIncrement);
                 var down = testerFunction(componentStart - searchingIncrement);
 
@@ -746,13 +783,13 @@ namespace AutoAlignment
                 double offsetA, offsetB;
                 if (useMedianDisplacement)
                 {
-                    offsetA = GetMedianOffset(down1, up2, useXDisplacement);
-                    offsetB = GetMedianOffset(up1, down2, useXDisplacement);
+                    offsetA = GetMedianOffset(down1, up2, xDisplacement);
+                    offsetB = GetMedianOffset(up1, down2, xDisplacement);
                 }
                 else
                 {
-                    offsetA = GetNetWhiskerOffset(down1, up2, useXDisplacement);
-                    offsetB = GetNetWhiskerOffset(up1, down2, useXDisplacement);
+                    offsetA = GetNetWhiskerOffset(down1, up2, xDisplacement);
+                    offsetB = GetNetWhiskerOffset(up1, down2, xDisplacement);
                 }
 
                 if (offsetA < baseOffset)
@@ -765,44 +802,43 @@ namespace AutoAlignment
                     baseOffset = offsetB;
                     componentStart -= searchingIncrement;
                 }
+
                 searchingIncrement /= 2;
             }
 
             return componentStart;
         }
 
-        private static double GetMedianOffset(SKPoint[] points1, SKPoint[] points2, bool x)
+        private static double GetMedianOffset(SKPoint[] points1, SKPoint[] points2, bool xDisplacement)
         {
-            var offsets = points1.Select((t, ii) => Math.Abs(
-                    x ? t.X - points2[ii].X : t.Y - points2[ii].Y))
-                .Select(dummy => (double) dummy).ToList();
-            offsets = offsets.OrderBy(o => o).ToList();
+            var offsets = points1.Select((t, ii) => Math.Abs(xDisplacement ? t.X - points2[ii].X : t.Y - points2[ii].Y))
+                .OrderBy(o => o).ToList();
             //Debug.WriteLine("### median x: " + offsets.ElementAt(offsets.Count / 2));
-            return offsets.ElementAt(offsets.Count/2);
+            return offsets.ElementAt(offsets.Count / 2);
         }
 
-        private static double GetNetWhiskerOffset(SKPoint[] points1, SKPoint[] points2, bool x)
+        private static double GetNetWhiskerOffset(SKPoint[] points1, SKPoint[] points2, bool xDisplacement)
         {
-            var rawOffsets = points1.Select((t, ii) =>
-                    x ? t.X - points2[ii].X : t.Y - points2[ii].Y)
-                .Select(dummy => (double)dummy).ToList();
-            rawOffsets = rawOffsets.OrderBy(o => o).ToList();
+            var rawOffsets = points1.Select((t, ii) => xDisplacement ? t.X - points2[ii].X : t.Y - points2[ii].Y)
+                .OrderBy(o => o).ToList();
             var firstQuartile = rawOffsets.ElementAt(rawOffsets.Count / 4);
             var median = rawOffsets.ElementAt(rawOffsets.Count / 2);
             var thirdQuartile = rawOffsets.ElementAt(3 * rawOffsets.Count / 4);
             var iqr = Math.Abs(thirdQuartile - firstQuartile);
             var outlierRange = iqr * 1.5;
-            var inliers = rawOffsets.Where(offset => offset >= median - outlierRange && offset <= median + outlierRange).ToList();
-            //var outliers = rawOffsets.Where(offset => offset < median - outlierRange || offset > median + outlierRange).ToList();
+            var inliers = rawOffsets.Where(offset => offset >= median - outlierRange && offset <= median + outlierRange)
+                .ToList();
+            var outliers = rawOffsets.Where(offset => offset < median - outlierRange || offset > median + outlierRange)
+                .ToList();
             var sum = inliers.Select(Math.Abs).Sum();
-            //Debug.WriteLine("### q1: " + firstQuartile +
-            //                " med: " + median +
-            //                " q3: " + thirdQuartile +
-            //                " iqr: " + iqr +
-            //                " sum: " + sum);
-            //Debug.WriteLine(inliers.Count + " inliers: " + string.Join(",", inliers.Select(d => Math.Round(d, 2))));
-            //Debug.WriteLine(outliers.Count + " outliers: " + string.Join(",", outliers.Select(d => Math.Round(d, 2))));
-            //Debug.WriteLine("all: " + string.Join(",", rawOffsets.Select(d => Math.Round(d, 2))));
+            Debug.WriteLine("### q1: " + firstQuartile +
+                            " med: " + median +
+                            " q3: " + thirdQuartile +
+                            " iqr: " + iqr +
+                            " sum: " + sum);
+            Debug.WriteLine(inliers.Count + " inliers: " + string.Join(",", inliers.Select(d => Math.Round(d, 2))));
+            Debug.WriteLine(outliers.Count + " outliers: " + string.Join(",", outliers.Select(d => Math.Round(d, 2))));
+            Debug.WriteLine("all: " + string.Join(",", rawOffsets.Select(d => Math.Round(d, 2))));
             return sum;
         }
 
@@ -813,8 +849,20 @@ namespace AutoAlignment
             {
                 netOffset += Math.Abs(x ? points1[ii].X - points2[ii].X : points1[ii].Y - points2[ii].Y);
             }
+
             Debug.WriteLine("### net: " + netOffset);
             return netOffset;
+        }
+
+        private static SKMatrix UpscaleSkMatrix(SKMatrix skMatrix, float upscaleFactor)
+        {
+            var scaleMatrix = new SKMatrix(
+                upscaleFactor, 0, 0,
+                0, upscaleFactor, 0,
+                0, 0, 1);
+            skMatrix = scaleMatrix.PreConcat(skMatrix).PreConcat(scaleMatrix.Invert());
+
+            return skMatrix;
         }
 
         private static SKMatrix ConvertCvMatToSkMatrix(Mat mat, float upscaleFactor = 1)
@@ -885,11 +933,7 @@ namespace AutoAlignment
 
             if (upscaleFactor != 1)
             {
-                var scaleMatrix = new SKMatrix(
-                    upscaleFactor, 0, 0,
-                    0, upscaleFactor, 0,
-                    0, 0, 1);
-                skMatrix = scaleMatrix.PreConcat(skMatrix).PreConcat(scaleMatrix.Invert());
+                skMatrix = UpscaleSkMatrix(skMatrix, upscaleFactor);
             }
 
             return skMatrix;
@@ -899,7 +943,7 @@ namespace AutoAlignment
         {
             unsafe
             {
-                var ptr = (float*)mat.DataPointer.ToPointer(); //ScaleX
+                var ptr = (float*) mat.DataPointer.ToPointer(); //ScaleX
                 ptr++; //SkewX
                 ptr++; //TransX
                 *ptr *= factor; //scale up the shifting
