@@ -1635,7 +1635,8 @@ namespace CrossCam.ViewModel
 
         private void AlignmentSettingsOnPropertyChanged(object sender, PropertyChangedEventArgs e)
         {
-            if (e.PropertyName != nameof(AlignmentSettings.IsAutomaticAlignmentOn))
+            if (e.PropertyName != nameof(AlignmentSettings.IsAutomaticAlignmentOn) &&
+                e.PropertyName != nameof(AlignmentSettings.ShowAdvancedAlignmentSettings))
             {
                 _isAlignmentInvalid = true;
             }
@@ -1964,6 +1965,7 @@ namespace CrossCam.ViewModel
                 _isAlignmentInvalid &&
                 0 == Interlocked.Exchange(ref _alignmentThreadLock, 1))
             {
+                _isAlignmentInvalid = false;
                 WorkflowStage = WorkflowStage.AutomaticAlign;
 
                 var openCv = DependencyService.Get<IOpenCv>();
@@ -2048,7 +2050,6 @@ namespace CrossCam.ViewModel
                     if (alignedResult != null)
                     {
                         ClearEdits();
-                        _isAlignmentInvalid = false;
                         if (alignedResult.Confidence > 0)
                         {
                             AlignmentConfidence = alignedResult.Confidence + "%";

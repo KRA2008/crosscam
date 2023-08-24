@@ -371,6 +371,12 @@ namespace CrossCam.Page
                 case nameof(Settings.IsCaptureLeftFirst):
                     PlaceRollGuide();
                     break;
+                case nameof(Settings.AddBorder2):
+                case nameof(Settings.BorderWidthProportion):
+                case nameof(Settings.BorderColor):
+                case nameof(Settings.SaveWithFuseGuide):
+                    _canvas.InvalidateSurface();
+                    break;
             }
         }
 

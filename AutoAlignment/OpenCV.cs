@@ -17,6 +17,7 @@ using Microsoft.AppCenter.Crashes;
 #endif
 using SkiaSharp;
 using Xamarin.Forms;
+using Color = System.Drawing.Color;
 using Math = System.Math;
 #if __ANDROID__
 using SkiaSharp.Views.Android;
@@ -627,7 +628,7 @@ namespace AutoAlignment
                 fullSizeColor1, new VectorOfKeyPoint(points.Select(m => m.KeyPoint1).ToArray()),
                 fullSizeColor2, new VectorOfKeyPoint(points.Select(m => m.KeyPoint2).ToArray()),
                 new VectorOfVectorOfDMatch(points.Select(p => new[] {p.Match}).ToArray()),
-                drawnResult, new MCvScalar(0, 255, 0), new MCvScalar(255, 255, 0));
+                drawnResult,new Bgr(Color.Green).MCvScalar, new Bgr(Color.Red).MCvScalar, flags: Features2DToolbox.KeypointDrawType.DrawRichKeypoints); //TODO: these colors don't work, it's always green.
 #if __IOS__
             return drawnResult.ToCGImage().ToSKBitmap();
 #elif __ANDROID__
