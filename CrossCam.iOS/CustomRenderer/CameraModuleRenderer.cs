@@ -662,7 +662,6 @@ namespace CrossCam.iOS.CustomRenderer
         {
             var sideWidth = NativeView.Bounds.Width;
             var sideHeight = NativeView.Bounds.Height;
-            Debug.WriteLine("### native view: " + sideWidth + " " + sideHeight);
             
             _liveCameraStream = new UIView(new CGRect(0, 0, sideWidth, sideHeight));
 

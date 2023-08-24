@@ -4,6 +4,11 @@ namespace CrossCam.Model
 {
     public class EditsSettings : Subsettings
     {
+        public const double DEFAULT_MAX_ZOOM = 1/4d;
+        public const double DEFAULT_MAX_VERT_ALIGNMENT = 1 / 8d;
+        public const float DEFAULT_MAX_ROTATION = 5;
+        public const float DEFAULT_MAX_KEYSTONE = 15;
+
         private double _zoomMax;
         public double ZoomMax
         {
@@ -48,12 +53,12 @@ namespace CrossCam.Model
 
         public override void ResetToDefaults()
         {
-            ZoomMax = 1 / 4d;
+            ZoomMax = DEFAULT_MAX_ZOOM;
             SideCropMax = 1 / 2d;
             TopOrBottomCropMax = 1 / 2d;
-            VerticalAlignmentMax = 1 / 8d;
-            RotationMax = 5;
-            KeystoneMax = 15f;
+            VerticalAlignmentMax = DEFAULT_MAX_VERT_ALIGNMENT;
+            RotationMax = DEFAULT_MAX_ROTATION;
+            KeystoneMax = DEFAULT_MAX_KEYSTONE;
         }
     }
 }

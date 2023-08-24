@@ -22,6 +22,7 @@ using Math = System.Math;
 using SkiaSharp.Views.Android;
 #elif __IOS__
 using SkiaSharp.Views.iOS;
+using Emgu.CV.ML;
 #endif
 
 [assembly: Dependency(typeof(OpenCv))]
@@ -635,23 +636,23 @@ namespace AutoAlignment
         private static float FindVerticalTranslation(SKPoint[] points1, SKPoint[] points2, SKBitmap secondImage)
         {
             const int TRANSLATION_TERMINATION_THRESHOLD = 1;
-            var translationInc = secondImage.Height / 2;
+            var translationInc = (float)(secondImage.Height * EditsSettings.DEFAULT_MAX_VERT_ALIGNMENT * 4d);
 
-            return BinarySearchFindComponent(points1, points2, t => SKMatrix.CreateTranslation(0, t), translationInc, TRANSLATION_TERMINATION_THRESHOLD);
+            return BinarySearchFindComponent(points1, points2, t => SKMatrix.CreateTranslation(0, t), translationInc, TRANSLATION_TERMINATION_THRESHOLD, useMedianDisplacement:true);
         }
 
         private static float FindHorizontalTranslation(SKPoint[] points1, SKPoint[] points2, SKBitmap secondImage)
         {
             const int TRANSLATION_TERMINATION_THRESHOLD = 1;
-            var translationInc = secondImage.Width / 2;
+            var translationInc = secondImage.Width / 2f;
 
-            return BinarySearchFindComponent(points1, points2, t => SKMatrix.CreateTranslation(t, 0), translationInc, TRANSLATION_TERMINATION_THRESHOLD, 0, true);
+            return BinarySearchFindComponent(points1, points2, t => SKMatrix.CreateTranslation(t, 0), translationInc, TRANSLATION_TERMINATION_THRESHOLD, 0, true, true);
         }
 
         private static float FindRotation(SKPoint[] points1, SKPoint[] points2, SKBitmap secondImage)
         {
             const float FINAL_ROTATION_DELTA = 0.0001f;
-            const float ROTATION_INC = (float)Math.PI / 2f;
+            const float ROTATION_INC = EditsSettings.DEFAULT_MAX_ROTATION * 2f;
 
             return BinarySearchFindComponent(points1, points2,
                 t => SKMatrix.CreateRotation(t, secondImage.Width / 2f, secondImage.Height / 2f), ROTATION_INC,
@@ -661,7 +662,7 @@ namespace AutoAlignment
         private static float FindZoom(SKPoint[] points1, SKPoint[] points2, SKBitmap secondImage)
         {
             const float FINAL_ZOOM_DELTA = 0.0001f;
-            const float ZOOM_INC = 1f;
+            const float ZOOM_INC = (float) (EditsSettings.DEFAULT_MAX_ZOOM * 4f);
 
             return BinarySearchFindComponent(points1, points2,
                 t => SKMatrix.CreateScale(t, t, secondImage.Width / 2f,
@@ -670,10 +671,10 @@ namespace AutoAlignment
 
         private static float FindTaper(SKPoint[] points1, SKPoint[] points2, int width, int height)
         {
-            const float FINAL_TAPER_DELTA = 0.1f;
-            const float TAPER_INC = 45f;
+            const float FINAL_TAPER_DELTA = 0.01f;
+            const float TAPER_INC = EditsSettings.DEFAULT_MAX_KEYSTONE * 3f;
             
-            return BinarySearchFindComponent(points1, points2, 
+            return BinarySearchFindComponentMirrored(points1, points2, 
                 f => CreateTaper(width, height / 2f, f), TAPER_INC,
                 FINAL_TAPER_DELTA);
         }
@@ -683,18 +684,30 @@ namespace AutoAlignment
             return DrawTool.MakeKeystoneTransform(rotation, 0, width, centerY).Matrix;
         }
 
-        private static float BinarySearchFindComponent(SKPoint[] basePoints, SKPoint[] pointsToTransform, Func<float, SKMatrix> testerFunction, float searchingIncrement, float terminationThreshold, float componentStart = 0, bool useXDisplacement = false)
+        private static float BinarySearchFindComponent(SKPoint[] basePoints, SKPoint[] pointsToTransform, Func<float, SKMatrix> testerFunction, float searchingIncrement, float terminationThreshold, float componentStart = 0, bool useXDisplacement = false, bool useMedianDisplacement = false)
         {
-            var baseOffset = useXDisplacement ? GetNetXOffset(basePoints, pointsToTransform) : GetNetYOffset(basePoints, pointsToTransform);
-
+            var baseOffset = useMedianDisplacement
+                ? GetMedianOffset(basePoints, pointsToTransform, useXDisplacement)
+                : GetNetWhiskerOffset(basePoints, pointsToTransform, useXDisplacement);
+            
             while (searchingIncrement > terminationThreshold)
             {
+                Debug.WriteLine("baseOffset: " + baseOffset + " inc: " + searchingIncrement + " func: " + testerFunction.Method.Name);
                 var versionA = testerFunction(componentStart + searchingIncrement);
                 var versionB = testerFunction(componentStart - searchingIncrement);
                 var attemptA = versionA.MapPoints(pointsToTransform);
-                var offsetA = useXDisplacement ? GetNetXOffset(basePoints, attemptA) : GetNetYOffset(basePoints, attemptA);
                 var attemptB = versionB.MapPoints(pointsToTransform);
-                var offsetB = useXDisplacement ? GetNetXOffset(basePoints, attemptB) : GetNetYOffset(basePoints, attemptB);
+                double offsetA, offsetB;
+                if (useMedianDisplacement)
+                {
+                    offsetA = GetMedianOffset(basePoints, attemptA, useXDisplacement);
+                    offsetB = GetMedianOffset(basePoints, attemptB, useXDisplacement);
+                }
+                else
+                {
+                    offsetA = GetNetWhiskerOffset(basePoints, attemptA, useXDisplacement);
+                    offsetB = GetNetWhiskerOffset(basePoints, attemptB, useXDisplacement);
+                }
 
                 if (offsetA < baseOffset)
                 {
@@ -712,23 +725,95 @@ namespace AutoAlignment
             return componentStart;
         }
 
-        private static double GetNetXOffset(SKPoint[] points1, SKPoint[] points2)
+        private static float BinarySearchFindComponentMirrored(SKPoint[] basePoints1, SKPoint[] basePoints2, Func<float, SKMatrix> testerFunction, float searchingIncrement, float terminationThreshold, float componentStart = 0, bool useXDisplacement = false, bool useMedianDisplacement = false)
         {
-            var netOffset = 0d;
-            for (var ii = 0; ii < points1.Length; ii++)
+            var baseOffset = useMedianDisplacement
+                ? GetMedianOffset(basePoints1, basePoints2, useXDisplacement)
+                : GetNetWhiskerOffset(basePoints1, basePoints2, useXDisplacement);
+            
+            while (searchingIncrement > terminationThreshold)
             {
-                netOffset += Math.Abs(points1[ii].X - points2[ii].X);
+                Debug.WriteLine("baseOffset: " + baseOffset + " inc: " + searchingIncrement + " func: " + testerFunction.Method.Name);
+                var up = testerFunction(componentStart + searchingIncrement);
+                var down = testerFunction(componentStart - searchingIncrement);
+
+                var up1 = up.MapPoints(basePoints1);
+                var down2 = down.MapPoints(basePoints2);
+
+                var down1 = down.MapPoints(basePoints1);
+                var up2 = up.MapPoints(basePoints2);
+
+                double offsetA, offsetB;
+                if (useMedianDisplacement)
+                {
+                    offsetA = GetMedianOffset(down1, up2, useXDisplacement);
+                    offsetB = GetMedianOffset(up1, down2, useXDisplacement);
+                }
+                else
+                {
+                    offsetA = GetNetWhiskerOffset(down1, up2, useXDisplacement);
+                    offsetB = GetNetWhiskerOffset(up1, down2, useXDisplacement);
+                }
+
+                if (offsetA < baseOffset)
+                {
+                    baseOffset = offsetA;
+                    componentStart += searchingIncrement;
+                }
+                else if (offsetB < baseOffset)
+                {
+                    baseOffset = offsetB;
+                    componentStart -= searchingIncrement;
+                }
+                searchingIncrement /= 2;
             }
-            return netOffset;
+
+            return componentStart;
         }
 
-        private static double GetNetYOffset(SKPoint[] points1, SKPoint[] points2)
+        private static double GetMedianOffset(SKPoint[] points1, SKPoint[] points2, bool x)
+        {
+            var offsets = points1.Select((t, ii) => Math.Abs(
+                    x ? t.X - points2[ii].X : t.Y - points2[ii].Y))
+                .Select(dummy => (double) dummy).ToList();
+            offsets = offsets.OrderBy(o => o).ToList();
+            //Debug.WriteLine("### median x: " + offsets.ElementAt(offsets.Count / 2));
+            return offsets.ElementAt(offsets.Count/2);
+        }
+
+        private static double GetNetWhiskerOffset(SKPoint[] points1, SKPoint[] points2, bool x)
+        {
+            var rawOffsets = points1.Select((t, ii) =>
+                    x ? t.X - points2[ii].X : t.Y - points2[ii].Y)
+                .Select(dummy => (double)dummy).ToList();
+            rawOffsets = rawOffsets.OrderBy(o => o).ToList();
+            var firstQuartile = rawOffsets.ElementAt(rawOffsets.Count / 4);
+            var median = rawOffsets.ElementAt(rawOffsets.Count / 2);
+            var thirdQuartile = rawOffsets.ElementAt(3 * rawOffsets.Count / 4);
+            var iqr = Math.Abs(thirdQuartile - firstQuartile);
+            var outlierRange = iqr * 1.5;
+            var inliers = rawOffsets.Where(offset => offset >= median - outlierRange && offset <= median + outlierRange).ToList();
+            //var outliers = rawOffsets.Where(offset => offset < median - outlierRange || offset > median + outlierRange).ToList();
+            var sum = inliers.Select(Math.Abs).Sum();
+            //Debug.WriteLine("### q1: " + firstQuartile +
+            //                " med: " + median +
+            //                " q3: " + thirdQuartile +
+            //                " iqr: " + iqr +
+            //                " sum: " + sum);
+            //Debug.WriteLine(inliers.Count + " inliers: " + string.Join(",", inliers.Select(d => Math.Round(d, 2))));
+            //Debug.WriteLine(outliers.Count + " outliers: " + string.Join(",", outliers.Select(d => Math.Round(d, 2))));
+            //Debug.WriteLine("all: " + string.Join(",", rawOffsets.Select(d => Math.Round(d, 2))));
+            return sum;
+        }
+
+        private static double GetNetOffset(SKPoint[] points1, SKPoint[] points2, bool x)
         {
             var netOffset = 0d;
             for (var ii = 0; ii < points1.Length; ii++)
             {
-                netOffset += Math.Abs(points1[ii].Y - points2[ii].Y);
+                netOffset += Math.Abs(x ? points1[ii].X - points2[ii].X : points1[ii].Y - points2[ii].Y);
             }
+            Debug.WriteLine("### net: " + netOffset);
             return netOffset;
         }
 
