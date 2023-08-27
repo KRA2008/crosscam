@@ -115,7 +115,7 @@
 
                 <Label Grid.Row="4"
                            Grid.Column="1"
-                           Text="Add lens correction (may lower frame rate)"
+                           Text="Add lens correction/barrel distortion (may lower frame rate)"
                            IsVisible="{Binding Settings.Mode, Converter={StaticResource enumCompare}, ConverterParameter={x:Static vm:DrawMode.Cardboard}}"/>
                 <Switch Grid.Row="4" 
                             Grid.Column="2" 
@@ -124,7 +124,7 @@
 
                 <Label Grid.Row="5"
                            Grid.Column="1" 
-                           Text="Add lens correction to final images only (may slow down final display)"
+                           Text="Add lens correction/barrel distortion to final images only (may slow down final display but will speed up capturing)"
                            IsVisible="False">
                     <Label.Triggers>
                         <MultiTrigger TargetType="Label">
@@ -194,16 +194,42 @@
 
                 <Label Grid.Row="7"
                            Grid.Column="1"
-                           Text="Downsize preview (may increase frame rate)"
-                           IsVisible="{Binding Settings.Mode, Converter={StaticResource enumCompare}, ConverterParameter={x:Static vm:DrawMode.Cardboard}}"/>
+                           Text="Downsize image (may increase frame rate)"
+                           IsVisible="False">
+                    <Label.Triggers>
+                        <MultiTrigger TargetType="Label">
+                            <MultiTrigger.Conditions>
+                                <BindingCondition Binding="{Binding Settings.Mode, Converter={StaticResource enumCompare}, ConverterParameter={x:Static vm:DrawMode.Cardboard}}"
+                                                  Value="True"/>
+                                <BindingCondition Binding="{Binding Settings.CardboardSettings.AddBarrelDistortion}"
+                                                  Value="True"/>
+                            </MultiTrigger.Conditions>
+                            <Setter Property="IsVisible"
+                                    Value="True"/>
+                        </MultiTrigger>
+                    </Label.Triggers>
+                </Label>
                 <Switch Grid.Row="7"
                             Grid.Column="2"
                             IsToggled="{Binding Settings.CardboardSettings.CardboardDownsize}"
-                            IsVisible="{Binding Settings.Mode, Converter={StaticResource enumCompare}, ConverterParameter={x:Static vm:DrawMode.Cardboard}}"/>
+                            IsVisible="False">
+                    <Switch.Triggers>
+                        <MultiTrigger TargetType="Switch">
+                            <MultiTrigger.Conditions>
+                                <BindingCondition Binding="{Binding Settings.Mode, Converter={StaticResource enumCompare}, ConverterParameter={x:Static vm:DrawMode.Cardboard}}"
+                                                  Value="True"/>
+                                <BindingCondition Binding="{Binding Settings.CardboardSettings.AddBarrelDistortion}"
+                                                  Value="True"/>
+                            </MultiTrigger.Conditions>
+                            <Setter Property="IsVisible"
+                                    Value="True"/>
+                        </MultiTrigger>
+                    </Switch.Triggers>
+                </Switch>
 
                 <Label Grid.Row="8"
                            Grid.Column="1"
-                           Text="Downsize preview percentage"
+                           Text="Downsize image percentage"
                            IsVisible="False">
                     <Label.Triggers>
                         <MultiTrigger TargetType="Label">
@@ -212,6 +238,8 @@
                                                       Value="True"/>
                                 <BindingCondition Binding="{Binding Settings.CardboardSettings.CardboardDownsize}"
                                                       Value="True"/>
+                                <BindingCondition Binding="{Binding Settings.CardboardSettings.AddBarrelDistortion}"
+                                                  Value="True"/>
                             </MultiTrigger.Conditions>
                             <Setter Property="IsVisible"
                                         Value="True"/>
@@ -227,6 +255,8 @@
                                 <BindingCondition Binding="{Binding Settings.Mode, Converter={StaticResource enumCompare}, ConverterParameter={x:Static vm:DrawMode.Cardboard}}"
                                                   Value="True"/>
                                 <BindingCondition Binding="{Binding Settings.CardboardSettings.CardboardDownsize}"
+                                                  Value="True"/>
+                                <BindingCondition Binding="{Binding Settings.CardboardSettings.AddBarrelDistortion}"
                                                   Value="True"/>
                             </MultiTrigger.Conditions>
                             <Setter Property="IsVisible"

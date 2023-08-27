@@ -12,6 +12,7 @@
                 if (!value)
                 {
                     AddBarrelDistortionFinalOnly = false;
+                    CardboardDownsize = false;
                 }
             }
         }
