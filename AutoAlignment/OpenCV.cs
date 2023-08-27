@@ -628,7 +628,8 @@ namespace AutoAlignment
                 fullSizeColor1, new VectorOfKeyPoint(points.Select(m => m.KeyPoint1).ToArray()),
                 fullSizeColor2, new VectorOfKeyPoint(points.Select(m => m.KeyPoint2).ToArray()),
                 new VectorOfVectorOfDMatch(points.Select(p => new[] {p.Match}).ToArray()),
-                drawnResult,new Bgr(Color.Green).MCvScalar, new Bgr(Color.Red).MCvScalar, flags: Features2DToolbox.KeypointDrawType.DrawRichKeypoints); //TODO: these colors don't work, it's always green.
+                drawnResult, new Bgr(Color.Green).MCvScalar, new Bgr(Color.Red).MCvScalar,
+                flags: Features2DToolbox.KeypointDrawType.DrawRichKeypoints); //TODO: these colors don't work, it's always green.
 #if __IOS__
             return drawnResult.ToCGImage().ToSKBitmap();
 #elif __ANDROID__
