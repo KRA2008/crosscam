@@ -157,6 +157,7 @@
     <Reference Include="Mono.Android" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CustomRenderer\ScreenKeepAwaker.cs" />
     <Compile Include="CustomRenderer\LinkSharer.cs" />
     <Compile Include="CustomRenderer\PlatformPair.cs" />
     <Compile Include="CustomRenderer\Camera2\CameraCaptureListener.cs" />

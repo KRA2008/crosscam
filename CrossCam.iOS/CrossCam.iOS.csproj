@@ -216,6 +216,7 @@
     <Compile Include="CustomRenderer\NotchHeightProvider.cs" />
     <Compile Include="CustomRenderer\PhotoPicker.cs" />
     <Compile Include="CustomRenderer\PhotoSaver.cs" />
+    <Compile Include="CustomRenderer\ScreenKeepAwaker.cs" />
     <Compile Include="CustomRenderer\StoreReviewOpener.cs" />
     <Compile Include="Main.cs" />
     <Compile Include="AppDelegate.cs" />

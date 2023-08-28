@@ -1558,6 +1558,8 @@ namespace CrossCam.Droid.CustomRenderer
 
         private void TapToFocus2(PointF p)
         {
+            if (_cameraManager == null || _camera2Device == null || Display == null) return;
+
             var metrics = new DisplayMetrics();
             Display.GetMetrics(metrics);
 

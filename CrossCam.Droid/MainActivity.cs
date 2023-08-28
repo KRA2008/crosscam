@@ -104,6 +104,7 @@ namespace CrossCam.Droid
 
         protected override void OnPause()
         {
+            Window?.ClearFlags(WindowManagerFlags.KeepScreenOn);
             LifecycleEventListener.OnAppMinimized();
             base.OnPause();
         }
@@ -112,6 +113,7 @@ namespace CrossCam.Droid
         {
             base.OnResume(); 
             LifecycleEventListener.OnAppMaximized();
+            Window?.AddFlags(WindowManagerFlags.KeepScreenOn);
 
             if (Intent.ActionSend.Equals(Intent.Action) && 
                 Intent.Type != null &&

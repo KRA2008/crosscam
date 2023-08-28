@@ -34,19 +34,19 @@ namespace CrossCam
         protected override void OnSleep()
         {
             MessagingCenter.Send(this, APP_PAUSING_EVENT);
-            Device.BeginInvokeOnMainThread(() =>
-            {
-                DeviceDisplay.KeepScreenOn = false;
-            });
+            //Device.BeginInvokeOnMainThread(() =>
+            //{
+            //    DeviceDisplay.KeepScreenOn = false;
+            //});
         }
 
         protected override void OnResume()
         {
             MessagingCenter.Send(this, APP_UNPAUSING_EVENT);
-            Device.BeginInvokeOnMainThread(() =>
-            {
-                DeviceDisplay.KeepScreenOn = true;
-            });
+            //Device.BeginInvokeOnMainThread(() =>
+            //{
+            //    DeviceDisplay.KeepScreenOn = true; //doesn't seem to work on any devices.
+            //});
         }
     }
 }

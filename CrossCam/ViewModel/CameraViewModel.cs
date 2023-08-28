@@ -1668,6 +1668,7 @@ namespace CrossCam.ViewModel
 
         private void PairOperatorInitialSyncCompleted(object sender, EventArgs e)
         {
+            Debug.WriteLine("### PAIR OPERATOR INITIAL SYNC COMPLETED!!!!!");
             RestartPreviewTrigger = !RestartPreviewTrigger;
             TryTriggerMovementHint();
             WorkflowStage = WorkflowStage.Capture;
@@ -1782,6 +1783,7 @@ namespace CrossCam.ViewModel
         protected override async void ViewIsAppearing(object sender, EventArgs e)
         {
             base.ViewIsAppearing(sender, e);
+            DependencyService.Get<IScreenKeepAwaker>()?.KeepScreenAwake();
             TryTriggerMovementHint();
 
             if (WorkflowStage == WorkflowStage.Final)
@@ -1891,7 +1893,7 @@ namespace CrossCam.ViewModel
         protected override void ViewIsDisappearing(object sender, EventArgs e)
         {
             PairOperator.ErrorOccurred -= PairOperatorOnErrorOccurred;
-
+            DependencyService.Get<IScreenKeepAwaker>()?.LetScreenSleep();
             base.ViewIsDisappearing(sender, e);
         }
 
