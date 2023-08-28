@@ -131,9 +131,9 @@ namespace CrossCam.ViewModel
 
         public Command CapturePictureCommand { get; set; }
         public bool CapturePictureTrigger { get; set; }
-
-        public bool SingleMoveHintTrigger { get; set; }
-        public bool DoubleMoveHintTrigger { get; set; }
+        
+        public bool MoveHintTriggerCenter { get; set; }
+        public bool MoveHintTriggerSide { get; set; }
         public bool WasSwipedTrigger { get; set; }
 
         public Command ToggleFullscreen { get; set; }
@@ -229,7 +229,7 @@ namespace CrossCam.ViewModel
         public Command LoadPhotoCommand { get; set; }
 
         public bool IsViewPortrait => DeviceDisplay.MainDisplayInfo.Orientation == DisplayOrientation.Portrait;
-        public bool IsViewInverted => DeviceDisplay.MainDisplayInfo.Rotation == DisplayRotation.Rotation180 ||
+        public bool IsViewInverted => DeviceDisplay.MainDisplayInfo.Rotation == DisplayRotation.Rotation180 || 
                                       DeviceDisplay.MainDisplayInfo.Rotation == DisplayRotation.Rotation270;
         public bool WasCapturePortrait { get; set; }
         public bool WasCaptureCross { get; set; }
@@ -1285,10 +1285,27 @@ namespace CrossCam.ViewModel
             Analytics.TrackEvent("alignment settings at launch", alignmentDictionary);
         }
 
+        private DisplayOrientation _previousOrientation = DisplayOrientation.Unknown;
         private void DeviceDisplayOnMainDisplayInfoChanged(object sender, DisplayInfoChangedEventArgs e)
         {
+            if (Settings.Mode == DrawMode.Cardboard)
+            {
+                switch (WorkflowStage)
+                {
+                    case WorkflowStage.Capture when !IsViewPortrait && _previousOrientation == DisplayOrientation.Portrait:
+                        SwapSidesCommand.Execute(null);
+                        break;
+                    case WorkflowStage.Final:
+                        ClearCapturesCommand.Execute(null);
+                        break;
+                }
+            }
+            
             RaisePropertyChanged(nameof(IsViewPortrait));
             RaisePropertyChanged(nameof(IsViewInverted));
+
+
+            _previousOrientation = DeviceDisplay.MainDisplayInfo.Orientation;
         }
 
         private void PairOperatorOnSyncRequested(object sender, EventArgs e)
@@ -1668,7 +1685,7 @@ namespace CrossCam.ViewModel
 
         private void PairOperatorInitialSyncCompleted(object sender, EventArgs e)
         {
-            Debug.WriteLine("### PAIR OPERATOR INITIAL SYNC COMPLETED!!!!!");
+            //Debug.WriteLine("### PAIR OPERATOR INITIAL SYNC COMPLETED!!!!!");
             RestartPreviewTrigger = !RestartPreviewTrigger;
             TryTriggerMovementHint();
             WorkflowStage = WorkflowStage.Capture;
@@ -1862,11 +1879,11 @@ namespace CrossCam.ViewModel
             {
                 if (Settings.Mode == DrawMode.Cardboard)
                 {
-                    DoubleMoveHintTrigger = !DoubleMoveHintTrigger;
+                    MoveHintTriggerSide = !MoveHintTriggerSide;
                 }
                 else
                 {
-                    SingleMoveHintTrigger = !SingleMoveHintTrigger;
+                    MoveHintTriggerCenter = !MoveHintTriggerCenter;
                 }
             }
         }

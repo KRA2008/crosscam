@@ -1772,7 +1772,7 @@
                      AbsoluteLayout.LayoutBounds="0,0.5,1,0.5"
                      InputTransparent="True">
             <StackLayout.Behaviors>
-                <ce:FadeInAndOutBehavior Trigger="{Binding SingleMoveHintTrigger}"
+                <ce:FadeInAndOutBehavior Trigger="{Binding MoveHintTriggerCenter}"
                                          InTimeMs="0"
                                          OutTimeMs="500"
                                          VisibleTimeMs="2500"/>
@@ -1903,71 +1903,28 @@
                 </Label>
             </StackLayout>
         </StackLayout>
-        <StackLayout x:Name="_doubleMoveHintStack"
+        <StackLayout x:Name="_moveHintSideStack"
                      AbsoluteLayout.LayoutFlags="PositionProportional,HeightProportional"
                      AbsoluteLayout.LayoutBounds="0.5,0,0,1"
                      InputTransparent="True"
                      Orientation="Horizontal">
-            <StackLayout HorizontalOptions="StartAndExpand">
+            <StackLayout>
+                <StackLayout.Triggers>
+                    <DataTrigger TargetType="StackLayout"
+                                 Binding="{Binding Settings.IsCaptureLeftFirst}"
+                                 Value="True">
+                        <Setter Property="HorizontalOptions"
+                                Value="StartAndExpand"/>
+                    </DataTrigger>
+                    <DataTrigger TargetType="StackLayout"
+                                 Binding="{Binding Settings.IsCaptureLeftFirst}"
+                                 Value="False">
+                        <Setter Property="HorizontalOptions"
+                                Value="EndAndExpand"/>
+                    </DataTrigger>
+                </StackLayout.Triggers>
                 <StackLayout.Behaviors>
-                    <ce:FadeInAndOutBehavior Trigger="{Binding DoubleMoveHintTrigger}"
-                                             InTimeMs="0"
-                                             OutTimeMs="500"
-                                             VisibleTimeMs="2500"/>
-                </StackLayout.Behaviors>
-                <Image Source="left"
-                       Aspect="AspectFit"
-                       HorizontalOptions="Center"
-                       VerticalOptions="EndAndExpand">
-                    <Image.Triggers>
-                        <DataTrigger TargetType="Image"
-                                     Binding="{Binding Settings.IsCaptureLeftFirst}"
-                                     Value="True">
-                            <Setter Property="Source"
-                                    Value="right"/>
-                        </DataTrigger>
-                    </Image.Triggers>
-                </Image>
-                <StackLayout Orientation="Horizontal"
-                             HorizontalOptions="Center"
-                             VerticalOptions="StartAndExpand">
-                    <Label Text="MOVE"                   
-                           FontSize="Large"
-                           FontAttributes="Bold"
-                           HorizontalOptions="EndAndExpand">
-                        <Label.Triggers>
-                            <DataTrigger TargetType="Label"
-                                         Binding="{Binding PairOperatorBindable.PairStatus, Converter={StaticResource enumCompare}, ConverterParameter={x:Static vm:PairStatus.Connected}}"
-                                         Value="true">
-                                <Setter Property="Text"
-                                        Value="SECONDARY ON"/>
-                            </DataTrigger>
-                            <DataTrigger TargetType="Label"
-                                         Binding="{Binding Settings.IsCaptureInMirrorMode}"
-                                         Value="true">
-                                <Setter Property="Text"
-                                        Value="MIRROR ON"/>
-                            </DataTrigger>
-                        </Label.Triggers>
-                    </Label>
-                    <Label Text="LEFT"                   
-                           FontSize="Large"
-                           FontAttributes="Bold"
-                           HorizontalOptions="StartAndExpand">
-                        <Label.Triggers>
-                            <DataTrigger TargetType="Label"
-                                         Binding="{Binding Settings.IsCaptureLeftFirst}"
-                                         Value="True">
-                                <Setter Property="Text"
-                                        Value="RIGHT"/>
-                            </DataTrigger>
-                        </Label.Triggers>
-                    </Label>
-                </StackLayout>
-            </StackLayout>
-            <StackLayout HorizontalOptions="EndAndExpand">
-                <StackLayout.Behaviors>
-                    <ce:FadeInAndOutBehavior Trigger="{Binding DoubleMoveHintTrigger}"
+                    <ce:FadeInAndOutBehavior Trigger="{Binding MoveHintTriggerSide}"
                                              InTimeMs="0"
                                              OutTimeMs="500"
                                              VisibleTimeMs="2500"/>
@@ -2077,12 +2034,22 @@
                                HorizontalOptions="StartAndExpand"
                                VerticalOptions="CenterAndExpand"
                                IsVisible="True"
-                               IsRunning="True"/>
-            <ActivityIndicator Color="White"
-                               HorizontalOptions="EndAndExpand"
-                               VerticalOptions="CenterAndExpand"
-                               IsVisible="True"
-                               IsRunning="True"/>
+                               IsRunning="True">
+                <ActivityIndicator.Triggers>
+                    <DataTrigger TargetType="ActivityIndicator"
+                                 Binding="{Binding Settings.IsCaptureLeftFirst}"
+                                 Value="True">
+                        <Setter Property="HorizontalOptions"
+                                Value="StartAndExpand"/>
+                    </DataTrigger>
+                    <DataTrigger TargetType="ActivityIndicator"
+                                 Binding="{Binding Settings.IsCaptureLeftFirst}"
+                                 Value="False">
+                        <Setter Property="HorizontalOptions"
+                                Value="EndAndExpand"/>
+                    </DataTrigger>
+                </ActivityIndicator.Triggers>
+            </ActivityIndicator>
         </StackLayout>
 
         <StackLayout AbsoluteLayout.LayoutFlags="All"

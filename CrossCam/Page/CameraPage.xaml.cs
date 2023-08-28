@@ -350,9 +350,9 @@ namespace CrossCam.Page
 
                 Device.BeginInvokeOnMainThread(() =>
                 {
-                    var layout = AbsoluteLayout.GetLayoutBounds(_doubleMoveHintStack);
+                    var layout = AbsoluteLayout.GetLayoutBounds(_moveHintSideStack);
                     layout.Width = _viewModel.Settings.CardboardSettings.CardboardIpd + 100;
-                    AbsoluteLayout.SetLayoutBounds(_doubleMoveHintStack, layout);
+                    AbsoluteLayout.SetLayoutBounds(_moveHintSideStack, layout);
 
                     EvaluateSensors();
                     PlaceRollGuide();
@@ -409,9 +409,9 @@ namespace CrossCam.Page
                         PlaceRollGuide();
                         break;
                     case nameof(CameraViewModel.IsViewPortrait):
+                        Debug.WriteLine("### isViewPortrait changed");
                         ProcessDoubleTap();
                         SetMarginsForNotch();
-                        SwapSidesIfCardboard();
                         _forceCanvasClear = true;
                         _canvas.InvalidateSurface();
                         break;
@@ -458,23 +458,6 @@ namespace CrossCam.Page
             {
                 _cardboardHomeVert = _cardboardViewVert;
                 _cardboardHomeHor = _cardboardViewHor;
-            }
-        }
-
-        private void SwapSidesIfCardboard()
-        {
-            if (_viewModel.Settings.Mode == DrawMode.Cardboard &&
-                !_viewModel.IsViewPortrait)
-            {
-                switch (_viewModel.WorkflowStage)
-                {
-                    case WorkflowStage.Capture:
-                        _viewModel?.SwapSidesCommand.Execute(null);
-                        break;
-                    case WorkflowStage.Final:
-                        _viewModel?.ClearCapturesCommand.Execute(null);
-                        break;
-                }
             }
         }
 

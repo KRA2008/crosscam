@@ -1247,6 +1247,8 @@ namespace CrossCam.Droid.CustomRenderer
                         {
                             try
                             {
+                                if (_camera2Device == null) return;
+
                                 _camera2Session = session;
                                 _previewRequestBuilder = _camera2Device.CreateCaptureRequest(CameraTemplate.Preview);
                                 _previewRequestBuilder.AddTarget(_surface);
