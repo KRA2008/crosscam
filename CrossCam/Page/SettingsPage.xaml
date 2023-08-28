@@ -711,7 +711,6 @@
                                 <RowDefinition Height="60"/>
                                 <RowDefinition Height="60"/>
                                 <RowDefinition Height="60"/>
-                                <RowDefinition Height="60"/>
                                 <RowDefinition Height="75"/>
                                 <RowDefinition Height="70"/>
                                 <RowDefinition Height="70"/>
@@ -743,57 +742,41 @@
                                         HorizontalOptions="FillAndExpand"/>
                             </Frame>
 
-                            <StackLayout Grid.Row="1" 
-                                         Grid.Column="0" 
-                                         Orientation="Horizontal"
-                                         VerticalOptions="Center"
-                                         HorizontalOptions="Center">
-                                <BoxView Style="{StaticResource _fuseGuide}"/>
-                                <BoxView Style="{StaticResource _fuseGuide}"/>
-                            </StackLayout>
-                            <Label Grid.Column="1"
-                                   Grid.ColumnSpan="2"
-                                   Grid.Row="1"
-                                   Text="Save with fuse guide (a dot above each side)"/>
-                            <Switch Grid.Column="3" 
-                                    Grid.Row="1"
-                                    IsToggled="{Binding Settings.SaveWithFuseGuide}"/>
+                            <Label Grid.Row="1"
+                                   Grid.Column="0"
+                                   Grid.ColumnSpan="3"
+                                   Text="Save to subfolders/albums labeled by view method"/>
+                            <Switch Grid.Row="1"
+                                    Grid.Column="3"
+                                    IsToggled="{Binding Settings.SaveIntoSeparateFolders}"/>
 
                             <Label Grid.Row="2"
                                    Grid.Column="0"
                                    Grid.ColumnSpan="3"
-                                   Text="Save to subfolders/albums labeled by view method"/>
-                            <Switch Grid.Row="2"
-                                    Grid.Column="3"
-                                    IsToggled="{Binding Settings.SaveIntoSeparateFolders}"/>
-
-                            <Label Grid.Row="3"
-                                   Grid.Column="0"
-                                   Grid.ColumnSpan="3"
                                    Text="Automatically clear captures after saving"/>
-                            <Switch Grid.Row="3"
+                            <Switch Grid.Row="2"
                                     Grid.Column="3"
                                     IsToggled="{Binding Settings.ClearCapturesAfterSave}"/>
 
-                            <Label Grid.Row="4"
+                            <Label Grid.Row="3"
                                    Grid.Column="0"
                                    Grid.ColumnSpan="4"
                                    Text="(Saving will happen in order from top to bottom)"
                                    HorizontalOptions="CenterAndExpand"/>
 
-                            <Image Grid.Row="5"
+                            <Image Grid.Row="4"
                                    Grid.Column="0"
                                    Source="saveBoth"
                                    Style="{StaticResource saveModes}"/>
-                            <Label Grid.Row="5"
+                            <Label Grid.Row="4"
                                    Grid.Column="1"
                                    Grid.ColumnSpan="2"
                                    Text="Save each side separately (with no edits or border for easier post processing, left side saves first)"/>
-                            <Switch Grid.Row="5"
+                            <Switch Grid.Row="4"
                                     Grid.Column="3"
                                     IsToggled="{Binding Settings.SaveSidesSeparately}"/>
 
-                            <Image Grid.Row="6"
+                            <Image Grid.Row="5"
                                    Grid.Column="0"
                                    Source="crossed"
                                    Style="{StaticResource saveModes}">
@@ -806,7 +789,7 @@
                                     </DataTrigger>
                                 </Image.Triggers>
                             </Image>
-                            <Label Grid.Row="6"
+                            <Label Grid.Row="5"
                                    Grid.Column="1"
                                    Grid.ColumnSpan="2"
                                    Text="Save joined cross view version (with edits and border)">
@@ -819,7 +802,7 @@
                                     </DataTrigger>
                                 </Label.Triggers>
                             </Label>
-                            <Switch Grid.Row="6"
+                            <Switch Grid.Row="5"
                                     Grid.Column="3"
                                     IsToggled="{Binding Settings.SaveForCrossView}">
                                 <Switch.Triggers>
@@ -832,7 +815,7 @@
                                 </Switch.Triggers>
                             </Switch>
 
-                            <Image Grid.Row="7"
+                            <Image Grid.Row="6"
                                    Grid.Column="0"
                                    Source="parallel"
                                    Style="{StaticResource saveModes}">
@@ -845,7 +828,7 @@
                                     </DataTrigger>
                                 </Image.Triggers>
                             </Image>
-                            <Label Grid.Row="7"
+                            <Label Grid.Row="6"
                                    Grid.Column="1"
                                    Grid.ColumnSpan="2"
                                    Text="Save joined parallel view version (with edits and border)">
@@ -858,7 +841,7 @@
                                     </DataTrigger>
                                 </Label.Triggers>
                             </Label>
-                            <Switch Grid.Row="7"
+                            <Switch Grid.Row="6"
                                     Grid.Column="3"
                                     IsToggled="{Binding Settings.SaveForParallel}">
                                 <Switch.Triggers>
@@ -871,86 +854,86 @@
                                 </Switch.Triggers>
                             </Switch>
 
-                            <Image Grid.Row="8"
+                            <Image Grid.Row="7"
                                    Grid.Column="0"
                                    Source="anaglyph"
+                                   Style="{StaticResource saveModes}"/>
+                            <Label Grid.Row="7"
+                                   Grid.Column="1"
+                                   Grid.ColumnSpan="2"
+                                   Text="Save red/cyan anaglyph version (with edits but no border)"/>
+                            <Switch Grid.Row="7"
+                                    Grid.Column="3"
+                                    IsToggled="{Binding Settings.SaveForRedCyanAnaglyph}"/>
+
+                            <Image Grid.Row="8"
+                                   Grid.Column="0"
+                                   Source="grayscaleAnaglyph"
                                    Style="{StaticResource saveModes}"/>
                             <Label Grid.Row="8"
                                    Grid.Column="1"
                                    Grid.ColumnSpan="2"
-                                   Text="Save red/cyan anaglyph version (with edits but no border)"/>
+                                   Text="Save grayscale red/cyan anaglyph version (with edits but no border)"/>
                             <Switch Grid.Row="8"
                                     Grid.Column="3"
-                                    IsToggled="{Binding Settings.SaveForRedCyanAnaglyph}"/>
+                                    IsToggled="{Binding Settings.SaveForGrayscaleAnaglyph}"/>
 
                             <Image Grid.Row="9"
                                    Grid.Column="0"
-                                   Source="grayscaleAnaglyph"
+                                   Source="saveOne"
                                    Style="{StaticResource saveModes}"/>
                             <Label Grid.Row="9"
                                    Grid.Column="1"
                                    Grid.ColumnSpan="2"
-                                   Text="Save grayscale red/cyan anaglyph version (with edits but no border)"/>
-                            <Switch Grid.Row="9"
-                                    Grid.Column="3"
-                                    IsToggled="{Binding Settings.SaveForGrayscaleAnaglyph}"/>
-
-                            <Image Grid.Row="10"
-                                   Grid.Column="0"
-                                   Source="saveOne"
-                                   Style="{StaticResource saveModes}"/>
-                            <Label Grid.Row="10"
-                                   Grid.Column="1"
-                                   Grid.ColumnSpan="2"
                                    Text="Save first side alone (with no edits or border) (for easy sharing of flat photo with flat view people)"/>
-                            <Switch Grid.Row="10"
+                            <Switch Grid.Row="9"
                                     Grid.Column="3"
                                     IsToggled="{Binding Settings.SaveRedundantFirstSide}"
                                     IsEnabled="{Binding EnableFirstSideAloneSwitch}"/>
 
-                            <Image Grid.Row="11"
+                            <Image Grid.Row="10"
                                    Grid.Column="0"
                                    Source="triple"
                                    Style="{StaticResource saveModes}"/>
-                            <Label Grid.Row="11"
+                            <Label Grid.Row="10"
                                    Grid.Column="1"
                                    Grid.ColumnSpan="2"
                                    Text="Save triple combination (with edits and border)"/>
-                            <Switch Grid.Row="11"
+                            <Switch Grid.Row="10"
                                     Grid.Column="3"
                                     IsToggled="{Binding Settings.SaveForTriple}"/>
 
-                            <Image Grid.Row="12"
+                            <Image Grid.Row="11"
                                    Grid.Column="0"
                                    Source="quad"
                                    Style="{StaticResource saveModes}"
                                    HeightRequest="25"/>
-                            <Label Grid.Row="12"
+                            <Label Grid.Row="11"
                                    Grid.Column="1"
                                    Grid.ColumnSpan="2"
                                    Text="Save quad combination (with edits and border)"/>
-                            <Switch Grid.Row="12"
+                            <Switch Grid.Row="11"
                                     Grid.Column="3"
                                     IsToggled="{Binding Settings.SaveForQuad}"/>
 
-                            <Label Grid.Row="13"
+                            <Label Grid.Row="12"
                                    Grid.Column="0"
                                    HorizontalOptions="Center"
                                    Text="VR"/>
-                            <Label Grid.Row="13"
+                            <Label Grid.Row="12"
                                    Grid.Column="1"
                                    Grid.ColumnSpan="2"
                                    Text="Save for Cardboard (with edits, no border, no spacing, full width, for loading back into CrossCam later)"/>
-                            <Switch Grid.Row="13"
+                            <Switch Grid.Row="12"
                                     Grid.Column="3"
                                     IsToggled="{Binding Settings.SaveForCardboard}"/>
 
-                            <Label Grid.Row="14"
+                            <Label Grid.Row="13"
                                    Grid.Column="0"
                                    Grid.ColumnSpan="2"
                                    Text="{Binding SaveDirectory, StringFormat='Save to: {0}'}"
                                    IsVisible="{Binding CanSaveToArbitraryDirectory}"/>
-                            <Button Grid.Row="14"
+                            <Button Grid.Row="13"
                                     Grid.Column="2"
                                     Grid.ColumnSpan="2"
                                     Command="{Binding ChooseDirectory}"
@@ -972,19 +955,19 @@
                                 </Button.Triggers>
                             </Button>
 
-                            <Button Grid.Row="15"
+                            <Button Grid.Row="14"
                                     Grid.Column="2"
                                     Grid.ColumnSpan="2"
                                     Command="{Binding ClearDirectory}"
                                     Text="Reset"
                                     IsVisible="{Binding Settings.SavingDirectory, Converter={vc:IsNotNullConverter}}"/>
 
-                            <Label Grid.Row="16"
+                            <Label Grid.Row="15"
                                    Grid.Column="0"
                                    Grid.ColumnSpan="2"
                                    Text="{Binding ExternalDirectory, StringFormat='Save to external CrossCam directory at: {0} (warning: pictures there will be deleted if CrossCam is uninstalled)'}"
                                    IsVisible="{Binding CanSaveToExternalDirectory}"/>
-                            <Switch Grid.Row="16"
+                            <Switch Grid.Row="15"
                                     Grid.Column="3"
                                     IsToggled="{Binding Settings.SaveToExternal}"
                                     IsVisible="{Binding CanSaveToExternalDirectory}"/>
@@ -1007,44 +990,52 @@
                     </Grid.ColumnDefinitions>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="50"/>
+                        <RowDefinition Height="50"/>
                         <RowDefinition Height="Auto"/>
                         <RowDefinition Height="Auto"/>
                         <RowDefinition Height="55"/>
                     </Grid.RowDefinitions>
 
                     <Label Grid.Column="0"
-                           Grid.Row="0" 
-                           Text="Add border"/>
-                    <Switch Grid.Column="1"
-                            Grid.Row="0" 
-                            IsToggled="{Binding Settings.AddBorder2}"/>
+                           Grid.Row="0"
+                           Text="Add fuse guide on top (a dot above each side)"/>
+                    <Switch Grid.Column="1" 
+                            Grid.Row="0"
+                            IsToggled="{Binding Settings.SaveWithFuseGuide}"/>
 
                     <Label Grid.Column="0"
                            Grid.Row="1" 
+                           Text="Add border"/>
+                    <Switch Grid.Column="1"
+                            Grid.Row="1" 
+                            IsToggled="{Binding Settings.AddBorder2}"/>
+
+                    <Label Grid.Column="0"
+                           Grid.Row="2" 
                            Text="Border color"
                            IsVisible="{Binding Settings.AddBorder2}"/>
                     <Frame Grid.Column="1"
-                           Grid.Row="1" 
+                           Grid.Row="2" 
                            IsVisible="{Binding Settings.AddBorder2}">
                         <Picker ItemsSource="{Binding BorderColors}"
                                 SelectedIndex="{Binding Settings.BorderColor, Converter={vc:BorderColorValueConverter}}"/>
                     </Frame>
 
                     <Label Grid.Column="0"
-                           Grid.Row="2" 
+                           Grid.Row="3" 
                            IsVisible="{Binding Settings.AddBorder2}" 
                            Text="Border thickness (tenths of percentage of width)"/>
                     <Frame Grid.Column="1"
-                           Grid.Row="2" 
+                           Grid.Row="3" 
                            IsVisible="{Binding Settings.AddBorder2}">
                         <Entry Text="{Binding Settings.BorderWidthProportion}"/>
                     </Frame>
 
                     <Label Grid.Column="0"
-                           Grid.Row="3" 
+                           Grid.Row="4" 
                            Text="Clip border off when loading next stereo pair"/>
                     <Switch Grid.Column="1"
-                            Grid.Row="3" 
+                            Grid.Row="4" 
                             IsToggled="{Binding Settings.ClipBorderOnNextLoad}"/>
                 </Grid>
             </views:Expander>
