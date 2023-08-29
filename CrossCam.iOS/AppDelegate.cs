@@ -15,7 +15,7 @@ namespace CrossCam.iOS
 	public class AppDelegate : Xamarin.Forms.Platform.iOS.FormsApplicationDelegate
 	{
 	    private App _app;
-
+        
 		public override bool FinishedLaunching (UIApplication app, NSDictionary options)
         {
             Forms.SetFlags("Expander_Experimental");

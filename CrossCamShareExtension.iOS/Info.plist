@@ -5,15 +5,15 @@
 	<key>CFBundleDevelopmentRegion</key>
 	<string>en</string>
 	<key>CFBundleDisplayName</key>
-	<string>CrossCam</string>
+	<string>CrossCam Share Extension</string>
 	<key>CFBundleExecutable</key>
-	<string>CrossCam.iOS.Extension</string>
+	<string>CrossCamShareExtension.iOS</string>
 	<key>CFBundleIdentifier</key>
 	<string>com.kra2008.crosscam.shareextension</string>
 	<key>CFBundleInfoDictionaryVersion</key>
 	<string>6.0</string>
 	<key>CFBundleName</key>
-	<string>com.kra2008.CrossCam.iOS.Extension</string>
+	<string>com.kra2008.CrossCam.ShareExtensioniOS</string>
 	<key>CFBundlePackageType</key>
 	<string>XPC!</string>
 	<key>CFBundleShortVersionString</key>
@@ -24,15 +24,17 @@
 	<string>10.0</string>
 	<key>MinimumOSVersion</key>
 	<string>9.0</string>
-	<key>NSExtension</key>
+  <key>NSExtension</key>
 	<dict>
 		<key>NSExtensionAttributes</key>
 		<dict>
 			<key>NSExtensionActivationRule</key>
-		  <dict>
-		    <key>NSExtensionActivationSupportsImageWithMaxCount</key>
-		    <integer>2</integer>
-		  </dict>
+			<dict>
+				<key>NSExtensionActivationSupportsImageWithMaxCount</key>
+				<integer>2</integer>
+			</dict>
+			<key>NSExtensionPointName</key>
+			<string>com.apple.share-services</string>
 			<key>NSExtensionPointVersion</key>
 			<string>1.0</string>
 		</dict>
