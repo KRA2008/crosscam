@@ -137,7 +137,7 @@ namespace CrossCam.Model
         public bool SaveIntoSeparateFolders { get; set; }
         public bool ClearCapturesAfterSave { get; set; }
 
-        public bool SendErrorReports1 { get; set; }
+        public bool PromptForErrorEmails { get; set; }
 
         [Obsolete("Use SaveForRedCyanAnaglyph - kept for backward compatibility")]
         public bool RedCyanAnaglyphMode { get => SaveForRedCyanAnaglyph; set => SaveForRedCyanAnaglyph = value; }
@@ -308,7 +308,7 @@ namespace CrossCam.Model
 
             MaximumParallelWidth = (int)PARALLEL_BASE_WIDTH;
 
-            SendErrorReports1 = true;
+            PromptForErrorEmails = false;
 
             AlignmentSettings.ResetToDefaults();
             EditsSettings.ResetToDefaults();

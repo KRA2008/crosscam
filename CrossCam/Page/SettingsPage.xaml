@@ -1314,8 +1314,8 @@
             <BoxView/>
 
             <StackLayout Orientation="Horizontal">
-                <Label Text="Prompt to send error reports"/>
-                <Switch IsToggled="{Binding Settings.SendErrorReports1}"/>
+                <Label Text="Prompt to send email when errors occur"/>
+                <Switch IsToggled="{Binding Settings.PromptForErrorEmails}"/>
             </StackLayout>
             <BoxView/>
             <Button Text="Reset to Defaults"

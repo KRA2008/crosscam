@@ -7,6 +7,9 @@ using System.IO;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+#if RELEASE
+using System.Web;
+#endif
 using CrossCam.CustomElement;
 using CrossCam.Model;
 using CrossCam.Page;
@@ -1169,7 +1172,7 @@ namespace CrossCam.ViewModel
 #if DEBUG
                     await CoreMethods.DisplayAlert("ERROR", Error.ToString(), "OK");
 #else
-                    if (Settings.SendErrorReports1)
+                    if (Settings.PromptForErrorEmails)
                     {
                         var sendReport = await CoreMethods.DisplayAlert("Oops",
                             "Sorry, CrossCam did an error. An error report has been automatically sent. You may not notice anything wrong at all, but if you do, try restarting the application. If this keeps happening, please email me and tell me about it. (Go to the Settings page to stop these popups.)",
