@@ -144,8 +144,6 @@ namespace AutoAlignment
 #if __NO_EMGU__
             return null;
 #else
-            var stopwatch = Stopwatch.StartNew();
-
             var result = new AlignedResult();
 
             using var detector = new ORBDetector();
@@ -155,10 +153,7 @@ namespace AutoAlignment
             using var descriptors1 = new Mat();
             using var allKeyPointsVector1 = new VectorOfKeyPoint();
             CvInvoke.Imdecode(GetBytes(firstImage, settings.DownsizePercentage / 100d), readMode, image1Mat);
-            Debug.WriteLine("### decode: " + stopwatch.ElapsedTicks);
-            stopwatch.Restart();
             detector.DetectAndCompute(image1Mat, null, allKeyPointsVector1, descriptors1, false);
-            Debug.WriteLine("### detect: " + stopwatch.ElapsedTicks);
 
             using var image2Mat = new Mat();
             using var descriptors2 = new Mat();
@@ -166,7 +161,6 @@ namespace AutoAlignment
             CvInvoke.Imdecode(GetBytes(secondImage, settings.DownsizePercentage / 100d), readMode, image2Mat);
             detector.DetectAndCompute(image2Mat, null, allKeyPointsVector2, descriptors2, false);
 
-            stopwatch.Restart();
             var thresholdDistance = Math.Sqrt(Math.Pow(firstImage.Width, 2) + Math.Pow(firstImage.Height, 2)) *
                                     settings.PhysicalDistanceThreshold;
 
@@ -176,7 +170,7 @@ namespace AutoAlignment
             {
                 unsafe
                 {
-                    var maskPtr = (byte*) distanceThresholdMask.DataPointer.ToPointer();
+                    var maskPtr = (byte*)distanceThresholdMask.DataPointer.ToPointer();
                     for (var i = 0; i < allKeyPointsVector2.Size; i++)
                     {
                         var keyPoint2 = allKeyPointsVector2[i];
@@ -200,16 +194,11 @@ namespace AutoAlignment
                 }
             }
 
-            Debug.WriteLine("### physical distance checks: " + stopwatch.ElapsedTicks);
-            stopwatch.Restart();
-
             using var vectorOfMatches = new VectorOfVectorOfDMatch();
             using var matcher = new BFMatcher(DistanceType.Hamming, settings.UseCrossCheck);
             matcher.Add(descriptors1);
             matcher.KnnMatch(descriptors2, vectorOfMatches, settings.UseCrossCheck ? 1 : 2,
                 settings.UseCrossCheck ? new VectorOfMat() : new VectorOfMat(distanceThresholdMask));
-            Debug.WriteLine("### match: " + stopwatch.ElapsedTicks);
-            stopwatch.Restart();
 
             var goodMatches = new List<MDMatch>();
             for (var i = 0; i < vectorOfMatches.Size; i++)
@@ -253,16 +242,11 @@ namespace AutoAlignment
                 });
             }
 
-            Debug.WriteLine("### match distance: " + stopwatch.ElapsedTicks);
-            stopwatch.Restart();
-
             if (settings.DrawKeypointMatches)
             {
                 result.DirtyMatchesCount = pairedPoints.Count;
                 result.DrawnDirtyMatches =
                     DrawMatches(firstImage, secondImage, pairedPoints, settings.DownsizePercentage);
-                Debug.WriteLine("### draw matches: " + stopwatch.ElapsedTicks);
-                stopwatch.Restart();
             }
 
             if (settings.DiscardOutliersByDistance || settings.DiscardOutliersBySlope1)
@@ -421,9 +405,6 @@ namespace AutoAlignment
                                      verted1.PostConcat(hored1).PostConcat(rotated1).PostConcat(zoomed1).PostConcat(keystoned21)
                         .PostConcat(verted2).PostConcat(hored2).PostConcat(rotated2).PostConcat(zoomed2).PostConcat(keystoned22)
                         .PostConcat(verted3).PostConcat(hored3).PostConcat(rotated3).PostConcat(zoomed3).PostConcat(keystoned23), 1 / (settings.DownsizePercentage / 100f));
-
-                Debug.WriteLine("### homebrew matrix finding: " + stopwatch.ElapsedTicks);
-                stopwatch.Restart();
             }
             else
             {
@@ -460,10 +441,6 @@ namespace AutoAlignment
 
                     if (warp2 == null || warp2.IsEmpty) return null;
                 }
-
-                Debug.WriteLine("### method " + (TransformationFindingMethod) settings.TransformationFindingMethod +
-                                ": " + stopwatch.ElapsedTicks);
-                stopwatch.Restart();
 
                 if (settings.DrawResultWarpedByOpenCv)
                 {
@@ -728,8 +705,8 @@ namespace AutoAlignment
 
             while (searchingIncrement > terminationThreshold)
             {
-                Debug.WriteLine("baseOffset: " + baseOffset + " inc: " + searchingIncrement + " func: " +
-                                testerFunction.Method.Name);
+                //Debug.WriteLine("baseOffset: " + baseOffset + " inc: " + searchingIncrement + " func: " +
+                //                testerFunction.Method.Name);
                 var versionA = testerFunction(componentStart + searchingIncrement);
                 var versionB = testerFunction(componentStart - searchingIncrement);
                 var attemptA = versionA.MapPoints(pointsToTransform);
@@ -771,8 +748,8 @@ namespace AutoAlignment
 
             while (searchingIncrement > terminationThreshold)
             {
-                Debug.WriteLine("baseOffset: " + baseOffset + " inc: " + searchingIncrement + " func: " +
-                                testerFunction.Method.Name);
+                //Debug.WriteLine("baseOffset: " + baseOffset + " inc: " + searchingIncrement + " func: " +
+                //                testerFunction.Method.Name);
                 var up = testerFunction(componentStart + searchingIncrement);
                 var down = testerFunction(componentStart - searchingIncrement);
 
@@ -830,17 +807,17 @@ namespace AutoAlignment
             var outlierRange = iqr * 1.5;
             var inliers = rawOffsets.Where(offset => offset >= median - outlierRange && offset <= median + outlierRange)
                 .ToList();
-            var outliers = rawOffsets.Where(offset => offset < median - outlierRange || offset > median + outlierRange)
-                .ToList();
+            //var outliers = rawOffsets.Where(offset => offset < median - outlierRange || offset > median + outlierRange)
+            //    .ToList();
             var sum = inliers.Select(Math.Abs).Sum();
-            Debug.WriteLine("### q1: " + firstQuartile +
-                            " med: " + median +
-                            " q3: " + thirdQuartile +
-                            " iqr: " + iqr +
-                            " sum: " + sum);
-            Debug.WriteLine(inliers.Count + " inliers: " + string.Join(",", inliers.Select(d => Math.Round(d, 2))));
-            Debug.WriteLine(outliers.Count + " outliers: " + string.Join(",", outliers.Select(d => Math.Round(d, 2))));
-            Debug.WriteLine("all: " + string.Join(",", rawOffsets.Select(d => Math.Round(d, 2))));
+            //Debug.WriteLine("### q1: " + firstQuartile +
+            //                " med: " + median +
+            //                " q3: " + thirdQuartile +
+            //                " iqr: " + iqr +
+            //                " sum: " + sum);
+            //Debug.WriteLine(inliers.Count + " inliers: " + string.Join(",", inliers.Select(d => Math.Round(d, 2))));
+            //Debug.WriteLine(outliers.Count + " outliers: " + string.Join(",", outliers.Select(d => Math.Round(d, 2))));
+            //Debug.WriteLine("all: " + string.Join(",", rawOffsets.Select(d => Math.Round(d, 2))));
             return sum;
         }
 
@@ -852,7 +829,7 @@ namespace AutoAlignment
                 netOffset += Math.Abs(x ? points1[ii].X - points2[ii].X : points1[ii].Y - points2[ii].Y);
             }
 
-            Debug.WriteLine("### net: " + netOffset);
+            //Debug.WriteLine("### net: " + netOffset);
             return netOffset;
         }
 

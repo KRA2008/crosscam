@@ -606,7 +606,7 @@
 
                     <Label Grid.Column="0"
                            Grid.Row="15"
-                           Text="Physical distance threshold"
+                           Text="Physical distance threshold (set to 1 to disable)"
                            IsVisible="{Binding Settings.AlignmentSettings.ShowAdvancedAlignmentSettings}"/>
                     <Frame Grid.Column="1"
                            Grid.Row="15"
