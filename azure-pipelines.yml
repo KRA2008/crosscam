@@ -52,11 +52,11 @@ jobs:
       targetType: 'inline'
       script: |
         sed -i '' 's/<string>1.0<\/string>/<string>$(myVersionNumber)<\/string>/g' CrossCam.iOS/Info.plist
-        sed -i '' 's/<string>10.0<\/string>/<string>$(myVersionNumber)<\/string>/g' CrossCam.iOS.Extension/Info.plist
+        sed -i '' 's/<string>10.0<\/string>/<string>$(myVersionNumber)<\/string>/g' CrossCamShareExtension.iOS/Info.plist
         echo "MAIN PLIST"
         cat CrossCam.iOS/Info.plist
         echo "EXTENSION PLIST"
-        cat CrossCam.iOS.Extension/Info.plist
+        cat CrossCamShareExtension.iOS/Info.plist
 
   - task: XamariniOS@2
     inputs:
