@@ -541,6 +541,7 @@
     <BundleResource Include="Resources\close%402x.png" />
     <BundleResource Include="Resources\ghost.png" />
     <BundleResource Include="Resources\ghost%402x.png" />
+    <BundleResource Include="Resources\mirrorMethod.png" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\CrossCamShareExtension.iOS\CrossCamShareExtension.iOS.csproj">
