@@ -5,6 +5,7 @@ using System.Linq;
 using System.Net;
 using CrossCam.Model;
 using CrossCam.Wrappers;
+using Microsoft.AppCenter.Analytics;
 using Xamarin.Forms;
 
 namespace CrossCam.ViewModel
@@ -88,14 +89,14 @@ namespace CrossCam.ViewModel
                     Settings.SavingDirectory = newDirectory;
                     RaisePropertyChanged(nameof(SaveDirectory));
                 }
-                SaveSettings(null, null);
+                HandleSettingsPropertyChanged(null, null);
             });
 
             ClearDirectory = new Command(() =>
             {
                 Settings.SavingDirectory = null;
                 RaisePropertyChanged(nameof(SaveDirectory));
-                SaveSettings(null, null);
+                HandleSettingsPropertyChanged(null, null);
             });
 
             NavigateToPairingPageCommand = new Command(async () =>
@@ -116,27 +117,43 @@ namespace CrossCam.ViewModel
         {
             base.Init(initData);
             Settings = (Settings) initData;
-            SaveSettings(null, null);
+            Settings.PropertyChanged += HandleSettingsPropertyChanged;
+            SetAnalyticsEnabledStatus(Settings.IsAnalyticsEnabled);
+            ValidateSwitchStatuses();
 
             ExternalDirectory = _directorySelector.GetExternalSaveDirectory();
             CanSaveToArbitraryDirectory = _directorySelector.CanSaveToArbitraryDirectory();
         }
 
-        protected override void ViewIsDisappearing(object sender, EventArgs e)
+        public override void ReverseInit(object returnedData)
         {
-            base.ViewIsDisappearing(sender, e);
-            SaveSettings(null, null);
-            Settings.PropertyChanged -= SaveSettings;
+            SaveSettings();
+            Settings.PropertyChanged -= HandleSettingsPropertyChanged;
+            base.ReverseInit(returnedData);
         }
 
         protected override void ViewIsAppearing(object sender, EventArgs e)
         {
             base.ViewIsAppearing(sender, e);
             CameraViewModel.PairOperator.CurrentCoreMethods = CoreMethods;
-            Settings.PropertyChanged += SaveSettings;
         }
 
-        private void SaveSettings(object sender, PropertyChangedEventArgs e)
+        private async void SetAnalyticsEnabledStatus(bool enabled)
+        {
+            await Analytics.SetEnabledAsync(enabled);
+        }
+
+        private void HandleSettingsPropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+            if (e.PropertyName == nameof(Settings.IsAnalyticsEnabled))
+            {
+                SetAnalyticsEnabledStatus(Settings.IsAnalyticsEnabled);
+            }
+
+            SaveSettings();
+        }
+
+        private void ValidateSwitchStatuses()
         {
             EnableFirstSideAloneSwitch = (Settings.SaveForCrossView || Settings.SaveForParallel || Settings.SaveForRedCyanAnaglyph) &&
                                          !Settings.SaveSidesSeparately;
@@ -145,6 +162,11 @@ namespace CrossCam.ViewModel
             {
                 Settings.SaveRedundantFirstSide = false;
             }
+        }
+
+        private void SaveSettings()
+        {
+            ValidateSwitchStatuses();
 
             PersistentStorage.Save(PersistentStorage.SETTINGS_KEY, Settings);
         }

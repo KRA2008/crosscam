@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Threading.Tasks;
 using CrossCam.iOS.CustomRenderer;
 using CrossCam.Wrappers;
@@ -127,7 +128,7 @@ namespace CrossCam.iOS.CustomRenderer
             };
             var collection = PHAssetCollection.FetchAssetCollections(PHAssetCollectionType.Album,
                 PHAssetCollectionSubtype.AlbumRegular, fetchOptions);
-            var firstObject = collection.FirstObject;
+            var firstObject = collection.FirstOrDefault();
             return firstObject as PHAssetCollection;
         }
     }

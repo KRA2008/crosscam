@@ -1317,6 +1317,12 @@
                 <Label Text="Prompt to send email when errors occur"/>
                 <Switch IsToggled="{Binding Settings.PromptForErrorEmails}"/>
             </StackLayout>
+
+            <StackLayout Orientation="Horizontal">
+                <Label Text="Share anonymous usage and error data to help improve CrossCam"/>
+                <Switch IsToggled="{Binding Settings.IsAnalyticsEnabled}"/>
+            </StackLayout>
+
             <BoxView/>
             <Button Text="Reset to Defaults"
                     Command="{Binding ResetToDefaults}"/>
