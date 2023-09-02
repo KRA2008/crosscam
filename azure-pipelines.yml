@@ -107,11 +107,6 @@ jobs:
       appType: 'iOS'
       shouldSkipWaitingForProcessing: true
 
-  - task: ManualValidation@0
-    inputs:
-      notifyUsers: 'check me'
-      onTimeout: 'resume'
-
 #- job: Android
 #  displayName: 'Android'
 #  # Xamarin.Android
@@ -187,8 +182,3 @@ jobs:
 #      releaseNotesInput: '☃'
 #      destinationType: 'groups'
 #      isSilent: true
-#
-#  - task: ManualValidation@0
-#  inputs:
-#    notifyUsers: 'check me'
-#    onTimeout: 'resume'
