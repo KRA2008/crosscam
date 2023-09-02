@@ -69,6 +69,11 @@ jobs:
     inputs:
       targetPath: '$(Pipeline.Workspace)/s/CrossCam.iOS/bin/iPhone/Release/CrossCam.iOS.ipa'
       publishLocation: 'pipeline'
+  
+  - task: PublishPipelineArtifact@1
+    inputs:
+      targetPath: '$(Pipeline.Workspace)/s/CrossCam.iOS/bin/iPhone/Release/CrossCam.iOS.app.dSYM'
+      publishLocation: 'pipeline'
 
   - task: AppStoreRelease@1
     inputs:
