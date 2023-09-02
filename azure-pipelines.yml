@@ -81,20 +81,18 @@ jobs:
     inputs:
       targetPath: '$(Pipeline.Workspace)/s/CrossCam.iOS/bin/iPhone/Release/CrossCam.iOS.ipa'
       publishLocation: 'pipeline'
-      artifact: 'app'
   
   - task: PublishPipelineArtifact@1
     inputs:
       targetPath: '$(Pipeline.Workspace)/s/CrossCam.iOS/bin/iPhone/Release/CrossCam.iOS.app.dSYM'
       publishLocation: 'pipeline'
-      artifact: 'symbols'
   
   - task: AppCenterDistribute@3
     inputs:
       serverEndpoint: 'App Center'
       appSlug: 'kra3030/CrossCam'
-      appFile: '$(Pipeline.Workspace)\s\CrossCam.iOS\output\CrossCam.iOS.ipa'
-      symbolsDsymFiles: '$(Pipeline.Workspace)\s\CrossCam.iOS\bin\iPhone\Release\CrossCam.iOS.app.dSYM'
+      appFile: '$(Pipeline.Workspace)/s/CrossCam.iOS/bin/iPhone/Release/CrossCam.iOS.ipa'
+      symbolsDsymFiles: '$(Pipeline.Workspace)/s/CrossCam.iOS/bin/iPhone/Release/CrossCam.iOS.app.dSYM'
       releaseNotesOption: 'input'
       releaseNotesInput: '☂'
       destinationType: 'groups'
