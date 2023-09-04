@@ -148,11 +148,10 @@ namespace CrossCam.Droid
             if (requestCode == PICK_PHOTO_ID)
             {
                 if (intent?.ClipData != null &&
-                    intent.ClipData.ItemCount > 1)
+                    intent.ClipData.ItemCount > 1 &&
+                    intent.ClipData.GetItemAt(0) is { } item1 && 
+                    intent.ClipData.GetItemAt(1) is { } item2)
                 {
-                    var item1 = intent.ClipData.GetItemAt(0);
-                    var item2 = intent.ClipData.GetItemAt(1);
-
                     var image1Task = ImageUriToByteArray(item1.Uri);
                     var image2Task = ImageUriToByteArray(item2.Uri);
                     await Task.WhenAll(image1Task, image2Task);
@@ -160,18 +159,20 @@ namespace CrossCam.Droid
                     PickPhotoTaskCompletionSource.SetResult(new[] { image1Task.Result, image2Task.Result });
                 }
                 else if (resultCode == Result.Ok &&
-                         intent?.Data != null)
+                         intent?.Data != null &&
+                         ContentResolver != null)
                 {
                     var uri = intent.Data;
                     var stream = ContentResolver.OpenInputStream(uri);
                     var memoryStream = new MemoryStream();
-                    stream.CopyTo(memoryStream);
+                    if (stream != null) await stream.CopyToAsync(memoryStream);
 
                     PickPhotoTaskCompletionSource.SetResult(new[] { memoryStream.ToArray(), null });
                 }
                 else
                 {
                     PickPhotoTaskCompletionSource.SetResult(null);
+                    Crashes.TrackError(new Exception("pickPhotoCompletion failed to enter into photo opening"));
                 }
             }
             else if (requestCode == (int)RequestCodes.BrowseDirectoriesRequestCode)
