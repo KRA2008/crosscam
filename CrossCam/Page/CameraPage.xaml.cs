@@ -439,6 +439,9 @@ namespace CrossCam.Page
                         _forceCanvasClear = true;
                         _canvas.InvalidateSurface();
                         break;
+                    case nameof(CameraViewModel.IsBusy):
+                        CardboardCheckAndSaveOrientationSnapshot();
+                        break;
                 }
             });
 	    }
