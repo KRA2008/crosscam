@@ -6,6 +6,7 @@ using System.Net;
 using CrossCam.Model;
 using CrossCam.Wrappers;
 using Microsoft.AppCenter.Analytics;
+using Microsoft.AppCenter.Crashes;
 using Xamarin.Forms;
 
 namespace CrossCam.ViewModel
@@ -118,7 +119,7 @@ namespace CrossCam.ViewModel
             base.Init(initData);
             Settings = (Settings) initData;
             Settings.PropertyChanged += HandleSettingsPropertyChanged;
-            SetAnalyticsEnabledStatus(Settings.IsAnalyticsEnabled);
+            CheckAnalyticsEnabledStatus();
             ValidateSwitchStatuses();
 
             ExternalDirectory = _directorySelector.GetExternalSaveDirectory();
@@ -138,16 +139,35 @@ namespace CrossCam.ViewModel
             CameraViewModel.PairOperator.CurrentCoreMethods = CoreMethods;
         }
 
-        private async void SetAnalyticsEnabledStatus(bool enabled)
+        private async void CheckAnalyticsEnabledStatus()
         {
-            await Analytics.SetEnabledAsync(enabled);
+            try
+            {
+                Settings.IsAnalyticsEnabled = await Analytics.IsEnabledAsync();
+            }
+            catch (Exception ex)
+            {
+                Crashes.TrackError(ex);
+            }
+        }
+
+        private async void SetAnalyticsEnabledStatus()
+        {
+            try
+            {
+                await Analytics.SetEnabledAsync(Settings.IsAnalyticsEnabled);
+            }
+            catch (Exception ex)
+            {
+                Crashes.TrackError(ex);
+            }
         }
 
         private void HandleSettingsPropertyChanged(object sender, PropertyChangedEventArgs e)
         {
             if (e.PropertyName == nameof(Settings.IsAnalyticsEnabled))
             {
-                SetAnalyticsEnabledStatus(Settings.IsAnalyticsEnabled);
+                SetAnalyticsEnabledStatus();
             }
 
             SaveSettings();
