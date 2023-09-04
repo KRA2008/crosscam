@@ -1811,8 +1811,15 @@ namespace CrossCam.ViewModel
                 AutoAlign();
             }
 
-            if ((((Settings.Mode == DrawMode.Cross || Settings.Mode == DrawMode.RedCyanAnaglyph || Settings.Mode == DrawMode.GrayscaleRedCyanAnaglyph) && !WasCaptureCross) ||
-                 (Settings.Mode == DrawMode.Parallel && WasCaptureCross)) && LeftBitmap != null && RightBitmap != null)
+            if (((Settings.Mode == DrawMode.Cross || 
+                  Settings.Mode == DrawMode.RedCyanAnaglyph || 
+                  Settings.Mode == DrawMode.GrayscaleRedCyanAnaglyph) && 
+                 !WasCaptureCross ||
+                 (Settings.Mode == DrawMode.Parallel ||
+                  Settings.Mode == DrawMode.Cardboard) && 
+                 WasCaptureCross) && 
+                LeftBitmap != null && 
+                RightBitmap != null)
             {
                 SwapSidesCommand.Execute(true);
                 WasCaptureCross = !WasCaptureCross;
