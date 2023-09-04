@@ -125,6 +125,7 @@
                             <Button Text="Images I've made that you can practice on"
                                     Command="{Binding OpenLinkCommand}"
                                     CommandParameter="https://imgur.com/a/Crw232n"/>
+                            <Label Text=" "/>
                         </StackLayout>
 
                         <StackLayout IsVisible="{Binding IsCrossViewMode, Converter={StaticResource invert}}"
@@ -176,7 +177,7 @@
                         </StackLayout>
                         <BoxView Grid.Column="4"
                                  Grid.Row="2"
-                                 Grid.RowSpan="2"/>
+                                 Grid.RowSpan="3"/>
                         <BoxView Grid.Column="0"
                                  Grid.Row="4"
                                  Grid.ColumnSpan="5"/>
