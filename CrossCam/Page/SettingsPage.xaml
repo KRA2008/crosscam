@@ -1353,6 +1353,9 @@
                 <Switch IsToggled="{Binding Settings.IsAnalyticsEnabled}"/>
             </StackLayout>
 
+            <Button Text="Activate verbose analytics"
+                    Command="{Binding SetAnalyticsToDebugModeCommand}"/>
+
             <BoxView/>
             <Button Text="Reset to Defaults"
                     Command="{Binding ResetToDefaults}"/>

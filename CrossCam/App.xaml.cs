@@ -1,6 +1,7 @@
-﻿using CrossCam.ViewModel;
+﻿using System.Collections.Generic;
+using CrossCam.ViewModel;
 using FreshMvvm;
-using Xamarin.Essentials;
+using Microsoft.AppCenter.Analytics;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -11,6 +12,7 @@ namespace CrossCam
     {
         public const string APP_PAUSING_EVENT = "appPausing";
         public const string APP_UNPAUSING_EVENT = "appUnpausing";
+        public static bool IsAnalyticsInDebugMode = false;
 
         private readonly CameraViewModel _cameraViewModel;
 
@@ -25,6 +27,14 @@ namespace CrossCam
         public void LoadSharedImages(byte[] image1, byte[] image2)
         {
             _cameraViewModel.LoadSharedImages(image1, image2);
+        }
+
+        public static void SendDebugEvent(string debugEvent, IDictionary<string,string> properties = null)
+        {
+            if (IsAnalyticsInDebugMode)
+            {
+                Analytics.TrackEvent("DEBUG " + debugEvent, properties);
+            }
         }
 
         protected override void OnStart()

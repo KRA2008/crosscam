@@ -11,6 +11,7 @@ using CrossCam.Model;
 using CrossCam.ViewModel;
 using CrossCam.Wrappers;
 using FreshMvvm;
+using Microsoft.AppCenter.Crashes;
 using Xamarin.Forms;
 using Timer = System.Timers.Timer;
 
@@ -67,6 +68,7 @@ namespace CrossCam.CustomElement
         public event EventHandler Disconnected;
         private void OnDisconnected()
         {
+            App.SendDebugEvent("Disconnected");
             PairStatus = PairStatus.Disconnected;
             OnPropertyChanged(nameof(IsPrimary));
             OnPropertyChanged(nameof(PairStatus));
@@ -78,6 +80,7 @@ namespace CrossCam.CustomElement
         public event EventHandler Connected;
         private void OnConnected()
         {
+            App.SendDebugEvent("Connected");
             _isDisconnectRequested = false;
             PairStatus = PairStatus.Connected;
             if (!IsPrimary)
@@ -94,7 +97,14 @@ namespace CrossCam.CustomElement
         public event EventHandler<ErrorEventArgs> ErrorOccurred;
         private void OnErrorOccurred(ErrorEventArgs e)
         {
+            Crashes.TrackError(e.Exception, 
+                new Dictionary<string, string>
+                {
+                    {"Step", e.Step}
+                });
+#if DEBUG
             ShowPairErrorOccurred(e.Step, e.Exception.ToString());
+#endif
             ErrorOccurred?.Invoke(this, e);
         }
 
@@ -202,6 +212,7 @@ namespace CrossCam.CustomElement
             OnErrorOccurred(args);
         }
 
+        private CrossCommand _previousCommand;
         private void PlatformPairOnPayloadReceived(object sender, byte[] bytes)
         {
             if (_isDisconnectRequested)
@@ -230,6 +241,13 @@ namespace CrossCam.CustomElement
                     //}
 
                     //Debug.WriteLine("### Command received: " + (CrossCommand)bytes[2]);
+                    var currentCommand = (CrossCommand) bytes[2];
+                    if (_previousCommand != CrossCommand.RequestPreviewFrame &&
+                        _previousCommand != CrossCommand.PreviewFrame)
+                    {
+                        App.SendDebugEvent("Pair command received: " + currentCommand);
+                    }
+                    _previousCommand = currentCommand;
                     switch (bytes[2])
                     {
                         case (byte)CrossCommand.Hello:
@@ -266,7 +284,9 @@ namespace CrossCam.CustomElement
             }
             else
             {
-                Debug.WriteLine("### payload received with header too short???");
+                var wrongHeader = "### payload received with header too short???";
+                Debug.WriteLine(wrongHeader);
+                Crashes.TrackError(new Exception(wrongHeader));
             }
         }
 
