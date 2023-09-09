@@ -22,6 +22,7 @@ using Xamarin.Forms;
 using Xamarin.Forms.Platform.Android;
 using Xamarin.Google.Android.Play.Core.Review;
 using Xamarin.Google.Android.Play.Core.Review.Testing;
+using Debug = System.Diagnostics.Debug;
 using Task = System.Threading.Tasks.Task;
 using Uri = Android.Net.Uri;
 
@@ -435,6 +436,13 @@ namespace CrossCam.Droid
                 Crashes.TrackError(ex);
                 _requestReviewTaskCompletionSource.TrySetResult(false);
             }
+        }
+
+        public override void OnLowMemory()
+        {
+            base.OnLowMemory();
+            Debug.WriteLine("### LOW MEMORY! OH NO!");
+            Analytics.TrackEvent("low memory");
         }
     }
 }
