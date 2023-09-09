@@ -49,7 +49,7 @@
     <EmbeddedResource Update="CustomElement\FooterLabel.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Update="Page\FAQPage.xaml">
+    <EmbeddedResource Update="Page\FaqPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
     <EmbeddedResource Update="Page\HamburgerPage.xaml">
@@ -99,6 +99,9 @@
     </Compile>
     <Compile Update="CustomElement\FooterLabel.xaml.cs">
       <DependentUpon>FooterLabel.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Page\FAQPage.xaml.cs">
+      <DependentUpon>FaqPage.xaml</DependentUpon>
     </Compile>
     <Compile Update="Page\PairingPage.xaml.cs">
       <DependentUpon>PairingPage.xaml</DependentUpon>

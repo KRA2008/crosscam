@@ -23,6 +23,7 @@ namespace CrossCam.ViewModel
         public Command ClearDirectory { get; set; }
         public Command NavigateToPairingPageCommand { get; set; }
         public Command ResetFovCorrectionCommand { get; set; }
+        public Command NavigateToFaqPageAndSection { get; set; }
         public string SaveDirectory => Settings?.SavingDirectory == null
             ? "Pictures"
             : WebUtility.UrlDecode(Settings.SavingDirectory);
@@ -111,6 +112,11 @@ namespace CrossCam.ViewModel
                 Settings.PairSettings.FovPrimaryCorrection = 0;
                 Settings.PairSettings.FovSecondaryCorrection = 0;
                 PersistentStorage.Save(PersistentStorage.SETTINGS_KEY, Settings);
+            });
+
+            NavigateToFaqPageAndSection = new Command(async section =>
+            {
+                await CoreMethods.PushPageModel<FaqViewModel>(section);
             });
         }
 

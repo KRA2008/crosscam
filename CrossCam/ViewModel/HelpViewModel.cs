@@ -30,7 +30,7 @@ namespace CrossCam.ViewModel
 
             NavigateToFAQPage = new Command(async () =>
             {
-                await CoreMethods.PushPageModel<FAQViewModel>();
+                await CoreMethods.PushPageModel<FaqViewModel>();
             });
         }
 
