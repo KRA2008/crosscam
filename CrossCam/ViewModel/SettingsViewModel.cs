@@ -122,14 +122,14 @@ namespace CrossCam.ViewModel
                 await CoreMethods.PushPageModel<FaqViewModel>(section);
             });
 
-            SetAnalyticsToDebugModeCommand = new Command(async() =>
+            SetAnalyticsToDebugModeCommand = new Command(async () =>
             {
                 App.IsAnalyticsInDebugMode = true;
-                var analyticsOn = await Analytics.IsEnabledAsync();
-                if (analyticsOn)
+                if (await Analytics.IsEnabledAsync())
                 {
                     var id = await AppCenter.GetInstallIdAsync();
-                    await CoreMethods.DisplayAlert("Activated", "Please send a screenshot of this screen to the developer: " + id, "OK");
+                    Analytics.TrackEvent("start DEBUG: " + id);
+                    await CoreMethods.DisplayAlert("Activated", "Please send a screenshot of this to the developer: " + id, "OK");
                 }
                 else
                 {

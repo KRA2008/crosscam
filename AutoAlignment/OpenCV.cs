@@ -196,6 +196,9 @@ namespace AutoAlignment
 
             using var vectorOfMatches = new VectorOfVectorOfDMatch();
             using var matcher = new BFMatcher(DistanceType.Hamming, settings.UseCrossCheck);
+
+            if (descriptors1.IsEmpty || descriptors2.IsEmpty) return null;
+
             matcher.Add(descriptors1);
             matcher.KnnMatch(descriptors2, vectorOfMatches, settings.UseCrossCheck ? 1 : 2,
                 settings.UseCrossCheck ? new VectorOfMat() : new VectorOfMat(distanceThresholdMask));

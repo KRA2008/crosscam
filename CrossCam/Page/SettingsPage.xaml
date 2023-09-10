@@ -1349,12 +1349,14 @@
             </StackLayout>
 
             <StackLayout Orientation="Horizontal">
-                <Label Text="Share anonymous usage and error data to help improve CrossCam"/>
+                <Label Text="Share anonymous usage and error data to help improve CrossCam">
+                    <Label.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding SetAnalyticsToDebugModeCommand}" 
+                                              NumberOfTapsRequired="2"/>
+                    </Label.GestureRecognizers>
+                </Label>
                 <Switch IsToggled="{Binding Settings.IsAnalyticsEnabled}"/>
             </StackLayout>
-
-            <Button Text="Activate verbose analytics"
-                    Command="{Binding SetAnalyticsToDebugModeCommand}"/>
 
             <BoxView/>
             <Button Text="Reset to Defaults"

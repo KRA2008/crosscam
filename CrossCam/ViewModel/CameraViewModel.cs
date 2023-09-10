@@ -1804,6 +1804,10 @@ namespace CrossCam.ViewModel
         {
             base.ViewIsAppearing(sender, e);
             DependencyService.Get<IScreenKeepAwaker>()?.KeepScreenAwake();
+            Device.BeginInvokeOnMainThread(() =>
+            {
+                DeviceDisplay.KeepScreenOn = true; // this doesn't seem to actually work, but maybe it does on some devices
+            });
             TryTriggerMovementHint();
 
             if (WorkflowStage == WorkflowStage.Final)
@@ -1921,6 +1925,10 @@ namespace CrossCam.ViewModel
         {
             PairOperator.ErrorOccurred -= PairOperatorOnErrorOccurred;
             DependencyService.Get<IScreenKeepAwaker>()?.LetScreenSleep();
+            Device.BeginInvokeOnMainThread(() =>
+            {
+                DeviceDisplay.KeepScreenOn = false; // this doesn't seem to actually work, but maybe it does on some devices
+            });
             base.ViewIsDisappearing(sender, e);
         }
 

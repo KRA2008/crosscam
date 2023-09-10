@@ -2,6 +2,7 @@
 using CrossCam.ViewModel;
 using FreshMvvm;
 using Microsoft.AppCenter.Analytics;
+using Xamarin.Essentials;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -29,11 +30,16 @@ namespace CrossCam
             _cameraViewModel.LoadSharedImages(image1, image2);
         }
 
-        public static void SendDebugEvent(string debugEvent, IDictionary<string,string> properties = null)
+        public static void SendDebugEvent(string moment, string details = null)
         {
             if (IsAnalyticsInDebugMode)
             {
-                Analytics.TrackEvent("DEBUG " + debugEvent, properties);
+                var dictionary = new Dictionary<string, string>()
+                {
+                    {"moment", moment},
+                    {"details", details}
+                };
+                Analytics.TrackEvent("DEBUG", dictionary);
             }
         }
 
@@ -44,19 +50,11 @@ namespace CrossCam
         protected override void OnSleep()
         {
             MessagingCenter.Send(this, APP_PAUSING_EVENT);
-            //Device.BeginInvokeOnMainThread(() =>
-            //{
-            //    DeviceDisplay.KeepScreenOn = false;
-            //});
         }
 
         protected override void OnResume()
         {
             MessagingCenter.Send(this, APP_UNPAUSING_EVENT);
-            //Device.BeginInvokeOnMainThread(() =>
-            //{
-            //    DeviceDisplay.KeepScreenOn = true; //doesn't seem to work on any devices.
-            //});
         }
     }
 }

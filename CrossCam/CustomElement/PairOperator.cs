@@ -102,6 +102,7 @@ namespace CrossCam.CustomElement
                 {
                     {"Step", e.Step}
                 });
+            App.SendDebugEvent("Pair step: " + e.Step, e.Exception.ToString());
 #if DEBUG
             ShowPairErrorOccurred(e.Step, e.Exception.ToString());
 #endif
@@ -242,10 +243,12 @@ namespace CrossCam.CustomElement
 
                     //Debug.WriteLine("### Command received: " + (CrossCommand)bytes[2]);
                     var currentCommand = (CrossCommand) bytes[2];
-                    if (_previousCommand != CrossCommand.RequestPreviewFrame &&
-                        _previousCommand != CrossCommand.PreviewFrame)
+                    if (!(_previousCommand == CrossCommand.RequestPreviewFrame &&
+                        currentCommand == CrossCommand.RequestPreviewFrame) &&
+                        !(_previousCommand == CrossCommand.PreviewFrame &&
+                        currentCommand == CrossCommand.PreviewFrame))
                     {
-                        App.SendDebugEvent("Pair command received: " + currentCommand);
+                        App.SendDebugEvent("Pair command received", currentCommand.ToString());
                     }
                     _previousCommand = currentCommand;
                     switch (bytes[2])
