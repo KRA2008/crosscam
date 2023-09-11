@@ -1,8 +1,8 @@
-﻿using System;
-using System.ComponentModel;
+﻿using System.ComponentModel;
 using System.Threading.Tasks;
 using CrossCam.Model;
 using CrossCam.ViewModel;
+using Xamarin.CommunityToolkit.UI.Views;
 
 namespace CrossCam.Page
 {
@@ -13,7 +13,7 @@ namespace CrossCam.Page
 		public SettingsPage ()
 		{
 			InitializeComponent ();
-		}
+        }
 
         protected override void OnBindingContextChanged()
         {
@@ -26,14 +26,6 @@ namespace CrossCam.Page
                 _viewModel.Settings.PairSettings.PropertyChanged += PairSettingsOnPropertyChanged;
                 _viewModel.Settings.CardboardSettings.PropertyChanged += CardboardSettingsOnPropertyChanged;
                 _viewModel.Settings.EditsSettings.PropertyChanged += EditsSettingsOnPropertyChanged;
-                _alignmentExpander.Tapped += OnExpanderOnTapped;
-                _borderExpander.Tapped += OnExpanderOnTapped;
-                _cameraExpander.Tapped += OnExpanderOnTapped;
-                _editingExpander.Tapped += OnExpanderOnTapped;
-                _guidesExpander.Tapped += OnExpanderOnTapped;
-                _pairingExpander.Tapped += OnExpanderOnTapped;
-                _savingExpander.Tapped += OnExpanderOnTapped;
-                _previewMethodExpander.Tapped += OnExpanderOnTapped;
             }
             else if (BindingContext == null && _viewModel != null)
             {
@@ -42,57 +34,6 @@ namespace CrossCam.Page
                 _viewModel.Settings.PairSettings.PropertyChanged -= PairSettingsOnPropertyChanged;
                 _viewModel.Settings.CardboardSettings.PropertyChanged -= CardboardSettingsOnPropertyChanged;
                 _viewModel.Settings.EditsSettings.PropertyChanged -= EditsSettingsOnPropertyChanged;
-                _alignmentExpander.Tapped -= OnExpanderOnTapped;
-                _borderExpander.Tapped -= OnExpanderOnTapped;
-                _cameraExpander.Tapped -= OnExpanderOnTapped;
-                _editingExpander.Tapped -= OnExpanderOnTapped;
-                _guidesExpander.Tapped -= OnExpanderOnTapped;
-                _pairingExpander.Tapped -= OnExpanderOnTapped;
-                _savingExpander.Tapped -= OnExpanderOnTapped;
-                _previewMethodExpander.Tapped -= OnExpanderOnTapped;
-            }
-        }
-
-        private void OnExpanderOnTapped(object sender, EventArgs e)
-        {
-            if (sender != _alignmentExpander)
-            {
-                _alignmentExpander.IsExpanded = false;
-            }
-
-            if (sender != _borderExpander)
-            {
-                _borderExpander.IsExpanded = false;
-            }
-
-            if (sender != _cameraExpander)
-            {
-                _cameraExpander.IsExpanded = false;
-            }
-
-            if (sender != _editingExpander)
-            {
-                _editingExpander.IsExpanded = false;
-            }
-
-            if (sender != _guidesExpander)
-            {
-                _guidesExpander.IsExpanded = false;
-            }
-
-            if (sender != _pairingExpander)
-            {
-                _pairingExpander.IsExpanded = false;
-            }
-
-            if (sender != _savingExpander)
-            {
-                _savingExpander.IsExpanded = false;
-            }
-
-            if (sender != _previewMethodExpander)
-            {
-                _previewMethodExpander.IsExpanded = false;
             }
         }
 
@@ -131,24 +72,29 @@ namespace CrossCam.Page
 
         private async void SettingsOnPropertyChanged(object sender, PropertyChangedEventArgs e)
         {
-            await Task.Delay(1);
-            if (e.PropertyName == nameof(Settings.Mode))
+            Expander expander = null;
+            switch (e.PropertyName)
             {
-                _previewMethodExpander.ForceUpdateSize();
+                case nameof(Settings.Mode):
+                    expander = _previewMethodExpander;
+                    break;
+                case nameof(Settings.AddBorder2):
+                    expander = _borderExpander;
+                    break;
+                case nameof(Settings.AreGuideLinesVisible):
+                case nameof(Settings.IsGuideDonutVisible):
+                    expander = _guidesExpander;
+                    break;
+                case nameof(Settings.SavingDirectory):
+                case nameof(Settings.SaveToExternal):
+                    expander = _savingExpander;
+                    break;
             }
-            else if (e.PropertyName == nameof(Settings.AddBorder2))
+
+            if (expander != null)
             {
-                _borderExpander.ForceUpdateSize();
-            }
-            else if (e.PropertyName == nameof(Settings.AreGuideLinesVisible) ||
-                     e.PropertyName == nameof(Settings.IsGuideDonutVisible))
-            {
-                _guidesExpander.ForceUpdateSize();
-            }
-            else if (e.PropertyName == nameof(Settings.SavingDirectory) ||
-                     e.PropertyName == nameof(Settings.SaveToExternal))
-            {
-                _savingExpander.ForceUpdateSize();
+                await Task.Delay(1);
+                expander.ForceUpdateSize();
             }
         }
     }

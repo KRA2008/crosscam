@@ -8,6 +8,7 @@ using CrossCam.Wrappers;
 using Microsoft.AppCenter;
 using Microsoft.AppCenter.Analytics;
 using Microsoft.AppCenter.Crashes;
+using Xamarin.CommunityToolkit.UI.Views;
 using Xamarin.Forms;
 
 namespace CrossCam.ViewModel
@@ -26,6 +27,8 @@ namespace CrossCam.ViewModel
         public Command ResetFovCorrectionCommand { get; set; }
         public Command NavigateToFaqPageAndSection { get; set; }
         public Command SetAnalyticsToDebugModeCommand { get; set; }
+        public Command CloseOtherExpandersCommand { get; set; }
+        public Expander OpenExpander { get; set; }
         public string SaveDirectory => Settings?.SavingDirectory == null
             ? "Pictures"
             : WebUtility.UrlDecode(Settings.SavingDirectory);
@@ -134,6 +137,14 @@ namespace CrossCam.ViewModel
                 {
                     await CoreMethods.DisplayAlert("Analytics are turned off",
                         "Reactivate analytics in order to activate verbose mode", "OK");
+                }
+            }); 
+            
+            CloseOtherExpandersCommand = new Command(e =>
+            {
+                if (e is Expander {IsExpanded: true} expander)
+                {
+                    OpenExpander = expander;
                 }
             });
         }

@@ -58,7 +58,10 @@
 
             <BoxView/>
 
-            <views:Expander x:Name="_previewMethodExpander">
+            <views:Expander x:Name="_previewMethodExpander"
+                            Command="{Binding CloseOtherExpandersCommand}"
+                            CommandParameter="{x:Reference _previewMethodExpander}"
+                            IsExpanded="{Binding OpenExpander, Converter={vc:IsBindingEqualToParameterConverter}, ConverterParameter={x:Reference _previewMethodExpander}}">
                 <views:Expander.Header>
                     <ce:ExpanderHeader Title="Preview Viewing Method"/>
                 </views:Expander.Header>
@@ -321,7 +324,10 @@
 
             <BoxView/>
 
-            <views:Expander x:Name="_pairingExpander">
+            <views:Expander x:Name="_pairingExpander"
+                            Command="{Binding CloseOtherExpandersCommand}"
+                            CommandParameter="{x:Reference _pairingExpander}"
+                            IsExpanded="{Binding OpenExpander, Converter={vc:IsBindingEqualToParameterConverter}, ConverterParameter={x:Reference _pairingExpander}}">
                 <views:Expander.Header>
                     <ce:ExpanderHeader Title="Pairing"/>
                 </views:Expander.Header>
@@ -470,7 +476,10 @@
 
             <BoxView/>
 
-            <views:Expander x:Name="_alignmentExpander">
+            <views:Expander x:Name="_alignmentExpander"
+                            Command="{Binding CloseOtherExpandersCommand}"
+                            CommandParameter="{x:Reference _alignmentExpander}"
+                            IsExpanded="{Binding OpenExpander, Converter={vc:IsBindingEqualToParameterConverter}, ConverterParameter={x:Reference _alignmentExpander}}">
                 <views:Expander.Header>
                     <ce:ExpanderHeader Title="Automatic Alignment"/>
                 </views:Expander.Header>
@@ -738,7 +747,10 @@
 
             <BoxView/>
 
-            <views:Expander x:Name="_savingExpander">
+            <views:Expander x:Name="_savingExpander"
+                            Command="{Binding CloseOtherExpandersCommand}"
+                            CommandParameter="{x:Reference _savingExpander}"
+                            IsExpanded="{Binding OpenExpander, Converter={vc:IsBindingEqualToParameterConverter}, ConverterParameter={x:Reference _savingExpander}}">
                 <views:Expander.Header>
                     <ce:ExpanderHeader Title="Saving"/>
                 </views:Expander.Header>
@@ -1022,7 +1034,10 @@
 
             <BoxView/>
 
-            <views:Expander x:Name="_borderExpander">
+            <views:Expander x:Name="_borderExpander"
+                            Command="{Binding CloseOtherExpandersCommand}"
+                            CommandParameter="{x:Reference _borderExpander}"
+                            IsExpanded="{Binding OpenExpander, Converter={vc:IsBindingEqualToParameterConverter}, ConverterParameter={x:Reference _borderExpander}}">
                 <views:Expander.Header>
                     <ce:ExpanderHeader Title="Border"/>
                 </views:Expander.Header>
@@ -1090,7 +1105,10 @@
 
             <BoxView/>
 
-            <views:Expander x:Name="_guidesExpander">
+            <views:Expander x:Name="_guidesExpander"
+                            Command="{Binding CloseOtherExpandersCommand}"
+                            CommandParameter="{x:Reference _guidesExpander}"
+                            IsExpanded="{Binding OpenExpander, Converter={vc:IsBindingEqualToParameterConverter}, ConverterParameter={x:Reference _guidesExpander}}">
                 <views:Expander.Header>
                     <ce:ExpanderHeader Title="Capture Guides"/>
                 </views:Expander.Header>
@@ -1153,7 +1171,10 @@
 
             <BoxView/>
 
-            <views:Expander x:Name="_editingExpander">
+            <views:Expander x:Name="_editingExpander"
+                            Command="{Binding CloseOtherExpandersCommand}"
+                            CommandParameter="{x:Reference _editingExpander}"
+                            IsExpanded="{Binding OpenExpander, Converter={vc:IsBindingEqualToParameterConverter}, ConverterParameter={x:Reference _editingExpander}}">
                 <views:Expander.Header>
                     <ce:ExpanderHeader Title="Editing"/>
                 </views:Expander.Header>
@@ -1235,7 +1256,10 @@
 
             <BoxView/>
 
-            <views:Expander x:Name="_cameraExpander">
+            <views:Expander x:Name="_cameraExpander"
+                            Command="{Binding CloseOtherExpandersCommand}"
+                            CommandParameter="{x:Reference _cameraExpander}"
+                            IsExpanded="{Binding OpenExpander, Converter={vc:IsBindingEqualToParameterConverter}, ConverterParameter={x:Reference _cameraExpander}}">
                 <views:Expander.Header>
                     <ce:ExpanderHeader Title="Camera"/>
                 </views:Expander.Header>
