@@ -87,8 +87,7 @@ namespace CrossCam.Droid
             LifecycleEventListener.Enable();
 
             Instance = this;
-
-            Forms.SetFlags("Expander_Experimental");
+            
             Forms.Init(this, bundle);
             
             if (Build.VERSION.SdkInt >= BuildVersionCodes.M)

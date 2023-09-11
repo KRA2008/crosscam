@@ -18,7 +18,6 @@ namespace CrossCam.iOS
         
 		public override bool FinishedLaunching (UIApplication app, NSDictionary options)
         {
-            Forms.SetFlags("Expander_Experimental");
 			Forms.Init(); 
             AppCenter.Start("ef05db4b-0a69-4686-93b0-c0e98b92ac8e", //plz don't abuse this.
                 typeof(Analytics), typeof(Crashes));

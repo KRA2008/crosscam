@@ -1,5 +1,6 @@
 ﻿using System;
 using System.ComponentModel;
+using System.Threading.Tasks;
 using CrossCam.Model;
 using CrossCam.ViewModel;
 
@@ -99,8 +100,9 @@ namespace CrossCam.Page
         {
         }
 
-        private void CardboardSettingsOnPropertyChanged(object sender, PropertyChangedEventArgs e)
+        private async void CardboardSettingsOnPropertyChanged(object sender, PropertyChangedEventArgs e)
         {
+            await Task.Delay(1);
             if (e.PropertyName == nameof(CardboardSettings.AddBarrelDistortion) ||
                 e.PropertyName == nameof(CardboardSettings.CardboardDownsize))
             {
@@ -108,16 +110,18 @@ namespace CrossCam.Page
             }
         }
 
-        private void PairSettingsOnPropertyChanged(object sender, PropertyChangedEventArgs e)
+        private async void PairSettingsOnPropertyChanged(object sender, PropertyChangedEventArgs e)
         {
+            await Task.Delay(1);
             if (e.PropertyName == nameof(PairSettings.IsPairedPrimary))
             {
                 _pairingExpander.ForceUpdateSize();
             }
         }
 
-        private void AlignmentSettingsOnPropertyChanged(object sender, PropertyChangedEventArgs e)
+        private async void AlignmentSettingsOnPropertyChanged(object sender, PropertyChangedEventArgs e)
         {
+            await Task.Delay(1);
             if (e.PropertyName == nameof(AlignmentSettings.ShowAdvancedAlignmentSettings) ||
                 e.PropertyName == nameof(AlignmentSettings.IsAutomaticAlignmentOn))
             {
@@ -125,8 +129,9 @@ namespace CrossCam.Page
             }
         }
 
-        private void SettingsOnPropertyChanged(object sender, PropertyChangedEventArgs e)
+        private async void SettingsOnPropertyChanged(object sender, PropertyChangedEventArgs e)
         {
+            await Task.Delay(1);
             if (e.PropertyName == nameof(Settings.Mode))
             {
                 _previewMethodExpander.ForceUpdateSize();
