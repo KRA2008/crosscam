@@ -13,7 +13,6 @@ using Android.Hardware.Camera2;
 using Android.Hardware.Camera2.Params;
 using Android.Media;
 using Android.OS;
-using Android.Runtime;
 using Android.Util;
 using Android.Views;
 using Android.Widget;
@@ -24,6 +23,7 @@ using CrossCam.Page;
 using CrossCam.ViewModel;
 using CrossCam.Wrappers;
 using Java.Lang;
+using Microsoft.AppCenter.Crashes.Android;
 using SkiaSharp;
 using SkiaSharp.Views.Android;
 using Xamarin.Essentials;
@@ -33,6 +33,7 @@ using Boolean = Java.Lang.Boolean;
 using CameraError = Android.Hardware.CameraError;
 using CameraModule = CrossCam.CustomElement.CameraModule;
 using Exception = System.Exception;
+using Extensions = Android.Runtime.Extensions;
 using Math = System.Math;
 using PointF = System.Drawing.PointF;
 using Rect = Android.Graphics.Rect;
@@ -465,7 +466,19 @@ namespace CrossCam.Droid.CustomRenderer
 
         public void OnSurfaceTextureUpdated(SurfaceTexture surface)
         {
-            var bitmap = _textureView.Bitmap;
+            if (!_textureView.IsAvailable) return;
+
+            Bitmap bitmap;
+            try
+            {
+                bitmap = _textureView.Bitmap;
+                //_textureView.GetBitmap(0, 0); // TODO: can downsize here, good?
+            }
+            catch (Error e)
+            {
+                Crashes.TrackError(e);
+                return;
+            }
             var origin = _useCamera2 ? GetOrientation2() : 0;
 
             if (_cameraModule.PairOperator.PairStatus == PairStatus.Connected &&
@@ -1462,8 +1475,8 @@ namespace CrossCam.Droid.CustomRenderer
             {
                 if (_camera2Device == null || _openingCamera2) return;
 
-                var windowManager = MainActivity.Instance.GetSystemService(Context.WindowService)
-                    .JavaCast<IWindowManager>();
+                var windowManager =
+                    Extensions.JavaCast<IWindowManager>(MainActivity.Instance.GetSystemService(Context.WindowService));
                 var rotation = windowManager.DefaultDisplay.Rotation;
 
                 var phoneOrientation = _orientations.Get((int)rotation);
