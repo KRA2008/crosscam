@@ -164,6 +164,25 @@
                 </views:Expander.ContentTemplate>
             </views:Expander>
 
+            <BoxView x:Name="_autoalignmentLine"/>
+
+            <views:Expander x:Name="_autoalignmentExpander">
+                <views:Expander.Header>
+                    <customElement:ExpanderHeader Title="How does auto-alignment work?"/>
+                </views:Expander.Header>
+                <views:Expander.ContentTemplate>
+                    <DataTemplate>
+                        <StackLayout Padding="10">
+                            <Label Text="Auto-alignment attempts to align the image pairs as well as possible, but it isn't perfect. Computer vision is better at some things than human eyes, but also a lot worse at other things. The world it sees is very different than the one we do, but it can also see in a few different ways. The two main ways it sees in CrossCam are via the &quot;enhanced correlation coefficient&quot; (ECC) and using key points."/>
+                            <Label Text="ECC alignment essentially works by attempting to make sure light patches overlap with light patches and dark patches overlap with dark patches when the two sides are overlayed on top of each other. ECC alignment comes with a &quot;confidence score&quot; that is meant to help decide whether the alignment was effective. CrossCam is set up to reject the alignment produced if the confidence is too low, but you can configure the confidence pass/fail threshold on the Settings page."/>
+                            <Label Text="Key point alignment looks for points of interest such as corners, edges, dots, and high contrast and attempts to match them up between the two sides. Once the points are matched up, CrossCam can use a variety of algorithms to attempt to warp the sides so that the key points from one side are all as close as possible to their corresponding key points on the other side."/>
+                            <Label Text="Key point alignment is better when warping like zooming or perspective transforms are needed, but it is also more susceptible to outliers/noise. CrossCam is programmed to use ECC alignment first, but it will fall back to key point alignment when ECC fails/is rejected, when field of view corrections are needed, or when capturing is being done with the single shot mirror-division method. You can also configure auto-alignment to always use key point alignment on the Settings page."/>
+                            <Label Text="CrossCam will display the alignment outcome on the camera screen beneath the little robot icon. If it used ECC alignment it will display the confidence percentage. If it used key point alignment it will display &quot;KP&quot;. If both alignment methods failed it will display &quot;F&quot;. If you don't like the result of the alignment you can tap on the little robot icon to remove the alignment."/>
+                        </StackLayout>
+                    </DataTemplate>
+                </views:Expander.ContentTemplate>
+            </views:Expander>
+
             <BoxView x:Name="_cardboardLine"/>
 
             <views:Expander x:Name="_cardboardExpander">

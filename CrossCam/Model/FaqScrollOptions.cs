@@ -4,6 +4,7 @@
     {
         CrossParallel,
         Cardboard,
-        Mirror
+        Mirror,
+        AutoAlignment
     }
 }

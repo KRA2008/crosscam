@@ -51,6 +51,10 @@ namespace CrossCam.Page
                         scrollLine = _mirrorLine;
                         scrollExpander = _mirrorExpander;
                         break;
+                    case FaqScrollOptions.AutoAlignment:
+                        scrollLine = _autoalignmentLine;
+                        scrollExpander = _autoalignmentExpander;
+                        break;
                 }
 
                 if (scrollExpander != null &&
