@@ -58,261 +58,262 @@
 
             <BoxView/>
 
-            <Label Text="Preview Viewing Method"
-                   Style="{StaticResource header}"
-                   Padding="10,0,0,0"/>
+            <views:Expander x:Name="_previewMethodExpander">
+                <views:Expander.Header>
+                    <ce:ExpanderHeader Title="Preview Viewing Method"/>
+                </views:Expander.Header>
+                <Grid ColumnSpacing="0"
+                      RowSpacing="0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="10"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="50"/>
+                        <ColumnDefinition Width="65"/>
+                        <ColumnDefinition Width="10"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="50"/>
+                        <RowDefinition Height="60"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
 
-            <Grid ColumnSpacing="0"
-                  RowSpacing="0">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="10"/>
-                    <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="50"/>
-                    <ColumnDefinition Width="65"/>
-                    <ColumnDefinition Width="10"/>
-                </Grid.ColumnDefinitions>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="50"/>
-                    <RowDefinition Height="60"/>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="Auto"/>
-                </Grid.RowDefinitions>
-
-                <Frame Grid.Row="0"
-                       Grid.Column="1"
-                       Grid.ColumnSpan="2"
-                       HorizontalOptions="FillAndExpand">
-                    <Picker ItemsSource="{Binding Modes}"
-                            SelectedIndex="{Binding Settings.Mode, Converter={vc:ModeValueConverter}}"/>
-                </Frame>
-                <Image Grid.Row="0"
-                       Grid.Column="3" 
-                       Source="help"
-                       IsVisible="{Binding Settings.Mode, Converter={vc:EnumCompareConverter}, ConverterParameter={x:Static vm:DrawMode.Cardboard}}">
-                    <Image.GestureRecognizers>
-                        <TapGestureRecognizer Command="{Binding NavigateToFaqPageAndSection}" 
+                    <Frame Grid.Row="0"
+                           Grid.Column="1"
+                           Grid.ColumnSpan="2"
+                           HorizontalOptions="FillAndExpand">
+                        <Picker ItemsSource="{Binding Modes}"
+                                SelectedIndex="{Binding Settings.Mode, Converter={vc:ModeValueConverter}}"/>
+                    </Frame>
+                    <Image Grid.Row="0"
+                           Grid.Column="3" 
+                           Source="help"
+                           IsVisible="{Binding Settings.Mode, Converter={vc:EnumCompareConverter}, ConverterParameter={x:Static vm:DrawMode.Cardboard}}">
+                        <Image.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding NavigateToFaqPageAndSection}" 
                                                   CommandParameter="{x:Static model:FaqScrollOptions.Cardboard}"/>
-                    </Image.GestureRecognizers>
-                </Image>
+                        </Image.GestureRecognizers>
+                    </Image>
 
-                <Label Grid.Row="1"
-                       Grid.Column="1"
-                       Text="Capture using single-shot mirror division method"/>
-                <Image Grid.Row="1"
-                       Grid.Column="2" 
-                       Source="help">
-                    <Image.GestureRecognizers>
-                        <TapGestureRecognizer Command="{Binding NavigateToFaqPageAndSection}" 
+                    <Label Grid.Row="1"
+                           Grid.Column="1"
+                           Text="Capture using single-shot mirror division method"/>
+                    <Image Grid.Row="1"
+                           Grid.Column="2" 
+                           Source="help">
+                        <Image.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding NavigateToFaqPageAndSection}" 
                                                   CommandParameter="{x:Static model:FaqScrollOptions.Mirror}"/>
-                    </Image.GestureRecognizers>
-                </Image>
-                <Switch Grid.Row="1"
-                        Grid.Column="3" 
-                        IsToggled="{Binding Settings.IsCaptureInMirrorMode}"/>
+                        </Image.GestureRecognizers>
+                    </Image>
+                    <Switch Grid.Row="1"
+                            Grid.Column="3" 
+                            IsToggled="{Binding Settings.IsCaptureInMirrorMode}"/>
 
-                <Label Grid.Row="2"
-                       Grid.Column="1"
-                       Grid.ColumnSpan="2"
-                       Text="Immersive final viewing"
-                       IsVisible="{Binding Settings.Mode, Converter={StaticResource enumCompare}, ConverterParameter={x:Static vm:DrawMode.Cardboard}}"/>
-                <Switch Grid.Row="2"
-                        Grid.Column="3"
-                        IsToggled="{Binding Settings.CardboardSettings.ImmersiveCardboardFinal}"
-                        IsVisible="{Binding Settings.Mode, Converter={StaticResource enumCompare}, ConverterParameter={x:Static vm:DrawMode.Cardboard}}"/>
+                    <Label Grid.Row="2"
+                           Grid.Column="1"
+                           Grid.ColumnSpan="2"
+                           Text="Immersive final viewing"
+                           IsVisible="{Binding Settings.Mode, Converter={StaticResource enumCompare}, ConverterParameter={x:Static vm:DrawMode.Cardboard}}"/>
+                    <Switch Grid.Row="2"
+                            Grid.Column="3"
+                            IsToggled="{Binding Settings.CardboardSettings.ImmersiveCardboardFinal}"
+                            IsVisible="{Binding Settings.Mode, Converter={StaticResource enumCompare}, ConverterParameter={x:Static vm:DrawMode.Cardboard}}"/>
 
-                <Label Grid.Row="3"
-                       Grid.Column="1" 
-                       Grid.ColumnSpan="2"
-                       Text="Cardboard separation distance"
-                       IsVisible="{Binding Settings.Mode, Converter={StaticResource enumCompare}, ConverterParameter={x:Static vm:DrawMode.Cardboard}}"/>
-                <Frame Grid.Row="3" 
-                       Grid.Column="3" 
-                       IsVisible="{Binding Settings.Mode, Converter={StaticResource enumCompare}, ConverterParameter={x:Static vm:DrawMode.Cardboard}}">
-                    <Entry Text="{Binding Settings.CardboardSettings.CardboardIpd}"/>
-                </Frame>
+                    <Label Grid.Row="3"
+                           Grid.Column="1" 
+                           Grid.ColumnSpan="2"
+                           Text="Cardboard separation distance"
+                           IsVisible="{Binding Settings.Mode, Converter={StaticResource enumCompare}, ConverterParameter={x:Static vm:DrawMode.Cardboard}}"/>
+                    <Frame Grid.Row="3" 
+                           Grid.Column="3" 
+                           IsVisible="{Binding Settings.Mode, Converter={StaticResource enumCompare}, ConverterParameter={x:Static vm:DrawMode.Cardboard}}">
+                        <Entry Text="{Binding Settings.CardboardSettings.CardboardIpd}"/>
+                    </Frame>
 
-                <Label Grid.Row="4"
-                       Grid.Column="1"
-                       Grid.ColumnSpan="2"
-                       Text="Add lens correction/barrel distortion (may lower frame rate)"
-                       IsVisible="{Binding Settings.Mode, Converter={StaticResource enumCompare}, ConverterParameter={x:Static vm:DrawMode.Cardboard}}"/>
-                <Switch Grid.Row="4" 
-                        Grid.Column="3" 
-                        IsToggled="{Binding Settings.CardboardSettings.AddBarrelDistortion}"
-                        IsVisible="{Binding Settings.Mode, Converter={StaticResource enumCompare}, ConverterParameter={x:Static vm:DrawMode.Cardboard}}"/>
+                    <Label Grid.Row="4"
+                           Grid.Column="1"
+                           Grid.ColumnSpan="2"
+                           Text="Add lens correction/barrel distortion (may lower frame rate)"
+                           IsVisible="{Binding Settings.Mode, Converter={StaticResource enumCompare}, ConverterParameter={x:Static vm:DrawMode.Cardboard}}"/>
+                    <Switch Grid.Row="4" 
+                            Grid.Column="3" 
+                            IsToggled="{Binding Settings.CardboardSettings.AddBarrelDistortion}"
+                            IsVisible="{Binding Settings.Mode, Converter={StaticResource enumCompare}, ConverterParameter={x:Static vm:DrawMode.Cardboard}}"/>
 
-                <Label Grid.Row="5"
-                       Grid.Column="1" 
-                       Grid.ColumnSpan="2"
-                       Text="Add lens correction/barrel distortion to final images only (may slow down final display but will speed up capturing)"
-                       IsVisible="False">
-                    <Label.Triggers>
-                        <MultiTrigger TargetType="Label">
-                            <MultiTrigger.Conditions>
-                                <BindingCondition Binding="{Binding Settings.Mode, Converter={StaticResource enumCompare}, ConverterParameter={x:Static vm:DrawMode.Cardboard}}"
-                                                  Value="True"/>
-                                <BindingCondition Binding="{Binding Settings.CardboardSettings.AddBarrelDistortion}"
-                                                  Value="True"/>
-                            </MultiTrigger.Conditions>
-                            <Setter Property="IsVisible"
-                                    Value="True"/>
-                        </MultiTrigger>
-                    </Label.Triggers>
-                </Label>
-                <Switch Grid.Row="5"
-                        Grid.Column="3" 
-                        IsToggled="{Binding Settings.CardboardSettings.AddBarrelDistortionFinalOnly}"
-                        IsVisible="False">
-                    <Switch.Triggers>
-                        <MultiTrigger TargetType="Switch">
-                            <MultiTrigger.Conditions>
-                                <BindingCondition Binding="{Binding Settings.Mode, Converter={StaticResource enumCompare}, ConverterParameter={x:Static vm:DrawMode.Cardboard}}"
-                                                  Value="True"/>
-                                <BindingCondition Binding="{Binding Settings.CardboardSettings.AddBarrelDistortion}"
-                                                  Value="True"/>
-                            </MultiTrigger.Conditions>
-                            <Setter Property="IsVisible"
-                                    Value="True"/>
-                        </MultiTrigger>
-                    </Switch.Triggers>
-                </Switch>
-
-                <Label Grid.Row="6"
-                       Grid.Column="1" 
-                       Grid.ColumnSpan="2"
-                       Text="Lens correction strength"
-                       IsVisible="False">
-                    <Label.Triggers>
-                        <MultiTrigger TargetType="Label">
-                            <MultiTrigger.Conditions>
-                                <BindingCondition Binding="{Binding Settings.Mode, Converter={StaticResource enumCompare}, ConverterParameter={x:Static vm:DrawMode.Cardboard}}"
-                                                  Value="True"/>
-                                <BindingCondition Binding="{Binding Settings.CardboardSettings.AddBarrelDistortion}"
-                                                  Value="True"/>
-                            </MultiTrigger.Conditions>
-                            <Setter Property="IsVisible"
-                                    Value="True"/>
-                        </MultiTrigger>
-                    </Label.Triggers>
-                </Label>
-                <Frame Grid.Row="6"
-                       Grid.Column="3" 
-                       IsVisible="False">
-                    <Frame.Triggers>
-                        <MultiTrigger TargetType="Frame">
-                            <MultiTrigger.Conditions>
-                                <BindingCondition Binding="{Binding Settings.Mode, Converter={StaticResource enumCompare}, ConverterParameter={x:Static vm:DrawMode.Cardboard}}"
-                                                  Value="True"/>
-                                <BindingCondition Binding="{Binding Settings.CardboardSettings.AddBarrelDistortion}"
-                                                  Value="True"/>
-                            </MultiTrigger.Conditions>
-                            <Setter Property="IsVisible"
-                                    Value="True"/>
-                        </MultiTrigger>
-                    </Frame.Triggers>
-                    <Entry Text="{Binding Settings.CardboardSettings.CardboardBarrelDistortion}"/>
-                </Frame>
-
-                <Label Grid.Row="7"
-                       Grid.Column="1"
-                       Grid.ColumnSpan="2"
-                       Text="Downsize image (may increase frame rate)"
-                       IsVisible="False">
-                    <Label.Triggers>
-                        <MultiTrigger TargetType="Label">
-                            <MultiTrigger.Conditions>
-                                <BindingCondition Binding="{Binding Settings.Mode, Converter={StaticResource enumCompare}, ConverterParameter={x:Static vm:DrawMode.Cardboard}}"
-                                                  Value="True"/>
-                                <BindingCondition Binding="{Binding Settings.CardboardSettings.AddBarrelDistortion}"
-                                                  Value="True"/>
-                            </MultiTrigger.Conditions>
-                            <Setter Property="IsVisible"
-                                    Value="True"/>
-                        </MultiTrigger>
-                    </Label.Triggers>
-                </Label>
-                <Switch Grid.Row="7"
-                        Grid.Column="3"
-                        IsToggled="{Binding Settings.CardboardSettings.CardboardDownsize}"
-                        IsVisible="False">
-                    <Switch.Triggers>
-                        <MultiTrigger TargetType="Switch">
-                            <MultiTrigger.Conditions>
-                                <BindingCondition Binding="{Binding Settings.Mode, Converter={StaticResource enumCompare}, ConverterParameter={x:Static vm:DrawMode.Cardboard}}"
-                                                  Value="True"/>
-                                <BindingCondition Binding="{Binding Settings.CardboardSettings.AddBarrelDistortion}"
-                                                  Value="True"/>
-                            </MultiTrigger.Conditions>
-                            <Setter Property="IsVisible"
-                                    Value="True"/>
-                        </MultiTrigger>
-                    </Switch.Triggers>
-                </Switch>
-
-                <Label Grid.Row="8"
-                       Grid.Column="1"
-                       Grid.ColumnSpan="2"
-                       Text="Downsize image percentage"
-                       IsVisible="False">
-                    <Label.Triggers>
-                        <MultiTrigger TargetType="Label">
-                            <MultiTrigger.Conditions>
-                                <BindingCondition Binding="{Binding Settings.Mode, Converter={StaticResource enumCompare}, ConverterParameter={x:Static vm:DrawMode.Cardboard}}"
-                                                  Value="True"/>
-                                <BindingCondition Binding="{Binding Settings.CardboardSettings.CardboardDownsize}"
-                                                  Value="True"/>
-                                <BindingCondition Binding="{Binding Settings.CardboardSettings.AddBarrelDistortion}"
-                                                  Value="True"/>
-                            </MultiTrigger.Conditions>
-                            <Setter Property="IsVisible"
+                    <Label Grid.Row="5"
+                           Grid.Column="1" 
+                           Grid.ColumnSpan="2"
+                           Text="Add lens correction/barrel distortion to final images only (may slow down final display but will speed up capturing)"
+                           IsVisible="False">
+                        <Label.Triggers>
+                            <MultiTrigger TargetType="Label">
+                                <MultiTrigger.Conditions>
+                                    <BindingCondition Binding="{Binding Settings.Mode, Converter={StaticResource enumCompare}, ConverterParameter={x:Static vm:DrawMode.Cardboard}}"
+                                                      Value="True"/>
+                                    <BindingCondition Binding="{Binding Settings.CardboardSettings.AddBarrelDistortion}"
+                                                      Value="True"/>
+                                </MultiTrigger.Conditions>
+                                <Setter Property="IsVisible"
                                         Value="True"/>
-                        </MultiTrigger>
-                    </Label.Triggers>
-                </Label>
-                <Frame Grid.Row="8"
-                       Grid.Column="3"
-                       IsVisible="False">
-                    <Frame.Triggers>
-                        <MultiTrigger TargetType="Frame">
-                            <MultiTrigger.Conditions>
-                                <BindingCondition Binding="{Binding Settings.Mode, Converter={StaticResource enumCompare}, ConverterParameter={x:Static vm:DrawMode.Cardboard}}"
-                                                  Value="True"/>
-                                <BindingCondition Binding="{Binding Settings.CardboardSettings.CardboardDownsize}"
-                                                  Value="True"/>
-                                <BindingCondition Binding="{Binding Settings.CardboardSettings.AddBarrelDistortion}"
-                                                  Value="True"/>
-                            </MultiTrigger.Conditions>
-                            <Setter Property="IsVisible"
+                            </MultiTrigger>
+                        </Label.Triggers>
+                    </Label>
+                    <Switch Grid.Row="5"
+                            Grid.Column="3" 
+                            IsToggled="{Binding Settings.CardboardSettings.AddBarrelDistortionFinalOnly}"
+                            IsVisible="False">
+                        <Switch.Triggers>
+                            <MultiTrigger TargetType="Switch">
+                                <MultiTrigger.Conditions>
+                                    <BindingCondition Binding="{Binding Settings.Mode, Converter={StaticResource enumCompare}, ConverterParameter={x:Static vm:DrawMode.Cardboard}}"
+                                                      Value="True"/>
+                                    <BindingCondition Binding="{Binding Settings.CardboardSettings.AddBarrelDistortion}"
+                                                      Value="True"/>
+                                </MultiTrigger.Conditions>
+                                <Setter Property="IsVisible"
                                         Value="True"/>
-                        </MultiTrigger>
-                    </Frame.Triggers>
-                    <Entry Text="{Binding Settings.CardboardSettings.CardboardDownsizePercentage}"/>
-                </Frame>
+                            </MultiTrigger>
+                        </Switch.Triggers>
+                    </Switch>
 
-                <Button Grid.Row="9"
-                        Grid.Column="1"
-                        Grid.ColumnSpan="3" 
-                        Text="Reset to Defaults"
-                        Command="{Binding ResetCardboardToDefaults}"
-                        IsVisible="{Binding Settings.Mode, Converter={StaticResource enumCompare}, ConverterParameter={x:Static vm:DrawMode.Cardboard}}"/>
+                    <Label Grid.Row="6"
+                           Grid.Column="1" 
+                           Grid.ColumnSpan="2"
+                           Text="Lens correction strength"
+                           IsVisible="False">
+                        <Label.Triggers>
+                            <MultiTrigger TargetType="Label">
+                                <MultiTrigger.Conditions>
+                                    <BindingCondition Binding="{Binding Settings.Mode, Converter={StaticResource enumCompare}, ConverterParameter={x:Static vm:DrawMode.Cardboard}}"
+                                                      Value="True"/>
+                                    <BindingCondition Binding="{Binding Settings.CardboardSettings.AddBarrelDistortion}"
+                                                      Value="True"/>
+                                </MultiTrigger.Conditions>
+                                <Setter Property="IsVisible"
+                                        Value="True"/>
+                            </MultiTrigger>
+                        </Label.Triggers>
+                    </Label>
+                    <Frame Grid.Row="6"
+                           Grid.Column="3" 
+                           IsVisible="False">
+                        <Frame.Triggers>
+                            <MultiTrigger TargetType="Frame">
+                                <MultiTrigger.Conditions>
+                                    <BindingCondition Binding="{Binding Settings.Mode, Converter={StaticResource enumCompare}, ConverterParameter={x:Static vm:DrawMode.Cardboard}}"
+                                                      Value="True"/>
+                                    <BindingCondition Binding="{Binding Settings.CardboardSettings.AddBarrelDistortion}"
+                                                      Value="True"/>
+                                </MultiTrigger.Conditions>
+                                <Setter Property="IsVisible"
+                                        Value="True"/>
+                            </MultiTrigger>
+                        </Frame.Triggers>
+                        <Entry Text="{Binding Settings.CardboardSettings.CardboardBarrelDistortion}"/>
+                    </Frame>
 
-                <Label Grid.Row="2"
-                       Grid.Column="1" 
-                       Grid.ColumnSpan="2"
-                       Text="Maximum parallel view image width (points)"
-                       IsVisible="{Binding Settings.Mode, Converter={StaticResource enumCompare}, ConverterParameter={x:Static vm:DrawMode.Parallel}}"/>
-                <Frame Grid.Row="2"
-                       Grid.Column="3" 
-                       IsVisible="{Binding Settings.Mode, Converter={StaticResource enumCompare}, ConverterParameter={x:Static vm:DrawMode.Parallel}}">
-                    <Entry Text="{Binding Settings.MaximumParallelWidth}"/>
-                </Frame>
-            </Grid>
+                    <Label Grid.Row="7"
+                           Grid.Column="1"
+                           Grid.ColumnSpan="2"
+                           Text="Downsize image (may increase frame rate)"
+                           IsVisible="False">
+                        <Label.Triggers>
+                            <MultiTrigger TargetType="Label">
+                                <MultiTrigger.Conditions>
+                                    <BindingCondition Binding="{Binding Settings.Mode, Converter={StaticResource enumCompare}, ConverterParameter={x:Static vm:DrawMode.Cardboard}}"
+                                                      Value="True"/>
+                                    <BindingCondition Binding="{Binding Settings.CardboardSettings.AddBarrelDistortion}"
+                                                      Value="True"/>
+                                </MultiTrigger.Conditions>
+                                <Setter Property="IsVisible"
+                                        Value="True"/>
+                            </MultiTrigger>
+                        </Label.Triggers>
+                    </Label>
+                    <Switch Grid.Row="7"
+                            Grid.Column="3"
+                            IsToggled="{Binding Settings.CardboardSettings.CardboardDownsize}"
+                            IsVisible="False">
+                        <Switch.Triggers>
+                            <MultiTrigger TargetType="Switch">
+                                <MultiTrigger.Conditions>
+                                    <BindingCondition Binding="{Binding Settings.Mode, Converter={StaticResource enumCompare}, ConverterParameter={x:Static vm:DrawMode.Cardboard}}"
+                                                      Value="True"/>
+                                    <BindingCondition Binding="{Binding Settings.CardboardSettings.AddBarrelDistortion}"
+                                                      Value="True"/>
+                                </MultiTrigger.Conditions>
+                                <Setter Property="IsVisible"
+                                        Value="True"/>
+                            </MultiTrigger>
+                        </Switch.Triggers>
+                    </Switch>
+
+                    <Label Grid.Row="8"
+                           Grid.Column="1"
+                           Grid.ColumnSpan="2"
+                           Text="Downsize image percentage"
+                           IsVisible="False">
+                        <Label.Triggers>
+                            <MultiTrigger TargetType="Label">
+                                <MultiTrigger.Conditions>
+                                    <BindingCondition Binding="{Binding Settings.Mode, Converter={StaticResource enumCompare}, ConverterParameter={x:Static vm:DrawMode.Cardboard}}"
+                                                      Value="True"/>
+                                    <BindingCondition Binding="{Binding Settings.CardboardSettings.CardboardDownsize}"
+                                                      Value="True"/>
+                                    <BindingCondition Binding="{Binding Settings.CardboardSettings.AddBarrelDistortion}"
+                                                      Value="True"/>
+                                </MultiTrigger.Conditions>
+                                <Setter Property="IsVisible"
+                                        Value="True"/>
+                            </MultiTrigger>
+                        </Label.Triggers>
+                    </Label>
+                    <Frame Grid.Row="8"
+                           Grid.Column="3"
+                           IsVisible="False">
+                        <Frame.Triggers>
+                            <MultiTrigger TargetType="Frame">
+                                <MultiTrigger.Conditions>
+                                    <BindingCondition Binding="{Binding Settings.Mode, Converter={StaticResource enumCompare}, ConverterParameter={x:Static vm:DrawMode.Cardboard}}"
+                                                      Value="True"/>
+                                    <BindingCondition Binding="{Binding Settings.CardboardSettings.CardboardDownsize}"
+                                                      Value="True"/>
+                                    <BindingCondition Binding="{Binding Settings.CardboardSettings.AddBarrelDistortion}"
+                                                      Value="True"/>
+                                </MultiTrigger.Conditions>
+                                <Setter Property="IsVisible"
+                                        Value="True"/>
+                            </MultiTrigger>
+                        </Frame.Triggers>
+                        <Entry Text="{Binding Settings.CardboardSettings.CardboardDownsizePercentage}"/>
+                    </Frame>
+
+                    <Button Grid.Row="9"
+                            Grid.Column="1"
+                            Grid.ColumnSpan="3" 
+                            Text="Reset to Defaults"
+                            Command="{Binding ResetCardboardToDefaults}"
+                            IsVisible="{Binding Settings.Mode, Converter={StaticResource enumCompare}, ConverterParameter={x:Static vm:DrawMode.Cardboard}}"/>
+
+                    <Label Grid.Row="2"
+                           Grid.Column="1" 
+                           Grid.ColumnSpan="2"
+                           Text="Maximum parallel view image width (points)"
+                           IsVisible="{Binding Settings.Mode, Converter={StaticResource enumCompare}, ConverterParameter={x:Static vm:DrawMode.Parallel}}"/>
+                    <Frame Grid.Row="2"
+                           Grid.Column="3" 
+                           IsVisible="{Binding Settings.Mode, Converter={StaticResource enumCompare}, ConverterParameter={x:Static vm:DrawMode.Parallel}}">
+                        <Entry Text="{Binding Settings.MaximumParallelWidth}"/>
+                    </Frame>
+                </Grid>
+            </views:Expander>
 
             <BoxView/>
 
@@ -727,283 +728,278 @@
                 <views:Expander.Header>
                     <ce:ExpanderHeader Title="Saving"/>
                 </views:Expander.Header>
-                <views:Expander.ContentTemplate>
-                    <DataTemplate>
-                        <Grid ColumnSpacing="0">
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="60"/>
-                                <ColumnDefinition Width="*"/>
-                                <ColumnDefinition Width="30"/>
-                                <ColumnDefinition Width="65"/>
-                            </Grid.ColumnDefinitions>
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="50"/>
-                                <RowDefinition Height="60"/>
-                                <RowDefinition Height="60"/>
-                                <RowDefinition Height="60"/>
-                                <RowDefinition Height="75"/>
-                                <RowDefinition Height="70"/>
-                                <RowDefinition Height="70"/>
-                                <RowDefinition Height="70"/>
-                                <RowDefinition Height="70"/>
-                                <RowDefinition Height="75"/>
-                                <RowDefinition Height="70"/>
-                                <RowDefinition Height="70"/>
-                                <RowDefinition Height="75"/>
-                                <RowDefinition Height="Auto"/>
-                                <RowDefinition Height="Auto"/>
-                                <RowDefinition Height="Auto"/>
-                            </Grid.RowDefinitions>
+                <Grid ColumnSpacing="0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="60"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="30"/>
+                        <ColumnDefinition Width="65"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="50"/>
+                        <RowDefinition Height="60"/>
+                        <RowDefinition Height="60"/>
+                        <RowDefinition Height="60"/>
+                        <RowDefinition Height="75"/>
+                        <RowDefinition Height="70"/>
+                        <RowDefinition Height="70"/>
+                        <RowDefinition Height="70"/>
+                        <RowDefinition Height="70"/>
+                        <RowDefinition Height="75"/>
+                        <RowDefinition Height="70"/>
+                        <RowDefinition Height="70"/>
+                        <RowDefinition Height="75"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
 
-                            <Label Grid.Row="0"
-                                   Grid.Column="0"
-                                   Text="{Binding Settings.ResolutionProportion, StringFormat='{0}%'}"
-                                   FontSize="{StaticResource saveModesHeight}"/>
-                            <Label Grid.Row="0"
-                                   Grid.Column="1"
-                                   Grid.ColumnSpan="2"
-                                   Text="Resolution proportion"/>
-                            <Frame Grid.Row="0"
-                                   Grid.Column="3"
-                                   WidthRequest="50"
-                                   HorizontalOptions="End">
-                                <Picker ItemsSource="{Binding ZeroToOneHundred}"
-                                        SelectedIndex="{Binding Settings.ResolutionProportion}"
-                                        HorizontalOptions="FillAndExpand"/>
-                            </Frame>
+                    <Label Grid.Row="0"
+                           Grid.Column="0"
+                           Text="{Binding Settings.ResolutionProportion, StringFormat='{0}%'}"
+                           FontSize="{StaticResource saveModesHeight}"/>
+                    <Label Grid.Row="0"
+                           Grid.Column="1"
+                           Grid.ColumnSpan="2"
+                           Text="Resolution proportion"/>
+                    <Frame Grid.Row="0"
+                           Grid.Column="3"
+                           WidthRequest="50"
+                           HorizontalOptions="End">
+                        <Picker ItemsSource="{Binding ZeroToOneHundred}"
+                                SelectedIndex="{Binding Settings.ResolutionProportion}"
+                                HorizontalOptions="FillAndExpand"/>
+                    </Frame>
 
-                            <Label Grid.Row="1"
-                                   Grid.Column="0"
-                                   Grid.ColumnSpan="3"
-                                   Text="Save to subfolders/albums labeled by view method"/>
-                            <Switch Grid.Row="1"
-                                    Grid.Column="3"
-                                    IsToggled="{Binding Settings.SaveIntoSeparateFolders}"/>
+                    <Label Grid.Row="1"
+                           Grid.Column="0"
+                           Grid.ColumnSpan="3"
+                           Text="Save to subfolders/albums labeled by view method"/>
+                    <Switch Grid.Row="1"
+                            Grid.Column="3"
+                            IsToggled="{Binding Settings.SaveIntoSeparateFolders}"/>
 
-                            <Label Grid.Row="2"
-                                   Grid.Column="0"
-                                   Grid.ColumnSpan="3"
-                                   Text="Automatically clear captures after saving"/>
-                            <Switch Grid.Row="2"
-                                    Grid.Column="3"
-                                    IsToggled="{Binding Settings.ClearCapturesAfterSave}"/>
+                    <Label Grid.Row="2"
+                           Grid.Column="0"
+                           Grid.ColumnSpan="3"
+                           Text="Automatically clear captures after saving"/>
+                    <Switch Grid.Row="2"
+                            Grid.Column="3"
+                            IsToggled="{Binding Settings.ClearCapturesAfterSave}"/>
 
-                            <Label Grid.Row="3"
-                                   Grid.Column="0"
-                                   Grid.ColumnSpan="4"
-                                   Text="(Saving will happen in order from top to bottom)"
-                                   HorizontalOptions="CenterAndExpand"/>
+                    <Label Grid.Row="3"
+                           Grid.Column="0"
+                           Grid.ColumnSpan="4"
+                           Text="(Saving will happen in order from top to bottom)"
+                           HorizontalOptions="CenterAndExpand"/>
 
-                            <Image Grid.Row="4"
-                                   Grid.Column="0"
-                                   Source="saveBoth"
-                                   Style="{StaticResource saveModes}"/>
-                            <Label Grid.Row="4"
-                                   Grid.Column="1"
-                                   Grid.ColumnSpan="2"
-                                   Text="Save each side separately (with no edits or border for easier post processing, left side saves first)"/>
-                            <Switch Grid.Row="4"
-                                    Grid.Column="3"
-                                    IsToggled="{Binding Settings.SaveSidesSeparately}"/>
+                    <Image Grid.Row="4"
+                           Grid.Column="0"
+                           Source="saveBoth"
+                           Style="{StaticResource saveModes}"/>
+                    <Label Grid.Row="4"
+                           Grid.Column="1"
+                           Grid.ColumnSpan="2"
+                           Text="Save each side separately (with no edits or border for easier post processing, left side saves first)"/>
+                    <Switch Grid.Row="4"
+                            Grid.Column="3"
+                            IsToggled="{Binding Settings.SaveSidesSeparately}"/>
 
-                            <Image Grid.Row="5"
-                                   Grid.Column="0"
-                                   Source="crossed"
-                                   Style="{StaticResource saveModes}">
-                                <Image.Triggers>
-                                    <DataTrigger TargetType="Image"
-                                                 Binding="{Binding Settings.Mode, Converter={StaticResource enumCompare}, ConverterParameter={x:Static vm:DrawMode.Parallel}}"
-                                                 Value="True">
-                                        <Setter Property="Grid.Row"
-                                                Value="7"/>
-                                    </DataTrigger>
-                                </Image.Triggers>
-                            </Image>
-                            <Label Grid.Row="5"
-                                   Grid.Column="1"
-                                   Grid.ColumnSpan="2"
-                                   Text="Save joined cross view version (with edits and border)">
-                                <Label.Triggers>
-                                    <DataTrigger TargetType="Label"
-                                                 Binding="{Binding Settings.Mode, Converter={StaticResource enumCompare}, ConverterParameter={x:Static vm:DrawMode.Parallel}}"
-                                                 Value="True">
-                                        <Setter Property="Grid.Row"
-                                                Value="7"/>
-                                    </DataTrigger>
-                                </Label.Triggers>
-                            </Label>
-                            <Switch Grid.Row="5"
-                                    Grid.Column="3"
-                                    IsToggled="{Binding Settings.SaveForCrossView}">
-                                <Switch.Triggers>
-                                    <DataTrigger TargetType="Switch"
-                                                 Binding="{Binding Settings.Mode, Converter={StaticResource enumCompare}, ConverterParameter={x:Static vm:DrawMode.Parallel}}"
-                                                 Value="True">
-                                        <Setter Property="Grid.Row"
-                                                Value="7"/>
-                                    </DataTrigger>
-                                </Switch.Triggers>
-                            </Switch>
+                    <Image Grid.Row="5"
+                           Grid.Column="0"
+                           Source="crossed"
+                           Style="{StaticResource saveModes}">
+                        <Image.Triggers>
+                            <DataTrigger TargetType="Image"
+                                         Binding="{Binding Settings.Mode, Converter={StaticResource enumCompare}, ConverterParameter={x:Static vm:DrawMode.Parallel}}"
+                                         Value="True">
+                                <Setter Property="Grid.Row"
+                                        Value="7"/>
+                            </DataTrigger>
+                        </Image.Triggers>
+                    </Image>
+                    <Label Grid.Row="5"
+                           Grid.Column="1"
+                           Grid.ColumnSpan="2"
+                           Text="Save joined cross view version (with edits and border)">
+                        <Label.Triggers>
+                            <DataTrigger TargetType="Label"
+                                         Binding="{Binding Settings.Mode, Converter={StaticResource enumCompare}, ConverterParameter={x:Static vm:DrawMode.Parallel}}"
+                                         Value="True">
+                                <Setter Property="Grid.Row"
+                                        Value="7"/>
+                            </DataTrigger>
+                        </Label.Triggers>
+                    </Label>
+                    <Switch Grid.Row="5"
+                            Grid.Column="3"
+                            IsToggled="{Binding Settings.SaveForCrossView}">
+                        <Switch.Triggers>
+                            <DataTrigger TargetType="Switch"
+                                         Binding="{Binding Settings.Mode, Converter={StaticResource enumCompare}, ConverterParameter={x:Static vm:DrawMode.Parallel}}"
+                                         Value="True">
+                                <Setter Property="Grid.Row"
+                                        Value="7"/>
+                            </DataTrigger>
+                        </Switch.Triggers>
+                    </Switch>
 
-                            <Image Grid.Row="6"
-                                   Grid.Column="0"
-                                   Source="parallel"
-                                   Style="{StaticResource saveModes}">
-                                <Image.Triggers>
-                                    <DataTrigger TargetType="Image"
-                                                 Binding="{Binding Settings.Mode, Converter={StaticResource enumCompare}, ConverterParameter={x:Static vm:DrawMode.Parallel}}"
-                                                 Value="True">
-                                        <Setter Property="Grid.Row"
-                                                Value="6"/>
-                                    </DataTrigger>
-                                </Image.Triggers>
-                            </Image>
-                            <Label Grid.Row="6"
-                                   Grid.Column="1"
-                                   Grid.ColumnSpan="2"
-                                   Text="Save joined parallel view version (with edits and border)">
-                                <Label.Triggers>
-                                    <DataTrigger TargetType="Label"
-                                                 Binding="{Binding Settings.Mode, Converter={StaticResource enumCompare}, ConverterParameter={x:Static vm:DrawMode.Parallel}}"
-                                                 Value="True">
-                                        <Setter Property="Grid.Row"
-                                                Value="6"/>
-                                    </DataTrigger>
-                                </Label.Triggers>
-                            </Label>
-                            <Switch Grid.Row="6"
-                                    Grid.Column="3"
-                                    IsToggled="{Binding Settings.SaveForParallel}">
-                                <Switch.Triggers>
-                                    <DataTrigger TargetType="Switch"
-                                                 Binding="{Binding Settings.Mode, Converter={StaticResource enumCompare}, ConverterParameter={x:Static vm:DrawMode.Parallel}}"
-                                                 Value="True">
-                                        <Setter Property="Grid.Row"
-                                                Value="6"/>
-                                    </DataTrigger>
-                                </Switch.Triggers>
-                            </Switch>
+                    <Image Grid.Row="6"
+                           Grid.Column="0"
+                           Source="parallel"
+                           Style="{StaticResource saveModes}">
+                        <Image.Triggers>
+                            <DataTrigger TargetType="Image"
+                                         Binding="{Binding Settings.Mode, Converter={StaticResource enumCompare}, ConverterParameter={x:Static vm:DrawMode.Parallel}}"
+                                         Value="True">
+                                <Setter Property="Grid.Row"
+                                        Value="6"/>
+                            </DataTrigger>
+                        </Image.Triggers>
+                    </Image>
+                    <Label Grid.Row="6"
+                           Grid.Column="1"
+                           Grid.ColumnSpan="2"
+                           Text="Save joined parallel view version (with edits and border)">
+                        <Label.Triggers>
+                            <DataTrigger TargetType="Label"
+                                         Binding="{Binding Settings.Mode, Converter={StaticResource enumCompare}, ConverterParameter={x:Static vm:DrawMode.Parallel}}"
+                                         Value="True">
+                                <Setter Property="Grid.Row"
+                                        Value="6"/>
+                            </DataTrigger>
+                        </Label.Triggers>
+                    </Label>
+                    <Switch Grid.Row="6"
+                            Grid.Column="3"
+                            IsToggled="{Binding Settings.SaveForParallel}">
+                        <Switch.Triggers>
+                            <DataTrigger TargetType="Switch"
+                                         Binding="{Binding Settings.Mode, Converter={StaticResource enumCompare}, ConverterParameter={x:Static vm:DrawMode.Parallel}}"
+                                         Value="True">
+                                <Setter Property="Grid.Row"
+                                        Value="6"/>
+                            </DataTrigger>
+                        </Switch.Triggers>
+                    </Switch>
 
-                            <Image Grid.Row="7"
-                                   Grid.Column="0"
-                                   Source="anaglyph"
-                                   Style="{StaticResource saveModes}"/>
-                            <Label Grid.Row="7"
-                                   Grid.Column="1"
-                                   Grid.ColumnSpan="2"
-                                   Text="Save red/cyan anaglyph version (with edits but no border)"/>
-                            <Switch Grid.Row="7"
-                                    Grid.Column="3"
-                                    IsToggled="{Binding Settings.SaveForRedCyanAnaglyph}"/>
+                    <Image Grid.Row="7"
+                           Grid.Column="0"
+                           Source="anaglyph"
+                           Style="{StaticResource saveModes}"/>
+                    <Label Grid.Row="7"
+                           Grid.Column="1"
+                           Grid.ColumnSpan="2"
+                           Text="Save red/cyan anaglyph version (with edits but no border)"/>
+                    <Switch Grid.Row="7"
+                            Grid.Column="3"
+                            IsToggled="{Binding Settings.SaveForRedCyanAnaglyph}"/>
 
-                            <Image Grid.Row="8"
-                                   Grid.Column="0"
-                                   Source="grayscaleAnaglyph"
-                                   Style="{StaticResource saveModes}"/>
-                            <Label Grid.Row="8"
-                                   Grid.Column="1"
-                                   Grid.ColumnSpan="2"
-                                   Text="Save grayscale red/cyan anaglyph version (with edits but no border)"/>
-                            <Switch Grid.Row="8"
-                                    Grid.Column="3"
-                                    IsToggled="{Binding Settings.SaveForGrayscaleAnaglyph}"/>
+                    <Image Grid.Row="8"
+                           Grid.Column="0"
+                           Source="grayscaleAnaglyph"
+                           Style="{StaticResource saveModes}"/>
+                    <Label Grid.Row="8"
+                           Grid.Column="1"
+                           Grid.ColumnSpan="2"
+                           Text="Save grayscale red/cyan anaglyph version (with edits but no border)"/>
+                    <Switch Grid.Row="8"
+                            Grid.Column="3"
+                            IsToggled="{Binding Settings.SaveForGrayscaleAnaglyph}"/>
 
-                            <Image Grid.Row="9"
-                                   Grid.Column="0"
-                                   Source="saveOne"
-                                   Style="{StaticResource saveModes}"/>
-                            <Label Grid.Row="9"
-                                   Grid.Column="1"
-                                   Grid.ColumnSpan="2"
-                                   Text="Save first side alone (with no edits or border) (for easy sharing of flat photo with flat view people)"/>
-                            <Switch Grid.Row="9"
-                                    Grid.Column="3"
-                                    IsToggled="{Binding Settings.SaveRedundantFirstSide}"
-                                    IsEnabled="{Binding EnableFirstSideAloneSwitch}"/>
+                    <Image Grid.Row="9"
+                           Grid.Column="0"
+                           Source="saveOne"
+                           Style="{StaticResource saveModes}"/>
+                    <Label Grid.Row="9"
+                           Grid.Column="1"
+                           Grid.ColumnSpan="2"
+                           Text="Save first side alone (with no edits or border) (for easy sharing of flat photo with flat view people)"/>
+                    <Switch Grid.Row="9"
+                            Grid.Column="3"
+                            IsToggled="{Binding Settings.SaveRedundantFirstSide}"
+                            IsEnabled="{Binding EnableFirstSideAloneSwitch}"/>
 
-                            <Image Grid.Row="10"
-                                   Grid.Column="0"
-                                   Source="triple"
-                                   Style="{StaticResource saveModes}"/>
-                            <Label Grid.Row="10"
-                                   Grid.Column="1"
-                                   Grid.ColumnSpan="2"
-                                   Text="Save triple combination (with edits and border)"/>
-                            <Switch Grid.Row="10"
-                                    Grid.Column="3"
-                                    IsToggled="{Binding Settings.SaveForTriple}"/>
+                    <Image Grid.Row="10"
+                           Grid.Column="0"
+                           Source="triple"
+                           Style="{StaticResource saveModes}"/>
+                    <Label Grid.Row="10"
+                           Grid.Column="1"
+                           Grid.ColumnSpan="2"
+                           Text="Save triple combination (with edits and border)"/>
+                    <Switch Grid.Row="10"
+                            Grid.Column="3"
+                            IsToggled="{Binding Settings.SaveForTriple}"/>
 
-                            <Image Grid.Row="11"
-                                   Grid.Column="0"
-                                   Source="quad"
-                                   Style="{StaticResource saveModes}"
-                                   HeightRequest="25"/>
-                            <Label Grid.Row="11"
-                                   Grid.Column="1"
-                                   Grid.ColumnSpan="2"
-                                   Text="Save quad combination (with edits and border)"/>
-                            <Switch Grid.Row="11"
-                                    Grid.Column="3"
-                                    IsToggled="{Binding Settings.SaveForQuad}"/>
+                    <Image Grid.Row="11"
+                           Grid.Column="0"
+                           Source="quad"
+                           Style="{StaticResource saveModes}"
+                           HeightRequest="25"/>
+                    <Label Grid.Row="11"
+                           Grid.Column="1"
+                           Grid.ColumnSpan="2"
+                           Text="Save quad combination (with edits and border)"/>
+                    <Switch Grid.Row="11"
+                            Grid.Column="3"
+                            IsToggled="{Binding Settings.SaveForQuad}"/>
 
-                            <Label Grid.Row="12"
-                                   Grid.Column="0"
-                                   HorizontalOptions="Center"
-                                   Text="VR"/>
-                            <Label Grid.Row="12"
-                                   Grid.Column="1"
-                                   Grid.ColumnSpan="2"
-                                   Text="Save for Cardboard (with edits, no border, no spacing, full width, for loading back into CrossCam later)"/>
-                            <Switch Grid.Row="12"
-                                    Grid.Column="3"
-                                    IsToggled="{Binding Settings.SaveForCardboard}"/>
+                    <Label Grid.Row="12"
+                           Grid.Column="0"
+                           HorizontalOptions="Center"
+                           Text="VR"/>
+                    <Label Grid.Row="12"
+                           Grid.Column="1"
+                           Grid.ColumnSpan="2"
+                           Text="Save for Cardboard (with edits, no border, no spacing, full width, for loading back into CrossCam later)"/>
+                    <Switch Grid.Row="12"
+                            Grid.Column="3"
+                            IsToggled="{Binding Settings.SaveForCardboard}"/>
 
-                            <Label Grid.Row="13"
-                                   Grid.Column="0"
-                                   Grid.ColumnSpan="2"
-                                   Text="{Binding SaveDirectory, StringFormat='Save to: {0}'}"
-                                   IsVisible="{Binding CanSaveToArbitraryDirectory}"/>
-                            <Button Grid.Row="13"
-                                    Grid.Column="2"
-                                    Grid.ColumnSpan="2"
-                                    Command="{Binding ChooseDirectory}"
-                                    Text="Browse..."
-                                    IsVisible="False">
-                                <Button.Triggers>
-                                    <MultiTrigger TargetType="Button">
-                                        <MultiTrigger.Conditions>
-                                            <BindingCondition Binding="{Binding CanSaveToArbitraryDirectory}"
+                    <Label Grid.Row="13"
+                           Grid.Column="0"
+                           Grid.ColumnSpan="2"
+                           Text="{Binding SaveDirectory, StringFormat='Save to: {0}'}"
+                           IsVisible="{Binding CanSaveToArbitraryDirectory}"/>
+                    <Button Grid.Row="13"
+                            Grid.Column="2"
+                            Grid.ColumnSpan="2"
+                            Command="{Binding ChooseDirectory}"
+                            Text="Browse..."
+                            IsVisible="False">
+                        <Button.Triggers>
+                            <MultiTrigger TargetType="Button">
+                                <MultiTrigger.Conditions>
+                                    <BindingCondition Binding="{Binding CanSaveToArbitraryDirectory}"
                                                       Value="True"/>
-                                            <BindingCondition Binding="{Binding Settings.SavingDirectory}"
+                                    <BindingCondition Binding="{Binding Settings.SavingDirectory}"
                                                       Value="{x:Null}"/>
-                                        </MultiTrigger.Conditions>
-                                        <MultiTrigger.Setters>
-                                            <Setter Property="IsVisible"
+                                </MultiTrigger.Conditions>
+                                <MultiTrigger.Setters>
+                                    <Setter Property="IsVisible"
                                             Value="True"/>
-                                        </MultiTrigger.Setters>
-                                    </MultiTrigger>
-                                </Button.Triggers>
-                            </Button>
+                                </MultiTrigger.Setters>
+                            </MultiTrigger>
+                        </Button.Triggers>
+                    </Button>
 
-                            <Button Grid.Row="14"
-                                    Grid.Column="2"
-                                    Grid.ColumnSpan="2"
-                                    Command="{Binding ClearDirectory}"
-                                    Text="Reset"
-                                    IsVisible="{Binding Settings.SavingDirectory, Converter={vc:IsNotNullConverter}}"/>
+                    <Button Grid.Row="13"
+                            Grid.Column="2"
+                            Grid.ColumnSpan="2"
+                            Command="{Binding ClearDirectory}"
+                            Text="Reset"
+                            IsVisible="{Binding Settings.SavingDirectory, Converter={vc:IsNotNullConverter}}"/>
 
-                            <Label Grid.Row="15"
-                                   Grid.Column="0"
-                                   Grid.ColumnSpan="2"
-                                   Text="{Binding ExternalDirectory, StringFormat='Save to external CrossCam directory at: {0} (warning: pictures there will be deleted if CrossCam is uninstalled)'}"
-                                   IsVisible="{Binding CanSaveToExternalDirectory}"/>
-                            <Switch Grid.Row="15"
-                                    Grid.Column="3"
-                                    IsToggled="{Binding Settings.SaveToExternal}"
-                                    IsVisible="{Binding CanSaveToExternalDirectory}"/>
-                        </Grid>
-                    </DataTemplate>
-                </views:Expander.ContentTemplate>
+                    <Label Grid.Row="14"
+                           Grid.Column="0"
+                           Grid.ColumnSpan="2"
+                           Text="{Binding ExternalDirectory, StringFormat='Save to external CrossCam directory at: {0} (warning: pictures there will be deleted if CrossCam is uninstalled)'}"
+                           IsVisible="{Binding CanSaveToExternalDirectory}"/>
+                    <Switch Grid.Row="14"
+                            Grid.Column="3"
+                            IsToggled="{Binding Settings.SaveToExternal}"
+                            IsVisible="{Binding CanSaveToExternalDirectory}"/>
+                </Grid>
             </views:Expander>
 
             <BoxView/>

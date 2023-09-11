@@ -32,6 +32,7 @@ namespace CrossCam.Page
                 _guidesExpander.Tapped += OnExpanderOnTapped;
                 _pairingExpander.Tapped += OnExpanderOnTapped;
                 _savingExpander.Tapped += OnExpanderOnTapped;
+                _previewMethodExpander.Tapped += OnExpanderOnTapped;
             }
             else if (BindingContext == null && _viewModel != null)
             {
@@ -47,6 +48,7 @@ namespace CrossCam.Page
                 _guidesExpander.Tapped -= OnExpanderOnTapped;
                 _pairingExpander.Tapped -= OnExpanderOnTapped;
                 _savingExpander.Tapped -= OnExpanderOnTapped;
+                _previewMethodExpander.Tapped -= OnExpanderOnTapped;
             }
         }
 
@@ -86,6 +88,11 @@ namespace CrossCam.Page
             {
                 _savingExpander.IsExpanded = false;
             }
+
+            if (sender != _previewMethodExpander)
+            {
+                _previewMethodExpander.IsExpanded = false;
+            }
         }
 
         private void EditsSettingsOnPropertyChanged(object sender, PropertyChangedEventArgs e)
@@ -97,7 +104,7 @@ namespace CrossCam.Page
             if (e.PropertyName == nameof(CardboardSettings.AddBarrelDistortion) ||
                 e.PropertyName == nameof(CardboardSettings.CardboardDownsize))
             {
-                //
+                _previewMethodExpander.ForceUpdateSize();
             }
         }
 
@@ -122,7 +129,7 @@ namespace CrossCam.Page
         {
             if (e.PropertyName == nameof(Settings.Mode))
             {
-                //_viewModeExpander.ForceUpdateSize();
+                _previewMethodExpander.ForceUpdateSize();
             }
             else if (e.PropertyName == nameof(Settings.AddBorder2))
             {
@@ -132,6 +139,11 @@ namespace CrossCam.Page
                      e.PropertyName == nameof(Settings.IsGuideDonutVisible))
             {
                 _guidesExpander.ForceUpdateSize();
+            }
+            else if (e.PropertyName == nameof(Settings.SavingDirectory) ||
+                     e.PropertyName == nameof(Settings.SaveToExternal))
+            {
+                _savingExpander.ForceUpdateSize();
             }
         }
     }

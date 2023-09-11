@@ -8,7 +8,6 @@ using CrossCam.Wrappers;
 using Microsoft.AppCenter;
 using Microsoft.AppCenter.Analytics;
 using Microsoft.AppCenter.Crashes;
-using Xamarin.Essentials;
 using Xamarin.Forms;
 
 namespace CrossCam.ViewModel
