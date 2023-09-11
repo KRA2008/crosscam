@@ -190,7 +190,7 @@ namespace CrossCam.ViewModel
 
         private void HandleSettingsPropertyChanged(object sender, PropertyChangedEventArgs e)
         {
-            if (e.PropertyName == nameof(Settings.IsAnalyticsEnabled))
+            if (e?.PropertyName == nameof(Settings.IsAnalyticsEnabled))
             {
                 SetAnalyticsEnabledStatus();
             }
@@ -200,7 +200,9 @@ namespace CrossCam.ViewModel
 
         private void ValidateSwitchStatuses()
         {
-            EnableFirstSideAloneSwitch = (Settings.SaveForCrossView || Settings.SaveForParallel || Settings.SaveForRedCyanAnaglyph) &&
+            EnableFirstSideAloneSwitch = (Settings.SaveForCrossView || 
+                                          Settings.SaveForParallel || 
+                                          Settings.SaveForRedCyanAnaglyph) &&
                                          !Settings.SaveSidesSeparately;
 
             if (!EnableFirstSideAloneSwitch)
@@ -212,7 +214,6 @@ namespace CrossCam.ViewModel
         private void SaveSettings()
         {
             ValidateSwitchStatuses();
-
             PersistentStorage.Save(PersistentStorage.SETTINGS_KEY, Settings);
         }
     }
