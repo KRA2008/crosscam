@@ -75,10 +75,10 @@ namespace CrossCam.Droid
 
         protected override void OnCreate(Bundle bundle)
         {
-            base.OnCreate(bundle);
-            Xamarin.Essentials.Platform.Init(this, bundle);
             AppCenter.Start("febfa1c4-10aa-4087-9594-71d287579841", // plz don't abuse this.
                 typeof(Analytics), typeof(Crashes));
+            base.OnCreate(bundle);
+            Xamarin.Essentials.Platform.Init(this, bundle);
 
             DeviceDisplay.MainDisplayInfoChanged += SetFullscreen; 
             SetFullscreen(null, null);
@@ -362,22 +362,36 @@ namespace CrossCam.Droid
 
         private bool CheckForAndRequestRequiredPermissions()
         {
-            if (ContextCompat.CheckSelfPermission(this, Manifest.Permission.Camera) != (int)Permission.Granted)
+            try
             {
-                ActivityCompat.RequestPermissions(Instance, new[] {Manifest.Permission.Camera},
-                    (int) RequestCodes.CameraPermissionRequestCode);
+                if (ContextCompat.CheckSelfPermission(this, Manifest.Permission.Camera) != (int) Permission.Granted)
+                {
+                    ActivityCompat.RequestPermissions(Instance, new[] {Manifest.Permission.Camera},
+                        (int) RequestCodes.CameraPermissionRequestCode);
+                    Crashes.TrackError(new Exception("Camera permission not granted."));
+
+                    return true;
+                }
+
+                if (Build.VERSION.SdkInt < BuildVersionCodes.R &&
+                    ContextCompat.CheckSelfPermission(this, Manifest.Permission.WriteExternalStorage) !=
+                    (int) Permission.Granted)
+                {
+                    ActivityCompat.RequestPermissions(Instance, new[] {Manifest.Permission.WriteExternalStorage},
+                        (int) RequestCodes.WriteToStorageRequestCode);
+                    Crashes.TrackError(new Exception("Saving permission not granted."));
+
+                    return true;
+                }
+
+                return false;
+            }
+            catch (Exception e)
+            {
+                Crashes.TrackError(e);
+
                 return true;
             }
-
-            if (ContextCompat.CheckSelfPermission(this, Manifest.Permission.WriteExternalStorage) !=
-                (int)Permission.Granted)
-            {
-                ActivityCompat.RequestPermissions(Instance, new[] { Manifest.Permission.WriteExternalStorage },
-                    (int)RequestCodes.WriteToStorageRequestCode);
-                return true;
-            }
-
-            return false;
         }
 
         protected override void OnNewIntent(Intent intent)
