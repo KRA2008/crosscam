@@ -111,7 +111,7 @@
       <Version>1.5.0.2</Version>
     </PackageReference>
     <PackageReference Include="Xamarin.AndroidX.AppCompat.AppCompatResources">
-      <Version>1.5.1.1</Version>
+      <Version>1.6.1.4</Version>
     </PackageReference>
     <PackageReference Include="Xamarin.AndroidX.AppCompat.Resources">
       <Version>1.1.0.2</Version>
@@ -130,7 +130,7 @@
     </PackageReference>
     <PackageReference Include="Xamarin.Google.Android.Material" Version="1.4.0.6" />
     <PackageReference Include="Xamarin.AndroidX.Legacy.Support.V4" Version="1.0.0.16" />
-    <PackageReference Include="Xamarin.AndroidX.AppCompat" Version="1.5.1.1" />
+    <PackageReference Include="Xamarin.AndroidX.AppCompat" Version="1.6.1.3" />
     <PackageReference Include="Xamarin.AndroidX.CardView" Version="1.0.0.18" />
     <PackageReference Include="Xamarin.AndroidX.MediaRouter" Version="1.3.1.2" />
     <PackageReference Include="Xamarin.AndroidX.VectorDrawable">
