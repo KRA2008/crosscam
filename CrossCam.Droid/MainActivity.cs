@@ -64,10 +64,7 @@ namespace CrossCam.Droid
             BluetoothAdminRequestCode,
             BluetoothScanRequestCode,
             BluetoothAdvertiseRequestCode,
-            BluetoothConnectRequestCode,
-            FineLocationRequestCode,
-            CoarseLocationRequestCode,
-            TurnLocationServicesOnRequestCode
+            BluetoothConnectRequestCode
         }
 
         public const int PICK_PHOTO_ID = 1000;
@@ -186,11 +183,6 @@ namespace CrossCam.Droid
                     DirectorySelector.DirectorySelectionCancelled();
                 }
             }
-            else if (requestCode == (int) RequestCodes.TurnLocationServicesOnRequestCode)
-            {
-
-                await PlatformPair.CheckForAndTurnOnLocationServices(true);
-            }
         }
 
         private void SetFullscreen(object sender, DisplayInfoChangedEventArgs e)
@@ -267,19 +259,6 @@ namespace CrossCam.Droid
                 return;
             }
 
-            if (requestCode == (int)RequestCodes.FineLocationRequestCode ||
-                requestCode == (int)RequestCodes.CoarseLocationRequestCode)
-            {
-                if (!grantResults.Contains(Permission.Granted))
-                {
-                    PlatformPair.LocationPermissionsTask.SetResult(false);
-                    return;
-                }
-
-                CheckForAndRequestLocationPermissions();
-                return;
-            }
-
             if (CheckForAndRequestRequiredPermissions())
             {
                 return;
@@ -291,38 +270,18 @@ namespace CrossCam.Droid
             base.OnRequestPermissionsResult(requestCode, permissions, grantResults);
         }
 
-
-        public void CheckForAndRequestLocationPermissions()
-        {
-            if (ContextCompat.CheckSelfPermission(this, Manifest.Permission.AccessFineLocation) !=
-                (int)Permission.Granted)
-            {
-                ActivityCompat.RequestPermissions(Instance, new[] { Manifest.Permission.AccessFineLocation },
-                    (int)RequestCodes.FineLocationRequestCode);
-                return;
-            }
-
-            if (ContextCompat.CheckSelfPermission(this, Manifest.Permission.AccessCoarseLocation) !=
-                (int)Permission.Granted)
-            {
-                ActivityCompat.RequestPermissions(Instance, new[] { Manifest.Permission.AccessCoarseLocation },
-                    (int)RequestCodes.CoarseLocationRequestCode);
-                return;
-            }
-
-            PlatformPair.LocationPermissionsTask.SetResult(true);
-        }
-
         public void CheckForAndRequestBluetoothPermissions()
         {
-            if (ContextCompat.CheckSelfPermission(this, Manifest.Permission.Bluetooth) != (int)Permission.Granted)
+            if (Build.VERSION.SdkInt <= BuildVersionCodes.R &&
+                ContextCompat.CheckSelfPermission(this, Manifest.Permission.Bluetooth) != (int)Permission.Granted)
             {
                 ActivityCompat.RequestPermissions(Instance, new[] { Manifest.Permission.Bluetooth },
                     (int)RequestCodes.BluetoothBasicRequestCode);
                 return;
             }
 
-            if (ContextCompat.CheckSelfPermission(this, Manifest.Permission.BluetoothAdmin) !=
+            if (Build.VERSION.SdkInt <= BuildVersionCodes.R &&
+                ContextCompat.CheckSelfPermission(this, Manifest.Permission.BluetoothAdmin) !=
                 (int)Permission.Granted)
             {
                 ActivityCompat.RequestPermissions(Instance, new[] { Manifest.Permission.BluetoothAdmin },

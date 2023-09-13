@@ -24,8 +24,6 @@ namespace CrossCam.Droid.CustomRenderer
     public sealed class PlatformPair : BluetoothGattCallback, IPlatformPair
     {
         public static TaskCompletionSource<bool> BluetoothPermissionsTask;
-        public static TaskCompletionSource<bool> LocationPermissionsTask;
-        public static TaskCompletionSource<bool> TurnOnLocationTask;
 
         private readonly IConnectionsClient _client;
         private string _connectedPartnerId;
@@ -53,50 +51,6 @@ namespace CrossCam.Droid.CustomRenderer
             BluetoothPermissionsTask = new TaskCompletionSource<bool>();
             MainActivity.Instance.CheckForAndRequestBluetoothPermissions();
             return BluetoothPermissionsTask.Task;
-        }
-
-        private static Task<bool> RequestLocationPermissions()
-        {
-            LocationPermissionsTask = new TaskCompletionSource<bool>();
-            MainActivity.Instance.CheckForAndRequestLocationPermissions();
-            return LocationPermissionsTask.Task;
-        }
-
-        private static Task<bool> TurnOnLocationServices()
-        {
-            return CheckForAndTurnOnLocationServices();
-        }
-
-        public static async Task<bool> CheckForAndTurnOnLocationServices(bool checkOnly = false)
-        {
-            //Debug.WriteLine("### DoingLocationStuff");
-            if (!checkOnly)
-            {
-                TurnOnLocationTask = new TaskCompletionSource<bool>();
-            }
-
-            try
-            {
-                var builder = new LocationSettingsRequest.Builder().AddLocationRequest(LocationRequest.Create())
-                    .SetAlwaysShow(true);
-
-                var response = await LocationServices.GetSettingsClient(MainActivity.Instance)
-                    .CheckLocationSettingsAsync(builder.Build());
-                TurnOnLocationTask.SetResult(response.LocationSettingsStates.IsLocationUsable);
-            }
-            catch (Exception e)
-            {
-                if (e is ResolvableApiException exc &&
-                    !checkOnly)
-                {
-                    exc.StartResolutionForResult(MainActivity.Instance,(int)MainActivity.RequestCodes.TurnLocationServicesOnRequestCode);
-                    return await TurnOnLocationTask.Task;
-                }
-                Debug.WriteLine("### Location error: " + e);
-                TurnOnLocationTask.SetResult(false);
-            }
-
-            return await TurnOnLocationTask.Task;
         }
 
         public async void SendPayload(byte[] bytes)
@@ -156,8 +110,6 @@ namespace CrossCam.Droid.CustomRenderer
         {
             //Debug.WriteLine("### StartingScanning");
             if (!await RequestBluetoothPermissions()) throw new PermissionsException();
-            if (!await RequestLocationPermissions()) throw new LocationPermissionNotGrantedException();
-            if (!await TurnOnLocationServices()) throw new LocationServicesNotEnabledException();
             
             await _client.StartDiscoveryAsync(PairOperator.CROSSCAM_SERVICE, new MyEndpointDiscoveryCallback(this),
                 new DiscoveryOptions.Builder().SetStrategy(Strategy.P2pPointToPoint).Build());

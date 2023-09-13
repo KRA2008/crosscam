@@ -2668,7 +2668,7 @@ namespace CrossCam.ViewModel
                         "CrossCam was made to help you make 3D photos. " +
                         "The photos are 3D just like VR or 3D movies, but you don't need any special equipment or glasses - just your phone " +
                         "(but if you do have a pair of red/cyan 3D glasses or a Google Cardboard viewer, you can use those with CrossCam too). " +
-                        "The &quot;free viewing&quot; technique that uses just your phone and your eyes takes some practice to learn. "+
+                        "The \"free viewing\" technique that uses just your phone and your eyes takes some practice to learn. "+
                         "Before I tell you how to use CrossCam, would you first like to learn more about the viewing technique?",
                         "Yes", "No");
                     Settings.HasOfferedTechniqueHelpBefore2 = true;
