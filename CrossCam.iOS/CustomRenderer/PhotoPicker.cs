@@ -110,14 +110,28 @@ namespace CrossCam.iOS.CustomRenderer
                     }
 
                     var item1 = results.ElementAt(0).ItemProvider;
-                    var identifier = item1.RegisteredTypeIdentifiers.First();
-                    var data1 = await item1.LoadDataRepresentationAsync(identifier);
+                    var identifier1 = item1.RegisteredTypeIdentifiers.FirstOrDefault();
+                    if (identifier1 == null)
+                    {
+                        _photoPicker._taskCompletionSource.SetResult(null);
+                        _photoPicker._viewController.DismissModalViewController(true);
+                        return;
+                    }
+                    var data1 = await item1.LoadDataRepresentationAsync(identifier1);
                     var bytes1 = data1.ToArray();
 
                     byte[] bytes2 = null;
                     if (results.Length == 2)
                     {
-                        var data2 = await results.ElementAt(1).ItemProvider.LoadDataRepresentationAsync(identifier);
+                        var item2 = results.ElementAt(1).ItemProvider;
+                        var identifier2 = item2.RegisteredTypeIdentifiers.FirstOrDefault();
+                        if (identifier2 == null)
+                        {
+                            _photoPicker._taskCompletionSource.SetResult(new[] { bytes1, null });
+                            _photoPicker._viewController.DismissModalViewController(true);
+                            return;
+                        }
+                        var data2 = await item2.LoadDataRepresentationAsync(identifier2);
                         bytes2 = data2.ToArray();
                     }
 
