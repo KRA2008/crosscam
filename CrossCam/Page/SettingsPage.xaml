@@ -348,6 +348,7 @@
                                 <RowDefinition Height="Auto"/>
                                 <RowDefinition Height="Auto"/>
                                 <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
                             </Grid.RowDefinitions>
 
                             <Label Grid.Column="0"
@@ -413,23 +414,33 @@
                                 <Entry Text="{Binding Settings.PairSettings.PairSyncSampleCount}"/>
                             </Frame>
 
+                            <Label Grid.Column="0"
+                                   Grid.Row="5"
+                                   Text="Connection timeout (seconds)"
+                                   IsVisible="{Binding Settings.PairSettings.IsPairedPrimary.HasValue}"/>
+                            <Frame Grid.Column="1"
+                                   Grid.Row="5"
+                                   IsVisible="{Binding Settings.PairSettings.IsPairedPrimary.HasValue}">
+                                <Entry Text="{Binding Settings.PairSettings.TimeoutSeconds}"/>
+                            </Frame>
+
                             <Button Grid.Column="0"
                                     Grid.ColumnSpan="2"
-                                    Grid.Row="5" 
+                                    Grid.Row="6" 
                                     Text="Reset to Defaults"
                                     Command="{Binding ResetPairToDefaults}"
                                     IsVisible="{Binding Settings.PairSettings.IsPairedPrimary, Converter={StaticResource nullableBoolean}}"/>
 
                             <Label Grid.Column="0"
                                    Grid.ColumnSpan="2"
-                                   Grid.Row="6"
+                                   Grid.Row="7"
                                    Text="Field of view correction"
                                    HorizontalOptions="CenterAndExpand"
                                    IsVisible="{Binding Settings.PairSettings.IsPairedPrimary, Converter={StaticResource nullableBoolean}}"/>
 
                             <Grid Grid.Column="0"
                                   Grid.ColumnSpan="2"
-                                  Grid.Row="7"
+                                  Grid.Row="8"
                                   ColumnSpacing="0"
                                   RowSpacing="0"
                                   IsVisible="{Binding Settings.PairSettings.IsPairedPrimary, Converter={StaticResource nullableBoolean}}">

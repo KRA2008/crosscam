@@ -29,6 +29,8 @@ namespace CrossCam.CustomElement
         private readonly Timer _captureTimer = new Timer{AutoReset = false};
         private readonly Timer _countdownDisplayTimer = new Timer{AutoReset = false};
 
+        private readonly Timer _connectionTimeoutTimer = new Timer { AutoReset = false};
+
         public decimal InitialSyncProgress { get; set; }
         private uint TimerTotalSamples => _settings.PairSettings.PairSyncSampleCount;
         private int _timerSampleIndex;
@@ -92,6 +94,12 @@ namespace CrossCam.CustomElement
             OnPropertyChanged(nameof(CountdownTimeRemainingSec));
             _settings.RaisePropertyChanged(nameof(Settings.PairSettings.IsPairedPrimary));
             Connected?.Invoke(this, EventArgs.Empty);
+            _connectionTimeoutTimer.Elapsed += ConnectionTimeoutTimerOnElapsed;
+        }
+
+        private void ConnectionTimeoutTimerOnElapsed(object sender, ElapsedEventArgs e)
+        {
+            _platformPair.Disconnect();
         }
 
         public event EventHandler<ErrorEventArgs> ErrorOccurred;
@@ -151,6 +159,7 @@ namespace CrossCam.CustomElement
         public event EventHandler TransmissionComplete;
         private void OnTransmissionComplete()
         {
+            _connectionTimeoutTimer.Stop();
             TransmissionComplete?.Invoke(this, null);
         }
 
@@ -194,6 +203,7 @@ namespace CrossCam.CustomElement
         public event EventHandler<byte[]> CapturedImageReceived;
         private void OnCapturedImageReceived(byte[] frame)
         {
+            _connectionTimeoutTimer.Stop();
             _captureMomentUtc = null;
             CapturedImageReceived?.Invoke(this, frame);
         }
@@ -216,6 +226,8 @@ namespace CrossCam.CustomElement
         private CrossCommand _previousCommand;
         private void PlatformPairOnPayloadReceived(object sender, byte[] bytes)
         {
+            _connectionTimeoutTimer.Stop();
+
             if (_isDisconnectRequested)
             {
                 _platformPair.Disconnect();
@@ -301,35 +313,41 @@ namespace CrossCam.CustomElement
         private void SendReadyForPreviewFrame()
         {
             var fullMessage = AddPayloadHeader(CrossCommand.RequestPreviewFrame, Enumerable.Empty<byte>().ToArray());
+            StartTimeoutTimer();
             _platformPair.SendPayload(fullMessage);
         }
 
         private void SendPreviewFrame(byte[] frame, byte? rotationNeeded = null)
         {
             var frameMessage = AddPayloadHeader(CrossCommand.PreviewFrame, rotationNeeded.HasValue ? frame.Concat(new []{rotationNeeded.Value}).ToArray() : frame);
+            StartTimeoutTimer();
             _platformPair.SendPayload(frameMessage);
         }
 
         private void SendReadyForClockReading()
         {
             var message = AddPayloadHeader(CrossCommand.RequestClockReading, Enumerable.Empty<byte>().ToArray());
+            StartTimeoutTimer();
             _platformPair.SendPayload(message);
         }
 
         private void SendSecondaryErrorOccurred()
         {
+            StartTimeoutTimer();
             _platformPair.SendPayload(AddPayloadHeader(CrossCommand.Error, Enumerable.Empty<byte>().ToArray()));
         }
 
         private void SendHello()
         {
             var fullMessage = AddPayloadHeader(CrossCommand.Hello, Enumerable.Empty<byte>().ToArray());
+            StartTimeoutTimer();
             _platformPair.SendPayload(fullMessage);
         }
 
         private void SendSync(DateTime syncMoment)
         {
             var syncMessage = AddPayloadHeader(CrossCommand.RequestImageCapture, BitConverter.GetBytes(syncMoment.Ticks));
+            StartTimeoutTimer();
             _platformPair.SendPayload(syncMessage);
         }
 
@@ -337,7 +355,14 @@ namespace CrossCam.CustomElement
         {
             var ticks = DateTime.UtcNow.Ticks;
             var message = AddPayloadHeader(CrossCommand.ClockReading, BitConverter.GetBytes(ticks));
+            StartTimeoutTimer();
             _platformPair.SendPayload(message);
+        }
+
+        private void StartTimeoutTimer()
+        {
+            _connectionTimeoutTimer.Interval = _settings.PairSettings.TimeoutSeconds * 1000;
+            _connectionTimeoutTimer.Start();
         }
 
         private static byte[] AddPayloadHeader(CrossCommand crossCommand, byte[] payload)
@@ -639,6 +664,7 @@ namespace CrossCam.CustomElement
             {
                 var message = AddPayloadHeader(CrossCommand.CapturedImage, frame);
                 OnTransmittingCaptureStarted();
+                StartTimeoutTimer();
                 _platformPair.SendPayload(message);
             }
             catch (Exception e)

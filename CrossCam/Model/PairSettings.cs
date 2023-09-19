@@ -21,6 +21,8 @@
         public float FovPrimaryCorrection { get; set; }
         public float FovSecondaryCorrection { get; set; }
 
+        public uint TimeoutSeconds { get; set; }
+
         public uint PairSyncSampleCount { get; set; }
         public uint PairedCaptureCountdown { get; set; }
 
@@ -35,6 +37,8 @@
             PairedPreviewFrameDelayMs = 250;
             PairSyncSampleCount = 50;
             PairedCaptureCountdown = 0;
+
+            TimeoutSeconds = 30;
         }
     }
 }

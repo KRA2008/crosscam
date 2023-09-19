@@ -1697,7 +1697,8 @@ namespace CrossCam.ViewModel
         private void PairOperatorOnDisconnected(object sender, EventArgs e)
         {
             if (WorkflowStage == WorkflowStage.Syncing || 
-                WorkflowStage == WorkflowStage.Transmitting)
+                WorkflowStage == WorkflowStage.Transmitting ||
+                WorkflowStage == WorkflowStage.Loading)
             {
                 WorkflowStage = WorkflowStage.Capture;
             }

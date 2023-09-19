@@ -53,7 +53,7 @@
     <MtouchNoSymbolStrip>true</MtouchNoSymbolStrip>
     <MtouchFastDev>false</MtouchFastDev>
     <MtouchEnableSGenConc>true</MtouchEnableSGenConc>
-    <DeviceSpecificBuild>true</DeviceSpecificBuild>
+    <DeviceSpecificBuild>false</DeviceSpecificBuild>
     <MtouchInterpreter>-all</MtouchInterpreter>
     <CodesignProvision>VS: WildCard Development</CodesignProvision>
   </PropertyGroup>

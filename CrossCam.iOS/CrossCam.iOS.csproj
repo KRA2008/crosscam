@@ -99,7 +99,7 @@
     <CodesignProvision>VS: WildCard Development</CodesignProvision>
     <IpaPackageName />
     <MtouchFastDev>false</MtouchFastDev>
-    <DeviceSpecificBuild>true</DeviceSpecificBuild>
+    <DeviceSpecificBuild>false</DeviceSpecificBuild>
     <OptimizePNGs>false</OptimizePNGs>
     <CodesignExtraArgs />
     <CodesignResourceRules />
