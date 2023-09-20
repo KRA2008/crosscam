@@ -1,4 +1,5 @@
 ﻿using System.Collections;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
@@ -112,7 +113,7 @@ namespace CrossCam.Droid
             LifecycleEventListener.OnAppMaximized();
             Window?.AddFlags(WindowManagerFlags.KeepScreenOn);
 
-            if (Intent.ActionSend.Equals(Intent.Action) && 
+            if (Intent.ActionSend.Equals(Intent?.Action) && 
                 Intent.Type != null &&
                 Intent.Type.StartsWith("image/") &&
                 Intent.GetParcelableExtra(Intent.ExtraStream) is Uri uri)
@@ -120,7 +121,7 @@ namespace CrossCam.Droid
                 var image = await ImageUriToByteArray(uri);
                 _app.LoadSharedImages(image, null);
             }
-            else if (Intent.ActionSendMultiple.Equals(Intent.Action) && 
+            else if (Intent.ActionSendMultiple.Equals(Intent?.Action) && 
                      Intent.Type != null &&
                      Intent.Type.StartsWith("image/") &&
                      Intent.GetParcelableArrayListExtra(Intent.ExtraStream) is {} parcelables)
@@ -140,48 +141,71 @@ namespace CrossCam.Droid
 
         protected override async void OnActivityResult(int requestCode, Result resultCode, Intent intent)
         {
-            base.OnActivityResult(requestCode, resultCode, intent);
-
-            if (requestCode == PICK_PHOTO_ID)
+            try
             {
-                if (intent?.ClipData != null &&
-                    intent.ClipData.ItemCount > 1 &&
-                    intent.ClipData.GetItemAt(0) is { } item1 && 
-                    intent.ClipData.GetItemAt(1) is { } item2)
-                {
-                    var image1Task = ImageUriToByteArray(item1.Uri);
-                    var image2Task = ImageUriToByteArray(item2.Uri);
-                    await Task.WhenAll(image1Task, image2Task);
+                base.OnActivityResult(requestCode, resultCode, intent);
 
-                    PickPhotoTaskCompletionSource.SetResult(new[] { image1Task.Result, image2Task.Result });
-                }
-                else if (resultCode == Result.Ok &&
-                         intent?.Data != null &&
-                         ContentResolver != null)
+                if (requestCode == PICK_PHOTO_ID)
                 {
-                    var uri = intent.Data;
-                    var stream = ContentResolver.OpenInputStream(uri);
-                    var memoryStream = new MemoryStream();
-                    if (stream != null) await stream.CopyToAsync(memoryStream);
+                    if (intent?.ClipData != null &&
+                        intent.ClipData.ItemCount > 1 &&
+                        intent.ClipData.GetItemAt(0) is { } item1 &&
+                        intent.ClipData.GetItemAt(1) is { } item2)
+                    {
+                        var image1Task = ImageUriToByteArray(item1.Uri);
+                        var image2Task = ImageUriToByteArray(item2.Uri);
+                        await Task.WhenAll(image1Task, image2Task);
 
-                    PickPhotoTaskCompletionSource.SetResult(new[] { memoryStream.ToArray(), null });
+                        if (image1Task.Status == TaskStatus.RanToCompletion &&
+                            image2Task.Status == TaskStatus.RanToCompletion)
+                        {
+                            PickPhotoTaskCompletionSource?.SetResult(new[] { image1Task.Result, image2Task.Result });
+                        }
+                        else
+                        {
+                            Crashes.TrackError(image1Task.Exception);
+                            Crashes.TrackError(image2Task.Exception);
+                            PickPhotoTaskCompletionSource?.SetResult(null);
+                        }
+                    }
+                    else if (resultCode == Result.Ok &&
+                             intent?.Data != null &&
+                             ContentResolver != null)
+                    {
+                        var uri = intent.Data;
+                        var stream = ContentResolver.OpenInputStream(uri);
+                        var memoryStream = new MemoryStream();
+                        if (stream != null) await stream.CopyToAsync(memoryStream);
+
+                        PickPhotoTaskCompletionSource?.SetResult(new[] {memoryStream.ToArray(), null});
+                    }
+                    else
+                    {
+                        PickPhotoTaskCompletionSource?.SetResult(null);
+                        Crashes.TrackError(new System.Exception("pickPhotoCompletion failed to enter into photo opening"), new Dictionary<string, string>()
+                        {
+                            {"resultCode",resultCode.ToString()},
+                            {"intent.Data",intent?.Data?.ToString()},
+                            {"contentResolver",ContentResolver?.ToString()}
+                        });
+                    }
                 }
-                else
+                else if (requestCode == (int) RequestCodes.BrowseDirectoriesRequestCode)
                 {
-                    PickPhotoTaskCompletionSource.SetResult(null);
-                    Crashes.TrackError(new Exception("pickPhotoCompletion failed to enter into photo opening"));
+                    if (resultCode == Result.Ok)
+                    {
+                        DirectorySelector.DirectorySelected(intent.Data);
+                    }
+                    else
+                    {
+                        DirectorySelector.DirectorySelectionCancelled();
+                    }
                 }
             }
-            else if (requestCode == (int)RequestCodes.BrowseDirectoriesRequestCode)
+            catch (System.Exception ex)
             {
-                if (resultCode == Result.Ok)
-                {
-                    DirectorySelector.DirectorySelected(intent.Data);
-                }
-                else
-                {
-                    DirectorySelector.DirectorySelectionCancelled();
-                }
+                PickPhotoTaskCompletionSource?.SetResult(null);
+                Crashes.TrackError(ex);
             }
         }
 
@@ -345,7 +369,7 @@ namespace CrossCam.Droid
 
                 return false;
             }
-            catch (Exception e)
+            catch (System.Exception e)
             {
                 Crashes.TrackError(e);
 
@@ -363,9 +387,9 @@ namespace CrossCam.Droid
         {
             return await Task.Run(() =>
             {
-                var imageStream = ContentResolver.OpenInputStream(uri);
+                var imageStream = ContentResolver?.OpenInputStream(uri);
                 var imageMemStream = new MemoryStream();
-                imageStream.CopyTo(imageMemStream);
+                imageStream?.CopyTo(imageMemStream);
                 return imageMemStream.ToArray();
             });
         }
@@ -403,7 +427,7 @@ namespace CrossCam.Droid
                 var launchTask = _reviewManager.LaunchReviewFlow(this, reviewInfo);
                 launchTask.AddOnCompleteListener(this);
             }
-            catch (Exception ex)
+            catch (System.Exception ex)
             {
                 Crashes.TrackError(ex);
                 _requestReviewTaskCompletionSource.TrySetResult(false);

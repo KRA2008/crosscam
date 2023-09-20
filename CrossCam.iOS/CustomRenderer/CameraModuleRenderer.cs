@@ -209,7 +209,10 @@ namespace CrossCam.iOS.CustomRenderer
                         _captureSession.RemoveInput(_deviceInput);
                     }
                     _deviceInput = AVCaptureDeviceInput.FromDevice(_device);
-                    _captureSession.AddInput(_deviceInput);
+                    if (_deviceInput != null)
+                    {
+                        _captureSession.AddInput(_deviceInput);
+                    }
                 }
             }
         }
