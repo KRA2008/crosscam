@@ -720,6 +720,14 @@ namespace CrossCam.CustomElement
                         await CurrentCoreMethods.DisplayAlert("Wi-Fi Off", 
                             "Wi-Fi is turned off. Please turn Wi-Fi on.", "OK");
                         break;
+                    case LocationServicesNotEnabledException _:
+                        await CurrentCoreMethods.DisplayAlert("Location Services Needed",
+                            "Location services not activated. Cannot scan for devices. See the pairing page for more details.", "OK");
+                        break;
+                    case LocationPermissionNotGrantedException _:
+                        await CurrentCoreMethods.DisplayAlert("Location Permission Needed",
+                            "Location permission not granted. Cannot scan for devices. See the pairing page for more details.", "OK");
+                        break;
                     default:
                         throw e;
                 }
@@ -773,5 +781,7 @@ namespace CrossCam.CustomElement
     public class PairingNotSupportedException : Exception {}
     public class BluetoothNotTurnedOnException : Exception {}
     public class PairingFailedToSearchException : Exception {}
-    public class WiFiTurnedOffException : Exception {}
+    public class WiFiTurnedOffException : Exception { }
+    public class LocationServicesNotEnabledException : Exception { }
+    public class LocationPermissionNotGrantedException : Exception { }
 }

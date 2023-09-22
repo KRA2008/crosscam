@@ -123,8 +123,12 @@ namespace CrossCam.Droid.CustomRenderer
 
         private void AppWasMinimized(object obj, EventArgs args)
         {
-            if (PlatformPair.BluetoothPermissionsTask != null &&
-                !PlatformPair.BluetoothPermissionsTask.Task.IsCompleted)
+            if ((PlatformPair.ConnectionsPermissionsTask != null &&
+                 !PlatformPair.ConnectionsPermissionsTask.Task.IsCompleted) ||
+                (PlatformPair.LocationPermissionsTask != null &&
+                 !PlatformPair.LocationPermissionsTask.Task.IsCompleted) ||
+                (PlatformPair.TurnOnLocationTask != null &&
+                 !PlatformPair.TurnOnLocationTask.Task.IsCompleted))
             {
                 _wasMinimizeForPermissions = true;
             }
