@@ -9,8 +9,7 @@
 	<application android:label="CrossCam" 
 	             android:largeHeap="true" 
 	             android:hardwareAccelerated="true"/>
-	<uses-feature android:name="android.hardware.camera" 
-	              android:required="false"/>
+	<uses-feature android:name="android.hardware.camera"/>
 	<uses-feature android:name="android.hardware.camera.autofocus" 
 	              android:required="false"/>
 	<uses-feature android:name="android.hardware.camera2.full" 

@@ -429,7 +429,7 @@ namespace CrossCam.Droid
                 {
                     ActivityCompat.RequestPermissions(Instance, new[] {Manifest.Permission.Camera},
                         (int) RequestCodes.CameraPermissionRequestCode);
-                    Crashes.TrackError(new Exception("Camera permission not granted."));
+                    Crashes.TrackError(new System.Exception("Camera permission not granted."));
 
                     return true;
                 }
@@ -440,7 +440,7 @@ namespace CrossCam.Droid
                 {
                     ActivityCompat.RequestPermissions(Instance, new[] {Manifest.Permission.WriteExternalStorage},
                         (int) RequestCodes.WriteToStorageRequestCode);
-                    Crashes.TrackError(new Exception("Saving permission not granted."));
+                    Crashes.TrackError(new System.Exception("Saving permission not granted."));
 
                     return true;
                 }
