@@ -54,7 +54,7 @@ namespace CrossCam.Droid.CustomRenderer
                     {
                         var contentResolver = MainActivity.Instance?.ContentResolver;
                         Uri destinationFinalUri;
-                        if (saveOuterFolder != null)
+                        if (!string.IsNullOrWhiteSpace(saveOuterFolder))
                         {
                             var pickedDir = DocumentFile.FromTreeUri(MainActivity.Instance, Uri.Parse(saveOuterFolder));
                             var innerDir = pickedDir.FindFile(saveInnerFolder);

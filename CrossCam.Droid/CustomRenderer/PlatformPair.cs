@@ -145,6 +145,7 @@ namespace CrossCam.Droid.CustomRenderer
 
         public async Task BecomeDiscoverable()
         {
+            _connectionAlreadyRejectedOrFailed = false;
             if (!await RequestBluetoothPermissions()) throw new PermissionsException();
 
             await _client.StartAdvertisingAsync(DeviceInfo.Name, PairOperator.CROSSCAM_SERVICE,
@@ -154,6 +155,7 @@ namespace CrossCam.Droid.CustomRenderer
         public async Task StartScanning()
         {
             //Debug.WriteLine("### StartingScanning");
+            _connectionAlreadyRejectedOrFailed = false;
             if (!await RequestBluetoothPermissions()) throw new PermissionsException();
             if (!await RequestLocationPermissions()) throw new LocationPermissionNotGrantedException();
             if (!await TurnOnLocationServices()) throw new LocationServicesNotEnabledException();
@@ -173,7 +175,6 @@ namespace CrossCam.Droid.CustomRenderer
 
             public override void OnConnectionInitiated(string p0, ConnectionInfo p1)
             {
-                _platformPair._connectionAlreadyRejectedOrFailed = false;
                 Debug.WriteLine("### OnConnectionInitiated: " + p0 + ", " + p1.EndpointName);
                 new AlertDialog.Builder(MainActivity.Instance).SetTitle("Accept connection to " + p1.EndpointName + "?")
                     .SetMessage("Confirm the code matches on both devices: " + p1.AuthenticationDigits)
@@ -379,13 +380,17 @@ namespace CrossCam.Droid.CustomRenderer
                 {
                     await Device.InvokeOnMainThreadAsync(async () =>
                     {
-                        await _pair._client.RequestConnectionAsync(DeviceInfo.Name, p0, new MyConnectionLifecycleCallback(_pair));
+                        if (!_pair._connectionAlreadyRejectedOrFailed)
+                        {
+                            await _pair._client.RequestConnectionAsync(DeviceInfo.Name, p0, new MyConnectionLifecycleCallback(_pair));
+                        }
                     });
                 }
             }
 
             public override void OnEndpointLost(string p0)
             {
+                _pair._connectionAlreadyRejectedOrFailed = true;
                 //Debug.WriteLine("### OnEndpointLost " + p0);
             }
         }
