@@ -27,6 +27,7 @@ namespace CrossCam.Droid.CustomRenderer
 
         private readonly IConnectionsClient _client;
         private string _connectedPartnerId;
+        private bool _connectionAlreadyRejectedOrFailed;
 
         public PlatformPair()
         {
@@ -172,6 +173,7 @@ namespace CrossCam.Droid.CustomRenderer
 
             public override void OnConnectionInitiated(string p0, ConnectionInfo p1)
             {
+                _platformPair._connectionAlreadyRejectedOrFailed = false;
                 Debug.WriteLine("### OnConnectionInitiated: " + p0 + ", " + p1.EndpointName);
                 new AlertDialog.Builder(MainActivity.Instance).SetTitle("Accept connection to " + p1.EndpointName + "?")
                     .SetMessage("Confirm the code matches on both devices: " + p1.AuthenticationDigits)
@@ -180,7 +182,10 @@ namespace CrossCam.Droid.CustomRenderer
                         {
                             try
                             {
-                                await _platformPair._client.AcceptConnectionAsync(p0, new MyPayloadCallback(_platformPair));
+                                if (!_platformPair._connectionAlreadyRejectedOrFailed)
+                                {
+                                    await _platformPair._client.AcceptConnectionAsync(p0, new MyPayloadCallback(_platformPair));
+                                }
                             }
                             catch (Exception e)
                             {
@@ -195,7 +200,10 @@ namespace CrossCam.Droid.CustomRenderer
                         {
                             try
                             {
-                                await _platformPair._client.RejectConnectionAsync(p0);
+                                if (!_platformPair._connectionAlreadyRejectedOrFailed)
+                                {
+                                    await _platformPair._client.RejectConnectionAsync(p0);
+                                }
                             }
                             catch (Exception e)
                             {
@@ -212,16 +220,29 @@ namespace CrossCam.Droid.CustomRenderer
             public override void OnConnectionResult(string p0, ConnectionResolution p1)
             {
                 Debug.WriteLine("### OnConnectionResult " + p0 + ", " + p1.Status.StatusMessage);
-                if (p1.Status.IsSuccess)
+                switch (p1.Status.StatusCode)
                 {
-                    _platformPair._connectedPartnerId = p0;
-                    _platformPair.OnConnected();
-                    _platformPair._client.StopDiscovery();
-                    _platformPair._client.StopAdvertising();
-                }
-                else
-                {
-                    _platformPair.Disconnect();
+                    case CommonStatusCodes.Success:
+                        _platformPair._connectedPartnerId = p0;
+                        _platformPair.OnConnected();
+                        _platformPair._client.StopDiscovery();
+                        _platformPair._client.StopAdvertising();
+                        break;
+                    case ConnectionsStatusCodes.StatusConnectionRejected:
+                        _platformPair._connectionAlreadyRejectedOrFailed = true;
+                        _platformPair.Disconnect();
+                        break;
+                    case CommonStatusCodes.Error:
+                    default:
+                        _platformPair._connectionAlreadyRejectedOrFailed = true;
+                        _platformPair.Disconnect();
+                        _platformPair.OnErrorOccurred(
+                            new ErrorEventArgs
+                            {
+                                Exception = new Exception(p1.Status.StatusMessage),
+                                Step = "Connecting"
+                            });
+                        break;
                 }
             }
 
