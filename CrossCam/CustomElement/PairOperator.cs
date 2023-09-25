@@ -71,6 +71,7 @@ namespace CrossCam.CustomElement
         private void OnDisconnected()
         {
             App.SendDebugEvent("Disconnected");
+            _initializeThreadLocker = 0;
             PairStatus = PairStatus.Disconnected;
             OnPropertyChanged(nameof(IsPrimary));
             OnPropertyChanged(nameof(PairStatus));
@@ -97,9 +98,11 @@ namespace CrossCam.CustomElement
             _connectionTimeoutTimer.Elapsed += ConnectionTimeoutTimerOnElapsed;
         }
 
+        public event EventHandler<ElapsedEventArgs> TimeoutOccurred; 
         private void ConnectionTimeoutTimerOnElapsed(object sender, ElapsedEventArgs e)
         {
             _platformPair.Disconnect();
+            TimeoutOccurred?.Invoke(this, e);
         }
 
         public event EventHandler<ErrorEventArgs> ErrorOccurred;
@@ -288,8 +291,6 @@ namespace CrossCam.CustomElement
                             break;
                         case (byte)CrossCommand.Error:
                             SecondaryErrorReceived();
-                            //_platformBluetooth.OnSecondaryErrorReceived();
-                            // TODO: handle
                             break;
                         case (byte)CrossCommand.TransmissionComplete:
                             TransmissionCompleted();
@@ -609,8 +610,9 @@ namespace CrossCam.CustomElement
                     OnCaptureCountdownSetSecondary(null, null);
                 }
                 //Debug.WriteLine("Sync interval set: " + interval);
-                //Debug.WriteLine("Sync time: " + syncTime.ToString("O"));
                 _captureMomentUtc = syncTime;
+                Debug.WriteLine("Sync time: " + syncTime.ToString("O"));
+                Debug.WriteLine("Current time: " + DateTime.UtcNow.ToString("O"));
             }
             catch (Exception e)
             {

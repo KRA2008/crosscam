@@ -43,7 +43,6 @@ namespace CrossCam.Droid.CustomRenderer
             }
             _client.StopDiscovery();
             _client.StopAdvertising();
-            _client.StopAllEndpoints();
             OnDisconnected();
         }
 
@@ -175,6 +174,8 @@ namespace CrossCam.Droid.CustomRenderer
 
             public override void OnConnectionInitiated(string p0, ConnectionInfo p1)
             {
+                _platformPair._client.StopDiscovery();
+                _platformPair._client.StopAdvertising();
                 Debug.WriteLine("### OnConnectionInitiated: " + p0 + ", " + p1.EndpointName);
                 new AlertDialog.Builder(MainActivity.Instance).SetTitle("Accept connection to " + p1.EndpointName + "?")
                     .SetMessage("Confirm the code matches on both devices: " + p1.AuthenticationDigits)
@@ -226,8 +227,6 @@ namespace CrossCam.Droid.CustomRenderer
                     case CommonStatusCodes.Success:
                         _platformPair._connectedPartnerId = p0;
                         _platformPair.OnConnected();
-                        _platformPair._client.StopDiscovery();
-                        _platformPair._client.StopAdvertising();
                         break;
                     case ConnectionsStatusCodes.StatusConnectionRejected:
                         _platformPair._connectionAlreadyRejectedOrFailed = true;
@@ -250,7 +249,7 @@ namespace CrossCam.Droid.CustomRenderer
             public override void OnDisconnected(string p0)
             {
                 Debug.WriteLine("### OnDisconnected " + p0);
-                _platformPair.OnDisconnected();
+                _platformPair.Disconnect();
             }
         }
 
@@ -375,15 +374,29 @@ namespace CrossCam.Droid.CustomRenderer
 
             public override async void OnEndpointFound(string p0, DiscoveredEndpointInfo p1)
             {
-                Debug.WriteLine("### OnEndpointFound " + p0 + ", " + p1.EndpointName);
-                if (p1.ServiceId == PairOperator.CROSSCAM_SERVICE)
+                try
                 {
-                    await Device.InvokeOnMainThreadAsync(async () =>
+                    _pair._client.StopDiscovery();
+                    _pair._client.StopAdvertising();
+                    Debug.WriteLine("### OnEndpointFound " + p0 + ", " + p1.EndpointName);
+                    if (p1.ServiceId == PairOperator.CROSSCAM_SERVICE)
                     {
-                        if (!_pair._connectionAlreadyRejectedOrFailed)
+                        await Device.InvokeOnMainThreadAsync(async () =>
                         {
-                            await _pair._client.RequestConnectionAsync(DeviceInfo.Name, p0, new MyConnectionLifecycleCallback(_pair));
-                        }
+                            if (!_pair._connectionAlreadyRejectedOrFailed)
+                            {
+                                await _pair._client.RequestConnectionAsync(DeviceInfo.Name, p0,
+                                    new MyConnectionLifecycleCallback(_pair));
+                            }
+                        });
+                    }
+                }
+                catch (Exception e)
+                {
+                    _pair.OnErrorOccurred(new ErrorEventArgs()
+                    {
+                        Exception = e,
+                        Step = "Endpoint found"
                     });
                 }
             }

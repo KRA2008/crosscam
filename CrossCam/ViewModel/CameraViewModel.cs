@@ -7,6 +7,7 @@ using System.IO;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using System.Timers;
 #if RELEASE
 using System.Web;
 #endif
@@ -1275,6 +1276,7 @@ namespace CrossCam.ViewModel
             PairOperator.TransmissionComplete += PairOperatorTransmissionComplete;
             PairOperator.CountdownDisplayTimerCompleteSecondary += PairOperatorCountdownDisplayTimerCompleteSecondary;
             PairOperator.ErrorOccurred += PairOperatorOnErrorOccurred;
+            PairOperator.TimeoutOccurred += PairOperatorTimeoutOccurred;
 
             DeviceDisplay.MainDisplayInfoChanged += DeviceDisplayOnMainDisplayInfoChanged;
 
@@ -1309,19 +1311,6 @@ namespace CrossCam.ViewModel
 
 
             _previousOrientation = DeviceDisplay.MainDisplayInfo.Orientation;
-        }
-
-        private void PairOperatorOnSyncRequested(object sender, EventArgs e)
-        {
-            WorkflowStage = WorkflowStage.Syncing;
-        }
-
-        private void PairOperatorOnPreviewFrameRequestReceived(object sender, EventArgs e)
-        {
-            if (WorkflowStage == WorkflowStage.Syncing)
-            {
-                WorkflowStage = WorkflowStage.Capture;
-            }
         }
 
         private static void SendCommandStartAnalyticsEvent(string name)
@@ -1672,6 +1661,7 @@ namespace CrossCam.ViewModel
 
         private void PairOperatorTransmissionComplete(object sender, EventArgs e)
         {
+            IsHoldSteadySecondary = false;
             WorkflowStage = WorkflowStage.Capture;
         }
 
@@ -1696,6 +1686,7 @@ namespace CrossCam.ViewModel
 
         private void PairOperatorOnDisconnected(object sender, EventArgs e)
         {
+            IsHoldSteadySecondary = false;
             if (WorkflowStage == WorkflowStage.Syncing || 
                 WorkflowStage == WorkflowStage.Transmitting ||
                 WorkflowStage == WorkflowStage.Loading)
@@ -1709,6 +1700,25 @@ namespace CrossCam.ViewModel
         {
             ShowFovPreparationPopup();
             StopPreviewTrigger = !StopPreviewTrigger;
+        }
+
+        private void PairOperatorOnSyncRequested(object sender, EventArgs e)
+        {
+            WorkflowStage = WorkflowStage.Syncing;
+        }
+
+        private void PairOperatorOnPreviewFrameRequestReceived(object sender, EventArgs e)
+        {
+            if (WorkflowStage == WorkflowStage.Syncing)
+            {
+                WorkflowStage = WorkflowStage.Capture;
+            }
+        }
+
+        private void PairOperatorTimeoutOccurred(object sender, ElapsedEventArgs e)
+        {
+            IsHoldSteadySecondary = false;
+            FullWipe();
         }
 
         public bool BackButtonPressed()
@@ -1854,6 +1864,7 @@ namespace CrossCam.ViewModel
 
         private void PairOperatorOnErrorOccurred(object sender, ErrorEventArgs e)
         {
+            Error = new Exception(e.Step, e.Exception);
             _secondaryErrorOccurred = true;
         }
 
