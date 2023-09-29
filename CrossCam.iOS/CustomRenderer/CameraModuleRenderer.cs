@@ -608,6 +608,8 @@ namespace CrossCam.iOS.CustomRenderer
         private void TurnOffFlashAndSetContinuousAutoMode(AVCaptureDevice device)
         {
 #if !__SIMULATOR__
+            if (device == null) return;
+
             device.LockForConfiguration(out var error);
             if (error != null) return;
 
