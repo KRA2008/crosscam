@@ -287,15 +287,25 @@ namespace CrossCam.ViewModel
             }
         }
 
-        public bool ShouldLeftLeftRetakeBeVisible => LeftBitmap != null && 
+        public bool ShouldLeftLeftRetakeBeVisible => LeftBitmap != null &&
                                                      (WorkflowStage == WorkflowStage.Final &&
-                                                      WasCapturePortrait == IsViewPortrait || 
-                                                      WorkflowStage == WorkflowStage.Capture && 
-                                                      (Settings.PortraitCaptureButtonPosition == PortraitCaptureButtonPosition.Right || 
-                                                       Settings.PortraitCaptureButtonPosition == PortraitCaptureButtonPosition.Middle));
+                                                      WasCapturePortrait == IsViewPortrait ||
+                                                      WorkflowStage == WorkflowStage.Capture &&
+                                                      (Settings.PortraitCaptureButtonPosition ==
+                                                       PortraitCaptureButtonPosition.Right ||
+                                                       Settings.PortraitCaptureButtonPosition ==
+                                                       PortraitCaptureButtonPosition.Middle)) &&
+                                                     !(WorkflowStage == WorkflowStage.Final &&
+                                                      Settings.PairSettings.IsPairedPrimary.HasValue &&
+                                                      Settings.PairSettings.IsPairedPrimary.Value &&
+                                                      PairOperator.PairStatus == PairStatus.Connected);
         public bool ShouldLeftRightRetakeBeVisible => LeftBitmap != null && 
                                                       WorkflowStage == WorkflowStage.Capture && 
-                                                      Settings.PortraitCaptureButtonPosition == PortraitCaptureButtonPosition.Left;
+                                                      Settings.PortraitCaptureButtonPosition == PortraitCaptureButtonPosition.Left ||
+                                                      WorkflowStage == WorkflowStage.Final && 
+                                                      Settings.PairSettings.IsPairedPrimary.HasValue && 
+                                                      Settings.PairSettings.IsPairedPrimary.Value && 
+                                                      PairOperator.PairStatus == PairStatus.Connected;
         public bool ShouldRightLeftRetakeBeVisible => RightBitmap != null && 
                                                       WorkflowStage == WorkflowStage.Capture && 
                                                       Settings.PortraitCaptureButtonPosition == PortraitCaptureButtonPosition.Right;
@@ -1234,6 +1244,9 @@ namespace CrossCam.ViewModel
                     {
                         PairOperator.Disconnect(WorkflowStage != WorkflowStage.Capture &&
                                                 WorkflowStage != WorkflowStage.Syncing ||
+                                                (WorkflowStage == WorkflowStage.Capture &&
+                                                 Settings.PairSettings.IsPairedPrimary.HasValue &&
+                                                 !Settings.PairSettings.IsPairedPrimary.Value) ||
                                                 PairOperator.PairStatus == PairStatus.Connecting);
                     }
                 }
