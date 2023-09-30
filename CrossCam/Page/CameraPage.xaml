@@ -373,7 +373,7 @@
         <ContentView AbsoluteLayout.LayoutFlags="PositionProportional"
                      AbsoluteLayout.LayoutBounds="{Binding CaptureButtonPosition}"
                      Padding="{StaticResource _bottomPadding}"
-                     IsVisible="{Binding IsCaptureModeAndEitherPrimaryOrDisconnected}">
+                     IsVisible="{Binding ShouldCaptureButtonBeVisible}">
             <ContentView.GestureRecognizers>
                 <TapGestureRecognizer Command="{Binding CapturePictureCommand}"/>
             </ContentView.GestureRecognizers>

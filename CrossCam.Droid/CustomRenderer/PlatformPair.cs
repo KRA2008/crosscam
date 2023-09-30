@@ -15,6 +15,7 @@ using Xamarin.Forms;
 using Xamarin.Essentials;
 using Debug = System.Diagnostics.Debug;
 using ErrorEventArgs = CrossCam.CustomElement.ErrorEventArgs;
+using Strategy = Android.Gms.Nearby.Connection.Strategy;
 
 [assembly: Dependency(typeof(PlatformPair))]
 namespace CrossCam.Droid.CustomRenderer
@@ -374,29 +375,48 @@ namespace CrossCam.Droid.CustomRenderer
 
             public override async void OnEndpointFound(string p0, DiscoveredEndpointInfo p1)
             {
+                await HandleFoundEndpoint(p0, p1);
+            }
+
+            private async Task HandleFoundEndpoint(string p0, DiscoveredEndpointInfo p1)
+            {
                 try
                 {
                     _pair._client.StopDiscovery();
                     _pair._client.StopAdvertising();
                     Debug.WriteLine("### OnEndpointFound " + p0 + ", " + p1.EndpointName);
-                    if (p1.ServiceId == PairOperator.CROSSCAM_SERVICE)
-                    {
-                        await Device.InvokeOnMainThreadAsync(async () =>
-                        {
-                            if (!_pair._connectionAlreadyRejectedOrFailed)
-                            {
-                                await _pair._client.RequestConnectionAsync(DeviceInfo.Name, p0,
-                                    new MyConnectionLifecycleCallback(_pair));
-                            }
-                        });
-                    }
+                    await RequestConnection(p0, p1);
                 }
                 catch (Exception e)
                 {
-                    _pair.OnErrorOccurred(new ErrorEventArgs()
+                    if (e is ApiException {StatusCode: ConnectionsStatusCodes.StatusAlreadyConnectedToEndpoint})
                     {
-                        Exception = e,
-                        Step = "Endpoint found"
+                        _pair._client.DisconnectFromEndpoint(p0);
+                        await Task.Delay(500);
+                        await HandleFoundEndpoint(p0, p1);
+                    }
+                    else
+                    {
+                        _pair.OnErrorOccurred(new ErrorEventArgs()
+                        {
+                            Exception = e,
+                            Step = "Endpoint found"
+                        });
+                    }
+                }
+            }
+
+            private async Task RequestConnection(string p0, DiscoveredEndpointInfo p1)
+            {
+                if (p1.ServiceId == PairOperator.CROSSCAM_SERVICE)
+                {
+                    await Device.InvokeOnMainThreadAsync(async () =>
+                    {
+                        if (!_pair._connectionAlreadyRejectedOrFailed)
+                        {
+                            await _pair._client.RequestConnectionAsync(DeviceInfo.Name, p0,
+                                new MyConnectionLifecycleCallback(_pair));
+                        }
                     });
                 }
             }

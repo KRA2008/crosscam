@@ -26,6 +26,8 @@
         public uint PairSyncSampleCount { get; set; }
         public uint PairedCaptureCountdown { get; set; }
 
+        public uint CaptureMomentExtraDelayMs { get; set; }
+
         public override void ResetToDefaults()
         {
             //IsPairedPrimary = null; //deliberately do NOT reset this.
@@ -37,6 +39,8 @@
             PairedPreviewFrameDelayMs = 250;
             PairSyncSampleCount = 50;
             PairedCaptureCountdown = 0;
+
+            CaptureMomentExtraDelayMs = 0;
 
             TimeoutSeconds = 30;
         }

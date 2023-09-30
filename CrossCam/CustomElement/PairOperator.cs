@@ -209,6 +209,7 @@ namespace CrossCam.CustomElement
             _connectionTimeoutTimer.Stop();
             _captureMomentUtc = null;
             CapturedImageReceived?.Invoke(this, frame);
+            SendTransmissionComplete();
         }
 
         public PairOperator(Settings settings)
@@ -592,6 +593,7 @@ namespace CrossCam.CustomElement
         {
             try
             {
+                syncTime = syncTime.AddMilliseconds(_settings.PairSettings.CaptureMomentExtraDelayMs);
                 var interval = (syncTime.Ticks - DateTime.UtcNow.Ticks) / 10000d;
                 _captureTimer.Elapsed += OnCaptureTimeElapsed;
                 _captureTimer.Interval = interval;

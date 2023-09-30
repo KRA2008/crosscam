@@ -349,6 +349,7 @@
                                 <RowDefinition Height="Auto"/>
                                 <RowDefinition Height="Auto"/>
                                 <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
                             </Grid.RowDefinitions>
 
                             <Label Grid.Column="0"
@@ -424,23 +425,33 @@
                                 <Entry Text="{Binding Settings.PairSettings.TimeoutSeconds}"/>
                             </Frame>
 
+                            <Label Grid.Column="0"
+                                   Grid.Row="6"
+                                   Text="Capture moment extra delay (ms) (adds an extra delay to the target capture moment on this device only)"
+                                   IsVisible="{Binding Settings.PairSettings.IsPairedPrimary.HasValue}"/>
+                            <Frame Grid.Column="1"
+                                   Grid.Row="6"
+                                   IsVisible="{Binding Settings.PairSettings.IsPairedPrimary.HasValue}">
+                                <Entry Text="{Binding Settings.PairSettings.CaptureMomentExtraDelayMs}"/>
+                            </Frame>
+
                             <Button Grid.Column="0"
                                     Grid.ColumnSpan="2"
-                                    Grid.Row="6" 
+                                    Grid.Row="7" 
                                     Text="Reset to Defaults"
                                     Command="{Binding ResetPairToDefaults}"
                                     IsVisible="{Binding Settings.PairSettings.IsPairedPrimary, Converter={StaticResource nullableBoolean}}"/>
 
                             <Label Grid.Column="0"
                                    Grid.ColumnSpan="2"
-                                   Grid.Row="7"
+                                   Grid.Row="8"
                                    Text="Field of view correction"
                                    HorizontalOptions="CenterAndExpand"
                                    IsVisible="{Binding Settings.PairSettings.IsPairedPrimary, Converter={StaticResource nullableBoolean}}"/>
 
                             <Grid Grid.Column="0"
                                   Grid.ColumnSpan="2"
-                                  Grid.Row="8"
+                                  Grid.Row="9"
                                   ColumnSpacing="0"
                                   RowSpacing="0"
                                   IsVisible="{Binding Settings.PairSettings.IsPairedPrimary, Converter={StaticResource nullableBoolean}}">

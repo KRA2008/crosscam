@@ -308,15 +308,15 @@ namespace CrossCam.ViewModel
         
         public bool ShouldCenterLoadBeVisible => WorkflowStage == WorkflowStage.Capture && 
                                                  Settings.PortraitCaptureButtonPosition != PortraitCaptureButtonPosition.Middle && 
-                                                 PairOperator.PairStatus != PairStatus.Connected;
+                                                 PairOperator.PairStatus == PairStatus.Disconnected;
         public bool ShouldLeftLoadBeVisible => CameraColumn == 0 && 
                                                WorkflowStage == WorkflowStage.Capture && 
                                                Settings.PortraitCaptureButtonPosition == PortraitCaptureButtonPosition.Middle && 
-                                               PairOperator.PairStatus != PairStatus.Connected;
+                                               PairOperator.PairStatus == PairStatus.Disconnected;
         public bool ShouldRightLoadBeVisible => CameraColumn == 1 && 
                                                 WorkflowStage == WorkflowStage.Capture && 
                                                 Settings.PortraitCaptureButtonPosition == PortraitCaptureButtonPosition.Middle && 
-                                                PairOperator.PairStatus != PairStatus.Connected;
+                                                PairOperator.PairStatus == PairStatus.Disconnected;
         public bool ShouldSwapSidesBeVisible => WorkflowStage == WorkflowStage.Capture &&
                                                 (IsExactlyOnePictureTaken ||
                                                 Settings.IsCaptureInMirrorMode ||
@@ -324,9 +324,12 @@ namespace CrossCam.ViewModel
         public bool ShouldSettingsAndHelpBeVisible => !IsBusy && 
                                                       WorkflowStage != WorkflowStage.View;
         public bool IsExactlyOnePictureTaken => LeftBitmap == null ^ RightBitmap == null;
-        public bool IsCaptureModeAndEitherPrimaryOrDisconnected => WorkflowStage == WorkflowStage.Capture && 
-                                                                    (PairOperatorBindable.PairStatus == PairStatus.Disconnected || 
-                                                                     Settings.PairSettings.IsPairedPrimary.HasValue && Settings.PairSettings.IsPairedPrimary.Value);
+        public bool ShouldCaptureButtonBeVisible => WorkflowStage == WorkflowStage.Capture &&
+                                                    PairOperatorBindable.PairStatus != PairStatus.Connecting &&
+                                                    (PairOperatorBindable.PairStatus == PairStatus.Connected &&
+                                                     Settings.PairSettings.IsPairedPrimary.HasValue && 
+                                                     Settings.PairSettings.IsPairedPrimary.Value ||
+                                                     PairOperatorBindable.PairStatus == PairStatus.Disconnected);
 
         public bool IsParallelTypeMode => 
             Settings.Mode == DrawMode.Parallel || 
@@ -1122,8 +1125,7 @@ namespace CrossCam.ViewModel
                 const int APP_CENTER_PROPERTY_COUNT_LIMIT = 20;
                 const int APP_CENTER_PROPERTY_LENGTH_LIMIT = 125;
                 SendCommandStartAnalyticsEvent(nameof(PromptForPermissionAndSendErrorEmailCommand));
-                Debug.WriteLine("### ERROR: " + Error); 
-                Debugger.Break();
+                Debug.WriteLine("### ERROR: " + Error);
 
                 var deviceInfoDictionary = new Dictionary<string, string>
                 {
@@ -1338,7 +1340,10 @@ namespace CrossCam.ViewModel
                         PairOperator.PairStatus == PairStatus.Connected)
                     {
                         WasCapturePaired = true;
-                        WorkflowStage = WorkflowStage.Loading;
+                        if (LeftBitmap == null && RightBitmap == null)
+                        {
+                            WorkflowStage = WorkflowStage.Loading;
+                        }
                         RaisePropertyChanged(nameof(ShouldLineGuidesBeVisible));
                         RaisePropertyChanged(nameof(ShouldDonutGuideBeVisible));
                     }
@@ -1379,21 +1384,18 @@ namespace CrossCam.ViewModel
                             SetLeftBitmap(
                                 AutoOrient(LocalCapturedFrame.Frame, LocalCapturedFrame.Orientation, LocalCapturedFrame.IsFrontFacing),
                                 PairOperator.PairStatus == PairStatus.Disconnected,
-                                PairOperator.PairStatus == PairStatus.Disconnected);
+                                true);
                         }
                         else
                         {
                             SetRightBitmap(
                                 AutoOrient(LocalCapturedFrame.Frame, LocalCapturedFrame.Orientation, LocalCapturedFrame.IsFrontFacing),
                                 PairOperator.PairStatus == PairStatus.Disconnected,
-                                PairOperator.PairStatus == PairStatus.Disconnected);
+                                true);
                         }
                     }
 
-                    if (!WasCapturePaired)
-                    {
-                        LocalCapturedFrame = null;
-                    }
+                    LocalCapturedFrame = null;
 
                     break;
                 case nameof(Error):
@@ -1446,7 +1448,7 @@ namespace CrossCam.ViewModel
                     RaisePropertyChanged(nameof(ShouldRightLoadBeVisible));
                     RaisePropertyChanged(nameof(ShouldSwapSidesBeVisible));
                     RaisePropertyChanged(nameof(ShouldSettingsAndHelpBeVisible));
-                    RaisePropertyChanged(nameof(IsCaptureModeAndEitherPrimaryOrDisconnected));
+                    RaisePropertyChanged(nameof(ShouldCaptureButtonBeVisible));
                     RaisePropertyChanged(nameof(ShouldLineGuidesBeVisible));
                     RaisePropertyChanged(nameof(ShouldDonutGuideBeVisible));
                     RaisePropertyChanged(nameof(ShouldViewButtonBeVisible));
@@ -1587,7 +1589,7 @@ namespace CrossCam.ViewModel
             switch (e.PropertyName)
             {
                 case nameof(PairOperator.PairStatus):
-                    RaisePropertyChanged(nameof(IsCaptureModeAndEitherPrimaryOrDisconnected));
+                    RaisePropertyChanged(nameof(ShouldCaptureButtonBeVisible));
                     RaisePropertyChanged(nameof(ShouldLineGuidesBeVisible));
                     RaisePropertyChanged(nameof(ShouldDonutGuideBeVisible));
                     RaisePropertyChanged(nameof(ShouldLeftLoadBeVisible));
@@ -1606,7 +1608,7 @@ namespace CrossCam.ViewModel
             {
                 case nameof(PairSettings.IsPairedPrimary.HasValue):
                 case nameof(PairSettings.IsPairedPrimary.Value):
-                    RaisePropertyChanged(nameof(IsCaptureModeAndEitherPrimaryOrDisconnected));
+                    RaisePropertyChanged(nameof(ShouldCaptureButtonBeVisible));
                     RaisePropertyChanged(nameof(IsFullscreenToggleVisible));
                     RaisePropertyChanged(nameof(ShouldDonutGuideBeVisible));
                     RaisePropertyChanged(nameof(ShouldLineGuidesBeVisible));
@@ -1871,8 +1873,11 @@ namespace CrossCam.ViewModel
         private void PairOperatorOnCapturedImageReceived(object sender, byte[] bytes)
         {
             RemotePreviewFrame = null;
-            var wasOtherSideFrontFacing = RemotePreviewFrame?.IsFrontFacing ?? LocalCapturedFrame?.IsFrontFacing ?? LocalPreviewFrame?.IsFrontFacing == true;
-            LocalCapturedFrame = null;
+            var wasOtherSideFrontFacing = 
+                RemotePreviewFrame?.IsFrontFacing ?? 
+                LocalCapturedFrame?.IsFrontFacing ?? 
+                LocalPreviewFrame?.IsFrontFacing == true;
+            //LocalCapturedFrame = null;
             using var data = SKData.Create(new SKMemoryStream(bytes));
             using var codec = SKCodec.Create(data);
             var bitmap = AutoOrient(
@@ -1885,8 +1890,6 @@ namespace CrossCam.ViewModel
             {
                 SetLeftBitmap(bitmap, false, true);
             }
-
-            PairOperator.SendTransmissionComplete();
         }
 
         private void TryTriggerMovementHint(bool suppressWhenPaired = false)
@@ -2765,6 +2768,8 @@ namespace CrossCam.ViewModel
 
             RightBitmap = null;
             RightAlignmentTransform = SKMatrix.Identity;
+            
+            LocalCapturedFrame = null;
 
             ClearEverythingButCaptures();
             _secondaryErrorOccurred = false;

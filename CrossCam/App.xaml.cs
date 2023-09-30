@@ -2,7 +2,6 @@
 using CrossCam.ViewModel;
 using FreshMvvm;
 using Microsoft.AppCenter.Analytics;
-using Xamarin.Essentials;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 

@@ -73,8 +73,8 @@ namespace CrossCam.Droid.CustomRenderer
         private CameraCaptureSession _camera2Session;
         private CaptureRequest.Builder _previewRequestBuilder;
         private int _readyToCapturePreviewFrameInterlocked;
-        private CameraCaptureListener _previewCaptureListener;
-        private CameraCaptureListener _finalCaptureListener;
+        private CrossCamCamera2CaptureListener _previewCaptureListener;
+        private CrossCamCamera2CaptureListener _finalCaptureListener;
         private CameraStateListener _stateListener;
         private ImageAvailableListener _imageAvailableListener;
         private ImageReader _finalCaptureImageReader;
@@ -231,7 +231,7 @@ namespace CrossCam.Droid.CustomRenderer
 
                     if (_useCamera2)
                     {
-                        _previewCaptureListener = new CameraCaptureListener();
+                        _previewCaptureListener = new PreviewCamera2CaptureListener();
                         _previewCaptureListener.CaptureComplete += HandlePreviewCaptureComplete;
                         _previewCaptureListener.CaptureProgressed += HandlePreviewCaptureProgressed;
 
@@ -239,7 +239,7 @@ namespace CrossCam.Droid.CustomRenderer
                         _imageAvailableListener.Photo += HandleImageAvailablePhoto;
                         _imageAvailableListener.Error += HandleImageAvailableListenerError;
 
-                        _finalCaptureListener = new CameraCaptureListener();
+                        _finalCaptureListener = new FinalCamera2CaptureListener();
                         _finalCaptureListener.CaptureComplete += HandleFinalCaptureComplete;
                     }
 
@@ -254,12 +254,12 @@ namespace CrossCam.Droid.CustomRenderer
             }
         }
 
-        private void HandlePreviewCaptureComplete(object sender, CameraCaptureListener.CameraCaptureListenerEventArgs args)
+        private void HandlePreviewCaptureComplete(object sender, CrossCamCamera2CaptureListener.CameraCaptureListenerEventArgs args)
         {
             HandleCaptureResult(args.CaptureRequest, args.CaptureResult);
         }
 
-        private void HandlePreviewCaptureProgressed(object sender, CameraCaptureListener.CameraCaptureListenerEventArgs args)
+        private void HandlePreviewCaptureProgressed(object sender, CrossCamCamera2CaptureListener.CameraCaptureListenerEventArgs args)
         {
             HandleCaptureResult(args.CaptureRequest, args.CaptureResult);
         }
@@ -1321,6 +1321,11 @@ namespace CrossCam.Droid.CustomRenderer
                     _camera2State == CameraState.PictureTaken ||
                     _camera2State.ToString() != request.Tag?.ToString())
                 {
+                    if (_camera2State != CameraState.Preview &&
+                        _camera2State != CameraState.PictureTaken)
+                    {
+                        System.Diagnostics.Debug.WriteLine("### _camera2State: " + _camera2State + " requestTag: " + request.Tag);
+                    }
                     return;
                 }
 
@@ -1411,6 +1416,7 @@ namespace CrossCam.Droid.CustomRenderer
 
             try
             {
+                System.Diagnostics.Debug.WriteLine("### startRealCapture2, isFocusLocked: " + _isCamera2FocusAndExposureLocked);
                 if (_isCamera2FocusAndExposureLocked)
                 {
                     CaptureStillPicture2();
@@ -1538,7 +1544,7 @@ namespace CrossCam.Droid.CustomRenderer
             }
         }
 
-        private void HandleFinalCaptureComplete(object sender, CameraCaptureListener.CameraCaptureListenerEventArgs e)
+        private void HandleFinalCaptureComplete(object sender, CrossCamCamera2CaptureListener.CameraCaptureListenerEventArgs e)
         {
             RestartPreview2(true);
         }
