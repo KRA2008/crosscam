@@ -87,6 +87,7 @@ namespace CrossCam.ViewModel
         public int CameraColumn { get; set; }
         
         public IncomingFrame RemotePreviewFrame { get; set; }
+        public IncomingFrame RemoteCapturedFrame { get; set; }
         public IncomingFrame LocalPreviewFrame { get; set; }
         public IncomingFrame LocalCapturedFrame { get; set; }
 
@@ -1369,47 +1370,33 @@ namespace CrossCam.ViewModel
                     {
                         if (Settings.IsCaptureLeftFirst)
                         {
-                            SetLeftBitmap(
-                                GetHalfOfImage(LocalCapturedFrame.Frame, IsParallelTypeMode, false, LocalCapturedFrame.Orientation,isFrontFacing:LocalCapturedFrame.IsFrontFacing),
-                                PairOperator.PairStatus == PairStatus.Disconnected,
-                                PairOperator.PairStatus == PairStatus.Disconnected);
-                            SetRightBitmap(
-                                GetHalfOfImage(LocalCapturedFrame.Frame, !IsParallelTypeMode, false, LocalCapturedFrame.Orientation, true, LocalCapturedFrame.IsFrontFacing),
-                                PairOperator.PairStatus == PairStatus.Disconnected,
-                                PairOperator.PairStatus == PairStatus.Disconnected);
+                            SetLeftBitmap(GetHalfOfImage(LocalCapturedFrame.Frame, IsParallelTypeMode, false, LocalCapturedFrame.Orientation,isFrontFacing:LocalCapturedFrame.IsFrontFacing), true, true);
+                            SetRightBitmap(GetHalfOfImage(LocalCapturedFrame.Frame, !IsParallelTypeMode, false, LocalCapturedFrame.Orientation, true, LocalCapturedFrame.IsFrontFacing), true, true);
                         }
                         else
                         {
-                            SetLeftBitmap(
-                                GetHalfOfImage(LocalCapturedFrame.Frame, IsParallelTypeMode, false, LocalCapturedFrame.Orientation, true, LocalCapturedFrame.IsFrontFacing),
-                                PairOperator.PairStatus == PairStatus.Disconnected,
-                                PairOperator.PairStatus == PairStatus.Disconnected);
-                            SetRightBitmap(
-                                GetHalfOfImage(LocalCapturedFrame.Frame, !IsParallelTypeMode, false, LocalCapturedFrame.Orientation, isFrontFacing: LocalCapturedFrame.IsFrontFacing),
-                                PairOperator.PairStatus == PairStatus.Disconnected,
-                                PairOperator.PairStatus == PairStatus.Disconnected);
+                            SetLeftBitmap(GetHalfOfImage(LocalCapturedFrame.Frame, IsParallelTypeMode, false, LocalCapturedFrame.Orientation, true, LocalCapturedFrame.IsFrontFacing), true, true);
+                            SetRightBitmap(GetHalfOfImage(LocalCapturedFrame.Frame, !IsParallelTypeMode, false, LocalCapturedFrame.Orientation, isFrontFacing: LocalCapturedFrame.IsFrontFacing), true, true);
                         }
                     }
-                    else
+                    else if (PairOperator.PairStatus != PairStatus.Connected)
                     {
                         if (CameraColumn == 0)
                         {
-                            SetLeftBitmap(
-                                AutoOrient(LocalCapturedFrame.Frame, LocalCapturedFrame.Orientation, LocalCapturedFrame.IsFrontFacing),
-                                PairOperator.PairStatus == PairStatus.Disconnected,
-                                true);
+                            SetLeftBitmap(AutoOrient(LocalCapturedFrame.Frame, LocalCapturedFrame.Orientation, LocalCapturedFrame.IsFrontFacing), true, true);
                         }
                         else
                         {
-                            SetRightBitmap(
-                                AutoOrient(LocalCapturedFrame.Frame, LocalCapturedFrame.Orientation, LocalCapturedFrame.IsFrontFacing),
-                                PairOperator.PairStatus == PairStatus.Disconnected,
-                                true);
+                            SetRightBitmap(AutoOrient(LocalCapturedFrame.Frame, LocalCapturedFrame.Orientation, LocalCapturedFrame.IsFrontFacing), true, true);
                         }
+                    } 
+                    else if (PairOperator.PairStatus == PairStatus.Connected)
+                    {
+                        CheckForAndProcessPairedSides();
                     }
 
                     LocalCapturedFrame = null;
-
+                    
                     break;
                 case nameof(Error):
                     if (Error != null)
@@ -1885,7 +1872,7 @@ namespace CrossCam.ViewModel
 
         private void PairOperatorOnCapturedImageReceived(object sender, byte[] bytes)
         {
-            RemotePreviewFrame = null;
+            //RemotePreviewFrame = null;
             var wasOtherSideFrontFacing = 
                 RemotePreviewFrame?.IsFrontFacing ?? 
                 LocalCapturedFrame?.IsFrontFacing ?? 
@@ -1895,13 +1882,36 @@ namespace CrossCam.ViewModel
             using var codec = SKCodec.Create(data);
             var bitmap = AutoOrient(
                 SKBitmap.Decode(data), codec.EncodedOrigin, wasOtherSideFrontFacing);
-            if (Settings.IsCaptureLeftFirst)
+
+            RemoteCapturedFrame = new IncomingFrame
             {
-                SetRightBitmap(bitmap, false, true);
-            }
-            else
+                Frame = bitmap,
+                IsFrontFacing = wasOtherSideFrontFacing,
+                Orientation = codec.EncodedOrigin
+            };
+
+            CheckForAndProcessPairedSides();
+        }
+
+        private void CheckForAndProcessPairedSides()
+        {
+            if (LocalCapturedFrame != null &&
+                RemoteCapturedFrame != null)
             {
-                SetLeftBitmap(bitmap, false, true);
+                if (Settings.IsCaptureLeftFirst)
+                {
+                    SetLeftBitmap(LocalCapturedFrame.Frame,false,true);
+                    LocalCapturedFrame = null;
+                    SetRightBitmap(RemoteCapturedFrame.Frame,false,true);
+                    RemoteCapturedFrame = null;
+                }
+                else
+                {
+                    SetRightBitmap(LocalCapturedFrame.Frame, false, true);
+                    LocalCapturedFrame = null;
+                    SetLeftBitmap(RemoteCapturedFrame.Frame, false, true);
+                    RemoteCapturedFrame = null;
+                }
             }
         }
 

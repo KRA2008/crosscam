@@ -1199,13 +1199,13 @@ namespace CrossCam.Droid.CustomRenderer
                     _surfaceTexture == null || 
                     _camera2Id == null)
                 {
-                    System.Diagnostics.Debug.WriteLine("### opening camera averted because not initialized fully");
+                    //System.Diagnostics.Debug.WriteLine("### opening camera averted because not initialized fully");
                     return;
                 }
 
                 if (_camera2Session != null)
                 {
-                    System.Diagnostics.Debug.WriteLine("### opening camera averted because session already running");
+                    //System.Diagnostics.Debug.WriteLine("### opening camera averted because session already running");
                     return;
                 }
 
@@ -1324,7 +1324,7 @@ namespace CrossCam.Droid.CustomRenderer
                     if (_camera2State != CameraState.Preview &&
                         _camera2State != CameraState.PictureTaken)
                     {
-                        System.Diagnostics.Debug.WriteLine("### _camera2State: " + _camera2State + " requestTag: " + request.Tag);
+                        //System.Diagnostics.Debug.WriteLine("### _camera2State: " + _camera2State + " requestTag: " + request.Tag);
                     }
                     return;
                 }
@@ -1416,7 +1416,7 @@ namespace CrossCam.Droid.CustomRenderer
 
             try
             {
-                System.Diagnostics.Debug.WriteLine("### startRealCapture2, isFocusLocked: " + _isCamera2FocusAndExposureLocked);
+                //System.Diagnostics.Debug.WriteLine("### startRealCapture2, isFocusLocked: " + _isCamera2FocusAndExposureLocked);
                 if (_isCamera2FocusAndExposureLocked)
                 {
                     CaptureStillPicture2();
