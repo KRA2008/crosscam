@@ -19,8 +19,10 @@ namespace CrossCam.CustomElement
 {
     public sealed class PairOperator : INotifyPropertyChanged
     {
+        private readonly INowProvider _nowProvider;
         private readonly Settings _settings;
-        public bool IsPrimary => _settings.PairSettings.IsPairedPrimary.HasValue && _settings.PairSettings.IsPairedPrimary.Value;
+        public bool IsPrimary => _settings.PairSettings.IsPairedPrimary.HasValue && 
+                                 _settings.PairSettings.IsPairedPrimary.Value;
 
         public IPageModelCoreMethods CurrentCoreMethods { get; set; }
 
@@ -212,10 +214,11 @@ namespace CrossCam.CustomElement
             SendTransmissionComplete();
         }
 
-        public PairOperator(Settings settings)
+        public PairOperator(IDependencyService dependencyService, INowProvider nowProvider, Settings settings)
         {
+            _platformPair = dependencyService.Get<IPlatformPair>();
+            _nowProvider = nowProvider;
             _settings = settings;
-            _platformPair = DependencyService.Get<IPlatformPair>();
             _platformPair.Connected += PlatformPairOnConnected;
             _platformPair.Disconnected += PlatformPairOnDisconnected;
             _platformPair.PayloadReceived += PlatformPairOnPayloadReceived;
@@ -355,7 +358,7 @@ namespace CrossCam.CustomElement
 
         private void SendClockReading()
         {
-            var ticks = DateTime.UtcNow.Ticks;
+            var ticks = _nowProvider.UtcNow().Ticks;
             var message = AddPayloadHeader(CrossCommand.ClockReading, BitConverter.GetBytes(ticks));
             StartTimeoutTimer();
             _platformPair.SendPayload(message);
@@ -454,7 +457,7 @@ namespace CrossCam.CustomElement
         {
             if (_timerSampleIndex < TimerTotalSamples)
             {
-                _t3Samples[_timerSampleIndex] = DateTime.UtcNow.Ticks;
+                _t3Samples[_timerSampleIndex] = _nowProvider.UtcNow().Ticks;
                 if (_timerSampleIndex == 0)
                 {
                     OnInitialSyncStarted();
@@ -508,7 +511,7 @@ namespace CrossCam.CustomElement
         {
             if (_timerSampleIndex < TimerTotalSamples)
             {
-                _t0Samples[_timerSampleIndex] = DateTime.UtcNow.Ticks;
+                _t0Samples[_timerSampleIndex] = _nowProvider.UtcNow().Ticks;
             }
             SendReadyForClockReading();
         }
@@ -561,7 +564,7 @@ namespace CrossCam.CustomElement
                 {
                     _countdownTimeTicks = trip;
                 }
-                var targetSyncMoment = DateTime.UtcNow.AddTicks(_countdownTimeTicks);
+                var targetSyncMoment = _nowProvider.UtcNow().AddTicks(_countdownTimeTicks);
                 var partnerSyncMoment = targetSyncMoment.AddTicks(offset);
                 CaptureAtMoment(targetSyncMoment);
                 //Debug.WriteLine("Target sync: " + targetSyncMoment.ToString("O"));
@@ -594,7 +597,7 @@ namespace CrossCam.CustomElement
             try
             {
                 syncTime = syncTime.AddMilliseconds(_settings.PairSettings.CaptureMomentExtraDelayMs);
-                var interval = (syncTime.Ticks - DateTime.UtcNow.Ticks) / 10000d;
+                var interval = (syncTime.Ticks - _nowProvider.UtcNow().Ticks) / 10000d;
                 _captureTimer.Elapsed += OnCaptureTimeElapsed;
                 _captureTimer.Interval = interval;
                 _captureTimer.Start();
@@ -614,7 +617,7 @@ namespace CrossCam.CustomElement
                 //Debug.WriteLine("Sync interval set: " + interval);
                 _captureMomentUtc = syncTime;
                 Debug.WriteLine("Sync time: " + syncTime.ToString("O"));
-                Debug.WriteLine("Current time: " + DateTime.UtcNow.ToString("O"));
+                Debug.WriteLine("Current time: " + _nowProvider.UtcNow().ToString("O"));
             }
             catch (Exception e)
             {
@@ -750,11 +753,11 @@ namespace CrossCam.CustomElement
                     {
                         if (_initialSyncComplete &&
                             (!_captureMomentUtc.HasValue ||
-                            _captureMomentUtc.Value > DateTime.UtcNow.AddSeconds(1).AddMilliseconds(_settings.PairSettings.PairedPreviewFrameDelayMs)) &&
-                            _lastPreviewFrameUtc < DateTime.UtcNow.AddMilliseconds(-_settings.PairSettings.PairedPreviewFrameDelayMs) &&
+                            _captureMomentUtc.Value > _nowProvider.UtcNow().AddSeconds(1).AddMilliseconds(_settings.PairSettings.PairedPreviewFrameDelayMs)) &&
+                            _lastPreviewFrameUtc < _nowProvider.UtcNow().AddMilliseconds(-_settings.PairSettings.PairedPreviewFrameDelayMs) &&
                             Interlocked.CompareExchange(ref _requestingPreviewFrameInterlocked, 1, 0) == 0)
                         {
-                            _lastPreviewFrameUtc = DateTime.UtcNow;
+                            _lastPreviewFrameUtc = _nowProvider.UtcNow();
                             SendReadyForPreviewFrame();
                         }
                     }

@@ -501,7 +501,7 @@ namespace CrossCam.ViewModel
             Edits = new Edits(Settings);
             LeftAlignmentTransform = SKMatrix.Identity;
             RightAlignmentTransform = SKMatrix.Identity;
-            PairOperator = new PairOperator(Settings);
+            PairOperator = new PairOperator(new CrossCamDependencyService(), new NowProvider(), Settings);
 
             CameraColumn = Settings.IsCaptureLeftFirst ? 0 : 1;
             AvailableCameras = new ObservableCollection<AvailableCamera>();
@@ -1119,16 +1119,13 @@ namespace CrossCam.ViewModel
                 {
                     WorkflowStage = WorkflowStage.Final;
                 }
-#if DEBUG
-                if (false)
+#if !DEBUG
+                if (TotalSavesCompleted % 10 == 0 &&
+                    TotalSavesCompleted > 0)
                 {
-#else
-                        if (TotalSavesCompleted % 10 == 0 &&
-                            TotalSavesCompleted > 0)
-                        {
-#endif
                     DependencyService.Get<IStoreReviewOpener>()?.TryOpenStoreReview();
                 }
+#endif
             });
 
             PromptForPermissionAndSendErrorEmailCommand = new Command(async () =>
