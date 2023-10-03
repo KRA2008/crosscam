@@ -369,8 +369,11 @@ namespace CrossCam.CustomElement
 
         private void StartTimeoutTimer()
         {
-            _connectionTimeoutTimer.Interval = _settings.PairSettings.TimeoutSeconds * 1000;
-            _connectionTimeoutTimer.Start();
+            if (_settings.PairSettings.TimeoutSeconds > 0)
+            {
+                _connectionTimeoutTimer.Interval = _settings.PairSettings.TimeoutSeconds * 1000;
+                _connectionTimeoutTimer.Start();
+            }
         }
 
         private static byte[] AddPayloadHeader(CrossCommand crossCommand, byte[] payload)
@@ -756,7 +759,7 @@ namespace CrossCam.CustomElement
                     {
                         if (_initialSyncComplete &&
                             (!_captureMomentUtc.HasValue || _captureMomentUtc.Value > _nowProvider.UtcNow().AddSeconds(1).AddMilliseconds(_settings.PairSettings.PairedPreviewFrameDelayMs)) &&
-                            _lastPreviewFrameUtc < _nowProvider.UtcNow().AddMilliseconds(-_settings.PairSettings.PairedPreviewFrameDelayMs) &&
+                            _lastPreviewFrameUtc <= _nowProvider.UtcNow().AddMilliseconds(-_settings.PairSettings.PairedPreviewFrameDelayMs) &&
                             Interlocked.CompareExchange(ref _requestingPreviewFrameInterlocked, 1, 0) == 0)
                         {
                             _lastPreviewFrameUtc = _nowProvider.UtcNow();

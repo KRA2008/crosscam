@@ -417,7 +417,7 @@
 
                             <Label Grid.Column="0"
                                    Grid.Row="5"
-                                   Text="Connection timeout (seconds)"
+                                   Text="Connection timeout (seconds) (0 means no timeout)"
                                    IsVisible="{Binding Settings.PairSettings.IsPairedPrimary.HasValue}"/>
                             <Frame Grid.Column="1"
                                    Grid.Row="5"
