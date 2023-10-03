@@ -501,7 +501,7 @@ namespace CrossCam.ViewModel
             Edits = new Edits(Settings);
             LeftAlignmentTransform = SKMatrix.Identity;
             RightAlignmentTransform = SKMatrix.Identity;
-            PairOperator = new PairOperator(new CrossCamDependencyService(), new NowProvider(), Settings);
+            PairOperator = new PairOperator(Settings);
 
             CameraColumn = Settings.IsCaptureLeftFirst ? 0 : 1;
             AvailableCameras = new ObservableCollection<AvailableCamera>();

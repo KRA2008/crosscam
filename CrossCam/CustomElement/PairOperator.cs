@@ -21,6 +21,8 @@ namespace CrossCam.CustomElement
     {
         private readonly INowProvider _nowProvider;
         private readonly Settings _settings;
+        private readonly IDevice _device;
+
         public bool IsPrimary => _settings.PairSettings.IsPairedPrimary.HasValue && 
                                  _settings.PairSettings.IsPairedPrimary.Value;
 
@@ -214,10 +216,11 @@ namespace CrossCam.CustomElement
             SendTransmissionComplete();
         }
 
-        public PairOperator(IDependencyService dependencyService, INowProvider nowProvider, Settings settings)
+        public PairOperator(Settings settings, IDependencyService dependencyService = null, INowProvider nowProvider = null, IDevice device = null)
         {
-            _platformPair = dependencyService.Get<IPlatformPair>();
-            _nowProvider = nowProvider;
+            _platformPair = (dependencyService ?? new CrossCamDependencyService()).Get<IPlatformPair>();
+            _nowProvider = nowProvider ?? new NowProvider();
+            _device = device ?? new CrossCamDevice();
             _settings = settings;
             _platformPair.Connected += PlatformPairOnConnected;
             _platformPair.Disconnected += PlatformPairOnDisconnected;
@@ -642,7 +645,7 @@ namespace CrossCam.CustomElement
 
         private async void ShowPairErrorOccurred(string step, string details)
         {
-            await Device.InvokeOnMainThreadAsync(async () =>
+            await _device.InvokeOnMainThreadAsync(async () =>
             {
                 await CurrentCoreMethods.DisplayAlert("Pair Error Occurred",
                     "An error occurred during " + step + ", exception: " + details, "OK");
@@ -703,7 +706,7 @@ namespace CrossCam.CustomElement
 
         private async Task HandlePairException(Exception e)
         {
-            await Device.InvokeOnMainThreadAsync(async () =>
+            await _device.InvokeOnMainThreadAsync(async () =>
             {
                 switch (e)
                 {
@@ -752,8 +755,7 @@ namespace CrossCam.CustomElement
                     if (!_isCaptureRequested)
                     {
                         if (_initialSyncComplete &&
-                            (!_captureMomentUtc.HasValue ||
-                            _captureMomentUtc.Value > _nowProvider.UtcNow().AddSeconds(1).AddMilliseconds(_settings.PairSettings.PairedPreviewFrameDelayMs)) &&
+                            (!_captureMomentUtc.HasValue || _captureMomentUtc.Value > _nowProvider.UtcNow().AddSeconds(1).AddMilliseconds(_settings.PairSettings.PairedPreviewFrameDelayMs)) &&
                             _lastPreviewFrameUtc < _nowProvider.UtcNow().AddMilliseconds(-_settings.PairSettings.PairedPreviewFrameDelayMs) &&
                             Interlocked.CompareExchange(ref _requestingPreviewFrameInterlocked, 1, 0) == 0)
                         {
