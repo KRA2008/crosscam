@@ -1,5 +1,4 @@
 using System.Diagnostics;
-using ABI.Windows.Devices.Bluetooth.Advertisement;
 using CrossCam.CustomElement;
 using CrossCam.Model;
 using CrossCam.Wrappers;
@@ -14,7 +13,6 @@ namespace CrossCam.UnitTests
         private Mock<IPlatformPair> _fakePrimaryPhone;
         private Settings _primarySettings;
         private Mock<INowProvider> _fakePrimaryNowProvider;
-        private DateTime _primaryNow = new(2000,1,1);
         private Mock<IDevice> _fakePrimaryDevice;
 
         private PairOperator _secondaryPairOperator;
@@ -22,7 +20,6 @@ namespace CrossCam.UnitTests
         private Mock<IPlatformPair> _fakeSecondaryPhone;
         private Settings _secondarySettings;
         private Mock<INowProvider> _fakeSecondaryNowProvider;
-        private DateTime _secondaryNow = new(2000, 1, 1);
         private Mock<IDevice> _secondaryPrimaryDevice;
 
         private int _previewFrameCounter;
@@ -93,19 +90,22 @@ namespace CrossCam.UnitTests
             _fakeSecondaryDependencyService.Setup(x => x.Get<IPlatformPair>())
                 .Returns(_fakeSecondaryPhone.Object);
 
-            var baseTime = new DateTime(2022, 1, 1);
-            var timeCalls = 0; //TODO: correctly arrange clock stuff
+
+            var primaryNow = new DateTime(2000, 1, 1,0,0,1);
+            var primaryTimeCalls = 0;
             _fakePrimaryNowProvider = new Mock<INowProvider>();
             _fakePrimaryNowProvider.Setup(x => x.UtcNow()).Returns(() =>
             {
-                timeCalls++;
-                return baseTime.AddSeconds(timeCalls);
+                primaryTimeCalls++;
+                return primaryNow.AddTicks(primaryTimeCalls);
             });
+            var secondaryNow = new DateTime(2000, 1, 1,0,0,2);
+            var secondaryTimeCalls = 0;
             _fakeSecondaryNowProvider = new Mock<INowProvider>();
             _fakeSecondaryNowProvider.Setup(x => x.UtcNow()).Returns(() =>
             {
-                timeCalls++;
-                return baseTime.AddSeconds(timeCalls);
+                secondaryTimeCalls++;
+                return secondaryNow.AddTicks(secondaryTimeCalls);
             });
 
 

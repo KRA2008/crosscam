@@ -546,7 +546,7 @@ namespace CrossCam.CustomElement
                     }
 
                     offset = GetCleanAverage(offsets);
-                    trip = trips.Max();
+                    trip = Math.Max(trips.Max(),10000);
                 }
                 catch (Exception e)
                 {
@@ -602,17 +602,16 @@ namespace CrossCam.CustomElement
         {
             try
             {
-                syncTime = syncTime.AddMilliseconds(_settings.PairSettings.CaptureMomentExtraDelayMs);
-                var interval = (syncTime.Ticks - _nowProvider.UtcNow().Ticks) / 10000d;
                 _captureTimer.Elapsed += OnCaptureTimeElapsed;
-                _captureTimer.Interval = interval;
+                syncTime = syncTime.AddMilliseconds(_settings.PairSettings.CaptureMomentExtraDelayMs);
+                _captureTimer.Interval = (syncTime.Ticks - _nowProvider.UtcNow().Ticks) / 10000d;
                 _captureTimer.Start();
                 if (_settings.PairSettings.IsPairedPrimary.HasValue &&
                     _settings.PairSettings.IsPairedPrimary.Value &&
                     _settings.PairSettings.PairedCaptureCountdown > 0)
                 {
                     _countdownDisplayTimer.Elapsed += OnCaptureCountdownDisplaySetPrimary;
-                    _countdownDisplayTimer.Interval = _settings.PairSettings.PairedCaptureCountdown * 1000 - interval;
+                    _countdownDisplayTimer.Interval = _settings.PairSettings.PairedCaptureCountdown * 1000 - _captureTimer.Interval;
                     _countdownDisplayTimer.Start();
                 } 
                 else if (_settings.PairSettings.IsPairedPrimary.HasValue &&
