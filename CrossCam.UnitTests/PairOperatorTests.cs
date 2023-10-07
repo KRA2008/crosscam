@@ -190,7 +190,7 @@ namespace CrossCam.UnitTests
                 secondaryCaptured.HasValue)
             {
                 var ms = (primaryCaptured.Value - secondaryCaptured.Value) / 10000d;
-                Console.WriteLine("Capture diff: " + ms + " ms");
+                Console.WriteLine("Capture diff: " + ms + " ms"); //TODO: these values change a lot with small changes to the tests... why?
                 awaitingCapture = false;
                 Assert.Pass();
             }
