@@ -273,7 +273,15 @@ namespace CrossCam.Droid
             {
                 if (!grantResults.Contains(Permission.Granted))
                 {
-                    JavaSystem.Exit(0);
+                    var builder = new AlertDialog.Builder(this);
+                    builder.SetTitle("Required permissions not granted");
+                    builder.SetMessage(
+                        "CrossCam requires permission to use the camera and to save images in order to work. Because either of these were not granted, CrossCam will now exit.");
+                    builder.SetNegativeButton("OK", (sender, args) =>
+                    {
+                        JavaSystem.Exit(0);
+                    });
+                    builder.Show();
                     return;
                 }
             }
