@@ -1,4 +1,5 @@
 using System.Diagnostics;
+using System.Windows.Input;
 using CrossCam.CustomElement;
 using CrossCam.Model;
 using CrossCam.Wrappers;
@@ -75,10 +76,11 @@ namespace CrossCam.UnitTests
                 {
                     _primaryPairOperator.RequestPreviewFrame();
                 }
-                else
+                else if (_previewFrameCounter == PREVIEW_FRAME_COUNT)
                 {
                     _primaryPairOperator.BeginSyncedCapture();
                     _primaryPairOperator.RequestPreviewFrame();
+                    _previewFrameCounter++;
                 }
             });
             
@@ -90,22 +92,23 @@ namespace CrossCam.UnitTests
             _fakeSecondaryDependencyService.Setup(x => x.Get<IPlatformPair>())
                 .Returns(_fakeSecondaryPhone.Object);
 
+            const int modifier = 10000;
 
             var primaryNow = new DateTime(2000, 1, 1,0,0,1);
-            var primaryTimeCalls = 0;
+            var primaryTimeCalls = 1;
             _fakePrimaryNowProvider = new Mock<INowProvider>();
             _fakePrimaryNowProvider.Setup(x => x.UtcNow()).Returns(() =>
             {
                 primaryTimeCalls++;
-                return primaryNow.AddTicks(primaryTimeCalls);
+                return primaryNow.AddTicks(primaryTimeCalls * modifier);
             });
             var secondaryNow = new DateTime(2000, 1, 1,0,0,2);
-            var secondaryTimeCalls = 0;
+            var secondaryTimeCalls = 1;
             _fakeSecondaryNowProvider = new Mock<INowProvider>();
             _fakeSecondaryNowProvider.Setup(x => x.UtcNow()).Returns(() =>
             {
                 secondaryTimeCalls++;
-                return secondaryNow.AddTicks(secondaryTimeCalls);
+                return secondaryNow.AddTicks(secondaryTimeCalls * modifier);
             });
 
 
@@ -137,25 +140,73 @@ namespace CrossCam.UnitTests
                 _secondarySettings, _fakeSecondaryDependencyService.Object, _fakeSecondaryNowProvider.Object, _secondaryPrimaryDevice.Object);
         }
 
-        [Test]
-        public void ShouldSomething()
+        private void SetupTimeModifier(int timeModifier)
         {
+            var primaryNow = new DateTime(2000, 1, 1, 0, 0, 1);
+            var primaryTimeCalls = 1;
+            _fakePrimaryNowProvider = new Mock<INowProvider>();
+            _fakePrimaryNowProvider.Setup(x => x.UtcNow()).Returns(() =>
+            {
+                primaryTimeCalls++;
+                return primaryNow.AddTicks(primaryTimeCalls * timeModifier);
+            });
+            var secondaryNow = new DateTime(2000, 1, 1, 0, 0, 2);
+            var secondaryTimeCalls = 1;
+            _fakeSecondaryNowProvider = new Mock<INowProvider>();
+            _fakeSecondaryNowProvider.Setup(x => x.UtcNow()).Returns(() =>
+            {
+                secondaryTimeCalls++;
+                return secondaryNow.AddTicks(secondaryTimeCalls * timeModifier);
+            });
+        }
+
+        [Test]
+        public async Task ShouldSomething()
+        {
+            const int timeModifier = 50000;
+            const uint delay = 0;
+
+            _primarySettings.PairSettings.PairedCaptureCountdown = delay;
+            SetupTimeModifier(timeModifier);
+
+            long? primaryCaptured = null, secondaryCaptured = null;
             _primaryPairOperator.InitialSyncCompleted += (sender, args) =>
             {
                 _primaryPairOperator.RequestPreviewFrame();
             };
 
+            var awaitingCapture = true;
+
             _primaryPairOperator.CaptureSyncTimeElapsed += (sender, args) =>
             {
-                Debug.WriteLine("captured primary");
+                primaryCaptured = DateTime.UtcNow.Ticks;
+                PrintTestResultIfReady(ref awaitingCapture, primaryCaptured, secondaryCaptured);
             };
-            _primaryPairOperator.CaptureSyncTimeElapsed += (sender, args) =>
+            _secondaryPairOperator.CaptureSyncTimeElapsed += (sender, args) =>
             {
-                Debug.WriteLine("captured secondary");
+                secondaryCaptured = DateTime.UtcNow.Ticks;
+                PrintTestResultIfReady(ref awaitingCapture, primaryCaptured, secondaryCaptured);
             };
 
             _fakePrimaryPhone.Raise(e => e.Connected += null, EventArgs.Empty);
             _fakeSecondaryPhone.Raise(e => e.Connected += null, EventArgs.Empty);
+
+            while (awaitingCapture)
+            {
+                await Task.Delay(1000);
+            }
+        }
+
+        private void PrintTestResultIfReady(ref bool awaitingCapture, long? primaryCaptured, long? secondaryCaptured)
+        {
+            if (primaryCaptured.HasValue &&
+                secondaryCaptured.HasValue)
+            {
+                var ms = (primaryCaptured.Value - secondaryCaptured.Value) / 10000d;
+                Console.WriteLine("Capture diff: " + ms + " ms");
+                awaitingCapture = false;
+                Assert.Pass();
+            }
         }
 
         public static IEnumerable<int> PatternAt(IEnumerable<byte> source, IEnumerable<byte> pattern)

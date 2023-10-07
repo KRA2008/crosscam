@@ -604,14 +604,15 @@ namespace CrossCam.CustomElement
             {
                 _captureTimer.Elapsed += OnCaptureTimeElapsed;
                 syncTime = syncTime.AddMilliseconds(_settings.PairSettings.CaptureMomentExtraDelayMs);
-                _captureTimer.Interval = (syncTime.Ticks - _nowProvider.UtcNow().Ticks) / 10000d;
+                _captureTimer.Interval = Math.Max((syncTime.Ticks - _nowProvider.UtcNow().Ticks) / 10000d, 1);
                 _captureTimer.Start();
                 if (_settings.PairSettings.IsPairedPrimary.HasValue &&
                     _settings.PairSettings.IsPairedPrimary.Value &&
                     _settings.PairSettings.PairedCaptureCountdown > 0)
                 {
                     _countdownDisplayTimer.Elapsed += OnCaptureCountdownDisplaySetPrimary;
-                    _countdownDisplayTimer.Interval = _settings.PairSettings.PairedCaptureCountdown * 1000 - _captureTimer.Interval;
+                    _countdownDisplayTimer.Interval =
+                        _settings.PairSettings.PairedCaptureCountdown * 1000 - _captureTimer.Interval;
                     _countdownDisplayTimer.Start();
                 } 
                 else if (_settings.PairSettings.IsPairedPrimary.HasValue &&
