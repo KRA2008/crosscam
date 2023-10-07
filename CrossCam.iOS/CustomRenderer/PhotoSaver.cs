@@ -19,34 +19,36 @@ namespace CrossCam.iOS.CustomRenderer
             var taskCompletionSource = new TaskCompletionSource<bool>();
             try
             {
-                var authStatus = await PHPhotoLibrary.RequestAuthorizationAsync(PHAccessLevel.ReadWrite);
+                var uiImage = new UIImage(NSData.FromArray(image));
 
-                UIImage uiImage;
-                if (authStatus == PHAuthorizationStatus.Authorized ||
-                    authStatus == PHAuthorizationStatus.Limited)
+                PHAuthorizationStatus addOnlyAuthStatus;
+                if (!UIDevice.CurrentDevice.CheckSystemVersion(15, 0))
                 {
-                    uiImage = new UIImage(NSData.FromArray(image));
-                    var existingAlbum = GetCrossCamAlbum(saveInnerFolder); 
-                    
-                    if (existingAlbum == null)
+                    addOnlyAuthStatus = await PHPhotoLibrary.RequestAuthorizationAsync();
+
+                    if (addOnlyAuthStatus == PHAuthorizationStatus.Authorized ||
+                        addOnlyAuthStatus == PHAuthorizationStatus.Limited)
                     {
-                        var didAlbumCreationWork = PHPhotoLibrary.SharedPhotoLibrary.PerformChangesAndWait(() =>
+                        TryToFindAndSaveIntoAlbum(uiImage, saveInnerFolder, taskCompletionSource);
+                    }
+                    else
+                    {
+                        taskCompletionSource.SetException(new Exception("Save photos access not granted."));
+                    }
+                }
+                else
+                {
+                    addOnlyAuthStatus = await PHPhotoLibrary.RequestAuthorizationAsync(PHAccessLevel.AddOnly);
+
+                    if (addOnlyAuthStatus == PHAuthorizationStatus.Authorized ||
+                        addOnlyAuthStatus == PHAuthorizationStatus.Limited)
+                    {
+                        var readWriteAuthStatus = await PHPhotoLibrary.RequestAuthorizationAsync(PHAccessLevel.ReadWrite);
+
+                        if (readWriteAuthStatus == PHAuthorizationStatus.Authorized ||
+                            readWriteAuthStatus == PHAuthorizationStatus.Limited)
                         {
-                            PHAssetCollectionChangeRequest.CreateAssetCollection(saveInnerFolder);
-                        }, out var albumCreationError);
-                        if (existingAlbum == null ||
-                            didAlbumCreationWork &&
-                            albumCreationError == null)
-                        {
-                            existingAlbum = GetCrossCamAlbum(saveInnerFolder);
-                            if (existingAlbum == null)
-                            {
-                                SavePhotoIntoPhotos(uiImage, taskCompletionSource);
-                            }
-                            else
-                            {
-                                SavePhotoIntoAlbum(uiImage, existingAlbum, taskCompletionSource);
-                            }
+                            TryToFindAndSaveIntoAlbum(uiImage, saveInnerFolder, taskCompletionSource);
                         }
                         else
                         {
@@ -55,23 +57,9 @@ namespace CrossCam.iOS.CustomRenderer
                     }
                     else
                     {
-                        SavePhotoIntoAlbum(uiImage, existingAlbum, taskCompletionSource);
+                        taskCompletionSource.SetException(new Exception("Save photos access not granted."));
                     }
                 }
-                else
-                {
-                    authStatus = await PHPhotoLibrary.RequestAuthorizationAsync(PHAccessLevel.AddOnly);
-                    if (authStatus == PHAuthorizationStatus.Authorized)
-                    {
-                        uiImage = new UIImage(NSData.FromArray(image));
-                        SavePhotoIntoPhotos(uiImage, taskCompletionSource);
-                    }
-                    else
-                    {
-                        throw new Exception("Saving permissions not provided.");
-                    }
-                }
-
             }
             catch (Exception e)
             {
@@ -79,6 +67,40 @@ namespace CrossCam.iOS.CustomRenderer
             }
 
             return await taskCompletionSource.Task;
+        }
+
+        private static void TryToFindAndSaveIntoAlbum(UIImage uiImage, string saveInnerFolder, TaskCompletionSource<bool> taskCompletionSource)
+        {
+            var existingAlbum = GetCrossCamAlbum(saveInnerFolder);
+
+            if (existingAlbum == null)
+            {
+                var didAlbumCreationWork = PHPhotoLibrary.SharedPhotoLibrary.PerformChangesAndWait(
+                    () => { PHAssetCollectionChangeRequest.CreateAssetCollection(saveInnerFolder); },
+                    out var albumCreationError);
+                if (existingAlbum == null ||
+                    didAlbumCreationWork &&
+                    albumCreationError == null)
+                {
+                    existingAlbum = GetCrossCamAlbum(saveInnerFolder);
+                    if (existingAlbum == null)
+                    {
+                        SavePhotoIntoPhotos(uiImage, taskCompletionSource);
+                    }
+                    else
+                    {
+                        SavePhotoIntoAlbum(uiImage, existingAlbum, taskCompletionSource);
+                    }
+                }
+                else
+                {
+                    SavePhotoIntoPhotos(uiImage, taskCompletionSource);
+                }
+            }
+            else
+            {
+                SavePhotoIntoAlbum(uiImage, existingAlbum, taskCompletionSource);
+            }
         }
 
         private static void SavePhotoIntoPhotos(UIImage uiImage, TaskCompletionSource<bool> taskCompletionSource)
