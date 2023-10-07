@@ -31,22 +31,17 @@ namespace CrossCam.UnitTests
         {
             _fakePrimaryPhone = new Mock<IPlatformPair>(MockBehavior.Strict);
             _fakePrimaryPhone.Setup(p =>
-                    p.SendPayload(It.Is<byte[]>(b =>
-                        b.Contains((byte) PairOperator.CrossCommand.RequestClockReading))))
-                .Callback<byte[]>(payload =>
-                {
-                    _fakeSecondaryPhone.Raise(e => e.PayloadReceived += null, null, payload);
-                });
-            _fakePrimaryPhone.Setup(p =>
                 p.SendPayload(It.Is<byte[]>(b =>
-                    b.Contains((byte) PairOperator.CrossCommand.RequestPreviewFrame)))).Callback<byte[]>(payload =>
+                    b.Contains((byte) PairOperator.CrossCommand.RequestPreviewFrame))))
+                .Callback<byte[]>(payload =>
             {
                 _fakeSecondaryPhone.Raise(e => e.PayloadReceived += null, null, payload);
                 _secondaryPairOperator.SendLatestPreviewFrame(new byte[]{0,1,2,3});
             });
             _fakePrimaryPhone.Setup(p =>
                 p.SendPayload(It.Is<byte[]>(b =>
-                    b.Contains((byte) PairOperator.CrossCommand.RequestImageCapture)))).Callback<byte[]>(payload =>
+                    b.Contains((byte) PairOperator.CrossCommand.RequestImageCapture))))
+                .Callback<byte[]>(payload =>
             {
                 _fakeSecondaryPhone.Raise(e => e.PayloadReceived += null, null, payload);
             });
@@ -60,16 +55,9 @@ namespace CrossCam.UnitTests
                 {
                     _fakePrimaryPhone.Raise(e => e.PayloadReceived += null, null, payload);
                 });
-            _fakeSecondaryPhone.Setup(p =>
-                p.SendPayload(It.Is<byte[]>(b =>
-                    b.Contains((byte) PairOperator.CrossCommand.ClockReading) //&&
-                    /*PatternAt(b.AsEnumerable(), BitConverter.GetBytes(_secondaryNow.Ticks)).Any()*/))).Callback<byte[]>(
-                payload =>
-                {
-                    _fakePrimaryPhone.Raise(e => e.PayloadReceived += null, null, payload);
-                });
             _fakeSecondaryPhone.Setup(p => p.SendPayload(It.Is<byte[]>(b =>
-                b.Contains((byte) PairOperator.CrossCommand.PreviewFrame)))).Callback<byte[]>(payload =>
+                b.Contains((byte) PairOperator.CrossCommand.PreviewFrame))))
+                .Callback<byte[]>(payload =>
             {
                 _fakePrimaryPhone.Raise(e => e.PayloadReceived += null, null, payload);
                 if (++_previewFrameCounter < PREVIEW_FRAME_COUNT)
@@ -92,29 +80,12 @@ namespace CrossCam.UnitTests
             _fakeSecondaryDependencyService.Setup(x => x.Get<IPlatformPair>())
                 .Returns(_fakeSecondaryPhone.Object);
 
-            const int modifier = 10000;
-
-            var primaryNow = new DateTime(2000, 1, 1,0,0,1);
-            var primaryTimeCalls = 1;
-            _fakePrimaryNowProvider = new Mock<INowProvider>();
-            _fakePrimaryNowProvider.Setup(x => x.UtcNow()).Returns(() =>
-            {
-                primaryTimeCalls++;
-                return primaryNow.AddTicks(primaryTimeCalls * modifier);
-            });
-            var secondaryNow = new DateTime(2000, 1, 1,0,0,2);
-            var secondaryTimeCalls = 1;
-            _fakeSecondaryNowProvider = new Mock<INowProvider>();
-            _fakeSecondaryNowProvider.Setup(x => x.UtcNow()).Returns(() =>
-            {
-                secondaryTimeCalls++;
-                return secondaryNow.AddTicks(secondaryTimeCalls * modifier);
-            });
-
 
             _fakePrimaryDevice = new Mock<IDevice>(MockBehavior.Strict);
             _secondaryPrimaryDevice = new Mock<IDevice>(MockBehavior.Strict);
 
+            _fakePrimaryNowProvider = new Mock<INowProvider>();
+            _fakeSecondaryNowProvider = new Mock<INowProvider>();
 
             _primarySettings = new Settings
             {
@@ -144,7 +115,6 @@ namespace CrossCam.UnitTests
         {
             var primaryNow = new DateTime(2000, 1, 1, 0, 0, 1);
             var primaryTimeCalls = 1;
-            _fakePrimaryNowProvider = new Mock<INowProvider>();
             _fakePrimaryNowProvider.Setup(x => x.UtcNow()).Returns(() =>
             {
                 primaryTimeCalls++;
@@ -152,7 +122,6 @@ namespace CrossCam.UnitTests
             });
             var secondaryNow = new DateTime(2000, 1, 1, 0, 0, 2);
             var secondaryTimeCalls = 1;
-            _fakeSecondaryNowProvider = new Mock<INowProvider>();
             _fakeSecondaryNowProvider.Setup(x => x.UtcNow()).Returns(() =>
             {
                 secondaryTimeCalls++;
@@ -165,6 +134,24 @@ namespace CrossCam.UnitTests
         {
             const int timeModifier = 50000;
             const uint delay = 0;
+
+
+            _fakePrimaryPhone.Setup(p =>
+                    p.SendPayload(It.Is<byte[]>(b =>
+                        b.Contains((byte)PairOperator.CrossCommand.RequestClockReading))))
+                .Callback<byte[]>(payload =>
+                {
+                    _fakeSecondaryPhone.Raise(e => e.PayloadReceived += null, null, payload);
+                });
+
+            _fakeSecondaryPhone.Setup(p =>
+                    p.SendPayload(It.Is<byte[]>(b =>
+                        b.Contains((byte)PairOperator.CrossCommand.ClockReading))))
+                .Callback<byte[]>(payload =>
+                {
+                    _fakePrimaryPhone.Raise(e => e.PayloadReceived += null, null, payload);
+                });
+
 
             _primarySettings.PairSettings.PairedCaptureCountdown = delay;
             SetupTimeModifier(timeModifier);
@@ -197,7 +184,7 @@ namespace CrossCam.UnitTests
             }
         }
 
-        private void PrintTestResultIfReady(ref bool awaitingCapture, long? primaryCaptured, long? secondaryCaptured)
+        private static void PrintTestResultIfReady(ref bool awaitingCapture, long? primaryCaptured, long? secondaryCaptured)
         {
             if (primaryCaptured.HasValue &&
                 secondaryCaptured.HasValue)
