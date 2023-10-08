@@ -1391,11 +1391,11 @@ namespace CrossCam.ViewModel
                         Debug.WriteLine("### we have a locally captured frame");
                         if (Settings.IsCaptureLeftFirst)
                         {
-                            SetLeftBitmap(LocalCapturedFrame.Frame, false, true);
+                            SetLeftBitmap(AutoOrient(LocalCapturedFrame.Frame, LocalCapturedFrame.Orientation, LocalCapturedFrame.IsFrontFacing), false, true);
                         }
                         else
                         {
-                            SetRightBitmap(LocalCapturedFrame.Frame, false, true);
+                            SetRightBitmap(AutoOrient(LocalCapturedFrame.Frame, LocalCapturedFrame.Orientation, LocalCapturedFrame.IsFrontFacing), false, true);
                         }
                     }
 

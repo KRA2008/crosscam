@@ -489,6 +489,7 @@ namespace CrossCam.CustomElement
         {
             _timerSampleIndex = 0;
             _initialSyncComplete = false;
+            _captureMomentUtc = null;
             InitialSyncProgress = 0;
             _t0Samples = new long[TimerTotalSamples];
             _t1t2Samples = new long[TimerTotalSamples];

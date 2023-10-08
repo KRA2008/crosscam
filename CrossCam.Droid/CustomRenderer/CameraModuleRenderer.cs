@@ -1715,8 +1715,11 @@ namespace CrossCam.Droid.CustomRenderer
 
         private void RestartPreview2(bool withLockIfEnabled)
         {
-            if (_camera2Device == null) return;
-            if (_camera2Session == null) return;
+            if (_camera2Device == null ||
+                _camera2Session == null ||
+                _previewRequestBuilder == null ||
+                _previewCaptureListener == null ||
+                _backgroundHandler == null) return;
 
             try
             {
