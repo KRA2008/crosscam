@@ -87,7 +87,6 @@ namespace CrossCam.ViewModel
         public int CameraColumn { get; set; }
         
         public IncomingFrame RemotePreviewFrame { get; set; }
-        public IncomingFrame RemoteCapturedFrame { get; set; }
         public IncomingFrame LocalPreviewFrame { get; set; }
         public IncomingFrame LocalCapturedFrame { get; set; }
 
@@ -1389,7 +1388,15 @@ namespace CrossCam.ViewModel
                     } 
                     else if (PairOperator.PairStatus == PairStatus.Connected)
                     {
-                        CheckForAndProcessPairedSides();
+                        Debug.WriteLine("### we have a locally captured frame");
+                        if (Settings.IsCaptureLeftFirst)
+                        {
+                            SetLeftBitmap(LocalCapturedFrame.Frame, false, true);
+                        }
+                        else
+                        {
+                            SetRightBitmap(LocalCapturedFrame.Frame, false, true);
+                        }
                     }
 
                     LocalCapturedFrame = null;
@@ -1880,35 +1887,21 @@ namespace CrossCam.ViewModel
             var bitmap = AutoOrient(
                 SKBitmap.Decode(data), codec.EncodedOrigin, wasOtherSideFrontFacing);
 
-            RemoteCapturedFrame = new IncomingFrame
+            var remoteCapturedFrame = new IncomingFrame
             {
                 Frame = bitmap,
                 IsFrontFacing = wasOtherSideFrontFacing,
                 Orientation = codec.EncodedOrigin
             };
 
-            CheckForAndProcessPairedSides();
-        }
-
-        private void CheckForAndProcessPairedSides()
-        {
-            if (LocalCapturedFrame != null &&
-                RemoteCapturedFrame != null)
+            Debug.WriteLine("### we have a remote captured frame");
+            if (Settings.IsCaptureLeftFirst)
             {
-                if (Settings.IsCaptureLeftFirst)
-                {
-                    SetLeftBitmap(LocalCapturedFrame.Frame,false,true);
-                    LocalCapturedFrame = null;
-                    SetRightBitmap(RemoteCapturedFrame.Frame,false,true);
-                    RemoteCapturedFrame = null;
-                }
-                else
-                {
-                    SetRightBitmap(LocalCapturedFrame.Frame, false, true);
-                    LocalCapturedFrame = null;
-                    SetLeftBitmap(RemoteCapturedFrame.Frame, false, true);
-                    RemoteCapturedFrame = null;
-                }
+                SetRightBitmap(remoteCapturedFrame.Frame, false, true);
+            }
+            else
+            {
+                SetLeftBitmap(remoteCapturedFrame.Frame, false, true);
             }
         }
 
@@ -2285,8 +2278,12 @@ namespace CrossCam.ViewModel
                     {
                         TryTriggerMovementHint();
                     }
-                    CameraColumn = 1;
-                    WorkflowStage = WorkflowStage.Capture;
+
+                    if (PairOperator.PairStatus != PairStatus.Connected)
+                    {
+                        CameraColumn = 1;
+                        WorkflowStage = WorkflowStage.Capture;
+                    }
                 }
                 else
                 {
@@ -2327,8 +2324,12 @@ namespace CrossCam.ViewModel
                     {
                         TryTriggerMovementHint();
                     }
-                    CameraColumn = 0;
-                    WorkflowStage = WorkflowStage.Capture;
+
+                    if (PairOperator.PairStatus != PairStatus.Connected)
+                    {
+                        CameraColumn = 0;
+                        WorkflowStage = WorkflowStage.Capture;
+                    }
                 }
                 else
                 {
