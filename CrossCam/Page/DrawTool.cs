@@ -241,7 +241,9 @@ namespace CrossCam.Page
                 }
             }
 
-            if (rightFovCorrection != 0)
+            if (rightFovCorrection != 0 || 
+                rightWidth > leftWidth && 
+                rightHeight > leftHeight)
             {
                 baseWidth = leftWidth;
                 baseHeight = leftHeight;

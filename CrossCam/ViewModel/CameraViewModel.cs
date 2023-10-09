@@ -1703,6 +1703,7 @@ namespace CrossCam.ViewModel
 
         private void PairOperatorOnConnected(object sender, EventArgs e)
         {
+            RemotePreviewFrame = null;
             ShowFovPreparationPopup();
             StopPreviewTrigger = !StopPreviewTrigger;
         }
