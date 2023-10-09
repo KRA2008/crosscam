@@ -52,8 +52,6 @@ namespace CrossCam.CustomElement
         private int _initializeThreadLocker;
         private bool _initialSyncComplete;
 
-        private bool _isDisconnectRequested;
-
         private long _countdownTimeTicks;
 
         public const int HEADER_LENGTH = 6;
@@ -88,7 +86,6 @@ namespace CrossCam.CustomElement
         private void OnConnected()
         {
             App.SendDebugEvent("Connected");
-            _isDisconnectRequested = false;
             PairStatus = PairStatus.Connected;
             if (!IsPrimary)
             {
@@ -237,13 +234,6 @@ namespace CrossCam.CustomElement
         private void PlatformPairOnPayloadReceived(object sender, byte[] bytes)
         {
             _connectionTimeoutTimer.Stop();
-
-            if (_isDisconnectRequested)
-            {
-                _platformPair.Disconnect();
-                _isDisconnectRequested = false;
-                return;
-            }
 
             if (bytes.Length >= HEADER_LENGTH)
             {
@@ -497,16 +487,9 @@ namespace CrossCam.CustomElement
             OnConnected();
         }
 
-        public void Disconnect(bool forceInstant = false)
+        public void Disconnect()
         {
-            if (forceInstant)
-            {
-                _platformPair.Disconnect();
-            }
-            else
-            {
-                _isDisconnectRequested = true;
-            }
+            _platformPair.Disconnect();
         }
 
         public void BeginSyncedCapture()

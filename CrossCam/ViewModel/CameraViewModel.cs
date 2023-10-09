@@ -258,10 +258,8 @@ namespace CrossCam.ViewModel
 
         private bool _isClearPromptOpen;
 
-        public bool ShouldPairButtonBeVisible => (IsNothingCaptured || 
-                                                 (WorkflowStage == WorkflowStage.Final || 
-                                                  WorkflowStage == WorkflowStage.Edits) && 
-                                                 PairOperator.PairStatus == PairStatus.Connected) &&
+        public bool ShouldPairButtonBeVisible => (IsNothingCaptured ||
+                                                  PairOperator.PairStatus == PairStatus.Connected) &&
                                                  !Settings.IsCaptureInMirrorMode;
         public Rectangle PairButtonPosition
         {
@@ -288,8 +286,7 @@ namespace CrossCam.ViewModel
         }
 
         public bool ShouldLeftLeftRetakeBeVisible => LeftBitmap != null &&
-                                                     (WorkflowStage == WorkflowStage.Final &&
-                                                      WasCapturePortrait == IsViewPortrait ||
+                                                     (WorkflowStage == WorkflowStage.Final ||
                                                       WorkflowStage == WorkflowStage.Capture &&
                                                       (Settings.PortraitCaptureButtonPosition ==
                                                        PortraitCaptureButtonPosition.Right ||
@@ -1238,12 +1235,7 @@ namespace CrossCam.ViewModel
                     }
                     else
                     {
-                        PairOperator.Disconnect(WorkflowStage != WorkflowStage.Capture &&
-                                                WorkflowStage != WorkflowStage.Syncing ||
-                                                (WorkflowStage == WorkflowStage.Capture &&
-                                                 Settings.PairSettings.IsPairedPrimary.HasValue &&
-                                                 !Settings.PairSettings.IsPairedPrimary.Value) ||
-                                                PairOperator.PairStatus == PairStatus.Connecting);
+                        PairOperator.Disconnect();
                     }
                 }
                 catch (Exception e)
@@ -1691,6 +1683,10 @@ namespace CrossCam.ViewModel
 
         private void PairOperatorOnDisconnected(object sender, EventArgs e)
         {
+            RaisePropertyChanged(nameof(ShouldLeftLeftRetakeBeVisible));
+            RaisePropertyChanged(nameof(ShouldLeftRightRetakeBeVisible));
+            RaisePropertyChanged(nameof(ShouldRightLeftRetakeBeVisible));
+            RaisePropertyChanged(nameof(ShouldRightRightRetakeBeVisible));
             IsHoldSteadySecondary = false;
             if (WorkflowStage == WorkflowStage.Syncing || 
                 WorkflowStage == WorkflowStage.Transmitting ||

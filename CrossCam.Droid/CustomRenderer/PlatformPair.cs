@@ -11,6 +11,7 @@ using AndroidX.AppCompat.App;
 using CrossCam.CustomElement;
 using CrossCam.Droid.CustomRenderer;
 using CrossCam.Wrappers;
+using Microsoft.AppCenter.Analytics;
 using Xamarin.Forms;
 using Xamarin.Essentials;
 using Debug = System.Diagnostics.Debug;
@@ -102,20 +103,28 @@ namespace CrossCam.Droid.CustomRenderer
         {
             try
             {
-                if ((PairOperator.CrossCommand)bytes[2] == PairOperator.CrossCommand.CapturedImage)
+                if ((PairOperator.CrossCommand) bytes[2] == PairOperator.CrossCommand.CapturedImage)
                 {
                     await Task.Delay(1000);
                 }
+
                 using var payload = Payload.FromStream(new MemoryStream(bytes));
                 await _client.SendPayloadAsync(_connectedPartnerId, payload);
             }
             catch (Exception e)
             {
-                OnErrorOccurred(new ErrorEventArgs
+                if (e is ApiException {StatusCode: ConnectionsStatusCodes.StatusEndpointUnknown} apiEx)
                 {
-                    Exception = e,
-                    Step = "Send payload"
-                });
+                    Analytics.TrackEvent("Paired endpoint unknown (probably just a disconnect)");
+                }
+                else
+                {
+                    OnErrorOccurred(new ErrorEventArgs
+                    {
+                        Exception = e,
+                        Step = "Send payload"
+                    });
+                }
             }
         }
 
