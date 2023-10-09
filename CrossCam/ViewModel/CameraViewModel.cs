@@ -260,6 +260,10 @@ namespace CrossCam.ViewModel
 
         public bool ShouldPairButtonBeVisible => (IsNothingCaptured ||
                                                   PairOperator.PairStatus == PairStatus.Connected) &&
+                                                 WorkflowStage != WorkflowStage.FovCorrection &&
+                                                 WorkflowStage != WorkflowStage.ManualAlign &&
+                                                 WorkflowStage != WorkflowStage.Crop &&
+                                                 WorkflowStage != WorkflowStage.Keystone &&
                                                  !Settings.IsCaptureInMirrorMode;
         public Rectangle PairButtonPosition
         {
