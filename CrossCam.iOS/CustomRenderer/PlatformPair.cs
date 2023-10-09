@@ -6,6 +6,7 @@ using CrossCam.CustomElement;
 using CrossCam.iOS.CustomRenderer;
 using CrossCam.Wrappers;
 using Foundation;
+using Microsoft.AppCenter.Analytics;
 using MultipeerConnectivity;
 using UIKit;
 using Xamarin.Forms;
@@ -46,7 +47,14 @@ namespace CrossCam.iOS.CustomRenderer
                     out error); //TODO: how to indicate transmitting on secondary?
                 if (error != null)
                 {
-                    throw new Exception(error.ToString());
+                    if (error.Code == 2)
+                    {
+                        Analytics.TrackEvent("Paired endpoint error code 2 (probably just a disconnect)");
+                    }
+                    else
+                    {
+                        throw new Exception(error.ToString());
+                    }
                 }
             }
             catch (Exception e)
