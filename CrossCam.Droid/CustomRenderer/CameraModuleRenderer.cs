@@ -72,7 +72,6 @@ namespace CrossCam.Droid.CustomRenderer
         private CameraManager _cameraManager;
         private CameraCaptureSession _camera2Session;
         private CaptureRequest.Builder _previewRequestBuilder;
-        private int _readyToCapturePreviewFrameInterlocked;
         private CrossCamCamera2CaptureListener _previewCaptureListener;
         private CrossCamCamera2CaptureListener _finalCaptureListener;
         private CameraStateListener _stateListener;
@@ -82,16 +81,18 @@ namespace CrossCam.Droid.CustomRenderer
         private Handler _backgroundHandler;
         private string _camera2Id;
         private CameraDevice _camera2Device;
-        private bool _openingCamera2;
         private Size _preview2Size;
         private Size _picture2Size;
         private MeteringRectangle _camera2MeteringRectangle;
+        private int _camera2SensorOrientation;
+        private readonly SparseIntArray _orientations = new SparseIntArray();
+
+        private bool _openingCamera2;
+        private bool _camera2CameraDeviceErrorRetry;
+        private int _camera1initThreadlock;
+        private int _readyToCapturePreviewFrameInterlocked;
         private int _camera2FoundGoodCaptureInterlocked;
         private bool _isCamera2FocusAndExposureLocked;
-        private int _camera2SensorOrientation;
-        private bool _camera2CameraDeviceErrorRetry;
-        private readonly SparseIntArray _orientations = new SparseIntArray();
-        private int _camera1initThreadlock;
 
         private CameraState _camera2State;
         private int _cameraRotation1;
@@ -1210,6 +1211,7 @@ namespace CrossCam.Droid.CustomRenderer
                 }
 
                 _openingCamera2 = true;
+                _camera2FoundGoodCaptureInterlocked = 0;
                 if (_surface == null)
                 {
                     _surface = new Surface(_surfaceTexture);
@@ -1557,7 +1559,7 @@ namespace CrossCam.Droid.CustomRenderer
         private void HandleImageAvailablePhoto(object sender, byte[] buffer)
         {
             if (_cameraModule.PairOperator.PairStatus == PairStatus.Connected &&
-                !_cameraModule.PairOperator.IsPrimary)
+              !_cameraModule.PairOperator.IsPrimary)
             {
                 _cameraModule.PairOperator.SendCapture(buffer);
                 StopCamera2();
