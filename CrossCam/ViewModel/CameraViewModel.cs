@@ -310,8 +310,7 @@ namespace CrossCam.ViewModel
                                                       WorkflowStage == WorkflowStage.Capture && 
                                                       Settings.PortraitCaptureButtonPosition == PortraitCaptureButtonPosition.Right;
         public bool ShouldRightRightRetakeBeVisible => RightBitmap != null && 
-                                                       (WorkflowStage == WorkflowStage.Final &&
-                                                        WasCapturePortrait == IsViewPortrait || 
+                                                       (WorkflowStage == WorkflowStage.Final || 
                                                         WorkflowStage == WorkflowStage.Capture && 
                                                         (Settings.PortraitCaptureButtonPosition == PortraitCaptureButtonPosition.Left || 
                                                          Settings.PortraitCaptureButtonPosition == PortraitCaptureButtonPosition.Middle));
