@@ -13,8 +13,6 @@ Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "AutoAlignment", "AutoAlignm
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CrossCamShareExtension.iOS", "CrossCamShareExtension.iOS\CrossCamShareExtension.iOS.csproj", "{1F32A11B-4731-493F-BEEF-C9FA8216603B}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CrossCam.UnitTests", "CrossCam.UnitTests\CrossCam.UnitTests.csproj", "{FA6BA525-16D5-42A1-920C-375748CB175D}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug Without Emgu|Any CPU = Debug Without Emgu|Any CPU
@@ -97,15 +95,6 @@ Global
 		{1F32A11B-4731-493F-BEEF-C9FA8216603B}.Release|iPhone.Build.0 = Release|iPhone
 		{1F32A11B-4731-493F-BEEF-C9FA8216603B}.Release|iPhoneSimulator.ActiveCfg = Release|iPhoneSimulator
 		{1F32A11B-4731-493F-BEEF-C9FA8216603B}.Release|iPhoneSimulator.Build.0 = Release|iPhoneSimulator
-		{FA6BA525-16D5-42A1-920C-375748CB175D}.Debug Without Emgu|Any CPU.ActiveCfg = Debug|Any CPU
-		{FA6BA525-16D5-42A1-920C-375748CB175D}.Debug Without Emgu|iPhone.ActiveCfg = Debug|Any CPU
-		{FA6BA525-16D5-42A1-920C-375748CB175D}.Debug Without Emgu|iPhoneSimulator.ActiveCfg = Debug|Any CPU
-		{FA6BA525-16D5-42A1-920C-375748CB175D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{FA6BA525-16D5-42A1-920C-375748CB175D}.Debug|iPhone.ActiveCfg = Debug|Any CPU
-		{FA6BA525-16D5-42A1-920C-375748CB175D}.Debug|iPhoneSimulator.ActiveCfg = Debug|Any CPU
-		{FA6BA525-16D5-42A1-920C-375748CB175D}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{FA6BA525-16D5-42A1-920C-375748CB175D}.Release|iPhone.ActiveCfg = Release|Any CPU
-		{FA6BA525-16D5-42A1-920C-375748CB175D}.Release|iPhoneSimulator.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
