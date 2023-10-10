@@ -9,7 +9,7 @@ jobs:
 - job: iOS
   displayName: 'iOS'
   pool:
-    vmImage: 'macos-latest'
+    vmImage: 'macos-13'
 
   steps:
   # To manually select a Xamarin SDK version on the Microsoft-hosted macOS agent,
