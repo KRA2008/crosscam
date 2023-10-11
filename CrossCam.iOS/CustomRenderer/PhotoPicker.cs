@@ -66,12 +66,12 @@ namespace CrossCam.iOS.CustomRenderer
                 UnregisterEventHandlers();
 
                 // Set the Stream as the completion of the Task
-                _taskCompletionSource.SetResult(new[] {data, null});
+                _taskCompletionSource.TrySetResult(new[] {data, null});
             }
             else
             {
                 UnregisterEventHandlers();
-                _taskCompletionSource.SetResult(null);
+                _taskCompletionSource.TrySetResult(null);
             }
             _imagePicker.DismissModalViewController(true);
         }
@@ -79,7 +79,7 @@ namespace CrossCam.iOS.CustomRenderer
         private void OnImagePickerCancelled(object sender, EventArgs args)
         {
             UnregisterEventHandlers();
-            _taskCompletionSource.SetResult(null);
+            _taskCompletionSource.TrySetResult(null);
             _imagePicker.DismissModalViewController(true);
         }
 
@@ -104,7 +104,7 @@ namespace CrossCam.iOS.CustomRenderer
                 {
                     if (results.Length == 0)
                     {
-                        _photoPicker._taskCompletionSource.SetResult(null);
+                        _photoPicker._taskCompletionSource.TrySetResult(null);
                         _photoPicker._viewController.DismissModalViewController(true);
                         return;
                     }
@@ -113,7 +113,7 @@ namespace CrossCam.iOS.CustomRenderer
                     var identifier1 = item1.RegisteredTypeIdentifiers.FirstOrDefault();
                     if (identifier1 == null)
                     {
-                        _photoPicker._taskCompletionSource.SetResult(null);
+                        _photoPicker._taskCompletionSource.TrySetResult(null);
                         _photoPicker._viewController.DismissModalViewController(true);
                         return;
                     }
@@ -127,7 +127,7 @@ namespace CrossCam.iOS.CustomRenderer
                         var identifier2 = item2.RegisteredTypeIdentifiers.FirstOrDefault();
                         if (identifier2 == null)
                         {
-                            _photoPicker._taskCompletionSource.SetResult(new[] { bytes1, null });
+                            _photoPicker._taskCompletionSource.TrySetResult(new[] { bytes1, null });
                             _photoPicker._viewController.DismissModalViewController(true);
                             return;
                         }
@@ -135,13 +135,13 @@ namespace CrossCam.iOS.CustomRenderer
                         bytes2 = data2.ToArray();
                     }
 
-                    _photoPicker._taskCompletionSource.SetResult(new[] {bytes1, bytes2});
+                    _photoPicker._taskCompletionSource.TrySetResult(new[] {bytes1, bytes2});
                     _photoPicker._viewController.DismissModalViewController(true);
                 }
                 catch (Exception ex)
                 {
                     Crashes.TrackError(ex);
-                    _photoPicker._taskCompletionSource.SetResult(null);
+                    _photoPicker._taskCompletionSource.TrySetResult(null);
                     _photoPicker._viewController.DismissModalViewController(true);
                 }
             }
