@@ -2044,8 +2044,9 @@ namespace CrossCam.ViewModel
                     {
                         await Task.Run(() =>
                         {
-                            if (Settings.AlignmentSettings.UseKeypoints1 ||
-                                Settings.IsCaptureInMirrorMode)
+                            if (Settings.AlignmentSettings.ForceKeypoints2 ||
+                                Settings.IsCaptureInMirrorMode && 
+                                !Settings.AlignmentSettings.ForceEcc)
                             {
                                 try
                                 {

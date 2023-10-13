@@ -537,6 +537,7 @@
                                 <RowDefinition Height="Auto"/>
                                 <RowDefinition Height="Auto"/>
                                 <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
                                 <RowDefinition Height="50"/>
                             </Grid.RowDefinitions>
 
@@ -559,58 +560,68 @@
                             <Label Grid.Column="0"
                                    Grid.ColumnSpan="2"
                                    Grid.Row="1"
-                                   Text="Use keypoint alignment always (vs ECC whenever possible)"
+                                   Text="Try to use keypoint alignment first always"
                                    IsVisible="{Binding Settings.AlignmentSettings.IsAutomaticAlignmentOn}"/>
                             <Switch Grid.Column="2"
                                     Grid.Row="1"
-                                    IsToggled="{Binding Settings.AlignmentSettings.UseKeypoints1}"
+                                    IsToggled="{Binding Settings.AlignmentSettings.ForceKeypoints2}"
                                     IsVisible="{Binding Settings.AlignmentSettings.IsAutomaticAlignmentOn}"/>
 
                             <Label Grid.Column="0"
                                    Grid.ColumnSpan="2"
                                    Grid.Row="2"
-                                   Text="Show advanced alignment settings"
+                                   Text="Try to use ECC alignment first always"
                                    IsVisible="{Binding Settings.AlignmentSettings.IsAutomaticAlignmentOn}"/>
                             <Switch Grid.Column="2"
                                     Grid.Row="2"
-                                    IsToggled="{Binding Settings.AlignmentSettings.ShowAdvancedAlignmentSettings}"
+                                    IsToggled="{Binding Settings.AlignmentSettings.ForceEcc}"
                                     IsVisible="{Binding Settings.AlignmentSettings.IsAutomaticAlignmentOn}"/>
 
                             <Label Grid.Column="0"
                                    Grid.ColumnSpan="2"
                                    Grid.Row="3"
+                                   Text="Show advanced alignment settings"
+                                   IsVisible="{Binding Settings.AlignmentSettings.IsAutomaticAlignmentOn}"/>
+                            <Switch Grid.Column="2"
+                                    Grid.Row="3"
+                                    IsToggled="{Binding Settings.AlignmentSettings.ShowAdvancedAlignmentSettings}"
+                                    IsVisible="{Binding Settings.AlignmentSettings.IsAutomaticAlignmentOn}"/>
+
+                            <Label Grid.Column="0"
+                                   Grid.ColumnSpan="2"
+                                   Grid.Row="4"
                                    Text="Save drawn result warped by OpenCv"
                                    IsVisible="{Binding Settings.AlignmentSettings.ShowAdvancedAlignmentSettings}"/>
                             <Switch Grid.Column="2"
-                                    Grid.Row="3"
+                                    Grid.Row="4"
                                     IsToggled="{Binding Settings.AlignmentSettings.DrawResultWarpedByOpenCv}"
                                     IsVisible="{Binding Settings.AlignmentSettings.ShowAdvancedAlignmentSettings}"/>
 
                             <Label Grid.Column="0"
                                    Grid.ColumnSpan="2"
-                                   Grid.Row="4"
+                                   Grid.Row="5"
                                    Text="Intermediate downsize percentage"
                                    IsVisible="{Binding Settings.AlignmentSettings.ShowAdvancedAlignmentSettings}"/>
                             <Frame Grid.Column="2"
-                                   Grid.Row="4"
+                                   Grid.Row="5"
                                    IsVisible="{Binding Settings.AlignmentSettings.ShowAdvancedAlignmentSettings}">
                                 <Entry Text="{Binding Settings.AlignmentSettings.DownsizePercentage}"/>
                             </Frame>
 
                             <Label Grid.Column="0"
                                    Grid.ColumnSpan="2"
-                                   Grid.Row="5"
+                                   Grid.Row="6"
                                    HorizontalOptions="CenterAndExpand"
                                    Text="Keypoint settings"
                                    IsVisible="{Binding Settings.AlignmentSettings.ShowAdvancedAlignmentSettings}"/>
 
                             <Label Grid.Column="0"
                                    Grid.ColumnSpan="2"
-                                   Grid.Row="6"
+                                   Grid.Row="7"
                                    Text="Transformation finding method"
                                    IsVisible="{Binding Settings.AlignmentSettings.ShowAdvancedAlignmentSettings}"/>
                             <Frame Grid.Column="2"
-                                   Grid.Row="6"
+                                   Grid.Row="7"
                                    IsVisible="{Binding Settings.AlignmentSettings.ShowAdvancedAlignmentSettings}">
                                 <Picker ItemsSource="{Binding TransformationFindingMethods}"
                                         SelectedIndex="{Binding Settings.AlignmentSettings.TransformationFindingMethod}"/>
@@ -618,105 +629,105 @@
 
                             <Label Grid.Column="0"
                                    Grid.ColumnSpan="2"
-                                   Grid.Row="7"
+                                   Grid.Row="8"
                                    Text="Crosscheck keypoints (vs ratio checks)"
                                    IsVisible="{Binding Settings.AlignmentSettings.ShowAdvancedAlignmentSettings}"/>
                             <Switch Grid.Column="2"
-                                    Grid.Row="7"
+                                    Grid.Row="8"
                                     IsToggled="{Binding Settings.AlignmentSettings.UseCrossCheck}"
                                     IsVisible="{Binding Settings.AlignmentSettings.ShowAdvancedAlignmentSettings}"/>
 
                             <Label Grid.Column="0"
                                    Grid.ColumnSpan="2"
-                                   Grid.Row="8"
+                                   Grid.Row="9"
                                    Text="Minimum keypoints"
                                    IsVisible="{Binding Settings.AlignmentSettings.ShowAdvancedAlignmentSettings}"/>
                             <Frame Grid.Column="2"
-                                   Grid.Row="8"
+                                   Grid.Row="9"
                                    IsVisible="{Binding Settings.AlignmentSettings.ShowAdvancedAlignmentSettings}">
                                 <Entry Text="{Binding Settings.AlignmentSettings.MinimumKeypoints1}"/>
                             </Frame>
 
                             <Label Grid.Column="0"
                                    Grid.ColumnSpan="2"
-                                   Grid.Row="9"
+                                   Grid.Row="10"
                                    Text="Discard outliers by distance"
                                    IsVisible="{Binding Settings.AlignmentSettings.ShowAdvancedAlignmentSettings}"/>
                             <Switch Grid.Column="2"
-                                    Grid.Row="9"
+                                    Grid.Row="10"
                                     IsToggled="{Binding Settings.AlignmentSettings.DiscardOutliersByDistance}"
                                     IsVisible="{Binding Settings.AlignmentSettings.ShowAdvancedAlignmentSettings}"/>
 
                             <Label Grid.Column="0"
                                    Grid.ColumnSpan="2"
-                                   Grid.Row="10"
+                                   Grid.Row="11"
                                    Text="Discard outliers by slope"
                                    IsVisible="{Binding Settings.AlignmentSettings.ShowAdvancedAlignmentSettings}"/>
                             <Switch Grid.Column="2"
-                                    Grid.Row="10"
+                                    Grid.Row="11"
                                     IsToggled="{Binding Settings.AlignmentSettings.DiscardOutliersBySlope1}"
                                     IsVisible="{Binding Settings.AlignmentSettings.ShowAdvancedAlignmentSettings}"/>
 
                             <Label Grid.Column="0"
                                    Grid.ColumnSpan="2"
-                                   Grid.Row="11"
+                                   Grid.Row="12"
                                    Text="Keypoint outlier threshold (tenths of standard deviation)"
                                    IsVisible="{Binding Settings.AlignmentSettings.ShowAdvancedAlignmentSettings}"/>
                             <Frame Grid.Column="2"
-                                   Grid.Row="11"
+                                   Grid.Row="12"
                                    IsVisible="{Binding Settings.AlignmentSettings.ShowAdvancedAlignmentSettings}">
                                 <Entry Text="{Binding Settings.AlignmentSettings.KeypointOutlierThresholdTenths}"/>
                             </Frame>
 
                             <Label Grid.Column="0"
                                    Grid.ColumnSpan="2"
-                                   Grid.Row="12"
+                                   Grid.Row="13"
                                    Text="Save an unaligned joined copy with matches drawn"
                                    IsVisible="{Binding Settings.AlignmentSettings.ShowAdvancedAlignmentSettings}"/>
                             <Switch Grid.Column="2"
-                                    Grid.Row="12"
+                                    Grid.Row="13"
                                     IsToggled="{Binding Settings.AlignmentSettings.DrawKeypointMatches}"
                                     IsVisible="{Binding Settings.AlignmentSettings.ShowAdvancedAlignmentSettings}"/>
 
                             <Label Grid.Column="0"
                                    Grid.ColumnSpan="2"
-                                   Grid.Row="13"
+                                   Grid.Row="14"
                                    Text="Do keystone correction"
                                    IsVisible="{Binding Settings.AlignmentSettings.ShowAdvancedAlignmentSettings}"/>
                             <Switch Grid.Column="2"
-                                    Grid.Row="13"
+                                    Grid.Row="14"
                                     IsToggled="{Binding Settings.AlignmentSettings.DoKeystoneCorrection1}"
                                     IsVisible="{Binding Settings.AlignmentSettings.ShowAdvancedAlignmentSettings}"/>
 
                             <Label Grid.Column="0"
                                    Grid.ColumnSpan="2"
-                                   Grid.Row="14"
+                                   Grid.Row="15"
                                    Text="Ratio test"
                                    IsVisible="{Binding Settings.AlignmentSettings.ShowAdvancedAlignmentSettings}"/>
                             <Frame Grid.Column="2"
-                                   Grid.Row="14"
+                                   Grid.Row="15"
                                    IsVisible="{Binding Settings.AlignmentSettings.ShowAdvancedAlignmentSettings}">
                                 <Entry Text="{Binding Settings.AlignmentSettings.RatioTest}"/>
                             </Frame>
 
                             <Label Grid.Column="0"
                                    Grid.ColumnSpan="2"
-                                   Grid.Row="15"
+                                   Grid.Row="16"
                                    Text="Physical distance threshold (set to 1 to disable)"
                                    IsVisible="{Binding Settings.AlignmentSettings.ShowAdvancedAlignmentSettings}"/>
                             <Frame Grid.Column="2"
-                                   Grid.Row="15"
+                                   Grid.Row="16"
                                    IsVisible="{Binding Settings.AlignmentSettings.ShowAdvancedAlignmentSettings}">
                                 <Entry Text="{Binding Settings.AlignmentSettings.PhysicalDistanceThreshold}"/>
                             </Frame>
 
                             <Label Grid.Column="0"
                                    Grid.ColumnSpan="2"
-                                   Grid.Row="16"
+                                   Grid.Row="17"
                                    Text="Read mode color"
                                    IsVisible="{Binding Settings.AlignmentSettings.ShowAdvancedAlignmentSettings}"/>
                             <Switch Grid.Column="2"
-                                    Grid.Row="16"
+                                    Grid.Row="17"
                                     IsToggled="{Binding Settings.AlignmentSettings.ReadModeColor}"
                                     IsVisible="{Binding Settings.AlignmentSettings.ShowAdvancedAlignmentSettings}"/>
 
@@ -724,62 +735,62 @@
 
                             <Label Grid.Column="0"
                                    Grid.ColumnSpan="3"
-                                   Grid.Row="17"
+                                   Grid.Row="18"
                                    Text="Ecc settings"
                                    HorizontalOptions="CenterAndExpand"
                                    IsVisible="{Binding Settings.AlignmentSettings.ShowAdvancedAlignmentSettings}"/>
 
                             <Label Grid.Column="0"
                                    Grid.ColumnSpan="2"
-                                   Grid.Row="18"
+                                   Grid.Row="19"
                                    Text="Iterations"
                                    IsVisible="{Binding Settings.AlignmentSettings.ShowAdvancedAlignmentSettings}"/>
                             <Frame Grid.Column="2"
-                                   Grid.Row="18"
+                                   Grid.Row="19"
                                    IsVisible="{Binding Settings.AlignmentSettings.ShowAdvancedAlignmentSettings}">
                                 <Entry Text="{Binding Settings.AlignmentSettings.EccIterations}"/>
                             </Frame>
 
                             <Label Grid.Column="0"
                                    Grid.ColumnSpan="2"
-                                   Grid.Row="19"
+                                   Grid.Row="20"
                                    Text="Epsilon level"
                                    IsVisible="{Binding Settings.AlignmentSettings.ShowAdvancedAlignmentSettings}"/>
                             <Frame Grid.Column="2"
-                                   Grid.Row="19"
+                                   Grid.Row="20"
                                    IsVisible="{Binding Settings.AlignmentSettings.ShowAdvancedAlignmentSettings}">
                                 <Entry Text="{Binding Settings.AlignmentSettings.EccEpsilonLevel}"/>
                             </Frame>
 
                             <Label Grid.Column="0"
                                    Grid.ColumnSpan="2"
-                                   Grid.Row="20"
+                                   Grid.Row="21"
                                    Text="Downsized pyramid estimating layers"
                                    IsVisible="{Binding Settings.AlignmentSettings.ShowAdvancedAlignmentSettings}"/>
                             <Frame Grid.Column="2"
-                                   Grid.Row="20"
+                                   Grid.Row="21"
                                    IsVisible="{Binding Settings.AlignmentSettings.ShowAdvancedAlignmentSettings}">
                                 <Entry Text="{Binding Settings.AlignmentSettings.EccPyramidLayers}"/>
                             </Frame>
 
                             <Label Grid.Column="0"
                                    Grid.ColumnSpan="2"
-                                   Grid.Row="21"
+                                   Grid.Row="22"
                                    Text="Minimum required correlation coefficient"
                                    IsVisible="{Binding Settings.AlignmentSettings.ShowAdvancedAlignmentSettings}"/>
                             <Frame Grid.Column="2"
-                                   Grid.Row="21"
+                                   Grid.Row="22"
                                    IsVisible="{Binding Settings.AlignmentSettings.ShowAdvancedAlignmentSettings}">
                                 <Entry Text="{Binding Settings.AlignmentSettings.EccThresholdPercentage}"/>
                             </Frame>
 
                             <Label Grid.Column="0"
                                    Grid.ColumnSpan="2"
-                                   Grid.Row="22"
+                                   Grid.Row="23"
                                    Text="Motion type"
                                    IsVisible="{Binding Settings.AlignmentSettings.ShowAdvancedAlignmentSettings}"/>
                             <Frame Grid.Column="2"
-                                   Grid.Row="22"
+                                   Grid.Row="23"
                                    IsVisible="{Binding Settings.AlignmentSettings.ShowAdvancedAlignmentSettings}">
                                 <Picker ItemsSource="{Binding MotionTypes}"
                                         SelectedIndex="{Binding Settings.AlignmentSettings.EccMotionType}"/>
@@ -787,7 +798,7 @@
 
                             <Button Grid.Column="0"
                                     Grid.ColumnSpan="3"
-                                    Grid.Row="23"
+                                    Grid.Row="24"
                                     Text="Reset to Defaults"
                                     Command="{Binding ResetAlignmentToDefaults}"/>
                         </Grid>
