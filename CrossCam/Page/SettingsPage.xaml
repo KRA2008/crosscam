@@ -1198,11 +1198,11 @@
 
                             <Label Grid.Column="0"
                                    Grid.Row="1"
-                                   Text="Lines visible before first capture"
+                                   Text="Different colored lines"
                                    IsVisible="{Binding Settings.AreGuideLinesVisible}"/>
                             <Switch Grid.Column="1"
                                     Grid.Row="1"
-                                    IsToggled="{Binding Settings.ShowGuideLinesWithFirstCapture}"
+                                    IsToggled="{Binding Settings.AreGuideLinesColored}"
                                     IsVisible="{Binding Settings.AreGuideLinesVisible}"/>
 
                             <Label Grid.Column="0"

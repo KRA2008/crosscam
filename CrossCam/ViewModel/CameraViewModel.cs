@@ -412,8 +412,7 @@ namespace CrossCam.ViewModel
         public Command SlidingFinishedCommand { get; set; }
 
         public bool ShouldLineGuidesBeVisible => 
-            (IsNothingCaptured && Settings.ShowGuideLinesWithFirstCapture || 
-             IsExactlyOnePictureTaken && WorkflowStage != WorkflowStage.Loading || 
+            (IsExactlyOnePictureTaken && WorkflowStage != WorkflowStage.Loading || 
              PairOperator.IsPrimary && PairOperator.PairStatus == PairStatus.Connected && 
              WorkflowStage == WorkflowStage.Capture) && Settings.AreGuideLinesVisible || 
             WorkflowStage == WorkflowStage.Keystone || WorkflowStage == WorkflowStage.ManualAlign || 
@@ -1515,7 +1514,7 @@ namespace CrossCam.ViewModel
                     RaisePropertyChanged(nameof(ShouldSaveCapturesButtonBeVisible));
                     break;
                 case nameof(Settings.AreGuideLinesVisible):
-                case nameof(Settings.ShowGuideLinesWithFirstCapture):
+                case nameof(Settings.AreGuideLinesColored):
                     RaisePropertyChanged(nameof(ShouldLineGuidesBeVisible));
                     break;
                 case nameof(Settings.ShowRollGuide):

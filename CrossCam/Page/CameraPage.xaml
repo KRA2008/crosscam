@@ -1981,13 +1981,38 @@
             </StackLayout>
         </StackLayout>
 
-        <BoxView x:Name="_upperLine" 
+        <BoxView x:Name="_upperLeftLine" 
                  AbsoluteLayout.LayoutFlags="All"
                  AbsoluteLayout.LayoutBounds="0, 0, 0, 0"
                  Margin="{StaticResource _linePadding}"
                  InputTransparent="True"
-                 BackgroundColor="White"
-                 IsVisible="{Binding ShouldLineGuidesBeVisible}"/>
+                 Color="White"
+                 IsVisible="{Binding ShouldLineGuidesBeVisible}">
+            <BoxView.Triggers>
+                <DataTrigger TargetType="BoxView" 
+                             Binding="{Binding Settings.AreGuideLinesColored}"
+                             Value="True">
+                    <Setter Property="Color"
+                            Value="Cyan"/>
+                </DataTrigger>
+            </BoxView.Triggers>
+        </BoxView>
+        <BoxView x:Name="_upperRightLine" 
+                 AbsoluteLayout.LayoutFlags="All"
+                 AbsoluteLayout.LayoutBounds="0, 0, 0, 0"
+                 Margin="{StaticResource _linePadding}"
+                 InputTransparent="True"
+                 Color="White"
+                 IsVisible="{Binding ShouldLineGuidesBeVisible}">
+            <BoxView.Triggers>
+                <DataTrigger TargetType="BoxView" 
+                             Binding="{Binding Settings.AreGuideLinesColored}"
+                             Value="True">
+                    <Setter Property="Color"
+                            Value="Red"/>
+                </DataTrigger>
+            </BoxView.Triggers>
+        </BoxView>
         <ContentView x:Name="_upperLinePanner"
                      AbsoluteLayout.LayoutFlags="All"
                      AbsoluteLayout.LayoutBounds="0, 0, 0, 0"
@@ -1997,13 +2022,38 @@
                 <PanGestureRecognizer PanUpdated="UpperLinePanned"/>
             </ContentView.GestureRecognizers>
         </ContentView>
-        <BoxView x:Name="_lowerLine"
+        <BoxView x:Name="_lowerLeftLine"
                  AbsoluteLayout.LayoutFlags="All"
                  AbsoluteLayout.LayoutBounds="0, 0, 0, 0"
                  InputTransparent="True"
-                 BackgroundColor="White"
+                 Color="White"
                  Margin="{StaticResource _linePadding}"
-                 IsVisible="{Binding ShouldLineGuidesBeVisible}"/>
+                 IsVisible="{Binding ShouldLineGuidesBeVisible}">
+            <BoxView.Triggers>
+                <DataTrigger TargetType="BoxView" 
+                             Binding="{Binding Settings.AreGuideLinesColored}"
+                             Value="True">
+                    <Setter Property="Color"
+                            Value="Red"/>
+                </DataTrigger>
+            </BoxView.Triggers>
+        </BoxView>
+        <BoxView x:Name="_lowerRightLine"
+                 AbsoluteLayout.LayoutFlags="All"
+                 AbsoluteLayout.LayoutBounds="0, 0, 0, 0"
+                 InputTransparent="True"
+                 Color="White"
+                 Margin="{StaticResource _linePadding}"
+                 IsVisible="{Binding ShouldLineGuidesBeVisible}">
+            <BoxView.Triggers>
+                <DataTrigger TargetType="BoxView" 
+                             Binding="{Binding Settings.AreGuideLinesColored}"
+                             Value="True">
+                    <Setter Property="Color"
+                            Value="Cyan"/>
+                </DataTrigger>
+            </BoxView.Triggers>
+        </BoxView>
         <ContentView x:Name="_lowerLinePanner"
                      AbsoluteLayout.LayoutFlags="All"
                      AbsoluteLayout.LayoutBounds="0, 0, 0, 0"

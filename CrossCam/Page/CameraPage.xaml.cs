@@ -749,13 +749,17 @@ namespace CrossCam.Page
                 lowerLineBounds = _lowerLineBoundsLandscape;
             }
 
-            AbsoluteLayout.SetLayoutFlags(_upperLine, AbsoluteLayoutFlags.YProportional | AbsoluteLayoutFlags.WidthProportional);
-            AbsoluteLayout.SetLayoutBounds(_upperLine, upperLineBounds);
+            AbsoluteLayout.SetLayoutFlags(_upperLeftLine, AbsoluteLayoutFlags.PositionProportional | AbsoluteLayoutFlags.WidthProportional);
+            AbsoluteLayout.SetLayoutBounds(_upperLeftLine, new Rectangle(0, upperLineBounds.Y, 0.5, upperLineBounds.Height));
+            AbsoluteLayout.SetLayoutFlags(_upperRightLine, AbsoluteLayoutFlags.PositionProportional | AbsoluteLayoutFlags.WidthProportional);
+            AbsoluteLayout.SetLayoutBounds(_upperRightLine, new Rectangle(1, upperLineBounds.Y, 0.5, upperLineBounds.Height));
             AbsoluteLayout.SetLayoutFlags(_upperLinePanner, AbsoluteLayoutFlags.YProportional | AbsoluteLayoutFlags.WidthProportional);
             AbsoluteLayout.SetLayoutBounds(_upperLinePanner, upperLineBounds);
 
-            AbsoluteLayout.SetLayoutFlags(_lowerLine, AbsoluteLayoutFlags.YProportional | AbsoluteLayoutFlags.WidthProportional);
-            AbsoluteLayout.SetLayoutBounds(_lowerLine, lowerLineBounds);
+            AbsoluteLayout.SetLayoutFlags(_lowerLeftLine, AbsoluteLayoutFlags.PositionProportional | AbsoluteLayoutFlags.WidthProportional);
+            AbsoluteLayout.SetLayoutBounds(_lowerLeftLine, new Rectangle(0, lowerLineBounds.Y, 0.5, lowerLineBounds.Height));
+            AbsoluteLayout.SetLayoutFlags(_lowerRightLine, AbsoluteLayoutFlags.PositionProportional | AbsoluteLayoutFlags.WidthProportional);
+            AbsoluteLayout.SetLayoutBounds(_lowerRightLine, new Rectangle(1, lowerLineBounds.Y, 0.5, lowerLineBounds.Height));
             AbsoluteLayout.SetLayoutFlags(_lowerLinePanner, AbsoluteLayoutFlags.YProportional | AbsoluteLayoutFlags.WidthProportional);
             AbsoluteLayout.SetLayoutBounds(_lowerLinePanner, lowerLineBounds);
         }
@@ -900,16 +904,28 @@ namespace CrossCam.Page
 
 	    private void UpperLinePanned(object sender, PanUpdatedEventArgs e)
 	    {
-            HandleLinePanEvent(e, _upperLine, _upperLinePanner, ref _upperLineY, ref _upperLineHeight);
-	    }
+            HandleLeftLinePanEvent(e, _upperLeftLine, _upperLinePanner, ref _upperLineY, ref _upperLineHeight);
+            HandleRightLinePanEvent(e, _upperRightLine, _upperLinePanner, ref _upperLineY, ref _upperLineHeight);
+        }
 
-	    private void LowerLinePanned(object sender, PanUpdatedEventArgs e)
+        private void LowerLinePanned(object sender, PanUpdatedEventArgs e)
 	    {
-	        HandleLinePanEvent(e, _lowerLine, _lowerLinePanner, ref _lowerLineY, ref _lowerLineHeight);
-	    }
+	        HandleLeftLinePanEvent(e, _lowerLeftLine, _lowerLinePanner, ref _lowerLineY, ref _lowerLineHeight);
+            HandleRightLinePanEvent(e, _lowerRightLine, _lowerLinePanner, ref _lowerLineY, ref _lowerLineHeight);
+        }
 
-	    private static void HandleLinePanEvent(PanUpdatedEventArgs e, BoxView line, ContentView panner, 
-	        ref float lineY, ref float lineHeight)
+        private static void HandleRightLinePanEvent(PanUpdatedEventArgs e, BoxView line, ContentView panner, ref float lineY, ref float lineHeight)
+        {
+            HandleLinePanEvent(e, line, panner, ref lineY, ref lineHeight, false);
+        }
+
+        private static void HandleLeftLinePanEvent(PanUpdatedEventArgs e, BoxView line, ContentView panner, ref float lineY, ref float lineHeight)
+        {
+            HandleLinePanEvent(e, line, panner, ref lineY, ref lineHeight, true);
+        }
+
+        private static void HandleLinePanEvent(PanUpdatedEventArgs e, BoxView line, ContentView panner, 
+	        ref float lineY, ref float lineHeight, bool isLeft)
 	    {
 	        if (e.StatusType == GestureStatus.Started)
 	        {
@@ -919,29 +935,23 @@ namespace CrossCam.Page
 	        }
 	        else if (e.StatusType == GestureStatus.Running)
 	        {
-	            if (AbsoluteLayout.GetLayoutFlags(line) != AbsoluteLayoutFlags.WidthProportional)
-	            {
-	                AbsoluteLayout.SetLayoutFlags(line, AbsoluteLayoutFlags.WidthProportional);
-	            }
-
+	            
+	            AbsoluteLayout.SetLayoutFlags(line, AbsoluteLayoutFlags.WidthProportional | AbsoluteLayoutFlags.XProportional);
                 AbsoluteLayout.SetLayoutBounds(line, new Rectangle(
-	                0,
+                    isLeft ? 0 : 1,
 	                lineY + e.TotalY,
-	                1,
+	                0.5,
 	                lineHeight));
 	        }
 	        else if (e.StatusType == GestureStatus.Completed)
 	        {
-	            if (AbsoluteLayout.GetLayoutFlags(panner) != AbsoluteLayoutFlags.WidthProportional)
-	            {
-	                AbsoluteLayout.SetLayoutFlags(panner, AbsoluteLayoutFlags.WidthProportional);
-	            }
-
-	            var newLineBounds = AbsoluteLayout.GetLayoutBounds(line);
+	            
+	            AbsoluteLayout.SetLayoutFlags(panner, AbsoluteLayoutFlags.WidthProportional | AbsoluteLayoutFlags.XProportional);
+                var newLineBounds = AbsoluteLayout.GetLayoutBounds(line);
 	            AbsoluteLayout.SetLayoutBounds(panner, new Rectangle(
-	                0,
+                    isLeft ? 0 : 1,
 	                newLineBounds.Y,
-	                1,
+	                0.5,
 	                lineHeight));
             }
         }

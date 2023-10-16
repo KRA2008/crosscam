@@ -86,7 +86,6 @@ namespace CrossCam.Model
         
         public bool HasOfferedTechniqueHelpBefore2 { get; set; }
         public bool HasShownDirectionsBefore { get; set; }
-        public bool ShowGuideLinesWithFirstCapture { get; set; }
         public bool ShowRollGuide { get; set; }
         public bool FullscreenCapturing { get; set; }
         public bool FullscreenEditing { get; set; }
@@ -217,10 +216,12 @@ namespace CrossCam.Model
                 _areGuideLinesVisible = value;
                 if (!value)
                 {
-                    ShowGuideLinesWithFirstCapture = false;
+                    AreGuideLinesColored = false;
                 }
             }
         }
+
+        public bool AreGuideLinesColored { get; set; }
 
         public bool IsGuideDonutVisible { get; set; }
 
@@ -263,14 +264,14 @@ namespace CrossCam.Model
             Mode = DrawMode.Cross;
 
             AreGuideLinesVisible = true;
+            AreGuideLinesColored = false;
             IsCaptureLeftFirst = true;
             ShowRollGuide = true;
             IsCaptureInMirrorMode = false;
 
             AddBorder2 = true;
             ClipBorderOnNextLoad = false;
-
-            ShowGuideLinesWithFirstCapture = false;
+            
             IsGuideDonutVisible = false;
             ShowPreviewFuseGuide = true;
             FullscreenCapturing = false;
