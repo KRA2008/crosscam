@@ -1992,7 +1992,8 @@ namespace CrossCam.ViewModel
         {
             using var skImage = surface.Snapshot();
             using var encoded = skImage.Encode(SKEncodedImageFormat.Jpeg, 100);
-            await _photoSaver.SavePhoto(encoded.ToArray(), Settings.SavingDirectory, saveInnerFolder, Settings.SaveToExternal);
+            await _photoSaver.SavePhoto(encoded.ToArray(), Settings.SavingDirectory, saveInnerFolder,
+                Settings.SaveToExternal);
         }
 
         private async Task<string> OpenLoadingPopup()

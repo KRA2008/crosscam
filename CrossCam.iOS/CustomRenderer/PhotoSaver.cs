@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using CrossCam.iOS.CustomRenderer;
 using CrossCam.Wrappers;
 using Foundation;
+using Microsoft.AppCenter.Crashes;
 using Photos;
 using UIKit;
 using Xamarin.Forms;
@@ -94,6 +95,10 @@ namespace CrossCam.iOS.CustomRenderer
                 }
                 else
                 {
+                    if (albumCreationError != null)
+                    {
+                        Crashes.TrackError(new Exception(albumCreationError.ToString()));
+                    }
                     SavePhotoIntoPhotos(uiImage, taskCompletionSource);
                 }
             }
