@@ -170,9 +170,12 @@ namespace CrossCam.CustomElement
         public event ElapsedEventHandler CaptureSyncTimeElapsed;
         private void OnCaptureTimeElapsed(object sender, ElapsedEventArgs e)
         {
-            Debug.WriteLine("CAPTURE NOW!!!!");
+            //Debug.WriteLine("CAPTURE NOW!!!!");
             _captureTimer.Elapsed -= OnCaptureTimeElapsed;
-            CaptureSyncTimeElapsed?.Invoke(this, e);
+            Device.BeginInvokeOnMainThread(() =>
+            {
+                CaptureSyncTimeElapsed?.Invoke(this, e);
+            });
         }
 
         private void OnCountdownDisplayTimerSecondElapsed(object sender, ElapsedEventArgs e)
@@ -606,8 +609,8 @@ namespace CrossCam.CustomElement
                 }
                 //Debug.WriteLine("Sync interval set: " + interval);
                 _captureMomentUtc = syncTime;
-                Debug.WriteLine("Sync time: " + syncTime.ToString("O"));
-                Debug.WriteLine("Current time: " + _nowProvider.UtcNow().ToString("O"));
+                //Debug.WriteLine("Sync time: " + syncTime.ToString("O"));
+                //Debug.WriteLine("Current time: " + _nowProvider.UtcNow().ToString("O"));
             }
             catch (Exception e)
             {
