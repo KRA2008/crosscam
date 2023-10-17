@@ -25,6 +25,16 @@ namespace CrossCam.ValueConverter
                         return e > 0;
                     case float f:
                         return f > 0;
+                    case uint g:
+                        return g > 0;
+                    case ulong h:
+                        return h > 0;
+                    case short i:
+                        return i > 0;
+                    case ushort j:
+                        return j > 0;
+                    case char k:
+                        return k > 0;
                 }
             }
             catch
