@@ -247,6 +247,36 @@
 
             <BoxView/>
 
+            <views:Expander>
+                <views:Expander.Header>
+                    <customElement:ExpanderHeader Title="How can I test pre-release versions of CrossCam?"/>
+                </views:Expander.Header>
+                <views:Expander.ContentTemplate>
+                    <DataTemplate>
+                        <StackLayout Padding="10">
+                            <Label>
+                                <Label.FormattedText>
+                                    <FormattedString>
+                                        <Span Text="Check out "/>
+                                        <Span Text="this Reddit post"
+                                              TextDecorations="Underline"
+                                              TextColor="{StaticResource linkBlue}">
+                                            <Span.GestureRecognizers>
+                                                <TapGestureRecognizer Command="{Binding OpenLink}"
+                                                                      CommandParameter="https://reddit.com/r/CrossCam/comments/179pxck/how_to_test_prerelease_versions/"/>
+                                            </Span.GestureRecognizers>
+                                        </Span>
+                                        <Span Text="."/>
+                                    </FormattedString>
+                                </Label.FormattedText>
+                            </Label>
+                        </StackLayout>
+                    </DataTemplate>
+                </views:Expander.ContentTemplate>
+            </views:Expander>
+
+            <BoxView/>
+
             <!--<views:Expander>
                 <views:Expander.Header>
                     <customElement:ExpanderHeader Title=""/>
