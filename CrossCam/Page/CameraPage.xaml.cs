@@ -949,9 +949,9 @@ namespace CrossCam.Page
 	            AbsoluteLayout.SetLayoutFlags(panner, AbsoluteLayoutFlags.WidthProportional | AbsoluteLayoutFlags.XProportional);
                 var newLineBounds = AbsoluteLayout.GetLayoutBounds(line);
 	            AbsoluteLayout.SetLayoutBounds(panner, new Rectangle(
-                    isLeft ? 0 : 1,
+                    0,
 	                newLineBounds.Y,
-	                0.5,
+	                1,
 	                lineHeight));
             }
         }
