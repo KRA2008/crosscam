@@ -213,6 +213,7 @@
                     <DataTemplate>
                         <StackLayout Padding="10">
                             <Label Text="Capturing with the mirror method divides the frame in half and does the required transformation so you can capture both sides at the same moment using a single phone and a regular handheld mirror. To use the mirror method when capturing, flip the switch on for mirror mode on the Settings page (tap the gear icon to get there). After you turn on mirror mode, CrossCam will tell you which side to hold your mirror on. Hold your mirror on that side and fuss with the alignment between your phone and the mirror and your subject. With some patience, you'll be able to line them all up so that the mirror shows the correct perspective for one of the sides. Because using the mirror method splits your image in half vertically, it's usually best to capture in landscape with the mirror method."/>
+                            <Label Text="This method will also work with reflections in large, clean windows, and also on still lakes or puddles (when phone is locked in portrait and flipped sideways)."/>
                             <AbsoluteLayout>
                                 <Image AbsoluteLayout.LayoutFlags="PositionProportional"
                                        AbsoluteLayout.LayoutBounds="0.5,0,175,175"

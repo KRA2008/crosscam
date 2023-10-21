@@ -81,6 +81,6 @@
 		<string>_CrossCam._udp</string>
 	</array>
 	<key>NSPhotoLibraryUsageDescription</key>
-	<string>In addition to saving photos, CrossCam can make a &quot;CrossCam&quot; album automatically and add the photos to it. To do this, CrossCam requires read/write access to your photo library, but not to any actual photos in it. To allow this on iOS 15 or above, tap &quot;Select Photos...&quot; below and then tap &quot;Done&quot; without actually selecting any photos, or tap &quot;Don&apos;t Allow&quot; below to save your 3D pictures but NOT add them to an album. If you're on iOS 14 or below, tap OK to allow saving.</string>
+	<string>CrossCam can save photos and put them into a &quot;CrossCam&quot; album automatically. To allow this:&#13;- On iOS 17 and above tap "Limit access..." and then tap "Done" without actually selecting any photos.&#13;- On iOS 15 &amp; 16 tap &quot;Select Photos...&quot; and then tap &quot;Done&quot; without actually selecting any photos.&#13;- On iOS 14 and below tap OK.</string>
 </dict>
 </plist>
