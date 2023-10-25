@@ -1761,7 +1761,15 @@ namespace CrossCam.ViewModel
                 if (image2 == null)
                 {
                     await Task.Delay(2000);
-                    var loadType = await OpenLoadingPopup();
+                    string loadType;
+                    if (RightBitmap == null ^ LeftBitmap == null)
+                    {
+                        loadType = SINGLE_SIDE;
+                    }
+                    else
+                    {
+                        loadType = await OpenLoadingPopup();
+                    }
 
                     if (loadType == CANCEL ||
                         loadType == null)
@@ -1772,42 +1780,30 @@ namespace CrossCam.ViewModel
 
                     if (loadType == SINGLE_SIDE)
                     {
-                        if (LeftBitmap == null &&
-                            RightBitmap != null)
-                        {
-                            SetLeftBitmap(SKBitmap.Decode(image1), true, true);
-                            return;
-                        }
+                        using var data = SKData.Create(new SKMemoryStream(image1));
+                        using var codec = SKCodec.Create(data);
 
-                        if (RightBitmap == null &&
-                            LeftBitmap != null)
+                        LocalCapturedFrame = new IncomingFrame
                         {
-                            SetRightBitmap(SKBitmap.Decode(image1), true, true);
-                            return;
-                        }
-
-                        if (RightBitmap == null &&
-                            LeftBitmap == null)
-                        {
-                            LocalCapturedFrame = new IncomingFrame
-                            {
-                                Frame = SKBitmap.Decode(image1),
-                                Orientation = SKEncodedOrigin.Default
-                            };
-                            return;
-                        }
+                            Frame = SKBitmap.Decode(image1),
+                            Orientation = codec.EncodedOrigin
+                        };
                     }
                     else
                     {
                         await LoadFullStereoImage(image1);
-                        return;
                     }
                 }
                 else
                 {
                     // i save left first, so i load left first
-                    SetLeftBitmap(SKBitmap.Decode(image1), true, true);
-                    SetRightBitmap(SKBitmap.Decode(image2), true, true);
+                    using var leftData = SKData.Create(new SKMemoryStream(image1));
+                    using var leftCodec = SKCodec.Create(leftData);
+                    SetLeftBitmap(AutoOrient(SKBitmap.Decode(image1), leftCodec.EncodedOrigin, false), true, true);
+
+                    using var rightData = SKData.Create(new SKMemoryStream(image2));
+                    using var rightCodec = SKCodec.Create(rightData);
+                    SetRightBitmap(AutoOrient(SKBitmap.Decode(image2), rightCodec.EncodedOrigin, false), true, true);
                 }
             }
             catch (Exception e)
@@ -2681,10 +2677,12 @@ namespace CrossCam.ViewModel
             }
         }
 
-        private static SKBitmap GetHalfOfImage(byte[] bytes, bool wantLeft, bool clipBorder, SKEncodedOrigin orientationToCorrect = SKEncodedOrigin.Default, bool withMirror = false)
+        private static SKBitmap GetHalfOfImage(byte[] bytes, bool wantLeft, bool clipBorder)
         {
+            using var data = SKData.Create(new SKMemoryStream(bytes));
+            using var codec = SKCodec.Create(data);
             var original = SKBitmap.Decode(bytes);
-            return GetHalfOfImage(original, wantLeft, clipBorder, orientationToCorrect, withMirror);
+            return GetHalfOfImage(original, wantLeft, clipBorder, codec.EncodedOrigin);
         }
 
         private static int GetTotalColor(SKColor color)
