@@ -1,5 +1,7 @@
 ﻿using Plugin.DeviceInfo;
 using System;
+using CrossCam.ViewModel;
+using Microsoft.AppCenter.Crashes;
 using Xamarin.Essentials;
 using Xamarin.Forms;
 
@@ -20,7 +22,18 @@ namespace CrossCam.CustomElement
 
         private async void TapGestureRecognizer_OnTapped(object sender, EventArgs e)
         {
-            await Launcher.OpenAsync("mailto:me@kra2008.com?subject=CrossCam+feedback");
+            try
+            {
+                await Launcher.OpenAsync("mailto:me@kra2008.com?subject=CrossCam+feedback");
+            }
+            catch (Exception ex)
+            {
+                Crashes.TrackError(ex);
+
+                await (BindingContext as BaseViewModel).CoreMethods.DisplayAlert("Could Not Open Link",
+                    "The mailto link could not be opened. This could be because your email client is not set up, or some other reason.",
+                    "OK");
+            }
         }
     }
 }
