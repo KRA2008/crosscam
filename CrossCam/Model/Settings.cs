@@ -123,8 +123,6 @@ namespace CrossCam.Model
         public bool IsLockToFirstEnabled { get; set; }
         public bool IsTapToFocusEnabled2 { get; set; }
         public bool SaveRedundantFirstSide { get; set; }
-        public string SavingDirectory { get; set; }
-        public bool SaveToExternal { get; set; }
         public bool SaveForCrossView { get; set; }
         public bool SaveForParallel { get; set; }
         public bool SaveForRedCyanAnaglyph { get; set; }
@@ -133,8 +131,38 @@ namespace CrossCam.Model
         public bool SaveForQuad { get; set; }
         public bool SaveWithFuseGuide { get; set; }
         public bool SaveForCardboard { get; set; }
-        public bool SaveIntoSeparateFolders { get; set; }
         public bool ClearCapturesAfterSave { get; set; }
+
+        private bool _saveIntoDedicatedFolder;
+        public bool SaveIntoDedicatedFolder
+        {
+            get => _saveIntoDedicatedFolder;
+            set
+            {
+                _saveIntoDedicatedFolder = value;
+                if (value)
+                {
+                    SaveIntoSeparateFolders = false;
+                }
+            }
+        }
+
+        private bool _saveIntoSeparateFolders;
+        public bool SaveIntoSeparateFolders
+        {
+            get => _saveIntoSeparateFolders;
+            set
+            {
+                _saveIntoSeparateFolders = value;
+                if (value)
+                {
+                    SaveIntoDedicatedFolder = false;
+                }
+            }
+        }
+
+        public string SavingDirectory { get; set; }
+        public bool SaveToExternal { get; set; }
 
         public bool PromptForErrorEmails { get; set; }
         public bool IsAnalyticsEnabled { get; set; }
@@ -287,14 +315,16 @@ namespace CrossCam.Model
             SaveForQuad = false;
             SaveWithFuseGuide = true;
             SaveForCardboard = false;
-            SaveIntoSeparateFolders = false;
             ClearCapturesAfterSave = true;
+
 
             IsForceCamera1Enabled = false;
             IsForceCamera2Enabled = false;
             IsTapToFocusEnabled2 = true;
             IsLockToFirstEnabled = true;
 
+            SaveIntoDedicatedFolder = true;
+            SaveIntoSeparateFolders = false;
             SavingDirectory = null;
             SaveToExternal = false;
 

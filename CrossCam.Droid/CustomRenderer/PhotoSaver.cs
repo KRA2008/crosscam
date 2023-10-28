@@ -57,18 +57,40 @@ namespace CrossCam.Droid.CustomRenderer
                         if (!string.IsNullOrWhiteSpace(saveOuterFolder))
                         {
                             var pickedDir = DocumentFile.FromTreeUri(MainActivity.Instance, Uri.Parse(saveOuterFolder));
-                            var innerDir = pickedDir.FindFile(saveInnerFolder);
-                            if (innerDir == null ||
-                                !innerDir.Exists() || 
-                                !innerDir.IsDirectory)
+                            if (pickedDir == null ||
+                                !pickedDir.Exists())
                             {
-                                innerDir = pickedDir.CreateDirectory(saveInnerFolder);
+                                throw new DirectoryNotFoundException();
                             }
+
+                            DocumentFile innerDir;
+                            if (!string.IsNullOrWhiteSpace(saveInnerFolder))
+                            {
+                                innerDir = pickedDir.FindFile(saveInnerFolder);
+                                if (innerDir == null ||
+                                    !innerDir.Exists() ||
+                                    !innerDir.IsDirectory)
+                                {
+                                    innerDir = pickedDir.CreateDirectory(saveInnerFolder);
+                                }
+
+                                if (innerDir == null ||
+                                    !innerDir.Exists())
+                                {
+                                    throw new DirectoryNotFoundException();
+                                }
+                            }
+                            else
+                            {
+                                innerDir = pickedDir;
+                            }
+
                             var newFile = innerDir.CreateFile("image/jpeg", photoId + ".jpg");
                             if (newFile == null)
                             {
                                 throw new DirectoryNotFoundException();
                             }
+
                             destinationFinalUri = newFile.Uri;
                         }
                         else
@@ -77,7 +99,13 @@ namespace CrossCam.Droid.CustomRenderer
                             values.Put(MediaStore.Images.Media.InterfaceConsts.MimeType, "image/jpeg");
                             values.Put(MediaStore.Images.Media.InterfaceConsts.DateAdded, currentTimeSeconds);
                             values.Put(MediaStore.Images.Media.InterfaceConsts.DateModified, currentTimeSeconds);
-                            values.Put(MediaStore.Images.Media.InterfaceConsts.RelativePath, "Pictures/" + saveInnerFolder);
+                            var savePath = string.IsNullOrWhiteSpace(saveOuterFolder) ? "Pictures" : saveOuterFolder;
+                            if (!string.IsNullOrWhiteSpace(saveInnerFolder))
+                            {
+                                savePath += "/" + saveInnerFolder;
+                            }
+                            values.Put(MediaStore.Images.Media.InterfaceConsts.RelativePath, savePath);
+                            values.Put(MediaStore.Images.Media.InterfaceConsts.Album, saveInnerFolder);
 
                             destinationFinalUri = contentResolver?.Insert(MediaStore.Images.Media.ExternalContentUri, values);
                         }
