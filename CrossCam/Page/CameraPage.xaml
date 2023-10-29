@@ -1563,16 +1563,16 @@
                          IsVisible="False">
                 <StackLayout.Triggers>
                     <DataTrigger TargetType="StackLayout"
-                                 Binding="{Binding WorkflowStage, Converter={vc:EnumCompareConverter}, ConverterParameter={x:Static vm:WorkflowStage.AutomaticAlign}}"
+                                 Binding="{Binding WorkflowStage, Converter={vc:EnumCompareConverter}, ConverterParameter={x:Static vm:WorkflowStage.Final}}"
                                  Value="True">
                         <Setter Property="IsVisible"
                                 Value="True"/>
                     </DataTrigger>
                     <DataTrigger TargetType="StackLayout"
                                  Binding="{Binding WorkflowStage, Converter={vc:EnumCompareConverter}, ConverterParameter={x:Static vm:WorkflowStage.Final}}"
-                                 Value="True">
+                                 Value="False">
                         <Setter Property="IsVisible"
-                                Value="True"/>
+                                Value="False"/>
                     </DataTrigger>
                 </StackLayout.Triggers>
                 <StackLayout.GestureRecognizers>
@@ -1583,7 +1583,7 @@
                        WidthRequest="{StaticResource _gearBoxWidth}">
                     <Image.Triggers>
                         <DataTrigger TargetType="Image"
-                                     Binding="{Binding Settings.AlignmentSettings.IsAutomaticAlignmentOn, Converter={vc:BooleanInvertConverter}}"
+                                     Binding="{Binding Settings.AlignmentSettings.IsAutomaticAlignmentOn}"
                                      Value="False">
                             <Setter Property="Opacity"
                                     Value="0.25"/>
@@ -1601,7 +1601,7 @@
                        InputTransparent="True">
                     <Label.Triggers>
                         <DataTrigger TargetType="Label"
-                                     Binding="{Binding Settings.AlignmentSettings.IsAutomaticAlignmentOn, Converter={vc:BooleanInvertConverter}}"
+                                     Binding="{Binding Settings.AlignmentSettings.IsAutomaticAlignmentOn}"
                                      Value="False">
                             <Setter Property="Opacity"
                                     Value="0.25"/>
