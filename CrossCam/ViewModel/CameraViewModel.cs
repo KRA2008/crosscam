@@ -2635,12 +2635,49 @@ namespace CrossCam.ViewModel
             SKBitmap rotated;
             switch (origin)
             {
+                case SKEncodedOrigin.TopLeft: // also Default
+                    rotated = new SKBitmap(bitmap.Width, bitmap.Height);
+                    using (var surface = new SKCanvas(rotated))
+                    {
+                        if (isFrontFacing) surface.Scale(1, -1, bitmap.Width / 2f, bitmap.Height / 2f);
+                        surface.DrawBitmap(bitmap, 0, 0);
+                    }
+                    return rotated;
+                case SKEncodedOrigin.TopRight:
+                    rotated = new SKBitmap(bitmap.Width, bitmap.Height);
+                    using (var surface = new SKCanvas(rotated))
+                    {
+                        surface.Scale(-1, 1, bitmap.Width / 2f, bitmap.Height / 2f);
+                        if (isFrontFacing) surface.Scale(1, -1, bitmap.Width / 2f, bitmap.Height / 2f); // theorized
+                        surface.DrawBitmap(bitmap, 0, 0);
+                    }
+                    return rotated;
                 case SKEncodedOrigin.BottomRight:
                     rotated = new SKBitmap(bitmap.Width, bitmap.Height);
                     using (var surface = new SKCanvas(rotated))
                     {
                         surface.RotateDegrees(180, bitmap.Width / 2f, bitmap.Height / 2f);
                         if (isFrontFacing) surface.Scale(1, -1, bitmap.Width / 2f, bitmap.Height / 2f);
+                        surface.DrawBitmap(bitmap, 0, 0);
+                    }
+                    return rotated;
+                case SKEncodedOrigin.BottomLeft:
+                    rotated = new SKBitmap(bitmap.Width, bitmap.Height);
+                    using (var surface = new SKCanvas(rotated))
+                    {
+                        surface.Scale(1, -1, bitmap.Width / 2f, bitmap.Height / 2f);
+                        if (isFrontFacing) surface.Scale(1, -1, bitmap.Width / 2f, bitmap.Height / 2f); // theorized
+                        surface.DrawBitmap(bitmap, 0, 0);
+                    }
+                    return rotated;
+                case SKEncodedOrigin.LeftTop:
+                    rotated = new SKBitmap(bitmap.Height, bitmap.Width);
+                    using (var surface = new SKCanvas(rotated))
+                    {
+                        surface.Translate(0, rotated.Height);
+                        surface.RotateDegrees(270);
+                        surface.Scale(-1, 1, bitmap.Width / 2f, bitmap.Height / 2f);
+                        if (isFrontFacing) surface.Scale(1, -1, bitmap.Width / 2f, bitmap.Height / 2f); // theorized
                         surface.DrawBitmap(bitmap, 0, 0);
                     }
                     return rotated;
@@ -2654,6 +2691,17 @@ namespace CrossCam.ViewModel
                         surface.DrawBitmap(bitmap, 0, 0);
                     }
                     return rotated;
+                case SKEncodedOrigin.RightBottom:
+                    rotated = new SKBitmap(bitmap.Height, bitmap.Width);
+                    using (var surface = new SKCanvas(rotated))
+                    {
+                        surface.Translate(rotated.Width, 0);
+                        surface.RotateDegrees(90);
+                        surface.Scale(-1, 1, bitmap.Width / 2f, bitmap.Height / 2f);
+                        if (isFrontFacing) surface.Scale(1, -1, bitmap.Width / 2f, bitmap.Height / 2f); //theorized
+                        surface.DrawBitmap(bitmap, 0, 0);
+                    }
+                    return rotated;
                 case SKEncodedOrigin.LeftBottom:
                     rotated = new SKBitmap(bitmap.Height, bitmap.Width);
                     using (var surface = new SKCanvas(rotated))
@@ -2661,14 +2709,6 @@ namespace CrossCam.ViewModel
                         surface.Translate(0, rotated.Height);
                         surface.RotateDegrees(270);
                         if(isFrontFacing) surface.Scale(1, -1, bitmap.Width / 2f, bitmap.Height / 2f);
-                        surface.DrawBitmap(bitmap, 0, 0);
-                    }
-                    return rotated;
-                case SKEncodedOrigin.Default:
-                    rotated = new SKBitmap(bitmap.Width, bitmap.Height);
-                    using (var surface = new SKCanvas(rotated))
-                    {
-                        if (isFrontFacing) surface.Scale(1, -1, bitmap.Width / 2f, bitmap.Height / 2f);
                         surface.DrawBitmap(bitmap, 0, 0);
                     }
                     return rotated;
