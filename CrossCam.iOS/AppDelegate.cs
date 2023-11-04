@@ -3,9 +3,11 @@ using System.Diagnostics;
 using System.Net;
 using AVFoundation;
 using Foundation;
+#if !DEBUG
 using Microsoft.AppCenter;
-using Microsoft.AppCenter.Analytics;
 using Microsoft.AppCenter.Crashes;
+#endif
+using Microsoft.AppCenter.Analytics;
 using UIKit;
 using Xamarin.Forms;
 
@@ -18,8 +20,10 @@ namespace CrossCam.iOS
         
 		public override bool FinishedLaunching (UIApplication app, NSDictionary options)
         {
-            AppCenter.Start("ef05db4b-0a69-4686-93b0-c0e98b92ac8e", //plz don't abuse this.
+#if !DEBUG
+			AppCenter.Start("ef05db4b-0a69-4686-93b0-c0e98b92ac8e", //plz don't abuse this.
                 typeof(Analytics), typeof(Crashes));
+#endif
             Forms.Init(); 
 
             _app = new App();
