@@ -322,11 +322,13 @@ namespace CrossCam.ViewModel
         public bool ShouldLeftLoadBeVisible => CameraColumn == 0 && 
                                                WorkflowStage == WorkflowStage.Capture && 
                                                Settings.PortraitCaptureButtonPosition == PortraitCaptureButtonPosition.Middle && 
-                                               PairOperator.PairStatus == PairStatus.Disconnected;
+                                               PairOperator.PairStatus == PairStatus.Disconnected &&
+                                               !Settings.IsCaptureInMirrorMode;
         public bool ShouldRightLoadBeVisible => CameraColumn == 1 && 
                                                 WorkflowStage == WorkflowStage.Capture && 
                                                 Settings.PortraitCaptureButtonPosition == PortraitCaptureButtonPosition.Middle && 
-                                                PairOperator.PairStatus == PairStatus.Disconnected;
+                                                PairOperator.PairStatus == PairStatus.Disconnected &&
+                                                !Settings.IsCaptureInMirrorMode;
         public bool ShouldSwapSidesBeVisible => WorkflowStage == WorkflowStage.Capture &&
                                                 (IsExactlyOnePictureTaken ||
                                                 Settings.IsCaptureInMirrorMode ||
@@ -1541,6 +1543,9 @@ namespace CrossCam.ViewModel
                     RaisePropertyChanged(nameof(ShouldSwapSidesBeVisible));
                     RaisePropertyChanged(nameof(ShouldDonutGuideBeVisible));
                     RaisePropertyChanged(nameof(UseFullScreenWidth));
+                    RaisePropertyChanged(nameof(ShouldCenterLoadBeVisible));
+                    RaisePropertyChanged(nameof(ShouldRightLoadBeVisible));
+                    RaisePropertyChanged(nameof(ShouldLeftLoadBeVisible));
                     break;
                 case nameof(Settings.IsCaptureLeftFirst):
                     RaisePropertyChanged(nameof(PairButtonPosition));
