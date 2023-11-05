@@ -480,7 +480,7 @@ namespace CrossCam.Droid.CustomRenderer
                 Crashes.TrackError(e);
                 return;
             }
-            var origin = _useCamera2 ? GetOrientation2() : 0;
+            var origin = _useCamera2 ? GetOrientationCamera2() : 0;
 
             if (_cameraModule.PairOperator.PairStatus == PairStatus.Connected &&
                 Interlocked.Exchange(ref _readyToCapturePreviewFrameInterlocked, 0) == 1 &&
@@ -501,7 +501,7 @@ namespace CrossCam.Droid.CustomRenderer
             bitmap?.Dispose();
         }
         
-        private SKEncodedOrigin GetOrientation2()
+        private SKEncodedOrigin GetOrientationCamera2()
         {
             var screenOrientation = (int)DeviceDisplay.MainDisplayInfo.Rotation - 1;
             var sensorOrientationInc = _camera2SensorOrientation / 90;
@@ -522,21 +522,6 @@ namespace CrossCam.Droid.CustomRenderer
                 2 => SKEncodedOrigin.LeftBottom,
                 3 when isFrontFacing => SKEncodedOrigin.TopRight,
                 3 => SKEncodedOrigin.BottomRight,
-                _ => default
-            };
-        }
-
-        private SKEncodedOrigin GetOrientation1()
-        {
-            var isFrontFacing = _cameraModule.ChosenCamera.IsFront;
-            return (_cameraRotation1 / 90) switch
-            {
-                0 => SKEncodedOrigin.TopLeft,
-                1 when isFrontFacing => SKEncodedOrigin.LeftBottom,
-                1 => SKEncodedOrigin.RightTop,
-                2 => SKEncodedOrigin.BottomRight,
-                3 when isFrontFacing => SKEncodedOrigin.RightTop,
-                3 => SKEncodedOrigin.LeftBottom,
                 _ => default
             };
         }
@@ -1037,10 +1022,14 @@ namespace CrossCam.Droid.CustomRenderer
                     }
                     else
                     {
+                        using var stream = new SKMemoryStream(data);
+                        using var skData = SKData.Create(stream);
+                        using var codec = SKCodec.Create(skData);
+
                         _cameraModule.CapturedImage = new IncomingFrame
                         {
                             Frame = SKBitmap.Decode(data),
-                            Orientation = GetOrientation1(),
+                            Orientation = codec.EncodedOrigin,
                             IsFrontFacing = _cameraModule.ChosenCamera.IsFront
                         };
                     }
@@ -1569,10 +1558,10 @@ namespace CrossCam.Droid.CustomRenderer
                 using var stream = new SKMemoryStream(buffer);
                 using var data = SKData.Create(stream);
                 using var codec = SKCodec.Create(data);
-                var bitmap = SKBitmap.Decode(data);
+
                 _cameraModule.CapturedImage = new IncomingFrame
                 {
-                    Frame = bitmap,
+                    Frame = SKBitmap.Decode(data),
                     Orientation = codec.EncodedOrigin,
                     IsFrontFacing = _cameraModule.ChosenCamera.IsFront
                 };

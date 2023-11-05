@@ -1783,7 +1783,8 @@ namespace CrossCam.ViewModel
 
                     if (loadType == SINGLE_SIDE)
                     {
-                        using var data = SKData.Create(new SKMemoryStream(image1));
+                        using var stream = new SKMemoryStream(image1);
+                        using var data = SKData.Create(stream);
                         using var codec = SKCodec.Create(data);
 
                         LocalCapturedFrame = new IncomingFrame
@@ -1800,11 +1801,13 @@ namespace CrossCam.ViewModel
                 else
                 {
                     // i save left first, so i load left first
-                    using var leftData = SKData.Create(new SKMemoryStream(image1));
+                    using var leftStream = new SKMemoryStream(image1);
+                    using var leftData = SKData.Create(leftStream);
                     using var leftCodec = SKCodec.Create(leftData);
                     SetLeftBitmap(AutoOrient(SKBitmap.Decode(image1), leftCodec.EncodedOrigin, false), true, true);
 
-                    using var rightData = SKData.Create(new SKMemoryStream(image2));
+                    using var rightStream = new SKMemoryStream(image2);
+                    using var rightData = SKData.Create(rightStream);
                     using var rightCodec = SKCodec.Create(rightData);
                     SetRightBitmap(AutoOrient(SKBitmap.Decode(image2), rightCodec.EncodedOrigin, false), true, true);
                 }
@@ -1880,7 +1883,8 @@ namespace CrossCam.ViewModel
                 LocalCapturedFrame?.IsFrontFacing ?? 
                 LocalPreviewFrame?.IsFrontFacing == true;
             //LocalCapturedFrame = null;
-            using var data = SKData.Create(new SKMemoryStream(bytes));
+            using var stream = new SKMemoryStream(bytes);
+            using var data = SKData.Create(stream);
             using var codec = SKCodec.Create(data);
             var bitmap = AutoOrient(
                 SKBitmap.Decode(data), codec.EncodedOrigin, wasOtherSideFrontFacing);
@@ -1976,7 +1980,8 @@ namespace CrossCam.ViewModel
             }
             else
             {
-                using var data = SKData.Create(new SKMemoryStream(bytes));
+                using var stream = new SKMemoryStream(bytes);
+                using var data = SKData.Create(stream);
                 using var codec = SKCodec.Create(data);
                 return new IncomingFrame
                 {
@@ -2724,7 +2729,8 @@ namespace CrossCam.ViewModel
 
         private static SKBitmap GetHalfOfImage(byte[] bytes, bool wantLeft, bool clipBorder)
         {
-            using var data = SKData.Create(new SKMemoryStream(bytes));
+            using var stream = new SKMemoryStream(bytes);
+            using var data = SKData.Create(stream);
             using var codec = SKCodec.Create(data);
             var original = SKBitmap.Decode(bytes);
             return GetHalfOfImage(original, wantLeft, clipBorder, codec.EncodedOrigin);
