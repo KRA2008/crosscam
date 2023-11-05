@@ -191,12 +191,15 @@ namespace CrossCam.Droid
                     else
                     {
                         PickPhotoTaskCompletionSource?.SetResult(null);
-                        Crashes.TrackError(new System.Exception("pickPhotoCompletion failed to enter into photo opening"), new Dictionary<string, string>()
+                        if (resultCode != Result.Canceled)
                         {
-                            {"resultCode",resultCode.ToString()},
-                            {"intent.Data",intent?.Data?.ToString()},
-                            {"contentResolver",ContentResolver?.ToString()}
-                        });
+                            Crashes.TrackError(new System.Exception("pickPhotoCompletion failed to enter into photo opening"), new Dictionary<string, string>()
+                            {
+                                {"resultCode",resultCode.ToString()},
+                                {"intent.Data",intent?.Data?.ToString()},
+                                {"contentResolver",ContentResolver?.ToString()}
+                            });
+                        }
                     }
                 }
                 else if (requestCode == (int) RequestCodes.BrowseDirectoriesRequestCode)
