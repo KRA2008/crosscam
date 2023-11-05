@@ -1049,7 +1049,7 @@
                                    Text="Save into dedicated &quot;CrossCam&quot; subfolder/album"/>
                             <Switch Grid.Row="12"
                                     Grid.Column="3"
-                                    IsToggled="{Binding Settings.SaveIntoDedicatedFolder}"/>
+                                    IsToggled="{Binding Settings.SaveIntoDedicatedFolder1}"/>
 
                             <Label Grid.Row="13"
                                    Grid.Column="0"
@@ -1057,7 +1057,7 @@
                                    Text="Save into dedicated &quot;CrossCam_{ViewMethod}&quot; subfolders/albums"/>
                             <Switch Grid.Row="13"
                                     Grid.Column="3"
-                                    IsToggled="{Binding Settings.SaveIntoSeparateFolders}"/>
+                                    IsToggled="{Binding Settings.SaveIntoSeparateFolders1}"/>
 
                             <Label Grid.Row="14"
                                    Grid.Column="0"

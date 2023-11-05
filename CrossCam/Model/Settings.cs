@@ -1,6 +1,7 @@
 ﻿using System;
 using System.ComponentModel;
 using CrossCam.ViewModel;
+using Xamarin.Forms;
 
 namespace CrossCam.Model
 {
@@ -134,7 +135,7 @@ namespace CrossCam.Model
         public bool ClearCapturesAfterSave { get; set; }
 
         private bool _saveIntoDedicatedFolder;
-        public bool SaveIntoDedicatedFolder
+        public bool SaveIntoDedicatedFolder1
         {
             get => _saveIntoDedicatedFolder;
             set
@@ -142,13 +143,13 @@ namespace CrossCam.Model
                 _saveIntoDedicatedFolder = value;
                 if (value)
                 {
-                    SaveIntoSeparateFolders = false;
+                    SaveIntoSeparateFolders1 = false;
                 }
             }
         }
 
         private bool _saveIntoSeparateFolders;
-        public bool SaveIntoSeparateFolders
+        public bool SaveIntoSeparateFolders1
         {
             get => _saveIntoSeparateFolders;
             set
@@ -156,7 +157,7 @@ namespace CrossCam.Model
                 _saveIntoSeparateFolders = value;
                 if (value)
                 {
-                    SaveIntoDedicatedFolder = false;
+                    SaveIntoDedicatedFolder1 = false;
                 }
             }
         }
@@ -323,8 +324,8 @@ namespace CrossCam.Model
             IsTapToFocusEnabled2 = true;
             IsLockToFirstEnabled = true;
 
-            SaveIntoDedicatedFolder = true;
-            SaveIntoSeparateFolders = false;
+            SaveIntoDedicatedFolder1 = Device.RuntimePlatform != Device.Android; //keep this false until i figure out why it doesn't work on some devices
+            SaveIntoSeparateFolders1 = false;
             SavingDirectory = null;
             SaveToExternal = false;
 
