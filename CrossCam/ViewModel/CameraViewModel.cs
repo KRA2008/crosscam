@@ -1786,6 +1786,7 @@ namespace CrossCam.ViewModel
                         using var stream = new SKMemoryStream(image1);
                         using var data = SKData.Create(stream);
                         using var codec = SKCodec.Create(data);
+                        if (codec == null) throw new InvalidImageException();
 
                         LocalCapturedFrame = new IncomingFrame
                         {
@@ -1804,13 +1805,23 @@ namespace CrossCam.ViewModel
                     using var leftStream = new SKMemoryStream(image1);
                     using var leftData = SKData.Create(leftStream);
                     using var leftCodec = SKCodec.Create(leftData);
+                    if (leftCodec == null) throw new InvalidImageException();
+
                     SetLeftBitmap(AutoOrient(SKBitmap.Decode(image1), leftCodec.EncodedOrigin, false), true, true);
 
                     using var rightStream = new SKMemoryStream(image2);
                     using var rightData = SKData.Create(rightStream);
                     using var rightCodec = SKCodec.Create(rightData);
+                    if (rightCodec == null) throw new InvalidImageException();
+
                     SetRightBitmap(AutoOrient(SKBitmap.Decode(image2), rightCodec.EncodedOrigin, false), true, true);
                 }
+            }
+            catch (InvalidImageException)
+            {
+                await CoreMethods.DisplayAlert("Invalid Image",
+                    "The chosen image is invalid. Please make sure it is just a basic still picture.", "OK");
+                WorkflowStage = WorkflowStage.Capture;
             }
             catch (Exception e)
             {
@@ -2021,6 +2032,10 @@ namespace CrossCam.ViewModel
                     Settings.ClipBorderOnNextLoad = false;
                     PersistentStorage.Save(PersistentStorage.SETTINGS_KEY, Settings);
                 }
+            }
+            catch (InvalidImageException)
+            {
+                throw;
             }
             catch (Exception e)
             {
@@ -2732,6 +2747,8 @@ namespace CrossCam.ViewModel
             using var stream = new SKMemoryStream(bytes);
             using var data = SKData.Create(stream);
             using var codec = SKCodec.Create(data);
+            if (codec == null) throw new InvalidImageException();
+
             var original = SKBitmap.Decode(bytes);
             return GetHalfOfImage(original, wantLeft, clipBorder, codec.EncodedOrigin);
         }

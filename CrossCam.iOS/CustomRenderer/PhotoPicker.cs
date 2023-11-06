@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using CrossCam.iOS.CustomRenderer;
 using CrossCam.Wrappers;
 using Microsoft.AppCenter.Crashes;
+using Photos;
 using PhotosUI;
 using UIKit;
 using Xamarin.Forms;
@@ -25,11 +26,18 @@ namespace CrossCam.iOS.CustomRenderer
 
             if (UIDevice.CurrentDevice.CheckSystemVersion(14, 0))
             {
-                var phPicker = new PHPickerViewController(new PHPickerConfiguration
+                var configuration = new PHPickerConfiguration
                 {
                     Filter = PHPickerFilter.ImagesFilter,
-                    SelectionLimit = 2
-                })
+                    SelectionLimit = 2,
+                    PreferredAssetRepresentationMode = PHPickerConfigurationAssetRepresentationMode.Compatible,
+                };
+                if (UIDevice.CurrentDevice.CheckSystemVersion(15, 0))
+                {
+                    configuration.Filter = PHPickerFilter.GetPlaybackStyleFilter(PHAssetPlaybackStyle.Image);
+                    configuration.Selection = PHPickerConfigurationSelection.Ordered;
+                }
+                var phPicker = new PHPickerViewController(configuration)
                 {
                     Delegate = new PHPickerDelegate(this)
                 };
