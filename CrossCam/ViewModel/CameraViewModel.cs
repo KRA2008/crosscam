@@ -2780,7 +2780,7 @@ namespace CrossCam.ViewModel
                         "(but if you do have a pair of red/cyan 3D glasses or a Google Cardboard viewer, you can use those with CrossCam too). " +
                         "The \"free viewing\" technique that uses just your phone and your eyes takes some practice to learn. "+
                         "Before I tell you how to use CrossCam, would you first like to learn more about the viewing technique?",
-                        "Yes", "No");
+                        "Viewing Technique", "Skip to Directions");
                     Settings.HasOfferedTechniqueHelpBefore2 = true;
                     PersistentStorage.Save(PersistentStorage.SETTINGS_KEY, Settings);
                     if (showTechniquePage)
