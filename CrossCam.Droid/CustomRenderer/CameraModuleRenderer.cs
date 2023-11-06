@@ -1028,7 +1028,7 @@ namespace CrossCam.Droid.CustomRenderer
 
                         _cameraModule.CapturedImage = new IncomingFrame
                         {
-                            Frame = SKBitmap.Decode(data),
+                            Frame = SKBitmap.Decode(codec),
                             Orientation = codec.EncodedOrigin,
                             IsFrontFacing = _cameraModule.ChosenCamera.IsFront
                         };
@@ -1561,7 +1561,7 @@ namespace CrossCam.Droid.CustomRenderer
 
                 _cameraModule.CapturedImage = new IncomingFrame
                 {
-                    Frame = SKBitmap.Decode(data),
+                    Frame = SKBitmap.Decode(codec),
                     Orientation = codec.EncodedOrigin,
                     IsFrontFacing = _cameraModule.ChosenCamera.IsFront
                 };

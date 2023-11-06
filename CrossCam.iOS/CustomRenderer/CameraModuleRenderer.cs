@@ -420,7 +420,7 @@ namespace CrossCam.iOS.CustomRenderer
                 using var codec = SKCodec.Create(skData);
                 _cameraModule.CapturedImage = new IncomingFrame
                 {
-                    Frame = SKBitmap.Decode(skData),
+                    Frame = SKBitmap.Decode(codec),
                     IsFrontFacing = _cameraModule.ChosenCamera.IsFront,
                     Orientation = codec.EncodedOrigin
                 };
@@ -730,7 +730,7 @@ namespace CrossCam.iOS.CustomRenderer
                     using var codec = SKCodec.Create(skData);
                     _camera.PreviewImage = new IncomingFrame
                     {
-                        Frame = SKBitmap.Decode(skData),
+                        Frame = SKBitmap.Decode(codec),
                         IsFrontFacing = _camera.ChosenCamera.IsFront,
                         Orientation = codec.EncodedOrigin
                     };

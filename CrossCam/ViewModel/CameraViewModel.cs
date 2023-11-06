@@ -1790,7 +1790,7 @@ namespace CrossCam.ViewModel
 
                         LocalCapturedFrame = new IncomingFrame
                         {
-                            Frame = SKBitmap.Decode(image1),
+                            Frame = SKBitmap.Decode(codec),
                             Orientation = codec.EncodedOrigin
                         };
                     }
@@ -1807,14 +1807,14 @@ namespace CrossCam.ViewModel
                     using var leftCodec = SKCodec.Create(leftData);
                     if (leftCodec == null) throw new InvalidImageException();
 
-                    SetLeftBitmap(AutoOrient(SKBitmap.Decode(image1), leftCodec.EncodedOrigin, false), true, true);
+                    SetLeftBitmap(AutoOrient(SKBitmap.Decode(leftCodec), leftCodec.EncodedOrigin, false), true, true);
 
                     using var rightStream = new SKMemoryStream(image2);
                     using var rightData = SKData.Create(rightStream);
                     using var rightCodec = SKCodec.Create(rightData);
                     if (rightCodec == null) throw new InvalidImageException();
 
-                    SetRightBitmap(AutoOrient(SKBitmap.Decode(image2), rightCodec.EncodedOrigin, false), true, true);
+                    SetRightBitmap(AutoOrient(SKBitmap.Decode(rightCodec), rightCodec.EncodedOrigin, false), true, true);
                 }
             }
             catch (InvalidImageException)
@@ -1898,7 +1898,7 @@ namespace CrossCam.ViewModel
             using var data = SKData.Create(stream);
             using var codec = SKCodec.Create(data);
             var bitmap = AutoOrient(
-                SKBitmap.Decode(data), codec.EncodedOrigin, wasOtherSideFrontFacing);
+                SKBitmap.Decode(codec), codec.EncodedOrigin, wasOtherSideFrontFacing);
 
             var remoteCapturedFrame = new IncomingFrame
             {
@@ -1997,7 +1997,7 @@ namespace CrossCam.ViewModel
                 return new IncomingFrame
                 {
                     Orientation = codec.EncodedOrigin,
-                    Frame = SKBitmap.Decode(data)
+                    Frame = SKBitmap.Decode(codec)
                 };
             }
         }
@@ -2749,7 +2749,7 @@ namespace CrossCam.ViewModel
             using var codec = SKCodec.Create(data);
             if (codec == null) throw new InvalidImageException();
 
-            var original = SKBitmap.Decode(bytes);
+            var original = SKBitmap.Decode(codec);
             return GetHalfOfImage(original, wantLeft, clipBorder, codec.EncodedOrigin);
         }
 
