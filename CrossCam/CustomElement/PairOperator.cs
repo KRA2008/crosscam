@@ -783,5 +783,8 @@ namespace CrossCam.CustomElement
     public class WiFiTurnedOffException : Exception { }
     public class LocationServicesNotEnabledException : Exception { }
     public class LocationPermissionNotGrantedException : Exception { }
-    public class InvalidImageException : Exception { }
+    public class InvalidImageException : Exception
+    {
+        public InvalidImageException(string message) : base(message) { }
+    }
 }

@@ -5,6 +5,7 @@ using System.ComponentModel;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Timers;
@@ -1785,7 +1786,7 @@ namespace CrossCam.ViewModel
                     {
                         using var stream = new SKMemoryStream(image1);
                         using var codec = SKCodec.Create(stream);
-                        if (codec == null) throw new InvalidImageException();
+                        CheckCodecValidityAndFormat(codec);
 
                         LocalCapturedFrame = new IncomingFrame
                         {
@@ -1803,26 +1804,38 @@ namespace CrossCam.ViewModel
                     // i save left first, so i load left first
                     using var leftStream = new SKMemoryStream(image1);
                     using var leftCodec = SKCodec.Create(leftStream);
-                    if (leftCodec == null) throw new InvalidImageException();
+                    CheckCodecValidityAndFormat(leftCodec);
 
                     SetLeftBitmap(AutoOrient(SKBitmap.Decode(leftCodec), leftCodec.EncodedOrigin, false), true, true);
 
                     using var rightStream = new SKMemoryStream(image2);
                     using var rightCodec = SKCodec.Create(rightStream);
-                    if (rightCodec == null) throw new InvalidImageException();
+                    CheckCodecValidityAndFormat(rightCodec);
 
                     SetRightBitmap(AutoOrient(SKBitmap.Decode(rightCodec), rightCodec.EncodedOrigin, false), true, true);
                 }
             }
-            catch (InvalidImageException)
+            catch (InvalidImageException ex)
             {
                 await CoreMethods.DisplayAlert("Invalid Image",
-                    "The chosen image is invalid. Please make sure it is just a basic still picture.", "OK");
+                    ex.Message, "OK");
                 WorkflowStage = WorkflowStage.Capture;
             }
             catch (Exception e)
             {
                 Error = e;
+            }
+        }
+
+        private static void CheckCodecValidityAndFormat(SKCodec codec)
+        {
+            if (codec == null) throw new InvalidImageException("The selected image is invalid.");
+            if (codec.EncodedFormat != SKEncodedImageFormat.Jpeg &&
+                codec.EncodedFormat != SKEncodedImageFormat.Png &&
+                codec.EncodedFormat != SKEncodedImageFormat.Webp)
+            {
+                throw new InvalidImageException(
+                    "Please select a Jpeg, Png, or Webp image. The image you selected is " + codec.EncodedFormat + ".");
             }
         }
 
@@ -2741,7 +2754,7 @@ namespace CrossCam.ViewModel
         {
             using var stream = new SKMemoryStream(bytes);
             using var codec = SKCodec.Create(stream);
-            if (codec == null) throw new InvalidImageException();
+            CheckCodecValidityAndFormat(codec);
 
             var original = SKBitmap.Decode(codec);
             return GetHalfOfImage(original, wantLeft, clipBorder, codec.EncodedOrigin);
