@@ -416,8 +416,7 @@ namespace CrossCam.iOS.CustomRenderer
                     StopPreview();
                 }
                 using var stream = new SKMemoryStream(imageBytes);
-                using var skData = SKData.Create(stream);
-                using var codec = SKCodec.Create(skData);
+                using var codec = SKCodec.Create(stream);
                 _cameraModule.CapturedImage = new IncomingFrame
                 {
                     Frame = SKBitmap.Decode(codec),
@@ -726,8 +725,7 @@ namespace CrossCam.iOS.CustomRenderer
                     using var image = GetImageFromSampleBuffer(sampleBuffer);
                     var bytes = image.AsJPEG(0).ToArray();
                     using var stream = new SKMemoryStream(image.AsJPEG(0).ToArray());
-                    using var skData = SKData.Create(stream);
-                    using var codec = SKCodec.Create(skData);
+                    using var codec = SKCodec.Create(stream);
                     _camera.PreviewImage = new IncomingFrame
                     {
                         Frame = SKBitmap.Decode(codec),
