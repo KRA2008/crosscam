@@ -1049,7 +1049,7 @@
                                    Text="Save into dedicated &quot;CrossCam&quot; subfolder/album"/>
                             <Switch Grid.Row="12"
                                     Grid.Column="3"
-                                    IsToggled="{Binding Settings.SaveIntoDedicatedFolder1}"/>
+                                    IsToggled="{Binding Settings.SaveIntoDedicatedFolder2}"/>
 
                             <Label Grid.Row="13"
                                    Grid.Column="0"
