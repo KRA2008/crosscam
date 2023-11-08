@@ -2017,7 +2017,7 @@ namespace CrossCam.ViewModel
             await _photoSaver.SavePhoto(
                 encoded.ToArray(),
                 Settings.SavingDirectory,
-                Settings.SaveIntoDedicatedFolder1 ? "CrossCam" : Settings.SaveIntoSeparateFolders1 ? "CrossCam_" + methodModifier : "",
+                Settings.SaveIntoDedicatedFolder2 ? "CrossCam" : Settings.SaveIntoSeparateFolders1 ? "CrossCam_" + methodModifier : "",
                 Settings.SaveToExternal);
         }
 
