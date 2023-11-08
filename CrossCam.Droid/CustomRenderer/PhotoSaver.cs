@@ -31,29 +31,55 @@ namespace CrossCam.Droid.CustomRenderer
                     var photoId = Guid.NewGuid().ToString("N");
                     var currentTimeSeconds = JavaSystem.CurrentTimeMillis() / 1000;
 
-                    var outerFolder = MainActivity.Instance?.GetExternalFilesDirs(Environment.DirectoryPictures)
-                        ?.ElementAtOrDefault(1);
-                    if (saveToSd && 
-                        outerFolder != null)
+                    Uri destinationFinalUri;
+
+                    if (saveToSd)
                     {
-                        var externalPicturesDir = outerFolder.AbsolutePath;
-                        Directory.CreateDirectory(Path.Combine(externalPicturesDir, saveInnerFolder));
-                        var newFilePath = Path.Combine(externalPicturesDir, saveInnerFolder, photoId + ".jpg");
+                        var externalPicturesDir = MainActivity.Instance.GetExternalFilesDirs(Environment.DirectoryPictures).ElementAt(1).AbsolutePath;
+                        var newFilePath = Path.Combine(externalPicturesDir, currentTimeSeconds + ".jpg");
                         await using var stream = new FileStream(newFilePath, FileMode.CreateNew);
-                        using var bitmap = await BitmapFactory.DecodeByteArrayAsync(image, 0, image.Length);
-                        if (bitmap != null)
-                        {
-                            await bitmap.CompressAsync(Bitmap.CompressFormat.Jpeg, 100, stream);
-                        }
+                        using var bitmap = BitmapFactory.DecodeByteArray(image, 0, image.Length);
+                        await bitmap.CompressAsync(Bitmap.CompressFormat.Jpeg, 100, stream);
 
                         using var file = new Java.IO.File(newFilePath);
-                        MainActivity.Instance.SendBroadcast(new Intent(Intent.ActionMediaScannerScanFile,
-                            Uri.FromFile(file)));
+                        destinationFinalUri = Uri.FromFile(file);
+                    }
+                    else if (Android.OS.Build.VERSION.SdkInt <= Android.OS.BuildVersionCodes.P)
+                    {
+                        string targetFolderPath;
+                        if (!string.IsNullOrWhiteSpace(saveOuterFolder))
+                        {
+                            targetFolderPath = Path.Combine(saveOuterFolder, saveInnerFolder);
+                        }
+                        else
+                        {
+                            var picturesFolder = new Java.IO.File(
+                                Environment.GetExternalStoragePublicDirectory(Environment.DirectoryPictures),
+                                saveInnerFolder ?? "");
+                            if (!File.Exists(picturesFolder.AbsolutePath))
+                            {
+                                Directory.CreateDirectory(picturesFolder.AbsolutePath);
+                            }
+
+                            targetFolderPath = picturesFolder.AbsolutePath;
+                        }
+
+                        if (!Directory.Exists(targetFolderPath))
+                        {
+                            Directory.CreateDirectory(targetFolderPath);
+                        }
+                        
+                        var newFilePath = Path.Combine(targetFolderPath, photoId + ".jpg");
+                        await using var stream = new FileStream(newFilePath, FileMode.CreateNew);
+                        using var bitmap = await BitmapFactory.DecodeByteArrayAsync(image, 0, image.Length);
+                        await bitmap.CompressAsync(Bitmap.CompressFormat.Jpeg, 100, stream);
+
+                        using var file = new Java.IO.File(newFilePath);
+                        destinationFinalUri = Uri.FromFile(file);
                     }
                     else
                     {
                         var contentResolver = MainActivity.Instance?.ContentResolver;
-                        Uri destinationFinalUri;
                         if (!string.IsNullOrWhiteSpace(saveOuterFolder))
                         {
                             var pickedDir = DocumentFile.FromTreeUri(MainActivity.Instance, Uri.Parse(saveOuterFolder));
@@ -99,30 +125,18 @@ namespace CrossCam.Droid.CustomRenderer
                             values.Put(MediaStore.Images.Media.InterfaceConsts.MimeType, "image/jpeg");
                             values.Put(MediaStore.Images.Media.InterfaceConsts.DateAdded, currentTimeSeconds);
                             values.Put(MediaStore.Images.Media.InterfaceConsts.DateModified, currentTimeSeconds);
-                            var savePath = string.IsNullOrWhiteSpace(saveOuterFolder) ? "Pictures" : saveOuterFolder;
-                            if (!string.IsNullOrWhiteSpace(saveInnerFolder))
-                            {
-                                savePath += "/" + saveInnerFolder;
-                            }
-                            values.Put(MediaStore.Images.Media.InterfaceConsts.RelativePath, savePath);
-                            values.Put(MediaStore.Images.Media.InterfaceConsts.Album, saveInnerFolder);
+                            values.Put(MediaStore.Images.Media.InterfaceConsts.RelativePath, "Pictures/" + saveInnerFolder);
 
                             destinationFinalUri = contentResolver?.Insert(MediaStore.Images.Media.ExternalContentUri, values);
                         }
 
-                        if (destinationFinalUri != null)
-                        {
-                            await using var stream = contentResolver?.OpenOutputStream(destinationFinalUri);
-                            using var bitmap = await BitmapFactory.DecodeByteArrayAsync(image, 0, image.Length);
-                            if (bitmap != null)
-                            {
-                                await bitmap.CompressAsync(Bitmap.CompressFormat.Jpeg, 100, stream);
-                            }
-                        }
-
-                        MainActivity.Instance?.SendBroadcast(new Intent(Intent.ActionMediaScannerScanFile,
-                            destinationFinalUri));
+                        await using var stream = contentResolver?.OpenOutputStream(destinationFinalUri);
+                        using var bitmap = await BitmapFactory.DecodeByteArrayAsync(image, 0, image.Length);
+                        await bitmap.CompressAsync(Bitmap.CompressFormat.Jpeg, 100, stream);
                     }
+
+                    MainActivity.Instance?.SendBroadcast(new Intent(Intent.ActionMediaScannerScanFile,
+                        destinationFinalUri));
 
                     taskCompletionSource.SetResult(true);
                 }
