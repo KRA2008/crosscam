@@ -135,7 +135,7 @@ namespace CrossCam.Model
         public bool ClearCapturesAfterSave { get; set; }
 
         private bool _saveIntoDedicatedFolder;
-        public bool SaveIntoDedicatedFolder1
+        public bool SaveIntoDedicatedFolder2
         {
             get => _saveIntoDedicatedFolder;
             set
@@ -157,7 +157,7 @@ namespace CrossCam.Model
                 _saveIntoSeparateFolders = value;
                 if (value)
                 {
-                    SaveIntoDedicatedFolder1 = false;
+                    SaveIntoDedicatedFolder2 = false;
                 }
             }
         }
@@ -324,7 +324,7 @@ namespace CrossCam.Model
             IsTapToFocusEnabled2 = true;
             IsLockToFirstEnabled = true;
 
-            SaveIntoDedicatedFolder1 = Device.RuntimePlatform != Device.Android; //keep this false until i figure out why it doesn't work on some devices
+            SaveIntoDedicatedFolder2 = true;
             SaveIntoSeparateFolders1 = false;
             SavingDirectory = null;
             SaveToExternal = false;
