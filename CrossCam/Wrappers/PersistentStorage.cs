@@ -1,5 +1,5 @@
 ﻿using Newtonsoft.Json;
-using Xamarin.Forms;
+using Xamarin.Essentials;
 
 namespace CrossCam.Wrappers
 {
@@ -10,17 +10,17 @@ namespace CrossCam.Wrappers
 
         public static T LoadOrDefault<T>(string key, T defaultValue)
         {
-            if (Application.Current.Properties.ContainsKey(key) &&
-                Application.Current.Properties[key] != null)
+            if (Preferences.ContainsKey(key) &&
+                Preferences.Get(key, null) is { } pref)
             {
-                return JsonConvert.DeserializeObject<T>(Application.Current.Properties[key] as string);
+                return JsonConvert.DeserializeObject<T>(pref);
             }
             return defaultValue;
         }
 
         public static void Save(string key, object data)
         {
-            Application.Current.Properties[key] = JsonConvert.SerializeObject(data);
+            Preferences.Set(key, JsonConvert.SerializeObject(data));
         }
     }
 }

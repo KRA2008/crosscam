@@ -154,6 +154,10 @@ namespace CrossCam.ViewModel
             base.Init(initData);
             Settings = (Settings) initData;
             Settings.PropertyChanged += HandleSettingsPropertyChanged;
+            Settings.AlignmentSettings.PropertyChanged += HandleSettingsPropertyChanged;
+            Settings.CardboardSettings.PropertyChanged += HandleSettingsPropertyChanged;
+            Settings.EditsSettings.PropertyChanged += HandleSettingsPropertyChanged;
+            Settings.PairSettings.PropertyChanged += HandleSettingsPropertyChanged;
             CheckAnalyticsEnabledStatus();
             ValidateSwitchStatuses();
 
@@ -165,6 +169,10 @@ namespace CrossCam.ViewModel
         {
             SaveSettings();
             Settings.PropertyChanged -= HandleSettingsPropertyChanged;
+            Settings.AlignmentSettings.PropertyChanged -= HandleSettingsPropertyChanged;
+            Settings.CardboardSettings.PropertyChanged -= HandleSettingsPropertyChanged;
+            Settings.EditsSettings.PropertyChanged -= HandleSettingsPropertyChanged;
+            Settings.PairSettings.PropertyChanged -= HandleSettingsPropertyChanged;
             base.ReverseInit(returnedData);
         }
 
