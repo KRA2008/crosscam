@@ -9,6 +9,7 @@ using AndroidX.DocumentFile.Provider;
 using CrossCam.Droid.CustomRenderer;
 using CrossCam.Wrappers;
 using Java.Lang;
+using Microsoft.AppCenter.Crashes;
 using Xamarin.Forms;
 using Environment = Android.OS.Environment;
 using Exception = System.Exception;
@@ -38,7 +39,7 @@ namespace CrossCam.Droid.CustomRenderer
                         var externalPicturesDir = MainActivity.Instance.GetExternalFilesDirs(Environment.DirectoryPictures).ElementAt(1).AbsolutePath;
                         var newFilePath = Path.Combine(externalPicturesDir, currentTimeSeconds + ".jpg");
                         await using var stream = new FileStream(newFilePath, FileMode.CreateNew);
-                        using var bitmap = BitmapFactory.DecodeByteArray(image, 0, image.Length);
+                        using var bitmap = await BitmapFactory.DecodeByteArrayAsync(image, 0, image.Length);
                         await bitmap.CompressAsync(Bitmap.CompressFormat.Jpeg, 100, stream);
 
                         using var file = new Java.IO.File(newFilePath);
@@ -58,7 +59,16 @@ namespace CrossCam.Droid.CustomRenderer
                                 saveInnerFolder ?? "");
                             if (!File.Exists(picturesFolder.AbsolutePath))
                             {
-                                Directory.CreateDirectory(picturesFolder.AbsolutePath);
+                                try
+                                {
+                                    Directory.CreateDirectory(picturesFolder.AbsolutePath);
+                                }
+                                catch (Java.IO.IOException e)
+                                {
+                                    Crashes.TrackError(e);
+                                    picturesFolder = new Java.IO.File(Environment
+                                        .GetExternalStoragePublicDirectory(Environment.DirectoryPictures).AbsolutePath);
+                                }
                             }
 
                             targetFolderPath = picturesFolder.AbsolutePath;
