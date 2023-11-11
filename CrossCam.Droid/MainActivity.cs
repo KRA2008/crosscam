@@ -457,7 +457,7 @@ namespace CrossCam.Droid
                     return true;
                 }
 
-                if (Build.VERSION.SdkInt < BuildVersionCodes.R &&
+                if (Build.VERSION.SdkInt < BuildVersionCodes.Q &&
                     ContextCompat.CheckSelfPermission(this, Manifest.Permission.WriteExternalStorage) !=
                     (int) Permission.Granted)
                 {
