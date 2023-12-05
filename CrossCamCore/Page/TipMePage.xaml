@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<page:BasePage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+               xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+               xmlns:customElement="clr-namespace:CrossCam.CustomElement"
+               xmlns:viewModel="clr-namespace:CrossCam.ViewModel"
+               xmlns:page="clr-namespace:CrossCam.Page"
+               x:Class="CrossCam.Page.TipMePage"
+               x:DataType="viewModel:TipMeViewModel"
+               Title="Tips Are Appreciated!">
+    <ScrollView>
+        <StackLayout>
+            <BoxView/>
+            <Label Text="CrossCam is free to use, ad-free, open-source, collects no personal information from you, and gives you full access to every feature. I love working on CrossCam but it takes a lot of time and effort. I make no money from CrossCam at all except tips people might decide to send me. If you like CrossCam and are able, please consider sending me a tip."
+                   Padding="15,15,15,15"/>
+            <BoxView/>
+            <Button Text="Ko-fi"
+                    Command="{Binding OpenLink}"
+                    CommandParameter="https://ko-fi.com/kra2008"/>
+            <BoxView/>
+            <Button Text="PayPal"
+                    Command="{Binding OpenLink}"
+                    CommandParameter="https://paypal.com/paypalme/KRA2008"/>
+            <BoxView/>
+            <Button Text="Patreon"
+                    Command="{Binding OpenLink}"
+                    CommandParameter="https://patreon.com/kra2008"/>
+            <BoxView/>
+            <Button Text="Venmo"
+                    Command="{Binding OpenLink}"
+                    CommandParameter="https://account.venmo.com/u/kra2008"/>
+            <BoxView/>
+            <customElement:FooterLabel/>
+        </StackLayout>
+    </ScrollView>
+</page:BasePage>

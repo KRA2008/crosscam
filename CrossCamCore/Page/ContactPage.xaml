@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<page:BasePage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+               xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+               xmlns:vm="clr-namespace:CrossCam.ViewModel"
+               xmlns:page="clr-namespace:CrossCam.Page"
+               xmlns:customElement="clr-namespace:CrossCam.CustomElement"
+               x:DataType="vm:ContactViewModel"
+               Title="Contact"
+               x:Class="CrossCam.Page.ContactPage">
+    <ContentPage.Content>
+        <ScrollView>
+            <StackLayout>
+                <BoxView/>
+                <Button Text="Email Me"
+                        Command="{Binding OpenLink}"
+                        CommandParameter="mailto:me@kra2008.com?subject=CrossCam%20feedback"/>
+                <BoxView/>
+                <Button Text="Test Pre-release Versions"
+                        Command="{Binding OpenLink}"
+                        CommandParameter="https://reddit.com/r/crosscam"/>
+                <BoxView/>
+                <Button Text="Add an Issue on Github"
+                        Command="{Binding OpenLink}"
+                        CommandParameter="https://github.com/KRA2008/crosscam/issues"/>
+                <BoxView/>
+                <Button Text="See the Code"
+                        Command="{Binding OpenLink}"
+                        CommandParameter="https://github.com/KRA2008/crosscam"/>
+                <BoxView/>
+                <Button Text="Privacy Policy"
+                        Command="{Binding OpenLink}"
+                        CommandParameter="http://kra2008.com/crosscam/privacypolicy.html"/>
+                <BoxView/>
+                <Button Text="About the Developer"
+                        Command="{Binding OpenLink}"
+                        CommandParameter="http://kra2008.com/"/>
+                <BoxView/>
+                <customElement:FooterLabel/>
+            </StackLayout>
+        </ScrollView>
+    </ContentPage.Content>
+</page:BasePage>

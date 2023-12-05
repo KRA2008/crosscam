@@ -1,0 +1,2142 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<page:BasePage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:CrossCam.ViewModel"
+             xmlns:ce="clr-namespace:CrossCam.CustomElement"
+             xmlns:vc="clr-namespace:CrossCam.ValueConverter"
+             xmlns:forms="clr-namespace:SkiaSharp.Views;assembly=SkiaSharp.Views.Maui.Controls"
+             xmlns:page="clr-namespace:CrossCam.Page" xmlns:controls="clr-namespace:SkiaSharp.Views.Maui.Controls;assembly=SkiaSharp.Views.Maui.Controls"
+             x:DataType="vm:CameraViewModel"
+			 x:Class="CrossCam.Page.CameraPage">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <x:Double x:Key="_topBarHeight">20</x:Double>
+            <Thickness x:Key="_topBarSmallButtonPadding" Left="10" Top="{StaticResource _topBarHeight}" Right="10" Bottom="10"/>
+            <Thickness x:Key="_topBarButtonPadding" Left="0" Top="{StaticResource _topBarHeight}" Right="0" Bottom="0"/>
+
+            <Thickness x:Key="_bottomPadding">10</Thickness>
+
+            <x:Double x:Key="_topMiddleButtonY">0.025</x:Double>
+            <x:Double x:Key="_secondMiddleButtonY">0.355</x:Double>
+
+            <x:Double x:Key="_cropLineThickness">3</x:Double>
+            <x:Double x:Key="_axisGuidesWidth">20</x:Double>
+            <x:Double x:Key="_halfMediumIconWidth">20</x:Double>
+            <x:Double x:Key="_mediumIconWidth">40</x:Double>
+            <x:Double x:Key="_doubleSmallerButtonWidth">100</x:Double>
+            <x:Double x:Key="_mediumIconWidthPlusCropLineThickness">43</x:Double>
+            <x:Double x:Key="_doubleMediumIconWidth">80</x:Double>
+            <x:Double x:Key="_mediumIconWidthPlusTopPadding">60</x:Double>
+            <x:Double x:Key="_smallerButtonWidthPlusTopPadding">60</x:Double>
+            <x:Double x:Key="_3dLeftLeft">0.1</x:Double>
+            <x:Double x:Key="_3dLeftMiddle">0.15</x:Double>
+            <x:Double x:Key="_3dLeftRight">0.3</x:Double>
+            <x:Double x:Key="_3dRightLeft">0.7</x:Double>
+            <x:Double x:Key="_3dRightMiddle">0.85</x:Double>
+            <x:Double x:Key="_3dRightRight">0.9</x:Double>
+            <x:Double x:Key="_editModeInnerButtons">0.8</x:Double>
+            <x:Double x:Key="_gearBoxWidth">35</x:Double>
+            <Rect x:Key="_finalSaveBounds" X="0.5" Y="1" Width="{StaticResource _giantIconWidth}" Height="{StaticResource _giantIconWidth}"/>
+            <Rect x:Key="_clearBounds" X="0.5" Y="{StaticResource _topMiddleButtonY}" Width="{StaticResource _largeIconWidth}" Height="{StaticResource _largeIconWidth}"/>
+            <Rect x:Key="_swipeBounds" X="0.5" Y="0" Width="150" Height="60"/>
+            <Rect x:Key="_swipeHintBounds" X="0" Y="{StaticResource _topMiddleButtonY}" Width="1" Height="{StaticResource _largeIconWidth}"/>
+            <Rect x:Key="_cropBounds" X="0.5" Y="0.6" Width="{StaticResource _mediumIconWidth}" Height="{StaticResource _mediumIconWidth}"/>
+            <Rect x:Key="_viewBounds" X="0.5" Y="{StaticResource _secondMiddleButtonY}" Width="{StaticResource _mediumIconWidth}" Height="{StaticResource _mediumIconWidth}"/>
+            <Rect x:Key="_alignBounds" X="0" Y="{StaticResource _topMiddleButtonY}" Width="1" Height="{StaticResource _mediumIconWidthPlusTopPadding}"/>
+            <Rect x:Key="_keystoneBounds" X="0" Y="{StaticResource _secondMiddleButtonY}" Width="1" Height="{StaticResource _mediumIconWidth}"/>
+            <Rect x:Key="_editBounds" X="0.5" Y="0.6" Width="{StaticResource _mediumIconWidth}" Height="{StaticResource _mediumIconWidth}"/>
+            <Rect x:Key="_loadBounds" X="0.5" Y="1" Width="{StaticResource _smallerButtonWidth}" Height="{StaticResource _smallerButtonWidth}"/>
+            <Rect x:Key="_retakeLeftLeftBounds" X="{StaticResource _3dLeftMiddle}" Y="1" Width="{StaticResource _smallerButtonWidth}" Height="{StaticResource _smallerButtonWidth}"/>
+            <Rect x:Key="_retakeLeftRightBounds" X="{StaticResource _3dLeftRight}" Y="1" Width="{StaticResource _smallerButtonWidth}" Height="{StaticResource _smallerButtonWidth}"/>
+            <Rect x:Key="_retakeRightLeftBounds" X="{StaticResource _3dRightLeft}" Y="1" Width="{StaticResource _smallerButtonWidth}" Height="{StaticResource _smallerButtonWidth}"/>
+            <Rect x:Key="_retakeRightRightBounds" X="{StaticResource _3dRightMiddle}" Y="1" Width="{StaticResource _smallerButtonWidth}" Height="{StaticResource _smallerButtonWidth}"/>
+            <Rect x:Key="_undoBounds" X="0.5" Y="{StaticResource _topMiddleButtonY}" Width="{StaticResource _mediumIconWidth}" Height="{StaticResource _mediumIconWidthPlusTopPadding}"/>
+            <Rect x:Key="_checkBounds" X="0.5" Y="1" Width="{StaticResource _largeIconWidth}" Height="{StaticResource _largeIconWidth}"/>
+            <Rect x:Key="_helpBounds" X="0" Y="0" Width="{StaticResource _doubleSmallerButtonWidth}" Height="{StaticResource _smallerButtonWidthPlusTopPadding}"/>
+            <Rect x:Key="_gearBounds" X="1" Y="{StaticResource _topBarHeight}" Width="{StaticResource _gearBoxWidth}" Height="1"/>
+
+            <Rect x:Key="_leftKeystoneAxis" X="{StaticResource _3dLeftMiddle}" Y="{StaticResource _editModeInnerButtons}" Width="{StaticResource _mediumIconWidth}" Height="{StaticResource _mediumIconWidth}"/>
+            <Rect x:Key="_rightKeystoneAxis" X="{StaticResource _3dRightMiddle}" Y="{StaticResource _editModeInnerButtons}" Width="{StaticResource _mediumIconWidth}" Height="{StaticResource _mediumIconWidth}"/>
+
+            <Rect x:Key="_leftRotate" X="{StaticResource _3dLeftLeft}" Y="{StaticResource _editModeInnerButtons}" Width="{StaticResource _mediumIconWidth}" Height="{StaticResource _mediumIconWidth}"/>
+            <Rect x:Key="_rightRotate" X="{StaticResource _3dRightLeft}" Y="{StaticResource _editModeInnerButtons}" Width="{StaticResource _mediumIconWidth}" Height="{StaticResource _mediumIconWidth}"/>
+
+            <Rect x:Key="_manualVerticalAlign" X="0.5" Y="{StaticResource _editModeInnerButtons}" Width="{StaticResource _mediumIconWidth}" Height="{StaticResource _mediumIconWidth}"/>
+
+            <Rect x:Key="_leftZoom" X="{StaticResource _3dLeftRight}" Y="{StaticResource _editModeInnerButtons}" Width="{StaticResource _mediumIconWidth}" Height="{StaticResource _mediumIconWidth}"/>
+            <Rect x:Key="_rightZoom" X="{StaticResource _3dRightRight}" Y="{StaticResource _editModeInnerButtons}" Width="{StaticResource _mediumIconWidth}" Height="{StaticResource _mediumIconWidth}"/>
+
+            <Thickness x:Key="_linePadding">0,10,0,10</Thickness>
+
+            <Style TargetType="Element"
+                   x:Key="_feedbackElement">
+                <Setter Property="AbsoluteLayout.LayoutFlags"
+                        Value="All"/>
+                <Setter Property="AbsoluteLayout.LayoutBounds"
+                        Value="1,1,1,0.5"/>
+            </Style>
+
+            <Style TargetType="Label"
+                   x:Key="_feedback"
+                   BaseResourceKey="_feedbackElement">
+                <Setter Property="FontAttributes"
+                        Value="Bold"/>
+                <Setter Property="FontSize"
+                        Value="24"/>
+                <Setter Property="HorizontalOptions"
+                        Value="CenterAndExpand"/>
+                <Setter Property="VerticalOptions"
+                        Value="CenterAndExpand"/>
+            </Style>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    <AbsoluteLayout x:Name="_baseLayout">
+        <Grid AbsoluteLayout.LayoutFlags="{Binding CanvasRectangleFlags}"
+              AbsoluteLayout.LayoutBounds="{Binding CanvasRectangle}"
+              ColumnSpacing="0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <ce:CameraModule x:Name="_cameraModule"
+                             Grid.Column="{Binding CameraColumn}"
+                             SwitchToContinuousFocusTrigger="{Binding SwitchToContinuousFocusTrigger}"
+                             IsTapToFocusEnabled="{Binding Settings.IsTapToFocusEnabled2}"
+                             IsLockToFirstEnabled="{Binding Settings.IsLockToFirstEnabled}"
+                             CaptureTrigger="{Binding CapturePictureTrigger}"
+                             IsVisible="{Binding WorkflowStage, Converter={StaticResource enumCompare}, ConverterParameter={x:Static vm:WorkflowStage.Capture}}"
+                             CapturedImage="{Binding LocalCapturedFrame}"
+                             CaptureSuccess="{Binding CaptureSuccess}"
+                             IsNothingCaptured="{Binding IsNothingCaptured}"
+                             PreviewBottomY="{Binding PreviewBottomY}"
+                             Error="{Binding Error}"
+                             WasSwipedTrigger="{Binding WasSwipedTrigger}"
+                             IsFocusCircleLocked="{Binding IsFocusCircleLocked}"
+                             PairOperator="{Binding PairOperatorBindable}"
+                             AvailableCameras="{Binding AvailableCameras}"
+                             ChosenCamera="{Binding ChosenCamera}"
+                             PreviewMode="{Binding Settings.Mode}"
+                             PreviewImage="{Binding LocalPreviewFrame}"
+                             AreBothSidesCaptured="{Binding AreBothSidesCaptured}"
+                             RestartPreviewTrigger="{Binding RestartPreviewTrigger}"
+                             StopPreviewTrigger="{Binding StopPreviewTrigger}"
+                             PreviewAspectRatio="{Binding PreviewAspectRatio}"/>
+            <controls:SKCanvasView x:Name="_canvas"
+                                Grid.Column="0"
+                                Grid.ColumnSpan="2"
+                                Touch="_canvas_OnTouch"
+                                EnableTouchEvents="True"
+                                PaintSurface="OnCanvasInvalidated"/>
+
+            <ce:CameraSuccessOutline Grid.Column="0"
+                                     Grid.ColumnSpan="2">
+                <ce:CameraSuccessOutline.Behaviors>
+                    <ce:FadeInAndOutBehavior Trigger="{Binding CaptureSuccessTrigger}"
+                                             InTimeMs="0"
+                                             OutTimeMs="250"
+                                             VisibleTimeMs="0"/>
+                </ce:CameraSuccessOutline.Behaviors>
+            </ce:CameraSuccessOutline>
+
+            <AbsoluteLayout x:Name="_leftReticleLayout"
+                            Grid.Column="0"
+                            InputTransparent="True"
+                            CascadeInputTransparent="False">
+                <Image x:Name="_leftReticle"
+                       AbsoluteLayout.LayoutFlags="None"
+                       AbsoluteLayout.LayoutBounds="0, 0, 0, 0"
+                       InputTransparent="True" 
+                       Source="squareOuter"
+                       IsVisible="{Binding ShouldDonutGuideBeVisible}"/>
+                <ContentView x:Name="_leftReticlePanner"
+                             AbsoluteLayout.LayoutFlags="None"
+                             AbsoluteLayout.LayoutBounds="0, 0, 0, 0"
+                             IsVisible="{Binding ShouldDonutGuideBeVisible}">
+                    <ContentView.GestureRecognizers>
+                        <PanGestureRecognizer PanUpdated="ReticlePanned"/>
+                    </ContentView.GestureRecognizers>
+                </ContentView>
+            </AbsoluteLayout>
+            <AbsoluteLayout x:Name="_rightReticleLayout"
+                            Grid.Column="1"
+                            InputTransparent="True"
+                            CascadeInputTransparent="False">
+                <Image x:Name="_rightReticle"
+                       AbsoluteLayout.LayoutFlags="None"
+                       AbsoluteLayout.LayoutBounds="0, 0, 0, 0"
+                       InputTransparent="True" 
+                       Source="squareOuter"
+                       IsVisible="{Binding ShouldDonutGuideBeVisible}"/>
+                <ContentView x:Name="_rightReticlePanner"
+                             AbsoluteLayout.LayoutFlags="None"
+                             AbsoluteLayout.LayoutBounds="0, 0, 0, 0"
+                             IsVisible="{Binding ShouldDonutGuideBeVisible}">
+                    <ContentView.GestureRecognizers>
+                        <PanGestureRecognizer PanUpdated="ReticlePanned"/>
+                    </ContentView.GestureRecognizers>
+                </ContentView>
+            </AbsoluteLayout>
+
+            <AbsoluteLayout IsVisible="{Binding WorkflowStage, Converter={StaticResource enumCompare}, ConverterParameter={x:Static vm:WorkflowStage.Capture}}"
+                            InputTransparent="True"
+                            Grid.Column="0"
+                            Grid.ColumnSpan="2">
+                <Image x:Name="_focusCircle"
+                       AbsoluteLayout.LayoutFlags="None"
+                       AbsoluteLayout.LayoutBounds="0,0,0,0"
+                       IsVisible="{Binding IsFocusCircleVisible}">
+                    <Image.Triggers>
+                        <DataTrigger TargetType="Image" 
+                                     Binding="{Binding IsFocusCircleLocked}"
+                                     Value="true">
+                            <Setter Property="Source"
+                                    Value="focusCircleGreen"/>
+                        </DataTrigger>
+                        <DataTrigger TargetType="Image" 
+                                     Binding="{Binding IsFocusCircleLocked}"
+                                     Value="false">
+                            <Setter Property="Source"
+                                    Value="focusCircle"/>
+                        </DataTrigger>
+                    </Image.Triggers>
+                </Image>
+            </AbsoluteLayout>
+        </Grid>
+
+        <Frame AbsoluteLayout.LayoutFlags="PositionProportional"
+               AbsoluteLayout.LayoutBounds="{Binding PairButtonPosition}"
+               Padding="{StaticResource _bottomPadding}"
+               IsVisible="{Binding ShouldPairButtonBeVisible}"
+               BackgroundColor="Transparent">
+            <Frame.Triggers>
+                <DataTrigger TargetType="Frame"
+                             Binding="{Binding PairOperatorBindable.PairStatus, Converter={StaticResource enumCompare}, ConverterParameter={x:Static vm:PairStatus.Disconnected}}"
+                             Value="true">
+                    <DataTrigger.Setters>
+                        <Setter Property="BorderColor"
+                                Value="Transparent"/>
+                    </DataTrigger.Setters>
+                </DataTrigger>
+                <DataTrigger TargetType="Frame"
+                             Binding="{Binding PairOperatorBindable.PairStatus, Converter={StaticResource enumCompare}, ConverterParameter={x:Static vm:PairStatus.Connecting}}"
+                             Value="true">
+                    <DataTrigger.Setters>
+                        <Setter Property="BorderColor"
+                                Value="Yellow"/>
+                    </DataTrigger.Setters>
+                </DataTrigger>
+                <DataTrigger TargetType="Frame"
+                             Binding="{Binding PairOperatorBindable.PairStatus, Converter={StaticResource enumCompare}, ConverterParameter={x:Static vm:PairStatus.Connected}}"
+                             Value="true">
+                    <DataTrigger.Setters>
+                        <Setter Property="BorderColor"
+                                Value="Green"/>
+                    </DataTrigger.Setters>
+                </DataTrigger>
+            </Frame.Triggers>
+            <AbsoluteLayout>
+                <StackLayout AbsoluteLayout.LayoutFlags="All"
+                             AbsoluteLayout.LayoutBounds="0,0,1,1">
+                    <StackLayout.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding PairCommand}"/>
+                    </StackLayout.GestureRecognizers>
+                    <Image Source="pair"
+                           InputTransparent="True"
+                           IsVisible="{Binding Settings.PairSettings.IsPairedPrimary, Converter={vc:NullableBooleanHasValueInvertConverter}}"/>
+                    <Image Source="pairPrimary"
+                           InputTransparent="True"
+                           IsVisible="{Binding Settings.PairSettings.IsPairedPrimary, Converter={StaticResource nullableBoolean}}"/>
+                    <Image Source="pairSecondary"
+                           InputTransparent="True"
+                           IsVisible="{Binding Settings.PairSettings.IsPairedPrimary, Converter={vc:NullableBooleanInvertConverter}}"/>
+                </StackLayout>
+                <ActivityIndicator AbsoluteLayout.LayoutFlags="All"
+                                   AbsoluteLayout.LayoutBounds="0,0,1,1"
+                                   IsVisible="{Binding PairOperatorBindable.PairStatus, Converter={StaticResource enumCompare}, ConverterParameter={x:Static vm:PairStatus.Connecting}}"
+                                   IsRunning="{Binding PairOperatorBindable.PairStatus, Converter={StaticResource enumCompare}, ConverterParameter={x:Static vm:PairStatus.Connecting}}"
+                                   InputTransparent="True"
+                                   Color="White"/>
+            </AbsoluteLayout>
+        </Frame>
+
+        <ContentView AbsoluteLayout.LayoutFlags="PositionProportional"
+                     AbsoluteLayout.LayoutBounds="{StaticResource _retakeLeftLeftBounds}"
+                     Padding="{StaticResource _bottomPadding}"
+                     IsVisible="{Binding ShouldLeftLeftRetakeBeVisible}">
+            <ContentView.GestureRecognizers>
+                <TapGestureRecognizer Command="{Binding RetakeLeftCommand}"/>
+            </ContentView.GestureRecognizers>
+            <Image Source="cancel"
+                   InputTransparent="True"/>
+        </ContentView>
+        <ContentView AbsoluteLayout.LayoutFlags="PositionProportional"
+                     AbsoluteLayout.LayoutBounds="{StaticResource _retakeLeftRightBounds}"
+                     Padding="{StaticResource _bottomPadding}"
+                     IsVisible="{Binding ShouldLeftRightRetakeBeVisible}">
+            <ContentView.GestureRecognizers>
+                <TapGestureRecognizer Command="{Binding RetakeLeftCommand}"/>
+            </ContentView.GestureRecognizers>
+            <Image Source="cancel"
+                   InputTransparent="True"/>
+        </ContentView>
+        <ContentView AbsoluteLayout.LayoutFlags="PositionProportional"
+                     AbsoluteLayout.LayoutBounds="{StaticResource _retakeRightLeftBounds}"
+                     Padding="{StaticResource _bottomPadding}"
+                     IsVisible="{Binding ShouldRightLeftRetakeBeVisible}">
+            <ContentView.GestureRecognizers>
+                <TapGestureRecognizer Command="{Binding RetakeRightCommand}"/>
+            </ContentView.GestureRecognizers>
+            <Image Source="cancel"
+                   InputTransparent="True"/>
+        </ContentView>
+        <ContentView AbsoluteLayout.LayoutFlags="PositionProportional"
+                     AbsoluteLayout.LayoutBounds="{StaticResource _retakeRightRightBounds}"
+                     Padding="{StaticResource _bottomPadding}"
+                     IsVisible="{Binding ShouldRightRightRetakeBeVisible}">
+            <ContentView.GestureRecognizers>
+                <TapGestureRecognizer Command="{Binding RetakeRightCommand}"/>
+            </ContentView.GestureRecognizers>
+            <Image Source="cancel"
+                   InputTransparent="True"/>
+        </ContentView>
+
+        <ContentView AbsoluteLayout.LayoutFlags="PositionProportional"
+                     AbsoluteLayout.LayoutBounds="{StaticResource _retakeLeftRightBounds}"
+                     Padding="{StaticResource _bottomPadding}"
+                     IsVisible="{Binding ShouldLeftLoadBeVisible}">
+            <ContentView.GestureRecognizers>
+                <TapGestureRecognizer Command="{Binding LoadPhotoCommand}"/>
+            </ContentView.GestureRecognizers>
+            <Image Source="loadImage"
+                   InputTransparent="True"/>
+        </ContentView>
+        <ContentView AbsoluteLayout.LayoutFlags="PositionProportional"
+                     AbsoluteLayout.LayoutBounds="{StaticResource _loadBounds}"
+                     Padding="{StaticResource _bottomPadding}"
+                     IsVisible="{Binding ShouldCenterLoadBeVisible}">
+            <ContentView.GestureRecognizers>
+                <TapGestureRecognizer Command="{Binding LoadPhotoCommand}"/>
+            </ContentView.GestureRecognizers>
+            <Image Source="loadImage"
+                   InputTransparent="True"/>
+        </ContentView>
+        <ContentView AbsoluteLayout.LayoutFlags="PositionProportional"
+                     AbsoluteLayout.LayoutBounds="{StaticResource _retakeRightLeftBounds}"
+                     Padding="{StaticResource _bottomPadding}"
+                     IsVisible="{Binding ShouldRightLoadBeVisible}">
+            <ContentView.GestureRecognizers>
+                <TapGestureRecognizer Command="{Binding LoadPhotoCommand}"/>
+            </ContentView.GestureRecognizers>
+            <Image Source="loadImage"
+                   InputTransparent="True"/>
+        </ContentView>
+
+        <AbsoluteLayout x:Name="_horizontalLevelWhole"
+                        AbsoluteLayout.LayoutFlags="XProportional"
+                        InputTransparent="True"
+                        IsVisible="{Binding ShouldRollGuideBeVisible}">
+            <AbsoluteLayout.LayoutBounds>
+                <Rect X="0" Y="0" Width="0" Height="0"/>
+            </AbsoluteLayout.LayoutBounds>
+            <Image x:Name="_horizontalLevelBubble"
+                   AbsoluteLayout.LayoutFlags="HeightProportional,PositionProportional"
+                   AbsoluteLayout.LayoutBounds="0.5,0,15,1"/>
+            <Image x:Name="_horizontalLevelOutside"
+                   AbsoluteLayout.LayoutFlags="All" 
+                   AbsoluteLayout.LayoutBounds="0,0,1,1"/>
+        </AbsoluteLayout>
+
+        <StackLayout AbsoluteLayout.LayoutFlags="PositionProportional"
+                     AbsoluteLayout.LayoutBounds="{StaticResource _swipeBounds}"
+                     IsVisible="{Binding ShouldSwapSidesBeVisible}">
+            <StackLayout.GestureRecognizers>
+                <TapGestureRecognizer Command="{Binding SwapSidesCommand}"/>
+                <SwipeGestureRecognizer Command="{Binding SwapSidesCommand}"
+                                        Direction="Left,Right"
+                                        Threshold="50"/>
+            </StackLayout.GestureRecognizers>
+            <Image Source="swap"
+                   HorizontalOptions="Center"/>
+            <Label Text="(or swipe)"
+                   HorizontalTextAlignment="Center">
+                <Label.Triggers>
+                    <DataTrigger TargetType="Label"
+                                 Binding="{Binding Settings.Mode, Converter={StaticResource enumCompare}, ConverterParameter={x:Static vm:DrawMode.Cardboard}}"
+                                 Value="True">
+                        <Setter Property="Text"
+                                Value="(or tip)"/>
+                    </DataTrigger>
+                </Label.Triggers>
+            </Label>
+        </StackLayout>
+        <ContentView AbsoluteLayout.LayoutFlags="PositionProportional"
+                     AbsoluteLayout.LayoutBounds="{Binding CaptureButtonPosition}"
+                     Padding="{StaticResource _bottomPadding}"
+                     IsVisible="{Binding ShouldCaptureButtonBeVisible}">
+            <ContentView.GestureRecognizers>
+                <TapGestureRecognizer Command="{Binding CapturePictureCommand}"/>
+            </ContentView.GestureRecognizers>
+            <Image Source="aperture"/>
+        </ContentView>
+        <BoxView AbsoluteLayout.LayoutFlags="PositionProportional,HeightProportional"
+                 AbsoluteLayout.LayoutBounds="0.5,0,2,1"
+                 Color="White"
+                 InputTransparent="true"
+                 IsVisible="False">
+            <BoxView.Triggers>
+                <MultiTrigger TargetType="BoxView">
+                    <MultiTrigger.Conditions>
+                        <BindingCondition Binding="{Binding Settings.Mode, Converter={StaticResource enumCompare}, ConverterParameter={x:Static vm:DrawMode.Cardboard}}"
+                                          Value="True"/>
+                        <BindingCondition Binding="{Binding IsFullscreenToggle}"
+                                          Value="False"/>
+                    </MultiTrigger.Conditions>
+                    <MultiTrigger.Setters>
+                        <Setter Property="IsVisible"
+                                Value="True"/>
+                    </MultiTrigger.Setters>
+                </MultiTrigger>
+            </BoxView.Triggers>
+        </BoxView>
+        <Grid AbsoluteLayout.LayoutFlags="PositionProportional,WidthProportional"
+              RowSpacing="0"
+              ColumnSpacing="0"
+              IsVisible="{Binding ShouldSaveCapturesButtonBeVisible}">
+            <AbsoluteLayout.LayoutBounds>
+                <Rect X="0" Y="1" Width="1" Height="15"/>
+            </AbsoluteLayout.LayoutBounds>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <StackLayout Grid.Column="1"
+                         Orientation="Horizontal"
+                         Spacing="0">
+                <Image Source="crossed"
+                       IsVisible="{Binding Settings.SaveForCrossView}"/>
+                <Image Source="parallel"
+                       IsVisible="{Binding Settings.SaveForParallel}"/>
+                <Image Source="saveBoth"
+                       IsVisible="{Binding Settings.SaveSidesSeparately}"/>
+                <Image Source="saveOne"
+                       IsVisible="{Binding Settings.SaveRedundantFirstSide}"/>
+                <Image Source="anaglyph"
+                       IsVisible="{Binding Settings.SaveForRedCyanAnaglyph}"/>
+                <Image Source="grayscaleAnaglyph"
+                       IsVisible="{Binding Settings.SaveForGrayscaleAnaglyph}"/>
+                <Image Source="triple"
+                       IsVisible="{Binding Settings.SaveForTriple}"/>
+                <Image Source="quad"
+                       IsVisible="{Binding Settings.SaveForQuad}"/>
+                <Label Text="VR"
+                       IsVisible="{Binding Settings.SaveForCardboard}"/>
+                <Label Text="{Binding Settings.ResolutionProportion, StringFormat=' {0}%'}"
+                       FontSize="15"/>
+            </StackLayout>
+        </Grid>
+        <ContentView AbsoluteLayout.LayoutFlags="PositionProportional"
+                     AbsoluteLayout.LayoutBounds="{StaticResource _clearBounds}"
+                     Padding="{StaticResource _topBarButtonPadding}"
+                     IsVisible="{Binding WorkflowStage, Converter={StaticResource enumCompare}, ConverterParameter={x:Static vm:WorkflowStage.Final}}">
+            <ContentView.GestureRecognizers>
+                <TapGestureRecognizer Command="{Binding ClearCapturesCommand}"/>
+            </ContentView.GestureRecognizers>
+            <ContentView.Triggers>
+                <DataTrigger TargetType="ContentView"
+                             Binding="{Binding Settings.Mode, Converter={StaticResource enumCompare}, ConverterParameter={x:Static vm:DrawMode.Cardboard}}"
+                             Value="True">
+                    <Setter Property="AbsoluteLayout.LayoutBounds"
+                            Value="{StaticResource _finalSaveBounds}"/>
+                </DataTrigger>
+            </ContentView.Triggers>
+            <Image Source="clearBox"/>
+        </ContentView>
+        <Image Source="eye"
+               AbsoluteLayout.LayoutFlags="PositionProportional"
+               AbsoluteLayout.LayoutBounds="{StaticResource _viewBounds}"
+               IsVisible="{Binding ShouldViewButtonBeVisible}">
+            <Image.GestureRecognizers>
+                <TapGestureRecognizer Command="{Binding ToggleViewModeCommand}"/>
+            </Image.GestureRecognizers>
+        </Image>
+        <Image Source="edit"
+               AbsoluteLayout.LayoutFlags="PositionProportional"
+               AbsoluteLayout.LayoutBounds="{StaticResource _editBounds}"
+               IsVisible="{Binding WorkflowStage, Converter={StaticResource enumCompare}, ConverterParameter={x:Static vm:WorkflowStage.Final}}">
+            <Image.GestureRecognizers>
+                <TapGestureRecognizer Command="{Binding GoToModeCommand}"
+                                      CommandParameter="{x:Static vm:WorkflowStage.Edits}"/>
+            </Image.GestureRecognizers>
+        </Image>
+        <ContentView AbsoluteLayout.LayoutFlags="PositionProportional"
+                     AbsoluteLayout.LayoutBounds="{StaticResource _finalSaveBounds}"
+                     Padding="{StaticResource _bottomPadding}"
+                     IsVisible="{Binding ShouldSaveCapturesButtonBeVisible}">
+            <ContentView.GestureRecognizers>
+                <TapGestureRecognizer Command="{Binding SaveCapturesCommand}"/>
+            </ContentView.GestureRecognizers>
+            <ContentView.Triggers>
+                <DataTrigger TargetType="ContentView"
+                             Binding="{Binding Settings.Mode, Converter={StaticResource enumCompare}, ConverterParameter={x:Static vm:DrawMode.Cardboard}}"
+                             Value="True">
+                    <Setter Property="AbsoluteLayout.LayoutBounds"
+                            Value="{StaticResource _clearBounds}"/>
+                </DataTrigger>
+            </ContentView.Triggers>
+            <Image Source="checkBox"/>
+        </ContentView>
+
+        <Grid AbsoluteLayout.LayoutFlags="PositionProportional,WidthProportional"
+              AbsoluteLayout.LayoutBounds="{StaticResource _alignBounds}"
+              Padding="{StaticResource _topBarButtonPadding}"
+              IsVisible="{Binding WorkflowStage, Converter={StaticResource enumCompare}, ConverterParameter={x:Static vm:WorkflowStage.Edits}}">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Grid.GestureRecognizers>
+                <TapGestureRecognizer Command="{Binding GoToModeCommand}"
+                                      CommandParameter="{x:Static vm:WorkflowStage.ManualAlign}"/>
+            </Grid.GestureRecognizers>
+            <StackLayout Grid.Column="1"
+                         Spacing="0"
+                         Orientation="Horizontal">
+                <Image Source="rotate"/>
+                <Label Text="/"
+                       FontAttributes="Bold"
+                       FontSize="Large"
+                       VerticalTextAlignment="Center"/>
+                <Image Source="vertAlign"/>
+            </StackLayout>
+        </Grid>
+        <Grid AbsoluteLayout.LayoutFlags="PositionProportional,WidthProportional"
+              AbsoluteLayout.LayoutBounds="{StaticResource _keystoneBounds}"
+              IsVisible="{Binding WorkflowStage, Converter={StaticResource enumCompare}, ConverterParameter={x:Static vm:WorkflowStage.Edits}}">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Grid.GestureRecognizers>
+                <TapGestureRecognizer Command="{Binding GoToModeCommand}"
+                                      CommandParameter="{x:Static vm:WorkflowStage.Keystone}"/>
+            </Grid.GestureRecognizers>
+            <StackLayout Grid.Column="1"
+                         Spacing="0"
+                         Orientation="Horizontal">
+                <Image Source="keystoneLeft">
+                    <Image.Triggers>
+                        <DataTrigger TargetType="Image"
+                                     Binding="{Binding Settings.Mode, Converter={StaticResource enumCompare}, ConverterParameter={x:Static vm:DrawMode.Parallel}}"
+                                     Value="True">
+                            <Setter Property="Source"
+                                    Value="keystoneRight"/>
+                        </DataTrigger>
+                        <DataTrigger TargetType="Image"
+                                     Binding="{Binding Settings.Mode, Converter={StaticResource enumCompare}, ConverterParameter={x:Static vm:DrawMode.Cardboard}}"
+                                     Value="True">
+                            <Setter Property="Source"
+                                    Value="keystoneRight"/>
+                        </DataTrigger>
+                    </Image.Triggers>
+                </Image>
+                <Image Source="keystoneRight">
+                    <Image.Triggers>
+                        <DataTrigger TargetType="Image"
+                                     Binding="{Binding Settings.Mode, Converter={StaticResource enumCompare}, ConverterParameter={x:Static vm:DrawMode.Parallel}}"
+                                     Value="True">
+                            <Setter Property="Source"
+                                    Value="keystoneLeft"/>
+                        </DataTrigger>
+                        <DataTrigger TargetType="Image"
+                                     Binding="{Binding Settings.Mode, Converter={StaticResource enumCompare}, ConverterParameter={x:Static vm:DrawMode.Cardboard}}"
+                                     Value="True">
+                            <Setter Property="Source"
+                                    Value="keystoneLeft"/>
+                        </DataTrigger>
+                    </Image.Triggers>
+                </Image>
+            </StackLayout>
+        </Grid>
+        <Image Source="scissor"
+               AbsoluteLayout.LayoutFlags="PositionProportional"
+               AbsoluteLayout.LayoutBounds="{StaticResource _cropBounds}"
+               IsVisible="{Binding WorkflowStage, Converter={StaticResource enumCompare}, ConverterParameter={x:Static vm:WorkflowStage.Edits}}">
+            <Image.GestureRecognizers>
+                <TapGestureRecognizer Command="{Binding GoToModeCommand}"
+                                      CommandParameter="{x:Static vm:WorkflowStage.Crop}"/>
+            </Image.GestureRecognizers>
+        </Image>
+
+        <ContentView AbsoluteLayout.LayoutFlags="PositionProportional"
+                     AbsoluteLayout.LayoutBounds="{StaticResource _undoBounds}"
+                     Padding="{StaticResource _topBarButtonPadding}"
+                     IsVisible="{Binding ShouldClearEditButtonBeVisible}">
+            <ContentView.GestureRecognizers>
+                <TapGestureRecognizer Command="{Binding ClearEditCommand}"/>
+            </ContentView.GestureRecognizers>
+            <Image Source="undo"
+                   InputTransparent="True"/>
+        </ContentView>
+        <ContentView AbsoluteLayout.LayoutFlags="PositionProportional"
+                     AbsoluteLayout.LayoutBounds="{StaticResource _checkBounds}"
+                     Padding="{StaticResource _bottomPadding}"
+                     IsVisible="{Binding WorkflowStage, Converter={StaticResource enumCompare}, ConverterParameter={x:Static vm:WorkflowStage.Edits}}">
+            <ContentView.GestureRecognizers>
+                <TapGestureRecognizer Command="{Binding SaveEditCommand}"/>
+            </ContentView.GestureRecognizers>
+            <Image Source="check"/>
+        </ContentView>
+
+        <StackLayout AbsoluteLayout.LayoutFlags="PositionProportional,WidthProportional"
+                     Orientation="Horizontal"
+                     Padding="10"
+                     IsVisible="{Binding WorkflowStage, Converter={StaticResource enumCompare}, ConverterParameter={x:Static vm:WorkflowStage.Keystone}}">
+            <AbsoluteLayout.LayoutBounds>
+                <Rect X="0" Y="1" Width="1" Height="{StaticResource _largeIconWidth}"/>
+            </AbsoluteLayout.LayoutBounds>
+            <Slider Value="{Binding Edits.Keystone, Mode=TwoWay}"
+                    Maximum="{Binding MaxKeystone}"
+                    Minimum="{Binding MinKeystone}"
+                    HorizontalOptions="FillAndExpand"
+                    DragStartedCommand="{Binding SlidingStartedCommand}"
+                    DragCompletedCommand="{Binding SlidingFinishedCommand}"/>
+            <Image Source="check">
+                <Image.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding SaveEditCommand}"/>
+                </Image.GestureRecognizers>
+            </Image>
+        </StackLayout>
+
+        <Grid AbsoluteLayout.LayoutFlags="PositionProportional"
+              AbsoluteLayout.LayoutBounds="{StaticResource _leftRotate}"
+              ColumnSpacing="0"
+              RowSpacing="0"
+              IsVisible="False">
+            <Grid.Triggers>
+                <MultiTrigger TargetType="Grid">
+                    <MultiTrigger.Conditions>
+                        <BindingCondition Binding="{Binding WorkflowStage, Converter={StaticResource enumCompare}, ConverterParameter={x:Static vm:WorkflowStage.ManualAlign}}"
+                                          Value="True"/>
+                        <BindingCondition Binding="{Binding IsSlidingHappening}"
+                                          Value="False"/>
+                    </MultiTrigger.Conditions>
+                    <MultiTrigger.Setters>
+                        <Setter Property="IsVisible"
+                                Value="True"/>
+                    </MultiTrigger.Setters>
+                </MultiTrigger>
+            </Grid.Triggers>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="1"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="1"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="1"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="1"/>
+            </Grid.RowDefinitions>
+            <Grid.GestureRecognizers>
+                <TapGestureRecognizer Command="{Binding SetManualAlignMode}"
+                                      CommandParameter="{x:Static vm:ManualAlignMode.RotateLeft}"/>
+            </Grid.GestureRecognizers>
+            <BoxView Grid.Row="0" 
+                     Grid.Column="0"
+                     Grid.ColumnSpan="3"
+                     Color="White"
+                     IsVisible="{Binding ManualAlignMode, Converter={StaticResource enumCompare}, ConverterParameter={x:Static vm:ManualAlignMode.RotateLeft}}"/>
+            <BoxView Grid.Row="0" 
+                     Grid.Column="0"
+                     Grid.RowSpan="3"
+                     Color="White"
+                     IsVisible="{Binding ManualAlignMode, Converter={StaticResource enumCompare}, ConverterParameter={x:Static vm:ManualAlignMode.RotateLeft}}"/>
+            <Image Grid.Row="1"
+                   Grid.Column="1"
+                   Source="rotate"/>
+            <BoxView Grid.Row="2" 
+                     Grid.Column="0"
+                     Grid.ColumnSpan="3"
+                     Color="White"
+                     IsVisible="{Binding ManualAlignMode, Converter={StaticResource enumCompare}, ConverterParameter={x:Static vm:ManualAlignMode.RotateLeft}}"/>
+            <BoxView Grid.Row="0" 
+                     Grid.Column="2"
+                     Grid.RowSpan="3"
+                     Color="White"
+                     IsVisible="{Binding ManualAlignMode, Converter={StaticResource enumCompare}, ConverterParameter={x:Static vm:ManualAlignMode.RotateLeft}}"/>
+        </Grid>
+        <Grid AbsoluteLayout.LayoutFlags="PositionProportional"
+              AbsoluteLayout.LayoutBounds="{StaticResource _leftZoom}"
+              ColumnSpacing="0"
+              RowSpacing="0"
+              IsVisible="False">
+            <Grid.Triggers>
+                <MultiTrigger TargetType="Grid">
+                    <MultiTrigger.Conditions>
+                        <BindingCondition Binding="{Binding WorkflowStage, Converter={StaticResource enumCompare}, ConverterParameter={x:Static vm:WorkflowStage.ManualAlign}}"
+                                          Value="True"/>
+                        <BindingCondition Binding="{Binding IsSlidingHappening}"
+                                          Value="False"/>
+                    </MultiTrigger.Conditions>
+                    <MultiTrigger.Setters>
+                        <Setter Property="IsVisible"
+                                Value="True"/>
+                    </MultiTrigger.Setters>
+                </MultiTrigger>
+            </Grid.Triggers>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="1"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="1"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="1"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="1"/>
+            </Grid.RowDefinitions>
+            <Grid.GestureRecognizers>
+                <TapGestureRecognizer Command="{Binding SetManualAlignMode}"
+                                      CommandParameter="{x:Static vm:ManualAlignMode.ZoomLeft}"/>
+            </Grid.GestureRecognizers>
+            <BoxView Grid.Row="0" 
+                     Grid.Column="0"
+                     Grid.ColumnSpan="3"
+                     Color="White"
+                     IsVisible="{Binding ManualAlignMode, Converter={StaticResource enumCompare}, ConverterParameter={x:Static vm:ManualAlignMode.ZoomLeft}}"/>
+            <BoxView Grid.Row="0" 
+                     Grid.Column="0"
+                     Grid.RowSpan="3"
+                     Color="White"
+                     IsVisible="{Binding ManualAlignMode, Converter={StaticResource enumCompare}, ConverterParameter={x:Static vm:ManualAlignMode.ZoomLeft}}"/>
+            <Image Grid.Row="1"
+                   Grid.Column="1"
+                   Source="zoom"/>
+            <BoxView Grid.Row="2" 
+                     Grid.Column="0"
+                     Grid.ColumnSpan="3"
+                     Color="White"
+                     IsVisible="{Binding ManualAlignMode, Converter={StaticResource enumCompare}, ConverterParameter={x:Static vm:ManualAlignMode.ZoomLeft}}"/>
+            <BoxView Grid.Row="0" 
+                     Grid.Column="2"
+                     Grid.RowSpan="3"
+                     Color="White"
+                     IsVisible="{Binding ManualAlignMode, Converter={StaticResource enumCompare}, ConverterParameter={x:Static vm:ManualAlignMode.ZoomLeft}}"/>
+        </Grid>
+        <Grid AbsoluteLayout.LayoutFlags="PositionProportional"
+              AbsoluteLayout.LayoutBounds="{StaticResource _manualVerticalAlign}"
+              ColumnSpacing="0"
+              RowSpacing="0"
+              IsVisible="False">
+            <Grid.Triggers>
+                <MultiTrigger TargetType="Grid">
+                    <MultiTrigger.Conditions>
+                        <BindingCondition Binding="{Binding WorkflowStage, Converter={StaticResource enumCompare}, ConverterParameter={x:Static vm:WorkflowStage.ManualAlign}}"
+                                          Value="True"/>
+                        <BindingCondition Binding="{Binding IsSlidingHappening}"
+                                          Value="False"/>
+                    </MultiTrigger.Conditions>
+                    <MultiTrigger.Setters>
+                        <Setter Property="IsVisible"
+                                Value="True"/>
+                    </MultiTrigger.Setters>
+                </MultiTrigger>
+            </Grid.Triggers>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="1"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="1"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="1"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="1"/>
+            </Grid.RowDefinitions>
+            <Grid.GestureRecognizers>
+                <TapGestureRecognizer Command="{Binding SetManualAlignMode}"
+                                      CommandParameter="{x:Static vm:ManualAlignMode.VerticalAlign}"/>
+            </Grid.GestureRecognizers>
+            <BoxView Grid.Row="0" 
+                     Grid.Column="0"
+                     Grid.ColumnSpan="3"
+                     Color="White"
+                     IsVisible="{Binding ManualAlignMode, Converter={StaticResource enumCompare}, ConverterParameter={x:Static vm:ManualAlignMode.VerticalAlign}}"/>
+            <BoxView Grid.Row="0" 
+                     Grid.Column="0"
+                     Grid.RowSpan="3"
+                     Color="White"
+                     IsVisible="{Binding ManualAlignMode, Converter={StaticResource enumCompare}, ConverterParameter={x:Static vm:ManualAlignMode.VerticalAlign}}"/>
+            <Image Grid.Row="1"
+                   Grid.Column="1"
+                   Source="vertAlign"/>
+            <BoxView Grid.Row="2" 
+                     Grid.Column="0"
+                     Grid.ColumnSpan="3"
+                     Color="White"
+                     IsVisible="{Binding ManualAlignMode, Converter={StaticResource enumCompare}, ConverterParameter={x:Static vm:ManualAlignMode.VerticalAlign}}"/>
+            <BoxView Grid.Row="0" 
+                     Grid.Column="2"
+                     Grid.RowSpan="3"
+                     Color="White"
+                     IsVisible="{Binding ManualAlignMode, Converter={StaticResource enumCompare}, ConverterParameter={x:Static vm:ManualAlignMode.VerticalAlign}}"/>
+        </Grid>
+        <Grid AbsoluteLayout.LayoutFlags="PositionProportional"
+              AbsoluteLayout.LayoutBounds="{StaticResource _rightRotate}"
+              ColumnSpacing="0"
+              RowSpacing="0"
+              IsVisible="False">
+            <Grid.Triggers>
+                <MultiTrigger TargetType="Grid">
+                    <MultiTrigger.Conditions>
+                        <BindingCondition Binding="{Binding WorkflowStage, Converter={StaticResource enumCompare}, ConverterParameter={x:Static vm:WorkflowStage.ManualAlign}}"
+                                          Value="True"/>
+                        <BindingCondition Binding="{Binding IsSlidingHappening}"
+                                          Value="False"/>
+                    </MultiTrigger.Conditions>
+                    <MultiTrigger.Setters>
+                        <Setter Property="IsVisible"
+                                Value="True"/>
+                    </MultiTrigger.Setters>
+                </MultiTrigger>
+            </Grid.Triggers>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="1"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="1"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="1"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="1"/>
+            </Grid.RowDefinitions>
+            <Grid.GestureRecognizers>
+                <TapGestureRecognizer Command="{Binding SetManualAlignMode}"
+                                      CommandParameter="{x:Static vm:ManualAlignMode.RotateRight}"/>
+            </Grid.GestureRecognizers>
+            <BoxView Grid.Row="0" 
+                     Grid.Column="0"
+                     Grid.ColumnSpan="3"
+                     Color="White"
+                     IsVisible="{Binding ManualAlignMode, Converter={StaticResource enumCompare}, ConverterParameter={x:Static vm:ManualAlignMode.RotateRight}}"/>
+            <BoxView Grid.Row="0" 
+                     Grid.Column="0"
+                     Grid.RowSpan="3"
+                     Color="White"
+                     IsVisible="{Binding ManualAlignMode, Converter={StaticResource enumCompare}, ConverterParameter={x:Static vm:ManualAlignMode.RotateRight}}"/>
+            <Image Grid.Row="1"
+                   Grid.Column="1"
+                   Source="rotate"/>
+            <BoxView Grid.Row="2" 
+                     Grid.Column="0"
+                     Grid.ColumnSpan="3"
+                     Color="White"
+                     IsVisible="{Binding ManualAlignMode, Converter={StaticResource enumCompare}, ConverterParameter={x:Static vm:ManualAlignMode.RotateRight}}"/>
+            <BoxView Grid.Row="0" 
+                     Grid.Column="2"
+                     Grid.RowSpan="3"
+                     Color="White"
+                     IsVisible="{Binding ManualAlignMode, Converter={StaticResource enumCompare}, ConverterParameter={x:Static vm:ManualAlignMode.RotateRight}}"/>
+        </Grid>
+        <Grid AbsoluteLayout.LayoutFlags="PositionProportional"
+              AbsoluteLayout.LayoutBounds="{StaticResource _rightZoom}"
+              ColumnSpacing="0"
+              RowSpacing="0"
+              IsVisible="False">
+            <Grid.Triggers>
+                <MultiTrigger TargetType="Grid">
+                    <MultiTrigger.Conditions>
+                        <BindingCondition Binding="{Binding WorkflowStage, Converter={StaticResource enumCompare}, ConverterParameter={x:Static vm:WorkflowStage.ManualAlign}}"
+                                          Value="True"/>
+                        <BindingCondition Binding="{Binding IsSlidingHappening}"
+                                          Value="False"/>
+                    </MultiTrigger.Conditions>
+                    <MultiTrigger.Setters>
+                        <Setter Property="IsVisible"
+                                Value="True"/>
+                    </MultiTrigger.Setters>
+                </MultiTrigger>
+            </Grid.Triggers>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="1"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="1"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="1"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="1"/>
+            </Grid.RowDefinitions>
+            <Grid.GestureRecognizers>
+                <TapGestureRecognizer Command="{Binding SetManualAlignMode}"
+                                      CommandParameter="{x:Static vm:ManualAlignMode.ZoomRight}"/>
+            </Grid.GestureRecognizers>
+            <BoxView Grid.Row="0" 
+                     Grid.Column="0"
+                     Grid.ColumnSpan="3"
+                     Color="White"
+                     IsVisible="{Binding ManualAlignMode, Converter={StaticResource enumCompare}, ConverterParameter={x:Static vm:ManualAlignMode.ZoomRight}}"/>
+            <BoxView Grid.Row="0" 
+                     Grid.Column="0"
+                     Grid.RowSpan="3"
+                     Color="White"
+                     IsVisible="{Binding ManualAlignMode, Converter={StaticResource enumCompare}, ConverterParameter={x:Static vm:ManualAlignMode.ZoomRight}}"/>
+            <Image Grid.Row="1"
+                   Grid.Column="1"
+                   Source="zoom"/>
+            <BoxView Grid.Row="2" 
+                     Grid.Column="0"
+                     Grid.ColumnSpan="3"
+                     Color="White"
+                     IsVisible="{Binding ManualAlignMode, Converter={StaticResource enumCompare}, ConverterParameter={x:Static vm:ManualAlignMode.ZoomRight}}"/>
+            <BoxView Grid.Row="0" 
+                     Grid.Column="2"
+                     Grid.RowSpan="3"
+                     Color="White"
+                     IsVisible="{Binding ManualAlignMode, Converter={StaticResource enumCompare}, ConverterParameter={x:Static vm:ManualAlignMode.ZoomRight}}"/>
+        </Grid>
+
+        <StackLayout AbsoluteLayout.LayoutFlags="PositionProportional,WidthProportional"
+                     Orientation="Horizontal"
+                     Padding="10"
+                     IsVisible="{Binding WorkflowStage, Converter={StaticResource enumCompare}, ConverterParameter={x:Static vm:WorkflowStage.ManualAlign}}">
+            <AbsoluteLayout.LayoutBounds>
+                <Rect X="0" Y="1" Width="1" Height="{StaticResource _largeIconWidth}"/>
+            </AbsoluteLayout.LayoutBounds>
+            <Slider Value="{Binding Edits.LeftRotation, Mode=TwoWay}"
+                    Maximum="{Binding RotationMax}"
+                    Minimum="{Binding RotationMin}"
+                    HorizontalOptions="FillAndExpand"
+                    DragStartedCommand="{Binding SlidingStartedCommand}"
+                    DragCompletedCommand="{Binding SlidingFinishedCommand}"
+                    IsVisible="{Binding ManualAlignMode, Converter={StaticResource enumCompare}, ConverterParameter={x:Static vm:ManualAlignMode.RotateLeft}}"/>
+            <Slider Value="{Binding Edits.RightRotation, Mode=TwoWay}"
+                    Maximum="{Binding RotationMax}"
+                    Minimum="{Binding RotationMin}"
+                    HorizontalOptions="FillAndExpand"
+                    DragStartedCommand="{Binding SlidingStartedCommand}"
+                    DragCompletedCommand="{Binding SlidingFinishedCommand}"
+                    IsVisible="{Binding ManualAlignMode, Converter={StaticResource enumCompare}, ConverterParameter={x:Static vm:ManualAlignMode.RotateRight}}"/>
+            <Slider Value="{Binding Edits.LeftZoom, Mode=TwoWay}"
+                    Maximum="{Binding ZoomMax}"
+                    Minimum="0"
+                    HorizontalOptions="FillAndExpand"
+                    DragStartedCommand="{Binding SlidingStartedCommand}"
+                    DragCompletedCommand="{Binding SlidingFinishedCommand}"
+                    IsVisible="{Binding ManualAlignMode, Converter={StaticResource enumCompare}, ConverterParameter={x:Static vm:ManualAlignMode.ZoomLeft}}"/>
+            <Slider Value="{Binding Edits.RightZoom, Mode=TwoWay}"
+                    Maximum="{Binding ZoomMax}"
+                    Minimum="0"
+                    HorizontalOptions="FillAndExpand"
+                    DragStartedCommand="{Binding SlidingStartedCommand}"
+                    DragCompletedCommand="{Binding SlidingFinishedCommand}"
+                    IsVisible="{Binding ManualAlignMode, Converter={StaticResource enumCompare}, ConverterParameter={x:Static vm:ManualAlignMode.ZoomRight}}"/>
+            <Slider Value="{Binding Edits.VerticalAlignment, Mode=TwoWay}"
+                    Maximum="{Binding VerticalAlignmentMax}"
+                    Minimum="{Binding VerticalAlignmentMin}"
+                    HorizontalOptions="FillAndExpand"
+                    DragStartedCommand="{Binding SlidingStartedCommand}"
+                    DragCompletedCommand="{Binding SlidingFinishedCommand}"
+                    IsVisible="{Binding ManualAlignMode, Converter={StaticResource enumCompare}, ConverterParameter={x:Static vm:ManualAlignMode.VerticalAlign}}"/>
+            <Image Source="check">
+                <Image.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding SaveEditCommand}"/>
+                </Image.GestureRecognizers>
+            </Image>
+        </StackLayout>
+
+
+        <Grid AbsoluteLayout.LayoutFlags="PositionProportional"
+              AbsoluteLayout.LayoutBounds="{StaticResource _leftKeystoneAxis}"
+              ColumnSpacing="0"
+              RowSpacing="0"
+              IsVisible="False">
+            <Grid.Triggers>
+                <MultiTrigger TargetType="Grid">
+                    <MultiTrigger.Conditions>
+                        <BindingCondition Binding="{Binding WorkflowStage, Converter={StaticResource enumCompare}, ConverterParameter={x:Static vm:WorkflowStage.FovCorrection}}"
+                                          Value="True"/>
+                        <BindingCondition Binding="{Binding IsSlidingHappening}"
+                                          Value="False"/>
+                    </MultiTrigger.Conditions>
+                    <MultiTrigger.Setters>
+                        <Setter Property="IsVisible"
+                                Value="True"/>
+                    </MultiTrigger.Setters>
+                </MultiTrigger>
+            </Grid.Triggers>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="1"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="1"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="1"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="1"/>
+            </Grid.RowDefinitions>
+            <Grid.GestureRecognizers>
+                <TapGestureRecognizer Command="{Binding SetFovCorrectionMode}"
+                                      CommandParameter="{x:Static vm:FovCorrectionMode.LeftZoom}"/>
+            </Grid.GestureRecognizers>
+            <BoxView Grid.Row="0" 
+                     Grid.Column="0"
+                     Grid.ColumnSpan="3"
+                     Color="White"
+                     IsVisible="{Binding FovCorrectionMode, Converter={StaticResource enumCompare}, ConverterParameter={x:Static vm:FovCorrectionMode.LeftZoom}}"/>
+            <BoxView Grid.Row="0" 
+                     Grid.Column="0"
+                     Grid.RowSpan="3"
+                     Color="White"
+                     IsVisible="{Binding FovCorrectionMode, Converter={StaticResource enumCompare}, ConverterParameter={x:Static vm:FovCorrectionMode.LeftZoom}}"/>
+            <Image Grid.Row="1"
+                   Grid.Column="1"
+                   Source="zoom"/>
+            <BoxView Grid.Row="2" 
+                     Grid.Column="0"
+                     Grid.ColumnSpan="3"
+                     Color="White"
+                     IsVisible="{Binding FovCorrectionMode, Converter={StaticResource enumCompare}, ConverterParameter={x:Static vm:FovCorrectionMode.LeftZoom}}"/>
+            <BoxView Grid.Row="0" 
+                     Grid.Column="2"
+                     Grid.RowSpan="3"
+                     Color="White"
+                     IsVisible="{Binding FovCorrectionMode, Converter={StaticResource enumCompare}, ConverterParameter={x:Static vm:FovCorrectionMode.LeftZoom}}"/>
+        </Grid>
+        <Grid AbsoluteLayout.LayoutFlags="PositionProportional"
+              AbsoluteLayout.LayoutBounds="{StaticResource _manualVerticalAlign}"
+              ColumnSpacing="0"
+              RowSpacing="0"
+              IsVisible="False">
+            <Grid.Triggers>
+                <MultiTrigger TargetType="Grid">
+                    <MultiTrigger.Conditions>
+                        <BindingCondition Binding="{Binding WorkflowStage, Converter={StaticResource enumCompare}, ConverterParameter={x:Static vm:WorkflowStage.FovCorrection}}"
+                                          Value="True"/>
+                        <BindingCondition Binding="{Binding IsSlidingHappening}"
+                                          Value="False"/>
+                    </MultiTrigger.Conditions>
+                    <MultiTrigger.Setters>
+                        <Setter Property="IsVisible"
+                                Value="True"/>
+                    </MultiTrigger.Setters>
+                </MultiTrigger>
+            </Grid.Triggers>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="1"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="1"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="1"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="1"/>
+            </Grid.RowDefinitions>
+            <Grid.GestureRecognizers>
+                <TapGestureRecognizer Command="{Binding SetFovCorrectionMode}"
+                                      CommandParameter="{x:Static vm:FovCorrectionMode.Vertical}"/>
+            </Grid.GestureRecognizers>
+            <BoxView Grid.Row="0" 
+                     Grid.Column="0"
+                     Grid.ColumnSpan="3"
+                     Color="White"
+                     IsVisible="{Binding FovCorrectionMode, Converter={StaticResource enumCompare}, ConverterParameter={x:Static vm:FovCorrectionMode.Vertical}}"/>
+            <BoxView Grid.Row="0" 
+                     Grid.Column="0"
+                     Grid.RowSpan="3"
+                     Color="White"
+                     IsVisible="{Binding FovCorrectionMode, Converter={StaticResource enumCompare}, ConverterParameter={x:Static vm:FovCorrectionMode.Vertical}}"/>
+            <Image Grid.Row="1"
+                   Grid.Column="1"
+                   Source="vertAlign"/>
+            <BoxView Grid.Row="2" 
+                     Grid.Column="0"
+                     Grid.ColumnSpan="3"
+                     Color="White"
+                     IsVisible="{Binding FovCorrectionMode, Converter={StaticResource enumCompare}, ConverterParameter={x:Static vm:FovCorrectionMode.Vertical}}"/>
+            <BoxView Grid.Row="0" 
+                     Grid.Column="2"
+                     Grid.RowSpan="3"
+                     Color="White"
+                     IsVisible="{Binding FovCorrectionMode, Converter={StaticResource enumCompare}, ConverterParameter={x:Static vm:FovCorrectionMode.Vertical}}"/>
+        </Grid>
+        <Grid AbsoluteLayout.LayoutFlags="PositionProportional"
+              AbsoluteLayout.LayoutBounds="{StaticResource _rightKeystoneAxis}"
+              ColumnSpacing="0"
+              RowSpacing="0"
+              IsVisible="False">
+            <Grid.Triggers>
+                <MultiTrigger TargetType="Grid">
+                    <MultiTrigger.Conditions>
+                        <BindingCondition Binding="{Binding WorkflowStage, Converter={StaticResource enumCompare}, ConverterParameter={x:Static vm:WorkflowStage.FovCorrection}}"
+                                          Value="True"/>
+                        <BindingCondition Binding="{Binding IsSlidingHappening}"
+                                          Value="False"/>
+                    </MultiTrigger.Conditions>
+                    <MultiTrigger.Setters>
+                        <Setter Property="IsVisible"
+                                Value="True"/>
+                    </MultiTrigger.Setters>
+                </MultiTrigger>
+            </Grid.Triggers>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="1"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="1"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="1"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="1"/>
+            </Grid.RowDefinitions>
+            <Grid.GestureRecognizers>
+                <TapGestureRecognizer Command="{Binding SetFovCorrectionMode}"
+                                      CommandParameter="{x:Static vm:FovCorrectionMode.RightZoom}"/>
+            </Grid.GestureRecognizers>
+            <BoxView Grid.Row="0" 
+                     Grid.Column="0"
+                     Grid.ColumnSpan="3"
+                     Color="White"
+                     IsVisible="{Binding FovCorrectionMode, Converter={StaticResource enumCompare}, ConverterParameter={x:Static vm:FovCorrectionMode.RightZoom}}"/>
+            <BoxView Grid.Row="0" 
+                     Grid.Column="0"
+                     Grid.RowSpan="3"
+                     Color="White"
+                     IsVisible="{Binding FovCorrectionMode, Converter={StaticResource enumCompare}, ConverterParameter={x:Static vm:FovCorrectionMode.RightZoom}}"/>
+            <Image Grid.Row="1"
+                   Grid.Column="1"
+                   Source="zoom"/>
+            <BoxView Grid.Row="2" 
+                     Grid.Column="0"
+                     Grid.ColumnSpan="3"
+                     Color="White"
+                     IsVisible="{Binding FovCorrectionMode, Converter={StaticResource enumCompare}, ConverterParameter={x:Static vm:FovCorrectionMode.RightZoom}}"/>
+            <BoxView Grid.Row="0" 
+                     Grid.Column="2"
+                     Grid.RowSpan="3"
+                     Color="White"
+                     IsVisible="{Binding FovCorrectionMode, Converter={StaticResource enumCompare}, ConverterParameter={x:Static vm:FovCorrectionMode.RightZoom}}"/>
+        </Grid>
+
+
+        <StackLayout AbsoluteLayout.LayoutFlags="PositionProportional,WidthProportional"
+                     Orientation="Horizontal"
+                     Padding="10"
+                     IsVisible="{Binding WorkflowStage, Converter={StaticResource enumCompare}, ConverterParameter={x:Static vm:WorkflowStage.FovCorrection}}">
+            <AbsoluteLayout.LayoutBounds>
+                <Rect X="0" Y="1" Width="1" Height="{StaticResource _largeIconWidth}"/>
+            </AbsoluteLayout.LayoutBounds>
+            <Slider Value="{Binding Edits.FovLeftCorrection, Mode=TwoWay}"
+                    Maximum="{Binding ZoomMax}"
+                    Minimum="0"
+                    HorizontalOptions="FillAndExpand"
+                    DragStartedCommand="{Binding SlidingStartedCommand}"
+                    DragCompletedCommand="{Binding SlidingFinishedCommand}"
+                    IsVisible="{Binding FovCorrectionMode, Converter={StaticResource enumCompare}, ConverterParameter={x:Static vm:FovCorrectionMode.LeftZoom}}"/>
+            <Slider Value="{Binding Edits.FovRightCorrection, Mode=TwoWay}"
+                    Maximum="{Binding ZoomMax}"
+                    Minimum="0"
+                    HorizontalOptions="FillAndExpand"
+                    DragStartedCommand="{Binding SlidingStartedCommand}"
+                    DragCompletedCommand="{Binding SlidingFinishedCommand}"
+                    IsVisible="{Binding FovCorrectionMode, Converter={StaticResource enumCompare}, ConverterParameter={x:Static vm:FovCorrectionMode.RightZoom}}"/>
+            <Slider Value="{Binding Edits.VerticalAlignment, Mode=TwoWay}"
+                    Maximum="{Binding VerticalAlignmentMax}"
+                    Minimum="{Binding VerticalAlignmentMin}"
+                    HorizontalOptions="FillAndExpand"
+                    DragStartedCommand="{Binding SlidingStartedCommand}"
+                    DragCompletedCommand="{Binding SlidingFinishedCommand}"
+                    IsVisible="{Binding FovCorrectionMode, Converter={StaticResource enumCompare}, ConverterParameter={x:Static vm:FovCorrectionMode.Vertical}}"/>
+            <Image Source="check">
+                <Image.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding SaveEditCommand}"/>
+                </Image.GestureRecognizers>
+            </Image>
+        </StackLayout>
+
+
+        <Grid AbsoluteLayout.LayoutFlags="PositionProportional,WidthProportional"
+              RowSpacing="0"
+              ColumnSpacing="0"
+              IsVisible="False">
+            <Grid.Triggers>
+                <MultiTrigger TargetType="Grid">
+                    <MultiTrigger.Conditions>
+                        <BindingCondition Binding="{Binding WorkflowStage, Converter={StaticResource enumCompare}, ConverterParameter={x:Static vm:WorkflowStage.Crop}}"
+                                          Value="True"/>
+                        <BindingCondition Binding="{Binding IsSlidingHappening}"
+                                          Value="False"/>
+                    </MultiTrigger.Conditions>
+                    <MultiTrigger.Setters>
+                        <Setter Property="IsVisible"
+                                Value="True"/>
+                    </MultiTrigger.Setters>
+                </MultiTrigger>
+            </Grid.Triggers>
+            <AbsoluteLayout.LayoutBounds>
+                <Rect X="0" Y="{StaticResource _editModeInnerButtons}" Width="1" Height="50"/>
+            </AbsoluteLayout.LayoutBounds>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="1"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="1"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="1"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="1"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="1"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="1"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="1"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="1"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="1"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="1"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="1"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="1"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="1"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="1"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+            <BoxView Grid.Column="1"
+                     Grid.Row="0"
+                     Grid.RowSpan="3"
+                     Color="White"
+                     IsVisible="{Binding CropMode, Converter={StaticResource enumCompare}, ConverterParameter={x:Static vm:CropMode.Left}}">
+            </BoxView>
+            <BoxView Grid.Column="1"
+                     Grid.Row="0"
+                     Grid.ColumnSpan="3"
+                     Color="White"
+                     IsVisible="{Binding CropMode, Converter={StaticResource enumCompare}, ConverterParameter={x:Static vm:CropMode.Left}}">
+            </BoxView>
+            <BoxView Grid.Column="3"
+                     Grid.Row="0"
+                     Grid.RowSpan="3"
+                     Color="White"
+                     IsVisible="{Binding CropMode, Converter={StaticResource enumCompare}, ConverterParameter={x:Static vm:CropMode.Left}}">
+            </BoxView>
+            <BoxView Grid.Column="1"
+                     Grid.Row="2"
+                     Grid.ColumnSpan="3"
+                     Color="White"
+                     IsVisible="{Binding CropMode, Converter={StaticResource enumCompare}, ConverterParameter={x:Static vm:CropMode.Left}}">
+            </BoxView>
+            <Image Grid.Column="2"
+                   Grid.Row="1"
+                   Source="leftCrop"
+                   HeightRequest="{StaticResource _halfMediumIconWidth}">
+                <Image.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding SetCropMode}"
+                                          CommandParameter="{x:Static vm:CropMode.Left}"/>
+                </Image.GestureRecognizers>
+            </Image>
+
+            <BoxView Grid.Column="5"
+                     Grid.Row="0"
+                     Grid.RowSpan="3"
+                     Color="White"
+                     IsVisible="{Binding CropMode, Converter={StaticResource enumCompare}, ConverterParameter={x:Static vm:CropMode.Right}}">
+            </BoxView>
+            <BoxView Grid.Column="5"
+                     Grid.Row="0"
+                     Grid.ColumnSpan="3"
+                     Color="White"
+                     IsVisible="{Binding CropMode, Converter={StaticResource enumCompare}, ConverterParameter={x:Static vm:CropMode.Right}}">
+            </BoxView>
+            <BoxView Grid.Column="7"
+                     Grid.Row="0"
+                     Grid.RowSpan="3"
+                     Color="White"
+                     IsVisible="{Binding CropMode, Converter={StaticResource enumCompare}, ConverterParameter={x:Static vm:CropMode.Right}}">
+            </BoxView>
+            <BoxView Grid.Column="5"
+                     Grid.Row="2"
+                     Grid.ColumnSpan="3"
+                     Color="White"
+                     IsVisible="{Binding CropMode, Converter={StaticResource enumCompare}, ConverterParameter={x:Static vm:CropMode.Right}}">
+            </BoxView>
+            <Image Grid.Column="6"
+                   Grid.Row="1"
+                   Source="rightCrop"
+                   HeightRequest="{StaticResource _halfMediumIconWidth}">
+                <Image.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding SetCropMode}"
+                                          CommandParameter="{x:Static vm:CropMode.Right}"/>
+                </Image.GestureRecognizers>
+            </Image>
+
+            <BoxView Grid.Column="9"
+                     Grid.Row="0"
+                     Grid.RowSpan="3"
+                     Color="White"
+                     IsVisible="{Binding CropMode, Converter={StaticResource enumCompare}, ConverterParameter={x:Static vm:CropMode.Inside}}">
+            </BoxView>
+            <BoxView Grid.Column="9"
+                     Grid.Row="0"
+                     Grid.ColumnSpan="3"
+                     Color="White"
+                     IsVisible="{Binding CropMode, Converter={StaticResource enumCompare}, ConverterParameter={x:Static vm:CropMode.Inside}}">
+            </BoxView>
+            <BoxView Grid.Column="11"
+                     Grid.Row="0"
+                     Grid.RowSpan="3"
+                     Color="White"
+                     IsVisible="{Binding CropMode, Converter={StaticResource enumCompare}, ConverterParameter={x:Static vm:CropMode.Inside}}">
+            </BoxView>
+            <BoxView Grid.Column="9"
+                     Grid.Row="2"
+                     Grid.ColumnSpan="3"
+                     Color="White"
+                     IsVisible="{Binding CropMode, Converter={StaticResource enumCompare}, ConverterParameter={x:Static vm:CropMode.Inside}}">
+            </BoxView>
+            <Image Grid.Column="10"
+                   Grid.Row="1"
+                   Source="insideCrop"
+                   HeightRequest="{StaticResource _halfMediumIconWidth}">
+                <Image.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding SetCropMode}"
+                                          CommandParameter="{x:Static vm:CropMode.Inside}"/>
+                </Image.GestureRecognizers>
+            </Image>
+
+            <BoxView Grid.Column="13"
+                     Grid.Row="0"
+                     Grid.RowSpan="3"
+                     Color="White"
+                     IsVisible="{Binding CropMode, Converter={StaticResource enumCompare}, ConverterParameter={x:Static vm:CropMode.Outside}}">
+            </BoxView>
+            <BoxView Grid.Column="13"
+                     Grid.Row="0"
+                     Grid.ColumnSpan="3"
+                     Color="White"
+                     IsVisible="{Binding CropMode, Converter={StaticResource enumCompare}, ConverterParameter={x:Static vm:CropMode.Outside}}">
+            </BoxView>
+            <BoxView Grid.Column="15"
+                     Grid.Row="0"
+                     Grid.RowSpan="3"
+                     Color="White"
+                     IsVisible="{Binding CropMode, Converter={StaticResource enumCompare}, ConverterParameter={x:Static vm:CropMode.Outside}}">
+            </BoxView>
+            <BoxView Grid.Column="13"
+                     Grid.Row="2"
+                     Grid.ColumnSpan="3"
+                     Color="White"
+                     IsVisible="{Binding CropMode, Converter={StaticResource enumCompare}, ConverterParameter={x:Static vm:CropMode.Outside}}">
+            </BoxView>
+            <Image Grid.Column="14"
+                   Grid.Row="1"
+                   Source="outsideCrop"
+                   HeightRequest="{StaticResource _halfMediumIconWidth}">
+                <Image.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding SetCropMode}"
+                                          CommandParameter="{x:Static vm:CropMode.Outside}"/>
+                </Image.GestureRecognizers>
+            </Image>
+
+            <BoxView Grid.Column="17"
+                     Grid.Row="0"
+                     Grid.RowSpan="3"
+                     Color="White"
+                     IsVisible="{Binding CropMode, Converter={StaticResource enumCompare}, ConverterParameter={x:Static vm:CropMode.Top}}">
+            </BoxView>
+            <BoxView Grid.Column="17"
+                     Grid.Row="0"
+                     Grid.ColumnSpan="3"
+                     Color="White"
+                     IsVisible="{Binding CropMode, Converter={StaticResource enumCompare}, ConverterParameter={x:Static vm:CropMode.Top}}">
+            </BoxView>
+            <BoxView Grid.Column="19"
+                     Grid.Row="0"
+                     Grid.RowSpan="3"
+                     Color="White"
+                     IsVisible="{Binding CropMode, Converter={StaticResource enumCompare}, ConverterParameter={x:Static vm:CropMode.Top}}">
+            </BoxView>
+            <BoxView Grid.Column="17"
+                     Grid.Row="2"
+                     Grid.ColumnSpan="3"
+                     Color="White"
+                     IsVisible="{Binding CropMode, Converter={StaticResource enumCompare}, ConverterParameter={x:Static vm:CropMode.Top}}">
+            </BoxView>
+            <Image Grid.Column="18"
+                   Grid.Row="1"
+                   Source="topCrop"
+                   HeightRequest="{StaticResource _halfMediumIconWidth}">
+                <Image.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding SetCropMode}"
+                                          CommandParameter="{x:Static vm:CropMode.Top}"/>
+                </Image.GestureRecognizers>
+            </Image>
+
+            <BoxView Grid.Column="21"
+                     Grid.Row="0"
+                     Grid.RowSpan="3"
+                     Color="White"
+                     IsVisible="{Binding CropMode, Converter={StaticResource enumCompare}, ConverterParameter={x:Static vm:CropMode.Bottom}}">
+            </BoxView>
+            <BoxView Grid.Column="21"
+                     Grid.Row="0"
+                     Grid.ColumnSpan="3"
+                     Color="White"
+                     IsVisible="{Binding CropMode, Converter={StaticResource enumCompare}, ConverterParameter={x:Static vm:CropMode.Bottom}}">
+            </BoxView>
+            <BoxView Grid.Column="23"
+                     Grid.Row="0"
+                     Grid.RowSpan="3"
+                     Color="White"
+                     IsVisible="{Binding CropMode, Converter={StaticResource enumCompare}, ConverterParameter={x:Static vm:CropMode.Bottom}}">
+            </BoxView>
+            <BoxView Grid.Column="21"
+                     Grid.Row="2"
+                     Grid.ColumnSpan="3"
+                     Color="White"
+                     IsVisible="{Binding CropMode, Converter={StaticResource enumCompare}, ConverterParameter={x:Static vm:CropMode.Bottom}}">
+            </BoxView>
+            <Image Grid.Column="22"
+                   Grid.Row="1"
+                   Source="bottomCrop"
+                   HeightRequest="{StaticResource _halfMediumIconWidth}">
+                <Image.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding SetCropMode}"
+                                          CommandParameter="{x:Static vm:CropMode.Bottom}"/>
+                </Image.GestureRecognizers>
+            </Image>
+        </Grid>
+
+        <StackLayout AbsoluteLayout.LayoutFlags="PositionProportional,WidthProportional"
+                     Orientation="Horizontal"
+                     Padding="10"
+                     IsVisible="{Binding WorkflowStage, Converter={StaticResource enumCompare}, ConverterParameter={x:Static vm:WorkflowStage.Crop}}">
+            <AbsoluteLayout.LayoutBounds>
+                <Rect X="0" Y="1" Width="1" Height="{StaticResource _largeIconWidth}"/>
+            </AbsoluteLayout.LayoutBounds>
+            <Slider Value="{Binding Edits.InsideCrop, Mode=TwoWay}"
+                    Maximum="{Binding SideCropMax}"
+                    Minimum="0"
+                    HorizontalOptions="FillAndExpand"
+                    DragStartedCommand="{Binding SlidingStartedCommand}"
+                    DragCompletedCommand="{Binding SlidingFinishedCommand}"
+                    IsVisible="{Binding CropMode, Converter={StaticResource enumCompare}, ConverterParameter={x:Static vm:CropMode.Inside}}"/>
+            <Slider Value="{Binding Edits.OutsideCrop, Mode=TwoWay}"
+                    Maximum="{Binding SideCropMax}"
+                    Minimum="0"
+                    HorizontalOptions="FillAndExpand"
+                    DragStartedCommand="{Binding SlidingStartedCommand}"
+                    DragCompletedCommand="{Binding SlidingFinishedCommand}"
+                    IsVisible="{Binding CropMode, Converter={StaticResource enumCompare}, ConverterParameter={x:Static vm:CropMode.Outside}}"/>
+            <Slider Value="{Binding Edits.TopCrop, Mode=TwoWay}"
+                    Maximum="{Binding TopOrBottomCropMax}"
+                    Minimum="0"
+                    HorizontalOptions="FillAndExpand"
+                    DragStartedCommand="{Binding SlidingStartedCommand}"
+                    DragCompletedCommand="{Binding SlidingFinishedCommand}"
+                    IsVisible="{Binding CropMode, Converter={StaticResource enumCompare}, ConverterParameter={x:Static vm:CropMode.Top}}"/>
+            <Slider Value="{Binding Edits.BottomCrop, Mode=TwoWay}"
+                    Maximum="{Binding TopOrBottomCropMax}"
+                    Minimum="0"
+                    HorizontalOptions="FillAndExpand"
+                    DragStartedCommand="{Binding SlidingStartedCommand}"
+                    DragCompletedCommand="{Binding SlidingFinishedCommand}"
+                    IsVisible="{Binding CropMode, Converter={StaticResource enumCompare}, ConverterParameter={x:Static vm:CropMode.Bottom}}"/>
+            <Slider Value="{Binding Edits.LeftCrop, Mode=TwoWay}"
+                    Maximum="{Binding SideCropMax}"
+                    Minimum="0"
+                    HorizontalOptions="FillAndExpand"
+                    DragStartedCommand="{Binding SlidingStartedCommand}"
+                    DragCompletedCommand="{Binding SlidingFinishedCommand}"
+                    IsVisible="{Binding CropMode, Converter={StaticResource enumCompare}, ConverterParameter={x:Static vm:CropMode.Left}}"/>
+            <Slider Value="{Binding Edits.RightCrop, Mode=TwoWay}"
+                    Maximum="{Binding SideCropMax}"
+                    Minimum="0"
+                    HorizontalOptions="FillAndExpand"
+                    DragStartedCommand="{Binding SlidingStartedCommand}"
+                    DragCompletedCommand="{Binding SlidingFinishedCommand}"
+                    IsVisible="{Binding CropMode, Converter={StaticResource enumCompare}, ConverterParameter={x:Static vm:CropMode.Right}}"/>
+            <Image Source="check">
+                <Image.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding SaveEditCommand}"/>
+                </Image.GestureRecognizers>
+            </Image>
+        </StackLayout>
+
+        <StackLayout AbsoluteLayout.LayoutFlags="PositionProportional"
+                     AbsoluteLayout.LayoutBounds="{StaticResource _helpBounds}"
+                     Orientation="Horizontal"
+                     IsVisible="False">
+            <StackLayout.Triggers>
+                <MultiTrigger TargetType="StackLayout">
+                    <MultiTrigger.Conditions>
+                        <BindingCondition Binding="{Binding ShouldSettingsAndHelpBeVisible}"
+                                          Value="True"/>
+                        <BindingCondition Binding="{Binding IsSlidingHappening}"
+                                          Value="False"/>
+                    </MultiTrigger.Conditions>
+                    <MultiTrigger.Setters>
+                        <Setter Property="IsVisible"
+                                Value="True"/>
+                    </MultiTrigger.Setters>
+                </MultiTrigger>
+            </StackLayout.Triggers>
+            <ContentView Padding="{StaticResource _topBarSmallButtonPadding}">
+                <ContentView.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding NavigateToHamburgerPageCommand}"/>
+                </ContentView.GestureRecognizers>
+                <Image Source="menu"
+                       InputTransparent="True">
+                </Image>
+            </ContentView>
+        </StackLayout>
+        <StackLayout AbsoluteLayout.LayoutFlags="XProportional,HeightProportional"
+                     AbsoluteLayout.LayoutBounds="{StaticResource _gearBounds}"
+                     x:Name="_cameraSettingsBox"
+                     IsVisible="False"
+                     Orientation="Vertical"
+                     InputTransparent="True"
+                     CascadeInputTransparent="False">
+            <StackLayout.Triggers>
+                <MultiTrigger TargetType="StackLayout">
+                    <MultiTrigger.Conditions>
+                        <BindingCondition Binding="{Binding ShouldSettingsAndHelpBeVisible}"
+                                          Value="True"/>
+                        <BindingCondition Binding="{Binding IsSlidingHappening}"
+                                          Value="False"/>
+                    </MultiTrigger.Conditions>
+                    <MultiTrigger.Setters>
+                        <Setter Property="IsVisible"
+                                Value="True"/>
+                    </MultiTrigger.Setters>
+                </MultiTrigger>
+            </StackLayout.Triggers>
+            <ContentView HorizontalOptions="EndAndExpand">
+                <ContentView.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding NavigateToSettingsCommand}"/>
+                </ContentView.GestureRecognizers>
+                <Image Source="gear"
+                       InputTransparent="True"/>
+            </ContentView>
+            <ContentView IsVisible="{Binding WorkflowStage, Converter={StaticResource enumCompare}, ConverterParameter={x:Static vm:WorkflowStage.Capture}}"
+                         HorizontalOptions="EndAndExpand">
+                <ContentView.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding FlipCameraCommand}"/>
+                </ContentView.GestureRecognizers>
+                <Image Source="cameraFlip"
+                       InputTransparent="True"/>
+            </ContentView>
+            <ContentView HorizontalOptions="EndAndExpand"
+                         IsVisible="{Binding IsFullscreenToggleVisible}">
+                <ContentView.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding ToggleFullscreen}"/>
+                </ContentView.GestureRecognizers>
+                <Image Source="ghost"
+                       InputTransparent="True">
+                    <Image.Triggers>
+                        <DataTrigger TargetType="Image"
+                                     Binding="{Binding IsFullscreenToggle}"
+                                     Value="True">
+                            <Setter Property="Opacity"
+                                    Value="1"/>
+                        </DataTrigger>
+                        <DataTrigger TargetType="Image"
+                                     Binding="{Binding IsFullscreenToggle}"
+                                     Value="False">
+                            <Setter Property="Opacity"
+                                    Value="0.25"/>
+                        </DataTrigger>
+                    </Image.Triggers>
+                </Image>
+            </ContentView>
+            <StackLayout HorizontalOptions="EndAndExpand"
+                         Orientation="Vertical"
+                         Spacing="0"
+                         IsVisible="False">
+                <StackLayout.Triggers>
+                    <DataTrigger TargetType="StackLayout"
+                                 Binding="{Binding WorkflowStage, Converter={vc:EnumCompareConverter}, ConverterParameter={x:Static vm:WorkflowStage.Final}}"
+                                 Value="True">
+                        <Setter Property="IsVisible"
+                                Value="True"/>
+                    </DataTrigger>
+                    <DataTrigger TargetType="StackLayout"
+                                 Binding="{Binding WorkflowStage, Converter={vc:EnumCompareConverter}, ConverterParameter={x:Static vm:WorkflowStage.Final}}"
+                                 Value="False">
+                        <Setter Property="IsVisible"
+                                Value="False"/>
+                    </DataTrigger>
+                </StackLayout.Triggers>
+                <StackLayout.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding ToggleAutoalignCommand}"/>
+                </StackLayout.GestureRecognizers>
+                <Image Source="smartToy"
+                       InputTransparent="True"
+                       WidthRequest="{StaticResource _gearBoxWidth}">
+                    <Image.Triggers>
+                        <DataTrigger TargetType="Image"
+                                     Binding="{Binding Settings.AlignmentSettings.IsAutomaticAlignmentOn}"
+                                     Value="False">
+                            <Setter Property="Opacity"
+                                    Value="0.25"/>
+                        </DataTrigger>
+                        <DataTrigger TargetType="Image"
+                                     Binding="{Binding Settings.AlignmentSettings.IsAutomaticAlignmentOn}"
+                                     Value="True">
+                            <Setter Property="Opacity"
+                                    Value="1"/>
+                        </DataTrigger>
+                    </Image.Triggers>
+                </Image>
+                <Label Text="{Binding AlignmentConfidence}"
+                       HorizontalOptions="CenterAndExpand"
+                       InputTransparent="True">
+                    <Label.Triggers>
+                        <DataTrigger TargetType="Label"
+                                     Binding="{Binding Settings.AlignmentSettings.IsAutomaticAlignmentOn}"
+                                     Value="False">
+                            <Setter Property="Opacity"
+                                    Value="0.25"/>
+                        </DataTrigger>
+                        <DataTrigger TargetType="Label"
+                                     Binding="{Binding Settings.AlignmentSettings.IsAutomaticAlignmentOn}"
+                                     Value="True">
+                            <Setter Property="Opacity"
+                                    Value="1"/>
+                        </DataTrigger>
+                    </Label.Triggers>
+                </Label>
+            </StackLayout>
+        </StackLayout>
+
+        <Label AbsoluteLayout.LayoutFlags="All"
+               AbsoluteLayout.LayoutBounds="0.5,0.85,0.75,0.1"
+               HorizontalTextAlignment="Center"
+               VerticalTextAlignment="Center"
+               InputTransparent="True"
+               Text="(flip to landscape for a larger view)"
+               IsVisible="{Binding ShouldPortraitViewModeWarningBeVisible}"/>
+
+        <Label Style="{StaticResource _feedback}"
+               Text="{Binding SavedSuccessMessage}">
+            <Label.Behaviors>
+                <ce:FadeInAndOutBehavior Trigger="{Binding SaveSuccessFadeTrigger}"
+                                         InTimeMs="250"
+                                         OutTimeMs="250"
+                                         VisibleTimeMs="2000"/>
+            </Label.Behaviors>
+        </Label>
+        <Label Style="{StaticResource _feedback}"
+               Text="Save failed. :(">
+            <Label.Behaviors>
+                <ce:FadeInAndOutBehavior Trigger="{Binding SaveFailFadeTrigger}"
+                                         InTimeMs="250"
+                                         OutTimeMs="250"
+                                         VisibleTimeMs="2000"/>
+            </Label.Behaviors>
+        </Label>
+        <Label Style="{StaticResource _feedback}"
+               Text="Alignment failed.">
+            <Label.Behaviors>
+                <ce:FadeInAndOutBehavior Trigger="{Binding AlignmentFailFadeTrigger}"
+                                         InTimeMs="250"
+                                         OutTimeMs="250"
+                                         VisibleTimeMs="2000"/>
+            </Label.Behaviors>
+        </Label>
+        <ActivityIndicator AbsoluteLayout.LayoutFlags="All"
+               AbsoluteLayout.LayoutBounds="0.5,0.5,1,0.5"
+               HorizontalOptions="CenterAndExpand"
+               VerticalOptions="CenterAndExpand"
+               Color="White"
+               IsVisible="{Binding IsBusy}"
+               IsRunning="{Binding IsBusy}"
+               InputTransparent="True"/>
+        <Label Text="Saving..."
+               Style="{StaticResource _feedback}"
+               IsVisible="{Binding WorkflowStage, Converter={StaticResource enumCompare}, ConverterParameter={x:Static vm:WorkflowStage.Saving}}"/>
+        <StackLayout Style="{StaticResource _feedbackElement}"
+                     IsVisible="{Binding WorkflowStage, Converter={StaticResource enumCompare}, ConverterParameter={x:Static vm:WorkflowStage.AutomaticAlign}}"
+                     InputTransparent="True">
+            <Image Source="smartToy"
+                   HorizontalOptions="CenterAndExpand"
+                   VerticalOptions="EndAndExpand"
+                   InputTransparent="True"/>
+            <Label Text="Aligning..."
+                   HorizontalOptions="CenterAndExpand"
+                   VerticalOptions="StartAndExpand"
+                   Style="{StaticResource _feedback}"
+                   InputTransparent="True"/>
+        </StackLayout>
+        <Label Text="Loading..."
+               Style="{StaticResource _feedback}"
+               IsVisible="{Binding WorkflowStage, Converter={StaticResource enumCompare}, ConverterParameter={x:Static vm:WorkflowStage.Loading}}"/>
+        <Label Text="Transmitting... &#10; (keep device unlocked)"
+               Style="{StaticResource _feedback}"
+               IsVisible="{Binding WorkflowStage, Converter={StaticResource enumCompare}, ConverterParameter={x:Static vm:WorkflowStage.Transmitting}}"/>
+        <Label Text="{Binding PairOperatorBindable.InitialSyncProgress, StringFormat='Syncing ({0}%)'}"
+               Style="{StaticResource _feedback}"
+               IsVisible="False">
+            <Label.Triggers>
+                <MultiTrigger TargetType="Label">
+                    <MultiTrigger.Conditions>
+                        <BindingCondition Binding="{Binding WorkflowStage, Converter={StaticResource enumCompare}, ConverterParameter={x:Static vm:WorkflowStage.Syncing}}"
+                                          Value="True"/>
+                        <BindingCondition Binding="{Binding PairOperatorBindable.IsPrimary}"
+                                          Value="True"/>
+                    </MultiTrigger.Conditions>
+                    <MultiTrigger.Setters>
+                        <Setter Property="IsVisible"
+                                Value="True"/>
+                    </MultiTrigger.Setters>
+                </MultiTrigger>
+            </Label.Triggers>
+        </Label>
+        <Label Text="{Binding PairOperatorBindable.InitialSyncProgress, StringFormat='Syncing...'}"
+               Style="{StaticResource _feedback}"
+               IsVisible="False">
+            <Label.Triggers>
+                <MultiTrigger TargetType="Label">
+                    <MultiTrigger.Conditions>
+                        <BindingCondition Binding="{Binding WorkflowStage, Converter={StaticResource enumCompare}, ConverterParameter={x:Static vm:WorkflowStage.Syncing}}"
+                                          Value="True"/>
+                        <BindingCondition Binding="{Binding PairOperatorBindable.IsPrimary}"
+                                          Value="False"/>
+                    </MultiTrigger.Conditions>
+                    <MultiTrigger.Setters>
+                        <Setter Property="IsVisible"
+                                Value="True"/>
+                    </MultiTrigger.Setters>
+                </MultiTrigger>
+            </Label.Triggers>
+        </Label>
+        <Label Text="Steady..."
+               Style="{StaticResource _feedback}"
+               IsVisible="{Binding IsHoldSteadySecondary}"/>
+
+        <Label Style="{StaticResource _feedback}"
+               Text="{Binding PairOperatorBindable.CountdownTimeRemainingSec}"
+               FontSize="32"
+               IsVisible="False">
+            <Label.Triggers>
+                <MultiTrigger TargetType="Label">
+                    <MultiTrigger.Conditions>
+                        <BindingCondition Binding="{Binding PairOperatorBindable.CountdownTimeRemainingSec, Converter={vc:GreaterThanZeroValueConverter}}"
+                                          Value="true"/>
+                        <BindingCondition Binding="{Binding PairOperatorBindable.PairStatus, Converter={StaticResource enumCompare}, ConverterParameter={x:Static vm:PairStatus.Connected}}"
+                                          Value="true"/>
+                        <BindingCondition Binding="{Binding PairOperatorBindable.IsPrimary}"
+                                          Value="true"/>
+                    </MultiTrigger.Conditions>
+                    <MultiTrigger.Setters>
+                        <Setter Property="IsVisible"
+                                Value="True"/>
+                    </MultiTrigger.Setters>
+                </MultiTrigger>
+            </Label.Triggers>
+        </Label>
+
+        <Label Text="Automatic alignment not supported on device - turn off in Settings."
+           Style="{StaticResource _feedback}"
+           IsVisible="False">
+            <Label.Behaviors>
+                <ce:FadeInAndOutBehavior VisibleTimeMs="3000"
+                                         Trigger="{Binding AutomaticAlignmentNotSupportedTrigger}"/>
+            </Label.Behaviors>
+        </Label>
+        <Label Text="Please consider manual corrections too."
+               Style="{StaticResource _feedback}"
+               IsVisible="False">
+            <Label.Behaviors>
+                <ce:FadeInAndOutBehavior VisibleTimeMs="3000"
+                                         Trigger="{Binding MirrorModeAutoAlignWarningTrigger}"/>
+            </Label.Behaviors>
+        </Label>
+        <ContentView AbsoluteLayout.LayoutFlags="All"
+                     AbsoluteLayout.LayoutBounds="0,0,1,1"
+                     IsVisible="{Binding WorkflowStage, Converter={StaticResource enumCompare}, ConverterParameter={x:Static vm:WorkflowStage.View}}">
+            <ContentView.GestureRecognizers>
+                <TapGestureRecognizer Command="{Binding ToggleViewModeCommand}"/>
+            </ContentView.GestureRecognizers>
+        </ContentView>
+
+        <StackLayout AbsoluteLayout.LayoutFlags="All"
+                     AbsoluteLayout.LayoutBounds="0,0.5,1,0.5"
+                     InputTransparent="True">
+            <StackLayout.Behaviors>
+                <ce:FadeInAndOutBehavior Trigger="{Binding MoveHintTriggerCenter}"
+                                         InTimeMs="0"
+                                         OutTimeMs="500"
+                                         VisibleTimeMs="2500"/>
+            </StackLayout.Behaviors>
+            <Image Source="left"
+                   Aspect="AspectFit"
+                   HorizontalOptions="Center"
+                   VerticalOptions="EndAndExpand">
+                <Image.Triggers>
+                    <MultiTrigger TargetType="Image">
+                        <MultiTrigger.Conditions>
+                            <BindingCondition Binding="{Binding IsParallelTypeMode}"
+                                              Value="True"/>
+                            <BindingCondition Binding="{Binding Settings.IsCaptureLeftFirst}"
+                                              Value="True"/>
+                        </MultiTrigger.Conditions>
+                        <MultiTrigger.Setters>
+                            <Setter Property="Source"
+                                    Value="right"/>
+                        </MultiTrigger.Setters>
+                    </MultiTrigger>
+                    <MultiTrigger TargetType="Image">
+                        <MultiTrigger.Conditions>
+                            <BindingCondition Binding="{Binding IsParallelTypeMode}"
+                                              Value="False"/>
+                            <BindingCondition Binding="{Binding Settings.IsCaptureLeftFirst}"
+                                              Value="False"/>
+                        </MultiTrigger.Conditions>
+                        <MultiTrigger.Setters>
+                            <Setter Property="Source"
+                                    Value="right"/>
+                        </MultiTrigger.Setters>
+                    </MultiTrigger>
+                </Image.Triggers>
+            </Image>
+            <StackLayout Orientation="Horizontal">
+                <Label Text="MOVE"                   
+                       FontSize="Large"
+                       FontAttributes="Bold"
+                       HorizontalOptions="EndAndExpand">
+                    <Label.Triggers>
+                        <DataTrigger TargetType="Label"
+                                     Binding="{Binding PairOperatorBindable.PairStatus, Converter={StaticResource enumCompare}, ConverterParameter={x:Static vm:PairStatus.Connected}}"
+                                     Value="true">
+                            <Setter Property="Text"
+                                    Value="SECONDARY ON"/>
+                        </DataTrigger>
+                        <DataTrigger TargetType="Label"
+                                     Binding="{Binding Settings.IsCaptureInMirrorMode}"
+                                     Value="true">
+                            <Setter Property="Text"
+                                    Value="MIRROR ON"/>
+                        </DataTrigger>
+                    </Label.Triggers>
+                </Label>
+                <Label Text="LEFT"                   
+                       FontSize="Large"
+                       FontAttributes="Bold"
+                       HorizontalOptions="StartAndExpand">
+                    <Label.Triggers>
+                        <MultiTrigger TargetType="Label">
+                            <MultiTrigger.Conditions>
+                                <BindingCondition Binding="{Binding IsParallelTypeMode}"
+                                                  Value="True"/>
+                                <BindingCondition Binding="{Binding Settings.IsCaptureLeftFirst}"
+                                                  Value="True"/>
+                            </MultiTrigger.Conditions>
+                            <MultiTrigger.Setters>
+                                <Setter Property="Text"
+                                        Value="RIGHT"/>
+                            </MultiTrigger.Setters>
+                        </MultiTrigger>
+                        <MultiTrigger TargetType="Label">
+                            <MultiTrigger.Conditions>
+                                <BindingCondition Binding="{Binding IsParallelTypeMode}"
+                                                  Value="False"/>
+                                <BindingCondition Binding="{Binding Settings.IsCaptureLeftFirst}"
+                                                  Value="False"/>
+                            </MultiTrigger.Conditions>
+                            <MultiTrigger.Setters>
+                                <Setter Property="Text"
+                                        Value="RIGHT"/>
+                            </MultiTrigger.Setters>
+                        </MultiTrigger>
+                    </Label.Triggers>
+                </Label>
+            </StackLayout>
+            <StackLayout Orientation="Horizontal"
+                         VerticalOptions="StartAndExpand">
+                <Label Text="for"
+                       FontSize="Medium"
+                       HorizontalOptions="EndAndExpand"/>
+                <Label Text=""
+                       FontSize="Medium"
+                       HorizontalOptions="StartAndExpand">
+                    <Label.Triggers>
+                        <DataTrigger TargetType="Label"
+                                     Binding="{Binding Settings.Mode, Converter={StaticResource enumCompare}, ConverterParameter={x:Static vm:DrawMode.Cross}}"
+                                     Value="true">
+                            <Setter Property="Text"
+                                    Value="cross"/>
+                        </DataTrigger>
+                        <DataTrigger TargetType="Label"
+                                     Binding="{Binding Settings.Mode, Converter={StaticResource enumCompare}, ConverterParameter={x:Static vm:DrawMode.Parallel}}"
+                                     Value="true">
+                            <Setter Property="Text"
+                                    Value="parallel"/>
+                        </DataTrigger>
+                        <DataTrigger TargetType="Label"
+                                     Binding="{Binding Settings.Mode, Converter={StaticResource enumCompare}, ConverterParameter={x:Static vm:DrawMode.Cardboard}}"
+                                     Value="true">
+                            <Setter Property="Text"
+                                    Value="cardboard"/>
+                        </DataTrigger>
+                        <DataTrigger TargetType="Label"
+                                     Binding="{Binding Settings.Mode, Converter={StaticResource enumCompare}, ConverterParameter={x:Static vm:DrawMode.RedCyanAnaglyph}}"
+                                     Value="true">
+                            <Setter Property="Text"
+                                    Value="anaglyph"/>
+                        </DataTrigger>
+                        <DataTrigger TargetType="Label"
+                                     Binding="{Binding Settings.Mode, Converter={StaticResource enumCompare}, ConverterParameter={x:Static vm:DrawMode.GrayscaleRedCyanAnaglyph}}"
+                                     Value="true">
+                            <Setter Property="Text"
+                                    Value="anaglyph"/>
+                        </DataTrigger>
+                    </Label.Triggers>
+                </Label>
+            </StackLayout>
+        </StackLayout>
+        <StackLayout x:Name="_moveHintSideStack"
+                     AbsoluteLayout.LayoutFlags="PositionProportional,HeightProportional"
+                     AbsoluteLayout.LayoutBounds="0.5,0,0,1"
+                     InputTransparent="True"
+                     Orientation="Horizontal">
+            <StackLayout>
+                <StackLayout.Triggers>
+                    <DataTrigger TargetType="StackLayout"
+                                 Binding="{Binding Settings.IsCaptureLeftFirst}"
+                                 Value="True">
+                        <Setter Property="HorizontalOptions"
+                                Value="StartAndExpand"/>
+                    </DataTrigger>
+                    <DataTrigger TargetType="StackLayout"
+                                 Binding="{Binding Settings.IsCaptureLeftFirst}"
+                                 Value="False">
+                        <Setter Property="HorizontalOptions"
+                                Value="EndAndExpand"/>
+                    </DataTrigger>
+                </StackLayout.Triggers>
+                <StackLayout.Behaviors>
+                    <ce:FadeInAndOutBehavior Trigger="{Binding MoveHintTriggerSide}"
+                                             InTimeMs="0"
+                                             OutTimeMs="500"
+                                             VisibleTimeMs="2500"/>
+                </StackLayout.Behaviors>
+                <Image Source="left"
+                       Aspect="AspectFit"
+                       HorizontalOptions="Center"
+                       VerticalOptions="EndAndExpand">
+                    <Image.Triggers>
+                        <DataTrigger TargetType="Image"
+                                     Binding="{Binding Settings.IsCaptureLeftFirst}"
+                                     Value="True">
+                            <Setter Property="Source"
+                                    Value="right"/>
+                        </DataTrigger>
+                    </Image.Triggers>
+                </Image>
+                <StackLayout Orientation="Horizontal"
+                             HorizontalOptions="Center"
+                             VerticalOptions="StartAndExpand">
+                    <Label Text="MOVE"                   
+                           FontSize="Large"
+                           FontAttributes="Bold"
+                           HorizontalOptions="EndAndExpand">
+                        <Label.Triggers>
+                            <DataTrigger TargetType="Label"
+                                         Binding="{Binding PairOperatorBindable.PairStatus, Converter={StaticResource enumCompare}, ConverterParameter={x:Static vm:PairStatus.Connected}}"
+                                         Value="true">
+                                <Setter Property="Text"
+                                        Value="SECONDARY ON"/>
+                            </DataTrigger>
+                            <DataTrigger TargetType="Label"
+                                         Binding="{Binding Settings.IsCaptureInMirrorMode}"
+                                         Value="true">
+                                <Setter Property="Text"
+                                        Value="MIRROR ON"/>
+                            </DataTrigger>
+                        </Label.Triggers>
+                    </Label>
+                    <Label Text="LEFT"                   
+                           FontSize="Large"
+                           FontAttributes="Bold"
+                           HorizontalOptions="StartAndExpand">
+                        <Label.Triggers>
+                            <DataTrigger TargetType="Label"
+                                         Binding="{Binding Settings.IsCaptureLeftFirst}"
+                                         Value="True">
+                                <Setter Property="Text"
+                                        Value="RIGHT"/>
+                            </DataTrigger>
+                        </Label.Triggers>
+                    </Label>
+                </StackLayout>
+            </StackLayout>
+        </StackLayout>
+
+        <BoxView x:Name="_upperLeftLine" 
+                 AbsoluteLayout.LayoutFlags="All"
+                 AbsoluteLayout.LayoutBounds="0, 0, 0, 0"
+                 Margin="{StaticResource _linePadding}"
+                 InputTransparent="True"
+                 Color="White"
+                 IsVisible="{Binding ShouldLineGuidesBeVisible}">
+            <BoxView.Triggers>
+                <DataTrigger TargetType="BoxView" 
+                             Binding="{Binding Settings.AreGuideLinesColored}"
+                             Value="True">
+                    <Setter Property="Color"
+                            Value="Cyan"/>
+                </DataTrigger>
+            </BoxView.Triggers>
+        </BoxView>
+        <BoxView x:Name="_upperRightLine" 
+                 AbsoluteLayout.LayoutFlags="All"
+                 AbsoluteLayout.LayoutBounds="0, 0, 0, 0"
+                 Margin="{StaticResource _linePadding}"
+                 InputTransparent="True"
+                 Color="White"
+                 IsVisible="{Binding ShouldLineGuidesBeVisible}">
+            <BoxView.Triggers>
+                <DataTrigger TargetType="BoxView" 
+                             Binding="{Binding Settings.AreGuideLinesColored}"
+                             Value="True">
+                    <Setter Property="Color"
+                            Value="Red"/>
+                </DataTrigger>
+            </BoxView.Triggers>
+        </BoxView>
+        <ContentView x:Name="_upperLinePanner"
+                     AbsoluteLayout.LayoutFlags="All"
+                     AbsoluteLayout.LayoutBounds="0, 0, 0, 0"
+                     Padding="{StaticResource _linePadding}"
+                     IsVisible="{Binding ShouldLineGuidesBeVisible}">
+            <ContentView.GestureRecognizers>
+                <PanGestureRecognizer PanUpdated="UpperLinePanned"/>
+            </ContentView.GestureRecognizers>
+        </ContentView>
+        <BoxView x:Name="_lowerLeftLine"
+                 AbsoluteLayout.LayoutFlags="All"
+                 AbsoluteLayout.LayoutBounds="0, 0, 0, 0"
+                 InputTransparent="True"
+                 Color="White"
+                 Margin="{StaticResource _linePadding}"
+                 IsVisible="{Binding ShouldLineGuidesBeVisible}">
+            <BoxView.Triggers>
+                <DataTrigger TargetType="BoxView" 
+                             Binding="{Binding Settings.AreGuideLinesColored}"
+                             Value="True">
+                    <Setter Property="Color"
+                            Value="Red"/>
+                </DataTrigger>
+            </BoxView.Triggers>
+        </BoxView>
+        <BoxView x:Name="_lowerRightLine"
+                 AbsoluteLayout.LayoutFlags="All"
+                 AbsoluteLayout.LayoutBounds="0, 0, 0, 0"
+                 InputTransparent="True"
+                 Color="White"
+                 Margin="{StaticResource _linePadding}"
+                 IsVisible="{Binding ShouldLineGuidesBeVisible}">
+            <BoxView.Triggers>
+                <DataTrigger TargetType="BoxView" 
+                             Binding="{Binding Settings.AreGuideLinesColored}"
+                             Value="True">
+                    <Setter Property="Color"
+                            Value="Cyan"/>
+                </DataTrigger>
+            </BoxView.Triggers>
+        </BoxView>
+        <ContentView x:Name="_lowerLinePanner"
+                     AbsoluteLayout.LayoutFlags="All"
+                     AbsoluteLayout.LayoutBounds="0, 0, 0, 0"
+                     Padding="{StaticResource _linePadding}"
+                     IsVisible="{Binding ShouldLineGuidesBeVisible}">
+            <ContentView.GestureRecognizers>
+                <PanGestureRecognizer PanUpdated="LowerLinePanned"/>
+            </ContentView.GestureRecognizers>
+        </ContentView>
+        <StackLayout AbsoluteLayout.LayoutFlags="PositionProportional,HeightProportional"
+                     AbsoluteLayout.LayoutBounds="0.5,0,420,1"
+                     Orientation="Horizontal"
+                     IsVisible="False"
+                     InputTransparent="True">
+            <StackLayout.Triggers>
+                <MultiTrigger TargetType="StackLayout">
+                    <MultiTrigger.Conditions>
+                        <BindingCondition Binding="{Binding Settings.Mode, Converter={StaticResource enumCompare}, ConverterParameter={x:Static vm:DrawMode.Cardboard}}"
+                                          Value="True"/>
+                        <BindingCondition Binding="{Binding IsBusy}"
+                                          Value="True"/>
+                    </MultiTrigger.Conditions>
+                    <Setter Property="IsVisible"
+                            Value="True"/>
+                </MultiTrigger>
+            </StackLayout.Triggers>
+            <ActivityIndicator Color="White"
+                               HorizontalOptions="StartAndExpand"
+                               VerticalOptions="CenterAndExpand"
+                               IsVisible="True"
+                               IsRunning="True">
+                <ActivityIndicator.Triggers>
+                    <DataTrigger TargetType="ActivityIndicator"
+                                 Binding="{Binding Settings.IsCaptureLeftFirst}"
+                                 Value="True">
+                        <Setter Property="HorizontalOptions"
+                                Value="StartAndExpand"/>
+                    </DataTrigger>
+                    <DataTrigger TargetType="ActivityIndicator"
+                                 Binding="{Binding Settings.IsCaptureLeftFirst}"
+                                 Value="False">
+                        <Setter Property="HorizontalOptions"
+                                Value="EndAndExpand"/>
+                    </DataTrigger>
+                </ActivityIndicator.Triggers>
+            </ActivityIndicator>
+        </StackLayout>
+
+        <StackLayout AbsoluteLayout.LayoutFlags="All"
+                     AbsoluteLayout.LayoutBounds="0,0,1,1"
+                     InputTransparent="True"
+                     IsVisible="False">
+            <StackLayout.Triggers>
+                <MultiTrigger TargetType="StackLayout">
+                    <MultiTrigger.Conditions>
+                        <BindingCondition Binding="{Binding Settings.Mode, Converter={StaticResource enumCompare}, ConverterParameter={x:Static vm:DrawMode.Cardboard}}"
+                                          Value="True"/>
+                        <BindingCondition Binding="{Binding IsViewPortrait}"
+                                          Value="True"/>
+                    </MultiTrigger.Conditions>
+                    <Setter Property="IsVisible"
+                            Value="True"/>
+                </MultiTrigger>
+            </StackLayout.Triggers>
+            <Label Text="Flip to landscape when in cardboard mode."
+                   HorizontalOptions="Center"
+                   VerticalOptions="CenterAndExpand"/>
+        </StackLayout>
+
+        <!--<StackLayout AbsoluteLayout.LayoutFlags="PositionProportional,HeightProportional"
+                     AbsoluteLayout.LayoutBounds="0.5,0,400,1"
+                     IsVisible="{Binding Settings.Mode, Converter={StaticResource enumCompare}, ConverterParameter={x:Static vm:DrawMode.Cardboard}}"
+                     Orientation="Horizontal"
+                     InputTransparent="True">
+            <BoxView WidthRequest="10"
+                     HeightRequest="10"
+                     Color="White"
+                     HorizontalOptions="StartAndExpand"
+                     VerticalOptions="CenterAndExpand"/>
+            <BoxView WidthRequest="10"
+                     HeightRequest="10"
+                     Color="White"
+                     HorizontalOptions="EndAndExpand"
+                     VerticalOptions="CenterAndExpand"/>
+        </StackLayout>-->
+    </AbsoluteLayout>
+</page:BasePage>
