@@ -5,7 +5,8 @@ using CrossCam.Wrappers;
 using Microsoft.AppCenter.Crashes;
 using StoreKit;
 using UIKit;
-using Xamarin.Forms;
+using Microsoft.Maui.Controls;
+using Microsoft.Maui;
 
 [assembly: Dependency(typeof(StoreReviewOpener))]
 namespace CrossCam.iOS.CustomRenderer

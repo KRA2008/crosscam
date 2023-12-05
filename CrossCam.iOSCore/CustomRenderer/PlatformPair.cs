@@ -9,8 +9,9 @@ using Foundation;
 using Microsoft.AppCenter.Analytics;
 using MultipeerConnectivity;
 using UIKit;
-using Xamarin.Forms;
-using Xamarin.Essentials;
+using Microsoft.Maui.ApplicationModel;
+using Microsoft.Maui.Controls;
+using Microsoft.Maui;
 
 [assembly: Dependency(typeof(PlatformPair))]
 namespace CrossCam.iOS.CustomRenderer

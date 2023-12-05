@@ -1,0 +1,162 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <IPhoneResourcePrefix>Resources</IPhoneResourcePrefix>
+    <ProvisioningType>manual</ProvisioningType>
+    <TargetFrameworks>net8.0-ios</TargetFrameworks>
+    <UseMaui>True</UseMaui>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'ios'">11.4</SupportedOSPlatformVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|iPhoneSimulator' ">
+    <ConsolePause>false</ConsolePause>
+    <MtouchLink>None</MtouchLink>
+    <MtouchDebug>true</MtouchDebug>
+    <MtouchProfiling>true</MtouchProfiling>
+    <CodesignKey>Apple Development: Kevin Anderson (288S2529U3)</CodesignKey>
+    <MtouchI18n />
+    <MtouchFastDev>true</MtouchFastDev>
+    <DeviceSpecificBuild>true</DeviceSpecificBuild>
+    <MtouchFloat32>true</MtouchFloat32>
+    <MtouchNoSymbolStrip>true</MtouchNoSymbolStrip>
+    <LangVersion>8</LangVersion>
+    <CodesignProvision>VS: WildCard Development</CodesignProvision>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <EnableSGenConc>true</EnableSGenConc>
+    <OptimizePNGs>false</OptimizePNGs>
+    <RuntimeIdentifiers>iossimulator-x64</RuntimeIdentifiers>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|iPhone' ">
+    <CodesignEntitlements>
+    </CodesignEntitlements>
+    <ConsolePause>false</ConsolePause>
+    <CodesignKey>Apple Distribution: Kevin Anderson (G656MA2J22)</CodesignKey>
+    <MtouchUseLlvm>true</MtouchUseLlvm>
+    <OptimizePNGs>true</OptimizePNGs>
+    <BuildIpa>true</BuildIpa>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <MtouchLink>Full</MtouchLink>
+    <MtouchExtraArgs>--linkskip=CrossCam --linkskip=CrossCam.iOS --linkskip=CrossCam.iOS.Extension --optimize=-remove-dynamic-registrar</MtouchExtraArgs>
+    <MtouchFloat32>true</MtouchFloat32>
+    <CodesignExtraArgs />
+    <CodesignResourceRules />
+    <CodesignProvision>CrossCam Store Dist</CodesignProvision>
+    <LangVersion>8</LangVersion>
+    <EnableSGenConc>true</EnableSGenConc>
+    <MtouchFastDev>false</MtouchFastDev>
+    <DeviceSpecificBuild>false</DeviceSpecificBuild>
+    <MtouchInterpreter>
+    </MtouchInterpreter>
+    <RuntimeIdentifiers>ios-arm64</RuntimeIdentifiers>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|iPhoneSimulator' ">
+    <ConsolePause>false</ConsolePause>
+    <MtouchLink>None</MtouchLink>
+    <LangVersion>8</LangVersion>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <MtouchFloat32>true</MtouchFloat32>
+    <MtouchUseLlvm>true</MtouchUseLlvm>
+    <EnableSGenConc>true</EnableSGenConc>
+    <RuntimeIdentifiers>iossimulator-x64</RuntimeIdentifiers>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|iPhone' ">
+    <ConsolePause>false</ConsolePause>
+    <CodesignEntitlements>
+    </CodesignEntitlements>
+    <MtouchProfiling>true</MtouchProfiling>
+    <CodesignKey>Apple Development: Created via API (TW2AV56Z4U)</CodesignKey>
+    <MtouchDebug>true</MtouchDebug>
+    <CodesignProvision>VS: WildCard Development</CodesignProvision>
+    <IpaPackageName />
+    <MtouchFastDev>false</MtouchFastDev>
+    <DeviceSpecificBuild>false</DeviceSpecificBuild>
+    <OptimizePNGs>false</OptimizePNGs>
+    <CodesignExtraArgs />
+    <CodesignResourceRules />
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <MtouchLink>None</MtouchLink>
+    <MtouchExtraArgs>
+    </MtouchExtraArgs>
+    <MtouchFloat32>true</MtouchFloat32>
+    <MtouchInterpreter>-all</MtouchInterpreter>
+    <MtouchNoSymbolStrip>true</MtouchNoSymbolStrip>
+    <LangVersion>8</LangVersion>
+    <EnableSGenConc>true</EnableSGenConc>
+    <RuntimeIdentifiers>ios-arm64</RuntimeIdentifiers>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(RunConfiguration)' == 'Default' ">
+    <AppExtensionDebugBundleId />
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug Without Emgu|iPhoneSimulator'">
+    <UseVSHostingProcess>false</UseVSHostingProcess>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <MtouchDebug>true</MtouchDebug>
+    <MtouchFastDev>false</MtouchFastDev>
+    <DeviceSpecificBuild>true</DeviceSpecificBuild>
+    <MtouchFloat32>true</MtouchFloat32>
+    <MtouchLink>None</MtouchLink>
+    <MtouchNoSymbolStrip>true</MtouchNoSymbolStrip>
+    <LangVersion>8</LangVersion>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <EnableSGenConc>true</EnableSGenConc>
+    <MtouchProfiling>true</MtouchProfiling>
+    <OptimizePNGs>false</OptimizePNGs>
+    <RuntimeIdentifiers>iossimulator-x86;iossimulator-x64</RuntimeIdentifiers>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug Without Emgu|iPhone'">
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <CodesignExtraArgs />
+    <CodesignResourceRules />
+    <CodesignEntitlements />
+    <MtouchDebug>true</MtouchDebug>
+    <MtouchFloat32>true</MtouchFloat32>
+    <MtouchNoSymbolStrip>true</MtouchNoSymbolStrip>
+    <MtouchFastDev>false</MtouchFastDev>
+    <DeviceSpecificBuild>true</DeviceSpecificBuild>
+    <MtouchLink>None</MtouchLink>
+    <CodesignKey>iPhone Developer</CodesignKey>
+    <CodesignProvision />
+    <LangVersion>8</LangVersion>
+    <MtouchInterpreter>-all</MtouchInterpreter>
+    <EnableSGenConc>true</EnableSGenConc>
+    <MtouchProfiling>true</MtouchProfiling>
+    <OptimizePNGs>false</OptimizePNGs>
+    <RuntimeIdentifiers>ios-arm;ios-arm64</RuntimeIdentifiers>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(TargetFramework)'=='net8.0-ios'">
+    <ProvisioningType>manual</ProvisioningType>
+    <CodesignKey>Apple Development: Created via API (TW2AV56Z4U)</CodesignKey>
+    <CodesignProvision>CrossCam Dev</CodesignProvision>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="EmguCv">
+      <Version>3.0.0</Version>
+    </PackageReference>
+    <PackageReference Include="FreshMvvm.Maui" Version="0.0.4" />
+    <PackageReference Include="Microsoft.Maui.Core" Version="8.0.3" />
+    <PackageReference Include="Xam.Plugin.DeviceInfo">
+      <Version>4.1.1</Version>
+    </PackageReference>
+    <PackageReference Include="Microsoft.Maui.Controls" Version="8.0.3" />
+    <PackageReference Include="Microsoft.Maui.Controls.Compatibility" Version="8.0.3" />
+    <PackageReference Include="Microsoft.AppCenter" Version="5.0.3" />
+    <PackageReference Include="Microsoft.AppCenter.Analytics" Version="5.0.3" />
+    <PackageReference Include="Microsoft.AppCenter.Crashes" Version="5.0.3" />
+    <PackageReference Include="CommunityToolkit.Maui" Version="7.0.0" />
+  </ItemGroup>
+  <ItemGroup>
+    <ITunesArtwork Include="iTunesArtwork%402x" />
+    <ITunesArtwork Include="iTunesArtwork" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\CrossCamCore\CrossCamCore.csproj" />
+    <ProjectReference Include="..\CrossCamShareExtension.iOS\CrossCamShareExtension.iOS.csproj" />
+  </ItemGroup>
+  <ProjectExtensions>
+    <VisualStudio>
+      <UserProperties XamarinHotReloadMonoInterpreterErrorInfoBarCrossCamiOSHideInfoBar="True" />
+    </VisualStudio>
+  </ProjectExtensions>
+</Project>

@@ -1,7 +1,8 @@
 ﻿using CrossCam.iOS.CustomRenderer;
 using CrossCam.Wrappers;
 using UIKit;
-using Xamarin.Forms;
+using Microsoft.Maui.Controls;
+using Microsoft.Maui;
 
 [assembly: Dependency(typeof(ScreenKeepAwaker))]
 namespace CrossCam.iOS.CustomRenderer

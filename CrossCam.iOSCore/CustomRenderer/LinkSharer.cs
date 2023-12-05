@@ -2,7 +2,8 @@
 using CrossCam.Wrappers;
 using Foundation;
 using UIKit;
-using Xamarin.Forms;
+using Microsoft.Maui.Controls;
+using Microsoft.Maui;
 
 [assembly: Dependency(typeof(LinkSharer))]
 namespace CrossCam.iOS.CustomRenderer
