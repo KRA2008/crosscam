@@ -40,7 +40,7 @@ using Microsoft.Maui.Controls.Platform;
 
 namespace CrossCam.Platforms.Android.CustomRenderer
 {
-    public sealed class CameraModuleRenderer : ViewRenderer<CameraModule, View>, TextureView.ISurfaceTextureListener, View.IOnTouchListener,
+    public sealed class CameraModuleRenderer : VisualElementRenderer<CameraModule>, TextureView.ISurfaceTextureListener, View.IOnTouchListener,
         Camera.IAutoFocusCallback, Camera.IShutterCallback, Camera.IPictureCallback, Camera.IErrorCallback
     {
         private Camera _camera1;
@@ -289,6 +289,7 @@ namespace CrossCam.Platforms.Android.CustomRenderer
 
         protected override void OnElementPropertyChanged(object sender, PropertyChangedEventArgs e)
         {
+            System.Diagnostics.Debug.WriteLine("### property changed: " + e.PropertyName);
             base.OnElementPropertyChanged(sender, e);
 
             try

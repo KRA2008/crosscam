@@ -4,8 +4,8 @@
              xmlns:vm="clr-namespace:CrossCam.ViewModel"
              xmlns:ce="clr-namespace:CrossCam.CustomElement"
              xmlns:vc="clr-namespace:CrossCam.ValueConverter"
-             xmlns:forms="clr-namespace:SkiaSharp.Views;assembly=SkiaSharp.Views.Maui.Controls"
-             xmlns:page="clr-namespace:CrossCam.Page" xmlns:controls="clr-namespace:SkiaSharp.Views.Maui.Controls;assembly=SkiaSharp.Views.Maui.Controls"
+             xmlns:page="clr-namespace:CrossCam.Page" 
+             xmlns:skia="clr-namespace:SkiaSharp.Views.Maui.Controls;assembly=SkiaSharp.Views.Maui.Controls"
              x:DataType="vm:CameraViewModel"
 			 x:Class="CrossCam.Page.CameraPage">
     <ContentPage.Resources>
@@ -121,7 +121,7 @@
                              RestartPreviewTrigger="{Binding RestartPreviewTrigger}"
                              StopPreviewTrigger="{Binding StopPreviewTrigger}"
                              PreviewAspectRatio="{Binding PreviewAspectRatio}"/>
-            <controls:SKCanvasView x:Name="_canvas"
+            <skia:SKCanvasView x:Name="_canvas"
                                 Grid.Column="0"
                                 Grid.ColumnSpan="2"
                                 Touch="_canvas_OnTouch"

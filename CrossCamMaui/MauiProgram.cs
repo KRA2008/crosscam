@@ -1,6 +1,6 @@
 using CommunityToolkit.Maui;
-using CrossCam.CustomElement;
 using CrossCam.Page;
+using CrossCam.CustomElement;
 #if __ANDROID__
 using CrossCam.Platforms.Android.CustomRenderer;
 #elif __IOS__
@@ -9,6 +9,7 @@ using CrossCam.iOS.CustomRenderer;
 using CrossCam.ViewModel;
 using CrossCam.Wrappers;
 using FreshMvvm.Maui.Extensions;
+using SkiaSharp.Views.Maui.Controls.Hosting;
 
 namespace CrossCam;
 
@@ -19,33 +20,46 @@ public static class MauiProgram
         var builder = MauiApp.CreateBuilder();
         builder
             .UseMauiCommunityToolkit()
+            .UseSkiaSharp()
             .UseMauiApp<App>();
 
-        builder.Services.Add(ServiceDescriptor.Singleton<CameraPage, CameraPage>());
-        builder.Services.Add(ServiceDescriptor.Transient<ContactPage, ContactPage>());
-        builder.Services.Add(ServiceDescriptor.Transient<DirectionsPage, DirectionsPage>());
-        builder.Services.Add(ServiceDescriptor.Transient<FaqPage, FaqPage>());
-        builder.Services.Add(ServiceDescriptor.Transient<HamburgerPage, HamburgerPage>());
-        builder.Services.Add(ServiceDescriptor.Transient<HelpPage, HelpPage>());
-        builder.Services.Add(ServiceDescriptor.Transient<PairingPage, PairingPage>());
-        builder.Services.Add(ServiceDescriptor.Transient<SeeMorePicturesPage, SeeMorePicturesPage>());
-        builder.Services.Add(ServiceDescriptor.Transient<SettingsPage, SettingsPage>());
-        builder.Services.Add(ServiceDescriptor.Transient<TechniqueHelpPage, TechniqueHelpPage>());
-        builder.Services.Add(ServiceDescriptor.Transient<TipMePage, TipMePage>());
-        builder.Services.Add(ServiceDescriptor.Transient<TipsPage, TipsPage>());
+        builder.ConfigureMauiHandlers(handlers =>
+        {
+#if __ANDROID__
+            handlers.AddHandler<CameraModule, CameraModuleRenderer>();
+            //handlers.AddHandler<Picker, HandsomePickerRenderer>();
+#elif __IOS__
+            handlers.AddHandler<CameraModule, CameraModuleRenderer>();
+#endif
+        });
 
-        builder.Services.Add(ServiceDescriptor.Singleton<CameraViewModel,CameraViewModel>());
-        builder.Services.Add(ServiceDescriptor.Transient<ContactViewModel, ContactViewModel>());
-        builder.Services.Add(ServiceDescriptor.Transient<DirectionsViewModel, DirectionsViewModel>());
-        builder.Services.Add(ServiceDescriptor.Transient<FaqViewModel, FaqViewModel>());
-        builder.Services.Add(ServiceDescriptor.Transient<HamburgerViewModel, HamburgerViewModel>());
-        builder.Services.Add(ServiceDescriptor.Transient<HelpViewModel, HelpViewModel>());
-        builder.Services.Add(ServiceDescriptor.Transient<PairingViewModel, PairingViewModel>());
-        builder.Services.Add(ServiceDescriptor.Transient<SeeMorePicturesViewModel, SeeMorePicturesViewModel>());
-        builder.Services.Add(ServiceDescriptor.Transient<SettingsViewModel, SettingsViewModel>());
-        builder.Services.Add(ServiceDescriptor.Transient<TechniqueHelpViewModel, TechniqueHelpViewModel>());
-        builder.Services.Add(ServiceDescriptor.Transient<TipMeViewModel, TipMeViewModel>());
-        builder.Services.Add(ServiceDescriptor.Transient<TipsViewModel, TipsViewModel>());
+        var services = builder.Services;
+        services.Add(ServiceDescriptor.Singleton<CameraPage, CameraPage>());
+        services.Add(ServiceDescriptor.Transient<ContactPage, ContactPage>());
+        services.Add(ServiceDescriptor.Transient<DirectionsPage, DirectionsPage>());
+        services.Add(ServiceDescriptor.Transient<FaqPage, FaqPage>());
+        services.Add(ServiceDescriptor.Transient<HamburgerPage, HamburgerPage>());
+        services.Add(ServiceDescriptor.Transient<HelpPage, HelpPage>());
+        services.Add(ServiceDescriptor.Transient<PairingPage, PairingPage>());
+        services.Add(ServiceDescriptor.Transient<SeeMorePicturesPage, SeeMorePicturesPage>());
+        services.Add(ServiceDescriptor.Transient<SettingsPage, SettingsPage>());
+        services.Add(ServiceDescriptor.Transient<TechniqueHelpPage, TechniqueHelpPage>());
+        services.Add(ServiceDescriptor.Transient<TipMePage, TipMePage>());
+        services.Add(ServiceDescriptor.Transient<TipsPage, TipsPage>());
+
+        services.Add(ServiceDescriptor.Singleton<CameraViewModel,CameraViewModel>());
+        services.Add(ServiceDescriptor.Transient<ContactViewModel, ContactViewModel>());
+        services.Add(ServiceDescriptor.Transient<DirectionsViewModel, DirectionsViewModel>());
+        services.Add(ServiceDescriptor.Transient<FaqViewModel, FaqViewModel>());
+        services.Add(ServiceDescriptor.Transient<HamburgerViewModel, HamburgerViewModel>());
+        services.Add(ServiceDescriptor.Transient<HelpViewModel, HelpViewModel>());
+        services.Add(ServiceDescriptor.Transient<PairingViewModel, PairingViewModel>());
+        services.Add(ServiceDescriptor.Transient<SeeMorePicturesViewModel, SeeMorePicturesViewModel>());
+        services.Add(ServiceDescriptor.Transient<SettingsViewModel, SettingsViewModel>());
+        services.Add(ServiceDescriptor.Transient<TechniqueHelpViewModel, TechniqueHelpViewModel>());
+        services.Add(ServiceDescriptor.Transient<TipMeViewModel, TipMeViewModel>());
+        services.Add(ServiceDescriptor.Transient<TipsViewModel, TipsViewModel>());
+
 #if __ANDROID__
         DependencyService.Register<IPlatformPair, PlatformPair>();
         DependencyService.Register<IDirectorySelector, DirectorySelector>();
@@ -60,6 +74,7 @@ public static class MauiProgram
         DependencyService.Register<IScreenKeepAwaker, ScreenKeepAwaker>();
         DependencyService.Register<INotchHeightProvider, NotchHeightProvider>();
 #endif
+
         var app = builder.Build();
         app.UseFreshMvvm();
         return app;
