@@ -4,7 +4,6 @@ using CrossCam.Wrappers;
 using Microsoft.Maui.Controls;
 using Microsoft.Maui;
 
-[assembly: Dependency(typeof(DirectorySelector))]
 namespace CrossCam.iOS.CustomRenderer
 {
     public class DirectorySelector : IDirectorySelector

@@ -1,10 +1,9 @@
 ﻿using Android.Content;
 using Microsoft.Maui.Controls.Platform;
-using Microsoft.Maui.Controls;
 using Microsoft.Maui.Controls.Compatibility.Platform.Android;
 using Microsoft.Maui.Controls.Compatibility.Platform.Android.AppCompat;
 
-namespace CrossCam.Droid.CustomRenderer
+namespace CrossCam.Platforms.Android.CustomRenderer
 {
     public class HandsomePickerRenderer : PickerRenderer
     {

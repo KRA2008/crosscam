@@ -1,11 +1,7 @@
 ﻿using Android.Views;
-using CrossCam.Droid.CustomRenderer;
 using CrossCam.Wrappers;
-using Microsoft.Maui.Controls;
-using Microsoft.Maui;
 
-[assembly: Dependency(typeof(ScreenKeepAwaker))]
-namespace CrossCam.Droid.CustomRenderer
+namespace CrossCam.Platforms.Android.CustomRenderer
 {
     public class ScreenKeepAwaker : IScreenKeepAwaker
     {

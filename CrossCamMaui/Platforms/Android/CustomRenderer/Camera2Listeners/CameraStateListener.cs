@@ -1,6 +1,6 @@
 ﻿using Android.Hardware.Camera2;
 
-namespace CrossCam.Droid.CustomRenderer.Camera2
+namespace CrossCam.Platforms.Android.CustomRenderer.Camera2Listeners
 {
     public class CameraStateListener : CameraDevice.StateCallback
     {

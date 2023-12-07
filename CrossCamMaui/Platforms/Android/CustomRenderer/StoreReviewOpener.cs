@@ -1,10 +1,6 @@
-﻿using System.Threading.Tasks;
-using CrossCam.Droid.CustomRenderer;
-using CrossCam.Wrappers;
-using Microsoft.Maui.Controls;
+﻿using CrossCam.Wrappers;
 
-[assembly: Dependency(typeof(StoreReviewOpener))]
-namespace CrossCam.Droid.CustomRenderer
+namespace CrossCam.Platforms.Android.CustomRenderer
 {
     public class StoreReviewOpener : IStoreReviewOpener
     {

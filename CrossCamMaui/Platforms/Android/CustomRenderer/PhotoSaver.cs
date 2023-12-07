@@ -1,12 +1,7 @@
-﻿using System;
-using System.IO;
-using System.Linq;
-using System.Threading.Tasks;
-using Android.Content;
+﻿using Android.Content;
 using Android.Graphics;
 using Android.Provider;
 using AndroidX.DocumentFile.Provider;
-using CrossCam.Droid.CustomRenderer;
 using CrossCam.Wrappers;
 using Java.Lang;
 using Microsoft.AppCenter.Crashes;
@@ -14,11 +9,9 @@ using Environment = Android.OS.Environment;
 using Exception = System.Exception;
 using Path = System.IO.Path;
 using Uri = Android.Net.Uri;
-using Microsoft.Maui.Controls;
-using Microsoft.Maui;
+using AndroidOS = Android.OS;
 
-[assembly: Dependency(typeof(PhotoSaver))]
-namespace CrossCam.Droid.CustomRenderer
+namespace CrossCam.Platforms.Android.CustomRenderer
 {
     public class PhotoSaver : IPhotoSaver
     {
@@ -46,7 +39,7 @@ namespace CrossCam.Droid.CustomRenderer
                         using var file = new Java.IO.File(newFilePath);
                         destinationFinalUri = Uri.FromFile(file);
                     }
-                    else if (Android.OS.Build.VERSION.SdkInt <= Android.OS.BuildVersionCodes.P)
+                    else if (AndroidOS.Build.VERSION.SdkInt <= AndroidOS.BuildVersionCodes.P)
                     {
                         string targetFolderPath;
                         if (!string.IsNullOrWhiteSpace(saveOuterFolder))

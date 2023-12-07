@@ -1,17 +1,10 @@
-﻿using System;
-using System.Linq;
-using System.Threading.Tasks;
-using Android.Content;
+﻿using Android.Content;
 using Android.OS;
-using CrossCam.Droid.CustomRenderer;
 using CrossCam.Wrappers;
 using Environment = Android.OS.Environment;
 using Uri = Android.Net.Uri;
-using Microsoft.Maui.Controls;
-using Microsoft.Maui;
 
-[assembly: Dependency(typeof(DirectorySelector))]
-namespace CrossCam.Droid.CustomRenderer
+namespace CrossCam.Platforms.Android.CustomRenderer
 {
     public class DirectorySelector : IDirectorySelector
     {

@@ -10,8 +10,6 @@ using UIKit;
 using Microsoft.Maui.Controls;
 using Microsoft.Maui;
 
-[assembly: Dependency (typeof (PhotoPicker))]
-
 namespace CrossCam.iOS.CustomRenderer
 {
     public class PhotoPicker : IPhotoPicker

@@ -2,7 +2,7 @@
 using Android.Content;
 using Android.Content.PM;
 
-namespace CrossCam.Droid
+namespace CrossCam.Platforms.Android
 {
     [Activity(Theme = "@style/SplashTheme", 
         ScreenOrientation = ScreenOrientation.Sensor,

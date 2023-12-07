@@ -4,7 +4,6 @@ using UIKit;
 using Microsoft.Maui.Controls;
 using Microsoft.Maui;
 
-[assembly: Dependency(typeof(ScreenKeepAwaker))]
 namespace CrossCam.iOS.CustomRenderer
 {
     public class ScreenKeepAwaker : IScreenKeepAwaker

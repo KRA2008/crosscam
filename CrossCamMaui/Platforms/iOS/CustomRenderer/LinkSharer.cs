@@ -5,7 +5,6 @@ using UIKit;
 using Microsoft.Maui.Controls;
 using Microsoft.Maui;
 
-[assembly: Dependency(typeof(LinkSharer))]
 namespace CrossCam.iOS.CustomRenderer
 {
     public class LinkSharer : ILinkSharer

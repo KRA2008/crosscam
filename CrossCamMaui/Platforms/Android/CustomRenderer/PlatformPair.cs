@@ -1,26 +1,17 @@
-﻿using System;
-using System.IO;
-using System.Linq;
-using System.Threading.Tasks;
-using Android.Bluetooth;
+﻿using Android.Bluetooth;
 using Android.Gms.Common.Apis;
 using Android.Gms.Location;
 using Android.Gms.Nearby;
 using Android.Gms.Nearby.Connection;
 using AndroidX.AppCompat.App;
 using CrossCam.CustomElement;
-using CrossCam.Droid.CustomRenderer;
 using CrossCam.Wrappers;
 using Microsoft.AppCenter.Analytics;
 using Debug = System.Diagnostics.Debug;
 using ErrorEventArgs = CrossCam.CustomElement.ErrorEventArgs;
 using Strategy = Android.Gms.Nearby.Connection.Strategy;
-using Microsoft.Maui.Devices;
-using Microsoft.Maui.Controls;
-using Microsoft.Maui;
 
-[assembly: Dependency(typeof(PlatformPair))]
-namespace CrossCam.Droid.CustomRenderer
+namespace CrossCam.Platforms.Android.CustomRenderer
 {
     public sealed class PlatformPair : BluetoothGattCallback, IPlatformPair
     {
@@ -28,14 +19,9 @@ namespace CrossCam.Droid.CustomRenderer
         public static TaskCompletionSource<bool> LocationPermissionsTask;
         public static TaskCompletionSource<bool> TurnOnLocationTask;
 
-        private readonly IConnectionsClient _client;
+        private IConnectionsClient _client;
         private string _connectedPartnerId;
         private bool _connectionAlreadyRejectedOrFailed;
-
-        public PlatformPair()
-        {
-            _client = NearbyClass.GetConnectionsClient(MainActivity.Instance);
-        }
 
         public void Disconnect()
         {
@@ -110,6 +96,8 @@ namespace CrossCam.Droid.CustomRenderer
                 }
 
                 using var payload = Payload.FromStream(new MemoryStream(bytes));
+
+                _client ??= NearbyClass.GetConnectionsClient(MainActivity.Instance);
                 await _client.SendPayloadAsync(_connectedPartnerId, payload);
             }
             catch (Exception e)
@@ -158,6 +146,7 @@ namespace CrossCam.Droid.CustomRenderer
             _connectionAlreadyRejectedOrFailed = false;
             if (!await RequestBluetoothPermissions()) throw new PermissionsException();
 
+            _client ??= NearbyClass.GetConnectionsClient(MainActivity.Instance);
             await _client.StartAdvertisingAsync(DeviceInfo.Name, PairOperator.CROSSCAM_SERVICE,
                 new MyConnectionLifecycleCallback(this), new AdvertisingOptions.Builder().SetStrategy(Strategy.P2pPointToPoint).Build());
         }
@@ -170,6 +159,7 @@ namespace CrossCam.Droid.CustomRenderer
             if (!await RequestLocationPermissions()) throw new LocationPermissionNotGrantedException();
             if (!await TurnOnLocationServices()) throw new LocationServicesNotEnabledException();
 
+            _client ??= NearbyClass.GetConnectionsClient(MainActivity.Instance);
             await _client.StartDiscoveryAsync(PairOperator.CROSSCAM_SERVICE, new MyEndpointDiscoveryCallback(this),
                 new DiscoveryOptions.Builder().SetStrategy(Strategy.P2pPointToPoint).Build());
         }
@@ -185,6 +175,7 @@ namespace CrossCam.Droid.CustomRenderer
 
             public override void OnConnectionInitiated(string p0, ConnectionInfo p1)
             {
+                _platformPair._client ??= NearbyClass.GetConnectionsClient(MainActivity.Instance);
                 _platformPair._client.StopDiscovery();
                 _platformPair._client.StopAdvertising();
                 Debug.WriteLine("### OnConnectionInitiated: " + p0 + ", " + p1.EndpointName);
@@ -392,6 +383,7 @@ namespace CrossCam.Droid.CustomRenderer
             {
                 try
                 {
+                    _pair._client ??= NearbyClass.GetConnectionsClient(MainActivity.Instance);
                     _pair._client.StopDiscovery();
                     _pair._client.StopAdvertising();
                     Debug.WriteLine("### OnEndpointFound " + p0 + ", " + p1.EndpointName);
@@ -424,6 +416,7 @@ namespace CrossCam.Droid.CustomRenderer
                     {
                         if (!_pair._connectionAlreadyRejectedOrFailed)
                         {
+                            _pair._client ??= NearbyClass.GetConnectionsClient(MainActivity.Instance);
                             await _pair._client.RequestConnectionAsync(DeviceInfo.Name, p0,
                                 new MyConnectionLifecycleCallback(_pair));
                         }

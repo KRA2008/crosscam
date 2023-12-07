@@ -1,11 +1,7 @@
 ﻿using Android.Content;
-using CrossCam.Droid.CustomRenderer;
 using CrossCam.Wrappers;
-using Microsoft.Maui.Controls;
-using Microsoft.Maui;
 
-[assembly: Dependency(typeof(LinkSharer))]
-namespace CrossCam.Droid.CustomRenderer
+namespace CrossCam.Platforms.Android.CustomRenderer
 {
     public class LinkSharer : ILinkSharer
     {

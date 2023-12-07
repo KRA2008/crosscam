@@ -1,8 +1,7 @@
-﻿using System;
-using Android.Content;
+﻿using Android.Content;
 using Android.Views;
 
-namespace CrossCam.Droid
+namespace CrossCam.Platforms.Android
 {
     public sealed class LifecycleEventListener : OrientationEventListener
     {

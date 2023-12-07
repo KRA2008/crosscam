@@ -11,7 +11,6 @@ using Microsoft.Maui.Controls;
 using Microsoft.Maui;
 // ReSharper disable HeuristicUnreachableCode
 
-[assembly: Dependency(typeof(PhotoSaver))]
 namespace CrossCam.iOS.CustomRenderer
 {
     public class PhotoSaver : IPhotoSaver

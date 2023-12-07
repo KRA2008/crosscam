@@ -1,8 +1,7 @@
-﻿using System;
-using Android.Media;
+﻿using Android.Media;
 using Image = Android.Media.Image;
 
-namespace CrossCam.Droid.CustomRenderer.Camera2
+namespace CrossCam.Platforms.Android.CustomRenderer.Camera2Listeners
 {
     public class ImageAvailableListener : Java.Lang.Object, ImageReader.IOnImageAvailableListener
     {

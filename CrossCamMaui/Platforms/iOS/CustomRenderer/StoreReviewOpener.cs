@@ -8,7 +8,6 @@ using UIKit;
 using Microsoft.Maui.Controls;
 using Microsoft.Maui;
 
-[assembly: Dependency(typeof(StoreReviewOpener))]
 namespace CrossCam.iOS.CustomRenderer
 {
     public class StoreReviewOpener : IStoreReviewOpener

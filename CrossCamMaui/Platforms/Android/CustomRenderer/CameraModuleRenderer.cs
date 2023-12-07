@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.IO;
-using System.Linq;
-using System.Threading;
+﻿using System.ComponentModel;
 using System.Timers;
 using _Microsoft.Android.Resource.Designer;
 using Android.App;
@@ -17,9 +12,9 @@ using Android.OS;
 using Android.Util;
 using Android.Views;
 using Android.Widget;
-using CrossCam.Droid.CustomRenderer.Camera2;
 using CrossCam.Model;
 using CrossCam.Page;
+using CrossCam.Platforms.Android.CustomRenderer.Camera2Listeners;
 using CrossCam.ViewModel;
 using CrossCam.Wrappers;
 using Java.Lang;
@@ -39,12 +34,11 @@ using Size = Android.Util.Size;
 using View = Android.Views.View;
 #pragma warning disable 618
 using Camera = Android.Hardware.Camera;
-using Microsoft.Maui.Devices;
+using Camera2 = Android.Hardware.Camera2;
 using Microsoft.Maui.Controls.Handlers.Compatibility;
 using Microsoft.Maui.Controls.Platform;
-using Microsoft.Maui.Controls;
 
-namespace CrossCam.Droid.CustomRenderer
+namespace CrossCam.Platforms.Android.CustomRenderer
 {
     public sealed class CameraModuleRenderer : ViewRenderer<CameraModule, View>, TextureView.ISurfaceTextureListener, View.IOnTouchListener,
         Camera.IAutoFocusCallback, Camera.IShutterCallback, Camera.IPictureCallback, Camera.IErrorCallback
@@ -1433,10 +1427,10 @@ namespace CrossCam.Droid.CustomRenderer
             _openingCamera2 = false;
         }
 
-        public void Camera2Errored(CameraDevice camera, Android.Hardware.Camera2.CameraError error)
+        public void Camera2Errored(CameraDevice camera, Camera2.CameraError error)
         {
             _openingCamera2 = false;
-            if (error == Android.Hardware.Camera2.CameraError.CameraDevice &&
+            if (error == Camera2.CameraError.CameraDevice &&
                 !_camera2CameraDeviceErrorRetry) // docs say try again: https://developer.android.com/reference/android/hardware/camera2/CameraDevice.StateCallback#ERROR_CAMERA_DEVICE
             {
                 _camera2CameraDeviceErrorRetry = true;
@@ -1445,7 +1439,7 @@ namespace CrossCam.Droid.CustomRenderer
                 return;
             }
 
-            if (error == Android.Hardware.Camera2.CameraError.CameraDevice &&
+            if (error == Camera2.CameraError.CameraDevice &&
                 _camera2CameraDeviceErrorRetry)
             {
                 new AlertDialog.Builder(MainActivity.Instance)

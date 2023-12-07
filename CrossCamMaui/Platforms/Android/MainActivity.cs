@@ -1,8 +1,4 @@
-﻿using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Threading.Tasks;
-using Android;
+﻿using Android;
 using Android.App;
 using Android.Bluetooth;
 using Android.Content;
@@ -12,7 +8,7 @@ using Android.OS;
 using Android.Views;
 using AndroidX.Core.App;
 using AndroidX.Core.Content;
-using CrossCam.Droid.CustomRenderer;
+using CrossCam.Platforms.Android.CustomRenderer;
 using Java.Lang;
 #if !DEBUG
 using Microsoft.AppCenter;
@@ -24,11 +20,10 @@ using Xamarin.Google.Android.Play.Core.Review.Testing;
 using Debug = System.Diagnostics.Debug;
 using Task = System.Threading.Tasks.Task;
 using Uri = Android.Net.Uri;
-using Microsoft.Maui.Devices;
-using Microsoft.Maui;
+using AndroidGms = Android.Gms;
 using Microsoft.Maui.Controls.Compatibility.Platform.Android;
 
-namespace CrossCam.Droid
+namespace CrossCam.Platforms.Android
 {
     [Activity(
         Label = "CrossCam", 
@@ -78,21 +73,24 @@ namespace CrossCam.Droid
         public const int PICK_PHOTO_ID = 1000;
         public TaskCompletionSource<byte[][]> PickPhotoTaskCompletionSource { set; get; }
 
+        public MainActivity()
+        {
+            Instance = this;
+        }
+
         protected override void OnCreate(Bundle bundle)
         {
 #if !DEBUG
             AppCenter.Start("febfa1c4-10aa-4087-9594-71d287579841", // plz don't abuse this.
                 typeof(Analytics), typeof(Crashes));
 #endif
-                base.OnCreate(bundle);
+            base.OnCreate(bundle);
 
             DeviceDisplay.MainDisplayInfoChanged += SetFullscreen; 
             SetFullscreen(null, null);
 
             LifecycleEventListener = new LifecycleEventListener(this, WindowManager);
             LifecycleEventListener.Enable();
-
-            Instance = this;
             
             if (Build.VERSION.SdkInt >= BuildVersionCodes.M)
             {
@@ -500,7 +498,7 @@ namespace CrossCam.Droid
             request.AddOnCompleteListener(this);
         }
 
-        public void OnComplete(Android.Gms.Tasks.Task task)
+        public void OnComplete(AndroidGms.Tasks.Task task)
         {
             if (task.IsSuccessful && _requestReviewCheckComplete)
             {

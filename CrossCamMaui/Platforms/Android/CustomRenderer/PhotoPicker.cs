@@ -1,13 +1,7 @@
-﻿using System.Threading.Tasks;
-using Android.Content;
-using CrossCam.Droid.CustomRenderer;
+﻿using Android.Content;
 using CrossCam.Wrappers;
-using Microsoft.Maui.Controls;
-using Microsoft.Maui;
 
-[assembly: Dependency(typeof(PhotoPicker))]
-
-namespace CrossCam.Droid.CustomRenderer
+namespace CrossCam.Platforms.Android.CustomRenderer
 {
     public class PhotoPicker : IPhotoPicker
     {
