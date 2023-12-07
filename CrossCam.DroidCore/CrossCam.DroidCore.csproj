@@ -114,12 +114,6 @@
     <PackageReference Include="CommunityToolkit.Maui" Version="7.0.0" />
   </ItemGroup>
   <ItemGroup>
-    <ProguardConfiguration Include="proguard.cfg" />
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Remove="CustomRenderer\PickerRenderer.cs" />
-  </ItemGroup>
-  <ItemGroup>
     <ProjectReference Include="..\CrossCamCore\CrossCamCore.csproj" />
   </ItemGroup>
   <ProjectExtensions>

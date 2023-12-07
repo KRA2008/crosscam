@@ -14,7 +14,7 @@ namespace CrossCam.Droid
         protected override void OnResume()
         {
             base.OnResume();
-            StartActivity(new Intent(Application.Context, typeof(MainActivity)));
+            StartActivity(new Intent(Application?.ApplicationContext, typeof(MainActivity)));
         }
 
         public override void OnBackPressed() { }

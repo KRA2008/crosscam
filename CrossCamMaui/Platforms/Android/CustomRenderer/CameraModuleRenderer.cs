@@ -34,6 +34,7 @@ using Extensions = Android.Runtime.Extensions;
 using Math = System.Math;
 using PointF = System.Drawing.PointF;
 using Rect = Android.Graphics.Rect;
+using RectF = Microsoft.Maui.Graphics.RectF;
 using Size = Android.Util.Size;
 using View = Android.Views.View;
 #pragma warning disable 618
@@ -655,8 +656,8 @@ namespace CrossCam.Droid.CustomRenderer
                         }
 
                         matrix.MapRect(targetFocusRect);
-                        var roundedRect = new Rect();
-                        targetFocusRect.Round(roundedRect);
+                        var roundedRect = new RectF();
+                        //targetFocusRect.Round(roundedRect); //TODO: what happened?
 
                         if (parameters.MaxNumFocusAreas > 0 &&
                             parameters.SupportedFocusModes != null &&

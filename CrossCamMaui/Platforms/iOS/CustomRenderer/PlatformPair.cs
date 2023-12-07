@@ -12,6 +12,7 @@ using UIKit;
 using Microsoft.Maui.ApplicationModel;
 using Microsoft.Maui.Controls;
 using Microsoft.Maui;
+using ErrorEventArgs = CrossCam.CustomElement.ErrorEventArgs;
 
 [assembly: Dependency(typeof(PlatformPair))]
 namespace CrossCam.iOS.CustomRenderer

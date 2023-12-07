@@ -20,6 +20,7 @@ using CameraModule = CrossCam.CustomElement.CameraModule;
 using Microsoft.Maui.Controls.Handlers.Compatibility;
 using Microsoft.Maui.Controls.Platform;
 using Microsoft.Maui.Controls;
+using PointF = System.Drawing.PointF;
 
 namespace CrossCam.iOS.CustomRenderer
 {

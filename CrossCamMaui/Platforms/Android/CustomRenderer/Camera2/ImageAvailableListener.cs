@@ -1,5 +1,6 @@
 ﻿using System;
 using Android.Media;
+using Image = Android.Media.Image;
 
 namespace CrossCam.Droid.CustomRenderer.Camera2
 {

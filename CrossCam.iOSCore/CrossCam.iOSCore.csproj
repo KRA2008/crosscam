@@ -143,24 +143,22 @@
     <BuildIpa>True</BuildIpa>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="EmguCv">
-      <Version>3.0.0</Version>
-    </PackageReference>
+    <None Remove="Entitlements.plist" />
+    <None Remove="Entitlements.plist" />
+    <None Remove="Info.plist" />
+    <None Remove="Info.plist" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="EmguCv" Version="3.0.0" />
     <PackageReference Include="FreshMvvm.Maui" Version="0.0.4" />
     <PackageReference Include="Microsoft.Maui.Core" Version="8.0.3" />
-    <PackageReference Include="Xam.Plugin.DeviceInfo">
-      <Version>4.1.1</Version>
-    </PackageReference>
+    <PackageReference Include="Xam.Plugin.DeviceInfo" Version="4.1.1" />
     <PackageReference Include="Microsoft.Maui.Controls" Version="8.0.3" />
     <PackageReference Include="Microsoft.Maui.Controls.Compatibility" Version="8.0.3" />
     <PackageReference Include="Microsoft.AppCenter" Version="5.0.3" />
     <PackageReference Include="Microsoft.AppCenter.Analytics" Version="5.0.3" />
     <PackageReference Include="Microsoft.AppCenter.Crashes" Version="5.0.3" />
     <PackageReference Include="CommunityToolkit.Maui" Version="7.0.0" />
-  </ItemGroup>
-  <ItemGroup>
-    <ITunesArtwork Include="iTunesArtwork%402x" />
-    <ITunesArtwork Include="iTunesArtwork" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\CrossCamCore\CrossCamCore.csproj" />
