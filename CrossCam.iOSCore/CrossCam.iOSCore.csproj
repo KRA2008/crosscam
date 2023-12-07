@@ -126,9 +126,21 @@
     <RuntimeIdentifiers>ios-arm;ios-arm64</RuntimeIdentifiers>
   </PropertyGroup>
   <PropertyGroup Condition="'$(TargetFramework)'=='net8.0-ios'">
-    <ProvisioningType>manual</ProvisioningType>
+    <ProvisioningType>automatic</ProvisioningType>
     <CodesignKey>Apple Development: Created via API (TW2AV56Z4U)</CodesignKey>
-    <CodesignProvision>CrossCam Dev</CodesignProvision>
+    <CodesignProvision>VS: com.kra2008.crosscam Development</CodesignProvision>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net8.0-ios|AnyCPU'">
+    <MtouchNoSymbolStrip>True</MtouchNoSymbolStrip>
+    <OptimizePNGs>False</OptimizePNGs>
+    <MtouchFloat32>True</MtouchFloat32>
+    <MtouchDebug>True</MtouchDebug>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net8.0-ios|AnyCPU'">
+    <EnableSGenConc>True</EnableSGenConc>
+    <MtouchFloat32>True</MtouchFloat32>
+    <MtouchDebug>False</MtouchDebug>
+    <BuildIpa>True</BuildIpa>
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="EmguCv">

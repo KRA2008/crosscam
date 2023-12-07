@@ -1,4 +1,6 @@
 using CommunityToolkit.Maui;
+using CrossCam.ViewModel;
+using FreshMvvm.Maui.Extensions;
 
 namespace CrossCam;
 
@@ -11,6 +13,10 @@ public static class MauiProgram
             .UseMauiCommunityToolkit()
             .UseMauiApp<App>();
 
-        return builder.Build();
+        builder.Services.Add(ServiceDescriptor.Singleton<CameraViewModel,CameraViewModel>());
+
+        var app = builder.Build();
+        app.UseFreshMvvm();
+        return app;
     }
 }
