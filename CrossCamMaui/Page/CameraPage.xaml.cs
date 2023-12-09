@@ -1199,10 +1199,5 @@ namespace CrossCam.Page
             _releaseCounter = 0;
             _dragCounter = 0;
         }
-
-        private void TapGestureRecognizer_OnTapped(object? sender, TappedEventArgs e)
-        {
-            var blah = "";
-        }
     }
 }

@@ -627,7 +627,7 @@ namespace CrossCam.ViewModel
                 SendCommandStartAnalyticsEvent(nameof(ClearCapturesCommand));
                 try
                 {
-                    Device.InvokeOnMainThreadAsync(async () =>
+                    await Device.InvokeOnMainThreadAsync(async () =>
                     {
                         if (!_isClearPromptOpen)
                         {

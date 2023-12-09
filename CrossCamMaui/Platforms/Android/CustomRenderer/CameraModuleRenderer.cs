@@ -289,7 +289,6 @@ namespace CrossCam.Platforms.Android.CustomRenderer
 
         protected override void OnElementPropertyChanged(object sender, PropertyChangedEventArgs e)
         {
-            System.Diagnostics.Debug.WriteLine("### property changed: " + e.PropertyName);
             base.OnElementPropertyChanged(sender, e);
 
             try

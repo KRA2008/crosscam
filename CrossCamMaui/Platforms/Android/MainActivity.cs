@@ -99,8 +99,6 @@ namespace CrossCam.Platforms.Android
                     return;
                 }
             }
-
-            _app = new App();
         }
 
         protected override void OnPause()
@@ -330,8 +328,6 @@ namespace CrossCam.Platforms.Android
             {
                 return;
             }
-
-            _app = new App();
 
             base.OnRequestPermissionsResult(requestCode, permissions, grantResults);
         }

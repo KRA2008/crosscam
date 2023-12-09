@@ -27,7 +27,6 @@ namespace CrossCam.iOS
                 typeof(Analytics), typeof(Crashes));
 #endif
 
-            _app = new App();
             var success = base.FinishedLaunching(app, options);
             AuthorizeCameraUse();
 		    return success;
