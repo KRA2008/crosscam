@@ -1,11 +1,8 @@
-﻿using CrossCam.iOS.CustomRenderer;
-using CrossCam.Wrappers;
+﻿using CrossCam.Wrappers;
 using Foundation;
 using UIKit;
-using Microsoft.Maui.Controls;
-using Microsoft.Maui;
 
-namespace CrossCam.iOS.CustomRenderer
+namespace CrossCam.Platforms.iOS.CustomRenderer
 {
     public class LinkSharer : ILinkSharer
     {

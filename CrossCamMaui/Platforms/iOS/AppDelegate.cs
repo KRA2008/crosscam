@@ -1,5 +1,4 @@
-﻿using System;
-using System.Diagnostics;
+﻿using System.Diagnostics;
 using System.Net;
 using AVFoundation;
 using Foundation;
@@ -8,10 +7,8 @@ using Microsoft.AppCenter;
 using Microsoft.AppCenter.Crashes;
 #endif
 using UIKit;
-using Microsoft.Maui;
-using Microsoft.Maui.Hosting;
 
-namespace CrossCam.iOS
+namespace CrossCam.Platforms.iOS
 {
 	[Register ("AppDelegate")]
 	public class AppDelegate : MauiUIApplicationDelegate

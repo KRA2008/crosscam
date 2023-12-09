@@ -1,9 +1,6 @@
 ﻿using CrossCam.CustomElement;
-using CrossCam.iOS.CustomRenderer;
-using Microsoft.Maui.Devices;
-using Microsoft.Maui.Controls;
 
-namespace CrossCam.iOS.CustomRenderer
+namespace CrossCam.Platforms.iOS.CustomRenderer
 {
     public class NotchHeightProvider : INotchHeightProvider
     { 

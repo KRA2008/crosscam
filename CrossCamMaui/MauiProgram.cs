@@ -4,7 +4,7 @@ using CrossCam.CustomElement;
 #if __ANDROID__
 using CrossCam.Platforms.Android.CustomRenderer;
 #elif __IOS__
-using CrossCam.iOS.CustomRenderer;
+using CrossCam.Platforms.iOS.CustomRenderer;
 #endif
 using CrossCam.ViewModel;
 using CrossCam.Wrappers;

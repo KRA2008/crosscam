@@ -1,10 +1,6 @@
-﻿using System.Threading.Tasks;
-using CrossCam.iOS.CustomRenderer;
-using CrossCam.Wrappers;
-using Microsoft.Maui.Controls;
-using Microsoft.Maui;
+﻿using CrossCam.Wrappers;
 
-namespace CrossCam.iOS.CustomRenderer
+namespace CrossCam.Platforms.iOS.CustomRenderer
 {
     public class DirectorySelector : IDirectorySelector
     {

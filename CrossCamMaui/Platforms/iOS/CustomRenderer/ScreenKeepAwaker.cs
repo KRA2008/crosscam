@@ -1,10 +1,7 @@
-﻿using CrossCam.iOS.CustomRenderer;
-using CrossCam.Wrappers;
+﻿using CrossCam.Wrappers;
 using UIKit;
-using Microsoft.Maui.Controls;
-using Microsoft.Maui;
 
-namespace CrossCam.iOS.CustomRenderer
+namespace CrossCam.Platforms.iOS.CustomRenderer
 {
     public class ScreenKeepAwaker : IScreenKeepAwaker
     {

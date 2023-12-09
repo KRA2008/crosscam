@@ -1,7 +1,6 @@
-﻿using ObjCRuntime;
-using UIKit;
+﻿using UIKit;
 
-namespace CrossCam.iOS
+namespace CrossCam.Platforms.iOS
 {
     public class Program
     {

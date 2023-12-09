@@ -1,17 +1,11 @@
-﻿using System;
-using System.Linq;
-using System.Threading.Tasks;
-using CrossCam.iOS.CustomRenderer;
-using CrossCam.Wrappers;
+﻿using CrossCam.Wrappers;
 using Foundation;
 using Microsoft.AppCenter.Crashes;
 using Photos;
 using UIKit;
-using Microsoft.Maui.Controls;
-using Microsoft.Maui;
 // ReSharper disable HeuristicUnreachableCode
 
-namespace CrossCam.iOS.CustomRenderer
+namespace CrossCam.Platforms.iOS.CustomRenderer
 {
     public class PhotoSaver : IPhotoSaver
     {

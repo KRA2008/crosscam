@@ -1,10 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
+﻿using System.ComponentModel;
 using System.Diagnostics;
-using System.Drawing;
-using System.Linq;
-using System.Threading;
 using System.Timers;
 using AVFoundation;
 using CoreFoundation;
@@ -19,10 +14,9 @@ using UIKit;
 using CameraModule = CrossCam.CustomElement.CameraModule;
 using Microsoft.Maui.Controls.Handlers.Compatibility;
 using Microsoft.Maui.Controls.Platform;
-using Microsoft.Maui.Controls;
 using PointF = System.Drawing.PointF;
 
-namespace CrossCam.iOS.CustomRenderer
+namespace CrossCam.Platforms.iOS.CustomRenderer
 {
     public class CameraModuleRenderer : VisualElementRenderer<CameraModule>, IAVCapturePhotoCaptureDelegate
     {

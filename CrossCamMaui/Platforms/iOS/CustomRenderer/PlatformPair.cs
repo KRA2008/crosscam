@@ -1,20 +1,14 @@
-﻿using System;
-using System.Diagnostics;
+﻿using System.Diagnostics;
 using System.Runtime.InteropServices;
-using System.Threading.Tasks;
 using CrossCam.CustomElement;
-using CrossCam.iOS.CustomRenderer;
 using CrossCam.Wrappers;
 using Foundation;
 using Microsoft.AppCenter.Analytics;
 using MultipeerConnectivity;
 using UIKit;
-using Microsoft.Maui.ApplicationModel;
-using Microsoft.Maui.Controls;
-using Microsoft.Maui;
 using ErrorEventArgs = CrossCam.CustomElement.ErrorEventArgs;
 
-namespace CrossCam.iOS.CustomRenderer
+namespace CrossCam.Platforms.iOS.CustomRenderer
 {
     public class PlatformPair : IPlatformPair
     {
