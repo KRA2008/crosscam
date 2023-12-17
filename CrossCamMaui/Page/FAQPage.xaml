@@ -2,12 +2,12 @@
 <page:BasePage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:page="clr-namespace:CrossCam.Page"
-             xmlns:viewModel="clr-namespace:CrossCam.ViewModel"
+             xmlns:vm="clr-namespace:CrossCam.ViewModel"
              xmlns:views="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
-             xmlns:customElement="clr-namespace:CrossCam.CustomElement"
+             xmlns:ce="clr-namespace:CrossCam.CustomElement"
              x:Class="CrossCam.Page.FaqPage"
              Title="FAQ"
-             x:DataType="viewModel:FaqViewModel">
+             x:DataType="vm:FaqViewModel">
     <ScrollView x:Name="_scrollView">
         <StackLayout Padding="10">
 
@@ -15,7 +15,7 @@
 
             <views:Expander>
                 <views:Expander.Header>
-                    <customElement:ExpanderHeader Title="How does this work?"/>
+                    <ce:ExpanderHeader Title="How does this work?"/>
                 </views:Expander.Header>
                 <StackLayout Padding="10">
                     <Label>
@@ -42,7 +42,7 @@
 
             <views:Expander>
                 <views:Expander.Header>
-                    <customElement:ExpanderHeader Title="Is this bad for my eyes?"/>
+                    <ce:ExpanderHeader Title="Is this bad for my eyes?"/>
                 </views:Expander.Header>
                 <StackLayout Padding="10">
                     <Label>
@@ -69,7 +69,7 @@
 
             <views:Expander>
                 <views:Expander.Header>
-                    <customElement:ExpanderHeader Title="Why did you make CrossCam?"/>
+                    <ce:ExpanderHeader Title="Why did you make CrossCam?"/>
                 </views:Expander.Header>
                 <StackLayout Padding="10">
                     <Label Text="As I was starting to get interested in stereoscopy I happened to take a trip to Yellowstone. While I was there, I realized it might be fun to try to use a 3D camera mobile app to capture things there in 3D. I was very disappointed by the existing options. I found they all required you to make two captures and then afterward find out if they were any good. They often were not, as I had to repeatedly make complete guesses on my separation distance, as well as the quality of the subject."/>
@@ -81,7 +81,7 @@
 
             <views:Expander>
                 <views:Expander.Header>
-                    <customElement:ExpanderHeader Title="How did you get into stereoscopy?"/>
+                    <ce:ExpanderHeader Title="How did you get into stereoscopy?"/>
                 </views:Expander.Header>
                 <StackLayout Padding="10">
                     <Label Text="While I was getting my physics degree, I had the opportunity to experiment with creating my own holograms using lasers. The type of holograms I was making were 3D because they used what is called a &quot;diffraction grating&quot; to cause destructive interference in the light that reflects off of a glass plate's surface, which causes the reflected image to look different from different places. When each of our eyes sees an image that looks like it's from a different perspective (if they aren't too different), our brains perceive that as depth."/>
@@ -108,7 +108,7 @@
 
             <views:Expander x:Name="_crossParallelExpander">
                 <views:Expander.Header>
-                    <customElement:ExpanderHeader Title="Why does the 3D not look right OR why does the 3D look inverted?"/>
+                    <ce:ExpanderHeader Title="Why does the 3D not look right OR why does the 3D look inverted?"/>
                 </views:Expander.Header>
                 <StackLayout Padding="10">
                     <Label Text="When free viewing with either the cross or parallel method, it's important to look at the pictures using the same method that was used to create them. Otherwise, your right eye will look at the perspective intended for the left eye and vice versa. This makes the depth of the image invert, because the direction of parallax has been swapped."/>
@@ -131,7 +131,7 @@
 
             <views:Expander>
                 <views:Expander.Header>
-                    <customElement:ExpanderHeader Title="My subject is moving, how do I take 3D pictures of it?"/>
+                    <ce:ExpanderHeader Title="My subject is moving, how do I take 3D pictures of it?"/>
                 </views:Expander.Header>
                 <StackLayout Padding="10">
                     <Label Text="CrossCam allows you two methods for capturing both perspectives at the same moment. One method uses two phones, and one method uses a mirror."/>
@@ -144,7 +144,7 @@
 
             <views:Expander x:Name="_autoalignmentExpander">
                 <views:Expander.Header>
-                    <customElement:ExpanderHeader Title="How does auto-alignment work?"/>
+                    <ce:ExpanderHeader Title="How does auto-alignment work?"/>
                 </views:Expander.Header>
                 <StackLayout Padding="10">
                     <Label Text="Auto-alignment attempts to align the image pairs as well as possible, but it isn't perfect. Computer vision is better at some things than human eyes, but also a lot worse at other things. The world it sees is very different than the one we do, but it can also see in a few different ways. The two main ways it sees in CrossCam are via the &quot;enhanced correlation coefficient&quot; (ECC) and using key points."/>
@@ -161,7 +161,7 @@
 
             <views:Expander x:Name="_cardboardExpander">
                 <views:Expander.Header>
-                    <customElement:ExpanderHeader Title="How do I use CrossCam with Google Cardboard?"/>
+                    <ce:ExpanderHeader Title="How do I use CrossCam with Google Cardboard?"/>
                 </views:Expander.Header>
                 <StackLayout Padding="10">
                     <Label Text="If your viewer has a button that presses the center of the screen, you can use it to capture using Cardboard. Your viewer will also need to have a hole for your phone's camera to see through."/>
@@ -175,7 +175,7 @@
 
             <views:Expander x:Name="_mirrorExpander">
                 <views:Expander.Header>
-                    <customElement:ExpanderHeader Title="How do I do the &quot;single-shot mirror&quot; method?"/>
+                    <ce:ExpanderHeader Title="How do I do the &quot;single-shot mirror&quot; method?"/>
                 </views:Expander.Header>
                 <StackLayout Padding="10">
                     <Label Text="Capturing with the mirror method divides the frame in half and does the required transformation so you can capture both sides at the same moment using a single phone and a regular handheld mirror. To use the mirror method when capturing, flip the switch on for mirror mode on the Settings page (tap the gear icon to get there). After you turn on mirror mode, CrossCam will tell you which side to hold your mirror on. Hold your mirror on that side and fuss with the alignment between your phone and the mirror and your subject. With some patience, you'll be able to line them all up so that the mirror shows the correct perspective for one of the sides. Because using the mirror method splits your image in half vertically, it's usually best to capture in landscape with the mirror method."/>
@@ -201,7 +201,7 @@
 
             <views:Expander>
                 <views:Expander.Header>
-                    <customElement:ExpanderHeader Title="What are wigglegrams?"/>
+                    <ce:ExpanderHeader Title="What are wigglegrams?"/>
                 </views:Expander.Header>
                 <StackLayout Padding="10">
                     <Label Text="Wigglegrams are a way to view stereograms that doesn't rely on binocular vision. They're usually a gif that flips back and forth between the two perspectives, showing each in its entirety in the same spot. CrossCam doesn't support making them right now, but email me if you're really interested in them and I'll do it."/>
@@ -212,7 +212,7 @@
 
             <views:Expander>
                 <views:Expander.Header>
-                    <customElement:ExpanderHeader Title="How can I test pre-release versions of CrossCam?"/>
+                    <ce:ExpanderHeader Title="How can I test pre-release versions of CrossCam?"/>
                 </views:Expander.Header>
                 <StackLayout Padding="10">
                     <Label>
@@ -249,7 +249,7 @@
                 </views:Expander.ContentTemplate>
             </views:Expander>-->
 
-            <customElement:FooterLabel/>
+            <ce:FooterLabel/>
         </StackLayout>
     </ScrollView>
 </page:BasePage>

@@ -19,7 +19,8 @@
                 <Setter Property="HeightRequest"
                         Value="1"/>
             </Style>
-            <Style TargetType="Label">
+            <Style TargetType="Label"
+                   BasedOn="{StaticResource _baseLabelStyle}">
                 <Setter Property="Margin"
                         Value="10"/>
                 <Setter Property="VerticalTextAlignment"

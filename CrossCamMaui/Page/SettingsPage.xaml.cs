@@ -1,7 +1,6 @@
 ﻿using System.ComponentModel;
 using CrossCam.Model;
 using CrossCam.ViewModel;
-using CommunityToolkit.Maui.Views;
 
 namespace CrossCam.Page
 {
@@ -13,6 +12,7 @@ namespace CrossCam.Page
 		{
 			InitializeComponent ();
         }
+
 
         protected override void OnBindingContextChanged()
         {
