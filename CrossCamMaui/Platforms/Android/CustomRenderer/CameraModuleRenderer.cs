@@ -24,6 +24,7 @@ using SkiaSharp.Views.Android;
 using Boolean = Java.Lang.Boolean;
 using CameraError = Android.Hardware.CameraError;
 using CameraModule = CrossCam.CustomElement.CameraModule;
+using Debug = System.Diagnostics.Debug;
 using Exception = System.Exception;
 using Extensions = Android.Runtime.Extensions;
 using Math = System.Math;
@@ -40,14 +41,14 @@ using Microsoft.Maui.Controls.Platform;
 
 namespace CrossCam.Platforms.Android.CustomRenderer
 {
-    public sealed class CameraModuleRenderer : VisualElementRenderer<CameraModule>, TextureView.ISurfaceTextureListener, View.IOnTouchListener,
+    public sealed class CameraModuleRenderer : ViewRenderer<CameraModule, View>, TextureView.ISurfaceTextureListener, View.IOnTouchListener,
         Camera.IAutoFocusCallback, Camera.IShutterCallback, Camera.IPictureCallback, Camera.IErrorCallback
     {
         private Camera _camera1;
         private View _view;
 
         private Activity _activity;
-        private TextureView _textureView;
+        private MyTextureView _textureView;
         private SurfaceTexture _surfaceTexture;
         private CameraModule _cameraModule;
         private GestureDetector _gestureDetector;
@@ -291,6 +292,9 @@ namespace CrossCam.Platforms.Android.CustomRenderer
         {
             base.OnElementPropertyChanged(sender, e);
 
+            System.Diagnostics.Debug.WriteLine("### textureView is attached to window: " + _textureView?.IsAttachedToWindow);
+
+            System.Diagnostics.Debug.WriteLine("### is hardware accelerated: " + IsHardwareAccelerated);
             try
             {
                 if (e.PropertyName == nameof(_cameraModule.Width) ||
@@ -442,11 +446,12 @@ namespace CrossCam.Platforms.Android.CustomRenderer
             _activity = Context as Activity;
             _view = _activity.LayoutInflater.Inflate(ResourceConstant.Layout.CameraLayout, this, false);
 
-            _textureView = _view.FindViewById<TextureView>(ResourceConstant.Id.textureView);
+            _textureView = _view.FindViewById<MyTextureView>(ResourceConstant.Id.textureView);
             _textureView.SurfaceTextureListener = this;
             _textureView.SetOnTouchListener(this);
 
             AddView(_view);
+            System.Diagnostics.Debug.WriteLine("### is hardware accelerated: " + IsHardwareAccelerated);
         }
 
         protected override void OnLayout(bool changed, int l, int t, int r, int b)
@@ -813,14 +818,14 @@ namespace CrossCam.Platforms.Android.CustomRenderer
                 if (_useCamera2)
                 {
                     _textureView.SetX(xAdjust2);
-                    _textureView.SetY(yAdjust2 - 10000);
+                    _textureView.SetY(yAdjust2/* - 10000*/);
                     _textureView.LayoutParameters = new FrameLayout.LayoutParams((int)Math.Round(previewWidth2),
                         (int)Math.Round(previewHeight2));
                 }
                 else
                 {
                     _textureView.SetX(0);
-                    _textureView.SetY(verticalOffset - 10000);
+                    _textureView.SetY(verticalOffset/* - 10000*/);
                     _textureView.LayoutParameters = new FrameLayout.LayoutParams((int)Math.Round(moduleWidth),
                         (int)Math.Round(proportionalPreviewHeight));
                 }

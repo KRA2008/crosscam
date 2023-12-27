@@ -18,7 +18,7 @@ using PointF = System.Drawing.PointF;
 
 namespace CrossCam.Platforms.iOS.CustomRenderer
 {
-    public class CameraModuleRenderer : VisualElementRenderer<CameraModule>, IAVCapturePhotoCaptureDelegate
+    public class CameraModuleRenderer : ViewRenderer<CameraModule, UIView>, IAVCapturePhotoCaptureDelegate
     {
         private AVCaptureSession _captureSession;
         private UIView _liveCameraStream;
