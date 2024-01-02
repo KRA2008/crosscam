@@ -176,6 +176,18 @@ namespace CrossCam.Platforms.Android.CustomRenderer
 
             try
             {
+                //the Microsoft people told me to move this or something like it here.
+                if (Control == null)
+                {
+                    _activity = Context as Activity;
+                    _view = _activity.LayoutInflater.Inflate(ResourceConstant.Layout.CameraLayout, this, false);
+
+                    _textureView = _view.FindViewById<MyTextureView>(ResourceConstant.Id.textureView);
+                    _textureView.SurfaceTextureListener = this;
+                    _textureView.SetOnTouchListener(this);
+                    SetNativeControl(_view);
+                }
+
                 if (e.OldElement != null)
                 {
                     MainActivity.Instance.LifecycleEventListener.OrientationChanged -= HandleOrientationChangedEvent;
@@ -443,15 +455,17 @@ namespace CrossCam.Platforms.Android.CustomRenderer
 
         private void SetupUserInterface()
         {
-            _activity = Context as Activity;
-            _view = _activity.LayoutInflater.Inflate(ResourceConstant.Layout.CameraLayout, this, false);
+            //the Microsoft people told me to move this or something like it up to OnElementChanged
 
-            _textureView = _view.FindViewById<MyTextureView>(ResourceConstant.Id.textureView);
-            _textureView.SurfaceTextureListener = this;
-            _textureView.SetOnTouchListener(this);
+            //_activity = Context as Activity;
+            //_view = _activity.LayoutInflater.Inflate(ResourceConstant.Layout.CameraLayout, this, false);
 
-            AddView(_view);
-            System.Diagnostics.Debug.WriteLine("### is hardware accelerated: " + IsHardwareAccelerated);
+            //_textureView = _view.FindViewById<MyTextureView>(ResourceConstant.Id.textureView);
+            //_textureView.SurfaceTextureListener = this;
+            //_textureView.SetOnTouchListener(this);
+
+            //AddView(_view);
+            //System.Diagnostics.Debug.WriteLine("### is hardware accelerated: " + IsHardwareAccelerated);
         }
 
         protected override void OnLayout(bool changed, int l, int t, int r, int b)
