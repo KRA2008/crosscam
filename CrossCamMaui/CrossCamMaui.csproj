@@ -20,10 +20,10 @@
 		<Nullable>disable</Nullable>
 
 		<!-- Display name -->
-		<ApplicationTitle>CrossCamMaui</ApplicationTitle>
+		<ApplicationTitle>CrossCam</ApplicationTitle>
 
 		<!-- App Identifier -->
-		<ApplicationId>com.companyname.crosscammaui</ApplicationId>
+		<ApplicationId>com.kra2008.crosscam</ApplicationId>
 
 		<!-- Versions -->
 		<ApplicationDisplayVersion>1.0</ApplicationDisplayVersion>
@@ -36,48 +36,38 @@
 		<RunAnalyzersDuringLiveAnalysis>False</RunAnalyzersDuringLiveAnalysis>
 		<EnableNETAnalyzers>False</EnableNETAnalyzers>
 		<AssemblyName>CrossCam</AssemblyName>
+		<GenerateAssemblyInfo>False</GenerateAssemblyInfo>
+		<Platforms>AnyCPU</Platforms>
 	</PropertyGroup>
 
 	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net8.0-android|AnyCPU'">
-	  <GenerateAssemblyInfo>False</GenerateAssemblyInfo>
 	  <Deterministic>False</Deterministic>
 	  <AndroidEnableMultiDex>True</AndroidEnableMultiDex>
 	  <AndroidStoreUncompressedFileExtensions>.png;.jpg;.jpeg;.svg</AndroidStoreUncompressedFileExtensions>
 	  <AndroidUseAapt2>True</AndroidUseAapt2>
-	  <ApplicationId>com.kra2008.crosscam</ApplicationId>
-	  <ApplicationTitle>CrossCam</ApplicationTitle>
 	</PropertyGroup>
 
 	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net8.0-ios|AnyCPU'">
-	  <GenerateAssemblyInfo>False</GenerateAssemblyInfo>
 	  <Deterministic>False</Deterministic>
 	  <MtouchNoSymbolStrip>True</MtouchNoSymbolStrip>
 	  <EnableSGenConc>True</EnableSGenConc>
 	  <OptimizePNGs>False</OptimizePNGs>
 	  <MtouchDebug>True</MtouchDebug>
 	  <MtouchProfiling>True</MtouchProfiling>
-	  <ApplicationId>com.kra2008.crosscam</ApplicationId>
-	  <ApplicationTitle>CrossCam</ApplicationTitle>
 	</PropertyGroup>
 
 	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net8.0-android|AnyCPU'">
-	  <GenerateAssemblyInfo>False</GenerateAssemblyInfo>
 	  <AndroidLinkTool>r8</AndroidLinkTool>
 	  <EnableLLVM>True</EnableLLVM>
 	  <AndroidEnableProfiledAot>False</AndroidEnableProfiledAot>
 	  <AndroidUseAapt2>True</AndroidUseAapt2>
 	  <AndroidStoreUncompressedFileExtensions></AndroidStoreUncompressedFileExtensions>
-	  <ApplicationId>com.kra2008.crosscam</ApplicationId>
-	  <ApplicationTitle>CrossCam</ApplicationTitle>
 	</PropertyGroup>
 
 	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net8.0-ios|AnyCPU'">
-	  <GenerateAssemblyInfo>False</GenerateAssemblyInfo>
 	  <EnableSGenConc>True</EnableSGenConc>
 	  <MtouchDebug>False</MtouchDebug>
 	  <BuildIpa>True</BuildIpa>
-	  <ApplicationId>com.kra2008.crosscam</ApplicationId>
-	  <ApplicationTitle>CrossCam</ApplicationTitle>
 	</PropertyGroup>
 
 	<PropertyGroup Condition="'$(TargetFramework)'=='net8.0-ios'">
