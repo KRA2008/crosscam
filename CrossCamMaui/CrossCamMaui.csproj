@@ -38,6 +38,8 @@
 		<AssemblyName>CrossCam</AssemblyName>
 		<GenerateAssemblyInfo>False</GenerateAssemblyInfo>
 		<Platforms>AnyCPU</Platforms>
+		<PublishAot>False</PublishAot>
+		<Trimming></Trimming>
 	</PropertyGroup>
 
 	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net8.0-android|AnyCPU'">
@@ -54,6 +56,7 @@
 	  <OptimizePNGs>False</OptimizePNGs>
 	  <MtouchDebug>True</MtouchDebug>
 	  <MtouchProfiling>True</MtouchProfiling>
+	  <MtouchFloat32>True</MtouchFloat32>
 	</PropertyGroup>
 
 	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net8.0-android|AnyCPU'">
@@ -68,6 +71,8 @@
 	  <EnableSGenConc>True</EnableSGenConc>
 	  <MtouchDebug>False</MtouchDebug>
 	  <BuildIpa>True</BuildIpa>
+	  <AdditionalArgs>--linkskip=CrossCam --linkskip=CrossCam.iOS --linkskip=CrossCam.iOS.Extension --optimize=-remove-dynamic-registrar</AdditionalArgs>
+	  <MtouchFloat32>True</MtouchFloat32>
 	</PropertyGroup>
 
 	<PropertyGroup Condition="'$(TargetFramework)'=='net8.0-ios'">
