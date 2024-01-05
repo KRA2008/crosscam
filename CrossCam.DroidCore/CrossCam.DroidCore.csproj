@@ -62,9 +62,6 @@
     <AndroidLinkMode>None</AndroidLinkMode>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="EmguCv">
-      <Version>1.0.5</Version>
-    </PackageReference>
     <PackageReference Include="FreshMvvm.Maui" Version="0.0.4" />
     <PackageReference Include="Microsoft.Maui.Graphics.Skia" Version="8.0.3" />
     <PackageReference Include="Xam.Plugin.DeviceInfo">

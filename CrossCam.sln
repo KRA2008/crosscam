@@ -134,4 +134,7 @@ Global
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {088D83CF-C15E-4922-B5B1-D1DECA743640}
 	EndGlobalSection
+	GlobalSection(SharedMSBuildProjectFiles) = preSolution
+		AutoAlignment\AutoAlignment.projitems*{f9d4dfbf-a407-473c-aa27-36e2e0f5fcf8}*SharedItemsImports = 13
+	EndGlobalSection
 EndGlobal

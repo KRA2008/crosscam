@@ -167,9 +167,6 @@
     <OptimizePNGs>false</OptimizePNGs>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="EmguCv">
-      <Version>1.0.5</Version>
-    </PackageReference>
     <PackageReference Include="FreshMvvm">
       <Version>2.2.4</Version>
     </PackageReference>
