@@ -45,7 +45,6 @@ namespace CrossCam.Platforms.Android.CustomRenderer
         Camera.IAutoFocusCallback, Camera.IShutterCallback, Camera.IPictureCallback, Camera.IErrorCallback
     {
         private Camera _camera1;
-        private View _view;
 
         private Activity _activity;
         private MyTextureView _textureView;
@@ -292,9 +291,6 @@ namespace CrossCam.Platforms.Android.CustomRenderer
         {
             base.OnElementPropertyChanged(sender, e);
 
-            System.Diagnostics.Debug.WriteLine("### textureView is attached to window: " + _textureView?.IsAttachedToWindow);
-
-            System.Diagnostics.Debug.WriteLine("### is hardware accelerated: " + IsHardwareAccelerated);
             try
             {
                 if (e.PropertyName == nameof(_cameraModule.Width) ||
@@ -443,16 +439,26 @@ namespace CrossCam.Platforms.Android.CustomRenderer
 
         private void SetupUserInterface()
         {
-            _activity = Context as Activity;
-            _view = _activity.LayoutInflater.Inflate(ResourceConstant.Layout.CameraLayout, this, false);
-
-            _textureView = _view.FindViewById<MyTextureView>(ResourceConstant.Id.textureView);
+            _textureView = new MyTextureView(Context);
             _textureView.SurfaceTextureListener = this;
             _textureView.SetOnTouchListener(this);
 
-            AddView(_view);
-            System.Diagnostics.Debug.WriteLine("### is hardware accelerated: " + IsHardwareAccelerated);
+            SetNativeControl(_textureView);
+            //AddView(_textureView);
         }
+
+        //protected override View CreateNativeControl()
+        //{
+        //    //_activity = Context as Activity;
+        //    //_view = _activity.LayoutInflater.Inflate(ResourceConstant.Layout.CameraLayout, this, false);
+
+        //    //_textureView = _view.FindViewById<MyTextureView>(ResourceConstant.Id.textureView);
+        //    _textureView = new MyTextureView(Context);
+        //    _textureView.SurfaceTextureListener = this;
+        //    _textureView.SetOnTouchListener(this);
+
+        //    return _textureView;
+        //}
 
         protected override void OnLayout(bool changed, int l, int t, int r, int b)
         {
@@ -461,8 +467,8 @@ namespace CrossCam.Platforms.Android.CustomRenderer
             var msw = MeasureSpec.MakeMeasureSpec(r - l, MeasureSpecMode.Exactly);
             var msh = MeasureSpec.MakeMeasureSpec(b - t, MeasureSpecMode.Exactly);
 
-            _view.Measure(msw, msh);
-            _view.Layout(0, 0, r - l, b - t);
+            _textureView.Measure(msw, msh);
+            _textureView.Layout(0, 0, r - l, b - t);
         }
 
         public void OnSurfaceTextureUpdated(SurfaceTexture surface)
@@ -818,14 +824,14 @@ namespace CrossCam.Platforms.Android.CustomRenderer
                 if (_useCamera2)
                 {
                     _textureView.SetX(xAdjust2);
-                    _textureView.SetY(yAdjust2/* - 10000*/);
+                    _textureView.SetY(yAdjust2 - 10000);
                     _textureView.LayoutParameters = new FrameLayout.LayoutParams((int)Math.Round(previewWidth2),
                         (int)Math.Round(previewHeight2));
                 }
                 else
                 {
                     _textureView.SetX(0);
-                    _textureView.SetY(verticalOffset/* - 10000*/);
+                    _textureView.SetY(verticalOffset - 10000);
                     _textureView.LayoutParameters = new FrameLayout.LayoutParams((int)Math.Round(moduleWidth),
                         (int)Math.Round(proportionalPreviewHeight));
                 }

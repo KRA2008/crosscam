@@ -1,30 +1,35 @@
 ﻿using Android.Content;
+using Android.Graphics.Drawables;
+using Android.Runtime;
 using Android.Util;
 using Android.Views;
-using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace CrossCam.Platforms.Android.CustomRenderer
 {
-    internal class MyTextureView : TextureView
+    public class MyTextureView : TextureView
     {
-        public MyTextureView(Context context, IAttributeSet attrs) : base(context, attrs)
+        protected MyTextureView(IntPtr javaReference, JniHandleOwnership transfer) : base(javaReference, transfer)
         {
         }
 
-        protected override void OnAttachedToWindow()
+        public MyTextureView(Context context, IAttributeSet? attrs, int defStyleAttr, int defStyleRes) : base(context, attrs, defStyleAttr, defStyleRes)
         {
-            base.OnAttachedToWindow();
-            Debug.WriteLine("### HOLY CRAP I'M ATTACHING!");
         }
 
-        protected override void OnDetachedFromWindow()
+        public MyTextureView(Context context, IAttributeSet? attrs, int defStyleAttr) : base(context, attrs, defStyleAttr)
         {
-            base.OnDetachedFromWindow();
+        }
+
+        public MyTextureView(Context context, IAttributeSet? attrs) : base(context, attrs)
+        {
+        }
+
+        public MyTextureView(Context context) : base(context)
+        {
+        }
+
+        public override void SetBackgroundDrawable(Drawable? background)
+        {
         }
     }
 }
