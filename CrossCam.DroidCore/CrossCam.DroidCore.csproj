@@ -64,9 +64,6 @@
   <ItemGroup>
     <PackageReference Include="FreshMvvm.Maui" Version="0.0.4" />
     <PackageReference Include="Microsoft.Maui.Graphics.Skia" Version="8.0.3" />
-    <PackageReference Include="Xam.Plugin.DeviceInfo">
-      <Version>4.1.1</Version>
-    </PackageReference>
     <PackageReference Include="Xamarin.AndroidX.Annotation">
       <Version>1.7.0.3</Version>
     </PackageReference>

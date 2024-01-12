@@ -17,16 +17,16 @@ namespace CrossCam.Platforms.iOS
 
         protected override MauiApp CreateMauiApp() => MauiProgram.CreateMauiApp();
 
-        public override bool FinishedLaunching (UIApplication app, NSDictionary options)
-        {
+		public override bool FinishedLaunching(UIApplication app, NSDictionary options)
+		{
 #if !DEBUG
 			AppCenter.Start("ef05db4b-0a69-4686-93b0-c0e98b92ac8e", //plz don't abuse this.
                 typeof(Analytics), typeof(Crashes));
 #endif
 
-            var success = base.FinishedLaunching(app, options);
-            AuthorizeCameraUse();
-		    return success;
+			var success = base.FinishedLaunching(app, options);
+			AuthorizeCameraUse();
+			return success;
 		}
 
 		//public override UIInterfaceOrientationMask GetSupportedInterfaceOrientations(UIApplication application, UIWindow forWindow)

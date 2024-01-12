@@ -1,9 +1,5 @@
-﻿using Plugin.DeviceInfo;
-using System;
-using CrossCam.ViewModel;
+﻿using CrossCam.ViewModel;
 using Microsoft.AppCenter.Crashes;
-using Microsoft.Maui.Controls;
-using Microsoft.Maui;
 
 namespace CrossCam.CustomElement
 {
@@ -14,7 +10,7 @@ namespace CrossCam.CustomElement
             InitializeComponent();
             Device.BeginInvokeOnMainThread(() =>
             {
-                _versionLabel.Text = "v" + CrossDeviceInfo.Current.AppVersion;
+                _versionLabel.Text = "v" + AppInfo.VersionString;
                 _emailMeLabel.TextType = TextType.Html;
                 _emailMeLabel.TextType = TextType.Text;
             });

@@ -12,7 +12,6 @@ using CrossCam.Wrappers;
 using Microsoft.AppCenter.Analytics;
 using Microsoft.AppCenter.Crashes;
 using Newtonsoft.Json;
-using Plugin.DeviceInfo;
 using SkiaSharp;
 using DeviceInfo = Microsoft.Maui.Devices.DeviceInfo;
 using ErrorEventArgs = CrossCam.CustomElement.ErrorEventArgs;
@@ -1135,9 +1134,8 @@ namespace CrossCam.ViewModel
                     {"Height", Math.Round(Application.Current.MainPage.Height).ToString()},
                     {"vNumber", DeviceInfo.Version.ToString()},
                     {"vString", DeviceInfo.VersionString},
-                    {"App Version", CrossDeviceInfo.Current.AppVersion},
-                    {"App Build", CrossDeviceInfo.Current.AppBuild},
-                    {"Idiom", CrossDeviceInfo.Current.Idiom.ToString()}
+                    {"App Version", AppInfo.VersionString},
+                    {"Idiom", DeviceInfo.Current.Idiom.ToString()}
                 };
                 var propertiesString = JsonConvert.SerializeObject(deviceInfoDictionary);
                 propertiesString += JsonConvert.SerializeObject(Settings);
@@ -1831,7 +1829,7 @@ namespace CrossCam.ViewModel
             }
         }
 
-        protected override async void ViewIsAppearing(object sender, EventArgs e)
+        protected override /*async*/ void ViewIsAppearing(object sender, EventArgs e)
         {
             base.ViewIsAppearing(sender, e);
             DependencyService.Get<IScreenKeepAwaker>()?.KeepScreenAwake();
@@ -1862,8 +1860,8 @@ namespace CrossCam.ViewModel
 
             PairOperator.CurrentCoreMethods = CoreMethods;
 
-            await Task.Delay(100);
-            await EvaluateAndShowWelcomePopup();
+            //await Task.Delay(100);
+            //await EvaluateAndShowWelcomePopup();
         }
 
         private async void ShowFovPreparationPopup()

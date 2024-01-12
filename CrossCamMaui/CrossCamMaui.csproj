@@ -113,6 +113,10 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <MauiImage Remove="Resources\Images\viewColumn2.svg" />
+	</ItemGroup>
+
+	<ItemGroup>
 	  <None Remove="Platforms\Android\Assets\AboutAssets.txt" />
 	  <None Remove="Platforms\Android\proguard.cfg" />
 	  <None Remove="Platforms\Android\Resources\drawable-hdpi\icon.png" />
@@ -208,7 +212,6 @@
 		<PackageReference Include="SkiaSharp.Views.Maui.Core" Version="2.88.6" />
 		<PackageReference Include="SkiaSharp.Views.Maui.Controls" Version="2.88.6" />
 		<PackageReference Include="SkiaSharp.Views.Maui.Controls.Compatibility" Version="2.88.6" />
-		<PackageReference Include="Xam.Plugin.DeviceInfo" Version="4.1.1" />
 		<PackageReference Include="CommunityToolkit.Maui" Version="7.0.0" />
 	</ItemGroup>
 
