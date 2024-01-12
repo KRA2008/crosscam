@@ -58,6 +58,7 @@
 	  <MtouchDebug>True</MtouchDebug>
 	  <MtouchProfiling>True</MtouchProfiling>
 	  <MtouchFloat32>True</MtouchFloat32>
+	  <CodesignEntitlements>Platforms\iOS\DevEntitlements.plist</CodesignEntitlements>
 	</PropertyGroup>
 
 	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net8.0-android|AnyCPU'">
@@ -75,6 +76,7 @@
 	  <BuildIpa>True</BuildIpa>
 	  <AdditionalArgs>--linkskip=CrossCam --linkskip=CrossCam.iOS --linkskip=CrossCam.iOS.Extension --optimize=-remove-dynamic-registrar</AdditionalArgs>
 	  <MtouchFloat32>True</MtouchFloat32>
+	  <CodesignEntitlements>Platforms\iOS\ProdEntitlements.plist</CodesignEntitlements>
 	</PropertyGroup>
 
 	<PropertyGroup Condition="'$(TargetFramework)'=='net8.0-ios'">
@@ -191,11 +193,6 @@
 	  <None Remove="Platforms\Android\Resources\drawable\splash_screen.xml" />
 	  <None Remove="Platforms\Android\Resources\layout\CameraLayout.axml" />
 	  <None Remove="Resources\AppIcon\appiconfg.svg" />
-	</ItemGroup>
-
-	<ItemGroup>
-	  <None Include="..\CrossCam.iOSCore\Entitlements.plist" Link="Platforms\iOS\Entitlements.plist" />
-	  <None Include="..\CrossCam.iOSCore\Info.plist" Link="Platforms\iOS\Info.plist" />
 	</ItemGroup>
 
 	<ItemGroup>

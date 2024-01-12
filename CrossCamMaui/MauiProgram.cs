@@ -60,18 +60,13 @@ public static class MauiProgram
         services.Add(ServiceDescriptor.Transient<TipMeViewModel, TipMeViewModel>());
         services.Add(ServiceDescriptor.Transient<TipsViewModel, TipsViewModel>());
 
+        DependencyService.Register<IPlatformPair, PlatformPair>();
+        DependencyService.Register<IDirectorySelector, DirectorySelector>();
+        DependencyService.Register<ILinkSharer, LinkSharer>();
+        DependencyService.Register<IPhotoPicker, PhotoPicker>();
+        DependencyService.Register<IScreenKeepAwaker, ScreenKeepAwaker>();
 #if __ANDROID__
-        DependencyService.Register<IPlatformPair, PlatformPair>();
-        DependencyService.Register<IDirectorySelector, DirectorySelector>();
-        DependencyService.Register<ILinkSharer, LinkSharer>();
-        DependencyService.Register<IPhotoPicker, PhotoPicker>();
-        DependencyService.Register<IScreenKeepAwaker, ScreenKeepAwaker>();
 #elif __IOS__
-        DependencyService.Register<IPlatformPair, PlatformPair>();
-        DependencyService.Register<IDirectorySelector, DirectorySelector>();
-        DependencyService.Register<ILinkSharer, LinkSharer>();
-        DependencyService.Register<IPhotoPicker, PhotoPicker>();
-        DependencyService.Register<IScreenKeepAwaker, ScreenKeepAwaker>();
         DependencyService.Register<INotchHeightProvider, NotchHeightProvider>();
 #endif
 
