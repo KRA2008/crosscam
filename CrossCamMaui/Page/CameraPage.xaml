@@ -146,7 +146,7 @@
                        AbsoluteLayout.LayoutFlags="None"
                        AbsoluteLayout.LayoutBounds="0, 0, 0, 0"
                        InputTransparent="True" 
-                       Source="squareOuter"
+                       Source="squareouter"
                        IsVisible="{Binding ShouldDonutGuideBeVisible}"/>
                 <ContentView x:Name="_leftReticlePanner"
                              AbsoluteLayout.LayoutFlags="None"
@@ -165,7 +165,7 @@
                        AbsoluteLayout.LayoutFlags="None"
                        AbsoluteLayout.LayoutBounds="0, 0, 0, 0"
                        InputTransparent="True" 
-                       Source="squareOuter"
+                       Source="squareouter"
                        IsVisible="{Binding ShouldDonutGuideBeVisible}"/>
                 <ContentView x:Name="_rightReticlePanner"
                              AbsoluteLayout.LayoutFlags="None"
@@ -190,13 +190,13 @@
                                      Binding="{Binding IsFocusCircleLocked}"
                                      Value="true">
                             <Setter Property="Source"
-                                    Value="focusCircleGreen"/>
+                                    Value="focuscirclegreen"/>
                         </DataTrigger>
                         <DataTrigger TargetType="Image" 
                                      Binding="{Binding IsFocusCircleLocked}"
                                      Value="false">
                             <Setter Property="Source"
-                                    Value="focusCircle"/>
+                                    Value="focuscircle"/>
                         </DataTrigger>
                     </Image.Triggers>
                 </Image>
@@ -243,10 +243,10 @@
                     <Image Source="pair"
                            InputTransparent="True"
                            IsVisible="{Binding Settings.PairSettings.IsPairedPrimary, Converter={vc:NullableBooleanHasValueInvertConverter}}"/>
-                    <Image Source="pairPrimary"
+                    <Image Source="pairprimary"
                            InputTransparent="True"
                            IsVisible="{Binding Settings.PairSettings.IsPairedPrimary, Converter={StaticResource nullableBoolean}}"/>
-                    <Image Source="pairSecondary"
+                    <Image Source="pairsecondary"
                            InputTransparent="True"
                            IsVisible="{Binding Settings.PairSettings.IsPairedPrimary, Converter={vc:NullableBooleanInvertConverter}}"/>
                 </StackLayout>
@@ -307,7 +307,7 @@
             <ContentView.GestureRecognizers>
                 <TapGestureRecognizer Command="{Binding LoadPhotoCommand}"/>
             </ContentView.GestureRecognizers>
-            <Image Source="loadImage"
+            <Image Source="loadimage"
                    InputTransparent="True"/>
         </ContentView>
         <ContentView AbsoluteLayout.LayoutFlags="PositionProportional"
@@ -317,7 +317,7 @@
             <ContentView.GestureRecognizers>
                 <TapGestureRecognizer Command="{Binding LoadPhotoCommand}"/>
             </ContentView.GestureRecognizers>
-            <Image Source="loadImage"
+            <Image Source="loadimage"
                    InputTransparent="True"/>
         </ContentView>
         <ContentView AbsoluteLayout.LayoutFlags="PositionProportional"
@@ -327,7 +327,7 @@
             <ContentView.GestureRecognizers>
                 <TapGestureRecognizer Command="{Binding LoadPhotoCommand}"/>
             </ContentView.GestureRecognizers>
-            <Image Source="loadImage"
+            <Image Source="loadimage"
                    InputTransparent="True"/>
         </ContentView>
 
@@ -417,13 +417,13 @@
                        IsVisible="{Binding Settings.SaveForCrossView}"/>
                 <Image Source="parallel"
                        IsVisible="{Binding Settings.SaveForParallel}"/>
-                <Image Source="saveBoth"
+                <Image Source="saveboth"
                        IsVisible="{Binding Settings.SaveSidesSeparately}"/>
-                <Image Source="saveOne"
+                <Image Source="saveone"
                        IsVisible="{Binding Settings.SaveRedundantFirstSide}"/>
                 <Image Source="anaglyph"
                        IsVisible="{Binding Settings.SaveForRedCyanAnaglyph}"/>
-                <Image Source="grayscaleAnaglyph"
+                <Image Source="grayscaleanaglyph"
                        IsVisible="{Binding Settings.SaveForGrayscaleAnaglyph}"/>
                 <Image Source="triple"
                        IsVisible="{Binding Settings.SaveForTriple}"/>
@@ -484,7 +484,7 @@
                             Value="{StaticResource _clearBounds}"/>
                 </DataTrigger>
             </ContentView.Triggers>
-            <Image Source="checkBox"/>
+            <Image Source="checkbox"/>
         </ContentView>
 
         <Grid AbsoluteLayout.LayoutFlags="PositionProportional,WidthProportional"
@@ -508,7 +508,7 @@
                        FontAttributes="Bold"
                        FontSize="Large"
                        VerticalTextAlignment="Center"/>
-                <Image Source="vertAlign"/>
+                <Image Source="vertalign"/>
             </StackLayout>
         </Grid>
         <Grid AbsoluteLayout.LayoutFlags="PositionProportional,WidthProportional"
@@ -526,35 +526,35 @@
             <StackLayout Grid.Column="1"
                          Spacing="0"
                          Orientation="Horizontal">
-                <Image Source="keystoneLeft">
+                <Image Source="keystoneleft">
                     <Image.Triggers>
                         <DataTrigger TargetType="Image"
                                      Binding="{Binding Settings.Mode, Converter={StaticResource enumCompare}, ConverterParameter={x:Static vm:DrawMode.Parallel}}"
                                      Value="True">
                             <Setter Property="Source"
-                                    Value="keystoneRight"/>
+                                    Value="keystoneright"/>
                         </DataTrigger>
                         <DataTrigger TargetType="Image"
                                      Binding="{Binding Settings.Mode, Converter={StaticResource enumCompare}, ConverterParameter={x:Static vm:DrawMode.Cardboard}}"
                                      Value="True">
                             <Setter Property="Source"
-                                    Value="keystoneRight"/>
+                                    Value="keystoneright"/>
                         </DataTrigger>
                     </Image.Triggers>
                 </Image>
-                <Image Source="keystoneRight">
+                <Image Source="keystoneright">
                     <Image.Triggers>
                         <DataTrigger TargetType="Image"
                                      Binding="{Binding Settings.Mode, Converter={StaticResource enumCompare}, ConverterParameter={x:Static vm:DrawMode.Parallel}}"
                                      Value="True">
                             <Setter Property="Source"
-                                    Value="keystoneLeft"/>
+                                    Value="keystoneleft"/>
                         </DataTrigger>
                         <DataTrigger TargetType="Image"
                                      Binding="{Binding Settings.Mode, Converter={StaticResource enumCompare}, ConverterParameter={x:Static vm:DrawMode.Cardboard}}"
                                      Value="True">
                             <Setter Property="Source"
-                                    Value="keystoneLeft"/>
+                                    Value="keystoneleft"/>
                         </DataTrigger>
                     </Image.Triggers>
                 </Image>
@@ -769,7 +769,7 @@
                      IsVisible="{Binding ManualAlignMode, Converter={StaticResource enumCompare}, ConverterParameter={x:Static vm:ManualAlignMode.VerticalAlign}}"/>
             <Image Grid.Row="1"
                    Grid.Column="1"
-                   Source="vertAlign"/>
+                   Source="vertalign"/>
             <BoxView Grid.Row="2" 
                      Grid.Column="0"
                      Grid.ColumnSpan="3"
@@ -1048,7 +1048,7 @@
                      IsVisible="{Binding FovCorrectionMode, Converter={StaticResource enumCompare}, ConverterParameter={x:Static vm:FovCorrectionMode.Vertical}}"/>
             <Image Grid.Row="1"
                    Grid.Column="1"
-                   Source="vertAlign"/>
+                   Source="vertalign"/>
             <BoxView Grid.Row="2" 
                      Grid.Column="0"
                      Grid.ColumnSpan="3"
@@ -1235,7 +1235,7 @@
             </BoxView>
             <Image Grid.Column="2"
                    Grid.Row="1"
-                   Source="leftCrop"
+                   Source="leftcrop"
                    HeightRequest="{StaticResource _halfMediumIconWidth}">
                 <Image.GestureRecognizers>
                     <TapGestureRecognizer Command="{Binding SetCropMode}"
@@ -1269,7 +1269,7 @@
             </BoxView>
             <Image Grid.Column="6"
                    Grid.Row="1"
-                   Source="rightCrop"
+                   Source="rightcrop"
                    HeightRequest="{StaticResource _halfMediumIconWidth}">
                 <Image.GestureRecognizers>
                     <TapGestureRecognizer Command="{Binding SetCropMode}"
@@ -1303,7 +1303,7 @@
             </BoxView>
             <Image Grid.Column="10"
                    Grid.Row="1"
-                   Source="insideCrop"
+                   Source="insidecrop"
                    HeightRequest="{StaticResource _halfMediumIconWidth}">
                 <Image.GestureRecognizers>
                     <TapGestureRecognizer Command="{Binding SetCropMode}"
@@ -1337,7 +1337,7 @@
             </BoxView>
             <Image Grid.Column="14"
                    Grid.Row="1"
-                   Source="outsideCrop"
+                   Source="outsidecrop"
                    HeightRequest="{StaticResource _halfMediumIconWidth}">
                 <Image.GestureRecognizers>
                     <TapGestureRecognizer Command="{Binding SetCropMode}"
@@ -1371,7 +1371,7 @@
             </BoxView>
             <Image Grid.Column="18"
                    Grid.Row="1"
-                   Source="topCrop"
+                   Source="topcrop"
                    HeightRequest="{StaticResource _halfMediumIconWidth}">
                 <Image.GestureRecognizers>
                     <TapGestureRecognizer Command="{Binding SetCropMode}"
@@ -1405,7 +1405,7 @@
             </BoxView>
             <Image Grid.Column="22"
                    Grid.Row="1"
-                   Source="bottomCrop"
+                   Source="bottomcrop"
                    HeightRequest="{StaticResource _halfMediumIconWidth}">
                 <Image.GestureRecognizers>
                     <TapGestureRecognizer Command="{Binding SetCropMode}"
@@ -1530,7 +1530,7 @@
                 <ContentView.GestureRecognizers>
                     <TapGestureRecognizer Command="{Binding FlipCameraCommand}"/>
                 </ContentView.GestureRecognizers>
-                <Image Source="cameraFlip"
+                <Image Source="cameraflip"
                        InputTransparent="True"/>
             </ContentView>
             <ContentView HorizontalOptions="EndAndExpand"
@@ -1577,7 +1577,7 @@
                 <StackLayout.GestureRecognizers>
                     <TapGestureRecognizer Command="{Binding ToggleAutoalignCommand}"/>
                 </StackLayout.GestureRecognizers>
-                <Image Source="smartToy"
+                <Image Source="smarttoy"
                        InputTransparent="True"
                        WidthRequest="{StaticResource _gearBoxWidth}">
                     <Image.Triggers>
@@ -1665,7 +1665,7 @@
         <StackLayout Style="{StaticResource _feedbackElement}"
                      IsVisible="{Binding WorkflowStage, Converter={StaticResource enumCompare}, ConverterParameter={x:Static vm:WorkflowStage.AutomaticAlign}}"
                      InputTransparent="True">
-            <Image Source="smartToy"
+            <Image Source="smarttoy"
                    HorizontalOptions="CenterAndExpand"
                    VerticalOptions="EndAndExpand"
                    InputTransparent="True"/>

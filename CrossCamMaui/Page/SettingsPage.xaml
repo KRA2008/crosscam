@@ -533,7 +533,7 @@
                         <RowDefinition Height="50"/>
                     </Grid.RowDefinitions>
 
-                    <Image Source="smartToy"
+                    <Image Source="smarttoy"
                            Grid.ColumnSpan="3"
                            Grid.Row="0"
                            HorizontalOptions="CenterAndExpand"/>
@@ -868,7 +868,7 @@
 
                     <Image Grid.Row="3"
                            Grid.Column="0"
-                           Source="saveBoth"
+                           Source="saveboth"
                            Style="{StaticResource saveModes}"/>
                     <Label Grid.Row="3"
                            Grid.Column="1"
@@ -970,7 +970,7 @@
 
                     <Image Grid.Row="7"
                            Grid.Column="0"
-                           Source="grayscaleAnaglyph"
+                           Source="grayscaleanaglyph"
                            Style="{StaticResource saveModes}"/>
                     <Label Grid.Row="7"
                            Grid.Column="1"
@@ -982,7 +982,7 @@
 
                     <Image Grid.Row="8"
                            Grid.Column="0"
-                           Source="saveOne"
+                           Source="saveone"
                            Style="{StaticResource saveModes}"/>
                     <Label Grid.Row="8"
                            Grid.Column="1"

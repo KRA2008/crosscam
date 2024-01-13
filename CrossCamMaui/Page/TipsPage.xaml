@@ -45,9 +45,9 @@
                     <Label Text="If you turn inward with each shot it is very helpful to do &quot;keystone&quot; corrections. Typically you would want to shrink the inside edges of the photos and then crop some off the top and bottom to level them out. You get to the keystone editing menu by tapping the button that looks like this:"/>
                     <StackLayout Orientation="Horizontal" 
                                  Spacing="0">
-                        <Image Source="keystoneLeft"
+                        <Image Source="keystoneleft"
                                HorizontalOptions="EndAndExpand"/>
-                        <Image Source="keystoneRight"
+                        <Image Source="keystoneright"
                                HorizontalOptions="StartAndExpand"/>
                     </StackLayout>
                     <Label Text="Turning inward is called &quot;toe-in&quot;. It can cause a foreshortening effect that makes it difficult to fuse the corners of the image. The foreshortening effect is present at all times in real life, because parallel lines appear to converge as they go off into the distance away from you, but the artificial perspectives can make it weird."/>
@@ -72,7 +72,7 @@
                 </views:Expander.Header>
                 <StackLayout Padding="10">
                     <Label Text="An interesting &quot;stereo window&quot; effect can be created by doing two things: 1) turn on the border (on Settings page) and 2) for cross viewing, crop the inside edges of the images until the outer edge itself becomes 3D in the picture (crop the OUTSIDE edges if you're parallel viewing). The key is to crop the right edge of the left picture slightly past what the right edge of the right picture shows of the scene and vice-versa. Adding a border is toggled on the Settings page. If this is confusing, just crop a bunch off the inside edges and it will start to be clear. The crop button for the inside edges looks like this:"/>
-                    <Image Source="insideCrop"/>
+                    <Image Source="insidecrop"/>
                 </StackLayout>
             </views:Expander>
 

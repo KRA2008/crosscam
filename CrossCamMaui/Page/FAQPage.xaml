@@ -152,7 +152,7 @@
                     <Label Text="Key point alignment looks for points of interest such as corners, edges, dots, and high contrast and attempts to match them up between the two sides. Once the points are matched up, CrossCam can use a variety of algorithms to attempt to warp the sides so that the key points from one side are all as close as possible to their corresponding key points on the other side."/>
                     <Label Text="Key point alignment is better when warping like zooming or perspective transforms are needed, but it is also more susceptible to outliers/noise. CrossCam is programmed to use ECC alignment first, but it will fall back to key point alignment when ECC fails/is rejected or when capturing is being done with the single shot mirror-division method. You can also configure auto-alignment to always use key point alignment or always use ECC alignment on the Settings page."/>
                     <Label Text="CrossCam will display the alignment outcome on the camera screen beneath the little robot icon. If it used ECC alignment it will display the confidence percentage. If it used key point alignment it will display &quot;KP&quot;. If both alignment methods failed it will display &quot;F&quot;. If you don't like the result of the alignment you can tap on the little robot icon to remove the alignment."/>
-                    <Image Source="smartToy"
+                    <Image Source="smarttoy"
                            HorizontalOptions="CenterAndExpand"/>
                 </StackLayout>
             </views:Expander>
@@ -183,7 +183,7 @@
                     <AbsoluteLayout>
                         <Image AbsoluteLayout.LayoutFlags="PositionProportional"
                                AbsoluteLayout.LayoutBounds="0.5,0,175,175"
-                               Source="mirrorMethod"/>
+                               Source="mirrormethod"/>
                     </AbsoluteLayout>
                     <Label Text="There are some compromises/edits that need to be made in order to use the mirror method. These can all be done manually in CrossCam, but automatic alignment will also attempt to do them for you:"/>
                     <Label Text="&#x2022; Because the reflected view travels over a longer distance than the normal view, the mirrored side will need to be zoomed in a bit."/>
