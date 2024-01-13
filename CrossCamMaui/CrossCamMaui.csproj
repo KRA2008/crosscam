@@ -113,6 +113,9 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <MauiImage Remove="Resources\Images\collapse.svg" />
+	  <MauiImage Remove="Resources\Images\crop.svg" />
+	  <MauiImage Remove="Resources\Images\search.svg" />
 	  <MauiImage Remove="Resources\Images\viewColumn2.svg" />
 	</ItemGroup>
 
@@ -197,6 +200,7 @@
 	  <None Remove="Platforms\Android\Resources\drawable\splash_screen.xml" />
 	  <None Remove="Platforms\Android\Resources\layout\CameraLayout.axml" />
 	  <None Remove="Resources\AppIcon\appiconfg.svg" />
+	  <None Remove="Resources\Images\layers.svg" />
 	</ItemGroup>
 
 	<ItemGroup>
