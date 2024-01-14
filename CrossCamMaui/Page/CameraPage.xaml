@@ -146,7 +146,7 @@
                        AbsoluteLayout.LayoutFlags="None"
                        AbsoluteLayout.LayoutBounds="0, 0, 0, 0"
                        InputTransparent="True" 
-                       Source="squareouter"
+                       Source="squareouter.png"
                        IsVisible="{Binding ShouldDonutGuideBeVisible}"/>
                 <ContentView x:Name="_leftReticlePanner"
                              AbsoluteLayout.LayoutFlags="None"
@@ -165,7 +165,7 @@
                        AbsoluteLayout.LayoutFlags="None"
                        AbsoluteLayout.LayoutBounds="0, 0, 0, 0"
                        InputTransparent="True" 
-                       Source="squareouter"
+                       Source="squareouter.png"
                        IsVisible="{Binding ShouldDonutGuideBeVisible}"/>
                 <ContentView x:Name="_rightReticlePanner"
                              AbsoluteLayout.LayoutFlags="None"
@@ -190,13 +190,13 @@
                                      Binding="{Binding IsFocusCircleLocked}"
                                      Value="true">
                             <Setter Property="Source"
-                                    Value="focuscirclegreen"/>
+                                    Value="focuscirclegreen.png"/>
                         </DataTrigger>
                         <DataTrigger TargetType="Image" 
                                      Binding="{Binding IsFocusCircleLocked}"
                                      Value="false">
                             <Setter Property="Source"
-                                    Value="focuscircle"/>
+                                    Value="focuscircle.png"/>
                         </DataTrigger>
                     </Image.Triggers>
                 </Image>
@@ -240,13 +240,13 @@
                     <StackLayout.GestureRecognizers>
                         <TapGestureRecognizer Command="{Binding PairCommand}"/>
                     </StackLayout.GestureRecognizers>
-                    <Image Source="pair"
+                    <Image Source="pair.png"
                            InputTransparent="True"
                            IsVisible="{Binding Settings.PairSettings.IsPairedPrimary, Converter={vc:NullableBooleanHasValueInvertConverter}}"/>
-                    <Image Source="pairprimary"
+                    <Image Source="pairprimary.png"
                            InputTransparent="True"
                            IsVisible="{Binding Settings.PairSettings.IsPairedPrimary, Converter={StaticResource nullableBoolean}}"/>
-                    <Image Source="pairsecondary"
+                    <Image Source="pairsecondary.png"
                            InputTransparent="True"
                            IsVisible="{Binding Settings.PairSettings.IsPairedPrimary, Converter={vc:NullableBooleanInvertConverter}}"/>
                 </StackLayout>
@@ -266,7 +266,7 @@
             <ContentView.GestureRecognizers>
                 <TapGestureRecognizer Command="{Binding RetakeLeftCommand}"/>
             </ContentView.GestureRecognizers>
-            <Image Source="cancel"
+            <Image Source="cancel.png"
                    InputTransparent="True"/>
         </ContentView>
         <ContentView AbsoluteLayout.LayoutFlags="PositionProportional"
@@ -276,7 +276,7 @@
             <ContentView.GestureRecognizers>
                 <TapGestureRecognizer Command="{Binding RetakeLeftCommand}"/>
             </ContentView.GestureRecognizers>
-            <Image Source="cancel"
+            <Image Source="cancel.png"
                    InputTransparent="True"/>
         </ContentView>
         <ContentView AbsoluteLayout.LayoutFlags="PositionProportional"
@@ -286,7 +286,7 @@
             <ContentView.GestureRecognizers>
                 <TapGestureRecognizer Command="{Binding RetakeRightCommand}"/>
             </ContentView.GestureRecognizers>
-            <Image Source="cancel"
+            <Image Source="cancel.png"
                    InputTransparent="True"/>
         </ContentView>
         <ContentView AbsoluteLayout.LayoutFlags="PositionProportional"
@@ -296,7 +296,7 @@
             <ContentView.GestureRecognizers>
                 <TapGestureRecognizer Command="{Binding RetakeRightCommand}"/>
             </ContentView.GestureRecognizers>
-            <Image Source="cancel"
+            <Image Source="cancel.png"
                    InputTransparent="True"/>
         </ContentView>
 
@@ -307,7 +307,7 @@
             <ContentView.GestureRecognizers>
                 <TapGestureRecognizer Command="{Binding LoadPhotoCommand}"/>
             </ContentView.GestureRecognizers>
-            <Image Source="loadimage"
+            <Image Source="loadimage.png"
                    InputTransparent="True"/>
         </ContentView>
         <ContentView AbsoluteLayout.LayoutFlags="PositionProportional"
@@ -317,7 +317,7 @@
             <ContentView.GestureRecognizers>
                 <TapGestureRecognizer Command="{Binding LoadPhotoCommand}"/>
             </ContentView.GestureRecognizers>
-            <Image Source="loadimage"
+            <Image Source="loadimage.png"
                    InputTransparent="True"/>
         </ContentView>
         <ContentView AbsoluteLayout.LayoutFlags="PositionProportional"
@@ -327,7 +327,7 @@
             <ContentView.GestureRecognizers>
                 <TapGestureRecognizer Command="{Binding LoadPhotoCommand}"/>
             </ContentView.GestureRecognizers>
-            <Image Source="loadimage"
+            <Image Source="loadimage.png"
                    InputTransparent="True"/>
         </ContentView>
 
@@ -355,7 +355,7 @@
                                         Direction="Left,Right"
                                         Threshold="50"/>
             </StackLayout.GestureRecognizers>
-            <Image Source="swap"
+            <Image Source="swap.png"
                    HorizontalOptions="Center"/>
             <Label Text="(or swipe)"
                    HorizontalTextAlignment="Center">
@@ -376,7 +376,7 @@
             <ContentView.GestureRecognizers>
                 <TapGestureRecognizer Command="{Binding CapturePictureCommand}"/>
             </ContentView.GestureRecognizers>
-            <Image Source="aperture"/>
+            <Image Source="aperture.png"/>
         </ContentView>
         <BoxView AbsoluteLayout.LayoutFlags="PositionProportional,HeightProportional"
                  AbsoluteLayout.LayoutBounds="0.5,0,2,1"
@@ -413,21 +413,21 @@
             <StackLayout Grid.Column="1"
                          Orientation="Horizontal"
                          Spacing="0">
-                <Image Source="crossed"
+                <Image Source="crossed.png"
                        IsVisible="{Binding Settings.SaveForCrossView}"/>
-                <Image Source="parallel"
+                <Image Source="parallel.png"
                        IsVisible="{Binding Settings.SaveForParallel}"/>
-                <Image Source="saveboth"
+                <Image Source="saveboth.png"
                        IsVisible="{Binding Settings.SaveSidesSeparately}"/>
-                <Image Source="saveone"
+                <Image Source="saveone.png"
                        IsVisible="{Binding Settings.SaveRedundantFirstSide}"/>
-                <Image Source="anaglyph"
+                <Image Source="anaglyph.png"
                        IsVisible="{Binding Settings.SaveForRedCyanAnaglyph}"/>
-                <Image Source="grayscaleanaglyph"
+                <Image Source="grayscaleanaglyph.png"
                        IsVisible="{Binding Settings.SaveForGrayscaleAnaglyph}"/>
-                <Image Source="triple"
+                <Image Source="triple.png"
                        IsVisible="{Binding Settings.SaveForTriple}"/>
-                <Image Source="quad"
+                <Image Source="quad.png"
                        IsVisible="{Binding Settings.SaveForQuad}"/>
                 <Label Text="VR"
                        IsVisible="{Binding Settings.SaveForCardboard}"/>
@@ -450,9 +450,9 @@
                             Value="{StaticResource _finalSaveBounds}"/>
                 </DataTrigger>
             </ContentView.Triggers>
-            <Image Source="clearBox"/>
+            <Image Source="clearBox.png"/>
         </ContentView>
-        <Image Source="eye"
+        <Image Source="eye.png"
                AbsoluteLayout.LayoutFlags="PositionProportional"
                AbsoluteLayout.LayoutBounds="{StaticResource _viewBounds}"
                IsVisible="{Binding ShouldViewButtonBeVisible}">
@@ -460,7 +460,7 @@
                 <TapGestureRecognizer Command="{Binding ToggleViewModeCommand}"/>
             </Image.GestureRecognizers>
         </Image>
-        <Image Source="edit"
+        <Image Source="edit.png"
                AbsoluteLayout.LayoutFlags="PositionProportional"
                AbsoluteLayout.LayoutBounds="{StaticResource _editBounds}"
                IsVisible="{Binding WorkflowStage, Converter={StaticResource enumCompare}, ConverterParameter={x:Static vm:WorkflowStage.Final}}">
@@ -484,7 +484,7 @@
                             Value="{StaticResource _clearBounds}"/>
                 </DataTrigger>
             </ContentView.Triggers>
-            <Image Source="checkbox"/>
+            <Image Source="checkbox.png"/>
         </ContentView>
 
         <Grid AbsoluteLayout.LayoutFlags="PositionProportional,WidthProportional"
@@ -503,12 +503,12 @@
             <StackLayout Grid.Column="1"
                          Spacing="0"
                          Orientation="Horizontal">
-                <Image Source="rotate"/>
+                <Image Source="rotate.png"/>
                 <Label Text="/"
                        FontAttributes="Bold"
                        FontSize="Large"
                        VerticalTextAlignment="Center"/>
-                <Image Source="vertalign"/>
+                <Image Source="vertalign.png"/>
             </StackLayout>
         </Grid>
         <Grid AbsoluteLayout.LayoutFlags="PositionProportional,WidthProportional"
@@ -526,41 +526,41 @@
             <StackLayout Grid.Column="1"
                          Spacing="0"
                          Orientation="Horizontal">
-                <Image Source="keystoneleft">
+                <Image Source="keystoneleft.png">
                     <Image.Triggers>
                         <DataTrigger TargetType="Image"
                                      Binding="{Binding Settings.Mode, Converter={StaticResource enumCompare}, ConverterParameter={x:Static vm:DrawMode.Parallel}}"
                                      Value="True">
                             <Setter Property="Source"
-                                    Value="keystoneright"/>
+                                    Value="keystoneright.png"/>
                         </DataTrigger>
                         <DataTrigger TargetType="Image"
                                      Binding="{Binding Settings.Mode, Converter={StaticResource enumCompare}, ConverterParameter={x:Static vm:DrawMode.Cardboard}}"
                                      Value="True">
                             <Setter Property="Source"
-                                    Value="keystoneright"/>
+                                    Value="keystoneright.png"/>
                         </DataTrigger>
                     </Image.Triggers>
                 </Image>
-                <Image Source="keystoneright">
+                <Image Source="keystoneright.png">
                     <Image.Triggers>
                         <DataTrigger TargetType="Image"
                                      Binding="{Binding Settings.Mode, Converter={StaticResource enumCompare}, ConverterParameter={x:Static vm:DrawMode.Parallel}}"
                                      Value="True">
                             <Setter Property="Source"
-                                    Value="keystoneleft"/>
+                                    Value="keystoneleft.png"/>
                         </DataTrigger>
                         <DataTrigger TargetType="Image"
                                      Binding="{Binding Settings.Mode, Converter={StaticResource enumCompare}, ConverterParameter={x:Static vm:DrawMode.Cardboard}}"
                                      Value="True">
                             <Setter Property="Source"
-                                    Value="keystoneleft"/>
+                                    Value="keystoneleft.png"/>
                         </DataTrigger>
                     </Image.Triggers>
                 </Image>
             </StackLayout>
         </Grid>
-        <Image Source="scissor"
+        <Image Source="scissor.png"
                AbsoluteLayout.LayoutFlags="PositionProportional"
                AbsoluteLayout.LayoutBounds="{StaticResource _cropBounds}"
                IsVisible="{Binding WorkflowStage, Converter={StaticResource enumCompare}, ConverterParameter={x:Static vm:WorkflowStage.Edits}}">
@@ -577,7 +577,7 @@
             <ContentView.GestureRecognizers>
                 <TapGestureRecognizer Command="{Binding ClearEditCommand}"/>
             </ContentView.GestureRecognizers>
-            <Image Source="undo"
+            <Image Source="undo.png"
                    InputTransparent="True"/>
         </ContentView>
         <ContentView AbsoluteLayout.LayoutFlags="PositionProportional"
@@ -587,7 +587,7 @@
             <ContentView.GestureRecognizers>
                 <TapGestureRecognizer Command="{Binding SaveEditCommand}"/>
             </ContentView.GestureRecognizers>
-            <Image Source="check"/>
+            <Image Source="check.png"/>
         </ContentView>
 
         <StackLayout AbsoluteLayout.LayoutFlags="PositionProportional,WidthProportional"
@@ -603,7 +603,7 @@
                     HorizontalOptions="FillAndExpand"
                     DragStartedCommand="{Binding SlidingStartedCommand}"
                     DragCompletedCommand="{Binding SlidingFinishedCommand}"/>
-            <Image Source="check">
+            <Image Source="check.png">
                 <Image.GestureRecognizers>
                     <TapGestureRecognizer Command="{Binding SaveEditCommand}"/>
                 </Image.GestureRecognizers>
@@ -655,7 +655,7 @@
                      IsVisible="{Binding ManualAlignMode, Converter={StaticResource enumCompare}, ConverterParameter={x:Static vm:ManualAlignMode.RotateLeft}}"/>
             <Image Grid.Row="1"
                    Grid.Column="1"
-                   Source="rotate"/>
+                   Source="rotate.png"/>
             <BoxView Grid.Row="2" 
                      Grid.Column="0"
                      Grid.ColumnSpan="3"
@@ -712,7 +712,7 @@
                      IsVisible="{Binding ManualAlignMode, Converter={StaticResource enumCompare}, ConverterParameter={x:Static vm:ManualAlignMode.ZoomLeft}}"/>
             <Image Grid.Row="1"
                    Grid.Column="1"
-                   Source="zoom"/>
+                   Source="zoom.png"/>
             <BoxView Grid.Row="2" 
                      Grid.Column="0"
                      Grid.ColumnSpan="3"
@@ -769,7 +769,7 @@
                      IsVisible="{Binding ManualAlignMode, Converter={StaticResource enumCompare}, ConverterParameter={x:Static vm:ManualAlignMode.VerticalAlign}}"/>
             <Image Grid.Row="1"
                    Grid.Column="1"
-                   Source="vertalign"/>
+                   Source="vertalign.png"/>
             <BoxView Grid.Row="2" 
                      Grid.Column="0"
                      Grid.ColumnSpan="3"
@@ -826,7 +826,7 @@
                      IsVisible="{Binding ManualAlignMode, Converter={StaticResource enumCompare}, ConverterParameter={x:Static vm:ManualAlignMode.RotateRight}}"/>
             <Image Grid.Row="1"
                    Grid.Column="1"
-                   Source="rotate"/>
+                   Source="rotate.png"/>
             <BoxView Grid.Row="2" 
                      Grid.Column="0"
                      Grid.ColumnSpan="3"
@@ -883,7 +883,7 @@
                      IsVisible="{Binding ManualAlignMode, Converter={StaticResource enumCompare}, ConverterParameter={x:Static vm:ManualAlignMode.ZoomRight}}"/>
             <Image Grid.Row="1"
                    Grid.Column="1"
-                   Source="zoom"/>
+                   Source="zoom.png"/>
             <BoxView Grid.Row="2" 
                      Grid.Column="0"
                      Grid.ColumnSpan="3"
@@ -938,7 +938,7 @@
                     DragStartedCommand="{Binding SlidingStartedCommand}"
                     DragCompletedCommand="{Binding SlidingFinishedCommand}"
                     IsVisible="{Binding ManualAlignMode, Converter={StaticResource enumCompare}, ConverterParameter={x:Static vm:ManualAlignMode.VerticalAlign}}"/>
-            <Image Source="check">
+            <Image Source="check.png">
                 <Image.GestureRecognizers>
                     <TapGestureRecognizer Command="{Binding SaveEditCommand}"/>
                 </Image.GestureRecognizers>
@@ -991,7 +991,7 @@
                      IsVisible="{Binding FovCorrectionMode, Converter={StaticResource enumCompare}, ConverterParameter={x:Static vm:FovCorrectionMode.LeftZoom}}"/>
             <Image Grid.Row="1"
                    Grid.Column="1"
-                   Source="zoom"/>
+                   Source="zoom.png"/>
             <BoxView Grid.Row="2" 
                      Grid.Column="0"
                      Grid.ColumnSpan="3"
@@ -1048,7 +1048,7 @@
                      IsVisible="{Binding FovCorrectionMode, Converter={StaticResource enumCompare}, ConverterParameter={x:Static vm:FovCorrectionMode.Vertical}}"/>
             <Image Grid.Row="1"
                    Grid.Column="1"
-                   Source="vertalign"/>
+                   Source="vertalign.png"/>
             <BoxView Grid.Row="2" 
                      Grid.Column="0"
                      Grid.ColumnSpan="3"
@@ -1105,7 +1105,7 @@
                      IsVisible="{Binding FovCorrectionMode, Converter={StaticResource enumCompare}, ConverterParameter={x:Static vm:FovCorrectionMode.RightZoom}}"/>
             <Image Grid.Row="1"
                    Grid.Column="1"
-                   Source="zoom"/>
+                   Source="zoom.png"/>
             <BoxView Grid.Row="2" 
                      Grid.Column="0"
                      Grid.ColumnSpan="3"
@@ -1147,7 +1147,7 @@
                     DragStartedCommand="{Binding SlidingStartedCommand}"
                     DragCompletedCommand="{Binding SlidingFinishedCommand}"
                     IsVisible="{Binding FovCorrectionMode, Converter={StaticResource enumCompare}, ConverterParameter={x:Static vm:FovCorrectionMode.Vertical}}"/>
-            <Image Source="check">
+            <Image Source="check.png">
                 <Image.GestureRecognizers>
                     <TapGestureRecognizer Command="{Binding SaveEditCommand}"/>
                 </Image.GestureRecognizers>
@@ -1235,7 +1235,7 @@
             </BoxView>
             <Image Grid.Column="2"
                    Grid.Row="1"
-                   Source="leftcrop"
+                   Source="leftcrop.png"
                    HeightRequest="{StaticResource _halfMediumIconWidth}">
                 <Image.GestureRecognizers>
                     <TapGestureRecognizer Command="{Binding SetCropMode}"
@@ -1269,7 +1269,7 @@
             </BoxView>
             <Image Grid.Column="6"
                    Grid.Row="1"
-                   Source="rightcrop"
+                   Source="rightcrop.png"
                    HeightRequest="{StaticResource _halfMediumIconWidth}">
                 <Image.GestureRecognizers>
                     <TapGestureRecognizer Command="{Binding SetCropMode}"
@@ -1303,7 +1303,7 @@
             </BoxView>
             <Image Grid.Column="10"
                    Grid.Row="1"
-                   Source="insidecrop"
+                   Source="insidecrop.png"
                    HeightRequest="{StaticResource _halfMediumIconWidth}">
                 <Image.GestureRecognizers>
                     <TapGestureRecognizer Command="{Binding SetCropMode}"
@@ -1337,7 +1337,7 @@
             </BoxView>
             <Image Grid.Column="14"
                    Grid.Row="1"
-                   Source="outsidecrop"
+                   Source="outsidecrop.png"
                    HeightRequest="{StaticResource _halfMediumIconWidth}">
                 <Image.GestureRecognizers>
                     <TapGestureRecognizer Command="{Binding SetCropMode}"
@@ -1371,7 +1371,7 @@
             </BoxView>
             <Image Grid.Column="18"
                    Grid.Row="1"
-                   Source="topcrop"
+                   Source="topcrop.png"
                    HeightRequest="{StaticResource _halfMediumIconWidth}">
                 <Image.GestureRecognizers>
                     <TapGestureRecognizer Command="{Binding SetCropMode}"
@@ -1405,7 +1405,7 @@
             </BoxView>
             <Image Grid.Column="22"
                    Grid.Row="1"
-                   Source="bottomcrop"
+                   Source="bottomcrop.png"
                    HeightRequest="{StaticResource _halfMediumIconWidth}">
                 <Image.GestureRecognizers>
                     <TapGestureRecognizer Command="{Binding SetCropMode}"
@@ -1463,7 +1463,7 @@
                     DragStartedCommand="{Binding SlidingStartedCommand}"
                     DragCompletedCommand="{Binding SlidingFinishedCommand}"
                     IsVisible="{Binding CropMode, Converter={StaticResource enumCompare}, ConverterParameter={x:Static vm:CropMode.Right}}"/>
-            <Image Source="check">
+            <Image Source="check.png">
                 <Image.GestureRecognizers>
                     <TapGestureRecognizer Command="{Binding SaveEditCommand}"/>
                 </Image.GestureRecognizers>
@@ -1492,7 +1492,7 @@
                 <ContentView.GestureRecognizers>
                     <TapGestureRecognizer Command="{Binding NavigateToHamburgerPageCommand}"/>
                 </ContentView.GestureRecognizers>
-                <Image Source="menu"
+                <Image Source="menu.png"
                        InputTransparent="True">
                 </Image>
             </ContentView>
@@ -1522,7 +1522,7 @@
                 <ContentView.GestureRecognizers>
                     <TapGestureRecognizer Command="{Binding NavigateToSettingsCommand}"/>
                 </ContentView.GestureRecognizers>
-                <Image Source="gear"
+                <Image Source="gear.png"
                        InputTransparent="True"/>
             </ContentView>
             <ContentView IsVisible="{Binding WorkflowStage, Converter={StaticResource enumCompare}, ConverterParameter={x:Static vm:WorkflowStage.Capture}}"
@@ -1530,7 +1530,7 @@
                 <ContentView.GestureRecognizers>
                     <TapGestureRecognizer Command="{Binding FlipCameraCommand}"/>
                 </ContentView.GestureRecognizers>
-                <Image Source="cameraflip"
+                <Image Source="cameraflip.png"
                        InputTransparent="True"/>
             </ContentView>
             <ContentView HorizontalOptions="EndAndExpand"
@@ -1538,7 +1538,7 @@
                 <ContentView.GestureRecognizers>
                     <TapGestureRecognizer Command="{Binding ToggleFullscreen}"/>
                 </ContentView.GestureRecognizers>
-                <Image Source="ghost"
+                <Image Source="ghost.png"
                        InputTransparent="True">
                     <Image.Triggers>
                         <DataTrigger TargetType="Image"
@@ -1577,7 +1577,7 @@
                 <StackLayout.GestureRecognizers>
                     <TapGestureRecognizer Command="{Binding ToggleAutoalignCommand}"/>
                 </StackLayout.GestureRecognizers>
-                <Image Source="smarttoy"
+                <Image Source="smarttoy.png"
                        InputTransparent="True"
                        WidthRequest="{StaticResource _gearBoxWidth}">
                     <Image.Triggers>
@@ -1665,7 +1665,7 @@
         <StackLayout Style="{StaticResource _feedbackElement}"
                      IsVisible="{Binding WorkflowStage, Converter={StaticResource enumCompare}, ConverterParameter={x:Static vm:WorkflowStage.AutomaticAlign}}"
                      InputTransparent="True">
-            <Image Source="smarttoy"
+            <Image Source="smarttoy.png"
                    HorizontalOptions="CenterAndExpand"
                    VerticalOptions="EndAndExpand"
                    InputTransparent="True"/>
@@ -1776,7 +1776,7 @@
                                          OutTimeMs="500"
                                          VisibleTimeMs="2500"/>
             </StackLayout.Behaviors>
-            <Image Source="left"
+            <Image Source="left.png"
                    Aspect="AspectFit"
                    HorizontalOptions="Center"
                    VerticalOptions="EndAndExpand">
@@ -1790,7 +1790,7 @@
                         </MultiTrigger.Conditions>
                         <MultiTrigger.Setters>
                             <Setter Property="Source"
-                                    Value="right"/>
+                                    Value="right.png"/>
                         </MultiTrigger.Setters>
                     </MultiTrigger>
                     <MultiTrigger TargetType="Image">
@@ -1802,7 +1802,7 @@
                         </MultiTrigger.Conditions>
                         <MultiTrigger.Setters>
                             <Setter Property="Source"
-                                    Value="right"/>
+                                    Value="right.png"/>
                         </MultiTrigger.Setters>
                     </MultiTrigger>
                 </Image.Triggers>
@@ -1928,7 +1928,7 @@
                                              OutTimeMs="500"
                                              VisibleTimeMs="2500"/>
                 </StackLayout.Behaviors>
-                <Image Source="left"
+                <Image Source="left.png"
                        Aspect="AspectFit"
                        HorizontalOptions="Center"
                        VerticalOptions="EndAndExpand">
@@ -1937,7 +1937,7 @@
                                      Binding="{Binding Settings.IsCaptureLeftFirst}"
                                      Value="True">
                             <Setter Property="Source"
-                                    Value="right"/>
+                                    Value="right.png"/>
                         </DataTrigger>
                     </Image.Triggers>
                 </Image>

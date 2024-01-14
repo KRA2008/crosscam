@@ -45,7 +45,7 @@
 	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net8.0-android|AnyCPU'">
 	  <Deterministic>False</Deterministic>
 	  <AndroidEnableMultiDex>True</AndroidEnableMultiDex>
-	  <AndroidStoreUncompressedFileExtensions>.png;.jpg;.jpeg;.svg</AndroidStoreUncompressedFileExtensions>
+	  <AndroidStoreUncompressedFileExtensions></AndroidStoreUncompressedFileExtensions>
 	  <AndroidUseAapt2>True</AndroidUseAapt2>
 	  <DefineConstants>$(DefineConstants);__ANDROID__</DefineConstants>
 	</PropertyGroup>
@@ -129,8 +129,6 @@
 	  <MauiImage Remove="Resources\Images\clearbox.svg" />
 	  <MauiImage Remove="Resources\Images\close.svg" />
 	  <MauiImage Remove="Resources\Images\closefullscreen.svg" />
-	  <MauiImage Remove="Resources\Images\collapse.svg" />
-	  <MauiImage Remove="Resources\Images\crop.svg" />
 	  <MauiImage Remove="Resources\Images\crossed.png" />
 	  <MauiImage Remove="Resources\Images\edit.svg" />
 	  <MauiImage Remove="Resources\Images\expandless.svg" />
@@ -154,6 +152,7 @@
 	  <MauiImage Remove="Resources\Images\insidecrop.png" />
 	  <MauiImage Remove="Resources\Images\keystoneleft.png" />
 	  <MauiImage Remove="Resources\Images\keystoneright.png" />
+	  <MauiImage Remove="Resources\Images\layers.svg" />
 	  <MauiImage Remove="Resources\Images\left.svg" />
 	  <MauiImage Remove="Resources\Images\leftcrop.png" />
 	  <MauiImage Remove="Resources\Images\loadimage.svg" />
@@ -171,7 +170,6 @@
 	  <MauiImage Remove="Resources\Images\saveboth.svg" />
 	  <MauiImage Remove="Resources\Images\saveone.svg" />
 	  <MauiImage Remove="Resources\Images\scissor.svg" />
-	  <MauiImage Remove="Resources\Images\search.svg" />
 	  <MauiImage Remove="Resources\Images\smarttoy.svg" />
 	  <MauiImage Remove="Resources\Images\squareinner.png" />
 	  <MauiImage Remove="Resources\Images\squareouter.png" />
@@ -180,7 +178,6 @@
 	  <MauiImage Remove="Resources\Images\triple.png" />
 	  <MauiImage Remove="Resources\Images\undo.svg" />
 	  <MauiImage Remove="Resources\Images\vertalign.svg" />
-	  <MauiImage Remove="Resources\Images\viewColumn2.svg" />
 	  <MauiImage Remove="Resources\Images\viewcolumntwo.svg" />
 	  <MauiImage Remove="Resources\Images\zoom.svg" />
 	</ItemGroup>
@@ -197,8 +194,6 @@
 	  <None Remove="Platforms\Android\Resources\drawable\icon.png" />
 	  <None Remove="Platforms\Android\Resources\drawable\splash_screen.xml" />
 	  <None Remove="Platforms\Android\Resources\layout\CameraLayout.axml" />
-	  <None Remove="Resources\AppIcon\appiconfg.svg" />
-	  <None Remove="Resources\Images\layers.svg" />
 	</ItemGroup>
 
 	<ItemGroup>

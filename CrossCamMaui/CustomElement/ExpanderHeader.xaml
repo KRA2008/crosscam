@@ -11,7 +11,7 @@
            Style="{StaticResource header}"
            VerticalOptions="Center"
            HorizontalOptions="StartAndExpand"/>
-    <Image Source="expandmore"
+    <Image Source="expandmore.png"
            HorizontalOptions="End"
            VerticalOptions="Center">
         <Image.Triggers>
@@ -19,7 +19,7 @@
                          Binding="{Binding Source={RelativeSource AncestorType={x:Type views:Expander}}, Path=IsExpanded}"
                          Value="True">
                 <Setter Property="Source"
-                        Value="expandless" />
+                        Value="expandless.png" />
             </DataTrigger>
         </Image.Triggers>
     </Image>
