@@ -91,6 +91,46 @@
         </ResourceDictionary>
     </ContentPage.Resources>
     <AbsoluteLayout x:Name="_baseLayout">
+        <ce:CameraModule AbsoluteLayout.LayoutFlags="None"
+                         AbsoluteLayout.LayoutBounds="0,0,1,1"
+                         x:Name="_cameraModule"
+                         SwitchToContinuousFocusTrigger="{Binding SwitchToContinuousFocusTrigger}"
+                         IsTapToFocusEnabled="{Binding Settings.IsTapToFocusEnabled2}"
+                         IsLockToFirstEnabled="{Binding Settings.IsLockToFirstEnabled}"
+                         CaptureTrigger="{Binding CapturePictureTrigger}"
+                         IsVisible="{Binding WorkflowStage, Converter={StaticResource enumCompare}, ConverterParameter={x:Static vm:WorkflowStage.Capture}}"
+                         CapturedImage="{Binding LocalCapturedFrame}"
+                         CaptureSuccess="{Binding CaptureSuccess}"
+                         IsNothingCaptured="{Binding IsNothingCaptured}"
+                         PreviewBottomY="{Binding PreviewBottomY}"
+                         Error="{Binding Error}"
+                         WasSwipedTrigger="{Binding WasSwipedTrigger}"
+                         IsFocusCircleLocked="{Binding IsFocusCircleLocked}"
+                         PairOperator="{Binding PairOperatorBindable}"
+                         AvailableCameras="{Binding AvailableCameras}"
+                         ChosenCamera="{Binding ChosenCamera}"
+                         PreviewMode="{Binding Settings.Mode}"
+                         PreviewImage="{Binding LocalPreviewFrame}"
+                         AreBothSidesCaptured="{Binding AreBothSidesCaptured}"
+                         RestartPreviewTrigger="{Binding RestartPreviewTrigger}"
+                         StopPreviewTrigger="{Binding StopPreviewTrigger}"
+                         PreviewAspectRatio="{Binding PreviewAspectRatio}"/>
+        <skia:SKCanvasView AbsoluteLayout.LayoutBounds="0,0,1,1"
+                           AbsoluteLayout.LayoutFlags="All" 
+                           x:Name="_canvas"
+                           Touch="_canvas_OnTouch"
+                           EnableTouchEvents="True"
+                           PaintSurface="OnCanvasInvalidated"/>
+        <ce:CameraSuccessOutline AbsoluteLayout.LayoutBounds="0,0,1,1"
+                                 AbsoluteLayout.LayoutFlags="All">
+            <ce:CameraSuccessOutline.Behaviors>
+                <ce:FadeInAndOutBehavior Trigger="{Binding CaptureSuccessTrigger}"
+                                         InTimeMs="0"
+                                         OutTimeMs="250"
+                                         VisibleTimeMs="0"/>
+            </ce:CameraSuccessOutline.Behaviors>
+        </ce:CameraSuccessOutline>
+
         <Grid AbsoluteLayout.LayoutFlags="{Binding CanvasRectangleFlags}"
               AbsoluteLayout.LayoutBounds="{Binding CanvasRectangle}"
               ColumnSpacing="0">
@@ -98,45 +138,6 @@
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
-            <ce:CameraModule x:Name="_cameraModule"
-                             Grid.Column="{Binding CameraColumn}"
-                             SwitchToContinuousFocusTrigger="{Binding SwitchToContinuousFocusTrigger}"
-                             IsTapToFocusEnabled="{Binding Settings.IsTapToFocusEnabled2}"
-                             IsLockToFirstEnabled="{Binding Settings.IsLockToFirstEnabled}"
-                             CaptureTrigger="{Binding CapturePictureTrigger}"
-                             IsVisible="{Binding WorkflowStage, Converter={StaticResource enumCompare}, ConverterParameter={x:Static vm:WorkflowStage.Capture}}"
-                             CapturedImage="{Binding LocalCapturedFrame}"
-                             CaptureSuccess="{Binding CaptureSuccess}"
-                             IsNothingCaptured="{Binding IsNothingCaptured}"
-                             PreviewBottomY="{Binding PreviewBottomY}"
-                             Error="{Binding Error}"
-                             WasSwipedTrigger="{Binding WasSwipedTrigger}"
-                             IsFocusCircleLocked="{Binding IsFocusCircleLocked}"
-                             PairOperator="{Binding PairOperatorBindable}"
-                             AvailableCameras="{Binding AvailableCameras}"
-                             ChosenCamera="{Binding ChosenCamera}"
-                             PreviewMode="{Binding Settings.Mode}"
-                             PreviewImage="{Binding LocalPreviewFrame}"
-                             AreBothSidesCaptured="{Binding AreBothSidesCaptured}"
-                             RestartPreviewTrigger="{Binding RestartPreviewTrigger}"
-                             StopPreviewTrigger="{Binding StopPreviewTrigger}"
-                             PreviewAspectRatio="{Binding PreviewAspectRatio}"/>
-            <skia:SKCanvasView x:Name="_canvas"
-                                Grid.Column="0"
-                                Grid.ColumnSpan="2"
-                                Touch="_canvas_OnTouch"
-                                EnableTouchEvents="True"
-                                PaintSurface="OnCanvasInvalidated"/>
-
-            <ce:CameraSuccessOutline Grid.Column="0"
-                                     Grid.ColumnSpan="2">
-                <ce:CameraSuccessOutline.Behaviors>
-                    <ce:FadeInAndOutBehavior Trigger="{Binding CaptureSuccessTrigger}"
-                                             InTimeMs="0"
-                                             OutTimeMs="250"
-                                             VisibleTimeMs="0"/>
-                </ce:CameraSuccessOutline.Behaviors>
-            </ce:CameraSuccessOutline>
 
             <AbsoluteLayout x:Name="_leftReticleLayout"
                             Grid.Column="0"

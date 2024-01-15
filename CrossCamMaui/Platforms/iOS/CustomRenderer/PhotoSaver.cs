@@ -104,7 +104,7 @@ namespace CrossCam.Platforms.iOS.CustomRenderer
 
         private static void SavePhotoIntoPhotos(UIImage uiImage, TaskCompletionSource<bool> taskCompletionSource)
         {
-            Device.BeginInvokeOnMainThread(() =>
+            MainThread.BeginInvokeOnMainThread(() =>
             {
                 uiImage.SaveToPhotosAlbum((image1, error) =>
                 {

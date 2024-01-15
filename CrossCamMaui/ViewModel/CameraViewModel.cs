@@ -626,7 +626,7 @@ namespace CrossCam.ViewModel
                 SendCommandStartAnalyticsEvent(nameof(ClearCapturesCommand));
                 try
                 {
-                    await Device.InvokeOnMainThreadAsync(async () =>
+                    await MainThread.InvokeOnMainThreadAsync(async () =>
                     {
                         if (!_isClearPromptOpen)
                         {
@@ -1082,7 +1082,7 @@ namespace CrossCam.ViewModel
                     SaveFailFadeTrigger = !SaveFailFadeTrigger;
                     WorkflowStage = WorkflowStage.Final;
 
-                    Device.InvokeOnMainThreadAsync(async () =>
+                    await MainThread.InvokeOnMainThreadAsync(async () =>
                     {
                         await CoreMethods.DisplayAlert("Directory Not Found",
                             "The save destination could not be found. Please choose another on the settings page.",
@@ -1167,7 +1167,7 @@ namespace CrossCam.ViewModel
 
                 Crashes.TrackError(Error, propertiesDictionary);
 
-                Device.InvokeOnMainThreadAsync(async () =>
+                await MainThread.InvokeOnMainThreadAsync(async () =>
                 {
 #if DEBUG
                     await CoreMethods.DisplayAlert("ERROR", Error.ToString(), "OK");
@@ -1207,7 +1207,7 @@ namespace CrossCam.ViewModel
                     {
                         if (!Settings.PairSettings.IsPairedPrimary.HasValue)
                         {
-                            Device.InvokeOnMainThreadAsync(async () =>
+                            await MainThread.InvokeOnMainThreadAsync(async () =>
                             {
                                 await CoreMethods.DisplayAlert("Pair Role Not Selected",
                                     "Please go to the Pairing page (via the Settings page) and choose a pairing role for this device before attempting to pair.",
@@ -1829,11 +1829,11 @@ namespace CrossCam.ViewModel
             }
         }
 
-        protected override /*async*/ void ViewIsAppearing(object sender, EventArgs e)
+        protected override async void ViewIsAppearing(object sender, EventArgs e)
         {
             base.ViewIsAppearing(sender, e);
             DependencyService.Get<IScreenKeepAwaker>()?.KeepScreenAwake();
-            Device.BeginInvokeOnMainThread(() =>
+            MainThread.BeginInvokeOnMainThread(() =>
             {
                 DeviceDisplay.KeepScreenOn = true; // this doesn't seem to actually work, but maybe it does on some devices
             });
@@ -1860,8 +1860,8 @@ namespace CrossCam.ViewModel
 
             PairOperator.CurrentCoreMethods = CoreMethods;
 
-            //await Task.Delay(100);
-            //await EvaluateAndShowWelcomePopup();
+            await Task.Delay(100);
+            await EvaluateAndShowWelcomePopup();
         }
 
         private async void ShowFovPreparationPopup()
@@ -1871,7 +1871,7 @@ namespace CrossCam.ViewModel
                 Settings.PairSettings.IsPairedPrimary.Value &&
                 PairOperator.PairStatus == PairStatus.Connected)
             {
-                await Device.InvokeOnMainThreadAsync(async () =>
+                await MainThread.InvokeOnMainThreadAsync(async () =>
                 {
                     await CoreMethods.DisplayAlert("Field of View Correction",
                         "Different device models can have different fields of view. CrossCam will help you correct for this after you do your first capture. Frame up and capture something with distinctive points near the top and bottom of the frame, making sure the points are visible on both devices.",
@@ -1964,7 +1964,7 @@ namespace CrossCam.ViewModel
         {
             PairOperator.ErrorOccurred -= PairOperatorOnErrorOccurred;
             DependencyService.Get<IScreenKeepAwaker>()?.LetScreenSleep();
-            Device.BeginInvokeOnMainThread(() =>
+            MainThread.BeginInvokeOnMainThread(() =>
             {
                 DeviceDisplay.KeepScreenOn = false; // this doesn't seem to actually work, but maybe it does on some devices
             });
@@ -1978,8 +1978,7 @@ namespace CrossCam.ViewModel
 
         private static IncomingFrame OrientAndDecodeIncomingFrame(byte[] bytes)
         {
-            // TODO Xamarin.Forms.Device.RuntimePlatform is no longer supported. Use Microsoft.Maui.Devices.DeviceInfo.Platform instead. For more details see https://learn.microsoft.com/en-us/dotnet/maui/migration/forms-projects#device-changes
-            if (Device.RuntimePlatform == Device.Android)
+            if (DeviceInfo.Platform == DevicePlatform.Android)
             {
                 using var stream = new MemoryStream(bytes, 0, bytes.Length - 1);
                 var orientationByte = bytes.Last();
@@ -2014,7 +2013,7 @@ namespace CrossCam.ViewModel
 
         private async Task<string> OpenLoadingPopup()
         {
-            return await Device.InvokeOnMainThreadAsync(async () => await CoreMethods.DisplayActionSheet("Choose an action:", CANCEL, null,
+            return await MainThread.InvokeOnMainThreadAsync(async () => await CoreMethods.DisplayActionSheet("Choose an action:", CANCEL, null,
                 FULL_IMAGE, SINGLE_SIDE));
         }
 
@@ -2159,8 +2158,8 @@ namespace CrossCam.ViewModel
 
                             var dirtyMatchesCanvas = dirtyMatchesSurface.Canvas;
                             dirtyMatchesCanvas.Clear();
-                            // TODO Xamarin.Forms.Device.RuntimePlatform is no longer supported. Use Microsoft.Maui.Devices.DeviceInfo.Platform instead. For more details see https://learn.microsoft.com/en-us/dotnet/maui/migration/forms-projects#device-changes
-                            if (Device.RuntimePlatform == Device.iOS && IsViewInverted)
+                            
+                            if (DeviceInfo.Platform == DevicePlatform.iOS && IsViewInverted)
                             {
                                 dirtyMatchesCanvas.RotateDegrees(180);
                                 dirtyMatchesCanvas.Translate(-1f * alignedResult.DrawnDirtyMatches.Width,
@@ -2186,8 +2185,8 @@ namespace CrossCam.ViewModel
                                         alignedResult.DrawnCleanMatches.Height));
                                 var cleanMatchesCanvas = cleanMatchesSurface.Canvas;
                                 cleanMatchesCanvas.Clear();
-                                // TODO Xamarin.Forms.Device.RuntimePlatform is no longer supported. Use Microsoft.Maui.Devices.DeviceInfo.Platform instead. For more details see https://learn.microsoft.com/en-us/dotnet/maui/migration/forms-projects#device-changes
-                                if (Device.RuntimePlatform == Device.iOS && IsViewInverted)
+                                
+                                if (DeviceInfo.Platform == DevicePlatform.iOS && IsViewInverted)
                                 {
                                     cleanMatchesCanvas.RotateDegrees(180);
                                     cleanMatchesCanvas.Translate(-1f * alignedResult.DrawnCleanMatches.Width,
@@ -2535,7 +2534,7 @@ namespace CrossCam.ViewModel
 
         private async void ShowFovDialog()
         {
-            await Device.InvokeOnMainThreadAsync(async () =>
+            await MainThread.InvokeOnMainThreadAsync(async () =>
             {
                 await CoreMethods.DisplayAlert("Field of View Correction", "To correct for field of view differences, zoom and slide the pictures so the distinctive points line up between the two photos. You can drag the white lines around to help you visualize the alignment. This correction will be applied to future previews. It will be saved but you can reset it on the Settings page. If you're using identical devices just save without adjusting.", "OK");
             });
@@ -2763,7 +2762,7 @@ namespace CrossCam.ViewModel
 #if DEBUG
             await Task.CompletedTask;
 #else
-            await Device.InvokeOnMainThreadAsync(async () =>
+            await MainThread.InvokeOnMainThreadAsync(async () =>
             {
                 if (!Settings.HasOfferedTechniqueHelpBefore2)
                 {

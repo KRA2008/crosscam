@@ -166,7 +166,7 @@ namespace CrossCam.CustomElement
         {
             //Debug.WriteLine("CAPTURE NOW!!!!");
             _captureTimer.Elapsed -= OnCaptureTimeElapsed;
-            Device.BeginInvokeOnMainThread(() =>
+            MainThread.BeginInvokeOnMainThread(() =>
             {
                 CaptureSyncTimeElapsed?.Invoke(this, e);
             });

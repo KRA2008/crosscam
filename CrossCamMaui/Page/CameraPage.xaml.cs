@@ -117,6 +117,7 @@ namespace CrossCam.Page
                 e.PropertyName == nameof(_baseLayout.Width))
             {
                 ResetLineGuides();
+                SetCameraModuleSize();
             }
         }
 
@@ -253,7 +254,7 @@ namespace CrossCam.Page
                 _cardboardViewVert -= e.Reading.AngularVelocity.Y * seconds;
                 _cardboardViewHor += e.Reading.AngularVelocity.X * seconds;
                 _gyroscopeStopwatch.Restart();
-                Device.BeginInvokeOnMainThread(() =>
+                MainThread.BeginInvokeOnMainThread(() =>
                 {
                     _canvas.InvalidateSurface();
                 });
@@ -273,7 +274,7 @@ namespace CrossCam.Page
 
         private void UpdateLevelFromAccelerometerData()
         {
-            Device.BeginInvokeOnMainThread(() =>
+            MainThread.BeginInvokeOnMainThread(() =>
             {
                 _averageRoll *= (ROLL_GUIDE_MEASURMENT_WEIGHT - 1) / ROLL_GUIDE_MEASURMENT_WEIGHT;
 
@@ -344,7 +345,7 @@ namespace CrossCam.Page
                 _viewModel.Settings.CardboardSettings.PropertyChanged += InvalidateCanvasBecausePropertyChanged;
                 _viewModel.Settings.AlignmentSettings.PropertyChanged += InvalidateCanvasBecausePropertyChanged;
 
-                Device.BeginInvokeOnMainThread(() =>
+                MainThread.BeginInvokeOnMainThread(() =>
                 {
                     var layout = AbsoluteLayout.GetLayoutBounds(_moveHintSideStack);
                     layout.Width = _viewModel.Settings.CardboardSettings.CardboardIpd + 100;
@@ -378,7 +379,7 @@ namespace CrossCam.Page
 
         private void InvalidateCanvasBecausePropertyChanged(object sender, PropertyChangedEventArgs e)
         {
-            Device.BeginInvokeOnMainThread(() =>
+            MainThread.BeginInvokeOnMainThread(() =>
             {
                 _canvas.InvalidateSurface();
             });
@@ -386,7 +387,7 @@ namespace CrossCam.Page
 
         private void ViewModelPropertyChanged(object sender, PropertyChangedEventArgs e)
 	    {
-            Device.BeginInvokeOnMainThread(() =>
+            MainThread.BeginInvokeOnMainThread(() =>
             {
                 switch (e.PropertyName)
                 {
@@ -438,9 +439,20 @@ namespace CrossCam.Page
                     case nameof(CameraViewModel.IsBusy):
                         CardboardCheckAndSaveOrientationSnapshot();
                         break;
+                    case nameof(CameraViewModel.PreviewAspectRatio):
+                        SetCameraModuleSize();
+                        break;
                 }
             });
 	    }
+
+        private void SetCameraModuleSize()
+        {
+            var layoutBounds = AbsoluteLayout.GetLayoutBounds(_cameraModule);
+            layoutBounds.Width = this.Width;
+            layoutBounds.Height = this.Width * _viewModel.PreviewAspectRatio;
+            AbsoluteLayout.SetLayoutBounds(_cameraModule, layoutBounds);
+        }
 
         private void CardboardCheckAndSaveOrientationSnapshot()
         {

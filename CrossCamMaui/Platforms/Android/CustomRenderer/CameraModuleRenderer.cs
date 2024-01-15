@@ -38,6 +38,7 @@ using Camera = Android.Hardware.Camera;
 using Camera2 = Android.Hardware.Camera2;
 using Microsoft.Maui.Controls.Handlers.Compatibility;
 using Microsoft.Maui.Controls.Platform;
+using Microsoft.Maui.Platform;
 
 namespace CrossCam.Platforms.Android.CustomRenderer
 {
@@ -52,7 +53,7 @@ namespace CrossCam.Platforms.Android.CustomRenderer
         private CameraModule _cameraModule;
         private GestureDetector _gestureDetector;
 
-        private readonly float _landscapePreviewAllottedWidth;
+        private readonly float _maximumPreviewWidth;
 
         private static Camera.Size _previewSize;
         private static Camera.Size _pictureSize;
@@ -104,7 +105,7 @@ namespace CrossCam.Platforms.Android.CustomRenderer
         public CameraModuleRenderer(Context context) : base(context)
         {
             var maxSize = Math.Max(Resources.DisplayMetrics.HeightPixels, Resources.DisplayMetrics.WidthPixels);
-            _landscapePreviewAllottedWidth = maxSize / 2f;
+            _maximumPreviewWidth = maxSize / 2f;
 
             _orientations.Append((int)SurfaceOrientation.Rotation0, 0);
             _orientations.Append((int)SurfaceOrientation.Rotation90, 90);
@@ -281,7 +282,7 @@ namespace CrossCam.Platforms.Android.CustomRenderer
 
         private void HandleCaptureSyncTimeElapsed(object sender, ElapsedEventArgs e)
         {
-            Device.BeginInvokeOnMainThread(() =>
+            MainThread.BeginInvokeOnMainThread(() =>
             {
                 TakePhotoButtonTapped(true);
             });
@@ -444,31 +445,6 @@ namespace CrossCam.Platforms.Android.CustomRenderer
             _textureView.SetOnTouchListener(this);
 
             SetNativeControl(_textureView);
-            //AddView(_textureView);
-        }
-
-        //protected override View CreateNativeControl()
-        //{
-        //    //_activity = Context as Activity;
-        //    //_view = _activity.LayoutInflater.Inflate(ResourceConstant.Layout.CameraLayout, this, false);
-
-        //    //_textureView = _view.FindViewById<MyTextureView>(ResourceConstant.Id.textureView);
-        //    _textureView = new MyTextureView(Context);
-        //    _textureView.SurfaceTextureListener = this;
-        //    _textureView.SetOnTouchListener(this);
-
-        //    return _textureView;
-        //}
-
-        protected override void OnLayout(bool changed, int l, int t, int r, int b)
-        {
-            base.OnLayout(changed, l, t, r, b);
-
-            var msw = MeasureSpec.MakeMeasureSpec(r - l, MeasureSpecMode.Exactly);
-            var msh = MeasureSpec.MakeMeasureSpec(b - t, MeasureSpecMode.Exactly);
-
-            _textureView.Measure(msw, msh);
-            _textureView.Layout(0, 0, r - l, b - t);
         }
 
         public void OnSurfaceTextureUpdated(SurfaceTexture surface)
@@ -497,6 +473,10 @@ namespace CrossCam.Platforms.Android.CustomRenderer
                 _cameraModule.PairOperator.SendLatestPreviewFrame(stream.ToArray(), (byte) origin);
             }
 
+            System.Diagnostics.Debug.WriteLine("### bitmap width: " + bitmap.Width + " height: " + bitmap.Height);
+            System.Diagnostics.Debug.WriteLine("### textureView width: " + _textureView.Width + " height: " + _textureView.Height);
+
+            //Debug.WriteLine("### previewSize: " + );
             _cameraModule.PreviewImage = new IncomingFrame
             {
                 Frame = bitmap.ToSKBitmap(),
@@ -534,7 +514,6 @@ namespace CrossCam.Platforms.Android.CustomRenderer
 
         public void OnSurfaceTextureAvailable(SurfaceTexture surface, int width, int height)
         {
-            _textureView.LayoutParameters = new FrameLayout.LayoutParams(width, height);
             _surfaceTexture = surface;
 
             if (_useCamera2)
@@ -939,7 +918,7 @@ namespace CrossCam.Platforms.Android.CustomRenderer
                         {
                             if (Math.Abs(previewSize.Width / (1f * previewSize.Height) - pictureAspectRatio) < 0.01)
                             {
-                                if (previewSize.Width >= _landscapePreviewAllottedWidth)
+                                if (previewSize.Width >= _maximumPreviewWidth)
                                 {
                                     bigger.Add(previewSize);
                                 }
@@ -1153,7 +1132,7 @@ namespace CrossCam.Platforms.Android.CustomRenderer
             {
                 if (Math.Abs(previewSize.Width / (1f * previewSize.Height) - pictureAspectRatio) < 0.01)
                 {
-                    if (previewSize.Width >= _landscapePreviewAllottedWidth)
+                    if (previewSize.Width >= _maximumPreviewWidth)
                     {
                         bigger.Add(previewSize);
                     }

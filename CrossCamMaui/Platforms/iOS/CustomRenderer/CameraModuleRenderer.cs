@@ -73,7 +73,7 @@ namespace CrossCam.Platforms.iOS.CustomRenderer
 
         private void HandleCaptureSyncTimeElapsed(object sender, ElapsedEventArgs e)
         {
-            Device.BeginInvokeOnMainThread(CapturePhoto);
+            MainThread.BeginInvokeOnMainThread(CapturePhoto);
         }
 
         private void HandleDoubleTap(object sender, EventArgs e)

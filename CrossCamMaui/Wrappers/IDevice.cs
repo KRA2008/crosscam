@@ -9,7 +9,7 @@
     {
         public async Task InvokeOnMainThreadAsync(Func<Task> funcTask)
         {
-            await Device.InvokeOnMainThreadAsync(funcTask);
+            await MainThread.InvokeOnMainThreadAsync(funcTask);
         }
     }
 }

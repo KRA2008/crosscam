@@ -19,7 +19,7 @@ namespace CrossCam.ViewModel
 
             OpenLinkCommand = new Command<string>(async url =>
             {
-                Device.InvokeOnMainThreadAsync(async () =>
+                await MainThread.InvokeOnMainThreadAsync(async () =>
                 {
                     await Browser.OpenAsync(new Uri(url));
                 });

@@ -412,7 +412,7 @@ namespace CrossCam.Platforms.Android.CustomRenderer
             {
                 if (p1.ServiceId == PairOperator.CROSSCAM_SERVICE)
                 {
-                    await Device.InvokeOnMainThreadAsync(async () =>
+                    await MainThread.InvokeOnMainThreadAsync(async () =>
                     {
                         if (!_pair._connectionAlreadyRejectedOrFailed)
                         {

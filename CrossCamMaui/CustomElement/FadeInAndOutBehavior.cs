@@ -30,7 +30,7 @@ namespace CrossCam.CustomElement
 
         private static async void OnTriggerChanged(BindableObject bindable, object oldvalue, object newvalue)
         {
-            await Device.InvokeOnMainThreadAsync(async () =>
+            await MainThread.InvokeOnMainThreadAsync(async () =>
             {
                 var behavior = (FadeInAndOutBehavior) bindable;
                 if (behavior._fadingTask?.IsCompleted == false)
@@ -46,7 +46,7 @@ namespace CrossCam.CustomElement
                 {
                     behavior._fadingTask = Task.Run(async () =>
                     {
-                        await Device.InvokeOnMainThreadAsync(async () =>
+                        await MainThread.InvokeOnMainThreadAsync(async () =>
                         {
                             behavior._element.Opacity = 0;
                             behavior._element.IsVisible = true;
@@ -100,7 +100,7 @@ namespace CrossCam.CustomElement
         {
             base.OnAttachedTo(element);
             _element = element;
-            Device.BeginInvokeOnMainThread(() =>
+            MainThread.BeginInvokeOnMainThread(() =>
             {
                 _element.Opacity = 0;
                 _element.IsVisible = false;

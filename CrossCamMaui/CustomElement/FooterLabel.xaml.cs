@@ -8,7 +8,7 @@ namespace CrossCam.CustomElement
         public FooterLabel()
         {
             InitializeComponent();
-            Device.BeginInvokeOnMainThread(() =>
+            MainThread.BeginInvokeOnMainThread(() =>
             {
                 _versionLabel.Text = "v" + AppInfo.VersionString;
                 _emailMeLabel.TextType = TextType.Html;
