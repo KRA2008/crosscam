@@ -2055,7 +2055,7 @@ namespace CrossCam.ViewModel
                 var openCv = DependencyService.Get<IOpenCv>();
 
                 AlignedResult alignedResult = null;
-                if (openCv.IsOpenCvSupported())
+                if (openCv?.IsOpenCvSupported() == true)
                 {
                     var firstImage = Settings.IsCaptureLeftFirst ? LeftBitmap : RightBitmap;
                     var secondImage = Settings.IsCaptureLeftFirst ? RightBitmap : LeftBitmap;

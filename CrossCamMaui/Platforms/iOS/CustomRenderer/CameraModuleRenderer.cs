@@ -37,8 +37,7 @@ namespace CrossCam.Platforms.iOS.CustomRenderer
         private readonly List<string> _setupProperties = new List<string>
         {
             "Height",
-            "Width",
-            "Renderer"
+            "Width"
         };
 
         protected override void OnElementChanged(ElementChangedEventArgs<CameraModule> e)
