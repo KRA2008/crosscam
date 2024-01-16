@@ -126,7 +126,7 @@
             <ce:CameraSuccessOutline.Behaviors>
                 <ce:FadeInAndOutBehavior Trigger="{Binding CaptureSuccessTrigger}"
                                          InTimeMs="0"
-                                         OutTimeMs="250"
+                                         OutTimeMs="500"
                                          VisibleTimeMs="0"/>
             </ce:CameraSuccessOutline.Behaviors>
         </ce:CameraSuccessOutline>
@@ -1770,7 +1770,8 @@
 
         <StackLayout AbsoluteLayout.LayoutFlags="All"
                      AbsoluteLayout.LayoutBounds="0,0.5,1,0.5"
-                     InputTransparent="True">
+                     InputTransparent="True"
+                     VerticalOptions="CenterAndExpand">
             <StackLayout.Behaviors>
                 <ce:FadeInAndOutBehavior Trigger="{Binding MoveHintTriggerCenter}"
                                          InTimeMs="0"
@@ -1808,176 +1809,93 @@
                     </MultiTrigger>
                 </Image.Triggers>
             </Image>
-            <StackLayout Orientation="Horizontal">
-                <Label Text="MOVE"                   
-                       FontSize="Large"
-                       FontAttributes="Bold"
-                       HorizontalOptions="EndAndExpand">
-                    <Label.Triggers>
-                        <DataTrigger TargetType="Label"
-                                     Binding="{Binding PairOperatorBindable.PairStatus, Converter={StaticResource enumCompare}, ConverterParameter={x:Static vm:PairStatus.Connected}}"
-                                     Value="true">
-                            <Setter Property="Text"
-                                    Value="SECONDARY ON"/>
-                        </DataTrigger>
-                        <DataTrigger TargetType="Label"
-                                     Binding="{Binding Settings.IsCaptureInMirrorMode}"
-                                     Value="true">
-                            <Setter Property="Text"
-                                    Value="MIRROR ON"/>
-                        </DataTrigger>
-                    </Label.Triggers>
-                </Label>
-                <Label Text="LEFT"                   
-                       FontSize="Large"
-                       FontAttributes="Bold"
-                       HorizontalOptions="StartAndExpand">
-                    <Label.Triggers>
-                        <MultiTrigger TargetType="Label">
-                            <MultiTrigger.Conditions>
-                                <BindingCondition Binding="{Binding IsParallelTypeMode}"
-                                                  Value="True"/>
-                                <BindingCondition Binding="{Binding Settings.IsCaptureLeftFirst}"
-                                                  Value="True"/>
-                            </MultiTrigger.Conditions>
-                            <MultiTrigger.Setters>
-                                <Setter Property="Text"
-                                        Value="RIGHT"/>
-                            </MultiTrigger.Setters>
-                        </MultiTrigger>
-                        <MultiTrigger TargetType="Label">
-                            <MultiTrigger.Conditions>
-                                <BindingCondition Binding="{Binding IsParallelTypeMode}"
-                                                  Value="False"/>
-                                <BindingCondition Binding="{Binding Settings.IsCaptureLeftFirst}"
-                                                  Value="False"/>
-                            </MultiTrigger.Conditions>
-                            <MultiTrigger.Setters>
-                                <Setter Property="Text"
-                                        Value="RIGHT"/>
-                            </MultiTrigger.Setters>
-                        </MultiTrigger>
-                    </Label.Triggers>
-                </Label>
-            </StackLayout>
-            <StackLayout Orientation="Horizontal"
-                         VerticalOptions="StartAndExpand">
-                <Label Text="for"
-                       FontSize="Medium"
-                       HorizontalOptions="EndAndExpand"/>
-                <Label Text=""
-                       FontSize="Medium"
-                       HorizontalOptions="StartAndExpand">
-                    <Label.Triggers>
-                        <DataTrigger TargetType="Label"
-                                     Binding="{Binding Settings.Mode, Converter={StaticResource enumCompare}, ConverterParameter={x:Static vm:DrawMode.Cross}}"
-                                     Value="true">
-                            <Setter Property="Text"
-                                    Value="cross"/>
-                        </DataTrigger>
-                        <DataTrigger TargetType="Label"
-                                     Binding="{Binding Settings.Mode, Converter={StaticResource enumCompare}, ConverterParameter={x:Static vm:DrawMode.Parallel}}"
-                                     Value="true">
-                            <Setter Property="Text"
-                                    Value="parallel"/>
-                        </DataTrigger>
-                        <DataTrigger TargetType="Label"
-                                     Binding="{Binding Settings.Mode, Converter={StaticResource enumCompare}, ConverterParameter={x:Static vm:DrawMode.Cardboard}}"
-                                     Value="true">
-                            <Setter Property="Text"
-                                    Value="cardboard"/>
-                        </DataTrigger>
-                        <DataTrigger TargetType="Label"
-                                     Binding="{Binding Settings.Mode, Converter={StaticResource enumCompare}, ConverterParameter={x:Static vm:DrawMode.RedCyanAnaglyph}}"
-                                     Value="true">
-                            <Setter Property="Text"
-                                    Value="anaglyph"/>
-                        </DataTrigger>
-                        <DataTrigger TargetType="Label"
-                                     Binding="{Binding Settings.Mode, Converter={StaticResource enumCompare}, ConverterParameter={x:Static vm:DrawMode.GrayscaleRedCyanAnaglyph}}"
-                                     Value="true">
-                            <Setter Property="Text"
-                                    Value="anaglyph"/>
-                        </DataTrigger>
-                    </Label.Triggers>
-                </Label>
-            </StackLayout>
+            <Label Text="{Binding MovementHintText}"                   
+                   FontSize="Large"
+                   FontAttributes="Bold"
+                   HorizontalOptions="CenterAndExpand"/>
+            <Label Text=""
+                   FontSize="Medium"
+                   HorizontalOptions="CenterAndExpand">
+                <Label.Triggers>
+                    <DataTrigger TargetType="Label"
+                                 Binding="{Binding Settings.Mode, Converter={StaticResource enumCompare}, ConverterParameter={x:Static vm:DrawMode.Cross}}"
+                                 Value="true">
+                        <Setter Property="Text"
+                                Value="for cross"/>
+                    </DataTrigger>
+                    <DataTrigger TargetType="Label"
+                                 Binding="{Binding Settings.Mode, Converter={StaticResource enumCompare}, ConverterParameter={x:Static vm:DrawMode.Parallel}}"
+                                 Value="true">
+                        <Setter Property="Text"
+                                Value="for parallel"/>
+                    </DataTrigger>
+                    <DataTrigger TargetType="Label"
+                                 Binding="{Binding Settings.Mode, Converter={StaticResource enumCompare}, ConverterParameter={x:Static vm:DrawMode.Cardboard}}"
+                                 Value="true">
+                        <Setter Property="Text"
+                                Value="for cardboard"/>
+                    </DataTrigger>
+                    <DataTrigger TargetType="Label"
+                                 Binding="{Binding Settings.Mode, Converter={StaticResource enumCompare}, ConverterParameter={x:Static vm:DrawMode.RedCyanAnaglyph}}"
+                                 Value="true">
+                        <Setter Property="Text"
+                                Value="for anaglyph"/>
+                    </DataTrigger>
+                    <DataTrigger TargetType="Label"
+                                 Binding="{Binding Settings.Mode, Converter={StaticResource enumCompare}, ConverterParameter={x:Static vm:DrawMode.GrayscaleRedCyanAnaglyph}}"
+                                 Value="true">
+                        <Setter Property="Text"
+                                Value="for anaglyph"/>
+                    </DataTrigger>
+                </Label.Triggers>
+            </Label>
         </StackLayout>
         <StackLayout x:Name="_moveHintSideStack"
                      AbsoluteLayout.LayoutFlags="PositionProportional,HeightProportional"
                      AbsoluteLayout.LayoutBounds="0.5,0,0,1"
                      InputTransparent="True"
-                     Orientation="Horizontal">
-            <StackLayout>
-                <StackLayout.Triggers>
-                    <DataTrigger TargetType="StackLayout"
-                                 Binding="{Binding Settings.IsCaptureLeftFirst}"
-                                 Value="True">
-                        <Setter Property="HorizontalOptions"
-                                Value="StartAndExpand"/>
+                     Orientation="Vertical"
+                     VerticalOptions="CenterAndExpand">
+            <StackLayout.Triggers>
+                <DataTrigger TargetType="StackLayout"
+                                Binding="{Binding Settings.IsCaptureLeftFirst}"
+                                Value="True">
+                    <Setter Property="HorizontalOptions"
+                            Value="StartAndExpand"/>
+                </DataTrigger>
+                <DataTrigger TargetType="StackLayout"
+                                Binding="{Binding Settings.IsCaptureLeftFirst}"
+                                Value="False">
+                    <Setter Property="HorizontalOptions"
+                            Value="EndAndExpand"/>
+                </DataTrigger>
+            </StackLayout.Triggers>
+            <StackLayout.Behaviors>
+                <ce:FadeInAndOutBehavior Trigger="{Binding MoveHintTriggerSide}"
+                                         InTimeMs="0"
+                                         OutTimeMs="500"
+                                         VisibleTimeMs="2500"/>
+            </StackLayout.Behaviors>
+            <Image Source="left.png"
+                    Aspect="AspectFit"
+                    HorizontalOptions="Center"
+                    VerticalOptions="EndAndExpand">
+                <Image.Triggers>
+                    <DataTrigger TargetType="Image"
+                                    Binding="{Binding Settings.IsCaptureLeftFirst}"
+                                    Value="True">
+                        <Setter Property="Source"
+                                Value="right.png"/>
                     </DataTrigger>
-                    <DataTrigger TargetType="StackLayout"
-                                 Binding="{Binding Settings.IsCaptureLeftFirst}"
-                                 Value="False">
-                        <Setter Property="HorizontalOptions"
-                                Value="EndAndExpand"/>
-                    </DataTrigger>
-                </StackLayout.Triggers>
-                <StackLayout.Behaviors>
-                    <ce:FadeInAndOutBehavior Trigger="{Binding MoveHintTriggerSide}"
-                                             InTimeMs="0"
-                                             OutTimeMs="500"
-                                             VisibleTimeMs="2500"/>
-                </StackLayout.Behaviors>
-                <Image Source="left.png"
-                       Aspect="AspectFit"
-                       HorizontalOptions="Center"
-                       VerticalOptions="EndAndExpand">
-                    <Image.Triggers>
-                        <DataTrigger TargetType="Image"
-                                     Binding="{Binding Settings.IsCaptureLeftFirst}"
-                                     Value="True">
-                            <Setter Property="Source"
-                                    Value="right.png"/>
-                        </DataTrigger>
-                    </Image.Triggers>
-                </Image>
-                <StackLayout Orientation="Horizontal"
+                </Image.Triggers>
+            </Image>
+            <StackLayout Orientation="Horizontal"
                              HorizontalOptions="Center"
                              VerticalOptions="StartAndExpand">
-                    <Label Text="MOVE"                   
+                <Label Text="{Binding MovementHintText}"                   
                            FontSize="Large"
                            FontAttributes="Bold"
-                           HorizontalOptions="EndAndExpand">
-                        <Label.Triggers>
-                            <DataTrigger TargetType="Label"
-                                         Binding="{Binding PairOperatorBindable.PairStatus, Converter={StaticResource enumCompare}, ConverterParameter={x:Static vm:PairStatus.Connected}}"
-                                         Value="true">
-                                <Setter Property="Text"
-                                        Value="SECONDARY ON"/>
-                            </DataTrigger>
-                            <DataTrigger TargetType="Label"
-                                         Binding="{Binding Settings.IsCaptureInMirrorMode}"
-                                         Value="true">
-                                <Setter Property="Text"
-                                        Value="MIRROR ON"/>
-                            </DataTrigger>
-                        </Label.Triggers>
-                    </Label>
-                    <Label Text="LEFT"                   
-                           FontSize="Large"
-                           FontAttributes="Bold"
-                           HorizontalOptions="StartAndExpand">
-                        <Label.Triggers>
-                            <DataTrigger TargetType="Label"
-                                         Binding="{Binding Settings.IsCaptureLeftFirst}"
-                                         Value="True">
-                                <Setter Property="Text"
-                                        Value="RIGHT"/>
-                            </DataTrigger>
-                        </Label.Triggers>
-                    </Label>
-                </StackLayout>
+                           HorizontalOptions="EndAndExpand"/>
             </StackLayout>
         </StackLayout>
 

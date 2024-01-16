@@ -477,6 +477,43 @@ namespace CrossCam.ViewModel
                                                      "custom folder"
                                                      : "Photos") + "!";
 
+        public string MovementHintText
+        {
+            get
+            {
+                var hintText = "";
+                if (PairOperator.IsPrimary &&
+                    PairOperator.PairStatus == PairStatus.Connected)
+                {
+                    hintText += "SECONDARY ON";
+                } 
+                else if (Settings.IsCaptureInMirrorMode)
+                {
+                    hintText += "MIRROR ON";
+                } 
+                else
+                {
+                    hintText += "MOVE";
+                }
+
+                hintText += " ";
+
+                if ((Settings.Mode == DrawMode.Parallel &&
+                    Settings.IsCaptureLeftFirst) ||
+                    Settings.Mode != DrawMode.Parallel &&
+                    !Settings.IsCaptureLeftFirst)
+                {
+                    hintText += "RIGHT";
+                } 
+                else
+                {
+                    hintText += "LEFT";
+                }
+
+                return hintText;
+            }
+        }
+
         private WorkflowStage _stageBeforeView;
         private int _alignmentThreadLock;
         private bool _isAlignmentInvalid = true;
@@ -1537,9 +1574,11 @@ namespace CrossCam.ViewModel
                     RaisePropertyChanged(nameof(ShouldCenterLoadBeVisible));
                     RaisePropertyChanged(nameof(ShouldRightLoadBeVisible));
                     RaisePropertyChanged(nameof(ShouldLeftLoadBeVisible));
+                    RaisePropertyChanged(nameof(MovementHintText));
                     break;
                 case nameof(Settings.IsCaptureLeftFirst):
                     RaisePropertyChanged(nameof(PairButtonPosition));
+                    RaisePropertyChanged(nameof(MovementHintText));
                     break;
                 case nameof(Settings.PairButtonHorizontalPosition):
                     RaisePropertyChanged(nameof(PairButtonPosition));
@@ -1573,6 +1612,7 @@ namespace CrossCam.ViewModel
                 RaisePropertyChanged(nameof(ShouldDonutGuideBeVisible));
                 RaisePropertyChanged(nameof(ShouldPortraitViewModeWarningBeVisible));
                 RaisePropertyChanged(nameof(IsPictureWiderThanTall));
+                RaisePropertyChanged(nameof(MovementHintText));
             }
         }
 
@@ -1590,6 +1630,7 @@ namespace CrossCam.ViewModel
                     RaisePropertyChanged(nameof(IsFullscreenToggleVisible));
                     RaisePropertyChanged(nameof(ShouldPairButtonBeVisible));
                     RaisePropertyChanged(nameof(ShouldSwapSidesBeVisible));
+                    RaisePropertyChanged(nameof(MovementHintText));
                     break;
             }
         }
@@ -1692,6 +1733,7 @@ namespace CrossCam.ViewModel
                 WorkflowStage = WorkflowStage.Capture;
             }
             RestartPreviewTrigger = !RestartPreviewTrigger;
+            RaisePropertyChanged(nameof(MovementHintText));
         }
 
         private void PairOperatorOnConnected(object sender, EventArgs e)
@@ -1699,6 +1741,7 @@ namespace CrossCam.ViewModel
             RemotePreviewFrame = null;
             ShowFovPreparationPopup();
             StopPreviewTrigger = !StopPreviewTrigger;
+            RaisePropertyChanged(nameof(MovementHintText));
         }
 
         private void PairOperatorOnSyncRequested(object sender, EventArgs e)

@@ -8,14 +8,14 @@
                 x:Class="CrossCam.CustomElement.CameraSuccessOutline">
     <BoxView AbsoluteLayout.LayoutFlags="PositionProportional,HeightProportional"
              AbsoluteLayout.LayoutBounds="0,0,10,1"
-             BackgroundColor="White"/>
+             HeightRequest="10000"/>
     <BoxView AbsoluteLayout.LayoutFlags="PositionProportional,WidthProportional"
              AbsoluteLayout.LayoutBounds="0,0,1,10"
-             BackgroundColor="White"/>
+             HeightRequest="10"/>
     <BoxView AbsoluteLayout.LayoutFlags="PositionProportional,HeightProportional"
              AbsoluteLayout.LayoutBounds="1,1,10,1"
-             BackgroundColor="White"/>
+             HeightRequest="10000"/>
     <BoxView AbsoluteLayout.LayoutFlags="PositionProportional,WidthProportional"
              AbsoluteLayout.LayoutBounds="1,1,1,10"
-             BackgroundColor="White"/>
+             HeightRequest="10"/>
 </AbsoluteLayout>
