@@ -30,6 +30,7 @@ namespace CrossCam.Platforms.Android.CustomRenderer
 
         public override void SetBackgroundDrawable(Drawable? background)
         {
+            // FORBIDDEN.
         }
     }
 }

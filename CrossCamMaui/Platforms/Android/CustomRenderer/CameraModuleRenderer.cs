@@ -58,7 +58,7 @@ namespace CrossCam.Platforms.Android.CustomRenderer
         private static Camera.Size _previewSize;
         private static Camera.Size _pictureSize;
 
-        private bool _isRunning;
+        private bool _camera1IsRunning;
 
         private bool _wasCameraRunningBeforeMinimize;
         private bool _wasMinimizeForPermissions;
@@ -138,7 +138,7 @@ namespace CrossCam.Platforms.Android.CustomRenderer
                 }
                 else
                 {
-                    if (_isRunning)
+                    if (_camera1IsRunning)
                     {
                         StopCamera1();
                         _wasCameraRunningBeforeMinimize = true;
@@ -161,7 +161,7 @@ namespace CrossCam.Platforms.Android.CustomRenderer
                 }
                 else
                 {
-                    if (!_isRunning &&
+                    if (!_camera1IsRunning &&
                         _wasCameraRunningBeforeMinimize)
                     {
                         SetupAndStartCamera1();
@@ -273,7 +273,7 @@ namespace CrossCam.Platforms.Android.CustomRenderer
             }
             else
             {
-                if (!_isRunning)
+                if (!_camera1IsRunning)
                 {
                     SetupAndStartCamera1();
                 }
@@ -357,7 +357,7 @@ namespace CrossCam.Platforms.Android.CustomRenderer
                     }
                     else
                     {
-                        if (!_isRunning)
+                        if (!_camera1IsRunning)
                         {
                             SetupAndStartCamera1();
                         }
@@ -473,9 +473,6 @@ namespace CrossCam.Platforms.Android.CustomRenderer
                 _cameraModule.PairOperator.SendLatestPreviewFrame(stream.ToArray(), (byte) origin);
             }
 
-            System.Diagnostics.Debug.WriteLine("### bitmap width: " + bitmap.Width + " height: " + bitmap.Height);
-            System.Diagnostics.Debug.WriteLine("### textureView width: " + _textureView.Width + " height: " + _textureView.Height);
-
             //Debug.WriteLine("### previewSize: " + );
             _cameraModule.PreviewImage = new IncomingFrame
             {
@@ -539,6 +536,7 @@ namespace CrossCam.Platforms.Android.CustomRenderer
             }
 
             _surfaceTexture = null;
+            _surface = null;
             return true;
         }
 
@@ -825,21 +823,21 @@ namespace CrossCam.Platforms.Android.CustomRenderer
 
         private void StopCamera1()
         {
-            if (_isRunning)
+            if (_camera1IsRunning)
             {
                 _camera1?.StopPreview();
                 _camera1?.Release();
                 _camera1 = null;
-                _isRunning = false;
+                _camera1IsRunning = false;
             }
         }
 
         private void StartCamera1()
         {
-            if (!_isRunning)
+            if (!_camera1IsRunning)
             {
                 _camera1?.StartPreview();
-                _isRunning = true;
+                _camera1IsRunning = true;
             }
         }
 
