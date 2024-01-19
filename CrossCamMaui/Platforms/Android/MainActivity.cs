@@ -91,14 +91,6 @@ namespace CrossCam.Platforms.Android
 
             LifecycleEventListener = new LifecycleEventListener(this, WindowManager);
             LifecycleEventListener.Enable();
-            
-            if (Build.VERSION.SdkInt >= BuildVersionCodes.M)
-            {
-                if (CheckForAndRequestBasicRequiredPermissions())
-                {
-                    return;
-                }
-            }
         }
 
         protected override void OnPause()
@@ -260,36 +252,25 @@ namespace CrossCam.Platforms.Android
         
         public override void OnWindowFocusChanged(bool hasFocus)
         {
+            base.OnWindowFocusChanged(hasFocus);
             SetFullscreen(null, null);
         }
 
         public override void OnRequestPermissionsResult(int requestCode, string[] permissions, Permission[] grantResults)
         {
+            base.OnRequestPermissionsResult(requestCode, permissions, grantResults);
+
             if (requestCode == (int)RequestCodes.CameraPermissionRequestCode ||
                 requestCode == (int)RequestCodes.WriteToStorageRequestCode)
             {
                 if (!grantResults.Contains(Permission.Granted))
                 {
-                    if (requestCode == (int)RequestCodes.CameraPermissionRequestCode)
-                    {
-                        Crashes.TrackError(new System.Exception("Camera permission not granted."));
-                    } 
-                    else if (requestCode == (int)RequestCodes.WriteToStorageRequestCode)
-                    {
-                        Crashes.TrackError(new System.Exception("Saving permission not granted."));
-                    }
-
-                    var builder = new AlertDialog.Builder(this);
-                    builder.SetTitle("Required permissions not granted");
-                    builder.SetMessage(
-                        "CrossCam requires permission to use the camera and to save images in order to work. Because either of these were not granted, CrossCam will now exit.");
-                    builder.SetNegativeButton("OK", (sender, args) =>
-                    {
-                        JavaSystem.Exit(0);
-                    });
-                    builder.Show();
+                    CameraModuleRenderer.BasicPermissionsTask.SetResult(false);
                     return;
                 }
+
+                CheckForAndRequestBasicPermissions();
+                return;
             }
 
             if (requestCode == (int) RequestCodes.BluetoothBasicRequestCode ||
@@ -323,13 +304,6 @@ namespace CrossCam.Platforms.Android
                 CheckForAndRequestLocationPermissions();
                 return;
             }
-
-            if (CheckForAndRequestBasicRequiredPermissions())
-            {
-                return;
-            }
-
-            base.OnRequestPermissionsResult(requestCode, permissions, grantResults);
         }
 
         public void CheckForAndRequestLocationPermissions()
@@ -431,36 +405,34 @@ namespace CrossCam.Platforms.Android
             PlatformPair.ConnectionsPermissionsTask.SetResult(true);
         }
 
-        private bool CheckForAndRequestBasicRequiredPermissions()
+        public static void CheckForAndRequestBasicPermissions()
         {
             try
             {
-                if (ContextCompat.CheckSelfPermission(this, Manifest.Permission.Camera) != 
+                if (ContextCompat.CheckSelfPermission(Instance, Manifest.Permission.Camera) != 
                     (int) Permission.Granted)
                 {
                     ActivityCompat.RequestPermissions(Instance, new[] {Manifest.Permission.Camera},
                         (int) RequestCodes.CameraPermissionRequestCode);
 
-                    return true;
+                    return;
                 }
 
                 if (Build.VERSION.SdkInt < BuildVersionCodes.Q &&
-                    ContextCompat.CheckSelfPermission(this, Manifest.Permission.WriteExternalStorage) !=
+                    ContextCompat.CheckSelfPermission(Instance, Manifest.Permission.WriteExternalStorage) !=
                     (int) Permission.Granted)
                 {
                     ActivityCompat.RequestPermissions(Instance, new[] {Manifest.Permission.WriteExternalStorage},
                         (int) RequestCodes.WriteToStorageRequestCode);
 
-                    return true;
+                    return;
                 }
 
-                return false;
+                CameraModuleRenderer.BasicPermissionsTask.SetResult(true);
             }
             catch (System.Exception e)
             {
                 Crashes.TrackError(e);
-
-                return true;
             }
         }
 

@@ -83,6 +83,8 @@ namespace CrossCam.Platforms.Android.CustomRenderer
         private int _camera2SensorOrientation;
         private readonly SparseIntArray _orientations = new SparseIntArray();
 
+        public static TaskCompletionSource<bool> BasicPermissionsTask;
+
         private bool _openingCamera2;
         private bool _camera2CameraDeviceErrorRetry;
         private int _camera1initThreadlock;
@@ -242,7 +244,7 @@ namespace CrossCam.Platforms.Android.CustomRenderer
 
                     System.Diagnostics.Debug.WriteLine("### USE CAMERA2: " + _useCamera2);
 
-                    SetupUserInterface();
+                    SetupUserInterfaceAndAcquirePermissions();
                 }
             }
             catch (Exception ex)
@@ -438,13 +440,31 @@ namespace CrossCam.Platforms.Android.CustomRenderer
             }
         }
 
-        private void SetupUserInterface()
+        private static Task<bool> RequestBasicPermissions()
         {
-            _textureView = new MyTextureView(Context);
-            _textureView.SurfaceTextureListener = this;
-            _textureView.SetOnTouchListener(this);
+            BasicPermissionsTask = new TaskCompletionSource<bool>();
+            MainActivity.CheckForAndRequestBasicPermissions();
+            return BasicPermissionsTask.Task;
+        }
 
-            SetNativeControl(_textureView);
+        private async void SetupUserInterfaceAndAcquirePermissions()
+        {
+            try
+            {
+                if (Build.VERSION.SdkInt >= BuildVersionCodes.M &&
+                    await RequestBasicPermissions())
+                {
+                    _textureView = new MyTextureView(Context);
+                    _textureView.SurfaceTextureListener = this;
+                    _textureView.SetOnTouchListener(this);
+
+                    SetNativeControl(_textureView);
+                }
+            }
+            catch (Exception e)
+            {
+                Microsoft.AppCenter.Crashes.Crashes.TrackError(e);
+            }
         }
 
         public void OnSurfaceTextureUpdated(SurfaceTexture surface)

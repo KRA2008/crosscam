@@ -39,17 +39,15 @@ namespace CrossCam
             }
         }
 
-        protected override void OnStart()
-        {
-        }
-
         protected override void OnSleep()
         {
             MessagingCenter.Send(this, APP_PAUSING_EVENT);
+            base.OnSleep();
         }
 
         protected override void OnResume()
         {
+            base.OnResume();
             MessagingCenter.Send(this, APP_UNPAUSING_EVENT);
         }
     }

@@ -29,30 +29,6 @@ namespace CrossCam.Platforms.iOS
 			return success;
 		}
 
-		//public override UIInterfaceOrientationMask GetSupportedInterfaceOrientations(UIApplication application, UIWindow forWindow)
-		//{
-		//	return UIInterfaceOrientationMask.All;
-		//}
-
-		//public override void ReceiveMemoryWarning(UIApplication application)
-		//{
-		//	Debug.WriteLine("### LOW MEMORY! OH NO!");
-		//	Analytics.TrackEvent("low memory");
-		//	Debug.WriteLine("state: " + application.ApplicationState);
-		//}
-
-		public override void WillTerminate(UIApplication uiApplication)
-        {
-			Debug.WriteLine("### TERMINATING.");
-            Debug.WriteLine("state: " + uiApplication.ApplicationState);
-		}
-
-        public override void OnResignActivation(UIApplication uiApplication)
-        {
-			Debug.WriteLine("### RESIGNING ACTIVATION");
-            Debug.WriteLine("state: " + uiApplication.ApplicationState);
-		}
-
         public override bool OpenUrl(UIApplication application, NSUrl url, NSDictionary options)
 	    {
 	        var query = url.Query;
