@@ -2,6 +2,7 @@
 <Application xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:vc="clr-namespace:CrossCam.ValueConverter"
+             xmlns:ce="clr-namespace:CrossCam.CustomElement"
              x:Class="CrossCam.App">
     <Application.Resources>
         <ResourceDictionary>
@@ -50,8 +51,6 @@
             <Style TargetType="BoxView">
                 <Setter Property="Color"
                         Value="White"/>
-                <Setter Property="HeightRequest"
-                        Value="1"/>
             </Style>
             <Style TargetType="Picker">
                 <Setter Property="TextColor"
@@ -81,6 +80,16 @@
                         Value="Medium"/>
                 <Setter Property="FontAttributes"
                         Value="Bold"/>
+            </Style>
+            <Style TargetType="StackLayout">
+                <Setter Property="Spacing"
+                        Value="6"/>
+            </Style>
+            <Style TargetType="ce:HorizontalDivider">
+                <Setter Property="HeightRequest"
+                        Value="1"/>
+                <Setter Property="Color"
+                        Value="White"/>
             </Style>
             <vc:EnumCompareConverter x:Key="enumCompare"/>
             <vc:BooleanInvertConverter x:Key="invert"/>

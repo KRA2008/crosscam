@@ -2,14 +2,14 @@
 <page:BasePage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
                xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
                xmlns:vm="clr-namespace:CrossCam.ViewModel"
-               xmlns:customElement="clr-namespace:CrossCam.CustomElement"
+               xmlns:ce="clr-namespace:CrossCam.CustomElement"
                xmlns:page="clr-namespace:CrossCam.Page"
                x:DataType="vm:DirectionsViewModel"
                Title="How to Use CrossCam"
                x:Class="CrossCam.Page.DirectionsPage">
     <ScrollView>
         <StackLayout Spacing="0">
-            <BoxView/>
+            <ce:HorizontalDivider/>
             <StackLayout Padding="10">
                 <Label Text="If you want to see this again, tap the hamburger (three line) icon on the top left of the camera screen and tap &quot;Help&quot;."/>
                 <Label Text=" "/>
@@ -26,8 +26,8 @@
                 <Label Text=" &#x2022; There's a nice Tips page you can get to by tapping the hamburger icon on the top left of the camera screen that can help you make your pictures great."/>
                 <Label Text=" &#x2022; If you would prefer to move the other direction for your second shot or would like to swap the sides just do a swipe."/>
                 <Label Text=" &#x2022; Tap the little folder icon on the bottom to load an image as a side or to load a full stereo image."/>
-                <BoxView/>
-                <customElement:FooterLabel/>
+                <ce:HorizontalDivider/>
+                <ce:FooterLabel/>
             </StackLayout>
         </StackLayout>
     </ScrollView>

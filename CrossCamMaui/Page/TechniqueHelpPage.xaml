@@ -2,8 +2,7 @@
 <page:BasePage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
                xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
                xmlns:vm="clr-namespace:CrossCam.ViewModel"
-               xmlns:customElement="clr-namespace:CrossCam.CustomElement"
-               xmlns:valueConverter="clr-namespace:CrossCam.ValueConverter"
+               xmlns:ce="clr-namespace:CrossCam.CustomElement"
                xmlns:model="clr-namespace:CrossCam.Model"
                xmlns:page="clr-namespace:CrossCam.Page"
                x:DataType="vm:TechniqueHelpViewModel"
@@ -11,7 +10,7 @@
                x:Class="CrossCam.Page.TechniqueHelpPage">
     <ScrollView>
         <StackLayout Spacing="0">
-            <BoxView/>
+            <ce:HorizontalDivider/>
             <StackLayout Padding="10">
                 <Label Text="If you want to see this again, tap the hamburger (three lines) icon on the top left of the camera screen and tap &quot;Help&quot;."/>
                 <Label Text=" "/>
@@ -202,8 +201,8 @@
                            Aspect="AspectFit"
                            Source="fyi.png"/>
                 </AbsoluteLayout>
-                <BoxView/>
-                <customElement:FooterLabel/>
+                <ce:HorizontalDivider/>
+                <ce:FooterLabel/>
             </StackLayout>
         </StackLayout>
     </ScrollView>

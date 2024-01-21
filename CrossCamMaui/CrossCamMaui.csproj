@@ -48,6 +48,7 @@
 	  <AndroidStoreUncompressedFileExtensions></AndroidStoreUncompressedFileExtensions>
 	  <AndroidUseAapt2>True</AndroidUseAapt2>
 	  <DefineConstants>$(DefineConstants);__ANDROID__</DefineConstants>
+	  <EmbedAssembliesIntoApk>False</EmbedAssembliesIntoApk>
 	</PropertyGroup>
 
 	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net8.0-ios|AnyCPU'">
@@ -62,12 +63,12 @@
 	</PropertyGroup>
 
 	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net8.0-android|AnyCPU'">
-	  <AndroidLinkTool>r8</AndroidLinkTool>
 	  <EnableLLVM>True</EnableLLVM>
 	  <AndroidEnableProfiledAot>False</AndroidEnableProfiledAot>
 	  <AndroidUseAapt2>True</AndroidUseAapt2>
 	  <AndroidStoreUncompressedFileExtensions></AndroidStoreUncompressedFileExtensions>
 	  <DefineConstants>$(DefineConstants);__ANDROID__</DefineConstants>
+	  <AndroidLinkTool>r8</AndroidLinkTool>
 	</PropertyGroup>
 
 	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net8.0-ios|AnyCPU'">

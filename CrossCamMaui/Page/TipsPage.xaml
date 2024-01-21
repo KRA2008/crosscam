@@ -2,8 +2,7 @@
 <page:BasePage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
                xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
                xmlns:vm="clr-namespace:CrossCam.ViewModel"
-               xmlns:fresh="clr-namespace:FreshMvvm;assembly=FreshMvvm"
-               xmlns:customElement="clr-namespace:CrossCam.CustomElement"
+               xmlns:ce="clr-namespace:CrossCam.CustomElement"
                xmlns:page="clr-namespace:CrossCam.Page"
                xmlns:views="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
                x:DataType="vm:TipsViewModel"
@@ -11,7 +10,8 @@
                x:Class="CrossCam.Page.TipsPage">
     <ContentPage.Resources>
         <ResourceDictionary>
-            <Style TargetType="Label">
+            <Style TargetType="Label"
+                   BasedOn="{StaticResource _baseLabelStyle}">
                 <Setter Property="Margin"
                         Value="10"/>
             </Style>
@@ -20,26 +20,26 @@
     <ScrollView>
         <StackLayout>
 
-            <BoxView/>
+            <ce:HorizontalDivider/>
 
-            <customElement:BasicExpander Title="Don't turn."
+            <ce:BasicExpander Title="Don't turn."
                                          Text="When you move over, try not to rotate your phone at all in any direction, including the natural tendency to turn towards the subject as you move to the side. Some rotation will be necessary (sometimes), but try to minimize it. Imagine the phone is mounted on a straight horizontal rail and can only slide. Turning inward can cause a foreshortening effect that makes the corners hard to fuse."/>
 
-            <BoxView/>
+            <ce:HorizontalDivider/>
 
-            <customElement:BasicExpander Title="You can just lean."
+            <ce:BasicExpander Title="You can just lean."
                                          Text="Sometimes instead of fully &quot;moving&quot; left or right to take pictures, it can be easier to just stand with your feet apart and lean in each direction, but be careful to keep the phone level and at the same height. Just leaning instead of moving can help you from moving too far and can make it easier to keep your aim straight."/>
 
-            <BoxView/>
+            <ce:HorizontalDivider/>
 
-            <customElement:BasicExpander Title="If the movement makes you sick, hold still."
+            <ce:BasicExpander Title="If the movement makes you sick, hold still."
                                          Text="If all the movement makes you sick or makes it too difficult to view in 3D, don't start trying to see it in 3D until after you've moved over a little bit. Then compare the pictures to each other and align the pictures using the horizontal lines without 3D viewing and then start 3D viewing once aligned and holding still."/>
 
-            <BoxView/>
+            <ce:HorizontalDivider/>
 
             <views:Expander>
                 <views:Expander.Header>
-                    <customElement:ExpanderHeader Title="Keystone correction is needed if you toe-in."/>
+                    <ce:ExpanderHeader Title="Keystone correction is needed if you toe-in."/>
                 </views:Expander.Header>
                 <StackLayout Padding="10">
                     <Label Text="If you turn inward with each shot it is very helpful to do &quot;keystone&quot; corrections. Typically you would want to shrink the inside edges of the photos and then crop some off the top and bottom to level them out. You get to the keystone editing menu by tapping the button that looks like this:"/>
@@ -54,21 +54,21 @@
                 </StackLayout>
             </views:Expander>
 
-            <BoxView/>
+            <ce:HorizontalDivider/>
 
-            <customElement:BasicExpander Title="The alignment lines can move."
+            <ce:BasicExpander Title="The alignment lines can move."
                                          Text="You can drag the alignment lines around if you want. This is especially helpful when aligning the pictures during editing."/>
 
-            <BoxView/>
+            <ce:HorizontalDivider/>
 
-            <customElement:BasicExpander Title="You can turn off auto alignment."
+            <ce:BasicExpander Title="You can turn off auto alignment."
                                          Text="If you don't like the results of the automatic alignment, just turn it off on the Settings page and your original captured pictures will be restored."/>
 
-            <BoxView/>
+            <ce:HorizontalDivider/>
 
             <views:Expander>
                 <views:Expander.Header>
-                    <customElement:ExpanderHeader Title="Add border and crop to make a strong stereo window."/>
+                    <ce:ExpanderHeader Title="Add border and crop to make a strong stereo window."/>
                 </views:Expander.Header>
                 <StackLayout Padding="10">
                     <Label Text="An interesting &quot;stereo window&quot; effect can be created by doing two things: 1) turn on the border (on Settings page) and 2) for cross viewing, crop the inside edges of the images until the outer edge itself becomes 3D in the picture (crop the OUTSIDE edges if you're parallel viewing). The key is to crop the right edge of the left picture slightly past what the right edge of the right picture shows of the scene and vice-versa. Adding a border is toggled on the Settings page. If this is confusing, just crop a bunch off the inside edges and it will start to be clear. The crop button for the inside edges looks like this:"/>
@@ -76,33 +76,33 @@
                 </StackLayout>
             </views:Expander>
 
-            <BoxView/>
+            <ce:HorizontalDivider/>
 
-            <customElement:BasicExpander Title="Mind the horizontal lines, but you can also align after."
+            <ce:BasicExpander Title="Mind the horizontal lines, but you can also align after."
                                          Text="If you find that while taking pictures it's impossible to make both the upper and lower guide lines line up at the same time, you probably moved in some direction other than just to the side. Try to fix this before taking the pictures, but aligning after the fact can help this a lot."/>
 
-            <BoxView/>
+            <ce:HorizontalDivider/>
 
-            <customElement:BasicExpander Title="These pictures can take a lot of storage, you can shrink them."
+            <ce:BasicExpander Title="These pictures can take a lot of storage, you can shrink them."
                                          Text="The Settings page has an option to proportionally decrease the resolution of the final picture - this can help if you want to save space. If your photo is not cropped the end result is two full-resolution pictures joined together to make one of double resolution, which means you can often get away with a large reduction in resolution without noticeably affecting quality."/>
 
-            <BoxView/>
+            <ce:HorizontalDivider/>
 
-            <customElement:BasicExpander Title="Turn on quick mode when you're with others."
+            <ce:BasicExpander Title="Turn on quick mode when you're with others."
                                          Text="If you're exploring with other people it's a good idea to go into &quot;fast mode&quot; by turning off auto alignment and just saving once you've captured without doing any editing. You can always load, auto align, and edit the pictures later. That way your companions don't have to wait for you to perfect your pictures on the spot, but you can still be confident that the depth you want is really there. Just be careful not to do any hasty editing before the first save! You can also turn on the separate side saving which will ignore any editing you do."/>
 
-            <BoxView/>
+            <ce:HorizontalDivider/>
 
-            <customElement:BasicExpander Title="You can open old photos in CrossCam."
+            <ce:BasicExpander Title="You can open old photos in CrossCam."
                                          Text="You can load previously taken pictures by tapping the folder icon on the bottom of the camera page, but if you're working with a big batch of photos you can also share them to CrossCam straight from your photos app, which may keep track of your place in your photos better."/>
 
-            <BoxView/>
+            <ce:HorizontalDivider/>
 
-            <customElement:BasicExpander Title="The donut guide can help your window."
+            <ce:BasicExpander Title="The donut guide can help your window."
                                          Text="There is an experimental &quot;guide donut&quot; on the Settings page you can turn on which may help you preserve your stereo window while maximizing the useable width. By turning left and right the depth on the donut will change relative to the rest of the scene - set the donut's depth so it is either on or behind the most distant point in your scene. Be careful, using it on smaller scenes may make things painful (see keystone tip above)."/>
 
-            <BoxView/>
-            <customElement:FooterLabel/>
+            <ce:HorizontalDivider/>
+            <ce:FooterLabel/>
         </StackLayout>
     </ScrollView>
 </page:BasePage>

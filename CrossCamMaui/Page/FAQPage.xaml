@@ -11,7 +11,7 @@
     <ScrollView x:Name="_scrollView">
         <StackLayout Padding="10">
 
-            <BoxView/>
+            <ce:HorizontalDivider/>
 
             <views:Expander>
                 <views:Expander.Header>
@@ -38,7 +38,7 @@
                 </StackLayout>
             </views:Expander>
 
-            <BoxView/>
+            <ce:HorizontalDivider/>
 
             <views:Expander>
                 <views:Expander.Header>
@@ -65,7 +65,7 @@
                 </StackLayout>
             </views:Expander>
 
-            <BoxView/>
+            <ce:HorizontalDivider/>
 
             <views:Expander>
                 <views:Expander.Header>
@@ -77,7 +77,7 @@
                 </StackLayout>
             </views:Expander>
 
-            <BoxView/>
+            <ce:HorizontalDivider/>
 
             <views:Expander>
                 <views:Expander.Header>
@@ -104,7 +104,7 @@
                 </StackLayout>
             </views:Expander>
 
-            <BoxView x:Name="_crossParallelLine"/>
+            <ce:HorizontalDivider x:Name="_crossParallelLine"/>
 
             <views:Expander x:Name="_crossParallelExpander">
                 <views:Expander.Header>
@@ -127,7 +127,7 @@
                 </StackLayout>
             </views:Expander>
 
-            <BoxView/>
+            <ce:HorizontalDivider/>
 
             <views:Expander>
                 <views:Expander.Header>
@@ -140,7 +140,7 @@
                 </StackLayout>
             </views:Expander>
 
-            <BoxView x:Name="_autoalignmentLine"/>
+            <ce:HorizontalDivider x:Name="_autoalignmentLine"/>
 
             <views:Expander x:Name="_autoalignmentExpander">
                 <views:Expander.Header>
@@ -157,7 +157,7 @@
                 </StackLayout>
             </views:Expander>
 
-            <BoxView x:Name="_cardboardLine"/>
+            <ce:HorizontalDivider x:Name="_cardboardLine"/>
 
             <views:Expander x:Name="_cardboardExpander">
                 <views:Expander.Header>
@@ -171,7 +171,7 @@
                 </StackLayout>
             </views:Expander>
 
-            <BoxView x:Name="_mirrorLine"/>
+            <ce:HorizontalDivider x:Name="_mirrorLine"/>
 
             <views:Expander x:Name="_mirrorExpander">
                 <views:Expander.Header>
@@ -197,7 +197,7 @@
                 </StackLayout>
             </views:Expander>
 
-            <BoxView/>
+            <ce:HorizontalDivider/>
 
             <views:Expander>
                 <views:Expander.Header>
@@ -208,7 +208,7 @@
                 </StackLayout>
             </views:Expander>
 
-            <BoxView/>
+            <ce:HorizontalDivider/>
 
             <views:Expander>
                 <views:Expander.Header>
@@ -234,7 +234,7 @@
                 </StackLayout>
             </views:Expander>
 
-            <BoxView/>
+            <ce:HorizontalDivider/>
 
             <!--<views:Expander>
                 <views:Expander.Header>

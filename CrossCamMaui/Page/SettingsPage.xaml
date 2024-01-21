@@ -4,21 +4,14 @@
                xmlns:vm="clr-namespace:CrossCam.ViewModel"
                xmlns:vc="clr-namespace:CrossCam.ValueConverter"
                xmlns:ce="clr-namespace:CrossCam.CustomElement"
-               xmlns:system="clr-namespace:System;assembly=netstandard"
                xmlns:views="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
                xmlns:page="clr-namespace:CrossCam.Page"
-               xmlns:model="clr-namespace:CrossCam.Model"
+               xmlns:lazyViews="clr-namespace:CrossCam.CustomElement.LazyViews"
                x:DataType="vm:SettingsViewModel"
                x:Class="CrossCam.Page.SettingsPage"
                Title="Settings">
     <ContentPage.Resources>
         <ResourceDictionary>
-            <Style TargetType="BoxView">
-                <Setter Property="Color"
-                        Value="White"/>
-                <Setter Property="HeightRequest"
-                        Value="1"/>
-            </Style>
             <Style TargetType="Label"
                    BasedOn="{StaticResource _baseLabelStyle}">
                 <Setter Property="Margin"
@@ -57,7 +50,7 @@
     <ScrollView VerticalOptions="StartAndExpand">
         <StackLayout>
 
-            <BoxView/>
+            <ce:HorizontalDivider/>
 
             <views:Expander x:Name="_previewMethodExpander"
                             Command="{Binding CloseOtherExpandersCommand}"
@@ -319,7 +312,7 @@
                 </Grid>
             </views:Expander>
 
-            <BoxView/>
+            <ce:HorizontalDivider/>
 
             <views:Expander x:Name="_pairingExpander"
                             Command="{Binding CloseOtherExpandersCommand}"
@@ -488,7 +481,7 @@
                 </Grid>
             </views:Expander>
 
-            <BoxView/>
+            <ce:HorizontalDivider/>
 
             <views:Expander x:Name="_alignmentExpander"
                             Command="{Binding CloseOtherExpandersCommand}"
@@ -800,7 +793,7 @@
                 </Grid>
             </views:Expander>
 
-            <BoxView/>
+            <ce:HorizontalDivider/>
 
             <views:Expander x:Name="_savingExpander"
                             Command="{Binding CloseOtherExpandersCommand}"
@@ -1092,7 +1085,7 @@
                 </Grid>
             </views:Expander>
 
-            <BoxView/>
+            <ce:HorizontalDivider/>
 
             <views:Expander x:Name="_borderExpander"
                             Command="{Binding CloseOtherExpandersCommand}"
@@ -1159,7 +1152,7 @@
                 </Grid>
             </views:Expander>
 
-            <BoxView/>
+            <ce:HorizontalDivider/>
 
             <views:Expander x:Name="_guidesExpander"
                             Command="{Binding CloseOtherExpandersCommand}"
@@ -1221,7 +1214,7 @@
                 </Grid>
             </views:Expander>
 
-            <BoxView/>
+            <ce:HorizontalDivider/>
 
             <views:Expander x:Name="_editingExpander"
                             Command="{Binding CloseOtherExpandersCommand}"
@@ -1302,7 +1295,7 @@
                 </Grid>
             </views:Expander>
 
-            <BoxView/>
+            <ce:HorizontalDivider/>
 
             <views:Expander x:Name="_cameraExpander"
                             Command="{Binding CloseOtherExpandersCommand}"
@@ -1430,7 +1423,7 @@
                 </Grid>
             </views:Expander>
 
-            <BoxView/>
+            <ce:HorizontalDivider/>
 
             <StackLayout Orientation="Horizontal">
                 <Label Text="Prompt to send email when errors occur"/>
@@ -1447,9 +1440,11 @@
                 <Switch IsToggled="{Binding Settings.IsAnalyticsEnabled}"/>
             </StackLayout>
 
-            <BoxView/>
+            <ce:HorizontalDivider/>
             <Button Text="Reset to Defaults"
                     Command="{Binding ResetToDefaults}"/>
+
+            <ce:HorizontalDivider/>
             <ce:FooterLabel/>
         </StackLayout>
     </ScrollView>

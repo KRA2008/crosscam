@@ -3,39 +3,39 @@
                xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
                xmlns:vm="clr-namespace:CrossCam.ViewModel"
                xmlns:page="clr-namespace:CrossCam.Page"
-               xmlns:customElement="clr-namespace:CrossCam.CustomElement"
+               xmlns:ce="clr-namespace:CrossCam.CustomElement"
                x:DataType="vm:ContactViewModel"
                Title="Contact"
                x:Class="CrossCam.Page.ContactPage">
     <ContentPage.Content>
         <ScrollView>
             <StackLayout>
-                <BoxView/>
+                <ce:HorizontalDivider/>
                 <Button Text="Email Me"
                         Command="{Binding OpenLink}"
                         CommandParameter="mailto:me@kra2008.com?subject=CrossCam%20feedback"/>
-                <BoxView/>
+                <ce:HorizontalDivider/>
                 <Button Text="Test Pre-release Versions"
                         Command="{Binding OpenLink}"
                         CommandParameter="https://reddit.com/r/crosscam"/>
-                <BoxView/>
+                <ce:HorizontalDivider/>
                 <Button Text="Add an Issue on Github"
                         Command="{Binding OpenLink}"
                         CommandParameter="https://github.com/KRA2008/crosscam/issues"/>
-                <BoxView/>
+                <ce:HorizontalDivider/>
                 <Button Text="See the Code"
                         Command="{Binding OpenLink}"
                         CommandParameter="https://github.com/KRA2008/crosscam"/>
-                <BoxView/>
+                <ce:HorizontalDivider/>
                 <Button Text="Privacy Policy"
                         Command="{Binding OpenLink}"
                         CommandParameter="http://kra2008.com/crosscam/privacypolicy.html"/>
-                <BoxView/>
+                <ce:HorizontalDivider/>
                 <Button Text="About the Developer"
                         Command="{Binding OpenLink}"
                         CommandParameter="http://kra2008.com/"/>
-                <BoxView/>
-                <customElement:FooterLabel/>
+                <ce:HorizontalDivider/>
+                <ce:FooterLabel/>
             </StackLayout>
         </ScrollView>
     </ContentPage.Content>
