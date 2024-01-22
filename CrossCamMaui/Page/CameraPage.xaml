@@ -448,7 +448,7 @@
                             Value="{StaticResource _finalSaveBounds}"/>
                 </DataTrigger>
             </ContentView.Triggers>
-            <Image Source="clearBox.png"/>
+            <Image Source="clearbox.png"/>
         </ContentView>
         <Image Source="eye.png"
                AbsoluteLayout.LayoutFlags="PositionProportional"

@@ -127,17 +127,55 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <AndroidResource Remove="Platforms\Android\Resources\drawable-hdpi\**" />
+	  <AndroidResource Remove="Platforms\Android\Resources\drawable-xhdpi\**" />
+	  <AndroidResource Remove="Platforms\Android\Resources\drawable-xxxhdpi\**" />
+	  <AndroidResource Remove="Platforms\Android\Resources\drawable\**" />
+	  <AndroidResource Remove="Platforms\Android\Resources\layout\**" />
+	  <AndroidResource Remove="Platforms\iOS\Resources\**" />
 	  <AndroidResource Remove="Resources\Fonts\**" />
+	  <Compile Remove="Platforms\Android\Resources\drawable-hdpi\**" />
+	  <Compile Remove="Platforms\Android\Resources\drawable-xhdpi\**" />
+	  <Compile Remove="Platforms\Android\Resources\drawable-xxxhdpi\**" />
+	  <Compile Remove="Platforms\Android\Resources\drawable\**" />
+	  <Compile Remove="Platforms\Android\Resources\layout\**" />
+	  <Compile Remove="Platforms\iOS\Resources\**" />
 	  <Compile Remove="Resources\Fonts\**" />
+	  <EmbeddedResource Remove="Platforms\Android\Resources\drawable-hdpi\**" />
+	  <EmbeddedResource Remove="Platforms\Android\Resources\drawable-xhdpi\**" />
+	  <EmbeddedResource Remove="Platforms\Android\Resources\drawable-xxxhdpi\**" />
+	  <EmbeddedResource Remove="Platforms\Android\Resources\drawable\**" />
+	  <EmbeddedResource Remove="Platforms\Android\Resources\layout\**" />
+	  <EmbeddedResource Remove="Platforms\iOS\Resources\**" />
 	  <EmbeddedResource Remove="Resources\Fonts\**" />
+	  <MauiCss Remove="Platforms\Android\Resources\drawable-hdpi\**" />
+	  <MauiCss Remove="Platforms\Android\Resources\drawable-xhdpi\**" />
+	  <MauiCss Remove="Platforms\Android\Resources\drawable-xxxhdpi\**" />
+	  <MauiCss Remove="Platforms\Android\Resources\drawable\**" />
+	  <MauiCss Remove="Platforms\Android\Resources\layout\**" />
+	  <MauiCss Remove="Platforms\iOS\Resources\**" />
 	  <MauiCss Remove="Resources\Fonts\**" />
+	  <MauiXaml Remove="Platforms\Android\Resources\drawable-hdpi\**" />
+	  <MauiXaml Remove="Platforms\Android\Resources\drawable-xhdpi\**" />
+	  <MauiXaml Remove="Platforms\Android\Resources\drawable-xxxhdpi\**" />
+	  <MauiXaml Remove="Platforms\Android\Resources\drawable\**" />
+	  <MauiXaml Remove="Platforms\Android\Resources\layout\**" />
+	  <MauiXaml Remove="Platforms\iOS\Resources\**" />
 	  <MauiXaml Remove="Resources\Fonts\**" />
+	  <None Remove="Platforms\Android\Resources\drawable-hdpi\**" />
+	  <None Remove="Platforms\Android\Resources\drawable-xhdpi\**" />
+	  <None Remove="Platforms\Android\Resources\drawable-xxxhdpi\**" />
+	  <None Remove="Platforms\Android\Resources\drawable\**" />
+	  <None Remove="Platforms\Android\Resources\layout\**" />
+	  <None Remove="Platforms\iOS\Resources\**" />
 	  <None Remove="Resources\Fonts\**" />
 	</ItemGroup>
 
 	<ItemGroup>
 	  <None Remove="Platforms\Android\Assets\AboutAssets.txt" />
 	  <None Remove="Platforms\Android\proguard.cfg" />
+	  <None Remove="Resources\Images\iconcircle.png" />
+	  <None Remove="Resources\Splash\goodonwhitecircle.svg" />
 	</ItemGroup>
 
 	<ItemGroup>
@@ -331,15 +369,6 @@
 	<ItemGroup Condition="$(TargetFramework.StartsWith('net8.0-ios')) != true">
 		<Compile Remove="**\iOS\**\*.cs" />
 		<None Include="**\iOS\**\*.cs" Exclude="$(DefaultItemExcludes);$(DefaultExcludesInProjectFolder)" />
-	</ItemGroup>
-
-	<ItemGroup>
-	  <Folder Include="Platforms\Android\Resources\drawable-hdpi\" />
-	  <Folder Include="Platforms\Android\Resources\drawable-xhdpi\" />
-	  <Folder Include="Platforms\Android\Resources\drawable-xxxhdpi\" />
-	  <Folder Include="Platforms\Android\Resources\drawable\" />
-	  <Folder Include="Platforms\Android\Resources\layout\" />
-	  <Folder Include="Platforms\iOS\Resources\" />
 	</ItemGroup>
 
 </Project>

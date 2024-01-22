@@ -140,12 +140,16 @@
                             <Grid>
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="*"/>
-                                    <ColumnDefinition Width="{x:Static model:Settings.PARALLEL_BASE_WIDTH}"/>
+                                    <ColumnDefinition Width="Auto"/>
                                     <ColumnDefinition Width="*"/>
                                 </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto"/>
+                                </Grid.RowDefinitions>
                                 <Image Grid.Column="1"
+                                       Grid.Row="0"
                                        Source="bouquetparallel.png"
-                                       Aspect="AspectFill"/>
+                                       WidthRequest="{x:Static model:Settings.PARALLEL_BASE_WIDTH}"/>
                             </Grid>
                             <Label Text="If the above image doesn't fit on your screen, turn your phone to landscape - CrossCam is trying to make the pair of images above the easiest size for this. You don't always have to use CrossCam in landscape, but a perfectly sized image makes learning the technique easier."/>
                             <Label Text="Relax your eyes and look &quot;through&quot; the pair of pictures above like you're kind of zoning out with your eyes pointing at the pictures. You should start to see 3 pictures with a 3D picture in the middle, a little bit like this:"/>

@@ -1,8 +1,4 @@
-﻿using Microsoft.Maui.Controls.Xaml;
-using Microsoft.Maui.Controls;
-using Microsoft.Maui;
-
-namespace CrossCam.CustomElement
+﻿namespace CrossCam.CustomElement
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class BasicExpander

@@ -6,6 +6,7 @@ public partial class iOS12WorkaroundBackButton : ContentView
 	{
 		InitializeComponent();
 #if __ANDROID__
+        IsVisible = false;
 #elif __IOS__
         if (DeviceInfo.Version.Major > 12)
         {
