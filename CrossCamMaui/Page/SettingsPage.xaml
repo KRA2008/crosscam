@@ -6,7 +6,8 @@
                xmlns:ce="clr-namespace:CrossCam.CustomElement"
                xmlns:views="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
                xmlns:page="clr-namespace:CrossCam.Page"
-               xmlns:lazyViews="clr-namespace:CrossCam.CustomElement.LazyViews"
+               xmlns:model="clr-namespace:CrossCam.Model"
+               xmlns:system="clr-namespace:System;assembly=System.Runtime"
                x:DataType="vm:SettingsViewModel"
                x:Class="CrossCam.Page.SettingsPage"
                Title="Settings">
