@@ -29,12 +29,6 @@
     <item name="color">#000000</item>
   </style>
 
-  <style name="SplashTheme" parent ="Theme.AppCompat.Light.NoActionBar">
-    <item name="android:windowBackground">@drawable/splash_screen</item>
-    <item name="android:windowNoTitle">true</item>
-    <item name="android:windowFullscreen">true</item>
-  </style>
-
   <style name="AppCompatDialogStyle" parent="Theme.AppCompat.Light.Dialog">
     <item name="colorAccent">#13a313</item>
   </style>

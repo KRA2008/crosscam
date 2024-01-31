@@ -4,7 +4,7 @@ using Android.Content.PM;
 
 namespace CrossCam.Platforms.Android
 {
-    [Activity(Theme = "@style/SplashTheme", 
+    [Activity(Theme = "@style/Maui.SplashTheme", 
         ScreenOrientation = ScreenOrientation.Sensor,
         ConfigurationChanges = ConfigChanges.ScreenSize | ConfigChanges.Orientation,
         MainLauncher = true, 

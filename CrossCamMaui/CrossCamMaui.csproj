@@ -88,16 +88,14 @@
 
 	<ItemGroup>
 		<!-- App Icon -->
-		<MauiIcon Include="Resources\AppIcon\appicon.svg" ForegroundFile="Resources\AppIcon\appiconfg.svg" Color="#512BD4" />
+		<MauiIcon Include="Resources\AppIcon\appicon.svg" ForegroundFile="Resources\AppIcon\appiconfg.svg" />
 		<MauiIcon Include="Resources\AppIcon\appiconfg.svg" />
 
-		<!-- Splash Screen -->
-		<MauiSplashScreen Include="Resources\Splash\splash.svg" Color="#512BD4" BaseSize="128,128" />
-
 		<!-- Images -->
-		<MauiImage Update="Resources\Images\dotnet_bot.png" Resize="True" BaseSize="300,185" />
+		<MauiImage Include="Resources\Images\**" />
 
-		<!-- Custom Fonts -->
+		<!-- Splash Screen -->
+	  <MauiSplashScreen Include="Resources\Splash\goodonwhitecircle.svg" Color="#000000" BaseSize="256,256" />
 
 		<!-- Raw Assets (also remove the "Resources\Raw" prefix) -->
 		<MauiAsset Include="Resources\Raw\**" LogicalName="%(RecursiveDir)%(Filename)%(Extension)" />
@@ -113,87 +111,8 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <MauiImage Include="Resources\Images\anaglyph.png" />
-	  <MauiImage Include="Resources\Images\aperture.svg" />
-	  <MauiImage Include="Resources\Images\bottomcrop.png" />
-	  <MauiImage Include="Resources\Images\bouquetblurry.png" />
-	  <MauiImage Include="Resources\Images\bouquetcross.png" />
-	  <MauiImage Include="Resources\Images\bouquetoverlapped.png" />
-	  <MauiImage Include="Resources\Images\bouquetoverlapping.png" />
-	  <MauiImage Include="Resources\Images\bouquetparallel.png" />
-	  <MauiImage Include="Resources\Images\cameraflip.svg" />
-	  <MauiImage Include="Resources\Images\camerasettings.png" />
-	  <MauiImage Include="Resources\Images\cancel.svg" />
-	  <MauiImage Include="Resources\Images\check.svg" />
-	  <MauiImage Include="Resources\Images\checkbox.svg" />
-	  <MauiImage Include="Resources\Images\clearbox.svg" />
-	  <MauiImage Include="Resources\Images\close.svg" />
-	  <MauiImage Include="Resources\Images\closefullscreen.svg" />
-	  <MauiImage Include="Resources\Images\crossed.png" />
-	  <MauiImage Include="Resources\Images\edit.svg" />
-	  <MauiImage Include="Resources\Images\expandless.svg" />
-	  <MauiImage Include="Resources\Images\expandmore.svg" />
-	  <MauiImage Include="Resources\Images\eye.svg" />
-	  <MauiImage Include="Resources\Images\focuscircle.png" />
-	  <MauiImage Include="Resources\Images\focuscirclegreen.png" />
-	  <MauiImage Include="Resources\Images\fullscreen.svg" />
-	  <MauiImage Include="Resources\Images\fyi.png" />
-	  <MauiImage Include="Resources\Images\gear.svg" />
-	  <MauiImage Include="Resources\Images\ghost.svg" />
-	  <MauiImage Include="Resources\Images\grayscaleanaglyph.png" />
-	  <MauiImage Include="Resources\Images\help.svg" />
-	  <MauiImage Include="Resources\Images\horizontallevelinside.png" />
-	  <MauiImage Include="Resources\Images\horizontallevelinsidegreen.png" />
-	  <MauiImage Include="Resources\Images\horizontalleveloutside.png" />
-	  <MauiImage Include="Resources\Images\horizontalleveloutsidegreen.png" />
-	  <MauiImage Include="Resources\Images\icon.png" />
-	  <MauiImage Include="Resources\Images\iconinverse.png" />
-	  <MauiImage Include="Resources\Images\info.svg" />
-	  <MauiImage Include="Resources\Images\insidecrop.png" />
-	  <MauiImage Include="Resources\Images\keystoneleft.png" />
-	  <MauiImage Include="Resources\Images\keystoneright.png" />
-	  <MauiImage Include="Resources\Images\layers.svg" />
-	  <MauiImage Include="Resources\Images\left.svg" />
-	  <MauiImage Include="Resources\Images\leftcrop.png" />
-	  <MauiImage Include="Resources\Images\loadimage.svg" />
-	  <MauiImage Include="Resources\Images\menu.svg" />
-	  <MauiImage Include="Resources\Images\mirrormethod.png" />
-	  <MauiImage Include="Resources\Images\outsidecrop.png" />
-	  <MauiImage Include="Resources\Images\pair.png" />
-	  <MauiImage Include="Resources\Images\pairprimary.png" />
-	  <MauiImage Include="Resources\Images\pairsecondary.png" />
-	  <MauiImage Include="Resources\Images\parallel.png" />
-	  <MauiImage Include="Resources\Images\quad.png" />
-	  <MauiImage Include="Resources\Images\right.svg" />
-	  <MauiImage Include="Resources\Images\rightcrop.png" />
-	  <MauiImage Include="Resources\Images\rotate.svg" />
-	  <MauiImage Include="Resources\Images\saveboth.svg" />
-	  <MauiImage Include="Resources\Images\saveone.svg" />
-	  <MauiImage Include="Resources\Images\scissor.svg" />
-	  <MauiImage Include="Resources\Images\smarttoy.svg" />
-	  <MauiImage Include="Resources\Images\squareinner.png" />
-	  <MauiImage Include="Resources\Images\squareouter.png" />
-	  <MauiImage Include="Resources\Images\swap.svg" />
-	  <MauiImage Include="Resources\Images\topcrop.png" />
-	  <MauiImage Include="Resources\Images\triple.png" />
-	  <MauiImage Include="Resources\Images\undo.svg" />
-	  <MauiImage Include="Resources\Images\vertalign.svg" />
-	  <MauiImage Include="Resources\Images\viewcolumntwo.svg" />
-	  <MauiImage Include="Resources\Images\zoom.svg" />
-	</ItemGroup>
-
-	<ItemGroup>
 	  <None Remove="Platforms\Android\Assets\AboutAssets.txt" />
 	  <None Remove="Platforms\Android\proguard.cfg" />
-	  <None Remove="Platforms\Android\Resources\drawable-hdpi\icon.png" />
-	  <None Remove="Platforms\Android\Resources\drawable-mdpi\icon.png" />
-	  <None Remove="Platforms\Android\Resources\drawable-nodpi\icon_circle.png" />
-	  <None Remove="Platforms\Android\Resources\drawable-xhdpi\icon.png" />
-	  <None Remove="Platforms\Android\Resources\drawable-xxhdpi\icon.png" />
-	  <None Remove="Platforms\Android\Resources\drawable-xxxhdpi\icon.png" />
-	  <None Remove="Platforms\Android\Resources\drawable\icon.png" />
-	  <None Remove="Platforms\Android\Resources\drawable\splash_screen.xml" />
-	  <None Remove="Platforms\Android\Resources\layout\CameraLayout.axml" />
 	</ItemGroup>
 
 	<ItemGroup>
@@ -383,6 +302,15 @@
 	<ItemGroup Condition="$(TargetFramework.StartsWith('net8.0-ios')) != true">
 		<Compile Remove="**\iOS\**\*.cs" />
 		<None Include="**\iOS\**\*.cs" Exclude="$(DefaultItemExcludes);$(DefaultExcludesInProjectFolder)" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Folder Include="Platforms\Android\Resources\drawable-hdpi\" />
+	  <Folder Include="Platforms\Android\Resources\drawable-xhdpi\" />
+	  <Folder Include="Platforms\Android\Resources\drawable-xxxhdpi\" />
+	  <Folder Include="Platforms\Android\Resources\drawable\" />
+	  <Folder Include="Platforms\Android\Resources\layout\" />
+	  <Folder Include="Platforms\iOS\Resources\" />
 	</ItemGroup>
 
 </Project>
