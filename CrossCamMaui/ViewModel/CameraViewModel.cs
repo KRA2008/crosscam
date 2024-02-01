@@ -1487,6 +1487,7 @@ namespace CrossCam.ViewModel
                     RaisePropertyChanged(nameof(ShouldSwapSidesBeVisible));
                     RaisePropertyChanged(nameof(ShouldDonutGuideBeVisible));
                     RaisePropertyChanged(nameof(ShouldLineGuidesBeVisible));
+                    RaisePropertyChanged(nameof(WorkflowStage));
                     break;
                 case nameof(CaptureButtonPosition):
                     RaisePropertyChanged(nameof(PairButtonPosition));
@@ -1540,6 +1541,7 @@ namespace CrossCam.ViewModel
                 case nameof(Settings.SaveRedundantFirstSide):
                 case nameof(Settings.SaveSidesSeparately):
                     RaisePropertyChanged(nameof(ShouldSaveCapturesButtonBeVisible));
+                    RaisePropertyChanged(nameof(WorkflowStage));
                     break;
                 case nameof(Settings.AreGuideLinesVisible):
                 case nameof(Settings.AreGuideLinesColored):
