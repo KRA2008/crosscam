@@ -116,6 +116,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
+		<PackageReference Include="Emgu.CV.runtime.maui.mini" Version="4.8.1.5350" />
 		<PackageReference Include="Microsoft.Maui.Controls" Version="$(MauiVersion)" />
 		<PackageReference Include="Microsoft.Maui.Controls.Compatibility" Version="$(MauiVersion)" />
 		<PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="8.0.0" />
@@ -250,6 +251,9 @@
 	</ItemGroup>
 
 	<ItemGroup Condition="'$(TargetFramework)' == 'net8.0-android'">
+	  <PackageReference Include="Emgu.CV.runtime.maui.mini.android">
+	    <Version>4.8.1.5350</Version>
+	  </PackageReference>
 	  <PackageReference Include="Xamarin.GooglePlayServices.Nearby">
 	    <Version>119.0.0</Version>
 	  </PackageReference>
@@ -291,6 +295,9 @@
 	</ItemGroup>
 
 	<ItemGroup Condition="'$(TargetFramework)' == 'net8.0-ios'">
+	  <PackageReference Include="Emgu.CV.runtime.maui.mini.ios">
+	    <Version>4.8.1.5350</Version>
+	  </PackageReference>
 	  <PackageReference Include="Microsoft.Maui.Core" Version="8.0.3" />
 	</ItemGroup>
 

@@ -66,6 +66,7 @@ public static class MauiProgram
         DependencyService.Register<IPhotoPicker, PhotoPicker>();
         DependencyService.Register<IScreenKeepAwaker, ScreenKeepAwaker>();
         DependencyService.Register<IPhotoSaver, PhotoSaver>();
+        DependencyService.Register<IOpenCv,OpenCv>();
 #if __ANDROID__
 #elif __IOS__
         DependencyService.Register<INotchHeightProvider, NotchHeightProvider>();
