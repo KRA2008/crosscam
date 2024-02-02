@@ -28,10 +28,10 @@ namespace CrossCam.Page
         private const float BUBBLE_LEVEL_MAX_TIP = 0.1f;
         private const float ROLL_GUIDE_MEASURMENT_WEIGHT = 12;
         private const float ROLL_GOOD_THRESHOLD = 0.01f;
-        private readonly ImageSource _levelBubbleImage = ImageSource.FromFile("horizontalLevelInside");
-	    private readonly ImageSource _levelOutsideImage = ImageSource.FromFile("horizontalLevelOutside");
-	    private readonly ImageSource _levelBubbleGreenImage = ImageSource.FromFile("horizontalLevelInsideGreen");
-	    private readonly ImageSource _levelOutsideGreenImage = ImageSource.FromFile("horizontalLevelOutsideGreen");
+        private readonly ImageSource _levelBubbleImage = ImageSource.FromFile("horizontallevelinside.png");
+	    private readonly ImageSource _levelOutsideImage = ImageSource.FromFile("horizontalleveloutside.png");
+	    private readonly ImageSource _levelBubbleGreenImage = ImageSource.FromFile("horizontallevelinsidegreen.png");
+	    private readonly ImageSource _levelOutsideGreenImage = ImageSource.FromFile("horizontalleveloutsidegreen.png");
 
         private const float RETICLE_PANNER_WIDTH = 30;
         private const float RETICLE_IMAGE_WIDTH = 10;
@@ -91,6 +91,18 @@ namespace CrossCam.Page
             _rightReticleLayout.PropertyChanged += RightReticleLayoutOnPropertyChanged;
 
             _gyroscopeStopwatch = new Stopwatch();
+            PropertyChanged += OnCameraPagePropertyChanged;
+        }
+
+        private void OnCameraPagePropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+            switch (e.PropertyName)
+            {
+                case nameof(Width):
+                case nameof(Height):
+                    PlaceRollGuide();
+                    break;
+            }
         }
 
         private void RightReticleLayoutOnPropertyChanged(object sender, PropertyChangedEventArgs e)
@@ -274,63 +286,76 @@ namespace CrossCam.Page
 
         private void UpdateLevelFromAccelerometerData()
         {
-            MainThread.BeginInvokeOnMainThread(() =>
+            _averageRoll *= (ROLL_GUIDE_MEASURMENT_WEIGHT - 1) / ROLL_GUIDE_MEASURMENT_WEIGHT;
+
+            if (_viewModel != null)
             {
-                _averageRoll *= (ROLL_GUIDE_MEASURMENT_WEIGHT - 1) / ROLL_GUIDE_MEASURMENT_WEIGHT;
-
-                if (_viewModel != null)
+                var xReading = _lastAccelerometerReadingX; //thread protection
+                var yReading = _lastAccelerometerReadingY;
+                if (Math.Abs(xReading) < Math.Abs(yReading)) //portrait
                 {
-                    var xReading = _lastAccelerometerReadingX; //thread protection
-                    var yReading = _lastAccelerometerReadingY;
-                    if (Math.Abs(xReading) < Math.Abs(yReading)) //portrait
+                    if (_viewModel.IsViewInverted)
                     {
-                        if (_viewModel.IsViewInverted)
-                        {
-                            _averageRoll -= xReading / ROLL_GUIDE_MEASURMENT_WEIGHT;
-                        }
-                        else
-                        {
-                            _averageRoll += xReading / ROLL_GUIDE_MEASURMENT_WEIGHT;
-                        }
+                        _averageRoll -= xReading / ROLL_GUIDE_MEASURMENT_WEIGHT;
                     }
-                    else //landscape
+                    else
                     {
-                        if (_viewModel.IsViewInverted)
-                        {
-                            _averageRoll += yReading / ROLL_GUIDE_MEASURMENT_WEIGHT;
-                        }
-                        else
-                        {
-                            _averageRoll -= yReading / ROLL_GUIDE_MEASURMENT_WEIGHT;
-                        }
+                        _averageRoll += xReading / ROLL_GUIDE_MEASURMENT_WEIGHT;
                     }
+                }
+                else //landscape
+                {
+                    if (_viewModel.IsViewInverted)
+                    {
+                        _averageRoll += yReading / ROLL_GUIDE_MEASURMENT_WEIGHT;
+                    }
+                    else
+                    {
+                        _averageRoll -= yReading / ROLL_GUIDE_MEASURMENT_WEIGHT;
+                    }
+                }
 
-                    if (Math.Abs(_averageRoll) < ROLL_GOOD_THRESHOLD &&
-                        _horizontalLevelBubble.Source == _levelBubbleImage)
-                    {
-                        _horizontalLevelBubble.Source = _levelBubbleGreenImage;
-                        _horizontalLevelOutside.Source = _levelOutsideGreenImage;
-                    }
-                    else if (Math.Abs(_averageRoll) > ROLL_GOOD_THRESHOLD &&
-                            _horizontalLevelBubble.Source == _levelBubbleGreenImage)
-                    {
-                        _horizontalLevelBubble.Source = _levelBubbleImage;
-                        _horizontalLevelOutside.Source = _levelOutsideImage;
-                    }
+                ImageSource targetBubbleImage = null;
+                ImageSource targetOutsideImage = null;
+
+                if (Math.Abs(_averageRoll) < ROLL_GOOD_THRESHOLD &&
+                    _horizontalLevelBubble.Source == _levelBubbleImage)
+                {
+                    targetBubbleImage = _levelBubbleGreenImage;
+                    targetOutsideImage = _levelOutsideGreenImage;
+                }
+                else if (Math.Abs(_averageRoll) > ROLL_GOOD_THRESHOLD &&
+                         _horizontalLevelBubble.Source == _levelBubbleGreenImage)
+                {
+                    targetBubbleImage = _levelBubbleImage;
+                    targetOutsideImage = _levelOutsideImage;
                 }
 
                 var newX = 0.5 + _averageRoll / BUBBLE_LEVEL_MAX_TIP / 2;
                 if (newX > 1)
                 {
                     newX = 1;
-                } else if (newX < 0)
+                }
+                else if (newX < 0)
                 {
                     newX = 0;
                 }
+
                 var bubbleBounds = AbsoluteLayout.GetLayoutBounds(_horizontalLevelBubble);
                 bubbleBounds.X = newX;
-                AbsoluteLayout.SetLayoutBounds(_horizontalLevelBubble, bubbleBounds);
-            });
+                MainThread.BeginInvokeOnMainThread(() =>
+                {
+                    if (targetBubbleImage != null)
+                    {
+                        _horizontalLevelBubble.Source = targetBubbleImage;
+                    }
+                    if (targetOutsideImage != null)
+                    {
+                        _horizontalLevelOutside.Source = targetOutsideImage;
+                    }
+                    AbsoluteLayout.SetLayoutBounds(_horizontalLevelBubble, bubbleBounds);
+                });
+            }
         }
 
         protected override void OnBindingContextChanged()
@@ -345,15 +370,16 @@ namespace CrossCam.Page
                 _viewModel.Settings.CardboardSettings.PropertyChanged += InvalidateCanvasBecausePropertyChanged;
                 _viewModel.Settings.AlignmentSettings.PropertyChanged += InvalidateCanvasBecausePropertyChanged;
 
+
+                var layout = AbsoluteLayout.GetLayoutBounds(_moveHintSideStack);
+                layout.Width = _viewModel.Settings.CardboardSettings.CardboardIpd + 100;
                 MainThread.BeginInvokeOnMainThread(() =>
                 {
-                    var layout = AbsoluteLayout.GetLayoutBounds(_moveHintSideStack);
-                    layout.Width = _viewModel.Settings.CardboardSettings.CardboardIpd + 100;
                     AbsoluteLayout.SetLayoutBounds(_moveHintSideStack, layout);
 
-                    EvaluateSensors();
-                    PlaceRollGuide();
                 });
+                EvaluateSensors();
+                PlaceRollGuide();
             }
 	    }
 
@@ -387,63 +413,78 @@ namespace CrossCam.Page
 
         private void ViewModelPropertyChanged(object sender, PropertyChangedEventArgs e)
 	    {
-            MainThread.BeginInvokeOnMainThread(() =>
+            switch (e.PropertyName)
             {
-                switch (e.PropertyName)
-                {
-                    case nameof(CameraViewModel.FocusCircleX):
-                    case nameof(CameraViewModel.FocusCircleY):
-                        MoveFocusCircle();
-                        break;
-                    case nameof(CameraViewModel.WorkflowStage):
-                        //_cameraSettingsBox.ForceLayout(); //TODO: needed?
-                        EvaluateSensors();
-                        _forceCanvasClear = true;
+                case nameof(CameraViewModel.FocusCircleX):
+                case nameof(CameraViewModel.FocusCircleY):
+                    MoveFocusCircle();
+                    break;
+                case nameof(CameraViewModel.WorkflowStage):
+                    //_cameraSettingsBox.ForceLayout(); //TODO: needed?
+                    EvaluateSensors();
+                    _forceCanvasClear = true;
+                    MainThread.BeginInvokeOnMainThread(() =>
+                    {
                         _canvas.InvalidateSurface();
-                        break;
-                    case nameof(CameraViewModel.CameraColumn):
-                    case nameof(CameraViewModel.PreviewBottomY):
-                        PlaceRollGuide();
-                        break;
-                    case nameof(CameraViewModel.IsViewPortrait):
-                        Debug.WriteLine("### isViewPortrait changed");
-                        ProcessDoubleTap();
-                        SetMarginsForNotch();
-                        _forceCanvasClear = true;
+                    });
+                    break;
+                case nameof(CameraViewModel.CameraColumn):
+                    PlaceRollGuide();
+                    break;
+                case nameof(CameraViewModel.IsViewPortrait):
+                    Debug.WriteLine("### isViewPortrait changed");
+                    ProcessDoubleTap();
+                    SetMarginsForNotch();
+                    _forceCanvasClear = true; 
+                    MainThread.BeginInvokeOnMainThread(() =>
+                    {
                         _canvas.InvalidateSurface();
-                        break;
-                    case nameof(CameraViewModel.LeftBitmap):
-                    case nameof(CameraViewModel.LeftAlignmentTransform):
-                        ProcessDoubleTap();
-                        _newLeftCapture = true;
-                        CardboardCheckAndSaveOrientationSnapshot();
+                    });
+                    break;
+                case nameof(CameraViewModel.LeftBitmap):
+                case nameof(CameraViewModel.LeftAlignmentTransform):
+                    ProcessDoubleTap();
+                    _newLeftCapture = true;
+                    CardboardCheckAndSaveOrientationSnapshot(); 
+                    MainThread.BeginInvokeOnMainThread(() =>
+                    {
                         _canvas.InvalidateSurface();
-                        break;
-                    case nameof(CameraViewModel.RightBitmap):
-                    case nameof(CameraViewModel.RightAlignmentTransform):
-                        ProcessDoubleTap();
-                        _newRightCapture = true;
-                        CardboardCheckAndSaveOrientationSnapshot();
+                    });
+                    break;
+                case nameof(CameraViewModel.RightBitmap):
+                case nameof(CameraViewModel.RightAlignmentTransform):
+                    ProcessDoubleTap();
+                    _newRightCapture = true;
+                    CardboardCheckAndSaveOrientationSnapshot();
+                    MainThread.BeginInvokeOnMainThread(() =>
+                    {
                         _canvas.InvalidateSurface();
-                        break;
-                    case nameof(CameraViewModel.RemotePreviewFrame):
-                    case nameof(CameraViewModel.LocalPreviewFrame):
+                    });
+                    break;
+                case nameof(CameraViewModel.RemotePreviewFrame):
+                case nameof(CameraViewModel.LocalPreviewFrame):
+                    MainThread.BeginInvokeOnMainThread(() =>
+                    {
                         _canvas.InvalidateSurface();
-                        break;
-                    case nameof(CameraViewModel.IsFullscreenToggle):
-                    case nameof(CameraViewModel.IsNothingCaptured):
-                        PlaceRollGuide();
-                        _forceCanvasClear = true;
+                    });
+                    break;
+                case nameof(CameraViewModel.IsFullscreenToggle):
+                case nameof(CameraViewModel.IsNothingCaptured):
+                    PlaceRollGuide();
+                    _forceCanvasClear = true;
+                    MainThread.BeginInvokeOnMainThread(() =>
+                    {
                         _canvas.InvalidateSurface();
-                        break;
-                    case nameof(CameraViewModel.IsBusy):
-                        CardboardCheckAndSaveOrientationSnapshot();
-                        break;
-                    case nameof(CameraViewModel.PreviewAspectRatio):
-                        SetCameraModuleSize();
-                        break;
-                }
-            });
+                    });
+                    break;
+                case nameof(CameraViewModel.IsBusy):
+                    CardboardCheckAndSaveOrientationSnapshot();
+                    break;
+                case nameof(CameraViewModel.PreviewAspectRatio):
+                    SetCameraModuleSize();
+                    PlaceRollGuide();
+                    break;
+            }
 	    }
 
         private void SetCameraModuleSize()
@@ -451,7 +492,10 @@ namespace CrossCam.Page
             var layoutBounds = AbsoluteLayout.GetLayoutBounds(_cameraModule);
             layoutBounds.Width = this.Width;
             layoutBounds.Height = this.Width * _viewModel.PreviewAspectRatio;
-            AbsoluteLayout.SetLayoutBounds(_cameraModule, layoutBounds);
+            MainThread.BeginInvokeOnMainThread(() =>
+            {
+                AbsoluteLayout.SetLayoutBounds(_cameraModule, layoutBounds);
+            });
         }
 
         private void CardboardCheckAndSaveOrientationSnapshot()
@@ -476,12 +520,15 @@ namespace CrossCam.Page
         {
             if (_viewModel != null)
             {
-                AbsoluteLayout.SetLayoutBounds(_focusCircle, new Rect
+                MainThread.BeginInvokeOnMainThread(() =>
                 {
-                    X = _viewModel.FocusCircleX - FOCUS_CIRCLE_WIDTH / 2d,
-                    Y = _viewModel.FocusCircleY - FOCUS_CIRCLE_WIDTH / 2d,
-                    Width = FOCUS_CIRCLE_WIDTH,
-                    Height = FOCUS_CIRCLE_WIDTH
+                    AbsoluteLayout.SetLayoutBounds(_focusCircle, new Rect
+                    {
+                        X = _viewModel.FocusCircleX - FOCUS_CIRCLE_WIDTH / 2d,
+                        Y = _viewModel.FocusCircleY - FOCUS_CIRCLE_WIDTH / 2d,
+                        Width = FOCUS_CIRCLE_WIDTH,
+                        Height = FOCUS_CIRCLE_WIDTH
+                    });
                 });
             }
         }
@@ -756,20 +803,23 @@ namespace CrossCam.Page
                 upperLineBounds = _upperLineBoundsLandscape;
                 lowerLineBounds = _lowerLineBoundsLandscape;
             }
+            MainThread.BeginInvokeOnMainThread(() =>
+            {            
+                AbsoluteLayout.SetLayoutFlags(_upperLeftLine, AbsoluteLayoutFlags.PositionProportional | AbsoluteLayoutFlags.WidthProportional);
+                AbsoluteLayout.SetLayoutBounds(_upperLeftLine, new Rect(0, upperLineBounds.Y, 0.5, upperLineBounds.Height));
+                AbsoluteLayout.SetLayoutFlags(_upperRightLine, AbsoluteLayoutFlags.PositionProportional | AbsoluteLayoutFlags.WidthProportional);
+                AbsoluteLayout.SetLayoutBounds(_upperRightLine, new Rect(1, upperLineBounds.Y, 0.5, upperLineBounds.Height));
+                AbsoluteLayout.SetLayoutFlags(_upperLinePanner, AbsoluteLayoutFlags.YProportional | AbsoluteLayoutFlags.WidthProportional);
+                AbsoluteLayout.SetLayoutBounds(_upperLinePanner, upperLineBounds);
 
-            AbsoluteLayout.SetLayoutFlags(_upperLeftLine, AbsoluteLayoutFlags.PositionProportional | AbsoluteLayoutFlags.WidthProportional);
-            AbsoluteLayout.SetLayoutBounds(_upperLeftLine, new Rect(0, upperLineBounds.Y, 0.5, upperLineBounds.Height));
-            AbsoluteLayout.SetLayoutFlags(_upperRightLine, AbsoluteLayoutFlags.PositionProportional | AbsoluteLayoutFlags.WidthProportional);
-            AbsoluteLayout.SetLayoutBounds(_upperRightLine, new Rect(1, upperLineBounds.Y, 0.5, upperLineBounds.Height));
-            AbsoluteLayout.SetLayoutFlags(_upperLinePanner, AbsoluteLayoutFlags.YProportional | AbsoluteLayoutFlags.WidthProportional);
-            AbsoluteLayout.SetLayoutBounds(_upperLinePanner, upperLineBounds);
+                AbsoluteLayout.SetLayoutFlags(_lowerLeftLine, AbsoluteLayoutFlags.PositionProportional | AbsoluteLayoutFlags.WidthProportional);
+                AbsoluteLayout.SetLayoutBounds(_lowerLeftLine, new Rect(0, lowerLineBounds.Y, 0.5, lowerLineBounds.Height));
+                AbsoluteLayout.SetLayoutFlags(_lowerRightLine, AbsoluteLayoutFlags.PositionProportional | AbsoluteLayoutFlags.WidthProportional);
+                AbsoluteLayout.SetLayoutBounds(_lowerRightLine, new Rect(1, lowerLineBounds.Y, 0.5, lowerLineBounds.Height));
+                AbsoluteLayout.SetLayoutFlags(_lowerLinePanner, AbsoluteLayoutFlags.YProportional | AbsoluteLayoutFlags.WidthProportional);
+                AbsoluteLayout.SetLayoutBounds(_lowerLinePanner, lowerLineBounds);
+            });
 
-            AbsoluteLayout.SetLayoutFlags(_lowerLeftLine, AbsoluteLayoutFlags.PositionProportional | AbsoluteLayoutFlags.WidthProportional);
-            AbsoluteLayout.SetLayoutBounds(_lowerLeftLine, new Rect(0, lowerLineBounds.Y, 0.5, lowerLineBounds.Height));
-            AbsoluteLayout.SetLayoutFlags(_lowerRightLine, AbsoluteLayoutFlags.PositionProportional | AbsoluteLayoutFlags.WidthProportional);
-            AbsoluteLayout.SetLayoutBounds(_lowerRightLine, new Rect(1, lowerLineBounds.Y, 0.5, lowerLineBounds.Height));
-            AbsoluteLayout.SetLayoutFlags(_lowerLinePanner, AbsoluteLayoutFlags.YProportional | AbsoluteLayoutFlags.WidthProportional);
-            AbsoluteLayout.SetLayoutBounds(_lowerLinePanner, lowerLineBounds);
         }
 
         private void ResetDonutGuide(AbsoluteLayout layout, Image reticle, ContentView reticlePanner, bool isLeft)
@@ -792,25 +842,32 @@ namespace CrossCam.Page
 
                 if (isLeft)
                 {
-                    AbsoluteLayout.SetLayoutBounds(reticle,
+                    MainThread.BeginInvokeOnMainThread(() =>
+                    {
+                        AbsoluteLayout.SetLayoutBounds(reticle,
                         new Rect(fullPreviewWidth - sidePreviewWidth / 2d - RETICLE_IMAGE_WIDTH / 2d,
                             previewHeight / 2d - RETICLE_IMAGE_WIDTH / 2d,
                             RETICLE_IMAGE_WIDTH, RETICLE_IMAGE_WIDTH));
-                    AbsoluteLayout.SetLayoutBounds(reticlePanner,
+                        AbsoluteLayout.SetLayoutBounds(reticlePanner,
                         new Rect(fullPreviewWidth - sidePreviewWidth / 2d - RETICLE_PANNER_WIDTH / 2d,
                             previewHeight / 2d - RETICLE_PANNER_WIDTH / 2d,
                             RETICLE_PANNER_WIDTH, RETICLE_PANNER_WIDTH));
+                    });
+                    
                 }
                 else
                 {
-                    AbsoluteLayout.SetLayoutBounds(reticle,
+                    MainThread.BeginInvokeOnMainThread(() =>
+                    {
+                        AbsoluteLayout.SetLayoutBounds(reticle,
                         new Rect(sidePreviewWidth / 2d - RETICLE_IMAGE_WIDTH / 2d,
                             previewHeight / 2d - RETICLE_IMAGE_WIDTH / 2d,
                             RETICLE_IMAGE_WIDTH, RETICLE_IMAGE_WIDTH));
-                    AbsoluteLayout.SetLayoutBounds(reticlePanner,
+                        AbsoluteLayout.SetLayoutBounds(reticlePanner,
                         new Rect(sidePreviewWidth / 2d - RETICLE_PANNER_WIDTH / 2d,
                             previewHeight / 2d - RETICLE_PANNER_WIDTH / 2d,
                             RETICLE_PANNER_WIDTH, RETICLE_PANNER_WIDTH));
+                    });
                 }
             }
             else
@@ -827,14 +884,17 @@ namespace CrossCam.Page
                     sideHeight = Math.Min(layout.Width, layout.Height);
                 }
 
-                AbsoluteLayout.SetLayoutBounds(reticle,
+                MainThread.BeginInvokeOnMainThread(() =>
+                {
+                    AbsoluteLayout.SetLayoutBounds(reticle,
                     new Rect(sideWidth / 2d - RETICLE_IMAGE_WIDTH / 2d,
                         sideHeight / 2d - RETICLE_IMAGE_WIDTH / 2d,
                         RETICLE_IMAGE_WIDTH, RETICLE_IMAGE_WIDTH));
-                AbsoluteLayout.SetLayoutBounds(reticlePanner,
+                    AbsoluteLayout.SetLayoutBounds(reticlePanner,
                     new Rect(sideWidth / 2d - RETICLE_PANNER_WIDTH / 2d,
                         sideHeight / 2d - RETICLE_PANNER_WIDTH / 2d,
                         RETICLE_PANNER_WIDTH, RETICLE_PANNER_WIDTH));
+                });
             }
         }
 
@@ -846,9 +906,14 @@ namespace CrossCam.Page
             if (_viewModel == null)
             {
                 rollBounds.X = 0.2;
+                rollBounds.Y = Height - LEVEL_ICON_WIDTH;
             }
             else
             {
+                var apertureHeight = (double)Application.Current.Resources["_giantIconWidth"];
+                var bottomPadding = (Thickness)Application.Current.Resources["_bottomPadding"];
+                var apertureY = Height - (apertureHeight + bottomPadding.Bottom);
+                //single capture/fullscreen
                 if (_viewModel.Settings.Mode == DrawMode.RedCyanAnaglyph ||
                     _viewModel.Settings.Mode == DrawMode.GrayscaleRedCyanAnaglyph ||
                     _viewModel.Settings.FullscreenCapturing && 
@@ -858,16 +923,53 @@ namespace CrossCam.Page
                     _viewModel.Settings.Mode != DrawMode.Cardboard)
                 {
                     rollBounds.X = 0.5;
-                    rollBounds.Y = Math.Min(_viewModel.PreviewBottomY +
-                                            (_viewModel.PreviewBottomY - Height / 2f) / 2f, Height - LEVEL_ICON_WIDTH);
+                    //portrait
+                    if (DeviceDisplay.MainDisplayInfo.Orientation == DisplayOrientation.Portrait)
+                    {
+                        var previewHeight = Width * _viewModel.PreviewAspectRatio;
+                        var margin = (Height - previewHeight) / 2d;
+                        var previewBottomY = Height - margin;
+                        if (previewBottomY > apertureY)
+                        {
+                            rollBounds.Y = apertureY - LEVEL_ICON_WIDTH;
+                        }
+                        else
+                        {
+                            rollBounds.Y = previewBottomY - LEVEL_ICON_WIDTH;
+                        }
+                    }
+                    //landscape
+                    else
+                    {
+                        rollBounds.Y = Height - LEVEL_ICON_WIDTH;
+                    }
                 }
+                //double capture/SBS
                 else
                 {
                     rollBounds.X = _viewModel.CameraColumn == 0 ? 0.2 : 0.8;
-                    rollBounds.Y = _viewModel.PreviewBottomY - LEVEL_ICON_WIDTH / 5;
+                    //portrait
+                    if (DeviceDisplay.MainDisplayInfo.Orientation == DisplayOrientation.Portrait)
+                    {
+                        var previewHeight = Width / 2d * _viewModel.PreviewAspectRatio;
+                        var margin = (Height - previewHeight) / 2d;
+                        var previewBottomY = Height - margin;
+                        rollBounds.Y = previewBottomY;
+                    }
+                    //landscape
+                    else
+                    {
+                        var previewHeight = Width / 2d / _viewModel.PreviewAspectRatio;
+                        var margin = (Height - previewHeight) / 2d;
+                        var previewBottomY = Height - margin;
+                        rollBounds.Y = previewBottomY;
+                    }
                 }
             }
-            AbsoluteLayout.SetLayoutBounds(_horizontalLevelWhole, rollBounds);
+            MainThread.BeginInvokeOnMainThread(() =>
+            {
+                AbsoluteLayout.SetLayoutBounds(_horizontalLevelWhole, rollBounds);
+            });
         }
 
         private void ReticlePanned(object sender, PanUpdatedEventArgs e)
@@ -880,33 +982,42 @@ namespace CrossCam.Page
             }
 	        else if (e.StatusType == GestureStatus.Running)
 	        {
-                AbsoluteLayout.SetLayoutBounds(_leftReticle, new Rect(
+                MainThread.BeginInvokeOnMainThread(() =>
+                {
+                    AbsoluteLayout.SetLayoutBounds(_leftReticle, new Rect(
                     _reticleLeftX + e.TotalX,
                     _reticleY + e.TotalY,
                     RETICLE_IMAGE_WIDTH,
                     RETICLE_IMAGE_WIDTH));
 
-                AbsoluteLayout.SetLayoutBounds(_rightReticle, new Rect(
+                    AbsoluteLayout.SetLayoutBounds(_rightReticle, new Rect(
                     _reticleRightX + e.TotalX,
                     _reticleY + e.TotalY,
                     RETICLE_IMAGE_WIDTH,
                     RETICLE_IMAGE_WIDTH));
+                });
+                
             }
 	        else if (e.StatusType == GestureStatus.Completed)
 	        {
                 var newLeftReticleBounds = AbsoluteLayout.GetLayoutBounds(_leftReticle);
-                AbsoluteLayout.SetLayoutBounds(_leftReticlePanner, new Rect(
-                    newLeftReticleBounds.X - RETICLE_PANNER_WIDTH / 2d + RETICLE_IMAGE_WIDTH / 2d,
-                    newLeftReticleBounds.Y - RETICLE_PANNER_WIDTH / 2d + RETICLE_IMAGE_WIDTH / 2d,
-                    RETICLE_PANNER_WIDTH,
-                    RETICLE_PANNER_WIDTH));
+                
 
                 var newRightReticleBounds = AbsoluteLayout.GetLayoutBounds(_rightReticle);
-                AbsoluteLayout.SetLayoutBounds(_rightReticlePanner, new Rect(
-                    newRightReticleBounds.X - RETICLE_PANNER_WIDTH / 2d + RETICLE_IMAGE_WIDTH / 2d,
-                    newRightReticleBounds.Y - RETICLE_PANNER_WIDTH / 2d + RETICLE_IMAGE_WIDTH / 2d,
-                    RETICLE_PANNER_WIDTH,
-                    RETICLE_PANNER_WIDTH));
+                
+                MainThread.BeginInvokeOnMainThread(() =>
+                {
+                    AbsoluteLayout.SetLayoutBounds(_leftReticlePanner, new Rect(
+                        newLeftReticleBounds.X - RETICLE_PANNER_WIDTH / 2d + RETICLE_IMAGE_WIDTH / 2d,
+                        newLeftReticleBounds.Y - RETICLE_PANNER_WIDTH / 2d + RETICLE_IMAGE_WIDTH / 2d,
+                        RETICLE_PANNER_WIDTH,
+                        RETICLE_PANNER_WIDTH));
+                    AbsoluteLayout.SetLayoutBounds(_rightReticlePanner, new Rect(
+                        newRightReticleBounds.X - RETICLE_PANNER_WIDTH / 2d + RETICLE_IMAGE_WIDTH / 2d,
+                        newRightReticleBounds.Y - RETICLE_PANNER_WIDTH / 2d + RETICLE_IMAGE_WIDTH / 2d,
+                        RETICLE_PANNER_WIDTH,
+                        RETICLE_PANNER_WIDTH));
+                });
             }
         }
 
@@ -942,25 +1053,32 @@ namespace CrossCam.Page
 	            lineHeight = (float) lowerLineBounds.Height;
 	        }
 	        else if (e.StatusType == GestureStatus.Running)
-	        {
-	            
-	            AbsoluteLayout.SetLayoutFlags(line, AbsoluteLayoutFlags.WidthProportional | AbsoluteLayoutFlags.XProportional);
-                AbsoluteLayout.SetLayoutBounds(line, new Rect(
+            {
+                var y = lineY;
+                var f = lineHeight;
+                MainThread.BeginInvokeOnMainThread(() =>
+                {
+                    AbsoluteLayout.SetLayoutFlags(line, AbsoluteLayoutFlags.WidthProportional | AbsoluteLayoutFlags.XProportional);
+                    AbsoluteLayout.SetLayoutBounds(line, new Rect(
                     isLeft ? 0 : 1,
-	                lineY + e.TotalY,
+	                y + e.TotalY,
 	                0.5,
-	                lineHeight));
-	        }
+	                f));
+                });
+            }
 	        else if (e.StatusType == GestureStatus.Completed)
-	        {
-	            
-	            AbsoluteLayout.SetLayoutFlags(panner, AbsoluteLayoutFlags.WidthProportional | AbsoluteLayoutFlags.XProportional);
-                var newLineBounds = AbsoluteLayout.GetLayoutBounds(line);
-	            AbsoluteLayout.SetLayoutBounds(panner, new Rect(
+            {
+                var f = lineHeight;
+                MainThread.BeginInvokeOnMainThread(() =>
+                {
+                    AbsoluteLayout.SetLayoutFlags(panner, AbsoluteLayoutFlags.WidthProportional | AbsoluteLayoutFlags.XProportional);
+                    var newLineBounds = AbsoluteLayout.GetLayoutBounds(line);
+	                AbsoluteLayout.SetLayoutBounds(panner, new Rect(
                     0,
 	                newLineBounds.Y,
 	                1,
-	                lineHeight));
+	                f));
+                });
             }
         }
 

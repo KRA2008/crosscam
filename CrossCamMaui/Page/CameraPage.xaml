@@ -14,8 +14,6 @@
             <Thickness x:Key="_topBarSmallButtonPadding" Left="10" Top="{StaticResource _topBarHeight}" Right="10" Bottom="10"/>
             <Thickness x:Key="_topBarButtonPadding" Left="0" Top="{StaticResource _topBarHeight}" Right="0" Bottom="0"/>
 
-            <Thickness x:Key="_bottomPadding">10</Thickness>
-
             <x:Double x:Key="_topMiddleButtonY">0.025</x:Double>
             <x:Double x:Key="_secondMiddleButtonY">0.355</x:Double>
 
@@ -102,7 +100,6 @@
                          CapturedImage="{Binding LocalCapturedFrame}"
                          CaptureSuccess="{Binding CaptureSuccess}"
                          IsNothingCaptured="{Binding IsNothingCaptured}"
-                         PreviewBottomY="{Binding PreviewBottomY}"
                          Error="{Binding Error}"
                          WasSwipedTrigger="{Binding WasSwipedTrigger}"
                          IsFocusCircleLocked="{Binding IsFocusCircleLocked}"

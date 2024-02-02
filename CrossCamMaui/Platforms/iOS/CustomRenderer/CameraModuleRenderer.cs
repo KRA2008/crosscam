@@ -172,11 +172,9 @@ namespace CrossCam.Platforms.iOS.CustomRenderer
                 case UIDeviceOrientation.LandscapeLeft:
                 case UIDeviceOrientation.LandscapeRight:
                     previewHeight = 0.75 * _cameraModule.Width;
-                    _cameraModule.PreviewBottomY = (previewHeight + _cameraModule.Height) / 2;
                     break;
                 default:
                     previewHeight = 1.33 * _cameraModule.Width;
-                    _cameraModule.PreviewBottomY = (previewHeight + _cameraModule.Height) / 2;
                     break;
             }
             Bounds = new CGRect(0, -10000, _cameraModule.Width, previewHeight);

@@ -57,9 +57,6 @@ namespace CrossCam.CustomElement
         public static readonly BindableProperty AreBothSidesCapturedProperty = BindableProperty.Create(nameof(AreBothSidesCaptured),
             typeof(bool), typeof(CameraModule), true);
 
-        public static readonly BindableProperty PreviewBottomYProperty = BindableProperty.Create(nameof(PreviewBottomY),
-            typeof(double), typeof(CameraModule), 0d, BindingMode.OneWayToSource);
-
         public static readonly BindableProperty PreviewAspectRatioProperty = BindableProperty.Create(nameof(PreviewAspectRatio),
             typeof(double), typeof(CameraModule), 0d, BindingMode.OneWayToSource);
 
@@ -148,12 +145,6 @@ namespace CrossCam.CustomElement
         {
             get => (bool)GetValue(AreBothSidesCapturedProperty);
             set => SetValue(AreBothSidesCapturedProperty, value);
-        }
-
-        public double PreviewBottomY
-        {
-            get => (double)GetValue(PreviewBottomYProperty);
-            set => SetValue(PreviewBottomYProperty, value);
         }
 
         public double PreviewAspectRatio

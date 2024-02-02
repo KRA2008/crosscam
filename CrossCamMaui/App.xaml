@@ -9,6 +9,7 @@
             <x:Double x:Key="_giantIconWidth">100</x:Double>
             <x:Double x:Key="_largeIconWidth">80</x:Double>
             <x:Double x:Key="_smallerButtonWidth">50</x:Double>
+            <Thickness x:Key="_bottomPadding">10</Thickness>
 
             <Color x:Key="linkBlue">#3F51B5</Color>
 

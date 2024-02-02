@@ -816,8 +816,6 @@ namespace CrossCam.Platforms.Android.CustomRenderer
                     _camera1.SetParameters(parameters);
                 }
 
-                _cameraModule.PreviewBottomY = (moduleHeight - verticalOffset) / metrics.Density;
-
                 if (_useCamera2)
                 {
                     _textureView.SetX(xAdjust2);
