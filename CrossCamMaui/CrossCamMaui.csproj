@@ -40,6 +40,7 @@
 		<Platforms>AnyCPU</Platforms>
 		<PublishAot>False</PublishAot>
 		<Trimming></Trimming>
+		<Configurations>Debug;Release;Debug Without Emgu</Configurations>
 	</PropertyGroup>
 
 	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net8.0-android|AnyCPU'">
@@ -47,7 +48,16 @@
 	  <AndroidEnableMultiDex>True</AndroidEnableMultiDex>
 	  <AndroidStoreUncompressedFileExtensions></AndroidStoreUncompressedFileExtensions>
 	  <AndroidUseAapt2>True</AndroidUseAapt2>
-	  <DefineConstants>$(DefineConstants);__ANDROID__</DefineConstants>
+	  <DefineConstants>$(DefineConstants);__ANDROID__;EMGU</DefineConstants>
+	  <EmbedAssembliesIntoApk>False</EmbedAssembliesIntoApk>
+	</PropertyGroup>
+
+	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug Without Emgu|net8.0-android|AnyCPU'">
+	  <Deterministic>False</Deterministic>
+	  <AndroidEnableMultiDex>True</AndroidEnableMultiDex>
+	  <AndroidStoreUncompressedFileExtensions />
+	  <AndroidUseAapt2>True</AndroidUseAapt2>
+	  <DefineConstants>$(DefineConstants);__ANDROID__;DEBUG</DefineConstants>
 	  <EmbedAssembliesIntoApk>False</EmbedAssembliesIntoApk>
 	</PropertyGroup>
 
@@ -60,6 +70,20 @@
 	  <MtouchProfiling>True</MtouchProfiling>
 	  <MtouchFloat32>True</MtouchFloat32>
 	  <CodesignEntitlements>Platforms\iOS\DevEntitlements.plist</CodesignEntitlements>
+	  <DefineConstants>$(DefineConstants);EMGU</DefineConstants>
+	</PropertyGroup>
+
+	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug Without Emgu|net8.0-ios|AnyCPU'">
+	  <Deterministic>False</Deterministic>
+	  <MtouchNoSymbolStrip>True</MtouchNoSymbolStrip>
+	  <EnableSGenConc>True</EnableSGenConc>
+	  <OptimizePNGs>False</OptimizePNGs>
+	  <MtouchDebug>True</MtouchDebug>
+	  <MtouchProfiling>True</MtouchProfiling>
+	  <MtouchFloat32>True</MtouchFloat32>
+	  <CodesignEntitlements>Platforms\iOS\DevEntitlements.plist</CodesignEntitlements>
+	  <DefineConstants>$(DefineConstants);DEBUG</DefineConstants>
+	  <MtouchLink>None</MtouchLink>
 	</PropertyGroup>
 
 	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net8.0-android|AnyCPU'">
@@ -67,7 +91,7 @@
 	  <AndroidEnableProfiledAot>False</AndroidEnableProfiledAot>
 	  <AndroidUseAapt2>True</AndroidUseAapt2>
 	  <AndroidStoreUncompressedFileExtensions></AndroidStoreUncompressedFileExtensions>
-	  <DefineConstants>$(DefineConstants);__ANDROID__</DefineConstants>
+	  <DefineConstants>$(DefineConstants);__ANDROID__;EMGU</DefineConstants>
 	  <AndroidLinkTool>r8</AndroidLinkTool>
 	</PropertyGroup>
 
@@ -78,6 +102,7 @@
 	  <AdditionalArgs>--linkskip=CrossCam --linkskip=CrossCam.iOS --linkskip=CrossCam.iOS.Extension --optimize=-remove-dynamic-registrar</AdditionalArgs>
 	  <MtouchFloat32>True</MtouchFloat32>
 	  <CodesignEntitlements>Platforms\iOS\ProdEntitlements.plist</CodesignEntitlements>
+	  <DefineConstants>$(DefineConstants);EMGU</DefineConstants>
 	</PropertyGroup>
 
 	<PropertyGroup Condition="'$(TargetFramework)'=='net8.0-ios'">
@@ -116,7 +141,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<PackageReference Include="Emgu.CV.runtime.maui.mini" Version="4.8.1.5350" />
+		<PackageReference Include="Emgu.CV.runtime.maui" Version="4.8.1.5350" />
 		<PackageReference Include="Microsoft.Maui.Core" Version="8.0.6" />
 		<PackageReference Include="Microsoft.Maui.Controls" Version="8.0.6" />
 		<PackageReference Include="Microsoft.Maui.Controls.Compatibility" Version="8.0.6" />
@@ -252,7 +277,7 @@
 	</ItemGroup>
 
 	<ItemGroup Condition="'$(TargetFramework)' == 'net8.0-android'">
-	  <PackageReference Include="Emgu.CV.runtime.maui.mini.android">
+	  <PackageReference Include="Emgu.CV.runtime.maui.android">
 	    <Version>4.8.1.5350</Version>
 	  </PackageReference>
 	  <PackageReference Include="Xamarin.GooglePlayServices.Nearby">
@@ -296,7 +321,7 @@
 	</ItemGroup>
 
 	<ItemGroup Condition="'$(TargetFramework)' == 'net8.0-ios'">
-	  <PackageReference Include="Emgu.CV.runtime.maui.mini.ios">
+	  <PackageReference Include="Emgu.CV.runtime.maui.ios">
 	    <Version>4.8.1.5350</Version>
 	  </PackageReference>
 	</ItemGroup>

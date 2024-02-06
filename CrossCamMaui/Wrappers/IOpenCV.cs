@@ -1,7 +1,7 @@
 using CrossCam.Model;
 using SkiaSharp;
 using System.Diagnostics;
-#if !__NO_EMGU__
+#if EMGU
 using CrossCam.Page;
 using Emgu.CV;
 using Emgu.CV.CvEnum;
@@ -37,7 +37,7 @@ namespace CrossCam.Wrappers
     {
         public bool IsOpenCvSupported()
         {
-#if __NO_EMGU__
+#if !EMGU
             return false;
 
 #else
@@ -59,7 +59,7 @@ namespace CrossCam.Wrappers
         public AlignedResult CreateAlignedSecondImageEcc(SKBitmap firstImage, SKBitmap secondImage,
             AlignmentSettings settings)
         {
-#if __NO_EMGU__
+#if !EMGU
             return null;
 #else
             var topDownsizeFactor = settings.DownsizePercentage / 100f;
@@ -145,7 +145,7 @@ namespace CrossCam.Wrappers
         public AlignedResult CreateAlignedSecondImageKeypoints(SKBitmap firstImage, SKBitmap secondImage,
             AlignmentSettings settings, bool keystoneRightOnFirst)
         {
-#if __NO_EMGU__
+#if !EMGU
             return null;
 #else
             var result = new AlignedResult();
@@ -468,6 +468,7 @@ namespace CrossCam.Wrappers
 #endif
         }
 
+#if EMGU
         private void FindTaperMatricesAndMapPoints(ref SKPoint[] points1, ref SKPoint[] points2, int width, int height,
             out SKMatrix keystone1, out SKMatrix keystone2)
         {
@@ -507,10 +508,11 @@ namespace CrossCam.Wrappers
             result.Warped2 = warped2.ToBitmap().ToSKBitmap();
 #endif
         }
+#endif
 
         public SKImage AddBarrelDistortion(SKImage image, float downsize, float strength, float cxProportion)
         {
-#if __NO_EMGU__
+#if !EMGU
             return SKImage.Create(new SKImageInfo());
 #else
             using var cvImage = new Mat();
@@ -557,7 +559,7 @@ namespace CrossCam.Wrappers
             return data.ToArray();
         }
 
-#if !__NO_EMGU__
+#if EMGU
         private static Mat GetCameraMatrix(float cx, float cy)
         {
             var cameraMatrix = Mat.Eye(3, 3, DepthType.Cv32F, 1);

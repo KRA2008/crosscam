@@ -8,7 +8,4 @@
   <PropertyGroup Label="Configuration">
     <Import_RootNamespace>AutoAlignment</Import_RootNamespace>
   </PropertyGroup>
-  <ItemGroup>
-    <Compile Include="$(MSBuildThisFileDirectory)OpenCV.cs" />
-  </ItemGroup>
 </Project>
