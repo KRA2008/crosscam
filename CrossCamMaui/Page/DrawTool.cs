@@ -8,6 +8,18 @@ namespace CrossCam.Page
 {
     public class DrawTool
     {
+        private static readonly double _displayDensity;
+        private static readonly double _displayWidth;
+        private static readonly double _displayHeight;
+
+        static DrawTool()
+        {
+            var deviceDisplayWrapper = DependencyService.Get<IDeviceDisplayWrapper>();
+            _displayDensity = deviceDisplayWrapper.GetDisplayDensity();
+            _displayWidth = deviceDisplayWrapper.GetDisplayWidth();
+            _displayHeight = deviceDisplayWrapper.GetDisplayHeight();
+        }
+
         public const float BORDER_CONVERSION_FACTOR = 0.001f;
         private const float FUSE_GUIDE_WIDTH_RATIO = 0.0127f;
         private const int FUSE_GUIDE_MARGIN_HEIGHT_RATIO = 5;
@@ -79,9 +91,9 @@ namespace CrossCam.Page
             if (drawMode == DrawMode.Cardboard)
             {
                 cardboardWidthProportion = (float) (settings.CardboardSettings.CardboardIpd /
-                                                    (Math.Max(DeviceDisplay.MainDisplayInfo.Width,
-                                                         DeviceDisplay.MainDisplayInfo.Height) /
-                                                     DeviceDisplay.MainDisplayInfo.Density / 2f) / 2f);
+                                                    (Math.Max(_displayWidth,
+                                                         _displayHeight) /
+                                                     _displayDensity / 2f) / 2f);
             }
 
             var cardboardDownsizeProportion = drawQuality != DrawQuality.Save &&
@@ -363,8 +375,8 @@ namespace CrossCam.Page
             var cardboardSeparationMod = 0f;
             if (drawMode == DrawMode.Cardboard)
             {
-                var croppedSeparation = (rightClipX - leftClipX) / DeviceDisplay.MainDisplayInfo.Density;
-                cardboardSeparationMod = (float) ((cardboardIpd - croppedSeparation) * DeviceDisplay.MainDisplayInfo.Density / 2f);
+                var croppedSeparation = (rightClipX - leftClipX) / _displayDensity;
+                cardboardSeparationMod = (float) ((cardboardIpd - croppedSeparation) * _displayDensity / 2f);
             }
 
             var cardboardHorDelta = cardboardHor * destWidth;
@@ -878,16 +890,16 @@ namespace CrossCam.Page
 
                 if (isLeft)
                 {
-                    if (cardboardClipRect.Right > DeviceDisplay.MainDisplayInfo.Width / 2f)
+                    if (cardboardClipRect.Right > _displayWidth / 2f)
                     {
-                        cardboardClipRect.Right = (float)(DeviceDisplay.MainDisplayInfo.Width / 2f);
+                        cardboardClipRect.Right = (float)(_displayWidth / 2f);
                     }
                 }
                 else
                 {
-                    if (cardboardClipRect.Left < DeviceDisplay.MainDisplayInfo.Width / 2f)
+                    if (cardboardClipRect.Left < _displayWidth / 2f)
                     {
-                        cardboardClipRect.Left = (float)(DeviceDisplay.MainDisplayInfo.Width / 2f);
+                        cardboardClipRect.Left = (float)(_displayWidth / 2f);
                     }
                 }
                 canvas.ClipRect(cardboardClipRect);

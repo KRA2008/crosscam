@@ -4,6 +4,7 @@ using System.Timers;
 using CrossCam.CustomElement;
 using CrossCam.Model;
 using CrossCam.ViewModel;
+using CrossCam.Wrappers;
 using SkiaSharp;
 using Rect = Microsoft.Maui.Graphics.Rect;
 using Timer = System.Timers.Timer;
@@ -18,6 +19,7 @@ namespace CrossCam.Page
     public partial class CameraPage
 	{
 	    private CameraViewModel _viewModel;
+        private IDeviceDisplayWrapper _deviceDisplayWrapper;
 
         private readonly Rect _upperLineBoundsLandscape = new Rect(0, 0.33, 1, 21);
 	    private readonly Rect _lowerLineBoundsLandscape = new Rect(0, 0.67, 1, 21);
@@ -77,11 +79,15 @@ namespace CrossCam.Page
         private const int MIN_MOVE_COUNTER = 4;
         private bool _didSwap;
         private bool _forceCanvasClear;
+        private readonly double _screenDensity;
 
         public CameraPage()
-		{
+        {
             InitializeComponent();
             NavigationPage.SetHasNavigationBar(this, false);
+
+            _deviceDisplayWrapper = DependencyService.Get<IDeviceDisplayWrapper>();
+            _screenDensity = _deviceDisplayWrapper.GetDisplayDensity();
 
 		    _horizontalLevelBubble.Source = _levelBubbleImage;
 		    _horizontalLevelOutside.Source = _levelOutsideImage;
@@ -793,7 +799,7 @@ namespace CrossCam.Page
         private void ResetLineGuides()
         {
             Rect upperLineBounds, lowerLineBounds;
-            if (DeviceDisplay.MainDisplayInfo.Orientation == DisplayOrientation.Portrait)
+            if (_deviceDisplayWrapper.IsPortrait())
             {
                 upperLineBounds = _upperLineBoundsPortrait;
                 lowerLineBounds = _lowerLinesBoundsPortrait;
@@ -825,7 +831,7 @@ namespace CrossCam.Page
         private void ResetDonutGuide(AbsoluteLayout layout, Image reticle, ContentView reticlePanner, bool isLeft)
         {
             if (_viewModel?.Settings.IsCaptureInMirrorMode == true &&
-                DeviceDisplay.MainDisplayInfo.Orientation == DisplayOrientation.Landscape)
+                !_deviceDisplayWrapper.IsPortrait())
             {
                 var previewHeight = Math.Min(layout.Height, layout.Width);
                 var fullPreviewWidth = Math.Max(layout.Height, layout.Width);
@@ -873,7 +879,7 @@ namespace CrossCam.Page
             else
             {
                 double sideWidth, sideHeight;
-                if (DeviceDisplay.MainDisplayInfo.Orientation == DisplayOrientation.Portrait)
+                if (_deviceDisplayWrapper.IsPortrait())
                 {
                     sideWidth = Math.Min(layout.Width, layout.Height);
                     sideHeight = Math.Max(layout.Width, layout.Height);
@@ -924,7 +930,7 @@ namespace CrossCam.Page
                 {
                     rollBounds.X = 0.5;
                     //portrait
-                    if (DeviceDisplay.MainDisplayInfo.Orientation == DisplayOrientation.Portrait)
+                    if (_deviceDisplayWrapper.IsPortrait())
                     {
                         var previewHeight = Width * _viewModel.PreviewAspectRatio;
                         var margin = (Height - previewHeight) / 2d;
@@ -949,7 +955,7 @@ namespace CrossCam.Page
                 {
                     rollBounds.X = _viewModel.CameraColumn == 0 ? 0.2 : 0.8;
                     //portrait
-                    if (DeviceDisplay.MainDisplayInfo.Orientation == DisplayOrientation.Portrait)
+                    if (_deviceDisplayWrapper.IsPortrait())
                     {
                         var previewHeight = Width / 2d * _viewModel.PreviewAspectRatio;
                         var margin = (Height - previewHeight) / 2d;
@@ -1184,16 +1190,16 @@ namespace CrossCam.Page
                 if (isPortrait)
                 {
                     aspect = frameHeight / (frameWidth * 1f);
-                    longNativeLength = _canvas.Height * DeviceDisplay.MainDisplayInfo.Density;
-                    shortNativeLength = _canvas.Width * DeviceDisplay.MainDisplayInfo.Density;
+                    longNativeLength = _canvas.Height * _screenDensity;
+                    shortNativeLength = _canvas.Width * _screenDensity;
                     tapLong = _tapLocation.Y;
                     tapShort = _tapLocation.X;
                 }
                 else
                 {
                     aspect = frameWidth / (frameHeight * 1f);
-                    longNativeLength = _canvas.Width * DeviceDisplay.MainDisplayInfo.Density;
-                    shortNativeLength = _canvas.Height * DeviceDisplay.MainDisplayInfo.Density;
+                    longNativeLength = _canvas.Width * _screenDensity;
+                    shortNativeLength = _canvas.Height * _screenDensity;
                     tapLong = _tapLocation.X;
                     tapShort = _tapLocation.Y;
                 }
@@ -1219,21 +1225,21 @@ namespace CrossCam.Page
                     xProportion = shortProportion;
                     yProportion = longProportion;
                     _viewModel.FocusCircleX = shortProportion * _canvas.Width;
-                    _viewModel.FocusCircleY = longProportion * (_canvas.Width * aspect) + minLong / DeviceDisplay.MainDisplayInfo.Density;
+                    _viewModel.FocusCircleY = longProportion * (_canvas.Width * aspect) + minLong / _screenDensity;
                 }
                 else
                 {
                     xProportion = longProportion;
                     yProportion = shortProportion;
                     _viewModel.FocusCircleY = shortProportion * _canvas.Height;
-                    _viewModel.FocusCircleX = longProportion * (_canvas.Height * aspect) + minLong / DeviceDisplay.MainDisplayInfo.Density;
+                    _viewModel.FocusCircleX = longProportion * (_canvas.Height * aspect) + minLong / _screenDensity;
                 }
             }
             else
             {
                 aspect = frameHeight / (frameWidth * 1f);
-                var baseWidth = _canvas.Width * DeviceDisplay.MainDisplayInfo.Density / 2f;
-                var leftBufferX = _canvas.Width * DeviceDisplay.MainDisplayInfo.Density / 2f - baseWidth;
+                var baseWidth = _canvas.Width * _screenDensity / 2f;
+                var leftBufferX = _canvas.Width * _screenDensity / 2f - baseWidth;
                 if (_viewModel.Settings.IsCaptureLeftFirst &&
                     _viewModel.IsNothingCaptured ||
                     !_viewModel.Settings.IsCaptureLeftFirst &&
@@ -1253,7 +1259,7 @@ namespace CrossCam.Page
                 }
 
                 var baseHeight = baseWidth * aspect;
-                var minY = (_canvas.Height * DeviceDisplay.MainDisplayInfo.Density - baseHeight) / 2f;
+                var minY = (_canvas.Height * _screenDensity - baseHeight) / 2f;
 
                 yProportion = (float)((_tapLocation.Y - minY) / baseHeight);
                 if (yProportion < 0 ||
@@ -1262,8 +1268,8 @@ namespace CrossCam.Page
                     return;
                 }
 
-                _viewModel.FocusCircleX = (xProportion * baseWidth + leftBufferX) / DeviceDisplay.MainDisplayInfo.Density;
-                _viewModel.FocusCircleY = (yProportion * baseHeight + minY) / DeviceDisplay.MainDisplayInfo.Density;
+                _viewModel.FocusCircleX = (xProportion * baseWidth + leftBufferX) / _screenDensity;
+                _viewModel.FocusCircleY = (yProportion * baseHeight + minY) / _screenDensity;
             }
 
             var convertedPoint = new PointF

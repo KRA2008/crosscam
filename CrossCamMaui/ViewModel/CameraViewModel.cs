@@ -224,9 +224,9 @@ namespace CrossCam.ViewModel
 
         public Command LoadPhotoCommand { get; set; }
 
-        public bool IsViewPortrait => DeviceDisplay.MainDisplayInfo.Orientation == DisplayOrientation.Portrait;
-        public bool IsViewInverted => DeviceDisplay.MainDisplayInfo.Rotation == DisplayRotation.Rotation180 || 
-                                      DeviceDisplay.MainDisplayInfo.Rotation == DisplayRotation.Rotation270;
+        public bool IsViewPortrait => _deviceDisplayWrapper.IsPortrait();
+        public bool IsViewInverted => _deviceDisplayWrapper.GetRotation() == DisplayRotation.Rotation180 ||
+                                      _deviceDisplayWrapper.GetRotation() == DisplayRotation.Rotation270;
         public bool WasCapturePortrait { get; set; }
         public bool WasCaptureCross { get; set; }
         public bool WasCapturePaired { get; set; }
@@ -514,16 +514,19 @@ namespace CrossCam.ViewModel
             }
         }
 
+
         private WorkflowStage _stageBeforeView;
         private int _alignmentThreadLock;
         private bool _isAlignmentInvalid = true;
         private readonly IPhotoSaver _photoSaver;
+        private IDeviceDisplayWrapper _deviceDisplayWrapper;
         private bool _secondaryErrorOccurred;
         private bool _isFovCorrected;
 
         public CameraViewModel()
         {
             _photoSaver = DependencyService.Get<IPhotoSaver>();
+            _deviceDisplayWrapper = DependencyService.Get<IDeviceDisplayWrapper>();
 
             Settings = PersistentStorage.LoadOrDefault(PersistentStorage.SETTINGS_KEY, new Settings());
             TotalSavesCompleted = PersistentStorage.LoadOrDefault(PersistentStorage.TOTAL_SAVES_KEY, 0);
@@ -1312,7 +1315,7 @@ namespace CrossCam.ViewModel
             PairOperator.ErrorOccurred += PairOperatorOnErrorOccurred;
             PairOperator.TimeoutOccurred += PairOperatorTimeoutOccurred;
 
-            DeviceDisplay.MainDisplayInfoChanged += DeviceDisplayOnMainDisplayInfoChanged;
+            _deviceDisplayWrapper.DisplayInfoChanged += DeviceDisplayOnMainDisplayInfoChanged;
 
             var settingsDictionary = JsonConvert
                 .DeserializeObject<Dictionary<string, object>>(JsonConvert.SerializeObject(Settings))
@@ -1344,7 +1347,7 @@ namespace CrossCam.ViewModel
             RaisePropertyChanged(nameof(IsViewInverted));
 
 
-            _previousOrientation = DeviceDisplay.MainDisplayInfo.Orientation;
+            _previousOrientation = _deviceDisplayWrapper.GetOrientation();
         }
 
         private static void SendCommandStartAnalyticsEvent(string name)
@@ -1878,10 +1881,7 @@ namespace CrossCam.ViewModel
         {
             base.ViewIsAppearing(sender, e);
             DependencyService.Get<IScreenKeepAwaker>()?.KeepScreenAwake();
-            MainThread.BeginInvokeOnMainThread(() =>
-            {
-                DeviceDisplay.KeepScreenOn = true; // this doesn't seem to actually work, but maybe it does on some devices
-            });
+            _deviceDisplayWrapper.HoldScreenOn();
             TryTriggerMovementHint();
 
             if (WorkflowStage == WorkflowStage.Final)
@@ -2009,10 +2009,7 @@ namespace CrossCam.ViewModel
         {
             PairOperator.ErrorOccurred -= PairOperatorOnErrorOccurred;
             DependencyService.Get<IScreenKeepAwaker>()?.LetScreenSleep();
-            MainThread.BeginInvokeOnMainThread(() =>
-            {
-                DeviceDisplay.KeepScreenOn = false; // this doesn't seem to actually work, but maybe it does on some devices
-            });
+            _deviceDisplayWrapper.DoNotHoldScreenOn();
             base.ViewIsDisappearing(sender, e);
         }
 

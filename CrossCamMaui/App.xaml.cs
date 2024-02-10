@@ -1,4 +1,5 @@
-﻿using CrossCam.ViewModel;
+﻿using System.Diagnostics;
+using CrossCam.ViewModel;
 using FreshMvvm.Maui;
 using Microsoft.AppCenter.Analytics;
 
