@@ -3,13 +3,14 @@
                xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
                xmlns:viewModel="clr-namespace:CrossCam.ViewModel"
                xmlns:system="clr-namespace:System;assembly=netstandard"
-               xmlns:customElement="clr-namespace:CrossCam.CustomElement"
+               xmlns:ce="clr-namespace:CrossCam.CustomElement"
                xmlns:page="clr-namespace:CrossCam.Page"
                x:DataType="viewModel:PairingViewModel"
                x:Class="CrossCam.Page.PairingPage"
                Title="Pairing">
     <ScrollView>
         <StackLayout Padding="10,0,10,0">
+            <ce:iOS12WorkaroundBackButton/>
 
             <BoxView HeightRequest="1"
                      Margin="-10,0,-10,10"/>
@@ -85,7 +86,7 @@
             <Label Text=" &#x2022; Every camera is different. These differences can include angular field of view, focus, exposure, and white balance behavior, timing, and more. Even two of the same model of phone will behave slightly differently. I prefer to use a pair of identical old phones (in my case, a pair of iPhone 6)."/>
             <Label Text=" &#x2022; CrossCam is software, not hardware, so capturing the photos may be slightly out of sync depending on what else the processors and memory are doing at the precise moment the capture is triggered. As a result, the synchronization may sometimes not be perfect, but it should generally be very close."/>
             <BoxView/>
-            <customElement:FooterLabel/>
+            <ce:FooterLabel/>
         </StackLayout>
     </ScrollView>
 </page:BasePage>

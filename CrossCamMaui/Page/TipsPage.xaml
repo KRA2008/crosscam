@@ -20,6 +20,7 @@
     <ScrollView>
         <StackLayout>
 
+            <ce:iOS12WorkaroundBackButton/>
             <ce:HorizontalDivider/>
 
             <ce:BasicExpander Title="Don't turn."

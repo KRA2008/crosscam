@@ -9,6 +9,7 @@
                Title="Tips Are Appreciated!">
     <ScrollView>
         <StackLayout>
+            <ce:iOS12WorkaroundBackButton/>
             <ce:HorizontalDivider/>
             <Label Text="CrossCam is free to use, ad-free, open-source, collects no personal information from you, and gives you full access to every feature. I love working on CrossCam but it takes a lot of time and effort. I make no money from CrossCam at all except tips people might decide to send me. If you like CrossCam and are able, please consider sending me a tip."
                    Padding="15,15,15,15"/>

@@ -10,6 +10,7 @@
     <ContentPage.Content>
         <ScrollView>
             <StackLayout>
+                <ce:iOS12WorkaroundBackButton/>
                 <ce:HorizontalDivider/>
                 <Button Text="Email Me"
                         Command="{Binding OpenLink}"

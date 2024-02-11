@@ -51,6 +51,7 @@
     <ScrollView VerticalOptions="StartAndExpand">
         <StackLayout>
 
+            <ce:iOS12WorkaroundBackButton/>
             <ce:HorizontalDivider/>
 
             <views:Expander x:Name="_previewMethodExpander"

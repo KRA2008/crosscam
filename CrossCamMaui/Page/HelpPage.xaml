@@ -9,6 +9,7 @@
                Title="Help">
     <ScrollView>
         <StackLayout>
+            <ce:iOS12WorkaroundBackButton/>
             <ce:HorizontalDivider/>
             <Button Text="How to Use CrossCam"
                     Command="{Binding NavigateToDirectionsPage}"/>

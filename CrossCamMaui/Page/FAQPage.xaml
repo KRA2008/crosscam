@@ -11,6 +11,7 @@
     <ScrollView x:Name="_scrollView">
         <StackLayout Padding="10">
 
+            <ce:iOS12WorkaroundBackButton/>
             <ce:HorizontalDivider/>
 
             <views:Expander>

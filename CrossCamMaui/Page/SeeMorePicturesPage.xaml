@@ -2,13 +2,14 @@
 <page:BasePage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:page="clr-namespace:CrossCam.Page"
-             xmlns:customElement="clr-namespace:CrossCam.CustomElement"
+             xmlns:ce="clr-namespace:CrossCam.CustomElement"
              xmlns:viewModel="clr-namespace:CrossCam.ViewModel"
              x:Class="CrossCam.Page.SeeMorePicturesPage"
              x:DataType="viewModel:SeeMorePicturesViewModel"
              Title="See More Pictures">
     <ScrollView>
         <StackLayout>
+            <ce:iOS12WorkaroundBackButton/>
             <BoxView/>
             <Button Text="See Pictures I've Taken"
                     Command="{Binding OpenLink}"
@@ -34,7 +35,7 @@
                     Command="{Binding OpenLink}"
                     CommandParameter="https://www.instagram.com/explore/tags/stereoscopic/"/>
             <BoxView/>
-            <customElement:FooterLabel/>
+            <ce:FooterLabel/>
         </StackLayout>
     </ScrollView>
 </page:BasePage>

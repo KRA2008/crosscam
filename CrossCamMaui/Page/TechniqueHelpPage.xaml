@@ -10,6 +10,7 @@
                x:Class="CrossCam.Page.TechniqueHelpPage">
     <ScrollView>
         <StackLayout Spacing="0">
+            <ce:iOS12WorkaroundBackButton/>
             <ce:HorizontalDivider/>
             <StackLayout Padding="10">
                 <Label Text="If you want to see this again, tap the hamburger (three lines) icon on the top left of the camera screen and tap &quot;Help&quot;."/>

@@ -8,6 +8,7 @@
              x:DataType="vm:HamburgerViewModel">
     <ScrollView>
         <StackLayout>
+            <ce:iOS12WorkaroundBackButton/>
             <ce:HorizontalDivider/>
             <Button Text="Help"
                     Command="{Binding NavigateToHelpPage}"/>
