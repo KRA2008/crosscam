@@ -4,6 +4,7 @@ using AVFoundation;
 using Foundation;
 #if !DEBUG
 using Microsoft.AppCenter;
+using Microsoft.AppCenter.Analytics;
 using Microsoft.AppCenter.Crashes;
 #endif
 using UIKit;

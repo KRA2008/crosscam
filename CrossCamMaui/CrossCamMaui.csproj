@@ -200,6 +200,9 @@
 	  <ProguardConfiguration Include="Platforms\Android\proguard.cfg" />
 	</ItemGroup>
 
+	<ItemGroup Condition="'$(TargetFramework)' == 'net8.0-ios'">
+	</ItemGroup>
+
 	<ItemGroup>
 	  <Compile Update="App.xaml.cs">
 	    <DependentUpon>%(Filename)</DependentUpon>
@@ -358,9 +361,6 @@
 	  <PackageReference Include="Xamarin.AndroidX.Migration" Version="1.0.10" />
 	</ItemGroup>
 
-	<ItemGroup Condition="'$(TargetFramework)' == 'net8.0-ios'">
-	</ItemGroup>
-
 	<ItemGroup Condition="$(TargetFramework.StartsWith('net8.0-android')) != true">
 		<Compile Remove="**\Android\**\*.cs" />
 		<None Include="**\Android\**\*.cs" Exclude="$(DefaultItemExcludes);$(DefaultExcludesInProjectFolder)" />
@@ -370,5 +370,5 @@
 		<Compile Remove="**\iOS\**\*.cs" />
 		<None Include="**\iOS\**\*.cs" Exclude="$(DefaultItemExcludes);$(DefaultExcludesInProjectFolder)" />
 	</ItemGroup>
-
+		
 </Project>

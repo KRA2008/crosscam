@@ -159,10 +159,6 @@
       <Name>CrossCamCore</Name>
       <IsAppExtension>false</IsAppExtension>
     </ProjectReference>
-    <ProjectReference Include="..\CrossCam\CrossCam.csproj">
-      <Project>{c67dad12-9b8d-4ae3-b7b2-5f84e4e26ea8}</Project>
-      <Name>CrossCam</Name>
-    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Properties\" />
