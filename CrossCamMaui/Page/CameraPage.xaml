@@ -130,7 +130,9 @@
 
         <Grid AbsoluteLayout.LayoutFlags="{Binding CanvasRectangleFlags}"
               AbsoluteLayout.LayoutBounds="{Binding CanvasRectangle}"
-              ColumnSpacing="0">
+              ColumnSpacing="0"
+              InputTransparent="True"
+              CascadeInputTransparent="False">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="*"/>
