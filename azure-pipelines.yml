@@ -88,78 +88,95 @@ jobs:
       appType: 'iOS'
       shouldSkipWaitingForProcessing: true
 
-# - job: Android
-#   displayName: 'Android'
-#   # Xamarin.Android
-#   # Build a Xamarin.Android project.
-#   # Add steps that test, sign, and distribute an app, save build artifacts, and more:
-#   # https://docs.microsoft.com/azure/devops/pipelines/languages/xamarin
-#   pool:
-#     vmImage: 'windows-latest'
+- job: Android
+  displayName: 'Android'
+  # Xamarin.Android
+  # Build a Xamarin.Android project.
+  # Add steps that test, sign, and distribute an app, save build artifacts, and more:
+  # https://docs.microsoft.com/azure/devops/pipelines/languages/xamarin
+  pool:
+    vmImage: 'windows-latest'
 
-#   variables:
-#     buildConfiguration: 'Release'
-#     outputDirectory: '$(build.binariesDirectory)/$(buildConfiguration)'
+  variables:
+    buildConfiguration: 'Release'
+    outputDirectory: '$(build.binariesDirectory)/$(buildConfiguration)'
 
-#   steps:
-#   - task: NuGetToolInstaller@1
+  steps:
+  
+  - task: UseDotNet@2
+    displayName: .NET Version
+    inputs:
+      packageType: 'sdk'
+      version: '$(DotNetVersion)'
 
-#   - task: NuGetCommand@2
-#     inputs:
-#       command: 'restore'
-#       restoreSolution: '**/*.sln'
-#       feedsToUse: 'config'
-#       nugetConfigPath: 'nuget.config'
+  - task: Bash@3
+    displayName: Install MAUI
+    inputs:
+      targetType: 'inline'
+      script: |
+        dotnet nuget locals all --clear 
+        dotnet workload install maui --source https://aka.ms/dotnet6/nuget/index.json --source https://api.nuget.org/v3/index.json
+        dotnet workload install android maui wasm-tools --source https://aka.ms/dotnet6/nuget/index.json --source https://api.nuget.org/v3/index.json
 
-#   - task: Bash@3
-#     inputs:
-#       targetType: 'inline'
-#       script: |
-#         sed -i 's/android:versionCode="1"/android:versionCode="$(buildNumber)"/g' CrossCam.Droid/Properties/AndroidManifest.xml
-#         sed -i 's/android:versionName="1.0"/android:versionName="$(myVersionNumber)"/g' CrossCam.Droid/Properties/AndroidManifest.xml
-#         cat CrossCam.Droid/Properties/AndroidManifest.xml
 
-#   - task: JavaToolInstaller@0
-#     inputs:
-#       versionSpec: '11'
-#       jdkArchitectureOption: 'x64'
-#       jdkSourceOption: 'PreInstalled'
+  - task: NuGetToolInstaller@1
 
-#   - task: Bash@3
-#     inputs:
-#       targetType: 'inline'
-#       script: |
-#         echo "##vso[task.setvariable variable=JAVA_HOME]$(JAVA_HOME_11_X64)"
-#         echo "##vso[task.setvariable variable=PATH]$(JAVA_HOME_11_X64)\bin;$(PATH)"
+  - task: NuGetCommand@2
+    inputs:
+      command: 'restore'
+      restoreSolution: '**/*.sln'
+      feedsToUse: 'config'
+      nugetConfigPath: 'nuget.config'
 
-#   - task: XamarinAndroid@1
-#     inputs:
-#       projectFile: '**/*droid*.csproj'
-#       outputDirectory: 'output'
-#       configuration: '$(buildConfiguration)'
-#       jdkOption: 'JDKVersion'
-#       jdkVersionOption: '1.11'
+  - task: Bash@3
+    inputs:
+      targetType: 'inline'
+      script: |
+        sed -i 's/android:versionCode="1"/android:versionCode="$(buildNumber)"/g' CrossCam.Droid/Properties/AndroidManifest.xml
+        sed -i 's/android:versionName="1.0"/android:versionName="$(myVersionNumber)"/g' CrossCam.Droid/Properties/AndroidManifest.xml
+        cat CrossCam.Droid/Properties/AndroidManifest.xml
 
-#   - task: AndroidSigning@3
-#     inputs:
-#       apkFiles: '$(Pipeline.Workspace)\s\CrossCam.Droid\output\com.kra2008.crosscam.apk'
-#       apksignerKeystoreFile: 'kra2008Android.keystore'
-#       apksignerKeystorePassword: '$(keystorePassword)'
-#       apksignerKeystoreAlias: 'kra2008android'
-#       apksignerKeyPassword: '$(keystorePassword)'
+  - task: JavaToolInstaller@0
+    inputs:
+      versionSpec: '11'
+      jdkArchitectureOption: 'x64'
+      jdkSourceOption: 'PreInstalled'
 
-#   - task: PublishPipelineArtifact@1
-#     inputs:
-#       targetPath: '$(Pipeline.Workspace)\s\CrossCam.Droid\output\com.kra2008.crosscam.apk'
-#       publishLocation: 'pipeline'
+  - task: Bash@3
+    inputs:
+      targetType: 'inline'
+      script: |
+        echo "##vso[task.setvariable variable=JAVA_HOME]$(JAVA_HOME_11_X64)"
+        echo "##vso[task.setvariable variable=PATH]$(JAVA_HOME_11_X64)\bin;$(PATH)"
 
-#   - task: AppCenterDistribute@3
-#     inputs:
-#       serverEndpoint: 'App Center CrossCam Android'
-#       appSlug: 'kra3030/CrossCam-1'
-#       appFile: '$(Pipeline.Workspace)\s\CrossCam.Droid\output\com.kra2008.crosscam.apk'
-#       symbolsOption: 'Android'
-#       releaseNotesOption: 'input'
-#       releaseNotesInput: '☃'
-#       destinationType: 'groups'
-#       isSilent: true
+  - task: XamarinAndroid@1
+    inputs:
+      projectFile: '**/*droid*.csproj'
+      outputDirectory: 'output'
+      configuration: '$(buildConfiguration)'
+      jdkOption: 'JDKVersion'
+      jdkVersionOption: '1.11'
+
+  - task: AndroidSigning@3
+    inputs:
+      apkFiles: '$(Pipeline.Workspace)\s\CrossCam.Droid\output\com.kra2008.crosscam.apk'
+      apksignerKeystoreFile: 'kra2008Android.keystore'
+      apksignerKeystorePassword: '$(keystorePassword)'
+      apksignerKeystoreAlias: 'kra2008android'
+      apksignerKeyPassword: '$(keystorePassword)'
+
+  - task: PublishPipelineArtifact@1
+    inputs:
+      targetPath: '$(Pipeline.Workspace)\s\CrossCam.Droid\output\com.kra2008.crosscam.apk'
+      publishLocation: 'pipeline'
+
+  - task: AppCenterDistribute@3
+    inputs:
+      serverEndpoint: 'App Center CrossCam Android'
+      appSlug: 'kra3030/CrossCam-1'
+      appFile: '$(Pipeline.Workspace)\s\CrossCam.Droid\output\com.kra2008.crosscam.apk'
+      symbolsOption: 'Android'
+      releaseNotesOption: 'input'
+      releaseNotesInput: '☃'
+      destinationType: 'groups'
+      isSilent: true
