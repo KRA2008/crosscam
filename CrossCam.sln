@@ -3,8 +3,6 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.2.32526.322
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CrossCamShareExtension.iOS", "CrossCamShareExtension.iOS\CrossCamShareExtension.iOS.csproj", "{1F32A11B-4731-493F-BEEF-C9FA8216603B}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CrossCamMaui", "CrossCamMaui\CrossCamMaui.csproj", "{265C4DF6-62A5-4E32-8C31-1BDE786F05CF}"
 EndProject
 Global
@@ -20,21 +18,6 @@ Global
 		Release|iPhoneSimulator = Release|iPhoneSimulator
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{1F32A11B-4731-493F-BEEF-C9FA8216603B}.Debug Without Emgu|Any CPU.ActiveCfg = Debug|iPhoneSimulator
-		{1F32A11B-4731-493F-BEEF-C9FA8216603B}.Debug Without Emgu|iPhone.ActiveCfg = Debug|iPhone
-		{1F32A11B-4731-493F-BEEF-C9FA8216603B}.Debug Without Emgu|iPhone.Build.0 = Debug|iPhone
-		{1F32A11B-4731-493F-BEEF-C9FA8216603B}.Debug Without Emgu|iPhoneSimulator.ActiveCfg = Debug|iPhoneSimulator
-		{1F32A11B-4731-493F-BEEF-C9FA8216603B}.Debug Without Emgu|iPhoneSimulator.Build.0 = Debug|iPhoneSimulator
-		{1F32A11B-4731-493F-BEEF-C9FA8216603B}.Debug|Any CPU.ActiveCfg = Debug|iPhoneSimulator
-		{1F32A11B-4731-493F-BEEF-C9FA8216603B}.Debug|iPhone.ActiveCfg = Debug|iPhone
-		{1F32A11B-4731-493F-BEEF-C9FA8216603B}.Debug|iPhone.Build.0 = Debug|iPhone
-		{1F32A11B-4731-493F-BEEF-C9FA8216603B}.Debug|iPhoneSimulator.ActiveCfg = Debug|iPhoneSimulator
-		{1F32A11B-4731-493F-BEEF-C9FA8216603B}.Debug|iPhoneSimulator.Build.0 = Debug|iPhoneSimulator
-		{1F32A11B-4731-493F-BEEF-C9FA8216603B}.Release|Any CPU.ActiveCfg = Release|iPhoneSimulator
-		{1F32A11B-4731-493F-BEEF-C9FA8216603B}.Release|iPhone.ActiveCfg = Release|iPhone
-		{1F32A11B-4731-493F-BEEF-C9FA8216603B}.Release|iPhone.Build.0 = Release|iPhone
-		{1F32A11B-4731-493F-BEEF-C9FA8216603B}.Release|iPhoneSimulator.ActiveCfg = Release|iPhoneSimulator
-		{1F32A11B-4731-493F-BEEF-C9FA8216603B}.Release|iPhoneSimulator.Build.0 = Release|iPhoneSimulator
 		{265C4DF6-62A5-4E32-8C31-1BDE786F05CF}.Debug Without Emgu|Any CPU.ActiveCfg = Debug|Any CPU
 		{265C4DF6-62A5-4E32-8C31-1BDE786F05CF}.Debug Without Emgu|Any CPU.Build.0 = Debug|Any CPU
 		{265C4DF6-62A5-4E32-8C31-1BDE786F05CF}.Debug Without Emgu|Any CPU.Deploy.0 = Debug|Any CPU
