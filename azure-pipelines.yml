@@ -56,7 +56,7 @@ jobs:
         sed -i '' 's/<string>1.0<\/string>/<string>$(myVersionNumber)<\/string>/g' CrossCam.iOS/Info.plist
         sed -i '' 's/<string>10.0<\/string>/<string>$(myVersionNumber)<\/string>/g' CrossCamShareExtension.iOS/Info.plist
         echo "MAIN PLIST"
-        cat CrossCam.iOS/Info.plist
+        cat CrossCamMaui/Platforms/iOS/Info.plist
         echo "EXTENSION PLIST"
         cat CrossCamShareExtension.iOS/Info.plist
 
@@ -67,15 +67,15 @@ jobs:
 
   - task: PublishPipelineArtifact@1
     inputs:
-      targetPath: '$(Pipeline.Workspace)/s/CrossCam.iOS/bin/iPhone/Release'
+      targetPath: '$(Pipeline.Workspace)/s/CrossCamMaui/Platforms/iOS/bin/iPhone/Release'
       publishLocation: 'pipeline'
 
   - task: AppCenterDistribute@3
     inputs:
       serverEndpoint: 'App Center CrossCam iOS'
       appSlug: 'kra3030/CrossCam'
-      appFile: '$(Pipeline.Workspace)/s/CrossCam.iOS/bin/iPhone/Release/CrossCam.iOS.ipa'
-      symbolsDsymFiles: '$(Pipeline.Workspace)/s/CrossCam.iOS/bin/iPhone/Release/CrossCam.iOS.app.dSYM'
+      appFile: '$(Pipeline.Workspace)/s/CrossCamMaui/Platforms/iOS/bin/iPhone/Release/CrossCam.ipa'
+      symbolsDsymFiles: '$(Pipeline.Workspace)/s/CrossCamMaui/Platforms/iOS/bin/iPhone/Release/CrossCam.app.dSYM'
       releaseNotesOption: 'input'
       releaseNotesInput: '☂'
       destinationType: 'groups'
@@ -132,9 +132,9 @@ jobs:
     inputs:
       targetType: 'inline'
       script: |
-        sed -i 's/android:versionCode="1"/android:versionCode="$(buildNumber)"/g' CrossCam.Droid/Properties/AndroidManifest.xml
-        sed -i 's/android:versionName="1.0"/android:versionName="$(myVersionNumber)"/g' CrossCam.Droid/Properties/AndroidManifest.xml
-        cat CrossCam.Droid/Properties/AndroidManifest.xml
+        sed -i 's/android:versionCode="1"/android:versionCode="$(buildNumber)"/g' CrossCamMaui/Platforms/Android/AndroidManifest.xml
+        sed -i 's/android:versionName="1.0"/android:versionName="$(myVersionNumber)"/g' CrossCamMaui/Platforms/Android/AndroidManifest.xml
+        cat CrossCamMaui/Platforms/Android/AndroidManifest.xml
 
   - task: JavaToolInstaller@0
     inputs:
@@ -149,17 +149,18 @@ jobs:
         echo "##vso[task.setvariable variable=JAVA_HOME]$(JAVA_HOME_11_X64)"
         echo "##vso[task.setvariable variable=PATH]$(JAVA_HOME_11_X64)\bin;$(PATH)"
 
-  - task: XamarinAndroid@1
+
+  - task: Bash@3
+    displayName: Build Android App
     inputs:
-      projectFile: '**/*droid*.csproj'
-      outputDirectory: 'output'
-      configuration: '$(buildConfiguration)'
-      jdkOption: 'JDKVersion'
-      jdkVersionOption: '1.11'
+      targetType: 'inline'
+      script: |
+        dotnet publish -f net6.0-android
+
 
   - task: AndroidSigning@3
     inputs:
-      apkFiles: '$(Pipeline.Workspace)\s\CrossCam.Droid\output\com.kra2008.crosscam.apk'
+      apkFiles: '$(Pipeline.Workspace)\s\CrossCamMaui\Platforms\Android\output\com.kra2008.crosscam.apk'
       apksignerKeystoreFile: 'kra2008Android.keystore'
       apksignerKeystorePassword: '$(keystorePassword)'
       apksignerKeystoreAlias: 'kra2008android'
@@ -167,14 +168,14 @@ jobs:
 
   - task: PublishPipelineArtifact@1
     inputs:
-      targetPath: '$(Pipeline.Workspace)\s\CrossCam.Droid\output\com.kra2008.crosscam.apk'
+      targetPath: '$(Pipeline.Workspace)\s\CrossCamMaui\Platforms\Android\output\com.kra2008.crosscam.apk'
       publishLocation: 'pipeline'
 
   - task: AppCenterDistribute@3
     inputs:
       serverEndpoint: 'App Center CrossCam Android'
       appSlug: 'kra3030/CrossCam-1'
-      appFile: '$(Pipeline.Workspace)\s\CrossCam.Droid\output\com.kra2008.crosscam.apk'
+      appFile: '$(Pipeline.Workspace)\s\CrossCamMaui\Platforms\Android\output\com.kra2008.crosscam.apk'
       symbolsOption: 'Android'
       releaseNotesOption: 'input'
       releaseNotesInput: '☃'
