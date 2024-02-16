@@ -155,7 +155,7 @@ jobs:
     inputs:
       targetType: 'inline'
       script: |
-        dotnet publish -f net6.0-android
+        dotnet publish -f net8.0-android
 
 
   - task: AndroidSigning@3
