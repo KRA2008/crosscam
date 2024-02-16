@@ -47,7 +47,6 @@ jobs:
       restoreSolution: '**/*.sln'
       feedsToUse: 'config'
       nugetConfigPath: 'nuget.config'
-      externalFeedCredentials: 'NuGet'
 
   - task: Bash@3
     inputs:
