@@ -47,12 +47,13 @@ jobs:
       restoreSolution: '**/*.sln'
       feedsToUse: 'config'
       nugetConfigPath: 'nuget.config'
+      externalFeedCredentials: 'NuGet'
 
   - task: Bash@3
     inputs:
       targetType: 'inline'
       script: |
-        sed -i '' 's/<string>1.0<\/string>/<string>$(myVersionNumber)<\/string>/g' CrossCam.iOS/Info.plist
+        sed -i '' 's/<string>1.0<\/string>/<string>$(myVersionNumber)<\/string>/g' CrossCamMaui/Platforms/iOS/Info.plist
         sed -i '' 's/<string>10.0<\/string>/<string>$(myVersionNumber)<\/string>/g' CrossCamShareExtension.iOS/Info.plist
         echo "MAIN PLIST"
         cat CrossCamMaui/Platforms/iOS/Info.plist
@@ -126,6 +127,7 @@ jobs:
       restoreSolution: '**/*.sln'
       feedsToUse: 'config'
       nugetConfigPath: 'nuget.config'
+      externalFeedCredentials: 'NuGet'
 
   - task: Bash@3
     inputs:
