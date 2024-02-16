@@ -158,6 +158,11 @@ jobs:
       script: |
         dotnet publish -f net8.0-android
 
+  - task: PublishPipelineArtifact@1
+    inputs:
+      targetPath: '$(Pipeline.Workspace)'
+      publishLocation: 'pipeline'
+
 
   - task: AndroidSigning@3
     inputs:
