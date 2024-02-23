@@ -39,15 +39,10 @@ jobs:
       provisioningProfileLocation: 'secureFiles'
       provProfileSecureFile: 'CrossCam_Share_Extension_Store_Dist.mobileprovision'
 
-  - task: NuGetToolInstaller@1
-
-  - task: NuGetCommand@2
+  - task: Bash@3
     inputs:
-      command: 'restore'
-      restoreSolution: '**/*.sln'
-      feedsToUse: 'config'
-      nugetConfigPath: 'nuget.config'
-      externalFeedCredentials: 'NuGet'
+      targetType: 'inline'
+      script: 'dotnet restore'
 
   - task: Bash@3
     inputs:
@@ -64,6 +59,11 @@ jobs:
     inputs:
       targetType: 'inline'
       script: 'dotnet publish -f net8.0-ios -p:ArchiveOnBuild=true'
+
+  - task: PublishPipelineArtifact@1
+    inputs:
+      targetPath: '$(Pipeline.Workspace)/'
+      publishLocation: 'pipeline'
 
   - task: PublishPipelineArtifact@1
     inputs:
