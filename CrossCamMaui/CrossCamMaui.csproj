@@ -50,6 +50,7 @@
 	  <AndroidUseAapt2>True</AndroidUseAapt2>
 	  <DefineConstants>$(DefineConstants);__ANDROID__;EMGU</DefineConstants>
 	  <EmbedAssembliesIntoApk>False</EmbedAssembliesIntoApk>
+	  <AndroidKeyStore>False</AndroidKeyStore>
 	</PropertyGroup>
 
 	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug Without Emgu|net8.0-android|AnyCPU'">
@@ -59,6 +60,7 @@
 	  <AndroidUseAapt2>True</AndroidUseAapt2>
 	  <DefineConstants>$(DefineConstants);__ANDROID__;DEBUG</DefineConstants>
 	  <EmbedAssembliesIntoApk>False</EmbedAssembliesIntoApk>
+	  <AndroidKeyStore>False</AndroidKeyStore>
 	</PropertyGroup>
 
 	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net8.0-ios|AnyCPU'">
@@ -93,6 +95,7 @@
 	  <AndroidStoreUncompressedFileExtensions></AndroidStoreUncompressedFileExtensions>
 	  <DefineConstants>$(DefineConstants);__ANDROID__;EMGU</DefineConstants>
 	  <AndroidLinkTool>r8</AndroidLinkTool>
+	  <AndroidKeyStore>False</AndroidKeyStore>
 	</PropertyGroup>
 
 	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net8.0-ios|AnyCPU'">
