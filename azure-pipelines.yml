@@ -39,18 +39,12 @@ jobs:
 
   - task: NuGetToolInstaller@1
 
-  - task: NuGetAuthenticate@1
-    inputs:
-      nuGetServiceConnections: 'NuGet'
-      forceReinstallCredentialProvider: true
-
   - task: NuGetCommand@2
     inputs:
       command: 'restore'
       restoreSolution: '**/*.sln'
       feedsToUse: 'config'
       nugetConfigPath: 'nuget.config'
-      externalFeedCredentials: 'NuGet'
 
   - task: Bash@3
     displayName: 'Set version numbers'
@@ -134,7 +128,6 @@ jobs:
       restoreSolution: '**/*.sln'
       feedsToUse: 'config'
       nugetConfigPath: 'nuget.config'
-      externalFeedCredentials: 'NuGet'
 
   - task: Bash@3
     displayName: 'Set version numbers'
