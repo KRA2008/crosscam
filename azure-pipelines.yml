@@ -166,7 +166,7 @@ jobs:
 
   - task: AndroidSigning@3
     inputs:
-      apkFiles: '$(Pipeline.Workspace)\s\CrossCamMaui\Platforms\Android\output\com.kra2008.crosscam.apk'
+      apkFiles: '$(Pipeline.Workspace)\**\*.apk'
       apksignerKeystoreFile: 'kra2008Android.keystore'
       apksignerKeystorePassword: '$(keystorePassword)'
       apksignerKeystoreAlias: 'kra2008android'
