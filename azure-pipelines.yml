@@ -9,13 +9,13 @@ jobs:
 
   steps:
   - task: UseDotNet@2
-    displayName: .NET Version
+    displayName: '.NET Version'
     inputs:
       packageType: 'sdk'
       version: '$(DotNetVersion)'
 
   - task: Bash@3
-    displayName: Install MAUI
+    displayName: 'Install MAUI'
     inputs:
       targetType: 'inline'
       script: |
@@ -53,6 +53,7 @@ jobs:
       externalFeedCredentials: 'NuGet'
 
   - task: Bash@3
+    displayName: 'Set version numbers'
     inputs:
       targetType: 'inline'
       script: |
@@ -64,6 +65,7 @@ jobs:
         cat CrossCamShareExtension.iOS/Info.plist
 
   - task: Bash@3
+    displayName: 'dotnet publish ios'
     inputs:
       targetType: 'inline'
       script: 'dotnet publish -f net8.0-ios -p:ArchiveOnBuild=true'
@@ -112,13 +114,13 @@ jobs:
   steps:
   
   - task: UseDotNet@2
-    displayName: .NET Version
+    displayName: '.NET Version'
     inputs:
       packageType: 'sdk'
       version: '$(DotNetVersion)'
 
   - task: Bash@3
-    displayName: Install MAUI
+    displayName: 'Install MAUI'
     inputs:
       targetType: 'inline'
       script: |
@@ -135,6 +137,7 @@ jobs:
       externalFeedCredentials: 'NuGet'
 
   - task: Bash@3
+    displayName: 'Set version numbers'
     inputs:
       targetType: 'inline'
       script: |
@@ -149,6 +152,7 @@ jobs:
       jdkSourceOption: 'PreInstalled'
 
   - task: Bash@3
+    displayName: 'Set java variables'
     inputs:
       targetType: 'inline'
       script: |
@@ -157,7 +161,7 @@ jobs:
 
 
   - task: Bash@3
-    displayName: Build Android App
+    displayName: 'Build Android App'
     inputs:
       targetType: 'inline'
       script: |
