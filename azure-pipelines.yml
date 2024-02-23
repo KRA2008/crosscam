@@ -20,8 +20,8 @@ jobs:
       targetType: 'inline'
       script: |
         dotnet nuget locals all --clear 
-        dotnet workload install maui --source https://aka.ms/dotnet6/nuget/index.json --source https://api.nuget.org/v3/index.json
-        dotnet workload install ios maui wasm-tools --source https://aka.ms/dotnet6/nuget/index.json --source https://api.nuget.org/v3/index.json
+        dotnet workload install maui --source https://aka.ms/dotnet8/nuget/index.json --source https://api.nuget.org/v3/index.json
+        dotnet workload install ios maui wasm-tools --source https://aka.ms/dotnet8/nuget/index.json --source https://api.nuget.org/v3/index.json
 
   - task: InstallAppleCertificate@2
     inputs:
@@ -39,10 +39,20 @@ jobs:
       provisioningProfileLocation: 'secureFiles'
       provProfileSecureFile: 'CrossCam_Share_Extension_Store_Dist.mobileprovision'
 
-  - task: Bash@3
+  - task: NuGetToolInstaller@1
+
+  - task: NuGetAuthenticate@1
     inputs:
-      targetType: 'inline'
-      script: 'dotnet restore'
+      nuGetServiceConnections: 'NuGet'
+      forceReinstallCredentialProvider: true
+
+  - task: NuGetCommand@2
+    inputs:
+      command: 'restore'
+      restoreSolution: '**/*.sln'
+      feedsToUse: 'config'
+      nugetConfigPath: 'nuget.config'
+      externalFeedCredentials: 'NuGet'
 
   - task: Bash@3
     inputs:
@@ -115,8 +125,8 @@ jobs:
       targetType: 'inline'
       script: |
         dotnet nuget locals all --clear 
-        dotnet workload install maui --source https://aka.ms/dotnet6/nuget/index.json --source https://api.nuget.org/v3/index.json
-        dotnet workload install android maui wasm-tools --source https://aka.ms/dotnet6/nuget/index.json --source https://api.nuget.org/v3/index.json
+        dotnet workload install maui --source https://aka.ms/dotnet8/nuget/index.json --source https://api.nuget.org/v3/index.json
+        dotnet workload install android maui wasm-tools --source https://aka.ms/dotnet8/nuget/index.json --source https://api.nuget.org/v3/index.json
 
 
   - task: NuGetToolInstaller@1
