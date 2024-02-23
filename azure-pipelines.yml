@@ -37,6 +37,10 @@ jobs:
       provisioningProfileLocation: 'secureFiles'
       provProfileSecureFile: 'CrossCam_Share_Extension_Store_Dist.mobileprovision'
 
+  - task: NuGetAuthenticate@1
+    inputs:
+      nuGetServiceConnections: 'NuGet'
+
   - task: NuGetToolInstaller@1
 
   - task: NuGetCommand@2
@@ -45,6 +49,7 @@ jobs:
       restoreSolution: '**/*.sln'
       feedsToUse: 'config'
       nugetConfigPath: 'nuget.config'
+      externalFeedCredentials: 'NuGet'
 
   - task: Bash@3
     displayName: 'Set version numbers'
@@ -120,6 +125,10 @@ jobs:
       script: |
         dotnet workload restore
 
+  - task: NuGetAuthenticate@1
+    inputs:
+      nuGetServiceConnections: 'NuGet'
+
   - task: NuGetToolInstaller@1
 
   - task: NuGetCommand@2
@@ -128,6 +137,7 @@ jobs:
       restoreSolution: '**/*.sln'
       feedsToUse: 'config'
       nugetConfigPath: 'nuget.config'
+      externalFeedCredentials: 'NuGet'
 
   - task: Bash@3
     displayName: 'Set version numbers'
