@@ -19,7 +19,7 @@ jobs:
     inputs:
       targetType: 'inline'
       script: |
-        dotnet workload restore
+        dotnet workload restore maui-ios
 
   - task: InstallAppleCertificate@2
     inputs:
@@ -122,7 +122,7 @@ jobs:
     inputs:
       targetType: 'inline'
       script: |
-        dotnet workload restore
+        dotnet workload restore maui-android
 
   - task: NuGetToolInstaller@1
 
