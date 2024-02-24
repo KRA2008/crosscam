@@ -92,95 +92,95 @@ jobs:
       appType: 'iOS'
       shouldSkipWaitingForProcessing: true
 
-# - job: Android
-#   displayName: 'Android'
-#   # Xamarin.Android
-#   # Build a Xamarin.Android project.
-#   # Add steps that test, sign, and distribute an app, save build artifacts, and more:
-#   # https://docs.microsoft.com/azure/devops/pipelines/languages/xamarin
-#   pool:
-#     vmImage: 'windows-latest'
+- job: Android
+  displayName: 'Android'
+  # Xamarin.Android
+  # Build a Xamarin.Android project.
+  # Add steps that test, sign, and distribute an app, save build artifacts, and more:
+  # https://docs.microsoft.com/azure/devops/pipelines/languages/xamarin
+  pool:
+    vmImage: 'windows-latest'
 
-#   variables:
-#     buildConfiguration: 'Release'
-#     outputDirectory: '$(build.binariesDirectory)/$(buildConfiguration)'
+  variables:
+    buildConfiguration: 'Release'
+    outputDirectory: '$(build.binariesDirectory)/$(buildConfiguration)'
 
-#   steps:
+  steps:
   
-#   - task: UseDotNet@2
-#     displayName: '.NET Version'
-#     inputs:
-#       packageType: 'sdk'
-#       version: '$(DotNetVersion)'
+  - task: UseDotNet@2
+    displayName: '.NET Version'
+    inputs:
+      packageType: 'sdk'
+      version: '$(DotNetVersion)'
 
-#   - task: Bash@3
-#     displayName: 'Install MAUI'
-#     inputs:
-#       targetType: 'inline'
-#       script: |
-#         dotnet workload restore
+  - task: Bash@3
+    displayName: 'Install MAUI'
+    inputs:
+      targetType: 'inline'
+      script: |
+        dotnet workload restore
 
-#   - task: NuGetToolInstaller@1
+  - task: NuGetToolInstaller@1
 
-#   - task: NuGetCommand@2
-#     inputs:
-#       command: 'restore'
-#       restoreSolution: '**/*.sln'
-#       feedsToUse: 'config'
-#       nugetConfigPath: 'nuget.config'
-#       externalFeedCredentials: 'NuGet'
+  - task: NuGetCommand@2
+    inputs:
+      command: 'restore'
+      restoreSolution: '**/*.sln'
+      feedsToUse: 'config'
+      nugetConfigPath: 'nuget.config'
+      externalFeedCredentials: 'NuGet'
 
-#   - task: Bash@3
-#     displayName: 'Set version numbers'
-#     inputs:
-#       targetType: 'inline'
-#       script: |
-#         sed -i 's/android:versionCode="1"/android:versionCode="$(buildNumber)"/g' CrossCamMaui/Platforms/Android/AndroidManifest.xml
-#         sed -i 's/android:versionName="1.0"/android:versionName="$(myVersionNumber)"/g' CrossCamMaui/Platforms/Android/AndroidManifest.xml
-#         cat CrossCamMaui/Platforms/Android/AndroidManifest.xml
+  - task: Bash@3
+    displayName: 'Set version numbers'
+    inputs:
+      targetType: 'inline'
+      script: |
+        sed -i 's/android:versionCode="1"/android:versionCode="$(buildNumber)"/g' CrossCamMaui/Platforms/Android/AndroidManifest.xml
+        sed -i 's/android:versionName="1.0"/android:versionName="$(myVersionNumber)"/g' CrossCamMaui/Platforms/Android/AndroidManifest.xml
+        cat CrossCamMaui/Platforms/Android/AndroidManifest.xml
 
-#   - task: JavaToolInstaller@0
-#     inputs:
-#       versionSpec: '11'
-#       jdkArchitectureOption: 'x64'
-#       jdkSourceOption: 'PreInstalled'
+  - task: JavaToolInstaller@0
+    inputs:
+      versionSpec: '11'
+      jdkArchitectureOption: 'x64'
+      jdkSourceOption: 'PreInstalled'
 
-#   - task: Bash@3
-#     displayName: 'Set java variables'
-#     inputs:
-#       targetType: 'inline'
-#       script: |
-#         echo "##vso[task.setvariable variable=JAVA_HOME]$(JAVA_HOME_11_X64)"
-#         echo "##vso[task.setvariable variable=PATH]$(JAVA_HOME_11_X64)\bin;$(PATH)"
+  - task: Bash@3
+    displayName: 'Set java variables'
+    inputs:
+      targetType: 'inline'
+      script: |
+        echo "##vso[task.setvariable variable=JAVA_HOME]$(JAVA_HOME_11_X64)"
+        echo "##vso[task.setvariable variable=PATH]$(JAVA_HOME_11_X64)\bin;$(PATH)"
 
 
-#   - task: Bash@3
-#     displayName: 'Build Android App'
-#     inputs:
-#       targetType: 'inline'
-#       script: |
-#         dotnet publish -f net8.0-android
+  - task: Bash@3
+    displayName: 'Build Android App'
+    inputs:
+      targetType: 'inline'
+      script: |
+        dotnet publish -f net8.0-android
 
-#   - task: AndroidSigning@3
-#     inputs:
-#       apkFiles: '$(Pipeline.Workspace)\**\*.apk'
-#       apksignerKeystoreFile: 'kra2008Android.keystore'
-#       apksignerKeystorePassword: '$(keystorePassword)'
-#       apksignerKeystoreAlias: 'kra2008android'
-#       apksignerKeyPassword: '$(keystorePassword)'
+  - task: AndroidSigning@3
+    inputs:
+      apkFiles: '$(Pipeline.Workspace)\**\*.apk'
+      apksignerKeystoreFile: 'kra2008Android.keystore'
+      apksignerKeystorePassword: '$(keystorePassword)'
+      apksignerKeystoreAlias: 'kra2008android'
+      apksignerKeyPassword: '$(keystorePassword)'
 
-#   - task: PublishPipelineArtifact@1
-#     inputs:
-#       targetPath: '$(Pipeline.Workspace)\s\CrossCamMaui\bin\Release\net8.0-android\com.kra2008.crosscam-Signed.apk'
-#       publishLocation: 'pipeline'
+  - task: PublishPipelineArtifact@1
+    inputs:
+      targetPath: '$(Pipeline.Workspace)\s\CrossCamMaui\bin\Release\net8.0-android\com.kra2008.crosscam-Signed.apk'
+      publishLocation: 'pipeline'
 
-#   - task: AppCenterDistribute@3
-#     inputs:
-#       serverEndpoint: 'App Center'
-#       appSlug: 'kra3030/CrossCam-1'
-#       appFile: '$(Pipeline.Workspace)\s\CrossCamMaui\bin\Release\net8.0-android\com.kra2008.crosscam-Signed.apk'
-#       symbolsOption: 'Android'
-#       releaseNotesOption: 'input'
-#       releaseNotesInput: '☃'
-#       destinationType: 'groups'
-#       isSilent: true
+  - task: AppCenterDistribute@3
+    inputs:
+      serverEndpoint: 'App Center'
+      appSlug: 'kra3030/CrossCam-1'
+      appFile: '$(Pipeline.Workspace)\s\CrossCamMaui\bin\Release\net8.0-android\com.kra2008.crosscam-Signed.apk'
+      symbolsOption: 'Android'
+      releaseNotesOption: 'input'
+      releaseNotesInput: '☃'
+      destinationType: 'groups'
+      isSilent: true
