@@ -66,19 +66,19 @@ jobs:
 
   - task: PublishPipelineArtifact@1
     inputs:
-      targetPath: '$(Pipeline.Workspace)/'
+      targetPath: '$(Pipeline.Workspace)/s/CrossCamMaui/bin/Release/net8.0-ios/ios-arm64/publish/CrossCam.ipa'
       publishLocation: 'pipeline'
 
-  # - task: PublishPipelineArtifact@1
-  #   inputs:
-  #     targetPath: '$(Pipeline.Workspace)/s/CrossCamMaui/bin/Release/net8.0-ios/ios-arm64/CrossCam.app'
-  #     publishLocation: 'pipeline'
+  - task: PublishPipelineArtifact@1
+    inputs:
+      targetPath: '$(Pipeline.Workspace)/s/CrossCamMaui/bin/Release/net8.0-ios/ios-arm64/CrossCam.app.dSYM'
+      publishLocation: 'pipeline'
 
   - task: AppCenterDistribute@3
     inputs:
       serverEndpoint: 'App Center'
       appSlug: 'kra3030/CrossCam'
-      appFile: '$(Pipeline.Workspace)/s/CrossCamMaui/bin/Release/net8.0-ios/ios-arm64/CrossCam.app'
+      appFile: '$(Pipeline.Workspace)/s/CrossCamMaui/bin/Release/net8.0-ios/ios-arm64/publish/CrossCam.ipa'
       symbolsDsymFiles: '$(Pipeline.Workspace)/s/CrossCamMaui/bin/Release/net8.0-ios/ios-arm64/CrossCam.app.dSYM'
       releaseNotesOption: 'input'
       releaseNotesInput: '☂'
