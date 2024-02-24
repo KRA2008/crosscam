@@ -6,7 +6,7 @@
                xmlns:ce="clr-namespace:CrossCam.CustomElement"
                xmlns:views="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
                xmlns:page="clr-namespace:CrossCam.Page"
-               xmlns:lazyViews="clr-namespace:CrossCam.CustomElement.LazyViews"
+               xmlns:settingsViews="clr-namespace:CrossCam.CustomElement.SettingsViews"
                x:DataType="vm:SettingsViewModel"
                x:Class="CrossCam.Page.SettingsPage"
                Title="Settings">
@@ -48,12 +48,11 @@
             <views:Expander x:Name="_previewMethodExpander"
                             Command="{Binding CloseOtherExpandersCommand}"
                             CommandParameter="{x:Reference _previewMethodExpander}"
-                            IsExpanded="{Binding OpenExpander, Converter={vc:IsBindingEqualToParameterConverter}, ConverterParameter={x:Reference _previewMethodExpander}}"
-                            ExpandedChanged="ExpanderChanged">
+                            IsExpanded="{Binding OpenExpander, Converter={vc:IsBindingEqualToParameterConverter}, ConverterParameter={x:Reference _previewMethodExpander}}">
                 <views:Expander.Header>
                     <ce:ExpanderHeader Title="Preview Viewing Method"/>
                 </views:Expander.Header>
-                <lazyViews:PreviewMethodSettingsLazyView/>
+                <settingsViews:PreviewMethodSettingsView/>
             </views:Expander>
 
             <ce:HorizontalDivider/>
@@ -61,12 +60,11 @@
             <views:Expander x:Name="_pairingExpander"
                             Command="{Binding CloseOtherExpandersCommand}"
                             CommandParameter="{x:Reference _pairingExpander}"
-                            IsExpanded="{Binding OpenExpander, Converter={vc:IsBindingEqualToParameterConverter}, ConverterParameter={x:Reference _pairingExpander}}"
-                            ExpandedChanged="ExpanderChanged">
+                            IsExpanded="{Binding OpenExpander, Converter={vc:IsBindingEqualToParameterConverter}, ConverterParameter={x:Reference _pairingExpander}}">
                 <views:Expander.Header>
                     <ce:ExpanderHeader Title="Pairing"/>
                 </views:Expander.Header>
-                <lazyViews:PairSettingsLazyView/>
+                <settingsViews:PairSettingsView/>
             </views:Expander>
 
             <ce:HorizontalDivider/>
@@ -74,12 +72,11 @@
             <views:Expander x:Name="_alignmentExpander"
                             Command="{Binding CloseOtherExpandersCommand}"
                             CommandParameter="{x:Reference _alignmentExpander}"
-                            IsExpanded="{Binding OpenExpander, Converter={vc:IsBindingEqualToParameterConverter}, ConverterParameter={x:Reference _alignmentExpander}}"
-                            ExpandedChanged="ExpanderChanged">
+                            IsExpanded="{Binding OpenExpander, Converter={vc:IsBindingEqualToParameterConverter}, ConverterParameter={x:Reference _alignmentExpander}}">
                 <views:Expander.Header>
                     <ce:ExpanderHeader Title="Automatic Alignment"/>
                 </views:Expander.Header>
-                <lazyViews:AlignmentSettingsLazyView/>
+                <settingsViews:AlignmentSettingsView/>
             </views:Expander>
 
             <ce:HorizontalDivider/>
@@ -87,12 +84,11 @@
             <views:Expander x:Name="_savingExpander"
                             Command="{Binding CloseOtherExpandersCommand}"
                             CommandParameter="{x:Reference _savingExpander}"
-                            IsExpanded="{Binding OpenExpander, Converter={vc:IsBindingEqualToParameterConverter}, ConverterParameter={x:Reference _savingExpander}}"
-                            ExpandedChanged="ExpanderChanged">
+                            IsExpanded="{Binding OpenExpander, Converter={vc:IsBindingEqualToParameterConverter}, ConverterParameter={x:Reference _savingExpander}}">
                 <views:Expander.Header>
                     <ce:ExpanderHeader Title="Saving"/>
                 </views:Expander.Header>
-                <lazyViews:SavingSettingsLazyView/>
+                <settingsViews:SavingSettingsView/>
             </views:Expander>
 
             <ce:HorizontalDivider/>
@@ -100,12 +96,11 @@
             <views:Expander x:Name="_borderExpander"
                             Command="{Binding CloseOtherExpandersCommand}"
                             CommandParameter="{x:Reference _borderExpander}"
-                            IsExpanded="{Binding OpenExpander, Converter={vc:IsBindingEqualToParameterConverter}, ConverterParameter={x:Reference _borderExpander}}"
-                            ExpandedChanged="ExpanderChanged">
+                            IsExpanded="{Binding OpenExpander, Converter={vc:IsBindingEqualToParameterConverter}, ConverterParameter={x:Reference _borderExpander}}">
                 <views:Expander.Header>
                     <ce:ExpanderHeader Title="Border"/>
                 </views:Expander.Header>
-                <lazyViews:BorderSettingsLazyView/>
+                <settingsViews:BorderSettingsView/>
             </views:Expander>
 
             <ce:HorizontalDivider/>
@@ -113,12 +108,11 @@
             <views:Expander x:Name="_guidesExpander"
                             Command="{Binding CloseOtherExpandersCommand}"
                             CommandParameter="{x:Reference _guidesExpander}"
-                            IsExpanded="{Binding OpenExpander, Converter={vc:IsBindingEqualToParameterConverter}, ConverterParameter={x:Reference _guidesExpander}}"
-                            ExpandedChanged="ExpanderChanged">
+                            IsExpanded="{Binding OpenExpander, Converter={vc:IsBindingEqualToParameterConverter}, ConverterParameter={x:Reference _guidesExpander}}">
                 <views:Expander.Header>
                     <ce:ExpanderHeader Title="Capture Guides"/>
                 </views:Expander.Header>
-                <lazyViews:GuidesSettingsLazyView/>
+                <settingsViews:GuidesSettingsView/>
             </views:Expander>
 
             <ce:HorizontalDivider/>
@@ -126,12 +120,11 @@
             <views:Expander x:Name="_editingExpander"
                             Command="{Binding CloseOtherExpandersCommand}"
                             CommandParameter="{x:Reference _editingExpander}"
-                            IsExpanded="{Binding OpenExpander, Converter={vc:IsBindingEqualToParameterConverter}, ConverterParameter={x:Reference _editingExpander}}"
-                            ExpandedChanged="ExpanderChanged">
+                            IsExpanded="{Binding OpenExpander, Converter={vc:IsBindingEqualToParameterConverter}, ConverterParameter={x:Reference _editingExpander}}">
                 <views:Expander.Header>
                     <ce:ExpanderHeader Title="Editing"/>
                 </views:Expander.Header>
-                <lazyViews:EditingSettingsLazyView/>
+                <settingsViews:EditingSettingsView/>
             </views:Expander>
 
             <ce:HorizontalDivider/>
@@ -139,12 +132,11 @@
             <views:Expander x:Name="_cameraExpander"
                             Command="{Binding CloseOtherExpandersCommand}"
                             CommandParameter="{x:Reference _cameraExpander}"
-                            IsExpanded="{Binding OpenExpander, Converter={vc:IsBindingEqualToParameterConverter}, ConverterParameter={x:Reference _cameraExpander}}"
-                            ExpandedChanged="ExpanderChanged">
+                            IsExpanded="{Binding OpenExpander, Converter={vc:IsBindingEqualToParameterConverter}, ConverterParameter={x:Reference _cameraExpander}}">
                 <views:Expander.Header>
                     <ce:ExpanderHeader Title="Camera"/>
                 </views:Expander.Header>
-                <lazyViews:CameraSettingsLazyView/>
+                <settingsViews:CameraSettingsView/>
             </views:Expander>
 
             <ce:HorizontalDivider/>
