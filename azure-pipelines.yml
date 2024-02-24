@@ -13,7 +13,14 @@ jobs:
     inputs:
       packageType: 'sdk'
       version: '$(DotNetVersion)'
-  
+
+  - task: Bash@3
+    displayName: 'Install MAUI'
+    inputs:
+      targetType: 'inline'
+      script: |
+        dotnet workload restore
+
   - task: NuGetToolInstaller@1
 
   - task: NuGetCommand@2
@@ -23,13 +30,6 @@ jobs:
       feedsToUse: 'config'
       nugetConfigPath: 'nuget.config'
       externalFeedCredentials: 'NuGet'
-
-  - task: Bash@3
-    displayName: 'Install MAUI'
-    inputs:
-      targetType: 'inline'
-      script: |
-        dotnet workload restore
 
   - task: InstallAppleCertificate@2
     inputs:
@@ -114,6 +114,13 @@ jobs:
       packageType: 'sdk'
       version: '$(DotNetVersion)'
 
+  - task: Bash@3
+    displayName: 'Install MAUI'
+    inputs:
+      targetType: 'inline'
+      script: |
+        dotnet workload restore
+
   - task: NuGetToolInstaller@1
 
   - task: NuGetCommand@2
@@ -123,13 +130,6 @@ jobs:
       feedsToUse: 'config'
       nugetConfigPath: 'nuget.config'
       externalFeedCredentials: 'NuGet'
-
-  - task: Bash@3
-    displayName: 'Install MAUI'
-    inputs:
-      targetType: 'inline'
-      script: |
-        dotnet workload restore
 
   - task: Bash@3
     displayName: 'Set version numbers'
