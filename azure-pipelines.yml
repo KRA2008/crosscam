@@ -71,7 +71,7 @@ jobs:
 
   - task: AppCenterDistribute@3
     inputs:
-      serverEndpoint: 'App Center CrossCam iOS'
+      serverEndpoint: 'App Center'
       appSlug: 'kra3030/CrossCam'
       appFile: '$(Pipeline.Workspace)/s/CrossCamMaui/bin/Release/net8.0-ios/ios-arm64/CrossCam.app'
       symbolsDsymFiles: '$(Pipeline.Workspace)/s/CrossCamMaui/bin/Release/net8.0-ios/ios-arm64/CrossCam.app.dSYM'
@@ -171,7 +171,7 @@ jobs:
 
   - task: AppCenterDistribute@3
     inputs:
-      serverEndpoint: 'App Center CrossCam Android'
+      serverEndpoint: 'App Center'
       appSlug: 'kra3030/CrossCam-1'
       appFile: '$(Pipeline.Workspace)\s\CrossCamMaui\bin\Release\net8.0-android\com.kra2008.crosscam-Signed.apk'
       symbolsOption: 'Android'
