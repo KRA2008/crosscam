@@ -13,6 +13,16 @@ jobs:
     inputs:
       packageType: 'sdk'
       version: '$(DotNetVersion)'
+  
+  - task: NuGetToolInstaller@1
+
+  - task: NuGetCommand@2
+    inputs:
+      command: 'restore'
+      restoreSolution: '**/*.sln'
+      feedsToUse: 'config'
+      nugetConfigPath: 'nuget.config'
+      externalFeedCredentials: 'NuGet'
 
   - task: Bash@3
     displayName: 'Install MAUI'
@@ -36,20 +46,6 @@ jobs:
     inputs:
       provisioningProfileLocation: 'secureFiles'
       provProfileSecureFile: 'CrossCam_Share_Extension_Store_Dist.mobileprovision'
-
-  - task: NuGetAuthenticate@1
-    inputs:
-      nuGetServiceConnections: 'NuGet'
-
-  - task: NuGetToolInstaller@1
-
-  - task: NuGetCommand@2
-    inputs:
-      command: 'restore'
-      restoreSolution: '**/*.sln'
-      feedsToUse: 'config'
-      nugetConfigPath: 'nuget.config'
-      externalFeedCredentials: 'NuGet'
 
   - task: Bash@3
     displayName: 'Set version numbers'
@@ -118,17 +114,6 @@ jobs:
       packageType: 'sdk'
       version: '$(DotNetVersion)'
 
-  - task: Bash@3
-    displayName: 'Install MAUI'
-    inputs:
-      targetType: 'inline'
-      script: |
-        dotnet workload restore
-
-  - task: NuGetAuthenticate@1
-    inputs:
-      nuGetServiceConnections: 'NuGet'
-
   - task: NuGetToolInstaller@1
 
   - task: NuGetCommand@2
@@ -138,6 +123,13 @@ jobs:
       feedsToUse: 'config'
       nugetConfigPath: 'nuget.config'
       externalFeedCredentials: 'NuGet'
+
+  - task: Bash@3
+    displayName: 'Install MAUI'
+    inputs:
+      targetType: 'inline'
+      script: |
+        dotnet workload restore
 
   - task: Bash@3
     displayName: 'Set version numbers'
