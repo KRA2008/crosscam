@@ -66,8 +66,13 @@ jobs:
 
   - task: PublishPipelineArtifact@1
     inputs:
-      targetPath: '$(Pipeline.Workspace)/s/CrossCamMaui/bin/Release/net8.0-ios/ios-arm64/CrossCam.app'
+      targetPath: '$(Pipeline.Workspace)/'
       publishLocation: 'pipeline'
+
+  # - task: PublishPipelineArtifact@1
+  #   inputs:
+  #     targetPath: '$(Pipeline.Workspace)/s/CrossCamMaui/bin/Release/net8.0-ios/ios-arm64/CrossCam.app'
+  #     publishLocation: 'pipeline'
 
   - task: AppCenterDistribute@3
     inputs:
