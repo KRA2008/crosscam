@@ -73,6 +73,9 @@
 	  <MtouchFloat32>True</MtouchFloat32>
 	  <CodesignEntitlements>Platforms\iOS\DevEntitlements.plist</CodesignEntitlements>
 	  <DefineConstants>$(DefineConstants);EMGU</DefineConstants>
+	  <CodesignKey>iPhone Developer: Kevin Anderson (288S2529U3)</CodesignKey>
+	  <CodesignProvision>VS: com.kra2008.crosscam Development</CodesignProvision>
+	  <ProvisioningType>manual</ProvisioningType>
 	</PropertyGroup>
 
 	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug Without Emgu|net8.0-ios|AnyCPU'">
@@ -86,6 +89,9 @@
 	  <CodesignEntitlements>Platforms\iOS\DevEntitlements.plist</CodesignEntitlements>
 	  <DefineConstants>$(DefineConstants);DEBUG</DefineConstants>
 	  <MtouchLink>None</MtouchLink>
+      <CodesignKey>iPhone Developer: Kevin Anderson (288S2529U3)</CodesignKey>
+      <CodesignProvision>VS: com.kra2008.crosscam Development</CodesignProvision>
+      <ProvisioningType>manual</ProvisioningType>
 	</PropertyGroup>
 
 	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net8.0-android|AnyCPU'">
@@ -106,12 +112,9 @@
 	  <MtouchFloat32>True</MtouchFloat32>
 	  <CodesignEntitlements>Platforms\iOS\ProdEntitlements.plist</CodesignEntitlements>
 	  <DefineConstants>$(DefineConstants);EMGU</DefineConstants>
-	</PropertyGroup>
-
-	<PropertyGroup Condition="'$(TargetFramework)'=='net8.0-ios'">
-	  <CodesignKey>Apple Development: Created via API (TW2AV56Z4U)</CodesignKey>
-	  <CodesignProvision>VS: com.kra2008.crosscam Development</CodesignProvision>
-	  <ProvisioningType>automatic</ProvisioningType>
+	  <CodesignKey>iPhone Distribution: Kevin Anderson (G656MA2J22)</CodesignKey>
+	  <CodesignProvision>CrossCam Distribution</CodesignProvision>
+	  <ProvisioningType>manual</ProvisioningType>
 	</PropertyGroup>
 
 	<ItemGroup>
