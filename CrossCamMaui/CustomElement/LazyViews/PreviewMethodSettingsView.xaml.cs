@@ -1,4 +1,4 @@
-﻿namespace CrossCam.CustomElement.SettingsViews;
+﻿namespace CrossCam.CustomElement.LazyViews;
 
 public partial class PreviewMethodSettingsView
 {

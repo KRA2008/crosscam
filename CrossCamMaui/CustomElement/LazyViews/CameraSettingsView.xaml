@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:system="clr-namespace:System;assembly=System.Runtime"
+             xmlns:vc="clr-namespace:CrossCam.ValueConverter"
+             xmlns:vm="clr-namespace:CrossCam.ViewModel"
+             x:Class="CrossCam.CustomElement.LazyViews.CameraSettingsView"
+             x:DataType="vm:SettingsViewModel">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="70"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="60"/>
+            <RowDefinition Height="60"/>
+            <RowDefinition Height="60"/>
+            <RowDefinition Height="60"/>
+        </Grid.RowDefinitions>
+
+        <Label Grid.Row="0" 
+           Grid.Column="0" 
+           Text="Tap to point focus, double tap to switch back to continuous focus (or save or clear)"/>
+        <Switch Grid.Row="0" 
+            Grid.Column="1" 
+            IsToggled="{Binding Settings.IsTapToFocusEnabled2}"/>
+
+        <Label Grid.Row="1" 
+           Grid.Column="0" 
+           Text="Lock focus and exposure for second picture to focus and exposure from first picture"/>
+        <Switch Grid.Row="1" 
+            Grid.Column="1" 
+            IsToggled="{Binding Settings.IsLockToFirstEnabled}"/>
+
+        <Label Grid.Row="2" 
+           Grid.Column="0" 
+           Text="Force camera1 API (may be helpful if you're experiencing weirdness but will result in limited functionality, requires a force quit/restart to take effect)">
+            <Label.IsVisible>
+                <OnPlatform x:TypeArguments="system:Boolean">
+                    <On Platform="iOS"
+                    Value="False"/>
+                    <On Platform="Android"
+                    Value="True"/>
+                </OnPlatform>
+            </Label.IsVisible>
+        </Label>
+        <Switch Grid.Row="2" 
+            Grid.Column="1" 
+            IsToggled="{Binding Settings.IsForceCamera1Enabled}">
+            <Switch.IsVisible>
+                <OnPlatform x:TypeArguments="system:Boolean">
+                    <On Platform="iOS"
+                    Value="False"/>
+                    <On Platform="Android"
+                    Value="True"/>
+                </OnPlatform>
+            </Switch.IsVisible>
+        </Switch>
+
+        <Label Grid.Row="3" 
+           Grid.Column="0" 
+           Text="Force camera2 API (must be on Android 6 or above, may be helpful if you're experiencing errors but may make more, requires a force quit/restart to take effect)">
+            <Label.IsVisible>
+                <OnPlatform x:TypeArguments="system:Boolean">
+                    <On Platform="iOS"
+                    Value="False"/>
+                    <On Platform="Android"
+                    Value="True"/>
+                </OnPlatform>
+            </Label.IsVisible>
+        </Label>
+        <Switch Grid.Row="3" 
+            Grid.Column="1" 
+            IsToggled="{Binding Settings.IsForceCamera2Enabled}">
+            <Switch.IsVisible>
+                <OnPlatform x:TypeArguments="system:Boolean">
+                    <On Platform="iOS"
+                    Value="False"/>
+                    <On Platform="Android"
+                    Value="True"/>
+                </OnPlatform>
+            </Switch.IsVisible>
+        </Switch>
+
+        <Label Grid.Row="4" 
+           Grid.Column="0" 
+           Text="Portrait capture button placement"/>
+        <Frame Grid.Row="4" 
+           Grid.Column="1">
+            <Picker ItemsSource="{Binding PortraitCaptureButtonPosition}"
+                SelectedIndex="{Binding Settings.PortraitCaptureButtonPosition, Converter={vc:PortraitCaptureButtonPositionValueConverter}}"/>
+        </Frame>
+
+        <Label Grid.Row="5" 
+           Grid.Column="0" 
+           Text="Landscape capture button horizontal placement"/>
+        <Frame Grid.Row="5" 
+           Grid.Column="1">
+            <Picker ItemsSource="{Binding LandscapeCaptureButtonHorizontalPosition}"
+                SelectedIndex="{Binding Settings.LandscapeCaptureButtonHorizontalPosition, Converter={vc:LandscapeCaptureButtonHorizontalPositionValueConverter}}"/>
+        </Frame>
+
+        <Label Grid.Row="6" 
+           Grid.Column="0" 
+           Text="Landscape capture button vertical placement"/>
+        <Frame Grid.Row="6" 
+           Grid.Column="1">
+            <Picker ItemsSource="{Binding LandscapeCaptureButtonVerticalPosition}"
+                SelectedIndex="{Binding Settings.LandscapeCaptureButtonVerticalPosition, Converter={vc:LandscapeCaptureButtonVerticalPositionValueConverter}}"/>
+        </Frame>
+
+        <Label Grid.Row="7" 
+           Grid.Column="0" 
+           Text="Pair button horizontal placement (when capture button is centered)"/>
+        <Frame Grid.Row="7" 
+           Grid.Column="1">
+            <Picker ItemsSource="{Binding PairButtonHorizontalPosition}"
+                SelectedIndex="{Binding Settings.PairButtonHorizontalPosition, Converter={vc:PairButtonHorizontalPositionValueConverter}}"/>
+        </Frame>
+    </Grid>
+</ContentView>
