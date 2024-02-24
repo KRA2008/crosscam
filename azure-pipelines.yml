@@ -39,12 +39,12 @@ jobs:
   - task: InstallAppleProvisioningProfile@1
     inputs:
       provisioningProfileLocation: 'secureFiles'
-      provProfileSecureFile: 'CrossCam_Store_Dist.mobileprovision'
+      provProfileSecureFile: 'CrossCam_Distribution.mobileprovision'
 
   - task: InstallAppleProvisioningProfile@1
     inputs:
       provisioningProfileLocation: 'secureFiles'
-      provProfileSecureFile: 'CrossCam_Share_Extension_Store_Dist.mobileprovision'
+      provProfileSecureFile: 'CrossCam_Share_Extension_Distribution.mobileprovision'
 
   - task: Bash@3
     displayName: 'Set version numbers'
