@@ -22,11 +22,13 @@ jobs:
         dotnet workload restore
 
   - task: Bash@3
+    displayName: 'NuGet auth and restore'
     inputs:
       targetType: 'inline'
       script: |
         dotnet nuget remove source kra3030
         dotnet nuget add source https://pkgs.dev.azure.com/kra3030/_packaging/kra3030/nuget/v3/index.json -n "kra3030" -u "whatever" -p "$(NuGetPAT)" --store-password-in-clear-text --valid-authentication-types "basic"
+        dotnet nuget restore
 
   - task: InstallAppleCertificate@2
     inputs:
