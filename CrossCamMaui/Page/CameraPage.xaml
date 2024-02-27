@@ -34,35 +34,6 @@
             <x:Double x:Key="_3dRightRight">0.9</x:Double>
             <x:Double x:Key="_editModeInnerButtons">0.8</x:Double>
             <x:Double x:Key="_gearBoxWidth">35</x:Double>
-            <Rect x:Key="_finalSaveBounds" X="0.5" Y="1" Width="{StaticResource _giantIconWidth}" Height="{StaticResource _giantIconWidth}"/>
-            <Rect x:Key="_clearBounds" X="0.5" Y="{StaticResource _topMiddleButtonY}" Width="{StaticResource _largeIconWidth}" Height="{StaticResource _largeIconWidth}"/>
-            <Rect x:Key="_swipeBounds" X="0.5" Y="0" Width="150" Height="60"/>
-            <Rect x:Key="_swipeHintBounds" X="0" Y="{StaticResource _topMiddleButtonY}" Width="1" Height="{StaticResource _largeIconWidth}"/>
-            <Rect x:Key="_cropBounds" X="0.5" Y="0.6" Width="{StaticResource _mediumIconWidth}" Height="{StaticResource _mediumIconWidth}"/>
-            <Rect x:Key="_viewBounds" X="0.5" Y="{StaticResource _secondMiddleButtonY}" Width="{StaticResource _mediumIconWidth}" Height="{StaticResource _mediumIconWidth}"/>
-            <Rect x:Key="_alignBounds" X="0" Y="{StaticResource _topMiddleButtonY}" Width="1" Height="{StaticResource _mediumIconWidthPlusTopPadding}"/>
-            <Rect x:Key="_keystoneBounds" X="0" Y="{StaticResource _secondMiddleButtonY}" Width="1" Height="{StaticResource _mediumIconWidth}"/>
-            <Rect x:Key="_editBounds" X="0.5" Y="0.6" Width="{StaticResource _mediumIconWidth}" Height="{StaticResource _mediumIconWidth}"/>
-            <Rect x:Key="_loadBounds" X="0.5" Y="1" Width="{StaticResource _smallerButtonWidth}" Height="{StaticResource _smallerButtonWidth}"/>
-            <Rect x:Key="_retakeLeftLeftBounds" X="{StaticResource _3dLeftMiddle}" Y="1" Width="{StaticResource _smallerButtonWidth}" Height="{StaticResource _smallerButtonWidth}"/>
-            <Rect x:Key="_retakeLeftRightBounds" X="{StaticResource _3dLeftRight}" Y="1" Width="{StaticResource _smallerButtonWidth}" Height="{StaticResource _smallerButtonWidth}"/>
-            <Rect x:Key="_retakeRightLeftBounds" X="{StaticResource _3dRightLeft}" Y="1" Width="{StaticResource _smallerButtonWidth}" Height="{StaticResource _smallerButtonWidth}"/>
-            <Rect x:Key="_retakeRightRightBounds" X="{StaticResource _3dRightMiddle}" Y="1" Width="{StaticResource _smallerButtonWidth}" Height="{StaticResource _smallerButtonWidth}"/>
-            <Rect x:Key="_undoBounds" X="0.5" Y="{StaticResource _topMiddleButtonY}" Width="{StaticResource _mediumIconWidth}" Height="{StaticResource _mediumIconWidthPlusTopPadding}"/>
-            <Rect x:Key="_checkBounds" X="0.5" Y="1" Width="{StaticResource _largeIconWidth}" Height="{StaticResource _largeIconWidth}"/>
-            <Rect x:Key="_helpBounds" X="0" Y="0" Width="{StaticResource _doubleSmallerButtonWidth}" Height="{StaticResource _smallerButtonWidthPlusTopPadding}"/>
-            <Rect x:Key="_gearBounds" X="1" Y="{StaticResource _topBarHeight}" Width="{StaticResource _gearBoxWidth}" Height="1"/>
-
-            <Rect x:Key="_leftKeystoneAxis" X="{StaticResource _3dLeftMiddle}" Y="{StaticResource _editModeInnerButtons}" Width="{StaticResource _mediumIconWidth}" Height="{StaticResource _mediumIconWidth}"/>
-            <Rect x:Key="_rightKeystoneAxis" X="{StaticResource _3dRightMiddle}" Y="{StaticResource _editModeInnerButtons}" Width="{StaticResource _mediumIconWidth}" Height="{StaticResource _mediumIconWidth}"/>
-
-            <Rect x:Key="_leftRotate" X="{StaticResource _3dLeftLeft}" Y="{StaticResource _editModeInnerButtons}" Width="{StaticResource _mediumIconWidth}" Height="{StaticResource _mediumIconWidth}"/>
-            <Rect x:Key="_rightRotate" X="{StaticResource _3dRightLeft}" Y="{StaticResource _editModeInnerButtons}" Width="{StaticResource _mediumIconWidth}" Height="{StaticResource _mediumIconWidth}"/>
-
-            <Rect x:Key="_manualVerticalAlign" X="0.5" Y="{StaticResource _editModeInnerButtons}" Width="{StaticResource _mediumIconWidth}" Height="{StaticResource _mediumIconWidth}"/>
-
-            <Rect x:Key="_leftZoom" X="{StaticResource _3dLeftRight}" Y="{StaticResource _editModeInnerButtons}" Width="{StaticResource _mediumIconWidth}" Height="{StaticResource _mediumIconWidth}"/>
-            <Rect x:Key="_rightZoom" X="{StaticResource _3dRightRight}" Y="{StaticResource _editModeInnerButtons}" Width="{StaticResource _mediumIconWidth}" Height="{StaticResource _mediumIconWidth}"/>
 
             <Thickness x:Key="_linePadding">0,10,0,10</Thickness>
 
@@ -260,9 +231,14 @@
         </Frame>
 
         <ContentView AbsoluteLayout.LayoutFlags="PositionProportional"
-                     AbsoluteLayout.LayoutBounds="{StaticResource _retakeLeftLeftBounds}"
                      Padding="{StaticResource _bottomPadding}"
                      IsVisible="{Binding ShouldLeftLeftRetakeBeVisible}">
+            <AbsoluteLayout.LayoutBounds>
+                <Rect X="{StaticResource _3dLeftMiddle}" 
+                      Y="1" 
+                      Width="{StaticResource _smallerButtonWidth}" 
+                      Height="{StaticResource _smallerButtonWidth}"/>
+            </AbsoluteLayout.LayoutBounds>
             <ContentView.GestureRecognizers>
                 <TapGestureRecognizer Command="{Binding RetakeLeftCommand}"/>
             </ContentView.GestureRecognizers>
@@ -270,9 +246,14 @@
                    InputTransparent="True"/>
         </ContentView>
         <ContentView AbsoluteLayout.LayoutFlags="PositionProportional"
-                     AbsoluteLayout.LayoutBounds="{StaticResource _retakeLeftRightBounds}"
                      Padding="{StaticResource _bottomPadding}"
                      IsVisible="{Binding ShouldLeftRightRetakeBeVisible}">
+            <AbsoluteLayout.LayoutBounds>
+                <Rect X="{StaticResource _3dLeftRight}" 
+                      Y="1" 
+                      Width="{StaticResource _smallerButtonWidth}" 
+                      Height="{StaticResource _smallerButtonWidth}"/>
+            </AbsoluteLayout.LayoutBounds>
             <ContentView.GestureRecognizers>
                 <TapGestureRecognizer Command="{Binding RetakeLeftCommand}"/>
             </ContentView.GestureRecognizers>
@@ -280,9 +261,14 @@
                    InputTransparent="True"/>
         </ContentView>
         <ContentView AbsoluteLayout.LayoutFlags="PositionProportional"
-                     AbsoluteLayout.LayoutBounds="{StaticResource _retakeRightLeftBounds}"
                      Padding="{StaticResource _bottomPadding}"
                      IsVisible="{Binding ShouldRightLeftRetakeBeVisible}">
+            <AbsoluteLayout.LayoutBounds>
+                <Rect X="{StaticResource _3dRightLeft}" 
+                      Y="1" 
+                      Width="{StaticResource _smallerButtonWidth}" 
+                      Height="{StaticResource _smallerButtonWidth}"/>
+            </AbsoluteLayout.LayoutBounds>
             <ContentView.GestureRecognizers>
                 <TapGestureRecognizer Command="{Binding RetakeRightCommand}"/>
             </ContentView.GestureRecognizers>
@@ -290,9 +276,14 @@
                    InputTransparent="True"/>
         </ContentView>
         <ContentView AbsoluteLayout.LayoutFlags="PositionProportional"
-                     AbsoluteLayout.LayoutBounds="{StaticResource _retakeRightRightBounds}"
                      Padding="{StaticResource _bottomPadding}"
                      IsVisible="{Binding ShouldRightRightRetakeBeVisible}">
+            <AbsoluteLayout.LayoutBounds>
+                <Rect X="{StaticResource _3dRightMiddle}" 
+                      Y="1" 
+                      Width="{StaticResource _smallerButtonWidth}" 
+                      Height="{StaticResource _smallerButtonWidth}"/>
+            </AbsoluteLayout.LayoutBounds>
             <ContentView.GestureRecognizers>
                 <TapGestureRecognizer Command="{Binding RetakeRightCommand}"/>
             </ContentView.GestureRecognizers>
@@ -301,9 +292,14 @@
         </ContentView>
 
         <ContentView AbsoluteLayout.LayoutFlags="PositionProportional"
-                     AbsoluteLayout.LayoutBounds="{StaticResource _retakeLeftRightBounds}"
                      Padding="{StaticResource _bottomPadding}"
                      IsVisible="{Binding ShouldLeftLoadBeVisible}">
+            <AbsoluteLayout.LayoutBounds>
+                <Rect X="{StaticResource _3dLeftRight}" 
+                      Y="1" 
+                      Width="{StaticResource _smallerButtonWidth}" 
+                      Height="{StaticResource _smallerButtonWidth}"/>
+            </AbsoluteLayout.LayoutBounds>
             <ContentView.GestureRecognizers>
                 <TapGestureRecognizer Command="{Binding LoadPhotoCommand}"/>
             </ContentView.GestureRecognizers>
@@ -311,9 +307,14 @@
                    InputTransparent="True"/>
         </ContentView>
         <ContentView AbsoluteLayout.LayoutFlags="PositionProportional"
-                     AbsoluteLayout.LayoutBounds="{StaticResource _loadBounds}"
                      Padding="{StaticResource _bottomPadding}"
                      IsVisible="{Binding ShouldCenterLoadBeVisible}">
+            <AbsoluteLayout.LayoutBounds>
+                <Rect X="0.5" 
+                      Y="1" 
+                      Width="{StaticResource _smallerButtonWidth}" 
+                      Height="{StaticResource _smallerButtonWidth}"/>
+            </AbsoluteLayout.LayoutBounds>
             <ContentView.GestureRecognizers>
                 <TapGestureRecognizer Command="{Binding LoadPhotoCommand}"/>
             </ContentView.GestureRecognizers>
@@ -321,9 +322,14 @@
                    InputTransparent="True"/>
         </ContentView>
         <ContentView AbsoluteLayout.LayoutFlags="PositionProportional"
-                     AbsoluteLayout.LayoutBounds="{StaticResource _retakeRightLeftBounds}"
                      Padding="{StaticResource _bottomPadding}"
                      IsVisible="{Binding ShouldRightLoadBeVisible}">
+            <AbsoluteLayout.LayoutBounds>
+                <Rect X="{StaticResource _3dRightLeft}" 
+                      Y="1" 
+                      Width="{StaticResource _smallerButtonWidth}" 
+                      Height="{StaticResource _smallerButtonWidth}"/>
+            </AbsoluteLayout.LayoutBounds>
             <ContentView.GestureRecognizers>
                 <TapGestureRecognizer Command="{Binding LoadPhotoCommand}"/>
             </ContentView.GestureRecognizers>
@@ -347,8 +353,13 @@
         </AbsoluteLayout>
 
         <StackLayout AbsoluteLayout.LayoutFlags="PositionProportional"
-                     AbsoluteLayout.LayoutBounds="{StaticResource _swipeBounds}"
                      IsVisible="{Binding ShouldSwapSidesBeVisible}">
+            <AbsoluteLayout.LayoutBounds>
+                <Rect X="0.5" 
+                      Y="0" 
+                      Width="150" 
+                      Height="60"/>
+            </AbsoluteLayout.LayoutBounds>
             <StackLayout.GestureRecognizers>
                 <TapGestureRecognizer Command="{Binding SwapSidesCommand}"/>
                 <SwipeGestureRecognizer Command="{Binding SwapSidesCommand}"
@@ -436,9 +447,14 @@
             </StackLayout>
         </Grid>
         <ContentView AbsoluteLayout.LayoutFlags="PositionProportional"
-                     AbsoluteLayout.LayoutBounds="{StaticResource _clearBounds}"
                      Padding="{StaticResource _topBarButtonPadding}"
                      IsVisible="{Binding WorkflowStage, Converter={StaticResource enumCompare}, ConverterParameter={x:Static vm:WorkflowStage.Final}}">
+            <AbsoluteLayout.LayoutBounds>
+                <Rect X="0.5" 
+                      Y="{StaticResource _topMiddleButtonY}" 
+                      Width="{StaticResource _largeIconWidth}" 
+                      Height="{StaticResource _largeIconWidth}"/>
+            </AbsoluteLayout.LayoutBounds>
             <ContentView.GestureRecognizers>
                 <TapGestureRecognizer Command="{Binding ClearCapturesCommand}"/>
             </ContentView.GestureRecognizers>
@@ -446,33 +462,54 @@
                 <DataTrigger TargetType="ContentView"
                              Binding="{Binding Settings.Mode, Converter={StaticResource enumCompare}, ConverterParameter={x:Static vm:DrawMode.Cardboard}}"
                              Value="True">
-                    <Setter Property="AbsoluteLayout.LayoutBounds"
-                            Value="{StaticResource _finalSaveBounds}"/>
+                    <Setter Property="AbsoluteLayout.LayoutBounds">
+                        <Setter.Value>
+                            <Rect X="0.5" 
+                                  Y="1" 
+                                  Width="{StaticResource _giantIconWidth}" 
+                                  Height="{StaticResource _giantIconWidth}"/>
+                        </Setter.Value>
+                    </Setter>
                 </DataTrigger>
             </ContentView.Triggers>
             <Image Source="clearbox.png"/>
         </ContentView>
         <Image Source="eye.png"
                AbsoluteLayout.LayoutFlags="PositionProportional"
-               AbsoluteLayout.LayoutBounds="{StaticResource _viewBounds}"
                IsVisible="{Binding ShouldViewButtonBeVisible}">
+            <AbsoluteLayout.LayoutBounds>
+                <Rect X="0.5"
+                      Y="{StaticResource _secondMiddleButtonY}"
+                      Width="{StaticResource _mediumIconWidth}"
+                      Height="{StaticResource _mediumIconWidth}"/>
+            </AbsoluteLayout.LayoutBounds>
             <Image.GestureRecognizers>
                 <TapGestureRecognizer Command="{Binding ToggleViewModeCommand}"/>
             </Image.GestureRecognizers>
         </Image>
         <Image Source="edit.png"
                AbsoluteLayout.LayoutFlags="PositionProportional"
-               AbsoluteLayout.LayoutBounds="{StaticResource _editBounds}"
                IsVisible="{Binding WorkflowStage, Converter={StaticResource enumCompare}, ConverterParameter={x:Static vm:WorkflowStage.Final}}">
+            <AbsoluteLayout.LayoutBounds>
+                <Rect X="0.5" 
+                      Y="0.6" 
+                      Width="{StaticResource _mediumIconWidth}" 
+                      Height="{StaticResource _mediumIconWidth}"/>
+            </AbsoluteLayout.LayoutBounds>
             <Image.GestureRecognizers>
                 <TapGestureRecognizer Command="{Binding GoToModeCommand}"
                                       CommandParameter="{x:Static vm:WorkflowStage.Edits}"/>
             </Image.GestureRecognizers>
         </Image>
         <ContentView AbsoluteLayout.LayoutFlags="PositionProportional"
-                     AbsoluteLayout.LayoutBounds="{StaticResource _finalSaveBounds}"
                      Padding="{StaticResource _bottomPadding}"
                      IsVisible="{Binding ShouldSaveCapturesButtonBeVisible}">
+            <AbsoluteLayout.LayoutBounds>
+                <Rect X="0.5" 
+                      Y="1" 
+                      Width="{StaticResource _giantIconWidth}" 
+                      Height="{StaticResource _giantIconWidth}"/>
+            </AbsoluteLayout.LayoutBounds>
             <ContentView.GestureRecognizers>
                 <TapGestureRecognizer Command="{Binding SaveCapturesCommand}"/>
             </ContentView.GestureRecognizers>
@@ -480,17 +517,28 @@
                 <DataTrigger TargetType="ContentView"
                              Binding="{Binding Settings.Mode, Converter={StaticResource enumCompare}, ConverterParameter={x:Static vm:DrawMode.Cardboard}}"
                              Value="True">
-                    <Setter Property="AbsoluteLayout.LayoutBounds"
-                            Value="{StaticResource _clearBounds}"/>
+                    <Setter Property="AbsoluteLayout.LayoutBounds">
+                        <Setter.Value>
+                            <Rect X="0.5" 
+                                  Y="{StaticResource _topMiddleButtonY}" 
+                                  Width="{StaticResource _largeIconWidth}" 
+                                  Height="{StaticResource _largeIconWidth}"/>
+                        </Setter.Value>
+                    </Setter>
                 </DataTrigger>
             </ContentView.Triggers>
             <Image Source="checkbox.png"/>
         </ContentView>
 
         <Grid AbsoluteLayout.LayoutFlags="PositionProportional,WidthProportional"
-              AbsoluteLayout.LayoutBounds="{StaticResource _alignBounds}"
               Padding="{StaticResource _topBarButtonPadding}"
               IsVisible="{Binding WorkflowStage, Converter={StaticResource enumCompare}, ConverterParameter={x:Static vm:WorkflowStage.Edits}}">
+            <AbsoluteLayout.LayoutBounds>
+                <Rect X="0" 
+                      Y="{StaticResource _topMiddleButtonY}" 
+                      Width="1" 
+                      Height="{StaticResource _mediumIconWidthPlusTopPadding}"/>
+            </AbsoluteLayout.LayoutBounds>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="Auto"/>
@@ -512,8 +560,13 @@
             </StackLayout>
         </Grid>
         <Grid AbsoluteLayout.LayoutFlags="PositionProportional,WidthProportional"
-              AbsoluteLayout.LayoutBounds="{StaticResource _keystoneBounds}"
               IsVisible="{Binding WorkflowStage, Converter={StaticResource enumCompare}, ConverterParameter={x:Static vm:WorkflowStage.Edits}}">
+            <AbsoluteLayout.LayoutBounds>
+                <Rect X="0" 
+                      Y="{StaticResource _secondMiddleButtonY}" 
+                      Width="1" 
+                      Height="{StaticResource _mediumIconWidth}"/>
+            </AbsoluteLayout.LayoutBounds>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="Auto"/>
@@ -562,8 +615,13 @@
         </Grid>
         <Image Source="scissor.png"
                AbsoluteLayout.LayoutFlags="PositionProportional"
-               AbsoluteLayout.LayoutBounds="{StaticResource _cropBounds}"
                IsVisible="{Binding WorkflowStage, Converter={StaticResource enumCompare}, ConverterParameter={x:Static vm:WorkflowStage.Edits}}">
+            <AbsoluteLayout.LayoutBounds>
+                <Rect X="0.5" 
+                      Y="0.6" 
+                      Width="{StaticResource _mediumIconWidth}" 
+                      Height="{StaticResource _mediumIconWidth}"/>
+            </AbsoluteLayout.LayoutBounds>
             <Image.GestureRecognizers>
                 <TapGestureRecognizer Command="{Binding GoToModeCommand}"
                                       CommandParameter="{x:Static vm:WorkflowStage.Crop}"/>
@@ -571,9 +629,14 @@
         </Image>
 
         <ContentView AbsoluteLayout.LayoutFlags="PositionProportional"
-                     AbsoluteLayout.LayoutBounds="{StaticResource _undoBounds}"
                      Padding="{StaticResource _topBarButtonPadding}"
                      IsVisible="{Binding ShouldClearEditButtonBeVisible}">
+            <AbsoluteLayout.LayoutBounds>
+                <Rect X="0.5" 
+                      Y="{StaticResource _topMiddleButtonY}" 
+                      Width="{StaticResource _mediumIconWidth}" 
+                      Height="{StaticResource _mediumIconWidthPlusTopPadding}"/>
+            </AbsoluteLayout.LayoutBounds>
             <ContentView.GestureRecognizers>
                 <TapGestureRecognizer Command="{Binding ClearEditCommand}"/>
             </ContentView.GestureRecognizers>
@@ -581,9 +644,14 @@
                    InputTransparent="True"/>
         </ContentView>
         <ContentView AbsoluteLayout.LayoutFlags="PositionProportional"
-                     AbsoluteLayout.LayoutBounds="{StaticResource _checkBounds}"
                      Padding="{StaticResource _bottomPadding}"
                      IsVisible="{Binding WorkflowStage, Converter={StaticResource enumCompare}, ConverterParameter={x:Static vm:WorkflowStage.Edits}}">
+            <AbsoluteLayout.LayoutBounds>
+                <Rect X="0.5" 
+                      Y="1" 
+                      Width="{StaticResource _largeIconWidth}" 
+                      Height="{StaticResource _largeIconWidth}"/>
+            </AbsoluteLayout.LayoutBounds>
             <ContentView.GestureRecognizers>
                 <TapGestureRecognizer Command="{Binding SaveEditCommand}"/>
             </ContentView.GestureRecognizers>
@@ -790,10 +858,15 @@
 
 
         <Grid AbsoluteLayout.LayoutFlags="PositionProportional"
-              AbsoluteLayout.LayoutBounds="{StaticResource _leftKeystoneAxis}"
               ColumnSpacing="0"
               RowSpacing="0"
               IsVisible="False">
+            <AbsoluteLayout.LayoutBounds>
+                <Rect X="{StaticResource _3dLeftMiddle}" 
+                      Y="{StaticResource _editModeInnerButtons}" 
+                      Width="{StaticResource _mediumIconWidth}" 
+                      Height="{StaticResource _mediumIconWidth}"/>
+            </AbsoluteLayout.LayoutBounds>
             <Grid.Triggers>
                 <MultiTrigger TargetType="Grid">
                     <MultiTrigger.Conditions>
@@ -847,10 +920,15 @@
                      IsVisible="{Binding FovCorrectionMode, Converter={StaticResource enumCompare}, ConverterParameter={x:Static vm:FovCorrectionMode.LeftZoom}}"/>
         </Grid>
         <Grid AbsoluteLayout.LayoutFlags="PositionProportional"
-              AbsoluteLayout.LayoutBounds="{StaticResource _manualVerticalAlign}"
               ColumnSpacing="0"
               RowSpacing="0"
               IsVisible="False">
+            <AbsoluteLayout.LayoutBounds>
+                <Rect X="0.5" 
+                      Y="{StaticResource _editModeInnerButtons}" 
+                      Width="{StaticResource _mediumIconWidth}" 
+                      Height="{StaticResource _mediumIconWidth}"/>
+            </AbsoluteLayout.LayoutBounds>
             <Grid.Triggers>
                 <MultiTrigger TargetType="Grid">
                     <MultiTrigger.Conditions>
@@ -904,10 +982,15 @@
                      IsVisible="{Binding FovCorrectionMode, Converter={StaticResource enumCompare}, ConverterParameter={x:Static vm:FovCorrectionMode.Vertical}}"/>
         </Grid>
         <Grid AbsoluteLayout.LayoutFlags="PositionProportional"
-              AbsoluteLayout.LayoutBounds="{StaticResource _rightKeystoneAxis}"
               ColumnSpacing="0"
               RowSpacing="0"
               IsVisible="False">
+            <AbsoluteLayout.LayoutBounds>
+                <Rect X="{StaticResource _3dRightMiddle}" 
+                      Y="{StaticResource _editModeInnerButtons}" 
+                      Width="{StaticResource _mediumIconWidth}" 
+                      Height="{StaticResource _mediumIconWidth}"/>
+            </AbsoluteLayout.LayoutBounds>
             <Grid.Triggers>
                 <MultiTrigger TargetType="Grid">
                     <MultiTrigger.Conditions>
@@ -1216,9 +1299,14 @@
         </StackLayout>
 
         <StackLayout AbsoluteLayout.LayoutFlags="PositionProportional"
-                     AbsoluteLayout.LayoutBounds="{StaticResource _helpBounds}"
                      Orientation="Horizontal"
                      IsVisible="False">
+            <AbsoluteLayout.LayoutBounds>
+                <Rect X="0" 
+                      Y="0" 
+                      Width="{StaticResource _doubleSmallerButtonWidth}" 
+                      Height="{StaticResource _smallerButtonWidthPlusTopPadding}"/>
+            </AbsoluteLayout.LayoutBounds>
             <StackLayout.Triggers>
                 <MultiTrigger TargetType="StackLayout">
                     <MultiTrigger.Conditions>
@@ -1243,12 +1331,17 @@
             </ContentView>
         </StackLayout>
         <StackLayout AbsoluteLayout.LayoutFlags="XProportional,HeightProportional"
-                     AbsoluteLayout.LayoutBounds="{StaticResource _gearBounds}"
                      x:Name="_cameraSettingsBox"
                      IsVisible="False"
                      Orientation="Vertical"
                      InputTransparent="True"
                      CascadeInputTransparent="False">
+            <AbsoluteLayout.LayoutBounds>
+                <Rect X="1" 
+                      Y="{StaticResource _topBarHeight}" 
+                      Width="{StaticResource _gearBoxWidth}" 
+                      Height="1"/>
+            </AbsoluteLayout.LayoutBounds>
             <StackLayout.Triggers>
                 <MultiTrigger TargetType="StackLayout">
                     <MultiTrigger.Conditions>
