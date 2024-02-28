@@ -1649,10 +1649,12 @@
             <Label Text="{Binding MovementHintText}"                   
                    FontSize="Large"
                    FontAttributes="Bold"
-                   HorizontalOptions="CenterAndExpand"/>
+                   HorizontalOptions="Fill"
+                   HorizontalTextAlignment="Center"/>
             <Label Text=""
                    FontSize="Medium"
-                   HorizontalOptions="CenterAndExpand">
+                   HorizontalOptions="Fill"
+                   HorizontalTextAlignment="Center">
                 <Label.Triggers>
                     <DataTrigger TargetType="Label"
                                  Binding="{Binding Settings.Mode, Converter={StaticResource enumCompare}, ConverterParameter={x:Static vm:DrawMode.Cross}}"
@@ -1732,7 +1734,8 @@
                 <Label Text="{Binding MovementHintText}"                   
                            FontSize="Large"
                            FontAttributes="Bold"
-                           HorizontalOptions="EndAndExpand"/>
+                           HorizontalOptions="Fill"
+                           HorizontalTextAlignment="Center"/>
             </StackLayout>
         </StackLayout>
 
