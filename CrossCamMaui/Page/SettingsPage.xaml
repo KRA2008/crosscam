@@ -51,7 +51,8 @@
                             IsExpanded="{Binding OpenExpander, Converter={vc:IsBindingEqualToParameterConverter}, ConverterParameter={x:Reference _previewMethodExpander}}"
                             ExpandedChanged="ExpanderChanged">
                 <views:Expander.Header>
-                    <ce:ExpanderHeader Title="Preview Viewing Method"/>
+                    <ce:ExpanderHeader Title="Preview Viewing Method"
+                                       Icon="eye.png"/>
                 </views:Expander.Header>
                 <lazyViews:PreviewMethodSettingsLazyView/>
             </views:Expander>
@@ -64,7 +65,8 @@
                             IsExpanded="{Binding OpenExpander, Converter={vc:IsBindingEqualToParameterConverter}, ConverterParameter={x:Reference _pairingExpander}}"
                             ExpandedChanged="ExpanderChanged">
                 <views:Expander.Header>
-                    <ce:ExpanderHeader Title="Pairing"/>
+                    <ce:ExpanderHeader Title="Pairing"
+                                       Icon="pair.png"/>
                 </views:Expander.Header>
                 <lazyViews:PairSettingsLazyView/>
             </views:Expander>
@@ -77,7 +79,8 @@
                             IsExpanded="{Binding OpenExpander, Converter={vc:IsBindingEqualToParameterConverter}, ConverterParameter={x:Reference _alignmentExpander}}"
                             ExpandedChanged="ExpanderChanged">
                 <views:Expander.Header>
-                    <ce:ExpanderHeader Title="Automatic Alignment"/>
+                    <ce:ExpanderHeader Title="Automatic Alignment"
+                                       Icon="smarttoy.png"/>
                 </views:Expander.Header>
                 <lazyViews:AlignmentSettingsLazyView/>
             </views:Expander>
@@ -90,7 +93,8 @@
                             IsExpanded="{Binding OpenExpander, Converter={vc:IsBindingEqualToParameterConverter}, ConverterParameter={x:Reference _savingExpander}}"
                             ExpandedChanged="ExpanderChanged">
                 <views:Expander.Header>
-                    <ce:ExpanderHeader Title="Saving"/>
+                    <ce:ExpanderHeader Title="Saving"
+                                       Icon="checkbox.png"/>
                 </views:Expander.Header>
                 <lazyViews:SavingSettingsLazyView/>
             </views:Expander>
@@ -103,7 +107,8 @@
                             IsExpanded="{Binding OpenExpander, Converter={vc:IsBindingEqualToParameterConverter}, ConverterParameter={x:Reference _borderExpander}}"
                             ExpandedChanged="ExpanderChanged">
                 <views:Expander.Header>
-                    <ce:ExpanderHeader Title="Border"/>
+                    <ce:ExpanderHeader Title="Border"
+                                       Icon="squareouter.png"/>
                 </views:Expander.Header>
                 <lazyViews:BorderSettingsLazyView/>
             </views:Expander>
@@ -116,7 +121,8 @@
                             IsExpanded="{Binding OpenExpander, Converter={vc:IsBindingEqualToParameterConverter}, ConverterParameter={x:Reference _guidesExpander}}"
                             ExpandedChanged="ExpanderChanged">
                 <views:Expander.Header>
-                    <ce:ExpanderHeader Title="Capture Guides"/>
+                    <ce:ExpanderHeader Title="Capture Guides"
+                                       Icon="horizontalleveloutside.png"/>
                 </views:Expander.Header>
                 <lazyViews:GuidesSettingsLazyView/>
             </views:Expander>
@@ -129,7 +135,8 @@
                             IsExpanded="{Binding OpenExpander, Converter={vc:IsBindingEqualToParameterConverter}, ConverterParameter={x:Reference _editingExpander}}"
                             ExpandedChanged="ExpanderChanged">
                 <views:Expander.Header>
-                    <ce:ExpanderHeader Title="Editing"/>
+                    <ce:ExpanderHeader Title="Editing"
+                                       Icon="edit.png"/>
                 </views:Expander.Header>
                 <lazyViews:EditingSettingsLazyView/>
             </views:Expander>
@@ -142,7 +149,8 @@
                             IsExpanded="{Binding OpenExpander, Converter={vc:IsBindingEqualToParameterConverter}, ConverterParameter={x:Reference _cameraExpander}}"
                             ExpandedChanged="ExpanderChanged">
                 <views:Expander.Header>
-                    <ce:ExpanderHeader Title="Camera"/>
+                    <ce:ExpanderHeader Title="Camera"
+                                       Icon="camerasettings.png"/>
                 </views:Expander.Header>
                 <lazyViews:CameraSettingsLazyView/>
             </views:Expander>

@@ -2,9 +2,6 @@
 {
     public interface IDeviceDisplayWrapper
     {
-        bool IsPortrait();
-        DisplayOrientation GetOrientation();
-        DisplayRotation GetRotation();
         void HoldScreenOn();
         void DoNotHoldScreenOn();
         double GetDisplayDensity();
@@ -32,33 +29,6 @@
             DisplayInfoChanged?.Invoke(sender, e);
         }
 
-        public bool IsPortrait()
-        {
-            var isPortrait = false;
-#if __IOS__
-            MainThread.BeginInvokeOnMainThread(() =>
-            {
-#endif
-                isPortrait = DeviceDisplay.MainDisplayInfo.Orientation == DisplayOrientation.Portrait;
-#if __IOS__
-            });
-#endif
-            return isPortrait;
-        }
-
-        public DisplayOrientation GetOrientation()
-        {
-            var orientation = DisplayOrientation.Unknown;
-#if __IOS__
-            MainThread.BeginInvokeOnMainThread(() =>
-            {
-#endif
-                orientation = DeviceDisplay.MainDisplayInfo.Orientation;
-#if __IOS__
-            });
-#endif
-            return orientation;
-        }
 
         public DisplayRotation GetRotation()
         {

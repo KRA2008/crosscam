@@ -13,7 +13,7 @@
             <ColumnDefinition Width="65"/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
-            <RowDefinition Height="50"/>
+            <RowDefinition Height="0"/> <!-- too lazy to remove and renumber -->
             <RowDefinition Height="50"/>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
@@ -44,7 +44,8 @@
         <Image Source="smarttoy.png"
            Grid.ColumnSpan="3"
            Grid.Row="0"
-           HorizontalOptions="CenterAndExpand"/>
+           HorizontalOptions="CenterAndExpand"
+           IsVisible="False"/> <!-- too lazy to remove and renumber -->
 
         <Label Grid.Column="0"
            Grid.Row="1"

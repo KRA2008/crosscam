@@ -3,6 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:vc="clr-namespace:CrossCam.ValueConverter"
              xmlns:ce="clr-namespace:CrossCam.CustomElement"
+             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
              x:Class="CrossCam.App">
     <Application.Resources>
         <ResourceDictionary>
@@ -93,7 +94,7 @@
                         Value="White"/>
             </Style>
             <vc:EnumCompareConverter x:Key="enumCompare"/>
-            <vc:BooleanInvertConverter x:Key="invert"/>
+            <toolkit:InvertedBoolConverter x:Key="invert"/>
             <vc:NullableBooleanConverter x:Key="nullableBoolean"/>
         </ResourceDictionary>
     </Application.Resources>

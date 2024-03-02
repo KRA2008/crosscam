@@ -17,7 +17,7 @@ namespace CrossCam.Page
 {
     // ReSharper disable once UnusedMember.Global
     public partial class CameraPage
-	{
+    {
 	    private CameraViewModel _viewModel;
         private IDeviceDisplayWrapper _deviceDisplayWrapper;
 
@@ -375,19 +375,28 @@ namespace CrossCam.Page
                 _viewModel.Edits.PropertyChanged += InvalidateCanvasBecausePropertyChanged;
                 _viewModel.Settings.CardboardSettings.PropertyChanged += InvalidateCanvasBecausePropertyChanged;
                 _viewModel.Settings.AlignmentSettings.PropertyChanged += InvalidateCanvasBecausePropertyChanged;
-
+                _viewModel.PairOperatorBindable.PropertyChanged += PairOperatorBindableOnPropertyChanged;
 
                 var layout = AbsoluteLayout.GetLayoutBounds(_moveHintSideStack);
                 layout.Width = _viewModel.Settings.CardboardSettings.CardboardIpd + 100;
                 MainThread.BeginInvokeOnMainThread(() =>
                 {
                     AbsoluteLayout.SetLayoutBounds(_moveHintSideStack, layout);
-
+                    _viewModel.DisplayRotation = DeviceDisplay.MainDisplayInfo.Rotation;
+                    _viewModel.DisplayOrientation = DeviceDisplay.MainDisplayInfo.Orientation;
+                    EvaluateSensors();
+                    PlaceRollGuide();
                 });
-                EvaluateSensors();
-                PlaceRollGuide();
             }
 	    }
+
+        private void PairOperatorBindableOnPropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+            if (e.PropertyName == nameof(PairOperator.PairStatus))
+            {
+                PlaceRollGuide();
+            }
+        }
 
         private void SettingsOnPropertyChanged(object sender, PropertyChangedEventArgs e)
         {
@@ -489,6 +498,11 @@ namespace CrossCam.Page
                 case nameof(CameraViewModel.PreviewAspectRatio):
                     SetCameraModuleSize();
                     PlaceRollGuide();
+                    break;
+                case nameof(CameraViewModel.DisplayOrientation):
+                case nameof(CameraViewModel.DisplayRotation):
+                    PlaceRollGuide();
+
                     break;
             }
 	    }
@@ -799,7 +813,7 @@ namespace CrossCam.Page
         private void ResetLineGuides()
         {
             Rect upperLineBounds, lowerLineBounds;
-            if (_deviceDisplayWrapper.IsPortrait())
+            if (_viewModel.DisplayOrientation == DisplayOrientation.Portrait)
             {
                 upperLineBounds = _upperLineBoundsPortrait;
                 lowerLineBounds = _lowerLinesBoundsPortrait;
@@ -831,7 +845,7 @@ namespace CrossCam.Page
         private void ResetDonutGuide(AbsoluteLayout layout, Image reticle, ContentView reticlePanner, bool isLeft)
         {
             if (_viewModel?.Settings.IsCaptureInMirrorMode == true &&
-                !_deviceDisplayWrapper.IsPortrait())
+                _viewModel.DisplayOrientation != DisplayOrientation.Portrait)
             {
                 var previewHeight = Math.Min(layout.Height, layout.Width);
                 var fullPreviewWidth = Math.Max(layout.Height, layout.Width);
@@ -879,7 +893,7 @@ namespace CrossCam.Page
             else
             {
                 double sideWidth, sideHeight;
-                if (_deviceDisplayWrapper.IsPortrait())
+                if (_viewModel?.DisplayOrientation == DisplayOrientation.Portrait)
                 {
                     sideWidth = Math.Min(layout.Width, layout.Height);
                     sideHeight = Math.Max(layout.Width, layout.Height);
@@ -930,7 +944,7 @@ namespace CrossCam.Page
                 {
                     rollBounds.X = 0.5;
                     //portrait
-                    if (_deviceDisplayWrapper.IsPortrait())
+                    if (_viewModel.DisplayOrientation == DisplayOrientation.Portrait)
                     {
                         var previewHeight = Width * _viewModel.PreviewAspectRatio;
                         var margin = (Height - previewHeight) / 2d;
@@ -955,7 +969,7 @@ namespace CrossCam.Page
                 {
                     rollBounds.X = _viewModel.CameraColumn == 0 ? 0.2 : 0.8;
                     //portrait
-                    if (_deviceDisplayWrapper.IsPortrait())
+                    if (_viewModel.DisplayOrientation == DisplayOrientation.Portrait)
                     {
                         var previewHeight = Width / 2d * _viewModel.PreviewAspectRatio;
                         var margin = (Height - previewHeight) / 2d;

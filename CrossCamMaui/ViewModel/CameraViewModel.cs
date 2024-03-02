@@ -2,7 +2,6 @@
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Timers;
-using System.Web;
 #if RELEASE
 using System.Web;
 #endif
@@ -33,6 +32,9 @@ namespace CrossCam.ViewModel
 
         public static PairOperator PairOperator;
         public PairOperator PairOperatorBindable => PairOperator;
+
+        public DisplayOrientation DisplayOrientation { get; set; }
+        public DisplayRotation DisplayRotation { get; set; }
 
         public WorkflowStage WorkflowStage { get; set; }
         public CropMode CropMode { get; set; }
@@ -224,9 +226,9 @@ namespace CrossCam.ViewModel
 
         public Command LoadPhotoCommand { get; set; }
 
-        public bool IsViewPortrait => _deviceDisplayWrapper.IsPortrait();
-        public bool IsViewInverted => _deviceDisplayWrapper.GetRotation() == DisplayRotation.Rotation180 ||
-                                      _deviceDisplayWrapper.GetRotation() == DisplayRotation.Rotation270;
+        public bool IsViewPortrait => DisplayOrientation == DisplayOrientation.Portrait;
+        public bool IsViewInverted => DisplayRotation == DisplayRotation.Rotation180 ||
+                                      DisplayRotation == DisplayRotation.Rotation270;
         public bool WasCapturePortrait { get; set; }
         public bool WasCaptureCross { get; set; }
         public bool WasCapturePaired { get; set; }
@@ -1330,6 +1332,9 @@ namespace CrossCam.ViewModel
         private DisplayOrientation _previousOrientation = DisplayOrientation.Unknown;
         private void DeviceDisplayOnMainDisplayInfoChanged(object sender, DisplayInfoChangedEventArgs e)
         {
+            DisplayOrientation = e.DisplayInfo.Orientation;
+            DisplayRotation = e.DisplayInfo.Rotation;
+
             if (Settings.Mode == DrawMode.Cardboard)
             {
                 switch (WorkflowStage)
@@ -1342,12 +1347,11 @@ namespace CrossCam.ViewModel
                         break;
                 }
             }
-            
+
             RaisePropertyChanged(nameof(IsViewPortrait));
             RaisePropertyChanged(nameof(IsViewInverted));
 
-
-            _previousOrientation = _deviceDisplayWrapper.GetOrientation();
+            _previousOrientation = DisplayOrientation;
         }
 
         private static void SendCommandStartAnalyticsEvent(string name)
