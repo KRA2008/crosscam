@@ -1,8 +1,5 @@
-﻿using System;
-using System.ComponentModel;
+﻿using System.ComponentModel;
 using CrossCam.ViewModel;
-using Microsoft.Maui.Controls;
-using Microsoft.Maui;
 
 namespace CrossCam.Model
 {
@@ -85,7 +82,18 @@ namespace CrossCam.Model
                 _mode = value;
             }
         }
-        
+
+        public bool AnySaveModesOn =>
+            SaveForCrossView ||
+            SaveForParallel ||
+            SaveForRedCyanAnaglyph ||
+            SaveForGrayscaleAnaglyph ||
+            SaveForCardboard ||
+            SaveForQuad ||
+            SaveForTriple ||
+            SaveSidesSeparately ||
+            SaveRedundantFirstSide;
+
         public bool HasOfferedTechniqueHelpBefore2 { get; set; }
         public bool HasShownDirectionsBefore { get; set; }
         public bool ShowRollGuide { get; set; }

@@ -433,17 +433,6 @@ namespace CrossCam.ViewModel
                               WorkflowStage == WorkflowStage.Syncing ||
                               WorkflowStage == WorkflowStage.Saving;
         public bool IsHoldSteadySecondary { get; set; }
-        public bool ShouldSaveCapturesButtonBeVisible => WorkflowStage == WorkflowStage.Final &&
-                                                         (Settings.SaveForCrossView ||
-                                                          Settings.SaveForParallel ||
-                                                          Settings.SaveSidesSeparately ||
-                                                          Settings.SaveRedundantFirstSide ||
-                                                          Settings.SaveForRedCyanAnaglyph ||
-                                                          Settings.SaveForGrayscaleAnaglyph ||
-                                                          Settings.SaveForTriple ||
-                                                          Settings.SaveForQuad ||
-                                                          Settings.SaveForCardboard);
-
         public bool ShouldPortraitViewModeWarningBeVisible => IsViewPortrait && 
                                                               IsPictureWiderThanTall &&
                                                               !IsFullscreenToggle &&
@@ -859,6 +848,14 @@ namespace CrossCam.ViewModel
             SaveCapturesCommand = new Command(async () =>
             {
                 SendCommandStartAnalyticsEvent(nameof(SaveCapturesCommand));
+
+                if (!Settings.AnySaveModesOn)
+                {
+                    await CoreMethods.DisplayAlert("No Save Modes Active",
+                        "No save modes are currently switched on. Turn a save mode on on the Settings page.", "OK");
+                    return;
+                }
+
                 const string SAVE_EVENT = "image saved";
                 const string SAVE_TYPE = "type";
                 WorkflowStage = WorkflowStage.Saving;
@@ -1487,7 +1484,6 @@ namespace CrossCam.ViewModel
                     RaisePropertyChanged(nameof(ShouldViewButtonBeVisible));
                     RaisePropertyChanged(nameof(ShouldClearEditButtonBeVisible));
                     RaisePropertyChanged(nameof(IsBusy));
-                    RaisePropertyChanged(nameof(ShouldSaveCapturesButtonBeVisible));
                     RaisePropertyChanged(nameof(ShouldPortraitViewModeWarningBeVisible));
                     break;
                 case nameof(IsExactlyOnePictureTaken):
@@ -1547,7 +1543,6 @@ namespace CrossCam.ViewModel
                 case nameof(Settings.SaveForTriple):
                 case nameof(Settings.SaveRedundantFirstSide):
                 case nameof(Settings.SaveSidesSeparately):
-                    RaisePropertyChanged(nameof(ShouldSaveCapturesButtonBeVisible));
                     RaisePropertyChanged(nameof(WorkflowStage));
                     break;
                 case nameof(Settings.AreGuideLinesVisible):

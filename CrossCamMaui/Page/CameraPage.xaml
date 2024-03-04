@@ -412,7 +412,7 @@
         <Grid AbsoluteLayout.LayoutFlags="PositionProportional,WidthProportional"
               RowSpacing="0"
               ColumnSpacing="0"
-              IsVisible="{Binding ShouldSaveCapturesButtonBeVisible}">
+              IsVisible="{Binding WorkflowStage, Converter={StaticResource enumCompare}, ConverterParameter={x:Static vm:WorkflowStage.Final}}">
             <AbsoluteLayout.LayoutBounds>
                 <Rect X="0" Y="1" Width="1" Height="15"/>
             </AbsoluteLayout.LayoutBounds>
@@ -503,7 +503,7 @@
         </Image>
         <ContentView AbsoluteLayout.LayoutFlags="PositionProportional"
                      Padding="{StaticResource _bottomPadding}"
-                     IsVisible="{Binding ShouldSaveCapturesButtonBeVisible}">
+                     IsVisible="{Binding WorkflowStage, Converter={StaticResource enumCompare}, ConverterParameter={x:Static vm:WorkflowStage.Final}}">
             <AbsoluteLayout.LayoutBounds>
                 <Rect X="0.5" 
                       Y="1" 
