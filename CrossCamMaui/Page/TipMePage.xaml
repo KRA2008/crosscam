@@ -4,6 +4,7 @@
                xmlns:ce="clr-namespace:CrossCam.CustomElement"
                xmlns:vm="clr-namespace:CrossCam.ViewModel"
                xmlns:page="clr-namespace:CrossCam.Page"
+               xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
                x:Class="CrossCam.Page.TipMePage"
                x:DataType="vm:TipMeViewModel"
                Title="Tips Are Appreciated!">
@@ -11,8 +12,21 @@
         <StackLayout>
             <ce:iOS12WorkaroundBackButton/>
             <ce:HorizontalDivider/>
-            <Label Text="CrossCam is free to use, ad-free, open-source, collects no personal information from you, and gives you full access to every feature. I love working on CrossCam but it takes a lot of time and effort. I make no money from CrossCam at all except tips people might decide to send me. If you like CrossCam and are able, please consider sending me a tip."
-                   Padding="15,15,15,15"/>
+            <StackLayout Padding="15,15,15,15">
+                <Label Text="CrossCam is free to use, ad-free, open-source, collects no personal information from you, and gives you full access to every feature. I love working on CrossCam but it takes a lot of time and effort. I make no money from CrossCam at all except tips people might decide to send me."/>
+                <Label IsVisible="{Binding TipsTotal, Converter={toolkit:IsNotNullConverter}}">
+                    <Label.FormattedText>
+                        <FormattedString>
+                            <Span Text="I've been tipped "/>
+                            <Span Text="{Binding TipsCount}"/>
+                            <Span Text=" times, totaling "/>
+                            <Span Text="{Binding TipsTotal, StringFormat='${0:D}'}"/>
+                            <Span Text="."/>
+                        </FormattedString>
+                    </Label.FormattedText>
+                </Label>
+                <Label Text="If you like CrossCam and are able, please consider sending me a tip."/>
+            </StackLayout>
             <ce:HorizontalDivider/>
             <Button Text="Ko-fi"
                     Command="{Binding OpenLink}"
