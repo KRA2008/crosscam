@@ -30,6 +30,7 @@ public static class MauiProgram
             //handlers.AddHandler<Picker, HandsomePickerRenderer>();
 #elif __IOS__
             handlers.AddHandler<CameraModule, CameraModuleRenderer>();
+            EntryWithDoneButtonHandler.AddDone();
 #endif
         });
 
