@@ -73,7 +73,7 @@
 	  <MtouchFloat32>True</MtouchFloat32>
 	  <CodesignEntitlements>Platforms\iOS\DevEntitlements.plist</CodesignEntitlements>
 	  <DefineConstants>$(DefineConstants);EMGU</DefineConstants>
-	  <CodesignKey>iPhone Developer: Kevin Anderson (288S2529U3)</CodesignKey>
+	  <CodesignKey>Apple Development: Created via API (TW2AV56Z4U)</CodesignKey>
 	  <CodesignProvision>VS: com.kra2008.crosscam Development</CodesignProvision>
 	  <ProvisioningType>manual</ProvisioningType>
 	</PropertyGroup>
@@ -89,8 +89,8 @@
 	  <CodesignEntitlements>Platforms\iOS\DevEntitlements.plist</CodesignEntitlements>
 	  <DefineConstants>$(DefineConstants);DEBUG</DefineConstants>
 	  <MtouchLink>None</MtouchLink>
-      <CodesignKey>iPhone Developer: Kevin Anderson (288S2529U3)</CodesignKey>
-      <CodesignProvision>VS: com.kra2008.crosscam Development</CodesignProvision>
+	  <CodesignKey>Apple Development: Created via API (TW2AV56Z4U)</CodesignKey>
+	  <CodesignProvision>VS: com.kra2008.crosscam Development</CodesignProvision>
       <ProvisioningType>manual</ProvisioningType>
 	</PropertyGroup>
 
