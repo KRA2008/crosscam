@@ -1,6 +1,8 @@
 using CommunityToolkit.Maui;
 using CrossCam.Page;
+#if !__WINDOWS__
 using CrossCam.CustomElement;
+#endif
 #if __ANDROID__
 using CrossCam.Platforms.Android.CustomRenderer;
 #elif __IOS__
@@ -62,12 +64,14 @@ public static class MauiProgram
         services.Add(ServiceDescriptor.Transient<TipsViewModel, TipsViewModel>());
 
         DependencyService.Register<IDeviceDisplayWrapper, DeviceDisplayWrapper>();
+#if !__WINDOWS__
         DependencyService.Register<IPlatformPair, PlatformPair>();
         DependencyService.Register<IDirectorySelector, DirectorySelector>();
         DependencyService.Register<ILinkSharer, LinkSharer>();
         DependencyService.Register<IPhotoPicker, PhotoPicker>();
         DependencyService.Register<IScreenKeepAwaker, ScreenKeepAwaker>();
         DependencyService.Register<IPhotoSaver, PhotoSaver>();
+#endif
         DependencyService.Register<IOpenCv, OpenCv>();
 #if __ANDROID__
 #elif __IOS__

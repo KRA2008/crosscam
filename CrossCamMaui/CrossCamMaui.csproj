@@ -2,6 +2,7 @@
 
 	<PropertyGroup>
 		<TargetFrameworks>net8.0-android;net8.0-ios</TargetFrameworks>
+		<TargetFrameworks Condition="$([MSBuild]::IsOSPlatform('windows'))">$(TargetFrameworks);net8.0-windows10.0.19041.0</TargetFrameworks>
 		<!-- Uncomment to also build the tizen app. You will need to install tizen by following this: https://github.com/Samsung/Tizen.NET -->
 		<!-- <TargetFrameworks>$(TargetFrameworks);net8.0-tizen</TargetFrameworks> -->
 
@@ -31,6 +32,8 @@
 
 		<SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'ios'">11.4</SupportedOSPlatformVersion>
 		<SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'android'">21.0</SupportedOSPlatformVersion>
+		<SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows'">10.0.17763.0</SupportedOSPlatformVersion>
+		<TargetPlatformMinVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows'">10.0.17763.0</TargetPlatformMinVersion>
 		<AllowUnsafeBlocks>True</AllowUnsafeBlocks>
 		<RunAnalyzersDuringBuild>False</RunAnalyzersDuringBuild>
 		<RunAnalyzersDuringLiveAnalysis>False</RunAnalyzersDuringLiveAnalysis>
@@ -87,11 +90,11 @@
 	  <MtouchProfiling>True</MtouchProfiling>
 	  <MtouchFloat32>True</MtouchFloat32>
 	  <CodesignEntitlements>Platforms\iOS\DevEntitlements.plist</CodesignEntitlements>
-	  <DefineConstants>$(DefineConstants);DEBUG</DefineConstants>
 	  <MtouchLink>None</MtouchLink>
 	  <CodesignKey>Apple Development: Created via API (TW2AV56Z4U)</CodesignKey>
 	  <CodesignProvision>VS: com.kra2008.crosscam Development</CodesignProvision>
       <ProvisioningType>manual</ProvisioningType>
+      <DefineConstants>$(DefineConstants);DEBUG</DefineConstants>
 	</PropertyGroup>
 
 	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net8.0-android|AnyCPU'">
@@ -115,6 +118,18 @@
 	  <CodesignKey>iPhone Distribution: Kevin Anderson (G656MA2J22)</CodesignKey>
 	  <CodesignProvision>CrossCam Distribution</CodesignProvision>
 	  <ProvisioningType>manual</ProvisioningType>
+	</PropertyGroup>
+
+	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net8.0-windows10.0.19041.0|AnyCPU'">
+	  <DefineConstants>$(DefineConstants);__WINDOWS__;EMGU</DefineConstants>
+	</PropertyGroup>
+
+	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net8.0-windows10.0.19041.0|AnyCPU'">
+	  <DefineConstants>$(DefineConstants);__WINDOWS__;EMGU</DefineConstants>
+	</PropertyGroup>
+
+	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug Without Emgu|net8.0-windows10.0.19041.0|AnyCPU'">
+	  <DefineConstants>$(DefineConstants);__WINDOWS__</DefineConstants>
 	</PropertyGroup>
 
 	<ItemGroup>
@@ -144,6 +159,8 @@
 	<ItemGroup>
 	  <None Remove="Platforms\Android\Assets\AboutAssets.txt" />
 	  <None Remove="Platforms\Android\proguard.cfg" />
+	  <None Remove="Platforms\Windows\Resources\moiraineLeft.JPG" />
+	  <None Remove="Platforms\Windows\Resources\moiraineRight.JPG" />
 	</ItemGroup>
 
 	<ItemGroup>
@@ -353,7 +370,18 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <EmbeddedResource Include="Platforms\Windows\Resources\moiraineleft.JPG" />
+	  <EmbeddedResource Include="Platforms\Windows\Resources\moiraineright.JPG" />
+	</ItemGroup>
+
+	<ItemGroup>
 	  <None Include="FodyWeavers.xsd" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Reference Include="Microsoft.Maui">
+	    <HintPath>..\..\..\NuGet\global-packages\microsoft.maui.core\8.0.6\lib\net8.0-windows10.0.19041\Microsoft.Maui.dll</HintPath>
+	  </Reference>
 	</ItemGroup>
 
 </Project>

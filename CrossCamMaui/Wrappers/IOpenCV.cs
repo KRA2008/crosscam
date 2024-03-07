@@ -1,6 +1,7 @@
 using CrossCam.Model;
 using SkiaSharp;
 using System.Diagnostics;
+using Emgu.CV.Platform.Maui.UI;
 #if EMGU
 using CrossCam.Page;
 using Emgu.CV;
@@ -17,6 +18,8 @@ using PointF = System.Drawing.PointF;
 using SkiaSharp.Views.Android;
 #elif __IOS__
 using SkiaSharp.Views.iOS;
+#elif __WINDOWS__
+using SkiaSharp.Views.Windows;
 #endif
 
 namespace CrossCam.Wrappers
@@ -506,6 +509,9 @@ namespace CrossCam.Wrappers
 #elif __ANDROID__
             result.Warped1 = warped1.ToBitmap().ToSKBitmap();
             result.Warped2 = warped2.ToBitmap().ToSKBitmap();
+#elif __WINDOWS__
+            result.Warped1 = warped1.ToWritableBitmap().ToSKBitmap();
+            result.Warped2 = warped2.ToWritableBitmap().ToSKBitmap();
 #endif
         }
 #endif
@@ -531,6 +537,8 @@ namespace CrossCam.Wrappers
             return transformedImage.ToCGImage().ToSKImage();
 #elif __ANDROID__
             return transformedImage.ToBitmap().ToSKImage();
+#elif __WINDOWS__
+            return transformedImage.ToWritableBitmap().ToSKImage();
 #endif
 #endif
         }
@@ -620,6 +628,8 @@ namespace CrossCam.Wrappers
             return drawnResult.ToCGImage().ToSKBitmap();
 #elif __ANDROID__
             return drawnResult.ToBitmap().ToSKBitmap();
+#elif __WINDOWS__
+            return drawnResult.ToWritableBitmap().ToSKBitmap();
 #endif
         }
 

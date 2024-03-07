@@ -1,6 +1,9 @@
-﻿using System.Diagnostics;
-using CrossCam.ViewModel;
+﻿#if __WINDOWS__
+using CrossCam.Platforms.Windows.CustomRenderer;
+#else
 using FreshMvvm.Maui;
+#endif
+using CrossCam.ViewModel;
 using Microsoft.AppCenter.Analytics;
 
 [assembly: XamlCompilation(XamlCompilationOptions.Compile)]
@@ -17,9 +20,13 @@ namespace CrossCam
         public App()
         {
             InitializeComponent();
+#if !__WINDOWS__
             var cameraPage = FreshPageModelResolver.ResolvePageModel<CameraViewModel>();
             _cameraViewModel = (CameraViewModel)cameraPage.BindingContext;
             MainPage = new FreshNavigationContainer(cameraPage);
+#else
+            MainPage = new AutoAlignmentExperimentsPage();
+#endif
         }
 
         public void LoadSharedImages(byte[] image1, byte[] image2)
