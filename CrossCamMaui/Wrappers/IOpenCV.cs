@@ -2,6 +2,7 @@ using CrossCam.Model;
 using SkiaSharp;
 using System.Diagnostics;
 using Emgu.CV.Platform.Maui.UI;
+using SkiaSharp.Views.Maui.Controls;
 #if EMGU
 using CrossCam.Page;
 using Emgu.CV;
@@ -57,6 +58,13 @@ namespace CrossCam.Wrappers
 
             return true;
 #endif
+        }
+
+        public AlignedResult ComboAlign(SKBitmap firstImage, SKBitmap secondImage, AlignmentSettings settings)
+        {
+            settings.DrawResultWarpedByOpenCv = true;
+            var eccResult = CreateAlignedSecondImageEcc(firstImage, secondImage, settings);
+            return CreateAlignedSecondImageKeypoints(firstImage, eccResult.Warped2, settings, false);
         }
 
         public AlignedResult CreateAlignedSecondImageEcc(SKBitmap firstImage, SKBitmap secondImage,
@@ -153,7 +161,7 @@ namespace CrossCam.Wrappers
 #else
             var result = new AlignedResult();
 
-            using var detector = new ORB();
+            using var detector = new ORB(edgeThreshold:0,numberOfFeatures:4000);
             var readMode = settings.ReadModeColor ? ImreadModes.Color : ImreadModes.Grayscale;
 
             using var image1Mat = new Mat();
@@ -415,6 +423,26 @@ namespace CrossCam.Wrappers
                                      verted1.PostConcat(hored1).PostConcat(rotated1).PostConcat(zoomed1).PostConcat(keystoned21)
                         .PostConcat(verted2).PostConcat(hored2).PostConcat(rotated2).PostConcat(zoomed2).PostConcat(keystoned22)
                         .PostConcat(verted3).PostConcat(hored3).PostConcat(rotated3).PostConcat(zoomed3).PostConcat(keystoned23), 1 / (settings.DownsizePercentage / 100f));
+
+                if (settings.DrawResultWarpedByOpenCv)
+                {
+                    var result1Bitmap = new SKBitmap(new SKImageInfo(firstImage.Width, firstImage.Height));
+                    var canvas1 = new SKCanvas(result1Bitmap);
+                    canvas1.SetMatrix(result.TransformMatrix1);
+                    canvas1.DrawBitmap(firstImage, 0, 0);
+
+
+                    var result2Bitmap = new SKBitmap(new SKImageInfo(secondImage.Width, secondImage.Height));
+                    var canvas2 = new SKCanvas(result2Bitmap);
+                    canvas2.SetMatrix(result.TransformMatrix2);
+                    canvas2.DrawBitmap(secondImage, 0, 0);
+
+                    result.Warped1 = result1Bitmap;
+                    result.Warped2 = result2Bitmap;
+
+                    result.MethodName = ((TransformationFindingMethod)settings.TransformationFindingMethod).ToString();
+                }
+
             }
             else
             {

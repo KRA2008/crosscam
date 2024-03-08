@@ -161,6 +161,7 @@
 	  <None Remove="Platforms\Android\proguard.cfg" />
 	  <None Remove="Platforms\Windows\Resources\moiraineLeft.JPG" />
 	  <None Remove="Platforms\Windows\Resources\moiraineRight.JPG" />
+	  <None Remove="Platforms\Windows\Resources\moirainerightunaligned.JPG" />
 	</ItemGroup>
 
 	<ItemGroup>
@@ -372,6 +373,7 @@
 	<ItemGroup>
 	  <EmbeddedResource Include="Platforms\Windows\Resources\moiraineleft.JPG" />
 	  <EmbeddedResource Include="Platforms\Windows\Resources\moiraineright.JPG" />
+	  <EmbeddedResource Include="Platforms\Windows\Resources\moirainerightunaligned.JPG" />
 	</ItemGroup>
 
 	<ItemGroup>
