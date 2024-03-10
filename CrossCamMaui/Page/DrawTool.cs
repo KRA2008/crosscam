@@ -67,7 +67,7 @@ namespace CrossCam.Page
             bool isLeftFrontFacing = false, SKEncodedOrigin leftOrientation = SKEncodedOrigin.Default, 
             bool isRightFrontFacing = false, SKEncodedOrigin rightOrientation = SKEncodedOrigin.Default, bool withSwap = false,
             DrawQuality drawQuality = DrawQuality.Save, float cardboardVert = 0, float cardboardHor = 0, bool isFovStage = false,
-            bool useFullscreen = false, bool useMirrorCapture = false)
+            bool useFullscreen = false, bool useMirrorCapture = false, Explore explore = null)
         {
             var fuseGuideRequested = drawQuality != DrawQuality.Preview && 
                                      settings.SaveWithFuseGuide ||
@@ -134,12 +134,12 @@ namespace CrossCam.Page
                     rightBitmap, rightAlignmentMatrix, rightOrientation, isRightFrontFacing, false,
                     leftBitmap, leftAlignmentMatrix, leftOrientation, isLeftFrontFacing, false,
                     settings.BorderWidthProportion, settings.AddBorder2 && drawQuality != DrawQuality.Preview, settings.BorderColor,
-                    edits.InsideCrop + edits.LeftCrop,
-                    edits.LeftCrop + edits.OutsideCrop,
-                    edits.TopCrop,
+                    Math.Clamp(edits.InsideCrop + edits.LeftCrop + explore.Horizontal + explore.HorizontalBase,-1,1),
+                    Math.Clamp(edits.LeftCrop + edits.OutsideCrop + explore.Horizontal + explore.HorizontalBase, -1, 1),
+                    Math.Clamp(edits.TopCrop + explore.Vertical + explore.VerticalBase, -1, 1),
                     edits.RightRotation, edits.LeftRotation,
                     -edits.VerticalAlignment,
-                    edits.RightZoom, edits.LeftZoom,
+                    edits.RightZoom , edits.LeftZoom,
                     wasPairedCapture && drawQuality == DrawQuality.Preview || isFovStage ? edits.FovRightCorrection : 0,
                     wasPairedCapture && drawQuality == DrawQuality.Preview || isFovStage ? edits.FovLeftCorrection : 0,
                     edits.Keystone,
@@ -158,9 +158,9 @@ namespace CrossCam.Page
                     leftBitmap, leftAlignmentMatrix, leftOrientation, isLeftFrontFacing, shouldMirrorLeftDefault || shouldMirrorLeftParallel,
                     rightBitmap, rightAlignmentMatrix, rightOrientation, isRightFrontFacing, shouldMirrorRightDefault || shouldMirrorRightParallel,
                     settings.BorderWidthProportion, settings.AddBorder2 && drawQuality != DrawQuality.Preview, settings.BorderColor,
-                    edits.LeftCrop + edits.OutsideCrop + (shouldMirrorRightDefault || shouldMirrorLeftParallel ? 0.5f : 0),
-                    edits.InsideCrop + edits.LeftCrop + (shouldMirrorRightDefault || shouldMirrorLeftParallel ? 0.5f : 0),
-                    edits.TopCrop,
+                    Math.Clamp(edits.LeftCrop + edits.OutsideCrop + (shouldMirrorRightDefault || shouldMirrorLeftParallel ? 0.5f : 0) + explore.Horizontal + explore.HorizontalBase, -1, 1),
+                    Math.Clamp(edits.InsideCrop + edits.LeftCrop + (shouldMirrorRightDefault || shouldMirrorLeftParallel ? 0.5f : 0) + explore.Horizontal + explore.HorizontalBase, -1, 1),
+                    Math.Clamp(edits.TopCrop + explore.Vertical + explore.VerticalBase, -1, 1),
                     edits.LeftRotation, edits.RightRotation,
                     edits.VerticalAlignment,
                     edits.LeftZoom, edits.RightZoom,

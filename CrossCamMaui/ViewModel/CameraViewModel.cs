@@ -202,6 +202,7 @@ namespace CrossCam.ViewModel
         public int TotalSavesCompleted { get; set; }
 
         public Edits Edits { get; set; }
+        public Explore Explore { get; set; }
 
         public Command SetManualAlignMode { get; set; }
 
@@ -522,6 +523,7 @@ namespace CrossCam.ViewModel
             Settings = PersistentStorage.LoadOrDefault(PersistentStorage.SETTINGS_KEY, new Settings());
             TotalSavesCompleted = PersistentStorage.LoadOrDefault(PersistentStorage.TOTAL_SAVES_KEY, 0);
             Edits = new Edits(Settings);
+            Explore = new Explore();
             LeftAlignmentTransform = SKMatrix.Identity;
             RightAlignmentTransform = SKMatrix.Identity;
             PairOperator = new PairOperator(Settings);
@@ -2885,6 +2887,7 @@ namespace CrossCam.ViewModel
         {
             ClearEdits();
             ClearAutoAlignment();
+            Explore.Clear();
         }
 
         private void FullWipe()

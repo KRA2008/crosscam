@@ -436,6 +436,10 @@ namespace CrossCam.Page
                     break;
                 case nameof(CameraViewModel.WorkflowStage):
                     //_cameraSettingsBox.ForceLayout(); //TODO: needed?
+                    if (_viewModel.WorkflowStage != WorkflowStage.View)
+                    {
+                        _viewModel.Explore.Clear();
+                    }
                     EvaluateSensors();
                     _forceCanvasClear = true;
                     MainThread.BeginInvokeOnMainThread(() =>
@@ -801,7 +805,8 @@ namespace CrossCam.Page
                 !(_viewModel.Settings.IsCaptureInMirrorMode &&
                   !_viewModel.Settings.FullscreenCapturing),
                 useMirrorCapture: _viewModel.Settings.IsCaptureInMirrorMode &&
-                                  drawQuality == DrawQuality.Preview);
+                                  drawQuality == DrawQuality.Preview,
+                explore:_viewModel.Explore);
 
             if (_viewModel.PairOperatorBindable.PairStatus == PairStatus.Connected &&
                 _viewModel.WorkflowStage == WorkflowStage.Capture)
@@ -1348,6 +1353,64 @@ namespace CrossCam.Page
             _doubleTapTimer.Stop();
             _releaseCounter = 0;
             _dragCounter = 0;
+        }
+
+        private void PanGestureRecognizer_OnPanUpdated(object sender, PanUpdatedEventArgs e)
+        {
+            Debug.WriteLine("### Panned! Total: " + e.TotalX + ","+ e.TotalY + " Status: " + e.StatusType);
+
+            var xProp = e.TotalX / Width * _deviceDisplayWrapper.GetDisplayDensity();
+            var yProp = e.TotalY / Height * _deviceDisplayWrapper.GetDisplayDensity();
+
+            switch (e.StatusType)
+            {
+                case GestureStatus.Started:
+                    break;
+                case GestureStatus.Running:
+                    _viewModel.Explore.Horizontal = (float)-xProp;
+                    _viewModel.Explore.Vertical = (float)-yProp;
+                    break;
+                case GestureStatus.Completed:
+                    _viewModel.Explore.HorizontalBase =
+                        Math.Clamp(_viewModel.Explore.HorizontalBase + _viewModel.Explore.Horizontal, -1, 1);
+                    _viewModel.Explore.VerticalBase =
+                        Math.Clamp(_viewModel.Explore.VerticalBase + _viewModel.Explore.Vertical, -1, 1);
+                    _viewModel.Explore.Horizontal = 0;
+                    _viewModel.Explore.Vertical = 0;
+                    break;
+                case GestureStatus.Canceled:
+                default:
+                    break;
+            }
+            
+            MainThread.BeginInvokeOnMainThread(() =>
+            {
+                _canvas.InvalidateSurface();
+            });
+        }
+
+        private void PinchGestureRecognizer_OnPinchUpdated(object sender, PinchGestureUpdatedEventArgs e)
+        {
+            Debug.WriteLine("### Pinched! Scale: " + e.Scale + " Status: " + e.Status + " Origin: " + e.ScaleOrigin.X + "," + e.ScaleOrigin.Y);
+
+            switch (e.Status)
+            {
+                case GestureStatus.Started:
+                    break;
+                case GestureStatus.Running:
+                    break;
+                case GestureStatus.Completed:
+                    break;
+                case GestureStatus.Canceled:
+                    default:
+                    break;
+            }
+
+            _viewModel.Explore.Zoom += (float)(e.Scale - 1);
+            MainThread.BeginInvokeOnMainThread(() =>
+            {
+                _canvas.InvalidateSurface();
+            });
         }
     }
 }
