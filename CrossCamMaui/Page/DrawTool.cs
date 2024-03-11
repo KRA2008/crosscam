@@ -128,15 +128,18 @@ namespace CrossCam.Page
                 }
             }
 
+            var horizontalExplore = explore.Horizontal + explore.HorizontalBase + explore.Zoom;
+            var verticalExplore = explore.Vertical + explore.VerticalBase + explore.Zoom;
+
             if (withSwap)
             {
                 DrawImagesOnCanvasInternal(surface, 
                     rightBitmap, rightAlignmentMatrix, rightOrientation, isRightFrontFacing, false,
                     leftBitmap, leftAlignmentMatrix, leftOrientation, isLeftFrontFacing, false,
                     settings.BorderWidthProportion, settings.AddBorder2 && drawQuality != DrawQuality.Preview, settings.BorderColor,
-                    Math.Clamp(edits.InsideCrop + edits.LeftCrop + explore.Horizontal + explore.HorizontalBase,-1,1),
-                    Math.Clamp(edits.LeftCrop + edits.OutsideCrop + explore.Horizontal + explore.HorizontalBase, -1, 1),
-                    Math.Clamp(edits.TopCrop + explore.Vertical + explore.VerticalBase, -1, 1),
+                    Math.Clamp(edits.InsideCrop + edits.LeftCrop + horizontalExplore,0,1),
+                    Math.Clamp(edits.LeftCrop + edits.OutsideCrop + horizontalExplore, 0, 1),
+                    Math.Clamp(edits.TopCrop + verticalExplore, 0, 1),
                     edits.RightRotation, edits.LeftRotation,
                     -edits.VerticalAlignment,
                     edits.RightZoom , edits.LeftZoom,
@@ -158,9 +161,9 @@ namespace CrossCam.Page
                     leftBitmap, leftAlignmentMatrix, leftOrientation, isLeftFrontFacing, shouldMirrorLeftDefault || shouldMirrorLeftParallel,
                     rightBitmap, rightAlignmentMatrix, rightOrientation, isRightFrontFacing, shouldMirrorRightDefault || shouldMirrorRightParallel,
                     settings.BorderWidthProportion, settings.AddBorder2 && drawQuality != DrawQuality.Preview, settings.BorderColor,
-                    Math.Clamp(edits.LeftCrop + edits.OutsideCrop + (shouldMirrorRightDefault || shouldMirrorLeftParallel ? 0.5f : 0) + explore.Horizontal + explore.HorizontalBase, -1, 1),
-                    Math.Clamp(edits.InsideCrop + edits.LeftCrop + (shouldMirrorRightDefault || shouldMirrorLeftParallel ? 0.5f : 0) + explore.Horizontal + explore.HorizontalBase, -1, 1),
-                    Math.Clamp(edits.TopCrop + explore.Vertical + explore.VerticalBase, -1, 1),
+                    Math.Clamp(edits.LeftCrop + edits.OutsideCrop + (shouldMirrorRightDefault || shouldMirrorLeftParallel ? 0.5f : 0) + horizontalExplore, 0, 1),
+                    Math.Clamp(edits.InsideCrop + edits.LeftCrop + (shouldMirrorRightDefault || shouldMirrorLeftParallel ? 0.5f : 0) + horizontalExplore, 0, 1),
+                    Math.Clamp(edits.TopCrop + verticalExplore, 0, 1),
                     edits.LeftRotation, edits.RightRotation,
                     edits.VerticalAlignment,
                     edits.LeftZoom, edits.RightZoom,
@@ -263,10 +266,7 @@ namespace CrossCam.Page
                 baseHeight = rightHeight;
             }
 
-            TrimAdjustment alignmentTrim = new TrimAdjustment(),
-                leftEditTrim = new TrimAdjustment(),
-                rightEditTrim = new TrimAdjustment(),
-                editTrim = new TrimAdjustment();
+            TrimAdjustment alignmentTrim = new(), leftEditTrim = new(), rightEditTrim = new(), editTrim = new();
             if (drawQuality != DrawQuality.Preview)
             {
                 alignmentTrim = OrientAndCombineAlignmentTrims(
