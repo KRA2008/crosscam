@@ -1358,6 +1358,7 @@ namespace CrossCam.Page
         private void PanGestureRecognizer_OnPanUpdated(object sender, PanUpdatedEventArgs e)
         {
             Debug.WriteLine("### Panned! Total: " + e.TotalX + ","+ e.TotalY + " Status: " + e.StatusType);
+            if (_viewModel.WorkflowStage != WorkflowStage.View) return;
 
             var xProp = e.TotalX / Width * _deviceDisplayWrapper.GetDisplayDensity();
             var yProp = e.TotalY / Height * _deviceDisplayWrapper.GetDisplayDensity();
@@ -1392,6 +1393,7 @@ namespace CrossCam.Page
         private void PinchGestureRecognizer_OnPinchUpdated(object sender, PinchGestureUpdatedEventArgs e)
         {
             Debug.WriteLine("### Pinched! Scale: " + e.Scale + " Status: " + e.Status + " Origin: " + e.ScaleOrigin.X + "," + e.ScaleOrigin.Y);
+            if (_viewModel.WorkflowStage != WorkflowStage.View) return;
 
             switch (e.Status)
             {

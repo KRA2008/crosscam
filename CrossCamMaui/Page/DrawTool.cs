@@ -150,7 +150,7 @@ namespace CrossCam.Page
                     cardboardWidthProportion, vert, hor,
                     cardboardDownsizeProportion,
                     settings.CardboardSettings.CardboardIpd,
-                    edits);
+                    edits, explore);
             }
             else
             {
@@ -174,7 +174,7 @@ namespace CrossCam.Page
                     cardboardWidthProportion, vert, hor,
                     cardboardDownsizeProportion,
                     settings.CardboardSettings.CardboardIpd,
-                    edits);
+                    edits, explore);
             }
         }
 
@@ -196,7 +196,8 @@ namespace CrossCam.Page
             float cardboardHor,
             float cardboardDownsize,
             uint cardboardIpd,
-            Edits edits)
+            Edits edits,
+            Explore explore)
         {
             if (leftBitmap == null && rightBitmap == null) return;
 
