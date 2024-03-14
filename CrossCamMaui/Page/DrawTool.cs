@@ -6,21 +6,21 @@ using SizeF = System.Drawing.SizeF;
 
 namespace CrossCam.Page
 {
-    public class DrawTool
+    public static class DrawTool
     {
-        private static readonly double _displayDensity;
-        private static readonly double _displayWidth;
-        private static readonly double _displayHeight;
+        private static readonly double DisplayDensity;
+        private static readonly double DisplayWidth;
+        private static readonly double DisplayHeight;
 
         static DrawTool()
         {
             var deviceDisplayWrapper = DependencyService.Get<IDeviceDisplayWrapper>();
-            _displayDensity = deviceDisplayWrapper.GetDisplayDensity();
-            _displayWidth = deviceDisplayWrapper.GetDisplayWidth();
-            _displayHeight = deviceDisplayWrapper.GetDisplayHeight();
+            DisplayDensity = deviceDisplayWrapper.GetDisplayDensity();
+            DisplayWidth = deviceDisplayWrapper.GetDisplayWidth();
+            DisplayHeight = deviceDisplayWrapper.GetDisplayHeight();
         }
 
-        public const float BORDER_CONVERSION_FACTOR = 0.001f;
+        private const float BORDER_CONVERSION_FACTOR = 0.001f;
         private const float FUSE_GUIDE_WIDTH_RATIO = 0.0127f;
         private const int FUSE_GUIDE_MARGIN_HEIGHT_RATIO = 5;
 
@@ -91,9 +91,9 @@ namespace CrossCam.Page
             if (drawMode == DrawMode.Cardboard)
             {
                 cardboardWidthProportion = (float) (settings.CardboardSettings.CardboardIpd /
-                                                    (Math.Max(_displayWidth,
-                                                         _displayHeight) /
-                                                     _displayDensity / 2f) / 2f);
+                                                    (Math.Max(DisplayWidth,
+                                                         DisplayHeight) /
+                                                     DisplayDensity / 2f) / 2f);
             }
 
             var cardboardDownsizeProportion = drawQuality != DrawQuality.Save &&
@@ -128,8 +128,9 @@ namespace CrossCam.Page
                 }
             }
 
-            var horizontalExplore = explore.Horizontal + explore.HorizontalBase + explore.Zoom;
-            var verticalExplore = explore.Vertical + explore.VerticalBase + explore.Zoom;
+            explore ??= new Explore();
+            var horizontalExplore = explore.Horizontal + explore.HorizontalBase + explore.Zoom / 2f;
+            var verticalExplore = explore.Vertical + explore.VerticalBase + explore.Zoom / 2f;
 
             if (withSwap)
             {
@@ -137,9 +138,9 @@ namespace CrossCam.Page
                     rightBitmap, rightAlignmentMatrix, rightOrientation, isRightFrontFacing, false,
                     leftBitmap, leftAlignmentMatrix, leftOrientation, isLeftFrontFacing, false,
                     settings.BorderWidthProportion, settings.AddBorder2 && drawQuality != DrawQuality.Preview, settings.BorderColor,
-                    Math.Clamp(edits.InsideCrop + edits.LeftCrop + horizontalExplore,0,1),
-                    Math.Clamp(edits.LeftCrop + edits.OutsideCrop + horizontalExplore, 0, 1),
-                    Math.Clamp(edits.TopCrop + verticalExplore, 0, 1),
+                    edits.InsideCrop + edits.LeftCrop + horizontalExplore,
+                    edits.LeftCrop + edits.OutsideCrop + horizontalExplore,
+                    edits.TopCrop + verticalExplore,
                     edits.RightRotation, edits.LeftRotation,
                     -edits.VerticalAlignment,
                     edits.RightZoom , edits.LeftZoom,
@@ -161,9 +162,9 @@ namespace CrossCam.Page
                     leftBitmap, leftAlignmentMatrix, leftOrientation, isLeftFrontFacing, shouldMirrorLeftDefault || shouldMirrorLeftParallel,
                     rightBitmap, rightAlignmentMatrix, rightOrientation, isRightFrontFacing, shouldMirrorRightDefault || shouldMirrorRightParallel,
                     settings.BorderWidthProportion, settings.AddBorder2 && drawQuality != DrawQuality.Preview, settings.BorderColor,
-                    Math.Clamp(edits.LeftCrop + edits.OutsideCrop + (shouldMirrorRightDefault || shouldMirrorLeftParallel ? 0.5f : 0) + horizontalExplore, 0, 1),
-                    Math.Clamp(edits.InsideCrop + edits.LeftCrop + (shouldMirrorRightDefault || shouldMirrorLeftParallel ? 0.5f : 0) + horizontalExplore, 0, 1),
-                    Math.Clamp(edits.TopCrop + verticalExplore, 0, 1),
+                    edits.LeftCrop + edits.OutsideCrop + (shouldMirrorRightDefault || shouldMirrorLeftParallel ? 0.5f : 0) + horizontalExplore,
+                    edits.InsideCrop + edits.LeftCrop + (shouldMirrorRightDefault || shouldMirrorLeftParallel ? 0.5f : 0) + horizontalExplore,
+                    edits.TopCrop + verticalExplore,
                     edits.LeftRotation, edits.RightRotation,
                     edits.VerticalAlignment,
                     edits.LeftZoom, edits.RightZoom,
@@ -375,8 +376,8 @@ namespace CrossCam.Page
             var cardboardSeparationMod = 0f;
             if (drawMode == DrawMode.Cardboard)
             {
-                var croppedSeparation = (rightClipX - leftClipX) / _displayDensity;
-                cardboardSeparationMod = (float) ((cardboardIpd - croppedSeparation) * _displayDensity / 2f);
+                var croppedSeparation = (rightClipX - leftClipX) / DisplayDensity;
+                cardboardSeparationMod = (float) ((cardboardIpd - croppedSeparation) * DisplayDensity / 2f);
             }
 
             var cardboardHorDelta = cardboardHor * destWidth;
@@ -440,10 +441,8 @@ namespace CrossCam.Page
                 addBarrelDistortion &&
                 openCv?.IsOpenCvSupported() == true)
             {
-                using var paint = new SKPaint
-                {
-                    FilterQuality = skFilterQuality
-                };
+                using var paint = new SKPaint();
+                paint.FilterQuality = skFilterQuality;
 
                 var sideWidth = surface.Canvas.DeviceClipBounds.Width / 2f;
                 var sideHeight = surface.Canvas.DeviceClipBounds.Height * 1f;
@@ -493,12 +492,10 @@ namespace CrossCam.Page
 
             if (scaledBorderThickness > 0)
             {
-                using var borderPaint = new SKPaint
-                {
-                    Color = borderColor == BorderColor.Black ? SKColor.Parse("000000") : SKColor.Parse("ffffff"),
-                    Style = SKPaintStyle.StrokeAndFill,
-                    FilterQuality = skFilterQuality
-                };
+                using var borderPaint = new SKPaint();
+                borderPaint.Color = borderColor == BorderColor.Black ? SKColor.Parse("000000") : SKColor.Parse("ffffff");
+                borderPaint.Style = SKPaintStyle.StrokeAndFill;
+                borderPaint.FilterQuality = skFilterQuality;
 
                 var fullPreviewHeight = clipHeight + 2 * scaledBorderThickness;
                 var endX = rightClipX + clipWidth;
@@ -513,13 +510,11 @@ namespace CrossCam.Page
             if (drawFuseGuide)
             {
                 var fuseGuideY = clipY - fuseGuideIconWidth / 2f - fuseGuideMarginMinimum / 2f;
-                using var guidePaint = new SKPaint
-                {
-                    Color = borderColor == BorderColor.Black ? 
-                        new SKColor(byte.MaxValue, byte.MaxValue, byte.MaxValue) :
-                        new SKColor(0,0,0),
-                    FilterQuality = skFilterQuality
-                };
+                using var guidePaint = new SKPaint();
+                guidePaint.Color = borderColor == BorderColor.Black ? 
+                    new SKColor(byte.MaxValue, byte.MaxValue, byte.MaxValue) :
+                    new SKColor(0,0,0);
+                guidePaint.FilterQuality = skFilterQuality;
                 surface.Canvas.DrawRect(
                     originX,
                     originY - topMarginFuseGuideModifier,
@@ -843,10 +838,8 @@ namespace CrossCam.Page
             SKMatrix alignmentMatrix, SKMatrix orientationMatrix, SKMatrix editMatrix,
             SKFilterQuality quality)
         {
-            using var paint = new SKPaint
-            {
-                FilterQuality = quality
-            };
+            using var paint = new SKPaint();
+            paint.FilterQuality = quality;
 
             switch (drawMode)
             {
@@ -890,16 +883,16 @@ namespace CrossCam.Page
 
                 if (isLeft)
                 {
-                    if (cardboardClipRect.Right > _displayWidth / 2f)
+                    if (cardboardClipRect.Right > DisplayWidth / 2f)
                     {
-                        cardboardClipRect.Right = (float)(_displayWidth / 2f);
+                        cardboardClipRect.Right = (float)(DisplayWidth / 2f);
                     }
                 }
                 else
                 {
-                    if (cardboardClipRect.Left < _displayWidth / 2f)
+                    if (cardboardClipRect.Left < DisplayWidth / 2f)
                     {
-                        cardboardClipRect.Left = (float)(_displayWidth / 2f);
+                        cardboardClipRect.Left = (float)(DisplayWidth / 2f);
                     }
                 }
                 canvas.ClipRect(cardboardClipRect);
@@ -1049,7 +1042,7 @@ namespace CrossCam.Page
             var overlayedSize = CalculateOverlayedImageSizeOrientedWithEditsNoBorder(edits, settings, leftBitmap, leftAlignmentTransform,
                 rightBitmap, rightAlignmentTransform);
             
-            return new SizeF(2 * overlayedSize.Width, overlayedSize.Height);
+            return overlayedSize with {Width = 2 * overlayedSize.Width};
         }
 
         public static float CalculateBorderThickness(float sideWidth, float thicknessSetting)
