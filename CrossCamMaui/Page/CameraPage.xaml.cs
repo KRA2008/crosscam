@@ -1357,7 +1357,7 @@ namespace CrossCam.Page
 
         private void PanGestureRecognizer_OnPanUpdated(object sender, PanUpdatedEventArgs e)
         {
-            Debug.WriteLine("### Panned! Total: " + e.TotalX + ","+ e.TotalY + " Status: " + e.StatusType);
+            //Debug.WriteLine("### Panned! Total: " + e.TotalX + "," + e.TotalY + " Status: " + e.StatusType);
             if (_viewModel.WorkflowStage != WorkflowStage.View) return;
 
             var xProp = e.TotalX / Width * _deviceDisplayWrapper.GetDisplayDensity();
@@ -1383,7 +1383,7 @@ namespace CrossCam.Page
                 default:
                     break;
             }
-            
+
             MainThread.BeginInvokeOnMainThread(() =>
             {
                 _canvas.InvalidateSurface();
@@ -1392,7 +1392,7 @@ namespace CrossCam.Page
 
         private void PinchGestureRecognizer_OnPinchUpdated(object sender, PinchGestureUpdatedEventArgs e)
         {
-            Debug.WriteLine("### Pinched! Scale: " + e.Scale + " Status: " + e.Status + " Origin: " + e.ScaleOrigin.X + "," + e.ScaleOrigin.Y);
+            //Debug.WriteLine("### Pinched! Scale: " + e.Scale + " Status: " + e.Status + " Origin: " + e.ScaleOrigin.X + "," + e.ScaleOrigin.Y);
             if (_viewModel.WorkflowStage != WorkflowStage.View) return;
 
             switch (e.Status)
@@ -1408,7 +1408,7 @@ namespace CrossCam.Page
                     break;
             }
 
-            _viewModel.Explore.Zoom += (float)(e.Scale - 1);
+            _viewModel.Explore.Zoom = (float)Math.Clamp(_viewModel.Explore.Zoom + (e.Scale - 1),0,1);
             MainThread.BeginInvokeOnMainThread(() =>
             {
                 _canvas.InvalidateSurface();

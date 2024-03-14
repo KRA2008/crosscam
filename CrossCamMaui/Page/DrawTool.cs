@@ -284,7 +284,7 @@ namespace CrossCam.Page
 
 
             var sideBitmapWidthLessCrop = CalculateJoinedImageWidthWithEditsNoBorder(leftBitmap,
-                rightBitmap, edits, alignmentTrim, editTrim, isLeft90Oriented || isRight90Oriented) / 2f;
+                rightBitmap, edits, alignmentTrim, editTrim, isLeft90Oriented || isRight90Oriented, explore) / 2f;
 
             if (mirrorLeft || mirrorRight)
             {
@@ -314,7 +314,7 @@ namespace CrossCam.Page
 
 
             var sideBitmapHeightLessCrop = CalculateImageHeightWithEditsNoBorder(leftBitmap,
-                rightBitmap, edits, alignmentTrim, editTrim, isLeft90Oriented || isRight90Oriented);
+                rightBitmap, edits, alignmentTrim, editTrim, isLeft90Oriented || isRight90Oriented, explore);
 
             var bitmapHeightWithEditsAndBorder = sideBitmapHeightLessCrop + realBorderThickness * 2;
             var drawFuseGuide = fuseGuideRequested &&
@@ -332,7 +332,6 @@ namespace CrossCam.Page
             bitmapHeightWithEditsAndBorder += topMarginFuseGuideModifier;
 
             var heightRatio = bitmapHeightWithEditsAndBorder / (1f * canvasHeight);
-
 
             var fillsWidth = widthRatio > heightRatio;
 
@@ -966,8 +965,9 @@ namespace CrossCam.Page
         private static float CalculateOverlayedImageWidthWithEditsNoBorder(
             SKBitmap leftBitmap, SKBitmap rightBitmap, Edits edits, 
             TrimAdjustment alignmentTrimAdjustment, TrimAdjustment editTrimAdjustment,
-            bool is90degOrientation = false)
+            bool is90degOrientation = false, Explore explore = null)
         {
+            explore ??= new Explore();
             if (leftBitmap == null && rightBitmap == null) return 0;
 
             if (leftBitmap == null ^ rightBitmap == null)
@@ -986,24 +986,26 @@ namespace CrossCam.Page
             return baseWidth *
                    (1 - (edits.LeftCrop + edits.InsideCrop + edits.OutsideCrop + edits.RightCrop +
                          alignmentTrimAdjustment.Left + alignmentTrimAdjustment.Right +
-                         editTrimAdjustment.Left + editTrimAdjustment.Right));
+                         editTrimAdjustment.Left + editTrimAdjustment.Right + 
+                         explore.Zoom));
         }
 
         private static float CalculateJoinedImageWidthWithEditsNoBorder(
             SKBitmap leftBitmap, SKBitmap rightBitmap, Edits edits, 
             TrimAdjustment alignmentTrimAdjustment, TrimAdjustment editTrimAdjustment,
-            bool is90degOrientation = false)
+            bool is90degOrientation = false, Explore explore = null)
         {
             return 2 * CalculateOverlayedImageWidthWithEditsNoBorder(
                 leftBitmap, rightBitmap, edits, alignmentTrimAdjustment, editTrimAdjustment, 
-                is90degOrientation);
+                is90degOrientation, explore);
         }
 
         private static float CalculateImageHeightWithEditsNoBorder(
             SKBitmap leftBitmap, SKBitmap rightBitmap, Edits edits, 
             TrimAdjustment alignmentTrimAdjustment, TrimAdjustment editTrimAdjustment,
-            bool is90degOrientation = false)
+            bool is90degOrientation = false, Explore explore = null)
         {
+            explore ??= new Explore();
             if (leftBitmap == null && rightBitmap == null) return 0;
 
             if (leftBitmap == null ^ rightBitmap == null)
@@ -1021,7 +1023,8 @@ namespace CrossCam.Page
             return baseHeight * 
                    (1 - (edits.TopCrop + edits.BottomCrop + Math.Abs(edits.VerticalAlignment) +
                          alignmentTrimAdjustment.Top + alignmentTrimAdjustment.Bottom +
-                         editTrimAdjustment.Top + editTrimAdjustment.Bottom));
+                         editTrimAdjustment.Top + editTrimAdjustment.Bottom +
+                         explore.Zoom));
         }
 
         public static SizeF CalculateOverlayedImageSizeOrientedWithEditsNoBorder(Edits edits, Settings settings, SKBitmap leftBitmap,
