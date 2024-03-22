@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<page:BasePage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+               xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+               xmlns:vm="clr-namespace:CrossCam.ViewModel"
+               xmlns:ce="clr-namespace:CrossCam.CustomElement"
+               xmlns:page="clr-namespace:CrossCam.Page"
+               x:DataType="vm:HelpViewModel"
+               x:Class="CrossCam.Page.HelpPage"
+               Title="Help">
+    <ScrollView>
+        <StackLayout>
+            <ce:iOS12WorkaroundBackButton/>
+            <ce:HorizontalDivider/>
+            <Button Text="How to Use CrossCam"
+                    Command="{Binding NavigateToDirectionsPage}"/>
+            <ce:HorizontalDivider/>
+            <Button Text="3D Viewing Technique"
+                    Command="{Binding NavigateToTechniqueHelpPage}"/>
+            <ce:HorizontalDivider/>
+            <Button Text="FAQ"
+                    Command="{Binding NavigateToFAQPage}"/>
+            <ce:HorizontalDivider/>
+            <Button Text="Tips"
+                    Command="{Binding NavigateToTipsPage}"/>
+            <ce:HorizontalDivider/>
+            <Button Text="Google Doc of Great Stuff"
+                    Command="{Binding OpenLink}"
+                    CommandParameter="https://docs.google.com/document/d/1WWkI2cj4FdOxiV-Wc_0Dm__5BFWjof-GSuV9AkFUZ1I/"/>
+            <ce:HorizontalDivider/>
+            <ce:FooterLabel/>
+        </StackLayout>
+    </ScrollView>
+</page:BasePage>

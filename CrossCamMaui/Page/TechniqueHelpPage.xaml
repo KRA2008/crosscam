@@ -1,0 +1,214 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<page:BasePage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+               xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+               xmlns:vm="clr-namespace:CrossCam.ViewModel"
+               xmlns:ce="clr-namespace:CrossCam.CustomElement"
+               xmlns:model="clr-namespace:CrossCam.Model"
+               xmlns:page="clr-namespace:CrossCam.Page"
+               x:DataType="vm:TechniqueHelpViewModel"
+               Title="3D Viewing Technique"
+               x:Class="CrossCam.Page.TechniqueHelpPage">
+    <ScrollView>
+        <StackLayout Spacing="0">
+            <ce:iOS12WorkaroundBackButton/>
+            <ce:HorizontalDivider/>
+            <StackLayout Padding="10">
+                <Label Text="If you want to see this again, tap the hamburger (three lines) icon on the top left of the camera screen and tap &quot;Help&quot;."/>
+                <Label Text=" "/>
+                <Label Text="To see the 3D in CrossCam (called &quot;stereograms&quot;) you can use red/cyan 3D glasses, a Google Cardboard viewer, or you can do &quot;free viewing&quot; using just your eyes and your screen. There are two ways to free view, and CrossCam can help you learn both of them. You need to tell CrossCam how you're going to view the pictures or it won't work right. Don't worry, you can always change this again in Settings."/>
+                <Label Text=" "/>
+                <Label Text="If you're able to comfortably cross your eyes, you should try the cross method first, otherwise you should try the parallel method. If you're used to Magic Eye™ books, you're probably already able to do the parallel method, but you might also be able to do the cross method. Tap a method below to learn it, and make sure to tell CrossCam which one works for you by pressing the corresponding CHOOSE button."/>
+                <Label Text=" "/>
+                <Label Text="If you'd rather use 3D glasses or a Cardboard viewer you can set CrossCam to use those on the Settings page."/>
+                <Label Text=" "/>
+                <StackLayout Spacing="0">
+                    <Grid ColumnSpacing="10"
+                      RowSpacing="10">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="1"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="1"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="1"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="1"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="1"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="1"/>
+                        </Grid.RowDefinitions>
+                        <BoxView Grid.Column="0"
+                                 Grid.Row="0" 
+                                 Grid.ColumnSpan="3"
+                                 IsVisible="{Binding IsCrossViewMode}"/>
+                        <BoxView Grid.Column="0"
+                                 Grid.Row="0"
+                                 Grid.RowSpan="4"
+                                 IsVisible="{Binding IsCrossViewMode}"/>
+                        <BoxView Grid.Column="0"
+                                 Grid.Row="2"
+                                 Grid.ColumnSpan="3"
+                                 IsVisible="{Binding IsCrossViewMode, Converter={StaticResource invert}}"/>
+                        <Button Grid.Column="1"
+                                Grid.Row="1"
+                                Text="LEARN CROSS"
+                                HorizontalOptions="FillAndExpand"
+                                Command="{Binding ViewCrossTutorialCommand}"/>
+                        <BoxView Grid.Column="2"
+                                 Grid.Row="0"
+                                 Grid.RowSpan="3"/>
+                        <BoxView Grid.Column="2"
+                                 Grid.Row="0"
+                                 Grid.ColumnSpan="3"
+                                 IsVisible="{Binding IsCrossViewMode, Converter={StaticResource invert}}"/>
+                        <BoxView Grid.Column="2"
+                                 Grid.Row="2"
+                                 Grid.ColumnSpan="3"
+                                 IsVisible="{Binding IsCrossViewMode}"/>
+                        <Button Grid.Column="3" 
+                                Grid.Row="1"
+                                Text="LEARN PARALLEL"
+                                HorizontalOptions="FillAndExpand"
+                                Command="{Binding ViewParallelTutorialCommand}"/>
+                        <BoxView Grid.Column="4"
+                                 Grid.Row="0"
+                                 Grid.RowSpan="3"
+                                 IsVisible="{Binding IsCrossViewMode, Converter={StaticResource invert}}"/>
+                        <BoxView Grid.Column="0"
+                                 Grid.Row="2"
+                                 Grid.RowSpan="3"/>
+                        <StackLayout IsVisible="{Binding IsCrossViewMode}"
+                                     Grid.Row="3"
+                                     Grid.Column="1"
+                                     Grid.ColumnSpan="3">
+                            <Label Text="CROSS VIEWING" HorizontalOptions="CenterAndExpand"/>
+                            <Button Text="TAP HERE TO CHOOSE CROSS"
+                                    Command="{Binding ChooseMethodCommand}"
+                                    CommandParameter="True"/>
+                            <Label Text=" "/>
+                            <Image Source="bouquetcross.png"/>
+                            <Label Text="Carefully cross your eyes while looking at the pair of pictures above. When you cross your eyes, things will get blurry and see-through and you'll start to see 4 pictures instead of 2 (2 pairs). The harder you cross your eyes, the further apart the pairs of pictures will move - it will look a little like this:"/>
+                            <Image Source="bouquetblurry.png" />
+                            <Label Text="Uncross your eyes carefully, so that the pictures on the inside of each pair start to overlap. It will start to look like there are only 3 pictures instead of 4. It will still be blurry and see-through and look something like this:"/>
+                            <Image Source="bouquetoverlapping.png" />
+                            <Label Text="Once you have the middle overlap working you just have to relax your eyes and allow them to focus the picture. At that point you'll have one sharp 3D picture in the middle with a transparent picture floating off on each side that will look like this (except the middle will be 3D):"/>
+                            <Image Source="bouquetoverlapped.png" />
+                            <Label Text="If you have trouble crossing your eyes, you can also try staring at your finger while you hold it halfway between your eyes and the screen. You should see the pictures starting to separate and overlap behind your finger."/>
+                            <Button Text="TAP HERE TO CHOOSE CROSS"
+                                    Command="{Binding ChooseMethodCommand}"
+                                    CommandParameter="True"/>
+                            <Label Text=" "/>
+                            <Label Text="Additional tutorials:"/>
+
+                            <Button Text="A nice text tutorial"
+                                    Command="{Binding OpenLinkCommand}"
+                                    CommandParameter="http://www.3ddigitalphoto.com/crossviewtutorial.asp"/>
+                            <Button Text="Yet another nice text tutorial"
+                                    Command="{Binding OpenLinkCommand}"
+                                    CommandParameter="https://www.angelfire.com/ca/erker/freeview.html"/>
+
+                            <Button Text="A short YouTube tutorial"
+                                    Command="{Binding OpenLinkCommand}"
+                                    CommandParameter="https://www.youtube.com/watch?v=zBa-bCxsZDk"/>
+                            <Button Text="A long, odd, but helpful YouTube tutorial"
+                                    Command="{Binding OpenLinkCommand}"
+                                    CommandParameter="https://www.youtube.com/watch?v=cvShotHl1As"/>
+                            <Button Text="Another YouTube tutorial"
+                                    Command="{Binding OpenLinkCommand}"
+                                    CommandParameter="https://www.youtube.com/watch?v=yNpIDSqTJ_Y"/>
+                            <Button Text="A dual camera project with a tutorial"
+                                    Command="{Binding OpenLinkCommand}"
+                                    CommandParameter="https://www.youtube.com/watch?v=4S5pZEnIbrQ"/>
+
+                            <Label Text=" "/>
+                            <Button Text="Images I've made that you can practice on"
+                                    Command="{Binding OpenLinkCommand}"
+                                    CommandParameter="https://imgur.com/a/Crw232n"/>
+                            <Label Text=" "/>
+                        </StackLayout>
+
+                        <StackLayout IsVisible="{Binding IsCrossViewMode, Converter={StaticResource invert}}"
+                                     Grid.Row="3"
+                                     Grid.Column="1"
+                                     Grid.ColumnSpan="3">
+                            <Label Text="PARALLEL VIEWING" HorizontalOptions="CenterAndExpand"/>
+                            <Button Text="TAP HERE TO CHOOSE PARALLEL"
+                                    Command="{Binding ChooseMethodCommand}"
+                                    CommandParameter="False"/>
+                            <Label Text=" " />
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="Auto"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto"/>
+                                </Grid.RowDefinitions>
+                                <Image Grid.Column="1"
+                                       Grid.Row="0"
+                                       Source="bouquetparallel.png"
+                                       WidthRequest="{x:Static model:Settings.PARALLEL_BASE_WIDTH}"/>
+                            </Grid>
+                            <Label Text="If the above image doesn't fit on your screen, turn your phone to landscape - CrossCam is trying to make the pair of images above the easiest size for this. You don't always have to use CrossCam in landscape, but a perfectly sized image makes learning the technique easier."/>
+                            <Label Text="Relax your eyes and look &quot;through&quot; the pair of pictures above like you're kind of zoning out with your eyes pointing at the pictures. You should start to see 3 pictures with a 3D picture in the middle, a little bit like this:"/>
+                            <Image Source="bouquetoverlapped.png" />
+                            <Label Text="If you start to see 4 pictures, you've gone too far. Try moving your eyes around a tiny bit if you find yourself at that point again. Relaxing too far will look a little like this:"/>
+                            <Image Source="bouquetoverlapping.png"/>
+                            <Label Text="If you're having trouble, try bringing your screen right up against your face with the pair of pictures right in front of your eyes. Relax and look &quot;through&quot; the screen and then slowly pull your screen away from your face while keeping your eyes relaxed. Eventually the image should &quot;click&quot; into focus."/>
+                            <Label Text="If you still keep seeing four images, increase the &quot;Maximum parallel view image width&quot; on the Settings page."/>
+                            <Button Text="TAP HERE TO CHOOSE PARALLEL"
+                                    Command="{Binding ChooseMethodCommand}"
+                                    CommandParameter="False"/>
+                            <Label Text=" "/>
+                            <Label Text="Additional tutorials:"/>
+                            <Button Text="A nice text tutorial"
+                                    Command="{Binding OpenLinkCommand}"
+                                    CommandParameter="https://www.lockhaven.edu/~dsimanek/3d/view3d.htm"/>
+                            <Button Text="Another nice text tutorial"
+                                    Command="{Binding OpenLinkCommand}"
+                                    CommandParameter="https://www.angelfire.com/ca/erker/freeview.html"/>
+                            <Button Text="Yet ANOTHER nice text tutorial"
+                                    Command="{Binding OpenLinkCommand}"
+                                    CommandParameter="https://hidden3d.com/howto-view-stereograms/"/>
+                            <Button Text="Magic Frankfurter Tutorial"
+                                    Command="{Binding OpenLinkCommand}"
+                                    CommandParameter="https://www.vision3d.com/fftext.html"/>
+                            <Button Text="A nice video about Magic Eye"
+                                    Command="{Binding OpenLinkCommand}"
+                                    CommandParameter="https://www.youtube.com/watch?v=v8O8Em_RPNg"/>
+                        </StackLayout>
+                        <BoxView Grid.Column="4"
+                                 Grid.Row="2"
+                                 Grid.RowSpan="3"/>
+                        <BoxView Grid.Column="0"
+                                 Grid.Row="4"
+                                 Grid.ColumnSpan="5"/>
+                    </Grid>
+                </StackLayout>
+
+                <Label Text=" "/>
+                <Label Text="If you're still having trouble, try bringing your phone to a dark room so that the only thing your eyes can see well and focus on is the image."/>
+                <Label Text=" "/>
+                <Label Text="Another thing you can try is using toilet paper tubes or your hands to make it so each eye can only see the side of the image it's supposed to see.&#10; &#x2022; For cross view: hold a single tube against the bridge of your nose (centered between your eyes) while pointing it at the center of the image in front of you. Slowly move the tube toward the screen while trying to look down the tube with both eyes. When you reach the right position with the tube the image should snap into place. It may help to concentrate on trying to look at the inside of the far end of the tube. If you can't find the right position, try using a larger image or a smaller tube.&#10; &#x2022; For parallel view: hold a tube in front of each eye, but point them both out sideways, so you can hardly see anything. Slowly turn the tubes inward at the same time so you can start seeing more of the image. The moment you can see most of the image (almost half with each eye), try to relax your eyes and bring the halves together. It may help to use a larger or smaller image."/>
+                <Label Text=" "/>
+                <Label Text="There is an easy exercise you can do to practice fusing with either cross or parallel viewing. Take a marker and draw a portion of a smiley face on each of your thumbnails (or a pair of popsicle sticks or tongue depressors). For example, on one side draw one eye and a mouth, and on the other side draw an eye and a nose. You can then hold them up in front of you and practice fusing the two images together to complete the smiley face."/>
+                <Label Text=" "/>
+                <Label Text="I personally prefer cross over parallel because images can be larger, but both methods work. If you'd like to experiment with larger parallel images, you can control the size on the Settings page."/>
+                <Label Text=" "/>
+                <Label Text="Sometimes it's difficult to feel whether you're doing the cross or parallel method while you're doing it. You can ask someone else to watch your eyes while you do it or you can look at the picture below as a test:"/>
+                <AbsoluteLayout HorizontalOptions="Center"
+                                HeightRequest="179"
+                                WidthRequest="302">
+                    <Image AbsoluteLayout.LayoutFlags="All" 
+                           AbsoluteLayout.LayoutBounds="0,0,1,1" 
+                           Aspect="AspectFit"
+                           Source="fyi.png"/>
+                </AbsoluteLayout>
+                <ce:HorizontalDivider/>
+                <ce:FooterLabel/>
+            </StackLayout>
+        </StackLayout>
+    </ScrollView>
+</page:BasePage>

@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CFBundleDisplayName</key>
+	<string>CrossCam</string>
+	<key>CFBundleIdentifier</key>
+	<string>com.kra2008.crosscam</string>
+	<key>CFBundleShortVersionString</key>
+	<string>1.0</string>
+	<key>CFBundleVersion</key>
+	<string>1.0</string>
+	<key>LSRequiresIPhoneOS</key>
+	<true/>
+	<key>UIDeviceFamily</key>
+	<array>
+		<integer>1</integer>
+		<integer>2</integer>
+	</array>
+	<key>UIRequiredDeviceCapabilities</key>
+	<array>
+		<string>still-camera</string>
+	</array>
+	<key>CFBundleIconFiles</key>
+	<array/>
+	<key>UISupportedInterfaceOrientations</key>
+	<array>
+		<string>UIInterfaceOrientationPortrait</string>
+		<string>UIInterfaceOrientationPortraitUpsideDown</string>
+		<string>UIInterfaceOrientationLandscapeLeft</string>
+		<string>UIInterfaceOrientationLandscapeRight</string>
+	</array>
+	<key>UISupportedInterfaceOrientations~ipad</key>
+	<array>
+		<string>UIInterfaceOrientationPortrait</string>
+		<string>UIInterfaceOrientationPortraitUpsideDown</string>
+		<string>UIInterfaceOrientationLandscapeLeft</string>
+		<string>UIInterfaceOrientationLandscapeRight</string>
+	</array>
+	<key>CFBundleName</key>
+	<string>CrossCam</string>
+	<key>NSCameraUsageDescription</key>
+	<string>CrossCam uses the camera to take 3D pictures.</string>
+	<key>NSPhotoLibraryAddUsageDescription</key>
+	<string>CrossCam saves the 3D pictures you make to your photo library.</string>
+	<key>PHPhotoLibraryPreventAutomaticLimitedAccessAlert</key>
+	<true/>
+	<key>UIViewControllerBasedStatusBarAppearance</key>
+	<false/>
+	<key>UIStatusBarStyle</key>
+	<string>UIStatusBarStyleLightContent</string>
+	<key>UIRequiresFullScreen</key>
+	<true/>
+	<key>XSAppIconAssets</key>
+	<string>Assets.xcassets/AppIcons.appiconset</string>
+	<key>CFBundleURLTypes</key>
+	<array>
+		<dict>
+			<key>CFBundleURLName</key>
+			<string>crosscam</string>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>crosscam</string>
+			</array>
+		</dict>
+	</array>
+	<key>ITSAppUsesNonExemptEncryption</key>
+	<false/>
+	<key>UIUserInterfaceStyle</key>
+	<string>Light</string>
+	<key>NSLocalNetworkUsageDescription</key>
+	<string>This app scans for nearby CrossCam devices for simultaneous capture. You don&apos;t need to be on a network for this, but Wi-Fi needs to be turned on, and iOS requires that CrossCam gets this permission regardless.</string>
+	<key>NSBonjourServices</key>
+	<array>
+		<string>_CrossCam._tcp</string>
+		<string>_CrossCam._udp</string>
+	</array>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>CrossCam can save photos and put them into a &quot;CrossCam&quot; album automatically. To allow this:&#13;- On iOS 17 and above tap "Limit access..." and then tap "Done" without actually selecting any photos.&#13;- On iOS 15 &amp; 16 tap &quot;Select Photos...&quot; and then tap &quot;Done&quot; without actually selecting any photos.&#13;- On iOS 14 and below tap OK.</string>
+</dict>
+</plist>

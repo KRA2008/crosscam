@@ -1,0 +1,183 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<page:BasePage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+               xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+               xmlns:vm="clr-namespace:CrossCam.ViewModel"
+               xmlns:vc="clr-namespace:CrossCam.ValueConverter"
+               xmlns:ce="clr-namespace:CrossCam.CustomElement"
+               xmlns:views="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+               xmlns:page="clr-namespace:CrossCam.Page"
+               xmlns:lazyViews="clr-namespace:CrossCam.CustomElement.LazyViews"
+               x:DataType="vm:SettingsViewModel"
+               x:Class="CrossCam.Page.SettingsPage"
+               Title="Settings">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <Style TargetType="Label"
+                   BasedOn="{StaticResource _baseLabelStyle}">
+                <Setter Property="Margin"
+                        Value="10"/>
+                <Setter Property="VerticalTextAlignment"
+                        Value="Center"/>
+                <Setter Property="HorizontalOptions"
+                        Value="StartAndExpand"/>
+            </Style>
+            <Style TargetType="Switch">
+                <Setter Property="Margin"
+                        Value="10"/>
+            </Style>
+            <Style TargetType="Frame">
+                <Setter Property="BorderColor"
+                        Value="White"/>
+                <Setter Property="Margin"
+                        Value="1"/>
+                <Setter Property="Padding"
+                        Value="1"/>
+            </Style>
+            <Style TargetType="Entry">
+                <Setter Property="Keyboard"
+                        Value="Numeric"/>
+            </Style>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    <ScrollView VerticalOptions="StartAndExpand">
+        <StackLayout>
+
+            <ce:iOS12WorkaroundBackButton/>
+            <ce:HorizontalDivider/>
+
+            <views:Expander x:Name="_previewMethodExpander"
+                            Command="{Binding CloseOtherExpandersCommand}"
+                            CommandParameter="{x:Reference _previewMethodExpander}"
+                            IsExpanded="{Binding OpenExpander, Converter={vc:IsBindingEqualToParameterConverter}, ConverterParameter={x:Reference _previewMethodExpander}}"
+                            ExpandedChanged="ExpanderChanged">
+                <views:Expander.Header>
+                    <ce:ExpanderHeader Title="Preview Viewing Method"
+                                       Icon="eye.png"/>
+                </views:Expander.Header>
+                <lazyViews:PreviewMethodSettingsLazyView/>
+            </views:Expander>
+
+            <ce:HorizontalDivider/>
+
+            <views:Expander x:Name="_pairingExpander"
+                            Command="{Binding CloseOtherExpandersCommand}"
+                            CommandParameter="{x:Reference _pairingExpander}"
+                            IsExpanded="{Binding OpenExpander, Converter={vc:IsBindingEqualToParameterConverter}, ConverterParameter={x:Reference _pairingExpander}}"
+                            ExpandedChanged="ExpanderChanged">
+                <views:Expander.Header>
+                    <ce:ExpanderHeader Title="Pairing"
+                                       Icon="pair.png"/>
+                </views:Expander.Header>
+                <lazyViews:PairSettingsLazyView/>
+            </views:Expander>
+
+            <ce:HorizontalDivider/>
+
+            <views:Expander x:Name="_alignmentExpander"
+                            Command="{Binding CloseOtherExpandersCommand}"
+                            CommandParameter="{x:Reference _alignmentExpander}"
+                            IsExpanded="{Binding OpenExpander, Converter={vc:IsBindingEqualToParameterConverter}, ConverterParameter={x:Reference _alignmentExpander}}"
+                            ExpandedChanged="ExpanderChanged">
+                <views:Expander.Header>
+                    <ce:ExpanderHeader Title="Automatic Alignment"
+                                       Icon="smarttoy.png"/>
+                </views:Expander.Header>
+                <lazyViews:AlignmentSettingsLazyView/>
+            </views:Expander>
+
+            <ce:HorizontalDivider/>
+
+            <views:Expander x:Name="_savingExpander"
+                            Command="{Binding CloseOtherExpandersCommand}"
+                            CommandParameter="{x:Reference _savingExpander}"
+                            IsExpanded="{Binding OpenExpander, Converter={vc:IsBindingEqualToParameterConverter}, ConverterParameter={x:Reference _savingExpander}}"
+                            ExpandedChanged="ExpanderChanged">
+                <views:Expander.Header>
+                    <ce:ExpanderHeader Title="Saving"
+                                       Icon="checkbox.png"/>
+                </views:Expander.Header>
+                <lazyViews:SavingSettingsLazyView/>
+            </views:Expander>
+
+            <ce:HorizontalDivider/>
+
+            <views:Expander x:Name="_borderExpander"
+                            Command="{Binding CloseOtherExpandersCommand}"
+                            CommandParameter="{x:Reference _borderExpander}"
+                            IsExpanded="{Binding OpenExpander, Converter={vc:IsBindingEqualToParameterConverter}, ConverterParameter={x:Reference _borderExpander}}"
+                            ExpandedChanged="ExpanderChanged">
+                <views:Expander.Header>
+                    <ce:ExpanderHeader Title="Border"
+                                       Icon="squareouter.png"/>
+                </views:Expander.Header>
+                <lazyViews:BorderSettingsLazyView/>
+            </views:Expander>
+
+            <ce:HorizontalDivider/>
+
+            <views:Expander x:Name="_guidesExpander"
+                            Command="{Binding CloseOtherExpandersCommand}"
+                            CommandParameter="{x:Reference _guidesExpander}"
+                            IsExpanded="{Binding OpenExpander, Converter={vc:IsBindingEqualToParameterConverter}, ConverterParameter={x:Reference _guidesExpander}}"
+                            ExpandedChanged="ExpanderChanged">
+                <views:Expander.Header>
+                    <ce:ExpanderHeader Title="Capture Guides"
+                                       Icon="horizontalleveloutside.png"/>
+                </views:Expander.Header>
+                <lazyViews:GuidesSettingsLazyView/>
+            </views:Expander>
+
+            <ce:HorizontalDivider/>
+
+            <views:Expander x:Name="_editingExpander"
+                            Command="{Binding CloseOtherExpandersCommand}"
+                            CommandParameter="{x:Reference _editingExpander}"
+                            IsExpanded="{Binding OpenExpander, Converter={vc:IsBindingEqualToParameterConverter}, ConverterParameter={x:Reference _editingExpander}}"
+                            ExpandedChanged="ExpanderChanged">
+                <views:Expander.Header>
+                    <ce:ExpanderHeader Title="Editing"
+                                       Icon="edit.png"/>
+                </views:Expander.Header>
+                <lazyViews:EditingSettingsLazyView/>
+            </views:Expander>
+
+            <ce:HorizontalDivider/>
+
+            <views:Expander x:Name="_cameraExpander"
+                            Command="{Binding CloseOtherExpandersCommand}"
+                            CommandParameter="{x:Reference _cameraExpander}"
+                            IsExpanded="{Binding OpenExpander, Converter={vc:IsBindingEqualToParameterConverter}, ConverterParameter={x:Reference _cameraExpander}}"
+                            ExpandedChanged="ExpanderChanged">
+                <views:Expander.Header>
+                    <ce:ExpanderHeader Title="Camera"
+                                       Icon="camerasettings.png"/>
+                </views:Expander.Header>
+                <lazyViews:CameraSettingsLazyView/>
+            </views:Expander>
+
+            <ce:HorizontalDivider/>
+
+            <StackLayout Orientation="Horizontal">
+                <Label Text="Prompt to send email when errors occur"/>
+                <Switch IsToggled="{Binding Settings.PromptForErrorEmails}"/>
+            </StackLayout>
+
+            <StackLayout Orientation="Horizontal">
+                <Label Text="Share anonymous usage and error data to help improve CrossCam">
+                    <Label.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding SetAnalyticsToDebugModeCommand}" 
+                                              NumberOfTapsRequired="2"/>
+                    </Label.GestureRecognizers>
+                </Label>
+                <Switch IsToggled="{Binding Settings.IsAnalyticsEnabled}"/>
+            </StackLayout>
+
+            <ce:HorizontalDivider/>
+            <Button Text="Reset to Defaults"
+                    Command="{Binding ResetToDefaults}"/>
+
+            <ce:HorizontalDivider/>
+            <ce:FooterLabel/>
+        </StackLayout>
+    </ScrollView>
+</page:BasePage>

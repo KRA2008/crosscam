@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<views:Expander xmlns="http://schemas.microsoft.com/dotnet/2021/maui" 
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:views="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+             xmlns:customElement="clr-namespace:CrossCam.CustomElement"
+             x:Class="CrossCam.CustomElement.BasicExpander"
+             x:DataType="customElement:BasicExpander">
+    <views:Expander.Header>
+        <!-- TODO: use ExpanderHeader here, but when i do that the title breaks-->
+        <StackLayout Orientation="Horizontal"
+                     Padding="10">
+            <Label Text="{Binding Title}"
+                   Style="{StaticResource header}"
+                   HorizontalOptions="StartAndExpand"
+                   VerticalOptions="Center"/>
+            <Image Source="expandmore.png"
+                   HorizontalOptions="End"
+                   VerticalOptions="Center">
+                <Image.Triggers>
+                    <DataTrigger TargetType="Image"
+                                 Binding="{Binding Source={RelativeSource AncestorType={x:Type views:Expander}}, Path=IsExpanded}"
+                                 Value="True">
+                        <Setter Property="Source"
+                                Value="expandless.png" />
+                    </DataTrigger>
+                </Image.Triggers>
+            </Image>
+        </StackLayout>
+    </views:Expander.Header>
+    <Label Padding="10" 
+           Text="{Binding Text}"/>
+</views:Expander>

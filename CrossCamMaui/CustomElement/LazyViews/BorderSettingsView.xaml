@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vc="clr-namespace:CrossCam.ValueConverter"
+             xmlns:viewModel="clr-namespace:CrossCam.ViewModel"
+             x:Class="CrossCam.CustomElement.LazyViews.BorderSettingsView"
+             x:DataType="viewModel:SettingsViewModel">
+    <Grid RowSpacing="0"
+          ColumnSpacing="0">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="65"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="50"/>
+            <RowDefinition Height="50"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="55"/>
+        </Grid.RowDefinitions>
+
+        <Label Grid.Column="0"
+               Grid.Row="0"
+               Text="Add fuse guide on top (a dot above each side)"/>
+        <Switch Grid.Column="1" 
+                Grid.Row="0"
+                IsToggled="{Binding Settings.SaveWithFuseGuide}"/>
+
+        <Label Grid.Column="0"
+               Grid.Row="1" 
+               Text="Add border"/>
+        <Switch Grid.Column="1"
+                Grid.Row="1" 
+                IsToggled="{Binding Settings.AddBorder2}"/>
+
+        <Label Grid.Column="0"
+               Grid.Row="2" 
+               Text="Border color"
+               IsVisible="{Binding Settings.AddBorder2}"/>
+        <Frame Grid.Column="1"
+               Grid.Row="2" 
+               IsVisible="{Binding Settings.AddBorder2}">
+            <Picker ItemsSource="{Binding BorderColors}"
+                    SelectedIndex="{Binding Settings.BorderColor, Converter={vc:BorderColorValueConverter}}"/>
+        </Frame>
+
+        <Label Grid.Column="0"
+               Grid.Row="3" 
+               IsVisible="{Binding Settings.AddBorder2}" 
+               Text="Border thickness (tenths of percentage of width)"/>
+        <Frame Grid.Column="1"
+               Grid.Row="3" 
+               IsVisible="{Binding Settings.AddBorder2}">
+            <Entry Text="{Binding Settings.BorderWidthProportion}"/>
+        </Frame>
+
+        <Label Grid.Column="0"
+               Grid.Row="4" 
+               Text="Clip border off when loading next stereo pair"/>
+        <Switch Grid.Column="1"
+                Grid.Row="4" 
+                IsToggled="{Binding Settings.ClipBorderOnNextLoad}"/>
+    </Grid>
+</ContentView>

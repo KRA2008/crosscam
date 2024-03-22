@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<page:BasePage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:page="clr-namespace:CrossCam.Page"
+             xmlns:ce="clr-namespace:CrossCam.CustomElement"
+             xmlns:viewModel="clr-namespace:CrossCam.ViewModel"
+             x:Class="CrossCam.Page.SeeMorePicturesPage"
+             x:DataType="viewModel:SeeMorePicturesViewModel"
+             Title="See More Pictures">
+    <ScrollView>
+        <StackLayout>
+            <ce:iOS12WorkaroundBackButton/>
+            <BoxView/>
+            <Button Text="See Pictures I've Taken"
+                    Command="{Binding OpenLink}"
+                    CommandParameter="https://imgur.com/a/Crw232n"/>
+            <BoxView/>
+            <Button Text="CrossView Subreddit"
+                    Command="{Binding OpenLink}"
+                    CommandParameter="https://reddit.com/r/CrossView/"/>
+            <BoxView/>
+            <Button Text="ParallelView Subreddit"
+                    Command="{Binding OpenLink}"
+                    CommandParameter="https://reddit.com/r/ParallelView/"/>
+            <BoxView/>
+            <Button Text="Google Doc of Great Stuff"
+                    Command="{Binding OpenLink}"
+                    CommandParameter="https://docs.google.com/document/d/1WWkI2cj4FdOxiV-Wc_0Dm__5BFWjof-GSuV9AkFUZ1I/"/>
+            <BoxView/>
+            <Button Text="Stereoscopic 3D Facebook Group"
+                    Command="{Binding OpenLink}"
+                    CommandParameter="https://www.facebook.com/groups/Stereoscopic3D/"/>
+            <BoxView/>
+            <Button Text="Instagram Stereoscopic Tag"
+                    Command="{Binding OpenLink}"
+                    CommandParameter="https://www.instagram.com/explore/tags/stereoscopic/"/>
+            <BoxView/>
+            <ce:FooterLabel/>
+        </StackLayout>
+    </ScrollView>
+</page:BasePage>

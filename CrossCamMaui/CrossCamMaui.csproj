@@ -1,0 +1,359 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<TargetFrameworks>net8.0-android;net8.0-ios</TargetFrameworks>
+		<!-- Uncomment to also build the tizen app. You will need to install tizen by following this: https://github.com/Samsung/Tizen.NET -->
+		<!-- <TargetFrameworks>$(TargetFrameworks);net8.0-tizen</TargetFrameworks> -->
+
+		<!-- Note for MacCatalyst:
+		The default runtime is maccatalyst-x64, except in Release config, in which case the default is maccatalyst-x64;maccatalyst-arm64.
+		When specifying both architectures, use the plural <RuntimeIdentifiers> instead of the singular <RuntimeIdentifier>.
+		The Mac App Store will NOT accept apps with ONLY maccatalyst-arm64 indicated;
+		either BOTH runtimes must be indicated or ONLY macatalyst-x64. -->
+		<!-- For example: <RuntimeIdentifiers>maccatalyst-x64;maccatalyst-arm64</RuntimeIdentifiers> -->
+
+		<OutputType>Exe</OutputType>
+		<RootNamespace>CrossCam</RootNamespace>
+		<UseMaui>true</UseMaui>
+		<SingleProject>true</SingleProject>
+		<ImplicitUsings>enable</ImplicitUsings>
+		<Nullable>disable</Nullable>
+
+		<!-- Display name -->
+		<ApplicationTitle>CrossCam</ApplicationTitle>
+
+		<!-- App Identifier -->
+		<ApplicationId>com.kra2008.crosscam</ApplicationId>
+
+		<!-- Versions -->
+		<ApplicationDisplayVersion>1.0</ApplicationDisplayVersion>
+		<ApplicationVersion>1</ApplicationVersion>
+
+		<SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'ios'">11.4</SupportedOSPlatformVersion>
+		<SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'android'">21.0</SupportedOSPlatformVersion>
+		<AllowUnsafeBlocks>True</AllowUnsafeBlocks>
+		<RunAnalyzersDuringBuild>False</RunAnalyzersDuringBuild>
+		<RunAnalyzersDuringLiveAnalysis>False</RunAnalyzersDuringLiveAnalysis>
+		<EnableNETAnalyzers>False</EnableNETAnalyzers>
+		<AssemblyName>CrossCam</AssemblyName>
+		<GenerateAssemblyInfo>False</GenerateAssemblyInfo>
+		<Platforms>AnyCPU</Platforms>
+		<PublishAot>False</PublishAot>
+		<Trimming></Trimming>
+		<Configurations>Debug;Release;Debug Without Emgu</Configurations>
+	</PropertyGroup>
+
+	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net8.0-android|AnyCPU'">
+	  <Deterministic>False</Deterministic>
+	  <AndroidEnableMultiDex>True</AndroidEnableMultiDex>
+	  <AndroidStoreUncompressedFileExtensions></AndroidStoreUncompressedFileExtensions>
+	  <AndroidUseAapt2>True</AndroidUseAapt2>
+	  <DefineConstants>$(DefineConstants);__ANDROID__;EMGU</DefineConstants>
+	  <EmbedAssembliesIntoApk>False</EmbedAssembliesIntoApk>
+	  <AndroidKeyStore>False</AndroidKeyStore>
+	</PropertyGroup>
+
+	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug Without Emgu|net8.0-android|AnyCPU'">
+	  <Deterministic>False</Deterministic>
+	  <AndroidEnableMultiDex>True</AndroidEnableMultiDex>
+	  <AndroidStoreUncompressedFileExtensions />
+	  <AndroidUseAapt2>True</AndroidUseAapt2>
+	  <DefineConstants>$(DefineConstants);__ANDROID__;DEBUG</DefineConstants>
+	  <EmbedAssembliesIntoApk>False</EmbedAssembliesIntoApk>
+	  <AndroidKeyStore>False</AndroidKeyStore>
+	</PropertyGroup>
+
+	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net8.0-ios|AnyCPU'">
+	  <Deterministic>False</Deterministic>
+	  <MtouchNoSymbolStrip>True</MtouchNoSymbolStrip>
+	  <EnableSGenConc>True</EnableSGenConc>
+	  <OptimizePNGs>False</OptimizePNGs>
+	  <MtouchDebug>True</MtouchDebug>
+	  <MtouchProfiling>True</MtouchProfiling>
+	  <MtouchFloat32>True</MtouchFloat32>
+	  <CodesignEntitlements>Platforms\iOS\DevEntitlements.plist</CodesignEntitlements>
+	  <DefineConstants>$(DefineConstants);EMGU</DefineConstants>
+	  <CodesignKey>Apple Development: Created via API (TW2AV56Z4U)</CodesignKey>
+	  <CodesignProvision>VS: com.kra2008.crosscam Development</CodesignProvision>
+	  <ProvisioningType>manual</ProvisioningType>
+	</PropertyGroup>
+
+	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug Without Emgu|net8.0-ios|AnyCPU'">
+	  <Deterministic>False</Deterministic>
+	  <MtouchNoSymbolStrip>True</MtouchNoSymbolStrip>
+	  <EnableSGenConc>True</EnableSGenConc>
+	  <OptimizePNGs>False</OptimizePNGs>
+	  <MtouchDebug>True</MtouchDebug>
+	  <MtouchProfiling>True</MtouchProfiling>
+	  <MtouchFloat32>True</MtouchFloat32>
+	  <CodesignEntitlements>Platforms\iOS\DevEntitlements.plist</CodesignEntitlements>
+	  <DefineConstants>$(DefineConstants);DEBUG</DefineConstants>
+	  <MtouchLink>None</MtouchLink>
+	  <CodesignKey>Apple Development: Created via API (TW2AV56Z4U)</CodesignKey>
+	  <CodesignProvision>VS: com.kra2008.crosscam Development</CodesignProvision>
+      <ProvisioningType>manual</ProvisioningType>
+	</PropertyGroup>
+
+	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net8.0-android|AnyCPU'">
+	  <EnableLLVM>True</EnableLLVM>
+	  <AndroidEnableProfiledAot>False</AndroidEnableProfiledAot>
+	  <AndroidUseAapt2>True</AndroidUseAapt2>
+	  <AndroidStoreUncompressedFileExtensions></AndroidStoreUncompressedFileExtensions>
+	  <DefineConstants>$(DefineConstants);__ANDROID__;EMGU</DefineConstants>
+	  <AndroidLinkTool>r8</AndroidLinkTool>
+	  <AndroidKeyStore>False</AndroidKeyStore>
+	</PropertyGroup>
+
+	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net8.0-ios|AnyCPU'">
+	  <EnableSGenConc>True</EnableSGenConc>
+	  <MtouchDebug>False</MtouchDebug>
+	  <BuildIpa>True</BuildIpa>
+	  <AdditionalArgs>--linkskip=CrossCam --linkskip=CrossCam.iOS --linkskip=CrossCam.iOS.Extension --optimize=-remove-dynamic-registrar</AdditionalArgs>
+	  <MtouchFloat32>True</MtouchFloat32>
+	  <CodesignEntitlements>Platforms\iOS\ProdEntitlements.plist</CodesignEntitlements>
+	  <DefineConstants>$(DefineConstants);EMGU</DefineConstants>
+	  <CodesignKey>iPhone Distribution: Kevin Anderson (G656MA2J22)</CodesignKey>
+	  <CodesignProvision>CrossCam Distribution</CodesignProvision>
+	  <ProvisioningType>manual</ProvisioningType>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<!-- App Icon -->
+		<MauiIcon Include="Resources\AppIcon\appicon.svg" ForegroundFile="Resources\AppIcon\appiconfg.svg" />
+		<MauiIcon Include="Resources\AppIcon\appiconfg.svg" />
+
+		<!-- Images -->
+		<MauiImage Include="Resources\Images\**" />
+
+		<!-- Splash Screen -->
+	  <MauiSplashScreen Include="Resources\Splash\goodonwhitecircle.svg" Color="#000000" BaseSize="256,256" />
+
+		<!-- Raw Assets (also remove the "Resources\Raw" prefix) -->
+		<MauiAsset Include="Resources\Raw\**" LogicalName="%(RecursiveDir)%(Filename)%(Extension)" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <AndroidResource Remove="Resources\Fonts\**" />
+	  <Compile Remove="Resources\Fonts\**" />
+	  <EmbeddedResource Remove="Resources\Fonts\**" />
+	  <MauiCss Remove="Resources\Fonts\**" />
+	  <MauiXaml Remove="Resources\Fonts\**" />
+	  <None Remove="Resources\Fonts\**" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <None Remove="Platforms\Android\Assets\AboutAssets.txt" />
+	  <None Remove="Platforms\Android\proguard.cfg" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<PackageReference Include="Emgu.CV.runtime.maui" Version="4.8.0.5324" />
+		<PackageReference Include="Microsoft.Maui.Core" Version="8.0.6" />
+		<PackageReference Include="Microsoft.Maui.Controls" Version="8.0.6" />
+		<PackageReference Include="Microsoft.Maui.Controls.Compatibility" Version="8.0.6" />
+		<PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="8.0.0" />
+		<PackageReference Include="FreshMvvm.Maui" Version="0.0.4" />
+		<PackageReference Include="Microsoft.AppCenter" Version="5.0.3" />
+		<PackageReference Include="Microsoft.AppCenter.Analytics" Version="5.0.3" />
+		<PackageReference Include="Microsoft.AppCenter.Crashes" Version="5.0.3" />
+		<PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
+		<PackageReference Include="PropertyChanged.Fody" Version="4.1.0" />
+		<PackageReference Include="SkiaSharp.Views.Maui.Core" Version="2.88.7" />
+		<PackageReference Include="SkiaSharp.Views.Maui.Controls" Version="2.88.7" />
+		<PackageReference Include="SkiaSharp.Views.Maui.Controls.Compatibility" Version="2.88.7" />
+		<PackageReference Include="CommunityToolkit.Maui" Version="7.0.1" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <ProguardConfiguration Include="Platforms\Android\proguard.cfg" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Compile Update="App.xaml.cs">
+	    <DependentUpon>%(Filename)</DependentUpon>
+	  </Compile>
+	  <Compile Update="CustomElement\BasicExpander.xaml.cs">
+	    <DependentUpon>%(Filename)</DependentUpon>
+	  </Compile>
+	  <Compile Update="CustomElement\CameraModule.xaml.cs">
+	    <DependentUpon>%(Filename)</DependentUpon>
+	  </Compile>
+	  <Compile Update="CustomElement\CameraSuccessOutline.xaml.cs">
+	    <DependentUpon>%(Filename)</DependentUpon>
+	  </Compile>
+	  <Compile Update="CustomElement\ExpanderHeader.xaml.cs">
+	    <DependentUpon>%(Filename)</DependentUpon>
+	  </Compile>
+	  <Compile Update="CustomElement\FooterLabel.xaml.cs">
+	    <DependentUpon>%(Filename)</DependentUpon>
+	  </Compile>
+	  <Compile Update="Page\CameraPage.xaml.cs">
+	    <DependentUpon>%(Filename)</DependentUpon>
+	  </Compile>
+	  <Compile Update="Page\ContactPage.xaml.cs">
+	    <DependentUpon>%(Filename)</DependentUpon>
+	  </Compile>
+	  <Compile Update="Page\DirectionsPage.xaml.cs">
+	    <DependentUpon>%(Filename)</DependentUpon>
+	  </Compile>
+	  <Compile Update="Page\FAQPage.xaml.cs">
+	    <DependentUpon>%(Filename)</DependentUpon>
+	  </Compile>
+	  <Compile Update="Page\HamburgerPage.xaml.cs">
+	    <DependentUpon>%(Filename)</DependentUpon>
+	  </Compile>
+	  <Compile Update="Page\HelpPage.xaml.cs">
+	    <DependentUpon>%(Filename)</DependentUpon>
+	  </Compile>
+	  <Compile Update="Page\PairingPage.xaml.cs">
+	    <DependentUpon>%(Filename)</DependentUpon>
+	  </Compile>
+	  <Compile Update="Page\SeeMorePicturesPage.xaml.cs">
+	    <DependentUpon>%(Filename)</DependentUpon>
+	  </Compile>
+	  <Compile Update="Page\SettingsPage.xaml.cs">
+	    <DependentUpon>%(Filename)</DependentUpon>
+	  </Compile>
+	  <Compile Update="Page\TechniqueHelpPage.xaml.cs">
+	    <DependentUpon>%(Filename)</DependentUpon>
+	  </Compile>
+	  <Compile Update="Page\TipMePage.xaml.cs">
+	    <DependentUpon>%(Filename)</DependentUpon>
+	  </Compile>
+	  <Compile Update="Page\TipsPage.xaml.cs">
+	    <DependentUpon>%(Filename)</DependentUpon>
+	  </Compile>
+	</ItemGroup>
+
+	<ItemGroup>
+	  <MauiXaml Update="App.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="CustomElement\BasicExpander.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="CustomElement\CameraModule.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="CustomElement\CameraSuccessOutline.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="CustomElement\ExpanderHeader.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="CustomElement\FooterLabel.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="CustomElement\iOS12WorkaroundBackButton.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Page\CameraPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Page\ContactPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Page\DirectionsPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Page\FAQPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Page\HamburgerPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Page\HelpPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Page\PairingPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Page\SeeMorePicturesPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Page\SettingsPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Page\TechniqueHelpPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Page\TipMePage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Page\TipsPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	</ItemGroup>
+
+	<ItemGroup Condition="'$(TargetFramework)' == 'net8.0-android'">
+	  <PackageReference Include="Xamarin.GooglePlayServices.Nearby">
+	    <Version>119.0.0.1</Version>
+	  </PackageReference>
+	  <PackageReference Include="Microsoft.Maui.Graphics.Skia" Version="8.0.6" />
+	  <PackageReference Include="Xamarin.AndroidX.Annotation">
+	  	<Version>1.7.1</Version>
+	  </PackageReference>
+	  <PackageReference Include="Xamarin.AndroidX.AppCompat.AppCompatResources">
+	  	<Version>1.6.1.7</Version>
+	  </PackageReference>
+	  <PackageReference Include="Xamarin.AndroidX.AppCompat.Resources">
+	  	<Version>1.1.0.2</Version>
+	  </PackageReference>
+	  <PackageReference Include="Xamarin.AndroidX.Core">
+	  	<Version>1.12.0.3</Version>
+	  </PackageReference>
+	  <PackageReference Include="Xamarin.AndroidX.Browser">
+	  	<Version>1.7.0.1</Version>
+	  </PackageReference>
+	  <PackageReference Include="Xamarin.AndroidX.Core.SplashScreen">
+	  	<Version>1.0.1.5</Version>
+	  </PackageReference>
+	  <PackageReference Include="Xamarin.AndroidX.Fragment.Ktx" Version="1.6.2.1" />
+	  <PackageReference Include="Xamarin.Google.Android.Material" Version="1.10.0.2" />
+	  <PackageReference Include="Xamarin.AndroidX.Legacy.Support.V4" Version="1.0.0.22" />
+	  <PackageReference Include="Xamarin.AndroidX.AppCompat" Version="1.6.1.6" />
+	  <PackageReference Include="Xamarin.AndroidX.CardView" Version="1.0.0.24" />
+	  <PackageReference Include="Xamarin.AndroidX.MediaRouter" Version="1.6.0.2" />
+	  <PackageReference Include="Xamarin.AndroidX.VectorDrawable">
+	  	<Version>1.1.0.22</Version>
+	  </PackageReference>
+	  <PackageReference Include="Xamarin.Google.Android.Play.Review">
+	  	<Version>2.0.1.6</Version>
+	  </PackageReference>
+	  <PackageReference Include="Xamarin.GooglePlayServices.Location">
+	  	<Version>121.0.1.4</Version>
+	  </PackageReference>
+	  <PackageReference Include="Xamarin.AndroidX.Migration" Version="1.0.10" />
+	</ItemGroup>
+
+	<ItemGroup Condition="'$(TargetFramework)' == 'net8.0-ios'">
+	</ItemGroup>
+
+	<ItemGroup Condition="$(TargetFramework.StartsWith('net8.0-android')) != true">
+		<Compile Remove="**\Android\**\*.cs" />
+		<None Include="**\Android\**\*.cs" Exclude="$(DefaultItemExcludes);$(DefaultExcludesInProjectFolder)" />
+	</ItemGroup>
+
+	<ItemGroup Condition="$(TargetFramework.StartsWith('net8.0-ios')) != true">
+		<Compile Remove="**\iOS\**\*.cs" />
+		<None Include="**\iOS\**\*.cs" Exclude="$(DefaultItemExcludes);$(DefaultExcludesInProjectFolder)" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Folder Include="Platforms\Android\Resources\drawable-hdpi\" />
+	  <Folder Include="Platforms\Android\Resources\drawable-xhdpi\" />
+	  <Folder Include="Platforms\Android\Resources\drawable-xxxhdpi\" />
+	  <Folder Include="Platforms\Android\Resources\drawable\" />
+	  <Folder Include="Platforms\Android\Resources\layout\" />
+	  <Folder Include="Platforms\Android\Resources\drawable-hdpi\" />
+	  <Folder Include="Platforms\Android\Resources\drawable-xhdpi\" />
+	  <Folder Include="Platforms\Android\Resources\layout\" />
+	  <Folder Include="Platforms\Android\Resources\drawable-xxxhdpi\" />
+	  <Folder Include="Platforms\iOS\Resources\" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <None Include="FodyWeavers.xsd" />
+	</ItemGroup>
+
+</Project>
