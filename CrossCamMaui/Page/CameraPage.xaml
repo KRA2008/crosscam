@@ -1385,7 +1385,7 @@
                                      Binding="{Binding IsFullscreenToggle}"
                                      Value="True">
                             <Setter Property="Opacity"
-                                    Value="1"/>
+                                    Value="1.0"/>
                         </DataTrigger>
                         <DataTrigger TargetType="Image"
                                      Binding="{Binding IsFullscreenToggle}"
@@ -1599,7 +1599,7 @@
                                          Trigger="{Binding MirrorModeAutoAlignWarningTrigger}"/>
             </Label.Behaviors>
         </Label>
-        <Label Text="Drag to move and pinch to zoom!"
+        <Label Text="Pinch or drag to explore!"
                Style="{StaticResource _feedback}"
                IsVisible="False"
                VerticalTextAlignment="End"
