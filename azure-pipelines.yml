@@ -46,15 +46,6 @@ jobs:
       provisioningProfileLocation: 'secureFiles'
       provProfileSecureFile: 'CrossCam_Share_Extension_Distribution.mobileprovision'
 
-  - task: NuGetToolInstaller@1
-
-  - task: NuGetCommand@2
-    inputs:
-      command: 'restore'
-      restoreSolution: '**/*.sln'
-      feedsToUse: 'config'
-      nugetConfigPath: 'nuget.config'
-
   - task: Bash@3
     displayName: 'Set version numbers'
     inputs:
