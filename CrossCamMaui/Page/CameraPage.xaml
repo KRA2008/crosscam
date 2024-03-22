@@ -56,6 +56,8 @@
                         Value="CenterAndExpand"/>
                 <Setter Property="VerticalOptions"
                         Value="CenterAndExpand"/>
+                <Setter Property="InputTransparent"
+                        Value="True"/>
             </Style>
         </ResourceDictionary>
     </ContentPage.Resources>
@@ -1597,13 +1599,26 @@
                                          Trigger="{Binding MirrorModeAutoAlignWarningTrigger}"/>
             </Label.Behaviors>
         </Label>
+        <Label Text="Drag to move and pinch to zoom!"
+               Style="{StaticResource _feedback}"
+               IsVisible="False"
+               VerticalTextAlignment="End"
+               AbsoluteLayout.LayoutBounds="0,0,1,0.9"
+               VerticalOptions="End">
+            <Label.Behaviors>
+                <ce:FadeInAndOutBehavior VisibleTimeMs="1500"
+                                         InTimeMs="250"
+                                         OutTimeMs="250"
+                                         Trigger="{Binding ExploreReminderTrigger}"/>
+            </Label.Behaviors>
+        </Label>
         <ContentView AbsoluteLayout.LayoutFlags="All"
                      AbsoluteLayout.LayoutBounds="0,0,1,1"
                      IsVisible="{Binding WorkflowStage, Converter={StaticResource enumCompare}, ConverterParameter={x:Static vm:WorkflowStage.View}}">
             <ContentView.GestureRecognizers>
                 <TapGestureRecognizer Command="{Binding ToggleViewModeCommand}"/>
                 <PanGestureRecognizer PanUpdated="PanGestureRecognizer_OnPanUpdated"
-                                      TouchPoints="2"/>
+                                      TouchPoints="1"/>
                 <PinchGestureRecognizer PinchUpdated="PinchGestureRecognizer_OnPinchUpdated"/>
             </ContentView.GestureRecognizers>
         </ContentView>

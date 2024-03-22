@@ -133,6 +133,7 @@ namespace CrossCam.ViewModel
         public bool MoveHintTriggerCenter { get; set; }
         public bool MoveHintTriggerSide { get; set; }
         public bool WasSwipedTrigger { get; set; }
+        public bool ExploreReminderTrigger { get; set; }
 
         public Command ToggleFullscreen { get; set; }
         public bool IsFullscreenToggleVisible =>
@@ -1452,6 +1453,7 @@ namespace CrossCam.ViewModel
                     RaisePropertyChanged(nameof(ShouldPairButtonBeVisible));
                     RaisePropertyChanged(nameof(ShouldLineGuidesBeVisible));
                     RaisePropertyChanged(nameof(ShouldDonutGuideBeVisible));
+                    RaisePropertyChanged(nameof(ShouldPortraitViewModeWarningBeVisible));
                     break;
                 case nameof(IsViewPortrait):
                     RaisePropertyChanged(nameof(CaptureButtonPosition));
@@ -1487,6 +1489,7 @@ namespace CrossCam.ViewModel
                     RaisePropertyChanged(nameof(ShouldClearEditButtonBeVisible));
                     RaisePropertyChanged(nameof(IsBusy));
                     RaisePropertyChanged(nameof(ShouldPortraitViewModeWarningBeVisible));
+                    if (WorkflowStage == WorkflowStage.View) ExploreReminderTrigger = !ExploreReminderTrigger;
                     break;
                 case nameof(IsExactlyOnePictureTaken):
                     RaisePropertyChanged(nameof(ShouldSwapSidesBeVisible));

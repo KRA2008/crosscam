@@ -1360,16 +1360,19 @@ namespace CrossCam.Page
             //Debug.WriteLine("### Panned! Total: " + e.TotalX + "," + e.TotalY + " Status: " + e.StatusType);
             if (_viewModel.WorkflowStage != WorkflowStage.View) return;
 
-            var xProp = e.TotalX / Width * _deviceDisplayWrapper.GetDisplayDensity();
-            var yProp = e.TotalY / Height * _deviceDisplayWrapper.GetDisplayDensity();
+            var xProp = e.TotalX / Width;
+            var yProp = e.TotalY / Height;
+
+            var zoomNormalizedHorizontalPan = -xProp / (1 + _viewModel.Explore.Zoom);
+            var zoomNormalizedVerticalPan = -yProp / (1 + _viewModel.Explore.Zoom);
 
             switch (e.StatusType)
             {
                 case GestureStatus.Started:
                     break;
                 case GestureStatus.Running:
-                    _viewModel.Explore.Horizontal = (float)-xProp;
-                    _viewModel.Explore.Vertical = (float)-yProp;
+                    _viewModel.Explore.Horizontal = (float)zoomNormalizedHorizontalPan;
+                    _viewModel.Explore.Vertical = (float)zoomNormalizedVerticalPan;
                     break;
                 case GestureStatus.Completed:
                     _viewModel.Explore.HorizontalBase =
@@ -1408,7 +1411,9 @@ namespace CrossCam.Page
                     break;
             }
 
-            _viewModel.Explore.Zoom = (float)Math.Clamp(_viewModel.Explore.Zoom + (e.Scale - 1),0,1);
+            var normalizedScale = (e.Scale - 1) / (1 + _viewModel.Explore.Zoom) / _deviceDisplayWrapper.GetDisplayDensity();
+
+            _viewModel.Explore.Zoom = (float)Math.Clamp(_viewModel.Explore.Zoom + normalizedScale, 0,1);
             MainThread.BeginInvokeOnMainThread(() =>
             {
                 _canvas.InvalidateSurface();
