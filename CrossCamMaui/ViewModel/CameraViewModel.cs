@@ -29,6 +29,7 @@ namespace CrossCam.ViewModel
         private const string CROSSCAM = "CrossCam"; 
         private const string COMMAND_ANALYTICS_EVENT = "command start";
         private const string COMMAND_ANALYTICS_KEY_NAME = "command name";
+        private const int BORDER_DIFF_THRESHOLD = 25;
 
         public static PairOperator PairOperator;
         public PairOperator PairOperatorBindable => PairOperator;
@@ -2067,15 +2068,18 @@ namespace CrossCam.ViewModel
         {
             try
             {
-                var leftHalf = await Task.Run(() => GetHalfOfImage(image, true, Settings.ClipBorderOnNextLoad));
-                SetLeftBitmap(leftHalf, false, true);
-                var rightHalf = await Task.Run(() => GetHalfOfImage(image, false, Settings.ClipBorderOnNextLoad));
-                SetRightBitmap(rightHalf, false, true);
-                if (Settings.ClipBorderOnNextLoad)
+                using var imageBitmap = SKBitmap.Decode(image);
+                var removeBorder = false;
+                if (Settings.PromptToClipOffDetectedBorder &&
+                    DoesImageContainBorder(imageBitmap, 0, imageBitmap.Width - 1, 0, imageBitmap.Height - 1, out int whatever))
                 {
-                    Settings.ClipBorderOnNextLoad = false;
-                    PersistentStorage.Save(PersistentStorage.SETTINGS_KEY, Settings);
+                    removeBorder = await CoreMethods.DisplayAlert("Border Detected", "A border has been detected. Remove the border?",
+                        "Remove", "Keep");
                 }
+                var leftHalf = await Task.Run(() => GetHalfOfImage(image, true, removeBorder));
+                SetLeftBitmap(leftHalf, false, true);
+                var rightHalf = await Task.Run(() => GetHalfOfImage(image, false, removeBorder));
+                SetRightBitmap(rightHalf, false, true);
             }
             catch (InvalidImageException)
             {
@@ -2595,7 +2599,6 @@ namespace CrossCam.ViewModel
                 original = AutoOrient(original, orientationToCorrect, isFrontFacing);//TODO: it would be neat to use matrix stuff and shared code but i can't get it to work for all orientations - portrait is particularly weird
             }
 
-            const int BORDER_DIFF_THRESHOLD = 25;
             var bottomBorder = 0;
             var leftBorder = 0;
             var topBorder = 0;
@@ -2613,56 +2616,44 @@ namespace CrossCam.ViewModel
             var startY = 0;
             var endY = original.Height - 1;
 
-            if (clipBorder)
+            if (clipBorder &&
+                DoesImageContainBorder(original, startX, endX, startY, endY, 
+                    out var topLeftColor))
             {
-                var topLeftColor = GetTotalColor(original.GetPixel(startX, startY));
-                var topRightColor = GetTotalColor(original.GetPixel(endX, startY));
-                var bottomRightColor = GetTotalColor(original.GetPixel(endX, endY));
-                var bottomLeftColor = GetTotalColor(original.GetPixel(startX, endY));
-
-                if (Math.Abs(topLeftColor - topRightColor) < BORDER_DIFF_THRESHOLD &&
-                    Math.Abs(topRightColor - bottomRightColor) < BORDER_DIFF_THRESHOLD &&
-                    Math.Abs(bottomRightColor - bottomLeftColor) < BORDER_DIFF_THRESHOLD &&
-                    Math.Abs(bottomLeftColor - topLeftColor) < BORDER_DIFF_THRESHOLD &&
-                    Math.Abs(topLeftColor - bottomRightColor) < BORDER_DIFF_THRESHOLD &&
-                    Math.Abs(topRightColor - bottomLeftColor) < BORDER_DIFF_THRESHOLD)
+                for (var ii = startX; ii < startX + (endX - startX) / 2; ii++)
                 {
-
-                    for (var ii = startX; ii < startX + (endX - startX) / 2; ii++)
+                    var color = original.GetPixel(ii, endY / 2);
+                    if (Math.Abs(color.Red + color.Green + color.Blue - topLeftColor) > BORDER_DIFF_THRESHOLD)
                     {
-                        var color = original.GetPixel(ii, endY / 2);
-                        if (Math.Abs(color.Red + color.Green + color.Blue - topLeftColor) > BORDER_DIFF_THRESHOLD)
-                        {
-                            leftBorder = ii - startX;
-                            break;
-                        }
+                        leftBorder = ii - startX;
+                        break;
                     }
-                    for (var ii = startY; ii < endY / 2; ii++)
+                }
+                for (var ii = startY; ii < endY / 2; ii++)
+                {
+                    var color = original.GetPixel(startX + (endX - startX) / 4, ii); // 4 so as to not hit the guide dot if there is one
+                    if (Math.Abs(color.Red + color.Green + color.Blue - topLeftColor) > BORDER_DIFF_THRESHOLD)
                     {
-                        var color = original.GetPixel(startX + (endX - startX) / 4, ii); // 4 so as to not hit the guide dot if there is one
-                        if (Math.Abs(color.Red + color.Green + color.Blue - topLeftColor) > BORDER_DIFF_THRESHOLD)
-                        {
-                            topBorder = ii - startY;
-                            break;
-                        }
+                        topBorder = ii - startY;
+                        break;
                     }
-                    for (var ii = endX; ii > startX + (endX - startX) / 2; ii--)
+                }
+                for (var ii = endX; ii > startX + (endX - startX) / 2; ii--)
+                {
+                    var color = original.GetPixel(ii, endY / 2);
+                    if (Math.Abs(color.Red + color.Green + color.Blue - topLeftColor) > BORDER_DIFF_THRESHOLD)
                     {
-                        var color = original.GetPixel(ii, endY / 2);
-                        if (Math.Abs(color.Red + color.Green + color.Blue - topLeftColor) > BORDER_DIFF_THRESHOLD)
-                        {
-                            rightBorder = endX - ii;
-                            break;
-                        }
+                        rightBorder = endX - ii;
+                        break;
                     }
-                    for (var ii = endY; ii > endY / 2; ii--)
+                }
+                for (var ii = endY; ii > endY / 2; ii--)
+                {
+                    var color = original.GetPixel(startX + (endX - startX) / 2, ii);
+                    if (Math.Abs(color.Red + color.Green + color.Blue - topLeftColor) > BORDER_DIFF_THRESHOLD)
                     {
-                        var color = original.GetPixel(startX + (endX - startX) / 2, ii);
-                        if (Math.Abs(color.Red + color.Green + color.Blue - topLeftColor) > BORDER_DIFF_THRESHOLD)
-                        {
-                            bottomBorder = endY - ii;
-                            break;
-                        }
+                        bottomBorder = endY - ii;
+                        break;
                     }
                 }
             }
@@ -2699,6 +2690,21 @@ namespace CrossCam.ViewModel
                     height));
 
             return extracted;
+        }
+
+        private static bool DoesImageContainBorder(SKBitmap image, int startX, int endX, int startY, int endY, out int topLeftColor)
+        {
+            topLeftColor = GetTotalColor(image.GetPixel(startX, startY));
+            var topRightColor = GetTotalColor(image.GetPixel(endX, startY));
+            var bottomRightColor = GetTotalColor(image.GetPixel(endX, endY));
+            var bottomLeftColor = GetTotalColor(image.GetPixel(startX, endY));
+
+            return Math.Abs(topLeftColor - topRightColor) < BORDER_DIFF_THRESHOLD &&
+                   Math.Abs(topRightColor - bottomRightColor) < BORDER_DIFF_THRESHOLD &&
+                   Math.Abs(bottomRightColor - bottomLeftColor) < BORDER_DIFF_THRESHOLD &&
+                   Math.Abs(bottomLeftColor - topLeftColor) < BORDER_DIFF_THRESHOLD &&
+                   Math.Abs(topLeftColor - bottomRightColor) < BORDER_DIFF_THRESHOLD &&
+                   Math.Abs(topRightColor - bottomLeftColor) < BORDER_DIFF_THRESHOLD;
         }
 
         private static SKBitmap AutoOrient(SKBitmap bitmap, SKEncodedOrigin origin, bool isFrontFacing)

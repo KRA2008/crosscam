@@ -183,7 +183,7 @@ namespace CrossCam.Model
         public bool GrayscaleAnaglyphMode { get => SaveForGrayscaleAnaglyph; set => SaveForGrayscaleAnaglyph = value; }
 
         public bool AddBorder2 { get; set; }
-        public bool ClipBorderOnNextLoad { get; set; }
+        public bool PromptToClipOffDetectedBorder { get; set; }
 
         private PortraitCaptureButtonPosition _portraitPortraitCaptureButtonPosition;
         public PortraitCaptureButtonPosition PortraitCaptureButtonPosition
@@ -308,7 +308,7 @@ namespace CrossCam.Model
             IsCaptureInMirrorMode = false;
 
             AddBorder2 = true;
-            ClipBorderOnNextLoad = false;
+            PromptToClipOffDetectedBorder = true;
             
             IsGuideDonutVisible = false;
             ShowPreviewFuseGuide = true;

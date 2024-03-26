@@ -56,9 +56,9 @@
 
         <Label Grid.Column="0"
                Grid.Row="4" 
-               Text="Clip border off when loading next stereo pair"/>
+               Text="Prompt to clip border off when detected during loading"/>
         <Switch Grid.Column="1"
                 Grid.Row="4" 
-                IsToggled="{Binding Settings.ClipBorderOnNextLoad}"/>
+                IsToggled="{Binding Settings.PromptToClipOffDetectedBorder}"/>
     </Grid>
 </ContentView>
