@@ -161,7 +161,12 @@ namespace CrossCam.Wrappers
 #else
             var result = new AlignedResult();
 
+#if __WINDOWS__
             using var detector = new ORB(edgeThreshold:0,numberOfFeatures:4000);
+#else
+
+            using var detector = new ORB();
+#endif
             var readMode = settings.ReadModeColor ? ImreadModes.Color : ImreadModes.Grayscale;
 
             using var image1Mat = new Mat();
