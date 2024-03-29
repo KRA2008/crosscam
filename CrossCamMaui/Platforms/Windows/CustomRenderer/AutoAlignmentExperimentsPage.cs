@@ -56,7 +56,6 @@ public class AutoAlignmentExperimentsPage : ContentPage
 
     private void CanvasOnPaintSurface(object sender, SKPaintSurfaceEventArgs e)
     {
-        Debug.WriteLine("WHAT IS GOING ON?");
         if (_displayMode == DisplayMode.DirtyMatches ||
             _displayMode == DisplayMode.CleanMatches)
         {

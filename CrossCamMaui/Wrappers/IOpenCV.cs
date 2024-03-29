@@ -173,19 +173,48 @@ namespace CrossCam.Wrappers
             using var descriptors1 = new Mat();
             using var allKeyPointsVector1 = new VectorOfKeyPoint();
             CvInvoke.Imdecode(GetBytes(firstImage, settings.DownsizePercentage / 100d), readMode, image1Mat);
-            detector.DetectAndCompute(image1Mat, null, allKeyPointsVector1, descriptors1, false);
+            //using var maskMat = new Mat(image1Mat.Size, DepthType.Cv8U, 1);
+            using var maskMat = Mat.Ones(image1Mat.Rows, image1Mat.Cols, DepthType.Cv8U, 1);
+            maskMat.SetTo(new MCvScalar(255));
+            //var oneCounter = 0;
+            //unsafe
+            //{
+            //    var pointMaskPtr = (byte*)maskMat.DataPointer.ToPointer();
+            //    for (var i = 0; i < maskMat.Rows - 1; i++)
+            //    {
+            //        for (var j = 0; j < maskMat.Cols - 1; j++)
+            //        {
+            //            if (i < maskMat.Rows &&
+            //                j < maskMat.Cols)
+            //            {
+            //                *pointMaskPtr = 1;
+            //                oneCounter++;
+            //            }
+            //            else
+            //            {
+            //                *pointMaskPtr = 0;
+            //            }
+
+            //            pointMaskPtr++;
+            //        }
+            //    }
+            //}
+
+            //var data = maskMat.GetData();
+            detector.DetectAndCompute(image1Mat, maskMat, allKeyPointsVector1, descriptors1, false);
 
             using var image2Mat = new Mat();
             using var descriptors2 = new Mat();
             using var allKeyPointsVector2 = new VectorOfKeyPoint();
             CvInvoke.Imdecode(GetBytes(secondImage, settings.DownsizePercentage / 100d), readMode, image2Mat);
-            detector.DetectAndCompute(image2Mat, null, allKeyPointsVector2, descriptors2, false);
+            detector.DetectAndCompute(image2Mat, maskMat, allKeyPointsVector2, descriptors2, false);
 
             var thresholdDistance = Math.Sqrt(Math.Pow(firstImage.Width, 2) + Math.Pow(firstImage.Height, 2)) *
                                     settings.PhysicalDistanceThreshold;
 
             using var distanceThresholdMask =
                 new Mat(allKeyPointsVector2.Size, allKeyPointsVector1.Size, DepthType.Cv8U, 1);
+
             if (!settings.UseCrossCheck)
             {
                 unsafe
