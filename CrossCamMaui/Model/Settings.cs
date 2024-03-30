@@ -94,6 +94,8 @@ namespace CrossCam.Model
             SaveSidesSeparately ||
             SaveRedundantFirstSide;
 
+        public CaptureMethod CaptureMethod { get; set; }
+
         public bool HasOfferedTechniqueHelpBefore2 { get; set; }
         public bool HasShownDirectionsBefore { get; set; }
         public bool ShowRollGuide { get; set; }
@@ -300,6 +302,8 @@ namespace CrossCam.Model
         public void ResetToDefaults()
         {
             Mode = DrawMode.Cross;
+
+            CaptureMethod = CaptureMethod.ChaCha;
 
             AreGuideLinesVisible = true;
             AreGuideLinesColored = false;

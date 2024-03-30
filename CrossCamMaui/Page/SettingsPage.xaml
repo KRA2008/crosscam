@@ -59,6 +59,19 @@
 
             <ce:HorizontalDivider/>
 
+            <views:Expander x:Name="_captureMethodExpander"
+                            Command="{Binding CloseOtherExpandersCommand}"
+                            CommandParameter="{x:Reference _captureMethodExpander}"
+                            IsExpanded="{Binding OpenExpander, Converter={vc:IsBindingEqualToParameterConverter}, ConverterParameter={x:Reference _captureMethodExpander}}"
+                            ExpandedChanged="ExpanderChanged">
+                <views:Expander.Header>
+                    <ce:ExpanderHeader Title="Capture Method"
+                                       Icon="aperture.png"/>
+                </views:Expander.Header>
+            </views:Expander>
+
+            <ce:HorizontalDivider/>
+
             <views:Expander x:Name="_pairingExpander"
                             Command="{Binding CloseOtherExpandersCommand}"
                             CommandParameter="{x:Reference _pairingExpander}"
