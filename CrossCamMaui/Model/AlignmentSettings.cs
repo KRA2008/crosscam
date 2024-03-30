@@ -2,6 +2,11 @@
 {
     public class AlignmentSettings : Subsettings
     {
+        public AlignmentSettings()
+        {
+            ResetToDefaults();
+        }
+
         private bool _isAutomaticAlignmentOn;
         public bool IsAutomaticAlignmentOn
         {
@@ -65,7 +70,7 @@
         public uint EccThresholdPercentage { get; set; }
         public uint EccMotionType { get; set; }
 
-        public override void ResetToDefaults()
+        public sealed override void ResetToDefaults()
         {
             IsAutomaticAlignmentOn = true;
             ShowAdvancedAlignmentSettings = false;

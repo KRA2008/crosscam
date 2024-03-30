@@ -13,15 +13,12 @@ public class AutoAlignmentExperimentsPage : ContentPage
 {
     private SKCanvasView _canvas;
     private AlignedResult _alignedResult;
-    private Label _pointsCount;
+    private Label _infoLabel;
     private DisplayMode _displayMode;
 
     public AutoAlignmentExperimentsPage()
     {
-        _canvas = new SKCanvasView
-        {
-            BackgroundColor = Colors.Blue
-        };
+        _canvas = new SKCanvasView();
         _canvas.PaintSurface += CanvasOnPaintSurface;
         AbsoluteLayout.SetLayoutFlags(_canvas, AbsoluteLayoutFlags.All);
         AbsoluteLayout.SetLayoutBounds(_canvas, new Rect(0, 0, 1, 1));
@@ -35,43 +32,45 @@ public class AutoAlignmentExperimentsPage : ContentPage
         AbsoluteLayout.SetLayoutFlags(button, AbsoluteLayoutFlags.PositionProportional);
         AbsoluteLayout.SetLayoutBounds(button, new Rect(1, 1, AbsoluteLayout.AutoSize, AbsoluteLayout.AutoSize));
 
-        _pointsCount = new Label
+        _infoLabel = new Label
         {
             TextColor = Colors.Green
         };
-        AbsoluteLayout.SetLayoutFlags(_pointsCount, AbsoluteLayoutFlags.PositionProportional);
-        AbsoluteLayout.SetLayoutBounds(_pointsCount, new Rect(0,0, AbsoluteLayout.AutoSize, AbsoluteLayout.AutoSize));
+        AbsoluteLayout.SetLayoutFlags(_infoLabel, AbsoluteLayoutFlags.PositionProportional);
+        AbsoluteLayout.SetLayoutBounds(_infoLabel, new Rect(0,0, AbsoluteLayout.AutoSize, AbsoluteLayout.AutoSize));
 
         Content = new AbsoluteLayout
         {
-            BackgroundColor = Colors.Green,
             Children =
             {
                 _canvas,
                 button,
-                _pointsCount
+                _infoLabel
             }
         };
     }
 
     private void CanvasOnPaintSurface(object sender, SKPaintSurfaceEventArgs e)
     {
+        e.Surface.Canvas.Clear();
         if (_displayMode == DisplayMode.DirtyMatches ||
             _displayMode == DisplayMode.CleanMatches)
         {
             var bitmapToDraw = _displayMode == DisplayMode.DirtyMatches
                 ? _alignedResult.DrawnDirtyMatches
                 : _alignedResult.DrawnCleanMatches;
+            _infoLabel.Text = _displayMode == DisplayMode.DirtyMatches
+                ? "Dirty: " + _alignedResult.DirtyMatchesCount
+                : "Clean: " + _alignedResult.CleanMatchesCount;
+            if (bitmapToDraw == null) return;
             var aspectRatio = bitmapToDraw.Width / (bitmapToDraw.Height * 1f);
             var matchesWidth = Height * aspectRatio;
             e.Surface.Canvas.DrawBitmap(bitmapToDraw,
                 new SKRect(0, 0, (float)matchesWidth, (float)Height));
-            _pointsCount.Text = _displayMode == DisplayMode.DirtyMatches
-                ? _alignedResult.DirtyMatchesCount.ToString()
-                : _alignedResult.CleanMatchesCount.ToString();
         }
         else
         {
+            _infoLabel.Text = "Aligned";
             var aspectRatio = _alignedResult.Warped1.Width / (_alignedResult.Warped1.Height * 1f);
             var aspectFillWidth = Height * aspectRatio;
             e.Surface.Canvas.DrawBitmap(_alignedResult.Warped1,
@@ -95,12 +94,14 @@ public class AutoAlignmentExperimentsPage : ContentPage
             using var leftBitmap = SKBitmap.Decode(leftStream);
             using var rightBitmap = SKBitmap.Decode(rightStream);
 
-            var alignmentSettings = new AlignmentSettings();
-            alignmentSettings.ResetToDefaults();
-            alignmentSettings.DrawKeypointMatches = true;
-            alignmentSettings.DiscardOutliersByDistance = true;
-            alignmentSettings.DiscardOutliersBySlope1 = true;
-            alignmentSettings.PhysicalDistanceThreshold = 0.3f;
+            var alignmentSettings = new AlignmentSettings
+            {
+                DrawKeypointMatches = true,
+                UseCrossCheck = false,
+                MinimumKeypoints1 = 0,
+                DiscardOutliersByDistance = true,
+                DiscardOutliersBySlope1 = true
+            };
 
             _alignedResult = autoAlignment.ComboAlign(leftBitmap, rightBitmap, alignmentSettings);
 
@@ -108,7 +109,7 @@ public class AutoAlignmentExperimentsPage : ContentPage
 
             MainThread.BeginInvokeOnMainThread(() =>
             {
-                _pointsCount.Text = _alignedResult.DirtyMatchesCount.ToString();
+                _infoLabel.Text = _alignedResult.DirtyMatchesCount.ToString();
                 _canvas.InvalidateSurface();
             });
         }

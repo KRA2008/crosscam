@@ -2,6 +2,11 @@
 {
     public class CardboardSettings : Subsettings
     {
+        public CardboardSettings()
+        {
+            ResetToDefaults();
+        }
+
         private bool _addBarrelDistortion;
         public bool AddBarrelDistortion
         {
@@ -24,7 +29,7 @@
         public bool ImmersiveCardboardFinal { get; set; }
         public bool AddBarrelDistortionFinalOnly { get; set; }
 
-        public override void ResetToDefaults()
+        public sealed override void ResetToDefaults()
         {
             CardboardIpd = 400;
             CardboardBarrelDistortion = 200;

@@ -1,9 +1,12 @@
-﻿using System;
-
-namespace CrossCam.Model
+﻿namespace CrossCam.Model
 {
     public class EditsSettings : Subsettings
     {
+        public EditsSettings()
+        {
+            ResetToDefaults();
+        }
+
         public const double DEFAULT_MAX_ZOOM = 1/4d;
         public const double DEFAULT_MAX_VERT_ALIGNMENT = 1 / 8d;
         public const float DEFAULT_MAX_ROTATION = 5;
@@ -51,7 +54,7 @@ namespace CrossCam.Model
             set => _keystoneMax = Math.Abs(value);
         }
 
-        public override void ResetToDefaults()
+        public sealed override void ResetToDefaults()
         {
             ZoomMax = DEFAULT_MAX_ZOOM;
             SideCropMax = 1 / 2d;

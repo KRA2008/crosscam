@@ -2,6 +2,11 @@
 {
     public class PairSettings : Subsettings
     {
+        public PairSettings()
+        {
+            ResetToDefaults();
+        }
+
         private bool? _isPairedPrimary;
         public bool? IsPairedPrimary
         {
@@ -28,7 +33,7 @@
 
         public uint CaptureMomentExtraDelayMs { get; set; }
 
-        public override void ResetToDefaults()
+        public sealed override void ResetToDefaults()
         {
             //IsPairedPrimary = null; //deliberately do NOT reset this.
 

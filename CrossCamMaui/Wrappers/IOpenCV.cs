@@ -162,7 +162,7 @@ namespace CrossCam.Wrappers
             var result = new AlignedResult();
 
 #if __WINDOWS__
-            using var detector = new ORB(edgeThreshold:0,numberOfFeatures:4000);
+            using var detector = new ORB(edgeThreshold:0,numberOfFeatures:5000);
 #else
 
             using var detector = new ORB();
@@ -173,22 +173,22 @@ namespace CrossCam.Wrappers
             using var descriptors1 = new Mat();
             using var allKeyPointsVector1 = new VectorOfKeyPoint();
             CvInvoke.Imdecode(GetBytes(firstImage, settings.DownsizePercentage / 100d), readMode, image1Mat);
-            //using var maskMat = new Mat(image1Mat.Size, DepthType.Cv8U, 1);
-            using var maskMat = Mat.Ones(image1Mat.Rows, image1Mat.Cols, DepthType.Cv8U, 1);
+#if !__WINDOWS__
+            using Mat maskMat = null;
+#else
+            using var maskMat = new Mat(image1Mat.Size, DepthType.Cv8U, 1);
             maskMat.SetTo(new MCvScalar(255));
-            //var oneCounter = 0;
-            //unsafe
+            //unsafe //TODO: this does not work as expected... how do rows and cols arrange? is this about pixels and their physical location or is it something else like keypoints or pairs?
             //{
             //    var pointMaskPtr = (byte*)maskMat.DataPointer.ToPointer();
             //    for (var i = 0; i < maskMat.Rows - 1; i++)
             //    {
             //        for (var j = 0; j < maskMat.Cols - 1; j++)
             //        {
-            //            if (i < maskMat.Rows &&
-            //                j < maskMat.Cols)
+            //            if (i > maskMat.Rows*(3/4f) &&
+            //                j < maskMat.Cols/4f)
             //            {
-            //                *pointMaskPtr = 1;
-            //                oneCounter++;
+            //                *pointMaskPtr = 255;
             //            }
             //            else
             //            {
@@ -199,8 +199,8 @@ namespace CrossCam.Wrappers
             //        }
             //    }
             //}
+#endif
 
-            //var data = maskMat.GetData();
             detector.DetectAndCompute(image1Mat, maskMat, allKeyPointsVector1, descriptors1, false);
 
             using var image2Mat = new Mat();
