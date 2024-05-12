@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
 	<PropertyGroup>
-		<TargetFrameworks>net8.0-android;net8.0-ios</TargetFrameworks>
+		<TargetFrameworks>net8.0-android;net8.0-ios;net8.0</TargetFrameworks>
 		<TargetFrameworks Condition="$([MSBuild]::IsOSPlatform('windows'))">$(TargetFrameworks);net8.0-windows10.0.22621.0</TargetFrameworks>
 		<!-- Uncomment to also build the tizen app. You will need to install tizen by following this: https://github.com/Samsung/Tizen.NET -->
 		<!-- <TargetFrameworks>$(TargetFrameworks);net8.0-tizen</TargetFrameworks> -->
@@ -13,7 +13,7 @@
 		either BOTH runtimes must be indicated or ONLY macatalyst-x64. -->
 		<!-- For example: <RuntimeIdentifiers>maccatalyst-x64;maccatalyst-arm64</RuntimeIdentifiers> -->
 
-		<OutputType>Exe</OutputType>
+		<OutputType Condition="'$(TargetFramework)' != 'net8.0'">Exe</OutputType>
 		<RootNamespace>CrossCam</RootNamespace>
 		<UseMaui>true</UseMaui>
 		<SingleProject>true</SingleProject>
@@ -144,16 +144,17 @@
 	  <DefineConstants>$(DefineConstants);__WINDOWS__</DefineConstants>
 	</PropertyGroup>
 
+	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net8.0|AnyCPU'" />
+
 	<ItemGroup>
 		<!-- App Icon -->
 		<MauiIcon Include="Resources\AppIcon\appicon.svg" ForegroundFile="Resources\AppIcon\appiconfg.svg" />
-		<MauiIcon Include="Resources\AppIcon\appiconfg.svg" />
 
 		<!-- Images -->
 		<MauiImage Include="Resources\Images\**" />
 
 		<!-- Splash Screen -->
-	  <MauiSplashScreen Include="Resources\Splash\goodonwhitecircle.svg" Color="#000000" BaseSize="256,256" />
+	    <MauiSplashScreen Include="Resources\Splash\goodonwhitecircle.svg" Color="#000000" BaseSize="256,256" />
 
 		<!-- Raw Assets (also remove the "Resources\Raw" prefix) -->
 		<MauiAsset Include="Resources\Raw\**" LogicalName="%(RecursiveDir)%(Filename)%(Extension)" />
@@ -177,7 +178,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<PackageReference Include="Emgu.CV.runtime.maui" Version="4.8.0.5324" />
+		<PackageReference Condition="'$(TargetFramework)' != 'net8.0'" Include="Emgu.CV.runtime.maui" Version="4.8.0.5324" />
 		<PackageReference Include="Microsoft.Maui.Core" Version="8.0.6" />
 		<PackageReference Include="Microsoft.Maui.Controls" Version="8.0.6" />
 		<PackageReference Include="Microsoft.Maui.Controls.Compatibility" Version="8.0.6" />
@@ -188,6 +189,7 @@
 		<PackageReference Include="Microsoft.AppCenter.Crashes" Version="5.0.3" />
 		<PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
 		<PackageReference Include="PropertyChanged.Fody" Version="4.1.0" />
+		<PackageReference Condition="'$(TargetFramework)' != 'net8.0'" Include="SkiaSharp.Views" Version="2.88.7" />
 		<PackageReference Include="SkiaSharp.Views.Maui.Core" Version="2.88.7" />
 		<PackageReference Include="SkiaSharp.Views.Maui.Controls" Version="2.88.7" />
 		<PackageReference Include="SkiaSharp.Views.Maui.Controls.Compatibility" Version="2.88.7" />
@@ -360,6 +362,9 @@
 	</ItemGroup>
 
 	<ItemGroup Condition="'$(TargetFramework)' == 'net8.0-ios'">
+		<Reference Include="Microsoft.iOS">
+			<HintPath>C:\Program Files\dotnet\packs\Microsoft.iOS.Ref\17.2.8043\ref\net8.0\Microsoft.iOS.dll</HintPath>
+		</Reference>
 	</ItemGroup>
 
 	<ItemGroup Condition="$(TargetFramework.StartsWith('net8.0-android')) != true">

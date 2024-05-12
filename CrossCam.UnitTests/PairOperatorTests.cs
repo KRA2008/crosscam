@@ -1,5 +1,3 @@
-using System.Diagnostics;
-using System.Windows.Input;
 using CrossCam.CustomElement;
 using CrossCam.Model;
 using CrossCam.Wrappers;
@@ -127,6 +125,12 @@ namespace CrossCam.UnitTests
                 secondaryTimeCalls++;
                 return secondaryNow.AddTicks(secondaryTimeCalls * timeModifier);
             });
+        }
+
+        [Test]
+        public void JustPass()
+        {
+            Assert.Pass();
         }
 
         [Test]

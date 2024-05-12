@@ -1,6 +1,6 @@
 using CommunityToolkit.Maui;
 using CrossCam.Page;
-#if !__WINDOWS__
+#if __ANDROID__ || __IOS__
 using CrossCam.CustomElement;
 #endif
 #if __ANDROID__
@@ -64,7 +64,7 @@ public static class MauiProgram
         services.Add(ServiceDescriptor.Transient<TipsViewModel, TipsViewModel>());
 
         DependencyService.Register<IDeviceDisplayWrapper, DeviceDisplayWrapper>();
-#if !__WINDOWS__
+#if __ANDROID__ || __IOS__
         DependencyService.Register<IPlatformPair, PlatformPair>();
         DependencyService.Register<IDirectorySelector, DirectorySelector>();
         DependencyService.Register<ILinkSharer, LinkSharer>();

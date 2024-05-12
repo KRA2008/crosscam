@@ -1,26 +1,27 @@
 using CrossCam.Model;
 using SkiaSharp;
-using System.Diagnostics;
-using Emgu.CV.Platform.Maui.UI;
-using SkiaSharp.Views.Maui.Controls;
 #if EMGU
-using CrossCam.Page;
 using Emgu.CV;
 using Emgu.CV.CvEnum;
 using Emgu.CV.Features2D;
 using Emgu.CV.Structure;
 using Emgu.CV.Util;
-using Microsoft.AppCenter.Crashes;
 #endif
+#if __ANDROID__ || __IOS__ || __WINDOWS__
+using System.Diagnostics;
 using Color = System.Drawing.Color;
 using Math = System.Math;
 using PointF = System.Drawing.PointF;
+using CrossCam.Page;
+using Microsoft.AppCenter.Crashes;
+#endif
 #if __ANDROID__
 using SkiaSharp.Views.Android;
 #elif __IOS__
 using SkiaSharp.Views.iOS;
 #elif __WINDOWS__
 using SkiaSharp.Views.Windows;
+using Emgu.CV.Platform.Maui.UI;
 #endif
 
 namespace CrossCam.Wrappers
