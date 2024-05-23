@@ -21,10 +21,10 @@ namespace CrossCam.Page
 	    private CameraViewModel _viewModel;
         private IDeviceDisplayWrapper _deviceDisplayWrapper;
 
-        private readonly Rect _upperLineBoundsLandscape = new Rect(0, 0.33, 1, 21);
-	    private readonly Rect _lowerLineBoundsLandscape = new Rect(0, 0.67, 1, 21);
-	    private readonly Rect _upperLineBoundsPortrait = new Rect(0, 0.4, 1, 21);
-	    private readonly Rect _lowerLinesBoundsPortrait = new Rect(0, 0.6, 1, 21);
+        private readonly Rect _upperLineBoundsLandscape = new(0, 0.33, 1, 21);
+	    private readonly Rect _lowerLineBoundsLandscape = new(0, 0.67, 1, 21);
+	    private readonly Rect _upperLineBoundsPortrait = new(0, 0.4, 1, 21);
+	    private readonly Rect _lowerLinesBoundsPortrait = new(0, 0.6, 1, 21);
         
 	    private const float LEVEL_ICON_WIDTH = 60;
         private const float BUBBLE_LEVEL_MAX_TIP = 0.1f;
@@ -1360,8 +1360,10 @@ namespace CrossCam.Page
             //Debug.WriteLine("### Panned! Total: " + e.TotalX + "," + e.TotalY + " Status: " + e.StatusType);
             if (_viewModel.WorkflowStage != WorkflowStage.View) return;
 
-            var xProp = e.TotalX / Width;
-            var yProp = e.TotalY / Height;
+            var aspectRatio = _viewModel.LeftBitmap.Height / (1f * _viewModel.LeftBitmap.Width);
+
+            var xProp = e.TotalX / (Width / 2f);
+            var yProp = e.TotalY / (aspectRatio * Width / 2f);
 
             var zoomNormalizedHorizontalPan = -xProp / (1 + _viewModel.Explore.Zoom);
             var zoomNormalizedVerticalPan = -yProp / (1 + _viewModel.Explore.Zoom);
@@ -1410,10 +1412,8 @@ namespace CrossCam.Page
                     default:
                     break;
             }
-
-            var normalizedScale = (e.Scale - 1) / (1 + _viewModel.Explore.Zoom) / _deviceDisplayWrapper.GetDisplayDensity();
-
-            _viewModel.Explore.Zoom = (float)Math.Clamp(_viewModel.Explore.Zoom + normalizedScale, 0,1);
+            
+            _viewModel.Explore.Zoom = (float)Math.Clamp(_viewModel.Explore.Zoom + e.Scale - 1, 0,1);
             MainThread.BeginInvokeOnMainThread(() =>
             {
                 _canvas.InvalidateSurface();
