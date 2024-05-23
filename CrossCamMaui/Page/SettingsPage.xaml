@@ -57,7 +57,7 @@
                 <lazyViews:PreviewMethodSettingsLazyView/>
             </views:Expander>
 
-            <ce:HorizontalDivider/>
+            <!--<ce:HorizontalDivider/>
 
             <views:Expander x:Name="_captureMethodExpander"
                             Command="{Binding CloseOtherExpandersCommand}"
@@ -68,7 +68,7 @@
                     <ce:ExpanderHeader Title="Capture Method"
                                        Icon="aperture.png"/>
                 </views:Expander.Header>
-            </views:Expander>
+            </views:Expander>-->
 
             <ce:HorizontalDivider/>
 
