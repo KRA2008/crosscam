@@ -1,4 +1,5 @@
 ﻿using CrossCam.Model;
+using CrossCam.Resources.Localization;
 
 namespace CrossCam.ViewModel
 {
@@ -10,29 +11,15 @@ namespace CrossCam.ViewModel
         {
             get
             {
-                var retString = "";
-                switch (_settings.Mode)
+                return _settings.Mode switch
                 {
-                    case DrawMode.Parallel:
-                        retString = "parallel";
-                        break;
-                    case DrawMode.Cross:
-                        retString = "cross";
-                        break;
-                    case DrawMode.RedCyanAnaglyph:
-                        retString = "anaglyph";
-                        break;
-                    case DrawMode.GrayscaleRedCyanAnaglyph:
-                        retString = "anaglyph";
-                        break;
-                    case DrawMode.Cardboard:
-                        retString = "cardboard";
-                        break;
-                }
-
-                retString += " viewing";
-
-                return retString;
+                    DrawMode.Parallel => AppResources.Page_HowToUse_2parallel,
+                    DrawMode.Cross => AppResources.Page_HowToUse_2cross,
+                    DrawMode.RedCyanAnaglyph => AppResources.Page_HowToUse_2anaglyph,
+                    DrawMode.GrayscaleRedCyanAnaglyph => AppResources.Page_HowToUse_2anaglyph,
+                    DrawMode.Cardboard => AppResources.Page_HowToUse_2cardboard,
+                    _ => throw new ArgumentOutOfRangeException()
+                };
             }
         }
 

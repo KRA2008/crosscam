@@ -76,6 +76,21 @@
 		<string>_CrossCam._udp</string>
 	</array>
 	<key>NSPhotoLibraryUsageDescription</key>
-	<string>CrossCam can save photos and put them into a &quot;CrossCam&quot; album automatically. To allow this:&#13;- On iOS 17 and above tap "Limit access..." and then tap "Done" without actually selecting any photos.&#13;- On iOS 15 &amp; 16 tap &quot;Select Photos...&quot; and then tap &quot;Done&quot; without actually selecting any photos.&#13;- On iOS 14 and below tap OK.</string>
+	<string>CrossCam can save photos and put them into a &quot;CrossCam&quot; album automatically. To allow this:- On iOS 17 and above tap &quot;Limit access...&quot; and then tap &quot;Done&quot; without actually selecting any photos.- On iOS 15 &amp; 16 tap &quot;Select Photos...&quot; and then tap &quot;Done&quot; without actually selecting any photos.- On iOS 14 and below tap OK.</string>
+	<key>CFBundleLocalizations</key>
+	<array>
+		<string>en</string>
+		<string>zh</string>
+		<string>de</string>
+		<string>es</string>
+		<string>ru</string>
+		<string>pt</string>
+		<string>fr</string>
+		<string>it</string>
+		<string>pl</string>
+		<string>ar</string>
+	</array>
+	<key>CFBundleDevelopmentRegion</key>
+	<string>en</string>
 </dict>
 </plist>

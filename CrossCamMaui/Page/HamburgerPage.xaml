@@ -4,31 +4,32 @@
              xmlns:page="clr-namespace:CrossCam.Page"
              xmlns:ce="clr-namespace:CrossCam.CustomElement"
              xmlns:vm="clr-namespace:CrossCam.ViewModel"
+             xmlns:strings="clr-namespace:CrossCam.Resources.Localization"
              x:Class="CrossCam.Page.HamburgerPage"
              x:DataType="vm:HamburgerViewModel">
     <ScrollView>
         <StackLayout>
             <ce:iOS12WorkaroundBackButton/>
             <ce:HorizontalDivider/>
-            <Button Text="Help"
+            <Button Text="{x:Static strings:AppResources.Title_Help}"
                     Command="{Binding NavigateToHelpPage}"/>
             <ce:HorizontalDivider/>
-            <Button Text="Support the Developer"
+            <Button Text="{x:Static strings:AppResources.Button_Support}"
                     Command="{Binding NavigateToTipMePage}"/>
             <ce:HorizontalDivider/>
-            <Button Text="Write a Review"
+            <Button Text="{x:Static strings:AppResources.Button_Review}"
                     Command="{Binding OpenLink}"
                     CommandParameter="{OnPlatform 
                 iOS='https://apps.apple.com/us/app/crosscam/id1436262905?action=write-review', 
                 Android='https://play.google.com/store/apps/details?id=com.kra2008.crosscam'}"/>
             <ce:HorizontalDivider/>
-            <Button Text="Share CrossCam"
+            <Button Text="{x:Static strings:AppResources.Button_Share}"
                     Command="{Binding OpenLinkSharer}"/>
             <ce:HorizontalDivider/>
-            <Button Text="Contact"
+            <Button Text="{x:Static strings:AppResources.Title_Contact}"
                     Command="{Binding NavigateToContactPage}"/>
             <ce:HorizontalDivider/>
-            <Button Text="See More Pictures"
+            <Button Text="{x:Static strings:AppResources.Button_MorePictures}"
                     Command="{Binding NavigateToMorePicturesPage}"/>
             <ce:HorizontalDivider/>
             <ce:FooterLabel />

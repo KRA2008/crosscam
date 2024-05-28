@@ -3,6 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:d="http://schemas.microsoft.com/dotnet/2021/maui/design"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:strings="clr-namespace:CrossCam.Resources.Localization"
              mc:Ignorable="d"
              x:Class="CrossCam.CustomElement.FooterLabel"
              Padding="15">
@@ -13,11 +14,11 @@
            Margin="0">
         <Label.FormattedText>
             <FormattedString>
-                <Span Text="Found a bug? Have a question? Just email "/>
+                <Span Text="{x:Static strings:AppResources.Footer_Span1}"/>
                 <Span Text="me@kra2008.com" 
                       TextDecorations="Underline"
                       TextColor="LightBlue"/>
-                <Span Text="! I love talking with users and it's the fastest way to communicate with me."/>
+                <Span Text="{x:Static strings:AppResources.Footer_Span3}"/>
             </FormattedString>
         </Label.FormattedText>
     </Label>
