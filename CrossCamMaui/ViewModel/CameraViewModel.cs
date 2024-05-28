@@ -8,6 +8,7 @@ using System.Web;
 using CrossCam.CustomElement;
 using CrossCam.Model;
 using CrossCam.Page;
+using CrossCam.Resources.Localization;
 using CrossCam.Wrappers;
 using Microsoft.AppCenter.Analytics;
 using Microsoft.AppCenter.Crashes;
@@ -23,9 +24,9 @@ namespace CrossCam.ViewModel
 {
     public sealed class CameraViewModel : BaseViewModel
     {
-        private const string FULL_IMAGE = "Load full stereo image";
-        private const string SINGLE_SIDE = "Load single side";
-        private const string CANCEL = "Cancel";
+        private readonly string _fullImage = AppResources.Page_Camera_LoadFullImage;
+        private readonly string _singleSide = AppResources.Page_Camera_LoadSingleSide;
+        private readonly string _cancel = AppResources.Page_Camera_Cancel;
         private const string CROSSCAM = "CrossCam"; 
         private const string COMMAND_ANALYTICS_EVENT = "command start";
         private const string COMMAND_ANALYTICS_KEY_NAME = "command name";
@@ -463,48 +464,54 @@ namespace CrossCam.ViewModel
             }
         } 
 
-        public string SavedSuccessMessage => "Saved to " + (Settings.SaveToExternal
-                                                 ? "external"
+        public string SavedSuccessMessage => (Settings.SaveToExternal
+                                                 ? AppResources.Page_Camera_SavedToExternal
                                                  :
                                                  !string.IsNullOrWhiteSpace(Settings.SavingDirectory)
                                                      ?
-                                                     "custom folder"
-                                                     : "Photos") + "!";
+                                                     AppResources.Page_Camera_SavedToCustomFolder
+                                                     : AppResources.Page_Camera_SavedToPhotos) + "!";
 
         public string MovementHintText
         {
             get
             {
-                var hintText = "";
                 if (PairOperator.IsPrimary &&
                     PairOperator.PairStatus == PairStatus.Connected)
                 {
-                    hintText += "SECONDARY ON";
-                } 
-                else if (Settings.IsCaptureInMirrorMode)
-                {
-                    hintText += "MIRROR ON";
-                } 
-                else
-                {
-                    hintText += "MOVE";
+                    if ((Settings.Mode == DrawMode.Parallel &&
+                         Settings.IsCaptureLeftFirst) ||
+                        Settings.Mode != DrawMode.Parallel &&
+                        !Settings.IsCaptureLeftFirst)
+                    {
+                        return AppResources.Page_Camera_SecondaryOnRight;
+                    }
+
+                    return AppResources.Page_Camera_SecondaryOnLeft;
                 }
 
-                hintText += " ";
+                if (Settings.IsCaptureInMirrorMode)
+                {
+                    if ((Settings.Mode == DrawMode.Parallel &&
+                         Settings.IsCaptureLeftFirst) ||
+                        Settings.Mode != DrawMode.Parallel &&
+                        !Settings.IsCaptureLeftFirst)
+                    {
+                        return AppResources.Page_Camera_MirrorOnRight;
+                    }
+
+                    return AppResources.Page_Camera_MirrorOnLeft;
+                }
 
                 if ((Settings.Mode == DrawMode.Parallel &&
-                    Settings.IsCaptureLeftFirst) ||
+                     Settings.IsCaptureLeftFirst) ||
                     Settings.Mode != DrawMode.Parallel &&
                     !Settings.IsCaptureLeftFirst)
                 {
-                    hintText += "RIGHT";
-                } 
-                else
-                {
-                    hintText += "LEFT";
+                    return AppResources.Page_Camera_MoveRight;
                 }
 
-                return hintText;
+                return AppResources.Page_Camera_MoveLeft;
             }
         }
 
@@ -666,8 +673,8 @@ namespace CrossCam.ViewModel
                         if (!_isClearPromptOpen)
                         {
                             _isClearPromptOpen = true;
-                            var confirmClear = await CoreMethods.DisplayAlert("Really clear?",
-                                "Are you sure you want to clear your pictures and start over?", "Yes, clear", "No");
+                            var confirmClear = await CoreMethods.DisplayAlert(AppResources.Page_Camera_ReallyClear,
+                                AppResources.Page_Camera_SureClear, AppResources.Button_YesClear, AppResources.Button_No);
                             if (confirmClear)
                             {
                                 FullWipe();
@@ -855,8 +862,8 @@ namespace CrossCam.ViewModel
 
                 if (!Settings.AnySaveModesOn)
                 {
-                    await CoreMethods.DisplayAlert("No Save Modes Active",
-                        "No save modes are currently switched on. Turn a save mode on on the Settings page.", "OK");
+                    await CoreMethods.DisplayAlert(AppResources.Page_Camera_NoSaveModes,
+                        AppResources.Page_Camera_NoSaveModesExplain, AppResources.Button_OK);
                     return;
                 }
 
@@ -883,13 +890,13 @@ namespace CrossCam.ViewModel
 
                             canvas.DrawBitmap(LeftBitmap, 0, 0);
 
-                            await SaveSurfaceSnapshot(tempSurface, "Separate");
+                            await SaveSurfaceSnapshot(tempSurface, AppResources.SaveModes_Separate);
 
                             canvas.Clear();
 
                             canvas.DrawBitmap(RightBitmap, 0, 0);
 
-                            await SaveSurfaceSnapshot(tempSurface, "Separate");
+                            await SaveSurfaceSnapshot(tempSurface, AppResources.SaveModes_Separate);
                         }
 
                         var joinedImageSize = DrawTool.CalculateJoinedImageSizeOrientedWithEditsNoBorder(Edits, Settings,
@@ -950,7 +957,7 @@ namespace CrossCam.ViewModel
                                 Edits, 
                                 DrawMode.Cross, WasCapturePaired);
 
-                            await SaveSurfaceSnapshot(tempSurface, Settings.Mode == DrawMode.Parallel ? "Parallel" : "Cross");
+                            await SaveSurfaceSnapshot(tempSurface, Settings.Mode == DrawMode.Parallel ? AppResources.SaveModes_Parallel : AppResources.SaveModes_Cross);
                         }
 
                         if (Settings.SaveForParallel &&
@@ -973,7 +980,7 @@ namespace CrossCam.ViewModel
                                 Edits, 
                                 DrawMode.Parallel, WasCapturePaired, withSwap: true);
 
-                            await SaveSurfaceSnapshot(tempSurface, Settings.Mode == DrawMode.Cross ? "Parallel" : "Cross");
+                            await SaveSurfaceSnapshot(tempSurface, Settings.Mode == DrawMode.Cross ? AppResources.SaveModes_Parallel : AppResources.SaveModes_Cross);
                         }
 
                         if (Settings.SaveForRedCyanAnaglyph)
@@ -1011,7 +1018,7 @@ namespace CrossCam.ViewModel
 
                             canvas.DrawBitmap(targetBitmap, 0, 0);
 
-                            await SaveSurfaceSnapshot(tempSurface, "Single");
+                            await SaveSurfaceSnapshot(tempSurface, AppResources.SaveModes_Single);
                         }
 
                         if (Settings.SaveForTriple)
@@ -1040,7 +1047,7 @@ namespace CrossCam.ViewModel
                             tripleCanvas.DrawSurface(doubleSurface, 0, 0);
                             tripleCanvas.DrawSurface(doubleSurface, tripleOffset, 0);
 
-                            await SaveSurfaceSnapshot(tripleSurface, "Triple");
+                            await SaveSurfaceSnapshot(tripleSurface, AppResources.SaveModes_Triple);
                         }
 
                         if (Settings.SaveForQuad)
@@ -1082,7 +1089,7 @@ namespace CrossCam.ViewModel
                             quadCanvas.DrawSurface(doublePlainSurface, 0, 0);
                             quadCanvas.DrawSurface(doubleSwapSurface, 0, (int)quadOffset);
 
-                            await SaveSurfaceSnapshot(quadSurface, "Quad");
+                            await SaveSurfaceSnapshot(quadSurface, AppResources.SaveModes_Quad);
                         }
 
                         if (Settings.SaveForCardboard)
@@ -1113,7 +1120,7 @@ namespace CrossCam.ViewModel
                             Settings.AddBorder2 = withBorderTemp;
                             Settings.SaveWithFuseGuide = fuseGuideTemp;
 
-                            await SaveSurfaceSnapshot(tempSurface,"Cardboard");
+                            await SaveSurfaceSnapshot(tempSurface, AppResources.SaveModes_Cardboard);
                         }
 
                         TotalSavesCompleted++;
@@ -1127,9 +1134,9 @@ namespace CrossCam.ViewModel
 
                     await MainThread.InvokeOnMainThreadAsync(async () =>
                     {
-                        await CoreMethods.DisplayAlert("Directory Not Found",
-                            "The save destination could not be found. Please choose another on the settings page.",
-                            "OK");
+                        await CoreMethods.DisplayAlert(AppResources.Page_Camera_DirectoryNotFound,
+                            AppResources.Page_Camera_DirectoryNotFoundExplain,
+                            AppResources.Button_OK);
                     });
 
                     return;
@@ -1217,14 +1224,14 @@ namespace CrossCam.ViewModel
 #else
                     if (Settings.PromptForErrorEmails)
                     {
-                        var sendReport = await CoreMethods.DisplayAlert("Oops",
-                            "Sorry, CrossCam did an error. An error report has been automatically sent. You may not notice anything wrong at all, but if you do, try restarting the application. If this keeps happening, please email me and tell me about it. (Go to the Settings page to stop these popups.)",
-                            "Email me now", "Don't email me now");
+                        var sendReport = await CoreMethods.DisplayAlert(AppResources.Page_Camera_Oops,
+                            AppResources.Page_Camera_SorryError,
+                            AppResources.Button_EmailMeNow, AppResources.Button_DoNotEmailMe);
                         if (sendReport)
                         {
                             OpenLink.Execute(
                                 "mailto:me@kra2008.com?subject=CrossCam%20error%20report&body=" +
-                                "What did you do just before the error happened? Please describe even the small things.\n\n\n\n\n\nDid CrossCam still work after the error? If not, how is it broken?\n\n\n\n\n\nDoes this repeatedly happen?\n\n\n\n\n\nCan you force the error to happen on command? If so, how?\n\n\n\n\n\n" +
+                                AppResources.Page_Camera_ErrorEmailBody +
                                 HttpUtility.UrlEncode(Error.ToString()));
                         }
                         else
@@ -1252,9 +1259,9 @@ namespace CrossCam.ViewModel
                         {
                             await MainThread.InvokeOnMainThreadAsync(async () =>
                             {
-                                await CoreMethods.DisplayAlert("Pair Role Not Selected",
-                                    "Please go to the Pairing page (via the Settings page) and choose a pairing role for this device before attempting to pair.",
-                                    "Ok");
+                                await CoreMethods.DisplayAlert(AppResources.Page_Camera_PairRoleNotSelected,
+                                    AppResources.Page_Camera_GoPickRole,
+                                    AppResources.Button_OK);
                             });
                         }
                         else
@@ -1811,21 +1818,21 @@ namespace CrossCam.ViewModel
                     string loadType;
                     if (RightBitmap == null ^ LeftBitmap == null)
                     {
-                        loadType = SINGLE_SIDE;
+                        loadType = _singleSide;
                     }
                     else
                     {
                         loadType = await OpenLoadingPopup();
                     }
 
-                    if (loadType == CANCEL ||
+                    if (loadType == _cancel ||
                         loadType == null)
                     {
                         WorkflowStage = WorkflowStage.Capture;
                         return;
                     }
 
-                    if (loadType == SINGLE_SIDE)
+                    if (loadType == _singleSide)
                     {
                         using var stream = new SKMemoryStream(image1);
                         using var codec = SKCodec.Create(stream);
@@ -1860,8 +1867,8 @@ namespace CrossCam.ViewModel
             }
             catch (InvalidImageException ex)
             {
-                await CoreMethods.DisplayAlert("Invalid Image",
-                    ex.Message, "OK");
+                await CoreMethods.DisplayAlert(AppResources.Page_Camera_InvalidImage,
+                    ex.Message, AppResources.Button_OK);
                 WorkflowStage = WorkflowStage.Capture;
             }
             catch (Exception e)
@@ -1872,13 +1879,13 @@ namespace CrossCam.ViewModel
 
         private static void CheckCodecValidityAndFormat(SKCodec codec)
         {
-            if (codec == null) throw new InvalidImageException("The selected image is invalid.");
+            if (codec == null) throw new InvalidImageException(AppResources.Page_Camera_SelectedInvalid);
             if (codec.EncodedFormat != SKEncodedImageFormat.Jpeg &&
                 codec.EncodedFormat != SKEncodedImageFormat.Png &&
                 codec.EncodedFormat != SKEncodedImageFormat.Webp)
             {
                 throw new InvalidImageException(
-                    "Please select a Jpeg, Png, or Webp image. The image you selected is " + codec.EncodedFormat + ".");
+                    AppResources.Page_Camera_PleaseSelectValid + codec.EncodedFormat + ".");
             }
         }
 
@@ -1923,9 +1930,9 @@ namespace CrossCam.ViewModel
             {
                 await MainThread.InvokeOnMainThreadAsync(async () =>
                 {
-                    await CoreMethods.DisplayAlert("Field of View Correction",
-                        "Different device models can have different fields of view. CrossCam will help you correct for this after you do your first capture. Frame up and capture something with distinctive points near the top and bottom of the frame, making sure the points are visible on both devices.",
-                        "OK");
+                    await CoreMethods.DisplayAlert(AppResources.Page_FovCorrection,
+                        AppResources.Page_FovCorrectionExplain,
+                        AppResources.Button_OK);
                 });
             }
         }
@@ -2007,7 +2014,7 @@ namespace CrossCam.ViewModel
                 RightBitmap, RightAlignmentTransform,
                 Settings, Edits, grayscale ? DrawMode.GrayscaleRedCyanAnaglyph : DrawMode.RedCyanAnaglyph, WasCapturePaired);
 
-            await SaveSurfaceSnapshot(tempSurface, grayscale ? "GrayscaleAnaglyph" : "Anaglyph");
+            await SaveSurfaceSnapshot(tempSurface, grayscale ? AppResources.SaveModes_GrayscaleAnaglyph : AppResources.SaveModes_Anaglyph);
         }
 
         protected override void ViewIsDisappearing(object sender, EventArgs e)
@@ -2060,8 +2067,8 @@ namespace CrossCam.ViewModel
 
         private async Task<string> OpenLoadingPopup()
         {
-            return await MainThread.InvokeOnMainThreadAsync(async () => await CoreMethods.DisplayActionSheet("Choose an action:", CANCEL, null,
-                FULL_IMAGE, SINGLE_SIDE));
+            return await MainThread.InvokeOnMainThreadAsync(async () => await CoreMethods.DisplayActionSheet(AppResources.Page_Camera_ChooseAction, _cancel, null,
+                _fullImage, _singleSide));
         }
 
         private async Task LoadFullStereoImage(byte[] image)
@@ -2073,8 +2080,8 @@ namespace CrossCam.ViewModel
                 if (Settings.PromptToClipOffDetectedBorder &&
                     DoesImageContainBorder(imageBitmap, 0, imageBitmap.Width - 1, 0, imageBitmap.Height - 1, out int whatever))
                 {
-                    removeBorder = await CoreMethods.DisplayAlert("Border Detected", "A border has been detected. Remove the border?",
-                        "Remove", "Keep");
+                    removeBorder = await CoreMethods.DisplayAlert(AppResources.Page_Camera_BorderDetected, AppResources.Page_Camera_BorderAsk,
+                        AppResources.Button_Camera_Remove, AppResources.Button_Camera_Keep);
                 }
                 var leftHalf = await Task.Run(() => GetHalfOfImage(image, true, removeBorder));
                 SetLeftBitmap(leftHalf, false, true);
@@ -2221,7 +2228,7 @@ namespace CrossCam.ViewModel
                                 countPoint,
                                 countPaint);
 
-                            await SaveSurfaceSnapshot(dirtyMatchesSurface, "KeyPoints");
+                            await SaveSurfaceSnapshot(dirtyMatchesSurface, AppResources.Page_Camera_KeyPoints);
                             
 
                             if ((Settings.AlignmentSettings.DiscardOutliersBySlope2 || 
@@ -2247,7 +2254,7 @@ namespace CrossCam.ViewModel
                                     countPoint,
                                     countPaint);
 
-                                await SaveSurfaceSnapshot(cleanMatchesSurface, "KeyPoints");
+                                await SaveSurfaceSnapshot(cleanMatchesSurface, AppResources.Page_Camera_KeyPoints);
                             }
                         }
 
@@ -2270,7 +2277,7 @@ namespace CrossCam.ViewModel
                                 Style = SKPaintStyle.Fill
                             });
 
-                            await SaveSurfaceSnapshot(surface, "Warped");
+                            await SaveSurfaceSnapshot(surface, AppResources.Page_Camera_Warped);
                         }
 
                         if (Settings.IsCaptureLeftFirst)
@@ -2584,7 +2591,7 @@ namespace CrossCam.ViewModel
         {
             await MainThread.InvokeOnMainThreadAsync(async () =>
             {
-                await CoreMethods.DisplayAlert("Field of View Correction", "To correct for field of view differences, zoom and slide the pictures so the distinctive points line up between the two photos. You can drag the white lines around to help you visualize the alignment. This correction will be applied to future previews. It will be saved but you can reset it on the Settings page. If you're using identical devices just save without adjusting.", "OK");
+                await CoreMethods.DisplayAlert(AppResources.Page_Camera_FovTitle, AppResources.Page_Camera_FovExplain, AppResources.Button_OK);
             });
         }
 
@@ -2816,13 +2823,9 @@ namespace CrossCam.ViewModel
             {
                 if (!Settings.HasOfferedTechniqueHelpBefore2)
                 {
-                    var showTechniquePage = await CoreMethods.DisplayAlert("Welcome to CrossCam!",
-                        "CrossCam was made to help you make 3D photos. " +
-                        "The photos are 3D just like VR or 3D movies, but you don't need any special equipment or glasses - just your phone " +
-                        "(but if you do have a pair of red/cyan 3D glasses or a Google Cardboard viewer, you can use those with CrossCam too). " +
-                        "The \"free viewing\" technique that uses just your phone and your eyes takes some practice to learn. "+
-                        "Before I tell you how to use CrossCam, would you first like to learn more about the viewing technique?",
-                        "Viewing Technique", "Skip to Directions");
+                    var showTechniquePage = await CoreMethods.DisplayAlert(AppResources.Page_Camera_Welcome,
+                        AppResources.Page_Camera_WelcomeExplain, 
+                        AppResources.Page_Camera_Technique, AppResources.Page_Camera_Directions);
                     Settings.HasOfferedTechniqueHelpBefore2 = true;
                     PersistentStorage.Save(PersistentStorage.SETTINGS_KEY, Settings);
                     if (showTechniquePage)

@@ -61,6 +61,42 @@ namespace CrossCam.Resources.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Keep.
+        /// </summary>
+        internal static string Button_Camera_Keep {
+            get {
+                return ResourceManager.GetString("Button.Camera.Keep", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Remove.
+        /// </summary>
+        internal static string Button_Camera_Remove {
+            get {
+                return ResourceManager.GetString("Button.Camera.Remove", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Don&apos;t email me now.
+        /// </summary>
+        internal static string Button_DoNotEmailMe {
+            get {
+                return ResourceManager.GetString("Button.DoNotEmailMe", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Email me now.
+        /// </summary>
+        internal static string Button_EmailMeNow {
+            get {
+                return ResourceManager.GetString("Button.EmailMeNow", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Google Doc of Great Stuff.
         /// </summary>
         internal static string Button_GoogleDoc {
@@ -70,11 +106,47 @@ namespace CrossCam.Resources.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to LEARN CROSS.
+        /// </summary>
+        internal static string Button_LearnCross {
+            get {
+                return ResourceManager.GetString("Button.LearnCross", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to LEARN PARALLEL.
+        /// </summary>
+        internal static string Button_LearnParallel {
+            get {
+                return ResourceManager.GetString("Button.LearnParallel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to See More Pictures.
         /// </summary>
         internal static string Button_MorePictures {
             get {
                 return ResourceManager.GetString("Button.MorePictures", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to No.
+        /// </summary>
+        internal static string Button_No {
+            get {
+                return ResourceManager.GetString("Button.No", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to OK.
+        /// </summary>
+        internal static string Button_OK {
+            get {
+                return ResourceManager.GetString("Button.OK", resourceCulture);
             }
         }
         
@@ -106,6 +178,33 @@ namespace CrossCam.Resources.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to TAP HERE TO CHOOSE CROSS.
+        /// </summary>
+        internal static string Button_TapCross {
+            get {
+                return ResourceManager.GetString("Button.TapCross", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to TAP HERE TO CHOOSE PARALLEL.
+        /// </summary>
+        internal static string Button_TapParallel {
+            get {
+                return ResourceManager.GetString("Button.TapParallel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Yes, clear.
+        /// </summary>
+        internal static string Button_YesClear {
+            get {
+                return ResourceManager.GetString("Button.YesClear", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Found a bug? Have a question? Just email .
         /// </summary>
         internal static string Footer_Span1 {
@@ -120,6 +219,537 @@ namespace CrossCam.Resources.Localization {
         internal static string Footer_Span3 {
             get {
                 return ResourceManager.GetString("Footer.Span3", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Aligning....
+        /// </summary>
+        internal static string Page_Camera_Aligning {
+            get {
+                return ResourceManager.GetString("Page.Camera.Aligning", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Automatic alignment not supported on device - turn off in Settings..
+        /// </summary>
+        internal static string Page_Camera_AlignmentBroken {
+            get {
+                return ResourceManager.GetString("Page.Camera.AlignmentBroken", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Alignment failed..
+        /// </summary>
+        internal static string Page_Camera_AlignmentFailed {
+            get {
+                return ResourceManager.GetString("Page.Camera.AlignmentFailed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to A border has been detected. Remove the border?.
+        /// </summary>
+        internal static string Page_Camera_BorderAsk {
+            get {
+                return ResourceManager.GetString("Page.Camera.BorderAsk", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Border Detected.
+        /// </summary>
+        internal static string Page_Camera_BorderDetected {
+            get {
+                return ResourceManager.GetString("Page.Camera.BorderDetected", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Cancel.
+        /// </summary>
+        internal static string Page_Camera_Cancel {
+            get {
+                return ResourceManager.GetString("Page.Camera.Cancel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Choose an action:.
+        /// </summary>
+        internal static string Page_Camera_ChooseAction {
+            get {
+                return ResourceManager.GetString("Page.Camera.ChooseAction", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Skip to Directions.
+        /// </summary>
+        internal static string Page_Camera_Directions {
+            get {
+                return ResourceManager.GetString("Page.Camera.Directions", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Directory Not Found.
+        /// </summary>
+        internal static string Page_Camera_DirectoryNotFound {
+            get {
+                return ResourceManager.GetString("Page.Camera.DirectoryNotFound", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The save destination could not be found. Please choose another on the settings page..
+        /// </summary>
+        internal static string Page_Camera_DirectoryNotFoundExplain {
+            get {
+                return ResourceManager.GetString("Page.Camera.DirectoryNotFoundExplain", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to What did you do just before the error happened? Please describe even the small things.\n\n\n\n\n\nDid CrossCam still work after the error? If not, how is it broken?\n\n\n\n\n\nDoes this repeatedly happen?\n\n\n\n\n\nCan you force the error to happen on command? If so, how?\n\n\n\n\n\n.
+        /// </summary>
+        internal static string Page_Camera_ErrorEmailBody {
+            get {
+                return ResourceManager.GetString("Page.Camera.ErrorEmailBody", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Flip to landscape when in cardboard mode..
+        /// </summary>
+        internal static string Page_Camera_FlipForCardboard {
+            get {
+                return ResourceManager.GetString("Page.Camera.FlipForCardboard", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to (flip to landscape for a larger view).
+        /// </summary>
+        internal static string Page_Camera_FlipLarger {
+            get {
+                return ResourceManager.GetString("Page.Camera.FlipLarger", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to for anaglyph.
+        /// </summary>
+        internal static string Page_Camera_ForAnaglyph {
+            get {
+                return ResourceManager.GetString("Page.Camera.ForAnaglyph", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to for Cardboard.
+        /// </summary>
+        internal static string Page_Camera_ForCardboard {
+            get {
+                return ResourceManager.GetString("Page.Camera.ForCardboard", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to for cross.
+        /// </summary>
+        internal static string Page_Camera_ForCross {
+            get {
+                return ResourceManager.GetString("Page.Camera.ForCross", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to for parallel.
+        /// </summary>
+        internal static string Page_Camera_ForParallel {
+            get {
+                return ResourceManager.GetString("Page.Camera.ForParallel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to To correct for field of view differences, zoom and slide the pictures so the distinctive points line up between the two photos. You can drag the white lines around to help you visualize the alignment. This correction will be applied to future previews. It will be saved but you can reset it on the Settings page. If you&apos;re using identical devices just save without adjusting..
+        /// </summary>
+        internal static string Page_Camera_FovExplain {
+            get {
+                return ResourceManager.GetString("Page.Camera.FovExplain", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Field of View Correction.
+        /// </summary>
+        internal static string Page_Camera_FovTitle {
+            get {
+                return ResourceManager.GetString("Page.Camera.FovTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Please go to the Pairing page (via the Settings page) and choose a pairing role for this device before attempting to pair..
+        /// </summary>
+        internal static string Page_Camera_GoPickRole {
+            get {
+                return ResourceManager.GetString("Page.Camera.GoPickRole", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Invalid Image.
+        /// </summary>
+        internal static string Page_Camera_InvalidImage {
+            get {
+                return ResourceManager.GetString("Page.Camera.InvalidImage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to KeyPoints.
+        /// </summary>
+        internal static string Page_Camera_KeyPoints {
+            get {
+                return ResourceManager.GetString("Page.Camera.KeyPoints", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Load full stereo image.
+        /// </summary>
+        internal static string Page_Camera_LoadFullImage {
+            get {
+                return ResourceManager.GetString("Page.Camera.LoadFullImage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Loading....
+        /// </summary>
+        internal static string Page_Camera_Loading {
+            get {
+                return ResourceManager.GetString("Page.Camera.Loading", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Load single side.
+        /// </summary>
+        internal static string Page_Camera_LoadSingleSide {
+            get {
+                return ResourceManager.GetString("Page.Camera.LoadSingleSide", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Please consider manual corrections too..
+        /// </summary>
+        internal static string Page_Camera_ManualCorrections {
+            get {
+                return ResourceManager.GetString("Page.Camera.ManualCorrections", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to MIRROR ON LEFT.
+        /// </summary>
+        internal static string Page_Camera_MirrorOnLeft {
+            get {
+                return ResourceManager.GetString("Page.Camera.MirrorOnLeft", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to MIRROR ON RIGHT.
+        /// </summary>
+        internal static string Page_Camera_MirrorOnRight {
+            get {
+                return ResourceManager.GetString("Page.Camera.MirrorOnRight", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to MOVE LEFT.
+        /// </summary>
+        internal static string Page_Camera_MoveLeft {
+            get {
+                return ResourceManager.GetString("Page.Camera.MoveLeft", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to MOVE RIGHT.
+        /// </summary>
+        internal static string Page_Camera_MoveRight {
+            get {
+                return ResourceManager.GetString("Page.Camera.MoveRight", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to No Save Modes Active.
+        /// </summary>
+        internal static string Page_Camera_NoSaveModes {
+            get {
+                return ResourceManager.GetString("Page.Camera.NoSaveModes", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to No save modes are currently switched on. Turn a save mode on on the Settings page..
+        /// </summary>
+        internal static string Page_Camera_NoSaveModesExplain {
+            get {
+                return ResourceManager.GetString("Page.Camera.NoSaveModesExplain", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Oops.
+        /// </summary>
+        internal static string Page_Camera_Oops {
+            get {
+                return ResourceManager.GetString("Page.Camera.Oops", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to (or rotate).
+        /// </summary>
+        internal static string Page_Camera_OrRotate {
+            get {
+                return ResourceManager.GetString("Page.Camera.OrRotate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to (or swipe).
+        /// </summary>
+        internal static string Page_Camera_OrSwipe {
+            get {
+                return ResourceManager.GetString("Page.Camera.OrSwipe", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Pair Role Not Selected.
+        /// </summary>
+        internal static string Page_Camera_PairRoleNotSelected {
+            get {
+                return ResourceManager.GetString("Page.Camera.PairRoleNotSelected", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Pinch or drag to explore!.
+        /// </summary>
+        internal static string Page_Camera_PinchOrDrag {
+            get {
+                return ResourceManager.GetString("Page.Camera.PinchOrDrag", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Please select a Jpeg, Png, or Webp image. The image you selected is.
+        /// </summary>
+        internal static string Page_Camera_PleaseSelectValid {
+            get {
+                return ResourceManager.GetString("Page.Camera.PleaseSelectValid", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Really clear?.
+        /// </summary>
+        internal static string Page_Camera_ReallyClear {
+            get {
+                return ResourceManager.GetString("Page.Camera.ReallyClear", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Saved to custom folder.
+        /// </summary>
+        internal static string Page_Camera_SavedToCustomFolder {
+            get {
+                return ResourceManager.GetString("Page.Camera.SavedToCustomFolder", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Saved to external.
+        /// </summary>
+        internal static string Page_Camera_SavedToExternal {
+            get {
+                return ResourceManager.GetString("Page.Camera.SavedToExternal", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Saved to Photos.
+        /// </summary>
+        internal static string Page_Camera_SavedToPhotos {
+            get {
+                return ResourceManager.GetString("Page.Camera.SavedToPhotos", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to SavingFailed. :(.
+        /// </summary>
+        internal static string Page_Camera_SaveFailed {
+            get {
+                return ResourceManager.GetString("Page.Camera.SaveFailed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Saving....
+        /// </summary>
+        internal static string Page_Camera_Saving {
+            get {
+                return ResourceManager.GetString("Page.Camera.Saving", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to SECONDARY ON LEFT.
+        /// </summary>
+        internal static string Page_Camera_SecondaryOnLeft {
+            get {
+                return ResourceManager.GetString("Page.Camera.SecondaryOnLeft", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to SECONDARY ON RIGHT.
+        /// </summary>
+        internal static string Page_Camera_SecondaryOnRight {
+            get {
+                return ResourceManager.GetString("Page.Camera.SecondaryOnRight", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The selected image is invalid..
+        /// </summary>
+        internal static string Page_Camera_SelectedInvalid {
+            get {
+                return ResourceManager.GetString("Page.Camera.SelectedInvalid", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Sorry, CrossCam did an error. An error report has been automatically sent. You may not notice anything wrong at all, but if you do, try restarting the application. If this keeps happening, please email me and tell me about it. (Go to the Settings page to stop these popups.).
+        /// </summary>
+        internal static string Page_Camera_SorryError {
+            get {
+                return ResourceManager.GetString("Page.Camera.SorryError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Steady....
+        /// </summary>
+        internal static string Page_Camera_Steady {
+            get {
+                return ResourceManager.GetString("Page.Camera.Steady", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Are you sure you want to clear your pictures and start over?.
+        /// </summary>
+        internal static string Page_Camera_SureClear {
+            get {
+                return ResourceManager.GetString("Page.Camera.SureClear", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Syncing....
+        /// </summary>
+        internal static string Page_Camera_Syncing {
+            get {
+                return ResourceManager.GetString("Page.Camera.Syncing", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Viewing Technique.
+        /// </summary>
+        internal static string Page_Camera_Technique {
+            get {
+                return ResourceManager.GetString("Page.Camera.Technique", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Transmitting... &amp;#10; (keep device unlocked).
+        /// </summary>
+        internal static string Page_Camera_Transmitting {
+            get {
+                return ResourceManager.GetString("Page.Camera.Transmitting", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to VR.
+        /// </summary>
+        internal static string Page_Camera_VR {
+            get {
+                return ResourceManager.GetString("Page.Camera.VR", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Warped.
+        /// </summary>
+        internal static string Page_Camera_Warped {
+            get {
+                return ResourceManager.GetString("Page.Camera.Warped", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Welcome to CrossCam!.
+        /// </summary>
+        internal static string Page_Camera_Welcome {
+            get {
+                return ResourceManager.GetString("Page.Camera.Welcome", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to CrossCam was made to help you make 3D photos. The photos are 3D just like VR or 3D movies, but you don&apos;t need any special equipment or glasses - just your phone (but if you do have a pair of red/cyan 3D glasses or a Google Cardboard viewer, you can use those with CrossCam too). The \&quot;free viewing\&quot; technique that uses just your phone and your eyes takes some practice to learn. Before I tell you how to use CrossCam, would you first like to learn more about the viewing technique?.
+        /// </summary>
+        internal static string Page_Camera_WelcomeExplain {
+            get {
+                return ResourceManager.GetString("Page.Camera.WelcomeExplain", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Field of View Correction.
+        /// </summary>
+        internal static string Page_FovCorrection {
+            get {
+                return ResourceManager.GetString("Page.FovCorrection", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Different device models can have different fields of view. CrossCam will help you correct for this after you do your first capture. Frame up and capture something with distinctive points near the top and bottom of the frame, making sure the points are visible on both devices..
+        /// </summary>
+        internal static string Page_FovCorrectionExplain {
+            get {
+                return ResourceManager.GetString("Page.FovCorrectionExplain", resourceCulture);
             }
         }
         
@@ -205,11 +835,443 @@ namespace CrossCam.Resources.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to &amp;#x2022; Tap once to focus on a point, tap twice to switch back to continuous auto focus..
+        /// </summary>
+        internal static string Page_HowToUse_Focus {
+            get {
+                return ResourceManager.GetString("Page.HowToUse.Focus", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to &amp;#x2022; Tap the little folder icon on the bottom to load an image as a side or to load a full stereo image..
+        /// </summary>
+        internal static string Page_HowToUse_Folder {
+            get {
+                return ResourceManager.GetString("Page.HowToUse.Folder", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to &amp;#x2022; Tap the gear icon on the top right of the camera screen to open the Settings page. It&apos;s full of interesting stuff..
+        /// </summary>
+        internal static string Page_HowToUse_Gear {
+            get {
+                return ResourceManager.GetString("Page.HowToUse.Gear", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to If you want to see this again, tap the hamburger (three lines) icon on the top left of the camera screen and tap &amp;quot;Help&amp;quot;..
         /// </summary>
         internal static string Page_HowToUse_Intro {
             get {
                 return ResourceManager.GetString("Page.HowToUse.Intro", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Other stuff you can do:.
+        /// </summary>
+        internal static string Page_HowToUse_Other {
+            get {
+                return ResourceManager.GetString("Page.HowToUse.Other", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to &amp;#x2022; If you would prefer to move the other direction for your second shot or would like to swap the sides just do a swipe..
+        /// </summary>
+        internal static string Page_HowToUse_Swipe {
+            get {
+                return ResourceManager.GetString("Page.HowToUse.Swipe", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to &amp;#x2022; There&apos;s a nice Tips page you can get to by tapping the hamburger icon on the top left of the camera screen that can help you make your pictures great..
+        /// </summary>
+        internal static string Page_HowToUse_Tips {
+            get {
+                return ResourceManager.GetString("Page.HowToUse.Tips", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Additional tutorials:.
+        /// </summary>
+        internal static string Page_Technique_AdditionalTutorials {
+            get {
+                return ResourceManager.GetString("Page.Technique.AdditionalTutorials", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to If you&apos;re able to comfortably cross your eyes, you should try the cross method first, otherwise you should try the parallel method. If you&apos;re used to Magic Eye™ books, you&apos;re probably already able to do the parallel method, but you might also be able to do the cross method. Tap a method below to learn it, and make sure to tell CrossCam which one works for you by pressing the corresponding CHOOSE button..
+        /// </summary>
+        internal static string Page_Technique_Choose {
+            get {
+                return ResourceManager.GetString("Page.Technique.Choose", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Carefully cross your eyes while looking at the pair of pictures above. When you cross your eyes, things will get blurry and see-through and you&apos;ll start to see 4 pictures instead of 2 (2 pairs). The harder you cross your eyes, the further apart the pairs of pictures will move - it will look a little like this:.
+        /// </summary>
+        internal static string Page_Technique_Cross1 {
+            get {
+                return ResourceManager.GetString("Page.Technique.Cross1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Uncross your eyes carefully, so that the pictures on the inside of each pair start to overlap. It will start to look like there are only 3 pictures instead of 4. It will still be blurry and see-through and look something like this:.
+        /// </summary>
+        internal static string Page_Technique_Cross2 {
+            get {
+                return ResourceManager.GetString("Page.Technique.Cross2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Once you have the middle overlap working you just have to relax your eyes and allow them to focus the picture. At that point you&apos;ll have one sharp 3D picture in the middle with a transparent picture floating off on each side that will look like this (except the middle will be 3D):.
+        /// </summary>
+        internal static string Page_Technique_Cross3 {
+            get {
+                return ResourceManager.GetString("Page.Technique.Cross3", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to If you have trouble crossing your eyes, you can also try staring at your finger while you hold it halfway between your eyes and the screen. You should see the pictures starting to separate and overlap behind your finger..
+        /// </summary>
+        internal static string Page_Technique_Cross4 {
+            get {
+                return ResourceManager.GetString("Page.Technique.Cross4", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to A nice text tutorial.
+        /// </summary>
+        internal static string Page_Technique_CrossLink1 {
+            get {
+                return ResourceManager.GetString("Page.Technique.CrossLink1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Yet another nice text tutorial.
+        /// </summary>
+        internal static string Page_Technique_CrossLink2 {
+            get {
+                return ResourceManager.GetString("Page.Technique.CrossLink2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to A short YouTube tutorial.
+        /// </summary>
+        internal static string Page_Technique_CrossLink3 {
+            get {
+                return ResourceManager.GetString("Page.Technique.CrossLink3", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to A long, odd, but helpful YouTube tutorial.
+        /// </summary>
+        internal static string Page_Technique_CrossLink4 {
+            get {
+                return ResourceManager.GetString("Page.Technique.CrossLink4", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Another YouTube tutorial.
+        /// </summary>
+        internal static string Page_Technique_CrossLink5 {
+            get {
+                return ResourceManager.GetString("Page.Technique.CrossLink5", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to A dual camera project with a tutorial.
+        /// </summary>
+        internal static string Page_Technique_CrossLink6 {
+            get {
+                return ResourceManager.GetString("Page.Technique.CrossLink6", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to CROSS VIEWING.
+        /// </summary>
+        internal static string Page_Technique_CrossViewing {
+            get {
+                return ResourceManager.GetString("Page.Technique.CrossViewing", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to If you want to see this again, tap the hamburger (three lines) icon on the top left of the camera screen and tap &amp;quot;Help&amp;quot;..
+        /// </summary>
+        internal static string Page_Technique_Hamburger {
+            get {
+                return ResourceManager.GetString("Page.Technique.Hamburger", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to To see the 3D in CrossCam (called &amp;quot;stereograms&amp;quot;) you can use red/cyan 3D glasses, a Google Cardboard viewer, or you can do &amp;quot;free viewing&amp;quot; using just your eyes and your screen. There are two ways to free view, and CrossCam can help you learn both of them. You need to tell CrossCam how you&apos;re going to view the pictures or it won&apos;t work right. Don&apos;t worry, you can always change this again in Settings..
+        /// </summary>
+        internal static string Page_Technique_List {
+            get {
+                return ResourceManager.GetString("Page.Technique.List", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to If the above image doesn&apos;t fit on your screen, turn your phone to landscape - CrossCam is trying to make the pair of images above the easiest size for this. You don&apos;t always have to use CrossCam in landscape, but a perfectly sized image makes learning the technique easier..
+        /// </summary>
+        internal static string Page_Technique_Parallel1 {
+            get {
+                return ResourceManager.GetString("Page.Technique.Parallel1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Relax your eyes and look &amp;quot;through&amp;quot; the pair of pictures above like you&apos;re kind of zoning out with your eyes pointing at the pictures. You should start to see 3 pictures with a 3D picture in the middle, a little bit like this:.
+        /// </summary>
+        internal static string Page_Technique_Parallel2 {
+            get {
+                return ResourceManager.GetString("Page.Technique.Parallel2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to If you start to see 4 pictures, you&apos;ve gone too far. Try moving your eyes around a tiny bit if you find yourself at that point again. Relaxing too far will look a little like this:.
+        /// </summary>
+        internal static string Page_Technique_Parallel3 {
+            get {
+                return ResourceManager.GetString("Page.Technique.Parallel3", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to If you&apos;re having trouble, try bringing your screen right up against your face with the pair of pictures right in front of your eyes. Relax and look &amp;quot;through&amp;quot; the screen and then slowly pull your screen away from your face while keeping your eyes relaxed. Eventually the image should &amp;quot;click&amp;quot; into focus..
+        /// </summary>
+        internal static string Page_Technique_Parallel4 {
+            get {
+                return ResourceManager.GetString("Page.Technique.Parallel4", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to If you still keep seeing four images, increase the &amp;quot;Maximum parallel view image width&amp;quot; on the Settings page..
+        /// </summary>
+        internal static string Page_Technique_Parallel5 {
+            get {
+                return ResourceManager.GetString("Page.Technique.Parallel5", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to A nice text tutorial.
+        /// </summary>
+        internal static string Page_Technique_ParallelLink1 {
+            get {
+                return ResourceManager.GetString("Page.Technique.ParallelLink1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Another nice text tutorial.
+        /// </summary>
+        internal static string Page_Technique_ParallelLink2 {
+            get {
+                return ResourceManager.GetString("Page.Technique.ParallelLink2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Yet ANOTHER nice text tutorial.
+        /// </summary>
+        internal static string Page_Technique_ParallelLink3 {
+            get {
+                return ResourceManager.GetString("Page.Technique.ParallelLink3", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Magic Frankfurter Tutorial.
+        /// </summary>
+        internal static string Page_Technique_ParallelLink4 {
+            get {
+                return ResourceManager.GetString("Page.Technique.ParallelLink4", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to A nice video about Magic Eye.
+        /// </summary>
+        internal static string Page_Technique_ParallelLink5 {
+            get {
+                return ResourceManager.GetString("Page.Technique.ParallelLink5", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to PARALLEL VIEWING.
+        /// </summary>
+        internal static string Page_Technique_ParallelViewing {
+            get {
+                return ResourceManager.GetString("Page.Technique.ParallelViewing", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Images I&apos;ve made that you can practice on.
+        /// </summary>
+        internal static string Page_Technique_Practice {
+            get {
+                return ResourceManager.GetString("Page.Technique.Practice", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to If you&apos;d rather use 3D glasses or a Cardboard viewer you can set CrossCam to use those on the Settings page..
+        /// </summary>
+        internal static string Page_Technique_Rather {
+            get {
+                return ResourceManager.GetString("Page.Technique.Rather", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to If you&apos;re still having trouble, try bringing your phone to a dark room so that the only thing your eyes can see well and focus on is the image..
+        /// </summary>
+        internal static string Page_Technique_Trouble1 {
+            get {
+                return ResourceManager.GetString("Page.Technique.Trouble1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Another thing you can try is using toilet paper tubes or your hands to make it so each eye can only see the side of the image it&apos;s supposed to see.&amp;#10; &amp;#x2022; For cross view: hold a single tube against the bridge of your nose (centered between your eyes) while pointing it at the center of the image in front of you. Slowly move the tube toward the screen while trying to look down the tube with both eyes. When you reach the right position with the tube the image should snap into place. It may help to conce [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string Page_Technique_Trouble2 {
+            get {
+                return ResourceManager.GetString("Page.Technique.Trouble2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to There is an easy exercise you can do to practice fusing with either cross or parallel viewing. Take a marker and draw a portion of a smiley face on each of your thumbnails (or a pair of popsicle sticks or tongue depressors). For example, on one side draw one eye and a mouth, and on the other side draw an eye and a nose. You can then hold them up in front of you and practice fusing the two images together to complete the smiley face..
+        /// </summary>
+        internal static string Page_Technique_Trouble3 {
+            get {
+                return ResourceManager.GetString("Page.Technique.Trouble3", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to I personally prefer cross over parallel because images can be larger, but both methods work. If you&apos;d like to experiment with larger parallel images, you can control the size on the Settings page..
+        /// </summary>
+        internal static string Page_Technique_Trouble4 {
+            get {
+                return ResourceManager.GetString("Page.Technique.Trouble4", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Sometimes it&apos;s difficult to feel whether you&apos;re doing the cross or parallel method while you&apos;re doing it. You can ask someone else to watch your eyes while you do it or you can look at the picture below as a test:.
+        /// </summary>
+        internal static string Page_Technique_Trouble5 {
+            get {
+                return ResourceManager.GetString("Page.Technique.Trouble5", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Anaglyph.
+        /// </summary>
+        internal static string SaveModes_Anaglyph {
+            get {
+                return ResourceManager.GetString("SaveModes.Anaglyph", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Cardboard.
+        /// </summary>
+        internal static string SaveModes_Cardboard {
+            get {
+                return ResourceManager.GetString("SaveModes.Cardboard", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Cross.
+        /// </summary>
+        internal static string SaveModes_Cross {
+            get {
+                return ResourceManager.GetString("SaveModes.Cross", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to GrayscaleAnaglyph.
+        /// </summary>
+        internal static string SaveModes_GrayscaleAnaglyph {
+            get {
+                return ResourceManager.GetString("SaveModes.GrayscaleAnaglyph", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Parallel.
+        /// </summary>
+        internal static string SaveModes_Parallel {
+            get {
+                return ResourceManager.GetString("SaveModes.Parallel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Quad.
+        /// </summary>
+        internal static string SaveModes_Quad {
+            get {
+                return ResourceManager.GetString("SaveModes.Quad", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Seperate.
+        /// </summary>
+        internal static string SaveModes_Separate {
+            get {
+                return ResourceManager.GetString("SaveModes.Separate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Single.
+        /// </summary>
+        internal static string SaveModes_Single {
+            get {
+                return ResourceManager.GetString("SaveModes.Single", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Triple.
+        /// </summary>
+        internal static string SaveModes_Triple {
+            get {
+                return ResourceManager.GetString("SaveModes.Triple", resourceCulture);
             }
         }
         
