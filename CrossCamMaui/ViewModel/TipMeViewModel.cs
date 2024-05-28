@@ -21,10 +21,10 @@ namespace CrossCam.ViewModel
                 try
                 {
                     var client = new HttpClient();
-                    var tipData = client.GetAsync("https://kra2008.com/tips.json");
-                    if (tipData.Result.IsSuccessStatusCode)
+                    var tipData = await client.GetAsync("https://kra2008.com/tips.json");
+                    if (tipData.IsSuccessStatusCode)
                     {
-                        var body = await tipData.Result.Content.ReadAsStringAsync();
+                        var body = await tipData.Content.ReadAsStringAsync();
                         var tips = JsonConvert.DeserializeObject(body) as dynamic;
                         if (tips != null)
                         {
