@@ -10,31 +10,31 @@
     <ScrollView>
         <StackLayout>
             <ce:iOS12WorkaroundBackButton/>
-            <BoxView/>
+            <ce:HorizontalDivider/>
             <Button Text="See Pictures I've Taken"
                     Command="{Binding OpenLink}"
                     CommandParameter="https://imgur.com/a/Crw232n"/>
-            <BoxView/>
+            <ce:HorizontalDivider/>
             <Button Text="CrossView Subreddit"
                     Command="{Binding OpenLink}"
                     CommandParameter="https://reddit.com/r/CrossView/"/>
-            <BoxView/>
+            <ce:HorizontalDivider/>
             <Button Text="ParallelView Subreddit"
                     Command="{Binding OpenLink}"
                     CommandParameter="https://reddit.com/r/ParallelView/"/>
-            <BoxView/>
+            <ce:HorizontalDivider/>
             <Button Text="Google Doc of Great Stuff"
                     Command="{Binding OpenLink}"
                     CommandParameter="https://docs.google.com/document/d/1WWkI2cj4FdOxiV-Wc_0Dm__5BFWjof-GSuV9AkFUZ1I/"/>
-            <BoxView/>
+            <ce:HorizontalDivider/>
             <Button Text="Stereoscopic 3D Facebook Group"
                     Command="{Binding OpenLink}"
                     CommandParameter="https://www.facebook.com/groups/Stereoscopic3D/"/>
-            <BoxView/>
+            <ce:HorizontalDivider/>
             <Button Text="Instagram Stereoscopic Tag"
                     Command="{Binding OpenLink}"
                     CommandParameter="https://www.instagram.com/explore/tags/stereoscopic/"/>
-            <BoxView/>
+            <ce:HorizontalDivider/>
             <ce:FooterLabel/>
         </StackLayout>
     </ScrollView>

@@ -141,24 +141,31 @@ namespace CrossCam.Platforms.Android
                 if (requestCode == PICK_PHOTO_ID)
                 {
                     if (intent?.ClipData != null &&
-                        intent.ClipData.ItemCount > 1 &&
-                        intent.ClipData.GetItemAt(0) is { } item1 &&
-                        intent.ClipData.GetItemAt(1) is { } item2)
+                        intent.ClipData.ItemCount > 0 &&
+                        intent.ClipData.GetItemAt(0) is { } item1)
                     {
-                        var image1Task = ImageUriToByteArray(item1.Uri);
-                        var image2Task = ImageUriToByteArray(item2.Uri);
-                        await Task.WhenAll(image1Task, image2Task);
-
-                        if (image1Task.Status == TaskStatus.RanToCompletion &&
-                            image2Task.Status == TaskStatus.RanToCompletion)
+                        byte[] image2 = null;
+                        var image1 = await ImageUriToByteArray(item1.Uri);
+                        if (intent.ClipData.ItemCount > 1 &&
+                            intent.ClipData.GetItemAt(1) is { } item2)
                         {
-                            PickPhotoTaskCompletionSource?.SetResult(new[] { image1Task.Result, image2Task.Result });
+                            image2 = await ImageUriToByteArray(item2.Uri);
                         }
-                        else
+
+                        if (image1 != null &&
+                            image1.Length > 0)
                         {
-                            Crashes.TrackError(image1Task.Exception);
-                            Crashes.TrackError(image2Task.Exception);
-                            PickPhotoTaskCompletionSource?.SetResult(null);
+                            if (image2 == null ||
+                                image2.Length == 0)
+                            {
+                                PickPhotoTaskCompletionSource?.SetResult(new[] { image1, null });
+                                return;
+                            }
+                            else
+                            {
+                                PickPhotoTaskCompletionSource?.SetResult(new[] { image1, image2 });
+                                return;
+                            }
                         }
                     }
                     else if (resultCode == Result.Ok &&
