@@ -148,13 +148,15 @@
 
 	<ItemGroup>
 		<!-- App Icon -->
-		<MauiIcon Include="Resources\AppIcon\appicon.svg" ForegroundFile="Resources\AppIcon\appiconfg.svg" />
+		<MauiIcon Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'android'" Include="Resources\AppIcon\appiconandroid.svg" Color="#ffffff" />
+		<MauiIcon Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'ios'" Include="Resources\AppIcon\appiconios.svg" Color="#ffffff" />
+		<MauiIcon Include="Resources\AppIcon\appicon.svg" Color="#ffffff" />
 
 		<!-- Images -->
 		<MauiImage Include="Resources\Images\**" />
 
 		<!-- Splash Screen -->
-	    <MauiSplashScreen Include="Resources\Splash\goodonwhitecircle.svg" Color="#000000" BaseSize="256,256" />
+	    <MauiSplashScreen Include="Resources\Splash\splash.svg" Color="#000000" BaseSize="256,256" />
 
 		<!-- Raw Assets (also remove the "Resources\Raw" prefix) -->
 		<MauiAsset Include="Resources\Raw\**" LogicalName="%(RecursiveDir)%(Filename)%(Extension)" />
@@ -175,6 +177,7 @@
 	  <None Remove="Platforms\Windows\Resources\moiraineLeft.JPG" />
 	  <None Remove="Platforms\Windows\Resources\moiraineRight.JPG" />
 	  <None Remove="Platforms\Windows\Resources\moirainerightunaligned.JPG" />
+	  <None Remove="Resources\AppIcon\appicon.svg" />
 	</ItemGroup>
 
 	<ItemGroup>
