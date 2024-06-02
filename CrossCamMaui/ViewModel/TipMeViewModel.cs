@@ -1,4 +1,5 @@
-﻿using Microsoft.AppCenter.Crashes;
+﻿using CrossCam.Model;
+using Microsoft.AppCenter.Crashes;
 using Newtonsoft.Json;
 
 namespace CrossCam.ViewModel
@@ -25,14 +26,11 @@ namespace CrossCam.ViewModel
                     tipData.EnsureSuccessStatusCode();
 
                     var body = await tipData.Content.ReadAsStringAsync();
-                    var tips = JsonConvert.DeserializeObject(body) as dynamic;
-                    if (tips != null)
+                    var tips = JsonConvert.DeserializeObject<TipData>(body);
+                    if (tips is {Version: "1"})
                     {
-                        if (tips.version == 1)
-                        {
-                            TipsCount = tips.tipsCount;
-                            TipsTotal = tips.tipsTotal;
-                        }
+                        TipsCount = tips.TipsCount;
+                        TipsTotal = tips.TipsTotal;
                     }
                 }
                 catch (Exception ex)
