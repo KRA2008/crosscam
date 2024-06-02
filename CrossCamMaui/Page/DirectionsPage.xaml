@@ -13,21 +13,9 @@
             <ce:iOS12WorkaroundBackButton/>
             <ce:HorizontalDivider/>
             <StackLayout Padding="10">
-                <Label Text="{x:Static localization:AppResources.Page_HowToUse_Intro}"/>
-                <Label Text=" "/>
-                <Label Text="{x:Static localization:AppResources.Page_HowToUse_1}"/>
+                <Label Text="{x:Static localization:AppResources.Page_HowToUse_P1}"/>
                 <Label Text="{Binding ViewModeIng}"/>
-                <Label Text="{x:Static localization:AppResources.Page_HowToUse_3}"/>
-                <Label Text="{x:Static localization:AppResources.Page_HowToUse_4}"/>
-                <Label Text="{x:Static localization:AppResources.Page_HowToUse_5}"/>
-                <Label Text="{x:Static localization:AppResources.Page_HowToUse_6}"/>
-                <Label Text=" "/>
-                <Label Text="{x:Static localization:AppResources.Page_HowToUse_Other}"/>
-                <Label Text="{x:Static localization:AppResources.Page_HowToUse_Focus}"/>
-                <Label Text="{x:Static localization:AppResources.Page_HowToUse_Gear}"/>
-                <Label Text="{x:Static localization:AppResources.Page_HowToUse_Tips}"/>
-                <Label Text="{x:Static localization:AppResources.Page_HowToUse_Swipe}"/>
-                <Label Text="{x:Static localization:AppResources.Page_HowToUse_Folder}"/>
+                <Label Text="{x:Static localization:AppResources.Page_HowToUse_P2}"/>
                 <ce:HorizontalDivider/>
                 <ce:FooterLabel/>
             </StackLayout>

@@ -691,7 +691,8 @@ namespace CrossCam.Resources.Localization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Transmitting... &amp;#10; (keep device unlocked).
+        ///   Looks up a localized string similar to Transmitting...
+        ///(keep device unlocked).
         /// </summary>
         internal static string Page_Camera_Transmitting {
             get {
@@ -754,15 +755,6 @@ namespace CrossCam.Resources.Localization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to 1) Frame up and take the first picture..
-        /// </summary>
-        internal static string Page_HowToUse_1 {
-            get {
-                return ResourceManager.GetString("Page.HowToUse.1", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to 2) Start anaglyph viewing the first picture with the preview that appears next to it..
         /// </summary>
         internal static string Page_HowToUse_2anaglyph {
@@ -799,101 +791,27 @@ namespace CrossCam.Resources.Localization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to 3) Keep your phone steady in front of you and slowly move sideways in the direction CrossCam tells you to. Don&apos;t move too far - an inch or less for each foot away your target is. Also, don&apos;t turn at all, just slide sideways, or maybe even just lean..
+        ///   Looks up a localized string similar to If you want to see this again, tap the hamburger (three lines) icon on the top left of the camera screen and tap &quot;Help&quot;.
+        ///
+        ///
+        ///1) Frame up and take the first picture..
         /// </summary>
-        internal static string Page_HowToUse_3 {
+        internal static string Page_HowToUse_P1 {
             get {
-                return ResourceManager.GetString("Page.HowToUse.3", resourceCulture);
+                return ResourceManager.GetString("Page.HowToUse.P1", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to 4) Align the first picture with the preview of the second picture and take the second picture when you like what you see..
+        ///   Looks up a localized string similar to 3) Keep your phone steady in front of you and slowly move sideways in the direction CrossCam tells you to. Don&apos;t move too far - an inch or less for each foot away your target is. Also, don&apos;t turn at all, just slide sideways, or maybe even just lean.
+        ///
+        ///4) Align the first picture with the preview of the second picture and take the second picture when you like what you see.
+        ///
+        ///5) CrossCam will automatically align your pictures after you capture them, but it&apos;s not perfect, if you don&apos;t like how they were align [rest of string was truncated]&quot;;.
         /// </summary>
-        internal static string Page_HowToUse_4 {
+        internal static string Page_HowToUse_P2 {
             get {
-                return ResourceManager.GetString("Page.HowToUse.4", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to 5) CrossCam will automatically align your pictures after you capture them, but it&apos;s not perfect, if you don&apos;t like how they were aligned, you can turn the automatic alignment off on the settings page. CrossCam also has plenty of manual editing options you can get to by tapping the pencil icon..
-        /// </summary>
-        internal static string Page_HowToUse_5 {
-            get {
-                return ResourceManager.GetString("Page.HowToUse.5", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to 6) Tap the check mark when you&apos;re ready to save..
-        /// </summary>
-        internal static string Page_HowToUse_6 {
-            get {
-                return ResourceManager.GetString("Page.HowToUse.6", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to &amp;#x2022; Tap once to focus on a point, tap twice to switch back to continuous auto focus..
-        /// </summary>
-        internal static string Page_HowToUse_Focus {
-            get {
-                return ResourceManager.GetString("Page.HowToUse.Focus", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to &amp;#x2022; Tap the little folder icon on the bottom to load an image as a side or to load a full stereo image..
-        /// </summary>
-        internal static string Page_HowToUse_Folder {
-            get {
-                return ResourceManager.GetString("Page.HowToUse.Folder", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to &amp;#x2022; Tap the gear icon on the top right of the camera screen to open the Settings page. It&apos;s full of interesting stuff..
-        /// </summary>
-        internal static string Page_HowToUse_Gear {
-            get {
-                return ResourceManager.GetString("Page.HowToUse.Gear", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to If you want to see this again, tap the hamburger (three lines) icon on the top left of the camera screen and tap &amp;quot;Help&amp;quot;..
-        /// </summary>
-        internal static string Page_HowToUse_Intro {
-            get {
-                return ResourceManager.GetString("Page.HowToUse.Intro", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Other stuff you can do:.
-        /// </summary>
-        internal static string Page_HowToUse_Other {
-            get {
-                return ResourceManager.GetString("Page.HowToUse.Other", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to &amp;#x2022; If you would prefer to move the other direction for your second shot or would like to swap the sides just do a swipe..
-        /// </summary>
-        internal static string Page_HowToUse_Swipe {
-            get {
-                return ResourceManager.GetString("Page.HowToUse.Swipe", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to &amp;#x2022; There&apos;s a nice Tips page you can get to by tapping the hamburger icon on the top left of the camera screen that can help you make your pictures great..
-        /// </summary>
-        internal static string Page_HowToUse_Tips {
-            get {
-                return ResourceManager.GetString("Page.HowToUse.Tips", resourceCulture);
+                return ResourceManager.GetString("Page.HowToUse.P2", resourceCulture);
             }
         }
         
@@ -903,15 +821,6 @@ namespace CrossCam.Resources.Localization {
         internal static string Page_Technique_AdditionalTutorials {
             get {
                 return ResourceManager.GetString("Page.Technique.AdditionalTutorials", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to If you&apos;re able to comfortably cross your eyes, you should try the cross method first, otherwise you should try the parallel method. If you&apos;re used to Magic Eye™ books, you&apos;re probably already able to do the parallel method, but you might also be able to do the cross method. Tap a method below to learn it, and make sure to tell CrossCam which one works for you by pressing the corresponding CHOOSE button..
-        /// </summary>
-        internal static string Page_Technique_Choose {
-            get {
-                return ResourceManager.GetString("Page.Technique.Choose", resourceCulture);
             }
         }
         
@@ -1015,20 +924,13 @@ namespace CrossCam.Resources.Localization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to If you want to see this again, tap the hamburger (three lines) icon on the top left of the camera screen and tap &amp;quot;Help&amp;quot;..
+        ///   Looks up a localized string similar to If you want to see this again, tap the hamburger (three lines) icon on the top left of the camera screen and tap &quot;Help&quot;.
+        ///
+        ///To see the 3D in CrossCam (called &quot;stereograms&quot;) you can use red/cyan 3D glasses, a Google Cardboard viewer, or you can do &quot;free viewing&quot; using just your eyes and your screen. There are two ways to free view, and CrossCam can help you learn both of them. You need to tell CrossCam how you&apos;re going to view the pictures or it won&apos;t work right. Don&apos;t worry, you can always change this again [rest of string was truncated]&quot;;.
         /// </summary>
-        internal static string Page_Technique_Hamburger {
+        internal static string Page_Technique_P1 {
             get {
-                return ResourceManager.GetString("Page.Technique.Hamburger", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to To see the 3D in CrossCam (called &amp;quot;stereograms&amp;quot;) you can use red/cyan 3D glasses, a Google Cardboard viewer, or you can do &amp;quot;free viewing&amp;quot; using just your eyes and your screen. There are two ways to free view, and CrossCam can help you learn both of them. You need to tell CrossCam how you&apos;re going to view the pictures or it won&apos;t work right. Don&apos;t worry, you can always change this again in Settings..
-        /// </summary>
-        internal static string Page_Technique_List {
-            get {
-                return ResourceManager.GetString("Page.Technique.List", resourceCulture);
+                return ResourceManager.GetString("Page.Technique.P1", resourceCulture);
             }
         }
         
@@ -1042,7 +944,7 @@ namespace CrossCam.Resources.Localization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Relax your eyes and look &amp;quot;through&amp;quot; the pair of pictures above like you&apos;re kind of zoning out with your eyes pointing at the pictures. You should start to see 3 pictures with a 3D picture in the middle, a little bit like this:.
+        ///   Looks up a localized string similar to Relax your eyes and look &quot;through&quot; the pair of pictures above like you&apos;re kind of zoning out with your eyes pointing at the pictures. You should start to see 3 pictures with a 3D picture in the middle, a little bit like this:.
         /// </summary>
         internal static string Page_Technique_Parallel2 {
             get {
@@ -1060,7 +962,7 @@ namespace CrossCam.Resources.Localization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to If you&apos;re having trouble, try bringing your screen right up against your face with the pair of pictures right in front of your eyes. Relax and look &amp;quot;through&amp;quot; the screen and then slowly pull your screen away from your face while keeping your eyes relaxed. Eventually the image should &amp;quot;click&amp;quot; into focus..
+        ///   Looks up a localized string similar to If you&apos;re having trouble, try bringing your screen right up against your face with the pair of pictures right in front of your eyes. Relax and look &quot;through&quot; the screen and then slowly pull your screen away from your face while keeping your eyes relaxed. Eventually the image should &quot;click&quot; into focus..
         /// </summary>
         internal static string Page_Technique_Parallel4 {
             get {
@@ -1069,7 +971,7 @@ namespace CrossCam.Resources.Localization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to If you still keep seeing four images, increase the &amp;quot;Maximum parallel view image width&amp;quot; on the Settings page..
+        ///   Looks up a localized string similar to If you still keep seeing four images, increase the &quot;Maximum parallel view image width&quot; on the Settings page..
         /// </summary>
         internal static string Page_Technique_Parallel5 {
             get {
@@ -1141,56 +1043,15 @@ namespace CrossCam.Resources.Localization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to If you&apos;d rather use 3D glasses or a Cardboard viewer you can set CrossCam to use those on the Settings page..
+        ///   Looks up a localized string similar to 
+        ///If you&apos;re still having trouble, try bringing your phone to a dark room so that the only thing your eyes can see well and focus on is the image.
+        ///
+        ///Another thing you can try is using toilet paper tubes or your hands to make it so each eye can only see the side of the image it&apos;s supposed to see.
+        /// • For cross view: hold a single tube against the bridge of your nose (centered between your eyes) while pointing it at the center of the image in front of you. Slowly move the tube toward the screen while trying t [rest of string was truncated]&quot;;.
         /// </summary>
-        internal static string Page_Technique_Rather {
+        internal static string Page_Technique_Trouble {
             get {
-                return ResourceManager.GetString("Page.Technique.Rather", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to If you&apos;re still having trouble, try bringing your phone to a dark room so that the only thing your eyes can see well and focus on is the image..
-        /// </summary>
-        internal static string Page_Technique_Trouble1 {
-            get {
-                return ResourceManager.GetString("Page.Technique.Trouble1", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Another thing you can try is using toilet paper tubes or your hands to make it so each eye can only see the side of the image it&apos;s supposed to see.&amp;#10; &amp;#x2022; For cross view: hold a single tube against the bridge of your nose (centered between your eyes) while pointing it at the center of the image in front of you. Slowly move the tube toward the screen while trying to look down the tube with both eyes. When you reach the right position with the tube the image should snap into place. It may help to conce [rest of string was truncated]&quot;;.
-        /// </summary>
-        internal static string Page_Technique_Trouble2 {
-            get {
-                return ResourceManager.GetString("Page.Technique.Trouble2", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to There is an easy exercise you can do to practice fusing with either cross or parallel viewing. Take a marker and draw a portion of a smiley face on each of your thumbnails (or a pair of popsicle sticks or tongue depressors). For example, on one side draw one eye and a mouth, and on the other side draw an eye and a nose. You can then hold them up in front of you and practice fusing the two images together to complete the smiley face..
-        /// </summary>
-        internal static string Page_Technique_Trouble3 {
-            get {
-                return ResourceManager.GetString("Page.Technique.Trouble3", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to I personally prefer cross over parallel because images can be larger, but both methods work. If you&apos;d like to experiment with larger parallel images, you can control the size on the Settings page..
-        /// </summary>
-        internal static string Page_Technique_Trouble4 {
-            get {
-                return ResourceManager.GetString("Page.Technique.Trouble4", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Sometimes it&apos;s difficult to feel whether you&apos;re doing the cross or parallel method while you&apos;re doing it. You can ask someone else to watch your eyes while you do it or you can look at the picture below as a test:.
-        /// </summary>
-        internal static string Page_Technique_Trouble5 {
-            get {
-                return ResourceManager.GetString("Page.Technique.Trouble5", resourceCulture);
+                return ResourceManager.GetString("Page.Technique.Trouble", resourceCulture);
             }
         }
         

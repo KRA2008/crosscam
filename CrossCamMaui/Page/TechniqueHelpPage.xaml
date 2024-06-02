@@ -14,14 +14,7 @@
             <ce:iOS12WorkaroundBackButton/>
             <ce:HorizontalDivider/>
             <StackLayout Padding="10">
-                <Label Text="{x:Static localization:AppResources.Page_Technique_Hamburger}"/>
-                <Label Text=" "/>
-                <Label Text="{x:Static localization:AppResources.Page_Technique_List}"/>
-                <Label Text=" "/>
-                <Label Text="{x:Static localization:AppResources.Page_Technique_Choose}"/>
-                <Label Text=" "/>
-                <Label Text="{x:Static localization:AppResources.Page_Technique_Rather}"/>
-                <Label Text=" "/>
+                <Label Text="{x:Static localization:AppResources.Page_Technique_P1}"/>
                 <StackLayout Spacing="0">
                     <Grid ColumnSpacing="10"
                       RowSpacing="10">
@@ -188,17 +181,7 @@
                                  Grid.ColumnSpan="5"/>
                     </Grid>
                 </StackLayout>
-
-                <Label Text=" "/>
-                <Label Text="{x:Static localization:AppResources.Page_Technique_Trouble1}"/>
-                <Label Text=" "/>
-                <Label Text="{x:Static localization:AppResources.Page_Technique_Trouble2}"/>
-                <Label Text=" "/>
-                <Label Text="{x:Static localization:AppResources.Page_Technique_Trouble3}"/>
-                <Label Text=" "/>
-                <Label Text="{x:Static localization:AppResources.Page_Technique_Trouble4}"/>
-                <Label Text=" "/>
-                <Label Text="{x:Static localization:AppResources.Page_Technique_Trouble5}"/>
+                <Label Text="{x:Static localization:AppResources.Page_Technique_Trouble}"/>
                 <AbsoluteLayout HorizontalOptions="Center"
                                 HeightRequest="179"
                                 WidthRequest="302">
