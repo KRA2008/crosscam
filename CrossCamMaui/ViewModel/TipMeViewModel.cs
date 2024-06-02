@@ -22,17 +22,16 @@ namespace CrossCam.ViewModel
                 {
                     var client = new HttpClient();
                     var tipData = await client.GetAsync("https://kra2008.com/tips.json");
-                    if (tipData.IsSuccessStatusCode)
+                    tipData.EnsureSuccessStatusCode();
+
+                    var body = await tipData.Content.ReadAsStringAsync();
+                    var tips = JsonConvert.DeserializeObject(body) as dynamic;
+                    if (tips != null)
                     {
-                        var body = await tipData.Content.ReadAsStringAsync();
-                        var tips = JsonConvert.DeserializeObject(body) as dynamic;
-                        if (tips != null)
+                        if (tips.version == 1)
                         {
-                            if (tips.version == 1)
-                            {
-                                TipsCount = tips.tipsCount;
-                                TipsTotal = tips.tipsTotal;
-                            }
+                            TipsCount = tips.tipsCount;
+                            TipsTotal = tips.tipsTotal;
                         }
                     }
                 }
