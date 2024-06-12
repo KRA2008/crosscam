@@ -90,7 +90,7 @@ public class AutoAlignmentExperimentsPage : ContentPage
             var assembly = GetType().GetTypeInfo().Assembly;
             var resourceBase = "CrossCam.Platforms.Windows.Resources.moiraine";
             await using var leftStream = assembly.GetManifestResourceStream(resourceBase + "left.JPG");
-            await using var rightStream = assembly.GetManifestResourceStream(resourceBase + "rightunaligned.JPG");
+            await using var rightStream = assembly.GetManifestResourceStream(resourceBase + "right.JPG");
             using var leftBitmap = SKBitmap.Decode(leftStream);
             using var rightBitmap = SKBitmap.Decode(rightStream);
 
@@ -100,7 +100,9 @@ public class AutoAlignmentExperimentsPage : ContentPage
                 UseCrossCheck = false,
                 MinimumKeypoints1 = 0,
                 DiscardOutliersByDistance = true,
-                DiscardOutliersBySlope1 = true
+                DiscardOutliersBySlope1 = true,
+                TransformationFindingMethod = (uint) TransformationFindingMethod.BinarySearch
+                //ReadModeColor = false
             };
 
             _alignedResult = autoAlignment.ComboAlign(leftBitmap, rightBitmap, alignmentSettings);
@@ -116,6 +118,7 @@ public class AutoAlignmentExperimentsPage : ContentPage
         catch (Exception e)
         {
             Debugger.Break();
+            throw;
         }
     }
 

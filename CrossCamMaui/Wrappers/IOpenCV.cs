@@ -177,29 +177,60 @@ namespace CrossCam.Wrappers
 #if !__WINDOWS__
             using Mat maskMat = null;
 #else
-            using var maskMat = new Mat(image1Mat.Size, DepthType.Cv8U, 1);
-            maskMat.SetTo(new MCvScalar(255));
-            //unsafe //TODO: this does not work as expected... how do rows and cols arrange? is this about pixels and their physical location or is it something else like keypoints or pairs?
-            //{
-            //    var pointMaskPtr = (byte*)maskMat.DataPointer.ToPointer();
-            //    for (var i = 0; i < maskMat.Rows - 1; i++)
-            //    {
-            //        for (var j = 0; j < maskMat.Cols - 1; j++)
-            //        {
-            //            if (i > maskMat.Rows*(3/4f) &&
-            //                j < maskMat.Cols/4f)
-            //            {
-            //                *pointMaskPtr = 255;
-            //            }
-            //            else
-            //            {
-            //                *pointMaskPtr = 0;
-            //            }
+            const float rowMin = 0f;
+            const float rowMax = 0.25f;
+            const float colMin = 0f;
+            const float colMax = 0.25f;
 
-            //            pointMaskPtr++;
-            //        }
-            //    }
-            //}
+            //const float rowMin = 0.75f;
+            //const float rowMax = 1f;
+            //const float colMin = 0f;
+            //const float colMax = 0.25f;
+
+            //const float rowMin = 0f;
+            //const float rowMax = 0.25f;
+            //const float colMin = 0.75f;
+            //const float colMax = 1f;
+
+            //const float rowMin = 0.75f;
+            //const float rowMax = 1f;
+            //const float colMin = 0.75f;
+            //const float colMax = 1f;
+
+            using var maskMat = new Mat(image1Mat.Size, DepthType.Cv8U, 1);
+
+            const string filename = "D:\\Temporarium\\alignment\\matFile.txt";
+            using (var matFile = new StreamWriter(filename))
+            {
+                maskMat.SetTo(new MCvScalar(0));
+                unsafe //TODO: this does not work as expected... how do rows and cols arrange? is this about pixels and their physical location or is it something else like keypoints or pairs?
+                {
+                    var pointMaskPtr = (byte*)maskMat.DataPointer.ToPointer();
+                    for (var i = 0; i < maskMat.Rows - 1; i++)
+                    {
+                        for (var j = 0; j < maskMat.Cols - 1; j++)
+                        {
+                            if (i >= maskMat.Rows * rowMin &&
+                                i <= maskMat.Rows * rowMax &&
+                                j >= maskMat.Cols * colMin &&
+                                j <= maskMat.Cols * colMax)
+                            {
+                                *pointMaskPtr = 255;
+                                matFile.Write("1");
+                            }
+                            else
+                            {
+                                *pointMaskPtr = 0;
+                                matFile.Write("0");
+                            }
+
+                            pointMaskPtr++;
+                        }
+                        matFile.WriteLine();
+                    }
+                }
+            }
+
 #endif
 
             detector.DetectAndCompute(image1Mat, maskMat, allKeyPointsVector1, descriptors1, false);
