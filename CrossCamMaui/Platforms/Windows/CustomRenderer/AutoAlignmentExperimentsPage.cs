@@ -90,19 +90,15 @@ public class AutoAlignmentExperimentsPage : ContentPage
             var assembly = GetType().GetTypeInfo().Assembly;
             var resourceBase = "CrossCam.Platforms.Windows.Resources.moiraine";
             await using var leftStream = assembly.GetManifestResourceStream(resourceBase + "left.JPG");
-            await using var rightStream = assembly.GetManifestResourceStream(resourceBase + "right.JPG");
+            await using var rightStream = assembly.GetManifestResourceStream(resourceBase + "rightunaligned.JPG");
             using var leftBitmap = SKBitmap.Decode(leftStream);
             using var rightBitmap = SKBitmap.Decode(rightStream);
 
             var alignmentSettings = new AlignmentSettings
             {
+                ReadModeColor = false,
                 DrawKeypointMatches = true,
-                UseCrossCheck = false,
-                MinimumKeypoints1 = 0,
-                DiscardOutliersByDistance = true,
-                DiscardOutliersBySlope1 = true,
-                TransformationFindingMethod = (uint) TransformationFindingMethod.BinarySearch
-                //ReadModeColor = false
+                DrawResultWarpedByOpenCv = true
             };
 
             _alignedResult = autoAlignment.ComboAlign(leftBitmap, rightBitmap, alignmentSettings);

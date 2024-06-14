@@ -6,6 +6,7 @@ using Emgu.CV.CvEnum;
 using Emgu.CV.Features2D;
 using Emgu.CV.Structure;
 using Emgu.CV.Util;
+using Emgu.CV.Flann;
 #endif
 #if __ANDROID__ || __IOS__ || __WINDOWS__
 using System.Diagnostics;
@@ -63,8 +64,10 @@ namespace CrossCam.Wrappers
 
         public AlignedResult ComboAlign(SKBitmap firstImage, SKBitmap secondImage, AlignmentSettings settings)
         {
+            var tempWarp = settings.DrawResultWarpedByOpenCv;
             settings.DrawResultWarpedByOpenCv = true;
             var eccResult = CreateAlignedSecondImageEcc(firstImage, secondImage, settings);
+            settings.DrawResultWarpedByOpenCv = tempWarp;
             return CreateAlignedSecondImageKeypoints(firstImage, eccResult.Warped2, settings, false);
         }
 
@@ -162,127 +165,29 @@ namespace CrossCam.Wrappers
 #else
             var result = new AlignedResult();
 
-#if __WINDOWS__
-            using var detector = new ORB(edgeThreshold:0,numberOfFeatures:5000);
-#else
+            using var detector = new SIFT();
 
-            using var detector = new ORB();
-#endif
             var readMode = settings.ReadModeColor ? ImreadModes.Color : ImreadModes.Grayscale;
 
             using var image1Mat = new Mat();
             using var descriptors1 = new Mat();
             using var allKeyPointsVector1 = new VectorOfKeyPoint();
             CvInvoke.Imdecode(GetBytes(firstImage, settings.DownsizePercentage / 100d), readMode, image1Mat);
-#if !__WINDOWS__
-            using Mat maskMat = null;
-#else
-            const float rowMin = 0f;
-            const float rowMax = 0.25f;
-            const float colMin = 0f;
-            const float colMax = 0.25f;
 
-            //const float rowMin = 0.75f;
-            //const float rowMax = 1f;
-            //const float colMin = 0f;
-            //const float colMax = 0.25f;
-
-            //const float rowMin = 0f;
-            //const float rowMax = 0.25f;
-            //const float colMin = 0.75f;
-            //const float colMax = 1f;
-
-            //const float rowMin = 0.75f;
-            //const float rowMax = 1f;
-            //const float colMin = 0.75f;
-            //const float colMax = 1f;
-
-            using var maskMat = new Mat(image1Mat.Size, DepthType.Cv8U, 1);
-
-            const string filename = "D:\\Temporarium\\alignment\\matFile.txt";
-            using (var matFile = new StreamWriter(filename))
-            {
-                maskMat.SetTo(new MCvScalar(0));
-                unsafe //TODO: this does not work as expected... how do rows and cols arrange? is this about pixels and their physical location or is it something else like keypoints or pairs?
-                {
-                    var pointMaskPtr = (byte*)maskMat.DataPointer.ToPointer();
-                    for (var i = 0; i < maskMat.Rows - 1; i++)
-                    {
-                        for (var j = 0; j < maskMat.Cols - 1; j++)
-                        {
-                            if (i >= maskMat.Rows * rowMin &&
-                                i <= maskMat.Rows * rowMax &&
-                                j >= maskMat.Cols * colMin &&
-                                j <= maskMat.Cols * colMax)
-                            {
-                                *pointMaskPtr = 255;
-                                matFile.Write("1");
-                            }
-                            else
-                            {
-                                *pointMaskPtr = 0;
-                                matFile.Write("0");
-                            }
-
-                            pointMaskPtr++;
-                        }
-                        matFile.WriteLine();
-                    }
-                }
-            }
-
-#endif
-
-            detector.DetectAndCompute(image1Mat, maskMat, allKeyPointsVector1, descriptors1, false);
+            detector.DetectAndCompute(image1Mat, null, allKeyPointsVector1, descriptors1, false);
 
             using var image2Mat = new Mat();
             using var descriptors2 = new Mat();
             using var allKeyPointsVector2 = new VectorOfKeyPoint();
             CvInvoke.Imdecode(GetBytes(secondImage, settings.DownsizePercentage / 100d), readMode, image2Mat);
-            detector.DetectAndCompute(image2Mat, maskMat, allKeyPointsVector2, descriptors2, false);
-
-            var thresholdDistance = Math.Sqrt(Math.Pow(firstImage.Width, 2) + Math.Pow(firstImage.Height, 2)) *
-                                    settings.PhysicalDistanceThreshold;
-
-            using var distanceThresholdMask =
-                new Mat(allKeyPointsVector2.Size, allKeyPointsVector1.Size, DepthType.Cv8U, 1);
-
-            if (!settings.UseCrossCheck)
-            {
-                unsafe
-                {
-                    var maskPtr = (byte*)distanceThresholdMask.DataPointer.ToPointer();
-                    for (var i = 0; i < allKeyPointsVector2.Size; i++)
-                    {
-                        var keyPoint2 = allKeyPointsVector2[i];
-                        for (var j = 0; j < allKeyPointsVector1.Size; j++)
-                        {
-                            var keyPoint1 = allKeyPointsVector1[j];
-                            var physicalDistance =
-                                CalculatePhysicalDistanceBetweenPoints(keyPoint2.Point, keyPoint1.Point);
-                            if (physicalDistance < thresholdDistance)
-                            {
-                                *maskPtr = 255;
-                            }
-                            else
-                            {
-                                *maskPtr = 0;
-                            }
-
-                            maskPtr++;
-                        }
-                    }
-                }
-            }
+            detector.DetectAndCompute(image2Mat, null, allKeyPointsVector2, descriptors2, false);
 
             using var vectorOfMatches = new VectorOfVectorOfDMatch();
-            using var matcher = new BFMatcher(DistanceType.Hamming, settings.UseCrossCheck);
+            using var matcher = new FlannBasedMatcher(new KdTreeIndexParams(), new SearchParams());
 
             if (descriptors1.IsEmpty || descriptors2.IsEmpty) return null;
 
-            matcher.Add(descriptors1);
-            matcher.KnnMatch(descriptors2, vectorOfMatches, settings.UseCrossCheck ? 1 : 2,
-                settings.UseCrossCheck ? new VectorOfMat() : new VectorOfMat(distanceThresholdMask));
+            matcher.KnnMatch(descriptors2, descriptors1, vectorOfMatches, 2);
 
             var goodMatches = new List<MDMatch>();
             for (var i = 0; i < vectorOfMatches.Size; i++)
@@ -333,7 +238,7 @@ namespace CrossCam.Wrappers
                     DrawMatches(firstImage, secondImage, pairedPoints, settings.DownsizePercentage);
             }
 
-            if (settings.DiscardOutliersByDistance || settings.DiscardOutliersBySlope1)
+            if (settings.DiscardOutliersByDistance2 || settings.DiscardOutliersBySlope2)
             {
                 //Debug.WriteLine("DIRTY POINTS START (ham,dist,slope,ydiff), count: " + pairedPoints.Count);
                 //foreach (var pointForCleaning in pairedPoints)
@@ -344,7 +249,7 @@ namespace CrossCam.Wrappers
                 //Debug.WriteLine("DIRTY PAIRS:");
                 //PrintPairs(pairedPoints);
 
-                if (settings.DiscardOutliersByDistance)
+                if (settings.DiscardOutliersByDistance2)
                 {
                     // reject distances and slopes more than some number of standard deviations from the median
                     var medianDistance = pairedPoints.OrderBy(p => p.Data.Distance).ElementAt(pairedPoints.Count / 2)
@@ -357,7 +262,7 @@ namespace CrossCam.Wrappers
                     //Debug.WriteLine("Distance Cleaned Points count: " + pairedPoints.Count);
                 }
 
-                if (settings.DiscardOutliersBySlope1)
+                if (settings.DiscardOutliersBySlope2)
                 {
                     var validSlopes = pairedPoints
                         .Where(p => !float.IsNaN(p.Data.Slope) && float.IsFinite(p.Data.Slope)).ToArray();
@@ -402,7 +307,7 @@ namespace CrossCam.Wrappers
 
 
 
-            if (settings.TransformationFindingMethod == (uint)TransformationFindingMethod.BinarySearch)
+            if (settings.TransformationFindingMethod2 == (uint)TransformationFindingMethod.BinarySearch)
             {
                 var points1 = pairedPoints.Select(p => new SKPoint(p.KeyPoint1.Point.X, p.KeyPoint1.Point.Y)).ToArray();
                 var points2 = pairedPoints.Select(p => new SKPoint(p.KeyPoint2.Point.X, p.KeyPoint2.Point.Y)).ToArray();
@@ -506,7 +411,7 @@ namespace CrossCam.Wrappers
                     result.Warped1 = result1Bitmap;
                     result.Warped2 = result2Bitmap;
 
-                    result.MethodName = ((TransformationFindingMethod)settings.TransformationFindingMethod).ToString();
+                    result.MethodName = ((TransformationFindingMethod)settings.TransformationFindingMethod2).ToString();
                 }
 
             }
@@ -516,7 +421,7 @@ namespace CrossCam.Wrappers
                 using var points2 = new VectorOfPointF(pairedPoints.Select(p => p.KeyPoint2.Point).ToArray());
 
                 Mat warp1, warp2;
-                if (settings.TransformationFindingMethod ==
+                if (settings.TransformationFindingMethod2 ==
                     (uint)TransformationFindingMethod.StereoRectifyUncalibrated)
                 {
                     warp1 = Mat.Eye(3, 3, DepthType.Cv64F, 1);
@@ -533,7 +438,7 @@ namespace CrossCam.Wrappers
                 else
                 {
                     warp1 = Mat.Eye(2, 3, DepthType.Cv64F, 1);
-                    warp2 = (TransformationFindingMethod)settings.TransformationFindingMethod switch
+                    warp2 = (TransformationFindingMethod)settings.TransformationFindingMethod2 switch
                     {
                         TransformationFindingMethod.FindHomography => CvInvoke.FindHomography(points2, points1,
                             RobustEstimationAlgorithm.Ransac),
@@ -549,7 +454,7 @@ namespace CrossCam.Wrappers
                 if (settings.DrawResultWarpedByOpenCv)
                 {
                     AddWarpedToResult(image1Mat, image2Mat, warp1, warp2, result);
-                    result.MethodName = ((TransformationFindingMethod)settings.TransformationFindingMethod).ToString();
+                    result.MethodName = ((TransformationFindingMethod)settings.TransformationFindingMethod2).ToString();
                 }
 
                 var matrix1 = ConvertCvMatToSkMatrix(warp1, 1 / (settings.DownsizePercentage / 100f));

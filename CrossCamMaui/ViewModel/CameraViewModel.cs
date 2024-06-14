@@ -2226,8 +2226,8 @@ namespace CrossCam.ViewModel
                             await SaveSurfaceSnapshot(dirtyMatchesSurface, "KeyPoints");
                             
 
-                            if ((Settings.AlignmentSettings.DiscardOutliersBySlope1 || 
-                                 Settings.AlignmentSettings.DiscardOutliersByDistance) && 
+                            if ((Settings.AlignmentSettings.DiscardOutliersBySlope2 || 
+                                 Settings.AlignmentSettings.DiscardOutliersByDistance2) && 
                                 alignedResult.DrawnCleanMatches != null)
                             {
                                 using var cleanMatchesSurface =

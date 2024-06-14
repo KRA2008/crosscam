@@ -129,7 +129,7 @@
        Grid.Row="8"
        IsVisible="{Binding Settings.AlignmentSettings.ShowAdvancedAlignmentSettings}">
         <Picker ItemsSource="{Binding TransformationFindingMethods}"
-            SelectedIndex="{Binding Settings.AlignmentSettings.TransformationFindingMethod}"/>
+            SelectedIndex="{Binding Settings.AlignmentSettings.TransformationFindingMethod2}"/>
     </Frame>
 
     <Label Grid.Column="0"
@@ -139,7 +139,6 @@
        IsVisible="{Binding Settings.AlignmentSettings.ShowAdvancedAlignmentSettings}"/>
     <Switch Grid.Column="2"
         Grid.Row="9"
-        IsToggled="{Binding Settings.AlignmentSettings.UseCrossCheck}"
         IsVisible="{Binding Settings.AlignmentSettings.ShowAdvancedAlignmentSettings}"/>
 
     <Label Grid.Column="0"
@@ -160,7 +159,7 @@
        IsVisible="{Binding Settings.AlignmentSettings.ShowAdvancedAlignmentSettings}"/>
     <Switch Grid.Column="2"
         Grid.Row="11"
-        IsToggled="{Binding Settings.AlignmentSettings.DiscardOutliersByDistance}"
+        IsToggled="{Binding Settings.AlignmentSettings.DiscardOutliersByDistance2}"
         IsVisible="{Binding Settings.AlignmentSettings.ShowAdvancedAlignmentSettings}"/>
 
     <Label Grid.Column="0"
@@ -170,7 +169,7 @@
        IsVisible="{Binding Settings.AlignmentSettings.ShowAdvancedAlignmentSettings}"/>
     <Switch Grid.Column="2"
         Grid.Row="12"
-        IsToggled="{Binding Settings.AlignmentSettings.DiscardOutliersBySlope1}"
+        IsToggled="{Binding Settings.AlignmentSettings.DiscardOutliersBySlope2}"
         IsVisible="{Binding Settings.AlignmentSettings.ShowAdvancedAlignmentSettings}"/>
 
     <Label Grid.Column="0"

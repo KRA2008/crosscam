@@ -51,15 +51,14 @@
         public bool ShowAdvancedAlignmentSettings { get; set; }
         public uint DownsizePercentage { get; set; }
 
-        public bool UseCrossCheck { get; set; }
         public bool DrawKeypointMatches { get; set; }
         public bool DrawResultWarpedByOpenCv { get; set; }
-        public uint TransformationFindingMethod { get; set; }
+        public uint TransformationFindingMethod2 { get; set; }
         public float RatioTest { get; set; }
         public float PhysicalDistanceThreshold { get; set; }
         public bool ReadModeColor { get; set; }
-        public bool DiscardOutliersByDistance { get; set; }
-        public bool DiscardOutliersBySlope1 { get; set; }
+        public bool DiscardOutliersByDistance2 { get; set; }
+        public bool DiscardOutliersBySlope2 { get; set; }
         public bool DoKeystoneCorrection1 { get; set; }
         public uint MinimumKeypoints1 { get; set; }
         public uint KeypointOutlierThresholdTenths { get; set; }
@@ -75,6 +74,7 @@
             IsAutomaticAlignmentOn = true;
             ShowAdvancedAlignmentSettings = false;
 
+            ForceEcc = false;
             DownsizePercentage = 35;
             EccEpsilonLevel = 3;
             EccIterations = 50;
@@ -85,17 +85,16 @@
             ReadModeColor = true;
             DrawKeypointMatches = false;
             DrawResultWarpedByOpenCv = false;
+
             ForceKeypoints2 = false;
-            ForceEcc = false;
-            UseCrossCheck = false;
-            DiscardOutliersByDistance = false;
-            DiscardOutliersBySlope1 = false;
+            DiscardOutliersByDistance2 = true;
+            DiscardOutliersBySlope2 = true;
             MinimumKeypoints1 = 15;
             KeypointOutlierThresholdTenths = 20;
             RatioTest = 0.75f;
             PhysicalDistanceThreshold = 0.25f;
 
-            TransformationFindingMethod = (uint)Model.TransformationFindingMethod.BinarySearch; //why not enum?
+            TransformationFindingMethod2 = (uint)Model.TransformationFindingMethod.FindHomography; //why not enum?
 
             DoKeystoneCorrection1 = true;
         }
