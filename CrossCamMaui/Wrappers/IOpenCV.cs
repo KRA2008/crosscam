@@ -453,7 +453,13 @@ namespace CrossCam.Wrappers
 
                 if (settings.DrawResultWarpedByOpenCv)
                 {
-                    AddWarpedToResult(image1Mat, image2Mat, warp1, warp2, result);
+                    using var image1MatFullAndColor = new Mat();
+                    CvInvoke.Imdecode(GetBytes(firstImage, settings.DownsizePercentage / 100d), ImreadModes.Color, image1MatFullAndColor);
+
+                    using var image2MatFullAndColor = new Mat();
+                    CvInvoke.Imdecode(GetBytes(secondImage, settings.DownsizePercentage / 100d), ImreadModes.Color, image2MatFullAndColor);
+
+                    AddWarpedToResult(image1MatFullAndColor, image2MatFullAndColor, warp1, warp2, result);
                     result.MethodName = ((TransformationFindingMethod)settings.TransformationFindingMethod2).ToString();
                 }
 
