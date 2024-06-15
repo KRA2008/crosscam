@@ -547,7 +547,7 @@ namespace CrossCam.Wrappers
             //TODO: compare jpeg 100 vs png 100 vs png 0
             if (downsize == 1)
             {
-                return SKImage.FromBitmap(bitmap).Encode(SKEncodedImageFormat.Png, 0).ToArray();
+                return SKImage.FromBitmap(bitmap).Encode(SKEncodedImageFormat.Jpeg, 100).ToArray();
             }
 
             var targetWidth = (int)(bitmap.Width * downsize);
@@ -562,7 +562,7 @@ namespace CrossCam.Wrappers
                 SKRect.Create(0, 0, targetWidth, targetHeight),
                 paint);
 
-            using var data = tempSurface.Snapshot().Encode(SKEncodedImageFormat.Png, 0);
+            using var data = tempSurface.Snapshot().Encode(SKEncodedImageFormat.Jpeg, 100);
             return data.ToArray();
         }
 
