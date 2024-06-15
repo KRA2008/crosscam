@@ -1373,14 +1373,14 @@ namespace CrossCam.Page
                 case GestureStatus.Started:
                     break;
                 case GestureStatus.Running:
-                    _viewModel.Explore.Horizontal = (float)zoomNormalizedHorizontalPan;
-                    _viewModel.Explore.Vertical = (float)zoomNormalizedVerticalPan;
+                    _viewModel.Explore.Horizontal = Math.Clamp((float)zoomNormalizedHorizontalPan, -_viewModel.Explore.Zoom / 2f - _viewModel.Explore.HorizontalBase, _viewModel.Explore.Zoom / 2f - _viewModel.Explore.HorizontalBase);
+                    _viewModel.Explore.Vertical = Math.Clamp((float)zoomNormalizedVerticalPan, -_viewModel.Explore.Zoom / 2f - _viewModel.Explore.VerticalBase, _viewModel.Explore.Zoom / 2f - _viewModel.Explore.VerticalBase);
                     break;
                 case GestureStatus.Completed:
                     _viewModel.Explore.HorizontalBase =
-                        Math.Clamp(_viewModel.Explore.HorizontalBase + _viewModel.Explore.Horizontal, -1, 1);
+                        Math.Clamp(_viewModel.Explore.HorizontalBase + _viewModel.Explore.Horizontal, -_viewModel.Explore.Zoom/2f, _viewModel.Explore.Zoom/2f);
                     _viewModel.Explore.VerticalBase =
-                        Math.Clamp(_viewModel.Explore.VerticalBase + _viewModel.Explore.Vertical, -1, 1);
+                        Math.Clamp(_viewModel.Explore.VerticalBase + _viewModel.Explore.Vertical, -_viewModel.Explore.Zoom/2f, _viewModel.Explore.Zoom/2f);
                     _viewModel.Explore.Horizontal = 0;
                     _viewModel.Explore.Vertical = 0;
                     break;
@@ -1413,7 +1413,7 @@ namespace CrossCam.Page
                     break;
             }
             
-            _viewModel.Explore.Zoom = (float)Math.Clamp(_viewModel.Explore.Zoom + e.Scale - 1, 0,1);
+            _viewModel.Explore.Zoom = (float)Math.Clamp(_viewModel.Explore.Zoom + e.Scale - 1, 0,0.95);
             MainThread.BeginInvokeOnMainThread(() =>
             {
                 _canvas.InvalidateSurface();
