@@ -65,7 +65,7 @@ namespace CrossCam.Page
         private bool _newLeftCapture;
         private bool _newRightCapture;
 
-        private const SensorSpeed SENSOR_SPEED = SensorSpeed.Fastest;
+        private const SensorSpeed SENSOR_SPEED = SensorSpeed.Game;
         private const int SENSOR_FRAME_DELAY = 10;
 
         private PointF _tapLocation;
@@ -1377,10 +1377,8 @@ namespace CrossCam.Page
                     _viewModel.Explore.Vertical = Math.Clamp((float)zoomNormalizedVerticalPan, -_viewModel.Explore.Zoom / 2f - _viewModel.Explore.VerticalBase, _viewModel.Explore.Zoom / 2f - _viewModel.Explore.VerticalBase);
                     break;
                 case GestureStatus.Completed:
-                    _viewModel.Explore.HorizontalBase =
-                        Math.Clamp(_viewModel.Explore.HorizontalBase + _viewModel.Explore.Horizontal, -_viewModel.Explore.Zoom/2f, _viewModel.Explore.Zoom/2f);
-                    _viewModel.Explore.VerticalBase =
-                        Math.Clamp(_viewModel.Explore.VerticalBase + _viewModel.Explore.Vertical, -_viewModel.Explore.Zoom/2f, _viewModel.Explore.Zoom/2f);
+                    _viewModel.Explore.HorizontalBase += _viewModel.Explore.Horizontal;
+                    _viewModel.Explore.VerticalBase += _viewModel.Explore.Vertical;
                     _viewModel.Explore.Horizontal = 0;
                     _viewModel.Explore.Vertical = 0;
                     break;
