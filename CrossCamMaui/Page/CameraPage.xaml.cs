@@ -1197,7 +1197,8 @@ namespace CrossCam.Page
                                     _viewModel.Settings.Mode == DrawMode.GrayscaleRedCyanAnaglyph ||
                                     _viewModel.Settings.FullscreenCapturing ||
                                     _viewModel.Settings.FullscreenEditing ||
-                                    _viewModel.IsNothingCaptured;
+                                    (_viewModel.PairOperatorBindable.PairStatus != PairStatus.Connected &&
+                                    _viewModel.IsNothingCaptured);
 
             if (fullscreenPreview)
             {
