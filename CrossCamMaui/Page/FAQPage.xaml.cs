@@ -65,8 +65,18 @@ namespace CrossCam.Page
 
         private async void ExpandExpanderAndScrollToLine(Expander scrollTarget, BoxView line)
         {
-            scrollTarget.IsExpanded = true;
-            await _scrollView.ScrollToAsync(line, ScrollToPosition.Start, true);
+            MainThread.BeginInvokeOnMainThread(() =>
+            {
+                scrollTarget.IsExpanded = true;
+            });
+            await Task.Run(async () =>
+            {
+                await Task.Delay(100);
+            });
+            await MainThread.InvokeOnMainThreadAsync(async () =>
+            {
+                await _scrollView.ScrollToAsync(line, ScrollToPosition.Start, false);
+            });
         }
     }
 }
