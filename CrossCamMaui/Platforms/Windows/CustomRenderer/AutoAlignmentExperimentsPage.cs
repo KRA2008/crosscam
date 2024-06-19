@@ -96,7 +96,7 @@ public class AutoAlignmentExperimentsPage : ContentPage
 
             var alignmentSettings = new AlignmentSettings
             {
-                ReadModeColor = false,
+                ReadModeColor1 = false,
                 DrawKeypointMatches = true,
                 DrawResultWarpedByOpenCv = true
             };

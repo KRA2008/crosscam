@@ -30,7 +30,7 @@
         <RowDefinition Height="Auto"/>
         <RowDefinition Height="Auto"/>
         <RowDefinition Height="Auto"/>
-        <RowDefinition Height="Auto"/>
+        <RowDefinition Height="0"/><!-- too lazy to remove and renumber -->
         <RowDefinition Height="Auto"/>
         <RowDefinition Height="Auto"/>
         <RowDefinition Height="Auto"/>
@@ -40,12 +40,6 @@
         <RowDefinition Height="Auto"/>
         <RowDefinition Height="50"/>
     </Grid.RowDefinitions>
-
-    <Image Source="smarttoy.png"
-       Grid.ColumnSpan="3"
-       Grid.Row="0"
-       HorizontalOptions="CenterAndExpand"
-       IsVisible="False"/> <!-- too lazy to remove and renumber -->
 
     <Label Grid.Column="0"
        Grid.Row="1"
@@ -110,7 +104,7 @@
     <Frame Grid.Column="2"
        Grid.Row="6"
        IsVisible="{Binding Settings.AlignmentSettings.ShowAdvancedAlignmentSettings}">
-        <Entry Text="{Binding Settings.AlignmentSettings.DownsizePercentage}"/>
+        <Entry Text="{Binding Settings.AlignmentSettings.DownsizePercentage1}"/>
     </Frame>
 
     <Label Grid.Column="0"
@@ -129,7 +123,7 @@
        Grid.Row="8"
        IsVisible="{Binding Settings.AlignmentSettings.ShowAdvancedAlignmentSettings}">
         <Picker ItemsSource="{Binding TransformationFindingMethods}"
-            SelectedIndex="{Binding Settings.AlignmentSettings.TransformationFindingMethod2}"/>
+            SelectedIndex="{Binding Settings.AlignmentSettings.TransformationFindingMethod3}"/>
     </Frame>
 
     <Label Grid.Column="0"
@@ -149,7 +143,7 @@
     <Frame Grid.Column="2"
        Grid.Row="10"
        IsVisible="{Binding Settings.AlignmentSettings.ShowAdvancedAlignmentSettings}">
-        <Entry Text="{Binding Settings.AlignmentSettings.MinimumKeypoints1}"/>
+        <Entry Text="{Binding Settings.AlignmentSettings.MinimumKeypoints2}"/>
     </Frame>
 
     <Label Grid.Column="0"
@@ -216,23 +210,12 @@
 
     <Label Grid.Column="0"
        Grid.ColumnSpan="2"
-       Grid.Row="17"
-       Text="Physical distance threshold (set to 1 to disable)"
-       IsVisible="{Binding Settings.AlignmentSettings.ShowAdvancedAlignmentSettings}"/>
-    <Frame Grid.Column="2"
-       Grid.Row="17"
-       IsVisible="{Binding Settings.AlignmentSettings.ShowAdvancedAlignmentSettings}">
-        <Entry Text="{Binding Settings.AlignmentSettings.PhysicalDistanceThreshold}"/>
-    </Frame>
-
-    <Label Grid.Column="0"
-       Grid.ColumnSpan="2"
        Grid.Row="18"
        Text="Read mode color"
        IsVisible="{Binding Settings.AlignmentSettings.ShowAdvancedAlignmentSettings}"/>
     <Switch Grid.Column="2"
         Grid.Row="18"
-        IsToggled="{Binding Settings.AlignmentSettings.ReadModeColor}"
+        IsToggled="{Binding Settings.AlignmentSettings.ReadModeColor1}"
         IsVisible="{Binding Settings.AlignmentSettings.ShowAdvancedAlignmentSettings}"/>
 
 

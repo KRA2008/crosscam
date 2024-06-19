@@ -49,18 +49,17 @@
         }
 
         public bool ShowAdvancedAlignmentSettings { get; set; }
-        public uint DownsizePercentage { get; set; }
+        public uint DownsizePercentage1 { get; set; }
 
         public bool DrawKeypointMatches { get; set; }
         public bool DrawResultWarpedByOpenCv { get; set; }
-        public uint TransformationFindingMethod2 { get; set; }
+        public uint TransformationFindingMethod3 { get; set; }
         public float RatioTest { get; set; }
-        public float PhysicalDistanceThreshold { get; set; }
-        public bool ReadModeColor { get; set; }
+        public bool ReadModeColor1 { get; set; }
         public bool DiscardOutliersByDistance2 { get; set; }
         public bool DiscardOutliersBySlope2 { get; set; }
         public bool DoKeystoneCorrection1 { get; set; }
-        public uint MinimumKeypoints1 { get; set; }
+        public uint MinimumKeypoints2 { get; set; }
         public uint KeypointOutlierThresholdTenths { get; set; }
 
         public uint EccEpsilonLevel { get; set; }
@@ -75,26 +74,25 @@
             ShowAdvancedAlignmentSettings = false;
 
             ForceEcc = false;
-            DownsizePercentage = 35;
+            DownsizePercentage1 = 100;
             EccEpsilonLevel = 3;
             EccIterations = 50;
             EccThresholdPercentage = 60;
             EccPyramidLayers = 4;
             EccMotionType = (uint)Model.EccMotionType.Euclidean; //why can't this be the enum? i don't know but it can't.
 
-            ReadModeColor = true;
+            ReadModeColor1 = false;
             DrawKeypointMatches = false;
             DrawResultWarpedByOpenCv = false;
 
             ForceKeypoints2 = false;
             DiscardOutliersByDistance2 = true;
             DiscardOutliersBySlope2 = true;
-            MinimumKeypoints1 = 15;
+            MinimumKeypoints2 = 50;
             KeypointOutlierThresholdTenths = 20;
             RatioTest = 0.75f;
-            PhysicalDistanceThreshold = 0.25f;
 
-            TransformationFindingMethod2 = (uint)Model.TransformationFindingMethod.FindHomography; //why not enum?
+            TransformationFindingMethod3 = (uint)TransformationFindingMethod.EstimateRigidPartial; //why not enum?
 
             DoKeystoneCorrection1 = true;
         }

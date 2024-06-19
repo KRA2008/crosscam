@@ -2113,37 +2113,7 @@ namespace CrossCam.ViewModel
                     {
                         await Task.Run(() =>
                         {
-                            if (Settings.AlignmentSettings.ForceKeypoints2 ||
-                                Settings.IsCaptureInMirrorMode && 
-                                !Settings.AlignmentSettings.ForceEcc)
-                            {
-                                try
-                                {
-                                    alignedResult = openCv.CreateAlignedSecondImageKeypoints(
-                                        firstImage,
-                                        secondImage,
-                                        Settings.AlignmentSettings,
-                                        Settings.IsCaptureLeftFirst &&
-                                        Settings.Mode != DrawMode.Parallel ||
-                                        !Settings.IsCaptureLeftFirst &&
-                                        Settings.Mode == DrawMode.Parallel);
-                                }
-                                catch (Exception e)
-                                {
-                                    Error = e;
-
-                                    alignedResult = openCv.CreateAlignedSecondImageEcc(
-                                        firstImage,
-                                        secondImage,
-                                        Settings.AlignmentSettings);
-                                }
-
-                                alignedResult ??= openCv.CreateAlignedSecondImageEcc(
-                                    firstImage,
-                                    secondImage,
-                                    Settings.AlignmentSettings);
-                            }
-                            else
+                            if (Settings.AlignmentSettings.ForceEcc)
                             {
                                 try
                                 {
@@ -2174,6 +2144,34 @@ namespace CrossCam.ViewModel
                                     Settings.Mode != DrawMode.Parallel ||
                                     !Settings.IsCaptureLeftFirst &&
                                     Settings.Mode == DrawMode.Parallel);
+                            }
+                            else
+                            {
+                                try
+                                {
+                                    alignedResult = openCv.CreateAlignedSecondImageKeypoints(
+                                        firstImage,
+                                        secondImage,
+                                        Settings.AlignmentSettings,
+                                        Settings.IsCaptureLeftFirst &&
+                                        Settings.Mode != DrawMode.Parallel ||
+                                        !Settings.IsCaptureLeftFirst &&
+                                        Settings.Mode == DrawMode.Parallel);
+                                }
+                                catch (Exception e)
+                                {
+                                    Error = e;
+
+                                    alignedResult = openCv.CreateAlignedSecondImageEcc(
+                                        firstImage,
+                                        secondImage,
+                                        Settings.AlignmentSettings);
+                                }
+
+                                alignedResult ??= openCv.CreateAlignedSecondImageEcc(
+                                    firstImage,
+                                    secondImage,
+                                    Settings.AlignmentSettings);
                             }
                         });
                     }
@@ -2261,7 +2259,7 @@ namespace CrossCam.ViewModel
                                 SKSurface.Create(new SKImageInfo(alignedResult.Warped1.Width * 2, alignedResult.Warped1.Height));
                             surface.Canvas.DrawBitmap(alignedResult.Warped1, 0, 0);
                             surface.Canvas.DrawBitmap(alignedResult.Warped2, alignedResult.Warped1.Width, 0);
-                            var textBlob = SKTextBlob.Create(Settings.AlignmentSettings.DownsizePercentage + " " + alignedResult.MethodName, new SKFont
+                            var textBlob = SKTextBlob.Create(Settings.AlignmentSettings.DownsizePercentage1 + " " + alignedResult.MethodName, new SKFont
                             {
                                 Size = alignedResult.Warped1.Height / 5f
                             });
