@@ -737,6 +737,301 @@ namespace CrossCam.Resources.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to How does auto-alignment work?.
+        /// </summary>
+        internal static string Page_Faq_Alignment {
+            get {
+                return ResourceManager.GetString("Page.Faq.Alignment", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Auto-alignment attempts to align the image pairs as well as possible, but it isn&apos;t perfect. Computer vision is better at some things than human eyes, but also a lot worse at other things. The world it sees is very different than the one we do, but it can also see in a few different ways. The two main ways it sees in CrossCam are via the enhanced correlation coefficient (ECC) and using key points.
+        ///
+        ///ECC alignment essentially works by attempting to make sure light patches overlap with light patches and dark  [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string Page_Faq_Alignment_Body {
+            get {
+                return ResourceManager.GetString("Page.Faq.Alignment.Body", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Is this bad for my eyes?.
+        /// </summary>
+        internal static string Page_Faq_Bad {
+            get {
+                return ResourceManager.GetString("Page.Faq.Bad", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to I don&apos;t know, but I don&apos;t think so. However, if it feels bad just take a break. With practice the discomfort usually lessens. Any viewing method could cause discomfort due to an effect called the vergence-accomodation conflict. Here&apos;s .
+        /// </summary>
+        internal static string Page_Faq_Bad_Body1 {
+            get {
+                return ResourceManager.GetString("Page.Faq.Bad.Body1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to a Wikipedia link on the vergence-accomodation conflict..
+        /// </summary>
+        internal static string Page_Faq_Bad_Body2 {
+            get {
+                return ResourceManager.GetString("Page.Faq.Bad.Body2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to If you&apos;re using the cross-eyed method, the feeling may also be due to your eyes not being used to pointing as though they are looking at something so close for so long a time. When cross viewing, your eyes converge on a point about halfway between your eyes and the screen. If looking at something that close for a long time would also cause you discomfort, we have our explanation.
+        ///
+        ///My opinion on it is that your eyes aren&apos;t doing anything outside of their everyday capabilities, but you&apos;re combining two diff [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string Page_Faq_Bad_Body3 {
+            get {
+                return ResourceManager.GetString("Page.Faq.Bad.Body3", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to How do I use CrossCam with Google Cardboard?.
+        /// </summary>
+        internal static string Page_Faq_Cardboard {
+            get {
+                return ResourceManager.GetString("Page.Faq.Cardboard", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to If your viewer has a button that presses the center of the screen, you can use it to capture using Cardboard. Your viewer will also need to have a hole for your phone&apos;s camera to see through.
+        ///
+        ///To capture photos using Cardboard, switch your Preview Viewing Method (on the Settings page) to Cardboard, then return to the camera page and stick your phone in the viewer. Press the button to capture, and when both sides are captured, press the button again to save. Saving in Cardboard mode is only meant to allow  [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string Page_Faq_Cardboard_Body {
+            get {
+                return ResourceManager.GetString("Page.Faq.Cardboard.Body", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to How does this work?.
+        /// </summary>
+        internal static string Page_Faq_How {
+            get {
+                return ResourceManager.GetString("Page.Faq.How", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The 3D effect CrossCam uses is a well-studied discipline known as stereoscopy, and the method where you cross your eyes (or relax them) to view the two sides is called free viewing. When we look around at the world, each of our eyes sees from a different perspective. In stereoscopy all we do is present one (artificial) perspective to each eye, and our brains just do the rest. There are lots of different ways to make each eye see a different image. Here&apos;s .
+        /// </summary>
+        internal static string Page_Faq_How_Body1 {
+            get {
+                return ResourceManager.GetString("Page.Faq.How.Body1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to a Wikipedia link on stereoscopy.
+        /// </summary>
+        internal static string Page_Faq_How_Body2 {
+            get {
+                return ResourceManager.GetString("Page.Faq.How.Body2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The 3D pictures you make with CrossCam are called stereograms. Magic Eye™ books contain what is called autostereograms..
+        /// </summary>
+        internal static string Page_Faq_How_Body3 {
+            get {
+                return ResourceManager.GetString("Page.Faq.How.Body3", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to How did you get into stereoscopy?.
+        /// </summary>
+        internal static string Page_Faq_Into {
+            get {
+                return ResourceManager.GetString("Page.Faq.Into", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to While I was getting my physics degree, I had the opportunity to experiment with creating my own holograms using lasers. The type of holograms I was making were 3D because they used a diffraction grating to cause destructive interference in the light that reflects off of a glass plate&apos;s surface, which causes the reflected image to look different from different places. When each of our eyes sees an image that looks like it&apos;s from a different perspective (if they aren&apos;t too different), our brains perceive that [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string Page_Faq_Into_Body1 {
+            get {
+                return ResourceManager.GetString("Page.Faq.Into.Body1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to I had been aware of that principle of stereoscopic perception for a long time, but at that point in my life I was also taking some programming classes, so I decided I wanted to try to make a simple computer program for stereoscopic 3D drawing. That effort became StereoSketcher. The original version was written in Java, but I rewrote it with Javascript and SVG and now it lives on the web .
+        /// </summary>
+        internal static string Page_Faq_Into_Body2 {
+            get {
+                return ResourceManager.GetString("Page.Faq.Into.Body2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to at this link. .
+        /// </summary>
+        internal static string Page_Faq_Into_Body3 {
+            get {
+                return ResourceManager.GetString("Page.Faq.Into.Body3", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to It isn&apos;t popular by any means, and it may not be easy for anybody but me to use, but it works. While working on StereoSketcher I got to experiment with the principles of stereoscopy, and I became enamored with the way such an immersive and compelling experience can be produced using a few simple rules..
+        /// </summary>
+        internal static string Page_Faq_Into_Body4 {
+            get {
+                return ResourceManager.GetString("Page.Faq.Into.Body4", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Why does the 3D not look right OR why does the 3D look inverted?.
+        /// </summary>
+        internal static string Page_Faq_Inverted {
+            get {
+                return ResourceManager.GetString("Page.Faq.Inverted", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to When free viewing with either the cross or parallel method, it&apos;s important to look at the pictures using the same method that was used to create them. Otherwise, your right eye will look at the perspective intended for the left eye and vice versa. This makes the depth of the image invert, because the direction of parallax has been swapped.
+        ///
+        ///Parallax means that from the perspective of your right eye, when objects are further away they seem to be further to the right than closer objects when seen from your  [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string Page_Faq_Inverted_Body1 {
+            get {
+                return ResourceManager.GetString("Page.Faq.Inverted.Body1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Many people have gotten quite comfortable with viewing Magic Eye™ books, which are intended to be viewed using the parallel view method. If you cross view them then the robust 3D objects that are supposed to pop off the page instead look like holes. Both methods allow you to see *something* but if you couldn&apos;t tell what it was, you&apos;re probably cross viewing them..
+        /// </summary>
+        internal static string Page_Faq_Inverted_Body2 {
+            get {
+                return ResourceManager.GetString("Page.Faq.Inverted.Body2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to How do I do the &quot;single-shot mirror&quot; method?.
+        /// </summary>
+        internal static string Page_Faq_Mirror {
+            get {
+                return ResourceManager.GetString("Page.Faq.Mirror", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Capturing with the mirror method divides the frame in half and does the required transformation so you can capture both sides at the same moment using a single phone and a regular handheld mirror. To use the mirror method when capturing, flip the switch on for mirror mode on the Settings page (tap the gear icon to get there). After you turn on mirror mode, CrossCam will tell you which side to hold your mirror on. Hold your mirror on that side and fuss with the alignment between your phone and the mirror and [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string Page_Faq_Mirror_Body1 {
+            get {
+                return ResourceManager.GetString("Page.Faq.Mirror.Body1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to There are some compromises/edits that need to be made in order to use the mirror method. These can all be done manually in CrossCam, but automatic alignment will also attempt to do them for you:
+        ///• Because the reflected view travels over a longer distance than the normal view, the mirrored side will need to be zoomed in a bit.
+        ///• It&apos;s likely that when using the mirror method you will end up toeing-in, rather than keeping the perspectives parallel - this can cause foreshortening to look like bad vertical ali [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string Page_Faq_Mirror_Body2 {
+            get {
+                return ResourceManager.GetString("Page.Faq.Mirror.Body2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to My subject is moving, how do I take 3D pictures of it?.
+        /// </summary>
+        internal static string Page_Faq_Moving {
+            get {
+                return ResourceManager.GetString("Page.Faq.Moving", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to CrossCam allows you two methods for capturing both perspectives at the same moment. One method uses two phones, and one method uses a mirror.
+        ///
+        ///To use the two phone setup, check out the Pairing Setup page, which you can get to from the Settings page (tap the gear icon).
+        ///
+        ///To use the mirror method, check out the other FAQ question about it..
+        /// </summary>
+        internal static string Page_Faq_Moving_Body {
+            get {
+                return ResourceManager.GetString("Page.Faq.Moving.Body", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to How can I test pre-release versions of CrossCam?.
+        /// </summary>
+        internal static string Page_Faq_Test {
+            get {
+                return ResourceManager.GetString("Page.Faq.Test", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Check out this Reddit post.
+        /// </summary>
+        internal static string Page_Faq_Test_Body {
+            get {
+                return ResourceManager.GetString("Page.Faq.Test.Body", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Why did you make CrossCam?.
+        /// </summary>
+        internal static string Page_Faq_Why {
+            get {
+                return ResourceManager.GetString("Page.Faq.Why", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to As I was starting to get interested in stereoscopy I happened to take a trip to Yellowstone. While I was there, I realized it might be fun to try to use a 3D camera mobile app to capture things there in 3D. I was very disappointed by the existing options. I found they all required you to make two captures and then afterward find out if they were any good. They often were not, as I had to repeatedly make complete guesses on my separation distance, as well as the quality of the subject.
+        ///
+        ///Over the next few w [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string Page_Faq_Why_Body {
+            get {
+                return ResourceManager.GetString("Page.Faq.Why.Body", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to What are wigglegrams?.
+        /// </summary>
+        internal static string Page_Faq_Wiggle {
+            get {
+                return ResourceManager.GetString("Page.Faq.Wiggle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Wigglegrams are a way to view stereograms that doesn&apos;t rely on binocular vision. They&apos;re usually a gif that flips back and forth between the two perspectives, showing each in its entirety in the same spot. CrossCam doesn&apos;t support making them right now, but email me if you&apos;re really interested in them and I&apos;ll do it..
+        /// </summary>
+        internal static string Page_Faq_Wiggle_Body {
+            get {
+                return ResourceManager.GetString("Page.Faq.Wiggle.Body", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Field of View Correction.
         /// </summary>
         internal static string Page_FovCorrection {
@@ -1110,7 +1405,7 @@ namespace CrossCam.Resources.Localization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Seperate.
+        ///   Looks up a localized string similar to Separate.
         /// </summary>
         internal static string SaveModes_Separate {
             get {
