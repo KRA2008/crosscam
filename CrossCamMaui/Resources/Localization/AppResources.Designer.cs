@@ -1351,6 +1351,231 @@ namespace CrossCam.Resources.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Mind the horizontal lines, but you can also align after..
+        /// </summary>
+        internal static string Page_Tips_AlignAfter {
+            get {
+                return ResourceManager.GetString("Page.Tips.AlignAfter", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to If you find that while taking pictures it&apos;s impossible to make both the upper and lower guide lines line up at the same time, you probably moved in some direction other than just to the side. Try to fix this before taking the pictures, but aligning after the fact can help this a lot..
+        /// </summary>
+        internal static string Page_Tips_AlignAfter_Body {
+            get {
+                return ResourceManager.GetString("Page.Tips.AlignAfter.Body", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to You can turn off auto alignment..
+        /// </summary>
+        internal static string Page_Tips_Alignment {
+            get {
+                return ResourceManager.GetString("Page.Tips.Alignment", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to If you don&apos;t like the results of the automatic alignment, just turn it off on the Settings page or by tapping on the little robot icon and your original captured pictures will be restored..
+        /// </summary>
+        internal static string Page_Tips_Alignment_Body {
+            get {
+                return ResourceManager.GetString("Page.Tips.Alignment.Body", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The donut guide can help your window..
+        /// </summary>
+        internal static string Page_Tips_Donut {
+            get {
+                return ResourceManager.GetString("Page.Tips.Donut", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to There is an experimental guide donut on the Settings page you can turn on which may help you preserve your stereo window while maximizing the useable width. By turning left and right the depth on the donut will change relative to the rest of the scene - set the donut&apos;s depth so it is either on or behind the most distant point in your scene. Be careful, using it on smaller scenes may make things painful (see keystone tip above)..
+        /// </summary>
+        internal static string Page_Tips_Donut_Body {
+            get {
+                return ResourceManager.GetString("Page.Tips.Donut.Body", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Keystone correction is needed if you toe-in..
+        /// </summary>
+        internal static string Page_Tips_Keystone {
+            get {
+                return ResourceManager.GetString("Page.Tips.Keystone", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to If you turn inward with each shot it is very helpful to do keystone corrections. Typically you would want to shrink the inside edges of the photos and then crop some off the top and bottom to level them out. You get to the keystone editing menu by tapping the button that looks like this:.
+        /// </summary>
+        internal static string Page_Tips_Keystone_Body1 {
+            get {
+                return ResourceManager.GetString("Page.Tips.Keystone.Body1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Turning inward is called toe-in. It can cause a foreshortening effect that makes it difficult to fuse the corners of the image. The foreshortening effect is present at all times in real life, because parallel lines appear to converge as they go off into the distance away from you, but the artificial perspectives can make it weird..
+        /// </summary>
+        internal static string Page_Tips_Keystone_Body2 {
+            get {
+                return ResourceManager.GetString("Page.Tips.Keystone.Body2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to You can just lean..
+        /// </summary>
+        internal static string Page_Tips_Lean {
+            get {
+                return ResourceManager.GetString("Page.Tips.Lean", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Sometimes instead of fully moving your feet left or right to take pictures, it can be easier to just stand with your feet apart and lean in each direction, but be careful to keep the phone level and at the same height. Just leaning instead of moving can help you from moving too far and can make it easier to keep your aim straight..
+        /// </summary>
+        internal static string Page_Tips_Lean_Body {
+            get {
+                return ResourceManager.GetString("Page.Tips.Lean.Body", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The alignment lines can move..
+        /// </summary>
+        internal static string Page_Tips_Lines {
+            get {
+                return ResourceManager.GetString("Page.Tips.Lines", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to You can drag the alignment lines around if you want. This is especially helpful when aligning the pictures during editing..
+        /// </summary>
+        internal static string Page_Tips_Lines_Body {
+            get {
+                return ResourceManager.GetString("Page.Tips.Lines.Body", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to You can open old photos in CrossCam..
+        /// </summary>
+        internal static string Page_Tips_Old {
+            get {
+                return ResourceManager.GetString("Page.Tips.Old", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to You can load previously taken pictures by tapping the folder icon on the bottom of the camera page, but if you&apos;re working with a big batch of photos you can also share them to CrossCam straight from your photos app, which may keep track of your place in your photos better..
+        /// </summary>
+        internal static string Page_Tips_Old_Body {
+            get {
+                return ResourceManager.GetString("Page.Tips.Old.Body", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Turn on quick mode when you&apos;re with others..
+        /// </summary>
+        internal static string Page_Tips_Quick {
+            get {
+                return ResourceManager.GetString("Page.Tips.Quick", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to If you&apos;re exploring with other people it&apos;s a good idea to go into fast mode by turning off auto alignment and and borders and just saving once you&apos;ve captured without doing any editing. You can always load, auto align, and edit the pictures later. That way your companions don&apos;t have to wait for you to perfect your pictures on the spot, but you can still be confident that the depth you want is really there. Just be careful not to do any hasty editing before the first save! You can also turn on the separate s [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string Page_Tips_Quick_Body {
+            get {
+                return ResourceManager.GetString("Page.Tips.Quick.Body", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to If the movement makes you sick, hold still..
+        /// </summary>
+        internal static string Page_Tips_Sick {
+            get {
+                return ResourceManager.GetString("Page.Tips.Sick", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to If all the movement makes you sick or makes it too difficult to view in 3D, don&apos;t start trying to see it in 3D until after you&apos;ve moved over a little bit. Then compare the pictures to each other and align the pictures using the horizontal lines without 3D viewing and then start 3D viewing once aligned and holding still..
+        /// </summary>
+        internal static string Page_Tips_Sick_Body {
+            get {
+                return ResourceManager.GetString("Page.Tips.Sick.Body", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to These pictures can take a lot of storage - you can shrink them..
+        /// </summary>
+        internal static string Page_Tips_Space {
+            get {
+                return ResourceManager.GetString("Page.Tips.Space", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The Settings page has an option to proportionally decrease the resolution of the final picture - this can help if you want to save space. If your photo is not cropped the end result is two full-resolution pictures joined together to make one of double resolution, which means you can often get away with a large reduction in resolution without noticeably affecting quality..
+        /// </summary>
+        internal static string Page_Tips_Space_Body {
+            get {
+                return ResourceManager.GetString("Page.Tips.Space.Body", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Don&apos;t turn..
+        /// </summary>
+        internal static string Page_Tips_Turn {
+            get {
+                return ResourceManager.GetString("Page.Tips.Turn", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to When you move over, try not to rotate your phone at all in any direction, including the natural tendency to turn towards the subject as you move to the side. Some rotation will be necessary (sometimes), but try to minimize it. Imagine the phone is mounted on a straight horizontal rail and can only slide. Turning inward can cause a foreshortening effect that makes the corners hard to fuse..
+        /// </summary>
+        internal static string Page_Tips_Turn_Body {
+            get {
+                return ResourceManager.GetString("Page.Tips.Turn.Body", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Add border and crop to make a strong stereo window..
+        /// </summary>
+        internal static string Page_Tips_Window {
+            get {
+                return ResourceManager.GetString("Page.Tips.Window", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to An interesting stereo window effect can be created by doing two things: 1) turn on the border (on Settings page) and 2) for cross viewing, crop the inside edges of the images until the outer edge itself becomes 3D in the picture (crop the OUTSIDE edges if you&apos;re parallel viewing). The key is to crop the right edge of the left picture slightly past what the right edge of the right picture shows of the scene and vice-versa. Adding a border is toggled on the Settings page. If this is confusing, just crop a bun [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string Page_Tips_Window_Body {
+            get {
+                return ResourceManager.GetString("Page.Tips.Window.Body", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Anaglyph.
         /// </summary>
         internal static string SaveModes_Anaglyph {
