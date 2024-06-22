@@ -520,16 +520,11 @@ Sometimes it's difficult to feel whether you're doing the cross or parallel meth
 
 
 Other stuff you can do:
-
-• Tap once to focus on a point, tap twice to switch back to continuous auto focus.
-
-• Tap the gear icon on the top right of the camera screen to open the Settings page. It's full of interesting stuff.
-
-• There's a nice Tips page you can get to by tapping the hamburger icon on the top left of the camera screen that can help you make your pictures great.
-
-• If you would prefer to move the other direction for your second shot or would like to swap the sides just do a swipe.
-
-• Tap the little folder icon on the bottom to load an image as a side or to load a full stereo image.</value>
+ • Tap once to focus on a point, tap twice to switch back to continuous auto focus.
+ • Tap the gear icon on the top right of the camera screen to open the Settings page. It's full of interesting stuff.
+ • There's a nice Tips page you can get to by tapping the hamburger icon on the top left of the camera screen that can help you make your pictures great.
+ • If you would prefer to move the other direction for your second shot or would like to swap the sides just do a swipe.
+ • Tap the little folder icon on the bottom to load an image as a side or to load a full stereo image.</value>
   </data>
   <data name="Page.Faq.Alignment" xml:space="preserve">
     <value>How does auto-alignment work?</value>
@@ -623,16 +618,16 @@ This method will also work with reflections in large, clean windows, and also on
   </data>
   <data name="Page.Faq.Mirror.Body2" xml:space="preserve">
     <value>There are some compromises/edits that need to be made in order to use the mirror method. These can all be done manually in CrossCam, but automatic alignment will also attempt to do them for you:
-• Because the reflected view travels over a longer distance than the normal view, the mirrored side will need to be zoomed in a bit.
-• It's likely that when using the mirror method you will end up toeing-in, rather than keeping the perspectives parallel - this can cause foreshortening to look like bad vertical alignment. To undo that, keystone correction can be done, which means vertically shrinking one side of each of the images.
-• Toeing-in will also tend to move the stereo window toward you. You can undo that and place it where you want it by cropping the sides.
-• The mirror will probably not fully cover the view of one side, so some cropping may need to be done to remove unreflected bits.
+ • Because the reflected view travels over a longer distance than the normal view, the mirrored side will need to be zoomed in a bit.
+ • It's likely that when using the mirror method you will end up toeing-in, rather than keeping the perspectives parallel - this can cause foreshortening to look like bad vertical alignment. To undo that, keystone correction can be done, which means vertically shrinking one side of each of the images.
+ • Toeing-in will also tend to move the stereo window toward you. You can undo that and place it where you want it by cropping the sides.
+ • The mirror will probably not fully cover the view of one side, so some cropping may need to be done to remove unreflected bits.
 
 The best mirrors for this have thin glass. For one thing they're light, so they're easier to hold for long periods. The other important thing is that when using the mirror you'll likely be aiming the mirror sideways rather than looking straight into it as mirrors are typically used. When oriented like that, mirrors with thick glass may have some blurriness. The thinner the glass, the less apparent this blurring will be. These kinds of mirrors may also be low-quality in other respects, so it's important to find a good balance.
 
 There are a couple other compromises that have to be accepted when using the mirror capturing that can't be fixed in edits by CrossCam:
-• Because the view of the two sides travel slightly different distances, the focus needed for each side will be slightly different, so one side will always be slightly blurry. This effect will be more or less noticeable depending on the distance to the subject and the depth of field of the lens.
-• No mirror is truly 100% efficient, so the side that uses the mirror may be slightly darker. This will vary with the quality of the mirror.</value>
+ • Because the view of the two sides travel slightly different distances, the focus needed for each side will be slightly different, so one side will always be slightly blurry. This effect will be more or less noticeable depending on the distance to the subject and the depth of field of the lens.
+ • No mirror is truly 100% efficient, so the side that uses the mirror may be slightly darker. This will vary with the quality of the mirror.</value>
   </data>
   <data name="Page.Faq.Moving" xml:space="preserve">
     <value>My subject is moving, how do I take 3D pictures of it?</value>
@@ -738,5 +733,115 @@ Over the next few weeks my simmering frustration led me to imagine simply provid
   </data>
   <data name="Page.Tips.Window.Body" xml:space="preserve">
     <value>An interesting stereo window effect can be created by doing two things: 1) turn on the border (on Settings page) and 2) for cross viewing, crop the inside edges of the images until the outer edge itself becomes 3D in the picture (crop the OUTSIDE edges if you're parallel viewing). The key is to crop the right edge of the left picture slightly past what the right edge of the right picture shows of the scene and vice-versa. Adding a border is toggled on the Settings page. If this is confusing, just crop a bunch off the inside edges and it will start to be clear. The crop button for the inside edges looks like this:</value>
+  </data>
+  <data name="Button.Code" xml:space="preserve">
+    <value>See the Code</value>
+  </data>
+  <data name="Button.Developer" xml:space="preserve">
+    <value>About the Developer</value>
+  </data>
+  <data name="Button.EmailMe" xml:space="preserve">
+    <value>Email Me</value>
+  </data>
+  <data name="Button.GitHub" xml:space="preserve">
+    <value>Add an Issue on GitHub</value>
+  </data>
+  <data name="Button.Press" xml:space="preserve">
+    <value>Go back to the camera screen on both devices and tap the pair button in the lower corner</value>
+  </data>
+  <data name="Button.Primary" xml:space="preserve">
+    <value>TAP HERE ON THE PRIMARY</value>
+  </data>
+  <data name="Button.Privacy" xml:space="preserve">
+    <value>Privacy Policy</value>
+  </data>
+  <data name="Button.Secondary" xml:space="preserve">
+    <value>TAP HERE ON THE SECONDARY</value>
+  </data>
+  <data name="Button.Test" xml:space="preserve">
+    <value>Test Pre-release Versions</value>
+  </data>
+  <data name="Button.Wi-Fi" xml:space="preserve">
+    <value>Make sure Wi-Fi is enabled on both devices (but it doesn't need to be connected to anything)</value>
+  </data>
+  <data name="Page.Pairing.1" xml:space="preserve">
+    <value>If you have two devices with CrossCam installed, you can connect them in order to take simultaneous photos from two perspectives. Taking two photos at the same moment makes the best stereograms possible.
+
+Please be aware that this feature is still experimental and may have issues. It may not work perfectly all the time and it may eat up your battery. Also please be aware that at this time the devices must be the same platform in order to connect (both Android or both iOS).
+
+One way to get *perfect* synchronization using only a single device and CrossCam is to use the &amp;quot;single-shot mirror&amp;quot; method. You can turn it on on the Settings page and you can read about it on the FAQ page.
+
+Before two devices can be used together their roles have to be assigned. The PRIMARY device is the one that will show both previews, trigger the capture, and hold/save the final captures. To assign roles, navigate both devices to this page and then follow the steps below:</value>
+  </data>
+  <data name="Page.Pairing.2" xml:space="preserve">
+    <value>If you have trouble, PLEASE NOTE:
+ • After beginning the pairing process, the pairing button can be tapped again at any time to stop it or to disconnect.
+ • It may help to stop pairing on both devices and restart it at the same time.
+ • It may help to disconnect from your Wi-Fi or data networks in case they are acting up.
+ • Every camera is different. These differences can include angular field of view, focus, exposure, and white balance behavior, timing, and more. Even two of the same model of phone will behave slightly differently. I prefer to use a pair of identical old phones (in my case, a pair of iPhone 6).
+ • CrossCam is software, not hardware, so capturing the photos may be slightly out of sync depending on what else the processors and memory are doing at the precise moment the capture is triggered. As a result, the synchronization may sometimes not be perfect, but it should generally be very close.</value>
+  </data>
+  <data name="Page.Pairing.Again" xml:space="preserve">
+    <value>To connect again later, make sure you have Wi-Fi enabled and then just tap the connect button on the home screen on both devices.</value>
+  </data>
+  <data name="Page.Pairing.LocalNetworkAccess" xml:space="preserve">
+    <value>CrossCam requires Local Network Access permission. CrossCam doesn't actually use the local network, but iOS requires that CrossCam gets this permission in order to use the Wi-Fi antenna to scan for devices. CrossCam will ask for this permission once - if the permission is denied you'll have to go and flip the switch in the Settings app yourself.</value>
+  </data>
+  <data name="Page.Pairing.Location" xml:space="preserve">
+    <value>CrossCam will request permissions and power on components as needed in order to connect your devices. Please note: CrossCam requires location permission and for location services to be turned on on the primary device in order to connect to the secondary device. This is simply an Android requirement and is completely outside my control. CrossCam does not actually USE your location in any way, but because the act of searching for (and finding) nearby devices could theoretically be used to roughly locate you, CrossCam requires permission to access your location.</value>
+  </data>
+  <data name="Page.Pairing.Permissions" xml:space="preserve">
+    <value>A Note About Permissions:</value>
+  </data>
+  <data name="Page.Pairing.Title" xml:space="preserve">
+    <value>Pairing</value>
+  </data>
+  <data name="Page.MorePictures.CrossViewSubreddit" xml:space="preserve">
+    <value>CrossView Subreddit</value>
+  </data>
+  <data name="Page.MorePictures.FacebookGroup" xml:space="preserve">
+    <value>Stereoscopic 3D Facebook Group</value>
+  </data>
+  <data name="Page.MorePictures.GoogleDoc" xml:space="preserve">
+    <value>Google Doc of Great Stuff</value>
+  </data>
+  <data name="Page.MorePictures.Instagram" xml:space="preserve">
+    <value>Instagram Stereoscopic Tag</value>
+  </data>
+  <data name="Page.MorePictures.Mine" xml:space="preserve">
+    <value>See Pictures I've Taken</value>
+  </data>
+  <data name="Page.MorePictures.ParallelViewSubreddit" xml:space="preserve">
+    <value>ParallelView Subreddit</value>
+  </data>
+  <data name="Page.TipMe.1" xml:space="preserve">
+    <value>CrossCam is free to use, ad-free, open-source, collects no personal information from you, and gives you full access to every feature. I love working on CrossCam but it takes a lot of time and effort. I make no money from CrossCam at all except tips people might decide to send me.</value>
+  </data>
+  <data name="Page.TipMe.2" xml:space="preserve">
+    <value>If you like CrossCam and are able to, please consider sending me a tip.</value>
+  </data>
+  <data name="Page.TipMe.Ko-fi" xml:space="preserve">
+    <value>Ko-fi</value>
+  </data>
+  <data name="Page.TipMe.Patreon" xml:space="preserve">
+    <value>Patreon</value>
+  </data>
+  <data name="Page.TipMe.PayPal" xml:space="preserve">
+    <value>PayPal</value>
+  </data>
+  <data name="Page.TipMe.Tipped" xml:space="preserve">
+    <value>I've been tipped </value>
+  </data>
+  <data name="Page.TipMe.TippedTimes" xml:space="preserve">
+    <value> times, totaling </value>
+  </data>
+  <data name="Page.TipMe.Venmo" xml:space="preserve">
+    <value>Venmo</value>
+  </data>
+  <data name="Title.MorePictures" xml:space="preserve">
+    <value>See More Pictures</value>
+  </data>
+  <data name="Title.TipMe" xml:space="preserve">
+    <value>Tips Are Appreciated!</value>
   </data>
 </root>

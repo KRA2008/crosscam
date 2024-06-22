@@ -79,6 +79,24 @@ namespace CrossCam.Resources.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to See the Code.
+        /// </summary>
+        internal static string Button_Code {
+            get {
+                return ResourceManager.GetString("Button.Code", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to About the Developer.
+        /// </summary>
+        internal static string Button_Developer {
+            get {
+                return ResourceManager.GetString("Button.Developer", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Don&apos;t email me now.
         /// </summary>
         internal static string Button_DoNotEmailMe {
@@ -88,11 +106,29 @@ namespace CrossCam.Resources.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Email Me.
+        /// </summary>
+        internal static string Button_EmailMe {
+            get {
+                return ResourceManager.GetString("Button.EmailMe", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Email me now.
         /// </summary>
         internal static string Button_EmailMeNow {
             get {
                 return ResourceManager.GetString("Button.EmailMeNow", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Add an Issue on GitHub.
+        /// </summary>
+        internal static string Button_GitHub {
+            get {
+                return ResourceManager.GetString("Button.GitHub", resourceCulture);
             }
         }
         
@@ -151,11 +187,47 @@ namespace CrossCam.Resources.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Go back to the camera screen on both devices and tap the pair button in the lower corner.
+        /// </summary>
+        internal static string Button_Press {
+            get {
+                return ResourceManager.GetString("Button.Press", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to TAP HERE ON THE PRIMARY.
+        /// </summary>
+        internal static string Button_Primary {
+            get {
+                return ResourceManager.GetString("Button.Primary", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Privacy Policy.
+        /// </summary>
+        internal static string Button_Privacy {
+            get {
+                return ResourceManager.GetString("Button.Privacy", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Write a Review.
         /// </summary>
         internal static string Button_Review {
             get {
                 return ResourceManager.GetString("Button.Review", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to TAP HERE ON THE SECONDARY.
+        /// </summary>
+        internal static string Button_Secondary {
+            get {
+                return ResourceManager.GetString("Button.Secondary", resourceCulture);
             }
         }
         
@@ -192,6 +264,24 @@ namespace CrossCam.Resources.Localization {
         internal static string Button_TapParallel {
             get {
                 return ResourceManager.GetString("Button.TapParallel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Test Pre-release Versions.
+        /// </summary>
+        internal static string Button_Test {
+            get {
+                return ResourceManager.GetString("Button.Test", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Make sure Wi-Fi is enabled on both devices (but it doesn&apos;t need to be connected to anything).
+        /// </summary>
+        internal static string Button_Wi_Fi {
+            get {
+                return ResourceManager.GetString("Button.Wi-Fi", resourceCulture);
             }
         }
         
@@ -944,8 +1034,8 @@ namespace CrossCam.Resources.Localization {
         
         /// <summary>
         ///   Looks up a localized string similar to There are some compromises/edits that need to be made in order to use the mirror method. These can all be done manually in CrossCam, but automatic alignment will also attempt to do them for you:
-        ///• Because the reflected view travels over a longer distance than the normal view, the mirrored side will need to be zoomed in a bit.
-        ///• It&apos;s likely that when using the mirror method you will end up toeing-in, rather than keeping the perspectives parallel - this can cause foreshortening to look like bad vertical ali [rest of string was truncated]&quot;;.
+        /// • Because the reflected view travels over a longer distance than the normal view, the mirrored side will need to be zoomed in a bit.
+        /// • It&apos;s likely that when using the mirror method you will end up toeing-in, rather than keeping the perspectives parallel - this can cause foreshortening to look like bad vertical a [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string Page_Faq_Mirror_Body2 {
             get {
@@ -1107,6 +1197,131 @@ namespace CrossCam.Resources.Localization {
         internal static string Page_HowToUse_P2 {
             get {
                 return ResourceManager.GetString("Page.HowToUse.P2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to CrossView Subreddit.
+        /// </summary>
+        internal static string Page_MorePictures_CrossViewSubreddit {
+            get {
+                return ResourceManager.GetString("Page.MorePictures.CrossViewSubreddit", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Stereoscopic 3D Facebook Group.
+        /// </summary>
+        internal static string Page_MorePictures_FacebookGroup {
+            get {
+                return ResourceManager.GetString("Page.MorePictures.FacebookGroup", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Google Doc of Great Stuff.
+        /// </summary>
+        internal static string Page_MorePictures_GoogleDoc {
+            get {
+                return ResourceManager.GetString("Page.MorePictures.GoogleDoc", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Instagram Stereoscopic Tag.
+        /// </summary>
+        internal static string Page_MorePictures_Instagram {
+            get {
+                return ResourceManager.GetString("Page.MorePictures.Instagram", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to See Pictures I&apos;ve Taken.
+        /// </summary>
+        internal static string Page_MorePictures_Mine {
+            get {
+                return ResourceManager.GetString("Page.MorePictures.Mine", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to ParallelView Subreddit.
+        /// </summary>
+        internal static string Page_MorePictures_ParallelViewSubreddit {
+            get {
+                return ResourceManager.GetString("Page.MorePictures.ParallelViewSubreddit", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to If you have two devices with CrossCam installed, you can connect them in order to take simultaneous photos from two perspectives. Taking two photos at the same moment makes the best stereograms possible.
+        ///
+        ///Please be aware that this feature is still experimental and may have issues. It may not work perfectly all the time and it may eat up your battery. Also please be aware that at this time the devices must be the same platform in order to connect (both Android or both iOS).
+        ///
+        ///One way to get *perfect* sync [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string Page_Pairing_1 {
+            get {
+                return ResourceManager.GetString("Page.Pairing.1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to If you have trouble, PLEASE NOTE:
+        /// • After beginning the pairing process, the pairing button can be tapped again at any time to stop it or to disconnect.
+        /// • It may help to stop pairing on both devices and restart it at the same time.
+        /// • It may help to disconnect from your Wi-Fi or data networks in case they are acting up.
+        /// • Every camera is different. These differences can include angular field of view, focus, exposure, and white balance behavior, timing, and more. Even two of the same model of phone wi [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string Page_Pairing_2 {
+            get {
+                return ResourceManager.GetString("Page.Pairing.2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to To connect again later, make sure you have Wi-Fi enabled and then just tap the connect button on the home screen on both devices..
+        /// </summary>
+        internal static string Page_Pairing_Again {
+            get {
+                return ResourceManager.GetString("Page.Pairing.Again", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to CrossCam requires Local Network Access permission. CrossCam doesn&apos;t actually use the local network, but iOS requires that CrossCam gets this permission in order to use the Wi-Fi antenna to scan for devices. CrossCam will ask for this permission once - if the permission is denied you&apos;ll have to go and flip the switch in the Settings app yourself..
+        /// </summary>
+        internal static string Page_Pairing_LocalNetworkAccess {
+            get {
+                return ResourceManager.GetString("Page.Pairing.LocalNetworkAccess", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to CrossCam will request permissions and power on components as needed in order to connect your devices. Please note: CrossCam requires location permission and for location services to be turned on on the primary device in order to connect to the secondary device. This is simply an Android requirement and is completely outside my control. CrossCam does not actually USE your location in any way, but because the act of searching for (and finding) nearby devices could theoretically be used to roughly locate you,  [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string Page_Pairing_Location {
+            get {
+                return ResourceManager.GetString("Page.Pairing.Location", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to A Note About Permissions:.
+        /// </summary>
+        internal static string Page_Pairing_Permissions {
+            get {
+                return ResourceManager.GetString("Page.Pairing.Permissions", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Pairing.
+        /// </summary>
+        internal static string Page_Pairing_Title {
+            get {
+                return ResourceManager.GetString("Page.Pairing.Title", resourceCulture);
             }
         }
         
@@ -1347,6 +1562,78 @@ namespace CrossCam.Resources.Localization {
         internal static string Page_Technique_Trouble {
             get {
                 return ResourceManager.GetString("Page.Technique.Trouble", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to CrossCam is free to use, ad-free, open-source, collects no personal information from you, and gives you full access to every feature. I love working on CrossCam but it takes a lot of time and effort. I make no money from CrossCam at all except tips people might decide to send me..
+        /// </summary>
+        internal static string Page_TipMe_1 {
+            get {
+                return ResourceManager.GetString("Page.TipMe.1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to If you like CrossCam and are able to, please consider sending me a tip..
+        /// </summary>
+        internal static string Page_TipMe_2 {
+            get {
+                return ResourceManager.GetString("Page.TipMe.2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Ko-fi.
+        /// </summary>
+        internal static string Page_TipMe_Ko_fi {
+            get {
+                return ResourceManager.GetString("Page.TipMe.Ko-fi", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Patreon.
+        /// </summary>
+        internal static string Page_TipMe_Patreon {
+            get {
+                return ResourceManager.GetString("Page.TipMe.Patreon", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to PayPal.
+        /// </summary>
+        internal static string Page_TipMe_PayPal {
+            get {
+                return ResourceManager.GetString("Page.TipMe.PayPal", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to I&apos;ve been tipped .
+        /// </summary>
+        internal static string Page_TipMe_Tipped {
+            get {
+                return ResourceManager.GetString("Page.TipMe.Tipped", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to  times, totaling .
+        /// </summary>
+        internal static string Page_TipMe_TippedTimes {
+            get {
+                return ResourceManager.GetString("Page.TipMe.TippedTimes", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Venmo.
+        /// </summary>
+        internal static string Page_TipMe_Venmo {
+            get {
+                return ResourceManager.GetString("Page.TipMe.Venmo", resourceCulture);
             }
         }
         
@@ -1693,11 +1980,29 @@ namespace CrossCam.Resources.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to See More Pictures.
+        /// </summary>
+        internal static string Title_MorePictures {
+            get {
+                return ResourceManager.GetString("Title.MorePictures", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to 3D Viewing Technique.
         /// </summary>
         internal static string Title_Technique {
             get {
                 return ResourceManager.GetString("Title.Technique", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Tips Are Appreciated!.
+        /// </summary>
+        internal static string Title_TipMe {
+            get {
+                return ResourceManager.GetString("Title.TipMe", resourceCulture);
             }
         }
         

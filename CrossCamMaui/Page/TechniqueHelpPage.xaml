@@ -7,7 +7,7 @@
                xmlns:page="clr-namespace:CrossCam.Page"
                xmlns:localization="clr-namespace:CrossCam.Resources.Localization"
                x:DataType="vm:TechniqueHelpViewModel"
-               Title="3D Viewing Technique"
+               Title="{x:Static localization:AppResources.Title_Technique}"
                x:Class="CrossCam.Page.TechniqueHelpPage">
     <ScrollView>
         <StackLayout Spacing="0">

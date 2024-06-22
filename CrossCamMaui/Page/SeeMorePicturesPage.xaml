@@ -4,34 +4,35 @@
              xmlns:page="clr-namespace:CrossCam.Page"
              xmlns:ce="clr-namespace:CrossCam.CustomElement"
              xmlns:viewModel="clr-namespace:CrossCam.ViewModel"
+             xmlns:localization="clr-namespace:CrossCam.Resources.Localization"
              x:Class="CrossCam.Page.SeeMorePicturesPage"
              x:DataType="viewModel:SeeMorePicturesViewModel"
-             Title="See More Pictures">
+             Title="{x:Static localization:AppResources.Title_MorePictures}">
     <ScrollView>
         <StackLayout>
             <ce:iOS12WorkaroundBackButton/>
             <ce:HorizontalDivider/>
-            <Button Text="See Pictures I've Taken"
+            <Button Text="{x:Static localization:AppResources.Page_MorePictures_Mine}"
                     Command="{Binding OpenLink}"
                     CommandParameter="https://imgur.com/a/Crw232n"/>
             <ce:HorizontalDivider/>
-            <Button Text="CrossView Subreddit"
+            <Button Text="{x:Static localization:AppResources.Page_MorePictures_CrossViewSubreddit}"
                     Command="{Binding OpenLink}"
                     CommandParameter="https://reddit.com/r/CrossView/"/>
             <ce:HorizontalDivider/>
-            <Button Text="ParallelView Subreddit"
+            <Button Text="{x:Static localization:AppResources.Page_MorePictures_ParallelViewSubreddit}"
                     Command="{Binding OpenLink}"
                     CommandParameter="https://reddit.com/r/ParallelView/"/>
             <ce:HorizontalDivider/>
-            <Button Text="Google Doc of Great Stuff"
+            <Button Text="{x:Static localization:AppResources.Page_MorePictures_GoogleDoc}"
                     Command="{Binding OpenLink}"
                     CommandParameter="https://docs.google.com/document/d/1WWkI2cj4FdOxiV-Wc_0Dm__5BFWjof-GSuV9AkFUZ1I/"/>
             <ce:HorizontalDivider/>
-            <Button Text="Stereoscopic 3D Facebook Group"
+            <Button Text="{x:Static localization:AppResources.Page_MorePictures_FacebookGroup}"
                     Command="{Binding OpenLink}"
                     CommandParameter="https://www.facebook.com/groups/Stereoscopic3D/"/>
             <ce:HorizontalDivider/>
-            <Button Text="Instagram Stereoscopic Tag"
+            <Button Text="{x:Static localization:AppResources.Page_MorePictures_Instagram}"
                     Command="{Binding OpenLink}"
                     CommandParameter="https://www.instagram.com/explore/tags/stereoscopic/"/>
             <ce:HorizontalDivider/>

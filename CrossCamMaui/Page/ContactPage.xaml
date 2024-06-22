@@ -4,6 +4,7 @@
                xmlns:vm="clr-namespace:CrossCam.ViewModel"
                xmlns:page="clr-namespace:CrossCam.Page"
                xmlns:ce="clr-namespace:CrossCam.CustomElement"
+               xmlns:localization="clr-namespace:CrossCam.Resources.Localization"
                x:DataType="vm:ContactViewModel"
                Title="Contact"
                x:Class="CrossCam.Page.ContactPage">
@@ -12,27 +13,27 @@
             <StackLayout>
                 <ce:iOS12WorkaroundBackButton/>
                 <ce:HorizontalDivider/>
-                <Button Text="Email Me"
+                <Button Text="{x:Static localization:AppResources.Button_EmailMe}"
                         Command="{Binding OpenLink}"
                         CommandParameter="mailto:me@kra2008.com?subject=CrossCam%20feedback"/>
                 <ce:HorizontalDivider/>
-                <Button Text="Test Pre-release Versions"
+                <Button Text="{x:Static localization:AppResources.Button_Test}"
                         Command="{Binding OpenLink}"
                         CommandParameter="https://reddit.com/r/crosscam"/>
                 <ce:HorizontalDivider/>
-                <Button Text="Add an Issue on Github"
+                <Button Text="{x:Static localization:AppResources.Button_GitHub}"
                         Command="{Binding OpenLink}"
                         CommandParameter="https://github.com/KRA2008/crosscam/issues"/>
                 <ce:HorizontalDivider/>
-                <Button Text="See the Code"
+                <Button Text="{x:Static localization:AppResources.Button_Code}"
                         Command="{Binding OpenLink}"
                         CommandParameter="https://github.com/KRA2008/crosscam"/>
                 <ce:HorizontalDivider/>
-                <Button Text="Privacy Policy"
+                <Button Text="{x:Static localization:AppResources.Button_Privacy}"
                         Command="{Binding OpenLink}"
                         CommandParameter="http://kra2008.com/crosscam/privacypolicy.html"/>
                 <ce:HorizontalDivider/>
-                <Button Text="About the Developer"
+                <Button Text="{x:Static localization:AppResources.Button_Developer}"
                         Command="{Binding OpenLink}"
                         CommandParameter="http://kra2008.com/"/>
                 <ce:HorizontalDivider/>
