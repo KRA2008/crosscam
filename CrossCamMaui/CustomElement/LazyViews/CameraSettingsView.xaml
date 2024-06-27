@@ -4,6 +4,7 @@
       xmlns:system="clr-namespace:System;assembly=System.Runtime"
       xmlns:vc="clr-namespace:CrossCam.ValueConverter"
       xmlns:vm="clr-namespace:CrossCam.ViewModel"
+      xmlns:localization="clr-namespace:CrossCam.Resources.Localization"
       x:Class="CrossCam.CustomElement.LazyViews.CameraSettingsView"
       x:DataType="vm:SettingsViewModel">
     <Grid.ColumnDefinitions>
@@ -23,21 +24,21 @@
 
     <Label Grid.Row="0" 
        Grid.Column="0" 
-       Text="Tap to point focus, double tap to switch back to continuous focus (or save or clear)"/>
+       Text="{x:Static localization:AppResources.Settings_Camera_PointFocus}"/>
     <Switch Grid.Row="0" 
         Grid.Column="1" 
         IsToggled="{Binding Settings.IsTapToFocusEnabled2}"/>
 
     <Label Grid.Row="1" 
        Grid.Column="0" 
-       Text="Lock focus and exposure for second picture to focus and exposure from first picture"/>
+       Text="{x:Static localization:AppResources.Settings_Camera_Lock}"/>
     <Switch Grid.Row="1" 
         Grid.Column="1" 
         IsToggled="{Binding Settings.IsLockToFirstEnabled}"/>
 
     <Label Grid.Row="2" 
        Grid.Column="0" 
-       Text="Force camera1 API (may be helpful if you're experiencing weirdness but will result in limited functionality, requires a force quit/restart to take effect)">
+       Text="{x:Static localization:AppResources.Settings_Camera_Camera1}">
         <Label.IsVisible>
             <OnPlatform x:TypeArguments="system:Boolean">
                 <On Platform="iOS"
@@ -62,7 +63,7 @@
 
     <Label Grid.Row="3" 
        Grid.Column="0" 
-       Text="Force camera2 API (must be on Android 6 or above, may be helpful if you're experiencing errors but may make more, requires a force quit/restart to take effect)">
+       Text="{x:Static localization:AppResources.Settings_Camera_Camera2}">
         <Label.IsVisible>
             <OnPlatform x:TypeArguments="system:Boolean">
                 <On Platform="iOS"
@@ -87,7 +88,7 @@
 
     <Label Grid.Row="4" 
        Grid.Column="0" 
-       Text="Portrait capture button placement"/>
+       Text="{x:Static localization:AppResources.Settings_Camera_PortraitCapture}"/>
     <Frame Grid.Row="4" 
        Grid.Column="1">
         <Picker ItemsSource="{Binding PortraitCaptureButtonPosition}"
@@ -96,7 +97,7 @@
 
     <Label Grid.Row="5" 
        Grid.Column="0" 
-       Text="Landscape capture button horizontal placement"/>
+       Text="{x:Static localization:AppResources.Settings_Camera_LandscapeCaptureHorizontal}"/>
     <Frame Grid.Row="5" 
        Grid.Column="1">
         <Picker ItemsSource="{Binding LandscapeCaptureButtonHorizontalPosition}"
@@ -105,7 +106,7 @@
 
     <Label Grid.Row="6" 
        Grid.Column="0" 
-       Text="Landscape capture button vertical placement"/>
+       Text="{x:Static localization:AppResources.Settings_Camera_LandscapeCaptureVertical}"/>
     <Frame Grid.Row="6" 
        Grid.Column="1">
         <Picker ItemsSource="{Binding LandscapeCaptureButtonVerticalPosition}"
@@ -114,7 +115,7 @@
 
     <Label Grid.Row="7" 
        Grid.Column="0" 
-       Text="Pair button horizontal placement (when capture button is centered)"/>
+       Text="{x:Static localization:AppResources.Settings_Camera_Pair}"/>
     <Frame Grid.Row="7" 
        Grid.Column="1">
         <Picker ItemsSource="{Binding PairButtonHorizontalPosition}"

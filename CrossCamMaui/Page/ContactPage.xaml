@@ -6,7 +6,7 @@
                xmlns:ce="clr-namespace:CrossCam.CustomElement"
                xmlns:localization="clr-namespace:CrossCam.Resources.Localization"
                x:DataType="vm:ContactViewModel"
-               Title="Contact"
+               Title="{x:Static localization:AppResources.Title_Contact}"
                x:Class="CrossCam.Page.ContactPage">
     <ContentPage.Content>
         <ScrollView>

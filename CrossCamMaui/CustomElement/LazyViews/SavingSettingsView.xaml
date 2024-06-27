@@ -3,6 +3,7 @@
       xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
       xmlns:vm="clr-namespace:CrossCam.ViewModel"
       xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+      xmlns:localization="clr-namespace:CrossCam.Resources.Localization"
       x:Class="CrossCam.CustomElement.LazyViews.SavingSettingsView"
       x:DataType="vm:SettingsViewModel"
       ColumnSpacing="0">
@@ -50,7 +51,7 @@
     <Label Grid.Row="0"
        Grid.Column="1"
        Grid.ColumnSpan="2"
-       Text="Resolution proportion"/>
+       Text="{x:Static localization:AppResources.Settings_Saving_Resolution}"/>
     <Frame Grid.Row="0"
        Grid.Column="3"
        WidthRequest="50"
@@ -63,7 +64,7 @@
     <Label Grid.Row="1"
        Grid.Column="0"
        Grid.ColumnSpan="3"
-       Text="Automatically clear captures after saving"/>
+       Text="{x:Static localization:AppResources.Settings_Saving_Clear}"/>
     <Switch Grid.Row="1"
         Grid.Column="3"
         IsToggled="{Binding Settings.ClearCapturesAfterSave}"/>
@@ -71,7 +72,7 @@
     <Label Grid.Row="2"
        Grid.Column="0"
        Grid.ColumnSpan="4"
-       Text="(Saving will happen in order from top to bottom)"
+       Text="{x:Static localization:AppResources.Settings_Saving_Order}"
        HorizontalOptions="CenterAndExpand"/>
 
     <Image Grid.Row="3"
@@ -81,7 +82,7 @@
     <Label Grid.Row="3"
        Grid.Column="1"
        Grid.ColumnSpan="2"
-       Text="Save each side separately (with no edits or border for easier post processing, left side saves first)"/>
+       Text="{x:Static localization:AppResources.Settings_Saving_Separate}"/>
     <Switch Grid.Row="3"
         Grid.Column="3"
         IsToggled="{Binding Settings.SaveSidesSeparately}"/>
@@ -102,7 +103,7 @@
     <Label Grid.Row="4"
        Grid.Column="1"
        Grid.ColumnSpan="2"
-       Text="Save joined cross view version (with edits and border)">
+       Text="{x:Static localization:AppResources.Settings_Saving_Cross}">
         <Label.Triggers>
             <DataTrigger TargetType="Label"
                      Binding="{Binding Settings.Mode, Converter={StaticResource enumCompare}, ConverterParameter={x:Static vm:DrawMode.Parallel}}"
@@ -141,7 +142,7 @@
     <Label Grid.Row="5"
        Grid.Column="1"
        Grid.ColumnSpan="2"
-       Text="Save joined parallel view version (with edits and border)">
+       Text="{x:Static localization:AppResources.Settings_Saving_Parallel}">
         <Label.Triggers>
             <DataTrigger TargetType="Label"
                      Binding="{Binding Settings.Mode, Converter={StaticResource enumCompare}, ConverterParameter={x:Static vm:DrawMode.Parallel}}"
@@ -171,7 +172,7 @@
     <Label Grid.Row="6"
        Grid.Column="1"
        Grid.ColumnSpan="2"
-       Text="Save red/cyan anaglyph version (with edits but no border)"/>
+       Text="{x:Static localization:AppResources.Settings_Saving_Anaglyph}"/>
     <Switch Grid.Row="6"
         Grid.Column="3"
         IsToggled="{Binding Settings.SaveForRedCyanAnaglyph}"/>
@@ -183,7 +184,7 @@
     <Label Grid.Row="7"
        Grid.Column="1"
        Grid.ColumnSpan="2"
-       Text="Save grayscale red/cyan anaglyph version (with edits but no border)"/>
+       Text="{x:Static localization:AppResources.Settings_Saving_Grayscale}"/>
     <Switch Grid.Row="7"
         Grid.Column="3"
         IsToggled="{Binding Settings.SaveForGrayscaleAnaglyph}"/>
@@ -195,7 +196,7 @@
     <Label Grid.Row="8"
        Grid.Column="1"
        Grid.ColumnSpan="2"
-       Text="Save first side alone (with no edits or border) (for easy sharing of flat photo with flat view people)"/>
+       Text="{x:Static localization:AppResources.Settings_Saving_Alone}"/>
     <Switch Grid.Row="8"
         Grid.Column="3"
         IsToggled="{Binding Settings.SaveRedundantFirstSide}"
@@ -208,7 +209,7 @@
     <Label Grid.Row="9"
        Grid.Column="1"
        Grid.ColumnSpan="2"
-       Text="Save triple combination (with edits and border)"/>
+       Text="{x:Static localization:AppResources.Settings_Saving_Triple}"/>
     <Switch Grid.Row="9"
         Grid.Column="3"
         IsToggled="{Binding Settings.SaveForTriple}"/>
@@ -221,7 +222,7 @@
     <Label Grid.Row="10"
        Grid.Column="1"
        Grid.ColumnSpan="2"
-       Text="Save quad combination (with edits and border)"/>
+       Text="{x:Static localization:AppResources.Settings_Saving_Quad}"/>
     <Switch Grid.Row="10"
         Grid.Column="3"
         IsToggled="{Binding Settings.SaveForQuad}"/>
@@ -233,7 +234,7 @@
     <Label Grid.Row="11"
        Grid.Column="1"
        Grid.ColumnSpan="2"
-       Text="Save for Cardboard (with edits, no border, no spacing, full width, for loading back into CrossCam later)"/>
+       Text="{x:Static localization:AppResources.Settings_Saving_Cardboard}"/>
     <Switch Grid.Row="11"
         Grid.Column="3"
         IsToggled="{Binding Settings.SaveForCardboard}"/>
@@ -241,7 +242,7 @@
     <Label Grid.Row="12"
        Grid.Column="0"
        Grid.ColumnSpan="3"
-       Text="Save into dedicated &quot;CrossCam&quot; subfolder/album"/>
+       Text="{x:Static localization:AppResources.Settings_Saving_Folder}"/>
     <Switch Grid.Row="12"
         Grid.Column="3"
         IsToggled="{Binding Settings.SaveIntoDedicatedFolder2}"/>
@@ -249,7 +250,7 @@
     <Label Grid.Row="13"
        Grid.Column="0"
        Grid.ColumnSpan="3"
-       Text="Save into dedicated &quot;CrossCam_{ViewMethod}&quot; subfolders/albums"/>
+       Text="{x:Static localization:AppResources.Settings_Saving_Subfolder}"/>
     <Switch Grid.Row="13"
         Grid.Column="3"
         IsToggled="{Binding Settings.SaveIntoSeparateFolders1}"/>
@@ -257,13 +258,19 @@
     <Label Grid.Row="14"
        Grid.Column="0"
        Grid.ColumnSpan="2"
-       Text="{Binding SaveDirectory, StringFormat='Save to: {0}'}"
-       IsVisible="{Binding CanSaveToArbitraryDirectory}"/>
+       IsVisible="{Binding CanSaveToArbitraryDirectory}">
+        <Label.FormattedText>
+            <FormattedString>
+                <Span Text="{x:Static localization:AppResources.Settings_Saving_SaveTo}"/>
+                <Span Text="{Binding SaveDirectory}"/>
+            </FormattedString>
+        </Label.FormattedText>
+    </Label>
     <Button Grid.Row="14"
         Grid.Column="2"
         Grid.ColumnSpan="2"
         Command="{Binding ChooseDirectory}"
-        Text="Browse..."
+        Text="{x:Static localization:AppResources.Settings_Saving_Browse}"
         IsVisible="False">
         <Button.Triggers>
             <MultiTrigger TargetType="Button">
@@ -285,14 +292,22 @@
         Grid.Column="2"
         Grid.ColumnSpan="2"
         Command="{Binding ClearDirectory}"
-        Text="Reset"
+        Text="{x:Static localization:AppResources.Settings_Saving_Reset}"
         IsVisible="{Binding Settings.SavingDirectory, Converter={toolkit:IsNotNullConverter}}"/>
 
     <Label Grid.Row="15"
        Grid.Column="0"
        Grid.ColumnSpan="2"
-       Text="{Binding ExternalDirectory, StringFormat='Save to external CrossCam directory at: {0} (warning: pictures there will be deleted if CrossCam is uninstalled)'}"
-       IsVisible="{Binding CanSaveToExternalDirectory}"/>
+       Text="{Binding ExternalDirectory, StringFormat='{0}'}"
+       IsVisible="{Binding CanSaveToExternalDirectory}">
+        <Label.FormattedText>
+            <FormattedString>
+                <Span Text="{x:Static localization:AppResources.Settings_Saving_ExternalDirectory}"/>
+                <Span Text="{Binding ExternalDirectory}"/>
+                <Span Text="{x:Static localization:AppResources.Settings_Saving_ExternalWarning}"/>
+            </FormattedString>
+        </Label.FormattedText>
+    </Label>
     <Switch Grid.Row="15"
         Grid.Column="3"
         IsToggled="{Binding Settings.SaveToExternal}"

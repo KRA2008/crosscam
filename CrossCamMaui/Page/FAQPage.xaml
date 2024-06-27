@@ -7,7 +7,7 @@
              xmlns:ce="clr-namespace:CrossCam.CustomElement"
              xmlns:localization="clr-namespace:CrossCam.Resources.Localization"
              x:Class="CrossCam.Page.FaqPage"
-             Title="FAQ"
+             Title="{x:Static localization:AppResources.Title_Faq}"
              x:DataType="vm:FaqViewModel">
     <ScrollView x:Name="_scrollView">
         <StackLayout Padding="10">

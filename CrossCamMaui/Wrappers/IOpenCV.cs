@@ -77,7 +77,7 @@ namespace CrossCam.Wrappers
 #if !EMGU
             return null;
 #else
-            var topDownsizeFactor = settings.DownsizePercentage1 / 100f;
+            var topDownsizeFactor = settings.DownsizePercentage2 / 100f;
 
             using var mat1 = new Mat();
             using var mat2 = new Mat();
@@ -172,14 +172,14 @@ namespace CrossCam.Wrappers
             using var image1Mat = new Mat();
             using var descriptors1 = new Mat();
             using var allKeyPointsVector1 = new VectorOfKeyPoint();
-            CvInvoke.Imdecode(GetBytes(firstImage, settings.DownsizePercentage1 / 100d), readMode, image1Mat);
+            CvInvoke.Imdecode(GetBytes(firstImage, settings.DownsizePercentage2 / 100d), readMode, image1Mat);
 
             detector.DetectAndCompute(image1Mat, null, allKeyPointsVector1, descriptors1, false);
 
             using var image2Mat = new Mat();
             using var descriptors2 = new Mat();
             using var allKeyPointsVector2 = new VectorOfKeyPoint();
-            CvInvoke.Imdecode(GetBytes(secondImage, settings.DownsizePercentage1 / 100d), readMode, image2Mat);
+            CvInvoke.Imdecode(GetBytes(secondImage, settings.DownsizePercentage2 / 100d), readMode, image2Mat);
             detector.DetectAndCompute(image2Mat, null, allKeyPointsVector2, descriptors2, false);
 
             using var vectorOfMatches = new VectorOfVectorOfDMatch();
@@ -235,7 +235,7 @@ namespace CrossCam.Wrappers
             {
                 result.DirtyMatchesCount = pairedPoints.Count;
                 result.DrawnDirtyMatches =
-                    DrawMatches(firstImage, secondImage, pairedPoints, settings.DownsizePercentage1);
+                    DrawMatches(firstImage, secondImage, pairedPoints, settings.DownsizePercentage2);
             }
 
             if (settings.DiscardOutliersByDistance2 || settings.DiscardOutliersBySlope2)
@@ -301,7 +301,7 @@ namespace CrossCam.Wrappers
                 {
                     result.CleanMatchesCount = pairedPoints.Count;
                     result.DrawnCleanMatches =
-                        DrawMatches(firstImage, secondImage, pairedPoints, settings.DownsizePercentage1);
+                        DrawMatches(firstImage, secondImage, pairedPoints, settings.DownsizePercentage2);
                 }
             }
 
@@ -388,12 +388,12 @@ namespace CrossCam.Wrappers
                         out keystoned13, out keystoned23);
                 }
 
-                result.TransformMatrix1 = UpscaleSkMatrix(keystoned11.PostConcat(keystoned12).PostConcat(keystoned13), 1 / (settings.DownsizePercentage1 / 100f));
+                result.TransformMatrix1 = UpscaleSkMatrix(keystoned11.PostConcat(keystoned12).PostConcat(keystoned13), 1 / (settings.DownsizePercentage2 / 100f));
 
                 result.TransformMatrix2 = UpscaleSkMatrix(
                                      verted1.PostConcat(hored1).PostConcat(rotated1).PostConcat(zoomed1).PostConcat(keystoned21)
                         .PostConcat(verted2).PostConcat(hored2).PostConcat(rotated2).PostConcat(zoomed2).PostConcat(keystoned22)
-                        .PostConcat(verted3).PostConcat(hored3).PostConcat(rotated3).PostConcat(zoomed3).PostConcat(keystoned23), 1 / (settings.DownsizePercentage1 / 100f));
+                        .PostConcat(verted3).PostConcat(hored3).PostConcat(rotated3).PostConcat(zoomed3).PostConcat(keystoned23), 1 / (settings.DownsizePercentage2 / 100f));
 
                 if (settings.DrawResultWarpedByOpenCv)
                 {
@@ -454,17 +454,17 @@ namespace CrossCam.Wrappers
                 if (settings.DrawResultWarpedByOpenCv)
                 {
                     using var image1MatFullAndColor = new Mat();
-                    CvInvoke.Imdecode(GetBytes(firstImage, settings.DownsizePercentage1 / 100d), ImreadModes.Color, image1MatFullAndColor);
+                    CvInvoke.Imdecode(GetBytes(firstImage, settings.DownsizePercentage2 / 100d), ImreadModes.Color, image1MatFullAndColor);
 
                     using var image2MatFullAndColor = new Mat();
-                    CvInvoke.Imdecode(GetBytes(secondImage, settings.DownsizePercentage1 / 100d), ImreadModes.Color, image2MatFullAndColor);
+                    CvInvoke.Imdecode(GetBytes(secondImage, settings.DownsizePercentage2 / 100d), ImreadModes.Color, image2MatFullAndColor);
 
                     AddWarpedToResult(image1MatFullAndColor, image2MatFullAndColor, warp1, warp2, result);
                     result.MethodName = ((TransformationFindingMethod)settings.TransformationFindingMethod3).ToString();
                 }
 
-                var matrix1 = ConvertCvMatToSkMatrix(warp1, 1 / (settings.DownsizePercentage1 / 100f));
-                var matrix2 = ConvertCvMatToSkMatrix(warp2, 1 / (settings.DownsizePercentage1 / 100f));
+                var matrix1 = ConvertCvMatToSkMatrix(warp1, 1 / (settings.DownsizePercentage2 / 100f));
+                var matrix2 = ConvertCvMatToSkMatrix(warp2, 1 / (settings.DownsizePercentage2 / 100f));
 
                 result.TransformMatrix1 = matrix1;
                 result.TransformMatrix2 = matrix2;

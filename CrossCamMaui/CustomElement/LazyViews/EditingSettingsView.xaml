@@ -2,6 +2,7 @@
 <Grid xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
       xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
       xmlns:vm="clr-namespace:CrossCam.ViewModel"
+      xmlns:localization="clr-namespace:CrossCam.Resources.Localization"
       x:Class="CrossCam.CustomElement.LazyViews.EditingSettingsView"
       x:DataType="vm:SettingsViewModel">
     <Grid.ColumnDefinitions>
@@ -20,7 +21,7 @@
 
     <Label Grid.Row="0"
        Grid.Column="0"
-       Text="Maximum zoom proportion"/>
+       Text="{x:Static localization:AppResources.Settings_Editing_Zoom}"/>
     <Frame Grid.Row="0"
        Grid.Column="1">
         <Entry Text="{Binding Settings.EditsSettings.ZoomMax}"/>
@@ -28,7 +29,7 @@
 
     <Label Grid.Row="1"
        Grid.Column="0"
-       Text="Maximum side crop proportion"/>
+       Text="{x:Static localization:AppResources.Settings_Editing_SideCrop}"/>
     <Frame Grid.Row="1"
        Grid.Column="1">
         <Entry Text="{Binding Settings.EditsSettings.SideCropMax}"/>
@@ -36,7 +37,7 @@
 
     <Label Grid.Row="2"
        Grid.Column="0"
-       Text="Maximum top/bottom crop proportion"/>
+       Text="{x:Static localization:AppResources.Settings_Editing_TopCrop}"/>
     <Frame Grid.Row="2"
        Grid.Column="1">
         <Entry Text="{Binding Settings.EditsSettings.TopOrBottomCropMax}"/>
@@ -44,7 +45,7 @@
 
     <Label Grid.Row="3"
        Grid.Column="0"
-       Text="Maximum vertical alignment proportion"/>
+       Text="{x:Static localization:AppResources.Settings_Editing_Align}"/>
     <Frame Grid.Row="3"
        Grid.Column="1">
         <Entry Text="{Binding Settings.EditsSettings.VerticalAlignmentMax}"/>
@@ -52,7 +53,7 @@
 
     <Label Grid.Row="4"
        Grid.Column="0"
-       Text="Maximum rotation degrees"/>
+       Text="{x:Static localization:AppResources.Settings_Editing_Rotation}"/>
     <Frame Grid.Row="4"
        Grid.Column="1">
         <Entry Text="{Binding Settings.EditsSettings.RotationMax}"/>
@@ -60,7 +61,7 @@
 
     <Label Grid.Row="5"
        Grid.Column="0"
-       Text="Maximum keystone"/>
+       Text="{x:Static localization:AppResources.Settings_Editing_Keystone}"/>
     <Frame Grid.Row="5"
        Grid.Column="1">
         <Entry Text="{Binding Settings.EditsSettings.KeystoneMax}"/>
@@ -69,6 +70,6 @@
     <Button Grid.Row="6" 
         Grid.Column="0" 
         Grid.ColumnSpan="2" 
-        Text="Reset to Defaults"
+        Text="{x:Static localization:AppResources.Settings_Reset}"
         Command="{Binding ResetEditsToDefaults}"/>
 </Grid>

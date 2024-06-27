@@ -16,7 +16,7 @@
                 _isAutomaticAlignmentOn = value;
                 if (!_isAutomaticAlignmentOn)
                 {
-                    ShowAdvancedAlignmentSettings = false;
+                    ShowAdvancedAlignmentSettings1 = false;
                 }
             }
         }
@@ -48,8 +48,8 @@
             }
         }
 
-        public bool ShowAdvancedAlignmentSettings { get; set; }
-        public uint DownsizePercentage1 { get; set; }
+        public bool ShowAdvancedAlignmentSettings1 { get; set; }
+        public uint DownsizePercentage2 { get; set; }
 
         public bool DrawKeypointMatches { get; set; }
         public bool DrawResultWarpedByOpenCv { get; set; }
@@ -71,10 +71,10 @@
         public sealed override void ResetToDefaults()
         {
             IsAutomaticAlignmentOn = true;
-            ShowAdvancedAlignmentSettings = false;
+            ShowAdvancedAlignmentSettings1 = false;
 
             ForceEcc = false;
-            DownsizePercentage1 = 100;
+            DownsizePercentage2 = 50;
             EccEpsilonLevel = 3;
             EccIterations = 50;
             EccThresholdPercentage = 60;

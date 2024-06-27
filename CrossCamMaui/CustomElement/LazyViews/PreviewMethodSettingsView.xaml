@@ -4,6 +4,7 @@
       xmlns:vm="clr-namespace:CrossCam.ViewModel"
       xmlns:vc="clr-namespace:CrossCam.ValueConverter"
       xmlns:model="clr-namespace:CrossCam.Model"
+      xmlns:localization="clr-namespace:CrossCam.Resources.Localization"
       x:Class="CrossCam.CustomElement.LazyViews.PreviewMethodSettingsView"
       x:DataType="vm:SettingsViewModel"
       ColumnSpacing="0"
@@ -47,7 +48,7 @@
 
     <Label Grid.Row="1"
        Grid.Column="1"
-       Text="Capture using single-shot mirror division method"/>
+       Text="{x:Static localization:AppResources.Settings_Preview_Mirror}"/>
     <Image Grid.Row="1"
        Grid.Column="2" 
        Source="help.png">
@@ -63,7 +64,7 @@
     <Label Grid.Row="2"
        Grid.Column="1"
        Grid.ColumnSpan="2"
-       Text="Immersive final viewing"
+       Text="{x:Static localization:AppResources.Settings_Preview_Immersive}"
        IsVisible="{Binding Settings.Mode, Converter={StaticResource enumCompare}, ConverterParameter={x:Static vm:DrawMode.Cardboard}}"/>
     <Switch Grid.Row="2"
         Grid.Column="3"
@@ -73,7 +74,7 @@
     <Label Grid.Row="3"
        Grid.Column="1" 
        Grid.ColumnSpan="2"
-       Text="Cardboard separation distance"
+       Text="{x:Static localization:AppResources.Settings_Preview_CardboardDistance}"
        IsVisible="{Binding Settings.Mode, Converter={StaticResource enumCompare}, ConverterParameter={x:Static vm:DrawMode.Cardboard}}"/>
     <Frame Grid.Row="3" 
        Grid.Column="3" 
@@ -84,7 +85,7 @@
     <Label Grid.Row="4"
        Grid.Column="1"
        Grid.ColumnSpan="2"
-       Text="Add lens correction/barrel distortion (may lower frame rate)"
+       Text="{x:Static localization:AppResources.Settings_Preview_Barrel}"
        IsVisible="{Binding Settings.Mode, Converter={StaticResource enumCompare}, ConverterParameter={x:Static vm:DrawMode.Cardboard}}"/>
     <Switch Grid.Row="4" 
         Grid.Column="3" 
@@ -94,7 +95,7 @@
     <Label Grid.Row="5"
        Grid.Column="1" 
        Grid.ColumnSpan="2"
-       Text="Add lens correction/barrel distortion to final images only (may slow down final display but will speed up capturing)"
+       Text="{x:Static localization:AppResources.Settings_Preview_BarrelFinal}"
        IsVisible="False">
         <Label.Triggers>
             <MultiTrigger TargetType="Label">
@@ -130,7 +131,7 @@
     <Label Grid.Row="6"
        Grid.Column="1" 
        Grid.ColumnSpan="2"
-       Text="Lens correction strength"
+       Text="{x:Static localization:AppResources.Settings_Preview_LensStrength}"
        IsVisible="False">
         <Label.Triggers>
             <MultiTrigger TargetType="Label">
@@ -166,7 +167,7 @@
     <Label Grid.Row="7"
        Grid.Column="1"
        Grid.ColumnSpan="2"
-       Text="Downsize image (may increase frame rate)"
+       Text="{x:Static localization:AppResources.Settings_Preview_Downsize}"
        IsVisible="False">
         <Label.Triggers>
             <MultiTrigger TargetType="Label">
@@ -202,7 +203,7 @@
     <Label Grid.Row="8"
        Grid.Column="1"
        Grid.ColumnSpan="2"
-       Text="Downsize image percentage"
+       Text="{x:Static localization:AppResources.Settings_Preview_DownsizePercent}"
        IsVisible="False">
         <Label.Triggers>
             <MultiTrigger TargetType="Label">
@@ -242,14 +243,14 @@
     <Button Grid.Row="9"
         Grid.Column="1"
         Grid.ColumnSpan="3" 
-        Text="Reset to Defaults"
+        Text="{x:Static localization:AppResources.Settings_Reset}"
         Command="{Binding ResetCardboardToDefaults}"
         IsVisible="{Binding Settings.Mode, Converter={StaticResource enumCompare}, ConverterParameter={x:Static vm:DrawMode.Cardboard}}"/>
 
     <Label Grid.Row="2"
        Grid.Column="1" 
        Grid.ColumnSpan="2"
-       Text="Maximum parallel view image width (points)"
+       Text="{x:Static localization:AppResources.Settings_Preview_Width}"
        IsVisible="{Binding Settings.Mode, Converter={StaticResource enumCompare}, ConverterParameter={x:Static vm:DrawMode.Parallel}}"/>
     <Frame Grid.Row="2"
        Grid.Column="3" 

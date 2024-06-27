@@ -3,6 +3,7 @@
       xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
       xmlns:vc="clr-namespace:CrossCam.ValueConverter"
       xmlns:viewModel="clr-namespace:CrossCam.ViewModel"
+      xmlns:localization="clr-namespace:CrossCam.Resources.Localization"
       x:Class="CrossCam.CustomElement.LazyViews.BorderSettingsView"
       x:DataType="viewModel:SettingsViewModel"
       RowSpacing="0"
@@ -21,21 +22,21 @@
 
     <Label Grid.Column="0"
            Grid.Row="0"
-           Text="Add fuse guide on top (a dot above each side)"/>
+           Text="{x:Static localization:AppResources.Settings_Border_FuseGuide}"/>
     <Switch Grid.Column="1" 
             Grid.Row="0"
             IsToggled="{Binding Settings.SaveWithFuseGuide}"/>
 
     <Label Grid.Column="0"
            Grid.Row="1" 
-           Text="Add border"/>
+           Text="{x:Static localization:AppResources.Settings_Border_On}"/>
     <Switch Grid.Column="1"
             Grid.Row="1" 
             IsToggled="{Binding Settings.AddBorder2}"/>
 
     <Label Grid.Column="0"
            Grid.Row="2" 
-           Text="Border color"
+           Text="{x:Static localization:AppResources.Settings_Border_Color}"
            IsVisible="{Binding Settings.AddBorder2}"/>
     <Frame Grid.Column="1"
            Grid.Row="2" 
@@ -47,7 +48,7 @@
     <Label Grid.Column="0"
            Grid.Row="3" 
            IsVisible="{Binding Settings.AddBorder2}" 
-           Text="Border thickness (tenths of percentage of width)"/>
+           Text="{x:Static localization:AppResources.Settings_Border_Thickness}"/>
     <Frame Grid.Column="1"
            Grid.Row="3" 
            IsVisible="{Binding Settings.AddBorder2}">
@@ -56,7 +57,7 @@
 
     <Label Grid.Column="0"
            Grid.Row="4" 
-           Text="Prompt to clip border off when detected during loading"/>
+           Text="{x:Static localization:AppResources.Settings_Border_Prompt}"/>
     <Switch Grid.Column="1"
             Grid.Row="4" 
             IsToggled="{Binding Settings.PromptToClipOffDetectedBorder}"/>

@@ -2,6 +2,7 @@
 <Grid xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
       xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
       xmlns:vm="clr-namespace:CrossCam.ViewModel"
+      xmlns:localization="clr-namespace:CrossCam.Resources.Localization"
       x:Class="CrossCam.CustomElement.LazyViews.GuidesSettingsView"
       x:DataType="vm:SettingsViewModel"
       ColumnSpacing="0"
@@ -20,14 +21,14 @@
 
     <Label Grid.Column="0"
            Grid.Row="0" 
-           Text="Lines visible"/>
+           Text="{x:Static localization:AppResources.Settings_Guides_Lines}"/>
     <Switch Grid.Column="1"
             Grid.Row="0" 
             IsToggled="{Binding Settings.AreGuideLinesVisible}"/>
 
     <Label Grid.Column="0"
            Grid.Row="1"
-           Text="Different colored lines"
+           Text="{x:Static localization:AppResources.Settings_Guides_LineColor}"
            IsVisible="{Binding Settings.AreGuideLinesVisible}"/>
     <Switch Grid.Column="1"
             Grid.Row="1"
@@ -36,21 +37,21 @@
 
     <Label Grid.Column="0"
            Grid.Row="2"
-           Text="Roll guide visible"/>
+           Text="{x:Static localization:AppResources.Settings_Guides_Roll}"/>
     <Switch Grid.Column="1"
             Grid.Row="2" 
             IsToggled="{Binding Settings.ShowRollGuide}"/>
 
     <Label Grid.Column="0"
            Grid.Row="3" 
-           Text="Show fuse guide (a dot above each side)"/>
+           Text="{x:Static localization:AppResources.Settings_Border_FuseGuide}"/>
     <Switch Grid.Column="1"
             Grid.Row="3" 
             IsToggled="{Binding Settings.ShowPreviewFuseGuide}"/>
 
     <Label Grid.Column="0"
            Grid.Row="4"
-           Text="Show donut guide (will cause toe-in, so may require keystone editing)"/>
+           Text="{x:Static localization:AppResources.Settings_Guides_Donut}"/>
     <Switch Grid.Column="1"
             Grid.Row="4"
             IsToggled="{Binding Settings.IsGuideDonutVisible}"/>

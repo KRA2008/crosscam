@@ -796,6 +796,9 @@ Before two devices can be used together their roles have to be assigned. The PRI
   <data name="Page.Pairing.Title" xml:space="preserve">
     <value>Pairing</value>
   </data>
+  <data name="Button.Back" xml:space="preserve">
+    <value>&lt; Back</value>
+  </data>
   <data name="Page.MorePictures.CrossViewSubreddit" xml:space="preserve">
     <value>CrossView Subreddit</value>
   </data>
@@ -813,6 +816,39 @@ Before two devices can be used together their roles have to be assigned. The PRI
   </data>
   <data name="Page.MorePictures.ParallelViewSubreddit" xml:space="preserve">
     <value>ParallelView Subreddit</value>
+  </data>
+  <data name="Page.Settings.Alignment" xml:space="preserve">
+    <value>Automatic Alignment</value>
+  </data>
+  <data name="Page.Settings.Analytics" xml:space="preserve">
+    <value>Share anonymous usage and error data to help improve CrossCam</value>
+  </data>
+  <data name="Page.Settings.Border" xml:space="preserve">
+    <value>Border</value>
+  </data>
+  <data name="Page.Settings.Camera" xml:space="preserve">
+    <value>Camera</value>
+  </data>
+  <data name="Page.Settings.Defaults" xml:space="preserve">
+    <value>Reset to Defaults</value>
+  </data>
+  <data name="Page.Settings.Editing" xml:space="preserve">
+    <value>Editing</value>
+  </data>
+  <data name="Page.Settings.ErrorEmail" xml:space="preserve">
+    <value>Prompt to send email when errors occur</value>
+  </data>
+  <data name="Page.Settings.Guides" xml:space="preserve">
+    <value>Capture Guides</value>
+  </data>
+  <data name="Page.Settings.Pairing" xml:space="preserve">
+    <value>Pairing</value>
+  </data>
+  <data name="Page.Settings.Preview" xml:space="preserve">
+    <value>Preview Viewing Method</value>
+  </data>
+  <data name="Page.Settings.Saving" xml:space="preserve">
+    <value>Saving</value>
   </data>
   <data name="Page.TipMe.1" xml:space="preserve">
     <value>CrossCam is free to use, ad-free, open-source, collects no personal information from you, and gives you full access to every feature. I love working on CrossCam but it takes a lot of time and effort. I make no money from CrossCam at all except tips people might decide to send me.</value>
@@ -841,7 +877,223 @@ Before two devices can be used together their roles have to be assigned. The PRI
   <data name="Title.MorePictures" xml:space="preserve">
     <value>See More Pictures</value>
   </data>
+  <data name="Title.Settings" xml:space="preserve">
+    <value>Settings</value>
+  </data>
   <data name="Title.TipMe" xml:space="preserve">
     <value>Tips Are Appreciated!</value>
+  </data>
+  <data name="Settings.Alignment.Advanced" xml:space="preserve">
+    <value>Show advanced alignment settings</value>
+  </data>
+  <data name="Settings.Alignment.Ecc" xml:space="preserve">
+    <value>Try to use ECC alignment first always</value>
+  </data>
+  <data name="Settings.Alignment.Keypoints" xml:space="preserve">
+    <value>Try to use keypoint alignment first always</value>
+  </data>
+  <data name="Settings.Alignment.On" xml:space="preserve">
+    <value>Automatically align after capture</value>
+  </data>
+  <data name="Settings.Border.Color" xml:space="preserve">
+    <value>Border color</value>
+  </data>
+  <data name="Settings.Border.FuseGuide" xml:space="preserve">
+    <value>Add fuse guide on top (a dot above each side)</value>
+  </data>
+  <data name="Settings.Border.On" xml:space="preserve">
+    <value>Add border</value>
+  </data>
+  <data name="Settings.Border.Prompt" xml:space="preserve">
+    <value>Prompt to clip border off when detected during loading</value>
+  </data>
+  <data name="Settings.Border.Thickness" xml:space="preserve">
+    <value>Border thickness (tenths of percentage of width)</value>
+  </data>
+  <data name="Settings.Camera.Camera1" xml:space="preserve">
+    <value>Force camera1 API (may be helpful if you're experiencing weirdness but will result in limited functionality, requires a force quit/restart to take effect)</value>
+  </data>
+  <data name="Settings.Camera.Camera2" xml:space="preserve">
+    <value>Force camera2 API (must be on Android 6 or above, may be helpful if you're experiencing errors but may make more, requires a force quit/restart to take effect)</value>
+  </data>
+  <data name="Settings.Camera.LandscapeCaptureHorizontal" xml:space="preserve">
+    <value>Landscape capture button horizontal placement</value>
+  </data>
+  <data name="Settings.Camera.LandscapeCaptureVertical" xml:space="preserve">
+    <value>Landscape capture button vertical placement</value>
+  </data>
+  <data name="Settings.Camera.Lock" xml:space="preserve">
+    <value>Lock focus and exposure for second picture to focus and exposure from first picture</value>
+  </data>
+  <data name="Settings.Camera.Pair" xml:space="preserve">
+    <value>Pair button horizontal placement (when capture button is centered)</value>
+  </data>
+  <data name="Settings.Camera.PointFocus" xml:space="preserve">
+    <value>Tap to point focus, double tap to switch back to continuous focus (or save or clear)</value>
+  </data>
+  <data name="Settings.Camera.PortraitCapture" xml:space="preserve">
+    <value>Portrait capture button placement</value>
+  </data>
+  <data name="Settings.Editing.Align" xml:space="preserve">
+    <value>Maximum vertical alignment proportion</value>
+  </data>
+  <data name="Settings.Editing.Keystone" xml:space="preserve">
+    <value>Maximum keystone</value>
+  </data>
+  <data name="Settings.Editing.Rotation" xml:space="preserve">
+    <value>Maximum rotation degrees</value>
+  </data>
+  <data name="Settings.Editing.SideCrop" xml:space="preserve">
+    <value>Maximum side crop proportion</value>
+  </data>
+  <data name="Settings.Editing.TopCrop" xml:space="preserve">
+    <value>Maximum top/bottom crop proportion</value>
+  </data>
+  <data name="Settings.Editing.Zoom" xml:space="preserve">
+    <value>Maximum zoom proportion</value>
+  </data>
+  <data name="Settings.Guides.Donut" xml:space="preserve">
+    <value>Show donut guide (will cause toe-in, so may require keystone editing)</value>
+  </data>
+  <data name="Settings.Guides.Fuse" xml:space="preserve">
+    <value>Show fuse guide (a dot above each side)</value>
+  </data>
+  <data name="Settings.Guides.LineColor" xml:space="preserve">
+    <value>Different colored lines</value>
+  </data>
+  <data name="Settings.Guides.Lines" xml:space="preserve">
+    <value>Lines visible</value>
+  </data>
+  <data name="Settings.Guides.Roll" xml:space="preserve">
+    <value>Roll guide visible</value>
+  </data>
+  <data name="Settings.Pair.CaptureDelay" xml:space="preserve">
+    <value>Capture moment extra delay (ms) (adds an extra delay to the target capture moment on this device only)</value>
+  </data>
+  <data name="Settings.Pair.Countdown" xml:space="preserve">
+    <value>Capture countdown length (timer)</value>
+  </data>
+  <data name="Settings.Pair.Fov" xml:space="preserve">
+    <value>Field of view correction</value>
+  </data>
+  <data name="Settings.Pair.FovNotSet" xml:space="preserve">
+    <value>FOV correction not set (do a capture with paired devices to walk through set up).</value>
+  </data>
+  <data name="Settings.Pair.FovReset" xml:space="preserve">
+    <value>Reset</value>
+  </data>
+  <data name="Settings.Pair.Go" xml:space="preserve">
+    <value>Go to Pairing Setup Page</value>
+  </data>
+  <data name="Settings.Pair.NoRole" xml:space="preserve">
+    <value>Role not selected</value>
+  </data>
+  <data name="Settings.Pair.PreviewDelay" xml:space="preserve">
+    <value>Preview frame delay (higher number will reduce frame rate but save battery)</value>
+  </data>
+  <data name="Settings.Pair.Primary" xml:space="preserve">
+    <value>Primary: </value>
+  </data>
+  <data name="Settings.Pair.PrimaryRole" xml:space="preserve">
+    <value>Role: Primary</value>
+  </data>
+  <data name="Settings.Pair.Sample" xml:space="preserve">
+    <value>Clock sample count (lower number will decrease time required for initial sync but may decrease sync accuracy)</value>
+  </data>
+  <data name="Settings.Pair.Secondary" xml:space="preserve">
+    <value>Secondary: </value>
+  </data>
+  <data name="Settings.Pair.SecondaryRole" xml:space="preserve">
+    <value>Role: Secondary</value>
+  </data>
+  <data name="Settings.Pair.Timeout" xml:space="preserve">
+    <value>Connection timeout (seconds) (0 means no timeout)</value>
+  </data>
+  <data name="Settings.Preview.Barrel" xml:space="preserve">
+    <value>Add lens correction/barrel distortion (may lower frame rate)</value>
+  </data>
+  <data name="Settings.Preview.BarrelFinal" xml:space="preserve">
+    <value>Add lens correction/barrel distortion to final images only (may slow down final display but will speed up capturing)</value>
+  </data>
+  <data name="Settings.Preview.CardboardDistance" xml:space="preserve">
+    <value>Cardboard separation distance</value>
+  </data>
+  <data name="Settings.Preview.Downsize" xml:space="preserve">
+    <value>Downsize image (may increase frame rate)</value>
+  </data>
+  <data name="Settings.Preview.DownsizePercent" xml:space="preserve">
+    <value>Downsize image percentage</value>
+  </data>
+  <data name="Settings.Preview.Immersive" xml:space="preserve">
+    <value>Immersive final viewing</value>
+  </data>
+  <data name="Settings.Preview.LensStrength" xml:space="preserve">
+    <value>Lens correction strength</value>
+  </data>
+  <data name="Settings.Preview.Mirror" xml:space="preserve">
+    <value>Capture using single-shot mirror division method</value>
+  </data>
+  <data name="Settings.Preview.Width" xml:space="preserve">
+    <value>Maximum parallel view image width (points)</value>
+  </data>
+  <data name="Settings.Reset" xml:space="preserve">
+    <value>Reset to Defaults</value>
+  </data>
+  <data name="Settings.Saving.Alone" xml:space="preserve">
+    <value>Save first side alone (with no edits or border) (for easy sharing of flat photo with flat view people)</value>
+  </data>
+  <data name="Settings.Saving.Anaglyph" xml:space="preserve">
+    <value>Save red/cyan anaglyph version (with edits but no border)</value>
+  </data>
+  <data name="Settings.Saving.Browse" xml:space="preserve">
+    <value>Browse...</value>
+  </data>
+  <data name="Settings.Saving.Cardboard" xml:space="preserve">
+    <value>Save for Cardboard (with edits, no border, no spacing, full width, for loading back into CrossCam later)</value>
+  </data>
+  <data name="Settings.Saving.Clear" xml:space="preserve">
+    <value>Automatically clear captures after saving</value>
+  </data>
+  <data name="Settings.Saving.Cross" xml:space="preserve">
+    <value>Save joined cross view version (with edits and border)</value>
+  </data>
+  <data name="Settings.Saving.ExternalDirectory" xml:space="preserve">
+    <value>Save to external CrossCam directory at: </value>
+  </data>
+  <data name="Settings.Saving.ExternalWarning" xml:space="preserve">
+    <value> (warning: pictures there will be deleted if CrossCam is uninstalled)</value>
+  </data>
+  <data name="Settings.Saving.Folder" xml:space="preserve">
+    <value>Save into dedicated "CrossCam" subfolder/album</value>
+  </data>
+  <data name="Settings.Saving.Grayscale" xml:space="preserve">
+    <value>Save grayscale red/cyan anaglyph version (with edits but no border)</value>
+  </data>
+  <data name="Settings.Saving.Order" xml:space="preserve">
+    <value>(Saving will happen in order from top to bottom)</value>
+  </data>
+  <data name="Settings.Saving.Parallel" xml:space="preserve">
+    <value>Save joined parallel view version (with edits and border)</value>
+  </data>
+  <data name="Settings.Saving.Quad" xml:space="preserve">
+    <value>Save quad combination (with edits and border)</value>
+  </data>
+  <data name="Settings.Saving.Reset" xml:space="preserve">
+    <value>Reset</value>
+  </data>
+  <data name="Settings.Saving.Resolution" xml:space="preserve">
+    <value>Resolution proportion</value>
+  </data>
+  <data name="Settings.Saving.SaveTo" xml:space="preserve">
+    <value>Save to: </value>
+  </data>
+  <data name="Settings.Saving.Separate" xml:space="preserve">
+    <value>Save each side separately (with no edits or border for easier post processing, left side saves first)</value>
+  </data>
+  <data name="Settings.Saving.Subfolder" xml:space="preserve">
+    <value>Save into dedicated &amp;quot;CrossCam_{ViewMethod}&amp;quot; subfolders/albums</value>
+  </data>
+  <data name="Settings.Saving.Triple" xml:space="preserve">
+    <value>Save triple combination (with edits and border)</value>
   </data>
 </root>

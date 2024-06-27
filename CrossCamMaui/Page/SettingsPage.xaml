@@ -7,9 +7,10 @@
                xmlns:views="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
                xmlns:page="clr-namespace:CrossCam.Page"
                xmlns:lazyViews="clr-namespace:CrossCam.CustomElement.LazyViews"
+               xmlns:localization="clr-namespace:CrossCam.Resources.Localization"
                x:DataType="vm:SettingsViewModel"
                x:Class="CrossCam.Page.SettingsPage"
-               Title="Settings">
+               Title="{x:Static localization:AppResources.Title_Settings}">
     <ContentPage.Resources>
         <ResourceDictionary>
             <Style TargetType="Label"
@@ -51,7 +52,7 @@
                             IsExpanded="{Binding OpenExpander, Converter={vc:IsBindingEqualToParameterConverter}, ConverterParameter={x:Reference _previewMethodExpander}}"
                             ExpandedChanged="ExpanderChanged">
                 <views:Expander.Header>
-                    <ce:ExpanderHeader Title="Preview Viewing Method"
+                    <ce:ExpanderHeader Title="{x:Static localization:AppResources.Page_Settings_Preview}"
                                        Icon="eye.png"/>
                 </views:Expander.Header>
                 <lazyViews:PreviewMethodSettingsLazyView/>
@@ -78,7 +79,7 @@
                             IsExpanded="{Binding OpenExpander, Converter={vc:IsBindingEqualToParameterConverter}, ConverterParameter={x:Reference _pairingExpander}}"
                             ExpandedChanged="ExpanderChanged">
                 <views:Expander.Header>
-                    <ce:ExpanderHeader Title="Pairing"
+                    <ce:ExpanderHeader Title="{x:Static localization:AppResources.Page_Settings_Pairing}"
                                        Icon="pair.png"/>
                 </views:Expander.Header>
                 <lazyViews:PairSettingsLazyView/>
@@ -92,7 +93,7 @@
                             IsExpanded="{Binding OpenExpander, Converter={vc:IsBindingEqualToParameterConverter}, ConverterParameter={x:Reference _alignmentExpander}}"
                             ExpandedChanged="ExpanderChanged">
                 <views:Expander.Header>
-                    <ce:ExpanderHeader Title="Automatic Alignment"
+                    <ce:ExpanderHeader Title="{x:Static localization:AppResources.Page_Settings_Alignment}"
                                        Icon="smarttoy.png"/>
                 </views:Expander.Header>
                 <lazyViews:AlignmentSettingsLazyView/>
@@ -106,7 +107,7 @@
                             IsExpanded="{Binding OpenExpander, Converter={vc:IsBindingEqualToParameterConverter}, ConverterParameter={x:Reference _savingExpander}}"
                             ExpandedChanged="ExpanderChanged">
                 <views:Expander.Header>
-                    <ce:ExpanderHeader Title="Saving"
+                    <ce:ExpanderHeader Title="{x:Static localization:AppResources.Page_Settings_Saving}"
                                        Icon="checkbox.png"/>
                 </views:Expander.Header>
                 <lazyViews:SavingSettingsLazyView/>
@@ -120,7 +121,7 @@
                             IsExpanded="{Binding OpenExpander, Converter={vc:IsBindingEqualToParameterConverter}, ConverterParameter={x:Reference _borderExpander}}"
                             ExpandedChanged="ExpanderChanged">
                 <views:Expander.Header>
-                    <ce:ExpanderHeader Title="Border"
+                    <ce:ExpanderHeader Title="{x:Static localization:AppResources.Page_Settings_Border}"
                                        Icon="squareouter.png"/>
                 </views:Expander.Header>
                 <lazyViews:BorderSettingsLazyView/>
@@ -134,7 +135,7 @@
                             IsExpanded="{Binding OpenExpander, Converter={vc:IsBindingEqualToParameterConverter}, ConverterParameter={x:Reference _guidesExpander}}"
                             ExpandedChanged="ExpanderChanged">
                 <views:Expander.Header>
-                    <ce:ExpanderHeader Title="Capture Guides"
+                    <ce:ExpanderHeader Title="{x:Static localization:AppResources.Page_Settings_Guides}"
                                        Icon="horizontalleveloutside.png"/>
                 </views:Expander.Header>
                 <lazyViews:GuidesSettingsLazyView/>
@@ -148,7 +149,7 @@
                             IsExpanded="{Binding OpenExpander, Converter={vc:IsBindingEqualToParameterConverter}, ConverterParameter={x:Reference _editingExpander}}"
                             ExpandedChanged="ExpanderChanged">
                 <views:Expander.Header>
-                    <ce:ExpanderHeader Title="Editing"
+                    <ce:ExpanderHeader Title="{x:Static localization:AppResources.Page_Settings_Editing}"
                                        Icon="edit.png"/>
                 </views:Expander.Header>
                 <lazyViews:EditingSettingsLazyView/>
@@ -162,7 +163,7 @@
                             IsExpanded="{Binding OpenExpander, Converter={vc:IsBindingEqualToParameterConverter}, ConverterParameter={x:Reference _cameraExpander}}"
                             ExpandedChanged="ExpanderChanged">
                 <views:Expander.Header>
-                    <ce:ExpanderHeader Title="Camera"
+                    <ce:ExpanderHeader Title="{x:Static localization:AppResources.Page_Settings_Camera}"
                                        Icon="camerasettings.png"/>
                 </views:Expander.Header>
                 <lazyViews:CameraSettingsLazyView/>
@@ -171,12 +172,12 @@
             <ce:HorizontalDivider/>
 
             <StackLayout Orientation="Horizontal">
-                <Label Text="Prompt to send email when errors occur"/>
+                <Label Text="{x:Static localization:AppResources.Page_Settings_ErrorEmail}"/>
                 <Switch IsToggled="{Binding Settings.PromptForErrorEmails}"/>
             </StackLayout>
 
             <StackLayout Orientation="Horizontal">
-                <Label Text="Share anonymous usage and error data to help improve CrossCam">
+                <Label Text="{x:Static localization:AppResources.Page_Settings_Analytics}">
                     <Label.GestureRecognizers>
                         <TapGestureRecognizer Command="{Binding SetAnalyticsToDebugModeCommand}" 
                                               NumberOfTapsRequired="2"/>
@@ -186,7 +187,7 @@
             </StackLayout>
 
             <ce:HorizontalDivider/>
-            <Button Text="Reset to Defaults"
+            <Button Text="{x:Static localization:AppResources.Page_Settings_Defaults}"
                     Command="{Binding ResetToDefaults}"/>
 
             <ce:HorizontalDivider/>

@@ -3,6 +3,7 @@
       xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
       xmlns:vm="clr-namespace:CrossCam.ViewModel"
       xmlns:vc="clr-namespace:CrossCam.ValueConverter"
+      xmlns:localization="clr-namespace:CrossCam.Resources.Localization"
       x:Class="CrossCam.CustomElement.LazyViews.PairSettingsView"
       x:DataType="vm:SettingsViewModel"
       ColumnSpacing="0"
@@ -28,25 +29,25 @@
        Grid.ColumnSpan="2"
        Grid.Row="0"
        HorizontalOptions="CenterAndExpand"
-       Text="Role not selected">
+       Text="{x:Static localization:AppResources.Settings_Pair_NoRole}">
         <Label.Triggers>
             <DataTrigger TargetType="Label"
                      Binding="{Binding Settings.PairSettings.IsPairedPrimary.HasValue}"
                      Value="False">
                 <Setter Property="Text"
-                    Value="Role not selected"/>
+                    Value="{x:Static localization:AppResources.Settings_Pair_NoRole}"/>
             </DataTrigger>
             <DataTrigger TargetType="Label"
                      Binding="{Binding Settings.PairSettings.IsPairedPrimary, Converter={StaticResource nullableBoolean}}"
                      Value="True">
                 <Setter Property="Text"
-                    Value="Role: Primary"/>
+                    Value="{x:Static localization:AppResources.Settings_Pair_PrimaryRole}"/>
             </DataTrigger>
             <DataTrigger TargetType="Label"
                      Binding="{Binding Settings.PairSettings.IsPairedPrimary, Converter={vc:NullableBooleanInvertConverter}}"
                      Value="True">
                 <Setter Property="Text"
-                    Value="Role: Secondary"/>
+                    Value="{x:Static localization:AppResources.Settings_Pair_SecondaryRole}"/>
             </DataTrigger>
         </Label.Triggers>
     </Label>
@@ -54,12 +55,12 @@
     <Button Grid.Column="0"
         Grid.ColumnSpan="2"
         Grid.Row="1"
-        Text="Go to Pairing Setup Page"
+        Text="{x:Static localization:AppResources.Settings_Pair_Go}"
         Command="{Binding NavigateToPairingPageCommand}"/>
 
     <Label Grid.Column="0"
        Grid.Row="2"
-       Text="Preview frame delay (higher number will reduce frame rate but save battery)"
+       Text="{x:Static localization:AppResources.Settings_Pair_PreviewDelay}"
        IsVisible="{Binding Settings.PairSettings.IsPairedPrimary, Converter={StaticResource nullableBoolean}}"/>
     <Frame Grid.Column="1"
        Grid.Row="2"
@@ -69,7 +70,7 @@
 
     <Label Grid.Column="0"
        Grid.Row="3"
-       Text="Capture countdown length (timer)"
+       Text="{x:Static localization:AppResources.Settings_Pair_Countdown}"
        IsVisible="{Binding Settings.PairSettings.IsPairedPrimary, Converter={StaticResource nullableBoolean}}"/>
     <Frame Grid.Column="1"
        Grid.Row="3"
@@ -79,7 +80,7 @@
 
     <Label Grid.Column="0"
        Grid.Row="4"
-       Text="Clock sample count (lower number will decrease time required for initial sync but may decrease sync accuracy)"
+       Text="{x:Static localization:AppResources.Settings_Pair_Sample}"
        IsVisible="{Binding Settings.PairSettings.IsPairedPrimary, Converter={StaticResource nullableBoolean}}"/>
     <Frame Grid.Column="1"
        Grid.Row="4"
@@ -89,7 +90,7 @@
 
     <Label Grid.Column="0"
        Grid.Row="5"
-       Text="Connection timeout (seconds) (0 means no timeout)"
+       Text="{x:Static localization:AppResources.Settings_Pair_Timeout}"
        IsVisible="{Binding Settings.PairSettings.IsPairedPrimary.HasValue}"/>
     <Frame Grid.Column="1"
        Grid.Row="5"
@@ -99,7 +100,7 @@
 
     <Label Grid.Column="0"
        Grid.Row="6"
-       Text="Capture moment extra delay (ms) (adds an extra delay to the target capture moment on this device only)"
+       Text="{x:Static localization:AppResources.Settings_Pair_CaptureDelay}"
        IsVisible="{Binding Settings.PairSettings.IsPairedPrimary.HasValue}"/>
     <Frame Grid.Column="1"
        Grid.Row="6"
@@ -110,14 +111,14 @@
     <Button Grid.Column="0"
         Grid.ColumnSpan="2"
         Grid.Row="7" 
-        Text="Reset to Defaults"
+        Text="{x:Static localization:AppResources.Settings_Reset}"
         Command="{Binding ResetPairToDefaults}"
         IsVisible="{Binding Settings.PairSettings.IsPairedPrimary, Converter={StaticResource nullableBoolean}}"/>
 
     <Label Grid.Column="0"
        Grid.ColumnSpan="2"
        Grid.Row="8"
-       Text="Field of view correction"
+       Text="{x:Static localization:AppResources.Settings_Pair_Fov}"
        HorizontalOptions="CenterAndExpand"
        IsVisible="{Binding Settings.PairSettings.IsPairedPrimary, Converter={StaticResource nullableBoolean}}"/>
 
@@ -140,23 +141,35 @@
         <Label Grid.Column="0"
            Grid.Row="0"
            IsVisible="{Binding Settings.PairSettings.IsFovCorrectionSet}"
-           Text="{Binding Settings.PairSettings.FovPrimaryCorrection, StringFormat='Primary: {0}'}"
-           HorizontalOptions="End"/>
+           HorizontalOptions="End">
+            <Label.FormattedText>
+                <FormattedString>
+                    <Span Text="{x:Static localization:AppResources.Settings_Pair_Primary}"/>
+                    <Span Text="{Binding Settings.PairSettings.FovPrimaryCorrection}"/>
+                </FormattedString>
+            </Label.FormattedText>
+        </Label>
         <Label Grid.Column="0"
            Grid.Row="1"
            IsVisible="{Binding Settings.PairSettings.IsFovCorrectionSet}"
-           Text="{Binding Settings.PairSettings.FovSecondaryCorrection, StringFormat='Secondary: {0}'}"
-           HorizontalOptions="End"/>
+           HorizontalOptions="End">
+            <Label.FormattedText>
+                <FormattedString>
+                    <Span Text="{x:Static localization:AppResources.Settings_Pair_Secondary}"/>
+                    <Span Text="{Binding Settings.PairSettings.FovSecondaryCorrection}"/>
+                </FormattedString>
+            </Label.FormattedText>
+        </Label>
 
         <Label Grid.Column="0"
            Grid.Row="0"
            Grid.ColumnSpan="2"
            IsVisible="{Binding Settings.PairSettings.IsFovCorrectionSet, Converter={StaticResource invert}}"
-           Text="FOV correction not set (do a capture with paired devices to walk through set up)."/>
+           Text="{x:Static localization:AppResources.Settings_Pair_FovNotSet}"/>
 
         <Button Grid.Column="1"
             Grid.Row="2"
-            Text="Reset"
+            Text="{x:Static localization:AppResources.Settings_Pair_FovReset}"
             Command="{Binding ResetFovCorrectionCommand}"
             HorizontalOptions="StartAndExpand"
             VerticalOptions="CenterAndExpand"

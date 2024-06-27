@@ -1697,7 +1697,7 @@ namespace CrossCam.ViewModel
         private void AlignmentSettingsOnPropertyChanged(object sender, PropertyChangedEventArgs e)
         {
             if (e.PropertyName != nameof(AlignmentSettings.IsAutomaticAlignmentOn) &&
-                e.PropertyName != nameof(AlignmentSettings.ShowAdvancedAlignmentSettings))
+                e.PropertyName != nameof(AlignmentSettings.ShowAdvancedAlignmentSettings1))
             {
                 _isAlignmentInvalid = true;
             }
@@ -2266,7 +2266,7 @@ namespace CrossCam.ViewModel
                                 SKSurface.Create(new SKImageInfo(alignedResult.Warped1.Width * 2, alignedResult.Warped1.Height));
                             surface.Canvas.DrawBitmap(alignedResult.Warped1, 0, 0);
                             surface.Canvas.DrawBitmap(alignedResult.Warped2, alignedResult.Warped1.Width, 0);
-                            var textBlob = SKTextBlob.Create(Settings.AlignmentSettings.DownsizePercentage1 + " " + alignedResult.MethodName, new SKFont
+                            var textBlob = SKTextBlob.Create(Settings.AlignmentSettings.DownsizePercentage2 + " " + alignedResult.MethodName, new SKFont
                             {
                                 Size = alignedResult.Warped1.Height / 5f
                             });

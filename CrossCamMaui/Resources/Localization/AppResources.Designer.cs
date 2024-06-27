@@ -61,6 +61,15 @@ namespace CrossCam.Resources.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to &lt; Back.
+        /// </summary>
+        internal static string Button_Back {
+            get {
+                return ResourceManager.GetString("Button.Back", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Keep.
         /// </summary>
         internal static string Button_Camera_Keep {
@@ -1326,6 +1335,105 @@ namespace CrossCam.Resources.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Automatic Alignment.
+        /// </summary>
+        internal static string Page_Settings_Alignment {
+            get {
+                return ResourceManager.GetString("Page.Settings.Alignment", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Share anonymous usage and error data to help improve CrossCam.
+        /// </summary>
+        internal static string Page_Settings_Analytics {
+            get {
+                return ResourceManager.GetString("Page.Settings.Analytics", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Border.
+        /// </summary>
+        internal static string Page_Settings_Border {
+            get {
+                return ResourceManager.GetString("Page.Settings.Border", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Camera.
+        /// </summary>
+        internal static string Page_Settings_Camera {
+            get {
+                return ResourceManager.GetString("Page.Settings.Camera", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Reset to Defaults.
+        /// </summary>
+        internal static string Page_Settings_Defaults {
+            get {
+                return ResourceManager.GetString("Page.Settings.Defaults", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Editing.
+        /// </summary>
+        internal static string Page_Settings_Editing {
+            get {
+                return ResourceManager.GetString("Page.Settings.Editing", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Prompt to send email when errors occur.
+        /// </summary>
+        internal static string Page_Settings_ErrorEmail {
+            get {
+                return ResourceManager.GetString("Page.Settings.ErrorEmail", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Capture Guides.
+        /// </summary>
+        internal static string Page_Settings_Guides {
+            get {
+                return ResourceManager.GetString("Page.Settings.Guides", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Pairing.
+        /// </summary>
+        internal static string Page_Settings_Pairing {
+            get {
+                return ResourceManager.GetString("Page.Settings.Pairing", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Preview Viewing Method.
+        /// </summary>
+        internal static string Page_Settings_Preview {
+            get {
+                return ResourceManager.GetString("Page.Settings.Preview", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Saving.
+        /// </summary>
+        internal static string Page_Settings_Saving {
+            get {
+                return ResourceManager.GetString("Page.Settings.Saving", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Additional tutorials:.
         /// </summary>
         internal static string Page_Technique_AdditionalTutorials {
@@ -1944,6 +2052,645 @@ namespace CrossCam.Resources.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Show advanced alignment settings.
+        /// </summary>
+        internal static string Settings_Alignment_Advanced {
+            get {
+                return ResourceManager.GetString("Settings.Alignment.Advanced", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Try to use ECC alignment first always.
+        /// </summary>
+        internal static string Settings_Alignment_Ecc {
+            get {
+                return ResourceManager.GetString("Settings.Alignment.Ecc", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Try to use keypoint alignment first always.
+        /// </summary>
+        internal static string Settings_Alignment_Keypoints {
+            get {
+                return ResourceManager.GetString("Settings.Alignment.Keypoints", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Automatically align after capture.
+        /// </summary>
+        internal static string Settings_Alignment_On {
+            get {
+                return ResourceManager.GetString("Settings.Alignment.On", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Border color.
+        /// </summary>
+        internal static string Settings_Border_Color {
+            get {
+                return ResourceManager.GetString("Settings.Border.Color", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Add fuse guide on top (a dot above each side).
+        /// </summary>
+        internal static string Settings_Border_FuseGuide {
+            get {
+                return ResourceManager.GetString("Settings.Border.FuseGuide", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Add border.
+        /// </summary>
+        internal static string Settings_Border_On {
+            get {
+                return ResourceManager.GetString("Settings.Border.On", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Prompt to clip border off when detected during loading.
+        /// </summary>
+        internal static string Settings_Border_Prompt {
+            get {
+                return ResourceManager.GetString("Settings.Border.Prompt", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Border thickness (tenths of percentage of width).
+        /// </summary>
+        internal static string Settings_Border_Thickness {
+            get {
+                return ResourceManager.GetString("Settings.Border.Thickness", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Force camera1 API (may be helpful if you&apos;re experiencing weirdness but will result in limited functionality, requires a force quit/restart to take effect).
+        /// </summary>
+        internal static string Settings_Camera_Camera1 {
+            get {
+                return ResourceManager.GetString("Settings.Camera.Camera1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Force camera2 API (must be on Android 6 or above, may be helpful if you&apos;re experiencing errors but may make more, requires a force quit/restart to take effect).
+        /// </summary>
+        internal static string Settings_Camera_Camera2 {
+            get {
+                return ResourceManager.GetString("Settings.Camera.Camera2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Landscape capture button horizontal placement.
+        /// </summary>
+        internal static string Settings_Camera_LandscapeCaptureHorizontal {
+            get {
+                return ResourceManager.GetString("Settings.Camera.LandscapeCaptureHorizontal", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Landscape capture button vertical placement.
+        /// </summary>
+        internal static string Settings_Camera_LandscapeCaptureVertical {
+            get {
+                return ResourceManager.GetString("Settings.Camera.LandscapeCaptureVertical", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Lock focus and exposure for second picture to focus and exposure from first picture.
+        /// </summary>
+        internal static string Settings_Camera_Lock {
+            get {
+                return ResourceManager.GetString("Settings.Camera.Lock", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Pair button horizontal placement (when capture button is centered).
+        /// </summary>
+        internal static string Settings_Camera_Pair {
+            get {
+                return ResourceManager.GetString("Settings.Camera.Pair", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Tap to point focus, double tap to switch back to continuous focus (or save or clear).
+        /// </summary>
+        internal static string Settings_Camera_PointFocus {
+            get {
+                return ResourceManager.GetString("Settings.Camera.PointFocus", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Portrait capture button placement.
+        /// </summary>
+        internal static string Settings_Camera_PortraitCapture {
+            get {
+                return ResourceManager.GetString("Settings.Camera.PortraitCapture", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Maximum vertical alignment proportion.
+        /// </summary>
+        internal static string Settings_Editing_Align {
+            get {
+                return ResourceManager.GetString("Settings.Editing.Align", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Maximum keystone.
+        /// </summary>
+        internal static string Settings_Editing_Keystone {
+            get {
+                return ResourceManager.GetString("Settings.Editing.Keystone", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Maximum rotation degrees.
+        /// </summary>
+        internal static string Settings_Editing_Rotation {
+            get {
+                return ResourceManager.GetString("Settings.Editing.Rotation", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Maximum side crop proportion.
+        /// </summary>
+        internal static string Settings_Editing_SideCrop {
+            get {
+                return ResourceManager.GetString("Settings.Editing.SideCrop", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Maximum top/bottom crop proportion.
+        /// </summary>
+        internal static string Settings_Editing_TopCrop {
+            get {
+                return ResourceManager.GetString("Settings.Editing.TopCrop", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Maximum zoom proportion.
+        /// </summary>
+        internal static string Settings_Editing_Zoom {
+            get {
+                return ResourceManager.GetString("Settings.Editing.Zoom", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Show donut guide (will cause toe-in, so may require keystone editing).
+        /// </summary>
+        internal static string Settings_Guides_Donut {
+            get {
+                return ResourceManager.GetString("Settings.Guides.Donut", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Show fuse guide (a dot above each side).
+        /// </summary>
+        internal static string Settings_Guides_Fuse {
+            get {
+                return ResourceManager.GetString("Settings.Guides.Fuse", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Different colored lines.
+        /// </summary>
+        internal static string Settings_Guides_LineColor {
+            get {
+                return ResourceManager.GetString("Settings.Guides.LineColor", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Lines visible.
+        /// </summary>
+        internal static string Settings_Guides_Lines {
+            get {
+                return ResourceManager.GetString("Settings.Guides.Lines", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Roll guide visible.
+        /// </summary>
+        internal static string Settings_Guides_Roll {
+            get {
+                return ResourceManager.GetString("Settings.Guides.Roll", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Capture moment extra delay (ms) (adds an extra delay to the target capture moment on this device only).
+        /// </summary>
+        internal static string Settings_Pair_CaptureDelay {
+            get {
+                return ResourceManager.GetString("Settings.Pair.CaptureDelay", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Capture countdown length (timer).
+        /// </summary>
+        internal static string Settings_Pair_Countdown {
+            get {
+                return ResourceManager.GetString("Settings.Pair.Countdown", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Field of view correction.
+        /// </summary>
+        internal static string Settings_Pair_Fov {
+            get {
+                return ResourceManager.GetString("Settings.Pair.Fov", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to FOV correction not set (do a capture with paired devices to walk through set up)..
+        /// </summary>
+        internal static string Settings_Pair_FovNotSet {
+            get {
+                return ResourceManager.GetString("Settings.Pair.FovNotSet", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Reset.
+        /// </summary>
+        internal static string Settings_Pair_FovReset {
+            get {
+                return ResourceManager.GetString("Settings.Pair.FovReset", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Go to Pairing Setup Page.
+        /// </summary>
+        internal static string Settings_Pair_Go {
+            get {
+                return ResourceManager.GetString("Settings.Pair.Go", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Role not selected.
+        /// </summary>
+        internal static string Settings_Pair_NoRole {
+            get {
+                return ResourceManager.GetString("Settings.Pair.NoRole", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Preview frame delay (higher number will reduce frame rate but save battery).
+        /// </summary>
+        internal static string Settings_Pair_PreviewDelay {
+            get {
+                return ResourceManager.GetString("Settings.Pair.PreviewDelay", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Primary: .
+        /// </summary>
+        internal static string Settings_Pair_Primary {
+            get {
+                return ResourceManager.GetString("Settings.Pair.Primary", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Role: Primary.
+        /// </summary>
+        internal static string Settings_Pair_PrimaryRole {
+            get {
+                return ResourceManager.GetString("Settings.Pair.PrimaryRole", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Clock sample count (lower number will decrease time required for initial sync but may decrease sync accuracy).
+        /// </summary>
+        internal static string Settings_Pair_Sample {
+            get {
+                return ResourceManager.GetString("Settings.Pair.Sample", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Secondary: .
+        /// </summary>
+        internal static string Settings_Pair_Secondary {
+            get {
+                return ResourceManager.GetString("Settings.Pair.Secondary", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Role: Secondary.
+        /// </summary>
+        internal static string Settings_Pair_SecondaryRole {
+            get {
+                return ResourceManager.GetString("Settings.Pair.SecondaryRole", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Connection timeout (seconds) (0 means no timeout).
+        /// </summary>
+        internal static string Settings_Pair_Timeout {
+            get {
+                return ResourceManager.GetString("Settings.Pair.Timeout", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Add lens correction/barrel distortion (may lower frame rate).
+        /// </summary>
+        internal static string Settings_Preview_Barrel {
+            get {
+                return ResourceManager.GetString("Settings.Preview.Barrel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Add lens correction/barrel distortion to final images only (may slow down final display but will speed up capturing).
+        /// </summary>
+        internal static string Settings_Preview_BarrelFinal {
+            get {
+                return ResourceManager.GetString("Settings.Preview.BarrelFinal", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Cardboard separation distance.
+        /// </summary>
+        internal static string Settings_Preview_CardboardDistance {
+            get {
+                return ResourceManager.GetString("Settings.Preview.CardboardDistance", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Downsize image (may increase frame rate).
+        /// </summary>
+        internal static string Settings_Preview_Downsize {
+            get {
+                return ResourceManager.GetString("Settings.Preview.Downsize", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Downsize image percentage.
+        /// </summary>
+        internal static string Settings_Preview_DownsizePercent {
+            get {
+                return ResourceManager.GetString("Settings.Preview.DownsizePercent", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Immersive final viewing.
+        /// </summary>
+        internal static string Settings_Preview_Immersive {
+            get {
+                return ResourceManager.GetString("Settings.Preview.Immersive", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Lens correction strength.
+        /// </summary>
+        internal static string Settings_Preview_LensStrength {
+            get {
+                return ResourceManager.GetString("Settings.Preview.LensStrength", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Capture using single-shot mirror division method.
+        /// </summary>
+        internal static string Settings_Preview_Mirror {
+            get {
+                return ResourceManager.GetString("Settings.Preview.Mirror", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Maximum parallel view image width (points).
+        /// </summary>
+        internal static string Settings_Preview_Width {
+            get {
+                return ResourceManager.GetString("Settings.Preview.Width", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Reset to Defaults.
+        /// </summary>
+        internal static string Settings_Reset {
+            get {
+                return ResourceManager.GetString("Settings.Reset", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Save first side alone (with no edits or border) (for easy sharing of flat photo with flat view people).
+        /// </summary>
+        internal static string Settings_Saving_Alone {
+            get {
+                return ResourceManager.GetString("Settings.Saving.Alone", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Save red/cyan anaglyph version (with edits but no border).
+        /// </summary>
+        internal static string Settings_Saving_Anaglyph {
+            get {
+                return ResourceManager.GetString("Settings.Saving.Anaglyph", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Browse....
+        /// </summary>
+        internal static string Settings_Saving_Browse {
+            get {
+                return ResourceManager.GetString("Settings.Saving.Browse", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Save for Cardboard (with edits, no border, no spacing, full width, for loading back into CrossCam later).
+        /// </summary>
+        internal static string Settings_Saving_Cardboard {
+            get {
+                return ResourceManager.GetString("Settings.Saving.Cardboard", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Automatically clear captures after saving.
+        /// </summary>
+        internal static string Settings_Saving_Clear {
+            get {
+                return ResourceManager.GetString("Settings.Saving.Clear", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Save joined cross view version (with edits and border).
+        /// </summary>
+        internal static string Settings_Saving_Cross {
+            get {
+                return ResourceManager.GetString("Settings.Saving.Cross", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Save to external CrossCam directory at: .
+        /// </summary>
+        internal static string Settings_Saving_ExternalDirectory {
+            get {
+                return ResourceManager.GetString("Settings.Saving.ExternalDirectory", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to  (warning: pictures there will be deleted if CrossCam is uninstalled).
+        /// </summary>
+        internal static string Settings_Saving_ExternalWarning {
+            get {
+                return ResourceManager.GetString("Settings.Saving.ExternalWarning", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Save into dedicated &quot;CrossCam&quot; subfolder/album.
+        /// </summary>
+        internal static string Settings_Saving_Folder {
+            get {
+                return ResourceManager.GetString("Settings.Saving.Folder", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Save grayscale red/cyan anaglyph version (with edits but no border).
+        /// </summary>
+        internal static string Settings_Saving_Grayscale {
+            get {
+                return ResourceManager.GetString("Settings.Saving.Grayscale", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to (Saving will happen in order from top to bottom).
+        /// </summary>
+        internal static string Settings_Saving_Order {
+            get {
+                return ResourceManager.GetString("Settings.Saving.Order", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Save joined parallel view version (with edits and border).
+        /// </summary>
+        internal static string Settings_Saving_Parallel {
+            get {
+                return ResourceManager.GetString("Settings.Saving.Parallel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Save quad combination (with edits and border).
+        /// </summary>
+        internal static string Settings_Saving_Quad {
+            get {
+                return ResourceManager.GetString("Settings.Saving.Quad", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Reset.
+        /// </summary>
+        internal static string Settings_Saving_Reset {
+            get {
+                return ResourceManager.GetString("Settings.Saving.Reset", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Resolution proportion.
+        /// </summary>
+        internal static string Settings_Saving_Resolution {
+            get {
+                return ResourceManager.GetString("Settings.Saving.Resolution", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Save to: .
+        /// </summary>
+        internal static string Settings_Saving_SaveTo {
+            get {
+                return ResourceManager.GetString("Settings.Saving.SaveTo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Save each side separately (with no edits or border for easier post processing, left side saves first).
+        /// </summary>
+        internal static string Settings_Saving_Separate {
+            get {
+                return ResourceManager.GetString("Settings.Saving.Separate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Save into dedicated &amp;quot;CrossCam_{ViewMethod}&amp;quot; subfolders/albums.
+        /// </summary>
+        internal static string Settings_Saving_Subfolder {
+            get {
+                return ResourceManager.GetString("Settings.Saving.Subfolder", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Save triple combination (with edits and border).
+        /// </summary>
+        internal static string Settings_Saving_Triple {
+            get {
+                return ResourceManager.GetString("Settings.Saving.Triple", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Contact.
         /// </summary>
         internal static string Title_Contact {
@@ -1985,6 +2732,15 @@ namespace CrossCam.Resources.Localization {
         internal static string Title_MorePictures {
             get {
                 return ResourceManager.GetString("Title.MorePictures", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Settings.
+        /// </summary>
+        internal static string Title_Settings {
+            get {
+                return ResourceManager.GetString("Title.Settings", resourceCulture);
             }
         }
         
