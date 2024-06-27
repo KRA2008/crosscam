@@ -1,4 +1,5 @@
 ﻿using CrossCam.Model;
+using CrossCam.Resources.Localization;
 using CrossCam.Wrappers;
 
 namespace CrossCam.ViewModel
@@ -47,7 +48,7 @@ namespace CrossCam.ViewModel
                 {
                     _settings.Mode = isCross ? DrawMode.Cross : DrawMode.Parallel;
                     PersistentStorage.Save(PersistentStorage.SETTINGS_KEY, _settings);
-                    await CoreMethods.DisplayAlert("Success!", "CrossCam is now in " + _settings.Mode + " mode.", "OK");
+                    await CoreMethods.DisplayAlert(_settings.Mode.ToString(), AppResources.Page_Technique_SetMode + _settings.Mode + AppResources.Page_Technique_Mode, AppResources.Button_OK);
                 }
             });
         }

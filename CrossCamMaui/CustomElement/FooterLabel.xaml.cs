@@ -1,4 +1,5 @@
-﻿using CrossCam.ViewModel;
+﻿using CrossCam.Resources.Localization;
+using CrossCam.ViewModel;
 using Microsoft.AppCenter.Crashes;
 
 namespace CrossCam.CustomElement
@@ -26,9 +27,9 @@ namespace CrossCam.CustomElement
             {
                 Crashes.TrackError(ex);
 
-                await (BindingContext as BaseViewModel).CoreMethods.DisplayAlert("Could Not Open Link",
-                    "The mailto link could not be opened. This could be because your email client is not set up, or some other reason.",
-                    "OK");
+                await (BindingContext as BaseViewModel).CoreMethods.DisplayAlert(AppResources.Page_Footer_CouldntOpen,
+                    AppResources.Page_Footer_OpenError,
+                    AppResources.Button_OK);
             }
         }
     }

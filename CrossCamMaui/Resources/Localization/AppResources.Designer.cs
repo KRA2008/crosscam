@@ -196,6 +196,24 @@ namespace CrossCam.Resources.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Accept.
+        /// </summary>
+        internal static string Button_Pair_Accept {
+            get {
+                return ResourceManager.GetString("Button.Pair.Accept", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Cancel.
+        /// </summary>
+        internal static string Button_Pair_Cancel {
+            get {
+                return ResourceManager.GetString("Button.Pair.Cancel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Go back to the camera screen on both devices and tap the pair button in the lower corner.
         /// </summary>
         internal static string Button_Press {
@@ -322,6 +340,15 @@ namespace CrossCam.Resources.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Accept connection to .
+        /// </summary>
+        internal static string Page_Camera_AcceptConnection {
+            get {
+                return ResourceManager.GetString("Page.Camera.AcceptConnection", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Aligning....
         /// </summary>
         internal static string Page_Camera_Aligning {
@@ -381,6 +408,15 @@ namespace CrossCam.Resources.Localization {
         internal static string Page_Camera_ChooseAction {
             get {
                 return ResourceManager.GetString("Page.Camera.ChooseAction", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Confirm the code matches on both devices:.
+        /// </summary>
+        internal static string Page_Camera_Confirm {
+            get {
+                return ResourceManager.GetString("Page.Camera.Confirm", resourceCulture);
             }
         }
         
@@ -1131,6 +1167,24 @@ namespace CrossCam.Resources.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Could Not Open Link.
+        /// </summary>
+        internal static string Page_Footer_CouldntOpen {
+            get {
+                return ResourceManager.GetString("Page.Footer.CouldntOpen", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The mailto link could not be opened. This could be because your email client is not set up, or some other reason..
+        /// </summary>
+        internal static string Page_Footer_OpenError {
+            get {
+                return ResourceManager.GetString("Page.Footer.OpenError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Field of View Correction.
         /// </summary>
         internal static string Page_FovCorrection {
@@ -1260,6 +1314,114 @@ namespace CrossCam.Resources.Localization {
         internal static string Page_MorePictures_ParallelViewSubreddit {
             get {
                 return ResourceManager.GetString("Page.MorePictures.ParallelViewSubreddit", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The necessary permissions for pairing were not granted. Exception:.
+        /// </summary>
+        internal static string Page_Pair_Errors_Denied {
+            get {
+                return ResourceManager.GetString("Page.Pair.Errors.Denied", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The device failed to power on Bluetooth. Exception:.
+        /// </summary>
+        internal static string Page_Pair_Errors_FailedBluetooth {
+            get {
+                return ResourceManager.GetString("Page.Pair.Errors.FailedBluetooth", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The device failed to search for devices. Exception:.
+        /// </summary>
+        internal static string Page_Pair_Errors_FailedSearch {
+            get {
+                return ResourceManager.GetString("Page.Pair.Errors.FailedSearch", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Location services not activated. Cannot scan for devices. See the pairing page for more details..
+        /// </summary>
+        internal static string Page_Pair_Errors_LocationOff {
+            get {
+                return ResourceManager.GetString("Page.Pair.Errors.LocationOff", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Location permission not granted. Cannot scan for devices. See the pairing page for more details..
+        /// </summary>
+        internal static string Page_Pair_Errors_LocationScan {
+            get {
+                return ResourceManager.GetString("Page.Pair.Errors.LocationScan", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Pairing is not supported on this device. Exception:.
+        /// </summary>
+        internal static string Page_Pair_Errors_NotSupported {
+            get {
+                return ResourceManager.GetString("Page.Pair.Errors.NotSupported", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Error.
+        /// </summary>
+        internal static string Page_Pair_Errors_Title {
+            get {
+                return ResourceManager.GetString("Page.Pair.Errors.Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Wi-Fi is turned off. Please turn Wi-Fi on..
+        /// </summary>
+        internal static string Page_Pair_Errors_WifiOff {
+            get {
+                return ResourceManager.GetString("Page.Pair.Errors.WifiOff", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to This device is now set as the primary..
+        /// </summary>
+        internal static string Page_Pair_PrimaryExplanation {
+            get {
+                return ResourceManager.GetString("Page.Pair.PrimaryExplanation", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Primary Role Selected.
+        /// </summary>
+        internal static string Page_Pair_PrimarySelected {
+            get {
+                return ResourceManager.GetString("Page.Pair.PrimarySelected", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to This device is now set as the secondary..
+        /// </summary>
+        internal static string Page_Pair_SecondaryExplanation {
+            get {
+                return ResourceManager.GetString("Page.Pair.SecondaryExplanation", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Secondary Role Selected.
+        /// </summary>
+        internal static string Page_Pair_SecondarySelected {
+            get {
+                return ResourceManager.GetString("Page.Pair.SecondarySelected", resourceCulture);
             }
         }
         
@@ -1542,6 +1704,15 @@ namespace CrossCam.Resources.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to  mode..
+        /// </summary>
+        internal static string Page_Technique_Mode {
+            get {
+                return ResourceManager.GetString("Page.Technique.Mode", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to If you want to see this again, tap the hamburger (three lines) icon on the top left of the camera screen and tap &quot;Help&quot;.
         ///
         ///To see the 3D in CrossCam (called &quot;stereograms&quot;) you can use red/cyan 3D glasses, a Google Cardboard viewer, or you can do &quot;free viewing&quot; using just your eyes and your screen. There are two ways to free view, and CrossCam can help you learn both of them. You need to tell CrossCam how you&apos;re going to view the pictures or it won&apos;t work right. Don&apos;t worry, you can always change this again [rest of string was truncated]&quot;;.
@@ -1657,6 +1828,15 @@ namespace CrossCam.Resources.Localization {
         internal static string Page_Technique_Practice {
             get {
                 return ResourceManager.GetString("Page.Technique.Practice", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to CrossCam is now in .
+        /// </summary>
+        internal static string Page_Technique_SetMode {
+            get {
+                return ResourceManager.GetString("Page.Technique.SetMode", resourceCulture);
             }
         }
         

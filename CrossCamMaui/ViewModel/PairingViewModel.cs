@@ -1,4 +1,5 @@
 ﻿using CrossCam.Model;
+using CrossCam.Resources.Localization;
 using CrossCam.Wrappers;
 using Microsoft.AppCenter.Analytics;
 
@@ -18,16 +19,16 @@ namespace CrossCam.ViewModel
                 Analytics.TrackEvent("pair role assigned");
                 Settings.PairSettings.IsPairedPrimary = true;
                 PersistentStorage.Save(PersistentStorage.SETTINGS_KEY, Settings);
-                await CoreMethods.DisplayAlert("Primary Role Selected",
-                    "This device is now set as the primary.", "OK");
+                await CoreMethods.DisplayAlert(AppResources.Page_Pair_PrimarySelected,
+                    AppResources.Page_Pair_PrimaryExplanation, AppResources.Button_OK);
             });
 
             SetDeviceSecondaryCommand = new Command(async () =>
             {
                 Settings.PairSettings.IsPairedPrimary = false;
                 PersistentStorage.Save(PersistentStorage.SETTINGS_KEY, Settings);
-                await CoreMethods.DisplayAlert("Secondary Role Selected",
-                    "This device is now set as the secondary.", "OK");
+                await CoreMethods.DisplayAlert(AppResources.Page_Pair_SecondarySelected,
+                    AppResources.Page_Pair_SecondaryExplanation, AppResources.Button_OK);
             });
         }
 

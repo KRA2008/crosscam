@@ -5,6 +5,7 @@ using Android.Gms.Nearby;
 using Android.Gms.Nearby.Connection;
 using AndroidX.AppCompat.App;
 using CrossCam.CustomElement;
+using CrossCam.Resources.Localization;
 using CrossCam.Wrappers;
 using Microsoft.AppCenter.Analytics;
 using Debug = System.Diagnostics.Debug;
@@ -179,9 +180,9 @@ namespace CrossCam.Platforms.Android.CustomRenderer
                 _platformPair._client.StopDiscovery();
                 _platformPair._client.StopAdvertising();
                 Debug.WriteLine("### OnConnectionInitiated: " + p0 + ", " + p1.EndpointName);
-                new AlertDialog.Builder(MainActivity.Instance).SetTitle("Accept connection to " + p1.EndpointName + "?")
-                    .SetMessage("Confirm the code matches on both devices: " + p1.AuthenticationDigits)
-                    .SetPositiveButton("Accept",
+                new AlertDialog.Builder(MainActivity.Instance).SetTitle(AppResources.Page_Camera_AcceptConnection + p1.EndpointName + "?")
+                    .SetMessage(AppResources.Page_Camera_Confirm+ p1.AuthenticationDigits)
+                    .SetPositiveButton(AppResources.Button_Pair_Accept,
                         async (sender, args) =>
                         {
                             try
@@ -199,7 +200,7 @@ namespace CrossCam.Platforms.Android.CustomRenderer
                                     Step = "Accept connection"
                                 });
                             }
-                        }).SetNegativeButton("Cancel",
+                        }).SetNegativeButton(AppResources.Button_Pair_Cancel,
                         async (sender, args) =>
                         {
                             try

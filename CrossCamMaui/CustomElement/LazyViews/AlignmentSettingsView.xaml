@@ -287,6 +287,6 @@
     <Button Grid.Column="0"
         Grid.ColumnSpan="3"
         Grid.Row="25"
-        Text="Reset to Defaults"
+        Text="{x:Static localization:AppResources.Settings_Reset}"
         Command="{Binding ResetAlignmentToDefaults}"/>
 </Grid>

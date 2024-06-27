@@ -416,7 +416,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <EmbeddedResource Update="Resources\Localization\AppResources.zh.resx">
+	  <EmbeddedResource Update="Resources\Localization\AppResources.en.resx">
 	    <Generator></Generator>
 	  </EmbeddedResource>
 	  <EmbeddedResource Update="Resources\Localization\AppResources.resx">

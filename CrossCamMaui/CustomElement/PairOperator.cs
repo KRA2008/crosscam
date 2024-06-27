@@ -3,6 +3,7 @@ using System.Diagnostics;
 using System.Runtime.CompilerServices;
 using System.Timers;
 using CrossCam.Model;
+using CrossCam.Resources.Localization;
 using CrossCam.ViewModel;
 using CrossCam.Wrappers;
 using FreshMvvm.Maui;
@@ -695,32 +696,32 @@ namespace CrossCam.CustomElement
                 switch (e)
                 {
                     case PermissionsException _:
-                        await CurrentCoreMethods.DisplayAlert("Permissions Denied",
-                            "The necessary permissions for pairing were not granted. Exception: " + e, "OK");
+                        await CurrentCoreMethods.DisplayAlert(AppResources.Page_Pair_Errors_Title,
+                            AppResources.Page_Pair_Errors_Denied + e, AppResources.Button_OK);
                         break;
                     case PairingNotSupportedException _:
-                        await CurrentCoreMethods.DisplayAlert("Pairing Not Supported",
-                            "Pairing is not supported on this device. Exception: " + e, "OK");
+                        await CurrentCoreMethods.DisplayAlert(AppResources.Page_Pair_Errors_Title,
+                            AppResources.Page_Pair_Errors_NotSupported + e, AppResources.Button_OK);
                         break;
                     case PairingFailedToSearchException _:
-                        await CurrentCoreMethods.DisplayAlert("Failed to Search",
-                            "The device failed to search for devices. Exception: " + e, "OK");
+                        await CurrentCoreMethods.DisplayAlert(AppResources.Page_Pair_Errors_Title,
+                            AppResources.Page_Pair_Errors_FailedSearch + e, AppResources.Button_OK);
                         break;
                     case BluetoothNotTurnedOnException _:
-                        await CurrentCoreMethods.DisplayAlert("Bluetooth Not On",
-                            "The device failed to power on Bluetooth. Exception: " + e, "OK");
+                        await CurrentCoreMethods.DisplayAlert(AppResources.Page_Pair_Errors_Title,
+                            AppResources.Page_Pair_Errors_FailedBluetooth + e, AppResources.Button_OK);
                         break;
                     case WiFiTurnedOffException _:
-                        await CurrentCoreMethods.DisplayAlert("Wi-Fi Off", 
-                            "Wi-Fi is turned off. Please turn Wi-Fi on.", "OK");
+                        await CurrentCoreMethods.DisplayAlert(AppResources.Page_Pair_Errors_Title, 
+                            AppResources.Page_Pair_Errors_WifiOff, AppResources.Button_OK);
                         break;
                     case LocationServicesNotEnabledException _:
-                        await CurrentCoreMethods.DisplayAlert("Location Services Needed",
-                            "Location services not activated. Cannot scan for devices. See the pairing page for more details.", "OK");
+                        await CurrentCoreMethods.DisplayAlert(AppResources.Page_Pair_Errors_Title,
+                            AppResources.Page_Pair_Errors_LocationOff, AppResources.Button_OK);
                         break;
                     case LocationPermissionNotGrantedException _:
-                        await CurrentCoreMethods.DisplayAlert("Location Permission Needed",
-                            "Location permission not granted. Cannot scan for devices. See the pairing page for more details.", "OK");
+                        await CurrentCoreMethods.DisplayAlert(AppResources.Page_Pair_Errors_Title,
+                            AppResources.Page_Pair_Errors_LocationScan, AppResources.Button_OK);
                         break;
                     default:
                         throw e;
