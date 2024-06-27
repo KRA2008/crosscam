@@ -34,7 +34,8 @@
        Grid.ColumnSpan="2"
        HorizontalOptions="FillAndExpand">
         <Picker ItemsSource="{Binding Modes}"
-            SelectedIndex="{Binding Settings.Mode, Converter={vc:ModeValueConverter}}"/>
+                ItemDisplayBinding="{Binding ., Converter={vc:EnumGetLocalizationConverter}}"
+                SelectedIndex="{Binding Settings.Mode, Converter={vc:ModeValueConverter}}"/>
     </Frame>
     <Image Grid.Row="0"
        Grid.Column="3" 

@@ -1998,7 +1998,7 @@ namespace CrossCam.Resources.Localization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to GrayscaleAnaglyph.
+        ///   Looks up a localized string similar to Grayscale Anaglyph.
         /// </summary>
         internal static string SaveModes_GrayscaleAnaglyph {
             get {
@@ -2673,7 +2673,7 @@ namespace CrossCam.Resources.Localization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Save into dedicated &amp;quot;CrossCam_{ViewMethod}&amp;quot; subfolders/albums.
+        ///   Looks up a localized string similar to Save into dedicated &quot;CrossCam_{ViewMethod}&quot; subfolders/albums.
         /// </summary>
         internal static string Settings_Saving_Subfolder {
             get {

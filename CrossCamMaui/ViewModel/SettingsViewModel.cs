@@ -34,7 +34,7 @@ namespace CrossCam.ViewModel
         private readonly IDirectorySelector _directorySelector;
 
         // ReSharper disable MemberCanBeMadeStatic.Global
-        public IEnumerable<string> Modes => Enum.GetNames(typeof(DrawMode)).ToList();
+        public IEnumerable<DrawMode> Modes => Enum.GetValues(typeof(DrawMode)).Cast<DrawMode>();
         public IEnumerable<string> MotionTypes => Enum.GetNames(typeof(EccMotionType)).ToList();
         public IEnumerable<string> TransformationFindingMethods =>
             Enum.GetNames(typeof(TransformationFindingMethod)).ToList();
