@@ -79,16 +79,74 @@
 	<string>CrossCam can save photos and put them into a &quot;CrossCam&quot; album automatically. To allow this:- On iOS 17 and above tap &quot;Limit access...&quot; and then tap &quot;Done&quot; without actually selecting any photos.- On iOS 15 &amp; 16 tap &quot;Select Photos...&quot; and then tap &quot;Done&quot; without actually selecting any photos.- On iOS 14 and below tap OK.</string>
 	<key>CFBundleLocalizations</key>
 	<array>
-		<string>en</string>
-		<string>zh</string>
-		<string>de</string>
-		<string>es</string>
-		<string>ru</string>
-		<string>pt</string>
-		<string>fr</string>
-		<string>it</string>
-		<string>pl</string>
+		<string>af</string>
 		<string>ar</string>
+		<string>az</string>
+		<string>be</string>
+		<string>bg</string>
+		<string>bn</string>
+		<string>ca</string>
+		<string>cs</string>
+		<string>cy</string>
+		<string>da</string>
+		<string>de</string>
+		<string>el</string>
+		<string>en</string>
+		<string>eo</string>
+		<string>es</string>
+		<string>et</string>
+		<string>eu</string>
+		<string>fa</string>
+		<string>fi</string>
+		<string>fr</string>
+		<string>ga</string>
+		<string>gl</string>
+		<string>gu</string>
+		<string>hi</string>
+		<string>hr</string>
+		<string>ht</string>
+		<string>hu</string>
+		<string>hy</string>
+		<string>id</string>
+		<string>is</string>
+		<string>it</string>
+		<string>iw</string>
+		<string>ja</string>
+		<string>ka</string>
+		<string>km</string>
+		<string>kn</string>
+		<string>ko</string>
+		<string>la</string>
+		<string>lo</string>
+		<string>lt</string>
+		<string>lv</string>
+		<string>mk</string>
+		<string>ms</string>
+		<string>mt</string>
+		<string>nl</string>
+		<string>no</string>
+		<string>pl</string>
+		<string>pt-BR</string>
+		<string>pt-PT</string>
+		<string>ro</string>
+		<string>ru</string>
+		<string>sk</string>
+		<string>sl</string>
+		<string>sq</string>
+		<string>sr</string>
+		<string>sv</string>
+		<string>sw</string>
+		<string>ta</string>
+		<string>te</string>
+		<string>th</string>
+		<string>tl</string>
+		<string>tr</string>
+		<string>uk</string>
+		<string>ur</string>
+		<string>vi</string>
+		<string>yi</string>
+		<string>zh-CN</string>
+		<string>zh-TW</string>
 	</array>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>en</string>
