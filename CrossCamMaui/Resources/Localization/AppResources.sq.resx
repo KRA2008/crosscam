@@ -1,0 +1,1156 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="Button.GoogleDoc" xml:space="preserve">
+    <value>Google Doc of Great Stuff</value>
+  </data>
+  <data name="Button.LearnCross" xml:space="preserve">
+    <value>MËSONI KRYQ</value>
+  </data>
+  <data name="Button.LearnParallel" xml:space="preserve">
+    <value>MËSONI PARALEL</value>
+  </data>
+  <data name="Button.MorePictures" xml:space="preserve">
+    <value>Shih më shumë foto</value>
+  </data>
+  <data name="Button.Review" xml:space="preserve">
+    <value>Shkruan një shqyrtim</value>
+  </data>
+  <data name="Button.Share" xml:space="preserve">
+    <value>Ndani CrossCam</value>
+  </data>
+  <data name="Button.Support" xml:space="preserve">
+    <value>Mbështetni Zhvilluesin</value>
+  </data>
+  <data name="Button.TapCross" xml:space="preserve">
+    <value>TAKONI KETU PER TE ZGJEDHUR KRYQEN</value>
+  </data>
+  <data name="Button.TapParallel" xml:space="preserve">
+    <value>TAKONI KETU PER TE ZGJEDHUR PARALELIN</value>
+  </data>
+  <data name="Footer.Span1" xml:space="preserve">
+    <value>Gjete një defekt? Keni një pyetje? Thjesht email</value>
+  </data>
+  <data name="Footer.Span3" xml:space="preserve">
+    <value>! Më pëlqen të flas me përdoruesit dhe është mënyra më e shpejtë për të komunikuar me mua.</value>
+  </data>
+  <data name="Page.HowToUse.2anaglyph" xml:space="preserve">
+    <value>2) Filloni të shikoni foton e parë me anaglif me pamjen paraprake që shfaqet pranë saj.</value>
+  </data>
+  <data name="Page.HowToUse.2cardboard" xml:space="preserve">
+    <value>2) Filloni kartoni të shikoni foton e parë me pamjen paraprake që shfaqet pranë saj.</value>
+  </data>
+  <data name="Page.HowToUse.2cross" xml:space="preserve">
+    <value>2) Filloni të shikoni foton e parë me pamjen paraprake që shfaqet pranë saj.</value>
+  </data>
+  <data name="Page.HowToUse.2parallel" xml:space="preserve">
+    <value>2) Filloni të shikoni paralelisht foton e parë me pamjen paraprake që shfaqet pranë saj.</value>
+  </data>
+  <data name="Page.Technique.AdditionalTutorials" xml:space="preserve">
+    <value>Mësime shtesë:</value>
+  </data>
+  <data name="Page.Technique.Cross1" xml:space="preserve">
+    <value>Kryqëzoni me kujdes sytë ndërsa shikoni dy fotot e mësipërme. Kur kryqëzoni sytë, gjërat do të bëhen të paqarta dhe të dukshme dhe do të filloni të shihni 4 fotografi në vend të 2 (2 çifte). Sa më fort t'i kryqëzoni sytë, aq më larg do të lëvizin çiftet e fotografive - do të duket pak si kjo:</value>
+  </data>
+  <data name="Page.Technique.Cross2" xml:space="preserve">
+    <value>Zhbllokoni sytë me kujdes, në mënyrë që fotografitë në pjesën e brendshme të secilës palë të fillojnë të mbivendosen. Do të fillojë të duket sikur ka vetëm 3 fotografi në vend të 4. Ajo do të jetë ende e paqartë dhe e dukshme dhe do të duket diçka si kjo:</value>
+  </data>
+  <data name="Page.Technique.Cross3" xml:space="preserve">
+    <value>Pasi të keni funksionuar mbivendosjen e mesme, thjesht duhet të relaksoni sytë dhe t'i lejoni ata të fokusojnë figurën. Në atë moment do të keni një fotografi të mprehtë 3D në mes me një foto transparente që lundron në secilën anë që do të duket kështu (përveç se mesi do të jetë 3D):</value>
+  </data>
+  <data name="Page.Technique.Cross4" xml:space="preserve">
+    <value>Nëse keni probleme me kryqëzimin e syve, mund të provoni gjithashtu të shikoni gishtin ndërsa e mbani në gjysmë të rrugës midis syve dhe ekranit. Ju duhet të shihni fotot që fillojnë të ndahen dhe të mbivendosen pas gishtit tuaj.</value>
+  </data>
+  <data name="Page.Technique.CrossViewing" xml:space="preserve">
+    <value>PAMJE KRYQ</value>
+  </data>
+  <data name="Page.Technique.P1" xml:space="preserve">
+    <value>Nëse dëshironi ta shihni përsëri këtë, trokitni lehtë mbi ikonën e hamburgerit (tre rreshta) në pjesën e sipërme majtas të ekranit të kamerës dhe trokitni lehtë mbi "Ndihmë".
+
+Për të parë 3D në CrossCam (të quajtur "stereograme") mund të përdorni syze 3D të kuqe/cian, një shikues Google Cardboard, ose mund të bëni "shikim falas" duke përdorur vetëm sytë dhe ekranin tuaj. Ka dy mënyra për të parë pa pagesë dhe CrossCam mund t'ju ndihmojë t'i mësoni të dyja. Ju duhet t'i tregoni CrossCam-it se si do t'i shikoni fotot ose nuk do të funksionojë siç duhet. Mos u shqetëso, këtë mund ta ndryshosh përsëri te "Cilësimet".
+
+Nëse jeni në gjendje të kryqëzoni me lehtësi sytë, duhet të provoni fillimisht metodën kryq, përndryshe duhet të provoni metodën paralele. Nëse jeni mësuar me librat Magic Eye™, me siguri tashmë jeni në gjendje të bëni metodën paralele, por mund të jeni në gjendje të bëni edhe metodën kryq. Prekni një metodë më poshtë për ta mësuar atë dhe sigurohuni që t'i tregoni CrossCam se cila funksionon për ju duke shtypur butonin përkatës ZGJIDH.
+
+Nëse preferoni të përdorni syze 3D ose një shikues Cardboard, mund të vendosni CrossCam që t'i përdorë ato në faqen e Cilësimeve.</value>
+  </data>
+  <data name="Page.Technique.CrossLink1" xml:space="preserve">
+    <value>Një tutorial i bukur me tekst</value>
+  </data>
+  <data name="Page.Technique.CrossLink2" xml:space="preserve">
+    <value>Një tjetër mësim i këndshëm me tekst</value>
+  </data>
+  <data name="Page.Technique.CrossLink3" xml:space="preserve">
+    <value>Një tutorial i shkurtër në YouTube</value>
+  </data>
+  <data name="Page.Technique.CrossLink4" xml:space="preserve">
+    <value>Një tutorial i gjatë, i çuditshëm, por i dobishëm në YouTube</value>
+  </data>
+  <data name="Page.Technique.CrossLink5" xml:space="preserve">
+    <value>Një tjetër tutorial në YouTube</value>
+  </data>
+  <data name="Page.Technique.CrossLink6" xml:space="preserve">
+    <value>Një projekt me kamera të dyfishtë me një tutorial</value>
+  </data>
+  <data name="Page.Technique.Parallel1" xml:space="preserve">
+    <value>Nëse imazhi i mësipërm nuk përshtatet në ekranin tuaj, kthejeni telefonin në peizazh - CrossCam po përpiqet të bëjë çiftin e imazheve mbi madhësinë më të lehtë për këtë. Nuk është e nevojshme të përdorni gjithmonë CrossCam në peizazh, por një imazh me përmasa të përsosura e bën më të lehtë mësimin e teknikës.</value>
+  </data>
+  <data name="Page.Technique.Parallel2" xml:space="preserve">
+    <value>Relaksoni sytë dhe shikoni "përmes" çiftit të fotove të mësipërme sikur jeni duke u ndarë në zona me sytë tuaj të drejtuar nga fotot. Ju duhet të filloni të shihni 3 fotografi me një foto 3D në mes, pak si kjo:</value>
+  </data>
+  <data name="Page.Technique.Parallel3" xml:space="preserve">
+    <value>Nëse filloni të shihni 4 fotografi, ju keni shkuar shumë larg. Provoni të lëvizni pak sytë rreth e rrotull nëse e gjeni veten përsëri në atë pikë. Relaksimi shumë larg do të duket pak si kjo:</value>
+  </data>
+  <data name="Page.Technique.Parallel4" xml:space="preserve">
+    <value>Nëse keni probleme, provoni ta sillni ekranin drejt përballë fytyrës me çiftin e fotografive para syve tuaj. Relaksohuni dhe shikoni "përmes" ekranit dhe më pas tërhiqeni ngadalë ekranin nga fytyra duke i mbajtur sytë të qetë. Përfundimisht imazhi duhet të "klikojë" në fokus.</value>
+  </data>
+  <data name="Page.Technique.Parallel5" xml:space="preserve">
+    <value>Nëse vazhdoni të shihni ende katër imazhe, rrisni "Gjerësia maksimale e imazhit të pamjes paralele" në faqen e Cilësimeve.</value>
+  </data>
+  <data name="Page.Technique.ParallelViewing" xml:space="preserve">
+    <value>PARALEL PARALEL</value>
+  </data>
+  <data name="Page.Technique.Practice" xml:space="preserve">
+    <value>Imazhet që kam bërë në të cilat mund të praktikoni</value>
+  </data>
+  <data name="Title.Contact" xml:space="preserve">
+    <value>Kontaktoni</value>
+  </data>
+  <data name="Title.Faq" xml:space="preserve">
+    <value>FAQ</value>
+  </data>
+  <data name="Title.Help" xml:space="preserve">
+    <value>Ndihmë</value>
+  </data>
+  <data name="Title.HowToUse" xml:space="preserve">
+    <value>Si të përdorni CrossCam</value>
+  </data>
+  <data name="Title.Technique" xml:space="preserve">
+    <value>Teknika e shikimit 3D</value>
+  </data>
+  <data name="Title.Tips" xml:space="preserve">
+    <value>Këshilla</value>
+  </data>
+  <data name="Button.DoNotEmailMe" xml:space="preserve">
+    <value>Mos më dërgo email tani</value>
+  </data>
+  <data name="Button.EmailMeNow" xml:space="preserve">
+    <value>Më dërgo email tani</value>
+  </data>
+  <data name="Button.No" xml:space="preserve">
+    <value>Nr</value>
+  </data>
+  <data name="Button.OK" xml:space="preserve">
+    <value>Ne rregull</value>
+  </data>
+  <data name="Button.YesClear" xml:space="preserve">
+    <value>Po, e qartë</value>
+  </data>
+  <data name="Page.Camera.Aligning" xml:space="preserve">
+    <value>Po rreshton...</value>
+  </data>
+  <data name="Page.Camera.AlignmentBroken" xml:space="preserve">
+    <value>Shtrirja automatike nuk mbështetet në pajisje - çaktivizoni te "Cilësimet".</value>
+  </data>
+  <data name="Page.Camera.AlignmentFailed" xml:space="preserve">
+    <value>Rreshtimi dështoi.</value>
+  </data>
+  <data name="Page.Camera.BorderAsk" xml:space="preserve">
+    <value>Është zbuluar një kufi. Të hiqet kufiri?</value>
+  </data>
+  <data name="Page.Camera.BorderDetected" xml:space="preserve">
+    <value>Kufiri u zbulua</value>
+  </data>
+  <data name="Page.Camera.Cancel" xml:space="preserve">
+    <value>Anulo</value>
+  </data>
+  <data name="Page.Camera.ChooseAction" xml:space="preserve">
+    <value>Zgjidhni një veprim:</value>
+  </data>
+  <data name="Page.Camera.DirectoryNotFound" xml:space="preserve">
+    <value>Drejtoria nuk u gjet</value>
+  </data>
+  <data name="Page.Camera.DirectoryNotFoundExplain" xml:space="preserve">
+    <value>Destinacioni i ruajtjes nuk mund të gjendej. Ju lutemi zgjidhni një tjetër në faqen e cilësimeve.</value>
+  </data>
+  <data name="Page.Camera.ErrorEmailBody" xml:space="preserve">
+    <value>Çfarë bëtë pak para se të ndodhte gabimi? Ju lutemi, përshkruani edhe gjërat e vogla.\n\n\n\n\n\nA funksionoi ende CrossCam pas gabimit? Nëse jo, si prishet?\n\n\n\n\n\nA ndodh kjo në mënyrë të përsëritur?\n\n\n\n\n\nA mund ta detyrosh gabimin të ndodhë me komandë? Nëse po, si?\n\n\n\n\n\n</value>
+  </data>
+  <data name="Page.Camera.FlipForCardboard" xml:space="preserve">
+    <value>Kthejeni në peizazh kur jeni në modalitetin e kartonit.</value>
+  </data>
+  <data name="Page.Camera.FlipLarger" xml:space="preserve">
+    <value>(rrotulloni në peizazh për një pamje më të madhe)</value>
+  </data>
+  <data name="Page.Camera.ForAnaglyph" xml:space="preserve">
+    <value>për anaglif</value>
+  </data>
+  <data name="Page.Camera.ForCardboard" xml:space="preserve">
+    <value>për karton</value>
+  </data>
+  <data name="Page.Camera.ForCross" xml:space="preserve">
+    <value>për kryq</value>
+  </data>
+  <data name="Page.Camera.ForParallel" xml:space="preserve">
+    <value>për paralele</value>
+  </data>
+  <data name="Page.Camera.GoPickRole" xml:space="preserve">
+    <value>Ju lutemi, shkoni te faqja e çiftimit (nëpërmjet faqes së cilësimeve) dhe zgjidhni një rol çiftimi për këtë pajisje përpara se të përpiqeni të çiftoni.</value>
+  </data>
+  <data name="Page.Camera.InvalidImage" xml:space="preserve">
+    <value>Imazh i pavlefshëm</value>
+  </data>
+  <data name="Button.Camera.Keep" xml:space="preserve">
+    <value>Mbaj</value>
+  </data>
+  <data name="Page.Camera.LoadFullImage" xml:space="preserve">
+    <value>Ngarko imazhin e plotë stereo</value>
+  </data>
+  <data name="Page.Camera.Loading" xml:space="preserve">
+    <value>Po ngarkohet...</value>
+  </data>
+  <data name="Page.Camera.LoadSingleSide" xml:space="preserve">
+    <value>Ngarko një anë</value>
+  </data>
+  <data name="Page.Camera.ManualCorrections" xml:space="preserve">
+    <value>Ju lutemi merrni parasysh edhe korrigjimet manuale.</value>
+  </data>
+  <data name="Page.Camera.MirrorOnLeft" xml:space="preserve">
+    <value>PASQYRA NË TË MIRË</value>
+  </data>
+  <data name="Page.Camera.MirrorOnRight" xml:space="preserve">
+    <value>PASQYRA NË DJATHTA</value>
+  </data>
+  <data name="Page.Camera.MoveLeft" xml:space="preserve">
+    <value>LEVIZ MAJTAS</value>
+  </data>
+  <data name="Page.Camera.MoveRight" xml:space="preserve">
+    <value>LEVIZ DJATHTAS</value>
+  </data>
+  <data name="Page.Camera.NoSaveModes" xml:space="preserve">
+    <value>Nuk ka mënyra të ruajtjes aktive</value>
+  </data>
+  <data name="Page.Camera.NoSaveModesExplain" xml:space="preserve">
+    <value>Aktualisht, asnjë modalitet i ruajtjes nuk është i aktivizuar. Aktivizoni një modalitet ruajtjeje në faqen e cilësimeve.</value>
+  </data>
+  <data name="Page.Camera.Oops" xml:space="preserve">
+    <value>Oops</value>
+  </data>
+  <data name="Page.Camera.OrRotate" xml:space="preserve">
+    <value>(ose rrotullo)</value>
+  </data>
+  <data name="Page.Camera.OrSwipe" xml:space="preserve">
+    <value>(ose rrëshqitni)</value>
+  </data>
+  <data name="Page.Camera.PairRoleNotSelected" xml:space="preserve">
+    <value>Roli i çiftit nuk është zgjedhur</value>
+  </data>
+  <data name="Page.Camera.PinchOrDrag" xml:space="preserve">
+    <value>Pini ose zvarrit për të eksploruar!</value>
+  </data>
+  <data name="Page.Camera.PleaseSelectValid" xml:space="preserve">
+    <value>Ju lutemi zgjidhni një imazh Jpeg, Png ose Webp. Imazhi që keni zgjedhur është</value>
+  </data>
+  <data name="Page.Camera.ReallyClear" xml:space="preserve">
+    <value>Vërtetë e qartë?</value>
+  </data>
+  <data name="Button.Camera.Remove" xml:space="preserve">
+    <value>Hiq</value>
+  </data>
+  <data name="Page.Camera.SavedToCustomFolder" xml:space="preserve">
+    <value>Ruajtur në dosjen e personalizuar</value>
+  </data>
+  <data name="Page.Camera.SavedToExternal" xml:space="preserve">
+    <value>Ruajtur në të jashtme</value>
+  </data>
+  <data name="Page.Camera.SavedToPhotos" xml:space="preserve">
+    <value>Ruajtur te "Fotografitë".</value>
+  </data>
+  <data name="Page.Camera.SaveFailed" xml:space="preserve">
+    <value>Ruajtja Dështoi. :(</value>
+  </data>
+  <data name="Page.Camera.Saving" xml:space="preserve">
+    <value>Po ruan...</value>
+  </data>
+  <data name="Page.Camera.SecondaryOnLeft" xml:space="preserve">
+    <value>I DYTËSOR NË TË MARTËS</value>
+  </data>
+  <data name="Page.Camera.SecondaryOnRight" xml:space="preserve">
+    <value>DYTËSOR NË DJATHTA</value>
+  </data>
+  <data name="Page.Camera.SelectedInvalid" xml:space="preserve">
+    <value>Imazhi i zgjedhur është i pavlefshëm.</value>
+  </data>
+  <data name="Page.Camera.SorryError" xml:space="preserve">
+    <value>Na vjen keq, CrossCam bëri një gabim. Një raport gabimi është dërguar automatikisht. Mund të mos vini re asgjë të gabuar, por nëse e vëreni, provoni të rinisni aplikacionin. Nëse kjo vazhdon të ndodhë, ju lutem më dërgoni email dhe më tregoni për të. (Shko te faqja e cilësimeve për të ndaluar këto dritare.)</value>
+  </data>
+  <data name="Page.Camera.Steady" xml:space="preserve">
+    <value>E qëndrueshme...</value>
+  </data>
+  <data name="Page.Camera.SureClear" xml:space="preserve">
+    <value>Jeni i sigurt që dëshironi të pastroni fotot tuaja dhe të filloni nga e para?</value>
+  </data>
+  <data name="Page.Camera.Syncing" xml:space="preserve">
+    <value>Po sinkronizohet...</value>
+  </data>
+  <data name="Page.Camera.Transmitting" xml:space="preserve">
+    <value>Po transmeton...
+(mbaje pajisjen të shkyçur)</value>
+  </data>
+  <data name="Page.Camera.VR" xml:space="preserve">
+    <value>VR</value>
+  </data>
+  <data name="Page.FovCorrection" xml:space="preserve">
+    <value>Korrigjimi i fushës së pamjes</value>
+  </data>
+  <data name="Page.FovCorrectionExplain" xml:space="preserve">
+    <value>Modele të ndryshme pajisjesh mund të kenë fusha të ndryshme shikimi. CrossCam do t'ju ndihmojë të korrigjoni këtë pasi të bëni kapjen tuaj të parë. Inkuadro dhe kap diçka me pika dalluese pranë pjesës së sipërme dhe të poshtme të kornizës, duke u siguruar që pikat të jenë të dukshme në të dyja pajisjet.</value>
+  </data>
+  <data name="Page.Technique.ParallelLink1" xml:space="preserve">
+    <value>Një tutorial i bukur me tekst</value>
+  </data>
+  <data name="Page.Technique.ParallelLink2" xml:space="preserve">
+    <value>Një tjetër mësim i këndshëm me tekst</value>
+  </data>
+  <data name="Page.Technique.ParallelLink3" xml:space="preserve">
+    <value>Megjithatë, NJË TJETËR TJETËR tutorial i bukur me tekst</value>
+  </data>
+  <data name="Page.Technique.ParallelLink4" xml:space="preserve">
+    <value>Magic Frankfurter Tutorial</value>
+  </data>
+  <data name="Page.Technique.ParallelLink5" xml:space="preserve">
+    <value>Një video e bukur për Syrin Magjik</value>
+  </data>
+  <data name="Page.Technique.Trouble" xml:space="preserve">
+    <value>Nëse keni ende probleme, provoni ta sillni telefonin tuaj në një dhomë të errët në mënyrë që e vetmja gjë në të cilën sytë tuaj mund të shohin mirë dhe të përqendrohen është imazhi.
+
+Një tjetër gjë që mund të provoni është të përdorni tuba letre higjienike ose duart tuaja për ta bërë atë në mënyrë që çdo sy të mund të shohë vetëm anën e imazhit që supozohet të shohë.
+ • Për pamje tërthore: mbajeni një tub të vetëm në urën e hundës (në qendër midis syve) ndërsa e drejtoni në qendër të imazhit përpara jush. Lëvizni ngadalë tubin drejt ekranit ndërsa përpiqeni të shikoni poshtë tubit me të dy sytë. Kur arrini pozicionin e duhur me tubin, imazhi duhet të fiksohet në vend. Mund të ndihmojë të përqendroheni në përpjekjen për të parë pjesën e brendshme të skajit të largët të tubit. Nëse nuk mund të gjeni pozicionin e duhur, provoni të përdorni një imazh më të madh ose një tub më të vogël.
+ • Për pamje paralele: mbani një tub përpara secilit sy, por drejtojini të dyja anash, kështu që vështirë se mund të shihni asgjë. Kthejini ngadalë tubat nga brenda në të njëjtën kohë, në mënyrë që të filloni të shihni më shumë nga imazhi. Në momentin që mund të shihni pjesën më të madhe të imazhit (pothuajse gjysmën me secilin sy), përpiquni të relaksoni sytë dhe bashkoni gjysmat. Mund të ndihmojë të përdorni një imazh më të madh ose më të vogël.
+
+Ekziston një ushtrim i lehtë që mund të bëni për të praktikuar shkrirjen ose me shikim të kryqëzuar ose paralel. Merrni një shënues dhe vizatoni një pjesë të një fytyre të buzëqeshur në secilën prej miniaturave tuaja (ose një palë shkopinj kokoshkash ose shtypës gjuhësor). Për shembull, në njërën anë vizatoni një sy dhe një gojë, dhe në anën tjetër vizatoni një sy dhe një hundë. Më pas mund t'i mbani ato përpara dhe të praktikoni bashkimin e dy imazheve së bashku për të përfunduar fytyrën e buzëqeshur.
+
+Unë personalisht preferoj kryqëzimin mbi paralelen sepse imazhet mund të jenë më të mëdha, por të dyja metodat funksionojnë. Nëse dëshironi të eksperimentoni me imazhe paralele më të mëdha, mund ta kontrolloni madhësinë në faqen e cilësimeve.
+
+Ndonjëherë është e vështirë të ndjesh nëse po bën metodën e kryqëzuar ose paralele ndërkohë që po e bën atë. Ju mund t'i kërkoni dikujt tjetër që t'ju shikojë sytë ndërsa e bëni këtë ose mund ta shikoni foton më poshtë si një provë:</value>
+  </data>
+  <data name="SaveModes.Anaglyph" xml:space="preserve">
+    <value>Anaglif</value>
+  </data>
+  <data name="SaveModes.Cardboard" xml:space="preserve">
+    <value>Karton</value>
+  </data>
+  <data name="SaveModes.Cross" xml:space="preserve">
+    <value>kryq</value>
+  </data>
+  <data name="SaveModes.GrayscaleAnaglyph" xml:space="preserve">
+    <value>Anaglif në shkallë gri</value>
+  </data>
+  <data name="SaveModes.Parallel" xml:space="preserve">
+    <value>Paralele</value>
+  </data>
+  <data name="SaveModes.Quad" xml:space="preserve">
+    <value>Katër</value>
+  </data>
+  <data name="SaveModes.Separate" xml:space="preserve">
+    <value>Të ndara</value>
+  </data>
+  <data name="SaveModes.Single" xml:space="preserve">
+    <value>Beqare</value>
+  </data>
+  <data name="SaveModes.Triple" xml:space="preserve">
+    <value>E trefishtë</value>
+  </data>
+  <data name="Page.Camera.FovExplain" xml:space="preserve">
+    <value>Për të korrigjuar dallimet në fushën e shikimit, zmadhoni dhe rrëshqitni fotot në mënyrë që pikat dalluese të rreshtohen midis dy fotove. Mund të tërhiqni vijat e bardha përreth për t'ju ndihmuar të vizualizoni shtrirjen. Ky korrigjim do të zbatohet për pamjet paraprake të ardhshme. Do të ruhet, por mund ta rivendosni në faqen e cilësimeve. Nëse jeni duke përdorur pajisje të njëjta, thjesht kurseni pa rregulluar.</value>
+  </data>
+  <data name="Page.Camera.FovTitle" xml:space="preserve">
+    <value>Korrigjimi i fushës së pamjes</value>
+  </data>
+  <data name="Page.Camera.KeyPoints" xml:space="preserve">
+    <value>Pikat kryesore</value>
+  </data>
+  <data name="Page.Camera.Warped" xml:space="preserve">
+    <value>I shtrembëruar</value>
+  </data>
+  <data name="Page.Camera.WelcomeExplain" xml:space="preserve">
+    <value>CrossCam u krijua për t'ju ndihmuar të bëni fotografi 3D. Fotot janë 3D ashtu si filmat VR ose 3D, por nuk keni nevojë për ndonjë pajisje ose syze të veçantë - vetëm për telefonin tuaj (por nëse keni një palë syze 3D të kuqe/cyan ose një shikues Google Cardboard, mund t'i përdorni ato me CrossCam gjithashtu). Teknika e \"shikimit falas\" që përdor vetëm telefonin dhe sytë tuaj kërkon pak praktikë për t'u mësuar. Para se t'ju tregoj se si të përdorni CrossCam, do të dëshironit së pari të mësoni më shumë rreth teknikës së shikimit?</value>
+  </data>
+  <data name="Page.Camera.Welcome" xml:space="preserve">
+    <value>Mirë se vini në CrossCam!</value>
+  </data>
+  <data name="Page.Camera.Directions" xml:space="preserve">
+    <value>Kalo te Udhëzimet</value>
+  </data>
+  <data name="Page.Camera.Technique" xml:space="preserve">
+    <value>Teknika e shikimit</value>
+  </data>
+  <data name="Page.HowToUse.P1" xml:space="preserve">
+    <value>Nëse dëshironi ta shihni përsëri këtë, trokitni lehtë mbi ikonën e hamburgerit (tre rreshta) në pjesën e sipërme majtas të ekranit të kamerës dhe trokitni lehtë mbi "Ndihmë".
+
+
+1) Kornizojeni dhe bëni foton e parë.</value>
+  </data>
+  <data name="Page.HowToUse.P2" xml:space="preserve">
+    <value>3) Mbajeni telefonin tuaj të qëndrueshëm para jush dhe lëvizni ngadalë anash në drejtimin që ju thotë CrossCam. Mos lëvizni shumë larg - një inç ose më pak për çdo këmbë larg është objektivi juaj. Gjithashtu, mos u rrotulloni fare, thjesht rrëshqisni anash, ose ndoshta edhe thjesht anoni.
+
+4) Lidhni fotografinë e parë me pamjen paraprake të figurës së dytë dhe bëni fotografinë e dytë kur ju pëlqen ajo që shihni.
+
+5) CrossCam do t'i rreshtojë automatikisht fotografitë tuaja pasi t'i kapni ato, por nuk është perfekte, nëse nuk ju pëlqen mënyra se si janë rreshtuar, mund ta çaktivizoni shtrirjen automatike duke trokitur në ikonën e robotit të vogël. CrossCam gjithashtu ka shumë opsione të redaktimit manual që mund të arrini duke shtypur ikonën e lapsit.
+
+6) Prekni shenjën e kontrollit kur të jeni gati për të ruajtur.
+
+
+Gjëra të tjera që mund të bëni:
+ • Prekni një herë për t'u fokusuar në një pikë, prekni dy herë për të kaluar përsëri në fokusimin automatik të vazhdueshëm.
+ • Prekni ikonën e ingranazhit në pjesën e sipërme djathtas të ekranit të kamerës për të hapur faqen e Cilësimeve. Është plot me gjëra interesante.
+ • Ekziston një faqe e bukur Këshilla ku mund të arrini duke prekur ikonën e hamburgerit në pjesën e sipërme majtas të ekranit të kamerës që mund t'ju ndihmojë t'i bëni fotografitë tuaja të shkëlqyera.
+ • Nëse preferoni të lëvizni drejtimin tjetër për gjuajtjen tuaj të dytë ose dëshironi të ndërroni anët, thjesht bëni një rrëshqitje.
+ • Prekni ikonën e dosjes së vogël në fund për të ngarkuar një imazh si anë ose për të ngarkuar një imazh të plotë stereo.</value>
+  </data>
+  <data name="Page.Faq.Alignment" xml:space="preserve">
+    <value>Si funksionon rreshtimi automatik?</value>
+  </data>
+  <data name="Page.Faq.Alignment.Body" xml:space="preserve">
+    <value>Rreshtimi automatik përpiqet të rreshtojë çiftet e imazheve sa më mirë që të jetë e mundur, por nuk është perfekt. Shikimi kompjuterik është më i mirë në disa gjëra sesa sytë e njeriut, por edhe shumë më keq në gjëra të tjera. Bota që sheh është shumë e ndryshme nga ajo që bëjmë ne, por mund të shihet edhe në disa mënyra të ndryshme. Dy mënyrat kryesore që ai sheh në CrossCam janë nëpërmjet koeficientit të korrelacionit të zgjeruar (ECC) dhe përdorimit të pikave kyçe.
+
+Rreshtimi ECC në thelb funksionon duke u përpjekur të sigurohet që arna të lehta të mbivendosen me arna të lehta dhe arna të errëta të mbivendosen me arna të errëta kur të dy anët janë të mbivendosura njëra mbi tjetrën. Përafrimi ECC vjen me një rezultat besimi që ka për qëllim të ndihmojë në vendosjen nëse shtrirja ishte efektive. CrossCam është konfiguruar për të refuzuar shtrirjen e prodhuar nëse besimi është shumë i ulët, por ju mund të konfiguroni pragun e kalimit/dështimit të besimit në faqen e Cilësimeve.
+
+Shtrirja e pikave kyçe kërkon pika me interes si qoshet, skajet, pikat dhe kontrasti i lartë dhe përpjekjet për t'i përshtatur ato midis dy anëve. Pasi pikat të përputhen, CrossCam mund të përdorë një sërë algoritmesh për të tentuar të shtrembërojë anët në mënyrë që pikat kyçe nga njëra anë të jenë të gjitha sa më afër që të jetë e mundur me pikat e tyre kryesore përkatëse në anën tjetër.
+
+CrossCam është programuar të përdorë së pari shtrirjen e pikës së kyçit, por ajo do të kthehet në shtrirjen ECC kur shtrirja e pikës së kyçit dështon ose kur kapja kryhet me metodën e ndarjes së pasqyrës së vetme të shkrepjes. Mund të konfiguroni gjithashtu shtrirjen automatike për të përdorur gjithmonë shtrirjen e pikave kryesore ose gjithmonë të përdorni shtrirjen ECC në faqen e Cilësimeve.
+
+CrossCam do të shfaqë rezultatin e shtrirjes në ekranin e kamerës nën ikonën e robotit të vogël. Nëse ka përdorur shtrirjen ECC, do të shfaqë përqindjen e besimit. Nëse ka përdorur shtrirjen e pikave kyçe, do të shfaqet "KP". Nëse të dyja metodat e rreshtimit dështojnë, do të shfaqet "F". Nëse nuk ju pëlqen rezultati i shtrirjes, mund të prekni ikonën e robotit të vogël për të hequr shtrirjen.</value>
+  </data>
+  <data name="Page.Faq.Bad" xml:space="preserve">
+    <value>A është kjo e keqe për sytë e mi?</value>
+  </data>
+  <data name="Page.Faq.Bad.Body1" xml:space="preserve">
+    <value>Nuk e di, por nuk mendoj kështu. Megjithatë, nëse ndihet keq, thjesht bëni një pushim. Me praktikë, shqetësimi zakonisht zvogëlohet. Çdo metodë shikimi mund të shkaktojë shqetësim për shkak të një efekti të quajtur konflikti i afërsisë-akomodimit. Këtu është</value>
+  </data>
+  <data name="Page.Faq.Bad.Body2" xml:space="preserve">
+    <value>një lidhje Wikipedia-s mbi konfliktin e afërsisë-akomodimit.</value>
+  </data>
+  <data name="Page.Faq.Bad.Body3" xml:space="preserve">
+    <value>Nëse jeni duke përdorur metodën me sy të kryqëzuar, ndjesia mund të jetë edhe për shkak se sytë tuaj nuk janë mësuar të tregojnë me gisht sikur po shohin diçka kaq afër për një kohë kaq të gjatë. Kur shikoni tërthorazi, sytë tuaj konvergjojnë në një pikë afërsisht në gjysmë të rrugës midis syve tuaj dhe ekranit. Nëse shikimi i diçkaje që mbyllet për një kohë të gjatë do t'ju shkaktonte gjithashtu siklet, ne kemi shpjegimin tonë.
+
+Mendimi im për të është se sytë tuaj nuk po bëjnë asgjë jashtë aftësive të tyre të përditshme, por ju po kombinoni dy aftësi të ndryshme që zakonisht nuk përdoren në atë mënyrë. Jeni duke i fokusuar lentet tuaja në diçka në një vend që normalisht është i rehatshëm për t'u fokusuar, dhe po i drejtoni sytë diku ku normalisht është e rehatshme që ata të tregojnë, por në vendin ku fokusohen lentet tuaja dhe ku sytë tuaj po konvergojnë. thjesht nuk është e njëjta pikë. Nuk e kuptoj se si kjo mund të jetë e keqe për ju për sa kohë që vizioni juaj nuk është ende duke u zhvilluar.</value>
+  </data>
+  <data name="Page.Faq.Cardboard" xml:space="preserve">
+    <value>Si mund ta përdor CrossCam me Google Cardboard?</value>
+  </data>
+  <data name="Page.Faq.Cardboard.Body" xml:space="preserve">
+    <value>Nëse shikuesi juaj ka një buton që shtyp qendrën e ekranit, mund ta përdorni për të fotografuar duke përdorur Cardboard. Shikuesi juaj do të duhet gjithashtu të ketë një vrimë për ta parë kamerën e telefonit tuaj.
+
+Për të shkrepur fotografi duke përdorur "Cardboard", kaloni "Metodën e shikimit paraprak" (në faqen e cilësimeve) në "Cardboard", më pas kthehuni te faqja e kamerës dhe ngjitni telefonin në shikues. Shtypni butonin për të kapur dhe kur të dy anët janë kapur, shtypni përsëri butonin për të ruajtur. Ruajtja në modalitetin Cardboard ka për qëllim vetëm t'ju lejojë të ngarkoni përsëri imazhet në CrossCam për t'i parë më vonë, jo për t'i parë ato në aplikacionin tuaj të fotografive përmes shikuesit tuaj.
+
+Mund të fotografoni gjithashtu duke përdorur çdo metodë tjetër që dëshironi, më pas ndërroni metodën e shikimit paraprak në "Cardboard" dhe vendoseni telefonin tuaj në shikues.
+
+Ka shumë shikues të ndryshëm atje me karakteristika të ndryshme. Mund t'ju duhet të ndryshoni distancën e ndarjes së kartonit (në faqen e cilësimeve) për ta bërë përvojën tuaj më të rehatshme. Ju gjithashtu mund t'ju duhet së pari të siguroheni që jeni të mirë në kapjen e stereogrameve me cilësi të lartë përpara se t'i bëni ato të mëdha dhe zhytëse.</value>
+  </data>
+  <data name="Page.Faq.How" xml:space="preserve">
+    <value>Si punon kjo?</value>
+  </data>
+  <data name="Page.Faq.How.Body1" xml:space="preserve">
+    <value>Efekti 3D që përdor CrossCam është një disiplinë e studiuar mirë e njohur si stereoskopi dhe metoda ku kryqëzoni sytë (ose relaksoni) për të parë të dy anët quhet shikim i lirë. Kur shikojmë botën përreth, secili prej syve tanë sheh nga një këndvështrim tjetër. Në stereoskopi gjithçka që bëjmë është të paraqesim një këndvështrim (artificial) për secilin sy, dhe truri ynë bën vetëm pjesën tjetër. Ka shumë mënyra të ndryshme për ta bërë secilin sy të shohë një imazh të ndryshëm. Këtu është</value>
+  </data>
+  <data name="Page.Faq.How.Body2" xml:space="preserve">
+    <value>një lidhje Wikipedia mbi stereoskopinë</value>
+  </data>
+  <data name="Page.Faq.How.Body3" xml:space="preserve">
+    <value>Fotografitë 3D që bëni me CrossCam quhen stereograme. Librat Magic Eye™ përmbajnë atë që quhet autostereogram.</value>
+  </data>
+  <data name="Page.Faq.Into" xml:space="preserve">
+    <value>Si u futët në stereoskopi?</value>
+  </data>
+  <data name="Page.Faq.Into.Body1" xml:space="preserve">
+    <value>Ndërsa po merrja diplomën time të fizikës, pata mundësinë të eksperimentoja me krijimin e hologrameve të mia duke përdorur lazer. Lloji i hologrameve që po bëja ishin 3D sepse përdorën një grilë difraksioni për të shkaktuar ndërhyrje shkatërruese në dritën që reflekton nga sipërfaqja e një pllake xhami, gjë që bën që imazhi i reflektuar të duket ndryshe nga vende të ndryshme. Kur secili nga sytë tanë sheh një imazh që duket sikur është nga një këndvështrim tjetër (nëse nuk janë shumë të ndryshëm), truri ynë e percepton atë si thellësi.</value>
+  </data>
+  <data name="Page.Faq.Into.Body2" xml:space="preserve">
+    <value>Unë kisha qenë i vetëdijshëm për atë parim të perceptimit stereoskopik për një kohë të gjatë, por në atë moment të jetës sime po merrja edhe disa klasa programimi, kështu që vendosa të provoja të bëja një program të thjeshtë kompjuterik për vizatim stereoskopik 3D. Kjo përpjekje u bë StereoSketcher. Versioni origjinal ishte shkruar në Java, por unë e rishkrova atë me Javascript dhe SVG dhe tani ai jeton në ueb</value>
+  </data>
+  <data name="Page.Faq.Into.Body3" xml:space="preserve">
+    <value>në këtë lidhje.</value>
+  </data>
+  <data name="Page.Faq.Into.Body4" xml:space="preserve">
+    <value>Nuk është i popullarizuar në asnjë mënyrë dhe mund të mos jetë e lehtë për askënd përveç meje ta përdorë, por funksionon. Ndërsa punoja në StereoSketcher, u desh të eksperimentoja me parimet e stereoskopisë dhe u magjepsa me mënyrën se si mund të prodhohet një përvojë e tillë zhytëse dhe bindëse duke përdorur disa rregulla të thjeshta.</value>
+  </data>
+  <data name="Page.Faq.Inverted" xml:space="preserve">
+    <value>Pse 3D nuk duket si duhet OSE pse 3D duket e përmbysur?</value>
+  </data>
+  <data name="Page.Faq.Inverted.Body1" xml:space="preserve">
+    <value>Kur shikoni falas me metodën e kryqëzuar ose paralele, është e rëndësishme të shikoni fotot duke përdorur të njëjtën metodë që është përdorur për t'i krijuar ato. Përndryshe, syri juaj i djathtë do të shikojë këndvështrimin e synuar për syrin e majtë dhe anasjelltas. Kjo bën që thellësia e imazhit të përmbyset, sepse drejtimi i paralaksit është ndërruar.
+
+Paralaks do të thotë që nga këndvështrimi i syrit tuaj të djathtë, kur objektet janë më larg, ato duken se janë më në të djathtë sesa objektet më afër kur shihen nga syri juaj i majtë. Është konfuze kur përshkruhet në formatin e fjalisë, por shumë intuitive kur demonstrohet.
+
+Për të demonstruar, mbajeni një gisht përpara jush në gjatësinë e krahut, më pas me dorën tjetër mbajeni gishtin tjetër rreth gjysmës së gishtit të parë dhe fytyrës. Nëse mbyllni në mënyrë alternative secilin sy dhe i kushtoni vëmendje vendit ku janë gishtat, do të shihni se secili sy i sheh ato në vende të ndryshme. Pra, natyrshëm, nëse secili sy e pa atë lëvizje në mënyrën e kundërt që supozohej, thellësia do të përmbyset.
+
+Është shumë e lehtë të përdorësh aksidentalisht metodën e gabuar të shikimit, sepse rezulton se është shumë e vështirë për shumicën e njerëzve të dallojnë nëse po kryqëzojnë apo po relaksojnë sytë thjesht duke ndjerë ose duke parë imazhin konfuz të dyfishtë të botës që rezulton. Në vend të kësaj, është më mirë ose të kërkoni dikë tjetër të shikojë se çfarë po bëjnë sytë tuaj, ose të provoni këtë imazh testues:</value>
+  </data>
+  <data name="Page.Faq.Inverted.Body2" xml:space="preserve">
+    <value>Shumë njerëz janë ndjerë mjaft rehat me shikimin e librave Magic Eye™, të cilët synohen të shikohen duke përdorur metodën e shikimit paralel. Nëse i shikoni ato, atëherë objektet e fuqishme 3D që supozohet të dalin nga faqja duken si vrima. Të dyja metodat ju lejojnë të shihni *diçka* por nëse nuk mund të dalloni se çfarë ishte, me siguri jeni duke i parë ato.</value>
+  </data>
+  <data name="Page.Faq.Mirror" xml:space="preserve">
+    <value>Si mund ta bëj metodën "pasqyrë me një goditje"?</value>
+  </data>
+  <data name="Page.Faq.Mirror.Body1" xml:space="preserve">
+    <value>Regjistrimi me metodën e pasqyrës e ndan kornizën në gjysmë dhe bën transformimin e kërkuar, në mënyrë që të mund të kapni të dyja anët në të njëjtin moment duke përdorur një telefon të vetëm dhe një pasqyrë të rregullt dore. Për të përdorur metodën e pasqyrës kur fotografoni, rrokullisni çelësin për modalitetin e pasqyrës në faqen e Cilësimeve (prekni ikonën e ingranazhit për të arritur atje). Pasi të aktivizoni modalitetin e pasqyrës, CrossCam do t'ju tregojë se në cilën anë të mbani pasqyrën tuaj. Mbajeni pasqyrën në atë anë dhe shqetësohuni me shtrirjen midis telefonit dhe pasqyrës dhe subjektit tuaj. Me pak durim, do të jeni në gjendje t'i rreshtoni të gjitha në mënyrë që pasqyra të tregojë perspektivën e duhur për njërën nga anët. Për shkak se përdorimi i metodës së pasqyrës e ndan imazhin tuaj në gjysmë vertikalisht, zakonisht është më mirë të kapni në peizazh me metodën e pasqyrës.
+
+Kjo metodë do të funksionojë gjithashtu me reflektimet në dritare të mëdha e të pastra, si dhe në liqene të qetë ose pellgje (kur telefoni është i kyçur në portret dhe i kthyer anash).</value>
+  </data>
+  <data name="Page.Faq.Mirror.Body2" xml:space="preserve">
+    <value>Ka disa kompromise/redaktime që duhen bërë për të përdorur metodën e pasqyrës. Të gjitha këto mund të bëhen manualisht në CrossCam, por shtrirja automatike gjithashtu do të përpiqet t'i bëjë ato për ju:
+ • Për shkak se pamja e reflektuar udhëton në një distancë më të gjatë se pamja normale, ana e pasqyruar do të duhet të zmadhohet pak.
+ • Ka të ngjarë që kur përdorni metodën e pasqyrës, do të përfundoni me gishta, në vend që t'i mbani këndvështrimet paralele - kjo mund të bëjë që shkurtimi të duket si një shtrirje e keqe vertikale. Për ta zhbërë këtë, mund të bëhet korrigjimi i gurit kryesor, që do të thotë tkurrje vertikalisht e njërës anë të secilës prej imazheve.
+ • Hyrja me gishta do të priret gjithashtu të lëvizë dritaren stereo drejt jush. Mund ta zhbëni dhe ta vendosni aty ku dëshironi duke prerë anët.
+ • Pasqyra ndoshta nuk do të mbulojë plotësisht pamjen e njërës anë, kështu që mund të duhet të bëhen disa prerje për të hequr pjesët e pareflektuara.
+
+Pasqyrat më të mira për këtë kanë xhami të hollë. Për një gjë, ato janë të lehta, kështu që janë më të lehta për t'u mbajtur për periudha të gjata. Gjëja tjetër e rëndësishme është se kur përdorni pasqyrën, ka të ngjarë ta drejtoni pasqyrën anash në vend që të shikoni drejt e në të pasi zakonisht përdoren pasqyrat. Kur orientohen kështu, pasqyrat me xham të trashë mund të kenë një turbullirë. Sa më e hollë të jetë xhami, aq më pak e dukshme do të jetë kjo turbullim. Këto lloj pasqyrash mund të jenë gjithashtu me cilësi të ulët në aspekte të tjera, ndaj është e rëndësishme të gjesh një ekuilibër të mirë.
+
+Ka disa kompromise të tjera që duhen pranuar kur përdorni kapjen e pasqyrës që nuk mund të rregullohet në modifikimet nga CrossCam:
+ • Për shkak se pamja e dy anëve përshkon distanca paksa të ndryshme, fokusi i nevojshëm për secilën anë do të jetë paksa i ndryshëm, kështu që njëra anë do të jetë gjithmonë pak e turbullt. Ky efekt do të jetë pak a shumë i dukshëm në varësi të distancës nga subjekti dhe thellësisë së fushës së lenteve.
+ • Asnjë pasqyrë nuk është vërtet 100% efikase, kështu që ana që përdor pasqyrën mund të jetë pak më e errët. Kjo do të ndryshojë me cilësinë e pasqyrës.</value>
+  </data>
+  <data name="Page.Faq.Moving" xml:space="preserve">
+    <value>Subjekti im po lëviz, si mund t'i bëj fotografi 3D?</value>
+  </data>
+  <data name="Page.Faq.Moving.Body" xml:space="preserve">
+    <value>CrossCam ju lejon dy metoda për të kapur të dy këndvështrimet në të njëjtin moment. Një metodë përdor dy telefona dhe një metodë përdor një pasqyrë.
+
+Për të përdorur konfigurimin e dy telefonave, shikoni faqen e konfigurimit të çiftimit, në të cilën mund të shkoni nga faqja e cilësimeve (prekni ikonën e ingranazhit).
+
+Për të përdorur metodën e pasqyrës, shikoni pyetjen tjetër FAQ në lidhje me të.</value>
+  </data>
+  <data name="Page.Faq.Test" xml:space="preserve">
+    <value>Si mund të testoj versionet e para-publikimit të CrossCam?</value>
+  </data>
+  <data name="Page.Faq.Test.Body" xml:space="preserve">
+    <value>Shikoni këtë postim në Reddit</value>
+  </data>
+  <data name="Page.Faq.Why" xml:space="preserve">
+    <value>Pse e bëtë CrossCam?</value>
+  </data>
+  <data name="Page.Faq.Why.Body" xml:space="preserve">
+    <value>Ndërsa po filloja të interesohesha për stereoskopinë, më rastisi të bëja një udhëtim në Yellowstone. Ndërsa isha atje, kuptova se mund të ishte argëtuese të përpiqesha të përdorja një aplikacion celular me kamerë 3D për të kapur gjërat atje në 3D. Isha shumë i zhgënjyer nga opsionet ekzistuese. Zbulova se të gjithë ju kërkonin të bëni dy kapje dhe më pas të zbuloni nëse ishin të mira. Shpesh nuk ishin, pasi më duhej të bëja vazhdimisht supozime të plota për distancën time të ndarjes, si dhe cilësinë e temës.
+
+Gjatë javëve të ardhshme, zhgënjimi im i zier më bëri të imagjinoja thjesht duke ofruar një pamje të drejtpërdrejtë të kapjes së dytë së bashku me të parën. Unë tashmë kisha një sfond në zhvillimin e celularëve, kështu që atëherë ishte vetëm një çështje për të vënë në kohë. CrossCam ka qenë i mrekullueshëm për mua për t'u përdorur vetëm për veten time për të ruajtur kujtimet, dhe jam i lumtur ta ndaj me ju gjithashtu.</value>
+  </data>
+  <data name="Page.Faq.Wiggle" xml:space="preserve">
+    <value>Çfarë janë wigglegrams?</value>
+  </data>
+  <data name="Page.Faq.Wiggle.Body" xml:space="preserve">
+    <value>Wigglegrams janë një mënyrë për të parë stereogramat që nuk mbështeten në vizionin dylbi. Zakonisht ato janë një gif që rrotullohet mbrapa dhe mbrapa midis dy këndvështrimeve, duke treguar secilën në tërësinë e saj në të njëjtin vend. CrossCam nuk e mbështet krijimin e tyre tani, por më dërgo email nëse je vërtet i interesuar për to dhe unë do ta bëj.</value>
+  </data>
+  <data name="Page.Tips.AlignAfter" xml:space="preserve">
+    <value>Kini parasysh linjat horizontale, por gjithashtu mund të rreshtoni pas.</value>
+  </data>
+  <data name="Page.Tips.AlignAfter.Body" xml:space="preserve">
+    <value>Nëse vëreni se gjatë nxjerrjes së fotografive është e pamundur që të dy linjat udhëzuese të sipërme dhe të poshtme të rreshtohen në të njëjtën kohë, ndoshta keni lëvizur në ndonjë drejtim tjetër dhe jo vetëm në anën. Mundohuni ta rregulloni këtë përpara se të bëni fotografitë, por përafrimi pas faktit mund ta ndihmojë shumë këtë.</value>
+  </data>
+  <data name="Page.Tips.Alignment" xml:space="preserve">
+    <value>Mund të çaktivizoni shtrirjen automatike.</value>
+  </data>
+  <data name="Page.Tips.Alignment.Body" xml:space="preserve">
+    <value>Nëse nuk ju pëlqejnë rezultatet e shtrirjes automatike, thjesht fikeni atë në faqen e Cilësimeve ose duke trokitur në ikonën e robotit të vogël dhe fotografitë tuaja origjinale të shkrepura do të rikthehen.</value>
+  </data>
+  <data name="Page.Tips.Donut" xml:space="preserve">
+    <value>Udhëzuesi i donutit mund të ndihmojë dritaren tuaj.</value>
+  </data>
+  <data name="Page.Tips.Donut.Body" xml:space="preserve">
+    <value>Ekziston një donut udhëzues eksperimental në faqen e Cilësimeve që mund ta aktivizoni, i cili mund t'ju ndihmojë të ruani dritaren tuaj stereo duke maksimizuar gjerësinë e përdorshme. Duke u kthyer majtas dhe djathtas, thellësia në donut do të ndryshojë në krahasim me pjesën tjetër të skenës - vendosni thellësinë e donutit në mënyrë që të jetë ose në ose pas pikës më të largët në skenën tuaj. Jini të kujdesshëm, përdorimi i tij në skena më të vogla mund t'i bëjë gjërat të dhimbshme (shih këshillën kryesore më lart).</value>
+  </data>
+  <data name="Page.Tips.Keystone" xml:space="preserve">
+    <value>Korrigjimi i gurthemelit është i nevojshëm nëse futeni në këmbë.</value>
+  </data>
+  <data name="Page.Tips.Keystone.Body1" xml:space="preserve">
+    <value>Nëse ktheheni nga brenda me çdo gjuajtje, është shumë e dobishme të bëni korrigjime kryesore. Në mënyrë tipike ju dëshironi të tkurni skajet e brendshme të fotove dhe më pas të prisni disa nga lart dhe poshtë për t'i niveluar ato. Ju mund të shkoni te menyja e redaktimit të gurëve duke shtypur butonin që duket kështu:</value>
+  </data>
+  <data name="Page.Tips.Keystone.Body2" xml:space="preserve">
+    <value>Kthimi nga brenda quhet toe-in. Mund të shkaktojë një efekt shkurtues që e bën të vështirë shkrirjen e qosheve të figurës. Efekti i shkurtimit është i pranishëm në çdo kohë në jetën reale, sepse linjat paralele duket se konvergojnë ndërsa shkojnë në distancën larg jush, por perspektivat artificiale mund ta bëjnë atë të çuditshme.</value>
+  </data>
+  <data name="Page.Tips.Lean" xml:space="preserve">
+    <value>Ju thjesht mund të mbështeteni.</value>
+  </data>
+  <data name="Page.Tips.Lean.Body" xml:space="preserve">
+    <value>Ndonjëherë, në vend që të lëvizni plotësisht këmbët majtas ose djathtas për të bërë fotografi, mund të jetë më e lehtë të qëndroni me këmbët e hapura dhe të përkuleni në çdo drejtim, por kini kujdes që ta mbani telefonin në nivel dhe në të njëjtën lartësi. Thjesht përkulja në vend që të lëvizni mund t'ju ndihmojë të lëvizni shumë larg dhe mund ta bëjë më të lehtë mbajtjen e synimit drejt.</value>
+  </data>
+  <data name="Page.Tips.Lines" xml:space="preserve">
+    <value>Linjat e shtrirjes mund të lëvizin.</value>
+  </data>
+  <data name="Page.Tips.Lines.Body" xml:space="preserve">
+    <value>Nëse dëshironi, mund të tërhiqni linjat e shtrirjes. Kjo është veçanërisht e dobishme kur rreshtoni fotot gjatë redaktimit.</value>
+  </data>
+  <data name="Page.Tips.Old" xml:space="preserve">
+    <value>Ju mund të hapni foto të vjetra në CrossCam.</value>
+  </data>
+  <data name="Page.Tips.Old.Body" xml:space="preserve">
+    <value>Mund të ngarkoni fotografitë e bëra më parë duke trokitur ikonën e dosjes në fund të faqes së kamerës, por nëse jeni duke punuar me një grup të madh fotografish, mund t'i ndani ato edhe në CrossCam direkt nga aplikacioni juaj i fotografive, i cili mund të mbajë shënimet tuaja vendoseni më mirë në fotot tuaja.</value>
+  </data>
+  <data name="Page.Tips.Quick" xml:space="preserve">
+    <value>Aktivizo modalitetin e shpejtë kur je me të tjerët.</value>
+  </data>
+  <data name="Page.Tips.Quick.Body" xml:space="preserve">
+    <value>Nëse jeni duke eksploruar me njerëz të tjerë, është mirë të kaloni në modalitetin e shpejtë duke çaktivizuar shtrirjen automatike dhe dhe kufijtë dhe duke ruajtur vetëm pasi të keni fotografuar pa bërë asnjë modifikim. Gjithmonë mund t'i ngarkoni, të rreshtoni automatikisht dhe t'i modifikoni fotografitë më vonë. Në këtë mënyrë shoqëruesit tuaj nuk duhet të presin që ju të përsosni fotot tuaja në vend, por ju mund të jeni ende të sigurt se thellësia që dëshironi është me të vërtetë atje. Vetëm kini kujdes që të mos bëni ndonjë redaktim të nxituar përpara ruajtjes së parë! Ju gjithashtu mund të aktivizoni ruajtjen e veçantë anësore, e cila do të injorojë çdo modifikim që bëni.</value>
+  </data>
+  <data name="Page.Tips.Sick" xml:space="preserve">
+    <value>Nëse lëvizja ju bën të sëmurë, qëndroni të qetë.</value>
+  </data>
+  <data name="Page.Tips.Sick.Body" xml:space="preserve">
+    <value>Nëse e gjithë lëvizja ju bën të sëmurë ose e bën shumë të vështirë shikimin në 3D, mos filloni të përpiqeni ta shihni atë në 3D derisa të keni lëvizur pak. Më pas krahasoni fotot me njëra-tjetrën dhe rreshtojini ato duke përdorur linjat horizontale pa shikim 3D dhe më pas filloni shikimin 3D pasi të jenë rreshtuar dhe duke mbajtur të palëvizur.</value>
+  </data>
+  <data name="Page.Tips.Space" xml:space="preserve">
+    <value>Këto fotografi mund të kërkojnë shumë hapësirë ​​- ju mund t'i tkurni ato.</value>
+  </data>
+  <data name="Page.Tips.Space.Body" xml:space="preserve">
+    <value>Faqja e cilësimeve ka një opsion për të ulur proporcionalisht rezolucionin e figurës përfundimtare - kjo mund të ndihmojë nëse doni të kurseni hapësirë. Nëse fotografia juaj nuk është prerë, rezultati përfundimtar është dy fotografi me rezolucion të plotë të bashkuara për të bërë njërën me rezolucion të dyfishtë, që do të thotë se shpesh mund të largoheni me një reduktim të madh të rezolucionit pa ndikuar dukshëm në cilësi.</value>
+  </data>
+  <data name="Page.Tips.Turn" xml:space="preserve">
+    <value>Mos u kthe.</value>
+  </data>
+  <data name="Page.Tips.Turn.Body" xml:space="preserve">
+    <value>Kur lëvizni, përpiquni të mos e rrotulloni fare telefonin në asnjë drejtim, duke përfshirë prirjen e natyrshme për t'u kthyer drejt subjektit ndërsa lëvizni anash. Do të jetë e nevojshme disa rrotullime (ndonjëherë), por përpiquni ta minimizoni atë. Imagjinoni që telefoni është i montuar në një shirit të drejtë horizontal dhe mund të rrëshqasë vetëm. Kthimi nga brenda mund të shkaktojë një efekt shkurtues që e bën të vështirë bashkimin e qosheve.</value>
+  </data>
+  <data name="Page.Tips.Window" xml:space="preserve">
+    <value>Shto kufirin dhe prerjen për të krijuar një dritare të fortë stereo.</value>
+  </data>
+  <data name="Page.Tips.Window.Body" xml:space="preserve">
+    <value>Një efekt interesant i dritares stereo mund të krijohet duke bërë dy gjëra: 1) aktivizoni kufirin (në faqen e cilësimeve) dhe 2) për shikimin e kryqëzuar, preni skajet e brendshme të imazheve derisa vetë skaji i jashtëm të bëhet 3D në foto (prerja skajet JASHTË nëse jeni duke parë paralelisht). Gjëja kryesore është që të presësh skajin e djathtë të figurës së majtë pak më shumë se çfarë tregon skaji i djathtë i figurës së djathtë të skenës dhe anasjelltas. Shtimi i një kufiri ndërrohet në faqen e cilësimeve. Nëse kjo është konfuze, thjesht prisni një tufë nga skajet e brendshme dhe do të fillojë të jetë e qartë. Butoni i prerjes për skajet e brendshme duket kështu:</value>
+  </data>
+  <data name="Button.Code" xml:space="preserve">
+    <value>Shih Kodin</value>
+  </data>
+  <data name="Button.Developer" xml:space="preserve">
+    <value>Rreth Zhvilluesit</value>
+  </data>
+  <data name="Button.EmailMe" xml:space="preserve">
+    <value>Më dërgo me email</value>
+  </data>
+  <data name="Button.GitHub" xml:space="preserve">
+    <value>Shtoni një problem në GitHub</value>
+  </data>
+  <data name="Button.Press" xml:space="preserve">
+    <value>Kthehuni te ekrani i kamerës në të dyja pajisjet dhe prekni butonin e çiftimit në këndin e poshtëm</value>
+  </data>
+  <data name="Button.Primary" xml:space="preserve">
+    <value>TAKONI KËTU NË FILLESTAR</value>
+  </data>
+  <data name="Button.Privacy" xml:space="preserve">
+    <value>Politika e privatësisë</value>
+  </data>
+  <data name="Button.Secondary" xml:space="preserve">
+    <value>TAKONI KËTU NË TË DYTËSEN</value>
+  </data>
+  <data name="Button.Test" xml:space="preserve">
+    <value>Testoni versionet para publikimit</value>
+  </data>
+  <data name="Button.Wi-Fi" xml:space="preserve">
+    <value>Sigurohuni që Wi-Fi të jetë i aktivizuar në të dyja pajisjet (por nuk ka nevojë të lidhet me asgjë)</value>
+  </data>
+  <data name="Page.Pairing.1" xml:space="preserve">
+    <value>Nëse keni të instaluar dy pajisje me CrossCam, mund t'i lidhni ato për të bërë foto të njëkohshme nga dy këndvështrime. Bërja e dy fotove në të njëjtin moment bën stereogramet më të mira të mundshme.
+
+Kini parasysh se kjo veçori është ende eksperimentale dhe mund të ketë probleme. Mund të mos funksionojë në mënyrë perfekte gjatë gjithë kohës dhe mund t'ju hajë baterinë. Gjithashtu, kini parasysh se në këtë moment pajisjet duhet të jenë të njëjta platformë për t'u lidhur (të dyja Android ose të dyja iOS).
+
+Një mënyrë për të marrë sinkronizimin *perfekt* duke përdorur vetëm një pajisje të vetme dhe CrossCam është përdorimi i metodës "pasqyrë me një goditje". Mund ta aktivizoni në faqen e Cilësimeve dhe mund të lexoni për të në faqen FAQ.
+
+Përpara se dy pajisje të mund të përdoren së bashku, duhet të caktohen rolet e tyre. Pajisja PRIMARY është ajo që do të shfaqë të dyja pamjet paraprake, do të aktivizojë kapjen dhe do të mbajë/ruaj regjistrimet përfundimtare. Për të caktuar role, navigoni të dyja pajisjet në këtë faqe dhe më pas ndiqni hapat e mëposhtëm:</value>
+  </data>
+  <data name="Page.Pairing.2" xml:space="preserve">
+    <value>Nëse keni probleme, JU LUTEM KUJDES:
+ • Pas fillimit të procesit të çiftimit, butoni i çiftimit mund të preket sërish në çdo kohë për ta ndaluar ose shkëputur.
+ • Mund të ndihmojë ndalimi i çiftimit në të dyja pajisjet dhe rinisja në të njëjtën kohë.
+ • Mund të ndihmojë të shkëputeni nga rrjetet tuaja Wi-Fi ose të të dhënave në rast se ato janë duke u aktivizuar.
+ • Çdo aparat fotografik është i ndryshëm. Këto dallime mund të përfshijnë fushën këndore të shikimit, fokusin, ekspozimin dhe sjelljen e ekuilibrit të bardhë, kohën dhe më shumë. Edhe dy të të njëjtit model telefoni do të sillen paksa ndryshe. Preferoj të përdor një palë telefona të vjetër identikë (në rastin tim, një palë iPhone 6).
+ • CrossCam është softuer, jo harduer, kështu që shkrepja e fotove mund të jetë paksa e pa sinkronizuar në varësi të asaj se çfarë tjetër po bëjnë procesorët dhe memoria në momentin e saktë që aktivizohet. Si rezultat, sinkronizimi ndonjëherë mund të mos jetë i përsosur, por në përgjithësi duhet të jetë shumë afër.</value>
+  </data>
+  <data name="Page.Pairing.Again" xml:space="preserve">
+    <value>Për t'u lidhur sërish më vonë, sigurohuni që të keni aktivizuar Wi-Fi dhe më pas thjesht trokitni lehtë mbi butonin e lidhjes në ekranin bazë në të dyja pajisjet.</value>
+  </data>
+  <data name="Page.Pairing.LocalNetworkAccess" xml:space="preserve">
+    <value>CrossCam kërkon leje për qasje në rrjetin lokal. CrossCam në fakt nuk përdor rrjetin lokal, por iOS kërkon që CrossCam të marrë këtë leje në mënyrë që të përdorë antenën Wi-Fi për të skanuar për pajisje. CrossCam do ta kërkojë këtë leje një herë - nëse leja refuzohet, do të duhet të shkoni dhe të rrotulloni vetë çelësin në aplikacionin "Cilësimet".</value>
+  </data>
+  <data name="Page.Pairing.Location" xml:space="preserve">
+    <value>CrossCam do të kërkojë leje dhe fuqi për komponentët sipas nevojës për të lidhur pajisjet tuaja. Ju lutemi vini re: CrossCam kërkon lejen e vendndodhjes dhe që shërbimet e vendndodhjes të aktivizohen në pajisjen kryesore për t'u lidhur me pajisjen dytësore. Kjo është thjesht një kërkesë për Android dhe është plotësisht jashtë kontrollit tim. CrossCam në fakt nuk e përdor vendndodhjen tuaj në asnjë mënyrë, por për shkak se akti i kërkimit (dhe gjetjes) të pajisjeve pranë mund të përdoret teorikisht për t'ju gjetur afërsisht, CrossCam kërkon leje për të hyrë në vendndodhjen tuaj.</value>
+  </data>
+  <data name="Page.Pairing.Permissions" xml:space="preserve">
+    <value>Një shënim rreth lejeve:</value>
+  </data>
+  <data name="Page.Pairing.Title" xml:space="preserve">
+    <value>Çiftimi</value>
+  </data>
+  <data name="Button.Back" xml:space="preserve">
+    <value>&lt; Prapa</value>
+  </data>
+  <data name="Page.MorePictures.CrossViewSubreddit" xml:space="preserve">
+    <value>CrossView Subreddit</value>
+  </data>
+  <data name="Page.MorePictures.FacebookGroup" xml:space="preserve">
+    <value>Grupi stereoskopik 3D në Facebook</value>
+  </data>
+  <data name="Page.MorePictures.GoogleDoc" xml:space="preserve">
+    <value>Google Doc of Great Stuff</value>
+  </data>
+  <data name="Page.MorePictures.Instagram" xml:space="preserve">
+    <value>Etiketa Stereoskopike në Instagram</value>
+  </data>
+  <data name="Page.MorePictures.Mine" xml:space="preserve">
+    <value>Shikoni fotot që kam bërë</value>
+  </data>
+  <data name="Page.MorePictures.ParallelViewSubreddit" xml:space="preserve">
+    <value>ParallelView Subreddit</value>
+  </data>
+  <data name="Page.Settings.Alignment" xml:space="preserve">
+    <value>Rreshtimi automatik</value>
+  </data>
+  <data name="Page.Settings.Analytics" xml:space="preserve">
+    <value>Ndani të dhënat anonime të përdorimit dhe gabimeve për të ndihmuar në përmirësimin e CrossCam</value>
+  </data>
+  <data name="Page.Settings.Border" xml:space="preserve">
+    <value>Kufiri</value>
+  </data>
+  <data name="Page.Settings.Camera" xml:space="preserve">
+    <value>Kamera</value>
+  </data>
+  <data name="Page.Settings.Defaults" xml:space="preserve">
+    <value>Rivendosni në Parazgjedhje</value>
+  </data>
+  <data name="Page.Settings.Editing" xml:space="preserve">
+    <value>Redaktimi</value>
+  </data>
+  <data name="Page.Settings.ErrorEmail" xml:space="preserve">
+    <value>Kërkoni të dërgoni email kur ndodhin gabime</value>
+  </data>
+  <data name="Page.Settings.Guides" xml:space="preserve">
+    <value>Udhëzuesit e kapjes</value>
+  </data>
+  <data name="Page.Settings.Pairing" xml:space="preserve">
+    <value>Çiftimi</value>
+  </data>
+  <data name="Page.Settings.Preview" xml:space="preserve">
+    <value>Metoda e shikimit paraprak</value>
+  </data>
+  <data name="Page.Settings.Saving" xml:space="preserve">
+    <value>Duke kursyer</value>
+  </data>
+  <data name="Page.TipMe.1" xml:space="preserve">
+    <value>CrossCam është falas për t'u përdorur, pa reklama, me burim të hapur, nuk mbledh asnjë informacion personal nga ju dhe ju jep akses të plotë në çdo veçori. Më pëlqen të punoj në CrossCam, por kërkon shumë kohë dhe përpjekje. Unë nuk fitoj fare para nga CrossCam, përveç këshillave që njerëzit mund të vendosin të më dërgojnë.</value>
+  </data>
+  <data name="Page.TipMe.2" xml:space="preserve">
+    <value>Nëse ju pëlqen CrossCam dhe jeni në gjendje, ju lutem konsideroni të më dërgoni një këshillë.</value>
+  </data>
+  <data name="Page.TipMe.Ko-fi" xml:space="preserve">
+    <value>Ko-fi</value>
+  </data>
+  <data name="Page.TipMe.Patreon" xml:space="preserve">
+    <value>Patreon</value>
+  </data>
+  <data name="Page.TipMe.PayPal" xml:space="preserve">
+    <value>PayPal</value>
+  </data>
+  <data name="Page.TipMe.Tipped" xml:space="preserve">
+    <value>Më kanë dhënë bakshish</value>
+  </data>
+  <data name="Page.TipMe.TippedTimes" xml:space="preserve">
+    <value>herë, në total</value>
+  </data>
+  <data name="Page.TipMe.Venmo" xml:space="preserve">
+    <value>Venmo</value>
+  </data>
+  <data name="Title.MorePictures" xml:space="preserve">
+    <value>Shih më shumë foto</value>
+  </data>
+  <data name="Title.Settings" xml:space="preserve">
+    <value>Cilësimet</value>
+  </data>
+  <data name="Title.TipMe" xml:space="preserve">
+    <value>Këshillat vlerësohen!</value>
+  </data>
+  <data name="Settings.Alignment.Advanced" xml:space="preserve">
+    <value>Shfaq cilësimet e përparuara të shtrirjes</value>
+  </data>
+  <data name="Settings.Alignment.Ecc" xml:space="preserve">
+    <value>Përpiquni të përdorni gjithmonë së pari shtrirjen ECC</value>
+  </data>
+  <data name="Settings.Alignment.Keypoints" xml:space="preserve">
+    <value>Përpiquni të përdorni gjithmonë përafrimin e pikave kyçe</value>
+  </data>
+  <data name="Settings.Alignment.On" xml:space="preserve">
+    <value>Rreshtoni automatikisht pas kapjes</value>
+  </data>
+  <data name="Settings.Border.Color" xml:space="preserve">
+    <value>Ngjyra e kufirit</value>
+  </data>
+  <data name="Settings.Border.FuseGuide" xml:space="preserve">
+    <value>Shtoni udhëzuesin e siguresave sipër (një pikë mbi secilën anë)</value>
+  </data>
+  <data name="Settings.Border.On" xml:space="preserve">
+    <value>Shtoni kufirin</value>
+  </data>
+  <data name="Settings.Border.Prompt" xml:space="preserve">
+    <value>Kërkoni të shkëputni kufirin kur zbulohet gjatë ngarkimit</value>
+  </data>
+  <data name="Settings.Border.Thickness" xml:space="preserve">
+    <value>Trashësia e kufirit (të dhjetat e përqindjes së gjerësisë)</value>
+  </data>
+  <data name="Settings.Camera.Camera1" xml:space="preserve">
+    <value>Force camera1 API (mund të jetë e dobishme nëse jeni duke përjetuar çuditshmëri, por do të rezultojë në funksionalitet të kufizuar, kërkon një mbyllje/rinisje me forcë për të hyrë në fuqi)</value>
+  </data>
+  <data name="Settings.Camera.Camera2" xml:space="preserve">
+    <value>Force camera2 API (duhet të jetë në Android 6 ose më lart, mund të jetë i dobishëm nëse po hasni gabime, por mund të bëni më shumë, kërkon një ndërprerje/rinisje me forcë për të hyrë në fuqi)</value>
+  </data>
+  <data name="Settings.Camera.LandscapeCaptureHorizontal" xml:space="preserve">
+    <value>Vendosja horizontale e butonit të kapjes së peizazhit</value>
+  </data>
+  <data name="Settings.Camera.LandscapeCaptureVertical" xml:space="preserve">
+    <value>Vendosja vertikale e butonit të kapjes së peizazhit</value>
+  </data>
+  <data name="Settings.Camera.Lock" xml:space="preserve">
+    <value>Blloko fokusin dhe ekspozimin për foton e dytë në fokus dhe ekspozimin nga fotografia e parë</value>
+  </data>
+  <data name="Settings.Camera.Pair" xml:space="preserve">
+    <value>Çiftoni vendosjen horizontale të butonit (kur butoni i kapjes është në qendër)</value>
+  </data>
+  <data name="Settings.Camera.PointFocus" xml:space="preserve">
+    <value>Trokit për të treguar fokusin, prekni dy herë për t'u kthyer në fokus të vazhdueshëm (ose për të ruajtur ose pastruar)</value>
+  </data>
+  <data name="Settings.Camera.PortraitCapture" xml:space="preserve">
+    <value>Vendosja e butonit të kapjes së portretit</value>
+  </data>
+  <data name="Settings.Editing.Align" xml:space="preserve">
+    <value>Proporcioni maksimal i shtrirjes vertikale</value>
+  </data>
+  <data name="Settings.Editing.Keystone" xml:space="preserve">
+    <value>Guri themelor maksimal</value>
+  </data>
+  <data name="Settings.Editing.Rotation" xml:space="preserve">
+    <value>Shkallët maksimale të rrotullimit</value>
+  </data>
+  <data name="Settings.Editing.SideCrop" xml:space="preserve">
+    <value>Proporcioni maksimal i të korrave anësore</value>
+  </data>
+  <data name="Settings.Editing.TopCrop" xml:space="preserve">
+    <value>Proporcioni maksimal i prerjes sipër/poshtë</value>
+  </data>
+  <data name="Settings.Editing.Zoom" xml:space="preserve">
+    <value>Proporcioni maksimal i zmadhimit</value>
+  </data>
+  <data name="Settings.Guides.Donut" xml:space="preserve">
+    <value>Shfaq udhëzuesin e donutit (do të shkaktojë futjen e gishtave, kështu që mund të kërkojë redaktim të gurit kryesor)</value>
+  </data>
+  <data name="Settings.Guides.Fuse" xml:space="preserve">
+    <value>Trego udhëzuesin e siguresave (një pikë mbi secilën anë)</value>
+  </data>
+  <data name="Settings.Guides.LineColor" xml:space="preserve">
+    <value>Linja me ngjyra të ndryshme</value>
+  </data>
+  <data name="Settings.Guides.Lines" xml:space="preserve">
+    <value>Linjat e dukshme</value>
+  </data>
+  <data name="Settings.Guides.Roll" xml:space="preserve">
+    <value>Udhëzuesi i rrotullës i dukshëm</value>
+  </data>
+  <data name="Settings.Pair.CaptureDelay" xml:space="preserve">
+    <value>Vonesa shtesë e kapjes së momentit (ms) (shton një vonesë shtesë në momentin e kapjes së synuar vetëm në këtë pajisje)</value>
+  </data>
+  <data name="Settings.Pair.Countdown" xml:space="preserve">
+    <value>Regjistroni gjatësinë e numërimit mbrapsht (kohëmatësi)</value>
+  </data>
+  <data name="Settings.Pair.Fov" xml:space="preserve">
+    <value>Korrigjimi i fushës së shikimit</value>
+  </data>
+  <data name="Settings.Pair.FovNotSet" xml:space="preserve">
+    <value>Korrigjimi FOV nuk është caktuar (bëni një kapje me pajisjet e çiftuara për të kaluar në konfigurim).</value>
+  </data>
+  <data name="Settings.Pair.FovReset" xml:space="preserve">
+    <value>Rivendos</value>
+  </data>
+  <data name="Settings.Pair.Go" xml:space="preserve">
+    <value>Shkoni te faqja e konfigurimit të çiftimit</value>
+  </data>
+  <data name="Settings.Pair.NoRole" xml:space="preserve">
+    <value>Roli nuk është zgjedhur</value>
+  </data>
+  <data name="Settings.Pair.PreviewDelay" xml:space="preserve">
+    <value>Shikoni vonesën e kornizës (numri më i lartë do të zvogëlojë shpejtësinë e kuadrove, por do të kursejë baterinë)</value>
+  </data>
+  <data name="Settings.Pair.Primary" xml:space="preserve">
+    <value>Fillore:</value>
+  </data>
+  <data name="Settings.Pair.PrimaryRole" xml:space="preserve">
+    <value>Roli: Fillor</value>
+  </data>
+  <data name="Settings.Pair.Sample" xml:space="preserve">
+    <value>Numri i mostrave të orës (numri më i ulët do të ulë kohën e nevojshme për sinkronizimin fillestar, por mund të ulë saktësinë e sinkronizimit)</value>
+  </data>
+  <data name="Settings.Pair.Secondary" xml:space="preserve">
+    <value>E mesme:</value>
+  </data>
+  <data name="Settings.Pair.SecondaryRole" xml:space="preserve">
+    <value>Roli: Dytësor</value>
+  </data>
+  <data name="Settings.Pair.Timeout" xml:space="preserve">
+    <value>Koha e lidhjes (sekonda) (0 do të thotë pa afat)</value>
+  </data>
+  <data name="Settings.Preview.Barrel" xml:space="preserve">
+    <value>Shto korrigjim/shtrembërim të lenteve (mund të ulë shpejtësinë e kuadrove)</value>
+  </data>
+  <data name="Settings.Preview.BarrelFinal" xml:space="preserve">
+    <value>Shto korrigjimin e lenteve/shtrembërimin e tytës vetëm në imazhet përfundimtare (mund të ngadalësojë shfaqjen përfundimtare, por do të përshpejtojë regjistrimin)</value>
+  </data>
+  <data name="Settings.Preview.CardboardDistance" xml:space="preserve">
+    <value>Distanca e ndarjes së kartonit</value>
+  </data>
+  <data name="Settings.Preview.Downsize" xml:space="preserve">
+    <value>Zvogëlo imazhin (mund të rrisë shpejtësinë e kuadrove)</value>
+  </data>
+  <data name="Settings.Preview.DownsizePercent" xml:space="preserve">
+    <value>Zvogëloni përqindjen e imazhit</value>
+  </data>
+  <data name="Settings.Preview.Immersive" xml:space="preserve">
+    <value>Shikim përfundimtar gjithëpërfshirës</value>
+  </data>
+  <data name="Settings.Preview.LensStrength" xml:space="preserve">
+    <value>Forca e korrigjimit të lenteve</value>
+  </data>
+  <data name="Settings.Preview.Mirror" xml:space="preserve">
+    <value>Regjistroni duke përdorur metodën e ndarjes së pasqyrës me një shkrepje</value>
+  </data>
+  <data name="Settings.Preview.Width" xml:space="preserve">
+    <value>Gjerësia maksimale e imazhit të pamjes paralele (pikat)</value>
+  </data>
+  <data name="Settings.Reset" xml:space="preserve">
+    <value>Rivendosni në Parazgjedhje</value>
+  </data>
+  <data name="Settings.Saving.Alone" xml:space="preserve">
+    <value>Ruaje vetëm anën e parë (pa modifikime ose kufij) (për ndarje të lehtë të fotografisë së sheshtë me njerëz me pamje të sheshtë)</value>
+  </data>
+  <data name="Settings.Saving.Anaglyph" xml:space="preserve">
+    <value>Ruaj versionin e anaglifit të kuq/cyan (me modifikime, por pa kufi)</value>
+  </data>
+  <data name="Settings.Saving.Browse" xml:space="preserve">
+    <value>Shfleto...</value>
+  </data>
+  <data name="Settings.Saving.Cardboard" xml:space="preserve">
+    <value>Ruaj për Cardboard (me modifikime, pa kufi, pa ndarje, gjerësi të plotë, për t'u ngarkuar përsëri në CrossCam më vonë)</value>
+  </data>
+  <data name="Settings.Saving.Clear" xml:space="preserve">
+    <value>Pastroni automatikisht fotografitë pas ruajtjes</value>
+  </data>
+  <data name="Settings.Saving.Cross" xml:space="preserve">
+    <value>Ruaj versionin e bashkuar me pamje të kryqëzuar (me modifikime dhe kufi)</value>
+  </data>
+  <data name="Settings.Saving.ExternalDirectory" xml:space="preserve">
+    <value>Ruani në drejtorinë e jashtme CrossCam në:</value>
+  </data>
+  <data name="Settings.Saving.ExternalWarning" xml:space="preserve">
+    <value>(paralajmërim: fotografitë atje do të fshihen nëse CrossCam çinstalohet)</value>
+  </data>
+  <data name="Settings.Saving.Folder" xml:space="preserve">
+    <value>Ruani në nënfolderin/albumin e dedikuar "CrossCam".</value>
+  </data>
+  <data name="Settings.Saving.Grayscale" xml:space="preserve">
+    <value>Ruaj versionin e anaglyfit të kuqe/cian në shkallë gri (me modifikime, por pa kufi)</value>
+  </data>
+  <data name="Settings.Saving.Order" xml:space="preserve">
+    <value>(Ruajtja do të ndodhë sipas radhës nga lart poshtë)</value>
+  </data>
+  <data name="Settings.Saving.Parallel" xml:space="preserve">
+    <value>Ruaj versionin e bashkuar të pamjes paralele (me modifikime dhe kufi)</value>
+  </data>
+  <data name="Settings.Saving.Quad" xml:space="preserve">
+    <value>Ruaj kombinimin e katërfishtë (me modifikime dhe kufi)</value>
+  </data>
+  <data name="Settings.Saving.Reset" xml:space="preserve">
+    <value>Rivendos</value>
+  </data>
+  <data name="Settings.Saving.Resolution" xml:space="preserve">
+    <value>Proporcioni i rezolucionit</value>
+  </data>
+  <data name="Settings.Saving.SaveTo" xml:space="preserve">
+    <value>Ruaje në:</value>
+  </data>
+  <data name="Settings.Saving.Separate" xml:space="preserve">
+    <value>Ruani secilën anë veç e veç (pa modifikime ose kufij për përpunim më të lehtë të postimit, së pari ruan anën e majtë)</value>
+  </data>
+  <data name="Settings.Saving.Subfolder" xml:space="preserve">
+    <value>Ruani në nëndosjet/albumet e dedikuara "CrossCam_{ViewMethod}".</value>
+  </data>
+  <data name="Settings.Saving.Triple" xml:space="preserve">
+    <value>Ruaj kombinimin e trefishtë (me modifikime dhe kufi)</value>
+  </data>
+  <data name="Button.Pair.Accept" xml:space="preserve">
+    <value>Pranoje</value>
+  </data>
+  <data name="Button.Pair.Cancel" xml:space="preserve">
+    <value>Anulo</value>
+  </data>
+  <data name="Page.Camera.AcceptConnection" xml:space="preserve">
+    <value>Prano lidhjen me</value>
+  </data>
+  <data name="Page.Camera.Confirm" xml:space="preserve">
+    <value>Konfirmoni që kodi përputhet në të dy pajisjet:</value>
+  </data>
+  <data name="Page.Footer.CouldntOpen" xml:space="preserve">
+    <value>Lidhja nuk mund të hapej</value>
+  </data>
+  <data name="Page.Footer.OpenError" xml:space="preserve">
+    <value>Lidhja mailto nuk mund të hapej. Kjo mund të jetë për shkak se klienti juaj i emailit nuk është konfiguruar, ose ndonjë arsye tjetër.</value>
+  </data>
+  <data name="Page.Pair.Errors.Denied" xml:space="preserve">
+    <value>Lejet e nevojshme për çiftim nuk u dhanë. Përjashtim:</value>
+  </data>
+  <data name="Page.Pair.Errors.FailedBluetooth" xml:space="preserve">
+    <value>Pajisja dështoi të ndizte Bluetooth. Përjashtim:</value>
+  </data>
+  <data name="Page.Pair.Errors.FailedSearch" xml:space="preserve">
+    <value>Pajisja dështoi në kërkimin e pajisjeve. Përjashtim:</value>
+  </data>
+  <data name="Page.Pair.Errors.LocationOff" xml:space="preserve">
+    <value>Shërbimet e vendndodhjes nuk janë aktivizuar. Nuk mund të skanojë për pajisje. Shikoni faqen e çiftimit për më shumë detaje.</value>
+  </data>
+  <data name="Page.Pair.Errors.LocationScan" xml:space="preserve">
+    <value>Leja e vendndodhjes nuk është dhënë. Nuk mund të skanojë për pajisje. Shikoni faqen e çiftimit për më shumë detaje.</value>
+  </data>
+  <data name="Page.Pair.Errors.NotSupported" xml:space="preserve">
+    <value>Çiftimi nuk mbështetet në këtë pajisje. Përjashtim:</value>
+  </data>
+  <data name="Page.Pair.Errors.Title" xml:space="preserve">
+    <value>Gabim</value>
+  </data>
+  <data name="Page.Pair.Errors.WifiOff" xml:space="preserve">
+    <value>Wi-Fi është i fikur. Ju lutemi aktivizoni Wi-Fi.</value>
+  </data>
+  <data name="Page.Pair.PrimaryExplanation" xml:space="preserve">
+    <value>Kjo pajisje tani është caktuar si primare.</value>
+  </data>
+  <data name="Page.Pair.PrimarySelected" xml:space="preserve">
+    <value>Roli kryesor i zgjedhur</value>
+  </data>
+  <data name="Page.Pair.SecondaryExplanation" xml:space="preserve">
+    <value>Kjo pajisje tani është caktuar si dytësore.</value>
+  </data>
+  <data name="Page.Pair.SecondarySelected" xml:space="preserve">
+    <value>Roli dytësor i zgjedhur</value>
+  </data>
+  <data name="Page.Technique.Mode" xml:space="preserve">
+    <value>modaliteti.</value>
+  </data>
+  <data name="Page.Technique.SetMode" xml:space="preserve">
+    <value>CrossCam tani është në</value>
+  </data>
+</root>

@@ -1064,7 +1064,7 @@ CrossCam 将在小机器人图标下方的相机屏幕上显示对齐结果。�
     <value>保存到专用的“CrossCam”子文件夹/相册中</value>
   </data>
   <data name="Settings.Saving.Grayscale" xml:space="preserve">
-    <value>保存灰度红色/青色浮雕版本（有编辑但没有边框）</value>
+    <value>保存灰度红色/青色浮雕版本（有编辑但无边框）</value>
   </data>
   <data name="Settings.Saving.Order" xml:space="preserve">
     <value>（保存会按照从上到下的顺序进行）</value>
@@ -1092,5 +1092,65 @@ CrossCam 将在小机器人图标下方的相机屏幕上显示对齐结果。�
   </data>
   <data name="Settings.Saving.Triple" xml:space="preserve">
     <value>保存三重组合（带编辑和边框）</value>
+  </data>
+  <data name="Button.Pair.Accept" xml:space="preserve">
+    <value>接受</value>
+  </data>
+  <data name="Button.Pair.Cancel" xml:space="preserve">
+    <value>取消</value>
+  </data>
+  <data name="Page.Camera.AcceptConnection" xml:space="preserve">
+    <value>接受连接到</value>
+  </data>
+  <data name="Page.Camera.Confirm" xml:space="preserve">
+    <value>确认两台设备上的代码匹配：</value>
+  </data>
+  <data name="Page.Footer.CouldntOpen" xml:space="preserve">
+    <value>无法打开链接</value>
+  </data>
+  <data name="Page.Footer.OpenError" xml:space="preserve">
+    <value>无法打开 mailto 链接。这可能是因为您的电子邮件客户端未设置或其他原因。</value>
+  </data>
+  <data name="Page.Pair.Errors.Denied" xml:space="preserve">
+    <value>未授予配对所需的权限。例外：</value>
+  </data>
+  <data name="Page.Pair.Errors.FailedBluetooth" xml:space="preserve">
+    <value>设备无法开启蓝牙。例外：</value>
+  </data>
+  <data name="Page.Pair.Errors.FailedSearch" xml:space="preserve">
+    <value>设备搜索设备失败。例外：</value>
+  </data>
+  <data name="Page.Pair.Errors.LocationOff" xml:space="preserve">
+    <value>定位服务未激活。无法扫描设备。有关更多详细信息，请参阅配对页面。</value>
+  </data>
+  <data name="Page.Pair.Errors.LocationScan" xml:space="preserve">
+    <value>未授予位置许可。无法扫描设备。有关更多详细信息，请参阅配对页面。</value>
+  </data>
+  <data name="Page.Pair.Errors.NotSupported" xml:space="preserve">
+    <value>此设备不支持配对。例外：</value>
+  </data>
+  <data name="Page.Pair.Errors.Title" xml:space="preserve">
+    <value>错误</value>
+  </data>
+  <data name="Page.Pair.Errors.WifiOff" xml:space="preserve">
+    <value>Wi-Fi 已关闭。请打开 Wi-Fi。</value>
+  </data>
+  <data name="Page.Pair.PrimaryExplanation" xml:space="preserve">
+    <value>该设备现已设置为主设备。</value>
+  </data>
+  <data name="Page.Pair.PrimarySelected" xml:space="preserve">
+    <value>选择的主要角色</value>
+  </data>
+  <data name="Page.Pair.SecondaryExplanation" xml:space="preserve">
+    <value>该设备现在被设置为辅助设备。</value>
+  </data>
+  <data name="Page.Pair.SecondarySelected" xml:space="preserve">
+    <value>选择次要角色</value>
+  </data>
+  <data name="Page.Technique.Mode" xml:space="preserve">
+    <value>模式。</value>
+  </data>
+  <data name="Page.Technique.SetMode" xml:space="preserve">
+    <value>CrossCam现已上线</value>
   </data>
 </root>

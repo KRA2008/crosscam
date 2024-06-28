@@ -1,0 +1,1156 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="Button.GoogleDoc" xml:space="preserve">
+    <value>Google Doc of Great Stuff</value>
+  </data>
+  <data name="Button.LearnCross" xml:space="preserve">
+    <value>صلیب یاد بگیرید</value>
+  </data>
+  <data name="Button.LearnParallel" xml:space="preserve">
+    <value>موازی یاد بگیرید</value>
+  </data>
+  <data name="Button.MorePictures" xml:space="preserve">
+    <value>تصاویر بیشتر را ببینید</value>
+  </data>
+  <data name="Button.Review" xml:space="preserve">
+    <value>یک نظر بنویسید</value>
+  </data>
+  <data name="Button.Share" xml:space="preserve">
+    <value>CrossCam را به اشتراک بگذارید</value>
+  </data>
+  <data name="Button.Support" xml:space="preserve">
+    <value>از توسعه دهنده حمایت کنید</value>
+  </data>
+  <data name="Button.TapCross" xml:space="preserve">
+    <value>برای انتخاب صلیب اینجا را ضربه بزنید</value>
+  </data>
+  <data name="Button.TapParallel" xml:space="preserve">
+    <value>برای انتخاب موازی، اینجا را ضربه بزنید</value>
+  </data>
+  <data name="Footer.Span1" xml:space="preserve">
+    <value>یک اشکال پیدا کردید؟ سوالی دارید؟ فقط ایمیل بزنید</value>
+  </data>
+  <data name="Footer.Span3" xml:space="preserve">
+    <value>! من عاشق صحبت با کاربران هستم و این سریع ترین راه برای برقراری ارتباط با من است.</value>
+  </data>
+  <data name="Page.HowToUse.2anaglyph" xml:space="preserve">
+    <value>2) مشاهده آناگلیف اولین عکس را با پیش نمایشی که در کنار آن ظاهر می شود شروع کنید.</value>
+  </data>
+  <data name="Page.HowToUse.2cardboard" xml:space="preserve">
+    <value>2) مشاهده اولین تصویر را با پیش نمایشی که در کنار آن ظاهر می شود شروع کنید.</value>
+  </data>
+  <data name="Page.HowToUse.2cross" xml:space="preserve">
+    <value>2) مشاهده متقاطع اولین تصویر را با پیش نمایشی که در کنار آن ظاهر می شود شروع کنید.</value>
+  </data>
+  <data name="Page.HowToUse.2parallel" xml:space="preserve">
+    <value>2) مشاهده موازی اولین عکس را با پیش نمایشی که در کنار آن ظاهر می شود شروع کنید.</value>
+  </data>
+  <data name="Page.Technique.AdditionalTutorials" xml:space="preserve">
+    <value>آموزش های تکمیلی:</value>
+  </data>
+  <data name="Page.Technique.Cross1" xml:space="preserve">
+    <value>در حالی که به جفت عکس بالا نگاه می کنید، چشمان خود را با دقت روی هم بزنید. وقتی چشمان خود را روی هم می گذارید، همه چیز تار و واضح می شود و به جای 2 (2 جفت) 4 عکس را مشاهده خواهید کرد. هر چه چشمان خود را سخت تر بگذرانید، جفت عکس ها از هم دورتر می شوند - کمی شبیه به این می شود:</value>
+  </data>
+  <data name="Page.Technique.Cross2" xml:space="preserve">
+    <value>چشمان خود را با دقت باز کنید، به طوری که تصاویر داخل هر جفت شروع به همپوشانی کنند. به نظر می رسد که به جای 4 عکس فقط 3 عکس وجود دارد. همچنان تار و واضح خواهد بود و چیزی شبیه به این خواهد بود:</value>
+  </data>
+  <data name="Page.Technique.Cross3" xml:space="preserve">
+    <value>هنگامی که همپوشانی میانی کار کرد، فقط باید چشمان خود را شل کنید و به آنها اجازه دهید عکس را متمرکز کنند. در آن مرحله یک تصویر سه بعدی واضح در وسط خواهید داشت که در هر طرف یک تصویر شفاف شناور است که به این شکل است (به جز وسط سه بعدی):</value>
+  </data>
+  <data name="Page.Technique.Cross4" xml:space="preserve">
+    <value>اگر در عبور از چشمان خود مشکل دارید، می توانید در حالی که انگشت خود را بین چشمان خود و صفحه نمایش نگه می دارید، به آن خیره شوید. باید ببینید که تصاویر شروع به جدا شدن و همپوشانی پشت انگشت شما می کنند.</value>
+  </data>
+  <data name="Page.Technique.CrossViewing" xml:space="preserve">
+    <value>مشاهده متقاطع</value>
+  </data>
+  <data name="Page.Technique.P1" xml:space="preserve">
+    <value>اگر می خواهید دوباره این را ببینید، روی نماد همبرگر (سه خط) در سمت چپ بالای صفحه دوربین ضربه بزنید و روی "Help" ضربه بزنید.
+
+برای دیدن 3 بعدی در CrossCam (به نام "استریوگرام") می توانید از عینک های سه بعدی قرمز/فیروزه ای، نمایشگر Google Cardboard استفاده کنید، یا می توانید "مشاهده رایگان" را فقط با استفاده از چشم ها و صفحه نمایش خود انجام دهید. دو راه برای مشاهده رایگان وجود دارد و CrossCam می تواند به شما در یادگیری هر دوی آنها کمک کند. شما باید به CrossCam بگویید که چگونه می خواهید تصاویر را مشاهده کنید وگرنه درست کار نمی کند. نگران نباشید، همیشه می‌توانید این مورد را دوباره در تنظیمات تغییر دهید.
+
+اگر می توانید به راحتی چشم خود را روی هم قرار دهید، ابتدا باید روش ضربدری را امتحان کنید، در غیر این صورت باید روش موازی را امتحان کنید. اگر به کتاب‌های Magic Eye™ عادت دارید، احتمالاً می‌توانید روش موازی را انجام دهید، اما ممکن است بتوانید روش متقاطع را نیز انجام دهید. برای یادگیری آن روی یک روش زیر ضربه بزنید و مطمئن شوید که با فشار دادن دکمه CHOOSE مربوطه به CrossCam بگویید کدام یک برای شما کار می کند.
+
+اگر ترجیح می‌دهید از عینک‌های سه بعدی یا نمایشگر Cardboard استفاده کنید، می‌توانید CrossCam را برای استفاده از آن‌ها در صفحه تنظیمات تنظیم کنید.</value>
+  </data>
+  <data name="Page.Technique.CrossLink1" xml:space="preserve">
+    <value>یک آموزش متنی زیبا</value>
+  </data>
+  <data name="Page.Technique.CrossLink2" xml:space="preserve">
+    <value>یک آموزش متنی زیبا دیگر</value>
+  </data>
+  <data name="Page.Technique.CrossLink3" xml:space="preserve">
+    <value>آموزش کوتاه یوتیوب</value>
+  </data>
+  <data name="Page.Technique.CrossLink4" xml:space="preserve">
+    <value>یک آموزش طولانی، عجیب و غریب، اما مفید YouTube</value>
+  </data>
+  <data name="Page.Technique.CrossLink5" xml:space="preserve">
+    <value>یک آموزش یوتیوب دیگر</value>
+  </data>
+  <data name="Page.Technique.CrossLink6" xml:space="preserve">
+    <value>پروژه دوربین دوگانه با آموزش</value>
+  </data>
+  <data name="Page.Technique.Parallel1" xml:space="preserve">
+    <value>اگر تصویر بالا روی صفحه نمایش شما قرار نمی گیرد، گوشی خود را به حالت افقی قرار دهید - CrossCam سعی می کند این جفت تصویر را بالاتر از ساده ترین اندازه برای این کار قرار دهد. شما همیشه مجبور نیستید از CrossCam در منظره استفاده کنید، اما یک تصویر با اندازه کامل یادگیری این تکنیک را آسان تر می کند.</value>
+  </data>
+  <data name="Page.Technique.Parallel2" xml:space="preserve">
+    <value>چشمان خود را شل کنید و به جفت عکس بالا نگاه کنید، مثل اینکه در حال منطقه بندی با چشمان خود به سمت عکس ها هستید. شما باید شروع به دیدن 3 عکس با یک تصویر سه بعدی در وسط کنید، کمی شبیه به این:</value>
+  </data>
+  <data name="Page.Technique.Parallel3" xml:space="preserve">
+    <value>اگر شروع به دیدن 4 عکس کنید، خیلی زیاده روی کرده اید. اگر دوباره در آن نقطه یافتید، چشمان خود را کمی به اطراف حرکت دهید. استراحت بیش از حد کمی شبیه به این خواهد بود:</value>
+  </data>
+  <data name="Page.Technique.Parallel4" xml:space="preserve">
+    <value>اگر مشکل دارید، سعی کنید صفحه‌نمایش را درست مقابل صورتتان قرار دهید و این جفت عکس را درست در مقابل چشمانتان قرار دهید. استراحت کنید و از طریق صفحه نمایش نگاه کنید و سپس به آرامی صفحه نمایش خود را از صورت خود دور کنید در حالی که چشمان خود را آرام نگه دارید. در نهایت تصویر باید "کلیک" کند تا فوکوس شود.</value>
+  </data>
+  <data name="Page.Technique.Parallel5" xml:space="preserve">
+    <value>اگر همچنان چهار تصویر را مشاهده می کنید، "حداکثر عرض تصویر نمای موازی" را در صفحه تنظیمات افزایش دهید.</value>
+  </data>
+  <data name="Page.Technique.ParallelViewing" xml:space="preserve">
+    <value>مشاهده موازی</value>
+  </data>
+  <data name="Page.Technique.Practice" xml:space="preserve">
+    <value>تصاویری که من ساخته ام که می توانید روی آنها تمرین کنید</value>
+  </data>
+  <data name="Title.Contact" xml:space="preserve">
+    <value>مخاطب</value>
+  </data>
+  <data name="Title.Faq" xml:space="preserve">
+    <value>سوالات متداول</value>
+  </data>
+  <data name="Title.Help" xml:space="preserve">
+    <value>کمک</value>
+  </data>
+  <data name="Title.HowToUse" xml:space="preserve">
+    <value>نحوه استفاده از CrossCam</value>
+  </data>
+  <data name="Title.Technique" xml:space="preserve">
+    <value>تکنیک مشاهده سه بعدی</value>
+  </data>
+  <data name="Title.Tips" xml:space="preserve">
+    <value>نکات</value>
+  </data>
+  <data name="Button.DoNotEmailMe" xml:space="preserve">
+    <value>الان به من ایمیل نده</value>
+  </data>
+  <data name="Button.EmailMeNow" xml:space="preserve">
+    <value>الان به من ایمیل بزن</value>
+  </data>
+  <data name="Button.No" xml:space="preserve">
+    <value>خیر</value>
+  </data>
+  <data name="Button.OK" xml:space="preserve">
+    <value>خوب</value>
+  </data>
+  <data name="Button.YesClear" xml:space="preserve">
+    <value>بله واضحه</value>
+  </data>
+  <data name="Page.Camera.Aligning" xml:space="preserve">
+    <value>تراز کردن...</value>
+  </data>
+  <data name="Page.Camera.AlignmentBroken" xml:space="preserve">
+    <value>تراز خودکار در دستگاه پشتیبانی نمی شود - در تنظیمات خاموش کنید.</value>
+  </data>
+  <data name="Page.Camera.AlignmentFailed" xml:space="preserve">
+    <value>تراز کردن ناموفق بود.</value>
+  </data>
+  <data name="Page.Camera.BorderAsk" xml:space="preserve">
+    <value>یک مرز شناسایی شده است. حاشیه حذف شود؟</value>
+  </data>
+  <data name="Page.Camera.BorderDetected" xml:space="preserve">
+    <value>مرز شناسایی شد</value>
+  </data>
+  <data name="Page.Camera.Cancel" xml:space="preserve">
+    <value>لغو کنید</value>
+  </data>
+  <data name="Page.Camera.ChooseAction" xml:space="preserve">
+    <value>یک اقدام را انتخاب کنید:</value>
+  </data>
+  <data name="Page.Camera.DirectoryNotFound" xml:space="preserve">
+    <value>دایرکتوری یافت نشد</value>
+  </data>
+  <data name="Page.Camera.DirectoryNotFoundExplain" xml:space="preserve">
+    <value>مقصد ذخیره یافت نشد. لطفاً دیگری را در صفحه تنظیمات انتخاب کنید.</value>
+  </data>
+  <data name="Page.Camera.ErrorEmailBody" xml:space="preserve">
+    <value>درست قبل از وقوع خطا چه کردید؟ لطفاً حتی موارد کوچک را نیز توصیف کنید.\n\n\n\n\n\nآیا CrossCam بعد از خطا همچنان کار می کرد؟ اگر نه، چگونه خراب می‌شود؟\n\n\n\n\n\nآیا این اتفاق مکرر می‌افتد؟\n\n\n\n\n\nآیا می‌توانید این خطا را مجبور کنید که در دستور رخ دهد؟ اگر چنین است، چگونه؟\n\n\n\n\n\n</value>
+  </data>
+  <data name="Page.Camera.FlipForCardboard" xml:space="preserve">
+    <value>وقتی در حالت مقوایی هستید به حالت افقی برگردید.</value>
+  </data>
+  <data name="Page.Camera.FlipLarger" xml:space="preserve">
+    <value>(برای نمای بزرگتر به منظره ورق بزنید)</value>
+  </data>
+  <data name="Page.Camera.ForAnaglyph" xml:space="preserve">
+    <value>برای آناگلیف</value>
+  </data>
+  <data name="Page.Camera.ForCardboard" xml:space="preserve">
+    <value>برای مقوا</value>
+  </data>
+  <data name="Page.Camera.ForCross" xml:space="preserve">
+    <value>برای صلیب</value>
+  </data>
+  <data name="Page.Camera.ForParallel" xml:space="preserve">
+    <value>برای موازی</value>
+  </data>
+  <data name="Page.Camera.GoPickRole" xml:space="preserve">
+    <value>لطفاً به صفحه جفت‌سازی (از طریق صفحه تنظیمات) بروید و قبل از تلاش برای جفت‌سازی، نقش جفت‌سازی را برای این دستگاه انتخاب کنید.</value>
+  </data>
+  <data name="Page.Camera.InvalidImage" xml:space="preserve">
+    <value>تصویر نامعتبر</value>
+  </data>
+  <data name="Button.Camera.Keep" xml:space="preserve">
+    <value>نگاه داشتن</value>
+  </data>
+  <data name="Page.Camera.LoadFullImage" xml:space="preserve">
+    <value>تصویر استریو کامل را بارگیری کنید</value>
+  </data>
+  <data name="Page.Camera.Loading" xml:space="preserve">
+    <value>بارگذاری...</value>
+  </data>
+  <data name="Page.Camera.LoadSingleSide" xml:space="preserve">
+    <value>یک طرف را بارگیری کنید</value>
+  </data>
+  <data name="Page.Camera.ManualCorrections" xml:space="preserve">
+    <value>لطفاً اصلاحات دستی را نیز در نظر بگیرید.</value>
+  </data>
+  <data name="Page.Camera.MirrorOnLeft" xml:space="preserve">
+    <value>آینه سمت چپ</value>
+  </data>
+  <data name="Page.Camera.MirrorOnRight" xml:space="preserve">
+    <value>آینه سمت راست</value>
+  </data>
+  <data name="Page.Camera.MoveLeft" xml:space="preserve">
+    <value>حرکت به سمت چپ</value>
+  </data>
+  <data name="Page.Camera.MoveRight" xml:space="preserve">
+    <value>برو راست</value>
+  </data>
+  <data name="Page.Camera.NoSaveModes" xml:space="preserve">
+    <value>حالت ذخیره فعال نیست</value>
+  </data>
+  <data name="Page.Camera.NoSaveModesExplain" xml:space="preserve">
+    <value>هیچ حالت ذخیره سازی در حال حاضر روشن نیست. حالت ذخیره را در صفحه تنظیمات روشن کنید.</value>
+  </data>
+  <data name="Page.Camera.Oops" xml:space="preserve">
+    <value>اوه</value>
+  </data>
+  <data name="Page.Camera.OrRotate" xml:space="preserve">
+    <value>(یا چرخش)</value>
+  </data>
+  <data name="Page.Camera.OrSwipe" xml:space="preserve">
+    <value>(یا بکشید)</value>
+  </data>
+  <data name="Page.Camera.PairRoleNotSelected" xml:space="preserve">
+    <value>نقش جفت انتخاب نشده است</value>
+  </data>
+  <data name="Page.Camera.PinchOrDrag" xml:space="preserve">
+    <value>خرج کردن یا کشیدن برای کاوش!</value>
+  </data>
+  <data name="Page.Camera.PleaseSelectValid" xml:space="preserve">
+    <value>لطفاً یک تصویر Jpeg، Png یا Webp انتخاب کنید. تصویری که انتخاب کردید این است</value>
+  </data>
+  <data name="Page.Camera.ReallyClear" xml:space="preserve">
+    <value>واقعا واضحه؟</value>
+  </data>
+  <data name="Button.Camera.Remove" xml:space="preserve">
+    <value>برداشتن</value>
+  </data>
+  <data name="Page.Camera.SavedToCustomFolder" xml:space="preserve">
+    <value>در پوشه سفارشی ذخیره شد</value>
+  </data>
+  <data name="Page.Camera.SavedToExternal" xml:space="preserve">
+    <value>در قسمت خارجی ذخیره شد</value>
+  </data>
+  <data name="Page.Camera.SavedToPhotos" xml:space="preserve">
+    <value>در Photos ذخیره شد</value>
+  </data>
+  <data name="Page.Camera.SaveFailed" xml:space="preserve">
+    <value>Saving Failed. :(</value>
+  </data>
+  <data name="Page.Camera.Saving" xml:space="preserve">
+    <value>صرفه جویی در...</value>
+  </data>
+  <data name="Page.Camera.SecondaryOnLeft" xml:space="preserve">
+    <value>ثانویه در سمت چپ</value>
+  </data>
+  <data name="Page.Camera.SecondaryOnRight" xml:space="preserve">
+    <value>ثانویه در سمت راست</value>
+  </data>
+  <data name="Page.Camera.SelectedInvalid" xml:space="preserve">
+    <value>تصویر انتخاب شده نامعتبر است.</value>
+  </data>
+  <data name="Page.Camera.SorryError" xml:space="preserve">
+    <value>متأسفیم، CrossCam خطایی انجام داد. گزارش خطا به صورت خودکار ارسال شده است. ممکن است اصلا متوجه مشکلی نشوید، اما اگر متوجه شدید، برنامه را مجددا راه اندازی کنید. اگر این اتفاق افتاد، لطفاً به من ایمیل بزنید و در مورد آن به من بگویید. (برای متوقف کردن این بازشوها به صفحه تنظیمات بروید.)</value>
+  </data>
+  <data name="Page.Camera.Steady" xml:space="preserve">
+    <value>ثابت...</value>
+  </data>
+  <data name="Page.Camera.SureClear" xml:space="preserve">
+    <value>آیا مطمئن هستید که می خواهید تصاویر خود را پاک کنید و از نو شروع کنید؟</value>
+  </data>
+  <data name="Page.Camera.Syncing" xml:space="preserve">
+    <value>در حال همگام سازی...</value>
+  </data>
+  <data name="Page.Camera.Transmitting" xml:space="preserve">
+    <value>در حال انتقال...
+(دستگاه را باز نگه دارید)</value>
+  </data>
+  <data name="Page.Camera.VR" xml:space="preserve">
+    <value>VR</value>
+  </data>
+  <data name="Page.FovCorrection" xml:space="preserve">
+    <value>تصحیح میدان دید</value>
+  </data>
+  <data name="Page.FovCorrectionExplain" xml:space="preserve">
+    <value>مدل های مختلف دستگاه می توانند میدان دید متفاوتی داشته باشند. CrossCam به شما کمک می کند تا پس از انجام اولین عکسبرداری، این مورد را اصلاح کنید. کادربندی کنید و چیزی را با نقاط متمایز در نزدیکی بالا و پایین قاب بگیرید و مطمئن شوید که نقاط در هر دو دستگاه قابل مشاهده هستند.</value>
+  </data>
+  <data name="Page.Technique.ParallelLink1" xml:space="preserve">
+    <value>یک آموزش متنی زیبا</value>
+  </data>
+  <data name="Page.Technique.ParallelLink2" xml:space="preserve">
+    <value>یک آموزش متنی زیبا دیگر</value>
+  </data>
+  <data name="Page.Technique.ParallelLink3" xml:space="preserve">
+    <value>با این حال یک آموزش متن خوب دیگر</value>
+  </data>
+  <data name="Page.Technique.ParallelLink4" xml:space="preserve">
+    <value>آموزش فرانکفورتر جادویی</value>
+  </data>
+  <data name="Page.Technique.ParallelLink5" xml:space="preserve">
+    <value>ویدیویی زیبا در مورد چشم جادویی</value>
+  </data>
+  <data name="Page.Technique.Trouble" xml:space="preserve">
+    <value>اگر همچنان مشکل دارید، سعی کنید گوشی خود را به یک اتاق تاریک بیاورید تا تنها چیزی که چشمان شما به خوبی ببیند و روی آن تمرکز کند، تصویر است.
+
+یکی دیگر از مواردی که می توانید امتحان کنید این است که از لوله های دستمال توالت یا دستان خود برای ساختن آن استفاده کنید تا هر چشم بتواند فقط سمت تصویری را که قرار است ببیند ببیند.
+ • برای نمای متقاطع: یک لوله را روی پل بینی خود نگه دارید (در مرکز بین چشمان خود) در حالی که آن را به مرکز تصویر در مقابل خود قرار دهید. به آرامی لوله را به سمت صفحه حرکت دهید در حالی که سعی می کنید با هر دو چشم به پایین لوله نگاه کنید. هنگامی که با لوله به موقعیت مناسب رسیدید، تصویر باید در جای خود قرار گیرد. ممکن است تمرکز بر تلاش برای نگاه کردن به قسمت داخلی انتهای لوله کمک کند. اگر موقعیت مناسب را پیدا نکردید، از یک تصویر بزرگتر یا یک لوله کوچکتر استفاده کنید.
+ • برای نمای موازی: یک لوله را جلوی هر چشم بگیرید، اما هر دو را به سمت بیرون بکشید، بنابراین به سختی می توانید چیزی را ببینید. همزمان لوله ها را به آرامی به سمت داخل بچرخانید تا بتوانید تصاویر بیشتری را مشاهده کنید. لحظه‌ای که می‌توانید بیشتر تصویر را ببینید (تقریباً نیمی از آن را با هر چشم)، سعی کنید چشم‌هایتان را شل کنید و نیمه‌ها را کنار هم بیاورید. ممکن است استفاده از یک تصویر بزرگتر یا کوچکتر کمک کند.
+
+یک تمرین آسان وجود دارد که می توانید برای تمرین فیوزینگ با مشاهده متقاطع یا موازی انجام دهید. یک نشانگر بردارید و روی هر یک از تصاویر کوچک خود (یا یک جفت چوب بستنی یا زبان گیر) قسمتی از صورتک بکشید. مثلاً در یک طرف یک چشم و یک دهان و در طرف دیگر یک چشم و یک بینی بکشید. سپس می توانید آنها را در مقابل خود نگه دارید و تمرین کنید که دو تصویر را با هم ترکیب کنید تا شکلک را کامل کنید.
+
+من شخصاً متقاطع بر موازی را ترجیح می دهم زیرا تصاویر می توانند بزرگتر باشند، اما هر دو روش کار می کنند. اگر می‌خواهید با تصاویر موازی بزرگ‌تر آزمایش کنید، می‌توانید اندازه را در صفحه تنظیمات کنترل کنید.
+
+گاهی اوقات دشوار است که در حین انجام آن، احساس کنید که آیا روش متقاطع یا موازی را انجام می دهید. می توانید از شخص دیگری بخواهید در حین انجام این کار به چشمان شما نگاه کند یا می توانید به عنوان آزمایش به تصویر زیر نگاه کنید:</value>
+  </data>
+  <data name="SaveModes.Anaglyph" xml:space="preserve">
+    <value>آناگلیف</value>
+  </data>
+  <data name="SaveModes.Cardboard" xml:space="preserve">
+    <value>مقوا</value>
+  </data>
+  <data name="SaveModes.Cross" xml:space="preserve">
+    <value>صلیب</value>
+  </data>
+  <data name="SaveModes.GrayscaleAnaglyph" xml:space="preserve">
+    <value>آناگلیف در مقیاس خاکستری</value>
+  </data>
+  <data name="SaveModes.Parallel" xml:space="preserve">
+    <value>موازی</value>
+  </data>
+  <data name="SaveModes.Quad" xml:space="preserve">
+    <value>چهار</value>
+  </data>
+  <data name="SaveModes.Separate" xml:space="preserve">
+    <value>جداگانه، مجزا</value>
+  </data>
+  <data name="SaveModes.Single" xml:space="preserve">
+    <value>تنها</value>
+  </data>
+  <data name="SaveModes.Triple" xml:space="preserve">
+    <value>سه گانه</value>
+  </data>
+  <data name="Page.Camera.FovExplain" xml:space="preserve">
+    <value>برای تصحیح تفاوت میدان دید، تصاویر را زوم کرده و اسلاید کنید تا نقاط متمایز بین دو عکس قرار گیرند. می توانید خطوط سفید را در اطراف بکشید تا به شما کمک کند تراز را تجسم کنید. این اصلاح برای پیش نمایش های آینده اعمال خواهد شد. ذخیره می شود اما می توانید آن را در صفحه تنظیمات بازنشانی کنید. اگر از دستگاه های یکسان استفاده می کنید، فقط بدون تنظیم ذخیره کنید.</value>
+  </data>
+  <data name="Page.Camera.FovTitle" xml:space="preserve">
+    <value>تصحیح میدان دید</value>
+  </data>
+  <data name="Page.Camera.KeyPoints" xml:space="preserve">
+    <value>امتیاز کلیدی</value>
+  </data>
+  <data name="Page.Camera.Warped" xml:space="preserve">
+    <value>تاب خورده</value>
+  </data>
+  <data name="Page.Camera.WelcomeExplain" xml:space="preserve">
+    <value>CrossCam برای کمک به شما در ساخت عکس های سه بعدی ساخته شده است. عکس‌ها مانند فیلم‌های واقعیت مجازی یا سه‌بعدی سه بعدی هستند، اما شما به تجهیزات یا عینک خاصی نیاز ندارید - فقط گوشی خود (اما اگر یک عینک سه بعدی قرمز/فیروزه‌ای یا نمایشگر Google Cardboard دارید، می‌توانید از آن‌ها استفاده کنید. با CrossCam نیز). تکنیک \"مشاهده رایگان\" که فقط از تلفن و چشمان شما استفاده می کند برای یادگیری نیاز به تمرین دارد. قبل از اینکه به شما بگویم چگونه از CrossCam استفاده کنید، ابتدا می خواهید در مورد تکنیک مشاهده اطلاعات بیشتری کسب کنید؟</value>
+  </data>
+  <data name="Page.Camera.Welcome" xml:space="preserve">
+    <value>به CrossCam خوش آمدید!</value>
+  </data>
+  <data name="Page.Camera.Directions" xml:space="preserve">
+    <value>به مسیرها بروید</value>
+  </data>
+  <data name="Page.Camera.Technique" xml:space="preserve">
+    <value>تکنیک مشاهده</value>
+  </data>
+  <data name="Page.HowToUse.P1" xml:space="preserve">
+    <value>اگر می خواهید دوباره این را ببینید، روی نماد همبرگر (سه خط) در سمت چپ بالای صفحه دوربین ضربه بزنید و روی "Help" ضربه بزنید.
+
+
+1) قاب کنید و اولین عکس را بگیرید.</value>
+  </data>
+  <data name="Page.HowToUse.P2" xml:space="preserve">
+    <value>3) تلفن خود را در مقابل خود ثابت نگه دارید و به آرامی در جهتی که CrossCam به شما می گوید به طرفین حرکت کنید. خیلی دور حرکت نکنید - یک اینچ یا کمتر برای هر پا دورتر از هدف شما فاصله دارد. همچنین، به هیچ وجه نچرخید، فقط به طرفین بلغزانید، یا حتی ممکن است فقط خم شوید.
+
+4) تصویر اول را با پیش نمایش تصویر دوم تراز کنید و وقتی چیزی را که می بینید دوست داشتید عکس دوم را بگیرید.
+
+5) CrossCam پس از گرفتن تصاویر شما به طور خودکار آنها را تراز می کند، اما کامل نیست، اگر از تراز شدن آنها خوشتان نمی آید، می توانید با ضربه زدن روی نماد ربات کوچک، تراز خودکار را خاموش کنید. CrossCam همچنین گزینه های ویرایش دستی زیادی دارد که می توانید با ضربه زدن روی نماد مداد به آنها دسترسی پیدا کنید.
+
+6) هنگامی که برای ذخیره آماده شدید، روی علامت تیک بزنید.
+
+
+کارهای دیگری که می توانید انجام دهید:
+ یک بار ضربه بزنید تا روی یک نقطه فوکوس کنید، دو بار ضربه بزنید تا به فوکوس خودکار پیوسته برگردید.
+ • روی نماد چرخ دنده در سمت راست بالای صفحه دوربین ضربه بزنید تا صفحه تنظیمات باز شود. پر از مطالب جالب است
+ • یک صفحه نکات خوب وجود دارد که می توانید با ضربه زدن روی نماد همبرگر در سمت چپ بالای صفحه دوربین به آن دسترسی پیدا کنید که می تواند به شما کمک کند تصاویر خود را عالی کنید.
+ • اگر ترجیح می دهید برای شلیک دوم خود به سمت دیگر حرکت کنید یا می خواهید طرفین را عوض کنید، کافی است انگشت خود را بکشید.
+ • روی نماد پوشه کوچک در پایین ضربه بزنید تا یک تصویر به صورت کناری بارگیری شود یا یک تصویر استریو کامل بارگیری شود.</value>
+  </data>
+  <data name="Page.Faq.Alignment" xml:space="preserve">
+    <value>تراز خودکار چگونه کار می کند؟</value>
+  </data>
+  <data name="Page.Faq.Alignment.Body" xml:space="preserve">
+    <value>تراز خودکار تلاش می کند تا جفت های تصویر را تا حد ممکن تراز کند، اما بی نقص نیست. بینایی کامپیوتر در بعضی چیزها بهتر از چشم انسان است، اما در موارد دیگر بسیار بدتر است. دنیایی که می بیند با دنیایی که ما می بینیم بسیار متفاوت است، اما می تواند به چند روش مختلف نیز ببیند. دو روش اصلی که در CrossCam می بیند از طریق ضریب همبستگی افزایش یافته (ECC) و استفاده از نکات کلیدی است.
+
+تراز ECC اساساً با تلاش برای اطمینان از همپوشانی لکه های روشن با تکه های روشن و تکه های تیره با تکه های تیره همپوشانی زمانی که دو طرف روی هم قرار می گیرند کار می کند. تراز ECC با یک امتیاز اطمینان همراه است که به تصمیم گیری در مورد مؤثر بودن همسویی کمک می کند. CrossCam به گونه ای تنظیم شده است که تراز ایجاد شده را در صورت کم بودن اطمینان رد کند، اما شما می توانید آستانه عبور / شکست اطمینان را در صفحه تنظیمات پیکربندی کنید.
+
+هم ترازی نقطه کلید به دنبال نقاط مورد علاقه مانند گوشه ها، لبه ها، نقطه ها و کنتراست بالا است و سعی می کند آنها را بین دو طرف مطابقت دهد. هنگامی که نقاط با هم تطبیق داده شدند، CrossCam می‌تواند از الگوریتم‌های مختلفی برای انحراف اضلاع استفاده کند تا نقاط کلیدی از یک طرف تا حد امکان به نقاط کلیدی مربوطه در طرف دیگر نزدیک شوند.
+
+CrossCam به گونه‌ای برنامه‌ریزی شده است که ابتدا از هم‌ترازی نقطه کلید استفاده کند، اما زمانی که هم‌ترازی نقطه کلید با شکست مواجه می‌شود یا زمانی که عکس‌برداری با روش تقسیم آینه تک عکس انجام می‌شود، به تراز ECC برمی‌گردد. همچنین می‌توانید تراز خودکار را به گونه‌ای پیکربندی کنید که همیشه از تراز نقطه کلید استفاده کند یا همیشه از تراز ECC در صفحه تنظیمات استفاده کنید.
+
+CrossCam نتیجه تراز را روی صفحه دوربین در زیر نماد ربات کوچک نمایش می دهد. اگر از تراز ECC استفاده کند، درصد اطمینان را نشان می دهد. اگر از تراز نقطه کلیدی استفاده کند، "KP" را نمایش می دهد. اگر هر دو روش تراز کردن ناموفق باشند، "F" را نشان می دهد. اگر نتیجه تراز را دوست ندارید، می توانید روی نماد ربات کوچک ضربه بزنید تا تراز را حذف کنید.</value>
+  </data>
+  <data name="Page.Faq.Bad" xml:space="preserve">
+    <value>آیا این برای چشم من ضرر دارد؟</value>
+  </data>
+  <data name="Page.Faq.Bad.Body1" xml:space="preserve">
+    <value>نمی دانم، اما فکر نمی کنم. با این حال، اگر احساس بدی دارید، فقط کمی استراحت کنید. با تمرین، ناراحتی معمولا کاهش می یابد. هر روش مشاهده می تواند به دلیل اثری به نام تضاد همگرایی-محل ناراحتی ایجاد کند. اینجاست</value>
+  </data>
+  <data name="Page.Faq.Bad.Body2" xml:space="preserve">
+    <value>پیوند ویکی‌پدیا در مورد تضاد همگرایی و سکونت.</value>
+  </data>
+  <data name="Page.Faq.Bad.Body3" xml:space="preserve">
+    <value>اگر از روش چشم متقاطع استفاده می کنید، این احساس ممکن است به این دلیل باشد که چشمان شما برای مدت طولانی به چیزی بسیار نزدیک نگاه نمی کنند. هنگام مشاهده متقاطع، چشمان شما در نقطه ای تقریباً در نیمه بین چشمان شما و صفحه نمایش همگرا می شوند. اگر نگاه کردن به چیزی که برای مدت طولانی بسته می شود نیز باعث ناراحتی شما می شود، توضیح خود را داریم.
+
+نظر من در مورد آن این است که چشمان شما کاری خارج از توانایی های روزمره خود انجام نمی دهند، اما شما در حال ترکیب دو توانایی متفاوت هستید که معمولاً به این شکل استفاده نمی شود. شما لنزهای خود را روی چیزی در یک مکان متمرکز می کنید که معمولاً برای فوکوس روی آن راحت است، و چشمان خود را به جایی می گیرید که در حالت عادی برای آنها راحت باشد، اما جایی که لنزهای شما فوکوس می کنند و چشمان شما در آنجا همگرا می شوند. فقط همان نقطه نیست من نمی‌دانم که چگونه می‌تواند برای شما بد باشد تا زمانی که بینایی شما هنوز در حال رشد نیست.</value>
+  </data>
+  <data name="Page.Faq.Cardboard" xml:space="preserve">
+    <value>چگونه از CrossCam با Google Cardboard استفاده کنم؟</value>
+  </data>
+  <data name="Page.Faq.Cardboard.Body" xml:space="preserve">
+    <value>اگر بیننده شما دکمه‌ای دارد که مرکز صفحه را فشار می‌دهد، می‌توانید با استفاده از Cardboard از آن عکس بگیرید. بیننده شما همچنین باید سوراخی برای دوربین گوشی شما داشته باشد تا بتواند آن را ببیند.
+
+برای گرفتن عکس با استفاده از Cardboard، روش مشاهده پیش‌نمایش (در صفحه تنظیمات) را به Cardboard تغییر دهید، سپس به صفحه دوربین برگردید و گوشی خود را در بیننده بچسبانید. برای گرفتن عکس، دکمه را فشار دهید و وقتی هر دو طرف عکس گرفتند، دوباره دکمه را فشار دهید تا ذخیره شود. صرفه جویی در حالت Cardboard فقط به این منظور است که به شما امکان می دهد تصاویر را دوباره در CrossCam بارگیری کنید تا بعداً مشاهده کنید، نه برای مشاهده آنها در برنامه عکس های خود از طریق بیننده.
+
+همچنین می توانید با استفاده از هر روش دیگری که می خواهید عکس بگیرید، سپس روش مشاهده پیش نمایش خود را به Cardboard تغییر دهید و گوشی خود را در بیننده قرار دهید.
+
+بینندگان مختلف زیادی با ویژگی های مختلف وجود دارد. ممکن است لازم باشد فاصله جداسازی Cardboard (در صفحه تنظیمات) را تغییر دهید تا تجربه خود را راحت‌تر کنید. همچنین ممکن است لازم باشد ابتدا مطمئن شوید که در گرفتن استریوگرام های باکیفیت خوب هستید، قبل از اینکه آن ها را بزرگ و غوطه ور کنید.</value>
+  </data>
+  <data name="Page.Faq.How" xml:space="preserve">
+    <value>این چطوری کار میکنه؟</value>
+  </data>
+  <data name="Page.Faq.How.Body1" xml:space="preserve">
+    <value>جلوه سه بعدی CrossCam رشته ای است که به خوبی مطالعه شده است که به عنوان استریوسکوپی شناخته می شود و روشی که در آن چشمان خود را روی هم می گذارید (یا آنها را ریلکس می کنید) برای مشاهده دو طرف، مشاهده رایگان نامیده می شود. وقتی به جهان نگاه می کنیم، هر یک از چشمان ما از منظر متفاوتی می بیند. در استریوسکوپی تنها کاری که ما انجام می دهیم این است که یک چشم انداز (مصنوعی) به هر چشم ارائه کنیم و مغز ما بقیه کارها را انجام می دهد. راه های مختلفی وجود دارد تا هر چشمی تصویر متفاوتی را ببیند. اینجاست</value>
+  </data>
+  <data name="Page.Faq.How.Body2" xml:space="preserve">
+    <value>پیوند ویکی پدیا در مورد استریوسکوپی</value>
+  </data>
+  <data name="Page.Faq.How.Body3" xml:space="preserve">
+    <value>به تصاویر سه بعدی که با CrossCam می‌سازید، استریوگرام می‌گویند. کتاب‌های Magic Eye™ حاوی مواردی هستند که به آن autostereograms می‌گویند.</value>
+  </data>
+  <data name="Page.Faq.Into" xml:space="preserve">
+    <value>چگونه وارد استریوسکوپی شدید؟</value>
+  </data>
+  <data name="Page.Faq.Into.Body1" xml:space="preserve">
+    <value>زمانی که مدرک فیزیکم را می گرفتم، این فرصت را داشتم که با استفاده از لیزر هولوگرام های خودم را ایجاد کنم. نوع هولوگرام هایی که من می ساختم سه بعدی بودند زیرا از یک توری پراش برای ایجاد تداخل مخرب در نوری که از سطح صفحه شیشه ای منعکس می شود استفاده می کردند که باعث می شود تصویر منعکس شده از مکان های مختلف متفاوت به نظر برسد. وقتی هر یک از چشمان ما تصویری را می بیند که به نظر می رسد از منظر متفاوتی است (اگر خیلی متفاوت نباشد)، مغز ما آن را به عنوان عمق درک می کند.</value>
+  </data>
+  <data name="Page.Faq.Into.Body2" xml:space="preserve">
+    <value>مدت‌ها بود که از آن اصل ادراک استریوسکوپی آگاه بودم، اما در آن مقطع از زندگی‌ام در کلاس‌های برنامه‌نویسی نیز شرکت می‌کردم، بنابراین تصمیم گرفتم که یک برنامه کامپیوتری ساده برای طراحی سه بعدی استریوسکوپی بسازم. این تلاش StereoSketcher شد. نسخه اصلی با جاوا نوشته شده بود، اما من آن را با جاوا اسکریپت و SVG بازنویسی کردم و اکنون در وب زندگی می کند.</value>
+  </data>
+  <data name="Page.Faq.Into.Body3" xml:space="preserve">
+    <value>در این لینک</value>
+  </data>
+  <data name="Page.Faq.Into.Body4" xml:space="preserve">
+    <value>این به هیچ وجه محبوب نیست، و ممکن است استفاده از آن برای کسی جز من آسان نباشد، اما کار می کند. در حین کار بر روی StereoSketcher، اصول استریوسکوپی را آزمایش کردم و شیفته روشی شدم که می‌توان با استفاده از چند قانون ساده، چنین تجربه‌ای فراگیر و قانع‌کننده ایجاد کرد.</value>
+  </data>
+  <data name="Page.Faq.Inverted" xml:space="preserve">
+    <value>چرا 3D درست به نظر نمی رسد یا چرا 3D وارونه به نظر می رسد؟</value>
+  </data>
+  <data name="Page.Faq.Inverted.Body1" xml:space="preserve">
+    <value>هنگام مشاهده رایگان با روش متقاطع یا موازی، مهم است که به تصاویر با استفاده از همان روشی که برای ایجاد آنها استفاده شده است نگاه کنید. در غیر این صورت چشم راست شما به پرسپکتیو در نظر گرفته شده برای چشم چپ نگاه می کند و بالعکس. این باعث می شود عمق تصویر معکوس شود، زیرا جهت اختلاف منظر عوض شده است.
+
+اختلاف منظر به این معنی است که از منظر چشم راست شما، زمانی که اشیاء دورتر هستند، وقتی از چشم چپ شما دیده می شوند، به نظر می رسد که در سمت راست بیشتر از اجسام نزدیک تر هستند. هنگامی که در قالب جمله توصیف می شود گیج کننده است، اما زمانی که نشان داده شود بسیار شهودی است.
+
+برای نشان دادن، یک انگشت را تقریباً به اندازه طول بازو در مقابل خود نگه دارید، سپس با دست دیگر انگشت دیگر را تقریباً در نیمه بین انگشت اول و صورت خود نگه دارید. اگر به طور متناوب هر چشم را ببندید و به محل قرارگیری انگشتان خود توجه کنید، خواهید دید که هر چشم آنها را در مکان های مختلف می بیند. بنابراین به طور طبیعی، اگر هر چشمی آن حرکت را برعکسی که قرار است ببیند، عمق معکوس خواهد شد.
+
+استفاده تصادفی از روش مشاهده نادرست بسیار آسان است، زیرا مشخص می‌شود که تشخیص اینکه آیا فقط با احساس کردن یا با نگاه کردن به تصویر دوگانه گیج‌کننده‌ای از جهان حاصل می‌شود، تشخیص اینکه آیا چشمانشان را روی هم می‌گذارند یا آرام می‌کنند، برای اکثر مردم بسیار سخت است. در عوض، بهتر است یا از شخص دیگری بخواهید به آنچه چشمان شما انجام می دهند نگاه کند یا این تصویر آزمایشگر را امتحان کنید:</value>
+  </data>
+  <data name="Page.Faq.Inverted.Body2" xml:space="preserve">
+    <value>بسیاری از مردم با دیدن کتاب‌های Magic Eye™ که برای مشاهده با استفاده از روش مشاهده موازی در نظر گرفته شده‌اند، کاملاً راحت شده‌اند. اگر آنها را به صورت متقاطع مشاهده کنید، اشیاء سه بعدی قوی که قرار است از صفحه خارج شوند، به جای سوراخ به نظر می رسند. هر دو روش به شما امکان می‌دهند *چیزی* را ببینید، اما اگر نمی‌توانید تشخیص دهید که چیست، احتمالاً آنها را متقاطع مشاهده می‌کنید.</value>
+  </data>
+  <data name="Page.Faq.Mirror" xml:space="preserve">
+    <value>چگونه روش "آینه تک شات" را انجام دهم؟</value>
+  </data>
+  <data name="Page.Faq.Mirror.Body1" xml:space="preserve">
+    <value>عکاسی با روش آینه، قاب را به نصف تقسیم می‌کند و دگرگونی لازم را انجام می‌دهد، بنابراین می‌توانید با استفاده از یک تلفن و یک آینه معمولی دستی، در یک لحظه از هر دو طرف عکس بگیرید. برای استفاده از روش آینه‌ای هنگام عکس‌برداری، کلید حالت آینه‌ای را در صفحه تنظیمات بچرخانید (برای رسیدن به آنجا روی نماد چرخ‌دنده ضربه بزنید). بعد از اینکه حالت آینه را روشن کردید، CrossCam به شما می گوید که آینه خود را در کدام سمت نگه دارید. آینه خود را در آن سمت نگه دارید و با تراز بین تلفن و آینه و سوژه خود سر و صدا کنید. با کمی صبر، می توانید همه آنها را به گونه ای ردیف کنید که آینه چشم انداز صحیح یکی از طرفین را نشان دهد. از آنجایی که استفاده از روش آینه ای تصویر شما را به صورت عمودی به دو نیم می کند، معمولاً بهتر است با روش آینه ای در منظره عکس بگیرید.
+
+این روش همچنین با انعکاس در پنجره‌های بزرگ و تمیز و همچنین در دریاچه‌ها یا گودال‌های ساکن (زمانی که تلفن در حالت پرتره قفل شده و به طرفین چرخانده می‌شود) کار می‌کند.</value>
+  </data>
+  <data name="Page.Faq.Mirror.Body2" xml:space="preserve">
+    <value>برای استفاده از روش آینه ای، مصالحه/ویرایش هایی وجود دارد که باید انجام شود. همه اینها را می توان به صورت دستی در CrossCam انجام داد، اما تراز خودکار نیز سعی می کند آنها را برای شما انجام دهد:
+ • از آنجایی که نمای منعکس شده در مسافت طولانی تری نسبت به نمای معمولی حرکت می کند، سمت آینه شده باید کمی بزرگنمایی شود.
+ • این احتمال وجود دارد که هنگام استفاده از روش آینه ای، به جای موازی نگه داشتن پرسپکتیوها، در نهایت به انگشتان پا وارد شوید - این می تواند باعث شود که کوتاه شدن مانند تراز عمودی بد به نظر برسد. برای خنثی سازی آن، می توان تصحیح کیستون را انجام داد، که به معنای کوچک شدن عمودی یک طرف هر یک از تصاویر است.
+ • Toeing-in همچنین تمایل دارد که پنجره استریو را به سمت شما حرکت دهد. می توانید آن را لغو کنید و با برش دادن کناره ها آن را در جایی که می خواهید قرار دهید.
+ • احتمالاً آینه نمای یک طرف را به طور کامل نمی پوشاند، بنابراین ممکن است لازم باشد برای حذف تکه های بازتاب نشده مقداری برش انجام شود.
+
+بهترین آینه ها برای این کار شیشه نازکی دارند. یکی از آنها سبک هستند، بنابراین نگه داشتن آنها برای مدت طولانی آسان تر است. نکته مهم دیگر این است که هنگام استفاده از آینه احتمالاً به جای اینکه مستقیماً به داخل آن نگاه کنید زیرا معمولاً از آینه استفاده می شود ، آینه را به طرفین نشانه گیری کنید. وقتی اینطور جهت گیری می شود، آینه هایی با شیشه ضخیم ممکن است کمی تاری داشته باشند. هر چه شیشه نازکتر باشد، این تاری کمتر دیده می شود. این نوع آینه ها ممکن است از جنبه های دیگر نیز بی کیفیت باشند، بنابراین مهم است که تعادل خوبی پیدا کنید.
+
+چند توافق دیگر وجود دارد که باید هنگام استفاده از تصویربرداری آینه پذیرفته شوند که در ویرایش های CrossCam قابل رفع نیستند:
+ • از آنجایی که نمای دو طرف مسافت های کمی متفاوت را طی می کند، فوکوس مورد نیاز برای هر طرف کمی متفاوت خواهد بود، بنابراین یک طرف همیشه کمی تار خواهد بود. این اثر بسته به فاصله تا سوژه و عمق میدان لنز کم و بیش قابل توجه خواهد بود.
+ • هیچ آینه ای واقعاً 100٪ کارآمد نیست، بنابراین ممکن است طرفی که از آینه استفاده می کند کمی تیره تر باشد. این با کیفیت آینه متفاوت خواهد بود.</value>
+  </data>
+  <data name="Page.Faq.Moving" xml:space="preserve">
+    <value>سوژه من در حال حرکت است، چگونه می توانم از آن عکس های سه بعدی بگیرم؟</value>
+  </data>
+  <data name="Page.Faq.Moving.Body" xml:space="preserve">
+    <value>CrossCam به شما امکان می دهد دو روش را برای گرفتن هر دو منظر در یک لحظه انجام دهید. یک روش از دو گوشی و در یک روش از آینه استفاده می کند.
+
+برای استفاده از راه‌اندازی دو تلفن، صفحه تنظیم جفت‌سازی را بررسی کنید، که می‌توانید از صفحه تنظیمات به آن بروید (روی نماد چرخ‌دنده ضربه بزنید).
+
+برای استفاده از روش آینه، سؤالات متداول دیگر در مورد آن را بررسی کنید.</value>
+  </data>
+  <data name="Page.Faq.Test" xml:space="preserve">
+    <value>چگونه می توانم نسخه های پیش از انتشار CrossCam را آزمایش کنم؟</value>
+  </data>
+  <data name="Page.Faq.Test.Body" xml:space="preserve">
+    <value>این پست Reddit را بررسی کنید</value>
+  </data>
+  <data name="Page.Faq.Why" xml:space="preserve">
+    <value>چرا CrossCam را ساختید؟</value>
+  </data>
+  <data name="Page.Faq.Why.Body" xml:space="preserve">
+    <value>همانطور که من شروع به علاقه مند شدن به استریوسکوپی کردم، به طور اتفاقی به یلوستون سفر کردم. زمانی که آنجا بودم، متوجه شدم که استفاده از یک برنامه موبایل دوربین سه بعدی برای عکسبرداری سه بعدی ممکن است سرگرم کننده باشد. من از گزینه های موجود بسیار ناامید شدم. متوجه شدم که همه آنها از شما خواسته اند که دو عکس بگیرید و سپس بفهمید که آیا آنها خوب هستند یا خیر. آنها اغلب چنین نبودند، زیرا مجبور بودم بارها و بارها در مورد فاصله جدایی خود و همچنین کیفیت موضوع حدس بزنم.
+
+در چند هفته بعد، ناامیدی شدید من باعث شد تصور کنم که به سادگی یک پیش نمایش زنده از عکس دوم را در کنار عکس اول ارائه دهم. من قبلاً سابقه ای در توسعه تلفن همراه داشتم، بنابراین فقط یک موضوع وقت گذاشتن بود. CrossCam برای من بسیار عالی بود که فقط برای خودم برای حفظ خاطرات استفاده کنم، و خوشحالم که آن را با شما نیز به اشتراک می‌گذارم.</value>
+  </data>
+  <data name="Page.Faq.Wiggle" xml:space="preserve">
+    <value>ویگلگرام چیست؟</value>
+  </data>
+  <data name="Page.Faq.Wiggle.Body" xml:space="preserve">
+    <value>Wigglegrams راهی برای مشاهده استریوگرام هایی است که به دید دوچشمی متکی نیست. آنها معمولاً یک گیف هستند که بین دو دیدگاه به جلو و عقب می چرخند و هر یک را به طور کامل در یک نقطه نشان می دهند. CrossCam در حال حاضر از ساخت آنها پشتیبانی نمی کند، اما اگر واقعاً به آنها علاقه دارید به من ایمیل بزنید و من این کار را انجام خواهم داد.</value>
+  </data>
+  <data name="Page.Tips.AlignAfter" xml:space="preserve">
+    <value>به خطوط افقی توجه کنید، اما می توانید بعد از آن هم تراز کنید.</value>
+  </data>
+  <data name="Page.Tips.AlignAfter.Body" xml:space="preserve">
+    <value>اگر متوجه می‌شوید که هنگام عکس‌برداری غیرممکن است که هر دو خط راهنمای بالا و پایین را به طور همزمان در یک راستا قرار دهید، احتمالاً در جهتی غیر از یک طرف حرکت کرده‌اید. سعی کنید قبل از گرفتن عکس ها این مشکل را برطرف کنید، اما تراز کردن بعد از واقعیت می تواند به این امر کمک زیادی کند.</value>
+  </data>
+  <data name="Page.Tips.Alignment" xml:space="preserve">
+    <value>می توانید تراز خودکار را خاموش کنید.</value>
+  </data>
+  <data name="Page.Tips.Alignment.Body" xml:space="preserve">
+    <value>اگر نتایج تراز خودکار را دوست ندارید، کافی است آن را در صفحه تنظیمات یا با ضربه زدن روی نماد ربات کوچک خاموش کنید تا تصاویر اصلی گرفته شده شما بازیابی شوند.</value>
+  </data>
+  <data name="Page.Tips.Donut" xml:space="preserve">
+    <value>راهنمای دونات می تواند به پنجره شما کمک کند.</value>
+  </data>
+  <data name="Page.Tips.Donut.Body" xml:space="preserve">
+    <value>یک دونات راهنمای آزمایشی در صفحه تنظیمات وجود دارد که می‌توانید آن را روشن کنید که ممکن است به شما کمک کند پنجره استریوی خود را حفظ کنید و در عین حال عرض قابل استفاده را به حداکثر برسانید. با چرخش به چپ و راست، عمق دونات نسبت به بقیه صحنه تغییر می‌کند - عمق دونات را طوری تنظیم کنید که روی دوردست‌ترین نقطه صحنه یا پشت آن قرار بگیرد. مراقب باشید، استفاده از آن در صحنه‌های کوچک‌تر ممکن است کار را دردناک کند (نکته کیستون را در بالا ببینید).</value>
+  </data>
+  <data name="Page.Tips.Keystone" xml:space="preserve">
+    <value>تصحیح کیستون در صورت ورود به پا مورد نیاز است.</value>
+  </data>
+  <data name="Page.Tips.Keystone.Body1" xml:space="preserve">
+    <value>اگر با هر شلیک به سمت داخل بچرخید، انجام اصلاحات کیستون بسیار مفید است. معمولاً می‌خواهید لبه‌های داخلی عکس‌ها را کوچک کنید و سپس مقداری از بالا و پایین عکس‌ها را برش دهید تا آنها را صاف کنید. با ضربه زدن روی دکمه ای که به نظر می رسد به منوی ویرایش کیستون می رسید:</value>
+  </data>
+  <data name="Page.Tips.Keystone.Body2" xml:space="preserve">
+    <value>چرخش به سمت داخل انگشت پا نامیده می شود. می‌تواند جلوه کوتاه‌کننده‌ای ایجاد کند که ترکیب کردن گوشه‌های تصویر را دشوار می‌کند. جلوه کوتاه‌کننده همیشه در زندگی واقعی وجود دارد، زیرا خطوط موازی به نظر می‌رسد که در فاصله‌ای دور از شما همگرا می‌شوند، اما چشم‌اندازهای مصنوعی می‌توانند آن را عجیب کنند.</value>
+  </data>
+  <data name="Page.Tips.Lean" xml:space="preserve">
+    <value>شما فقط می توانید تکیه دهید.</value>
+  </data>
+  <data name="Page.Tips.Lean.Body" xml:space="preserve">
+    <value>گاهی اوقات به جای حرکت دادن کامل پاهای خود به چپ یا راست برای عکس گرفتن، می توانید راحت تر بایستید و پاهای خود را از هم جدا کنید و به هر جهت خم کنید، اما مراقب باشید که گوشی را در همان ارتفاع نگه دارید. فقط تکیه دادن به جای حرکت می تواند به شما کمک کند تا بیش از حد حرکت نکنید و مستقیم نگه داشتن هدف را آسان تر کند.</value>
+  </data>
+  <data name="Page.Tips.Lines" xml:space="preserve">
+    <value>خطوط تراز می توانند حرکت کنند.</value>
+  </data>
+  <data name="Page.Tips.Lines.Body" xml:space="preserve">
+    <value>در صورت تمایل می توانید خطوط تراز را به اطراف بکشید. این به ویژه در هنگام تراز کردن تصاویر در حین ویرایش مفید است.</value>
+  </data>
+  <data name="Page.Tips.Old" xml:space="preserve">
+    <value>می توانید عکس های قدیمی را در CrossCam باز کنید.</value>
+  </data>
+  <data name="Page.Tips.Old.Body" xml:space="preserve">
+    <value>می‌توانید با ضربه زدن روی نماد پوشه در پایین صفحه دوربین، عکس‌های گرفته‌شده قبلی را بارگیری کنید، اما اگر با دسته بزرگی از عکس‌ها کار می‌کنید، می‌توانید آنها را مستقیماً از برنامه عکس‌های خود در CrossCam نیز به اشتراک بگذارید، که ممکن است وضعیت شما را ردیابی کند. بهتر در عکس های خود قرار دهید</value>
+  </data>
+  <data name="Page.Tips.Quick" xml:space="preserve">
+    <value>وقتی با دیگران هستید حالت سریع را روشن کنید.</value>
+  </data>
+  <data name="Page.Tips.Quick.Body" xml:space="preserve">
+    <value>اگر در حال کاوش با افراد دیگر هستید، ایده خوبی است که با غیرفعال کردن تراز خودکار و و حاشیه‌ها به حالت سریع بروید و فقط یک بار بدون انجام هیچ ویرایشی، عکس را ذخیره کنید. همیشه می‌توانید تصاویر را بارگیری، تراز خودکار، و بعداً ویرایش کنید. به این ترتیب همراهان شما مجبور نیستند منتظر بمانند تا شما تصاویر خود را در همان لحظه کامل کنید، اما همچنان می توانید مطمئن باشید که عمقی که می خواهید واقعا وجود دارد. فقط مراقب باشید قبل از اولین سیو هیچ ویرایش عجولانه ای انجام ندهید! همچنین می توانید ذخیره جانبی جداگانه را روشن کنید که هر ویرایشی را که انجام می دهید نادیده می گیرد.</value>
+  </data>
+  <data name="Page.Tips.Sick" xml:space="preserve">
+    <value>اگر حرکت شما را بیمار می کند، ثابت نگه دارید.</value>
+  </data>
+  <data name="Page.Tips.Sick.Body" xml:space="preserve">
+    <value>اگر تمام حرکات شما را بیمار می‌کند یا مشاهده سه‌بعدی آن را بسیار دشوار می‌کند، سعی نکنید تا زمانی که کمی حرکت کرده‌اید، آن را به صورت سه بعدی ببینید. سپس تصاویر را با یکدیگر مقایسه کنید و با استفاده از خطوط افقی بدون مشاهده سه بعدی، تصاویر را تراز کنید و پس از تراز شدن و ثابت نگه داشتن، مشاهده سه بعدی را شروع کنید.</value>
+  </data>
+  <data name="Page.Tips.Space" xml:space="preserve">
+    <value>این تصاویر می توانند فضای ذخیره سازی زیادی را اشغال کنند - می توانید آنها را کوچک کنید.</value>
+  </data>
+  <data name="Page.Tips.Space.Body" xml:space="preserve">
+    <value>صفحه تنظیمات گزینه ای برای کاهش متناسب وضوح تصویر نهایی دارد - اگر می خواهید در فضا صرفه جویی کنید، این می تواند کمک کند. اگر عکس شما برش داده نشود، نتیجه نهایی این است که دو عکس با وضوح کامل به هم متصل شده اند تا یکی از آنها با وضوح دو برابری ایجاد شود، به این معنی که اغلب می توانید با کاهش زیاد وضوح بدون تأثیر قابل توجهی بر کیفیت، از بین ببرید.</value>
+  </data>
+  <data name="Page.Tips.Turn" xml:space="preserve">
+    <value>برنگرد</value>
+  </data>
+  <data name="Page.Tips.Turn.Body" xml:space="preserve">
+    <value>هنگامی که به سمت بالا حرکت می کنید، سعی کنید تلفن خود را به هیچ وجه در هیچ جهتی نچرخانید، از جمله تمایل طبیعی به چرخش به سمت سوژه در حین حرکت به طرفین. مقداری چرخش (گاهی اوقات) ضروری خواهد بود، اما سعی کنید آن را به حداقل برسانید. تصور کنید تلفن روی یک ریل افقی مستقیم نصب شده است و فقط می تواند سر بخورد. چرخش به سمت داخل می تواند یک اثر کوتاه کننده ایجاد کند که باعث می شود گوشه ها به سختی جوش بخورند.</value>
+  </data>
+  <data name="Page.Tips.Window" xml:space="preserve">
+    <value>برای ایجاد یک پنجره استریو قوی، حاشیه و برش را اضافه کنید.</value>
+  </data>
+  <data name="Page.Tips.Window.Body" xml:space="preserve">
+    <value>با انجام دو کار می توان یک افکت پنجره استریو جالب ایجاد کرد: 1) حاشیه (در صفحه تنظیمات) را روشن کنید و 2) برای مشاهده متقاطع، لبه های داخلی تصاویر را برش دهید تا زمانی که لبه بیرونی خود در تصویر سه بعدی شود (برش). اگر به صورت موازی در حال مشاهده هستید، لبه های بیرونی. نکته کلیدی این است که لبه سمت راست تصویر سمت چپ را کمی از چیزی که لبه سمت راست تصویر سمت راست از صحنه نشان می دهد برش دهید و بالعکس. افزودن حاشیه در صفحه تنظیمات تغییر می کند. اگر گیج کننده است، فقط یک دسته را از لبه های داخلی جدا کنید تا مشخص شود. دکمه برش برای لبه های داخلی به شکل زیر است:</value>
+  </data>
+  <data name="Button.Code" xml:space="preserve">
+    <value>کد را ببینید</value>
+  </data>
+  <data name="Button.Developer" xml:space="preserve">
+    <value>درباره توسعه دهنده</value>
+  </data>
+  <data name="Button.EmailMe" xml:space="preserve">
+    <value>به من ایمیل بزنید</value>
+  </data>
+  <data name="Button.GitHub" xml:space="preserve">
+    <value>یک مشکل در GitHub اضافه کنید</value>
+  </data>
+  <data name="Button.Press" xml:space="preserve">
+    <value>به صفحه دوربین هر دو دستگاه برگردید و روی دکمه جفت در گوشه پایین ضربه بزنید</value>
+  </data>
+  <data name="Button.Primary" xml:space="preserve">
+    <value>اینجا روی قسمت اولیه ضربه بزنید</value>
+  </data>
+  <data name="Button.Privacy" xml:space="preserve">
+    <value>سیاست حفظ حریم خصوصی</value>
+  </data>
+  <data name="Button.Secondary" xml:space="preserve">
+    <value>اینجا در مورد ثانویه ضربه بزنید</value>
+  </data>
+  <data name="Button.Test" xml:space="preserve">
+    <value>نسخه های پیش از انتشار را آزمایش کنید</value>
+  </data>
+  <data name="Button.Wi-Fi" xml:space="preserve">
+    <value>مطمئن شوید که Wi-Fi در هر دو دستگاه فعال است (اما نیازی به اتصال به چیزی نیست)</value>
+  </data>
+  <data name="Page.Pairing.1" xml:space="preserve">
+    <value>اگر دو دستگاه با CrossCam نصب شده دارید، می توانید آنها را به منظور گرفتن عکس های همزمان از دو منظر متصل کنید. گرفتن دو عکس در یک لحظه بهترین تصاویر استریوگرام را ممکن می کند.
+
+لطفاً توجه داشته باشید که این ویژگی هنوز آزمایشی است و ممکن است مشکلاتی داشته باشد. ممکن است همیشه به طور کامل کار نکند و ممکن است باتری شما را بخورد. همچنین لطفاً توجه داشته باشید که در این زمان دستگاه ها برای اتصال باید یک پلت فرم باشند (هم اندروید یا هر دو iOS).
+
+یکی از راه‌های رسیدن به همگام‌سازی *عالی* با استفاده از یک دستگاه و CrossCam، استفاده از روش "آینه تک شات" است. می‌توانید آن را در صفحه تنظیمات روشن کنید و می‌توانید در صفحه سؤالات متداول درباره آن بخوانید.
+
+قبل از اینکه دو دستگاه با هم استفاده شوند، باید نقش آنها تعیین شود. دستگاه PRIMARY دستگاهی است که هر دو پیش‌نمایش را نشان می‌دهد، ضبط را فعال می‌کند و عکس‌های نهایی را نگه می‌دارد/ذخیره می‌کند. برای تخصیص نقش‌ها، هر دو دستگاه را به این صفحه بروید و مراحل زیر را دنبال کنید:</value>
+  </data>
+  <data name="Page.Pairing.2" xml:space="preserve">
+    <value>اگر مشکل دارید، لطفا توجه داشته باشید:
+ • پس از شروع فرآیند جفت شدن، دکمه جفت شدن را می توان در هر زمان دوباره برای توقف یا قطع اتصال ضربه زد.
+ • ممکن است به توقف جفت شدن در هر دو دستگاه و راه اندازی مجدد آن به طور همزمان کمک کند.
+ • ممکن است به قطع اتصال از Wi-Fi یا شبکه های داده در صورت فعال شدن آنها کمک کند.
+ • هر دوربینی متفاوت است. این تفاوت ها می تواند شامل میدان دید زاویه ای، فوکوس، نوردهی و رفتار تعادل رنگ سفید، زمان بندی و موارد دیگر باشد. حتی دو مورد از یک مدل گوشی کمی متفاوت رفتار خواهند کرد. من ترجیح می دهم از یک جفت گوشی قدیمی یکسان (در مورد من، یک جفت آیفون 6) استفاده کنم.
+ • CrossCam نرم افزاری است، نه سخت افزاری، بنابراین گرفتن عکس ها ممکن است کمی ناهماهنگ باشد، بسته به اینکه پردازنده و حافظه در لحظه دقیق شروع عکس چه کار دیگری انجام می دهند. در نتیجه، ممکن است گاهی اوقات همگام سازی کامل نباشد، اما به طور کلی باید بسیار نزدیک باشد.</value>
+  </data>
+  <data name="Page.Pairing.Again" xml:space="preserve">
+    <value>برای اتصال بعداً، مطمئن شوید که Wi-Fi را فعال کرده‌اید و سپس فقط روی دکمه اتصال در صفحه اصلی در هر دو دستگاه ضربه بزنید.</value>
+  </data>
+  <data name="Page.Pairing.LocalNetworkAccess" xml:space="preserve">
+    <value>CrossCam به مجوز دسترسی به شبکه محلی نیاز دارد. CrossCam در واقع از شبکه محلی استفاده نمی کند، اما iOS نیاز دارد که CrossCam این مجوز را دریافت کند تا از آنتن Wi-Fi برای اسکن دستگاه ها استفاده کند. CrossCam یک بار این مجوز را می خواهد - اگر مجوز رد شود، باید خودتان بروید و سوئیچ را در برنامه تنظیمات بچرخانید.</value>
+  </data>
+  <data name="Page.Pairing.Location" xml:space="preserve">
+    <value>CrossCam برای اتصال دستگاه های شما، مجوزها و روشن کردن اجزا را در صورت نیاز درخواست می کند. لطفاً توجه داشته باشید: CrossCam برای اتصال به دستگاه ثانویه به مجوز مکان و برای روشن شدن خدمات مکان در دستگاه اصلی نیاز دارد. این به سادگی یک نیاز اندروید است و کاملاً خارج از کنترل من است. CrossCam در واقع به هیچ وجه از موقعیت مکانی شما استفاده نمی کند، اما از آنجا که عمل جستجوی (و یافتن) دستگاه های مجاور از نظر تئوری می تواند برای تعیین موقعیت تقریباً شما استفاده شود، CrossCam برای دسترسی به موقعیت مکانی شما به مجوز نیاز دارد.</value>
+  </data>
+  <data name="Page.Pairing.Permissions" xml:space="preserve">
+    <value>نکته ای در مورد مجوزها:</value>
+  </data>
+  <data name="Page.Pairing.Title" xml:space="preserve">
+    <value>جفت شدن</value>
+  </data>
+  <data name="Button.Back" xml:space="preserve">
+    <value>&lt; برگشت</value>
+  </data>
+  <data name="Page.MorePictures.CrossViewSubreddit" xml:space="preserve">
+    <value>CrossView Subreddit</value>
+  </data>
+  <data name="Page.MorePictures.FacebookGroup" xml:space="preserve">
+    <value>گروه فیس بوک سه بعدی استریوسکوپی</value>
+  </data>
+  <data name="Page.MorePictures.GoogleDoc" xml:space="preserve">
+    <value>Google Doc of Great Stuff</value>
+  </data>
+  <data name="Page.MorePictures.Instagram" xml:space="preserve">
+    <value>برچسب استریوسکوپی اینستاگرام</value>
+  </data>
+  <data name="Page.MorePictures.Mine" xml:space="preserve">
+    <value>تصاویری که گرفته ام را ببینید</value>
+  </data>
+  <data name="Page.MorePictures.ParallelViewSubreddit" xml:space="preserve">
+    <value>ParallelView Subreddit</value>
+  </data>
+  <data name="Page.Settings.Alignment" xml:space="preserve">
+    <value>تراز خودکار</value>
+  </data>
+  <data name="Page.Settings.Analytics" xml:space="preserve">
+    <value>استفاده ناشناس و داده های خطا را برای کمک به بهبود CrossCam به اشتراک بگذارید</value>
+  </data>
+  <data name="Page.Settings.Border" xml:space="preserve">
+    <value>مرز</value>
+  </data>
+  <data name="Page.Settings.Camera" xml:space="preserve">
+    <value>دوربین</value>
+  </data>
+  <data name="Page.Settings.Defaults" xml:space="preserve">
+    <value>به حالت پیش فرض بازنشانی کنید</value>
+  </data>
+  <data name="Page.Settings.Editing" xml:space="preserve">
+    <value>ویرایش</value>
+  </data>
+  <data name="Page.Settings.ErrorEmail" xml:space="preserve">
+    <value>در صورت بروز خطا درخواست ارسال ایمیل کنید</value>
+  </data>
+  <data name="Page.Settings.Guides" xml:space="preserve">
+    <value>راهنمای ضبط</value>
+  </data>
+  <data name="Page.Settings.Pairing" xml:space="preserve">
+    <value>جفت شدن</value>
+  </data>
+  <data name="Page.Settings.Preview" xml:space="preserve">
+    <value>پیش نمایش روش مشاهده</value>
+  </data>
+  <data name="Page.Settings.Saving" xml:space="preserve">
+    <value>صرفه جویی در</value>
+  </data>
+  <data name="Page.TipMe.1" xml:space="preserve">
+    <value>CrossCam برای استفاده رایگان، بدون آگهی، منبع باز است، هیچ اطلاعات شخصی را از شما جمع آوری نمی کند و به شما امکان دسترسی کامل به همه ویژگی ها را می دهد. من عاشق کار بر روی CrossCam هستم اما زمان و تلاش زیادی می طلبد. من هیچ پولی از CrossCam به دست نمی‌آورم به جز نکاتی که ممکن است مردم تصمیم بگیرند برای من ارسال کنند.</value>
+  </data>
+  <data name="Page.TipMe.2" xml:space="preserve">
+    <value>اگر CrossCam را دوست دارید و می توانید، لطفاً یک نکته برای من ارسال کنید.</value>
+  </data>
+  <data name="Page.TipMe.Ko-fi" xml:space="preserve">
+    <value>کو-فی</value>
+  </data>
+  <data name="Page.TipMe.Patreon" xml:space="preserve">
+    <value>پاترئون</value>
+  </data>
+  <data name="Page.TipMe.PayPal" xml:space="preserve">
+    <value>پی پال</value>
+  </data>
+  <data name="Page.TipMe.Tipped" xml:space="preserve">
+    <value>به من انعام داده شده است</value>
+  </data>
+  <data name="Page.TipMe.TippedTimes" xml:space="preserve">
+    <value>بار، در مجموع</value>
+  </data>
+  <data name="Page.TipMe.Venmo" xml:space="preserve">
+    <value>ونمو</value>
+  </data>
+  <data name="Title.MorePictures" xml:space="preserve">
+    <value>تصاویر بیشتر را ببینید</value>
+  </data>
+  <data name="Title.Settings" xml:space="preserve">
+    <value>تنظیمات</value>
+  </data>
+  <data name="Title.TipMe" xml:space="preserve">
+    <value>نکات قابل قدردانی هستند!</value>
+  </data>
+  <data name="Settings.Alignment.Advanced" xml:space="preserve">
+    <value>نمایش تنظیمات تراز پیشرفته</value>
+  </data>
+  <data name="Settings.Alignment.Ecc" xml:space="preserve">
+    <value>سعی کنید همیشه از تراز ECC استفاده کنید</value>
+  </data>
+  <data name="Settings.Alignment.Keypoints" xml:space="preserve">
+    <value>سعی کنید همیشه از تراز کلیدی استفاده کنید</value>
+  </data>
+  <data name="Settings.Alignment.On" xml:space="preserve">
+    <value>تراز خودکار پس از ضبط</value>
+  </data>
+  <data name="Settings.Border.Color" xml:space="preserve">
+    <value>رنگ لبه</value>
+  </data>
+  <data name="Settings.Border.FuseGuide" xml:space="preserve">
+    <value>راهنمای فیوز را در بالا اضافه کنید (یک نقطه بالای هر طرف)</value>
+  </data>
+  <data name="Settings.Border.On" xml:space="preserve">
+    <value>حاشیه اضافه کنید</value>
+  </data>
+  <data name="Settings.Border.Prompt" xml:space="preserve">
+    <value>هنگامی که در حین بارگیری تشخیص داده شد، درخواست کنید که حاشیه را قطع کنید</value>
+  </data>
+  <data name="Settings.Border.Thickness" xml:space="preserve">
+    <value>ضخامت حاشیه (دهم درصد عرض)</value>
+  </data>
+  <data name="Settings.Camera.Camera1" xml:space="preserve">
+    <value>Force camera1 API (ممکن است مفید باشد اگر با موارد عجیب و غریب مواجه هستید، اما عملکرد محدودی را در پی خواهد داشت.</value>
+  </data>
+  <data name="Settings.Camera.Camera2" xml:space="preserve">
+    <value>API اجباری camera2 (باید روی Android 6 یا بالاتر باشد، اگر خطاهایی را تجربه می‌کنید ممکن است مفید باشد، اما ممکن است خطاهای بیشتری ایجاد کنید، برای اعمال کردن به خروج اجباری/راه‌اندازی مجدد نیاز دارد)</value>
+  </data>
+  <data name="Settings.Camera.LandscapeCaptureHorizontal" xml:space="preserve">
+    <value>قرارگیری افقی دکمه ضبط منظره</value>
+  </data>
+  <data name="Settings.Camera.LandscapeCaptureVertical" xml:space="preserve">
+    <value>قرارگیری عمودی دکمه ضبط منظره</value>
+  </data>
+  <data name="Settings.Camera.Lock" xml:space="preserve">
+    <value>فوکوس و نوردهی را برای عکس دوم به فوکوس و نوردهی از عکس اول قفل کنید</value>
+  </data>
+  <data name="Settings.Camera.Pair" xml:space="preserve">
+    <value>قرارگیری افقی دکمه جفت (زمانی که دکمه عکسبرداری در مرکز قرار دارد)</value>
+  </data>
+  <data name="Settings.Camera.PointFocus" xml:space="preserve">
+    <value>روی فوکوس نقطه ضربه بزنید، برای برگشت به فوکوس پیوسته دو ضربه سریع بزنید (یا ذخیره یا پاک کنید)</value>
+  </data>
+  <data name="Settings.Camera.PortraitCapture" xml:space="preserve">
+    <value>قرار دادن دکمه عکاسی پرتره</value>
+  </data>
+  <data name="Settings.Editing.Align" xml:space="preserve">
+    <value>حداکثر نسبت تراز عمودی</value>
+  </data>
+  <data name="Settings.Editing.Keystone" xml:space="preserve">
+    <value>حداکثر کیستون</value>
+  </data>
+  <data name="Settings.Editing.Rotation" xml:space="preserve">
+    <value>حداکثر درجه چرخش</value>
+  </data>
+  <data name="Settings.Editing.SideCrop" xml:space="preserve">
+    <value>حداکثر نسبت محصول جانبی</value>
+  </data>
+  <data name="Settings.Editing.TopCrop" xml:space="preserve">
+    <value>حداکثر نسبت محصول بالا/پایین</value>
+  </data>
+  <data name="Settings.Editing.Zoom" xml:space="preserve">
+    <value>حداکثر نسبت بزرگنمایی</value>
+  </data>
+  <data name="Settings.Guides.Donut" xml:space="preserve">
+    <value>نمایش راهنمای دونات (باعث ورود انگشت پا می شود، بنابراین ممکن است نیاز به ویرایش کیستون داشته باشد)</value>
+  </data>
+  <data name="Settings.Guides.Fuse" xml:space="preserve">
+    <value>نمایش راهنمای فیوز (یک نقطه بالای هر طرف)</value>
+  </data>
+  <data name="Settings.Guides.LineColor" xml:space="preserve">
+    <value>خطوط رنگی متفاوت</value>
+  </data>
+  <data name="Settings.Guides.Lines" xml:space="preserve">
+    <value>خطوط قابل مشاهده</value>
+  </data>
+  <data name="Settings.Guides.Roll" xml:space="preserve">
+    <value>راهنمای رول قابل مشاهده است</value>
+  </data>
+  <data name="Settings.Pair.CaptureDelay" xml:space="preserve">
+    <value>تأخیر اضافی لحظه ضبط (میلی‌ثانیه) (فقط در این دستگاه یک تأخیر اضافی به لحظه ضبط هدف اضافه می‌کند)</value>
+  </data>
+  <data name="Settings.Pair.Countdown" xml:space="preserve">
+    <value>ضبط طول شمارش معکوس (تایمر)</value>
+  </data>
+  <data name="Settings.Pair.Fov" xml:space="preserve">
+    <value>تصحیح میدان دید</value>
+  </data>
+  <data name="Settings.Pair.FovNotSet" xml:space="preserve">
+    <value>تصحیح FOV تنظیم نشده است (برای راه‌اندازی با دستگاه‌های جفت شده عکس‌برداری انجام دهید).</value>
+  </data>
+  <data name="Settings.Pair.FovReset" xml:space="preserve">
+    <value>بازنشانی کنید</value>
+  </data>
+  <data name="Settings.Pair.Go" xml:space="preserve">
+    <value>به صفحه تنظیم جفت شدن بروید</value>
+  </data>
+  <data name="Settings.Pair.NoRole" xml:space="preserve">
+    <value>نقش انتخاب نشده است</value>
+  </data>
+  <data name="Settings.Pair.PreviewDelay" xml:space="preserve">
+    <value>پیش‌نمایش تاخیر فریم (تعداد بالاتر نرخ فریم را کاهش می‌دهد اما باتری را ذخیره می‌کند)</value>
+  </data>
+  <data name="Settings.Pair.Primary" xml:space="preserve">
+    <value>اولیه:</value>
+  </data>
+  <data name="Settings.Pair.PrimaryRole" xml:space="preserve">
+    <value>نقش: اولیه</value>
+  </data>
+  <data name="Settings.Pair.Sample" xml:space="preserve">
+    <value>تعداد نمونه ساعت (تعداد کمتر زمان مورد نیاز برای همگام‌سازی اولیه را کاهش می‌دهد اما ممکن است دقت همگام‌سازی را کاهش دهد)</value>
+  </data>
+  <data name="Settings.Pair.Secondary" xml:space="preserve">
+    <value>ثانوی:</value>
+  </data>
+  <data name="Settings.Pair.SecondaryRole" xml:space="preserve">
+    <value>نقش: ثانویه</value>
+  </data>
+  <data name="Settings.Pair.Timeout" xml:space="preserve">
+    <value>مهلت زمانی اتصال (ثانیه) (0 به معنای عدم وجود مهلت زمانی است)</value>
+  </data>
+  <data name="Settings.Preview.Barrel" xml:space="preserve">
+    <value>اضافه کردن تصحیح لنز/اعوجاج بشکه (ممکن است نرخ فریم را کاهش دهد)</value>
+  </data>
+  <data name="Settings.Preview.BarrelFinal" xml:space="preserve">
+    <value>تصحیح لنز/اعوجاج بشکه را فقط به تصاویر نهایی اضافه کنید (ممکن است سرعت نمایش نهایی را کاهش دهد اما سرعت گرفتن را افزایش می دهد)</value>
+  </data>
+  <data name="Settings.Preview.CardboardDistance" xml:space="preserve">
+    <value>فاصله جداسازی مقوا</value>
+  </data>
+  <data name="Settings.Preview.Downsize" xml:space="preserve">
+    <value>کوچک کردن تصویر (ممکن است نرخ فریم را افزایش دهد)</value>
+  </data>
+  <data name="Settings.Preview.DownsizePercent" xml:space="preserve">
+    <value>درصد تصویر را کوچک کنید</value>
+  </data>
+  <data name="Settings.Preview.Immersive" xml:space="preserve">
+    <value>مشاهده نهایی همهجانبه</value>
+  </data>
+  <data name="Settings.Preview.LensStrength" xml:space="preserve">
+    <value>قدرت تصحیح لنز</value>
+  </data>
+  <data name="Settings.Preview.Mirror" xml:space="preserve">
+    <value>عکسبرداری با استفاده از روش تقسیم آینه تک شات</value>
+  </data>
+  <data name="Settings.Preview.Width" xml:space="preserve">
+    <value>حداکثر عرض تصویر نمای موازی (نقاط)</value>
+  </data>
+  <data name="Settings.Reset" xml:space="preserve">
+    <value>به حالت پیش فرض بازنشانی کنید</value>
+  </data>
+  <data name="Settings.Saving.Alone" xml:space="preserve">
+    <value>سمت اول را به تنهایی ذخیره کنید (بدون ویرایش یا حاشیه) (برای اشتراک‌گذاری آسان عکس تخت با افراد با نمای مسطح)</value>
+  </data>
+  <data name="Settings.Saving.Anaglyph" xml:space="preserve">
+    <value>ذخیره نسخه آنگلیف قرمز/فیروزه ای (با ویرایش اما بدون حاشیه)</value>
+  </data>
+  <data name="Settings.Saving.Browse" xml:space="preserve">
+    <value>مرور کردن...</value>
+  </data>
+  <data name="Settings.Saving.Cardboard" xml:space="preserve">
+    <value>ذخیره برای Cardboard (با ویرایش، بدون حاشیه، بدون فاصله، عرض کامل، برای بارگیری مجدد در CrossCam بعدا)</value>
+  </data>
+  <data name="Settings.Saving.Clear" xml:space="preserve">
+    <value>پاک کردن خودکار عکس‌ها پس از ذخیره</value>
+  </data>
+  <data name="Settings.Saving.Cross" xml:space="preserve">
+    <value>ذخیره نسخه متقاطع پیوست شده (با ویرایش و حاشیه)</value>
+  </data>
+  <data name="Settings.Saving.ExternalDirectory" xml:space="preserve">
+    <value>ذخیره در دایرکتوری CrossCam خارجی در:</value>
+  </data>
+  <data name="Settings.Saving.ExternalWarning" xml:space="preserve">
+    <value>(هشدار: اگر CrossCam حذف شود، تصاویر حذف خواهند شد)</value>
+  </data>
+  <data name="Settings.Saving.Folder" xml:space="preserve">
+    <value>در زیرپوشه/آلبوم اختصاصی "CrossCam" ذخیره کنید</value>
+  </data>
+  <data name="Settings.Saving.Grayscale" xml:space="preserve">
+    <value>ذخیره نسخه آنگلیف قرمز/فیروزه‌ای خاکستری (با ویرایش اما بدون حاشیه)</value>
+  </data>
+  <data name="Settings.Saving.Order" xml:space="preserve">
+    <value>(ذخیره به ترتیب از بالا به پایین انجام می شود)</value>
+  </data>
+  <data name="Settings.Saving.Parallel" xml:space="preserve">
+    <value>ذخیره نسخه نمای موازی پیوست شده (با ویرایش و حاشیه)</value>
+  </data>
+  <data name="Settings.Saving.Quad" xml:space="preserve">
+    <value>ذخیره ترکیب چهارگانه (با ویرایش و حاشیه)</value>
+  </data>
+  <data name="Settings.Saving.Reset" xml:space="preserve">
+    <value>بازنشانی کنید</value>
+  </data>
+  <data name="Settings.Saving.Resolution" xml:space="preserve">
+    <value>نسبت وضوح</value>
+  </data>
+  <data name="Settings.Saving.SaveTo" xml:space="preserve">
+    <value>ذخیره در:</value>
+  </data>
+  <data name="Settings.Saving.Separate" xml:space="preserve">
+    <value>هر طرف را جداگانه ذخیره کنید (بدون ویرایش یا حاشیه برای پردازش پست آسان تر، ابتدا سمت چپ ذخیره می شود)</value>
+  </data>
+  <data name="Settings.Saving.Subfolder" xml:space="preserve">
+    <value>در زیرپوشه ها/آلبوم های اختصاصی «CrossCam_{ViewMethod}» ذخیره کنید</value>
+  </data>
+  <data name="Settings.Saving.Triple" xml:space="preserve">
+    <value>ذخیره ترکیب سه گانه (با ویرایش و حاشیه)</value>
+  </data>
+  <data name="Button.Pair.Accept" xml:space="preserve">
+    <value>تایید کنید</value>
+  </data>
+  <data name="Button.Pair.Cancel" xml:space="preserve">
+    <value>لغو کنید</value>
+  </data>
+  <data name="Page.Camera.AcceptConnection" xml:space="preserve">
+    <value>پذیرش اتصال به</value>
+  </data>
+  <data name="Page.Camera.Confirm" xml:space="preserve">
+    <value>مطابقت کد را در هر دو دستگاه تأیید کنید:</value>
+  </data>
+  <data name="Page.Footer.CouldntOpen" xml:space="preserve">
+    <value>پیوند باز نشد</value>
+  </data>
+  <data name="Page.Footer.OpenError" xml:space="preserve">
+    <value>پیوند mailto باز نشد. این ممکن است به این دلیل باشد که کلاینت ایمیل شما تنظیم نشده است یا دلایل دیگری.</value>
+  </data>
+  <data name="Page.Pair.Errors.Denied" xml:space="preserve">
+    <value>مجوزهای لازم برای جفت شدن داده نشد. استثنا:</value>
+  </data>
+  <data name="Page.Pair.Errors.FailedBluetooth" xml:space="preserve">
+    <value>دستگاه بلوتوث روشن نشد. استثنا:</value>
+  </data>
+  <data name="Page.Pair.Errors.FailedSearch" xml:space="preserve">
+    <value>دستگاه در جستجوی دستگاه ها ناموفق بود. استثنا:</value>
+  </data>
+  <data name="Page.Pair.Errors.LocationOff" xml:space="preserve">
+    <value>خدمات مکان فعال نشده است. نمی توان دستگاه ها را اسکن کرد. برای جزئیات بیشتر به صفحه جفت شدن مراجعه کنید.</value>
+  </data>
+  <data name="Page.Pair.Errors.LocationScan" xml:space="preserve">
+    <value>مجوز مکان داده نشده است. نمی توان دستگاه ها را اسکن کرد. برای جزئیات بیشتر به صفحه جفت شدن مراجعه کنید.</value>
+  </data>
+  <data name="Page.Pair.Errors.NotSupported" xml:space="preserve">
+    <value>جفت شدن در این دستگاه پشتیبانی نمی شود. استثنا:</value>
+  </data>
+  <data name="Page.Pair.Errors.Title" xml:space="preserve">
+    <value>خطا</value>
+  </data>
+  <data name="Page.Pair.Errors.WifiOff" xml:space="preserve">
+    <value>وای فای خاموش است. لطفا وای فای را روشن کنید.</value>
+  </data>
+  <data name="Page.Pair.PrimaryExplanation" xml:space="preserve">
+    <value>این دستگاه اکنون به عنوان اصلی تنظیم شده است.</value>
+  </data>
+  <data name="Page.Pair.PrimarySelected" xml:space="preserve">
+    <value>نقش اصلی انتخاب شد</value>
+  </data>
+  <data name="Page.Pair.SecondaryExplanation" xml:space="preserve">
+    <value>این دستگاه اکنون به عنوان ثانویه تنظیم شده است.</value>
+  </data>
+  <data name="Page.Pair.SecondarySelected" xml:space="preserve">
+    <value>نقش دوم انتخاب شد</value>
+  </data>
+  <data name="Page.Technique.Mode" xml:space="preserve">
+    <value>حالت</value>
+  </data>
+  <data name="Page.Technique.SetMode" xml:space="preserve">
+    <value>CrossCam اکنون وارد شده است</value>
+  </data>
+</root>

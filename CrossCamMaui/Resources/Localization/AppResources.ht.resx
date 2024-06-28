@@ -1,0 +1,1156 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="Button.GoogleDoc" xml:space="preserve">
+    <value>Google Doc nan gwo bagay</value>
+  </data>
+  <data name="Button.LearnCross" xml:space="preserve">
+    <value>APRANN KWA</value>
+  </data>
+  <data name="Button.LearnParallel" xml:space="preserve">
+    <value>APRANN PARALÈL</value>
+  </data>
+  <data name="Button.MorePictures" xml:space="preserve">
+    <value>Gade Plis Foto</value>
+  </data>
+  <data name="Button.Review" xml:space="preserve">
+    <value>Ekri yon Revizyon</value>
+  </data>
+  <data name="Button.Share" xml:space="preserve">
+    <value>Pataje CrossCam</value>
+  </data>
+  <data name="Button.Support" xml:space="preserve">
+    <value>Sipòte Developer la</value>
+  </data>
+  <data name="Button.TapCross" xml:space="preserve">
+    <value>FAP LA POU CHWAZI KWA</value>
+  </data>
+  <data name="Button.TapParallel" xml:space="preserve">
+    <value>TAPE LA POU CHWAZI PARALÈL</value>
+  </data>
+  <data name="Footer.Span1" xml:space="preserve">
+    <value>Jwenn yon ensèk? Gen yon kesyon? Jis imèl</value>
+  </data>
+  <data name="Footer.Span3" xml:space="preserve">
+    <value>! Mwen renmen pale ak itilizatè yo epi li se fason ki pi rapid pou kominike avè m.</value>
+  </data>
+  <data name="Page.HowToUse.2anaglyph" xml:space="preserve">
+    <value>2) Kòmanse anaglif gade premye foto a ak aperçu ki parèt akote li.</value>
+  </data>
+  <data name="Page.HowToUse.2cardboard" xml:space="preserve">
+    <value>2) Kòmanse katon gade premye foto a ak aperçu ki parèt akote li.</value>
+  </data>
+  <data name="Page.HowToUse.2cross" xml:space="preserve">
+    <value>2) Kòmanse kwaze gade premye foto a ak aperçu ki parèt akote li.</value>
+  </data>
+  <data name="Page.HowToUse.2parallel" xml:space="preserve">
+    <value>2) Kòmanse paralèl gade premye foto a ak aperçu ki parèt akote li.</value>
+  </data>
+  <data name="Page.Technique.AdditionalTutorials" xml:space="preserve">
+    <value>Tutorial adisyonèl:</value>
+  </data>
+  <data name="Page.Technique.Cross1" xml:space="preserve">
+    <value>Ak anpil atansyon kwaze je ou pandan w ap gade pè foto ki anwo yo. Lè w travèse zye w, bagay yo pral twoub epi w ap wè w epi w ap kòmanse wè 4 foto olye de 2 (2 pè). Plis ou travèse je ou pi difisil, plis pè foto yo ap deplase - li pral sanble yon ti kras tankou sa a:</value>
+  </data>
+  <data name="Page.Technique.Cross2" xml:space="preserve">
+    <value>Uncross je ou ak anpil atansyon, pou foto yo sou andedan chak pè kòmanse sipèpoze. Li pral kòmanse parèt tankou gen sèlman 3 foto olye pou yo 4. Li pral toujou twoub ak wè-a epi gade yon bagay tankou sa a:</value>
+  </data>
+  <data name="Page.Technique.Cross3" xml:space="preserve">
+    <value>Yon fwa ou gen sipèpoze nan mitan travay ou jis gen yo detann je ou epi pèmèt yo konsantre foto a. Nan pwen sa a ou pral gen yon foto 3D byen file nan mitan an ak yon foto transparan k ap flote sou chak bò ki pral sanble ak sa a (eksepte mitan an pral 3D):</value>
+  </data>
+  <data name="Page.Technique.Cross4" xml:space="preserve">
+    <value>Si ou gen pwoblèm pou travèse je ou, ou ka eseye tou fikse nan dwèt ou pandan w ap kenbe l nan mitan wout ant je ou ak ekran an. Ou ta dwe wè foto yo kòmanse separe ak sipèpoze dèyè dwèt ou.</value>
+  </data>
+  <data name="Page.Technique.CrossViewing" xml:space="preserve">
+    <value>KWA VIEWING</value>
+  </data>
+  <data name="Page.Technique.P1" xml:space="preserve">
+    <value>Si ou vle wè sa ankò, tape ikòn anmbègè (twa liy) ki anlè a gòch ekran kamera a epi tape "Ed".
+
+Pou wè 3D a nan CrossCam (ki rele "stereogram") ou ka itilize linèt 3D wouj/cyan, yon gade Google Cardboard, oswa ou ka fè "wè gratis" lè l sèvi avèk sèlman je ou ak ekran ou. Gen de fason pou libere vi, ak CrossCam ka ede w aprann tou de. Ou bezwen di CrossCam ki jan ou pral wè foto yo oswa li pa pral travay byen. Pa enkyete w, ou ka toujou chanje sa a ankò nan Anviwònman.
+
+Si ou kapab alèz kwaze je ou, ou ta dwe eseye metòd kwa a an premye, otreman ou ta dwe eseye metòd paralèl la. Si w abitye ak liv Magic Eye™, pwobableman ou deja kapab fè metòd paralèl la, men ou ta ka tou kapab fè metòd kwa a. Tape yon metòd ki anba a pou aprann li, epi asire w ke w di CrossCam kiyès ki travay pou ou lè w peze bouton CHWAZI ki koresponn lan.
+
+Si ou ta pito itilize linèt 3D oswa yon visualiseur Katon, ou ka mete CrossCam pou itilize sa yo ki nan paj Anviwònman an.</value>
+  </data>
+  <data name="Page.Technique.CrossLink1" xml:space="preserve">
+    <value>Yon bèl tutoryèl tèks</value>
+  </data>
+  <data name="Page.Technique.CrossLink2" xml:space="preserve">
+    <value>Yon lòt bèl tutoryèl tèks ankò</value>
+  </data>
+  <data name="Page.Technique.CrossLink3" xml:space="preserve">
+    <value>Yon ti leson patikilye YouTube</value>
+  </data>
+  <data name="Page.Technique.CrossLink4" xml:space="preserve">
+    <value>Yon long, enpè, men itil leson patikilye YouTube</value>
+  </data>
+  <data name="Page.Technique.CrossLink5" xml:space="preserve">
+    <value>Yon lòt leson patikilye YouTube</value>
+  </data>
+  <data name="Page.Technique.CrossLink6" xml:space="preserve">
+    <value>Yon pwojè kamera doub ak yon leson patikilye</value>
+  </data>
+  <data name="Page.Technique.Parallel1" xml:space="preserve">
+    <value>Si imaj ki anwo a pa anfòm sou ekran ou a, vire telefòn ou nan jaden flè - CrossCam ap eseye fè pè imaj ki pi wo a gwosè ki pi fasil pou sa. Ou pa toujou oblije sèvi ak CrossCam nan jaden flè, men yon imaj parfe gwosè fè aprann teknik la pi fasil.</value>
+  </data>
+  <data name="Page.Technique.Parallel2" xml:space="preserve">
+    <value>Rilaks je ou epi gade "atravè" pè foto ki anlè a tankou w ap kalite zòn deyò ak je ou lonje dwèt sou foto yo. Ou ta dwe kòmanse wè 3 foto ak yon foto 3D nan mitan an, yon ti jan tankou sa a:</value>
+  </data>
+  <data name="Page.Technique.Parallel3" xml:space="preserve">
+    <value>Si ou kòmanse wè 4 foto, ou ale twò lwen. Eseye deplase je ou yon ti kras si ou jwenn tèt ou nan pwen sa a ankò. Rilaks twò lwen pral sanble yon ti kras tankou sa a:</value>
+  </data>
+  <data name="Page.Technique.Parallel4" xml:space="preserve">
+    <value>Si w gen pwoblèm, eseye pote ekran ou dwat sou figi ou ak pè foto yo dwat devan je ou. Rilaks epi gade "atravè" ekran an epi tou dousman rale ekran ou lwen figi ou pandan w ap kenbe je ou rilaks. Evantyèlman imaj la ta dwe "klike" nan konsantre.</value>
+  </data>
+  <data name="Page.Technique.Parallel5" xml:space="preserve">
+    <value>Si w toujou ap gade kat imaj, ogmante "Lajè maksimòm imaj paralèl la" nan paj Anviwònman an.</value>
+  </data>
+  <data name="Page.Technique.ParallelViewing" xml:space="preserve">
+    <value>VYE PARALÈL</value>
+  </data>
+  <data name="Page.Technique.Practice" xml:space="preserve">
+    <value>Imaj mwen te fè ke ou ka pratike sou yo</value>
+  </data>
+  <data name="Title.Contact" xml:space="preserve">
+    <value>Kontakte</value>
+  </data>
+  <data name="Title.Faq" xml:space="preserve">
+    <value>FAQ</value>
+  </data>
+  <data name="Title.Help" xml:space="preserve">
+    <value>Ede</value>
+  </data>
+  <data name="Title.HowToUse" xml:space="preserve">
+    <value>Kouman pou itilize CrossCam</value>
+  </data>
+  <data name="Title.Technique" xml:space="preserve">
+    <value>Teknik gade 3D</value>
+  </data>
+  <data name="Title.Tips" xml:space="preserve">
+    <value>Konsèy</value>
+  </data>
+  <data name="Button.DoNotEmailMe" xml:space="preserve">
+    <value>Pa imèl mwen kounye a</value>
+  </data>
+  <data name="Button.EmailMeNow" xml:space="preserve">
+    <value>Imèl mwen kounye a</value>
+  </data>
+  <data name="Button.No" xml:space="preserve">
+    <value>Non</value>
+  </data>
+  <data name="Button.OK" xml:space="preserve">
+    <value>OK</value>
+  </data>
+  <data name="Button.YesClear" xml:space="preserve">
+    <value>Wi, klè</value>
+  </data>
+  <data name="Page.Camera.Aligning" xml:space="preserve">
+    <value>Aliman...</value>
+  </data>
+  <data name="Page.Camera.AlignmentBroken" xml:space="preserve">
+    <value>Aliyman otomatik pa sipòte sou aparèy - fèmen nan Anviwònman.</value>
+  </data>
+  <data name="Page.Camera.AlignmentFailed" xml:space="preserve">
+    <value>Aliyman echwe.</value>
+  </data>
+  <data name="Page.Camera.BorderAsk" xml:space="preserve">
+    <value>Yo detekte yon fwontyè. Retire fwontyè a?</value>
+  </data>
+  <data name="Page.Camera.BorderDetected" xml:space="preserve">
+    <value>Border Detekte</value>
+  </data>
+  <data name="Page.Camera.Cancel" xml:space="preserve">
+    <value>Anile</value>
+  </data>
+  <data name="Page.Camera.ChooseAction" xml:space="preserve">
+    <value>Chwazi yon aksyon:</value>
+  </data>
+  <data name="Page.Camera.DirectoryNotFound" xml:space="preserve">
+    <value>Anyè pa jwenn</value>
+  </data>
+  <data name="Page.Camera.DirectoryNotFoundExplain" xml:space="preserve">
+    <value>Pa ka jwenn destinasyon sove a. Tanpri chwazi yon lòt nan paj paramèt la.</value>
+  </data>
+  <data name="Page.Camera.ErrorEmailBody" xml:space="preserve">
+    <value>Kisa ou te fè jis anvan erè a te rive? Tanpri dekri menm ti bagay yo.\n\n\n\n\n\nÈske CrossCam te toujou travay apre erè a? Si se pa sa, ki jan li kase?\n\n\n\n\n\nÈske sa rive repete?\n\n\n\n\n\nÈske ou ka fòse erè a rive sou lòd? Si se konsa, ki jan?\n\n\n\n\n\n</value>
+  </data>
+  <data name="Page.Camera.FlipForCardboard" xml:space="preserve">
+    <value>Flip nan jaden flè lè nan mòd bwat katon.</value>
+  </data>
+  <data name="Page.Camera.FlipLarger" xml:space="preserve">
+    <value>(Bale nan jaden flè pou yon gade pi gwo)</value>
+  </data>
+  <data name="Page.Camera.ForAnaglyph" xml:space="preserve">
+    <value>pou anaglif</value>
+  </data>
+  <data name="Page.Camera.ForCardboard" xml:space="preserve">
+    <value>pou katon</value>
+  </data>
+  <data name="Page.Camera.ForCross" xml:space="preserve">
+    <value>pou kwa</value>
+  </data>
+  <data name="Page.Camera.ForParallel" xml:space="preserve">
+    <value>pou paralèl</value>
+  </data>
+  <data name="Page.Camera.GoPickRole" xml:space="preserve">
+    <value>Tanpri ale nan paj Pairing (atravè paj Anviwònman an) epi chwazi yon wòl pairing pou aparèy sa a anvan ou eseye marye.</value>
+  </data>
+  <data name="Page.Camera.InvalidImage" xml:space="preserve">
+    <value>Imaj ki pa valab</value>
+  </data>
+  <data name="Button.Camera.Keep" xml:space="preserve">
+    <value>Kenbe</value>
+  </data>
+  <data name="Page.Camera.LoadFullImage" xml:space="preserve">
+    <value>Chaje tout imaj stereo</value>
+  </data>
+  <data name="Page.Camera.Loading" xml:space="preserve">
+    <value>Chaje...</value>
+  </data>
+  <data name="Page.Camera.LoadSingleSide" xml:space="preserve">
+    <value>Chaje sèl bò</value>
+  </data>
+  <data name="Page.Camera.ManualCorrections" xml:space="preserve">
+    <value>Tanpri konsidere koreksyon manyèl tou.</value>
+  </data>
+  <data name="Page.Camera.MirrorOnLeft" xml:space="preserve">
+    <value>GWA SOU GÒCH</value>
+  </data>
+  <data name="Page.Camera.MirrorOnRight" xml:space="preserve">
+    <value>GWA SOU DWA</value>
+  </data>
+  <data name="Page.Camera.MoveLeft" xml:space="preserve">
+    <value>DEPLAJE A GÒCH</value>
+  </data>
+  <data name="Page.Camera.MoveRight" xml:space="preserve">
+    <value>DEPLAJE DWA</value>
+  </data>
+  <data name="Page.Camera.NoSaveModes" xml:space="preserve">
+    <value>Pa gen mòd Save aktif</value>
+  </data>
+  <data name="Page.Camera.NoSaveModesExplain" xml:space="preserve">
+    <value>Pa gen okenn mòd sove kounye a limen. Aktive yon mòd sove sou paj Anviwònman an.</value>
+  </data>
+  <data name="Page.Camera.Oops" xml:space="preserve">
+    <value>Oups</value>
+  </data>
+  <data name="Page.Camera.OrRotate" xml:space="preserve">
+    <value>(oswa vire)</value>
+  </data>
+  <data name="Page.Camera.OrSwipe" xml:space="preserve">
+    <value>(oswa glise)</value>
+  </data>
+  <data name="Page.Camera.PairRoleNotSelected" xml:space="preserve">
+    <value>Wòl Pè pa Chwazi</value>
+  </data>
+  <data name="Page.Camera.PinchOrDrag" xml:space="preserve">
+    <value>Zongle oswa trennen pou eksplore!</value>
+  </data>
+  <data name="Page.Camera.PleaseSelectValid" xml:space="preserve">
+    <value>Tanpri chwazi yon imaj Jpeg, Png oswa Webp. Imaj ou chwazi a se</value>
+  </data>
+  <data name="Page.Camera.ReallyClear" xml:space="preserve">
+    <value>Vrèman klè?</value>
+  </data>
+  <data name="Button.Camera.Remove" xml:space="preserve">
+    <value>Retire</value>
+  </data>
+  <data name="Page.Camera.SavedToCustomFolder" xml:space="preserve">
+    <value>Sove nan katab koutim</value>
+  </data>
+  <data name="Page.Camera.SavedToExternal" xml:space="preserve">
+    <value>Sove nan ekstèn</value>
+  </data>
+  <data name="Page.Camera.SavedToPhotos" xml:space="preserve">
+    <value>Sove nan Foto</value>
+  </data>
+  <data name="Page.Camera.SaveFailed" xml:space="preserve">
+    <value>SavingFailed. :(</value>
+  </data>
+  <data name="Page.Camera.Saving" xml:space="preserve">
+    <value>Ekonomize...</value>
+  </data>
+  <data name="Page.Camera.SecondaryOnLeft" xml:space="preserve">
+    <value>Segondè sou GÒCH</value>
+  </data>
+  <data name="Page.Camera.SecondaryOnRight" xml:space="preserve">
+    <value>SEKONDI SOU DWA</value>
+  </data>
+  <data name="Page.Camera.SelectedInvalid" xml:space="preserve">
+    <value>Imaj la chwazi a pa valab.</value>
+  </data>
+  <data name="Page.Camera.SorryError" xml:space="preserve">
+    <value>Padon, CrossCam te fè yon erè. Yo te voye yon rapò erè otomatikman. Ou ka pa remake anyen ki mal ditou, men si w fè sa, eseye rekòmanse aplikasyon an. Si sa kontinye rive, tanpri imèl mwen epi di m 'sou li. (Ale nan paj Anviwònman an pou sispann popup sa yo.)</value>
+  </data>
+  <data name="Page.Camera.Steady" xml:space="preserve">
+    <value>Konstan...</value>
+  </data>
+  <data name="Page.Camera.SureClear" xml:space="preserve">
+    <value>Èske ou sèten ou vle netwaye foto ou yo epi kòmanse ankò?</value>
+  </data>
+  <data name="Page.Camera.Syncing" xml:space="preserve">
+    <value>Senkronize...</value>
+  </data>
+  <data name="Page.Camera.Transmitting" xml:space="preserve">
+    <value>Transmèt...
+(Kenbe aparèy debloke)</value>
+  </data>
+  <data name="Page.Camera.VR" xml:space="preserve">
+    <value>VR</value>
+  </data>
+  <data name="Page.FovCorrection" xml:space="preserve">
+    <value>Koreksyon Field of View</value>
+  </data>
+  <data name="Page.FovCorrectionExplain" xml:space="preserve">
+    <value>Modèl aparèy diferan ka gen diferan jaden de vi. CrossCam ap ede ou korije sa apre ou fin fè premye kaptire w la. Ankadre epi pran yon bagay ak pwen diferan tou pre anwo ak anba ankadreman an, asire w ke pwen yo vizib sou tou de aparèy.</value>
+  </data>
+  <data name="Page.Technique.ParallelLink1" xml:space="preserve">
+    <value>Yon bèl tutoryèl tèks</value>
+  </data>
+  <data name="Page.Technique.ParallelLink2" xml:space="preserve">
+    <value>Yon lòt bèl tutoryèl tèks</value>
+  </data>
+  <data name="Page.Technique.ParallelLink3" xml:space="preserve">
+    <value>Men YON LÒT bèl tutoryèl tèks</value>
+  </data>
+  <data name="Page.Technique.ParallelLink4" xml:space="preserve">
+    <value>Majik Frankfurter Tutorial</value>
+  </data>
+  <data name="Page.Technique.ParallelLink5" xml:space="preserve">
+    <value>Yon bèl videyo sou Magic Eye</value>
+  </data>
+  <data name="Page.Technique.Trouble" xml:space="preserve">
+    <value>Si w toujou gen pwoblèm, eseye pote telefòn ou nan yon chanm nwa pou sèl bagay je ou ka wè byen epi konsantre sou se imaj la.
+
+Yon lòt bagay ou ka eseye se lè l sèvi avèk tib papye twalèt oswa men ou pou fè li pou chak je ka sèlman wè bò a nan imaj la li sipoze wè.
+ • Pou wè kwa: kenbe yon sèl tib kont pon nen ou (santre ant je ou) pandan w ap montre l nan sant imaj la devan ou. Dousman deplase tib la nan direksyon ekran an pandan w ap eseye gade tib la ak tou de je. Lè ou rive nan bon pozisyon ak tib la imaj la ta dwe menen an plas. Li ka ede w konsantre w sou eseye gade anndan bout lwen tib la. Si ou pa ka jwenn bon pozisyon an, eseye sèvi ak yon imaj ki pi gwo oswa yon tib ki pi piti.
+ • Pou gade paralèl: kenbe yon tib devan chak je, men lonje yo tou de sou kote, konsa ou ka diman wè anyen. Tou dousman vire tib yo anndan an menm tan pou ou ka kòmanse wè plis nan imaj la. Moman ou ka wè pi fò nan imaj la (prèske mwatye ak chak je), eseye detann je ou epi pote mwatye yo ansanm. Li ka ede w sèvi ak yon imaj ki pi gwo oswa pi piti.
+
+Gen yon egzèsis fasil ou ka fè pou pratike fusion ak swa kwa oswa paralèl gade. Pran yon makè epi trase yon pòsyon nan yon figi souri sou chak ti kliche ou (oswa yon pè baton popsicle oswa depresè lang). Pou egzanp, sou yon bò trase yon je ak yon bouch, ak sou lòt bò a trase yon je ak yon nen. Lè sa a, ou ka kenbe yo devan ou epi pratike fusion de imaj yo ansanm pou konplete figi Smiley la.
+
+Mwen pèsonèlman prefere travèse paralèl paske imaj yo ka pi gwo, men tou de metòd yo travay. Si ou ta renmen fè eksperyans ak pi gwo imaj paralèl, ou ka kontwole gwosè a sou paj Anviwònman an.
+
+Pafwa li difisil pou santi si w ap fè metòd kwa oswa paralèl pandan w ap fè li. Ou ka mande yon lòt moun pou gade je w pandan w ap fè sa oswa ou ka gade foto ki anba a kòm yon tès:</value>
+  </data>
+  <data name="SaveModes.Anaglyph" xml:space="preserve">
+    <value>Anaglif</value>
+  </data>
+  <data name="SaveModes.Cardboard" xml:space="preserve">
+    <value>Katon</value>
+  </data>
+  <data name="SaveModes.Cross" xml:space="preserve">
+    <value>Kwa</value>
+  </data>
+  <data name="SaveModes.GrayscaleAnaglyph" xml:space="preserve">
+    <value>Anaglif echèl gri</value>
+  </data>
+  <data name="SaveModes.Parallel" xml:space="preserve">
+    <value>Paralèl</value>
+  </data>
+  <data name="SaveModes.Quad" xml:space="preserve">
+    <value>Kwadwilatè</value>
+  </data>
+  <data name="SaveModes.Separate" xml:space="preserve">
+    <value>Separe</value>
+  </data>
+  <data name="SaveModes.Single" xml:space="preserve">
+    <value>Selibatè</value>
+  </data>
+  <data name="SaveModes.Triple" xml:space="preserve">
+    <value>Triple</value>
+  </data>
+  <data name="Page.Camera.FovExplain" xml:space="preserve">
+    <value>Pou korije diferans ki genyen nan domèn vizyon, rale epi glise foto yo pou pwen diferan yo aline ant de foto yo. Ou ka trennen liy blan yo alantou pou ede w visualize aliyman an. Yo pral aplike koreksyon sa a nan aperçu nan lavni. Li pral sove men ou ka Reyajiste li sou paj Anviwònman an. Si w ap itilize aparèy ki idantik jis sove san yo pa ajiste.</value>
+  </data>
+  <data name="Page.Camera.FovTitle" xml:space="preserve">
+    <value>Koreksyon Field of View</value>
+  </data>
+  <data name="Page.Camera.KeyPoints" xml:space="preserve">
+    <value>KeyPoints</value>
+  </data>
+  <data name="Page.Camera.Warped" xml:space="preserve">
+    <value>Defòme</value>
+  </data>
+  <data name="Page.Camera.WelcomeExplain" xml:space="preserve">
+    <value>CrossCam te fèt pou ede w fè foto 3D. Foto yo se 3D menm jan ak fim VR oswa 3D, men ou pa bezwen okenn ekipman espesyal oswa linèt - jis telefòn ou (men si ou gen yon pè linèt 3D wouj/cyan oswa yon gade Google Cardboard, ou ka itilize sa yo. ak CrossCam tou). Teknik \"gratuit gade\" ki itilize jis telefòn ou ak je ou pran kèk pratik pou aprann. Anvan mwen di w kouman pou w itilize CrossCam, èske w ta renmen aprann plis sou teknik gade nan?</value>
+  </data>
+  <data name="Page.Camera.Welcome" xml:space="preserve">
+    <value>Byenveni nan CrossCam!</value>
+  </data>
+  <data name="Page.Camera.Directions" xml:space="preserve">
+    <value>Ale nan direksyon yo</value>
+  </data>
+  <data name="Page.Camera.Technique" xml:space="preserve">
+    <value>Teknik gade</value>
+  </data>
+  <data name="Page.HowToUse.P1" xml:space="preserve">
+    <value>Si ou vle wè sa ankò, tape ikòn anmbègè (twa liy) ki anlè a gòch ekran kamera a epi tape "Ed".
+
+
+1) Ankadre epi pran premye foto a.</value>
+  </data>
+  <data name="Page.HowToUse.P2" xml:space="preserve">
+    <value>3) Kenbe telefòn ou fiks devan ou epi tou dousman deplase sou kote nan direksyon CrossCam di ou. Pa deplase twò lwen - yon pous oswa mwens pou chak pye lwen sib ou se. Epitou, pa vire ditou, jis glise sou kote, oswa petèt menm jis apiye.
+
+4) Aliman premye foto a ak aperçu dezyèm foto a epi pran dezyèm foto a lè ou renmen sa ou wè.
+
+5) CrossCam pral otomatikman aliman foto ou apre ou pran yo, men li pa pafè, si ou pa renmen ki jan yo te aliyen, ou ka fèmen aliyman otomatik la lè w tape icon nan ti robo. CrossCam tou gen anpil opsyon koreksyon manyèl ou ka jwenn lè w tape icon kreyon an.
+
+6) Tape mak chèk la lè w pare pou sove.
+
+
+Lòt bagay ou ka fè:
+ • Tape yon fwa pou konsantre sou yon pwen, tape de fwa pou retounen nan konsantre oto kontinyèl.
+ • Tape ikòn angrenaj ki anlè adwat ekran kamera a pou ouvri paj Anviwònman an. Li plen ak bagay ki enteresan.
+ • Gen yon bèl paj Konsèy ou ka jwenn lè w tape ikòn anmbègè ki anlè a gòch ekran kamera a ki ka ede w fè foto w yo gwo.
+ • Si ou ta prefere deplase lòt direksyon an pou dezyèm piki ou a oswa ou ta renmen chanje kote yo jis fè yon glise.
+ • Tape ti ikòn katab la sou anba a pou chaje yon imaj kòm yon bò oswa pou chaje yon imaj stereo konplè.</value>
+  </data>
+  <data name="Page.Faq.Alignment" xml:space="preserve">
+    <value>Ki jan oto-aliyman travay?</value>
+  </data>
+  <data name="Page.Faq.Alignment.Body" xml:space="preserve">
+    <value>Oto-aliyman eseye fè aliman pè imaj yo osi byen ke posib, men li pa pafè. Vizyon òdinatè pi bon nan kèk bagay pase je moun, men tou, pi mal nan lòt bagay. Mond li wè a trè diferan de sa nou fè a, men li ka wè tou nan kèk fason diferan. De fason prensipal li wè nan CrossCam se atravè koyefisyan korelasyon amelyore (ECC) ak lè l sèvi avèk pwen kle yo.
+
+ECC aliyman travay esansyèlman pa eseye asire ke plak limyè sipèpoze ak plak limyè ak plak nwa sipèpoze ak plak nwa lè de kote yo kouvri youn sou lòt. Aliyman ECC vini ak yon nòt konfyans ki vle di ede deside si aliyman an te efikas. CrossCam mete kanpe pou rejte aliyman ki pwodui si konfyans nan twò ba, men ou ka configured papòt konfyans pase/echwe sou paj Anviwònman an.
+
+Aliyman pwen kle yo chèche pwen enterè tankou kwen, bor, pwen, ak gwo kontras epi eseye matche yo ant de kote yo. Yon fwa pwen yo matche, CrossCam ka itilize yon varyete algoritm pou eseye defòme kote yo pou pwen kle yo soti nan yon bò yo tout pi pre ke posib nan pwen kle korespondan yo sou lòt bò a.
+
+CrossCam pwograme pou sèvi ak aliyman keypoint an premye, men li pral tounen nan aliyman ECC lè aliyman keypoint echwe oswa lè kaptire yo te fè ak metòd la glas-divizyon sèl piki. Ou kapab tou configured oto-aliyman pou toujou itilize aliyman pwen kle oswa toujou itilize aliyman ECC nan paj Paramètres la.
+
+CrossCam pral montre rezilta aliyman an sou ekran kamera a anba ikòn ti robo a. Si li te itilize aliyman ECC li pral montre pousantaj konfyans. Si li itilize aliyman pwen kle li pral montre "KP". Si tou de metòd aliyman yo echwe, li pral montre "F". Si ou pa renmen rezilta aliyman an, ou ka tape sou ikòn ti robo a pou retire aliyman an.</value>
+  </data>
+  <data name="Page.Faq.Bad" xml:space="preserve">
+    <value>Èske sa pa bon pou je mwen?</value>
+  </data>
+  <data name="Page.Faq.Bad.Body1" xml:space="preserve">
+    <value>Mwen pa konnen, men mwen pa panse sa. Sepandan, si li santi l move jis pran yon ti repo. Avèk pratik, malèz la anjeneral diminye. Nenpòt metòd gade ka lakòz malèz akòz yon efè ki rele konfli vergence-akomodasyon. Men</value>
+  </data>
+  <data name="Page.Faq.Bad.Body2" xml:space="preserve">
+    <value>yon lyen Wikipedya sou konfli vergence-akomodasyon an.</value>
+  </data>
+  <data name="Page.Faq.Bad.Body3" xml:space="preserve">
+    <value>Si w ap itilize metòd kwaze a, santiman an ka tou akòz je ou pa itilize pou lonje dwèt li kòmsi yo ap gade yon bagay ki fèmen pou yon tan long. Lè w ap gade kwaze, je ou konvèje sou yon pwen apeprè mwatye chemen ant je ou ak ekran an. Si gade nan yon bagay ki fèmen pou yon tan long ta tou lakòz ou malèz, nou gen eksplikasyon nou an.
+
+Opinyon mwen sou li se ke je ou yo pa fè anyen andeyò kapasite chak jou yo, men w ap konbine de kapasite diferan ki pa tipikman itilize nan fason sa a. W ap konsantre lantiy ou sou yon bagay nan yon sèl kote ki nòmalman konfòtab pou konsantre sou, epi w ap montre je ou yon kote kote li nòmalman konfòtab pou yo pwen, men kote lantiy ou yo konsantre ak kote je ou yo konvèje. se jis pa menm pwen an. Mwen pa wè ki jan sa ta ka move pou ou toutotan vizyon ou pa toujou devlope.</value>
+  </data>
+  <data name="Page.Faq.Cardboard" xml:space="preserve">
+    <value>Kouman pou mwen itilize CrossCam ak Google Cardboard?</value>
+  </data>
+  <data name="Page.Faq.Cardboard.Body" xml:space="preserve">
+    <value>Si visualiseur ou a gen yon bouton ki peze sant ekran an, ou ka sèvi ak li pou pran katon. Viewer ou a ap bezwen tou gen yon twou pou kamera telefòn ou a wè nan.
+
+Pou pran foto lè l sèvi avèk Katon, chanje Metòd View Preview ou a (nan paj Paramètres) nan Katon, epi retounen nan paj kamera a epi kole telefòn ou nan visualiseur a. Peze bouton an pou kaptire, epi lè tou de bò yo kaptire, peze bouton an ankò pou konsève pou. Ekonomize nan mòd katon sèlman vle di pou pèmèt ou chaje imaj yo tounen nan CrossCam pou gade pita, pa pou gade yo nan aplikasyon foto ou atravè visualiseur ou.
+
+Ou kapab tou pran nenpòt lòt metòd ou vle, Lè sa a, chanje Metòd Aperçu Viewing ou an Katon epi mete telefòn ou nan visualiseur la.
+
+Gen anpil telespektatè diferan yo deyò ak pwopriyete diferan. Ou ka bezwen chanje distans separasyon Katon an (nan paj Anviwònman an) pou fè eksperyans ou pi konfòtab. Ou ka bezwen tou premye asire w ke ou se bon nan kaptire stereogram-wo kalite anvan ou fè yo humongous ak Immersion.</value>
+  </data>
+  <data name="Page.Faq.How" xml:space="preserve">
+    <value>Ki jan sa travay?</value>
+  </data>
+  <data name="Page.Faq.How.Body1" xml:space="preserve">
+    <value>Efè 3D CrossCam itilize se yon disiplin byen etidye ke yo rekonèt kòm stereoskopi, ak metòd kote ou travèse je ou (oswa detann yo) yo wè de kote yo rele gade gratis. Lè nou gade atravè mond lan, chak nan je nou wè nan yon pèspektiv diferan. Nan stereoskopi tout sa nou fè se prezante yon sèl (atifisyèl) pèspektiv nan chak je, ak sèvo nou jis fè rès la. Gen anpil fason diferan pou fè chak je wè yon imaj diferan. Men</value>
+  </data>
+  <data name="Page.Faq.How.Body2" xml:space="preserve">
+    <value>yon lyen Wikipedya sou stereoskopi</value>
+  </data>
+  <data name="Page.Faq.How.Body3" xml:space="preserve">
+    <value>Foto 3D ou fè ak CrossCam yo rele stereogram. Liv Magic Eye™ yo genyen sa yo rele otostereogram.</value>
+  </data>
+  <data name="Page.Faq.Into" xml:space="preserve">
+    <value>Ki jan ou te antre nan stereoskopi?</value>
+  </data>
+  <data name="Page.Faq.Into.Body1" xml:space="preserve">
+    <value>Pandan m t ap resevwa diplòm fizik mwen, mwen te gen opòtinite pou fè eksperyans ak kreye ologram pwòp mwen lè l sèvi avèk lazè. Kalite ologram mwen t ap fè yo te 3D paske yo te itilize yon griyaj difraksyon pou lakòz entèferans destriktif nan limyè ki reflete sou sifas yon plak vè, sa ki lakòz imaj reflete a parèt diferan de diferan kote. Lè chak nan je nou wè yon imaj ki sanble li nan yon pèspektiv diferan (si yo pa twò diferan), sèvo nou yo wè sa kòm pwofondè.</value>
+  </data>
+  <data name="Page.Faq.Into.Body2" xml:space="preserve">
+    <value>Mwen te okouran de prensip sa a nan pèsepsyon stereoskopik pou yon tan long, men nan moman sa a nan lavi mwen mwen te tou pran kèk klas pwogramasyon, kidonk mwen deside mwen te vle eseye fè yon pwogram òdinatè senp pou desen 3D stereoskopik. Efò sa a te vin StereoSketcher. Vèsyon orijinal la te ekri nan Java, men mwen reekri li ak Javascript ak SVG epi kounye a li ap viv sou entènèt la.</value>
+  </data>
+  <data name="Page.Faq.Into.Body3" xml:space="preserve">
+    <value>nan lyen sa a.</value>
+  </data>
+  <data name="Page.Faq.Into.Body4" xml:space="preserve">
+    <value>Li pa popilè pa nenpòt ki mwayen, epi li ka pa fasil pou nenpòt moun, men mwen travay, men li travay. Pandan m ap travay sou StereoSketcher mwen te fè eksperyans ak prensip stereoskopi yo, epi mwen te vin renmen ak fason yo ka pwodui yon eksperyans immersif ak konvenkan lè l sèvi avèk kèk règ senp.</value>
+  </data>
+  <data name="Page.Faq.Inverted" xml:space="preserve">
+    <value>Poukisa 3D a pa gade byen OSWA poukisa 3D a parèt envèse?</value>
+  </data>
+  <data name="Page.Faq.Inverted.Body1" xml:space="preserve">
+    <value>Lè w ap gade gratis ak metòd kwa oswa paralèl, li enpòtan pou gade foto yo lè l sèvi avèk menm metòd yo te itilize pou kreye yo. Sinon, je dwat ou pral gade nan pèspektiv ki gen entansyon pou je gòch la ak vis vèrsa. Sa fè pwofondè imaj la envèse, paske direksyon paralaks la chanje.
+
+Parallax vle di ke nan pèspektiv nan je dwat ou, lè objè yo pi lwen yo sanble yo pi lwen sou bò dwat la pase objè ki pi pre lè yo wè nan je gòch ou. Li konfizyon lè yo dekri nan fòma fraz, men trè entwisyon lè yo demontre.
+
+Pou demontre, kenbe yon dwèt anlè devan ou nan longè yon bra, apresa ak lòt men ou kenbe yon lòt dwèt apeprè mwatye nan mitan premye dwèt la ak figi ou. Si w altènativman fèmen chak je epi peye atansyon sou kote dwèt ou yo, w ap wè ke chak je wè yo nan diferan kote. Se konsa, natirèlman, si chak je wè mouvman an nan fason opoze a ke li sipoze, pwofondè a pral ranvèse.
+
+Li trè fasil pou aksidantèlman itilize metòd la mal gade paske li vire soti li trè difisil pou pifò moun di si yo ap travèse oswa ap detann je yo jis nan santi oswa lè yo gade nan imaj la konfizyon doub nan mond lan ki rezilta. Olye de sa, li pi bon pou swa fè yon lòt moun gade sa je ou ap fè, oswa eseye imaj tèsteur sa a:</value>
+  </data>
+  <data name="Page.Faq.Inverted.Body2" xml:space="preserve">
+    <value>Anpil moun vin byen alèz lè yo gade liv Magic Eye™, ki gen entansyon pou yo gade lè l sèvi avèk metòd gade paralèl la. Si ou kwaze wè yo Lè sa a, objè yo gaya 3D ki sipoze pòp nan paj la olye gade tankou twou. Tou de metòd pèmèt ou wè *yon bagay* men si ou pa t 'kapab di sa li te, pwobableman ou ap kwaze gade yo.</value>
+  </data>
+  <data name="Page.Faq.Mirror" xml:space="preserve">
+    <value>Kouman pou mwen fè metòd "yon sèl-piki glas" la?</value>
+  </data>
+  <data name="Page.Faq.Mirror.Body1" xml:space="preserve">
+    <value>Kaptire ak metòd glas la divize ankadreman an nan mwatye epi fè transfòmasyon ki nesesè pou ou ka kaptire tou de bò nan menm moman an lè l sèvi avèk yon sèl telefòn ak yon glas pòtatif regilye. Pou itilize metòd glas la lè w ap kaptire, vire switch la pou mòd glas nan paj Anviwònman an (tape ikòn angrenaj la pou w rive la). Apre ou fin limen mòd glas, CrossCam pral di w ki bò pou kenbe glas ou a. Kenbe glas ou sou bò sa a ak meli melo ak aliyman ki genyen ant telefòn ou ak glas la ak sijè ou a. Avèk kèk pasyans, ou pral kapab liy yo tout moute pou glas la montre pèspektiv ki kòrèk la pou youn nan kote yo. Paske lè l sèvi avèk metòd glas la divize imaj ou an mwatye vètikal, anjeneral li pi bon pou pran nan jaden flè ak metòd glas la.
+
+Metòd sa a pral travay tou ak refleksyon nan gwo fenèt pwòp, epi tou sou lak oswa flak dlo (lè telefòn fèmen nan pòtrè ak ranvèse sou kote).</value>
+  </data>
+  <data name="Page.Faq.Mirror.Body2" xml:space="preserve">
+    <value>Gen kèk konpwomi / modifye ki bezwen fè yo nan lòd yo itilize metòd la glas. Tout bagay sa yo ka fè manyèlman nan CrossCam, men aliyman otomatik pral eseye tou fè yo pou ou:
+ • Paske gade reflete a vwayaje sou yon distans ki pi long pase gade nòmal la, bò reflete a pral bezwen rale nan yon ti jan.
+ • Li gen anpil chans ke lè w ap itilize metòd glas la ou pral fini zòtèy-nan, olye ke kenbe pèspektiv yo paralèl - sa ka lakòz raccourci yo sanble move aliyman vètikal. Pou defèt sa, koreksyon keystone ka fè, ki vle di vètikal réduction yon bò nan chak nan imaj yo.
+ • Toeing-in pral tou gen tandans deplase fenèt la stereo nan direksyon ou. Ou ka defèt sa epi mete l kote ou vle li pa koupe kote yo.
+ • Iwa a pwal pwobableman pa totalman kouvri wè yon bò, se konsa kèk rekòt ka bezwen fè pou retire ti moso ki pa reflete.
+
+Miwa yo pi bon pou sa a gen vè mens. Pou yon sèl bagay yo limyè, kidonk yo pi fasil kenbe pou peryòd tan. Lòt bagay la enpòtan se ke lè w ap itilize glas la ou pral gen anpil chans vize glas la sou kote olye ke gade dwat nan li kòm miwa yo tipikman itilize. Lè oryante konsa, miwa ak vè epè ka gen kèk flou. Plis glas la mens, mwens parèt flou sa a pral. Kalite miwa sa yo ka gen bon kalite tou nan lòt respè, kidonk li enpòtan pou jwenn yon bon balans.
+
+Gen yon koup lòt konpwomi ki dwe aksepte lè w ap itilize kaptire glas la ki pa ka fiks nan edisyon CrossCam:
+ • Paske gade nan de kote yo vwayaje distans yon ti kras diferan, konsantre ki nesesè pou chak bò yo pral yon ti kras diferan, kidonk yon bò ap toujou yon ti kras twoub. Efè sa a pral plis oswa mwens aparan depann sou distans la ak sijè a ak pwofondè nan jaden nan lantiy la.
+ • Pa gen glas ki vrèman efikas 100%, kidonk bò ki sèvi ak glas la ka yon ti kras pi fonse. Sa a pral varye ak bon jan kalite a nan glas la.</value>
+  </data>
+  <data name="Page.Faq.Moving" xml:space="preserve">
+    <value>Sijè mwen an ap deplase, ki jan pou mwen pran foto 3D sou li?</value>
+  </data>
+  <data name="Page.Faq.Moving.Body" xml:space="preserve">
+    <value>CrossCam pèmèt ou de metòd pou kaptire tou de pèspektiv nan menm moman an. Yon metòd sèvi ak de telefòn, ak yon metòd itilize yon glas.
+
+Pou itilize konfigirasyon de telefòn, tcheke paj Pairing Setup la, kote ou ka jwenn nan paj Anviwònman an (tape ikòn Kovèti pou la).
+
+Pou itilize metòd glas la, tcheke lòt kesyon FAQ sou li.</value>
+  </data>
+  <data name="Page.Faq.Test" xml:space="preserve">
+    <value>Kouman mwen ka teste vèsyon pre-lage nan CrossCam?</value>
+  </data>
+  <data name="Page.Faq.Test.Body" xml:space="preserve">
+    <value>Tcheke pòs Reddit sa a</value>
+  </data>
+  <data name="Page.Faq.Why" xml:space="preserve">
+    <value>Poukisa ou te fè CrossCam?</value>
+  </data>
+  <data name="Page.Faq.Why.Body" xml:space="preserve">
+    <value>Kòm mwen te kòmanse jwenn enterese nan stereoskopi mwen te rive fè yon vwayaj nan Yellowstone. Pandan m 'te la, mwen reyalize li ta ka plezi eseye sèvi ak yon aplikasyon mobil kamera 3D pran bagay sa yo la nan 3D. Mwen te trè wont pa opsyon ki egziste deja yo. Mwen te jwenn yo tout te mande w fè de kaptire epi apre sa chèche konnen si yo te bon. Yo souvan pa t ', kòm mwen te repete fè devine konplè sou distans separasyon mwen an, osi byen ke kalite a nan sijè a.
+
+Pandan kèk semèn kap vini yo, fristrasyon mitone mwen an te fè m imajine tou senpleman bay yon preview ap viv sou dezyèm kaptire a ansanm ak premye a. Mwen te deja gen yon background nan devlopman mobil, kidonk li te jis yon kesyon de mete nan tan an. CrossCam te enpresyonan pou mwen itilize jis pou tèt mwen pou konsève memwa, e mwen kontan pataje li avèk ou tou.</value>
+  </data>
+  <data name="Page.Faq.Wiggle" xml:space="preserve">
+    <value>Ki sa ki wigglegram yo?</value>
+  </data>
+  <data name="Page.Faq.Wiggle.Body" xml:space="preserve">
+    <value>Wigglegram yo se yon fason yo wè stereogram ki pa konte sou vizyon longim. Anjeneral, yo se yon gif ki vire tounen ak soti ant de pèspektiv yo, ki montre chak nan antye li yo nan menm plas la. CrossCam pa sipòte fè yo kounye a, men imèl mwen si ou reyèlman enterese nan yo epi mwen pral fè li.</value>
+  </data>
+  <data name="Page.Tips.AlignAfter" xml:space="preserve">
+    <value>Fè atansyon liy orizontal yo, men ou ka aliman tou apre.</value>
+  </data>
+  <data name="Page.Tips.AlignAfter.Body" xml:space="preserve">
+    <value>Si ou jwenn ke pandan w ap pran foto li enposib fè tou de liy gid anwo ak pi ba yo liy an menm tan an, pwobableman ou deplase nan yon direksyon ki pa jis sou bò. Eseye ranje sa a anvan ou pran foto yo, men aliman apre reyalite a ka ede sa a anpil.</value>
+  </data>
+  <data name="Page.Tips.Alignment" xml:space="preserve">
+    <value>Ou ka fèmen aliyman oto.</value>
+  </data>
+  <data name="Page.Tips.Alignment.Body" xml:space="preserve">
+    <value>Si ou pa renmen rezilta aliyman otomatik la, jis fèmen li nan paj Paramètres la oswa lè w tape sou ikòn ti robo a epi yo pral restore foto orijinal ou te pran yo.</value>
+  </data>
+  <data name="Page.Tips.Donut" xml:space="preserve">
+    <value>Gid beye a ka ede fenèt ou.</value>
+  </data>
+  <data name="Page.Tips.Donut.Body" xml:space="preserve">
+    <value>Gen yon beye gid eksperimantal sou paj Anviwònman an ou ka limen ki ka ede w prezève fenèt stereo ou a pandan w ap maksimize lajè ki kapab itilize a. Lè w vire goch ak dwa pwofondè sou beye a pral chanje parapò ak rès sèn nan - mete pwofondè beye a pou li se swa sou oswa dèyè pwen ki pi lwen nan sèn ou a. Fè atansyon, lè l sèvi avèk li sou sèn ki pi piti yo ka fè bagay sa yo douloure (gade pwent kle pi wo a).</value>
+  </data>
+  <data name="Page.Tips.Keystone" xml:space="preserve">
+    <value>Koreksyon Keystone nesesè si ou zòtèy-nan.</value>
+  </data>
+  <data name="Page.Tips.Keystone.Body1" xml:space="preserve">
+    <value>Si ou vire anndan ak chak piki li trè itil pou fè koreksyon keystone. Tipikman ou ta vle retresi bor yo andedan nan foto yo ak Lè sa a, koupe kèk nan tèt la ak anba nan nivo yo soti. Ou rive nan meni koreksyon keystone la lè w tape bouton an ki sanble sa a:</value>
+  </data>
+  <data name="Page.Tips.Keystone.Body2" xml:space="preserve">
+    <value>Vire anndan yo rele zòtèy-nan. Li ka lakòz yon efè foreshortening ki fè li difisil pou fusion kwen imaj la. Efè foreshortening prezan nan tout tan nan lavi reyèl, paske liy paralèl parèt konvèje pandan y ap ale nan distans la lwen ou, men pèspektiv atifisyèl yo ka fè li etranj.</value>
+  </data>
+  <data name="Page.Tips.Lean" xml:space="preserve">
+    <value>Ou ka jis apiye.</value>
+  </data>
+  <data name="Page.Tips.Lean.Body" xml:space="preserve">
+    <value>Pafwa olye pou w deplase totalman pye w goch oswa adwat pou w pran foto, li ka pi fasil pou w jis kanpe ak pye w apa epi panche nan chak direksyon, men fè atansyon pou w kenbe telefòn nan nivo ak nan menm wotè. Jis apiye olye pou w deplase ka ede w pa deplase twò lwen epi li ka fè li pi fasil pou kenbe bi ou dwat.</value>
+  </data>
+  <data name="Page.Tips.Lines" xml:space="preserve">
+    <value>Liy aliyman yo ka deplase.</value>
+  </data>
+  <data name="Page.Tips.Lines.Body" xml:space="preserve">
+    <value>Ou ka trennen liy aliyman yo alantou si ou vle. Sa a itil espesyalman lè w aliman foto yo pandan koreksyon.</value>
+  </data>
+  <data name="Page.Tips.Old" xml:space="preserve">
+    <value>Ou ka louvri ansyen foto nan CrossCam.</value>
+  </data>
+  <data name="Page.Tips.Old.Body" xml:space="preserve">
+    <value>Ou ka chaje foto yo te pran deja lè w tape ikòn katab ki anba paj kamera a, men si w ap travay ak yon gwo pakèt foto, ou ka pataje yo tou sou CrossCam tou dwat nan aplikasyon foto w la, ki ka kenbe tras ou. plase nan foto ou pi byen.</value>
+  </data>
+  <data name="Page.Tips.Quick" xml:space="preserve">
+    <value>Aktive mòd rapid lè w ap ak lòt moun.</value>
+  </data>
+  <data name="Page.Tips.Quick.Body" xml:space="preserve">
+    <value>Si w ap eksplore ak lòt moun li se yon bon lide yo ale nan mòd rapid pa fèmen aliyman oto ak ak fwontyè ak jis ekonomize yon fwa ou te kaptire san yo pa fè okenn koreksyon. Ou ka toujou chaje, aliman oto, epi modifye foto yo pita. Nan fason sa a konpayon ou yo pa bezwen tann pou ou pafè foto ou sou tèren an, men ou ka toujou gen konfyans ke pwofondè ou vle a se reyèlman la. Jis fè atansyon pou pa fè okenn koreksyon prese anvan premye sove! Ou kapab tou vire sou kote ekonomize separe a ki pral inyore nenpòt koreksyon ou fè.</value>
+  </data>
+  <data name="Page.Tips.Sick" xml:space="preserve">
+    <value>Si mouvman an fè ou malad, kenbe toujou.</value>
+  </data>
+  <data name="Page.Tips.Sick.Body" xml:space="preserve">
+    <value>Si tout mouvman an fè ou malad oswa fè li twò difisil pou wè nan 3D, pa kòmanse eseye wè li nan 3D jiskaske apre ou te deplase sou yon ti kras. Lè sa a, konpare foto yo youn ak lòt epi fè aliman foto yo lè l sèvi avèk liy orizontal yo san yo pa gade 3D ak Lè sa a, kòmanse gade 3D yon fwa aliyen epi kenbe toujou.</value>
+  </data>
+  <data name="Page.Tips.Space" xml:space="preserve">
+    <value>Foto sa yo ka pran anpil depo - ou ka retresi yo.</value>
+  </data>
+  <data name="Page.Tips.Space.Body" xml:space="preserve">
+    <value>Paj Anviwònman an gen yon opsyon pou diminye pwopòsyonèl rezolisyon foto final la - sa ka ede si ou vle ekonomize espas. Si foto ou a pa koupe rezilta final la se de foto rezolisyon konplè mete ansanm pou fè youn nan rezolisyon doub, ki vle di ou ka souvan jwenn lwen ak yon rediksyon gwo nan rezolisyon san yo pa notables afekte kalite.</value>
+  </data>
+  <data name="Page.Tips.Turn" xml:space="preserve">
+    <value>Pa vire.</value>
+  </data>
+  <data name="Page.Tips.Turn.Body" xml:space="preserve">
+    <value>Lè w deplase, eseye pa vire telefòn ou nan nenpòt direksyon, tankou tandans natirèl la vire nan direksyon sijè a pandan w ap deplase sou bò a. Gen kèk wotasyon pral nesesè (pafwa), men eseye minimize li. Imajine telefòn nan monte sou yon ray orizontal dwat epi li ka sèlman glise. Vire anndan ka lakòz yon efè raccourci ki fè kwen yo difisil pou fusion.</value>
+  </data>
+  <data name="Page.Tips.Window" xml:space="preserve">
+    <value>Ajoute fwontyè ak rekòt pou fè yon fenèt stereo fò.</value>
+  </data>
+  <data name="Page.Tips.Window.Body" xml:space="preserve">
+    <value>Ou ka kreye yon efè fenèt stereo enteresan lè w fè de bagay: 1) vire sou fwontyè a (nan paj Anviwònman) ak 2) pou gade kwa, koupe kwen anndan imaj yo jiskaske kwen ekstèn nan tèt li vin 3D nan foto a (rekòt). bor yo DEYÒ si w ap gade paralèl). Kle a se koupe kwen dwat nan foto gòch la yon ti kras pase sa kwen dwat la nan foto dwat la montre nan sèn nan ak vis-vèrsa. Ajoute yon fwontyè se aktive sou paj la Anviwònman. Si sa a konfizyon, jis koupe yon pakèt sou kwen anndan yo epi li pral kòmanse klè. Bouton rekòt la pou kwen anndan yo sanble sa a:</value>
+  </data>
+  <data name="Button.Code" xml:space="preserve">
+    <value>Gade Kòd la</value>
+  </data>
+  <data name="Button.Developer" xml:space="preserve">
+    <value>Konsènan Developer la</value>
+  </data>
+  <data name="Button.EmailMe" xml:space="preserve">
+    <value>Imèl Mwen</value>
+  </data>
+  <data name="Button.GitHub" xml:space="preserve">
+    <value>Ajoute yon Pwoblèm sou GitHub</value>
+  </data>
+  <data name="Button.Press" xml:space="preserve">
+    <value>Retounen nan ekran kamera a sou tou de aparèy epi tape bouton pè a nan kwen ki pi ba a</value>
+  </data>
+  <data name="Button.Primary" xml:space="preserve">
+    <value>TAPE LA SOU PRIMÈ A</value>
+  </data>
+  <data name="Button.Privacy" xml:space="preserve">
+    <value>Règleman sou enfòmasyon prive</value>
+  </data>
+  <data name="Button.Secondary" xml:space="preserve">
+    <value>TAPPE ISIT SOU SEKONDÈ A</value>
+  </data>
+  <data name="Button.Test" xml:space="preserve">
+    <value>Tès vèsyon pre-lage</value>
+  </data>
+  <data name="Button.Wi-Fi" xml:space="preserve">
+    <value>Asire w ke Wi-Fi aktive sou tou de aparèy (men li pa bezwen konekte ak anyen)</value>
+  </data>
+  <data name="Page.Pairing.1" xml:space="preserve">
+    <value>Si ou gen de aparèy ak CrossCam enstale, ou ka konekte yo nan lòd yo pran foto similtane nan de pèspektiv. Lè w pran de foto an menm moman sa a fè pi bon stereogram yo posib.
+
+Tanpri sonje ke karakteristik sa a toujou eksperimantal epi li ka gen pwoblèm. Li ka pa travay pafètman tout tan an epi li ka manje batri ou. Epitou tanpri dwe konnen ke nan moman sa a aparèy yo dwe menm platfòm la yo nan lòd yo konekte (tou de Android oswa tou de iOS).
+
+Youn nan fason yo ka resevwa * pafè * senkronizasyon lè l sèvi avèk sèlman yon sèl aparèy ak CrossCam se sèvi ak metòd la "sèl piki glas". Ou ka limen li sou paj Anviwònman an epi ou ka li sou li sou paj FAQ la.
+
+Anvan de aparèy yo ka itilize ansanm wòl yo dwe asiyen. Aparèy PRIMARY la se youn ki pral montre tou de aperçu, deklanche kaptire a, epi kenbe / sove kaptire final yo. Pou bay wòl yo, navige tou de aparèy nan paj sa a epi swiv etap ki anba yo:</value>
+  </data>
+  <data name="Page.Pairing.2" xml:space="preserve">
+    <value>Si w gen pwoblèm, TANPRI NOTE:
+ • Apre yo fin kòmanse pwosesis kouple a, yo ka tape bouton an koupi ankò nenpòt ki lè pou sispann li oswa pou dekonekte.
+ • Li ka ede yo sispann appariement sou tou de aparèy ak rekòmanse li an menm tan.
+ • Li ka ede dekonekte soti nan Wi-Fi oswa rezo done ou nan ka yo ap aji moute.
+ • Chak kamera diferan. Diferans sa yo ka gen ladan jaden angilè de vi, konsantre, ekspoze, ak konpòtman balans blan, distribisyon, ak plis ankò. Menm de nan menm modèl telefòn lan ap konpòte yon ti kras diferan. Mwen prefere sèvi ak yon pè telefòn ki idantik fin vye granmoun (nan ka mwen an, yon pè iPhone 6).
+ • CrossCam se lojisyèl, pa pyès ki nan konpitè, kidonk kaptire foto yo ka yon ti kras soti nan senkronizasyon depann sou ki lòt bagay processeurs yo ak memwa ap fè nan moman an presi kaptire a deklanche. Kòm yon rezilta, senkronizasyon an ka pafwa pa pafè, men li ta dwe jeneralman trè pre.</value>
+  </data>
+  <data name="Page.Pairing.Again" xml:space="preserve">
+    <value>Pou konekte ankò pita, asire w ke ou gen Wi-Fi aktive epi jis tape bouton konekte sou ekran an lakay ou sou tou de aparèy.</value>
+  </data>
+  <data name="Page.Pairing.LocalNetworkAccess" xml:space="preserve">
+    <value>CrossCam mande pèmisyon Aksè Rezo Lokal. CrossCam pa aktyèlman sèvi ak rezo lokal la, men iOS mande pou CrossCam jwenn pèmisyon sa a pou yo ka sèvi ak antèn Wi-Fi pou eskane aparèy yo. CrossCam pral mande pèmisyon sa a yon fwa - si yo refize pèmisyon an, ou pral oblije ale epi baskile switch la nan aplikasyon an Anviwònman tèt ou.</value>
+  </data>
+  <data name="Page.Pairing.Location" xml:space="preserve">
+    <value>CrossCam pral mande otorizasyon ak pouvwa sou konpozan jan sa nesesè yo nan lòd yo konekte aparèy ou yo. Tanpri sonje: CrossCam egzije pèmisyon kote yo ye a ak sèvis lokal yo dwe limen sou aparèy prensipal la yo nan lòd yo konekte ak aparèy segondè a. Sa a se tou senpleman yon egzijans android epi li konplètman deyò kontwòl mwen an. CrossCam pa sèvi ak kote w nan okenn fason, men paske aksyon pou chèche (ak jwenn) aparèy ki tou pre yo ta ka teyorikman itilize pou lokalize w apeprè, CrossCam mande pèmisyon pou jwenn aksè nan kote w.</value>
+  </data>
+  <data name="Page.Pairing.Permissions" xml:space="preserve">
+    <value>Yon nòt sou otorizasyon:</value>
+  </data>
+  <data name="Page.Pairing.Title" xml:space="preserve">
+    <value>Paire</value>
+  </data>
+  <data name="Button.Back" xml:space="preserve">
+    <value>&lt; Retounen</value>
+  </data>
+  <data name="Page.MorePictures.CrossViewSubreddit" xml:space="preserve">
+    <value>CrossView Subreddit</value>
+  </data>
+  <data name="Page.MorePictures.FacebookGroup" xml:space="preserve">
+    <value>Gwoup estereyoskopik 3D Facebook</value>
+  </data>
+  <data name="Page.MorePictures.GoogleDoc" xml:space="preserve">
+    <value>Google Doc nan gwo bagay</value>
+  </data>
+  <data name="Page.MorePictures.Instagram" xml:space="preserve">
+    <value>Instagram Estereyoskopik Tag</value>
+  </data>
+  <data name="Page.MorePictures.Mine" xml:space="preserve">
+    <value>Gade foto mwen te pran</value>
+  </data>
+  <data name="Page.MorePictures.ParallelViewSubreddit" xml:space="preserve">
+    <value>ParallelView Subreddit</value>
+  </data>
+  <data name="Page.Settings.Alignment" xml:space="preserve">
+    <value>Otomatik aliyman</value>
+  </data>
+  <data name="Page.Settings.Analytics" xml:space="preserve">
+    <value>Pataje itilizasyon anonim ak done erè pou ede amelyore CrossCam</value>
+  </data>
+  <data name="Page.Settings.Border" xml:space="preserve">
+    <value>Fwontyè</value>
+  </data>
+  <data name="Page.Settings.Camera" xml:space="preserve">
+    <value>Kamera</value>
+  </data>
+  <data name="Page.Settings.Defaults" xml:space="preserve">
+    <value>Reyajiste nan Defo</value>
+  </data>
+  <data name="Page.Settings.Editing" xml:space="preserve">
+    <value>Modification</value>
+  </data>
+  <data name="Page.Settings.ErrorEmail" xml:space="preserve">
+    <value>Èd memwa pou voye imèl lè erè rive</value>
+  </data>
+  <data name="Page.Settings.Guides" xml:space="preserve">
+    <value>Kaptire Gid</value>
+  </data>
+  <data name="Page.Settings.Pairing" xml:space="preserve">
+    <value>Paire</value>
+  </data>
+  <data name="Page.Settings.Preview" xml:space="preserve">
+    <value>Preview Viewing Metòd</value>
+  </data>
+  <data name="Page.Settings.Saving" xml:space="preserve">
+    <value>Ekonomize</value>
+  </data>
+  <data name="Page.TipMe.1" xml:space="preserve">
+    <value>CrossCam se gratis pou itilize, san piblisite, sous louvri, pa kolekte okenn enfòmasyon pèsonèl nan men ou, epi li ba ou aksè konplè a chak karakteristik. Mwen renmen travay sou CrossCam men li pran anpil tan ak efò. Mwen pa fè lajan nan CrossCam ditou eksepte konsèy moun ta ka deside voye m '.</value>
+  </data>
+  <data name="Page.TipMe.2" xml:space="preserve">
+    <value>Si ou renmen CrossCam epi ou kapab, tanpri konsidere voye m 'yon konsèy.</value>
+  </data>
+  <data name="Page.TipMe.Ko-fi" xml:space="preserve">
+    <value>Ko-fi</value>
+  </data>
+  <data name="Page.TipMe.Patreon" xml:space="preserve">
+    <value>Patreon</value>
+  </data>
+  <data name="Page.TipMe.PayPal" xml:space="preserve">
+    <value>PayPal</value>
+  </data>
+  <data name="Page.TipMe.Tipped" xml:space="preserve">
+    <value>Mwen te gen pouboul</value>
+  </data>
+  <data name="Page.TipMe.TippedTimes" xml:space="preserve">
+    <value>fwa, totalize</value>
+  </data>
+  <data name="Page.TipMe.Venmo" xml:space="preserve">
+    <value>Venmo</value>
+  </data>
+  <data name="Title.MorePictures" xml:space="preserve">
+    <value>Gade Plis Foto</value>
+  </data>
+  <data name="Title.Settings" xml:space="preserve">
+    <value>Anviwònman</value>
+  </data>
+  <data name="Title.TipMe" xml:space="preserve">
+    <value>Konsèy yo apresye!</value>
+  </data>
+  <data name="Settings.Alignment.Advanced" xml:space="preserve">
+    <value>Montre anviwònman aliyman avanse</value>
+  </data>
+  <data name="Settings.Alignment.Ecc" xml:space="preserve">
+    <value>Eseye itilize aliyman ECC an premye toujou</value>
+  </data>
+  <data name="Settings.Alignment.Keypoints" xml:space="preserve">
+    <value>Eseye itilize aliyman pwen kle an premye toujou</value>
+  </data>
+  <data name="Settings.Alignment.On" xml:space="preserve">
+    <value>Otomatikman aliman apre kaptire</value>
+  </data>
+  <data name="Settings.Border.Color" xml:space="preserve">
+    <value>Koulè fwontyè</value>
+  </data>
+  <data name="Settings.Border.FuseGuide" xml:space="preserve">
+    <value>Ajoute gid fuse sou tèt (yon pwen anlè chak bò)</value>
+  </data>
+  <data name="Settings.Border.On" xml:space="preserve">
+    <value>Ajoute fwontyè</value>
+  </data>
+  <data name="Settings.Border.Prompt" xml:space="preserve">
+    <value>Èd memwa koupe fwontyè lè yo detekte pandan chaje</value>
+  </data>
+  <data name="Settings.Border.Thickness" xml:space="preserve">
+    <value>Epesè fwontyè (dizyèm pousantaj lajè)</value>
+  </data>
+  <data name="Settings.Camera.Camera1" xml:space="preserve">
+    <value>Force camera1 API (kapab itil si w ap fè eksperyans etranj men sa pral lakòz yon fonksyonalite limite, mande pou yon fòs kite/rekòmanse pou pran efè)</value>
+  </data>
+  <data name="Settings.Camera.Camera2" xml:space="preserve">
+    <value>Force camera2 API (dwe sou Android 6 oswa pi wo a, ka itil si w ap fè eksperyans erè, men li ka fè plis, mande pou yon fòs kite/rekòmanse pou pran efè)</value>
+  </data>
+  <data name="Settings.Camera.LandscapeCaptureHorizontal" xml:space="preserve">
+    <value>Peyizaj kaptire bouton orizontal plasman</value>
+  </data>
+  <data name="Settings.Camera.LandscapeCaptureVertical" xml:space="preserve">
+    <value>Landscape capture bouton vètikal plasman</value>
+  </data>
+  <data name="Settings.Camera.Lock" xml:space="preserve">
+    <value>Fèmen konsantre ak ekspoze pou dezyèm foto konsantre ak ekspoze nan premye foto</value>
+  </data>
+  <data name="Settings.Camera.Pair" xml:space="preserve">
+    <value>Plasman pè bouton orizontal (lè bouton kaptire santre)</value>
+  </data>
+  <data name="Settings.Camera.PointFocus" xml:space="preserve">
+    <value>Tape pou konsantre sou pwen, tape doub pou chanje tounen nan konsantre kontinyèl (oswa sove oswa klè)</value>
+  </data>
+  <data name="Settings.Camera.PortraitCapture" xml:space="preserve">
+    <value>Plasman bouton kaptire pòtrè</value>
+  </data>
+  <data name="Settings.Editing.Align" xml:space="preserve">
+    <value>Pwopòsyon maksimòm aliyman vètikal</value>
+  </data>
+  <data name="Settings.Editing.Keystone" xml:space="preserve">
+    <value>Maksimòm keystone</value>
+  </data>
+  <data name="Settings.Editing.Rotation" xml:space="preserve">
+    <value>Wotasyon maksimòm degre</value>
+  </data>
+  <data name="Settings.Editing.SideCrop" xml:space="preserve">
+    <value>Pwopòsyon maksimòm rekòt bò</value>
+  </data>
+  <data name="Settings.Editing.TopCrop" xml:space="preserve">
+    <value>Maksimòm pwopòsyon rekòt anwo/anba</value>
+  </data>
+  <data name="Settings.Editing.Zoom" xml:space="preserve">
+    <value>Pwopòsyon maksimòm rale</value>
+  </data>
+  <data name="Settings.Guides.Donut" xml:space="preserve">
+    <value>Montre gid beye (sa ap lakòz zòtèy, kidonk ka mande pou koreksyon kle)</value>
+  </data>
+  <data name="Settings.Guides.Fuse" xml:space="preserve">
+    <value>Montre gid fuse (yon pwen anlè chak bò)</value>
+  </data>
+  <data name="Settings.Guides.LineColor" xml:space="preserve">
+    <value>Liy ki gen koulè diferan</value>
+  </data>
+  <data name="Settings.Guides.Lines" xml:space="preserve">
+    <value>Liy vizib</value>
+  </data>
+  <data name="Settings.Guides.Roll" xml:space="preserve">
+    <value>Woule gid vizib</value>
+  </data>
+  <data name="Settings.Pair.CaptureDelay" xml:space="preserve">
+    <value>Kaptire moman anplis reta (ms) (ajoute yon reta siplemantè nan moman kaptire sib la sou aparèy sa a sèlman)</value>
+  </data>
+  <data name="Settings.Pair.Countdown" xml:space="preserve">
+    <value>Capture longè dekont (revèy)</value>
+  </data>
+  <data name="Settings.Pair.Fov" xml:space="preserve">
+    <value>Jaden de vi koreksyon</value>
+  </data>
+  <data name="Settings.Pair.FovNotSet" xml:space="preserve">
+    <value>Koreksyon FOV pa mete (fè yon kaptire ak aparèy pè pou mache nan mete kanpe).</value>
+  </data>
+  <data name="Settings.Pair.FovReset" xml:space="preserve">
+    <value>Reyajiste</value>
+  </data>
+  <data name="Settings.Pair.Go" xml:space="preserve">
+    <value>Ale nan Paij Enstalasyon Paj</value>
+  </data>
+  <data name="Settings.Pair.NoRole" xml:space="preserve">
+    <value>Wòl pa chwazi</value>
+  </data>
+  <data name="Settings.Pair.PreviewDelay" xml:space="preserve">
+    <value>Aperçu reta ankadreman (pi gwo nimewo ap diminye pousantaj ankadreman men sove batri)</value>
+  </data>
+  <data name="Settings.Pair.Primary" xml:space="preserve">
+    <value>Prensipal:</value>
+  </data>
+  <data name="Settings.Pair.PrimaryRole" xml:space="preserve">
+    <value>Wòl: Prensipal</value>
+  </data>
+  <data name="Settings.Pair.Sample" xml:space="preserve">
+    <value>Kantite echantiyon revèy (nimewo ki pi ba a pral diminye tan ki nesesè pou senkronizasyon inisyal la men li ka diminye presizyon senkronizasyon)</value>
+  </data>
+  <data name="Settings.Pair.Secondary" xml:space="preserve">
+    <value>Segondè:</value>
+  </data>
+  <data name="Settings.Pair.SecondaryRole" xml:space="preserve">
+    <value>Wòl: Segondè</value>
+  </data>
+  <data name="Settings.Pair.Timeout" xml:space="preserve">
+    <value>Delè koneksyon (segonn) (0 vle di pa gen tan)</value>
+  </data>
+  <data name="Settings.Preview.Barrel" xml:space="preserve">
+    <value>Ajoute koreksyon lantiy / distòsyon barik (ka diminye pousantaj ankadreman)</value>
+  </data>
+  <data name="Settings.Preview.BarrelFinal" xml:space="preserve">
+    <value>Ajoute koreksyon lantiy / distòsyon barik nan imaj final yo sèlman (ka ralanti ekspozisyon final la men li pral akselere kaptire)</value>
+  </data>
+  <data name="Settings.Preview.CardboardDistance" xml:space="preserve">
+    <value>Katon separasyon distans</value>
+  </data>
+  <data name="Settings.Preview.Downsize" xml:space="preserve">
+    <value>Diminye imaj (ka ogmante pousantaj ankadreman)</value>
+  </data>
+  <data name="Settings.Preview.DownsizePercent" xml:space="preserve">
+    <value>Diminye pousantaj imaj</value>
+  </data>
+  <data name="Settings.Preview.Immersive" xml:space="preserve">
+    <value>Immersion final gade</value>
+  </data>
+  <data name="Settings.Preview.LensStrength" xml:space="preserve">
+    <value>Fòs koreksyon lantiy</value>
+  </data>
+  <data name="Settings.Preview.Mirror" xml:space="preserve">
+    <value>Kaptire lè l sèvi avèk metòd divizyon glas sèl-piki</value>
+  </data>
+  <data name="Settings.Preview.Width" xml:space="preserve">
+    <value>Maksimòm lajè imaj paralèl (pwen)</value>
+  </data>
+  <data name="Settings.Reset" xml:space="preserve">
+    <value>Reyajiste nan Defo</value>
+  </data>
+  <data name="Settings.Saving.Alone" xml:space="preserve">
+    <value>Sove premye bò pou kont li (ki pa gen okenn chanjman oswa fwontyè) (pou fasil pataje foto plat ak moun ki gade plat)</value>
+  </data>
+  <data name="Settings.Saving.Anaglyph" xml:space="preserve">
+    <value>Sove vèsyon anaglif wouj/cyan (ak modifikasyon men pa gen fwontyè)</value>
+  </data>
+  <data name="Settings.Saving.Browse" xml:space="preserve">
+    <value>Browse...</value>
+  </data>
+  <data name="Settings.Saving.Cardboard" xml:space="preserve">
+    <value>Sove pou katon (ak modifikasyon, pa gen fwontyè, pa gen espas, plen lajè, pou chaje tounen nan CrossCam pita)</value>
+  </data>
+  <data name="Settings.Saving.Clear" xml:space="preserve">
+    <value>Otomatikman klè kaptire apre ekonomize</value>
+  </data>
+  <data name="Settings.Saving.Cross" xml:space="preserve">
+    <value>Sove vèsyon kwaze ansanm (ak modifikasyon ak fwontyè)</value>
+  </data>
+  <data name="Settings.Saving.ExternalDirectory" xml:space="preserve">
+    <value>Sove nan anyè ekstèn CrossCam nan:</value>
+  </data>
+  <data name="Settings.Saving.ExternalWarning" xml:space="preserve">
+    <value>(Avètisman: foto yo pral efase si CrossCam dezenstale)</value>
+  </data>
+  <data name="Settings.Saving.Folder" xml:space="preserve">
+    <value>Sove nan sousdosye/album dedye "CrossCam".</value>
+  </data>
+  <data name="Settings.Saving.Grayscale" xml:space="preserve">
+    <value>Sove vèsyon anaglif wouj/syan echèl gri (ak modifikasyon men pa gen fwontyè)</value>
+  </data>
+  <data name="Settings.Saving.Order" xml:space="preserve">
+    <value>(Enregistrement ap fèt nan lòd depi anwo jouk anba)</value>
+  </data>
+  <data name="Settings.Saving.Parallel" xml:space="preserve">
+    <value>Sove vèsyon ansanm wè paralèl (ak modifikasyon ak fwontyè)</value>
+  </data>
+  <data name="Settings.Saving.Quad" xml:space="preserve">
+    <value>Sove kwadwilatè konbinezon (ak modifikasyon ak fwontyè)</value>
+  </data>
+  <data name="Settings.Saving.Reset" xml:space="preserve">
+    <value>Reyajiste</value>
+  </data>
+  <data name="Settings.Saving.Resolution" xml:space="preserve">
+    <value>Pwopòsyon rezolisyon</value>
+  </data>
+  <data name="Settings.Saving.SaveTo" xml:space="preserve">
+    <value>Sove nan:</value>
+  </data>
+  <data name="Settings.Saving.Separate" xml:space="preserve">
+    <value>Sove chak bò separeman (ki pa gen okenn chanjman oswa fwontyè pou pi fasil pwosesis pòs, bò gòch sove an premye)</value>
+  </data>
+  <data name="Settings.Saving.Subfolder" xml:space="preserve">
+    <value>Sove nan sousdosye/albòm dedye "CrossCam_{ViewMethod}".</value>
+  </data>
+  <data name="Settings.Saving.Triple" xml:space="preserve">
+    <value>Sove twa konbinezon (ak modifikasyon ak fwontyè)</value>
+  </data>
+  <data name="Button.Pair.Accept" xml:space="preserve">
+    <value>Aksepte</value>
+  </data>
+  <data name="Button.Pair.Cancel" xml:space="preserve">
+    <value>Anile</value>
+  </data>
+  <data name="Page.Camera.AcceptConnection" xml:space="preserve">
+    <value>Aksepte koneksyon ak</value>
+  </data>
+  <data name="Page.Camera.Confirm" xml:space="preserve">
+    <value>Konfime kòd alimèt sou tou de aparèy:</value>
+  </data>
+  <data name="Page.Footer.CouldntOpen" xml:space="preserve">
+    <value>Pa t 'kapab louvri lyen</value>
+  </data>
+  <data name="Page.Footer.OpenError" xml:space="preserve">
+    <value>Lyen mailto a pa t 'kapab louvri. Sa a ta ka paske kliyan imel ou a pa mete kanpe, oswa kèk lòt rezon.</value>
+  </data>
+  <data name="Page.Pair.Errors.Denied" xml:space="preserve">
+    <value>Otorizasyon ki nesesè yo pa t akòde. Eksepsyon:</value>
+  </data>
+  <data name="Page.Pair.Errors.FailedBluetooth" xml:space="preserve">
+    <value>Aparèy la echwe pou pouvwa sou Bluetooth. Eksepsyon:</value>
+  </data>
+  <data name="Page.Pair.Errors.FailedSearch" xml:space="preserve">
+    <value>Aparèy la echwe pou pou chèche aparèy. Eksepsyon:</value>
+  </data>
+  <data name="Page.Pair.Errors.LocationOff" xml:space="preserve">
+    <value>Sèvis lokal yo pa aktive. Pa ka eskane pou aparèy. Gade paj kouple a pou plis detay.</value>
+  </data>
+  <data name="Page.Pair.Errors.LocationScan" xml:space="preserve">
+    <value>Pèmisyon kote yo pa akòde. Pa ka eskane pou aparèy. Gade paj kouple a pou plis detay.</value>
+  </data>
+  <data name="Page.Pair.Errors.NotSupported" xml:space="preserve">
+    <value>Pairing pa sipòte sou aparèy sa a. Eksepsyon:</value>
+  </data>
+  <data name="Page.Pair.Errors.Title" xml:space="preserve">
+    <value>Erè</value>
+  </data>
+  <data name="Page.Pair.Errors.WifiOff" xml:space="preserve">
+    <value>Wi-Fi etenn. Tanpri aktive Wi-Fi.</value>
+  </data>
+  <data name="Page.Pair.PrimaryExplanation" xml:space="preserve">
+    <value>Se aparèy sa a kounye a mete kòm prensipal la.</value>
+  </data>
+  <data name="Page.Pair.PrimarySelected" xml:space="preserve">
+    <value>Wòl Prensipal Chwazi</value>
+  </data>
+  <data name="Page.Pair.SecondaryExplanation" xml:space="preserve">
+    <value>Se aparèy sa a kounye a mete kòm segondè a.</value>
+  </data>
+  <data name="Page.Pair.SecondarySelected" xml:space="preserve">
+    <value>Wòl Segondè Chwazi</value>
+  </data>
+  <data name="Page.Technique.Mode" xml:space="preserve">
+    <value>mòd.</value>
+  </data>
+  <data name="Page.Technique.SetMode" xml:space="preserve">
+    <value>CrossCam se kounye a nan</value>
+  </data>
+</root>

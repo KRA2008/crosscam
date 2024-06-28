@@ -1,0 +1,1156 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="Button.GoogleDoc" xml:space="preserve">
+    <value>Google-document over geweldige dingen</value>
+  </data>
+  <data name="Button.LearnCross" xml:space="preserve">
+    <value>LEER KRUIS</value>
+  </data>
+  <data name="Button.LearnParallel" xml:space="preserve">
+    <value>LEER PARALLEL</value>
+  </data>
+  <data name="Button.MorePictures" xml:space="preserve">
+    <value>Zie meer foto's</value>
+  </data>
+  <data name="Button.Review" xml:space="preserve">
+    <value>Schrijf een recensie</value>
+  </data>
+  <data name="Button.Share" xml:space="preserve">
+    <value>Deel CrossCam</value>
+  </data>
+  <data name="Button.Support" xml:space="preserve">
+    <value>Ondersteun de ontwikkelaar</value>
+  </data>
+  <data name="Button.TapCross" xml:space="preserve">
+    <value>KLIK HIER OM KRUIS TE KIEZEN</value>
+  </data>
+  <data name="Button.TapParallel" xml:space="preserve">
+    <value>KLIK HIER OM PARALLEL TE KIEZEN</value>
+  </data>
+  <data name="Footer.Span1" xml:space="preserve">
+    <value>Een bug gevonden? Heb je een vraag? Gewoon e-mailen</value>
+  </data>
+  <data name="Footer.Span3" xml:space="preserve">
+    <value>! Ik praat graag met gebruikers en het is de snelste manier om met mij te communiceren.</value>
+  </data>
+  <data name="Page.HowToUse.2anaglyph" xml:space="preserve">
+    <value>2) Start de anaglief door de eerste foto te bekijken met het voorbeeld dat ernaast verschijnt.</value>
+  </data>
+  <data name="Page.HowToUse.2cardboard" xml:space="preserve">
+    <value>2) Begin met het bekijken van de eerste foto met het voorbeeld dat ernaast verschijnt.</value>
+  </data>
+  <data name="Page.HowToUse.2cross" xml:space="preserve">
+    <value>2) Begin met het bekijken van de eerste foto met het voorbeeld dat ernaast verschijnt.</value>
+  </data>
+  <data name="Page.HowToUse.2parallel" xml:space="preserve">
+    <value>2) Begin parallel met het bekijken van de eerste foto met het voorbeeld dat ernaast verschijnt.</value>
+  </data>
+  <data name="Page.Technique.AdditionalTutorials" xml:space="preserve">
+    <value>Aanvullende tutorials:</value>
+  </data>
+  <data name="Page.Technique.Cross1" xml:space="preserve">
+    <value>Kijk voorzichtig terwijl je naar de paar foto's hierboven kijkt. Als je scheel kijkt, worden de dingen wazig en doorzichtig en begin je vier foto's te zien in plaats van twee (2 paar). Hoe harder je kijkt, hoe verder de paren afbeeldingen uit elkaar zullen bewegen - het zal er ongeveer zo uitzien:</value>
+  </data>
+  <data name="Page.Technique.Cross2" xml:space="preserve">
+    <value>Haal je ogen voorzichtig uit elkaar, zodat de afbeeldingen aan de binnenkant van elk paar elkaar gaan overlappen. Het zal lijken alsof er maar 3 foto's zijn in plaats van 4. Het zal nog steeds wazig en doorzichtig zijn en er ongeveer zo uitzien:</value>
+  </data>
+  <data name="Page.Technique.Cross3" xml:space="preserve">
+    <value>Zodra de middelste overlap werkt, hoef je alleen maar je ogen te ontspannen en ze de kans te geven het beeld scherp te stellen. Op dat moment heb je één scherp 3D-beeld in het midden met aan elke kant een transparant beeld dat er als volgt uitziet (behalve dat het midden 3D is):</value>
+  </data>
+  <data name="Page.Technique.Cross4" xml:space="preserve">
+    <value>Als u moeite heeft met uw ogen te kruisen, kunt u ook proberen naar uw vinger te staren terwijl u deze halverwege uw ogen en het scherm houdt. Je zou moeten zien dat de foto's achter je vinger beginnen te scheiden en elkaar overlappen.</value>
+  </data>
+  <data name="Page.Technique.CrossViewing" xml:space="preserve">
+    <value>Dwarsbezichtiging</value>
+  </data>
+  <data name="Page.Technique.P1" xml:space="preserve">
+    <value>Als je dit nog een keer wilt zien, tik je op het hamburgerpictogram (drie lijntjes) linksboven in het camerascherm en tik je op ‘Help’.
+
+Om 3D in CrossCam te zien ("stereogrammen" genoemd), kunt u een rood/cyaan 3D-bril gebruiken, een Google Cardboard-viewer, of u kunt "vrij kijken" met alleen uw ogen en uw scherm. Er zijn twee manieren om vrij te kijken, en CrossCam kan u helpen beide te leren. U moet CrossCam vertellen hoe u de foto's gaat bekijken, anders werkt het niet goed. Maak je geen zorgen, je kunt dit altijd weer wijzigen in Instellingen.
+
+Als je gemakkelijk kunt kijken, moet je eerst de kruismethode proberen, anders moet je de parallelle methode proberen. Als je gewend bent aan Magic Eye™-boeken, kun je waarschijnlijk al de parallelle methode gebruiken, maar misschien kun je ook de kruismethode gebruiken. Tik op een methode hieronder om deze te leren, en zorg ervoor dat u CrossCam vertelt welke voor u werkt door op de overeenkomstige KIES-knop te drukken.
+
+Als u liever een 3D-bril of een Cardboard-viewer gebruikt, kunt u CrossCam zo instellen dat u deze gebruikt op de pagina Instellingen.</value>
+  </data>
+  <data name="Page.Technique.CrossLink1" xml:space="preserve">
+    <value>Een leuke teksttutorial</value>
+  </data>
+  <data name="Page.Technique.CrossLink2" xml:space="preserve">
+    <value>Nog een leuke teksttutorial</value>
+  </data>
+  <data name="Page.Technique.CrossLink3" xml:space="preserve">
+    <value>Een korte YouTube-tutorial</value>
+  </data>
+  <data name="Page.Technique.CrossLink4" xml:space="preserve">
+    <value>Een lange, vreemde, maar nuttige YouTube-tutorial</value>
+  </data>
+  <data name="Page.Technique.CrossLink5" xml:space="preserve">
+    <value>Nog een YouTube-tutorial</value>
+  </data>
+  <data name="Page.Technique.CrossLink6" xml:space="preserve">
+    <value>Een dual-cameraproject met een tutorial</value>
+  </data>
+  <data name="Page.Technique.Parallel1" xml:space="preserve">
+    <value>Als de bovenstaande afbeelding niet op uw scherm past, zet u uw telefoon in de liggende stand. CrossCam probeert hiervoor het tweetal afbeeldingen boven het gemakkelijkste formaat te maken. Je hoeft CrossCam niet altijd in landschapsmodus te gebruiken, maar een afbeelding van perfect formaat maakt het leren van de techniek gemakkelijker.</value>
+  </data>
+  <data name="Page.Technique.Parallel2" xml:space="preserve">
+    <value>Ontspan je ogen en kijk "door" de twee foto's hierboven, alsof je een beetje naar buiten kijkt met je ogen naar de foto's gericht. Je zou drie afbeeldingen moeten zien met een 3D-afbeelding in het midden, ongeveer zo:</value>
+  </data>
+  <data name="Page.Technique.Parallel3" xml:space="preserve">
+    <value>Als je 4 foto's begint te zien, ben je te ver gegaan. Probeer uw ogen een klein beetje rond te bewegen als u zich weer op dat punt bevindt. Te ver ontspannen ziet er ongeveer zo uit:</value>
+  </data>
+  <data name="Page.Technique.Parallel4" xml:space="preserve">
+    <value>Als je problemen ondervindt, probeer dan het scherm recht tegen je gezicht te houden, met de twee foto's recht voor je ogen. Ontspan en kijk "door" het scherm en trek dan langzaam uw scherm weg van uw gezicht terwijl u uw ogen ontspannen houdt. Uiteindelijk zou de afbeelding in focus moeten "klikken".</value>
+  </data>
+  <data name="Page.Technique.Parallel5" xml:space="preserve">
+    <value>Als u nog steeds vier afbeeldingen ziet, vergroot u de 'Maximale afbeeldingsbreedte voor parallelle weergave' op de pagina Instellingen.</value>
+  </data>
+  <data name="Page.Technique.ParallelViewing" xml:space="preserve">
+    <value>PARALLELLE BEZICHTIGING</value>
+  </data>
+  <data name="Page.Technique.Practice" xml:space="preserve">
+    <value>Afbeeldingen die ik heb gemaakt waar je op kunt oefenen</value>
+  </data>
+  <data name="Title.Contact" xml:space="preserve">
+    <value>Contact</value>
+  </data>
+  <data name="Title.Faq" xml:space="preserve">
+    <value>FAQ</value>
+  </data>
+  <data name="Title.Help" xml:space="preserve">
+    <value>Hulp</value>
+  </data>
+  <data name="Title.HowToUse" xml:space="preserve">
+    <value>CrossCam gebruiken</value>
+  </data>
+  <data name="Title.Technique" xml:space="preserve">
+    <value>3D-kijktechniek</value>
+  </data>
+  <data name="Title.Tips" xml:space="preserve">
+    <value>Tips</value>
+  </data>
+  <data name="Button.DoNotEmailMe" xml:space="preserve">
+    <value>Stuur mij nu geen e-mail</value>
+  </data>
+  <data name="Button.EmailMeNow" xml:space="preserve">
+    <value>E-mail mij nu</value>
+  </data>
+  <data name="Button.No" xml:space="preserve">
+    <value>Nee</value>
+  </data>
+  <data name="Button.OK" xml:space="preserve">
+    <value>OK</value>
+  </data>
+  <data name="Button.YesClear" xml:space="preserve">
+    <value>Ja duidelijk</value>
+  </data>
+  <data name="Page.Camera.Aligning" xml:space="preserve">
+    <value>Uitlijnen...</value>
+  </data>
+  <data name="Page.Camera.AlignmentBroken" xml:space="preserve">
+    <value>Automatische uitlijning wordt niet ondersteund op het apparaat. Schakel dit uit in Instellingen.</value>
+  </data>
+  <data name="Page.Camera.AlignmentFailed" xml:space="preserve">
+    <value>Uitlijning mislukt.</value>
+  </data>
+  <data name="Page.Camera.BorderAsk" xml:space="preserve">
+    <value>Er is een grens gedetecteerd. De rand verwijderen?</value>
+  </data>
+  <data name="Page.Camera.BorderDetected" xml:space="preserve">
+    <value>Grens gedetecteerd</value>
+  </data>
+  <data name="Page.Camera.Cancel" xml:space="preserve">
+    <value>Annuleren</value>
+  </data>
+  <data name="Page.Camera.ChooseAction" xml:space="preserve">
+    <value>Kies een actie:</value>
+  </data>
+  <data name="Page.Camera.DirectoryNotFound" xml:space="preserve">
+    <value>Directory niet gevonden</value>
+  </data>
+  <data name="Page.Camera.DirectoryNotFoundExplain" xml:space="preserve">
+    <value>De opslagbestemming kon niet worden gevonden. Kies een andere op de instellingenpagina.</value>
+  </data>
+  <data name="Page.Camera.ErrorEmailBody" xml:space="preserve">
+    <value>Wat heb je gedaan vlak voordat de fout zich voordeed? Beschrijf zelfs de kleine dingen.\n\n\n\n\n\nWerkte CrossCam nog steeds na de fout? Zo niet, hoe komt het dan?\n\n\n\n\n\nGebeurt dit herhaaldelijk?\n\n\n\n\n\nKun je de fout forceren om op commando te gebeuren? Zo ja, hoe?\n\n\n\n\n\n</value>
+  </data>
+  <data name="Page.Camera.FlipForCardboard" xml:space="preserve">
+    <value>Draai naar liggend in de kartonnen modus.</value>
+  </data>
+  <data name="Page.Camera.FlipLarger" xml:space="preserve">
+    <value>(draai naar liggend voor een grotere weergave)</value>
+  </data>
+  <data name="Page.Camera.ForAnaglyph" xml:space="preserve">
+    <value>voor anaglief</value>
+  </data>
+  <data name="Page.Camera.ForCardboard" xml:space="preserve">
+    <value>voor Karton</value>
+  </data>
+  <data name="Page.Camera.ForCross" xml:space="preserve">
+    <value>voor kruis</value>
+  </data>
+  <data name="Page.Camera.ForParallel" xml:space="preserve">
+    <value>voor parallel</value>
+  </data>
+  <data name="Page.Camera.GoPickRole" xml:space="preserve">
+    <value>Ga naar de koppelingspagina (via de pagina Instellingen) en kies een koppelingsrol voor dit apparaat voordat u probeert te koppelen.</value>
+  </data>
+  <data name="Page.Camera.InvalidImage" xml:space="preserve">
+    <value>Ongeldige afbeelding</value>
+  </data>
+  <data name="Button.Camera.Keep" xml:space="preserve">
+    <value>Houden</value>
+  </data>
+  <data name="Page.Camera.LoadFullImage" xml:space="preserve">
+    <value>Volledig stereobeeld laden</value>
+  </data>
+  <data name="Page.Camera.Loading" xml:space="preserve">
+    <value>Bezig met laden...</value>
+  </data>
+  <data name="Page.Camera.LoadSingleSide" xml:space="preserve">
+    <value>Enkelzijdig laden</value>
+  </data>
+  <data name="Page.Camera.ManualCorrections" xml:space="preserve">
+    <value>Houd ook rekening met handmatige correcties.</value>
+  </data>
+  <data name="Page.Camera.MirrorOnLeft" xml:space="preserve">
+    <value>SPIEGEL LINKS</value>
+  </data>
+  <data name="Page.Camera.MirrorOnRight" xml:space="preserve">
+    <value>SPIEGEL RECHTS</value>
+  </data>
+  <data name="Page.Camera.MoveLeft" xml:space="preserve">
+    <value>GA NAAR LINKS</value>
+  </data>
+  <data name="Page.Camera.MoveRight" xml:space="preserve">
+    <value>GA NAAR RECHTS</value>
+  </data>
+  <data name="Page.Camera.NoSaveModes" xml:space="preserve">
+    <value>Geen opslagmodi actief</value>
+  </data>
+  <data name="Page.Camera.NoSaveModesExplain" xml:space="preserve">
+    <value>Er zijn momenteel geen opslagmodi ingeschakeld. Schakel een opslagmodus in op de pagina Instellingen.</value>
+  </data>
+  <data name="Page.Camera.Oops" xml:space="preserve">
+    <value>Oeps</value>
+  </data>
+  <data name="Page.Camera.OrRotate" xml:space="preserve">
+    <value>(of roteren)</value>
+  </data>
+  <data name="Page.Camera.OrSwipe" xml:space="preserve">
+    <value>(of veeg)</value>
+  </data>
+  <data name="Page.Camera.PairRoleNotSelected" xml:space="preserve">
+    <value>Koppelrol niet geselecteerd</value>
+  </data>
+  <data name="Page.Camera.PinchOrDrag" xml:space="preserve">
+    <value>Knijp of sleep om te verkennen!</value>
+  </data>
+  <data name="Page.Camera.PleaseSelectValid" xml:space="preserve">
+    <value>Selecteer een Jpeg-, Png- of Webp-afbeelding. De afbeelding die je hebt geselecteerd is</value>
+  </data>
+  <data name="Page.Camera.ReallyClear" xml:space="preserve">
+    <value>Echt duidelijk?</value>
+  </data>
+  <data name="Button.Camera.Remove" xml:space="preserve">
+    <value>Verwijderen</value>
+  </data>
+  <data name="Page.Camera.SavedToCustomFolder" xml:space="preserve">
+    <value>Opgeslagen in aangepaste map</value>
+  </data>
+  <data name="Page.Camera.SavedToExternal" xml:space="preserve">
+    <value>Opgeslagen op extern</value>
+  </data>
+  <data name="Page.Camera.SavedToPhotos" xml:space="preserve">
+    <value>Opgeslagen in Foto's</value>
+  </data>
+  <data name="Page.Camera.SaveFailed" xml:space="preserve">
+    <value>Opslaan mislukt. :(</value>
+  </data>
+  <data name="Page.Camera.Saving" xml:space="preserve">
+    <value>Besparing...</value>
+  </data>
+  <data name="Page.Camera.SecondaryOnLeft" xml:space="preserve">
+    <value>SECUNDAIR AAN LINKS</value>
+  </data>
+  <data name="Page.Camera.SecondaryOnRight" xml:space="preserve">
+    <value>SECUNDAIR RECHTS</value>
+  </data>
+  <data name="Page.Camera.SelectedInvalid" xml:space="preserve">
+    <value>De geselecteerde afbeelding is ongeldig.</value>
+  </data>
+  <data name="Page.Camera.SorryError" xml:space="preserve">
+    <value>Sorry, CrossCam heeft een fout gemaakt. Er is automatisch een foutrapport verzonden. Het kan zijn dat u helemaal niets verkeerds opmerkt, maar als dit wel het geval is, probeer dan de toepassing opnieuw te starten. Als dit blijft gebeuren, kunt u mij een e-mail sturen en mij hierover vertellen. (Ga naar de pagina Instellingen om deze pop-ups te stoppen.)</value>
+  </data>
+  <data name="Page.Camera.Steady" xml:space="preserve">
+    <value>Stabiel...</value>
+  </data>
+  <data name="Page.Camera.SureClear" xml:space="preserve">
+    <value>Weet u zeker dat u uw foto's wilt wissen en opnieuw wilt beginnen?</value>
+  </data>
+  <data name="Page.Camera.Syncing" xml:space="preserve">
+    <value>Synchroniseren...</value>
+  </data>
+  <data name="Page.Camera.Transmitting" xml:space="preserve">
+    <value>Zenden...
+(houd apparaat ontgrendeld)</value>
+  </data>
+  <data name="Page.Camera.VR" xml:space="preserve">
+    <value>VR</value>
+  </data>
+  <data name="Page.FovCorrection" xml:space="preserve">
+    <value>Gezichtsveldcorrectie</value>
+  </data>
+  <data name="Page.FovCorrectionExplain" xml:space="preserve">
+    <value>Verschillende apparaatmodellen kunnen verschillende gezichtsvelden hebben. CrossCam helpt u dit te corrigeren nadat u uw eerste opname hebt gemaakt. Kader in en leg iets vast met opvallende punten aan de boven- en onderkant van het frame, waarbij u ervoor zorgt dat de punten op beide apparaten zichtbaar zijn.</value>
+  </data>
+  <data name="Page.Technique.ParallelLink1" xml:space="preserve">
+    <value>Een leuke teksttutorial</value>
+  </data>
+  <data name="Page.Technique.ParallelLink2" xml:space="preserve">
+    <value>Nog een leuke teksttutorial</value>
+  </data>
+  <data name="Page.Technique.ParallelLink3" xml:space="preserve">
+    <value>Nog WEER een leuke teksttutorial</value>
+  </data>
+  <data name="Page.Technique.ParallelLink4" xml:space="preserve">
+    <value>Magic Frankfurter-zelfstudie</value>
+  </data>
+  <data name="Page.Technique.ParallelLink5" xml:space="preserve">
+    <value>Een leuk filmpje over Magic Eye</value>
+  </data>
+  <data name="Page.Technique.Trouble" xml:space="preserve">
+    <value>Als je nog steeds problemen ondervindt, probeer dan je telefoon naar een donkere kamer te brengen, zodat je ogen alleen het beeld goed kunnen zien en waarop ze zich kunnen concentreren.
+
+Een ander ding dat je kunt proberen is het gebruik van tubes toiletpapier of je handen om het zo te maken dat elk oog alleen de kant van het beeld kan zien dat het zou moeten zien.
+ • Voor dwarsaanzicht: houd een enkele buis tegen de brug van uw neus (gecentreerd tussen uw ogen) terwijl u deze naar het midden van het beeld voor u richt. Beweeg de buis langzaam in de richting van het scherm terwijl u met beide ogen door de buis probeert te kijken. Wanneer u met de tube de juiste positie bereikt, klikt de afbeelding op zijn plaats. Het kan helpen als u zich concentreert op het proberen naar de binnenkant van het uiteinde van de buis te kijken. Als je de juiste positie niet kunt vinden, probeer dan een grotere afbeelding of een kleinere tube.
+ • Voor parallel zicht: houd een buisje voor elk oog, maar richt ze allebei zijwaarts, zodat je nauwelijks iets kunt zien. Draai tegelijkertijd de buizen langzaam naar binnen, zodat u meer van het beeld kunt zien. Op het moment dat je het grootste deel van het beeld kunt zien (bijna de helft met elk oog), probeer je ogen te ontspannen en de helften bij elkaar te brengen. Het kan helpen om een ​​grotere of kleinere afbeelding te gebruiken.
+
+Er is een eenvoudige oefening die u kunt doen om het samensmelten te oefenen met kruislings of parallel kijken. Neem een ​​stift en teken een deel van een smiley op elk van je thumbnails (of een paar ijslollystokjes of tongspatels). Teken bijvoorbeeld aan de ene kant een oog en een mond, en aan de andere kant een oog en een neus. Je kunt ze dan voor je houden en oefenen met het samenvoegen van de twee afbeeldingen om het smileygezicht te voltooien.
+
+Persoonlijk geef ik de voorkeur aan cross over parallel omdat afbeeldingen groter kunnen zijn, maar beide methoden werken. Als u wilt experimenteren met grotere parallelle afbeeldingen, kunt u de grootte regelen op de pagina Instellingen.
+
+Soms is het moeilijk om te voelen of je de kruis- of parallelle methode gebruikt terwijl je het doet. Je kunt iemand anders vragen om op je ogen te letten terwijl je dit doet, of je kunt als test naar onderstaande afbeelding kijken:</value>
+  </data>
+  <data name="SaveModes.Anaglyph" xml:space="preserve">
+    <value>Anaglief</value>
+  </data>
+  <data name="SaveModes.Cardboard" xml:space="preserve">
+    <value>Karton</value>
+  </data>
+  <data name="SaveModes.Cross" xml:space="preserve">
+    <value>Kruis</value>
+  </data>
+  <data name="SaveModes.GrayscaleAnaglyph" xml:space="preserve">
+    <value>Grijswaardenanaglief</value>
+  </data>
+  <data name="SaveModes.Parallel" xml:space="preserve">
+    <value>Parallel</value>
+  </data>
+  <data name="SaveModes.Quad" xml:space="preserve">
+    <value>Viervoudig</value>
+  </data>
+  <data name="SaveModes.Separate" xml:space="preserve">
+    <value>Verschillend</value>
+  </data>
+  <data name="SaveModes.Single" xml:space="preserve">
+    <value>Enkel</value>
+  </data>
+  <data name="SaveModes.Triple" xml:space="preserve">
+    <value>Verdrievoudigen</value>
+  </data>
+  <data name="Page.Camera.FovExplain" xml:space="preserve">
+    <value>Om verschillen in gezichtsveld te corrigeren, zoomt u in en verschuift u de foto's zodat de onderscheidende punten tussen de twee foto's op één lijn liggen. U kunt de witte lijnen rondslepen om u te helpen de uitlijning te visualiseren. Deze correctie wordt toegepast op toekomstige previews. Het wordt opgeslagen, maar u kunt het opnieuw instellen op de pagina Instellingen. Als u identieke apparaten gebruikt, kunt u deze gewoon opslaan zonder aanpassingen aan te brengen.</value>
+  </data>
+  <data name="Page.Camera.FovTitle" xml:space="preserve">
+    <value>Gezichtsveldcorrectie</value>
+  </data>
+  <data name="Page.Camera.KeyPoints" xml:space="preserve">
+    <value>Kernpunten</value>
+  </data>
+  <data name="Page.Camera.Warped" xml:space="preserve">
+    <value>Kromgetrokken</value>
+  </data>
+  <data name="Page.Camera.WelcomeExplain" xml:space="preserve">
+    <value>CrossCam is gemaakt om u te helpen 3D-foto's te maken. De foto's zijn 3D, net als VR of 3D-films, maar je hebt geen speciale apparatuur of bril nodig - alleen je telefoon (maar als je wel een rood/cyaan 3D-bril of een Google Cardboard-viewer hebt, kun je die gebruiken ook met CrossCam). De 'gratis kijktechniek' waarbij alleen je telefoon en je ogen worden gebruikt, vergt enige oefening om te leren. Voordat ik je vertel hoe je CrossCam gebruikt, wil je eerst meer weten over de kijktechniek?</value>
+  </data>
+  <data name="Page.Camera.Welcome" xml:space="preserve">
+    <value>Welkom bij CrossCam!</value>
+  </data>
+  <data name="Page.Camera.Directions" xml:space="preserve">
+    <value>Ga naar Routebeschrijving</value>
+  </data>
+  <data name="Page.Camera.Technique" xml:space="preserve">
+    <value>Kijktechniek</value>
+  </data>
+  <data name="Page.HowToUse.P1" xml:space="preserve">
+    <value>Als je dit nog een keer wilt zien, tik je op het hamburgerpictogram (drie lijntjes) linksboven in het camerascherm en tik je op ‘Help’.
+
+
+1) Kadreer en maak de eerste foto.</value>
+  </data>
+  <data name="Page.HowToUse.P2" xml:space="preserve">
+    <value>3) Houd uw telefoon stil voor u en beweeg langzaam zijwaarts in de richting die CrossCam aangeeft. Beweeg niet te ver - een centimeter of minder voor elke voet verwijderd van uw doel. Draai ook helemaal niet, maar schuif gewoon zijwaarts, of leun misschien zelfs gewoon.
+
+4) Lijn de eerste foto uit met het voorbeeld van de tweede foto en maak de tweede foto als je het leuk vindt wat je ziet.
+
+5) CrossCam lijnt uw foto's automatisch uit nadat u ze hebt gemaakt, maar het is niet perfect. Als u niet tevreden bent met hoe ze zijn uitgelijnd, kunt u de automatische uitlijning uitschakelen door op het kleine robotpictogram te tikken. CrossCam heeft ook tal van handmatige bewerkingsopties die u kunt bereiken door op het potloodpictogram te tikken.
+
+6) Tik op het vinkje als je klaar bent om op te slaan.
+
+
+Andere dingen die je kunt doen:
+ • Tik één keer om scherp te stellen op een punt, tik twee keer om terug te schakelen naar continue autofocus.
+ • Tik op het tandwielpictogram rechtsboven in het camerascherm om de pagina Instellingen te openen. Het staat vol met interessante dingen.
+ • Er is een leuke Tips-pagina die u kunt bereiken door op het hamburgerpictogram linksboven in het camerascherm te tikken, waarmee u uw foto's geweldig kunt maken.
+ • Als je liever de andere kant opgaat voor je tweede schot of de zijkanten wilt wisselen, kun je eenvoudigweg vegen.
+ • Tik op het kleine mappictogram onderaan om een ​​afbeelding als zijkant te laden of om een ​​volledige stereoafbeelding te laden.</value>
+  </data>
+  <data name="Page.Faq.Alignment" xml:space="preserve">
+    <value>Hoe werkt automatische uitlijning?</value>
+  </data>
+  <data name="Page.Faq.Alignment.Body" xml:space="preserve">
+    <value>Automatische uitlijning probeert de afbeeldingsparen zo goed mogelijk uit te lijnen, maar dit is niet perfect. Computervisie is in sommige dingen beter dan menselijke ogen, maar ook in andere dingen veel slechter. De wereld die hij ziet is heel anders dan die wij zien, maar hij kan ook op een paar verschillende manieren kijken. De twee belangrijkste manieren waarop het in CrossCam ziet, zijn via de verbeterde correlatiecoëfficiënt (ECC) en het gebruik van sleutelpunten.
+
+ECC-uitlijning werkt in wezen door te proberen ervoor te zorgen dat lichte plekken overlappen met lichte plekken en dat donkere plekken overlappen met donkere plekken wanneer de twee zijden over elkaar heen liggen. ECC-uitlijning wordt geleverd met een betrouwbaarheidsscore die bedoeld is om te helpen beslissen of de uitlijning effectief was. CrossCam is zo ingesteld dat de geproduceerde uitlijning wordt afgewezen als het vertrouwen te laag is, maar u kunt de vertrouwensdrempel configureren op de pagina Instellingen.
+
+Bij het uitlijnen van belangrijke punten wordt gezocht naar interessante punten zoals hoeken, randen, punten en hoog contrast, en wordt geprobeerd deze tussen de twee zijden op elkaar af te stemmen. Zodra de punten op elkaar zijn afgestemd, kan CrossCam verschillende algoritmen gebruiken om te proberen de zijkanten zo te vervormen dat de sleutelpunten aan de ene kant allemaal zo dicht mogelijk bij de overeenkomstige sleutelpunten aan de andere kant liggen.
+
+CrossCam is geprogrammeerd om eerst keypoint-uitlijning te gebruiken, maar zal terugvallen op ECC-uitlijning wanneer keypoint-uitlijning mislukt of wanneer vastleggen wordt gedaan met de single shot mirror-division-methode. U kunt automatische uitlijning ook configureren om altijd uitlijning van hoofdpunten te gebruiken of altijd ECC-uitlijning gebruiken op de pagina Instellingen.
+
+CrossCam geeft het resultaat van de uitlijning weer op het camerascherm onder het kleine robotpictogram. Als ECC-uitlijning is gebruikt, wordt het betrouwbaarheidspercentage weergegeven. Als er gebruik is gemaakt van uitlijning van sleutelpunten, wordt "KP" weergegeven. Als beide uitlijningsmethoden mislukten, wordt "F" weergegeven. Als het resultaat van de uitlijning u niet bevalt, kunt u op het kleine robotpictogram tikken om de uitlijning te verwijderen.</value>
+  </data>
+  <data name="Page.Faq.Bad" xml:space="preserve">
+    <value>Is dit slecht voor mijn ogen?</value>
+  </data>
+  <data name="Page.Faq.Bad.Body1" xml:space="preserve">
+    <value>Ik weet het niet, maar ik denk het niet. Als het echter slecht voelt, neem dan gewoon een pauze. Door oefening wordt het ongemak meestal minder. Elke kijkmethode kan ongemak veroorzaken vanwege een effect dat het vergentie-accommodatieconflict wordt genoemd. Hier is</value>
+  </data>
+  <data name="Page.Faq.Bad.Body2" xml:space="preserve">
+    <value>een Wikipedia-link over het vergentie-accommodatieconflict.</value>
+  </data>
+  <data name="Page.Faq.Bad.Body3" xml:space="preserve">
+    <value>Als u de schele methode gebruikt, kan het gevoel ook te wijten zijn aan het feit dat uw ogen niet gewend zijn om te wijzen alsof ze zo lang naar iets van zo dichtbij kijken. Bij kruislings kijken komen uw ogen samen op een punt ongeveer halverwege tussen uw ogen en het scherm. Als het langdurig naar iets kijken dat dichtbij is, u ook ongemak zou bezorgen, hebben wij onze verklaring.
+
+Mijn mening hierover is dat je ogen niets doen dat buiten hun dagelijkse mogelijkheden valt, maar dat je twee verschillende vaardigheden combineert die normaal gesproken niet op die manier worden gebruikt. U richt uw lenzen op iets op een plek waar u normaal gesproken comfortabel op kunt scherpstellen, en u richt uw ogen ergens waar het normaal gesproken prettig is om te wijzen, maar op de plaats waar uw lenzen scherpstellen en waar uw ogen samenkomen is gewoon niet hetzelfde punt. Ik begrijp niet hoe dat slecht voor je zou kunnen zijn, zolang je gezichtsvermogen zich nog niet aan het ontwikkelen is.</value>
+  </data>
+  <data name="Page.Faq.Cardboard" xml:space="preserve">
+    <value>Hoe gebruik ik CrossCam met Google Cardboard?</value>
+  </data>
+  <data name="Page.Faq.Cardboard.Body" xml:space="preserve">
+    <value>Als uw kijker een knop heeft die op het midden van het scherm drukt, kunt u deze gebruiken om vast te leggen met Cardboard. Je kijker moet ook een gat hebben waar de camera van je telefoon doorheen kan kijken.
+
+Om foto's te maken met Cardboard, schakelt u de voorbeeldweergavemethode (op de pagina Instellingen) in op Cardboard, keert u vervolgens terug naar de camerapagina en steekt u uw telefoon in de viewer. Druk op de knop om vast te leggen, en als beide kanten zijn vastgelegd, druk dan nogmaals op de knop om op te slaan. Opslaan in Cardboard-modus is alleen bedoeld om u de mogelijkheid te bieden de afbeeldingen terug in CrossCam te laden om ze later te bekijken, niet om ze via uw viewer in uw foto-app te bekijken.
+
+U kunt ook vastleggen met elke andere gewenste methode. Schakel vervolgens uw voorbeeldweergavemethode in op Karton en plaats uw telefoon in de kijker.
+
+Er zijn veel verschillende kijkers met verschillende eigenschappen. Mogelijk moet u de scheidingsafstand van Cardboard wijzigen (op de pagina Instellingen) om uw ervaring comfortabeler te maken. Mogelijk moet u er ook eerst voor zorgen dat u goed bent in het vastleggen van stereogrammen van hoge kwaliteit voordat u ze gigantisch en meeslepend maakt.</value>
+  </data>
+  <data name="Page.Faq.How" xml:space="preserve">
+    <value>Hoe werkt dit?</value>
+  </data>
+  <data name="Page.Faq.How.Body1" xml:space="preserve">
+    <value>Het 3D-effect dat CrossCam gebruikt is een goed bestudeerde discipline die bekend staat als stereoscopie, en de methode waarbij u uw ogen kruist (of ontspant) om de twee kanten te bekijken, wordt vrij kijken genoemd. Als we naar de wereld kijken, ziet elk van onze ogen vanuit een ander perspectief. Bij stereoscopie bieden we elk oog slechts één (kunstmatig) perspectief, en onze hersenen doen de rest. Er zijn veel verschillende manieren om elk oog een ander beeld te laten zien. Hier is</value>
+  </data>
+  <data name="Page.Faq.How.Body2" xml:space="preserve">
+    <value>een Wikipedia-link over stereoscopie</value>
+  </data>
+  <data name="Page.Faq.How.Body3" xml:space="preserve">
+    <value>De 3D-beelden die u met CrossCam maakt, worden stereogrammen genoemd. Magic Eye™-boeken bevatten zogenaamde autostereogrammen.</value>
+  </data>
+  <data name="Page.Faq.Into" xml:space="preserve">
+    <value>Hoe ben je met stereoscopie in aanraking gekomen?</value>
+  </data>
+  <data name="Page.Faq.Into.Body1" xml:space="preserve">
+    <value>Terwijl ik mijn natuurkundediploma behaalde, kreeg ik de kans om te experimenteren met het maken van mijn eigen hologrammen met behulp van lasers. Het type hologrammen dat ik aan het maken was, was 3D omdat ze een diffractierooster gebruikten om destructieve interferentie te veroorzaken in het licht dat weerkaatst op het oppervlak van een glasplaat, waardoor het gereflecteerde beeld er op verschillende plaatsen anders uitziet. Wanneer elk van onze ogen een beeld ziet dat eruitziet alsof het vanuit een ander perspectief komt (als ze niet te verschillend zijn), ervaren onze hersenen dat als diepte.</value>
+  </data>
+  <data name="Page.Faq.Into.Body2" xml:space="preserve">
+    <value>Ik was me al heel lang bewust van dat principe van stereoscopische waarneming, maar op dat moment in mijn leven volgde ik ook enkele programmeerlessen, dus besloot ik dat ik wilde proberen een eenvoudig computerprogramma te maken voor stereoscopisch 3D-tekenen. Die inspanning werd StereoSketcher. De originele versie is geschreven in Java, maar ik heb hem herschreven met Javascript en SVG en nu staat hij op internet</value>
+  </data>
+  <data name="Page.Faq.Into.Body3" xml:space="preserve">
+    <value>op deze link.</value>
+  </data>
+  <data name="Page.Faq.Into.Body4" xml:space="preserve">
+    <value>Het is op geen enkele manier populair, en het is misschien voor niemand anders dan voor mij gemakkelijk te gebruiken, maar het werkt. Terwijl ik aan StereoSketcher werkte, mocht ik experimenteren met de principes van stereoscopie, en ik raakte gecharmeerd van de manier waarop zo'n meeslepende en meeslepende ervaring kan worden geproduceerd met behulp van een paar eenvoudige regels.</value>
+  </data>
+  <data name="Page.Faq.Inverted" xml:space="preserve">
+    <value>Waarom ziet de 3D er niet goed uit OF waarom ziet de 3D er omgekeerd uit?</value>
+  </data>
+  <data name="Page.Faq.Inverted.Body1" xml:space="preserve">
+    <value>Bij het vrij bekijken met de kruis- of parallelle methode is het belangrijk om naar de foto's te kijken met dezelfde methode die werd gebruikt om ze te maken. Anders kijkt uw rechteroog naar het perspectief dat bedoeld is voor het linkeroog en omgekeerd. Hierdoor wordt de diepte van het beeld omgekeerd, omdat de richting van de parallax is verwisseld.
+
+Parallax betekent dat vanuit het perspectief van uw rechteroog, wanneer objecten verder weg zijn, ze verder naar rechts lijken te zijn dan objecten dichterbij, gezien vanuit uw linkeroog. Het is verwarrend als het in zinsvorm wordt beschreven, maar zeer intuïtief als het wordt gedemonstreerd.
+
+Om dit te demonstreren, houdt u één vinger ongeveer op armlengte voor u omhoog en houdt u vervolgens met uw andere hand een andere vinger ongeveer halverwege tussen de wijsvinger en uw gezicht. Als je afwisselend elk oog sluit en let op waar je vingers zich bevinden, zul je zien dat elk oog ze op verschillende plaatsen ziet. Dus als elk oog die beweging in de tegenovergestelde richting ziet dan zou moeten, zal de diepte natuurlijk worden omgekeerd.
+
+Het is heel gemakkelijk om per ongeluk de verkeerde kijkmethode te gebruiken, omdat het voor de meeste mensen erg moeilijk blijkt te zijn om te bepalen of ze hun ogen kruisen of ontspannen, alleen maar door te voelen of door te kijken naar het verwarrende dubbele beeld van de wereld dat daaruit voortkomt. In plaats daarvan kunt u het beste iemand anders laten kijken naar wat uw ogen doen, of deze testerafbeelding uitproberen:</value>
+  </data>
+  <data name="Page.Faq.Inverted.Body2" xml:space="preserve">
+    <value>Veel mensen zijn redelijk vertrouwd geraakt met het bekijken van Magic Eye™-boeken, die bedoeld zijn om te worden bekeken met behulp van de parallelle weergavemethode. Als je ze kruislings bekijkt, zien de robuuste 3D-objecten die van de pagina zouden moeten springen er in plaats daarvan uit als gaten. Met beide methoden kun je *iets* zien, maar als je niet weet wat het is, bekijk je ze waarschijnlijk verkeerd.</value>
+  </data>
+  <data name="Page.Faq.Mirror" xml:space="preserve">
+    <value>Hoe voer ik de "single-shot mirror"-methode uit?</value>
+  </data>
+  <data name="Page.Faq.Mirror.Body1" xml:space="preserve">
+    <value>Door vast te leggen met de spiegelmethode wordt het frame in tweeën gedeeld en wordt de vereiste transformatie uitgevoerd, zodat u beide zijden op hetzelfde moment kunt vastleggen met één telefoon en een gewone handspiegel. Om de spiegelmethode te gebruiken bij het vastleggen, zet u de schakelaar voor de spiegelmodus op de pagina Instellingen aan (tik op het tandwielpictogram om daar te komen). Nadat u de spiegelmodus hebt ingeschakeld, vertelt CrossCam u aan welke kant u uw spiegel moet houden. Houd je spiegel aan die kant en maak je druk over de uitlijning tussen je telefoon en de spiegel en je onderwerp. Met wat geduld kun je ze allemaal op een rij zetten, zodat de spiegel het juiste perspectief voor een van de zijkanten laat zien. Omdat het gebruik van de spiegelmethode uw afbeelding verticaal in tweeën splitst, kunt u meestal het beste landschapsfoto's maken met de spiegelmethode.
+
+Deze methode werkt ook met reflecties in grote, schone ramen, en ook op stille meren of plassen (wanneer de telefoon in portretstand is vergrendeld en opzij is gekanteld).</value>
+  </data>
+  <data name="Page.Faq.Mirror.Body2" xml:space="preserve">
+    <value>Er zijn enkele compromissen/wijzigingen die moeten worden aangebracht om de spiegelmethode te kunnen gebruiken. Deze kunnen allemaal handmatig worden gedaan in CrossCam, maar automatische uitlijning zal ook proberen dit voor u te doen:
+ • Omdat het gereflecteerde beeld een langere afstand aflegt dan het normale beeld, zal de gespiegelde zijde iets moeten worden ingezoomd.
+ • Het is waarschijnlijk dat wanneer u de spiegelmethode gebruikt, u uiteindelijk in het toespoor terechtkomt, in plaats van de perspectieven parallel te houden. Dit kan ervoor zorgen dat verkorting de indruk wekt van een slechte verticale uitlijning. Om dat ongedaan te maken, kan keystone-correctie worden uitgevoerd, wat betekent dat één zijde van elk van de afbeeldingen verticaal wordt verkleind.
+ • Bij toespoor zal het stereovenster ook naar u toe bewegen. Je kunt dat ongedaan maken en het plaatsen waar je het wilt hebben door de zijkanten bij te snijden.
+ • De spiegel zal waarschijnlijk het zicht van één kant niet volledig bedekken, dus het kan nodig zijn om iets bij te snijden om niet-gereflecteerde delen te verwijderen.
+
+De beste spiegels hiervoor hebben dun glas. Ten eerste zijn ze licht, waardoor ze gemakkelijker langdurig vast te houden zijn. Het andere belangrijke is dat je bij het gebruik van de spiegel de spiegel waarschijnlijk zijwaarts richt in plaats van er recht in te kijken, zoals spiegels doorgaans worden gebruikt. Als ze op deze manier zijn georiënteerd, kunnen spiegels met dik glas wat onscherp zijn. Hoe dunner het glas, hoe minder duidelijk deze vervaging zal zijn. Dit soort spiegels kunnen ook in andere opzichten van lage kwaliteit zijn, dus het is belangrijk om een ​​goede balans te vinden.
+
+Er zijn nog een paar andere compromissen die moeten worden geaccepteerd bij het gebruik van spiegelopname, die niet kunnen worden opgelost in bewerkingen door CrossCam:
+ • Omdat het zicht op de twee zijden enigszins verschillende afstanden bestrijkt, zal de focus die nodig is voor elke zijde enigszins verschillend zijn, waardoor één zijde altijd enigszins wazig zal zijn. Dit effect zal min of meer merkbaar zijn, afhankelijk van de afstand tot het onderwerp en de scherptediepte van de lens.
+ • Geen enkele spiegel is echt 100% efficiënt, dus de kant waar de spiegel wordt gebruikt kan iets donkerder zijn. Dit zal variëren afhankelijk van de kwaliteit van de spiegel.</value>
+  </data>
+  <data name="Page.Faq.Moving" xml:space="preserve">
+    <value>Mijn onderwerp beweegt, hoe maak ik er 3D-foto's van?</value>
+  </data>
+  <data name="Page.Faq.Moving.Body" xml:space="preserve">
+    <value>CrossCam biedt u twee methoden om beide perspectieven tegelijkertijd vast te leggen. Bij één methode worden twee telefoons gebruikt en bij één methode wordt een spiegel gebruikt.
+
+Om de configuratie met twee telefoons te gebruiken, gaat u naar de pagina Koppelingsinstellingen, die u kunt bereiken via de pagina Instellingen (tik op het tandwielpictogram).
+
+Om de spiegelmethode te gebruiken, bekijk de andere FAQ-vraag erover.</value>
+  </data>
+  <data name="Page.Faq.Test" xml:space="preserve">
+    <value>Hoe kan ik pre-releaseversies van CrossCam testen?</value>
+  </data>
+  <data name="Page.Faq.Test.Body" xml:space="preserve">
+    <value>Bekijk dit Reddit-bericht</value>
+  </data>
+  <data name="Page.Faq.Why" xml:space="preserve">
+    <value>Waarom heb je CrossCam gemaakt?</value>
+  </data>
+  <data name="Page.Faq.Why.Body" xml:space="preserve">
+    <value>Toen ik geïnteresseerd begon te raken in stereoscopie, maakte ik toevallig een uitstapje naar Yellowstone. Terwijl ik daar was, besefte ik dat het misschien leuk zou zijn om te proberen een mobiele 3D-camera-app te gebruiken om dingen daar in 3D vast te leggen. Ik was erg teleurgesteld door de bestaande opties. Ik ontdekte dat je allemaal twee opnames moest maken en daarna moest uitzoeken of ze goed waren. Dat was vaak niet het geval, omdat ik herhaaldelijk volledige inschattingen moest maken van mijn scheidingsafstand en de kwaliteit van het onderwerp.
+
+In de loop van de volgende paar weken bracht mijn sluimerende frustratie me ertoe om me voor te stellen dat ik eenvoudigweg een live preview van de tweede opname naast de eerste zou geven. Ik had al een achtergrond in mobiele ontwikkeling, dus toen was het gewoon een kwestie van tijd erin steken. CrossCam vond ik geweldig om alleen voor mezelf te gebruiken om herinneringen vast te leggen, en ik deel het ook graag met jullie.</value>
+  </data>
+  <data name="Page.Faq.Wiggle" xml:space="preserve">
+    <value>Wat zijn wigglegrammen?</value>
+  </data>
+  <data name="Page.Faq.Wiggle.Body" xml:space="preserve">
+    <value>Wigglegrammen zijn een manier om stereogrammen te bekijken die niet afhankelijk zijn van binoculair zicht. Het zijn meestal gifjes die heen en weer schakelen tussen de twee perspectieven, waarbij ze elk in hun geheel op dezelfde plek worden weergegeven. CrossCam biedt momenteel geen ondersteuning voor het maken ervan, maar stuur me een e-mail als je er echt in geïnteresseerd bent, dan zal ik het doen.</value>
+  </data>
+  <data name="Page.Tips.AlignAfter" xml:space="preserve">
+    <value>Let op de horizontale lijnen, maar je kunt ook achteraf uitlijnen.</value>
+  </data>
+  <data name="Page.Tips.AlignAfter.Body" xml:space="preserve">
+    <value>Als u merkt dat het tijdens het maken van foto's onmogelijk is om zowel de bovenste als de onderste hulplijnen tegelijkertijd uit te lijnen, heeft u waarschijnlijk in een andere richting bewogen dan alleen maar opzij. Probeer dit op te lossen voordat u de foto's maakt, maar achteraf uitlijnen kan hierbij veel helpen.</value>
+  </data>
+  <data name="Page.Tips.Alignment" xml:space="preserve">
+    <value>U kunt automatische uitlijning uitschakelen.</value>
+  </data>
+  <data name="Page.Tips.Alignment.Body" xml:space="preserve">
+    <value>Als de resultaten van de automatische uitlijning je niet bevallen, schakel je deze gewoon uit op de pagina Instellingen of door op het kleine robotpictogram te tikken, waarna je origineel gemaakte foto's worden hersteld.</value>
+  </data>
+  <data name="Page.Tips.Donut" xml:space="preserve">
+    <value>De donutgids kan uw raam helpen.</value>
+  </data>
+  <data name="Page.Tips.Donut.Body" xml:space="preserve">
+    <value>Er is een experimentele donutgids op de pagina Instellingen die u kunt inschakelen en waarmee u uw stereovenster kunt behouden terwijl u de bruikbare breedte maximaliseert. Door naar links en rechts te draaien, verandert de diepte van de donut ten opzichte van de rest van de scène. Stel de diepte van de donut zo in dat deze zich op of achter het verste punt in uw scène bevindt. Wees voorzichtig, het gebruik ervan op kleinere scènes kan de zaken pijnlijk maken (zie keystone-tip hierboven).</value>
+  </data>
+  <data name="Page.Tips.Keystone" xml:space="preserve">
+    <value>Trapeziumcorrectie is nodig als u toespoort.</value>
+  </data>
+  <data name="Page.Tips.Keystone.Body1" xml:space="preserve">
+    <value>Als je bij elke opname naar binnen keert, is het erg handig om keystone-correcties uit te voeren. Normaal gesproken wilt u de binnenranden van de foto's verkleinen en vervolgens een deel van de boven- en onderkant bijsnijden om ze waterpas te maken. U komt in het keystone-bewerkingsmenu door op de knop te tikken die er als volgt uitziet:</value>
+  </data>
+  <data name="Page.Tips.Keystone.Body2" xml:space="preserve">
+    <value>Naar binnen draaien heet toe-in. Het kan een verkortingseffect veroorzaken, waardoor het moeilijk wordt om de hoeken van de afbeelding samen te voegen. Het verkortingseffect is in het echte leven altijd aanwezig, omdat parallelle lijnen lijken samen te komen als ze in de verte van je af gaan, maar de kunstmatige perspectieven kunnen het raar maken.</value>
+  </data>
+  <data name="Page.Tips.Lean" xml:space="preserve">
+    <value>Je kunt gewoon leunen.</value>
+  </data>
+  <data name="Page.Tips.Lean.Body" xml:space="preserve">
+    <value>Soms kan het, in plaats van uw voeten volledig naar links of rechts te bewegen om foto's te maken, gemakkelijker zijn om gewoon met uw voeten uit elkaar te gaan staan ​​en in elke richting te leunen, maar zorg ervoor dat u de telefoon waterpas en op dezelfde hoogte houdt. Door gewoon te leunen in plaats van te bewegen, voorkom je dat je te ver gaat en wordt het gemakkelijker om je doel recht te houden.</value>
+  </data>
+  <data name="Page.Tips.Lines" xml:space="preserve">
+    <value>De uitlijningslijnen kunnen bewegen.</value>
+  </data>
+  <data name="Page.Tips.Lines.Body" xml:space="preserve">
+    <value>U kunt de uitlijningslijnen verslepen als u dat wilt. Dit is vooral handig bij het uitlijnen van de foto's tijdens het bewerken.</value>
+  </data>
+  <data name="Page.Tips.Old" xml:space="preserve">
+    <value>U kunt oude foto's openen in CrossCam.</value>
+  </data>
+  <data name="Page.Tips.Old.Body" xml:space="preserve">
+    <value>U kunt eerder gemaakte foto's laden door op het mappictogram onder aan de camerapagina te tikken, maar als u met een grote hoeveelheid foto's werkt, kunt u deze ook rechtstreeks vanuit uw foto-app delen met CrossCam, die mogelijk uw gegevens bijhoudt beter op uw foto's plaatsen.</value>
+  </data>
+  <data name="Page.Tips.Quick" xml:space="preserve">
+    <value>Schakel de snelle modus in als u met anderen bent.</value>
+  </data>
+  <data name="Page.Tips.Quick.Body" xml:space="preserve">
+    <value>Als u met andere mensen aan het verkennen bent, is het een goed idee om naar de snelle modus te gaan door de automatische uitlijning en randen uit te schakelen en de opname pas op te slaan zonder enige bewerking uit te voeren. U kunt de afbeeldingen altijd later laden, automatisch uitlijnen en bewerken. Zo hoeven uw begeleiders niet te wachten totdat u ter plekke uw foto's perfectioneert, maar kunt u er toch zeker van zijn dat de gewenste diepgang ook echt aanwezig is. Pas op dat u geen overhaaste bewerkingen uitvoert voordat u de eerste keer opslaat! U kunt ook de afzonderlijke zijbesparing inschakelen, waardoor eventuele bewerkingen worden genegeerd.</value>
+  </data>
+  <data name="Page.Tips.Sick" xml:space="preserve">
+    <value>Als de beweging u ziek maakt, blijf dan stil staan.</value>
+  </data>
+  <data name="Page.Tips.Sick.Body" xml:space="preserve">
+    <value>Als je ziek wordt van alle bewegingen of het te moeilijk maakt om in 3D te kijken, begin dan pas met proberen het in 3D te zien nadat je een klein stukje bent verhuisd. Vergelijk vervolgens de afbeeldingen met elkaar en lijn de afbeeldingen uit met behulp van de horizontale lijnen zonder 3D-weergave. Begin vervolgens met 3D-weergave zodra u ze uitlijnt en stilhoudt.</value>
+  </data>
+  <data name="Page.Tips.Space" xml:space="preserve">
+    <value>Deze foto's kunnen veel opslagruimte in beslag nemen; u kunt ze verkleinen.</value>
+  </data>
+  <data name="Page.Tips.Space.Body" xml:space="preserve">
+    <value>De pagina Instellingen heeft een optie om de resolutie van de uiteindelijke foto proportioneel te verlagen - dit kan helpen als u ruimte wilt besparen. Als uw foto niet wordt bijgesneden, is het eindresultaat twee foto's met volledige resolutie die zijn samengevoegd om er één met dubbele resolutie te maken, wat betekent dat u vaak weg kunt komen met een grote vermindering van de resolutie zonder dat de kwaliteit merkbaar wordt beïnvloed.</value>
+  </data>
+  <data name="Page.Tips.Turn" xml:space="preserve">
+    <value>Draai niet.</value>
+  </data>
+  <data name="Page.Tips.Turn.Body" xml:space="preserve">
+    <value>Wanneer u zich verplaatst, probeer dan uw telefoon helemaal niet in welke richting dan ook te draaien, inclusief de natuurlijke neiging om naar het onderwerp te draaien terwijl u opzij beweegt. Enige rotatie zal (soms) nodig zijn, maar probeer dit tot een minimum te beperken. Stel je voor dat de telefoon op een rechte horizontale rail is gemonteerd en alleen kan schuiven. Naar binnen draaien kan een verkortend effect veroorzaken waardoor de hoeken moeilijk samen te smelten zijn.</value>
+  </data>
+  <data name="Page.Tips.Window" xml:space="preserve">
+    <value>Voeg een rand toe en snijd bij om een ​​sterk stereovenster te maken.</value>
+  </data>
+  <data name="Page.Tips.Window.Body" xml:space="preserve">
+    <value>Een interessant stereovenstereffect kan worden gecreëerd door twee dingen te doen: 1) schakel de rand in (op de pagina Instellingen) en 2) voor kruislings bekijken snijdt u de binnenranden van de afbeeldingen bij totdat de buitenrand zelf 3D wordt in de afbeelding (bijsnijden de BUITENKANTEN als u parallel kijkt). De sleutel is om de rechterrand van de linkerfoto iets bij te snijden voorbij wat de rechterrand van de rechterfoto van de scène laat zien, en omgekeerd. Het toevoegen van een rand kan worden gewijzigd op de pagina Instellingen. Als dit verwarrend is, knip dan gewoon een bosje van de binnenranden af, dan wordt het duidelijk. De bijsnijdknop voor de binnenranden ziet er als volgt uit:</value>
+  </data>
+  <data name="Button.Code" xml:space="preserve">
+    <value>Zie de code</value>
+  </data>
+  <data name="Button.Developer" xml:space="preserve">
+    <value>Over de ontwikkelaar</value>
+  </data>
+  <data name="Button.EmailMe" xml:space="preserve">
+    <value>Email mij</value>
+  </data>
+  <data name="Button.GitHub" xml:space="preserve">
+    <value>Voeg een probleem toe op GitHub</value>
+  </data>
+  <data name="Button.Press" xml:space="preserve">
+    <value>Ga op beide apparaten terug naar het camerascherm en tik op de koppelknop in de benedenhoek</value>
+  </data>
+  <data name="Button.Primary" xml:space="preserve">
+    <value>Tik HIER OP DE PRIMAIRE</value>
+  </data>
+  <data name="Button.Privacy" xml:space="preserve">
+    <value>Privacybeleid</value>
+  </data>
+  <data name="Button.Secondary" xml:space="preserve">
+    <value>Tik hier op de secundaire</value>
+  </data>
+  <data name="Button.Test" xml:space="preserve">
+    <value>Test pre-releaseversies</value>
+  </data>
+  <data name="Button.Wi-Fi" xml:space="preserve">
+    <value>Zorg ervoor dat wifi op beide apparaten is ingeschakeld (maar dat deze nergens mee verbonden hoeven te zijn)</value>
+  </data>
+  <data name="Page.Pairing.1" xml:space="preserve">
+    <value>Als u twee apparaten heeft waarop CrossCam is geïnstalleerd, kunt u deze met elkaar verbinden om gelijktijdig foto's vanuit twee perspectieven te maken. Door twee foto's op hetzelfde moment te maken, ontstaan ​​de best mogelijke stereogrammen.
+
+Houd er rekening mee dat deze functie nog experimenteel is en mogelijk problemen met zich meebrengt. Het werkt mogelijk niet altijd perfect en het kan uw batterij opeten. Houd er ook rekening mee dat de apparaten op dit moment hetzelfde platform moeten hebben om verbinding te kunnen maken (zowel Android als beide iOS).
+
+Eén manier om *perfecte* synchronisatie te krijgen met slechts één apparaat en CrossCam, is door de "single-shot mirror"-methode te gebruiken. Je kunt het inschakelen op de pagina Instellingen en je kunt erover lezen op de pagina met veelgestelde vragen.
+
+Voordat twee apparaten samen kunnen worden gebruikt, moeten hun rollen worden toegewezen. Het PRIMARY-apparaat is het apparaat dat beide voorbeelden toont, de opname activeert en de definitieve opnames vasthoudt/opslaat. Om rollen toe te wijzen, navigeert u op beide apparaten naar deze pagina en volgt u vervolgens de onderstaande stappen:</value>
+  </data>
+  <data name="Page.Pairing.2" xml:space="preserve">
+    <value>Als u problemen ondervindt, LET OP:
+ • Nadat het koppelproces is gestart, kan op elk moment opnieuw op de koppelknop worden getikt om het te stoppen of om de verbinding te verbreken.
+ • Het kan helpen om het koppelen op beide apparaten te stoppen en tegelijkertijd opnieuw op te starten.
+ • Het kan helpen om de verbinding met uw Wi-Fi- of datanetwerken te verbreken als deze zich storen.
+ • Elke camera is anders. Deze verschillen kunnen het gezichtsveld, de focus, de belichting en het witbalansgedrag, de timing en meer omvatten. Zelfs twee telefoons van hetzelfde model zullen zich enigszins anders gedragen. Ik gebruik het liefst een paar identieke oude telefoons (in mijn geval een iPhone 6).
+ • CrossCam is software en geen hardware, dus het vastleggen van de foto's kan enigszins niet synchroon lopen, afhankelijk van wat de processors en het geheugen nog meer doen op het precieze moment dat de opname wordt geactiveerd. Als gevolg hiervan is de synchronisatie soms niet perfect, maar zou deze over het algemeen heel dichtbij moeten zijn.</value>
+  </data>
+  <data name="Page.Pairing.Again" xml:space="preserve">
+    <value>Als u later opnieuw verbinding wilt maken, zorgt u ervoor dat Wi-Fi is ingeschakeld en tikt u op beide apparaten op de verbindingsknop op het startscherm.</value>
+  </data>
+  <data name="Page.Pairing.LocalNetworkAccess" xml:space="preserve">
+    <value>CrossCam vereist toestemming voor lokale netwerktoegang. CrossCam maakt feitelijk geen gebruik van het lokale netwerk, maar iOS vereist dat CrossCam deze toestemming krijgt om de Wi-Fi-antenne te kunnen gebruiken om naar apparaten te scannen. CrossCam zal deze toestemming één keer vragen. Als de toestemming wordt geweigerd, moet u zelf de schakelaar in de app Instellingen omzetten.</value>
+  </data>
+  <data name="Page.Pairing.Location" xml:space="preserve">
+    <value>CrossCam zal indien nodig toestemming vragen en componenten inschakelen om uw apparaten te verbinden. Let op: CrossCam vereist locatietoestemming en het inschakelen van locatieservices op het primaire apparaat om verbinding te kunnen maken met het secundaire apparaat. Dit is gewoon een Android-vereiste en ligt volledig buiten mijn controle. CrossCam GEBRUIKT uw locatie op geen enkele manier, maar omdat het zoeken naar (en vinden) apparaten in de buurt theoretisch zou kunnen worden gebruikt om u ruwweg te lokaliseren, heeft CrossCam toestemming nodig om toegang te krijgen tot uw locatie.</value>
+  </data>
+  <data name="Page.Pairing.Permissions" xml:space="preserve">
+    <value>Een opmerking over machtigingen:</value>
+  </data>
+  <data name="Page.Pairing.Title" xml:space="preserve">
+    <value>Koppelen</value>
+  </data>
+  <data name="Button.Back" xml:space="preserve">
+    <value>&lt; Terug</value>
+  </data>
+  <data name="Page.MorePictures.CrossViewSubreddit" xml:space="preserve">
+    <value>CrossView-subreddit</value>
+  </data>
+  <data name="Page.MorePictures.FacebookGroup" xml:space="preserve">
+    <value>Stereoscopische 3D Facebook-groep</value>
+  </data>
+  <data name="Page.MorePictures.GoogleDoc" xml:space="preserve">
+    <value>Google-document over geweldige dingen</value>
+  </data>
+  <data name="Page.MorePictures.Instagram" xml:space="preserve">
+    <value>Stereoscopische Instagram-tag</value>
+  </data>
+  <data name="Page.MorePictures.Mine" xml:space="preserve">
+    <value>Zie foto's die ik heb gemaakt</value>
+  </data>
+  <data name="Page.MorePictures.ParallelViewSubreddit" xml:space="preserve">
+    <value>ParallelView-subreddit</value>
+  </data>
+  <data name="Page.Settings.Alignment" xml:space="preserve">
+    <value>Automatische uitlijning</value>
+  </data>
+  <data name="Page.Settings.Analytics" xml:space="preserve">
+    <value>Deel anonieme gebruiks- en foutgegevens om CrossCam te helpen verbeteren</value>
+  </data>
+  <data name="Page.Settings.Border" xml:space="preserve">
+    <value>Grens</value>
+  </data>
+  <data name="Page.Settings.Camera" xml:space="preserve">
+    <value>Camera</value>
+  </data>
+  <data name="Page.Settings.Defaults" xml:space="preserve">
+    <value>Terugzetten naar standaardwaarden</value>
+  </data>
+  <data name="Page.Settings.Editing" xml:space="preserve">
+    <value>Bewerken</value>
+  </data>
+  <data name="Page.Settings.ErrorEmail" xml:space="preserve">
+    <value>Vragen om e-mail te verzenden wanneer er fouten optreden</value>
+  </data>
+  <data name="Page.Settings.Guides" xml:space="preserve">
+    <value>Gidsen vastleggen</value>
+  </data>
+  <data name="Page.Settings.Pairing" xml:space="preserve">
+    <value>Koppelen</value>
+  </data>
+  <data name="Page.Settings.Preview" xml:space="preserve">
+    <value>Voorbeeldweergavemethode</value>
+  </data>
+  <data name="Page.Settings.Saving" xml:space="preserve">
+    <value>Besparing</value>
+  </data>
+  <data name="Page.TipMe.1" xml:space="preserve">
+    <value>CrossCam is gratis te gebruiken, reclamevrij, open-source, verzamelt geen persoonlijke gegevens van u en geeft u volledige toegang tot elke functie. Ik werk graag aan CrossCam, maar het kost veel tijd en moeite. Ik verdien helemaal geen geld met CrossCam, behalve tips die mensen mij misschien willen sturen.</value>
+  </data>
+  <data name="Page.TipMe.2" xml:space="preserve">
+    <value>Als je CrossCam leuk vindt en het kunt, overweeg dan om mij een tip te sturen.</value>
+  </data>
+  <data name="Page.TipMe.Ko-fi" xml:space="preserve">
+    <value>Ko-fi</value>
+  </data>
+  <data name="Page.TipMe.Patreon" xml:space="preserve">
+    <value>Patreon</value>
+  </data>
+  <data name="Page.TipMe.PayPal" xml:space="preserve">
+    <value>PayPal</value>
+  </data>
+  <data name="Page.TipMe.Tipped" xml:space="preserve">
+    <value>Ik ben getipt</value>
+  </data>
+  <data name="Page.TipMe.TippedTimes" xml:space="preserve">
+    <value>tijden, totaal</value>
+  </data>
+  <data name="Page.TipMe.Venmo" xml:space="preserve">
+    <value>Venmo</value>
+  </data>
+  <data name="Title.MorePictures" xml:space="preserve">
+    <value>Zie meer foto's</value>
+  </data>
+  <data name="Title.Settings" xml:space="preserve">
+    <value>Instellingen</value>
+  </data>
+  <data name="Title.TipMe" xml:space="preserve">
+    <value>Tips worden gewaardeerd!</value>
+  </data>
+  <data name="Settings.Alignment.Advanced" xml:space="preserve">
+    <value>Toon geavanceerde uitlijningsinstellingen</value>
+  </data>
+  <data name="Settings.Alignment.Ecc" xml:space="preserve">
+    <value>Probeer altijd eerst ECC-uitlijning te gebruiken</value>
+  </data>
+  <data name="Settings.Alignment.Keypoints" xml:space="preserve">
+    <value>Probeer altijd eerst keypoint-uitlijning te gebruiken</value>
+  </data>
+  <data name="Settings.Alignment.On" xml:space="preserve">
+    <value>Automatisch uitlijnen na vastleggen</value>
+  </data>
+  <data name="Settings.Border.Color" xml:space="preserve">
+    <value>Rand kleur</value>
+  </data>
+  <data name="Settings.Border.FuseGuide" xml:space="preserve">
+    <value>Voeg een zekeringgeleider bovenaan toe (een stip boven elke kant)</value>
+  </data>
+  <data name="Settings.Border.On" xml:space="preserve">
+    <value>Rand toevoegen</value>
+  </data>
+  <data name="Settings.Border.Prompt" xml:space="preserve">
+    <value>Vraag om de rand weg te knippen wanneer dit tijdens het laden wordt gedetecteerd</value>
+  </data>
+  <data name="Settings.Border.Thickness" xml:space="preserve">
+    <value>Randdikte (tienden van percentage van breedte)</value>
+  </data>
+  <data name="Settings.Camera.Camera1" xml:space="preserve">
+    <value>Forceer camera1 API (kan handig zijn als je iets vreemds ervaart, maar dit zal resulteren in beperkte functionaliteit, vereist een gedwongen stop/herstart om effect te hebben)</value>
+  </data>
+  <data name="Settings.Camera.Camera2" xml:space="preserve">
+    <value>Forceer camera2 API (moet op Android 6 of hoger zijn, kan handig zijn als je fouten ervaart, maar kan er meer maken, vereist een gedwongen stop/herstart om van kracht te worden)</value>
+  </data>
+  <data name="Settings.Camera.LandscapeCaptureHorizontal" xml:space="preserve">
+    <value>Horizontale plaatsing van de landschapsopnameknop</value>
+  </data>
+  <data name="Settings.Camera.LandscapeCaptureVertical" xml:space="preserve">
+    <value>Verticale plaatsing van de landschapsopnameknop</value>
+  </data>
+  <data name="Settings.Camera.Lock" xml:space="preserve">
+    <value>Vergrendel focus en belichting voor de tweede foto naar focus en belichting vanaf de eerste foto</value>
+  </data>
+  <data name="Settings.Camera.Pair" xml:space="preserve">
+    <value>Horizontale plaatsing van de koppelknop (wanneer de opnameknop gecentreerd is)</value>
+  </data>
+  <data name="Settings.Camera.PointFocus" xml:space="preserve">
+    <value>Tik om de focus te richten, dubbeltik om terug te schakelen naar continue focus (of op te slaan of te wissen)</value>
+  </data>
+  <data name="Settings.Camera.PortraitCapture" xml:space="preserve">
+    <value>Plaatsing van de portretopnameknop</value>
+  </data>
+  <data name="Settings.Editing.Align" xml:space="preserve">
+    <value>Maximaal verticaal uitlijningsaandeel</value>
+  </data>
+  <data name="Settings.Editing.Keystone" xml:space="preserve">
+    <value>Maximale hoeksteen</value>
+  </data>
+  <data name="Settings.Editing.Rotation" xml:space="preserve">
+    <value>Maximale rotatiegraden</value>
+  </data>
+  <data name="Settings.Editing.SideCrop" xml:space="preserve">
+    <value>Maximaal zijgewasaandeel</value>
+  </data>
+  <data name="Settings.Editing.TopCrop" xml:space="preserve">
+    <value>Maximale verhouding tussen gewas boven/onder</value>
+  </data>
+  <data name="Settings.Editing.Zoom" xml:space="preserve">
+    <value>Maximaal zoomaandeel</value>
+  </data>
+  <data name="Settings.Guides.Donut" xml:space="preserve">
+    <value>Donutgids tonen (veroorzaakt toespoor, dus kan keystone-bewerking nodig zijn)</value>
+  </data>
+  <data name="Settings.Guides.Fuse" xml:space="preserve">
+    <value>Zekeringgeleider weergeven (een stip boven elke kant)</value>
+  </data>
+  <data name="Settings.Guides.LineColor" xml:space="preserve">
+    <value>Verschillende gekleurde lijnen</value>
+  </data>
+  <data name="Settings.Guides.Lines" xml:space="preserve">
+    <value>Lijnen zichtbaar</value>
+  </data>
+  <data name="Settings.Guides.Roll" xml:space="preserve">
+    <value>Rolgeleider zichtbaar</value>
+  </data>
+  <data name="Settings.Pair.CaptureDelay" xml:space="preserve">
+    <value>Vastlegmoment extra vertraging (ms) (voegt alleen op dit apparaat een extra vertraging toe aan het beoogde vastlegmoment)</value>
+  </data>
+  <data name="Settings.Pair.Countdown" xml:space="preserve">
+    <value>Afteltijd vastleggen (timer)</value>
+  </data>
+  <data name="Settings.Pair.Fov" xml:space="preserve">
+    <value>Gezichtsveldcorrectie</value>
+  </data>
+  <data name="Settings.Pair.FovNotSet" xml:space="preserve">
+    <value>FOV-correctie niet ingesteld (maak een opname met gekoppelde apparaten om de instellingen te doorlopen).</value>
+  </data>
+  <data name="Settings.Pair.FovReset" xml:space="preserve">
+    <value>Opnieuw instellen</value>
+  </data>
+  <data name="Settings.Pair.Go" xml:space="preserve">
+    <value>Ga naar de koppelingsconfiguratiepagina</value>
+  </data>
+  <data name="Settings.Pair.NoRole" xml:space="preserve">
+    <value>Rol niet geselecteerd</value>
+  </data>
+  <data name="Settings.Pair.PreviewDelay" xml:space="preserve">
+    <value>Voorbeeld van framevertraging (een hoger getal verlaagt de framesnelheid maar spaart de batterij)</value>
+  </data>
+  <data name="Settings.Pair.Primary" xml:space="preserve">
+    <value>Primair:</value>
+  </data>
+  <data name="Settings.Pair.PrimaryRole" xml:space="preserve">
+    <value>Rol: primair</value>
+  </data>
+  <data name="Settings.Pair.Sample" xml:space="preserve">
+    <value>Aantal klokmonsters (een lager getal vermindert de tijd die nodig is voor de initiële synchronisatie, maar kan de synchronisatienauwkeurigheid verminderen)</value>
+  </data>
+  <data name="Settings.Pair.Secondary" xml:space="preserve">
+    <value>Ondergeschikt:</value>
+  </data>
+  <data name="Settings.Pair.SecondaryRole" xml:space="preserve">
+    <value>Rol: Secundair</value>
+  </data>
+  <data name="Settings.Pair.Timeout" xml:space="preserve">
+    <value>Verbindingstime-out (seconden) (0 betekent geen time-out)</value>
+  </data>
+  <data name="Settings.Preview.Barrel" xml:space="preserve">
+    <value>Lenscorrectie/tonvervorming toevoegen (kan de framesnelheid verlagen)</value>
+  </data>
+  <data name="Settings.Preview.BarrelFinal" xml:space="preserve">
+    <value>Voeg alleen lenscorrectie/tonvervorming toe aan de uiteindelijke beelden (kan de uiteindelijke weergave vertragen, maar versnelt de opname)</value>
+  </data>
+  <data name="Settings.Preview.CardboardDistance" xml:space="preserve">
+    <value>Kartonnen scheidingsafstand</value>
+  </data>
+  <data name="Settings.Preview.Downsize" xml:space="preserve">
+    <value>Afbeelding verkleinen (kan de framesnelheid verhogen)</value>
+  </data>
+  <data name="Settings.Preview.DownsizePercent" xml:space="preserve">
+    <value>Afbeeldingspercentage verkleinen</value>
+  </data>
+  <data name="Settings.Preview.Immersive" xml:space="preserve">
+    <value>Meeslepende laatste bezichtiging</value>
+  </data>
+  <data name="Settings.Preview.LensStrength" xml:space="preserve">
+    <value>Sterkte van lenscorrectie</value>
+  </data>
+  <data name="Settings.Preview.Mirror" xml:space="preserve">
+    <value>Leg vast met behulp van de single-shot spiegelverdelingsmethode</value>
+  </data>
+  <data name="Settings.Preview.Width" xml:space="preserve">
+    <value>Maximale parallelle beeldbreedte (punten)</value>
+  </data>
+  <data name="Settings.Reset" xml:space="preserve">
+    <value>Terugzetten naar standaardwaarden</value>
+  </data>
+  <data name="Settings.Saving.Alone" xml:space="preserve">
+    <value>Sla alleen de eerste zijde op (zonder bewerkingen of rand) (voor het eenvoudig delen van een platte foto met mensen die een platte weergave hebben)</value>
+  </data>
+  <data name="Settings.Saving.Anaglyph" xml:space="preserve">
+    <value>Rood/cyaan anaglyph-versie opslaan (met bewerkingen maar zonder rand)</value>
+  </data>
+  <data name="Settings.Saving.Browse" xml:space="preserve">
+    <value>Blader...</value>
+  </data>
+  <data name="Settings.Saving.Cardboard" xml:space="preserve">
+    <value>Opslaan voor karton (met bewerkingen, geen rand, geen spatiëring, volledige breedte, om later weer in CrossCam te laden)</value>
+  </data>
+  <data name="Settings.Saving.Clear" xml:space="preserve">
+    <value>Wis opnames automatisch na het opslaan</value>
+  </data>
+  <data name="Settings.Saving.Cross" xml:space="preserve">
+    <value>Samengevoegde kruisweergaveversie opslaan (met bewerkingen en rand)</value>
+  </data>
+  <data name="Settings.Saving.ExternalDirectory" xml:space="preserve">
+    <value>Opslaan in externe CrossCam-directory op:</value>
+  </data>
+  <data name="Settings.Saving.ExternalWarning" xml:space="preserve">
+    <value>(waarschuwing: foto's daar worden verwijderd als CrossCam wordt verwijderd)</value>
+  </data>
+  <data name="Settings.Saving.Folder" xml:space="preserve">
+    <value>Opslaan in speciale "CrossCam" submap/album</value>
+  </data>
+  <data name="Settings.Saving.Grayscale" xml:space="preserve">
+    <value>Grijswaarden rood/cyaan anaglyph-versie opslaan (met bewerkingen maar zonder rand)</value>
+  </data>
+  <data name="Settings.Saving.Order" xml:space="preserve">
+    <value>(Het opslaan gebeurt in volgorde van boven naar beneden)</value>
+  </data>
+  <data name="Settings.Saving.Parallel" xml:space="preserve">
+    <value>Samengevoegde parallelle weergaveversie opslaan (met bewerkingen en rand)</value>
+  </data>
+  <data name="Settings.Saving.Quad" xml:space="preserve">
+    <value>Quad-combinatie opslaan (met bewerkingen en rand)</value>
+  </data>
+  <data name="Settings.Saving.Reset" xml:space="preserve">
+    <value>Opnieuw instellen</value>
+  </data>
+  <data name="Settings.Saving.Resolution" xml:space="preserve">
+    <value>Resolutie proportie</value>
+  </data>
+  <data name="Settings.Saving.SaveTo" xml:space="preserve">
+    <value>Opslaan in:</value>
+  </data>
+  <data name="Settings.Saving.Separate" xml:space="preserve">
+    <value>Sla elke zijde afzonderlijk op (zonder bewerkingen of rand voor eenvoudigere nabewerking, de linkerkant wordt eerst opgeslagen)</value>
+  </data>
+  <data name="Settings.Saving.Subfolder" xml:space="preserve">
+    <value>Sla op in speciale "CrossCam_{ViewMethod}" submappen/albums</value>
+  </data>
+  <data name="Settings.Saving.Triple" xml:space="preserve">
+    <value>Drievoudige combinatie opslaan (met bewerkingen en rand)</value>
+  </data>
+  <data name="Button.Pair.Accept" xml:space="preserve">
+    <value>Aanvaarden</value>
+  </data>
+  <data name="Button.Pair.Cancel" xml:space="preserve">
+    <value>Annuleren</value>
+  </data>
+  <data name="Page.Camera.AcceptConnection" xml:space="preserve">
+    <value>Verbinding accepteren met</value>
+  </data>
+  <data name="Page.Camera.Confirm" xml:space="preserve">
+    <value>Bevestig dat de code op beide apparaten overeenkomt:</value>
+  </data>
+  <data name="Page.Footer.CouldntOpen" xml:space="preserve">
+    <value>Kan link niet openen</value>
+  </data>
+  <data name="Page.Footer.OpenError" xml:space="preserve">
+    <value>De mailto-link kon niet worden geopend. Dit kan zijn omdat uw e-mailclient niet is ingesteld, of om een ​​andere reden.</value>
+  </data>
+  <data name="Page.Pair.Errors.Denied" xml:space="preserve">
+    <value>De benodigde machtigingen voor het koppelen zijn niet verleend. Uitzondering:</value>
+  </data>
+  <data name="Page.Pair.Errors.FailedBluetooth" xml:space="preserve">
+    <value>Het apparaat kan Bluetooth niet inschakelen. Uitzondering:</value>
+  </data>
+  <data name="Page.Pair.Errors.FailedSearch" xml:space="preserve">
+    <value>Het apparaat kon niet naar apparaten zoeken. Uitzondering:</value>
+  </data>
+  <data name="Page.Pair.Errors.LocationOff" xml:space="preserve">
+    <value>Locatiediensten niet geactiveerd. Kan niet naar apparaten scannen. Zie de koppelpagina voor meer details.</value>
+  </data>
+  <data name="Page.Pair.Errors.LocationScan" xml:space="preserve">
+    <value>Locatietoestemming niet verleend. Kan niet naar apparaten scannen. Zie de koppelpagina voor meer details.</value>
+  </data>
+  <data name="Page.Pair.Errors.NotSupported" xml:space="preserve">
+    <value>Koppelen wordt niet ondersteund op dit apparaat. Uitzondering:</value>
+  </data>
+  <data name="Page.Pair.Errors.Title" xml:space="preserve">
+    <value>Fout</value>
+  </data>
+  <data name="Page.Pair.Errors.WifiOff" xml:space="preserve">
+    <value>Wifi is uitgeschakeld. Schakel wifi in.</value>
+  </data>
+  <data name="Page.Pair.PrimaryExplanation" xml:space="preserve">
+    <value>Dit apparaat is nu ingesteld als primair apparaat.</value>
+  </data>
+  <data name="Page.Pair.PrimarySelected" xml:space="preserve">
+    <value>Primaire rol geselecteerd</value>
+  </data>
+  <data name="Page.Pair.SecondaryExplanation" xml:space="preserve">
+    <value>Dit apparaat is nu ingesteld als secundair.</value>
+  </data>
+  <data name="Page.Pair.SecondarySelected" xml:space="preserve">
+    <value>Secundaire rol geselecteerd</value>
+  </data>
+  <data name="Page.Technique.Mode" xml:space="preserve">
+    <value>modus.</value>
+  </data>
+  <data name="Page.Technique.SetMode" xml:space="preserve">
+    <value>CrossCam is nu binnen</value>
+  </data>
+</root>

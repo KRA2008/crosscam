@@ -1,0 +1,1156 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="Button.GoogleDoc" xml:space="preserve">
+    <value>Google dokument odličnih stvari</value>
+  </data>
+  <data name="Button.LearnCross" xml:space="preserve">
+    <value>NAUČITE SE KRIŽ</value>
+  </data>
+  <data name="Button.LearnParallel" xml:space="preserve">
+    <value>UČITE SE VZPOREDNO</value>
+  </data>
+  <data name="Button.MorePictures" xml:space="preserve">
+    <value>Oglejte si več slik</value>
+  </data>
+  <data name="Button.Review" xml:space="preserve">
+    <value>Napiši povzetek</value>
+  </data>
+  <data name="Button.Share" xml:space="preserve">
+    <value>Delite CrossCam</value>
+  </data>
+  <data name="Button.Support" xml:space="preserve">
+    <value>Podprite razvijalca</value>
+  </data>
+  <data name="Button.TapCross" xml:space="preserve">
+    <value>TAKNITE SE TUKAJ, DA IZBERETE KRIŽ</value>
+  </data>
+  <data name="Button.TapParallel" xml:space="preserve">
+    <value>TAKNITE SE TUKAJ, DA IZBERETE VZPOREDNO</value>
+  </data>
+  <data name="Footer.Span1" xml:space="preserve">
+    <value>Ste našli napako? Imate vprašanje? Samo e-pošta</value>
+  </data>
+  <data name="Footer.Span3" xml:space="preserve">
+    <value>! Rad se pogovarjam z uporabniki in to je najhitrejši način komunikacije z menoj.</value>
+  </data>
+  <data name="Page.HowToUse.2anaglyph" xml:space="preserve">
+    <value>2) Začnite anaglifno gledati prvo sliko s predogledom, ki se pojavi poleg nje.</value>
+  </data>
+  <data name="Page.HowToUse.2cardboard" xml:space="preserve">
+    <value>2) Začnite kartonsko gledati prvo sliko s predogledom, ki se pojavi poleg nje.</value>
+  </data>
+  <data name="Page.HowToUse.2cross" xml:space="preserve">
+    <value>2) Začnite navzkrižno gledati prvo sliko s predogledom, ki se prikaže poleg nje.</value>
+  </data>
+  <data name="Page.HowToUse.2parallel" xml:space="preserve">
+    <value>2) Začnite vzporedno gledati prvo sliko s predogledom, ki se prikaže poleg nje.</value>
+  </data>
+  <data name="Page.Technique.AdditionalTutorials" xml:space="preserve">
+    <value>Dodatne vaje:</value>
+  </data>
+  <data name="Page.Technique.Cross1" xml:space="preserve">
+    <value>Previdno prekrižajte oči, medtem ko gledate par zgornjih slik. Ko prekrižate oči, bodo stvari postale zamegljene in prosojne in začeli boste videti 4 slike namesto 2 (2 para). Bolj ko prekrižate oči, bolj se bodo pari slik odmaknili – videti bo nekako takole:</value>
+  </data>
+  <data name="Page.Technique.Cross2" xml:space="preserve">
+    <value>Previdno odmaknite oči, da se slike na notranji strani vsakega para začnejo prekrivati. Videti bo začelo, kot da so samo 3 slike namesto 4. Še vedno bo zamegljeno in prozorno ter videti nekako takole:</value>
+  </data>
+  <data name="Page.Technique.Cross3" xml:space="preserve">
+    <value>Ko dosežete srednje prekrivanje, morate samo sprostiti oči in jim dovoliti, da izostrijo sliko. Na tej točki boste imeli eno ostro 3D sliko na sredini s prozorno sliko, ki lebdi na vsaki strani in bo videti takole (le da bo sredina 3D):</value>
+  </data>
+  <data name="Page.Technique.Cross4" xml:space="preserve">
+    <value>Če imate težave s prekrižanjem oči, lahko poskusite tudi strmeti v svoj prst, medtem ko ga držite na polovici med očmi in zaslonom. Videti bi morali, da se slike začnejo ločevati in prekrivati ​​za vašim prstom.</value>
+  </data>
+  <data name="Page.Technique.CrossViewing" xml:space="preserve">
+    <value>NAVZKRENI OGLED</value>
+  </data>
+  <data name="Page.Technique.P1" xml:space="preserve">
+    <value>Če želite to znova videti, tapnite ikono hamburgerja (tri črte) v zgornjem levem kotu zaslona kamere in tapnite »Pomoč«.
+
+Če si želite ogledati 3D v CrossCamu (imenovanem "stereogrami"), lahko uporabite rdeča/cian očala 3D, pregledovalnik Google Cardboard ali pa izvajate "brezplačno gledanje" samo z očmi in zaslonom. Obstajata dva načina za brezplačen ogled in CrossCam vam lahko pomaga pri učenju obeh. CrossCamu morate povedati, kako si boste ogledali slike, sicer ne bo delovalo pravilno. Ne skrbite, to lahko vedno znova spremenite v nastavitvah.
+
+Če lahko udobno prekrižate oči, morate najprej poskusiti s križno metodo, sicer poskusite z vzporedno metodo. Če ste vajeni knjig Magic Eye™, verjetno že znate izvajati vzporedno metodo, morda pa boste lahko uporabili tudi navzkrižno metodo. Dotaknite se spodnje metode, da se je naučite, in poskrbite, da boste CrossCamu povedali, katera vam ustreza, tako da pritisnete ustrezni gumb IZBERI.
+
+Če bi raje uporabljali 3D-očala ali pregledovalnik Cardboard, lahko CrossCam nastavite tako, da jih uporablja na strani z nastavitvami.</value>
+  </data>
+  <data name="Page.Technique.CrossLink1" xml:space="preserve">
+    <value>Lepa besedilna lekcija</value>
+  </data>
+  <data name="Page.Technique.CrossLink2" xml:space="preserve">
+    <value>Še ena lepa besedilna lekcija</value>
+  </data>
+  <data name="Page.Technique.CrossLink3" xml:space="preserve">
+    <value>Kratka YouTube vadnica</value>
+  </data>
+  <data name="Page.Technique.CrossLink4" xml:space="preserve">
+    <value>Dolga, nenavadna, a uporabna vadnica za YouTube</value>
+  </data>
+  <data name="Page.Technique.CrossLink5" xml:space="preserve">
+    <value>Še ena vadnica za YouTube</value>
+  </data>
+  <data name="Page.Technique.CrossLink6" xml:space="preserve">
+    <value>Projekt dvojne kamere z vadnico</value>
+  </data>
+  <data name="Page.Technique.Parallel1" xml:space="preserve">
+    <value>Če se zgornja slika ne prilega vašemu zaslonu, obrnite telefon v ležeči položaj - CrossCam poskuša ustvariti par slik nad najlažjo velikostjo za to. Ni vam treba vedno uporabljati CrossCam v pokrajini, vendar slika popolne velikosti olajša učenje tehnike.</value>
+  </data>
+  <data name="Page.Technique.Parallel2" xml:space="preserve">
+    <value>Sprostite oči in poglejte "skozi" par zgornjih slik, kot da se nekako razprostirate z očmi, usmerjenimi v slike. Začeti bi morali videti 3 slike s 3D sliko na sredini, približno takole:</value>
+  </data>
+  <data name="Page.Technique.Parallel3" xml:space="preserve">
+    <value>Če začnete videti 4 slike, ste šli predaleč. Če se znova znajdete na tej točki, poskusite malo premakniti oči naokrog. Preveliko sproščanje bo videti nekako takole:</value>
+  </data>
+  <data name="Page.Technique.Parallel4" xml:space="preserve">
+    <value>Če imate težave, poskusite zaslon približati svojemu obrazu s parom slik neposredno pred očmi. Sprostite se in poglejte "skozi" zaslon, nato pa zaslon počasi potegnite stran od obraza, pri tem pa imejte oči sproščene. Sčasoma bi morala slika "klikniti" v fokus.</value>
+  </data>
+  <data name="Page.Technique.Parallel5" xml:space="preserve">
+    <value>Če še vedno vidite štiri slike, povečajte »Največja širina slike vzporednega pogleda« na strani z nastavitvami.</value>
+  </data>
+  <data name="Page.Technique.ParallelViewing" xml:space="preserve">
+    <value>VZPOREDNO GLEDANJE</value>
+  </data>
+  <data name="Page.Technique.Practice" xml:space="preserve">
+    <value>Slike, ki sem jih naredil, na katerih lahko vadite</value>
+  </data>
+  <data name="Title.Contact" xml:space="preserve">
+    <value>Kontakt</value>
+  </data>
+  <data name="Title.Faq" xml:space="preserve">
+    <value>pogosta vprašanja</value>
+  </data>
+  <data name="Title.Help" xml:space="preserve">
+    <value>pomoč</value>
+  </data>
+  <data name="Title.HowToUse" xml:space="preserve">
+    <value>Kako uporabljati CrossCam</value>
+  </data>
+  <data name="Title.Technique" xml:space="preserve">
+    <value>Tehnika 3D gledanja</value>
+  </data>
+  <data name="Title.Tips" xml:space="preserve">
+    <value>Nasveti</value>
+  </data>
+  <data name="Button.DoNotEmailMe" xml:space="preserve">
+    <value>Ne pošiljaj mi zdaj e-pošte</value>
+  </data>
+  <data name="Button.EmailMeNow" xml:space="preserve">
+    <value>Pošlji mi e-pošto</value>
+  </data>
+  <data name="Button.No" xml:space="preserve">
+    <value>št</value>
+  </data>
+  <data name="Button.OK" xml:space="preserve">
+    <value>v redu</value>
+  </data>
+  <data name="Button.YesClear" xml:space="preserve">
+    <value>Da, jasno</value>
+  </data>
+  <data name="Page.Camera.Aligning" xml:space="preserve">
+    <value>Poravnava ...</value>
+  </data>
+  <data name="Page.Camera.AlignmentBroken" xml:space="preserve">
+    <value>Samodejna poravnava ni podprta v napravi – izklopite v nastavitvah.</value>
+  </data>
+  <data name="Page.Camera.AlignmentFailed" xml:space="preserve">
+    <value>Poravnava ni uspela.</value>
+  </data>
+  <data name="Page.Camera.BorderAsk" xml:space="preserve">
+    <value>Zaznana je bila meja. Odstraniti obrobo?</value>
+  </data>
+  <data name="Page.Camera.BorderDetected" xml:space="preserve">
+    <value>Meja zaznana</value>
+  </data>
+  <data name="Page.Camera.Cancel" xml:space="preserve">
+    <value>Prekliči</value>
+  </data>
+  <data name="Page.Camera.ChooseAction" xml:space="preserve">
+    <value>Izberite dejanje:</value>
+  </data>
+  <data name="Page.Camera.DirectoryNotFound" xml:space="preserve">
+    <value>Imenik ni bil najden</value>
+  </data>
+  <data name="Page.Camera.DirectoryNotFoundExplain" xml:space="preserve">
+    <value>Shranjenega cilja ni bilo mogoče najti. Na strani z nastavitvami izberite drugega.</value>
+  </data>
+  <data name="Page.Camera.ErrorEmailBody" xml:space="preserve">
+    <value>Kaj ste storili tik preden se je napaka zgodila? Prosimo, opišite tudi majhne stvari.\n\n\n\n\n\nAli je CrossCam po napaki še vedno deloval? Če ne, kako je pokvarjen?\n\n\n\n\n\nAli se to ponavlja?\n\n\n\n\n\nAli lahko prisilite, da se napaka zgodi na ukaz? Če da, kako?\n\n\n\n\n\n</value>
+  </data>
+  <data name="Page.Camera.FlipForCardboard" xml:space="preserve">
+    <value>V kartonskem načinu obrnite v ležeče.</value>
+  </data>
+  <data name="Page.Camera.FlipLarger" xml:space="preserve">
+    <value>(obrnite v ležečo stran za večji pogled)</value>
+  </data>
+  <data name="Page.Camera.ForAnaglyph" xml:space="preserve">
+    <value>za anaglif</value>
+  </data>
+  <data name="Page.Camera.ForCardboard" xml:space="preserve">
+    <value>za karton</value>
+  </data>
+  <data name="Page.Camera.ForCross" xml:space="preserve">
+    <value>za križ</value>
+  </data>
+  <data name="Page.Camera.ForParallel" xml:space="preserve">
+    <value>za vzporedno</value>
+  </data>
+  <data name="Page.Camera.GoPickRole" xml:space="preserve">
+    <value>Pojdite na stran za seznanjanje (prek strani z nastavitvami) in izberite vlogo za seznanjanje za to napravo, preden se poskusite seznaniti.</value>
+  </data>
+  <data name="Page.Camera.InvalidImage" xml:space="preserve">
+    <value>Neveljavna slika</value>
+  </data>
+  <data name="Button.Camera.Keep" xml:space="preserve">
+    <value>obdrži</value>
+  </data>
+  <data name="Page.Camera.LoadFullImage" xml:space="preserve">
+    <value>Naloži celotno stereo sliko</value>
+  </data>
+  <data name="Page.Camera.Loading" xml:space="preserve">
+    <value>Nalaganje...</value>
+  </data>
+  <data name="Page.Camera.LoadSingleSide" xml:space="preserve">
+    <value>Naložite eno stran</value>
+  </data>
+  <data name="Page.Camera.ManualCorrections" xml:space="preserve">
+    <value>Upoštevajte tudi ročne popravke.</value>
+  </data>
+  <data name="Page.Camera.MirrorOnLeft" xml:space="preserve">
+    <value>OGLEDALO LEVO</value>
+  </data>
+  <data name="Page.Camera.MirrorOnRight" xml:space="preserve">
+    <value>OGLEDALO NA DESNI</value>
+  </data>
+  <data name="Page.Camera.MoveLeft" xml:space="preserve">
+    <value>PREMAKNI LEVO</value>
+  </data>
+  <data name="Page.Camera.MoveRight" xml:space="preserve">
+    <value>PREMAKNI DESNO</value>
+  </data>
+  <data name="Page.Camera.NoSaveModes" xml:space="preserve">
+    <value>Ni aktivnih načinov shranjevanja</value>
+  </data>
+  <data name="Page.Camera.NoSaveModesExplain" xml:space="preserve">
+    <value>Trenutno ni vklopljen noben način shranjevanja. Vklopite način shranjevanja na strani z nastavitvami.</value>
+  </data>
+  <data name="Page.Camera.Oops" xml:space="preserve">
+    <value>Ups</value>
+  </data>
+  <data name="Page.Camera.OrRotate" xml:space="preserve">
+    <value>(ali zavrti)</value>
+  </data>
+  <data name="Page.Camera.OrSwipe" xml:space="preserve">
+    <value>(ali povlecite)</value>
+  </data>
+  <data name="Page.Camera.PairRoleNotSelected" xml:space="preserve">
+    <value>Vloga v paru ni izbrana</value>
+  </data>
+  <data name="Page.Camera.PinchOrDrag" xml:space="preserve">
+    <value>Stisnite ali povlecite za raziskovanje!</value>
+  </data>
+  <data name="Page.Camera.PleaseSelectValid" xml:space="preserve">
+    <value>Izberite sliko Jpeg, Png ali Webp. Slika, ki ste jo izbrali, je</value>
+  </data>
+  <data name="Page.Camera.ReallyClear" xml:space="preserve">
+    <value>Res jasno?</value>
+  </data>
+  <data name="Button.Camera.Remove" xml:space="preserve">
+    <value>Odstrani</value>
+  </data>
+  <data name="Page.Camera.SavedToCustomFolder" xml:space="preserve">
+    <value>Shranjeno v mapo po meri</value>
+  </data>
+  <data name="Page.Camera.SavedToExternal" xml:space="preserve">
+    <value>Shranjeno v zunanji</value>
+  </data>
+  <data name="Page.Camera.SavedToPhotos" xml:space="preserve">
+    <value>Shranjeno v Fotografije</value>
+  </data>
+  <data name="Page.Camera.SaveFailed" xml:space="preserve">
+    <value>Shranjevanje ni uspelo. :(</value>
+  </data>
+  <data name="Page.Camera.Saving" xml:space="preserve">
+    <value>Shranjevanje ...</value>
+  </data>
+  <data name="Page.Camera.SecondaryOnLeft" xml:space="preserve">
+    <value>SEKUNDARNO LEVO</value>
+  </data>
+  <data name="Page.Camera.SecondaryOnRight" xml:space="preserve">
+    <value>SEKUNDARNO NA DESNI</value>
+  </data>
+  <data name="Page.Camera.SelectedInvalid" xml:space="preserve">
+    <value>Izbrana slika je neveljavna.</value>
+  </data>
+  <data name="Page.Camera.SorryError" xml:space="preserve">
+    <value>Žal je CrossCam naredil napako. Poročilo o napaki je bilo samodejno poslano. Morda sploh ne opazite nič narobe, če pa že, poskusite znova zagnati aplikacijo. Če se to ponavlja, mi pošljite e-pošto in mi povejte o tem. (Pojdite na stran z nastavitvami, da ustavite ta pojavna okna.)</value>
+  </data>
+  <data name="Page.Camera.Steady" xml:space="preserve">
+    <value>enakomerno ...</value>
+  </data>
+  <data name="Page.Camera.SureClear" xml:space="preserve">
+    <value>Ste prepričani, da želite počistiti svoje slike in začeti znova?</value>
+  </data>
+  <data name="Page.Camera.Syncing" xml:space="preserve">
+    <value>Sinhronizacija ...</value>
+  </data>
+  <data name="Page.Camera.Transmitting" xml:space="preserve">
+    <value>Pošiljanje ...
+(naprava naj bo odklenjena)</value>
+  </data>
+  <data name="Page.Camera.VR" xml:space="preserve">
+    <value>VR</value>
+  </data>
+  <data name="Page.FovCorrection" xml:space="preserve">
+    <value>Popravek vidnega polja</value>
+  </data>
+  <data name="Page.FovCorrectionExplain" xml:space="preserve">
+    <value>Različni modeli naprav imajo lahko različna vidna polja. CrossCam vam bo pomagal popraviti to po prvem zajemu. Kadrirajte in zajemite nekaj z izrazitimi točkami blizu vrha in dna okvirja, pri čemer pazite, da bodo točke vidne na obeh napravah.</value>
+  </data>
+  <data name="Page.Technique.ParallelLink1" xml:space="preserve">
+    <value>Lepa besedilna lekcija</value>
+  </data>
+  <data name="Page.Technique.ParallelLink2" xml:space="preserve">
+    <value>Še ena lepa besedilna lekcija</value>
+  </data>
+  <data name="Page.Technique.ParallelLink3" xml:space="preserve">
+    <value>Še ŠEN lep tekstovni tutorial</value>
+  </data>
+  <data name="Page.Technique.ParallelLink4" xml:space="preserve">
+    <value>Vadnica Magic Frankfurter</value>
+  </data>
+  <data name="Page.Technique.ParallelLink5" xml:space="preserve">
+    <value>Lep video o Magic Eye</value>
+  </data>
+  <data name="Page.Technique.Trouble" xml:space="preserve">
+    <value>Če imate še vedno težave, poskusite telefon odnesti v temen prostor, da bo edina stvar, na katero bodo vaše oči dobro videle in se osredotočile, slika.
+
+Druga stvar, ki jo lahko poskusite, je, da uporabite cevke toaletnega papirja ali svoje roke, da naredite tako, da lahko vsako oko vidi samo stran slike, ki naj bi jo videla.
+ • Za križni pogled: držite eno cevko ob mostu nosu (na sredini med očmi), medtem ko jo usmerite v sredino slike pred seboj. Počasi premikajte cev proti zaslonu, medtem ko poskušate z obema očesoma pogledati navzdol. Ko s cevjo dosežete pravi položaj, se mora slika zaskočiti na svoje mesto. Morda vam bo pomagalo, če se boste osredotočili na pogled v notranjost oddaljenega konca cevi. Če ne najdete pravega položaja, poskusite uporabiti večjo sliko ali manjšo cev.
+ • Za vzporedni pogled: držite cevko pred vsakim očesom, vendar ju usmerite na stran, tako da skorajda ne vidite ničesar. Hkrati počasi obrnite cevi navznoter, da boste lahko videli večji del slike. V trenutku, ko lahko vidite večji del slike (skoraj polovico z vsakim očesom), poskusite sprostiti oči in zbližati polovice. Morda bo pomagala uporaba večje ali manjše slike.
+
+Obstaja enostavna vaja, ki jo lahko naredite za vadbo spajanja z navzkrižnim ali vzporednim gledanjem. Vzemite flomaster in narišite del smeška na vsako od svojih sličic (ali na par palčk za sladoled ali depresiver za jezik). Na primer, na eni strani narišite eno oko in usta, na drugi strani pa narišite oko in nos. Nato jih lahko držite pred seboj in vadite spajanje obeh slik skupaj, da dokončate smeška.
+
+Osebno imam raje navzkrižno vzporedno, ker so slike lahko večje, vendar obe metodi delujeta. Če želite eksperimentirati z večjimi vzporednimi slikami, lahko nadzirate velikost na strani z nastavitvami.
+
+Včasih je med izvajanjem težko začutiti, ali izvajate križno ali vzporedno metodo. Lahko prosite nekoga drugega, da opazuje vaše oči, medtem ko to počnete, ali pa si oglejte spodnjo sliko kot test:</value>
+  </data>
+  <data name="SaveModes.Anaglyph" xml:space="preserve">
+    <value>Anaglif</value>
+  </data>
+  <data name="SaveModes.Cardboard" xml:space="preserve">
+    <value>Karton</value>
+  </data>
+  <data name="SaveModes.Cross" xml:space="preserve">
+    <value>Križ</value>
+  </data>
+  <data name="SaveModes.GrayscaleAnaglyph" xml:space="preserve">
+    <value>Sivinski anaglif</value>
+  </data>
+  <data name="SaveModes.Parallel" xml:space="preserve">
+    <value>Vzporedno</value>
+  </data>
+  <data name="SaveModes.Quad" xml:space="preserve">
+    <value>Quad</value>
+  </data>
+  <data name="SaveModes.Separate" xml:space="preserve">
+    <value>Ločeno</value>
+  </data>
+  <data name="SaveModes.Single" xml:space="preserve">
+    <value>Samski</value>
+  </data>
+  <data name="SaveModes.Triple" xml:space="preserve">
+    <value>Trojni</value>
+  </data>
+  <data name="Page.Camera.FovExplain" xml:space="preserve">
+    <value>Če želite popraviti razlike v vidnem polju, povečajte in podrsajte slike, tako da se značilne točke poravnajo med obema fotografijama. Bele črte lahko povlečete naokoli, da si lažje predstavljate poravnavo. Ta popravek bo uporabljen za prihodnje predoglede. Shranjen bo, vendar ga lahko ponastavite na strani z nastavitvami. Če uporabljate enake naprave, samo shranite brez prilagajanja.</value>
+  </data>
+  <data name="Page.Camera.FovTitle" xml:space="preserve">
+    <value>Popravek vidnega polja</value>
+  </data>
+  <data name="Page.Camera.KeyPoints" xml:space="preserve">
+    <value>Ključne točke</value>
+  </data>
+  <data name="Page.Camera.Warped" xml:space="preserve">
+    <value>Zvit</value>
+  </data>
+  <data name="Page.Camera.WelcomeExplain" xml:space="preserve">
+    <value>CrossCam je bil narejen za pomoč pri ustvarjanju 3D fotografij. Fotografije so 3D, tako kot filmi VR ali 3D, vendar ne potrebujete nobene posebne opreme ali očal – samo telefon (če pa imate rdeča/modrozelena očala 3D ali pregledovalnik Google Cardboard, jih lahko uporabite tudi s CrossCam). Tehnika \"brezplačnega gledanja\", ki uporablja samo vaš telefon in vaše oči, zahteva nekaj prakse, da se jo naučite. Preden vam povem, kako uporabljati CrossCam, bi radi izvedeli več o tehniki gledanja?</value>
+  </data>
+  <data name="Page.Camera.Welcome" xml:space="preserve">
+    <value>Dobrodošli v CrossCam!</value>
+  </data>
+  <data name="Page.Camera.Directions" xml:space="preserve">
+    <value>Preskoči na navodila</value>
+  </data>
+  <data name="Page.Camera.Technique" xml:space="preserve">
+    <value>Tehnika gledanja</value>
+  </data>
+  <data name="Page.HowToUse.P1" xml:space="preserve">
+    <value>Če želite to znova videti, tapnite ikono hamburgerja (tri črte) v zgornjem levem kotu zaslona kamere in tapnite »Pomoč«.
+
+
+1) Uokvirite in posnemite prvo sliko.</value>
+  </data>
+  <data name="Page.HowToUse.P2" xml:space="preserve">
+    <value>3) Telefon držite mirno pred seboj in se počasi premikajte vstran v smeri, ki vam jo pove CrossCam. Ne premikajte se predaleč – vaš cilj je en centimeter ali manj za vsako nogo stran. Prav tako se sploh ne obračajte, samo drsite vstran ali se morda celo samo nagnite.
+
+4) Poravnajte prvo sliko s predogledom druge slike in posnemite drugo sliko, ko vam je všeč, kar vidite.
+
+5) CrossCam bo samodejno poravnal vaše slike, ko jih posnamete, vendar ni popolno. Če vam ni všeč, kako so bile poravnane, lahko samodejno poravnavo izklopite tako, da tapnete ikono majhnega robota. CrossCam ima tudi veliko možnosti ročnega urejanja, do katerih lahko pridete tako, da tapnete ikono svinčnika.
+
+6) Tapnite kljukico, ko ste pripravljeni na shranjevanje.
+
+
+Druge stvari, ki jih lahko naredite:
+ • Tapnite enkrat, da izostrite točko, tapnite dvakrat, da preklopite nazaj na neprekinjeno samodejno ostrenje.
+ • Tapnite ikono zobnika v zgornjem desnem kotu zaslona kamere, da odprete stran z nastavitvami. Polno je zanimivih stvari.
+ • Obstaja prijetna stran z nasveti, do katere lahko pridete tako, da tapnete ikono hamburgerja v zgornjem levem kotu zaslona fotoaparata, ki vam lahko pomaga narediti vaše slike odlične.
+ • Če bi se za drugi posnetek raje premaknili v drugo smer ali bi radi zamenjali strani, samo povlecite.
+ • Tapnite majhno ikono mape na dnu, da naložite sliko kot stran ali da naložite celotno stereo sliko.</value>
+  </data>
+  <data name="Page.Faq.Alignment" xml:space="preserve">
+    <value>Kako deluje samodejna poravnava?</value>
+  </data>
+  <data name="Page.Faq.Alignment.Body" xml:space="preserve">
+    <value>Samodejna poravnava poskuša čim bolje poravnati pare slik, vendar ni popolna. Računalniški vid je pri nekaterih stvareh boljši od človeških oči, pri drugih pa tudi veliko slabši. Svet, ki ga vidi, je zelo drugačen od tistega, ki ga vidimo mi, vendar ga lahko vidi tudi na nekaj različnih načinov. Dva glavna načina, kako vidi v CrossCam, sta prek izboljšanega korelacijskega koeficienta (ECC) in uporaba ključnih točk.
+
+Poravnava ECC v bistvu deluje tako, da poskuša zagotoviti, da se svetle lise prekrivajo s svetlimi lisami in temne lise prekrivajo s temnimi lisami, ko sta obe strani prekriti ena na drugo. Uskladitev ECC ima oceno zaupanja, ki naj bi pomagala pri odločitvi, ali je bila uskladitev učinkovita. CrossCam je nastavljen tako, da zavrne ustvarjeno poravnavo, če je zaupanje prenizko, vendar lahko konfigurirate prag zaupanja za uspešno/neuspešno na strani z nastavitvami.
+
+Poravnava ključnih točk išče zanimive točke, kot so vogali, robovi, pike in visok kontrast, ter jih poskuša uskladiti med obema stranema. Ko se točke ujemajo, lahko CrossCam uporabi različne algoritme, da poskuša ukriviti stranice, tako da so vse ključne točke na eni strani čim bližje svojim ustreznim ključnim točkam na drugi strani.
+
+CrossCam je programiran tako, da najprej uporabi poravnavo ključnih točk, vendar se vrne na poravnavo ECC, ko poravnava ključnih točk ne uspe ali ko zajemanje poteka z metodo zrcalne delitve enega posnetka. Samodejno poravnavo lahko konfigurirate tudi tako, da vedno uporablja poravnavo ključnih točk ali vedno uporablja poravnavo ECC na strani z nastavitvami.
+
+CrossCam bo prikazal rezultat poravnave na zaslonu kamere pod ikono majhnega robota. Če je uporabil poravnavo ECC, bo prikazal odstotek zaupanja. Če je uporabil poravnavo ključnih točk, bo prikazan "KP". Če obe metodi poravnave ne uspeta, bo prikazano "F". Če vam rezultat poravnave ni všeč, se lahko dotaknete ikone majhnega robota, da odstranite poravnavo.</value>
+  </data>
+  <data name="Page.Faq.Bad" xml:space="preserve">
+    <value>Je to slabo za moje oči?</value>
+  </data>
+  <data name="Page.Faq.Bad.Body1" xml:space="preserve">
+    <value>Ne vem, ampak mislim, da ne. Vendar, če se počutite slabo, si vzemite odmor. Z vajo se nelagodje običajno zmanjša. Vsaka metoda gledanja bi lahko povzročila nelagodje zaradi učinka, imenovanega konflikt vergenca-akomodacija. Tukaj je</value>
+  </data>
+  <data name="Page.Faq.Bad.Body2" xml:space="preserve">
+    <value>povezava do Wikipedije o konfliktu vergenca-prilagodba.</value>
+  </data>
+  <data name="Page.Faq.Bad.Body3" xml:space="preserve">
+    <value>Če uporabljate metodo navzkrižnih oči, je občutek morda tudi posledica tega, da vaše oči niso navajene kazati, kot da bi tako dolgo gledale nekaj tako blizu. Ko gledate navzkrižno, se vaše oči zberejo na točki približno na polovici poti med vašimi očmi in zaslonom. Če bi vam dolgotrajen pogled na nekaj, kar je blizu, povzročal tudi nelagodje, imamo svojo razlago.
+
+Moje mnenje o tem je, da vaše oči ne počnejo ničesar zunaj svojih vsakdanjih zmožnosti, ampak združujete dve različni sposobnosti, ki se običajno ne uporabljata na ta način. Svoje leče izostrite na nekaj na enem mestu, na kar je običajno udobno izostriti, in usmerite oči nekam, kamor jim je običajno udobno, toda na mesto, kjer vaše leče fokusirajo in kjer se vaše oči zbližujejo preprosto ni ista točka. Ne razumem, kako bi lahko bilo to slabo zate, dokler se tvoj vid še ne razvija.</value>
+  </data>
+  <data name="Page.Faq.Cardboard" xml:space="preserve">
+    <value>Kako uporabljam CrossCam z Google Cardboardom?</value>
+  </data>
+  <data name="Page.Faq.Cardboard.Body" xml:space="preserve">
+    <value>Če ima vaš gledalnik gumb, ki pritisne sredino zaslona, ​​ga lahko uporabite za zajemanje s Cardboardom. Vaš gledalnik bo moral imeti tudi luknjo, skozi katero lahko vidi kamera vašega telefona.
+
+Če želite zajeti fotografije s Cardboardom, preklopite svoj način predogleda (na strani z nastavitvami) na Cardboard, nato pa se vrnite na stran s kamero in vtaknite telefon v pregledovalnik. Pritisnite gumb za zajem, in ko sta zajeti obe strani, znova pritisnite gumb za shranjevanje. Shranjevanje v načinu Cardboard je namenjeno le temu, da vam omogoči nalaganje slik nazaj v CrossCam za poznejši ogled, ne pa za ogled v aplikaciji za fotografije prek pregledovalnika.
+
+Posnamete lahko tudi s katero koli drugo metodo, ki jo želite, nato preklopite način ogleda predogleda na Cardboard in vstavite telefon v pregledovalnik.
+
+Obstaja veliko različnih gledalcev z različnimi lastnostmi. Morda boste morali spremeniti ločilno razdaljo Cardboard (na strani z nastavitvami), da bo vaša izkušnja udobnejša. Morda se boste morali tudi najprej prepričati, da ste dobri v zajemanju visokokakovostnih stereogramov, preden jih naredite ogromne in poglobljene.</value>
+  </data>
+  <data name="Page.Faq.How" xml:space="preserve">
+    <value>Kako to deluje?</value>
+  </data>
+  <data name="Page.Faq.How.Body1" xml:space="preserve">
+    <value>3D-učinek, ki ga uporablja CrossCam, je dobro raziskana disciplina, znana kot stereoskopija, metoda, pri kateri prekrižate oči (ali jih sprostite), da si ogledate obe strani, se imenuje prosti ogled. Ko gledamo na svet, vsako od naših oči vidi z drugačne perspektive. Pri stereoskopiji je vse, kar počnemo, to, da vsakemu očesu predstavimo eno (umetno) perspektivo, ostalo pa naredijo naši možgani. Obstaja veliko različnih načinov, da vsako oko vidi drugačno sliko. Tukaj je</value>
+  </data>
+  <data name="Page.Faq.How.Body2" xml:space="preserve">
+    <value>povezava na Wikipediji o stereoskopiji</value>
+  </data>
+  <data name="Page.Faq.How.Body3" xml:space="preserve">
+    <value>3D slike, ki jih ustvarite s CrossCam, se imenujejo stereogrami. Knjige Magic Eye™ vsebujejo tako imenovane avtostereograme.</value>
+  </data>
+  <data name="Page.Faq.Into" xml:space="preserve">
+    <value>Kako ste se začeli ukvarjati s stereoskopijo?</value>
+  </data>
+  <data name="Page.Faq.Into.Body1" xml:space="preserve">
+    <value>Ko sem diplomiral iz fizike, sem imel priložnost eksperimentirati z ustvarjanjem lastnih hologramov z uporabo laserjev. Vrsta hologramov, ki sem jih izdeloval, je bila 3D, ker so uporabili uklonsko mrežo, da bi povzročili uničujoče interference v svetlobi, ki se odbija od površine steklene plošče, zaradi česar je odbita slika videti drugače na različnih mestih. Ko vsako od naših oči vidi sliko, ki je videti, kot da je iz druge perspektive (če niso preveč različne), naši možgani to zaznajo kot globino.</value>
+  </data>
+  <data name="Page.Faq.Into.Body2" xml:space="preserve">
+    <value>Tega principa stereoskopskega zaznavanja sem se zavedal že dolgo časa, vendar sem takrat hodil tudi na tečaje programiranja, zato sem se odločil, da poskusim narediti preprost računalniški program za stereoskopsko 3D risanje. To prizadevanje je postalo StereoSketcher. Prvotna različica je bila napisana v Javi, vendar sem jo prepisal z Javascriptom in SVG in zdaj živi v spletu</value>
+  </data>
+  <data name="Page.Faq.Into.Body3" xml:space="preserve">
+    <value>na tej povezavi.</value>
+  </data>
+  <data name="Page.Faq.Into.Body4" xml:space="preserve">
+    <value>Nikakor ni priljubljen in morda ga nikomur razen meni ni enostavno uporabljati, vendar deluje. Med delom na StereoSketcherju sem moral eksperimentirati z načeli stereoskopije in postal sem navdušen nad načinom, kako je mogoče ustvariti tako poglobljeno in prepričljivo izkušnjo z nekaj preprostimi pravili.</value>
+  </data>
+  <data name="Page.Faq.Inverted" xml:space="preserve">
+    <value>Zakaj 3D ni videti pravilno ALI zakaj je 3D videti obrnjen?</value>
+  </data>
+  <data name="Page.Faq.Inverted.Body1" xml:space="preserve">
+    <value>Pri prostem ogledu z navzkrižno ali vzporedno metodo je pomembno, da si slike ogledate z isto metodo, kot je bila uporabljena za njihovo ustvarjanje. V nasprotnem primeru bo vaše desno oko gledalo v perspektivi, ki je predvidena za levo oko in obratno. Zaradi tega se globina slike obrne, ker je bila smer paralakse zamenjana.
+
+Paralaksa pomeni, da se z vidika vašega desnega očesa zdi, da so predmeti bolj oddaljeni bolj v desni kot bližji predmeti, če jih gledate z levim očesom. Zmedeno je, ko je opisano v obliki stavka, vendar je zelo intuitivno, ko je prikazano.
+
+Za prikaz držite en prst dvignjen pred seboj na približno dolžini roke, nato pa z drugo roko držite drugi prst približno na polovici med prvim prstom in obrazom. Če izmenično zaprete vsako oko in ste pozorni, kje so vaši prsti, boste videli, da jih vsako oko vidi na različnih mestih. Seveda, če bi vsako oko videlo to gibanje v nasprotni smeri, kot bi moralo, bo globina obrnjena.
+
+Zelo enostavno je pomotoma uporabiti napačen način gledanja, saj se je izkazalo, da je za večino ljudi zelo težko ugotoviti, ali križajo ali sproščajo svoje oči samo z občutkom ali gledanjem v zmedeno dvojno podobo sveta, ki nastane. Namesto tega je najbolje, da nekdo drug pogleda, kaj počnejo vaše oči, ali pa preizkusite to sliko preizkuševalca:</value>
+  </data>
+  <data name="Page.Faq.Inverted.Body2" xml:space="preserve">
+    <value>Številnim ljudem je postalo povsem udobno gledati knjige Magic Eye™, ki so namenjene ogledu z metodo vzporednega pogleda. Če jih pogledate navzkrižno, so robustni 3D-predmeti, ki naj bi izskočili s strani, videti kot luknje. Obe metodi vam omogočata, da vidite *nekaj*, a če ne morete povedati, kaj je bilo, ju verjetno gledate navzkrižno.</value>
+  </data>
+  <data name="Page.Faq.Mirror" xml:space="preserve">
+    <value>Kako naj uporabim metodo "single-shot mirror"?</value>
+  </data>
+  <data name="Page.Faq.Mirror.Body1" xml:space="preserve">
+    <value>Zajemanje z zrcalno metodo razdeli okvir na pol in izvede zahtevano transformacijo, tako da lahko z enim samim telefonom in navadnim ročnim zrcalom zajamete obe strani hkrati. Če želite pri zajemanju uporabiti zrcalni način, preklopite stikalo za zrcalni način na strani z nastavitvami (dotaknite se ikone zobnika, da pridete tja). Ko vklopite zrcalni način, vam bo CrossCam povedal, na kateri strani naj držite ogledalo. Držite ogledalo na tisti strani in se ukvarjajte s poravnavo med telefonom, ogledalom in motivom. Z nekaj potrpežljivosti jih boste lahko vse poravnali tako, da bo ogledalo pokazalo pravo perspektivo za eno od strani. Ker z zrcalno metodo sliko razdelite navpično na polovico, je običajno najbolje, da ležeče posnamete z zrcalno metodo.
+
+Ta metoda bo delovala tudi z odsevi v velikih, čistih oknih in tudi na mirnih jezerih ali lužah (ko je telefon zaklenjen v pokončnem položaju in obrnjen na stran).</value>
+  </data>
+  <data name="Page.Faq.Mirror.Body2" xml:space="preserve">
+    <value>Za uporabo zrcalne metode je treba narediti nekaj kompromisov/urejanja. Vse to je mogoče storiti ročno v CrossCamu, vendar bo samodejno poravnavo poskušalo narediti tudi namesto vas:
+ • Ker odsevni pogled potuje po daljši razdalji kot običajni pogled, bo treba zrcalno stran nekoliko povečati.
+ • Verjetno je, da boste pri uporabi zrcalne metode končali s prsti navznoter, namesto da bi obdržali perspektive vzporedne – to lahko povzroči, da bo podaljšek videti kot slaba navpična poravnava. Če želite to razveljaviti, lahko izvedete trapezni popravek, kar pomeni navpično krčenje ene strani vsake slike.
+ • S prsti navznoter se bo stereo okno tudi premaknilo proti vam. To lahko razveljavite in ga postavite, kamor želite, tako da obrežete stranice.
+ • Zrcalo verjetno ne bo v celoti pokrilo pogleda na eno stran, zato bo morda treba narediti nekaj obrezovanja, da odstranite neodbite delce.
+
+Najboljša ogledala za to imajo tanko steklo. Kot prvo so lahki, zato jih je lažje držati dlje časa. Druga pomembna stvar je, da boste pri uporabi ogledala verjetno usmerili ogledalo vstran, namesto da bi gledali naravnost vanj, kot se običajno uporabljajo ogledala. Če so tako usmerjena, so lahko ogledala z debelim steklom nekoliko zamegljena. Tanjše kot je steklo, manj bo očitna ta zamegljenost. Tovrstna ogledala so lahko tudi v drugih pogledih nizke kakovosti, zato je pomembno najti dobro ravnotežje.
+
+Obstaja nekaj drugih kompromisov, ki jih je treba sprejeti pri uporabi zrcalnega zajema, ki jih ni mogoče popraviti v urejanju s CrossCamom:
+ • Ker pogled na obe strani potuje nekoliko na različne razdalje, bo izostritev, potrebna za vsako stran, nekoliko drugačna, zato bo ena stran vedno rahlo zamegljena. Ta učinek bo bolj ali manj opazen, odvisno od razdalje do motiva in globinske ostrine leče.
+ • Nobeno ogledalo ni resnično 100-odstotno učinkovito, zato je lahko stran, na kateri je ogledalo, nekoliko temnejša. To se bo razlikovalo glede na kakovost ogledala.</value>
+  </data>
+  <data name="Page.Faq.Moving" xml:space="preserve">
+    <value>Moj predmet se premika, kako ga posnamem v 3D?</value>
+  </data>
+  <data name="Page.Faq.Moving.Body" xml:space="preserve">
+    <value>CrossCam vam omogoča dve metodi za zajemanje obeh perspektiv v istem trenutku. Ena metoda uporablja dva telefona, druga pa ogledalo.
+
+Če želite uporabiti nastavitev dveh telefonov, si oglejte stran Pairing Setup, ki jo lahko odprete na strani Settings (tapnite ikono zobnika).
+
+Če želite uporabiti zrcalno metodo, si oglejte drugo vprašanje s pogostimi vprašanji.</value>
+  </data>
+  <data name="Page.Faq.Test" xml:space="preserve">
+    <value>Kako lahko preizkusim različice CrossCam pred izdajo?</value>
+  </data>
+  <data name="Page.Faq.Test.Body" xml:space="preserve">
+    <value>Oglejte si to objavo na Redditu</value>
+  </data>
+  <data name="Page.Faq.Why" xml:space="preserve">
+    <value>Zakaj ste naredili CrossCam?</value>
+  </data>
+  <data name="Page.Faq.Why.Body" xml:space="preserve">
+    <value>Ko me je začela zanimati stereoskopija, sem se po naključju odpravil v Yellowstone. Ko sem bil tam, sem ugotovil, da bi bilo morda zabavno poskusiti uporabiti mobilno aplikacijo za kamero 3D, da bi tam posnel stvari v 3D. Zelo sem bil razočaran nad obstoječimi možnostmi. Ugotovil sem, da vsi zahtevajo, da narediš dva zajetja in nato ugotoviš, ali sta dobra. Pogosto niso bili, saj sem moral vedno znova povsem ugibati o svoji razdalji in kakovosti predmeta.
+
+V naslednjih nekaj tednih me je tleča frustracija pripeljala do tega, da sem si predstavljal, da bi preprosto zagotovil predogled drugega posnetka v živo poleg prvega. Imel sem že ozadje na področju mobilnega razvoja, tako da je bilo potem samo vprašanje časa. CrossCam mi je bil super, da ga uporabljam samo zase, da ohranim spomine, in z veseljem ga delim tudi z vami.</value>
+  </data>
+  <data name="Page.Faq.Wiggle" xml:space="preserve">
+    <value>Kaj so wigglegrami?</value>
+  </data>
+  <data name="Page.Faq.Wiggle.Body" xml:space="preserve">
+    <value>Wigglegrami so način za ogled stereogramov, ki ni odvisen od binokularnega vida. Običajno so gifi, ki se obračajo naprej in nazaj med obema perspektivama in prikazujejo vsako v celoti na istem mestu. CrossCam trenutno ne podpira njihove izdelave, vendar mi pošljite e-pošto, če vas res zanimajo, in naredil bom to.</value>
+  </data>
+  <data name="Page.Tips.AlignAfter" xml:space="preserve">
+    <value>Pazite na vodoravne črte, lahko pa jih tudi poravnate.</value>
+  </data>
+  <data name="Page.Tips.AlignAfter.Body" xml:space="preserve">
+    <value>Če ugotovite, da je med fotografiranjem nemogoče, da bi se zgornja in spodnja vodilna črta poravnali hkrati, ste se verjetno premaknili v drugo smer kot samo vstran. Poskusite to popraviti, preden posnamete slike, vendar lahko naknadna poravnava pri tem zelo pomaga.</value>
+  </data>
+  <data name="Page.Tips.Alignment" xml:space="preserve">
+    <value>Samodejno poravnavo lahko izklopite.</value>
+  </data>
+  <data name="Page.Tips.Alignment.Body" xml:space="preserve">
+    <value>Če vam rezultati samodejne poravnave niso všeč, jo preprosto izklopite na strani z nastavitvami ali tako, da se dotaknete ikone majhnega robota in vaše izvirne zajete slike bodo obnovljene.</value>
+  </data>
+  <data name="Page.Tips.Donut" xml:space="preserve">
+    <value>Vodnik za krofe lahko pomaga vašemu oknu.</value>
+  </data>
+  <data name="Page.Tips.Donut.Body" xml:space="preserve">
+    <value>Na strani z nastavitvami je poskusni vodnik, ki ga lahko vklopite in vam lahko pomaga ohraniti stereo okno, hkrati pa povečati uporabno širino. Z obračanjem levo in desno se bo globina krofa spremenila glede na preostanek prizora - nastavite globino krofa tako, da bo na ali za najbolj oddaljeno točko v vašem prizoru. Bodite previdni, če ga uporabljate na manjših prizorih, lahko stvari postanejo boleče (glejte zgornji nasvet za trapezni kamen).</value>
+  </data>
+  <data name="Page.Tips.Keystone" xml:space="preserve">
+    <value>Trapezni popravek je potreben, če vstopite.</value>
+  </data>
+  <data name="Page.Tips.Keystone.Body1" xml:space="preserve">
+    <value>Če se z vsakim posnetkom obrnete navznoter, je zelo koristno narediti trapezne popravke. Običajno bi želeli skrčiti notranje robove fotografij in nato nekaj obrezati z vrha in dna, da bi jih izravnali. Do menija za urejanje trapeza pridete tako, da tapnete gumb, ki je videti takole:</value>
+  </data>
+  <data name="Page.Tips.Keystone.Body2" xml:space="preserve">
+    <value>Obračanje navznoter se imenuje toe-in. Lahko povzroči učinek skrajšanja, ki oteži spajanje vogalov slike. Učinek krajšanja je v resničnem življenju ves čas prisoten, ker se zdi, da se vzporedne črte stekajo, ko gredo v daljavo stran od vas, vendar umetne perspektive lahko naredijo čudno.</value>
+  </data>
+  <data name="Page.Tips.Lean" xml:space="preserve">
+    <value>Lahko se samo nasloniš.</value>
+  </data>
+  <data name="Page.Tips.Lean.Body" xml:space="preserve">
+    <value>Včasih je namesto popolnoma premikanja stopal v levo ali desno za fotografiranje lahko lažje samo stati z razmaknjenimi stopali in se nagniti v vsako smer, vendar pazite, da telefon ostane raven in na enaki višini. Samo nagibanje namesto premikanja vam lahko pomaga, da se ne premaknete predaleč, in lahko olajša cilj, ki ga držite naravnost.</value>
+  </data>
+  <data name="Page.Tips.Lines" xml:space="preserve">
+    <value>Poravnalne črte se lahko premikajo.</value>
+  </data>
+  <data name="Page.Tips.Lines.Body" xml:space="preserve">
+    <value>Če želite, lahko poravnalne črte povlečete naokoli. To je še posebej koristno pri poravnavi slik med urejanjem.</value>
+  </data>
+  <data name="Page.Tips.Old" xml:space="preserve">
+    <value>V CrossCamu lahko odprete stare fotografije.</value>
+  </data>
+  <data name="Page.Tips.Old.Body" xml:space="preserve">
+    <value>Prej posnete slike lahko naložite tako, da tapnete ikono mape na dnu strani s fotoaparatom, če pa delate z veliko količino fotografij, jih lahko daste v skupno rabo s CrossCam neposredno iz aplikacije za fotografije, ki lahko spremlja vaše mesto na vaših fotografijah bolje.</value>
+  </data>
+  <data name="Page.Tips.Quick" xml:space="preserve">
+    <value>Vklopite hitri način, ko ste z drugimi.</value>
+  </data>
+  <data name="Page.Tips.Quick.Body" xml:space="preserve">
+    <value>Če raziskujete z drugimi ljudmi, je dobro, da preklopite v hitri način, tako da izklopite samodejno poravnavo in obrobe ter shranite, ko zajamete, brez kakršnega koli urejanja. Slike lahko kadar koli naložite, samodejno poravnate in uredite pozneje. Tako vašim spremljevalcem ni treba čakati, da izpopolnite svoje slike na kraju samem, še vedno pa ste lahko prepričani, da je globina, ki jo želite, res tam. Samo pazite, da pred prvim shranjevanjem ne urejate naglo! Vklopite lahko tudi ločeno stransko shranjevanje, ki bo prezrlo vsako vaše urejanje.</value>
+  </data>
+  <data name="Page.Tips.Sick" xml:space="preserve">
+    <value>Če vam zaradi gibanja postane slabo, ostanite pri miru.</value>
+  </data>
+  <data name="Page.Tips.Sick.Body" xml:space="preserve">
+    <value>Če vam zaradi vsega gibanja postane slabo ali ga je preveč težko gledati v 3D, ga ne poskušajte videti v 3D, dokler se ne premaknete. Nato primerjajte slike med seboj in jih poravnajte z vodoravnimi črtami brez 3D-ogleda, nato pa začnite 3D-ogled, ko so poravnane in pri miru.</value>
+  </data>
+  <data name="Page.Tips.Space" xml:space="preserve">
+    <value>Te slike lahko zavzamejo veliko prostora - lahko jih skrčite.</value>
+  </data>
+  <data name="Page.Tips.Space.Body" xml:space="preserve">
+    <value>Stran z nastavitvami ima možnost sorazmernega zmanjšanja ločljivosti končne slike – to lahko pomaga, če želite prihraniti prostor. Če vaša fotografija ni obrezana, sta končni rezultat dve sliki polne ločljivosti, združeni v eno z dvojno ločljivostjo, kar pomeni, da se lahko pogosto izognete velikemu zmanjšanju ločljivosti, ne da bi opazno vplivali na kakovost.</value>
+  </data>
+  <data name="Page.Tips.Turn" xml:space="preserve">
+    <value>Ne obračaj.</value>
+  </data>
+  <data name="Page.Tips.Turn.Body" xml:space="preserve">
+    <value>Ko se premikate, poskušajte telefona sploh ne obračati v nobeno smer, vključno z naravno težnjo, da se obrnete proti predmetu, ko se premikate vstran. Nekaj ​​rotacije bo potrebno (včasih), vendar jo poskušajte čim bolj zmanjšati. Predstavljajte si, da je telefon nameščen na ravni vodoravni tirnici in lahko samo drsi. Obračanje navznoter lahko povzroči učinek skrajšanja, zaradi katerega je vogale težko spojiti.</value>
+  </data>
+  <data name="Page.Tips.Window" xml:space="preserve">
+    <value>Dodajte obrobo in obrežite, da ustvarite močno stereo okno.</value>
+  </data>
+  <data name="Page.Tips.Window.Body" xml:space="preserve">
+    <value>Zanimiv učinek stereo okna lahko ustvarite tako, da naredite dve stvari: 1) vklopite obrobo (na strani z nastavitvami) in 2) za navzkrižni pogled obrežite notranje robove slik, dokler sam zunanji rob ne postane 3D na sliki (obrežite ZUNANJI robovi, če gledate vzporedno). Ključno je, da obrežete desni rob leve slike nekoliko čez tisto, kar prikazuje desni rob desne slike prizora, in obratno. Dodajanje obrobe se preklopi na strani z nastavitvami. Če je to zmedeno, samo obrežite šopek z notranjih robov in postalo bo jasno. Gumb za obrezovanje notranjih robov izgleda takole:</value>
+  </data>
+  <data name="Button.Code" xml:space="preserve">
+    <value>Glejte Kodeks</value>
+  </data>
+  <data name="Button.Developer" xml:space="preserve">
+    <value>O razvijalcu</value>
+  </data>
+  <data name="Button.EmailMe" xml:space="preserve">
+    <value>Pošlji mi email</value>
+  </data>
+  <data name="Button.GitHub" xml:space="preserve">
+    <value>Dodajte težavo na GitHub</value>
+  </data>
+  <data name="Button.Press" xml:space="preserve">
+    <value>Vrnite se na zaslon kamere na obeh napravah in tapnite gumb za seznanjanje v spodnjem kotu</value>
+  </data>
+  <data name="Button.Primary" xml:space="preserve">
+    <value>TUKAJTE PRIMARNO</value>
+  </data>
+  <data name="Button.Privacy" xml:space="preserve">
+    <value>Politika zasebnosti</value>
+  </data>
+  <data name="Button.Secondary" xml:space="preserve">
+    <value>TAKNITE SE TUKAJ NA SEKUNDARNI</value>
+  </data>
+  <data name="Button.Test" xml:space="preserve">
+    <value>Preizkusite predizdajne različice</value>
+  </data>
+  <data name="Button.Wi-Fi" xml:space="preserve">
+    <value>Prepričajte se, da je Wi-Fi omogočen na obeh napravah (vendar ni treba, da je povezana z ničemer)</value>
+  </data>
+  <data name="Page.Pairing.1" xml:space="preserve">
+    <value>Če imate dve napravi z nameščeno CrossCam, ju lahko povežete, da posnamete fotografije iz dveh perspektiv hkrati. Posnetek dveh fotografij hkrati omogoča najboljše možne stereograme.
+
+Upoštevajte, da je ta funkcija še poskusna in lahko povzroča težave. Morda ne bo ves čas deloval brezhibno in vam lahko požre baterijo. Upoštevajte tudi, da morajo biti trenutno naprave enake platforme, da se lahko povežete (obe Android ali oba iOS).
+
+Eden od načinov za *popolno* sinhronizacijo z uporabo samo ene naprave in CrossCam je uporaba metode »single-shot mirror«. Vklopite ga lahko na strani z nastavitvami, o tem pa lahko preberete na strani s pogostimi vprašanji.
+
+Preden lahko dve napravi uporabljate skupaj, je treba njuni vlogi dodeliti. PRIMARNA naprava je tista, ki bo prikazala oba predogleda, sprožila zajem in zadržala/shranila končne zajeme. Če želite dodeliti vloge, se pomaknite z obema napravama na to stran in sledite spodnjim korakom:</value>
+  </data>
+  <data name="Page.Pairing.2" xml:space="preserve">
+    <value>Če imate težave, UPOŠTEVAJTE:
+ • Po začetku postopka združevanja se lahko kadar koli znova dotaknete gumba za združevanje, da ga ustavite ali prekinete povezavo.
+ • Morda bo pomagalo, če ustavite seznanjanje na obeh napravah in ju znova zaženete hkrati.
+ • Morda vam bo pomagalo, da prekinete povezavo z vašim Wi-Fi ali podatkovnim omrežjem, če se ogrozijo.
+ • Vsaka kamera je drugačna. Te razlike lahko vključujejo kotno vidno polje, ostrenje, osvetlitev in obnašanje ravnovesja beline, čas in drugo. Celo dva enaka modela telefona se bosta obnašala nekoliko drugače. Najraje uporabljam par enakih starih telefonov (v mojem primeru par iPhona 6).
+ • CrossCam je programska oprema, ne strojna oprema, zato je zajem fotografij morda nekoliko neusklajen, odvisno od tega, kaj še počnejo procesorji in pomnilnik v trenutku, ko se zajem sproži. Zaradi tega sinhronizacija morda včasih ni popolna, vendar bi morala biti na splošno zelo blizu.</value>
+  </data>
+  <data name="Page.Pairing.Again" xml:space="preserve">
+    <value>Če se želite znova povezati pozneje, se prepričajte, da imate omogočen Wi-Fi, nato pa samo tapnite gumb za povezavo na začetnem zaslonu obeh naprav.</value>
+  </data>
+  <data name="Page.Pairing.LocalNetworkAccess" xml:space="preserve">
+    <value>CrossCam zahteva dovoljenje za dostop do lokalnega omrežja. CrossCam dejansko ne uporablja lokalnega omrežja, vendar iOS zahteva, da CrossCam dobi to dovoljenje, da lahko uporabi anteno Wi-Fi za iskanje naprav. CrossCam bo enkrat zaprosil za to dovoljenje – če je dovoljenje zavrnjeno, boste morali sami preklopiti stikalo v aplikaciji Nastavitve.</value>
+  </data>
+  <data name="Page.Pairing.Location" xml:space="preserve">
+    <value>CrossCam bo zahteval dovoljenja in po potrebi vklopil komponente za povezavo vaših naprav. Prosimo, upoštevajte: CrossCam zahteva dovoljenje za lokacijo in vklop lokacijskih storitev na primarni napravi, da se lahko poveže s sekundarno napravo. To je preprosto zahteva za Android in je popolnoma izven mojega nadzora. CrossCam dejansko na noben način ne UPORABLJA vaše lokacije, a ker bi se dejanje iskanja (in najdenja) bližnjih naprav teoretično lahko uporabilo za vašo približno lokacijo, CrossCam potrebuje dovoljenje za dostop do vaše lokacije.</value>
+  </data>
+  <data name="Page.Pairing.Permissions" xml:space="preserve">
+    <value>Opomba o dovoljenjih:</value>
+  </data>
+  <data name="Page.Pairing.Title" xml:space="preserve">
+    <value>Seznanjanje</value>
+  </data>
+  <data name="Button.Back" xml:space="preserve">
+    <value>&lt; Nazaj</value>
+  </data>
+  <data name="Page.MorePictures.CrossViewSubreddit" xml:space="preserve">
+    <value>CrossView Subreddit</value>
+  </data>
+  <data name="Page.MorePictures.FacebookGroup" xml:space="preserve">
+    <value>Facebook skupina Stereoscopic 3D</value>
+  </data>
+  <data name="Page.MorePictures.GoogleDoc" xml:space="preserve">
+    <value>Google dokument odličnih stvari</value>
+  </data>
+  <data name="Page.MorePictures.Instagram" xml:space="preserve">
+    <value>Instagram stereoskopska oznaka</value>
+  </data>
+  <data name="Page.MorePictures.Mine" xml:space="preserve">
+    <value>Oglejte si slike, ki sem jih posnel</value>
+  </data>
+  <data name="Page.MorePictures.ParallelViewSubreddit" xml:space="preserve">
+    <value>ParallelView Subreddit</value>
+  </data>
+  <data name="Page.Settings.Alignment" xml:space="preserve">
+    <value>Samodejna poravnava</value>
+  </data>
+  <data name="Page.Settings.Analytics" xml:space="preserve">
+    <value>Delite anonimne podatke o uporabi in napakah, da pomagate izboljšati CrossCam</value>
+  </data>
+  <data name="Page.Settings.Border" xml:space="preserve">
+    <value>Meja</value>
+  </data>
+  <data name="Page.Settings.Camera" xml:space="preserve">
+    <value>Kamera</value>
+  </data>
+  <data name="Page.Settings.Defaults" xml:space="preserve">
+    <value>Ponastavi na privzete nastavitve</value>
+  </data>
+  <data name="Page.Settings.Editing" xml:space="preserve">
+    <value>Urejanje</value>
+  </data>
+  <data name="Page.Settings.ErrorEmail" xml:space="preserve">
+    <value>Poziv za pošiljanje e-pošte, ko pride do napak</value>
+  </data>
+  <data name="Page.Settings.Guides" xml:space="preserve">
+    <value>Vodniki za zajemanje</value>
+  </data>
+  <data name="Page.Settings.Pairing" xml:space="preserve">
+    <value>Seznanjanje</value>
+  </data>
+  <data name="Page.Settings.Preview" xml:space="preserve">
+    <value>Metoda ogleda predogleda</value>
+  </data>
+  <data name="Page.Settings.Saving" xml:space="preserve">
+    <value>Varčevanje</value>
+  </data>
+  <data name="Page.TipMe.1" xml:space="preserve">
+    <value>CrossCam je brezplačen za uporabo, brez oglasov, odprtokoden, ne zbira vaših osebnih podatkov in vam omogoča popoln dostop do vseh funkcij. Rad delam na CrossCamu, vendar zahteva veliko časa in truda. S CrossCamom sploh ne zaslužim, razen nasvetov, ki bi mi jih ljudje morda poslali.</value>
+  </data>
+  <data name="Page.TipMe.2" xml:space="preserve">
+    <value>Če vam je všeč CrossCam in ste zmožni, razmislite o tem, da mi pošljete namig.</value>
+  </data>
+  <data name="Page.TipMe.Ko-fi" xml:space="preserve">
+    <value>Ko-fi</value>
+  </data>
+  <data name="Page.TipMe.Patreon" xml:space="preserve">
+    <value>Patreon</value>
+  </data>
+  <data name="Page.TipMe.PayPal" xml:space="preserve">
+    <value>PayPal</value>
+  </data>
+  <data name="Page.TipMe.Tipped" xml:space="preserve">
+    <value>Dobil sem napitnino</value>
+  </data>
+  <data name="Page.TipMe.TippedTimes" xml:space="preserve">
+    <value>krat, skupaj</value>
+  </data>
+  <data name="Page.TipMe.Venmo" xml:space="preserve">
+    <value>Venmo</value>
+  </data>
+  <data name="Title.MorePictures" xml:space="preserve">
+    <value>Oglejte si več slik</value>
+  </data>
+  <data name="Title.Settings" xml:space="preserve">
+    <value>nastavitve</value>
+  </data>
+  <data name="Title.TipMe" xml:space="preserve">
+    <value>Nasveti so cenjeni!</value>
+  </data>
+  <data name="Settings.Alignment.Advanced" xml:space="preserve">
+    <value>Prikaži napredne nastavitve poravnave</value>
+  </data>
+  <data name="Settings.Alignment.Ecc" xml:space="preserve">
+    <value>Poskusite vedno najprej uporabiti poravnavo ECC</value>
+  </data>
+  <data name="Settings.Alignment.Keypoints" xml:space="preserve">
+    <value>Vedno najprej poskusite uporabiti poravnavo ključnih točk</value>
+  </data>
+  <data name="Settings.Alignment.On" xml:space="preserve">
+    <value>Samodejna poravnava po zajemu</value>
+  </data>
+  <data name="Settings.Border.Color" xml:space="preserve">
+    <value>Barva obrobe</value>
+  </data>
+  <data name="Settings.Border.FuseGuide" xml:space="preserve">
+    <value>Dodajte vodilo za varovalke na vrhu (pika nad vsako stranjo)</value>
+  </data>
+  <data name="Settings.Border.On" xml:space="preserve">
+    <value>Dodajte obrobo</value>
+  </data>
+  <data name="Settings.Border.Prompt" xml:space="preserve">
+    <value>Poziv za odstranitev roba, ko je zaznan med nalaganjem</value>
+  </data>
+  <data name="Settings.Border.Thickness" xml:space="preserve">
+    <value>Debelina obrobe (desetinke odstotka širine)</value>
+  </data>
+  <data name="Settings.Camera.Camera1" xml:space="preserve">
+    <value>Force camera1 API (lahko je v pomoč, če doživljate nenavadnosti, vendar bo imel za posledico omejeno funkcionalnost, zahteva prisilni izhod/ponovni zagon, da začne veljati)</value>
+  </data>
+  <data name="Settings.Camera.Camera2" xml:space="preserve">
+    <value>Force camera2 API (mora biti v sistemu Android 6 ali novejšem, lahko je v pomoč, če imate napake, lahko pa povzroči še več, zahteva prisilni izhod/ponovni zagon, da začne veljati)</value>
+  </data>
+  <data name="Settings.Camera.LandscapeCaptureHorizontal" xml:space="preserve">
+    <value>Vodoravna postavitev gumba za ležeči zajem</value>
+  </data>
+  <data name="Settings.Camera.LandscapeCaptureVertical" xml:space="preserve">
+    <value>Navpična postavitev gumba za ležeči zajem</value>
+  </data>
+  <data name="Settings.Camera.Lock" xml:space="preserve">
+    <value>Zakleni fokus in osvetlitev za drugo sliko na fokus in osvetlitev iz prve slike</value>
+  </data>
+  <data name="Settings.Camera.Pair" xml:space="preserve">
+    <value>Vodoravna postavitev gumba za par (ko je gumb za zajem na sredini)</value>
+  </data>
+  <data name="Settings.Camera.PointFocus" xml:space="preserve">
+    <value>Dotaknite se, da usmerite fokus, dvakrat tapnite, da preklopite nazaj na neprekinjeno ostrenje (ali shranite ali počistite)</value>
+  </data>
+  <data name="Settings.Camera.PortraitCapture" xml:space="preserve">
+    <value>Namestitev gumba za portretni zajem</value>
+  </data>
+  <data name="Settings.Editing.Align" xml:space="preserve">
+    <value>Največji delež navpične poravnave</value>
+  </data>
+  <data name="Settings.Editing.Keystone" xml:space="preserve">
+    <value>Največji trapezni kamen</value>
+  </data>
+  <data name="Settings.Editing.Rotation" xml:space="preserve">
+    <value>Največje stopinje vrtenja</value>
+  </data>
+  <data name="Settings.Editing.SideCrop" xml:space="preserve">
+    <value>Največji delež stranskih posevkov</value>
+  </data>
+  <data name="Settings.Editing.TopCrop" xml:space="preserve">
+    <value>Največje razmerje pridelka zgoraj/spodaj</value>
+  </data>
+  <data name="Settings.Editing.Zoom" xml:space="preserve">
+    <value>Največji delež povečave</value>
+  </data>
+  <data name="Settings.Guides.Donut" xml:space="preserve">
+    <value>Pokaži vodilo za krofe (povzročilo bo prst navznoter, zato bo morda potrebno urejanje trapeznega pomena)</value>
+  </data>
+  <data name="Settings.Guides.Fuse" xml:space="preserve">
+    <value>Pokaži vodnik za varovalke (pika nad vsako stranjo)</value>
+  </data>
+  <data name="Settings.Guides.LineColor" xml:space="preserve">
+    <value>Črte različnih barv</value>
+  </data>
+  <data name="Settings.Guides.Lines" xml:space="preserve">
+    <value>Črte vidne</value>
+  </data>
+  <data name="Settings.Guides.Roll" xml:space="preserve">
+    <value>Vidno vodilo zvitka</value>
+  </data>
+  <data name="Settings.Pair.CaptureDelay" xml:space="preserve">
+    <value>Dodatna zakasnitev trenutka zajema (ms) (doda dodatno zakasnitev ciljnemu trenutku zajemanja samo v tej napravi)</value>
+  </data>
+  <data name="Settings.Pair.Countdown" xml:space="preserve">
+    <value>Zajem dolžine odštevanja (časovnik)</value>
+  </data>
+  <data name="Settings.Pair.Fov" xml:space="preserve">
+    <value>Korekcija vidnega polja</value>
+  </data>
+  <data name="Settings.Pair.FovNotSet" xml:space="preserve">
+    <value>Popravek vidnega polja ni nastavljen (izvedite zajem s seznanjenimi napravami, da se sprehodite skozi nastavitev).</value>
+  </data>
+  <data name="Settings.Pair.FovReset" xml:space="preserve">
+    <value>Ponastaviti</value>
+  </data>
+  <data name="Settings.Pair.Go" xml:space="preserve">
+    <value>Pojdite na stran za nastavitev seznanjanja</value>
+  </data>
+  <data name="Settings.Pair.NoRole" xml:space="preserve">
+    <value>Vloga ni izbrana</value>
+  </data>
+  <data name="Settings.Pair.PreviewDelay" xml:space="preserve">
+    <value>Predogled zakasnitve sličic (večje število zmanjša hitrost sličic, vendar varčuje z baterijo)</value>
+  </data>
+  <data name="Settings.Pair.Primary" xml:space="preserve">
+    <value>Primarni:</value>
+  </data>
+  <data name="Settings.Pair.PrimaryRole" xml:space="preserve">
+    <value>Vloga: primarna</value>
+  </data>
+  <data name="Settings.Pair.Sample" xml:space="preserve">
+    <value>Število vzorcev ure (manjše število bo zmanjšalo čas, potreben za začetno sinhronizacijo, vendar lahko zmanjša natančnost sinhronizacije)</value>
+  </data>
+  <data name="Settings.Pair.Secondary" xml:space="preserve">
+    <value>sekundarni:</value>
+  </data>
+  <data name="Settings.Pair.SecondaryRole" xml:space="preserve">
+    <value>Vloga: sekundarna</value>
+  </data>
+  <data name="Settings.Pair.Timeout" xml:space="preserve">
+    <value>Časovna omejitev povezave (sekunde) (0 pomeni brez časovne omejitve)</value>
+  </data>
+  <data name="Settings.Preview.Barrel" xml:space="preserve">
+    <value>Dodajte korekcijo leče/sodčasto popačenje (lahko zmanjša hitrost sličic)</value>
+  </data>
+  <data name="Settings.Preview.BarrelFinal" xml:space="preserve">
+    <value>Samo končnim slikam dodajte korekcijo leče/sodčasto popačenje (lahko upočasni končni prikaz, vendar bo pospešilo zajemanje)</value>
+  </data>
+  <data name="Settings.Preview.CardboardDistance" xml:space="preserve">
+    <value>Kartonska ločilna razdalja</value>
+  </data>
+  <data name="Settings.Preview.Downsize" xml:space="preserve">
+    <value>Zmanjšaj sliko (lahko poveča hitrost sličic)</value>
+  </data>
+  <data name="Settings.Preview.DownsizePercent" xml:space="preserve">
+    <value>Odstotek zmanjšanja slike</value>
+  </data>
+  <data name="Settings.Preview.Immersive" xml:space="preserve">
+    <value>Poglobljen končni ogled</value>
+  </data>
+  <data name="Settings.Preview.LensStrength" xml:space="preserve">
+    <value>Moč korekcije leče</value>
+  </data>
+  <data name="Settings.Preview.Mirror" xml:space="preserve">
+    <value>Posnemite z metodo zrcalne delitve enega posnetka</value>
+  </data>
+  <data name="Settings.Preview.Width" xml:space="preserve">
+    <value>Največja širina slike vzporednega pogleda (točke)</value>
+  </data>
+  <data name="Settings.Reset" xml:space="preserve">
+    <value>Ponastavi na privzete nastavitve</value>
+  </data>
+  <data name="Settings.Saving.Alone" xml:space="preserve">
+    <value>Shrani samo prvo stran (brez urejanja ali obrobe) (za enostavno skupno rabo ploske fotografije z ljudmi s ploskim pogledom)</value>
+  </data>
+  <data name="Settings.Saving.Anaglyph" xml:space="preserve">
+    <value>Shrani različico rdečega/modrozelenega anaglifa (z urejanji, vendar brez obrobe)</value>
+  </data>
+  <data name="Settings.Saving.Browse" xml:space="preserve">
+    <value>Prebrskaj ...</value>
+  </data>
+  <data name="Settings.Saving.Cardboard" xml:space="preserve">
+    <value>Shrani za Cardboard (z urejanji, brez robov, brez presledkov, polna širina, za kasnejše nalaganje nazaj v CrossCam)</value>
+  </data>
+  <data name="Settings.Saving.Clear" xml:space="preserve">
+    <value>Samodejno počisti posnetke po shranjevanju</value>
+  </data>
+  <data name="Settings.Saving.Cross" xml:space="preserve">
+    <value>Shrani združeno različico navzkrižnega pogleda (z urejanji in obrobo)</value>
+  </data>
+  <data name="Settings.Saving.ExternalDirectory" xml:space="preserve">
+    <value>Shrani v zunanji imenik CrossCam na:</value>
+  </data>
+  <data name="Settings.Saving.ExternalWarning" xml:space="preserve">
+    <value>(opozorilo: slike bodo izbrisane, če CrossCam odstranite)</value>
+  </data>
+  <data name="Settings.Saving.Folder" xml:space="preserve">
+    <value>Shranite v namensko podmapo/album "CrossCam".</value>
+  </data>
+  <data name="Settings.Saving.Grayscale" xml:space="preserve">
+    <value>Shrani sivinsko rdečo/cian različico anaglifa (z urejanji, vendar brez obrobe)</value>
+  </data>
+  <data name="Settings.Saving.Order" xml:space="preserve">
+    <value>(Shranjevanje bo potekalo v vrstnem redu od zgoraj navzdol)</value>
+  </data>
+  <data name="Settings.Saving.Parallel" xml:space="preserve">
+    <value>Shrani različico združenega vzporednega pogleda (z urejanji in obrobo)</value>
+  </data>
+  <data name="Settings.Saving.Quad" xml:space="preserve">
+    <value>Shrani štirikolesno kombinacijo (z urejanji in obrobo)</value>
+  </data>
+  <data name="Settings.Saving.Reset" xml:space="preserve">
+    <value>Ponastaviti</value>
+  </data>
+  <data name="Settings.Saving.Resolution" xml:space="preserve">
+    <value>Razmerje ločljivosti</value>
+  </data>
+  <data name="Settings.Saving.SaveTo" xml:space="preserve">
+    <value>Shrani v:</value>
+  </data>
+  <data name="Settings.Saving.Separate" xml:space="preserve">
+    <value>Shranite vsako stran posebej (brez urejanja ali obrobe za lažjo naknadno obdelavo, najprej shranite levo stran)</value>
+  </data>
+  <data name="Settings.Saving.Subfolder" xml:space="preserve">
+    <value>Shranite v namenske podmape/albume »CrossCam_{ViewMethod}«.</value>
+  </data>
+  <data name="Settings.Saving.Triple" xml:space="preserve">
+    <value>Shrani trojno kombinacijo (z urejanjem in obrobo)</value>
+  </data>
+  <data name="Button.Pair.Accept" xml:space="preserve">
+    <value>Sprejmi</value>
+  </data>
+  <data name="Button.Pair.Cancel" xml:space="preserve">
+    <value>Prekliči</value>
+  </data>
+  <data name="Page.Camera.AcceptConnection" xml:space="preserve">
+    <value>Sprejmi povezavo z</value>
+  </data>
+  <data name="Page.Camera.Confirm" xml:space="preserve">
+    <value>Potrdite ujemanje kode na obeh napravah:</value>
+  </data>
+  <data name="Page.Footer.CouldntOpen" xml:space="preserve">
+    <value>Povezave ni bilo mogoče odpreti</value>
+  </data>
+  <data name="Page.Footer.OpenError" xml:space="preserve">
+    <value>Povezave mailto ni bilo mogoče odpreti. To je lahko zato, ker vaš e-poštni odjemalec ni nastavljen ali kakšen drug razlog.</value>
+  </data>
+  <data name="Page.Pair.Errors.Denied" xml:space="preserve">
+    <value>Potrebna dovoljenja za seznanjanje niso bila podeljena. Izjema:</value>
+  </data>
+  <data name="Page.Pair.Errors.FailedBluetooth" xml:space="preserve">
+    <value>Naprava ni uspela vklopiti povezave Bluetooth. Izjema:</value>
+  </data>
+  <data name="Page.Pair.Errors.FailedSearch" xml:space="preserve">
+    <value>Naprava ni uspela iskati naprav. Izjema:</value>
+  </data>
+  <data name="Page.Pair.Errors.LocationOff" xml:space="preserve">
+    <value>Lokacijske storitve niso aktivirane. Iskanje naprav ni mogoče. Za več podrobnosti si oglejte stran za seznanjanje.</value>
+  </data>
+  <data name="Page.Pair.Errors.LocationScan" xml:space="preserve">
+    <value>Dovoljenje za lokacijo ni odobreno. Iskanje naprav ni mogoče. Za več podrobnosti si oglejte stran za seznanjanje.</value>
+  </data>
+  <data name="Page.Pair.Errors.NotSupported" xml:space="preserve">
+    <value>Seznanjanje ni podprto v tej napravi. Izjema:</value>
+  </data>
+  <data name="Page.Pair.Errors.Title" xml:space="preserve">
+    <value>Napaka</value>
+  </data>
+  <data name="Page.Pair.Errors.WifiOff" xml:space="preserve">
+    <value>Wi-Fi je izklopljen. Vklopite Wi-Fi.</value>
+  </data>
+  <data name="Page.Pair.PrimaryExplanation" xml:space="preserve">
+    <value>Ta naprava je zdaj nastavljena kot primarna.</value>
+  </data>
+  <data name="Page.Pair.PrimarySelected" xml:space="preserve">
+    <value>Izbrana primarna vloga</value>
+  </data>
+  <data name="Page.Pair.SecondaryExplanation" xml:space="preserve">
+    <value>Ta naprava je zdaj nastavljena kot sekundarna.</value>
+  </data>
+  <data name="Page.Pair.SecondarySelected" xml:space="preserve">
+    <value>Izbrana sekundarna vloga</value>
+  </data>
+  <data name="Page.Technique.Mode" xml:space="preserve">
+    <value>način.</value>
+  </data>
+  <data name="Page.Technique.SetMode" xml:space="preserve">
+    <value>CrossCam je zdaj vključen</value>
+  </data>
+</root>

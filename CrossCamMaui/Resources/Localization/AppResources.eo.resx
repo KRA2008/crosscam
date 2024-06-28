@@ -1,0 +1,1156 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="Button.GoogleDoc" xml:space="preserve">
+    <value>Google Doc de Grandaj Aĵoj</value>
+  </data>
+  <data name="Button.LearnCross" xml:space="preserve">
+    <value>LERNI KRUCO</value>
+  </data>
+  <data name="Button.LearnParallel" xml:space="preserve">
+    <value>LERNI PARALELE</value>
+  </data>
+  <data name="Button.MorePictures" xml:space="preserve">
+    <value>Vidu Pli da Bildoj</value>
+  </data>
+  <data name="Button.Review" xml:space="preserve">
+    <value>Skribi recenzon</value>
+  </data>
+  <data name="Button.Share" xml:space="preserve">
+    <value>Kunhavigu CrossCam</value>
+  </data>
+  <data name="Button.Support" xml:space="preserve">
+    <value>Subtenu la Programiston</value>
+  </data>
+  <data name="Button.TapCross" xml:space="preserve">
+    <value>ALFATU ĈI TIE POR ELEKTI KRUCON</value>
+  </data>
+  <data name="Button.TapParallel" xml:space="preserve">
+    <value>TAPPU ĈI TIE POR ELEKTI PARALELON</value>
+  </data>
+  <data name="Footer.Span1" xml:space="preserve">
+    <value>Trovis cimon? Ĉu vi havas demandon? Nur retpoŝto</value>
+  </data>
+  <data name="Footer.Span3" xml:space="preserve">
+    <value>! Mi amas paroli kun uzantoj kaj ĝi estas la plej rapida maniero komuniki kun mi.</value>
+  </data>
+  <data name="Page.HowToUse.2anaglyph" xml:space="preserve">
+    <value>2) Komencu anaglifon vidi la unuan bildon kun la antaŭrigardo, kiu aperas apud ĝi.</value>
+  </data>
+  <data name="Page.HowToUse.2cardboard" xml:space="preserve">
+    <value>2) Komencu kartonon vidi la unuan bildon kun la antaŭrigardo, kiu aperas apud ĝi.</value>
+  </data>
+  <data name="Page.HowToUse.2cross" xml:space="preserve">
+    <value>2) Komencu transrigardi la unuan bildon kun la antaŭvido, kiu aperas apud ĝi.</value>
+  </data>
+  <data name="Page.HowToUse.2parallel" xml:space="preserve">
+    <value>2) Komencu paralele vidi la unuan bildon kun la antaŭrigardo, kiu aperas apud ĝi.</value>
+  </data>
+  <data name="Page.Technique.AdditionalTutorials" xml:space="preserve">
+    <value>Pliaj lerniloj:</value>
+  </data>
+  <data name="Page.Technique.Cross1" xml:space="preserve">
+    <value>Zorge krucu viajn okulojn dum vi rigardas la paron da bildoj supre. Kiam vi krucas viajn okulojn, aferoj malklariĝos kaj travidiĝos kaj vi komencos vidi 4 bildojn anstataŭ 2 (2 paroj). Ju pli forte vi krucas viajn okulojn, des pli malproksime moviĝos la paroj da bildoj - ĝi aspektos iomete tiel:</value>
+  </data>
+  <data name="Page.Technique.Cross2" xml:space="preserve">
+    <value>Malkrucigu viajn okulojn zorge, por ke la bildoj sur la interno de ĉiu paro komencu interkovri. Ĝi komencos aspekti, ke ekzistas nur 3 bildoj anstataŭ 4. Ĝi ankoraŭ estos malklara kaj travidebla kaj aspektos kiel ĉi tio:</value>
+  </data>
+  <data name="Page.Technique.Cross3" xml:space="preserve">
+    <value>Post kiam vi funkcias la mezan interkovron, vi nur devas malstreĉi viajn okulojn kaj permesi al ili enfokusigi la bildon. Je tiu punkto vi havos unu akran 3D bildon en la mezo kun travidebla bildo flosanta ĉiuflanke, kiu aspektos tiel (krom la mezo estos 3D):</value>
+  </data>
+  <data name="Page.Technique.Cross4" xml:space="preserve">
+    <value>Se vi havas problemojn por kruci viajn okulojn, vi ankaŭ povas provi rigardi vian fingron dum vi tenas ĝin duonvoje inter viaj okuloj kaj la ekrano. Vi devus vidi la bildojn komenci disiĝi kaj interkovri malantaŭ via fingro.</value>
+  </data>
+  <data name="Page.Technique.CrossViewing" xml:space="preserve">
+    <value>KRUCA VIDADO</value>
+  </data>
+  <data name="Page.Technique.P1" xml:space="preserve">
+    <value>Se vi volas vidi ĉi tion denove, alklaku la hamburgan (tri liniojn) ikonon supre maldekstre de la fotila ekrano kaj alklaku "Helpon".
+
+Por vidi la 3D en CrossCam (nomitaj "stereogramoj") vi povas uzi ruĝajn/cianajn 3D okulvitrojn, Google Cardboard-rigardilon, aŭ vi povas fari "senpagan spektadon" uzante nur viajn okulojn kaj vian ekranon. Estas du manieroj liberigi vidon, kaj CrossCam povas helpi vin lerni ambaŭ. Vi devas diri al CrossCam kiel vi vidos la bildojn aŭ ĝi ne funkcios ĝuste. Ne maltrankviliĝu, vi ĉiam povas ŝanĝi ĉi tion denove en Agordoj.
+
+Se vi kapablas komforte kruci viajn okulojn, vi devus unue provi la krucan metodon, alie vi devus provi la paralelan metodon. Se vi kutimis al libroj de Magic Eye™, vi verŝajne jam kapablas fari la paralelan metodon, sed vi eble ankaŭ povos fari la krucan metodon. Frapu metodon sube por lerni ĝin, kaj nepre diri al CrossCam, kiu funkcias por vi premante la respondan butonon ELEKTU.
+
+Se vi preferas uzi 3D okulvitrojn aŭ Kartonan spektilon, vi povas agordi CrossCam por uzi tiujn en la paĝo de Agordoj.</value>
+  </data>
+  <data name="Page.Technique.CrossLink1" xml:space="preserve">
+    <value>Bela teksta lernilo</value>
+  </data>
+  <data name="Page.Technique.CrossLink2" xml:space="preserve">
+    <value>Ankoraŭ alia bela teksta lernilo</value>
+  </data>
+  <data name="Page.Technique.CrossLink3" xml:space="preserve">
+    <value>Mallonga jutuba lernilo</value>
+  </data>
+  <data name="Page.Technique.CrossLink4" xml:space="preserve">
+    <value>Longa, stranga, sed helpema YouTube-lernilo</value>
+  </data>
+  <data name="Page.Technique.CrossLink5" xml:space="preserve">
+    <value>Alia jutuba lernilo</value>
+  </data>
+  <data name="Page.Technique.CrossLink6" xml:space="preserve">
+    <value>Projekto de duobla fotilo kun lernilo</value>
+  </data>
+  <data name="Page.Technique.Parallel1" xml:space="preserve">
+    <value>Se la supra bildo ne konvenas al via ekrano, turnu vian telefonon al pejzaĝo - CrossCam provas fari la paron da bildoj super la plej facila grandeco por ĉi tio. Vi ne ĉiam devas uzi CrossCam en pejzaĝo, sed perfekte granda bildo faciligas lerni la teknikon.</value>
+  </data>
+  <data name="Page.Technique.Parallel2" xml:space="preserve">
+    <value>Malstreĉigu viajn okulojn kaj rigardu "tra" la paron de bildoj supre, kvazaŭ vi iom zoniĝas kun viaj okuloj indikante la bildojn. Vi devus komenci vidi 3 bildojn kun 3D bildo en la mezo, iom kiel ĉi tio:</value>
+  </data>
+  <data name="Page.Technique.Parallel3" xml:space="preserve">
+    <value>Se vi komencas vidi 4 bildojn, vi iris tro malproksimen. Provu movi viajn okulojn iomete se vi denove trovos vin en tiu punkto. Malstreĉiĝi tro malproksime aspektos iomete tiel:</value>
+  </data>
+  <data name="Page.Technique.Parallel4" xml:space="preserve">
+    <value>Se vi havas problemojn, provu alporti vian ekranon rekte al via vizaĝo kun la paro da bildoj rekte antaŭ viaj okuloj. Malstreĉu kaj rigardu "tra" la ekranon kaj poste malrapide forprenu vian ekranon de via vizaĝo, tenante viajn okulojn malstreĉitaj. Fine la bildo devus "klaki" en fokuso.</value>
+  </data>
+  <data name="Page.Technique.Parallel5" xml:space="preserve">
+    <value>Se vi daŭre vidas kvar bildojn, pliigu la "Maksimuma paralela vido-larĝo de bildo" sur la paĝo de Agordoj.</value>
+  </data>
+  <data name="Page.Technique.ParallelViewing" xml:space="preserve">
+    <value>PARALELA VIDADO</value>
+  </data>
+  <data name="Page.Technique.Practice" xml:space="preserve">
+    <value>Bildoj, kiujn mi faris, pri kiuj vi povas ekzerci</value>
+  </data>
+  <data name="Title.Contact" xml:space="preserve">
+    <value>Kontaktu</value>
+  </data>
+  <data name="Title.Faq" xml:space="preserve">
+    <value>Oftaj Demandoj</value>
+  </data>
+  <data name="Title.Help" xml:space="preserve">
+    <value>Helpu</value>
+  </data>
+  <data name="Title.HowToUse" xml:space="preserve">
+    <value>Kiel Uzi CrossCam</value>
+  </data>
+  <data name="Title.Technique" xml:space="preserve">
+    <value>3D-Vida Tekniko</value>
+  </data>
+  <data name="Title.Tips" xml:space="preserve">
+    <value>Konsiletoj</value>
+  </data>
+  <data name="Button.DoNotEmailMe" xml:space="preserve">
+    <value>Ne retpoŝtu min nun</value>
+  </data>
+  <data name="Button.EmailMeNow" xml:space="preserve">
+    <value>Retpoŝtu min nun</value>
+  </data>
+  <data name="Button.No" xml:space="preserve">
+    <value>Ne</value>
+  </data>
+  <data name="Button.OK" xml:space="preserve">
+    <value>bone</value>
+  </data>
+  <data name="Button.YesClear" xml:space="preserve">
+    <value>Jes, klare</value>
+  </data>
+  <data name="Page.Camera.Aligning" xml:space="preserve">
+    <value>Vicigante...</value>
+  </data>
+  <data name="Page.Camera.AlignmentBroken" xml:space="preserve">
+    <value>Aŭtomata vicigo ne estas subtenata ĉe aparato - malŝaltu en Agordoj.</value>
+  </data>
+  <data name="Page.Camera.AlignmentFailed" xml:space="preserve">
+    <value>Alineado malsukcesis.</value>
+  </data>
+  <data name="Page.Camera.BorderAsk" xml:space="preserve">
+    <value>Limo estis detektita. Ĉu forigi la limon?</value>
+  </data>
+  <data name="Page.Camera.BorderDetected" xml:space="preserve">
+    <value>Limo Detektita</value>
+  </data>
+  <data name="Page.Camera.Cancel" xml:space="preserve">
+    <value>Nuligi</value>
+  </data>
+  <data name="Page.Camera.ChooseAction" xml:space="preserve">
+    <value>Elektu agon:</value>
+  </data>
+  <data name="Page.Camera.DirectoryNotFound" xml:space="preserve">
+    <value>Dosierujo Ne Trovita</value>
+  </data>
+  <data name="Page.Camera.DirectoryNotFoundExplain" xml:space="preserve">
+    <value>La konserva celo ne estis trovita. Bonvolu elekti alian sur la agorda paĝo.</value>
+  </data>
+  <data name="Page.Camera.ErrorEmailBody" xml:space="preserve">
+    <value>Kion vi faris ĝuste antaŭ ol la eraro okazis? Bonvolu priskribi eĉ la malgrandajn aferojn.\n\n\n\n\n\nĈu CrossCam ankoraŭ funkciis post la eraro? Se ne, kiel ĝi estas rompita?\n\n\n\n\n\nĈu ĉi tio ree okazas?\n\n\n\n\n\nĈu vi povas devigi la eraron okazi laŭ komando? Se jes, kiel?\n\n\n\n\n\n</value>
+  </data>
+  <data name="Page.Camera.FlipForCardboard" xml:space="preserve">
+    <value>Turnu al pejzaĝo kiam en kartona reĝimo.</value>
+  </data>
+  <data name="Page.Camera.FlipLarger" xml:space="preserve">
+    <value>(Faru al pejzaĝo por pli granda vido)</value>
+  </data>
+  <data name="Page.Camera.ForAnaglyph" xml:space="preserve">
+    <value>por anaglifo</value>
+  </data>
+  <data name="Page.Camera.ForCardboard" xml:space="preserve">
+    <value>por Kartono</value>
+  </data>
+  <data name="Page.Camera.ForCross" xml:space="preserve">
+    <value>por kruco</value>
+  </data>
+  <data name="Page.Camera.ForParallel" xml:space="preserve">
+    <value>por paralelo</value>
+  </data>
+  <data name="Page.Camera.GoPickRole" xml:space="preserve">
+    <value>Bonvolu iri al la paĝo de Parigo (per la paĝo de Agordoj) kaj elektu kunigrolon por ĉi tiu aparato antaŭ ol provi pariĝi.</value>
+  </data>
+  <data name="Page.Camera.InvalidImage" xml:space="preserve">
+    <value>Nevalida Bildo</value>
+  </data>
+  <data name="Button.Camera.Keep" xml:space="preserve">
+    <value>Konservu</value>
+  </data>
+  <data name="Page.Camera.LoadFullImage" xml:space="preserve">
+    <value>Ŝarĝu plenan stereofonan bildon</value>
+  </data>
+  <data name="Page.Camera.Loading" xml:space="preserve">
+    <value>Ŝarĝante...</value>
+  </data>
+  <data name="Page.Camera.LoadSingleSide" xml:space="preserve">
+    <value>Ŝarĝu ununuran flankon</value>
+  </data>
+  <data name="Page.Camera.ManualCorrections" xml:space="preserve">
+    <value>Bonvolu konsideri ankaŭ manajn korektojn.</value>
+  </data>
+  <data name="Page.Camera.MirrorOnLeft" xml:space="preserve">
+    <value>SPEGULO MALdekstren</value>
+  </data>
+  <data name="Page.Camera.MirrorOnRight" xml:space="preserve">
+    <value>SPEGULO DEKSTRE</value>
+  </data>
+  <data name="Page.Camera.MoveLeft" xml:space="preserve">
+    <value>MOVE MALdekstren</value>
+  </data>
+  <data name="Page.Camera.MoveRight" xml:space="preserve">
+    <value>MOVU DEKTEN</value>
+  </data>
+  <data name="Page.Camera.NoSaveModes" xml:space="preserve">
+    <value>Neniuj Konservaj Reĝimoj Aktivaj</value>
+  </data>
+  <data name="Page.Camera.NoSaveModesExplain" xml:space="preserve">
+    <value>Neniuj konservaj reĝimoj estas nuntempe ŝaltitaj. Ŝaltu konservan reĝimon en la paĝo Agordoj.</value>
+  </data>
+  <data name="Page.Camera.Oops" xml:space="preserve">
+    <value>Ho!</value>
+  </data>
+  <data name="Page.Camera.OrRotate" xml:space="preserve">
+    <value>(aŭ turni)</value>
+  </data>
+  <data name="Page.Camera.OrSwipe" xml:space="preserve">
+    <value>(aŭ gliti)</value>
+  </data>
+  <data name="Page.Camera.PairRoleNotSelected" xml:space="preserve">
+    <value>Parrolo Ne Elektita</value>
+  </data>
+  <data name="Page.Camera.PinchOrDrag" xml:space="preserve">
+    <value>Pinĉu aŭ trenu por esplori!</value>
+  </data>
+  <data name="Page.Camera.PleaseSelectValid" xml:space="preserve">
+    <value>Bonvolu elekti bildon Jpeg, Png aŭ Webp. La bildo, kiun vi elektis, estas</value>
+  </data>
+  <data name="Page.Camera.ReallyClear" xml:space="preserve">
+    <value>Ĉu vere klara?</value>
+  </data>
+  <data name="Button.Camera.Remove" xml:space="preserve">
+    <value>Forigi</value>
+  </data>
+  <data name="Page.Camera.SavedToCustomFolder" xml:space="preserve">
+    <value>Konservite al kutima dosierujo</value>
+  </data>
+  <data name="Page.Camera.SavedToExternal" xml:space="preserve">
+    <value>Konservite al ekstera</value>
+  </data>
+  <data name="Page.Camera.SavedToPhotos" xml:space="preserve">
+    <value>Konservite al Fotoj</value>
+  </data>
+  <data name="Page.Camera.SaveFailed" xml:space="preserve">
+    <value>SavingFailed. :(</value>
+  </data>
+  <data name="Page.Camera.Saving" xml:space="preserve">
+    <value>Konservante...</value>
+  </data>
+  <data name="Page.Camera.SecondaryOnLeft" xml:space="preserve">
+    <value>SECUNDARIA MALdekstre</value>
+  </data>
+  <data name="Page.Camera.SecondaryOnRight" xml:space="preserve">
+    <value>SECUNDARIA DEKstre</value>
+  </data>
+  <data name="Page.Camera.SelectedInvalid" xml:space="preserve">
+    <value>La elektita bildo estas malvalida.</value>
+  </data>
+  <data name="Page.Camera.SorryError" xml:space="preserve">
+    <value>Pardonu, CrossCam faris eraron. Eraraporto estas aŭtomate sendita. Vi eble tute ne rimarkos ion malbonan, sed se vi faras, provu rekomenci la aplikaĵon. Se ĉi tio daŭre okazas, bonvolu retpoŝti al mi kaj rakonti al mi pri ĝi. (Iru al la paĝo Agordoj por ĉesigi ĉi tiujn ŝprucfenestrojn.)</value>
+  </data>
+  <data name="Page.Camera.Steady" xml:space="preserve">
+    <value>Konstanta...</value>
+  </data>
+  <data name="Page.Camera.SureClear" xml:space="preserve">
+    <value>Ĉu vi certas, ke vi volas forigi viajn bildojn kaj rekomenci?</value>
+  </data>
+  <data name="Page.Camera.Syncing" xml:space="preserve">
+    <value>Sinkronigante...</value>
+  </data>
+  <data name="Page.Camera.Transmitting" xml:space="preserve">
+    <value>Transdonante...
+(teni la aparaton neŝlosita)</value>
+  </data>
+  <data name="Page.Camera.VR" xml:space="preserve">
+    <value>VR</value>
+  </data>
+  <data name="Page.FovCorrection" xml:space="preserve">
+    <value>Korekto de Vidkampo</value>
+  </data>
+  <data name="Page.FovCorrectionExplain" xml:space="preserve">
+    <value>Malsamaj aparataj modeloj povas havi malsamajn vidkampojn. CrossCam helpos vin korekti ĉi tion post kiam vi faros vian unuan kapton. Kadru kaj kaptu ion kun karakterizaj punktoj proksime de la supro kaj malsupro de la kadro, certigante, ke la punktoj estas videblaj sur ambaŭ aparatoj.</value>
+  </data>
+  <data name="Page.Technique.ParallelLink1" xml:space="preserve">
+    <value>Bela teksta lernilo</value>
+  </data>
+  <data name="Page.Technique.ParallelLink2" xml:space="preserve">
+    <value>Alia bela teksta lernilo</value>
+  </data>
+  <data name="Page.Technique.ParallelLink3" xml:space="preserve">
+    <value>Tamen ALIA bela teksta lernilo</value>
+  </data>
+  <data name="Page.Technique.ParallelLink4" xml:space="preserve">
+    <value>Magia Frankfurter Lernilo</value>
+  </data>
+  <data name="Page.Technique.ParallelLink5" xml:space="preserve">
+    <value>Bela video pri Magia Okulo</value>
+  </data>
+  <data name="Page.Technique.Trouble" xml:space="preserve">
+    <value>Se vi ankoraŭ havas problemojn, provu alporti vian telefonon al malluma ĉambro por ke la nura afero, kiun viaj okuloj povas bone vidi kaj fokusigi, estas la bildo.
+
+Alia afero, kiun vi povas provi, estas uzi necesetajn paperajn tubojn aŭ viajn manojn por fari ĝin, por ke ĉiu okulo povu vidi nur la flankon de la bildo, kiun ĝi devas vidi.
+ • Por kruca vido: tenu unu tubon kontraŭ la ponto de via nazo (centrite inter viaj okuloj) dum vi indikas ĝin ĉe la centro de la bildo antaŭ vi. Malrapide movu la tubon al la ekrano dum vi provas rigardi malsupren la tubon per ambaŭ okuloj. Kiam vi atingas la ĝustan pozicion kun la tubo, la bildo devas alklaki lokon. Povas helpi koncentriĝi pri provi rigardi la internon de la malproksima fino de la tubo. Se vi ne povas trovi la ĝustan pozicion, provu uzi pli grandan bildon aŭ pli malgrandan tubon.
+ • Por paralela vido: tenu tubon antaŭ ĉiu okulo, sed direktu ilin ambaŭ flanken, por ke vi apenaŭ povu ion vidi. Malrapide turnu la tubojn internen samtempe, por ke vi povu ekvidi pli de la bildo. En la momento, kiam vi povas vidi la plej grandan parton de la bildo (preskaŭ duono per ĉiu okulo), provu malstreĉi viajn okulojn kaj kunigi la duonojn. Povas helpi uzi pli grandan aŭ pli malgrandan bildon.
+
+Estas facila ekzerco, kiun vi povas fari por ekzerci kunfandi kun aŭ kruca aŭ paralela spektado. Prenu markilon kaj desegnu parton de ridetanta vizaĝo sur ĉiu el viaj bildetoj (aŭ paro da popsicle-bastonoj aŭ langopremiloj). Ekzemple, unuflanke desegnu unu okulon kaj buŝon, kaj aliflanke desegnu okulon kaj nazon. Vi povas tiam teni ilin antaŭ vi kaj ekzerci kunfandi la du bildojn kune por kompletigi la ridetantan vizaĝon.
+
+Mi persone preferas kruci paralele ĉar bildoj povas esti pli grandaj, sed ambaŭ metodoj funkcias. Se vi ŝatus eksperimenti kun pli grandaj paralelaj bildoj, vi povas kontroli la grandecon sur la paĝo Agordoj.
+
+Kelkfoje estas malfacile senti ĉu vi faras la krucan aŭ paralelan metodon dum vi faras ĝin. Vi povas peti iun alian rigardi viajn okulojn dum vi faras ĝin aŭ vi povas rigardi la bildon sube kiel provo:</value>
+  </data>
+  <data name="SaveModes.Anaglyph" xml:space="preserve">
+    <value>Anaglifo</value>
+  </data>
+  <data name="SaveModes.Cardboard" xml:space="preserve">
+    <value>Kartono</value>
+  </data>
+  <data name="SaveModes.Cross" xml:space="preserve">
+    <value>Kruco</value>
+  </data>
+  <data name="SaveModes.GrayscaleAnaglyph" xml:space="preserve">
+    <value>Grizskalo Anaglifo</value>
+  </data>
+  <data name="SaveModes.Parallel" xml:space="preserve">
+    <value>Paralele</value>
+  </data>
+  <data name="SaveModes.Quad" xml:space="preserve">
+    <value>Kvaropo</value>
+  </data>
+  <data name="SaveModes.Separate" xml:space="preserve">
+    <value>Apartigi</value>
+  </data>
+  <data name="SaveModes.Single" xml:space="preserve">
+    <value>Unuopa</value>
+  </data>
+  <data name="SaveModes.Triple" xml:space="preserve">
+    <value>Triobla</value>
+  </data>
+  <data name="Page.Camera.FovExplain" xml:space="preserve">
+    <value>Por korekti la vidkampajn diferencojn, zomu kaj glitu la bildojn tiel la karakterizaj punktoj viciĝas inter la du fotoj. Vi povas treni la blankajn liniojn ĉirkaŭe por helpi vin vidi la vicigon. Ĉi tiu korekto estos aplikata al estontaj antaŭrigardoj. Ĝi estos konservita, sed vi povas restarigi ĝin sur la paĝo de Agordoj. Se vi uzas identajn aparatojn, nur konservu sen ĝustigi.</value>
+  </data>
+  <data name="Page.Camera.FovTitle" xml:space="preserve">
+    <value>Korekto de Vidkampo</value>
+  </data>
+  <data name="Page.Camera.KeyPoints" xml:space="preserve">
+    <value>Esencaj punktoj</value>
+  </data>
+  <data name="Page.Camera.Warped" xml:space="preserve">
+    <value>Varpita</value>
+  </data>
+  <data name="Page.Camera.WelcomeExplain" xml:space="preserve">
+    <value>CrossCam estis kreita por helpi vin fari 3D-fotojn. La fotoj estas 3D same kiel VR aŭ 3D filmoj, sed vi ne bezonas specialan ekipaĵon aŭ okulvitrojn - nur vian telefonon (sed se vi havas paron da ruĝaj/cianaj 3D okulvitroj aŭ Google Cardboard-rigardilon, vi povas uzi tiujn. kun CrossCam ankaŭ). La tekniko de \"senpaga spektado\", kiu uzas nur vian telefonon kaj viajn okulojn, bezonas iom da praktiko por lerni. Antaŭ ol mi diru al vi kiel uzi CrossCam, ĉu vi unue ŝatus lerni pli pri la rigarda tekniko?</value>
+  </data>
+  <data name="Page.Camera.Welcome" xml:space="preserve">
+    <value>Bonvenon al CrossCam!</value>
+  </data>
+  <data name="Page.Camera.Directions" xml:space="preserve">
+    <value>Saltu al Direktoj</value>
+  </data>
+  <data name="Page.Camera.Technique" xml:space="preserve">
+    <value>Vidado Tekniko</value>
+  </data>
+  <data name="Page.HowToUse.P1" xml:space="preserve">
+    <value>Se vi volas vidi ĉi tion denove, alklaku la hamburgan (tri liniojn) ikonon supre maldekstre de la fotila ekrano kaj alklaku "Helpon".
+
+
+1) Enkadrigi kaj prenu la unuan foton.</value>
+  </data>
+  <data name="Page.HowToUse.P2" xml:space="preserve">
+    <value>3) Tenu vian telefonon stabila antaŭ vi kaj malrapide movu flanken laŭ la direkto kiun CrossCam diras al vi. Ne moviĝu tro malproksimen - unu colo aŭ malpli por ĉiu piedo for estas via celo. Ankaŭ, tute ne turniĝu, simple gliti flanken, aŭ eble eĉ nur kliniĝi.
+
+4) Vicigu la unuan bildon kun la antaŭrigardo de la dua bildo kaj prenu la duan bildon kiam vi ŝatas tion, kion vi vidas.
+
+5) CrossCam aŭtomate vicigos viajn bildojn post kiam vi kaptas ilin, sed ĝi ne estas perfekta, se vi ne ŝatas kiel ili estis vicigitaj, vi povas malŝalti la aŭtomatan vicigon frapante la malgrandan robotikonon. CrossCam ankaŭ havas multajn manajn redaktajn opciojn, kiujn vi povas atingi per frapeto de la krajona ikono.
+
+6) Frapu la markomarkon kiam vi pretas konservi.
+
+
+Aliaj aferoj, kiujn vi povas fari:
+ • Frapu unufoje por fokusigi punkton, frapeti dufoje por reveni al daŭra aŭtomata fokuso.
+ • Frapu la ilan ikonon supre dekstre de la fotila ekrano por malfermi la paĝon de Agordoj. Ĝi estas plena de interesaj aferoj.
+ • Estas bela paĝo de Konsiloj, al kiu vi povas atingi frapetante la hamburger-ikonon supre maldekstre de la fotila ekrano, kiu povas helpi vin fari viajn bildojn bonegaj.
+ • Se vi preferus movi la alian direkton por via dua pafo aŭ ŝatus interŝanĝi la flankojn simple faru svingo.
+ • Frapu la etan dosierujon malsupre por ŝargi bildon kiel flankan aŭ por ŝargi plenan stereofonan bildon.</value>
+  </data>
+  <data name="Page.Faq.Alignment" xml:space="preserve">
+    <value>Kiel funkcias aŭtomata vicigo?</value>
+  </data>
+  <data name="Page.Faq.Alignment.Body" xml:space="preserve">
+    <value>Aŭtomata vicigo provas vicigi la bildparojn kiel eble plej bone, sed ĝi ne estas perfekta. Komputila vizio estas pli bona ĉe iuj aferoj ol homaj okuloj, sed ankaŭ multe pli malbona ĉe aliaj aferoj. La mondo, kiun ĝi vidas, estas tre malsama ol tiu, kiun ni vidas, sed ĝi ankaŭ povas vidi en kelkaj malsamaj manieroj. La du ĉefaj manieroj, kiujn ĝi vidas en CrossCam, estas per la plibonigita korelacia koeficiento (ECC) kaj uzado de ŝlosilaj punktoj.
+
+ECC-paraleligo esence funkcias per provado certigi, ke malpezaj pecetoj interkovras kun malpezaj pecetoj kaj malhelaj pecetoj interkovras kun malhelaj pecetoj kiam la du flankoj estas superkovritaj unu sur la alian. ECC-paraleligo venas kun konfida poentaro, kiu celas helpi decidi ĉu la paraleligo estis efika. CrossCam estas agordita por malakcepti la vicigon produktitan se la konfido estas tro malalta, sed vi povas agordi la konfidan trapason/malsukcesan sojlon sur la paĝo Agordoj.
+
+Ŝlosilpunkta vicigo serĉas interespunktojn kiel ekzemple anguloj, randoj, punktoj kaj alta kontrasto kaj provas egali ilin inter la du flankoj. Post kiam la punktoj estas kongruitaj, CrossCam povas uzi diversajn algoritmojn por provi deformi la flankojn tiel ke la ŝlosilaj punktoj de unu flanko estu ĉiuj kiel eble plej proksimaj al siaj respondaj ŝlosilaj punktoj sur la alia flanko.
+
+CrossCam estas programita por uzi klavpunktan vicigon unue, sed ĝi refalos al ECC-paraleligo kiam klavpunkta paraleligo malsukcesas aŭ kiam kaptado estas farita per la unu-pafa spegul-divida metodo. Vi ankaŭ povas agordi aŭtomatan vicigon por ĉiam uzi ŝlosilan punkton vicigon aŭ ĉiam uzi ECC-vicigon sur la paĝo Agordoj.
+
+CrossCam montros la vicigrezulton sur la fotila ekrano sub la malgranda robotikono. Se ĝi uzis ECC-vicigon ĝi montros la konfidan procenton. Se ĝi uzis klavpunkton, ĝi montros "KP". Se ambaŭ vicmetodoj malsukcesis ĝi montros "F". Se vi ne ŝatas la rezulton de la vicigo, vi povas frapeti sur la malgranda robotikono por forigi la vicigon.</value>
+  </data>
+  <data name="Page.Faq.Bad" xml:space="preserve">
+    <value>Ĉu ĉi tio estas malbona por miaj okuloj?</value>
+  </data>
+  <data name="Page.Faq.Bad.Body1" xml:space="preserve">
+    <value>Mi ne scias, sed mi ne pensas. Tamen, se ĝi sentas malbone, nur prenu paŭzon. Kun praktiko la malkomforto kutime malpliiĝas. Ajna spektadmetodo povus kaŭzi malkomforton pro efiko nomita la konflikto de verĝo-loĝejo. Jen</value>
+  </data>
+  <data name="Page.Faq.Bad.Body2" xml:space="preserve">
+    <value>Vikipedia ligilo pri la konflikto verĝo-loĝejo.</value>
+  </data>
+  <data name="Page.Faq.Bad.Body3" xml:space="preserve">
+    <value>Se vi uzas la krucokulan metodon, la sento ankaŭ povas esti pro tio, ke viaj okuloj ne kutimas montri kvazaŭ ili rigardas ion tiel proksiman dum tiom da tempo. Dum kruca spektado, viaj okuloj konverĝas al punkto proksimume duonvoje inter viaj okuloj kaj la ekrano. Se rigardi ion tiel proksiman dum longa tempo ankaŭ kaŭzus al vi malkomforton, ni havas nian klarigon.
+
+Mia opinio pri ĝi estas, ke viaj okuloj faras nenion ekster siaj ĉiutagaj kapabloj, sed vi kombinas du malsamajn kapablojn, kiuj kutime ne estas uzataj tiel. Vi fokusas viajn lensojn al io en unu loko, kio estas normale komforta por fokusigi, kaj vi indikas viajn okulojn ien, kie estas normale komforte por ili montri, sed la lokon kie viaj lensoj fokusiĝas kaj kie viaj okuloj konverĝas. simple ne estas la sama punkto. Mi ne vidas kiel tio povus esti malbona por vi dum via vizio ankoraŭ ne disvolviĝas.</value>
+  </data>
+  <data name="Page.Faq.Cardboard" xml:space="preserve">
+    <value>Kiel mi uzas CrossCam kun Google Cardboard?</value>
+  </data>
+  <data name="Page.Faq.Cardboard.Body" xml:space="preserve">
+    <value>Se via spektanto havas butonon, kiu premas la centron de la ekrano, vi povas uzi ĝin por kapti uzante Kartonon. Via spektanto ankaŭ devos havi truon por ke la fotilo de via telefono trarigardu.
+
+Por kapti fotojn per Karton, ŝanĝu vian Antaŭrigardan Vidan Metodon (en la paĝo Agordoj) al Karton, poste revenu al la fotila paĝo kaj enmetu vian telefonon en la spektilon. Premu la butonon por kapti, kaj kiam ambaŭ flankoj estas kaptitaj, premu la butonon denove por konservi. Konservado en Kartona reĝimo nur celas permesi al vi ŝargi la bildojn reen en CrossCam por vidi poste, ne por vidi ilin en via foto-aplikaĵo per via spektanto.
+
+Vi ankaŭ povas kapti per iu ajn alia metodo, kiun vi volas, tiam ŝanĝi vian Antaŭrigardan Vidan Metodon al Kartono kaj meti vian telefonon en la spektilon.
+
+Estas multaj malsamaj spektantoj tie kun malsamaj propraĵoj. Vi eble bezonos ŝanĝi la Kartonan apartigdistancon (en la paĝo Agordoj) por komfortigi vian sperton. Vi eble ankaŭ devos unue certigi, ke vi kapablas kapti altkvalitajn stereogramojn antaŭ ol vi fari ilin hundaj kaj enmergaj.</value>
+  </data>
+  <data name="Page.Faq.How" xml:space="preserve">
+    <value>Kiel ĉi tio funkcias?</value>
+  </data>
+  <data name="Page.Faq.How.Body1" xml:space="preserve">
+    <value>La 3D-efiko kiun CrossCam uzas estas bone studita disciplino konata kiel stereoskopio, kaj la metodo kie vi krucas viajn okulojn (aŭ malstreĉigas ilin) ​​por vidi la du flankojn nomiĝas libera spektado. Kiam ni ĉirkaŭrigardas la mondon, ĉiu el niaj okuloj vidas de malsama perspektivo. En stereoskopio ĉio, kion ni faras, estas prezenti unu (artefaritan) perspektivon al ĉiu okulo, kaj niaj cerboj nur faras la reston. Estas multaj malsamaj manieroj igi ĉiun okulon vidi malsaman bildon. Jen</value>
+  </data>
+  <data name="Page.Faq.How.Body2" xml:space="preserve">
+    <value>Vikipedia ligilo pri stereoskopio</value>
+  </data>
+  <data name="Page.Faq.How.Body3" xml:space="preserve">
+    <value>La 3D bildoj, kiujn vi faras kun CrossCam, nomiĝas stereogramoj. Libroj Magic Eye™ enhavas tion, kion oni nomas aŭtostereogramoj.</value>
+  </data>
+  <data name="Page.Faq.Into" xml:space="preserve">
+    <value>Kiel vi eniris stereoskopion?</value>
+  </data>
+  <data name="Page.Faq.Into.Body1" xml:space="preserve">
+    <value>Dum mi akiris mian fizikan diplomon, mi havis la ŝancon eksperimenti kun kreado de miaj propraj hologramoj per laseroj. La speco de hologramoj, kiujn mi faris, estis 3D ĉar ili uzis difraktan kradon por kaŭzi detruan enmiksiĝon en la lumo, kiu reflektas de la surfaco de vitra plato, kio igas la reflektitan bildon aspekti malsama de malsamaj lokoj. Kiam ĉiu el niaj okuloj vidas bildon, kiu aspektas kiel ĝi estas de malsama perspektivo (se ili ne estas tro malsamaj), niaj cerboj perceptas tion kiel profundon.</value>
+  </data>
+  <data name="Page.Faq.Into.Body2" xml:space="preserve">
+    <value>Mi jam delonge konsciis pri tiu principo de stereoskopa percepto, sed en tiu momento de mia vivo mi ankaŭ prenis kelkajn programajn klasojn, do mi decidis, ke mi volas provi fari simplan komputilan programon por stereoskopa 3D desegnaĵo. Tiu fortostreĉo iĝis StereoSketcher. La originala versio estis skribita en Java, sed mi reverkis ĝin per Javascript kaj SVG kaj nun ĝi loĝas en la reto.</value>
+  </data>
+  <data name="Page.Faq.Into.Body3" xml:space="preserve">
+    <value>ĉe ĉi tiu ligilo.</value>
+  </data>
+  <data name="Page.Faq.Into.Body4" xml:space="preserve">
+    <value>Ĝi neniel estas populara, kaj eble ne estas facile por iu ajn krom mi uzi, sed ĝi funkcias. Laborante pri StereoSketcher mi eksperimentis kun la principoj de stereoskopio, kaj mi enamiĝis pri la maniero kiel tia enpenetra kaj konvinka sperto povas esti produktita uzante kelkajn simplajn regulojn.</value>
+  </data>
+  <data name="Page.Faq.Inverted" xml:space="preserve">
+    <value>Kial la 3D ne aspektas ĝuste AŬ kial la 3D aspektas inversa?</value>
+  </data>
+  <data name="Page.Faq.Inverted.Body1" xml:space="preserve">
+    <value>Kiam libera spektado kun la kruca aŭ paralela metodo, estas grave rigardi la bildojn uzante la saman metodon kiu estis uzita por krei ilin. Alie, via dekstra okulo rigardos la perspektivon celitan por la maldekstra okulo kaj inverse. Tio igas la profundon de la bildo inversa, ĉar la direkto de paralakso estis interŝanĝita.
+
+Paralakso signifas, ke el la perspektivo de via dekstra okulo, kiam objektoj estas pli malproksime, ili ŝajnas esti pli dekstren ol pli proksimaj objektoj kiam oni vidas de via maldekstra okulo. Ĝi estas konfuza kiam priskribite en frazoformato, sed tre intuicia kiam pruvite.
+
+Por pruvi, tenu unu fingron supren antaŭ vi je ĉirkaŭ brako, tiam per via alia mano tenu alian fingron ĉirkaŭ duonvoje inter la unua fingro kaj via vizaĝo. Se vi alterne fermas ĉiun okulon kaj atentas kie estas viaj fingroj, vi vidos, ke ĉiu okulo vidas ilin en malsamaj lokoj. Do nature, se ĉiu okulo vidis tiun movadon la kontraŭan manieron kiel ĝi supozeble, la profundo estos inversigita.
+
+Estas tre facile hazarde uzi la malĝustan rigardmetodon ĉar ĝi rezultas ke estas tre malfacile por la plej multaj homoj diri ĉu ili krucas aŭ malstreĉas siajn okulojn nur sentante aŭ rigardante la konfuzan duoblan bildon de la mondo kiu rezultas. Anstataŭe, estas plej bone aŭ ke iu alia rigardu tion, kion faras viaj okuloj, aŭ provi ĉi tiun testilan bildon:</value>
+  </data>
+  <data name="Page.Faq.Inverted.Body2" xml:space="preserve">
+    <value>Multaj homoj sufiĉe komfortiĝis rigardante librojn de Magic Eye™, kiuj estas intencitaj por esti rigardataj per la paralela vido-metodo. Se vi krucas rigardas ilin, tiam la fortikaj 3D objektoj, kiuj supozeble aperas de la paĝo, anstataŭe aspektas kiel truoj. Ambaŭ metodoj permesas vin vidi *ion* sed se vi ne povis diri kio ĝi estis, vi verŝajne kruce rigardas ilin.</value>
+  </data>
+  <data name="Page.Faq.Mirror" xml:space="preserve">
+    <value>Kiel mi faru la metodon "unu-pafa spegulo"?</value>
+  </data>
+  <data name="Page.Faq.Mirror.Body1" xml:space="preserve">
+    <value>Kaptado per la spegula metodo dividas la kadron en duono kaj faras la bezonatan transformon, por ke vi povu kapti ambaŭ flankojn samtempe uzante ununuran telefonon kaj regulan porteblan spegulon. Por uzi la spegulan metodon dum kaptado, ŝaltu la ŝaltilon por spegula reĝimo en la paĝo de Agordoj (frapu la ilan piktogramon por atingi ĝin). Post kiam vi ŝaltas spegulreĝimon, CrossCam diros al vi, sur kiu flanko teni vian spegulon. Tenu vian spegulon sur tiu flanko kaj tumultu kun la vicigo inter via telefono kaj la spegulo kaj via temo. Kun iom da pacienco, vi povos vicigi ilin ĉiujn, por ke la spegulo montru la ĝustan perspektivon por unu el la flankoj. Ĉar uzado de la spegula metodo dividas vian bildon en duono vertikale, kutime plej bone estas kapti en pejzaĝo per la spegula metodo.
+
+Ĉi tiu metodo ankaŭ funkcios kun reflektoj en grandaj, puraj fenestroj, kaj ankaŭ sur senmovaj lagoj aŭ flakoj (kiam telefono estas ŝlosita en portreto kaj renversita flanken).</value>
+  </data>
+  <data name="Page.Faq.Mirror.Body2" xml:space="preserve">
+    <value>Estas kelkaj kompromisoj/redaktoj kiuj devas esti faritaj por uzi la spegulan metodon. Ĉi tiuj ĉiuj povas esti faritaj permane en CrossCam, sed aŭtomata vicigo ankaŭ provos fari ilin por vi:
+ • Ĉar la reflektita vido vojaĝas sur pli longa distanco ol la normala vido, la spegulflanko devos esti iom zomita.
+ • Verŝajne, kiam vi uzas la spegulan metodon, vi finos piedfingron, anstataŭ teni la perspektivojn paralelaj - tio povas kaŭzi mallongigon aspekti kiel malbona vertikala vicigo. Por malfari tion, oni povas fari korekton de finŝtono, kio signifas vertikale ŝrumpi unu flankon de ĉiu el la bildoj.
+ • Enpiediĝo ankaŭ tendencos movi la stereofonan fenestron al vi. Vi povas malfari tion kaj meti ĝin kie vi volas ĝin per tondado de la flankoj.
+ • La spegulo verŝajne ne plene kovros la vidon de unu flanko, do eble necesas fari iom da tondado por forigi nereflektajn pecojn.
+
+La plej bonaj speguloj por ĉi tio havas maldikan vitron. Unue ili estas malpezaj, do ili estas pli facile teni dum longaj periodoj. La alia grava afero estas, ke kiam vi uzas la spegulon, vi verŝajne celos la spegulon flanken prefere ol rigardi rekte en ĝin, ĉar speguloj estas kutime uzataj. Se orientitaj tiel, speguloj kun dika vitro povas havi iom da neklareco. Ju pli maldika estas la vitro, des malpli ŝajnos ĉi tiu malklariĝo. Ĉi tiuj specoj de speguloj ankaŭ povas esti malaltkvalitaj en aliaj rilatoj, do gravas trovi bonan ekvilibron.
+
+Estas kelkaj aliaj kompromisoj, kiuj devas esti akceptitaj kiam vi uzas la spegulan kaptadon, kiuj ne povas esti riparitaj en redaktoj de CrossCam:
+ • Ĉar la vido de la du flankoj vojaĝas iomete malsamajn distancojn, la fokuso necesa por ĉiu flanko estos iomete malsama, do unu flanko ĉiam estos iomete neklara. Ĉi tiu efiko estos pli-malpli rimarkebla depende de la distanco al la subjekto kaj la kampa profundo de la lenso.
+ • Neniu spegulo estas vere 100% efika, do la flanko, kiu uzas la spegulon, povas esti iomete pli malhela. Ĉi tio varias laŭ la kvalito de la spegulo.</value>
+  </data>
+  <data name="Page.Faq.Moving" xml:space="preserve">
+    <value>Mia temo moviĝas, kiel mi faras 3D bildojn de ĝi?</value>
+  </data>
+  <data name="Page.Faq.Moving.Body" xml:space="preserve">
+    <value>CrossCam permesas al vi du metodojn por kapti ambaŭ perspektivojn samtempe. Unu metodo uzas du telefonojn, kaj unu metodo uzas spegulon.
+
+Por uzi la du telefonajn agordojn, kontrolu la paĝon de Parigo-Agordo, al kiu vi povas atingi de la paĝo Agordoj (frapu la ilan ikonon).
+
+Por uzi la spegulan metodon, kontrolu la alian Demandon pri ĝi.</value>
+  </data>
+  <data name="Page.Faq.Test" xml:space="preserve">
+    <value>Kiel mi povas testi antaŭ-eldonajn versiojn de CrossCam?</value>
+  </data>
+  <data name="Page.Faq.Test.Body" xml:space="preserve">
+    <value>Rigardu ĉi tiun Reddit-afiŝon</value>
+  </data>
+  <data name="Page.Faq.Why" xml:space="preserve">
+    <value>Kial vi faris CrossCam?</value>
+  </data>
+  <data name="Page.Faq.Why.Body" xml:space="preserve">
+    <value>Ĉar mi komencis interesiĝi pri stereoskopio, mi hazarde ekskursis al Yellowstone. Dum mi estis tie, mi rimarkis, ke eble estos amuze provi uzi 3D-fotilan moveblan apon por kapti aferojn tie en 3D. Mi estis tre seniluziigita de la ekzistantaj elektoj. Mi trovis, ke ili ĉiuj postulas, ke vi faru du kaptojn kaj poste ekscii, ĉu ili estas bonaj. Ili ofte ne estis, ĉar mi devis plurfoje fari kompletajn divenojn pri mia apartigdistanco, same kiel la kvalito de la temo.
+
+Dum la venontaj kelkaj semajnoj mia bolanta frustriĝo igis min imagi simple provizi vivan antaŭprezenton de la dua kapto kune kun la unua. Mi jam havis fonon en movebla evoluo, do tiam temis nur pri enmeti tempon. CrossCam estis mirinda por mi uzi nur por mi mem por konservi memorojn, kaj ankaŭ mi ĝojas dividi ĝin kun vi.</value>
+  </data>
+  <data name="Page.Faq.Wiggle" xml:space="preserve">
+    <value>Kio estas wigglegrams?</value>
+  </data>
+  <data name="Page.Faq.Wiggle.Body" xml:space="preserve">
+    <value>Wigglegrams estas maniero vidi stereogramojn, kiuj ne dependas de duokula vizio. Ili estas kutime gifo, kiu turniĝas tien kaj reen inter la du perspektivoj, montrante ĉiun en sia tuteco en la sama loko. CrossCam ne subtenas fari ilin nun, sed retpoŝtu al mi se vi vere interesiĝas pri ili kaj mi faros ĝin.</value>
+  </data>
+  <data name="Page.Tips.AlignAfter" xml:space="preserve">
+    <value>Atentu la horizontalajn liniojn, sed vi ankaŭ povas vicigi poste.</value>
+  </data>
+  <data name="Page.Tips.AlignAfter.Body" xml:space="preserve">
+    <value>Se vi trovas, ke dum fotado, estas neeble fari ambaŭ la suprajn kaj malsuprajn gvidliniojn samtempe vicigi, vi verŝajne moviĝis en iu direkto krom nur flanken. Provu ripari ĉi tion antaŭ preni la fotojn, sed vicigi post la fakto povas multe helpi ĉi tion.</value>
+  </data>
+  <data name="Page.Tips.Alignment" xml:space="preserve">
+    <value>Vi povas malŝalti aŭtomatan vicigon.</value>
+  </data>
+  <data name="Page.Tips.Alignment.Body" xml:space="preserve">
+    <value>Se vi ne ŝatas la rezultojn de la aŭtomata vicigo, simple malŝaltu ĝin en la paĝo Agordoj aŭ alklakante la robotikonon kaj viaj originalaj kaptitaj bildoj estos restarigitaj.</value>
+  </data>
+  <data name="Page.Tips.Donut" xml:space="preserve">
+    <value>La donut-gvidilo povas helpi vian fenestron.</value>
+  </data>
+  <data name="Page.Tips.Donut.Body" xml:space="preserve">
+    <value>Estas eksperimenta gvidbulbulo en la paĝo de Agordoj, kiun vi povas ŝalti, kiu povas helpi vin konservi vian stereofonan fenestron dum maksimumigi la uzeblan larĝon. Turnante maldekstren kaj dekstren, la profundo de la benko ŝanĝiĝos rilate al la resto de la sceno - agordu la profundon de la benko tiel ke ĝi estu aŭ sur aŭ malantaŭ la plej malproksima punkto en via sceno. Atentu, uzi ĝin en pli malgrandaj scenoj povas dolorigi aferojn (vidu ŝlosila konsileto supre).</value>
+  </data>
+  <data name="Page.Tips.Keystone" xml:space="preserve">
+    <value>Keystone korekto estas bezonata se vi piedfingro-enen.</value>
+  </data>
+  <data name="Page.Tips.Keystone.Body1" xml:space="preserve">
+    <value>Se vi turnas sin enen kun ĉiu pafo, estas tre helpe fari ŝlosilajn korektojn. Kutime vi volus ŝrumpi la internajn randojn de la fotoj kaj poste detranĉi iujn supre kaj malsupre por ebenigi ilin. Vi aliras al la ŝlosila redakta menuo per frapado de la butono, kiu aspektas jene:</value>
+  </data>
+  <data name="Page.Tips.Keystone.Body2" xml:space="preserve">
+    <value>Turniĝi enen nomiĝas piedfingro. Ĝi povas kaŭzi mallongigan efikon, kiu malfaciligas kunfandi la angulojn de la bildo. La mallongiga efiko ĉeestas ĉiam en la reala vivo, ĉar paralelaj linioj ŝajnas konverĝi dum ili foriras en la distancon for de vi, sed la artefaritaj perspektivoj povas igi ĝin stranga.</value>
+  </data>
+  <data name="Page.Tips.Lean" xml:space="preserve">
+    <value>Vi povas simple kliniĝi.</value>
+  </data>
+  <data name="Page.Tips.Lean.Body" xml:space="preserve">
+    <value>Kelkfoje anstataŭ plene movi viajn piedojn maldekstren aŭ dekstren por foti, povas esti pli facile stari kun viaj piedoj apartigitaj kaj klini sin ĉiudirekten, sed zorgu konservi la telefonon ebena kaj je la sama alteco. Nur kliniĝi anstataŭ moviĝi povas helpi vin de tro malproksimen kaj povas faciligi teni vian celon rekta.</value>
+  </data>
+  <data name="Page.Tips.Lines" xml:space="preserve">
+    <value>La viclinioj povas moviĝi.</value>
+  </data>
+  <data name="Page.Tips.Lines.Body" xml:space="preserve">
+    <value>Vi povas treni la vicliniojn ĉirkaŭen, se vi volas. Ĉi tio estas precipe utila dum vicigado de la bildoj dum redaktado.</value>
+  </data>
+  <data name="Page.Tips.Old" xml:space="preserve">
+    <value>Vi povas malfermi malnovajn fotojn en CrossCam.</value>
+  </data>
+  <data name="Page.Tips.Old.Body" xml:space="preserve">
+    <value>Vi povas ŝargi antaŭe faritajn bildojn per frapeto de la dosieruja ikono sur la malsupro de la fotila paĝo, sed se vi laboras kun granda aro da fotoj, vi ankaŭ povas dividi ilin al CrossCam rekte de via foto-aplikaĵo, kiu povas konservi trakon de via. metu pli bone en viajn fotojn.</value>
+  </data>
+  <data name="Page.Tips.Quick" xml:space="preserve">
+    <value>Enŝaltu rapidan reĝimon kiam vi estas kun aliaj.</value>
+  </data>
+  <data name="Page.Tips.Quick.Body" xml:space="preserve">
+    <value>Se vi esploras kun aliaj homoj, estas bona ideo iri en rapidan reĝimon malŝaltante aŭtomatan vicigon kaj limojn kaj nur konservante post kiam vi kaptis sen fari ajnan redaktadon. Vi ĉiam povas ŝarĝi, aŭtomate vicigi kaj redakti la bildojn poste. Tiel viaj kunuloj ne devas atendi, ke vi perfektigos viajn bildojn surloke, sed vi ankoraŭ povas esti certa, ke la profundo, kiun vi volas, vere estas tie. Nur atentu ne fari ajnan hastan redaktadon antaŭ la unua konservado! Vi ankaŭ povas ŝalti la apartan flankan konservadon, kiu ignoros ajnan redaktadon, kiun vi faras.</value>
+  </data>
+  <data name="Page.Tips.Sick" xml:space="preserve">
+    <value>Se la movado malsanigas vin, tenu senmove.</value>
+  </data>
+  <data name="Page.Tips.Sick.Body" xml:space="preserve">
+    <value>Se la tuta movado malsanigas vin aŭ tro malfacilas vidi ĝin en 3D, ne provu vidi ĝin en 3D ĝis post kiam vi moviĝos iomete. Poste komparu la bildojn unu kun la alia kaj vicigu la bildojn uzante la horizontalajn liniojn sen 3D-spektado kaj poste komencu 3D-spektadon unufoje vicigita kaj senmova.</value>
+  </data>
+  <data name="Page.Tips.Space" xml:space="preserve">
+    <value>Ĉi tiuj bildoj povas preni multe da stokado - vi povas ŝrumpi ilin.</value>
+  </data>
+  <data name="Page.Tips.Space.Body" xml:space="preserve">
+    <value>La paĝo Agordoj havas eblon por proporcie malpliigi la rezolucion de la fina bildo - tio povas helpi se vi volas ŝpari spacon. Se via foto ne estas tondita, la fina rezulto estas du plen-rezoluciaj bildoj kunigitaj por fari unu el duobla rezolucio, kio signifas, ke vi ofte povas forigi grandan redukton de rezolucio sen rimarkeble tuŝi kvaliton.</value>
+  </data>
+  <data name="Page.Tips.Turn" xml:space="preserve">
+    <value>Ne turnu vin.</value>
+  </data>
+  <data name="Page.Tips.Turn.Body" xml:space="preserve">
+    <value>Kiam vi transiras, provu tute ne turni vian telefonon en ajna direkto, inkluzive de la natura tendenco turni sin al la subjekto dum vi moviĝas flanken. Iom da rotacio estos necesa (foje), sed provu minimumigi ĝin. Imagu, ke la telefono estas muntita sur rekta horizontala relo kaj nur povas gliti. Turniĝi enen povas kaŭzi mallongigan efikon, kiu malfaciligas la angulojn kunfandi.</value>
+  </data>
+  <data name="Page.Tips.Window" xml:space="preserve">
+    <value>Aldonu randon kaj tranĉu por fari fortan stereofonan fenestron.</value>
+  </data>
+  <data name="Page.Tips.Window.Body" xml:space="preserve">
+    <value>Interesa stereofenestra efiko povas esti kreita farante du aferojn: 1) ŝalti la randon (en la paĝo Agordoj) kaj 2) por kruca spektado, tondu la internajn randojn de la bildoj ĝis la ekstera rando mem fariĝas 3D en la bildo (tondaĵo). la EKSTERAJ randoj se vi estas paralela vidado). La ŝlosilo estas tondi la dekstran randon de la maldekstra bildo iomete preter tio, kion la dekstra rando de la dekstra bildo montras de la sceno kaj inverse. Aldono de limo estas ŝanĝita sur la paĝo Agordoj. Se ĉi tio estas konfuza, simple tranĉu amason de la internaj randoj kaj ĝi komencos esti klara. La tonda butono por la internaj randoj aspektas jene:</value>
+  </data>
+  <data name="Button.Code" xml:space="preserve">
+    <value>Vidu la Kodon</value>
+  </data>
+  <data name="Button.Developer" xml:space="preserve">
+    <value>Pri la Programisto</value>
+  </data>
+  <data name="Button.EmailMe" xml:space="preserve">
+    <value>Retpoŝtu al Mi</value>
+  </data>
+  <data name="Button.GitHub" xml:space="preserve">
+    <value>Aldonu Problemon ĉe GitHub</value>
+  </data>
+  <data name="Button.Press" xml:space="preserve">
+    <value>Reiru al la fotila ekrano ĉe ambaŭ aparatoj kaj premu la butonon de paro en la malsupra angulo</value>
+  </data>
+  <data name="Button.Primary" xml:space="preserve">
+    <value>TAPUS ĈI TIE SUR LA PRIMARO</value>
+  </data>
+  <data name="Button.Privacy" xml:space="preserve">
+    <value>Privateca Politiko</value>
+  </data>
+  <data name="Button.Secondary" xml:space="preserve">
+    <value>Frapu ĉi tie sur la duaranga</value>
+  </data>
+  <data name="Button.Test" xml:space="preserve">
+    <value>Testaj Antaŭ-eldonaj Versioj</value>
+  </data>
+  <data name="Button.Wi-Fi" xml:space="preserve">
+    <value>Certigu, ke Wi-Fi estas ebligita ĉe ambaŭ aparatoj (sed ĝi ne bezonas esti konektita al io ajn)</value>
+  </data>
+  <data name="Page.Pairing.1" xml:space="preserve">
+    <value>Se vi havas du aparatojn kun CrossCam instalita, vi povas konekti ilin por fari samtempajn fotojn el du perspektivoj. Preni du fotojn en la sama momento ebligas la plej bonajn stereogramojn.
+
+Bonvolu konscii, ke ĉi tiu funkcio ankoraŭ estas eksperimenta kaj eble havas problemojn. Ĝi eble ne funkcias perfekte la tutan tempon kaj ĝi povas manĝi vian kuirilaron. Ankaŭ bonvolu konscii, ke nuntempe la aparatoj devas esti la sama platformo por konektiĝi (ambaŭ Android aŭ ambaŭ iOS).
+
+Unu maniero akiri *perfektan* sinkronigon uzante nur ununuran aparaton kaj CrossCam estas uzi la metodon de "unu-pafa spegulo". Vi povas ŝalti ĝin sur la paĝo de Agordoj kaj vi povas legi pri ĝi sur la paĝo de Oftaj Demandoj.
+
+Antaŭ ol du aparatoj povas esti uzataj kune, iliaj roloj devas esti asignitaj. La PRIMA aparato estas tiu, kiu montros ambaŭ antaŭrigardojn, ekigos la kapton kaj tenos/savos la finajn kaptojn. Por asigni rolojn, navigu ambaŭ aparatojn al ĉi tiu paĝo kaj poste sekvu la paŝojn sube:</value>
+  </data>
+  <data name="Page.Pairing.2" xml:space="preserve">
+    <value>Se vi havas problemojn, BONVOLU NOTI:
+ • Post komenci la kunigprocezon, la kunigbutono povas esti frapetita denove iam ajn por haltigi ĝin aŭ malkonekti.
+ • Ĝi povas helpi ĉesi pariĝon sur ambaŭ aparatoj kaj rekomenci ĝin samtempe.
+ • Ĝi povas helpi malkonekti de via Wi-Fi aŭ datumretoj en kazo ili agas supren.
+ • Ĉiu fotilo estas malsama. Ĉi tiuj diferencoj povas inkluzivi angulan vidkampon, fokuson, ekspozicion kaj blankbalancan konduton, tempigon kaj pli. Eĉ du el la sama modelo de telefono kondutas iomete malsame. Mi preferas uzi paron da identaj malnovaj telefonoj (en mia kazo, paro da iPhone 6).
+ • CrossCam estas programaro, ne aparataro, do kapti la fotojn povas esti iomete malsinkronigita depende de kio alia faras la procesoroj kaj memoro en la preciza momento kiam la kapto estas ekigita. Kiel rezulto, la sinkronigo eble foje ne estas perfekta, sed ĝi ĝenerale devus esti tre proksima.</value>
+  </data>
+  <data name="Page.Pairing.Again" xml:space="preserve">
+    <value>Por konekti denove poste, certigu, ke vi havas Wi-Fi ebligita kaj tiam simple frapeti la konekti butonon sur la hejmekrano ĉe ambaŭ aparatoj.</value>
+  </data>
+  <data name="Page.Pairing.LocalNetworkAccess" xml:space="preserve">
+    <value>CrossCam postulas permeson de Loka Aliro al Reto. CrossCam fakte ne uzas la lokan reton, sed iOS postulas, ke CrossCam ricevas ĉi tiun permeson por uzi la Wifi-antenon por serĉi aparatojn. CrossCam petos ĉi tiun permeson unufoje - se la permeso estas malakceptita, vi devos mem ŝalti la ŝaltilon en la Agordoj-aplikaĵo.</value>
+  </data>
+  <data name="Page.Pairing.Location" xml:space="preserve">
+    <value>CrossCam petos permesojn kaj ŝaltos komponantojn laŭbezone por konekti viajn aparatojn. Bonvolu noti: CrossCam postulas lokpermeson kaj ke lokservoj estu ŝaltitaj sur la primara aparato por konektiĝi al la sekundara aparato. Ĉi tio estas simple Android-postulo kaj estas tute ekster mia kontrolo. CrossCam iel ajn UZAS vian lokon, sed ĉar la ago serĉi (kaj trovi) proksimajn aparatojn teorie povus esti uzata por proksimume lokalizi vin, CrossCam postulas permeson por aliri vian lokon.</value>
+  </data>
+  <data name="Page.Pairing.Permissions" xml:space="preserve">
+    <value>Noto pri Permesoj:</value>
+  </data>
+  <data name="Page.Pairing.Title" xml:space="preserve">
+    <value>Parigo</value>
+  </data>
+  <data name="Button.Back" xml:space="preserve">
+    <value>&lt; Reen</value>
+  </data>
+  <data name="Page.MorePictures.CrossViewSubreddit" xml:space="preserve">
+    <value>CrossView Subreddit</value>
+  </data>
+  <data name="Page.MorePictures.FacebookGroup" xml:space="preserve">
+    <value>Stereoskopa 3D Fejsbuka Grupo</value>
+  </data>
+  <data name="Page.MorePictures.GoogleDoc" xml:space="preserve">
+    <value>Google Doc de Grandaj Aĵoj</value>
+  </data>
+  <data name="Page.MorePictures.Instagram" xml:space="preserve">
+    <value>Instagram Stereoskopa Etikedo</value>
+  </data>
+  <data name="Page.MorePictures.Mine" xml:space="preserve">
+    <value>Vidu Fotojn, kiujn mi faris</value>
+  </data>
+  <data name="Page.MorePictures.ParallelViewSubreddit" xml:space="preserve">
+    <value>ParallelView Subreddit</value>
+  </data>
+  <data name="Page.Settings.Alignment" xml:space="preserve">
+    <value>Aŭtomata vicigo</value>
+  </data>
+  <data name="Page.Settings.Analytics" xml:space="preserve">
+    <value>Kunhavigu anonimajn uzadojn kaj erarajn datumojn por helpi plibonigi CrossCam</value>
+  </data>
+  <data name="Page.Settings.Border" xml:space="preserve">
+    <value>Limo</value>
+  </data>
+  <data name="Page.Settings.Camera" xml:space="preserve">
+    <value>Fotilo</value>
+  </data>
+  <data name="Page.Settings.Defaults" xml:space="preserve">
+    <value>Restarigi al defaŭltoj</value>
+  </data>
+  <data name="Page.Settings.Editing" xml:space="preserve">
+    <value>Redaktado</value>
+  </data>
+  <data name="Page.Settings.ErrorEmail" xml:space="preserve">
+    <value>Petu sendi retpoŝton kiam okazas eraroj</value>
+  </data>
+  <data name="Page.Settings.Guides" xml:space="preserve">
+    <value>Kapti Gvidilojn</value>
+  </data>
+  <data name="Page.Settings.Pairing" xml:space="preserve">
+    <value>Parigo</value>
+  </data>
+  <data name="Page.Settings.Preview" xml:space="preserve">
+    <value>Antaŭrigardo-Vidado-Metodo</value>
+  </data>
+  <data name="Page.Settings.Saving" xml:space="preserve">
+    <value>Ŝparante</value>
+  </data>
+  <data name="Page.TipMe.1" xml:space="preserve">
+    <value>CrossCam estas senpage uzebla, sen reklamoj, malfermfonte, kolektas neniujn personajn informojn de vi kaj donas al vi plenan aliron al ĉiu funkcio. Mi amas labori pri CrossCam sed necesas multe da tempo kaj penado. Mi tute ne gajnas monon per CrossCam krom konsiletoj, kiujn homoj povus decidi sendi al mi.</value>
+  </data>
+  <data name="Page.TipMe.2" xml:space="preserve">
+    <value>Se vi ŝatas CrossCam kaj kapablas, bonvolu konsideri sendi al mi konsilon.</value>
+  </data>
+  <data name="Page.TipMe.Ko-fi" xml:space="preserve">
+    <value>Ko-fi</value>
+  </data>
+  <data name="Page.TipMe.Patreon" xml:space="preserve">
+    <value>Patreon</value>
+  </data>
+  <data name="Page.TipMe.PayPal" xml:space="preserve">
+    <value>PayPal</value>
+  </data>
+  <data name="Page.TipMe.Tipped" xml:space="preserve">
+    <value>Mi ricevis trinkmonon</value>
+  </data>
+  <data name="Page.TipMe.TippedTimes" xml:space="preserve">
+    <value>fojojn, entute</value>
+  </data>
+  <data name="Page.TipMe.Venmo" xml:space="preserve">
+    <value>Venmo</value>
+  </data>
+  <data name="Title.MorePictures" xml:space="preserve">
+    <value>Vidu Pli da Bildoj</value>
+  </data>
+  <data name="Title.Settings" xml:space="preserve">
+    <value>Agordoj</value>
+  </data>
+  <data name="Title.TipMe" xml:space="preserve">
+    <value>Konsiletoj Estas Estimataj!</value>
+  </data>
+  <data name="Settings.Alignment.Advanced" xml:space="preserve">
+    <value>Montru altnivelajn agordojn</value>
+  </data>
+  <data name="Settings.Alignment.Ecc" xml:space="preserve">
+    <value>Provu uzi ECC-vicigon unue ĉiam</value>
+  </data>
+  <data name="Settings.Alignment.Keypoints" xml:space="preserve">
+    <value>Provu uzi klavpunkton vicigon unue ĉiam</value>
+  </data>
+  <data name="Settings.Alignment.On" xml:space="preserve">
+    <value>Aŭtomate vicigi post kapto</value>
+  </data>
+  <data name="Settings.Border.Color" xml:space="preserve">
+    <value>Bordkoloro</value>
+  </data>
+  <data name="Settings.Border.FuseGuide" xml:space="preserve">
+    <value>Aldonu fuzegvidilon supre (punkto super ĉiu flanko)</value>
+  </data>
+  <data name="Settings.Border.On" xml:space="preserve">
+    <value>Aldonu randon</value>
+  </data>
+  <data name="Settings.Border.Prompt" xml:space="preserve">
+    <value>Petu fortondi la randon kiam detektita dum ŝarĝo</value>
+  </data>
+  <data name="Settings.Border.Thickness" xml:space="preserve">
+    <value>Limdikeco (dekonoj de procento de larĝo)</value>
+  </data>
+  <data name="Settings.Camera.Camera1" xml:space="preserve">
+    <value>Force camera1 API (povas esti helpema se vi spertas strangaĵon sed rezultigos limigitan funkciecon, postulas forton ĉesi/rekomenci por efiki)</value>
+  </data>
+  <data name="Settings.Camera.Camera2" xml:space="preserve">
+    <value>Force camera2 API (devas esti sur Android 6 aŭ pli, povas esti helpema se vi spertas erarojn sed povas fari pli, postulas forton/rekomencon por efiki)</value>
+  </data>
+  <data name="Settings.Camera.LandscapeCaptureHorizontal" xml:space="preserve">
+    <value>Pejzaĝa kapta butono horizontala lokigo</value>
+  </data>
+  <data name="Settings.Camera.LandscapeCaptureVertical" xml:space="preserve">
+    <value>Pejzaĝa kapta butono vertikala lokigo</value>
+  </data>
+  <data name="Settings.Camera.Lock" xml:space="preserve">
+    <value>Ŝlosu fokuson kaj ekspozicion por dua bildo al fokuso kaj ekspozicio de la unua bildo</value>
+  </data>
+  <data name="Settings.Camera.Pair" xml:space="preserve">
+    <value>Parobliga butono horizontala lokigo (kiam kapta butono estas centrita)</value>
+  </data>
+  <data name="Settings.Camera.PointFocus" xml:space="preserve">
+    <value>Frapu por indiki fokuson, duoble frapeton por reveni al kontinua fokuso (aŭ konservi aŭ forigi)</value>
+  </data>
+  <data name="Settings.Camera.PortraitCapture" xml:space="preserve">
+    <value>Portreto kapta butono lokigo</value>
+  </data>
+  <data name="Settings.Editing.Align" xml:space="preserve">
+    <value>Maksimuma vertikala viciga proporcio</value>
+  </data>
+  <data name="Settings.Editing.Keystone" xml:space="preserve">
+    <value>Maksimuma finŝtono</value>
+  </data>
+  <data name="Settings.Editing.Rotation" xml:space="preserve">
+    <value>Maksimumaj rotaciaj gradoj</value>
+  </data>
+  <data name="Settings.Editing.SideCrop" xml:space="preserve">
+    <value>Maksimuma flanka rikolto proporcio</value>
+  </data>
+  <data name="Settings.Editing.TopCrop" xml:space="preserve">
+    <value>Maksimuma supra/malsupra rikolto proporcio</value>
+  </data>
+  <data name="Settings.Editing.Zoom" xml:space="preserve">
+    <value>Maksimuma zomproporcio</value>
+  </data>
+  <data name="Settings.Guides.Donut" xml:space="preserve">
+    <value>Montru bengel-gvidilon (kaŭzos piedfingron, do eble postulos finŝtonan redaktadon)</value>
+  </data>
+  <data name="Settings.Guides.Fuse" xml:space="preserve">
+    <value>Montru fuzegvidilon (punkto super ĉiu flanko)</value>
+  </data>
+  <data name="Settings.Guides.LineColor" xml:space="preserve">
+    <value>Malsamaj koloraj linioj</value>
+  </data>
+  <data name="Settings.Guides.Lines" xml:space="preserve">
+    <value>Videblaj linioj</value>
+  </data>
+  <data name="Settings.Guides.Roll" xml:space="preserve">
+    <value>Rulo gvidilo videbla</value>
+  </data>
+  <data name="Settings.Pair.CaptureDelay" xml:space="preserve">
+    <value>Kroma prokrasto de la kapta momento (ms) (aldonas kroman prokraston al la celata momento de kapto nur ĉe ĉi tiu aparato)</value>
+  </data>
+  <data name="Settings.Pair.Countdown" xml:space="preserve">
+    <value>Kaptu retronombrada longo (tempigilo)</value>
+  </data>
+  <data name="Settings.Pair.Fov" xml:space="preserve">
+    <value>Korekto de vidkampo</value>
+  </data>
+  <data name="Settings.Pair.FovNotSet" xml:space="preserve">
+    <value>FOV-korekto ne fiksita (faru kapton per parigitaj aparatoj por trairi agordon).</value>
+  </data>
+  <data name="Settings.Pair.FovReset" xml:space="preserve">
+    <value>Restarigi</value>
+  </data>
+  <data name="Settings.Pair.Go" xml:space="preserve">
+    <value>Iru al Pariĝa Agorda Paĝo</value>
+  </data>
+  <data name="Settings.Pair.NoRole" xml:space="preserve">
+    <value>Rolo ne elektita</value>
+  </data>
+  <data name="Settings.Pair.PreviewDelay" xml:space="preserve">
+    <value>Antaŭrigardu framprokraston (pli alta nombro reduktos framfrekvencon sed ŝparos baterion)</value>
+  </data>
+  <data name="Settings.Pair.Primary" xml:space="preserve">
+    <value>Primaraj:</value>
+  </data>
+  <data name="Settings.Pair.PrimaryRole" xml:space="preserve">
+    <value>Rolo: Primara</value>
+  </data>
+  <data name="Settings.Pair.Sample" xml:space="preserve">
+    <value>Horloĝa specimena kalkulo (pli malalta nombro malpliigos la tempon necesan por komenca sinkronigo sed eble malpliigos sinkronigan precizecon)</value>
+  </data>
+  <data name="Settings.Pair.Secondary" xml:space="preserve">
+    <value>Malĉefa:</value>
+  </data>
+  <data name="Settings.Pair.SecondaryRole" xml:space="preserve">
+    <value>Rolo: Malĉefa</value>
+  </data>
+  <data name="Settings.Pair.Timeout" xml:space="preserve">
+    <value>Konektotempo (sekundoj) (0 signifas neniun tempodaŭron)</value>
+  </data>
+  <data name="Settings.Preview.Barrel" xml:space="preserve">
+    <value>Aldonu korekton de lenso/barela misprezento (eble malaltigi framfrekvencon)</value>
+  </data>
+  <data name="Settings.Preview.BarrelFinal" xml:space="preserve">
+    <value>Aldonu lenskorektadon/barela misprezento nur al finaj bildoj (povas malrapidigi finan ekranon sed akcelos kapton)</value>
+  </data>
+  <data name="Settings.Preview.CardboardDistance" xml:space="preserve">
+    <value>Kartona apartigdistanco</value>
+  </data>
+  <data name="Settings.Preview.Downsize" xml:space="preserve">
+    <value>Malgrandigi bildon (povas pliigi la framfrekvencon)</value>
+  </data>
+  <data name="Settings.Preview.DownsizePercent" xml:space="preserve">
+    <value>Malgrandigi bildoprocenton</value>
+  </data>
+  <data name="Settings.Preview.Immersive" xml:space="preserve">
+    <value>Merga fina spektado</value>
+  </data>
+  <data name="Settings.Preview.LensStrength" xml:space="preserve">
+    <value>Forto de korekto de lenso</value>
+  </data>
+  <data name="Settings.Preview.Mirror" xml:space="preserve">
+    <value>Kaptu per unu-pafa spegula divido-metodo</value>
+  </data>
+  <data name="Settings.Preview.Width" xml:space="preserve">
+    <value>Maksimuma larĝo de bildo de paralela vido (punktoj)</value>
+  </data>
+  <data name="Settings.Reset" xml:space="preserve">
+    <value>Restarigi al defaŭltoj</value>
+  </data>
+  <data name="Settings.Saving.Alone" xml:space="preserve">
+    <value>Konservu la unuan flankon sole (sen redaktoj aŭ randoj) (por facila kundivido de plata foto kun ebenaj rigardaj homoj)</value>
+  </data>
+  <data name="Settings.Saving.Anaglyph" xml:space="preserve">
+    <value>Konservu ruĝan/cianan anaglifversion (kun redaktoj sed sen bordo)</value>
+  </data>
+  <data name="Settings.Saving.Browse" xml:space="preserve">
+    <value>Foliumi...</value>
+  </data>
+  <data name="Settings.Saving.Cardboard" xml:space="preserve">
+    <value>Konservu por Kartono (kun redaktoj, neniu rando, neniu interspaco, plena larĝo, por reŝarĝi en CrossCam poste)</value>
+  </data>
+  <data name="Settings.Saving.Clear" xml:space="preserve">
+    <value>Aŭtomate purigi kaptojn post konservado</value>
+  </data>
+  <data name="Settings.Saving.Cross" xml:space="preserve">
+    <value>Konservu kunigitan krucvidan version (kun redaktoj kaj rando)</value>
+  </data>
+  <data name="Settings.Saving.ExternalDirectory" xml:space="preserve">
+    <value>Konservu en ekstera CrossCam-dosierujo ĉe:</value>
+  </data>
+  <data name="Settings.Saving.ExternalWarning" xml:space="preserve">
+    <value>(averto: bildoj tie estos forigitaj se CrossCam estas malinstalita)</value>
+  </data>
+  <data name="Settings.Saving.Folder" xml:space="preserve">
+    <value>Konservu en dediĉitan subdosierujon/albumon "CrossCam".</value>
+  </data>
+  <data name="Settings.Saving.Grayscale" xml:space="preserve">
+    <value>Konservu grizskalan ruĝan/cianan anaglifversion (kun redaktoj sed sen bordo)</value>
+  </data>
+  <data name="Settings.Saving.Order" xml:space="preserve">
+    <value>(Konservado okazos en ordo de supre ĝis malsupre)</value>
+  </data>
+  <data name="Settings.Saving.Parallel" xml:space="preserve">
+    <value>Konservu kunigitan paralelan vidoversion (kun redaktoj kaj rando)</value>
+  </data>
+  <data name="Settings.Saving.Quad" xml:space="preserve">
+    <value>Konservu kvaran kombinaĵon (kun redaktoj kaj rando)</value>
+  </data>
+  <data name="Settings.Saving.Reset" xml:space="preserve">
+    <value>Restarigi</value>
+  </data>
+  <data name="Settings.Saving.Resolution" xml:space="preserve">
+    <value>Rezolucioproporcio</value>
+  </data>
+  <data name="Settings.Saving.SaveTo" xml:space="preserve">
+    <value>Konservu al:</value>
+  </data>
+  <data name="Settings.Saving.Separate" xml:space="preserve">
+    <value>Konservu ĉiun flankon aparte (sen redaktoj aŭ randoj por pli facila afiŝo-traktado, maldekstra flanko konservas unue)</value>
+  </data>
+  <data name="Settings.Saving.Subfolder" xml:space="preserve">
+    <value>Konservu en dediĉitajn subdosierujojn/albumojn "CrossCam_{ViewMethod}".</value>
+  </data>
+  <data name="Settings.Saving.Triple" xml:space="preserve">
+    <value>Konservu trioblan kombinaĵon (kun redaktoj kaj rando)</value>
+  </data>
+  <data name="Button.Pair.Accept" xml:space="preserve">
+    <value>Akceptu</value>
+  </data>
+  <data name="Button.Pair.Cancel" xml:space="preserve">
+    <value>Nuligi</value>
+  </data>
+  <data name="Page.Camera.AcceptConnection" xml:space="preserve">
+    <value>Akceptu konekton al</value>
+  </data>
+  <data name="Page.Camera.Confirm" xml:space="preserve">
+    <value>Konfirmu la kongruojn de la kodo ĉe ambaŭ aparatoj:</value>
+  </data>
+  <data name="Page.Footer.CouldntOpen" xml:space="preserve">
+    <value>Ne Eblis Malfermi Ligon</value>
+  </data>
+  <data name="Page.Footer.OpenError" xml:space="preserve">
+    <value>La ligilo mailto ne povis esti malfermita. Ĉi tio povus esti ĉar via retpoŝta kliento ne estas instalita, aŭ ia alia kialo.</value>
+  </data>
+  <data name="Page.Pair.Errors.Denied" xml:space="preserve">
+    <value>La necesaj permesoj por parigo ne estis donitaj. Escepto:</value>
+  </data>
+  <data name="Page.Pair.Errors.FailedBluetooth" xml:space="preserve">
+    <value>La aparato malsukcesis ŝalti Bluetooth. Escepto:</value>
+  </data>
+  <data name="Page.Pair.Errors.FailedSearch" xml:space="preserve">
+    <value>La aparato ne sukcesis serĉi aparatojn. Escepto:</value>
+  </data>
+  <data name="Page.Pair.Errors.LocationOff" xml:space="preserve">
+    <value>Lokaj servoj ne aktivigitaj. Ne povas skani por aparatoj. Vidu la parigpaĝon por pliaj detaloj.</value>
+  </data>
+  <data name="Page.Pair.Errors.LocationScan" xml:space="preserve">
+    <value>Lokpermeso ne donita. Ne povas skani por aparatoj. Vidu la parigpaĝon por pliaj detaloj.</value>
+  </data>
+  <data name="Page.Pair.Errors.NotSupported" xml:space="preserve">
+    <value>Parigo ne estas subtenata sur ĉi tiu aparato. Escepto:</value>
+  </data>
+  <data name="Page.Pair.Errors.Title" xml:space="preserve">
+    <value>Eraro</value>
+  </data>
+  <data name="Page.Pair.Errors.WifiOff" xml:space="preserve">
+    <value>Wi-Fi estas malŝaltita. Bonvolu ŝalti Wi-Fi.</value>
+  </data>
+  <data name="Page.Pair.PrimaryExplanation" xml:space="preserve">
+    <value>Ĉi tiu aparato nun estas agordita kiel la ĉefa.</value>
+  </data>
+  <data name="Page.Pair.PrimarySelected" xml:space="preserve">
+    <value>Ĉefa Rolo Elektita</value>
+  </data>
+  <data name="Page.Pair.SecondaryExplanation" xml:space="preserve">
+    <value>Ĉi tiu aparato nun estas agordita kiel la malĉefa.</value>
+  </data>
+  <data name="Page.Pair.SecondarySelected" xml:space="preserve">
+    <value>Sekundara Rolo Elektita</value>
+  </data>
+  <data name="Page.Technique.Mode" xml:space="preserve">
+    <value>reĝimo.</value>
+  </data>
+  <data name="Page.Technique.SetMode" xml:space="preserve">
+    <value>CrossCam nun estas en</value>
+  </data>
+</root>

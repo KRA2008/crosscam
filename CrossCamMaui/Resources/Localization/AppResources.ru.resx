@@ -1,0 +1,1156 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="Button.GoogleDoc" xml:space="preserve">
+    <value>Google Документ с отличными вещами</value>
+  </data>
+  <data name="Button.LearnCross" xml:space="preserve">
+    <value>УЗНАТЬ КРОСС</value>
+  </data>
+  <data name="Button.LearnParallel" xml:space="preserve">
+    <value>ИЗУЧАЙТЕСЬ ПАРАЛЛЕЛЬНО</value>
+  </data>
+  <data name="Button.MorePictures" xml:space="preserve">
+    <value>Посмотреть больше фотографий</value>
+  </data>
+  <data name="Button.Review" xml:space="preserve">
+    <value>Написать обзор</value>
+  </data>
+  <data name="Button.Share" xml:space="preserve">
+    <value>Поделиться CrossCam</value>
+  </data>
+  <data name="Button.Support" xml:space="preserve">
+    <value>Поддержите разработчика</value>
+  </data>
+  <data name="Button.TapCross" xml:space="preserve">
+    <value>НАЖМИТЕ ЗДЕСЬ, ЧТОБЫ ВЫБРАТЬ КРЕСТ</value>
+  </data>
+  <data name="Button.TapParallel" xml:space="preserve">
+    <value>НАЖМИТЕ ЗДЕСЬ, ЧТОБЫ ВЫБРАТЬ ПАРАЛЛЕЛЬНОСТЬ</value>
+  </data>
+  <data name="Footer.Span1" xml:space="preserve">
+    <value>Нашли ошибку? Есть вопрос? Просто напишите по электронной почте</value>
+  </data>
+  <data name="Footer.Span3" xml:space="preserve">
+    <value>! Я люблю общаться с пользователями, и это самый быстрый способ связаться со мной.</value>
+  </data>
+  <data name="Page.HowToUse.2anaglyph" xml:space="preserve">
+    <value>2) Запустите анаглифный просмотр первой картинки с появившимся рядом превью.</value>
+  </data>
+  <data name="Page.HowToUse.2cardboard" xml:space="preserve">
+    <value>2) Запустите картонный просмотр первой картинки с появившимся рядом превью.</value>
+  </data>
+  <data name="Page.HowToUse.2cross" xml:space="preserve">
+    <value>2) Начните перекрестный просмотр первого изображения с предварительным просмотром, который появится рядом с ним.</value>
+  </data>
+  <data name="Page.HowToUse.2parallel" xml:space="preserve">
+    <value>2) Начать параллельный просмотр первой картинки с появившимся рядом превью.</value>
+  </data>
+  <data name="Page.Technique.AdditionalTutorials" xml:space="preserve">
+    <value>Дополнительные уроки:</value>
+  </data>
+  <data name="Page.Technique.Cross1" xml:space="preserve">
+    <value>Осторожно скосите глаза, глядя на пару фотографий выше. Когда вы скосите глаза, все станет размытым и прозрачным, и вы начнете видеть 4 картинки вместо 2 (2 пары). Чем сильнее вы скосите глаза, тем дальше разойдутся пары картинок – это будет выглядеть примерно так:</value>
+  </data>
+  <data name="Page.Technique.Cross2" xml:space="preserve">
+    <value>Аккуратно раскосите глаза так, чтобы картинки внутри каждой пары начали перекрываться. Оно начнет выглядеть так, будто изображений всего 3 вместо 4. Оно все равно будет размытым и прозрачным и будет выглядеть примерно так:</value>
+  </data>
+  <data name="Page.Technique.Cross3" xml:space="preserve">
+    <value>Как только у вас заработает среднее перекрытие, вам просто нужно расслабить глаза и позволить им сфокусировать изображение. На этом этапе у вас будет одно четкое 3D-изображение посередине с прозрачным изображением, плавающим с каждой стороны, которое будет выглядеть следующим образом (за исключением того, что середина будет 3D):</value>
+  </data>
+  <data name="Page.Technique.Cross4" xml:space="preserve">
+    <value>Если вам трудно косить глазами, вы также можете попробовать смотреть на свой палец, держа его посередине между глазами и экраном. Вы должны увидеть, как изображения начинают разделяться и перекрываться под вашим пальцем.</value>
+  </data>
+  <data name="Page.Technique.CrossViewing" xml:space="preserve">
+    <value>КРОСС ПРОСМОТР</value>
+  </data>
+  <data name="Page.Technique.P1" xml:space="preserve">
+    <value>Если вы хотите увидеть это снова, коснитесь значка гамбургера (три линии) в левом верхнем углу экрана камеры и нажмите «Справка».
+
+Чтобы увидеть 3D-изображения в CrossCam (так называемые «стереограммы»), вы можете использовать красные/голубые 3D-очки, программу просмотра Google Cardboard или осуществлять «свободный просмотр», используя только глаза и экран. Есть два способа свободного просмотра, и CrossCam поможет вам освоить оба из них. Вам нужно указать CrossCam, как вы собираетесь просматривать изображения, иначе это не будет работать правильно. Не волнуйтесь, вы всегда можете изменить это снова в настройках.
+
+Если вам удобно скрещивать глаза, сначала попробуйте метод перекрестия, в противном случае попробуйте метод параллельного взгляда. Если вы привыкли к книгам Magic Eye™, вы, вероятно, уже умеете использовать параллельный метод, но вы также можете использовать перекрестный метод. Нажмите на метод ниже, чтобы изучить его, и обязательно сообщите CrossCam, какой из них вам подходит, нажав соответствующую кнопку ВЫБРАТЬ.
+
+Если вы предпочитаете использовать 3D-очки или программу просмотра Cardboard, вы можете настроить CrossCam на их использование на странице настроек.</value>
+  </data>
+  <data name="Page.Technique.CrossLink1" xml:space="preserve">
+    <value>Хороший текстовый урок</value>
+  </data>
+  <data name="Page.Technique.CrossLink2" xml:space="preserve">
+    <value>Еще один хороший текстовый урок</value>
+  </data>
+  <data name="Page.Technique.CrossLink3" xml:space="preserve">
+    <value>Короткое руководство по YouTube</value>
+  </data>
+  <data name="Page.Technique.CrossLink4" xml:space="preserve">
+    <value>Длинный, странный, но полезный урок на YouTube</value>
+  </data>
+  <data name="Page.Technique.CrossLink5" xml:space="preserve">
+    <value>Еще один урок на YouTube</value>
+  </data>
+  <data name="Page.Technique.CrossLink6" xml:space="preserve">
+    <value>Проект с двумя камерами и руководством</value>
+  </data>
+  <data name="Page.Technique.Parallel1" xml:space="preserve">
+    <value>Если изображение выше не помещается на вашем экране, переверните телефон в альбомную ориентацию — для этого CrossCam пытается сделать пару изображений больше самого простого размера. Вам не всегда обязательно использовать CrossCam в альбомной ориентации, но изображение идеального размера облегчает изучение этой техники.</value>
+  </data>
+  <data name="Page.Technique.Parallel2" xml:space="preserve">
+    <value>Расслабьте глаза и посмотрите «сквозь» пару изображений выше, как будто вы как бы отключаетесь, указывая глазами на изображения. Вы должны начать видеть 3 изображения с 3D-изображением посередине, примерно так:</value>
+  </data>
+  <data name="Page.Technique.Parallel3" xml:space="preserve">
+    <value>Если вы начнете видеть 4 картинки, вы зашли слишком далеко. Если вы снова окажетесь в этой точке, попробуйте немного подвигать глазами. Слишком сильное расслабление будет выглядеть примерно так:</value>
+  </data>
+  <data name="Page.Technique.Parallel4" xml:space="preserve">
+    <value>Если у вас возникли проблемы, попробуйте поднести экран прямо к лицу, чтобы пара фотографий была прямо перед глазами. Расслабьтесь и посмотрите «сквозь» экран, а затем медленно отведите экран от лица, сохраняя при этом глаза расслабленными. В конце концов изображение должно «щелкнуть» и сфокусироваться.</value>
+  </data>
+  <data name="Page.Technique.Parallel5" xml:space="preserve">
+    <value>Если вы по-прежнему видите четыре изображения, увеличьте параметр «Максимальная ширина изображения при параллельном просмотре» на странице настроек.</value>
+  </data>
+  <data name="Page.Technique.ParallelViewing" xml:space="preserve">
+    <value>ПАРАЛЛЕЛЬНЫЙ ПРОСМОТР</value>
+  </data>
+  <data name="Page.Technique.Practice" xml:space="preserve">
+    <value>Изображения, которые я сделал, на которых вы можете попрактиковаться</value>
+  </data>
+  <data name="Title.Contact" xml:space="preserve">
+    <value>Контакт</value>
+  </data>
+  <data name="Title.Faq" xml:space="preserve">
+    <value>Часто задаваемые вопросы</value>
+  </data>
+  <data name="Title.Help" xml:space="preserve">
+    <value>Помощь</value>
+  </data>
+  <data name="Title.HowToUse" xml:space="preserve">
+    <value>Как использовать CrossCam</value>
+  </data>
+  <data name="Title.Technique" xml:space="preserve">
+    <value>Техника 3D-просмотра</value>
+  </data>
+  <data name="Title.Tips" xml:space="preserve">
+    <value>Советы</value>
+  </data>
+  <data name="Button.DoNotEmailMe" xml:space="preserve">
+    <value>Не пишите мне сейчас</value>
+  </data>
+  <data name="Button.EmailMeNow" xml:space="preserve">
+    <value>Напишите мне сейчас</value>
+  </data>
+  <data name="Button.No" xml:space="preserve">
+    <value>Нет</value>
+  </data>
+  <data name="Button.OK" xml:space="preserve">
+    <value>ХОРОШО</value>
+  </data>
+  <data name="Button.YesClear" xml:space="preserve">
+    <value>Да, ясно</value>
+  </data>
+  <data name="Page.Camera.Aligning" xml:space="preserve">
+    <value>Выравнивание...</value>
+  </data>
+  <data name="Page.Camera.AlignmentBroken" xml:space="preserve">
+    <value>Автоматическое выравнивание не поддерживается на устройстве: отключите его в настройках.</value>
+  </data>
+  <data name="Page.Camera.AlignmentFailed" xml:space="preserve">
+    <value>Выравнивание не удалось.</value>
+  </data>
+  <data name="Page.Camera.BorderAsk" xml:space="preserve">
+    <value>Граница обнаружена. Убрать границу?</value>
+  </data>
+  <data name="Page.Camera.BorderDetected" xml:space="preserve">
+    <value>Граница обнаружена</value>
+  </data>
+  <data name="Page.Camera.Cancel" xml:space="preserve">
+    <value>Отмена</value>
+  </data>
+  <data name="Page.Camera.ChooseAction" xml:space="preserve">
+    <value>Выберите действие:</value>
+  </data>
+  <data name="Page.Camera.DirectoryNotFound" xml:space="preserve">
+    <value>Каталог не найден</value>
+  </data>
+  <data name="Page.Camera.DirectoryNotFoundExplain" xml:space="preserve">
+    <value>Место сохранения не найдено. Пожалуйста, выберите другой на странице настроек.</value>
+  </data>
+  <data name="Page.Camera.ErrorEmailBody" xml:space="preserve">
+    <value>Что вы сделали непосредственно перед тем, как произошла ошибка? Пожалуйста, описывайте даже мелочи.\n\n\n\n\n\nCrossCam продолжал работать после ошибки? Если нет, то как это сломано?\n\n\n\n\n\nЭто происходит неоднократно?\n\n\n\n\n\nМожете ли вы заставить ошибку произойти по команде? Если да, то как?\n\n\n\n\n\n</value>
+  </data>
+  <data name="Page.Camera.FlipForCardboard" xml:space="preserve">
+    <value>Переверните в альбомную ориентацию в картонном режиме.</value>
+  </data>
+  <data name="Page.Camera.FlipLarger" xml:space="preserve">
+    <value>(переверните в альбомную ориентацию, чтобы увеличить изображение)</value>
+  </data>
+  <data name="Page.Camera.ForAnaglyph" xml:space="preserve">
+    <value>для анаглифа</value>
+  </data>
+  <data name="Page.Camera.ForCardboard" xml:space="preserve">
+    <value>для картона</value>
+  </data>
+  <data name="Page.Camera.ForCross" xml:space="preserve">
+    <value>для креста</value>
+  </data>
+  <data name="Page.Camera.ForParallel" xml:space="preserve">
+    <value>для параллельного</value>
+  </data>
+  <data name="Page.Camera.GoPickRole" xml:space="preserve">
+    <value>Пожалуйста, перейдите на страницу сопряжения (через страницу настроек) и выберите роль сопряжения для этого устройства, прежде чем пытаться выполнить сопряжение.</value>
+  </data>
+  <data name="Page.Camera.InvalidImage" xml:space="preserve">
+    <value>Неверное изображение</value>
+  </data>
+  <data name="Button.Camera.Keep" xml:space="preserve">
+    <value>Держать</value>
+  </data>
+  <data name="Page.Camera.LoadFullImage" xml:space="preserve">
+    <value>Загрузить полное стереоизображение</value>
+  </data>
+  <data name="Page.Camera.Loading" xml:space="preserve">
+    <value>Загрузка...</value>
+  </data>
+  <data name="Page.Camera.LoadSingleSide" xml:space="preserve">
+    <value>Загрузка одной стороны</value>
+  </data>
+  <data name="Page.Camera.ManualCorrections" xml:space="preserve">
+    <value>Пожалуйста, рассмотрите возможность внесения ручных исправлений.</value>
+  </data>
+  <data name="Page.Camera.MirrorOnLeft" xml:space="preserve">
+    <value>ЗЕРКАЛО СЛЕВА</value>
+  </data>
+  <data name="Page.Camera.MirrorOnRight" xml:space="preserve">
+    <value>ЗЕРКАЛО СПРАВА</value>
+  </data>
+  <data name="Page.Camera.MoveLeft" xml:space="preserve">
+    <value>ДВИГАЙ ВЛЕВО</value>
+  </data>
+  <data name="Page.Camera.MoveRight" xml:space="preserve">
+    <value>ДВИГАТЬСЯ ВПРАВО</value>
+  </data>
+  <data name="Page.Camera.NoSaveModes" xml:space="preserve">
+    <value>Нет активных режимов сохранения</value>
+  </data>
+  <data name="Page.Camera.NoSaveModesExplain" xml:space="preserve">
+    <value>Ни один из режимов сохранения в настоящее время не включен. Включите режим сохранения на странице настроек.</value>
+  </data>
+  <data name="Page.Camera.Oops" xml:space="preserve">
+    <value>упс</value>
+  </data>
+  <data name="Page.Camera.OrRotate" xml:space="preserve">
+    <value>(или повернуть)</value>
+  </data>
+  <data name="Page.Camera.OrSwipe" xml:space="preserve">
+    <value>(или проведите пальцем по экрану)</value>
+  </data>
+  <data name="Page.Camera.PairRoleNotSelected" xml:space="preserve">
+    <value>Парная роль не выбрана</value>
+  </data>
+  <data name="Page.Camera.PinchOrDrag" xml:space="preserve">
+    <value>Зажмите или перетащите, чтобы исследовать!</value>
+  </data>
+  <data name="Page.Camera.PleaseSelectValid" xml:space="preserve">
+    <value>Выберите изображение в формате Jpeg, PNG или Webp. Выбранное вами изображение</value>
+  </data>
+  <data name="Page.Camera.ReallyClear" xml:space="preserve">
+    <value>Действительно ясно?</value>
+  </data>
+  <data name="Button.Camera.Remove" xml:space="preserve">
+    <value>Удалять</value>
+  </data>
+  <data name="Page.Camera.SavedToCustomFolder" xml:space="preserve">
+    <value>Сохранено в пользовательскую папку</value>
+  </data>
+  <data name="Page.Camera.SavedToExternal" xml:space="preserve">
+    <value>Сохранено на внешнем</value>
+  </data>
+  <data name="Page.Camera.SavedToPhotos" xml:space="preserve">
+    <value>Сохранено в фотографиях</value>
+  </data>
+  <data name="Page.Camera.SaveFailed" xml:space="preserve">
+    <value>Сохранение не удалось. :(</value>
+  </data>
+  <data name="Page.Camera.Saving" xml:space="preserve">
+    <value>Сохранение...</value>
+  </data>
+  <data name="Page.Camera.SecondaryOnLeft" xml:space="preserve">
+    <value>ВТОРИЧНЫЙ СЛЕВА</value>
+  </data>
+  <data name="Page.Camera.SecondaryOnRight" xml:space="preserve">
+    <value>ВТОРИЧНЫЙ СПРАВА</value>
+  </data>
+  <data name="Page.Camera.SelectedInvalid" xml:space="preserve">
+    <value>Выбранное изображение недействительно.</value>
+  </data>
+  <data name="Page.Camera.SorryError" xml:space="preserve">
+    <value>Извините, CrossCam допустил ошибку. Отчет об ошибке был отправлен автоматически. Вы можете вообще не заметить ничего плохого, но если заметили, попробуйте перезапустить приложение. Если это будет продолжаться, напишите мне и расскажите об этом. (Перейдите на страницу настроек, чтобы остановить эти всплывающие окна.)</value>
+  </data>
+  <data name="Page.Camera.Steady" xml:space="preserve">
+    <value>Устойчивый...</value>
+  </data>
+  <data name="Page.Camera.SureClear" xml:space="preserve">
+    <value>Вы уверены, что хотите очистить фотографии и начать все сначала?</value>
+  </data>
+  <data name="Page.Camera.Syncing" xml:space="preserve">
+    <value>Синхронизации...</value>
+  </data>
+  <data name="Page.Camera.Transmitting" xml:space="preserve">
+    <value>Передача...
+(оставлять устройство разблокированным)</value>
+  </data>
+  <data name="Page.Camera.VR" xml:space="preserve">
+    <value>VR</value>
+  </data>
+  <data name="Page.FovCorrection" xml:space="preserve">
+    <value>Коррекция поля зрения</value>
+  </data>
+  <data name="Page.FovCorrectionExplain" xml:space="preserve">
+    <value>Различные модели устройств могут иметь разные поля зрения. CrossCam поможет вам исправить это после того, как вы сделаете первый снимок. Скомпонуйте и запечатлейте что-нибудь с характерными точками вверху и внизу кадра, убедившись, что точки видны на обоих устройствах.</value>
+  </data>
+  <data name="Page.Technique.ParallelLink1" xml:space="preserve">
+    <value>Хороший текстовый урок</value>
+  </data>
+  <data name="Page.Technique.ParallelLink2" xml:space="preserve">
+    <value>Еще один хороший текстовый урок</value>
+  </data>
+  <data name="Page.Technique.ParallelLink3" xml:space="preserve">
+    <value>ЕЩЕ ЕЩЕ ОДИН хороший текстовый урок</value>
+  </data>
+  <data name="Page.Technique.ParallelLink4" xml:space="preserve">
+    <value>Учебное пособие по волшебству Франкфуртера</value>
+  </data>
+  <data name="Page.Technique.ParallelLink5" xml:space="preserve">
+    <value>Хорошее видео о Magic Eye.</value>
+  </data>
+  <data name="Page.Technique.Trouble" xml:space="preserve">
+    <value>Если у вас все еще возникают проблемы, попробуйте перенести телефон в темную комнату, чтобы ваши глаза могли хорошо видеть и фокусироваться только на изображении.
+
+Еще вы можете попробовать использовать трубки от туалетной бумаги или руки, чтобы каждый глаз мог видеть только ту сторону изображения, которую он должен видеть.
+ • Для перекрестного обзора: поднесите одну трубку к переносице (по центру между глазами), направляя ее в центр изображения перед собой. Медленно перемещайте трубку к экрану, стараясь смотреть вниз обеими глазами. Когда вы достигнете правильного положения с трубкой, изображение должно защелкнуться на месте. Возможно, вам будет полезно сконцентрироваться на попытке заглянуть внутрь дальнего конца трубки. Если вы не можете найти правильное положение, попробуйте использовать изображение большего размера или трубку меньшего размера.
+ • Для параллельного обзора: поднесите трубку к каждому глазу, но направьте их оба в стороны, чтобы вы почти ничего не видели. Одновременно медленно поворачивайте трубки внутрь, чтобы вы могли видеть большую часть изображения. В тот момент, когда вы сможете видеть большую часть изображения (почти половину каждым глазом), постарайтесь расслабить глаза и соединить половинки. Может быть полезно использовать изображение большего или меньшего размера.
+
+Есть простое упражнение, которое вы можете выполнить, чтобы попрактиковаться в слиянии при перекрестном или параллельном взгляде. Возьмите маркер и нарисуйте смайлик на каждой миниатюре (или на палочках для мороженого, или на шпажках для языка). Например, с одной стороны нарисуйте один глаз и рот, а с другой — глаз и нос. Затем вы можете держать их перед собой и попрактиковаться в объединении двух изображений, чтобы получился смайлик.
+
+Лично я предпочитаю перекрестное, а не параллельное, потому что изображения могут быть больше, но оба метода работают. Если вы хотите поэкспериментировать с параллельными изображениями большего размера, вы можете контролировать размер на странице настроек.
+
+Иногда при выполнении сложно почувствовать, выполняешь ли ты перекрестный или параллельный метод. Вы можете попросить кого-нибудь еще следить за вашими глазами, пока вы это делаете, или можете в качестве теста посмотреть на картинку ниже:</value>
+  </data>
+  <data name="SaveModes.Anaglyph" xml:space="preserve">
+    <value>Анаглиф</value>
+  </data>
+  <data name="SaveModes.Cardboard" xml:space="preserve">
+    <value>Картон</value>
+  </data>
+  <data name="SaveModes.Cross" xml:space="preserve">
+    <value>Крест</value>
+  </data>
+  <data name="SaveModes.GrayscaleAnaglyph" xml:space="preserve">
+    <value>Анаглиф в оттенках серого</value>
+  </data>
+  <data name="SaveModes.Parallel" xml:space="preserve">
+    <value>Параллельно</value>
+  </data>
+  <data name="SaveModes.Quad" xml:space="preserve">
+    <value>Четырехместный</value>
+  </data>
+  <data name="SaveModes.Separate" xml:space="preserve">
+    <value>Отдельный</value>
+  </data>
+  <data name="SaveModes.Single" xml:space="preserve">
+    <value>Одинокий</value>
+  </data>
+  <data name="SaveModes.Triple" xml:space="preserve">
+    <value>Тройной</value>
+  </data>
+  <data name="Page.Camera.FovExplain" xml:space="preserve">
+    <value>Чтобы исправить разницу в поле зрения, увеличьте масштаб и сдвиньте изображения так, чтобы отличительные точки на двух фотографиях совпадали. Вы можете перетаскивать белые линии, чтобы визуализировать выравнивание. Эта коррекция будет применена к будущим предварительным просмотрам. Он будет сохранен, но вы можете сбросить его на странице настроек. Если вы используете идентичные устройства, просто сохраните их без изменений.</value>
+  </data>
+  <data name="Page.Camera.FovTitle" xml:space="preserve">
+    <value>Коррекция поля зрения</value>
+  </data>
+  <data name="Page.Camera.KeyPoints" xml:space="preserve">
+    <value>Ключевые моменты</value>
+  </data>
+  <data name="Page.Camera.Warped" xml:space="preserve">
+    <value>Искаженный</value>
+  </data>
+  <data name="Page.Camera.WelcomeExplain" xml:space="preserve">
+    <value>CrossCam был создан, чтобы помочь вам делать 3D-фотографии. Фотографии в формате 3D, как VR или 3D-фильмы, но вам не нужно никакого специального оборудования или очков — только ваш телефон (но если у вас есть пара красно-голубых 3D-очков или программа просмотра Google Cardboard, вы можете использовать их. с CrossCam тоже). Техника «свободного просмотра», при которой используется только ваш телефон и ваши глаза, требует некоторой практики. Прежде чем я расскажу вам, как использовать CrossCam, хотели бы вы сначала узнать больше о технике просмотра?</value>
+  </data>
+  <data name="Page.Camera.Welcome" xml:space="preserve">
+    <value>Добро пожаловать в CrossCam!</value>
+  </data>
+  <data name="Page.Camera.Directions" xml:space="preserve">
+    <value>Перейти к маршруту</value>
+  </data>
+  <data name="Page.Camera.Technique" xml:space="preserve">
+    <value>Техника просмотра</value>
+  </data>
+  <data name="Page.HowToUse.P1" xml:space="preserve">
+    <value>Если вы хотите увидеть это снова, коснитесь значка гамбургера (три линии) в левом верхнем углу экрана камеры и нажмите «Справка».
+
+
+1) Расположите кадр и сделайте первый снимок.</value>
+  </data>
+  <data name="Page.HowToUse.P2" xml:space="preserve">
+    <value>3) Держите телефон прямо перед собой и медленно двигайтесь в сторону, в направлении, указанном CrossCam. Не отходите слишком далеко — на дюйм или меньше на каждый фут от вашей цели. Также вообще не поворачивайтесь, просто скатитесь в сторону или, может быть, даже просто наклонитесь.
+
+4) Совместите первое изображение с превью второго изображения и сделайте второе изображение, когда вам понравится то, что вы видите.
+
+5) CrossCam автоматически выровняет ваши изображения после того, как вы их сделаете, но это не идеально. Если вам не нравится, как они были выровнены, вы можете отключить автоматическое выравнивание, нажав на маленький значок робота. CrossCam также имеет множество опций ручного редактирования, которые можно открыть, нажав значок карандаша.
+
+6) Нажмите галочку, когда будете готовы сохранить.
+
+
+Другие вещи, которые вы можете сделать:
+ • Коснитесь один раз, чтобы сфокусироваться на точке, коснитесь дважды, чтобы вернуться к непрерывной автофокусировке.
+ • Коснитесь значка шестеренки в правом верхнем углу экрана камеры, чтобы открыть страницу настроек. Там полно интересного.
+ • Есть хорошая страница советов, на которую можно попасть, нажав значок гамбургера в левом верхнем углу экрана камеры. Она поможет вам сделать ваши снимки великолепными.
+ • Если вы предпочитаете двигаться в другом направлении для второго кадра или хотите поменять стороны, просто проведите пальцем по экрану.
+ • Коснитесь маленького значка папки внизу, чтобы загрузить изображение как часть или загрузить полное стереоизображение.</value>
+  </data>
+  <data name="Page.Faq.Alignment" xml:space="preserve">
+    <value>Как работает автовыравнивание?</value>
+  </data>
+  <data name="Page.Faq.Alignment.Body" xml:space="preserve">
+    <value>Автовыравнивание пытается максимально точно выровнять пары изображений, но это не идеально. Компьютерное зрение в некоторых вещах лучше человеческого глаза, но и намного хуже в других. Мир, который он видит, сильно отличается от того, который видим мы, но он также может видеть по-разному. Два основных способа работы с CrossCam — это использование расширенного коэффициента корреляции (ECC) и использование ключевых точек.
+
+Выравнивание ECC по существу работает, пытаясь обеспечить перекрытие светлых участков светлыми участками, а темных участков перекрытием темных участков, когда две стороны накладываются друг на друга. Согласование ECC сопровождается оценкой достоверности, которая помогает решить, было ли согласование эффективным. CrossCam настроен на отклонение выполненного выравнивания, если достоверность слишком низкая, но вы можете настроить порог достоверности «пройдено/не пройдено» на странице «Настройки».
+
+Выравнивание ключевых точек ищет точки интереса, такие как углы, края, точки и высокий контраст, и пытается сопоставить их между двумя сторонами. После сопоставления точек CrossCam может использовать различные алгоритмы, чтобы попытаться деформировать стороны так, чтобы все ключевые точки с одной стороны были как можно ближе к соответствующим ключевым точкам на другой стороне.
+
+CrossCam запрограммирован на использование выравнивания по ключевым точкам в первую очередь, но он возвращается к выравниванию ECC, если выравнивание по ключевым точкам не удается или когда съемка выполняется методом однократного разделения зеркала. Вы также можете настроить автоматическое выравнивание, чтобы всегда использовать выравнивание по ключевым точкам или всегда использовать выравнивание ECC на странице настроек.
+
+CrossCam отобразит результат выравнивания на экране камеры под маленьким значком робота. Если использовалось выравнивание ECC, будет отображаться процент достоверности. Если использовалось выравнивание по ключевым точкам, будет отображаться «KP». Если оба метода выравнивания оказались неудачными, отобразится буква «F». Если вам не нравится результат выравнивания, вы можете нажать на маленький значок робота, чтобы удалить выравнивание.</value>
+  </data>
+  <data name="Page.Faq.Bad" xml:space="preserve">
+    <value>Это вредно для моих глаз?</value>
+  </data>
+  <data name="Page.Faq.Bad.Body1" xml:space="preserve">
+    <value>Не знаю, но я так не думаю. Однако, если вам станет плохо, просто сделайте перерыв. С практикой дискомфорт обычно уменьшается. Любой метод просмотра может вызвать дискомфорт из-за эффекта, называемого конфликтом вергенции и аккомодации. Вот</value>
+  </data>
+  <data name="Page.Faq.Bad.Body2" xml:space="preserve">
+    <value>ссылка в Википедии на конфликт вергенции и аккомодации.</value>
+  </data>
+  <data name="Page.Faq.Bad.Body3" xml:space="preserve">
+    <value>Если вы используете метод косоглазия, это ощущение также может быть связано с тем, что ваши глаза не привыкли указывать так, как будто они так долго смотрят на что-то очень близкое. При перекрестном просмотре ваши глаза сходятся в точке примерно на полпути между вашими глазами и экраном. Если длительный взгляд на что-то вблизи также вызывает у вас дискомфорт, у нас есть объяснение.
+
+По моему мнению, ваши глаза не делают ничего, кроме своих повседневных функций, но вы объединяете две разные способности, которые обычно не используются таким образом. Вы фокусируете линзы на чем-то в одном месте, на котором обычно удобно фокусироваться, и направляете глаза куда-то, куда им обычно удобно указывать, но на то место, где фокусируются ваши линзы и где ваши глаза сходятся. это просто не тот же самый момент. Я не понимаю, чем это может быть плохо для тебя, пока твое зрение еще не развивается.</value>
+  </data>
+  <data name="Page.Faq.Cardboard" xml:space="preserve">
+    <value>Как использовать CrossCam с Google Cardboard?</value>
+  </data>
+  <data name="Page.Faq.Cardboard.Body" xml:space="preserve">
+    <value>Если в вашем средстве просмотра есть кнопка, которая нажимает на центр экрана, вы можете использовать ее для захвата с помощью Cardboard. Вашему зрителю также понадобится отверстие для камеры вашего телефона.
+
+Чтобы сделать фотографии с помощью Cardboard, переключите метод предварительного просмотра (на странице настроек) на Cardboard, затем вернитесь на страницу камеры и вставьте свой телефон в средство просмотра. Нажмите кнопку, чтобы сделать снимок, а когда обе стороны будут захвачены, нажмите кнопку еще раз, чтобы сохранить. Сохранение в режиме Cardboard предназначено только для того, чтобы вы могли загрузить изображения обратно в CrossCam для последующего просмотра, а не для просмотра их в приложении фотографий через программу просмотра.
+
+Вы также можете выполнить съемку любым другим методом, затем переключите метод предварительного просмотра на Картон и поместите свой телефон в средство просмотра.
+
+Существует много разных программ просмотра с разными свойствами. Возможно, вам придется изменить расстояние между картонами (на странице настроек), чтобы сделать вашу работу более комфортной. Возможно, вам также придется сначала убедиться, что вы умеете снимать высококачественные стереограммы, прежде чем делать их огромными и захватывающими.</value>
+  </data>
+  <data name="Page.Faq.How" xml:space="preserve">
+    <value>Как это работает?</value>
+  </data>
+  <data name="Page.Faq.How.Body1" xml:space="preserve">
+    <value>3D-эффект, который использует CrossCam, — это хорошо изученная дисциплина, известная как стереоскопия, а метод, при котором вы скрещиваете глаза (или расслабляете их), чтобы рассмотреть две стороны, называется свободным просмотром. Когда мы смотрим на мир, каждый из наших глаз видит со своей точки зрения. В стереоскопии все, что мы делаем, — это представляем каждому глазу одну (искусственную) перспективу, а все остальное делает наш мозг. Есть много разных способов заставить каждый глаз видеть разное изображение. Вот</value>
+  </data>
+  <data name="Page.Faq.How.Body2" xml:space="preserve">
+    <value>ссылка в Википедии на стереоскопию</value>
+  </data>
+  <data name="Page.Faq.How.Body3" xml:space="preserve">
+    <value>3D-изображения, которые вы создаете с помощью CrossCam, называются стереограммами. Книги Magic Eye™ содержат так называемые автостереограммы.</value>
+  </data>
+  <data name="Page.Faq.Into" xml:space="preserve">
+    <value>Как вы пришли в стереоскопию?</value>
+  </data>
+  <data name="Page.Faq.Into.Body1" xml:space="preserve">
+    <value>Пока я получал степень по физике, у меня была возможность поэкспериментировать с созданием собственных голограмм с помощью лазеров. Голограммы, которые я делал, были трехмерными, поскольку в них использовалась дифракционная решетка, вызывающая деструктивную интерференцию света, отражающегося от поверхности стеклянной пластины, из-за чего отраженное изображение выглядело по-разному в разных местах. Когда каждый из наших глаз видит изображение, которое выглядит так, как будто оно с другой точки зрения (если они не слишком разные), наш мозг воспринимает это как глубину.</value>
+  </data>
+  <data name="Page.Faq.Into.Body2" xml:space="preserve">
+    <value>Я знал об этом принципе стереоскопического восприятия уже давно, но в тот момент своей жизни я также посещал некоторые курсы программирования, поэтому решил, что хочу попытаться создать простую компьютерную программу для стереоскопического 3D-рисования. Результатом этой работы стал StereoSketcher. Исходная версия была написана на Java, но я переписал ее с использованием Javascript и SVG, и теперь она живет в сети.</value>
+  </data>
+  <data name="Page.Faq.Into.Body3" xml:space="preserve">
+    <value>по этой ссылке.</value>
+  </data>
+  <data name="Page.Faq.Into.Body4" xml:space="preserve">
+    <value>Он ни в коем случае не популярен, и, возможно, кому-то, кроме меня, им будет нелегко пользоваться, но он работает. Работая над StereoSketcher, мне пришлось экспериментировать с принципами стереоскопии, и я был очарован тем, как можно создать такой захватывающий и захватывающий опыт, используя несколько простых правил.</value>
+  </data>
+  <data name="Page.Faq.Inverted" xml:space="preserve">
+    <value>Почему 3D-изображение выглядит неправильно ИЛИ почему 3D-изображение выглядит перевернутым?</value>
+  </data>
+  <data name="Page.Faq.Inverted.Body1" xml:space="preserve">
+    <value>При свободном просмотре как перекрестным, так и параллельным методом важно рассматривать картинки тем же методом, которым они были созданы. В противном случае ваш правый глаз будет смотреть на перспективу, предназначенную для левого глаза, и наоборот. Это инвертирует глубину изображения, поскольку направление параллакса поменялось местами.
+
+Параллакс означает, что с точки зрения вашего правого глаза, когда объекты находятся дальше, они кажутся правее, чем более близкие объекты, если смотреть левым глазом. Это сбивает с толку, когда описывается в формате предложения, но очень интуитивно понятно, когда демонстрируется.
+
+Для демонстрации поднимите один палец перед собой примерно на расстоянии вытянутой руки, затем другой рукой удерживайте другой палец примерно на полпути между указательным пальцем и лицом. Если вы поочередно закроете каждый глаз и обратите внимание на то, где находятся ваши пальцы, вы увидите, что каждый глаз видит их в разных местах. Поэтому, естественно, если каждый глаз увидит это движение не так, как предполагалось, глубина будет инвертирована.
+
+Очень легко случайно использовать неправильный метод просмотра, потому что оказывается, что большинству людей очень сложно определить, скашивают они глаза или расслабляют их, просто ощущая или глядя на возникающее в результате сбивающее с толку двойное изображение мира. Вместо этого лучше попросить кого-нибудь посмотреть, что делают ваши глаза, или опробовать это тестовое изображение:</value>
+  </data>
+  <data name="Page.Faq.Inverted.Body2" xml:space="preserve">
+    <value>Многие люди уже привыкли к просмотру книг Magic Eye™, которые предназначены для просмотра методом параллельного просмотра. Если вы просмотрите их перекрестно, то надежные 3D-объекты, которые должны отрываться от страницы, вместо этого будут выглядеть как дыры. Оба метода позволяют вам увидеть *что-то*, но если вы не можете сказать, что это было, вы, вероятно, просматриваете их перекрестно.</value>
+  </data>
+  <data name="Page.Faq.Mirror" xml:space="preserve">
+    <value>Как мне использовать метод «однократного зеркала»?</value>
+  </data>
+  <data name="Page.Faq.Mirror.Body1" xml:space="preserve">
+    <value>При съемке зеркальным методом кадр разделяется пополам и выполняется необходимое преобразование, поэтому вы можете запечатлеть обе стороны одновременно, используя один телефон и обычное портативное зеркало. Чтобы использовать метод зеркала при съемке, включите режим зеркала на странице настроек (нажмите значок шестеренки, чтобы попасть туда). После включения режима зеркала CrossCam сообщит вам, с какой стороны держать зеркало. Держите зеркало с этой стороны и следите за выравниванием телефона, зеркала и объекта съемки. Проявив немного терпения, вы сможете выстроить их все так, чтобы зеркало показывало правильную перспективу для одной из сторон. Поскольку при использовании зеркального метода изображение разделяется пополам по вертикали, обычно лучше всего снимать в альбомной ориентации зеркальным методом.
+
+Этот метод также будет работать с отражениями в больших чистых окнах, а также на стоячих озерах или лужах (когда телефон заблокирован в книжной ориентации и перевернут боком).</value>
+  </data>
+  <data name="Page.Faq.Mirror.Body2" xml:space="preserve">
+    <value>Чтобы использовать зеркальный метод, необходимо сделать некоторые компромиссы/редактирования. Все это можно сделать вручную в CrossCam, но автоматическое выравнивание также попытается сделать это за вас:
+ • Поскольку отраженный вид распространяется на большее расстояние, чем обычный вид, зеркальную сторону необходимо немного увеличить.
+ • Вполне вероятно, что при использовании зеркального метода вы в конечном итоге будете смещаться вперед, а не сохранять параллельные перспективы - это может привести к тому, что ракурс будет выглядеть как плохое вертикальное выравнивание. Чтобы отменить это, можно выполнить коррекцию трапецеидальных искажений, что означает вертикальное сжатие одной стороны каждого изображения.
+ • Схождение также приведет к смещению стереоокна к вам. Вы можете отменить это и разместить его там, где хотите, обрезав стороны.
+ • Зеркало, вероятно, не полностью закроет вид с одной стороны, поэтому может потребоваться обрезка, чтобы удалить неотраженные части.
+
+Лучшие зеркала для этого имеют тонкое стекло. Во-первых, они легкие, поэтому их легче держать в течение длительного времени. Другая важная вещь заключается в том, что при использовании зеркала вы, скорее всего, будете направлять зеркало в сторону, а не смотреть прямо в него, как обычно используются зеркала. При такой ориентации зеркала с толстым стеклом могут иметь некоторую размытость. Чем тоньше стекло, тем менее заметным будет это размытие. Зеркала такого типа могут быть некачественными и в других отношениях, поэтому важно найти хороший баланс.
+
+Есть еще пара компромиссов, которые необходимо принять при использовании захвата зеркала, которые нельзя исправить при редактировании CrossCam:
+ • Поскольку вид с двух сторон перемещается на несколько разные расстояния, фокус, необходимый для каждой стороны, будет немного разным, поэтому одна сторона всегда будет слегка размытой. Этот эффект будет более или менее заметен в зависимости от расстояния до объекта и глубины резкости объектива.
+ • Ни одно зеркало не обеспечивает 100% эффективности, поэтому сторона, на которой оно используется, может быть немного темнее. Это будет зависеть от качества зеркала.</value>
+  </data>
+  <data name="Page.Faq.Moving" xml:space="preserve">
+    <value>Мой объект движется. Как мне сделать его 3D-снимок?</value>
+  </data>
+  <data name="Page.Faq.Moving.Body" xml:space="preserve">
+    <value>CrossCam позволяет вам одновременно запечатлеть обе перспективы двумя способами. В одном методе используются два телефона, а в другом — зеркало.
+
+Чтобы использовать настройку двух телефонов, посетите страницу настройки сопряжения, на которую можно перейти со страницы настроек (коснитесь значка шестеренки).
+
+Чтобы использовать метод зеркала, ознакомьтесь с другим часто задаваемым вопросом об этом.</value>
+  </data>
+  <data name="Page.Faq.Test" xml:space="preserve">
+    <value>Как я могу протестировать предварительные версии CrossCam?</value>
+  </data>
+  <data name="Page.Faq.Test.Body" xml:space="preserve">
+    <value>Посмотрите этот пост на Reddit</value>
+  </data>
+  <data name="Page.Faq.Why" xml:space="preserve">
+    <value>Зачем вы сделали CrossCam?</value>
+  </data>
+  <data name="Page.Faq.Why.Body" xml:space="preserve">
+    <value>Когда я начал интересоваться стереоскопией, мне довелось съездить в Йеллоустоун. Там я понял, что было бы интересно попробовать использовать мобильное приложение для 3D-камеры, чтобы снимать происходящее в 3D. Меня очень разочаровали существующие варианты. Я обнаружил, что все они требовали от вас сделать два захвата, а затем выяснить, хороши ли они. Часто это было не так, поскольку мне приходилось неоднократно делать полные предположения о расстоянии разделения, а также о качестве объекта.
+
+В течение следующих нескольких недель мое кипящее разочарование привело меня к мысли, что я просто представляю предварительный просмотр второго снимка в реальном времени рядом с первым. У меня уже был опыт мобильной разработки, так что оставалось лишь потратить время. CrossCam оказался для меня замечательным инструментом, который я мог использовать только для себя, чтобы сохранить воспоминания, и я тоже рад поделиться им с вами.</value>
+  </data>
+  <data name="Page.Faq.Wiggle" xml:space="preserve">
+    <value>Что такое вигглграммы?</value>
+  </data>
+  <data name="Page.Faq.Wiggle.Body" xml:space="preserve">
+    <value>Вигглеграммы — это способ просмотра стереограмм, не требующий бинокулярного зрения. Обычно это гифка, которая переключается между двумя перспективами, показывая каждую целиком в одном и том же месте. CrossCam не поддерживает их создание прямо сейчас, но если они вам действительно интересны, напишите мне, и я это сделаю.</value>
+  </data>
+  <data name="Page.Tips.AlignAfter" xml:space="preserve">
+    <value>Обратите внимание на горизонтальные линии, но вы также можете выровнять их после.</value>
+  </data>
+  <data name="Page.Tips.AlignAfter.Body" xml:space="preserve">
+    <value>Если вы обнаружите, что во время съемки невозможно совместить верхнюю и нижнюю направляющие линии одновременно, возможно, вы переместились в каком-то другом направлении, а не только в сторону. Постарайтесь исправить это, прежде чем делать снимки, но выравнивание постфактум может очень помочь в этом.</value>
+  </data>
+  <data name="Page.Tips.Alignment" xml:space="preserve">
+    <value>Вы можете отключить автоматическое выравнивание.</value>
+  </data>
+  <data name="Page.Tips.Alignment.Body" xml:space="preserve">
+    <value>Если вам не нравятся результаты автоматического выравнивания, просто отключите его на странице настроек или коснитесь маленького значка робота, и ваши исходные снимки будут восстановлены.</value>
+  </data>
+  <data name="Page.Tips.Donut" xml:space="preserve">
+    <value>Руководство по пончикам может помочь вашему окну.</value>
+  </data>
+  <data name="Page.Tips.Donut.Body" xml:space="preserve">
+    <value>На странице настроек есть экспериментальный поясок с инструкциями, который вы можете включить и который может помочь вам сохранить стереоокно, одновременно максимизируя полезную ширину. При повороте влево и вправо глубина пончика изменится относительно остальной части сцены — установите глубину пончика так, чтобы он находился либо на самой удаленной точке сцены, либо позади нее. Будьте осторожны, использование его в небольших сценах может сделать ситуацию болезненной (см. совет по трапецеидальному искажению выше).</value>
+  </data>
+  <data name="Page.Tips.Keystone" xml:space="preserve">
+    <value>Коррекция трапецеидального искажения необходима, если вы сходите с места.</value>
+  </data>
+  <data name="Page.Tips.Keystone.Body1" xml:space="preserve">
+    <value>Если вы поворачиваетесь внутрь при каждом снимке, очень полезно внести коррекцию трапецеидальных искажений. Обычно вам нужно сжать внутренние края фотографий, а затем обрезать часть сверху и снизу, чтобы выровнять их. Вы попадаете в меню редактирования трапецеидальных искажений, нажав кнопку, которая выглядит следующим образом:</value>
+  </data>
+  <data name="Page.Tips.Keystone.Body2" xml:space="preserve">
+    <value>Поворот внутрь называется схождением. Это может вызвать эффект ракурса, из-за которого будет сложно совместить углы изображения. Эффект ракурса присутствует в реальной жизни всегда, потому что параллельные линии кажутся сходящимися, уходя вдаль от вас, но искусственные перспективы могут сделать это странным.</value>
+  </data>
+  <data name="Page.Tips.Lean" xml:space="preserve">
+    <value>Вы можете просто наклониться.</value>
+  </data>
+  <data name="Page.Tips.Lean.Body" xml:space="preserve">
+    <value>Иногда вместо того, чтобы полностью двигать ногами влево или вправо, чтобы сделать снимок, может быть проще просто встать, расставив ноги и наклонившись в каждом направлении, но будьте осторожны, чтобы телефон оставался ровным и на одной и той же высоте. Простое наклонение вместо того, чтобы двигаться, поможет вам не отойти слишком далеко и вам будет легче держать цель прямо.</value>
+  </data>
+  <data name="Page.Tips.Lines" xml:space="preserve">
+    <value>Линии выравнивания могут перемещаться.</value>
+  </data>
+  <data name="Page.Tips.Lines.Body" xml:space="preserve">
+    <value>Если хотите, вы можете перетаскивать линии выравнивания. Это особенно полезно при выравнивании изображений во время редактирования.</value>
+  </data>
+  <data name="Page.Tips.Old" xml:space="preserve">
+    <value>Вы можете открыть старые фотографии в CrossCam.</value>
+  </data>
+  <data name="Page.Tips.Old.Body" xml:space="preserve">
+    <value>Вы можете загрузить ранее сделанные снимки, коснувшись значка папки в нижней части страницы камеры, но если вы работаете с большой партией фотографий, вы также можете поделиться ими в CrossCam прямо из приложения для фотографий, которое может отслеживать ваши место на ваших фотографиях лучше.</value>
+  </data>
+  <data name="Page.Tips.Quick" xml:space="preserve">
+    <value>Включите быстрый режим, когда вы находитесь с другими людьми.</value>
+  </data>
+  <data name="Page.Tips.Quick.Body" xml:space="preserve">
+    <value>Если вы исследуете объект вместе с другими людьми, рекомендуется перейти в быстрый режим, отключив автоматическое выравнивание и границы, и просто сохранить снимок после того, как вы его отсняли, не выполняя никакого редактирования. Вы всегда можете загрузить, автоматически выровнять и отредактировать изображения позже. Таким образом, вашим компаньонам не придется ждать, пока вы доведете до совершенства свои снимки на месте, но вы все равно сможете быть уверены, что желаемая глубина действительно достигнута. Только будьте осторожны и не делайте поспешного редактирования перед первым сохранением! Вы также можете включить отдельное боковое сохранение, которое будет игнорировать любое вносимое вами редактирование.</value>
+  </data>
+  <data name="Page.Tips.Sick" xml:space="preserve">
+    <value>Если от движения вас тошнит, оставайтесь неподвижными.</value>
+  </data>
+  <data name="Page.Tips.Sick.Body" xml:space="preserve">
+    <value>Если от любого движения вас тошнит или его слишком сложно просматривать в 3D, не пытайтесь увидеть его в 3D, пока вы немного не отодвинулись. Затем сравните изображения друг с другом и выровняйте изображения по горизонтальным линиям без просмотра в 3D, а затем начните просмотр в 3D, выровняв и удерживая неподвижно.</value>
+  </data>
+  <data name="Page.Tips.Space" xml:space="preserve">
+    <value>Эти фотографии могут занимать много места — их можно сжать.</value>
+  </data>
+  <data name="Page.Tips.Space.Body" xml:space="preserve">
+    <value>На странице настроек есть возможность пропорционально уменьшить разрешение конечного изображения — это может помочь, если вы хотите сэкономить место. Если ваша фотография не обрезана, конечным результатом будут два изображения с полным разрешением, объединенные вместе, чтобы получить одно с двойным разрешением, а это означает, что часто можно обойтись большим уменьшением разрешения без заметного влияния на качество.</value>
+  </data>
+  <data name="Page.Tips.Turn" xml:space="preserve">
+    <value>Не поворачивайся.</value>
+  </data>
+  <data name="Page.Tips.Turn.Body" xml:space="preserve">
+    <value>При перемещении старайтесь вообще не поворачивать телефон ни в каком направлении, включая естественную тенденцию поворачиваться к объекту при движении в сторону. Некоторое вращение будет необходимо (иногда), но постарайтесь свести его к минимуму. Представьте, что телефон установлен на прямой горизонтальной направляющей и может только скользить. Поворот внутрь может вызвать эффект ракурса, из-за которого углы будет трудно склеить.</value>
+  </data>
+  <data name="Page.Tips.Window" xml:space="preserve">
+    <value>Добавьте рамку и обрежьте, чтобы получилось мощное стереоокно.</value>
+  </data>
+  <data name="Page.Tips.Window.Body" xml:space="preserve">
+    <value>Интересный эффект стереоокна можно создать, выполнив две вещи: 1) включить границу (на странице «Настройки») и 2) для перекрестного просмотра обрезать внутренние края изображений до тех пор, пока сам внешний край не станет трехмерным на изображении (обрезать ВНЕШНИЕ края, если вы смотрите параллельно). Ключ в том, чтобы обрезать правый край левого изображения немного дальше того, что показывает правый край правого изображения сцены, и наоборот. Добавление границы переключается на странице настроек. Если это сбивает с толку, просто обрежьте часть внутренних краев, и все станет ясно. Кнопка обрезки внутренних краев выглядит следующим образом:</value>
+  </data>
+  <data name="Button.Code" xml:space="preserve">
+    <value>См. Кодекс</value>
+  </data>
+  <data name="Button.Developer" xml:space="preserve">
+    <value>О разработчике</value>
+  </data>
+  <data name="Button.EmailMe" xml:space="preserve">
+    <value>Напиши мне</value>
+  </data>
+  <data name="Button.GitHub" xml:space="preserve">
+    <value>Добавить проблему на GitHub</value>
+  </data>
+  <data name="Button.Press" xml:space="preserve">
+    <value>Вернитесь к экрану камеры на обоих устройствах и нажмите кнопку сопряжения в нижнем углу.</value>
+  </data>
+  <data name="Button.Primary" xml:space="preserve">
+    <value>НАЖМИТЕ ЗДЕСЬ НА ОСНОВНОЙ</value>
+  </data>
+  <data name="Button.Privacy" xml:space="preserve">
+    <value>политика конфиденциальности</value>
+  </data>
+  <data name="Button.Secondary" xml:space="preserve">
+    <value>НАЖМИТЕ ЗДЕСЬ НА ВТОРИЧНОМ</value>
+  </data>
+  <data name="Button.Test" xml:space="preserve">
+    <value>Тестирование предварительных версий</value>
+  </data>
+  <data name="Button.Wi-Fi" xml:space="preserve">
+    <value>Убедитесь, что Wi-Fi включен на обоих устройствах (но его не нужно ни к чему подключать)</value>
+  </data>
+  <data name="Page.Pairing.1" xml:space="preserve">
+    <value>Если у вас есть два устройства с установленной CrossCam, вы можете соединить их, чтобы делать фотографии одновременно с двух точек зрения. Одновременная съемка двух фотографий позволяет получить наилучшие стереограммы.
+
+Имейте в виду, что эта функция все еще является экспериментальной и может иметь проблемы. Он может работать не всегда идеально и может разряжать аккумулятор. Также имейте в виду, что в настоящее время для подключения устройства должны иметь одну и ту же платформу (как Android, так и iOS).
+
+Один из способов добиться *идеальной* синхронизации с использованием только одного устройства и CrossCam — использовать метод «однократного зеркала». Вы можете включить его на странице настроек и прочитать об этом на странице часто задаваемых вопросов.
+
+Прежде чем два устройства смогут использоваться вместе, им необходимо назначить их роли. ОСНОВНОЕ устройство — это то, которое будет отображать оба предварительного просмотра, запускать захват и удерживать/сохранять окончательные снимки. Чтобы назначить роли, перейдите на эту страницу для обоих устройств, а затем выполните следующие действия:</value>
+  </data>
+  <data name="Page.Pairing.2" xml:space="preserve">
+    <value>Если у вас возникли проблемы, ПОЖАЛУЙСТА, ОБРАТИТЕ ВНИМАНИЕ:
+ • После начала процесса сопряжения кнопку сопряжения можно в любой момент нажать еще раз, чтобы остановить его или отключиться.
+ • Может помочь остановить сопряжение на обоих устройствах и перезапустить его одновременно.
+ • Возможно, вам поможет отключиться от сети Wi-Fi или сети передачи данных в случае сбоя в работе сети.
+ • Все камеры разные. Эти различия могут включать угловое поле зрения, фокус, экспозицию и поведение баланса белого, время и многое другое. Даже два телефона одной и той же модели будут вести себя немного по-разному. Я предпочитаю использовать пару одинаковых старых телефонов (в моем случае пару iPhone 6).
+ • CrossCam — это программное обеспечение, а не аппаратное обеспечение, поэтому съемка фотографий может быть немного рассинхронизирована в зависимости от того, что еще делают процессоры и память в конкретный момент запуска съемки. В результате синхронизация иногда может быть не идеальной, но в целом она должна быть очень близкой.</value>
+  </data>
+  <data name="Page.Pairing.Again" xml:space="preserve">
+    <value>Чтобы подключиться позже, убедитесь, что у вас включен Wi-Fi, а затем просто нажмите кнопку подключения на главном экране на обоих устройствах.</value>
+  </data>
+  <data name="Page.Pairing.LocalNetworkAccess" xml:space="preserve">
+    <value>CrossCam требует разрешения на доступ к локальной сети. CrossCam фактически не использует локальную сеть, но iOS требует, чтобы CrossCam получил это разрешение, чтобы использовать антенну Wi-Fi для сканирования устройств. CrossCam запросит это разрешение один раз — если в разрешении отказано, вам придется пойти и самостоятельно переключить переключатель в приложении «Настройки».</value>
+  </data>
+  <data name="Page.Pairing.Location" xml:space="preserve">
+    <value>CrossCam запросит разрешения и включит компоненты, необходимые для подключения ваших устройств. Обратите внимание: для подключения к дополнительному устройству CrossCam требуется разрешение на определение местоположения и включение служб определения местоположения на основном устройстве. Это просто требование Android и полностью вне моего контроля. CrossCam на самом деле никоим образом не ИСПОЛЬЗУЕТ ваше местоположение, но поскольку поиск (и обнаружение) близлежащих устройств теоретически может быть использован для примерного определения вашего местоположения, CrossCam требует разрешения на доступ к вашему местоположению.</value>
+  </data>
+  <data name="Page.Pairing.Permissions" xml:space="preserve">
+    <value>Примечание о разрешениях:</value>
+  </data>
+  <data name="Page.Pairing.Title" xml:space="preserve">
+    <value>Сопряжение</value>
+  </data>
+  <data name="Button.Back" xml:space="preserve">
+    <value>&lt; Назад</value>
+  </data>
+  <data name="Page.MorePictures.CrossViewSubreddit" xml:space="preserve">
+    <value>Субреддит CrossView</value>
+  </data>
+  <data name="Page.MorePictures.FacebookGroup" xml:space="preserve">
+    <value>Стереоскопическое 3D Группа в Facebook</value>
+  </data>
+  <data name="Page.MorePictures.GoogleDoc" xml:space="preserve">
+    <value>Google Документ с отличными вещами</value>
+  </data>
+  <data name="Page.MorePictures.Instagram" xml:space="preserve">
+    <value>Стереоскопический тег Instagram</value>
+  </data>
+  <data name="Page.MorePictures.Mine" xml:space="preserve">
+    <value>Посмотреть фотографии, которые я сделал</value>
+  </data>
+  <data name="Page.MorePictures.ParallelViewSubreddit" xml:space="preserve">
+    <value>Субреддит ParallelView</value>
+  </data>
+  <data name="Page.Settings.Alignment" xml:space="preserve">
+    <value>Автоматическое выравнивание</value>
+  </data>
+  <data name="Page.Settings.Analytics" xml:space="preserve">
+    <value>Делитесь анонимными данными об использовании и ошибках, чтобы помочь улучшить CrossCam.</value>
+  </data>
+  <data name="Page.Settings.Border" xml:space="preserve">
+    <value>Граница</value>
+  </data>
+  <data name="Page.Settings.Camera" xml:space="preserve">
+    <value>Камера</value>
+  </data>
+  <data name="Page.Settings.Defaults" xml:space="preserve">
+    <value>Сброс к настройкам по умолчанию</value>
+  </data>
+  <data name="Page.Settings.Editing" xml:space="preserve">
+    <value>Редактирование</value>
+  </data>
+  <data name="Page.Settings.ErrorEmail" xml:space="preserve">
+    <value>Запрос на отправку электронной почты при возникновении ошибок</value>
+  </data>
+  <data name="Page.Settings.Guides" xml:space="preserve">
+    <value>Захват направляющих</value>
+  </data>
+  <data name="Page.Settings.Pairing" xml:space="preserve">
+    <value>Сопряжение</value>
+  </data>
+  <data name="Page.Settings.Preview" xml:space="preserve">
+    <value>Метод предварительного просмотра</value>
+  </data>
+  <data name="Page.Settings.Saving" xml:space="preserve">
+    <value>Сохранение</value>
+  </data>
+  <data name="Page.TipMe.1" xml:space="preserve">
+    <value>CrossCam бесплатен в использовании, не содержит рекламы, имеет открытый исходный код, не собирает от вас никакой личной информации и предоставляет вам полный доступ ко всем функциям. Мне нравится работать над CrossCam, но это требует много времени и усилий. Я вообще не зарабатываю денег на CrossCam, за исключением чаевых, которые люди могут мне прислать.</value>
+  </data>
+  <data name="Page.TipMe.2" xml:space="preserve">
+    <value>Если вам нравится CrossCam и вы можете это сделать, пожалуйста, подумайте о том, чтобы отправить мне совет.</value>
+  </data>
+  <data name="Page.TipMe.Ko-fi" xml:space="preserve">
+    <value>Ко-фи</value>
+  </data>
+  <data name="Page.TipMe.Patreon" xml:space="preserve">
+    <value>Патреон</value>
+  </data>
+  <data name="Page.TipMe.PayPal" xml:space="preserve">
+    <value>PayPal</value>
+  </data>
+  <data name="Page.TipMe.Tipped" xml:space="preserve">
+    <value>мне дали чаевые</value>
+  </data>
+  <data name="Page.TipMe.TippedTimes" xml:space="preserve">
+    <value>раз, всего</value>
+  </data>
+  <data name="Page.TipMe.Venmo" xml:space="preserve">
+    <value>Венмо</value>
+  </data>
+  <data name="Title.MorePictures" xml:space="preserve">
+    <value>Посмотреть больше фотографий</value>
+  </data>
+  <data name="Title.Settings" xml:space="preserve">
+    <value>Настройки</value>
+  </data>
+  <data name="Title.TipMe" xml:space="preserve">
+    <value>Советы приветствуются!</value>
+  </data>
+  <data name="Settings.Alignment.Advanced" xml:space="preserve">
+    <value>Показать расширенные настройки выравнивания</value>
+  </data>
+  <data name="Settings.Alignment.Ecc" xml:space="preserve">
+    <value>Всегда старайтесь сначала использовать выравнивание ECC.</value>
+  </data>
+  <data name="Settings.Alignment.Keypoints" xml:space="preserve">
+    <value>Всегда старайтесь сначала использовать выравнивание по ключевым точкам.</value>
+  </data>
+  <data name="Settings.Alignment.On" xml:space="preserve">
+    <value>Автоматическое выравнивание после захвата</value>
+  </data>
+  <data name="Settings.Border.Color" xml:space="preserve">
+    <value>Цвет границы</value>
+  </data>
+  <data name="Settings.Border.FuseGuide" xml:space="preserve">
+    <value>Добавьте направляющую предохранителя сверху (точка над каждой стороной)</value>
+  </data>
+  <data name="Settings.Border.On" xml:space="preserve">
+    <value>Добавить границу</value>
+  </data>
+  <data name="Settings.Border.Prompt" xml:space="preserve">
+    <value>Запрос на обрезку границы при обнаружении во время загрузки</value>
+  </data>
+  <data name="Settings.Border.Thickness" xml:space="preserve">
+    <value>Толщина границы (десятые доли процента ширины)</value>
+  </data>
+  <data name="Settings.Camera.Camera1" xml:space="preserve">
+    <value>Force camera1 API (может быть полезно, если вы столкнулись со странностями, но это приведет к ограничению функциональности, для вступления в силу требуется принудительное завершение/перезапуск)</value>
+  </data>
+  <data name="Settings.Camera.Camera2" xml:space="preserve">
+    <value>Force camera2 API (должен быть на Android 6 или более поздней версии, может быть полезно, если у вас возникают ошибки, но может возникнуть больше, для вступления в силу требуется принудительное завершение работы/перезапуск)</value>
+  </data>
+  <data name="Settings.Camera.LandscapeCaptureHorizontal" xml:space="preserve">
+    <value>Кнопка съемки пейзажа, горизонтальное расположение</value>
+  </data>
+  <data name="Settings.Camera.LandscapeCaptureVertical" xml:space="preserve">
+    <value>Кнопка съемки пейзажа, вертикальное расположение</value>
+  </data>
+  <data name="Settings.Camera.Lock" xml:space="preserve">
+    <value>Заблокируйте фокус и экспозицию для второго снимка, чтобы фокус и экспозиция с первого снимка</value>
+  </data>
+  <data name="Settings.Camera.Pair" xml:space="preserve">
+    <value>Горизонтальное расположение кнопки сопряжения (когда кнопка захвата находится по центру)</value>
+  </data>
+  <data name="Settings.Camera.PointFocus" xml:space="preserve">
+    <value>Коснитесь, чтобы навести фокус, коснитесь дважды, чтобы вернуться к непрерывному фокусу (или сохранить или очистить).</value>
+  </data>
+  <data name="Settings.Camera.PortraitCapture" xml:space="preserve">
+    <value>Расположение кнопки портретной съемки</value>
+  </data>
+  <data name="Settings.Editing.Align" xml:space="preserve">
+    <value>Максимальная пропорция вертикального выравнивания</value>
+  </data>
+  <data name="Settings.Editing.Keystone" xml:space="preserve">
+    <value>Максимальное трапецеидальное искажение</value>
+  </data>
+  <data name="Settings.Editing.Rotation" xml:space="preserve">
+    <value>Максимальные градусы вращения</value>
+  </data>
+  <data name="Settings.Editing.SideCrop" xml:space="preserve">
+    <value>Максимальная доля боковых культур</value>
+  </data>
+  <data name="Settings.Editing.TopCrop" xml:space="preserve">
+    <value>Максимальная пропорция верхней/нижней обрезки</value>
+  </data>
+  <data name="Settings.Editing.Zoom" xml:space="preserve">
+    <value>Максимальный масштаб масштабирования</value>
+  </data>
+  <data name="Settings.Guides.Donut" xml:space="preserve">
+    <value>Показать кольцевую направляющую (приведет к схождению, поэтому может потребоваться редактирование трапецеидальных искажений)</value>
+  </data>
+  <data name="Settings.Guides.Fuse" xml:space="preserve">
+    <value>Показать направляющую предохранителя (точка над каждой стороной)</value>
+  </data>
+  <data name="Settings.Guides.LineColor" xml:space="preserve">
+    <value>Разноцветные линии</value>
+  </data>
+  <data name="Settings.Guides.Lines" xml:space="preserve">
+    <value>Видны линии</value>
+  </data>
+  <data name="Settings.Guides.Roll" xml:space="preserve">
+    <value>Направляющая рулона видна</value>
+  </data>
+  <data name="Settings.Pair.CaptureDelay" xml:space="preserve">
+    <value>Дополнительная задержка момента захвата (мс) (добавляет дополнительную задержку к целевому моменту захвата только на этом устройстве)</value>
+  </data>
+  <data name="Settings.Pair.Countdown" xml:space="preserve">
+    <value>Продолжительность обратного отсчета захвата (таймер)</value>
+  </data>
+  <data name="Settings.Pair.Fov" xml:space="preserve">
+    <value>Коррекция поля зрения</value>
+  </data>
+  <data name="Settings.Pair.FovNotSet" xml:space="preserve">
+    <value>Коррекция поля зрения не установлена ​​(сделайте снимок с помощью сопряженных устройств, чтобы пройти настройку).</value>
+  </data>
+  <data name="Settings.Pair.FovReset" xml:space="preserve">
+    <value>Перезагрузить</value>
+  </data>
+  <data name="Settings.Pair.Go" xml:space="preserve">
+    <value>Перейти на страницу настройки сопряжения</value>
+  </data>
+  <data name="Settings.Pair.NoRole" xml:space="preserve">
+    <value>Роль не выбрана</value>
+  </data>
+  <data name="Settings.Pair.PreviewDelay" xml:space="preserve">
+    <value>Задержка кадра предварительного просмотра (более высокое значение приведет к снижению частоты кадров, но сэкономит батарею)</value>
+  </data>
+  <data name="Settings.Pair.Primary" xml:space="preserve">
+    <value>Начальный:</value>
+  </data>
+  <data name="Settings.Pair.PrimaryRole" xml:space="preserve">
+    <value>Роль: Основная</value>
+  </data>
+  <data name="Settings.Pair.Sample" xml:space="preserve">
+    <value>Количество выборок тактового сигнала (меньшее число уменьшит время, необходимое для начальной синхронизации, но может снизить точность синхронизации)</value>
+  </data>
+  <data name="Settings.Pair.Secondary" xml:space="preserve">
+    <value>Вторичный:</value>
+  </data>
+  <data name="Settings.Pair.SecondaryRole" xml:space="preserve">
+    <value>Роль: Второстепенная</value>
+  </data>
+  <data name="Settings.Pair.Timeout" xml:space="preserve">
+    <value>Тайм-аут соединения (секунды) (0 означает отсутствие тайм-аута)</value>
+  </data>
+  <data name="Settings.Preview.Barrel" xml:space="preserve">
+    <value>Добавить коррекцию объектива/бочкообразную дисторсию (может снизить частоту кадров)</value>
+  </data>
+  <data name="Settings.Preview.BarrelFinal" xml:space="preserve">
+    <value>Добавляйте коррекцию объектива/бочкообразное искажение только к окончательным изображениям (может замедлить окончательное отображение, но ускорит съемку)</value>
+  </data>
+  <data name="Settings.Preview.CardboardDistance" xml:space="preserve">
+    <value>Расстояние между картоном</value>
+  </data>
+  <data name="Settings.Preview.Downsize" xml:space="preserve">
+    <value>Уменьшить размер изображения (может увеличиться частота кадров)</value>
+  </data>
+  <data name="Settings.Preview.DownsizePercent" xml:space="preserve">
+    <value>Уменьшить процент изображения</value>
+  </data>
+  <data name="Settings.Preview.Immersive" xml:space="preserve">
+    <value>Захватывающий финальный просмотр</value>
+  </data>
+  <data name="Settings.Preview.LensStrength" xml:space="preserve">
+    <value>Сила коррекции линзы</value>
+  </data>
+  <data name="Settings.Preview.Mirror" xml:space="preserve">
+    <value>Съемка с использованием метода разделения зеркала по одному кадру.</value>
+  </data>
+  <data name="Settings.Preview.Width" xml:space="preserve">
+    <value>Максимальная ширина изображения при параллельном просмотре (точек)</value>
+  </data>
+  <data name="Settings.Reset" xml:space="preserve">
+    <value>Сброс к настройкам по умолчанию</value>
+  </data>
+  <data name="Settings.Saving.Alone" xml:space="preserve">
+    <value>Сохраняйте только первую сторону (без изменений и рамок) (чтобы легко делиться плоской фотографией с людьми, имеющими плоское представление)</value>
+  </data>
+  <data name="Settings.Saving.Anaglyph" xml:space="preserve">
+    <value>Сохранить красно-голубую анаглифную версию (с изменениями, но без рамки)</value>
+  </data>
+  <data name="Settings.Saving.Browse" xml:space="preserve">
+    <value>Просматривать...</value>
+  </data>
+  <data name="Settings.Saving.Cardboard" xml:space="preserve">
+    <value>Сохранить для картона (с изменениями, без границ, без интервалов, на всю ширину, для последующей загрузки в CrossCam)</value>
+  </data>
+  <data name="Settings.Saving.Clear" xml:space="preserve">
+    <value>Автоматически очищать снимки после сохранения</value>
+  </data>
+  <data name="Settings.Saving.Cross" xml:space="preserve">
+    <value>Сохранить объединенную версию перекрестного просмотра (с изменениями и рамкой)</value>
+  </data>
+  <data name="Settings.Saving.ExternalDirectory" xml:space="preserve">
+    <value>Сохраните во внешнюю директорию CrossCam по адресу:</value>
+  </data>
+  <data name="Settings.Saving.ExternalWarning" xml:space="preserve">
+    <value>(внимание: изображения будут удалены, если CrossCam будет удален)</value>
+  </data>
+  <data name="Settings.Saving.Folder" xml:space="preserve">
+    <value>Сохраните в специальную подпапку/альбом «CrossCam».</value>
+  </data>
+  <data name="Settings.Saving.Grayscale" xml:space="preserve">
+    <value>Сохранить анаглифную версию в оттенках серого (красный/голубой) (с изменениями, но без рамки)</value>
+  </data>
+  <data name="Settings.Saving.Order" xml:space="preserve">
+    <value>(Сохранение будет происходить по порядку сверху вниз)</value>
+  </data>
+  <data name="Settings.Saving.Parallel" xml:space="preserve">
+    <value>Сохранить объединенную версию параллельного вида (с изменениями и рамкой)</value>
+  </data>
+  <data name="Settings.Saving.Quad" xml:space="preserve">
+    <value>Сохранить комбинацию четырехугольников (с изменениями и рамкой)</value>
+  </data>
+  <data name="Settings.Saving.Reset" xml:space="preserve">
+    <value>Перезагрузить</value>
+  </data>
+  <data name="Settings.Saving.Resolution" xml:space="preserve">
+    <value>Пропорция разрешения</value>
+  </data>
+  <data name="Settings.Saving.SaveTo" xml:space="preserve">
+    <value>Сохранить в:</value>
+  </data>
+  <data name="Settings.Saving.Separate" xml:space="preserve">
+    <value>Сохраните каждую сторону отдельно (без изменений и рамок для упрощения постобработки, сначала сохраняется левая сторона)</value>
+  </data>
+  <data name="Settings.Saving.Subfolder" xml:space="preserve">
+    <value>Сохраняйте в специальные подпапки/альбомы "CrossCam_{ViewMethod}".</value>
+  </data>
+  <data name="Settings.Saving.Triple" xml:space="preserve">
+    <value>Сохранить тройную комбинацию (с правками и рамкой)</value>
+  </data>
+  <data name="Button.Pair.Accept" xml:space="preserve">
+    <value>Принимать</value>
+  </data>
+  <data name="Button.Pair.Cancel" xml:space="preserve">
+    <value>Отмена</value>
+  </data>
+  <data name="Page.Camera.AcceptConnection" xml:space="preserve">
+    <value>Примите подключение к</value>
+  </data>
+  <data name="Page.Camera.Confirm" xml:space="preserve">
+    <value>Убедитесь, что код совпадает на обоих устройствах:</value>
+  </data>
+  <data name="Page.Footer.CouldntOpen" xml:space="preserve">
+    <value>Не удалось открыть ссылку</value>
+  </data>
+  <data name="Page.Footer.OpenError" xml:space="preserve">
+    <value>Ссылка mailto не может быть открыта. Это может быть связано с тем, что ваш почтовый клиент не настроен или по какой-либо другой причине.</value>
+  </data>
+  <data name="Page.Pair.Errors.Denied" xml:space="preserve">
+    <value>Необходимые разрешения для сопряжения не были предоставлены. Исключение:</value>
+  </data>
+  <data name="Page.Pair.Errors.FailedBluetooth" xml:space="preserve">
+    <value>На устройстве не удалось включить Bluetooth. Исключение:</value>
+  </data>
+  <data name="Page.Pair.Errors.FailedSearch" xml:space="preserve">
+    <value>Устройству не удалось выполнить поиск устройств. Исключение:</value>
+  </data>
+  <data name="Page.Pair.Errors.LocationOff" xml:space="preserve">
+    <value>Службы определения местоположения не активированы. Невозможно выполнить поиск устройств. Дополнительную информацию см. на странице сопряжения.</value>
+  </data>
+  <data name="Page.Pair.Errors.LocationScan" xml:space="preserve">
+    <value>Разрешение на определение местоположения не предоставлено. Невозможно выполнить поиск устройств. Дополнительную информацию см. на странице сопряжения.</value>
+  </data>
+  <data name="Page.Pair.Errors.NotSupported" xml:space="preserve">
+    <value>Сопряжение не поддерживается на этом устройстве. Исключение:</value>
+  </data>
+  <data name="Page.Pair.Errors.Title" xml:space="preserve">
+    <value>Ошибка</value>
+  </data>
+  <data name="Page.Pair.Errors.WifiOff" xml:space="preserve">
+    <value>Wi-Fi отключен. Пожалуйста, включите Wi-Fi.</value>
+  </data>
+  <data name="Page.Pair.PrimaryExplanation" xml:space="preserve">
+    <value>Теперь это устройство установлено как основное.</value>
+  </data>
+  <data name="Page.Pair.PrimarySelected" xml:space="preserve">
+    <value>Выбрана основная роль</value>
+  </data>
+  <data name="Page.Pair.SecondaryExplanation" xml:space="preserve">
+    <value>Теперь это устройство установлено как вторичное.</value>
+  </data>
+  <data name="Page.Pair.SecondarySelected" xml:space="preserve">
+    <value>Выбрана второстепенная роль</value>
+  </data>
+  <data name="Page.Technique.Mode" xml:space="preserve">
+    <value>режим.</value>
+  </data>
+  <data name="Page.Technique.SetMode" xml:space="preserve">
+    <value>CrossCam теперь доступен</value>
+  </data>
+</root>

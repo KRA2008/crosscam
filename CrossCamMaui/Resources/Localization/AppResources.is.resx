@@ -1,0 +1,1156 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="Button.GoogleDoc" xml:space="preserve">
+    <value>Google Doc of Great Stuff</value>
+  </data>
+  <data name="Button.LearnCross" xml:space="preserve">
+    <value>LÆRÐU KROSS</value>
+  </data>
+  <data name="Button.LearnParallel" xml:space="preserve">
+    <value>LÆRÐU SAMBANDI</value>
+  </data>
+  <data name="Button.MorePictures" xml:space="preserve">
+    <value>Sjá fleiri myndir</value>
+  </data>
+  <data name="Button.Review" xml:space="preserve">
+    <value>Skrifaðu umsögn</value>
+  </data>
+  <data name="Button.Share" xml:space="preserve">
+    <value>Deildu CrossCam</value>
+  </data>
+  <data name="Button.Support" xml:space="preserve">
+    <value>Styðjið þróunaraðilann</value>
+  </data>
+  <data name="Button.TapCross" xml:space="preserve">
+    <value>ÝTTU HÉR TIL AÐ VELJA KROSS</value>
+  </data>
+  <data name="Button.TapParallel" xml:space="preserve">
+    <value>ÝTTU HÉR TIL AÐ VELJA PARALLEL</value>
+  </data>
+  <data name="Footer.Span1" xml:space="preserve">
+    <value>Fannstu villu? Ertu með spurningu? Bara tölvupóstur</value>
+  </data>
+  <data name="Footer.Span3" xml:space="preserve">
+    <value>! Ég elska að tala við notendur og það er fljótlegasta leiðin til að eiga samskipti við mig.</value>
+  </data>
+  <data name="Page.HowToUse.2anaglyph" xml:space="preserve">
+    <value>2) Byrjaðu að skoða fyrstu myndina með forskoðuninni sem birtist við hliðina á henni.</value>
+  </data>
+  <data name="Page.HowToUse.2cardboard" xml:space="preserve">
+    <value>2) Byrjaðu á pappa að skoða fyrstu myndina með forsýningunni sem birtist við hliðina á henni.</value>
+  </data>
+  <data name="Page.HowToUse.2cross" xml:space="preserve">
+    <value>2) Byrjaðu að skoða fyrstu myndina með forskoðuninni sem birtist við hliðina á henni.</value>
+  </data>
+  <data name="Page.HowToUse.2parallel" xml:space="preserve">
+    <value>2) Byrjaðu að skoða fyrstu myndina samhliða með forskoðuninni sem birtist við hliðina á henni.</value>
+  </data>
+  <data name="Page.Technique.AdditionalTutorials" xml:space="preserve">
+    <value>Viðbótarnámskeið:</value>
+  </data>
+  <data name="Page.Technique.Cross1" xml:space="preserve">
+    <value>Farðu varlega yfir augun þegar þú horfir á myndirnar hér að ofan. Þegar þú krossar augun verða hlutirnir óskýrir og í gegn og þú munt byrja að sjá 4 myndir í stað 2 (2 pör). Því harðar sem þú krossar augun, því lengra á milli munu myndapörin færast - það mun líta svolítið svona út:</value>
+  </data>
+  <data name="Page.Technique.Cross2" xml:space="preserve">
+    <value>Krossaðu augun varlega, svo að myndirnar innan á hverju pari fari að skarast. Það mun byrja að líta út eins og það séu bara 3 myndir í stað 4. Það verður samt óskýrt og í gegn og lítur einhvern veginn svona út:</value>
+  </data>
+  <data name="Page.Technique.Cross3" xml:space="preserve">
+    <value>Þegar þú hefur miðja skörunina virka þarftu bara að slaka á augunum og leyfa þeim að fókusa myndina. Á þeim tímapunkti muntu hafa eina skarpa þrívíddarmynd í miðjunni með gagnsæri mynd sem svífur á hvorri hlið sem mun líta svona út (nema miðjan verður þrívídd):</value>
+  </data>
+  <data name="Page.Technique.Cross4" xml:space="preserve">
+    <value>Ef þú átt í vandræðum með að krossleggja augun geturðu líka prófað að stara á fingurinn á meðan þú heldur honum hálfa leið á milli augnanna og skjásins. Þú ættir að sjá myndirnar byrja að aðskiljast og skarast á bak við fingur þinn.</value>
+  </data>
+  <data name="Page.Technique.CrossViewing" xml:space="preserve">
+    <value>Krossskoðun</value>
+  </data>
+  <data name="Page.Technique.P1" xml:space="preserve">
+    <value>Ef þú vilt sjá þetta aftur, ýttu á hamborgaratáknið (þrjár línur) efst til vinstri á myndavélarskjánum og ýttu á „Hjálp“.
+
+Til að sjá 3D í CrossCam (kallað „stereograms“) geturðu notað rauð/blár þrívíddargleraugu, Google Cardboard skoðara, eða þú getur skoðað „ókeypis“ með því að nota aðeins augun og skjáinn. Það eru tvær leiðir til að frjálsa sýn og CrossCam getur hjálpað þér að læra þær báðar. Þú þarft að segja CrossCam hvernig þú ætlar að skoða myndirnar annars virkar það ekki rétt. Ekki hafa áhyggjur, þú getur alltaf breytt þessu aftur í stillingum.
+
+Ef þú ert fær um að krossa augun á þægilegan hátt, ættir þú að prófa krossaðferðina fyrst, annars ættirðu að prófa samhliða aðferðina. Ef þú ert vanur Magic Eye™ bókum ertu líklega nú þegar fær um að gera samhliða aðferðina, en þú gætir líka gert krossaðferðina. Pikkaðu á aðferð hér að neðan til að læra hana og vertu viss um að segja CrossCam hvaða aðferð virkar fyrir þig með því að ýta á samsvarandi VELJA hnapp.
+
+Ef þú vilt frekar nota þrívíddargleraugu eða Cardboard skoðara geturðu stillt CrossCam til að nota þau á stillingasíðunni.</value>
+  </data>
+  <data name="Page.Technique.CrossLink1" xml:space="preserve">
+    <value>Fín textakennsla</value>
+  </data>
+  <data name="Page.Technique.CrossLink2" xml:space="preserve">
+    <value>Enn ein ágætur textakennsla</value>
+  </data>
+  <data name="Page.Technique.CrossLink3" xml:space="preserve">
+    <value>Stutt YouTube kennsluefni</value>
+  </data>
+  <data name="Page.Technique.CrossLink4" xml:space="preserve">
+    <value>Langt, skrítið en gagnlegt YouTube kennsluefni</value>
+  </data>
+  <data name="Page.Technique.CrossLink5" xml:space="preserve">
+    <value>Annað YouTube kennsluefni</value>
+  </data>
+  <data name="Page.Technique.CrossLink6" xml:space="preserve">
+    <value>Tvöföld myndavélarverkefni með kennslu</value>
+  </data>
+  <data name="Page.Technique.Parallel1" xml:space="preserve">
+    <value>Ef myndin hér að ofan passar ekki á skjáinn þinn, snúðu símanum þínum í landslag - CrossCam er að reyna að gera myndparið yfir auðveldustu stærðinni fyrir þetta. Þú þarft ekki alltaf að nota CrossCam í landslagi, en fullkomlega stór mynd auðveldar að læra tæknina.</value>
+  </data>
+  <data name="Page.Technique.Parallel2" xml:space="preserve">
+    <value>Slakaðu á augunum og horfðu „í gegnum“ myndparið hér að ofan eins og þú sért að skipta um svæði með augun sem vísa á myndirnar. Þú ættir að byrja að sjá 3 myndir með þrívíddarmynd í miðjunni, svolítið svona:</value>
+  </data>
+  <data name="Page.Technique.Parallel3" xml:space="preserve">
+    <value>Ef þú byrjar að sjá 4 myndir hefurðu gengið of langt. Reyndu að hreyfa augun aðeins í kringum þig ef þú finnur þig á þeim tímapunkti aftur. Að slaka á of langt mun líta svolítið svona út:</value>
+  </data>
+  <data name="Page.Technique.Parallel4" xml:space="preserve">
+    <value>Ef þú ert í vandræðum, reyndu að stilla skjánum upp að andlitinu með myndparið beint fyrir framan augun á þér. Slakaðu á og horfðu „í gegnum“ skjáinn og dragðu síðan skjáinn rólega frá andlitinu á meðan þú hefur augun slaka á. Að lokum ætti myndin að "smella" í fókus.</value>
+  </data>
+  <data name="Page.Technique.Parallel5" xml:space="preserve">
+    <value>Ef þú heldur áfram að sjá fjórar myndir skaltu auka „Hámarksbreidd samhliða myndar“ á stillingasíðunni.</value>
+  </data>
+  <data name="Page.Technique.ParallelViewing" xml:space="preserve">
+    <value>SÍÐANDI ÚTSÝNING</value>
+  </data>
+  <data name="Page.Technique.Practice" xml:space="preserve">
+    <value>Myndir sem ég hef gert sem þú getur æft þig á</value>
+  </data>
+  <data name="Title.Contact" xml:space="preserve">
+    <value>Hafðu samband</value>
+  </data>
+  <data name="Title.Faq" xml:space="preserve">
+    <value>Algengar spurningar</value>
+  </data>
+  <data name="Title.Help" xml:space="preserve">
+    <value>Hjálp</value>
+  </data>
+  <data name="Title.HowToUse" xml:space="preserve">
+    <value>Hvernig á að nota CrossCam</value>
+  </data>
+  <data name="Title.Technique" xml:space="preserve">
+    <value>3D skoðunartækni</value>
+  </data>
+  <data name="Title.Tips" xml:space="preserve">
+    <value>Ábendingar</value>
+  </data>
+  <data name="Button.DoNotEmailMe" xml:space="preserve">
+    <value>Ekki senda mér tölvupóst núna</value>
+  </data>
+  <data name="Button.EmailMeNow" xml:space="preserve">
+    <value>Sendu mér tölvupóst núna</value>
+  </data>
+  <data name="Button.No" xml:space="preserve">
+    <value>Nei</value>
+  </data>
+  <data name="Button.OK" xml:space="preserve">
+    <value>Allt í lagi</value>
+  </data>
+  <data name="Button.YesClear" xml:space="preserve">
+    <value>Já, ljóst</value>
+  </data>
+  <data name="Page.Camera.Aligning" xml:space="preserve">
+    <value>Samræmir...</value>
+  </data>
+  <data name="Page.Camera.AlignmentBroken" xml:space="preserve">
+    <value>Sjálfvirk röðun er ekki studd á tækinu - slökktu á í stillingum.</value>
+  </data>
+  <data name="Page.Camera.AlignmentFailed" xml:space="preserve">
+    <value>Jöfnun mistókst.</value>
+  </data>
+  <data name="Page.Camera.BorderAsk" xml:space="preserve">
+    <value>Landamæri hafa fundist. Fjarlægja landamærin?</value>
+  </data>
+  <data name="Page.Camera.BorderDetected" xml:space="preserve">
+    <value>Landamæri greind</value>
+  </data>
+  <data name="Page.Camera.Cancel" xml:space="preserve">
+    <value>Hætta við</value>
+  </data>
+  <data name="Page.Camera.ChooseAction" xml:space="preserve">
+    <value>Veldu aðgerð:</value>
+  </data>
+  <data name="Page.Camera.DirectoryNotFound" xml:space="preserve">
+    <value>Skráin fannst ekki</value>
+  </data>
+  <data name="Page.Camera.DirectoryNotFoundExplain" xml:space="preserve">
+    <value>Vistað áfangastaðurinn fannst ekki. Vinsamlegast veldu annað á stillingasíðunni.</value>
+  </data>
+  <data name="Page.Camera.ErrorEmailBody" xml:space="preserve">
+    <value>Hvað gerðir þú rétt áður en villan átti sér stað? Vinsamlegast lýstu jafnvel litlu hlutunum.\n\n\n\n\n\nVirki CrossCam enn eftir villuna? Ef ekki, hvernig er það bilað?\n\n\n\n\n\n Gerist þetta endurtekið?\n\n\n\n\n\nGeturðu þvingað villuna til að gerast með skipun? Ef svo er, hvernig?\n\n\n\n\n\n</value>
+  </data>
+  <data name="Page.Camera.FlipForCardboard" xml:space="preserve">
+    <value>Snúðu til landslags þegar þú ert í pappaham.</value>
+  </data>
+  <data name="Page.Camera.FlipLarger" xml:space="preserve">
+    <value>(flettu yfir í landslag til að fá stærri mynd)</value>
+  </data>
+  <data name="Page.Camera.ForAnaglyph" xml:space="preserve">
+    <value>fyrir anaglyph</value>
+  </data>
+  <data name="Page.Camera.ForCardboard" xml:space="preserve">
+    <value>fyrir pappa</value>
+  </data>
+  <data name="Page.Camera.ForCross" xml:space="preserve">
+    <value>fyrir kross</value>
+  </data>
+  <data name="Page.Camera.ForParallel" xml:space="preserve">
+    <value>fyrir samhliða</value>
+  </data>
+  <data name="Page.Camera.GoPickRole" xml:space="preserve">
+    <value>Vinsamlegast farðu á pörunarsíðuna (í gegnum stillingasíðuna) og veldu pörunarhlutverk fyrir þetta tæki áður en þú reynir að para.</value>
+  </data>
+  <data name="Page.Camera.InvalidImage" xml:space="preserve">
+    <value>Ógild mynd</value>
+  </data>
+  <data name="Button.Camera.Keep" xml:space="preserve">
+    <value>Halda</value>
+  </data>
+  <data name="Page.Camera.LoadFullImage" xml:space="preserve">
+    <value>Hlaða fullri steríómynd</value>
+  </data>
+  <data name="Page.Camera.Loading" xml:space="preserve">
+    <value>Hleður...</value>
+  </data>
+  <data name="Page.Camera.LoadSingleSide" xml:space="preserve">
+    <value>Hlaða einhliða</value>
+  </data>
+  <data name="Page.Camera.ManualCorrections" xml:space="preserve">
+    <value>Vinsamlegast athugaðu handvirkar leiðréttingar líka.</value>
+  </data>
+  <data name="Page.Camera.MirrorOnLeft" xml:space="preserve">
+    <value>SPEGILL Á VINSTRI</value>
+  </data>
+  <data name="Page.Camera.MirrorOnRight" xml:space="preserve">
+    <value>SPEGILL TIL HÆGRI</value>
+  </data>
+  <data name="Page.Camera.MoveLeft" xml:space="preserve">
+    <value>FÆRÐU TIL VINSTRI</value>
+  </data>
+  <data name="Page.Camera.MoveRight" xml:space="preserve">
+    <value>FÆRÐU TIL HÆGRI</value>
+  </data>
+  <data name="Page.Camera.NoSaveModes" xml:space="preserve">
+    <value>Engar vistunarstillingar virkar</value>
+  </data>
+  <data name="Page.Camera.NoSaveModesExplain" xml:space="preserve">
+    <value>Engar vistunarstillingar eru nú kveiktar. Kveiktu á vistunarstillingu á stillingasíðunni.</value>
+  </data>
+  <data name="Page.Camera.Oops" xml:space="preserve">
+    <value>Úps</value>
+  </data>
+  <data name="Page.Camera.OrRotate" xml:space="preserve">
+    <value>(eða snúa)</value>
+  </data>
+  <data name="Page.Camera.OrSwipe" xml:space="preserve">
+    <value>(eða strjúktu)</value>
+  </data>
+  <data name="Page.Camera.PairRoleNotSelected" xml:space="preserve">
+    <value>Hlutverk par ekki valið</value>
+  </data>
+  <data name="Page.Camera.PinchOrDrag" xml:space="preserve">
+    <value>Klíptu eða dragðu til að kanna!</value>
+  </data>
+  <data name="Page.Camera.PleaseSelectValid" xml:space="preserve">
+    <value>Vinsamlegast veldu Jpeg, Png eða Webp mynd. Myndin sem þú valdir er</value>
+  </data>
+  <data name="Page.Camera.ReallyClear" xml:space="preserve">
+    <value>Virkilega skýrt?</value>
+  </data>
+  <data name="Button.Camera.Remove" xml:space="preserve">
+    <value>Fjarlægja</value>
+  </data>
+  <data name="Page.Camera.SavedToCustomFolder" xml:space="preserve">
+    <value>Vistað í sérsniðna möppu</value>
+  </data>
+  <data name="Page.Camera.SavedToExternal" xml:space="preserve">
+    <value>Vistað í ytri</value>
+  </data>
+  <data name="Page.Camera.SavedToPhotos" xml:space="preserve">
+    <value>Vistað í myndum</value>
+  </data>
+  <data name="Page.Camera.SaveFailed" xml:space="preserve">
+    <value>Mistókst að vista. :(</value>
+  </data>
+  <data name="Page.Camera.Saving" xml:space="preserve">
+    <value>Vistar...</value>
+  </data>
+  <data name="Page.Camera.SecondaryOnLeft" xml:space="preserve">
+    <value>AÐFÆRI TIL VINSTRI</value>
+  </data>
+  <data name="Page.Camera.SecondaryOnRight" xml:space="preserve">
+    <value>AÐHÆGRI HÆGRI</value>
+  </data>
+  <data name="Page.Camera.SelectedInvalid" xml:space="preserve">
+    <value>Valin mynd er ógild.</value>
+  </data>
+  <data name="Page.Camera.SorryError" xml:space="preserve">
+    <value>Því miður, CrossCam gerði villu. Villuskýrsla hefur verið send sjálfkrafa. Þú gætir alls ekki tekið eftir neinu athugavert, en ef þú gerir það skaltu prófa að endurræsa forritið. Ef þetta heldur áfram að gerast, vinsamlegast sendu mér tölvupóst og segðu mér frá því. (Farðu á stillingasíðuna til að stöðva þessa sprettiglugga.)</value>
+  </data>
+  <data name="Page.Camera.Steady" xml:space="preserve">
+    <value>Stöðugt...</value>
+  </data>
+  <data name="Page.Camera.SureClear" xml:space="preserve">
+    <value>Ertu viss um að þú viljir hreinsa myndirnar þínar og byrja upp á nýtt?</value>
+  </data>
+  <data name="Page.Camera.Syncing" xml:space="preserve">
+    <value>Samstillir...</value>
+  </data>
+  <data name="Page.Camera.Transmitting" xml:space="preserve">
+    <value>Sendir...
+(haltu tækinu ólæstu)</value>
+  </data>
+  <data name="Page.Camera.VR" xml:space="preserve">
+    <value>VR</value>
+  </data>
+  <data name="Page.FovCorrection" xml:space="preserve">
+    <value>Sjónsviðsleiðrétting</value>
+  </data>
+  <data name="Page.FovCorrectionExplain" xml:space="preserve">
+    <value>Mismunandi gerðir tækja geta haft mismunandi sjónarhorn. CrossCam mun hjálpa þér að leiðrétta þetta eftir að þú hefur tekið fyrstu myndatökuna þína. Rammaðu upp og taktu eitthvað með áberandi punktum nálægt toppi og neðst á rammanum og vertu viss um að punktarnir séu sýnilegir á báðum tækjum.</value>
+  </data>
+  <data name="Page.Technique.ParallelLink1" xml:space="preserve">
+    <value>Fín textakennsla</value>
+  </data>
+  <data name="Page.Technique.ParallelLink2" xml:space="preserve">
+    <value>Annar góður textakennsla</value>
+  </data>
+  <data name="Page.Technique.ParallelLink3" xml:space="preserve">
+    <value>Enn ANNAÐ gott textanámskeið</value>
+  </data>
+  <data name="Page.Technique.ParallelLink4" xml:space="preserve">
+    <value>Magic Frankfurter kennsluefni</value>
+  </data>
+  <data name="Page.Technique.ParallelLink5" xml:space="preserve">
+    <value>Fínt myndband um Magic Eye</value>
+  </data>
+  <data name="Page.Technique.Trouble" xml:space="preserve">
+    <value>Ef þú ert enn í vandræðum skaltu reyna að koma með símann í dimmt herbergi svo að það eina sem augun þín sjái vel og einbeiti þér að er myndin.
+
+Annað sem þú getur prófað er að nota klósettpappírsrör eða hendurnar til að gera það þannig að hvert auga geti aðeins séð hlið myndarinnar sem það á að sjá.
+ • Fyrir þversýn: Haltu einni túpu að nefbrúnni (miðju á milli augnanna) á meðan þú beinir henni að miðju myndarinnar fyrir framan þig. Færðu rörið hægt í átt að skjánum á meðan þú reynir að horfa niður í rörið með báðum augum. Þegar þú nærð réttri stöðu með rörinu ætti myndin að smella á sinn stað. Það getur hjálpað til við að einbeita sér að því að reyna að horfa á innri enda rörsins. Ef þú finnur ekki réttu stöðuna skaltu prófa að nota stærri mynd eða minni rör.
+ • Fyrir samhliða sýn: Haltu slöngu fyrir framan hvort auga, en beindu þeim báðum út til hliðar, svo þú sérð varla neitt. Snúðu rörunum hægt inn á sama tíma svo þú getir farið að sjá meira af myndinni. Um leið og þú sérð megnið af myndinni (næstum hálft með hvoru auga), reyndu að slaka á augunum og taktu helmingana saman. Það getur hjálpað að nota stærri eða minni mynd.
+
+Það er auðveld æfing sem þú getur gert til að æfa samruna með annað hvort kross- eða samhliða skoðun. Taktu tússlit og teiknaðu hluta af bros á hverja smámynd (eða par af íspýtupöstum eða tunguþrýstibúnaði). Til dæmis, á annarri hliðinni teiknaðu annað auga og munn, og á hinni hliðinni teiknaðu auga og nef. Þú getur síðan haldið þeim uppi fyrir framan þig og æft þig í að blanda saman myndunum tveimur til að fullkomna broskallinn.
+
+Ég persónulega vil frekar krossa yfir samhliða því myndir geta verið stærri, en báðar aðferðirnar virka. Ef þú vilt gera tilraunir með stærri samhliða myndir geturðu stjórnað stærðinni á Stillingar síðunni.
+
+Stundum er erfitt að finna hvort þú ert að gera krossinn eða samhliða aðferðina á meðan þú ert að gera það. Þú getur beðið einhvern annan að fylgjast með augunum þínum á meðan þú gerir það eða þú getur horft á myndina hér að neðan sem próf:</value>
+  </data>
+  <data name="SaveModes.Anaglyph" xml:space="preserve">
+    <value>Anaglyph</value>
+  </data>
+  <data name="SaveModes.Cardboard" xml:space="preserve">
+    <value>Pappi</value>
+  </data>
+  <data name="SaveModes.Cross" xml:space="preserve">
+    <value>Kross</value>
+  </data>
+  <data name="SaveModes.GrayscaleAnaglyph" xml:space="preserve">
+    <value>Grátóna Anaglyph</value>
+  </data>
+  <data name="SaveModes.Parallel" xml:space="preserve">
+    <value>Samhliða</value>
+  </data>
+  <data name="SaveModes.Quad" xml:space="preserve">
+    <value>Fjórðungur</value>
+  </data>
+  <data name="SaveModes.Separate" xml:space="preserve">
+    <value>Aðskilið</value>
+  </data>
+  <data name="SaveModes.Single" xml:space="preserve">
+    <value>Einhleypur</value>
+  </data>
+  <data name="SaveModes.Triple" xml:space="preserve">
+    <value>Þrefalt</value>
+  </data>
+  <data name="Page.Camera.FovExplain" xml:space="preserve">
+    <value>Til að leiðrétta fyrir mismun á sjónsviði skaltu þysja og renna myndunum þannig að sérstakir punktar séu á milli myndanna tveggja. Þú getur dregið hvítu línurnar í kring til að hjálpa þér að sjá röðunina. Þessi leiðrétting verður notuð á framtíðarforsýningar. Það verður vistað en þú getur endurstillt það á stillingasíðunni. Ef þú ert að nota eins tæki skaltu bara vista án þess að stilla.</value>
+  </data>
+  <data name="Page.Camera.FovTitle" xml:space="preserve">
+    <value>Sjónsviðsleiðrétting</value>
+  </data>
+  <data name="Page.Camera.KeyPoints" xml:space="preserve">
+    <value>Lykil atriði</value>
+  </data>
+  <data name="Page.Camera.Warped" xml:space="preserve">
+    <value>Skekktur</value>
+  </data>
+  <data name="Page.Camera.WelcomeExplain" xml:space="preserve">
+    <value>CrossCam var gert til að hjálpa þér að gera þrívíddarmyndir. Myndirnar eru þrívíddar alveg eins og VR eða þrívíddarmyndir, en þú þarft engan sérstakan búnað eða gleraugu - bara símann þinn (en ef þú ert með rauð/blár þrívíddargleraugu eða Google Cardboard skoðara geturðu notað þau með CrossCam líka). „ókeypis áhorf“ tæknin sem notar bara símann þinn og augun þarf smá æfingu til að læra. Áður en ég segi þér hvernig á að nota CrossCam, viltu fyrst læra meira um áhorfstæknina?</value>
+  </data>
+  <data name="Page.Camera.Welcome" xml:space="preserve">
+    <value>Velkomin í CrossCam!</value>
+  </data>
+  <data name="Page.Camera.Directions" xml:space="preserve">
+    <value>Fara í leiðarlýsingu</value>
+  </data>
+  <data name="Page.Camera.Technique" xml:space="preserve">
+    <value>Skoðunartækni</value>
+  </data>
+  <data name="Page.HowToUse.P1" xml:space="preserve">
+    <value>Ef þú vilt sjá þetta aftur, ýttu á hamborgaratáknið (þrjár línur) efst til vinstri á myndavélarskjánum og ýttu á „Hjálp“.
+
+
+1) Rammaðu inn og taktu fyrstu myndina.</value>
+  </data>
+  <data name="Page.HowToUse.P2" xml:space="preserve">
+    <value>3) Haltu símanum þínum stöðugum fyrir framan þig og farðu hægt til hliðar í þá átt sem CrossCam segir þér að gera. Ekki hreyfa þig of langt - tommu eða minna fyrir hvern fæti frá markmiðinu þínu. Snúðu þér líka alls ekki, renndu þér bara til hliðar eða hallaðu þér kannski bara.
+
+4) Settu fyrstu myndina saman við forskoðun seinni myndarinnar og taktu seinni myndina þegar þér líkar það sem þú sérð.
+
+5) CrossCam mun sjálfkrafa samræma myndirnar þínar eftir að þú hefur tekið þær, en það er ekki fullkomið, ef þér líkar ekki hvernig þær voru stilltar geturðu slökkt á sjálfvirkri röðun með því að ýta á litla vélmennistáknið. CrossCam hefur líka fullt af handvirkum klippivalkostum sem þú getur fengið með því að smella á blýantartáknið.
+
+6) Pikkaðu á gátmerkið þegar þú ert tilbúinn að vista.
+
+
+Annað sem þú getur gert:
+ • Pikkaðu einu sinni til að stilla fókus á punkt, pikkaðu tvisvar til að skipta aftur í stöðugan sjálfvirkan fókus.
+ • Pikkaðu á tannhjólstáknið efst til hægri á myndavélarskjánum til að opna stillingasíðuna. Það er fullt af áhugaverðu efni.
+ • Það er góð ábendingasíða sem þú kemst á með því að smella á hamborgaratáknið efst til vinstri á myndavélarskjánum sem getur hjálpað þér að gera myndirnar þínar frábærar.
+ • Ef þú vilt frekar fara í hina áttina fyrir annað skot þitt eða vilt skipta um hliðar skaltu bara strjúka.
+ • Pikkaðu á litla möpputáknið neðst til að hlaða mynd sem hlið eða til að hlaða fullri steríómynd.</value>
+  </data>
+  <data name="Page.Faq.Alignment" xml:space="preserve">
+    <value>Hvernig virkar sjálfvirk jöfnun?</value>
+  </data>
+  <data name="Page.Faq.Alignment.Body" xml:space="preserve">
+    <value>Sjálfvirk jöfnun reynir að stilla myndpörin eins vel og hægt er, en hún er ekki fullkomin. Tölvusjón er betri í sumum hlutum en mannsaugu, en líka miklu verri í öðrum hlutum. Heimurinn sem hann sér er allt annar en sá sem við gerum, en hann getur líka séð á nokkra mismunandi vegu. Tvær helstu leiðirnar sem það sér í CrossCam eru með auknum fylgnistuðli (ECC) og að nota lykilatriði.
+
+ECC jöfnun virkar í meginatriðum með því að reyna að tryggja að ljósir blettir skarist við ljósa bletti og dökkir blettir skarast við dökka bletti þegar tvær hliðar eru lagðar ofan á hvor aðra. ECC jöfnun kemur með sjálfstraustskorun sem er ætlað að hjálpa til við að ákveða hvort jöfnunin hafi skilað árangri. CrossCam er sett upp til að hafna jöfnuninni sem framleitt er ef sjálfstraustið er of lágt, en þú getur stillt þröskuldinn fyrir sjálfstraust/bilun á Stillingar síðunni.
+
+Lykilpunktajöfnun leitar að áhugaverðum stöðum eins og hornum, brúnum, punktum og mikilli birtuskilum og reynir að passa þá upp á milli tveggja hliða. Þegar punktarnir hafa verið jafnaðir saman getur CrossCam notað margs konar reiknirit til að reyna að sveigja hliðarnar þannig að lykilpunktarnir frá annarri hliðinni séu allir sem næst samsvarandi lykilpunktum þeirra hinum megin.
+
+CrossCam er forritað til að nota lykilpunktsjöfnun fyrst, en það mun falla aftur í ECC röðun þegar lyklapunktsjöfnun mistekst eða þegar myndataka er gerð með spegilskiptingsaðferðinni með stakri mynd. Þú getur líka stillt sjálfvirka jöfnun til að nota alltaf lykilpunktajöfnun eða alltaf nota ECC jöfnun á Stillingar síðunni.
+
+CrossCam mun sýna jöfnunarniðurstöðuna á myndavélarskjánum undir litla vélmennitákninu. Ef það notaði ECC-jöfnun mun það sýna öryggisprósentuna. Ef það notaði lykilpunktastillingu mun það sýna "KP". Ef báðar jöfnunaraðferðirnar mistókust mun það sýna „F“. Ef þér líkar ekki niðurstaðan af jöfnuninni geturðu smellt á litla vélmennistáknið til að fjarlægja jöfnunina.</value>
+  </data>
+  <data name="Page.Faq.Bad" xml:space="preserve">
+    <value>Er þetta slæmt fyrir augun á mér?</value>
+  </data>
+  <data name="Page.Faq.Bad.Body1" xml:space="preserve">
+    <value>Ég veit það ekki, en ég held ekki. Hins vegar, ef þér líður illa skaltu bara taka þér hlé. Með æfingu minnkar óþægindin venjulega. Hvaða skoðunaraðferð sem er gæti valdið óþægindum vegna áhrifa sem kallast barátta um gistirými. Hér er</value>
+  </data>
+  <data name="Page.Faq.Bad.Body2" xml:space="preserve">
+    <value>Wikipediu hlekkur um átökin milli gistirýmis og verðmæta.</value>
+  </data>
+  <data name="Page.Faq.Bad.Body3" xml:space="preserve">
+    <value>Ef þú notar krossauga aðferðina gæti tilfinningin líka stafað af því að augun þín eru ekki vön að benda eins og þau séu að horfa á eitthvað svo nálægt í svo langan tíma. Þegar þú horfir á víxl, renna augu þín saman á punkt um það bil hálfa leið á milli augnanna og skjásins. Ef að horfa á eitthvað sem lokast í langan tíma myndi líka valda þér óþægindum, höfum við okkar skýringu.
+
+Mín skoðun á því er að augun þín eru ekki að gera neitt utan hversdagslegs getu þeirra, en þú ert að sameina tvo mismunandi hæfileika sem eru venjulega ekki notaðir þannig. Þú ert að einbeita linsunum þínum að einhverju á einum stað sem venjulega er þægilegt að fókusa á og þú beinir augum þínum eitthvert þar sem það er venjulega þægilegt fyrir þær að benda, en staðurinn þar sem linsurnar þínar eru að fókusa og þar sem augun þín renna saman er bara ekki sami punkturinn. Ég sé ekki hvernig það gæti verið slæmt fyrir þig svo lengi sem sjónin þín er ekki enn að þróast.</value>
+  </data>
+  <data name="Page.Faq.Cardboard" xml:space="preserve">
+    <value>Hvernig nota ég CrossCam með Google Cardboard?</value>
+  </data>
+  <data name="Page.Faq.Cardboard.Body" xml:space="preserve">
+    <value>Ef áhorfandinn þinn er með hnapp sem ýtir á miðju skjásins geturðu notað hann til að fanga með Cardboard. Áhorfandinn þinn mun einnig þurfa að hafa gat fyrir myndavél símans þíns til að sjá í gegnum.
+
+Til að taka myndir með Cardboard skaltu breyta forskoðunaraðferðinni þinni (á stillingasíðunni) í Cardboard, fara svo aftur á myndavélarsíðuna og festa símann þinn í skoðarann. Ýttu á hnappinn til að fanga og þegar báðar hliðar eru teknar skaltu ýta aftur á hnappinn til að vista. Vista í Cardboard-stillingu er aðeins ætlað að leyfa þér að hlaða myndunum aftur inn í CrossCam til að skoða síðar, ekki til að skoða þær í myndaappinu þínu í gegnum áhorfandann.
+
+Þú getur líka tekið myndir með hvaða annarri aðferð sem þú vilt, breyttu síðan forskoðunaraðferðinni þinni yfir í pappa og settu símann þinn í áhorfandann.
+
+Það eru margir mismunandi áhorfendur þarna úti með mismunandi eiginleika. Þú gætir þurft að breyta aðskilnaðarfjarlægð pappa (á stillingasíðunni) til að gera upplifun þína þægilegri. Þú gætir líka þurft fyrst að ganga úr skugga um að þú sért góður í að fanga hágæða steríómyndir áður en þú gerir þau gríðarmikil og yfirgripsmikil.</value>
+  </data>
+  <data name="Page.Faq.How" xml:space="preserve">
+    <value>Hvernig virkar þetta?</value>
+  </data>
+  <data name="Page.Faq.How.Body1" xml:space="preserve">
+    <value>Þrívíddaráhrifin sem CrossCam notar er vel rannsökuð fræðigrein sem kallast stereoscopy og aðferðin þar sem þú krossar augun (eða slakar á þeim) til að skoða tvær hliðar er kölluð frjáls skoðun. Þegar við lítum í kringum okkur á heiminn sér hvert auga okkar frá öðru sjónarhorni. Í staðalíspeglun er allt sem við gerum að sýna eitt (gervi) sjónarhorn fyrir hvert auga, og heilinn okkar gerir bara afganginn. Það eru margar mismunandi leiðir til að láta hvert auga sjá mismunandi mynd. Hér er</value>
+  </data>
+  <data name="Page.Faq.How.Body2" xml:space="preserve">
+    <value>Wikipedia hlekkur um stereoscopy</value>
+  </data>
+  <data name="Page.Faq.How.Body3" xml:space="preserve">
+    <value>3D myndirnar sem þú gerir með CrossCam kallast steríógram. Magic Eye™ bækur innihalda það sem kallað er sjálfstýrimynd.</value>
+  </data>
+  <data name="Page.Faq.Into" xml:space="preserve">
+    <value>Hvernig komst þú í stereoscopy?</value>
+  </data>
+  <data name="Page.Faq.Into.Body1" xml:space="preserve">
+    <value>Á meðan ég var að fá eðlisfræðigráðu fékk ég tækifæri til að gera tilraunir með að búa til mínar eigin heilmyndir með því að nota leysir. Tegund heilmynda sem ég var að búa til voru þrívídd vegna þess að þær notuðu sundurbrotsrist til að valda eyðileggjandi truflunum á ljósinu sem endurkastast af yfirborði glerplötu, sem veldur því að endurspeglast myndin lítur öðruvísi út en á mismunandi stöðum. Þegar hvert auga okkar sér mynd sem lítur út eins og hún sé frá öðru sjónarhorni (ef þau eru ekki of ólík), skynjar heilinn okkar það sem dýpt.</value>
+  </data>
+  <data name="Page.Faq.Into.Body2" xml:space="preserve">
+    <value>Ég hafði lengi verið meðvituð um meginregluna um steríósópíska skynjun, en á þeim tímapunkti í lífi mínu var ég líka í forritunarnámskeiðum, svo ég ákvað að ég vildi prófa að búa til einfalt tölvuforrit fyrir stereoscopic 3D teikningu. Sú tilraun varð StereoSketcher. Upprunalega útgáfan var skrifuð í Java, en ég endurskrifaði hana með Javascript og SVG og núna er hún á vefnum</value>
+  </data>
+  <data name="Page.Faq.Into.Body3" xml:space="preserve">
+    <value>á þessum hlekk.</value>
+  </data>
+  <data name="Page.Faq.Into.Body4" xml:space="preserve">
+    <value>Það er ekki vinsælt á nokkurn hátt og það er kannski ekki auðvelt fyrir aðra en mig að nota, en það virkar. Meðan ég vann að StereoSketcher fékk ég að gera tilraunir með meginreglur steríelspeglunar og ég varð hrifinn af því hvernig hægt er að búa til svona yfirgripsmikla og sannfærandi upplifun með því að nota nokkrar einfaldar reglur.</value>
+  </data>
+  <data name="Page.Faq.Inverted" xml:space="preserve">
+    <value>Hvers vegna lítur þrívíddin ekki rétt út EÐA af hverju lítur þrívíddin út fyrir að vera öfug?</value>
+  </data>
+  <data name="Page.Faq.Inverted.Body1" xml:space="preserve">
+    <value>Þegar frítt er skoðað með annaðhvort kross- eða samhliða aðferð er mikilvægt að skoða myndirnar með sömu aðferð og notuð var til að búa þær til. Annars mun hægra augað þitt horfa á sjónarhornið sem ætlað er fyrir vinstra augað og öfugt. Þetta gerir það að verkum að dýpt myndarinnar snúist við, vegna þess að skipt hefur verið um stefnu parallax.
+
+Parallax þýðir að frá sjónarhóli hægra augans, þegar hlutir eru lengra í burtu, virðast þeir vera lengra til hægri en nærri hlutir séð frá vinstra auga. Það er ruglingslegt þegar lýst er í setningaformi, en mjög leiðandi þegar það er sýnt fram á það.
+
+Til að sýna fram á, haltu einum fingri upp fyrir framan þig í um það bil handleggslengd og haltu síðan öðrum fingri um það bil hálfa leið á milli fyrsta fingurs og andlits með hinni hendinni. Ef þú lokar hverju auga til skiptis og fylgist með því hvar fingurnir eru, muntu sjá að hvert auga sér þá á mismunandi stöðum. Svo náttúrulega, ef hvert auga sá þá hreyfingu á öfugan hátt og það á að gera, mun dýptin snúast við.
+
+Það er mjög auðvelt að nota ranga skoðunaraðferð fyrir slysni vegna þess að það kemur í ljós að það er mjög erfitt fyrir flesta að segja til um hvort þeir eru að fara yfir augun eða slaka á augunum bara með því að finna eða horfa á ruglingslega tvöfalda mynd heimsins sem myndast. Þess í stað er best að annað hvort láta einhvern annan skoða hvað augun þín eru að gera, eða prófa þessa prófunarmynd:</value>
+  </data>
+  <data name="Page.Faq.Inverted.Body2" xml:space="preserve">
+    <value>Margir hafa orðið nokkuð sáttir við að skoða Magic Eye™ bækur, sem ætlað er að skoða með samhliða skoðun. Ef þú skoðar þá yfir þá líta sterku þrívíddarhlutirnir sem eiga að skjóta út af síðunni í staðinn út eins og göt. Báðar aðferðirnar leyfa þér að sjá *eitthvað* en ef þú gætir ekki sagt hvað það var, ertu líklega að skoða þær.</value>
+  </data>
+  <data name="Page.Faq.Mirror" xml:space="preserve">
+    <value>Hvernig geri ég "single-shot mirror" aðferðina?</value>
+  </data>
+  <data name="Page.Faq.Mirror.Body1" xml:space="preserve">
+    <value>Myndataka með spegilaðferðinni skiptir rammanum í tvennt og gerir nauðsynlega umbreytingu svo þú getir tekið báðar hliðar á sama augnabliki með því að nota einn síma og venjulegan handfestan spegil. Til að nota spegilaðferðina við töku skaltu kveikja á rofanum fyrir spegilstillingu á stillingasíðunni (smelltu á gírtáknið til að komast þangað). Eftir að þú hefur kveikt á speglastillingu mun CrossCam segja þér hvoru megin þú átt að halda speglinum þínum. Haltu speglinum þínum á þeirri hlið og þrætu fyrir samstillingu milli símans þíns og spegilsins og myndefnisins. Með smá þolinmæði muntu geta raðað þeim öllum upp þannig að spegillinn sýni rétt sjónarhorn fyrir eina hliðina. Vegna þess að með því að nota spegilaðferðina er myndinni þinni skipt í tvennt lóðrétt, þá er venjulega best að fanga í landslagi með spegilaðferðinni.
+
+Þessi aðferð mun einnig virka með speglun í stórum, hreinum gluggum og einnig á kyrrstæðum vötnum eða pollum (þegar síminn er læstur í andlitsmynd og snýr til hliðar).</value>
+  </data>
+  <data name="Page.Faq.Mirror.Body2" xml:space="preserve">
+    <value>Það eru nokkrar málamiðlanir/breytingar sem þarf að gera til að nota spegilaðferðina. Þetta er allt hægt að gera handvirkt í CrossCam, en sjálfvirk röðun mun einnig reyna að gera þau fyrir þig:
+ • Vegna þess að endurspeglast sjónarhornið fer yfir lengri vegalengd en venjulega sýn, þarf að stækka spegilhliðina aðeins.
+ • Það er líklegt að þegar þú notar spegilaðferðina lendir þú á tánum í stað þess að halda sjónarhornunum samsíða - þetta getur valdið því að stytting lítur út eins og slæm lóðrétt röðun. Til að afturkalla það er hægt að gera keystone leiðréttingu, sem þýðir að lóðrétt minnka aðra hlið hverrar myndar.
+ • Inngangur hefur einnig tilhneigingu til að færa hljómtæki gluggann í átt að þér. Þú getur afturkallað það og sett það þar sem þú vilt hafa það með því að klippa hliðarnar.
+ • Spegillinn mun líklega ekki hylja að fullu sýn á aðra hliðina, þannig að það gæti þurft að skera eitthvað til að fjarlægja óendurspeglaða bita.
+
+Bestu speglarnir fyrir þetta eru með þunnt gler. Fyrir það fyrsta eru þeir léttir, svo auðveldara er að halda þeim í langan tíma. Hitt mikilvægt er að þegar þú notar spegilinn muntu líklega miða speglinum til hliðar frekar en að horfa beint inn í hann þar sem speglar eru venjulega notaðir. Þegar þeir eru stilltir þannig geta speglar með þykku gleri verið óskýrir. Því þynnra sem glerið er, því minna áberandi verður þessi óskýring. Svona speglar geta líka verið lélegir að öðru leyti og því mikilvægt að finna gott jafnvægi.
+
+Það eru nokkrar aðrar málamiðlanir sem þarf að samþykkja þegar þú notar spegilmyndatökuna sem ekki er hægt að laga í breytingum með CrossCam:
+ • Vegna þess að sýn á hliðarnar tvær ferðast örlítið mismunandi vegalengdir verður fókusinn sem þarf fyrir hvora hlið aðeins mismunandi, þannig að önnur hliðin verður alltaf aðeins óskýr. Þessi áhrif verða meira og minna áberandi eftir fjarlægð til myndefnis og dýptarskerpu linsunnar.
+ • Enginn spegill er sannarlega 100% skilvirkur, þannig að hliðin sem notar spegilinn gæti verið aðeins dekkri. Þetta mun vera mismunandi eftir gæðum spegilsins.</value>
+  </data>
+  <data name="Page.Faq.Moving" xml:space="preserve">
+    <value>Myndefnið mitt hreyfist, hvernig tek ég þrívíddarmyndir af því?</value>
+  </data>
+  <data name="Page.Faq.Moving.Body" xml:space="preserve">
+    <value>CrossCam leyfir þér tvær aðferðir til að fanga bæði sjónarhornin á sama augnabliki. Ein aðferð notar tvo síma og ein aðferð notar spegil.
+
+Til að nota uppsetninguna tveggja síma skaltu skoða pörunaruppsetningarsíðuna, sem þú kemst á frá Stillingar síðunni (smelltu á gírtáknið).
+
+Til að nota spegilaðferðina skaltu skoða hina algengu spurningu um hana.</value>
+  </data>
+  <data name="Page.Faq.Test" xml:space="preserve">
+    <value>Hvernig get ég prófað forútgáfur af CrossCam?</value>
+  </data>
+  <data name="Page.Faq.Test.Body" xml:space="preserve">
+    <value>Skoðaðu þessa Reddit færslu</value>
+  </data>
+  <data name="Page.Faq.Why" xml:space="preserve">
+    <value>Af hverju gerðir þú CrossCam?</value>
+  </data>
+  <data name="Page.Faq.Why.Body" xml:space="preserve">
+    <value>Þegar ég var farin að fá áhuga á stereoscopy fór ég í ferð til Yellowstone. Á meðan ég var þar áttaði ég mig á því að það gæti verið gaman að prófa að nota þrívíddarmyndavélarforrit til að fanga hluti þar í þrívídd. Ég varð fyrir miklum vonbrigðum með núverandi valkosti. Ég fann að allir kröfðust þess að þú tækir tvær handtökur og komdu síðan að því hvort þær væru góðar. Þeir voru það oft ekki, þar sem ég þurfti ítrekað að geta fullkomnar getgátur um fjarlægð mína, sem og gæði myndefnisins.
+
+Á næstu vikum leiddi mig kraumandi gremju mína til að ímynda mér að ég myndi einfaldlega gefa sýnishorn af annarri tökunni ásamt þeirri fyrri. Ég var þegar kominn með bakgrunn í farsímaþróun, svo þá var bara að setja tímann. CrossCam hefur verið frábært fyrir mig að nota bara fyrir sjálfan mig til að varðveita minningar og ég er ánægður með að deila því með þér líka.</value>
+  </data>
+  <data name="Page.Faq.Wiggle" xml:space="preserve">
+    <value>Hvað eru wigglegrams?</value>
+  </data>
+  <data name="Page.Faq.Wiggle.Body" xml:space="preserve">
+    <value>Wigggrams eru leið til að skoða staðalímyndir sem treysta ekki á sjónauka. Þeir eru venjulega gif sem flettir fram og til baka á milli sjónarhornanna tveggja og sýnir hvert í heild sinni á sama stað. CrossCam styður ekki gerð þeirra eins og er, en sendu mér tölvupóst ef þú hefur virkilegan áhuga á þeim og ég skal gera það.</value>
+  </data>
+  <data name="Page.Tips.AlignAfter" xml:space="preserve">
+    <value>Hugsaðu um láréttu línurnar, en þú getur líka stillt á eftir.</value>
+  </data>
+  <data name="Page.Tips.AlignAfter.Body" xml:space="preserve">
+    <value>Ef þú kemst að því að á meðan þú tekur myndir er ómögulegt að láta bæði efri og neðri leiðarlínuna raðast upp á sama tíma, hefur þú líklega fært þig í aðra átt en bara til hliðar. Reyndu að laga þetta áður en myndirnar eru teknar, en að stilla saman eftir staðreynd getur hjálpað þessu mikið.</value>
+  </data>
+  <data name="Page.Tips.Alignment" xml:space="preserve">
+    <value>Þú getur slökkt á sjálfvirkri jöfnun.</value>
+  </data>
+  <data name="Page.Tips.Alignment.Body" xml:space="preserve">
+    <value>Ef þér líkar ekki niðurstöður sjálfvirkrar röðunar skaltu bara slökkva á henni á stillingasíðunni eða með því að smella á litla vélmennistáknið og upprunalegu myndirnar þínar verða endurheimtar.</value>
+  </data>
+  <data name="Page.Tips.Donut" xml:space="preserve">
+    <value>Kleinuhringjahandbókin getur hjálpað glugganum þínum.</value>
+  </data>
+  <data name="Page.Tips.Donut.Body" xml:space="preserve">
+    <value>Það er kleinuhringur í tilraunaskyni á stillingasíðunni sem þú getur kveikt á sem gæti hjálpað þér að varðveita hljómtæki gluggann þinn á meðan þú hámarkar nothæfa breidd. Með því að beygja til vinstri og hægri mun dýptin á kleinuhringnum breytast miðað við restina af atriðinu - stilltu dýpt kleinuhringsins þannig að hann sé annað hvort á eða aftan við fjarlægasta punktinn í atriðinu þínu. Vertu varkár, að nota það á smærri senum getur gert hlutina sársaukafulla (sjá ábending um lykilstein hér að ofan).</value>
+  </data>
+  <data name="Page.Tips.Keystone" xml:space="preserve">
+    <value>Keystone leiðrétting er nauðsynleg ef þú ferð inn.</value>
+  </data>
+  <data name="Page.Tips.Keystone.Body1" xml:space="preserve">
+    <value>Ef þú snýrð þér inn á við með hverju skoti er mjög gagnlegt að gera keystone leiðréttingar. Venjulega myndirðu vilja minnka innri brúnir myndanna og klippa síðan nokkrar ofan og neðst til að jafna þær út. Þú kemst í keystone klippingarvalmyndina með því að smella á hnappinn sem lítur svona út:</value>
+  </data>
+  <data name="Page.Tips.Keystone.Body2" xml:space="preserve">
+    <value>Að snúa inn á við er kallað tá-inn. Það getur valdið styttingaráhrifum sem gerir það að verkum að erfitt er að bræða saman hornin á myndinni. Styttingaráhrifin eru til staðar á öllum tímum í raunveruleikanum, vegna þess að samhliða línur virðast renna saman þegar þær fara í fjarlægð frá þér, en gervi sjónarhornin geta gert það skrýtið.</value>
+  </data>
+  <data name="Page.Tips.Lean" xml:space="preserve">
+    <value>Þú getur bara hallað þér.</value>
+  </data>
+  <data name="Page.Tips.Lean.Body" xml:space="preserve">
+    <value>Stundum í stað þess að færa fæturna að fullu til vinstri eða hægri til að taka myndir, getur verið auðveldara að standa bara með fæturna í sundur og halla sér í sitthvora áttina, en gæta þess að halda símanum jafnrétti og í sömu hæð. Bara að halla sér í stað þess að hreyfa sig getur hjálpað þér að færa þig of langt og getur auðveldað þér að halda markmiðinu beint.</value>
+  </data>
+  <data name="Page.Tips.Lines" xml:space="preserve">
+    <value>Jöfnunarlínurnar geta færst til.</value>
+  </data>
+  <data name="Page.Tips.Lines.Body" xml:space="preserve">
+    <value>Þú getur dregið jöfnunarlínurnar í kring ef þú vilt. Þetta er sérstaklega gagnlegt þegar myndirnar eru lagðar saman við klippingu.</value>
+  </data>
+  <data name="Page.Tips.Old" xml:space="preserve">
+    <value>Þú getur opnað gamlar myndir í CrossCam.</value>
+  </data>
+  <data name="Page.Tips.Old.Body" xml:space="preserve">
+    <value>Þú getur hlaðið inn áður teknum myndum með því að ýta á möpputáknið neðst á myndavélarsíðunni, en ef þú ert að vinna með stóran hóp af myndum geturðu líka deilt þeim með CrossCam beint úr myndaappinu þínu, sem gæti haldið utan um setja betur inn í myndirnar þínar.</value>
+  </data>
+  <data name="Page.Tips.Quick" xml:space="preserve">
+    <value>Kveiktu á hraðstillingu þegar þú ert með öðrum.</value>
+  </data>
+  <data name="Page.Tips.Quick.Body" xml:space="preserve">
+    <value>Ef þú ert að kanna með öðru fólki er góð hugmynd að fara í hraða stillingu með því að slökkva á sjálfvirkri jöfnun og og landamærum og vista bara þegar þú hefur tekið myndir án þess að gera nokkrar breytingar. Þú getur alltaf hlaðið inn, stillt sjálfkrafa saman og breytt myndunum síðar. Þannig þurfa félagar þínir ekki að bíða eftir að þú fullkomnar myndirnar þínar á staðnum, en þú getur samt verið viss um að dýptin sem þú vilt sé raunverulega til staðar. Passaðu þig bara á að gera ekki flýtibreytingar fyrir fyrstu vistun! Þú getur líka kveikt á aðskildu hliðarvistuninni sem mun hunsa allar breytingar sem þú gerir.</value>
+  </data>
+  <data name="Page.Tips.Sick" xml:space="preserve">
+    <value>Ef hreyfingin gerir þig veikan skaltu halda kyrru fyrir.</value>
+  </data>
+  <data name="Page.Tips.Sick.Body" xml:space="preserve">
+    <value>Ef öll hreyfing gerir þig veikan eða gerir það of erfitt að skoða í þrívídd skaltu ekki byrja að reyna að sjá það í þrívídd fyrr en eftir að þú hefur færst aðeins yfir. Berðu síðan myndirnar saman og stilltu myndirnar saman með því að nota láréttu línurnar án þrívíddarskoðunar og byrjaðu svo þrívíddarskoðun þegar búið er að stilla saman og halda kyrru.</value>
+  </data>
+  <data name="Page.Tips.Space" xml:space="preserve">
+    <value>Þessar myndir geta tekið mikið geymslupláss - þú getur minnkað þær.</value>
+  </data>
+  <data name="Page.Tips.Space.Body" xml:space="preserve">
+    <value>Stillingarsíðan hefur möguleika á að minnka hlutfallslega upplausn lokamyndarinnar - þetta getur hjálpað ef þú vilt spara pláss. Ef myndin þín er ekki klippt er lokaniðurstaðan tvær myndir í fullri upplausn sem eru sameinaðar til að gera eina með tvöfaldri upplausn, sem þýðir að þú getur oft komist upp með mikla lækkun á upplausn án þess að hafa merkjanleg áhrif á gæði.</value>
+  </data>
+  <data name="Page.Tips.Turn" xml:space="preserve">
+    <value>Ekki snúa.</value>
+  </data>
+  <data name="Page.Tips.Turn.Body" xml:space="preserve">
+    <value>Þegar þú ferð yfir, reyndu að snúa símanum alls ekki í neina átt, þar með talið náttúrulega tilhneigingu til að snúa sér að myndefninu þegar þú ferð til hliðar. Einhver snúningur verður nauðsynlegur (stundum), en reyndu að lágmarka það. Ímyndaðu þér að síminn sé festur á beinni láréttri braut og getur aðeins rennt. Snúningur inn á við getur valdið styttingaráhrifum sem gerir það að verkum að erfitt er að sameina hornin.</value>
+  </data>
+  <data name="Page.Tips.Window" xml:space="preserve">
+    <value>Bættu við ramma og skera til að búa til sterkan hljómtæki glugga.</value>
+  </data>
+  <data name="Page.Tips.Window.Body" xml:space="preserve">
+    <value>Hægt er að búa til áhugaverða steríó gluggaáhrif með því að gera tvennt: 1) kveikja á rammanum (á stillingasíðunni) og 2) fyrir krossskoðun, skera innri brúnir myndanna þar til ytri brúnin sjálf verður þrívídd á myndinni (skera ÚTI brúnirnar ef þú ert að skoða samhliða). Lykillinn er að klippa hægri brún vinstri myndarinnar aðeins framhjá því sem hægri brún hægri myndarinnar sýnir atriðið og öfugt. Skipt er um að bæta við ramma á Stillingar síðunni. Ef þetta er ruglingslegt skaltu bara skera slatta af innanverðu brúnunum og það mun byrja að skýrast. Skerahnappurinn fyrir innri brúnir lítur svona út:</value>
+  </data>
+  <data name="Button.Code" xml:space="preserve">
+    <value>Sjá kóðann</value>
+  </data>
+  <data name="Button.Developer" xml:space="preserve">
+    <value>Um þróunaraðilann</value>
+  </data>
+  <data name="Button.EmailMe" xml:space="preserve">
+    <value>Sendu mér tölvupóst</value>
+  </data>
+  <data name="Button.GitHub" xml:space="preserve">
+    <value>Bættu við vandamáli á GitHub</value>
+  </data>
+  <data name="Button.Press" xml:space="preserve">
+    <value>Farðu aftur á myndavélarskjáinn á báðum tækjunum og pikkaðu á pörunarhnappinn í neðra horninu</value>
+  </data>
+  <data name="Button.Primary" xml:space="preserve">
+    <value>ÝTTU HÉR Á AÐFARIÐ</value>
+  </data>
+  <data name="Button.Privacy" xml:space="preserve">
+    <value>Friðhelgisstefna</value>
+  </data>
+  <data name="Button.Secondary" xml:space="preserve">
+    <value>ÝTTU HÉR Á FRAMHALDA</value>
+  </data>
+  <data name="Button.Test" xml:space="preserve">
+    <value>Prófaðu forútgáfur</value>
+  </data>
+  <data name="Button.Wi-Fi" xml:space="preserve">
+    <value>Gakktu úr skugga um að Wi-Fi sé virkt á báðum tækjum (en það þarf ekki að vera tengt við neitt)</value>
+  </data>
+  <data name="Page.Pairing.1" xml:space="preserve">
+    <value>Ef þú ert með tvö tæki með CrossCam uppsett geturðu tengt þau saman til að taka myndir samtímis frá tveimur sjónarhornum. Að taka tvær myndir á sama augnabliki gerir bestu steríómyndirnar mögulegar.
+
+Vinsamlegast hafðu í huga að þessi eiginleiki er enn tilraunastarfsemi og gæti verið vandamál. Það gæti ekki virka fullkomlega allan tímann og það gæti étið upp rafhlöðuna þína. Vinsamlegast hafðu einnig í huga að á þessum tíma verða tækin að vera á sama vettvangi til að tengjast (bæði Android eða bæði iOS).
+
+Ein leið til að fá *fullkomna* samstillingu með því að nota aðeins eitt tæki og CrossCam er að nota „single-shot mirror“ aðferðina. Þú getur kveikt á því á Stillingar síðunni og þú getur lesið um það á FAQ síðunni.
+
+Áður en hægt er að nota tvö tæki saman þarf að úthluta hlutverkum þeirra. AÐAL tækið er það sem mun sýna báðar forsýningar, kveikja á tökunni og halda/vista lokatökurnar. Til að úthluta hlutverkum skaltu fletta báðum tækjunum á þessa síðu og fylgja síðan skrefunum hér að neðan:</value>
+  </data>
+  <data name="Page.Pairing.2" xml:space="preserve">
+    <value>Ef þú átt í vandræðum, ATHUGIÐ:
+ • Eftir að pörunarferlið er hafið er hægt að snerta pörunarhnappinn aftur hvenær sem er til að stöðva það eða aftengjast.
+ • Það getur hjálpað að hætta pörun á báðum tækjum og endurræsa það á sama tíma.
+ • Það gæti hjálpað til við að aftengjast Wi-Fi eða gagnanetum ef þau eru að bregðast við.
+ • Sérhver myndavél er öðruvísi. Þessi munur getur falið í sér hornsjónsvið, fókus, lýsingu og hvítjöfnunarhegðun, tímasetningu og fleira. Jafnvel tveir af sömu gerð síma munu haga sér aðeins öðruvísi. Ég kýs að nota par af eins gömlum símum (í mínu tilfelli, par af iPhone 6).
+ • CrossCam er hugbúnaður, ekki vélbúnaður, þannig að myndatakan gæti verið örlítið ósamstillt eftir því hvað annað örgjörvarnir og minnið eru að gera nákvæmlega á því augnabliki sem myndatakan fer af stað. Þess vegna gæti samstillingin stundum ekki verið fullkomin, en hún ætti almennt að vera mjög nálægt.</value>
+  </data>
+  <data name="Page.Pairing.Again" xml:space="preserve">
+    <value>Til að tengjast aftur síðar skaltu ganga úr skugga um að þú hafir Wi-Fi virkt og pikkaðu svo bara á tengihnappinn á heimaskjánum á báðum tækjunum.</value>
+  </data>
+  <data name="Page.Pairing.LocalNetworkAccess" xml:space="preserve">
+    <value>CrossCam krefst aðgangsheimildar fyrir staðarnet. CrossCam notar í raun ekki staðarnetið, en iOS krefst þess að CrossCam fái þetta leyfi til að nota Wi-Fi loftnetið til að leita að tækjum. CrossCam mun biðja um þetta leyfi einu sinni - ef leyfið er hafnað verðurðu að fara og snúa rofanum í Stillingar appinu sjálfur.</value>
+  </data>
+  <data name="Page.Pairing.Location" xml:space="preserve">
+    <value>CrossCam mun biðja um heimildir og kveikja á íhlutum eftir þörfum til að tengja tækin þín. Vinsamlega athugið: CrossCam krefst staðsetningarheimildar og að kveikt sé á staðsetningarþjónustu á aðaltækinu til að tengjast aukatækinu. Þetta er einfaldlega Android krafa og er algjörlega utan við mig. CrossCam notar í raun ekki staðsetningu þína á nokkurn hátt, en vegna þess að það að leita að (og finna) nálæg tæki gæti fræðilega verið notað til að finna þig gróflega, krefst CrossCam leyfis til að fá aðgang að staðsetningu þinni.</value>
+  </data>
+  <data name="Page.Pairing.Permissions" xml:space="preserve">
+    <value>Athugasemd um heimildir:</value>
+  </data>
+  <data name="Page.Pairing.Title" xml:space="preserve">
+    <value>Pörun</value>
+  </data>
+  <data name="Button.Back" xml:space="preserve">
+    <value>&lt; Til baka</value>
+  </data>
+  <data name="Page.MorePictures.CrossViewSubreddit" xml:space="preserve">
+    <value>CrossView Subreddit</value>
+  </data>
+  <data name="Page.MorePictures.FacebookGroup" xml:space="preserve">
+    <value>Stereoscopic 3D Facebook Group</value>
+  </data>
+  <data name="Page.MorePictures.GoogleDoc" xml:space="preserve">
+    <value>Google Doc of Great Stuff</value>
+  </data>
+  <data name="Page.MorePictures.Instagram" xml:space="preserve">
+    <value>Instagram Stereoscopic Tag</value>
+  </data>
+  <data name="Page.MorePictures.Mine" xml:space="preserve">
+    <value>Sjá myndir sem ég hef tekið</value>
+  </data>
+  <data name="Page.MorePictures.ParallelViewSubreddit" xml:space="preserve">
+    <value>ParallelView Subreddit</value>
+  </data>
+  <data name="Page.Settings.Alignment" xml:space="preserve">
+    <value>Sjálfvirk jöfnun</value>
+  </data>
+  <data name="Page.Settings.Analytics" xml:space="preserve">
+    <value>Deildu nafnlausum notkunar- og villugögnum til að bæta CrossCam</value>
+  </data>
+  <data name="Page.Settings.Border" xml:space="preserve">
+    <value>Landamæri</value>
+  </data>
+  <data name="Page.Settings.Camera" xml:space="preserve">
+    <value>Myndavél</value>
+  </data>
+  <data name="Page.Settings.Defaults" xml:space="preserve">
+    <value>Endurstilla í sjálfgefnar stillingar</value>
+  </data>
+  <data name="Page.Settings.Editing" xml:space="preserve">
+    <value>Klippingu</value>
+  </data>
+  <data name="Page.Settings.ErrorEmail" xml:space="preserve">
+    <value>Biðja um að senda tölvupóst þegar villur koma upp</value>
+  </data>
+  <data name="Page.Settings.Guides" xml:space="preserve">
+    <value>Handtökuleiðbeiningar</value>
+  </data>
+  <data name="Page.Settings.Pairing" xml:space="preserve">
+    <value>Pörun</value>
+  </data>
+  <data name="Page.Settings.Preview" xml:space="preserve">
+    <value>Forskoðun skoðunaraðferð</value>
+  </data>
+  <data name="Page.Settings.Saving" xml:space="preserve">
+    <value>Sparnaður</value>
+  </data>
+  <data name="Page.TipMe.1" xml:space="preserve">
+    <value>CrossCam er ókeypis í notkun, auglýsingalaust, opinn uppspretta, safnar engum persónulegum upplýsingum frá þér og veitir þér fullan aðgang að öllum eiginleikum. Ég elska að vinna á CrossCam en það tekur mikinn tíma og fyrirhöfn. Ég græði alls ekki á CrossCam nema ábendingar sem fólk gæti ákveðið að senda mér.</value>
+  </data>
+  <data name="Page.TipMe.2" xml:space="preserve">
+    <value>Ef þér líkar við CrossCam og getur það, vinsamlegast íhugaðu að senda mér ábendingu.</value>
+  </data>
+  <data name="Page.TipMe.Ko-fi" xml:space="preserve">
+    <value>Ko-fi</value>
+  </data>
+  <data name="Page.TipMe.Patreon" xml:space="preserve">
+    <value>Patreon</value>
+  </data>
+  <data name="Page.TipMe.PayPal" xml:space="preserve">
+    <value>PayPal</value>
+  </data>
+  <data name="Page.TipMe.Tipped" xml:space="preserve">
+    <value>Mér hefur verið gefið ábendingu</value>
+  </data>
+  <data name="Page.TipMe.TippedTimes" xml:space="preserve">
+    <value>sinnum, samtals</value>
+  </data>
+  <data name="Page.TipMe.Venmo" xml:space="preserve">
+    <value>Venmo</value>
+  </data>
+  <data name="Title.MorePictures" xml:space="preserve">
+    <value>Sjá fleiri myndir</value>
+  </data>
+  <data name="Title.Settings" xml:space="preserve">
+    <value>Stillingar</value>
+  </data>
+  <data name="Title.TipMe" xml:space="preserve">
+    <value>Ábendingar eru vel þegnar!</value>
+  </data>
+  <data name="Settings.Alignment.Advanced" xml:space="preserve">
+    <value>Sýna háþróaðar jöfnunarstillingar</value>
+  </data>
+  <data name="Settings.Alignment.Ecc" xml:space="preserve">
+    <value>Reyndu að nota ECC alignment fyrst alltaf</value>
+  </data>
+  <data name="Settings.Alignment.Keypoints" xml:space="preserve">
+    <value>Reyndu að nota lykilpunktastillingu fyrst alltaf</value>
+  </data>
+  <data name="Settings.Alignment.On" xml:space="preserve">
+    <value>Stilltu sjálfkrafa eftir töku</value>
+  </data>
+  <data name="Settings.Border.Color" xml:space="preserve">
+    <value>Rammalitur</value>
+  </data>
+  <data name="Settings.Border.FuseGuide" xml:space="preserve">
+    <value>Bætið öryggisstýri ofan á (punktur fyrir ofan hvora hlið)</value>
+  </data>
+  <data name="Settings.Border.On" xml:space="preserve">
+    <value>Bæta við ramma</value>
+  </data>
+  <data name="Settings.Border.Prompt" xml:space="preserve">
+    <value>Biðja um að klippa rammann af þegar það greinist við hleðslu</value>
+  </data>
+  <data name="Settings.Border.Thickness" xml:space="preserve">
+    <value>Kantarþykkt (tíundi hlutfall af breidd)</value>
+  </data>
+  <data name="Settings.Camera.Camera1" xml:space="preserve">
+    <value>Force camera1 API (gæti verið gagnlegt ef þú ert að upplifa undarlegt en mun leiða til takmarkaðrar virkni, krefst þvingunar hætta/endurræsa til að taka gildi)</value>
+  </data>
+  <data name="Settings.Camera.Camera2" xml:space="preserve">
+    <value>Force camera2 API (verður að vera á Android 6 eða nýrri, gæti verið gagnlegt ef þú lendir í villum en gæti gert fleiri, krefst þvingunar hætta/endurræsa til að taka gildi)</value>
+  </data>
+  <data name="Settings.Camera.LandscapeCaptureHorizontal" xml:space="preserve">
+    <value>Landslagstökuhnappur lárétt staðsetning</value>
+  </data>
+  <data name="Settings.Camera.LandscapeCaptureVertical" xml:space="preserve">
+    <value>Lóðrétt staðsetning fyrir landslagstökuhnapp</value>
+  </data>
+  <data name="Settings.Camera.Lock" xml:space="preserve">
+    <value>Læstu fókus og lýsingu fyrir aðra mynd til að fókusa og lýsingu frá fyrstu mynd</value>
+  </data>
+  <data name="Settings.Camera.Pair" xml:space="preserve">
+    <value>Pörunarhnappur lárétt staðsetning (þegar myndatökuhnappur er fyrir miðju)</value>
+  </data>
+  <data name="Settings.Camera.PointFocus" xml:space="preserve">
+    <value>Pikkaðu til að benda fókus, tvisvar til að skipta aftur í stöðugan fókus (eða vista eða hreinsa)</value>
+  </data>
+  <data name="Settings.Camera.PortraitCapture" xml:space="preserve">
+    <value>Staðsetning myndatökuhnapps fyrir andlitsmynd</value>
+  </data>
+  <data name="Settings.Editing.Align" xml:space="preserve">
+    <value>Hámarkshlutfall lóðréttrar jöfnunar</value>
+  </data>
+  <data name="Settings.Editing.Keystone" xml:space="preserve">
+    <value>Hámarks lykilsteinn</value>
+  </data>
+  <data name="Settings.Editing.Rotation" xml:space="preserve">
+    <value>Hámarks snúningsgráður</value>
+  </data>
+  <data name="Settings.Editing.SideCrop" xml:space="preserve">
+    <value>Hámarkshlutfall hliðaruppskeru</value>
+  </data>
+  <data name="Settings.Editing.TopCrop" xml:space="preserve">
+    <value>Hámarkshlutfall efst/neðra uppskeru</value>
+  </data>
+  <data name="Settings.Editing.Zoom" xml:space="preserve">
+    <value>Hámarks aðdráttarhlutfall</value>
+  </data>
+  <data name="Settings.Guides.Donut" xml:space="preserve">
+    <value>Sýna kleinuhringileiðbeiningar (mun valda tá-inn, svo gæti þurft að breyta keystone)</value>
+  </data>
+  <data name="Settings.Guides.Fuse" xml:space="preserve">
+    <value>Sýna öryggisleiðbeiningar (punktur fyrir ofan hvora hlið)</value>
+  </data>
+  <data name="Settings.Guides.LineColor" xml:space="preserve">
+    <value>Mislitar línur</value>
+  </data>
+  <data name="Settings.Guides.Lines" xml:space="preserve">
+    <value>Línur sjáanlegar</value>
+  </data>
+  <data name="Settings.Guides.Roll" xml:space="preserve">
+    <value>Rúlluleiðari sýnilegur</value>
+  </data>
+  <data name="Settings.Pair.CaptureDelay" xml:space="preserve">
+    <value>Taktu augnablik auka töf (ms) (bætir auka töf við markmið töku augnabliksins aðeins á þessu tæki)</value>
+  </data>
+  <data name="Settings.Pair.Countdown" xml:space="preserve">
+    <value>Lengd niðurtalningar handtaka (tímamælir)</value>
+  </data>
+  <data name="Settings.Pair.Fov" xml:space="preserve">
+    <value>Sjónsviðsleiðrétting</value>
+  </data>
+  <data name="Settings.Pair.FovNotSet" xml:space="preserve">
+    <value>FOV leiðrétting ekki stillt (gera töku með pöruðum tækjum til að ganga í gegnum uppsetninguna).</value>
+  </data>
+  <data name="Settings.Pair.FovReset" xml:space="preserve">
+    <value>Endurstilla</value>
+  </data>
+  <data name="Settings.Pair.Go" xml:space="preserve">
+    <value>Farðu á uppsetningarsíðu pörunar</value>
+  </data>
+  <data name="Settings.Pair.NoRole" xml:space="preserve">
+    <value>Hlutverk ekki valið</value>
+  </data>
+  <data name="Settings.Pair.PreviewDelay" xml:space="preserve">
+    <value>Forskoðunarrammaseinkun (hærri tala mun draga úr rammatíðni en spara rafhlöðu)</value>
+  </data>
+  <data name="Settings.Pair.Primary" xml:space="preserve">
+    <value>Aðal:</value>
+  </data>
+  <data name="Settings.Pair.PrimaryRole" xml:space="preserve">
+    <value>Hlutverk: Aðal</value>
+  </data>
+  <data name="Settings.Pair.Sample" xml:space="preserve">
+    <value>Fjöldi klukkusýnis (lægri tala mun stytta tíma sem þarf fyrir fyrstu samstillingu en getur dregið úr nákvæmni samstillingar)</value>
+  </data>
+  <data name="Settings.Pair.Secondary" xml:space="preserve">
+    <value>Annað:</value>
+  </data>
+  <data name="Settings.Pair.SecondaryRole" xml:space="preserve">
+    <value>Hlutverk: Secondary</value>
+  </data>
+  <data name="Settings.Pair.Timeout" xml:space="preserve">
+    <value>Tímamörk tengingar (sekúndur) (0 þýðir enginn tími)</value>
+  </data>
+  <data name="Settings.Preview.Barrel" xml:space="preserve">
+    <value>Bæta við linsuleiðréttingu/tunnubjögun (getur lækkað rammahraða)</value>
+  </data>
+  <data name="Settings.Preview.BarrelFinal" xml:space="preserve">
+    <value>Bættu linsuleiðréttingu/tunnuröskun eingöngu við lokamyndir (getur hægt á lokasýningu en mun flýta fyrir töku)</value>
+  </data>
+  <data name="Settings.Preview.CardboardDistance" xml:space="preserve">
+    <value>Pappa aðskilnaðarfjarlægð</value>
+  </data>
+  <data name="Settings.Preview.Downsize" xml:space="preserve">
+    <value>Minnka mynd (gæti aukið rammatíðni)</value>
+  </data>
+  <data name="Settings.Preview.DownsizePercent" xml:space="preserve">
+    <value>Minnkaðu myndhlutfall</value>
+  </data>
+  <data name="Settings.Preview.Immersive" xml:space="preserve">
+    <value>Yfirgripsmikil lokaskoðun</value>
+  </data>
+  <data name="Settings.Preview.LensStrength" xml:space="preserve">
+    <value>Styrkur linsuleiðréttingar</value>
+  </data>
+  <data name="Settings.Preview.Mirror" xml:space="preserve">
+    <value>Taktu með því að nota einskota spegilskiptingaraðferð</value>
+  </data>
+  <data name="Settings.Preview.Width" xml:space="preserve">
+    <value>Hámarksbreidd samhliða sýnismyndar (punktar)</value>
+  </data>
+  <data name="Settings.Reset" xml:space="preserve">
+    <value>Endurstilla í sjálfgefnar stillingar</value>
+  </data>
+  <data name="Settings.Saving.Alone" xml:space="preserve">
+    <value>Vistaðu fyrstu hliðina eina (án breytinga eða ramma) (til að auðvelda að deila flatri mynd með fólki með flatt útsýni)</value>
+  </data>
+  <data name="Settings.Saving.Anaglyph" xml:space="preserve">
+    <value>Vistaðu rauða/bláa anaglyph útgáfu (með breytingum en án ramma)</value>
+  </data>
+  <data name="Settings.Saving.Browse" xml:space="preserve">
+    <value>Skoða...</value>
+  </data>
+  <data name="Settings.Saving.Cardboard" xml:space="preserve">
+    <value>Vista fyrir pappa (með breytingum, engin rammi, engin bil, full breidd, til að hlaða aftur inn í CrossCam síðar)</value>
+  </data>
+  <data name="Settings.Saving.Clear" xml:space="preserve">
+    <value>Hreinsaðu myndir sjálfkrafa eftir vistun</value>
+  </data>
+  <data name="Settings.Saving.Cross" xml:space="preserve">
+    <value>Vista sameinaða krosssýnaútgáfu (með breytingum og ramma)</value>
+  </data>
+  <data name="Settings.Saving.ExternalDirectory" xml:space="preserve">
+    <value>Vistaðu í ytri CrossCam möppu á:</value>
+  </data>
+  <data name="Settings.Saving.ExternalWarning" xml:space="preserve">
+    <value>(viðvörun: myndum þar verður eytt ef CrossCam er fjarlægt)</value>
+  </data>
+  <data name="Settings.Saving.Folder" xml:space="preserve">
+    <value>Vistaðu í sérstaka „CrossCam“ undirmöppu/albúm</value>
+  </data>
+  <data name="Settings.Saving.Grayscale" xml:space="preserve">
+    <value>Vistaðu grátóna rauða/bláa anaglyph útgáfu (með breytingum en án ramma)</value>
+  </data>
+  <data name="Settings.Saving.Order" xml:space="preserve">
+    <value>(Vistun mun gerast í röð frá toppi til botns)</value>
+  </data>
+  <data name="Settings.Saving.Parallel" xml:space="preserve">
+    <value>Vistaðu útgáfu samhliða samhliða (með breytingum og ramma)</value>
+  </data>
+  <data name="Settings.Saving.Quad" xml:space="preserve">
+    <value>Vista fjórhjólasamsetningu (með breytingum og ramma)</value>
+  </data>
+  <data name="Settings.Saving.Reset" xml:space="preserve">
+    <value>Endurstilla</value>
+  </data>
+  <data name="Settings.Saving.Resolution" xml:space="preserve">
+    <value>Upplausnarhlutfall</value>
+  </data>
+  <data name="Settings.Saving.SaveTo" xml:space="preserve">
+    <value>Vista í:</value>
+  </data>
+  <data name="Settings.Saving.Separate" xml:space="preserve">
+    <value>Vista hverja hlið fyrir sig (án breytinga eða ramma til að auðvelda eftirvinnslu, vinstri hlið vistar fyrst)</value>
+  </data>
+  <data name="Settings.Saving.Subfolder" xml:space="preserve">
+    <value>Vistaðu í sérstökum „CrossCam_{ViewMethod}“ undirmöppum/albúmum</value>
+  </data>
+  <data name="Settings.Saving.Triple" xml:space="preserve">
+    <value>Vista þrefalda samsetningu (með breytingum og ramma)</value>
+  </data>
+  <data name="Button.Pair.Accept" xml:space="preserve">
+    <value>Samþykkja</value>
+  </data>
+  <data name="Button.Pair.Cancel" xml:space="preserve">
+    <value>Hætta við</value>
+  </data>
+  <data name="Page.Camera.AcceptConnection" xml:space="preserve">
+    <value>Samþykkja tengingu við</value>
+  </data>
+  <data name="Page.Camera.Confirm" xml:space="preserve">
+    <value>Staðfestu að kóðinn passi á báðum tækjunum:</value>
+  </data>
+  <data name="Page.Footer.CouldntOpen" xml:space="preserve">
+    <value>Gat ekki opnað hlekk</value>
+  </data>
+  <data name="Page.Footer.OpenError" xml:space="preserve">
+    <value>Ekki var hægt að opna mailto tengilinn. Þetta gæti verið vegna þess að tölvupóstforritið þitt er ekki sett upp eða einhver önnur ástæða.</value>
+  </data>
+  <data name="Page.Pair.Errors.Denied" xml:space="preserve">
+    <value>Nauðsynleg leyfi fyrir pörun voru ekki veitt. Undantekning:</value>
+  </data>
+  <data name="Page.Pair.Errors.FailedBluetooth" xml:space="preserve">
+    <value>Ekki tókst að kveikja á Bluetooth. Undantekning:</value>
+  </data>
+  <data name="Page.Pair.Errors.FailedSearch" xml:space="preserve">
+    <value>Tækið náði ekki að leita að tækjum. Undantekning:</value>
+  </data>
+  <data name="Page.Pair.Errors.LocationOff" xml:space="preserve">
+    <value>Staðsetningarþjónusta ekki virkjuð. Get ekki leitað að tækjum. Sjá pörunarsíðuna fyrir frekari upplýsingar.</value>
+  </data>
+  <data name="Page.Pair.Errors.LocationScan" xml:space="preserve">
+    <value>Staðsetningarleyfi ekki veitt. Get ekki leitað að tækjum. Sjá pörunarsíðuna fyrir frekari upplýsingar.</value>
+  </data>
+  <data name="Page.Pair.Errors.NotSupported" xml:space="preserve">
+    <value>Pörun er ekki studd á þessu tæki. Undantekning:</value>
+  </data>
+  <data name="Page.Pair.Errors.Title" xml:space="preserve">
+    <value>Villa</value>
+  </data>
+  <data name="Page.Pair.Errors.WifiOff" xml:space="preserve">
+    <value>Slökkt er á Wi-Fi. Vinsamlegast kveiktu á Wi-Fi.</value>
+  </data>
+  <data name="Page.Pair.PrimaryExplanation" xml:space="preserve">
+    <value>Þetta tæki er nú stillt sem aðal.</value>
+  </data>
+  <data name="Page.Pair.PrimarySelected" xml:space="preserve">
+    <value>Aðalhlutverk valið</value>
+  </data>
+  <data name="Page.Pair.SecondaryExplanation" xml:space="preserve">
+    <value>Þetta tæki er nú stillt sem aukabúnaður.</value>
+  </data>
+  <data name="Page.Pair.SecondarySelected" xml:space="preserve">
+    <value>Aukahlutverk valið</value>
+  </data>
+  <data name="Page.Technique.Mode" xml:space="preserve">
+    <value>ham.</value>
+  </data>
+  <data name="Page.Technique.SetMode" xml:space="preserve">
+    <value>CrossCam er nú komið inn</value>
+  </data>
+</root>

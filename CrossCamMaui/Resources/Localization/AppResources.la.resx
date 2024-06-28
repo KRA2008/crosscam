@@ -1,0 +1,1156 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="Button.GoogleDoc" xml:space="preserve">
+    <value>Google Doc of Great Stuff</value>
+  </data>
+  <data name="Button.LearnCross" xml:space="preserve">
+    <value>DISCE CRUCIS</value>
+  </data>
+  <data name="Button.LearnParallel" xml:space="preserve">
+    <value>DISCE PARALLEL</value>
+  </data>
+  <data name="Button.MorePictures" xml:space="preserve">
+    <value>Vide Plures Pictures</value>
+  </data>
+  <data name="Button.Review" xml:space="preserve">
+    <value>Write a review</value>
+  </data>
+  <data name="Button.Share" xml:space="preserve">
+    <value>Share CrossCam</value>
+  </data>
+  <data name="Button.Support" xml:space="preserve">
+    <value>Suscipe Developer</value>
+  </data>
+  <data name="Button.TapCross" xml:space="preserve">
+    <value>SPISSAMENTUM Hic crucem eligere</value>
+  </data>
+  <data name="Button.TapParallel" xml:space="preserve">
+    <value>SPISSAMENTUM hic eligere PARALLEL</value>
+  </data>
+  <data name="Footer.Span1" xml:space="preserve">
+    <value>Bug found? Habesne quaestionem? Just email</value>
+  </data>
+  <data name="Footer.Span3" xml:space="preserve">
+    <value>! Loquentes cum usoribus amo et via celerrime est mecum communicandi.</value>
+  </data>
+  <data name="Page.HowToUse.2anaglyph" xml:space="preserve">
+    <value>2) Committitur anaglyphum imaginem primam cum praevisione quae iuxta eam apparet.</value>
+  </data>
+  <data name="Page.HowToUse.2cardboard" xml:space="preserve">
+    <value>2) Satus cardboard inspicere primam picturam cum praevisione quae proximam ei apparet.</value>
+  </data>
+  <data name="Page.HowToUse.2cross" xml:space="preserve">
+    <value>2) Incipere crucem inspicere primam picturam cum praeviso quod ei proximum apparet.</value>
+  </data>
+  <data name="Page.HowToUse.2parallel" xml:space="preserve">
+    <value>2) Committitur parallela conspectus primam imaginem cum praeviso quod ei proximum apparet.</value>
+  </data>
+  <data name="Page.Technique.AdditionalTutorials" xml:space="preserve">
+    <value>Additional tutorials:</value>
+  </data>
+  <data name="Page.Technique.Cross1" xml:space="preserve">
+    <value>Oculos tuos diligenter transeamus ad binas picturas supra aspicientes. Cum oculos tuos transieris, omnia terrent et perspicies et incipies videre 4 picturas pro 2(2 jugis). Quo durius transibis oculos tuos, eo minora picturarum paria movebuntur - hoc parum spectabit;</value>
+  </data>
+  <data name="Page.Technique.Cross2" xml:space="preserve">
+    <value>Diligenter oculos tuos traice, ita ut picturae in uniuscuiusque paris interioris parte incipiant aliudque. Incipiet spectare similes tantum imagines 3 tantum loco 4. Etiam terrebit et pervidebit et aliquid simile hoc intuebitur;</value>
+  </data>
+  <data name="Page.Technique.Cross3" xml:space="preserve">
+    <value>Cum medium habeas aliudque operandi modo habes oculos relaxandi et picturam versari permittas. In illo puncto habebis unam picturam acutam 3D in medio cum imagine pellucida fluitans hinc inde, quod hoc simile erit (praeter medium 3D);</value>
+  </data>
+  <data name="Page.Technique.Cross4" xml:space="preserve">
+    <value>Si molestum transiens oculos tuos habes, etiam digito intueri potes dum medium inter oculos ac velamentum tenes. Picturas incipientes videre debes separare et aliudque post digitum tuum.</value>
+  </data>
+  <data name="Page.Technique.CrossViewing" xml:space="preserve">
+    <value>CRUCIS VIEWING</value>
+  </data>
+  <data name="Page.Technique.P1" xml:space="preserve">
+    <value>Si hoc iterum videre vis, assae (tres lineae) iconem in summitate sinistrae camerae screen et sonum "Auxilium" videre.
+
+Videre 3D in CrossCam (vocatur "stereograms") potes uti specula rubra/cyan 3D, a Google cardboard inspectoris, vel "liberum intuitum" facere potes utentibus oculis tuis ac velamento tuo. Dupliciter ad liberum visum, et CrossCam utrumque potest adiuvare ut discas. Opus est tibi indicare CrossCam quomodo iens videre picturas vel non recte operari. Noli solliciti esse, semper hoc iterum in Occasus mutare potes.
+
+Si commode oculos tuos transire vales, primum modum crucis conari, alioquin methodum parallelam conare. Si libris Magicis oculis usus es, probabiliter iam methodum parallelam facere potes, sed modum crucis quoque facere potes. Tape methodum infra discendi, fac indicare CrossCam quam quis tibi operatur premendo conjunctionem correspondentem SELECTO.
+
+Si specula 3D vel speculantis Cardboard potius uti velis, CrossCam constituere potes ut illis in pagina Occasus utaris.</value>
+  </data>
+  <data name="Page.Technique.CrossLink1" xml:space="preserve">
+    <value>A nice text Nullam</value>
+  </data>
+  <data name="Page.Technique.CrossLink2" xml:space="preserve">
+    <value>Sed alius textus delicatus doceo</value>
+  </data>
+  <data name="Page.Technique.CrossLink3" xml:space="preserve">
+    <value>A brevi YouTube doceo</value>
+  </data>
+  <data name="Page.Technique.CrossLink4" xml:space="preserve">
+    <value>Longum, impar, sed utile YouTube doceo</value>
+  </data>
+  <data name="Page.Technique.CrossLink5" xml:space="preserve">
+    <value>Alius YouTube consequat</value>
+  </data>
+  <data name="Page.Technique.CrossLink6" xml:space="preserve">
+    <value>Dual camera project cum doceo</value>
+  </data>
+  <data name="Page.Technique.Parallel1" xml:space="preserve">
+    <value>Si imago superior in screen tuo non convenit, telephonum ad landscape - CrossCam par imaginum efficere conatur ad hanc magnitudinem facillimam. Semper in landscape CrossCam non uteris, sed imago perfecte amplifica faciliorem technicam artem efficit.</value>
+  </data>
+  <data name="Page.Technique.Parallel2" xml:space="preserve">
+    <value>Relaxa oculos tuos et vide "per" binas picturas desuper sicut tu es zoning genus cum oculis tuis in imaginibus monstrantibus. Incipere debes 3 picturas cum 3D pictura in medio videre, paulum sic:</value>
+  </data>
+  <data name="Page.Technique.Parallel3" xml:space="preserve">
+    <value>Si tabulas 4 videre incipis, longius processisti. Conare oculos tuos movere circa exiguam partem, si te iterum inveneris. Relaxans longius aspiciet paulum hoc simile;</value>
+  </data>
+  <data name="Page.Technique.Parallel4" xml:space="preserve">
+    <value>Si molestus es, experire velum tuum contra faciem tuam ferre cum binis imaginibus in conspectu oculorum tuorum. Relaxa et vide "per" velum ac deinde lente velamentum tuum a facie trahere, dum oculos tuos remissos servans. Tandem imago "click" in umbilicum debet.</value>
+  </data>
+  <data name="Page.Technique.Parallel5" xml:space="preserve">
+    <value>Si quattuor imagines adhuc vidisti, "Maximum latitudinem imaginis parallelae visum" in pagina Occasus auge.</value>
+  </data>
+  <data name="Page.Technique.ParallelViewing" xml:space="preserve">
+    <value>PARALLEL VIEWING</value>
+  </data>
+  <data name="Page.Technique.Practice" xml:space="preserve">
+    <value>Imagines feci ut exercere possis</value>
+  </data>
+  <data name="Title.Contact" xml:space="preserve">
+    <value>Contactus</value>
+  </data>
+  <data name="Title.Faq" xml:space="preserve">
+    <value>FAQ</value>
+  </data>
+  <data name="Title.Help" xml:space="preserve">
+    <value>Auxilium</value>
+  </data>
+  <data name="Title.HowToUse" xml:space="preserve">
+    <value>Quomodo uti CrossCam</value>
+  </data>
+  <data name="Title.Technique" xml:space="preserve">
+    <value>3D Viewing ars</value>
+  </data>
+  <data name="Title.Tips" xml:space="preserve">
+    <value>Apicibus</value>
+  </data>
+  <data name="Button.DoNotEmailMe" xml:space="preserve">
+    <value>Noli email nunc me</value>
+  </data>
+  <data name="Button.EmailMeNow" xml:space="preserve">
+    <value>Nunc email me</value>
+  </data>
+  <data name="Button.No" xml:space="preserve">
+    <value>No</value>
+  </data>
+  <data name="Button.OK" xml:space="preserve">
+    <value>OK</value>
+  </data>
+  <data name="Button.YesClear" xml:space="preserve">
+    <value>Ita patet</value>
+  </data>
+  <data name="Page.Camera.Aligning" xml:space="preserve">
+    <value>Alinging...</value>
+  </data>
+  <data name="Page.Camera.AlignmentBroken" xml:space="preserve">
+    <value>Gratia diei et noctis non valet in fabrica - declinemus in Occasus.</value>
+  </data>
+  <data name="Page.Camera.AlignmentFailed" xml:space="preserve">
+    <value>Defecit Gratia diei et noctis.</value>
+  </data>
+  <data name="Page.Camera.BorderAsk" xml:space="preserve">
+    <value>Terminus detectus. Terminum removere?</value>
+  </data>
+  <data name="Page.Camera.BorderDetected" xml:space="preserve">
+    <value>Terminus Results</value>
+  </data>
+  <data name="Page.Camera.Cancel" xml:space="preserve">
+    <value>Cancel</value>
+  </data>
+  <data name="Page.Camera.ChooseAction" xml:space="preserve">
+    <value>Elige actio:</value>
+  </data>
+  <data name="Page.Camera.DirectoryNotFound" xml:space="preserve">
+    <value>Directory Not Found</value>
+  </data>
+  <data name="Page.Camera.DirectoryNotFoundExplain" xml:space="preserve">
+    <value>In nisi destinatum reperiri non poterat. Elige alterum in pagina uncinis.</value>
+  </data>
+  <data name="Page.Camera.ErrorEmailBody" xml:space="preserve">
+    <value>Quid fecisti ante errorem? Quaeso describere etiam res parvas.\n\n\n\n\n\nNDid CrossCam adhuc opus est errore? Sin minus, quomodo frangitur?\n\n\n\n\n\nAn hoc saepe evenit?\n\n\n\n\n\nN\ Poterisne errorem fieri in imperio? Si ita, quomodo?\n\n\n\n\n</value>
+  </data>
+  <data name="Page.Camera.FlipForCardboard" xml:space="preserve">
+    <value>Flip ad landscape cum in cardboard modus.</value>
+  </data>
+  <data name="Page.Camera.FlipLarger" xml:space="preserve">
+    <value>(Flip to landscape for the larger view)</value>
+  </data>
+  <data name="Page.Camera.ForAnaglyph" xml:space="preserve">
+    <value>pro anaglyph</value>
+  </data>
+  <data name="Page.Camera.ForCardboard" xml:space="preserve">
+    <value>nam Cardboard</value>
+  </data>
+  <data name="Page.Camera.ForCross" xml:space="preserve">
+    <value>ad crucem</value>
+  </data>
+  <data name="Page.Camera.ForParallel" xml:space="preserve">
+    <value>nam parallela</value>
+  </data>
+  <data name="Page.Camera.GoPickRole" xml:space="preserve">
+    <value>Cede ad paginam HYMENAEOS (per pagina Occasus) et elige geminas partes huius machinae antequam par conaris.</value>
+  </data>
+  <data name="Page.Camera.InvalidImage" xml:space="preserve">
+    <value>Aliquam Image</value>
+  </data>
+  <data name="Button.Camera.Keep" xml:space="preserve">
+    <value>Serva</value>
+  </data>
+  <data name="Page.Camera.LoadFullImage" xml:space="preserve">
+    <value>Load full mono image</value>
+  </data>
+  <data name="Page.Camera.Loading" xml:space="preserve">
+    <value>Loading...</value>
+  </data>
+  <data name="Page.Camera.LoadSingleSide" xml:space="preserve">
+    <value>Onus una parte</value>
+  </data>
+  <data name="Page.Camera.ManualCorrections" xml:space="preserve">
+    <value>Vide etiam correctiones manuales.</value>
+  </data>
+  <data name="Page.Camera.MirrorOnLeft" xml:space="preserve">
+    <value>Speculum sinistrum</value>
+  </data>
+  <data name="Page.Camera.MirrorOnRight" xml:space="preserve">
+    <value>SPECULUM DEXTRA</value>
+  </data>
+  <data name="Page.Camera.MoveLeft" xml:space="preserve">
+    <value>PRAETERMITTO EGRESSUS</value>
+  </data>
+  <data name="Page.Camera.MoveRight" xml:space="preserve">
+    <value>MOVEO</value>
+  </data>
+  <data name="Page.Camera.NoSaveModes" xml:space="preserve">
+    <value>Non nisi modos Active</value>
+  </data>
+  <data name="Page.Camera.NoSaveModesExplain" xml:space="preserve">
+    <value>Modi non nisi nunc in switched sunt. Servare modum in Occasus pagina.</value>
+  </data>
+  <data name="Page.Camera.Oops" xml:space="preserve">
+    <value>Oops</value>
+  </data>
+  <data name="Page.Camera.OrRotate" xml:space="preserve">
+    <value>(Vel gyrari)</value>
+  </data>
+  <data name="Page.Camera.OrSwipe" xml:space="preserve">
+    <value>(Vel ungunt)</value>
+  </data>
+  <data name="Page.Camera.PairRoleNotSelected" xml:space="preserve">
+    <value>Par munus non Selectae</value>
+  </data>
+  <data name="Page.Camera.PinchOrDrag" xml:space="preserve">
+    <value>Tern, vel trahe ad explorandum!</value>
+  </data>
+  <data name="Page.Camera.PleaseSelectValid" xml:space="preserve">
+    <value>Placere eligere Jpeg, Png, seu imaginem Webp. Imago delegisti</value>
+  </data>
+  <data name="Page.Camera.ReallyClear" xml:space="preserve">
+    <value>Itane patet?</value>
+  </data>
+  <data name="Button.Camera.Remove" xml:space="preserve">
+    <value>Aufer</value>
+  </data>
+  <data name="Page.Camera.SavedToCustomFolder" xml:space="preserve">
+    <value>Servata more folder</value>
+  </data>
+  <data name="Page.Camera.SavedToExternal" xml:space="preserve">
+    <value>Salvus ad externum</value>
+  </data>
+  <data name="Page.Camera.SavedToPhotos" xml:space="preserve">
+    <value>Salvus est imaginibus</value>
+  </data>
+  <data name="Page.Camera.SaveFailed" xml:space="preserve">
+    <value>SavingFailed. :(</value>
+  </data>
+  <data name="Page.Camera.Saving" xml:space="preserve">
+    <value>Salvis...</value>
+  </data>
+  <data name="Page.Camera.SecondaryOnLeft" xml:space="preserve">
+    <value>De secundis sinistris</value>
+  </data>
+  <data name="Page.Camera.SecondaryOnRight" xml:space="preserve">
+    <value>DE SECUNDA IURE</value>
+  </data>
+  <data name="Page.Camera.SelectedInvalid" xml:space="preserve">
+    <value>Imago electa invalida est.</value>
+  </data>
+  <data name="Page.Camera.SorryError" xml:space="preserve">
+    <value>Ignosce, CrossCam errorem fecit. Error fama missum est. Non licet tibi quicquam mali videri, sed si id facis, applicationem restarting experire. Si hoc servat, electronicas ad me et de eo indica mihi. (Perge ad paginam Occasus hos populos prohibere.)</value>
+  </data>
+  <data name="Page.Camera.Steady" xml:space="preserve">
+    <value>Stabilis...</value>
+  </data>
+  <data name="Page.Camera.SureClear" xml:space="preserve">
+    <value>Certusne esne picturas tuas purgare et super incipias?</value>
+  </data>
+  <data name="Page.Camera.Syncing" xml:space="preserve">
+    <value>Syncing...</value>
+  </data>
+  <data name="Page.Camera.Transmitting" xml:space="preserve">
+    <value>Transmittentes...
+(Reclusit in arce fabrica)</value>
+  </data>
+  <data name="Page.Camera.VR" xml:space="preserve">
+    <value>VR</value>
+  </data>
+  <data name="Page.FovCorrection" xml:space="preserve">
+    <value>Ager View Correctio</value>
+  </data>
+  <data name="Page.FovCorrectionExplain" xml:space="preserve">
+    <value>Exempla variae fabricae diversis campis visum habere possunt. CrossCam adiuvabit ut corrigas hoc post captam primam tuam. Compinge et capere aliquid cum punctis distinctis circa summum et imum compage, faciens certa puncta in utroque artificio conspicua esse.</value>
+  </data>
+  <data name="Page.Technique.ParallelLink1" xml:space="preserve">
+    <value>A nice text Nullam</value>
+  </data>
+  <data name="Page.Technique.ParallelLink2" xml:space="preserve">
+    <value>Alius nice text Nullam</value>
+  </data>
+  <data name="Page.Technique.ParallelLink3" xml:space="preserve">
+    <value>ALIO itidem in textu delicatus doceo</value>
+  </data>
+  <data name="Page.Technique.ParallelLink4" xml:space="preserve">
+    <value>Magic Frankfurter Tutorial</value>
+  </data>
+  <data name="Page.Technique.ParallelLink5" xml:space="preserve">
+    <value>A nice video de Magia Eye</value>
+  </data>
+  <data name="Page.Technique.Trouble" xml:space="preserve">
+    <value>Si adhuc molestus es, telephonum tuum in cubiculum obscurum conare, ut res sola oculi tui bene videre possint et imago umbilici est.
+
+Aliam rem experiri potes uti fistulas latrina charta vel manus tuas ut eam efficiat ut unusquisque oculus solum videre possit latus imaginis quod suus supponitur videre.
+ • Pro intuitu crucis: unam fistulam contra pontem nasi tui (inter oculos sitas) tene, cum in centro imaginis coram te eum ostendens. Tarde tubam ad velum moveo dum tubum utroque oculo despicere conatur. Cum ad rectam cum tubi positione imaginem in locum disrumpam debet. Iuvat intendere conatur ad videndum intus ultimi tubi. Si locum rectum invenire non potes, maiore imagine aut tubo minore utere.
+ • Parallela sententia: in fronte utriusque oculi fistulam tene, sed utrumque in obliquum monstrabis, ut vix aliquid videre possis. Tarde simul introrsum fistulas verte ut plus imaginis videre incipias. Nunc quam maxime imaginem videre potes (dimidium fere cum singulis oculis), conare oculos tuos relaxare et simul partes ferre. Iuvat etiam imaginem maiorem vel minorem uti.
+
+Exercitium facile est facere potes ut vel crucis vel paralleli conspectus rendo exerceas. Sume titulum, et trahe portionem faciei ridentis in singulis ailntulis tuis (vel par baculorum popsiclorum vel linguae depressoriarum). Sicut unum oculum et os ex una parte trahunt, et ex alia parte oculum et nasum. Potes ergo eas tenere in conspectu tuo et exerces cudendo duas imagines simul ad perficiendum amet faciem tuam.
+
+Ego ipse per parallelas transmeare malim, quod imagines majores esse possunt, sed utraque methodus operantur. Si experiri velis cum imaginibus parallelis maioribus, magnitudinem in pagina Occasus regere potes.
+
+Aliquando difficile est sentire utrum crucem an methodum parallelam facias dum vales. Alium petere potes ut oculos tuos videas dum id facis vel ut infra testem imaginem intueri potes;</value>
+  </data>
+  <data name="SaveModes.Anaglyph" xml:space="preserve">
+    <value>Anaglyphum</value>
+  </data>
+  <data name="SaveModes.Cardboard" xml:space="preserve">
+    <value>Cardboard</value>
+  </data>
+  <data name="SaveModes.Cross" xml:space="preserve">
+    <value>Crucis</value>
+  </data>
+  <data name="SaveModes.GrayscaleAnaglyph" xml:space="preserve">
+    <value>Cineraceorum Anaglyph</value>
+  </data>
+  <data name="SaveModes.Parallel" xml:space="preserve">
+    <value>Parallel</value>
+  </data>
+  <data name="SaveModes.Quad" xml:space="preserve">
+    <value>Quad</value>
+  </data>
+  <data name="SaveModes.Separate" xml:space="preserve">
+    <value>Separate</value>
+  </data>
+  <data name="SaveModes.Single" xml:space="preserve">
+    <value>Unius</value>
+  </data>
+  <data name="SaveModes.Triple" xml:space="preserve">
+    <value>Triplex</value>
+  </data>
+  <data name="Page.Camera.FovExplain" xml:space="preserve">
+    <value>Ut corrigas differentias campi visi, zoom et picturas labimur sic puncta distinctiva inter duas imagines aciem. Circum lineas albas trahere potes ut noctis auxilium visualize te. Haec correctio applicanda est ad futura praevia. Salvus erit, sed in Occasus paginae retexere potes. Si eadem machinationibus uti es iustus nisi sine adjusting.</value>
+  </data>
+  <data name="Page.Camera.FovTitle" xml:space="preserve">
+    <value>Ager View Correctio</value>
+  </data>
+  <data name="Page.Camera.KeyPoints" xml:space="preserve">
+    <value>Cardinis</value>
+  </data>
+  <data name="Page.Camera.Warped" xml:space="preserve">
+    <value>Warped</value>
+  </data>
+  <data name="Page.Camera.WelcomeExplain" xml:space="preserve">
+    <value>CrossCam auxilium 3D facere photos factum est. Imagines sunt 3D sicut VR vel 3D pelliculae, sed non indiget aliquo speciali instrumento vel vitreis - phone tantum (sed si habes par rubri/cyan 3D specula vel Google cardboard inspectoris, his uti potes. apud Crosscam quoque). Ars \"libera visendi\" utitur modo telephonicii tui et oculi tui aliquam praxim ad discendum sumunt. Priusquam dicam tibi quomodo uti CrossCam, primum vis discere plura de arte speculandi?</value>
+  </data>
+  <data name="Page.Camera.Welcome" xml:space="preserve">
+    <value>Welcome to CrossCam!</value>
+  </data>
+  <data name="Page.Camera.Directions" xml:space="preserve">
+    <value>Skip to Directions</value>
+  </data>
+  <data name="Page.Camera.Technique" xml:space="preserve">
+    <value>Ars Viewing</value>
+  </data>
+  <data name="Page.HowToUse.P1" xml:space="preserve">
+    <value>Si hoc iterum videre vis, assae (tres lineae) iconem in summitate sinistrae camerae screen et sonum "Auxilium" videre.
+
+
+1) Artus fac et primam imaginem cape.</value>
+  </data>
+  <data name="Page.HowToUse.P2" xml:space="preserve">
+    <value>3) Telephonium tuum ante te stabilis esto ac lente transversa in directum CrossCam te nuntiat. Noli longius progredi - pollicis minusve singulis peditibus auferendum scopum tuum est. Etiam, omnino ne declines, modo transversa labitur, vel forte etiam modo innitatur.
+
+4) Conlineare primam picturam cum praevisione secundae picturae et sume secundam picturam cum libet quod vides.
+
+5) CrossCam automatice picturas tuas pones postquam eas cepisti, sed non perfectum est, si tibi non placet quomodo perlatae sunt, automatarium alignment vertere potes per iconem parvam roboti percutiendo. CrossCam quoque optiones manuales edendi plurimas habere potes ut iconem tundendo penicilli attingas.
+
+VI) SPISSAMENTUM reprehendo signum cum paratus sis servare.
+
+
+Alia vasa facere potes:
+ • ICTUS semel ut umbilicum in punctum, bis tap ut ad umbilicum auto- continuum mutes.
+ • SPISSAMENTUM calces icon in summo dextro scrinii camerae ad Occasus paginam aperiendam. Est plena interesting effercio.
+ • Illic 'nice Apicibus pagina potes ad iconem assae percutiendo in summitate sinistrae camerae tegumentum quod adiuvare possis tuas imagines magnas facere.
+ • Si malles alteram partem pro secundo ictu tuo movere vel sicut in ungunt latera permutare velis.
+ • Tap parvam iconem folder in imo ut imaginem tamquam latus vel oneratis plenam mono imaginem addas.</value>
+  </data>
+  <data name="Page.Faq.Alignment" xml:space="preserve">
+    <value>Quomodo auto- dam opus?</value>
+  </data>
+  <data name="Page.Faq.Alignment.Body" xml:space="preserve">
+    <value>Auto-alignment conamina tam quam maxime figere imaginem paria, sed perfecta non est. Visio computatoria in aliquibus rebus melior est quam oculi hominis, sed multa etiam in aliis rebus peiora sunt. Mundus videt longe aliter quam nos, sed paucis etiam modis videre potest. Duae viae principales quas in CrossCam videt sunt per correlationem coefficientem auctam (ECC) et cardinis utens.
+
+ECC alignment essentialiter operatur tentando efficere ut leves inaequalitates insidunt cum levibus inaequalitatibus et obscurum inaequaliter insidunt cum obscuro inaequaliter, cum duo latera super se invicem obducuntur. ECC alignment cum fiduciae nomine venit quod ope adiuvandi destinatur utrum alignment efficax esset. CrossCam constituitur ad negandum noctis productae si fiducia nimis gravis est, sed fiduciam transire/deficere in limine paginae Occasus configurare potes.
+
+Punctum alignment puncta quae interest ut anguli, margines, punctis, et antithesis antithesis et conatus inter utrumque latus congruit. Cum puncta inter se cohaereant, CrossCam variis algorithmis uti potest ad latera detorquere conari ut cardines ab una parte omnes quam proxime possunt eorum cardinis ab altera parte respondentibus.
+
+CrossCam programmatum est ad punctum noctis utendum primo, sed ad alignment ECC recidet cum punctum alignment deficit vel cum capiendo agitur cum methodo speculi divisionis iaculantis. Configurare etiam potes auto- alignment ut semper clavibus alignment uti vel semper noctis ECC in Occasus pagina uteris.
+
+CrossCam declarabit exitus noctis in screen camera sub icone parvae robotae. Si alignment ECC usus est, fiduciam recipis ostendet. Si noctis punctum cardinis usus est, "KP" ostendet. Si utraque alignment ratio defecerit, "F" ostendet. Si non placet effectus noctis, in parva robot icon ut alignment removere potes ICTUS.</value>
+  </data>
+  <data name="Page.Faq.Bad" xml:space="preserve">
+    <value>Hoccine malum est oculis meis?</value>
+  </data>
+  <data name="Page.Faq.Bad.Body1" xml:space="preserve">
+    <value>Nescio, sed non ita puto. Sed si mala sentit sicut confractus sumo. Usu molestiae soleat minuit. Quaelibet visio methodi molestiam efficere potuit propter effectum quod vocatur vergens-accomodation conflictus. Hic's</value>
+  </data>
+  <data name="Page.Faq.Bad.Body2" xml:space="preserve">
+    <value>Vicipaediae paginae in conflictu vergente-accommodationis.</value>
+  </data>
+  <data name="Page.Faq.Bad.Body3" xml:space="preserve">
+    <value>Si luscus methodo uteris, sensus etiam ob oculos tuos debet non demonstrare quasi rem tam propinquam tam diu intuentes. Cum crucis intuitus, oculi tui in puncto medio fere inter oculos et velum tendunt. Si intuentes aliquid quod propinquum diu esset, etiam te molestiae causaret, nobis explicandum est.
+
+Mea sententia est quod oculi tui nihil extra cotidianos facultates agunt, sed duas diversas facultates coniungis quae non illo modo usi sunt. Lentes tuas in aliquo uno loco versaris quod soleat ad intendunt commoda, et oculos tuos alicubi monstras ubi soleat commode eis demonstrare, sed locus ubi lentium tendunt et ubi oculi confluunt. non est idem punctum. Non video quomodo id tibi sit malum modo dum visio tua nondum explicatur.</value>
+  </data>
+  <data name="Page.Faq.Cardboard" xml:space="preserve">
+    <value>Quomodo utor CrossCam cum Google Cardboard?</value>
+  </data>
+  <data name="Page.Faq.Cardboard.Body" xml:space="preserve">
+    <value>Si inspector tuus puga pyga habet quod centrum screen premit, ea uti potes ut Cardboard capiat. Inspectoris tui etiam foramen habere in camera telephonica tui ut perspiciam necesse erit.
+
+Ut imagines photographicas utentes Cardboard capere, methodum (in Occasus paginae) ad Cardboard mutandum Praevius, deinde ad paginam camerae revertere et telephonum in inspectoris inhaere. Preme puga pyga ut capias, et cum utraque pars capiatur, pyga iterum preme ad servandum. Servans in Cardboard modus tantum destinatur ut imagines in CrossCam remittas te onerare ut postea inspicias, non ut eas in tuis app per inspectoris tuis inspicias.
+
+Potes etiam capere utens alia quavis ratione quam vis, tum praevius speculationis methodum ad Cardboard flecte et telephonum in inspectoris pone.
+
+Multi sunt ibi visores cum diversis proprietatibus. Cardboard separationis distantiam (per Occasus paginam) mutare debes, ut experientiam tuam commodiorem reddas. Etiam opus est ut primum fac te bonum capere stereograms qualis summus antequam facias humongous et immersive.</value>
+  </data>
+  <data name="Page.Faq.How" xml:space="preserve">
+    <value>Quomodo hoc opus facit?</value>
+  </data>
+  <data name="Page.Faq.How.Body1" xml:space="preserve">
+    <value>Effectus 3D CrossCam usus est disciplina pervestigata quae stereoscopia nota est, et modus quo oculos tuos transisti (vel laxare) ad utrasque partes speculandas vocatur liberum intuitus. Cum mundum circumspicimus, uterque oculi nostri diverso prospectu videt. In stereoscopio omnia quae facimus, praesens est prospectus unus (artificialis) ad unumquemque oculum, et cerebra nostra sicut cetera faciunt. Plures sunt diversi modi ut unusquisque oculus aliam imaginem videat. Hic's</value>
+  </data>
+  <data name="Page.Faq.How.Body2" xml:space="preserve">
+    <value>Vicipaedia pagina in stereoscopio</value>
+  </data>
+  <data name="Page.Faq.How.Body3" xml:space="preserve">
+    <value>The 3D pictures you make with CrossCam are called stereograms. Magia ocularia libri continent quae autostereograms dicuntur.</value>
+  </data>
+  <data name="Page.Faq.Into" xml:space="preserve">
+    <value>Quomodo in stereoscopia fecisti?</value>
+  </data>
+  <data name="Page.Faq.Into.Body1" xml:space="preserve">
+    <value>Dum physicam gradum meum questus sum, occasionem experiendi habui cum lasers mea holograms creando. Genus holograms quod faciebam erant 3D quia diffractionem craticulae adhibebant ad impedimentum perniciosum in luce quae reflectitur super superficiei laminae vitreae, quae efficit imaginem reflexam diversis locis aspicere. Cum singuli oculi nostri imaginem viderint quae ab alia prospectu (si non nimis diversa sunt) imaginem conspicit, cerebrum nostrum ut profunditatem percipit.</value>
+  </data>
+  <data name="Page.Faq.Into.Body2" xml:space="preserve">
+    <value>Quod principium perceptionis stereoscopicae iampridem sensi, sed eo in loco in vita mea etiam quaedam genera programmandi cepi, itaque decrevi conari ut simplex programmatum computatrale stereoscopicum 3D trahendi facere decrevi. Id conatum StereoSketcher. Versio originalis in Java scripta est, sed id scripsi cum Javascript et SVG et nunc vivit in interreti</value>
+  </data>
+  <data name="Page.Faq.Into.Body3" xml:space="preserve">
+    <value>at this link.</value>
+  </data>
+  <data name="Page.Faq.Into.Body4" xml:space="preserve">
+    <value>Quoquo modo non vulgaris est, nec cuiquam facile uti licet, sed facit. Dum in StereoSketcher laborat, experimentum feci cum principiis stereoscopiae, et me delectatus sum, quo modo talis experientia immersiva et cogens in paucis simplicibus regulis uti potest.</value>
+  </data>
+  <data name="Page.Faq.Inverted" xml:space="preserve">
+    <value>Cur 3D recta OR cur non spectat 3D inversa?</value>
+  </data>
+  <data name="Page.Faq.Inverted.Body1" xml:space="preserve">
+    <value>Cum liberum inspicere cum cruce vel methodo parallela, Gravis est picturas inspicere eadem methodo quae ad eas creandas adhibita est. Alioquin oculus dexter aspiciet prospectum intentum ad oculum sinistrum et vice versa. Hoc efficit altitudinem imaginis invertendi, quia directio parallaxis involuta est.
+
+Parallaxis significat quod in prospectu oculi dextri, cum objecta longius absunt, videntur magis ad dextrum quam propius objecta, quae a sinistro oculo visa sunt. Perturbationem cum forma sententiae descriptus est, sed valde intuitivus demonstratus.
+
+Ad demonstrandum, tene unum digitum ante te ad longitudinem brachii, deinde alia manu tene alium digitum medium fere inter primum digitum et faciem tuam. Si alternatim singulos oculos claudas et ubi digiti sunt attendas, videbis quod uterque oculus in diversis locis eas videat. Naturaliter igitur, si quilibet oculus videat motum contrario modo, quo suus supponitur, profundum invertetur.
+
+Facillime ad rem perspiciendam per accidens utere, quia difficillimum est evenit ut plerisque narrare utrum oculi modo transeuntes vel laxando sentiendo vel intuendo duplicem imaginem mundi resultantem confundentes. Sed melius est ut aut alium videas quid oculi agant, aut experire hanc testem imaginem:</value>
+  </data>
+  <data name="Page.Faq.Inverted.Body2" xml:space="preserve">
+    <value>Multi homines satis commode ceperunt cum libris Magicis Eye™ inspectis, qui in animo sunt spectandi utendi sententiarum parallelarum modum. Si eas inspicias, tunc robusta 3D obiecta, quae in pagina pop off supponuntur, tamquam foramina. Utraque ratio permittit te videre aliquid, sed si nescires quid esset, probabiliter transire inspiceres.</value>
+  </data>
+  <data name="Page.Faq.Mirror" xml:space="preserve">
+    <value>Quomodo modum facio "speculum unicum"?</value>
+  </data>
+  <data name="Page.Faq.Mirror.Body1" xml:space="preserve">
+    <value>Methodus speculi capiendi artus in medium dividit et transformatio inquisita facit ut eodem momento utrumque latus capere possis uno telephonico et in manubrio speculo regulari utendo. Utendi methodo speculi capiendi, flip switch in modum speculi in Occasus pagina (ictum ad iconem calces ut illuc pervenias). Post speculum modo invertis, CrossCam indicabit utra pars speculi teneas. Habe speculum tuum in illa parte et fuss cum alignment inter telephonum et speculum et in re tua. Cum aliqua patientia, omnes erigi poteris ut speculum recto laterum prospectu monstret. Quia per methodum speculi utens imaginem tuam in media verticali scindit, solet optime capere in landscape cum speculi methodo.
+
+Haec methodus cum reflexionibus in fenestris magnis, mundis, ac etiam in lacubus adhuc vel palu operatur (cum telephonum clauditur in imagine et transversa flipped).</value>
+  </data>
+  <data name="Page.Faq.Mirror.Body2" xml:space="preserve">
+    <value>Sunt nonnullae compromissiones/ emendationes quae faciendae sunt ut methodo speculi utantur. Haec omnia manually in CrossCam fieri possunt, sed alignment latae etiam pro te facere conantur:
+ • Quoniam visum reflexum longius percurrit quam visum normalem, latus speculatum in aliquantulo zoomed oportebit.
+ • Verisimile est quod cum speculi methodo utens, sessurus, potius quam parallelas prospectus servans, hoc praevidere potest sicut nox verticalis malae spectare. Ad solvendum id, lapis angularis corrigi potest, id quod perpendiculariter decrescit, uno latere singulorum imaginum.
+ • Toeing-in etiam tendere fenestram ad te movere stereo. Infectum reddere potes et pone ubi vis tondendo latera.
+ • Speculum verisimile non plene visum unius lateris obteget, ut aliqua inossa fieri oporteat ut frenos irreflexos removeat.
+
+Specula optima ad hoc vitrum tenue habent. Nam unum leve est, quo facilius sunt diutina tenere. Alterum magni momenti est quod cum speculi uteris, verisimile feres speculum in obliquum tendere quam recta in eo spectare ut specula de more adhibeantur. Cum ordinatur ut hoc, specula cum vitreis crassis aliquid terret. Tenuior vitrum, eo minus latens haec apparens erit. Haec genera speculorum etiam in aliis rebus humilitas esse potest, ut gravis statera bonam invenire.
+
+Aliae duae compromissae accipiendae sunt cum utens speculo capto, quod in emendationibus a CrossCam figi non potest:
+ • Cum visum utriusque lateris nonnihil distent distantias, umbilicus ad utrumque latus opus erit leviter diversum, ita unum latus semper leviter terret. Hic effectus magis vel minus notabilis erit secundum distantiam subiecti et profunditatem campi lentis.
+ • Nullum speculum est vere 100 efficiens, ut latus, quo speculo utitur, aliquantulum obscurior sit. Hoc cum speculi qualitate variabitur.</value>
+  </data>
+  <data name="Page.Faq.Moving" xml:space="preserve">
+    <value>Materia mea movetur, quomodo 3D imagines eius capio?</value>
+  </data>
+  <data name="Page.Faq.Moving.Body" xml:space="preserve">
+    <value>Crosscam tibi permittit duos modos capiendi utrosque prospectus eodem momento. Una methodus duobus telephoniis utitur, una methodo speculo utitur.
+
+Duobus televisificis uti, perspicias paginam Pairing Setup, quam ex pagina Occasus accipere potes (icon calces tap).
+
+Methodo speculi utendi, alia FAQ quaestionem de ea reprehendo.</value>
+  </data>
+  <data name="Page.Faq.Test" xml:space="preserve">
+    <value>Quomodo probare possum versiones CrossCam pre-dimittere?</value>
+  </data>
+  <data name="Page.Faq.Test.Body" xml:space="preserve">
+    <value>Reprehendo sicco hoc Reddit post</value>
+  </data>
+  <data name="Page.Faq.Why" xml:space="preserve">
+    <value>Cur Crosscam fecisti?</value>
+  </data>
+  <data name="Page.Faq.Why.Body" xml:space="preserve">
+    <value>Cum incipio ad interesse in stereoscopio, accidit ut iter ad Yellowstone National. Cum ibi essem, intellexi iocum esset uti 3D camera mobile app ut res ibi caperet in 3D. Valde sum frustratus a optionibus existentibus. Quaesivit omnes ut invenirem duos captivos, et postea si quid boni invenirem. Saepe non erant, ut mihi identidem facerem conjecturas plenas in distantia mea separatio, et quale rei;
+
+In paucis proximis hebdomadibus me frustratio coquens me ducebat ut imaginari modo praemonstrationem vivam praemonstrationis secundae e regione primae captae ponerem. Iam curriculum in mobili progressione habui, ergo in tempore positum erat. CrossCam terribilis fuit mihi uti modo pro me ut memoriam conservarem, et gaudeo eam etiam tecum communicare.</value>
+  </data>
+  <data name="Page.Faq.Wiggle" xml:space="preserve">
+    <value>Quid wigglegrams?</value>
+  </data>
+  <data name="Page.Faq.Wiggle.Body" xml:space="preserve">
+    <value>Wigglegrams via sunt ad visum stereograms quod in visione binoculari non nititur. Solent esse donum quod inter duos prospectus ultro citroque diffunditur, unumquodque totum eodem in loco ostendens. CrossCam non adiuvat ut ea nunc efficiat, sed electronicas mihi si vere in illis es interested et ego faciam.</value>
+  </data>
+  <data name="Page.Tips.AlignAfter" xml:space="preserve">
+    <value>Mens horizontales, sed etiam post align potes.</value>
+  </data>
+  <data name="Page.Tips.AlignAfter.Body" xml:space="preserve">
+    <value>Si inveneris, cum imagines accipias impossibile est ut lineas rectas tum superiores et inferiores simul facere, fortasse in partem aliquam aliam quam ad latus flecteris. Hoc figere conantur ante picturas sumentes, sed aligning post facto multum adiuvare potest.</value>
+  </data>
+  <data name="Page.Tips.Alignment" xml:space="preserve">
+    <value>Auto alignment averte potes.</value>
+  </data>
+  <data name="Page.Tips.Alignment.Body" xml:space="preserve">
+    <value>Si non placet eventus noctis automatis, averte te in pagina Occasus vel in icone parvae robotae percussoque et picturae tuae originales captae restituentur.</value>
+  </data>
+  <data name="Page.Tips.Donut" xml:space="preserve">
+    <value>Donut dux fenestram tuam adiuvare potest.</value>
+  </data>
+  <data name="Page.Tips.Donut.Body" xml:space="preserve">
+    <value>Est dux experimentalis donut in pagina Occasus quam vertere potes in quo adiuvet te fenestram conservare stereo dum maxima latitudine utibilis. Altitudo in donut sinistram et dextram vertendo mutabit ad reliquam scenam - pone altitudinem donut ita vel in vel post punctum remotissimum in scena tua. Cave, utens in minoribus scaenae res dolentes (vide angularis angularis supra).</value>
+  </data>
+  <data name="Page.Tips.Keystone" xml:space="preserve">
+    <value>Angularis correctio desideratur si pedis-in.</value>
+  </data>
+  <data name="Page.Tips.Keystone.Body1" xml:space="preserve">
+    <value>Si intus ad singulas sagittas converteris, multum prodest ad emendationes angularis facere. Typice velis intra margines imaginum abhorrere ac subinde aliquos summos et imos carpere ut eas exaequare velis. Tibi lapidem angularem in tabula emendare percunctando puga pyga quae sic similis est:</value>
+  </data>
+  <data name="Page.Tips.Keystone.Body2" xml:space="preserve">
+    <value>Conversio interior dicitur pedis in. Effectum praevidere potest, qui difficilem imaginis angulos fuse facit. Praesens effectus omni tempore in vita reali praesens est, quia lineae parallelae videntur versari in distantiam a te abeuntes, at prospectus artificialis illud fatum facere potest.</value>
+  </data>
+  <data name="Page.Tips.Lean" xml:space="preserve">
+    <value>Modo potes macer.</value>
+  </data>
+  <data name="Page.Tips.Lean.Body" xml:space="preserve">
+    <value>Aliquando pro pedibus tuis plene movendis ad picturas vel sinistram vel dextram, facilior potest consistere pedibus tuis et in quamlibet partem inniti, sed diligenter custodire gradum telephonicum et in eadem altitudine. Iustus innixus loco movere potest adiuvare vos a movendo longius et facilius facere potest ut recta intentionem tuam teneas.</value>
+  </data>
+  <data name="Page.Tips.Lines" xml:space="preserve">
+    <value>Noctis lineae movere possunt.</value>
+  </data>
+  <data name="Page.Tips.Lines.Body" xml:space="preserve">
+    <value>Gratia diei et noctis lineas circa si vis trahere potes. Hoc maxime utile est cum picturas in edendis aligning.</value>
+  </data>
+  <data name="Page.Tips.Old" xml:space="preserve">
+    <value>Vetus imagines in CrossCam aperire potes.</value>
+  </data>
+  <data name="Page.Tips.Old.Body" xml:space="preserve">
+    <value>Antea imagines sumptas onerare potes iconem folder in imo paginae camerae percutiendo, sed si cum magno imaginum massa laboras etiam communicare potes eas ad Crosscam rectas ex app photos tuis, quae vestigia tuorum custodiant. locus in photos melius.</value>
+  </data>
+  <data name="Page.Tips.Quick" xml:space="preserve">
+    <value>Conversus modus velox cum aliis es.</value>
+  </data>
+  <data name="Page.Tips.Quick.Body" xml:space="preserve">
+    <value>Si cum aliis hominibus utilem exploras eam ingredi in modum festinanter convertendo auto- alignment et terminos et iusta salva semel cepisti sine aliquo edendo. Semper onerare potes, auto align et picturas postea recensere. Ita socii tui non exspectant te ut imagines tuas ilico perficias, sed adhuc confidere potes esse altitudinem quam vis ibi esse. Modo cave ne quid festinanter emendo ante primam nisi! Potes etiam vertere in partem separatam salvificam quod ullam emendationem facere neglexeris.</value>
+  </data>
+  <data name="Page.Tips.Sick" xml:space="preserve">
+    <value>Si motus te aegrotum facit, tace.</value>
+  </data>
+  <data name="Page.Tips.Sick.Body" xml:space="preserve">
+    <value>Si omnis motus te infirmum reddit vel difficilem ad videndum in 3D facit, ne incipias conari eam videre in 3D donec postquam paulum super te commotus es. Tum picturas inter se compara et picturas utentes lineas horizontales sine 3D inspiciendas, ac deinde 3D inspiciendas incipiunt semel aligned et adhuc tenentes.</value>
+  </data>
+  <data name="Page.Tips.Space" xml:space="preserve">
+    <value>Hae imagines multam repositam accipere possunt - eas recusare potes.</value>
+  </data>
+  <data name="Page.Tips.Space.Body" xml:space="preserve">
+    <value>Pagina Occasus optionem habet ut solutionem tabulae finalis proportionaliter minuat - hoc adiuvare potest si spatium servare vis. Si photo finis exitum non carpit, duae imagines plenae solutionis simul coniunctae faciunt ut unum duplicem resolutionem efficias, quae saepe significat cum magna diminutione in resolutione sine qualitate affectiva notabiliter abire.</value>
+  </data>
+  <data name="Page.Tips.Turn" xml:space="preserve">
+    <value>Ne avertas.</value>
+  </data>
+  <data name="Page.Tips.Turn.Body" xml:space="preserve">
+    <value>Cum transgrediaris, telephonum tuum quovis in directione vertere non coneris, etiam naturalis inclinatio convertendi ad subiectum, quod ad latus moveas. Quaedam rotationis necessariae erunt (interdum), sed eam minuere conantur. Finge telephonum in clausura horizontali recta annectitur et modo labi potest. Conversio interior causare potest effectum praeveniens, qui facit angulos duros fuse.</value>
+  </data>
+  <data name="Page.Tips.Window" xml:space="preserve">
+    <value>Terminum et segetem adde ut fenestra fortis stereo.</value>
+  </data>
+  <data name="Page.Tips.Window.Body" xml:space="preserve">
+    <value>Interestinger stereo fenestra effectus creari potest duobus rebus agendis: 1) in margine (in pagina Occasus) et 2) ad inspiciendum transire, interiores imaginum margines carpere donec extremum ipsum 3D in pictura (seges fit. EXTRA oras si conspectus parallelus sis). Clavis est ut dextra margine sinistrae picturae leviter praeteritae segetes quae in dextra margine dextro picturae spectacula scaenae et vice-versa. Terminus additus est in Occasus pagina toggled. Si hoc confundit, fasciculum mox carpito ab interioribus marginibus et in eo clarum esse incipiet. Bulla seges ad margines interiores hoc modo spectat:</value>
+  </data>
+  <data name="Button.Code" xml:space="preserve">
+    <value>Vide codicem</value>
+  </data>
+  <data name="Button.Developer" xml:space="preserve">
+    <value>De Developer</value>
+  </data>
+  <data name="Button.EmailMe" xml:space="preserve">
+    <value>Inscriptio Me</value>
+  </data>
+  <data name="Button.GitHub" xml:space="preserve">
+    <value>Adde constitutionem GitHub</value>
+  </data>
+  <data name="Button.Press" xml:space="preserve">
+    <value>Redi ad cameram velum utrobique machinis ac ICTUS par puga in inferiori angulo</value>
+  </data>
+  <data name="Button.Primary" xml:space="preserve">
+    <value>SPISSAMENTUM Hic primarius</value>
+  </data>
+  <data name="Button.Privacy" xml:space="preserve">
+    <value>Privacy policy</value>
+  </data>
+  <data name="Button.Secondary" xml:space="preserve">
+    <value>SPISSAMENTUM Hic de secundis</value>
+  </data>
+  <data name="Button.Test" xml:space="preserve">
+    <value>Test Pre-dimissionis Version</value>
+  </data>
+  <data name="Button.Wi-Fi" xml:space="preserve">
+    <value>Fac Wi-FI in utrasque machinas possit (sed non opus est ut cum aliquo conexum)</value>
+  </data>
+  <data name="Page.Pairing.1" xml:space="preserve">
+    <value>Si duas machinas cum CrossCam constituto habes, eas coniungere potes ut imagines simul ex duobus prospectibus capias. Sumens duas imagines simul facit optimum stereograms possibile.
+
+Quaeso scias hanc notam adhuc experimentalem esse et quaestiones habere. Omni tempore perfecte operari non potest, et tua altilium comedat. Etiam quaeso ut scias hoc tempore machinis idem suggestum esse debere ut coniungas (sive Android vel iOS utrumque).
+
+Uno modo ad synchronizationem perfectam * utendo uno tantum artificio et CrossCam utendi modum "speculi singuli". In pagina Occasus eam vertere potes et de ea in pagina FAQ legere potes.
+
+Antequam duae machinis simul uti possunt partes eorum assignandae sunt. PRIMA fabrica ea est quae utrumque praevium ostendet, captam felis, et ultimas captis servabit. Munera assignare, utramque machinam huic paginae navigare et postea vestigia infra sequere;</value>
+  </data>
+  <data name="Page.Pairing.2" xml:space="preserve">
+    <value>Si tibi molestum est, Sodes:
+ • Post HYMENAEOS processum inceptus, conjunctionem coniugationis denuo pulsare potest aliquo tempore eam prohibere vel disiungi.
+ • Iuvat ut in utraque machinis geminare desinas et simul illud sileo.
+ • Iuvare potest a retiaculis tuis Wi-Fi vel notitiarum retiaculorum disiungendi in casu qui agunt.
+ • Omnis camera alia est. Hae differentiae comprehendere possunt campum angularis visum, focus, detectio, et albus statera morum, leo, et plus. Etiam duo eiusdem telephoni exemplar paulo aliter se habebunt. Duobus identicis telephoniis antiquis (me in casu, par iPhone libet uti malim).
+ • CrossCam programmata est, non ferramenta, ut imagines capiendi leviter e sync pendere possunt quid aliud processores et memoria agunt momento temporis captio Urguet. Quam ob rem synchronisatio interdum non potest esse perfecta, sed plerumque est proxima.</value>
+  </data>
+  <data name="Page.Pairing.Again" xml:space="preserve">
+    <value>Postea iterum coniungere, fac tibi Wi-Fi enabled et mox tange bullam iungo in screen domus utriusque machinis.</value>
+  </data>
+  <data name="Page.Pairing.LocalNetworkAccess" xml:space="preserve">
+    <value>Crosscam requirit Locus Network Access permission. CrossCam retis localis non utitur, sed iOS requirit ut CrossCam hanc licentiam acquirat ut antennae Wi-FI utendi ad machinis percurrant. CrossCam petet semel licentiam hanc - si permissio negatur, te habebis ut vadas et transitum in Occasus app te flip.</value>
+  </data>
+  <data name="Page.Pairing.Location" xml:space="preserve">
+    <value>CrossCam postulabit permissiones et potestatem in componentibus prout opus est ad tuas cogitationes coniungere. Quaeso note: CrossCam requirit locum permissionis et officia in locatione convertenda in fabrica prima ut cum fabrica secundario coniungas. Hoc est simpliciter postulationem Android et est omnino extra meam potestatem. CrossCam actu locum tuum non quoquo modo uteris, sed quia actus quaerendi (et inveniendi) prope cogitationes theoretice utendum est ad te fere collocandum, CrossCam licentiam requirit ad locum tuum accessum.</value>
+  </data>
+  <data name="Page.Pairing.Permissions" xml:space="preserve">
+    <value>Nota De Permissionibus</value>
+  </data>
+  <data name="Page.Pairing.Title" xml:space="preserve">
+    <value>Pairing</value>
+  </data>
+  <data name="Button.Back" xml:space="preserve">
+    <value>&lt; Back</value>
+  </data>
+  <data name="Page.MorePictures.CrossViewSubreddit" xml:space="preserve">
+    <value>CrossView Subreddit</value>
+  </data>
+  <data name="Page.MorePictures.FacebookGroup" xml:space="preserve">
+    <value>Stereoscopic 3D Facebook Group</value>
+  </data>
+  <data name="Page.MorePictures.GoogleDoc" xml:space="preserve">
+    <value>Google Doc of Great Stuff</value>
+  </data>
+  <data name="Page.MorePictures.Instagram" xml:space="preserve">
+    <value>Instagram Stereoscopic Tag</value>
+  </data>
+  <data name="Page.MorePictures.Mine" xml:space="preserve">
+    <value>Vide Pictures sum sumpta</value>
+  </data>
+  <data name="Page.MorePictures.ParallelViewSubreddit" xml:space="preserve">
+    <value>ParallelView Subreddit</value>
+  </data>
+  <data name="Page.Settings.Alignment" xml:space="preserve">
+    <value>Lorem Gratia diei et noctis</value>
+  </data>
+  <data name="Page.Settings.Analytics" xml:space="preserve">
+    <value>Share anonymous usum et errorem data ad auxilium amplio CrossCam</value>
+  </data>
+  <data name="Page.Settings.Border" xml:space="preserve">
+    <value>Terminus</value>
+  </data>
+  <data name="Page.Settings.Camera" xml:space="preserve">
+    <value>Camera</value>
+  </data>
+  <data name="Page.Settings.Defaults" xml:space="preserve">
+    <value>Reset ad Defalte</value>
+  </data>
+  <data name="Page.Settings.Editing" xml:space="preserve">
+    <value>Emendo</value>
+  </data>
+  <data name="Page.Settings.ErrorEmail" xml:space="preserve">
+    <value>Promptus ut email errores occurrunt</value>
+  </data>
+  <data name="Page.Settings.Guides" xml:space="preserve">
+    <value>Capere Guides</value>
+  </data>
+  <data name="Page.Settings.Pairing" xml:space="preserve">
+    <value>Pairing</value>
+  </data>
+  <data name="Page.Settings.Preview" xml:space="preserve">
+    <value>Praevius Viewing Methodo</value>
+  </data>
+  <data name="Page.Settings.Saving" xml:space="preserve">
+    <value>Salvis</value>
+  </data>
+  <data name="Page.TipMe.1" xml:space="preserve">
+    <value>CrossCam liberum est usui, ad-libero, fonte aperto, nullas notitias personales ex te colligit et tibi dat aditum ad omnia. Ego amare operantes in CrossCam sed multum temporis et laboris. Nullam pecuniam a CrossCam omnino facio praeter apices hominum ut me mittere iudicent.</value>
+  </data>
+  <data name="Page.TipMe.2" xml:space="preserve">
+    <value>Si CrossCam libet et potes, quaeso considera mittens ad me extremum.</value>
+  </data>
+  <data name="Page.TipMe.Ko-fi" xml:space="preserve">
+    <value>Ko-fi</value>
+  </data>
+  <data name="Page.TipMe.Patreon" xml:space="preserve">
+    <value>Patreon</value>
+  </data>
+  <data name="Page.TipMe.PayPal" xml:space="preserve">
+    <value>PayPal</value>
+  </data>
+  <data name="Page.TipMe.Tipped" xml:space="preserve">
+    <value>Fui praefixa</value>
+  </data>
+  <data name="Page.TipMe.TippedTimes" xml:space="preserve">
+    <value>temporibus totaling</value>
+  </data>
+  <data name="Page.TipMe.Venmo" xml:space="preserve">
+    <value>Venmo</value>
+  </data>
+  <data name="Title.MorePictures" xml:space="preserve">
+    <value>Vide Plures Pictures</value>
+  </data>
+  <data name="Title.Settings" xml:space="preserve">
+    <value>Occasus</value>
+  </data>
+  <data name="Title.TipMe" xml:space="preserve">
+    <value>Apicibus Appreciated!</value>
+  </data>
+  <data name="Settings.Alignment.Advanced" xml:space="preserve">
+    <value>Noctis ostendit provectus occasus</value>
+  </data>
+  <data name="Settings.Alignment.Ecc" xml:space="preserve">
+    <value>Try ad noctis ECC primo semper</value>
+  </data>
+  <data name="Settings.Alignment.Keypoints" xml:space="preserve">
+    <value>Conare ad keypoint dam primum semper</value>
+  </data>
+  <data name="Settings.Alignment.On" xml:space="preserve">
+    <value>Automatice align post captis</value>
+  </data>
+  <data name="Settings.Border.Color" xml:space="preserve">
+    <value>color terminus</value>
+  </data>
+  <data name="Settings.Border.FuseGuide" xml:space="preserve">
+    <value>Adde fuse dux supra (dot supra utramque partem)</value>
+  </data>
+  <data name="Settings.Border.On" xml:space="preserve">
+    <value>Add terminus</value>
+  </data>
+  <data name="Settings.Border.Prompt" xml:space="preserve">
+    <value>Promptus ad clip terminus deprehensus in loading</value>
+  </data>
+  <data name="Settings.Border.Thickness" xml:space="preserve">
+    <value>Crassitudo terminus (decimis recipis latitudinis)</value>
+  </data>
+  <data name="Settings.Camera.Camera1" xml:space="preserve">
+    <value>Numen camera1 API (sit utile si fatum experiens sed in limitata functionalitate proveniet, vim quietam/sileo ad effectum requirit)</value>
+  </data>
+  <data name="Settings.Camera.Camera2" xml:space="preserve">
+    <value>Vis camera2 API (esse in Android 6 vel supra, prodesse potest si errores experiris sed plus potest facere, vim quietam/sileo ad effectum deducendi requirit)</value>
+  </data>
+  <data name="Settings.Camera.LandscapeCaptureHorizontal" xml:space="preserve">
+    <value>Quisque captis conjunctionem horizontalem collocatione</value>
+  </data>
+  <data name="Settings.Camera.LandscapeCaptureVertical" xml:space="preserve">
+    <value>Quisque captis button vertical collocatione</value>
+  </data>
+  <data name="Settings.Camera.Lock" xml:space="preserve">
+    <value>Cincinno focus et patefacio pro secunda pictura ad focus et patefacio a prima pictura</value>
+  </data>
+  <data name="Settings.Camera.Pair" xml:space="preserve">
+    <value>Par button collocatione horizontali (cum captis button centrum sit)</value>
+  </data>
+  <data name="Settings.Camera.PointFocus" xml:space="preserve">
+    <value>Tap ad umbilicum designandum, duplex sonum ad umbilicum continuo mutandum (vel servandum vel clarum)</value>
+  </data>
+  <data name="Settings.Camera.PortraitCapture" xml:space="preserve">
+    <value>Effigies captis button collocatione</value>
+  </data>
+  <data name="Settings.Editing.Align" xml:space="preserve">
+    <value>Maximum vertical dam proportione</value>
+  </data>
+  <data name="Settings.Editing.Keystone" xml:space="preserve">
+    <value>Maxime lapisque angularis</value>
+  </data>
+  <data name="Settings.Editing.Rotation" xml:space="preserve">
+    <value>Maxime gyrationis gradus</value>
+  </data>
+  <data name="Settings.Editing.SideCrop" xml:space="preserve">
+    <value>Maximam partem seges proportionis</value>
+  </data>
+  <data name="Settings.Editing.TopCrop" xml:space="preserve">
+    <value>Maximum summo / imo seges proportionis</value>
+  </data>
+  <data name="Settings.Editing.Zoom" xml:space="preserve">
+    <value>Maximum zoom proportion</value>
+  </data>
+  <data name="Settings.Guides.Donut" xml:space="preserve">
+    <value>Ostende dux doughnut (pedis-in causa erit, ut lapis angularis postulare possit)</value>
+  </data>
+  <data name="Settings.Guides.Fuse" xml:space="preserve">
+    <value>Ostende duce fuse (dot supra utramque partem)</value>
+  </data>
+  <data name="Settings.Guides.LineColor" xml:space="preserve">
+    <value>Diversi coloris lineae</value>
+  </data>
+  <data name="Settings.Guides.Lines" xml:space="preserve">
+    <value>Lineae visibilis</value>
+  </data>
+  <data name="Settings.Guides.Roll" xml:space="preserve">
+    <value>Roll dux visibilis</value>
+  </data>
+  <data name="Settings.Pair.CaptureDelay" xml:space="preserve">
+    <value>Capere momentum extra moram (ms) (addit moram extra ad scopo captio momentum in hoc artificio tantum)</value>
+  </data>
+  <data name="Settings.Pair.Countdown" xml:space="preserve">
+    <value>Capere turpis longitudinem (timer)</value>
+  </data>
+  <data name="Settings.Pair.Fov" xml:space="preserve">
+    <value>Ager visum correctionis</value>
+  </data>
+  <data name="Settings.Pair.FovNotSet" xml:space="preserve">
+    <value>FOV correctio non posuit (captionem cum paribus machinis perambulare institutum est facere).</value>
+  </data>
+  <data name="Settings.Pair.FovReset" xml:space="preserve">
+    <value>Reset</value>
+  </data>
+  <data name="Settings.Pair.Go" xml:space="preserve">
+    <value>Ite ad HYMENAEOS PRAEFIXUS Page</value>
+  </data>
+  <data name="Settings.Pair.NoRole" xml:space="preserve">
+    <value>Munus non electus</value>
+  </data>
+  <data name="Settings.Pair.PreviewDelay" xml:space="preserve">
+    <value>Praevius frame mora (superior numerus rate frame rediget sed nisi altilium)</value>
+  </data>
+  <data name="Settings.Pair.Primary" xml:space="preserve">
+    <value>Primae:</value>
+  </data>
+  <data name="Settings.Pair.PrimaryRole" xml:space="preserve">
+    <value>Munus: Primarium</value>
+  </data>
+  <data name="Settings.Pair.Sample" xml:space="preserve">
+    <value>Horologium specimen comitem (infra numerum decrescet tempus requisiti initial sync sed minui potest sync accuratione)</value>
+  </data>
+  <data name="Settings.Pair.Secondary" xml:space="preserve">
+    <value>Secundae:</value>
+  </data>
+  <data name="Settings.Pair.SecondaryRole" xml:space="preserve">
+    <value>Munus: Secundarium</value>
+  </data>
+  <data name="Settings.Pair.Timeout" xml:space="preserve">
+    <value>Connection timeout (seconds) (0 significat non timeout)</value>
+  </data>
+  <data name="Settings.Preview.Barrel" xml:space="preserve">
+    <value>Addere lens correctionem / dolium corruptelam (demittere potest frame rate)</value>
+  </data>
+  <data name="Settings.Preview.BarrelFinal" xml:space="preserve">
+    <value>Adde lens correctionem / dolium corruptelam ad imagines finales tantum (sed tardus ostentationem finalem sed accelerare capiendo)</value>
+  </data>
+  <data name="Settings.Preview.CardboardDistance" xml:space="preserve">
+    <value>Cardboard distantiam</value>
+  </data>
+  <data name="Settings.Preview.Downsize" xml:space="preserve">
+    <value>Imago downsize (frame rate crescat)</value>
+  </data>
+  <data name="Settings.Preview.DownsizePercent" xml:space="preserve">
+    <value>Downsize imaginem recipis</value>
+  </data>
+  <data name="Settings.Preview.Immersive" xml:space="preserve">
+    <value>Immersive finalis viewing</value>
+  </data>
+  <data name="Settings.Preview.LensStrength" xml:space="preserve">
+    <value>Corriendi vires lens</value>
+  </data>
+  <data name="Settings.Preview.Mirror" xml:space="preserve">
+    <value>Capere per singula iaculat Speculum division methodo</value>
+  </data>
+  <data name="Settings.Preview.Width" xml:space="preserve">
+    <value>Maxime parallela sententia imaginem latitudinem (puncta)</value>
+  </data>
+  <data name="Settings.Reset" xml:space="preserve">
+    <value>Reset ad Defalte</value>
+  </data>
+  <data name="Settings.Saving.Alone" xml:space="preserve">
+    <value>Salvum prima sola parte (with no emendations or border) (quia facilis participatio plani photo in plana sententia hominum)</value>
+  </data>
+  <data name="Settings.Saving.Anaglyph" xml:space="preserve">
+    <value>Salvum rubeum / cyan anaglyph poema (cum emendationibus sed non terminus)</value>
+  </data>
+  <data name="Settings.Saving.Browse" xml:space="preserve">
+    <value>Pasco...</value>
+  </data>
+  <data name="Settings.Saving.Cardboard" xml:space="preserve">
+    <value>Save for Cardboard (with emendations, no border, no space, full width, for loading back into CrossCam later)</value>
+  </data>
+  <data name="Settings.Saving.Clear" xml:space="preserve">
+    <value>Sponte patet captis cum salute</value>
+  </data>
+  <data name="Settings.Saving.Cross" xml:space="preserve">
+    <value>Salvum junctum crucis visum versio (cum emendationum et terminorum)</value>
+  </data>
+  <data name="Settings.Saving.ExternalDirectory" xml:space="preserve">
+    <value>Nisi ad externum CrossCam presul at:</value>
+  </data>
+  <data name="Settings.Saving.ExternalWarning" xml:space="preserve">
+    <value>(Monitio: imaginibus delebitur si CrossCam est uninstalled)</value>
+  </data>
+  <data name="Settings.Saving.Folder" xml:space="preserve">
+    <value>Servo in dicatum "CrossCam" subfolder/album</value>
+  </data>
+  <data name="Settings.Saving.Grayscale" xml:space="preserve">
+    <value>Salvum cineraceorum rubri / cyan anaglyph versio (cum emendationibus sed non terminus)</value>
+  </data>
+  <data name="Settings.Saving.Order" xml:space="preserve">
+    <value>(salvo ut a summo usque deorsum fiet)</value>
+  </data>
+  <data name="Settings.Saving.Parallel" xml:space="preserve">
+    <value>Serva coniuncta sententia parallela versio (cum emendationibus et terminis)</value>
+  </data>
+  <data name="Settings.Saving.Quad" xml:space="preserve">
+    <value>Salvum quadrum (cum emendationibus et finibus)</value>
+  </data>
+  <data name="Settings.Saving.Reset" xml:space="preserve">
+    <value>Reset</value>
+  </data>
+  <data name="Settings.Saving.Resolution" xml:space="preserve">
+    <value>Proportio resolutio</value>
+  </data>
+  <data name="Settings.Saving.SaveTo" xml:space="preserve">
+    <value>Salvum facere:</value>
+  </data>
+  <data name="Settings.Saving.Separate" xml:space="preserve">
+    <value>Servare singulas partes singulas (with no emendations or border for facilius post processui, left side saves first)</value>
+  </data>
+  <data name="Settings.Saving.Subfolder" xml:space="preserve">
+    <value>Servo in dicatum "CrossCam_{ViewMethod}" subfolders/albums</value>
+  </data>
+  <data name="Settings.Saving.Triple" xml:space="preserve">
+    <value>Salvum triplex compositum (cum emendationibus et finibus)</value>
+  </data>
+  <data name="Button.Pair.Accept" xml:space="preserve">
+    <value>Accipe</value>
+  </data>
+  <data name="Button.Pair.Cancel" xml:space="preserve">
+    <value>Cancel</value>
+  </data>
+  <data name="Page.Camera.AcceptConnection" xml:space="preserve">
+    <value>Suscipe connexionem to</value>
+  </data>
+  <data name="Page.Camera.Confirm" xml:space="preserve">
+    <value>Confirmare signum compositus in utroque machinis;</value>
+  </data>
+  <data name="Page.Footer.CouldntOpen" xml:space="preserve">
+    <value>Non Aperi Link</value>
+  </data>
+  <data name="Page.Footer.OpenError" xml:space="preserve">
+    <value>Nexum mailto aperiri non potuit. Hoc fieri potest, quia clientis tui electronici non erigitur, aut alia de causa.</value>
+  </data>
+  <data name="Page.Pair.Errors.Denied" xml:space="preserve">
+    <value>Licentiae necessariae ad connubium non sunt concessae. Exceptio:</value>
+  </data>
+  <data name="Page.Pair.Errors.FailedBluetooth" xml:space="preserve">
+    <value>Cogitatus ad potentiam in Bluetooth defecit. Exceptio:</value>
+  </data>
+  <data name="Page.Pair.Errors.FailedSearch" xml:space="preserve">
+    <value>Cogitatus defecit ad machinas quaerendas. Exceptio:</value>
+  </data>
+  <data name="Page.Pair.Errors.LocationOff" xml:space="preserve">
+    <value>Locus operas non reducitur. Adinventiones scan non potest. Vide paginam connubii pro magis details.</value>
+  </data>
+  <data name="Page.Pair.Errors.LocationScan" xml:space="preserve">
+    <value>Locus permissio non datur. Adinventiones scan non potest. Vide paginam connubii pro magis details.</value>
+  </data>
+  <data name="Page.Pair.Errors.NotSupported" xml:space="preserve">
+    <value>HYMENAEOS non valet in hac fabrica. Exceptio:</value>
+  </data>
+  <data name="Page.Pair.Errors.Title" xml:space="preserve">
+    <value>Error</value>
+  </data>
+  <data name="Page.Pair.Errors.WifiOff" xml:space="preserve">
+    <value>Wi-FI est off. Quaeso conversus Wi-FI in.</value>
+  </data>
+  <data name="Page.Pair.PrimaryExplanation" xml:space="preserve">
+    <value>Quae res nunc primum ponitur.</value>
+  </data>
+  <data name="Page.Pair.PrimarySelected" xml:space="preserve">
+    <value>Primae partes selectae</value>
+  </data>
+  <data name="Page.Pair.SecondaryExplanation" xml:space="preserve">
+    <value>Haec machina nunc secundaria instituitur.</value>
+  </data>
+  <data name="Page.Pair.SecondarySelected" xml:space="preserve">
+    <value>Secundarium munus Selectae</value>
+  </data>
+  <data name="Page.Technique.Mode" xml:space="preserve">
+    <value>modum.</value>
+  </data>
+  <data name="Page.Technique.SetMode" xml:space="preserve">
+    <value>CrossCam nunc in</value>
+  </data>
+</root>

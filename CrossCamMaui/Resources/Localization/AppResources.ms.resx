@@ -1,0 +1,1156 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="Button.GoogleDoc" xml:space="preserve">
+    <value>Google Doc of Great Stuff</value>
+  </data>
+  <data name="Button.LearnCross" xml:space="preserve">
+    <value>BELAJAR MELINTANG</value>
+  </data>
+  <data name="Button.LearnParallel" xml:space="preserve">
+    <value>BELAJAR SELARI</value>
+  </data>
+  <data name="Button.MorePictures" xml:space="preserve">
+    <value>Lihat Lagi Gambar</value>
+  </data>
+  <data name="Button.Review" xml:space="preserve">
+    <value>Menulis ulasan</value>
+  </data>
+  <data name="Button.Share" xml:space="preserve">
+    <value>Kongsi CrossCam</value>
+  </data>
+  <data name="Button.Support" xml:space="preserve">
+    <value>Sokong Pembangun</value>
+  </data>
+  <data name="Button.TapCross" xml:space="preserve">
+    <value>KETIK DI SINI UNTUK MEMILIH CROSS</value>
+  </data>
+  <data name="Button.TapParallel" xml:space="preserve">
+    <value>KETIK DI SINI UNTUK MEMILIH SELARI</value>
+  </data>
+  <data name="Footer.Span1" xml:space="preserve">
+    <value>Menemui pepijat? Ada soalan? Hanya e-mel</value>
+  </data>
+  <data name="Footer.Span3" xml:space="preserve">
+    <value>! Saya suka bercakap dengan pengguna dan ia adalah cara terpantas untuk berkomunikasi dengan saya.</value>
+  </data>
+  <data name="Page.HowToUse.2anaglyph" xml:space="preserve">
+    <value>2) Mulakan anaglyph melihat gambar pertama dengan pratonton yang muncul di sebelahnya.</value>
+  </data>
+  <data name="Page.HowToUse.2cardboard" xml:space="preserve">
+    <value>2) Mulakan kadbod melihat gambar pertama dengan pratonton yang muncul di sebelahnya.</value>
+  </data>
+  <data name="Page.HowToUse.2cross" xml:space="preserve">
+    <value>2) Mulakan melihat silang gambar pertama dengan pratonton yang muncul di sebelahnya.</value>
+  </data>
+  <data name="Page.HowToUse.2parallel" xml:space="preserve">
+    <value>2) Mulakan selari melihat gambar pertama dengan pratonton yang muncul di sebelahnya.</value>
+  </data>
+  <data name="Page.Technique.AdditionalTutorials" xml:space="preserve">
+    <value>Tutorial tambahan:</value>
+  </data>
+  <data name="Page.Technique.Cross1" xml:space="preserve">
+    <value>Berhati-hati melintas mata anda sambil melihat pasangan gambar di atas. Apabila anda menjeling, perkara akan menjadi kabur dan tembus dan anda akan mula melihat 4 gambar dan bukannya 2 (2 pasang). Semakin sukar anda menyilangkan mata anda, semakin jauh pasangan gambar akan bergerak - ia akan kelihatan sedikit seperti ini:</value>
+  </data>
+  <data name="Page.Technique.Cross2" xml:space="preserve">
+    <value>Buka mata anda dengan teliti, supaya gambar di bahagian dalam setiap pasangan mula bertindih. Ia akan mula kelihatan seperti terdapat hanya 3 gambar dan bukannya 4. Ia akan tetap kabur dan tembus serta kelihatan seperti ini:</value>
+  </data>
+  <data name="Page.Technique.Cross3" xml:space="preserve">
+    <value>Sebaik sahaja anda mempunyai pertindihan tengah berfungsi, anda hanya perlu merehatkan mata anda dan membenarkan mereka memfokuskan gambar. Pada ketika itu anda akan mempunyai satu gambar 3D tajam di tengah dengan gambar lutsinar terapung pada setiap sisi yang akan kelihatan seperti ini (kecuali bahagian tengah akan menjadi 3D):</value>
+  </data>
+  <data name="Page.Technique.Cross4" xml:space="preserve">
+    <value>Jika anda menghadapi masalah menyilangkan mata anda, anda juga boleh cuba merenung jari anda sambil memegangnya di tengah-tengah antara mata anda dan skrin. Anda sepatutnya melihat gambar mula terpisah dan bertindih di belakang jari anda.</value>
+  </data>
+  <data name="Page.Technique.CrossViewing" xml:space="preserve">
+    <value>LIHAT LINTAS</value>
+  </data>
+  <data name="Page.Technique.P1" xml:space="preserve">
+    <value>Jika anda mahu melihat ini sekali lagi, ketik ikon hamburger (tiga baris) di bahagian atas sebelah kiri skrin kamera dan ketik "Bantuan".
+
+Untuk melihat 3D dalam CrossCam (dipanggil "stereogram") anda boleh menggunakan cermin mata 3D merah/cyan, pemapar Google Cardboard atau anda boleh melakukan "tontonan percuma" hanya menggunakan mata dan skrin anda. Terdapat dua cara untuk paparan percuma, dan CrossCam boleh membantu anda mempelajari kedua-duanya. Anda perlu memberitahu CrossCam bagaimana anda akan melihat gambar atau ia tidak akan berfungsi dengan betul. Jangan risau, anda sentiasa boleh menukar ini sekali lagi dalam Tetapan.
+
+Jika anda boleh menyilangkan mata dengan selesa, anda harus mencuba kaedah silang dahulu, jika tidak, anda harus mencuba kaedah selari. Jika anda sudah biasa dengan buku Magic Eye™, anda mungkin sudah boleh melakukan kaedah selari, tetapi anda juga mungkin boleh melakukan kaedah silang. Ketik kaedah di bawah untuk mempelajarinya dan pastikan anda memberitahu CrossCam yang mana yang sesuai untuk anda dengan menekan butang PILIH yang sepadan.
+
+Jika anda lebih suka menggunakan cermin mata 3D atau pemapar Cardboard, anda boleh menetapkan CrossCam untuk menggunakannya pada halaman Tetapan.</value>
+  </data>
+  <data name="Page.Technique.CrossLink1" xml:space="preserve">
+    <value>Tutorial teks yang bagus</value>
+  </data>
+  <data name="Page.Technique.CrossLink2" xml:space="preserve">
+    <value>Satu lagi tutorial teks yang bagus</value>
+  </data>
+  <data name="Page.Technique.CrossLink3" xml:space="preserve">
+    <value>Tutorial YouTube pendek</value>
+  </data>
+  <data name="Page.Technique.CrossLink4" xml:space="preserve">
+    <value>Tutorial YouTube yang panjang, ganjil, tetapi berguna</value>
+  </data>
+  <data name="Page.Technique.CrossLink5" xml:space="preserve">
+    <value>Satu lagi tutorial YouTube</value>
+  </data>
+  <data name="Page.Technique.CrossLink6" xml:space="preserve">
+    <value>Projek dwi kamera dengan tutorial</value>
+  </data>
+  <data name="Page.Technique.Parallel1" xml:space="preserve">
+    <value>Jika imej di atas tidak muat pada skrin anda, putar telefon anda kepada landskap - CrossCam cuba menjadikan pasangan imej di atas saiz paling mudah untuk ini. Anda tidak semestinya perlu menggunakan CrossCam dalam landskap, tetapi imej bersaiz sempurna menjadikan pembelajaran teknik lebih mudah.</value>
+  </data>
+  <data name="Page.Technique.Parallel2" xml:space="preserve">
+    <value>Rehatkan mata anda dan lihat "melalui" sepasang gambar di atas seperti anda sedang mengezon dengan mata anda menghala ke gambar. Anda sepatutnya mula melihat 3 gambar dengan gambar 3D di tengah, sedikit seperti ini:</value>
+  </data>
+  <data name="Page.Technique.Parallel3" xml:space="preserve">
+    <value>Jika anda mula melihat 4 gambar, anda telah pergi terlalu jauh. Cuba gerakkan mata anda sedikit jika anda mendapati diri anda pada ketika itu lagi. Bersantai terlalu jauh akan kelihatan seperti ini:</value>
+  </data>
+  <data name="Page.Technique.Parallel4" xml:space="preserve">
+    <value>Jika anda menghadapi masalah, cuba letakkan skrin anda tepat pada muka anda dengan sepasang gambar di hadapan mata anda. Bersantai dan lihat "melalui" skrin dan kemudian perlahan-lahan tarik skrin anda menjauhi wajah anda sambil memastikan mata anda santai. Akhirnya imej harus "klik" menjadi fokus.</value>
+  </data>
+  <data name="Page.Technique.Parallel5" xml:space="preserve">
+    <value>Jika anda masih terus melihat empat imej, tingkatkan "Lebar imej paparan selari maksimum" pada halaman Tetapan.</value>
+  </data>
+  <data name="Page.Technique.ParallelViewing" xml:space="preserve">
+    <value>PANDANGAN SELARI</value>
+  </data>
+  <data name="Page.Technique.Practice" xml:space="preserve">
+    <value>Imej yang saya buat yang boleh anda praktikkan</value>
+  </data>
+  <data name="Title.Contact" xml:space="preserve">
+    <value>Kenalan</value>
+  </data>
+  <data name="Title.Faq" xml:space="preserve">
+    <value>Soalan Lazim</value>
+  </data>
+  <data name="Title.Help" xml:space="preserve">
+    <value>Tolong</value>
+  </data>
+  <data name="Title.HowToUse" xml:space="preserve">
+    <value>Cara Menggunakan CrossCam</value>
+  </data>
+  <data name="Title.Technique" xml:space="preserve">
+    <value>Teknik Melihat 3D</value>
+  </data>
+  <data name="Title.Tips" xml:space="preserve">
+    <value>Petua</value>
+  </data>
+  <data name="Button.DoNotEmailMe" xml:space="preserve">
+    <value>Jangan e-mel saya sekarang</value>
+  </data>
+  <data name="Button.EmailMeNow" xml:space="preserve">
+    <value>Email saya sekarang</value>
+  </data>
+  <data name="Button.No" xml:space="preserve">
+    <value>Tidak</value>
+  </data>
+  <data name="Button.OK" xml:space="preserve">
+    <value>okey</value>
+  </data>
+  <data name="Button.YesClear" xml:space="preserve">
+    <value>Ya, jelas</value>
+  </data>
+  <data name="Page.Camera.Aligning" xml:space="preserve">
+    <value>Menjajarkan...</value>
+  </data>
+  <data name="Page.Camera.AlignmentBroken" xml:space="preserve">
+    <value>Penjajaran automatik tidak disokong pada peranti - matikan dalam Tetapan.</value>
+  </data>
+  <data name="Page.Camera.AlignmentFailed" xml:space="preserve">
+    <value>Penjajaran gagal.</value>
+  </data>
+  <data name="Page.Camera.BorderAsk" xml:space="preserve">
+    <value>Sempadan telah dikesan. Alih keluar sempadan?</value>
+  </data>
+  <data name="Page.Camera.BorderDetected" xml:space="preserve">
+    <value>Sempadan Dikesan</value>
+  </data>
+  <data name="Page.Camera.Cancel" xml:space="preserve">
+    <value>Batal</value>
+  </data>
+  <data name="Page.Camera.ChooseAction" xml:space="preserve">
+    <value>Pilih tindakan:</value>
+  </data>
+  <data name="Page.Camera.DirectoryNotFound" xml:space="preserve">
+    <value>Direktori Tidak Ditemui</value>
+  </data>
+  <data name="Page.Camera.DirectoryNotFoundExplain" xml:space="preserve">
+    <value>Destinasi simpan tidak dapat ditemui. Sila pilih yang lain pada halaman tetapan.</value>
+  </data>
+  <data name="Page.Camera.ErrorEmailBody" xml:space="preserve">
+    <value>Apa yang anda lakukan sebelum ralat berlaku? Sila terangkan walaupun perkara kecil.\n\n\n\n\n\nAdakah CrossCam masih berfungsi selepas ralat? Jika tidak, bagaimanakah ia rosak?\n\n\n\n\n\nAdakah ini berulang kali berlaku?\n\n\n\n\n\nBolehkah anda memaksa ralat berlaku pada arahan? Jika ya, bagaimana?\n\n\n\n\n\n</value>
+  </data>
+  <data name="Page.Camera.FlipForCardboard" xml:space="preserve">
+    <value>Balik ke landskap apabila dalam mod kadbod.</value>
+  </data>
+  <data name="Page.Camera.FlipLarger" xml:space="preserve">
+    <value>(terbalikkan ke landskap untuk paparan yang lebih besar)</value>
+  </data>
+  <data name="Page.Camera.ForAnaglyph" xml:space="preserve">
+    <value>untuk anaglyph</value>
+  </data>
+  <data name="Page.Camera.ForCardboard" xml:space="preserve">
+    <value>untuk Kadbod</value>
+  </data>
+  <data name="Page.Camera.ForCross" xml:space="preserve">
+    <value>untuk salib</value>
+  </data>
+  <data name="Page.Camera.ForParallel" xml:space="preserve">
+    <value>untuk selari</value>
+  </data>
+  <data name="Page.Camera.GoPickRole" xml:space="preserve">
+    <value>Sila pergi ke halaman Berpasangan (melalui halaman Tetapan) dan pilih peranan berpasangan untuk peranti ini sebelum cuba berpasangan.</value>
+  </data>
+  <data name="Page.Camera.InvalidImage" xml:space="preserve">
+    <value>Imej Tidak Sah</value>
+  </data>
+  <data name="Button.Camera.Keep" xml:space="preserve">
+    <value>Simpan</value>
+  </data>
+  <data name="Page.Camera.LoadFullImage" xml:space="preserve">
+    <value>Muatkan imej stereo penuh</value>
+  </data>
+  <data name="Page.Camera.Loading" xml:space="preserve">
+    <value>Memuatkan...</value>
+  </data>
+  <data name="Page.Camera.LoadSingleSide" xml:space="preserve">
+    <value>Muatkan satu sisi</value>
+  </data>
+  <data name="Page.Camera.ManualCorrections" xml:space="preserve">
+    <value>Sila pertimbangkan juga pembetulan manual.</value>
+  </data>
+  <data name="Page.Camera.MirrorOnLeft" xml:space="preserve">
+    <value>CERMIN DI KIRI</value>
+  </data>
+  <data name="Page.Camera.MirrorOnRight" xml:space="preserve">
+    <value>CERMIN DI KANAN</value>
+  </data>
+  <data name="Page.Camera.MoveLeft" xml:space="preserve">
+    <value>BERGERAK KE KIRI</value>
+  </data>
+  <data name="Page.Camera.MoveRight" xml:space="preserve">
+    <value>BERGERAK KANAN</value>
+  </data>
+  <data name="Page.Camera.NoSaveModes" xml:space="preserve">
+    <value>Tiada Mod Simpan Aktif</value>
+  </data>
+  <data name="Page.Camera.NoSaveModesExplain" xml:space="preserve">
+    <value>Tiada mod simpan dihidupkan pada masa ini. Hidupkan mod simpan pada halaman Tetapan.</value>
+  </data>
+  <data name="Page.Camera.Oops" xml:space="preserve">
+    <value>Aduh</value>
+  </data>
+  <data name="Page.Camera.OrRotate" xml:space="preserve">
+    <value>(atau putar)</value>
+  </data>
+  <data name="Page.Camera.OrSwipe" xml:space="preserve">
+    <value>(atau leret)</value>
+  </data>
+  <data name="Page.Camera.PairRoleNotSelected" xml:space="preserve">
+    <value>Peranan Berpasangan Tidak Dipilih</value>
+  </data>
+  <data name="Page.Camera.PinchOrDrag" xml:space="preserve">
+    <value>Cubit atau seret untuk meneroka!</value>
+  </data>
+  <data name="Page.Camera.PleaseSelectValid" xml:space="preserve">
+    <value>Sila pilih imej Jpeg, Png atau Webp. Imej yang anda pilih ialah</value>
+  </data>
+  <data name="Page.Camera.ReallyClear" xml:space="preserve">
+    <value>Betul ke jelas?</value>
+  </data>
+  <data name="Button.Camera.Remove" xml:space="preserve">
+    <value>Alih keluar</value>
+  </data>
+  <data name="Page.Camera.SavedToCustomFolder" xml:space="preserve">
+    <value>Disimpan ke folder tersuai</value>
+  </data>
+  <data name="Page.Camera.SavedToExternal" xml:space="preserve">
+    <value>Disimpan ke luaran</value>
+  </data>
+  <data name="Page.Camera.SavedToPhotos" xml:space="preserve">
+    <value>Disimpan ke Foto</value>
+  </data>
+  <data name="Page.Camera.SaveFailed" xml:space="preserve">
+    <value>SavingFailed. :(</value>
+  </data>
+  <data name="Page.Camera.Saving" xml:space="preserve">
+    <value>Menyimpan...</value>
+  </data>
+  <data name="Page.Camera.SecondaryOnLeft" xml:space="preserve">
+    <value>MENENGAH DI KIRI</value>
+  </data>
+  <data name="Page.Camera.SecondaryOnRight" xml:space="preserve">
+    <value>MENENGAH DI KANAN</value>
+  </data>
+  <data name="Page.Camera.SelectedInvalid" xml:space="preserve">
+    <value>Imej yang dipilih tidak sah.</value>
+  </data>
+  <data name="Page.Camera.SorryError" xml:space="preserve">
+    <value>Maaf, CrossCam melakukan ralat. Laporan ralat telah dihantar secara automatik. Anda mungkin tidak perasan apa-apa yang salah sama sekali, tetapi jika anda melakukannya, cuba mulakan semula aplikasi. Jika ini berterusan, sila e-mel saya dan beritahu saya mengenainya. (Pergi ke halaman Tetapan untuk menghentikan pop timbul ini.)</value>
+  </data>
+  <data name="Page.Camera.Steady" xml:space="preserve">
+    <value>mantap...</value>
+  </data>
+  <data name="Page.Camera.SureClear" xml:space="preserve">
+    <value>Adakah anda pasti mahu mengosongkan gambar anda dan mulakan semula?</value>
+  </data>
+  <data name="Page.Camera.Syncing" xml:space="preserve">
+    <value>Menyegerakkan...</value>
+  </data>
+  <data name="Page.Camera.Transmitting" xml:space="preserve">
+    <value>Menghantar...
+(pastikan peranti tidak berkunci)</value>
+  </data>
+  <data name="Page.Camera.VR" xml:space="preserve">
+    <value>VR</value>
+  </data>
+  <data name="Page.FovCorrection" xml:space="preserve">
+    <value>Medan Pandangan Pembetulan</value>
+  </data>
+  <data name="Page.FovCorrectionExplain" xml:space="preserve">
+    <value>Model peranti yang berbeza boleh mempunyai medan pandangan yang berbeza. CrossCam akan membantu anda membetulkan perkara ini selepas anda melakukan tangkapan pertama anda. Bingkai dan tangkap sesuatu dengan titik tersendiri berhampiran bahagian atas dan bawah bingkai, memastikan titik itu kelihatan pada kedua-dua peranti.</value>
+  </data>
+  <data name="Page.Technique.ParallelLink1" xml:space="preserve">
+    <value>Tutorial teks yang bagus</value>
+  </data>
+  <data name="Page.Technique.ParallelLink2" xml:space="preserve">
+    <value>Satu lagi tutorial teks yang bagus</value>
+  </data>
+  <data name="Page.Technique.ParallelLink3" xml:space="preserve">
+    <value>Namun satu lagi tutorial teks yang bagus</value>
+  </data>
+  <data name="Page.Technique.ParallelLink4" xml:space="preserve">
+    <value>Tutorial Frankfurter Ajaib</value>
+  </data>
+  <data name="Page.Technique.ParallelLink5" xml:space="preserve">
+    <value>Video bagus tentang Magic Eye</value>
+  </data>
+  <data name="Page.Technique.Trouble" xml:space="preserve">
+    <value>Jika anda masih menghadapi masalah, cuba bawa telefon anda ke bilik gelap supaya satu-satunya perkara yang mata anda boleh melihat dengan baik dan fokus ialah imej.
+
+Satu lagi perkara yang anda boleh cuba ialah menggunakan tiub kertas tandas atau tangan anda untuk membuatnya supaya setiap mata hanya boleh melihat bahagian tepi imej yang sepatutnya dilihat.
+ • Untuk pandangan silang: pegang satu tiub pada batang hidung anda (berpusat di antara mata anda) sambil menghalakannya ke tengah-tengah imej di hadapan anda. Perlahan-lahan gerakkan tiub ke arah skrin sambil cuba melihat ke bawah tiub dengan kedua-dua mata. Apabila anda mencapai kedudukan yang betul dengan tiub, imej harus masuk ke tempatnya. Ia mungkin membantu untuk menumpukan perhatian pada cuba melihat bahagian dalam hujung tiub. Jika anda tidak dapat mencari kedudukan yang betul, cuba gunakan imej yang lebih besar atau tiub yang lebih kecil.
+ • Untuk pandangan selari: pegang tiub di hadapan setiap mata, tetapi halakan kedua-duanya keluar ke sisi, supaya anda hampir tidak dapat melihat apa-apa. Pusingkan tiub ke dalam perlahan-lahan pada masa yang sama supaya anda boleh mula melihat lebih banyak imej. Apabila anda boleh melihat sebahagian besar imej (hampir separuh dengan setiap mata), cuba berehat mata anda dan kumpulkan bahagian tersebut. Ia mungkin membantu untuk menggunakan imej yang lebih besar atau lebih kecil.
+
+Terdapat latihan mudah yang boleh anda lakukan untuk berlatih melebur sama ada dengan tontonan silang atau selari. Ambil penanda dan lukis sebahagian daripada wajah tersenyum pada setiap lakaran kecil anda (atau sepasang batang popsicle atau penekan lidah). Sebagai contoh, pada satu sisi lukis satu mata dan mulut, dan di sisi lain lukis mata dan hidung. Anda kemudian boleh memegangnya di hadapan anda dan berlatih menggabungkan kedua-dua imej itu bersama-sama untuk melengkapkan wajah tersenyum.
+
+Saya secara peribadi lebih suka silang atas selari kerana imej boleh menjadi lebih besar, tetapi kedua-dua kaedah berfungsi. Jika anda ingin bereksperimen dengan imej selari yang lebih besar, anda boleh mengawal saiz pada halaman Tetapan.
+
+Kadang-kadang sukar untuk merasakan sama ada anda melakukan kaedah silang atau selari semasa anda melakukannya. Anda boleh meminta orang lain untuk melihat mata anda semasa anda melakukannya atau anda boleh melihat gambar di bawah sebagai ujian:</value>
+  </data>
+  <data name="SaveModes.Anaglyph" xml:space="preserve">
+    <value>Anaglyph</value>
+  </data>
+  <data name="SaveModes.Cardboard" xml:space="preserve">
+    <value>kadbod</value>
+  </data>
+  <data name="SaveModes.Cross" xml:space="preserve">
+    <value>Menyeberang</value>
+  </data>
+  <data name="SaveModes.GrayscaleAnaglyph" xml:space="preserve">
+    <value>Anaglyph Skala Kelabu</value>
+  </data>
+  <data name="SaveModes.Parallel" xml:space="preserve">
+    <value>selari</value>
+  </data>
+  <data name="SaveModes.Quad" xml:space="preserve">
+    <value>Empat</value>
+  </data>
+  <data name="SaveModes.Separate" xml:space="preserve">
+    <value>Berpisah</value>
+  </data>
+  <data name="SaveModes.Single" xml:space="preserve">
+    <value>Bujang</value>
+  </data>
+  <data name="SaveModes.Triple" xml:space="preserve">
+    <value>Bertiga</value>
+  </data>
+  <data name="Page.Camera.FovExplain" xml:space="preserve">
+    <value>Untuk membetulkan perbezaan medan pandangan, zum dan luncurkan gambar supaya titik yang berbeza sejajar antara kedua-dua foto. Anda boleh menyeret garis putih ke sekeliling untuk membantu anda menggambarkan penjajaran. Pembetulan ini akan digunakan pada pratonton masa hadapan. Ia akan disimpan tetapi anda boleh menetapkan semula pada halaman Tetapan. Jika anda menggunakan peranti yang sama simpan sahaja tanpa melaraskan.</value>
+  </data>
+  <data name="Page.Camera.FovTitle" xml:space="preserve">
+    <value>Medan Pandangan Pembetulan</value>
+  </data>
+  <data name="Page.Camera.KeyPoints" xml:space="preserve">
+    <value>Perkara utama</value>
+  </data>
+  <data name="Page.Camera.Warped" xml:space="preserve">
+    <value>Terpesong</value>
+  </data>
+  <data name="Page.Camera.WelcomeExplain" xml:space="preserve">
+    <value>CrossCam telah dibuat untuk membantu anda membuat foto 3D. Foto adalah 3D sama seperti filem VR atau 3D, tetapi anda tidak memerlukan sebarang peralatan atau cermin mata khas - hanya telefon anda (tetapi jika anda mempunyai sepasang cermin mata 3D merah/cyan atau pemapar Google Cardboard, anda boleh menggunakannya dengan CrossCam juga). Teknik \"tontonan percuma\" yang hanya menggunakan telefon anda dan mata anda memerlukan sedikit latihan untuk dipelajari. Sebelum saya memberitahu anda cara menggunakan CrossCam, adakah anda ingin mengetahui lebih lanjut tentang teknik tontonan terlebih dahulu?</value>
+  </data>
+  <data name="Page.Camera.Welcome" xml:space="preserve">
+    <value>Selamat datang ke CrossCam!</value>
+  </data>
+  <data name="Page.Camera.Directions" xml:space="preserve">
+    <value>Langkau ke Arah</value>
+  </data>
+  <data name="Page.Camera.Technique" xml:space="preserve">
+    <value>Teknik Melihat</value>
+  </data>
+  <data name="Page.HowToUse.P1" xml:space="preserve">
+    <value>Jika anda mahu melihat ini sekali lagi, ketik ikon hamburger (tiga baris) di bahagian atas sebelah kiri skrin kamera dan ketik "Bantuan".
+
+
+1) Bingkai dan ambil gambar pertama.</value>
+  </data>
+  <data name="Page.HowToUse.P2" xml:space="preserve">
+    <value>3) Pastikan telefon anda stabil di hadapan anda dan perlahan-lahan bergerak ke sisi mengikut arah yang CrossCam memberitahu anda. Jangan bergerak terlalu jauh - satu inci atau kurang untuk setiap kaki dari sasaran anda. Juga, jangan berpaling sama sekali, hanya gelongsor ke sisi, atau mungkin hanya bersandar.
+
+4) Selaraskan gambar pertama dengan pratonton gambar kedua dan ambil gambar kedua apabila anda menyukai apa yang anda lihat.
+
+5) CrossCam akan menyelaraskan gambar anda secara automatik selepas anda menangkapnya, tetapi ia tidak sempurna, jika anda tidak menyukai cara ia dijajarkan, anda boleh mematikan penjajaran automatik dengan mengetik ikon robot kecil. CrossCam juga mempunyai banyak pilihan penyuntingan manual yang anda boleh dapatkan dengan mengetik ikon pensel.
+
+6) Ketik tanda semak apabila anda bersedia untuk menyimpan.
+
+
+Perkara lain yang boleh anda lakukan:
+ • Ketik sekali untuk memfokus pada satu titik, ketik dua kali untuk bertukar kembali kepada fokus auto berterusan.
+ • Ketik ikon gear di bahagian atas sebelah kanan skrin kamera untuk membuka halaman Tetapan. Ia penuh dengan perkara yang menarik.
+ • Terdapat halaman Petua bagus yang boleh anda capai dengan mengetik ikon hamburger di bahagian atas sebelah kiri skrin kamera yang boleh membantu anda menjadikan gambar anda hebat.
+ • Jika anda lebih suka mengalih arah lain untuk tangkapan kedua anda atau ingin menukar sisi hanya lakukan leret.
+ • Ketik ikon folder kecil di bahagian bawah untuk memuatkan imej sebagai sisi atau untuk memuatkan imej stereo penuh.</value>
+  </data>
+  <data name="Page.Faq.Alignment" xml:space="preserve">
+    <value>Bagaimanakah penjajaran automatik berfungsi?</value>
+  </data>
+  <data name="Page.Faq.Alignment.Body" xml:space="preserve">
+    <value>Penjajaran automatik cuba menjajarkan pasangan imej sebaik mungkin, tetapi ia tidak sempurna. Penglihatan komputer lebih baik pada beberapa perkara daripada mata manusia, tetapi juga jauh lebih buruk pada perkara lain. Dunia yang dilihatnya sangat berbeza daripada yang kita lihat, tetapi ia juga boleh melihat dalam beberapa cara yang berbeza. Dua cara utama yang dilihat dalam CrossCam adalah melalui pekali korelasi yang dipertingkatkan (ECC) dan menggunakan perkara utama.
+
+Penjajaran ECC pada asasnya berfungsi dengan cuba memastikan tompok terang bertindih dengan tompok terang dan tompok gelap bertindih dengan tompok gelap apabila kedua-dua belah bertindan di atas satu sama lain. Penjajaran ECC disertakan dengan skor keyakinan yang bertujuan untuk membantu memutuskan sama ada penjajaran itu berkesan. CrossCam disediakan untuk menolak penjajaran yang dihasilkan jika keyakinan terlalu rendah, tetapi anda boleh mengkonfigurasi ambang lulus/gagal keyakinan pada halaman Tetapan.
+
+Penjajaran titik utama mencari tempat menarik seperti bucu, tepi, titik dan kontras tinggi serta cuba memadankannya antara kedua-dua belah. Setelah mata dipadankan, CrossCam boleh menggunakan pelbagai algoritma untuk cuba meledingkan sisi supaya titik utama dari satu sisi semuanya sedekat mungkin dengan titik utama yang sepadan di sisi lain.
+
+CrossCam diprogramkan untuk menggunakan penjajaran titik kekunci dahulu, tetapi ia akan kembali kepada penjajaran ECC apabila penjajaran titik kekunci gagal atau apabila penangkapan dilakukan dengan kaedah pembahagian cermin pukulan tunggal. Anda juga boleh mengkonfigurasi penjajaran auto untuk sentiasa menggunakan penjajaran titik utama atau sentiasa menggunakan penjajaran ECC pada halaman Tetapan.
+
+CrossCam akan memaparkan hasil penjajaran pada skrin kamera di bawah ikon robot kecil. Jika ia menggunakan penjajaran ECC ia akan memaparkan peratusan keyakinan. Jika ia menggunakan penjajaran titik utama ia akan memaparkan "KP". Jika kedua-dua kaedah penjajaran gagal ia akan memaparkan "F". Jika anda tidak menyukai hasil penjajaran, anda boleh mengetik pada ikon robot kecil untuk mengalih keluar penjajaran.</value>
+  </data>
+  <data name="Page.Faq.Bad" xml:space="preserve">
+    <value>Adakah ini tidak baik untuk mata saya?</value>
+  </data>
+  <data name="Page.Faq.Bad.Body1" xml:space="preserve">
+    <value>Saya tidak tahu, tetapi saya tidak fikir begitu. Namun, jika terasa tidak enak berehat sahaja. Dengan amalan ketidakselesaan biasanya berkurangan. Sebarang kaedah tontonan boleh menyebabkan ketidakselesaan disebabkan oleh kesan yang dipanggil konflik vergence-accommodation. Ini</value>
+  </data>
+  <data name="Page.Faq.Bad.Body2" xml:space="preserve">
+    <value>pautan Wikipedia mengenai konflik vergence-accommodation.</value>
+  </data>
+  <data name="Page.Faq.Bad.Body3" xml:space="preserve">
+    <value>Jika anda menggunakan kaedah juling, perasaan itu juga mungkin disebabkan mata anda tidak biasa menunjuk seolah-olah mereka melihat sesuatu yang begitu dekat untuk sekian lama. Apabila melihat silang, mata anda menumpu pada satu titik kira-kira separuh antara mata anda dan skrin. Jika melihat sesuatu yang tertutup untuk masa yang lama juga akan menyebabkan anda tidak selesa, kami mempunyai penjelasan kami.
+
+Pendapat saya mengenainya ialah mata anda tidak melakukan apa-apa di luar keupayaan harian mereka, tetapi anda menggabungkan dua kebolehan berbeza yang biasanya tidak digunakan dengan cara itu. Anda memfokuskan kanta anda pada sesuatu di satu tempat yang biasanya selesa untuk difokuskan dan anda menghalakan mata anda ke tempat yang biasanya selesa untuk dihalakan, tetapi tempat di mana kanta anda memfokus dan tempat mata anda menumpu bukan perkara yang sama. Saya tidak nampak bagaimana ia boleh menjadi buruk untuk anda selagi penglihatan anda masih belum berkembang.</value>
+  </data>
+  <data name="Page.Faq.Cardboard" xml:space="preserve">
+    <value>Bagaimanakah cara saya menggunakan CrossCam dengan Google Cardboard?</value>
+  </data>
+  <data name="Page.Faq.Cardboard.Body" xml:space="preserve">
+    <value>Jika pemapar anda mempunyai butang yang menekan bahagian tengah skrin, anda boleh menggunakannya untuk menangkap menggunakan Cardboard. Penonton anda juga perlu mempunyai lubang untuk dilihat melalui kamera telefon anda.
+
+Untuk menangkap foto menggunakan Cardboard, tukar Kaedah Tontonan Pratonton anda (pada halaman Tetapan) kepada Cardboard, kemudian kembali ke halaman kamera dan lekatkan telefon anda pada pemapar. Tekan butang untuk menangkap, dan apabila kedua-dua belah pihak ditangkap, tekan butang sekali lagi untuk menyimpan. Menyimpan dalam mod Cardboard hanya bertujuan untuk membolehkan anda memuatkan semula imej ke dalam CrossCam untuk dilihat kemudian, bukan untuk melihatnya dalam apl foto anda melalui pemapar anda.
+
+Anda juga boleh menangkap menggunakan mana-mana kaedah lain yang anda mahu, kemudian tukar Kaedah Tontonan Pratonton anda kepada Kadbod dan letakkan telefon anda dalam pemapar.
+
+Terdapat banyak penonton yang berbeza di luar sana dengan sifat yang berbeza. Anda mungkin perlu menukar jarak pemisahan Cardboard (pada halaman Tetapan) untuk menjadikan pengalaman anda lebih selesa. Anda juga mungkin perlu terlebih dahulu memastikan anda mahir menangkap stereogram berkualiti tinggi sebelum anda menjadikannya hebat dan mengasyikkan.</value>
+  </data>
+  <data name="Page.Faq.How" xml:space="preserve">
+    <value>Bagaimana ianya berfungsi?</value>
+  </data>
+  <data name="Page.Faq.How.Body1" xml:space="preserve">
+    <value>Kesan 3D yang digunakan CrossCam ialah disiplin yang dipelajari dengan baik dikenali sebagai stereoskopi, dan kaedah di mana anda menyilangkan mata (atau merehatkannya) untuk melihat kedua-dua belah dipanggil tontonan percuma. Apabila kita melihat sekeliling dunia, setiap mata kita melihat dari perspektif yang berbeza. Dalam stereoskopi semua yang kita lakukan ialah membentangkan satu perspektif (tiruan) kepada setiap mata, dan otak kita hanya melakukan yang lain. Terdapat banyak cara yang berbeza untuk membuat setiap mata melihat imej yang berbeza. Ini</value>
+  </data>
+  <data name="Page.Faq.How.Body2" xml:space="preserve">
+    <value>pautan Wikipedia mengenai stereoskopi</value>
+  </data>
+  <data name="Page.Faq.How.Body3" xml:space="preserve">
+    <value>Gambar 3D yang anda buat dengan CrossCam dipanggil stereogram. Buku Magic Eye™ mengandungi apa yang dipanggil autostereogram.</value>
+  </data>
+  <data name="Page.Faq.Into" xml:space="preserve">
+    <value>Bagaimanakah anda memasuki stereoskopi?</value>
+  </data>
+  <data name="Page.Faq.Into.Body1" xml:space="preserve">
+    <value>Semasa saya mendapat ijazah fizik saya, saya mempunyai peluang untuk bereksperimen dengan mencipta hologram saya sendiri menggunakan laser. Jenis hologram yang saya buat ialah 3D kerana ia menggunakan parut pembelauan untuk menyebabkan gangguan yang merosakkan dalam cahaya yang memantulkan permukaan plat kaca, yang menyebabkan imej yang dipantulkan kelihatan berbeza dari tempat yang berbeza. Apabila setiap mata kita melihat imej yang kelihatan seperti ia dari perspektif yang berbeza (jika mereka tidak terlalu berbeza), otak kita menganggapnya sebagai kedalaman.</value>
+  </data>
+  <data name="Page.Faq.Into.Body2" xml:space="preserve">
+    <value>Saya telah menyedari prinsip persepsi stereoskopik itu untuk masa yang lama, tetapi pada ketika itu dalam hidup saya, saya juga mengambil beberapa kelas pengaturcaraan, jadi saya memutuskan untuk mencuba membuat program komputer mudah untuk lukisan 3D stereoskopik. Usaha itu menjadi StereoSketcher. Versi asal ditulis dalam Java, tetapi saya menulis semula dengan Javascript dan SVG dan kini ia hidup di web</value>
+  </data>
+  <data name="Page.Faq.Into.Body3" xml:space="preserve">
+    <value>di pautan ini.</value>
+  </data>
+  <data name="Page.Faq.Into.Body4" xml:space="preserve">
+    <value>Ia tidak popular dalam apa cara sekalipun, dan mungkin tidak mudah untuk sesiapa sahaja kecuali saya untuk menggunakannya, tetapi ia berkesan. Semasa mengusahakan StereoSketcher, saya perlu mencuba prinsip stereoskopi, dan saya terpikat dengan cara pengalaman yang mengasyikkan dan menarik boleh dihasilkan menggunakan beberapa peraturan mudah.</value>
+  </data>
+  <data name="Page.Faq.Inverted" xml:space="preserve">
+    <value>Mengapa 3D tidak kelihatan betul ATAU mengapa 3D kelihatan songsang?</value>
+  </data>
+  <data name="Page.Faq.Inverted.Body1" xml:space="preserve">
+    <value>Apabila tontonan percuma dengan sama ada kaedah silang atau selari, adalah penting untuk melihat gambar menggunakan kaedah yang sama yang digunakan untuk menciptanya. Jika tidak, mata kanan anda akan melihat perspektif yang dimaksudkan untuk mata kiri dan sebaliknya. Ini menjadikan kedalaman imej terbalik, kerana arah paralaks telah ditukar.
+
+Paralaks bermaksud bahawa dari perspektif mata kanan anda, apabila objek jauh ia kelihatan lebih jauh ke kanan berbanding objek yang lebih dekat apabila dilihat dari mata kiri anda. Ia mengelirukan apabila diterangkan dalam format ayat, tetapi sangat intuitif apabila ditunjukkan.
+
+Untuk menunjukkan, pegang satu jari ke atas di hadapan anda kira-kira panjang lengan, kemudian dengan tangan anda yang lain pegang jari lain kira-kira separuh antara jari pertama dan muka anda. Jika anda menutup setiap mata secara bergilir-gilir dan perhatikan di mana jari anda berada, anda akan melihat bahawa setiap mata melihatnya di tempat yang berbeza. Jadi secara semulajadi, jika setiap mata melihat pergerakan itu dengan cara yang bertentangan dengan cara yang sepatutnya, kedalaman akan terbalik.
+
+Sangat mudah untuk menggunakan kaedah tontonan yang salah secara tidak sengaja kerana ternyata sangat sukar bagi kebanyakan orang untuk mengetahui sama ada mereka melintasi atau merehatkan mata mereka hanya dengan merasakan atau dengan melihat imej berganda dunia yang mengelirukan yang terhasil. Sebaliknya, sebaiknya minta orang lain melihat apa yang dilakukan oleh mata anda atau cuba imej penguji ini:</value>
+  </data>
+  <data name="Page.Faq.Inverted.Body2" xml:space="preserve">
+    <value>Ramai orang telah berasa agak selesa dengan melihat buku Magic Eye™, yang bertujuan untuk dilihat menggunakan kaedah pandangan selari. Jika anda melihatnya silang maka objek 3D teguh yang sepatutnya muncul dari halaman sebaliknya kelihatan seperti lubang. Kedua-dua kaedah membolehkan anda melihat *sesuatu* tetapi jika anda tidak dapat memberitahu perkara itu, anda mungkin akan melihatnya silang.</value>
+  </data>
+  <data name="Page.Faq.Mirror" xml:space="preserve">
+    <value>Bagaimanakah cara saya melakukan kaedah "cermin satu tangkapan"?</value>
+  </data>
+  <data name="Page.Faq.Mirror.Body1" xml:space="preserve">
+    <value>Merakam dengan kaedah cermin membahagikan bingkai kepada separuh dan melakukan transformasi yang diperlukan supaya anda boleh menangkap kedua-dua belah pada masa yang sama menggunakan telefon tunggal dan cermin pegang tangan biasa. Untuk menggunakan kaedah cermin semasa menangkap, hidupkan suis untuk mod cermin pada halaman Tetapan (ketik ikon gear untuk ke sana). Selepas anda menghidupkan mod cermin, CrossCam akan memberitahu anda bahagian mana untuk memegang cermin anda. Pegang cermin anda di sisi itu dan kecoh dengan penjajaran antara telefon anda dan cermin serta subjek anda. Dengan sedikit kesabaran, anda akan dapat menyusun semuanya supaya cermin menunjukkan perspektif yang betul untuk salah satu sisi. Oleh kerana menggunakan kaedah cermin membahagikan imej anda kepada separuh secara menegak, selalunya terbaik untuk menangkap dalam landskap menggunakan kaedah cermin.
+
+Kaedah ini juga akan berfungsi dengan pantulan dalam tingkap yang besar dan bersih, dan juga pada tasik atau lopak air (apabila telefon dikunci dalam potret dan terbalik ke sisi).</value>
+  </data>
+  <data name="Page.Faq.Mirror.Body2" xml:space="preserve">
+    <value>Terdapat beberapa kompromi/suntingan yang perlu dibuat untuk menggunakan kaedah cermin. Ini semua boleh dilakukan secara manual dalam CrossCam, tetapi penjajaran automatik juga akan cuba melakukannya untuk anda:
+ • Oleh kerana pandangan yang dicerminkan bergerak dalam jarak yang lebih jauh daripada pandangan biasa, bahagian yang dicerminkan perlu dizum masuk sedikit.
+ • Berkemungkinan besar apabila menggunakan kaedah cermin, anda akhirnya akan menjejakkan kaki ke dalam, dan bukannya mengekalkan perspektif selari - ini boleh menyebabkan pemendekan kelihatan seperti penjajaran menegak yang buruk. Untuk membuat asalnya, pembetulan keystone boleh dilakukan, yang bermaksud mengecut secara menegak satu sisi setiap imej.
+ • Toeing-in juga akan cenderung untuk mengalihkan tetingkap stereo ke arah anda. Anda boleh membuat asalnya dan meletakkannya di tempat yang anda inginkan dengan memangkas bahagian tepi.
+ • Cermin mungkin tidak akan menutup sepenuhnya pandangan satu sisi, jadi beberapa pemangkasan mungkin perlu dilakukan untuk mengeluarkan bit yang tidak dipantulkan.
+
+Cermin terbaik untuk ini mempunyai kaca nipis. Untuk satu perkara ia ringan, jadi ia lebih mudah dipegang untuk tempoh yang lama. Perkara penting yang lain ialah apabila menggunakan cermin, anda mungkin akan menghalakan cermin ke sisi dan bukannya melihat terus ke dalamnya kerana cermin biasanya digunakan. Apabila berorientasikan seperti itu, cermin dengan kaca tebal mungkin mempunyai sedikit kekaburan. Semakin nipis kaca, semakin kurang jelas kekaburan ini. Cermin jenis ini juga mungkin berkualiti rendah dari segi lain, jadi penting untuk mencari keseimbangan yang baik.
+
+Terdapat beberapa kompromi lain yang perlu diterima apabila menggunakan penangkapan cermin yang tidak boleh diperbaiki dalam suntingan oleh CrossCam:
+ • Oleh kerana pandangan kedua-dua belah menempuh jarak yang sedikit berbeza, fokus yang diperlukan untuk setiap sisi akan berbeza sedikit, jadi satu sisi akan sentiasa kabur sedikit. Kesan ini akan menjadi lebih kurang ketara bergantung pada jarak ke subjek dan kedalaman medan kanta.
+ • Tiada cermin yang benar-benar 100% cekap, jadi bahagian tepi yang menggunakan cermin mungkin lebih gelap sedikit. Ini akan berbeza dengan kualiti cermin.</value>
+  </data>
+  <data name="Page.Faq.Moving" xml:space="preserve">
+    <value>Subjek saya bergerak, bagaimana cara saya mengambil gambar 3D itu?</value>
+  </data>
+  <data name="Page.Faq.Moving.Body" xml:space="preserve">
+    <value>CrossCam membenarkan anda dua kaedah untuk menangkap kedua-dua perspektif pada masa yang sama. Satu kaedah menggunakan dua telefon, dan satu kaedah menggunakan cermin.
+
+Untuk menggunakan dua persediaan telefon, lihat halaman Persediaan Berpasangan, yang boleh anda dapatkan dari halaman Tetapan (ketik ikon gear).
+
+Untuk menggunakan kaedah cermin, lihat soalan FAQ lain mengenainya.</value>
+  </data>
+  <data name="Page.Faq.Test" xml:space="preserve">
+    <value>Bagaimanakah saya boleh menguji versi pra-keluaran CrossCam?</value>
+  </data>
+  <data name="Page.Faq.Test.Body" xml:space="preserve">
+    <value>Lihat siaran Reddit ini</value>
+  </data>
+  <data name="Page.Faq.Why" xml:space="preserve">
+    <value>Mengapa anda membuat CrossCam?</value>
+  </data>
+  <data name="Page.Faq.Why.Body" xml:space="preserve">
+    <value>Semasa saya mula berminat dengan stereoskop saya kebetulan pergi ke Yellowstone. Semasa saya berada di sana, saya menyedari mungkin menyeronokkan untuk mencuba menggunakan aplikasi mudah alih kamera 3D untuk menangkap sesuatu di sana dalam 3D. Saya sangat kecewa dengan pilihan sedia ada. Saya dapati mereka semua memerlukan anda membuat dua tangkapan dan kemudian mengetahui sama ada ia bagus. Mereka selalunya tidak, kerana saya perlu berulang kali membuat tekaan lengkap tentang jarak pemisahan saya, serta kualiti subjek.
+
+Dalam beberapa minggu akan datang, kekecewaan saya yang memuncak menyebabkan saya membayangkan hanya menyediakan pratonton langsung tangkapan kedua bersama yang pertama. Saya sudah mempunyai latar belakang dalam pembangunan mudah alih, jadi ia hanya perlu meluangkan masa. CrossCam sangat bagus untuk saya gunakan hanya untuk diri saya sendiri untuk mengekalkan kenangan, dan saya gembira untuk berkongsi dengan anda juga.</value>
+  </data>
+  <data name="Page.Faq.Wiggle" xml:space="preserve">
+    <value>Apakah wigglegrams?</value>
+  </data>
+  <data name="Page.Faq.Wiggle.Body" xml:space="preserve">
+    <value>Wigglegram ialah cara untuk melihat stereogram yang tidak bergantung pada penglihatan binokular. Ia biasanya gif yang berbolak balik antara dua perspektif, menunjukkan setiap satu secara keseluruhannya di tempat yang sama. CrossCam tidak menyokong pembuatannya sekarang, tetapi e-mel saya jika anda benar-benar berminat dengannya dan saya akan melakukannya.</value>
+  </data>
+  <data name="Page.Tips.AlignAfter" xml:space="preserve">
+    <value>Fikirkan garis mendatar, tetapi anda juga boleh menyelaraskan selepas itu.</value>
+  </data>
+  <data name="Page.Tips.AlignAfter.Body" xml:space="preserve">
+    <value>Jika anda mendapati bahawa semasa mengambil gambar adalah mustahil untuk membuat kedua-dua garis panduan atas dan bawah berbaris pada masa yang sama, anda mungkin bergerak ke arah tertentu selain hanya ke tepi. Cuba betulkan perkara ini sebelum mengambil gambar, tetapi menyelaraskan selepas fakta boleh membantu perkara ini.</value>
+  </data>
+  <data name="Page.Tips.Alignment" xml:space="preserve">
+    <value>Anda boleh mematikan penjajaran automatik.</value>
+  </data>
+  <data name="Page.Tips.Alignment.Body" xml:space="preserve">
+    <value>Jika anda tidak menyukai hasil penjajaran automatik, matikan sahaja pada halaman Tetapan atau dengan mengetik pada ikon robot kecil dan gambar asal anda yang ditangkap akan dipulihkan.</value>
+  </data>
+  <data name="Page.Tips.Donut" xml:space="preserve">
+    <value>Panduan donat boleh membantu tingkap anda.</value>
+  </data>
+  <data name="Page.Tips.Donut.Body" xml:space="preserve">
+    <value>Terdapat donat panduan percubaan pada halaman Tetapan yang boleh anda hidupkan yang boleh membantu anda mengekalkan tetingkap stereo anda sambil memaksimumkan lebar yang boleh digunakan. Dengan membelok ke kiri dan ke kanan kedalaman pada donat akan berubah berbanding dengan pemandangan yang lain - tetapkan kedalaman donat supaya ia sama ada di atas atau di belakang titik paling jauh dalam pemandangan anda. Berhati-hati, menggunakannya pada adegan yang lebih kecil boleh membuat keadaan menyakitkan (lihat petua kunci di atas).</value>
+  </data>
+  <data name="Page.Tips.Keystone" xml:space="preserve">
+    <value>Pembetulan Keystone diperlukan jika anda masuk ke dalam.</value>
+  </data>
+  <data name="Page.Tips.Keystone.Body1" xml:space="preserve">
+    <value>Jika anda menoleh ke dalam dengan setiap pukulan, adalah sangat membantu untuk melakukan pembetulan keystone. Biasanya anda ingin mengecilkan bahagian dalam tepi foto dan kemudian memangkas beberapa bahagian atas dan bawah untuk meratakannya. Anda pergi ke menu penyuntingan keystone dengan mengetik butang yang kelihatan seperti ini:</value>
+  </data>
+  <data name="Page.Tips.Keystone.Body2" xml:space="preserve">
+    <value>Berpusing ke dalam dipanggil toe-in. Ia boleh menyebabkan kesan pemendekan yang menyukarkan untuk menggabungkan sudut imej. Kesan pemendekan hadir pada setiap masa dalam kehidupan sebenar, kerana garis selari kelihatan menumpu apabila ia pergi ke jarak jauh daripada anda, tetapi perspektif buatan boleh menjadikannya pelik.</value>
+  </data>
+  <data name="Page.Tips.Lean" xml:space="preserve">
+    <value>Anda hanya boleh bersandar.</value>
+  </data>
+  <data name="Page.Tips.Lean.Body" xml:space="preserve">
+    <value>Kadang-kadang daripada menggerakkan kaki anda ke kiri atau kanan sepenuhnya untuk mengambil gambar, lebih mudah untuk hanya berdiri dengan jarak kaki dan bersandar pada setiap arah, tetapi berhati-hati untuk mengekalkan paras telefon dan pada ketinggian yang sama. Hanya bersandar dan bukannya bergerak boleh membantu anda daripada bergerak terlalu jauh dan boleh memudahkan anda memastikan matlamat anda lurus.</value>
+  </data>
+  <data name="Page.Tips.Lines" xml:space="preserve">
+    <value>Garis penjajaran boleh bergerak.</value>
+  </data>
+  <data name="Page.Tips.Lines.Body" xml:space="preserve">
+    <value>Anda boleh menyeret garisan penjajaran di sekeliling jika anda mahu. Ini amat membantu apabila menjajarkan gambar semasa penyuntingan.</value>
+  </data>
+  <data name="Page.Tips.Old" xml:space="preserve">
+    <value>Anda boleh membuka foto lama dalam CrossCam.</value>
+  </data>
+  <data name="Page.Tips.Old.Body" xml:space="preserve">
+    <value>Anda boleh memuatkan gambar yang diambil sebelum ini dengan mengetik ikon folder di bahagian bawah halaman kamera, tetapi jika anda bekerja dengan sekumpulan besar foto, anda juga boleh berkongsinya ke CrossCam terus daripada apl foto anda, yang mungkin menjejaki anda letak dalam foto anda dengan lebih baik.</value>
+  </data>
+  <data name="Page.Tips.Quick" xml:space="preserve">
+    <value>Hidupkan mod pantas apabila anda bersama orang lain.</value>
+  </data>
+  <data name="Page.Tips.Quick.Body" xml:space="preserve">
+    <value>Jika anda meneroka dengan orang lain adalah idea yang baik untuk pergi ke mod pantas dengan mematikan penjajaran dan dan sempadan automatik dan hanya menyimpan sebaik sahaja anda menangkap tanpa melakukan sebarang pengeditan. Anda sentiasa boleh memuatkan, menjajarkan secara automatik dan mengedit gambar kemudian. Dengan cara itu, rakan anda tidak perlu menunggu anda menyempurnakan gambar anda di tempat kejadian, tetapi anda masih boleh yakin bahawa kedalaman yang anda inginkan benar-benar ada. Hanya berhati-hati untuk tidak melakukan sebarang pengeditan tergesa-gesa sebelum menyimpan pertama! Anda juga boleh menghidupkan penjimatan sisi berasingan yang akan mengabaikan sebarang pengeditan yang anda lakukan.</value>
+  </data>
+  <data name="Page.Tips.Sick" xml:space="preserve">
+    <value>Jika pergerakan itu membuat anda sakit, tahan.</value>
+  </data>
+  <data name="Page.Tips.Sick.Body" xml:space="preserve">
+    <value>Jika semua pergerakan membuatkan anda sakit atau menyukarkan untuk melihat dalam 3D, jangan mula cuba melihatnya dalam 3D sehingga selepas anda bergerak sedikit. Kemudian bandingkan gambar antara satu sama lain dan selaraskan gambar menggunakan garisan mendatar tanpa tontonan 3D dan kemudian mulakan tontonan 3D setelah dijajarkan dan diam.</value>
+  </data>
+  <data name="Page.Tips.Space" xml:space="preserve">
+    <value>Gambar ini boleh mengambil banyak storan - anda boleh mengecilkannya.</value>
+  </data>
+  <data name="Page.Tips.Space.Body" xml:space="preserve">
+    <value>Halaman Tetapan mempunyai pilihan untuk mengurangkan resolusi gambar akhir secara berkadar - ini boleh membantu jika anda ingin menjimatkan ruang. Jika foto anda tidak dipangkas, hasil akhirnya ialah dua gambar peleraian penuh yang dicantumkan untuk menghasilkan satu peleraian berganda, yang bermaksud anda selalunya boleh melepaskan diri dengan pengurangan resolusi yang besar tanpa menjejaskan kualiti dengan ketara.</value>
+  </data>
+  <data name="Page.Tips.Turn" xml:space="preserve">
+    <value>jangan pusing.</value>
+  </data>
+  <data name="Page.Tips.Turn.Body" xml:space="preserve">
+    <value>Apabila anda beralih, cuba untuk tidak memutar telefon anda sama sekali ke mana-mana arah, termasuk kecenderungan semula jadi untuk berpaling ke arah subjek semasa anda bergerak ke tepi. Beberapa putaran akan diperlukan (kadang-kadang), tetapi cuba untuk meminimumkannya. Bayangkan telefon dipasang pada rel mendatar lurus dan hanya boleh meluncur. Berpusing ke dalam boleh menyebabkan kesan pemendekan yang menyebabkan sudut sukar dicantum.</value>
+  </data>
+  <data name="Page.Tips.Window" xml:space="preserve">
+    <value>Tambahkan jidar dan pangkas untuk membuat tetingkap stereo yang kukuh.</value>
+  </data>
+  <data name="Page.Tips.Window.Body" xml:space="preserve">
+    <value>Kesan tetingkap stereo yang menarik boleh dibuat dengan melakukan dua perkara: 1) hidupkan sempadan (pada halaman Tetapan) dan 2) untuk tontonan silang, pangkas bahagian tepi dalam imej sehingga tepi luar itu sendiri menjadi 3D dalam gambar (pangkas tepi LUAR jika anda melihat secara selari). Kuncinya adalah untuk memangkas tepi kanan gambar kiri sedikit melepasi apa yang ditunjukkan oleh tepi kanan gambar kanan tempat kejadian dan begitu juga sebaliknya. Menambah jidar ditogol pada halaman Tetapan. Jika ini mengelirukan, hanya potong sekumpulan dari tepi dalam dan ia akan mula jelas. Butang pangkas untuk tepi dalam kelihatan seperti ini:</value>
+  </data>
+  <data name="Button.Code" xml:space="preserve">
+    <value>Lihat Kod</value>
+  </data>
+  <data name="Button.Developer" xml:space="preserve">
+    <value>Mengenai Pemaju</value>
+  </data>
+  <data name="Button.EmailMe" xml:space="preserve">
+    <value>Emel saya</value>
+  </data>
+  <data name="Button.GitHub" xml:space="preserve">
+    <value>Tambah Isu pada GitHub</value>
+  </data>
+  <data name="Button.Press" xml:space="preserve">
+    <value>Kembali ke skrin kamera pada kedua-dua peranti dan ketik butang pasangan di sudut bawah</value>
+  </data>
+  <data name="Button.Primary" xml:space="preserve">
+    <value>KETIK DI SINI PADA UTAMA</value>
+  </data>
+  <data name="Button.Privacy" xml:space="preserve">
+    <value>Dasar Privasi</value>
+  </data>
+  <data name="Button.Secondary" xml:space="preserve">
+    <value>KETIK DI SINI DI SEKUNDER</value>
+  </data>
+  <data name="Button.Test" xml:space="preserve">
+    <value>Uji Versi Pra-keluaran</value>
+  </data>
+  <data name="Button.Wi-Fi" xml:space="preserve">
+    <value>Pastikan Wi-Fi didayakan pada kedua-dua peranti (tetapi ia tidak perlu disambungkan kepada apa-apa)</value>
+  </data>
+  <data name="Page.Pairing.1" xml:space="preserve">
+    <value>Jika anda mempunyai dua peranti dengan CrossCam dipasang, anda boleh menyambungkannya untuk mengambil foto serentak dari dua perspektif. Mengambil dua foto pada masa yang sama menjadikan stereogram terbaik mungkin.
+
+Harap maklum bahawa ciri ini masih percubaan dan mungkin mempunyai masalah. Ia mungkin tidak berfungsi dengan sempurna sepanjang masa dan ia mungkin memakan bateri anda. Sila ambil perhatian juga bahawa pada masa ini peranti mestilah platform yang sama untuk menyambung (kedua-dua Android atau kedua-dua iOS).
+
+Satu cara untuk mendapatkan penyegerakan *sempurna* menggunakan hanya satu peranti dan CrossCam adalah dengan menggunakan kaedah "cermin tangkapan tunggal". Anda boleh menghidupkannya pada halaman Tetapan dan anda boleh membaca tentangnya di halaman Soalan Lazim.
+
+Sebelum dua peranti boleh digunakan bersama, peranan mereka perlu ditetapkan. Peranti PRIMER ialah peranti yang akan menunjukkan kedua-dua pratonton, mencetuskan tangkapan dan menahan/menyimpan tangkapan akhir. Untuk menetapkan peranan, navigasi kedua-dua peranti ke halaman ini dan kemudian ikuti langkah di bawah:</value>
+  </data>
+  <data name="Page.Pairing.2" xml:space="preserve">
+    <value>Jika anda menghadapi masalah, SILA AMBIL PERHATIAN:
+ • Selepas memulakan proses berpasangan, butang berpasangan boleh diketik semula pada bila-bila masa untuk menghentikannya atau memutuskan sambungan.
+ • Ia mungkin membantu untuk menghentikan pemasangan pada kedua-dua peranti dan mulakan semula pada masa yang sama.
+ • Ia mungkin membantu untuk memutuskan sambungan daripada Wi-Fi atau rangkaian data anda sekiranya ia bertindak.
+ • Setiap kamera adalah berbeza. Perbezaan ini boleh termasuk medan pandangan sudut, fokus, pendedahan dan gelagat imbangan putih, masa dan banyak lagi. Malah dua model telefon yang sama akan berkelakuan sedikit berbeza. Saya lebih suka menggunakan sepasang telefon lama yang sama (dalam kes saya, sepasang iPhone 6).
+ • CrossCam ialah perisian, bukan perkakasan, jadi merakam foto mungkin sedikit tidak segerak bergantung pada perkara lain yang dilakukan oleh pemproses dan memori pada saat yang tepat tangkapan dicetuskan. Akibatnya, penyegerakan mungkin kadangkala tidak sempurna, tetapi pada umumnya ia sepatutnya sangat rapat.</value>
+  </data>
+  <data name="Page.Pairing.Again" xml:space="preserve">
+    <value>Untuk menyambung semula kemudian, pastikan anda mendayakan Wi-Fi dan kemudian hanya ketik butang sambung pada skrin utama pada kedua-dua peranti.</value>
+  </data>
+  <data name="Page.Pairing.LocalNetworkAccess" xml:space="preserve">
+    <value>CrossCam memerlukan kebenaran Akses Rangkaian Tempatan. CrossCam sebenarnya tidak menggunakan rangkaian tempatan, tetapi iOS memerlukan CrossCam mendapat kebenaran ini untuk menggunakan antena Wi-Fi untuk mengimbas peranti. CrossCam akan meminta kebenaran ini sekali - jika kebenaran ditolak, anda perlu pergi dan menukar suis dalam apl Tetapan sendiri.</value>
+  </data>
+  <data name="Page.Pairing.Location" xml:space="preserve">
+    <value>CrossCam akan meminta kebenaran dan menghidupkan komponen seperti yang diperlukan untuk menyambungkan peranti anda. Sila ambil perhatian: CrossCam memerlukan kebenaran lokasi dan untuk perkhidmatan lokasi dihidupkan pada peranti utama untuk menyambung ke peranti kedua. Ini hanyalah keperluan Android dan benar-benar di luar kawalan saya. CrossCam sebenarnya tidak MENGGUNAKAN lokasi anda dalam apa jua cara, tetapi kerana tindakan mencari (dan mencari) peranti berdekatan secara teorinya boleh digunakan untuk mengesan anda secara kasar, CrossCam memerlukan kebenaran untuk mengakses lokasi anda.</value>
+  </data>
+  <data name="Page.Pairing.Permissions" xml:space="preserve">
+    <value>Nota Mengenai Kebenaran:</value>
+  </data>
+  <data name="Page.Pairing.Title" xml:space="preserve">
+    <value>Berpasangan</value>
+  </data>
+  <data name="Button.Back" xml:space="preserve">
+    <value>&lt; Belakang</value>
+  </data>
+  <data name="Page.MorePictures.CrossViewSubreddit" xml:space="preserve">
+    <value>CrossView Subreddit</value>
+  </data>
+  <data name="Page.MorePictures.FacebookGroup" xml:space="preserve">
+    <value>Kumpulan Facebook 3D stereoskopik</value>
+  </data>
+  <data name="Page.MorePictures.GoogleDoc" xml:space="preserve">
+    <value>Google Doc of Great Stuff</value>
+  </data>
+  <data name="Page.MorePictures.Instagram" xml:space="preserve">
+    <value>Tag Stereoskopik Instagram</value>
+  </data>
+  <data name="Page.MorePictures.Mine" xml:space="preserve">
+    <value>Lihat Gambar yang Saya Ambil</value>
+  </data>
+  <data name="Page.MorePictures.ParallelViewSubreddit" xml:space="preserve">
+    <value>ParallelView Subreddit</value>
+  </data>
+  <data name="Page.Settings.Alignment" xml:space="preserve">
+    <value>Penjajaran Automatik</value>
+  </data>
+  <data name="Page.Settings.Analytics" xml:space="preserve">
+    <value>Kongsi data penggunaan dan ralat tanpa nama untuk membantu meningkatkan CrossCam</value>
+  </data>
+  <data name="Page.Settings.Border" xml:space="preserve">
+    <value>Sempadan</value>
+  </data>
+  <data name="Page.Settings.Camera" xml:space="preserve">
+    <value>Kamera</value>
+  </data>
+  <data name="Page.Settings.Defaults" xml:space="preserve">
+    <value>Tetapkan semula kepada Lalai</value>
+  </data>
+  <data name="Page.Settings.Editing" xml:space="preserve">
+    <value>Suntingan</value>
+  </data>
+  <data name="Page.Settings.ErrorEmail" xml:space="preserve">
+    <value>Gesa untuk menghantar e-mel apabila ralat berlaku</value>
+  </data>
+  <data name="Page.Settings.Guides" xml:space="preserve">
+    <value>Panduan Tangkap</value>
+  </data>
+  <data name="Page.Settings.Pairing" xml:space="preserve">
+    <value>Berpasangan</value>
+  </data>
+  <data name="Page.Settings.Preview" xml:space="preserve">
+    <value>Kaedah Melihat Pratonton</value>
+  </data>
+  <data name="Page.Settings.Saving" xml:space="preserve">
+    <value>Menyimpan</value>
+  </data>
+  <data name="Page.TipMe.1" xml:space="preserve">
+    <value>CrossCam adalah percuma untuk digunakan, bebas iklan, sumber terbuka, tidak mengumpul maklumat peribadi daripada anda dan memberi anda akses penuh kepada setiap ciri. Saya suka bekerja pada CrossCam tetapi ia memerlukan banyak masa dan usaha. Saya tidak menjana wang daripada CrossCam sama sekali kecuali petua orang mungkin memutuskan untuk menghantar saya.</value>
+  </data>
+  <data name="Page.TipMe.2" xml:space="preserve">
+    <value>Jika anda suka CrossCam dan mampu, sila pertimbangkan untuk menghantar petua kepada saya.</value>
+  </data>
+  <data name="Page.TipMe.Ko-fi" xml:space="preserve">
+    <value>Ko-fi</value>
+  </data>
+  <data name="Page.TipMe.Patreon" xml:space="preserve">
+    <value>Patreon</value>
+  </data>
+  <data name="Page.TipMe.PayPal" xml:space="preserve">
+    <value>PayPal</value>
+  </data>
+  <data name="Page.TipMe.Tipped" xml:space="preserve">
+    <value>Saya telah diberi tip</value>
+  </data>
+  <data name="Page.TipMe.TippedTimes" xml:space="preserve">
+    <value>kali, berjumlah</value>
+  </data>
+  <data name="Page.TipMe.Venmo" xml:space="preserve">
+    <value>Venmo</value>
+  </data>
+  <data name="Title.MorePictures" xml:space="preserve">
+    <value>Lihat Lagi Gambar</value>
+  </data>
+  <data name="Title.Settings" xml:space="preserve">
+    <value>tetapan</value>
+  </data>
+  <data name="Title.TipMe" xml:space="preserve">
+    <value>Petua Dihargai!</value>
+  </data>
+  <data name="Settings.Alignment.Advanced" xml:space="preserve">
+    <value>Tunjukkan tetapan penjajaran lanjutan</value>
+  </data>
+  <data name="Settings.Alignment.Ecc" xml:space="preserve">
+    <value>Cuba gunakan penjajaran ECC dahulu selalu</value>
+  </data>
+  <data name="Settings.Alignment.Keypoints" xml:space="preserve">
+    <value>Cuba gunakan penjajaran titik kunci dahulu sentiasa</value>
+  </data>
+  <data name="Settings.Alignment.On" xml:space="preserve">
+    <value>Selaraskan secara automatik selepas tangkapan</value>
+  </data>
+  <data name="Settings.Border.Color" xml:space="preserve">
+    <value>Warna sempadan</value>
+  </data>
+  <data name="Settings.Border.FuseGuide" xml:space="preserve">
+    <value>Tambah panduan fius di atas (titik di atas setiap sisi)</value>
+  </data>
+  <data name="Settings.Border.On" xml:space="preserve">
+    <value>Tambah sempadan</value>
+  </data>
+  <data name="Settings.Border.Prompt" xml:space="preserve">
+    <value>Gesa untuk memotong sempadan apabila dikesan semasa memuatkan</value>
+  </data>
+  <data name="Settings.Border.Thickness" xml:space="preserve">
+    <value>Ketebalan sempadan (persepuluh peratusan lebar)</value>
+  </data>
+  <data name="Settings.Camera.Camera1" xml:space="preserve">
+    <value>Force camera1 API (mungkin membantu jika anda mengalami keanehan tetapi akan mengakibatkan kefungsian terhad, memerlukan paksa berhenti/mulakan semula untuk berkuat kuasa)</value>
+  </data>
+  <data name="Settings.Camera.Camera2" xml:space="preserve">
+    <value>Force camera2 API (mesti pada Android 6 ke atas, mungkin membantu jika anda mengalami ralat tetapi mungkin membuat lebih banyak, memerlukan paksa berhenti/mulakan semula untuk berkuat kuasa)</value>
+  </data>
+  <data name="Settings.Camera.LandscapeCaptureHorizontal" xml:space="preserve">
+    <value>Butang tangkapan landskap penempatan mendatar</value>
+  </data>
+  <data name="Settings.Camera.LandscapeCaptureVertical" xml:space="preserve">
+    <value>Peletakan menegak butang tangkapan landskap</value>
+  </data>
+  <data name="Settings.Camera.Lock" xml:space="preserve">
+    <value>Kunci fokus dan pendedahan untuk gambar kedua untuk fokus dan pendedahan daripada gambar pertama</value>
+  </data>
+  <data name="Settings.Camera.Pair" xml:space="preserve">
+    <value>Pasangkan peletakan mendatar butang (apabila butang tangkap ditengahkan)</value>
+  </data>
+  <data name="Settings.Camera.PointFocus" xml:space="preserve">
+    <value>Ketik untuk menunjuk fokus, ketik dua kali untuk bertukar kembali kepada fokus berterusan (atau simpan atau kosongkan)</value>
+  </data>
+  <data name="Settings.Camera.PortraitCapture" xml:space="preserve">
+    <value>Peletakan butang tangkapan potret</value>
+  </data>
+  <data name="Settings.Editing.Align" xml:space="preserve">
+    <value>Perkadaran penjajaran menegak maksimum</value>
+  </data>
+  <data name="Settings.Editing.Keystone" xml:space="preserve">
+    <value>Batu kunci maksimum</value>
+  </data>
+  <data name="Settings.Editing.Rotation" xml:space="preserve">
+    <value>Darjah putaran maksimum</value>
+  </data>
+  <data name="Settings.Editing.SideCrop" xml:space="preserve">
+    <value>Perkadaran tanaman sampingan maksimum</value>
+  </data>
+  <data name="Settings.Editing.TopCrop" xml:space="preserve">
+    <value>Perkadaran tanaman atas/bawah maksimum</value>
+  </data>
+  <data name="Settings.Editing.Zoom" xml:space="preserve">
+    <value>Perkadaran zum maksimum</value>
+  </data>
+  <data name="Settings.Guides.Donut" xml:space="preserve">
+    <value>Tunjukkan panduan donat (akan menyebabkan toe-in, jadi mungkin memerlukan pengeditan keystone)</value>
+  </data>
+  <data name="Settings.Guides.Fuse" xml:space="preserve">
+    <value>Tunjukkan panduan fius (titik di atas setiap sisi)</value>
+  </data>
+  <data name="Settings.Guides.LineColor" xml:space="preserve">
+    <value>Garisan berwarna yang berbeza</value>
+  </data>
+  <data name="Settings.Guides.Lines" xml:space="preserve">
+    <value>Garisan kelihatan</value>
+  </data>
+  <data name="Settings.Guides.Roll" xml:space="preserve">
+    <value>Panduan guling kelihatan</value>
+  </data>
+  <data name="Settings.Pair.CaptureDelay" xml:space="preserve">
+    <value>Tangkap momen kelewatan tambahan (ms) (menambah kelewatan tambahan pada momen tangkapan sasaran pada peranti ini sahaja)</value>
+  </data>
+  <data name="Settings.Pair.Countdown" xml:space="preserve">
+    <value>Tangkap panjang kira detik (pemasa)</value>
+  </data>
+  <data name="Settings.Pair.Fov" xml:space="preserve">
+    <value>Pembetulan bidang pandangan</value>
+  </data>
+  <data name="Settings.Pair.FovNotSet" xml:space="preserve">
+    <value>Pembetulan FOV tidak ditetapkan (lakukan tangkapan dengan peranti berpasangan untuk berjalan melalui persediaan).</value>
+  </data>
+  <data name="Settings.Pair.FovReset" xml:space="preserve">
+    <value>Tetapkan semula</value>
+  </data>
+  <data name="Settings.Pair.Go" xml:space="preserve">
+    <value>Pergi ke Halaman Persediaan Berpasangan</value>
+  </data>
+  <data name="Settings.Pair.NoRole" xml:space="preserve">
+    <value>Peranan tidak dipilih</value>
+  </data>
+  <data name="Settings.Pair.PreviewDelay" xml:space="preserve">
+    <value>Pratonton kelewatan bingkai (nombor yang lebih tinggi akan mengurangkan kadar bingkai tetapi menjimatkan bateri)</value>
+  </data>
+  <data name="Settings.Pair.Primary" xml:space="preserve">
+    <value>utama:</value>
+  </data>
+  <data name="Settings.Pair.PrimaryRole" xml:space="preserve">
+    <value>Peranan: Utama</value>
+  </data>
+  <data name="Settings.Pair.Sample" xml:space="preserve">
+    <value>Kiraan sampel jam (bilangan yang lebih rendah akan mengurangkan masa yang diperlukan untuk penyegerakan awal tetapi mungkin mengurangkan ketepatan penyegerakan)</value>
+  </data>
+  <data name="Settings.Pair.Secondary" xml:space="preserve">
+    <value>Menengah:</value>
+  </data>
+  <data name="Settings.Pair.SecondaryRole" xml:space="preserve">
+    <value>Peranan: Menengah</value>
+  </data>
+  <data name="Settings.Pair.Timeout" xml:space="preserve">
+    <value>Tamat masa sambungan (saat) (0 bermakna tiada tamat masa)</value>
+  </data>
+  <data name="Settings.Preview.Barrel" xml:space="preserve">
+    <value>Tambah pembetulan kanta/herotan tong (mungkin menurunkan kadar bingkai)</value>
+  </data>
+  <data name="Settings.Preview.BarrelFinal" xml:space="preserve">
+    <value>Tambahkan pembetulan kanta/herotan tong pada imej akhir sahaja (mungkin melambatkan paparan akhir tetapi akan mempercepatkan tangkapan)</value>
+  </data>
+  <data name="Settings.Preview.CardboardDistance" xml:space="preserve">
+    <value>Jarak pemisahan kadbod</value>
+  </data>
+  <data name="Settings.Preview.Downsize" xml:space="preserve">
+    <value>Kecilkan imej (boleh meningkatkan kadar bingkai)</value>
+  </data>
+  <data name="Settings.Preview.DownsizePercent" xml:space="preserve">
+    <value>Kecilkan peratusan imej</value>
+  </data>
+  <data name="Settings.Preview.Immersive" xml:space="preserve">
+    <value>Tontonan akhir yang mengasyikkan</value>
+  </data>
+  <data name="Settings.Preview.LensStrength" xml:space="preserve">
+    <value>Kekuatan pembetulan kanta</value>
+  </data>
+  <data name="Settings.Preview.Mirror" xml:space="preserve">
+    <value>Tangkap menggunakan kaedah pembahagian cermin satu pukulan</value>
+  </data>
+  <data name="Settings.Preview.Width" xml:space="preserve">
+    <value>Lebar imej paparan selari maksimum (titik)</value>
+  </data>
+  <data name="Settings.Reset" xml:space="preserve">
+    <value>Tetapkan semula kepada Lalai</value>
+  </data>
+  <data name="Settings.Saving.Alone" xml:space="preserve">
+    <value>Simpan bahagian pertama sahaja (tanpa suntingan atau sempadan) (untuk perkongsian mudah foto rata dengan orang pandangan rata)</value>
+  </data>
+  <data name="Settings.Saving.Anaglyph" xml:space="preserve">
+    <value>Simpan versi anaglyph merah/cyan (dengan suntingan tetapi tiada sempadan)</value>
+  </data>
+  <data name="Settings.Saving.Browse" xml:space="preserve">
+    <value>Semak imbas...</value>
+  </data>
+  <data name="Settings.Saving.Cardboard" xml:space="preserve">
+    <value>Simpan untuk Kadbod (dengan pengeditan, tiada jidar, tiada jarak, lebar penuh, untuk dimuatkan semula ke CrossCam kemudian)</value>
+  </data>
+  <data name="Settings.Saving.Clear" xml:space="preserve">
+    <value>Kosongkan tangkapan secara automatik selepas disimpan</value>
+  </data>
+  <data name="Settings.Saving.Cross" xml:space="preserve">
+    <value>Simpan versi paparan silang yang digabungkan (dengan pengeditan dan sempadan)</value>
+  </data>
+  <data name="Settings.Saving.ExternalDirectory" xml:space="preserve">
+    <value>Simpan ke direktori CrossCam luaran di:</value>
+  </data>
+  <data name="Settings.Saving.ExternalWarning" xml:space="preserve">
+    <value>(amaran: gambar di sana akan dipadamkan jika CrossCam dinyahpasang)</value>
+  </data>
+  <data name="Settings.Saving.Folder" xml:space="preserve">
+    <value>Simpan ke dalam subfolder/album "CrossCam" khusus</value>
+  </data>
+  <data name="Settings.Saving.Grayscale" xml:space="preserve">
+    <value>Simpan versi anaglyph merah/cyan skala kelabu (dengan suntingan tetapi tiada sempadan)</value>
+  </data>
+  <data name="Settings.Saving.Order" xml:space="preserve">
+    <value>(Penyimpanan akan berlaku mengikut urutan dari atas ke bawah)</value>
+  </data>
+  <data name="Settings.Saving.Parallel" xml:space="preserve">
+    <value>Simpan versi paparan selari yang digabungkan (dengan pengeditan dan jidar)</value>
+  </data>
+  <data name="Settings.Saving.Quad" xml:space="preserve">
+    <value>Simpan kombinasi empat (dengan suntingan dan jidar)</value>
+  </data>
+  <data name="Settings.Saving.Reset" xml:space="preserve">
+    <value>Tetapkan semula</value>
+  </data>
+  <data name="Settings.Saving.Resolution" xml:space="preserve">
+    <value>Perkadaran resolusi</value>
+  </data>
+  <data name="Settings.Saving.SaveTo" xml:space="preserve">
+    <value>Simpan ke:</value>
+  </data>
+  <data name="Settings.Saving.Separate" xml:space="preserve">
+    <value>Simpan setiap bahagian secara berasingan (tanpa suntingan atau sempadan untuk pemprosesan pos yang lebih mudah, sebelah kiri simpan dahulu)</value>
+  </data>
+  <data name="Settings.Saving.Subfolder" xml:space="preserve">
+    <value>Simpan ke dalam subfolder/album "CrossCam_{ViewMethod}" khusus</value>
+  </data>
+  <data name="Settings.Saving.Triple" xml:space="preserve">
+    <value>Simpan gabungan tiga kali ganda (dengan suntingan dan jidar)</value>
+  </data>
+  <data name="Button.Pair.Accept" xml:space="preserve">
+    <value>Terima</value>
+  </data>
+  <data name="Button.Pair.Cancel" xml:space="preserve">
+    <value>Batal</value>
+  </data>
+  <data name="Page.Camera.AcceptConnection" xml:space="preserve">
+    <value>Terima sambungan ke</value>
+  </data>
+  <data name="Page.Camera.Confirm" xml:space="preserve">
+    <value>Sahkan padanan kod pada kedua-dua peranti:</value>
+  </data>
+  <data name="Page.Footer.CouldntOpen" xml:space="preserve">
+    <value>Tidak Dapat Membuka Pautan</value>
+  </data>
+  <data name="Page.Footer.OpenError" xml:space="preserve">
+    <value>Pautan mailto tidak dapat dibuka. Ini mungkin kerana klien e-mel anda tidak disediakan, atau sebab lain.</value>
+  </data>
+  <data name="Page.Pair.Errors.Denied" xml:space="preserve">
+    <value>Keizinan yang diperlukan untuk berpasangan tidak diberikan. Pengecualian:</value>
+  </data>
+  <data name="Page.Pair.Errors.FailedBluetooth" xml:space="preserve">
+    <value>Peranti gagal menghidupkan Bluetooth. Pengecualian:</value>
+  </data>
+  <data name="Page.Pair.Errors.FailedSearch" xml:space="preserve">
+    <value>Peranti gagal mencari peranti. Pengecualian:</value>
+  </data>
+  <data name="Page.Pair.Errors.LocationOff" xml:space="preserve">
+    <value>Perkhidmatan lokasi tidak diaktifkan. Tidak boleh mengimbas peranti. Lihat halaman berpasangan untuk mendapatkan butiran lanjut.</value>
+  </data>
+  <data name="Page.Pair.Errors.LocationScan" xml:space="preserve">
+    <value>Kebenaran lokasi tidak diberikan. Tidak boleh mengimbas peranti. Lihat halaman berpasangan untuk mendapatkan butiran lanjut.</value>
+  </data>
+  <data name="Page.Pair.Errors.NotSupported" xml:space="preserve">
+    <value>Gandingan tidak disokong pada peranti ini. Pengecualian:</value>
+  </data>
+  <data name="Page.Pair.Errors.Title" xml:space="preserve">
+    <value>ralat</value>
+  </data>
+  <data name="Page.Pair.Errors.WifiOff" xml:space="preserve">
+    <value>Wi-Fi dimatikan. Sila hidupkan Wi-Fi.</value>
+  </data>
+  <data name="Page.Pair.PrimaryExplanation" xml:space="preserve">
+    <value>Peranti ini kini ditetapkan sebagai peranti utama.</value>
+  </data>
+  <data name="Page.Pair.PrimarySelected" xml:space="preserve">
+    <value>Peranan Utama Dipilih</value>
+  </data>
+  <data name="Page.Pair.SecondaryExplanation" xml:space="preserve">
+    <value>Peranti ini kini ditetapkan sebagai peranti kedua.</value>
+  </data>
+  <data name="Page.Pair.SecondarySelected" xml:space="preserve">
+    <value>Peranan Sekunder Dipilih</value>
+  </data>
+  <data name="Page.Technique.Mode" xml:space="preserve">
+    <value>mod.</value>
+  </data>
+  <data name="Page.Technique.SetMode" xml:space="preserve">
+    <value>CrossCam kini masuk</value>
+  </data>
+</root>

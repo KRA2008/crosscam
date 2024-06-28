@@ -1093,4 +1093,64 @@ Antes de poder utilizar dos dispositivos juntos, es necesario asignar sus funcio
   <data name="Settings.Saving.Triple" xml:space="preserve">
     <value>Guardar combinación triple (con ediciones y borde)</value>
   </data>
+  <data name="Button.Pair.Accept" xml:space="preserve">
+    <value>Aceptar</value>
+  </data>
+  <data name="Button.Pair.Cancel" xml:space="preserve">
+    <value>Cancelar</value>
+  </data>
+  <data name="Page.Camera.AcceptConnection" xml:space="preserve">
+    <value>Aceptar conexión a</value>
+  </data>
+  <data name="Page.Camera.Confirm" xml:space="preserve">
+    <value>Confirme que el código coincida en ambos dispositivos:</value>
+  </data>
+  <data name="Page.Footer.CouldntOpen" xml:space="preserve">
+    <value>No se pudo abrir el enlace</value>
+  </data>
+  <data name="Page.Footer.OpenError" xml:space="preserve">
+    <value>No se pudo abrir el enlace mailto. Esto podría deberse a que su cliente de correo electrónico no está configurado o a algún otro motivo.</value>
+  </data>
+  <data name="Page.Pair.Errors.Denied" xml:space="preserve">
+    <value>No se otorgaron los permisos necesarios para el emparejamiento. Excepción:</value>
+  </data>
+  <data name="Page.Pair.Errors.FailedBluetooth" xml:space="preserve">
+    <value>El dispositivo no pudo encender Bluetooth. Excepción:</value>
+  </data>
+  <data name="Page.Pair.Errors.FailedSearch" xml:space="preserve">
+    <value>El dispositivo no pudo buscar dispositivos. Excepción:</value>
+  </data>
+  <data name="Page.Pair.Errors.LocationOff" xml:space="preserve">
+    <value>Servicios de localización no activados. No se pueden buscar dispositivos. Consulte la página de emparejamiento para obtener más detalles.</value>
+  </data>
+  <data name="Page.Pair.Errors.LocationScan" xml:space="preserve">
+    <value>Permiso de ubicación no concedido. No se pueden buscar dispositivos. Consulte la página de emparejamiento para obtener más detalles.</value>
+  </data>
+  <data name="Page.Pair.Errors.NotSupported" xml:space="preserve">
+    <value>El emparejamiento no es compatible con este dispositivo. Excepción:</value>
+  </data>
+  <data name="Page.Pair.Errors.Title" xml:space="preserve">
+    <value>Error</value>
+  </data>
+  <data name="Page.Pair.Errors.WifiOff" xml:space="preserve">
+    <value>El wifi está apagado. Por favor active Wi-Fi.</value>
+  </data>
+  <data name="Page.Pair.PrimaryExplanation" xml:space="preserve">
+    <value>Este dispositivo ahora está configurado como principal.</value>
+  </data>
+  <data name="Page.Pair.PrimarySelected" xml:space="preserve">
+    <value>Función principal seleccionada</value>
+  </data>
+  <data name="Page.Pair.SecondaryExplanation" xml:space="preserve">
+    <value>Este dispositivo ahora está configurado como secundario.</value>
+  </data>
+  <data name="Page.Pair.SecondarySelected" xml:space="preserve">
+    <value>Rol secundario seleccionado</value>
+  </data>
+  <data name="Page.Technique.Mode" xml:space="preserve">
+    <value>modo.</value>
+  </data>
+  <data name="Page.Technique.SetMode" xml:space="preserve">
+    <value>CrossCam ya está disponible</value>
+  </data>
 </root>

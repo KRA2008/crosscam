@@ -1,0 +1,1156 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="Button.GoogleDoc" xml:space="preserve">
+    <value>Google Doc o Stwff Mawr</value>
+  </data>
+  <data name="Button.LearnCross" xml:space="preserve">
+    <value>DYSGU Y GROES</value>
+  </data>
+  <data name="Button.LearnParallel" xml:space="preserve">
+    <value>DYSGU PARALLEL</value>
+  </data>
+  <data name="Button.MorePictures" xml:space="preserve">
+    <value>Gweler Mwy o luniau</value>
+  </data>
+  <data name="Button.Review" xml:space="preserve">
+    <value>Ysgrifennwch Adolygiad</value>
+  </data>
+  <data name="Button.Share" xml:space="preserve">
+    <value>Rhannu CrossCam</value>
+  </data>
+  <data name="Button.Support" xml:space="preserve">
+    <value>Cefnogi'r Datblygwr</value>
+  </data>
+  <data name="Button.TapCross" xml:space="preserve">
+    <value>TAPWCH YMA I DDEWIS CROSS</value>
+  </data>
+  <data name="Button.TapParallel" xml:space="preserve">
+    <value>TAPWCH YMA I DDEWIS PARALLEL</value>
+  </data>
+  <data name="Footer.Span1" xml:space="preserve">
+    <value>Wedi dod o hyd i fyg? Oes gennych chi gwestiwn? Dim ond e-bost</value>
+  </data>
+  <data name="Footer.Span3" xml:space="preserve">
+    <value>! Rwyf wrth fy modd yn siarad â defnyddwyr a dyma'r ffordd gyflymaf i gyfathrebu â mi.</value>
+  </data>
+  <data name="Page.HowToUse.2anaglyph" xml:space="preserve">
+    <value>2) Dechreuwch anaglyff gan edrych ar y llun cyntaf gyda'r rhagolwg sy'n ymddangos wrth ei ymyl.</value>
+  </data>
+  <data name="Page.HowToUse.2cardboard" xml:space="preserve">
+    <value>2) Dechreuwch gardbord yn edrych ar y llun cyntaf gyda'r rhagolwg sy'n ymddangos wrth ei ymyl.</value>
+  </data>
+  <data name="Page.HowToUse.2cross" xml:space="preserve">
+    <value>2) Dechreuwch groes edrych ar y llun cyntaf gyda'r rhagolwg sy'n ymddangos wrth ei ymyl.</value>
+  </data>
+  <data name="Page.HowToUse.2parallel" xml:space="preserve">
+    <value>2) Dechreuwch gyfochrog edrych ar y llun cyntaf gyda'r rhagolwg sy'n ymddangos nesaf iddo.</value>
+  </data>
+  <data name="Page.Technique.AdditionalTutorials" xml:space="preserve">
+    <value>Sesiynau tiwtorial ychwanegol:</value>
+  </data>
+  <data name="Page.Technique.Cross1" xml:space="preserve">
+    <value>Croeswch eich llygaid yn ofalus wrth edrych ar y pâr o luniau uchod. Pan fyddwch chi'n croesi'ch llygaid, bydd pethau'n mynd yn aneglur ac yn amlwg a byddwch chi'n dechrau gweld 4 llun yn lle 2 (2 bâr). Po galetaf y byddwch chi'n croesi'ch llygaid, y pellaf oddi wrth ei gilydd y bydd y parau o luniau'n symud - bydd yn edrych ychydig fel hyn:</value>
+  </data>
+  <data name="Page.Technique.Cross2" xml:space="preserve">
+    <value>Ewch ar draws eich llygaid yn ofalus, fel bod y lluniau y tu mewn i bob pâr yn dechrau gorgyffwrdd. Bydd yn dechrau edrych fel mai dim ond 3 llun sydd yn lle 4. Bydd yn dal i fod yn aneglur ac yn amlwg ac yn edrych rhywbeth fel hyn:</value>
+  </data>
+  <data name="Page.Technique.Cross3" xml:space="preserve">
+    <value>Unwaith y bydd y gorgyffwrdd canol yn gweithio mae'n rhaid i chi ymlacio'ch llygaid a chaniatáu iddynt ganolbwyntio'r llun. Bryd hynny bydd gennych un llun 3D miniog yn y canol gyda llun tryloyw yn arnofio ar bob ochr a fydd yn edrych fel hyn (ac eithrio 3D fydd yn y canol):</value>
+  </data>
+  <data name="Page.Technique.Cross4" xml:space="preserve">
+    <value>Os ydych chi'n cael trafferth croesi'ch llygaid, gallwch chi hefyd geisio syllu ar eich bys tra byddwch chi'n ei ddal hanner ffordd rhwng eich llygaid a'r sgrin. Dylech weld y lluniau'n dechrau gwahanu a gorgyffwrdd y tu ôl i'ch bys.</value>
+  </data>
+  <data name="Page.Technique.CrossViewing" xml:space="preserve">
+    <value>GOLWG AR Y GROES</value>
+  </data>
+  <data name="Page.Technique.P1" xml:space="preserve">
+    <value>Os ydych chi am weld hyn eto, tapiwch yr eicon hamburger (tair llinell) ar ochr chwith uchaf sgrin y camera a thapio "Help".
+
+I weld y 3D yn CrossCam (a elwir yn "stereogramau") gallwch ddefnyddio sbectol coch/cyan 3D, syllwr Google Cardboard, neu gallwch wneud "gwylio am ddim" gan ddefnyddio dim ond eich llygaid a'ch sgrin. Mae dwy ffordd o weld am ddim, a gall CrossCam eich helpu i ddysgu'r ddau ohonyn nhw. Mae angen i chi ddweud wrth CrossCam sut rydych chi'n mynd i weld y lluniau neu ni fydd yn gweithio'n iawn. Peidiwch â phoeni, gallwch chi bob amser newid hyn eto yn y Gosodiadau.
+
+Os ydych chi'n gallu croesi'ch llygaid yn gyfforddus, dylech roi cynnig ar y dull croes yn gyntaf, fel arall dylech roi cynnig ar y dull cyfochrog. Os ydych chi wedi arfer â llyfrau Magic Eye™, mae'n debyg eich bod eisoes yn gallu gwneud y dull cyfochrog, ond efallai y byddwch hefyd yn gallu gwneud y dull croes. Tapiwch ddull isod i'w ddysgu, a gwnewch yn siŵr eich bod chi'n dweud wrth CrossCam pa un sy'n gweithio i chi trwy wasgu'r botwm CHOOSE cyfatebol.
+
+Os byddai'n well gennych ddefnyddio sbectol 3D neu syllwr Cardbord gallwch osod CrossCam i ddefnyddio'r rhai ar y dudalen Gosodiadau.</value>
+  </data>
+  <data name="Page.Technique.CrossLink1" xml:space="preserve">
+    <value>Tiwtorial testun braf</value>
+  </data>
+  <data name="Page.Technique.CrossLink2" xml:space="preserve">
+    <value>Tiwtorial testun braf arall eto</value>
+  </data>
+  <data name="Page.Technique.CrossLink3" xml:space="preserve">
+    <value>Tiwtorial YouTube byr</value>
+  </data>
+  <data name="Page.Technique.CrossLink4" xml:space="preserve">
+    <value>Tiwtorial YouTube hir, rhyfedd, ond defnyddiol</value>
+  </data>
+  <data name="Page.Technique.CrossLink5" xml:space="preserve">
+    <value>Tiwtorial YouTube arall</value>
+  </data>
+  <data name="Page.Technique.CrossLink6" xml:space="preserve">
+    <value>Prosiect camera deuol gyda thiwtorial</value>
+  </data>
+  <data name="Page.Technique.Parallel1" xml:space="preserve">
+    <value>Os nad yw'r ddelwedd uchod yn ffitio ar eich sgrin, trowch eich ffôn i dirwedd - mae CrossCam yn ceisio gwneud y pâr o ddelweddau uwchlaw'r maint hawsaf ar gyfer hyn. Nid oes rhaid i chi ddefnyddio CrossCam mewn tirwedd bob amser, ond mae delwedd o faint perffaith yn ei gwneud hi'n haws dysgu'r dechneg.</value>
+  </data>
+  <data name="Page.Technique.Parallel2" xml:space="preserve">
+    <value>Ymlaciwch eich llygaid ac edrychwch "drwy" y pâr o luniau uchod fel eich bod yn fath o barthau allan gyda'ch llygaid yn pwyntio at y lluniau. Dylech ddechrau gweld 3 llun gyda llun 3D yn y canol, ychydig bach fel hyn:</value>
+  </data>
+  <data name="Page.Technique.Parallel3" xml:space="preserve">
+    <value>Os ydych chi'n dechrau gweld 4 llun, rydych chi wedi mynd yn rhy bell. Ceisiwch symud eich llygaid o gwmpas ychydig bach os byddwch chi'n canfod eich hun ar y pwynt hwnnw eto. Bydd ymlacio'n rhy bell yn edrych ychydig fel hyn:</value>
+  </data>
+  <data name="Page.Technique.Parallel4" xml:space="preserve">
+    <value>Os ydych chi'n cael trafferth, ceisiwch ddod â'ch sgrin i fyny yn erbyn eich wyneb gyda'r pâr o luniau o flaen eich llygaid. Ymlaciwch ac edrychwch "drwy" y sgrin ac yna tynnwch eich sgrin yn araf oddi wrth eich wyneb tra'n cadw'ch llygaid wedi ymlacio. Yn y pen draw, dylai'r ddelwedd "glicio" i ffocws.</value>
+  </data>
+  <data name="Page.Technique.Parallel5" xml:space="preserve">
+    <value>Os ydych chi'n dal i weld pedair delwedd, cynyddwch yr "Uchafswm lled delwedd golygfa gyfochrog" ar y dudalen Gosodiadau.</value>
+  </data>
+  <data name="Page.Technique.ParallelViewing" xml:space="preserve">
+    <value>GOLWG CYFROL</value>
+  </data>
+  <data name="Page.Technique.Practice" xml:space="preserve">
+    <value>Delweddau rydw i wedi'u gwneud y gallwch chi ymarfer arnyn nhw</value>
+  </data>
+  <data name="Title.Contact" xml:space="preserve">
+    <value>Cysylltwch</value>
+  </data>
+  <data name="Title.Faq" xml:space="preserve">
+    <value>FAQ</value>
+  </data>
+  <data name="Title.Help" xml:space="preserve">
+    <value>Help</value>
+  </data>
+  <data name="Title.HowToUse" xml:space="preserve">
+    <value>Sut i Ddefnyddio CrossCam</value>
+  </data>
+  <data name="Title.Technique" xml:space="preserve">
+    <value>Techneg Gweld 3D</value>
+  </data>
+  <data name="Title.Tips" xml:space="preserve">
+    <value>Cynghorion</value>
+  </data>
+  <data name="Button.DoNotEmailMe" xml:space="preserve">
+    <value>Peidiwch ag e-bostio fi nawr</value>
+  </data>
+  <data name="Button.EmailMeNow" xml:space="preserve">
+    <value>E-bostiwch fi nawr</value>
+  </data>
+  <data name="Button.No" xml:space="preserve">
+    <value>Nac ydw</value>
+  </data>
+  <data name="Button.OK" xml:space="preserve">
+    <value>iawn</value>
+  </data>
+  <data name="Button.YesClear" xml:space="preserve">
+    <value>Ie, yn glir</value>
+  </data>
+  <data name="Page.Camera.Aligning" xml:space="preserve">
+    <value>Wrthi'n alinio...</value>
+  </data>
+  <data name="Page.Camera.AlignmentBroken" xml:space="preserve">
+    <value>Ni chefnogir aliniad awtomatig ar ddyfais - trowch i ffwrdd yn y Gosodiadau.</value>
+  </data>
+  <data name="Page.Camera.AlignmentFailed" xml:space="preserve">
+    <value>Methodd yr aliniad.</value>
+  </data>
+  <data name="Page.Camera.BorderAsk" xml:space="preserve">
+    <value>Mae ffin wedi'i chanfod. Tynnu'r ffin?</value>
+  </data>
+  <data name="Page.Camera.BorderDetected" xml:space="preserve">
+    <value>Ffin wedi'i Canfod</value>
+  </data>
+  <data name="Page.Camera.Cancel" xml:space="preserve">
+    <value>Canslo</value>
+  </data>
+  <data name="Page.Camera.ChooseAction" xml:space="preserve">
+    <value>Dewiswch weithred:</value>
+  </data>
+  <data name="Page.Camera.DirectoryNotFound" xml:space="preserve">
+    <value>Cyfeiriadur Heb ei Ddarganfod</value>
+  </data>
+  <data name="Page.Camera.DirectoryNotFoundExplain" xml:space="preserve">
+    <value>Nid oedd modd dod o hyd i'r cyrchfan arbed. Dewiswch un arall ar y dudalen gosodiadau.</value>
+  </data>
+  <data name="Page.Camera.ErrorEmailBody" xml:space="preserve">
+    <value>Beth wnaethoch chi ychydig cyn i'r gwall ddigwydd? Disgrifiwch hyd yn oed y pethau bach.\n\n\n\n\n\nA oedd CrossCam yn dal i weithio ar ôl y gwall? Os na, sut mae wedi torri?\n\n\n\n\n\nA yw hyn yn digwydd dro ar ôl tro?\n\n\n\n\n\nA allwch chi orfodi'r gwall i ddigwydd ar orchymyn? Os felly, sut?\n\n\n\n\n\n</value>
+  </data>
+  <data name="Page.Camera.FlipForCardboard" xml:space="preserve">
+    <value>Troi i dirwedd pan yn y modd cardbord.</value>
+  </data>
+  <data name="Page.Camera.FlipLarger" xml:space="preserve">
+    <value>(trowch i'r dirwedd i gael golygfa fwy)</value>
+  </data>
+  <data name="Page.Camera.ForAnaglyph" xml:space="preserve">
+    <value>am anaglyph</value>
+  </data>
+  <data name="Page.Camera.ForCardboard" xml:space="preserve">
+    <value>ar gyfer Cardbord</value>
+  </data>
+  <data name="Page.Camera.ForCross" xml:space="preserve">
+    <value>am groes</value>
+  </data>
+  <data name="Page.Camera.ForParallel" xml:space="preserve">
+    <value>ar gyfer cyfochrog</value>
+  </data>
+  <data name="Page.Camera.GoPickRole" xml:space="preserve">
+    <value>Ewch i'r dudalen Paru (trwy'r dudalen Gosodiadau) a dewiswch rôl paru ar gyfer y ddyfais hon cyn ceisio paru.</value>
+  </data>
+  <data name="Page.Camera.InvalidImage" xml:space="preserve">
+    <value>Delwedd Annilys</value>
+  </data>
+  <data name="Button.Camera.Keep" xml:space="preserve">
+    <value>Cadw</value>
+  </data>
+  <data name="Page.Camera.LoadFullImage" xml:space="preserve">
+    <value>Llwytho delwedd stereo llawn</value>
+  </data>
+  <data name="Page.Camera.Loading" xml:space="preserve">
+    <value>Wrthi'n llwytho...</value>
+  </data>
+  <data name="Page.Camera.LoadSingleSide" xml:space="preserve">
+    <value>Llwytho ochr sengl</value>
+  </data>
+  <data name="Page.Camera.ManualCorrections" xml:space="preserve">
+    <value>Ystyriwch gywiriadau â llaw hefyd.</value>
+  </data>
+  <data name="Page.Camera.MirrorOnLeft" xml:space="preserve">
+    <value>Drych AR Y CHWITH</value>
+  </data>
+  <data name="Page.Camera.MirrorOnRight" xml:space="preserve">
+    <value>Drych AR Y DDE</value>
+  </data>
+  <data name="Page.Camera.MoveLeft" xml:space="preserve">
+    <value>SYMUD I'R CHWITH</value>
+  </data>
+  <data name="Page.Camera.MoveRight" xml:space="preserve">
+    <value>SYMUD I'R DDE</value>
+  </data>
+  <data name="Page.Camera.NoSaveModes" xml:space="preserve">
+    <value>Dim Dulliau Arbed Gweithredol</value>
+  </data>
+  <data name="Page.Camera.NoSaveModesExplain" xml:space="preserve">
+    <value>Nid oes unrhyw foddau arbed wedi'u troi ymlaen ar hyn o bryd. Trowch fodd arbed ymlaen ar y dudalen Gosodiadau.</value>
+  </data>
+  <data name="Page.Camera.Oops" xml:space="preserve">
+    <value>Wps</value>
+  </data>
+  <data name="Page.Camera.OrRotate" xml:space="preserve">
+    <value>(neu cylchdroi)</value>
+  </data>
+  <data name="Page.Camera.OrSwipe" xml:space="preserve">
+    <value>(neu swipe)</value>
+  </data>
+  <data name="Page.Camera.PairRoleNotSelected" xml:space="preserve">
+    <value>Rôl Pâr Heb ei Ddewis</value>
+  </data>
+  <data name="Page.Camera.PinchOrDrag" xml:space="preserve">
+    <value>Pinsio neu lusgo i archwilio!</value>
+  </data>
+  <data name="Page.Camera.PleaseSelectValid" xml:space="preserve">
+    <value>Dewiswch ddelwedd Jpeg, Png neu Webp. Y ddelwedd a ddewisoch yw</value>
+  </data>
+  <data name="Page.Camera.ReallyClear" xml:space="preserve">
+    <value>Yn glir iawn?</value>
+  </data>
+  <data name="Button.Camera.Remove" xml:space="preserve">
+    <value>Dileu</value>
+  </data>
+  <data name="Page.Camera.SavedToCustomFolder" xml:space="preserve">
+    <value>Wedi'i gadw i ffolder arferiad</value>
+  </data>
+  <data name="Page.Camera.SavedToExternal" xml:space="preserve">
+    <value>Wedi'i gadw i allanol</value>
+  </data>
+  <data name="Page.Camera.SavedToPhotos" xml:space="preserve">
+    <value>Cadwyd i Lluniau</value>
+  </data>
+  <data name="Page.Camera.SaveFailed" xml:space="preserve">
+    <value>Arbed Methu. :(</value>
+  </data>
+  <data name="Page.Camera.Saving" xml:space="preserve">
+    <value>Wrthi'n cadw...</value>
+  </data>
+  <data name="Page.Camera.SecondaryOnLeft" xml:space="preserve">
+    <value>AIL AR Y CHWITH</value>
+  </data>
+  <data name="Page.Camera.SecondaryOnRight" xml:space="preserve">
+    <value>AIL AR Y DDE</value>
+  </data>
+  <data name="Page.Camera.SelectedInvalid" xml:space="preserve">
+    <value>Mae'r ddelwedd a ddewiswyd yn annilys.</value>
+  </data>
+  <data name="Page.Camera.SorryError" xml:space="preserve">
+    <value>Mae'n ddrwg gennym, gwnaeth CrossCam gamgymeriad. Mae adroddiad gwall wedi'i anfon yn awtomatig. Efallai na fyddwch yn sylwi ar unrhyw beth o'i le o gwbl, ond os gwnewch chi, ceisiwch ailgychwyn y cais. Os yw hyn yn dal i ddigwydd, anfonwch e-bost ataf a dywedwch wrthyf amdano. (Ewch i'r dudalen Gosodiadau i atal y ffenestri naid hyn.)</value>
+  </data>
+  <data name="Page.Camera.Steady" xml:space="preserve">
+    <value>Yn sefydlog...</value>
+  </data>
+  <data name="Page.Camera.SureClear" xml:space="preserve">
+    <value>Ydych chi'n siŵr eich bod am glirio'ch lluniau a dechrau drosodd?</value>
+  </data>
+  <data name="Page.Camera.Syncing" xml:space="preserve">
+    <value>Wrthi'n cysoni...</value>
+  </data>
+  <data name="Page.Camera.Transmitting" xml:space="preserve">
+    <value>Wrthi'n trosglwyddo...
+(cadwch y ddyfais heb ei chloi)</value>
+  </data>
+  <data name="Page.Camera.VR" xml:space="preserve">
+    <value>VR</value>
+  </data>
+  <data name="Page.FovCorrection" xml:space="preserve">
+    <value>Cywiriad Maes Golygfa</value>
+  </data>
+  <data name="Page.FovCorrectionExplain" xml:space="preserve">
+    <value>Gall gwahanol fodelau dyfais gael gwahanol feysydd golygfa. Bydd CrossCam yn eich helpu i gywiro hyn ar ôl i chi wneud eich cipio cyntaf. Fframiwch a daliwch rywbeth gyda phwyntiau nodedig ger brig a gwaelod y ffrâm, gan sicrhau bod y pwyntiau'n weladwy ar y ddau ddyfais.</value>
+  </data>
+  <data name="Page.Technique.ParallelLink1" xml:space="preserve">
+    <value>Tiwtorial testun braf</value>
+  </data>
+  <data name="Page.Technique.ParallelLink2" xml:space="preserve">
+    <value>Tiwtorial testun braf arall</value>
+  </data>
+  <data name="Page.Technique.ParallelLink3" xml:space="preserve">
+    <value>Eto tiwtorial testun neis ARALL</value>
+  </data>
+  <data name="Page.Technique.ParallelLink4" xml:space="preserve">
+    <value>Tiwtorial Magic Frankfurter</value>
+  </data>
+  <data name="Page.Technique.ParallelLink5" xml:space="preserve">
+    <value>Fideo braf am Magic Eye</value>
+  </data>
+  <data name="Page.Technique.Trouble" xml:space="preserve">
+    <value>Os ydych chi'n dal i gael trafferth, ceisiwch ddod â'ch ffôn i ystafell dywyll fel mai'r unig beth y gall eich llygaid ei weld yn dda a chanolbwyntio arno yw'r ddelwedd.
+
+Peth arall y gallwch chi roi cynnig arno yw defnyddio tiwbiau papur toiled neu'ch dwylo i'w wneud fel bod pob llygad ond yn gallu gweld ochr y ddelwedd y mae i fod i'w gweld.
+ • Ar gyfer golygfa groes: daliwch diwb sengl yn erbyn pont eich trwyn (wedi'i ganoli rhwng eich llygaid) tra'n ei bwyntio yng nghanol y ddelwedd o'ch blaen. Symudwch y tiwb yn araf tuag at y sgrin wrth geisio edrych i lawr y tiwb gyda'r ddau lygad. Pan gyrhaeddwch y safle cywir gyda'r tiwb dylai'r ddelwedd dorri i'w lle. Gall fod o gymorth canolbwyntio ar geisio edrych ar y tu mewn i ben pellaf y tiwb. Os na allwch ddod o hyd i'r safle cywir, ceisiwch ddefnyddio delwedd fwy neu diwb llai.
+ • Ar gyfer golygfa gyfochrog: daliwch diwb o flaen pob llygad, ond pwyntiwch y ddau allan i'r ochr, felly prin y gallwch weld unrhyw beth. Trowch y tiwbiau i mewn yn araf ar yr un pryd fel y gallwch chi ddechrau gweld mwy o'r ddelwedd. Y foment y gallwch chi weld y rhan fwyaf o'r ddelwedd (bron i hanner gyda phob llygad), ceisiwch ymlacio'ch llygaid a dod â'r haneri at ei gilydd. Gall fod o gymorth i ddefnyddio delwedd fwy neu lai.
+
+Mae yna ymarfer hawdd y gallwch chi ei wneud i ymarfer asio gyda naill ai gwylio croes neu gyfochrog. Cymerwch farciwr a thynnwch lun darn o wyneb gwenu ar bob un o'ch mân-luniau (neu bâr o ffyn popsicle neu iselyddion tafod). Er enghraifft, ar un ochr tynnwch un llygad a cheg, ac ar yr ochr arall tynnwch lygad a thrwyn. Yna gallwch chi eu dal i fyny o'ch blaen ac ymarfer asio'r ddwy ddelwedd gyda'i gilydd i gwblhau'r wyneb gwenu.
+
+Yn bersonol, mae'n well gennyf groesi'n gyfochrog oherwydd gall delweddau fod yn fwy, ond mae'r ddau ddull yn gweithio. Os hoffech arbrofi gyda delweddau cyfochrog mwy, gallwch reoli'r maint ar y dudalen Gosodiadau.
+
+Weithiau mae'n anodd teimlo a ydych chi'n gwneud y dull croes neu gyfochrog tra'ch bod chi'n ei wneud. Gallwch ofyn i rywun arall wylio eich llygaid tra byddwch yn ei wneud neu gallwch edrych ar y llun isod fel prawf:</value>
+  </data>
+  <data name="SaveModes.Anaglyph" xml:space="preserve">
+    <value>Anaglyff</value>
+  </data>
+  <data name="SaveModes.Cardboard" xml:space="preserve">
+    <value>Cardbord</value>
+  </data>
+  <data name="SaveModes.Cross" xml:space="preserve">
+    <value>Croes</value>
+  </data>
+  <data name="SaveModes.GrayscaleAnaglyph" xml:space="preserve">
+    <value>Anaglyph Graddlwyd</value>
+  </data>
+  <data name="SaveModes.Parallel" xml:space="preserve">
+    <value>Cyfochrog</value>
+  </data>
+  <data name="SaveModes.Quad" xml:space="preserve">
+    <value>Cwad</value>
+  </data>
+  <data name="SaveModes.Separate" xml:space="preserve">
+    <value>Ar wahân</value>
+  </data>
+  <data name="SaveModes.Single" xml:space="preserve">
+    <value>Sengl</value>
+  </data>
+  <data name="SaveModes.Triple" xml:space="preserve">
+    <value>triphlyg</value>
+  </data>
+  <data name="Page.Camera.FovExplain" xml:space="preserve">
+    <value>I gywiro ar gyfer gwahaniaethau maes golygfa, chwyddo a llithro'r lluniau fel bod y pwyntiau nodedig yn cyd-fynd rhwng y ddau lun. Gallwch lusgo'r llinellau gwyn o gwmpas i'ch helpu i ddelweddu'r aliniad. Bydd y cywiriad hwn yn cael ei gymhwyso i ragolygon yn y dyfodol. Bydd yn cael ei gadw ond gallwch ei ailosod ar y dudalen Gosodiadau. Os ydych chi'n defnyddio dyfeisiau unfath arbedwch heb eu haddasu.</value>
+  </data>
+  <data name="Page.Camera.FovTitle" xml:space="preserve">
+    <value>Cywiriad Maes Golygfa</value>
+  </data>
+  <data name="Page.Camera.KeyPoints" xml:space="preserve">
+    <value>Pwyntiau Allweddol</value>
+  </data>
+  <data name="Page.Camera.Warped" xml:space="preserve">
+    <value>warped</value>
+  </data>
+  <data name="Page.Camera.WelcomeExplain" xml:space="preserve">
+    <value>Gwnaed CrossCam i'ch helpu i wneud lluniau 3D. Mae'r lluniau'n 3D yn union fel ffilmiau VR neu 3D, ond nid oes angen unrhyw offer neu sbectol arbennig arnoch chi - dim ond eich ffôn (ond os oes gennych chi bâr o sbectol coch/cyan 3D neu syllwr Google Cardboard, gallwch chi ddefnyddio'r rhain gyda CrossCam hefyd). Mae angen rhywfaint o ymarfer i ddysgu'r dechneg “gwylio am ddim” sy'n defnyddio'ch ffôn a'ch llygaid yn unig. Cyn i mi ddweud wrthych sut i ddefnyddio CrossCam, a hoffech chi ddysgu mwy am y dechneg wylio yn gyntaf?</value>
+  </data>
+  <data name="Page.Camera.Welcome" xml:space="preserve">
+    <value>Croeso i CrossCam!</value>
+  </data>
+  <data name="Page.Camera.Directions" xml:space="preserve">
+    <value>Neidio i Cyfarwyddiadau</value>
+  </data>
+  <data name="Page.Camera.Technique" xml:space="preserve">
+    <value>Techneg Gweld</value>
+  </data>
+  <data name="Page.HowToUse.P1" xml:space="preserve">
+    <value>Os ydych chi am weld hyn eto, tapiwch yr eicon hamburger (tair llinell) ar ochr chwith uchaf sgrin y camera a thapio "Help".
+
+
+1) Fframiwch i fyny a chymerwch y llun cyntaf.</value>
+  </data>
+  <data name="Page.HowToUse.P2" xml:space="preserve">
+    <value>3) Cadwch eich ffôn yn gyson o'ch blaen a symudwch i'r ochr yn araf i'r cyfeiriad y mae CrossCam yn dweud wrthych amdano. Peidiwch â symud yn rhy bell - modfedd neu lai am bob troedfedd i ffwrdd yw eich targed. Hefyd, peidiwch â throi o gwbl, dim ond llithro i'r ochr, neu efallai hyd yn oed heb lawer o fraster.
+
+4) Aliniwch y llun cyntaf gyda rhagolwg yr ail lun a chymerwch yr ail lun pan fyddwch chi'n hoffi'r hyn a welwch.
+
+5) Bydd CrossCam yn alinio'ch lluniau yn awtomatig ar ôl i chi eu dal, ond nid yw'n berffaith, os nad ydych chi'n hoffi sut y cawsant eu halinio, gallwch chi droi'r aliniad awtomatig i ffwrdd trwy dapio'r eicon robot bach. Mae gan CrossCam hefyd ddigon o opsiynau golygu â llaw y gallwch chi eu cyrraedd trwy dapio'r eicon pensil.
+
+6) Tapiwch y marc gwirio pan fyddwch chi'n barod i arbed.
+
+
+Pethau eraill y gallwch chi eu gwneud:
+ • Tapiwch unwaith i ganolbwyntio ar bwynt, tapiwch ddwywaith i newid yn ôl i ffocws awtomatig parhaus.
+ • Tapiwch yr eicon gêr ar ochr dde uchaf sgrin y camera i agor y dudalen Gosodiadau. Mae'n llawn o bethau diddorol.
+ • Mae yna dudalen Awgrymiadau braf y gallwch ei chyrraedd trwy dapio'r eicon hamburger ar ochr chwith uchaf sgrin y camera a all eich helpu i wneud eich lluniau'n wych.
+ • Os byddai'n well gennych symud i'r cyfeiriad arall ar gyfer eich ail ergyd neu os hoffech gyfnewid yr ochrau, gwnewch swipe.
+ • Tapiwch yr eicon ffolder bach ar y gwaelod i lwytho delwedd fel ochr neu i lwytho delwedd stereo llawn.</value>
+  </data>
+  <data name="Page.Faq.Alignment" xml:space="preserve">
+    <value>Sut mae aliniad awtomatig yn gweithio?</value>
+  </data>
+  <data name="Page.Faq.Alignment.Body" xml:space="preserve">
+    <value>Mae alinio awtomatig yn ceisio alinio'r parau delwedd cystal â phosibl, ond nid yw'n berffaith. Mae golwg cyfrifiadurol yn well mewn rhai pethau na llygaid dynol, ond hefyd yn llawer gwaeth ar bethau eraill. Mae'r byd mae'n ei weld yn wahanol iawn i'r un rydyn ni'n ei wneud, ond mae hefyd yn gallu gweld mewn ychydig o wahanol ffyrdd. Y ddwy brif ffordd y mae'n eu gweld yn CrossCam yw trwy'r cyfernod cydberthynas uwch (ECC) a defnyddio pwyntiau allweddol.
+
+Yn y bôn, mae aliniad ECC yn gweithio trwy geisio sicrhau bod clytiau golau yn gorgyffwrdd â chlytiau golau a chlytiau tywyll yn gorgyffwrdd â chlytiau tywyll pan fydd y ddwy ochr yn cael eu troshaenu ar ben ei gilydd. Daw aliniad ECC gyda sgôr hyder sydd i fod i helpu i benderfynu a oedd yr aliniad yn effeithiol. Mae CrossCam wedi'i sefydlu i wrthod yr aliniad a gynhyrchir os yw'r hyder yn rhy isel, ond gallwch chi ffurfweddu'r trothwy hyder llwyddo/methu ar y dudalen Gosodiadau.
+
+Mae aliniad pwyntiau allweddol yn edrych am bwyntiau o ddiddordeb fel corneli, ymylon, dotiau, a chyferbyniad uchel ac yn ceisio eu paru rhwng y ddwy ochr. Unwaith y bydd y pwyntiau wedi'u paru, gall CrossCam ddefnyddio amrywiaeth o algorithmau i geisio ystumio'r ochrau fel bod y pwyntiau allweddol o un ochr i gyd mor agos â phosibl at eu pwyntiau allweddol cyfatebol ar yr ochr arall.
+
+Mae CrossCam wedi'i raglennu i ddefnyddio aliniad pwynt allweddol yn gyntaf, ond bydd yn disgyn yn ôl i aliniad ECC pan fydd aliniad y bysellbwynt yn methu neu pan fydd cipio yn cael ei wneud gyda'r dull drych-rhannu ergyd sengl. Gallwch hefyd ffurfweddu aliniad awtomatig i ddefnyddio aliniad pwynt allweddol bob amser neu ddefnyddio aliniad ECC bob amser ar y dudalen Gosodiadau.
+
+Bydd CrossCam yn dangos y canlyniad aliniad ar sgrin y camera o dan eicon y robot bach. Pe bai'n defnyddio aliniad ECC bydd yn dangos y ganran hyder. Pe bai'n defnyddio aliniad pwynt allweddol bydd yn dangos "KP". Os methodd y ddau ddull alinio bydd yn dangos "F". Os nad ydych chi'n hoffi canlyniad yr aliniad gallwch chi tapio ar yr eicon robot bach i gael gwared ar yr aliniad.</value>
+  </data>
+  <data name="Page.Faq.Bad" xml:space="preserve">
+    <value>Ydy hyn yn ddrwg i'm llygaid?</value>
+  </data>
+  <data name="Page.Faq.Bad.Body1" xml:space="preserve">
+    <value>Nid wyf yn gwybod, ond nid wyf yn meddwl hynny. Fodd bynnag, os yw'n teimlo'n ddrwg cymerwch seibiant. Gydag ymarfer mae'r anghysur fel arfer yn lleihau. Gallai unrhyw ddull gwylio achosi anghysur oherwydd effaith a elwir yn wrthdaro ymylol-llety. Dyma</value>
+  </data>
+  <data name="Page.Faq.Bad.Body2" xml:space="preserve">
+    <value>dolen Wicipedia ar y gwrthdaro ymyl ffordd-llety.</value>
+  </data>
+  <data name="Page.Faq.Bad.Body3" xml:space="preserve">
+    <value>Os ydych chi'n defnyddio'r dull croes-llygad, efallai bod y teimlad hefyd oherwydd nad yw'ch llygaid wedi arfer pwyntio fel pe baent yn edrych ar rywbeth mor agos am gymaint o amser. Wrth groes-wylio, mae'ch llygaid yn cydgyfeirio ar bwynt tua hanner ffordd rhwng eich llygaid a'r sgrin. Os byddai edrych ar rywbeth sy'n cau am amser hir hefyd yn achosi anghysur i chi, mae gennym ein hesboniad.
+
+Fy marn i arno yw nad yw eich llygaid yn gwneud unrhyw beth y tu allan i'w galluoedd bob dydd, ond rydych chi'n cyfuno dau allu gwahanol nad ydyn nhw'n cael eu defnyddio fel arfer yn y ffordd honno. Rydych chi'n canolbwyntio'ch lensys ar rywbeth mewn un lle sydd fel arfer yn gyfforddus i ganolbwyntio arno, ac rydych chi'n pwyntio'ch llygaid i rywle lle mae'n gyfforddus iddyn nhw bwyntio fel arfer, ond y man lle mae'ch lensys yn canolbwyntio a lle mae'ch llygaid yn cydgyfeirio nid yw'r un pwynt yn unig. Dydw i ddim yn gweld sut y gallai hynny fod yn ddrwg i chi cyn belled nad yw eich gweledigaeth yn dal i ddatblygu.</value>
+  </data>
+  <data name="Page.Faq.Cardboard" xml:space="preserve">
+    <value>Sut mae defnyddio CrossCam gyda Google Cardboard?</value>
+  </data>
+  <data name="Page.Faq.Cardboard.Body" xml:space="preserve">
+    <value>Os oes gan eich gwyliwr fotwm sy'n pwyso canol y sgrin, gallwch ei ddefnyddio i ddal gan ddefnyddio Cardbord. Bydd angen i'ch gwyliwr hefyd gael twll i gamera eich ffôn weld drwyddo.
+
+I dynnu lluniau gan ddefnyddio Cardbord, newidiwch eich Dull Gweld Rhagolwg (ar y dudalen Gosodiadau) i Cardbord, yna dychwelwch i dudalen y camera a gludwch eich ffôn yn y gwyliwr. Pwyswch y botwm i ddal, a phan fydd y ddwy ochr yn cael eu dal, pwyswch y botwm eto i arbed. Mae arbed yn y modd Cardbord i fod i ganiatáu ichi lwytho'r delweddau yn ôl i CrossCam i'w gweld yn ddiweddarach, nid i'w gweld yn eich app lluniau trwy'ch gwyliwr.
+
+Gallwch hefyd ddal gan ddefnyddio unrhyw ddull arall rydych chi ei eisiau, yna newid eich Dull Gweld Rhagolwg i Gardbord a rhoi eich ffôn yn y gwyliwr.
+
+Mae yna lawer o wahanol wylwyr allan yna gyda gwahanol briodweddau. Efallai y bydd angen i chi newid y pellter gwahanu Cardbord (ar y dudalen Gosodiadau) i wneud eich profiad yn fwy cyfforddus. Efallai hefyd y bydd angen i chi wneud yn siŵr yn gyntaf eich bod yn dda am ddal stereogramau o ansawdd uchel cyn i chi eu gwneud yn ddigrif ac yn ymgolli.</value>
+  </data>
+  <data name="Page.Faq.How" xml:space="preserve">
+    <value>Sut mae hyn yn gweithio?</value>
+  </data>
+  <data name="Page.Faq.How.Body1" xml:space="preserve">
+    <value>Mae'r effaith 3D y mae CrossCam yn ei defnyddio yn ddisgyblaeth a astudiwyd yn dda o'r enw stereosgopi, a gelwir y dull lle rydych chi'n croesi'ch llygaid (neu'n ymlacio nhw) i weld y ddwy ochr yn gwylio am ddim. Pan edrychwn o gwmpas y byd, mae pob un o'n llygaid yn gweld o safbwynt gwahanol. Mewn stereosgopi y cyfan a wnawn yw cyflwyno un persbectif (artiffisial) i bob llygad, ac mae ein hymennydd yn gwneud y gweddill. Mae yna lawer o wahanol ffyrdd o wneud i bob llygad weld delwedd wahanol. Dyma</value>
+  </data>
+  <data name="Page.Faq.How.Body2" xml:space="preserve">
+    <value>dolen Wicipedia ar stereosgopi</value>
+  </data>
+  <data name="Page.Faq.How.Body3" xml:space="preserve">
+    <value>Gelwir y lluniau 3D a wnewch gyda CrossCam yn stereogramau. Mae llyfrau Magic Eye™ yn cynnwys yr hyn a elwir yn awtostereogramau.</value>
+  </data>
+  <data name="Page.Faq.Into" xml:space="preserve">
+    <value>Sut daethoch chi i mewn i stereosgopi?</value>
+  </data>
+  <data name="Page.Faq.Into.Body1" xml:space="preserve">
+    <value>Tra roeddwn yn cael fy ngradd ffiseg, cefais gyfle i arbrofi gyda chreu fy hologramau fy hun gan ddefnyddio laserau. Roedd y math o hologramau roeddwn i'n eu gwneud yn 3D oherwydd eu bod yn defnyddio gratio diffreithiant i achosi ymyrraeth ddinistriol yn y golau sy'n adlewyrchu oddi ar wyneb plât gwydr, sy'n achosi i'r ddelwedd a adlewyrchir edrych yn wahanol i wahanol leoedd. Pan fydd pob un o'n llygaid yn gweld delwedd sy'n edrych fel ei bod o safbwynt gwahanol (os nad ydyn nhw'n rhy wahanol), mae ein hymennydd yn gweld hynny fel dyfnder.</value>
+  </data>
+  <data name="Page.Faq.Into.Body2" xml:space="preserve">
+    <value>Roeddwn wedi bod yn ymwybodol o'r egwyddor honno o ganfyddiad stereosgopig ers amser maith, ond ar yr adeg honno yn fy mywyd roeddwn hefyd yn cymryd rhai dosbarthiadau rhaglennu, felly penderfynais fy mod am geisio gwneud rhaglen gyfrifiadurol syml ar gyfer lluniadu 3D stereosgopig. Daeth yr ymdrech honno yn StereoSketcher. Ysgrifennwyd y fersiwn wreiddiol yn Java, ond fe'i hailysgrifennais gyda Javascript a SVG a nawr mae'n byw ar y we</value>
+  </data>
+  <data name="Page.Faq.Into.Body3" xml:space="preserve">
+    <value>ar y ddolen hon.</value>
+  </data>
+  <data name="Page.Faq.Into.Body4" xml:space="preserve">
+    <value>Nid yw'n boblogaidd o gwbl, ac efallai na fydd yn hawdd i unrhyw un ond fi ei ddefnyddio, ond mae'n gweithio. Wrth weithio ar StereoSketcher cefais gyfle i arbrofi gydag egwyddorion stereosgopi, a chefais fy swyno gan y ffordd y gellir cynhyrchu profiad ymgolli a chymhellol gan ddefnyddio ychydig o reolau syml.</value>
+  </data>
+  <data name="Page.Faq.Inverted" xml:space="preserve">
+    <value>Pam nad yw'r 3D yn edrych yn iawn NEU pam mae'r 3D yn edrych yn wrthdro?</value>
+  </data>
+  <data name="Page.Faq.Inverted.Body1" xml:space="preserve">
+    <value>Wrth edrych am ddim gyda naill ai'r dull croes neu gyfochrog, mae'n bwysig edrych ar y lluniau gan ddefnyddio'r un dull a ddefnyddiwyd i'w creu. Fel arall, bydd eich llygad dde yn edrych ar y persbectif a fwriedir ar gyfer y llygad chwith ac i'r gwrthwyneb. Mae hyn yn gwneud dyfnder y ddelwedd yn wrthdro, oherwydd bod cyfeiriad y parallax wedi'i gyfnewid.
+
+Mae Parallax yn golygu, o safbwynt eich llygad dde, pan fydd gwrthrychau ymhellach i ffwrdd eu bod yn ymddangos fel pe baent ymhellach i'r dde na gwrthrychau agosach o'u gweld o'ch llygad chwith. Mae'n ddryslyd pan gaiff ei ddisgrifio ar ffurf brawddeg, ond yn reddfol iawn pan gaiff ei ddangos.
+
+I ddangos, daliwch un bys i fyny o'ch blaen tua hyd braich, yna gyda'ch llaw arall daliwch fys arall tua hanner ffordd rhwng y bys cyntaf a'ch wyneb. Os byddwch chi'n cau pob llygad bob yn ail ac yn talu sylw i ble mae'ch bysedd, fe welwch fod pob llygad yn eu gweld mewn gwahanol leoedd. Felly yn naturiol, pe bai pob llygad yn gweld y symudiad hwnnw i'r gwrthwyneb ag y mae i fod, bydd y dyfnder yn cael ei wrthdroi.
+
+Mae'n hawdd iawn defnyddio'r dull gwylio anghywir yn ddamweiniol oherwydd mae'n troi allan ei bod hi'n anodd iawn i'r rhan fwyaf o bobl ddweud a ydyn nhw'n croesi neu'n ymlacio eu llygaid dim ond trwy deimlo neu drwy edrych ar y ddelwedd ddwbl ddryslyd o'r byd sy'n deillio o hynny. Yn lle hynny, mae'n well cael rhywun arall i edrych ar yr hyn y mae eich llygaid yn ei wneud, neu roi cynnig ar y ddelwedd profwr hon:</value>
+  </data>
+  <data name="Page.Faq.Inverted.Body2" xml:space="preserve">
+    <value>Mae llawer o bobl wedi dod yn eithaf cyfforddus wrth wylio llyfrau Magic Eye™, y bwriedir eu gweld gan ddefnyddio'r dull golygfa gyfochrog. Os ydych chi'n croesi eu golwg yna mae'r gwrthrychau 3D cadarn sydd i fod i ddod i ffwrdd o'r dudalen yn edrych fel tyllau. Mae'r ddau ddull yn eich galluogi i weld *rhywbeth* ond os na allech chi ddweud beth ydoedd, mae'n debyg eich bod yn eu traws-edrych.</value>
+  </data>
+  <data name="Page.Faq.Mirror" xml:space="preserve">
+    <value>Sut mae gwneud y dull "drych un ergyd"?</value>
+  </data>
+  <data name="Page.Faq.Mirror.Body1" xml:space="preserve">
+    <value>Mae cipio gyda'r dull drych yn rhannu'r ffrâm yn ei hanner ac yn gwneud y trawsnewid gofynnol fel y gallwch chi ddal y ddwy ochr ar yr un foment gan ddefnyddio un ffôn a drych llaw rheolaidd. I ddefnyddio'r dull drych wrth ddal, trowch y switsh ymlaen ar gyfer modd drych ar y dudalen Gosodiadau (tapiwch yr eicon gêr i gyrraedd yno). Ar ôl i chi droi modd drych ymlaen, bydd CrossCam yn dweud wrthych pa ochr i ddal eich drych arni. Daliwch eich drych ar yr ochr honno a ffwdanwch gyda'r aliniad rhwng eich ffôn a'r drych a'ch pwnc. Gyda pheth amynedd, byddwch chi'n gallu eu gosod mewn llinell fel bod y drych yn dangos y persbectif cywir ar gyfer un o'r ochrau. Gan fod defnyddio'r dull drych yn rhannu'ch delwedd yn ei hanner yn fertigol, fel arfer mae'n well dal yn y dirwedd gyda'r dull drych.
+
+Bydd y dull hwn hefyd yn gweithio gydag adlewyrchiadau mewn ffenestri mawr, glân, a hefyd ar lynnoedd llonydd neu byllau (pan fydd y ffôn wedi'i gloi yn y portread a'i droi i'r ochr).</value>
+  </data>
+  <data name="Page.Faq.Mirror.Body2" xml:space="preserve">
+    <value>Mae rhai cyfaddawdu/golygu y mae angen eu gwneud er mwyn defnyddio'r dull drych. Gellir gwneud y rhain i gyd â llaw yn CrossCam, ond bydd aliniad awtomatig hefyd yn ceisio eu gwneud i chi:
+ • Oherwydd bod yr olygfa a adlewyrchir yn teithio dros bellter hirach na'r olygfa arferol, bydd angen chwyddo ychydig ar yr ochr a adlewyrchir.
+ • Mae'n debygol y byddwch chi, wrth ddefnyddio'r dull drych, yn sefyll i mewn yn y pen draw, yn hytrach na chadw'r persbectifau yn gyfochrog - gall hyn achosi rhagfyrhau i edrych fel aliniad fertigol gwael. I ddadwneud hynny, gellir cywiro carreg goch, sy'n golygu crebachu'n fertigol un ochr i bob un o'r delweddau.
+ • Bydd toeing-in hefyd yn tueddu i symud y ffenestr stereo tuag atoch. Gallwch ddadwneud hynny a'i osod lle rydych chi ei eisiau trwy docio'r ochrau.
+ • Mae'n debyg na fydd y drych yn gorchuddio'r olygfa o un ochr yn llawn, felly efallai y bydd angen gwneud rhywfaint o waith tocio i gael gwared ar ddarnau sydd heb eu hadlewyrchu.
+
+Mae gan y drychau gorau ar gyfer hyn wydr tenau. Yn un peth maen nhw'n ysgafn, felly maen nhw'n haws eu dal am gyfnodau hir. Y peth pwysig arall yw, wrth ddefnyddio'r drych, mae'n debygol y byddwch chi'n anelu'r drych i'r ochr yn hytrach nag edrych yn syth i mewn iddo gan fod drychau'n cael eu defnyddio fel arfer. Pan fyddant wedi'u gogwyddo fel hynny, gall drychau â gwydr trwchus fod â rhywfaint o aneglurder. Po deneuaf yw'r gwydr, y lleiaf amlwg fydd y cymylu hwn. Gall y mathau hyn o ddrychau hefyd fod o ansawdd isel mewn ffyrdd eraill, felly mae'n bwysig dod o hyd i gydbwysedd da.
+
+Mae yna gwpl o gyfaddawdau eraill y mae'n rhaid eu derbyn wrth ddefnyddio'r dal drych na ellir eu trwsio mewn golygiadau gan CrossCam:
+ • Oherwydd bod golygfa'r ddwy ochr yn teithio ychydig yn wahanol, bydd y ffocws sydd ei angen ar bob ochr ychydig yn wahanol, felly bydd un ochr bob amser ychydig yn aneglur. Bydd yr effaith hon yn fwy neu'n llai amlwg yn dibynnu ar y pellter i'r gwrthrych a dyfnder maes y lens.
+ • Nid oes unrhyw ddrych yn wirioneddol 100% yn effeithlon, felly gall yr ochr sy'n defnyddio'r drych fod ychydig yn dywyllach. Bydd hyn yn amrywio yn ôl ansawdd y drych.</value>
+  </data>
+  <data name="Page.Faq.Moving" xml:space="preserve">
+    <value>Mae fy mhwnc yn symud, sut mae tynnu lluniau 3D ohono?</value>
+  </data>
+  <data name="Page.Faq.Moving.Body" xml:space="preserve">
+    <value>Mae CrossCam yn caniatáu dau ddull i chi o ddal y ddau safbwynt ar yr un funud. Mae un dull yn defnyddio dwy ffôn, ac mae un dull yn defnyddio drych.
+
+I ddefnyddio'r gosodiad dau ffôn, edrychwch ar y dudalen Gosod Paru, y gallwch ei gyrraedd o'r dudalen Gosodiadau (tapiwch yr eicon gêr).
+
+I ddefnyddio'r dull drych, edrychwch ar y cwestiwn FAQ arall amdano.</value>
+  </data>
+  <data name="Page.Faq.Test" xml:space="preserve">
+    <value>Sut alla i brofi fersiynau cyn-rhyddhau o CrossCam?</value>
+  </data>
+  <data name="Page.Faq.Test.Body" xml:space="preserve">
+    <value>Edrychwch ar y post Reddit hwn</value>
+  </data>
+  <data name="Page.Faq.Why" xml:space="preserve">
+    <value>Pam wnaethoch chi wneud CrossCam?</value>
+  </data>
+  <data name="Page.Faq.Why.Body" xml:space="preserve">
+    <value>Gan fy mod yn dechrau ymddiddori mewn stereosgopi digwyddais fynd ar daith i Yellowstone. Tra roeddwn i yno, sylweddolais y gallai fod yn hwyl ceisio defnyddio app symudol camera 3D i ddal pethau yno mewn 3D. Cefais fy siomi’n fawr gan yr opsiynau presennol. Gwelais eu bod i gyd yn gofyn i chi wneud dau gipio ac yna wedyn darganfod a oeddent yn dda. Nid oeddent yn aml, gan fod yn rhaid i mi ddyfalu'n llwyr dro ar ôl tro ar fy mhellter gwahanu, yn ogystal ag ansawdd y pwnc.
+
+Dros yr ychydig wythnosau nesaf arweiniodd fy rhwystredigaeth fudferwi fi at ddychmygu darparu rhagolwg byw o'r ail gipio ochr yn ochr â'r cyntaf. Roedd gen i gefndir mewn datblygu ffonau symudol yn barod, felly dim ond mater o roi'r amser i mewn oedd hi. Mae CrossCam wedi bod yn wych i mi ei ddefnyddio dim ond i mi fy hun i gadw atgofion, ac rwy'n hapus i'w rannu gyda chi hefyd.</value>
+  </data>
+  <data name="Page.Faq.Wiggle" xml:space="preserve">
+    <value>Beth yw wigglegrams?</value>
+  </data>
+  <data name="Page.Faq.Wiggle.Body" xml:space="preserve">
+    <value>Mae Wigglegrams yn ffordd o weld stereogramau nad ydyn nhw'n dibynnu ar olwg sbienddrych. Maen nhw fel arfer yn gif sy'n troi yn ôl ac ymlaen rhwng y ddau safbwynt, gan ddangos pob un yn ei gyfanrwydd yn yr un man. Nid yw CrossCam yn cefnogi eu gwneud ar hyn o bryd, ond anfonwch e-bost ataf os oes gennych ddiddordeb mawr ynddynt ac fe wnaf hynny.</value>
+  </data>
+  <data name="Page.Tips.AlignAfter" xml:space="preserve">
+    <value>Cofiwch y llinellau llorweddol, ond gallwch chi hefyd alinio ar ôl.</value>
+  </data>
+  <data name="Page.Tips.AlignAfter.Body" xml:space="preserve">
+    <value>Os canfyddwch wrth dynnu lluniau ei bod yn amhosibl gwneud i'r llinellau canllaw uchaf ac isaf linellu ar yr un pryd, mae'n debyg eich bod wedi symud i ryw gyfeiriad heblaw am yr ochr yn unig. Ceisiwch drwsio hyn cyn tynnu'r lluniau, ond gall alinio ar ôl y ffaith helpu hyn yn fawr.</value>
+  </data>
+  <data name="Page.Tips.Alignment" xml:space="preserve">
+    <value>Gallwch ddiffodd aliniad ceir.</value>
+  </data>
+  <data name="Page.Tips.Alignment.Body" xml:space="preserve">
+    <value>Os nad ydych yn hoffi canlyniadau'r aliniad awtomatig, trowch ef i ffwrdd ar y dudalen Gosodiadau neu drwy dapio ar yr eicon robot bach a bydd eich lluniau gwreiddiol a ddaliwyd yn cael eu hadfer.</value>
+  </data>
+  <data name="Page.Tips.Donut" xml:space="preserve">
+    <value>Gall y canllaw toesen helpu eich ffenestr.</value>
+  </data>
+  <data name="Page.Tips.Donut.Body" xml:space="preserve">
+    <value>Mae toesen canllaw arbrofol ar y dudalen Gosodiadau y gallwch ei droi ymlaen a allai eich helpu i gadw'ch ffenestr stereo tra'n gwneud y mwyaf o'r lled defnyddiadwy. Wrth droi i'r chwith a'r dde bydd dyfnder y toesen yn newid o'i gymharu â gweddill yr olygfa - gosodwch ddyfnder y toesen fel ei fod naill ai ar neu y tu ôl i'r pwynt pellaf yn eich golygfa. Byddwch yn ofalus, gall ei ddefnyddio ar olygfeydd llai wneud pethau'n boenus (gweler y cyngor allweddol uchod).</value>
+  </data>
+  <data name="Page.Tips.Keystone" xml:space="preserve">
+    <value>Mae angen cywiro carreg gochl os ydych chi'n troedio i mewn.</value>
+  </data>
+  <data name="Page.Tips.Keystone.Body1" xml:space="preserve">
+    <value>Os trowch i mewn gyda phob saethiad mae'n ddefnyddiol iawn gwneud cywiriadau carreg goch. Yn nodweddiadol, byddech chi eisiau crebachu ymylon mewnol y lluniau ac yna tocio rhai oddi ar y brig a'r gwaelod i'w lefelu. Rydych chi'n cyrraedd y ddewislen golygu carreg allwedd trwy dapio'r botwm sy'n edrych fel hyn:</value>
+  </data>
+  <data name="Page.Tips.Keystone.Body2" xml:space="preserve">
+    <value>Yr enw ar droi i mewn yw toe-in. Gall achosi effaith fyrhau sy'n ei gwneud hi'n anodd asio corneli'r ddelwedd. Mae'r effaith ragfyrhau yn bresennol bob amser mewn bywyd go iawn, oherwydd ymddengys bod llinellau cyfochrog yn cydgyfeirio wrth iddynt fynd i'r pellter oddi wrthych, ond gall y safbwyntiau artiffisial ei wneud yn rhyfedd.</value>
+  </data>
+  <data name="Page.Tips.Lean" xml:space="preserve">
+    <value>Gallwch chi bwyso.</value>
+  </data>
+  <data name="Page.Tips.Lean.Body" xml:space="preserve">
+    <value>Weithiau yn lle symud eich traed i'r chwith neu'r dde i dynnu lluniau, gall fod yn haws sefyll gyda'ch traed ar wahân a phwyso i bob cyfeiriad, ond byddwch yn ofalus i gadw lefel y ffôn ac ar yr un uchder. Gall pwyso yn hytrach na symud eich helpu i symud yn rhy bell a gall ei gwneud hi'n haws cadw'ch nod yn syth.</value>
+  </data>
+  <data name="Page.Tips.Lines" xml:space="preserve">
+    <value>Gall y llinellau aliniad symud.</value>
+  </data>
+  <data name="Page.Tips.Lines.Body" xml:space="preserve">
+    <value>Gallwch lusgo'r llinellau aliniad o gwmpas os dymunwch. Mae hyn yn arbennig o ddefnyddiol wrth alinio'r lluniau wrth olygu.</value>
+  </data>
+  <data name="Page.Tips.Old" xml:space="preserve">
+    <value>Gallwch agor hen luniau yn CrossCam.</value>
+  </data>
+  <data name="Page.Tips.Old.Body" xml:space="preserve">
+    <value>Gallwch chi lwytho lluniau a dynnwyd yn flaenorol trwy dapio'r eicon ffolder ar waelod tudalen y camera, ond os ydych chi'n gweithio gyda swp mawr o luniau gallwch chi hefyd eu rhannu i CrossCam yn syth o'ch app lluniau, a allai gadw golwg ar eich gosod yn eich lluniau yn well.</value>
+  </data>
+  <data name="Page.Tips.Quick" xml:space="preserve">
+    <value>Trowch y modd cyflym ymlaen pan fyddwch chi gydag eraill.</value>
+  </data>
+  <data name="Page.Tips.Quick.Body" xml:space="preserve">
+    <value>Os ydych chi'n archwilio gyda phobl eraill mae'n syniad da mynd i'r modd cyflym trwy ddiffodd aliniad ceir a ffiniau a dim ond arbed unwaith y byddwch chi wedi dal heb wneud unrhyw olygu. Gallwch chi bob amser lwytho, alinio'n awtomatig, a golygu'r lluniau yn nes ymlaen. Fel hyn nid oes rhaid i'ch cymdeithion aros i chi berffeithio'ch lluniau yn y fan a'r lle, ond gallwch chi fod yn hyderus o hyd bod y dyfnder rydych chi ei eisiau yno mewn gwirionedd. Byddwch yn ofalus i beidio â gwneud unrhyw olygu brysiog cyn y arbediad cyntaf! Gallwch hefyd droi'r arbediad ochr ar wahân ymlaen a fydd yn anwybyddu unrhyw olygu a wnewch.</value>
+  </data>
+  <data name="Page.Tips.Sick" xml:space="preserve">
+    <value>Os yw'r symudiad yn eich gwneud yn sâl, daliwch yn llonydd.</value>
+  </data>
+  <data name="Page.Tips.Sick.Body" xml:space="preserve">
+    <value>Os yw'r holl symudiad yn eich gwneud yn sâl neu'n ei gwneud hi'n rhy anodd ei weld mewn 3D, peidiwch â dechrau ceisio ei weld mewn 3D tan ar ôl i chi symud ychydig. Yna cymharwch y lluniau â'i gilydd ac aliniwch y lluniau gan ddefnyddio'r llinellau llorweddol heb wylio 3D ac yna dechreuwch wylio 3D ar ôl eu halinio a dal yn llonydd.</value>
+  </data>
+  <data name="Page.Tips.Space" xml:space="preserve">
+    <value>Gall y lluniau hyn gymryd llawer o storio - gallwch chi eu crebachu.</value>
+  </data>
+  <data name="Page.Tips.Space.Body" xml:space="preserve">
+    <value>Mae gan y dudalen Gosodiadau opsiwn i leihau cydraniad y llun terfynol yn gymesur - gall hyn helpu os ydych am arbed lle. Os na chaiff eich llun ei docio, y canlyniad terfynol yw dau lun cydraniad llawn wedi'u cysylltu i wneud un o gydraniad dwbl, sy'n golygu y gallwch chi ddianc yn aml gyda gostyngiad mawr mewn cydraniad heb effeithio'n amlwg ar ansawdd.</value>
+  </data>
+  <data name="Page.Tips.Turn" xml:space="preserve">
+    <value>Peidiwch â throi.</value>
+  </data>
+  <data name="Page.Tips.Turn.Body" xml:space="preserve">
+    <value>Pan fyddwch chi'n symud drosodd, ceisiwch beidio â chylchdroi'ch ffôn o gwbl i unrhyw gyfeiriad, gan gynnwys y duedd naturiol i droi tuag at y pwnc wrth i chi symud i'r ochr. Bydd angen rhywfaint o gylchdroi (weithiau), ond ceisiwch ei leihau. Dychmygwch fod y ffôn wedi'i osod ar reilen lorweddol syth a dim ond llithro y gall. Gall troi i mewn achosi effaith fyrhau sy'n ei gwneud hi'n anodd ffiwsio'r corneli.</value>
+  </data>
+  <data name="Page.Tips.Window" xml:space="preserve">
+    <value>Ychwanegu border a chnwd i wneud ffenestr stereo cryf.</value>
+  </data>
+  <data name="Page.Tips.Window.Body" xml:space="preserve">
+    <value>Gellir creu effaith ffenestr stereo ddiddorol trwy wneud dau beth: 1) troi ar y ffin (ar y dudalen Gosodiadau) a 2) ar gyfer croes wylio, tocio ymylon mewnol y delweddau nes bod yr ymyl allanol ei hun yn dod yn 3D yn y llun (cnwd yr ymylon TU ALLAN os ydych yn gwylio cyfochrog). Yr allwedd yw tocio ymyl dde'r llun chwith ychydig heibio i'r hyn y mae ymyl dde'r llun cywir yn ei ddangos o'r olygfa ac i'r gwrthwyneb. Mae ychwanegu ffin yn cael ei doglo ar y dudalen Gosodiadau. Os yw hyn yn ddryslyd, tociwch griw oddi ar yr ymylon mewnol a bydd yn dechrau bod yn glir. Mae'r botwm cnwd ar gyfer yr ymylon mewnol yn edrych fel hyn:</value>
+  </data>
+  <data name="Button.Code" xml:space="preserve">
+    <value>Gweler y Cod</value>
+  </data>
+  <data name="Button.Developer" xml:space="preserve">
+    <value>Am y Datblygwr</value>
+  </data>
+  <data name="Button.EmailMe" xml:space="preserve">
+    <value>E-bostiwch Fi</value>
+  </data>
+  <data name="Button.GitHub" xml:space="preserve">
+    <value>Ychwanegu Mater ar GitHub</value>
+  </data>
+  <data name="Button.Press" xml:space="preserve">
+    <value>Ewch yn ôl i sgrin y camera ar y ddau ddyfais a thapio'r botwm pâr yn y gornel isaf</value>
+  </data>
+  <data name="Button.Primary" xml:space="preserve">
+    <value>TAPWCH YMA AR Y CYNRADD</value>
+  </data>
+  <data name="Button.Privacy" xml:space="preserve">
+    <value>Polisi Preifatrwydd</value>
+  </data>
+  <data name="Button.Secondary" xml:space="preserve">
+    <value>TAP YMA AR YR EILIAD</value>
+  </data>
+  <data name="Button.Test" xml:space="preserve">
+    <value>Profi Fersiynau Cyn Rhyddhau</value>
+  </data>
+  <data name="Button.Wi-Fi" xml:space="preserve">
+    <value>Sicrhewch fod Wi-Fi wedi'i alluogi ar y ddau ddyfais (ond nid oes angen ei gysylltu ag unrhyw beth)</value>
+  </data>
+  <data name="Page.Pairing.1" xml:space="preserve">
+    <value>Os oes gennych ddau ddyfais gyda CrossCam wedi'u gosod, gallwch eu cysylltu er mwyn tynnu lluniau ar yr un pryd o ddau safbwynt. Mae cymryd dau lun ar yr un foment yn gwneud y stereogramau gorau posib.
+
+Byddwch yn ymwybodol bod y nodwedd hon yn dal i fod yn arbrofol ac y gallai fod â phroblemau. Efallai na fydd yn gweithio'n berffaith drwy'r amser ac efallai y bydd yn bwyta'ch batri. Hefyd, byddwch yn ymwybodol bod yn rhaid i'r dyfeisiau fod yr un platfform ar hyn o bryd er mwyn cysylltu (Android neu'r ddau iOS).
+
+Un ffordd o gael cydamseriad * perffaith* gan ddefnyddio un ddyfais yn unig a CrossCam yw defnyddio'r dull "drych un ergyd". Gallwch ei droi ymlaen ar y dudalen Gosodiadau a gallwch ddarllen amdano ar y dudalen Cwestiynau Cyffredin.
+
+Cyn y gellir defnyddio dwy ddyfais gyda'i gilydd mae'n rhaid neilltuo eu rolau. Y ddyfais CYNRADD yw'r un a fydd yn dangos y ddau ragolwg, yn sbarduno'r cipio, ac yn dal / arbed y cipio terfynol. I aseinio rolau, llywiwch y ddwy ddyfais i'r dudalen hon ac yna dilynwch y camau isod:</value>
+  </data>
+  <data name="Page.Pairing.2" xml:space="preserve">
+    <value>Os cewch drafferth, SYLWCH:
+ • Ar ôl dechrau'r broses baru, gellir tapio'r botwm paru eto unrhyw bryd i'w atal neu i'w ddatgysylltu.
+ • Efallai y bydd yn helpu i roi'r gorau i baru ar y ddwy ddyfais a'i ailgychwyn ar yr un pryd.
+ • Gallai fod o gymorth i ddatgysylltu o'ch Wi-Fi neu rwydweithiau data rhag ofn eu bod yn gweithredu i fyny.
+ • Mae pob camera yn wahanol. Gall y gwahaniaethau hyn gynnwys maes golygfa onglog, ffocws, amlygiad, ac ymddygiad cydbwysedd gwyn, amseru, a mwy. Bydd hyd yn oed dau o'r un model ffôn yn ymddwyn ychydig yn wahanol. Mae'n well gen i ddefnyddio pâr o hen ffonau union yr un fath (yn fy achos i, pâr o iPhone 6).
+ • Meddalwedd, nid caledwedd, yw CrossCam, felly gall dal y lluniau fod ychydig allan o gysondeb yn dibynnu ar beth arall y mae'r proseswyr a'r cof yn ei wneud ar yr union funud y mae'r dal yn cael ei sbarduno. O ganlyniad, efallai na fydd y cydamseriad yn berffaith weithiau, ond yn gyffredinol dylai fod yn agos iawn.</value>
+  </data>
+  <data name="Page.Pairing.Again" xml:space="preserve">
+    <value>I gysylltu eto yn nes ymlaen, gwnewch yn siŵr bod gennych Wi-Fi wedi'i alluogi ac yna tapiwch y botwm cysylltu ar y sgrin gartref ar y ddau ddyfais.</value>
+  </data>
+  <data name="Page.Pairing.LocalNetworkAccess" xml:space="preserve">
+    <value>Mae angen caniatâd Mynediad Rhwydwaith Lleol ar CrossCam. Nid yw CrossCam yn defnyddio'r rhwydwaith lleol mewn gwirionedd, ond mae iOS yn mynnu bod CrossCam yn cael y caniatâd hwn er mwyn defnyddio'r antena Wi-Fi i sganio am ddyfeisiau. Bydd CrossCam yn gofyn am y caniatâd hwn unwaith - os gwrthodir y caniatâd bydd yn rhaid i chi fynd a fflipio'r switsh yn yr app Gosodiadau eich hun.</value>
+  </data>
+  <data name="Page.Pairing.Location" xml:space="preserve">
+    <value>Bydd CrossCam yn gofyn am ganiatâd a phwer ar gydrannau yn ôl yr angen er mwyn cysylltu'ch dyfeisiau. Sylwch: Mae CrossCam angen caniatâd lleoliad ac i wasanaethau lleoliad gael eu troi ymlaen ar y ddyfais gynradd er mwyn cysylltu â'r ddyfais eilaidd. Yn syml, gofyniad Android yw hwn ac mae y tu hwnt i'm rheolaeth yn llwyr. Nid yw CrossCam yn DEFNYDDIO'ch lleoliad mewn unrhyw ffordd mewn gwirionedd, ond oherwydd y gallai'r weithred o chwilio am (a chanfod) dyfeisiau cyfagos gael ei defnyddio'n ddamcaniaethol i'ch lleoli'n fras, mae CrossCam angen caniatâd i gael mynediad i'ch lleoliad.</value>
+  </data>
+  <data name="Page.Pairing.Permissions" xml:space="preserve">
+    <value>Nodyn am Ganiatâd:</value>
+  </data>
+  <data name="Page.Pairing.Title" xml:space="preserve">
+    <value>Paru</value>
+  </data>
+  <data name="Button.Back" xml:space="preserve">
+    <value>&lt; Yn ol</value>
+  </data>
+  <data name="Page.MorePictures.CrossViewSubreddit" xml:space="preserve">
+    <value>CrossView Subreddit</value>
+  </data>
+  <data name="Page.MorePictures.FacebookGroup" xml:space="preserve">
+    <value>Grŵp Facebook 3D stereosgopig</value>
+  </data>
+  <data name="Page.MorePictures.GoogleDoc" xml:space="preserve">
+    <value>Google Doc o Stwff Mawr</value>
+  </data>
+  <data name="Page.MorePictures.Instagram" xml:space="preserve">
+    <value>Tag Stereeosgopig Instagram</value>
+  </data>
+  <data name="Page.MorePictures.Mine" xml:space="preserve">
+    <value>Gweler y Lluniau rydw i wedi'u cymryd</value>
+  </data>
+  <data name="Page.MorePictures.ParallelViewSubreddit" xml:space="preserve">
+    <value>ParallelView Subreddit</value>
+  </data>
+  <data name="Page.Settings.Alignment" xml:space="preserve">
+    <value>Aliniad Awtomatig</value>
+  </data>
+  <data name="Page.Settings.Analytics" xml:space="preserve">
+    <value>Rhannu data defnydd a gwallau dienw i helpu i wella CrossCam</value>
+  </data>
+  <data name="Page.Settings.Border" xml:space="preserve">
+    <value>Ffin</value>
+  </data>
+  <data name="Page.Settings.Camera" xml:space="preserve">
+    <value>Camera</value>
+  </data>
+  <data name="Page.Settings.Defaults" xml:space="preserve">
+    <value>Ailosod i'r Rhagosodiadau</value>
+  </data>
+  <data name="Page.Settings.Editing" xml:space="preserve">
+    <value>Golygu</value>
+  </data>
+  <data name="Page.Settings.ErrorEmail" xml:space="preserve">
+    <value>Anogwch i anfon e-bost pan fydd gwallau'n digwydd</value>
+  </data>
+  <data name="Page.Settings.Guides" xml:space="preserve">
+    <value>Canllawiau Dal</value>
+  </data>
+  <data name="Page.Settings.Pairing" xml:space="preserve">
+    <value>Paru</value>
+  </data>
+  <data name="Page.Settings.Preview" xml:space="preserve">
+    <value>Dull Gweld Rhagolwg</value>
+  </data>
+  <data name="Page.Settings.Saving" xml:space="preserve">
+    <value>Arbed</value>
+  </data>
+  <data name="Page.TipMe.1" xml:space="preserve">
+    <value>Mae CrossCam yn rhad ac am ddim i'w ddefnyddio, heb hysbysebion, ffynhonnell agored, nid yw'n casglu unrhyw wybodaeth bersonol gennych chi, ac mae'n rhoi mynediad llawn i chi i bob nodwedd. Rwyf wrth fy modd yn gweithio ar CrossCam ond mae'n cymryd llawer o amser ac ymdrech. Nid wyf yn gwneud unrhyw arian o CrossCam ac eithrio awgrymiadau y gallai pobl benderfynu eu hanfon ataf.</value>
+  </data>
+  <data name="Page.TipMe.2" xml:space="preserve">
+    <value>Os ydych chi'n hoffi CrossCam ac yn gallu, ystyriwch anfon tip ataf.</value>
+  </data>
+  <data name="Page.TipMe.Ko-fi" xml:space="preserve">
+    <value>Ko-fi</value>
+  </data>
+  <data name="Page.TipMe.Patreon" xml:space="preserve">
+    <value>Patreon</value>
+  </data>
+  <data name="Page.TipMe.PayPal" xml:space="preserve">
+    <value>PayPal</value>
+  </data>
+  <data name="Page.TipMe.Tipped" xml:space="preserve">
+    <value>Rydw i wedi cael tipio</value>
+  </data>
+  <data name="Page.TipMe.TippedTimes" xml:space="preserve">
+    <value>amseroedd, cyfanswm</value>
+  </data>
+  <data name="Page.TipMe.Venmo" xml:space="preserve">
+    <value>Venmo</value>
+  </data>
+  <data name="Title.MorePictures" xml:space="preserve">
+    <value>Gweler Mwy o luniau</value>
+  </data>
+  <data name="Title.Settings" xml:space="preserve">
+    <value>Gosodiadau</value>
+  </data>
+  <data name="Title.TipMe" xml:space="preserve">
+    <value>Awgrymiadau yn cael eu Gwerthfawrogi!</value>
+  </data>
+  <data name="Settings.Alignment.Advanced" xml:space="preserve">
+    <value>Dangos gosodiadau aliniad uwch</value>
+  </data>
+  <data name="Settings.Alignment.Ecc" xml:space="preserve">
+    <value>Ceisiwch ddefnyddio aliniad ECC yn gyntaf bob amser</value>
+  </data>
+  <data name="Settings.Alignment.Keypoints" xml:space="preserve">
+    <value>Ceisiwch ddefnyddio aliniad allweddol yn gyntaf bob amser</value>
+  </data>
+  <data name="Settings.Alignment.On" xml:space="preserve">
+    <value>Alinio'n awtomatig ar ôl dal</value>
+  </data>
+  <data name="Settings.Border.Color" xml:space="preserve">
+    <value>Lliw ffin</value>
+  </data>
+  <data name="Settings.Border.FuseGuide" xml:space="preserve">
+    <value>Ychwanegu canllaw ffiws ar ei ben (dot uwchben pob ochr)</value>
+  </data>
+  <data name="Settings.Border.On" xml:space="preserve">
+    <value>Ychwanegu border</value>
+  </data>
+  <data name="Settings.Border.Prompt" xml:space="preserve">
+    <value>Anogwch i dorri'r ffin i ffwrdd pan gaiff ei ganfod wrth lwytho</value>
+  </data>
+  <data name="Settings.Border.Thickness" xml:space="preserve">
+    <value>Trwch ffin (degfedau o ganran y lled)</value>
+  </data>
+  <data name="Settings.Camera.Camera1" xml:space="preserve">
+    <value>Force camera1 API (gall fod yn ddefnyddiol os ydych chi'n profi rhyfeddod ond bydd yn arwain at ymarferoldeb cyfyngedig, mae angen grym i roi'r gorau iddi/ailgychwyn i ddod i rym)</value>
+  </data>
+  <data name="Settings.Camera.Camera2" xml:space="preserve">
+    <value>Force camera2 API (rhaid iddo fod ar Android 6 neu uwch, gallai fod yn ddefnyddiol os ydych chi'n profi gwallau ond efallai y byddwch chi'n gwneud mwy, yn gofyn am rym rhoi'r gorau iddi/ailgychwyn i ddod i rym)</value>
+  </data>
+  <data name="Settings.Camera.LandscapeCaptureHorizontal" xml:space="preserve">
+    <value>Lleoliad llorweddol botwm dal tirwedd</value>
+  </data>
+  <data name="Settings.Camera.LandscapeCaptureVertical" xml:space="preserve">
+    <value>Gosodiad fertigol botwm dal tirwedd</value>
+  </data>
+  <data name="Settings.Camera.Lock" xml:space="preserve">
+    <value>Cloi ffocws ac amlygiad ar gyfer ail lun i ffocws ac amlygiad o'r llun cyntaf</value>
+  </data>
+  <data name="Settings.Camera.Pair" xml:space="preserve">
+    <value>Lleoliad llorweddol botwm pâr (pan fydd y botwm dal wedi'i ganoli)</value>
+  </data>
+  <data name="Settings.Camera.PointFocus" xml:space="preserve">
+    <value>Tapiwch i ffocws pwynt, tapiwch ddwywaith i newid yn ôl i ffocws parhaus (neu arbed neu glirio)</value>
+  </data>
+  <data name="Settings.Camera.PortraitCapture" xml:space="preserve">
+    <value>Lleoliad botwm dal portread</value>
+  </data>
+  <data name="Settings.Editing.Align" xml:space="preserve">
+    <value>Uchafswm cyfrannedd aliniad fertigol</value>
+  </data>
+  <data name="Settings.Editing.Keystone" xml:space="preserve">
+    <value>Uchafswm carreg clo</value>
+  </data>
+  <data name="Settings.Editing.Rotation" xml:space="preserve">
+    <value>Uchafswm graddau cylchdroi</value>
+  </data>
+  <data name="Settings.Editing.SideCrop" xml:space="preserve">
+    <value>Uchafswm cyfran y cnwd ochr</value>
+  </data>
+  <data name="Settings.Editing.TopCrop" xml:space="preserve">
+    <value>Uchafswm cyfrannedd cnwd uchaf/gwaelod</value>
+  </data>
+  <data name="Settings.Editing.Zoom" xml:space="preserve">
+    <value>Y gyfran chwyddo uchaf</value>
+  </data>
+  <data name="Settings.Guides.Donut" xml:space="preserve">
+    <value>Dangos canllaw toesen (bydd yn achosi toesen i mewn, felly efallai y bydd angen golygu cloriadur)</value>
+  </data>
+  <data name="Settings.Guides.Fuse" xml:space="preserve">
+    <value>Dangos canllaw ffiwsiau (dot uwchben pob ochr)</value>
+  </data>
+  <data name="Settings.Guides.LineColor" xml:space="preserve">
+    <value>Llinellau lliw gwahanol</value>
+  </data>
+  <data name="Settings.Guides.Lines" xml:space="preserve">
+    <value>Llinellau yn weladwy</value>
+  </data>
+  <data name="Settings.Guides.Roll" xml:space="preserve">
+    <value>Canllaw rholio yn weladwy</value>
+  </data>
+  <data name="Settings.Pair.CaptureDelay" xml:space="preserve">
+    <value>Dal eiliad oedi ychwanegol (ms) (yn ychwanegu oedi ychwanegol at yr eiliad cipio targed ar y ddyfais hon yn unig)</value>
+  </data>
+  <data name="Settings.Pair.Countdown" xml:space="preserve">
+    <value>Dal hyd cyfrif i lawr (amserydd)</value>
+  </data>
+  <data name="Settings.Pair.Fov" xml:space="preserve">
+    <value>Cywiro maes golwg</value>
+  </data>
+  <data name="Settings.Pair.FovNotSet" xml:space="preserve">
+    <value>Nid yw'r cywiriad FOV wedi'i osod (gwnewch gipio gyda dyfeisiau pâr i gerdded trwyddynt).</value>
+  </data>
+  <data name="Settings.Pair.FovReset" xml:space="preserve">
+    <value>Ail gychwyn</value>
+  </data>
+  <data name="Settings.Pair.Go" xml:space="preserve">
+    <value>Ewch i Dudalen Gosod Paru</value>
+  </data>
+  <data name="Settings.Pair.NoRole" xml:space="preserve">
+    <value>Rôl heb ei dewis</value>
+  </data>
+  <data name="Settings.Pair.PreviewDelay" xml:space="preserve">
+    <value>Rhagolwg oedi ffrâm (bydd nifer uwch yn lleihau cyfradd ffrâm ond yn arbed batri)</value>
+  </data>
+  <data name="Settings.Pair.Primary" xml:space="preserve">
+    <value>Cynradd:</value>
+  </data>
+  <data name="Settings.Pair.PrimaryRole" xml:space="preserve">
+    <value>Rôl: Cynradd</value>
+  </data>
+  <data name="Settings.Pair.Sample" xml:space="preserve">
+    <value>Cyfrif sampl cloc (bydd nifer is yn lleihau'r amser sydd ei angen ar gyfer cysoni cychwynnol ond gall leihau cywirdeb cysoni)</value>
+  </data>
+  <data name="Settings.Pair.Secondary" xml:space="preserve">
+    <value>Uwchradd:</value>
+  </data>
+  <data name="Settings.Pair.SecondaryRole" xml:space="preserve">
+    <value>Rôl: Uwchradd</value>
+  </data>
+  <data name="Settings.Pair.Timeout" xml:space="preserve">
+    <value>Goramser cysylltiad (eiliadau) (0 yn golygu dim terfyn amser)</value>
+  </data>
+  <data name="Settings.Preview.Barrel" xml:space="preserve">
+    <value>Ychwanegu cywiriad lens / ystumiad casgen (gallai cyfradd ffrâm is)</value>
+  </data>
+  <data name="Settings.Preview.BarrelFinal" xml:space="preserve">
+    <value>Ychwanegu cywiriad lens / ystumiad casgen i ddelweddau terfynol yn unig (gall arafu'r arddangosiad terfynol ond bydd yn cyflymu'r cipio)</value>
+  </data>
+  <data name="Settings.Preview.CardboardDistance" xml:space="preserve">
+    <value>Pellter gwahanu cardbord</value>
+  </data>
+  <data name="Settings.Preview.Downsize" xml:space="preserve">
+    <value>Delwedd llai (gall gynyddu cyfradd ffrâm)</value>
+  </data>
+  <data name="Settings.Preview.DownsizePercent" xml:space="preserve">
+    <value>Lleihau canran delwedd</value>
+  </data>
+  <data name="Settings.Preview.Immersive" xml:space="preserve">
+    <value>Gwyliad terfynol trochi</value>
+  </data>
+  <data name="Settings.Preview.LensStrength" xml:space="preserve">
+    <value>Cryfder cywiro lens</value>
+  </data>
+  <data name="Settings.Preview.Mirror" xml:space="preserve">
+    <value>Dal gan ddefnyddio dull rhannu drych un ergyd</value>
+  </data>
+  <data name="Settings.Preview.Width" xml:space="preserve">
+    <value>Lled delwedd golygfa gyfochrog uchaf (pwyntiau)</value>
+  </data>
+  <data name="Settings.Reset" xml:space="preserve">
+    <value>Ailosod i'r Rhagosodiadau</value>
+  </data>
+  <data name="Settings.Saving.Alone" xml:space="preserve">
+    <value>Arbedwch yr ochr gyntaf ar eich pen eich hun (heb unrhyw olygiadau na border) (er mwyn rhannu llun fflat yn hawdd â phobl golygfa fflat)</value>
+  </data>
+  <data name="Settings.Saving.Anaglyph" xml:space="preserve">
+    <value>Cadw fersiwn coch/cyan anaglyph (gyda golygiadau ond dim border)</value>
+  </data>
+  <data name="Settings.Saving.Browse" xml:space="preserve">
+    <value>Pori...</value>
+  </data>
+  <data name="Settings.Saving.Cardboard" xml:space="preserve">
+    <value>Arbedwch ar gyfer Cardbord (gyda golygiadau, dim border, dim bylchau, lled llawn, i'w lwytho'n ôl i CrossCam yn ddiweddarach)</value>
+  </data>
+  <data name="Settings.Saving.Clear" xml:space="preserve">
+    <value>Clirio cipio yn awtomatig ar ôl arbed</value>
+  </data>
+  <data name="Settings.Saving.Cross" xml:space="preserve">
+    <value>Cadw fersiwn traws-weld wedi'i gysylltu (gyda golygiadau a border)</value>
+  </data>
+  <data name="Settings.Saving.ExternalDirectory" xml:space="preserve">
+    <value>Cadw i gyfeiriadur allanol CrossCam yn:</value>
+  </data>
+  <data name="Settings.Saving.ExternalWarning" xml:space="preserve">
+    <value>(rhybudd: bydd lluniau yno'n cael eu dileu os caiff CrossCam ei ddadosod)</value>
+  </data>
+  <data name="Settings.Saving.Folder" xml:space="preserve">
+    <value>Arbedwch mewn is-ffolder/albwm “CrossCam” pwrpasol</value>
+  </data>
+  <data name="Settings.Saving.Grayscale" xml:space="preserve">
+    <value>Cadw fersiwn graddlwyd anaglyff coch/cyan (gyda golygiadau ond dim border)</value>
+  </data>
+  <data name="Settings.Saving.Order" xml:space="preserve">
+    <value>(Bydd arbed yn digwydd mewn trefn o'r top i'r gwaelod)</value>
+  </data>
+  <data name="Settings.Saving.Parallel" xml:space="preserve">
+    <value>Cadw fersiwn golwg gyfochrog wedi'i gysylltu (gyda golygiadau a border)</value>
+  </data>
+  <data name="Settings.Saving.Quad" xml:space="preserve">
+    <value>Cadw cyfuniad cwad (gyda golygiadau a border)</value>
+  </data>
+  <data name="Settings.Saving.Reset" xml:space="preserve">
+    <value>Ail gychwyn</value>
+  </data>
+  <data name="Settings.Saving.Resolution" xml:space="preserve">
+    <value>Cymesuredd cydraniad</value>
+  </data>
+  <data name="Settings.Saving.SaveTo" xml:space="preserve">
+    <value>Cadw i:</value>
+  </data>
+  <data name="Settings.Saving.Separate" xml:space="preserve">
+    <value>Arbedwch bob ochr ar wahân (heb unrhyw olygiadau na ffin ar gyfer prosesu post yn haws, mae'r ochr chwith yn arbed yn gyntaf)</value>
+  </data>
+  <data name="Settings.Saving.Subfolder" xml:space="preserve">
+    <value>Cadw mewn is-ffolderi/albymau pwrpasol "CrossCam_{ViewMethod}".</value>
+  </data>
+  <data name="Settings.Saving.Triple" xml:space="preserve">
+    <value>Cadw cyfuniad triphlyg (gyda golygiadau a border)</value>
+  </data>
+  <data name="Button.Pair.Accept" xml:space="preserve">
+    <value>Derbyn</value>
+  </data>
+  <data name="Button.Pair.Cancel" xml:space="preserve">
+    <value>Canslo</value>
+  </data>
+  <data name="Page.Camera.AcceptConnection" xml:space="preserve">
+    <value>Derbyn cysylltiad i</value>
+  </data>
+  <data name="Page.Camera.Confirm" xml:space="preserve">
+    <value>Cadarnhewch fod y cod yn cyfateb ar y ddau ddyfais:</value>
+  </data>
+  <data name="Page.Footer.CouldntOpen" xml:space="preserve">
+    <value>Methu Agor Dolen</value>
+  </data>
+  <data name="Page.Footer.OpenError" xml:space="preserve">
+    <value>Nid oedd modd agor y ddolen mailto. Gallai hyn fod oherwydd nad yw'ch cleient e-bost wedi'i sefydlu, neu am reswm arall.</value>
+  </data>
+  <data name="Page.Pair.Errors.Denied" xml:space="preserve">
+    <value>Ni roddwyd y caniatâd angenrheidiol ar gyfer paru. Eithriad:</value>
+  </data>
+  <data name="Page.Pair.Errors.FailedBluetooth" xml:space="preserve">
+    <value>Methodd y ddyfais â phweru ar Bluetooth. Eithriad:</value>
+  </data>
+  <data name="Page.Pair.Errors.FailedSearch" xml:space="preserve">
+    <value>Methodd y ddyfais â chwilio am ddyfeisiau. Eithriad:</value>
+  </data>
+  <data name="Page.Pair.Errors.LocationOff" xml:space="preserve">
+    <value>Gwasanaethau lleoliad heb eu hactifadu. Methu sganio am ddyfeisiau. Gweler y dudalen paru am ragor o fanylion.</value>
+  </data>
+  <data name="Page.Pair.Errors.LocationScan" xml:space="preserve">
+    <value>Ni roddwyd caniatâd lleoliad. Methu sganio am ddyfeisiau. Gweler y dudalen paru am ragor o fanylion.</value>
+  </data>
+  <data name="Page.Pair.Errors.NotSupported" xml:space="preserve">
+    <value>Ni chefnogir paru ar y ddyfais hon. Eithriad:</value>
+  </data>
+  <data name="Page.Pair.Errors.Title" xml:space="preserve">
+    <value>Gwall</value>
+  </data>
+  <data name="Page.Pair.Errors.WifiOff" xml:space="preserve">
+    <value>Wi-Fi wedi'i ddiffodd. Trowch Wi-Fi ymlaen.</value>
+  </data>
+  <data name="Page.Pair.PrimaryExplanation" xml:space="preserve">
+    <value>Mae'r ddyfais hon bellach wedi'i gosod fel y brif ddyfais.</value>
+  </data>
+  <data name="Page.Pair.PrimarySelected" xml:space="preserve">
+    <value>Prif Rôl wedi'i Ddewis</value>
+  </data>
+  <data name="Page.Pair.SecondaryExplanation" xml:space="preserve">
+    <value>Mae'r ddyfais hon bellach wedi'i gosod fel yr uwchradd.</value>
+  </data>
+  <data name="Page.Pair.SecondarySelected" xml:space="preserve">
+    <value>Rôl Uwchradd a Ddewiswyd</value>
+  </data>
+  <data name="Page.Technique.Mode" xml:space="preserve">
+    <value>modd.</value>
+  </data>
+  <data name="Page.Technique.SetMode" xml:space="preserve">
+    <value>Mae CrossCam bellach i mewn</value>
+  </data>
+</root>

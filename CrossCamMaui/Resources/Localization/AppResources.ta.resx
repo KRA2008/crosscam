@@ -1,0 +1,1156 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="Button.GoogleDoc" xml:space="preserve">
+    <value>சிறந்த விஷயங்களின் Google ஆவணம்</value>
+  </data>
+  <data name="Button.LearnCross" xml:space="preserve">
+    <value>குறுக்கு கற்றுக்கொள்ளுங்கள்</value>
+  </data>
+  <data name="Button.LearnParallel" xml:space="preserve">
+    <value>இணையாகக் கற்றுக்கொள்ளுங்கள்</value>
+  </data>
+  <data name="Button.MorePictures" xml:space="preserve">
+    <value>மேலும் படங்களை பார்க்கவும்</value>
+  </data>
+  <data name="Button.Review" xml:space="preserve">
+    <value>ஒரு விமர்சனம் எழுத</value>
+  </data>
+  <data name="Button.Share" xml:space="preserve">
+    <value>கிராஸ்கேமைப் பகிரவும்</value>
+  </data>
+  <data name="Button.Support" xml:space="preserve">
+    <value>டெவலப்பரை ஆதரிக்கவும்</value>
+  </data>
+  <data name="Button.TapCross" xml:space="preserve">
+    <value>கிராஸைத் தேர்வுசெய்ய இங்கே தட்டவும்</value>
+  </data>
+  <data name="Button.TapParallel" xml:space="preserve">
+    <value>இணையானதைத் தேர்வுசெய்ய இங்கே தட்டவும்</value>
+  </data>
+  <data name="Footer.Span1" xml:space="preserve">
+    <value>பிழை கண்டுபிடிக்கப்பட்டதா? ஒரு கேள்வி இருக்கிறதா? வெறும் மின்னஞ்சல்</value>
+  </data>
+  <data name="Footer.Span3" xml:space="preserve">
+    <value>! நான் பயனர்களுடன் பேசுவதை விரும்புகிறேன், என்னுடன் தொடர்புகொள்வதற்கான விரைவான வழி இதுவாகும்.</value>
+  </data>
+  <data name="Page.HowToUse.2anaglyph" xml:space="preserve">
+    <value>2) முதல் படத்தை அதன் அருகில் தோன்றும் முன்னோட்டத்துடன் அனாக்லிஃப் பார்க்கத் தொடங்கவும்.</value>
+  </data>
+  <data name="Page.HowToUse.2cardboard" xml:space="preserve">
+    <value>2) அட்டைப் பெட்டியில் முதல் படத்தை அதன் அருகில் தோன்றும் முன்னோட்டத்துடன் பார்க்கத் தொடங்குங்கள்.</value>
+  </data>
+  <data name="Page.HowToUse.2cross" xml:space="preserve">
+    <value>2) முதல் படத்தை அதன் அருகில் தோன்றும் முன்னோட்டத்துடன் பார்க்கத் தொடங்குங்கள்.</value>
+  </data>
+  <data name="Page.HowToUse.2parallel" xml:space="preserve">
+    <value>2) முதல் படத்தை அதன் அருகில் தோன்றும் முன்னோட்டத்துடன் இணையாகப் பார்க்கத் தொடங்குங்கள்.</value>
+  </data>
+  <data name="Page.Technique.AdditionalTutorials" xml:space="preserve">
+    <value>கூடுதல் பயிற்சிகள்:</value>
+  </data>
+  <data name="Page.Technique.Cross1" xml:space="preserve">
+    <value>மேலே உள்ள ஜோடி படங்களைப் பார்க்கும்போது உங்கள் கண்களைக் கவனமாகக் கடக்கவும். நீங்கள் உங்கள் கண்களைக் கடக்கும்போது, ​​விஷயங்கள் மங்கலாகவும், தெளிவாகவும் இருக்கும், மேலும் 2 (2 ஜோடிகள்)க்குப் பதிலாக 4 படங்களைப் பார்க்கத் தொடங்குவீர்கள். உங்கள் கண்களைக் கடப்பது கடினமாக இருந்தால், ஜோடி படங்கள் மேலும் நகரும் - இது இப்படி இருக்கும்:</value>
+  </data>
+  <data name="Page.Technique.Cross2" xml:space="preserve">
+    <value>உங்கள் கண்களைக் கவனமாக அவிழ்த்து விடுங்கள், இதனால் ஒவ்வொரு ஜோடியின் உட்புறத்திலும் உள்ள படங்கள் ஒன்றுடன் ஒன்று சேரத் தொடங்கும். 4 படங்களுக்குப் பதிலாக 3 படங்கள் இருப்பது போல் தோன்றத் தொடங்கும். இது இன்னும் மங்கலாகவும் பார்க்கவும் மற்றும் இது போன்ற தோற்றத்தில் இருக்கும்:</value>
+  </data>
+  <data name="Page.Technique.Cross3" xml:space="preserve">
+    <value>நீங்கள் நடுத்தர ஒன்றுடன் ஒன்று வேலை செய்தவுடன், நீங்கள் உங்கள் கண்களை நிதானப்படுத்தி, படத்தை மையப்படுத்த அனுமதிக்க வேண்டும். அந்த நேரத்தில் நீங்கள் நடுவில் ஒரு கூர்மையான 3D படத்தைப் பெறுவீர்கள், ஒவ்வொரு பக்கத்திலும் ஒரு வெளிப்படையான படம் மிதக்கும், அது இப்படி இருக்கும் (நடுவில் 3D தவிர):</value>
+  </data>
+  <data name="Page.Technique.Cross4" xml:space="preserve">
+    <value>உங்கள் கண்களைக் கடப்பதில் சிக்கல் இருந்தால், உங்கள் விரலை உங்கள் கண்களுக்கும் திரைக்கும் இடையில் பாதியில் வைத்திருக்கும் போது அதை உற்றுப் பார்க்கவும் முயற்சி செய்யலாம். படங்கள் பிரிந்து உங்கள் விரலுக்குப் பின்னால் ஒன்றுடன் ஒன்று சேரத் தொடங்குவதை நீங்கள் பார்க்க வேண்டும்.</value>
+  </data>
+  <data name="Page.Technique.CrossViewing" xml:space="preserve">
+    <value>குறுக்கு பார்வை</value>
+  </data>
+  <data name="Page.Technique.P1" xml:space="preserve">
+    <value>இதை மீண்டும் பார்க்க விரும்பினால், கேமரா திரையின் மேல் இடதுபுறத்தில் உள்ள ஹாம்பர்கர் (மூன்று கோடுகள்) ஐகானைத் தட்டி, "உதவி" என்பதைத் தட்டவும்.
+
+CrossCam இல் ("ஸ்டீரியோகிராம்கள்" என அழைக்கப்படும்) 3D ஐப் பார்க்க, நீங்கள் சிவப்பு/சியான் 3D கண்ணாடிகள், Google அட்டைப் பார்வையாளரைப் பயன்படுத்தலாம் அல்லது உங்கள் கண்கள் மற்றும் திரையைப் பயன்படுத்தி "இலவச பார்வை" செய்யலாம். இலவச பார்வைக்கு இரண்டு வழிகள் உள்ளன, மேலும் CrossCam இரண்டையும் கற்றுக்கொள்ள உதவும். நீங்கள் படங்களை எப்படிப் பார்க்கப் போகிறீர்கள் என்று கிராஸ்கேமிடம் சொல்ல வேண்டும் அல்லது அது சரியாக வேலை செய்யாது. கவலைப்பட வேண்டாம், நீங்கள் எப்போது வேண்டுமானாலும் அமைப்புகளில் இதை மாற்றலாம்.
+
+நீங்கள் வசதியாக உங்கள் கண்களைக் கடக்க முடிந்தால், நீங்கள் முதலில் குறுக்கு முறையை முயற்சிக்க வேண்டும், இல்லையெனில் நீங்கள் இணையான முறையை முயற்சிக்க வேண்டும். நீங்கள் Magic Eye™ புத்தகங்களுக்குப் பழக்கப்பட்டிருந்தால், ஒருவேளை நீங்கள் ஏற்கனவே இணையான முறையைச் செய்ய முடியும், ஆனால் நீங்கள் குறுக்கு முறையையும் செய்யலாம். அதைக் கற்றுக்கொள்ள கீழே உள்ள ஒரு முறையைத் தட்டவும், தொடர்புடைய தேர்வு பொத்தானை அழுத்துவதன் மூலம் உங்களுக்கு எது வேலை செய்கிறது என்பதை CrossCam ஐ உறுதிசெய்யவும்.
+
+நீங்கள் 3D கண்ணாடிகள் அல்லது அட்டைப் பார்வையாளரைப் பயன்படுத்த விரும்பினால், அமைப்புகள் பக்கத்தில் உள்ளவற்றைப் பயன்படுத்த CrossCam ஐ அமைக்கலாம்.</value>
+  </data>
+  <data name="Page.Technique.CrossLink1" xml:space="preserve">
+    <value>அருமையான உரை பயிற்சி</value>
+  </data>
+  <data name="Page.Technique.CrossLink2" xml:space="preserve">
+    <value>மற்றொரு நல்ல உரை பயிற்சி</value>
+  </data>
+  <data name="Page.Technique.CrossLink3" xml:space="preserve">
+    <value>ஒரு சிறிய YouTube டுடோரியல்</value>
+  </data>
+  <data name="Page.Technique.CrossLink4" xml:space="preserve">
+    <value>ஒரு நீண்ட, ஒற்றைப்படை, ஆனால் பயனுள்ள YouTube டுடோரியல்</value>
+  </data>
+  <data name="Page.Technique.CrossLink5" xml:space="preserve">
+    <value>மற்றொரு YouTube டுடோரியல்</value>
+  </data>
+  <data name="Page.Technique.CrossLink6" xml:space="preserve">
+    <value>டுடோரியலுடன் கூடிய இரட்டை கேமரா திட்டம்</value>
+  </data>
+  <data name="Page.Technique.Parallel1" xml:space="preserve">
+    <value>மேலே உள்ள படம் உங்கள் திரையில் பொருந்தவில்லை என்றால், உங்கள் மொபைலை லேண்ட்ஸ்கேப்பிற்கு மாற்றவும் - CrossCam இந்த ஜோடி படங்களை மிக எளிதான அளவுக்கு மேலே உருவாக்க முயற்சிக்கிறது. நீங்கள் எப்போதும் கிராஸ்கேமை நிலப்பரப்பில் பயன்படுத்த வேண்டியதில்லை, ஆனால் சரியான அளவிலான படம் நுட்பத்தைக் கற்றுக்கொள்வதை எளிதாக்குகிறது.</value>
+  </data>
+  <data name="Page.Technique.Parallel2" xml:space="preserve">
+    <value>உங்கள் கண்களை நிதானப்படுத்தி, மேலே உள்ள ஜோடி படங்களை "மூலம்" பார்க்கவும், உங்கள் கண்கள் படங்களைச் சுட்டிக்காட்டி மண்டலப்படுத்துவது போல. நீங்கள் 3 படங்களை நடுவில் 3D படத்துடன் பார்க்கத் தொடங்க வேண்டும், இது போன்ற சிறிது:</value>
+  </data>
+  <data name="Page.Technique.Parallel3" xml:space="preserve">
+    <value>நீங்கள் 4 படங்களை பார்க்க ஆரம்பித்தால், நீங்கள் வெகுதூரம் சென்றுவிட்டீர்கள். நீங்கள் மீண்டும் அந்த இடத்தில் இருப்பதைக் கண்டால், உங்கள் கண்களை சிறிது சிறிதாக நகர்த்த முயற்சிக்கவும். அதிக தூரம் ஓய்வெடுப்பது இப்படி இருக்கும்:</value>
+  </data>
+  <data name="Page.Technique.Parallel4" xml:space="preserve">
+    <value>உங்களுக்குச் சிக்கல் இருந்தால், உங்கள் கண்களுக்கு எதிரே உள்ள ஜோடிப் படங்களுடன் உங்கள் திரையை உங்கள் முகத்திற்கு எதிராகக் கொண்டு வர முயற்சிக்கவும். நிதானமாக திரையை "மூலம்" பார்க்கவும், பின்னர் உங்கள் கண்களை நிதானமாக வைத்திருக்கும் போது உங்கள் திரையை உங்கள் முகத்திலிருந்து மெதுவாக இழுக்கவும். இறுதியில் படத்தை "கிளிக்" செய்ய வேண்டும்.</value>
+  </data>
+  <data name="Page.Technique.Parallel5" xml:space="preserve">
+    <value>நீங்கள் தொடர்ந்து நான்கு படங்களைப் பார்க்கிறீர்கள் எனில், அமைப்புகள் பக்கத்தில் "அதிகபட்ச இணை காட்சி பட அகலத்தை" அதிகரிக்கவும்.</value>
+  </data>
+  <data name="Page.Technique.ParallelViewing" xml:space="preserve">
+    <value>இணையான பார்வை</value>
+  </data>
+  <data name="Page.Technique.Practice" xml:space="preserve">
+    <value>நீங்கள் பயிற்சி செய்யக்கூடிய படங்கள்</value>
+  </data>
+  <data name="Title.Contact" xml:space="preserve">
+    <value>தொடர்பு கொள்ளவும்</value>
+  </data>
+  <data name="Title.Faq" xml:space="preserve">
+    <value>அடிக்கடி கேட்கப்படும் கேள்விகள்</value>
+  </data>
+  <data name="Title.Help" xml:space="preserve">
+    <value>உதவி</value>
+  </data>
+  <data name="Title.HowToUse" xml:space="preserve">
+    <value>CrossCam ஐ எவ்வாறு பயன்படுத்துவது</value>
+  </data>
+  <data name="Title.Technique" xml:space="preserve">
+    <value>3D பார்க்கும் நுட்பம்</value>
+  </data>
+  <data name="Title.Tips" xml:space="preserve">
+    <value>குறிப்புகள்</value>
+  </data>
+  <data name="Button.DoNotEmailMe" xml:space="preserve">
+    <value>இப்போது எனக்கு மின்னஞ்சல் அனுப்ப வேண்டாம்</value>
+  </data>
+  <data name="Button.EmailMeNow" xml:space="preserve">
+    <value>இப்போது எனக்கு மின்னஞ்சல் அனுப்பு</value>
+  </data>
+  <data name="Button.No" xml:space="preserve">
+    <value>இல்லை</value>
+  </data>
+  <data name="Button.OK" xml:space="preserve">
+    <value>சரி</value>
+  </data>
+  <data name="Button.YesClear" xml:space="preserve">
+    <value>ஆம், தெளிவாக</value>
+  </data>
+  <data name="Page.Camera.Aligning" xml:space="preserve">
+    <value>சீரமைக்கிறது...</value>
+  </data>
+  <data name="Page.Camera.AlignmentBroken" xml:space="preserve">
+    <value>சாதனத்தில் தானியங்கி சீரமைப்பு ஆதரிக்கப்படவில்லை - அமைப்புகளில் முடக்கவும்.</value>
+  </data>
+  <data name="Page.Camera.AlignmentFailed" xml:space="preserve">
+    <value>சீரமைப்பு தோல்வியடைந்தது.</value>
+  </data>
+  <data name="Page.Camera.BorderAsk" xml:space="preserve">
+    <value>ஒரு எல்லை கண்டறியப்பட்டது. கரையை அகற்றவா?</value>
+  </data>
+  <data name="Page.Camera.BorderDetected" xml:space="preserve">
+    <value>எல்லை கண்டறியப்பட்டது</value>
+  </data>
+  <data name="Page.Camera.Cancel" xml:space="preserve">
+    <value>ரத்து செய்</value>
+  </data>
+  <data name="Page.Camera.ChooseAction" xml:space="preserve">
+    <value>ஒரு செயலைத் தேர்ந்தெடுக்கவும்:</value>
+  </data>
+  <data name="Page.Camera.DirectoryNotFound" xml:space="preserve">
+    <value>கோப்பகம் கிடைக்கவில்லை</value>
+  </data>
+  <data name="Page.Camera.DirectoryNotFoundExplain" xml:space="preserve">
+    <value>சேமிக்க வேண்டிய இடத்தைக் கண்டறிய முடியவில்லை. அமைப்புகள் பக்கத்தில் இன்னொன்றைத் தேர்ந்தெடுக்கவும்.</value>
+  </data>
+  <data name="Page.Camera.ErrorEmailBody" xml:space="preserve">
+    <value>தவறு நடக்கும் முன் நீங்கள் என்ன செய்தீர்கள்? சிறிய விஷயங்களைக் கூட விவரிக்கவும்.\n\n\n\n\n\nபிழைக்குப் பிறகும் CrossCam வேலை செய்ததா? இல்லையெனில், அது எப்படி உடைகிறது?\n\n\n\n\n\nஇது மீண்டும் மீண்டும் நடக்கிறதா? அப்படியானால், எப்படி?\n\n\n\n\n\n</value>
+  </data>
+  <data name="Page.Camera.FlipForCardboard" xml:space="preserve">
+    <value>அட்டைப் பயன்முறையில் இருக்கும்போது, ​​இயற்கைக்காட்சிக்கு புரட்டவும்.</value>
+  </data>
+  <data name="Page.Camera.FlipLarger" xml:space="preserve">
+    <value>(பெரிய காட்சிக்கு நிலப்பரப்புக்கு புரட்டவும்)</value>
+  </data>
+  <data name="Page.Camera.ForAnaglyph" xml:space="preserve">
+    <value>anaglyph க்கான</value>
+  </data>
+  <data name="Page.Camera.ForCardboard" xml:space="preserve">
+    <value>அட்டைக்கு</value>
+  </data>
+  <data name="Page.Camera.ForCross" xml:space="preserve">
+    <value>குறுக்கு</value>
+  </data>
+  <data name="Page.Camera.ForParallel" xml:space="preserve">
+    <value>இணையாக</value>
+  </data>
+  <data name="Page.Camera.GoPickRole" xml:space="preserve">
+    <value>இணைக்க முயற்சிக்கும் முன், இணைத்தல் பக்கத்திற்குச் சென்று (அமைப்புகள் பக்கம் வழியாக) இந்தச் சாதனத்திற்கான இணைத்தல் பங்கைத் தேர்ந்தெடுக்கவும்.</value>
+  </data>
+  <data name="Page.Camera.InvalidImage" xml:space="preserve">
+    <value>தவறான படம்</value>
+  </data>
+  <data name="Button.Camera.Keep" xml:space="preserve">
+    <value>வை</value>
+  </data>
+  <data name="Page.Camera.LoadFullImage" xml:space="preserve">
+    <value>முழு ஸ்டீரியோ படத்தை ஏற்றவும்</value>
+  </data>
+  <data name="Page.Camera.Loading" xml:space="preserve">
+    <value>ஏற்றுகிறது...</value>
+  </data>
+  <data name="Page.Camera.LoadSingleSide" xml:space="preserve">
+    <value>ஒற்றை பக்கத்தை ஏற்றவும்</value>
+  </data>
+  <data name="Page.Camera.ManualCorrections" xml:space="preserve">
+    <value>கைமுறை திருத்தங்களையும் கருத்தில் கொள்ளவும்.</value>
+  </data>
+  <data name="Page.Camera.MirrorOnLeft" xml:space="preserve">
+    <value>இடதுபுறத்தில் கண்ணாடி</value>
+  </data>
+  <data name="Page.Camera.MirrorOnRight" xml:space="preserve">
+    <value>வலதுபுறத்தில் கண்ணாடி</value>
+  </data>
+  <data name="Page.Camera.MoveLeft" xml:space="preserve">
+    <value>இடதுபுறம் நகர்த்தவும்</value>
+  </data>
+  <data name="Page.Camera.MoveRight" xml:space="preserve">
+    <value>வலதுபுறம் நகர்த்தவும்</value>
+  </data>
+  <data name="Page.Camera.NoSaveModes" xml:space="preserve">
+    <value>செயலில் சேமிக்கும் முறைகள் இல்லை</value>
+  </data>
+  <data name="Page.Camera.NoSaveModesExplain" xml:space="preserve">
+    <value>எந்த சேமிப்பு முறைகளும் தற்போது இயக்கப்படவில்லை. அமைப்புகள் பக்கத்தில் சேமிப்பு பயன்முறையை இயக்கவும்.</value>
+  </data>
+  <data name="Page.Camera.Oops" xml:space="preserve">
+    <value>அச்சச்சோ</value>
+  </data>
+  <data name="Page.Camera.OrRotate" xml:space="preserve">
+    <value>(அல்லது சுழற்று)</value>
+  </data>
+  <data name="Page.Camera.OrSwipe" xml:space="preserve">
+    <value>(அல்லது ஸ்வைப்)</value>
+  </data>
+  <data name="Page.Camera.PairRoleNotSelected" xml:space="preserve">
+    <value>ஜோடி பங்கு தேர்ந்தெடுக்கப்படவில்லை</value>
+  </data>
+  <data name="Page.Camera.PinchOrDrag" xml:space="preserve">
+    <value>ஆராய பிஞ்ச் அல்லது இழுக்கவும்!</value>
+  </data>
+  <data name="Page.Camera.PleaseSelectValid" xml:space="preserve">
+    <value>Jpeg, Png அல்லது Webp படத்தைத் தேர்ந்தெடுக்கவும். நீங்கள் தேர்ந்தெடுத்த படம்</value>
+  </data>
+  <data name="Page.Camera.ReallyClear" xml:space="preserve">
+    <value>உண்மையில் தெளிவானதா?</value>
+  </data>
+  <data name="Button.Camera.Remove" xml:space="preserve">
+    <value>அகற்று</value>
+  </data>
+  <data name="Page.Camera.SavedToCustomFolder" xml:space="preserve">
+    <value>தனிப்பயன் கோப்புறையில் சேமிக்கப்பட்டது</value>
+  </data>
+  <data name="Page.Camera.SavedToExternal" xml:space="preserve">
+    <value>வெளிப்புறத்தில் சேமிக்கப்பட்டது</value>
+  </data>
+  <data name="Page.Camera.SavedToPhotos" xml:space="preserve">
+    <value>புகைப்படங்களில் சேமிக்கப்பட்டது</value>
+  </data>
+  <data name="Page.Camera.SaveFailed" xml:space="preserve">
+    <value>சேமிப்பு தோல்வி. :(</value>
+  </data>
+  <data name="Page.Camera.Saving" xml:space="preserve">
+    <value>சேமிக்கிறது...</value>
+  </data>
+  <data name="Page.Camera.SecondaryOnLeft" xml:space="preserve">
+    <value>இடதுபுறத்தில் இரண்டாம் நிலை</value>
+  </data>
+  <data name="Page.Camera.SecondaryOnRight" xml:space="preserve">
+    <value>செகண்டரி வலதுபுறம்</value>
+  </data>
+  <data name="Page.Camera.SelectedInvalid" xml:space="preserve">
+    <value>தேர்ந்தெடுக்கப்பட்ட படம் தவறானது.</value>
+  </data>
+  <data name="Page.Camera.SorryError" xml:space="preserve">
+    <value>மன்னிக்கவும், CrossCam பிழை செய்துள்ளது. பிழை அறிக்கை தானாகவே அனுப்பப்பட்டது. நீங்கள் தவறாக எதையும் கவனிக்காமல் இருக்கலாம், ஆனால் நீங்கள் செய்தால், பயன்பாட்டை மறுதொடக்கம் செய்ய முயற்சிக்கவும். இது தொடர்ந்து நடந்தால், தயவுசெய்து எனக்கு மின்னஞ்சல் செய்து அதைப் பற்றி சொல்லுங்கள். (இந்த பாப்அப்களை நிறுத்த அமைப்புகள் பக்கத்திற்குச் செல்லவும்.)</value>
+  </data>
+  <data name="Page.Camera.Steady" xml:space="preserve">
+    <value>நிலையான...</value>
+  </data>
+  <data name="Page.Camera.SureClear" xml:space="preserve">
+    <value>உங்கள் படங்களை அழித்து மீண்டும் தொடங்க விரும்புகிறீர்களா?</value>
+  </data>
+  <data name="Page.Camera.Syncing" xml:space="preserve">
+    <value>ஒத்திசைக்கிறது...</value>
+  </data>
+  <data name="Page.Camera.Transmitting" xml:space="preserve">
+    <value>கடத்துகிறது...
+(சாதனத்தைத் திறந்து வைக்கவும்)</value>
+  </data>
+  <data name="Page.Camera.VR" xml:space="preserve">
+    <value>வி.ஆர்</value>
+  </data>
+  <data name="Page.FovCorrection" xml:space="preserve">
+    <value>பார்வைத் திருத்தம்</value>
+  </data>
+  <data name="Page.FovCorrectionExplain" xml:space="preserve">
+    <value>வெவ்வேறு சாதன மாதிரிகள் வெவ்வேறு காட்சிப் புலங்களைக் கொண்டிருக்கலாம். உங்கள் முதல் படப்பிடிப்பைச் செய்த பிறகு, CrossCam இதைச் சரிசெய்ய உதவும். இரண்டு சாதனங்களிலும் புள்ளிகள் தெரியும் என்பதை உறுதிசெய்து, சட்டகத்தின் மேல் மற்றும் கீழ் பகுதியில் உள்ள தனித்துவமான புள்ளிகளுடன் எதையாவது ஃபிரேம் அப் செய்து பிடிக்கவும்.</value>
+  </data>
+  <data name="Page.Technique.ParallelLink1" xml:space="preserve">
+    <value>அருமையான உரை பயிற்சி</value>
+  </data>
+  <data name="Page.Technique.ParallelLink2" xml:space="preserve">
+    <value>மற்றொரு நல்ல உரை பயிற்சி</value>
+  </data>
+  <data name="Page.Technique.ParallelLink3" xml:space="preserve">
+    <value>இன்னும் ஒரு நல்ல உரை பயிற்சி</value>
+  </data>
+  <data name="Page.Technique.ParallelLink4" xml:space="preserve">
+    <value>மேஜிக் ஃபிராங்க்ஃபர்ட்டர் டுடோரியல்</value>
+  </data>
+  <data name="Page.Technique.ParallelLink5" xml:space="preserve">
+    <value>மேஜிக் ஐ பற்றிய அருமையான காணொளி</value>
+  </data>
+  <data name="Page.Technique.Trouble" xml:space="preserve">
+    <value>உங்களுக்கு இன்னும் சிக்கல் இருந்தால், உங்கள் ஃபோனை இருண்ட அறைக்குக் கொண்டு வர முயற்சிக்கவும், இதனால் உங்கள் கண்கள் நன்றாகப் பார்க்கக்கூடிய ஒரே விஷயம் படத்தில் கவனம் செலுத்தும்.
+
+நீங்கள் முயற்சி செய்யக்கூடிய மற்றொரு விஷயம், டாய்லெட் பேப்பர் குழாய்கள் அல்லது உங்கள் கைகளைப் பயன்படுத்தி அதை உருவாக்குவது, ஒவ்வொரு கண்ணும் அது பார்க்க வேண்டிய படத்தின் பக்கத்தை மட்டுமே பார்க்க முடியும்.
+ • குறுக்கு பார்வைக்கு: உங்கள் மூக்கின் பாலத்திற்கு எதிராக (உங்கள் கண்களுக்கு இடையில் மையமாக) ஒற்றைக் குழாயைப் பிடிக்கவும், அதை உங்களுக்கு முன்னால் உள்ள படத்தின் மையத்தில் சுட்டிக்காட்டவும். இரண்டு கண்களாலும் குழாயை கீழே பார்க்க முயற்சிக்கும்போது மெதுவாக குழாயை திரையை நோக்கி நகர்த்தவும். நீங்கள் குழாயுடன் சரியான நிலையை அடையும் போது, ​​​​படம் சரியான இடத்தில் பட வேண்டும். குழாயின் தூர முனையின் உட்புறத்தைப் பார்க்க முயற்சி செய்வதில் கவனம் செலுத்த இது உதவும். நீங்கள் சரியான நிலையை கண்டுபிடிக்க முடியவில்லை என்றால், ஒரு பெரிய படத்தை அல்லது சிறிய குழாய் பயன்படுத்தி முயற்சிக்கவும்.
+ • இணையான பார்வைக்கு: ஒவ்வொரு கண்ணின் முன்னும் ஒரு குழாயைப் பிடித்துக் கொள்ளுங்கள், ஆனால் அவை இரண்டையும் பக்கவாட்டில் சுட்டிக்காட்டுங்கள், அதனால் நீங்கள் எதையும் பார்க்க முடியாது. அதே நேரத்தில் குழாய்களை மெதுவாக உள்நோக்கித் திருப்புங்கள், இதன் மூலம் நீங்கள் படத்தை அதிகமாகப் பார்க்கத் தொடங்கலாம். படத்தின் பெரும்பகுதியை நீங்கள் காணும் தருணத்தில் (ஒவ்வொரு கண்ணிலும் ஏறக்குறைய பாதி), உங்கள் கண்களை நிதானப்படுத்தி, பகுதிகளை ஒன்றாக இணைக்க முயற்சிக்கவும். பெரிய அல்லது சிறிய படத்தைப் பயன்படுத்த இது உதவும்.
+
+குறுக்கு அல்லது இணையான பார்வையுடன் இணைவதைப் பயிற்சி செய்ய நீங்கள் செய்யக்கூடிய எளிதான பயிற்சி உள்ளது. ஒரு மார்க்கரை எடுத்து உங்கள் ஒவ்வொரு சிறுபடத்திலும் (அல்லது ஒரு ஜோடி பாப்சிகல் குச்சிகள் அல்லது நாக்கு அழுத்திகள்) ஸ்மைலி முகத்தின் ஒரு பகுதியை வரையவும். உதாரணமாக, ஒரு பக்கத்தில் ஒரு கண் மற்றும் வாயை வரையவும், மறுபுறம் ஒரு கண் மற்றும் மூக்கை வரையவும். நீங்கள் அவற்றை உங்கள் முன் வைத்து, ஸ்மைலி முகத்தை முடிக்க இரண்டு படங்களையும் ஒன்றாக இணைத்து பயிற்சி செய்யலாம்.
+
+நான் தனிப்பட்ட முறையில் கிராஸ் ஓவர் பேரலலை விரும்புகிறேன், ஏனெனில் படங்கள் பெரியதாக இருக்கலாம், ஆனால் இரண்டு முறைகளும் வேலை செய்கின்றன. பெரிய இணையான படங்களைப் பரிசோதனை செய்ய விரும்பினால், அமைப்புகள் பக்கத்தில் அளவைக் கட்டுப்படுத்தலாம்.
+
+சில நேரங்களில் நீங்கள் குறுக்கு முறையைச் செய்கிறீர்களா அல்லது இணையான முறையைச் செய்கிறீர்களா என்பதை உணர கடினமாக இருக்கும். நீங்கள் அதைச் செய்யும்போது உங்கள் கண்களைப் பார்க்கும்படி வேறொருவரைக் கேட்கலாம் அல்லது சோதனையாக கீழே உள்ள படத்தைப் பார்க்கலாம்:</value>
+  </data>
+  <data name="SaveModes.Anaglyph" xml:space="preserve">
+    <value>அனாக்லிஃப்</value>
+  </data>
+  <data name="SaveModes.Cardboard" xml:space="preserve">
+    <value>அட்டை</value>
+  </data>
+  <data name="SaveModes.Cross" xml:space="preserve">
+    <value>குறுக்கு</value>
+  </data>
+  <data name="SaveModes.GrayscaleAnaglyph" xml:space="preserve">
+    <value>கிரேஸ்கேல் அனாக்லிஃப்</value>
+  </data>
+  <data name="SaveModes.Parallel" xml:space="preserve">
+    <value>இணை</value>
+  </data>
+  <data name="SaveModes.Quad" xml:space="preserve">
+    <value>குவாட்</value>
+  </data>
+  <data name="SaveModes.Separate" xml:space="preserve">
+    <value>தனி</value>
+  </data>
+  <data name="SaveModes.Single" xml:space="preserve">
+    <value>ஒற்றை</value>
+  </data>
+  <data name="SaveModes.Triple" xml:space="preserve">
+    <value>மும்மடங்கு</value>
+  </data>
+  <data name="Page.Camera.FovExplain" xml:space="preserve">
+    <value>பார்வை வேறுபாடுகளை சரிசெய்ய, படங்களை பெரிதாக்கி ஸ்லைடு செய்யவும், இதனால் இரண்டு புகைப்படங்களுக்கு இடையில் தனித்துவமான புள்ளிகள் வரிசையாக இருக்கும். சீரமைப்பைக் காட்சிப்படுத்த உங்களுக்கு உதவ, வெள்ளைக் கோடுகளைச் சுற்றி இழுக்கலாம். இந்தத் திருத்தம் எதிர்கால மாதிரிக்காட்சிகளுக்குப் பயன்படுத்தப்படும். இது சேமிக்கப்படும், ஆனால் நீங்கள் அதை அமைப்புகள் பக்கத்தில் மீட்டமைக்கலாம். நீங்கள் ஒரே மாதிரியான சாதனங்களைப் பயன்படுத்தினால், சரிசெய்யாமல் சேமிக்கவும்.</value>
+  </data>
+  <data name="Page.Camera.FovTitle" xml:space="preserve">
+    <value>பார்வைத் திருத்தம்</value>
+  </data>
+  <data name="Page.Camera.KeyPoints" xml:space="preserve">
+    <value>முக்கிய புள்ளிகள்</value>
+  </data>
+  <data name="Page.Camera.Warped" xml:space="preserve">
+    <value>திரிக்கப்பட்ட</value>
+  </data>
+  <data name="Page.Camera.WelcomeExplain" xml:space="preserve">
+    <value>3D புகைப்படங்களை எடுக்க உதவும் வகையில் CrossCam உருவாக்கப்பட்டது. புகைப்படங்கள் VR அல்லது 3D திரைப்படங்களைப் போலவே 3D ஆகும், ஆனால் உங்களுக்கு சிறப்பு உபகரணங்கள் அல்லது கண்ணாடிகள் எதுவும் தேவையில்லை - உங்கள் தொலைபேசி மட்டுமே (ஆனால் உங்களிடம் ஒரு ஜோடி சிவப்பு/சியான் 3D கண்ணாடிகள் அல்லது கூகிள் கார்ட்போர்டு வியூவர் இருந்தால், நீங்கள் அவற்றைப் பயன்படுத்தலாம். CrossCam உடன்). உங்கள் ஃபோனையும் உங்கள் கண்களையும் மட்டுமே பயன்படுத்தும் \"இலவச பார்வை\" நுட்பம் கற்றுக்கொள்வதற்கு சில பயிற்சிகளை எடுக்கும். CrossCam ஐ எவ்வாறு பயன்படுத்துவது என்று நான் உங்களுக்குச் சொல்வதற்கு முன், பார்க்கும் நுட்பத்தைப் பற்றி மேலும் அறிய விரும்புகிறீர்களா?</value>
+  </data>
+  <data name="Page.Camera.Welcome" xml:space="preserve">
+    <value>CrossCam க்கு வரவேற்கிறோம்!</value>
+  </data>
+  <data name="Page.Camera.Directions" xml:space="preserve">
+    <value>திசைகளுக்குச் செல்லவும்</value>
+  </data>
+  <data name="Page.Camera.Technique" xml:space="preserve">
+    <value>பார்க்கும் நுட்பம்</value>
+  </data>
+  <data name="Page.HowToUse.P1" xml:space="preserve">
+    <value>இதை மீண்டும் பார்க்க விரும்பினால், கேமரா திரையின் மேல் இடதுபுறத்தில் உள்ள ஹாம்பர்கர் (மூன்று கோடுகள்) ஐகானைத் தட்டி, "உதவி" என்பதைத் தட்டவும்.
+
+
+1) ஃப்ரேம் அப் செய்து முதல் படத்தை எடுக்கவும்.</value>
+  </data>
+  <data name="Page.HowToUse.P2" xml:space="preserve">
+    <value>3) உங்கள் மொபைலை உங்கள் முன் நிலையாக வைத்துக்கொண்டு, CrossCam உங்களுக்குச் சொல்லும் திசையில் மெதுவாகப் பக்கவாட்டில் நகர்த்தவும். அதிக தூரம் நகர வேண்டாம் - உங்கள் இலக்கு இருக்கும் ஒவ்வொரு அடிக்கும் ஒரு அங்குலம் அல்லது அதற்கும் குறைவாக. மேலும், திரும்ப வேண்டாம், பக்கவாட்டாக சரியவும் அல்லது சாய்ந்திருக்கலாம்.
+
+4) முதல் படத்தை இரண்டாவது படத்தின் முன்னோட்டத்துடன் சீரமைத்து, நீங்கள் பார்ப்பதை நீங்கள் விரும்பியவுடன் இரண்டாவது படத்தை எடுக்கவும்.
+
+5) CrossCam உங்கள் படங்களைப் படம்பிடித்த பிறகு தானாகவே சீரமைக்கும், ஆனால் அது சரியாக இல்லை, அவை எவ்வாறு சீரமைக்கப்பட்டது என்பது உங்களுக்குப் பிடிக்கவில்லை என்றால், சிறிய ரோபோ ஐகானைத் தட்டுவதன் மூலம் தானியங்கு சீரமைப்பை முடக்கலாம். CrossCam இல் பென்சில் ஐகானைத் தட்டுவதன் மூலம் நீங்கள் பெறக்கூடிய பல கைமுறை எடிட்டிங் விருப்பங்களும் உள்ளன.
+
+6) நீங்கள் சேமிக்கத் தயாராக இருக்கும்போது காசோலை குறியைத் தட்டவும்.
+
+
+நீங்கள் செய்யக்கூடிய பிற விஷயங்கள்:
+ • ஒரு புள்ளியில் கவனம் செலுத்த ஒரு முறை தட்டவும், தொடர்ச்சியான ஆட்டோ ஃபோகஸ்க்கு திரும்ப இரண்டு முறை தட்டவும்.
+ • அமைப்புகள் பக்கத்தைத் திறக்க கேமரா திரையின் மேல் வலதுபுறத்தில் உள்ள கியர் ஐகானைத் தட்டவும். இது சுவாரஸ்யமான விஷயங்கள் நிறைந்தது.
+ • கேமரா திரையின் மேல் இடதுபுறத்தில் உள்ள ஹாம்பர்கர் ஐகானைத் தட்டுவதன் மூலம் நீங்கள் பெறக்கூடிய நல்ல உதவிக்குறிப்புகள் பக்கம் உள்ளது, இது உங்கள் படங்களை சிறப்பாக்க உதவும்.
+ • உங்கள் இரண்டாவது ஷாட்டுக்காக நீங்கள் வேறு திசையை நகர்த்த விரும்பினால் அல்லது பக்கங்களை மாற்ற விரும்பினால் ஸ்வைப் செய்யவும்.
+ • ஒரு படத்தை ஒரு பக்கமாக ஏற்ற அல்லது முழு ஸ்டீரியோ படத்தை ஏற்றுவதற்கு கீழே உள்ள சிறிய கோப்புறை ஐகானைத் தட்டவும்.</value>
+  </data>
+  <data name="Page.Faq.Alignment" xml:space="preserve">
+    <value>தானியங்கு சீரமைப்பு எவ்வாறு செயல்படுகிறது?</value>
+  </data>
+  <data name="Page.Faq.Alignment.Body" xml:space="preserve">
+    <value>தன்னியக்க சீரமைப்பு பட ஜோடிகளை முடிந்தவரை சீரமைக்க முயற்சிக்கிறது, ஆனால் அது சரியானதாக இல்லை. கணினி பார்வை மனித கண்களை விட சில விஷயங்களில் சிறந்தது, ஆனால் மற்ற விஷயங்களில் மிகவும் மோசமாக உள்ளது. அது பார்க்கும் உலகம் நாம் செய்யும் உலகத்தை விட மிகவும் வித்தியாசமானது, ஆனால் அது சில வித்தியாசமான வழிகளிலும் பார்க்க முடியும். CrossCam இல் பார்க்கும் இரண்டு முக்கிய வழிகள் மேம்படுத்தப்பட்ட தொடர்பு குணகம் (ECC) மற்றும் முக்கிய புள்ளிகளைப் பயன்படுத்துதல்.
+
+ECC சீரமைப்பு முக்கியமாக இரண்டு பக்கங்களும் ஒன்றன் மேல் ஒன்றாக இருக்கும் போது ஒளி இணைப்புகள் ஒளி இணைப்புகளுடன் ஒன்றுடன் ஒன்று மற்றும் இருண்ட திட்டுகள் இருண்ட திட்டுகளுடன் ஒன்றுடன் ஒன்று இருப்பதை உறுதிப்படுத்த முயற்சிப்பதன் மூலம் செயல்படுகிறது. ECC சீரமைப்பு நம்பிக்கை மதிப்பெண்ணுடன் வருகிறது, இது சீரமைப்பு பயனுள்ளதாக இருந்ததா என்பதை தீர்மானிக்க உதவும். நம்பகத்தன்மை மிகக் குறைவாக இருந்தால் உருவாக்கப்பட்ட சீரமைப்பை நிராகரிக்க CrossCam அமைக்கப்பட்டுள்ளது, ஆனால் நீங்கள் அமைப்புகள் பக்கத்தில் நம்பிக்கை பாஸ்/தோல்வி வரம்பை உள்ளமைக்கலாம்.
+
+முக்கிய புள்ளி சீரமைப்பு, மூலைகள், விளிம்புகள், புள்ளிகள் மற்றும் உயர் மாறுபாடு போன்ற ஆர்வமுள்ள புள்ளிகளைத் தேடுகிறது மற்றும் இரு பக்கங்களுக்கு இடையில் அவற்றைப் பொருத்த முயற்சிக்கிறது. புள்ளிகள் பொருத்தப்பட்டவுடன், CrossCam பலவிதமான அல்காரிதங்களைப் பயன்படுத்தி பக்கங்களைத் திசைதிருப்ப முயற்சி செய்யலாம், இதனால் ஒரு பக்கத்திலிருந்து முக்கிய புள்ளிகள் அனைத்தும் மறுபுறம் தொடர்புடைய முக்கிய புள்ளிகளுக்கு முடிந்தவரை நெருக்கமாக இருக்கும்.
+
+க்ராஸ்கேம் முதலில் கீபாயிண்ட் சீரமைப்பைப் பயன்படுத்த திட்டமிடப்பட்டுள்ளது, ஆனால் கீபாயிண்ட் சீரமைப்பு தோல்வியடையும் போது அல்லது சிங்கிள் ஷாட் மிரர்-டிவிஷன் முறையில் கேப்சர் செய்யும் போது அது மீண்டும் ECC சீரமைப்பிற்கு வரும். எப்பொழுதும் முக்கிய புள்ளி சீரமைப்பைப் பயன்படுத்தவும் அல்லது எப்போதும் அமைப்புகள் பக்கத்தில் ECC சீரமைப்பைப் பயன்படுத்தவும் தானாக சீரமைப்பை உள்ளமைக்கலாம்.
+
+சிறிய ரோபோ ஐகானுக்குக் கீழே உள்ள கேமரா திரையில் சீரமைப்பு முடிவை CrossCam காண்பிக்கும். இது ECC சீரமைப்பைப் பயன்படுத்தினால், அது நம்பிக்கை சதவீதத்தைக் காண்பிக்கும். முக்கிய புள்ளி சீரமைப்பைப் பயன்படுத்தினால், அது "KP" என்பதைக் காண்பிக்கும். இரண்டு சீரமைப்பு முறைகளும் தோல்வியுற்றால், அது "F" ஐக் காண்பிக்கும். சீரமைப்பின் முடிவு உங்களுக்குப் பிடிக்கவில்லை என்றால், சீரமைப்பை அகற்ற சிறிய ரோபோ ஐகானைத் தட்டவும்.</value>
+  </data>
+  <data name="Page.Faq.Bad" xml:space="preserve">
+    <value>இது என் கண்களுக்கு தீமையா?</value>
+  </data>
+  <data name="Page.Faq.Bad.Body1" xml:space="preserve">
+    <value>எனக்குத் தெரியாது, ஆனால் நான் அப்படி நினைக்கவில்லை. இருப்பினும், அது மோசமாக உணர்ந்தால் ஓய்வு எடுத்துக் கொள்ளுங்கள். நடைமுறையில் அசௌகரியம் பொதுவாக குறைகிறது. எந்தப் பார்க்கும் முறையும் வெர்ஜென்ஸ்-அகாமடேஷன் மோதல் எனப்படும் விளைவு காரணமாக அசௌகரியத்தை ஏற்படுத்தலாம். இதோ</value>
+  </data>
+  <data name="Page.Faq.Bad.Body2" xml:space="preserve">
+    <value>ஒரு விக்கிபீடியா இணைப்பு.</value>
+  </data>
+  <data name="Page.Faq.Bad.Body3" xml:space="preserve">
+    <value>நீங்கள் குறுக்கு பார்வை முறையைப் பயன்படுத்துகிறீர்கள் என்றால், உங்கள் கண்கள் மிக நெருக்கமாக எதையாவது நீண்ட காலமாகப் பார்ப்பது போல் காட்டப் பழகாமல் இருப்பதும் காரணமாக இருக்கலாம். குறுக்கு பார்வையில், உங்கள் கண்கள் உங்கள் கண்களுக்கும் திரைக்கும் இடையில் பாதி தூரத்தில் ஒரு புள்ளியில் குவிகின்றன. நீண்ட நேரம் மூடியிருக்கும் ஒன்றைப் பார்ப்பதும் உங்களுக்கு அசௌகரியத்தை ஏற்படுத்தும் என்றால், எங்களிடம் விளக்கம் உள்ளது.
+
+அதில் எனது கருத்து என்னவென்றால், உங்கள் கண்கள் அவற்றின் அன்றாட திறன்களுக்கு வெளியே எதையும் செய்யவில்லை, ஆனால் நீங்கள் பொதுவாக பயன்படுத்தப்படாத இரண்டு வெவ்வேறு திறன்களை இணைக்கிறீர்கள். பொதுவாக கவனம் செலுத்த வசதியாக இருக்கும் ஒரு இடத்தில் உங்கள் லென்ஸை ஃபோகஸ் செய்கிறீர்கள், மேலும் உங்கள் லென்ஸ்கள் ஃபோகஸ் செய்யும் இடத்தில் உங்கள் கண்கள் குவியும் இடத்தில் உங்கள் கண்களைச் சுட்டிக்காட்டுகிறீர்கள். என்பது ஒரே புள்ளி அல்ல. உங்கள் பார்வை இன்னும் வளர்ச்சியடையாத வரை, அது உங்களுக்கு எப்படி மோசமாக இருக்கும் என்று எனக்குத் தெரியவில்லை.</value>
+  </data>
+  <data name="Page.Faq.Cardboard" xml:space="preserve">
+    <value>Google Cardboard உடன் CrossCamஐ எவ்வாறு பயன்படுத்துவது?</value>
+  </data>
+  <data name="Page.Faq.Cardboard.Body" xml:space="preserve">
+    <value>உங்கள் பார்வையாளரிடம் திரையின் மையப்பகுதியை அழுத்தும் பொத்தான் இருந்தால், அட்டைப் பெட்டியைப் பயன்படுத்திப் படம் பிடிக்க அதைப் பயன்படுத்தலாம். உங்கள் மொபைலின் கேமராவைப் பார்க்க உங்கள் பார்வையாளர் ஒரு துளையையும் வைத்திருக்க வேண்டும்.
+
+கார்ட்போர்டைப் பயன்படுத்தி புகைப்படங்களைப் பிடிக்க, உங்கள் மாதிரிக்காட்சி பார்க்கும் முறையை (அமைப்புகள் பக்கத்தில்) கார்ட்போர்டுக்கு மாற்றவும், பின்னர் கேமரா பக்கத்திற்குத் திரும்பி உங்கள் மொபைலை வியூவரில் ஒட்டவும். கைப்பற்ற பொத்தானை அழுத்தவும், இருபுறமும் கைப்பற்றப்பட்டவுடன், சேமிக்க மீண்டும் பொத்தானை அழுத்தவும். கார்ட்போர்டு பயன்முறையில் சேமிப்பது என்பது, பின்னர் பார்ப்பதற்காக, படங்களை மீண்டும் CrossCam இல் ஏற்றுவதற்கு மட்டுமே, உங்கள் பார்வையாளர் மூலம் உங்கள் புகைப்படங்கள் பயன்பாட்டில் அவற்றைப் பார்ப்பதற்காக அல்ல.
+
+நீங்கள் விரும்பும் வேறு எந்த முறையைப் பயன்படுத்தியும் படமெடுக்கலாம், பின்னர் உங்கள் முன்னோட்டம் பார்க்கும் முறையை அட்டைப் பெட்டிக்கு மாற்றி உங்கள் மொபைலை வியூவரில் வைக்கவும்.
+
+வெவ்வேறு பண்புகளுடன் பல்வேறு பார்வையாளர்கள் உள்ளனர். உங்கள் அனுபவத்தை மிகவும் வசதியாக மாற்ற, அட்டைப் பிரிப்பு தூரத்தை (அமைப்புகள் பக்கத்தில்) மாற்ற வேண்டியிருக்கலாம். உயர்தர ஸ்டீரியோகிராம்களைப் படமெடுப்பதில் நீங்கள் சிறந்தவர் என்பதை நீங்கள் முதலில் உறுதிசெய்துகொள்ள வேண்டும்.</value>
+  </data>
+  <data name="Page.Faq.How" xml:space="preserve">
+    <value>இது எப்படி வேலை செய்கிறது?</value>
+  </data>
+  <data name="Page.Faq.How.Body1" xml:space="preserve">
+    <value>3D விளைவு CrossCam பயன்படுத்தும் ஸ்டீரியோஸ்கோபி எனப்படும் நன்கு ஆய்வு செய்யப்பட்ட ஒரு துறையாகும், மேலும் இரு பக்கங்களையும் பார்க்க உங்கள் கண்களைக் கடக்கும் (அல்லது அவற்றைத் தளர்த்தும்) முறை இலவசப் பார்வை என்று அழைக்கப்படுகிறது. உலகைச் சுற்றிப் பார்க்கும்போது, ​​நம் ஒவ்வொரு கண்ணும் வெவ்வேறு கண்ணோட்டத்தில் பார்க்கிறது. ஸ்டீரியோஸ்கோபியில் நாம் செய்வது ஒவ்வொரு கண்ணுக்கும் ஒரு (செயற்கை) கண்ணோட்டத்தை வழங்குவதுதான், மற்றதை நம் மூளை செய்கிறது. ஒவ்வொரு கண்ணும் வெவ்வேறு படத்தைப் பார்க்க பல வழிகள் உள்ளன. இதோ</value>
+  </data>
+  <data name="Page.Faq.How.Body2" xml:space="preserve">
+    <value>ஸ்டீரியோஸ்கோபி பற்றிய விக்கிபீடியா இணைப்பு</value>
+  </data>
+  <data name="Page.Faq.How.Body3" xml:space="preserve">
+    <value>CrossCam மூலம் நீங்கள் எடுக்கும் 3D படங்கள் ஸ்டீரியோகிராம்கள் என்று அழைக்கப்படுகின்றன. மேஜிக் ஐ™ புத்தகங்களில் ஆட்டோஸ்டீரியோகிராம்கள் எனப்படும்.</value>
+  </data>
+  <data name="Page.Faq.Into" xml:space="preserve">
+    <value>ஸ்டீரியோஸ்கோபிக்கு எப்படி வந்தீர்கள்?</value>
+  </data>
+  <data name="Page.Faq.Into.Body1" xml:space="preserve">
+    <value>நான் எனது இயற்பியல் பட்டம் பெறும் போது, ​​லேசர்களைப் பயன்படுத்தி எனது சொந்த ஹாலோகிராம்களை உருவாக்குவதற்கான வாய்ப்பு கிடைத்தது. நான் உருவாக்கும் ஹாலோகிராம்களின் வகை 3D ஆகும், ஏனெனில் அவை கண்ணாடித் தகட்டின் மேற்பரப்பில் இருந்து பிரதிபலிக்கும் ஒளியில் அழிவுகரமான குறுக்கீட்டை ஏற்படுத்த டிஃப்ராஃப்ரக்ஷன் கிரேட்டிங்கைப் பயன்படுத்தியது, இதனால் பிரதிபலித்த படம் வெவ்வேறு இடங்களிலிருந்து வித்தியாசமாகத் தெரிகிறது. நம் ஒவ்வொரு கண்ணும் ஒரு படத்தை வெவ்வேறு கண்ணோட்டத்தில் பார்க்கும்போது (அவை மிகவும் வித்தியாசமாக இல்லாவிட்டால்), நம் மூளை அதை ஆழமாக உணர்கிறது.</value>
+  </data>
+  <data name="Page.Faq.Into.Body2" xml:space="preserve">
+    <value>ஸ்டீரியோஸ்கோபிக் உணர்வின் கொள்கையை நான் நீண்ட காலமாக அறிந்திருந்தேன், ஆனால் என் வாழ்க்கையில் அந்த நேரத்தில் நான் சில நிரலாக்க வகுப்புகளையும் எடுத்துக்கொண்டிருந்தேன், எனவே ஸ்டீரியோஸ்கோபிக் 3D வரைவதற்கு ஒரு எளிய கணினி நிரலை உருவாக்க முயற்சிக்க முடிவு செய்தேன். அந்த முயற்சி StereoSketcher ஆனது. அசல் பதிப்பு ஜாவாவில் எழுதப்பட்டது, ஆனால் நான் அதை ஜாவாஸ்கிரிப்ட் மற்றும் எஸ்விஜி மூலம் மீண்டும் எழுதினேன், இப்போது அது இணையத்தில் உள்ளது</value>
+  </data>
+  <data name="Page.Faq.Into.Body3" xml:space="preserve">
+    <value>இந்த இணைப்பில்.</value>
+  </data>
+  <data name="Page.Faq.Into.Body4" xml:space="preserve">
+    <value>இது எந்த வகையிலும் பிரபலமானது அல்ல, என்னைத் தவிர வேறு யாருக்கும் இதைப் பயன்படுத்துவது எளிதாக இருக்காது, ஆனால் அது வேலை செய்கிறது. ஸ்டீரியோஸ்கெட்சரில் பணிபுரியும் போது, ​​ஸ்டீரியோஸ்கோபியின் கொள்கைகளை நான் பரிசோதிக்க வேண்டியிருந்தது, மேலும் ஒரு சில எளிய விதிகளைப் பயன்படுத்தி அத்தகைய அதிவேகமான மற்றும் அழுத்தமான அனுபவத்தை உருவாக்கும் விதத்தில் நான் ஈர்க்கப்பட்டேன்.</value>
+  </data>
+  <data name="Page.Faq.Inverted" xml:space="preserve">
+    <value>3D ஏன் சரியாகத் தெரியவில்லை அல்லது 3D ஏன் தலைகீழாகத் தெரிகிறது?</value>
+  </data>
+  <data name="Page.Faq.Inverted.Body1" xml:space="preserve">
+    <value>குறுக்கு அல்லது இணையான முறையில் இலவசமாகப் பார்க்கும்போது, ​​படங்களை உருவாக்கப் பயன்படுத்திய அதே முறையைப் பயன்படுத்திப் பார்ப்பது முக்கியம். இல்லையெனில், உங்கள் வலது கண் இடது கண்ணின் நோக்கத்தை நோக்கும் மற்றும் நேர்மாறாக இருக்கும். இது படத்தின் ஆழத்தை தலைகீழாக மாற்றுகிறது, ஏனெனில் இடமாறு திசை மாற்றப்பட்டுள்ளது.
+
+இடமாறு என்பது உங்கள் வலது கண்ணின் கண்ணோட்டத்தில், பொருள்கள் தொலைவில் இருக்கும்போது, ​​​​உங்கள் இடது கண்ணிலிருந்து பார்க்கும்போது அவை நெருங்கிய பொருட்களை விட வலதுபுறம் இருப்பது போல் தெரிகிறது. வாக்கிய வடிவத்தில் விவரிக்கும்போது அது குழப்பமாக இருக்கிறது, ஆனால் நிரூபிக்கப்படும்போது மிகவும் உள்ளுணர்வு.
+
+ஆர்ப்பாட்டம் செய்ய, ஒரு விரலை உங்களுக்கு முன்னால் கையின் நீளத்திற்கு உயர்த்திப் பிடிக்கவும், பின்னர் உங்கள் மற்றொரு கையால் மற்றொரு விரலை முதல் விரலுக்கும் உங்கள் முகத்திற்கும் இடையில் பாதியாகப் பிடிக்கவும். நீங்கள் ஒவ்வொரு கண்ணையும் மாறி மாறி மூடிக்கொண்டு உங்கள் விரல்கள் இருக்கும் இடத்தில் கவனம் செலுத்தினால், ஒவ்வொரு கண்ணும் வெவ்வேறு இடங்களில் அவற்றைப் பார்ப்பதைக் காண்பீர்கள். இயற்கையாகவே, ஒவ்வொரு கண்ணும் அந்த இயக்கத்தை எதிர் திசையில் பார்த்தால், ஆழம் தலைகீழாக மாறும்.
+
+தற்செயலாக தவறான பார்வை முறையைப் பயன்படுத்துவது மிகவும் எளிதானது, ஏனென்றால் பெரும்பாலான மக்கள் தங்கள் கண்களைக் கடக்கிறார்களா அல்லது ஓய்வெடுக்கிறார்களா என்பதை உணர்வதன் மூலமோ அல்லது உலகின் குழப்பமான இரட்டை உருவத்தைப் பார்ப்பதன் மூலமோ சொல்வது மிகவும் கடினம். அதற்கு பதிலாக, உங்கள் கண்கள் என்ன செய்கின்றன என்பதை வேறு யாரேனும் பார்க்க வைப்பது நல்லது அல்லது இந்த சோதனையாளர் படத்தை முயற்சிக்கவும்:</value>
+  </data>
+  <data name="Page.Faq.Inverted.Body2" xml:space="preserve">
+    <value>மேஜிக் ஐ™ புத்தகங்களைப் பார்ப்பதில் பலர் மிகவும் வசதியாக உள்ளனர், அவை இணையான பார்வை முறையைப் பயன்படுத்தி பார்க்கப்பட வேண்டும். நீங்கள் அவற்றைக் கடந்து பார்த்தால், பக்கத்திலிருந்து பாப் ஆஃப் செய்ய வேண்டிய வலுவான 3D பொருள்கள் துளைகள் போல இருக்கும். இரண்டு முறைகளும் *ஏதாவது* பார்க்க உங்களை அனுமதிக்கின்றன, ஆனால் அது என்னவென்று உங்களால் சொல்ல முடியவில்லை என்றால், நீங்கள் அவற்றைப் பார்க்கிறீர்கள்.</value>
+  </data>
+  <data name="Page.Faq.Mirror" xml:space="preserve">
+    <value>"சிங்கிள்-ஷாட் மிரர்" முறையை நான் எப்படி செய்வது?</value>
+  </data>
+  <data name="Page.Faq.Mirror.Body1" xml:space="preserve">
+    <value>மிரர் முறையில் படமெடுப்பது சட்டகத்தை பாதியாகப் பிரித்து தேவையான மாற்றத்தைச் செய்கிறது, எனவே ஒரே நேரத்தில் ஒரு தொலைபேசி மற்றும் வழக்கமான கையடக்க கண்ணாடியைப் பயன்படுத்தி இரு பக்கங்களையும் கைப்பற்றலாம். படமெடுக்கும் போது மிரர் முறையைப் பயன்படுத்த, அமைப்புகள் பக்கத்தில் மிரர் பயன்முறைக்கான சுவிட்சை ஆன் செய்யவும் (அங்கு செல்ல கியர் ஐகானைத் தட்டவும்). நீங்கள் கண்ணாடி பயன்முறையை இயக்கிய பிறகு, உங்கள் கண்ணாடியை எந்தப் பக்கத்தில் வைத்திருக்க வேண்டும் என்பதை CrossCam உங்களுக்குத் தெரிவிக்கும். உங்கள் கண்ணாடியை அந்தப் பக்கத்தில் பிடித்து, உங்கள் தொலைபேசிக்கும் கண்ணாடிக்கும் உங்கள் பொருளுக்கும் இடையே உள்ள சீரமைப்பைப் பற்றி வம்பு செய்யுங்கள். சிறிது பொறுமையுடன், நீங்கள் அனைத்தையும் வரிசைப்படுத்தலாம், இதனால் கண்ணாடி ஒரு பக்கத்திற்கான சரியான முன்னோக்கைக் காட்டுகிறது. மிரர் முறையைப் பயன்படுத்துவது உங்கள் படத்தை செங்குத்தாக பாதியாகப் பிரிப்பதால், பொதுவாக மிரர் முறையில் நிலப்பரப்பில் படம்பிடிப்பது நல்லது.
+
+இந்த முறை பெரிய, சுத்தமான ஜன்னல்கள் மற்றும் இன்னும் ஏரிகள் அல்லது குட்டைகளில் (ஃபோன் உருவப்படத்தில் பூட்டப்பட்டு பக்கவாட்டாக புரட்டப்படும் போது) பிரதிபலிப்புகளுடன் வேலை செய்யும்.</value>
+  </data>
+  <data name="Page.Faq.Mirror.Body2" xml:space="preserve">
+    <value>கண்ணாடி முறையைப் பயன்படுத்துவதற்கு சில சமரசங்கள்/திருத்தங்கள் செய்யப்பட வேண்டும். இவை அனைத்தும் CrossCam இல் கைமுறையாகச் செய்யப்படலாம், ஆனால் தானியங்கு சீரமைப்பு உங்களுக்காக அவற்றைச் செய்ய முயற்சிக்கும்:
+ • பிரதிபலித்த காட்சியானது சாதாரண காட்சியை விட அதிக தூரம் பயணிப்பதால், பிரதிபலித்த பக்கத்தை சிறிது பெரிதாக்க வேண்டும்.
+ • கண்ணாடி முறையைப் பயன்படுத்தும் போது, ​​முன்னோக்குகளை இணையாக வைத்திருப்பதற்குப் பதிலாக, நீங்கள் துவண்டு போவீர்கள் - இது மோசமான செங்குத்து சீரமைப்பு போல தோற்றமளிக்கலாம் அதை செயல்தவிர்க்க, கீஸ்டோன் திருத்தம் செய்யப்படலாம், அதாவது ஒவ்வொரு படத்தின் ஒரு பக்கத்தையும் செங்குத்தாக சுருக்கவும்.
+ • டோயிங்-இன் ஸ்டீரியோ சாளரத்தை உங்களை நோக்கி நகர்த்த முனையும். நீங்கள் அதை செயல்தவிர்க்கலாம் மற்றும் பக்கங்களை செதுக்குவதன் மூலம் நீங்கள் விரும்பும் இடத்தில் வைக்கலாம்.
+ • கண்ணாடியானது ஒரு பக்கத்தின் பார்வையை முழுமையாக மறைக்காது, அதனால் பிரதிபலிக்காத பிட்களை அகற்ற சில கிராப்பிங் செய்ய வேண்டியிருக்கும்.
+
+இதற்கு சிறந்த கண்ணாடிகள் மெல்லிய கண்ணாடியைக் கொண்டுள்ளன. ஒன்று, அவை இலகுவானவை, எனவே அவை நீண்ட காலத்திற்கு வைத்திருக்க எளிதாக இருக்கும். மற்ற முக்கியமான விஷயம் என்னவென்றால், கண்ணாடியைப் பயன்படுத்தும் போது, ​​கண்ணாடியைப் பொதுவாகப் பயன்படுத்துவதால், கண்ணாடியை நேராகப் பார்ப்பதற்குப் பதிலாக, கண்ணாடியை பக்கவாட்டாகக் குறிவைப்பீர்கள். அப்படி நோக்கும்போது, ​​தடிமனான கண்ணாடி கொண்ட கண்ணாடிகள் சில மங்கலாக இருக்கலாம். மெல்லிய கண்ணாடி, இந்த மங்கலானது குறைவாக வெளிப்படையாக இருக்கும். இந்த வகையான கண்ணாடிகள் மற்ற விஷயங்களில் தரம் குறைந்ததாக இருக்கலாம், எனவே நல்ல சமநிலையைக் கண்டறிவது முக்கியம்.
+
+கிராஸ்கேமின் திருத்தங்களில் சரிசெய்ய முடியாத மிரர் கேப்சரிங் பயன்படுத்தும்போது இன்னும் சில சமரசங்கள் ஏற்கப்பட வேண்டும்:
+ • இரண்டு பக்கங்களின் பார்வையும் சற்று வித்தியாசமான தூரத்தில் பயணிப்பதால், ஒவ்வொரு பக்கத்திற்கும் தேவைப்படும் கவனம் சற்று வித்தியாசமாக இருக்கும், எனவே ஒரு பக்கம் எப்போதும் சற்று மங்கலாக இருக்கும். பொருளுக்கான தூரம் மற்றும் லென்ஸின் புலத்தின் ஆழத்தைப் பொறுத்து இந்த விளைவு அதிகமாகவோ அல்லது குறைவாகவோ கவனிக்கப்படும்.
+ • எந்த கண்ணாடியும் உண்மையில் 100% திறன் கொண்டதாக இல்லை, எனவே கண்ணாடியைப் பயன்படுத்தும் பக்கமானது சற்று கருமையாக இருக்கலாம். இது கண்ணாடியின் தரத்தைப் பொறுத்து மாறுபடும்.</value>
+  </data>
+  <data name="Page.Faq.Moving" xml:space="preserve">
+    <value>எனது பொருள் நகர்கிறது, அதை எப்படி 3D படங்களை எடுப்பது?</value>
+  </data>
+  <data name="Page.Faq.Moving.Body" xml:space="preserve">
+    <value>CrossCam ஒரே நேரத்தில் இரு கண்ணோட்டங்களையும் கைப்பற்ற இரண்டு முறைகளை அனுமதிக்கிறது. ஒரு முறை இரண்டு தொலைபேசிகளைப் பயன்படுத்துகிறது, ஒரு முறை கண்ணாடியைப் பயன்படுத்துகிறது.
+
+இரண்டு ஃபோன் அமைப்பைப் பயன்படுத்த, இணைத்தல் அமைவு பக்கத்தைப் பார்க்கவும், அதை நீங்கள் அமைப்புகள் பக்கத்திலிருந்து பெறலாம் (கியர் ஐகானைத் தட்டவும்).
+
+கண்ணாடி முறையைப் பயன்படுத்த, அதைப் பற்றிய பிற FAQ கேள்விகளைப் பார்க்கவும்.</value>
+  </data>
+  <data name="Page.Faq.Test" xml:space="preserve">
+    <value>CrossCam இன் முன்-வெளியீட்டு பதிப்புகளை நான் எவ்வாறு சோதிக்க முடியும்?</value>
+  </data>
+  <data name="Page.Faq.Test.Body" xml:space="preserve">
+    <value>இந்த Reddit இடுகையைப் பாருங்கள்</value>
+  </data>
+  <data name="Page.Faq.Why" xml:space="preserve">
+    <value>நீங்கள் ஏன் கிராஸ்கேம் செய்தீர்கள்?</value>
+  </data>
+  <data name="Page.Faq.Why.Body" xml:space="preserve">
+    <value>நான் ஸ்டீரியோஸ்கோபியில் ஆர்வம் காட்டத் தொடங்கியபோது, ​​​​யெல்லோஸ்டோனுக்கு ஒரு பயணம் மேற்கொள்ள நேர்ந்தது. நான் அங்கு இருந்தபோது, ​​3D கேமரா மொபைல் பயன்பாட்டைப் பயன்படுத்தி அங்குள்ள விஷயங்களை 3Dயில் படம்பிடிக்க முயற்சிப்பது வேடிக்கையாக இருக்கும் என்பதை உணர்ந்தேன். இருக்கும் விருப்பங்களால் நான் மிகவும் ஏமாற்றமடைந்தேன். அவை அனைத்தும் நீங்கள் இரண்டு பிடிப்புகளைச் செய்ய வேண்டும் என்று நான் கண்டேன், பின்னர் அவை ஏதேனும் நல்லவையா என்பதைக் கண்டறியவும். அவை பெரும்பாலும் இல்லை, ஏனெனில் எனது பிரிப்பு தூரம் மற்றும் பாடத்தின் தரம் குறித்து நான் மீண்டும் மீண்டும் முழுமையான யூகங்களைச் செய்ய வேண்டியிருந்தது.
+
+அடுத்த சில வாரங்களில் எனது கொதித்தெழுந்த விரக்தியானது முதல் படத்துடன் இரண்டாவது படப்பிடிப்பின் நேரடி முன்னோட்டத்தை எளிமையாக வழங்குவதை கற்பனை செய்ய வழிவகுத்தது. எனக்கு ஏற்கனவே மொபைல் டெவலப்மென்ட் பின்னணி இருந்தது, எனவே நேரம் ஒதுக்குவது ஒரு விஷயம். CrossCam நினைவுகளைப் பாதுகாக்க எனக்காகப் பயன்படுத்த எனக்கு அருமையாக இருந்தது, அதை உங்களுடன் பகிர்ந்து கொள்வதில் மகிழ்ச்சி அடைகிறேன்.</value>
+  </data>
+  <data name="Page.Faq.Wiggle" xml:space="preserve">
+    <value>விக்லெகிராம்கள் என்றால் என்ன?</value>
+  </data>
+  <data name="Page.Faq.Wiggle.Body" xml:space="preserve">
+    <value>Wigglegrams என்பது தொலைநோக்கி பார்வையில் தங்கியிருக்காத ஸ்டீரியோகிராம்களைப் பார்ப்பதற்கான ஒரு வழியாகும். அவை பொதுவாக இரண்டு முன்னோக்குகளுக்கு இடையில் முன்னும் பின்னுமாக புரட்டப்படும் ஒரு gif, ஒவ்வொன்றையும் ஒரே இடத்தில் முழுமையாகக் காட்டுகின்றன. CrossCam இப்போது அவற்றை உருவாக்குவதை ஆதரிக்கவில்லை, ஆனால் நீங்கள் உண்மையிலேயே ஆர்வமாக இருந்தால் எனக்கு மின்னஞ்சல் அனுப்புங்கள், நான் அதைச் செய்வேன்.</value>
+  </data>
+  <data name="Page.Tips.AlignAfter" xml:space="preserve">
+    <value>கிடைமட்ட கோடுகளைக் கவனியுங்கள், ஆனால் நீங்கள் பிறகு சீரமைக்கலாம்.</value>
+  </data>
+  <data name="Page.Tips.AlignAfter.Body" xml:space="preserve">
+    <value>படங்களை எடுக்கும்போது மேல் மற்றும் கீழ் வழிகாட்டி கோடுகளை ஒரே நேரத்தில் வரிசைப்படுத்துவது சாத்தியமற்றது என்று நீங்கள் கண்டால், நீங்கள் பக்கத்தை தவிர வேறு திசையில் நகர்ந்திருக்கலாம். படங்களை எடுப்பதற்கு முன் இதைச் சரிசெய்ய முயற்சிக்கவும், ஆனால் உண்மைக்குப் பிறகு சீரமைப்பது இதற்கு மிகவும் உதவும்.</value>
+  </data>
+  <data name="Page.Tips.Alignment" xml:space="preserve">
+    <value>நீங்கள் தானாக சீரமைப்பதை முடக்கலாம்.</value>
+  </data>
+  <data name="Page.Tips.Alignment.Body" xml:space="preserve">
+    <value>தானியங்கு சீரமைப்பின் முடிவுகள் உங்களுக்குப் பிடிக்கவில்லை என்றால், அமைப்புகள் பக்கத்தில் அதை முடக்கவும் அல்லது சிறிய ரோபோ ஐகானைத் தட்டவும், உங்கள் அசல் கைப்பற்றப்பட்ட படங்கள் மீட்டமைக்கப்படும்.</value>
+  </data>
+  <data name="Page.Tips.Donut" xml:space="preserve">
+    <value>டோனட் வழிகாட்டி உங்கள் சாளரத்திற்கு உதவும்.</value>
+  </data>
+  <data name="Page.Tips.Donut.Body" xml:space="preserve">
+    <value>அமைப்புகள் பக்கத்தில் ஒரு சோதனை வழிகாட்டி டோனட் உள்ளது, அதை நீங்கள் இயக்கலாம், இது பயன்படுத்தக்கூடிய அகலத்தை அதிகரிக்கும் போது உங்கள் ஸ்டீரியோ சாளரத்தைப் பாதுகாக்க உதவும். இடது மற்றும் வலதுபுறமாகத் திரும்புவதன் மூலம், டோனட்டின் ஆழம் மற்ற காட்சிகளுடன் ஒப்பிடும்போது மாறும் - டோனட்டின் ஆழத்தை அமைக்கவும், அது உங்கள் காட்சியின் மிகத் தொலைதூரப் புள்ளியில் அல்லது பின்னால் இருக்கும். கவனமாக இருங்கள், சிறிய காட்சிகளில் இதைப் பயன்படுத்துவது விஷயங்களை வேதனைப்படுத்தலாம் (மேலே உள்ள முக்கிய குறிப்புகளைப் பார்க்கவும்).</value>
+  </data>
+  <data name="Page.Tips.Keystone" xml:space="preserve">
+    <value>நீங்கள் டோ-இன் செய்தால் கீஸ்டோன் திருத்தம் தேவை.</value>
+  </data>
+  <data name="Page.Tips.Keystone.Body1" xml:space="preserve">
+    <value>ஒவ்வொரு ஷாட்டிலும் நீங்கள் உள்நோக்கி திரும்பினால், கீஸ்டோன் திருத்தங்களைச் செய்வது மிகவும் உதவியாக இருக்கும். பொதுவாக நீங்கள் புகைப்படங்களின் உள் விளிம்புகளை சுருக்கி, அவற்றை சமன் செய்ய மேல் மற்றும் கீழ் சிலவற்றை செதுக்க வேண்டும். இது போன்ற பொத்தானைத் தட்டுவதன் மூலம் கீஸ்டோன் எடிட்டிங் மெனுவைப் பெறுவீர்கள்:</value>
+  </data>
+  <data name="Page.Tips.Keystone.Body2" xml:space="preserve">
+    <value>உள்நோக்கித் திரும்புவது டோ-இன் எனப்படும். இது படத்தின் மூலைகளை இணைப்பதை கடினமாக்கும் முன்கணிப்பு விளைவை ஏற்படுத்தும். முன்னறிவிப்பு விளைவு நிஜ வாழ்க்கையில் எல்லா நேரங்களிலும் உள்ளது, ஏனென்றால் இணையான கோடுகள் உங்களிடமிருந்து தூரத்திற்குச் செல்லும்போது அவை ஒன்றிணைவது போல் தோன்றும், ஆனால் செயற்கையான முன்னோக்குகள் அதை விசித்திரமாக்குகின்றன.</value>
+  </data>
+  <data name="Page.Tips.Lean" xml:space="preserve">
+    <value>நீங்கள் சாய்ந்து கொள்ளலாம்.</value>
+  </data>
+  <data name="Page.Tips.Lean.Body" xml:space="preserve">
+    <value>சில சமயங்களில் படங்களை எடுக்க உங்கள் கால்களை இடது அல்லது வலது பக்கம் நகர்த்துவதற்குப் பதிலாக, உங்கள் கால்களைத் தவிர்த்து நின்று ஒவ்வொரு திசையிலும் சாய்வது எளிதாக இருக்கும், ஆனால் தொலைபேசியின் நிலை மற்றும் அதே உயரத்தில் கவனமாக இருக்கவும். நகர்த்துவதற்குப் பதிலாக சாய்ந்திருப்பது, அதிக தூரம் நகர்வதைத் தடுக்கவும், உங்கள் இலக்கை நேராக வைத்திருப்பதை எளிதாக்கவும் உதவும்.</value>
+  </data>
+  <data name="Page.Tips.Lines" xml:space="preserve">
+    <value>சீரமைப்பு கோடுகள் நகரலாம்.</value>
+  </data>
+  <data name="Page.Tips.Lines.Body" xml:space="preserve">
+    <value>நீங்கள் விரும்பினால், சீரமைப்புக் கோடுகளைச் சுற்றி இழுக்கலாம். எடிட்டிங் செய்யும் போது படங்களை சீரமைக்கும் போது இது மிகவும் உதவியாக இருக்கும்.</value>
+  </data>
+  <data name="Page.Tips.Old" xml:space="preserve">
+    <value>கிராஸ்கேமில் பழைய புகைப்படங்களைத் திறக்கலாம்.</value>
+  </data>
+  <data name="Page.Tips.Old.Body" xml:space="preserve">
+    <value>கேமரா பக்கத்தின் கீழே உள்ள கோப்புறை ஐகானைத் தட்டுவதன் மூலம் நீங்கள் முன்பு எடுக்கப்பட்ட படங்களை ஏற்றலாம், ஆனால் நீங்கள் பெரிய அளவிலான புகைப்படங்களுடன் பணிபுரிந்தால், அவற்றை உங்கள் புகைப்படங்கள் பயன்பாட்டிலிருந்து நேரடியாக CrossCam இல் பகிரலாம், இது உங்கள் படங்களைக் கண்காணிக்கும். உங்கள் புகைப்படங்களில் சிறப்பாக இடம் பெறுங்கள்.</value>
+  </data>
+  <data name="Page.Tips.Quick" xml:space="preserve">
+    <value>நீங்கள் மற்றவர்களுடன் இருக்கும்போது விரைவு பயன்முறையை இயக்கவும்.</value>
+  </data>
+  <data name="Page.Tips.Quick.Body" xml:space="preserve">
+    <value>நீங்கள் மற்றவர்களுடன் ஆய்வு செய்கிறீர்கள் என்றால், தானியங்கு சீரமைப்பு மற்றும் பார்டர்களை ஆஃப் செய்து, எடிட்டிங் செய்யாமல் படம் எடுத்தவுடன் சேமித்து ஃபாஸ்ட் மோடில் செல்வது நல்லது. நீங்கள் எப்போது வேண்டுமானாலும் படங்களை ஏற்றலாம், தானாக சீரமைக்கலாம் மற்றும் பின்னர் திருத்தலாம். அந்த வகையில் உங்கள் படங்களை அந்த இடத்திலேயே கச்சிதமாக எடுப்பதற்கு உங்கள் தோழர்கள் காத்திருக்க வேண்டியதில்லை, ஆனால் நீங்கள் விரும்பும் ஆழம் உண்மையில் உள்ளது என்பதில் நீங்கள் இன்னும் உறுதியாக இருக்க முடியும். முதல் சேமிப்பிற்கு முன் அவசரமாக எடிட்டிங் செய்யாமல் கவனமாக இருங்கள்! நீங்கள் செய்யும் எந்த திருத்தத்தையும் புறக்கணிக்கும் தனி பக்க சேமிப்பையும் நீங்கள் இயக்கலாம்.</value>
+  </data>
+  <data name="Page.Tips.Sick" xml:space="preserve">
+    <value>இயக்கம் உங்களை நோய்வாய்ப்படுத்தினால், அமைதியாக இருங்கள்.</value>
+  </data>
+  <data name="Page.Tips.Sick.Body" xml:space="preserve">
+    <value>எல்லா அசைவுகளும் உங்களை நோய்வாய்ப்படுத்தினால் அல்லது 3Dயில் பார்ப்பதை மிகவும் கடினமாக்கினால், நீங்கள் சிறிது நகர்ந்த பிறகு அதை 3D இல் பார்க்க முயற்சிக்காதீர்கள். பின்னர் படங்களை ஒன்றோடொன்று ஒப்பிட்டு, 3D பார்வை இல்லாமல் கிடைமட்ட கோடுகளைப் பயன்படுத்தி படங்களை சீரமைக்கவும், பின்னர் 3D பார்வையை ஒருமுறை சீரமைத்து அசையாமல் வைத்திருக்கவும்.</value>
+  </data>
+  <data name="Page.Tips.Space" xml:space="preserve">
+    <value>இந்தப் படங்கள் அதிக சேமிப்பிடத்தை எடுக்கலாம் - அவற்றைச் சுருக்கலாம்.</value>
+  </data>
+  <data name="Page.Tips.Space.Body" xml:space="preserve">
+    <value>இறுதிப் படத்தின் தெளிவுத்திறனை விகிதாசாரமாகக் குறைக்க அமைப்புகள் பக்கத்தில் ஒரு விருப்பம் உள்ளது - நீங்கள் இடத்தைச் சேமிக்க விரும்பினால் இது உதவும். உங்கள் புகைப்படம் செதுக்கப்படாவிட்டால், இறுதி முடிவு இரண்டு முழுத் தெளிவுத்திறன் கொண்ட படங்களை ஒன்றாக இணைத்து இரட்டைத் தெளிவுத்திறன் கொண்டதாக இருக்கும், அதாவது தரத்தை குறிப்பிடத்தக்க வகையில் பாதிக்காமல் நீங்கள் அடிக்கடி தெளிவுத்திறனில் பெரிய குறைப்பைப் பெறலாம்.</value>
+  </data>
+  <data name="Page.Tips.Turn" xml:space="preserve">
+    <value>திரும்ப வேண்டாம்.</value>
+  </data>
+  <data name="Page.Tips.Turn.Body" xml:space="preserve">
+    <value>நீங்கள் நகரும் போது, ​​உங்கள் ஃபோனை எந்த திசையிலும் சுழற்ற முயற்சிக்கவும், நீங்கள் பக்கத்திற்கு நகரும் போது விஷயத்தை நோக்கி திரும்புவதற்கான இயல்பான போக்கு உட்பட. சில சுழற்சிகள் தேவைப்படும் (சில நேரங்களில்), ஆனால் அதைக் குறைக்க முயற்சிக்கவும். ஃபோன் நேராக கிடைமட்ட ரெயிலில் பொருத்தப்பட்டிருப்பதை கற்பனை செய்து பாருங்கள், மேலும் ஸ்லைடு மட்டுமே முடியும். உள்நோக்கித் திரும்புவது ஒரு முன்னறிவிப்பு விளைவை ஏற்படுத்தும், இது மூலைகளை இணைக்க கடினமாக்குகிறது.</value>
+  </data>
+  <data name="Page.Tips.Window" xml:space="preserve">
+    <value>வலுவான ஸ்டீரியோ சாளரத்தை உருவாக்க பார்டர் மற்றும் க்ராப்பைச் சேர்க்கவும்.</value>
+  </data>
+  <data name="Page.Tips.Window.Body" xml:space="preserve">
+    <value>இரண்டு விஷயங்களைச் செய்வதன் மூலம் ஒரு சுவாரஸ்யமான ஸ்டீரியோ விண்டோ விளைவை உருவாக்கலாம்: 1) பார்டரை இயக்கவும் (அமைப்புகள் பக்கத்தில்) மற்றும் 2) குறுக்கு பார்வைக்காக, படத்தின் வெளிப்புற விளிம்பு 3D ஆக இருக்கும் வரை படத்தின் உள் விளிம்புகளை செதுக்கவும் (செதுக்கவும். நீங்கள் இணையாகப் பார்க்கிறீர்கள் என்றால் வெளிப்புற விளிம்புகள்). முக்கிய அம்சம் என்னவென்றால், வலது படத்தின் வலது விளிம்பு காட்சியின் வலது விளிம்பைக் காட்டுவதைத் தாண்டி, இடது படத்தின் வலது விளிம்பை சற்றுத் தாண்டியது. பார்டரைச் சேர்ப்பது அமைப்புகள் பக்கத்தில் மாற்றப்படும். இது குழப்பமாக இருந்தால், உட்புற விளிம்புகளில் இருந்து ஒரு கொத்தை செதுக்குங்கள், அது தெளிவாகத் தொடங்கும். உட்புற விளிம்புகளுக்கான செதுக்கு பொத்தான் இதுபோல் தெரிகிறது:</value>
+  </data>
+  <data name="Button.Code" xml:space="preserve">
+    <value>குறியீட்டைப் பார்க்கவும்</value>
+  </data>
+  <data name="Button.Developer" xml:space="preserve">
+    <value>டெவலப்பர் பற்றி</value>
+  </data>
+  <data name="Button.EmailMe" xml:space="preserve">
+    <value>எனக்கு மின்னஞ்சல் அனுப்பு</value>
+  </data>
+  <data name="Button.GitHub" xml:space="preserve">
+    <value>GitHub இல் சிக்கலைச் சேர்க்கவும்</value>
+  </data>
+  <data name="Button.Press" xml:space="preserve">
+    <value>இரண்டு சாதனங்களிலும் கேமரா திரைக்குச் சென்று கீழ் மூலையில் உள்ள ஜோடி பொத்தானைத் தட்டவும்</value>
+  </data>
+  <data name="Button.Primary" xml:space="preserve">
+    <value>ப்ரைமரியில் இங்கே தட்டவும்</value>
+  </data>
+  <data name="Button.Privacy" xml:space="preserve">
+    <value>தனியுரிமைக் கொள்கை</value>
+  </data>
+  <data name="Button.Secondary" xml:space="preserve">
+    <value>இரண்டாம்நிலையில் இங்கே தட்டவும்</value>
+  </data>
+  <data name="Button.Test" xml:space="preserve">
+    <value>சோதனை முன் வெளியீட்டு பதிப்புகள்</value>
+  </data>
+  <data name="Button.Wi-Fi" xml:space="preserve">
+    <value>இரண்டு சாதனங்களிலும் வைஃபை இயக்கப்பட்டிருப்பதை உறுதிசெய்யவும் (ஆனால் அது எதனுடனும் இணைக்கப்பட வேண்டியதில்லை)</value>
+  </data>
+  <data name="Page.Pairing.1" xml:space="preserve">
+    <value>உங்களிடம் CrossCam உடன் இரண்டு சாதனங்கள் நிறுவப்பட்டிருந்தால், இரண்டு கோணங்களில் இருந்து ஒரே நேரத்தில் புகைப்படங்களை எடுக்க அவற்றை இணைக்கலாம். ஒரே நேரத்தில் இரண்டு புகைப்படங்களை எடுப்பது சிறந்த ஸ்டீரியோகிராம்களை சாத்தியமாக்குகிறது.
+
+இந்த அம்சம் இன்னும் பரிசோதனையில் உள்ளது மற்றும் சிக்கல்கள் இருக்கலாம் என்பதை நினைவில் கொள்ளவும். இது எல்லா நேரத்திலும் சரியாக வேலை செய்யாமல் போகலாம் மற்றும் அது உங்கள் பேட்டரியை சாப்பிடலாம். இந்த நேரத்தில் சாதனங்கள் இணைக்க ஒரே தளமாக இருக்க வேண்டும் என்பதை நினைவில் கொள்ளவும் (Android அல்லது iOS இரண்டும்).
+
+ஒரே ஒரு சாதனம் மற்றும் CrossCam ஐப் பயன்படுத்தி *சரியான* ஒத்திசைவைப் பெறுவதற்கான ஒரு வழி "சிங்கிள்-ஷாட் மிரர்" முறையைப் பயன்படுத்துவதாகும். நீங்கள் அமைப்புகள் பக்கத்தில் அதை இயக்கலாம் மற்றும் நீங்கள் அடிக்கடி கேட்கப்படும் கேள்விகள் பக்கத்தில் அதைப் பற்றி படிக்கலாம்.
+
+இரண்டு சாதனங்களை ஒன்றாகப் பயன்படுத்துவதற்கு முன், அவற்றின் பாத்திரங்கள் ஒதுக்கப்பட வேண்டும். முதன்மை சாதனம் இரண்டு மாதிரிக்காட்சிகளைக் காண்பிக்கும், பிடிப்பைத் தூண்டும் மற்றும் இறுதிப் பிடிப்புகளை வைத்திருக்கும்/சேமிக்கும். பாத்திரங்களை ஒதுக்க, இரண்டு சாதனங்களையும் இந்தப் பக்கத்திற்குச் சென்று, கீழே உள்ள படிகளைப் பின்பற்றவும்:</value>
+  </data>
+  <data name="Page.Pairing.2" xml:space="preserve">
+    <value>உங்களுக்கு சிக்கல் இருந்தால், தயவுசெய்து கவனிக்கவும்:
+ • இணைத்தல் செயல்முறையைத் தொடங்கிய பிறகு, இணைத்தல் பொத்தானை எந்த நேரத்திலும் அதை நிறுத்த அல்லது துண்டிக்க மீண்டும் தட்டலாம்.
+ • இரு சாதனங்களிலும் இணைவதை நிறுத்தவும், ஒரே நேரத்தில் மீண்டும் தொடங்கவும் இது உதவும்.
+ • உங்கள் வைஃபை அல்லது டேட்டா நெட்வொர்க்குகள் செயல்படும் பட்சத்தில் அதிலிருந்து துண்டிக்க இது உதவக்கூடும்.
+ • ஒவ்வொரு கேமராவும் வித்தியாசமானது. இந்த வேறுபாடுகளில் கோணப் புலம், கவனம், வெளிப்பாடு மற்றும் வெள்ளை சமநிலை நடத்தை, நேரம் மற்றும் பலவற்றை உள்ளடக்கலாம். ஒரே மாதிரியான இரண்டு போன்கள் கூட சற்று வித்தியாசமாக நடந்து கொள்ளும். ஒரே மாதிரியான பழைய ஃபோன்களைப் பயன்படுத்த விரும்புகிறேன் (என் விஷயத்தில், ஒரு ஜோடி ஐபோன் 6).
+ • CrossCam என்பது மென்பொருள், வன்பொருள் அல்ல, எனவே பிடிப்பு தூண்டப்படும் துல்லியமான தருணத்தில் செயலிகள் மற்றும் நினைவகம் என்ன செய்கின்றன என்பதைப் பொறுத்து புகைப்படங்களை எடுப்பது சிறிது ஒத்திசைவு இல்லாமல் இருக்கலாம். இதன் விளைவாக, ஒத்திசைவு சில நேரங்களில் சரியானதாக இருக்காது, ஆனால் அது பொதுவாக மிக நெருக்கமாக இருக்க வேண்டும்.</value>
+  </data>
+  <data name="Page.Pairing.Again" xml:space="preserve">
+    <value>பின்னர் மீண்டும் இணைக்க, வைஃபை இயக்கப்பட்டிருப்பதை உறுதிசெய்து, இரு சாதனங்களிலும் முகப்புத் திரையில் உள்ள இணைப்பு பொத்தானைத் தட்டவும்.</value>
+  </data>
+  <data name="Page.Pairing.LocalNetworkAccess" xml:space="preserve">
+    <value>CrossCam க்கு உள்ளூர் நெட்வொர்க் அணுகல் அனுமதி தேவை. CrossCam உண்மையில் உள்ளூர் நெட்வொர்க்கைப் பயன்படுத்துவதில்லை, ஆனால் iOS சாதனங்களுக்கு ஸ்கேன் செய்ய Wi-Fi ஆண்டெனாவைப் பயன்படுத்த CrossCam இந்த அனுமதியைப் பெற வேண்டும். CrossCam இந்த அனுமதியை ஒருமுறை கேட்கும் - அனுமதி மறுக்கப்பட்டால், நீங்களே சென்று அமைப்புகள் பயன்பாட்டில் உள்ள சுவிட்சைப் புரட்ட வேண்டும்.</value>
+  </data>
+  <data name="Page.Pairing.Location" xml:space="preserve">
+    <value>உங்கள் சாதனங்களை இணைக்க, CrossCam, தேவைக்கேற்ப உதிரிபாகங்களை இயக்க அனுமதிகளையும் சக்தியையும் கோரும். தயவுசெய்து கவனிக்கவும்: CrossCam க்கு இருப்பிட அனுமதி தேவை மற்றும் இரண்டாம் நிலை சாதனத்துடன் இணைக்க, முதன்மை சாதனத்தில் இருப்பிடச் சேவைகளை இயக்க வேண்டும். இது வெறுமனே ஒரு ஆண்ட்ராய்டு தேவை மற்றும் முற்றிலும் என் கட்டுப்பாட்டிற்கு அப்பாற்பட்டது. CrossCam உண்மையில் உங்கள் இருப்பிடத்தை எந்த வகையிலும் பயன்படுத்தாது, ஆனால் அருகிலுள்ள சாதனங்களைத் தேடும் (கண்டறியும்) செயலானது உங்களை தோராயமாக கண்டறிய பயன்படும் என்பதால், உங்கள் இருப்பிடத்தை அணுக CrossCam க்கு அனுமதி தேவை.</value>
+  </data>
+  <data name="Page.Pairing.Permissions" xml:space="preserve">
+    <value>அனுமதிகள் பற்றிய குறிப்பு:</value>
+  </data>
+  <data name="Page.Pairing.Title" xml:space="preserve">
+    <value>இணைத்தல்</value>
+  </data>
+  <data name="Button.Back" xml:space="preserve">
+    <value>&lt; பின்</value>
+  </data>
+  <data name="Page.MorePictures.CrossViewSubreddit" xml:space="preserve">
+    <value>கிராஸ்வியூ சப்ரெடிட்</value>
+  </data>
+  <data name="Page.MorePictures.FacebookGroup" xml:space="preserve">
+    <value>ஸ்டீரியோஸ்கோபிக் 3D பேஸ்புக் குழு</value>
+  </data>
+  <data name="Page.MorePictures.GoogleDoc" xml:space="preserve">
+    <value>சிறந்த விஷயங்களின் Google ஆவணம்</value>
+  </data>
+  <data name="Page.MorePictures.Instagram" xml:space="preserve">
+    <value>இன்ஸ்டாகிராம் ஸ்டீரியோஸ்கோபிக் டேக்</value>
+  </data>
+  <data name="Page.MorePictures.Mine" xml:space="preserve">
+    <value>நான் எடுத்த படங்களைப் பார்க்கவும்</value>
+  </data>
+  <data name="Page.MorePictures.ParallelViewSubreddit" xml:space="preserve">
+    <value>ParallelView Subreddit</value>
+  </data>
+  <data name="Page.Settings.Alignment" xml:space="preserve">
+    <value>தானியங்கி சீரமைப்பு</value>
+  </data>
+  <data name="Page.Settings.Analytics" xml:space="preserve">
+    <value>CrossCamஐ மேம்படுத்த உதவ, அநாமதேய பயன்பாடு மற்றும் பிழைத் தரவைப் பகிரவும்</value>
+  </data>
+  <data name="Page.Settings.Border" xml:space="preserve">
+    <value>எல்லை</value>
+  </data>
+  <data name="Page.Settings.Camera" xml:space="preserve">
+    <value>புகைப்பட கருவி</value>
+  </data>
+  <data name="Page.Settings.Defaults" xml:space="preserve">
+    <value>இயல்புநிலைக்கு மீட்டமைக்கவும்</value>
+  </data>
+  <data name="Page.Settings.Editing" xml:space="preserve">
+    <value>எடிட்டிங்</value>
+  </data>
+  <data name="Page.Settings.ErrorEmail" xml:space="preserve">
+    <value>பிழைகள் ஏற்படும் போது மின்னஞ்சலை அனுப்புமாறு கேட்கவும்</value>
+  </data>
+  <data name="Page.Settings.Guides" xml:space="preserve">
+    <value>பிடிப்பு வழிகாட்டிகள்</value>
+  </data>
+  <data name="Page.Settings.Pairing" xml:space="preserve">
+    <value>இணைத்தல்</value>
+  </data>
+  <data name="Page.Settings.Preview" xml:space="preserve">
+    <value>முன்னோட்டம் பார்க்கும் முறை</value>
+  </data>
+  <data name="Page.Settings.Saving" xml:space="preserve">
+    <value>சேமிப்பு</value>
+  </data>
+  <data name="Page.TipMe.1" xml:space="preserve">
+    <value>CrossCam பயன்படுத்த இலவசம், விளம்பரம் இல்லாதது, திறந்த மூலமானது, உங்களிடமிருந்து எந்த தனிப்பட்ட தகவலையும் சேகரிக்காது, மேலும் ஒவ்வொரு அம்சத்திற்கும் முழு அணுகலை வழங்குகிறது. நான் கிராஸ்கேமில் வேலை செய்வதை விரும்புகிறேன் ஆனால் அதற்கு நிறைய நேரமும் முயற்சியும் தேவை. மக்கள் எனக்கு அனுப்பும் உதவிக்குறிப்புகளைத் தவிர, CrossCam இலிருந்து நான் பணம் சம்பாதிக்கவில்லை.</value>
+  </data>
+  <data name="Page.TipMe.2" xml:space="preserve">
+    <value>நீங்கள் CrossCam ஐ விரும்பினால் மற்றும் முடிந்தால், எனக்கு ஒரு உதவிக்குறிப்பை அனுப்பவும்.</value>
+  </data>
+  <data name="Page.TipMe.Ko-fi" xml:space="preserve">
+    <value>கோ-ஃபை</value>
+  </data>
+  <data name="Page.TipMe.Patreon" xml:space="preserve">
+    <value>பேட்ரியன்</value>
+  </data>
+  <data name="Page.TipMe.PayPal" xml:space="preserve">
+    <value>பேபால்</value>
+  </data>
+  <data name="Page.TipMe.Tipped" xml:space="preserve">
+    <value>நான் முனைந்துவிட்டேன்</value>
+  </data>
+  <data name="Page.TipMe.TippedTimes" xml:space="preserve">
+    <value>முறை, மொத்தம்</value>
+  </data>
+  <data name="Page.TipMe.Venmo" xml:space="preserve">
+    <value>வெண்மோ</value>
+  </data>
+  <data name="Title.MorePictures" xml:space="preserve">
+    <value>மேலும் படங்களை பார்க்கவும்</value>
+  </data>
+  <data name="Title.Settings" xml:space="preserve">
+    <value>அமைப்புகள்</value>
+  </data>
+  <data name="Title.TipMe" xml:space="preserve">
+    <value>குறிப்புகள் பாராட்டப்படுகின்றன!</value>
+  </data>
+  <data name="Settings.Alignment.Advanced" xml:space="preserve">
+    <value>மேம்பட்ட சீரமைப்பு அமைப்புகளைக் காட்டு</value>
+  </data>
+  <data name="Settings.Alignment.Ecc" xml:space="preserve">
+    <value>முதலில் ECC சீரமைப்பை எப்போதும் பயன்படுத்த முயற்சிக்கவும்</value>
+  </data>
+  <data name="Settings.Alignment.Keypoints" xml:space="preserve">
+    <value>எப்பொழுதும் முதலில் கீ பாயின்ட் சீரமைப்பைப் பயன்படுத்த முயற்சிக்கவும்</value>
+  </data>
+  <data name="Settings.Alignment.On" xml:space="preserve">
+    <value>கைப்பற்றிய பிறகு தானாகவே சீரமைக்கவும்</value>
+  </data>
+  <data name="Settings.Border.Color" xml:space="preserve">
+    <value>பார்டர் நிறம்</value>
+  </data>
+  <data name="Settings.Border.FuseGuide" xml:space="preserve">
+    <value>மேலே உருகி வழிகாட்டியைச் சேர்க்கவும் (ஒவ்வொரு பக்கத்திற்கும் மேலே ஒரு புள்ளி)</value>
+  </data>
+  <data name="Settings.Border.On" xml:space="preserve">
+    <value>கரையைச் சேர்க்கவும்</value>
+  </data>
+  <data name="Settings.Border.Prompt" xml:space="preserve">
+    <value>ஏற்றும் போது கண்டறியப்படும் போது பார்டரை ஆஃப் செய்யும்படி கேட்கவும்</value>
+  </data>
+  <data name="Settings.Border.Thickness" xml:space="preserve">
+    <value>பார்டர் தடிமன் (அகலத்தின் பத்தில் ஒரு பங்கு)</value>
+  </data>
+  <data name="Settings.Camera.Camera1" xml:space="preserve">
+    <value>ஃபோர்ஸ் கேமரா1 ஏபிஐ (நீங்கள் வினோதத்தை அனுபவித்தால் உதவியாக இருக்கும், ஆனால் இது வரையறுக்கப்பட்ட செயல்பாடுகளை விளைவிப்பதாக இருக்கும், அமலுக்கு வருவதற்கு கட்டாயமாக வெளியேறுதல்/மறுதொடக்கம் தேவை)</value>
+  </data>
+  <data name="Settings.Camera.Camera2" xml:space="preserve">
+    <value>ஃபோர்ஸ் கேமரா2 ஏபிஐ (ஆண்ட்ராய்டு 6 அல்லது அதற்கு மேற்பட்ட பதிப்பில் இருக்க வேண்டும், நீங்கள் பிழைகளைச் சந்தித்தால் உதவியாக இருக்கும், ஆனால் மேலும் பலவற்றைச் செய்தால், செயல்பாட்டிற்கு வெளியேறும்/மறுதொடக்கம் தேவை)</value>
+  </data>
+  <data name="Settings.Camera.LandscapeCaptureHorizontal" xml:space="preserve">
+    <value>நிலப்பரப்பு பிடிப்பு பொத்தான் கிடைமட்ட இடம்</value>
+  </data>
+  <data name="Settings.Camera.LandscapeCaptureVertical" xml:space="preserve">
+    <value>நிலப்பரப்பு பிடிப்பு பொத்தான் செங்குத்து இடம்</value>
+  </data>
+  <data name="Settings.Camera.Lock" xml:space="preserve">
+    <value>ஃபோகஸ் மற்றும் எக்ஸ்போஷரை ஃபோகஸ் செய்ய இரண்டாவது படத்திற்கான பூட்டு மற்றும் முதல் படத்திலிருந்து வெளிப்பாடு</value>
+  </data>
+  <data name="Settings.Camera.Pair" xml:space="preserve">
+    <value>ஜோடி பொத்தான் கிடைமட்ட இடம் (பிடிப்பு பொத்தான் மையமாக இருக்கும் போது)</value>
+  </data>
+  <data name="Settings.Camera.PointFocus" xml:space="preserve">
+    <value>ஃபோகஸ் டு பாயிண்ட், மீண்டும் தொடர்ச்சியான ஃபோகஸுக்கு மாற இருமுறை தட்டவும் (அல்லது சேமிக்கவும் அல்லது அழிக்கவும்)</value>
+  </data>
+  <data name="Settings.Camera.PortraitCapture" xml:space="preserve">
+    <value>போர்ட்ரெய்ட் கேப்சர் பட்டன் இடம்</value>
+  </data>
+  <data name="Settings.Editing.Align" xml:space="preserve">
+    <value>அதிகபட்ச செங்குத்து சீரமைப்பு விகிதம்</value>
+  </data>
+  <data name="Settings.Editing.Keystone" xml:space="preserve">
+    <value>அதிகபட்ச கீஸ்டோன்</value>
+  </data>
+  <data name="Settings.Editing.Rotation" xml:space="preserve">
+    <value>அதிகபட்ச சுழற்சி டிகிரி</value>
+  </data>
+  <data name="Settings.Editing.SideCrop" xml:space="preserve">
+    <value>அதிகபட்ச பக்க பயிர் விகிதம்</value>
+  </data>
+  <data name="Settings.Editing.TopCrop" xml:space="preserve">
+    <value>அதிகபட்ச மேல்/கீழ் பயிர் விகிதம்</value>
+  </data>
+  <data name="Settings.Editing.Zoom" xml:space="preserve">
+    <value>அதிகபட்ச ஜூம் விகிதம்</value>
+  </data>
+  <data name="Settings.Guides.Donut" xml:space="preserve">
+    <value>டோனட் வழிகாட்டியைக் காட்டு</value>
+  </data>
+  <data name="Settings.Guides.Fuse" xml:space="preserve">
+    <value>உருகி வழிகாட்டியைக் காட்டு (ஒவ்வொரு பக்கத்திற்கும் மேலே ஒரு புள்ளி)</value>
+  </data>
+  <data name="Settings.Guides.LineColor" xml:space="preserve">
+    <value>வெவ்வேறு வண்ண கோடுகள்</value>
+  </data>
+  <data name="Settings.Guides.Lines" xml:space="preserve">
+    <value>கோடுகள் தெரியும்</value>
+  </data>
+  <data name="Settings.Guides.Roll" xml:space="preserve">
+    <value>ரோல் வழிகாட்டி தெரியும்</value>
+  </data>
+  <data name="Settings.Pair.CaptureDelay" xml:space="preserve">
+    <value>படமெடுக்கும் தருணம் கூடுதல் தாமதம் (மி.வி) (இந்தச் சாதனத்தில் மட்டும் இலக்குப் பிடிப்புத் தருணத்தில் கூடுதல் தாமதத்தைச் சேர்க்கும்)</value>
+  </data>
+  <data name="Settings.Pair.Countdown" xml:space="preserve">
+    <value>கவுண்டவுன் நீளம் (டைமர்)</value>
+  </data>
+  <data name="Settings.Pair.Fov" xml:space="preserve">
+    <value>பார்வைத் துறையில் திருத்தம்</value>
+  </data>
+  <data name="Settings.Pair.FovNotSet" xml:space="preserve">
+    <value>FOV திருத்தம் அமைக்கப்படவில்லை (அமைப்பின் மூலம் நடக்க, இணைக்கப்பட்ட சாதனங்களுடன் ஒரு பிடிப்பைச் செய்யுங்கள்).</value>
+  </data>
+  <data name="Settings.Pair.FovReset" xml:space="preserve">
+    <value>மீட்டமை</value>
+  </data>
+  <data name="Settings.Pair.Go" xml:space="preserve">
+    <value>இணைத்தல் அமைவு பக்கத்திற்குச் செல்லவும்</value>
+  </data>
+  <data name="Settings.Pair.NoRole" xml:space="preserve">
+    <value>பாத்திரம் தேர்ந்தெடுக்கப்படவில்லை</value>
+  </data>
+  <data name="Settings.Pair.PreviewDelay" xml:space="preserve">
+    <value>முன்னோட்டம் பிரேம் தாமதம் (அதிக எண்ணிக்கை பிரேம் வீதத்தைக் குறைக்கும் ஆனால் பேட்டரியைச் சேமிக்கும்)</value>
+  </data>
+  <data name="Settings.Pair.Primary" xml:space="preserve">
+    <value>முதன்மை:</value>
+  </data>
+  <data name="Settings.Pair.PrimaryRole" xml:space="preserve">
+    <value>பங்கு: முதன்மை</value>
+  </data>
+  <data name="Settings.Pair.Sample" xml:space="preserve">
+    <value>கடிகார மாதிரி எண்ணிக்கை (குறைந்த எண்ணிக்கையானது ஆரம்ப ஒத்திசைவுக்குத் தேவைப்படும் நேரத்தைக் குறைக்கும், ஆனால் ஒத்திசைவு துல்லியத்தைக் குறைக்கலாம்)</value>
+  </data>
+  <data name="Settings.Pair.Secondary" xml:space="preserve">
+    <value>இரண்டாம் நிலை:</value>
+  </data>
+  <data name="Settings.Pair.SecondaryRole" xml:space="preserve">
+    <value>பங்கு: இரண்டாம் நிலை</value>
+  </data>
+  <data name="Settings.Pair.Timeout" xml:space="preserve">
+    <value>இணைப்பு நேரம் முடிந்தது (வினாடிகள்) (0 என்றால் காலாவதி இல்லை)</value>
+  </data>
+  <data name="Settings.Preview.Barrel" xml:space="preserve">
+    <value>லென்ஸ் திருத்தம்/பேரல் சிதைவைச் சேர்க்கவும் (பிரேம் வீதத்தைக் குறைக்கலாம்)</value>
+  </data>
+  <data name="Settings.Preview.BarrelFinal" xml:space="preserve">
+    <value>இறுதிப் படங்களுக்கு மட்டும் லென்ஸ் திருத்தம்/பேரல் சிதைவைச் சேர்க்கவும் (இறுதிக் காட்சியைக் குறைக்கலாம் ஆனால் படமெடுப்பதை விரைவுபடுத்தும்)</value>
+  </data>
+  <data name="Settings.Preview.CardboardDistance" xml:space="preserve">
+    <value>அட்டைப் பிரிப்பு தூரம்</value>
+  </data>
+  <data name="Settings.Preview.Downsize" xml:space="preserve">
+    <value>படத்தைக் குறைக்கவும் (பிரேம் வீதத்தை அதிகரிக்கலாம்)</value>
+  </data>
+  <data name="Settings.Preview.DownsizePercent" xml:space="preserve">
+    <value>படத்தின் சதவீதத்தைக் குறைக்கவும்</value>
+  </data>
+  <data name="Settings.Preview.Immersive" xml:space="preserve">
+    <value>ஆழ்ந்த இறுதிப் பார்வை</value>
+  </data>
+  <data name="Settings.Preview.LensStrength" xml:space="preserve">
+    <value>லென்ஸ் திருத்த வலிமை</value>
+  </data>
+  <data name="Settings.Preview.Mirror" xml:space="preserve">
+    <value>சிங்கிள்-ஷாட் மிரர் பிரிவு முறையைப் பயன்படுத்தி படமெடுக்கவும்</value>
+  </data>
+  <data name="Settings.Preview.Width" xml:space="preserve">
+    <value>அதிகபட்ச இணை காட்சி பட அகலம் (புள்ளிகள்)</value>
+  </data>
+  <data name="Settings.Reset" xml:space="preserve">
+    <value>இயல்புநிலைக்கு மீட்டமைக்கவும்</value>
+  </data>
+  <data name="Settings.Saving.Alone" xml:space="preserve">
+    <value>முதல் பக்கத்தை மட்டும் சேமிக்கவும் (திருத்தங்கள் அல்லது பார்டர் இல்லாமல்) (பிளாட் வியூ நபர்களுடன் தட்டையான புகைப்படத்தை எளிதாகப் பகிர)</value>
+  </data>
+  <data name="Settings.Saving.Anaglyph" xml:space="preserve">
+    <value>சிவப்பு/சியான் அனாக்லிஃப் பதிப்பைச் சேமிக்கவும் (திருத்தங்களுடன் ஆனால் எல்லை இல்லை)</value>
+  </data>
+  <data name="Settings.Saving.Browse" xml:space="preserve">
+    <value>உலாவுக...</value>
+  </data>
+  <data name="Settings.Saving.Cardboard" xml:space="preserve">
+    <value>அட்டைப் பெட்டிக்காகச் சேமிக்கவும் (திருத்தங்களுடன், பார்டர் இல்லை, இடைவெளி இல்லை, முழு அகலம், பின்னர் CrossCam இல் ஏற்றுவதற்கு)</value>
+  </data>
+  <data name="Settings.Saving.Clear" xml:space="preserve">
+    <value>சேமித்த பிறகு பிடிப்புகளைத் தானாக அழிக்கவும்</value>
+  </data>
+  <data name="Settings.Saving.Cross" xml:space="preserve">
+    <value>இணைந்த குறுக்கு பார்வை பதிப்பைச் சேமி (திருத்தங்கள் மற்றும் எல்லையுடன்)</value>
+  </data>
+  <data name="Settings.Saving.ExternalDirectory" xml:space="preserve">
+    <value>வெளிப்புற CrossCam கோப்பகத்தில் சேமி:</value>
+  </data>
+  <data name="Settings.Saving.ExternalWarning" xml:space="preserve">
+    <value>(எச்சரிக்கை: CrossCam நிறுவல் நீக்கப்பட்டால் அங்குள்ள படங்கள் நீக்கப்படும்)</value>
+  </data>
+  <data name="Settings.Saving.Folder" xml:space="preserve">
+    <value>பிரத்யேக "CrossCam" துணை கோப்புறை/ஆல்பத்தில் சேமிக்கவும்</value>
+  </data>
+  <data name="Settings.Saving.Grayscale" xml:space="preserve">
+    <value>கிரேஸ்கேல் ரெட்/சியான் அனாக்லிஃப் பதிப்பைச் சேமிக்கவும் (திருத்தங்களுடன் ஆனால் பார்டர் இல்லை)</value>
+  </data>
+  <data name="Settings.Saving.Order" xml:space="preserve">
+    <value>(சேமிப்பு மேலிருந்து கீழாக நடக்கும்)</value>
+  </data>
+  <data name="Settings.Saving.Parallel" xml:space="preserve">
+    <value>இணைந்த இணை காட்சி பதிப்பைச் சேமி (திருத்தங்கள் மற்றும் எல்லையுடன்)</value>
+  </data>
+  <data name="Settings.Saving.Quad" xml:space="preserve">
+    <value>குவாட் கலவையைச் சேமி (திருத்தங்கள் மற்றும் பார்டருடன்)</value>
+  </data>
+  <data name="Settings.Saving.Reset" xml:space="preserve">
+    <value>மீட்டமை</value>
+  </data>
+  <data name="Settings.Saving.Resolution" xml:space="preserve">
+    <value>தீர்மான விகிதம்</value>
+  </data>
+  <data name="Settings.Saving.SaveTo" xml:space="preserve">
+    <value>இதில் சேமி:</value>
+  </data>
+  <data name="Settings.Saving.Separate" xml:space="preserve">
+    <value>ஒவ்வொரு பக்கத்தையும் தனித்தனியாக சேமிக்கவும் (எளிதான இடுகை செயலாக்கத்திற்கான திருத்தங்கள் அல்லது பார்டர் இல்லாமல், இடது பக்கம் முதலில் சேமிக்கும்)</value>
+  </data>
+  <data name="Settings.Saving.Subfolder" xml:space="preserve">
+    <value>பிரத்யேக "CrossCam_{ViewMethod}" துணைக் கோப்புறைகள்/ஆல்பங்களில் சேமிக்கவும்</value>
+  </data>
+  <data name="Settings.Saving.Triple" xml:space="preserve">
+    <value>மூன்று கலவையைச் சேமி (திருத்தங்கள் மற்றும் பார்டருடன்)</value>
+  </data>
+  <data name="Button.Pair.Accept" xml:space="preserve">
+    <value>ஏற்றுக்கொள்</value>
+  </data>
+  <data name="Button.Pair.Cancel" xml:space="preserve">
+    <value>ரத்து செய்</value>
+  </data>
+  <data name="Page.Camera.AcceptConnection" xml:space="preserve">
+    <value>இணைப்பை ஏற்கவும்</value>
+  </data>
+  <data name="Page.Camera.Confirm" xml:space="preserve">
+    <value>இரண்டு சாதனங்களிலும் குறியீடு பொருத்தங்களை உறுதிப்படுத்தவும்:</value>
+  </data>
+  <data name="Page.Footer.CouldntOpen" xml:space="preserve">
+    <value>இணைப்பைத் திறக்க முடியவில்லை</value>
+  </data>
+  <data name="Page.Footer.OpenError" xml:space="preserve">
+    <value>mailto இணைப்பை திறக்க முடியவில்லை. இது உங்கள் மின்னஞ்சல் கிளையன்ட் அமைக்கப்படாததாலோ அல்லது வேறு ஏதேனும் காரணத்தினாலோ இருக்கலாம்.</value>
+  </data>
+  <data name="Page.Pair.Errors.Denied" xml:space="preserve">
+    <value>இணைப்பதற்கு தேவையான அனுமதிகள் வழங்கப்படவில்லை. விதிவிலக்கு:</value>
+  </data>
+  <data name="Page.Pair.Errors.FailedBluetooth" xml:space="preserve">
+    <value>சாதனம் புளூடூத்தை இயக்குவதில் தோல்வியடைந்தது. விதிவிலக்கு:</value>
+  </data>
+  <data name="Page.Pair.Errors.FailedSearch" xml:space="preserve">
+    <value>சாதனத்தைத் தேடுவதில் சாதனம் தோல்வியடைந்தது. விதிவிலக்கு:</value>
+  </data>
+  <data name="Page.Pair.Errors.LocationOff" xml:space="preserve">
+    <value>இருப்பிடச் சேவைகள் செயல்படுத்தப்படவில்லை. சாதனங்களை ஸ்கேன் செய்ய முடியாது. மேலும் விவரங்களுக்கு இணைத்தல் பக்கத்தைப் பார்க்கவும்.</value>
+  </data>
+  <data name="Page.Pair.Errors.LocationScan" xml:space="preserve">
+    <value>இருப்பிட அனுமதி வழங்கப்படவில்லை. சாதனங்களை ஸ்கேன் செய்ய முடியாது. மேலும் விவரங்களுக்கு இணைத்தல் பக்கத்தைப் பார்க்கவும்.</value>
+  </data>
+  <data name="Page.Pair.Errors.NotSupported" xml:space="preserve">
+    <value>இந்தச் சாதனத்தில் இணைத்தல் ஆதரிக்கப்படவில்லை. விதிவிலக்கு:</value>
+  </data>
+  <data name="Page.Pair.Errors.Title" xml:space="preserve">
+    <value>பிழை</value>
+  </data>
+  <data name="Page.Pair.Errors.WifiOff" xml:space="preserve">
+    <value>Wi-Fi முடக்கப்பட்டுள்ளது. Wi-Fi ஐ இயக்கவும்.</value>
+  </data>
+  <data name="Page.Pair.PrimaryExplanation" xml:space="preserve">
+    <value>இந்தச் சாதனம் இப்போது முதன்மையாக அமைக்கப்பட்டுள்ளது.</value>
+  </data>
+  <data name="Page.Pair.PrimarySelected" xml:space="preserve">
+    <value>முதன்மைப் பாத்திரம் தேர்ந்தெடுக்கப்பட்டது</value>
+  </data>
+  <data name="Page.Pair.SecondaryExplanation" xml:space="preserve">
+    <value>இந்தச் சாதனம் இப்போது இரண்டாம்நிலையாக அமைக்கப்பட்டுள்ளது.</value>
+  </data>
+  <data name="Page.Pair.SecondarySelected" xml:space="preserve">
+    <value>இரண்டாம் நிலைப் பாத்திரம் தேர்ந்தெடுக்கப்பட்டது</value>
+  </data>
+  <data name="Page.Technique.Mode" xml:space="preserve">
+    <value>முறை.</value>
+  </data>
+  <data name="Page.Technique.SetMode" xml:space="preserve">
+    <value>CrossCam இப்போது உள்ளது</value>
+  </data>
+</root>

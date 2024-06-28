@@ -1,0 +1,1156 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="Button.GoogleDoc" xml:space="preserve">
+    <value>Google Tài liệu về những điều tuyệt vời</value>
+  </data>
+  <data name="Button.LearnCross" xml:space="preserve">
+    <value>TÌM HIỂU CHÉO</value>
+  </data>
+  <data name="Button.LearnParallel" xml:space="preserve">
+    <value>TÌM HIỂU SONG SONG</value>
+  </data>
+  <data name="Button.MorePictures" xml:space="preserve">
+    <value>Xem Thêm Hình Ảnh</value>
+  </data>
+  <data name="Button.Review" xml:space="preserve">
+    <value>Viết đánh giá</value>
+  </data>
+  <data name="Button.Share" xml:space="preserve">
+    <value>Chia sẻ CrossCam</value>
+  </data>
+  <data name="Button.Support" xml:space="preserve">
+    <value>Hỗ trợ nhà phát triển</value>
+  </data>
+  <data name="Button.TapCross" xml:space="preserve">
+    <value>NHẤP VÀO ĐÂY ĐỂ CHỌN CHÉO</value>
+  </data>
+  <data name="Button.TapParallel" xml:space="preserve">
+    <value>NHẤP VÀO ĐÂY ĐỂ CHỌN SONG SONG</value>
+  </data>
+  <data name="Footer.Span1" xml:space="preserve">
+    <value>Tìm thấy một lỗi? Có một câu hỏi? Chỉ cần gửi email</value>
+  </data>
+  <data name="Footer.Span3" xml:space="preserve">
+    <value>! Tôi thích nói chuyện với người dùng và đó là cách nhanh nhất để giao tiếp với tôi.</value>
+  </data>
+  <data name="Page.HowToUse.2anaglyph" xml:space="preserve">
+    <value>2) Bắt đầu xem ảnh anaglyph với phần xem trước xuất hiện bên cạnh ảnh đầu tiên.</value>
+  </data>
+  <data name="Page.HowToUse.2cardboard" xml:space="preserve">
+    <value>2) Bắt đầu xem ảnh đầu tiên bằng bìa cứng với bản xem trước xuất hiện bên cạnh ảnh đó.</value>
+  </data>
+  <data name="Page.HowToUse.2cross" xml:space="preserve">
+    <value>2) Bắt đầu xem chéo ảnh đầu tiên với phần xem trước xuất hiện bên cạnh ảnh đó.</value>
+  </data>
+  <data name="Page.HowToUse.2parallel" xml:space="preserve">
+    <value>2) Bắt đầu xem song song ảnh đầu tiên với bản xem trước xuất hiện bên cạnh ảnh đó.</value>
+  </data>
+  <data name="Page.Technique.AdditionalTutorials" xml:space="preserve">
+    <value>Hướng dẫn bổ sung:</value>
+  </data>
+  <data name="Page.Technique.Cross1" xml:space="preserve">
+    <value>Cẩn thận đảo mắt khi nhìn vào cặp hình trên. Khi bạn lác mắt, mọi thứ sẽ mờ đi và nhìn xuyên thấu và bạn sẽ bắt đầu nhìn thấy 4 bức ảnh thay vì 2 (2 cặp). Bạn càng khó nhìn qua, các cặp hình ảnh sẽ di chuyển càng xa nhau - nó sẽ trông giống như thế này:</value>
+  </data>
+  <data name="Page.Technique.Cross2" xml:space="preserve">
+    <value>Cẩn thận mở mắt ra để các hình ảnh bên trong mỗi cặp bắt đầu chồng lên nhau. Nó sẽ bắt đầu trông giống như chỉ có 3 hình ảnh thay vì 4. Nó vẫn bị mờ và nhìn xuyên thấu và trông giống như thế này:</value>
+  </data>
+  <data name="Page.Technique.Cross3" xml:space="preserve">
+    <value>Khi phần chồng chéo ở giữa hoạt động, bạn chỉ cần thư giãn mắt và cho phép chúng tập trung vào hình ảnh. Khi đó, bạn sẽ có một hình ảnh 3D sắc nét ở giữa với một hình ảnh trong suốt nổi lên ở mỗi bên sẽ trông như thế này (ngoại trừ phần giữa sẽ là 3D):</value>
+  </data>
+  <data name="Page.Technique.Cross4" xml:space="preserve">
+    <value>Nếu gặp khó khăn khi nhìn chéo mắt, bạn cũng có thể thử nhìn chằm chằm vào ngón tay của mình trong khi giữ nó ở giữa mắt và màn hình. Bạn sẽ thấy các hình ảnh bắt đầu tách ra và chồng lên nhau phía sau ngón tay của bạn.</value>
+  </data>
+  <data name="Page.Technique.CrossViewing" xml:space="preserve">
+    <value>XEM CHÉO</value>
+  </data>
+  <data name="Page.Technique.P1" xml:space="preserve">
+    <value>Nếu bạn muốn xem lại điều này, hãy nhấn vào biểu tượng bánh hamburger (ba dòng) ở phía trên bên trái màn hình camera và nhấn "Trợ giúp".
+
+Để xem 3D trong CrossCam (được gọi là "ảnh lập thể"), bạn có thể sử dụng kính 3D màu đỏ/lục lam, trình xem Google Cardboard hoặc bạn có thể "xem miễn phí" chỉ bằng mắt và màn hình của mình. Có hai cách để xem miễn phí và CrossCam có thể giúp bạn tìm hiểu cả hai cách đó. Bạn cần cho CrossCam biết cách bạn sẽ xem ảnh, nếu không nó sẽ không hoạt động bình thường. Đừng lo lắng, bạn luôn có thể thay đổi lại điều này trong Cài đặt.
+
+Nếu bạn có thể thoải mái liếc mắt, bạn nên thử phương pháp chéo trước, nếu không bạn nên thử phương pháp song song. Nếu bạn đã quen với sách Magic Eye™, bạn có thể đã thực hiện được phương pháp song song nhưng cũng có thể thực hiện được phương pháp chéo. Hãy nhấn vào một phương pháp bên dưới để tìm hiểu và đảm bảo cho CrossCam biết phương pháp nào phù hợp với bạn bằng cách nhấn nút CHỌN tương ứng.
+
+Nếu bạn muốn sử dụng kính 3D hoặc thiết bị xem Cardboard, bạn có thể đặt CrossCam để sử dụng những kính đó trên trang Cài đặt.</value>
+  </data>
+  <data name="Page.Technique.CrossLink1" xml:space="preserve">
+    <value>Một hướng dẫn văn bản hay</value>
+  </data>
+  <data name="Page.Technique.CrossLink2" xml:space="preserve">
+    <value>Một hướng dẫn văn bản hay khác</value>
+  </data>
+  <data name="Page.Technique.CrossLink3" xml:space="preserve">
+    <value>Hướng dẫn ngắn gọn trên YouTube</value>
+  </data>
+  <data name="Page.Technique.CrossLink4" xml:space="preserve">
+    <value>Hướng dẫn YouTube dài, kỳ lạ nhưng hữu ích</value>
+  </data>
+  <data name="Page.Technique.CrossLink5" xml:space="preserve">
+    <value>Một hướng dẫn khác trên YouTube</value>
+  </data>
+  <data name="Page.Technique.CrossLink6" xml:space="preserve">
+    <value>Một dự án máy ảnh kép có hướng dẫn</value>
+  </data>
+  <data name="Page.Technique.Parallel1" xml:space="preserve">
+    <value>Nếu hình ảnh trên không vừa với màn hình của bạn, hãy chuyển điện thoại của bạn sang chế độ ngang - CrossCam đang cố gắng tạo cặp hình ảnh trên có kích thước dễ dàng nhất cho việc này. Không phải lúc nào bạn cũng phải sử dụng CrossCam ở chế độ nằm ngang nhưng hình ảnh có kích thước hoàn hảo sẽ giúp việc học kỹ thuật này trở nên dễ dàng hơn.</value>
+  </data>
+  <data name="Page.Technique.Parallel2" xml:space="preserve">
+    <value>Hãy thư giãn đôi mắt của bạn và nhìn "xuyên qua" cặp hình trên giống như bạn đang khoanh vùng với đôi mắt chỉ vào những bức tranh. Bạn sẽ bắt đầu thấy 3 bức ảnh có hình 3D ở giữa, hơi giống thế này:</value>
+  </data>
+  <data name="Page.Technique.Parallel3" xml:space="preserve">
+    <value>Nếu bạn bắt đầu nhìn thấy 4 bức ảnh, bạn đã đi quá xa. Hãy thử di chuyển mắt xung quanh một chút nếu bạn lại thấy mình ở thời điểm đó. Thư giãn quá mức sẽ trông giống như thế này:</value>
+  </data>
+  <data name="Page.Technique.Parallel4" xml:space="preserve">
+    <value>Nếu bạn gặp sự cố, hãy thử đưa màn hình sát mặt với cặp hình ảnh ngay trước mắt bạn. Thư giãn và nhìn "xuyên qua" màn hình rồi từ từ kéo màn hình ra khỏi mặt trong khi vẫn giữ cho mắt bạn thư giãn. Cuối cùng, hình ảnh sẽ "nhấp chuột" vào tiêu điểm.</value>
+  </data>
+  <data name="Page.Technique.Parallel5" xml:space="preserve">
+    <value>Nếu bạn vẫn nhìn thấy bốn hình ảnh, hãy tăng "Chiều rộng hình ảnh ở chế độ xem song song tối đa" trên trang Cài đặt.</value>
+  </data>
+  <data name="Page.Technique.ParallelViewing" xml:space="preserve">
+    <value>XEM SONG SONG</value>
+  </data>
+  <data name="Page.Technique.Practice" xml:space="preserve">
+    <value>Hình ảnh tôi đã thực hiện để bạn có thể thực hành</value>
+  </data>
+  <data name="Title.Contact" xml:space="preserve">
+    <value>Liên hệ</value>
+  </data>
+  <data name="Title.Faq" xml:space="preserve">
+    <value>Câu hỏi thường gặp</value>
+  </data>
+  <data name="Title.Help" xml:space="preserve">
+    <value>Giúp đỡ</value>
+  </data>
+  <data name="Title.HowToUse" xml:space="preserve">
+    <value>Cách sử dụng CrossCam</value>
+  </data>
+  <data name="Title.Technique" xml:space="preserve">
+    <value>Kỹ thuật xem 3D</value>
+  </data>
+  <data name="Title.Tips" xml:space="preserve">
+    <value>Lời khuyên</value>
+  </data>
+  <data name="Button.DoNotEmailMe" xml:space="preserve">
+    <value>Đừng gửi email cho tôi bây giờ</value>
+  </data>
+  <data name="Button.EmailMeNow" xml:space="preserve">
+    <value>Gửi email cho tôi ngay bây giờ</value>
+  </data>
+  <data name="Button.No" xml:space="preserve">
+    <value>KHÔNG</value>
+  </data>
+  <data name="Button.OK" xml:space="preserve">
+    <value>ĐƯỢC RỒI</value>
+  </data>
+  <data name="Button.YesClear" xml:space="preserve">
+    <value>Vâng rõ ràng</value>
+  </data>
+  <data name="Page.Camera.Aligning" xml:space="preserve">
+    <value>Căn chỉnh...</value>
+  </data>
+  <data name="Page.Camera.AlignmentBroken" xml:space="preserve">
+    <value>Tự động căn chỉnh không được hỗ trợ trên thiết bị - tắt trong Cài đặt.</value>
+  </data>
+  <data name="Page.Camera.AlignmentFailed" xml:space="preserve">
+    <value>Căn chỉnh không thành công.</value>
+  </data>
+  <data name="Page.Camera.BorderAsk" xml:space="preserve">
+    <value>Một đường viền đã được phát hiện. Xóa đường viền?</value>
+  </data>
+  <data name="Page.Camera.BorderDetected" xml:space="preserve">
+    <value>Đã phát hiện đường viền</value>
+  </data>
+  <data name="Page.Camera.Cancel" xml:space="preserve">
+    <value>Hủy bỏ</value>
+  </data>
+  <data name="Page.Camera.ChooseAction" xml:space="preserve">
+    <value>Chọn một hành động:</value>
+  </data>
+  <data name="Page.Camera.DirectoryNotFound" xml:space="preserve">
+    <value>Không tìm thấy thư mục</value>
+  </data>
+  <data name="Page.Camera.DirectoryNotFoundExplain" xml:space="preserve">
+    <value>Không thể tìm thấy đích lưu. Vui lòng chọn một cái khác trên trang cài đặt.</value>
+  </data>
+  <data name="Page.Camera.ErrorEmailBody" xml:space="preserve">
+    <value>Bạn đã làm gì ngay trước khi xảy ra lỗi? Vui lòng mô tả ngay cả những điều nhỏ nhặt.\n\n\n\n\n\nCrossCam vẫn hoạt động sau lỗi chứ? Nếu không, nó bị hỏng như thế nào?\n\n\n\n\n\nĐiều này có xảy ra nhiều lần không?\n\n\n\n\n\nBạn có thể buộc lỗi xảy ra theo lệnh không? Nếu vậy thì bằng cách nào?\n\n\n\n\n\n</value>
+  </data>
+  <data name="Page.Camera.FlipForCardboard" xml:space="preserve">
+    <value>Lật sang chế độ ngang khi ở chế độ bìa cứng.</value>
+  </data>
+  <data name="Page.Camera.FlipLarger" xml:space="preserve">
+    <value>(lật sang ngang để xem lớn hơn)</value>
+  </data>
+  <data name="Page.Camera.ForAnaglyph" xml:space="preserve">
+    <value>cho anaglyph</value>
+  </data>
+  <data name="Page.Camera.ForCardboard" xml:space="preserve">
+    <value>cho các tông</value>
+  </data>
+  <data name="Page.Camera.ForCross" xml:space="preserve">
+    <value>cho chéo</value>
+  </data>
+  <data name="Page.Camera.ForParallel" xml:space="preserve">
+    <value>song song</value>
+  </data>
+  <data name="Page.Camera.GoPickRole" xml:space="preserve">
+    <value>Vui lòng truy cập trang Ghép nối (thông qua trang Cài đặt) và chọn vai trò ghép nối cho thiết bị này trước khi thử ghép nối.</value>
+  </data>
+  <data name="Page.Camera.InvalidImage" xml:space="preserve">
+    <value>Hình ảnh không hợp lệ</value>
+  </data>
+  <data name="Button.Camera.Keep" xml:space="preserve">
+    <value>Giữ</value>
+  </data>
+  <data name="Page.Camera.LoadFullImage" xml:space="preserve">
+    <value>Tải hình ảnh âm thanh nổi đầy đủ</value>
+  </data>
+  <data name="Page.Camera.Loading" xml:space="preserve">
+    <value>Đang tải...</value>
+  </data>
+  <data name="Page.Camera.LoadSingleSide" xml:space="preserve">
+    <value>Tải một mặt</value>
+  </data>
+  <data name="Page.Camera.ManualCorrections" xml:space="preserve">
+    <value>Vui lòng xem xét chỉnh sửa thủ công.</value>
+  </data>
+  <data name="Page.Camera.MirrorOnLeft" xml:space="preserve">
+    <value>GƯƠNG TRÁI</value>
+  </data>
+  <data name="Page.Camera.MirrorOnRight" xml:space="preserve">
+    <value>GƯƠNG BÊN PHẢI</value>
+  </data>
+  <data name="Page.Camera.MoveLeft" xml:space="preserve">
+    <value>DI CHUYỂN SANG TRÁI</value>
+  </data>
+  <data name="Page.Camera.MoveRight" xml:space="preserve">
+    <value>ĐI SANG PHẢI</value>
+  </data>
+  <data name="Page.Camera.NoSaveModes" xml:space="preserve">
+    <value>Không có chế độ lưu hoạt động</value>
+  </data>
+  <data name="Page.Camera.NoSaveModesExplain" xml:space="preserve">
+    <value>Hiện tại không có chế độ lưu nào được bật. Bật chế độ lưu trên trang Cài đặt.</value>
+  </data>
+  <data name="Page.Camera.Oops" xml:space="preserve">
+    <value>Ối</value>
+  </data>
+  <data name="Page.Camera.OrRotate" xml:space="preserve">
+    <value>(hoặc xoay)</value>
+  </data>
+  <data name="Page.Camera.OrSwipe" xml:space="preserve">
+    <value>(hoặc vuốt)</value>
+  </data>
+  <data name="Page.Camera.PairRoleNotSelected" xml:space="preserve">
+    <value>Cặp vai trò không được chọn</value>
+  </data>
+  <data name="Page.Camera.PinchOrDrag" xml:space="preserve">
+    <value>Hãy chụm hoặc kéo để khám phá!</value>
+  </data>
+  <data name="Page.Camera.PleaseSelectValid" xml:space="preserve">
+    <value>Vui lòng chọn hình ảnh Jpeg, PNG hoặc Webp. Hình ảnh bạn đã chọn là</value>
+  </data>
+  <data name="Page.Camera.ReallyClear" xml:space="preserve">
+    <value>Thực sự rõ ràng?</value>
+  </data>
+  <data name="Button.Camera.Remove" xml:space="preserve">
+    <value>Di dời</value>
+  </data>
+  <data name="Page.Camera.SavedToCustomFolder" xml:space="preserve">
+    <value>Đã lưu vào thư mục tùy chỉnh</value>
+  </data>
+  <data name="Page.Camera.SavedToExternal" xml:space="preserve">
+    <value>Đã lưu vào bên ngoài</value>
+  </data>
+  <data name="Page.Camera.SavedToPhotos" xml:space="preserve">
+    <value>Đã lưu vào Ảnh</value>
+  </data>
+  <data name="Page.Camera.SaveFailed" xml:space="preserve">
+    <value>Lưu không thành công. :(</value>
+  </data>
+  <data name="Page.Camera.Saving" xml:space="preserve">
+    <value>Tiết kiệm...</value>
+  </data>
+  <data name="Page.Camera.SecondaryOnLeft" xml:space="preserve">
+    <value>TRUNG HỌC TRÊN TRÁI</value>
+  </data>
+  <data name="Page.Camera.SecondaryOnRight" xml:space="preserve">
+    <value>THỨ CẤP TRÊN PHẢI</value>
+  </data>
+  <data name="Page.Camera.SelectedInvalid" xml:space="preserve">
+    <value>Hình ảnh đã chọn không hợp lệ.</value>
+  </data>
+  <data name="Page.Camera.SorryError" xml:space="preserve">
+    <value>Rất tiếc, CrossCam đã xảy ra lỗi. Một báo cáo lỗi đã được tự động gửi đi. Bạn có thể không nhận thấy điều gì sai trái cả, nhưng nếu có, hãy thử khởi động lại ứng dụng. Nếu điều này tiếp tục xảy ra, xin vui lòng gửi email cho tôi và cho tôi biết về nó. (Truy cập trang Cài đặt để dừng các cửa sổ bật lên này.)</value>
+  </data>
+  <data name="Page.Camera.Steady" xml:space="preserve">
+    <value>Vững chắc...</value>
+  </data>
+  <data name="Page.Camera.SureClear" xml:space="preserve">
+    <value>Bạn có chắc chắn muốn xóa ảnh của mình và bắt đầu lại không?</value>
+  </data>
+  <data name="Page.Camera.Syncing" xml:space="preserve">
+    <value>Đang đồng bộ hóa...</value>
+  </data>
+  <data name="Page.Camera.Transmitting" xml:space="preserve">
+    <value>Đang truyền...
+(giữ cho thiết bị luôn mở khóa)</value>
+  </data>
+  <data name="Page.Camera.VR" xml:space="preserve">
+    <value>thực tế ảo</value>
+  </data>
+  <data name="Page.FovCorrection" xml:space="preserve">
+    <value>Chỉnh sửa trường nhìn</value>
+  </data>
+  <data name="Page.FovCorrectionExplain" xml:space="preserve">
+    <value>Các mẫu thiết bị khác nhau có thể có các trường nhìn khác nhau. CrossCam sẽ giúp bạn khắc phục điều này sau khi bạn thực hiện lần chụp đầu tiên. Lập khung hình và chụp thứ gì đó có các điểm đặc biệt ở gần đầu và cuối khung hình, đảm bảo các điểm đó hiển thị trên cả hai thiết bị.</value>
+  </data>
+  <data name="Page.Technique.ParallelLink1" xml:space="preserve">
+    <value>Một hướng dẫn văn bản hay</value>
+  </data>
+  <data name="Page.Technique.ParallelLink2" xml:space="preserve">
+    <value>Một hướng dẫn văn bản hay khác</value>
+  </data>
+  <data name="Page.Technique.ParallelLink3" xml:space="preserve">
+    <value>Tuy nhiên, MỘT hướng dẫn văn bản hay khác</value>
+  </data>
+  <data name="Page.Technique.ParallelLink4" xml:space="preserve">
+    <value>Hướng dẫn ma thuật Frankfurter</value>
+  </data>
+  <data name="Page.Technique.ParallelLink5" xml:space="preserve">
+    <value>Một video hay về Magic Eye</value>
+  </data>
+  <data name="Page.Technique.Trouble" xml:space="preserve">
+    <value>Nếu bạn vẫn gặp sự cố, hãy thử mang điện thoại vào phòng tối để thứ duy nhất mà mắt bạn có thể nhìn rõ và tập trung vào là hình ảnh.
+
+Một cách khác bạn có thể thử là sử dụng ống giấy vệ sinh hoặc dùng tay để làm sao cho mỗi mắt chỉ có thể nhìn thấy phía của hình ảnh mà nó phải nhìn.
+ • Để xem chéo: giữ một ống duy nhất dựa vào sống mũi của bạn (ở giữa hai mắt của bạn) trong khi hướng nó vào giữa hình ảnh trước mặt bạn. Từ từ di chuyển ống về phía màn hình trong khi cố gắng nhìn xuống ống bằng cả hai mắt. Khi bạn đặt ống vào đúng vị trí, hình ảnh sẽ khớp vào đúng vị trí. Có thể giúp tập trung vào việc cố gắng nhìn vào bên trong đầu kia của ống. Nếu bạn không tìm được vị trí phù hợp, hãy thử sử dụng hình ảnh lớn hơn hoặc ống nhỏ hơn.
+ • Để nhìn song song: cầm một ống trước mỗi mắt nhưng hướng cả hai mắt sang một bên để bạn khó có thể nhìn thấy gì. Đồng thời, từ từ xoay các ống vào trong để bạn có thể bắt đầu nhìn thấy nhiều hình ảnh hơn. Thời điểm bạn có thể nhìn thấy hầu hết hình ảnh (gần một nửa bằng mỗi mắt), hãy cố gắng thư giãn mắt và đưa hai nửa lại gần nhau. Việc sử dụng hình ảnh lớn hơn hoặc nhỏ hơn có thể hữu ích.
+
+Có một bài tập dễ dàng mà bạn có thể thực hiện để thực hành kết hợp với chế độ xem chéo hoặc song song. Lấy bút đánh dấu và vẽ một phần khuôn mặt cười lên mỗi hình thu nhỏ của bạn (hoặc một cặp que kem hoặc dụng cụ ấn lưỡi). Ví dụ, một bên vẽ một mắt và miệng, bên kia vẽ mắt và mũi. Sau đó, bạn có thể giơ chúng lên trước mặt và thực hành ghép hai hình ảnh lại với nhau để hoàn thành khuôn mặt cười.
+
+Cá nhân tôi thích chéo hơn song song vì hình ảnh có thể lớn hơn, nhưng cả hai phương pháp đều hoạt động. Nếu bạn muốn thử nghiệm các hình ảnh song song lớn hơn, bạn có thể kiểm soát kích thước trên trang Cài đặt.
+
+Đôi khi rất khó để biết bạn đang thực hiện phương pháp chéo hay song song trong khi thực hiện. Bạn có thể nhờ người khác quan sát mắt mình khi thực hiện hoặc bạn có thể xem hình bên dưới để kiểm tra:</value>
+  </data>
+  <data name="SaveModes.Anaglyph" xml:space="preserve">
+    <value>Anaglyph</value>
+  </data>
+  <data name="SaveModes.Cardboard" xml:space="preserve">
+    <value>Các tông</value>
+  </data>
+  <data name="SaveModes.Cross" xml:space="preserve">
+    <value>Đi qua</value>
+  </data>
+  <data name="SaveModes.GrayscaleAnaglyph" xml:space="preserve">
+    <value>Anaglyph thang độ xám</value>
+  </data>
+  <data name="SaveModes.Parallel" xml:space="preserve">
+    <value>Song song</value>
+  </data>
+  <data name="SaveModes.Quad" xml:space="preserve">
+    <value>bốn người</value>
+  </data>
+  <data name="SaveModes.Separate" xml:space="preserve">
+    <value>Chia</value>
+  </data>
+  <data name="SaveModes.Single" xml:space="preserve">
+    <value>Đơn</value>
+  </data>
+  <data name="SaveModes.Triple" xml:space="preserve">
+    <value>gấp ba</value>
+  </data>
+  <data name="Page.Camera.FovExplain" xml:space="preserve">
+    <value>Để khắc phục sự khác biệt về trường nhìn, hãy thu phóng và trượt ảnh để các điểm khác biệt thẳng hàng giữa hai ảnh. Bạn có thể kéo các đường màu trắng xung quanh để dễ hình dung việc căn chỉnh. Việc chỉnh sửa này sẽ được áp dụng cho các bản xem trước trong tương lai. Nó sẽ được lưu nhưng bạn có thể đặt lại trên trang Cài đặt. Nếu bạn đang sử dụng các thiết bị giống hệt nhau, chỉ cần lưu mà không cần điều chỉnh.</value>
+  </data>
+  <data name="Page.Camera.FovTitle" xml:space="preserve">
+    <value>Chỉnh sửa trường nhìn</value>
+  </data>
+  <data name="Page.Camera.KeyPoints" xml:space="preserve">
+    <value>Những điểm chính</value>
+  </data>
+  <data name="Page.Camera.Warped" xml:space="preserve">
+    <value>Bị cong vênh</value>
+  </data>
+  <data name="Page.Camera.WelcomeExplain" xml:space="preserve">
+    <value>CrossCam được tạo ra để giúp bạn tạo ảnh 3D. Ảnh là 3D giống như phim VR hoặc 3D nhưng bạn không cần bất kỳ thiết bị hoặc kính đặc biệt nào - chỉ cần điện thoại của bạn (nhưng nếu bạn có một cặp kính 3D màu đỏ/lục lam hoặc trình xem Google Cardboard, bạn có thể sử dụng những thứ đó với CrossCam nữa). Kỹ thuật \"xem miễn phí\" chỉ sử dụng điện thoại và mắt của bạn, bạn cần thực hành một chút để học. Trước khi tôi hướng dẫn bạn cách sử dụng CrossCam, trước tiên bạn có muốn tìm hiểu thêm về kỹ thuật xem không?</value>
+  </data>
+  <data name="Page.Camera.Welcome" xml:space="preserve">
+    <value>Chào mừng đến với CrossCam!</value>
+  </data>
+  <data name="Page.Camera.Directions" xml:space="preserve">
+    <value>Chuyển đến Chỉ đường</value>
+  </data>
+  <data name="Page.Camera.Technique" xml:space="preserve">
+    <value>Kỹ thuật xem</value>
+  </data>
+  <data name="Page.HowToUse.P1" xml:space="preserve">
+    <value>Nếu bạn muốn xem lại điều này, hãy nhấn vào biểu tượng bánh hamburger (ba dòng) ở phía trên bên trái màn hình camera và nhấn "Trợ giúp".
+
+
+1) Đóng khung và chụp bức ảnh đầu tiên.</value>
+  </data>
+  <data name="Page.HowToUse.P2" xml:space="preserve">
+    <value>3) Giữ điện thoại cố định trước mặt và từ từ di chuyển sang một bên theo hướng CrossCam yêu cầu. Đừng di chuyển quá xa - một inch hoặc ít hơn cho mỗi bước chân cách mục tiêu của bạn. Ngoài ra, đừng xoay người chút nào, chỉ trượt sang một bên, hoặc thậm chí chỉ nghiêng người.
+
+4) Căn chỉnh ảnh đầu tiên với bản xem trước của ảnh thứ hai và chụp ảnh thứ hai khi bạn thích những gì bạn nhìn thấy.
+
+5) CrossCam sẽ tự động căn chỉnh ảnh của bạn sau khi bạn chụp, nhưng nó không hoàn hảo, nếu bạn không thích cách chúng được căn chỉnh, bạn có thể tắt tính năng tự động căn chỉnh bằng cách nhấn vào biểu tượng robot nhỏ. CrossCam cũng có nhiều tùy chọn chỉnh sửa thủ công mà bạn có thể truy cập bằng cách nhấn vào biểu tượng bút chì.
+
+6) Nhấn vào dấu kiểm khi bạn sẵn sàng lưu.
+
+
+Những việc khác bạn có thể làm:
+ • Nhấn một lần để lấy nét vào một điểm, nhấn hai lần để chuyển về chế độ lấy nét tự động liên tục.
+ • Nhấn vào biểu tượng bánh răng ở phía trên bên phải màn hình camera để mở trang Cài đặt. Nó chứa đầy những điều thú vị.
+ • Có một trang Mẹo hay mà bạn có thể truy cập bằng cách nhấn vào biểu tượng bánh hamburger ở phía trên bên trái màn hình máy ảnh. Trang này có thể giúp bạn tạo ra những bức ảnh đẹp.
+ • Nếu bạn muốn di chuyển theo hướng khác cho lần bắn thứ hai hoặc muốn đổi bên, chỉ cần vuốt.
+ • Nhấn vào biểu tượng thư mục nhỏ ở phía dưới để tải hình ảnh ở dạng cạnh hoặc tải hình ảnh âm thanh nổi đầy đủ.</value>
+  </data>
+  <data name="Page.Faq.Alignment" xml:space="preserve">
+    <value>Tự động căn chỉnh hoạt động như thế nào?</value>
+  </data>
+  <data name="Page.Faq.Alignment.Body" xml:space="preserve">
+    <value>Tự động căn chỉnh cố gắng căn chỉnh các cặp hình ảnh tốt nhất có thể nhưng nó không hoàn hảo. Thị giác máy tính tốt hơn ở một số thứ so với mắt người, nhưng cũng kém hơn rất nhiều ở những thứ khác. Thế giới mà nó nhìn thấy rất khác so với thế giới chúng ta thấy, nhưng nó cũng có thể nhìn theo một số cách khác nhau. Hai cách chính mà nó nhìn thấy trong CrossCam là thông qua hệ số tương quan nâng cao (ECC) và sử dụng các điểm chính.
+
+Căn chỉnh ECC về cơ bản hoạt động bằng cách cố gắng đảm bảo các mảng sáng chồng lên nhau với các mảng sáng và các mảng tối chồng lên nhau với các mảng tối khi hai mặt được chồng lên nhau. Căn chỉnh ECC đi kèm với điểm tin cậy nhằm giúp quyết định liệu việc căn chỉnh có hiệu quả hay không. CrossCam được thiết lập để từ chối căn chỉnh được tạo ra nếu độ tin cậy quá thấp, nhưng bạn có thể định cấu hình ngưỡng đạt/không đạt độ tin cậy trên trang Cài đặt.
+
+Căn chỉnh điểm chính tìm kiếm các điểm quan tâm như góc, cạnh, dấu chấm và độ tương phản cao, đồng thời cố gắng khớp chúng giữa hai bên. Sau khi các điểm được khớp, CrossCam có thể sử dụng nhiều thuật toán khác nhau để cố gắng làm cong các bên sao cho các điểm chính ở một bên càng gần với các điểm chính tương ứng của chúng ở phía bên kia càng tốt.
+
+CrossCam được lập trình để sử dụng căn chỉnh điểm chính trước tiên, nhưng nó sẽ quay trở lại căn chỉnh ECC khi căn chỉnh điểm chính không thành công hoặc khi thực hiện chụp bằng phương pháp chia gương một lần. Bạn cũng có thể định cấu hình căn chỉnh tự động để luôn sử dụng căn chỉnh điểm chính hoặc luôn sử dụng căn chỉnh ECC trên trang Cài đặt.
+
+CrossCam sẽ hiển thị kết quả căn chỉnh trên màn hình camera bên dưới biểu tượng robot nhỏ. Nếu nó sử dụng căn chỉnh ECC, nó sẽ hiển thị phần trăm độ tin cậy. Nếu nó sử dụng căn chỉnh điểm chính, nó sẽ hiển thị "KP". Nếu cả hai phương pháp căn chỉnh đều không thành công, nó sẽ hiển thị "F". Nếu bạn không thích kết quả căn chỉnh, bạn có thể nhấn vào biểu tượng robot nhỏ để xóa căn chỉnh.</value>
+  </data>
+  <data name="Page.Faq.Bad" xml:space="preserve">
+    <value>Điều này có hại cho mắt tôi không?</value>
+  </data>
+  <data name="Page.Faq.Bad.Body1" xml:space="preserve">
+    <value>Tôi không biết, nhưng tôi không nghĩ vậy. Tuy nhiên, nếu cảm thấy tồi tệ, hãy nghỉ ngơi. Khi luyện tập, cảm giác khó chịu thường giảm đi. Bất kỳ phương pháp xem nào cũng có thể gây khó chịu do một hiệu ứng được gọi là xung đột giữa ranh giới-chỗ ở. Đây là</value>
+  </data>
+  <data name="Page.Faq.Bad.Body2" xml:space="preserve">
+    <value>một liên kết Wikipedia về xung đột giữa ranh giới-chỗ ở.</value>
+  </data>
+  <data name="Page.Faq.Bad.Body3" xml:space="preserve">
+    <value>Nếu bạn đang sử dụng phương pháp lác mắt, cảm giác này cũng có thể là do mắt bạn không quen với việc chỉ trỏ như thể đang nhìn một vật gì đó quá gần trong thời gian dài. Khi xem chéo, mắt bạn hội tụ tại một điểm nằm ở giữa mắt bạn và màn hình. Nếu nhìn một vật nào đó ở gần trong thời gian dài cũng khiến bạn khó chịu, chúng tôi có lời giải thích.
+
+Ý kiến ​​​​của tôi là đôi mắt của bạn không làm bất cứ điều gì ngoài khả năng hàng ngày của chúng, nhưng bạn đang kết hợp hai khả năng khác nhau thường không được sử dụng theo cách đó. Bạn đang lấy nét ống kính của mình vào một vật nào đó tại một nơi mà thông thường bạn có thể dễ dàng lấy nét và bạn đang hướng mắt mình vào nơi mà chúng thường thấy thoải mái, nhưng là nơi mà ống kính của bạn đang lấy nét và nơi mắt bạn đang hội tụ chỉ là không giống nhau. Tôi không hiểu điều đó có thể tệ như thế nào đối với bạn chừng nào tầm nhìn của bạn vẫn chưa phát triển.</value>
+  </data>
+  <data name="Page.Faq.Cardboard" xml:space="preserve">
+    <value>Làm cách nào để sử dụng CrossCam với Google Cardboard?</value>
+  </data>
+  <data name="Page.Faq.Cardboard.Body" xml:space="preserve">
+    <value>Nếu thiết bị xem của bạn có nút nhấn vào giữa màn hình, bạn có thể sử dụng nút đó để chụp bằng Cardboard. Thiết bị xem của bạn cũng sẽ cần phải có một lỗ để camera của điện thoại có thể nhìn xuyên qua.
+
+Để chụp ảnh bằng Cardboard, hãy chuyển Phương thức xem trước của bạn (trên trang Cài đặt) sang Cardboard, sau đó quay lại trang máy ảnh và gắn điện thoại của bạn vào trình xem. Nhấn nút để chụp, khi chụp được cả hai bên thì nhấn lại nút để lưu. Lưu ở chế độ Cardboard chỉ nhằm mục đích cho phép bạn tải lại hình ảnh vào CrossCam để xem sau chứ không phải để xem chúng trong ứng dụng ảnh của bạn thông qua trình xem.
+
+Bạn cũng có thể chụp bằng bất kỳ phương pháp nào khác mà bạn muốn, sau đó chuyển Phương thức xem trước sang Cardboard và đặt điện thoại của bạn vào trình xem.
+
+Có rất nhiều người xem khác nhau với các thuộc tính khác nhau. Bạn có thể cần thay đổi khoảng cách tách Cardboard (trên trang Cài đặt) để trải nghiệm của bạn thoải mái hơn. Trước tiên, bạn cũng có thể cần đảm bảo rằng mình có khả năng chụp ảnh lập thể chất lượng cao trước khi làm cho chúng trở nên hài hước và sống động.</value>
+  </data>
+  <data name="Page.Faq.How" xml:space="preserve">
+    <value>Cái này hoạt động ra sao?</value>
+  </data>
+  <data name="Page.Faq.How.Body1" xml:space="preserve">
+    <value>Hiệu ứng 3D mà CrossCam sử dụng là một phương pháp đã được nghiên cứu kỹ lưỡng được gọi là phương pháp soi nổi và phương pháp mà bạn lác mắt (hoặc thư giãn chúng) để xem hai bên được gọi là xem tự do. Khi chúng ta nhìn quanh thế giới, mỗi mắt chúng ta nhìn từ một góc độ khác nhau. Trong phương pháp soi nổi, tất cả những gì chúng ta làm là thể hiện một phối cảnh (nhân tạo) cho mỗi mắt và bộ não của chúng ta chỉ làm phần còn lại. Có rất nhiều cách khác nhau để làm cho mỗi mắt nhìn thấy một hình ảnh khác nhau. Đây là</value>
+  </data>
+  <data name="Page.Faq.How.Body2" xml:space="preserve">
+    <value>một liên kết Wikipedia về kính lập thể</value>
+  </data>
+  <data name="Page.Faq.How.Body3" xml:space="preserve">
+    <value>Hình ảnh 3D bạn tạo bằng CrossCam được gọi là ảnh lập thể. Sách Magic Eye™ chứa thứ được gọi là ảnh lập thể tự động.</value>
+  </data>
+  <data name="Page.Faq.Into" xml:space="preserve">
+    <value>Làm thế nào bạn đến với phương pháp soi nổi?</value>
+  </data>
+  <data name="Page.Faq.Into.Body1" xml:space="preserve">
+    <value>Khi đang lấy bằng vật lý, tôi có cơ hội thử nghiệm việc tạo ra ảnh ba chiều của riêng mình bằng tia laser. Loại ảnh ba chiều mà tôi đang tạo là 3D vì chúng sử dụng cách tử nhiễu xạ để gây ra sự giao thoa triệt tiêu đối với ánh sáng phản chiếu trên bề mặt tấm kính, khiến hình ảnh phản chiếu trông khác ở những nơi khác nhau. Khi mỗi mắt chúng ta nhìn thấy một hình ảnh trông giống như từ một góc nhìn khác (nếu chúng không quá khác biệt), bộ não của chúng ta sẽ coi đó là chiều sâu.</value>
+  </data>
+  <data name="Page.Faq.Into.Body2" xml:space="preserve">
+    <value>Tôi đã biết đến nguyên tắc nhận thức lập thể đó từ lâu, nhưng vào thời điểm đó trong đời, tôi cũng đang tham gia một số lớp lập trình, vì vậy tôi quyết định muốn thử tạo một chương trình máy tính đơn giản để vẽ 3D lập thể. Nỗ lực đó đã trở thành StereoSketcher. Phiên bản gốc được viết bằng Java, nhưng tôi đã viết lại bằng Javascript và SVG và bây giờ nó đã có trên web</value>
+  </data>
+  <data name="Page.Faq.Into.Body3" xml:space="preserve">
+    <value>tại liên kết này.</value>
+  </data>
+  <data name="Page.Faq.Into.Body4" xml:space="preserve">
+    <value>Nó không phổ biến chút nào và có thể không dễ dàng cho bất kỳ ai ngoài tôi sử dụng, nhưng nó hoạt động. Trong khi làm việc trên StereoSketcher, tôi đã thử nghiệm các nguyên tắc của kính nhìn nổi và tôi trở nên say mê với cách có thể tạo ra trải nghiệm hấp dẫn và hấp dẫn như vậy bằng cách sử dụng một số quy tắc đơn giản.</value>
+  </data>
+  <data name="Page.Faq.Inverted" xml:space="preserve">
+    <value>Tại sao hình ảnh 3D trông không ổn HOẶC tại sao hình ảnh 3D trông bị đảo ngược?</value>
+  </data>
+  <data name="Page.Faq.Inverted.Body1" xml:space="preserve">
+    <value>Khi xem tự do bằng phương pháp chéo hoặc song song, điều quan trọng là phải xem các bức ảnh bằng cùng một phương pháp đã được sử dụng để tạo ra chúng. Nếu không, mắt phải của bạn sẽ nhìn vào phối cảnh dành cho mắt trái và ngược lại. Điều này làm cho độ sâu của hình ảnh bị đảo ngược vì hướng thị sai đã bị hoán đổi.
+
+Thị sai có nghĩa là từ góc nhìn của mắt phải, khi các vật ở xa hơn, chúng dường như ở xa hơn về phía bên phải so với các vật ở gần hơn khi nhìn từ mắt trái của bạn. Nó khó hiểu khi được mô tả ở dạng câu, nhưng rất trực quan khi được trình bày.
+
+Để làm mẫu, hãy giơ một ngón tay lên trước mặt bạn với độ dài khoảng một cánh tay, sau đó dùng tay kia giữ một ngón tay khác cách khoảng giữa ngón tay đầu tiên và khuôn mặt của bạn. Nếu bạn lần lượt nhắm từng mắt lại và chú ý đến vị trí của các ngón tay, bạn sẽ thấy mỗi mắt nhìn thấy chúng ở những vị trí khác nhau. Vì vậy, một cách tự nhiên, nếu mỗi mắt nhìn thấy chuyển động đó theo hướng ngược lại thì độ sâu sẽ bị đảo ngược.
+
+Rất dễ vô tình sử dụng sai phương pháp xem vì hóa ra hầu hết mọi người rất khó biết liệu họ đang nhìn chéo hay thư giãn mắt chỉ bằng cách cảm nhận hay bằng cách nhìn vào hình ảnh kép khó hiểu của thế giới mà kết quả là. Thay vào đó, tốt nhất bạn nên nhờ người khác xem mắt bạn đang hoạt động như thế nào hoặc thử hình ảnh người kiểm tra này:</value>
+  </data>
+  <data name="Page.Faq.Inverted.Body2" xml:space="preserve">
+    <value>Nhiều người đã cảm thấy khá thoải mái khi xem sách Magic Eye™, vốn được thiết kế để xem bằng phương pháp xem song song. Nếu bạn xem chéo chúng thì các vật thể 3D mạnh mẽ được cho là bật ra khỏi trang thay vào đó trông giống như các lỗ hổng. Cả hai phương pháp đều cho phép bạn xem *thứ gì đó* nhưng nếu bạn không thể biết đó là gì thì có thể bạn đang xem chéo chúng.</value>
+  </data>
+  <data name="Page.Faq.Mirror" xml:space="preserve">
+    <value>Làm cách nào để thực hiện phương pháp "gương một lần"?</value>
+  </data>
+  <data name="Page.Faq.Mirror.Body1" xml:space="preserve">
+    <value>Chụp bằng phương pháp gương sẽ chia khung hình làm đôi và thực hiện chuyển đổi cần thiết để bạn có thể chụp cả hai bên cùng lúc bằng một chiếc điện thoại và một chiếc gương cầm tay thông thường. Để sử dụng phương pháp phản chiếu khi chụp, hãy bật công tắc cho chế độ phản chiếu trên trang Cài đặt (nhấn vào biểu tượng bánh răng để đến đó). Sau khi bạn bật chế độ gương, CrossCam sẽ cho bạn biết nên đặt gương ở phía nào. Giữ gương của bạn ở phía đó và loay hoay với việc căn chỉnh giữa điện thoại với gương và chủ thể của bạn. Với một chút kiên nhẫn, bạn sẽ có thể xếp tất cả chúng thẳng hàng sao cho gương hiển thị góc nhìn chính xác cho một trong các cạnh. Vì sử dụng phương pháp phản chiếu sẽ chia hình ảnh của bạn làm đôi theo chiều dọc nên tốt nhất bạn nên chụp ảnh phong cảnh bằng phương pháp phản chiếu.
+
+Phương pháp này cũng sẽ hiệu quả với hình ảnh phản chiếu trong các cửa sổ lớn, sạch sẽ cũng như trên mặt hồ hoặc vũng nước tĩnh lặng (khi điện thoại được khóa ở chế độ dọc và lật sang một bên).</value>
+  </data>
+  <data name="Page.Faq.Mirror.Body2" xml:space="preserve">
+    <value>Có một số thỏa hiệp/chỉnh sửa cần được thực hiện để sử dụng phương pháp nhân bản. Tất cả những việc này có thể được thực hiện thủ công trong CrossCam, nhưng việc căn chỉnh tự động cũng sẽ cố gắng thực hiện chúng cho bạn:
+ • Vì chế độ xem được phản chiếu di chuyển trên một khoảng cách dài hơn so với chế độ xem bình thường nên mặt được phản chiếu sẽ cần phải được phóng to một chút.
+ • Có khả năng là khi sử dụng phương pháp soi gương, bạn sẽ đi đến chỗ hướng vào trong, thay vì giữ các phối cảnh song song - điều này có thể khiến cho việc thu gọn hình ảnh trông giống như sự căn chỉnh theo chiều dọc không tốt. Để hoàn tác điều đó, có thể thực hiện chỉnh sửa keystone, nghĩa là thu nhỏ một bên của mỗi hình ảnh theo chiều dọc.
+ • Ngón chân cũng sẽ có xu hướng di chuyển cửa sổ âm thanh nổi về phía bạn. Bạn có thể hoàn tác điều đó và đặt nó ở nơi bạn muốn bằng cách cắt các cạnh.
+ • Gương có thể sẽ không che phủ hoàn toàn tầm nhìn của một bên, vì vậy có thể cần phải thực hiện một số thao tác cắt xén để loại bỏ các phần không phản chiếu.
+
+Những chiếc gương tốt nhất cho việc này có kính mỏng. Có một điều, chúng nhẹ nên dễ cầm hơn trong thời gian dài. Điều quan trọng khác là khi sử dụng gương, bạn có thể sẽ hướng gương sang một bên thay vì nhìn thẳng vào gương như gương thường được sử dụng. Khi định hướng như vậy, gương có kính dày có thể bị mờ một chút. Kính càng mỏng thì hiện tượng mờ này càng ít rõ ràng. Những loại gương này cũng có thể có chất lượng thấp ở các khía cạnh khác, vì vậy điều quan trọng là phải tìm được sự cân bằng tốt.
+
+Có một số thỏa hiệp khác phải được chấp nhận khi sử dụng tính năng chụp gương mà CrossCam không thể khắc phục được trong các chỉnh sửa:
+ • Vì tầm nhìn của hai bên có khoảng cách hơi khác nhau nên tiêu điểm cần thiết ở mỗi bên sẽ hơi khác nhau nên một bên sẽ luôn hơi mờ. Hiệu ứng này sẽ nhiều hay ít đáng chú ý tùy thuộc vào khoảng cách đến chủ thể và độ sâu trường ảnh của ống kính.
+ • Không có gương nào thực sự hiệu quả 100% nên phía sử dụng gương có thể tối hơn một chút. Điều này sẽ thay đổi tùy theo chất lượng của gương.</value>
+  </data>
+  <data name="Page.Faq.Moving" xml:space="preserve">
+    <value>Đối tượng của tôi đang chuyển động, làm cách nào để chụp ảnh 3D về đối tượng đó?</value>
+  </data>
+  <data name="Page.Faq.Moving.Body" xml:space="preserve">
+    <value>CrossCam cho phép bạn sử dụng hai phương pháp để chụp cả hai góc nhìn cùng một lúc. Một phương pháp sử dụng hai điện thoại và một phương pháp sử dụng gương.
+
+Để sử dụng thiết lập hai điện thoại, hãy xem trang Thiết lập ghép nối mà bạn có thể truy cập từ trang Cài đặt (nhấn vào biểu tượng bánh răng).
+
+Để sử dụng phương pháp phản chiếu, hãy xem câu hỏi thường gặp khác về phương pháp này.</value>
+  </data>
+  <data name="Page.Faq.Test" xml:space="preserve">
+    <value>Làm cách nào tôi có thể thử nghiệm các phiên bản phát hành trước của CrossCam?</value>
+  </data>
+  <data name="Page.Faq.Test.Body" xml:space="preserve">
+    <value>Hãy xem bài đăng Reddit này</value>
+  </data>
+  <data name="Page.Faq.Why" xml:space="preserve">
+    <value>Tại sao bạn lại tạo CrossCam?</value>
+  </data>
+  <data name="Page.Faq.Why.Body" xml:space="preserve">
+    <value>Khi tôi bắt đầu quan tâm đến phương pháp soi nổi, tôi tình cờ có một chuyến đi tới Yellowstone. Khi ở đó, tôi nhận ra rằng sẽ rất thú vị khi thử sử dụng ứng dụng di động có camera 3D để chụp mọi thứ ở đó ở dạng 3D. Tôi đã rất thất vọng bởi các lựa chọn hiện có. Tôi thấy tất cả họ đều yêu cầu bạn thực hiện hai lần chụp và sau đó tìm hiểu xem chúng có tốt không. Chúng thường không như vậy, vì tôi phải liên tục đưa ra những phỏng đoán hoàn chỉnh về khoảng cách tách biệt của mình cũng như chất lượng của đối tượng.
+
+Trong vài tuần tiếp theo, nỗi thất vọng âm ỉ khiến tôi tưởng tượng đơn giản là cung cấp bản xem trước trực tiếp của ảnh chụp thứ hai cùng với ảnh chụp đầu tiên. Tôi đã có kiến ​​thức nền tảng về phát triển thiết bị di động nên vấn đề chỉ là dành thời gian. CrossCam thật tuyệt vời đối với tôi khi sử dụng cho riêng mình để lưu giữ những kỷ niệm và tôi cũng rất vui được chia sẻ nó với bạn.</value>
+  </data>
+  <data name="Page.Faq.Wiggle" xml:space="preserve">
+    <value>Đồ thị lung tung là gì?</value>
+  </data>
+  <data name="Page.Faq.Wiggle.Body" xml:space="preserve">
+    <value>Đồ thị lung linh là một cách để xem ảnh lập thể không dựa vào tầm nhìn hai mắt. Chúng thường là một ảnh gif lật qua lại giữa hai góc nhìn, hiển thị toàn bộ từng góc nhìn ở cùng một vị trí. CrossCam hiện không hỗ trợ tạo chúng nhưng hãy gửi email cho tôi nếu bạn thực sự quan tâm đến chúng và tôi sẽ làm điều đó.</value>
+  </data>
+  <data name="Page.Tips.AlignAfter" xml:space="preserve">
+    <value>Hãy chú ý đến các đường ngang, nhưng bạn cũng có thể căn chỉnh sau.</value>
+  </data>
+  <data name="Page.Tips.AlignAfter.Body" xml:space="preserve">
+    <value>Nếu bạn nhận thấy rằng trong khi chụp ảnh, không thể làm cho cả hai đường hướng dẫn trên và dưới thẳng hàng cùng lúc, thì có thể bạn đã di chuyển theo một hướng nào đó chứ không phải chỉ sang một bên. Cố gắng khắc phục điều này trước khi chụp ảnh, nhưng việc căn chỉnh sau thực tế có thể giúp ích rất nhiều cho việc này.</value>
+  </data>
+  <data name="Page.Tips.Alignment" xml:space="preserve">
+    <value>Bạn có thể tắt tự động căn chỉnh.</value>
+  </data>
+  <data name="Page.Tips.Alignment.Body" xml:space="preserve">
+    <value>Nếu bạn không thích kết quả của việc căn chỉnh tự động, chỉ cần tắt nó trên trang Cài đặt hoặc bằng cách nhấn vào biểu tượng robot nhỏ và ảnh đã chụp ban đầu của bạn sẽ được khôi phục.</value>
+  </data>
+  <data name="Page.Tips.Donut" xml:space="preserve">
+    <value>Hướng dẫn về bánh rán có thể giúp ích cho cửa sổ của bạn.</value>
+  </data>
+  <data name="Page.Tips.Donut.Body" xml:space="preserve">
+    <value>Có một bánh rán hướng dẫn thử nghiệm trên trang Cài đặt mà bạn có thể bật, điều này có thể giúp bạn duy trì cửa sổ âm thanh nổi trong khi tối đa hóa chiều rộng có thể sử dụng. Bằng cách xoay sang trái và phải, độ sâu trên chiếc bánh rán sẽ thay đổi so với phần còn lại của cảnh - đặt độ sâu của chiếc bánh rán sao cho nó ở trên hoặc phía sau điểm xa nhất trong cảnh của bạn. Hãy cẩn thận, sử dụng nó trên những cảnh nhỏ hơn có thể khiến mọi việc trở nên khó khăn (xem mẹo then chốt ở trên).</value>
+  </data>
+  <data name="Page.Tips.Keystone" xml:space="preserve">
+    <value>Cần phải chỉnh sửa Keystone nếu bạn tham gia.</value>
+  </data>
+  <data name="Page.Tips.Keystone.Body1" xml:space="preserve">
+    <value>Nếu bạn quay vào trong trong mỗi lần chụp thì việc thực hiện chỉnh sửa keystone sẽ rất hữu ích. Thông thường, bạn sẽ muốn thu nhỏ các cạnh bên trong của ảnh rồi cắt bớt một số phần trên và dưới để cân bằng chúng. Bạn truy cập menu chỉnh sửa keystone bằng cách nhấn vào nút trông như thế này:</value>
+  </data>
+  <data name="Page.Tips.Keystone.Body2" xml:space="preserve">
+    <value>Hướng vào trong gọi là hướng ngón chân vào. Nó có thể gây ra hiệu ứng thu nhỏ khiến việc hợp nhất các góc của hình ảnh trở nên khó khăn. Hiệu ứng rút ngắn luôn hiện diện trong cuộc sống thực, bởi vì các đường song song dường như hội tụ khi chúng đi ra xa bạn, nhưng những góc nhìn nhân tạo có thể khiến nó trở nên kỳ lạ.</value>
+  </data>
+  <data name="Page.Tips.Lean" xml:space="preserve">
+    <value>Bạn chỉ có thể dựa.</value>
+  </data>
+  <data name="Page.Tips.Lean.Body" xml:space="preserve">
+    <value>Đôi khi, thay vì di chuyển hoàn toàn chân sang trái hoặc phải để chụp ảnh, bạn chỉ cần đứng dang hai chân và nghiêng người theo từng hướng sẽ dễ dàng hơn nhưng hãy cẩn thận giữ điện thoại ngang tầm và ở cùng độ cao. Chỉ nghiêng người thay vì di chuyển có thể giúp bạn không di chuyển quá xa và có thể giúp bạn giữ thẳng mục tiêu dễ dàng hơn.</value>
+  </data>
+  <data name="Page.Tips.Lines" xml:space="preserve">
+    <value>Các đường căn chỉnh có thể di chuyển.</value>
+  </data>
+  <data name="Page.Tips.Lines.Body" xml:space="preserve">
+    <value>Bạn có thể kéo các đường căn chỉnh xung quanh nếu muốn. Điều này đặc biệt hữu ích khi căn chỉnh ảnh trong quá trình chỉnh sửa.</value>
+  </data>
+  <data name="Page.Tips.Old" xml:space="preserve">
+    <value>Bạn có thể mở ảnh cũ trong CrossCam.</value>
+  </data>
+  <data name="Page.Tips.Old.Body" xml:space="preserve">
+    <value>Bạn có thể tải các ảnh đã chụp trước đó bằng cách nhấn vào biểu tượng thư mục ở cuối trang máy ảnh, nhưng nếu bạn đang làm việc với một lượng lớn ảnh, bạn cũng có thể chia sẻ chúng với CrossCam ngay từ ứng dụng ảnh của mình, ứng dụng này có thể theo dõi ảnh của bạn. đặt trong ảnh của bạn tốt hơn.</value>
+  </data>
+  <data name="Page.Tips.Quick" xml:space="preserve">
+    <value>Bật chế độ nhanh khi bạn ở cùng người khác.</value>
+  </data>
+  <data name="Page.Tips.Quick.Body" xml:space="preserve">
+    <value>Nếu bạn đang khám phá với những người khác, bạn nên chuyển sang chế độ nhanh bằng cách tắt tính năng tự động căn chỉnh và đường viền, đồng thời chỉ lưu sau khi đã chụp mà không thực hiện bất kỳ chỉnh sửa nào. Bạn luôn có thể tải, tự động căn chỉnh và chỉnh sửa ảnh sau. Bằng cách đó, những người bạn đồng hành của bạn không phải đợi bạn hoàn thiện những bức ảnh của mình ngay tại chỗ, nhưng bạn vẫn có thể tự tin rằng chiều sâu bạn mong muốn thực sự có ở đó. Chỉ cần cẩn thận để không thực hiện bất kỳ chỉnh sửa vội vàng nào trước lần lưu đầu tiên! Bạn cũng có thể bật tính năng lưu bên riêng biệt để bỏ qua mọi chỉnh sửa bạn thực hiện.</value>
+  </data>
+  <data name="Page.Tips.Sick" xml:space="preserve">
+    <value>Nếu cử động khiến bạn buồn nôn, hãy giữ yên.</value>
+  </data>
+  <data name="Page.Tips.Sick.Body" xml:space="preserve">
+    <value>Nếu tất cả các chuyển động khiến bạn phát ốm hoặc khiến việc xem ở chế độ 3D trở nên quá khó khăn, đừng bắt đầu thử xem chuyển động đó ở chế độ 3D cho đến khi bạn đã di chuyển qua một chút. Sau đó so sánh các hình ảnh với nhau và căn chỉnh các hình ảnh bằng các đường ngang mà không cần xem 3D, sau đó bắt đầu xem 3D sau khi căn chỉnh và giữ yên.</value>
+  </data>
+  <data name="Page.Tips.Space" xml:space="preserve">
+    <value>Những hình ảnh này có thể chiếm nhiều dung lượng lưu trữ - bạn có thể thu nhỏ chúng.</value>
+  </data>
+  <data name="Page.Tips.Space.Body" xml:space="preserve">
+    <value>Trang Cài đặt có tùy chọn giảm độ phân giải của hình ảnh cuối cùng theo tỷ lệ - điều này có thể hữu ích nếu bạn muốn tiết kiệm dung lượng. Nếu ảnh của bạn không bị cắt thì kết quả cuối cùng là hai ảnh có độ phân giải đầy đủ được ghép lại với nhau để tạo thành một ảnh có độ phân giải kép, điều đó có nghĩa là bạn thường có thể giảm độ phân giải xuống nhiều mà không ảnh hưởng đáng kể đến chất lượng.</value>
+  </data>
+  <data name="Page.Tips.Turn" xml:space="preserve">
+    <value>Đừng quay lại.</value>
+  </data>
+  <data name="Page.Tips.Turn.Body" xml:space="preserve">
+    <value>Khi bạn di chuyển qua, cố gắng không xoay điện thoại theo bất kỳ hướng nào, kể cả xu hướng tự nhiên là quay về phía đối tượng khi bạn di chuyển sang một bên. Một số thao tác xoay sẽ là cần thiết (đôi khi), nhưng hãy cố gắng giảm thiểu nó. Hãy tưởng tượng chiếc điện thoại được gắn trên một thanh ray thẳng nằm ngang và chỉ có thể trượt. Việc quay vào trong có thể gây ra hiệu ứng thu gọn khiến các góc khó dính chặt vào nhau.</value>
+  </data>
+  <data name="Page.Tips.Window" xml:space="preserve">
+    <value>Thêm đường viền và cắt để tạo một cửa sổ âm thanh nổi mạnh mẽ.</value>
+  </data>
+  <data name="Page.Tips.Window.Body" xml:space="preserve">
+    <value>Bạn có thể tạo hiệu ứng cửa sổ âm thanh nổi thú vị bằng cách thực hiện hai việc: 1) bật đường viền (trên trang Cài đặt) và 2) để xem chéo, cắt các cạnh bên trong của hình ảnh cho đến khi chính cạnh ngoài trở thành 3D trong ảnh (cắt các cạnh BÊN NGOÀI nếu bạn đang xem song song). Điều quan trọng là cắt cạnh phải của ảnh bên trái một chút so với cạnh phải của ảnh bên phải thể hiện cảnh đó và ngược lại. Thêm đường viền được bật trên trang Cài đặt. Nếu điều này gây nhầm lẫn, chỉ cần cắt bớt một loạt các cạnh bên trong và nó sẽ bắt đầu rõ ràng. Nút cắt các cạnh bên trong trông như thế này:</value>
+  </data>
+  <data name="Button.Code" xml:space="preserve">
+    <value>Xem mã</value>
+  </data>
+  <data name="Button.Developer" xml:space="preserve">
+    <value>Giới thiệu về nhà phát triển</value>
+  </data>
+  <data name="Button.EmailMe" xml:space="preserve">
+    <value>Gửi thư điện tử cho tôi</value>
+  </data>
+  <data name="Button.GitHub" xml:space="preserve">
+    <value>Thêm sự cố trên GitHub</value>
+  </data>
+  <data name="Button.Press" xml:space="preserve">
+    <value>Quay lại màn hình camera trên cả hai thiết bị và nhấn vào nút ghép nối ở góc dưới</value>
+  </data>
+  <data name="Button.Primary" xml:space="preserve">
+    <value>TẤM VÀO ĐÂY TRÊN BẢNG CHÍNH</value>
+  </data>
+  <data name="Button.Privacy" xml:space="preserve">
+    <value>Chính sách bảo mật</value>
+  </data>
+  <data name="Button.Secondary" xml:space="preserve">
+    <value>TẤM VÀO ĐÂY TRÊN PHẦN TRUNG HỌC</value>
+  </data>
+  <data name="Button.Test" xml:space="preserve">
+    <value>Kiểm tra các phiên bản phát hành trước</value>
+  </data>
+  <data name="Button.Wi-Fi" xml:space="preserve">
+    <value>Đảm bảo Wi-Fi được bật trên cả hai thiết bị (nhưng không cần kết nối với bất kỳ thiết bị nào)</value>
+  </data>
+  <data name="Page.Pairing.1" xml:space="preserve">
+    <value>Nếu bạn có hai thiết bị được cài đặt CrossCam, bạn có thể kết nối chúng để chụp ảnh đồng thời từ hai góc nhìn. Chụp hai bức ảnh cùng lúc sẽ tạo ra những bức ảnh lập thể đẹp nhất có thể.
+
+Xin lưu ý rằng tính năng này vẫn đang thử nghiệm và có thể có vấn đề. Nó có thể không hoạt động hoàn hảo mọi lúc và có thể ngốn pin của bạn. Ngoài ra, xin lưu ý rằng tại thời điểm này, các thiết bị phải có cùng nền tảng để kết nối (cả Android hoặc cả iOS).
+
+Một cách để có được sự đồng bộ hóa *hoàn hảo* chỉ bằng một thiết bị duy nhất và CrossCam là sử dụng phương pháp "gương một lần". Bạn có thể bật nó trên trang Cài đặt và bạn có thể đọc về nó trên trang Câu hỏi thường gặp.
+
+Trước khi hai thiết bị có thể được sử dụng cùng nhau, vai trò của chúng phải được chỉ định. Thiết bị CHÍNH là thiết bị sẽ hiển thị cả hai bản xem trước, kích hoạt quá trình chụp và giữ/lưu các lần chụp cuối cùng. Để chỉ định vai trò, hãy điều hướng cả hai thiết bị tới trang này rồi làm theo các bước bên dưới:</value>
+  </data>
+  <data name="Page.Pairing.2" xml:space="preserve">
+    <value>Nếu bạn gặp khó khăn, XIN LƯU Ý:
+ • Sau khi bắt đầu quá trình ghép nối, bạn có thể nhấn lại vào nút ghép nối bất kỳ lúc nào để dừng hoặc ngắt kết nối.
+ • Việc dừng ghép nối trên cả hai thiết bị và khởi động lại cùng lúc có thể hữu ích.
+ • Việc ngắt kết nối khỏi Wi-Fi hoặc mạng dữ liệu có thể giúp ích trong trường hợp chúng đang hoạt động.
+ • Mỗi máy ảnh đều khác nhau. Những khác biệt này có thể bao gồm trường nhìn góc, tiêu cự, độ phơi sáng và hành vi cân bằng trắng, thời gian, v.v. Ngay cả hai mẫu điện thoại giống nhau cũng sẽ hoạt động hơi khác nhau. Tôi thích sử dụng một cặp điện thoại cũ giống hệt nhau (trong trường hợp của tôi là một cặp iPhone 6).
+ • CrossCam là phần mềm, không phải phần cứng, do đó việc chụp ảnh có thể hơi không đồng bộ tùy thuộc vào những gì khác mà bộ xử lý và bộ nhớ đang thực hiện tại thời điểm chính xác quá trình chụp được kích hoạt. Do đó, việc đồng bộ hóa đôi khi có thể không hoàn hảo nhưng nhìn chung nó phải rất gần nhau.</value>
+  </data>
+  <data name="Page.Pairing.Again" xml:space="preserve">
+    <value>Để kết nối lại sau, hãy đảm bảo bạn đã bật Wi-Fi rồi chỉ cần nhấn vào nút kết nối trên màn hình chính trên cả hai thiết bị.</value>
+  </data>
+  <data name="Page.Pairing.LocalNetworkAccess" xml:space="preserve">
+    <value>CrossCam yêu cầu quyền truy cập mạng cục bộ. CrossCam không thực sự sử dụng mạng cục bộ nhưng iOS yêu cầu CrossCam phải có quyền này để sử dụng ăng-ten Wi-Fi nhằm quét tìm thiết bị. CrossCam sẽ yêu cầu quyền này một lần - nếu quyền bị từ chối, bạn sẽ phải tự mình bật công tắc trong ứng dụng Cài đặt.</value>
+  </data>
+  <data name="Page.Pairing.Location" xml:space="preserve">
+    <value>CrossCam sẽ yêu cầu quyền và bật nguồn các thành phần khi cần để kết nối thiết bị của bạn. Xin lưu ý: CrossCam yêu cầu quyền truy cập vị trí và bật dịch vụ định vị trên thiết bị chính để kết nối với thiết bị phụ. Đây đơn giản là một yêu cầu của Android và hoàn toàn nằm ngoài tầm kiểm soát của tôi. CrossCam thực tế không SỬ DỤNG vị trí của bạn theo bất kỳ cách nào nhưng vì về mặt lý thuyết, hành động tìm kiếm (và tìm kiếm) các thiết bị lân cận có thể được sử dụng để xác định vị trí đại khái của bạn nên CrossCam yêu cầu quyền truy cập vào vị trí của bạn.</value>
+  </data>
+  <data name="Page.Pairing.Permissions" xml:space="preserve">
+    <value>Lưu ý về quyền:</value>
+  </data>
+  <data name="Page.Pairing.Title" xml:space="preserve">
+    <value>Ghép nối</value>
+  </data>
+  <data name="Button.Back" xml:space="preserve">
+    <value>&lt; Quay lại</value>
+  </data>
+  <data name="Page.MorePictures.CrossViewSubreddit" xml:space="preserve">
+    <value>Subreddit CrossView</value>
+  </data>
+  <data name="Page.MorePictures.FacebookGroup" xml:space="preserve">
+    <value>Nhóm Facebook 3D lập thể</value>
+  </data>
+  <data name="Page.MorePictures.GoogleDoc" xml:space="preserve">
+    <value>Google Tài liệu về những điều tuyệt vời</value>
+  </data>
+  <data name="Page.MorePictures.Instagram" xml:space="preserve">
+    <value>Thẻ lập thể Instagram</value>
+  </data>
+  <data name="Page.MorePictures.Mine" xml:space="preserve">
+    <value>Xem Ảnh Tôi Đã Chụp</value>
+  </data>
+  <data name="Page.MorePictures.ParallelViewSubreddit" xml:space="preserve">
+    <value>Subreddit ParallelView</value>
+  </data>
+  <data name="Page.Settings.Alignment" xml:space="preserve">
+    <value>Căn chỉnh tự động</value>
+  </data>
+  <data name="Page.Settings.Analytics" xml:space="preserve">
+    <value>Chia sẻ dữ liệu lỗi và sử dụng ẩn danh để giúp cải thiện CrossCam</value>
+  </data>
+  <data name="Page.Settings.Border" xml:space="preserve">
+    <value>Ranh giới</value>
+  </data>
+  <data name="Page.Settings.Camera" xml:space="preserve">
+    <value>Máy ảnh</value>
+  </data>
+  <data name="Page.Settings.Defaults" xml:space="preserve">
+    <value>Đặt lại về mặc định</value>
+  </data>
+  <data name="Page.Settings.Editing" xml:space="preserve">
+    <value>Chỉnh sửa</value>
+  </data>
+  <data name="Page.Settings.ErrorEmail" xml:space="preserve">
+    <value>Nhắc gửi email khi xảy ra lỗi</value>
+  </data>
+  <data name="Page.Settings.Guides" xml:space="preserve">
+    <value>Hướng dẫn chụp</value>
+  </data>
+  <data name="Page.Settings.Pairing" xml:space="preserve">
+    <value>Ghép nối</value>
+  </data>
+  <data name="Page.Settings.Preview" xml:space="preserve">
+    <value>Xem trước phương pháp xem</value>
+  </data>
+  <data name="Page.Settings.Saving" xml:space="preserve">
+    <value>Tiết kiệm</value>
+  </data>
+  <data name="Page.TipMe.1" xml:space="preserve">
+    <value>CrossCam sử dụng miễn phí, không có quảng cáo, nguồn mở, không thu thập thông tin cá nhân từ bạn và cung cấp cho bạn quyền truy cập đầy đủ vào mọi tính năng. Tôi thích làm việc trên CrossCam nhưng nó tốn rất nhiều thời gian và công sức. Tôi hoàn toàn không kiếm được tiền từ CrossCam ngoại trừ những lời khuyên mà mọi người có thể quyết định gửi cho tôi.</value>
+  </data>
+  <data name="Page.TipMe.2" xml:space="preserve">
+    <value>Nếu bạn thích CrossCam và có khả năng, vui lòng cân nhắc gửi mẹo cho tôi.</value>
+  </data>
+  <data name="Page.TipMe.Ko-fi" xml:space="preserve">
+    <value>Ko-fi</value>
+  </data>
+  <data name="Page.TipMe.Patreon" xml:space="preserve">
+    <value>Patreon</value>
+  </data>
+  <data name="Page.TipMe.PayPal" xml:space="preserve">
+    <value>PayPal</value>
+  </data>
+  <data name="Page.TipMe.Tipped" xml:space="preserve">
+    <value>Tôi đã được tip</value>
+  </data>
+  <data name="Page.TipMe.TippedTimes" xml:space="preserve">
+    <value>lần, tổng cộng</value>
+  </data>
+  <data name="Page.TipMe.Venmo" xml:space="preserve">
+    <value>Venmo</value>
+  </data>
+  <data name="Title.MorePictures" xml:space="preserve">
+    <value>Xem Thêm Hình Ảnh</value>
+  </data>
+  <data name="Title.Settings" xml:space="preserve">
+    <value>Cài đặt</value>
+  </data>
+  <data name="Title.TipMe" xml:space="preserve">
+    <value>Lời khuyên được đánh giá cao!</value>
+  </data>
+  <data name="Settings.Alignment.Advanced" xml:space="preserve">
+    <value>Hiển thị cài đặt căn chỉnh nâng cao</value>
+  </data>
+  <data name="Settings.Alignment.Ecc" xml:space="preserve">
+    <value>Hãy thử sử dụng căn chỉnh ECC trước tiên luôn</value>
+  </data>
+  <data name="Settings.Alignment.Keypoints" xml:space="preserve">
+    <value>Hãy thử sử dụng căn chỉnh điểm chính trước tiên luôn</value>
+  </data>
+  <data name="Settings.Alignment.On" xml:space="preserve">
+    <value>Tự động căn chỉnh sau khi chụp</value>
+  </data>
+  <data name="Settings.Border.Color" xml:space="preserve">
+    <value>Màu viền</value>
+  </data>
+  <data name="Settings.Border.FuseGuide" xml:space="preserve">
+    <value>Thêm hướng dẫn cầu chì lên trên (một dấu chấm phía trên mỗi bên)</value>
+  </data>
+  <data name="Settings.Border.On" xml:space="preserve">
+    <value>Thêm biên giới</value>
+  </data>
+  <data name="Settings.Border.Prompt" xml:space="preserve">
+    <value>Nhắc cắt bỏ đường viền khi được phát hiện trong khi tải</value>
+  </data>
+  <data name="Settings.Border.Thickness" xml:space="preserve">
+    <value>Độ dày đường viền (phần mười phần trăm chiều rộng)</value>
+  </data>
+  <data name="Settings.Camera.Camera1" xml:space="preserve">
+    <value>Buộc API camera1 (có thể hữu ích nếu bạn gặp phải vấn đề lạ nhưng sẽ dẫn đến chức năng bị hạn chế, yêu cầu buộc thoát/khởi động lại để có hiệu lực)</value>
+  </data>
+  <data name="Settings.Camera.Camera2" xml:space="preserve">
+    <value>Buộc API camera2 (phải có trên Android 6 trở lên, có thể hữu ích nếu bạn gặp lỗi nhưng có thể mắc nhiều lỗi hơn, yêu cầu buộc thoát/khởi động lại để có hiệu lực)</value>
+  </data>
+  <data name="Settings.Camera.LandscapeCaptureHorizontal" xml:space="preserve">
+    <value>Nút chụp phong cảnh nằm ngang</value>
+  </data>
+  <data name="Settings.Camera.LandscapeCaptureVertical" xml:space="preserve">
+    <value>Vị trí dọc của nút chụp phong cảnh</value>
+  </data>
+  <data name="Settings.Camera.Lock" xml:space="preserve">
+    <value>Khóa lấy nét và phơi sáng để ảnh thứ hai lấy nét và phơi sáng từ ảnh đầu tiên</value>
+  </data>
+  <data name="Settings.Camera.Pair" xml:space="preserve">
+    <value>Vị trí nút ghép ngang (khi nút chụp ở giữa)</value>
+  </data>
+  <data name="Settings.Camera.PointFocus" xml:space="preserve">
+    <value>Nhấn để lấy nét điểm, nhấn đúp để chuyển về chế độ lấy nét liên tục (hoặc lưu hoặc xóa)</value>
+  </data>
+  <data name="Settings.Camera.PortraitCapture" xml:space="preserve">
+    <value>Vị trí nút chụp ảnh chân dung</value>
+  </data>
+  <data name="Settings.Editing.Align" xml:space="preserve">
+    <value>Tỷ lệ căn chỉnh dọc tối đa</value>
+  </data>
+  <data name="Settings.Editing.Keystone" xml:space="preserve">
+    <value>Đá đỉnh vòm tối đa</value>
+  </data>
+  <data name="Settings.Editing.Rotation" xml:space="preserve">
+    <value>Độ quay tối đa</value>
+  </data>
+  <data name="Settings.Editing.SideCrop" xml:space="preserve">
+    <value>Tỷ lệ cây trồng phụ tối đa</value>
+  </data>
+  <data name="Settings.Editing.TopCrop" xml:space="preserve">
+    <value>Tỷ lệ cắt trên/dưới tối đa</value>
+  </data>
+  <data name="Settings.Editing.Zoom" xml:space="preserve">
+    <value>Tỷ lệ thu phóng tối đa</value>
+  </data>
+  <data name="Settings.Guides.Donut" xml:space="preserve">
+    <value>Hiển thị hướng dẫn về bánh rán (sẽ gây khó chịu nên có thể yêu cầu chỉnh sửa keystone)</value>
+  </data>
+  <data name="Settings.Guides.Fuse" xml:space="preserve">
+    <value>Hiển thị hướng dẫn cầu chì (một dấu chấm phía trên mỗi bên)</value>
+  </data>
+  <data name="Settings.Guides.LineColor" xml:space="preserve">
+    <value>Đường màu khác nhau</value>
+  </data>
+  <data name="Settings.Guides.Lines" xml:space="preserve">
+    <value>dòng có thể nhìn thấy</value>
+  </data>
+  <data name="Settings.Guides.Roll" xml:space="preserve">
+    <value>Hướng dẫn cuộn hiển thị</value>
+  </data>
+  <data name="Settings.Pair.CaptureDelay" xml:space="preserve">
+    <value>Độ trễ bổ sung của khoảnh khắc chụp (ms) (chỉ thêm độ trễ bổ sung cho khoảnh khắc chụp mục tiêu trên thiết bị này)</value>
+  </data>
+  <data name="Settings.Pair.Countdown" xml:space="preserve">
+    <value>Chụp thời lượng đếm ngược (hẹn giờ)</value>
+  </data>
+  <data name="Settings.Pair.Fov" xml:space="preserve">
+    <value>Chỉnh sửa trường nhìn</value>
+  </data>
+  <data name="Settings.Pair.FovNotSet" xml:space="preserve">
+    <value>Chưa đặt hiệu chỉnh FOV (chụp bằng các thiết bị đã ghép nối để thực hiện quá trình thiết lập).</value>
+  </data>
+  <data name="Settings.Pair.FovReset" xml:space="preserve">
+    <value>Cài lại</value>
+  </data>
+  <data name="Settings.Pair.Go" xml:space="preserve">
+    <value>Đi đến trang thiết lập ghép nối</value>
+  </data>
+  <data name="Settings.Pair.NoRole" xml:space="preserve">
+    <value>Vai trò chưa được chọn</value>
+  </data>
+  <data name="Settings.Pair.PreviewDelay" xml:space="preserve">
+    <value>Độ trễ khung xem trước (số cao hơn sẽ làm giảm tốc độ khung hình nhưng tiết kiệm pin)</value>
+  </data>
+  <data name="Settings.Pair.Primary" xml:space="preserve">
+    <value>Sơ đẳng:</value>
+  </data>
+  <data name="Settings.Pair.PrimaryRole" xml:space="preserve">
+    <value>Vai trò: Chính</value>
+  </data>
+  <data name="Settings.Pair.Sample" xml:space="preserve">
+    <value>Số mẫu đồng hồ (số thấp hơn sẽ giảm thời gian cần thiết cho lần đồng bộ hóa đầu tiên nhưng có thể làm giảm độ chính xác của đồng bộ hóa)</value>
+  </data>
+  <data name="Settings.Pair.Secondary" xml:space="preserve">
+    <value>Sơ trung:</value>
+  </data>
+  <data name="Settings.Pair.SecondaryRole" xml:space="preserve">
+    <value>Vai trò: Phụ</value>
+  </data>
+  <data name="Settings.Pair.Timeout" xml:space="preserve">
+    <value>Thời gian chờ kết nối (giây) (0 có nghĩa là không có thời gian chờ)</value>
+  </data>
+  <data name="Settings.Preview.Barrel" xml:space="preserve">
+    <value>Thêm hiệu chỉnh ống kính/biến dạng thùng (có thể làm giảm tốc độ khung hình)</value>
+  </data>
+  <data name="Settings.Preview.BarrelFinal" xml:space="preserve">
+    <value>Chỉ thêm hiệu chỉnh ống kính/biến dạng thùng cho hình ảnh cuối cùng (có thể làm chậm màn hình cuối cùng nhưng sẽ tăng tốc độ chụp)</value>
+  </data>
+  <data name="Settings.Preview.CardboardDistance" xml:space="preserve">
+    <value>Khoảng cách tách các tông</value>
+  </data>
+  <data name="Settings.Preview.Downsize" xml:space="preserve">
+    <value>Giảm kích thước hình ảnh (có thể tăng tốc độ khung hình)</value>
+  </data>
+  <data name="Settings.Preview.DownsizePercent" xml:space="preserve">
+    <value>Giảm tỷ lệ phần trăm hình ảnh</value>
+  </data>
+  <data name="Settings.Preview.Immersive" xml:space="preserve">
+    <value>Xem lần cuối đắm chìm</value>
+  </data>
+  <data name="Settings.Preview.LensStrength" xml:space="preserve">
+    <value>Cường độ hiệu chỉnh ống kính</value>
+  </data>
+  <data name="Settings.Preview.Mirror" xml:space="preserve">
+    <value>Chụp bằng phương pháp chia gương một lần</value>
+  </data>
+  <data name="Settings.Preview.Width" xml:space="preserve">
+    <value>Chiều rộng hình ảnh xem song song tối đa (điểm)</value>
+  </data>
+  <data name="Settings.Reset" xml:space="preserve">
+    <value>Đặt lại về mặc định</value>
+  </data>
+  <data name="Settings.Saving.Alone" xml:space="preserve">
+    <value>Chỉ lưu mặt đầu tiên (không chỉnh sửa hoặc viền) (để dễ dàng chia sẻ ảnh phẳng với những người ở chế độ xem phẳng)</value>
+  </data>
+  <data name="Settings.Saving.Anaglyph" xml:space="preserve">
+    <value>Lưu phiên bản anaglyph màu đỏ/lục lam (có chỉnh sửa nhưng không có viền)</value>
+  </data>
+  <data name="Settings.Saving.Browse" xml:space="preserve">
+    <value>Duyệt...</value>
+  </data>
+  <data name="Settings.Saving.Cardboard" xml:space="preserve">
+    <value>Lưu cho Cardboard (có chỉnh sửa, không viền, không khoảng cách, toàn bộ chiều rộng, để tải lại vào CrossCam sau)</value>
+  </data>
+  <data name="Settings.Saving.Clear" xml:space="preserve">
+    <value>Tự động xóa ảnh chụp sau khi lưu</value>
+  </data>
+  <data name="Settings.Saving.Cross" xml:space="preserve">
+    <value>Lưu phiên bản xem chéo đã tham gia (có chỉnh sửa và đường viền)</value>
+  </data>
+  <data name="Settings.Saving.ExternalDirectory" xml:space="preserve">
+    <value>Lưu vào thư mục CrossCam bên ngoài tại:</value>
+  </data>
+  <data name="Settings.Saving.ExternalWarning" xml:space="preserve">
+    <value>(cảnh báo: hình ảnh sẽ bị xóa nếu gỡ cài đặt CrossCam)</value>
+  </data>
+  <data name="Settings.Saving.Folder" xml:space="preserve">
+    <value>Lưu vào thư mục/album con "CrossCam" chuyên dụng</value>
+  </data>
+  <data name="Settings.Saving.Grayscale" xml:space="preserve">
+    <value>Lưu phiên bản anaglyph màu đỏ/lục lam thang độ xám (có chỉnh sửa nhưng không có viền)</value>
+  </data>
+  <data name="Settings.Saving.Order" xml:space="preserve">
+    <value>(Việc lưu sẽ diễn ra theo thứ tự từ trên xuống dưới)</value>
+  </data>
+  <data name="Settings.Saving.Parallel" xml:space="preserve">
+    <value>Lưu phiên bản xem song song đã tham gia (có chỉnh sửa và đường viền)</value>
+  </data>
+  <data name="Settings.Saving.Quad" xml:space="preserve">
+    <value>Lưu kết hợp quad (có chỉnh sửa và đường viền)</value>
+  </data>
+  <data name="Settings.Saving.Reset" xml:space="preserve">
+    <value>Cài lại</value>
+  </data>
+  <data name="Settings.Saving.Resolution" xml:space="preserve">
+    <value>Tỷ lệ độ phân giải</value>
+  </data>
+  <data name="Settings.Saving.SaveTo" xml:space="preserve">
+    <value>Lưu vào:</value>
+  </data>
+  <data name="Settings.Saving.Separate" xml:space="preserve">
+    <value>Lưu từng bên riêng biệt (không có chỉnh sửa hoặc đường viền để xử lý bài đăng dễ dàng hơn, lưu bên trái trước)</value>
+  </data>
+  <data name="Settings.Saving.Subfolder" xml:space="preserve">
+    <value>Lưu vào các thư mục/album con "CrossCam_{ViewMethod}" chuyên dụng</value>
+  </data>
+  <data name="Settings.Saving.Triple" xml:space="preserve">
+    <value>Lưu kết hợp ba (có chỉnh sửa và đường viền)</value>
+  </data>
+  <data name="Button.Pair.Accept" xml:space="preserve">
+    <value>Chấp nhận</value>
+  </data>
+  <data name="Button.Pair.Cancel" xml:space="preserve">
+    <value>Hủy bỏ</value>
+  </data>
+  <data name="Page.Camera.AcceptConnection" xml:space="preserve">
+    <value>Chấp nhận kết nối tới</value>
+  </data>
+  <data name="Page.Camera.Confirm" xml:space="preserve">
+    <value>Xác nhận mã khớp trên cả hai thiết bị:</value>
+  </data>
+  <data name="Page.Footer.CouldntOpen" xml:space="preserve">
+    <value>Không thể mở liên kết</value>
+  </data>
+  <data name="Page.Footer.OpenError" xml:space="preserve">
+    <value>Liên kết mailto không thể mở được. Điều này có thể là do ứng dụng email của bạn chưa được thiết lập hoặc một số lý do khác.</value>
+  </data>
+  <data name="Page.Pair.Errors.Denied" xml:space="preserve">
+    <value>Các quyền cần thiết để ghép nối không được cấp. Ngoại lệ:</value>
+  </data>
+  <data name="Page.Pair.Errors.FailedBluetooth" xml:space="preserve">
+    <value>Thiết bị không bật được Bluetooth. Ngoại lệ:</value>
+  </data>
+  <data name="Page.Pair.Errors.FailedSearch" xml:space="preserve">
+    <value>Thiết bị không thể tìm kiếm thiết bị. Ngoại lệ:</value>
+  </data>
+  <data name="Page.Pair.Errors.LocationOff" xml:space="preserve">
+    <value>Dịch vụ định vị chưa được kích hoạt. Không thể quét thiết bị. Xem trang ghép nối để biết thêm chi tiết.</value>
+  </data>
+  <data name="Page.Pair.Errors.LocationScan" xml:space="preserve">
+    <value>Quyền vị trí không được cấp. Không thể quét thiết bị. Xem trang ghép nối để biết thêm chi tiết.</value>
+  </data>
+  <data name="Page.Pair.Errors.NotSupported" xml:space="preserve">
+    <value>Ghép nối không được hỗ trợ trên thiết bị này. Ngoại lệ:</value>
+  </data>
+  <data name="Page.Pair.Errors.Title" xml:space="preserve">
+    <value>Lỗi</value>
+  </data>
+  <data name="Page.Pair.Errors.WifiOff" xml:space="preserve">
+    <value>Wi-Fi đã tắt. Vui lòng bật Wi-Fi.</value>
+  </data>
+  <data name="Page.Pair.PrimaryExplanation" xml:space="preserve">
+    <value>Thiết bị này hiện được đặt làm thiết bị chính.</value>
+  </data>
+  <data name="Page.Pair.PrimarySelected" xml:space="preserve">
+    <value>Vai trò chính đã được chọn</value>
+  </data>
+  <data name="Page.Pair.SecondaryExplanation" xml:space="preserve">
+    <value>Thiết bị này hiện được đặt làm thiết bị phụ.</value>
+  </data>
+  <data name="Page.Pair.SecondarySelected" xml:space="preserve">
+    <value>Vai trò phụ đã được chọn</value>
+  </data>
+  <data name="Page.Technique.Mode" xml:space="preserve">
+    <value>cách thức.</value>
+  </data>
+  <data name="Page.Technique.SetMode" xml:space="preserve">
+    <value>CrossCam hiện đã có mặt</value>
+  </data>
+</root>

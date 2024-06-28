@@ -1,0 +1,1156 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="Button.GoogleDoc" xml:space="preserve">
+    <value>Google Doc of Great Stuff</value>
+  </data>
+  <data name="Button.LearnCross" xml:space="preserve">
+    <value>ÕPI RIST</value>
+  </data>
+  <data name="Button.LearnParallel" xml:space="preserve">
+    <value>ÕPI PARALLEELSELT</value>
+  </data>
+  <data name="Button.MorePictures" xml:space="preserve">
+    <value>Vaata Rohkem pilte</value>
+  </data>
+  <data name="Button.Review" xml:space="preserve">
+    <value>Kirjuta arvustus</value>
+  </data>
+  <data name="Button.Share" xml:space="preserve">
+    <value>Jaga CrossCami</value>
+  </data>
+  <data name="Button.Support" xml:space="preserve">
+    <value>Toetage arendajat</value>
+  </data>
+  <data name="Button.TapCross" xml:space="preserve">
+    <value>PUUDUTAGE SIIA, ET RIST VALIDA</value>
+  </data>
+  <data name="Button.TapParallel" xml:space="preserve">
+    <value>PARALELLE VALIMISEKS PUUDUTAGE SIIA</value>
+  </data>
+  <data name="Footer.Span1" xml:space="preserve">
+    <value>Leidsid vea? Kas teil on küsimus? Lihtsalt meili teel</value>
+  </data>
+  <data name="Footer.Span3" xml:space="preserve">
+    <value>! Mulle meeldib kasutajatega vestelda ja see on kiireim viis minuga suhtlemiseks.</value>
+  </data>
+  <data name="Page.HowToUse.2anaglyph" xml:space="preserve">
+    <value>2) Alustage anaglüüfi vaatamist esimest pilti koos selle kõrval kuvatava eelvaatega.</value>
+  </data>
+  <data name="Page.HowToUse.2cardboard" xml:space="preserve">
+    <value>2) Alustage esimese pildi vaatamist koos selle kõrval kuvatava eelvaatega.</value>
+  </data>
+  <data name="Page.HowToUse.2cross" xml:space="preserve">
+    <value>2) Alustage esimese pildi ristvaatamist koos selle kõrval kuvatava eelvaatega.</value>
+  </data>
+  <data name="Page.HowToUse.2parallel" xml:space="preserve">
+    <value>2) Alustage paralleelselt esimese pildi vaatamist koos selle kõrval kuvatava eelvaatega.</value>
+  </data>
+  <data name="Page.Technique.AdditionalTutorials" xml:space="preserve">
+    <value>Täiendavad õpetused:</value>
+  </data>
+  <data name="Page.Technique.Cross1" xml:space="preserve">
+    <value>Pöörake ülaltoodud pildipaari vaadates silmad ettevaatlikult risti. Silmad ristis muutuvad asjad uduseks ja läbipaistvaks ning hakkate nägema 2 pildi (2 paari) asemel nelja. Mida kõvemini silmad risti lööd, seda kaugemale pildipaarid teineteisest liiguvad – see näeb välja veidi selline:</value>
+  </data>
+  <data name="Page.Technique.Cross2" xml:space="preserve">
+    <value>Ristke silmad ettevaatlikult lahti, nii et iga paari siseküljel olevad pildid hakkaksid kattuma. See hakkab välja nägema, et 4 pildi asemel on ainult 3. See on endiselt udune ja läbipaistev ning näeb välja umbes selline:</value>
+  </data>
+  <data name="Page.Technique.Cross3" xml:space="preserve">
+    <value>Kui keskmine kattuvus töötab, peate lihtsalt oma silmi lõdvestama ja võimaldama neil pilti teravustada. Sel hetkel on teil keskel üks terav 3D-pilt, mille mõlemal küljel hõljub läbipaistev pilt, mis näeb välja selline (välja arvatud, et keskmine on 3D):</value>
+  </data>
+  <data name="Page.Technique.Cross4" xml:space="preserve">
+    <value>Kui teil on probleeme silmade ületamisega, võite proovida ka oma sõrme vahtida, hoides seda pooleldi silmade ja ekraani vahel. Peaksite nägema, et pildid hakkavad sõrme taga eralduma ja kattuma.</value>
+  </data>
+  <data name="Page.Technique.CrossViewing" xml:space="preserve">
+    <value>RISTVAATAMINE</value>
+  </data>
+  <data name="Page.Technique.P1" xml:space="preserve">
+    <value>Kui soovite seda uuesti näha, puudutage kaameraekraani vasakus ülanurgas hamburgeri (kolm rida) ikooni ja puudutage valikut "Abi".
+
+3D vaatamiseks CrossCamis (nimetatakse "stereogrammideks") võite kasutada punaseid/tsüaanseid 3D-prille, Google Cardboardi vaatajat või teha "tasuta vaatamist", kasutades ainult silmi ja ekraani. Vabavaate saamiseks on kaks võimalust ja CrossCam aitab teil neid mõlemaid õppida. Peate CrossCamile ütlema, kuidas kavatsete pilte vaadata, vastasel juhul ei tööta see õigesti. Ärge muretsege, saate seda alati seadetes uuesti muuta.
+
+Kui suudate mugavalt silmad ületada, peaksite esmalt proovima ristimeetodit, vastasel juhul proovige paralleelmeetodit. Kui olete Magic Eye™ raamatutega harjunud, saate tõenäoliselt juba paralleelmeetodit kasutada, kuid võib-olla saate teha ka ristmeetodit. Puudutage allolevat meetodit selle õppimiseks ja öelge CrossCamile, milline meetod teie jaoks sobib, vajutades vastavat VALI nuppu.
+
+Kui eelistate kasutada 3D-prille või Cardboard-vaaturit, saate seadete lehel seada CrossCami neid kasutama.</value>
+  </data>
+  <data name="Page.Technique.CrossLink1" xml:space="preserve">
+    <value>Hea tekstiõpetus</value>
+  </data>
+  <data name="Page.Technique.CrossLink2" xml:space="preserve">
+    <value>Veel üks tore tekstiõpetus</value>
+  </data>
+  <data name="Page.Technique.CrossLink3" xml:space="preserve">
+    <value>YouTube'i lühike õpetus</value>
+  </data>
+  <data name="Page.Technique.CrossLink4" xml:space="preserve">
+    <value>Pikk, kummaline, kuid kasulik YouTube'i õpetus</value>
+  </data>
+  <data name="Page.Technique.CrossLink5" xml:space="preserve">
+    <value>Veel üks YouTube'i õpetus</value>
+  </data>
+  <data name="Page.Technique.CrossLink6" xml:space="preserve">
+    <value>Kahe kaamera projekt koos õpetusega</value>
+  </data>
+  <data name="Page.Technique.Parallel1" xml:space="preserve">
+    <value>Kui ülaltoodud pilt teie ekraanile ei mahu, keerake telefon horisontaalasendisse – CrossCam üritab muuta ülaltoodud pildipaari selleks kõige lihtsama suurusega. Alati ei pea CrossCami kasutama maastikul, kuid täiusliku suurusega pilt muudab tehnika õppimise lihtsamaks.</value>
+  </data>
+  <data name="Page.Technique.Parallel2" xml:space="preserve">
+    <value>Lõdvestage oma silmad ja vaadake ülaltoodud pildipaari "läbi", nagu oleksite oma silmad piltidele suunatud. Peaksite nägema 3 pilti, mille keskel on 3D-pilt, umbes nii:</value>
+  </data>
+  <data name="Page.Technique.Parallel3" xml:space="preserve">
+    <value>Kui hakkate nägema 4 pilti, olete liiga kaugele läinud. Proovige oma silmi veidi liigutada, kui leiate end sellest punktist uuesti. Liiga kaugele lõõgastumine näeb välja umbes selline:</value>
+  </data>
+  <data name="Page.Technique.Parallel4" xml:space="preserve">
+    <value>Kui teil on probleeme, proovige tuua ekraan otse vastu oma nägu nii, et pildipaar on otse teie silme ees. Lõdvestuge ja vaadake "läbi" ekraani ning seejärel tõmmake ekraan aeglaselt näost eemale, hoides samal ajal silmi lõdvestunud. Lõpuks peaks pilt "klõpsama" fookusesse.</value>
+  </data>
+  <data name="Page.Technique.Parallel5" xml:space="preserve">
+    <value>Kui näete endiselt nelja pilti, suurendage seadete lehel "Kujutise maksimaalset paralleelvaate laiust".</value>
+  </data>
+  <data name="Page.Technique.ParallelViewing" xml:space="preserve">
+    <value>Rööpvaade</value>
+  </data>
+  <data name="Page.Technique.Practice" xml:space="preserve">
+    <value>Minu tehtud pildid, millel saate harjutada</value>
+  </data>
+  <data name="Title.Contact" xml:space="preserve">
+    <value>Võtke ühendust</value>
+  </data>
+  <data name="Title.Faq" xml:space="preserve">
+    <value>KKK</value>
+  </data>
+  <data name="Title.Help" xml:space="preserve">
+    <value>Abi</value>
+  </data>
+  <data name="Title.HowToUse" xml:space="preserve">
+    <value>Kuidas CrossCami kasutada</value>
+  </data>
+  <data name="Title.Technique" xml:space="preserve">
+    <value>3D-vaatamise tehnika</value>
+  </data>
+  <data name="Title.Tips" xml:space="preserve">
+    <value>Näpunäiteid</value>
+  </data>
+  <data name="Button.DoNotEmailMe" xml:space="preserve">
+    <value>Ärge saatke mulle nüüd meili</value>
+  </data>
+  <data name="Button.EmailMeNow" xml:space="preserve">
+    <value>Saatke mulle kohe meilisõnum</value>
+  </data>
+  <data name="Button.No" xml:space="preserve">
+    <value>Ei</value>
+  </data>
+  <data name="Button.OK" xml:space="preserve">
+    <value>Okei</value>
+  </data>
+  <data name="Button.YesClear" xml:space="preserve">
+    <value>Jah, selge</value>
+  </data>
+  <data name="Page.Camera.Aligning" xml:space="preserve">
+    <value>Joondamine...</value>
+  </data>
+  <data name="Page.Camera.AlignmentBroken" xml:space="preserve">
+    <value>Seade ei toeta automaatset joondamist – lülitage seadetes välja.</value>
+  </data>
+  <data name="Page.Camera.AlignmentFailed" xml:space="preserve">
+    <value>Joondamine ebaõnnestus.</value>
+  </data>
+  <data name="Page.Camera.BorderAsk" xml:space="preserve">
+    <value>Tuvastati piir. Kas eemaldada piir?</value>
+  </data>
+  <data name="Page.Camera.BorderDetected" xml:space="preserve">
+    <value>Piir tuvastatud</value>
+  </data>
+  <data name="Page.Camera.Cancel" xml:space="preserve">
+    <value>Tühista</value>
+  </data>
+  <data name="Page.Camera.ChooseAction" xml:space="preserve">
+    <value>Valige toiming:</value>
+  </data>
+  <data name="Page.Camera.DirectoryNotFound" xml:space="preserve">
+    <value>Kataloogi ei leitud</value>
+  </data>
+  <data name="Page.Camera.DirectoryNotFoundExplain" xml:space="preserve">
+    <value>Salvestamise sihtkohta ei leitud. Valige seadete lehel mõni muu.</value>
+  </data>
+  <data name="Page.Camera.ErrorEmailBody" xml:space="preserve">
+    <value>Mida sa tegid vahetult enne vea ilmnemist? Kirjeldage isegi pisiasju.\n\n\n\n\n\nKas CrossCam töötas ka pärast viga? Kui ei, siis kuidas see katki on?\n\n\n\n\n\nKas see juhtub korduvalt?\n\n\n\n\n\nKas saate tõrke käsu peale sundida? Kui jah, siis kuidas?\n\n\n\n\n\n</value>
+  </data>
+  <data name="Page.Camera.FlipForCardboard" xml:space="preserve">
+    <value>Pöörake papprežiimis horisontaalasendisse.</value>
+  </data>
+  <data name="Page.Camera.FlipLarger" xml:space="preserve">
+    <value>(suurema vaate vaatamiseks pöörake horisontaalasendisse)</value>
+  </data>
+  <data name="Page.Camera.ForAnaglyph" xml:space="preserve">
+    <value>anaglüüfi jaoks</value>
+  </data>
+  <data name="Page.Camera.ForCardboard" xml:space="preserve">
+    <value>Cardboardi jaoks</value>
+  </data>
+  <data name="Page.Camera.ForCross" xml:space="preserve">
+    <value>risti jaoks</value>
+  </data>
+  <data name="Page.Camera.ForParallel" xml:space="preserve">
+    <value>paralleelseks</value>
+  </data>
+  <data name="Page.Camera.GoPickRole" xml:space="preserve">
+    <value>Minge sidumislehele (seadete lehe kaudu) ja valige enne sidumist selle seadme jaoks sidumisroll.</value>
+  </data>
+  <data name="Page.Camera.InvalidImage" xml:space="preserve">
+    <value>Kehtetu pilt</value>
+  </data>
+  <data name="Button.Camera.Keep" xml:space="preserve">
+    <value>Hoidke</value>
+  </data>
+  <data name="Page.Camera.LoadFullImage" xml:space="preserve">
+    <value>Laadige täis stereopilt</value>
+  </data>
+  <data name="Page.Camera.Loading" xml:space="preserve">
+    <value>Laadimine...</value>
+  </data>
+  <data name="Page.Camera.LoadSingleSide" xml:space="preserve">
+    <value>Laadige üks külg</value>
+  </data>
+  <data name="Page.Camera.ManualCorrections" xml:space="preserve">
+    <value>Palun kaaluge ka käsitsi tehtavaid parandusi.</value>
+  </data>
+  <data name="Page.Camera.MirrorOnLeft" xml:space="preserve">
+    <value>VASAKUL PEEGEL</value>
+  </data>
+  <data name="Page.Camera.MirrorOnRight" xml:space="preserve">
+    <value>PEGEL PAREMAL</value>
+  </data>
+  <data name="Page.Camera.MoveLeft" xml:space="preserve">
+    <value>LIIGU VASAKULE</value>
+  </data>
+  <data name="Page.Camera.MoveRight" xml:space="preserve">
+    <value>LIIGU PAREMALE</value>
+  </data>
+  <data name="Page.Camera.NoSaveModes" xml:space="preserve">
+    <value>Salvestusrežiime pole aktiivseid</value>
+  </data>
+  <data name="Page.Camera.NoSaveModesExplain" xml:space="preserve">
+    <value>Ükski salvestusrežiim pole praegu sisse lülitatud. Lülitage seadete lehel salvestusrežiim sisse.</value>
+  </data>
+  <data name="Page.Camera.Oops" xml:space="preserve">
+    <value>Oih</value>
+  </data>
+  <data name="Page.Camera.OrRotate" xml:space="preserve">
+    <value>(või pöörake)</value>
+  </data>
+  <data name="Page.Camera.OrSwipe" xml:space="preserve">
+    <value>(või pühkige)</value>
+  </data>
+  <data name="Page.Camera.PairRoleNotSelected" xml:space="preserve">
+    <value>Paariroll pole valitud</value>
+  </data>
+  <data name="Page.Camera.PinchOrDrag" xml:space="preserve">
+    <value>Avastamiseks näpistage või lohistage!</value>
+  </data>
+  <data name="Page.Camera.PleaseSelectValid" xml:space="preserve">
+    <value>Valige Jpeg-, Png- või Webp-pilt. Teie valitud pilt on</value>
+  </data>
+  <data name="Page.Camera.ReallyClear" xml:space="preserve">
+    <value>Kas tõesti selge?</value>
+  </data>
+  <data name="Button.Camera.Remove" xml:space="preserve">
+    <value>Eemalda</value>
+  </data>
+  <data name="Page.Camera.SavedToCustomFolder" xml:space="preserve">
+    <value>Salvestatud kohandatud kausta</value>
+  </data>
+  <data name="Page.Camera.SavedToExternal" xml:space="preserve">
+    <value>Salvestatud välisele</value>
+  </data>
+  <data name="Page.Camera.SavedToPhotos" xml:space="preserve">
+    <value>Salvestatud kausta Photos</value>
+  </data>
+  <data name="Page.Camera.SaveFailed" xml:space="preserve">
+    <value>Salvestamine ebaõnnestus. :(</value>
+  </data>
+  <data name="Page.Camera.Saving" xml:space="preserve">
+    <value>Salvestamine...</value>
+  </data>
+  <data name="Page.Camera.SecondaryOnLeft" xml:space="preserve">
+    <value>TEISENE VASAKUL</value>
+  </data>
+  <data name="Page.Camera.SecondaryOnRight" xml:space="preserve">
+    <value>TEISENE PAREMAL</value>
+  </data>
+  <data name="Page.Camera.SelectedInvalid" xml:space="preserve">
+    <value>Valitud pilt on kehtetu.</value>
+  </data>
+  <data name="Page.Camera.SorryError" xml:space="preserve">
+    <value>Vabandust, CrossCam tegi vea. Veaaruanne on automaatselt saadetud. Te ei pruugi üldse midagi valesti märgata, kuid kui märkate, proovige rakendus taaskäivitada. Kui see jätkub, saatke mulle meil ja rääkige sellest. (Nende hüpikakende peatamiseks minge lehele Seaded.)</value>
+  </data>
+  <data name="Page.Camera.Steady" xml:space="preserve">
+    <value>Püsiv...</value>
+  </data>
+  <data name="Page.Camera.SureClear" xml:space="preserve">
+    <value>Kas soovite kindlasti pildid kustutada ja otsast alustada?</value>
+  </data>
+  <data name="Page.Camera.Syncing" xml:space="preserve">
+    <value>Sünkroonimine...</value>
+  </data>
+  <data name="Page.Camera.Transmitting" xml:space="preserve">
+    <value>Edastamine...
+(hoidke seade lukustamata)</value>
+  </data>
+  <data name="Page.Camera.VR" xml:space="preserve">
+    <value>VR</value>
+  </data>
+  <data name="Page.FovCorrection" xml:space="preserve">
+    <value>Vaatevälja parandus</value>
+  </data>
+  <data name="Page.FovCorrectionExplain" xml:space="preserve">
+    <value>Erinevatel seadmemudelitel võivad olla erinevad vaateväljad. CrossCam aitab teil seda pärast esimest pildistamist parandada. Kadreerige ja jäädvustage midagi kaadri üla- ja alaosa eristatavate punktidega, tagades, et punktid on mõlemas seadmes nähtavad.</value>
+  </data>
+  <data name="Page.Technique.ParallelLink1" xml:space="preserve">
+    <value>Hea tekstiõpetus</value>
+  </data>
+  <data name="Page.Technique.ParallelLink2" xml:space="preserve">
+    <value>Veel üks tore tekstiõpetus</value>
+  </data>
+  <data name="Page.Technique.ParallelLink3" xml:space="preserve">
+    <value>Veel üks tore tekstiõpetus</value>
+  </data>
+  <data name="Page.Technique.ParallelLink4" xml:space="preserve">
+    <value>Maagiline Frankfurteri õpetus</value>
+  </data>
+  <data name="Page.Technique.ParallelLink5" xml:space="preserve">
+    <value>Kena video Magic Eye kohta</value>
+  </data>
+  <data name="Page.Technique.Trouble" xml:space="preserve">
+    <value>Kui teil on endiselt probleeme, proovige tuua telefon pimedasse ruumi, et teie silmad saaksid hästi näha ja keskenduda, on pilt.
+
+Teine asi, mida võite proovida, on tualettpaberitorude või käte kasutamine, et kumbki silm näeks ainult pildi seda külge, mida ta peaks nägema.
+ • Ristvaates: hoidke ühte toru ninasilla vastas (keskel silmade vahel), suunates samal ajal enda ees oleva kujutise keskele. Liigutage toru aeglaselt ekraani poole, püüdes samal ajal mõlema silmaga torust alla vaadata. Kui jõuate toruga õigesse asendisse, peaks pilt oma kohale klõpsama. See võib aidata keskenduda katsele vaadata toru kaugema otsa sisemust. Kui te ei leia õiget asendit, proovige kasutada suuremat pilti või väiksemat toru.
+ • Paralleelvaate jaoks: hoidke toru kummagi silma ees, kuid suunake need mõlemad külgsuunas välja, nii et te ei näe peaaegu midagi. Pöörake torusid samal ajal aeglaselt sissepoole, et saaksite hakata pilti rohkem nägema. Hetkel, kui näete suuremat osa kujutisest (iga silmaga peaaegu pool), proovige silmi lõdvestada ja pooled kokku viia. Abiks võib olla suurema või väiksema pildi kasutamine.
+
+On lihtne harjutus, mida saate teha, et harjutada rist- või paralleelvaatamist. Võtke marker ja joonistage igale pisipildile naerunägu (või paar popsipulka või keelenuppu). Näiteks joonista ühele küljele üks silm ja suu ning teisele poole silm ja nina. Seejärel saate hoida neid enda ees ja harjutada kahe pildi kokkusulatamist, et luua naerunägu.
+
+Mina isiklikult eelistan risti paralleelsele, sest pildid võivad olla suuremad, kuid mõlemad meetodid töötavad. Kui soovite katsetada suuremate paralleelpiltidega, saate suurust reguleerida lehel Seaded.
+
+Mõnikord on raske tunda, kas teete seda tehes risti- või paralleelmeetodit. Võite paluda kellelgi teisel seda tehes teie silmi jälgida või testimiseks vaadata allolevat pilti:</value>
+  </data>
+  <data name="SaveModes.Anaglyph" xml:space="preserve">
+    <value>Anaglüüf</value>
+  </data>
+  <data name="SaveModes.Cardboard" xml:space="preserve">
+    <value>Papp</value>
+  </data>
+  <data name="SaveModes.Cross" xml:space="preserve">
+    <value>Rist</value>
+  </data>
+  <data name="SaveModes.GrayscaleAnaglyph" xml:space="preserve">
+    <value>Halltoonides anaglüüf</value>
+  </data>
+  <data name="SaveModes.Parallel" xml:space="preserve">
+    <value>Paralleelselt</value>
+  </data>
+  <data name="SaveModes.Quad" xml:space="preserve">
+    <value>Quad</value>
+  </data>
+  <data name="SaveModes.Separate" xml:space="preserve">
+    <value>Eraldi</value>
+  </data>
+  <data name="SaveModes.Single" xml:space="preserve">
+    <value>Vallaline</value>
+  </data>
+  <data name="SaveModes.Triple" xml:space="preserve">
+    <value>Kolmekordne</value>
+  </data>
+  <data name="Page.Camera.FovExplain" xml:space="preserve">
+    <value>Vaatevälja erinevuste korrigeerimiseks suumige ja libistage pilte nii, et eristavad punktid jääksid kahe foto vahele. Joonduse visualiseerimiseks saate valgeid jooni ringi lohistada. Seda parandust rakendatakse tulevastele eelvaadetele. See salvestatakse, kuid saate selle seadete lehel lähtestada. Kui kasutate identseid seadmeid, salvestage lihtsalt ilma reguleerimiseta.</value>
+  </data>
+  <data name="Page.Camera.FovTitle" xml:space="preserve">
+    <value>Vaatevälja parandus</value>
+  </data>
+  <data name="Page.Camera.KeyPoints" xml:space="preserve">
+    <value>Võtmepunktid</value>
+  </data>
+  <data name="Page.Camera.Warped" xml:space="preserve">
+    <value>Väändunud</value>
+  </data>
+  <data name="Page.Camera.WelcomeExplain" xml:space="preserve">
+    <value>CrossCam loodi selleks, et aidata teil 3D-fotosid teha. Fotod on 3D nagu VR või 3D-filmid, kuid te ei vaja erivarustust ega prille – piisab telefonist (aga kui teil on paar punast/tsüaani värvi 3D-prille või Google Cardboardi vaataja, saate neid kasutada ka CrossCamiga). \"tasuta vaatamise\" tehnika, mis kasutab ainult teie telefoni ja teie silmi, vajab õppimiseks veidi harjutamist. Enne kui räägin teile, kuidas CrossCami kasutada, kas soovite esmalt vaatamistehnika kohta rohkem teada saada?</value>
+  </data>
+  <data name="Page.Camera.Welcome" xml:space="preserve">
+    <value>Tere tulemast CrossCami!</value>
+  </data>
+  <data name="Page.Camera.Directions" xml:space="preserve">
+    <value>Jätke juhiste juurde</value>
+  </data>
+  <data name="Page.Camera.Technique" xml:space="preserve">
+    <value>Vaatamise tehnika</value>
+  </data>
+  <data name="Page.HowToUse.P1" xml:space="preserve">
+    <value>Kui soovite seda uuesti näha, puudutage kaameraekraani vasakus ülanurgas hamburgeri (kolm rida) ikooni ja puudutage valikut "Abi".
+
+
+1) Kadreerige ja tehke esimene pilt.</value>
+  </data>
+  <data name="Page.HowToUse.P2" xml:space="preserve">
+    <value>3) Hoidke telefoni kindlalt enda ees ja liigutage aeglaselt külgsuunas selles suunas, mida CrossCam teile käsib. Ärge liikuge liiga kaugele – tolli või vähem iga jala kohta, mis on teie sihtmärgist eemal. Samuti ärge pöörake üldse, vaid libistage külili või isegi nõjatuge.
+
+4) Joondage esimene pilt teise pildi eelvaatega ja tehke teine ​​pilt, kui teile meeldib see, mida näete.
+
+5) CrossCam joondab teie pildid automaatselt pärast nende jäädvustamist, kuid see pole täiuslik. Kui teile ei meeldi nende joondamine, saate automaatse joondamise välja lülitada, puudutades väikese roboti ikooni. CrossCamil on ka palju käsitsi redigeerimise valikuid, mille juurde pääsete pliiatsiikooni puudutades.
+
+6) Puudutage linnukest, kui olete salvestamiseks valmis.
+
+
+Muud asjad, mida saate teha:
+ • Puudutage üks kord, et fokuseerida punkti, puudutage kaks korda, et lülituda tagasi pidevale autofookusele.
+ • Seadete lehe avamiseks puudutage kaamera ekraani paremas ülanurgas hammasrattaikooni. See on täis huvitavaid asju.
+ • Seal on kena vihjete leht, millele pääsete, kui puudutate kaameraekraani vasakus ülanurgas olevat hamburgeriikooni, mis aitab teil oma pilte suurepäraseks muuta.
+ • Kui soovite teise võtte jaoks liikuda teises suunas või soovite külgi vahetada, pühkige lihtsalt.
+ • Puudutage allosas olevat väikest kaustaikooni, et laadida pilt küljelt või täis stereopildi laadimiseks.</value>
+  </data>
+  <data name="Page.Faq.Alignment" xml:space="preserve">
+    <value>Kuidas automaatne joondamine töötab?</value>
+  </data>
+  <data name="Page.Faq.Alignment.Body" xml:space="preserve">
+    <value>Automaatne joondamine püüab pildipaare võimalikult hästi joondada, kuid see pole täiuslik. Arvutinägemine on mõnes asjas parem kui inimese silmad, aga ka teistes asjades palju halvem. Maailm, mida ta näeb, on meie omast väga erinev, kuid ta võib näha ka mõnel erineval viisil. Kaks peamist viisi, mida see CrossCamis näeb, on täiustatud korrelatsioonikordaja (ECC) ja võtmepunktide kasutamine.
+
+ECC joondus toimib põhimõtteliselt, püüdes tagada, et heledad laigud kattuvad heledate laikudega ja tumedad laigud kattuvad tumedate laikudega, kui kaks külge on üksteise peal. ECC joondusega kaasneb usaldusskoor, mis aitab otsustada, kas joondus oli tõhus. CrossCam on seadistatud tagasi lükkama tehtud joonduse, kui usaldusväärsus on liiga madal, kuid usaldusväärsuse läbimise/ebaõnnestumise läve saate konfigureerida lehel Seaded.
+
+Võtmepunktide joondamine otsib huvipunkte, nagu nurgad, servad, punktid ja kõrge kontrastsus, ning püüab neid kahe külje vahel sobitada. Kui punktid on kokku sobitatud, saab CrossCam kasutada erinevaid algoritme, et proovida külgi väänata nii, et ühe külje võtmepunktid oleksid võimalikult lähedal nende vastavatele võtmepunktidele teisel küljel.
+
+CrossCam on programmeeritud esmalt kasutama võtmepunkti joondamist, kuid kui võtmepunkti joondamine ebaõnnestub või kui jäädvustamine toimub ühe võttega peegeljagamise meetodil, lülitub see tagasi ECC-joondusse. Saate konfigureerida ka automaatse joondamise nii, et see kasutaks alati võtmepunktide joondust või kasutaks alati ECC-joondust lehel Seaded.
+
+CrossCam kuvab joonduse tulemuse kaameraekraanil väikese roboti ikooni all. Kui see kasutas ECC joondust, kuvab see usaldusprotsendi. Kui see kasutas võtmepunktide joondust, kuvatakse "KP". Kui mõlemad joondusmeetodid ebaõnnestusid, kuvatakse "F". Kui teile ei meeldi joonduse tulemus, võite joonduse eemaldamiseks puudutada väikese roboti ikooni.</value>
+  </data>
+  <data name="Page.Faq.Bad" xml:space="preserve">
+    <value>Kas see on minu silmadele halb?</value>
+  </data>
+  <data name="Page.Faq.Bad.Body1" xml:space="preserve">
+    <value>Ma ei tea, aga ma ei usu. Kui aga tunnete end halvasti, tehke paus. Harjutades ebamugavustunne tavaliselt väheneb. Mis tahes vaatamisviis võib tekitada ebamugavust efekti tõttu, mida nimetatakse vergentsi ja majutuse konfliktiks. Siin on</value>
+  </data>
+  <data name="Page.Faq.Bad.Body2" xml:space="preserve">
+    <value>Wikipedia link vergentsi ja majutuse konflikti kohta.</value>
+  </data>
+  <data name="Page.Faq.Bad.Body3" xml:space="preserve">
+    <value>Kui kasutate ristsilma meetodit, võib see tunne olla tingitud ka sellest, et teie silmad ei ole harjunud osutama, nagu vaataksid nad nii kaua midagi nii lähedalt. Ristvaatamisel lähenevad teie silmad punktile, mis asub umbes poolel teel teie silmade ja ekraani vahel. Kui millegi pikaajaline suletava vaatamine tekitaks samuti ebamugavust, on meil oma selgitus.
+
+Minu arvamus selle kohta on, et teie silmad ei tee midagi väljaspool oma igapäevast võimekust, vaid ühendate kaks erinevat võimet, mida tavaliselt sel viisil ei kasutata. Fokuseerite oma läätsed millelegi ühte kohta, millele on tavaliselt mugav teravustada, ja suunate oma silmad kuhugi, kuhu neil on tavaliselt mugav osutada, kuid kohta, kus teie läätsed teravutavad ja kus teie silmad koonduvad. pole lihtsalt sama punkt. Ma ei saa aru, kuidas see võib teie jaoks halb olla, kuni teie nägemine ei arene veel.</value>
+  </data>
+  <data name="Page.Faq.Cardboard" xml:space="preserve">
+    <value>Kuidas kasutada CrossCami koos Google Cardboardiga?</value>
+  </data>
+  <data name="Page.Faq.Cardboard.Body" xml:space="preserve">
+    <value>Kui teie vaatajal on nupp, mis vajutab ekraani keskosa, saate seda kasutada Cardboardi abil jäädvustamiseks. Teie vaatajal peab olema ka auk, millest teie telefoni kaamera läbi näeks.
+
+Cardboardiga fotode jäädvustamiseks lülitage eelvaate vaatamise meetod (lehel Seaded) valikule Cardboard, seejärel naaske kaamera lehele ja torkake telefon vaatajasse. Vajutage jäädvustamiseks nuppu ja kui mõlemad pooled on jäädvustatud, vajutage salvestamiseks uuesti nuppu. Cardboardi režiimis salvestamine on mõeldud ainult selleks, et saaksite pilte hiljem vaatamiseks CrossCami tagasi laadida, mitte nende vaatamiseks oma fotorakenduses oma vaataja kaudu.
+
+Saate jäädvustada ka mis tahes muul soovitud meetodil, seejärel lülitada eelvaate vaatamise meetodiks Cardboard ja panna telefon vaatajasse.
+
+Seal on palju erinevaid vaatajaid, kellel on erinevad omadused. Võimalik, et peate muutma Cardboardi eralduskaugust (lehel Seaded), et kasutuskogemus oleks mugavam. Võimalik, et peate esmalt veenduma, et suudate kvaliteetseid stereogramme jäädvustada, enne kui muudate need humongiks ja kaasahaaravaks.</value>
+  </data>
+  <data name="Page.Faq.How" xml:space="preserve">
+    <value>Kuidas see töötab?</value>
+  </data>
+  <data name="Page.Faq.How.Body1" xml:space="preserve">
+    <value>CrossCami kasutatav 3D-efekt on hästi uuritud distsipliin, mida tuntakse stereoskoopiana, ja meetodit, kus silmad ristate (või lõdveste), et vaadata kahte külge, nimetatakse vabaks vaatamiseks. Kui me maailmas ringi vaatame, näeb iga meie silm erinevast vaatenurgast. Stereoskoopia puhul on me ainult ühe (kunstliku) vaatenurga esitamine igale silmale ja meie aju teeb ülejäänu. On palju erinevaid viise, kuidas panna iga silm nägema erinevat pilti. Siin on</value>
+  </data>
+  <data name="Page.Faq.How.Body2" xml:space="preserve">
+    <value>Wikipedia link stereoskoopia kohta</value>
+  </data>
+  <data name="Page.Faq.How.Body3" xml:space="preserve">
+    <value>CrossCamiga tehtud 3D-pilte nimetatakse stereogrammideks. Magic Eye™ raamatud sisaldavad nn autostereogramme.</value>
+  </data>
+  <data name="Page.Faq.Into" xml:space="preserve">
+    <value>Kuidas sattusite stereoskoopia juurde?</value>
+  </data>
+  <data name="Page.Faq.Into.Body1" xml:space="preserve">
+    <value>Füüsika kraadi omandamisel oli mul võimalus katsetada laserite abil oma hologrammide loomist. Hologrammid, mida ma tegin, olid 3D, kuna need kasutasid difraktsioonivõret, et tekitada klaasplaadi pinnalt peegelduva valguse hävitavaid häireid, mistõttu peegeldunud pilt näeb erinevatest kohtadest erinev. Kui iga meie silm näeb pilti, mis näib olevat erinevast vaatenurgast (kui need pole liiga erinevad), tajub meie aju seda sügavusena.</value>
+  </data>
+  <data name="Page.Faq.Into.Body2" xml:space="preserve">
+    <value>Olin sellest stereoskoopilise taju põhimõttest teadlik olnud juba pikka aega, kuid sel hetkel oma elus käisin ka mõnes programmeerimisklassis, mistõttu otsustasin, et tahan proovida teha lihtsa arvutiprogrammi stereoskoopilise 3D-joonistamise jaoks. Sellest pingutusest sai StereoSketcher. Algne versioon on kirjutatud Javas, kuid kirjutasin selle ümber Javascripti ja SVG-ga ning nüüd elab see veebis</value>
+  </data>
+  <data name="Page.Faq.Into.Body3" xml:space="preserve">
+    <value>sellel lingil.</value>
+  </data>
+  <data name="Page.Faq.Into.Body4" xml:space="preserve">
+    <value>See pole mingil juhul populaarne ja kellelgi peale minu ei pruugi seda lihtne kasutada, kuid see töötab. StereoSketcheri kallal töötades sain katsetada stereoskoopia põhimõtteid ja sain vaimustusse viisist, kuidas mõne lihtsa reegli abil saab sellist kaasahaaravat ja kaasahaaravat kogemust luua.</value>
+  </data>
+  <data name="Page.Faq.Inverted" xml:space="preserve">
+    <value>Miks 3D ei näe õige välja VÕI miks näeb 3D välja tagurpidi?</value>
+  </data>
+  <data name="Page.Faq.Inverted.Body1" xml:space="preserve">
+    <value>Rist- või paralleelmeetodil tasuta vaatamisel on oluline vaadata pilte sama meetodiga, mida kasutati nende loomisel. Vastasel juhul vaatab teie parem silm vasaku silma jaoks mõeldud perspektiivi ja vastupidi. See muudab pildi sügavuse vastupidiseks, kuna parallaksi suund on vahetatud.
+
+Parallaks tähendab seda, et teie parema silma vaatenurgast tunduvad kaugemal asuvad objektid olevat vasakust silmast vaadatuna paremal kui lähemal asuvad objektid. Lausevormingus kirjeldamisel tekitab see segadust, kuid demonstreerimisel on see väga intuitiivne.
+
+Demonstreerimiseks hoidke ühte sõrm enda ees umbes käe pikkuses, seejärel hoidke teise käega teist sõrm umbes poolel teel esimese sõrme ja näo vahel. Kui sulgete vaheldumisi mõlemad silmad ja pöörate tähelepanu sellele, kus teie sõrmed asuvad, näete, et kumbki silm näeb neid erinevates kohtades. Nii et loomulikult, kui kumbki silm nägi seda liikumist vastupidises suunas, kui see peaks, muutub sügavus ümber.
+
+Väga lihtne on kogemata kasutada valet vaatamismeetodit, sest selgub, et enamikul inimestel on väga raske aru saada, kas nad ajavad silmi risti või lõdvestavad lihtsalt tundmise või sellest tulenevat segadust tekitavat topeltpilti vaadates. Selle asemel on parem lasta kellelgi teisel vaadata, mida teie silmad teevad, või proovida seda testeri pilti:</value>
+  </data>
+  <data name="Page.Faq.Inverted.Body2" xml:space="preserve">
+    <value>Paljud inimesed on saanud üsna mugavaks vaadata Magic Eye™ raamatuid, mis on mõeldud vaatamiseks paralleelvaate meetodil. Kui vaatate neid risti, näevad robustsed 3D-objektid, mis peaksid lehelt välja hüppama, hoopis aukudena. Mõlemad meetodid võimaldavad teil näha *midagi*, kuid kui te ei saanud aru, mis see oli, vaatate neid tõenäoliselt risti.</value>
+  </data>
+  <data name="Page.Faq.Mirror" xml:space="preserve">
+    <value>Kuidas kasutada "ühekordse peegli" meetodit?</value>
+  </data>
+  <data name="Page.Faq.Mirror.Body1" xml:space="preserve">
+    <value>Peegelmeetodiga jäädvustamine jagab kaadri pooleks ja teeb vajaliku transformatsiooni, nii et saate ühe telefoni ja tavalise käeshoitava peegli abil jäädvustada mõlemat poolt samal hetkel. Peegelmeetodi kasutamiseks jäädvustamisel lülitage seadete lehel peeglirežiimi lüliti sisse (sinna sisenemiseks puudutage hammasrattaikooni). Pärast peeglirežiimi sisselülitamist ütleb CrossCam teile, kummal küljel peeglit hoida. Hoidke oma peeglit sellel küljel ja jälgige oma telefoni ning peegli ja objekti joondamist. Kui olete veidi kannatlik, saate need kõik ritta seada nii, et peegel näitab ühe külje õiget perspektiivi. Kuna peegelmeetodi kasutamine jagab teie kujutise vertikaalselt pooleks, on tavaliselt kõige parem jäädvustada maastikul peegelmeetodiga.
+
+See meetod töötab ka peegelduste korral suurtes ja puhastes akendes ning ka vaiksel järvel või lompidel (kui telefon on portreerežiimis lukustatud ja külili pööratud).</value>
+  </data>
+  <data name="Page.Faq.Mirror.Body2" xml:space="preserve">
+    <value>Peegelmeetodi kasutamiseks tuleb teha mõningaid kompromisse/muudatusi. Neid kõiki saab CrossCamis käsitsi teha, kuid automaatne joondamine proovib neid ka teie eest teha:
+ • Kuna peegeldunud vaade liigub tavavaatest pikema vahemaa, tuleb peegelpilti veidi sisse suumida.
+ • On tõenäoline, et peegelmeetodi kasutamisel langete pigem sisse, kui hoiate perspektiive paralleelselt – see võib põhjustada ettelühenemise halva vertikaalse joondusena. Selle tagasivõtmiseks saab teha nurgakivi korrigeerimise, mis tähendab iga pildi ühe külje vertikaalset kahandamist.
+ • Sisselülitamine kipub ka stereoakent enda poole nihutama. Saate selle tagasi võtta ja asetada selle soovitud kohta, kärpides külgi.
+ • Tõenäoliselt ei kata peegel ühe külje vaadet täielikult, nii et peegeldumata tükkide eemaldamiseks võib olla vaja kärpida.
+
+Parimatel peeglitel on selleks õhuke klaas. Esiteks on need kerged, nii et neid on lihtsam pikka aega käes hoida. Teine oluline asi on see, et peegli kasutamisel suunate tõenäoliselt peegli külili, mitte ei vaata otse sisse, kuna tavaliselt kasutatakse peegleid. Selliselt orienteerituna võivad paksu klaasiga peeglitel olla veidi udusust. Mida õhem on klaas, seda vähem ilmne on see hägustumine. Seda tüüpi peeglid võivad olla ka muus osas ebakvaliteetsed, seega on oluline leida hea tasakaal.
+
+Peegli jäädvustamise kasutamisel tuleb leppida veel mõne kompromissiga, mida CrossCami redigeerimisel parandada ei saa:
+ • Kuna kahe külje vaade liigub veidi erineval kaugusel, on mõlema poole jaoks vajalik fookus veidi erinev, nii et üks külg on alati veidi udune. See efekt on enam-vähem märgatav sõltuvalt objekti kaugusest ja objektiivi teravussügavusest.
+ • Ükski peegel pole tõeliselt 100% efektiivne, seega võib peeglit kasutav pool olla veidi tumedam. See sõltub peegli kvaliteedist.</value>
+  </data>
+  <data name="Page.Faq.Moving" xml:space="preserve">
+    <value>Minu objekt liigub, kuidas sellest 3D-pilte teha?</value>
+  </data>
+  <data name="Page.Faq.Moving.Body" xml:space="preserve">
+    <value>CrossCam võimaldab teil mõlema vaatenurga korraga jäädvustamiseks kahte meetodit. Üks meetod kasutab kahte telefoni ja üks meetod peeglit.
+
+Kahe telefoni seadistuse kasutamiseks vaadake lehte Sidumise seadistus, kuhu pääsete seadete lehelt (puudutage hammasrattaikooni).
+
+Peegelmeetodi kasutamiseks vaadake teist KKK-küsimust selle kohta.</value>
+  </data>
+  <data name="Page.Faq.Test" xml:space="preserve">
+    <value>Kuidas saan testida CrossCami väljalaske-eelseid versioone?</value>
+  </data>
+  <data name="Page.Faq.Test.Body" xml:space="preserve">
+    <value>Vaadake seda Redditi postitust</value>
+  </data>
+  <data name="Page.Faq.Why" xml:space="preserve">
+    <value>Miks sa CrossCami tegid?</value>
+  </data>
+  <data name="Page.Faq.Why.Body" xml:space="preserve">
+    <value>Kuna hakkasin stereoskoopia vastu huvi tundma, võtsin ette reisi Yellowstone'i. Seal viibides mõistsin, et võib olla tore proovida kasutada 3D-kaamera mobiilirakendust, et seal asju 3D-vormingus jäädvustada. Olin olemasolevate võimaluste pärast väga pettunud. Avastasin, et nad kõik nõudsid, et teeksid kaks pilti ja siis pärast uuriksid, kas need on head. Sageli ei olnud, sest pidin korduvalt oma eralduskauguse ja ka pildistatava kvaliteedi kohta täielikke oletusi tegema.
+
+Järgmise paari nädala jooksul pani mu äge frustratsioon mind ette kujutama, et pakun koos esimesega lihtsalt reaalajas eelvaadet teisest jäädvustusest. Mul oli juba mobiiliarenduse taust, nii et siis oli vaja ainult aega varuda. CrossCami on minu jaoks olnud suurepärane kasutada mälestuste säilitamiseks ja jagan seda hea meelega ka teiega.</value>
+  </data>
+  <data name="Page.Faq.Wiggle" xml:space="preserve">
+    <value>Mis on wigglegrams?</value>
+  </data>
+  <data name="Page.Faq.Wiggle.Body" xml:space="preserve">
+    <value>Wigglegrams on viis stereogrammide vaatamiseks, mis ei sõltu binokulaarsest nägemisest. Tavaliselt on need gifid, mis liiguvad kahe vaatenurga vahel edasi-tagasi, näidates kumbagi tervikuna samas kohas. CrossCam ei toeta praegu nende tegemist, kuid kui olete nende vastu tõesti huvitatud, kirjutage mulle ja ma teen seda.</value>
+  </data>
+  <data name="Page.Tips.AlignAfter" xml:space="preserve">
+    <value>Pidage meeles horisontaalseid jooni, kuid võite ka pärast joondada.</value>
+  </data>
+  <data name="Page.Tips.AlignAfter.Body" xml:space="preserve">
+    <value>Kui avastate, et pildistamise ajal on võimatu nii ülemist kui ka alumist juhtjoont samaaegselt joondada, liikusite tõenäoliselt muus suunas kui lihtsalt küljele. Proovige seda enne pildistamist parandada, kuid pärast seda joondamine võib sellele palju kaasa aidata.</value>
+  </data>
+  <data name="Page.Tips.Alignment" xml:space="preserve">
+    <value>Saate automaatse joondamise välja lülitada.</value>
+  </data>
+  <data name="Page.Tips.Alignment.Body" xml:space="preserve">
+    <value>Kui teile ei meeldi automaatse joondamise tulemused, lülitage see lihtsalt seadete lehel välja või puudutage väikese roboti ikooni ja teie algsed jäädvustatud pildid taastatakse.</value>
+  </data>
+  <data name="Page.Tips.Donut" xml:space="preserve">
+    <value>Sõõrikujuhend võib teie akent aidata.</value>
+  </data>
+  <data name="Page.Tips.Donut.Body" xml:space="preserve">
+    <value>Seadete lehel on eksperimentaalne juhtsõõrik, mille saate sisse lülitada, mis võib aidata teil stereoakna säilitada, suurendades samal ajal kasutatavat laiust. Vasakule ja paremale keerates muutub sõõriku sügavus võrreldes ülejäänud stseeniga – määrake sõõriku sügavus nii, et see oleks teie stseeni kõige kaugemas punktis või selle taga. Olge ettevaatlik, selle kasutamine väiksematel stseenidel võib muuta asja valusaks (vt ülalt nurgakivi näpunäidet).</value>
+  </data>
+  <data name="Page.Tips.Keystone" xml:space="preserve">
+    <value>Sisselülitamisel on vaja nurgakivi korrigeerimist.</value>
+  </data>
+  <data name="Page.Tips.Keystone.Body1" xml:space="preserve">
+    <value>Kui pöörate iga võttega sissepoole, on väga kasulik teha nurgakivi parandusi. Tavaliselt soovite fotode siseservi kahandada ja seejärel ühtlustada neid ülevalt ja alt ära kärpida. Keystone'i redigeerimise menüüsse pääsete, puudutades nuppu, mis näeb välja selline:</value>
+  </data>
+  <data name="Page.Tips.Keystone.Body2" xml:space="preserve">
+    <value>Sissepoole pööramist nimetatakse varba sissepoole pööramiseks. See võib põhjustada lühenemise efekti, mis muudab pildi nurkade kokkusulatamise keeruliseks. Lühendav efekt on reaalses elus alati olemas, sest paralleelsed jooned näivad koonduvat, kui nad sinust eemale lähevad, kuid kunstlikud perspektiivid võivad selle imelikuks muuta.</value>
+  </data>
+  <data name="Page.Tips.Lean" xml:space="preserve">
+    <value>Võite lihtsalt toetuda.</value>
+  </data>
+  <data name="Page.Tips.Lean.Body" xml:space="preserve">
+    <value>Mõnikord võib selle asemel, et pildistamiseks jalgu vasakule või paremale liigutada, olla lihtsam lihtsalt seista, jalad laiali ja kummaski suunas kallutada, kuid olge ettevaatlik, et telefon oleks tasasel ja samal kõrgusel. Liikumise asemel lihtsalt kallutamine võib aidata teil liiga kaugele liikuda ja hõlbustada sihti otse hoidmist.</value>
+  </data>
+  <data name="Page.Tips.Lines" xml:space="preserve">
+    <value>Joondusjooned võivad liikuda.</value>
+  </data>
+  <data name="Page.Tips.Lines.Body" xml:space="preserve">
+    <value>Soovi korral saate joondusjooni ringi lohistada. See on eriti kasulik piltide joondamiseks töötlemise ajal.</value>
+  </data>
+  <data name="Page.Tips.Old" xml:space="preserve">
+    <value>CrossCamis saate avada vanu fotosid.</value>
+  </data>
+  <data name="Page.Tips.Old.Body" xml:space="preserve">
+    <value>Varem tehtud pilte saate laadida, puudutades kaamera lehe allosas kaustaikooni, kuid kui töötate suure hulga fotodega, saate neid jagada ka CrossCamiga otse oma fotorakendusest, mis võib jälgida teie koht oma fotodel paremini.</value>
+  </data>
+  <data name="Page.Tips.Quick" xml:space="preserve">
+    <value>Lülitage kiirrežiim sisse, kui olete koos teistega.</value>
+  </data>
+  <data name="Page.Tips.Quick.Body" xml:space="preserve">
+    <value>Kui uurite koos teiste inimestega, on hea mõte minna kiirrežiimi, lülitades välja automaatse joondamise ja äärised ning salvestades lihtsalt pärast jäädvustamist ilma redigeerimist tegemata. Saate pilte alati hiljem laadida, automaatselt joondada ja redigeerida. Nii ei pea teie kaaslased ootama, kuni te oma pilte kohapeal täiustate, vaid võite siiski olla kindel, et soovitud sügavus on tõesti olemas. Lihtsalt olge ettevaatlik, et te ei teeks enne esimest salvestamist kiirustades toimetamist! Samuti saate sisse lülitada eraldi salvestamise küljel, mis ignoreerib teie tehtud redigeerimisi.</value>
+  </data>
+  <data name="Page.Tips.Sick" xml:space="preserve">
+    <value>Kui liigutus ajab sind haigeks, hoia end paigal.</value>
+  </data>
+  <data name="Page.Tips.Sick.Body" xml:space="preserve">
+    <value>Kui kogu liikumine teeb teid haigeks või muudab selle 3D-s vaatamise liiga keeruliseks, ärge proovige seda 3D-s näha enne, kui olete veidi üle liikunud. Seejärel võrrelge pilte üksteisega ja joondage neid horisontaaljoonte abil ilma 3D-vaatamiseta ning alustage 3D-vaatamist, kui need on joondatud ja paigal hoidnud.</value>
+  </data>
+  <data name="Page.Tips.Space" xml:space="preserve">
+    <value>Need pildid võivad võtta palju salvestusruumi – saate neid kokku tõmmata.</value>
+  </data>
+  <data name="Page.Tips.Space.Body" xml:space="preserve">
+    <value>Seadete lehel on võimalus lõpliku pildi eraldusvõimet proportsionaalselt vähendada – see võib aidata ruumi säästmisel. Kui teie fotot ei kärbita, on lõpptulemuseks kaks täiseraldusvõimega pilti, mis ühendatakse kahekordse eraldusvõimega pilti, mis tähendab, et sageli saate eraldusvõimet oluliselt vähendada, ilma et see mõjutaks oluliselt kvaliteeti.</value>
+  </data>
+  <data name="Page.Tips.Turn" xml:space="preserve">
+    <value>Ära keera.</value>
+  </data>
+  <data name="Page.Tips.Turn.Body" xml:space="preserve">
+    <value>Kui liigute üle, proovige telefoni mitte üheski suunas pöörata, kaasa arvatud loomulik kalduvus küljele liikumisel objekti poole pöörata. Mõningane pöörlemine on vajalik (mõnikord), kuid proovige seda minimeerida. Kujutage ette, et telefon on paigaldatud sirgele horisontaalsele siinile ja saab ainult libiseda. Sissepoole pööramine võib põhjustada lühenemisefekti, mis muudab nurgad raskesti kokkusulatavaks.</value>
+  </data>
+  <data name="Page.Tips.Window" xml:space="preserve">
+    <value>Tugeva stereoakna loomiseks lisage ääris ja kärpige.</value>
+  </data>
+  <data name="Page.Tips.Window.Body" xml:space="preserve">
+    <value>Huvitava stereoakna efekti saab luua kahe asjaga: 1) lülitage ääris sisse (lehel Seaded) ja 2) ristvaatamiseks, kärpige piltide siseservi, kuni välimine serv muutub pildil 3D-ks (kärpimine VÄLIMISED servad, kui vaatate paralleelselt). Võti on kärpida vasakpoolse pildi paremat serva veidi kaugemale sellest, mida parempoolse pildi parem serv stseeni näitab ja vastupidi. Piiri lisamine on lülitatud seadete lehel. Kui see tekitab segadust, siis lihtsalt lõigake seesmised servad ära ja see hakkab selgeks saama. Sisemiste servade kärpimisnupp näeb välja selline:</value>
+  </data>
+  <data name="Button.Code" xml:space="preserve">
+    <value>Vaadake koodi</value>
+  </data>
+  <data name="Button.Developer" xml:space="preserve">
+    <value>Arendaja kohta</value>
+  </data>
+  <data name="Button.EmailMe" xml:space="preserve">
+    <value>Saada mulle e-mail</value>
+  </data>
+  <data name="Button.GitHub" xml:space="preserve">
+    <value>Lisage GitHubis probleem</value>
+  </data>
+  <data name="Button.Press" xml:space="preserve">
+    <value>Minge tagasi mõlema seadme kaamerakuvale ja puudutage alumises nurgas olevat sidumisnuppu</value>
+  </data>
+  <data name="Button.Primary" xml:space="preserve">
+    <value>PUUDUTAGE SIIN ESIMESEL</value>
+  </data>
+  <data name="Button.Privacy" xml:space="preserve">
+    <value>Privaatsuspoliitika</value>
+  </data>
+  <data name="Button.Secondary" xml:space="preserve">
+    <value>KOKKU SIIN TEISED</value>
+  </data>
+  <data name="Button.Test" xml:space="preserve">
+    <value>Testige väljalaskeeelseid versioone</value>
+  </data>
+  <data name="Button.Wi-Fi" xml:space="preserve">
+    <value>Veenduge, et Wi-Fi oleks mõlemas seadmes lubatud (kuid see ei pea olema millegagi ühendatud)</value>
+  </data>
+  <data name="Page.Pairing.1" xml:space="preserve">
+    <value>Kui teil on kaks seadet, kuhu on installitud CrossCam, saate need ühendada, et teha samaaegseid fotosid kahest vaatenurgast. Kahe pildi tegemine samal hetkel loob parimad võimalikud stereogrammid.
+
+Pidage meeles, et see funktsioon on endiselt katseline ja võib esineda probleeme. See ei pruugi kogu aeg ideaalselt töötada ja võib teie aku tühjaks laadida. Samuti pidage meeles, et praegu peavad seadmed ühenduse loomiseks olema samal platvormil (mõlemad Android või mõlemad iOS).
+
+Üks viis *täiusliku* sünkroonimise saavutamiseks, kasutades ainult ühte seadet ja CrossCami, on kasutada "ühe pildiga peegli" meetodit. Saate selle sisse lülitada lehel Seaded ja selle kohta saate lugeda KKK lehelt.
+
+Enne kui kahte seadet saab koos kasutada, tuleb nende rollid määrata. ESMANE seade on see, mis näitab mõlemat eelvaadet, käivitab jäädvustamise ja hoiab/salvestab lõplikud võtted. Rollide määramiseks navigeerige mõlemas seadmes sellele lehele ja järgige alltoodud samme.</value>
+  </data>
+  <data name="Page.Pairing.2" xml:space="preserve">
+    <value>Kui teil on probleeme, TÄHELEPANU:
+ • Pärast sidumisprotsessi alustamist saab sidumisnuppu igal ajal uuesti puudutada, et see peatada või ühendus katkestada.
+ • Abi võib olla mõlema seadme sidumise lõpetamisest ja samaaegsest taaskäivitusest.
+ • See võib aidata WiFi- või andmevõrkudega ühenduse katkestada, kui need hakkavad toimima.
+ • Iga kaamera on erinev. Need erinevused võivad hõlmata vaatenurka, fookust, säritust ja valge tasakaalu käitumist, ajastust ja palju muud. Isegi kaks sama mudeli telefoni käituvad veidi erinevalt. Eelistan kasutada paari identseid vanu telefone (minu puhul paari iPhone 6).
+ • CrossCam on tarkvara, mitte riistvara, seega võib fotode jäädvustamine olla veidi sünkroonist väljas, olenevalt sellest, mida protsessorid ja mälu veel pildistamise käivitamise hetkel teevad. Seetõttu ei pruugi sünkroonimine mõnikord olla täiuslik, kuid üldiselt peaks see olema väga tihe.</value>
+  </data>
+  <data name="Page.Pairing.Again" xml:space="preserve">
+    <value>Hiljem uuesti ühenduse loomiseks veenduge, et Wi-Fi oleks lubatud, ja seejärel puudutage lihtsalt mõlema seadme avakuval ühenduse nuppu.</value>
+  </data>
+  <data name="Page.Pairing.LocalNetworkAccess" xml:space="preserve">
+    <value>CrossCam nõuab kohaliku võrgu juurdepääsu luba. CrossCam ei kasuta tegelikult kohalikku võrku, kuid iOS nõuab, et CrossCam saaks selle loa, et kasutada seadmete otsimiseks Wi-Fi antenni. CrossCam küsib seda luba üks kord – kui luba on keelatud, peate ise minema ja keerama lülitit rakenduses Seaded ise.</value>
+  </data>
+  <data name="Page.Pairing.Location" xml:space="preserve">
+    <value>CrossCam küsib teie seadmete ühendamiseks lubasid ja lülitab komponendid sisse vastavalt vajadusele. Pange tähele: CrossCam nõuab teisese seadmega ühenduse loomiseks asukohaluba ja asukohateenuste sisselülitamist esmases seadmes. See on lihtsalt Androidi nõue ja see on minu kontrolli alt täiesti väljaspool. CrossCam EI KASUTA teie asukohta tegelikult mingil viisil, kuid kuna teoreetiliselt võib läheduses olevate seadmete otsimist (ja leidmist) kasutada teie ligikaudseks asukoha määramiseks, nõuab CrossCam teie asukohale juurdepääsu luba.</value>
+  </data>
+  <data name="Page.Pairing.Permissions" xml:space="preserve">
+    <value>Märkus lubade kohta:</value>
+  </data>
+  <data name="Page.Pairing.Title" xml:space="preserve">
+    <value>Sidumine</value>
+  </data>
+  <data name="Button.Back" xml:space="preserve">
+    <value>&lt; Tagasi</value>
+  </data>
+  <data name="Page.MorePictures.CrossViewSubreddit" xml:space="preserve">
+    <value>CrossView Subreddit</value>
+  </data>
+  <data name="Page.MorePictures.FacebookGroup" xml:space="preserve">
+    <value>Stereoskoopiline 3D Facebooki grupp</value>
+  </data>
+  <data name="Page.MorePictures.GoogleDoc" xml:space="preserve">
+    <value>Google Doc of Great Stuff</value>
+  </data>
+  <data name="Page.MorePictures.Instagram" xml:space="preserve">
+    <value>Instagrami stereoskoopiline silt</value>
+  </data>
+  <data name="Page.MorePictures.Mine" xml:space="preserve">
+    <value>Vaata Minu tehtud pilte</value>
+  </data>
+  <data name="Page.MorePictures.ParallelViewSubreddit" xml:space="preserve">
+    <value>ParallelView Subreddit</value>
+  </data>
+  <data name="Page.Settings.Alignment" xml:space="preserve">
+    <value>Automaatne joondamine</value>
+  </data>
+  <data name="Page.Settings.Analytics" xml:space="preserve">
+    <value>CrossCami täiustamiseks jagage anonüümseid kasutus- ja veaandmeid</value>
+  </data>
+  <data name="Page.Settings.Border" xml:space="preserve">
+    <value>Piir</value>
+  </data>
+  <data name="Page.Settings.Camera" xml:space="preserve">
+    <value>Kaamera</value>
+  </data>
+  <data name="Page.Settings.Defaults" xml:space="preserve">
+    <value>Lähtestage vaikeseadetele</value>
+  </data>
+  <data name="Page.Settings.Editing" xml:space="preserve">
+    <value>Redigeerimine</value>
+  </data>
+  <data name="Page.Settings.ErrorEmail" xml:space="preserve">
+    <value>Tõrgete ilmnemisel palutakse meil saata</value>
+  </data>
+  <data name="Page.Settings.Guides" xml:space="preserve">
+    <value>Jäädvustamisjuhised</value>
+  </data>
+  <data name="Page.Settings.Pairing" xml:space="preserve">
+    <value>Sidumine</value>
+  </data>
+  <data name="Page.Settings.Preview" xml:space="preserve">
+    <value>Eelvaate vaatamise meetod</value>
+  </data>
+  <data name="Page.Settings.Saving" xml:space="preserve">
+    <value>Salvestamine</value>
+  </data>
+  <data name="Page.TipMe.1" xml:space="preserve">
+    <value>CrossCam on tasuta kasutatav, reklaamideta, avatud lähtekoodiga, ei kogu teilt isiklikku teavet ja annab teile täieliku juurdepääsu kõikidele funktsioonidele. Mulle meeldib CrossCami kallal töötada, kuid see võtab palju aega ja vaeva. Ma ei teeni CrossCamist üldse raha, välja arvatud vihjed, mida inimesed võivad mulle saata.</value>
+  </data>
+  <data name="Page.TipMe.2" xml:space="preserve">
+    <value>Kui teile meeldib CrossCam ja saate seda teha, kaaluge mulle vihje saatmist.</value>
+  </data>
+  <data name="Page.TipMe.Ko-fi" xml:space="preserve">
+    <value>Ko-fi</value>
+  </data>
+  <data name="Page.TipMe.Patreon" xml:space="preserve">
+    <value>Patreon</value>
+  </data>
+  <data name="Page.TipMe.PayPal" xml:space="preserve">
+    <value>PayPal</value>
+  </data>
+  <data name="Page.TipMe.Tipped" xml:space="preserve">
+    <value>Mulle on jootraha antud</value>
+  </data>
+  <data name="Page.TipMe.TippedTimes" xml:space="preserve">
+    <value>korda, kokku</value>
+  </data>
+  <data name="Page.TipMe.Venmo" xml:space="preserve">
+    <value>Venmo</value>
+  </data>
+  <data name="Title.MorePictures" xml:space="preserve">
+    <value>Vaata Rohkem pilte</value>
+  </data>
+  <data name="Title.Settings" xml:space="preserve">
+    <value>Seaded</value>
+  </data>
+  <data name="Title.TipMe" xml:space="preserve">
+    <value>Näpunäiteid hinnatakse!</value>
+  </data>
+  <data name="Settings.Alignment.Advanced" xml:space="preserve">
+    <value>Kuva täpsemad joondusseaded</value>
+  </data>
+  <data name="Settings.Alignment.Ecc" xml:space="preserve">
+    <value>Proovige alati kõigepealt kasutada ECC-joondust</value>
+  </data>
+  <data name="Settings.Alignment.Keypoints" xml:space="preserve">
+    <value>Proovige alati esmalt kasutada võtmepunktide joondust</value>
+  </data>
+  <data name="Settings.Alignment.On" xml:space="preserve">
+    <value>Joondage pärast jäädvustamist automaatselt</value>
+  </data>
+  <data name="Settings.Border.Color" xml:space="preserve">
+    <value>Ääriste värv</value>
+  </data>
+  <data name="Settings.Border.FuseGuide" xml:space="preserve">
+    <value>Lisage kaitsmejuhik üleval (täpp mõlema külje kohal)</value>
+  </data>
+  <data name="Settings.Border.On" xml:space="preserve">
+    <value>Lisa ääris</value>
+  </data>
+  <data name="Settings.Border.Prompt" xml:space="preserve">
+    <value>Laadimise ajal tuvastamisel palutakse ääris välja lõigata</value>
+  </data>
+  <data name="Settings.Border.Thickness" xml:space="preserve">
+    <value>Ääriste paksus (laiuse kümnendikku protsentides)</value>
+  </data>
+  <data name="Settings.Camera.Camera1" xml:space="preserve">
+    <value>Force camera1 API (võib olla abiks, kui kogete veidrusi, kuid tulemuseks on piiratud funktsionaalsus, selle jõustumiseks on vaja sundsulgemist/taaskäivitamist)</value>
+  </data>
+  <data name="Settings.Camera.Camera2" xml:space="preserve">
+    <value>Force camera2 API (peab töötama operatsioonisüsteemis Android 6 või uuemas versioonis, võib olla abiks, kui ilmnevad vead, kuid võib esineda rohkemgi, jõustumiseks on vaja sundsulgemist/taaskäivitamist)</value>
+  </data>
+  <data name="Settings.Camera.LandscapeCaptureHorizontal" xml:space="preserve">
+    <value>Maastiku jäädvustamise nupu horisontaalne paigutus</value>
+  </data>
+  <data name="Settings.Camera.LandscapeCaptureVertical" xml:space="preserve">
+    <value>Maastiku jäädvustamise nupu vertikaalne paigutus</value>
+  </data>
+  <data name="Settings.Camera.Lock" xml:space="preserve">
+    <value>Lukustage fookus ja säritus teise pildi jaoks, et teravustada ja säritus alates esimesest pildist</value>
+  </data>
+  <data name="Settings.Camera.Pair" xml:space="preserve">
+    <value>Paari nupu horisontaalse paigutusega (kui jäädvustamisnupp on keskel)</value>
+  </data>
+  <data name="Settings.Camera.PointFocus" xml:space="preserve">
+    <value>Puudutage fookuse suunamiseks, topeltpuudutage, et lülituda tagasi pidevale fookusele (või salvestada või tühjendada)</value>
+  </data>
+  <data name="Settings.Camera.PortraitCapture" xml:space="preserve">
+    <value>Portree jäädvustamise nupu paigutus</value>
+  </data>
+  <data name="Settings.Editing.Align" xml:space="preserve">
+    <value>Maksimaalne vertikaalse joonduse proportsioon</value>
+  </data>
+  <data name="Settings.Editing.Keystone" xml:space="preserve">
+    <value>Maksimaalne nurgakivi</value>
+  </data>
+  <data name="Settings.Editing.Rotation" xml:space="preserve">
+    <value>Maksimaalsed pöörde kraadid</value>
+  </data>
+  <data name="Settings.Editing.SideCrop" xml:space="preserve">
+    <value>Maksimaalne külglõike osakaal</value>
+  </data>
+  <data name="Settings.Editing.TopCrop" xml:space="preserve">
+    <value>Maksimaalne ülemise/alumise kärpimise proportsioon</value>
+  </data>
+  <data name="Settings.Editing.Zoom" xml:space="preserve">
+    <value>Maksimaalne suumi proportsioon</value>
+  </data>
+  <data name="Settings.Guides.Donut" xml:space="preserve">
+    <value>Näita sõõrikujuhist (põhjustab sissemurdmist, seega võib vaja minna nurgakivi redigeerimist)</value>
+  </data>
+  <data name="Settings.Guides.Fuse" xml:space="preserve">
+    <value>Kuva kaitsmejuhik (punkt mõlemal küljel)</value>
+  </data>
+  <data name="Settings.Guides.LineColor" xml:space="preserve">
+    <value>Erinevat värvi jooned</value>
+  </data>
+  <data name="Settings.Guides.Lines" xml:space="preserve">
+    <value>Jooned nähtavad</value>
+  </data>
+  <data name="Settings.Guides.Roll" xml:space="preserve">
+    <value>Rullijuhik nähtav</value>
+  </data>
+  <data name="Settings.Pair.CaptureDelay" xml:space="preserve">
+    <value>Jäädvustamishetke lisaviivitus (ms) (lisab lisaviivituse sihtmärgi jäädvustamishetkele ainult selles seadmes)</value>
+  </data>
+  <data name="Settings.Pair.Countdown" xml:space="preserve">
+    <value>Jäädvustage pöördloenduse pikkus (taimer)</value>
+  </data>
+  <data name="Settings.Pair.Fov" xml:space="preserve">
+    <value>Vaatevälja korrigeerimine</value>
+  </data>
+  <data name="Settings.Pair.FovNotSet" xml:space="preserve">
+    <value>FOV-i parandus pole määratud (seadistuse läbimiseks tehke seotud seadmetega jäädvustamine).</value>
+  </data>
+  <data name="Settings.Pair.FovReset" xml:space="preserve">
+    <value>Lähtesta</value>
+  </data>
+  <data name="Settings.Pair.Go" xml:space="preserve">
+    <value>Minge sidumise seadistuse lehele</value>
+  </data>
+  <data name="Settings.Pair.NoRole" xml:space="preserve">
+    <value>Roll pole valitud</value>
+  </data>
+  <data name="Settings.Pair.PreviewDelay" xml:space="preserve">
+    <value>Kaadri viivituse eelvaade (suurem arv vähendab kaadrisagedust, kuid säästab akut)</value>
+  </data>
+  <data name="Settings.Pair.Primary" xml:space="preserve">
+    <value>Esmane:</value>
+  </data>
+  <data name="Settings.Pair.PrimaryRole" xml:space="preserve">
+    <value>Roll: Esmane</value>
+  </data>
+  <data name="Settings.Pair.Sample" xml:space="preserve">
+    <value>Kellade näidiste arv (väiksem arv vähendab esialgseks sünkroonimiseks vajalikku aega, kuid võib vähendada sünkroonimise täpsust)</value>
+  </data>
+  <data name="Settings.Pair.Secondary" xml:space="preserve">
+    <value>Teisene:</value>
+  </data>
+  <data name="Settings.Pair.SecondaryRole" xml:space="preserve">
+    <value>Roll: sekundaarne</value>
+  </data>
+  <data name="Settings.Pair.Timeout" xml:space="preserve">
+    <value>Ühenduse ajalõpp (sekundites) (0 tähendab, et ajalõpu pole)</value>
+  </data>
+  <data name="Settings.Preview.Barrel" xml:space="preserve">
+    <value>Lisage objektiivi korrigeerimine/silindri moonutamine (võib alandada kaadrisagedust)</value>
+  </data>
+  <data name="Settings.Preview.BarrelFinal" xml:space="preserve">
+    <value>Lisage objektiivi korrigeerimine/silindri moonutus ainult lõpppiltidele (võib aeglustada lõppkuva, kuid kiirendab jäädvustamist)</value>
+  </data>
+  <data name="Settings.Preview.CardboardDistance" xml:space="preserve">
+    <value>Papi eralduskaugus</value>
+  </data>
+  <data name="Settings.Preview.Downsize" xml:space="preserve">
+    <value>Pildi vähendamine (võib suurendada kaadrisagedust)</value>
+  </data>
+  <data name="Settings.Preview.DownsizePercent" xml:space="preserve">
+    <value>Pildi suuruse vähendamine protsentides</value>
+  </data>
+  <data name="Settings.Preview.Immersive" xml:space="preserve">
+    <value>Kaasahaarav viimane vaatamine</value>
+  </data>
+  <data name="Settings.Preview.LensStrength" xml:space="preserve">
+    <value>Objektiivi korrigeerimise tugevus</value>
+  </data>
+  <data name="Settings.Preview.Mirror" xml:space="preserve">
+    <value>Jäädvustage ühe kaadriga peegeljagamise meetodil</value>
+  </data>
+  <data name="Settings.Preview.Width" xml:space="preserve">
+    <value>Maksimaalne paralleelvaate kujutise laius (punktides)</value>
+  </data>
+  <data name="Settings.Reset" xml:space="preserve">
+    <value>Lähtestage vaikeseadetele</value>
+  </data>
+  <data name="Settings.Saving.Alone" xml:space="preserve">
+    <value>Salvestage üksi esimene pool (ilma töötluste ja ääristeta) (tasapinnalise foto hõlpsaks jagamiseks lameda vaatega inimestega)</value>
+  </data>
+  <data name="Settings.Saving.Anaglyph" xml:space="preserve">
+    <value>Salvesta punase/tsüaani anaglüüfi versioon (koos muudatustega, kuid ilma ääristeta)</value>
+  </data>
+  <data name="Settings.Saving.Browse" xml:space="preserve">
+    <value>Sirvi...</value>
+  </data>
+  <data name="Settings.Saving.Cardboard" xml:space="preserve">
+    <value>Salvesta Cardboardi jaoks (muudatustega, ääristeta, tühikuteta, täislaiuses, hiljem CrossCami tagasi laadimiseks)</value>
+  </data>
+  <data name="Settings.Saving.Clear" xml:space="preserve">
+    <value>Tühjendage pildid pärast salvestamist automaatselt</value>
+  </data>
+  <data name="Settings.Saving.Cross" xml:space="preserve">
+    <value>Salvesta ühendatud ristvaate versioon (koos muudatuste ja äärisega)</value>
+  </data>
+  <data name="Settings.Saving.ExternalDirectory" xml:space="preserve">
+    <value>Salvestage välisesse CrossCami kataloogi aadressil:</value>
+  </data>
+  <data name="Settings.Saving.ExternalWarning" xml:space="preserve">
+    <value>(hoiatus: CrossCami desinstallimisel seal olevad pildid kustutatakse)</value>
+  </data>
+  <data name="Settings.Saving.Folder" xml:space="preserve">
+    <value>Salvestage spetsiaalsesse "CrossCami" alamkausta/albumisse</value>
+  </data>
+  <data name="Settings.Saving.Grayscale" xml:space="preserve">
+    <value>Salvesta halltoonides punase/tsüaani anaglüüfi versioon (koos muudatustega, kuid ilma ääristeta)</value>
+  </data>
+  <data name="Settings.Saving.Order" xml:space="preserve">
+    <value>(Salvestamine toimub järjekorras ülalt alla)</value>
+  </data>
+  <data name="Settings.Saving.Parallel" xml:space="preserve">
+    <value>Salvesta ühendatud paralleelvaate versioon (koos muudatuste ja äärisega)</value>
+  </data>
+  <data name="Settings.Saving.Quad" xml:space="preserve">
+    <value>Salvesta nelikkombinatsioon (koos muudatuste ja äärisega)</value>
+  </data>
+  <data name="Settings.Saving.Reset" xml:space="preserve">
+    <value>Lähtesta</value>
+  </data>
+  <data name="Settings.Saving.Resolution" xml:space="preserve">
+    <value>Eraldusvõime proportsioon</value>
+  </data>
+  <data name="Settings.Saving.SaveTo" xml:space="preserve">
+    <value>Salvesta:</value>
+  </data>
+  <data name="Settings.Saving.Separate" xml:space="preserve">
+    <value>Salvestage mõlemad pooled eraldi (ilma muudatusteta või ääristeta, et järeltöötlus oleks lihtsam, vasak pool salvestatakse kõigepealt)</value>
+  </data>
+  <data name="Settings.Saving.Subfolder" xml:space="preserve">
+    <value>Salvestage spetsiaalsetesse "CrossCam_{ViewMethod}" alamkaustadesse/albumitesse</value>
+  </data>
+  <data name="Settings.Saving.Triple" xml:space="preserve">
+    <value>Salvesta kolmikkombinatsioon (koos muudatuste ja äärisega)</value>
+  </data>
+  <data name="Button.Pair.Accept" xml:space="preserve">
+    <value>Nõustu</value>
+  </data>
+  <data name="Button.Pair.Cancel" xml:space="preserve">
+    <value>Tühista</value>
+  </data>
+  <data name="Page.Camera.AcceptConnection" xml:space="preserve">
+    <value>Nõustuge ühendusega</value>
+  </data>
+  <data name="Page.Camera.Confirm" xml:space="preserve">
+    <value>Kinnitage koodi sobivus mõlemas seadmes:</value>
+  </data>
+  <data name="Page.Footer.CouldntOpen" xml:space="preserve">
+    <value>Linki ei saanud avada</value>
+  </data>
+  <data name="Page.Footer.OpenError" xml:space="preserve">
+    <value>Mailto linki ei saanud avada. Põhjuseks võib olla see, et teie meiliklient pole seadistatud või mõni muu põhjus.</value>
+  </data>
+  <data name="Page.Pair.Errors.Denied" xml:space="preserve">
+    <value>Sidumiseks vajalikke lubasid ei antud. Erand:</value>
+  </data>
+  <data name="Page.Pair.Errors.FailedBluetooth" xml:space="preserve">
+    <value>Seadmel ei õnnestunud Bluetoothi ​​sisse lülitada. Erand:</value>
+  </data>
+  <data name="Page.Pair.Errors.FailedSearch" xml:space="preserve">
+    <value>Seadmel ei õnnestunud seadmeid otsida. Erand:</value>
+  </data>
+  <data name="Page.Pair.Errors.LocationOff" xml:space="preserve">
+    <value>Asukohateenused pole aktiveeritud. Seadmeid ei saa skannida. Lisateavet leiate sidumislehelt.</value>
+  </data>
+  <data name="Page.Pair.Errors.LocationScan" xml:space="preserve">
+    <value>Asukoha luba pole antud. Seadmeid ei saa skannida. Lisateavet leiate sidumislehelt.</value>
+  </data>
+  <data name="Page.Pair.Errors.NotSupported" xml:space="preserve">
+    <value>See seade ei toeta sidumist. Erand:</value>
+  </data>
+  <data name="Page.Pair.Errors.Title" xml:space="preserve">
+    <value>Viga</value>
+  </data>
+  <data name="Page.Pair.Errors.WifiOff" xml:space="preserve">
+    <value>Wi-Fi on välja lülitatud. Lülitage WiFi sisse.</value>
+  </data>
+  <data name="Page.Pair.PrimaryExplanation" xml:space="preserve">
+    <value>See seade on nüüd määratud esmaseks.</value>
+  </data>
+  <data name="Page.Pair.PrimarySelected" xml:space="preserve">
+    <value>Esmane roll valitud</value>
+  </data>
+  <data name="Page.Pair.SecondaryExplanation" xml:space="preserve">
+    <value>See seade on nüüd seatud teiseseks.</value>
+  </data>
+  <data name="Page.Pair.SecondarySelected" xml:space="preserve">
+    <value>Valitud on teisene roll</value>
+  </data>
+  <data name="Page.Technique.Mode" xml:space="preserve">
+    <value>režiimis.</value>
+  </data>
+  <data name="Page.Technique.SetMode" xml:space="preserve">
+    <value>CrossCam on nüüd sisse lülitatud</value>
+  </data>
+</root>

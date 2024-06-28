@@ -1,0 +1,1156 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="Button.GoogleDoc" xml:space="preserve">
+    <value>Google డాక్ ఆఫ్ గ్రేట్ స్టఫ్</value>
+  </data>
+  <data name="Button.LearnCross" xml:space="preserve">
+    <value>క్రాస్ నేర్చుకోండి</value>
+  </data>
+  <data name="Button.LearnParallel" xml:space="preserve">
+    <value>సమాంతరంగా నేర్చుకోండి</value>
+  </data>
+  <data name="Button.MorePictures" xml:space="preserve">
+    <value>మరిన్ని చిత్రాలను చూడండి</value>
+  </data>
+  <data name="Button.Review" xml:space="preserve">
+    <value>ఒక సమీక్షను వ్రాయండి</value>
+  </data>
+  <data name="Button.Share" xml:space="preserve">
+    <value>క్రాస్‌క్యామ్‌ను భాగస్వామ్యం చేయండి</value>
+  </data>
+  <data name="Button.Support" xml:space="preserve">
+    <value>డెవలపర్‌కు మద్దతు ఇవ్వండి</value>
+  </data>
+  <data name="Button.TapCross" xml:space="preserve">
+    <value>క్రాస్‌ని ఎంచుకోవడానికి ఇక్కడ నొక్కండి</value>
+  </data>
+  <data name="Button.TapParallel" xml:space="preserve">
+    <value>సమాంతరాన్ని ఎంచుకోవడానికి ఇక్కడ నొక్కండి</value>
+  </data>
+  <data name="Footer.Span1" xml:space="preserve">
+    <value>బగ్ దొరికిందా? ప్రశ్న ఉందా? కేవలం ఇమెయిల్ చేయండి</value>
+  </data>
+  <data name="Footer.Span3" xml:space="preserve">
+    <value>! వినియోగదారులతో మాట్లాడటం నాకు చాలా ఇష్టం మరియు నాతో కమ్యూనికేట్ చేయడానికి ఇది వేగవంతమైన మార్గం.</value>
+  </data>
+  <data name="Page.HowToUse.2anaglyph" xml:space="preserve">
+    <value>2) మొదటి చిత్రాన్ని దాని ప్రక్కన కనిపించే ప్రివ్యూతో అనాగ్లిఫ్ చూడటం ప్రారంభించండి.</value>
+  </data>
+  <data name="Page.HowToUse.2cardboard" xml:space="preserve">
+    <value>2) మొదటి చిత్రాన్ని దాని పక్కన కనిపించే ప్రివ్యూతో కార్డ్‌బోర్డ్ వీక్షించడం ప్రారంభించండి.</value>
+  </data>
+  <data name="Page.HowToUse.2cross" xml:space="preserve">
+    <value>2) మొదటి చిత్రాన్ని దాని ప్రక్కన కనిపించే ప్రివ్యూతో క్రాస్ వీక్షణను ప్రారంభించండి.</value>
+  </data>
+  <data name="Page.HowToUse.2parallel" xml:space="preserve">
+    <value>2) మొదటి చిత్రాన్ని దాని పక్కన కనిపించే ప్రివ్యూతో సమాంతరంగా చూడటం ప్రారంభించండి.</value>
+  </data>
+  <data name="Page.Technique.AdditionalTutorials" xml:space="preserve">
+    <value>అదనపు ట్యుటోరియల్స్:</value>
+  </data>
+  <data name="Page.Technique.Cross1" xml:space="preserve">
+    <value>పై చిత్రాల జతను చూస్తున్నప్పుడు మీ కళ్ళను జాగ్రత్తగా దాటండి. మీరు మీ కళ్ళు దాటినప్పుడు, విషయాలు అస్పష్టంగా మరియు స్పష్టంగా కనిపిస్తాయి మరియు మీరు 2 (2 జతల)కి బదులుగా 4 చిత్రాలను చూడటం ప్రారంభిస్తారు. మీరు మీ కళ్ళను ఎంత కష్టతరం చేస్తే, చిత్రాల జంటలు మరింత దూరంగా కదులుతాయి - ఇది కొద్దిగా ఇలా కనిపిస్తుంది:</value>
+  </data>
+  <data name="Page.Technique.Cross2" xml:space="preserve">
+    <value>మీ కళ్ళను జాగ్రత్తగా అన్‌క్రాస్ చేయండి, తద్వారా ప్రతి జత లోపలి భాగంలో ఉన్న చిత్రాలు అతివ్యాప్తి చెందడం ప్రారంభిస్తాయి. ఇది 4కి బదులుగా కేవలం 3 చిత్రాలు ఉన్నట్లుగా కనిపించడం ప్రారంభమవుతుంది. ఇది ఇప్పటికీ అస్పష్టంగా మరియు స్పష్టంగా కనిపిస్తుంది మరియు ఇలా కనిపిస్తుంది:</value>
+  </data>
+  <data name="Page.Technique.Cross3" xml:space="preserve">
+    <value>మీరు మిడిల్ ఓవర్‌ల్యాప్ పని చేసిన తర్వాత మీరు మీ కళ్ళను విశ్రాంతి తీసుకోవాలి మరియు వాటిని చిత్రాన్ని ఫోకస్ చేయడానికి అనుమతించాలి. ఆ సమయంలో మీరు మధ్యలో ఒక పదునైన 3D చిత్రాన్ని కలిగి ఉంటారు, ప్రతి వైపున తేలియాడే పారదర్శక చిత్రం ఇలా ఉంటుంది (మధ్య భాగం 3D తప్ప):</value>
+  </data>
+  <data name="Page.Technique.Cross4" xml:space="preserve">
+    <value>మీ కళ్లను దాటడంలో మీకు సమస్య ఉంటే, మీరు మీ వేలిని మీ కళ్ళు మరియు స్క్రీన్ మధ్య సగం వరకు పట్టుకున్నప్పుడు మీ వేలిని చూస్తూ కూడా ప్రయత్నించవచ్చు. మీరు మీ వేలి వెనుక చిత్రాలు విడిపోవడాన్ని మరియు అతివ్యాప్తి చెందడాన్ని మీరు చూడాలి.</value>
+  </data>
+  <data name="Page.Technique.CrossViewing" xml:space="preserve">
+    <value>క్రాస్ వీక్షణ</value>
+  </data>
+  <data name="Page.Technique.P1" xml:space="preserve">
+    <value>మీరు దీన్ని మళ్లీ చూడాలనుకుంటే, కెమెరా స్క్రీన్‌కు ఎగువ ఎడమ వైపున ఉన్న హాంబర్గర్ (మూడు లైన్‌లు) చిహ్నాన్ని నొక్కండి మరియు "సహాయం" నొక్కండి.
+
+CrossCamలో 3Dని చూడటానికి ("స్టీరియోగ్రామ్స్" అని పిలుస్తారు) మీరు ఎరుపు/సియాన్ 3D గ్లాసెస్, Google కార్డ్‌బోర్డ్ వ్యూయర్‌ని ఉపయోగించవచ్చు లేదా మీరు మీ కళ్ళు మరియు మీ స్క్రీన్‌ని ఉపయోగించి "ఉచిత వీక్షణ" చేయవచ్చు. ఉచిత వీక్షణకు రెండు మార్గాలు ఉన్నాయి మరియు CrossCam మీరు రెండింటినీ నేర్చుకోవడంలో సహాయపడుతుంది. మీరు చిత్రాలను ఎలా వీక్షించబోతున్నారో మీరు క్రాస్‌క్యామ్‌కి చెప్పాలి లేదా అది సరిగ్గా పని చేయదు. చింతించకండి, మీరు దీన్ని ఎప్పుడైనా సెట్టింగ్‌లలో మళ్లీ మార్చవచ్చు.
+
+మీరు సౌకర్యవంతంగా మీ కళ్లను దాటగలిగితే, మీరు ముందుగా క్రాస్ పద్ధతిని ప్రయత్నించాలి, లేకుంటే మీరు సమాంతర పద్ధతిని ప్రయత్నించాలి. మీరు Magic Eye™ పుస్తకాలను అలవాటు చేసుకుంటే, మీరు బహుశా ఇప్పటికే సమాంతర పద్ధతిని చేయగలరు, కానీ మీరు క్రాస్ పద్ధతిని కూడా చేయగలరు. దీన్ని తెలుసుకోవడానికి దిగువన ఉన్న పద్ధతిని నొక్కండి మరియు సంబంధిత CHOOSE బటన్‌ను నొక్కడం ద్వారా CrossCamకి ఏది పని చేస్తుందో చెప్పండి.
+
+మీరు 3D గ్లాసెస్ లేదా కార్డ్‌బోర్డ్ వ్యూయర్‌ని ఉపయోగించాలనుకుంటే, సెట్టింగ్‌ల పేజీలోని వాటిని ఉపయోగించేందుకు క్రాస్‌క్యామ్‌ను సెట్ చేయవచ్చు.</value>
+  </data>
+  <data name="Page.Technique.CrossLink1" xml:space="preserve">
+    <value>చక్కని టెక్స్ట్ ట్యుటోరియల్</value>
+  </data>
+  <data name="Page.Technique.CrossLink2" xml:space="preserve">
+    <value>మరో మంచి టెక్స్ట్ ట్యుటోరియల్</value>
+  </data>
+  <data name="Page.Technique.CrossLink3" xml:space="preserve">
+    <value>ఒక చిన్న YouTube ట్యుటోరియల్</value>
+  </data>
+  <data name="Page.Technique.CrossLink4" xml:space="preserve">
+    <value>సుదీర్ఘమైన, బేసి, కానీ ఉపయోగకరమైన YouTube ట్యుటోరియల్</value>
+  </data>
+  <data name="Page.Technique.CrossLink5" xml:space="preserve">
+    <value>మరొక YouTube ట్యుటోరియల్</value>
+  </data>
+  <data name="Page.Technique.CrossLink6" xml:space="preserve">
+    <value>ట్యుటోరియల్‌తో కూడిన డ్యూయల్ కెమెరా ప్రాజెక్ట్</value>
+  </data>
+  <data name="Page.Technique.Parallel1" xml:space="preserve">
+    <value>పై చిత్రం మీ స్క్రీన్‌పై సరిపోకపోతే, మీ ఫోన్‌ను ల్యాండ్‌స్కేప్‌కి మార్చండి - దీని కోసం CrossCam జత చిత్రాలను సులభమయిన పరిమాణంలో చేయడానికి ప్రయత్నిస్తోంది. మీరు ఎల్లప్పుడూ ల్యాండ్‌స్కేప్‌లో క్రాస్‌క్యామ్‌ని ఉపయోగించాల్సిన అవసరం లేదు, కానీ ఖచ్చితమైన పరిమాణ చిత్రం సాంకేతికతను నేర్చుకోవడాన్ని సులభతరం చేస్తుంది.</value>
+  </data>
+  <data name="Page.Technique.Parallel2" xml:space="preserve">
+    <value>మీ కళ్లను రిలాక్స్ చేయండి మరియు మీరు చిత్రాలను చూపిస్తూ మీ కళ్లతో జోన్ అవుట్ చేస్తున్నట్లుగా పై చిత్రాలను "ద్వారా" చూడండి. మీరు మధ్యలో 3D చిత్రంతో 3 చిత్రాలను చూడటం ప్రారంభించాలి, కొంచెం ఇలా:</value>
+  </data>
+  <data name="Page.Technique.Parallel3" xml:space="preserve">
+    <value>మీరు 4 చిత్రాలను చూడటం ప్రారంభించినట్లయితే, మీరు చాలా దూరం వెళ్ళారు. మీరు మళ్లీ ఆ సమయంలో మిమ్మల్ని కనుగొంటే, మీ కళ్ళను కొంచెం చుట్టూ తిప్పడానికి ప్రయత్నించండి. చాలా దూరం విశ్రాంతి తీసుకోవడం ఇలా కనిపిస్తుంది:</value>
+  </data>
+  <data name="Page.Technique.Parallel4" xml:space="preserve">
+    <value>మీకు సమస్య ఉన్నట్లయితే, మీ కళ్లకు ఎదురుగా ఉన్న చిత్రాలతో మీ స్క్రీన్‌ని మీ ముఖానికి వ్యతిరేకంగా తీసుకురావడానికి ప్రయత్నించండి. రిలాక్స్ అవ్వండి మరియు స్క్రీన్‌పై "ద్వారా" చూడండి, ఆపై మీ కళ్ళు రిలాక్స్‌గా ఉంచుతూ మీ స్క్రీన్‌ని మీ ముఖం నుండి నెమ్మదిగా లాగండి. చివరికి చిత్రం ఫోకస్‌లోకి "క్లిక్" చేయాలి.</value>
+  </data>
+  <data name="Page.Technique.Parallel5" xml:space="preserve">
+    <value>మీరు ఇప్పటికీ నాలుగు చిత్రాలను చూస్తూ ఉంటే, సెట్టింగ్‌ల పేజీలో "గరిష్ట సమాంతర వీక్షణ చిత్రం వెడల్పు"ని పెంచండి.</value>
+  </data>
+  <data name="Page.Technique.ParallelViewing" xml:space="preserve">
+    <value>సమాంతర వీక్షణ</value>
+  </data>
+  <data name="Page.Technique.Practice" xml:space="preserve">
+    <value>మీరు ప్రాక్టీస్ చేయగలిగేలా నేను చేసిన చిత్రాలు</value>
+  </data>
+  <data name="Title.Contact" xml:space="preserve">
+    <value>సంప్రదించండి</value>
+  </data>
+  <data name="Title.Faq" xml:space="preserve">
+    <value>ఎఫ్ ఎ క్యూ</value>
+  </data>
+  <data name="Title.Help" xml:space="preserve">
+    <value>సహాయం</value>
+  </data>
+  <data name="Title.HowToUse" xml:space="preserve">
+    <value>CrossCam ఎలా ఉపయోగించాలి</value>
+  </data>
+  <data name="Title.Technique" xml:space="preserve">
+    <value>3D వీక్షణ సాంకేతికత</value>
+  </data>
+  <data name="Title.Tips" xml:space="preserve">
+    <value>చిట్కాలు</value>
+  </data>
+  <data name="Button.DoNotEmailMe" xml:space="preserve">
+    <value>ఇప్పుడు నాకు ఇమెయిల్ పంపవద్దు</value>
+  </data>
+  <data name="Button.EmailMeNow" xml:space="preserve">
+    <value>ఇప్పుడే నాకు ఇమెయిల్ చేయండి</value>
+  </data>
+  <data name="Button.No" xml:space="preserve">
+    <value>నం</value>
+  </data>
+  <data name="Button.OK" xml:space="preserve">
+    <value>అలాగే</value>
+  </data>
+  <data name="Button.YesClear" xml:space="preserve">
+    <value>అవును, స్పష్టంగా</value>
+  </data>
+  <data name="Page.Camera.Aligning" xml:space="preserve">
+    <value>సమలేఖనం చేస్తోంది...</value>
+  </data>
+  <data name="Page.Camera.AlignmentBroken" xml:space="preserve">
+    <value>పరికరంలో స్వయంచాలక సమలేఖనానికి మద్దతు లేదు - సెట్టింగ్‌లలో ఆఫ్ చేయండి.</value>
+  </data>
+  <data name="Page.Camera.AlignmentFailed" xml:space="preserve">
+    <value>సమలేఖనం విఫలమైంది.</value>
+  </data>
+  <data name="Page.Camera.BorderAsk" xml:space="preserve">
+    <value>సరిహద్దు కనుగొనబడింది. సరిహద్దును తీసివేయాలా?</value>
+  </data>
+  <data name="Page.Camera.BorderDetected" xml:space="preserve">
+    <value>సరిహద్దు గుర్తించబడింది</value>
+  </data>
+  <data name="Page.Camera.Cancel" xml:space="preserve">
+    <value>రద్దు చేయండి</value>
+  </data>
+  <data name="Page.Camera.ChooseAction" xml:space="preserve">
+    <value>చర్యను ఎంచుకోండి:</value>
+  </data>
+  <data name="Page.Camera.DirectoryNotFound" xml:space="preserve">
+    <value>డైరెక్టరీ కనుగొనబడలేదు</value>
+  </data>
+  <data name="Page.Camera.DirectoryNotFoundExplain" xml:space="preserve">
+    <value>సేవ్ గమ్యం కనుగొనబడలేదు. దయచేసి సెట్టింగ్‌ల పేజీలో మరొకదాన్ని ఎంచుకోండి.</value>
+  </data>
+  <data name="Page.Camera.ErrorEmailBody" xml:space="preserve">
+    <value>తప్పు జరగడానికి ముందు మీరు ఏమి చేసారు? దయచేసి చిన్న విషయాలను కూడా వివరించండి.\n\n\n\n\n\nలోపం తర్వాత కూడా క్రాస్‌క్యామ్ పని చేసిందా? లేకపోతే, అది ఎలా విరిగిపోతుంది?\n\n\n\n\n\nఇలా పదే పదే జరుగుతుందా?\n\n\n\n\n\nమీరు కమాండ్‌పై లోపాన్ని జరిగేలా బలవంతం చేయగలరా? అలా అయితే, ఎలా?\n\n\n\n\n\n</value>
+  </data>
+  <data name="Page.Camera.FlipForCardboard" xml:space="preserve">
+    <value>కార్డ్‌బోర్డ్ మోడ్‌లో ఉన్నప్పుడు ల్యాండ్‌స్కేప్‌కు తిప్పండి.</value>
+  </data>
+  <data name="Page.Camera.FlipLarger" xml:space="preserve">
+    <value>(పెద్ద వీక్షణ కోసం ల్యాండ్‌స్కేప్‌కి తిప్పండి)</value>
+  </data>
+  <data name="Page.Camera.ForAnaglyph" xml:space="preserve">
+    <value>అనాగ్లిఫ్ కోసం</value>
+  </data>
+  <data name="Page.Camera.ForCardboard" xml:space="preserve">
+    <value>కార్డ్బోర్డ్ కోసం</value>
+  </data>
+  <data name="Page.Camera.ForCross" xml:space="preserve">
+    <value>క్రాస్ కోసం</value>
+  </data>
+  <data name="Page.Camera.ForParallel" xml:space="preserve">
+    <value>సమాంతర కోసం</value>
+  </data>
+  <data name="Page.Camera.GoPickRole" xml:space="preserve">
+    <value>దయచేసి జత చేసే పేజీకి (సెట్టింగ్‌ల పేజీ ద్వారా) వెళ్లి, జత చేయడానికి ప్రయత్నించే ముందు ఈ పరికరం కోసం జత చేసే పాత్రను ఎంచుకోండి.</value>
+  </data>
+  <data name="Page.Camera.InvalidImage" xml:space="preserve">
+    <value>చెల్లని చిత్రం</value>
+  </data>
+  <data name="Button.Camera.Keep" xml:space="preserve">
+    <value>ఉంచండి</value>
+  </data>
+  <data name="Page.Camera.LoadFullImage" xml:space="preserve">
+    <value>పూర్తి స్టీరియో చిత్రాన్ని లోడ్ చేయండి</value>
+  </data>
+  <data name="Page.Camera.Loading" xml:space="preserve">
+    <value>లోడ్...</value>
+  </data>
+  <data name="Page.Camera.LoadSingleSide" xml:space="preserve">
+    <value>ఒకే వైపు లోడ్ చేయండి</value>
+  </data>
+  <data name="Page.Camera.ManualCorrections" xml:space="preserve">
+    <value>దయచేసి మాన్యువల్ దిద్దుబాట్లను కూడా పరిగణించండి.</value>
+  </data>
+  <data name="Page.Camera.MirrorOnLeft" xml:space="preserve">
+    <value>ఎడమవైపున అద్దం</value>
+  </data>
+  <data name="Page.Camera.MirrorOnRight" xml:space="preserve">
+    <value>కుడివైపున అద్దం</value>
+  </data>
+  <data name="Page.Camera.MoveLeft" xml:space="preserve">
+    <value>ఎడమవైపుకు తరలించు</value>
+  </data>
+  <data name="Page.Camera.MoveRight" xml:space="preserve">
+    <value>కుడివైపుకు తరలించు</value>
+  </data>
+  <data name="Page.Camera.NoSaveModes" xml:space="preserve">
+    <value>యాక్టివ్‌గా సేవ్ మోడ్‌లు లేవు</value>
+  </data>
+  <data name="Page.Camera.NoSaveModesExplain" xml:space="preserve">
+    <value>ప్రస్తుతం సేవ్ మోడ్‌లు ఏవీ ఆన్ చేయబడలేదు. సెట్టింగ్‌ల పేజీలో సేవ్ మోడ్‌ను ఆన్ చేయండి.</value>
+  </data>
+  <data name="Page.Camera.Oops" xml:space="preserve">
+    <value>అయ్యో</value>
+  </data>
+  <data name="Page.Camera.OrRotate" xml:space="preserve">
+    <value>(లేదా తిప్పండి)</value>
+  </data>
+  <data name="Page.Camera.OrSwipe" xml:space="preserve">
+    <value>(లేదా స్వైప్)</value>
+  </data>
+  <data name="Page.Camera.PairRoleNotSelected" xml:space="preserve">
+    <value>పెయిర్ రోల్ ఎంచుకోబడలేదు</value>
+  </data>
+  <data name="Page.Camera.PinchOrDrag" xml:space="preserve">
+    <value>అన్వేషించడానికి చిటికెడు లేదా లాగండి!</value>
+  </data>
+  <data name="Page.Camera.PleaseSelectValid" xml:space="preserve">
+    <value>దయచేసి Jpeg, Png లేదా Webp చిత్రాన్ని ఎంచుకోండి. మీరు ఎంచుకున్న చిత్రం</value>
+  </data>
+  <data name="Page.Camera.ReallyClear" xml:space="preserve">
+    <value>నిజంగా స్పష్టంగా ఉందా?</value>
+  </data>
+  <data name="Button.Camera.Remove" xml:space="preserve">
+    <value>తొలగించు</value>
+  </data>
+  <data name="Page.Camera.SavedToCustomFolder" xml:space="preserve">
+    <value>అనుకూల ఫోల్డర్‌లో సేవ్ చేయబడింది</value>
+  </data>
+  <data name="Page.Camera.SavedToExternal" xml:space="preserve">
+    <value>బాహ్యంగా సేవ్ చేయబడింది</value>
+  </data>
+  <data name="Page.Camera.SavedToPhotos" xml:space="preserve">
+    <value>ఫోటోలకు సేవ్ చేయబడింది</value>
+  </data>
+  <data name="Page.Camera.SaveFailed" xml:space="preserve">
+    <value>సేవ్ చేయడం విఫలమైంది. :(</value>
+  </data>
+  <data name="Page.Camera.Saving" xml:space="preserve">
+    <value>సేవ్ చేస్తోంది...</value>
+  </data>
+  <data name="Page.Camera.SecondaryOnLeft" xml:space="preserve">
+    <value>ఎడమవైపు సెకండరీ</value>
+  </data>
+  <data name="Page.Camera.SecondaryOnRight" xml:space="preserve">
+    <value>సెకండరీ కుడివైపు</value>
+  </data>
+  <data name="Page.Camera.SelectedInvalid" xml:space="preserve">
+    <value>ఎంచుకున్న చిత్రం చెల్లదు.</value>
+  </data>
+  <data name="Page.Camera.SorryError" xml:space="preserve">
+    <value>క్షమించండి, CrossCam ఎర్రర్ చేసింది. లోపం నివేదిక స్వయంచాలకంగా పంపబడింది. మీరు ఏ తప్పును గమనించకపోవచ్చు, కానీ మీరు అలా చేస్తే, అప్లికేషన్‌ను పునఃప్రారంభించి ప్రయత్నించండి. ఇలాగే జరుగుతూ ఉంటే, దయచేసి నాకు ఇమెయిల్ చేసి దాని గురించి చెప్పండి. (ఈ పాప్‌అప్‌లను ఆపడానికి సెట్టింగ్‌ల పేజీకి వెళ్లండి.)</value>
+  </data>
+  <data name="Page.Camera.Steady" xml:space="preserve">
+    <value>స్థిరమైన...</value>
+  </data>
+  <data name="Page.Camera.SureClear" xml:space="preserve">
+    <value>మీరు ఖచ్చితంగా మీ చిత్రాలను క్లియర్ చేసి మళ్లీ ప్రారంభించాలనుకుంటున్నారా?</value>
+  </data>
+  <data name="Page.Camera.Syncing" xml:space="preserve">
+    <value>సమకాలీకరిస్తోంది...</value>
+  </data>
+  <data name="Page.Camera.Transmitting" xml:space="preserve">
+    <value>ప్రసారం చేస్తోంది...
+(పరికరాన్ని అన్‌లాక్ చేసి ఉంచండి)</value>
+  </data>
+  <data name="Page.Camera.VR" xml:space="preserve">
+    <value>VR</value>
+  </data>
+  <data name="Page.FovCorrection" xml:space="preserve">
+    <value>ఫీల్డ్ ఆఫ్ వ్యూ దిద్దుబాటు</value>
+  </data>
+  <data name="Page.FovCorrectionExplain" xml:space="preserve">
+    <value>విభిన్న పరికర నమూనాలు విభిన్న వీక్షణ క్షేత్రాలను కలిగి ఉంటాయి. మీరు మీ మొదటి క్యాప్చర్ చేసిన తర్వాత దీన్ని సరిదిద్దడంలో CrossCam మీకు సహాయం చేస్తుంది. ఫ్రేమ్ అప్ మరియు ఫ్రేమ్ యొక్క ఎగువ మరియు దిగువకు సమీపంలో ఉన్న విలక్షణమైన పాయింట్లతో దేనినైనా క్యాప్చర్ చేయండి, పాయింట్లు రెండు పరికరాలలో కనిపించేలా చూసుకోండి.</value>
+  </data>
+  <data name="Page.Technique.ParallelLink1" xml:space="preserve">
+    <value>చక్కని టెక్స్ట్ ట్యుటోరియల్</value>
+  </data>
+  <data name="Page.Technique.ParallelLink2" xml:space="preserve">
+    <value>మరొక మంచి టెక్స్ట్ ట్యుటోరియల్</value>
+  </data>
+  <data name="Page.Technique.ParallelLink3" xml:space="preserve">
+    <value>ఇంకా మరొక మంచి టెక్స్ట్ ట్యుటోరియల్</value>
+  </data>
+  <data name="Page.Technique.ParallelLink4" xml:space="preserve">
+    <value>మ్యాజిక్ ఫ్రాంక్‌ఫర్టర్ ట్యుటోరియల్</value>
+  </data>
+  <data name="Page.Technique.ParallelLink5" xml:space="preserve">
+    <value>మ్యాజిక్ ఐ గురించి చక్కని వీడియో</value>
+  </data>
+  <data name="Page.Technique.Trouble" xml:space="preserve">
+    <value>మీకు ఇంకా సమస్య ఉన్నట్లయితే, మీ ఫోన్‌ని చీకటి గదిలోకి తీసుకురావడానికి ప్రయత్నించండి, తద్వారా మీ కళ్ళు బాగా చూడగలిగే మరియు చిత్రంపై దృష్టి పెట్టగల ఏకైక విషయం.
+
+మీరు ప్రయత్నించగల మరొక విషయం ఏమిటంటే, టాయిలెట్ పేపర్ ట్యూబ్‌లు లేదా మీ చేతులను ఉపయోగించి దాన్ని తయారు చేయడం ద్వారా ప్రతి కన్ను అది చూడాల్సిన చిత్రం వైపు మాత్రమే చూడగలదు.
+ • క్రాస్ వ్యూ కోసం: మీ ముక్కు యొక్క వంతెనపై (మీ కళ్ల మధ్య మధ్యలో) ఒకే ట్యూబ్‌ని మీ ముందు ఉన్న చిత్రం మధ్యలో చూపుతూ పట్టుకోండి. రెండు కళ్లతో ట్యూబ్‌ను క్రిందికి చూసేందుకు ప్రయత్నిస్తున్నప్పుడు ట్యూబ్‌ని నెమ్మదిగా స్క్రీన్ వైపుకు తరలించండి. మీరు ట్యూబ్‌తో సరైన స్థానానికి చేరుకున్నప్పుడు చిత్రం స్థానంలోకి స్నాప్ చేయాలి. ఇది ట్యూబ్ యొక్క చాలా చివర లోపలి భాగాన్ని చూసేందుకు ప్రయత్నించడంపై దృష్టి పెట్టడానికి సహాయపడుతుంది. మీరు సరైన స్థానాన్ని కనుగొనలేకపోతే, పెద్ద చిత్రాన్ని లేదా చిన్న ట్యూబ్‌ని ఉపయోగించి ప్రయత్నించండి.
+ • సమాంతర వీక్షణ కోసం: ప్రతి కన్ను ముందు ఒక ట్యూబ్‌ను పట్టుకోండి, కానీ వాటిని రెండింటినీ పక్కకు చూపించండి, తద్వారా మీరు ఏమీ చూడలేరు. అదే సమయంలో ట్యూబ్‌లను నెమ్మదిగా లోపలికి తిప్పండి, తద్వారా మీరు మరింత చిత్రాన్ని చూడటం ప్రారంభించవచ్చు. మీరు ఇమేజ్‌లో ఎక్కువ భాగాన్ని చూడగలిగిన క్షణం (ప్రతి కంటితో దాదాపు సగం), మీ కళ్లను విశ్రాంతి తీసుకోవడానికి మరియు భాగాలను ఒకచోట చేర్చడానికి ప్రయత్నించండి. ఇది పెద్ద లేదా చిన్న చిత్రాన్ని ఉపయోగించడానికి సహాయపడవచ్చు.
+
+క్రాస్ లేదా సమాంతర వీక్షణతో ఫ్యూజింగ్ సాధన చేయడానికి మీరు చేయగలిగే సులభమైన వ్యాయామం ఉంది. మార్కర్‌ని తీసుకుని, మీ ప్రతి సూక్ష్మచిత్రంపై (లేదా ఒక జత పాప్సికల్ స్టిక్‌లు లేదా నాలుక డిప్రెసర్‌లు) స్మైలీ ఫేస్‌లో కొంత భాగాన్ని గీయండి. ఉదాహరణకు, ఒక వైపు ఒక కన్ను మరియు నోరు గీయండి, మరియు మరొక వైపు కన్ను మరియు ముక్కును గీయండి. మీరు వాటిని మీ ముందు ఉంచి, స్మైలీ ఫేస్‌ని పూర్తి చేయడానికి రెండు చిత్రాలను కలపడం సాధన చేయవచ్చు.
+
+నేను వ్యక్తిగతంగా క్రాస్ ఓవర్ పారలల్‌ని ఇష్టపడతాను ఎందుకంటే చిత్రాలు పెద్దవిగా ఉంటాయి, కానీ రెండు పద్ధతులు పని చేస్తాయి. మీరు పెద్ద సమాంతర చిత్రాలతో ప్రయోగాలు చేయాలనుకుంటే, మీరు సెట్టింగ్‌ల పేజీలో పరిమాణాన్ని నియంత్రించవచ్చు.
+
+మీరు చేస్తున్నప్పుడు క్రాస్ లేదా సమాంతర పద్ధతిని చేస్తున్నారా అని కొన్నిసార్లు అనిపించడం కష్టం. మీరు దీన్ని చేస్తున్నప్పుడు మీ కళ్లను చూడమని మరొకరిని అడగవచ్చు లేదా మీరు పరీక్షగా క్రింది చిత్రాన్ని చూడవచ్చు:</value>
+  </data>
+  <data name="SaveModes.Anaglyph" xml:space="preserve">
+    <value>అనాగ్లిఫ్</value>
+  </data>
+  <data name="SaveModes.Cardboard" xml:space="preserve">
+    <value>కార్డ్బోర్డ్</value>
+  </data>
+  <data name="SaveModes.Cross" xml:space="preserve">
+    <value>క్రాస్</value>
+  </data>
+  <data name="SaveModes.GrayscaleAnaglyph" xml:space="preserve">
+    <value>గ్రేస్కేల్ అనగ్లిఫ్</value>
+  </data>
+  <data name="SaveModes.Parallel" xml:space="preserve">
+    <value>సమాంతరంగా</value>
+  </data>
+  <data name="SaveModes.Quad" xml:space="preserve">
+    <value>క్వాడ్</value>
+  </data>
+  <data name="SaveModes.Separate" xml:space="preserve">
+    <value>వేరు</value>
+  </data>
+  <data name="SaveModes.Single" xml:space="preserve">
+    <value>సింగిల్</value>
+  </data>
+  <data name="SaveModes.Triple" xml:space="preserve">
+    <value>ట్రిపుల్</value>
+  </data>
+  <data name="Page.Camera.FovExplain" xml:space="preserve">
+    <value>ఫీల్డ్ ఆఫ్ వ్యూ తేడాలను సరిచేయడానికి, చిత్రాలను జూమ్ చేసి స్లైడ్ చేయండి, తద్వారా రెండు ఫోటోల మధ్య విలక్షణమైన పాయింట్‌లు వరుసలో ఉంటాయి. అమరికను దృశ్యమానం చేయడంలో మీకు సహాయపడటానికి మీరు చుట్టూ తెల్లని గీతలను లాగవచ్చు. ఈ దిద్దుబాటు భవిష్యత్ ప్రివ్యూలకు వర్తించబడుతుంది. ఇది సేవ్ చేయబడుతుంది కానీ మీరు దీన్ని సెట్టింగ్‌ల పేజీలో రీసెట్ చేయవచ్చు. మీరు ఒకే పరికరాలను ఉపయోగిస్తుంటే, సర్దుబాటు చేయకుండా సేవ్ చేయండి.</value>
+  </data>
+  <data name="Page.Camera.FovTitle" xml:space="preserve">
+    <value>ఫీల్డ్ ఆఫ్ వ్యూ దిద్దుబాటు</value>
+  </data>
+  <data name="Page.Camera.KeyPoints" xml:space="preserve">
+    <value>ప్రధానాంశాలు</value>
+  </data>
+  <data name="Page.Camera.Warped" xml:space="preserve">
+    <value>వక్రీకరించబడింది</value>
+  </data>
+  <data name="Page.Camera.WelcomeExplain" xml:space="preserve">
+    <value>CrossCam మీరు 3D ఫోటోలను రూపొందించడంలో సహాయం చేయడానికి రూపొందించబడింది. ఫోటోలు VR లేదా 3D చలనచిత్రాల మాదిరిగానే 3D, కానీ మీకు ప్రత్యేక పరికరాలు లేదా అద్దాలు అవసరం లేదు - కేవలం మీ ఫోన్ (కానీ మీకు ఒక జత ఎరుపు/సియాన్ 3D గ్లాసెస్ లేదా Google కార్డ్‌బోర్డ్ వ్యూయర్ ఉంటే, మీరు వాటిని ఉపయోగించవచ్చు క్రాస్‌క్యామ్‌తో కూడా). కేవలం మీ ఫోన్ మరియు మీ కళ్లను ఉపయోగించే \"ఉచిత వీక్షణ\" టెక్నిక్ తెలుసుకోవడానికి కొంత అభ్యాసం అవసరం. CrossCamని ఎలా ఉపయోగించాలో నేను మీకు చెప్పే ముందు, మీరు ముందుగా వీక్షణ సాంకేతికత గురించి మరింత తెలుసుకోవాలనుకుంటున్నారా?</value>
+  </data>
+  <data name="Page.Camera.Welcome" xml:space="preserve">
+    <value>CrossCamకి స్వాగతం!</value>
+  </data>
+  <data name="Page.Camera.Directions" xml:space="preserve">
+    <value>దిశలకు దాటవేయండి</value>
+  </data>
+  <data name="Page.Camera.Technique" xml:space="preserve">
+    <value>వీక్షణ సాంకేతికత</value>
+  </data>
+  <data name="Page.HowToUse.P1" xml:space="preserve">
+    <value>మీరు దీన్ని మళ్లీ చూడాలనుకుంటే, కెమెరా స్క్రీన్‌కు ఎగువ ఎడమ వైపున ఉన్న హాంబర్గర్ (మూడు లైన్‌లు) చిహ్నాన్ని నొక్కండి మరియు "సహాయం" నొక్కండి.
+
+
+1) ఫ్రేమ్ అప్ మరియు మొదటి చిత్రాన్ని తీయండి.</value>
+  </data>
+  <data name="Page.HowToUse.P2" xml:space="preserve">
+    <value>3) మీ ఫోన్‌ను మీ ముందు స్థిరంగా ఉంచండి మరియు క్రాస్‌క్యామ్ మీకు చెప్పిన దిశలో నెమ్మదిగా పక్కకు తరలించండి. చాలా దూరం కదలకండి - మీ లక్ష్యం దూరంలో ఉన్న ప్రతి అడుగుకు ఒక అంగుళం లేదా అంతకంటే తక్కువ. అలాగే, అస్సలు తిరగకండి, కేవలం పక్కకి జారండి లేదా వంగి కూడా ఉండవచ్చు.
+
+4) మొదటి చిత్రాన్ని రెండవ చిత్రం ప్రివ్యూతో సమలేఖనం చేయండి మరియు మీరు చూసేది మీకు నచ్చినప్పుడు రెండవ చిత్రాన్ని తీయండి.
+
+5) మీరు వాటిని క్యాప్చర్ చేసిన తర్వాత CrossCam స్వయంచాలకంగా మీ చిత్రాలను సమలేఖనం చేస్తుంది, కానీ అది సరైనది కాదు, అవి ఎలా సమలేఖనం చేయబడిందో మీకు నచ్చకపోతే, మీరు చిన్న రోబోట్ చిహ్నాన్ని నొక్కడం ద్వారా ఆటోమేటిక్ అమరికను ఆఫ్ చేయవచ్చు. క్రాస్‌క్యామ్‌లో పెన్సిల్ చిహ్నాన్ని నొక్కడం ద్వారా మీరు పొందగలిగే అనేక మాన్యువల్ ఎడిటింగ్ ఎంపికలు కూడా ఉన్నాయి.
+
+6) మీరు సేవ్ చేయడానికి సిద్ధంగా ఉన్నప్పుడు చెక్ మార్క్‌ను నొక్కండి.
+
+
+మీరు చేయగల ఇతర అంశాలు:
+ • పాయింట్‌పై ఫోకస్ చేయడానికి ఒకసారి నొక్కండి, నిరంతర ఆటో ఫోకస్‌కి తిరిగి మారడానికి రెండుసార్లు నొక్కండి.
+ • సెట్టింగ్‌ల పేజీని తెరవడానికి కెమెరా స్క్రీన్ ఎగువ కుడివైపున ఉన్న గేర్ చిహ్నాన్ని నొక్కండి. ఇది ఆసక్తికరమైన అంశాలతో నిండి ఉంది.
+ • కెమెరా స్క్రీన్‌పై ఎడమవైపు ఎగువన ఉన్న హాంబర్గర్ చిహ్నాన్ని నొక్కడం ద్వారా మీరు పొందగలిగే చక్కని చిట్కాల పేజీ ఉంది, అది మీ చిత్రాలను అద్భుతంగా చేయడంలో మీకు సహాయపడుతుంది.
+ • మీరు మీ రెండవ షాట్ కోసం ఇతర దిశను తరలించాలనుకుంటే లేదా వైపులా మార్చుకోవాలనుకుంటే స్వైప్ చేయండి.
+ • చిత్రాన్ని ఒక వైపుగా లోడ్ చేయడానికి లేదా పూర్తి స్టీరియో చిత్రాన్ని లోడ్ చేయడానికి దిగువన ఉన్న చిన్న ఫోల్డర్ చిహ్నాన్ని నొక్కండి.</value>
+  </data>
+  <data name="Page.Faq.Alignment" xml:space="preserve">
+    <value>ఆటో-అలైన్‌మెంట్ ఎలా పని చేస్తుంది?</value>
+  </data>
+  <data name="Page.Faq.Alignment.Body" xml:space="preserve">
+    <value>స్వీయ-సమలేఖనం చిత్రం జతలను సాధ్యమైనంత వరకు సమలేఖనం చేయడానికి ప్రయత్నిస్తుంది, కానీ ఇది పరిపూర్ణంగా లేదు. కంప్యూటర్ దృష్టి మానవ కళ్ళ కంటే కొన్ని విషయాలలో మెరుగ్గా ఉంటుంది, కానీ ఇతర విషయాలలో చాలా ఘోరంగా ఉంటుంది. అది చూసే ప్రపంచం మనం చేసే దానికంటే చాలా భిన్నంగా ఉంటుంది, కానీ అది కొన్ని విభిన్న మార్గాల్లో కూడా చూడవచ్చు. ఇది క్రాస్‌క్యామ్‌లో చూసే రెండు ప్రధాన మార్గాలు మెరుగుపరచబడిన సహసంబంధ గుణకం (ECC) మరియు కీ పాయింట్‌లను ఉపయోగించడం.
+
+ECC సమలేఖనం తప్పనిసరిగా రెండు వైపులా ఒకదానిపై ఒకటి అతివ్యాప్తి చేయబడినప్పుడు లైట్ ప్యాచ్‌లు లైట్ పాచెస్‌తో మరియు డార్క్ ప్యాచ్‌లు డార్క్ ప్యాచ్‌లతో అతివ్యాప్తి చెందుతాయని నిర్ధారించుకోవడానికి ప్రయత్నించడం ద్వారా పని చేస్తుంది. ECC సమలేఖనం విశ్వాస స్కోర్‌తో వస్తుంది, ఇది అమరిక ప్రభావవంతంగా ఉందో లేదో నిర్ణయించడంలో సహాయపడుతుంది. కాన్ఫిడెన్స్ చాలా తక్కువగా ఉంటే ఉత్పత్తి చేయబడిన అమరికను తిరస్కరించడానికి CrossCam సెటప్ చేయబడింది, కానీ మీరు సెట్టింగ్‌ల పేజీలో కాన్ఫిడెన్స్ పాస్/ఫెయిల్ థ్రెషోల్డ్‌ని కాన్ఫిగర్ చేయవచ్చు.
+
+కీ పాయింట్ అలైన్‌మెంట్ మూలలు, అంచులు, చుక్కలు మరియు అధిక కాంట్రాస్ట్ వంటి ఆసక్తికరమైన పాయింట్‌ల కోసం చూస్తుంది మరియు వాటిని రెండు వైపుల మధ్య సరిపోల్చడానికి ప్రయత్నిస్తుంది. పాయింట్‌లు సరిపోలిన తర్వాత, క్రాస్‌క్యామ్ వివిధ రకాల అల్గారిథమ్‌లను ఉపయోగించి భుజాలను వార్ప్ చేయడానికి ప్రయత్నించవచ్చు, తద్వారా ఒక వైపు నుండి కీలకమైన పాయింట్‌లు మరొక వైపు వాటి సంబంధిత కీలక పాయింట్‌లకు వీలైనంత దగ్గరగా ఉంటాయి.
+
+CrossCam ముందుగా కీపాయింట్ అలైన్‌మెంట్‌ని ఉపయోగించడానికి ప్రోగ్రామ్ చేయబడింది, అయితే కీపాయింట్ అలైన్‌మెంట్ విఫలమైనప్పుడు లేదా సింగిల్ షాట్ మిర్రర్-డివిజన్ పద్ధతితో క్యాప్చర్ చేస్తున్నప్పుడు అది ECC అలైన్‌మెంట్‌కి తిరిగి వస్తుంది. మీరు ఎల్లప్పుడూ కీ పాయింట్ అలైన్‌మెంట్‌ని ఉపయోగించడానికి లేదా సెట్టింగ్‌ల పేజీలో ఎల్లప్పుడూ ECC అలైన్‌మెంట్‌ని ఉపయోగించడానికి ఆటో-అలైన్‌మెంట్‌ను కాన్ఫిగర్ చేయవచ్చు.
+
+CrossCam చిన్న రోబోట్ చిహ్నం క్రింద కెమెరా స్క్రీన్‌పై అమరిక ఫలితాన్ని ప్రదర్శిస్తుంది. ఇది ECC అమరికను ఉపయోగించినట్లయితే అది విశ్వాస శాతాన్ని ప్రదర్శిస్తుంది. ఇది కీ పాయింట్ అమరికను ఉపయోగించినట్లయితే అది "KP"ని ప్రదర్శిస్తుంది. రెండు అమరిక పద్ధతులు విఫలమైతే అది "F"ని ప్రదర్శిస్తుంది. అమరిక ఫలితం మీకు నచ్చకపోతే, అమరికను తీసివేయడానికి మీరు చిన్న రోబోట్ చిహ్నంపై నొక్కవచ్చు.</value>
+  </data>
+  <data name="Page.Faq.Bad" xml:space="preserve">
+    <value>ఇది నా కళ్ళకు చెడ్డదా?</value>
+  </data>
+  <data name="Page.Faq.Bad.Body1" xml:space="preserve">
+    <value>నాకు తెలియదు, కానీ నేను అలా అనుకోను. అయితే, చెడుగా అనిపిస్తే మాత్రం కాస్త విరామం తీసుకోండి. అభ్యాసంతో, అసౌకర్యం సాధారణంగా తగ్గుతుంది. వర్జెన్స్-అకామడేషన్ వైరుధ్యం అని పిలువబడే ప్రభావం కారణంగా ఏదైనా వీక్షణ పద్ధతి అసౌకర్యాన్ని కలిగిస్తుంది. ఇదిగో</value>
+  </data>
+  <data name="Page.Faq.Bad.Body2" xml:space="preserve">
+    <value>వర్జెన్స్-వసతి సంఘర్షణపై వికీపీడియా లింక్.</value>
+  </data>
+  <data name="Page.Faq.Bad.Body3" xml:space="preserve">
+    <value>మీరు క్రాస్-ఐడ్ పద్ధతిని ఉపయోగిస్తుంటే, మీ కళ్ళు చాలా సేపు చాలా దగ్గరగా చూస్తున్నట్లుగా చూపడం అలవాటు చేసుకోకపోవడం వల్ల కూడా ఈ భావన ఉండవచ్చు. క్రాస్ వీక్షణ చేస్తున్నప్పుడు, మీ కళ్ళు మీ కళ్ళు మరియు స్క్రీన్‌కు మధ్య దాదాపుగా ఒక బిందువుపై కలుస్తాయి. ఎక్కువసేపు మూసి ఉన్న వాటిని చూడటం కూడా మీకు అసౌకర్యాన్ని కలిగిస్తే, మా వివరణ ఉంది.
+
+మీ కళ్ళు వాటి రోజువారీ సామర్థ్యాలకు వెలుపల ఏమీ చేయడం లేదని నా అభిప్రాయం, కానీ మీరు సాధారణంగా ఆ విధంగా ఉపయోగించని రెండు విభిన్న సామర్థ్యాలను మిళితం చేస్తున్నారు. మీరు సాధారణంగా ఫోకస్ చేయడానికి సౌకర్యంగా ఉండే ఒక ప్రదేశంలో మీ లెన్స్‌లను ఫోకస్ చేస్తున్నారు మరియు మీరు మీ కళ్లను ఎక్కడో వారు పాయింట్ చేయడానికి సౌకర్యవంతంగా ఉండే చోటికి గురి చేస్తున్నారు, కానీ మీ లెన్స్‌లు ఫోకస్ చేసే ప్రదేశం మరియు మీ కళ్ళు కలిసే ప్రదేశం అనేది ఒకే పాయింట్ కాదు. మీ దృష్టి ఇంకా అభివృద్ధి చెందనంత కాలం అది మీకు చెడుగా ఎలా ఉంటుందో నాకు కనిపించడం లేదు.</value>
+  </data>
+  <data name="Page.Faq.Cardboard" xml:space="preserve">
+    <value>నేను Google కార్డ్‌బోర్డ్‌తో CrossCamని ఎలా ఉపయోగించగలను?</value>
+  </data>
+  <data name="Page.Faq.Cardboard.Body" xml:space="preserve">
+    <value>మీ వీక్షకుడు స్క్రీన్ మధ్యలో నొక్కిన బటన్‌ను కలిగి ఉంటే, మీరు కార్డ్‌బోర్డ్‌ని ఉపయోగించి క్యాప్చర్ చేయడానికి దాన్ని ఉపయోగించవచ్చు. మీ వీక్షకుడు మీ ఫోన్ కెమెరాను చూడడానికి కూడా ఒక రంధ్రం కలిగి ఉండాలి.
+
+కార్డ్‌బోర్డ్‌ని ఉపయోగించి ఫోటోలను క్యాప్చర్ చేయడానికి, మీ ప్రివ్యూ వీక్షణ పద్ధతిని (సెట్టింగ్‌ల పేజీలో) కార్డ్‌బోర్డ్‌కి మార్చండి, ఆపై కెమెరా పేజీకి తిరిగి వచ్చి, మీ ఫోన్‌ని వ్యూయర్‌లో ఉంచండి. సంగ్రహించడానికి బటన్‌ను నొక్కండి మరియు రెండు వైపులా సంగ్రహించబడినప్పుడు, సేవ్ చేయడానికి బటన్‌ను మళ్లీ నొక్కండి. కార్డ్‌బోర్డ్ మోడ్‌లో సేవ్ చేయడం అనేది మీరు చిత్రాలను తర్వాత వీక్షించడం కోసం CrossCamలోకి తిరిగి లోడ్ చేయడానికి మాత్రమే ఉద్దేశించబడింది, మీ వ్యూయర్ ద్వారా మీ ఫోటోల యాప్‌లో వాటిని వీక్షించడానికి కాదు.
+
+మీకు కావలసిన ఇతర పద్ధతిని ఉపయోగించి కూడా మీరు క్యాప్చర్ చేయవచ్చు, ఆపై మీ ప్రివ్యూ వీక్షణ పద్ధతిని కార్డ్‌బోర్డ్‌కి మార్చండి మరియు మీ ఫోన్‌ను వ్యూయర్‌లో ఉంచండి.
+
+విభిన్న లక్షణాలతో అక్కడ అనేక విభిన్న వీక్షకులు ఉన్నారు. మీ అనుభవాన్ని మరింత సౌకర్యవంతంగా చేయడానికి మీరు కార్డ్‌బోర్డ్ విభజన దూరాన్ని (సెట్టింగ్‌ల పేజీలో) మార్చాల్సి రావచ్చు. మీరు హై-క్వాలిటీ స్టీరియోగ్రామ్‌లను అద్భుతంగా మరియు లీనమయ్యేలా చేయడానికి ముందు వాటిని క్యాప్చర్ చేయడంలో మీరు మంచివారని నిర్ధారించుకోవాలి.</value>
+  </data>
+  <data name="Page.Faq.How" xml:space="preserve">
+    <value>ఇది ఎలా పనిచేస్తుంది?</value>
+  </data>
+  <data name="Page.Faq.How.Body1" xml:space="preserve">
+    <value>3D ప్రభావం CrossCam ఉపయోగిస్తుంది స్టీరియోస్కోపీ అని పిలవబడే బాగా అధ్యయనం చేయబడిన క్రమశిక్షణ, మరియు రెండు వైపులా వీక్షించడానికి మీరు మీ కళ్లను దాటే (లేదా వాటిని విశ్రాంతి) చేసే పద్ధతిని ఉచిత వీక్షణ అంటారు. మనం ప్రపంచాన్ని చుట్టుముట్టినప్పుడు, మన ప్రతి కన్ను ఒక్కో కోణంలో చూస్తుంది. స్టీరియోస్కోపీలో మనం చేసేదంతా ప్రతి కంటికి ఒక (కృత్రిమ) దృక్పథాన్ని అందించడమే మరియు మన మెదడు మిగిలిన వాటిని మాత్రమే చేస్తుంది. ప్రతి కన్ను వేరే చిత్రాన్ని చూసేలా చేయడానికి అనేక మార్గాలు ఉన్నాయి. ఇదిగో</value>
+  </data>
+  <data name="Page.Faq.How.Body2" xml:space="preserve">
+    <value>స్టీరియోస్కోపీపై వికీపీడియా లింక్</value>
+  </data>
+  <data name="Page.Faq.How.Body3" xml:space="preserve">
+    <value>మీరు క్రాస్‌క్యామ్‌తో రూపొందించే 3డి చిత్రాలను స్టీరియోగ్రామ్‌లు అంటారు. మ్యాజిక్ ఐ™ పుస్తకాలు ఆటోస్టీరియోగ్రామ్‌లను కలిగి ఉంటాయి.</value>
+  </data>
+  <data name="Page.Faq.Into" xml:space="preserve">
+    <value>మీరు స్టీరియోస్కోపీలోకి ఎలా ప్రవేశించారు?</value>
+  </data>
+  <data name="Page.Faq.Into.Body1" xml:space="preserve">
+    <value>నేను నా ఫిజిక్స్ డిగ్రీని పొందుతున్నప్పుడు, లేజర్‌లను ఉపయోగించి నా స్వంత హోలోగ్రామ్‌లను రూపొందించడంలో ప్రయోగాలు చేసే అవకాశం నాకు లభించింది. నేను తయారు చేస్తున్న హోలోగ్రామ్‌ల రకం 3D ఎందుకంటే అవి గ్లాస్ ప్లేట్ యొక్క ఉపరితలం నుండి ప్రతిబింబించే కాంతిలో విధ్వంసక జోక్యాన్ని కలిగించడానికి డిఫ్రాక్షన్ గ్రేటింగ్‌ను ఉపయోగించాయి, దీని వలన ప్రతిబింబించే చిత్రం వివిధ ప్రదేశాల నుండి భిన్నంగా కనిపిస్తుంది. మన కళ్లలో ప్రతి ఒక్కరు వేరొక దృక్కోణం నుండి కనిపించే చిత్రాన్ని చూసినప్పుడు (అవి చాలా భిన్నంగా లేకుంటే), మన మెదడు దానిని లోతుగా గ్రహిస్తుంది.</value>
+  </data>
+  <data name="Page.Faq.Into.Body2" xml:space="preserve">
+    <value>స్టీరియోస్కోపిక్ అవగాహన సూత్రం గురించి నాకు చాలా కాలంగా తెలుసు, కానీ నా జీవితంలో ఆ సమయంలో నేను కొన్ని ప్రోగ్రామింగ్ తరగతులు కూడా తీసుకుంటున్నాను, కాబట్టి నేను స్టీరియోస్కోపిక్ 3D డ్రాయింగ్ కోసం ఒక సాధారణ కంప్యూటర్ ప్రోగ్రామ్‌ను రూపొందించాలని నిర్ణయించుకున్నాను. ఆ ప్రయత్నం స్టీరియో స్కెచర్‌గా మారింది. అసలు వెర్షన్ జావాలో వ్రాయబడింది, కానీ నేను దానిని జావాస్క్రిప్ట్ మరియు SVGతో తిరిగి వ్రాసాను మరియు ఇప్పుడు అది వెబ్‌లో నివసిస్తుంది</value>
+  </data>
+  <data name="Page.Faq.Into.Body3" xml:space="preserve">
+    <value>ఈ లింక్ వద్ద.</value>
+  </data>
+  <data name="Page.Faq.Into.Body4" xml:space="preserve">
+    <value>ఇది ఏ విధంగానూ జనాదరణ పొందలేదు మరియు నేను తప్ప మరెవరికీ దీన్ని ఉపయోగించడం సులభం కాకపోవచ్చు, కానీ ఇది పని చేస్తుంది. స్టీరియో స్కెచర్‌లో పని చేస్తున్నప్పుడు నేను స్టీరియోస్కోపీ సూత్రాలతో ప్రయోగాలు చేయవలసి వచ్చింది మరియు కొన్ని సాధారణ నియమాలను ఉపయోగించి అటువంటి లీనమయ్యే మరియు బలవంతపు అనుభవాన్ని అందించే విధానంతో నేను ఆకర్షితుడయ్యాను.</value>
+  </data>
+  <data name="Page.Faq.Inverted" xml:space="preserve">
+    <value>3D ఎందుకు సరిగ్గా కనిపించడం లేదు లేదా 3D ఎందుకు విలోమంగా కనిపిస్తుంది?</value>
+  </data>
+  <data name="Page.Faq.Inverted.Body1" xml:space="preserve">
+    <value>క్రాస్ లేదా సమాంతర పద్ధతిలో ఉచితంగా వీక్షిస్తున్నప్పుడు, చిత్రాలను రూపొందించడానికి ఉపయోగించిన అదే పద్ధతిని ఉపయోగించి వాటిని చూడటం చాలా ముఖ్యం. లేకపోతే, మీ కుడి కన్ను ఎడమ కన్ను కోసం ఉద్దేశించిన దృక్కోణాన్ని చూస్తుంది మరియు దీనికి విరుద్ధంగా ఉంటుంది. ఇది చిత్రం యొక్క లోతును విలోమం చేస్తుంది, ఎందుకంటే పారలాక్స్ దిశ మార్చబడింది.
+
+పారలాక్స్ అంటే మీ కుడి కన్ను కోణం నుండి, వస్తువులు మరింత దూరంగా ఉన్నప్పుడు మీ ఎడమ కన్ను నుండి చూసినప్పుడు అవి దగ్గరగా ఉన్న వస్తువుల కంటే కుడి వైపున ఉన్నట్లు అనిపిస్తుంది. వాక్య ఆకృతిలో వివరించినప్పుడు ఇది గందరగోళంగా ఉంది, కానీ ప్రదర్శించినప్పుడు చాలా సహజంగా ఉంటుంది.
+
+ప్రదర్శించడానికి, ఒక వేలిని మీ ముందు చేయి పొడవులో పట్టుకోండి, ఆపై మీ మరొక చేతితో మొదటి వేలు మరియు మీ ముఖం మధ్య సగం వరకు మరొక వేలిని పట్టుకోండి. మీరు ప్రతి కన్నును ప్రత్యామ్నాయంగా మూసివేసి, మీ వేళ్లు ఎక్కడ ఉన్నాయనే దానిపై శ్రద్ధ వహిస్తే, ప్రతి కన్ను వాటిని వేర్వేరు ప్రదేశాల్లో చూడడాన్ని మీరు చూస్తారు. కాబట్టి సహజంగా, ప్రతి కన్ను ఆ కదలికను అది అనుకున్నట్లుగా వ్యతిరేక మార్గంలో చూసినట్లయితే, లోతు తారుమారు అవుతుంది.
+
+అనుకోకుండా తప్పుడు వీక్షణ పద్ధతిని ఉపయోగించడం చాలా సులభం, ఎందుకంటే చాలా మంది వ్యక్తులు తమ కళ్లను దాటుతున్నారా లేదా కేవలం అనుభూతి చెందడం ద్వారా లేదా ప్రపంచంలోని గందరగోళ ద్వంద్వ చిత్రాన్ని చూడటం ద్వారా చెప్పడం చాలా కష్టం. బదులుగా, మీ కళ్ళు ఏమి చేస్తున్నాయో మరొకరు చూసేలా చేయడం లేదా ఈ టెస్టర్ చిత్రాన్ని ప్రయత్నించడం ఉత్తమం:</value>
+  </data>
+  <data name="Page.Faq.Inverted.Body2" xml:space="preserve">
+    <value>ప్యారలల్ వ్యూ పద్ధతిని ఉపయోగించి వీక్షించడానికి ఉద్దేశించిన మ్యాజిక్ ఐ™ పుస్తకాలను వీక్షించడంలో చాలా మంది వ్యక్తులు చాలా సౌకర్యంగా ఉన్నారు. మీరు వాటిని క్రాస్ వీక్షణ చేస్తే, పేజీ నుండి పాప్ చేయాల్సిన బలమైన 3D వస్తువులు రంధ్రాల వలె కనిపిస్తాయి. రెండు పద్ధతులు మిమ్మల్ని *ఏదో* చూడడానికి అనుమతిస్తాయి కానీ అది ఏమిటో మీరు చెప్పలేకపోతే, మీరు బహుశా వాటిని క్రాస్ వీక్షిస్తున్నారు.</value>
+  </data>
+  <data name="Page.Faq.Mirror" xml:space="preserve">
+    <value>నేను "సింగిల్-షాట్ మిర్రర్" పద్ధతిని ఎలా చేయాలి?</value>
+  </data>
+  <data name="Page.Faq.Mirror.Body1" xml:space="preserve">
+    <value>మిర్రర్ పద్ధతితో క్యాప్చర్ చేయడం ఫ్రేమ్‌ను సగానికి విభజించి, అవసరమైన పరివర్తనను చేస్తుంది కాబట్టి మీరు ఒకే ఫోన్ మరియు సాధారణ హ్యాండ్‌హెల్డ్ మిర్రర్‌ని ఉపయోగించి ఒకే సమయంలో రెండు వైపులా క్యాప్చర్ చేయవచ్చు. క్యాప్చర్ చేసేటప్పుడు మిర్రర్ పద్ధతిని ఉపయోగించడానికి, సెట్టింగ్‌ల పేజీలో మిర్రర్ మోడ్ కోసం స్విచ్ ఆన్ చేయండి (అక్కడకు వెళ్లడానికి గేర్ చిహ్నాన్ని నొక్కండి). మీరు మిర్రర్ మోడ్‌ని ఆన్ చేసిన తర్వాత, మీ మిర్రర్‌ను ఏ వైపు పట్టుకోవాలో CrossCam మీకు తెలియజేస్తుంది. మీ అద్దాన్ని ఆ వైపు పట్టుకుని, మీ ఫోన్ మరియు మిర్రర్ మరియు మీ సబ్జెక్ట్ మధ్య అమరికతో రచ్చ చేయండి. కొంత ఓపికతో, మీరు వాటన్నింటినీ వరుసలో ఉంచగలుగుతారు, తద్వారా అద్దం ఒక వైపు సరైన దృక్పథాన్ని చూపుతుంది. మిర్రర్ పద్ధతిని ఉపయోగించడం వలన మీ చిత్రాన్ని నిలువుగా సగానికి విభజించారు, సాధారణంగా అద్దం పద్ధతితో ల్యాండ్‌స్కేప్‌లో క్యాప్చర్ చేయడం ఉత్తమం.
+
+ఈ పద్ధతి పెద్ద, శుభ్రమైన కిటికీలలో ప్రతిబింబాలతో మరియు నిశ్చల సరస్సులు లేదా నీటి గుంటలపై కూడా పని చేస్తుంది (ఫోన్ పోర్ట్రెయిట్‌లో లాక్ చేయబడినప్పుడు మరియు పక్కకు తిప్పబడినప్పుడు).</value>
+  </data>
+  <data name="Page.Faq.Mirror.Body2" xml:space="preserve">
+    <value>అద్దం పద్ధతిని ఉపయోగించడానికి కొన్ని రాజీలు/సవరణలు చేయవలసి ఉంటుంది. ఇవన్నీ క్రాస్‌క్యామ్‌లో మాన్యువల్‌గా చేయవచ్చు, అయితే ఆటోమేటిక్ అలైన్‌మెంట్ మీ కోసం వాటిని చేయడానికి కూడా ప్రయత్నిస్తుంది:
+ • ప్రతిబింబించే వీక్షణ సాధారణ వీక్షణ కంటే ఎక్కువ దూరం ప్రయాణిస్తుంది కాబట్టి, అద్దం వైపు కొంచెం జూమ్ చేయాలి.
+ • అద్దం పద్ధతిని ఉపయోగిస్తున్నప్పుడు మీరు దృక్కోణాలను సమాంతరంగా ఉంచడం కంటే, కాలిబాట పట్టే అవకాశం ఉంది - ఇది చెడ్డ నిలువు సమలేఖనం వలె కనిపించడానికి ముందస్తు షార్టెన్‌ని కలిగిస్తుంది. దాన్ని రద్దు చేయడానికి, కీస్టోన్ కరెక్షన్ చేయవచ్చు, అంటే ప్రతి ఇమేజ్‌కి ఒక వైపు నిలువుగా కుదించడం.
+ • టోయింగ్-ఇన్ కూడా స్టీరియో విండోను మీ వైపుకు తరలించేలా చేస్తుంది. మీరు దానిని చర్యరద్దు చేయవచ్చు మరియు వైపులా కత్తిరించడం ద్వారా మీకు కావలసిన చోట ఉంచవచ్చు.
+ • అద్దం బహుశా ఒక వైపు వీక్షణను పూర్తిగా కవర్ చేయదు, కాబట్టి ప్రతిబింబించని బిట్‌లను తొలగించడానికి కొంత క్రాపింగ్ చేయాల్సి రావచ్చు.
+
+దీనికి ఉత్తమమైన అద్దాలు సన్నని గాజును కలిగి ఉంటాయి. ఒక విషయం ఏమిటంటే అవి తేలికగా ఉంటాయి, కాబట్టి అవి ఎక్కువ కాలం పాటు ఉంచడం సులభం. ఇతర ముఖ్యమైన విషయం ఏమిటంటే, అద్దాన్ని ఉపయోగిస్తున్నప్పుడు మీరు అద్దాలు సాధారణంగా ఉపయోగించబడుతున్నందున అద్దంలోకి నేరుగా చూడకుండా పక్కకు గురిపెట్టి ఉండవచ్చు. అలా ఓరియంటెడ్ చేసినప్పుడు, మందపాటి గాజుతో అద్దాలు కొంత అస్పష్టతను కలిగి ఉండవచ్చు. గాజు సన్నగా ఉంటే, ఈ అస్పష్టత తక్కువగా కనిపిస్తుంది. ఈ రకమైన అద్దాలు ఇతర అంశాలలో కూడా తక్కువ నాణ్యత కలిగి ఉండవచ్చు, కాబట్టి మంచి బ్యాలెన్స్‌ను కనుగొనడం చాలా ముఖ్యం.
+
+మిర్రర్ క్యాప్చరింగ్‌ని ఉపయోగిస్తున్నప్పుడు అంగీకరించాల్సిన రెండు ఇతర రాజీలు ఉన్నాయి, వీటిని క్రాస్‌క్యామ్ సవరణలలో పరిష్కరించలేము:
+ • రెండు వైపుల వీక్షణ కొద్దిగా వేర్వేరు దూరాలు ప్రయాణిస్తున్నందున, ప్రతి వైపుకు అవసరమైన ఫోకస్ కొద్దిగా భిన్నంగా ఉంటుంది, కాబట్టి ఒక వైపు ఎల్లప్పుడూ కొద్దిగా అస్పష్టంగా ఉంటుంది. సబ్జెక్ట్‌కు దూరం మరియు లెన్స్ ఫీల్డ్ యొక్క లోతుపై ఆధారపడి ఈ ప్రభావం ఎక్కువ లేదా తక్కువ గమనించవచ్చు.
+ • ఏ అద్దం నిజంగా 100% సమర్థవంతమైనది కాదు, కాబట్టి అద్దాన్ని ఉపయోగించే వైపు కొద్దిగా ముదురు రంగులో ఉండవచ్చు. ఇది అద్దం నాణ్యతను బట్టి మారుతుంది.</value>
+  </data>
+  <data name="Page.Faq.Moving" xml:space="preserve">
+    <value>నా విషయం కదులుతోంది, నేను దాని 3D చిత్రాలను ఎలా తీయగలను?</value>
+  </data>
+  <data name="Page.Faq.Moving.Body" xml:space="preserve">
+    <value>ఒకే సమయంలో రెండు దృక్కోణాలను సంగ్రహించడానికి CrossCam మీకు రెండు పద్ధతులను అనుమతిస్తుంది. ఒక పద్ధతి రెండు ఫోన్‌లను ఉపయోగిస్తుంది మరియు ఒక పద్ధతి అద్దాన్ని ఉపయోగిస్తుంది.
+
+రెండు ఫోన్ సెటప్‌లను ఉపయోగించడానికి, మీరు సెట్టింగ్‌ల పేజీ నుండి పొందగలిగే జత చేసే సెటప్ పేజీని తనిఖీ చేయండి (గేర్ చిహ్నాన్ని నొక్కండి).
+
+మిర్రర్ పద్ధతిని ఉపయోగించడానికి, దాని గురించిన ఇతర FAQ ప్రశ్నలను చూడండి.</value>
+  </data>
+  <data name="Page.Faq.Test" xml:space="preserve">
+    <value>CrossCam యొక్క ప్రీ-రిలీజ్ వెర్షన్‌లను నేను ఎలా పరీక్షించగలను?</value>
+  </data>
+  <data name="Page.Faq.Test.Body" xml:space="preserve">
+    <value>ఈ రెడ్డిట్ పోస్ట్‌ని చూడండి</value>
+  </data>
+  <data name="Page.Faq.Why" xml:space="preserve">
+    <value>మీరు క్రాస్‌క్యామ్ ఎందుకు చేసారు?</value>
+  </data>
+  <data name="Page.Faq.Why.Body" xml:space="preserve">
+    <value>నేను స్టీరియోస్కోపీ పట్ల ఆసక్తిని పొందడం ప్రారంభించినప్పుడు నేను ఎల్లోస్టోన్‌కు వెళ్లవలసి వచ్చింది. నేను అక్కడ ఉన్నప్పుడు, 3D కెమెరా మొబైల్ యాప్‌ని 3Dలో క్యాప్చర్ చేయడానికి ప్రయత్నించడం సరదాగా ఉంటుందని నేను గ్రహించాను. ఇప్పటికే ఉన్న ఎంపికల వల్ల నేను చాలా నిరాశ చెందాను. వారందరికీ మీరు రెండు క్యాప్చర్‌లు చేయవలసి ఉందని నేను కనుగొన్నాను, ఆపై అవి ఏమైనా బాగున్నాయో లేదో కనుక్కోండి. నా విభజన దూరం, అలాగే విషయం యొక్క నాణ్యతపై నేను పదేపదే పూర్తి అంచనాలు వేయవలసి వచ్చినందున అవి తరచుగా లేవు.
+
+తర్వాతి కొన్ని వారాల్లో నా ఉక్కిరిబిక్కిరైన నిరుత్సాహం, మొదటి క్యాప్చర్‌తో పాటు రెండవ క్యాప్చర్ యొక్క లైవ్ ప్రివ్యూను అందించడం గురించి ఊహించుకునేలా చేసింది. నేను ఇప్పటికే మొబైల్ డెవలప్‌మెంట్‌లో నేపథ్యాన్ని కలిగి ఉన్నాను, కాబట్టి ఇది సమయాన్ని కేటాయించడం మాత్రమే. జ్ఞాపకాలను భద్రపరచుకోవడానికి క్రాస్‌క్యామ్ నా కోసం ఉపయోగించుకోవడం నాకు అద్భుతంగా ఉంది మరియు దానిని మీతో కూడా పంచుకోవడానికి నేను సంతోషిస్తున్నాను.</value>
+  </data>
+  <data name="Page.Faq.Wiggle" xml:space="preserve">
+    <value>విగ్లెగ్రామ్స్ అంటే ఏమిటి?</value>
+  </data>
+  <data name="Page.Faq.Wiggle.Body" xml:space="preserve">
+    <value>విగ్లెగ్రామ్‌లు బైనాక్యులర్ విజన్‌పై ఆధారపడని స్టీరియోగ్రామ్‌లను వీక్షించడానికి ఒక మార్గం. అవి సాధారణంగా రెండు దృక్కోణాల మధ్య ముందుకు వెనుకకు తిరిగే gif, ప్రతి ఒక్కటి ఒకే స్థలంలో పూర్తిగా చూపబడతాయి. CrossCam ప్రస్తుతం వాటిని తయారు చేయడానికి మద్దతు ఇవ్వదు, కానీ మీకు వాటిపై నిజంగా ఆసక్తి ఉంటే నాకు ఇమెయిల్ చేయండి మరియు నేను చేస్తాను.</value>
+  </data>
+  <data name="Page.Tips.AlignAfter" xml:space="preserve">
+    <value>క్షితిజ సమాంతర రేఖలను గుర్తుంచుకోండి, కానీ మీరు తర్వాత కూడా సమలేఖనం చేయవచ్చు.</value>
+  </data>
+  <data name="Page.Tips.AlignAfter.Body" xml:space="preserve">
+    <value>మీరు చిత్రాలను తీస్తున్నప్పుడు ఎగువ మరియు దిగువ గైడ్ లైన్‌లను ఒకే సమయంలో వరుసలో ఉంచడం అసాధ్యం అని మీరు కనుగొంటే, మీరు బహుశా పక్కకు కాకుండా వేరే దిశలో మారారు. చిత్రాలను తీయడానికి ముందు దీన్ని పరిష్కరించడానికి ప్రయత్నించండి, కానీ వాస్తవం తర్వాత సమలేఖనం చేయడం దీనికి చాలా సహాయపడుతుంది.</value>
+  </data>
+  <data name="Page.Tips.Alignment" xml:space="preserve">
+    <value>మీరు స్వీయ అమరికను ఆఫ్ చేయవచ్చు.</value>
+  </data>
+  <data name="Page.Tips.Alignment.Body" xml:space="preserve">
+    <value>మీకు ఆటోమేటిక్ అలైన్‌మెంట్ ఫలితాలు నచ్చకపోతే, సెట్టింగ్‌ల పేజీలో లేదా చిన్న రోబోట్ చిహ్నంపై నొక్కడం ద్వారా దాన్ని ఆఫ్ చేయండి మరియు మీ ఒరిజినల్ క్యాప్చర్ చేసిన చిత్రాలు పునరుద్ధరించబడతాయి.</value>
+  </data>
+  <data name="Page.Tips.Donut" xml:space="preserve">
+    <value>డోనట్ గైడ్ మీ విండోకు సహాయం చేస్తుంది.</value>
+  </data>
+  <data name="Page.Tips.Donut.Body" xml:space="preserve">
+    <value>మీరు సెట్టింగుల పేజీలో ఒక ప్రయోగాత్మక గైడ్ డోనట్ ఉంది, ఇది ఉపయోగించదగిన వెడల్పును పెంచేటప్పుడు మీ స్టీరియో విండోను సంరక్షించడంలో మీకు సహాయపడవచ్చు. ఎడమ మరియు కుడివైపు తిరగడం ద్వారా డోనట్‌లోని డెప్త్ మిగిలిన సన్నివేశానికి సంబంధించి మారుతుంది - డోనట్ డెప్త్‌ను సెట్ చేయండి, తద్వారా అది మీ సీన్‌లోని అత్యంత సుదూర బిందువుపై లేదా వెనుక ఉంటుంది. జాగ్రత్తగా ఉండండి, చిన్న సన్నివేశాల్లో దీన్ని ఉపయోగించడం వల్ల విషయాలు బాధాకరంగా ఉండవచ్చు (పైన కీస్టోన్ చిట్కా చూడండి).</value>
+  </data>
+  <data name="Page.Tips.Keystone" xml:space="preserve">
+    <value>మీరు టో-ఇన్ చేస్తే కీస్టోన్ దిద్దుబాటు అవసరం.</value>
+  </data>
+  <data name="Page.Tips.Keystone.Body1" xml:space="preserve">
+    <value>మీరు ప్రతి షాట్‌తో లోపలికి తిరిగితే, కీస్టోన్ దిద్దుబాట్లు చేయడం చాలా ఉపయోగకరంగా ఉంటుంది. సాధారణంగా మీరు ఫోటోల లోపలి అంచులను కుదించి, ఆపై వాటిని సమం చేయడానికి ఎగువ మరియు దిగువ నుండి కొన్నింటిని కత్తిరించాలి. మీరు ఇలా కనిపించే బటన్‌ను నొక్కడం ద్వారా కీస్టోన్ ఎడిటింగ్ మెనుని పొందుతారు:</value>
+  </data>
+  <data name="Page.Tips.Keystone.Body2" xml:space="preserve">
+    <value>లోపలికి తిరగడం టో-ఇన్ అంటారు. ఇది చిత్రం యొక్క మూలలను కలపడం కష్టతరం చేసే ముందస్తు ప్రభావాన్ని కలిగిస్తుంది. ఫార్‌షోర్టెనింగ్ ప్రభావం నిజ జీవితంలో అన్ని సమయాల్లో ఉంటుంది, ఎందుకంటే సమాంతర రేఖలు మీ నుండి దూరంగా వెళ్లినప్పుడు కలుస్తాయి, కానీ కృత్రిమ దృక్కోణాలు దానిని విచిత్రంగా చేస్తాయి.</value>
+  </data>
+  <data name="Page.Tips.Lean" xml:space="preserve">
+    <value>మీరు కేవలం లీన్ చేయవచ్చు.</value>
+  </data>
+  <data name="Page.Tips.Lean.Body" xml:space="preserve">
+    <value>కొన్నిసార్లు చిత్రాలను తీయడానికి మీ పాదాలను పూర్తిగా ఎడమకు లేదా కుడికి తరలించే బదులు, మీ పాదాలను వేరుగా ఉంచి ప్రతి దిశలో వాలడం సులభం అవుతుంది, అయితే ఫోన్ స్థాయి మరియు అదే ఎత్తులో ఉండేలా జాగ్రత్త వహించండి. కదలడానికి బదులు వాలడం చాలా దూరం కదలకుండా మీకు సహాయం చేస్తుంది మరియు మీ లక్ష్యాన్ని నిటారుగా ఉంచుకోవడం సులభం చేస్తుంది.</value>
+  </data>
+  <data name="Page.Tips.Lines" xml:space="preserve">
+    <value>అమరిక పంక్తులు కదలగలవు.</value>
+  </data>
+  <data name="Page.Tips.Lines.Body" xml:space="preserve">
+    <value>మీకు కావాలంటే మీరు చుట్టూ అమరిక లైన్లను లాగవచ్చు. ఎడిటింగ్ సమయంలో చిత్రాలను సమలేఖనం చేసేటప్పుడు ఇది ప్రత్యేకంగా సహాయపడుతుంది.</value>
+  </data>
+  <data name="Page.Tips.Old" xml:space="preserve">
+    <value>మీరు క్రాస్‌క్యామ్‌లో పాత ఫోటోలను తెరవవచ్చు.</value>
+  </data>
+  <data name="Page.Tips.Old.Body" xml:space="preserve">
+    <value>మీరు కెమెరా పేజీ దిగువన ఉన్న ఫోల్డర్ చిహ్నాన్ని నొక్కడం ద్వారా మునుపు తీసిన చిత్రాలను లోడ్ చేయవచ్చు, కానీ మీరు పెద్ద బ్యాచ్ ఫోటోలతో పని చేస్తుంటే, మీరు వాటిని మీ ఫోటోల యాప్ నుండి నేరుగా CrossCamకి షేర్ చేయవచ్చు, ఇది మీ గురించి ట్రాక్ చేయవచ్చు. మీ ఫోటోలలో ఉత్తమంగా ఉంచండి.</value>
+  </data>
+  <data name="Page.Tips.Quick" xml:space="preserve">
+    <value>మీరు ఇతరులతో ఉన్నప్పుడు త్వరిత మోడ్‌ని ఆన్ చేయండి.</value>
+  </data>
+  <data name="Page.Tips.Quick.Body" xml:space="preserve">
+    <value>మీరు ఇతర వ్యక్తులతో అన్వేషిస్తున్నట్లయితే, స్వయంచాలక సమలేఖనం మరియు సరిహద్దులను ఆఫ్ చేయడం ద్వారా ఫాస్ట్ మోడ్‌లోకి వెళ్లడం మంచిది మరియు మీరు ఎలాంటి సవరణలు చేయకుండా క్యాప్చర్ చేసిన తర్వాత సేవ్ చేసుకోండి. మీరు ఎప్పుడైనా చిత్రాలను తర్వాత లోడ్ చేయవచ్చు, స్వయంచాలకంగా సమలేఖనం చేయవచ్చు మరియు సవరించవచ్చు. ఆ విధంగా మీరు అక్కడికక్కడే మీ చిత్రాలను పరిపూర్ణం చేయడానికి మీ సహచరులు వేచి ఉండాల్సిన అవసరం లేదు, కానీ మీరు కోరుకున్న లోతు నిజంగానే ఉందని మీరు ఇప్పటికీ నమ్మకంగా ఉండవచ్చు. మొదటి సేవ్‌కు ముందు తొందరపాటు ఎడిటింగ్ చేయకుండా జాగ్రత్తపడండి! మీరు చేసే ఏ సవరణను విస్మరించే ప్రత్యేక సైడ్ సేవింగ్‌ను కూడా మీరు ఆన్ చేయవచ్చు.</value>
+  </data>
+  <data name="Page.Tips.Sick" xml:space="preserve">
+    <value>ఉద్యమం మిమ్మల్ని అనారోగ్యానికి గురిచేస్తే, అలాగే పట్టుకోండి.</value>
+  </data>
+  <data name="Page.Tips.Sick.Body" xml:space="preserve">
+    <value>అన్ని కదలికలు మిమ్మల్ని అనారోగ్యానికి గురిచేస్తే లేదా 3Dలో వీక్షించడం చాలా కష్టంగా ఉంటే, మీరు కొంచెం కదిలిన తర్వాత దానిని 3Dలో చూడటానికి ప్రయత్నించవద్దు. ఆపై చిత్రాలను ఒకదానితో ఒకటి సరిపోల్చండి మరియు 3D వీక్షణ లేకుండా క్షితిజ సమాంతర రేఖలను ఉపయోగించి చిత్రాలను సమలేఖనం చేయండి, ఆపై సమలేఖనం చేసి, అలాగే ఉంచి 3D వీక్షణను ప్రారంభించండి.</value>
+  </data>
+  <data name="Page.Tips.Space" xml:space="preserve">
+    <value>ఈ చిత్రాలు చాలా నిల్వను తీసుకోవచ్చు - మీరు వాటిని కుదించవచ్చు.</value>
+  </data>
+  <data name="Page.Tips.Space.Body" xml:space="preserve">
+    <value>సెట్టింగుల పేజీలో తుది చిత్రం యొక్క రిజల్యూషన్‌ను దామాషా ప్రకారం తగ్గించే ఎంపిక ఉంది - మీరు స్థలాన్ని ఆదా చేయాలనుకుంటే ఇది సహాయపడుతుంది. మీ ఫోటో కత్తిరించబడకపోతే, తుది ఫలితం రెండు పూర్తి-రిజల్యూషన్ చిత్రాలు ఒకదానితో ఒకటి డబుల్ రిజల్యూషన్‌లో ఒకటిగా ఉంటాయి, అంటే నాణ్యతను గమనించదగ్గ విధంగా ప్రభావితం చేయకుండా మీరు తరచుగా రిజల్యూషన్‌లో పెద్ద తగ్గింపుతో బయటపడవచ్చు.</value>
+  </data>
+  <data name="Page.Tips.Turn" xml:space="preserve">
+    <value>తిరగవద్దు.</value>
+  </data>
+  <data name="Page.Tips.Turn.Body" xml:space="preserve">
+    <value>మీరు పక్కకు వెళ్లినప్పుడు, మీ ఫోన్‌ను ఏ దిశలోనైనా తిప్పకుండా ప్రయత్నించండి, మీరు పక్కకు వెళ్లినప్పుడు సబ్జెక్ట్ వైపు మళ్లే సహజ ధోరణితో సహా. కొంత భ్రమణం అవసరం (కొన్నిసార్లు), కానీ దానిని తగ్గించడానికి ప్రయత్నించండి. ఫోన్ నేరుగా క్షితిజ సమాంతర రైలులో అమర్చబడిందని మరియు స్లయిడ్ మాత్రమే చేయగలదని ఊహించుకోండి. లోపలికి తిరగడం మూలలను కలుషితం చేయడం కష్టతరం చేసే ఫార్‌షార్టెనింగ్ ప్రభావాన్ని కలిగిస్తుంది.</value>
+  </data>
+  <data name="Page.Tips.Window" xml:space="preserve">
+    <value>బలమైన స్టీరియో విండోను చేయడానికి అంచుని మరియు కత్తిరించండి.</value>
+  </data>
+  <data name="Page.Tips.Window.Body" xml:space="preserve">
+    <value>రెండు పనులు చేయడం ద్వారా ఆసక్తికరమైన స్టీరియో విండో ప్రభావాన్ని సృష్టించవచ్చు: 1) అంచుని ఆన్ చేయండి (సెట్టింగ్‌ల పేజీలో) మరియు 2) క్రాస్ వీక్షణ కోసం, చిత్రంలో బయటి అంచు 3D అయ్యే వరకు చిత్రాల లోపలి అంచులను కత్తిరించండి (క్రాప్ చేయండి మీరు సమాంతరంగా వీక్షిస్తున్నట్లయితే వెలుపలి అంచులు). ప్రధాన విషయం ఏమిటంటే, ఎడమ చిత్రం యొక్క కుడి అంచుని కుడి చిత్రం యొక్క కుడి అంచు దృశ్యం యొక్క కుడి అంచుని చూపిస్తుంది మరియు దానికి విరుద్ధంగా ఉంటుంది. అంచుని జోడించడం సెట్టింగ్‌ల పేజీలో టోగుల్ చేయబడింది. ఇది గందరగోళంగా ఉంటే, లోపలి అంచుల నుండి కొంత భాగాన్ని కత్తిరించండి మరియు అది స్పష్టంగా కనిపించడం ప్రారంభమవుతుంది. లోపలి అంచుల కోసం కత్తిరించే బటన్ ఇలా కనిపిస్తుంది:</value>
+  </data>
+  <data name="Button.Code" xml:space="preserve">
+    <value>కోడ్ చూడండి</value>
+  </data>
+  <data name="Button.Developer" xml:space="preserve">
+    <value>డెవలపర్ గురించి</value>
+  </data>
+  <data name="Button.EmailMe" xml:space="preserve">
+    <value>నాకు ఇమెయిల్ చేయండి</value>
+  </data>
+  <data name="Button.GitHub" xml:space="preserve">
+    <value>GitHubలో ఒక సమస్యను జోడించండి</value>
+  </data>
+  <data name="Button.Press" xml:space="preserve">
+    <value>రెండు పరికరాలలో కెమెరా స్క్రీన్‌కి తిరిగి వెళ్లి, దిగువ మూలలో ఉన్న జత బటన్‌ను నొక్కండి</value>
+  </data>
+  <data name="Button.Primary" xml:space="preserve">
+    <value>ప్రైమరీలో ఇక్కడ నొక్కండి</value>
+  </data>
+  <data name="Button.Privacy" xml:space="preserve">
+    <value>గోప్యతా విధానం</value>
+  </data>
+  <data name="Button.Secondary" xml:space="preserve">
+    <value>సెకండరీలో ఇక్కడ నొక్కండి</value>
+  </data>
+  <data name="Button.Test" xml:space="preserve">
+    <value>ప్రీ-రిలీజ్ వెర్షన్‌లను పరీక్షించండి</value>
+  </data>
+  <data name="Button.Wi-Fi" xml:space="preserve">
+    <value>రెండు పరికరాలలో Wi-Fi ప్రారంభించబడిందని నిర్ధారించుకోండి (కానీ అది దేనికీ కనెక్ట్ చేయవలసిన అవసరం లేదు)</value>
+  </data>
+  <data name="Page.Pairing.1" xml:space="preserve">
+    <value>మీరు CrossCamతో రెండు పరికరాలను ఇన్‌స్టాల్ చేసి ఉంటే, రెండు దృక్కోణాల నుండి ఏకకాలంలో ఫోటోలను తీయడానికి మీరు వాటిని కనెక్ట్ చేయవచ్చు. ఒకే సమయంలో రెండు ఫోటోలు తీయడం వల్ల అత్యుత్తమ స్టీరియోగ్రామ్‌లు సాధ్యమవుతాయి.
+
+దయచేసి ఈ ఫీచర్ ఇప్పటికీ ప్రయోగాత్మకంగా ఉందని మరియు సమస్యలను కలిగి ఉండవచ్చని గుర్తుంచుకోండి. ఇది అన్ని సమయాలలో ఖచ్చితంగా పని చేయకపోవచ్చు మరియు ఇది మీ బ్యాటరీని తినేయవచ్చు. అలాగే దయచేసి ఈ సమయంలో కనెక్ట్ చేయడానికి (Android లేదా iOS రెండూ) ఒకే ప్లాట్‌ఫారమ్‌గా ఉండాలని గుర్తుంచుకోండి.
+
+ఒకే పరికరం మరియు CrossCamని ఉపయోగించి *పరిపూర్ణ* సమకాలీకరణను పొందడానికి ఒక మార్గం "సింగిల్-షాట్ మిర్రర్" పద్ధతిని ఉపయోగించడం. మీరు దీన్ని సెట్టింగ్‌ల పేజీలో ఆన్ చేయవచ్చు మరియు మీరు FAQ పేజీలో దాని గురించి చదువుకోవచ్చు.
+
+రెండు పరికరాలను కలిపి ఉపయోగించే ముందు వాటి పాత్రలను కేటాయించాలి. PRIMARY పరికరం అనేది రెండు ప్రివ్యూలను చూపుతుంది, క్యాప్చర్‌ను ట్రిగ్గర్ చేస్తుంది మరియు చివరి క్యాప్చర్‌లను హోల్డ్/సేవ్ చేస్తుంది. పాత్రలను కేటాయించడానికి, రెండు పరికరాలను ఈ పేజీకి నావిగేట్ చేసి, ఆపై క్రింది దశలను అనుసరించండి:</value>
+  </data>
+  <data name="Page.Pairing.2" xml:space="preserve">
+    <value>మీకు సమస్య ఉంటే, దయచేసి గమనించండి:
+ • జత చేసే ప్రక్రియను ప్రారంభించిన తర్వాత, జత చేసే బటన్‌ని ఆపడానికి లేదా డిస్‌కనెక్ట్ చేయడానికి ఎప్పుడైనా మళ్లీ నొక్కవచ్చు.
+ • ఇది రెండు పరికరాలలో జత చేయడం ఆపివేసి, అదే సమయంలో పునఃప్రారంభించడంలో సహాయపడవచ్చు.
+ • మీ Wi-Fi లేదా డేటా నెట్‌వర్క్‌లు పని చేస్తున్నట్లయితే వాటి నుండి డిస్‌కనెక్ట్ చేయడంలో ఇది సహాయపడవచ్చు.
+ • ప్రతి కెమెరా భిన్నంగా ఉంటుంది. ఈ తేడాలు కోణీయ వీక్షణ, దృష్టి, బహిర్గతం మరియు తెలుపు సమతుల్య ప్రవర్తన, సమయం మరియు మరిన్నింటిని కలిగి ఉంటాయి. ఒకే మోడల్‌లో ఉన్న రెండు ఫోన్‌లు కూడా కొద్దిగా భిన్నంగా ప్రవర్తిస్తాయి. నేను ఒకేలాంటి పాత ఫోన్‌లను (నా విషయంలో, ఐఫోన్ 6 జత) ఉపయోగించడానికి ఇష్టపడతాను.
+ • CrossCam అనేది సాఫ్ట్‌వేర్, హార్డ్‌వేర్ కాదు, కాబట్టి క్యాప్చర్ ట్రిగ్గర్ చేయబడిన ఖచ్చితమైన సమయంలో ప్రాసెసర్‌లు మరియు మెమరీ ఇంకా ఏమి చేస్తున్నాయనే దానిపై ఆధారపడి ఫోటోలను క్యాప్చర్ చేయడం కొద్దిగా సమకాలీకరించబడకపోవచ్చు. ఫలితంగా, సమకాలీకరణ కొన్నిసార్లు పరిపూర్ణంగా ఉండకపోవచ్చు, కానీ ఇది సాధారణంగా చాలా దగ్గరగా ఉండాలి.</value>
+  </data>
+  <data name="Page.Pairing.Again" xml:space="preserve">
+    <value>తర్వాత మళ్లీ కనెక్ట్ చేయడానికి, మీరు Wi-Fiని ప్రారంభించారని నిర్ధారించుకోండి, ఆపై రెండు పరికరాలలో హోమ్ స్క్రీన్‌లో కనెక్ట్ బటన్‌ను నొక్కండి.</value>
+  </data>
+  <data name="Page.Pairing.LocalNetworkAccess" xml:space="preserve">
+    <value>CrossCamకి స్థానిక నెట్‌వర్క్ యాక్సెస్ అనుమతి అవసరం. CrossCam వాస్తవానికి స్థానిక నెట్‌వర్క్‌ను ఉపయోగించదు, కానీ iOSకి పరికరాల కోసం స్కాన్ చేయడానికి Wi-Fi యాంటెన్నాను ఉపయోగించడానికి CrossCamకి ఈ అనుమతి అవసరం. CrossCam ఒకసారి ఈ అనుమతిని అడుగుతుంది - అనుమతి నిరాకరించబడితే, మీరు స్వయంగా వెళ్లి సెట్టింగ్‌ల యాప్‌లోని స్విచ్‌ని తిప్పాలి.</value>
+  </data>
+  <data name="Page.Pairing.Location" xml:space="preserve">
+    <value>CrossCam మీ పరికరాలను కనెక్ట్ చేయడానికి అవసరమైన అనుమతులను మరియు కాంపోనెంట్‌లపై శక్తిని అభ్యర్థిస్తుంది. దయచేసి గమనించండి: CrossCamకి స్థాన అనుమతి అవసరం మరియు ద్వితీయ పరికరానికి కనెక్ట్ చేయడానికి ప్రాథమిక పరికరంలో స్థాన సేవలను ఆన్ చేయడం అవసరం. ఇది కేవలం Android అవసరం మరియు పూర్తిగా నా నియంత్రణలో లేదు. CrossCam వాస్తవానికి మీ స్థానాన్ని ఏ విధంగానూ ఉపయోగించదు, అయితే సమీపంలోని పరికరాల కోసం శోధించే (మరియు కనుగొనడం) చర్య మిమ్మల్ని దాదాపుగా గుర్తించడానికి ఉపయోగించబడుతుంది కాబట్టి, CrossCamకి మీ స్థానాన్ని యాక్సెస్ చేయడానికి అనుమతి అవసరం.</value>
+  </data>
+  <data name="Page.Pairing.Permissions" xml:space="preserve">
+    <value>అనుమతుల గురించి ఒక గమనిక:</value>
+  </data>
+  <data name="Page.Pairing.Title" xml:space="preserve">
+    <value>జత చేయడం</value>
+  </data>
+  <data name="Button.Back" xml:space="preserve">
+    <value>&lt;వెనుకకు</value>
+  </data>
+  <data name="Page.MorePictures.CrossViewSubreddit" xml:space="preserve">
+    <value>క్రాస్‌వ్యూ సబ్‌రెడిట్</value>
+  </data>
+  <data name="Page.MorePictures.FacebookGroup" xml:space="preserve">
+    <value>స్టీరియోస్కోపిక్ 3D Facebook గ్రూప్</value>
+  </data>
+  <data name="Page.MorePictures.GoogleDoc" xml:space="preserve">
+    <value>Google డాక్ ఆఫ్ గ్రేట్ స్టఫ్</value>
+  </data>
+  <data name="Page.MorePictures.Instagram" xml:space="preserve">
+    <value>Instagram స్టీరియోస్కోపిక్ ట్యాగ్</value>
+  </data>
+  <data name="Page.MorePictures.Mine" xml:space="preserve">
+    <value>నేను తీసిన చిత్రాలను చూడండి</value>
+  </data>
+  <data name="Page.MorePictures.ParallelViewSubreddit" xml:space="preserve">
+    <value>సమాంతర వీక్షణ సబ్‌రెడిట్</value>
+  </data>
+  <data name="Page.Settings.Alignment" xml:space="preserve">
+    <value>స్వయంచాలక అమరిక</value>
+  </data>
+  <data name="Page.Settings.Analytics" xml:space="preserve">
+    <value>CrossCamని మెరుగుపరచడంలో సహాయపడటానికి అనామక వినియోగం మరియు ఎర్రర్ డేటాను షేర్ చేయండి</value>
+  </data>
+  <data name="Page.Settings.Border" xml:space="preserve">
+    <value>సరిహద్దు</value>
+  </data>
+  <data name="Page.Settings.Camera" xml:space="preserve">
+    <value>కెమెరా</value>
+  </data>
+  <data name="Page.Settings.Defaults" xml:space="preserve">
+    <value>డిఫాల్ట్‌లకు రీసెట్ చేయండి</value>
+  </data>
+  <data name="Page.Settings.Editing" xml:space="preserve">
+    <value>ఎడిటింగ్</value>
+  </data>
+  <data name="Page.Settings.ErrorEmail" xml:space="preserve">
+    <value>లోపాలు సంభవించినప్పుడు ఇమెయిల్ పంపమని ప్రాంప్ట్ చేయండి</value>
+  </data>
+  <data name="Page.Settings.Guides" xml:space="preserve">
+    <value>క్యాప్చర్ గైడ్‌లు</value>
+  </data>
+  <data name="Page.Settings.Pairing" xml:space="preserve">
+    <value>జత చేయడం</value>
+  </data>
+  <data name="Page.Settings.Preview" xml:space="preserve">
+    <value>ప్రివ్యూ వీక్షణ పద్ధతి</value>
+  </data>
+  <data name="Page.Settings.Saving" xml:space="preserve">
+    <value>పొదుపు చేస్తోంది</value>
+  </data>
+  <data name="Page.TipMe.1" xml:space="preserve">
+    <value>CrossCam ఉపయోగించడానికి ఉచితం, ప్రకటన రహితం, ఓపెన్ సోర్స్, మీ నుండి ఎలాంటి వ్యక్తిగత సమాచారాన్ని సేకరించదు మరియు ప్రతి ఫీచర్‌కి మీకు పూర్తి ప్రాప్తిని ఇస్తుంది. నాకు క్రాస్‌క్యామ్‌లో పని చేయడం చాలా ఇష్టం కానీ దీనికి చాలా సమయం మరియు కృషి అవసరం. ప్రజలు నాకు పంపాలని నిర్ణయించుకునే చిట్కాలు మినహా నేను CrossCam నుండి ఎటువంటి డబ్బును సంపాదించలేదు.</value>
+  </data>
+  <data name="Page.TipMe.2" xml:space="preserve">
+    <value>మీరు క్రాస్‌క్యామ్‌ని ఇష్టపడితే మరియు చేయగలిగితే, దయచేసి నాకు చిట్కా పంపడాన్ని పరిగణించండి.</value>
+  </data>
+  <data name="Page.TipMe.Ko-fi" xml:space="preserve">
+    <value>కో-ఫై</value>
+  </data>
+  <data name="Page.TipMe.Patreon" xml:space="preserve">
+    <value>పాట్రియోన్</value>
+  </data>
+  <data name="Page.TipMe.PayPal" xml:space="preserve">
+    <value>పేపాల్</value>
+  </data>
+  <data name="Page.TipMe.Tipped" xml:space="preserve">
+    <value>నాకు చిట్కా ఇవ్వబడింది</value>
+  </data>
+  <data name="Page.TipMe.TippedTimes" xml:space="preserve">
+    <value>సార్లు, మొత్తం</value>
+  </data>
+  <data name="Page.TipMe.Venmo" xml:space="preserve">
+    <value>వెన్మో</value>
+  </data>
+  <data name="Title.MorePictures" xml:space="preserve">
+    <value>మరిన్ని చిత్రాలను చూడండి</value>
+  </data>
+  <data name="Title.Settings" xml:space="preserve">
+    <value>సెట్టింగ్‌లు</value>
+  </data>
+  <data name="Title.TipMe" xml:space="preserve">
+    <value>చిట్కాలు ప్రశంసించబడ్డాయి!</value>
+  </data>
+  <data name="Settings.Alignment.Advanced" xml:space="preserve">
+    <value>అధునాతన అమరిక సెట్టింగ్‌లను చూపు</value>
+  </data>
+  <data name="Settings.Alignment.Ecc" xml:space="preserve">
+    <value>ముందుగా ECC అమరికను ఎల్లప్పుడూ ఉపయోగించడానికి ప్రయత్నించండి</value>
+  </data>
+  <data name="Settings.Alignment.Keypoints" xml:space="preserve">
+    <value>ఎల్లప్పుడూ మొదట కీపాయింట్ అమరికను ఉపయోగించడానికి ప్రయత్నించండి</value>
+  </data>
+  <data name="Settings.Alignment.On" xml:space="preserve">
+    <value>సంగ్రహించిన తర్వాత స్వయంచాలకంగా సమలేఖనం చేయండి</value>
+  </data>
+  <data name="Settings.Border.Color" xml:space="preserve">
+    <value>అంచు రంగు</value>
+  </data>
+  <data name="Settings.Border.FuseGuide" xml:space="preserve">
+    <value>పైన ఫ్యూజ్ గైడ్‌ని జోడించండి (ప్రతి వైపు పైన ఒక చుక్క)</value>
+  </data>
+  <data name="Settings.Border.On" xml:space="preserve">
+    <value>అంచుని జోడించండి</value>
+  </data>
+  <data name="Settings.Border.Prompt" xml:space="preserve">
+    <value>లోడ్ అవుతున్నప్పుడు గుర్తించబడినప్పుడు సరిహద్దును క్లిప్ చేయమని ప్రాంప్ట్ చేయండి</value>
+  </data>
+  <data name="Settings.Border.Thickness" xml:space="preserve">
+    <value>అంచు మందం (వెడల్పు శాతంలో పదవ వంతు)</value>
+  </data>
+  <data name="Settings.Camera.Camera1" xml:space="preserve">
+    <value>కెమెరా1 APIని బలవంతం చేయండి (మీరు అసహజతను అనుభవిస్తున్నట్లయితే సహాయకరంగా ఉండవచ్చు కానీ పరిమిత కార్యాచరణకు దారి తీస్తుంది, ప్రభావం చూపడానికి బలవంతంగా నిష్క్రమించడం/పునఃప్రారంభించడం అవసరం)</value>
+  </data>
+  <data name="Settings.Camera.Camera2" xml:space="preserve">
+    <value>కెమెరా2 APIని బలవంతం చేయండి (ఆండ్రాయిడ్ 6 లేదా అంతకంటే ఎక్కువ వెర్షన్‌లో ఉండాలి, మీరు ఎర్రర్‌లను ఎదుర్కొంటే సహాయకరంగా ఉండవచ్చు, కానీ మరిన్ని చేసినట్లయితే, అమలులోకి రావడానికి ఫోర్స్ క్విట్/రీస్టార్ట్ అవసరం)</value>
+  </data>
+  <data name="Settings.Camera.LandscapeCaptureHorizontal" xml:space="preserve">
+    <value>ల్యాండ్‌స్కేప్ క్యాప్చర్ బటన్ క్షితిజ సమాంతర ప్లేస్‌మెంట్</value>
+  </data>
+  <data name="Settings.Camera.LandscapeCaptureVertical" xml:space="preserve">
+    <value>ల్యాండ్‌స్కేప్ క్యాప్చర్ బటన్ వర్టికల్ ప్లేస్‌మెంట్</value>
+  </data>
+  <data name="Settings.Camera.Lock" xml:space="preserve">
+    <value>మొదటి చిత్రం నుండి ఫోకస్ చేయడానికి మరియు బహిర్గతం చేయడానికి రెండవ చిత్రం కోసం ఫోకస్ మరియు ఎక్స్‌పోజర్‌ని లాక్ చేయండి</value>
+  </data>
+  <data name="Settings.Camera.Pair" xml:space="preserve">
+    <value>జత బటన్ క్షితిజ సమాంతర స్థానం (క్యాప్చర్ బటన్ మధ్యలో ఉన్నప్పుడు)</value>
+  </data>
+  <data name="Settings.Camera.PointFocus" xml:space="preserve">
+    <value>పాయింట్ టు పాయింట్ ఫోకస్, తిరిగి కంటిన్యూనెంట్ ఫోకస్‌కి మారడానికి రెండుసార్లు నొక్కండి (లేదా సేవ్ చేయండి లేదా క్లియర్ చేయండి)</value>
+  </data>
+  <data name="Settings.Camera.PortraitCapture" xml:space="preserve">
+    <value>పోర్ట్రెయిట్ క్యాప్చర్ బటన్ ప్లేస్‌మెంట్</value>
+  </data>
+  <data name="Settings.Editing.Align" xml:space="preserve">
+    <value>గరిష్ట నిలువు అమరిక నిష్పత్తి</value>
+  </data>
+  <data name="Settings.Editing.Keystone" xml:space="preserve">
+    <value>గరిష్ట కీస్టోన్</value>
+  </data>
+  <data name="Settings.Editing.Rotation" xml:space="preserve">
+    <value>గరిష్ట భ్రమణ డిగ్రీలు</value>
+  </data>
+  <data name="Settings.Editing.SideCrop" xml:space="preserve">
+    <value>గరిష్ట వైపు పంట నిష్పత్తి</value>
+  </data>
+  <data name="Settings.Editing.TopCrop" xml:space="preserve">
+    <value>గరిష్ట ఎగువ/దిగువ పంట నిష్పత్తి</value>
+  </data>
+  <data name="Settings.Editing.Zoom" xml:space="preserve">
+    <value>గరిష్ట జూమ్ నిష్పత్తి</value>
+  </data>
+  <data name="Settings.Guides.Donut" xml:space="preserve">
+    <value>డోనట్ గైడ్‌ని చూపించు (టో-ఇన్‌కి కారణమవుతుంది, కాబట్టి కీస్టోన్ సవరణ అవసరం కావచ్చు)</value>
+  </data>
+  <data name="Settings.Guides.Fuse" xml:space="preserve">
+    <value>ఫ్యూజ్ గైడ్‌ని చూపు (ప్రతి వైపు పైన ఒక చుక్క)</value>
+  </data>
+  <data name="Settings.Guides.LineColor" xml:space="preserve">
+    <value>వివిధ రంగుల గీతలు</value>
+  </data>
+  <data name="Settings.Guides.Lines" xml:space="preserve">
+    <value>పంక్తులు కనిపిస్తాయి</value>
+  </data>
+  <data name="Settings.Guides.Roll" xml:space="preserve">
+    <value>రోల్ గైడ్ కనిపిస్తుంది</value>
+  </data>
+  <data name="Settings.Pair.CaptureDelay" xml:space="preserve">
+    <value>క్యాప్చర్ క్షణం అదనపు ఆలస్యం (మిసె) (ఈ పరికరంలో మాత్రమే టార్గెట్ క్యాప్చర్ మొమెంట్‌కి అదనపు ఆలస్యాన్ని జోడిస్తుంది)</value>
+  </data>
+  <data name="Settings.Pair.Countdown" xml:space="preserve">
+    <value>క్యాప్చర్ కౌంట్‌డౌన్ పొడవు (టైమర్)</value>
+  </data>
+  <data name="Settings.Pair.Fov" xml:space="preserve">
+    <value>ఫీల్డ్ ఆఫ్ వ్యూ దిద్దుబాటు</value>
+  </data>
+  <data name="Settings.Pair.FovNotSet" xml:space="preserve">
+    <value>FOV దిద్దుబాటు సెట్ చేయబడలేదు (సెటప్ ద్వారా నడవడానికి జత చేసిన పరికరాలతో క్యాప్చర్ చేయండి).</value>
+  </data>
+  <data name="Settings.Pair.FovReset" xml:space="preserve">
+    <value>రీసెట్ చేయండి</value>
+  </data>
+  <data name="Settings.Pair.Go" xml:space="preserve">
+    <value>జత చేసే సెటప్ పేజీకి వెళ్లండి</value>
+  </data>
+  <data name="Settings.Pair.NoRole" xml:space="preserve">
+    <value>పాత్ర ఎంపిక కాలేదు</value>
+  </data>
+  <data name="Settings.Pair.PreviewDelay" xml:space="preserve">
+    <value>ప్రివ్యూ ఫ్రేమ్ ఆలస్యం (అధిక సంఖ్య ఫ్రేమ్ రేట్‌ను తగ్గిస్తుంది కానీ బ్యాటరీని ఆదా చేస్తుంది)</value>
+  </data>
+  <data name="Settings.Pair.Primary" xml:space="preserve">
+    <value>ప్రాథమిక:</value>
+  </data>
+  <data name="Settings.Pair.PrimaryRole" xml:space="preserve">
+    <value>పాత్ర: ప్రాథమిక</value>
+  </data>
+  <data name="Settings.Pair.Sample" xml:space="preserve">
+    <value>గడియార నమూనా గణన (తక్కువ సంఖ్య ప్రారంభ సమకాలీకరణకు అవసరమైన సమయాన్ని తగ్గిస్తుంది కానీ సమకాలీకరణ ఖచ్చితత్వాన్ని తగ్గించవచ్చు)</value>
+  </data>
+  <data name="Settings.Pair.Secondary" xml:space="preserve">
+    <value>సెకండరీ:</value>
+  </data>
+  <data name="Settings.Pair.SecondaryRole" xml:space="preserve">
+    <value>పాత్ర: ద్వితీయ</value>
+  </data>
+  <data name="Settings.Pair.Timeout" xml:space="preserve">
+    <value>కనెక్షన్ గడువు ముగిసింది (సెకన్లు) (0 అంటే గడువు ముగిసింది)</value>
+  </data>
+  <data name="Settings.Preview.Barrel" xml:space="preserve">
+    <value>లెన్స్ కరెక్షన్/బారెల్ వక్రీకరణను జోడించండి (ఫ్రేమ్ రేటును తగ్గించవచ్చు)</value>
+  </data>
+  <data name="Settings.Preview.BarrelFinal" xml:space="preserve">
+    <value>తుది చిత్రాలకు మాత్రమే లెన్స్ కరెక్షన్/బారెల్ వక్రీకరణను జోడించండి (చివరి ప్రదర్శనను నెమ్మదిస్తుంది కానీ క్యాప్చర్‌ని వేగవంతం చేస్తుంది)</value>
+  </data>
+  <data name="Settings.Preview.CardboardDistance" xml:space="preserve">
+    <value>కార్డ్బోర్డ్ వేరు దూరం</value>
+  </data>
+  <data name="Settings.Preview.Downsize" xml:space="preserve">
+    <value>చిత్రాన్ని తగ్గించండి (ఫ్రేమ్ రేటును పెంచవచ్చు)</value>
+  </data>
+  <data name="Settings.Preview.DownsizePercent" xml:space="preserve">
+    <value>చిత్రం శాతాన్ని తగ్గించండి</value>
+  </data>
+  <data name="Settings.Preview.Immersive" xml:space="preserve">
+    <value>లీనమయ్యే తుది వీక్షణ</value>
+  </data>
+  <data name="Settings.Preview.LensStrength" xml:space="preserve">
+    <value>లెన్స్ దిద్దుబాటు బలం</value>
+  </data>
+  <data name="Settings.Preview.Mirror" xml:space="preserve">
+    <value>సింగిల్-షాట్ మిర్రర్ డివిజన్ పద్ధతిని ఉపయోగించి క్యాప్చర్ చేయండి</value>
+  </data>
+  <data name="Settings.Preview.Width" xml:space="preserve">
+    <value>గరిష్ట సమాంతర వీక్షణ చిత్రం వెడల్పు (పాయింట్లు)</value>
+  </data>
+  <data name="Settings.Reset" xml:space="preserve">
+    <value>డిఫాల్ట్‌లకు రీసెట్ చేయండి</value>
+  </data>
+  <data name="Settings.Saving.Alone" xml:space="preserve">
+    <value>మొదటి వైపు మాత్రమే సేవ్ చేయండి (సవరణలు లేదా సరిహద్దు లేకుండా) (ఫ్లాట్ వ్యూ వ్యక్తులతో ఫ్లాట్ ఫోటోను సులభంగా భాగస్వామ్యం చేయడానికి)</value>
+  </data>
+  <data name="Settings.Saving.Anaglyph" xml:space="preserve">
+    <value>ఎరుపు/సయాన్ అనగ్లిఫ్ వెర్షన్‌ను సేవ్ చేయండి (సవరణలతో కానీ సరిహద్దు లేదు)</value>
+  </data>
+  <data name="Settings.Saving.Browse" xml:space="preserve">
+    <value>బ్రౌజ్ చేయండి...</value>
+  </data>
+  <data name="Settings.Saving.Cardboard" xml:space="preserve">
+    <value>కార్డ్‌బోర్డ్ కోసం సేవ్ చేయండి (సవరణలతో, అంచు లేదు, అంతరం లేదు, పూర్తి వెడల్పు, తర్వాత క్రాస్‌క్యామ్‌లోకి తిరిగి లోడ్ చేయడానికి)</value>
+  </data>
+  <data name="Settings.Saving.Clear" xml:space="preserve">
+    <value>సేవ్ చేసిన తర్వాత క్యాప్చర్‌లను ఆటోమేటిక్‌గా క్లియర్ చేయండి</value>
+  </data>
+  <data name="Settings.Saving.Cross" xml:space="preserve">
+    <value>చేరిన క్రాస్ వ్యూ వెర్షన్‌ను సేవ్ చేయండి (సవరణలు మరియు అంచుతో)</value>
+  </data>
+  <data name="Settings.Saving.ExternalDirectory" xml:space="preserve">
+    <value>బాహ్య CrossCam డైరెక్టరీకి ఇక్కడ సేవ్ చేయండి:</value>
+  </data>
+  <data name="Settings.Saving.ExternalWarning" xml:space="preserve">
+    <value>(హెచ్చరిక: CrossCam అన్‌ఇన్‌స్టాల్ చేయబడితే అక్కడ ఉన్న చిత్రాలు తొలగించబడతాయి)</value>
+  </data>
+  <data name="Settings.Saving.Folder" xml:space="preserve">
+    <value>అంకితమైన "CrossCam" సబ్‌ఫోల్డర్/ఆల్బమ్‌లో సేవ్ చేయండి</value>
+  </data>
+  <data name="Settings.Saving.Grayscale" xml:space="preserve">
+    <value>గ్రేస్కేల్ ఎరుపు/సయాన్ అనాగ్లిఫ్ వెర్షన్‌ను సేవ్ చేయండి (సవరణలతో కానీ సరిహద్దు లేదు)</value>
+  </data>
+  <data name="Settings.Saving.Order" xml:space="preserve">
+    <value>(పై నుండి క్రిందికి పొదుపు జరుగుతుంది)</value>
+  </data>
+  <data name="Settings.Saving.Parallel" xml:space="preserve">
+    <value>చేరిన సమాంతర వీక్షణ సంస్కరణను సేవ్ చేయండి (సవరణలు మరియు అంచుతో)</value>
+  </data>
+  <data name="Settings.Saving.Quad" xml:space="preserve">
+    <value>క్వాడ్ కలయికను సేవ్ చేయండి (సవరణలు మరియు అంచుతో)</value>
+  </data>
+  <data name="Settings.Saving.Reset" xml:space="preserve">
+    <value>రీసెట్ చేయండి</value>
+  </data>
+  <data name="Settings.Saving.Resolution" xml:space="preserve">
+    <value>రిజల్యూషన్ నిష్పత్తి</value>
+  </data>
+  <data name="Settings.Saving.SaveTo" xml:space="preserve">
+    <value>దీనికి సేవ్ చేయండి:</value>
+  </data>
+  <data name="Settings.Saving.Separate" xml:space="preserve">
+    <value>ప్రతి వైపు విడిగా సేవ్ చేయండి (సులభమైన పోస్ట్ ప్రాసెసింగ్ కోసం సవరణలు లేదా సరిహద్దు లేకుండా, ఎడమ వైపు మొదట సేవ్ చేస్తుంది)</value>
+  </data>
+  <data name="Settings.Saving.Subfolder" xml:space="preserve">
+    <value>అంకితమైన "CrossCam_{ViewMethod}" సబ్‌ఫోల్డర్‌లు/ఆల్బమ్‌లలో సేవ్ చేయండి</value>
+  </data>
+  <data name="Settings.Saving.Triple" xml:space="preserve">
+    <value>ట్రిపుల్ కలయికను సేవ్ చేయండి (సవరణలు మరియు అంచుతో)</value>
+  </data>
+  <data name="Button.Pair.Accept" xml:space="preserve">
+    <value>అంగీకరించు</value>
+  </data>
+  <data name="Button.Pair.Cancel" xml:space="preserve">
+    <value>రద్దు చేయండి</value>
+  </data>
+  <data name="Page.Camera.AcceptConnection" xml:space="preserve">
+    <value>కు కనెక్షన్‌ని అంగీకరించండి</value>
+  </data>
+  <data name="Page.Camera.Confirm" xml:space="preserve">
+    <value>రెండు పరికరాలలో కోడ్ సరిపోలికలను నిర్ధారించండి:</value>
+  </data>
+  <data name="Page.Footer.CouldntOpen" xml:space="preserve">
+    <value>లింక్‌ని తెరవడం సాధ్యపడలేదు</value>
+  </data>
+  <data name="Page.Footer.OpenError" xml:space="preserve">
+    <value>mailto లింక్ తెరవబడలేదు. ఇది మీ ఇమెయిల్ క్లయింట్ సెటప్ చేయకపోవడం వల్ల కావచ్చు లేదా మరేదైనా కారణం కావచ్చు.</value>
+  </data>
+  <data name="Page.Pair.Errors.Denied" xml:space="preserve">
+    <value>జత చేయడానికి అవసరమైన అనుమతులు మంజూరు చేయబడలేదు. మినహాయింపు:</value>
+  </data>
+  <data name="Page.Pair.Errors.FailedBluetooth" xml:space="preserve">
+    <value>పరికరం బ్లూటూత్‌ను ఆన్ చేయడంలో విఫలమైంది. మినహాయింపు:</value>
+  </data>
+  <data name="Page.Pair.Errors.FailedSearch" xml:space="preserve">
+    <value>పరికరాల కోసం శోధించడంలో పరికరం విఫలమైంది. మినహాయింపు:</value>
+  </data>
+  <data name="Page.Pair.Errors.LocationOff" xml:space="preserve">
+    <value>స్థాన సేవలు సక్రియం చేయబడలేదు. పరికరాల కోసం స్కాన్ చేయడం సాధ్యం కాదు. మరిన్ని వివరాల కోసం జత చేసే పేజీని చూడండి.</value>
+  </data>
+  <data name="Page.Pair.Errors.LocationScan" xml:space="preserve">
+    <value>స్థాన అనుమతి మంజూరు కాలేదు. పరికరాల కోసం స్కాన్ చేయడం సాధ్యం కాదు. మరిన్ని వివరాల కోసం జత చేసే పేజీని చూడండి.</value>
+  </data>
+  <data name="Page.Pair.Errors.NotSupported" xml:space="preserve">
+    <value>ఈ పరికరంలో జత చేయడానికి మద్దతు లేదు. మినహాయింపు:</value>
+  </data>
+  <data name="Page.Pair.Errors.Title" xml:space="preserve">
+    <value>లోపం</value>
+  </data>
+  <data name="Page.Pair.Errors.WifiOff" xml:space="preserve">
+    <value>Wi-Fi ఆఫ్ చేయబడింది. దయచేసి Wi-Fiని ఆన్ చేయండి.</value>
+  </data>
+  <data name="Page.Pair.PrimaryExplanation" xml:space="preserve">
+    <value>ఈ పరికరం ఇప్పుడు ప్రాథమికంగా సెట్ చేయబడింది.</value>
+  </data>
+  <data name="Page.Pair.PrimarySelected" xml:space="preserve">
+    <value>ప్రాథమిక పాత్ర ఎంపిక చేయబడింది</value>
+  </data>
+  <data name="Page.Pair.SecondaryExplanation" xml:space="preserve">
+    <value>ఈ పరికరం ఇప్పుడు సెకండరీగా సెట్ చేయబడింది.</value>
+  </data>
+  <data name="Page.Pair.SecondarySelected" xml:space="preserve">
+    <value>ద్వితీయ పాత్ర ఎంపిక చేయబడింది</value>
+  </data>
+  <data name="Page.Technique.Mode" xml:space="preserve">
+    <value>మోడ్.</value>
+  </data>
+  <data name="Page.Technique.SetMode" xml:space="preserve">
+    <value>CrossCam ఇప్పుడు అందుబాటులో ఉంది</value>
+  </data>
+</root>

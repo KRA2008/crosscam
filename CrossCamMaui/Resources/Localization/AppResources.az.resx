@@ -1,0 +1,1156 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="Button.GoogleDoc" xml:space="preserve">
+    <value>Google Böyük İşlər Sənədi</value>
+  </data>
+  <data name="Button.LearnCross" xml:space="preserve">
+    <value>KROSS ÖYRƏNİN</value>
+  </data>
+  <data name="Button.LearnParallel" xml:space="preserve">
+    <value>PARALEL ÖYRƏNİN</value>
+  </data>
+  <data name="Button.MorePictures" xml:space="preserve">
+    <value>Daha çox Şəkillərə baxın</value>
+  </data>
+  <data name="Button.Review" xml:space="preserve">
+    <value>Rəy yazın</value>
+  </data>
+  <data name="Button.Share" xml:space="preserve">
+    <value>CrossCam-ı paylaşın</value>
+  </data>
+  <data name="Button.Support" xml:space="preserve">
+    <value>Tərtibatçıya dəstək olun</value>
+  </data>
+  <data name="Button.TapCross" xml:space="preserve">
+    <value>ÇARÇISI SEÇMEK ÜÇÜN BURAYA TIKLAYIN</value>
+  </data>
+  <data name="Button.TapParallel" xml:space="preserve">
+    <value>PARALEL SEÇMƏK ÜÇÜN BURAYA TIKLAYIN</value>
+  </data>
+  <data name="Footer.Span1" xml:space="preserve">
+    <value>Səhv tapdınız? Sualiniz var? Sadəcə e-poçt</value>
+  </data>
+  <data name="Footer.Span3" xml:space="preserve">
+    <value>! Mən istifadəçilərlə danışmağı sevirəm və bu, mənimlə ünsiyyət qurmağın ən sürətli yoludur.</value>
+  </data>
+  <data name="Page.HowToUse.2anaglyph" xml:space="preserve">
+    <value>2) Yanında görünən önizləmə ilə ilk şəkilə baxmağa anaqliflə başlayın.</value>
+  </data>
+  <data name="Page.HowToUse.2cardboard" xml:space="preserve">
+    <value>2) Yanında görünən önizləmə ilə ilk şəkilə kartondan baxmağa başlayın.</value>
+  </data>
+  <data name="Page.HowToUse.2cross" xml:space="preserve">
+    <value>2) Yanında görünən önizləmə ilə ilk şəkilə çarpaz baxmağa başlayın.</value>
+  </data>
+  <data name="Page.HowToUse.2parallel" xml:space="preserve">
+    <value>2) Yanında görünən önizləmə ilə ilk şəkilə paralel baxmağa başlayın.</value>
+  </data>
+  <data name="Page.Technique.AdditionalTutorials" xml:space="preserve">
+    <value>Əlavə dərslər:</value>
+  </data>
+  <data name="Page.Technique.Cross1" xml:space="preserve">
+    <value>Yuxarıdakı cüt şəkillərə baxarkən diqqətlə gözlərinizi keçin. Gözlərinizi kəsdiyiniz zaman işlər bulanıqlaşacaq və aydın olacaq və siz 2 (2 cüt) əvəzinə 4 şəkil görməyə başlayacaqsınız. Gözlərinizi nə qədər çətin keçsəniz, cüt şəkillər bir o qədər uzaqlaşacaq - bir az belə görünəcək:</value>
+  </data>
+  <data name="Page.Technique.Cross2" xml:space="preserve">
+    <value>Gözlərinizi diqqətlə açın ki, hər bir cütün içərisindəki şəkillər üst-üstə düşməyə başlasın. O, 4 əvəzinə cəmi 3 şəkil kimi görünməyə başlayacaq. O, hələ də bulanıq və aydın olacaq və bu kimi görünəcək:</value>
+  </data>
+  <data name="Page.Technique.Cross3" xml:space="preserve">
+    <value>Orta örtüşmə işlədikdən sonra sadəcə gözlərinizi rahatlamalısınız və şəkili fokuslamağa imkan verməlisiniz. Bu zaman ortada bir kəskin 3D şəkliniz olacaq və hər tərəfdə şəffaf şəkil bu kimi görünəcək (ortadakı 3D istisna olmaqla):</value>
+  </data>
+  <data name="Page.Technique.Cross4" xml:space="preserve">
+    <value>Gözlərinizi keçməkdə çətinlik çəkirsinizsə, barmağınızı gözlərinizlə ekranın ortasında tutaraq ona baxmağa cəhd edə bilərsiniz. Şəkillərin barmağınızın arxasından ayrılmağa və üst-üstə düşməyə başladığını görməlisiniz.</value>
+  </data>
+  <data name="Page.Technique.CrossViewing" xml:space="preserve">
+    <value>ÇAPRAZ GÖRÜŞ</value>
+  </data>
+  <data name="Page.Technique.P1" xml:space="preserve">
+    <value>Bunu yenidən görmək istəyirsinizsə, kamera ekranının yuxarı sol tərəfindəki hamburger (üç sətir) işarəsinə və "Kömək" üzərinə klikləyin.
+
+CrossCam-də ("stereoqramlar" adlanır) 3D-yə baxmaq üçün siz qırmızı/göy rəngli 3D eynəklərdən, Google Cardboard görüntüləyicisindən istifadə edə bilərsiniz və ya sadəcə gözləriniz və ekranınızdan istifadə edərək "pulsuz baxış" edə bilərsiniz. Pulsuz baxışın iki yolu var və CrossCam onların hər ikisini öyrənməyə kömək edə bilər. Siz CrossCam-ə şəkillərə necə baxacağınızı bildirməlisiniz, əks halda o, düzgün işləməyəcək. Narahat olmayın, bunu istənilən vaxt Ayarlarda yenidən dəyişə bilərsiniz.
+
+Əgər gözlərinizi rahatlıqla keçə bilirsinizsə, əvvəlcə çarpaz metodu, əks halda isə paralel metodu sınamalısınız. Magic Eye™ kitablarına öyrəşmisinizsə, yəqin ki, siz artıq paralel metodu edə bilirsiniz, lakin çarpaz metodu da edə bilərsiniz. Onu öyrənmək üçün aşağıdakı üsula toxunun və müvafiq SEÇİM düyməsini sıxaraq CrossCam-a hansının sizin üçün işlədiyini dediyinizə əmin olun.
+
+3D eynək və ya Cardboard görüntüləyicisini istifadə etməyi üstün tutursunuzsa, CrossCam-i Parametrlər səhifəsində onlardan istifadə etmək üçün təyin edə bilərsiniz.</value>
+  </data>
+  <data name="Page.Technique.CrossLink1" xml:space="preserve">
+    <value>Gözəl mətn dərsliyi</value>
+  </data>
+  <data name="Page.Technique.CrossLink2" xml:space="preserve">
+    <value>Daha bir gözəl mətn dərsliyi</value>
+  </data>
+  <data name="Page.Technique.CrossLink3" xml:space="preserve">
+    <value>Qısa YouTube dərsliyi</value>
+  </data>
+  <data name="Page.Technique.CrossLink4" xml:space="preserve">
+    <value>Uzun, qəribə, lakin faydalı YouTube dərsliyi</value>
+  </data>
+  <data name="Page.Technique.CrossLink5" xml:space="preserve">
+    <value>Başqa bir YouTube dərsliyi</value>
+  </data>
+  <data name="Page.Technique.CrossLink6" xml:space="preserve">
+    <value>Dərslik ilə ikili kamera layihəsi</value>
+  </data>
+  <data name="Page.Technique.Parallel1" xml:space="preserve">
+    <value>Yuxarıdakı şəkil ekranınıza uyğun gəlmirsə, telefonunuzu landşaft vəziyyətinə çevirin - CrossCam bunun üçün cüt şəkilləri ən asan ölçüdən yuxarı etməyə çalışır. Siz həmişə CrossCam-dən landşaftda istifadə etmək məcburiyyətində deyilsiniz, lakin mükəmməl ölçülü şəkil texnikanı öyrənməyi asanlaşdırır.</value>
+  </data>
+  <data name="Page.Technique.Parallel2" xml:space="preserve">
+    <value>Gözlərinizi rahatlaşdırın və yuxarıdakı cüt şəkillərə "aradan" baxın, sanki gözlərinizlə şəkillərə işarə edərək bir növ bölgədən ayrılırsınız. Siz ortada 3D şəkil olan 3 şəkil görməyə başlamalısınız, bir az belə:</value>
+  </data>
+  <data name="Page.Technique.Parallel3" xml:space="preserve">
+    <value>4 şəkil görməyə başlasanız, çox uzağa getmisiniz. Özünüzü yenidən həmin anda taparsanız, gözlərinizi bir az hərəkət etdirməyə çalışın. Həddindən artıq dincəlmək bir az belə görünəcək:</value>
+  </data>
+  <data name="Page.Technique.Parallel4" xml:space="preserve">
+    <value>Əgər çətinlik çəkirsinizsə, ekranınızı düz gözünüzün qabağında olan cüt şəkillərlə üzünüzə gətirməyə çalışın. Rahatlayın və ekrana "baxın" və sonra gözlərinizi rahat saxlayaraq ekranınızı yavaş-yavaş üzünüzdən uzaqlaşdırın. Nəhayət, şəkil fokusda "kliklənməlidir".</value>
+  </data>
+  <data name="Page.Technique.Parallel5" xml:space="preserve">
+    <value>Əgər hələ də dörd şəkil görməyə davam edirsinizsə, Parametrlər səhifəsində "Maksimum paralel görünüş şəklinin eni"ni artırın.</value>
+  </data>
+  <data name="Page.Technique.ParallelViewing" xml:space="preserve">
+    <value>PARALEL GÖRÜŞ</value>
+  </data>
+  <data name="Page.Technique.Practice" xml:space="preserve">
+    <value>Üzərində məşq edə biləcəyiniz şəkillər</value>
+  </data>
+  <data name="Title.Contact" xml:space="preserve">
+    <value>Əlaqə</value>
+  </data>
+  <data name="Title.Faq" xml:space="preserve">
+    <value>Tez-tez verilən suallar</value>
+  </data>
+  <data name="Title.Help" xml:space="preserve">
+    <value>Kömək edin</value>
+  </data>
+  <data name="Title.HowToUse" xml:space="preserve">
+    <value>CrossCam-dan necə istifadə etməli</value>
+  </data>
+  <data name="Title.Technique" xml:space="preserve">
+    <value>3D Baxış Texnikası</value>
+  </data>
+  <data name="Title.Tips" xml:space="preserve">
+    <value>Məsləhətlər</value>
+  </data>
+  <data name="Button.DoNotEmailMe" xml:space="preserve">
+    <value>İndi mənə e-poçt göndərməyin</value>
+  </data>
+  <data name="Button.EmailMeNow" xml:space="preserve">
+    <value>İndi mənə e-poçt göndər</value>
+  </data>
+  <data name="Button.No" xml:space="preserve">
+    <value>Yox</value>
+  </data>
+  <data name="Button.OK" xml:space="preserve">
+    <value>tamam</value>
+  </data>
+  <data name="Button.YesClear" xml:space="preserve">
+    <value>Bəli, aydın</value>
+  </data>
+  <data name="Page.Camera.Aligning" xml:space="preserve">
+    <value>Düzülür...</value>
+  </data>
+  <data name="Page.Camera.AlignmentBroken" xml:space="preserve">
+    <value>Avtomatik düzülmə cihazda dəstəklənmir - Parametrlərdə söndürün.</value>
+  </data>
+  <data name="Page.Camera.AlignmentFailed" xml:space="preserve">
+    <value>Uyğunlaşma uğursuz oldu.</value>
+  </data>
+  <data name="Page.Camera.BorderAsk" xml:space="preserve">
+    <value>Sərhəd aşkarlanıb. Sərhəd silinsin?</value>
+  </data>
+  <data name="Page.Camera.BorderDetected" xml:space="preserve">
+    <value>Sərhəd Aşkarlandı</value>
+  </data>
+  <data name="Page.Camera.Cancel" xml:space="preserve">
+    <value>Ləğv et</value>
+  </data>
+  <data name="Page.Camera.ChooseAction" xml:space="preserve">
+    <value>Fəaliyyət seçin:</value>
+  </data>
+  <data name="Page.Camera.DirectoryNotFound" xml:space="preserve">
+    <value>Kataloq Tapılmadı</value>
+  </data>
+  <data name="Page.Camera.DirectoryNotFoundExplain" xml:space="preserve">
+    <value>Saxlama təyinatı tapılmadı. Parametrlər səhifəsində başqasını seçin.</value>
+  </data>
+  <data name="Page.Camera.ErrorEmailBody" xml:space="preserve">
+    <value>Səhv baş verməzdən əvvəl nə etdiniz? Zəhmət olmasa kiçik şeyləri belə təsvir edin.\n\n\n\n\n\nXətadan sonra CrossCam hələ də işlədi? Yoxdursa, necə pozulur?\n\n\n\n\n\nBu dəfələrlə baş verirmi?\n\n\n\n\n\nSən əmr üzrə xətanı məcbur edə bilərsinizmi? Əgər belədirsə, necə?\n\n\n\n\n\n</value>
+  </data>
+  <data name="Page.Camera.FlipForCardboard" xml:space="preserve">
+    <value>Karton rejimində olduqda mənzərəyə çevirin.</value>
+  </data>
+  <data name="Page.Camera.FlipLarger" xml:space="preserve">
+    <value>(daha böyük görünüş üçün mənzərəyə çevirin)</value>
+  </data>
+  <data name="Page.Camera.ForAnaglyph" xml:space="preserve">
+    <value>anaqlif üçün</value>
+  </data>
+  <data name="Page.Camera.ForCardboard" xml:space="preserve">
+    <value>Karton üçün</value>
+  </data>
+  <data name="Page.Camera.ForCross" xml:space="preserve">
+    <value>xaç üçün</value>
+  </data>
+  <data name="Page.Camera.ForParallel" xml:space="preserve">
+    <value>paralel üçün</value>
+  </data>
+  <data name="Page.Camera.GoPickRole" xml:space="preserve">
+    <value>Cütləşməyə cəhd etməzdən əvvəl Qoşulma səhifəsinə keçin (Parametrlər səhifəsi vasitəsilə) və bu cihaz üçün cütləşdirmə rolu seçin.</value>
+  </data>
+  <data name="Page.Camera.InvalidImage" xml:space="preserve">
+    <value>Yanlış Şəkil</value>
+  </data>
+  <data name="Button.Camera.Keep" xml:space="preserve">
+    <value>Saxla</value>
+  </data>
+  <data name="Page.Camera.LoadFullImage" xml:space="preserve">
+    <value>Tam stereo təsviri yükləyin</value>
+  </data>
+  <data name="Page.Camera.Loading" xml:space="preserve">
+    <value>Yüklənir...</value>
+  </data>
+  <data name="Page.Camera.LoadSingleSide" xml:space="preserve">
+    <value>Tək tərəfə yükləyin</value>
+  </data>
+  <data name="Page.Camera.ManualCorrections" xml:space="preserve">
+    <value>Zəhmət olmasa, əl ilə düzəlişləri də nəzərdən keçirin.</value>
+  </data>
+  <data name="Page.Camera.MirrorOnLeft" xml:space="preserve">
+    <value>SOLDA GÜZGÜ</value>
+  </data>
+  <data name="Page.Camera.MirrorOnRight" xml:space="preserve">
+    <value>SAĞDA AYNA</value>
+  </data>
+  <data name="Page.Camera.MoveLeft" xml:space="preserve">
+    <value>SOL HAREKET</value>
+  </data>
+  <data name="Page.Camera.MoveRight" xml:space="preserve">
+    <value>SAĞ HAREKET</value>
+  </data>
+  <data name="Page.Camera.NoSaveModes" xml:space="preserve">
+    <value>Aktiv Saxlama Modu yoxdur</value>
+  </data>
+  <data name="Page.Camera.NoSaveModesExplain" xml:space="preserve">
+    <value>Hazırda heç bir qənaət rejimi aktiv deyil. Parametrlər səhifəsində qənaət rejimini yandırın.</value>
+  </data>
+  <data name="Page.Camera.Oops" xml:space="preserve">
+    <value>vay</value>
+  </data>
+  <data name="Page.Camera.OrRotate" xml:space="preserve">
+    <value>(və ya döndərmək)</value>
+  </data>
+  <data name="Page.Camera.OrSwipe" xml:space="preserve">
+    <value>(və ya sürüşdürün)</value>
+  </data>
+  <data name="Page.Camera.PairRoleNotSelected" xml:space="preserve">
+    <value>Cüt Rolu Seçilməyib</value>
+  </data>
+  <data name="Page.Camera.PinchOrDrag" xml:space="preserve">
+    <value>Kəşf etmək üçün çimdikləyin və ya sürükləyin!</value>
+  </data>
+  <data name="Page.Camera.PleaseSelectValid" xml:space="preserve">
+    <value>Lütfən, Jpeg, Png və ya Webp şəkli seçin. Seçdiyiniz şəkildir</value>
+  </data>
+  <data name="Page.Camera.ReallyClear" xml:space="preserve">
+    <value>Həqiqətən aydın?</value>
+  </data>
+  <data name="Button.Camera.Remove" xml:space="preserve">
+    <value>Sil</value>
+  </data>
+  <data name="Page.Camera.SavedToCustomFolder" xml:space="preserve">
+    <value>Fərdi qovluğa saxlandı</value>
+  </data>
+  <data name="Page.Camera.SavedToExternal" xml:space="preserve">
+    <value>Xarici olaraq yadda saxlandı</value>
+  </data>
+  <data name="Page.Camera.SavedToPhotos" xml:space="preserve">
+    <value>Fotolarda yadda saxlanıldı</value>
+  </data>
+  <data name="Page.Camera.SaveFailed" xml:space="preserve">
+    <value>SavingFailed. :(</value>
+  </data>
+  <data name="Page.Camera.Saving" xml:space="preserve">
+    <value>Yadda saxlanılır...</value>
+  </data>
+  <data name="Page.Camera.SecondaryOnLeft" xml:space="preserve">
+    <value>İKİNCİ SOLDA</value>
+  </data>
+  <data name="Page.Camera.SecondaryOnRight" xml:space="preserve">
+    <value>SAĞDA İKİNCİL</value>
+  </data>
+  <data name="Page.Camera.SelectedInvalid" xml:space="preserve">
+    <value>Seçilmiş şəkil etibarsızdır.</value>
+  </data>
+  <data name="Page.Camera.SorryError" xml:space="preserve">
+    <value>Bağışlayın, CrossCam xəta etdi. Səhv hesabatı avtomatik olaraq göndərildi. Siz ümumiyyətlə səhv bir şey görməyə bilərsiniz, lakin bunu görsəniz, proqramı yenidən başladın. Bu hal davam edərsə, mənə e-poçt göndərin və bu barədə mənə məlumat verin. (Bu pop-upları dayandırmaq üçün Parametrlər səhifəsinə keçin.)</value>
+  </data>
+  <data name="Page.Camera.Steady" xml:space="preserve">
+    <value>Sabit...</value>
+  </data>
+  <data name="Page.Camera.SureClear" xml:space="preserve">
+    <value>Şəkillərinizi silib yenidən başlamaq istədiyinizə əminsiniz?</value>
+  </data>
+  <data name="Page.Camera.Syncing" xml:space="preserve">
+    <value>Sinxronlaşdırılır...</value>
+  </data>
+  <data name="Page.Camera.Transmitting" xml:space="preserve">
+    <value>Ötürülür...
+(cihazın kilidini açıq saxlayın)</value>
+  </data>
+  <data name="Page.Camera.VR" xml:space="preserve">
+    <value>VR</value>
+  </data>
+  <data name="Page.FovCorrection" xml:space="preserve">
+    <value>Baxış Sahəsinin Korreksiyası</value>
+  </data>
+  <data name="Page.FovCorrectionExplain" xml:space="preserve">
+    <value>Fərqli cihaz modelləri fərqli baxış sahələrinə malik ola bilər. İlk çəkilişinizi etdikdən sonra CrossCam sizə bunu düzəltməyə kömək edəcək. Nöqtələrin hər iki cihazda göründüyünə əmin olaraq çərçivənin yuxarı və aşağı hissəsində fərqli nöqtələri olan bir şeyi çərçivəyə çəkin və çəkin.</value>
+  </data>
+  <data name="Page.Technique.ParallelLink1" xml:space="preserve">
+    <value>Gözəl mətn dərsliyi</value>
+  </data>
+  <data name="Page.Technique.ParallelLink2" xml:space="preserve">
+    <value>Başqa bir gözəl mətn dərsliyi</value>
+  </data>
+  <data name="Page.Technique.ParallelLink3" xml:space="preserve">
+    <value>Yenə başqa gözəl mətn dərsliyi</value>
+  </data>
+  <data name="Page.Technique.ParallelLink4" xml:space="preserve">
+    <value>Sehrli Frankfurter Təlimatı</value>
+  </data>
+  <data name="Page.Technique.ParallelLink5" xml:space="preserve">
+    <value>Magic Eye haqqında gözəl video</value>
+  </data>
+  <data name="Page.Technique.Trouble" xml:space="preserve">
+    <value>Əgər hələ də problem yaşayırsınızsa, telefonunuzu qaranlıq otağa aparmağa çalışın ki, gözlərinizin yaxşı görüb diqqətini cəmlədiyi tək şey şəkil olsun.
+
+Sınaya biləcəyiniz başqa bir şey, tualet kağızı boruları və ya əllərinizlə hər bir göz şəklin yalnız görməli olduğu tərəfi görə bilsin.
+ • Çarpaz görünüş üçün: tək borunu burnunuzun körpüsünə (gözlərinizin ortasına) qarşı tutun və onu qarşınızda olan şəklin mərkəzinə tutun. Boruya hər iki gözlə baxmağa çalışarkən borunu yavaş-yavaş ekrana doğru hərəkət etdirin. Boru ilə düzgün mövqeyə çatdığınız zaman şəkil yerinə oturmalıdır. Bu, borunun ən uzaq ucunun içərisinə baxmaq üzərində cəmləşməyə kömək edə bilər. Düzgün mövqe tapa bilmirsinizsə, daha böyük bir şəkil və ya daha kiçik bir boru istifadə etməyə çalışın.
+ • Paralel görünüş üçün: hər bir gözün qarşısında bir boru tutun, lakin hər ikisini yan tərəfə yönəldin ki, çətin ki, heç nə görə biləsiniz. Boruları eyni zamanda yavaş-yavaş içəri çevirin ki, daha çox şəkil görməyə başlayasınız. Şəklin çoxunu görə bildiyiniz an (hər gözlə demək olar ki, yarısı), gözlərinizi rahatlamağa və yarıları bir araya gətirməyə çalışın. Bu, daha böyük və ya kiçik bir şəkil istifadə etməyə kömək edə bilər.
+
+Çarpaz və ya paralel baxışla birləşməni məşq etmək üçün edə biləcəyiniz asan bir məşq var. Bir marker götürün və hər bir miniatürünüzə (yaxud bir cüt dondurma çubuğu və ya dil depressoru) gülən üzün bir hissəsini çəkin. Məsələn, bir tərəfdən bir göz və ağız çəkin, digər tərəfdən bir göz və burun çəkin. Daha sonra onları qarşınızda tuta və təbəssüm şəklini tamamlamaq üçün iki şəkli birləşdirərək məşq edə bilərsiniz.
+
+Şəxsən mən paralel üzərində keçidi üstün tuturam, çünki şəkillər daha böyük ola bilər, lakin hər iki üsul işləyir. Daha böyük paralel şəkillərlə sınaqdan keçirmək istəyirsinizsə, Parametrlər səhifəsində ölçüsünü idarə edə bilərsiniz.
+
+Bəzən bunu edərkən çarpaz və ya paralel metodu etdiyinizi hiss etmək çətindir. Bunu edərkən başqasından gözlərinizə baxmasını istəyə bilərsiniz və ya test olaraq aşağıdakı şəklə baxa bilərsiniz:</value>
+  </data>
+  <data name="SaveModes.Anaglyph" xml:space="preserve">
+    <value>Anaqlif</value>
+  </data>
+  <data name="SaveModes.Cardboard" xml:space="preserve">
+    <value>Karton</value>
+  </data>
+  <data name="SaveModes.Cross" xml:space="preserve">
+    <value>xaç</value>
+  </data>
+  <data name="SaveModes.GrayscaleAnaglyph" xml:space="preserve">
+    <value>Boz rəngli anaqlif</value>
+  </data>
+  <data name="SaveModes.Parallel" xml:space="preserve">
+    <value>Paralel</value>
+  </data>
+  <data name="SaveModes.Quad" xml:space="preserve">
+    <value>dördlük</value>
+  </data>
+  <data name="SaveModes.Separate" xml:space="preserve">
+    <value>Ayrı</value>
+  </data>
+  <data name="SaveModes.Single" xml:space="preserve">
+    <value>subay</value>
+  </data>
+  <data name="SaveModes.Triple" xml:space="preserve">
+    <value>Üçqat</value>
+  </data>
+  <data name="Page.Camera.FovExplain" xml:space="preserve">
+    <value>Görünüş sahəsindəki fərqləri düzəltmək üçün şəkilləri böyüdün və sürüşdürün ki, fərqləndirici nöqtələr iki şəkil arasında düzülsün. Uyğunluğu vizuallaşdırmağa kömək etmək üçün ağ xətləri sürükləyə bilərsiniz. Bu düzəliş gələcək önizləmələrə tətbiq ediləcək. O, yadda saxlanılacaq, lakin siz onu Parametrlər səhifəsində sıfırlaya bilərsiniz. Eyni cihazlardan istifadə edirsinizsə, tənzimləmədən qənaət edin.</value>
+  </data>
+  <data name="Page.Camera.FovTitle" xml:space="preserve">
+    <value>Baxış Sahəsinin Korreksiyası</value>
+  </data>
+  <data name="Page.Camera.KeyPoints" xml:space="preserve">
+    <value>Açar nöqtələr</value>
+  </data>
+  <data name="Page.Camera.Warped" xml:space="preserve">
+    <value>Əzilmiş</value>
+  </data>
+  <data name="Page.Camera.WelcomeExplain" xml:space="preserve">
+    <value>CrossCam 3D fotoşəkillər çəkməyə kömək etmək üçün hazırlanmışdır. Şəkillər VR və ya 3D filmlər kimi 3D-dir, lakin heç bir xüsusi avadanlıq və ya eynəyə ehtiyacınız yoxdur - sadəcə telefonunuz (lakin bir cüt qırmızı/göy 3D eynək və ya Google Cardboard görüntüləyiciniz varsa, onlardan istifadə edə bilərsiniz. CrossCam ilə də). Yalnız telefonunuzdan və gözlərinizdən istifadə edən \"pulsuz baxış\" texnikası öyrənmək üçün bir az təcrübə tələb edir. Mən sizə CrossCam-dən necə istifadə edəcəyinizi söyləməzdən əvvəl ilk olaraq baxış texnikası haqqında daha çox öyrənmək istərdinizmi?</value>
+  </data>
+  <data name="Page.Camera.Welcome" xml:space="preserve">
+    <value>CrossCam-a xoş gəlmisiniz!</value>
+  </data>
+  <data name="Page.Camera.Directions" xml:space="preserve">
+    <value>İstiqamətlərə keçin</value>
+  </data>
+  <data name="Page.Camera.Technique" xml:space="preserve">
+    <value>Baxış Texnikası</value>
+  </data>
+  <data name="Page.HowToUse.P1" xml:space="preserve">
+    <value>Bunu yenidən görmək istəyirsinizsə, kamera ekranının yuxarı sol tərəfindəki hamburger (üç sətir) işarəsinə və "Kömək" üzərinə klikləyin.
+
+
+1) Çərçivə çəkin və ilk şəkli çəkin.</value>
+  </data>
+  <data name="Page.HowToUse.P2" xml:space="preserve">
+    <value>3) Telefonunuzu önünüzdə sabit saxlayın və CrossCam-in sizə dediyi istiqamətdə yavaş-yavaş yana doğru hərəkət edin. Çox uzağa getməyin - hədəfinizin hər ayağı üçün bir düym və ya daha az. Həmçinin, heç dönməyin, sadəcə yan tərəfə sürüşdürün və ya bəlkə də sadəcə əyilməyin.
+
+4) Birinci şəkli ikinci şəklin önizləməsi ilə uyğunlaşdırın və gördüklərinizi bəyəndiyiniz zaman ikinci şəkli çəkin.
+
+5) CrossCam siz onları çəkdikdən sonra şəkillərinizi avtomatik uyğunlaşdıracaq, lakin bu, mükəmməl deyil, əgər onların necə düzüldüyünü bəyənmirsinizsə, kiçik robot ikonasına toxunaraq avtomatik düzləşdirməni söndürə bilərsiniz. CrossCam həmçinin qələm işarəsinə toxunmaqla əldə edə biləcəyiniz çoxlu əl ilə redaktə seçimlərinə malikdir.
+
+6) Yadda saxlamağa hazır olduğunuz zaman işarəni vurun.
+
+
+Edə biləcəyiniz digər işlər:
+ • Bir nöqtəyə fokuslanmaq üçün bir dəfə toxunun, davamlı avtomatik fokus rejiminə qayıtmaq üçün iki dəfə toxunun.
+ • Parametrlər səhifəsini açmaq üçün kamera ekranının yuxarı sağ tərəfindəki dişli çarx işarəsinə toxunun. Maraqlı şeylərlə doludur.
+ • Kamera ekranının yuxarı sol tərəfindəki hamburger işarəsinə toxunmaqla əldə edə biləcəyiniz gözəl Məsləhətlər səhifəsi var ki, bu da şəkillərinizi möhtəşəm etməyə kömək edə bilər.
+ • İkinci çəkilişiniz üçün digər istiqamətə keçmək və ya tərəfləri dəyişmək istəyirsinizsə, sadəcə sürüşdürün.
+ • Şəkli yan kimi yükləmək və ya tam stereo təsviri yükləmək üçün aşağıdakı kiçik qovluq işarəsinə toxunun.</value>
+  </data>
+  <data name="Page.Faq.Alignment" xml:space="preserve">
+    <value>Avtomatik hizalama necə işləyir?</value>
+  </data>
+  <data name="Page.Faq.Alignment.Body" xml:space="preserve">
+    <value>Avtomatik hizalama şəkil cütlərini mümkün qədər uyğunlaşdırmağa çalışır, lakin bu mükəmməl deyil. Kompüter görmə qabiliyyəti bəzi şeylərdə insan gözündən daha yaxşıdır, lakin digər şeylərdə də çox pisdir. Onun gördüyü dünya bizim gördüyümüzdən çox fərqlidir, lakin bir neçə fərqli şəkildə də görə bilər. CrossCam-də gördüyü iki əsas yol, gücləndirilmiş korrelyasiya əmsalı (ECC) və əsas nöqtələrdən istifadə etməkdir.
+
+ECC hizalanması, iki tərəf bir-birinin üstünə qoyulduqda, işıq yamaqlarının açıq ləkələrlə və tünd yamaqların tünd ləkələrlə üst-üstə düşdüyünə əmin olmağa çalışmaqla işləyir. ECC hizalanması, uyğunlaşmanın effektiv olub-olmadığını qərara almağa kömək etmək üçün nəzərdə tutulmuş inam balı ilə gəlir. CrossCam, güvən çox aşağı olarsa, düzəldilməni rədd etmək üçün qurulmuşdur, lakin siz Parametrlər səhifəsində etibarlılıq keçmə/uğursuzluq həddini konfiqurasiya edə bilərsiniz.
+
+Əsas nöqtələrin hizalanması künclər, kənarlar, nöqtələr və yüksək kontrast kimi maraq nöqtələrini axtarır və onları iki tərəf arasında uyğunlaşdırmağa çalışır. Nöqtələr uyğunlaşdırıldıqdan sonra, CrossCam tərəfləri əymək üçün müxtəlif alqoritmlərdən istifadə edə bilər ki, bir tərəfdən əsas nöqtələr digər tərəfdəki müvafiq əsas nöqtələrə mümkün qədər yaxın olsun.
+
+CrossCam əvvəlcə açar nöqtələrin düzülməsindən istifadə etmək üçün proqramlaşdırılmışdır, lakin açar nöqtələrin düzülməsi uğursuz olduqda və ya tək çəkiliş güzgü bölgüsü metodu ilə çəkiliş aparıldıqda o, ECC hizalanmasına qayıdacaq. Siz həmçinin hər zaman əsas nöqtənin düzülməsini istifadə etmək və ya həmişə Parametrlər səhifəsində ECC hizalamasını istifadə etmək üçün avtomatik hizalamağı konfiqurasiya edə bilərsiniz.
+
+CrossCam kamera ekranında kiçik robot ikonasının altında hizalanma nəticəsini göstərəcək. ECC hizalanmasından istifadə edərsə, o, etibarlılıq faizini göstərəcəkdir. Əgər o, əsas nöqtənin hizalanmasından istifadə edərsə, o, "KP" göstərəcək. Hər iki uyğunlaşdırma metodu uğursuz olarsa, "F" göstərəcək. Düzəlişin nəticəsini bəyənməsəniz, hizalanmanı aradan qaldırmaq üçün kiçik robot işarəsinə toxuna bilərsiniz.</value>
+  </data>
+  <data name="Page.Faq.Bad" xml:space="preserve">
+    <value>Bu mənim gözlərim üçün pisdir?</value>
+  </data>
+  <data name="Page.Faq.Bad.Body1" xml:space="preserve">
+    <value>Bilmirəm, amma mən belə düşünmürəm. Ancaq pis hiss edirsinizsə, ara verin. Təcrübə ilə narahatlıq adətən azalır. İstənilən baxış metodu vergence-accomodation münaqişəsi adlanan təsirə görə narahatlığa səbəb ola bilər. Budur</value>
+  </data>
+  <data name="Page.Faq.Bad.Body2" xml:space="preserve">
+    <value>vergence-accomodation münaqişəsi haqqında Vikipediya linki.</value>
+  </data>
+  <data name="Page.Faq.Bad.Body3" xml:space="preserve">
+    <value>Əgər çarpaz göz metodundan istifadə edirsinizsə, bu hiss də gözlərinizin uzun müddətdir ki, çox yaxın bir şeyə baxırmış kimi işarə etməyə öyrəşməməsi ilə bağlı ola bilər. Çapraz baxış zamanı gözləriniz gözlərinizlə ekranın ortasında bir nöqtəyə yaxınlaşır. Əgər uzun müddət yaxınlıqda olan bir şeyə baxmaq da sizi narahat edəcəksə, izahatımız var.
+
+Bununla bağlı fikrim budur ki, gözləriniz gündəlik imkanlarından kənar heç bir şey etmir, lakin siz adətən bu şəkildə istifadə olunmayan iki fərqli qabiliyyəti birləşdirirsiniz. Siz linzalarınızı fokuslamaq üçün adətən rahat olan bir yerə yönəldirsiniz və gözlərinizi onların göstərməsi üçün adətən rahat olan yerə, lakin linzalarınızın fokuslandığı və gözlərinizin birləşdiyi yerə yönəldirsiniz. sadəcə eyni məqam deyil. Görmə qabiliyyətiniz hələ də inkişaf etmədiyi müddətcə bunun sizin üçün necə pis ola biləcəyini anlamıram.</value>
+  </data>
+  <data name="Page.Faq.Cardboard" xml:space="preserve">
+    <value>CrossCam-ı Google Cardboard ilə necə istifadə edə bilərəm?</value>
+  </data>
+  <data name="Page.Faq.Cardboard.Body" xml:space="preserve">
+    <value>Əgər tamaşaçınızın ekranın mərkəzinə basan düyməsi varsa, siz ondan Cardboard istifadə edərək şəkil çəkmək üçün istifadə edə bilərsiniz. İzləyiciniz də telefonunuzun kamerasını görmək üçün bir dəliyə sahib olmalıdır.
+
+Cardboard istifadə edərək fotoşəkillər çəkmək üçün Ön Baxış Baxış Metodunuzu (Parametrlər səhifəsində) Cardboard-a dəyişin, sonra kamera səhifəsinə qayıdın və telefonunuzu görüntüləyiciyə yapışdırın. Tutmaq üçün düyməni basın və hər iki tərəf çəkildikdə saxlamaq üçün düyməni yenidən basın. Cardboard rejimində saxlama yalnız şəkilləri sonradan baxmaq üçün CrossCam-ə yükləməyinizə imkan vermək üçün nəzərdə tutulub, onlara izləyiciniz vasitəsilə şəkillər tətbiqinizdə baxmaq üçün deyil.
+
+Siz həmçinin istədiyiniz hər hansı digər üsuldan istifadə edərək çəkə bilərsiniz, sonra Önizləmə Baxış Metodunuzu Cardboard-a keçirə və telefonunuzu görüntüləyiciyə yerləşdirə bilərsiniz.
+
+Orada fərqli xüsusiyyətlərə malik bir çox fərqli tamaşaçı var. Təcrübənizi daha rahat etmək üçün Cardboard ayırma məsafəsini (Parametrlər səhifəsində) dəyişməli ola bilərsiniz. Siz həmçinin yüksək keyfiyyətli stereoqramları nəhəng və immersiv hala gətirməzdən əvvəl onları çəkməyi bacardığınızdan əmin olmalısınız.</value>
+  </data>
+  <data name="Page.Faq.How" xml:space="preserve">
+    <value>Bu necə işləyir?</value>
+  </data>
+  <data name="Page.Faq.How.Body1" xml:space="preserve">
+    <value>CrossCam-in istifadə etdiyi 3D effekti stereoskopiya kimi tanınan yaxşı öyrənilmiş intizamdır və iki tərəfə baxmaq üçün gözlərinizi kəsdiyiniz (və ya onları rahatladığınız) üsula pulsuz baxış deyilir. Dünyaya baxdığımız zaman hər bir gözümüz fərqli bucaq altında görür. Stereoskopiyada biz hər bir gözə bir (süni) perspektiv təqdim edirik, qalanını isə beynimiz edir. Hər gözün fərqli bir görüntü görməsi üçün bir çox fərqli yol var. Budur</value>
+  </data>
+  <data name="Page.Faq.How.Body2" xml:space="preserve">
+    <value>stereoskopiya üzrə Vikipediya linki</value>
+  </data>
+  <data name="Page.Faq.How.Body3" xml:space="preserve">
+    <value>CrossCam ilə çəkdiyiniz 3D şəkillərə stereoqramlar deyilir. Magic Eye™ kitablarında avtostereoqramlar adlanan şey var.</value>
+  </data>
+  <data name="Page.Faq.Into" xml:space="preserve">
+    <value>Stereoskopiya ilə necə tanış oldunuz?</value>
+  </data>
+  <data name="Page.Faq.Into.Body1" xml:space="preserve">
+    <value>Mən fizika diplomumu alarkən lazerlərdən istifadə edərək öz holoqramlarımı yaratmaqla təcrübə aparmaq imkanım oldu. Mənim hazırladığım holoqramların növü 3D idi, çünki onlar şüşə lövhənin səthindən əks olunan işığa dağıdıcı müdaxiləyə səbəb olmaq üçün difraksiya ızgarasından istifadə edirdilər ki, bu da əks olunan təsvirin müxtəlif yerlərdən fərqli görünməsinə səbəb olur. Hər bir gözümüz fərqli baxış bucağından görünən bir görüntü gördükdə (əgər onlar çox fərqli deyilsə), beynimiz bunu dərinlik kimi qəbul edir.</value>
+  </data>
+  <data name="Page.Faq.Into.Body2" xml:space="preserve">
+    <value>Mən stereoskopik qavrayışın bu prinsipindən çoxdan xəbərdar idim, lakin həyatımın o nöqtəsində mən də bəzi proqramlaşdırma dərsləri alırdım, ona görə də stereoskopik 3D rəsm üçün sadə kompüter proqramı hazırlamağa cəhd etmək qərarına gəldim. Bu səy StereoSketcher oldu. Orijinal versiya Java-da yazılmışdı, lakin mən onu Javascript və SVG ilə yenidən yazdım və indi internetdə yaşayır</value>
+  </data>
+  <data name="Page.Faq.Into.Body3" xml:space="preserve">
+    <value>bu linkdə.</value>
+  </data>
+  <data name="Page.Faq.Into.Body4" xml:space="preserve">
+    <value>Bu, heç bir şəkildə populyar deyil və məndən başqa heç kim üçün asan olmaya bilər, amma işləyir. StereoSketcher üzərində işləyərkən mən stereoskopiya prinsipləri ilə təcrübə etməli oldum və bir neçə sadə qaydadan istifadə etməklə belə immersiv və cəlbedici təcrübənin necə yaradıla biləcəyinə heyran oldum.</value>
+  </data>
+  <data name="Page.Faq.Inverted" xml:space="preserve">
+    <value>3D niyə düzgün görünmür və ya niyə 3D tərs görünür?</value>
+  </data>
+  <data name="Page.Faq.Inverted.Body1" xml:space="preserve">
+    <value>Xaç və ya paralel üsulla pulsuz baxarkən şəkillərə onları yaratmaq üçün istifadə edilən eyni üsulla baxmaq vacibdir. Əks halda, sağ gözünüz sol göz üçün nəzərdə tutulan perspektivə baxacaq və əksinə. Bu, təsvirin dərinliyini tərsinə çevirir, çünki paralaksın istiqaməti dəyişdirilib.
+
+Paralaks o deməkdir ki, sağ gözünüz baxımından obyektlər daha uzaqda olduqda, sol gözünüzdən baxdıqda daha yaxın obyektlərdən daha sağda görünürlər. Cümlə formatında təsvir edildikdə çaşdırıcıdır, lakin nümayiş etdirildikdə çox intuitivdir.
+
+Nümayiş etmək üçün bir barmağınızı qarşınızda təxminən bir qol uzunluğunda saxlayın, sonra digər əlinizlə digər barmağınızı birinci barmağınızla üzünüzün təxminən yarısı arasında saxlayın. Hər bir gözü növbə ilə bağlasanız və barmaqlarınızın harada olduğuna diqqət yetirsəniz, hər gözün onları müxtəlif yerlərdə gördüyünü görəcəksiniz. Beləliklə, təbii olaraq, hər bir göz bu hərəkəti olması lazım olan tərsi şəkildə görsə, dərinlik tərsinə çevriləcəkdir.
+
+Təsadüfən səhv baxış metodundan istifadə etmək çox asandır, çünki insanların çoxunun sadəcə hiss etməklə və ya nəticədə yaranan çaşqınlıq doğuran ikiqat görüntüyə baxmaqla gözlərinin kəsişdiyini və ya rahatladığını müəyyən etmək çox çətindir. Bunun əvəzinə, ya başqasının gözlərinizin nə etdiyinə baxması və ya bu sınaqçı şəklini sınamaq daha yaxşıdır:</value>
+  </data>
+  <data name="Page.Faq.Inverted.Body2" xml:space="preserve">
+    <value>Bir çox insanlar paralel baxış metodundan istifadə etməklə baxılması nəzərdə tutulan Magic Eye™ kitablarına baxmaqdan olduqca rahatdırlar. Onlara çarpaz baxsanız, səhifədən çıxması lazım olan möhkəm 3D obyektlər əvəzinə deşiklər kimi görünür. Hər iki üsul sizə *nəyisə* görməyə imkan verir, lakin onun nə olduğunu deyə bilmirsinizsə, yəqin ki, onlara çarpaz baxırsınız.</value>
+  </data>
+  <data name="Page.Faq.Mirror" xml:space="preserve">
+    <value>"Tək atışlı güzgü" üsulunu necə edə bilərəm?</value>
+  </data>
+  <data name="Page.Faq.Mirror.Body1" xml:space="preserve">
+    <value>Güzgü üsulu ilə çəkmə çərçivəni yarıya bölür və tələb olunan transformasiyanı həyata keçirir ki, tək telefon və adi əl güzgüsü ilə eyni anda hər iki tərəfi çəkə biləsiniz. Çəkiliş zamanı güzgü metodundan istifadə etmək üçün Parametrlər səhifəsində güzgü rejimi üçün açarı çevirin (ora çatmaq üçün dişli işarəsinə toxunun). Siz güzgü rejimini yandırdıqdan sonra CrossCam sizə güzgüünüzü hansı tərəfdən tutacağınızı söyləyəcək. Güzgüünüzü o tərəfdə tutun və telefonunuzla güzgü və obyektiniz arasında uyğunlaşma ilə məşğul olun. Bir az səbirlə, güzgü tərəflərdən biri üçün düzgün perspektivi göstərməsi üçün onların hamısını sıraya qoya biləcəksiniz. Güzgü metodundan istifadə şəklinizi şaquli olaraq yarıya böldüyünə görə, adətən güzgü üsulu ilə landşaftda çəkmək daha yaxşıdır.
+
+Bu üsul, həmçinin böyük, təmiz pəncərələrdə, həmçinin hərəkətsiz göllərdə və ya gölməçələrdə (telefon portretdə kilidləndikdə və yan tərəfə çevrildikdə) əkslərlə işləyəcək.</value>
+  </data>
+  <data name="Page.Faq.Mirror.Body2" xml:space="preserve">
+    <value>Güzgü metodundan istifadə etmək üçün bəzi kompromislər/redaktələr var. Bunların hamısı CrossCam-də əl ilə edilə bilər, lakin avtomatik hizalama da bunları sizin üçün etməyə çalışacaq:
+ • Yansıtılan görünüş adi görünüşdən daha uzun məsafəni qət etdiyi üçün güzgülənmiş tərəfi bir az böyütmək lazımdır.
+ • Çox güman ki, güzgü metodundan istifadə edərkən perspektivləri paralel saxlamaqdansa, siz ayaq üstə əyiləcəksiniz - bu, qısaldılmanın pis şaquli düzülmə kimi görünməsinə səbəb ola bilər. Bunu ləğv etmək üçün əsas daşı korreksiyası edilə bilər ki, bu da şəkillərin hər birinin bir tərəfini şaquli olaraq daraltmaq deməkdir.
+ • Daxil olmaq da stereo pəncərəni sizə doğru hərəkət etdirməyə meylli olacaq. Bunu geri götürə və kənarları kəsərək istədiyiniz yerə yerləşdirə bilərsiniz.
+ • Güzgü yəqin ki, bir tərəfin görünüşünü tam örtməyəcək, ona görə də əks olunmayan bitləri aradan qaldırmaq üçün bəzi kəsmə işləri aparılmalı ola bilər.
+
+Bunun üçün ən yaxşı güzgülər nazik şüşəyə malikdir. Birincisi, onlar yüngüldür, ona görə də uzun müddət saxlamaq daha asandır. Digər vacib şey odur ki, güzgüdən istifadə edərkən güzgülər adətən istifadə edildiyi üçün güzgüyə birbaşa baxmaq əvəzinə yan tərəfə yönəldəcəksiniz. Belə istiqamətləndirildikdə, qalın şüşəli güzgülərdə bir az bulanıqlıq ola bilər. Şüşə nə qədər incə olsa, bu bulanıqlıq bir o qədər az görünəcək. Bu cür güzgülər digər cəhətlərdən də keyfiyyətsiz ola bilər, ona görə də yaxşı balans tapmaq vacibdir.
+
+CrossCam tərəfindən redaktələrdə düzəldilə bilməyən güzgü çəkilişindən istifadə edərkən qəbul edilməli olan bir neçə başqa kompromislər var:
+ • Hər iki tərəfin görünüşü bir qədər fərqli məsafələrə getdiyi üçün hər tərəf üçün lazım olan fokus bir qədər fərqli olacaq, ona görə də bir tərəf həmişə bir qədər bulanıq olacaq. Bu təsir obyektə olan məsafədən və obyektiv sahəsinin dərinliyindən asılı olaraq az və ya çox nəzərə çarpacaq.
+ • Heç bir güzgü həqiqətən 100% effektiv deyil, ona görə də güzgüdən istifadə edən tərəf bir qədər qaranlıq ola bilər. Bu güzgünün keyfiyyətinə görə dəyişəcək.</value>
+  </data>
+  <data name="Page.Faq.Moving" xml:space="preserve">
+    <value>Mövzum hərəkət edir, onun 3D şəkillərini necə çəkə bilərəm?</value>
+  </data>
+  <data name="Page.Faq.Moving.Body" xml:space="preserve">
+    <value>CrossCam sizə eyni anda hər iki perspektivi çəkmək üçün iki üsula imkan verir. Bir üsul iki telefondan, bir üsul isə güzgüdən istifadə edir.
+
+İki telefon quraşdırmasından istifadə etmək üçün Parametrlər səhifəsindən əldə edə biləcəyiniz Qoşulma Quraşdırma səhifəsinə baxın (dişli işarəsinə toxunun).
+
+Güzgü metodundan istifadə etmək üçün bu barədə digər tez-tez verilən suallara baxın.</value>
+  </data>
+  <data name="Page.Faq.Test" xml:space="preserve">
+    <value>CrossCam-in buraxılışdan əvvəlki versiyalarını necə sınaqdan keçirə bilərəm?</value>
+  </data>
+  <data name="Page.Faq.Test.Body" xml:space="preserve">
+    <value>Bu Reddit yazısına baxın</value>
+  </data>
+  <data name="Page.Faq.Why" xml:space="preserve">
+    <value>Niyə CrossCam yaratdınız?</value>
+  </data>
+  <data name="Page.Faq.Why.Body" xml:space="preserve">
+    <value>Stereoskopiya ilə maraqlanmağa başlayanda təsadüfən Yellowstone-a səfər etdim. Orada olarkən anladım ki, orada olanları 3D formatında çəkmək üçün 3D kamera mobil proqramından istifadə etməyə cəhd etmək əyləncəli ola bilər. Mövcud variantlar məni çox məyus etdi. Onların hamısının sizdən iki ələ keçirmənizi və sonra onların yaxşı olub olmadığını öyrənmənizi tələb etdiyini gördüm. Onlar tez-tez olmurdular, çünki mən dəfələrlə ayrılıq məsafəm, eləcə də mövzunun keyfiyyəti haqqında tam təxminlər etməli oldum.
+
+Sonrakı bir neçə həftə ərzində qaynayan məyusluğum məni birinci ilə yanaşı ikinci çəkilişin də canlı önizləməsini təqdim etməyi təsəvvür etməyə vadar etdi. Artıq mobil inkişafda keçmişim var idi, ona görə də sadəcə vaxt ayırmaq məsələsi idi. Xatirələri qorumaq üçün yalnız özüm üçün istifadə etmək mənim üçün CrossCam-dan çox gözəl oldu və mən də bunu sizinlə bölüşməkdən məmnunam.</value>
+  </data>
+  <data name="Page.Faq.Wiggle" xml:space="preserve">
+    <value>Wigglegrams nədir?</value>
+  </data>
+  <data name="Page.Faq.Wiggle.Body" xml:space="preserve">
+    <value>Wigglegrams, durbin görmə qabiliyyətinə əsaslanmayan stereoqramlara baxmaq üçün bir yoldur. Onlar adətən iki perspektiv arasında irəli-geri fırlanan və hər birini eyni yerdə tam şəkildə göstərən gifdir. CrossCam hazırda onları hazırlamağı dəstəkləmir, lakin onlarla həqiqətən maraqlanırsınızsa, mənə e-poçt göndərin və mən bunu edəcəm.</value>
+  </data>
+  <data name="Page.Tips.AlignAfter" xml:space="preserve">
+    <value>Üfüqi xətlərə diqqət yetirin, ancaq sonra da düzəldə bilərsiniz.</value>
+  </data>
+  <data name="Page.Tips.AlignAfter.Body" xml:space="preserve">
+    <value>Şəkil çəkərkən həm yuxarı, həm də aşağı bələdçi xətlərini eyni vaxtda düzləşdirməyin mümkün olmadığını görürsünüzsə, çox güman ki, yan tərəfə deyil, hansısa istiqamətdə hərəkət etmisiniz. Şəkilləri çəkməzdən əvvəl bunu düzəltməyə çalışın, lakin faktdan sonra düzülmə buna çox kömək edə bilər.</value>
+  </data>
+  <data name="Page.Tips.Alignment" xml:space="preserve">
+    <value>Avtomatik uyğunlaşdırmanı söndürə bilərsiniz.</value>
+  </data>
+  <data name="Page.Tips.Alignment.Body" xml:space="preserve">
+    <value>Avtomatik uyğunlaşdırmanın nəticələrini bəyənməsəniz, sadəcə Parametrlər səhifəsində və ya kiçik robot işarəsinə toxunaraq onu söndürün və orijinal çəkilmiş şəkilləriniz bərpa olunacaq.</value>
+  </data>
+  <data name="Page.Tips.Donut" xml:space="preserve">
+    <value>Donut bələdçisi pəncərənizə kömək edə bilər.</value>
+  </data>
+  <data name="Page.Tips.Donut.Body" xml:space="preserve">
+    <value>Parametrlər səhifəsində aktivləşdirə biləcəyiniz eksperimental bələdçi pişi var ki, bu da istifadə edilə bilən genişliyi artırarkən stereo pəncərənizi qorumağa kömək edə bilər. Sola və sağa çevirməklə, pişidəki dərinlik səhnənin qalan hissəsinə nisbətən dəyişəcək - donutun dərinliyini elə təyin edin ki, o, səhnənizdəki ən uzaq nöqtənin üstündə və ya arxasında olsun. Ehtiyatlı olun, onu kiçik səhnələrdə istifadə etmək hər şeyi ağrılı edə bilər (yuxarıda əsas daş ipucuna baxın).</value>
+  </data>
+  <data name="Page.Tips.Keystone" xml:space="preserve">
+    <value>Diqqətinizə girsəniz, açar daşının düzəldilməsinə ehtiyac var.</value>
+  </data>
+  <data name="Page.Tips.Keystone.Body1" xml:space="preserve">
+    <value>Hər atışda içəriyə dönsəniz, əsas daşı düzəlişləri etmək çox faydalıdır. Tipik olaraq, fotoşəkillərin daxili kənarlarını daraltmaq və sonra onları bərabərləşdirmək üçün yuxarıdan və aşağıdan bəzilərini kəsmək istərdiniz. Bu kimi görünən düyməyə toxunaraq əsas daşı redaktə menyusuna daxil olursunuz:</value>
+  </data>
+  <data name="Page.Tips.Keystone.Body2" xml:space="preserve">
+    <value>İçəriyə dönməyə barmaq-in deyilir. Bu, təsvirin künclərini birləşdirməyi çətinləşdirən qısaldıcı təsirə səbəb ola bilər. Öncədən qısaldıcı effekt real həyatda hər zaman mövcuddur, çünki paralel xətlər sizdən uzaqlaşdıqca birləşir, lakin süni perspektivlər onu qəribə edə bilər.</value>
+  </data>
+  <data name="Page.Tips.Lean" xml:space="preserve">
+    <value>Siz sadəcə əyilə bilərsiniz.</value>
+  </data>
+  <data name="Page.Tips.Lean.Body" xml:space="preserve">
+    <value>Bəzən şəkil çəkmək üçün ayaqlarınızı tam olaraq sola və ya sağa hərəkət etdirmək əvəzinə, sadəcə ayaqlarınızı bir-birindən ayırıb hər istiqamətə əyilmək daha asan ola bilər, lakin telefonu eyni səviyyədə və eyni hündürlükdə saxlamaq üçün diqqətli olun. Hərəkət etmək əvəzinə sadəcə əyilmək çox uzaqlara getməyinizə kömək edə bilər və hədəfinizi düz tutmağı asanlaşdıra bilər.</value>
+  </data>
+  <data name="Page.Tips.Lines" xml:space="preserve">
+    <value>Hizalama xətləri hərəkət edə bilər.</value>
+  </data>
+  <data name="Page.Tips.Lines.Body" xml:space="preserve">
+    <value>İstəsəniz, hizalanma xətlərini sürükləyə bilərsiniz. Bu, redaktə zamanı şəkilləri hizalayarkən xüsusilə faydalıdır.</value>
+  </data>
+  <data name="Page.Tips.Old" xml:space="preserve">
+    <value>Siz CrossCam-də köhnə şəkilləri aça bilərsiniz.</value>
+  </data>
+  <data name="Page.Tips.Old.Body" xml:space="preserve">
+    <value>Siz əvvəllər çəkilmiş şəkilləri kamera səhifəsinin altındakı qovluq ikonasına toxunmaqla yükləyə bilərsiniz, lakin əgər siz çoxlu fotolar toplusu ilə işləyirsinizsə, onları birbaşa foto tətbiqinizdən CrossCam-da paylaşa bilərsiniz. şəkillərinizdə daha yaxşı yerləşdirin.</value>
+  </data>
+  <data name="Page.Tips.Quick" xml:space="preserve">
+    <value>Başqaları ilə birlikdə olarkən sürətli rejimi yandırın.</value>
+  </data>
+  <data name="Page.Tips.Quick.Body" xml:space="preserve">
+    <value>Başqa insanlarla birlikdə kəşfiyyat edirsinizsə, avtomatik düzləşdirmə və və sərhədləri söndürməklə sürətli rejimə keçmək və heç bir redaktə etmədən çəkdikdən sonra qənaət etmək yaxşı fikirdir. Siz istədiyiniz zaman şəkilləri yükləyə, avtomatik uyğunlaşdıra və redaktə edə bilərsiniz. Beləliklə, yoldaşlarınız şəkillərinizi yerində mükəmməlləşdirməyinizi gözləmək məcburiyyətində deyil, lakin siz hələ də istədiyiniz dərinliyin həqiqətən orada olduğuna əmin ola bilərsiniz. Sadəcə ehtiyatlı olun ki, ilk saxlamadan əvvəl tələsik redaktə etməyin! Siz həmçinin, etdiyiniz hər hansı redaktəyə məhəl qoymayan ayrıca yan qənaəti də yandıra bilərsiniz.</value>
+  </data>
+  <data name="Page.Tips.Sick" xml:space="preserve">
+    <value>Hərəkət sizi xəstələndirirsə, hərəkətsiz qalın.</value>
+  </data>
+  <data name="Page.Tips.Sick.Body" xml:space="preserve">
+    <value>Əgər bütün hərəkətlər sizi xəstələndirirsə və ya 3D-də baxmağı çox çətinləşdirirsə, bir az hərəkət edənə qədər onu 3D-də görməyə çalışmayın. Sonra şəkilləri bir-biri ilə müqayisə edin və 3D baxış olmadan üfüqi xətlərdən istifadə edərək şəkilləri hizalayın və düzləndikdən və hərəkətsiz saxladıqdan sonra 3D baxmağa başlayın.</value>
+  </data>
+  <data name="Page.Tips.Space" xml:space="preserve">
+    <value>Bu şəkillər çox yaddaş tuta bilər - siz onları kiçilədə bilərsiniz.</value>
+  </data>
+  <data name="Page.Tips.Space.Body" xml:space="preserve">
+    <value>Parametrlər səhifəsində son şəklin həllini mütənasib şəkildə azaltmaq imkanı var - bu, yerə qənaət etmək istəyirsinizsə, kömək edə bilər. Şəkiliniz kəsilməsə, son nəticə ikiqat ayırdetmədən birini etmək üçün birləşən iki tam rezolyusiyaya malik şəkildir.</value>
+  </data>
+  <data name="Page.Tips.Turn" xml:space="preserve">
+    <value>çevirmə.</value>
+  </data>
+  <data name="Page.Tips.Turn.Body" xml:space="preserve">
+    <value>Üzərinə keçdiyiniz zaman telefonunuzu heç bir istiqamətə çevirməməyə çalışın, o cümlədən yan tərəfə keçərkən obyektə doğru dönməyə təbii meyl. Bəzi fırlanma lazım olacaq (bəzən), lakin onu minimuma endirməyə çalışın. Təsəvvür edin ki, telefon düz üfüqi rels üzərində quraşdırılıb və yalnız sürüşə bilir. İçəriyə doğru dönmək künclərin birləşməsini çətinləşdirən qısaldıcı təsirə səbəb ola bilər.</value>
+  </data>
+  <data name="Page.Tips.Window" xml:space="preserve">
+    <value>Güclü stereo pəncərə etmək üçün haşiyə və kəsmə əlavə edin.</value>
+  </data>
+  <data name="Page.Tips.Window.Body" xml:space="preserve">
+    <value>Maraqlı stereo pəncərə effekti iki şeyi etməklə yaradıla bilər: 1) haşiyəni yandırın (Parametrlər səhifəsində) və 2) çarpaz baxmaq üçün şəkillərin daxili kənarlarını kənar kənarın özü şəkildə 3D olana qədər kəsin (kəsmə) paralel baxırsınızsa, KARŞI kənarları). Əsas odur ki, sol şəklin sağ kənarını sağ şəklin sağ kənarı səhnəni göstərdiyindən bir qədər keçsin və əksinə. Haşiyə əlavə etmək Parametrlər səhifəsində dəyişdirilir. Əgər bu çaşdırıcıdırsa, sadəcə daxili kənarlardan bir dəstə kəsin və aydınlaşmağa başlayacaq. Daxili kənarlar üçün kəsmə düyməsi belə görünür:</value>
+  </data>
+  <data name="Button.Code" xml:space="preserve">
+    <value>Kodeksə baxın</value>
+  </data>
+  <data name="Button.Developer" xml:space="preserve">
+    <value>Tərtibatçı haqqında</value>
+  </data>
+  <data name="Button.EmailMe" xml:space="preserve">
+    <value>Mənə e-poçt göndər</value>
+  </data>
+  <data name="Button.GitHub" xml:space="preserve">
+    <value>GitHub-da problem əlavə edin</value>
+  </data>
+  <data name="Button.Press" xml:space="preserve">
+    <value>Hər iki cihazda kamera ekranına qayıdın və aşağı küncdəki cütləşdirmə düyməsini klikləyin</value>
+  </data>
+  <data name="Button.Primary" xml:space="preserve">
+    <value>İLKİN BURAYA TIKLAYIN</value>
+  </data>
+  <data name="Button.Privacy" xml:space="preserve">
+    <value>Gizlilik Siyasəti</value>
+  </data>
+  <data name="Button.Secondary" xml:space="preserve">
+    <value>İKİNCİLƏ BURAYA TIKLAYIN</value>
+  </data>
+  <data name="Button.Test" xml:space="preserve">
+    <value>Buraxılışdan əvvəlki versiyaları sınaqdan keçirin</value>
+  </data>
+  <data name="Button.Wi-Fi" xml:space="preserve">
+    <value>Hər iki cihazda Wi-Fi-ın aktiv olduğundan əmin olun (lakin heç bir şeyə qoşulmaq lazım deyil)</value>
+  </data>
+  <data name="Page.Pairing.1" xml:space="preserve">
+    <value>CrossCam quraşdırılmış iki cihazınız varsa, eyni vaxtda iki perspektivdən fotoşəkil çəkmək üçün onları birləşdirə bilərsiniz. Eyni anda iki fotoşəkil çəkmək ən yaxşı stereoqramları mümkün edir.
+
+Nəzərə alın ki, bu funksiya hələ də eksperimentaldır və problemlər ola bilər. O, hər zaman mükəmməl işləməyə bilər və batareyanızı yeyə bilər. Həmçinin unutmayın ki, hazırda qoşulmaq üçün cihazlar eyni platforma olmalıdır (həm Android, həm də iOS).
+
+Yalnız bir cihaz və CrossCam istifadə edərək *mükəmməl* sinxronizasiya əldə etməyin bir yolu "tək çəkiliş güzgü" metodundan istifadə etməkdir. Siz onu Parametrlər səhifəsində aktiv edə bilərsiniz və bu barədə FAQ səhifəsində oxuya bilərsiniz.
+
+İki cihazı birlikdə istifadə etməzdən əvvəl onların rolları təyin edilməlidir. PRIMARY cihaz hər iki önizləməni göstərəcək, çəkilişi işə salacaq və son çəkilişləri saxlayacaq/saxlayacaq cihazdır. Rol təyin etmək üçün hər iki cihazı bu səhifəyə keçin və sonra aşağıdakı addımları yerinə yetirin:</value>
+  </data>
+  <data name="Page.Pairing.2" xml:space="preserve">
+    <value>Probleminiz varsa, DİQQƏT EDİN:
+ • Cütləşdirmə prosesinə başladıqdan sonra onu dayandırmaq və ya əlaqəni kəsmək üçün istənilən vaxt cütləşdirmə düyməsinə yenidən toxunmaq olar.
+ • Bu, hər iki cihazda cütləşməni dayandırmağa və eyni zamanda onu yenidən başlatmağa kömək edə bilər.
+ • Bu, Wi-Fi və ya məlumat şəbəkələriniz işə düşərsə, onların əlaqəsini kəsməyə kömək edə bilər.
+ • Hər kamera fərqlidir. Bu fərqlərə bucaq baxış sahəsi, fokus, ekspozisiya və ağ balans davranışı, vaxt və s. daxil ola bilər. Hətta eyni telefon modelindən ikisi də bir qədər fərqli davranacaq. Mən bir cüt köhnə telefondan istifadə etməyi üstün tuturam (mənim vəziyyətimdə bir cüt iPhone 6).
+ • CrossCam hardware deyil, proqram təminatıdır, ona görə də fotoşəkillərin çəkilməsi prosessorların və yaddaşın çəkmənin işə salındığı dəqiq anda başqa nə etməsindən asılı olaraq bir qədər sinxronlaşdırıla bilər. Nəticədə, sinxronizasiya bəzən mükəmməl olmaya bilər, lakin ümumiyyətlə çox yaxın olmalıdır.</value>
+  </data>
+  <data name="Page.Pairing.Again" xml:space="preserve">
+    <value>Daha sonra yenidən qoşulmaq üçün Wi-Fi-ı aktivləşdirdiyinizə əmin olun və sonra hər iki cihazda əsas ekranda qoşulma düyməsini klikləyin.</value>
+  </data>
+  <data name="Page.Pairing.LocalNetworkAccess" xml:space="preserve">
+    <value>CrossCam Yerli Şəbəkəyə Giriş icazəsi tələb edir. CrossCam əslində yerli şəbəkədən istifadə etmir, lakin iOS cihazları skan etmək üçün Wi-Fi antenasından istifadə etmək üçün CrossCam-ın bu icazəni almasını tələb edir. CrossCam bu icazəni bir dəfə istəyəcək - icazə rədd edilərsə, özünüz gedib Parametrlər proqramında açarı çevirməli olacaqsınız.</value>
+  </data>
+  <data name="Page.Pairing.Location" xml:space="preserve">
+    <value>CrossCam, cihazlarınızı birləşdirmək üçün lazım olduqda icazələr və komponentləri işə salacaq. Nəzərə alın: CrossCam ikinci cihaza qoşulmaq üçün əsas cihazda məkan icazəsi və məkan xidmətlərinin aktiv edilməsini tələb edir. Bu, sadəcə olaraq Android tələbidir və tamamilə mənim nəzarətimdən kənardadır. CrossCam əslində yerinizdən heç bir şəkildə İSTİFADƏ etmir, lakin yaxınlıqdakı cihazların axtarışı (və tapılması) nəzəri olaraq sizi təxmini tapmaq üçün istifadə edilə bildiyi üçün CrossCam məkanınıza daxil olmaq üçün icazə tələb edir.</value>
+  </data>
+  <data name="Page.Pairing.Permissions" xml:space="preserve">
+    <value>İcazələr haqqında qeyd:</value>
+  </data>
+  <data name="Page.Pairing.Title" xml:space="preserve">
+    <value>Cütləşmə</value>
+  </data>
+  <data name="Button.Back" xml:space="preserve">
+    <value>&lt; Geri</value>
+  </data>
+  <data name="Page.MorePictures.CrossViewSubreddit" xml:space="preserve">
+    <value>CrossView Subreddit</value>
+  </data>
+  <data name="Page.MorePictures.FacebookGroup" xml:space="preserve">
+    <value>Stereoskopik 3D Facebook Qrupu</value>
+  </data>
+  <data name="Page.MorePictures.GoogleDoc" xml:space="preserve">
+    <value>Google Böyük İşlər Sənədi</value>
+  </data>
+  <data name="Page.MorePictures.Instagram" xml:space="preserve">
+    <value>Instagram Stereoskopik Tag</value>
+  </data>
+  <data name="Page.MorePictures.Mine" xml:space="preserve">
+    <value>Çəkdiyim Şəkillərə baxın</value>
+  </data>
+  <data name="Page.MorePictures.ParallelViewSubreddit" xml:space="preserve">
+    <value>ParallelView Subreddit</value>
+  </data>
+  <data name="Page.Settings.Alignment" xml:space="preserve">
+    <value>Avtomatik Hizalama</value>
+  </data>
+  <data name="Page.Settings.Analytics" xml:space="preserve">
+    <value>CrossCam-i təkmilləşdirməyə kömək etmək üçün anonim istifadə və səhv məlumatlarını paylaşın</value>
+  </data>
+  <data name="Page.Settings.Border" xml:space="preserve">
+    <value>Sərhəd</value>
+  </data>
+  <data name="Page.Settings.Camera" xml:space="preserve">
+    <value>Kamera</value>
+  </data>
+  <data name="Page.Settings.Defaults" xml:space="preserve">
+    <value>Defoltlara sıfırlayın</value>
+  </data>
+  <data name="Page.Settings.Editing" xml:space="preserve">
+    <value>Redaktə</value>
+  </data>
+  <data name="Page.Settings.ErrorEmail" xml:space="preserve">
+    <value>Səhvlər baş verdikdə e-poçt göndərməyi təklif edin</value>
+  </data>
+  <data name="Page.Settings.Guides" xml:space="preserve">
+    <value>Çəkmə Bələdçiləri</value>
+  </data>
+  <data name="Page.Settings.Pairing" xml:space="preserve">
+    <value>Cütləşmə</value>
+  </data>
+  <data name="Page.Settings.Preview" xml:space="preserve">
+    <value>Preview Baxış Metodunu</value>
+  </data>
+  <data name="Page.Settings.Saving" xml:space="preserve">
+    <value>Saxlanılır</value>
+  </data>
+  <data name="Page.TipMe.1" xml:space="preserve">
+    <value>CrossCam istifadə etmək pulsuzdur, reklamsız, açıq mənbəlidir, sizdən heç bir şəxsi məlumat toplamır və sizə hər bir funksiyaya tam giriş imkanı verir. Mən CrossCam üzərində işləməyi sevirəm, lakin bu, çox vaxt və səy tələb edir. İnsanların mənə göndərməyə qərar verə biləcəyi məsləhətlər istisna olmaqla, mən CrossCam-dən heç bir pul qazanmıram.</value>
+  </data>
+  <data name="Page.TipMe.2" xml:space="preserve">
+    <value>Əgər CrossCam-ı bəyənirsinizsə və bacarırsınızsa, zəhmət olmasa mənə bir ipucu göndərməyi düşünün.</value>
+  </data>
+  <data name="Page.TipMe.Ko-fi" xml:space="preserve">
+    <value>Ko-fi</value>
+  </data>
+  <data name="Page.TipMe.Patreon" xml:space="preserve">
+    <value>Patreon</value>
+  </data>
+  <data name="Page.TipMe.PayPal" xml:space="preserve">
+    <value>PayPal</value>
+  </data>
+  <data name="Page.TipMe.Tipped" xml:space="preserve">
+    <value>Mənə məlumat verildi</value>
+  </data>
+  <data name="Page.TipMe.TippedTimes" xml:space="preserve">
+    <value>dəfə, cəmi</value>
+  </data>
+  <data name="Page.TipMe.Venmo" xml:space="preserve">
+    <value>Venmo</value>
+  </data>
+  <data name="Title.MorePictures" xml:space="preserve">
+    <value>Daha çox Şəkillərə baxın</value>
+  </data>
+  <data name="Title.Settings" xml:space="preserve">
+    <value>Parametrlər</value>
+  </data>
+  <data name="Title.TipMe" xml:space="preserve">
+    <value>Məsləhətlər yüksək qiymətləndirilir!</value>
+  </data>
+  <data name="Settings.Alignment.Advanced" xml:space="preserve">
+    <value>Qabaqcıl hizalama parametrlərini göstərin</value>
+  </data>
+  <data name="Settings.Alignment.Ecc" xml:space="preserve">
+    <value>Həmişə əvvəlcə ECC hizalamasından istifadə etməyə çalışın</value>
+  </data>
+  <data name="Settings.Alignment.Keypoints" xml:space="preserve">
+    <value>Həmişə ilk növbədə açar nöqtələrin hizalanmasından istifadə etməyə çalışın</value>
+  </data>
+  <data name="Settings.Alignment.On" xml:space="preserve">
+    <value>Çəkildikdən sonra avtomatik olaraq hizalayın</value>
+  </data>
+  <data name="Settings.Border.Color" xml:space="preserve">
+    <value>Haşiyə rəngi</value>
+  </data>
+  <data name="Settings.Border.FuseGuide" xml:space="preserve">
+    <value>Üstünə qoruyucu bələdçi əlavə edin (hər tərəfdən yuxarıda bir nöqtə)</value>
+  </data>
+  <data name="Settings.Border.On" xml:space="preserve">
+    <value>Haşiyə əlavə edin</value>
+  </data>
+  <data name="Settings.Border.Prompt" xml:space="preserve">
+    <value>Yükləmə zamanı aşkar edildikdə haşiyəni kəsməyi təklif edin</value>
+  </data>
+  <data name="Settings.Border.Thickness" xml:space="preserve">
+    <value>Haşiyə qalınlığı (enlik faizinin onda biri)</value>
+  </data>
+  <data name="Settings.Camera.Camera1" xml:space="preserve">
+    <value>Camera1 API-ni məcbur edin (qəribəlik yaşayırsınızsa faydalı ola bilər, lakin məhdud funksionallıqla nəticələnəcək, qüvvəyə minməsi üçün məcburi çıxma/yenidən başladın tələb olunur)</value>
+  </data>
+  <data name="Settings.Camera.Camera2" xml:space="preserve">
+    <value>Camera2 API-ni məcbur edin (Android 6 və ya daha yuxarı versiyada olmalıdır, səhvlərlə üzləşdiyiniz halda faydalı ola bilər, lakin daha çox ola bilər, qüvvəyə minməsi üçün məcburi çıxma/yenidən başlatma tələb olunur)</value>
+  </data>
+  <data name="Settings.Camera.LandscapeCaptureHorizontal" xml:space="preserve">
+    <value>Landşaft çəkmə düyməsini üfüqi yerləşdirmə</value>
+  </data>
+  <data name="Settings.Camera.LandscapeCaptureVertical" xml:space="preserve">
+    <value>Landşaft çəkmə düyməsini şaquli yerləşdirmə</value>
+  </data>
+  <data name="Settings.Camera.Lock" xml:space="preserve">
+    <value>İkinci şəkil üçün fokus və ekspozisiyanı birinci şəkildən fokuslamaq və ifşa etmək üçün kilidləyin</value>
+  </data>
+  <data name="Settings.Camera.Pair" xml:space="preserve">
+    <value>Düymənin üfüqi yerləşdirilməsi (çəkmə düyməsi mərkəzdə olduqda)</value>
+  </data>
+  <data name="Settings.Camera.PointFocus" xml:space="preserve">
+    <value>Nöqtə fokusuna toxunun, davamlı fokusa qayıtmaq üçün iki dəfə toxunun (və ya yadda saxlayın və ya təmizləyin)</value>
+  </data>
+  <data name="Settings.Camera.PortraitCapture" xml:space="preserve">
+    <value>Portret çəkmə düyməsinin yerləşdirilməsi</value>
+  </data>
+  <data name="Settings.Editing.Align" xml:space="preserve">
+    <value>Maksimum şaquli düzülmə nisbəti</value>
+  </data>
+  <data name="Settings.Editing.Keystone" xml:space="preserve">
+    <value>Maksimum açar daşı</value>
+  </data>
+  <data name="Settings.Editing.Rotation" xml:space="preserve">
+    <value>Maksimum fırlanma dərəcələri</value>
+  </data>
+  <data name="Settings.Editing.SideCrop" xml:space="preserve">
+    <value>Maksimum yan məhsul nisbəti</value>
+  </data>
+  <data name="Settings.Editing.TopCrop" xml:space="preserve">
+    <value>Maksimum üst/aşağı məhsul nisbəti</value>
+  </data>
+  <data name="Settings.Editing.Zoom" xml:space="preserve">
+    <value>Maksimum böyütmə nisbəti</value>
+  </data>
+  <data name="Settings.Guides.Donut" xml:space="preserve">
+    <value>Pişi bələdçisini göstərin (buna səbəb olacaq, ona görə də əsas daşının redaktəsi tələb oluna bilər)</value>
+  </data>
+  <data name="Settings.Guides.Fuse" xml:space="preserve">
+    <value>Qoruyucu bələdçini göstərin (hər tərəfin üstündə bir nöqtə)</value>
+  </data>
+  <data name="Settings.Guides.LineColor" xml:space="preserve">
+    <value>Müxtəlif rəngli xətlər</value>
+  </data>
+  <data name="Settings.Guides.Lines" xml:space="preserve">
+    <value>Görünən xətlər</value>
+  </data>
+  <data name="Settings.Guides.Roll" xml:space="preserve">
+    <value>Roll bələdçisi görünür</value>
+  </data>
+  <data name="Settings.Pair.CaptureDelay" xml:space="preserve">
+    <value>Çəkmə anı əlavə gecikmə (ms) (yalnız bu cihazda hədəf tutma anına əlavə gecikmə əlavə edir)</value>
+  </data>
+  <data name="Settings.Pair.Countdown" xml:space="preserve">
+    <value>Geri sayım uzunluğu (taymer)</value>
+  </data>
+  <data name="Settings.Pair.Fov" xml:space="preserve">
+    <value>Baxış sahəsinin korreksiyası</value>
+  </data>
+  <data name="Settings.Pair.FovNotSet" xml:space="preserve">
+    <value>FOV korreksiyası təyin edilməyib (quraşdırmadan keçmək üçün qoşalaşdırılmış cihazlarla çəkiliş edin).</value>
+  </data>
+  <data name="Settings.Pair.FovReset" xml:space="preserve">
+    <value>Sıfırlayın</value>
+  </data>
+  <data name="Settings.Pair.Go" xml:space="preserve">
+    <value>Cütləşdirmə Quraşdırma Səhifəsinə keçin</value>
+  </data>
+  <data name="Settings.Pair.NoRole" xml:space="preserve">
+    <value>Rol seçilməyib</value>
+  </data>
+  <data name="Settings.Pair.PreviewDelay" xml:space="preserve">
+    <value>Çərçivə gecikməsini önizləyin (daha yüksək rəqəm kadr sürətini azaldacaq, lakin batareyaya qənaət edəcək)</value>
+  </data>
+  <data name="Settings.Pair.Primary" xml:space="preserve">
+    <value>Əsas:</value>
+  </data>
+  <data name="Settings.Pair.PrimaryRole" xml:space="preserve">
+    <value>Rol: Əsas</value>
+  </data>
+  <data name="Settings.Pair.Sample" xml:space="preserve">
+    <value>Saat nümunəsinin sayı (aşağı rəqəm ilkin sinxronizasiya üçün tələb olunan vaxtı azaldacaq, lakin sinxronizasiya dəqiqliyini azalda bilər)</value>
+  </data>
+  <data name="Settings.Pair.Secondary" xml:space="preserve">
+    <value>İkinci dərəcəli:</value>
+  </data>
+  <data name="Settings.Pair.SecondaryRole" xml:space="preserve">
+    <value>Rol: İkinci dərəcəli</value>
+  </data>
+  <data name="Settings.Pair.Timeout" xml:space="preserve">
+    <value>Bağlantı fasiləsi (saniyə) (0, fasilənin olmaması deməkdir)</value>
+  </data>
+  <data name="Settings.Preview.Barrel" xml:space="preserve">
+    <value>Lens korreksiyası/barel təhrifi əlavə edin (kadr sürətini aşağı sala bilər)</value>
+  </data>
+  <data name="Settings.Preview.BarrelFinal" xml:space="preserve">
+    <value>Yalnız son şəkillərə linza korreksiyası/barel təhrifi əlavə edin (son görüntüyü yavaşlata bilər, lakin çəkilişi sürətləndirəcək)</value>
+  </data>
+  <data name="Settings.Preview.CardboardDistance" xml:space="preserve">
+    <value>Karton ayırma məsafəsi</value>
+  </data>
+  <data name="Settings.Preview.Downsize" xml:space="preserve">
+    <value>Şəklin ölçüsünü azaldın (kadr sürətini artıra bilər)</value>
+  </data>
+  <data name="Settings.Preview.DownsizePercent" xml:space="preserve">
+    <value>Şəkil faizini azaldın</value>
+  </data>
+  <data name="Settings.Preview.Immersive" xml:space="preserve">
+    <value>İmmersiv son görüntü</value>
+  </data>
+  <data name="Settings.Preview.LensStrength" xml:space="preserve">
+    <value>Lens korreksiyası gücü</value>
+  </data>
+  <data name="Settings.Preview.Mirror" xml:space="preserve">
+    <value>Tək atışlı güzgü bölmə metodundan istifadə edərək çəkin</value>
+  </data>
+  <data name="Settings.Preview.Width" xml:space="preserve">
+    <value>Maksimum paralel görüntü eni (nöqtə)</value>
+  </data>
+  <data name="Settings.Reset" xml:space="preserve">
+    <value>Defoltlara sıfırlayın</value>
+  </data>
+  <data name="Settings.Saving.Alone" xml:space="preserve">
+    <value>Birinci tərəfi tək saxla (heç bir düzəliş və ya haşiyə olmadan) (düz görünüşlü insanlarla düz şəkli asan paylaşmaq üçün)</value>
+  </data>
+  <data name="Settings.Saving.Anaglyph" xml:space="preserve">
+    <value>Qırmızı/göy anaqlif versiyasını yadda saxlayın (redaktələrlə, lakin sərhədsiz)</value>
+  </data>
+  <data name="Settings.Saving.Browse" xml:space="preserve">
+    <value>Baxın...</value>
+  </data>
+  <data name="Settings.Saving.Cardboard" xml:space="preserve">
+    <value>Cardboard üçün saxla (daha sonra yenidən CrossCam-ə yükləmək üçün redaktələrlə, haşiyəsiz, boşluqsuz, tam enli)</value>
+  </data>
+  <data name="Settings.Saving.Clear" xml:space="preserve">
+    <value>Yadda saxladıqdan sonra çəkilişləri avtomatik təmizləyin</value>
+  </data>
+  <data name="Settings.Saving.Cross" xml:space="preserve">
+    <value>Birləşdirilmiş çarpaz görünüş versiyasını yadda saxlayın (düzəlişlər və haşiyə ilə)</value>
+  </data>
+  <data name="Settings.Saving.ExternalDirectory" xml:space="preserve">
+    <value>Xarici CrossCam qovluğunda qeyd edin:</value>
+  </data>
+  <data name="Settings.Saving.ExternalWarning" xml:space="preserve">
+    <value>(xəbərdarlıq: CrossCam silinsə, oradakı şəkillər silinəcək)</value>
+  </data>
+  <data name="Settings.Saving.Folder" xml:space="preserve">
+    <value>Xüsusi "CrossCam" alt qovluğunda/albomda saxlayın</value>
+  </data>
+  <data name="Settings.Saving.Grayscale" xml:space="preserve">
+    <value>Boz rəngli qırmızı/göy anaqlif versiyasını yadda saxlayın (redaktələrlə, lakin sərhədsiz)</value>
+  </data>
+  <data name="Settings.Saving.Order" xml:space="preserve">
+    <value>(Qənaət yuxarıdan aşağı ardıcıllıqla həyata keçiriləcək)</value>
+  </data>
+  <data name="Settings.Saving.Parallel" xml:space="preserve">
+    <value>Birləşdirilmiş paralel görünüş versiyasını yadda saxlayın (düzəlişlər və haşiyə ilə)</value>
+  </data>
+  <data name="Settings.Saving.Quad" xml:space="preserve">
+    <value>Dördlü kombinasiyanı yadda saxla (düzəlişlər və haşiyə ilə)</value>
+  </data>
+  <data name="Settings.Saving.Reset" xml:space="preserve">
+    <value>Sıfırlayın</value>
+  </data>
+  <data name="Settings.Saving.Resolution" xml:space="preserve">
+    <value>Qətnamə nisbəti</value>
+  </data>
+  <data name="Settings.Saving.SaveTo" xml:space="preserve">
+    <value>Saxlamaq:</value>
+  </data>
+  <data name="Settings.Saving.Separate" xml:space="preserve">
+    <value>Hər tərəfi ayrı-ayrılıqda saxlayın (asan postun işlənməsi üçün heç bir düzəliş və ya haşiyə olmadan, sol tərəf əvvəlcə yadda saxlayır)</value>
+  </data>
+  <data name="Settings.Saving.Subfolder" xml:space="preserve">
+    <value>Xüsusi "CrossCam_{ViewMethod}" alt qovluqlarında/albomlarında yadda saxlayın</value>
+  </data>
+  <data name="Settings.Saving.Triple" xml:space="preserve">
+    <value>Üçlü kombinasiyanı yadda saxla (düzəlişlər və haşiyə ilə)</value>
+  </data>
+  <data name="Button.Pair.Accept" xml:space="preserve">
+    <value>Qəbul edin</value>
+  </data>
+  <data name="Button.Pair.Cancel" xml:space="preserve">
+    <value>Ləğv et</value>
+  </data>
+  <data name="Page.Camera.AcceptConnection" xml:space="preserve">
+    <value>Əlaqəni qəbul edin</value>
+  </data>
+  <data name="Page.Camera.Confirm" xml:space="preserve">
+    <value>Hər iki cihazda kodun uyğunluğunu təsdiqləyin:</value>
+  </data>
+  <data name="Page.Footer.CouldntOpen" xml:space="preserve">
+    <value>Linki açmaq mümkün olmadı</value>
+  </data>
+  <data name="Page.Footer.OpenError" xml:space="preserve">
+    <value>Mailto keçidini açmaq mümkün olmadı. Bu, e-poçt müştərinizin qurulmaması və ya başqa səbəb ola bilər.</value>
+  </data>
+  <data name="Page.Pair.Errors.Denied" xml:space="preserve">
+    <value>Cütləşmə üçün lazımi icazələr verilmədi. İstisna:</value>
+  </data>
+  <data name="Page.Pair.Errors.FailedBluetooth" xml:space="preserve">
+    <value>Cihaz Bluetooth-u işə sala bilmədi. İstisna:</value>
+  </data>
+  <data name="Page.Pair.Errors.FailedSearch" xml:space="preserve">
+    <value>Cihaz cihazları axtara bilmədi. İstisna:</value>
+  </data>
+  <data name="Page.Pair.Errors.LocationOff" xml:space="preserve">
+    <value>Məkan xidmətləri aktivləşdirilməyib. Cihazları skan etmək mümkün deyil. Ətraflı məlumat üçün cütləşmə səhifəsinə baxın.</value>
+  </data>
+  <data name="Page.Pair.Errors.LocationScan" xml:space="preserve">
+    <value>Məkan icazəsi verilməyib. Cihazları skan etmək mümkün deyil. Ətraflı məlumat üçün cütləşmə səhifəsinə baxın.</value>
+  </data>
+  <data name="Page.Pair.Errors.NotSupported" xml:space="preserve">
+    <value>Bu cihazda qoşalaşma dəstəklənmir. İstisna:</value>
+  </data>
+  <data name="Page.Pair.Errors.Title" xml:space="preserve">
+    <value>Xəta</value>
+  </data>
+  <data name="Page.Pair.Errors.WifiOff" xml:space="preserve">
+    <value>Wi-Fi söndürülüb. Zəhmət olmasa Wi-Fi-ı yandırın.</value>
+  </data>
+  <data name="Page.Pair.PrimaryExplanation" xml:space="preserve">
+    <value>Bu cihaz indi əsas olaraq təyin edilib.</value>
+  </data>
+  <data name="Page.Pair.PrimarySelected" xml:space="preserve">
+    <value>Əsas Rol Seçildi</value>
+  </data>
+  <data name="Page.Pair.SecondaryExplanation" xml:space="preserve">
+    <value>Bu cihaz indi ikinci dərəcəli olaraq təyin edilib.</value>
+  </data>
+  <data name="Page.Pair.SecondarySelected" xml:space="preserve">
+    <value>İkinci dərəcəli rol seçildi</value>
+  </data>
+  <data name="Page.Technique.Mode" xml:space="preserve">
+    <value>rejimi.</value>
+  </data>
+  <data name="Page.Technique.SetMode" xml:space="preserve">
+    <value>CrossCam indi</value>
+  </data>
+</root>

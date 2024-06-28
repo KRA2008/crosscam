@@ -1,0 +1,1156 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="Button.GoogleDoc" xml:space="preserve">
+    <value>Google Doc de Stuif Mhór</value>
+  </data>
+  <data name="Button.LearnCross" xml:space="preserve">
+    <value>FOGHLAIM CROSS</value>
+  </data>
+  <data name="Button.LearnParallel" xml:space="preserve">
+    <value>FOGHLAIM Comhthreomhar</value>
+  </data>
+  <data name="Button.MorePictures" xml:space="preserve">
+    <value>Féach Tuilleadh Pictiúir</value>
+  </data>
+  <data name="Button.Review" xml:space="preserve">
+    <value>Scríobh Léirmheas</value>
+  </data>
+  <data name="Button.Share" xml:space="preserve">
+    <value>Roinn CrossCam</value>
+  </data>
+  <data name="Button.Support" xml:space="preserve">
+    <value>Tacaigh leis an bhForbróir</value>
+  </data>
+  <data name="Button.TapCross" xml:space="preserve">
+    <value>Beartaíonn ANSEO CHOOSE CROSS</value>
+  </data>
+  <data name="Button.TapParallel" xml:space="preserve">
+    <value>Beartaíonn ANSEO LE ROGHNÚ Comhthreomhar</value>
+  </data>
+  <data name="Footer.Span1" xml:space="preserve">
+    <value>Aimsíodh fabht? An bhfuil ceist agat? Just a ríomhphost</value>
+  </data>
+  <data name="Footer.Span3" xml:space="preserve">
+    <value>! Is breá liom a bheith ag caint le húsáideoirí agus is é an bealach is tapúla chun cumarsáid a dhéanamh liom.</value>
+  </data>
+  <data name="Page.HowToUse.2anaglyph" xml:space="preserve">
+    <value>2) Tosaigh anaglyph ag féachaint ar an gcéad phictiúr leis an réamhamharc atá le feiceáil in aice leis.</value>
+  </data>
+  <data name="Page.HowToUse.2cardboard" xml:space="preserve">
+    <value>2) Tosaigh cairtchlár ag féachaint ar an gcéad phictiúr leis an réamhamharc atá le feiceáil in aice leis.</value>
+  </data>
+  <data name="Page.HowToUse.2cross" xml:space="preserve">
+    <value>2) Tosaigh tras-amharc ar an gcéad phictiúr leis an réamhamharc atá le feiceáil in aice leis.</value>
+  </data>
+  <data name="Page.HowToUse.2parallel" xml:space="preserve">
+    <value>2) Tosaigh ag breathnú go comhthreomhar ar an gcéad phictiúr leis an réamhamharc atá le feiceáil in aice leis.</value>
+  </data>
+  <data name="Page.Technique.AdditionalTutorials" xml:space="preserve">
+    <value>Ranganna teagaisc breise:</value>
+  </data>
+  <data name="Page.Technique.Cross1" xml:space="preserve">
+    <value>Trasnaigh do shúile go cúramach agus tú ag féachaint ar an bpéire pictiúr thuas. Nuair a thrasnaíonn tú do shúile, beidh rudaí doiléir agus feiceálach agus tosóidh tú ag féachaint ar 4 phictiúr in ionad 2 (2 phéire). Dá deacra a thrasnaíonn tú do shúile, is amhlaidh is faide óna chéile a bhogfaidh na péirí pictiúr - beidh sé cuma beagán mar seo:</value>
+  </data>
+  <data name="Page.Technique.Cross2" xml:space="preserve">
+    <value>Déan do shúile a thrasnú go cúramach, ionas go dtosaíonn na pictiúir ar an taobh istigh de gach péire ag forluí. Tosóidh sé ag breathnú mar nach bhfuil ach 3 phictiúr in ionad 4. Beidh sé doiléir fós agus feicfear rud éigin mar seo:</value>
+  </data>
+  <data name="Page.Technique.Cross3" xml:space="preserve">
+    <value>Nuair a bheidh an forluí lár ag obair níl le déanamh agat ach do shúile a scíth a ligean agus ligean dóibh an pictiúr a dhíriú. Ag an bpointe sin beidh pictiúr géar 3D amháin agat sa lár agus pictiúr trédhearcach ar snámh ar gach taobh a bheidh cuma mar seo (ach amháin go mbeidh an lár 3D):</value>
+  </data>
+  <data name="Page.Technique.Cross4" xml:space="preserve">
+    <value>Má bhíonn deacracht agat do shúile a thrasnú, is féidir leat freisin triail a bhaint as do mhéar agus tú ag coinneáil leath bealaigh idir do shúile agus an scáileán. Ba cheart go bhfeicfeá na pictiúir ag tosú ag scaradh agus ag forluí ar chúl do mhéar.</value>
+  </data>
+  <data name="Page.Technique.CrossViewing" xml:space="preserve">
+    <value>TRAS-BHREATHNÚ</value>
+  </data>
+  <data name="Page.Technique.P1" xml:space="preserve">
+    <value>Más mian leat é seo a fheiceáil arís, tapáil an deilbhín hamburger (trí líne) ar bharr na láimhe clé den scáileán ceamara agus tapáil "Cabhair".
+
+Chun an 3D a fheiceáil in CrossCam (ar a dtugtar “steireagraim”) is féidir leat spéaclaí 3D dearg/cian, breathnóir Cairtchláir Google a úsáid, nó is féidir leat “amharc saor in aisce” a dhéanamh ag baint úsáide as do shúile agus do scáileán amháin. Tá dhá bhealach chun amharc saor in aisce, agus is féidir le CrossCam cabhrú leat an dá cheann acu a fhoghlaim. Ní mór duit insint do CrossCam conas a bheidh tú ag féachaint ar na pictiúir nó ní oibreoidh sé i gceart. Ná bíodh imní ort, is féidir leat é seo a athrú arís i Socruithe.
+
+Má tá tú in ann do shúile a thrasnú go compordach, ba chóir duit an tras-mhodh a thriail ar dtús, ar shlí eile ba chóir duit an modh comhthreomhar a thriail. Má tá taithí agat ar leabhair Magic Eye™, is dócha go bhfuil tú in ann an modh comhthreomhar a dhéanamh cheana féin, ach b'fhéidir go mbeifeá in ann an tras-mhodh a dhéanamh freisin. Tapáil modh thíos chun é a fhoghlaim, agus cinntigh go n-insíonn tú do CrossCam cé acu ceann a oibríonn duit ach an cnaipe CHOOSE comhfhreagrach a bhrú.
+
+Más fearr leat spéaclaí 3D nó breathnóir Cairtchláir a úsáid, is féidir leat CrossCam a shocrú chun iad siúd ar an leathanach Socruithe a úsáid.</value>
+  </data>
+  <data name="Page.Technique.CrossLink1" xml:space="preserve">
+    <value>Teagaisc téacs deas</value>
+  </data>
+  <data name="Page.Technique.CrossLink2" xml:space="preserve">
+    <value>Teagaisc téacs deas eile</value>
+  </data>
+  <data name="Page.Technique.CrossLink3" xml:space="preserve">
+    <value>Teagaisc ar YouTube gearrthóg</value>
+  </data>
+  <data name="Page.Technique.CrossLink4" xml:space="preserve">
+    <value>Rang teagaisc YouTube fada, corr ach cabhrach</value>
+  </data>
+  <data name="Page.Technique.CrossLink5" xml:space="preserve">
+    <value>Teagaisc eile ar YouTube</value>
+  </data>
+  <data name="Page.Technique.CrossLink6" xml:space="preserve">
+    <value>Tionscadal ceamara dé le rang teagaisc</value>
+  </data>
+  <data name="Page.Technique.Parallel1" xml:space="preserve">
+    <value>Mura n-oireann an íomhá thuas ar do scáileán, cas do ghuthán chuig tírdhreach - tá CrossCam ag iarraidh an péire íomhánna atá os cionn an mhéid is éasca a dhéanamh chuige seo. Ní chaithfidh tú CrossCam a úsáid i dtírdhreach i gcónaí, ach is fusa an teicníocht a fhoghlaim de bharr íomhá atá ar an mórmhéid.</value>
+  </data>
+  <data name="Page.Technique.Parallel2" xml:space="preserve">
+    <value>Scíth a ligean do shúile agus féach "trí" an péire pictiúr thuas mar go bhfuil tú cineál criosaithe amach agus do shúile ag díriú ar na pictiúir. Ba chóir duit tosú a fheiceáil 3 phictiúr le pictiúr 3D sa lár, beagán mar seo:</value>
+  </data>
+  <data name="Page.Technique.Parallel3" xml:space="preserve">
+    <value>Má thosaíonn tú ar 4 phictiúr a fheiceáil, tá tú imithe rófhada. Bain triail as do shúile a bhogadh timpeall beagán bídeach má fhaigheann tú féin ag an bpointe sin arís. Breathnóidh beagán mar seo ar scíth a ligean i bhfad ró-fhada:</value>
+  </data>
+  <data name="Page.Technique.Parallel4" xml:space="preserve">
+    <value>Má tá trioblóid agat, déan iarracht do scáileán a thabhairt suas i gcoinne d'aghaidh leis an bpéire pictiúr díreach os comhair do shúile. Scíth a ligean agus breathnaigh "tríd" an scáileán agus ansin tarraing do scáileán go mall ó d'aghaidh agus do shúile ar a suaimhneas. Faoi dheireadh ba chóir go mbeadh an íomhá "cliceáil" i bhfócas.</value>
+  </data>
+  <data name="Page.Technique.Parallel5" xml:space="preserve">
+    <value>Má tá tú fós ag féachaint ar cheithre íomhá, cuir leis an "Uasleithead íomhá amhairc comhthreomhar" ar an leathanach Socruithe.</value>
+  </data>
+  <data name="Page.Technique.ParallelViewing" xml:space="preserve">
+    <value>FÉACHT COMHAIRLEALLACH</value>
+  </data>
+  <data name="Page.Technique.Practice" xml:space="preserve">
+    <value>Íomhánna atá déanta agam ar féidir leat cleachtadh a dhéanamh orthu</value>
+  </data>
+  <data name="Title.Contact" xml:space="preserve">
+    <value>Teagmháil</value>
+  </data>
+  <data name="Title.Faq" xml:space="preserve">
+    <value>CC</value>
+  </data>
+  <data name="Title.Help" xml:space="preserve">
+    <value>Cabhrú</value>
+  </data>
+  <data name="Title.HowToUse" xml:space="preserve">
+    <value>Conas CrossCam a Úsáid</value>
+  </data>
+  <data name="Title.Technique" xml:space="preserve">
+    <value>Teicníc Amharcála 3D</value>
+  </data>
+  <data name="Title.Tips" xml:space="preserve">
+    <value>Leideanna</value>
+  </data>
+  <data name="Button.DoNotEmailMe" xml:space="preserve">
+    <value>Ná cuir ríomhphost chugam anois</value>
+  </data>
+  <data name="Button.EmailMeNow" xml:space="preserve">
+    <value>Seol ríomhphost chugam anois</value>
+  </data>
+  <data name="Button.No" xml:space="preserve">
+    <value>Níl</value>
+  </data>
+  <data name="Button.OK" xml:space="preserve">
+    <value>ceart go leor</value>
+  </data>
+  <data name="Button.YesClear" xml:space="preserve">
+    <value>Sea, soiléir</value>
+  </data>
+  <data name="Page.Camera.Aligning" xml:space="preserve">
+    <value>Á ailíniú...</value>
+  </data>
+  <data name="Page.Camera.AlignmentBroken" xml:space="preserve">
+    <value>Ní thacaítear le hailíniú uathoibríoch ar an ngléas - múch sna Socruithe.</value>
+  </data>
+  <data name="Page.Camera.AlignmentFailed" xml:space="preserve">
+    <value>Theip ar ailíniú.</value>
+  </data>
+  <data name="Page.Camera.BorderAsk" xml:space="preserve">
+    <value>Tá teorainn aimsithe. An bhfuil fonn ort an teorainn a bhaint?</value>
+  </data>
+  <data name="Page.Camera.BorderDetected" xml:space="preserve">
+    <value>Teorainn Braite</value>
+  </data>
+  <data name="Page.Camera.Cancel" xml:space="preserve">
+    <value>Cealaigh</value>
+  </data>
+  <data name="Page.Camera.ChooseAction" xml:space="preserve">
+    <value>Roghnaigh gníomh:</value>
+  </data>
+  <data name="Page.Camera.DirectoryNotFound" xml:space="preserve">
+    <value>Eolaire gan Aimsiú</value>
+  </data>
+  <data name="Page.Camera.DirectoryNotFoundExplain" xml:space="preserve">
+    <value>Níorbh fhéidir an ceann scríbe a shábháil. Roghnaigh ceann eile ar an leathanach socruithe.</value>
+  </data>
+  <data name="Page.Camera.ErrorEmailBody" xml:space="preserve">
+    <value>Cad a rinne tú díreach sular tharla an earráid? Déan cur síos fiú ar na rudaí beaga.\n\n\n\n\n\nAr oibrigh CrossCam i ndiaidh na hearráide fós? Mura bhfuil, conas a bhristear é?\n\n\n\n\n\nAn dtarlaíonn sé seo arís agus arís eile?\n\n\n\n\n\nAn féidir leat iallach a chur ar an earráid tarlú ar ordú? Más ea, conas?\n\n\n\n\n\n</value>
+  </data>
+  <data name="Page.Camera.FlipForCardboard" xml:space="preserve">
+    <value>Smeach go dtí an tírdhreach agus tú i mód cairtchláir.</value>
+  </data>
+  <data name="Page.Camera.FlipLarger" xml:space="preserve">
+    <value>(smeach go dtí an tírdhreach le haghaidh radharc níos mó)</value>
+  </data>
+  <data name="Page.Camera.ForAnaglyph" xml:space="preserve">
+    <value>le haghaidh anaglyph</value>
+  </data>
+  <data name="Page.Camera.ForCardboard" xml:space="preserve">
+    <value>le haghaidh Cairtchlár</value>
+  </data>
+  <data name="Page.Camera.ForCross" xml:space="preserve">
+    <value>le haghaidh tras</value>
+  </data>
+  <data name="Page.Camera.ForParallel" xml:space="preserve">
+    <value>le haghaidh comhthreomhar</value>
+  </data>
+  <data name="Page.Camera.GoPickRole" xml:space="preserve">
+    <value>Téigh go dtí an leathanach Péireála (tríd an leathanach Socruithe) agus roghnaigh ról péireála don ghléas seo sula ndéanann tú iarracht péireáil.</value>
+  </data>
+  <data name="Page.Camera.InvalidImage" xml:space="preserve">
+    <value>Íomhá Neamhbhailí</value>
+  </data>
+  <data name="Button.Camera.Keep" xml:space="preserve">
+    <value>Coinnigh</value>
+  </data>
+  <data name="Page.Camera.LoadFullImage" xml:space="preserve">
+    <value>Íoslódáil an pictiúr iomlán steirió</value>
+  </data>
+  <data name="Page.Camera.Loading" xml:space="preserve">
+    <value>Á lódáil...</value>
+  </data>
+  <data name="Page.Camera.LoadSingleSide" xml:space="preserve">
+    <value>Íosluchtaigh taobh amháin</value>
+  </data>
+  <data name="Page.Camera.ManualCorrections" xml:space="preserve">
+    <value>Déan machnamh ar cheartúcháin láimhe freisin.</value>
+  </data>
+  <data name="Page.Camera.MirrorOnLeft" xml:space="preserve">
+    <value>Scáthán AR Clé</value>
+  </data>
+  <data name="Page.Camera.MirrorOnRight" xml:space="preserve">
+    <value>Scáthán AR CEART</value>
+  </data>
+  <data name="Page.Camera.MoveLeft" xml:space="preserve">
+    <value>BOG AR CHLÉ</value>
+  </data>
+  <data name="Page.Camera.MoveRight" xml:space="preserve">
+    <value>MOVE AR CHEART</value>
+  </data>
+  <data name="Page.Camera.NoSaveModes" xml:space="preserve">
+    <value>Uimh Modhanna Sábháil Gníomhacha</value>
+  </data>
+  <data name="Page.Camera.NoSaveModesExplain" xml:space="preserve">
+    <value>Níl aon mhodhanna sábhála curtha ar siúl faoi láthair. Cuir mód sábháil ar siúl ar an leathanach Socruithe.</value>
+  </data>
+  <data name="Page.Camera.Oops" xml:space="preserve">
+    <value>Úps</value>
+  </data>
+  <data name="Page.Camera.OrRotate" xml:space="preserve">
+    <value>(nó rothlaigh)</value>
+  </data>
+  <data name="Page.Camera.OrSwipe" xml:space="preserve">
+    <value>(nó swipe)</value>
+  </data>
+  <data name="Page.Camera.PairRoleNotSelected" xml:space="preserve">
+    <value>Ról Péire Gan Roghnaithe</value>
+  </data>
+  <data name="Page.Camera.PinchOrDrag" xml:space="preserve">
+    <value>Pinch nó tarraing chun iniúchadh a dhéanamh!</value>
+  </data>
+  <data name="Page.Camera.PleaseSelectValid" xml:space="preserve">
+    <value>Roghnaigh íomhá JPEG, Png nó Webp. Tá an íomhá a roghnaigh tú</value>
+  </data>
+  <data name="Page.Camera.ReallyClear" xml:space="preserve">
+    <value>Tá sé an-soiléir?</value>
+  </data>
+  <data name="Button.Camera.Remove" xml:space="preserve">
+    <value>Bain</value>
+  </data>
+  <data name="Page.Camera.SavedToCustomFolder" xml:space="preserve">
+    <value>Sábháilte i bhfillteán saincheaptha</value>
+  </data>
+  <data name="Page.Camera.SavedToExternal" xml:space="preserve">
+    <value>Sábháilte go seachtrach</value>
+  </data>
+  <data name="Page.Camera.SavedToPhotos" xml:space="preserve">
+    <value>Sábháilte i nGrianghraif</value>
+  </data>
+  <data name="Page.Camera.SaveFailed" xml:space="preserve">
+    <value>Theip ar shábháil. :(</value>
+  </data>
+  <data name="Page.Camera.Saving" xml:space="preserve">
+    <value>Shábháil...</value>
+  </data>
+  <data name="Page.Camera.SecondaryOnLeft" xml:space="preserve">
+    <value>AN DARA AR CHÉILE</value>
+  </data>
+  <data name="Page.Camera.SecondaryOnRight" xml:space="preserve">
+    <value>DÁNTA AR DHEIREADH</value>
+  </data>
+  <data name="Page.Camera.SelectedInvalid" xml:space="preserve">
+    <value>Tá an íomhá roghnaithe neamhbhailí.</value>
+  </data>
+  <data name="Page.Camera.SorryError" xml:space="preserve">
+    <value>Ár leithscéal, rinne CrossCam earráid. Tá tuairisc earráide seolta go huathoibríoch. B’fhéidir nach dtabharfaidh tú aon rud mícheart faoi deara, ach má dhéanann tú, déan iarracht an feidhmchlár a atosú. Má leanann sé seo ar aghaidh, seol ríomhphost chugam le do thoil agus inis dom faoi. (Téigh go dtí an leathanach Socruithe chun stop a chur leis na míreanna aníos.)</value>
+  </data>
+  <data name="Page.Camera.Steady" xml:space="preserve">
+    <value>Seasta...</value>
+  </data>
+  <data name="Page.Camera.SureClear" xml:space="preserve">
+    <value>An bhfuil tú cinnte gur mhaith leat do chuid pictiúr a ghlanadh agus tosú arís?</value>
+  </data>
+  <data name="Page.Camera.Syncing" xml:space="preserve">
+    <value>Ag sioncronú...</value>
+  </data>
+  <data name="Page.Camera.Transmitting" xml:space="preserve">
+    <value>Ag tarchur...
+(coimeád gléas díghlasáilte)</value>
+  </data>
+  <data name="Page.Camera.VR" xml:space="preserve">
+    <value>VR</value>
+  </data>
+  <data name="Page.FovCorrection" xml:space="preserve">
+    <value>Ceartú Réimse Radhairc</value>
+  </data>
+  <data name="Page.FovCorrectionExplain" xml:space="preserve">
+    <value>Is féidir le samhlacha gléas éagsúla réimsí éagsúla radhairc a bheith acu. Cabhróidh CrossCam leat é seo a cheartú tar éis duit do chéad ghabháil a dhéanamh. Fráma suas agus gabháil le rud éigin le pointí sainiúla in aice le barr agus bun an fhráma, ag cinntiú go bhfuil na pointí le feiceáil ar an dá fheiste.</value>
+  </data>
+  <data name="Page.Technique.ParallelLink1" xml:space="preserve">
+    <value>Teagaisc téacs deas</value>
+  </data>
+  <data name="Page.Technique.ParallelLink2" xml:space="preserve">
+    <value>Teagaisc téacs deas eile</value>
+  </data>
+  <data name="Page.Technique.ParallelLink3" xml:space="preserve">
+    <value>Ach teagaisc téacs deas EILE</value>
+  </data>
+  <data name="Page.Technique.ParallelLink4" xml:space="preserve">
+    <value>Teagaisc draíochta Frankfurter</value>
+  </data>
+  <data name="Page.Technique.ParallelLink5" xml:space="preserve">
+    <value>Físeán álainn faoi Magic Eye</value>
+  </data>
+  <data name="Page.Technique.Trouble" xml:space="preserve">
+    <value>Má tá trioblóid agat fós, déan iarracht do ghuthán a thabhairt go seomra dorcha ionas gur féidir le do shúile a fheiceáil go maith agus díriú air ná an íomhá.
+
+Rud eile is féidir leat triail a bhaint as feadáin páipéir leithris nó do lámha chun é a dhéanamh ionas nach féidir le gach súl ach an taobh den íomhá a bhfuil sé ceaptha a fheiceáil a fheiceáil.
+ • Le haghaidh tras-amharc: coinnigh feadán amháin in aghaidh dhroichead do shrón (lárnaithe idir do shúile) agus é dírithe ar lár na híomhá os do chomhair. Bog an feadán go mall i dtreo an scáileáin agus tú ag iarraidh breathnú síos ar an bhfeadán leis an dá shúil. Nuair a shroicheann tú an t-ionad ceart leis an bhfeadán ba chóir go léimfeadh an íomhá san áit. B'fhéidir go gcabhródh sé díriú ar iarracht a dhéanamh féachaint ar an taobh istigh d'fhoirceann an fheadáin. Mura bhfuil tú in ann an suíomh ceart a aimsiú, bain triail as íomhá níos mó nó feadán níos lú.
+ • Maidir le hamharc comhthreomhar: coinnigh feadán os comhair gach súl, ach cuir in iúl iad araon ar an taobh eile, ionas gur ar éigean a fheiceann tú rud ar bith. Go mall cas na feadáin isteach ag an am céanna ionas gur féidir leat tosú ag féachaint ar níos mó den íomhá. An nóiméad is féidir leat an chuid is mó den íomhá a fheiceáil (beagnach leath le gach súl), déan iarracht do shúile a scíth a ligean agus na leatha a thabhairt le chéile. B’fhéidir go gcuideodh sé íomhá níos mó nó níos lú a úsáid.
+
+Tá cleachtadh éasca ar féidir leat a dhéanamh chun comhleá a chleachtadh le hamharc tras nó comhthreomhar. Glac marcóir agus tarraing cuid d’aghaidh gháire ar gach ceann de do mhionsamhlacha (nó péire maidí popsicle nó depressors teanga). Mar shampla, ar thaobh amháin tarraing súl amháin agus béal, agus ar an taobh eile tarraing súl agus srón. Is féidir leat iad a choinneáil suas os do chomhair ansin agus cleachtadh a dhéanamh ar an dá íomhá a chomhleá le chéile chun an aghaidh aoibh gháire a chomhlánú.
+
+Is fearr liom go pearsanta trasnú comhthreomhar mar is féidir íomhánna a bheith níos mó, ach oibríonn an dá mhodh. Más mian leat triail a bhaint as íomhánna comhthreomhara níos mó, is féidir leat an méid a rialú ar an leathanach Socruithe.
+
+Uaireanta bíonn sé deacair a bhraitheann cibé an bhfuil tú ag déanamh an tras nó an modh comhthreomhar agus tú á dhéanamh. Is féidir leat iarraidh ar dhuine eile féachaint ar do shúile agus tú á dhéanamh nó is féidir leat breathnú ar an bpictiúr thíos mar thástáil:</value>
+  </data>
+  <data name="SaveModes.Anaglyph" xml:space="preserve">
+    <value>Anaglyph</value>
+  </data>
+  <data name="SaveModes.Cardboard" xml:space="preserve">
+    <value>Cairtchlár</value>
+  </data>
+  <data name="SaveModes.Cross" xml:space="preserve">
+    <value>cros</value>
+  </data>
+  <data name="SaveModes.GrayscaleAnaglyph" xml:space="preserve">
+    <value>Anaglyph scála liath</value>
+  </data>
+  <data name="SaveModes.Parallel" xml:space="preserve">
+    <value>Comhthreomhar</value>
+  </data>
+  <data name="SaveModes.Quad" xml:space="preserve">
+    <value>cuad</value>
+  </data>
+  <data name="SaveModes.Separate" xml:space="preserve">
+    <value>Scartha</value>
+  </data>
+  <data name="SaveModes.Single" xml:space="preserve">
+    <value>Aonair</value>
+  </data>
+  <data name="SaveModes.Triple" xml:space="preserve">
+    <value>Triarach</value>
+  </data>
+  <data name="Page.Camera.FovExplain" xml:space="preserve">
+    <value>Chun na difríochtaí réimse radhairc a cheartú, zúmáil agus sleamhnaigh na pictiúir ionas go mbeidh na pointí sainiúla ag teacht suas idir an dá ghrianghraf. Is féidir leat na línte bána a tharraingt timpeall chun cabhrú leat an t-ailíniú a shamhlú. Cuirfear an ceartúchán seo i bhfeidhm ar réamhamhairc amach anseo. Déanfar é a shábháil ach is féidir leat é a athshocrú ar an leathanach Socruithe. Má tá gléasanna comhionanna á n-úsáid agat, sábháil gan choigeartú.</value>
+  </data>
+  <data name="Page.Camera.FovTitle" xml:space="preserve">
+    <value>Ceartú Réimse Radhairc</value>
+  </data>
+  <data name="Page.Camera.KeyPoints" xml:space="preserve">
+    <value>Príomhphointí</value>
+  </data>
+  <data name="Page.Camera.Warped" xml:space="preserve">
+    <value>Warped</value>
+  </data>
+  <data name="Page.Camera.WelcomeExplain" xml:space="preserve">
+    <value>Rinneadh CrossCam chun cabhrú leat grianghraif 3D a dhéanamh. Tá na grianghraif 3D díreach cosúil le scannáin VR nó 3D, ach níl aon trealamh speisialta nó spéaclaí de dhíth ort - do ghuthán amháin (ach má tá péire de spéaclaí 3D dearg/cian nó breathnóir Google Cardboard agat, is féidir leat iad sin a úsáid le CrossCam freisin). Tá roinnt cleachtadh le foghlaim faoin teicníc “féachaint in aisce” a úsáideann do ghuthán agus do shúile amháin. Sula n-inseoidh mé duit conas CrossCam a úsáid, ar mhaith leat níos mó a fhoghlaim faoin teicníc féachana ar dtús?</value>
+  </data>
+  <data name="Page.Camera.Welcome" xml:space="preserve">
+    <value>Fáilte go CrossCam!</value>
+  </data>
+  <data name="Page.Camera.Directions" xml:space="preserve">
+    <value>Léim go dtí Treoracha</value>
+  </data>
+  <data name="Page.Camera.Technique" xml:space="preserve">
+    <value>Teicníc Faireacháin</value>
+  </data>
+  <data name="Page.HowToUse.P1" xml:space="preserve">
+    <value>Más mian leat é seo a fheiceáil arís, tapáil an deilbhín hamburger (trí líne) ar bharr na láimhe clé den scáileán ceamara agus tapáil "Cabhair".
+
+
+1) Fráma suas agus tóg an chéad phictiúr.</value>
+  </data>
+  <data name="Page.HowToUse.P2" xml:space="preserve">
+    <value>3) Coinnigh do ghuthán seasta os do chomhair agus bog go mall leataobh sa treo a deir CrossCam leat. Ná bog rófhada - orlach nó níos lú do gach cos amach is é do sprioc. Chomh maith leis sin, ná cas ar chor ar bith, ach sleamhnaigh leataobh, nó b'fhéidir fiú caol díreach.
+
+4) Ailínigh an chéad phictiúr le réamhamharc an dara pictiúr agus tóg an dara pictiúr nuair is maith leat an méid a fheiceann tú.
+
+5) Déanfaidh CrossCam do chuid pictiúr a ailíniú go huathoibríoch tar éis duit iad a ghabháil, ach níl sé foirfe, mura dtaitníonn leat an chaoi a ndearnadh iad a ailíniú, is féidir leat an t-ailíniú uathoibríoch a mhúchadh tríd an deilbhín robot beag a thapáil. Tá neart roghanna eagarthóireachta láimhe ag CrossCam freisin ar féidir leat a bhaint amach ach cnagadh ar an íocón peann luaidhe.
+
+6) Tapáil an seicmharc nuair atá tú réidh le sábháil.
+
+
+Rudaí eile is féidir leat a dhéanamh:
+ • Tapáil uair amháin chun díriú ar phointe, tapáil faoi dhó chun athrú ar ais go fócas uathoibríoch leanúnach.
+ • Tapáil an deilbhín giair ar bharr an scáileáin cheamara ar dheis chun an leathanach Socruithe a oscailt. Tá sé lán le rudaí suimiúla.
+ • Tá leathanach Leideanna deas ar féidir leat a fháil ach cnagadh ar an íocón hamburger ar bharr na láimhe clé den scáileán ceamara a chabhróidh leat do chuid pictiúr a dhéanamh iontach.
+ • Más fearr leat an treo eile a bhogadh don dara seat nó más mian leat na taobhanna a mhalartú, déan svaidhpeáil.
+ • Tapáil deilbhín an fhillteáin bhig ar an mbun chun íomhá a luchtú mar thaobh nó chun íomhá steirió iomlán a luchtú.</value>
+  </data>
+  <data name="Page.Faq.Alignment" xml:space="preserve">
+    <value>Conas a oibríonn uath-ailíniú?</value>
+  </data>
+  <data name="Page.Faq.Alignment.Body" xml:space="preserve">
+    <value>Déanann uath-ailíniú iarracht na péirí íomhá a ailíniú chomh maith agus is féidir, ach níl sé foirfe. Tá fís ríomhaire níos fearr ag roinnt rudaí ná súile an duine, ach freisin i bhfad níos measa ag rudaí eile. Tá an domhan a fheiceann sé an-difriúil ná an ceann a dhéanaimid, ach is féidir é a fheiceáil ar roinnt bealaí éagsúla freisin. Is iad an dá phríomhbhealach a fheiceann sé in CrossCam ná tríd an gcomhéifeacht comhghaolaithe feabhsaithe (ECC) agus trí phríomhphointí a úsáid.
+
+Go bunúsach oibríonn ailíniú ECC trí iarracht a dhéanamh a chinntiú go bhforluíonn paistí solais le paistí éadroma agus forluíonn paistí dorcha le paistí dorcha nuair a bhíonn an dá thaobh forleagan ar bharr a chéile. Tagann ailíniú ECC le scór muiníne atá i gceist chun cabhrú le cinneadh a dhéanamh an raibh an t-ailíniú éifeachtach. Tá CrossCam socraithe chun an t-ailíniú a tháirgtear a dhiúltú má tá an mhuinín ró-íseal, ach is féidir leat an tairseach muiníne pas/teipthe a chumrú ar an leathanach Socruithe.
+
+Féachann ailíniú eochairphointí le pointí spéise cosúil le coirnéil, imill, poncanna, agus codarsnacht ard agus déantar iarracht iad a mheaitseáil suas idir an dá thaobh. Nuair a bheidh na pointí comhoiriúnaithe, is féidir le CrossCam halgartaim éagsúla a úsáid chun iarracht a dhéanamh dlúth na taobhanna a dhéanamh ionas go mbeidh na príomhphointí ó thaobh amháin chomh gar agus is féidir dá bpríomhphointí comhfhreagracha ar an taobh eile.
+
+Tá CrossCam cláraithe chun ailíniú eochairphointí a úsáid ar dtús, ach titfidh sé siar go dtí ailíniú ECC nuair a theipeann ar ailíniú eochairphointí nó nuair a bheidh an ghabháil á dhéanamh leis an modh roinnte scátháin lámhaigh amháin. Is féidir leat ailíniú uathoibríoch a chumrú freisin chun ailíniú eochairphointí a úsáid i gcónaí nó ailíniú ECC a úsáid i gcónaí ar an leathanach Socruithe.
+
+Taispeánfaidh CrossCam toradh an ailínithe ar scáileán an cheamara faoi dheilbhín an róbait bhig. Má d'úsáid sé ailíniú ECC taispeánfaidh sé an céatadán muiníne. Má d'úsáid sé ailíniú eochairphointí taispeánfaidh sé "KP". Má theip ar an dá mhodh ailínithe taispeánfaidh sé "F". Mura dtaitníonn toradh an ailínithe leat is féidir leat tapáil ar dheilbhín an róbait bhig chun an t-ailíniú a bhaint.</value>
+  </data>
+  <data name="Page.Faq.Bad" xml:space="preserve">
+    <value>An bhfuil sé seo olc do mo shúile?</value>
+  </data>
+  <data name="Page.Faq.Bad.Body1" xml:space="preserve">
+    <value>Níl a fhios agam, ach ní dóigh liom. Mar sin féin, má bhraitheann sé go dona ach sos a ghlacadh. Le cleachtadh laghdaítear an míchompord de ghnáth. D'fhéadfadh aon mhodh féachana a bheith ina chúis le míchompord mar gheall ar éifeacht ar a dtugtar an choimhlint vergence-comodation. Seo é</value>
+  </data>
+  <data name="Page.Faq.Bad.Body2" xml:space="preserve">
+    <value>nasc Vicipéid ar an gcoimhlint vergence-cóiríocht.</value>
+  </data>
+  <data name="Page.Faq.Bad.Body3" xml:space="preserve">
+    <value>Má tá tú ag baint úsáide as an modh tras-eyed, d'fhéadfadh an mothú a bheith mar gheall ar freisin nach bhfuil do shúile i dtaithí ar aird mar go bhfuil siad ag féachaint ar rud éigin chomh gar le fada an lá. Nuair a bhíonn tú ag trasfhéachaint, tagann do shúile le chéile ar phointe thart ar leath bealaigh idir do shúile agus an scáileán. Más rud é go gcuirfí míchompord ort freisin má bhreathnaíonn tú ar rud éigin a dhúnann ar feadh i bhfad, tá ár míniú againn.
+
+Is é mo thuairim air sin nach bhfuil do shúile ag déanamh rud ar bith lasmuigh dá gcumas laethúil, ach tá dhá chumas éagsúla á gcomhcheangal agat nach n-úsáidtear go hiondúil mar sin. Tá tú ag díriú do lionsaí ar rud éigin ag áit amháin atá compordach le díriú air de ghnáth, agus tá tú ag cur do shúile in iúl áit éigin a mbíonn sé compordach dóibh a bheith ag pointeáil, ach an áit a bhfuil do lionsaí ag díriú agus a bhfuil do shúile ag teacht le chéile. ach nach bhfuil an pointe céanna. Ní fheicim go bhféadfadh sé sin a bheith go dona duit fad is nach bhfuil do fhís ag forbairt go fóill.</value>
+  </data>
+  <data name="Page.Faq.Cardboard" xml:space="preserve">
+    <value>Conas is féidir liom CrossCam a úsáid le Google Cardboard?</value>
+  </data>
+  <data name="Page.Faq.Cardboard.Body" xml:space="preserve">
+    <value>Má tá cnaipe ag do bhreathnadóir a bhrúnn lár an scáileáin, is féidir leat é a úsáid le gabháil le Cairtchlár. Beidh poll ag teastáil ó do bhreathnóir freisin le go bhfeicfidh ceamara do ghutháin tríd.
+
+Chun grianghraif a ghlacadh ag baint úsáide as Cairtchlár, athraigh do Mhodh Amharc ar Réamhamhairc (ar an leathanach Socruithe) go Cairtchlár, ansin ar ais go leathanach an cheamara agus greamaigh do ghuthán san amharcóir. Brúigh an cnaipe a ghabháil, agus nuair a bheidh an dá thaobh a ghabháil, brúigh an cnaipe arís a shábháil. Níl i gceist le sábháil i mód Cairtchláir ach ligean duit na híomhánna a luchtú ar ais go CrossCam le breathnú orthu níos déanaí, ní chun iad a fheiceáil i d’aip grianghraif trí d’amharcóir.
+
+Is féidir leat a ghabháil freisin ag baint úsáide as aon mhodh eile is mian leat, ansin do Modh Amharc ar Réamhamhairc a athrú go Cairtchlár agus do ghuthán a chur san amharclann.
+
+Tá go leor lucht féachana éagsúla amuigh ansin a bhfuil airíonna éagsúla. Seans go mbeidh ort an t-achar idirscartha Cairtchláir a athrú (ar an leathanach Socruithe) chun d’eispéireas a dhéanamh níos compordaí. Seans go mbeidh ort a chinntiú ar dtús freisin go bhfuil tú go maith ag steieagraim ardcháilíochta a ghabháil sula n-éireoidh tú humongous agus tumtha.</value>
+  </data>
+  <data name="Page.Faq.How" xml:space="preserve">
+    <value>Conas a oibríonn sé seo?</value>
+  </data>
+  <data name="Page.Faq.How.Body1" xml:space="preserve">
+    <value>Is disciplín dea-staidéar í an éifeacht 3D a úsáideann CrossCam ar a dtugtar steiréscópacht, agus is é an modh a thrasnaíonn tú do shúile (nó chun iad a scíth a ligean) chun an dá thaobh a fheiceáil ar a dtugtar faire saor in aisce. Nuair a fhéachaimid timpeall ar an domhan, feiceann gach ceann dár súile ó dhearcadh difriúil. I steiréascópacht ní dhéanaimid ach peirspictíocht (saorga) amháin a chur i láthair gach súl, agus ní dhéanann ár n-inchinn ach an chuid eile. Tá go leor bealaí éagsúla ann chun íomhá dhifriúil a fheiceáil do gach súl. Seo é</value>
+  </data>
+  <data name="Page.Faq.How.Body2" xml:space="preserve">
+    <value>nasc Vicipéid ar steiréscópacht</value>
+  </data>
+  <data name="Page.Faq.How.Body3" xml:space="preserve">
+    <value>Steiréeagram a thugtar ar na pictiúir 3D a dhéanann tú le CrossCam. Tá rud ar a dtugtar uathstereograms i leabhair Magic Eye™.</value>
+  </data>
+  <data name="Page.Faq.Into" xml:space="preserve">
+    <value>Conas a chuaigh tú isteach sa steiréscópacht?</value>
+  </data>
+  <data name="Page.Faq.Into.Body1" xml:space="preserve">
+    <value>Agus mo chéim san fhisic á fáil agam, bhí an deis agam triail a bhaint as mo holagramanna féin a chruthú ag úsáid léasair. Ba é an cineál holagram a bhí á dhéanamh agam ná 3D mar gur úsáid siad gríl díraonta chun cur isteach millteach a dhéanamh ar an solas a léiríonn dromchla pláta gloine, rud a fhágann go mbíonn cuma éagsúil ar an íomhá frithchaite ó áiteanna éagsúla. Nuair a fheiceann gach duine dár súile íomhá a bhfuil an chuma air go bhfuil sé ó dhearcadh difriúil (mura bhfuil siad ró-dhifriúil), feiceann ár n-inchinn gur doimhneacht é.</value>
+  </data>
+  <data name="Page.Faq.Into.Body2" xml:space="preserve">
+    <value>Bhí mé ar an eolas faoi phrionsabal an dearcadh steiréascópach le fada an lá, ach ag an bpointe sin i mo shaol bhí mé ag tabhairt roinnt ranganna cláir freisin, agus mar sin chinn mé go raibh mé ag iarraidh iarracht a dhéanamh clár ríomhaire simplí a dhéanamh le haghaidh líníocht 3D stereoscópach. StereoSketcher a rinneadh ar an iarracht sin. Scríobhadh an bunleagan i Java, ach athscríobh mé é le Javascript agus SVG agus anois tá sé ina chónaí ar an ngréasán</value>
+  </data>
+  <data name="Page.Faq.Into.Body3" xml:space="preserve">
+    <value>ag an nasc seo.</value>
+  </data>
+  <data name="Page.Faq.Into.Body4" xml:space="preserve">
+    <value>Níl an-tóir air ar aon bhealach, agus b'fhéidir nach mbeadh sé éasca do dhuine ar bith ach mise a úsáid, ach oibríonn sé. Le linn dom a bheith ag obair ar StereoSketcher fuair mé triail a bhaint as prionsabail na steiréascópachta, agus bhain mé an-taitneamh as an gcaoi ar féidir eispéireas tumtha agus an-láidir a tháirgeadh trí úsáid a bhaint as roinnt rialacha simplí.</value>
+  </data>
+  <data name="Page.Faq.Inverted" xml:space="preserve">
+    <value>Cén fáth nach bhfuil cuma cheart ar an 3D NÓ cén fáth a bhfuil cuma inbhéartaithe ar an 3D?</value>
+  </data>
+  <data name="Page.Faq.Inverted.Body1" xml:space="preserve">
+    <value>Agus tú ag breathnú saor in aisce leis an modh tras nó comhthreomhar, tá sé tábhachtach breathnú ar na pictiúir ag baint úsáide as an modh céanna a úsáideadh chun iad a chruthú. Seachas sin, breathnóidh do shúil dheas ar an bpeirspictíocht atá beartaithe don tsúil chlé agus vice versa. Déanann sé seo doimhneacht an íomhá inbhéartaithe, toisc go bhfuil treo na parallax athraithe.
+
+Ciallaíonn Parallax, ó thaobh do shúil dheas, nuair a bhíonn rudaí níos faide ar shiúl dealraíonn sé go bhfuil siad níos faide ar dheis ná rudaí níos dlúithe nuair a fheictear iad ó do shúil chlé. Tá sé mearbhall nuair a chuirtear síos air i bhformáid abairte, ach tá sé an-iomasach nuair a léirítear é.
+
+Chun a léiriú, coinnigh méar amháin in airde os do chomhair thart ar neamhthuilleamaí, ansin le do lámh eile coinnigh méar eile thart ar leath bealaigh idir an chéad mhéar agus d'aghaidh. Má dhúnann tú gach súl gach re seach agus aird a thabhairt ar an áit a bhfuil do mhéara, feicfidh tú go bhfeiceann gach súl iad in áiteanna éagsúla. Mar sin go nádúrtha, má chonaic gach súl an ghluaiseacht sin ar an mbealach eile a bhfuil sé ceaptha a dhéanamh, déanfar an doimhneacht a aisiompú.
+
+Tá sé an-éasca an modh féachana mícheart a úsáid de thaisme mar go bhfuil sé an-deacair don chuid is mó daoine a insint an bhfuil siad ag trasnú nó ag scíth a ligean a súile díreach trí mhothú nó trí bhreathnú ar an íomhá dúbailte mearbhall den domhan a eascraíonn. Ina áit sin, is fearr go bhféachfadh duine éigin eile ar a bhfuil á dhéanamh ag do shúile, nó triail a bhaint as an íomhá tástálaí seo:</value>
+  </data>
+  <data name="Page.Faq.Inverted.Body2" xml:space="preserve">
+    <value>Tá go leor daoine ar a gcompord ag féachaint ar leabhair Magic Eye™, a bhfuil sé beartaithe iad a fheiceáil ag baint úsáide as an modh amhairc comhthreomhar. Má dhéanann tú tras-amharc orthu, beidh cuma phoill ar na réada láidre 3D atá le teacht amach as an leathanach. Ligeann an dá mhodh duit *rud éigin* a fheiceáil ach mura raibh tú in ann a insint cad a bhí ann, is dócha go bhfuil tú ag trasfhéachaint orthu.</value>
+  </data>
+  <data name="Page.Faq.Mirror" xml:space="preserve">
+    <value>Conas a dhéanaim an modh "scáthán aon-lámhaigh"?</value>
+  </data>
+  <data name="Page.Faq.Mirror.Body1" xml:space="preserve">
+    <value>Ag gabháil leis an modh scátháin roinntear an fráma ina dhá leath agus déanann sé an claochlú riachtanach ionas gur féidir leat an dá thaobh a ghabháil ag an am céanna ag baint úsáide as fón singil agus scáthán ríomhaire boise rialta. Chun an modh scátháin a úsáid agus tú ag gabháil, smeach an lasc air don mhód scátháin ar an leathanach Socruithe (tapáil ar dheilbhín an ghiar chun é a bhaint amach). Tar éis duit mód scátháin a chur ar siúl, inseoidh CrossCam duit cén taobh ar chóir do scáthán a choinneáil air. Coinnigh do scáthán ar an taobh sin agus fuss leis an ailíniú idir do ghuthán agus an scáthán agus d'ábhar. Le roinnt foighne, beidh tú in ann iad go léir a líneáil ionas go léiríonn an scáthán an peirspictíocht cheart do cheann de na taobhanna. Toisc go scoilteann baint úsáide as an modh scátháin do íomhá ina dhá leath go hingearach, is fearr de ghnáth a ghabháil sa tírdhreach leis an modh scátháin.
+
+Oibreoidh an modh seo freisin le frithchaiteoirí i bhfuinneoga móra glana, agus ar lochanna nó locháin neamhbheo freisin (nuair a bhíonn an fón faoi ghlas sa phortráid agus á iompaithe ar an taobh).</value>
+  </data>
+  <data name="Page.Faq.Mirror.Body2" xml:space="preserve">
+    <value>Tá roinnt comhréitigh/athruithe ar ghá a dhéanamh chun an modh scátháin a úsáid. Is féidir iad seo go léir a dhéanamh de láimh in CrossCam, ach déanfaidh ailíniú uathoibríoch iarracht iad a dhéanamh duitse freisin:
+ • Toisc go dtaistealaíonn an radharc frithchaite níos faide ná an gnáthradharc, ní mór an taobh scáthánaithe a zúmáil isteach beagán.
+ • Is dócha nuair a bheidh tú ag úsáid an mhodh scátháin go mbeidh tú ag dul i ngleic le toeing isteach, seachas na peirspictíochtaí a choinneáil comhthreomhar - d'fhéadfadh sé seo a bheith ina chúis le droch-ailíniú ingearach a bheith mar chúis le forghiorrú. Chun é sin a chealú, is féidir ceartú eochairchloiche a dhéanamh, rud a chiallaíonn go ndéanfaí taobh amháin de gach ceann de na híomhánna a chrapadh go hingearach.
+ • Beidh sé de nós ag ladhar isteach an fhuinneog steirió a bhogadh i dtreo chugat freisin. Is féidir leat é sin a chealú agus é a chur san áit is mian leat é trí na taobhanna a bhearradh.
+ • Is dócha nach gclúdóidh an scáthán an radharc ar thaobh amháin go hiomlán, agus mar sin b'fhéidir go mbeadh gá le roinnt bearradh chun giotáin neamhraonta a bhaint.
+
+Tá gloine tanaí ag na scátháin is fearr le haghaidh seo. Ar rud amháin tá siad éadrom, agus mar sin tá siad níos éasca a shealbhú ar feadh tréimhsí fada. Is é an rud atá tábhachtach eile ná nuair a bhíonn an scáthán á úsáid agat is dócha go mbeidh tú ag díriú ar an scáthán taobh le taobh seachas breathnú díreach isteach air mar is gnách go n-úsáidtear scátháin. Nuair a bhíonn sé dírithe mar sin, d'fhéadfadh go mbeadh roinnt doiléire ag scátháin le gloine tiubh. Dá tanaí an ghloine, is ea is lú dealramh a bheidh an doiléire seo. Féadfaidh scátháin den chineál seo a bheith ar chaighdeán íseal ar bhealaí eile, agus mar sin tá sé tábhachtach cothromaíocht mhaith a fháil.
+
+Tá cúpla comhréiteach eile ann a chaithfear a ghlacadh agus an ghabháil scátháin á úsáid nach féidir a shocrú in athruithe ag CrossCam:
+ • Toisc go dtaistealaíonn radharc an dá thaobh achair beagán difriúil, beidh an fócas a theastaíonn do gach taobh beagán difriúil, mar sin beidh taobh amháin beagán doiléir i gcónaí. Beidh an éifeacht seo níos mó nó níos lú faoi deara ag brath ar an achar chuig an ábhar agus doimhneacht réimse an lionsa.
+ • Níl aon scáthán fíor 100% éifeachtach, mar sin d'fhéadfadh an taobh a úsáideann an scáthán a bheith beagán níos dorcha. Athróidh sé seo le cáilíocht an scátháin.</value>
+  </data>
+  <data name="Page.Faq.Moving" xml:space="preserve">
+    <value>Tá m'ábhar ag bogadh, conas a ghlacfaidh mé pictiúir 3D de?</value>
+  </data>
+  <data name="Page.Faq.Moving.Body" xml:space="preserve">
+    <value>Ceadaíonn CrossCam dhá mhodh duit chun an dá pheirspictíocht a ghabháil ag an nóiméad céanna. Úsáideann modh amháin dhá fhóin, agus úsáideann modh amháin scáthán.
+
+Chun socrú an dá ghutháin a úsáid, seiceáil an leathanach Socrú Péireála, ar féidir leat a fháil ón leathanach Socruithe (tapáil ar dheilbhín an ghiar).
+
+Chun an modh scátháin a úsáid, seiceáil an cheist Ceisteanna Coitianta eile faoi.</value>
+  </data>
+  <data name="Page.Faq.Test" xml:space="preserve">
+    <value>Conas is féidir liom leaganacha réamhscaoilte de CrossCam a thástáil?</value>
+  </data>
+  <data name="Page.Faq.Test.Body" xml:space="preserve">
+    <value>Amharc ar an bpostáil Reddit seo</value>
+  </data>
+  <data name="Page.Faq.Why" xml:space="preserve">
+    <value>Cén fáth a ndearna tú CrossCam?</value>
+  </data>
+  <data name="Page.Faq.Why.Body" xml:space="preserve">
+    <value>Agus mé ag cur suime sa steiréscópacht tharla mé ar thuras go Yellowstone. Le linn dom a bheith ann, thuig mé go bhféadfadh sé a bheith spraoi iarracht a dhéanamh app soghluaiste ceamara 3D a úsáid chun rudaí a ghabháil ann i 3D. Bhí an-díomá orm faoi na roghanna a bhí ann. Chinn mé go raibh siad go léir ag teastáil uait dhá ghabháil a dhéanamh agus ansin a fháil amach an raibh aon mhaith acu. Ní minic a bhí siad, mar bhí orm buille faoi thuairim iomlán a dhéanamh arís agus arís eile ar mo fhad idirscartha, chomh maith le cáilíocht an ábhair.
+
+Thar na seachtainí atá romhainn bhí mo frustrachas suanbhruith mar thoradh ar dom a shamhlú go simplí a chur ar fáil réamhamharc beo ar an dara ghabháil taobh leis an gcéad. Bhí cúlra agam i bhforbairt soghluaiste cheana féin, mar sin ní raibh ann ach an t-am a chur isteach. Bhí sé iontach ag CrossCam dom é a úsáid go díreach dom féin chun cuimhní cinn a chaomhnú, agus táim sásta é a roinnt leatsa freisin.</value>
+  </data>
+  <data name="Page.Faq.Wiggle" xml:space="preserve">
+    <value>Cad iad wigglegrams?</value>
+  </data>
+  <data name="Page.Faq.Wiggle.Body" xml:space="preserve">
+    <value>Is bealach iad Wigglegrams chun stereograms a fheiceáil nach bhfuil ag brath ar fhís dhéshúileach. De ghnáth is gif iad a shreabhann anonn is anall idir an dá pheirspictíocht, ag taispeáint gach ceann ina iomláine san aon láthair. Ní thacaíonn CrossCam lena ndéanamh faoi láthair, ach seol ríomhphost chugam má tá an-suim agat iontu agus déanfaidh mé é.</value>
+  </data>
+  <data name="Page.Tips.AlignAfter" xml:space="preserve">
+    <value>Cuimhnigh ar na línte cothrománacha, ach is féidir leat a ailíniú freisin tar éis.</value>
+  </data>
+  <data name="Page.Tips.AlignAfter.Body" xml:space="preserve">
+    <value>Má fhaigheann tú amach go bhfuil sé dodhéanta na línte treorach uachtaracha agus íochtaracha a dhéanamh ag an am céanna agus tú ag tógáil pictiúir, is dócha gur bhog tú i dtreo éigin seachas díreach go dtí an taobh. Déan iarracht é seo a shocrú sula dtógfaidh tú na pictiúir, ach is féidir go leor cabhrú leis seo trí ailíniú tar éis an fhíric.</value>
+  </data>
+  <data name="Page.Tips.Alignment" xml:space="preserve">
+    <value>Is féidir leat ailíniú uathoibríoch a mhúchadh.</value>
+  </data>
+  <data name="Page.Tips.Alignment.Body" xml:space="preserve">
+    <value>Mura dtaitníonn torthaí an ailínithe uathoibríoch leat, níl le déanamh ach é a mhúchadh ar an leathanach Socruithe nó trí chliceáil ar dheilbhín an róbait bhig agus déanfar do bhunphictiúr a gabhadh a athchóiriú.</value>
+  </data>
+  <data name="Page.Tips.Donut" xml:space="preserve">
+    <value>Is féidir leis an treoir donut cabhrú le do fhuinneog.</value>
+  </data>
+  <data name="Page.Tips.Donut.Body" xml:space="preserve">
+    <value>Tá treoirleabhar turgnamhach donut ar an leathanach Socruithe ar féidir leat a chasadh air a d’fhéadfadh cabhrú leat d’fhuinneog steirió a chaomhnú agus an leithead inúsáidte a uasmhéadú. Trí chasadh ar chlé agus ar dheis athróidh an doimhneacht ar an donut i gcoibhneas leis an gcuid eile den radharc - socraigh doimhneacht an donut ionas go mbeidh sé ar nó taobh thiar den phointe is faide i gcéin i do radharc. Bí cúramach, má úsáidtear é ar radhairc níos lú d’fhéadfadh go mbeadh rudaí pianmhar (féach an leid eochairchloch thuas).</value>
+  </data>
+  <data name="Page.Tips.Keystone" xml:space="preserve">
+    <value>Tá gá le ceartú eochairchloiche má tá tú ladhar isteach.</value>
+  </data>
+  <data name="Page.Tips.Keystone.Body1" xml:space="preserve">
+    <value>Má chasann tú isteach le gach seat tá sé an-chabhrach ceartúcháin eochairchloiche a dhéanamh. Go hiondúil bheadh ​​tú ag iarraidh imill istigh na ngrianghraf a chrapadh agus ansin cuid acu a bhearradh den bharr agus ón mbun chun iad a leibhéalú. Is féidir leat an roghchlár eagarthóireachta eochairchloiche a bhaint amach trí chnaipe a chur ar an gcnaipe ar a bhfuil cuma mar seo:</value>
+  </data>
+  <data name="Page.Tips.Keystone.Body2" xml:space="preserve">
+    <value>Casadh isteach a thugtar air. Is féidir leis éifeacht forghiorraithe a bheith ann a fhágann go bhfuil sé deacair coirnéil na híomhá a chomhleá. Tá an éifeacht réamhghiorraithe i láthair i gcónaí sa saol fíor, mar is cosúil go dtagann línte comhthreomhara le chéile de réir mar a théann siad i bhfad uait, ach is féidir le peirspictíochtaí saorga é a dhéanamh aisteach.</value>
+  </data>
+  <data name="Page.Tips.Lean" xml:space="preserve">
+    <value>Is féidir leat lean díreach.</value>
+  </data>
+  <data name="Page.Tips.Lean.Body" xml:space="preserve">
+    <value>Uaireanta, in ionad do chosa a bhogadh go hiomlán ar chlé nó ar dheis chun pictiúir a ghlacadh, is féidir go mbeadh sé níos éasca seasamh le do chosa óna chéile agus lean ort i ngach treo, ach bí cúramach agus tú ag leibhéal an ghutháin agus ag an airde chéanna. Is féidir le claonadh seachas bogadh cabhrú leat bogadh rófhada agus féadann sé é a dhéanamh níos éasca d’aidhm a choinneáil díreach.</value>
+  </data>
+  <data name="Page.Tips.Lines" xml:space="preserve">
+    <value>Is féidir leis na línte ailínithe bogadh.</value>
+  </data>
+  <data name="Page.Tips.Lines.Body" xml:space="preserve">
+    <value>Is féidir leat na línte ailínithe a tharraingt thart más mian leat. Tá sé seo cabhrach go háirithe agus na pictiúir á ailíniú le linn eagarthóireachta.</value>
+  </data>
+  <data name="Page.Tips.Old" xml:space="preserve">
+    <value>Is féidir leat seanghrianghraif a oscailt i CrossCam.</value>
+  </data>
+  <data name="Page.Tips.Old.Body" xml:space="preserve">
+    <value>Is féidir leat pictiúir a tógadh roimhe seo a lódáil trí thapáil a dhéanamh ar dheilbhín an fhillteáin ag bun an leathanaigh ceamara, ach má tá tú ag obair le baisc mhór grianghraf is féidir leat iad a roinnt go CrossCam díreach ó d'aip grianghraif, rud a d'fhéadfadh súil a choinneáil ar do chuid grianghraf. áit níos fearr i do ghrianghraif.</value>
+  </data>
+  <data name="Page.Tips.Quick" xml:space="preserve">
+    <value>Cuir mód tapa ar siúl nuair a bhíonn tú le daoine eile.</value>
+  </data>
+  <data name="Page.Tips.Quick.Body" xml:space="preserve">
+    <value>Má tá tú ag iniúchadh le daoine eile is smaoineamh maith é dul i mód tapa trí ailíniú uathoibríoch agus teorainneacha a mhúchadh agus gan ach coigilt a dhéanamh nuair a bheidh tú gafa gan aon eagarthóireacht a dhéanamh. Is féidir leat na pictiúir a lódáil, a ailíniú go huathoibríoch agus a chur in eagar níos déanaí. Ar an mbealach sin ní gá do do chompánaigh fanacht leat chun do chuid pictiúr a chomhlánú ar an láthair, ach is féidir leat a bheith cinnte go bhfuil an doimhneacht atá uait ann i ndáiríre. Bí cúramach gan aon eagarthóireacht gasta a dhéanamh roimh an gcéad shábháil! Is féidir leat an taobhchoigilt ar leith a chur ar siúl freisin, rud a dhéanfaidh neamhaird ar aon eagarthóireacht a dhéanann tú.</value>
+  </data>
+  <data name="Page.Tips.Sick" xml:space="preserve">
+    <value>Má fhágann an ghluaiseacht tú tinn, fan go fóill.</value>
+  </data>
+  <data name="Page.Tips.Sick.Body" xml:space="preserve">
+    <value>Má fhágann an ghluaiseacht go léir tinn tú nó má dhéanann sé ró-dheacair é a fheiceáil i 3D, ná tosaigh ag iarraidh é a fheiceáil i 3D go dtí go mbeidh tú tar éis bogadh anonn beagán. Ansin cuir na pictiúir i gcomparáid lena chéile agus ailínigh na pictiúir ag baint úsáide as na línte cothrománacha gan féachaint 3D agus ansin tosú ar amharc 3D nuair a bheidh siad ailínithe agus coinnigh fós.</value>
+  </data>
+  <data name="Page.Tips.Space" xml:space="preserve">
+    <value>Is féidir leis na pictiúir seo go leor stórála a ghlacadh - is féidir leat iad a chrapadh.</value>
+  </data>
+  <data name="Page.Tips.Space.Body" xml:space="preserve">
+    <value>Tá rogha ag an leathanach Socruithe réiteach an phictiúir dheiridh a laghdú go comhréireach - is féidir leis seo cabhrú más mian leat spás a shábháil. Mura bhfuil do ghrianghraf bearrtha is é an toradh deiridh ná dhá phictiúr lántaifigh ceangailte le chéile chun ceann de thaifeach dúbailte a dhéanamh, rud a chiallaíonn gur féidir leat éalú go minic le laghdú mór ar an taifeach gan cur isteach go mór ar cháilíocht.</value>
+  </data>
+  <data name="Page.Tips.Turn" xml:space="preserve">
+    <value>Ná cas.</value>
+  </data>
+  <data name="Page.Tips.Turn.Body" xml:space="preserve">
+    <value>Nuair a bhogann tú anonn, déan iarracht gan do ghuthán a rothlú ar chor ar bith i dtreo ar bith, lena n-áirítear an claonadh nádúrtha dul i dtreo an ábhair agus tú ag bogadh go dtí an taobh. Beidh gá le roinnt rothlú (uaireanta), ach déan iarracht é a íoslaghdú. Samhlaigh go bhfuil an fón suite ar iarnród cothrománach díreach agus nach féidir leis ach sleamhnú. Is féidir le hiompú isteach éifeacht forghiorraithe a dhéanamh a fhágann go bhfuil sé deacair na coirnéil a chomhleá.</value>
+  </data>
+  <data name="Page.Tips.Window" xml:space="preserve">
+    <value>Cuir teorainn agus barr leis chun fuinneog steirió láidir a dhéanamh.</value>
+  </data>
+  <data name="Page.Tips.Window.Body" xml:space="preserve">
+    <value>Is féidir éifeacht fuinneoige steirió suimiúil a chruthú trí dhá rud a dhéanamh: 1) cas ar an teorainn (ar leathanach Socruithe) agus 2) le haghaidh tras-amhairc, barr imill istigh na n-íomhánna go dtí go mbeidh an imeall seachtrach féin 3D sa phictiúr (barr na himill OUTSIDE má tá tú ag breathnú comhthreomhar). Is í an eochair ná ciumhais dheis an phictiúir chlé a bhearradh beagán thar an méid a thaispeánann imeall ceart an phictiúir ar dheis den radharc agus vice-versa. Déantar teorainn a chur leis ar an leathanach Socruithe. Más rud é go bhfuil sé seo mearbhall, níl le déanamh ach braon a ghearradh as na himill istigh agus tosóidh sé a bheith soiléir. Breathnaíonn an cnaipe barr do na himill istigh mar seo:</value>
+  </data>
+  <data name="Button.Code" xml:space="preserve">
+    <value>Féach an Cód</value>
+  </data>
+  <data name="Button.Developer" xml:space="preserve">
+    <value>Maidir leis an Fhorbróir</value>
+  </data>
+  <data name="Button.EmailMe" xml:space="preserve">
+    <value>Ríomhphost Me</value>
+  </data>
+  <data name="Button.GitHub" xml:space="preserve">
+    <value>Cuir Saincheist leis ar GitHub</value>
+  </data>
+  <data name="Button.Press" xml:space="preserve">
+    <value>Téigh ar ais go dtí an scáileán ceamara ar an dá fheiste agus sconna ar an gcnaipe péire sa chúinne íochtair</value>
+  </data>
+  <data name="Button.Primary" xml:space="preserve">
+    <value>TAP ANSEO AR AN mBUNSCOILE</value>
+  </data>
+  <data name="Button.Privacy" xml:space="preserve">
+    <value>Beartas Príobháideachais</value>
+  </data>
+  <data name="Button.Secondary" xml:space="preserve">
+    <value>TAP ANSEO AR AN DÁNTA</value>
+  </data>
+  <data name="Button.Test" xml:space="preserve">
+    <value>Leaganacha Réamh-eisiúint a Thástáil</value>
+  </data>
+  <data name="Button.Wi-Fi" xml:space="preserve">
+    <value>Cinntigh go bhfuil Wi-Fi cumasaithe ar an dá ghléas (ach ní gá é a nascadh le haon rud)</value>
+  </data>
+  <data name="Page.Pairing.1" xml:space="preserve">
+    <value>Má tá dhá fheiste agat a bhfuil CrossCam suiteáilte orthu, is féidir leat iad a nascadh chun grianghraif comhuaineacha a ghlacadh ó dhá dhearcadh. Má thógann tú dhá ghrianghraf ag an am céanna is féidir na steiréeagram is fearr a bhaint amach.
+
+Tabhair faoi deara go bhfuil an ghné seo fós turgnamhach agus go bhféadfadh fadhbanna a bheith ann. B'fhéidir nach n-oibreoidh sé go foirfe an t-am ar fad agus d'fhéadfadh sé do chuid ceallraí a ithe. Chomh maith leis sin le do thoil a bheith ar an eolas go bhfuil ag an am seo ní mór na feistí a bheith ar an ardán céanna chun ceangal (idir Android nó an dá iOS).
+
+Bealach amháin chun sioncrónú *foirfe* a fháil gan úsáid a bhaint as ach gléas amháin agus CrossCam ná an modh "scáthán aon lámhaigh" a úsáid. Is féidir leat é a chur ar siúl ar an leathanach Socruithe agus is féidir leat léamh faoi ar an leathanach Ceisteanna Coitianta.
+
+Sula bhféadfar dhá fheiste a úsáid le chéile ní mór a róil a shannadh. Is é an gléas PRÍOMHAÍOCHTA an ceann a thaispeánfaidh an dá réamhamhairc, a spreagfaidh an ghabháil, agus a choinneoidh / a shábhálann na gabhálacha deiridh. Chun róil a shannadh, déan an dá ghléas a nascleanúint chuig an leathanach seo agus ansin lean na céimeanna thíos:</value>
+  </data>
+  <data name="Page.Pairing.2" xml:space="preserve">
+    <value>Má tá trioblóid agat, TABHAIR FAOI DEARA LE DO THOIL:
+ • Tar éis an próiseas péireála a thosú, is féidir an cnaipe péireála a thapáil arís am ar bith chun é a stopadh nó chun é a dhínascadh.
+ • D'fhéadfadh sé cabhrú le péireáil a stopadh ar an dá ghléas agus í a atosú ag an am céanna.
+ • B’fhéidir go gcabhródh sé dínascadh ó do líonraí Wi-Fi nó sonraí ar eagla go bhfuil siad ag gníomhú suas.
+ • Tá gach ceamara difriúil. Is féidir leis na difríochtaí seo réimse radhairc uilleach, fócas, nochtadh, agus iompar cothromaíochta bán, uainiú, agus níos mó a áireamh. Iompróidh fiú dhá cheann den tsamhail chéanna fón beagán difriúil. Is fearr liom péire seanfhóin chomhionanna a úsáid (i mo chás, péire iPhone 6).
+ • Is bogearraí é CrossCam, ní crua-earraí, agus mar sin d'fhéadfadh go mbeadh gabháil na ngrianghraf beagáinín as sioncronaithe ag brath ar a bhfuil á dhéanamh ag na próiseálaithe agus an chuimhne ag an nóiméad beacht a spreagtar an ghabháil. Mar thoradh air sin, b'fhéidir nach mbeadh an sioncrónú foirfe uaireanta, ach ba cheart go ginearálta go mbeadh sé an-dlúth.</value>
+  </data>
+  <data name="Page.Pairing.Again" xml:space="preserve">
+    <value>Chun nascadh arís níos déanaí, déan cinnte go bhfuil Wi-Fi cumasaithe agat agus ansin brúigh an cnaipe ceangail ar an scáileán baile ar an dá fheiste.</value>
+  </data>
+  <data name="Page.Pairing.LocalNetworkAccess" xml:space="preserve">
+    <value>Teastaíonn cead Rochtana Líonra Áitiúil ó CrossCam. Ní úsáideann CrossCam an líonra áitiúil i ndáiríre, ach éilíonn iOS go bhfaighidh CrossCam an cead seo chun aeróg Wi-Fi a úsáid chun scanadh le haghaidh gléasanna. Iarrfaidh CrossCam an cead seo uair amháin - má dhiúltaítear an cead beidh ort dul agus an lasc a smeach san aip Socruithe tú féin.</value>
+  </data>
+  <data name="Page.Pairing.Location" xml:space="preserve">
+    <value>Iarrfaidh CrossCam ceadanna agus cumhacht ar chomhpháirteanna de réir mar is gá chun do ghléasanna a nascadh. Tabhair faoi deara: Teastaíonn cead suímh ó CrossCam agus chun seirbhísí suímh a chur ar siúl ar an bpríomhghléas chun nascadh leis an ngléas tánaisteach. Níl anseo ach riachtanas Android agus tá sé go hiomlán lasmuigh de mo smacht. Ní bhaineann CrossCam ÚSÁID do shuíomh ar bhealach ar bith, ach toisc go bhféadfaí go teoiriciúil úsáid a bhaint as cuardach (agus aimsiú) gléasanna in aice láimhe chun tú a aimsiú go garbh, tá cead ag teastáil ó CrossCam chun rochtain a fháil ar do shuíomh.</value>
+  </data>
+  <data name="Page.Pairing.Permissions" xml:space="preserve">
+    <value>Nóta Maidir le Ceadanna:</value>
+  </data>
+  <data name="Page.Pairing.Title" xml:space="preserve">
+    <value>Péireáil</value>
+  </data>
+  <data name="Button.Back" xml:space="preserve">
+    <value>&lt; Ar Ais</value>
+  </data>
+  <data name="Page.MorePictures.CrossViewSubreddit" xml:space="preserve">
+    <value>CrossView Subreddit</value>
+  </data>
+  <data name="Page.MorePictures.FacebookGroup" xml:space="preserve">
+    <value>Grúpa Facebook Steiréascópach 3D</value>
+  </data>
+  <data name="Page.MorePictures.GoogleDoc" xml:space="preserve">
+    <value>Google Doc de Stuif Mhór</value>
+  </data>
+  <data name="Page.MorePictures.Instagram" xml:space="preserve">
+    <value>Clib Steiréascópach Instagram</value>
+  </data>
+  <data name="Page.MorePictures.Mine" xml:space="preserve">
+    <value>Féach Pictiúir a Thóg Mé</value>
+  </data>
+  <data name="Page.MorePictures.ParallelViewSubreddit" xml:space="preserve">
+    <value>Amharc Comhuaineach Subreddit</value>
+  </data>
+  <data name="Page.Settings.Alignment" xml:space="preserve">
+    <value>Ailíniú Uathoibríoch</value>
+  </data>
+  <data name="Page.Settings.Analytics" xml:space="preserve">
+    <value>Roinn sonraí úsáide agus earráide gan ainm chun cabhrú le CrossCam a fheabhsú</value>
+  </data>
+  <data name="Page.Settings.Border" xml:space="preserve">
+    <value>Teorainn</value>
+  </data>
+  <data name="Page.Settings.Camera" xml:space="preserve">
+    <value>Ceamara</value>
+  </data>
+  <data name="Page.Settings.Defaults" xml:space="preserve">
+    <value>Athshocraigh go Réamhshocruithe</value>
+  </data>
+  <data name="Page.Settings.Editing" xml:space="preserve">
+    <value>Eagarthóireacht</value>
+  </data>
+  <data name="Page.Settings.ErrorEmail" xml:space="preserve">
+    <value>Leid ríomhphost a sheoladh nuair a tharlaíonn earráidí</value>
+  </data>
+  <data name="Page.Settings.Guides" xml:space="preserve">
+    <value>Treoracha Gabháil</value>
+  </data>
+  <data name="Page.Settings.Pairing" xml:space="preserve">
+    <value>Péireáil</value>
+  </data>
+  <data name="Page.Settings.Preview" xml:space="preserve">
+    <value>Modh Amharc ar Réamhamhairc</value>
+  </data>
+  <data name="Page.Settings.Saving" xml:space="preserve">
+    <value>Shábháil</value>
+  </data>
+  <data name="Page.TipMe.1" xml:space="preserve">
+    <value>Tá CrossCam saor in aisce le húsáid, saor ó fhógraí, foinse oscailte, ní bhailíonn sé aon fhaisnéis phearsanta uait, agus tugann sé rochtain iomlán duit ar gach gné. Is breá liom a bheith ag obair ar CrossCam ach tógann sé go leor ama agus iarracht. Ní dhéanaim aon airgead ó CrossCam ach amháin leideanna a d’fhéadfadh daoine a chur chugam.</value>
+  </data>
+  <data name="Page.TipMe.2" xml:space="preserve">
+    <value>Más maith leat CrossCam agus más féidir leat, smaoinigh ar leid a chur chugam.</value>
+  </data>
+  <data name="Page.TipMe.Ko-fi" xml:space="preserve">
+    <value>Ko-fi</value>
+  </data>
+  <data name="Page.TipMe.Patreon" xml:space="preserve">
+    <value>Patreon</value>
+  </data>
+  <data name="Page.TipMe.PayPal" xml:space="preserve">
+    <value>PayPal</value>
+  </data>
+  <data name="Page.TipMe.Tipped" xml:space="preserve">
+    <value>Tá mé tar éis tipped</value>
+  </data>
+  <data name="Page.TipMe.TippedTimes" xml:space="preserve">
+    <value>uaireanta, san iomlán</value>
+  </data>
+  <data name="Page.TipMe.Venmo" xml:space="preserve">
+    <value>Venmo</value>
+  </data>
+  <data name="Title.MorePictures" xml:space="preserve">
+    <value>Féach Tuilleadh Pictiúir</value>
+  </data>
+  <data name="Title.Settings" xml:space="preserve">
+    <value>Socruithe</value>
+  </data>
+  <data name="Title.TipMe" xml:space="preserve">
+    <value>Leideanna Tá Buíoch!</value>
+  </data>
+  <data name="Settings.Alignment.Advanced" xml:space="preserve">
+    <value>Taispeáin ardsocruithe ailínithe</value>
+  </data>
+  <data name="Settings.Alignment.Ecc" xml:space="preserve">
+    <value>Déan iarracht ailíniú ECC a úsáid ar dtús i gcónaí</value>
+  </data>
+  <data name="Settings.Alignment.Keypoints" xml:space="preserve">
+    <value>Déan iarracht ailíniú eochairphointí a úsáid ar dtús i gcónaí</value>
+  </data>
+  <data name="Settings.Alignment.On" xml:space="preserve">
+    <value>Ailíniú go huathoibríoch tar éis gabháil</value>
+  </data>
+  <data name="Settings.Border.Color" xml:space="preserve">
+    <value>Dath teorann</value>
+  </data>
+  <data name="Settings.Border.FuseGuide" xml:space="preserve">
+    <value>Cuir treoir fiús ar a bharr (ponc os cionn gach taobh)</value>
+  </data>
+  <data name="Settings.Border.On" xml:space="preserve">
+    <value>Cuir teorainn leis</value>
+  </data>
+  <data name="Settings.Border.Prompt" xml:space="preserve">
+    <value>Leid an teorainn a ghearradh as nuair a aimsítear é le linn luchtaithe</value>
+  </data>
+  <data name="Settings.Border.Thickness" xml:space="preserve">
+    <value>Tiús teorann (deichithe de chéatadán leithead)</value>
+  </data>
+  <data name="Settings.Camera.Camera1" xml:space="preserve">
+    <value>Force camera1 API (d'fhéadfadh go mbeadh sé ina chuidiú má tá aisteach agat ach má tá feidhmiúlacht theoranta mar thoradh air, tá gá le fórsa scortha/atosaithe le dul i bhfeidhm)</value>
+  </data>
+  <data name="Settings.Camera.Camera2" xml:space="preserve">
+    <value>Force camera2 API (caithfidh sé a bheith ar Android 6 nó níos airde, d’fhéadfadh go mbeadh sé ina chuidiú má tá earráidí agat ach go bhféadfadh tuilleadh a dhéanamh, tá gá le fórsa scor/atosaithe le dul i bhfeidhm)</value>
+  </data>
+  <data name="Settings.Camera.LandscapeCaptureHorizontal" xml:space="preserve">
+    <value>Socrúchán cothrománach cnaipe gabhála tírdhreacha</value>
+  </data>
+  <data name="Settings.Camera.LandscapeCaptureVertical" xml:space="preserve">
+    <value>Socrúchán ingearach cnaipe gabhála tírdhreacha</value>
+  </data>
+  <data name="Settings.Camera.Lock" xml:space="preserve">
+    <value>Glasáil fócas agus nochtadh don dara pictiúr chun díriú agus nochtadh ón gcéad phictiúr</value>
+  </data>
+  <data name="Settings.Camera.Pair" xml:space="preserve">
+    <value>Socrúchán cothrománach an chnaipe péire (nuair a bhíonn an cnaipe gabhála lárnaithe)</value>
+  </data>
+  <data name="Settings.Camera.PointFocus" xml:space="preserve">
+    <value>Tapáil go fócas pointe, tapáil faoi dhó chun athrú ar ais go fócas leanúnach (nó sábháil nó soiléir)</value>
+  </data>
+  <data name="Settings.Camera.PortraitCapture" xml:space="preserve">
+    <value>Socrúchán cnaipe gabhála portráid</value>
+  </data>
+  <data name="Settings.Editing.Align" xml:space="preserve">
+    <value>Comhréir ailíniú ingearach uasta</value>
+  </data>
+  <data name="Settings.Editing.Keystone" xml:space="preserve">
+    <value>Uasmhéid eochairchloch</value>
+  </data>
+  <data name="Settings.Editing.Rotation" xml:space="preserve">
+    <value>Uaschéimeanna rothlaithe</value>
+  </data>
+  <data name="Settings.Editing.SideCrop" xml:space="preserve">
+    <value>Comhréir barr taobh uasta</value>
+  </data>
+  <data name="Settings.Editing.TopCrop" xml:space="preserve">
+    <value>Comhréir barr barr/bun uasta</value>
+  </data>
+  <data name="Settings.Editing.Zoom" xml:space="preserve">
+    <value>Comhréir súmáil uasta</value>
+  </data>
+  <data name="Settings.Guides.Donut" xml:space="preserve">
+    <value>Taispeáin treoirleabhar donut (beidh sé ina chúis le ladhar isteach, mar sin b'fhéidir go mbeidh eagarthóireacht eochairchloch ag teastáil)</value>
+  </data>
+  <data name="Settings.Guides.Fuse" xml:space="preserve">
+    <value>Taispeáin treoirleabhar fiús (pointe os cionn gach taobh)</value>
+  </data>
+  <data name="Settings.Guides.LineColor" xml:space="preserve">
+    <value>Línte éagsúla daite</value>
+  </data>
+  <data name="Settings.Guides.Lines" xml:space="preserve">
+    <value>Línte le feiceáil</value>
+  </data>
+  <data name="Settings.Guides.Roll" xml:space="preserve">
+    <value>Treoir rolla le feiceáil</value>
+  </data>
+  <data name="Settings.Pair.CaptureDelay" xml:space="preserve">
+    <value>Moill bhreise nóiméad a ghabháil (ms) (cuirtear moill bhreise leis an nóiméad gabhála sprice ar an ngléas seo amháin)</value>
+  </data>
+  <data name="Settings.Pair.Countdown" xml:space="preserve">
+    <value>Gabh an fad comhairimh síos (amadóir)</value>
+  </data>
+  <data name="Settings.Pair.Fov" xml:space="preserve">
+    <value>Ceartú réimse radhairc</value>
+  </data>
+  <data name="Settings.Pair.FovNotSet" xml:space="preserve">
+    <value>Ceartúchán FOV gan a bheith socraithe (déan gabháil le gléasanna péireáilte le siúl tríd an socrú).</value>
+  </data>
+  <data name="Settings.Pair.FovReset" xml:space="preserve">
+    <value>Athshocraigh</value>
+  </data>
+  <data name="Settings.Pair.Go" xml:space="preserve">
+    <value>Téigh go Leathanach Socrú Péireála</value>
+  </data>
+  <data name="Settings.Pair.NoRole" xml:space="preserve">
+    <value>Ní roghnaítear an ról</value>
+  </data>
+  <data name="Settings.Pair.PreviewDelay" xml:space="preserve">
+    <value>Moill fráma réamhamhairc (laghdóidh líon níos airde an ráta fráma ach sábhálfaidh tú ceallraí)</value>
+  </data>
+  <data name="Settings.Pair.Primary" xml:space="preserve">
+    <value>Bunscoile:</value>
+  </data>
+  <data name="Settings.Pair.PrimaryRole" xml:space="preserve">
+    <value>Ról: Bunscoil</value>
+  </data>
+  <data name="Settings.Pair.Sample" xml:space="preserve">
+    <value>Comhaireamh sampla cloig (laghdóidh líon níos ísle an t-am a bheidh ag teastáil don sioncronú tosaigh ach d’fhéadfadh sé go laghdófar cruinneas an tsonraithe)</value>
+  </data>
+  <data name="Settings.Pair.Secondary" xml:space="preserve">
+    <value>Meánscoil:</value>
+  </data>
+  <data name="Settings.Pair.SecondaryRole" xml:space="preserve">
+    <value>Ról: Meánscoil</value>
+  </data>
+  <data name="Settings.Pair.Timeout" xml:space="preserve">
+    <value>Teorainn ama ceangail (soicindí) (ní chiallaíonn 0 aon am istigh)</value>
+  </data>
+  <data name="Settings.Preview.Barrel" xml:space="preserve">
+    <value>Cuir ceartú lionsa/ saobhadh bairille leis (d’fhéadfadh ráta fráma níos ísle)</value>
+  </data>
+  <data name="Settings.Preview.BarrelFinal" xml:space="preserve">
+    <value>Cuir ceartú lionsa / saobhadh bairille leis na híomhánna deiridh amháin (d'fhéadfadh sé go gcuirfeadh sé moille ar an taispeáint deiridh ach cuirfidh sé dlús leis an ngabháil)</value>
+  </data>
+  <data name="Settings.Preview.CardboardDistance" xml:space="preserve">
+    <value>Fad scaradh cairtchláir</value>
+  </data>
+  <data name="Settings.Preview.Downsize" xml:space="preserve">
+    <value>Íoslaghdaigh an íomhá (is féidir an ráta fráma a mhéadú)</value>
+  </data>
+  <data name="Settings.Preview.DownsizePercent" xml:space="preserve">
+    <value>Íosluchtaigh céatadán íomhá</value>
+  </data>
+  <data name="Settings.Preview.Immersive" xml:space="preserve">
+    <value>Breathnú deiridh tumtha</value>
+  </data>
+  <data name="Settings.Preview.LensStrength" xml:space="preserve">
+    <value>Neart ceartúcháin lionsa</value>
+  </data>
+  <data name="Settings.Preview.Mirror" xml:space="preserve">
+    <value>Gabháil ag baint úsáide as modh roinnte scátháin aon lámhaigh</value>
+  </data>
+  <data name="Settings.Preview.Width" xml:space="preserve">
+    <value>Uasleithead íomhá amhairc chomhthreomhar (pointí)</value>
+  </data>
+  <data name="Settings.Reset" xml:space="preserve">
+    <value>Athshocraigh go Réamhshocruithe</value>
+  </data>
+  <data name="Settings.Saving.Alone" xml:space="preserve">
+    <value>Sábháil an chéad taobh leis féin (gan aon athruithe ná teorainn) (le haghaidh grianghraf réidh a roinnt go héasca le daoine le radharc cothrom)</value>
+  </data>
+  <data name="Settings.Saving.Anaglyph" xml:space="preserve">
+    <value>Sábháil leagan anaglyph dearg/cian (le leasuithe ach gan teorainn)</value>
+  </data>
+  <data name="Settings.Saving.Browse" xml:space="preserve">
+    <value>Brabhsáil...</value>
+  </data>
+  <data name="Settings.Saving.Cardboard" xml:space="preserve">
+    <value>Sábháil do Chairtchlár (le hathruithe, gan teorainn, gan spásáil, leithead iomlán, lena lódáil ar ais go CrossCam ar ball)</value>
+  </data>
+  <data name="Settings.Saving.Clear" xml:space="preserve">
+    <value>Gabhálacha soiléir go huathoibríoch tar éis iad a shábháil</value>
+  </data>
+  <data name="Settings.Saving.Cross" xml:space="preserve">
+    <value>Sábháil leagan tras-amharc comhcheangailte (le leasuithe agus teorainn)</value>
+  </data>
+  <data name="Settings.Saving.ExternalDirectory" xml:space="preserve">
+    <value>Sábháil chuig eolaire seachtrach CrossCam ag:</value>
+  </data>
+  <data name="Settings.Saving.ExternalWarning" xml:space="preserve">
+    <value>(rabhadh: scriosfar pictiúir ann má tá CrossCam díshuiteáilte)</value>
+  </data>
+  <data name="Settings.Saving.Folder" xml:space="preserve">
+    <value>Sábháil isteach i bhfofhillteán/albam tiomnaithe "CrossCam".</value>
+  </data>
+  <data name="Settings.Saving.Grayscale" xml:space="preserve">
+    <value>Sábháil leagan anaglyph dearg/cianscála liathscála (le leasuithe ach gan teorainn)</value>
+  </data>
+  <data name="Settings.Saving.Order" xml:space="preserve">
+    <value>(Tarlóidh sábháil in ord ó bhun go barr)</value>
+  </data>
+  <data name="Settings.Saving.Parallel" xml:space="preserve">
+    <value>Sábháil leagan comhthreomhaire comhcheangailte (le leasuithe agus teorainn)</value>
+  </data>
+  <data name="Settings.Saving.Quad" xml:space="preserve">
+    <value>Sábháil teaglaim cuad (le athruithe agus teorainn)</value>
+  </data>
+  <data name="Settings.Saving.Reset" xml:space="preserve">
+    <value>Athshocraigh</value>
+  </data>
+  <data name="Settings.Saving.Resolution" xml:space="preserve">
+    <value>Comhréir réitigh</value>
+  </data>
+  <data name="Settings.Saving.SaveTo" xml:space="preserve">
+    <value>Sábháil go:</value>
+  </data>
+  <data name="Settings.Saving.Separate" xml:space="preserve">
+    <value>Sábháil gach taobh ar leithligh (gan aon athruithe ná teorainn le haghaidh próiseáil postála níos éasca, sábhálann an taobh clé ar dtús)</value>
+  </data>
+  <data name="Settings.Saving.Subfolder" xml:space="preserve">
+    <value>Sábháil isteach i bhfofhillteáin/albam tiomnaithe "CrossCam_{ViewMethod}".</value>
+  </data>
+  <data name="Settings.Saving.Triple" xml:space="preserve">
+    <value>Sábháil teaglaim thríarach (le leasuithe agus teorainn)</value>
+  </data>
+  <data name="Button.Pair.Accept" xml:space="preserve">
+    <value>Glac</value>
+  </data>
+  <data name="Button.Pair.Cancel" xml:space="preserve">
+    <value>Cealaigh</value>
+  </data>
+  <data name="Page.Camera.AcceptConnection" xml:space="preserve">
+    <value>Glac le ceangal le</value>
+  </data>
+  <data name="Page.Camera.Confirm" xml:space="preserve">
+    <value>Deimhnigh go dtagann an cód ar an dá ghléas:</value>
+  </data>
+  <data name="Page.Footer.CouldntOpen" xml:space="preserve">
+    <value>Níorbh fhéidir Nasc a oscailt</value>
+  </data>
+  <data name="Page.Footer.OpenError" xml:space="preserve">
+    <value>Níorbh fhéidir an nasc mailto a oscailt. D’fhéadfadh sé seo tarlú toisc nach bhfuil do chliant ríomhphoist socraithe, nó ar chúis éigin eile.</value>
+  </data>
+  <data name="Page.Pair.Errors.Denied" xml:space="preserve">
+    <value>Níor deonaíodh na ceadanna riachtanacha le haghaidh péireála. Eisceacht:</value>
+  </data>
+  <data name="Page.Pair.Errors.FailedBluetooth" xml:space="preserve">
+    <value>Theip ar chumhacht an ghléis ar Bluetooth. Eisceacht:</value>
+  </data>
+  <data name="Page.Pair.Errors.FailedSearch" xml:space="preserve">
+    <value>Theip ar an ngléas a chuardach le haghaidh gléasanna. Eisceacht:</value>
+  </data>
+  <data name="Page.Pair.Errors.LocationOff" xml:space="preserve">
+    <value>Níl na seirbhísí suímh gníomhachtaithe. Ní féidir scanadh le haghaidh gléasanna. Féach ar an leathanach péireála le haghaidh tuilleadh sonraí.</value>
+  </data>
+  <data name="Page.Pair.Errors.LocationScan" xml:space="preserve">
+    <value>Níor tugadh cead suímh. Ní féidir scanadh le haghaidh gléasanna. Féach ar an leathanach péireála le haghaidh tuilleadh sonraí.</value>
+  </data>
+  <data name="Page.Pair.Errors.NotSupported" xml:space="preserve">
+    <value>Ní thacaítear le péireáil ar an ngléas seo. Eisceacht:</value>
+  </data>
+  <data name="Page.Pair.Errors.Title" xml:space="preserve">
+    <value>Earráid</value>
+  </data>
+  <data name="Page.Pair.Errors.WifiOff" xml:space="preserve">
+    <value>Tá Wi-Fi múchta. Cuir Wi-Fi ar siúl le do thoil.</value>
+  </data>
+  <data name="Page.Pair.PrimaryExplanation" xml:space="preserve">
+    <value>Tá an gléas seo socraithe anois mar an príomh-ghléas.</value>
+  </data>
+  <data name="Page.Pair.PrimarySelected" xml:space="preserve">
+    <value>Príomhról Roghnaithe</value>
+  </data>
+  <data name="Page.Pair.SecondaryExplanation" xml:space="preserve">
+    <value>Tá an gléas seo socraithe anois mar an gléas tánaisteach.</value>
+  </data>
+  <data name="Page.Pair.SecondarySelected" xml:space="preserve">
+    <value>Ról Tánaisteach Roghnaithe</value>
+  </data>
+  <data name="Page.Technique.Mode" xml:space="preserve">
+    <value>mód.</value>
+  </data>
+  <data name="Page.Technique.SetMode" xml:space="preserve">
+    <value>Tá CrossCam istigh anois</value>
+  </data>
+</root>

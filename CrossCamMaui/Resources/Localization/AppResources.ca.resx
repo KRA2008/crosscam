@@ -1,0 +1,1156 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="Button.GoogleDoc" xml:space="preserve">
+    <value>Google Doc of Great Stuff</value>
+  </data>
+  <data name="Button.LearnCross" xml:space="preserve">
+    <value>APRENDRE LA CREU</value>
+  </data>
+  <data name="Button.LearnParallel" xml:space="preserve">
+    <value>APRENDRE PARAL·LEL</value>
+  </data>
+  <data name="Button.MorePictures" xml:space="preserve">
+    <value>Veure més imatges</value>
+  </data>
+  <data name="Button.Review" xml:space="preserve">
+    <value>Escriu una ressenya</value>
+  </data>
+  <data name="Button.Share" xml:space="preserve">
+    <value>Comparteix CrossCam</value>
+  </data>
+  <data name="Button.Support" xml:space="preserve">
+    <value>Donar suport al desenvolupador</value>
+  </data>
+  <data name="Button.TapCross" xml:space="preserve">
+    <value>TOQUEU AQUÍ PER ESCOLLIR LA CREU</value>
+  </data>
+  <data name="Button.TapParallel" xml:space="preserve">
+    <value>TOQUEU AQUÍ PER ESCOLLIR PARAL·LEL</value>
+  </data>
+  <data name="Footer.Span1" xml:space="preserve">
+    <value>Heu trobat un error? Tens alguna pregunta? Només correu electrònic</value>
+  </data>
+  <data name="Footer.Span3" xml:space="preserve">
+    <value>! M'encanta parlar amb els usuaris i és la manera més ràpida de comunicar-me amb mi.</value>
+  </data>
+  <data name="Page.HowToUse.2anaglyph" xml:space="preserve">
+    <value>2) Comenceu a veure anaglif la primera imatge amb la vista prèvia que apareix al costat.</value>
+  </data>
+  <data name="Page.HowToUse.2cardboard" xml:space="preserve">
+    <value>2) Comenceu a visualitzar la primera imatge amb la vista prèvia que apareix al costat.</value>
+  </data>
+  <data name="Page.HowToUse.2cross" xml:space="preserve">
+    <value>2) Comenceu a visualitzar creuades la primera imatge amb la vista prèvia que apareix al costat.</value>
+  </data>
+  <data name="Page.HowToUse.2parallel" xml:space="preserve">
+    <value>2) Comença a visualitzar en paral·lel la primera imatge amb la vista prèvia que apareix al costat.</value>
+  </data>
+  <data name="Page.Technique.AdditionalTutorials" xml:space="preserve">
+    <value>Tutorials addicionals:</value>
+  </data>
+  <data name="Page.Technique.Cross1" xml:space="preserve">
+    <value>Creueu els ulls amb cura mentre mireu el parell d'imatges de dalt. Quan creueu els ulls, les coses es tornaran borroses i transparents i començareu a veure 4 imatges en lloc de 2 (2 parells). Com més creueu els ulls, més separades es mouran els parells d'imatges; es veurà una mica així:</value>
+  </data>
+  <data name="Page.Technique.Cross2" xml:space="preserve">
+    <value>Descreueu els ulls amb cura, de manera que les imatges de l'interior de cada parell comencin a superposar-se. Començarà a semblar que només hi ha 3 imatges en lloc de 4. Encara serà borrosa i transparent i semblarà una cosa així:</value>
+  </data>
+  <data name="Page.Technique.Cross3" xml:space="preserve">
+    <value>Un cop tingueu funcionant la superposició central, només heu de relaxar els ulls i permetre'ls enfocar la imatge. En aquest moment tindreu una imatge nítida en 3D al mig amb una imatge transparent flotant a cada costat que es veurà així (excepte que el centre serà 3D):</value>
+  </data>
+  <data name="Page.Technique.Cross4" xml:space="preserve">
+    <value>Si teniu problemes per creuar els ulls, també podeu provar de mirar-vos el dit mentre el manteniu a mig camí entre els ulls i la pantalla. Hauríeu de veure que les imatges comencen a separar-se i solapar-se darrere del dit.</value>
+  </data>
+  <data name="Page.Technique.CrossViewing" xml:space="preserve">
+    <value>VISUALITZACIÓ CREUADA</value>
+  </data>
+  <data name="Page.Technique.P1" xml:space="preserve">
+    <value>Si voleu tornar a veure-ho, toqueu la icona d'hamburguesa (tres línies) a la part superior esquerra de la pantalla de la càmera i toqueu "Ajuda".
+
+Per veure el 3D a CrossCam (anomenats "estereogrames") podeu utilitzar ulleres 3D vermelles/cians, un visor de Google Cardboard, o podeu fer "visualització gratuïta" només amb els ulls i la pantalla. Hi ha dues maneres de visualitzar gratuïtament i CrossCam us pot ajudar a aprendre totes dues. Heu de dir a CrossCam com veureu les imatges o no funcionarà bé. No et preocupis, sempre pots tornar a canviar-ho a Configuració.
+
+Si podeu creuar els ulls còmodament, primer hauríeu de provar el mètode creuat, en cas contrari hauríeu de provar el mètode paral·lel. Si esteu acostumats als llibres Magic Eye™, probablement ja podreu fer el mètode paral·lel, però també podeu fer el mètode creuat. Toqueu un mètode a continuació per aprendre-lo i assegureu-vos de dir-li a CrossCam quin us funciona prement el botó TRIA corresponent.
+
+Si preferiu utilitzar ulleres 3D o un visor de Cardboard, podeu configurar CrossCam perquè les utilitzi a la pàgina de configuració.</value>
+  </data>
+  <data name="Page.Technique.CrossLink1" xml:space="preserve">
+    <value>Un bonic tutorial de text</value>
+  </data>
+  <data name="Page.Technique.CrossLink2" xml:space="preserve">
+    <value>Un altre tutorial de text agradable</value>
+  </data>
+  <data name="Page.Technique.CrossLink3" xml:space="preserve">
+    <value>Un breu tutorial de YouTube</value>
+  </data>
+  <data name="Page.Technique.CrossLink4" xml:space="preserve">
+    <value>Un tutorial de YouTube llarg, estrany però útil</value>
+  </data>
+  <data name="Page.Technique.CrossLink5" xml:space="preserve">
+    <value>Un altre tutorial de YouTube</value>
+  </data>
+  <data name="Page.Technique.CrossLink6" xml:space="preserve">
+    <value>Un projecte de càmera dual amb un tutorial</value>
+  </data>
+  <data name="Page.Technique.Parallel1" xml:space="preserve">
+    <value>Si la imatge de dalt no encaixa a la pantalla, gireu el telèfon en horitzontal; CrossCam està intentant que el parell d'imatges per sobre de la mida més fàcil per a això. No sempre cal utilitzar CrossCam en paisatge, però una imatge de mida perfecta facilita l'aprenentatge de la tècnica.</value>
+  </data>
+  <data name="Page.Technique.Parallel2" xml:space="preserve">
+    <value>Relaxeu els vostres ulls i mireu "a través" del parell d'imatges de dalt com si estiguéssiu zonificant amb els ulls apuntant a les imatges. Hauríeu de començar a veure 3 imatges amb una imatge 3D al mig, una mica com aquesta:</value>
+  </data>
+  <data name="Page.Technique.Parallel3" xml:space="preserve">
+    <value>Si comenceu a veure 4 imatges, heu anat massa lluny. Proveu de moure els ulls una mica si torneu a trobar-vos en aquest punt. Relaxar-se massa lluny es veurà una mica així:</value>
+  </data>
+  <data name="Page.Technique.Parallel4" xml:space="preserve">
+    <value>Si tens problemes, prova d'acostar la pantalla a la cara amb el parell d'imatges davant dels teus ulls. Relaxeu-vos i mireu "a través" de la pantalla i, a continuació, allunyeu lentament la pantalla de la cara mentre manteniu els ulls relaxats. Finalment, la imatge hauria de "fer clic" al focus.</value>
+  </data>
+  <data name="Page.Technique.Parallel5" xml:space="preserve">
+    <value>Si encara continueu veient quatre imatges, augmenta l'"amplada màxima de la imatge de visualització paral·lela" a la pàgina de configuració.</value>
+  </data>
+  <data name="Page.Technique.ParallelViewing" xml:space="preserve">
+    <value>VISUALITZACIÓ PARAL·LEL</value>
+  </data>
+  <data name="Page.Technique.Practice" xml:space="preserve">
+    <value>Imatges que he fet amb les quals podeu practicar</value>
+  </data>
+  <data name="Title.Contact" xml:space="preserve">
+    <value>Contacte</value>
+  </data>
+  <data name="Title.Faq" xml:space="preserve">
+    <value>PMF</value>
+  </data>
+  <data name="Title.Help" xml:space="preserve">
+    <value>Ajuda</value>
+  </data>
+  <data name="Title.HowToUse" xml:space="preserve">
+    <value>Com utilitzar CrossCam</value>
+  </data>
+  <data name="Title.Technique" xml:space="preserve">
+    <value>Tècnica de visualització en 3D</value>
+  </data>
+  <data name="Title.Tips" xml:space="preserve">
+    <value>Consells</value>
+  </data>
+  <data name="Button.DoNotEmailMe" xml:space="preserve">
+    <value>No m'enviïs un correu electrònic ara</value>
+  </data>
+  <data name="Button.EmailMeNow" xml:space="preserve">
+    <value>Envia'm un correu electrònic ara</value>
+  </data>
+  <data name="Button.No" xml:space="preserve">
+    <value>No</value>
+  </data>
+  <data name="Button.OK" xml:space="preserve">
+    <value>D'acord</value>
+  </data>
+  <data name="Button.YesClear" xml:space="preserve">
+    <value>Sí, clar</value>
+  </data>
+  <data name="Page.Camera.Aligning" xml:space="preserve">
+    <value>S'està alineant...</value>
+  </data>
+  <data name="Page.Camera.AlignmentBroken" xml:space="preserve">
+    <value>L'alineació automàtica no és compatible amb el dispositiu; desactiveu-la a Configuració.</value>
+  </data>
+  <data name="Page.Camera.AlignmentFailed" xml:space="preserve">
+    <value>Ha fallat l'alineació.</value>
+  </data>
+  <data name="Page.Camera.BorderAsk" xml:space="preserve">
+    <value>S'ha detectat una frontera. Eliminar la vora?</value>
+  </data>
+  <data name="Page.Camera.BorderDetected" xml:space="preserve">
+    <value>Frontera detectada</value>
+  </data>
+  <data name="Page.Camera.Cancel" xml:space="preserve">
+    <value>Cancel · lar</value>
+  </data>
+  <data name="Page.Camera.ChooseAction" xml:space="preserve">
+    <value>Trieu una acció:</value>
+  </data>
+  <data name="Page.Camera.DirectoryNotFound" xml:space="preserve">
+    <value>No s'ha trobat el directori</value>
+  </data>
+  <data name="Page.Camera.DirectoryNotFoundExplain" xml:space="preserve">
+    <value>No s'ha pogut trobar la destinació de desat. Seleccioneu-ne un altre a la pàgina de configuració.</value>
+  </data>
+  <data name="Page.Camera.ErrorEmailBody" xml:space="preserve">
+    <value>Què vau fer just abans que passés l'error? Si us plau, descriu fins i tot les petites coses.\n\n\n\n\n\nCrossCam encara funcionava després de l'error? Si no, com es trenca?\n\n\n\n\n\nAixò succeeix repetidament?\n\n\n\n\n\nPodeu forçar que l'error es produeixi a l'ordre? Si és així, com?\n\n\n\n\n\n</value>
+  </data>
+  <data name="Page.Camera.FlipForCardboard" xml:space="preserve">
+    <value>Gira al paisatge quan estàs en mode cartró.</value>
+  </data>
+  <data name="Page.Camera.FlipLarger" xml:space="preserve">
+    <value>(girar cap a paisatge per a una visió més gran)</value>
+  </data>
+  <data name="Page.Camera.ForAnaglyph" xml:space="preserve">
+    <value>per anaglif</value>
+  </data>
+  <data name="Page.Camera.ForCardboard" xml:space="preserve">
+    <value>per a cartró</value>
+  </data>
+  <data name="Page.Camera.ForCross" xml:space="preserve">
+    <value>per creu</value>
+  </data>
+  <data name="Page.Camera.ForParallel" xml:space="preserve">
+    <value>per paral·lel</value>
+  </data>
+  <data name="Page.Camera.GoPickRole" xml:space="preserve">
+    <value>Aneu a la pàgina de vinculació (a través de la pàgina de configuració) i trieu una funció de vinculació per a aquest dispositiu abans d'intentar l'aparellament.</value>
+  </data>
+  <data name="Page.Camera.InvalidImage" xml:space="preserve">
+    <value>Imatge no vàlida</value>
+  </data>
+  <data name="Button.Camera.Keep" xml:space="preserve">
+    <value>Mantenir</value>
+  </data>
+  <data name="Page.Camera.LoadFullImage" xml:space="preserve">
+    <value>Carregueu la imatge estèreo completa</value>
+  </data>
+  <data name="Page.Camera.Loading" xml:space="preserve">
+    <value>Carregant...</value>
+  </data>
+  <data name="Page.Camera.LoadSingleSide" xml:space="preserve">
+    <value>Carregueu un sol costat</value>
+  </data>
+  <data name="Page.Camera.ManualCorrections" xml:space="preserve">
+    <value>Considereu també les correccions manuals.</value>
+  </data>
+  <data name="Page.Camera.MirrorOnLeft" xml:space="preserve">
+    <value>MIRALL A L'ESQUERRA</value>
+  </data>
+  <data name="Page.Camera.MirrorOnRight" xml:space="preserve">
+    <value>MIRALL A LA DRETA</value>
+  </data>
+  <data name="Page.Camera.MoveLeft" xml:space="preserve">
+    <value>MOU-TE A L'ESQUERRA</value>
+  </data>
+  <data name="Page.Camera.MoveRight" xml:space="preserve">
+    <value>MOURE A LA DRETA</value>
+  </data>
+  <data name="Page.Camera.NoSaveModes" xml:space="preserve">
+    <value>No hi ha modes d'estalvi actius</value>
+  </data>
+  <data name="Page.Camera.NoSaveModesExplain" xml:space="preserve">
+    <value>No hi ha cap mode de desar activat actualment. Activa un mode de desar a la pàgina Configuració.</value>
+  </data>
+  <data name="Page.Camera.Oops" xml:space="preserve">
+    <value>Vaja!</value>
+  </data>
+  <data name="Page.Camera.OrRotate" xml:space="preserve">
+    <value>(o girar)</value>
+  </data>
+  <data name="Page.Camera.OrSwipe" xml:space="preserve">
+    <value>(o llisca)</value>
+  </data>
+  <data name="Page.Camera.PairRoleNotSelected" xml:space="preserve">
+    <value>Rol de parella no seleccionat</value>
+  </data>
+  <data name="Page.Camera.PinchOrDrag" xml:space="preserve">
+    <value>Pessigueu o arrossegueu per explorar!</value>
+  </data>
+  <data name="Page.Camera.PleaseSelectValid" xml:space="preserve">
+    <value>Seleccioneu una imatge Jpeg, Png o Webp. La imatge que has seleccionat és</value>
+  </data>
+  <data name="Page.Camera.ReallyClear" xml:space="preserve">
+    <value>Realment clar?</value>
+  </data>
+  <data name="Button.Camera.Remove" xml:space="preserve">
+    <value>Eliminar</value>
+  </data>
+  <data name="Page.Camera.SavedToCustomFolder" xml:space="preserve">
+    <value>Desat a la carpeta personalitzada</value>
+  </data>
+  <data name="Page.Camera.SavedToExternal" xml:space="preserve">
+    <value>Desat a l'exterior</value>
+  </data>
+  <data name="Page.Camera.SavedToPhotos" xml:space="preserve">
+    <value>Desat a Fotos</value>
+  </data>
+  <data name="Page.Camera.SaveFailed" xml:space="preserve">
+    <value>S'ha produït un error en desar. :(</value>
+  </data>
+  <data name="Page.Camera.Saving" xml:space="preserve">
+    <value>S'està desant...</value>
+  </data>
+  <data name="Page.Camera.SecondaryOnLeft" xml:space="preserve">
+    <value>SECUNDÀRIA A L'ESQUERRA</value>
+  </data>
+  <data name="Page.Camera.SecondaryOnRight" xml:space="preserve">
+    <value>SECUNDÀRIA A LA DRETA</value>
+  </data>
+  <data name="Page.Camera.SelectedInvalid" xml:space="preserve">
+    <value>La imatge seleccionada no és vàlida.</value>
+  </data>
+  <data name="Page.Camera.SorryError" xml:space="preserve">
+    <value>Ho sentim, CrossCam ha fet un error. S'ha enviat automàticament un informe d'error. És possible que no noteu res dolent, però si ho feu, proveu de reiniciar l'aplicació. Si això continua passant, si us plau, envia'm un correu electrònic i explica'm-ho. (Vés a la pàgina Configuració per aturar aquestes finestres emergents.)</value>
+  </data>
+  <data name="Page.Camera.Steady" xml:space="preserve">
+    <value>Estable...</value>
+  </data>
+  <data name="Page.Camera.SureClear" xml:space="preserve">
+    <value>Esteu segur que voleu esborrar les vostres imatges i començar de nou?</value>
+  </data>
+  <data name="Page.Camera.Syncing" xml:space="preserve">
+    <value>S'està sincronitzant...</value>
+  </data>
+  <data name="Page.Camera.Transmitting" xml:space="preserve">
+    <value>S'està transmetent...
+(mantenir el dispositiu desbloquejat)</value>
+  </data>
+  <data name="Page.Camera.VR" xml:space="preserve">
+    <value>VR</value>
+  </data>
+  <data name="Page.FovCorrection" xml:space="preserve">
+    <value>Correcció del camp de visió</value>
+  </data>
+  <data name="Page.FovCorrectionExplain" xml:space="preserve">
+    <value>Els diferents models de dispositiu poden tenir diferents camps de visió. CrossCam us ajudarà a corregir-ho després de fer la vostra primera captura. Enquadra i captura alguna cosa amb punts distintius a la part superior i inferior del marc, assegurant-te que els punts siguin visibles als dos dispositius.</value>
+  </data>
+  <data name="Page.Technique.ParallelLink1" xml:space="preserve">
+    <value>Un bonic tutorial de text</value>
+  </data>
+  <data name="Page.Technique.ParallelLink2" xml:space="preserve">
+    <value>Un altre bon tutorial de text</value>
+  </data>
+  <data name="Page.Technique.ParallelLink3" xml:space="preserve">
+    <value>Un altre tutorial de text agradable</value>
+  </data>
+  <data name="Page.Technique.ParallelLink4" xml:space="preserve">
+    <value>Tutorial Magic Frankfurter</value>
+  </data>
+  <data name="Page.Technique.ParallelLink5" xml:space="preserve">
+    <value>Un bonic vídeo sobre Magic Eye</value>
+  </data>
+  <data name="Page.Technique.Trouble" xml:space="preserve">
+    <value>Si encara teniu problemes, proveu de portar el telèfon a una habitació fosca perquè l'única cosa que els vostres ulls puguin veure bé i centrar-se sigui la imatge.
+
+Una altra cosa que podeu provar és utilitzar tubs de paper higiènic o les vostres mans per fer-lo perquè cada ull només pugui veure el costat de la imatge que se suposa que ha de veure.
+ • Per a la visió creuada: subjecteu un únic tub contra el pont del nas (centrat entre els ulls) mentre l'apunteu al centre de la imatge davant vostre. Moveu lentament el tub cap a la pantalla mentre intenteu mirar cap avall amb els dos ulls. Quan arribeu a la posició correcta amb el tub, la imatge hauria d'encaixar al seu lloc. Pot ser útil concentrar-se en mirar l'interior de l'extrem més llunyà del tub. Si no trobeu la posició correcta, proveu d'utilitzar una imatge més gran o un tub més petit.
+ • Per a la visió paral·lela: agafeu un tub davant de cada ull, però apunta-los ambdós de costat, de manera que gairebé no es vegi res. Gireu lentament els tubs cap a dins al mateix temps perquè pugueu començar a veure més la imatge. En el moment que pugueu veure la major part de la imatge (gairebé la meitat amb cada ull), intenteu relaxar els ulls i ajuntar les meitats. Pot ser útil utilitzar una imatge més gran o més petita.
+
+Hi ha un exercici fàcil que podeu fer per practicar la fusió amb visualització creuada o paral·lela. Agafeu un retolador i dibuixeu una part d'una cara somrient a cadascuna de les vostres miniatures (o un parell de palets de paletes o depressors de llengua). Per exemple, per un costat dibuixa un ull i una boca, i per l'altre costat dibuixa un ull i un nas. A continuació, podeu mantenir-los davant vostre i practicar la fusió de les dues imatges per completar la cara somrient.
+
+Personalment, prefereixo creuar-se en paral·lel perquè les imatges poden ser més grans, però els dos mètodes funcionen. Si voleu experimentar amb imatges paral·leles més grans, podeu controlar la mida a la pàgina Configuració.
+
+De vegades és difícil sentir si estàs fent el mètode creuat o paral·lel mentre ho fas. Pots demanar a una altra persona que vigili els teus ulls mentre ho fas o pots mirar la imatge següent com a prova:</value>
+  </data>
+  <data name="SaveModes.Anaglyph" xml:space="preserve">
+    <value>Anaglif</value>
+  </data>
+  <data name="SaveModes.Cardboard" xml:space="preserve">
+    <value>Cartró</value>
+  </data>
+  <data name="SaveModes.Cross" xml:space="preserve">
+    <value>Creu</value>
+  </data>
+  <data name="SaveModes.GrayscaleAnaglyph" xml:space="preserve">
+    <value>Anaglif en escala de grisos</value>
+  </data>
+  <data name="SaveModes.Parallel" xml:space="preserve">
+    <value>Paral·lel</value>
+  </data>
+  <data name="SaveModes.Quad" xml:space="preserve">
+    <value>Quad</value>
+  </data>
+  <data name="SaveModes.Separate" xml:space="preserve">
+    <value>Separat</value>
+  </data>
+  <data name="SaveModes.Single" xml:space="preserve">
+    <value>Solter</value>
+  </data>
+  <data name="SaveModes.Triple" xml:space="preserve">
+    <value>Triple</value>
+  </data>
+  <data name="Page.Camera.FovExplain" xml:space="preserve">
+    <value>Per corregir les diferències de camp de visió, feu zoom i feu lliscar les imatges de manera que els punts distintius s'alineïn entre les dues fotos. Podeu arrossegar les línies blanques per ajudar-vos a visualitzar l'alineació. Aquesta correcció s'aplicarà a les visualitzacions prèvies futures. Es desarà, però el podeu restablir a la pàgina de configuració. Si utilitzeu dispositius idèntics, només cal desar sense ajustar.</value>
+  </data>
+  <data name="Page.Camera.FovTitle" xml:space="preserve">
+    <value>Correcció del camp de visió</value>
+  </data>
+  <data name="Page.Camera.KeyPoints" xml:space="preserve">
+    <value>Punts clau</value>
+  </data>
+  <data name="Page.Camera.Warped" xml:space="preserve">
+    <value>Deformat</value>
+  </data>
+  <data name="Page.Camera.WelcomeExplain" xml:space="preserve">
+    <value>CrossCam es va crear per ajudar-vos a fer fotos en 3D. Les fotos són en 3D igual que les pel·lícules en realitat virtual o en 3D, però no necessiteu cap equip ni ulleres especials, només el vostre telèfon (però si teniu un parell d'ulleres 3D vermelles/cianes o un visor de Google Cardboard, podeu utilitzar-los). amb CrossCam també). La tècnica de \"visualització gratuïta\" que només utilitza el telèfon i els ulls requereix una mica de pràctica per aprendre. Abans d'explicar-vos com utilitzar CrossCam, primer us agradaria aprendre més sobre la tècnica de visualització?</value>
+  </data>
+  <data name="Page.Camera.Welcome" xml:space="preserve">
+    <value>Benvingut a CrossCam!</value>
+  </data>
+  <data name="Page.Camera.Directions" xml:space="preserve">
+    <value>Passeu a les indicacions</value>
+  </data>
+  <data name="Page.Camera.Technique" xml:space="preserve">
+    <value>Tècnica de visualització</value>
+  </data>
+  <data name="Page.HowToUse.P1" xml:space="preserve">
+    <value>Si voleu tornar a veure-ho, toqueu la icona d'hamburguesa (tres línies) a la part superior esquerra de la pantalla de la càmera i toqueu "Ajuda".
+
+
+1) Enquadrar i fer la primera foto.</value>
+  </data>
+  <data name="Page.HowToUse.P2" xml:space="preserve">
+    <value>3) Mantingueu el telèfon ferm davant vostre i moveu-vos lentament cap als costats en la direcció que CrossCam us indica. No us moveu massa lluny: una polzada o menys per cada peu de distància del vostre objectiu. A més, no gireu gens, només llisqui de costat o fins i tot inclineu-vos.
+
+4) Alineeu la primera imatge amb la vista prèvia de la segona i feu-ne la segona quan us agradi el que veieu.
+
+5) CrossCam alinearà automàticament les teves imatges després de capturar-les, però no és perfecte, si no t'agrada com es van alinear, pots desactivar l'alineació automàtica tocant la icona del petit robot. CrossCam també té moltes opcions d'edició manual a les quals podeu accedir tocant la icona del llapis.
+
+6) Toqueu la marca de verificació quan estigueu preparat per desar.
+
+
+Altres coses que pots fer:
+ • Toqueu una vegada per enfocar un punt, toqueu dues vegades per tornar a l'enfocament automàtic continu.
+ • Toqueu la icona d'engranatge a la part superior dreta de la pantalla de la càmera per obrir la pàgina Configuració. Està ple de coses interessants.
+ • Hi ha una pàgina de consells agradable a la qual podeu accedir tocant la icona d'hamburguesa a la part superior esquerra de la pantalla de la càmera que us pot ajudar a fer les vostres imatges genials.
+ • Si preferiu moure l'altra direcció per a la vostra segona presa o voleu canviar els costats, feu un lliscar.
+ • Toqueu la icona de la carpeta petita a la part inferior per carregar una imatge com a lateral o per carregar una imatge estèreo completa.</value>
+  </data>
+  <data name="Page.Faq.Alignment" xml:space="preserve">
+    <value>Com funciona l'alineació automàtica?</value>
+  </data>
+  <data name="Page.Faq.Alignment.Body" xml:space="preserve">
+    <value>L'alineació automàtica intenta alinear els parells d'imatges de la millor manera possible, però no és perfecte. La visió per ordinador és millor en algunes coses que els ulls humans, però també molt pitjor en altres coses. El món que veu és molt diferent del que veiem, però també es pot veure de diferents maneres. Les dues maneres principals que veu a CrossCam són mitjançant el coeficient de correlació millorat (ECC) i l'ús de punts clau.
+
+L'alineació ECC funciona bàsicament intentant assegurar-se que els pegats clars se superposen amb els pegats clars i els pegats foscos se superposen amb els pegats foscos quan els dos costats es superposen l'un a l'altre. L'alineació ECC inclou una puntuació de confiança que pretén ajudar a decidir si l'alineació va ser eficaç. CrossCam està configurat per rebutjar l'alineació produïda si la confiança és massa baixa, però podeu configurar el llindar d'aprovació/falla de confiança a la pàgina Configuració.
+
+L'alineació de punts clau busca punts d'interès com ara cantonades, vores, punts i un alt contrast i intenta fer coincidir-los entre els dos costats. Una vegada que els punts s'ajustin, CrossCam pot utilitzar una varietat d'algorismes per intentar deformar els costats de manera que els punts clau d'un costat estiguin el més a prop possible dels seus corresponents punts clau de l'altre costat.
+
+CrossCam està programada per utilitzar primer l'alineació del punt clau, però tornarà a l'alineació ECC quan l'alineació del punt clau falli o quan es faci la captura amb el mètode de divisió de mirall d'un sol tir. També podeu configurar l'alineació automàtica perquè utilitzi sempre l'alineació de punts clau o utilitzeu sempre l'alineació ECC a la pàgina Configuració.
+
+CrossCam mostrarà el resultat de l'alineació a la pantalla de la càmera sota la icona del petit robot. Si va utilitzar l'alineació ECC, mostrarà el percentatge de confiança. Si va utilitzar l'alineació del punt clau, mostrarà "KP". Si els dos mètodes d'alineació fallaven, es mostrarà "F". Si no us agrada el resultat de l'alineació, podeu tocar la icona del petit robot per eliminar l'alineació.</value>
+  </data>
+  <data name="Page.Faq.Bad" xml:space="preserve">
+    <value>Això és dolent per als meus ulls?</value>
+  </data>
+  <data name="Page.Faq.Bad.Body1" xml:space="preserve">
+    <value>No ho sé, però no ho crec. Tanmateix, si us sembla malament només feu una pausa. Amb la pràctica les molèsties solen disminuir. Qualsevol mètode de visualització podria causar molèsties a causa d'un efecte anomenat conflicte vergència-acomodació. Aquí està</value>
+  </data>
+  <data name="Page.Faq.Bad.Body2" xml:space="preserve">
+    <value>un enllaç a la Viquipèdia sobre el conflicte vergència-allotjament.</value>
+  </data>
+  <data name="Page.Faq.Bad.Body3" xml:space="preserve">
+    <value>Si utilitzeu el mètode amb els ulls creuats, la sensació també pot ser deguda al fet que els vostres ulls no estan acostumats a assenyalar com si estiguessin mirant una cosa tan a prop durant tant de temps. Quan es visualitza creuament, els teus ulls convergeixen en un punt a mig camí entre els teus ulls i la pantalla. Si mirar alguna cosa tan a prop durant molt de temps també et causaria molèsties, tenim la nostra explicació.
+
+La meva opinió és que els teus ulls no fan res fora de les seves capacitats quotidianes, però estàs combinant dues habilitats diferents que normalment no s'utilitzen d'aquesta manera. Estàs enfocant les teves lents en alguna cosa en un lloc que normalment és còmode per enfocar, i estàs apuntant els teus ulls cap a un lloc on normalment els és còmode apuntar, però el lloc on s'enfoquen les teves lents i on els teus ulls convergeixen. simplement no és el mateix punt. No veig com això podria ser dolent per a tu mentre la teva visió encara no es desenvolupi.</value>
+  </data>
+  <data name="Page.Faq.Cardboard" xml:space="preserve">
+    <value>Com puc utilitzar CrossCam amb Google Cardboard?</value>
+  </data>
+  <data name="Page.Faq.Cardboard.Body" xml:space="preserve">
+    <value>Si el vostre visor té un botó que prem el centre de la pantalla, podeu utilitzar-lo per capturar amb Cardboard. El vostre espectador també haurà de tenir un forat perquè la càmera del vostre telèfon vegi a través.
+
+Per capturar fotos amb Cardboard, canvieu el vostre Mètode de visualització prèvia (a la pàgina Configuració) a Cardboard, després torneu a la pàgina de la càmera i enganxeu el telèfon al visor. Premeu el botó per capturar i, quan els dos costats estiguin capturats, torneu a prémer el botó per desar. Desar en mode Cardboard només us permet tornar a carregar les imatges a CrossCam per veure-les més tard, no per veure-les a l'aplicació de fotos a través del vostre visor.
+
+També podeu capturar amb qualsevol altre mètode que vulgueu, després canviar el vostre mètode de visualització prèvia a Cardboard i posar el telèfon al visor.
+
+Hi ha molts espectadors diferents amb propietats diferents. És possible que hàgiu de canviar la distància de separació de cartró (a la pàgina Configuració) per fer la vostra experiència més còmoda. És possible que també hàgiu d'assegurar-vos primer de capturar estereogrames d'alta qualitat abans de fer-los enormes i immersius.</value>
+  </data>
+  <data name="Page.Faq.How" xml:space="preserve">
+    <value>Com funciona?</value>
+  </data>
+  <data name="Page.Faq.How.Body1" xml:space="preserve">
+    <value>L'efecte 3D que utilitza CrossCam és una disciplina ben estudiada coneguda com estereoscòpia, i el mètode en què creus els ulls (o els relaxes) per veure els dos costats s'anomena visualització lliure. Quan mirem el món, cadascun dels nostres ulls veu des d'una perspectiva diferent. En estereoscòpia tot el que fem és presentar una perspectiva (artificial) a cada ull, i el nostre cervell només fa la resta. Hi ha moltes maneres diferents de fer que cada ull vegi una imatge diferent. Aquí està</value>
+  </data>
+  <data name="Page.Faq.How.Body2" xml:space="preserve">
+    <value>un enllaç a la Viquipèdia sobre estereoscòpia</value>
+  </data>
+  <data name="Page.Faq.How.Body3" xml:space="preserve">
+    <value>Les imatges en 3D que feu amb CrossCam s'anomenen estereogrames. Els llibres Magic Eye™ contenen el que s'anomena autostereogrames.</value>
+  </data>
+  <data name="Page.Faq.Into" xml:space="preserve">
+    <value>Com vas entrar a l'estereoscòpia?</value>
+  </data>
+  <data name="Page.Faq.Into.Body1" xml:space="preserve">
+    <value>Mentre obtenia el meu títol de física, vaig tenir l'oportunitat d'experimentar amb la creació dels meus propis hologrames amb làsers. El tipus d'hologrames que estava fent eren 3D perquè utilitzaven una reixa de difracció per provocar una interferència destructiva en la llum que es reflecteix a la superfície d'una placa de vidre, cosa que fa que la imatge reflectida sembli diferent de diferents llocs. Quan cadascun dels nostres ulls veu una imatge que sembla des d'una perspectiva diferent (si no són massa diferents), el nostre cervell ho percep com a profunditat.</value>
+  </data>
+  <data name="Page.Faq.Into.Body2" xml:space="preserve">
+    <value>Feia temps que coneixia aquest principi de la percepció estereoscòpica, però en aquell moment de la meva vida també estava fent algunes classes de programació, així que vaig decidir que volia provar de fer un programa informàtic senzill per al dibuix 3D estereoscòpic. Aquest esforç es va convertir en StereoSketcher. La versió original estava escrita en Java, però la vaig reescriure amb Javascript i SVG i ara viu a la web</value>
+  </data>
+  <data name="Page.Faq.Into.Body3" xml:space="preserve">
+    <value>en aquest enllaç.</value>
+  </data>
+  <data name="Page.Faq.Into.Body4" xml:space="preserve">
+    <value>No és popular de cap manera, i pot ser que no sigui fàcil d'utilitzar per a ningú menys per a mi, però funciona. Mentre treballava a StereoSketcher vaig poder experimentar amb els principis de l'estereoscòpia i em vaig enamorar de la manera com es pot produir una experiència tan immersiva i atractiva amb unes quantes regles senzilles.</value>
+  </data>
+  <data name="Page.Faq.Inverted" xml:space="preserve">
+    <value>Per què el 3D no es veu bé O per què el 3D es veu invertit?</value>
+  </data>
+  <data name="Page.Faq.Inverted.Body1" xml:space="preserve">
+    <value>Quan es visualitzen lliurement amb el mètode creuat o paral·lel, és important mirar les imatges utilitzant el mateix mètode que es va utilitzar per crear-les. En cas contrari, l'ull dret mirarà la perspectiva destinada a l'ull esquerre i viceversa. Això fa que la profunditat de la imatge s'inverteixi, perquè s'ha canviat la direcció de paral·laxi.
+
+Paral·laxi vol dir que des de la perspectiva de l'ull dret, quan els objectes estan més lluny, semblen estar més a la dreta que els objectes més propers quan es veuen des de l'ull esquerre. És confús quan es descriu en format de frase, però molt intuïtiu quan es demostra.
+
+Per demostrar-ho, manteniu un dit davant vostre a una distància aproximadament d'un braç i, a continuació, amb l'altra mà manteniu un altre dit a mig camí entre el dit primer i la cara. Si tanqueu alternativament cada ull i presteu atenció a on són els dits, veureu que cada ull els veu en diferents llocs. Així, naturalment, si cada ull veia aquest moviment de la manera oposada a la que se suposa, la profunditat s'invertirà.
+
+És molt fàcil utilitzar accidentalment el mètode de visualització incorrecte perquè resulta que és molt difícil per a la majoria de la gent saber si creuen o relaxen els ulls només per sentir o mirant la doble imatge confusa del món que en resulta. En comptes d'això, el millor és que algú altre miri el que fan els teus ulls o prova aquesta imatge de prova:</value>
+  </data>
+  <data name="Page.Faq.Inverted.Body2" xml:space="preserve">
+    <value>Moltes persones s'han posat molt còmodes amb la visualització de llibres Magic Eye™, que estan pensats per veure's mitjançant el mètode de visualització paral·lela. Si els visualitzeu creuant, els objectes 3D robustos que se suposa que sortiran de la pàgina semblen forats. Tots dos mètodes us permeten veure *alguna cosa*, però si no podríeu dir què era, probablement els esteu mirant de manera creuada.</value>
+  </data>
+  <data name="Page.Faq.Mirror" xml:space="preserve">
+    <value>Com puc fer el mètode "mirall d'un sol tir"?</value>
+  </data>
+  <data name="Page.Faq.Mirror.Body1" xml:space="preserve">
+    <value>La captura amb el mètode mirall divideix el marc per la meitat i fa la transformació necessària perquè pugueu capturar ambdues cares al mateix moment amb un sol telèfon i un mirall de mà normal. Per utilitzar el mètode mirall quan captureu, activeu l'interruptor per al mode mirall a la pàgina Configuració (toqueu la icona d'engranatge per arribar-hi). Després d'activar el mode mirall, CrossCam us dirà de quin costat col·loqueu el mirall. Mantingueu el mirall d'aquest costat i feu-ho amb l'alineació entre el telèfon i el mirall i el subjecte. Amb una mica de paciència, podreu alinear-los tots perquè el mirall mostri la perspectiva correcta per a un dels costats. Com que l'ús del mètode mirall divideix la imatge per la meitat verticalment, normalment és millor capturar en horitzontal amb el mètode mirall.
+
+Aquest mètode també funcionarà amb reflexos en finestres grans i netes, i també en llacs o bassals quiets (quan el telèfon està bloquejat en retrat i girat de costat).</value>
+  </data>
+  <data name="Page.Faq.Mirror.Body2" xml:space="preserve">
+    <value>Hi ha alguns compromisos/edicions que s'han de fer per utilitzar el mètode mirall. Tot això es pot fer manualment a CrossCam, però l'alineació automàtica també intentarà fer-ho per vosaltres:
+ • Com que la vista reflectida viatja a una distància més llarga que la vista normal, caldrà ampliar una mica el costat reflectit.
+ • És probable que quan utilitzeu el mètode del mirall acabeu apropant-vos, en lloc de mantenir les perspectives paral·leles; això pot fer que l'escorç sembli una mala alineació vertical. Per desfer-ho, es pot fer una correcció trapezoidal, que significa reduir verticalment un costat de cadascuna de les imatges.
+ • Apropar-se també tendirà a moure la finestra estèreo cap a vostè. Podeu desfer-ho i col·locar-lo on vulgueu retallant els costats.
+ • És probable que el mirall no cobreixi completament la vista d'un costat, per la qual cosa és possible que s'hagi de fer un retall per eliminar els fragments no reflectits.
+
+Els millors miralls per a això tenen un vidre prim. D'una banda, són lleugers, de manera que són més fàcils de subjectar durant llargs períodes. L'altra cosa important és que quan utilitzeu el mirall és probable que l'apunteu de costat en lloc de mirar-lo directament, ja que normalment s'utilitzen miralls. Quan s'orienten així, els miralls amb vidre gruixut poden tenir certa borrositat. Com més prim sigui el vidre, menys evident serà aquest desenfocament. Aquest tipus de miralls també poden ser de baixa qualitat en altres aspectes, per la qual cosa és important trobar un bon equilibri.
+
+Hi ha un parell de compromisos més que s'han d'acceptar quan s'utilitza la captura de miralls que no es poden solucionar en les edicions de CrossCam:
+ • Com que la vista dels dos costats recorre distàncies lleugerament diferents, l'enfocament necessari per a cada costat serà lleugerament diferent, de manera que un costat sempre serà lleugerament borrós. Aquest efecte es notarà més o menys segons la distància al subjecte i la profunditat de camp de la lent.
+ • Cap mirall és realment 100% eficient, de manera que el costat que utilitza el mirall pot ser una mica més fosc. Això variarà amb la qualitat del mirall.</value>
+  </data>
+  <data name="Page.Faq.Moving" xml:space="preserve">
+    <value>El meu tema es mou, com li faig fotos en 3D?</value>
+  </data>
+  <data name="Page.Faq.Moving.Body" xml:space="preserve">
+    <value>CrossCam us permet dos mètodes per capturar ambdues perspectives al mateix moment. Un mètode utilitza dos telèfons i un mètode utilitza un mirall.
+
+Per utilitzar la configuració de dos telèfons, consulteu la pàgina Configuració de l'aparellament, a la qual podeu accedir des de la pàgina Configuració (toqueu la icona d'engranatge).
+
+Per utilitzar el mètode mirall, consulteu l'altra pregunta de PMF al respecte.</value>
+  </data>
+  <data name="Page.Faq.Test" xml:space="preserve">
+    <value>Com puc provar les versions prèvies de CrossCam?</value>
+  </data>
+  <data name="Page.Faq.Test.Body" xml:space="preserve">
+    <value>Fes una ullada a aquesta publicació de Reddit</value>
+  </data>
+  <data name="Page.Faq.Why" xml:space="preserve">
+    <value>Per què vas fer CrossCam?</value>
+  </data>
+  <data name="Page.Faq.Why.Body" xml:space="preserve">
+    <value>Quan començava a interessar-me per l'estereoscòpia, vaig fer un viatge a Yellowstone. Mentre hi era, em vaig adonar que podria ser divertit provar d'utilitzar una aplicació mòbil de càmera 3D per capturar coses allà en 3D. Em va decebre molt les opcions existents. Vaig descobrir que tots us demanaven que feu dues captures i després esbrineu si eren bones. Sovint no ho eren, ja que vaig haver de fer conjectures completes repetidament sobre la meva distància de separació, així com la qualitat del tema.
+
+Durant les properes setmanes, la meva frustració a foc lent em va portar a imaginar-me simplement oferint una vista prèvia en directe de la segona captura juntament amb la primera. Ja tenia formació en desenvolupament mòbil, així que llavors només era qüestió de dedicar-hi temps. CrossCam ha estat fantàstic per a mi utilitzar-lo només per a mi per preservar els records, i també estic encantat de compartir-ho amb vosaltres.</value>
+  </data>
+  <data name="Page.Faq.Wiggle" xml:space="preserve">
+    <value>Què són els wigglegrams?</value>
+  </data>
+  <data name="Page.Faq.Wiggle.Body" xml:space="preserve">
+    <value>Els wigglegrams són una manera de veure estereogrames que no es basa en la visió binocular. Normalment són un gif que gira entre les dues perspectives, mostrant cadascuna en la seva totalitat al mateix lloc. CrossCam no admet fer-los ara mateix, però envieu-me un correu electrònic si realment us interessa i ho faré.</value>
+  </data>
+  <data name="Page.Tips.AlignAfter" xml:space="preserve">
+    <value>Tingueu en compte les línies horitzontals, però també podeu alinear-vos després.</value>
+  </data>
+  <data name="Page.Tips.AlignAfter.Body" xml:space="preserve">
+    <value>Si trobeu que mentre feu fotografies és impossible alinear les línies de guia superior i inferior alhora, probablement us heu mogut en una altra direcció que no sigui només cap al costat. Intenteu solucionar-ho abans de fer les fotos, però alinear-ho després del fet pot ajudar-ho molt.</value>
+  </data>
+  <data name="Page.Tips.Alignment" xml:space="preserve">
+    <value>Podeu desactivar l'alineació automàtica.</value>
+  </data>
+  <data name="Page.Tips.Alignment.Body" xml:space="preserve">
+    <value>Si no us agraden els resultats de l'alineació automàtica, desactiveu-lo a la pàgina Configuració o toqueu la icona del petit robot i les vostres imatges capturades originals es restauraran.</value>
+  </data>
+  <data name="Page.Tips.Donut" xml:space="preserve">
+    <value>La guia de donuts us pot ajudar a la vostra finestra.</value>
+  </data>
+  <data name="Page.Tips.Donut.Body" xml:space="preserve">
+    <value>Hi ha una guia experimental a la pàgina Configuració que podeu activar i que us pot ajudar a preservar la vostra finestra estèreo alhora que maximitzeu l'amplada útil. En girar a l'esquerra i a la dreta, la profunditat del donut canviarà en relació amb la resta de l'escena; establiu la profunditat del donut perquè estigui al punt més llunyà de l'escena o al darrere. Aneu amb compte, utilitzar-lo en escenes més petites pot fer que les coses siguin doloroses (vegeu el consell clau més amunt).</value>
+  </data>
+  <data name="Page.Tips.Keystone" xml:space="preserve">
+    <value>La correcció de la distorsió trapezoidal és necessària si us desplaceu.</value>
+  </data>
+  <data name="Page.Tips.Keystone.Body1" xml:space="preserve">
+    <value>Si us torneu cap a dins amb cada tret, és molt útil fer correccions clau. Normalment, voldreu reduir les vores interiors de les fotos i després retallar-ne algunes a la part superior i inferior per anivellar-les. S'accedeix al menú d'edició clau tocant el botó que sembla aquest:</value>
+  </data>
+  <data name="Page.Tips.Keystone.Body2" xml:space="preserve">
+    <value>Girar cap a dins s'anomena punteig. Pot provocar un efecte d'escorçament que dificulta la fusió de les cantonades de la imatge. L'efecte escorç és present en tot moment a la vida real, perquè les línies paral·leles semblen convergir a mesura que s'allunyen de la teva distància, però les perspectives artificials poden fer-ho estrany.</value>
+  </data>
+  <data name="Page.Tips.Lean" xml:space="preserve">
+    <value>Només pots inclinar-te.</value>
+  </data>
+  <data name="Page.Tips.Lean.Body" xml:space="preserve">
+    <value>De vegades, en comptes de moure completament els peus cap a l'esquerra o la dreta per fer fotos, pot ser més fàcil mantenir-se amb els peus separats i inclinar-se en cada direcció, però aneu amb compte de mantenir el telèfon a nivell i a la mateixa alçada. Només inclinar-se en lloc de moure's pot ajudar a no moure't massa lluny i pot facilitar que mantingui l'objectiu recte.</value>
+  </data>
+  <data name="Page.Tips.Lines" xml:space="preserve">
+    <value>Les línies d'alineació es poden moure.</value>
+  </data>
+  <data name="Page.Tips.Lines.Body" xml:space="preserve">
+    <value>Podeu arrossegar les línies d'alineació si voleu. Això és especialment útil quan s'alineen les imatges durant l'edició.</value>
+  </data>
+  <data name="Page.Tips.Old" xml:space="preserve">
+    <value>Podeu obrir fotos antigues a CrossCam.</value>
+  </data>
+  <data name="Page.Tips.Old.Body" xml:space="preserve">
+    <value>Podeu carregar fotografies fetes anteriorment tocant la icona de la carpeta a la part inferior de la pàgina de la càmera, però si esteu treballant amb un gran lot de fotos també les podeu compartir a CrossCam directament des de la vostra aplicació de fotos, que pot fer un seguiment de les vostres fotos. col·loca millor a les teves fotos.</value>
+  </data>
+  <data name="Page.Tips.Quick" xml:space="preserve">
+    <value>Activa el mode ràpid quan estiguis amb altres persones.</value>
+  </data>
+  <data name="Page.Tips.Quick.Body" xml:space="preserve">
+    <value>Si estàs explorant amb altres persones, és una bona idea passar al mode ràpid desactivant l'alineació automàtica i les vores i només desant un cop hagis capturat sense fer cap edició. Sempre podeu carregar, alinear automàticament i editar les imatges més tard. D'aquesta manera, els vostres companys no hauran d'esperar que perfeccioneu les vostres imatges al moment, però encara podeu estar segur que la profunditat que voleu és realment allà. Aneu amb compte de no fer cap edició precipitada abans del primer desament! També podeu activar l'estalvi lateral separat que ignorarà qualsevol edició que feu.</value>
+  </data>
+  <data name="Page.Tips.Sick" xml:space="preserve">
+    <value>Si el moviment et fa malalt, mantén-te quiet.</value>
+  </data>
+  <data name="Page.Tips.Sick.Body" xml:space="preserve">
+    <value>Si tot el moviment et fa malalt o dificulta massa la visualització en 3D, no comenceu a intentar veure'l en 3D fins que no us hàgiu mogut una mica. A continuació, compareu les imatges entre elles i alineeu-les utilitzant les línies horitzontals sense visualitzar-les en 3D i, a continuació, comenceu a visualitzar-les un cop alineades i mantenint-les immòbils.</value>
+  </data>
+  <data name="Page.Tips.Space" xml:space="preserve">
+    <value>Aquestes imatges poden ocupar molt d'emmagatzematge; podeu reduir-les.</value>
+  </data>
+  <data name="Page.Tips.Space.Body" xml:space="preserve">
+    <value>La pàgina Configuració té una opció per reduir proporcionalment la resolució de la imatge final; això us pot ajudar si voleu estalviar espai. Si la vostra foto no es retalla, el resultat final són dues imatges de resolució completa unides per fer-ne una de doble resolució, el que significa que sovint podeu sortir amb una gran reducció de resolució sense afectar notablement la qualitat.</value>
+  </data>
+  <data name="Page.Tips.Turn" xml:space="preserve">
+    <value>No gireu.</value>
+  </data>
+  <data name="Page.Tips.Turn.Body" xml:space="preserve">
+    <value>Quan us moveu, intenteu no girar el telèfon en cap direcció, inclosa la tendència natural a girar cap al subjecte mentre us moveu cap al costat. Serà necessària una mica de rotació (de vegades), però intenteu minimitzar-la. Imagineu que el telèfon està muntat en un rail horitzontal recte i només pot lliscar. Girar cap a dins pot provocar un efecte d'escorçament que fa que les cantonades siguin difícils de fusionar.</value>
+  </data>
+  <data name="Page.Tips.Window" xml:space="preserve">
+    <value>Afegeix una vora i retalla per fer una finestra estèreo forta.</value>
+  </data>
+  <data name="Page.Tips.Window.Body" xml:space="preserve">
+    <value>Es pot crear un efecte de finestra estèreo interessant fent dues coses: 1) activar la vora (a la pàgina Configuració) i 2) per a la visualització creuada, retallar les vores interiors de les imatges fins que la vora exterior es converteixi en 3D a la imatge (retallar). les vores EXTERIOR si esteu mirant paral·lelament). La clau és retallar la vora dreta de la imatge esquerra lleugerament més enllà del que la vora dreta de la imatge dreta mostra de l'escena i viceversa. L'opció d'afegir una vora està activada a la pàgina Configuració. Si això és confús, només cal retallar un munt de les vores interiors i començarà a quedar clar. El botó de retall per a les vores interiors té aquest aspecte:</value>
+  </data>
+  <data name="Button.Code" xml:space="preserve">
+    <value>Vegeu el Codi</value>
+  </data>
+  <data name="Button.Developer" xml:space="preserve">
+    <value>Sobre el desenvolupador</value>
+  </data>
+  <data name="Button.EmailMe" xml:space="preserve">
+    <value>Envia'm un correu electrònic</value>
+  </data>
+  <data name="Button.GitHub" xml:space="preserve">
+    <value>Afegiu un problema a GitHub</value>
+  </data>
+  <data name="Button.Press" xml:space="preserve">
+    <value>Torneu a la pantalla de la càmera als dos dispositius i toqueu el botó de vinculació a la cantonada inferior</value>
+  </data>
+  <data name="Button.Primary" xml:space="preserve">
+    <value>TOCA AQUÍ A PRIMÀRIA</value>
+  </data>
+  <data name="Button.Privacy" xml:space="preserve">
+    <value>Política de privacitat</value>
+  </data>
+  <data name="Button.Secondary" xml:space="preserve">
+    <value>TOCA AQUÍ A SECUNDÀRIA</value>
+  </data>
+  <data name="Button.Test" xml:space="preserve">
+    <value>Prova les versions prèvies al llançament</value>
+  </data>
+  <data name="Button.Wi-Fi" xml:space="preserve">
+    <value>Assegureu-vos que el Wi-Fi estigui habilitat als dos dispositius (però no cal que estigui connectat a res)</value>
+  </data>
+  <data name="Page.Pairing.1" xml:space="preserve">
+    <value>Si teniu dos dispositius amb CrossCam instal·lat, podeu connectar-los per fer fotos simultànies des de dues perspectives. Fer dues fotos al mateix moment permet obtenir els millors estereogrames possibles.
+
+Tingueu en compte que aquesta funció encara és experimental i pot tenir problemes. És possible que no funcioni perfectament tot el temps i que us consumeixi la bateria. També tingueu en compte que en aquest moment els dispositius han de ser de la mateixa plataforma per poder connectar-se (tant amb Android com ambdós iOS).
+
+Una manera d'aconseguir una sincronització *perfecta* utilitzant només un únic dispositiu i CrossCam és utilitzar el mètode "mirall d'un sol tir". Podeu activar-lo a la pàgina Configuració i llegir-lo a la pàgina de PMF.
+
+Abans que dos dispositius es puguin utilitzar junts, s'han d'assignar les seves funcions. El dispositiu PRIMARI és el que mostrarà les dues previsualitzacions, activarà la captura i mantindrà/desarà les captures finals. Per assignar rols, navegueu pels dos dispositius fins a aquesta pàgina i seguiu els passos següents:</value>
+  </data>
+  <data name="Page.Pairing.2" xml:space="preserve">
+    <value>Si teniu problemes, tingueu en compte:
+ • Després d'iniciar el procés de vinculació, es pot tornar a tocar el botó de vinculació en qualsevol moment per aturar-lo o desconnectar-lo.
+ • Pot ser útil deixar de vincular els dos dispositius i reiniciar-lo alhora.
+ • Pot ser útil desconnectar-se de les xarxes Wi-Fi o de dades en cas que funcionin correctament.
+ • Cada càmera és diferent. Aquestes diferències poden incloure el camp de visió angular, l'enfocament, l'exposició i el comportament del balanç de blancs, el temps i molt més. Fins i tot dos del mateix model de telèfon es comportaran de manera lleugerament diferent. Prefereixo utilitzar un parell de telèfons antics idèntics (en el meu cas, un parell d'iPhone 6).
+ • CrossCam és programari, no maquinari, de manera que la captura de les fotos pot estar lleugerament dessincronitzada depenent de què més facin els processadors i la memòria en el moment precís de la captura. Com a resultat, la sincronització de vegades pot no ser perfecta, però en general hauria d'estar molt propera.</value>
+  </data>
+  <data name="Page.Pairing.Again" xml:space="preserve">
+    <value>Per tornar a connectar-vos més tard, assegureu-vos que teniu la Wi-Fi activada i, a continuació, només heu de tocar el botó de connexió a la pantalla d'inici dels dos dispositius.</value>
+  </data>
+  <data name="Page.Pairing.LocalNetworkAccess" xml:space="preserve">
+    <value>CrossCam requereix permís d'accés a la xarxa local. CrossCam en realitat no utilitza la xarxa local, però iOS requereix que CrossCam obtingui aquest permís per utilitzar l'antena Wi-Fi per buscar dispositius. CrossCam us demanarà aquest permís una vegada; si us denega el permís, haureu d'anar i girar l'interruptor a l'aplicació Configuració.</value>
+  </data>
+  <data name="Page.Pairing.Location" xml:space="preserve">
+    <value>CrossCam sol·licitarà permisos i encendrerà components segons sigui necessari per connectar els vostres dispositius. Tingueu en compte que CrossCam requereix permís d'ubicació i que els serveis d'ubicació estiguin activats al dispositiu principal per connectar-se al dispositiu secundari. Això és simplement un requisit d'Android i està completament fora del meu control. CrossCam en realitat no fa servir la vostra ubicació de cap manera, però com que l'acte de cercar (i trobar) dispositius propers en teoria es podria utilitzar per localitzar-vos aproximadament, CrossCam requereix permís per accedir a la vostra ubicació.</value>
+  </data>
+  <data name="Page.Pairing.Permissions" xml:space="preserve">
+    <value>Una nota sobre els permisos:</value>
+  </data>
+  <data name="Page.Pairing.Title" xml:space="preserve">
+    <value>Maridatge</value>
+  </data>
+  <data name="Button.Back" xml:space="preserve">
+    <value>&lt; Enrere</value>
+  </data>
+  <data name="Page.MorePictures.CrossViewSubreddit" xml:space="preserve">
+    <value>CrossView Subreddit</value>
+  </data>
+  <data name="Page.MorePictures.FacebookGroup" xml:space="preserve">
+    <value>Grup de Facebook 3D estereoscòpic</value>
+  </data>
+  <data name="Page.MorePictures.GoogleDoc" xml:space="preserve">
+    <value>Google Doc of Great Stuff</value>
+  </data>
+  <data name="Page.MorePictures.Instagram" xml:space="preserve">
+    <value>Etiqueta estereoscòpica d'Instagram</value>
+  </data>
+  <data name="Page.MorePictures.Mine" xml:space="preserve">
+    <value>Mira les fotos que he fet</value>
+  </data>
+  <data name="Page.MorePictures.ParallelViewSubreddit" xml:space="preserve">
+    <value>Subreddit ParallelView</value>
+  </data>
+  <data name="Page.Settings.Alignment" xml:space="preserve">
+    <value>Alineació automàtica</value>
+  </data>
+  <data name="Page.Settings.Analytics" xml:space="preserve">
+    <value>Comparteix dades d'ús i errors anònims per ajudar a millorar CrossCam</value>
+  </data>
+  <data name="Page.Settings.Border" xml:space="preserve">
+    <value>Frontera</value>
+  </data>
+  <data name="Page.Settings.Camera" xml:space="preserve">
+    <value>Càmera</value>
+  </data>
+  <data name="Page.Settings.Defaults" xml:space="preserve">
+    <value>Restableix els valors per defecte</value>
+  </data>
+  <data name="Page.Settings.Editing" xml:space="preserve">
+    <value>Edició</value>
+  </data>
+  <data name="Page.Settings.ErrorEmail" xml:space="preserve">
+    <value>Sol·licitar per enviar un correu electrònic quan es produeixin errors</value>
+  </data>
+  <data name="Page.Settings.Guides" xml:space="preserve">
+    <value>Guies de captura</value>
+  </data>
+  <data name="Page.Settings.Pairing" xml:space="preserve">
+    <value>Maridatge</value>
+  </data>
+  <data name="Page.Settings.Preview" xml:space="preserve">
+    <value>Mètode de visualització prèvia</value>
+  </data>
+  <data name="Page.Settings.Saving" xml:space="preserve">
+    <value>Estalvi</value>
+  </data>
+  <data name="Page.TipMe.1" xml:space="preserve">
+    <value>CrossCam és d'ús gratuït, sense anuncis, de codi obert, no recopila informació personal sobre vostè i us ofereix accés complet a totes les funcions. M'encanta treballar amb CrossCam, però requereix molt de temps i esforç. No guanyo diners amb CrossCam, excepte pels consells que la gent podria decidir enviar-me.</value>
+  </data>
+  <data name="Page.TipMe.2" xml:space="preserve">
+    <value>Si t'agrada CrossCam i pots, considera enviar-me un consell.</value>
+  </data>
+  <data name="Page.TipMe.Ko-fi" xml:space="preserve">
+    <value>Ko-fi</value>
+  </data>
+  <data name="Page.TipMe.Patreon" xml:space="preserve">
+    <value>Patreon</value>
+  </data>
+  <data name="Page.TipMe.PayPal" xml:space="preserve">
+    <value>PayPal</value>
+  </data>
+  <data name="Page.TipMe.Tipped" xml:space="preserve">
+    <value>M'han donat propina</value>
+  </data>
+  <data name="Page.TipMe.TippedTimes" xml:space="preserve">
+    <value>vegades, sumant</value>
+  </data>
+  <data name="Page.TipMe.Venmo" xml:space="preserve">
+    <value>Venmo</value>
+  </data>
+  <data name="Title.MorePictures" xml:space="preserve">
+    <value>Veure més imatges</value>
+  </data>
+  <data name="Title.Settings" xml:space="preserve">
+    <value>Configuració</value>
+  </data>
+  <data name="Title.TipMe" xml:space="preserve">
+    <value>Els consells són apreciats!</value>
+  </data>
+  <data name="Settings.Alignment.Advanced" xml:space="preserve">
+    <value>Mostra la configuració avançada d'alineació</value>
+  </data>
+  <data name="Settings.Alignment.Ecc" xml:space="preserve">
+    <value>Intenteu utilitzar sempre l'alineació ECC primer</value>
+  </data>
+  <data name="Settings.Alignment.Keypoints" xml:space="preserve">
+    <value>Intenteu utilitzar sempre l'alineació de punts clau</value>
+  </data>
+  <data name="Settings.Alignment.On" xml:space="preserve">
+    <value>Alinea automàticament després de la captura</value>
+  </data>
+  <data name="Settings.Border.Color" xml:space="preserve">
+    <value>Color de la vora</value>
+  </data>
+  <data name="Settings.Border.FuseGuide" xml:space="preserve">
+    <value>Afegiu una guia de fusibles a la part superior (un punt a sobre de cada costat)</value>
+  </data>
+  <data name="Settings.Border.On" xml:space="preserve">
+    <value>Afegeix una vora</value>
+  </data>
+  <data name="Settings.Border.Prompt" xml:space="preserve">
+    <value>Demana que es desactivi la vora quan es detecti durant la càrrega</value>
+  </data>
+  <data name="Settings.Border.Thickness" xml:space="preserve">
+    <value>Gruix de la vora (dècimes del percentatge d'amplada)</value>
+  </data>
+  <data name="Settings.Camera.Camera1" xml:space="preserve">
+    <value>Força l'API de càmera 1 (pot ser útil si estàs experimentant estranyesa, però tindràs una funcionalitat limitada, requereix una força de tancament/reinici per tenir efecte)</value>
+  </data>
+  <data name="Settings.Camera.Camera2" xml:space="preserve">
+    <value>Força l'API de camera2 (ha d'estar a Android 6 o superior, pot ser útil si tens errors, però pot fer-ne més, requereix una força de tancament/reinici per tenir efecte)</value>
+  </data>
+  <data name="Settings.Camera.LandscapeCaptureHorizontal" xml:space="preserve">
+    <value>Col·locació horitzontal del botó de captura de paisatge</value>
+  </data>
+  <data name="Settings.Camera.LandscapeCaptureVertical" xml:space="preserve">
+    <value>Col·locació vertical del botó de captura de paisatge</value>
+  </data>
+  <data name="Settings.Camera.Lock" xml:space="preserve">
+    <value>Bloqueja l'enfocament i l'exposició de la segona imatge a l'enfocament i l'exposició de la primera imatge</value>
+  </data>
+  <data name="Settings.Camera.Pair" xml:space="preserve">
+    <value>Col·locació horitzontal del botó de vinculació (quan el botó de captura està centrat)</value>
+  </data>
+  <data name="Settings.Camera.PointFocus" xml:space="preserve">
+    <value>Toca per apuntar el focus, fes doble toc per tornar a l'enfocament continu (o desa o esborra)</value>
+  </data>
+  <data name="Settings.Camera.PortraitCapture" xml:space="preserve">
+    <value>Col·locació del botó de captura de retrats</value>
+  </data>
+  <data name="Settings.Editing.Align" xml:space="preserve">
+    <value>Màxima proporció d'alineació vertical</value>
+  </data>
+  <data name="Settings.Editing.Keystone" xml:space="preserve">
+    <value>Clave màxima</value>
+  </data>
+  <data name="Settings.Editing.Rotation" xml:space="preserve">
+    <value>Graus màxims de rotació</value>
+  </data>
+  <data name="Settings.Editing.SideCrop" xml:space="preserve">
+    <value>Proporció màxima de cultiu lateral</value>
+  </data>
+  <data name="Settings.Editing.TopCrop" xml:space="preserve">
+    <value>Proporció màxima de cultiu superior/inferior</value>
+  </data>
+  <data name="Settings.Editing.Zoom" xml:space="preserve">
+    <value>Proporció de zoom màxima</value>
+  </data>
+  <data name="Settings.Guides.Donut" xml:space="preserve">
+    <value>Mostra la guia de rosquilles (provocarà un punt d'entrada, per la qual cosa pot requerir una edició clau)</value>
+  </data>
+  <data name="Settings.Guides.Fuse" xml:space="preserve">
+    <value>Mostra la guia de fusibles (un punt a sobre de cada costat)</value>
+  </data>
+  <data name="Settings.Guides.LineColor" xml:space="preserve">
+    <value>Diferents línies de colors</value>
+  </data>
+  <data name="Settings.Guides.Lines" xml:space="preserve">
+    <value>Línies visibles</value>
+  </data>
+  <data name="Settings.Guides.Roll" xml:space="preserve">
+    <value>Guia de rotlle visible</value>
+  </data>
+  <data name="Settings.Pair.CaptureDelay" xml:space="preserve">
+    <value>Retard addicional del moment de captura (ms) (només afegeix un retard addicional al moment de captura objectiu en aquest dispositiu)</value>
+  </data>
+  <data name="Settings.Pair.Countdown" xml:space="preserve">
+    <value>Durada del compte enrere de la captura (temporitzador)</value>
+  </data>
+  <data name="Settings.Pair.Fov" xml:space="preserve">
+    <value>Correcció del camp de visió</value>
+  </data>
+  <data name="Settings.Pair.FovNotSet" xml:space="preserve">
+    <value>La correcció del FOV no està establerta (feu una captura amb dispositius aparellats per recórrer la configuració).</value>
+  </data>
+  <data name="Settings.Pair.FovReset" xml:space="preserve">
+    <value>Restableix</value>
+  </data>
+  <data name="Settings.Pair.Go" xml:space="preserve">
+    <value>Aneu a la pàgina de configuració de l'aparellament</value>
+  </data>
+  <data name="Settings.Pair.NoRole" xml:space="preserve">
+    <value>Rol no seleccionat</value>
+  </data>
+  <data name="Settings.Pair.PreviewDelay" xml:space="preserve">
+    <value>Retard de fotogrames de vista prèvia (un nombre més alt reduirà la velocitat de fotogrames però estalviarà bateria)</value>
+  </data>
+  <data name="Settings.Pair.Primary" xml:space="preserve">
+    <value>Primària:</value>
+  </data>
+  <data name="Settings.Pair.PrimaryRole" xml:space="preserve">
+    <value>Funció: Primària</value>
+  </data>
+  <data name="Settings.Pair.Sample" xml:space="preserve">
+    <value>Recompte de mostres de rellotge (un nombre més baix reduirà el temps necessari per a la sincronització inicial, però pot disminuir la precisió de la sincronització)</value>
+  </data>
+  <data name="Settings.Pair.Secondary" xml:space="preserve">
+    <value>Secundària:</value>
+  </data>
+  <data name="Settings.Pair.SecondaryRole" xml:space="preserve">
+    <value>Funció: secundària</value>
+  </data>
+  <data name="Settings.Pair.Timeout" xml:space="preserve">
+    <value>Temps d'espera de connexió (segons) (0 significa que no hi ha temps d'espera)</value>
+  </data>
+  <data name="Settings.Preview.Barrel" xml:space="preserve">
+    <value>Afegeix correcció de la lent/distorsió de barril (pot reduir la velocitat de fotogrames)</value>
+  </data>
+  <data name="Settings.Preview.BarrelFinal" xml:space="preserve">
+    <value>Afegiu correcció de la lent/distorsió de barril només a les imatges finals (pot alentir la visualització final, però accelerarà la captura)</value>
+  </data>
+  <data name="Settings.Preview.CardboardDistance" xml:space="preserve">
+    <value>Distància de separació del cartró</value>
+  </data>
+  <data name="Settings.Preview.Downsize" xml:space="preserve">
+    <value>Redueix la mida de la imatge (pot augmentar la velocitat de fotogrames)</value>
+  </data>
+  <data name="Settings.Preview.DownsizePercent" xml:space="preserve">
+    <value>Redueix el percentatge de la imatge</value>
+  </data>
+  <data name="Settings.Preview.Immersive" xml:space="preserve">
+    <value>Visualització final immersiva</value>
+  </data>
+  <data name="Settings.Preview.LensStrength" xml:space="preserve">
+    <value>Força de correcció de la lent</value>
+  </data>
+  <data name="Settings.Preview.Mirror" xml:space="preserve">
+    <value>Captura mitjançant el mètode de divisió del mirall d'un sol tir</value>
+  </data>
+  <data name="Settings.Preview.Width" xml:space="preserve">
+    <value>Amplada màxima de la imatge de visualització paral·lela (punts)</value>
+  </data>
+  <data name="Settings.Reset" xml:space="preserve">
+    <value>Restableix els valors per defecte</value>
+  </data>
+  <data name="Settings.Saving.Alone" xml:space="preserve">
+    <value>Desa només la primera cara (sense modificacions ni vores) (per compartir fàcilment la foto plana amb persones amb vista plana)</value>
+  </data>
+  <data name="Settings.Saving.Anaglyph" xml:space="preserve">
+    <value>Desa la versió anaglif vermell/cian (amb edicions però sense vorera)</value>
+  </data>
+  <data name="Settings.Saving.Browse" xml:space="preserve">
+    <value>Navega...</value>
+  </data>
+  <data name="Settings.Saving.Cardboard" xml:space="preserve">
+    <value>Desa per a Cardboard (amb edicions, sense vores, sense espaiat, ample complet, per tornar a carregar a CrossCam més tard)</value>
+  </data>
+  <data name="Settings.Saving.Clear" xml:space="preserve">
+    <value>Esborra automàticament les captures després de desar-les</value>
+  </data>
+  <data name="Settings.Saving.Cross" xml:space="preserve">
+    <value>Desa la versió de vista creuada unida (amb edicions i vores)</value>
+  </data>
+  <data name="Settings.Saving.ExternalDirectory" xml:space="preserve">
+    <value>Desa al directori extern de CrossCam a:</value>
+  </data>
+  <data name="Settings.Saving.ExternalWarning" xml:space="preserve">
+    <value>(advertència: les imatges s'eliminaran si es desinstal·la CrossCam)</value>
+  </data>
+  <data name="Settings.Saving.Folder" xml:space="preserve">
+    <value>Desa a la subcarpeta/àlbum dedicat "CrossCam".</value>
+  </data>
+  <data name="Settings.Saving.Grayscale" xml:space="preserve">
+    <value>Desa la versió anaglif vermell/cian en escala de grisos (amb edicions però sense vorera)</value>
+  </data>
+  <data name="Settings.Saving.Order" xml:space="preserve">
+    <value>(El desament es farà en ordre de dalt a baix)</value>
+  </data>
+  <data name="Settings.Saving.Parallel" xml:space="preserve">
+    <value>Desa la versió de vista paral·lela unida (amb edicions i vores)</value>
+  </data>
+  <data name="Settings.Saving.Quad" xml:space="preserve">
+    <value>Desa la combinació de quads (amb edicions i vores)</value>
+  </data>
+  <data name="Settings.Saving.Reset" xml:space="preserve">
+    <value>Restableix</value>
+  </data>
+  <data name="Settings.Saving.Resolution" xml:space="preserve">
+    <value>Proporció de resolució</value>
+  </data>
+  <data name="Settings.Saving.SaveTo" xml:space="preserve">
+    <value>Desa a:</value>
+  </data>
+  <data name="Settings.Saving.Separate" xml:space="preserve">
+    <value>Desa cada costat per separat (sense modificacions ni vores per facilitar el processament de la publicació, primer desa el costat esquerre)</value>
+  </data>
+  <data name="Settings.Saving.Subfolder" xml:space="preserve">
+    <value>Desa a les subcarpetes/àlbums dedicats "CrossCam_{ViewMethod}".</value>
+  </data>
+  <data name="Settings.Saving.Triple" xml:space="preserve">
+    <value>Desa la combinació triple (amb edicions i vores)</value>
+  </data>
+  <data name="Button.Pair.Accept" xml:space="preserve">
+    <value>Acceptar</value>
+  </data>
+  <data name="Button.Pair.Cancel" xml:space="preserve">
+    <value>Cancel · lar</value>
+  </data>
+  <data name="Page.Camera.AcceptConnection" xml:space="preserve">
+    <value>Accepta la connexió a</value>
+  </data>
+  <data name="Page.Camera.Confirm" xml:space="preserve">
+    <value>Confirmeu que el codi coincideix amb els dos dispositius:</value>
+  </data>
+  <data name="Page.Footer.CouldntOpen" xml:space="preserve">
+    <value>No s'ha pogut obrir l'enllaç</value>
+  </data>
+  <data name="Page.Footer.OpenError" xml:space="preserve">
+    <value>No s'ha pogut obrir l'enllaç mailto. Això pot ser perquè el vostre client de correu electrònic no està configurat o per algun altre motiu.</value>
+  </data>
+  <data name="Page.Pair.Errors.Denied" xml:space="preserve">
+    <value>No es van concedir els permisos necessaris per a l'aparellament. Excepció:</value>
+  </data>
+  <data name="Page.Pair.Errors.FailedBluetooth" xml:space="preserve">
+    <value>El dispositiu no ha pogut encendre el Bluetooth. Excepció:</value>
+  </data>
+  <data name="Page.Pair.Errors.FailedSearch" xml:space="preserve">
+    <value>El dispositiu no ha pogut cercar dispositius. Excepció:</value>
+  </data>
+  <data name="Page.Pair.Errors.LocationOff" xml:space="preserve">
+    <value>Serveis d'ubicació no activats. No es poden cercar dispositius. Consulteu la pàgina de vinculació per obtenir més detalls.</value>
+  </data>
+  <data name="Page.Pair.Errors.LocationScan" xml:space="preserve">
+    <value>No s'ha concedit el permís d'ubicació. No es poden cercar dispositius. Consulteu la pàgina de vinculació per obtenir més detalls.</value>
+  </data>
+  <data name="Page.Pair.Errors.NotSupported" xml:space="preserve">
+    <value>L'aparellament no és compatible amb aquest dispositiu. Excepció:</value>
+  </data>
+  <data name="Page.Pair.Errors.Title" xml:space="preserve">
+    <value>Error</value>
+  </data>
+  <data name="Page.Pair.Errors.WifiOff" xml:space="preserve">
+    <value>El Wi-Fi està desactivat. Activa la Wi-Fi.</value>
+  </data>
+  <data name="Page.Pair.PrimaryExplanation" xml:space="preserve">
+    <value>Aquest dispositiu s'ha configurat com a principal.</value>
+  </data>
+  <data name="Page.Pair.PrimarySelected" xml:space="preserve">
+    <value>Rol principal seleccionat</value>
+  </data>
+  <data name="Page.Pair.SecondaryExplanation" xml:space="preserve">
+    <value>Aquest dispositiu s'ha configurat com a secundari.</value>
+  </data>
+  <data name="Page.Pair.SecondarySelected" xml:space="preserve">
+    <value>Rol secundari seleccionat</value>
+  </data>
+  <data name="Page.Technique.Mode" xml:space="preserve">
+    <value>mode.</value>
+  </data>
+  <data name="Page.Technique.SetMode" xml:space="preserve">
+    <value>CrossCam està ara dins</value>
+  </data>
+</root>

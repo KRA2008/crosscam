@@ -1,0 +1,1156 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="Button.GoogleDoc" xml:space="preserve">
+    <value>Google Doc of Great Stuff</value>
+  </data>
+  <data name="Button.LearnCross" xml:space="preserve">
+    <value>ისწავლეთ ჯვარი</value>
+  </data>
+  <data name="Button.LearnParallel" xml:space="preserve">
+    <value>ისწავლეთ პარალელურად</value>
+  </data>
+  <data name="Button.MorePictures" xml:space="preserve">
+    <value>იხილეთ მეტი სურათები</value>
+  </data>
+  <data name="Button.Review" xml:space="preserve">
+    <value>დაწერეთ მიმოხილვა</value>
+  </data>
+  <data name="Button.Share" xml:space="preserve">
+    <value>გააზიარეთ CrossCam</value>
+  </data>
+  <data name="Button.Support" xml:space="preserve">
+    <value>მხარი დაუჭირეთ დეველოპერს</value>
+  </data>
+  <data name="Button.TapCross" xml:space="preserve">
+    <value>შეეხეთ აქ ჯვრის ასარჩევად</value>
+  </data>
+  <data name="Button.TapParallel" xml:space="preserve">
+    <value>შეეხეთ აქ პარალელის ასარჩევად</value>
+  </data>
+  <data name="Footer.Span1" xml:space="preserve">
+    <value>იპოვე ხარვეზი? გაქვთ შეკითხვა? უბრალოდ ელ.წერილი</value>
+  </data>
+  <data name="Footer.Span3" xml:space="preserve">
+    <value>! მე მიყვარს მომხმარებლებთან საუბარი და ეს ჩემთან კომუნიკაციის ყველაზე სწრაფი გზაა.</value>
+  </data>
+  <data name="Page.HowToUse.2anaglyph" xml:space="preserve">
+    <value>2) დაიწყეთ ანაგლიფის ნახვა პირველი სურათის გადახედვით, რომელიც გამოჩნდება მის გვერდით.</value>
+  </data>
+  <data name="Page.HowToUse.2cardboard" xml:space="preserve">
+    <value>2) დაიწყეთ მუყაოს პირველი სურათის ნახვა წინასწარი გადახედვით, რომელიც გამოჩნდება მის გვერდით.</value>
+  </data>
+  <data name="Page.HowToUse.2cross" xml:space="preserve">
+    <value>2) დაიწყეთ პირველი სურათის ჯვარედინი ყურება წინასწარი გადახედვით, რომელიც გამოჩნდება მის გვერდით.</value>
+  </data>
+  <data name="Page.HowToUse.2parallel" xml:space="preserve">
+    <value>2) დაიწყეთ პირველი სურათის პარალელურად ყურება წინასწარი გადახედვით, რომელიც გამოჩნდება მის გვერდით.</value>
+  </data>
+  <data name="Page.Technique.AdditionalTutorials" xml:space="preserve">
+    <value>დამატებითი გაკვეთილები:</value>
+  </data>
+  <data name="Page.Technique.Cross1" xml:space="preserve">
+    <value>ფრთხილად გადააჯვარედინეთ თვალები ზემოთ მოცემულ წყვილ სურათზე ყურებისას. როდესაც თვალებს გადაკვეთთ, ყველაფერი ბუნდოვანი და გამჭვირვალე გახდება და თქვენ დაიწყებთ 4 სურათის ყურებას 2-ის ნაცვლად (2 წყვილი). რაც უფრო ძლიერად გადააჯვარედინებთ თვალებს, მით უფრო შორს დაიძვრება სურათების წყვილი - ეს ცოტათი ასე გამოიყურება:</value>
+  </data>
+  <data name="Page.Technique.Cross2" xml:space="preserve">
+    <value>ფრთხილად გადააჯვარედინეთ თვალები ისე, რომ თითოეული წყვილის შიგნით არსებული ნახატები ერთმანეთს დაემთხვეს. ის დაიწყებს ისე გამოიყურებოდეს, რომ 4-ის ნაცვლად მხოლოდ 3 სურათია. ის მაინც ბუნდოვანი და გამჭვირვალე იქნება და ასე გამოიყურება:</value>
+  </data>
+  <data name="Page.Technique.Cross3" xml:space="preserve">
+    <value>მას შემდეგ, რაც შუა გადახურვა იმუშავებს, თქვენ უბრალოდ უნდა დაისვენოთ თვალები და მისცეთ მათ სურათზე ფოკუსირება. ამ დროს თქვენ გექნებათ ერთი მკვეთრი 3D სურათი შუაში, რომლის თითოეულ მხარეს ცურავს გამჭვირვალე სურათი, რომელიც ასე გამოიყურება (გარდა შუაში იქნება 3D):</value>
+  </data>
+  <data name="Page.Technique.Cross4" xml:space="preserve">
+    <value>თუ თვალების გადაკვეთა გიჭირთ, ასევე შეგიძლიათ სცადოთ დახედოთ თქვენს თითს, სანამ მას შუა გზას უჭერთ თვალებსა და ეკრანს შორის. თქვენ უნდა ნახოთ სურათები, რომლებიც იწყებენ განცალკევებას და გადახურვას თქვენი თითის უკან.</value>
+  </data>
+  <data name="Page.Technique.CrossViewing" xml:space="preserve">
+    <value>ჯვარედინი ხედვა</value>
+  </data>
+  <data name="Page.Technique.P1" xml:space="preserve">
+    <value>თუ გსურთ ამის კიდევ ერთხელ ნახვა, შეეხეთ ჰამბურგერის (სამი ხაზის) ხატულას კამერის ეკრანის ზედა მარცხენა მხარეს და შეეხეთ "დახმარებას".
+
+CrossCam-ში 3D-ის სანახავად (ე.წ. "სტერეოგრამები") შეგიძლიათ გამოიყენოთ წითელი/ცისფერი 3D სათვალე, Google Cardboard მაყურებელი, ან შეგიძლიათ გააკეთოთ "უფასო ყურება" მხოლოდ თქვენი თვალებისა და ეკრანის გამოყენებით. უფასო ნახვის ორი გზა არსებობს და CrossCam დაგეხმარებათ ორივეს სწავლაში. თქვენ უნდა უთხრათ CrossCam-ს, თუ როგორ აპირებთ სურათების ნახვას, წინააღმდეგ შემთხვევაში ის სწორად არ იმუშავებს. არ ინერვიულოთ, ამის შეცვლა ყოველთვის შეგიძლიათ პარამეტრებიდან.
+
+თუ თქვენ შეგიძლიათ კომფორტულად გადაკვეთოთ თვალები, ჯერ უნდა სცადოთ ჯვრის მეთოდი, წინააღმდეგ შემთხვევაში პარალელური მეთოდი. თუ თქვენ შეჩვეული ხართ Magic Eye™ წიგნებს, ალბათ უკვე შეძლებთ პარალელური მეთოდის გაკეთებას, მაგრამ ასევე შეგიძლიათ გააკეთოთ ჯვარედინი მეთოდი. შეეხეთ ქვემოთ მოცემულ მეთოდს მის შესასწავლად და დარწმუნდით, რომ უთხარით CrossCam-ს რომელი მუშაობს თქვენთვის შესაბამისი ღილაკის CHOOSE დაჭერით.
+
+თუ გირჩევნიათ გამოიყენოთ 3D სათვალე ან Cardboard მაყურებელი, შეგიძლიათ დააყენოთ CrossCam, რათა გამოიყენოს ისინი პარამეტრების გვერდზე.</value>
+  </data>
+  <data name="Page.Technique.CrossLink1" xml:space="preserve">
+    <value>ლამაზი ტექსტური გაკვეთილი</value>
+  </data>
+  <data name="Page.Technique.CrossLink2" xml:space="preserve">
+    <value>კიდევ ერთი ლამაზი ტექსტური გაკვეთილი</value>
+  </data>
+  <data name="Page.Technique.CrossLink3" xml:space="preserve">
+    <value>მოკლე YouTube გაკვეთილი</value>
+  </data>
+  <data name="Page.Technique.CrossLink4" xml:space="preserve">
+    <value>გრძელი, უცნაური, მაგრამ სასარგებლო YouTube გაკვეთილი</value>
+  </data>
+  <data name="Page.Technique.CrossLink5" xml:space="preserve">
+    <value>კიდევ ერთი YouTube გაკვეთილი</value>
+  </data>
+  <data name="Page.Technique.CrossLink6" xml:space="preserve">
+    <value>ორმაგი კამერის პროექტი გაკვეთილით</value>
+  </data>
+  <data name="Page.Technique.Parallel1" xml:space="preserve">
+    <value>თუ ზემოაღნიშნული სურათი არ ჯდება თქვენს ეკრანზე, გადააკეთეთ თქვენი ტელეფონი ლანდშაფტზე - CrossCam ცდილობს სურათების წყვილი უმარტივეს ზომაზე მაღალი გახადოს ამისათვის. თქვენ ყოველთვის არ გჭირდებათ CrossCam-ის გამოყენება ლანდშაფტში, მაგრამ შესანიშნავი ზომის სურათი აადვილებს ტექნიკის შესწავლას.</value>
+  </data>
+  <data name="Page.Technique.Parallel2" xml:space="preserve">
+    <value>დაისვენეთ თვალები და გადახედეთ ზემოთ მოცემულ წყვილ სურათს, თითქოს ზონირებთ და თვალები სურათებზე მიუთითებთ. თქვენ უნდა დაიწყოთ 3 სურათის ნახვა შუაში 3D სურათით, ცოტა ასე:</value>
+  </data>
+  <data name="Page.Technique.Parallel3" xml:space="preserve">
+    <value>თუ დაიწყებთ 4 სურათის ყურებას, ძალიან შორს წახვედით. სცადეთ ოდნავ გადაატრიალოთ თვალები, თუ ისევ იმ წერტილში აღმოჩნდებით. ძალიან შორს დასვენება ასე გამოიყურება:</value>
+  </data>
+  <data name="Page.Technique.Parallel4" xml:space="preserve">
+    <value>თუ პრობლემა გაწუხებთ, სცადეთ ეკრანი პირდაპირ თქვენს სახეზე აწიოთ წყვილი სურათით პირდაპირ თვალწინ. დაისვენეთ და შეხედეთ ეკრანს "შიდა" და შემდეგ ნელა მოწიეთ ეკრანი სახიდან, ხოლო თვალები მოდუნებული იყავით. საბოლოოდ სურათი უნდა "დააწკაპუნოთ" ფოკუსში.</value>
+  </data>
+  <data name="Page.Technique.Parallel5" xml:space="preserve">
+    <value>თუ კვლავ განაგრძობთ ოთხ სურათს, გაზარდეთ „პარალელური ნახვის სურათის მაქსიმალური სიგანე“ პარამეტრების გვერდზე.</value>
+  </data>
+  <data name="Page.Technique.ParallelViewing" xml:space="preserve">
+    <value>პარალელური ყურება</value>
+  </data>
+  <data name="Page.Technique.Practice" xml:space="preserve">
+    <value>მე გავაკეთე სურათები, რომლებზეც შეგიძლიათ ივარჯიშოთ</value>
+  </data>
+  <data name="Title.Contact" xml:space="preserve">
+    <value>კონტაქტი</value>
+  </data>
+  <data name="Title.Faq" xml:space="preserve">
+    <value>FAQ</value>
+  </data>
+  <data name="Title.Help" xml:space="preserve">
+    <value>დახმარება</value>
+  </data>
+  <data name="Title.HowToUse" xml:space="preserve">
+    <value>როგორ გამოვიყენოთ CrossCam</value>
+  </data>
+  <data name="Title.Technique" xml:space="preserve">
+    <value>3D ნახვის ტექნიკა</value>
+  </data>
+  <data name="Title.Tips" xml:space="preserve">
+    <value>Რჩევები</value>
+  </data>
+  <data name="Button.DoNotEmailMe" xml:space="preserve">
+    <value>არ მომწერო ახლა</value>
+  </data>
+  <data name="Button.EmailMeNow" xml:space="preserve">
+    <value>მომწერეთ ახლავე</value>
+  </data>
+  <data name="Button.No" xml:space="preserve">
+    <value>არა</value>
+  </data>
+  <data name="Button.OK" xml:space="preserve">
+    <value>კარგი</value>
+  </data>
+  <data name="Button.YesClear" xml:space="preserve">
+    <value>დიახ, გასაგებია</value>
+  </data>
+  <data name="Page.Camera.Aligning" xml:space="preserve">
+    <value>გასწორება...</value>
+  </data>
+  <data name="Page.Camera.AlignmentBroken" xml:space="preserve">
+    <value>ავტომატური გასწორება არ არის მხარდაჭერილი მოწყობილობაზე - გამორთეთ პარამეტრებიდან.</value>
+  </data>
+  <data name="Page.Camera.AlignmentFailed" xml:space="preserve">
+    <value>გასწორება ვერ მოხერხდა.</value>
+  </data>
+  <data name="Page.Camera.BorderAsk" xml:space="preserve">
+    <value>აღმოჩენილია საზღვარი. ამოიღოთ საზღვარი?</value>
+  </data>
+  <data name="Page.Camera.BorderDetected" xml:space="preserve">
+    <value>საზღვარი აღმოჩენილია</value>
+  </data>
+  <data name="Page.Camera.Cancel" xml:space="preserve">
+    <value>გაუქმება</value>
+  </data>
+  <data name="Page.Camera.ChooseAction" xml:space="preserve">
+    <value>აირჩიეთ მოქმედება:</value>
+  </data>
+  <data name="Page.Camera.DirectoryNotFound" xml:space="preserve">
+    <value>დირექტორია ვერ მოიძებნა</value>
+  </data>
+  <data name="Page.Camera.DirectoryNotFoundExplain" xml:space="preserve">
+    <value>შენახვის დანიშნულების ადგილი ვერ მოიძებნა. გთხოვთ, აირჩიოთ სხვა პარამეტრების გვერდზე.</value>
+  </data>
+  <data name="Page.Camera.ErrorEmailBody" xml:space="preserve">
+    <value>რა გააკეთე შეცდომამდე? გთხოვთ აღწეროთ თუნდაც წვრილმანები.\n\n\n\n\n\nCrossCam კვლავ მუშაობდა შეცდომის შემდეგ? თუ არა, როგორ იშლება?\n\n\n\n\n\nეს არაერთხელ ხდება?\n\n\n\n\n\nშეგიძლია აიძულო შეცდომა მოხდეს ბრძანებით? თუ ასეა, როგორ?\n\n\n\n\n\n</value>
+  </data>
+  <data name="Page.Camera.FlipForCardboard" xml:space="preserve">
+    <value>გადააბრუნეთ პეიზაჟზე მუყაოს რეჟიმში.</value>
+  </data>
+  <data name="Page.Camera.FlipLarger" xml:space="preserve">
+    <value>(გადახედეთ პეიზაჟს უფრო დიდი ხედისთვის)</value>
+  </data>
+  <data name="Page.Camera.ForAnaglyph" xml:space="preserve">
+    <value>ანაგლიფისთვის</value>
+  </data>
+  <data name="Page.Camera.ForCardboard" xml:space="preserve">
+    <value>მუყაოსთვის</value>
+  </data>
+  <data name="Page.Camera.ForCross" xml:space="preserve">
+    <value>ჯვრისთვის</value>
+  </data>
+  <data name="Page.Camera.ForParallel" xml:space="preserve">
+    <value>პარალელურად</value>
+  </data>
+  <data name="Page.Camera.GoPickRole" xml:space="preserve">
+    <value>გთხოვთ, გადახვიდეთ დაწყვილების გვერდზე (პარამეტრების გვერდიდან) და აირჩიოთ დაწყვილების როლი ამ მოწყობილობისთვის დაწყვილების მცდელობამდე.</value>
+  </data>
+  <data name="Page.Camera.InvalidImage" xml:space="preserve">
+    <value>არასწორი სურათი</value>
+  </data>
+  <data name="Button.Camera.Keep" xml:space="preserve">
+    <value>შეინახეთ</value>
+  </data>
+  <data name="Page.Camera.LoadFullImage" xml:space="preserve">
+    <value>სრული სტერეო სურათის ჩატვირთვა</value>
+  </data>
+  <data name="Page.Camera.Loading" xml:space="preserve">
+    <value>Ჩატვირთვა...</value>
+  </data>
+  <data name="Page.Camera.LoadSingleSide" xml:space="preserve">
+    <value>ერთი მხარის ჩატვირთვა</value>
+  </data>
+  <data name="Page.Camera.ManualCorrections" xml:space="preserve">
+    <value>გთხოვთ გაითვალისწინოთ ხელით შესწორებებიც.</value>
+  </data>
+  <data name="Page.Camera.MirrorOnLeft" xml:space="preserve">
+    <value>სარკე მარცხნივ</value>
+  </data>
+  <data name="Page.Camera.MirrorOnRight" xml:space="preserve">
+    <value>სარკე მარჯვნივ</value>
+  </data>
+  <data name="Page.Camera.MoveLeft" xml:space="preserve">
+    <value>გადაადგილება მარცხნივ</value>
+  </data>
+  <data name="Page.Camera.MoveRight" xml:space="preserve">
+    <value>იმოძრავეთ მარჯვნივ</value>
+  </data>
+  <data name="Page.Camera.NoSaveModes" xml:space="preserve">
+    <value>არ არის აქტიური შენახვის რეჟიმი</value>
+  </data>
+  <data name="Page.Camera.NoSaveModesExplain" xml:space="preserve">
+    <value>შენახვის რეჟიმი ამჟამად არ არის ჩართული. ჩართეთ შენახვის რეჟიმი პარამეტრების გვერდზე.</value>
+  </data>
+  <data name="Page.Camera.Oops" xml:space="preserve">
+    <value>უი</value>
+  </data>
+  <data name="Page.Camera.OrRotate" xml:space="preserve">
+    <value>(ან როტაცია)</value>
+  </data>
+  <data name="Page.Camera.OrSwipe" xml:space="preserve">
+    <value>(ან გადაფურცლეთ)</value>
+  </data>
+  <data name="Page.Camera.PairRoleNotSelected" xml:space="preserve">
+    <value>წყვილი როლი არ არის არჩეული</value>
+  </data>
+  <data name="Page.Camera.PinchOrDrag" xml:space="preserve">
+    <value>დაჭერით ან გადაიტანეთ შესასწავლად!</value>
+  </data>
+  <data name="Page.Camera.PleaseSelectValid" xml:space="preserve">
+    <value>გთხოვთ, აირჩიოთ Jpeg, Png ან Webp სურათი. თქვენ მიერ არჩეული სურათი არის</value>
+  </data>
+  <data name="Page.Camera.ReallyClear" xml:space="preserve">
+    <value>მართლა გასაგებია?</value>
+  </data>
+  <data name="Button.Camera.Remove" xml:space="preserve">
+    <value>ამოღება</value>
+  </data>
+  <data name="Page.Camera.SavedToCustomFolder" xml:space="preserve">
+    <value>შენახულია მორგებულ საქაღალდეში</value>
+  </data>
+  <data name="Page.Camera.SavedToExternal" xml:space="preserve">
+    <value>შენახულია გარე</value>
+  </data>
+  <data name="Page.Camera.SavedToPhotos" xml:space="preserve">
+    <value>შენახულია Photos-ში</value>
+  </data>
+  <data name="Page.Camera.SaveFailed" xml:space="preserve">
+    <value>შენახვა ვერ მოხერხდა. :(</value>
+  </data>
+  <data name="Page.Camera.Saving" xml:space="preserve">
+    <value>Შენახვა...</value>
+  </data>
+  <data name="Page.Camera.SecondaryOnLeft" xml:space="preserve">
+    <value>მეორეხარისხოვანი მარცხნივ</value>
+  </data>
+  <data name="Page.Camera.SecondaryOnRight" xml:space="preserve">
+    <value>მეორეხარისხოვანი მარჯვნივ</value>
+  </data>
+  <data name="Page.Camera.SelectedInvalid" xml:space="preserve">
+    <value>არჩეული სურათი არასწორია.</value>
+  </data>
+  <data name="Page.Camera.SorryError" xml:space="preserve">
+    <value>უკაცრავად, CrossCam-მა დაუშვა შეცდომა. შეცდომის ანგარიში ავტომატურად გაიგზავნა. შეიძლება საერთოდ ვერ შეამჩნიოთ რაიმე ცუდი, მაგრამ თუ შეამჩნევთ, სცადეთ აპლიკაციის გადატვირთვა. თუ ასე გაგრძელდება, გთხოვთ მომწეროთ და მითხრათ ამის შესახებ. (გადადით პარამეტრების გვერდზე ამ ამომხტარი ფანჯრების შესაჩერებლად.)</value>
+  </data>
+  <data name="Page.Camera.Steady" xml:space="preserve">
+    <value>სტაბილური...</value>
+  </data>
+  <data name="Page.Camera.SureClear" xml:space="preserve">
+    <value>დარწმუნებული ხართ, რომ გსურთ თქვენი სურათების გასუფთავება და თავიდან დაწყება?</value>
+  </data>
+  <data name="Page.Camera.Syncing" xml:space="preserve">
+    <value>სინქრონიზაცია...</value>
+  </data>
+  <data name="Page.Camera.Transmitting" xml:space="preserve">
+    <value>მიმდინარეობს გადაცემა...
+(შეინარჩუნე მოწყობილობა განბლოკილი)</value>
+  </data>
+  <data name="Page.Camera.VR" xml:space="preserve">
+    <value>VR</value>
+  </data>
+  <data name="Page.FovCorrection" xml:space="preserve">
+    <value>ხედვის ველის კორექტირება</value>
+  </data>
+  <data name="Page.FovCorrectionExplain" xml:space="preserve">
+    <value>მოწყობილობის სხვადასხვა მოდელს შეიძლება ჰქონდეს განსხვავებული ხედვის ველი. CrossCam დაგეხმარებათ ამის გამოსწორებაში თქვენი პირველი გადაღების შემდეგ. მოამზადეთ ჩარჩო და გადაიღეთ რაღაც გამორჩეული წერტილებით კადრის ზედა და ქვედა ნაწილთან ახლოს, დარწმუნდით, რომ წერტილები ჩანს ორივე მოწყობილობაზე.</value>
+  </data>
+  <data name="Page.Technique.ParallelLink1" xml:space="preserve">
+    <value>ლამაზი ტექსტური გაკვეთილი</value>
+  </data>
+  <data name="Page.Technique.ParallelLink2" xml:space="preserve">
+    <value>კიდევ ერთი ლამაზი ტექსტური გაკვეთილი</value>
+  </data>
+  <data name="Page.Technique.ParallelLink3" xml:space="preserve">
+    <value>კიდევ ერთი ლამაზი ტექსტური გაკვეთილი</value>
+  </data>
+  <data name="Page.Technique.ParallelLink4" xml:space="preserve">
+    <value>Magic Frankfurter Tutorial</value>
+  </data>
+  <data name="Page.Technique.ParallelLink5" xml:space="preserve">
+    <value>კარგი ვიდეო ჯადოსნური თვალის შესახებ</value>
+  </data>
+  <data name="Page.Technique.Trouble" xml:space="preserve">
+    <value>თუ ჯერ კიდევ გიჭირთ, სცადეთ ტელეფონი ბნელ ოთახში მიიტანოთ, რომ ერთადერთი, რაც თვალებმა კარგად დაინახონ და ფოკუსირება მოახდინონ, არის გამოსახულება.
+
+კიდევ ერთი რამ, რაც შეგიძლიათ სცადოთ, არის ტუალეტის ქაღალდის მილების ან ხელების გამოყენება, რათა თითოეულმა თვალმა დაინახოს გამოსახულების მხოლოდ ის მხარე, რომელიც უნდა დაინახოს.
+ • ჯვარედინი ხედვისთვის: დაიჭირეთ ერთი მილი თქვენი ცხვირის ხიდთან (ცენტრირებული თვალებს შორის) და მიუთითეთ იგი თქვენს წინ გამოსახულების ცენტრში. ნელა გადაიტანეთ მილი ეკრანისკენ, ხოლო ცდილობთ მილის ქვემოდან ყურებას ორივე თვალით. როდესაც მილით მიაღწევთ სწორ პოზიციას, სურათი უნდა დაიჭიროს თავის ადგილზე. ეს შეიძლება დაეხმაროს კონცენტრირებას მილის შორს ბოლოში შიგნიდან დათვალიერების მცდელობაზე. თუ ვერ პოულობთ სწორ პოზიციას, სცადეთ გამოიყენოთ უფრო დიდი სურათი ან პატარა მილი.
+ • პარალელური ხედვისთვის: დაიჭირეთ მილი თითოეული თვალის წინ, ოღონდ ორივე გვერდით, ისე რომ ვერაფერს დაინახავთ. ნელ-ნელა მოაბრუნეთ მილები შიგნიდან ამავე დროს, ასე რომ თქვენ შეგიძლიათ დაიწყოთ მეტი სურათის დანახვა. იმ მომენტში, როდესაც ხედავთ გამოსახულების უმეტეს ნაწილს (თითქმის ნახევარს თითოეული თვალით), შეეცადეთ დაისვენოთ თვალები და შეაერთოთ ნახევრები. შეიძლება დაგეხმაროთ უფრო დიდი ან პატარა სურათის გამოყენებაში.
+
+არსებობს მარტივი სავარჯიშო, რომლის გაკეთებაც შეგიძლიათ შერწყმის პრაქტიკაში ჯვარედინი ან პარალელური ხედვით. აიღეთ მარკერი და დახატეთ ღიმილიანი სახის ნაწილი თქვენს თითოეულ ესკიზზე (ან წყვილი ჯოხი ან ენის დამამშვიდებელი საშუალება). მაგალითად, ერთ მხარეს დახატეთ ერთი თვალი და პირი, ხოლო მეორე მხარეს დახატეთ თვალი და ცხვირი. შემდეგ შეგიძლიათ დაიჭიროთ ისინი თქვენს წინ და ივარჯიშოთ ორი სურათის ერთმანეთთან შერწყმა, რათა დაასრულოთ ღიმილიანი სახე.
+
+მე პირადად მირჩევნია გადაკვეთა პარალელურად, რადგან სურათები შეიძლება იყოს უფრო დიდი, მაგრამ ორივე მეთოდი მუშაობს. თუ გსურთ უფრო დიდი პარალელური სურათების ექსპერიმენტი, შეგიძლიათ აკონტროლოთ ზომა პარამეტრების გვერდზე.
+
+ზოგჯერ ძნელია იმის შეგრძნება, აკეთებ ჯვარს თუ პარალელურ მეთოდს, როცა ამას აკეთებ. თქვენ შეგიძლიათ სთხოვოთ სხვას, უყუროს თქვენს თვალებს, სანამ ამას აკეთებთ, ან შეგიძლიათ შეხედოთ ქვემოთ მოცემულ სურათს, როგორც ტესტს:</value>
+  </data>
+  <data name="SaveModes.Anaglyph" xml:space="preserve">
+    <value>ანაგლიფი</value>
+  </data>
+  <data name="SaveModes.Cardboard" xml:space="preserve">
+    <value>მუყაო</value>
+  </data>
+  <data name="SaveModes.Cross" xml:space="preserve">
+    <value>ჯვარი</value>
+  </data>
+  <data name="SaveModes.GrayscaleAnaglyph" xml:space="preserve">
+    <value>ნაცრისფერი ანაგლიფი</value>
+  </data>
+  <data name="SaveModes.Parallel" xml:space="preserve">
+    <value>პარალელურად</value>
+  </data>
+  <data name="SaveModes.Quad" xml:space="preserve">
+    <value>ოთხკუთხედი</value>
+  </data>
+  <data name="SaveModes.Separate" xml:space="preserve">
+    <value>ცალკე</value>
+  </data>
+  <data name="SaveModes.Single" xml:space="preserve">
+    <value>Მარტოხელა</value>
+  </data>
+  <data name="SaveModes.Triple" xml:space="preserve">
+    <value>სამმაგი</value>
+  </data>
+  <data name="Page.Camera.FovExplain" xml:space="preserve">
+    <value>ხედვის ველში განსხვავებების გამოსასწორებლად, გაადიდეთ და გაასრიალეთ სურათები ისე, რომ განმასხვავებელი წერტილები მოერგოს ორ ფოტოს. თქვენ შეგიძლიათ გადაათრიოთ თეთრი ხაზები, რათა დაგეხმაროთ გასწორების ვიზუალიზაციაში. ეს შესწორება გამოყენებული იქნება მომავალ გადახედვებზე. ის შეინახება, მაგრამ შეგიძლიათ გადატვირთოთ პარამეტრების გვერდზე. თუ იყენებთ იდენტურ მოწყობილობებს, უბრალოდ შეინახეთ კორექტირების გარეშე.</value>
+  </data>
+  <data name="Page.Camera.FovTitle" xml:space="preserve">
+    <value>ხედვის ველის კორექტირება</value>
+  </data>
+  <data name="Page.Camera.KeyPoints" xml:space="preserve">
+    <value>საკვანძო პუნქტები</value>
+  </data>
+  <data name="Page.Camera.Warped" xml:space="preserve">
+    <value>დახრილი</value>
+  </data>
+  <data name="Page.Camera.WelcomeExplain" xml:space="preserve">
+    <value>CrossCam შეიქმნა იმისათვის, რომ დაგეხმაროთ 3D ფოტოების გადაღებაში. ფოტოები არის 3D, ისევე როგორც VR ან 3D ფილმები, მაგრამ თქვენ არ გჭირდებათ რაიმე სპეციალური მოწყობილობა ან სათვალე - მხოლოდ თქვენი ტელეფონი (მაგრამ თუ გაქვთ წითელი/ცისფერი 3D სათვალე ან Google Cardboard მაყურებელი, შეგიძლიათ გამოიყენოთ ისინი. CrossCam-ითაც). \"უფასო ნახვის\" ტექნიკა, რომელიც იყენებს მხოლოდ თქვენს ტელეფონს და თვალებს, სწავლას გარკვეული პრაქტიკა სჭირდება. სანამ გეტყვით, როგორ გამოიყენოთ CrossCam, გსურთ პირველ რიგში გაიგოთ მეტი ნახვის ტექნიკის შესახებ?</value>
+  </data>
+  <data name="Page.Camera.Welcome" xml:space="preserve">
+    <value>კეთილი იყოს თქვენი მობრძანება CrossCam-ში!</value>
+  </data>
+  <data name="Page.Camera.Directions" xml:space="preserve">
+    <value>მიმართულებებზე გადასვლა</value>
+  </data>
+  <data name="Page.Camera.Technique" xml:space="preserve">
+    <value>ნახვის ტექნიკა</value>
+  </data>
+  <data name="Page.HowToUse.P1" xml:space="preserve">
+    <value>თუ გსურთ ამის კიდევ ერთხელ ნახვა, შეეხეთ ჰამბურგერის (სამი ხაზის) ხატულას კამერის ეკრანის ზედა მარცხენა მხარეს და შეეხეთ "დახმარებას".
+
+
+1) ჩარჩო და გადაიღე პირველი სურათი.</value>
+  </data>
+  <data name="Page.HowToUse.P2" xml:space="preserve">
+    <value>3) შეინახეთ ტელეფონი თქვენს თვალწინ და ნელა იმოძრავეთ გვერდით იმ მიმართულებით, სადაც CrossCam გეუბნებათ. არ იმოძრაოთ ძალიან შორს - ერთი ინჩი ან ნაკლები ყოველი ფეხის დაშორებისთვის არის თქვენი სამიზნე. ასევე, საერთოდ არ მოტრიალდეთ, უბრალოდ გადაიწიეთ გვერდით, ან შესაძლოა უბრალოდ დაიხროთ.
+
+4) გაასწორეთ პირველი სურათი მეორე სურათის გადახედვისას და გადაიღეთ მეორე სურათი, როცა მოგეწონებათ ის, რასაც ხედავთ.
+
+5) CrossCam ავტომატურად გაასწორებს თქვენს სურათებს გადაღების შემდეგ, მაგრამ ეს არ არის სრულყოფილი, თუ არ მოგწონთ მათი გასწორება, შეგიძლიათ გამორთოთ ავტომატური გასწორება პატარა რობოტის ხატულაზე შეხებით. CrossCam-ს ასევე აქვს ხელით რედაქტირების უამრავი ვარიანტი, რომელთა მიღებაც შეგიძლიათ ფანქრის ხატულაზე დაჭერით.
+
+6) შეეხეთ გამშვებ ნიშანს, როცა მზად იქნებით შესანახად.
+
+
+სხვა რამ, რისი გაკეთებაც შეგიძლიათ:
+ • შეეხეთ ერთხელ წერტილზე ფოკუსირებისთვის, შეეხეთ ორჯერ უწყვეტ ავტომატურ ფოკუსირებაზე დასაბრუნებლად.
+ • დააჭირეთ გადაცემათა კოლოფის ხატულას კამერის ეკრანის ზედა მარჯვენა მხარეს პარამეტრების გვერდის გასახსნელად. სავსეა საინტერესო ნივთებით.
+ • არის კარგი რჩევების გვერდი, რომლითაც შეგიძლიათ მოხვდეთ ჰამბურგერის ხატულაზე კამერის ეკრანის ზედა მარცხენა მხარეს დაჭერით, რომელიც დაგეხმარებათ გახადოთ თქვენი სურათები შესანიშნავი.
+ • თუ გირჩევნიათ მეორე მიმართულებით გადაადგილება მეორე დარტყმისთვის ან გსურთ გვერდების შეცვლა, უბრალოდ გადაფურცლეთ.
+ • შეეხეთ პატარა საქაღალდის ხატულას ქვედა მხარეს გამოსახულების გვერდით ჩასატვირთად ან სრული სტერეო სურათის ჩასატვირთად.</value>
+  </data>
+  <data name="Page.Faq.Alignment" xml:space="preserve">
+    <value>როგორ მუშაობს ავტომატური გასწორება?</value>
+  </data>
+  <data name="Page.Faq.Alignment.Body" xml:space="preserve">
+    <value>ავტომატური გასწორება ცდილობს სურათის წყვილების მაქსიმალურად გასწორებას, მაგრამ ეს არ არის სრულყოფილი. კომპიუტერული ხედვა ზოგიერთ საკითხში უკეთესია, ვიდრე ადამიანის თვალი, მაგრამ ასევე ბევრად უარესი სხვა საკითხებში. სამყარო, რომელსაც ის ხედავს, ძალიან განსხვავდება ჩვენისგან, მაგრამ მას ასევე შეუძლია ნახოს რამდენიმე განსხვავებული გზა. ორი ძირითადი გზა, რომელსაც ის ხედავს CrossCam-ში არის გაძლიერებული კორელაციის კოეფიციენტის (ECC) და საკვანძო პუნქტების გამოყენებით.
+
+ECC განლაგება არსებითად მუშაობს იმით, რომ დარწმუნდეს, რომ მსუბუქი ლაქები გადაფარავს მსუბუქ ლაქებს და მუქი ლაქები გადაფარავს მუქ ლაქებს, როდესაც ორი მხარე გადახურულია ერთმანეთზე. ECC გასწორება მოყვება ნდობის ქულას, რომელიც მიზნად ისახავს გადაწყვიტოს, იყო თუ არა გასწორება ეფექტური. CrossCam დაყენებულია იმისთვის, რომ უარყოს წარმოებული გასწორება, თუ ნდობა ძალიან დაბალია, მაგრამ თქვენ შეგიძლიათ დააკონფიგურიროთ ნდობის გავლის/ჩავარდნის ბარიერი პარამეტრების გვერდზე.
+
+საკვანძო წერტილების გასწორება ეძებს საინტერესო წერტილებს, როგორიცაა კუთხეები, კიდეები, წერტილები და მაღალი კონტრასტი და ცდილობს დააკავშიროს ისინი ორ მხარეს შორის. როდესაც წერტილები ერთმანეთს დაემთხვევა, CrossCam-ს შეუძლია გამოიყენოს სხვადასხვა ალგორითმები, რათა შეეცადოს გვერდების გადახვევა ისე, რომ ერთი მხრიდან საკვანძო წერტილები მაქსიმალურად ახლოს იყოს მეორე მხარეს შესაბამის საკვანძო წერტილებთან.
+
+CrossCam დაპროგრამებულია იმისთვის, რომ ჯერ გამოიყენოს საკვანძო წერტილების გასწორება, მაგრამ ის დაუბრუნდება ECC-ის გასწორებას, როდესაც საკვანძო პუნქტის გასწორება ვერ ხერხდება ან როდესაც გადაღება კეთდება ერთი კადრის სარკის დაყოფის მეთოდით. თქვენ ასევე შეგიძლიათ დააკონფიგურიროთ ავტომატური გასწორება, რათა ყოველთვის გამოიყენოთ საკვანძო წერტილების გასწორება ან ყოველთვის გამოიყენოთ ECC გასწორება პარამეტრების გვერდზე.
+
+CrossCam აჩვენებს გასწორების შედეგს კამერის ეკრანზე პატარა რობოტის ხატის ქვეშ. თუ ის იყენებდა ECC გასწორებას, ის აჩვენებს ნდობის პროცენტს. თუ მან გამოიყენა საკვანძო წერტილების გასწორება, ის აჩვენებს "KP". თუ გასწორების ორივე მეთოდი ვერ მოხერხდა, გამოჩნდება "F". თუ არ მოგწონთ გასწორების შედეგი, შეგიძლიათ დააჭიროთ პატარა რობოტის ხატულას, რათა წაშალოთ გასწორება.</value>
+  </data>
+  <data name="Page.Faq.Bad" xml:space="preserve">
+    <value>ეს ცუდია ჩემი თვალისთვის?</value>
+  </data>
+  <data name="Page.Faq.Bad.Body1" xml:space="preserve">
+    <value>არ ვიცი, მაგრამ არა მგონია. თუმცა, თუ თავს ცუდად გრძნობთ, უბრალოდ დაისვენეთ. ვარჯიშთან ერთად დისკომფორტი ჩვეულებრივ მცირდება. ნახვის ნებისმიერმა მეთოდმა შეიძლება გამოიწვიოს დისკომფორტი იმ ეფექტის გამო, რომელსაც ეწოდება შეჯახება-აკომოდაციის კონფლიქტი. აი</value>
+  </data>
+  <data name="Page.Faq.Bad.Body2" xml:space="preserve">
+    <value>ვიკიპედიის ბმული შეჯახება-აკომოდაციის კონფლიქტის შესახებ.</value>
+  </data>
+  <data name="Page.Faq.Bad.Body3" xml:space="preserve">
+    <value>თუ თქვენ იყენებთ ჯვარედინი თვალის მეთოდს, ეს შეგრძნება შეიძლება გამოწვეული იყოს იმითაც, რომ თქვენი თვალები არ არის მიჩვეული იმაზე მიუთითებს, თითქოს ისინი ამდენი ხნის განმავლობაში უყურებენ რაღაცას ასე ახლოს. ჯვარედინი ნახვისას, თვალები ემთხვევა წერტილს თვალებსა და ეკრანს შორის შუაში. თუ რაიმეს დიდხანს ყურება დისკომფორტს შეგიქმნით, ჩვენ გვაქვს ჩვენი ახსნა.
+
+ჩემი აზრია, რომ შენი თვალები არაფერს აკეთებენ მათი ყოველდღიური შესაძლებლობების მიღმა, მაგრამ თქვენ აერთიანებთ ორ განსხვავებულ უნარს, რომლებიც ჩვეულებრივ არ გამოიყენება ამ გზით. თქვენ ამახვილებთ თქვენს ლინზებს რაღაცაზე ერთ ადგილას, რაზეც ჩვეულებრივ კომფორტულია ფოკუსირება, და თქვენ მიმართავთ თქვენს თვალებს სადღაც, სადაც ჩვეულებრივ მოსახერხებელია მათთვის, მაგრამ იმ ადგილას, სადაც თქვენი ლინზები ფოკუსირებულია და სადაც თქვენი თვალები ერთმანეთს ემთხვევა. უბრალოდ არ არის იგივე წერტილი. მე ვერ ვხედავ, როგორ შეიძლება ეს ცუდი იყოს თქვენთვის, სანამ თქვენი ხედვა ჯერ კიდევ არ არის განვითარებული.</value>
+  </data>
+  <data name="Page.Faq.Cardboard" xml:space="preserve">
+    <value>როგორ გამოვიყენო CrossCam Google Cardboard-თან?</value>
+  </data>
+  <data name="Page.Faq.Cardboard.Body" xml:space="preserve">
+    <value>თუ თქვენს მაყურებელს აქვს ღილაკი, რომელიც აჭერს ეკრანის ცენტრს, შეგიძლიათ გამოიყენოთ იგი Cardboard-ის გამოყენებით გადასაღებად. თქვენს მაყურებელს ასევე უნდა ჰქონდეს ხვრელი თქვენი ტელეფონის კამერის დასანახად.
+
+Cardboard-ის გამოყენებით ფოტოების გადასაღებად, გადახედეთ წინასწარ გადახედვის ნახვის მეთოდს (პარამეტრების გვერდზე) Cardboard-ზე, შემდეგ დაბრუნდით კამერის გვერდზე და ჩადეთ თქვენი ტელეფონი მნახველში. დააჭირეთ ღილაკს გადასაღებად და როცა ორივე მხარე დაიჭერს, ისევ დააჭირეთ ღილაკს შესანახად. Cardboard-ის რეჟიმში შენახვა მხოლოდ იმის გამიზნულია, რომ საშუალებას მოგცემთ ისევ ჩატვირთოთ სურათები CrossCam-ში მოგვიანებით სანახავად და არა მათი ფოტოების აპში თქვენი მაყურებლის სანახავად.
+
+თქვენ ასევე შეგიძლიათ გადაიღოთ ნებისმიერი სხვა მეთოდით, რომელიც გსურთ, შემდეგ გადახედეთ თქვენი გადახედვის ნახვის მეთოდი Cardboard-ზე და ჩადეთ თქვენი ტელეფონი მაყურებელში.
+
+არსებობს მრავალი განსხვავებული მაყურებელი, განსხვავებული თვისებებით. შესაძლოა დაგჭირდეთ Cardboard-ის განცალკევების მანძილის შეცვლა (პარამეტრების გვერდზე), რათა თქვენი გამოცდილება უფრო კომფორტული გახადოთ. თქვენ ასევე შეიძლება დაგჭირდეთ პირველ რიგში დარწმუნდეთ, რომ კარგად ახერხებთ მაღალი ხარისხის სტერეოგრამების გადაღებას, სანამ მათ გახადოთ ჰუმანური და ჩაძირული.</value>
+  </data>
+  <data name="Page.Faq.How" xml:space="preserve">
+    <value>Როგორ მუშაობს?</value>
+  </data>
+  <data name="Page.Faq.How.Body1" xml:space="preserve">
+    <value>CrossCam-ის მიერ გამოყენებული 3D ეფექტი არის კარგად შესწავლილი დისციპლინა, რომელიც ცნობილია როგორც სტერეოსკოპია, და მეთოდს, როდესაც თქვენ თვალებს გადაკვეთთ (ან მოდუნდებით) ორი მხარის სანახავად, ეწოდება უფასო ყურება. როდესაც სამყაროს ვუყურებთ, თითოეული ჩვენი თვალი განსხვავებული პერსპექტივიდან ხედავს. სტერეოსკოპიაში მხოლოდ ჩვენ ვაკეთებთ ერთი (ხელოვნური) პერსპექტივის წარმოდგენას თითოეული თვალისთვის, ხოლო ჩვენი ტვინი მხოლოდ დანარჩენს აკეთებს. არსებობს უამრავი გზა, რათა თითოეულმა თვალმა განსხვავებული სურათი დაინახოს. აი</value>
+  </data>
+  <data name="Page.Faq.How.Body2" xml:space="preserve">
+    <value>ვიკიპედიის ბმული სტერეოსკოპიაზე</value>
+  </data>
+  <data name="Page.Faq.How.Body3" xml:space="preserve">
+    <value>3D სურათებს, რომლებსაც CrossCam-ით იღებთ, სტერეოგრამები ეწოდება. Magic Eye™ წიგნები შეიცავს რასაც ავტოსტერეოგრამას უწოდებენ.</value>
+  </data>
+  <data name="Page.Faq.Into" xml:space="preserve">
+    <value>როგორ მოხვდით სტერეოსკოპიაში?</value>
+  </data>
+  <data name="Page.Faq.Into.Body1" xml:space="preserve">
+    <value>სანამ ფიზიკის ხარისხს ვიღებდი, მქონდა შესაძლებლობა ლაზერების გამოყენებით საკუთარი ჰოლოგრამების შექმნით ექსპერიმენტები მეკეთებინა. ჰოლოგრამების ტიპი, რომელსაც მე ვაკეთებდი, იყო 3D, რადგან ისინი იყენებდნენ დიფრაქციულ ბადეს, რათა გამოეწვიათ დესტრუქციული ჩარევა შუქში, რომელიც აირეკლავს შუშის ფირფიტის ზედაპირიდან, რაც იწვევს არეკლილი გამოსახულების განსხვავებულ სახეს სხვადასხვა ადგილიდან. როდესაც თითოეული ჩვენი თვალი ხედავს სურათს, რომელიც ჰგავს სხვა პერსპექტივიდან (თუ ისინი ძალიან არ განსხვავდებიან), ჩვენი ტვინი ამას აღიქვამს, როგორც სიღრმეს.</value>
+  </data>
+  <data name="Page.Faq.Into.Body2" xml:space="preserve">
+    <value>მე დიდი ხნის განმავლობაში ვიცოდი სტერეოსკოპული აღქმის პრინციპის შესახებ, მაგრამ ჩემი ცხოვრების იმ მომენტში პროგრამირების გაკვეთილებსაც ვატარებდი, ამიტომ გადავწყვიტე შემექმნა მარტივი კომპიუტერული პროგრამა სტერეოსკოპული 3D ნახატისთვის. ეს ძალისხმევა გახდა StereoSketcher. ორიგინალური ვერსია დაიწერა Java-ზე, მაგრამ მე გადავწერე Javascript-ით და SVG-ით და ახლა ის მუშაობს ინტერნეტში</value>
+  </data>
+  <data name="Page.Faq.Into.Body3" xml:space="preserve">
+    <value>ამ ბმულზე.</value>
+  </data>
+  <data name="Page.Faq.Into.Body4" xml:space="preserve">
+    <value>ის არავითარ შემთხვევაში არ არის პოპულარული და შეიძლება არავისთვის იყოს ადვილი გამოყენება, მაგრამ ის მუშაობს. StereoSketcher-ზე მუშაობისას მე მომიწია ექსპერიმენტები სტერეოსკოპიის პრინციპებზე და შემიყვარდა, თუ როგორ შეიძლება ასეთი ჩაძირული და დამაჯერებელი გამოცდილების შექმნა რამდენიმე მარტივი წესის გამოყენებით.</value>
+  </data>
+  <data name="Page.Faq.Inverted" xml:space="preserve">
+    <value>რატომ არ გამოიყურება 3D სწორად ან რატომ გამოიყურება 3D ინვერსიულად?</value>
+  </data>
+  <data name="Page.Faq.Inverted.Body1" xml:space="preserve">
+    <value>ჯვარედინი ან პარალელური მეთოდით უფასო ნახვისას, მნიშვნელოვანია ნახატების დათვალიერება იმავე მეთოდით, რაც მათ შესაქმნელად გამოიყენეს. წინააღმდეგ შემთხვევაში, თქვენი მარჯვენა თვალი უყურებს მარცხენა თვალისთვის განკუთვნილ პერსპექტივას და პირიქით. ეს ხდის გამოსახულების სიღრმეს ინვერსიულს, რადგან პარალაქსის მიმართულება შეიცვალა.
+
+პარალაქსი ნიშნავს, რომ თქვენი მარჯვენა თვალის პერსპექტივიდან, როდესაც ობიექტები უფრო შორს არიან, ისინი უფრო მარჯვნივ არიან, ვიდრე უფრო ახლოს, როცა მარცხენა თვალიდან ჩანს. ეს დამაბნეველია, როდესაც აღწერილია წინადადების ფორმატში, მაგრამ ძალიან ინტუიციური, როდესაც დემონსტრირებულია.
+
+დემონსტრირებისთვის, ერთი თითი ასწიეთ თქვენს წინ დაახლოებით მკლავის სიგრძეზე, შემდეგ მეორე ხელით დაიჭირეთ მეორე თითი დაახლოებით შუა გზაზე პირველ თითსა და სახეს შორის. თუ მონაცვლეობით დახუჭავთ თითოეულ თვალს და მიაქცევთ ყურადღებას სად არის თქვენი თითები, დაინახავთ, რომ თითოეული თვალი მათ სხვადასხვა ადგილას ხედავს. ასე რომ, ბუნებრივია, თუ თითოეულმა თვალმა დაინახა ეს მოძრაობა საპირისპირო მიმართულებით, როგორც ეს უნდა იყოს, სიღრმე შებრუნებული იქნება.
+
+ძალიან ადვილია შემთხვევით არასწორი ნახვის მეთოდის გამოყენება, რადგან ირკვევა, რომ ადამიანების უმრავლესობისთვის ძალიან რთულია იმის თქმა, გადაკვეთენ თუ ამშვიდებენ თვალებს მხოლოდ გრძნობით ან სამყაროს დამაბნეველი ორმაგი გამოსახულების ყურებით. ამის ნაცვლად, უმჯობესია, ან სხვას უყუროთ რას აკეთებენ თქვენი თვალები, ან სცადოთ ეს ტესტერის სურათი:</value>
+  </data>
+  <data name="Page.Faq.Inverted.Body2" xml:space="preserve">
+    <value>ბევრი ადამიანი საკმაოდ კომფორტულად გრძნობს თავს Magic Eye™ წიგნების ყურებას, რომლებიც განკუთვნილია პარალელური ხედვის მეთოდის გამოყენებით. თუ მათ ჯვარედინად გადახედავთ, მაშინ ძლიერი 3D ობიექტები, რომლებიც უნდა ამოიჭრას გვერდიდან, ხვრელებს ჰგავს. ორივე მეთოდი საშუალებას გაძლევთ დაინახოთ *რაღაც*, მაგრამ თუ ვერ გეტყვით, რა იყო ეს, თქვენ ალბათ ჯვარედინი ყურება გაქვთ.</value>
+  </data>
+  <data name="Page.Faq.Mirror" xml:space="preserve">
+    <value>როგორ გავაკეთო "ერთჯერადი სარკის" მეთოდი?</value>
+  </data>
+  <data name="Page.Faq.Mirror.Body1" xml:space="preserve">
+    <value>სარკის მეთოდით გადაღება ყოფს ჩარჩოს ნახევრად და აკეთებს საჭირო ტრანსფორმაციას, ასე რომ თქვენ შეგიძლიათ გადაიღოთ ორივე მხარე ერთდროულად ერთი ტელეფონისა და ჩვეულებრივი ხელის სარკის გამოყენებით. გადაღების დროს სარკის მეთოდის გამოსაყენებლად, ჩართეთ ჩამრთველი სარკის რეჟიმისთვის პარამეტრების გვერდზე (შეეხეთ გადაცემათა კოლოფს, რომ მოხვდეთ იქ). სარკის რეჟიმის ჩართვის შემდეგ CrossCam გეტყვით, რომელ მხარეს დაიჭიროთ სარკე. დაიჭირეთ სარკე ამ მხარეს და აურიეთ თქვენი ტელეფონისა და სარკესა და საგანს შორის გასწორება. გარკვეული მოთმინებით, თქვენ შეძლებთ მათ დაალაგოთ ისინი ისე, რომ სარკემ აჩვენოს სწორი პერსპექტივა ერთ-ერთი მხარისთვის. იმის გამო, რომ სარკის მეთოდის გამოყენება თქვენს სურათს ვერტიკალურად ყოფს ნახევრად, როგორც წესი, საუკეთესოა ლანდშაფტის გადაღება სარკის მეთოდით.
+
+ეს მეთოდი ასევე იმუშავებს ანარეკლებზე დიდ, სუფთა ფანჯრებში, ასევე უძრავ ტბებზე ან გუბეებზე (როდესაც ტელეფონი ჩაკეტილია პორტრეტში და გვერდულად არის გადაბრუნებული).</value>
+  </data>
+  <data name="Page.Faq.Mirror.Body2" xml:space="preserve">
+    <value>სარკის მეთოდის გამოსაყენებლად საჭიროა გარკვეული კომპრომისები/რედაქტირება. ეს ყველაფერი შეიძლება გაკეთდეს ხელით CrossCam-ში, მაგრამ ავტომატური გასწორება ასევე შეეცდება მათ გაკეთებას თქვენთვის:
+ • იმის გამო, რომ ასახული ხედი გადის უფრო დიდ მანძილზე, ვიდრე ჩვეულებრივი ხედი, სარკისებური მხარე ცოტათი გადიდება.
+ • სავარაუდოა, რომ სარკის მეთოდის გამოყენებისას პერსპექტივების პარალელურად შენარჩუნების ნაცვლად, თითების აწევა მოხდება - ამან შეიძლება გამოიწვიოს წინამორბედი გამოიყურებოდეს ცუდი ვერტიკალური განლაგებით. ამის გასაუქმებლად შეიძლება გაკეთდეს კვარცხლბეკის კორექტირება, რაც ნიშნავს თითოეული სურათის ერთი მხარის ვერტიკალურად შემცირებას.
+ • თითების ჩასმა ასევე მიდრეკილია სტერეო ფანჯრის თქვენკენ გადაადგილებისკენ. შეგიძლიათ გააუქმოთ ეს და მოათავსოთ იქ, სადაც გსურთ, გვერდების მოჭრით.
+ • სარკე, ალბათ, ბოლომდე ვერ დაფარავს ერთი მხარის ხედს, ამიტომ შეიძლება საჭირო გახდეს გარკვეული ამოჭრა აურეკლული ნაჭრების მოსაშორებლად.
+
+ამისათვის საუკეთესო სარკეებს აქვთ თხელი მინა. ერთი მხრივ, ისინი მსუბუქია, ამიტომ უფრო ადვილია მათი შენარჩუნება დიდი ხნის განმავლობაში. კიდევ ერთი მნიშვნელოვანი ის არის, რომ სარკის გამოყენებისას სარკეს გვერდით დაუმიზნებთ, ვიდრე პირდაპირ მასში იყურებით, როგორც ჩვეულებრივ სარკეებს იყენებენ. ასეთი ორიენტირებისას, სქელი შუშის სარკეებს შეიძლება ჰქონდეს გარკვეული ბუნდოვანება. რაც უფრო თხელია მინა, მით ნაკლებად შესამჩნევი იქნება ეს დაბინდვა. ამ ტიპის სარკეები შეიძლება იყოს დაბალი ხარისხის სხვა ასპექტებში, ამიტომ მნიშვნელოვანია კარგი ბალანსის პოვნა.
+
+არსებობს რამდენიმე სხვა კომპრომისი, რომელიც უნდა იქნას მიღებული სარკისებური გადაღების გამოყენებისას, რომელთა დაფიქსირება შეუძლებელია CrossCam-ის მიერ შესწორებებში:
+ • იმის გამო, რომ ორი მხარის ხედი ოდნავ განსხვავებულ დისტანციას გადის, თითოეული მხარისთვის საჭირო ფოკუსი ოდნავ განსხვავებული იქნება, ამიტომ ერთი მხარე ყოველთვის ოდნავ ბუნდოვანი იქნება. ეს ეფექტი მეტ-ნაკლებად შესამჩნევი იქნება საგნამდე მანძილისა და ლინზის ველის სიღრმის მიხედვით.
+ • არცერთი სარკე არ არის ნამდვილად 100%-ით ეფექტური, ამიტომ მხარე, რომელიც სარკეს იყენებს, შეიძლება ოდნავ მუქი იყოს. ეს განსხვავდება სარკის ხარისხზე.</value>
+  </data>
+  <data name="Page.Faq.Moving" xml:space="preserve">
+    <value>ჩემი საგანი მოძრაობს, როგორ გადავიღო მას 3D სურათები?</value>
+  </data>
+  <data name="Page.Faq.Moving.Body" xml:space="preserve">
+    <value>CrossCam საშუალებას გაძლევთ ორი მეთოდის ერთდროულად გადასაღებად ორივე პერსპექტივა. ერთი მეთოდი იყენებს ორ ტელეფონს, ხოლო ერთი მეთოდი იყენებს სარკეს.
+
+ორი ტელეფონის დაყენების გამოსაყენებლად, გადახედეთ დაწყვილების დაყენების გვერდს, სადაც შეგიძლიათ მოხვდეთ პარამეტრების გვერდიდან (შეეხეთ გადაცემათა კოლოფის ხატულას).
+
+სარკის მეთოდის გამოსაყენებლად, შეამოწმეთ სხვა FAQ კითხვა ამის შესახებ.</value>
+  </data>
+  <data name="Page.Faq.Test" xml:space="preserve">
+    <value>როგორ შემიძლია გავასინჯო CrossCam-ის წინასწარი გამოშვების ვერსიები?</value>
+  </data>
+  <data name="Page.Faq.Test.Body" xml:space="preserve">
+    <value>შეამოწმეთ ეს Reddit პოსტი</value>
+  </data>
+  <data name="Page.Faq.Why" xml:space="preserve">
+    <value>რატომ შექმენით CrossCam?</value>
+  </data>
+  <data name="Page.Faq.Why.Body" xml:space="preserve">
+    <value>როდესაც დავიწყე სტერეოსკოპიით დაინტერესება, შემთხვევით წავედი Yellowstone-ში. სანამ იქ ვიყავი, მივხვდი, რომ სახალისო იქნებოდა 3D კამერის მობილური აპლიკაციის გამოყენება 3D-ში ნივთების გადასაღებად. მე ძალიან იმედგაცრუებული ვიყავი არსებული ვარიანტებით. აღმოვაჩინე, რომ მათ ყველა მოგთხოვდათ ორი დაჭერა და შემდეგ გაარკვიეთ, იყო თუ არა ისინი კარგი. ისინი ხშირად არ იყვნენ, რადგან არაერთხელ მიწევდა სრული გამოცნობა ჩემი განშორების მანძილისა და საგნის ხარისხზე.
+
+მომდევნო რამდენიმე კვირის განმავლობაში ჩემმა მდუღარე იმედგაცრუებამ მიბიძგა წარმომედგინა უბრალოდ მეორე გადაღების პირდაპირი გადახედვის უზრუნველყოფა პირველთან ერთად. მე უკვე მქონდა მობილურის განვითარების გამოცდილება, ასე რომ, მაშინ საქმე მხოლოდ დროის დახარჯვა იყო. CrossCam იყო გასაოცარია ჩემთვის, რომ გამოვიყენო მხოლოდ ჩემთვის მოგონებების შესანარჩუნებლად და მოხარული ვარ, რომ გაგიზიაროთ იგი.</value>
+  </data>
+  <data name="Page.Faq.Wiggle" xml:space="preserve">
+    <value>რა არის ვიგლიგრამები?</value>
+  </data>
+  <data name="Page.Faq.Wiggle.Body" xml:space="preserve">
+    <value>Wigglegrams არის სტერეოგრამების სანახავად, რომელიც არ ეყრდნობა ბინოკულარულ ხედვას. ისინი, როგორც წესი, არის gif, რომელიც ტრიალებს წინ და უკან ორ პერსპექტივას შორის და აჩვენებს თითოეულს მთლიანობაში ერთ ადგილზე. CrossCam არ უჭერს მხარს მათ დამზადებას ახლავე, მაგრამ მომწერეთ, თუ ნამდვილად გაინტერესებთ ისინი და მე გავაკეთებ.</value>
+  </data>
+  <data name="Page.Tips.AlignAfter" xml:space="preserve">
+    <value>ყურადღება მიაქციეთ ჰორიზონტალურ ხაზებს, მაგრამ ასევე შეგიძლიათ გასწორება შემდეგ.</value>
+  </data>
+  <data name="Page.Tips.AlignAfter.Body" xml:space="preserve">
+    <value>თუ აღმოაჩენთ, რომ სურათების გადაღების დროს შეუძლებელია ორივე ზედა და ქვედა სახელმძღვანელო ხაზის ერთდროული ხაზის დალაგება, თქვენ ალბათ გადახვედით სხვა მიმართულებით, ვიდრე უბრალოდ გვერდზე. შეეცადეთ გამოასწოროთ ეს სურათების გადაღებამდე, მაგრამ ფაქტის შემდეგ გასწორება ამაში ძალიან დაგეხმარებათ.</value>
+  </data>
+  <data name="Page.Tips.Alignment" xml:space="preserve">
+    <value>შეგიძლიათ გამორთოთ ავტომატური გასწორება.</value>
+  </data>
+  <data name="Page.Tips.Alignment.Body" xml:space="preserve">
+    <value>თუ არ მოგწონთ ავტომატური გასწორების შედეგები, უბრალოდ გამორთეთ ის პარამეტრების გვერდზე ან პატარა რობოტის ხატულაზე დაჭერით და თქვენი ორიგინალური გადაღებული სურათები აღდგება.</value>
+  </data>
+  <data name="Page.Tips.Donut" xml:space="preserve">
+    <value>დონატის სახელმძღვანელო დაგეხმარებათ თქვენს ფანჯარაში.</value>
+  </data>
+  <data name="Page.Tips.Donut.Body" xml:space="preserve">
+    <value>პარამეტრების გვერდზე არის ექსპერიმენტული სახელმძღვანელო დონატი, რომელიც შეგიძლიათ ჩართოთ, რომელიც დაგეხმარებათ შეინახოთ თქვენი სტერეო ფანჯარა და გაზარდოთ გამოსაყენებელი სიგანე. მარცხნივ და მარჯვნივ მობრუნებით დონატის სიღრმე შეიცვლება დანარჩენ სცენასთან შედარებით - დააყენეთ დონატის სიღრმე ისე, რომ ის იყოს თქვენი სცენის ყველაზე შორეულ წერტილზე ან მის უკან. ფრთხილად იყავით, მცირე სცენებზე მის გამოყენებამ შეიძლება მტკივნეული გახადოს ყველაფერი (იხილეთ ზემოთ მოცემული რჩევები).</value>
+  </data>
+  <data name="Page.Tips.Keystone" xml:space="preserve">
+    <value>Keystone-ის კორექტირებაა საჭირო, თუ თქვენ თითზე შეხვალთ.</value>
+  </data>
+  <data name="Page.Tips.Keystone.Body1" xml:space="preserve">
+    <value>თუ ყოველი გასროლისას შიგნით შეტრიალდებით, ძალიან სასარგებლო იქნება საკვანძო სტანდარტების კორექტირების გაკეთება. როგორც წესი, თქვენ გსურთ შეკუმშოთ ფოტოების შიდა კიდეები და შემდეგ მოაჭრათ რამდენიმე ზემოდან და ქვედადან, რომ გაათანაბროს ისინი. თქვენ მოხვდებით Keystone-ის რედაქტირების მენიუში ღილაკზე დაჭერით, რომელიც ასე გამოიყურება:</value>
+  </data>
+  <data name="Page.Tips.Keystone.Body2" xml:space="preserve">
+    <value>შიგნით შემობრუნებას თითების შემობრუნებას უწოდებენ. ამან შეიძლება გამოიწვიოს წინამორბედი ეფექტი, რაც ართულებს გამოსახულების კუთხეების შერწყმას. შემცირების ეფექტი ყოველთვის არის რეალურ ცხოვრებაში, რადგან პარალელური ხაზები, როგორც ჩანს, ერთმანეთს ემთხვევა, როცა ისინი შორდებიან თქვენგან შორს, მაგრამ ხელოვნურმა პერსპექტივებს შეუძლია ეს უცნაური გახადოს.</value>
+  </data>
+  <data name="Page.Tips.Lean" xml:space="preserve">
+    <value>შეგიძლიათ უბრალოდ დაიხაროთ.</value>
+  </data>
+  <data name="Page.Tips.Lean.Body" xml:space="preserve">
+    <value>ხანდახან იმის ნაცვლად, რომ სრულად გადაიტანოთ ფეხები მარცხნივ ან მარჯვნივ სურათების გადასაღებად, უფრო ადვილია უბრალოდ დგომა დაშორებული ფეხებით და თითოეული მიმართულებით დახრილობა, მაგრამ ფრთხილად იყავით, რომ ტელეფონი გქონდეთ დონეზე და იმავე სიმაღლეზე. გადაადგილების ნაცვლად დახრილობა დაგეხმარებათ ძალიან შორს გადაადგილებაში და გაგიადვილებთ მიზნის სწორად შენარჩუნებას.</value>
+  </data>
+  <data name="Page.Tips.Lines" xml:space="preserve">
+    <value>გასწორების ხაზებს შეუძლიათ გადაადგილება.</value>
+  </data>
+  <data name="Page.Tips.Lines.Body" xml:space="preserve">
+    <value>თუ გსურთ, შეგიძლიათ გადაიტანოთ გასწორების ხაზები გარშემო. ეს განსაკუთრებით სასარგებლოა სურათების გასწორებისას რედაქტირების დროს.</value>
+  </data>
+  <data name="Page.Tips.Old" xml:space="preserve">
+    <value>თქვენ შეგიძლიათ გახსნათ ძველი ფოტოები CrossCam-ში.</value>
+  </data>
+  <data name="Page.Tips.Old.Body" xml:space="preserve">
+    <value>შეგიძლიათ ჩატვირთოთ ადრე გადაღებული სურათები კამერის გვერდის ბოლოში საქაღალდის ხატულაზე შეხებით, მაგრამ თუ თქვენ მუშაობთ ფოტოების დიდ პარტიასთან, ასევე შეგიძლიათ გაუზიაროთ ისინი CrossCam-ს პირდაპირ თქვენი ფოტოების აპიდან, რომელიც შეიძლება თვალყური ადევნოს თქვენს უკეთესად მოათავსეთ თქვენს ფოტოებში.</value>
+  </data>
+  <data name="Page.Tips.Quick" xml:space="preserve">
+    <value>ჩართეთ სწრაფი რეჟიმი, როცა სხვებთან ერთად ხართ.</value>
+  </data>
+  <data name="Page.Tips.Quick.Body" xml:space="preserve">
+    <value>თუ სხვა ადამიანებთან ერთად იკვლევთ, კარგი იდეაა, გადახვიდეთ სწრაფ რეჟიმში ავტომატური გასწორების და და საზღვრების გამორთვით და უბრალოდ შეინახეთ მას შემდეგ, რაც გადაღებული ხართ ყოველგვარი რედაქტირების გარეშე. თქვენ ყოველთვის შეგიძლიათ ჩატვირთოთ, ავტომატური გასწორება და სურათების მოგვიანებით რედაქტირება. ამგვარად, თქვენს კომპანიონებს არ მოუწევთ ლოდინი, სანამ ადგილზე დაასრულებთ თქვენს სურათებს, მაგრამ მაინც შეგიძლიათ დარწმუნებული იყოთ, რომ თქვენთვის სასურველი სიღრმე ნამდვილად არის. უბრალოდ ფრთხილად იყავით, რომ არ გააკეთოთ ნაჩქარევი რედაქტირება პირველ შენახვამდე! თქვენ ასევე შეგიძლიათ ჩართოთ ცალკე გვერდითი შენახვა, რომელიც უგულებელყოფს თქვენს მიერ შესრულებულ ნებისმიერ რედაქტირებას.</value>
+  </data>
+  <data name="Page.Tips.Sick" xml:space="preserve">
+    <value>თუ მოძრაობა გაწუხებთ, გაჩერდით.</value>
+  </data>
+  <data name="Page.Tips.Sick.Body" xml:space="preserve">
+    <value>თუ მთელი მოძრაობა გაწუხებთ ან ძალიან ართულებს 3D-ში ყურებას, არ დაიწყოთ მისი 3D ნახვის მცდელობა მანამ, სანამ ცოტათი არ გადახვალთ. შემდეგ შეადარეთ სურათები ერთმანეთს და გაასწორეთ სურათები ჰორიზონტალური ხაზების გამოყენებით 3D ნახვის გარეშე და შემდეგ დაიწყეთ 3D ყურება გასწორების შემდეგ და გამართულად.</value>
+  </data>
+  <data name="Page.Tips.Space" xml:space="preserve">
+    <value>ამ სურათებს შეიძლება დიდი საცავი დასჭირდეს - შეგიძლიათ მათი შემცირება.</value>
+  </data>
+  <data name="Page.Tips.Space.Body" xml:space="preserve">
+    <value>პარამეტრების გვერდს აქვს საბოლოო სურათის გარჩევადობის პროპორციულად შემცირების ვარიანტი - ეს დაგეხმარებათ, თუ სივრცის დაზოგვა გსურთ. თუ თქვენი ფოტო არ არის ამოჭრილი, საბოლოო შედეგი არის ორი სრული გარჩევადობის სურათი, რომლებიც გაერთიანებულია ერთ-ერთი ორმაგი გარჩევადობით, რაც ნიშნავს, რომ ხშირად შეგიძლიათ გაუმკლავდეთ გარჩევადობის დიდ შემცირებას ხარისხზე შესამჩნევად გავლენის გარეშე.</value>
+  </data>
+  <data name="Page.Tips.Turn" xml:space="preserve">
+    <value>არ შეტრიალდე.</value>
+  </data>
+  <data name="Page.Tips.Turn.Body" xml:space="preserve">
+    <value>როდესაც გადახვალთ, შეეცადეთ საერთოდ არ მოატრიალოთ თქვენი ტელეფონი რაიმე მიმართულებით, მათ შორის, ბუნებრივი მიდრეკილება, რომ გადახვიდეთ საგნისკენ, როცა გვერდზე გადახვალთ. გარკვეული როტაცია საჭირო იქნება (ზოგჯერ), მაგრამ შეეცადეთ მინიმუმამდე დაიყვანოთ იგი. წარმოიდგინეთ, რომ ტელეფონი დამონტაჟებულია პირდაპირ ჰორიზონტალურ ლიანდაგზე და შეიძლება მხოლოდ სრიალი. შიგნით შემობრუნებამ შეიძლება გამოიწვიოს წინამორბედი ეფექტი, რაც ართულებს კუთხეების შერწყმას.</value>
+  </data>
+  <data name="Page.Tips.Window" xml:space="preserve">
+    <value>დაამატეთ საზღვარი და ჩამოჭრა ძლიერი სტერეო ფანჯრის შესაქმნელად.</value>
+  </data>
+  <data name="Page.Tips.Window.Body" xml:space="preserve">
+    <value>საინტერესო სტერეო ფანჯრის ეფექტის შექმნა შესაძლებელია ორი საქმის გაკეთებით: 1) ჩართეთ საზღვარი (პარამეტრების გვერდზე) და 2) ჯვარედინი ნახვისთვის, ამოჭერით სურათების შიდა კიდეები, სანამ გარე კიდე არ გახდება 3D სურათზე (მოჭრა გარე კიდეები, თუ პარალელურად უყურებთ). მთავარია მარცხენა სურათის მარჯვენა კიდის ამოჭრა ოდნავ სცენასთან შედარებით, რასაც მარჯვენა სურათის მარჯვენა კიდე აჩვენებს სცენას და პირიქით. საზღვრის დამატება გადართულია პარამეტრების გვერდზე. თუ ეს დამაბნეველია, უბრალოდ ამოიღეთ თაიგული შიდა კიდეებიდან და ის გახდება ნათელი. შიდა კიდეების ჩამოჭრის ღილაკი ასე გამოიყურება:</value>
+  </data>
+  <data name="Button.Code" xml:space="preserve">
+    <value>იხილეთ კოდექსი</value>
+  </data>
+  <data name="Button.Developer" xml:space="preserve">
+    <value>დეველოპერის შესახებ</value>
+  </data>
+  <data name="Button.EmailMe" xml:space="preserve">
+    <value>მომწერეთ მე</value>
+  </data>
+  <data name="Button.GitHub" xml:space="preserve">
+    <value>დაამატეთ პრობლემა GitHub-ზე</value>
+  </data>
+  <data name="Button.Press" xml:space="preserve">
+    <value>დაუბრუნდით ორივე მოწყობილობის კამერის ეკრანს და შეეხეთ დაწყვილების ღილაკს ქვედა კუთხეში</value>
+  </data>
+  <data name="Button.Primary" xml:space="preserve">
+    <value>შეეხეთ აქ ძირითადზე</value>
+  </data>
+  <data name="Button.Privacy" xml:space="preserve">
+    <value>Კონფიდენციალურობის პოლიტიკა</value>
+  </data>
+  <data name="Button.Secondary" xml:space="preserve">
+    <value>შეეხეთ აქ მეორადზე</value>
+  </data>
+  <data name="Button.Test" xml:space="preserve">
+    <value>წინასწარ გამოშვების ვერსიების ტესტირება</value>
+  </data>
+  <data name="Button.Wi-Fi" xml:space="preserve">
+    <value>დარწმუნდით, რომ Wi-Fi ჩართულია ორივე მოწყობილობაზე (მაგრამ მას არაფერთან დაკავშირება არ სჭირდება)</value>
+  </data>
+  <data name="Page.Pairing.1" xml:space="preserve">
+    <value>თუ თქვენ გაქვთ დაყენებული ორი მოწყობილობა CrossCam-ით, შეგიძლიათ დააკავშიროთ ისინი, რათა ერთდროულად გადაიღოთ ფოტოები ორი პერსპექტივიდან. ორი ფოტოს ერთდროულად გადაღება შესაძლებელს ხდის საუკეთესო სტერეოგრამას.
+
+გთხოვთ, გაითვალისწინოთ, რომ ეს ფუნქცია ჯერ კიდევ ექსპერიმენტულია და შეიძლება ჰქონდეს პრობლემები. ის შეიძლება მუდმივად არ იმუშაოს იდეალურად და შეიძლება დაკარგოს თქვენი ბატარეა. ასევე გთხოვთ გაითვალისწინოთ, რომ ამ დროს მოწყობილობები უნდა იყოს ერთი და იგივე პლატფორმა დასაკავშირებლად (ორივე Android ან ორივე iOS).
+
+*იდეალური* სინქრონიზაციის მიღების ერთ-ერთი გზა მხოლოდ ერთი მოწყობილობისა და CrossCam-ის გამოყენებით არის "ერთჯერადი სარკის" მეთოდის გამოყენება. თქვენ შეგიძლიათ ჩართოთ ის პარამეტრების გვერდზე და შეგიძლიათ წაიკითხოთ ამის შესახებ FAQ გვერდზე.
+
+ორი მოწყობილობის ერთად გამოყენებამდე მათი როლები უნდა იყოს მინიჭებული. PRIMARY არის მოწყობილობა, რომელიც აჩვენებს ორივე გადახედვას, ჩართავს გადაღებას და გააჩერებს/შენახავს საბოლოო გადაღებას. როლების მინიჭებისთვის, გადაიტანეთ ორივე მოწყობილობა ამ გვერდზე და შემდეგ მიჰყევით ქვემოთ მოცემულ ნაბიჯებს:</value>
+  </data>
+  <data name="Page.Pairing.2" xml:space="preserve">
+    <value>თუ პრობლემები გაქვთ, გთხოვთ გაითვალისწინოთ:
+ • დაწყვილების პროცესის დაწყების შემდეგ, დაწყვილების ღილაკს ნებისმიერ დროს შეიძლება ხელახლა დააჭიროთ მის შესაჩერებლად ან გათიშვის მიზნით.
+ • შესაძლოა დაგვეხმაროს ორივე მოწყობილობაზე დაწყვილების შეწყვეტა და ერთდროულად გადატვირთვა.
+ • ეს შეიძლება დაგვეხმაროს თქვენი Wi-Fi-დან ან მონაცემთა ქსელიდან გათიშვა, თუ ისინი მოქმედებენ.
+ • ყველა კამერა განსხვავებულია. ეს განსხვავებები შეიძლება შეიცავდეს ხედვის კუთხურ ველს, ფოკუსს, ექსპოზიციას და თეთრი ბალანსის ქცევას, დროს და სხვა. ერთი და იგივე მოდელის ორი ტელეფონიც კი ოდნავ განსხვავებულად იქცევა. მირჩევნია გამოვიყენო წყვილი იდენტური ძველი ტელეფონი (ჩემს შემთხვევაში, წყვილი iPhone 6).
+ • CrossCam არის პროგრამული უზრუნველყოფა და არა აპარატურა, ამიტომ ფოტოების გადაღება შეიძლება ოდნავ არ იყოს სინქრონიზებული იმისდა მიხედვით, თუ რას აკეთებენ პროცესორები და მეხსიერება გადაღების ზუსტი მომენტში. შედეგად, სინქრონიზაცია შეიძლება ზოგჯერ არ იყოს სრულყოფილი, მაგრამ ზოგადად ის ძალიან ახლოს უნდა იყოს.</value>
+  </data>
+  <data name="Page.Pairing.Again" xml:space="preserve">
+    <value>მოგვიანებით დასაკავშირებლად, დარწმუნდით, რომ ჩართული გაქვთ Wi-Fi და შემდეგ უბრალოდ შეეხეთ დაკავშირების ღილაკს მთავარ ეკრანზე ორივე მოწყობილობაზე.</value>
+  </data>
+  <data name="Page.Pairing.LocalNetworkAccess" xml:space="preserve">
+    <value>CrossCam მოითხოვს ლოკალურ ქსელში წვდომის ნებართვას. CrossCam რეალურად არ იყენებს ლოკალურ ქსელს, მაგრამ iOS მოითხოვს, რომ CrossCam მიიღოს ეს ნებართვა, რათა გამოიყენოს Wi-Fi ანტენა მოწყობილობების სკანირებისთვის. CrossCam ერთხელ ითხოვს ამ ნებართვას - თუ ნებართვაზე უარის თქმა მოგიწევთ, თქვენ თვითონ უნდა გადახვიდეთ და გადაატრიალოთ გადამრთველი პარამეტრების აპში.</value>
+  </data>
+  <data name="Page.Pairing.Location" xml:space="preserve">
+    <value>CrossCam მოითხოვს ნებართვებს და კომპონენტებზე ჩართვას საჭიროებისამებრ თქვენი მოწყობილობების დასაკავშირებლად. გთხოვთ, გაითვალისწინოთ: CrossCam მოითხოვს მდებარეობის ნებართვას და მდებარეობის სერვისების ჩართვას ძირითად მოწყობილობაზე, მეორად მოწყობილობასთან დასაკავშირებლად. ეს უბრალოდ Android-ის მოთხოვნაა და მთლიანად ჩემს კონტროლს მიღმაა. CrossCam რეალურად არანაირად არ იყენებს თქვენს მდებარეობას, მაგრამ რადგან ახლომდებარე მოწყობილობების ძიების (და პოვნის) აქტი თეორიულად შეიძლება გამოყენებულ იქნას თქვენი ადგილმდებარეობის უხეშად დასადგენისთვის, CrossCam მოითხოვს ნებართვას თქვენს მდებარეობაზე წვდომისთვის.</value>
+  </data>
+  <data name="Page.Pairing.Permissions" xml:space="preserve">
+    <value>შენიშვნა ნებართვების შესახებ:</value>
+  </data>
+  <data name="Page.Pairing.Title" xml:space="preserve">
+    <value>დაწყვილება</value>
+  </data>
+  <data name="Button.Back" xml:space="preserve">
+    <value>&lt; უკან</value>
+  </data>
+  <data name="Page.MorePictures.CrossViewSubreddit" xml:space="preserve">
+    <value>CrossView Subreddit</value>
+  </data>
+  <data name="Page.MorePictures.FacebookGroup" xml:space="preserve">
+    <value>სტერეოსკოპიული 3D Facebook ჯგუფი</value>
+  </data>
+  <data name="Page.MorePictures.GoogleDoc" xml:space="preserve">
+    <value>Google Doc of Great Stuff</value>
+  </data>
+  <data name="Page.MorePictures.Instagram" xml:space="preserve">
+    <value>ინსტაგრამის სტერეოსკოპიული ტეგი</value>
+  </data>
+  <data name="Page.MorePictures.Mine" xml:space="preserve">
+    <value>იხილეთ ჩემი გადაღებული სურათები</value>
+  </data>
+  <data name="Page.MorePictures.ParallelViewSubreddit" xml:space="preserve">
+    <value>ParallelView Subreddit</value>
+  </data>
+  <data name="Page.Settings.Alignment" xml:space="preserve">
+    <value>ავტომატური გასწორება</value>
+  </data>
+  <data name="Page.Settings.Analytics" xml:space="preserve">
+    <value>გააზიარეთ ანონიმური გამოყენებისა და შეცდომის მონაცემები CrossCam-ის გასაუმჯობესებლად</value>
+  </data>
+  <data name="Page.Settings.Border" xml:space="preserve">
+    <value>საზღვარი</value>
+  </data>
+  <data name="Page.Settings.Camera" xml:space="preserve">
+    <value>კამერა</value>
+  </data>
+  <data name="Page.Settings.Defaults" xml:space="preserve">
+    <value>ნაგულისხმევად გადატვირთვა</value>
+  </data>
+  <data name="Page.Settings.Editing" xml:space="preserve">
+    <value>რედაქტირება</value>
+  </data>
+  <data name="Page.Settings.ErrorEmail" xml:space="preserve">
+    <value>მოითხოვეთ ელ.ფოსტის გაგზავნა, როდესაც შეცდომები მოხდება</value>
+  </data>
+  <data name="Page.Settings.Guides" xml:space="preserve">
+    <value>გადაღების გიდები</value>
+  </data>
+  <data name="Page.Settings.Pairing" xml:space="preserve">
+    <value>დაწყვილება</value>
+  </data>
+  <data name="Page.Settings.Preview" xml:space="preserve">
+    <value>გადახედვის ნახვის მეთოდი</value>
+  </data>
+  <data name="Page.Settings.Saving" xml:space="preserve">
+    <value>Შენახვა</value>
+  </data>
+  <data name="Page.TipMe.1" xml:space="preserve">
+    <value>CrossCam არის უფასო გამოსაყენებელი, რეკლამის გარეშე, ღია კოდით, არ აგროვებს თქვენგან პერსონალურ ინფორმაციას და გაძლევთ სრულ წვდომას ყველა ფუნქციაზე. მე მიყვარს CrossCam-ზე მუშაობა, მაგრამ ამას დიდი დრო და ძალისხმევა სჭირდება. მე საერთოდ არ ვიშოვი ფულს CrossCam-ისგან, გარდა იმ რჩევებისა, რომლებიც ადამიანებმა შეიძლება გადაწყვიტონ გამომიგზავნონ.</value>
+  </data>
+  <data name="Page.TipMe.2" xml:space="preserve">
+    <value>თუ მოგწონთ CrossCam და შეგიძლიათ, გთხოვთ გამომიგზავნოთ რჩევა.</value>
+  </data>
+  <data name="Page.TipMe.Ko-fi" xml:space="preserve">
+    <value>კო-ფი</value>
+  </data>
+  <data name="Page.TipMe.Patreon" xml:space="preserve">
+    <value>პატრონი</value>
+  </data>
+  <data name="Page.TipMe.PayPal" xml:space="preserve">
+    <value>PayPal</value>
+  </data>
+  <data name="Page.TipMe.Tipped" xml:space="preserve">
+    <value>მე მინიშნეს</value>
+  </data>
+  <data name="Page.TipMe.TippedTimes" xml:space="preserve">
+    <value>ჯერ, სულ</value>
+  </data>
+  <data name="Page.TipMe.Venmo" xml:space="preserve">
+    <value>ვენმო</value>
+  </data>
+  <data name="Title.MorePictures" xml:space="preserve">
+    <value>იხილეთ მეტი სურათები</value>
+  </data>
+  <data name="Title.Settings" xml:space="preserve">
+    <value>პარამეტრები</value>
+  </data>
+  <data name="Title.TipMe" xml:space="preserve">
+    <value>რჩევები დასაფასებელია!</value>
+  </data>
+  <data name="Settings.Alignment.Advanced" xml:space="preserve">
+    <value>გაფართოებული გასწორების პარამეტრების ჩვენება</value>
+  </data>
+  <data name="Settings.Alignment.Ecc" xml:space="preserve">
+    <value>სცადეთ ყოველთვის გამოიყენოთ ECC გასწორება</value>
+  </data>
+  <data name="Settings.Alignment.Keypoints" xml:space="preserve">
+    <value>სცადეთ ყოველთვის გამოიყენოთ საკვანძო წერტილების გასწორება</value>
+  </data>
+  <data name="Settings.Alignment.On" xml:space="preserve">
+    <value>ავტომატური გასწორება გადაღების შემდეგ</value>
+  </data>
+  <data name="Settings.Border.Color" xml:space="preserve">
+    <value>საზღვრის ფერი</value>
+  </data>
+  <data name="Settings.Border.FuseGuide" xml:space="preserve">
+    <value>დაამატე დაუკრავის სახელმძღვანელო ზემოდან (წერტილი თითოეულ მხარეს ზემოთ)</value>
+  </data>
+  <data name="Settings.Border.On" xml:space="preserve">
+    <value>საზღვრის დამატება</value>
+  </data>
+  <data name="Settings.Border.Prompt" xml:space="preserve">
+    <value>მოთხოვნილი საზღვრების ამოჭრა, როდესაც აღმოჩენილია ჩატვირთვისას</value>
+  </data>
+  <data name="Settings.Border.Thickness" xml:space="preserve">
+    <value>საზღვრის სისქე (სიგანის პროცენტის მეათედი)</value>
+  </data>
+  <data name="Settings.Camera.Camera1" xml:space="preserve">
+    <value>იძულებითი camera1 API (შეიძლება იყოს სასარგებლო, თუ უცნაურობას განიცდით, მაგრამ გამოიწვევს შეზღუდული ფუნქციონირებას, ძალაში შესვლისთვის საჭიროა იძულებითი გამორთვა/გადატვირთვა)</value>
+  </data>
+  <data name="Settings.Camera.Camera2" xml:space="preserve">
+    <value>Force camera2 API (უნდა იყოს Android 6-ზე ან უფრო მაღალზე, შეიძლება სასარგებლო იყოს, თუ შეცდომებს განიცდით, მაგრამ შეიძლება მეტი დაუშვათ, ძალაში შესვლისთვის საჭიროა იძულებითი გასვლა/გადატვირთვა)</value>
+  </data>
+  <data name="Settings.Camera.LandscapeCaptureHorizontal" xml:space="preserve">
+    <value>ლანდშაფტის გადაღების ღილაკი ჰორიზონტალური განთავსება</value>
+  </data>
+  <data name="Settings.Camera.LandscapeCaptureVertical" xml:space="preserve">
+    <value>ლანდშაფტის გადაღების ღილაკის ვერტიკალური განლაგება</value>
+  </data>
+  <data name="Settings.Camera.Lock" xml:space="preserve">
+    <value>ჩაკეტეთ ფოკუსი და ექსპოზიცია მეორე სურათისთვის ფოკუსირებისთვის და ექსპოზიცია პირველი სურათიდან</value>
+  </data>
+  <data name="Settings.Camera.Pair" xml:space="preserve">
+    <value>ღილაკის დაწყვილების ჰორიზონტალური განთავსება (როდესაც გადაღების ღილაკი ცენტრშია)</value>
+  </data>
+  <data name="Settings.Camera.PointFocus" xml:space="preserve">
+    <value>შეეხეთ ფოკუსირებას, ორჯერ შეეხეთ უწყვეტ ფოკუსირებაზე გადასართავად (ან შენახვა ან წაშლა)</value>
+  </data>
+  <data name="Settings.Camera.PortraitCapture" xml:space="preserve">
+    <value>პორტრეტის გადაღების ღილაკის განთავსება</value>
+  </data>
+  <data name="Settings.Editing.Align" xml:space="preserve">
+    <value>ვერტიკალური განლაგების მაქსიმალური პროპორცია</value>
+  </data>
+  <data name="Settings.Editing.Keystone" xml:space="preserve">
+    <value>მაქსიმალური საყრდენი</value>
+  </data>
+  <data name="Settings.Editing.Rotation" xml:space="preserve">
+    <value>ბრუნვის მაქსიმალური გრადუსი</value>
+  </data>
+  <data name="Settings.Editing.SideCrop" xml:space="preserve">
+    <value>გვერდითი მოსავლის მაქსიმალური პროპორცია</value>
+  </data>
+  <data name="Settings.Editing.TopCrop" xml:space="preserve">
+    <value>ზედა/ქვედა მოსავლის მაქსიმალური პროპორცია</value>
+  </data>
+  <data name="Settings.Editing.Zoom" xml:space="preserve">
+    <value>მასშტაბის მაქსიმალური პროპორცია</value>
+  </data>
+  <data name="Settings.Guides.Donut" xml:space="preserve">
+    <value>დონატის მეგზურის ჩვენება (გამოიწვევს თითების ჩასმას, ამიტომ შეიძლება საჭირო გახდეს კვარცხლბეკის რედაქტირება)</value>
+  </data>
+  <data name="Settings.Guides.Fuse" xml:space="preserve">
+    <value>დაუკრავენ სახელმძღვანელოს ჩვენება (წერტილი თითოეულ მხარეს ზემოთ)</value>
+  </data>
+  <data name="Settings.Guides.LineColor" xml:space="preserve">
+    <value>სხვადასხვა ფერის ხაზები</value>
+  </data>
+  <data name="Settings.Guides.Lines" xml:space="preserve">
+    <value>ხაზები ჩანს</value>
+  </data>
+  <data name="Settings.Guides.Roll" xml:space="preserve">
+    <value>რულონის სახელმძღვანელო ჩანს</value>
+  </data>
+  <data name="Settings.Pair.CaptureDelay" xml:space="preserve">
+    <value>გადაღების მომენტის დამატებითი დაყოვნება (მმ) (დამატებით დაყოვნებას ამატებს სამიზნე გადაღების მომენტს მხოლოდ ამ მოწყობილობაზე)</value>
+  </data>
+  <data name="Settings.Pair.Countdown" xml:space="preserve">
+    <value>გადაღების უკუმთვლელი სიგრძე (ტაიმერი)</value>
+  </data>
+  <data name="Settings.Pair.Fov" xml:space="preserve">
+    <value>ხედვის ველის კორექტირება</value>
+  </data>
+  <data name="Settings.Pair.FovNotSet" xml:space="preserve">
+    <value>FOV-ის კორექტირება არ არის დაყენებული (გააკეთეთ გადაღება დაწყვილებული მოწყობილობებით დაყენების გასავლელად).</value>
+  </data>
+  <data name="Settings.Pair.FovReset" xml:space="preserve">
+    <value>გადატვირთვა</value>
+  </data>
+  <data name="Settings.Pair.Go" xml:space="preserve">
+    <value>გადადით დაწყვილების დაყენების გვერდზე</value>
+  </data>
+  <data name="Settings.Pair.NoRole" xml:space="preserve">
+    <value>როლი არ არის შერჩეული</value>
+  </data>
+  <data name="Settings.Pair.PreviewDelay" xml:space="preserve">
+    <value>კადრების დაყოვნების გადახედვა (უფრო მეტი რიცხვი შეამცირებს კადრების სიხშირეს, მაგრამ დაზოგავს ბატარეას)</value>
+  </data>
+  <data name="Settings.Pair.Primary" xml:space="preserve">
+    <value>ძირითადი:</value>
+  </data>
+  <data name="Settings.Pair.PrimaryRole" xml:space="preserve">
+    <value>როლი: პირველადი</value>
+  </data>
+  <data name="Settings.Pair.Sample" xml:space="preserve">
+    <value>საათის ნიმუშების რაოდენობა (მცირე რიცხვი შეამცირებს თავდაპირველი სინქრონიზაციისთვის საჭირო დროს, მაგრამ შეიძლება შეამციროს სინქრონიზაციის სიზუსტე)</value>
+  </data>
+  <data name="Settings.Pair.Secondary" xml:space="preserve">
+    <value>მეორადი:</value>
+  </data>
+  <data name="Settings.Pair.SecondaryRole" xml:space="preserve">
+    <value>როლი: მეორეხარისხოვანი</value>
+  </data>
+  <data name="Settings.Pair.Timeout" xml:space="preserve">
+    <value>კავშირის დრო ამოიწურა (წამი) (0 ნიშნავს დროის ამოწურვას)</value>
+  </data>
+  <data name="Settings.Preview.Barrel" xml:space="preserve">
+    <value>დაამატეთ ლინზის კორექცია/ლულის დამახინჯება (შეიძლება შეამციროს კადრების სიხშირე)</value>
+  </data>
+  <data name="Settings.Preview.BarrelFinal" xml:space="preserve">
+    <value>დაამატეთ ლინზის კორექცია/ლულის დამახინჯება მხოლოდ საბოლოო სურათებს (შეიძლება შეანელოს საბოლოო ჩვენება, მაგრამ დააჩქარებს გადაღებას)</value>
+  </data>
+  <data name="Settings.Preview.CardboardDistance" xml:space="preserve">
+    <value>მუყაოს გამოყოფის მანძილი</value>
+  </data>
+  <data name="Settings.Preview.Downsize" xml:space="preserve">
+    <value>სურათის შემცირება (შეიძლება გაზარდოს კადრების სიხშირე)</value>
+  </data>
+  <data name="Settings.Preview.DownsizePercent" xml:space="preserve">
+    <value>სურათის პროცენტის შემცირება</value>
+  </data>
+  <data name="Settings.Preview.Immersive" xml:space="preserve">
+    <value>იმერსიული საბოლოო ყურება</value>
+  </data>
+  <data name="Settings.Preview.LensStrength" xml:space="preserve">
+    <value>ლინზის კორექტირების სიძლიერე</value>
+  </data>
+  <data name="Settings.Preview.Mirror" xml:space="preserve">
+    <value>გადაღება ერთჯერადი სარკის გაყოფის მეთოდით</value>
+  </data>
+  <data name="Settings.Preview.Width" xml:space="preserve">
+    <value>პარალელური ხედვის სურათის მაქსიმალური სიგანე (პუნქტები)</value>
+  </data>
+  <data name="Settings.Reset" xml:space="preserve">
+    <value>ნაგულისხმევად გადატვირთვა</value>
+  </data>
+  <data name="Settings.Saving.Alone" xml:space="preserve">
+    <value>შეინახეთ პირველი მხარე მარტო (რედაქტირებისა და საზღვრების გარეშე) (ბრტყელი ფოტოს მარტივად გასაზიარებლად ბრტყელი ხედის მქონე ადამიანებთან)</value>
+  </data>
+  <data name="Settings.Saving.Anaglyph" xml:space="preserve">
+    <value>წითელი/ცისფერი ანაგლიფის ვერსიის შენახვა (რედაქტირებით, მაგრამ საზღვრების გარეშე)</value>
+  </data>
+  <data name="Settings.Saving.Browse" xml:space="preserve">
+    <value>დათვალიერება...</value>
+  </data>
+  <data name="Settings.Saving.Cardboard" xml:space="preserve">
+    <value>შეინახეთ Cardboard-ისთვის (რედაქტირებით, საზღვრების გარეშე, ინტერვალის გარეშე, სრული სიგანე, მოგვიანებით CrossCam-ში დასაბრუნებლად)</value>
+  </data>
+  <data name="Settings.Saving.Clear" xml:space="preserve">
+    <value>გადაღებების ავტომატურად გასუფთავება შენახვის შემდეგ</value>
+  </data>
+  <data name="Settings.Saving.Cross" xml:space="preserve">
+    <value>გაერთიანებული ჯვარედინი ვერსიის შენახვა (რედაქტირებით და საზღვრებით)</value>
+  </data>
+  <data name="Settings.Saving.ExternalDirectory" xml:space="preserve">
+    <value>შეინახეთ გარე CrossCam დირექტორიაში:</value>
+  </data>
+  <data name="Settings.Saving.ExternalWarning" xml:space="preserve">
+    <value>(გაფრთხილება: სურათები წაიშლება, თუ CrossCam წაიშლება)</value>
+  </data>
+  <data name="Settings.Saving.Folder" xml:space="preserve">
+    <value>შეინახეთ ერთგულ "CrossCam" ქვესაქაღალდეში/ალბომში</value>
+  </data>
+  <data name="Settings.Saving.Grayscale" xml:space="preserve">
+    <value>შეინახეთ ნაცრისფერი ფერის წითელი/ცისფერი ანაგლიფის ვერსია (რედაქტირებით, მაგრამ საზღვრების გარეშე)</value>
+  </data>
+  <data name="Settings.Saving.Order" xml:space="preserve">
+    <value>(შენახვა მოხდება თანმიმდევრობით ზემოდან ქვემოდან)</value>
+  </data>
+  <data name="Settings.Saving.Parallel" xml:space="preserve">
+    <value>გაერთიანებული პარალელური ხედის ვერსიის შენახვა (რედაქტირებით და საზღვრით)</value>
+  </data>
+  <data name="Settings.Saving.Quad" xml:space="preserve">
+    <value>ოთხკუთხა კომბინაციის შენახვა (რედაქტირებით და კონტურით)</value>
+  </data>
+  <data name="Settings.Saving.Reset" xml:space="preserve">
+    <value>გადატვირთვა</value>
+  </data>
+  <data name="Settings.Saving.Resolution" xml:space="preserve">
+    <value>რეზოლუციის პროპორცია</value>
+  </data>
+  <data name="Settings.Saving.SaveTo" xml:space="preserve">
+    <value>შენახვა:</value>
+  </data>
+  <data name="Settings.Saving.Separate" xml:space="preserve">
+    <value>შეინახეთ თითოეული მხარე ცალ-ცალკე (რედაქტირების ან საზღვრების გარეშე პოსტის უფრო ადვილი დამუშავებისთვის, ჯერ მარცხენა მხარე ინახავს)</value>
+  </data>
+  <data name="Settings.Saving.Subfolder" xml:space="preserve">
+    <value>შეინახეთ ერთგულ "CrossCam_{ViewMethod}" ქვესაქაღალდეებში/ალბომებში</value>
+  </data>
+  <data name="Settings.Saving.Triple" xml:space="preserve">
+    <value>სამმაგი კომბინაციის შენახვა (რედაქტირებით და კონტურით)</value>
+  </data>
+  <data name="Button.Pair.Accept" xml:space="preserve">
+    <value>მიღება</value>
+  </data>
+  <data name="Button.Pair.Cancel" xml:space="preserve">
+    <value>გაუქმება</value>
+  </data>
+  <data name="Page.Camera.AcceptConnection" xml:space="preserve">
+    <value>მიიღე კავშირი</value>
+  </data>
+  <data name="Page.Camera.Confirm" xml:space="preserve">
+    <value>დაადასტურეთ, რომ კოდი ემთხვევა ორივე მოწყობილობას:</value>
+  </data>
+  <data name="Page.Footer.CouldntOpen" xml:space="preserve">
+    <value>ლინკის გახსნა ვერ მოხერხდა</value>
+  </data>
+  <data name="Page.Footer.OpenError" xml:space="preserve">
+    <value>ფოსტის ბმული ვერ გაიხსნა. ეს შეიძლება იყოს იმის გამო, რომ თქვენი ელ.ფოსტის კლიენტი არ არის დაყენებული, ან სხვა მიზეზი.</value>
+  </data>
+  <data name="Page.Pair.Errors.Denied" xml:space="preserve">
+    <value>დაწყვილებისთვის საჭირო ნებართვები არ იყო მინიჭებული. გამონაკლისი:</value>
+  </data>
+  <data name="Page.Pair.Errors.FailedBluetooth" xml:space="preserve">
+    <value>მოწყობილობამ ვერ ჩართო Bluetooth. გამონაკლისი:</value>
+  </data>
+  <data name="Page.Pair.Errors.FailedSearch" xml:space="preserve">
+    <value>მოწყობილობამ ვერ მოიძებნა მოწყობილობები. გამონაკლისი:</value>
+  </data>
+  <data name="Page.Pair.Errors.LocationOff" xml:space="preserve">
+    <value>მდებარეობის სერვისები არ არის გააქტიურებული. მოწყობილობების სკანირება შეუძლებელია. დამატებითი ინფორმაციისთვის იხილეთ დაწყვილების გვერდი.</value>
+  </data>
+  <data name="Page.Pair.Errors.LocationScan" xml:space="preserve">
+    <value>მდებარეობის ნებართვა არ არის მინიჭებული. მოწყობილობების სკანირება შეუძლებელია. დამატებითი ინფორმაციისთვის იხილეთ დაწყვილების გვერდი.</value>
+  </data>
+  <data name="Page.Pair.Errors.NotSupported" xml:space="preserve">
+    <value>დაწყვილება არ არის მხარდაჭერილი ამ მოწყობილობაზე. გამონაკლისი:</value>
+  </data>
+  <data name="Page.Pair.Errors.Title" xml:space="preserve">
+    <value>შეცდომა</value>
+  </data>
+  <data name="Page.Pair.Errors.WifiOff" xml:space="preserve">
+    <value>Wi-Fi გამორთულია. გთხოვთ, ჩართოთ Wi-Fi.</value>
+  </data>
+  <data name="Page.Pair.PrimaryExplanation" xml:space="preserve">
+    <value>ეს მოწყობილობა ახლა დაყენებულია ძირითადად.</value>
+  </data>
+  <data name="Page.Pair.PrimarySelected" xml:space="preserve">
+    <value>შერჩეულია ძირითადი როლი</value>
+  </data>
+  <data name="Page.Pair.SecondaryExplanation" xml:space="preserve">
+    <value>ეს მოწყობილობა ახლა დაყენებულია მეორად.</value>
+  </data>
+  <data name="Page.Pair.SecondarySelected" xml:space="preserve">
+    <value>შერჩეულია მეორადი როლი</value>
+  </data>
+  <data name="Page.Technique.Mode" xml:space="preserve">
+    <value>რეჟიმი.</value>
+  </data>
+  <data name="Page.Technique.SetMode" xml:space="preserve">
+    <value>CrossCam ახლა შედის</value>
+  </data>
+</root>

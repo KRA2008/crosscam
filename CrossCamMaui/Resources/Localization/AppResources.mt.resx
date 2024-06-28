@@ -1,0 +1,1156 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="Button.GoogleDoc" xml:space="preserve">
+    <value>Google Doc of Great Stuff</value>
+  </data>
+  <data name="Button.LearnCross" xml:space="preserve">
+    <value>TGĦALLEM SALIB</value>
+  </data>
+  <data name="Button.LearnParallel" xml:space="preserve">
+    <value>Tgħallem PARALLEL</value>
+  </data>
+  <data name="Button.MorePictures" xml:space="preserve">
+    <value>Ara Aktar Stampi</value>
+  </data>
+  <data name="Button.Review" xml:space="preserve">
+    <value>Ikteb Reviżjoni</value>
+  </data>
+  <data name="Button.Share" xml:space="preserve">
+    <value>Aqsam CrossCam</value>
+  </data>
+  <data name="Button.Support" xml:space="preserve">
+    <value>Appoġġ lill-Iżviluppatur</value>
+  </data>
+  <data name="Button.TapCross" xml:space="preserve">
+    <value>TAPPEĦ HAWN BIEX GĦAŻEL SALIB</value>
+  </data>
+  <data name="Button.TapParallel" xml:space="preserve">
+    <value>TAPPEĦ HAWN BIEX AGĦŻEL PARALLEL</value>
+  </data>
+  <data name="Footer.Span1" xml:space="preserve">
+    <value>Sibt bug? Għandek xi mistoqsija? Sempliċement email</value>
+  </data>
+  <data name="Footer.Span3" xml:space="preserve">
+    <value>! Inħobb nitkellem mal-utenti u huwa l-aktar mod mgħaġġel biex nikkomunika miegħi.</value>
+  </data>
+  <data name="Page.HowToUse.2anaglyph" xml:space="preserve">
+    <value>2) Ibda anaglif tara l-ewwel stampa bil-preview li tidher ħdejha.</value>
+  </data>
+  <data name="Page.HowToUse.2cardboard" xml:space="preserve">
+    <value>2) Ibda l-kartun tara l-ewwel stampa bil-preview li tidher ħdejha.</value>
+  </data>
+  <data name="Page.HowToUse.2cross" xml:space="preserve">
+    <value>2) Ibda salib tara l-ewwel stampa bil-preview li tidher ħdejha.</value>
+  </data>
+  <data name="Page.HowToUse.2parallel" xml:space="preserve">
+    <value>2) Ibda tara l-ewwel stampa b'mod parallel bil-preview li tidher ħdejha.</value>
+  </data>
+  <data name="Page.Technique.AdditionalTutorials" xml:space="preserve">
+    <value>Tutorials addizzjonali:</value>
+  </data>
+  <data name="Page.Technique.Cross1" xml:space="preserve">
+    <value>Aqsam għajnejk bir-reqqa waqt li tħares lejn il-par ta’ stampi t’hawn fuq. Meta taqsam għajnejk, l-affarijiet isiru mċajpra u see-through u tibda tara 4 stampi minflok 2 (2 pari). Aktar ma taqsam għajnejk, aktar il-pari ta 'stampi se jimxu 'l bogħod minn xulxin - se tidher ftit bħal din:</value>
+  </data>
+  <data name="Page.Technique.Cross2" xml:space="preserve">
+    <value>Aqleb għajnejk bir-reqqa, sabiex l-istampi fuq ġewwa ta 'kull par jibdew jikkoinċidu. Jibda qisu hemm biss 3 stampi minflok 4. Għadu jkun imċajpar u see-through u jidher xi ħaġa bħal din:</value>
+  </data>
+  <data name="Page.Technique.Cross3" xml:space="preserve">
+    <value>Ladarba jkollok il-koinċidenza tan-nofs taħdem, trid tirrilassa għajnejk u tħallihom jiffokaw l-istampa. F'dak il-punt ser ikollok stampa waħda 3D qawwija fin-nofs bi stampa trasparenti f'wiċċ l-ilma fuq kull naħa li tidher bħal din (ħlief in-nofs se jkun 3D):</value>
+  </data>
+  <data name="Page.Technique.Cross4" xml:space="preserve">
+    <value>Jekk ikollok problemi biex taqsam għajnejk, tista' wkoll tipprova tħares lejn subgħajk waqt li żżommu f'nofs triq bejn għajnejk u l-iskrin. Għandek tara l-istampi jibdew jisseparaw u jikkoinċidu wara subgħajk.</value>
+  </data>
+  <data name="Page.Technique.CrossViewing" xml:space="preserve">
+    <value>KROSS VIEWING</value>
+  </data>
+  <data name="Page.Technique.P1" xml:space="preserve">
+    <value>Jekk trid terġa' tara dan, tektek l-ikona tal-hamburger (tliet linji) fuq ix-xellug ta' fuq tal-iskrin tal-kamera u tektek "Għajnuna".
+
+Biex tara t-3D f'CrossCam (imsejħa "stereograms") tista' tuża nuċċalijiet 3D ħomor/cyan, telespettatur Google Cardboard, jew tista' tagħmel "wiri b'xejn" billi tuża biss għajnejk u l-iskrin tiegħek. Hemm żewġ modi biex tara b'xejn, u CrossCam jista 'jgħinek titgħallem it-tnejn. Trid tgħid lil CrossCam kif se tara l-istampi jew ma taħdimx sew. Tinkwetax, tista' dejjem tibdel dan mill-ġdid fis-Settings.
+
+Jekk int kapaċi taqsam għajnejk bil-kumdità, l-ewwel għandek tipprova l-metodu salib, inkella għandek tipprova l-metodu parallel. Jekk inti mdorri bil-kotba Magic Eye™, probabbilment int diġà kapaċi tagħmel il-metodu parallel, iżda tista 'wkoll tkun kapaċi tagħmel il-metodu inkroċjat. Tektek metodu hawn taħt biex titgħallem, u kun żgur li tgħid lil CrossCam liema waħda taħdem għalik billi tagħfas il-buttuna AGĦŻEL korrispondenti.
+
+Jekk tippreferi tuża nuċċalijiet 3D jew telespettatur tal-Kardboard tista' tissettja CrossCam biex tuża dawk fil-paġna Settings.</value>
+  </data>
+  <data name="Page.Technique.CrossLink1" xml:space="preserve">
+    <value>A test sbieħ tutorja</value>
+  </data>
+  <data name="Page.Technique.CrossLink2" xml:space="preserve">
+    <value>Għadha test sabiħ ieħor tutorja</value>
+  </data>
+  <data name="Page.Technique.CrossLink3" xml:space="preserve">
+    <value>Tutorja qasira fuq YouTube</value>
+  </data>
+  <data name="Page.Technique.CrossLink4" xml:space="preserve">
+    <value>Tutorial twil, fard, iżda utli ta' YouTube</value>
+  </data>
+  <data name="Page.Technique.CrossLink5" xml:space="preserve">
+    <value>Tutorial ieħor fuq YouTube</value>
+  </data>
+  <data name="Page.Technique.CrossLink6" xml:space="preserve">
+    <value>Proġett ta' kamera doppja b'tutorja</value>
+  </data>
+  <data name="Page.Technique.Parallel1" xml:space="preserve">
+    <value>Jekk l-immaġni ta 'hawn fuq ma taqbilx fuq l-iskrin tiegħek, dawwar it-telefon tiegħek għall-pajsaġġ - CrossCam qed tipprova tagħmel il-par ta' stampi 'l fuq mill-eħfef daqs għal dan. Mhux dejjem ikollok għalfejn tuża CrossCam fil-pajsaġġ, iżda immaġini ta 'daqs perfettament tagħmel it-tagħlim tat-teknika aktar faċli.</value>
+  </data>
+  <data name="Page.Technique.Parallel2" xml:space="preserve">
+    <value>Irrilassa għajnejk u ħares "minn" il-par ta 'stampi ta' hawn fuq bħal inti tip ta 'zoning out b'għajnejk tipponta lejn l-istampi. Għandek tibda tara 3 stampi bi stampa 3D fin-nofs, ftit bħal din:</value>
+  </data>
+  <data name="Page.Technique.Parallel3" xml:space="preserve">
+    <value>Jekk tibda tara 4 stampi, inti marret wisq. Ipprova ċċaqlaq xi ftit għajnejk jekk terġa' ssib ruħek f'dak il-punt. Ir-rilassament wisq se jidher ftit bħal dan:</value>
+  </data>
+  <data name="Page.Technique.Parallel4" xml:space="preserve">
+    <value>Jekk qed ikollok problemi, ipprova ġġib l-iskrin tiegħek mal-wiċċ tiegħek bil-par ta 'stampi eżatt quddiem għajnejk. Irrilassa u ħares "minn" l-iskrin u mbagħad iġbed bil-mod l-iskrin tiegħek 'il bogħod minn wiċċek filwaqt li żżomm għajnejk rilassati. Eventwalment l-immaġni għandha "ikklikkja" biex tiffoka.</value>
+  </data>
+  <data name="Page.Technique.Parallel5" xml:space="preserve">
+    <value>Jekk xorta tibqa' tara erba' immaġini, żid il-"Wisa' massima tal-immaġni tal-vista parallela" fil-paġna tas-Settings.</value>
+  </data>
+  <data name="Page.Technique.ParallelViewing" xml:space="preserve">
+    <value>WIRI PARALLEL</value>
+  </data>
+  <data name="Page.Technique.Practice" xml:space="preserve">
+    <value>Stampi li għamilt fuqhom tista' tipprattika</value>
+  </data>
+  <data name="Title.Contact" xml:space="preserve">
+    <value>Kuntatt</value>
+  </data>
+  <data name="Title.Faq" xml:space="preserve">
+    <value>FAQ</value>
+  </data>
+  <data name="Title.Help" xml:space="preserve">
+    <value>Għajnuna</value>
+  </data>
+  <data name="Title.HowToUse" xml:space="preserve">
+    <value>Kif tuża CrossCam</value>
+  </data>
+  <data name="Title.Technique" xml:space="preserve">
+    <value>Teknika tal-Wiri 3D</value>
+  </data>
+  <data name="Title.Tips" xml:space="preserve">
+    <value>Għajnuniet</value>
+  </data>
+  <data name="Button.DoNotEmailMe" xml:space="preserve">
+    <value>M'għandekx email me issa</value>
+  </data>
+  <data name="Button.EmailMeNow" xml:space="preserve">
+    <value>Ibgħatli email issa</value>
+  </data>
+  <data name="Button.No" xml:space="preserve">
+    <value>Nru</value>
+  </data>
+  <data name="Button.OK" xml:space="preserve">
+    <value>kollox sew</value>
+  </data>
+  <data name="Button.YesClear" xml:space="preserve">
+    <value>Iva, ċar</value>
+  </data>
+  <data name="Page.Camera.Aligning" xml:space="preserve">
+    <value>Allinjament...</value>
+  </data>
+  <data name="Page.Camera.AlignmentBroken" xml:space="preserve">
+    <value>Allinjament awtomatiku mhux appoġġjat fuq it-tagħmir - itfi f'Settings.</value>
+  </data>
+  <data name="Page.Camera.AlignmentFailed" xml:space="preserve">
+    <value>L-allinjament falla.</value>
+  </data>
+  <data name="Page.Camera.BorderAsk" xml:space="preserve">
+    <value>Instabet fruntiera. Neħħi l-fruntiera?</value>
+  </data>
+  <data name="Page.Camera.BorderDetected" xml:space="preserve">
+    <value>Fruntieri Individwati</value>
+  </data>
+  <data name="Page.Camera.Cancel" xml:space="preserve">
+    <value>Ikkanċella</value>
+  </data>
+  <data name="Page.Camera.ChooseAction" xml:space="preserve">
+    <value>Agħżel azzjoni:</value>
+  </data>
+  <data name="Page.Camera.DirectoryNotFound" xml:space="preserve">
+    <value>Direttorju Mhux Misjub</value>
+  </data>
+  <data name="Page.Camera.DirectoryNotFoundExplain" xml:space="preserve">
+    <value>Id-destinazzjoni salvata ma setgħetx tinstab. Jekk jogħġbok agħżel ieħor fuq il-paġna tas-settings.</value>
+  </data>
+  <data name="Page.Camera.ErrorEmailBody" xml:space="preserve">
+    <value>X'għamilt eżatt qabel ma ġara l-iżball? Jekk jogħġbok iddeskrivi anke l-affarijiet żgħar.\n\n\n\n\n\nKrossCam xorta ħadem wara l-iżball? Jekk le, kif inkisser?\n\n\n\n\n\nDan jiġri ripetutament?\n\n\n\n\n\nTista' ġġiegħel l-iżball iseħħ fuq kmand? Jekk iva, kif?\n\n\n\n\n\n</value>
+  </data>
+  <data name="Page.Camera.FlipForCardboard" xml:space="preserve">
+    <value>Aqleb għall-pajsaġġ meta tkun fil-modalità tal-kartun.</value>
+  </data>
+  <data name="Page.Camera.FlipLarger" xml:space="preserve">
+    <value>(aqleb lejn il-pajsaġġ għal dehra akbar)</value>
+  </data>
+  <data name="Page.Camera.ForAnaglyph" xml:space="preserve">
+    <value>għal anaglifi</value>
+  </data>
+  <data name="Page.Camera.ForCardboard" xml:space="preserve">
+    <value>għal Kartun</value>
+  </data>
+  <data name="Page.Camera.ForCross" xml:space="preserve">
+    <value>għal salib</value>
+  </data>
+  <data name="Page.Camera.ForParallel" xml:space="preserve">
+    <value>għal parallel</value>
+  </data>
+  <data name="Page.Camera.GoPickRole" xml:space="preserve">
+    <value>Jekk jogħġbok mur fil-paġna Pairing (permezz tal-paġna Settings) u agħżel rwol ta 'tqabbil għal dan l-apparat qabel ma tipprova tgħaqqad.</value>
+  </data>
+  <data name="Page.Camera.InvalidImage" xml:space="preserve">
+    <value>Immaġni Invalida</value>
+  </data>
+  <data name="Button.Camera.Keep" xml:space="preserve">
+    <value>Żomm</value>
+  </data>
+  <data name="Page.Camera.LoadFullImage" xml:space="preserve">
+    <value>Tagħbija immaġni stereo sħiħa</value>
+  </data>
+  <data name="Page.Camera.Loading" xml:space="preserve">
+    <value>Tagħbija...</value>
+  </data>
+  <data name="Page.Camera.LoadSingleSide" xml:space="preserve">
+    <value>Tagħbija naħa waħda</value>
+  </data>
+  <data name="Page.Camera.ManualCorrections" xml:space="preserve">
+    <value>Jekk jogħġbok ikkunsidra l-korrezzjonijiet manwali wkoll.</value>
+  </data>
+  <data name="Page.Camera.MirrorOnLeft" xml:space="preserve">
+    <value>MERA FUQ XELLUG</value>
+  </data>
+  <data name="Page.Camera.MirrorOnRight" xml:space="preserve">
+    <value>MERA FUQ IL-DRITT</value>
+  </data>
+  <data name="Page.Camera.MoveLeft" xml:space="preserve">
+    <value>ĊAQQA XELLUG</value>
+  </data>
+  <data name="Page.Camera.MoveRight" xml:space="preserve">
+    <value>IĊĊAQLI LEJN</value>
+  </data>
+  <data name="Page.Camera.NoSaveModes" xml:space="preserve">
+    <value>Ebda Modalità Save Attiva</value>
+  </data>
+  <data name="Page.Camera.NoSaveModesExplain" xml:space="preserve">
+    <value>L-ebda mod ta' salvataġġ mhu mixgħul bħalissa. Ixgħel il-modalità ta' salvataġġ fuq il-paġna tas-Settings.</value>
+  </data>
+  <data name="Page.Camera.Oops" xml:space="preserve">
+    <value>Oops</value>
+  </data>
+  <data name="Page.Camera.OrRotate" xml:space="preserve">
+    <value>(jew idawwar)</value>
+  </data>
+  <data name="Page.Camera.OrSwipe" xml:space="preserve">
+    <value>(jew swipe)</value>
+  </data>
+  <data name="Page.Camera.PairRoleNotSelected" xml:space="preserve">
+    <value>Rwol Par Mhux Magħżul</value>
+  </data>
+  <data name="Page.Camera.PinchOrDrag" xml:space="preserve">
+    <value>Oqros jew drag biex tesplora!</value>
+  </data>
+  <data name="Page.Camera.PleaseSelectValid" xml:space="preserve">
+    <value>Jekk jogħġbok agħżel immaġni Jpeg, Png, jew Webp. L-immaġni li għażilt hija</value>
+  </data>
+  <data name="Page.Camera.ReallyClear" xml:space="preserve">
+    <value>Verament ċar?</value>
+  </data>
+  <data name="Button.Camera.Remove" xml:space="preserve">
+    <value>Neħħi</value>
+  </data>
+  <data name="Page.Camera.SavedToCustomFolder" xml:space="preserve">
+    <value>Issejvjat fil-folder tad-dwana</value>
+  </data>
+  <data name="Page.Camera.SavedToExternal" xml:space="preserve">
+    <value>Issejvjat għal estern</value>
+  </data>
+  <data name="Page.Camera.SavedToPhotos" xml:space="preserve">
+    <value>Salvat f'Ritratti</value>
+  </data>
+  <data name="Page.Camera.SaveFailed" xml:space="preserve">
+    <value>SavingFailed. :(</value>
+  </data>
+  <data name="Page.Camera.Saving" xml:space="preserve">
+    <value>Insalva...</value>
+  </data>
+  <data name="Page.Camera.SecondaryOnLeft" xml:space="preserve">
+    <value>SEKONDARJI FUQ XELLUG</value>
+  </data>
+  <data name="Page.Camera.SecondaryOnRight" xml:space="preserve">
+    <value>SEKONDARJI FUQ IL-DRITT</value>
+  </data>
+  <data name="Page.Camera.SelectedInvalid" xml:space="preserve">
+    <value>L-immaġni magħżula mhix valida.</value>
+  </data>
+  <data name="Page.Camera.SorryError" xml:space="preserve">
+    <value>Jiddispjacini, CrossCam għamel żball. Rapport ta' żball intbagħat awtomatikament. Jista' jkun li ma tinnota xejn ħażin, imma jekk tagħmel hekk, ipprova terġa' tibda l-applikazzjoni. Jekk dan ikompli jiġri, jekk jogħġbok ibgħatli email u għidli dwarha. (Mur il-paġna Settings biex twaqqaf dawn il-popups.)</value>
+  </data>
+  <data name="Page.Camera.Steady" xml:space="preserve">
+    <value>Sod...</value>
+  </data>
+  <data name="Page.Camera.SureClear" xml:space="preserve">
+    <value>Int żgur li trid tnaddaf l-istampi tiegħek u tibda mill-ġdid?</value>
+  </data>
+  <data name="Page.Camera.Syncing" xml:space="preserve">
+    <value>Is-sinkronizzazzjoni...</value>
+  </data>
+  <data name="Page.Camera.Transmitting" xml:space="preserve">
+    <value>Trażmissjoni...
+(żomm l-apparat miftuħ)</value>
+  </data>
+  <data name="Page.Camera.VR" xml:space="preserve">
+    <value>VR</value>
+  </data>
+  <data name="Page.FovCorrection" xml:space="preserve">
+    <value>Korrezzjoni tal-Qasam tal-Vista</value>
+  </data>
+  <data name="Page.FovCorrectionExplain" xml:space="preserve">
+    <value>Mudelli ta 'apparat differenti jista' jkollhom oqsma differenti tal-vista. CrossCam ser jgħinek tikkoreġi għal dan wara li tagħmel l-ewwel qbid tiegħek. Ikkwadra u jaqbad xi ħaġa b'punti distintivi ħdejn in-naħa ta 'fuq u t'isfel tal-qafas, u kun żgur li l-punti jkunu viżibbli fuq iż-żewġ apparati.</value>
+  </data>
+  <data name="Page.Technique.ParallelLink1" xml:space="preserve">
+    <value>A test sbieħ tutorja</value>
+  </data>
+  <data name="Page.Technique.ParallelLink2" xml:space="preserve">
+    <value>Tutorial ieħor ta 'test sabiħ</value>
+  </data>
+  <data name="Page.Technique.ParallelLink3" xml:space="preserve">
+    <value>Madankollu IEĦOR test sbieħ tutorja</value>
+  </data>
+  <data name="Page.Technique.ParallelLink4" xml:space="preserve">
+    <value>Magic Frankfurter Tutorial</value>
+  </data>
+  <data name="Page.Technique.ParallelLink5" xml:space="preserve">
+    <value>Filmat sabiħ dwar Magic Eye</value>
+  </data>
+  <data name="Page.Technique.Trouble" xml:space="preserve">
+    <value>Jekk għadek qed ikollok problemi, ipprova ġġib it-telefon tiegħek f'kamra mudlama sabiex l-unika ħaġa li għajnejk ikunu jistgħu jaraw sew u jiffokaw fuqha hija l-immaġni.
+
+Ħaġa oħra li tista 'tipprova hija li tuża tubi tal-karta tat-twaletta jew idejk biex tagħmilha sabiex kull għajn tkun tista' tara biss in-naħa tal-immaġni li suppost tara.
+ • Għal viżjoni trasversali: żomm tubu wieħed mal-pont ta' mnieħrek (iċċentrat bejn għajnejk) waqt li tippontah lejn iċ-ċentru tal-immaġini quddiemek. Iċċaqlaq bil-mod it-tubu lejn l-iskrin waqt li tipprova tħares 'l isfel fit-tubu biż-żewġ għajnejn. Meta tasal fil-pożizzjoni t-tajba bit-tubu, l-immaġini għandha snap fil-post. Jista 'jgħin biex tikkonċentra fuq li tipprova tħares lejn in-naħa ta' ġewwa tat-tarf 'l bogħod tat-tubu. Jekk ma tistax issib il-pożizzjoni t-tajba, ipprova uża immaġni akbar jew tubu iżgħar.
+ • Għal ħarsa parallela: żomm tubu quddiem kull għajn, imma ppuntahom it-tnejn 'il barra lejn il-ġenb, sabiex ma tantx tkun tista' tara xejn. Dawwar it-tubi 'l ġewwa bil-mod fl-istess ħin sabiex tkun tista' tibda tara aktar l-immaġni. Il-mument li tista 'tara l-biċċa l-kbira tal-immaġni (kważi nofs ma' kull għajn), ipprova tirrilassa għajnejk u ġġib in-nofsijiet flimkien. Jista 'jgħin biex tuża immaġni akbar jew iżgħar.
+
+Hemm eżerċizzju faċli li tista 'tagħmel biex tipprattika l-fużjoni b'wiri cross jew parallel. Ħu markatur u iġbed porzjon ta’ wiċċ tbissem fuq kull thumbnails tiegħek (jew par ta’ popsicle sticks jew tongue depressors). Per eżempju, fuq naħa iġbed għajn waħda u ħalq, u fuq in-naħa l-oħra iġbed għajn u mnieħer. Tista 'mbagħad iżżommhom quddiemek u tipprattika tgħaqqad iż-żewġ immaġini flimkien biex tlesti l-wiċċ tat-tbissem.
+
+Jien personalment nippreferi naqsam il-parallel għax l-immaġini jistgħu jkunu akbar, iżda ż-żewġ metodi jaħdmu. Jekk tixtieq tesperimenta b'immaġini paralleli akbar, tista' tikkontrolla d-daqs fuq il-paġna Settings.
+
+Xi drabi huwa diffiċli li tħoss jekk intx tagħmel il-metodu salib jew parallel waqt li tkun qed tagħmel dan. Tista' titlob lil xi ħadd ieħor biex tara għajnejk waqt li tagħmel dan jew tista' tħares lejn l-istampa hawn taħt bħala test:</value>
+  </data>
+  <data name="SaveModes.Anaglyph" xml:space="preserve">
+    <value>Anaglifi</value>
+  </data>
+  <data name="SaveModes.Cardboard" xml:space="preserve">
+    <value>Kartun</value>
+  </data>
+  <data name="SaveModes.Cross" xml:space="preserve">
+    <value>Jaqsam</value>
+  </data>
+  <data name="SaveModes.GrayscaleAnaglyph" xml:space="preserve">
+    <value>Anaglif tal-Grayscale</value>
+  </data>
+  <data name="SaveModes.Parallel" xml:space="preserve">
+    <value>Parallel</value>
+  </data>
+  <data name="SaveModes.Quad" xml:space="preserve">
+    <value>Quad</value>
+  </data>
+  <data name="SaveModes.Separate" xml:space="preserve">
+    <value>Separati</value>
+  </data>
+  <data name="SaveModes.Single" xml:space="preserve">
+    <value>Uniku</value>
+  </data>
+  <data name="SaveModes.Triple" xml:space="preserve">
+    <value>Tripla</value>
+  </data>
+  <data name="Page.Camera.FovExplain" xml:space="preserve">
+    <value>Biex tikkoreġi għad-differenzi fil-qasam tal-vista, żżom u żżerżaq l-istampi sabiex il-punti distintivi jingħaqdu bejn iż-żewġ ritratti. Tista 'tkaxkar il-linji bojod madwar biex tgħinek Ħares l-allinjament. Din il-korrezzjoni se tiġi applikata għal previews futuri. Se jiġi ssejvjat iżda tista' terġa' tissettjaha fuq il-paġna Settings. Jekk qed tuża apparat identiku biss ħlief mingħajr aġġustament.</value>
+  </data>
+  <data name="Page.Camera.FovTitle" xml:space="preserve">
+    <value>Korrezzjoni tal-Qasam tal-Vista</value>
+  </data>
+  <data name="Page.Camera.KeyPoints" xml:space="preserve">
+    <value>Punti Ewlenin</value>
+  </data>
+  <data name="Page.Camera.Warped" xml:space="preserve">
+    <value>Warped</value>
+  </data>
+  <data name="Page.Camera.WelcomeExplain" xml:space="preserve">
+    <value>CrossCam saret biex tgħinek tagħmel ritratti 3D. Ir-ritratti huma 3D bħall-films VR jew 3D, iżda m'għandekx bżonn l-ebda tagħmir jew nuċċalijiet speċjali - biss it-telefon tiegħek (imma jekk għandek par ta 'nuċċalijiet 3D ħomor/cyan jew telespettatur Google Cardboard, tista' tuża dawk ma CrossCam ukoll). It-teknika tal-\"wiri b'xejn\" li tuża biss it-telefon tiegħek u l-għajnejn tiegħek tieħu xi prattika biex titgħallem. Qabel ma ngħidlek kif tuża CrossCam, l-ewwel tixtieq titgħallem aktar dwar it-teknika tal-wiri?</value>
+  </data>
+  <data name="Page.Camera.Welcome" xml:space="preserve">
+    <value>Merħba għal CrossCam!</value>
+  </data>
+  <data name="Page.Camera.Directions" xml:space="preserve">
+    <value>Aqbeż għal Direzzjonijiet</value>
+  </data>
+  <data name="Page.Camera.Technique" xml:space="preserve">
+    <value>Teknika tal-Wiri</value>
+  </data>
+  <data name="Page.HowToUse.P1" xml:space="preserve">
+    <value>Jekk trid terġa' tara dan, tektek l-ikona tal-hamburger (tliet linji) fuq ix-xellug ta' fuq tal-iskrin tal-kamera u tektek "Għajnuna".
+
+
+1) Inkwadra u ħu l-ewwel stampa.</value>
+  </data>
+  <data name="Page.HowToUse.P2" xml:space="preserve">
+    <value>3) Żomm it-telefon tiegħek sod quddiemek u ċċaqlaq bil-mod il-ġenb fid-direzzjoni li tgħidlek CrossCam. Tiċċaqlaqx wisq - pulzier jew inqas għal kull sieq 'il bogħod hija l-mira tiegħek. Ukoll, ma dawwar xejn, biss slide ġenb, jew forsi anki sempliċiment dgħif.
+
+4) Allinja l-ewwel stampa mal-preview tat-tieni stampa u ħu t-tieni stampa meta tixtieq dak li tara.
+
+5) CrossCam awtomatikament jallinja l-istampi tiegħek wara li taqbadhom, iżda mhuwiex perfett, jekk ma tħobbx kif kienu allinjati, tista 'tneħħi l-allinjament awtomatiku billi ttektek l-ikona tar-robot żgħir. CrossCam għandha wkoll ħafna għażliet ta 'editjar manwali li tista' tasal billi ttektek l-ikona tal-lapes.
+
+6) Tektek il-marka tal-kontroll meta tkun lest biex issalva.
+
+
+Affarijiet oħra li tista' tagħmel:
+ • Tektek darba biex tiffoka fuq punt, tektek darbtejn biex taqleb lura għal fokus awtomatiku kontinwu.
+ • Tektek l-ikona tal-ger fuq in-naħa ta' fuq tal-lemin tal-iskrin tal-kamera biex tiftaħ il-paġna Settings. Huwa mimli affarijiet interessanti.
+ • Hemm paġna Suġġerimenti sbieħ li tista’ tasal għaliha billi ttektek l-ikona tal-hamburger fuq ix-xellug ta’ fuq tal-iskrin tal-kamera li tista’ tgħinek tagħmel l-istampi tiegħek mill-aqwa.
+ • Jekk tippreferi li timxi d-direzzjoni l-oħra għat-tieni sparatura tiegħek jew tixtieq taqleb il-ġnub sempliċement tagħmel swipe.
+ • Tektek l-ikona żgħira tal-fowlder fuq il-qiegħ biex tagħbija immaġni bħala ġenb jew biex tagħbija immaġni stereo sħiħa.</value>
+  </data>
+  <data name="Page.Faq.Alignment" xml:space="preserve">
+    <value>Kif jaħdem l-allinjament awtomatiku?</value>
+  </data>
+  <data name="Page.Faq.Alignment.Body" xml:space="preserve">
+    <value>L-allinjament awtomatiku jipprova jallinja l-pari tal-immaġni bl-aħjar mod possibbli, iżda mhuwiex perfett. Il-viżjoni tal-kompjuter hija aħjar f'ċerti affarijiet milli fl-għajnejn tal-bniedem, iżda wkoll ħafna agħar f'affarijiet oħra. Id-dinja li tara hija differenti ħafna minn dik li nagħmlu aħna, iżda tista 'tara wkoll fi ftit modi differenti. Iż-żewġ modi ewlenin li jara f'CrossCam huma permezz tal-koeffiċjent ta 'korrelazzjoni msaħħaħ (ECC) u l-użu ta' punti ewlenin.
+
+L-allinjament tal-ECC essenzjalment jaħdem billi jipprova jiżgura li l-irqajja tad-dawl jikkoinċidu ma 'rqajja' ħfief u l-irqajja' skuri jikkoinċidu ma' rqajja' skuri meta ż-żewġ naħat ikunu miksija fuq xulxin. L-allinjament ECC jiġi ma 'punteġġ ta' kunfidenza li huwa maħsub biex jgħin biex jiddeċiedi jekk l-allinjament kienx effettiv. CrossCam hija stabbilita biex tirrifjuta l-allinjament prodott jekk il-kunfidenza tkun baxxa wisq, iżda tista 'tikkonfigura l-limitu tal-kunfidenza li jgħaddi/falli fuq il-paġna Settings.
+
+L-allinjament tal-punti ewlenin ifittex punti ta 'interess bħal kantunieri, truf, tikek, u kuntrast għoli u jipprova jqabbelhom bejn iż-żewġ naħat. Ladarba l-punti jiġu mqabbla, CrossCam tista 'tuża varjetà ta' algoritmi biex tipprova tgħawweġ il-ġnub sabiex il-punti ewlenin minn naħa waħda jkunu kollha kemm jista 'jkun qrib il-punti ewlenin korrispondenti tagħhom fuq in-naħa l-oħra.
+
+CrossCam huwa pprogrammat biex juża l-allinjament tal-punt ewlieni l-ewwel, iżda se jaqa 'lura għall-allinjament tal-ECC meta l-allinjament tal-punt ewlieni jfalli jew meta l-qbid qed isir bil-metodu ta' diviżjoni tal-mera ta 'sparatura waħda. Tista 'wkoll tikkonfigura l-allinjament awtomatiku biex dejjem tuża l-allinjament tal-punt ewlieni jew dejjem tuża l-allinjament ECC fuq il-paġna Settings.
+
+CrossCam se juri r-riżultat tal-allinjament fuq l-iskrin tal-kamera taħt l-ikona tar-robot żgħir. Jekk użat l-allinjament ECC se juri l-perċentwal ta 'kunfidenza. Jekk użat l-allinjament tal-punt ewlieni se juri "KP". Jekk iż-żewġ metodi ta 'allinjament fallew, se juri "F". Jekk ma tħobbx ir-riżultat tal-allinjament tista 'taptap fuq l-ikona tar-robot żgħir biex tneħħi l-allinjament.</value>
+  </data>
+  <data name="Page.Faq.Bad" xml:space="preserve">
+    <value>Dan huwa ħażin għal għajnejja?</value>
+  </data>
+  <data name="Page.Faq.Bad.Body1" xml:space="preserve">
+    <value>Ma nafx, imma ma naħsibx hekk. Madankollu, jekk tħossha ħażin ħu pawża. Bil-prattika l-iskumdità normalment tonqos. Kwalunkwe metodu ta 'wiri jista' jikkawża skumdità minħabba effett imsejjaħ il-kunflitt verġenza-akkomodazzjoni. Hawn</value>
+  </data>
+  <data name="Page.Faq.Bad.Body2" xml:space="preserve">
+    <value>link tal-Wikipedija dwar il-kunflitt verġenza-akkomodazzjoni.</value>
+  </data>
+  <data name="Page.Faq.Bad.Body3" xml:space="preserve">
+    <value>Jekk qed tuża l-metodu ta’ għajnejk inkroċjati, is-sensazzjoni tista’ tkun ukoll minħabba li għajnejk ma jkunux imdorrijin jindikaw bħallikieku qed iħarsu lejn xi ħaġa daqshekk qrib għal żmien twil. Meta tara minn xulxin, għajnejk jikkonverġu fuq punt madwar nofs triq bejn għajnejk u l-iskrin. Jekk tħares lejn xi ħaġa li tagħlaq għal żmien twil ukoll tikkawżak skumdità, għandna l-ispjegazzjoni tagħna.
+
+L-opinjoni tiegħi dwarha hija li għajnejk m'huma jagħmlu xejn barra mill-kapaċitajiet tagħhom ta 'kuljum, iżda qed tgħaqqad żewġ abbiltajiet differenti li mhumiex tipikament użati b'dan il-mod. Int qed tiffoka l-lentijiet tiegħek fuq xi ħaġa f'post wieħed li normalment tkun komda biex tiffoka fuqha, u qed tipponta għajnejk x'imkien fejn normalment ikun komdu għalihom li jippuntaw, iżda l-post fejn il-lentijiet tiegħek qed jiffokaw u fejn għajnejk qed jikkonverġu huwa biss mhux l-istess punt. Ma narax kif dan jista’ jkun ħażin għalik sakemm il-viżjoni tiegħek ma tkunx għadha qed tiżviluppa.</value>
+  </data>
+  <data name="Page.Faq.Cardboard" xml:space="preserve">
+    <value>Kif nuża CrossCam mal-Google Cardboard?</value>
+  </data>
+  <data name="Page.Faq.Cardboard.Body" xml:space="preserve">
+    <value>Jekk it-telespettatur tiegħek għandu buttuna li tagħfas iċ-ċentru tal-iskrin, tista 'tużaha biex taqbad billi tuża Kartun. It-telespettatur tiegħek jeħtieġ ukoll li jkollu toqba biex il-kamera tat-telefon tiegħek jara.
+
+Biex taqbad ritratti bl-użu tal-Kartun, aqleb il-Metodu ta' Preview Viewing tiegħek (fuq il-paġna Settings) għal Kartun, imbagħad erġa' lura għall-paġna tal-kamera u waħħal it-telefon tiegħek fit-telespettatur. Agħfas il-buttuna biex taqbad, u meta jinqabdu ż-żewġ naħat, agħfas il-buttuna mill-ġdid biex issalva. L-iffrankar fil-modalità Kartun huwa maħsub biss biex jippermettilek ittella' l-immaġini lura f'CrossCam biex tarahom aktar tard, mhux biex tarahom fl-app tar-ritratti tiegħek permezz tat-telespettatur tiegħek.
+
+Tista 'wkoll taqbad billi tuża kwalunkwe metodu ieħor li trid, imbagħad taqleb il-Metodu ta' Preview Viewing tiegħek għal Kartun u poġġi t-telefon tiegħek fit-telespettatur.
+
+Hemm ħafna telespettaturi differenti hemmhekk bi proprjetajiet differenti. Jista 'jkollok bżonn tibdel id-distanza ta' separazzjoni tal-Kartun (fuq il-paġna Settings) biex tagħmel l-esperjenza tiegħek aktar komda. Jista 'jkollok bżonn ukoll li l-ewwel tiżgura li int tajjeb biex taqbad sterjogrammi ta' kwalità għolja qabel ma tagħmilhom enormi u immersivi.</value>
+  </data>
+  <data name="Page.Faq.How" xml:space="preserve">
+    <value>Kif jaħdem dan?</value>
+  </data>
+  <data name="Page.Faq.How.Body1" xml:space="preserve">
+    <value>L-effett 3D li juża CrossCam huwa dixxiplina studjata sew magħrufa bħala stereoskopija, u l-metodu fejn taqsam għajnejk (jew tirrilassahom) biex tara ż-żewġ naħat jissejjaħ wiri b'xejn. Meta nħarsu madwar id-dinja, kull għajnejn tagħna jaraw minn perspettiva differenti. Fl-isterjoskopija kulma nagħmlu hu li nippreżentaw perspettiva waħda (artifiċjali) għal kull għajn, u l-imħuħ tagħna jagħmel biss il-bqija. Hemm ħafna modi differenti biex kull għajn tara immaġni differenti. Hawn</value>
+  </data>
+  <data name="Page.Faq.How.Body2" xml:space="preserve">
+    <value>link tal-Wikipedija dwar l-isterjoskopija</value>
+  </data>
+  <data name="Page.Faq.How.Body3" xml:space="preserve">
+    <value>L-istampi 3D li tagħmel bi CrossCam jissejħu stereograms. Il-kotba tal-Magic Eye™ fihom dak li jissejjaħ awtostereogrammi.</value>
+  </data>
+  <data name="Page.Faq.Into" xml:space="preserve">
+    <value>Kif dħalt fl-isterjoskopija?</value>
+  </data>
+  <data name="Page.Faq.Into.Body1" xml:space="preserve">
+    <value>Waqt li kont qed nikseb il-lawrja tiegħi fil-fiżika, kelli l-opportunità li nesperimenta bil-ħolqien tal-ologrammi tiegħi stess bl-użu tal-lejżers. It-tip ta' ologrammi li kont qed nagħmel kienu 3D għax użaw gradilja ta' diffrazzjoni biex jikkawżaw interferenza distruttiva fid-dawl li jirrifletti barra mill-wiċċ ta' pjanċa tal-ħġieġ, li tikkawża li l-immaġni riflessa tidher differenti minn postijiet differenti. Meta kull wieħed mill-għajnejn tagħna jara immaġni li tidher li hija minn perspettiva differenti (jekk ma jkunux wisq differenti), imħuħ tagħna jipperċepixxi dan bħala fond.</value>
+  </data>
+  <data name="Page.Faq.Into.Body2" xml:space="preserve">
+    <value>Kont ilni konxju ta 'dak il-prinċipju ta' perċezzjoni stereoskopika, iżda f'dak il-punt f'ħajti kont qed nieħu wkoll xi klassijiet ta 'programmazzjoni, għalhekk iddeċidejt li ridt nipprova nagħmel programm tal-kompjuter sempliċi għat-tpinġija 3D stereoskopika. Dak l-isforz sar StereoSketcher. Il-verżjoni oriġinali nkitbet bil-Java, imma ktibtha mill-ġdid b'Javascript u SVG u issa tgħix fuq il-web</value>
+  </data>
+  <data name="Page.Faq.Into.Body3" xml:space="preserve">
+    <value>f'din il-link.</value>
+  </data>
+  <data name="Page.Faq.Into.Body4" xml:space="preserve">
+    <value>Mhi popolari bl-ebda mod, u jista 'ma jkunx faċli għal ħadd ħlief jien biex tużah, iżda taħdem. Waqt li kont qed naħdem fuq StereoSketcher sirt nesperimenta bil-prinċipji tal-isterjoskopija, u sirt enamored bil-mod kif tista' tiġi prodotta esperjenza immersiva u konvinċenti bħal din billi tuża ftit regoli sempliċi.</value>
+  </data>
+  <data name="Page.Faq.Inverted" xml:space="preserve">
+    <value>Għaliex it-3D ma jidhirx sew JEW għaliex it-3D jidher maqlub?</value>
+  </data>
+  <data name="Page.Faq.Inverted.Body1" xml:space="preserve">
+    <value>Meta tara b'xejn jew bil-metodu salib jew parallel, huwa importanti li tħares lejn l-istampi billi tuża l-istess metodu li ntuża biex jinħolqu. Inkella, l-għajn tal-lemin tiegħek tħares lejn il-perspettiva maħsuba għall-għajn tax-xellug u viċi versa. Dan jagħmel il-fond tal-immaġni maqlub, minħabba li d-direzzjoni tal-parallax ġiet skambjata.
+
+Parallax tfisser li mill-perspettiva tal-għajn tal-lemin tiegħek, meta l-oġġetti jkunu aktar 'il bogħod jidhru li huma aktar lejn il-lemin minn oġġetti eqreb meta jidhru minn għajnejk ix-xellug. Huwa konfuż meta deskritt f'format ta 'sentenza, iżda intuwittiv ħafna meta muri.
+
+Biex turi, żomm saba 'quddiemek madwar id-driegħ, imbagħad b'idejk żomm saba' ieħor madwar nofs triq bejn l-ewwel saba' u wiċċek. Jekk alternattivament tagħlaq kull għajn u tagħti attenzjoni għal fejn ikunu subgħajk, tara li kull għajn tarahom f'postijiet differenti. Allura naturalment, jekk kull għajn rat dak il-moviment bil-mod oppost li suppost, il-fond ikun maqlub.
+
+Huwa faċli ħafna li tuża aċċidentalment il-metodu tal-wiri ħażin għax jirriżulta li huwa diffiċli ħafna għal ħafna nies li jgħidu jekk humiex jaqsmu jew jirrilassaw għajnejhom sempliċement billi jħossu jew billi tħares lejn l-immaġni doppja konfuża tad-dinja li tirriżulta. Minflok, huwa aħjar li jew iġġib lil xi ħadd ieħor iħares lejn dak li qed jagħmlu għajnejk, jew tipprova din l-immaġni tat-tester:</value>
+  </data>
+  <data name="Page.Faq.Inverted.Body2" xml:space="preserve">
+    <value>Ħafna nies saru pjuttost komdi biex jaraw il-kotba tal-Magic Eye™, li huma maħsuba biex jarawhom bl-użu tal-metodu tal-vista parallela. Jekk jaqsmuhom tarahom allura l-oġġetti 3D robusti li suppost joħorġu mill-paġna minflok jidhru qishom toqob. Iż-żewġ metodi jippermettulek tara * xi ħaġa * imma jekk ma stajtx tgħid x'kienet, inti probabilment qed tarahom.</value>
+  </data>
+  <data name="Page.Faq.Mirror" xml:space="preserve">
+    <value>Kif nagħmel il-metodu "mera ta 'sparatura waħda"?</value>
+  </data>
+  <data name="Page.Faq.Mirror.Body1" xml:space="preserve">
+    <value>Il-qbid bil-metodu tal-mera jaqsam il-qafas bin-nofs u jagħmel it-trasformazzjoni meħtieġa sabiex tkun tista 'taqbad iż-żewġ naħat fl-istess mument billi tuża telefon wieħed u mera li tinżamm fl-idejn regolari. Biex tuża l-metodu tal-mera meta taqbad, aqleb is-swiċċ għall-modalità tal-mera fuq il-paġna Settings (tektek l-ikona tal-ger biex tasal hemm). Wara li tixgħel il-modalità tal-mera, CrossCam jgħidlek fuq liema naħa għandek iżżomm il-mera tiegħek. Żomm il-mera tiegħek fuq dik in-naħa u ħawwad bl-allinjament bejn it-telefon tiegħek u l-mera u s-suġġett tiegħek. B'xi paċenzja, tkun tista 'tgħaqqadhom kollha sabiex il-mera turi l-perspettiva korretta għal waħda mill-ġnub. Minħabba li tuża l-metodu tal-mera jaqsam l-immaġni tiegħek bin-nofs vertikalment, ġeneralment ikun aħjar li taqbad fil-pajsaġġ bil-metodu tal-mera.
+
+Dan il-metodu jaħdem ukoll b'riflessjonijiet fi twieqi kbar u nodfa, u wkoll fuq għadajjar jew għadajjar (meta t-telefon ikun maqful b'ritratt u maqlub lejn il-ġenb).</value>
+  </data>
+  <data name="Page.Faq.Mirror.Body2" xml:space="preserve">
+    <value>Hemm xi kompromessi/modifiki li jeħtieġ li jsiru sabiex jintuża l-metodu tal-mera. Dawn kollha jistgħu jsiru manwalment f'CrossCam, iżda l-allinjament awtomatiku jipprova wkoll jagħmelhom għalik:
+ • Minħabba li l-veduta riflessa tivvjaġġa fuq distanza itwal mill-veduta normali, in-naħa riflessa jkollha bżonn tiżżomja ftit.
+ • X'aktarx li meta tuża l-metodu tal-mera tispiċċa toeing-in, aktar milli żżomm il-perspettivi paralleli - dan jista 'jikkawża li t-taqsir jidher qisu allinjament vertikali ħażin. Biex tneħħa dan, tista 'ssir korrezzjoni keystone, li jfisser li tiċkien vertikalment naħa waħda ta' kull waħda mill-immaġini.
+ • Toeing-in għandu wkoll it-tendenza li jċaqlaq it-tieqa stereo lejk. Tista 'tneħħi dak u poġġiha fejn trid billi taqsam il-ġnub.
+ • Il-mera probabbilment ma tkoprix kompletament il-veduta ta 'naħa waħda, għalhekk jista' jkun hemm bżonn li jsir xi ħsad biex jitneħħew il-bits mhux riflessi.
+
+L-aħjar mirja għal dan għandhom ħġieġ irqiq. Għal ħaġa waħda huma ħfief, għalhekk huma aktar faċli biex iżżommu għal perjodi twal. Il-ħaġa importanti l-oħra hija li meta tuża l-mera x'aktarx tkun qed timmira l-mera lejn il-ġenb aktar milli tħares dritt ġo fiha peress li tipikament jintużaw il-mirja. Meta orjentati hekk, mirja b'ħġieġ oħxon jista 'jkollhom xi blurriness. Iktar ma jkun irqaq il-ħġieġ, inqas ikun evidenti dan it-tiċpar. Dawn it-tipi ta 'mirja jistgħu wkoll ikunu ta' kwalità baxxa f'aspetti oħra, għalhekk huwa importanti li jinstab bilanċ tajjeb.
+
+Hemm ftit kompromessi oħra li jridu jiġu aċċettati meta tuża l-qbid tal-mera li ma jistgħux jiġu ffissati fl-editjar minn CrossCam:
+ • Minħabba li l-veduta taż-żewġ naħat jivvjaġġaw distanzi kemmxejn differenti, l-attenzjoni meħtieġa għal kull naħa tkun kemmxejn differenti, għalhekk naħa waħda dejjem tkun kemmxejn imċajpra. Dan l-effett se jkun aktar jew inqas notevoli skond id-distanza għas-suġġett u l-fond tal-kamp tal-lenti.
+ • L-ebda mera ma hija tassew effiċjenti 100%, għalhekk in-naħa li tuża l-mera tista 'tkun kemmxejn aktar skura. Dan ivarja skond il-kwalità tal-mera.</value>
+  </data>
+  <data name="Page.Faq.Moving" xml:space="preserve">
+    <value>Is-suġġett tiegħi qed jiċċaqlaq, kif nieħu ritratti 3D minnu?</value>
+  </data>
+  <data name="Page.Faq.Moving.Body" xml:space="preserve">
+    <value>CrossCam jippermettilek żewġ metodi biex taqbad iż-żewġ perspettivi fl-istess mument. Metodu wieħed juża żewġ telefowns, u metodu wieħed juża mera.
+
+Biex tuża s-setup tat-tnejn tat-telefon, iċċekkja l-paġna tal-Pairing Setup, li tista’ tasal għaliha mill-paġna Settings (tektek l-ikona tal-ger).
+
+Biex tuża l-metodu tal-mera, iċċekkja l-mistoqsija l-oħra tal-FAQ dwarha.</value>
+  </data>
+  <data name="Page.Faq.Test" xml:space="preserve">
+    <value>Kif nista' nittestja verżjonijiet ta' qabel ir-rilaxx ta' CrossCam?</value>
+  </data>
+  <data name="Page.Faq.Test.Body" xml:space="preserve">
+    <value>Iċċekkja din il-post ta' Reddit</value>
+  </data>
+  <data name="Page.Faq.Why" xml:space="preserve">
+    <value>Għaliex għamilt CrossCam?</value>
+  </data>
+  <data name="Page.Faq.Why.Body" xml:space="preserve">
+    <value>Kif kont qed nibda ninteressa ruħi fl-isterjoskopija nzertajt vjaġġ lejn Yellowstone. Waqt li kont hemm, indunajt li jista’ jkun pjaċevoli li nipprova nuża app mobbli bil-kamera 3D biex taqbad l-affarijiet hemmhekk fit-3D. Kont diżappuntat ħafna mill-għażliet eżistenti. Sibt li kollha kienu jeħtieġu li tagħmel żewġ qbid u mbagħad issir taf jekk kinux tajbin. Ħafna drabi ma kinux, peress li kelli ripetutament nagħmel suppożizzjonijiet kompluti fuq id-distanza ta 'separazzjoni tiegħi, kif ukoll il-kwalità tas-suġġett.
+
+Matul il-ġimgħat li ġejjin, il-frustrazzjoni ttektek tiegħi wasslitni biex nimmaġina sempliċement nipprovdu preview live tat-tieni qbid flimkien mal-ewwel. Diġà kelli sfond fl-iżvilupp tal-mowbajl, allura kien biss kwistjoni ta 'tqegħid fil-ħin. CrossCam kien tal-biża għalija li nuża biss għalija nnifsi biex nippreserva memorji, u jien kuntent li naqsamha miegħek ukoll.</value>
+  </data>
+  <data name="Page.Faq.Wiggle" xml:space="preserve">
+    <value>X'inhuma wigglegrams?</value>
+  </data>
+  <data name="Page.Faq.Wiggle.Body" xml:space="preserve">
+    <value>Wigglegrams huma mod kif tara l-isterjogrammi li ma jiddependix fuq il-viżjoni binokulari. Ġeneralment huma gif li jduru 'l quddiem u lura bejn iż-żewġ perspettivi, li juru kull wieħed fl-intier tiegħu fl-istess post. CrossCam ma jappoġġjax li jagħmluhom issa, imma ibgħatli email jekk int verament interessat fihom u jien nagħmilha.</value>
+  </data>
+  <data name="Page.Tips.AlignAfter" xml:space="preserve">
+    <value>Oqgħod attent fil-linji orizzontali, imma tista 'wkoll tallinja wara.</value>
+  </data>
+  <data name="Page.Tips.AlignAfter.Body" xml:space="preserve">
+    <value>Jekk issib li waqt li tieħu ritratti huwa impossibbli li tagħmel kemm il-linji gwida ta 'fuq kif ukoll t'isfel jingħaqdu fl-istess ħin, inti probabilment mċaqalqa f'xi direzzjoni għajr biss lejn il-ġenb. Ipprova rranġa dan qabel ma tieħu l-istampi, iżda l-allinjament wara l-fatt jista 'jgħin ħafna dan.</value>
+  </data>
+  <data name="Page.Tips.Alignment" xml:space="preserve">
+    <value>Tista 'titfi l-allinjament awtomatiku.</value>
+  </data>
+  <data name="Page.Tips.Alignment.Body" xml:space="preserve">
+    <value>Jekk ma tħobbx ir-riżultati tal-allinjament awtomatiku, itfih fuq il-paġna Settings jew billi ttektek fuq l-ikona tar-robot żgħir u l-istampi oriġinali maqbudin tiegħek jiġu restawrati.</value>
+  </data>
+  <data name="Page.Tips.Donut" xml:space="preserve">
+    <value>Il-gwida tad-donut tista 'tgħin it-tieqa tiegħek.</value>
+  </data>
+  <data name="Page.Tips.Donut.Body" xml:space="preserve">
+    <value>Hemm donut gwida sperimentali fuq il-paġna Settings li tista 'tixgħel li tista' tgħinek tippreserva t-tieqa stereo tiegħek filwaqt li timmassimizza l-wisa 'użabbli. Billi ddawwar ix-xellug u l-lemin il-fond tad-donut jinbidel relattiv għall-bqija tax-xena - issettja l-fond tad-donut sabiex ikun jew fuq jew wara l-aktar punt imbiegħed fix-xena tiegħek. Oqgħod attent, l-użu tiegħu fuq xeni iżgħar jista 'jagħmel l-affarijiet bl-uġigħ (ara l-ponta ewlenija hawn fuq).</value>
+  </data>
+  <data name="Page.Tips.Keystone" xml:space="preserve">
+    <value>Korrezzjoni Keystone hija meħtieġa jekk inti toe-in.</value>
+  </data>
+  <data name="Page.Tips.Keystone.Body1" xml:space="preserve">
+    <value>Jekk iddawwar 'il ġewwa ma' kull sparatura huwa utli ħafna li tagħmel korrezzjonijiet ewlenin. Tipikament inti tixtieq li tiċkien it-truf ta 'ġewwa tar-ritratti u mbagħad aqsam xi wħud minn fuq u t'isfel biex livellhom. Inti tasal għall-menu tal-editjar prinċipali billi ttektek il-buttuna li tidher bħal din:</value>
+  </data>
+  <data name="Page.Tips.Keystone.Body2" xml:space="preserve">
+    <value>Id-dawran 'il ġewwa jissejjaħ toe-in. Jista 'jikkawża effett ta' qosor li jagħmilha diffiċli biex il-kantunieri tal-immaġini jiġu mgħaqqda. L-effett ta 'shortening huwa preżenti f'kull ħin fil-ħajja reali, minħabba li l-linji paralleli jidhru li jikkonverġu hekk kif imorru fil-bogħod minnek, iżda l-perspettivi artifiċjali jistgħu jagħmluha stramba.</value>
+  </data>
+  <data name="Page.Tips.Lean" xml:space="preserve">
+    <value>Tista 'sempliċement dgħif.</value>
+  </data>
+  <data name="Page.Tips.Lean.Body" xml:space="preserve">
+    <value>Xi drabi minflok ma ċċaqlaq bis-sħiħ saqajk lejn ix-xellug jew il-lemin biex tieħu ritratti, jista 'jkun aktar faċli li toqgħod b'saqajk 'il bogħod minn xulxin u dgħif f'kull direzzjoni, iżda oqgħod attent li żżomm it-telefon livell u fl-istess għoli. Tixgħel biss minflok tiċċaqlaq tista' tgħinek milli tiċċaqlaq wisq u tista' tagħmilha aktar faċli li żżomm l-għan tiegħek dritt.</value>
+  </data>
+  <data name="Page.Tips.Lines" xml:space="preserve">
+    <value>Il-linji tal-allinjament jistgħu jiċċaqalqu.</value>
+  </data>
+  <data name="Page.Tips.Lines.Body" xml:space="preserve">
+    <value>Tista 'tkaxkar il-linji ta' allinjament madwar jekk trid. Dan huwa speċjalment utli meta tallinja l-istampi waqt l-editjar.</value>
+  </data>
+  <data name="Page.Tips.Old" xml:space="preserve">
+    <value>Tista' tiftaħ ritratti qodma f'CrossCam.</value>
+  </data>
+  <data name="Page.Tips.Old.Body" xml:space="preserve">
+    <value>Tista' tagħbija stampi meħuda qabel billi ttektek l-ikona tal-folder fil-qiegħ tal-paġna tal-kamera, imma jekk qed taħdem ma' lott kbir ta' ritratti tista' wkoll taqsamhom ma' CrossCam direttament mill-app tar-ritratti tiegħek, li tista' żżomm kont ta' tiegħek poġġi fir-ritratti tiegħek aħjar.</value>
+  </data>
+  <data name="Page.Tips.Quick" xml:space="preserve">
+    <value>Ixgħel il-mod ta' malajr meta tkun ma' ħaddieħor.</value>
+  </data>
+  <data name="Page.Tips.Quick.Body" xml:space="preserve">
+    <value>Jekk qed tesplora ma 'nies oħra hija idea tajba li tidħol fil-modalità veloċi billi titfi l-allinjament awtomatiku u u l-fruntieri u sempliċement issalva ladarba tkun maqbud mingħajr ma tagħmel ebda editjar. Tista 'dejjem tagħbija, tallinja awtomatikament, u teditja l-istampi aktar tard. B'hekk il-kumpanji tiegħek ma jkollhomx għalfejn jistennewk biex tipperfezzjonaw l-istampi tiegħek fuq il-post, iżda xorta tista' tkun kunfidenti li l-fond li trid qiegħed verament hemm. Oqgħod attent li ma tagħmel ebda editjar mgħaġġlin qabel l-ewwel salvataġġ! Tista 'wkoll tixgħel l-iffrankar tal-ġenb separat li jinjora kwalunkwe editjar li tagħmel.</value>
+  </data>
+  <data name="Page.Tips.Sick" xml:space="preserve">
+    <value>Jekk il-moviment jimrad, żomm kwiet.</value>
+  </data>
+  <data name="Page.Tips.Sick.Body" xml:space="preserve">
+    <value>Jekk il-moviment kollu jimrad jew jagħmilha wisq diffiċli biex taraha fit-3D, tibdiex tipprova tarah fit-3D qabel ma tkun tlaqt ftit. Imbagħad qabbel l-istampi ma 'xulxin u tallinja l-istampi billi tuża l-linji orizzontali mingħajr ma tara 3D u mbagħad ibda l-vista 3D ladarba tkun allinjata u żżomm wieqfa.</value>
+  </data>
+  <data name="Page.Tips.Space" xml:space="preserve">
+    <value>Dawn l-istampi jistgħu jieħdu ħafna ħażna - tista 'tiċkienhom.</value>
+  </data>
+  <data name="Page.Tips.Space.Body" xml:space="preserve">
+    <value>Il-paġna Settings għandha għażla li tnaqqas proporzjonalment ir-riżoluzzjoni tal-istampa finali - dan jista 'jgħin jekk trid tiffranka l-ispazju. Jekk ir-ritratt tiegħek ma jiġix maqtugħ ir-riżultat aħħari huwa żewġ stampi b'riżoluzzjoni sħiħa magħquda flimkien biex jagħmlu waħda ta 'riżoluzzjoni doppja, li jfisser li ħafna drabi tista' titbiegħed bi tnaqqis kbir fir-riżoluzzjoni mingħajr ma taffettwa b'mod notevoli l-kwalità.</value>
+  </data>
+  <data name="Page.Tips.Turn" xml:space="preserve">
+    <value>Dawwarx.</value>
+  </data>
+  <data name="Page.Tips.Turn.Body" xml:space="preserve">
+    <value>Meta tiċċaqlaq, ipprova ma ddawwar il-mowbajl tiegħek fl-ebda direzzjoni, inkluża t-tendenza naturali li ddawwar lejn is-suġġett hekk kif timxi lejn il-ġenb. Xi rotazzjoni tkun meħtieġa (xi kultant), iżda tipprova timminimizzaha. Immaġina li t-telefon huwa mmuntat fuq ferrovija orizzontali dritta u jista 'biss jiżżerżaq. Id-dawran 'il ġewwa jista' jikkawża effett ta 'qosor li jagħmel il-kantunieri diffiċli biex jiġu fjużi.</value>
+  </data>
+  <data name="Page.Tips.Window" xml:space="preserve">
+    <value>Żid fruntiera u ħsad biex tagħmel tieqa stereo qawwija.</value>
+  </data>
+  <data name="Page.Tips.Window.Body" xml:space="preserve">
+    <value>Effett ta 'tieqa stereo interessanti jista' jinħoloq billi tagħmel żewġ affarijiet: 1) Ixgħel il-fruntiera (fuq il-paġna ta 'Settings) u 2) għall-wiri inkroċjat, aqsam it-truf ta' ġewwa tal-immaġini sakemm it-tarf ta 'barra innifsu jsir 3D fl-istampa (uċuħ tar-raba' it-truf ta’ BARRA jekk qed tara b’mod parallel). Iċ-ċavetta hija li taqsam it-tarf tal-lemin tal-istampa tax-xellug ftit wara dak li juri x-xifer tal-lemin tal-istampa tal-lemin tax-xena u viċi-versa. Iż-żieda ta' fruntiera tinbidel fuq il-paġna Settings. Jekk dan ikun konfuż, aqla 'mazz mit-truf ta' ġewwa u jibda jkun ċar. Il-buttuna tal-ħsad għat-truf ta 'ġewwa tidher bħal din:</value>
+  </data>
+  <data name="Button.Code" xml:space="preserve">
+    <value>Ara l-Kodiċi</value>
+  </data>
+  <data name="Button.Developer" xml:space="preserve">
+    <value>Dwar l-Iżviluppatur</value>
+  </data>
+  <data name="Button.EmailMe" xml:space="preserve">
+    <value>Ibgħatli email</value>
+  </data>
+  <data name="Button.GitHub" xml:space="preserve">
+    <value>Żid Kwistjoni fuq GitHub</value>
+  </data>
+  <data name="Button.Press" xml:space="preserve">
+    <value>Mur lura għall-iskrin tal-kamera fuq iż-żewġ apparati u tektek il-buttuna par fir-rokna t'isfel</value>
+  </data>
+  <data name="Button.Primary" xml:space="preserve">
+    <value>TAPPA HAWN FUQ IL-PRIMARJA</value>
+  </data>
+  <data name="Button.Privacy" xml:space="preserve">
+    <value>Regoli tal-privatezza</value>
+  </data>
+  <data name="Button.Secondary" xml:space="preserve">
+    <value>TAPPET HAWN FUQ IS-SEKONDARJU</value>
+  </data>
+  <data name="Button.Test" xml:space="preserve">
+    <value>Test Verżjonijiet ta' qabel ir-rilaxx</value>
+  </data>
+  <data name="Button.Wi-Fi" xml:space="preserve">
+    <value>Kun żgur li l-Wi-Fi huwa attivat fuq iż-żewġ apparati (iżda m'għandu bżonn li jkun konness ma' xejn)</value>
+  </data>
+  <data name="Page.Pairing.1" xml:space="preserve">
+    <value>Jekk għandek żewġ apparati b'CrossCam installati, tista 'tqabbadhom sabiex tieħu ritratti simultanji minn żewġ perspettivi. Li tieħu żewġ ritratti fl-istess mument tagħmel l-aħjar stereogrammi possibbli.
+
+Jekk jogħġbok kun konxju li din il-karatteristika għadha sperimentali u jista 'jkollha problemi. Jista 'ma jaħdimx perfettament il-ħin kollu u jista' jiekol il-batterija tiegħek. Ukoll jekk jogħġbok kun konxju li f'dan iż-żmien l-apparati għandhom ikunu l-istess pjattaforma sabiex jikkonnettjaw (kemm Android jew it-tnejn iOS).
+
+Mod wieħed biex tikseb sinkronizzazzjoni * perfetta * billi tuża apparat wieħed biss u CrossCam huwa li tuża l-metodu "mera ta 'shot wieħed". Tista' tixgħelha fuq il-paġna Settings u tista' taqra dwarha fil-paġna tal-FAQ.
+
+Qabel ma żewġ apparati jistgħu jintużaw flimkien, ir-rwoli tagħhom iridu jiġu assenjati. L-apparat PRIMARJU huwa dak li se juri ż-żewġ previews, iqanqal il-qbid, u jżomm/jsalva l-qbid finali. Biex tassenja rwoli, innaviga ż-żewġ apparati għal din il-paġna u mbagħad segwi l-passi hawn taħt:</value>
+  </data>
+  <data name="Page.Pairing.2" xml:space="preserve">
+    <value>Jekk għandek problemi, JEKK JOGĦĠBOK INnota:
+ • Wara li jibda l-proċess ta 'tqabbil, il-buttuna ta' tqabbil tista 'terġa' tiġi sfruttata fi kwalunkwe ħin biex twaqqafha jew biex tiskonnettja.
+ • Jista 'jgħin biex twaqqaf l-ikoppjar fuq iż-żewġ apparati u terġa' tibda fl-istess ħin.
+ • Jista 'jgħin biex skonnettja mill-Wi-Fi jew netwerks tad-dejta tiegħek f'każ li jkunu qed jaġixxu.
+ • Kull kamera hija differenti. Dawn id-differenzi jistgħu jinkludu kamp viżiv angolari, fokus, espożizzjoni, u mġiba tal-bilanċ abjad, ħin, u aktar. Anke tnejn mill-istess mudell ta 'telefon se jġibu ruħhom kemmxejn differenti. Nippreferi nuża par telefowns qodma identiċi (fil-każ tiegħi, par iPhone 6).
+ • CrossCam huwa softwer, mhux ħardwer, għalhekk il-qbid tar-ritratti jista 'jkun kemmxejn mhux sinkronizzat skont x'iktar qed jagħmlu l-proċessuri u l-memorja fil-mument preċiż li jinqabad. Bħala riżultat, is-sinkronizzazzjoni tista 'xi kultant ma tkunx perfetta, iżda ġeneralment għandha tkun qrib ħafna.</value>
+  </data>
+  <data name="Page.Pairing.Again" xml:space="preserve">
+    <value>Biex terġa 'tikkonnettja aktar tard, kun żgur li għandek il-Wi-Fi attivat u mbagħad sempliċement tektek il-buttuna tal-konnessjoni fuq l-iskrin tad-dar fuq iż-żewġ apparati.</value>
+  </data>
+  <data name="Page.Pairing.LocalNetworkAccess" xml:space="preserve">
+    <value>CrossCam teħtieġ permess ta' Aċċess għan-Netwerk Lokali. CrossCam fil-fatt ma jużax in-netwerk lokali, iżda iOS jeħtieġ li CrossCam tikseb dan il-permess sabiex tuża l-antenna Wi-Fi biex tiskennja għal apparati. CrossCam se titlob għal dan il-permess darba - jekk il-permess jiġi miċħud ikollok tmur u taqleb is-swiċċ fl-app Settings lilek innifsek.</value>
+  </data>
+  <data name="Page.Pairing.Location" xml:space="preserve">
+    <value>CrossCam se titlob permessi u tixgħel il-komponenti kif meħtieġ sabiex tikkonnettja t-tagħmir tiegħek. Jekk jogħġbok innota: CrossCam teħtieġ permess tal-post u biex is-servizzi tal-lokazzjoni jinxtegħlu fuq l-apparat primarju sabiex tikkonnettja mal-apparat sekondarju. Dan huwa sempliċement rekwiżit Android u huwa kompletament barra mill-kontroll tiegħi. CrossCam fil-fatt ma TUŻA l-lokalità tiegħek bl-ebda mod, iżda minħabba li l-att tat-tiftix għal (u s-sejba) tagħmir fil-qrib jista 'teoretikament jintuża biex bejn wieħed u ieħor jillokalizzak, CrossCam teħtieġ permess biex taċċessa l-post tiegħek.</value>
+  </data>
+  <data name="Page.Pairing.Permissions" xml:space="preserve">
+    <value>Nota Dwar il-Permessi:</value>
+  </data>
+  <data name="Page.Pairing.Title" xml:space="preserve">
+    <value>Tqabbil</value>
+  </data>
+  <data name="Button.Back" xml:space="preserve">
+    <value>&lt; Lura</value>
+  </data>
+  <data name="Page.MorePictures.CrossViewSubreddit" xml:space="preserve">
+    <value>CrossView Subreddit</value>
+  </data>
+  <data name="Page.MorePictures.FacebookGroup" xml:space="preserve">
+    <value>Grupp ta' Facebook 3D Stereoskopiku</value>
+  </data>
+  <data name="Page.MorePictures.GoogleDoc" xml:space="preserve">
+    <value>Google Doc of Great Stuff</value>
+  </data>
+  <data name="Page.MorePictures.Instagram" xml:space="preserve">
+    <value>Instagram Stereoskopiku Tag</value>
+  </data>
+  <data name="Page.MorePictures.Mine" xml:space="preserve">
+    <value>Ara Stampi li ħadt</value>
+  </data>
+  <data name="Page.MorePictures.ParallelViewSubreddit" xml:space="preserve">
+    <value>ParallelView Subreddit</value>
+  </data>
+  <data name="Page.Settings.Alignment" xml:space="preserve">
+    <value>Allinjament Awtomatiku</value>
+  </data>
+  <data name="Page.Settings.Analytics" xml:space="preserve">
+    <value>Aqsam dejta anonima dwar l-użu u l-iżbalji biex tgħin ittejjeb CrossCam</value>
+  </data>
+  <data name="Page.Settings.Border" xml:space="preserve">
+    <value>Fruntiera</value>
+  </data>
+  <data name="Page.Settings.Camera" xml:space="preserve">
+    <value>Kamera</value>
+  </data>
+  <data name="Page.Settings.Defaults" xml:space="preserve">
+    <value>Irrisettja għal Defaults</value>
+  </data>
+  <data name="Page.Settings.Editing" xml:space="preserve">
+    <value>Editjar</value>
+  </data>
+  <data name="Page.Settings.ErrorEmail" xml:space="preserve">
+    <value>Prompt biex tibgħat email meta jseħħu żbalji</value>
+  </data>
+  <data name="Page.Settings.Guides" xml:space="preserve">
+    <value>Gwidi tal-Qbid</value>
+  </data>
+  <data name="Page.Settings.Pairing" xml:space="preserve">
+    <value>Tqabbil</value>
+  </data>
+  <data name="Page.Settings.Preview" xml:space="preserve">
+    <value>Preview Viewing Method</value>
+  </data>
+  <data name="Page.Settings.Saving" xml:space="preserve">
+    <value>Iffrankar</value>
+  </data>
+  <data name="Page.TipMe.1" xml:space="preserve">
+    <value>CrossCam huwa liberu li juża, mingħajr reklami, open-source, ma jiġbor l-ebda informazzjoni personali mingħandek, u jagħtik aċċess sħiħ għal kull karatteristika. Inħobb naħdem fuq CrossCam iżda tieħu ħafna ħin u sforz. Ma nagħmel l-ebda flus minn CrossCam ħlief pariri li n-nies jistgħu jiddeċiedu li jibagħtuli.</value>
+  </data>
+  <data name="Page.TipMe.2" xml:space="preserve">
+    <value>Jekk inti tixtieq CrossCam u kapaċi, jekk jogħġbok ikkunsidra li tibgħatli ponta.</value>
+  </data>
+  <data name="Page.TipMe.Ko-fi" xml:space="preserve">
+    <value>Ko-fi</value>
+  </data>
+  <data name="Page.TipMe.Patreon" xml:space="preserve">
+    <value>Patreon</value>
+  </data>
+  <data name="Page.TipMe.PayPal" xml:space="preserve">
+    <value>PayPal</value>
+  </data>
+  <data name="Page.TipMe.Tipped" xml:space="preserve">
+    <value>Ġejt bil-ponta</value>
+  </data>
+  <data name="Page.TipMe.TippedTimes" xml:space="preserve">
+    <value>darbiet, b'total</value>
+  </data>
+  <data name="Page.TipMe.Venmo" xml:space="preserve">
+    <value>Venmo</value>
+  </data>
+  <data name="Title.MorePictures" xml:space="preserve">
+    <value>Ara Aktar Stampi</value>
+  </data>
+  <data name="Title.Settings" xml:space="preserve">
+    <value>Settings</value>
+  </data>
+  <data name="Title.TipMe" xml:space="preserve">
+    <value>Tips huma apprezzati!</value>
+  </data>
+  <data name="Settings.Alignment.Advanced" xml:space="preserve">
+    <value>Uri settings ta' allinjament avvanzati</value>
+  </data>
+  <data name="Settings.Alignment.Ecc" xml:space="preserve">
+    <value>Ipprova uża l-allinjament ECC l-ewwel dejjem</value>
+  </data>
+  <data name="Settings.Alignment.Keypoints" xml:space="preserve">
+    <value>Ipprova uża l-allinjament tal-punti ewlenin l-ewwel dejjem</value>
+  </data>
+  <data name="Settings.Alignment.On" xml:space="preserve">
+    <value>Allinja awtomatikament wara l-qbid</value>
+  </data>
+  <data name="Settings.Border.Color" xml:space="preserve">
+    <value>Kulur tal-fruntiera</value>
+  </data>
+  <data name="Settings.Border.FuseGuide" xml:space="preserve">
+    <value>Żid il-gwida tal-fjus fuq (tikka fuq kull naħa)</value>
+  </data>
+  <data name="Settings.Border.On" xml:space="preserve">
+    <value>Żid fruntiera</value>
+  </data>
+  <data name="Settings.Border.Prompt" xml:space="preserve">
+    <value>Prompt biex tikklippja l-bord meta tinstab waqt it-tagħbija</value>
+  </data>
+  <data name="Settings.Border.Thickness" xml:space="preserve">
+    <value>Ħxuna tal-bord (għexieren tal-perċentwali tal-wisa')</value>
+  </data>
+  <data name="Settings.Camera.Camera1" xml:space="preserve">
+    <value>Forza l-API tal-kamera1 (jista 'tkun ta' għajnuna jekk qed tesperjenza strambi iżda tirriżulta f'funzjonalità limitata, teħtieġ forza ta' nieqaf/ristartja biex tidħol fis-seħħ)</value>
+  </data>
+  <data name="Settings.Camera.Camera2" xml:space="preserve">
+    <value>Forza camera2 API (għandha tkun fuq Android 6 jew aktar, tista 'tkun ta' għajnuna jekk qed tesperjenza żbalji iżda tista 'tagħmel aktar, teħtieġ forza nieqaf/ristartja biex tidħol fis-seħħ)</value>
+  </data>
+  <data name="Settings.Camera.LandscapeCaptureHorizontal" xml:space="preserve">
+    <value>Tqegħid orizzontali tal-buttuna tal-qbid tal-pajsaġġ</value>
+  </data>
+  <data name="Settings.Camera.LandscapeCaptureVertical" xml:space="preserve">
+    <value>Tqegħid vertikali tal-buttuna tal-qbid tal-pajsaġġ</value>
+  </data>
+  <data name="Settings.Camera.Lock" xml:space="preserve">
+    <value>Lock il-fokus u l-espożizzjoni għat-tieni stampa għall-fokus u l-espożizzjoni mill-ewwel stampa</value>
+  </data>
+  <data name="Settings.Camera.Pair" xml:space="preserve">
+    <value>Tqegħid orizzontali tal-buttuna tal-par (meta l-buttuna tal-qbid tkun iċċentrata)</value>
+  </data>
+  <data name="Settings.Camera.PointFocus" xml:space="preserve">
+    <value>Tektek biex tippunta l-fokus, tektek darbtejn biex taqleb lura għal fokus kontinwu (jew issalva jew ċara)</value>
+  </data>
+  <data name="Settings.Camera.PortraitCapture" xml:space="preserve">
+    <value>Tqegħid tal-buttuna tal-qbid tar-ritratti</value>
+  </data>
+  <data name="Settings.Editing.Align" xml:space="preserve">
+    <value>Proporzjon massimu ta' allinjament vertikali</value>
+  </data>
+  <data name="Settings.Editing.Keystone" xml:space="preserve">
+    <value>Keystone massimu</value>
+  </data>
+  <data name="Settings.Editing.Rotation" xml:space="preserve">
+    <value>Gradi ta' rotazzjoni massimi</value>
+  </data>
+  <data name="Settings.Editing.SideCrop" xml:space="preserve">
+    <value>Proporzjon massimu tal-uċuħ tar-raba' tal-ġenb</value>
+  </data>
+  <data name="Settings.Editing.TopCrop" xml:space="preserve">
+    <value>Proporzjon massimu tal-uċuħ tar-raba 'fuq/qiegħ</value>
+  </data>
+  <data name="Settings.Editing.Zoom" xml:space="preserve">
+    <value>Proporzjon massimu taż-żum</value>
+  </data>
+  <data name="Settings.Guides.Donut" xml:space="preserve">
+    <value>Uri l-gwida tad-doughnut (se tikkawża toe-in, għalhekk tista’ teħtieġ editjar ewlieni)</value>
+  </data>
+  <data name="Settings.Guides.Fuse" xml:space="preserve">
+    <value>Uri gwida tal-fjus (tikka fuq kull naħa)</value>
+  </data>
+  <data name="Settings.Guides.LineColor" xml:space="preserve">
+    <value>Linji kkuluriti differenti</value>
+  </data>
+  <data name="Settings.Guides.Lines" xml:space="preserve">
+    <value>Linji viżibbli</value>
+  </data>
+  <data name="Settings.Guides.Roll" xml:space="preserve">
+    <value>Gwida roll viżibbli</value>
+  </data>
+  <data name="Settings.Pair.CaptureDelay" xml:space="preserve">
+    <value>Dewmien żejjed tal-mument tal-qbid (ms) (żżid dewmien żejjed mal-mument tal-qbid fil-mira fuq dan l-apparat biss)</value>
+  </data>
+  <data name="Settings.Pair.Countdown" xml:space="preserve">
+    <value>Qbid it-tul tal-countdown (timer)</value>
+  </data>
+  <data name="Settings.Pair.Fov" xml:space="preserve">
+    <value>Korrezzjoni tal-kamp viżiv</value>
+  </data>
+  <data name="Settings.Pair.FovNotSet" xml:space="preserve">
+    <value>Il-korrezzjoni tal-FOV mhix issettjata (agħmel qbid b'apparati paired biex timxi permezz tal-issettjar).</value>
+  </data>
+  <data name="Settings.Pair.FovReset" xml:space="preserve">
+    <value>Irrisettja</value>
+  </data>
+  <data name="Settings.Pair.Go" xml:space="preserve">
+    <value>Mur fil-Paġna ta' Setup ta' Tqabbil</value>
+  </data>
+  <data name="Settings.Pair.NoRole" xml:space="preserve">
+    <value>Rwol mhux magħżul</value>
+  </data>
+  <data name="Settings.Pair.PreviewDelay" xml:space="preserve">
+    <value>Dewmien tal-qafas tal-preview (numru ogħla se jnaqqas ir-rata tal-frejms iżda jiffranka l-batterija)</value>
+  </data>
+  <data name="Settings.Pair.Primary" xml:space="preserve">
+    <value>Primarja:</value>
+  </data>
+  <data name="Settings.Pair.PrimaryRole" xml:space="preserve">
+    <value>Rwol: Primarju</value>
+  </data>
+  <data name="Settings.Pair.Sample" xml:space="preserve">
+    <value>Għadd tal-kampjuni tal-arloġġ (numru aktar baxx se jnaqqas il-ħin meħtieġ għas-sinkronizzazzjoni inizjali iżda jista' jnaqqas l-eżattezza tas-sinkronizzazzjoni)</value>
+  </data>
+  <data name="Settings.Pair.Secondary" xml:space="preserve">
+    <value>Sekondarja:</value>
+  </data>
+  <data name="Settings.Pair.SecondaryRole" xml:space="preserve">
+    <value>Rwol: Sekondarju</value>
+  </data>
+  <data name="Settings.Pair.Timeout" xml:space="preserve">
+    <value>Timeout tal-konnessjoni (sekondi) (0 tfisser l-ebda timeout)</value>
+  </data>
+  <data name="Settings.Preview.Barrel" xml:space="preserve">
+    <value>Żid korrezzjoni tal-lenti/distorsjoni tal-kanna (jista 'tbaxxi r-rata tal-frejms)</value>
+  </data>
+  <data name="Settings.Preview.BarrelFinal" xml:space="preserve">
+    <value>Żid il-korrezzjoni tal-lenti/distorsjoni tal-kanna mal-immaġini finali biss (jista 'jnaqqas il-veloċità tal-wiri finali iżda tħaffef il-qbid)</value>
+  </data>
+  <data name="Settings.Preview.CardboardDistance" xml:space="preserve">
+    <value>Distanza ta' separazzjoni tal-kartun</value>
+  </data>
+  <data name="Settings.Preview.Downsize" xml:space="preserve">
+    <value>Tnaqqas l-immaġni (jista 'jżid ir-rata tal-frejms)</value>
+  </data>
+  <data name="Settings.Preview.DownsizePercent" xml:space="preserve">
+    <value>Perċentwal ta' l-immaġini tnaqqis</value>
+  </data>
+  <data name="Settings.Preview.Immersive" xml:space="preserve">
+    <value>Wiri finali immersiv</value>
+  </data>
+  <data name="Settings.Preview.LensStrength" xml:space="preserve">
+    <value>Qawwa tal-korrezzjoni tal-lenti</value>
+  </data>
+  <data name="Settings.Preview.Mirror" xml:space="preserve">
+    <value>Qbid bl-użu tal-metodu tad-diviżjoni tal-mera b'shot wieħed</value>
+  </data>
+  <data name="Settings.Preview.Width" xml:space="preserve">
+    <value>Wisa' massima tal-immaġni tal-vista parallela (punti)</value>
+  </data>
+  <data name="Settings.Reset" xml:space="preserve">
+    <value>Irrisettja għal Defaults</value>
+  </data>
+  <data name="Settings.Saving.Alone" xml:space="preserve">
+    <value>Issejvja l-ewwel naħa waħedha (mingħajr editjar jew fruntiera) (għal qsim faċli ta’ ritratt ċatt ma’ nies li juru ċatt)</value>
+  </data>
+  <data name="Settings.Saving.Anaglyph" xml:space="preserve">
+    <value>Issejvja l-verżjoni anaglifa ħamra/ċjan (b'modifiki iżda mingħajr bordura)</value>
+  </data>
+  <data name="Settings.Saving.Browse" xml:space="preserve">
+    <value>Fittex...</value>
+  </data>
+  <data name="Settings.Saving.Cardboard" xml:space="preserve">
+    <value>Ħlief għall-Kartun (b'modifiki, l-ebda fruntiera, l-ebda spazjar, wisa 'sħiħ, għat-tagħbija lura f'CrossCam aktar tard)</value>
+  </data>
+  <data name="Settings.Saving.Clear" xml:space="preserve">
+    <value>Awtomatikament ċari qbid wara l-iffrankar</value>
+  </data>
+  <data name="Settings.Saving.Cross" xml:space="preserve">
+    <value>Issejvja l-verżjoni cross view magħquda (b'modifiki u fruntiera)</value>
+  </data>
+  <data name="Settings.Saving.ExternalDirectory" xml:space="preserve">
+    <value>Ħlief fid-direttorju estern CrossCam fuq:</value>
+  </data>
+  <data name="Settings.Saving.ExternalWarning" xml:space="preserve">
+    <value>(twissija: stampi hemmhekk se jitħassru jekk CrossCam tiġi diżinstallata)</value>
+  </data>
+  <data name="Settings.Saving.Folder" xml:space="preserve">
+    <value>Ħlief f'subfolder/album dedikat "CrossCam".</value>
+  </data>
+  <data name="Settings.Saving.Grayscale" xml:space="preserve">
+    <value>Issejvja l-verżjoni anaglifa aħmar/ċjan fuq skala griża (b'modifiki iżda mingħajr fruntiera)</value>
+  </data>
+  <data name="Settings.Saving.Order" xml:space="preserve">
+    <value>(L-iffrankar se jsir fl-ordni minn fuq għal isfel)</value>
+  </data>
+  <data name="Settings.Saving.Parallel" xml:space="preserve">
+    <value>Issejvja l-verżjoni tal-veduta parallela magħquda (b'modifiki u fruntiera)</value>
+  </data>
+  <data name="Settings.Saving.Quad" xml:space="preserve">
+    <value>Issejvja l-kombinazzjoni tal-quad (bil-modifiki u l-bordur)</value>
+  </data>
+  <data name="Settings.Saving.Reset" xml:space="preserve">
+    <value>Irrisettja</value>
+  </data>
+  <data name="Settings.Saving.Resolution" xml:space="preserve">
+    <value>Proporzjon ta' riżoluzzjoni</value>
+  </data>
+  <data name="Settings.Saving.SaveTo" xml:space="preserve">
+    <value>Ħlief għal:</value>
+  </data>
+  <data name="Settings.Saving.Separate" xml:space="preserve">
+    <value>Issejvja kull naħa separatament (mingħajr editjar jew fruntiera għal ipproċessar ta' wara aktar faċli, in-naħa tax-xellug issalva l-ewwel)</value>
+  </data>
+  <data name="Settings.Saving.Subfolder" xml:space="preserve">
+    <value>Ħlief f'subfolders/albums dedikati "CrossCam_{ViewMethod}".</value>
+  </data>
+  <data name="Settings.Saving.Triple" xml:space="preserve">
+    <value>Issejvja kombinazzjoni tripla (b'modifiki u bordur)</value>
+  </data>
+  <data name="Button.Pair.Accept" xml:space="preserve">
+    <value>Aċċetta</value>
+  </data>
+  <data name="Button.Pair.Cancel" xml:space="preserve">
+    <value>Ikkanċella</value>
+  </data>
+  <data name="Page.Camera.AcceptConnection" xml:space="preserve">
+    <value>Aċċetta konnessjoni ma '</value>
+  </data>
+  <data name="Page.Camera.Confirm" xml:space="preserve">
+    <value>Ikkonferma t-taqbil tal-kodiċi fuq iż-żewġ apparati:</value>
+  </data>
+  <data name="Page.Footer.CouldntOpen" xml:space="preserve">
+    <value>Ma Setgħetx tiftaħ Link</value>
+  </data>
+  <data name="Page.Footer.OpenError" xml:space="preserve">
+    <value>Il-link tal-mailto ma setgħetx tinfetaħ. Dan jista' jkun minħabba li l-klijent tal-email tiegħek mhuwiex stabbilit, jew xi raġuni oħra.</value>
+  </data>
+  <data name="Page.Pair.Errors.Denied" xml:space="preserve">
+    <value>Il-permessi meħtieġa għat-tqabbil ma ngħatawx. Eċċezzjoni:</value>
+  </data>
+  <data name="Page.Pair.Errors.FailedBluetooth" xml:space="preserve">
+    <value>L-apparat naqas milli jixgħel il-Bluetooth. Eċċezzjoni:</value>
+  </data>
+  <data name="Page.Pair.Errors.FailedSearch" xml:space="preserve">
+    <value>L-apparat naqas milli jfittex tagħmir. Eċċezzjoni:</value>
+  </data>
+  <data name="Page.Pair.Errors.LocationOff" xml:space="preserve">
+    <value>Servizzi tal-lokazzjoni mhux attivati. Ma tistax tiskennja għal apparati. Ara l-paġna tat-tqabbil għal aktar dettalji.</value>
+  </data>
+  <data name="Page.Pair.Errors.LocationScan" xml:space="preserve">
+    <value>Permess għall-post mhux mogħti. Ma tistax tiskennja għal apparati. Ara l-paġna tat-tqabbil għal aktar dettalji.</value>
+  </data>
+  <data name="Page.Pair.Errors.NotSupported" xml:space="preserve">
+    <value>It-tqabbil mhuwiex appoġġjat fuq dan l-apparat. Eċċezzjoni:</value>
+  </data>
+  <data name="Page.Pair.Errors.Title" xml:space="preserve">
+    <value>Żball</value>
+  </data>
+  <data name="Page.Pair.Errors.WifiOff" xml:space="preserve">
+    <value>Wi-Fi huwa mitfi. Jekk jogħġbok ixgħel il-Wi-Fi.</value>
+  </data>
+  <data name="Page.Pair.PrimaryExplanation" xml:space="preserve">
+    <value>Dan l-apparat issa huwa ssettjat bħala l-primarju.</value>
+  </data>
+  <data name="Page.Pair.PrimarySelected" xml:space="preserve">
+    <value>Rwol Primarju Magħżul</value>
+  </data>
+  <data name="Page.Pair.SecondaryExplanation" xml:space="preserve">
+    <value>Dan l-apparat issa huwa ssettjat bħala sekondarju.</value>
+  </data>
+  <data name="Page.Pair.SecondarySelected" xml:space="preserve">
+    <value>Rwol Sekondarju Magħżul</value>
+  </data>
+  <data name="Page.Technique.Mode" xml:space="preserve">
+    <value>mod.</value>
+  </data>
+  <data name="Page.Technique.SetMode" xml:space="preserve">
+    <value>CrossCam issa tinsab ġewwa</value>
+  </data>
+</root>

@@ -1,0 +1,1156 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="Button.GoogleDoc" xml:space="preserve">
+    <value>Google Doc of Great Stuff</value>
+  </data>
+  <data name="Button.LearnCross" xml:space="preserve">
+    <value>ΜΑΘΕΤΕ ΣΤΑΥΡΟ</value>
+  </data>
+  <data name="Button.LearnParallel" xml:space="preserve">
+    <value>ΜΑΘΕΤΕ ΠΑΡΑΛΛΗΛΟ</value>
+  </data>
+  <data name="Button.MorePictures" xml:space="preserve">
+    <value>Δείτε περισσότερες φωτογραφίες</value>
+  </data>
+  <data name="Button.Review" xml:space="preserve">
+    <value>Γράψτε μια κριτική</value>
+  </data>
+  <data name="Button.Share" xml:space="preserve">
+    <value>Κοινή χρήση CrossCam</value>
+  </data>
+  <data name="Button.Support" xml:space="preserve">
+    <value>Υποστηρίξτε τον Προγραμματιστή</value>
+  </data>
+  <data name="Button.TapCross" xml:space="preserve">
+    <value>ΠΑΤΗΣΤΕ ΕΔΩ ΓΙΑ ΝΑ ΕΠΙΛΕΞΕΤΕ ΣΤΑΥΡΟ</value>
+  </data>
+  <data name="Button.TapParallel" xml:space="preserve">
+    <value>ΠΑΤΗΣΤΕ ΕΔΩ ΓΙΑ ΝΑ ΕΠΙΛΕΞΕΤΕ PARALLEL</value>
+  </data>
+  <data name="Footer.Span1" xml:space="preserve">
+    <value>Βρήκατε ένα σφάλμα; Εχω μια ερώτηση; Απλά email</value>
+  </data>
+  <data name="Footer.Span3" xml:space="preserve">
+    <value>! Μου αρέσει να μιλάω με χρήστες και είναι ο πιο γρήγορος τρόπος επικοινωνίας μαζί μου.</value>
+  </data>
+  <data name="Page.HowToUse.2anaglyph" xml:space="preserve">
+    <value>2) Ξεκινήστε ανάγλυφο να βλέπετε την πρώτη εικόνα με την προεπισκόπηση που εμφανίζεται δίπλα της.</value>
+  </data>
+  <data name="Page.HowToUse.2cardboard" xml:space="preserve">
+    <value>2) Ξεκινήστε από χαρτόνι να βλέπετε την πρώτη εικόνα με την προεπισκόπηση που εμφανίζεται δίπλα της.</value>
+  </data>
+  <data name="Page.HowToUse.2cross" xml:space="preserve">
+    <value>2) Ξεκινήστε τη σταυρωτή προβολή της πρώτης εικόνας με την προεπισκόπηση που εμφανίζεται δίπλα της.</value>
+  </data>
+  <data name="Page.HowToUse.2parallel" xml:space="preserve">
+    <value>2) Ξεκινήστε την παράλληλη προβολή της πρώτης εικόνας με την προεπισκόπηση που εμφανίζεται δίπλα της.</value>
+  </data>
+  <data name="Page.Technique.AdditionalTutorials" xml:space="preserve">
+    <value>Πρόσθετα σεμινάρια:</value>
+  </data>
+  <data name="Page.Technique.Cross1" xml:space="preserve">
+    <value>Σταυρώστε προσεκτικά τα μάτια σας ενώ κοιτάτε το ζευγάρι των παραπάνω εικόνων. Όταν σταυρώνετε τα μάτια σας, τα πράγματα θα γίνουν θολά και θα αρχίσουν να βλέπετε 4 εικόνες αντί για 2 (2 ζεύγη). Όσο πιο δυνατά σταυρώνετε τα μάτια σας, τόσο πιο μακριά θα μετακινούνται τα ζευγάρια των εικόνων - θα μοιάζει κάπως έτσι:</value>
+  </data>
+  <data name="Page.Technique.Cross2" xml:space="preserve">
+    <value>Ξεσταυρώστε τα μάτια σας προσεκτικά, έτσι ώστε οι εικόνες στο εσωτερικό κάθε ζευγαριού να αρχίσουν να επικαλύπτονται. Θα αρχίσει να φαίνεται ότι υπάρχουν μόνο 3 εικόνες αντί για 4. Θα εξακολουθεί να είναι θολή και διαφανής και να μοιάζει κάπως έτσι:</value>
+  </data>
+  <data name="Page.Technique.Cross3" xml:space="preserve">
+    <value>Μόλις λειτουργήσει η μεσαία επικάλυψη, πρέπει απλώς να χαλαρώσετε τα μάτια σας και να τους επιτρέψετε να εστιάσουν την εικόνα. Σε εκείνο το σημείο θα έχετε μια ευκρινή τρισδιάστατη εικόνα στη μέση με μια διαφανή εικόνα να επιπλέει σε κάθε πλευρά που θα μοιάζει με αυτό (εκτός από το ότι η μέση θα είναι 3D):</value>
+  </data>
+  <data name="Page.Technique.Cross4" xml:space="preserve">
+    <value>Εάν δυσκολεύεστε να σταυρώσετε τα μάτια σας, μπορείτε επίσης να δοκιμάσετε να κοιτάξετε το δάχτυλό σας ενώ το κρατάτε μέχρι τη μέση ανάμεσα στα μάτια σας και την οθόνη. Θα πρέπει να δείτε τις εικόνες να αρχίζουν να διαχωρίζονται και να επικαλύπτονται πίσω από το δάχτυλό σας.</value>
+  </data>
+  <data name="Page.Technique.CrossViewing" xml:space="preserve">
+    <value>ΣΤΑΥΡΟΒΟΛΗ</value>
+  </data>
+  <data name="Page.Technique.P1" xml:space="preserve">
+    <value>Εάν θέλετε να το δείτε ξανά, πατήστε το εικονίδιο χάμπουργκερ (τρεις γραμμές) στην επάνω αριστερή γωνία της οθόνης της κάμερας και πατήστε "Βοήθεια".
+
+Για να δείτε το 3D στο CrossCam (που ονομάζεται "στερεογράμματα") μπορείτε να χρησιμοποιήσετε κόκκινα/κυανό γυαλιά 3D, ένα πρόγραμμα προβολής Google Cardboard ή μπορείτε να κάνετε "δωρεάν προβολή" χρησιμοποιώντας μόνο τα μάτια σας και την οθόνη σας. Υπάρχουν δύο τρόποι για δωρεάν προβολή και το CrossCam μπορεί να σας βοηθήσει να μάθετε και τους δύο. Πρέπει να πείτε στην CrossCam πώς θα δείτε τις φωτογραφίες διαφορετικά δεν θα λειτουργήσει σωστά. Μην ανησυχείτε, μπορείτε πάντα να το αλλάξετε ξανά στις Ρυθμίσεις.
+
+Εάν μπορείτε να σταυρώσετε άνετα τα μάτια σας, θα πρέπει να δοκιμάσετε πρώτα τη μέθοδο σταυρού, διαφορετικά θα πρέπει να δοκιμάσετε την παράλληλη μέθοδο. Εάν είστε συνηθισμένοι στα βιβλία Magic Eye™, πιθανότατα μπορείτε ήδη να κάνετε την παράλληλη μέθοδο, αλλά ίσως μπορείτε επίσης να κάνετε τη μέθοδο cross. Πατήστε μια μέθοδο παρακάτω για να την μάθετε και φροντίστε να πείτε στην CrossCam ποια είναι κατάλληλη για εσάς πατώντας το αντίστοιχο κουμπί CHOOSE.
+
+Εάν προτιμάτε να χρησιμοποιείτε γυαλιά 3D ή ένα πρόγραμμα προβολής Cardboard, μπορείτε να ρυθμίσετε το CrossCam να χρησιμοποιεί αυτά στη σελίδα Ρυθμίσεις.</value>
+  </data>
+  <data name="Page.Technique.CrossLink1" xml:space="preserve">
+    <value>Ένα ωραίο σεμινάριο κειμένου</value>
+  </data>
+  <data name="Page.Technique.CrossLink2" xml:space="preserve">
+    <value>Ακόμα ένα ωραίο σεμινάριο κειμένου</value>
+  </data>
+  <data name="Page.Technique.CrossLink3" xml:space="preserve">
+    <value>Ένα σύντομο μάθημα στο YouTube</value>
+  </data>
+  <data name="Page.Technique.CrossLink4" xml:space="preserve">
+    <value>Ένα μακρύ, περίεργο, αλλά χρήσιμο μάθημα YouTube</value>
+  </data>
+  <data name="Page.Technique.CrossLink5" xml:space="preserve">
+    <value>Άλλο ένα σεμινάριο YouTube</value>
+  </data>
+  <data name="Page.Technique.CrossLink6" xml:space="preserve">
+    <value>Ένα έργο διπλής κάμερας με σεμινάριο</value>
+  </data>
+  <data name="Page.Technique.Parallel1" xml:space="preserve">
+    <value>Εάν η παραπάνω εικόνα δεν ταιριάζει στην οθόνη σας, γυρίστε το τηλέφωνό σας σε οριζόντιο προσανατολισμό - η CrossCam προσπαθεί να κάνει το ζευγάρι των εικόνων πάνω από το πιο εύκολο μέγεθος για αυτό. Δεν χρειάζεται πάντα να χρησιμοποιείτε το CrossCam σε οριζόντιο προσανατολισμό, αλλά μια εικόνα τέλειου μεγέθους διευκολύνει την εκμάθηση της τεχνικής.</value>
+  </data>
+  <data name="Page.Technique.Parallel2" xml:space="preserve">
+    <value>Χαλαρώστε τα μάτια σας και κοιτάξτε "μέσα" από το ζευγάρι των παραπάνω εικόνων σαν να κάνετε ζώνες με τα μάτια σας στραμμένα προς τις φωτογραφίες. Θα πρέπει να αρχίσετε να βλέπετε 3 εικόνες με μια τρισδιάστατη εικόνα στη μέση, κάπως έτσι:</value>
+  </data>
+  <data name="Page.Technique.Parallel3" xml:space="preserve">
+    <value>Αν αρχίσετε να βλέπετε 4 φωτογραφίες, έχετε πάει πολύ μακριά. Δοκιμάστε να μετακινήσετε λίγο τα μάτια σας αν βρεθείτε ξανά σε αυτό το σημείο. Η υπερβολική χαλάρωση θα μοιάζει κάπως έτσι:</value>
+  </data>
+  <data name="Page.Technique.Parallel4" xml:space="preserve">
+    <value>Εάν αντιμετωπίζετε προβλήματα, δοκιμάστε να φέρετε την οθόνη σας ακριβώς στο πρόσωπό σας με το ζευγάρι των εικόνων ακριβώς μπροστά στα μάτια σας. Χαλαρώστε και κοιτάξτε «μέσα» από την οθόνη και, στη συνέχεια, τραβήξτε αργά την οθόνη σας μακριά από το πρόσωπό σας ενώ κρατάτε τα μάτια σας χαλαρά. Τελικά η εικόνα θα πρέπει να "κλικ" στην εστίαση.</value>
+  </data>
+  <data name="Page.Technique.Parallel5" xml:space="preserve">
+    <value>Εάν εξακολουθείτε να βλέπετε τέσσερις εικόνες, αυξήστε το "Μέγιστο πλάτος εικόνας παράλληλης προβολής" στη σελίδα Ρυθμίσεις.</value>
+  </data>
+  <data name="Page.Technique.ParallelViewing" xml:space="preserve">
+    <value>ΠΑΡΑΛΛΗΛΗ ΘΕΑΣΗ</value>
+  </data>
+  <data name="Page.Technique.Practice" xml:space="preserve">
+    <value>Εικόνες που έφτιαξα στις οποίες μπορείτε να εξασκηθείτε</value>
+  </data>
+  <data name="Title.Contact" xml:space="preserve">
+    <value>Επικοινωνία</value>
+  </data>
+  <data name="Title.Faq" xml:space="preserve">
+    <value>FAQ</value>
+  </data>
+  <data name="Title.Help" xml:space="preserve">
+    <value>Βοήθεια</value>
+  </data>
+  <data name="Title.HowToUse" xml:space="preserve">
+    <value>Πώς να χρησιμοποιήσετε το CrossCam</value>
+  </data>
+  <data name="Title.Technique" xml:space="preserve">
+    <value>Τεχνική τρισδιάστατης προβολής</value>
+  </data>
+  <data name="Title.Tips" xml:space="preserve">
+    <value>Συμβουλές</value>
+  </data>
+  <data name="Button.DoNotEmailMe" xml:space="preserve">
+    <value>Μην μου στέλνετε email τώρα</value>
+  </data>
+  <data name="Button.EmailMeNow" xml:space="preserve">
+    <value>Στείλτε μου email τώρα</value>
+  </data>
+  <data name="Button.No" xml:space="preserve">
+    <value>Οχι</value>
+  </data>
+  <data name="Button.OK" xml:space="preserve">
+    <value>Εντάξει</value>
+  </data>
+  <data name="Button.YesClear" xml:space="preserve">
+    <value>Ναι, ξεκάθαρα</value>
+  </data>
+  <data name="Page.Camera.Aligning" xml:space="preserve">
+    <value>Ευθυγράμμιση...</value>
+  </data>
+  <data name="Page.Camera.AlignmentBroken" xml:space="preserve">
+    <value>Η αυτόματη ευθυγράμμιση δεν υποστηρίζεται στη συσκευή - απενεργοποιήστε την από τις Ρυθμίσεις.</value>
+  </data>
+  <data name="Page.Camera.AlignmentFailed" xml:space="preserve">
+    <value>Η ευθυγράμμιση απέτυχε.</value>
+  </data>
+  <data name="Page.Camera.BorderAsk" xml:space="preserve">
+    <value>Εντοπίστηκε ένα σύνορο. Να αφαιρεθεί το περίγραμμα;</value>
+  </data>
+  <data name="Page.Camera.BorderDetected" xml:space="preserve">
+    <value>Εντοπίστηκε σύνορα</value>
+  </data>
+  <data name="Page.Camera.Cancel" xml:space="preserve">
+    <value>Ματαίωση</value>
+  </data>
+  <data name="Page.Camera.ChooseAction" xml:space="preserve">
+    <value>Επιλέξτε μια ενέργεια:</value>
+  </data>
+  <data name="Page.Camera.DirectoryNotFound" xml:space="preserve">
+    <value>Ο κατάλογος δεν βρέθηκε</value>
+  </data>
+  <data name="Page.Camera.DirectoryNotFoundExplain" xml:space="preserve">
+    <value>Δεν ήταν δυνατή η εύρεση του προορισμού αποθήκευσης. Επιλέξτε άλλο στη σελίδα ρυθμίσεων.</value>
+  </data>
+  <data name="Page.Camera.ErrorEmailBody" xml:space="preserve">
+    <value>Τι κάνατε λίγο πριν συμβεί το σφάλμα; Περιγράψτε ακόμη και τα μικρά πράγματα.\n\n\n\n\n\nΤο CrossCam εξακολουθούσε να λειτουργεί μετά το σφάλμα; Εάν όχι, πώς είναι χαλασμένο;\n\n\n\n\n\nΣυμβαίνει επανειλημμένα αυτό;\n\n\n\n\n\nΜπορείτε να αναγκάσετε το σφάλμα να συμβεί με εντολή; Αν ναι, πώς;\n\n\n\n\n\n</value>
+  </data>
+  <data name="Page.Camera.FlipForCardboard" xml:space="preserve">
+    <value>Αναστροφή σε οριζόντιο προσανατολισμό όταν βρίσκεστε σε λειτουργία χαρτονιού.</value>
+  </data>
+  <data name="Page.Camera.FlipLarger" xml:space="preserve">
+    <value>(Αναστροφή στο τοπίο για μεγαλύτερη προβολή)</value>
+  </data>
+  <data name="Page.Camera.ForAnaglyph" xml:space="preserve">
+    <value>για ανάγλυφο</value>
+  </data>
+  <data name="Page.Camera.ForCardboard" xml:space="preserve">
+    <value>για το χαρτόνι</value>
+  </data>
+  <data name="Page.Camera.ForCross" xml:space="preserve">
+    <value>για σταυρό</value>
+  </data>
+  <data name="Page.Camera.ForParallel" xml:space="preserve">
+    <value>για παράλληλη</value>
+  </data>
+  <data name="Page.Camera.GoPickRole" xml:space="preserve">
+    <value>Μεταβείτε στη σελίδα Σύζευξη (μέσω της σελίδας Ρυθμίσεις) και επιλέξτε έναν ρόλο σύζευξης για αυτήν τη συσκευή πριν επιχειρήσετε τη σύζευξη.</value>
+  </data>
+  <data name="Page.Camera.InvalidImage" xml:space="preserve">
+    <value>Μη έγκυρη εικόνα</value>
+  </data>
+  <data name="Button.Camera.Keep" xml:space="preserve">
+    <value>Διατήρηση</value>
+  </data>
+  <data name="Page.Camera.LoadFullImage" xml:space="preserve">
+    <value>Φόρτωση πλήρους στερεοφωνικής εικόνας</value>
+  </data>
+  <data name="Page.Camera.Loading" xml:space="preserve">
+    <value>Φόρτωση...</value>
+  </data>
+  <data name="Page.Camera.LoadSingleSide" xml:space="preserve">
+    <value>Φόρτωση μονής πλευράς</value>
+  </data>
+  <data name="Page.Camera.ManualCorrections" xml:space="preserve">
+    <value>Λάβετε υπόψη και τις χειροκίνητες διορθώσεις.</value>
+  </data>
+  <data name="Page.Camera.MirrorOnLeft" xml:space="preserve">
+    <value>ΚΑΘΡΕΠΤΗΣ ΑΡΙΣΤΕΡΑ</value>
+  </data>
+  <data name="Page.Camera.MirrorOnRight" xml:space="preserve">
+    <value>ΚΑΘΡΕΦΤΗΣ ΣΤΑ ΔΕΞΙΑ</value>
+  </data>
+  <data name="Page.Camera.MoveLeft" xml:space="preserve">
+    <value>ΚΙΝΗΣΟΥ ΑΡΙΣΤΕΡΑ</value>
+  </data>
+  <data name="Page.Camera.MoveRight" xml:space="preserve">
+    <value>ΚΙΝΗΣΤΕ ΔΕΞΙΑ</value>
+  </data>
+  <data name="Page.Camera.NoSaveModes" xml:space="preserve">
+    <value>Δεν υπάρχουν ενεργές λειτουργίες αποθήκευσης</value>
+  </data>
+  <data name="Page.Camera.NoSaveModesExplain" xml:space="preserve">
+    <value>Καμία λειτουργία αποθήκευσης δεν είναι ενεργοποιημένη αυτήν τη στιγμή. Ενεργοποιήστε τη λειτουργία αποθήκευσης στη σελίδα Ρυθμίσεις.</value>
+  </data>
+  <data name="Page.Camera.Oops" xml:space="preserve">
+    <value>Ωχ</value>
+  </data>
+  <data name="Page.Camera.OrRotate" xml:space="preserve">
+    <value>(ή περιστροφή)</value>
+  </data>
+  <data name="Page.Camera.OrSwipe" xml:space="preserve">
+    <value>(ή σύρετε)</value>
+  </data>
+  <data name="Page.Camera.PairRoleNotSelected" xml:space="preserve">
+    <value>Ο ρόλος του ζεύγους δεν επιλέχθηκε</value>
+  </data>
+  <data name="Page.Camera.PinchOrDrag" xml:space="preserve">
+    <value>Τσιμπήστε ή σύρετε για εξερεύνηση!</value>
+  </data>
+  <data name="Page.Camera.PleaseSelectValid" xml:space="preserve">
+    <value>Επιλέξτε μια εικόνα Jpeg, Png ή Webp. Η εικόνα που επιλέξατε είναι</value>
+  </data>
+  <data name="Page.Camera.ReallyClear" xml:space="preserve">
+    <value>Πραγματικά σαφές;</value>
+  </data>
+  <data name="Button.Camera.Remove" xml:space="preserve">
+    <value>Αφαιρώ</value>
+  </data>
+  <data name="Page.Camera.SavedToCustomFolder" xml:space="preserve">
+    <value>Αποθηκεύτηκε στον προσαρμοσμένο φάκελο</value>
+  </data>
+  <data name="Page.Camera.SavedToExternal" xml:space="preserve">
+    <value>Αποθηκεύτηκε σε εξωτερικό</value>
+  </data>
+  <data name="Page.Camera.SavedToPhotos" xml:space="preserve">
+    <value>Αποθηκεύτηκε στις Φωτογραφίες</value>
+  </data>
+  <data name="Page.Camera.SaveFailed" xml:space="preserve">
+    <value>Η αποθήκευση απέτυχε. :(</value>
+  </data>
+  <data name="Page.Camera.Saving" xml:space="preserve">
+    <value>Οικονομία...</value>
+  </data>
+  <data name="Page.Camera.SecondaryOnLeft" xml:space="preserve">
+    <value>ΔΕΥΤΕΡΕΥΟΝΤΑ ΣΤΑ ΑΡΙΣΤΕΡΑ</value>
+  </data>
+  <data name="Page.Camera.SecondaryOnRight" xml:space="preserve">
+    <value>ΔΕΥΤΕΡΕΥΟΝΤΑ ΣΤΑ ΔΕΞΙΑ</value>
+  </data>
+  <data name="Page.Camera.SelectedInvalid" xml:space="preserve">
+    <value>Η επιλεγμένη εικόνα δεν είναι έγκυρη.</value>
+  </data>
+  <data name="Page.Camera.SorryError" xml:space="preserve">
+    <value>Λυπούμαστε, η CrossCam έκανε ένα σφάλμα. Έχει σταλεί αυτόματα μια αναφορά σφάλματος. Μπορεί να μην παρατηρήσετε τίποτα λάθος, αλλά αν το κάνετε, δοκιμάστε να επανεκκινήσετε την εφαρμογή. Εάν αυτό συνεχίσει να συμβαίνει, παρακαλώ μου στείλτε email και πείτε μου γι' αυτό. (Μεταβείτε στη σελίδα Ρυθμίσεις για να σταματήσετε αυτά τα αναδυόμενα παράθυρα.)</value>
+  </data>
+  <data name="Page.Camera.Steady" xml:space="preserve">
+    <value>Σταθερά...</value>
+  </data>
+  <data name="Page.Camera.SureClear" xml:space="preserve">
+    <value>Είστε βέβαιοι ότι θέλετε να καθαρίσετε τις φωτογραφίες σας και να ξεκινήσετε από την αρχή;</value>
+  </data>
+  <data name="Page.Camera.Syncing" xml:space="preserve">
+    <value>Συγχρονισμός...</value>
+  </data>
+  <data name="Page.Camera.Transmitting" xml:space="preserve">
+    <value>Μετάδοση...
+(διατήρηση της συσκευής ξεκλείδωτη)</value>
+  </data>
+  <data name="Page.Camera.VR" xml:space="preserve">
+    <value>VR</value>
+  </data>
+  <data name="Page.FovCorrection" xml:space="preserve">
+    <value>Διόρθωση πεδίου προβολής</value>
+  </data>
+  <data name="Page.FovCorrectionExplain" xml:space="preserve">
+    <value>Διαφορετικά μοντέλα συσκευών μπορεί να έχουν διαφορετικά οπτικά πεδία. Το CrossCam θα σας βοηθήσει να το διορθώσετε αφού κάνετε την πρώτη σας λήψη. Καδράρετε και αποτυπώστε κάτι με διακριτικά σημεία κοντά στο επάνω και το κάτω μέρος του πλαισίου, φροντίζοντας τα σημεία να είναι ορατά και στις δύο συσκευές.</value>
+  </data>
+  <data name="Page.Technique.ParallelLink1" xml:space="preserve">
+    <value>Ένα ωραίο σεμινάριο κειμένου</value>
+  </data>
+  <data name="Page.Technique.ParallelLink2" xml:space="preserve">
+    <value>Ένα άλλο ωραίο σεμινάριο κειμένου</value>
+  </data>
+  <data name="Page.Technique.ParallelLink3" xml:space="preserve">
+    <value>ΑΚΟΜΑ ΑΛΛΟ ωραίο εκπαιδευτικό κείμενο</value>
+  </data>
+  <data name="Page.Technique.ParallelLink4" xml:space="preserve">
+    <value>Εκμάθηση Magic Frankfurter</value>
+  </data>
+  <data name="Page.Technique.ParallelLink5" xml:space="preserve">
+    <value>Ένα ωραίο βίντεο για το Magic Eye</value>
+  </data>
+  <data name="Page.Technique.Trouble" xml:space="preserve">
+    <value>Εάν εξακολουθείτε να αντιμετωπίζετε προβλήματα, δοκιμάστε να φέρετε το τηλέφωνό σας σε ένα σκοτεινό δωμάτιο, έτσι ώστε το μόνο πράγμα στο οποίο βλέπουν καλά τα μάτια σας και εστιάζουν είναι η εικόνα.
+
+Ένα άλλο πράγμα που μπορείτε να δοκιμάσετε είναι να χρησιμοποιήσετε σωλήνες από χαρτί υγείας ή τα χέρια σας για να το φτιάξετε έτσι ώστε κάθε μάτι να μπορεί να δει μόνο την πλευρά της εικόνας που υποτίθεται ότι βλέπει.
+ • Για εγκάρσια όψη: κρατήστε ένα μόνο σωλήνα στη γέφυρα της μύτης σας (στο κέντρο ανάμεσα στα μάτια σας) ενώ τον στρέφετε στο κέντρο της εικόνας μπροστά σας. Μετακινήστε αργά το σωλήνα προς την οθόνη ενώ προσπαθείτε να κοιτάξετε προς τα κάτω το σωλήνα και με τα δύο μάτια. Όταν φτάσετε στη σωστή θέση με το σωλήνα, η εικόνα πρέπει να ασφαλίσει στη θέση της. Μπορεί να σας βοηθήσει να συγκεντρωθείτε στην προσπάθεια να κοιτάξετε το εσωτερικό του άκρου του σωλήνα. Εάν δεν μπορείτε να βρείτε τη σωστή θέση, δοκιμάστε να χρησιμοποιήσετε μια μεγαλύτερη εικόνα ή ένα μικρότερο σωλήνα.
+ • Για παράλληλη προβολή: κρατήστε ένα σωλήνα μπροστά από κάθε μάτι, αλλά σηκώστε τα και τα δύο προς τα έξω, ώστε να μην μπορείτε να δείτε τίποτα. Γυρίστε αργά τους σωλήνες προς τα μέσα ταυτόχρονα, ώστε να μπορείτε να αρχίσετε να βλέπετε περισσότερη εικόνα. Τη στιγμή που μπορείτε να δείτε το μεγαλύτερο μέρος της εικόνας (σχεδόν το μισό με κάθε μάτι), προσπαθήστε να χαλαρώσετε τα μάτια σας και να φέρετε τα μισά μαζί. Μπορεί να σας βοηθήσει να χρησιμοποιήσετε μια μεγαλύτερη ή μικρότερη εικόνα.
+
+Υπάρχει μια εύκολη άσκηση που μπορείτε να κάνετε για να εξασκηθείτε στη σύντηξη είτε με σταυρωτή είτε με παράλληλη θέαση. Πάρτε έναν μαρκαδόρο και σχεδιάστε ένα μέρος από ένα χαμογελαστό πρόσωπο σε κάθε μια από τις μικρογραφίες σας (ή ένα ζευγάρι μπαστούνια ή γλωσσοπίεστρα). Για παράδειγμα, από τη μία πλευρά σχεδιάστε ένα μάτι και ένα στόμα και από την άλλη ένα μάτι και μια μύτη. Στη συνέχεια, μπορείτε να τις κρατήσετε μπροστά σας και να εξασκηθείτε στη συγχώνευση των δύο εικόνων για να ολοκληρώσετε το χαμογελαστό πρόσωπο.
+
+Προσωπικά προτιμώ το cross over parallel γιατί οι εικόνες μπορεί να είναι μεγαλύτερες, αλλά και οι δύο μέθοδοι λειτουργούν. Εάν θέλετε να πειραματιστείτε με μεγαλύτερες παράλληλες εικόνες, μπορείτε να ελέγξετε το μέγεθος στη σελίδα Ρυθμίσεις.
+
+Μερικές φορές είναι δύσκολο να αισθανθείτε αν κάνετε τη σταυρωτή ή την παράλληλη μέθοδο ενώ το κάνετε. Μπορείτε να ζητήσετε από κάποιον άλλο να προσέχει τα μάτια σας ενώ το κάνετε ή μπορείτε να δείτε την παρακάτω εικόνα ως δοκιμή:</value>
+  </data>
+  <data name="SaveModes.Anaglyph" xml:space="preserve">
+    <value>Ανάγλυφο</value>
+  </data>
+  <data name="SaveModes.Cardboard" xml:space="preserve">
+    <value>Χαρτόνι</value>
+  </data>
+  <data name="SaveModes.Cross" xml:space="preserve">
+    <value>Σταυρός</value>
+  </data>
+  <data name="SaveModes.GrayscaleAnaglyph" xml:space="preserve">
+    <value>Ανάγλυφο σε κλίμακα του γκρι</value>
+  </data>
+  <data name="SaveModes.Parallel" xml:space="preserve">
+    <value>Παράλληλο</value>
+  </data>
+  <data name="SaveModes.Quad" xml:space="preserve">
+    <value>Τετράδυμο</value>
+  </data>
+  <data name="SaveModes.Separate" xml:space="preserve">
+    <value>Ξεχωριστός</value>
+  </data>
+  <data name="SaveModes.Single" xml:space="preserve">
+    <value>Μονόκλινο</value>
+  </data>
+  <data name="SaveModes.Triple" xml:space="preserve">
+    <value>Τριπλούς</value>
+  </data>
+  <data name="Page.Camera.FovExplain" xml:space="preserve">
+    <value>Για να διορθώσετε τις διαφορές στο οπτικό πεδίο, κάντε μεγέθυνση και σύρετε τις εικόνες έτσι ώστε τα διακριτικά σημεία να ευθυγραμμιστούν μεταξύ των δύο φωτογραφιών. Μπορείτε να σύρετε τις λευκές γραμμές γύρω για να σας βοηθήσουν να οπτικοποιήσετε τη στοίχιση. Αυτή η διόρθωση θα εφαρμοστεί σε μελλοντικές προεπισκοπήσεις. Θα αποθηκευτεί, αλλά μπορείτε να το επαναφέρετε στη σελίδα Ρυθμίσεις. Εάν χρησιμοποιείτε πανομοιότυπες συσκευές, απλώς αποθηκεύστε χωρίς προσαρμογή.</value>
+  </data>
+  <data name="Page.Camera.FovTitle" xml:space="preserve">
+    <value>Διόρθωση πεδίου προβολής</value>
+  </data>
+  <data name="Page.Camera.KeyPoints" xml:space="preserve">
+    <value>Βασικά σημεία</value>
+  </data>
+  <data name="Page.Camera.Warped" xml:space="preserve">
+    <value>Στραβωμένος</value>
+  </data>
+  <data name="Page.Camera.WelcomeExplain" xml:space="preserve">
+    <value>Το CrossCam δημιουργήθηκε για να σας βοηθήσει να κάνετε τρισδιάστατες φωτογραφίες. Οι φωτογραφίες είναι 3D ακριβώς όπως οι ταινίες VR ή 3D, αλλά δεν χρειάζεστε ειδικό εξοπλισμό ή γυαλιά - μόνο το τηλέφωνό σας (αλλά αν έχετε ένα ζευγάρι κόκκινα/κυανό γυαλιά 3D ή πρόγραμμα προβολής Google Cardboard, μπορείτε να τα χρησιμοποιήσετε και με CrossCam). Η τεχνική \"δωρεάν προβολή\" που χρησιμοποιεί μόνο το τηλέφωνό σας και τα μάτια σας χρειάζεται λίγη εξάσκηση για να μάθετε. Πριν σας πω πώς να χρησιμοποιήσετε το CrossCam, θα θέλατε πρώτα να μάθετε περισσότερα για την τεχνική προβολής;</value>
+  </data>
+  <data name="Page.Camera.Welcome" xml:space="preserve">
+    <value>Καλώς ήρθατε στο CrossCam!</value>
+  </data>
+  <data name="Page.Camera.Directions" xml:space="preserve">
+    <value>Μετάβαση στις Οδηγίες</value>
+  </data>
+  <data name="Page.Camera.Technique" xml:space="preserve">
+    <value>Τεχνική προβολής</value>
+  </data>
+  <data name="Page.HowToUse.P1" xml:space="preserve">
+    <value>Εάν θέλετε να το δείτε ξανά, πατήστε το εικονίδιο χάμπουργκερ (τρεις γραμμές) στην επάνω αριστερή γωνία της οθόνης της κάμερας και πατήστε "Βοήθεια".
+
+
+1) Καδράρετε και τραβήξτε την πρώτη φωτογραφία.</value>
+  </data>
+  <data name="Page.HowToUse.P2" xml:space="preserve">
+    <value>3) Κρατήστε το τηλέφωνό σας σταθερό μπροστά σας και μετακινηθείτε αργά προς τα πλάγια προς την κατεύθυνση που σας λέει η CrossCam. Μην μετακινηθείτε πολύ μακριά - μια ίντσα ή λιγότερο για κάθε πόδι μακριά είναι ο στόχος σας. Επίσης, μην στρίβετε καθόλου, απλώς γλιστρήστε στο πλάι ή ίσως απλώς γέρνετε.
+
+4) Ευθυγραμμίστε την πρώτη φωτογραφία με την προεπισκόπηση της δεύτερης φωτογραφίας και τραβήξτε τη δεύτερη φωτογραφία όταν σας αρέσει αυτό που βλέπετε.
+
+5) Το CrossCam θα ευθυγραμμίσει αυτόματα τις φωτογραφίες σας αφού τις τραβήξετε, αλλά δεν είναι τέλειο, αν δεν σας αρέσει η ευθυγράμμισή τους, μπορείτε να απενεργοποιήσετε την αυτόματη ευθυγράμμιση πατώντας το εικονίδιο του μικρού ρομπότ. Το CrossCam έχει επίσης πολλές επιλογές χειροκίνητης επεξεργασίας στις οποίες μπορείτε να φτάσετε πατώντας το εικονίδιο με το μολύβι.
+
+6) Πατήστε το σημάδι επιλογής όταν είστε έτοιμοι να αποθηκεύσετε.
+
+
+Άλλα πράγματα που μπορείτε να κάνετε:
+ • Πατήστε μία φορά για να εστιάσετε σε ένα σημείο, πατήστε δύο φορές για να επιστρέψετε στη συνεχή αυτόματη εστίαση.
+ • Πατήστε το εικονίδιο με το γρανάζι στην επάνω δεξιά γωνία της οθόνης της κάμερας για να ανοίξετε τη σελίδα Ρυθμίσεις. Είναι γεμάτο ενδιαφέροντα πράγματα.
+ • Υπάρχει μια ωραία σελίδα Συμβουλές στην οποία μπορείτε να μεταβείτε πατώντας το εικονίδιο χάμπουργκερ στην επάνω αριστερή γωνία της οθόνης της κάμερας που μπορεί να σας βοηθήσει να κάνετε τις φωτογραφίες σας υπέροχες.
+ • Εάν προτιμάτε να μετακινήσετε την άλλη κατεύθυνση για τη δεύτερη βολή σας ή θέλετε να αλλάξετε τις πλευρές, απλώς κάντε ένα σάρωση.
+ • Πατήστε το εικονίδιο μικρού φακέλου στο κάτω μέρος για να φορτώσετε μια εικόνα ως πλάγια ή για να φορτώσετε μια πλήρη στερεοφωνική εικόνα.</value>
+  </data>
+  <data name="Page.Faq.Alignment" xml:space="preserve">
+    <value>Πώς λειτουργεί η αυτόματη ευθυγράμμιση;</value>
+  </data>
+  <data name="Page.Faq.Alignment.Body" xml:space="preserve">
+    <value>Η αυτόματη ευθυγράμμιση επιχειρεί να ευθυγραμμίσει τα ζεύγη εικόνων όσο το δυνατόν καλύτερα, αλλά δεν είναι τέλεια. Η όραση του υπολογιστή είναι καλύτερη σε ορισμένα πράγματα από τα ανθρώπινα μάτια, αλλά και πολύ χειρότερη σε άλλα πράγματα. Ο κόσμος που βλέπει είναι πολύ διαφορετικός από αυτόν που κάνουμε εμείς, αλλά μπορεί επίσης να δει με μερικούς διαφορετικούς τρόπους. Οι δύο κύριοι τρόποι που βλέπει στο CrossCam είναι μέσω του ενισχυμένου συντελεστή συσχέτισης (ECC) και χρησιμοποιώντας βασικά σημεία.
+
+Η ευθυγράμμιση ECC λειτουργεί ουσιαστικά προσπαθώντας να διασφαλίσει ότι τα ανοιχτόχρωμα μπαλώματα επικαλύπτονται με ανοιχτόχρωμα μπαλώματα και τα σκοτεινά μπαλώματα επικαλύπτονται με σκούρα μπαλώματα όταν οι δύο πλευρές επικαλύπτονται η μία πάνω στην άλλη. Η ευθυγράμμιση ECC συνοδεύεται από βαθμολογία εμπιστοσύνης που προορίζεται να σας βοηθήσει να αποφασίσετε εάν η ευθυγράμμιση ήταν αποτελεσματική. Το CrossCam έχει ρυθμιστεί ώστε να απορρίπτει τη στοίχιση που παράγεται εάν η εμπιστοσύνη είναι πολύ χαμηλή, αλλά μπορείτε να διαμορφώσετε το όριο επιτυχίας/αποτυχίας εμπιστοσύνης στη σελίδα Ρυθμίσεις.
+
+Η ευθυγράμμιση σημείων κλειδιού αναζητά σημεία ενδιαφέροντος όπως γωνίες, άκρες, κουκκίδες και υψηλή αντίθεση και προσπαθεί να τα ταιριάξει μεταξύ των δύο πλευρών. Μόλις τα σημεία αντιστοιχιστούν, το CrossCam μπορεί να χρησιμοποιήσει μια ποικιλία αλγορίθμων για να προσπαθήσει να παραμορφώσει τις πλευρές έτσι ώστε τα σημεία-κλειδιά από τη μία πλευρά να είναι όλα όσο το δυνατόν πιο κοντά στα αντίστοιχα βασικά σημεία στην άλλη πλευρά.
+
+Η CrossCam είναι προγραμματισμένη να χρησιμοποιεί πρώτα τη στοίχιση σημείων κλειδιού, αλλά θα επανέλθει στη στοίχιση ECC όταν αποτύχει η στοίχιση σημείων κλειδιού ή όταν η λήψη γίνεται με τη μέθοδο διαίρεσης καθρέφτη μιας λήψης. Μπορείτε επίσης να διαμορφώσετε την αυτόματη στοίχιση ώστε να χρησιμοποιείται πάντα η στοίχιση σημείων κλειδιού ή να χρησιμοποιείτε πάντα τη στοίχιση ECC στη σελίδα Ρυθμίσεις.
+
+Το CrossCam θα εμφανίσει το αποτέλεσμα της ευθυγράμμισης στην οθόνη της κάμερας κάτω από το εικονίδιο του μικρού ρομπότ. Εάν χρησιμοποιούσε στοίχιση ECC, θα εμφανίσει το ποσοστό εμπιστοσύνης. Εάν χρησιμοποιούσε ευθυγράμμιση σημείων κλειδιού θα εμφανίσει "KP". Εάν και οι δύο μέθοδοι ευθυγράμμισης απέτυχαν, θα εμφανιστεί η ένδειξη "F". Εάν δεν σας αρέσει το αποτέλεσμα της ευθυγράμμισης, μπορείτε να πατήσετε στο εικονίδιο του μικρού ρομπότ για να αφαιρέσετε τη στοίχιση.</value>
+  </data>
+  <data name="Page.Faq.Bad" xml:space="preserve">
+    <value>Είναι αυτό κακό για τα μάτια μου;</value>
+  </data>
+  <data name="Page.Faq.Bad.Body1" xml:space="preserve">
+    <value>Δεν ξέρω, αλλά δεν νομίζω. Ωστόσο, εάν αισθάνεστε άσχημα κάντε ένα διάλειμμα. Με την εξάσκηση η ενόχληση συνήθως μειώνεται. Οποιαδήποτε μέθοδος προβολής θα μπορούσε να προκαλέσει δυσφορία λόγω ενός αποτελέσματος που ονομάζεται σύγκρουση σύγκλισης-διαμονής. Ορίστε</value>
+  </data>
+  <data name="Page.Faq.Bad.Body2" xml:space="preserve">
+    <value>ένας σύνδεσμος της Wikipedia για τη σύγκρουση στενότητας-διαμονής.</value>
+  </data>
+  <data name="Page.Faq.Bad.Body3" xml:space="preserve">
+    <value>Εάν χρησιμοποιείτε τη μέθοδο με τα σταυρομάτια, η αίσθηση μπορεί επίσης να οφείλεται στο ότι τα μάτια σας δεν έχουν συνηθίσει να δείχνουν σαν να κοιτάζουν κάτι τόσο κοντά για τόσο μεγάλο χρονικό διάστημα. Κατά τη διασταυρούμενη προβολή, τα μάτια σας συγκλίνουν σε ένα σημείο περίπου στη μέση μεταξύ των ματιών σας και της οθόνης. Αν κοιτάζοντας κάτι που κλείνει για μεγάλο χρονικό διάστημα θα σας προκαλούσε επίσης δυσφορία, έχουμε την εξήγησή μας.
+
+Η γνώμη μου για αυτό είναι ότι τα μάτια σας δεν κάνουν τίποτα εκτός των καθημερινών τους δυνατοτήτων, αλλά συνδυάζετε δύο διαφορετικές ικανότητες που συνήθως δεν χρησιμοποιούνται με αυτόν τον τρόπο. Εστιάζετε τους φακούς σας σε κάτι σε ένα σημείο στο οποίο είναι συνήθως άνετο να εστιάσετε, και στρέφετε τα μάτια σας κάπου όπου συνήθως είναι άνετο να δείχνουν, αλλά στο σημείο όπου εστιάζουν οι φακοί σας και όπου τα μάτια σας συγκλίνουν απλά δεν είναι το ίδιο σημείο. Δεν καταλαβαίνω πώς αυτό θα μπορούσε να είναι κακό για εσάς, εφόσον το όραμά σας δεν αναπτύσσεται ακόμη.</value>
+  </data>
+  <data name="Page.Faq.Cardboard" xml:space="preserve">
+    <value>Πώς μπορώ να χρησιμοποιήσω το CrossCam με το Google Cardboard;</value>
+  </data>
+  <data name="Page.Faq.Cardboard.Body" xml:space="preserve">
+    <value>Εάν ο θεατής σας έχει ένα κουμπί που πιέζει το κέντρο της οθόνης, μπορείτε να το χρησιμοποιήσετε για λήψη χρησιμοποιώντας το Cardboard. Ο θεατής σας θα πρέπει επίσης να έχει μια τρύπα για να βλέπει η κάμερα του τηλεφώνου σας.
+
+Για να τραβήξετε φωτογραφίες χρησιμοποιώντας το Cardboard, αλλάξτε τη μέθοδο προβολής προεπισκόπησης (στη σελίδα Ρυθμίσεις) σε Cardboard και, στη συνέχεια, επιστρέψτε στη σελίδα της κάμερας και κολλήστε το τηλέφωνό σας στο πρόγραμμα προβολής. Πατήστε το κουμπί για λήψη και όταν καταγράψετε και τις δύο πλευρές, πατήστε ξανά το κουμπί για αποθήκευση. Η αποθήκευση στη λειτουργία Cardboard προορίζεται μόνο για να σας επιτρέψει να φορτώσετε ξανά τις εικόνες στο CrossCam για προβολή αργότερα, όχι για να τις προβάλετε στην εφαρμογή φωτογραφιών σας μέσω του προγράμματος προβολής.
+
+Μπορείτε επίσης να κάνετε λήψη χρησιμοποιώντας οποιαδήποτε άλλη μέθοδο θέλετε, στη συνέχεια να αλλάξετε τη μέθοδο προβολής προεπισκόπησης σε Cardboard και να τοποθετήσετε το τηλέφωνό σας στο πρόγραμμα προβολής.
+
+Υπάρχουν πολλοί διαφορετικοί θεατές εκεί έξω με διαφορετικές ιδιότητες. Ίσως χρειαστεί να αλλάξετε την απόσταση διαχωρισμού Cardboard (στη σελίδα Ρυθμίσεις) για να κάνετε την εμπειρία σας πιο άνετη. Μπορεί επίσης να χρειαστεί να βεβαιωθείτε πρώτα ότι είστε καλοί στη λήψη στερεογραμμάτων υψηλής ποιότητας προτού τα κάνετε τεράστια και καθηλωτικά.</value>
+  </data>
+  <data name="Page.Faq.How" xml:space="preserve">
+    <value>Πως λειτουργεί αυτό;</value>
+  </data>
+  <data name="Page.Faq.How.Body1" xml:space="preserve">
+    <value>Το 3D εφέ που χρησιμοποιεί η CrossCam είναι ένας καλά μελετημένος κλάδος γνωστός ως στερεοσκόπηση και η μέθοδος όπου σταυρώνετε τα μάτια σας (ή τα χαλαρώνετε) για να δείτε τις δύο πλευρές ονομάζεται ελεύθερη προβολή. Όταν κοιτάμε γύρω μας τον κόσμο, κάθε μάτι μας βλέπει από διαφορετική οπτική γωνία. Στη στερεοσκόπηση το μόνο που κάνουμε είναι να παρουσιάζουμε μια (τεχνητή) προοπτική σε κάθε μάτι, και ο εγκέφαλός μας κάνει τα υπόλοιπα. Υπάρχουν πολλοί διαφορετικοί τρόποι για να κάνετε κάθε μάτι να δει μια διαφορετική εικόνα. Ορίστε</value>
+  </data>
+  <data name="Page.Faq.How.Body2" xml:space="preserve">
+    <value>ένας σύνδεσμος της Wikipedia για τη στερεοσκόπηση</value>
+  </data>
+  <data name="Page.Faq.How.Body3" xml:space="preserve">
+    <value>Οι τρισδιάστατες εικόνες που κάνετε με το CrossCam ονομάζονται στερεογράμματα. Τα βιβλία Magic Eye™ περιέχουν αυτό που λέγεται αυτοστερεογράμματα.</value>
+  </data>
+  <data name="Page.Faq.Into" xml:space="preserve">
+    <value>Πώς ασχοληθήκατε με τη στερεοσκόπηση;</value>
+  </data>
+  <data name="Page.Faq.Into.Body1" xml:space="preserve">
+    <value>Ενώ έπαιρνα το πτυχίο της φυσικής, είχα την ευκαιρία να πειραματιστώ δημιουργώντας τα δικά μου ολογράμματα χρησιμοποιώντας λέιζερ. Ο τύπος των ολογραμμάτων που έφτιαχνα ήταν 3D επειδή χρησιμοποιούσαν ένα πλέγμα περίθλασης για να προκαλέσουν καταστροφικές παρεμβολές στο φως που αντανακλάται από την επιφάνεια μιας γυάλινης πλάκας, γεγονός που κάνει την ανακλώμενη εικόνα να φαίνεται διαφορετική από διαφορετικά σημεία. Όταν κάθε μάτι μας βλέπει μια εικόνα που μοιάζει να είναι από διαφορετική οπτική γωνία (αν δεν είναι πολύ διαφορετική), ο εγκέφαλός μας το αντιλαμβάνεται ως βάθος.</value>
+  </data>
+  <data name="Page.Faq.Into.Body2" xml:space="preserve">
+    <value>Είχα επίγνωση αυτής της αρχής της στερεοσκοπικής αντίληψης εδώ και πολύ καιρό, αλλά εκείνη τη στιγμή της ζωής μου παρακολουθούσα επίσης κάποια μαθήματα προγραμματισμού, οπότε αποφάσισα ότι ήθελα να δοκιμάσω να φτιάξω ένα απλό πρόγραμμα υπολογιστή για στερεοσκοπικό τρισδιάστατο σχέδιο. Αυτή η προσπάθεια έγινε StereoSketcher. Η αρχική έκδοση ήταν γραμμένη σε Java, αλλά την ξαναέγραψα με Javascript και SVG και τώρα βρίσκεται στο διαδίκτυο</value>
+  </data>
+  <data name="Page.Faq.Into.Body3" xml:space="preserve">
+    <value>σε αυτόν τον σύνδεσμο.</value>
+  </data>
+  <data name="Page.Faq.Into.Body4" xml:space="preserve">
+    <value>Δεν είναι δημοφιλές με κανέναν τρόπο και μπορεί να μην είναι εύκολο για κανέναν εκτός από εμένα να το χρησιμοποιήσει, αλλά λειτουργεί. Ενώ δούλευα στο StereoSketcher, πειραματίστηκα με τις αρχές της στερεοσκόπησης και ερωτεύτηκα τον τρόπο με τον οποίο μπορεί να παραχθεί μια τόσο συναρπαστική και συναρπαστική εμπειρία χρησιμοποιώντας μερικούς απλούς κανόνες.</value>
+  </data>
+  <data name="Page.Faq.Inverted" xml:space="preserve">
+    <value>Γιατί το 3D δεν φαίνεται σωστό Ή γιατί το 3D φαίνεται ανεστραμμένο;</value>
+  </data>
+  <data name="Page.Faq.Inverted.Body1" xml:space="preserve">
+    <value>Κατά την ελεύθερη προβολή είτε με τη μέθοδο διασταύρωσης είτε με παράλληλη μέθοδο, είναι σημαντικό να κοιτάτε τις εικόνες χρησιμοποιώντας την ίδια μέθοδο που χρησιμοποιήθηκε για τη δημιουργία τους. Διαφορετικά, το δεξί σας μάτι θα κοιτάζει την προοπτική που προορίζεται για το αριστερό μάτι και αντίστροφα. Αυτό κάνει το βάθος της εικόνας να αντιστρέφεται, επειδή η κατεύθυνση της παράλλαξης έχει αντικατασταθεί.
+
+Παράλλαξη σημαίνει ότι από την οπτική γωνία του δεξιού σας ματιού, όταν τα αντικείμενα είναι πιο μακριά, φαίνονται να είναι πιο δεξιά από τα πιο κοντινά αντικείμενα όταν τα βλέπετε από το αριστερό σας μάτι. Είναι μπερδεμένο όταν περιγράφεται σε μορφή πρότασης, αλλά πολύ διαισθητικό όταν αποδεικνύεται.
+
+Για να το δείξετε, κρατήστε το ένα δάχτυλό σας προς τα πάνω στο μήκος του χεριού σας και μετά με το άλλο χέρι κρατήστε ένα άλλο δάχτυλο περίπου στα μισά του δρόμου μεταξύ του πρώτου δακτύλου και του προσώπου σας. Εάν κλείνετε εναλλάξ κάθε μάτι και προσέχετε πού βρίσκονται τα δάχτυλά σας, θα δείτε ότι κάθε μάτι τα βλέπει σε διαφορετικά σημεία. Έτσι, φυσικά, αν κάθε μάτι είδε αυτή την κίνηση με τον αντίθετο τρόπο που υποτίθεται ότι θα έπρεπε, το βάθος θα αναστραφεί.
+
+Είναι πολύ εύκολο να χρησιμοποιήσετε κατά λάθος τη λάθος μέθοδο προβολής, επειδή αποδεικνύεται ότι είναι πολύ δύσκολο για τους περισσότερους ανθρώπους να καταλάβουν εάν σταυρώνουν ή χαλαρώνουν τα μάτια τους απλώς νιώθοντας ή κοιτάζοντας τη μπερδεμένη διπλή εικόνα του κόσμου που προκύπτει. Αντίθετα, είναι καλύτερο είτε να κοιτάξετε από κάποιον άλλο τι κάνουν τα μάτια σας είτε να δοκιμάσετε αυτήν την εικόνα δοκιμαστή:</value>
+  </data>
+  <data name="Page.Faq.Inverted.Body2" xml:space="preserve">
+    <value>Πολλοί άνθρωποι έχουν βολευτεί πολύ με την προβολή βιβλίων Magic Eye™, τα οποία προορίζονται να προβληθούν χρησιμοποιώντας τη μέθοδο παράλληλης προβολής. Εάν τα προβάλετε σταυρωτά, τότε τα στιβαρά τρισδιάστατα αντικείμενα που υποτίθεται ότι βγαίνουν από τη σελίδα μοιάζουν με τρύπες. Και οι δύο μέθοδοι σάς επιτρέπουν να δείτε *κάτι*, αλλά αν δεν μπορούσατε να καταλάβετε τι ήταν, πιθανότατα να τις προβάλλετε.</value>
+  </data>
+  <data name="Page.Faq.Mirror" xml:space="preserve">
+    <value>Πώς μπορώ να κάνω τη μέθοδο "καθρέπτη μιας βολής";</value>
+  </data>
+  <data name="Page.Faq.Mirror.Body1" xml:space="preserve">
+    <value>Η λήψη με τη μέθοδο του καθρέφτη χωρίζει το πλαίσιο στη μέση και κάνει τον απαιτούμενο μετασχηματισμό, ώστε να μπορείτε να τραβήξετε και τις δύο πλευρές την ίδια στιγμή χρησιμοποιώντας ένα μόνο τηλέφωνο και έναν κανονικό καθρέφτη χειρός. Για να χρησιμοποιήσετε τη μέθοδο κατοπτρισμού κατά τη λήψη, γυρίστε τον διακόπτη για λειτουργία καθρέφτη στη σελίδα Ρυθμίσεις (πατήστε το εικονίδιο με το γρανάζι για να φτάσετε εκεί). Αφού ενεργοποιήσετε τη λειτουργία καθρέφτη, η CrossCam θα σας πει σε ποια πλευρά να κρατήσετε τον καθρέφτη σας. Κρατήστε τον καθρέφτη σας από εκείνη την πλευρά και ταράζετε με την ευθυγράμμιση μεταξύ του τηλεφώνου σας και του καθρέφτη και του θέματός σας. Με λίγη υπομονή, θα μπορείτε να τα ευθυγραμμίσετε όλα έτσι ώστε ο καθρέφτης να δείχνει τη σωστή προοπτική για μία από τις πλευρές. Επειδή η χρήση της μεθόδου καθρέφτη χωρίζει την εικόνα σας στη μέση κάθετα, είναι συνήθως καλύτερο να τραβάτε οριζόντια με τη μέθοδο κατοπτρισμού.
+
+Αυτή η μέθοδος θα λειτουργήσει επίσης με αντανακλάσεις σε μεγάλα, καθαρά παράθυρα, καθώς και σε ακίνητες λίμνες ή λακκούβες (όταν το τηλέφωνο είναι κλειδωμένο σε πορτραίτο και γυρίζει στο πλάι).</value>
+  </data>
+  <data name="Page.Faq.Mirror.Body2" xml:space="preserve">
+    <value>Υπάρχουν ορισμένοι συμβιβασμοί/επεξεργασίες που πρέπει να γίνουν προκειμένου να χρησιμοποιηθεί η μέθοδος του mirror. Όλα αυτά μπορούν να γίνουν χειροκίνητα στο CrossCam, αλλά η αυτόματη ευθυγράμμιση θα προσπαθήσει επίσης να τα κάνει για εσάς:
+ • Επειδή η ανακλώμενη όψη ταξιδεύει σε μεγαλύτερη απόσταση από την κανονική όψη, η κατοπτρισμένη πλευρά θα πρέπει να μεγεθύνεται λίγο.
+ • Είναι πιθανό ότι όταν χρησιμοποιείτε τη μέθοδο του καθρέφτη, θα καταλήξετε να βάζετε τα δάχτυλα των ποδιών, αντί να διατηρείτε τις προοπτικές παράλληλες - αυτό μπορεί να έχει ως αποτέλεσμα η προκοπή να μοιάζει με κακή κατακόρυφη ευθυγράμμιση. Για να αναιρεθεί αυτό, μπορεί να γίνει διόρθωση βασικού λίθου, πράγμα που σημαίνει κατακόρυφη συρρίκνωση της μίας πλευράς καθεμιάς από τις εικόνες.
+ • Η εισαγωγή με τα δάχτυλα θα έχει επίσης την τάση να μετακινεί το στερεοφωνικό παράθυρο προς το μέρος σας. Μπορείτε να το αναιρέσετε και να το τοποθετήσετε όπου θέλετε, κόβοντας τις πλευρές.
+ • Ο καθρέφτης πιθανότατα δεν θα καλύψει πλήρως την όψη της μίας πλευράς, επομένως μπορεί να χρειαστεί να γίνει κάποια περικοπή για να αφαιρεθούν τα κομμάτια που δεν αντανακλώνται.
+
+Οι καλύτεροι καθρέφτες για αυτό έχουν λεπτό γυαλί. Πρώτον, είναι ελαφριά, επομένως κρατιούνται πιο εύκολα για μεγάλες περιόδους. Το άλλο σημαντικό πράγμα είναι ότι όταν χρησιμοποιείτε τον καθρέφτη, πιθανότατα θα στοχεύετε τον καθρέφτη στο πλάι αντί να κοιτάζετε κατευθείαν μέσα του, καθώς συνήθως χρησιμοποιούνται καθρέφτες. Όταν προσανατολίζονται έτσι, οι καθρέφτες με παχύ γυαλί μπορεί να έχουν κάποια θολότητα. Όσο πιο λεπτό είναι το γυαλί, τόσο λιγότερο εμφανές θα είναι αυτό το θάμπωμα. Αυτού του είδους οι καθρέφτες μπορεί επίσης να είναι χαμηλής ποιότητας από άλλες απόψεις, επομένως είναι σημαντικό να βρείτε μια καλή ισορροπία.
+
+Υπάρχουν μερικοί άλλοι συμβιβασμοί που πρέπει να γίνουν αποδεκτοί κατά τη χρήση του mirror capture που δεν μπορούν να διορθωθούν σε επεξεργασίες από το CrossCam:
+ • Επειδή η όψη των δύο πλευρών διανύει ελαφρώς διαφορετικές αποστάσεις, η εστίαση που απαιτείται για κάθε πλευρά θα είναι ελαφρώς διαφορετική, επομένως η μία πλευρά θα είναι πάντα ελαφρώς θολή. Αυτό το εφέ θα είναι περισσότερο ή λιγότερο αισθητό ανάλογα με την απόσταση από το θέμα και το βάθος πεδίου του φακού.
+ • Κανένας καθρέφτης δεν είναι πραγματικά 100% αποδοτικός, επομένως η πλευρά που χρησιμοποιεί τον καθρέφτη μπορεί να είναι ελαφρώς πιο σκούρα. Αυτό θα διαφέρει ανάλογα με την ποιότητα του καθρέφτη.</value>
+  </data>
+  <data name="Page.Faq.Moving" xml:space="preserve">
+    <value>Το θέμα μου κινείται, πώς μπορώ να το τραβήξω τρισδιάστατες φωτογραφίες;</value>
+  </data>
+  <data name="Page.Faq.Moving.Body" xml:space="preserve">
+    <value>Το CrossCam σάς επιτρέπει δύο μεθόδους για να καταγράψετε και τις δύο προοπτικές την ίδια στιγμή. Μια μέθοδος χρησιμοποιεί δύο τηλέφωνα και μια μέθοδος χρησιμοποιεί έναν καθρέφτη.
+
+Για να χρησιμοποιήσετε τη ρύθμιση δύο τηλεφώνων, ρίξτε μια ματιά στη σελίδα Ρύθμιση σύζευξης, στην οποία μπορείτε να μεταβείτε από τη σελίδα Ρυθμίσεις (πατήστε το εικονίδιο με το γρανάζι).
+
+Για να χρησιμοποιήσετε τη μέθοδο του καθρέφτη, ανατρέξτε στην άλλη ερώτηση συχνών ερωτήσεων σχετικά με αυτήν.</value>
+  </data>
+  <data name="Page.Faq.Test" xml:space="preserve">
+    <value>Πώς μπορώ να δοκιμάσω εκδόσεις προέκδοσης του CrossCam;</value>
+  </data>
+  <data name="Page.Faq.Test.Body" xml:space="preserve">
+    <value>Δείτε αυτήν την ανάρτηση στο Reddit</value>
+  </data>
+  <data name="Page.Faq.Why" xml:space="preserve">
+    <value>Γιατί έφτιαξες το CrossCam;</value>
+  </data>
+  <data name="Page.Faq.Why.Body" xml:space="preserve">
+    <value>Καθώς άρχισα να ενδιαφέρομαι για τη στερεοσκόπηση, έτυχε να κάνω ένα ταξίδι στο Yellowstone. Ενώ ήμουν εκεί, συνειδητοποίησα ότι μπορεί να ήταν διασκεδαστικό να προσπαθήσω να χρησιμοποιήσω μια εφαρμογή για φορητές συσκευές τρισδιάστατης κάμερας για να καταγράψω πράγματα εκεί σε 3D. Ήμουν πολύ απογοητευμένος από τις υπάρχουσες επιλογές. Βρήκα ότι όλοι σας ζήτησαν να κάνετε δύο συλλήψεις και μετά να μάθετε αν ήταν καλές. Συχνά δεν ήταν, καθώς έπρεπε επανειλημμένα να κάνω πλήρεις εικασίες για την απόσταση χωρισμού μου, καθώς και για την ποιότητα του θέματος.
+
+Τις επόμενες εβδομάδες η απογοήτευσή μου που σιγοβράζει με οδήγησε να φανταστώ ότι απλώς παρέχω μια ζωντανή προεπισκόπηση της δεύτερης λήψης μαζί με την πρώτη. Είχα ήδη ένα υπόβαθρο στην ανάπτυξη κινητής τηλεφωνίας, οπότε τότε ήταν απλώς θέμα να αφιερώσω χρόνο. Το CrossCam ήταν καταπληκτικό για μένα να το χρησιμοποιώ μόνο για μένα για να διατηρήσω τις αναμνήσεις μου και χαίρομαι να το μοιραστώ μαζί σας.</value>
+  </data>
+  <data name="Page.Faq.Wiggle" xml:space="preserve">
+    <value>Τι είναι τα wigglegrams;</value>
+  </data>
+  <data name="Page.Faq.Wiggle.Body" xml:space="preserve">
+    <value>Τα Wigglegrams είναι ένας τρόπος προβολής στερεογραμμάτων που δεν βασίζεται στη διόφθαλμη όραση. Είναι συνήθως ένα gif που γυρίζει μπρος-πίσω μεταξύ των δύο προοπτικών, εμφανίζοντας το καθένα στο σύνολό του στο ίδιο σημείο. Η CrossCam δεν υποστηρίζει τη δημιουργία τους αυτήν τη στιγμή, αλλά στείλτε μου email αν σας ενδιαφέρουν πραγματικά και θα το κάνω.</value>
+  </data>
+  <data name="Page.Tips.AlignAfter" xml:space="preserve">
+    <value>Προσέξτε τις οριζόντιες γραμμές, αλλά μπορείτε επίσης να ευθυγραμμίσετε μετά.</value>
+  </data>
+  <data name="Page.Tips.AlignAfter.Body" xml:space="preserve">
+    <value>Αν διαπιστώσετε ότι κατά τη λήψη φωτογραφιών είναι αδύνατο να ευθυγραμμιστούν ταυτόχρονα τόσο η επάνω όσο και η κάτω γραμμή οδηγών, πιθανότατα μετακινηθήκατε προς κάποια κατεύθυνση εκτός από απλώς στο πλάι. Προσπαθήστε να το διορθώσετε πριν τραβήξετε τις φωτογραφίες, αλλά η ευθυγράμμιση μετά το γεγονός μπορεί να σας βοηθήσει πολύ.</value>
+  </data>
+  <data name="Page.Tips.Alignment" xml:space="preserve">
+    <value>Μπορείτε να απενεργοποιήσετε την αυτόματη ευθυγράμμιση.</value>
+  </data>
+  <data name="Page.Tips.Alignment.Body" xml:space="preserve">
+    <value>Εάν δεν σας αρέσουν τα αποτελέσματα της αυτόματης ευθυγράμμισης, απλώς απενεργοποιήστε τη στη σελίδα Ρυθμίσεις ή πατώντας στο εικονίδιο του μικρού ρομπότ και οι αρχικές φωτογραφίες που τραβήξατε θα αποκατασταθούν.</value>
+  </data>
+  <data name="Page.Tips.Donut" xml:space="preserve">
+    <value>Ο οδηγός ντόνατ μπορεί να βοηθήσει το παράθυρό σας.</value>
+  </data>
+  <data name="Page.Tips.Donut.Body" xml:space="preserve">
+    <value>Υπάρχει ένας πειραματικός οδηγός ντόνατ στη σελίδα Ρυθμίσεις που μπορείτε να ενεργοποιήσετε το οποίο μπορεί να σας βοηθήσει να διατηρήσετε το στερεοφωνικό σας παράθυρο μεγιστοποιώντας παράλληλα το χρησιμοποιήσιμο πλάτος. Στρίβοντας αριστερά και δεξιά, το βάθος στο ντόνατ θα αλλάξει σε σχέση με την υπόλοιπη σκηνή - ρυθμίστε το βάθος του ντόνατ έτσι ώστε να βρίσκεται είτε πάνω είτε πίσω από το πιο απομακρυσμένο σημείο της σκηνής σας. Να είστε προσεκτικοί, η χρήση του σε μικρότερες σκηνές μπορεί να κάνει τα πράγματα οδυνηρά (δείτε την συμβουλή keystone παραπάνω).</value>
+  </data>
+  <data name="Page.Tips.Keystone" xml:space="preserve">
+    <value>Απαιτείται διόρθωση βασικού λίθου εάν βάλετε τα δάχτυλα.</value>
+  </data>
+  <data name="Page.Tips.Keystone.Body1" xml:space="preserve">
+    <value>Εάν στρίβετε προς τα μέσα με κάθε βολή, είναι πολύ χρήσιμο να κάνετε διορθώσεις βασικού στύλου. Συνήθως θα θέλατε να συρρικνώσετε τις εσωτερικές άκρες των φωτογραφιών και στη συνέχεια να κόψετε μερικές από το επάνω και το κάτω μέρος για να τις ισοπεδώσετε. Μπορείτε να μεταβείτε στο μενού επεξεργασίας keystone πατώντας το κουμπί που μοιάζει με αυτό:</value>
+  </data>
+  <data name="Page.Tips.Keystone.Body2" xml:space="preserve">
+    <value>Η στροφή προς τα μέσα ονομάζεται toe-in. Μπορεί να προκαλέσει ένα προοδευτικό αποτέλεσμα που καθιστά δύσκολη τη συγχώνευση των γωνιών της εικόνας. Το συντομευτικό αποτέλεσμα είναι παρόν ανά πάσα στιγμή στην πραγματική ζωή, επειδή οι παράλληλες γραμμές φαίνεται να συγκλίνουν καθώς απομακρύνονται σε απόσταση μακριά από εσάς, αλλά οι τεχνητές προοπτικές μπορεί να το κάνουν περίεργο.</value>
+  </data>
+  <data name="Page.Tips.Lean" xml:space="preserve">
+    <value>Μπορείτε απλά να γέρνετε.</value>
+  </data>
+  <data name="Page.Tips.Lean.Body" xml:space="preserve">
+    <value>Μερικές φορές, αντί να μετακινείτε πλήρως τα πόδια σας αριστερά ή δεξιά για να τραβήξετε φωτογραφίες, μπορεί να είναι πιο εύκολο να στέκεστε με τα πόδια σας ανοιχτά και να γέρνετε προς κάθε κατεύθυνση, αλλά προσέξτε να κρατάτε το τηλέφωνο στο ίδιο ύψος και στο ίδιο ύψος. Απλώς το να γέρνετε αντί να κινείστε μπορεί να σας βοηθήσει να προχωρήσετε πολύ μακριά και μπορεί να σας διευκολύνει να κρατήσετε τον στόχο σας ευθεία.</value>
+  </data>
+  <data name="Page.Tips.Lines" xml:space="preserve">
+    <value>Οι γραμμές ευθυγράμμισης μπορούν να μετακινηθούν.</value>
+  </data>
+  <data name="Page.Tips.Lines.Body" xml:space="preserve">
+    <value>Εάν θέλετε, μπορείτε να σύρετε τις γραμμές ευθυγράμμισης. Αυτό είναι ιδιαίτερα χρήσιμο κατά την ευθυγράμμιση των εικόνων κατά την επεξεργασία.</value>
+  </data>
+  <data name="Page.Tips.Old" xml:space="preserve">
+    <value>Μπορείτε να ανοίξετε παλιές φωτογραφίες στο CrossCam.</value>
+  </data>
+  <data name="Page.Tips.Old.Body" xml:space="preserve">
+    <value>Μπορείτε να φορτώσετε φωτογραφίες που τραβήξατε προηγουμένως πατώντας το εικονίδιο φακέλου στο κάτω μέρος της σελίδας της κάμερας, αλλά εάν εργάζεστε με μια μεγάλη παρτίδα φωτογραφιών, μπορείτε επίσης να τις μοιραστείτε στο CrossCam απευθείας από την εφαρμογή φωτογραφιών σας, η οποία μπορεί να παρακολουθεί τοποθετήστε καλύτερα στις φωτογραφίες σας.</value>
+  </data>
+  <data name="Page.Tips.Quick" xml:space="preserve">
+    <value>Ενεργοποιήστε τη γρήγορη λειτουργία όταν είστε με άλλους.</value>
+  </data>
+  <data name="Page.Tips.Quick.Body" xml:space="preserve">
+    <value>Εάν εξερευνάτε με άλλα άτομα, είναι καλή ιδέα να μεταβείτε σε γρήγορη λειτουργία απενεργοποιώντας την αυτόματη ευθυγράμμιση και και περιγράμματα και αποθηκεύοντας απλώς τη στιγμή που καταγράψατε χωρίς να κάνετε καμία επεξεργασία. Μπορείτε πάντα να φορτώσετε, να ευθυγραμμίσετε αυτόματα και να επεξεργαστείτε τις εικόνες αργότερα. Με αυτόν τον τρόπο οι σύντροφοί σας δεν χρειάζεται να περιμένουν να τελειοποιήσετε τις φωτογραφίες σας επί τόπου, αλλά μπορείτε να είστε σίγουροι ότι το βάθος που θέλετε είναι πραγματικά εκεί. Προσέξτε μόνο να μην κάνετε βιαστική επεξεργασία πριν την πρώτη αποθήκευση! Μπορείτε επίσης να ενεργοποιήσετε την ξεχωριστή πλευρική αποθήκευση που θα αγνοήσει οποιαδήποτε επεξεργασία κάνετε.</value>
+  </data>
+  <data name="Page.Tips.Sick" xml:space="preserve">
+    <value>Εάν η κίνηση σας κάνει να αρρωστήσετε, μείνετε ακίνητοι.</value>
+  </data>
+  <data name="Page.Tips.Sick.Body" xml:space="preserve">
+    <value>Εάν όλη η κίνηση σας κάνει να αρρωστήσετε ή σας δυσκολεύει πολύ την προβολή σε 3D, μην αρχίσετε να προσπαθείτε να την δείτε σε 3D παρά μόνο αφού έχετε προχωρήσει λίγο. Στη συνέχεια, συγκρίνετε τις εικόνες μεταξύ τους και ευθυγραμμίστε τις εικόνες χρησιμοποιώντας τις οριζόντιες γραμμές χωρίς προβολή 3D και, στη συνέχεια, ξεκινήστε την προβολή 3D αφού ευθυγραμμιστούν και κρατώντας ακίνητες.</value>
+  </data>
+  <data name="Page.Tips.Space" xml:space="preserve">
+    <value>Αυτές οι φωτογραφίες μπορούν να χρειαστούν πολύ χώρο αποθήκευσης - μπορείτε να τις συρρικνώσετε.</value>
+  </data>
+  <data name="Page.Tips.Space.Body" xml:space="preserve">
+    <value>Η σελίδα Ρυθμίσεις έχει την επιλογή να μειώνει αναλογικά την ανάλυση της τελικής εικόνας - αυτό μπορεί να σας βοηθήσει αν θέλετε να εξοικονομήσετε χώρο. Εάν η φωτογραφία σας δεν έχει περικοπεί, το τελικό αποτέλεσμα είναι δύο εικόνες πλήρους ανάλυσης που ενώνονται μεταξύ τους για να κάνουν μία διπλής ανάλυσης, πράγμα που σημαίνει ότι συχνά μπορείτε να ξεφύγετε με μεγάλη μείωση ανάλυσης χωρίς να επηρεαστεί αισθητά η ποιότητα.</value>
+  </data>
+  <data name="Page.Tips.Turn" xml:space="preserve">
+    <value>Μην στρίβετε.</value>
+  </data>
+  <data name="Page.Tips.Turn.Body" xml:space="preserve">
+    <value>Όταν μετακινείστε, προσπαθήστε να μην περιστρέφετε καθόλου το τηλέφωνό σας προς οποιαδήποτε κατεύθυνση, συμπεριλαμβανομένης της φυσικής τάσης να στρίβετε προς το θέμα καθώς κινείστε στο πλάι. Θα χρειαστεί κάποια περιστροφή (μερικές φορές), αλλά προσπαθήστε να την ελαχιστοποιήσετε. Φανταστείτε ότι το τηλέφωνο είναι τοποθετημένο σε μια ευθεία οριζόντια ράγα και μπορεί μόνο να γλιστρήσει. Η στροφή προς τα μέσα μπορεί να προκαλέσει ένα προοδευτικό αποτέλεσμα που κάνει τις γωνίες δύσκολο να συγχωνευθούν.</value>
+  </data>
+  <data name="Page.Tips.Window" xml:space="preserve">
+    <value>Προσθέστε περίγραμμα και περικοπή για να δημιουργήσετε ένα ισχυρό στερεοφωνικό παράθυρο.</value>
+  </data>
+  <data name="Page.Tips.Window.Body" xml:space="preserve">
+    <value>Ένα ενδιαφέρον εφέ στερεοφωνικού παραθύρου μπορεί να δημιουργηθεί κάνοντας δύο πράγματα: 1) ενεργοποιήστε το περίγραμμα (στη σελίδα Ρυθμίσεις) και 2) για διασταυρούμενη προβολή, περικόψτε τις εσωτερικές άκρες των εικόνων μέχρι το ίδιο το εξωτερικό άκρο να γίνει 3D στην εικόνα (περικοπή τα ΕΞΩΤΕΡΙΚΑ άκρα εάν παρακολουθείτε παράλληλη). Το κλειδί είναι να περικόψετε το δεξί άκρο της αριστερής εικόνας λίγο πέρα ​​από αυτό που δείχνει η δεξιά άκρη της δεξιάς εικόνας της σκηνής και το αντίστροφο. Η προσθήκη περιγράμματος εναλλάσσεται στη σελίδα Ρυθμίσεις. Εάν αυτό προκαλεί σύγχυση, απλώς κόψτε ένα μάτσο από τις εσωτερικές άκρες και θα αρχίσει να είναι καθαρό. Το κουμπί περικοπής για τις εσωτερικές άκρες μοιάζει με αυτό:</value>
+  </data>
+  <data name="Button.Code" xml:space="preserve">
+    <value>Δείτε τον Κώδικα</value>
+  </data>
+  <data name="Button.Developer" xml:space="preserve">
+    <value>Σχετικά με τον Προγραμματιστή</value>
+  </data>
+  <data name="Button.EmailMe" xml:space="preserve">
+    <value>Στείλε μου ηλεκτρονικο μήνυμα</value>
+  </data>
+  <data name="Button.GitHub" xml:space="preserve">
+    <value>Προσθέστε ένα ζήτημα στο GitHub</value>
+  </data>
+  <data name="Button.Press" xml:space="preserve">
+    <value>Επιστρέψτε στην οθόνη της κάμερας και στις δύο συσκευές και πατήστε το κουμπί ζεύξης στην κάτω γωνία</value>
+  </data>
+  <data name="Button.Primary" xml:space="preserve">
+    <value>ΠΑΤΗΣΤΕ ΕΔΩ ΣΤΟ ΠΡΩΤΙΚΟ</value>
+  </data>
+  <data name="Button.Privacy" xml:space="preserve">
+    <value>Πολιτική Απορρήτου</value>
+  </data>
+  <data name="Button.Secondary" xml:space="preserve">
+    <value>ΠΑΤΗΣΤΕ ΕΔΩ ΣΤΟ ΔΕΥΤΕΡΕΥΟΝ</value>
+  </data>
+  <data name="Button.Test" xml:space="preserve">
+    <value>Δοκιμή εκδόσεων προέκδοσης</value>
+  </data>
+  <data name="Button.Wi-Fi" xml:space="preserve">
+    <value>Βεβαιωθείτε ότι το Wi-Fi είναι ενεργοποιημένο και στις δύο συσκευές (αλλά δεν χρειάζεται να είναι συνδεδεμένο σε τίποτα)</value>
+  </data>
+  <data name="Page.Pairing.1" xml:space="preserve">
+    <value>Εάν έχετε εγκαταστήσει δύο συσκευές με CrossCam, μπορείτε να τις συνδέσετε για να τραβήξετε ταυτόχρονα φωτογραφίες από δύο οπτικές γωνίες. Η λήψη δύο φωτογραφιών την ίδια στιγμή καθιστά δυνατά τα καλύτερα στερεογράμματα.
+
+Λάβετε υπόψη ότι αυτή η δυνατότητα είναι ακόμα πειραματική και ενδέχεται να έχει προβλήματα. Μπορεί να μην λειτουργεί άψογα όλη την ώρα και μπορεί να καταναλώσει την μπαταρία σας. Λάβετε επίσης υπόψη ότι αυτή τη στιγμή οι συσκευές πρέπει να είναι η ίδια πλατφόρμα για να συνδεθούν (και Android ή και τα δύο iOS).
+
+Ένας τρόπος για να επιτύχετε *τέλειο* συγχρονισμό χρησιμοποιώντας μόνο μία συσκευή και CrossCam είναι να χρησιμοποιήσετε τη μέθοδο "single-shot mirror". Μπορείτε να το ενεργοποιήσετε στη σελίδα Ρυθμίσεις και μπορείτε να διαβάσετε σχετικά στη σελίδα Συχνές ερωτήσεις.
+
+Για να μπορέσουν να χρησιμοποιηθούν μαζί δύο συσκευές πρέπει να εκχωρηθούν οι ρόλοι τους. Η ΚΥΡΙΑ συσκευή είναι αυτή που θα εμφανίσει και τις δύο προεπισκοπήσεις, θα ενεργοποιήσει τη λήψη και θα κρατήσει/αποθηκεύει τις τελικές λήψεις. Για να εκχωρήσετε ρόλους, πλοηγηθείτε και στις δύο συσκευές σε αυτήν τη σελίδα και, στη συνέχεια, ακολουθήστε τα παρακάτω βήματα:</value>
+  </data>
+  <data name="Page.Pairing.2" xml:space="preserve">
+    <value>Εάν αντιμετωπίζετε προβλήματα, ΣΗΜΕΙΩΣΤΕ:
+ • Μετά την έναρξη της διαδικασίας σύζευξης, μπορείτε να πατήσετε ξανά το κουμπί σύζευξης ανά πάσα στιγμή για να το σταματήσετε ή να αποσυνδεθείτε.
+ • Μπορεί να βοηθήσει να σταματήσετε τη σύζευξη και στις δύο συσκευές και να την επανεκκινήσετε ταυτόχρονα.
+ • Μπορεί να σας βοηθήσει να αποσυνδεθείτε από τα δίκτυα Wi-Fi ή δεδομένων σας σε περίπτωση που ενεργοποιούνται.
+ • Κάθε κάμερα είναι διαφορετική. Αυτές οι διαφορές μπορεί να περιλαμβάνουν γωνιακό οπτικό πεδίο, εστίαση, έκθεση και συμπεριφορά ισορροπίας λευκού, χρονισμό και άλλα. Ακόμη και δύο από το ίδιο μοντέλο τηλεφώνου θα συμπεριφέρονται ελαφρώς διαφορετικά. Προτιμώ να χρησιμοποιώ ένα ζευγάρι πανομοιότυπα παλιά τηλέφωνα (στην περίπτωσή μου, ένα ζευγάρι iPhone 6).
+ • Το CrossCam είναι λογισμικό, όχι υλικό, επομένως η λήψη των φωτογραφιών μπορεί να είναι ελαφρώς ασύγχρονη ανάλογα με το τι άλλο κάνουν οι επεξεργαστές και η μνήμη την ακριβή στιγμή που ενεργοποιείται η λήψη. Ως αποτέλεσμα, ο συγχρονισμός μπορεί μερικές φορές να μην είναι τέλειος, αλλά γενικά θα πρέπει να είναι πολύ κοντά.</value>
+  </data>
+  <data name="Page.Pairing.Again" xml:space="preserve">
+    <value>Για να συνδεθείτε ξανά αργότερα, βεβαιωθείτε ότι έχετε ενεργοποιήσει το Wi-Fi και, στη συνέχεια, απλώς πατήστε το κουμπί σύνδεσης στην αρχική οθόνη και στις δύο συσκευές.</value>
+  </data>
+  <data name="Page.Pairing.LocalNetworkAccess" xml:space="preserve">
+    <value>Το CrossCam απαιτεί άδεια πρόσβασης τοπικού δικτύου. Το CrossCam στην πραγματικότητα δεν χρησιμοποιεί το τοπικό δίκτυο, αλλά το iOS απαιτεί από το CrossCam να λάβει αυτήν την άδεια προκειμένου να χρησιμοποιήσει την κεραία Wi-Fi για σάρωση για συσκευές. Η CrossCam θα ζητήσει αυτήν την άδεια μία φορά - εάν η άδεια απορριφθεί, θα πρέπει να πάτε και να γυρίσετε τον διακόπτη στην εφαρμογή Ρυθμίσεις μόνοι σας.</value>
+  </data>
+  <data name="Page.Pairing.Location" xml:space="preserve">
+    <value>Η CrossCam θα ζητήσει άδειες και τροφοδοσία εξαρτημάτων όπως απαιτείται για να συνδέσει τις συσκευές σας. Σημείωση: Το CrossCam απαιτεί άδεια τοποθεσίας και για να ενεργοποιηθούν οι υπηρεσίες τοποθεσίας στην κύρια συσκευή προκειμένου να συνδεθεί στη δευτερεύουσα συσκευή. Αυτή είναι απλώς μια απαίτηση Android και είναι εντελώς εκτός ελέγχου μου. Το CrossCam στην πραγματικότητα δεν ΧΡΗΣΙΜΟΠΟΙΕΙ την τοποθεσία σας με κανέναν τρόπο, αλλά επειδή η πράξη της αναζήτησης (και εύρεσης) κοντινών συσκευών θα μπορούσε θεωρητικά να χρησιμοποιηθεί για τον κατά προσέγγιση εντοπισμό σας, η CrossCam απαιτεί άδεια για πρόσβαση στην τοποθεσία σας.</value>
+  </data>
+  <data name="Page.Pairing.Permissions" xml:space="preserve">
+    <value>Σημείωση σχετικά με τα δικαιώματα:</value>
+  </data>
+  <data name="Page.Pairing.Title" xml:space="preserve">
+    <value>Σύζευξη</value>
+  </data>
+  <data name="Button.Back" xml:space="preserve">
+    <value>&lt; Πίσω</value>
+  </data>
+  <data name="Page.MorePictures.CrossViewSubreddit" xml:space="preserve">
+    <value>CrossView Subreddit</value>
+  </data>
+  <data name="Page.MorePictures.FacebookGroup" xml:space="preserve">
+    <value>Στερεοσκοπική τρισδιάστατη ομάδα Facebook</value>
+  </data>
+  <data name="Page.MorePictures.GoogleDoc" xml:space="preserve">
+    <value>Google Doc of Great Stuff</value>
+  </data>
+  <data name="Page.MorePictures.Instagram" xml:space="preserve">
+    <value>Στερεοσκοπική ετικέτα Instagram</value>
+  </data>
+  <data name="Page.MorePictures.Mine" xml:space="preserve">
+    <value>Δείτε τις φωτογραφίες που έχω τραβήξει</value>
+  </data>
+  <data name="Page.MorePictures.ParallelViewSubreddit" xml:space="preserve">
+    <value>ParallelView Subreddit</value>
+  </data>
+  <data name="Page.Settings.Alignment" xml:space="preserve">
+    <value>Αυτόματη ευθυγράμμιση</value>
+  </data>
+  <data name="Page.Settings.Analytics" xml:space="preserve">
+    <value>Μοιραστείτε ανώνυμα δεδομένα χρήσης και σφαλμάτων για να βελτιώσετε το CrossCam</value>
+  </data>
+  <data name="Page.Settings.Border" xml:space="preserve">
+    <value>Σύνορο</value>
+  </data>
+  <data name="Page.Settings.Camera" xml:space="preserve">
+    <value>ΦΩΤΟΓΡΑΦΙΚΗ ΜΗΧΑΝΗ</value>
+  </data>
+  <data name="Page.Settings.Defaults" xml:space="preserve">
+    <value>Επαναφορά στα προεπιλεγμένα</value>
+  </data>
+  <data name="Page.Settings.Editing" xml:space="preserve">
+    <value>Επεξεργασία</value>
+  </data>
+  <data name="Page.Settings.ErrorEmail" xml:space="preserve">
+    <value>Ζητήστε να στείλετε email όταν προκύψουν σφάλματα</value>
+  </data>
+  <data name="Page.Settings.Guides" xml:space="preserve">
+    <value>Οδηγοί λήψης</value>
+  </data>
+  <data name="Page.Settings.Pairing" xml:space="preserve">
+    <value>Σύζευξη</value>
+  </data>
+  <data name="Page.Settings.Preview" xml:space="preserve">
+    <value>Προεπισκόπηση μεθόδου προβολής</value>
+  </data>
+  <data name="Page.Settings.Saving" xml:space="preserve">
+    <value>Οικονομία</value>
+  </data>
+  <data name="Page.TipMe.1" xml:space="preserve">
+    <value>Το CrossCam είναι δωρεάν στη χρήση, χωρίς διαφημίσεις, ανοιχτού κώδικα, δεν συλλέγει προσωπικά στοιχεία από εσάς και σας παρέχει πλήρη πρόσβαση σε κάθε δυνατότητα. Μου αρέσει να δουλεύω στο CrossCam αλλά χρειάζεται πολύς χρόνος και προσπάθεια. Δεν βγάζω καθόλου χρήματα από το CrossCam εκτός από συμβουλές που μπορεί να αποφασίσουν να μου στείλουν οι άνθρωποι.</value>
+  </data>
+  <data name="Page.TipMe.2" xml:space="preserve">
+    <value>Εάν σας αρέσει το CrossCam και μπορείτε, σκεφτείτε να μου στείλετε μια συμβουλή.</value>
+  </data>
+  <data name="Page.TipMe.Ko-fi" xml:space="preserve">
+    <value>Κο-φι</value>
+  </data>
+  <data name="Page.TipMe.Patreon" xml:space="preserve">
+    <value>Πατρέων</value>
+  </data>
+  <data name="Page.TipMe.PayPal" xml:space="preserve">
+    <value>PayPal</value>
+  </data>
+  <data name="Page.TipMe.Tipped" xml:space="preserve">
+    <value>Μου δόθηκε αιχμή</value>
+  </data>
+  <data name="Page.TipMe.TippedTimes" xml:space="preserve">
+    <value>φορές, συνολικά</value>
+  </data>
+  <data name="Page.TipMe.Venmo" xml:space="preserve">
+    <value>Venmo</value>
+  </data>
+  <data name="Title.MorePictures" xml:space="preserve">
+    <value>Δείτε περισσότερες φωτογραφίες</value>
+  </data>
+  <data name="Title.Settings" xml:space="preserve">
+    <value>Ρυθμίσεις</value>
+  </data>
+  <data name="Title.TipMe" xml:space="preserve">
+    <value>Οι συμβουλές εκτιμώνται!</value>
+  </data>
+  <data name="Settings.Alignment.Advanced" xml:space="preserve">
+    <value>Εμφάνιση σύνθετων ρυθμίσεων ευθυγράμμισης</value>
+  </data>
+  <data name="Settings.Alignment.Ecc" xml:space="preserve">
+    <value>Προσπαθήστε να χρησιμοποιείτε πάντα πρώτα την ευθυγράμμιση ECC</value>
+  </data>
+  <data name="Settings.Alignment.Keypoints" xml:space="preserve">
+    <value>Προσπαθήστε να χρησιμοποιείτε πάντα πρώτα τη στοίχιση σημείων κλειδιού</value>
+  </data>
+  <data name="Settings.Alignment.On" xml:space="preserve">
+    <value>Αυτόματη ευθυγράμμιση μετά τη λήψη</value>
+  </data>
+  <data name="Settings.Border.Color" xml:space="preserve">
+    <value>Χρώμα πλαισίου</value>
+  </data>
+  <data name="Settings.Border.FuseGuide" xml:space="preserve">
+    <value>Προσθέστε οδηγό ασφάλειας στην κορυφή (μία κουκκίδα πάνω από κάθε πλευρά)</value>
+  </data>
+  <data name="Settings.Border.On" xml:space="preserve">
+    <value>Προσθήκη περιγράμματος</value>
+  </data>
+  <data name="Settings.Border.Prompt" xml:space="preserve">
+    <value>Προτροπή για αποκοπή περιγράμματος όταν εντοπιστεί κατά τη φόρτωση</value>
+  </data>
+  <data name="Settings.Border.Thickness" xml:space="preserve">
+    <value>Πάχος περιγράμματος (δέκα του ποσοστού πλάτους)</value>
+  </data>
+  <data name="Settings.Camera.Camera1" xml:space="preserve">
+    <value>Force camera1 API (μπορεί να είναι χρήσιμο εάν αντιμετωπίζετε περίεργα προβλήματα, αλλά θα έχει ως αποτέλεσμα περιορισμένη λειτουργικότητα, απαιτείται αναγκαστική έξοδος/επανεκκίνηση για να εφαρμοστεί)</value>
+  </data>
+  <data name="Settings.Camera.Camera2" xml:space="preserve">
+    <value>Force camera2 API (πρέπει να είναι σε Android 6 ή νεότερη έκδοση, μπορεί να είναι χρήσιμη εάν αντιμετωπίζετε σφάλματα, αλλά μπορεί να κάνετε περισσότερα, απαιτείται αναγκαστική έξοδος/επανεκκίνηση για να εφαρμοστεί)</value>
+  </data>
+  <data name="Settings.Camera.LandscapeCaptureHorizontal" xml:space="preserve">
+    <value>Οριζόντια τοποθέτηση του κουμπιού λήψης τοπίου</value>
+  </data>
+  <data name="Settings.Camera.LandscapeCaptureVertical" xml:space="preserve">
+    <value>Κατακόρυφη τοποθέτηση του κουμπιού λήψης τοπίου</value>
+  </data>
+  <data name="Settings.Camera.Lock" xml:space="preserve">
+    <value>Κλείδωμα εστίασης και έκθεσης για δεύτερη φωτογραφία σε εστίαση και έκθεση από την πρώτη φωτογραφία</value>
+  </data>
+  <data name="Settings.Camera.Pair" xml:space="preserve">
+    <value>Οριζόντια τοποθέτηση κουμπιού ζεύξης (όταν το κουμπί λήψης είναι στο κέντρο)</value>
+  </data>
+  <data name="Settings.Camera.PointFocus" xml:space="preserve">
+    <value>Πατήστε σε σημείο εστίασης, πατήστε δύο φορές για να επιστρέψετε στη συνεχή εστίαση (ή αποθήκευση ή διαγραφή)</value>
+  </data>
+  <data name="Settings.Camera.PortraitCapture" xml:space="preserve">
+    <value>Τοποθέτηση κουμπιού λήψης πορτρέτου</value>
+  </data>
+  <data name="Settings.Editing.Align" xml:space="preserve">
+    <value>Μέγιστη αναλογία κατακόρυφης ευθυγράμμισης</value>
+  </data>
+  <data name="Settings.Editing.Keystone" xml:space="preserve">
+    <value>Μέγιστο θεμέλιο</value>
+  </data>
+  <data name="Settings.Editing.Rotation" xml:space="preserve">
+    <value>Μέγιστες μοίρες περιστροφής</value>
+  </data>
+  <data name="Settings.Editing.SideCrop" xml:space="preserve">
+    <value>Μέγιστη αναλογία πλευρικής καλλιέργειας</value>
+  </data>
+  <data name="Settings.Editing.TopCrop" xml:space="preserve">
+    <value>Μέγιστη αναλογία πάνω/κάτω περικοπής</value>
+  </data>
+  <data name="Settings.Editing.Zoom" xml:space="preserve">
+    <value>Μέγιστη αναλογία ζουμ</value>
+  </data>
+  <data name="Settings.Guides.Donut" xml:space="preserve">
+    <value>Εμφάνιση οδηγού για ντόνατ (θα προκαλέσει εισχώρηση στα δάχτυλα, επομένως μπορεί να απαιτηθεί επεξεργασία βασικού λίθου)</value>
+  </data>
+  <data name="Settings.Guides.Fuse" xml:space="preserve">
+    <value>Εμφάνιση οδηγού ασφαλειών (μία κουκκίδα πάνω από κάθε πλευρά)</value>
+  </data>
+  <data name="Settings.Guides.LineColor" xml:space="preserve">
+    <value>Διαφορετικές χρωματικές γραμμές</value>
+  </data>
+  <data name="Settings.Guides.Lines" xml:space="preserve">
+    <value>Ορατές γραμμές</value>
+  </data>
+  <data name="Settings.Guides.Roll" xml:space="preserve">
+    <value>Ο οδηγός ρολού είναι ορατός</value>
+  </data>
+  <data name="Settings.Pair.CaptureDelay" xml:space="preserve">
+    <value>Πρόσθετη καθυστέρηση λήψης στιγμής (ms) (προσθέτει μια επιπλέον καθυστέρηση στη στιγμή λήψης στόχου μόνο σε αυτήν τη συσκευή)</value>
+  </data>
+  <data name="Settings.Pair.Countdown" xml:space="preserve">
+    <value>Μήκος αντίστροφης μέτρησης λήψης (χρονομετρητής)</value>
+  </data>
+  <data name="Settings.Pair.Fov" xml:space="preserve">
+    <value>Διόρθωση οπτικού πεδίου</value>
+  </data>
+  <data name="Settings.Pair.FovNotSet" xml:space="preserve">
+    <value>Η διόρθωση FOV δεν έχει οριστεί (κάντε λήψη με αντιστοιχισμένες συσκευές για να προχωρήσετε στη ρύθμιση).</value>
+  </data>
+  <data name="Settings.Pair.FovReset" xml:space="preserve">
+    <value>Επαναφορά</value>
+  </data>
+  <data name="Settings.Pair.Go" xml:space="preserve">
+    <value>Μεταβείτε στη σελίδα ρύθμισης σύζευξης</value>
+  </data>
+  <data name="Settings.Pair.NoRole" xml:space="preserve">
+    <value>Ο ρόλος δεν επιλέχθηκε</value>
+  </data>
+  <data name="Settings.Pair.PreviewDelay" xml:space="preserve">
+    <value>Προεπισκόπηση καθυστέρησης καρέ (μεγαλύτερος αριθμός θα μειώσει τον ρυθμό καρέ, αλλά θα εξοικονομήσει μπαταρία)</value>
+  </data>
+  <data name="Settings.Pair.Primary" xml:space="preserve">
+    <value>Πρωταρχικός:</value>
+  </data>
+  <data name="Settings.Pair.PrimaryRole" xml:space="preserve">
+    <value>Ρόλος: Πρωτεύων</value>
+  </data>
+  <data name="Settings.Pair.Sample" xml:space="preserve">
+    <value>Πλήθος δειγμάτων ρολογιού (ο μικρότερος αριθμός θα μειώσει τον χρόνο που απαιτείται για τον αρχικό συγχρονισμό, αλλά μπορεί να μειώσει την ακρίβεια συγχρονισμού)</value>
+  </data>
+  <data name="Settings.Pair.Secondary" xml:space="preserve">
+    <value>Δευτερεύων:</value>
+  </data>
+  <data name="Settings.Pair.SecondaryRole" xml:space="preserve">
+    <value>Ρόλος: Δευτερεύων</value>
+  </data>
+  <data name="Settings.Pair.Timeout" xml:space="preserve">
+    <value>Λήξη χρονικού ορίου σύνδεσης (δευτερόλεπτα) (0 σημαίνει ότι δεν υπάρχει χρονικό όριο λήξης)</value>
+  </data>
+  <data name="Settings.Preview.Barrel" xml:space="preserve">
+    <value>Προσθήκη διόρθωσης/παραμόρφωσης φακού (μπορεί να μειώσει τον ρυθμό καρέ)</value>
+  </data>
+  <data name="Settings.Preview.BarrelFinal" xml:space="preserve">
+    <value>Προσθήκη διόρθωσης/παραμόρφωσης φακού μόνο στις τελικές εικόνες (μπορεί να επιβραδύνει την τελική εμφάνιση, αλλά θα επιταχύνει τη λήψη)</value>
+  </data>
+  <data name="Settings.Preview.CardboardDistance" xml:space="preserve">
+    <value>Απόσταση διαχωρισμού χαρτονιού</value>
+  </data>
+  <data name="Settings.Preview.Downsize" xml:space="preserve">
+    <value>Σμίκρυνση εικόνας (μπορεί να αυξήσει τον ρυθμό καρέ)</value>
+  </data>
+  <data name="Settings.Preview.DownsizePercent" xml:space="preserve">
+    <value>Σμικρύνετε το ποσοστό εικόνας</value>
+  </data>
+  <data name="Settings.Preview.Immersive" xml:space="preserve">
+    <value>Καθηλωτική τελική προβολή</value>
+  </data>
+  <data name="Settings.Preview.LensStrength" xml:space="preserve">
+    <value>Δύναμη διόρθωσης φακού</value>
+  </data>
+  <data name="Settings.Preview.Mirror" xml:space="preserve">
+    <value>Λήψη χρησιμοποιώντας τη μέθοδο διαίρεσης καθρέφτη με μία λήψη</value>
+  </data>
+  <data name="Settings.Preview.Width" xml:space="preserve">
+    <value>Μέγιστο πλάτος εικόνας παράλληλης προβολής (σημεία)</value>
+  </data>
+  <data name="Settings.Reset" xml:space="preserve">
+    <value>Επαναφορά στα προεπιλεγμένα</value>
+  </data>
+  <data name="Settings.Saving.Alone" xml:space="preserve">
+    <value>Αποθηκεύστε την πρώτη πλευρά μόνη της (χωρίς επεξεργασίες ή περίγραμμα) (για εύκολη κοινή χρήση επίπεδης φωτογραφίας με άτομα με επίπεδη προβολή)</value>
+  </data>
+  <data name="Settings.Saving.Anaglyph" xml:space="preserve">
+    <value>Αποθήκευση έκδοσης κόκκινου/κυανού ανάγλυφου (με επεξεργασίες αλλά χωρίς περίγραμμα)</value>
+  </data>
+  <data name="Settings.Saving.Browse" xml:space="preserve">
+    <value>Ξεφυλλίζω...</value>
+  </data>
+  <data name="Settings.Saving.Cardboard" xml:space="preserve">
+    <value>Αποθήκευση για Cardboard (με επεξεργασίες, χωρίς περίγραμμα, χωρίς διαστήματα, πλήρες πλάτος, για φόρτωση αργότερα στο CrossCam)</value>
+  </data>
+  <data name="Settings.Saving.Clear" xml:space="preserve">
+    <value>Αυτόματη διαγραφή φωτογραφιών μετά την αποθήκευση</value>
+  </data>
+  <data name="Settings.Saving.Cross" xml:space="preserve">
+    <value>Αποθήκευση συνδεδεμένης έκδοσης cross view (με αλλαγές και περίγραμμα)</value>
+  </data>
+  <data name="Settings.Saving.ExternalDirectory" xml:space="preserve">
+    <value>Αποθήκευση στον εξωτερικό κατάλογο CrossCam στη διεύθυνση:</value>
+  </data>
+  <data name="Settings.Saving.ExternalWarning" xml:space="preserve">
+    <value>(προειδοποίηση: οι φωτογραφίες θα διαγραφούν εάν απεγκατασταθεί το CrossCam)</value>
+  </data>
+  <data name="Settings.Saving.Folder" xml:space="preserve">
+    <value>Αποθήκευση στον αποκλειστικό υποφάκελο/άλμπουμ "CrossCam".</value>
+  </data>
+  <data name="Settings.Saving.Grayscale" xml:space="preserve">
+    <value>Αποθήκευση έκδοσης αναγλυφικού σε κλίμακα του γκρι κόκκινο/κυανό (με επεξεργασίες αλλά χωρίς περίγραμμα)</value>
+  </data>
+  <data name="Settings.Saving.Order" xml:space="preserve">
+    <value>(Η αποθήκευση θα γίνει με σειρά από πάνω προς τα κάτω)</value>
+  </data>
+  <data name="Settings.Saving.Parallel" xml:space="preserve">
+    <value>Αποθήκευση συνδεδεμένης έκδοσης παράλληλης προβολής (με επεξεργασίες και περίγραμμα)</value>
+  </data>
+  <data name="Settings.Saving.Quad" xml:space="preserve">
+    <value>Αποθήκευση συνδυασμού τετραπλού (με επεξεργασίες και περίγραμμα)</value>
+  </data>
+  <data name="Settings.Saving.Reset" xml:space="preserve">
+    <value>Επαναφορά</value>
+  </data>
+  <data name="Settings.Saving.Resolution" xml:space="preserve">
+    <value>Αναλογία ανάλυσης</value>
+  </data>
+  <data name="Settings.Saving.SaveTo" xml:space="preserve">
+    <value>Αποθήκευση σε:</value>
+  </data>
+  <data name="Settings.Saving.Separate" xml:space="preserve">
+    <value>Αποθηκεύστε κάθε πλευρά ξεχωριστά (χωρίς επεξεργασίες ή περίγραμμα για ευκολότερη επεξεργασία μετά, αποθηκεύονται πρώτα στην αριστερή πλευρά)</value>
+  </data>
+  <data name="Settings.Saving.Subfolder" xml:space="preserve">
+    <value>Αποθήκευση σε αποκλειστικούς υποφακέλους/άλμπουμ "CrossCam_{ViewMethod}".</value>
+  </data>
+  <data name="Settings.Saving.Triple" xml:space="preserve">
+    <value>Αποθήκευση τριπλού συνδυασμού (με επεξεργασίες και περίγραμμα)</value>
+  </data>
+  <data name="Button.Pair.Accept" xml:space="preserve">
+    <value>Αποδέχομαι</value>
+  </data>
+  <data name="Button.Pair.Cancel" xml:space="preserve">
+    <value>Ματαίωση</value>
+  </data>
+  <data name="Page.Camera.AcceptConnection" xml:space="preserve">
+    <value>Αποδοχή σύνδεσης με</value>
+  </data>
+  <data name="Page.Camera.Confirm" xml:space="preserve">
+    <value>Επιβεβαιώστε ότι ο κωδικός ταιριάζει και στις δύο συσκευές:</value>
+  </data>
+  <data name="Page.Footer.CouldntOpen" xml:space="preserve">
+    <value>Δεν ήταν δυνατό το άνοιγμα του συνδέσμου</value>
+  </data>
+  <data name="Page.Footer.OpenError" xml:space="preserve">
+    <value>Δεν ήταν δυνατό να ανοίξει ο σύνδεσμος mailto. Αυτό μπορεί να οφείλεται στο γεγονός ότι το πρόγραμμα-πελάτης email σας δεν έχει ρυθμιστεί ή κάποιος άλλος λόγος.</value>
+  </data>
+  <data name="Page.Pair.Errors.Denied" xml:space="preserve">
+    <value>Δεν παραχωρήθηκαν οι απαραίτητες άδειες για σύζευξη. Εξαίρεση:</value>
+  </data>
+  <data name="Page.Pair.Errors.FailedBluetooth" xml:space="preserve">
+    <value>Η συσκευή απέτυχε να ενεργοποιήσει το Bluetooth. Εξαίρεση:</value>
+  </data>
+  <data name="Page.Pair.Errors.FailedSearch" xml:space="preserve">
+    <value>Η συσκευή απέτυχε να αναζητήσει συσκευές. Εξαίρεση:</value>
+  </data>
+  <data name="Page.Pair.Errors.LocationOff" xml:space="preserve">
+    <value>Οι υπηρεσίες τοποθεσίας δεν είναι ενεργοποιημένες. Δεν είναι δυνατή η σάρωση για συσκευές. Δείτε τη σελίδα σύζευξης για περισσότερες λεπτομέρειες.</value>
+  </data>
+  <data name="Page.Pair.Errors.LocationScan" xml:space="preserve">
+    <value>Η άδεια τοποθεσίας δεν χορηγήθηκε. Δεν είναι δυνατή η σάρωση για συσκευές. Δείτε τη σελίδα σύζευξης για περισσότερες λεπτομέρειες.</value>
+  </data>
+  <data name="Page.Pair.Errors.NotSupported" xml:space="preserve">
+    <value>Η σύζευξη δεν υποστηρίζεται σε αυτήν τη συσκευή. Εξαίρεση:</value>
+  </data>
+  <data name="Page.Pair.Errors.Title" xml:space="preserve">
+    <value>Λάθος</value>
+  </data>
+  <data name="Page.Pair.Errors.WifiOff" xml:space="preserve">
+    <value>Το Wi-Fi είναι απενεργοποιημένο. Ενεργοποιήστε το Wi-Fi.</value>
+  </data>
+  <data name="Page.Pair.PrimaryExplanation" xml:space="preserve">
+    <value>Αυτή η συσκευή έχει πλέον οριστεί ως κύρια.</value>
+  </data>
+  <data name="Page.Pair.PrimarySelected" xml:space="preserve">
+    <value>Επιλέχθηκε ο πρωταρχικός ρόλος</value>
+  </data>
+  <data name="Page.Pair.SecondaryExplanation" xml:space="preserve">
+    <value>Αυτή η συσκευή έχει πλέον οριστεί ως δευτερεύουσα.</value>
+  </data>
+  <data name="Page.Pair.SecondarySelected" xml:space="preserve">
+    <value>Επιλέχθηκε ο δευτερεύων ρόλος</value>
+  </data>
+  <data name="Page.Technique.Mode" xml:space="preserve">
+    <value>τρόπος.</value>
+  </data>
+  <data name="Page.Technique.SetMode" xml:space="preserve">
+    <value>Το CrossCam είναι τώρα μέσα</value>
+  </data>
+</root>

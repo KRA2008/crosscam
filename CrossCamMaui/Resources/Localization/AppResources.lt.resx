@@ -1,0 +1,1156 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="Button.GoogleDoc" xml:space="preserve">
+    <value>„Google“ puikių dalykų dokumentas</value>
+  </data>
+  <data name="Button.LearnCross" xml:space="preserve">
+    <value>MOKYKITE KRYŽIAUS</value>
+  </data>
+  <data name="Button.LearnParallel" xml:space="preserve">
+    <value>MOKYKITE PARALELIAI</value>
+  </data>
+  <data name="Button.MorePictures" xml:space="preserve">
+    <value>Žiūrėti daugiau nuotraukų</value>
+  </data>
+  <data name="Button.Review" xml:space="preserve">
+    <value>Parašyti atsiliepimą</value>
+  </data>
+  <data name="Button.Share" xml:space="preserve">
+    <value>Bendrinkite CrossCam</value>
+  </data>
+  <data name="Button.Support" xml:space="preserve">
+    <value>Palaikykite kūrėją</value>
+  </data>
+  <data name="Button.TapCross" xml:space="preserve">
+    <value>Bakstelėkite ČIA, kad pasirinktumėte kryžių</value>
+  </data>
+  <data name="Button.TapParallel" xml:space="preserve">
+    <value>Bakstelėkite ČIA, KAD PASIRINKITE PARALELĮ</value>
+  </data>
+  <data name="Footer.Span1" xml:space="preserve">
+    <value>Radote klaidą? Turite klausimą? Tiesiog el</value>
+  </data>
+  <data name="Footer.Span3" xml:space="preserve">
+    <value>! Man patinka kalbėtis su vartotojais ir tai greičiausias būdas su manimi bendrauti.</value>
+  </data>
+  <data name="Page.HowToUse.2anaglyph" xml:space="preserve">
+    <value>2) Pradėkite žiūrėti anaglyph pirmąją nuotrauką su peržiūra, kuri pasirodo šalia jos.</value>
+  </data>
+  <data name="Page.HowToUse.2cardboard" xml:space="preserve">
+    <value>2) Pradėkite žiūrėti pirmąją nuotrauką su peržiūra, kuri pasirodo šalia jos.</value>
+  </data>
+  <data name="Page.HowToUse.2cross" xml:space="preserve">
+    <value>2) Pradėkite kryžminio pirmo paveikslėlio peržiūrą su peržiūra, kuri pasirodo šalia jos.</value>
+  </data>
+  <data name="Page.HowToUse.2parallel" xml:space="preserve">
+    <value>2) Pradėkite lygiagrečiai žiūrėti pirmąją nuotrauką su šalia rodoma peržiūra.</value>
+  </data>
+  <data name="Page.Technique.AdditionalTutorials" xml:space="preserve">
+    <value>Papildomos pamokos:</value>
+  </data>
+  <data name="Page.Technique.Cross1" xml:space="preserve">
+    <value>Žiūrėdami į aukščiau esančias nuotraukas, atsargiai perbraukite akis. Kai perbrauksite akis, viskas taps neryški ir perregima, o vietoje 2 (2 poros) pradėsite matyti 4 nuotraukas. Kuo stipriau sukryžiuosite akis, tuo toliau vienas nuo kito judės paveikslėlių poros – tai atrodys šiek tiek taip:</value>
+  </data>
+  <data name="Page.Technique.Cross2" xml:space="preserve">
+    <value>Atsargiai atplėškite akis, kad paveikslėliai kiekvienos poros viduje pradėtų persidengti. Pradės atrodyti, kad vietoj 4 paveikslėlių yra tik 3. Jis vis tiek bus neryškus ir permatomas ir atrodys maždaug taip:</value>
+  </data>
+  <data name="Page.Technique.Cross3" xml:space="preserve">
+    <value>Atlikę vidurinį persidengimą, tereikia atpalaiduoti akis ir leisti joms sufokusuoti vaizdą. Tuo metu viduryje turėsite vieną ryškų 3D vaizdą, kurio kiekvienoje pusėje plūduriuoja permatomas vaizdas, kuris atrodys taip (išskyrus, kad vidurys bus 3D):</value>
+  </data>
+  <data name="Page.Technique.Cross4" xml:space="preserve">
+    <value>Jei sunku sukryžiuoti akis, taip pat galite pabandyti žiūrėti į pirštą laikydami jį pusiaukelėje tarp akių ir ekrano. Turėtumėte matyti, kad nuotraukos pradeda skirtis ir persidengia už piršto.</value>
+  </data>
+  <data name="Page.Technique.CrossViewing" xml:space="preserve">
+    <value>PERŽIŪRĖJIMAS</value>
+  </data>
+  <data name="Page.Technique.P1" xml:space="preserve">
+    <value>Jei norite tai pamatyti dar kartą, bakstelėkite mėsainio (trys eilutės) piktogramą viršutiniame kairiajame fotoaparato ekrano kampe ir bakstelėkite „Help“.
+
+Norėdami matyti 3D vaizdą „CrossCam“ (vadinamus „stereogramomis“), galite naudoti raudonus / žalsvai mėlynus 3D akinius, „Google Cardboard“ peržiūros priemonę arba „nemokamą žiūrėjimą“ naudodami tik akis ir ekraną. Yra du būdai nemokamai peržiūrėti, o CrossCam gali padėti išmokti abu. Turite pasakyti CrossCam, kaip ketinate peržiūrėti nuotraukas, kitaip ji neveiks tinkamai. Nesijaudinkite, bet kada galite tai vėl pakeisti nustatymuose.
+
+Jei galite patogiai sukryžiuoti akis, pirmiausia turėtumėte išbandyti kryžminį metodą, o kitu atveju – lygiagrečiąjį metodą. Jei esate pripratę prie „Magic Eye™“ knygų, tikriausiai jau galite atlikti lygiagretųjį metodą, bet galbūt galėsite atlikti ir kryžminį metodą. Bakstelėkite toliau pateiktą metodą, kad jį išmoktumėte, ir būtinai nurodykite CrossCam, kuris iš jų tinka jums, paspausdami atitinkamą mygtuką PASIRINKTI.
+
+Jei norite naudoti 3D akinius arba „Cardboard“ peržiūros priemonę, „CrossCam“ galite nustatyti, kad jie naudotų juos nustatymų puslapyje.</value>
+  </data>
+  <data name="Page.Technique.CrossLink1" xml:space="preserve">
+    <value>Puiki teksto pamoka</value>
+  </data>
+  <data name="Page.Technique.CrossLink2" xml:space="preserve">
+    <value>Dar viena graži teksto pamoka</value>
+  </data>
+  <data name="Page.Technique.CrossLink3" xml:space="preserve">
+    <value>Trumpa „YouTube“ pamoka</value>
+  </data>
+  <data name="Page.Technique.CrossLink4" xml:space="preserve">
+    <value>Ilga, keista, bet naudinga „YouTube“ mokymo programa</value>
+  </data>
+  <data name="Page.Technique.CrossLink5" xml:space="preserve">
+    <value>Dar viena „YouTube“ pamoka</value>
+  </data>
+  <data name="Page.Technique.CrossLink6" xml:space="preserve">
+    <value>Dviejų kamerų projektas su pamoka</value>
+  </data>
+  <data name="Page.Technique.Parallel1" xml:space="preserve">
+    <value>Jei aukščiau pateiktas vaizdas netelpa jūsų ekrane, pasukite telefoną į gulsčią padėtį – „CrossCam“ bando padaryti didesnio dydžio vaizdų porą lengviausio dydžio. „CrossCam“ ne visada reikia naudoti kraštovaizdyje, tačiau tobulo dydžio vaizdas palengvina technikos mokymąsi.</value>
+  </data>
+  <data name="Page.Technique.Parallel2" xml:space="preserve">
+    <value>Atpalaiduokite akis ir pažvelkite „per“ aukščiau esančias nuotraukas, tarsi išskirstytumėte akis į nuotraukas. Turėtumėte pradėti matyti 3 nuotraukas su 3D paveikslėliu viduryje, maždaug taip:</value>
+  </data>
+  <data name="Page.Technique.Parallel3" xml:space="preserve">
+    <value>Jei pradėsite matyti 4 nuotraukas, nuėjote per toli. Pabandykite šiek tiek pajudinti akis, jei vėl atsidursite toje vietoje. Atsipalaidavimas per toli atrodys maždaug taip:</value>
+  </data>
+  <data name="Page.Technique.Parallel4" xml:space="preserve">
+    <value>Jei kyla problemų, pabandykite ekraną priglausti prie veido, o nuotraukų pora tiesiai prieš akis. Atsipalaiduokite ir pažiūrėkite „pro“ ekraną, tada lėtai atitraukite ekraną nuo veido, o akis atpalaiduokite. Galų gale vaizdas turėtų „paspausti“ ir sufokusuoti.</value>
+  </data>
+  <data name="Page.Technique.Parallel5" xml:space="preserve">
+    <value>Jei vis tiek matote keturis vaizdus, ​​nustatymų puslapyje padidinkite maksimalų lygiagretaus vaizdo plotį.</value>
+  </data>
+  <data name="Page.Technique.ParallelViewing" xml:space="preserve">
+    <value>LYGIALINIS ŽIŪRĖJIMAS</value>
+  </data>
+  <data name="Page.Technique.Practice" xml:space="preserve">
+    <value>Mano sukurti vaizdai, kuriuos naudodami galite praktikuoti</value>
+  </data>
+  <data name="Title.Contact" xml:space="preserve">
+    <value>kontaktas</value>
+  </data>
+  <data name="Title.Faq" xml:space="preserve">
+    <value>DUK</value>
+  </data>
+  <data name="Title.Help" xml:space="preserve">
+    <value>Pagalba</value>
+  </data>
+  <data name="Title.HowToUse" xml:space="preserve">
+    <value>Kaip naudotis CrossCam</value>
+  </data>
+  <data name="Title.Technique" xml:space="preserve">
+    <value>3D žiūrėjimo technika</value>
+  </data>
+  <data name="Title.Tips" xml:space="preserve">
+    <value>Patarimai</value>
+  </data>
+  <data name="Button.DoNotEmailMe" xml:space="preserve">
+    <value>Dabar nerašykite man el</value>
+  </data>
+  <data name="Button.EmailMeNow" xml:space="preserve">
+    <value>El. paštu dabar</value>
+  </data>
+  <data name="Button.No" xml:space="preserve">
+    <value>Nr</value>
+  </data>
+  <data name="Button.OK" xml:space="preserve">
+    <value>Gerai</value>
+  </data>
+  <data name="Button.YesClear" xml:space="preserve">
+    <value>Taip, aišku</value>
+  </data>
+  <data name="Page.Camera.Aligning" xml:space="preserve">
+    <value>Lygiuojama...</value>
+  </data>
+  <data name="Page.Camera.AlignmentBroken" xml:space="preserve">
+    <value>Įrenginyje nepalaikomas automatinis lygiavimas – išjunkite nustatymuose.</value>
+  </data>
+  <data name="Page.Camera.AlignmentFailed" xml:space="preserve">
+    <value>Lygiuoti nepavyko.</value>
+  </data>
+  <data name="Page.Camera.BorderAsk" xml:space="preserve">
+    <value>Aptikta siena. Pašalinti sieną?</value>
+  </data>
+  <data name="Page.Camera.BorderDetected" xml:space="preserve">
+    <value>Aptikta siena</value>
+  </data>
+  <data name="Page.Camera.Cancel" xml:space="preserve">
+    <value>Atšaukti</value>
+  </data>
+  <data name="Page.Camera.ChooseAction" xml:space="preserve">
+    <value>Pasirinkite veiksmą:</value>
+  </data>
+  <data name="Page.Camera.DirectoryNotFound" xml:space="preserve">
+    <value>Katalogas nerastas</value>
+  </data>
+  <data name="Page.Camera.DirectoryNotFoundExplain" xml:space="preserve">
+    <value>Nepavyko rasti išsaugojimo paskirties vietos. Nustatymų puslapyje pasirinkite kitą.</value>
+  </data>
+  <data name="Page.Camera.ErrorEmailBody" xml:space="preserve">
+    <value>Ką darėte prieš įvykstant klaidai? Aprašykite net smulkmenas.\n\n\n\n\n\nAr CrossCam vis dar veikė po klaidos? Jei ne, kaip ji sugenda?\n\n\n\n\n\nAr tai kartojasi?\n\n\n\n\n\nAr galite priversti klaidą įvykti pagal komandą? Jei taip, kaip?\n\n\n\n\n\n</value>
+  </data>
+  <data name="Page.Camera.FlipForCardboard" xml:space="preserve">
+    <value>Apverskite į gulsčią padėtį, kai įjungtas kartono režimas.</value>
+  </data>
+  <data name="Page.Camera.FlipLarger" xml:space="preserve">
+    <value>(apverskite į kraštovaizdį, kad pamatytumėte didesnį vaizdą)</value>
+  </data>
+  <data name="Page.Camera.ForAnaglyph" xml:space="preserve">
+    <value>anaglifui</value>
+  </data>
+  <data name="Page.Camera.ForCardboard" xml:space="preserve">
+    <value>skirtas kartonui</value>
+  </data>
+  <data name="Page.Camera.ForCross" xml:space="preserve">
+    <value>už kryžių</value>
+  </data>
+  <data name="Page.Camera.ForParallel" xml:space="preserve">
+    <value>lygiagrečiai</value>
+  </data>
+  <data name="Page.Camera.GoPickRole" xml:space="preserve">
+    <value>Prieš bandydami susieti, eikite į susiejimo puslapį (per nustatymų puslapį) ir pasirinkite šio įrenginio poravimo vaidmenį.</value>
+  </data>
+  <data name="Page.Camera.InvalidImage" xml:space="preserve">
+    <value>Neteisingas vaizdas</value>
+  </data>
+  <data name="Button.Camera.Keep" xml:space="preserve">
+    <value>Laikyti</value>
+  </data>
+  <data name="Page.Camera.LoadFullImage" xml:space="preserve">
+    <value>Įkelti visą stereofoninį vaizdą</value>
+  </data>
+  <data name="Page.Camera.Loading" xml:space="preserve">
+    <value>Įkeliama...</value>
+  </data>
+  <data name="Page.Camera.LoadSingleSide" xml:space="preserve">
+    <value>Įkelkite vieną pusę</value>
+  </data>
+  <data name="Page.Camera.ManualCorrections" xml:space="preserve">
+    <value>Taip pat apsvarstykite rankinius pataisymus.</value>
+  </data>
+  <data name="Page.Camera.MirrorOnLeft" xml:space="preserve">
+    <value>VEIDRODIS KAIRĖJE</value>
+  </data>
+  <data name="Page.Camera.MirrorOnRight" xml:space="preserve">
+    <value>VEIDRODIS DEŠINĖJE</value>
+  </data>
+  <data name="Page.Camera.MoveLeft" xml:space="preserve">
+    <value>JUDĖTI KAIRĖN</value>
+  </data>
+  <data name="Page.Camera.MoveRight" xml:space="preserve">
+    <value>PERKELTI Į DEŠINĘ</value>
+  </data>
+  <data name="Page.Camera.NoSaveModes" xml:space="preserve">
+    <value>Nėra aktyvių išsaugojimo režimų</value>
+  </data>
+  <data name="Page.Camera.NoSaveModesExplain" xml:space="preserve">
+    <value>Šiuo metu neįjungtas joks išsaugojimo režimas. Nustatymų puslapyje įjunkite išsaugojimo režimą.</value>
+  </data>
+  <data name="Page.Camera.Oops" xml:space="preserve">
+    <value>Oi</value>
+  </data>
+  <data name="Page.Camera.OrRotate" xml:space="preserve">
+    <value>(arba pasukti)</value>
+  </data>
+  <data name="Page.Camera.OrSwipe" xml:space="preserve">
+    <value>(arba braukite)</value>
+  </data>
+  <data name="Page.Camera.PairRoleNotSelected" xml:space="preserve">
+    <value>Poros vaidmuo nepasirinktas</value>
+  </data>
+  <data name="Page.Camera.PinchOrDrag" xml:space="preserve">
+    <value>Suimkite arba vilkite ir tyrinėkite!</value>
+  </data>
+  <data name="Page.Camera.PleaseSelectValid" xml:space="preserve">
+    <value>Pasirinkite Jpeg, Png arba Webp vaizdą. Pasirinktas vaizdas yra</value>
+  </data>
+  <data name="Page.Camera.ReallyClear" xml:space="preserve">
+    <value>Tikrai aišku?</value>
+  </data>
+  <data name="Button.Camera.Remove" xml:space="preserve">
+    <value>Pašalinti</value>
+  </data>
+  <data name="Page.Camera.SavedToCustomFolder" xml:space="preserve">
+    <value>Išsaugota pasirinktiniame aplanke</value>
+  </data>
+  <data name="Page.Camera.SavedToExternal" xml:space="preserve">
+    <value>Išsaugota išorinėje</value>
+  </data>
+  <data name="Page.Camera.SavedToPhotos" xml:space="preserve">
+    <value>Išsaugota „Photos“.</value>
+  </data>
+  <data name="Page.Camera.SaveFailed" xml:space="preserve">
+    <value>Išsaugoti nepavyko. :(</value>
+  </data>
+  <data name="Page.Camera.Saving" xml:space="preserve">
+    <value>Išsaugoma...</value>
+  </data>
+  <data name="Page.Camera.SecondaryOnLeft" xml:space="preserve">
+    <value>ANTRINĖ KAIRĖJE</value>
+  </data>
+  <data name="Page.Camera.SecondaryOnRight" xml:space="preserve">
+    <value>ANTRINĖ DEŠINĖJE</value>
+  </data>
+  <data name="Page.Camera.SelectedInvalid" xml:space="preserve">
+    <value>Pasirinktas vaizdas netinkamas.</value>
+  </data>
+  <data name="Page.Camera.SorryError" xml:space="preserve">
+    <value>Atsiprašome, CrossCam padarė klaidą. Klaidos ataskaita išsiųsta automatiškai. Galbūt nepastebėsite nieko blogo, bet jei pastebėsite, pabandykite iš naujo paleisti programą. Jei tai kartojasi, atsiųskite man el. laišką ir papasakokite apie tai. (Norėdami sustabdyti šiuos iššokančiuosius langus, eikite į „Nustatymų“ puslapį.)</value>
+  </data>
+  <data name="Page.Camera.Steady" xml:space="preserve">
+    <value>Pastovus...</value>
+  </data>
+  <data name="Page.Camera.SureClear" xml:space="preserve">
+    <value>Ar tikrai norite išvalyti nuotraukas ir pradėti iš naujo?</value>
+  </data>
+  <data name="Page.Camera.Syncing" xml:space="preserve">
+    <value>Sinchronizuojama...</value>
+  </data>
+  <data name="Page.Camera.Transmitting" xml:space="preserve">
+    <value>Perduodama...
+(laikykite įrenginį atrakintą)</value>
+  </data>
+  <data name="Page.Camera.VR" xml:space="preserve">
+    <value>VR</value>
+  </data>
+  <data name="Page.FovCorrection" xml:space="preserve">
+    <value>Matymo lauko korekcija</value>
+  </data>
+  <data name="Page.FovCorrectionExplain" xml:space="preserve">
+    <value>Skirtingi įrenginių modeliai gali turėti skirtingus matymo laukus. „CrossCam“ padės jums tai ištaisyti po pirmojo fotografavimo. Kadruokite ir užfiksuokite ką nors su išskirtiniais taškais šalia kadro viršaus ir apačios, užtikrindami, kad taškai būtų matomi abiejuose įrenginiuose.</value>
+  </data>
+  <data name="Page.Technique.ParallelLink1" xml:space="preserve">
+    <value>Puiki teksto pamoka</value>
+  </data>
+  <data name="Page.Technique.ParallelLink2" xml:space="preserve">
+    <value>Dar viena graži teksto pamoka</value>
+  </data>
+  <data name="Page.Technique.ParallelLink3" xml:space="preserve">
+    <value>Dar DAR KITA graži teksto pamoka</value>
+  </data>
+  <data name="Page.Technique.ParallelLink4" xml:space="preserve">
+    <value>„Magic Frankfurter“ pamoka</value>
+  </data>
+  <data name="Page.Technique.ParallelLink5" xml:space="preserve">
+    <value>Puikus vaizdo įrašas apie Magic Eye</value>
+  </data>
+  <data name="Page.Technique.Trouble" xml:space="preserve">
+    <value>Jei vis tiek kyla problemų, pabandykite nunešti telefoną į tamsią patalpą, kad jūsų akys galėtų gerai matyti ir sutelkti dėmesį, yra vaizdas.
+
+Kitas dalykas, kurį galite pabandyti, yra naudoti tualetinio popieriaus vamzdelius arba rankas, kad kiekviena akis matytų tik tą vaizdo pusę, kurią ji turėtų matyti.
+ • Jei norite matyti skersinį vaizdą: laikykite vieną vamzdelį prie nosies tiltelio (centre tarp akių), nukreipdami jį į priešais esančio vaizdo centrą. Lėtai judinkite vamzdelį link ekrano, bandydami žiūrėti žemyn vamzdeliu abiem akimis. Kai pasieksite tinkamą vamzdelio padėtį, vaizdas turėtų užsifiksuoti. Gali padėti susikoncentruoti į bandymą pažvelgti į tolimiausio vamzdžio galo vidų. Jei nerandate tinkamos padėties, pabandykite naudoti didesnį vaizdą arba mažesnį vamzdelį.
+ • Lygiagrečiam vaizdui: laikykite po vamzdelį priešais kiekvieną akį, bet abu nukreipkite į šoną, kad beveik nieko nematytumėte. Tuo pačiu metu lėtai pasukite vamzdelius į vidų, kad galėtumėte matyti daugiau vaizdo. Kai matote didžiąją vaizdo dalį (beveik pusę kiekviena akimi), pabandykite atpalaiduoti akis ir suartinkite puses. Gali padėti naudoti didesnį ar mažesnį vaizdą.
+
+Yra paprastas pratimas, kurį galite atlikti, norėdami išmokti lydyti kryžminiu arba lygiagrečiu žiūrėjimu. Paimkite žymeklį ir ant kiekvienos savo miniatiūros nupieškite šypsenėlės veidelį (arba porą popsios lazdelių ar liežuvio spaustuvų). Pavyzdžiui, iš vienos pusės nupieškite vieną akį ir burną, o kitoje – akį ir nosį. Tada galite laikyti juos priešais save ir pasipraktikuoti sujungti du vaizdus, ​​kad sukurtumėte veiduką.
+
+Man asmeniškai labiau patinka kryžminis, o ne lygiagretus, nes vaizdai gali būti didesni, tačiau abu metodai veikia. Jei norite eksperimentuoti su didesniais lygiagrečiais vaizdais, galite valdyti dydį nustatymų puslapyje.
+
+Kartais sunku pajusti, ar tai darai kryžminį ar paralelinį metodą. Galite paprašyti, kad kas nors kitas stebėtų jūsų akis, kol tai darote, arba galite pažvelgti į toliau pateiktą paveikslėlį kaip testą:</value>
+  </data>
+  <data name="SaveModes.Anaglyph" xml:space="preserve">
+    <value>Anaglifas</value>
+  </data>
+  <data name="SaveModes.Cardboard" xml:space="preserve">
+    <value>Kartonas</value>
+  </data>
+  <data name="SaveModes.Cross" xml:space="preserve">
+    <value>Kirsti</value>
+  </data>
+  <data name="SaveModes.GrayscaleAnaglyph" xml:space="preserve">
+    <value>Pilkų atspalvių anaglifas</value>
+  </data>
+  <data name="SaveModes.Parallel" xml:space="preserve">
+    <value>Lygiagretus</value>
+  </data>
+  <data name="SaveModes.Quad" xml:space="preserve">
+    <value>Keturkampis</value>
+  </data>
+  <data name="SaveModes.Separate" xml:space="preserve">
+    <value>Atskirai</value>
+  </data>
+  <data name="SaveModes.Single" xml:space="preserve">
+    <value>Vienišas</value>
+  </data>
+  <data name="SaveModes.Triple" xml:space="preserve">
+    <value>Trigubas</value>
+  </data>
+  <data name="Page.Camera.FovExplain" xml:space="preserve">
+    <value>Norėdami ištaisyti matymo lauko skirtumus, padidinkite ir slinkite nuotraukas, kad skiriamieji taškai išsidėstę tarp dviejų nuotraukų. Galite vilkti baltas linijas, kad galėtumėte vizualizuoti lygiavimą. Šis pataisymas bus pritaikytas būsimoms peržiūroms. Jis bus išsaugotas, bet nustatymų puslapyje galėsite jį nustatyti iš naujo. Jei naudojate identiškus įrenginius, tiesiog išsaugokite nekoreguodami.</value>
+  </data>
+  <data name="Page.Camera.FovTitle" xml:space="preserve">
+    <value>Matymo lauko korekcija</value>
+  </data>
+  <data name="Page.Camera.KeyPoints" xml:space="preserve">
+    <value>Pagrindiniai klausimai</value>
+  </data>
+  <data name="Page.Camera.Warped" xml:space="preserve">
+    <value>Iškreiptas</value>
+  </data>
+  <data name="Page.Camera.WelcomeExplain" xml:space="preserve">
+    <value>„CrossCam“ buvo sukurta siekiant padėti jums padaryti 3D nuotraukas. Nuotraukos yra 3D kaip VR ar 3D filmai, tačiau jums nereikia jokios specialios įrangos ar akinių – tik jūsų telefonas (tačiau jei turite porą raudonų / žalsvai mėlynos spalvos 3D akinių arba „Google Cardboard“ peržiūros programą, galite naudoti juos taip pat su CrossCam). Norint išmokti \"nemokamo žiūrėjimo\" metodą, kai naudojamas tik telefonas ir akys, reikia šiek tiek pasitreniruoti. Prieš pasakodamas, kaip naudoti CrossCam, ar norėtumėte daugiau sužinoti apie žiūrėjimo techniką?</value>
+  </data>
+  <data name="Page.Camera.Welcome" xml:space="preserve">
+    <value>Sveiki atvykę į CrossCam!</value>
+  </data>
+  <data name="Page.Camera.Directions" xml:space="preserve">
+    <value>Pereiti prie nuorodų</value>
+  </data>
+  <data name="Page.Camera.Technique" xml:space="preserve">
+    <value>Žiūrėjimo technika</value>
+  </data>
+  <data name="Page.HowToUse.P1" xml:space="preserve">
+    <value>Jei norite tai pamatyti dar kartą, bakstelėkite mėsainio (trys eilutės) piktogramą viršutiniame kairiajame fotoaparato ekrano kampe ir bakstelėkite „Help“.
+
+
+1) Įrėminkite ir nufotografuokite pirmąją nuotrauką.</value>
+  </data>
+  <data name="Page.HowToUse.P2" xml:space="preserve">
+    <value>3) Laikykite telefoną stabiliai priešais save ir lėtai judėkite į šoną ta kryptimi, kurią jums nurodo CrossCam. Nejudėkite per toli – už colio ar mažiau už kiekvieną pėdą, nutolusią nuo jūsų tikslo. Taip pat visai nesisukite, tiesiog slyskite į šoną, o gal net tiesiog pasilenkite.
+
+4) Sulygiuokite pirmąją nuotrauką su antrosios nuotraukos peržiūra ir padarykite antrą nuotrauką, kai jums patinka tai, ką matote.
+
+5) „CrossCam“ automatiškai sulygiuos jūsų nuotraukas, kai jas užfiksuosite, bet tai nėra tobula. Jei jums nepatinka, kaip jos buvo sulygiuotos, galite išjungti automatinį lygiavimą bakstelėdami mažo roboto piktogramą. „CrossCam“ taip pat turi daugybę rankinio redagavimo parinkčių, kurias galite pasiekti bakstelėję pieštuko piktogramą.
+
+6) Bakstelėkite varnelę, kai būsite pasirengę išsaugoti.
+
+
+Kiti dalykai, kuriuos galite padaryti:
+ • Bakstelėkite vieną kartą, kad sufokusuotumėte tašką, bakstelėkite du kartus, kad vėl įjungtumėte nuolatinį automatinį fokusavimą.
+ • Bakstelėkite krumpliaračio piktogramą fotoaparato ekrano viršuje, dešinėje, kad atidarytumėte nustatymų puslapį. Čia pilna įdomių dalykų.
+ • Yra puikus Patarimų puslapis, kurį galite pasiekti bakstelėję mėsainio piktogramą viršutiniame kairiajame fotoaparato ekrano kampe. Tai padės padaryti nuotraukas puikias.
+ • Jei norite pasukti kita kryptimi antrajam kadrui arba norite pakeisti šonus, tiesiog braukite.
+ • Bakstelėkite mažą aplanko piktogramą apačioje, norėdami įkelti vaizdą kaip šoną arba įkelti visą stereofoninį vaizdą.</value>
+  </data>
+  <data name="Page.Faq.Alignment" xml:space="preserve">
+    <value>Kaip veikia automatinis derinimas?</value>
+  </data>
+  <data name="Page.Faq.Alignment.Body" xml:space="preserve">
+    <value>Automatinis lygiavimas bando kuo geriau sulygiuoti vaizdų poras, tačiau tai nėra tobula. Kompiuterinis matymas kai kuriais dalykais yra geresnis nei žmogaus akys, bet ir daug prastesnis dėl kitų dalykų. Pasaulis, kurį ji mato, labai skiriasi nuo to, kurį matome mes, tačiau jis taip pat gali matyti keletą skirtingų būdų. Du pagrindiniai būdai, kuriuos jis mato „CrossCam“, yra patobulintas koreliacijos koeficientas (ECC) ir pagrindinių taškų naudojimas.
+
+ECC lygiavimas iš esmės veikia bandant užtikrinti, kad šviesios dėmės sutampa su šviesiomis dėmėmis, o tamsios – su tamsiomis dėmėmis, kai abi pusės yra perdengtos viena ant kitos. ECC lygiavimas pateikiamas su patikimumo balu, kuris padeda nuspręsti, ar derinimas buvo veiksmingas. „CrossCam“ nustatyta atmesti atliktą lygiavimą, jei patikimumas yra per mažas, tačiau galite konfigūruoti patikimumo patvirtinimo / nesėkmės slenkstį nustatymų puslapyje.
+
+Pagrindinių taškų išlygiavimas ieško dominančių taškų, tokių kaip kampai, kraštai, taškai ir didelis kontrastas, ir bando juos suderinti tarp dviejų pusių. Kai taškai suderinami, CrossCam gali naudoti įvairius algoritmus, kad bandytų iškreipti puses taip, kad pagrindiniai taškai iš vienos pusės būtų kuo arčiau atitinkamų pagrindinių taškų kitoje pusėje.
+
+„CrossCam“ yra užprogramuota taip, kad pirmiausia naudotų pagrindinio taško išlygiavimą, tačiau vėl bus pritaikytas ECC lygiavimas, kai nepavyksta išlygiuoti klavišo arba kai fiksuojama naudojant vieno kadro veidrodinio padalijimo metodą. Taip pat galite sukonfigūruoti automatinį lygiavimą, kad visada naudotumėte pagrindinių taškų lygiavimą arba visada naudotumėte ECC lygiavimą puslapyje Nustatymai.
+
+CrossCam parodys išlygiavimo rezultatą fotoaparato ekrane po mažo roboto piktograma. Jei naudojo ECC lygiavimą, bus rodomas pasitikėjimo procentas. Jei naudojo pagrindinio taško išlygiavimą, bus rodoma „KP“. Jei abu lygiavimo metodai nepavyko, bus rodoma „F“. Jei jums nepatinka lygiavimo rezultatas, galite bakstelėti mažo roboto piktogramą, kad pašalintumėte lygiavimą.</value>
+  </data>
+  <data name="Page.Faq.Bad" xml:space="preserve">
+    <value>Ar tai kenkia mano akims?</value>
+  </data>
+  <data name="Page.Faq.Bad.Body1" xml:space="preserve">
+    <value>Nežinau, bet nemanau. Tačiau jei jaučiatės blogai, tiesiog padarykite pertrauką. Praktikuojant diskomfortas paprastai sumažėja. Bet koks žiūrėjimo būdas gali sukelti diskomfortą dėl efekto, vadinamo vergencijos ir apgyvendinimo konfliktu. Štai</value>
+  </data>
+  <data name="Page.Faq.Bad.Body2" xml:space="preserve">
+    <value>Vikipedijos nuoroda apie vergencijos ir apgyvendinimo konfliktą.</value>
+  </data>
+  <data name="Page.Faq.Bad.Body3" xml:space="preserve">
+    <value>Jei naudojate sukryžiuotų akių metodą, jausmas taip pat gali atsirasti dėl to, kad jūsų akys nėra įpratusios rodyti taip, tarsi jos taip ilgai žiūrėtų į kažką taip arti. Kai žiūrite kryžmai, jūsų akys susilieja į tašką, esantį maždaug pusiaukelėje tarp akių ir ekrano. Jei ilgai žiūrėdami į kažką, kas uždaryti, taip pat sukeltumėte diskomfortą, turime paaiškinimą.
+
+Mano nuomonė apie tai yra tokia, kad jūsų akys neveikia nieko, išskyrus savo kasdienes galimybes, bet jūs sujungiate du skirtingus gebėjimus, kurie paprastai nėra naudojami. Jūs fokusuojate savo lęšius į kažką vienoje vietoje, į kurią paprastai patogu fokusuoti, ir nukreipiate akis ten, kur jiems paprastai patogu nukreipti, bet į vietą, kur fokusuoja lęšiai ir kur susilieja akys. tiesiog nėra tas pats taškas. Nesuprantu, kaip tai gali pakenkti tau, kol tavo regėjimas dar nesivysto.</value>
+  </data>
+  <data name="Page.Faq.Cardboard" xml:space="preserve">
+    <value>Kaip naudoti CrossCam su Google Cardboard?</value>
+  </data>
+  <data name="Page.Faq.Cardboard.Body" xml:space="preserve">
+    <value>Jei jūsų žiūryklėje yra mygtukas, paspaudžiantis ekrano centrą, galite jį naudoti fotografuodami naudodami „Cardboard“. Jūsų žiūrintysis taip pat turės turėti angą, kad matytų telefono kamera.
+
+Norėdami fotografuoti naudodami „Cardboard“, perjunkite peržiūros peržiūros metodą (nustatymų puslapyje) į „Cardboard“, tada grįžkite į fotoaparato puslapį ir įkiškite telefoną į peržiūros priemonę. Paspauskite mygtuką, kad užfiksuotumėte, o kai užfiksuotos abi pusės, paspauskite mygtuką dar kartą, kad išsaugotumėte. Išsaugojimas „Cardboard“ režimu skirtas tik tam, kad galėtumėte įkelti vaizdus atgal į „CrossCam“, kad galėtumėte peržiūrėti vėliau, o ne peržiūrėti juos nuotraukų programoje per peržiūros programą.
+
+Taip pat galite fotografuoti naudodami bet kurį kitą norimą metodą, tada perjunkite peržiūros peržiūros metodą į „Cardboard“ ir įdėkite telefoną į peržiūros programą.
+
+Yra daug skirtingų žiūrovų, turinčių skirtingas savybes. Gali tekti pakeisti atskyrimo nuo kartono atstumą (nustatymų puslapyje), kad būtų patogiau. Taip pat gali tekti pirmiausia įsitikinti, kad gerai fiksuojate aukštos kokybės stereogramas, kad galėtumėte jas padaryti įspūdingas ir įtraukias.</value>
+  </data>
+  <data name="Page.Faq.How" xml:space="preserve">
+    <value>Kaip tai veikia?</value>
+  </data>
+  <data name="Page.Faq.How.Body1" xml:space="preserve">
+    <value>„CrossCam“ naudojamas 3D efektas yra gerai ištirta disciplina, žinoma kaip stereoskopija, o būdas, kai sukryžiate akis (arba jas atpalaiduojate), kad peržiūrėtumėte abi puses, vadinamas laisvu žiūrėjimu. Kai žvelgiame į pasaulį, kiekviena mūsų akis mato iš skirtingos perspektyvos. Stereoskopijoje viskas, ką mes darome, yra viena (dirbtinė) perspektyva kiekvienai akiai, o mūsų smegenys tiesiog atlieka visa kita. Yra daug skirtingų būdų, kaip priversti kiekvieną akis pamatyti skirtingą vaizdą. Štai</value>
+  </data>
+  <data name="Page.Faq.How.Body2" xml:space="preserve">
+    <value>Vikipedijos nuoroda apie stereoskopiją</value>
+  </data>
+  <data name="Page.Faq.How.Body3" xml:space="preserve">
+    <value>3D nuotraukos, kurias darote naudodami CrossCam, vadinamos stereogramomis. Magic Eye™ knygose yra vadinamųjų autostereogramų.</value>
+  </data>
+  <data name="Page.Faq.Into" xml:space="preserve">
+    <value>Kaip patekote į stereoskopiją?</value>
+  </data>
+  <data name="Page.Faq.Into.Body1" xml:space="preserve">
+    <value>Kol įgijau fizikos diplomą, turėjau galimybę eksperimentuoti kurdamas savo hologramas naudojant lazerius. Mano kuriamos hologramos buvo 3D tipo, nes jos naudojo difrakcinę gardelę, kad sukeltų žalingus šviesos, atsispindinčios nuo stiklo plokštės paviršiaus, trukdžius, dėl kurių atspindėtas vaizdas skirtingose ​​vietose atrodo kitaip. Kai kiekviena mūsų akis mato vaizdą, kuris atrodo tarsi iš kitos perspektyvos (jei jie nėra per daug skirtingi), mūsų smegenys tai suvokia kaip gylį.</value>
+  </data>
+  <data name="Page.Faq.Into.Body2" xml:space="preserve">
+    <value>Tokį stereoskopinio suvokimo principą žinojau jau seniai, bet tuo metu gyvenime taip pat lankiau kai kuriuos programavimo kursus, todėl nusprendžiau, kad noriu pabandyti sukurti paprastą kompiuterinę programą stereoskopiniam 3D piešimui. Šios pastangos tapo „StereoSketcher“. Pradinė versija buvo parašyta Java, bet aš perrašiau ją su Javascript ir SVG ir dabar ji gyvena internete</value>
+  </data>
+  <data name="Page.Faq.Into.Body3" xml:space="preserve">
+    <value>šioje nuorodoje.</value>
+  </data>
+  <data name="Page.Faq.Into.Body4" xml:space="preserve">
+    <value>Jis jokiu būdu nėra populiarus ir gali būti nelengva niekam, išskyrus mane, naudoti, bet jis veikia. Dirbdamas „StereoSketcher“ turėjau eksperimentuoti su stereoskopijos principais ir susižavėjau tuo, kaip naudojant kelias paprastas taisykles galima sukurti tokią įtraukią ir patrauklią patirtį.</value>
+  </data>
+  <data name="Page.Faq.Inverted" xml:space="preserve">
+    <value>Kodėl 3D atrodo netinkamai ARBA kodėl 3D atrodo apverstas?</value>
+  </data>
+  <data name="Page.Faq.Inverted.Body1" xml:space="preserve">
+    <value>Kai žiūrite nemokamai kryžminiu arba lygiagrečiu metodu, svarbu į nuotraukas žiūrėti tuo pačiu metodu, kuris buvo naudojamas jas kuriant. Priešingu atveju jūsų dešinė akis žiūrės į kairiosios akies perspektyvą ir atvirkščiai. Dėl to vaizdo gylis pasikeičia, nes buvo pakeista paralakso kryptis.
+
+Paralaksas reiškia, kad žvelgiant iš dešinės akies perspektyvos, kai objektai yra toliau, jie atrodo toliau dešinėje nei arčiau esantys objektai, žiūrint iš kairės akies. Tai painu, kai aprašoma sakinio formatu, bet labai intuityvi, kai parodoma.
+
+Norėdami pademonstruoti, laikykite vieną pirštą priešais save maždaug rankos ilgio, tada kita ranka laikykite kitą pirštą maždaug pusiaukelėje tarp pirmojo piršto ir veido. Jei pakaitomis užmerksite kiekvieną akį ir atkreipsite dėmesį į tai, kur yra jūsų pirštai, pamatysite, kad kiekviena akis juos mato skirtingose ​​vietose. Taigi natūralu, kad jei kiekviena akis tą judesį matys priešingai nei turėtų, gylis bus apverstas.
+
+Labai lengva netyčia panaudoti netinkamą žiūrėjimo metodą, nes pasirodo, kad daugumai žmonių labai sunku atskirti, ar jie perbraukia, ar atpalaiduoja akis, vien pajausdami ar žiūrėdami į susidariusį painų dvigubą pasaulio vaizdą. Vietoj to geriausia, kad kas nors kitas pažiūrėtų, ką daro jūsų akys, arba išbandykite šį testerio vaizdą:</value>
+  </data>
+  <data name="Page.Faq.Inverted.Body2" xml:space="preserve">
+    <value>Daugeliui žmonių gana patogu žiūrėti „Magic Eye™“ knygas, kurios skirtos žiūrėti lygiagrečiojo vaizdo metodu. Jei juos peržiūrite kryžminiu būdu, tvirti 3D objektai, kurie turėtų iššokti iš puslapio, atrodo kaip skylės. Abu metodai leidžia pamatyti *kažką*, bet jei negalite pasakyti, kas tai buvo, tikriausiai juos peržiūrite kryžmiškai.</value>
+  </data>
+  <data name="Page.Faq.Mirror" xml:space="preserve">
+    <value>Kaip taikyti „vieno kadro veidrodžio“ metodą?</value>
+  </data>
+  <data name="Page.Faq.Mirror.Body1" xml:space="preserve">
+    <value>Fotografuojant veidrodiniu metodu kadras padalijamas per pusę ir atliekama reikiama transformacija, kad vienu telefonu ir įprastu rankiniu veidrodžiu galėtumėte užfiksuoti abi puses tuo pačiu metu. Jei fotografuodami norite naudoti veidrodinį metodą, nustatymų puslapyje įjunkite veidrodžio režimo jungiklį (norėdami ten patekti, bakstelėkite krumpliaračio piktogramą). Įjungus veidrodžio režimą, CrossCam nurodys, kurioje pusėje laikyti veidrodį. Laikykite veidrodį toje pusėje ir sureguliuokite telefono ir veidrodžio bei objekto išlygiavimą. Turėdami šiek tiek kantrybės, galėsite juos visus išdėstyti taip, kad veidrodis parodytų teisingą vienos iš pusių perspektyvą. Kadangi naudojant veidrodinį metodą vaizdas padalijamas per pusę vertikaliai, dažniausiai geriausia fiksuoti kraštovaizdžiu veidrodžio metodu.
+
+Šis metodas taip pat veiks su atspindžiais dideliuose, švariuose languose, taip pat ant nejudančių ežerų ar balų (kai telefonas užrakintas vertikaliai ir apverstas į šoną).</value>
+  </data>
+  <data name="Page.Faq.Mirror.Body2" xml:space="preserve">
+    <value>Norint naudoti veidrodinį metodą, reikia padaryti tam tikrų kompromisų / pakeitimų. Visa tai galima atlikti rankiniu būdu naudojant CrossCam, tačiau automatinis lygiavimas taip pat bandys tai padaryti už jus:
+ • Kadangi atspindėtas vaizdas nukeliauja didesnį atstumą nei įprastas vaizdas, veidrodinę pusę reikės šiek tiek priartinti.
+ • Tikėtina, kad naudodamiesi veidrodžio metodu susidursite, o ne laikysite lygiagrečias perspektyvas – dėl to trumpinimas gali atrodyti kaip blogas vertikalus išlygiavimas. Norėdami tai anuliuoti, galima atlikti trapecijos korekciją, ty vertikaliai sutraukti vieną kiekvieno vaizdo pusę.
+ • Įlipimas taip pat linkęs nukreipti stereofoninį langą link jūsų. Galite tai anuliuoti ir įdėti jį ten, kur norite, apkirpdami šonus.
+ • Tikėtina, kad veidrodis visiškai neuždengs vienos pusės vaizdo, todėl gali tekti šiek tiek apkarpyti, kad būtų pašalintos neatspindinčios detalės.
+
+Tam geriausi veidrodžiai turi ploną stiklą. Viena vertus, jie yra lengvi, todėl juos lengviau laikyti ilgą laiką. Kitas svarbus dalykas yra tai, kad naudodami veidrodį greičiausiai nukreipsite veidrodį į šoną, o ne žiūrėsite tiesiai į jį, nes paprastai naudojami veidrodžiai. Taip orientuojant, veidrodžiai su storu stiklu gali šiek tiek susilieti. Kuo plonesnis stiklas, tuo šis neryškumas bus mažiau akivaizdus. Tokie veidrodžiai taip pat gali būti prastos kokybės kitais atžvilgiais, todėl svarbu rasti gerą pusiausvyrą.
+
+Yra keletas kitų kompromisų, su kuriais reikia susitaikyti naudojant veidrodinį fiksavimą, kurių negalima pataisyti atliekant CrossCam redagavimus:
+ • Kadangi abiejų pusių vaizdas nukeliauja šiek tiek skirtingais atstumais, kiekvienai pusei reikalingas fokusavimas bus šiek tiek skirtingas, todėl viena pusė visada bus šiek tiek neryški. Šis efektas bus daugiau ar mažiau pastebimas, priklausomai nuo atstumo iki objekto ir objektyvo lauko gylio.
+ • Joks veidrodis tikrai nėra 100 % efektyvus, todėl pusė, kurioje naudojamas veidrodis, gali būti šiek tiek tamsesnė. Tai priklausys nuo veidrodžio kokybės.</value>
+  </data>
+  <data name="Page.Faq.Moving" xml:space="preserve">
+    <value>Mano objektas juda, kaip padaryti jo 3D nuotraukas?</value>
+  </data>
+  <data name="Page.Faq.Moving.Body" xml:space="preserve">
+    <value>CrossCam leidžia dviem būdais užfiksuoti abi perspektyvas tuo pačiu metu. Vienas metodas naudoja du telefonus, o kitas – veidrodį.
+
+Norėdami naudoti dviejų telefonų sąranką, peržiūrėkite puslapį Susiejimo sąranka, kurį galite pasiekti nustatymų puslapyje (palieskite krumpliaračio piktogramą).
+
+Norėdami naudoti veidrodžio metodą, peržiūrėkite kitą DUK klausimą apie tai.</value>
+  </data>
+  <data name="Page.Faq.Test" xml:space="preserve">
+    <value>Kaip galiu išbandyti išankstines „CrossCam“ versijas?</value>
+  </data>
+  <data name="Page.Faq.Test.Body" xml:space="preserve">
+    <value>Peržiūrėkite šį Reddit įrašą</value>
+  </data>
+  <data name="Page.Faq.Why" xml:space="preserve">
+    <value>Kodėl sukūrėte CrossCam?</value>
+  </data>
+  <data name="Page.Faq.Why.Body" xml:space="preserve">
+    <value>Kai pradėjau domėtis stereoskopija, atsitiktinai išvykau į Jeloustouną. Būdamas ten supratau, kad gali būti smagu pabandyti naudoti 3D fotoaparato programą mobiliesiems, kad būtų galima užfiksuoti dalykus 3D formatu. Labai nusivyliau esamais variantais. Radau, kad jie visi reikalauja, kad tu padarytum du fiksavimus, o paskui sužinok, ar jie buvo geri. Dažnai jų nebuvo, nes ne kartą turėjau visiškai spėlioti apie savo atstumo atstumą, taip pat apie objekto kokybę.
+
+Per ateinančias kelias savaites mano slegiantis nusivylimas paskatino mane įsivaizduoti, kad kartu su pirmuoju tiesiog pateikiau antrojo filmavimo peržiūrą. Jau turėjau mobiliojo ryšio kūrimo patirties, todėl beliko skirti laiko. „CrossCam“ buvo nuostabu, kad galėjau naudoti tik sau, kad išsaugotume prisiminimus, ir aš džiaugiuosi galėdamas ja pasidalinti su jumis.</value>
+  </data>
+  <data name="Page.Faq.Wiggle" xml:space="preserve">
+    <value>Kas yra wigglegrams?</value>
+  </data>
+  <data name="Page.Faq.Wiggle.Body" xml:space="preserve">
+    <value>Wigglegrams yra būdas peržiūrėti stereogramas, kurios nepriklauso nuo binokulinio regėjimo. Paprastai jie yra gifai, kurie perkeliami pirmyn ir atgal tarp dviejų perspektyvų ir rodomi visi toje pačioje vietoje. „CrossCam“ nepalaiko jų kūrimo šiuo metu, bet atsiųskite man el. laišką, jei tikrai domitės jais, ir aš tai padarysiu.</value>
+  </data>
+  <data name="Page.Tips.AlignAfter" xml:space="preserve">
+    <value>Atsižvelkite į horizontalias linijas, bet galite lygiuoti ir po to.</value>
+  </data>
+  <data name="Page.Tips.AlignAfter.Body" xml:space="preserve">
+    <value>Jei pastebėjote, kad fotografuojant neįmanoma tuo pačiu metu sulyginti viršutinės ir apatinės kreipiamosios linijos, tikriausiai pajudėjote kita kryptimi, o ne tik į šoną. Pabandykite tai ištaisyti prieš darydami nuotraukas, tačiau sulygiavimas po fakto gali labai padėti.</value>
+  </data>
+  <data name="Page.Tips.Alignment" xml:space="preserve">
+    <value>Galite išjungti automatinį lygiavimą.</value>
+  </data>
+  <data name="Page.Tips.Alignment.Body" xml:space="preserve">
+    <value>Jei jums nepatinka automatinio lygiavimo rezultatai, tiesiog išjunkite jį nustatymų puslapyje arba bakstelėdami mažo roboto piktogramą ir bus atkurtos originalios užfiksuotos nuotraukos.</value>
+  </data>
+  <data name="Page.Tips.Donut" xml:space="preserve">
+    <value>Spurgos vadovas gali padėti jūsų langui.</value>
+  </data>
+  <data name="Page.Tips.Donut.Body" xml:space="preserve">
+    <value>Puslapyje „Nustatymai“ galite įjungti eksperimentinę spurga, kuri gali padėti išsaugoti stereofoninį langą ir maksimaliai padidinti naudojamą plotį. Sukant į kairę ir į dešinę spurgos gylis pasikeis, palyginti su likusia scenos dalimi – nustatykite spurgos gylį taip, kad jis būtų tolimiausiame jūsų scenos taške arba už jo. Būkite atsargūs, naudojant jį mažesnėse scenose, viskas gali būti skausminga (žr. aukščiau esantį raktinio akmens patarimą).</value>
+  </data>
+  <data name="Page.Tips.Keystone" xml:space="preserve">
+    <value>Keystone koregavimas reikalingas, jei norite.</value>
+  </data>
+  <data name="Page.Tips.Keystone.Body1" xml:space="preserve">
+    <value>Jei su kiekvienu šūviu pasisuksite į vidų, labai naudinga atlikti trapecijos korekcijas. Paprastai norite sumažinti vidinius nuotraukų kraštus ir apkarpyti kai kuriuos iš viršaus ir apačios, kad jas išlygintumėte. Į Keystone redagavimo meniu pateksite bakstelėję mygtuką, kuris atrodo taip:</value>
+  </data>
+  <data name="Page.Tips.Keystone.Body2" xml:space="preserve">
+    <value>Pasisukimas į vidų vadinamas pirštų įvedimu. Tai gali sukelti sutrumpinimo efektą, dėl kurio sunku sulydyti vaizdo kampus. Sutrumpinimo efektas visada yra realiame gyvenime, nes atrodo, kad lygiagrečios linijos susilieja, kai nutolsta nuo jūsų, tačiau dirbtinės perspektyvos gali padaryti tai keistą.</value>
+  </data>
+  <data name="Page.Tips.Lean" xml:space="preserve">
+    <value>Galite tiesiog pasilenkti.</value>
+  </data>
+  <data name="Page.Tips.Lean.Body" xml:space="preserve">
+    <value>Kartais užuot visiškai judinus kojas kairėn arba dešinėn, norint fotografuoti, gali būti lengviau tiesiog stovėti išskėstomis kojomis ir pasilenkti į kiekvieną pusę, tačiau būkite atsargūs, kad telefonas būtų lygus ir tame pačiame aukštyje. Tiesiog pasilenkimas, o ne judėjimas gali padėti jums nejudėti per toli ir lengviau išlaikyti tikslą.</value>
+  </data>
+  <data name="Page.Tips.Lines" xml:space="preserve">
+    <value>Lygiavimo linijos gali judėti.</value>
+  </data>
+  <data name="Page.Tips.Lines.Body" xml:space="preserve">
+    <value>Jei norite, galite vilkti lygiavimo linijas. Tai ypač naudinga lygiuojant nuotraukas redaguojant.</value>
+  </data>
+  <data name="Page.Tips.Old" xml:space="preserve">
+    <value>Senas nuotraukas galite atidaryti naudodami CrossCam.</value>
+  </data>
+  <data name="Page.Tips.Old.Body" xml:space="preserve">
+    <value>Galite įkelti anksčiau padarytas nuotraukas bakstelėdami aplanko piktogramą fotoaparato puslapio apačioje, bet jei dirbate su daugybe nuotraukų, taip pat galite jas bendrinti su CrossCam tiesiai iš nuotraukų programos, kuri gali stebėti jūsų geriau vietą savo nuotraukose.</value>
+  </data>
+  <data name="Page.Tips.Quick" xml:space="preserve">
+    <value>Įjunkite greitąjį režimą, kai esate su kitais.</value>
+  </data>
+  <data name="Page.Tips.Quick.Body" xml:space="preserve">
+    <value>Jei tyrinėjate kartu su kitais žmonėmis, patartina įjungti greitąjį režimą išjungiant automatinį lygiavimą ir kraštines ir tiesiog išsaugojus, kai nufotografuojate, neredaguojant. Vėliau visada galėsite įkelti, automatiškai sulygiuoti ir redaguoti nuotraukas. Taip jūsų kompanionams nereikės laukti, kol patobulinsite savo nuotraukas vietoje, bet jūs vis tiek galite būti tikri, kad norimas gylis tikrai yra. Tik būkite atsargūs ir neatlikkite skubotų redagavimo priemonių prieš pirmąjį išsaugojimą! Taip pat galite įjungti atskirą šoninį išsaugojimą, kuris nepaisys jokio jūsų atliekamo redagavimo.</value>
+  </data>
+  <data name="Page.Tips.Sick" xml:space="preserve">
+    <value>Jei dėl judesio jus pykina, nejudėkite.</value>
+  </data>
+  <data name="Page.Tips.Sick.Body" xml:space="preserve">
+    <value>Jei dėl viso judesio jus pykina arba per sunku žiūrėti 3D formatu, nepradėkite žiūrėti 3D, kol šiek tiek nepajudėjote. Tada palyginkite nuotraukas tarpusavyje ir sulygiuokite nuotraukas naudodami horizontalias linijas be 3D peržiūros, tada pradėkite žiūrėti 3D, kai sulygiuosite ir nejudėsite.</value>
+  </data>
+  <data name="Page.Tips.Space" xml:space="preserve">
+    <value>Šios nuotraukos gali užimti daug vietos – galite jas sumažinti.</value>
+  </data>
+  <data name="Page.Tips.Space.Body" xml:space="preserve">
+    <value>Nustatymų puslapyje yra galimybė proporcingai sumažinti galutinio paveikslėlio skiriamąją gebą – tai gali padėti, jei norite sutaupyti vietos. Jei jūsų nuotrauka nėra apkarpyta, galutinis rezultatas yra dvi visos raiškos nuotraukos, sujungtos, kad būtų sukurta dviguba skyra, o tai reiškia, kad dažnai galite išvengti labai sumažintos skiriamosios gebos nepablogindami kokybės.</value>
+  </data>
+  <data name="Page.Tips.Turn" xml:space="preserve">
+    <value>Nesisuk.</value>
+  </data>
+  <data name="Page.Tips.Turn.Body" xml:space="preserve">
+    <value>Kai judate, stenkitės nesukti telefono jokia kryptimi, įskaitant natūralų polinkį pasisukti į objektą judant į šoną. Tam tikras sukimasis bus būtinas (kartais), bet stenkitės jį sumažinti. Įsivaizduokite, kad telefonas sumontuotas ant tiesaus horizontalaus bėgelio ir gali tik slysti. Pasukimas į vidų gali sukelti sutrumpinimo efektą, dėl kurio kampai sunkiai susilieja.</value>
+  </data>
+  <data name="Page.Tips.Window" xml:space="preserve">
+    <value>Pridėkite kraštinę ir apkarpykite, kad sukurtumėte stiprų stereo langą.</value>
+  </data>
+  <data name="Page.Tips.Window.Body" xml:space="preserve">
+    <value>Įdomų stereo lango efektą galima sukurti darant du dalykus: 1) įjungiant kraštinę (nustatymų puslapyje) ir 2) kryžminei peržiūrai apkarpyti vidinius vaizdų kraštus, kol pats išorinis kraštas paveiksle taps 3D (apkarpyti). IŠORINIUS kraštus, jei žiūrite lygiagrečiai). Svarbiausia yra apkarpyti dešinįjį kairiojo paveikslėlio kraštą šiek tiek daugiau, nei rodo dešiniojo paveikslo krašto dešinysis scenos kraštas, ir atvirkščiai. Kraštinės pridėjimas perjungiamas nustatymų puslapyje. Jei tai painu, tiesiog nupjaukite krūvą vidinių kraštų ir jis pradės aiškėti. Vidinių kraštų apkarpymo mygtukas atrodo taip:</value>
+  </data>
+  <data name="Button.Code" xml:space="preserve">
+    <value>Žiūrėkite kodą</value>
+  </data>
+  <data name="Button.Developer" xml:space="preserve">
+    <value>Apie kūrėją</value>
+  </data>
+  <data name="Button.EmailMe" xml:space="preserve">
+    <value>Parašyk man elektroninį laišką</value>
+  </data>
+  <data name="Button.GitHub" xml:space="preserve">
+    <value>Pridėkite problemą „GitHub“.</value>
+  </data>
+  <data name="Button.Press" xml:space="preserve">
+    <value>Grįžkite į abiejų įrenginių fotoaparato ekraną ir apatiniame kampe bakstelėkite poravimo mygtuką</value>
+  </data>
+  <data name="Button.Primary" xml:space="preserve">
+    <value>BALESKITE ČIA PIRMINĮ</value>
+  </data>
+  <data name="Button.Privacy" xml:space="preserve">
+    <value>Privatumo politika</value>
+  </data>
+  <data name="Button.Secondary" xml:space="preserve">
+    <value>BALESKITE ČIA ANTRINĮ</value>
+  </data>
+  <data name="Button.Test" xml:space="preserve">
+    <value>Išbandykite išankstines versijas</value>
+  </data>
+  <data name="Button.Wi-Fi" xml:space="preserve">
+    <value>Įsitikinkite, kad „Wi-Fi“ įjungtas abiejuose įrenginiuose (tačiau jo nereikia prie nieko prijungti)</value>
+  </data>
+  <data name="Page.Pairing.1" xml:space="preserve">
+    <value>Jei turite du įrenginius su įdiegta CrossCam, galite juos sujungti, kad vienu metu fotografuotumėte iš dviejų perspektyvų. Darant dvi nuotraukas tuo pačiu metu gaunamos geriausios stereogramos.
+
+Atminkite, kad ši funkcija vis dar yra eksperimentinė ir gali kilti problemų. Jis gali neveikti tobulai visą laiką ir gali išeikvoti akumuliatorių. Taip pat atminkite, kad šiuo metu įrenginiai turi būti tos pačios platformos, kad būtų galima prisijungti (ir Android, arba abi iOS).
+
+Vienas iš būdų pasiekti *tobulą* sinchronizavimą naudojant tik vieną įrenginį ir „CrossCam“ yra naudoti „vieno kadro veidrodžio“ metodą. Jį galite įjungti nustatymų puslapyje, o apie tai galite perskaityti DUK puslapyje.
+
+Kad du įrenginiai būtų naudojami kartu, turi būti priskirti jų vaidmenys. PAGRINDINIS įrenginys yra tas, kuris parodys abi peržiūras, suaktyvins fiksavimą ir laikys / išsaugos galutinius fiksavimus. Norėdami priskirti vaidmenis, abu įrenginius eikite į šį puslapį ir atlikite toliau nurodytus veiksmus.</value>
+  </data>
+  <data name="Page.Pairing.2" xml:space="preserve">
+    <value>Jei kyla problemų, ATKREIPKITE DĖMESĮ:
+ • Pradėjus susiejimo procesą, susiejimo mygtuką galima bet kada vėl paliesti, kad jį sustabdytumėte arba atsijungtumėte.
+ • Gali padėti sustabdyti abiejų įrenginių poravimą ir tuo pačiu metu jį paleisti iš naujo.
+ • Gali padėti atsijungti nuo „Wi-Fi“ arba duomenų tinklų, jei jie suveikia.
+ • Kiekviena kamera yra skirtinga. Šie skirtumai gali apimti kampinį matymo lauką, fokusavimą, ekspoziciją ir baltos spalvos balansą, laiką ir kt. Net du to paties modelio telefonai elgsis šiek tiek skirtingai. Man labiau patinka naudoti porą identiškų senų telefonų (mano atveju pora iPhone 6).
+ • „CrossCam“ yra programinė įranga, o ne aparatinė įranga, todėl nuotraukų fiksavimas gali būti šiek tiek nesinchronizuotas, atsižvelgiant į tai, ką dar procesoriai ir atmintis veikia konkrečiu fotografavimo momentu. Dėl to sinchronizavimas kartais gali būti netobulas, tačiau paprastai jis turėtų būti labai artimas.</value>
+  </data>
+  <data name="Page.Pairing.Again" xml:space="preserve">
+    <value>Jei norite vėl prisijungti, įsitikinkite, kad įjungtas „Wi-Fi“, tada tiesiog bakstelėkite prisijungimo mygtuką pagrindiniame abiejų įrenginių ekrane.</value>
+  </data>
+  <data name="Page.Pairing.LocalNetworkAccess" xml:space="preserve">
+    <value>„CrossCam“ reikalingas vietinio tinklo prieigos leidimas. „CrossCam“ iš tikrųjų nenaudoja vietinio tinklo, tačiau „iOS“ reikalauja, kad „CrossCam“ gautų šį leidimą, kad galėtų naudoti „Wi-Fi“ anteną įrenginiams nuskaityti. „CrossCam“ paprašys šio leidimo vieną kartą – jei leidimas bus atmestas, turėsite patys perjungti jungiklį „Nustatymų“ programoje.</value>
+  </data>
+  <data name="Page.Pairing.Location" xml:space="preserve">
+    <value>„CrossCam“ paprašys leidimų ir prireikus įjungs komponentus, kad galėtų prijungti jūsų įrenginius. Atkreipkite dėmesį: norint prisijungti prie antrinio įrenginio, „CrossCam“ reikalingas vietos nustatymo leidimas ir, kad vietos nustatymo paslaugos būtų įjungtos pagrindiniame įrenginyje. Tai tiesiog „Android“ reikalavimas ir visiškai nepriklauso nuo manęs. „CrossCam“ iš tikrųjų jokiu būdu NENAUDOJA jūsų buvimo vietos, bet kadangi netoliese esančių įrenginių paieška (ir radimas) teoriškai gali būti panaudota apytiksliai jūsų vietai nustatyti, „CrossCam“ reikia leidimo pasiekti jūsų vietą.</value>
+  </data>
+  <data name="Page.Pairing.Permissions" xml:space="preserve">
+    <value>Pastaba apie leidimus:</value>
+  </data>
+  <data name="Page.Pairing.Title" xml:space="preserve">
+    <value>Poravimas</value>
+  </data>
+  <data name="Button.Back" xml:space="preserve">
+    <value>&lt; Atgal</value>
+  </data>
+  <data name="Page.MorePictures.CrossViewSubreddit" xml:space="preserve">
+    <value>CrossView Subreddit</value>
+  </data>
+  <data name="Page.MorePictures.FacebookGroup" xml:space="preserve">
+    <value>Stereoskopinė 3D Facebook grupė</value>
+  </data>
+  <data name="Page.MorePictures.GoogleDoc" xml:space="preserve">
+    <value>„Google“ puikių dalykų dokumentas</value>
+  </data>
+  <data name="Page.MorePictures.Instagram" xml:space="preserve">
+    <value>„Instagram“ stereoskopinė žyma</value>
+  </data>
+  <data name="Page.MorePictures.Mine" xml:space="preserve">
+    <value>Žiūrėkite Mano darytas nuotraukas</value>
+  </data>
+  <data name="Page.MorePictures.ParallelViewSubreddit" xml:space="preserve">
+    <value>ParallelView Subreddit</value>
+  </data>
+  <data name="Page.Settings.Alignment" xml:space="preserve">
+    <value>Automatinis derinimas</value>
+  </data>
+  <data name="Page.Settings.Analytics" xml:space="preserve">
+    <value>Bendrinkite anoniminius naudojimo ir klaidų duomenis, kad padėtumėte tobulinti „CrossCam“.</value>
+  </data>
+  <data name="Page.Settings.Border" xml:space="preserve">
+    <value>Sienos</value>
+  </data>
+  <data name="Page.Settings.Camera" xml:space="preserve">
+    <value>Fotoaparatas</value>
+  </data>
+  <data name="Page.Settings.Defaults" xml:space="preserve">
+    <value>Atstatyti į numatytuosius nustatymus</value>
+  </data>
+  <data name="Page.Settings.Editing" xml:space="preserve">
+    <value>Redagavimas</value>
+  </data>
+  <data name="Page.Settings.ErrorEmail" xml:space="preserve">
+    <value>Raginimas išsiųsti el. laišką, kai atsiranda klaidų</value>
+  </data>
+  <data name="Page.Settings.Guides" xml:space="preserve">
+    <value>Užfiksavimo vadovai</value>
+  </data>
+  <data name="Page.Settings.Pairing" xml:space="preserve">
+    <value>Poravimas</value>
+  </data>
+  <data name="Page.Settings.Preview" xml:space="preserve">
+    <value>Peržiūros peržiūros metodas</value>
+  </data>
+  <data name="Page.Settings.Saving" xml:space="preserve">
+    <value>Išsaugomas</value>
+  </data>
+  <data name="Page.TipMe.1" xml:space="preserve">
+    <value>„CrossCam“ galima nemokamai naudoti, be skelbimų, atvirojo kodo, nerenka iš jūsų asmeninės informacijos ir suteikia visišką prieigą prie visų funkcijų. Man patinka dirbti su CrossCam, bet tai užima daug laiko ir pastangų. Iš „CrossCam“ aš visiškai neuždirbu pinigų, išskyrus patarimus, kuriuos žmonės gali nuspręsti man atsiųsti.</value>
+  </data>
+  <data name="Page.TipMe.2" xml:space="preserve">
+    <value>Jei jums patinka „CrossCam“ ir galite tai padaryti, atsiųskite man patarimą.</value>
+  </data>
+  <data name="Page.TipMe.Ko-fi" xml:space="preserve">
+    <value>Ko-fi</value>
+  </data>
+  <data name="Page.TipMe.Patreon" xml:space="preserve">
+    <value>Patreonas</value>
+  </data>
+  <data name="Page.TipMe.PayPal" xml:space="preserve">
+    <value>PayPal</value>
+  </data>
+  <data name="Page.TipMe.Tipped" xml:space="preserve">
+    <value>Aš gavau arbatpinigių</value>
+  </data>
+  <data name="Page.TipMe.TippedTimes" xml:space="preserve">
+    <value>kartų, iš viso</value>
+  </data>
+  <data name="Page.TipMe.Venmo" xml:space="preserve">
+    <value>Venmo</value>
+  </data>
+  <data name="Title.MorePictures" xml:space="preserve">
+    <value>Žiūrėti daugiau nuotraukų</value>
+  </data>
+  <data name="Title.Settings" xml:space="preserve">
+    <value>Nustatymai</value>
+  </data>
+  <data name="Title.TipMe" xml:space="preserve">
+    <value>Patarimai yra dėkingi!</value>
+  </data>
+  <data name="Settings.Alignment.Advanced" xml:space="preserve">
+    <value>Rodyti išplėstinius lygiavimo nustatymus</value>
+  </data>
+  <data name="Settings.Alignment.Ecc" xml:space="preserve">
+    <value>Pirmiausia stenkitės naudoti ECC lygiavimą</value>
+  </data>
+  <data name="Settings.Alignment.Keypoints" xml:space="preserve">
+    <value>Pirmiausia visada stenkitės naudoti pagrindinio taško išlygiavimą</value>
+  </data>
+  <data name="Settings.Alignment.On" xml:space="preserve">
+    <value>Automatiškai lygiuoti po užfiksavimo</value>
+  </data>
+  <data name="Settings.Border.Color" xml:space="preserve">
+    <value>Krašto spalva</value>
+  </data>
+  <data name="Settings.Border.FuseGuide" xml:space="preserve">
+    <value>Pridėkite saugiklio kreiptuvą viršuje (taškas virš kiekvienos pusės)</value>
+  </data>
+  <data name="Settings.Border.On" xml:space="preserve">
+    <value>Pridėti kraštą</value>
+  </data>
+  <data name="Settings.Border.Prompt" xml:space="preserve">
+    <value>Raginimas nukirpti kraštinę, kai aptinkamas įkeliant</value>
+  </data>
+  <data name="Settings.Border.Thickness" xml:space="preserve">
+    <value>Kraštinės storis (dešimtosios pločio procentinės dalies)</value>
+  </data>
+  <data name="Settings.Camera.Camera1" xml:space="preserve">
+    <value>Priversti kameros1 API (gali būti naudinga, jei susiduriate su keistumais, bet dėl ​​to funkcionalumas bus ribotas. Kad įsigaliotų, reikia priverstinai išjungti / paleisti iš naujo)</value>
+  </data>
+  <data name="Settings.Camera.Camera2" xml:space="preserve">
+    <value>Priversti kameros 2 API (turi būti 6 ar naujesnės versijos „Android“, gali būti naudinga, jei kyla klaidų, bet gali kilti daugiau, reikia priverstinai išjungti / paleisti iš naujo, kad įsigaliotų)</value>
+  </data>
+  <data name="Settings.Camera.LandscapeCaptureHorizontal" xml:space="preserve">
+    <value>Kraštovaizdžio fiksavimo mygtuko išdėstymas horizontaliai</value>
+  </data>
+  <data name="Settings.Camera.LandscapeCaptureVertical" xml:space="preserve">
+    <value>Kraštovaizdžio fiksavimo mygtuko vertikali vieta</value>
+  </data>
+  <data name="Settings.Camera.Lock" xml:space="preserve">
+    <value>Užfiksuokite fokusavimą ir ekspoziciją antrajai nuotraukai, kad sufokusuotumėte ir išlaikytumėte pirmąją nuotrauką</value>
+  </data>
+  <data name="Settings.Camera.Pair" xml:space="preserve">
+    <value>Suporuoti mygtuko vietą horizontaliai (kai fiksavimo mygtukas yra centre)</value>
+  </data>
+  <data name="Settings.Camera.PointFocus" xml:space="preserve">
+    <value>Bakstelėkite, kad nukreiptumėte fokusavimą, dukart palieskite, kad perjungtumėte į nuolatinį fokusavimą (arba išsaugokite arba išvalykite)</value>
+  </data>
+  <data name="Settings.Camera.PortraitCapture" xml:space="preserve">
+    <value>Portreto fiksavimo mygtuko išdėstymas</value>
+  </data>
+  <data name="Settings.Editing.Align" xml:space="preserve">
+    <value>Didžiausia vertikalios lygiavimo proporcija</value>
+  </data>
+  <data name="Settings.Editing.Keystone" xml:space="preserve">
+    <value>Maksimalus kertinis akmuo</value>
+  </data>
+  <data name="Settings.Editing.Rotation" xml:space="preserve">
+    <value>Maksimalus sukimosi laipsnis</value>
+  </data>
+  <data name="Settings.Editing.SideCrop" xml:space="preserve">
+    <value>Didžiausia šoninio pasėlių proporcija</value>
+  </data>
+  <data name="Settings.Editing.TopCrop" xml:space="preserve">
+    <value>Didžiausia viršutinės / apatinės apkarpymo proporcija</value>
+  </data>
+  <data name="Settings.Editing.Zoom" xml:space="preserve">
+    <value>Didžiausia priartinimo proporcija</value>
+  </data>
+  <data name="Settings.Guides.Donut" xml:space="preserve">
+    <value>Rodyti spurgos vadovą (susilenks, todėl gali reikėti redaguoti kertinį akmenį)</value>
+  </data>
+  <data name="Settings.Guides.Fuse" xml:space="preserve">
+    <value>Rodyti saugiklio kreiptuvą (taškas virš kiekvienos pusės)</value>
+  </data>
+  <data name="Settings.Guides.LineColor" xml:space="preserve">
+    <value>Įvairių spalvų linijos</value>
+  </data>
+  <data name="Settings.Guides.Lines" xml:space="preserve">
+    <value>Matomos linijos</value>
+  </data>
+  <data name="Settings.Guides.Roll" xml:space="preserve">
+    <value>Matomas ritinio kreiptuvas</value>
+  </data>
+  <data name="Settings.Pair.CaptureDelay" xml:space="preserve">
+    <value>Papildoma užfiksavimo akimirkos delsa (ms) (prideda papildomą delsą prie tikslinės fiksavimo akimirkos tik šiame įrenginyje)</value>
+  </data>
+  <data name="Settings.Pair.Countdown" xml:space="preserve">
+    <value>Užfiksuoti atgalinės atskaitos trukmę (laikmatis)</value>
+  </data>
+  <data name="Settings.Pair.Fov" xml:space="preserve">
+    <value>Regėjimo lauko korekcija</value>
+  </data>
+  <data name="Settings.Pair.FovNotSet" xml:space="preserve">
+    <value>FOV taisymas nenustatytas (užfiksuokite su suporuotais įrenginiais, kad atliktumėte sąranką).</value>
+  </data>
+  <data name="Settings.Pair.FovReset" xml:space="preserve">
+    <value>Nustatyti iš naujo</value>
+  </data>
+  <data name="Settings.Pair.Go" xml:space="preserve">
+    <value>Eikite į susiejimo sąrankos puslapį</value>
+  </data>
+  <data name="Settings.Pair.NoRole" xml:space="preserve">
+    <value>Vaidmuo nepasirinktas</value>
+  </data>
+  <data name="Settings.Pair.PreviewDelay" xml:space="preserve">
+    <value>Peržiūrėti kadrų delsą (didesnis skaičius sumažins kadrų dažnį, bet taupys akumuliatorių)</value>
+  </data>
+  <data name="Settings.Pair.Primary" xml:space="preserve">
+    <value>Pagrindinis:</value>
+  </data>
+  <data name="Settings.Pair.PrimaryRole" xml:space="preserve">
+    <value>Vaidmuo: pagrindinis</value>
+  </data>
+  <data name="Settings.Pair.Sample" xml:space="preserve">
+    <value>Laikrodžio pavyzdžių skaičius (mažesnis skaičius sumažins pradiniam sinchronizavimui reikalingą laiką, bet gali sumažinti sinchronizavimo tikslumą)</value>
+  </data>
+  <data name="Settings.Pair.Secondary" xml:space="preserve">
+    <value>Antrinis:</value>
+  </data>
+  <data name="Settings.Pair.SecondaryRole" xml:space="preserve">
+    <value>Vaidmuo: Antrinis</value>
+  </data>
+  <data name="Settings.Pair.Timeout" xml:space="preserve">
+    <value>Ryšio skirtasis laikas (sekundėmis) (0 reiškia, kad laikas nesibaigė)</value>
+  </data>
+  <data name="Settings.Preview.Barrel" xml:space="preserve">
+    <value>Pridėkite objektyvo korekciją / cilindro iškraipymą (gali sumažinti kadrų dažnį)</value>
+  </data>
+  <data name="Settings.Preview.BarrelFinal" xml:space="preserve">
+    <value>Pridėkite objektyvo korekciją / cilindro iškraipymą tik prie galutinių vaizdų (gali sulėtinti galutinį vaizdą, bet pagreitinti fiksavimą)</value>
+  </data>
+  <data name="Settings.Preview.CardboardDistance" xml:space="preserve">
+    <value>Kartono atskyrimo atstumas</value>
+  </data>
+  <data name="Settings.Preview.Downsize" xml:space="preserve">
+    <value>Sumažinti vaizdą (gali padidėti kadrų dažnis)</value>
+  </data>
+  <data name="Settings.Preview.DownsizePercent" xml:space="preserve">
+    <value>Sumažinti vaizdo dydį procentais</value>
+  </data>
+  <data name="Settings.Preview.Immersive" xml:space="preserve">
+    <value>Įtraukiantis galutinis žiūrėjimas</value>
+  </data>
+  <data name="Settings.Preview.LensStrength" xml:space="preserve">
+    <value>Objektyvo korekcijos stiprumas</value>
+  </data>
+  <data name="Settings.Preview.Mirror" xml:space="preserve">
+    <value>Užfiksuokite veidrodinio padalijimo vienu kadru metodu</value>
+  </data>
+  <data name="Settings.Preview.Width" xml:space="preserve">
+    <value>Didžiausias lygiagretaus vaizdo plotis (taškais)</value>
+  </data>
+  <data name="Settings.Reset" xml:space="preserve">
+    <value>Atstatyti į numatytuosius nustatymus</value>
+  </data>
+  <data name="Settings.Saving.Alone" xml:space="preserve">
+    <value>Išsaugokite tik pirmąją pusę (be redagavimo ar kraštinės) (kad būtų lengva dalytis plokščia nuotrauka su plokščio vaizdo žmonėmis)</value>
+  </data>
+  <data name="Settings.Saving.Anaglyph" xml:space="preserve">
+    <value>Išsaugoti raudono / žalsvai mėlynos spalvos anaglifo versiją (su pakeitimais, bet be kraštinės)</value>
+  </data>
+  <data name="Settings.Saving.Browse" xml:space="preserve">
+    <value>Naršyti...</value>
+  </data>
+  <data name="Settings.Saving.Cardboard" xml:space="preserve">
+    <value>Išsaugoti „Cardboard“ (su redagavimu, be kraštinių, be tarpų, visu pločiu, kad vėliau būtų galima įkelti atgal į „CrossCam“)</value>
+  </data>
+  <data name="Settings.Saving.Clear" xml:space="preserve">
+    <value>Išsaugojus automatiškai išvalykite užfiksuotus vaizdus</value>
+  </data>
+  <data name="Settings.Saving.Cross" xml:space="preserve">
+    <value>Išsaugoti sujungtą kryžminio rodinio versiją (su pakeitimais ir kraštine)</value>
+  </data>
+  <data name="Settings.Saving.ExternalDirectory" xml:space="preserve">
+    <value>Išsaugoti išoriniame CrossCam kataloge adresu:</value>
+  </data>
+  <data name="Settings.Saving.ExternalWarning" xml:space="preserve">
+    <value>(įspėjimas: pašalinus CrossCam, nuotraukos bus ištrintos)</value>
+  </data>
+  <data name="Settings.Saving.Folder" xml:space="preserve">
+    <value>Išsaugokite tam skirtame „CrossCam“ poaplankyje / albume</value>
+  </data>
+  <data name="Settings.Saving.Grayscale" xml:space="preserve">
+    <value>Išsaugoti pilkos spalvos raudonos/žalsvos spalvos anaglifo versiją (su redagavimu, bet be kraštinės)</value>
+  </data>
+  <data name="Settings.Saving.Order" xml:space="preserve">
+    <value>(Išsaugojimas vyks eilės tvarka iš viršaus į apačią)</value>
+  </data>
+  <data name="Settings.Saving.Parallel" xml:space="preserve">
+    <value>Išsaugoti sujungtą lygiagrečiojo rodinio versiją (su pakeitimais ir kraštine)</value>
+  </data>
+  <data name="Settings.Saving.Quad" xml:space="preserve">
+    <value>Išsaugoti keturkampį derinį (su redagavimu ir apvadu)</value>
+  </data>
+  <data name="Settings.Saving.Reset" xml:space="preserve">
+    <value>Nustatyti iš naujo</value>
+  </data>
+  <data name="Settings.Saving.Resolution" xml:space="preserve">
+    <value>Rezoliucijos proporcija</value>
+  </data>
+  <data name="Settings.Saving.SaveTo" xml:space="preserve">
+    <value>Išsaugoti:</value>
+  </data>
+  <data name="Settings.Saving.Separate" xml:space="preserve">
+    <value>Išsaugokite kiekvieną pusę atskirai (be redagavimo ar kraštinės, kad būtų lengviau apdoroti, pirmiausia išsaugoma kairėje pusėje)</value>
+  </data>
+  <data name="Settings.Saving.Subfolder" xml:space="preserve">
+    <value>Išsaugokite tam skirtuose „CrossCam_{ViewMethod}“ poaplankiuose / albumuose</value>
+  </data>
+  <data name="Settings.Saving.Triple" xml:space="preserve">
+    <value>Išsaugoti trigubą derinį (su redagavimu ir apvadu)</value>
+  </data>
+  <data name="Button.Pair.Accept" xml:space="preserve">
+    <value>Priimti</value>
+  </data>
+  <data name="Button.Pair.Cancel" xml:space="preserve">
+    <value>Atšaukti</value>
+  </data>
+  <data name="Page.Camera.AcceptConnection" xml:space="preserve">
+    <value>Priimti ryšį su</value>
+  </data>
+  <data name="Page.Camera.Confirm" xml:space="preserve">
+    <value>Patvirtinkite, kad kodas sutampa abiejuose įrenginiuose:</value>
+  </data>
+  <data name="Page.Footer.CouldntOpen" xml:space="preserve">
+    <value>Nepavyko atidaryti nuorodos</value>
+  </data>
+  <data name="Page.Footer.OpenError" xml:space="preserve">
+    <value>Nepavyko atidaryti pašto nuorodos. Taip gali būti dėl to, kad jūsų el. pašto programa nenustatyta, arba dėl kitos priežasties.</value>
+  </data>
+  <data name="Page.Pair.Errors.Denied" xml:space="preserve">
+    <value>Reikalingi leidimai susieti nebuvo suteikti. Išimtis:</value>
+  </data>
+  <data name="Page.Pair.Errors.FailedBluetooth" xml:space="preserve">
+    <value>Įrenginiui nepavyko įjungti „Bluetooth“. Išimtis:</value>
+  </data>
+  <data name="Page.Pair.Errors.FailedSearch" xml:space="preserve">
+    <value>Įrenginiui nepavyko ieškoti įrenginių. Išimtis:</value>
+  </data>
+  <data name="Page.Pair.Errors.LocationOff" xml:space="preserve">
+    <value>Vietos nustatymo paslaugos nesuaktyvintos. Neįmanoma nuskaityti įrenginių. Daugiau informacijos rasite poravimo puslapyje.</value>
+  </data>
+  <data name="Page.Pair.Errors.LocationScan" xml:space="preserve">
+    <value>Vietos leidimas nesuteiktas. Neįmanoma nuskaityti įrenginių. Daugiau informacijos rasite poravimo puslapyje.</value>
+  </data>
+  <data name="Page.Pair.Errors.NotSupported" xml:space="preserve">
+    <value>Susiejimas šiame įrenginyje nepalaikomas. Išimtis:</value>
+  </data>
+  <data name="Page.Pair.Errors.Title" xml:space="preserve">
+    <value>Klaida</value>
+  </data>
+  <data name="Page.Pair.Errors.WifiOff" xml:space="preserve">
+    <value>Wi-Fi išjungtas. Įjunkite „Wi-Fi“.</value>
+  </data>
+  <data name="Page.Pair.PrimaryExplanation" xml:space="preserve">
+    <value>Šis įrenginys dabar nustatytas kaip pagrindinis.</value>
+  </data>
+  <data name="Page.Pair.PrimarySelected" xml:space="preserve">
+    <value>Pasirinktas pagrindinis vaidmuo</value>
+  </data>
+  <data name="Page.Pair.SecondaryExplanation" xml:space="preserve">
+    <value>Šis įrenginys dabar nustatytas kaip antrinis.</value>
+  </data>
+  <data name="Page.Pair.SecondarySelected" xml:space="preserve">
+    <value>Pasirinktas antrinis vaidmuo</value>
+  </data>
+  <data name="Page.Technique.Mode" xml:space="preserve">
+    <value>režimu.</value>
+  </data>
+  <data name="Page.Technique.SetMode" xml:space="preserve">
+    <value>CrossCam dabar yra</value>
+  </data>
+</root>

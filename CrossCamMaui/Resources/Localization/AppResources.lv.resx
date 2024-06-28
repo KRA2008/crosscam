@@ -1,0 +1,1156 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="Button.GoogleDoc" xml:space="preserve">
+    <value>Google Doc of Great Stuff</value>
+  </data>
+  <data name="Button.LearnCross" xml:space="preserve">
+    <value>MĀCĪTIES KROSTA</value>
+  </data>
+  <data name="Button.LearnParallel" xml:space="preserve">
+    <value>MĀCIES PARALĒLI</value>
+  </data>
+  <data name="Button.MorePictures" xml:space="preserve">
+    <value>Skatīt vairāk attēlu</value>
+  </data>
+  <data name="Button.Review" xml:space="preserve">
+    <value>Uzrakstīt atsauksmi</value>
+  </data>
+  <data name="Button.Share" xml:space="preserve">
+    <value>Kopīgojiet CrossCam</value>
+  </data>
+  <data name="Button.Support" xml:space="preserve">
+    <value>Atbalstiet izstrādātāju</value>
+  </data>
+  <data name="Button.TapCross" xml:space="preserve">
+    <value>Pieskarieties ŠEIT, LAI IZVĒLĒTIES KROSU</value>
+  </data>
+  <data name="Button.TapParallel" xml:space="preserve">
+    <value>Pieskarieties ŠEIT, LAI IZVĒLĒTOS PAPARALĒLU</value>
+  </data>
+  <data name="Footer.Span1" xml:space="preserve">
+    <value>Vai atradāt kļūdu? Vai jums ir jautājums? Vienkārši e-pasts</value>
+  </data>
+  <data name="Footer.Span3" xml:space="preserve">
+    <value>! Man patīk runāt ar lietotājiem, un tas ir ātrākais veids, kā sazināties ar mani.</value>
+  </data>
+  <data name="Page.HowToUse.2anaglyph" xml:space="preserve">
+    <value>2) Sāciet skatīt pirmo attēlu ar priekšskatījumu, kas parādās blakus tam.</value>
+  </data>
+  <data name="Page.HowToUse.2cardboard" xml:space="preserve">
+    <value>2) Sāciet skatīt pirmo attēlu ar priekšskatījumu, kas parādās blakus tam.</value>
+  </data>
+  <data name="Page.HowToUse.2cross" xml:space="preserve">
+    <value>2) Sāciet skatīt pirmo attēlu ar priekšskatījumu, kas parādās blakus tam.</value>
+  </data>
+  <data name="Page.HowToUse.2parallel" xml:space="preserve">
+    <value>2) Sāciet paralēli skatīt pirmo attēlu ar priekšskatījumu, kas parādās blakus tam.</value>
+  </data>
+  <data name="Page.Technique.AdditionalTutorials" xml:space="preserve">
+    <value>Papildu apmācības:</value>
+  </data>
+  <data name="Page.Technique.Cross1" xml:space="preserve">
+    <value>Uzmanīgi sakrusto acis, skatoties uz augšējo attēlu pāri. Kad jūs sakrustosiet acis, lietas kļūs neskaidras un caurspīdīgas, un jūs sāksit redzēt 4 attēlus, nevis 2 (2 pārus). Jo stingrāk sakrustosiet acis, jo tālāk bilžu pāri pārvietosies - tas izskatīsies nedaudz šādi:</value>
+  </data>
+  <data name="Page.Technique.Cross2" xml:space="preserve">
+    <value>Uzmanīgi atskrūvējiet acis, lai attēli katra pāra iekšpusē sāktu pārklāties. Sāks izskatīties, ka ir tikai 3, nevis 4 attēli. Tas joprojām būs izplūdis un caurspīdīgs un izskatīsies apmēram šādi:</value>
+  </data>
+  <data name="Page.Technique.Cross3" xml:space="preserve">
+    <value>Kad darbojas vidējā pārklāšanās, jums vienkārši jāatslābina acis un jāļauj tām fokusēt attēlu. Tajā brīdī jums būs viens ass 3D attēls vidū ar caurspīdīgu attēlu, kas peld no abām pusēm, kas izskatīsies šādi (izņemot, ka vidus būs 3D):</value>
+  </data>
+  <data name="Page.Technique.Cross4" xml:space="preserve">
+    <value>Ja jums ir grūtības sakrustot acis, varat arī mēģināt skatīties uz pirkstu, turot to pusceļā starp acīm un ekrānu. Jums vajadzētu redzēt, ka attēli sāk atdalīties un pārklāties aiz pirksta.</value>
+  </data>
+  <data name="Page.Technique.CrossViewing" xml:space="preserve">
+    <value>KRUSTU SKATĪŠANA</value>
+  </data>
+  <data name="Page.Technique.P1" xml:space="preserve">
+    <value>Ja vēlaties to redzēt vēlreiz, pieskarieties hamburgera (trīs rindiņas) ikonai kameras ekrāna augšējā kreisajā stūrī un pieskarieties “Palīdzība”.
+
+Lai skatītu 3D programmā CrossCam (sauktas par "stereogrammām"), varat izmantot sarkanas/ciānas 3D brilles, Google Cardboard skatītāju vai veikt "bezmaksas skatīšanos", izmantojot tikai acis un ekrānu. Ir divi veidi, kā brīvi skatīt, un CrossCam var palīdzēt apgūt abus. Jums ir jāpasaka CrossCam, kā skatīsit attēlus, pretējā gadījumā tas nedarbosies pareizi. Neuztraucieties, vienmēr varat mainīt šo iestatījumu sadaļā Iestatījumi.
+
+Ja varat ērti sakrustot acis, vispirms izmēģiniet krusta metodi, pretējā gadījumā izmēģiniet paralēlo metodi. Ja esat pieradis pie Magic Eye™ grāmatām, jūs, iespējams, jau varat izmantot paralēlo metodi, taču jūs varētu arī izmantot krustošanas metodi. Pieskarieties tālāk norādītajai metodei, lai to apgūtu, un noteikti pastāstiet CrossCam, kura no tām ir piemērota jums, nospiežot atbilstošo pogu IZVĒLĒTIES.
+
+Ja vēlaties izmantot 3D brilles vai Cardboard skatītāju, varat iestatīt CrossCam tās lietot iestatījumu lapā.</value>
+  </data>
+  <data name="Page.Technique.CrossLink1" xml:space="preserve">
+    <value>Jauka teksta apmācība</value>
+  </data>
+  <data name="Page.Technique.CrossLink2" xml:space="preserve">
+    <value>Vēl viena jauka teksta apmācība</value>
+  </data>
+  <data name="Page.Technique.CrossLink3" xml:space="preserve">
+    <value>Īsa YouTube apmācība</value>
+  </data>
+  <data name="Page.Technique.CrossLink4" xml:space="preserve">
+    <value>Gara, dīvaina, bet noderīga YouTube apmācība</value>
+  </data>
+  <data name="Page.Technique.CrossLink5" xml:space="preserve">
+    <value>Vēl viena YouTube apmācība</value>
+  </data>
+  <data name="Page.Technique.CrossLink6" xml:space="preserve">
+    <value>Divu kameru projekts ar pamācību</value>
+  </data>
+  <data name="Page.Technique.Parallel1" xml:space="preserve">
+    <value>Ja iepriekš minētais attēls neietilpst jūsu ekrānā, pagrieziet tālruni ainavas pozīcijā — CrossCam mēģina šim nolūkam izveidot attēlu pāri, kas ir lielāks par vienkāršāko izmēru. Jums ne vienmēr ir jāizmanto CrossCam ainavā, taču perfekta izmēra attēls atvieglo tehnikas apgūšanu.</value>
+  </data>
+  <data name="Page.Technique.Parallel2" xml:space="preserve">
+    <value>Atslābiniet acis un skatieties "caur" iepriekš redzamajiem attēliem tā, it kā jūs zonētu, skatoties uz attēliem. Jums vajadzētu sākt redzēt 3 attēlus ar 3D attēlu vidū, apmēram šādi:</value>
+  </data>
+  <data name="Page.Technique.Parallel3" xml:space="preserve">
+    <value>Ja jūs sākat redzēt 4 attēlus, jūs esat aizgājis pārāk tālu. Ja atkal atrodaties tajā brīdī, mēģiniet nedaudz pakustināt acis. Atpūta pārāk tālu izskatīsies šādi:</value>
+  </data>
+  <data name="Page.Technique.Parallel4" xml:space="preserve">
+    <value>Ja jums ir problēmas, mēģiniet novietot ekrānu tieši pret seju ar attēlu pāri tieši jūsu acu priekšā. Atslābinieties un skatieties "cauri" ekrānam un pēc tam lēnām velciet ekrānu prom no sejas, vienlaikus atslābinot acis. Galu galā attēlam vajadzētu "noklikšķināt" uz fokusu.</value>
+  </data>
+  <data name="Page.Technique.Parallel5" xml:space="preserve">
+    <value>Ja joprojām redzat četrus attēlus, palieliniet iestatījumu lapā “Maksimālais paralēlā skata attēla platums”.</value>
+  </data>
+  <data name="Page.Technique.ParallelViewing" xml:space="preserve">
+    <value>PARALĒLĀ SKATE</value>
+  </data>
+  <data name="Page.Technique.Practice" xml:space="preserve">
+    <value>Es izveidoju attēlus, uz kuriem varat trenēties</value>
+  </data>
+  <data name="Title.Contact" xml:space="preserve">
+    <value>Sazināties</value>
+  </data>
+  <data name="Title.Faq" xml:space="preserve">
+    <value>FAQ</value>
+  </data>
+  <data name="Title.Help" xml:space="preserve">
+    <value>Palīdzība</value>
+  </data>
+  <data name="Title.HowToUse" xml:space="preserve">
+    <value>Kā lietot CrossCam</value>
+  </data>
+  <data name="Title.Technique" xml:space="preserve">
+    <value>3D skatīšanās tehnika</value>
+  </data>
+  <data name="Title.Tips" xml:space="preserve">
+    <value>Padomi</value>
+  </data>
+  <data name="Button.DoNotEmailMe" xml:space="preserve">
+    <value>Nesūtiet man e-pastu tagad</value>
+  </data>
+  <data name="Button.EmailMeNow" xml:space="preserve">
+    <value>Nosūtiet man e-pastu tūlīt</value>
+  </data>
+  <data name="Button.No" xml:space="preserve">
+    <value>Nē</value>
+  </data>
+  <data name="Button.OK" xml:space="preserve">
+    <value>labi</value>
+  </data>
+  <data name="Button.YesClear" xml:space="preserve">
+    <value>Jā, skaidrs</value>
+  </data>
+  <data name="Page.Camera.Aligning" xml:space="preserve">
+    <value>Notiek līdzināšana...</value>
+  </data>
+  <data name="Page.Camera.AlignmentBroken" xml:space="preserve">
+    <value>Automātiskā izlīdzināšana ierīcē netiek atbalstīta — izslēdziet iestatījumu sadaļā.</value>
+  </data>
+  <data name="Page.Camera.AlignmentFailed" xml:space="preserve">
+    <value>Izlīdzināšana neizdevās.</value>
+  </data>
+  <data name="Page.Camera.BorderAsk" xml:space="preserve">
+    <value>Ir konstatēta robeža. Vai noņemt apmali?</value>
+  </data>
+  <data name="Page.Camera.BorderDetected" xml:space="preserve">
+    <value>Robeža noteikta</value>
+  </data>
+  <data name="Page.Camera.Cancel" xml:space="preserve">
+    <value>Atcelt</value>
+  </data>
+  <data name="Page.Camera.ChooseAction" xml:space="preserve">
+    <value>Izvēlieties darbību:</value>
+  </data>
+  <data name="Page.Camera.DirectoryNotFound" xml:space="preserve">
+    <value>Katalogs nav atrasts</value>
+  </data>
+  <data name="Page.Camera.DirectoryNotFoundExplain" xml:space="preserve">
+    <value>Saglabāšanas galamērķi nevarēja atrast. Lūdzu, iestatījumu lapā izvēlieties citu.</value>
+  </data>
+  <data name="Page.Camera.ErrorEmailBody" xml:space="preserve">
+    <value>Ko jūs darījāt tieši pirms kļūdas rašanās? Lūdzu, aprakstiet pat mazās lietas.\n\n\n\n\n\nVai CrossCam joprojām darbojās pēc kļūdas? Ja nē, kā tas ir bojāts?\n\n\n\n\n\nVai tas notiek atkārtoti?\n\n\n\n\n\nVai varat piespiest kļūdu notikt pēc komandas? Ja jā, kā?\n\n\n\n\n\n</value>
+  </data>
+  <data name="Page.Camera.FlipForCardboard" xml:space="preserve">
+    <value>Kartona režīmā pārslēdziet uz ainavu.</value>
+  </data>
+  <data name="Page.Camera.FlipLarger" xml:space="preserve">
+    <value>(pārvērtiet uz ainavu, lai iegūtu lielāku skatu)</value>
+  </data>
+  <data name="Page.Camera.ForAnaglyph" xml:space="preserve">
+    <value>par anaglifu</value>
+  </data>
+  <data name="Page.Camera.ForCardboard" xml:space="preserve">
+    <value>priekš Cardboard</value>
+  </data>
+  <data name="Page.Camera.ForCross" xml:space="preserve">
+    <value>par krustu</value>
+  </data>
+  <data name="Page.Camera.ForParallel" xml:space="preserve">
+    <value>paralēli</value>
+  </data>
+  <data name="Page.Camera.GoPickRole" xml:space="preserve">
+    <value>Lūdzu, dodieties uz lapu Savienošana pārī (izmantojot lapu Iestatījumi) un izvēlieties šīs ierīces savienošanas lomu pārī, pirms mēģināt izveidot savienojumu pārī.</value>
+  </data>
+  <data name="Page.Camera.InvalidImage" xml:space="preserve">
+    <value>Nederīgs attēls</value>
+  </data>
+  <data name="Button.Camera.Keep" xml:space="preserve">
+    <value>Saglabāt</value>
+  </data>
+  <data name="Page.Camera.LoadFullImage" xml:space="preserve">
+    <value>Ielādējiet pilnu stereo attēlu</value>
+  </data>
+  <data name="Page.Camera.Loading" xml:space="preserve">
+    <value>Notiek ielāde...</value>
+  </data>
+  <data name="Page.Camera.LoadSingleSide" xml:space="preserve">
+    <value>Ielādējiet vienu pusi</value>
+  </data>
+  <data name="Page.Camera.ManualCorrections" xml:space="preserve">
+    <value>Lūdzu, apsveriet arī manuālas korekcijas.</value>
+  </data>
+  <data name="Page.Camera.MirrorOnLeft" xml:space="preserve">
+    <value>SPOGULIS PA kreisi</value>
+  </data>
+  <data name="Page.Camera.MirrorOnRight" xml:space="preserve">
+    <value>SPOGULIS PA labi</value>
+  </data>
+  <data name="Page.Camera.MoveLeft" xml:space="preserve">
+    <value>PĀRVIETOT PA kreisi</value>
+  </data>
+  <data name="Page.Camera.MoveRight" xml:space="preserve">
+    <value>KUSTIES PA LABI</value>
+  </data>
+  <data name="Page.Camera.NoSaveModes" xml:space="preserve">
+    <value>Nav aktīvo saglabāšanas režīmu</value>
+  </data>
+  <data name="Page.Camera.NoSaveModesExplain" xml:space="preserve">
+    <value>Pašlaik nav ieslēgts neviens saglabāšanas režīms. Iestatījumu lapā ieslēdziet saglabāšanas režīmu.</value>
+  </data>
+  <data name="Page.Camera.Oops" xml:space="preserve">
+    <value>Hmm...</value>
+  </data>
+  <data name="Page.Camera.OrRotate" xml:space="preserve">
+    <value>(vai pagriezt)</value>
+  </data>
+  <data name="Page.Camera.OrSwipe" xml:space="preserve">
+    <value>(vai velciet)</value>
+  </data>
+  <data name="Page.Camera.PairRoleNotSelected" xml:space="preserve">
+    <value>Pāra loma nav atlasīta</value>
+  </data>
+  <data name="Page.Camera.PinchOrDrag" xml:space="preserve">
+    <value>Savelciet vai velciet, lai izpētītu!</value>
+  </data>
+  <data name="Page.Camera.PleaseSelectValid" xml:space="preserve">
+    <value>Lūdzu, atlasiet Jpeg, Png vai Webp attēlu. Jūsu izvēlētais attēls ir</value>
+  </data>
+  <data name="Page.Camera.ReallyClear" xml:space="preserve">
+    <value>Tiešām skaidrs?</value>
+  </data>
+  <data name="Button.Camera.Remove" xml:space="preserve">
+    <value>Noņemt</value>
+  </data>
+  <data name="Page.Camera.SavedToCustomFolder" xml:space="preserve">
+    <value>Saglabāts pielāgotajā mapē</value>
+  </data>
+  <data name="Page.Camera.SavedToExternal" xml:space="preserve">
+    <value>Saglabāts ārējā</value>
+  </data>
+  <data name="Page.Camera.SavedToPhotos" xml:space="preserve">
+    <value>Saglabāts pakalpojumā Fotoattēli</value>
+  </data>
+  <data name="Page.Camera.SaveFailed" xml:space="preserve">
+    <value>Saglabāšana neizdevās. :(</value>
+  </data>
+  <data name="Page.Camera.Saving" xml:space="preserve">
+    <value>Notiek saglabāšana...</value>
+  </data>
+  <data name="Page.Camera.SecondaryOnLeft" xml:space="preserve">
+    <value>SEKUNDĀRAIS PREIZĒ</value>
+  </data>
+  <data name="Page.Camera.SecondaryOnRight" xml:space="preserve">
+    <value>SEKUNDĀRĀ PABĀ</value>
+  </data>
+  <data name="Page.Camera.SelectedInvalid" xml:space="preserve">
+    <value>Atlasītais attēls nav derīgs.</value>
+  </data>
+  <data name="Page.Camera.SorryError" xml:space="preserve">
+    <value>Atvainojiet, CrossCam pieļāva kļūdu. Kļūdas ziņojums ir nosūtīts automātiski. Jūs, iespējams, nepamanīsit neko nepareizu, taču, ja pamanāt, mēģiniet restartēt lietojumprogrammu. Ja tas turpinās, lūdzu, nosūtiet man e-pastu un pastāstiet par to. (Lai apturētu šos uznirstošos logus, dodieties uz iestatījumu lapu.)</value>
+  </data>
+  <data name="Page.Camera.Steady" xml:space="preserve">
+    <value>Vienmērīgi...</value>
+  </data>
+  <data name="Page.Camera.SureClear" xml:space="preserve">
+    <value>Vai tiešām vēlaties notīrīt attēlus un sākt no jauna?</value>
+  </data>
+  <data name="Page.Camera.Syncing" xml:space="preserve">
+    <value>Sinhronizē...</value>
+  </data>
+  <data name="Page.Camera.Transmitting" xml:space="preserve">
+    <value>Notiek pārraide...
+(turiet ierīci atbloķētu)</value>
+  </data>
+  <data name="Page.Camera.VR" xml:space="preserve">
+    <value>VR</value>
+  </data>
+  <data name="Page.FovCorrection" xml:space="preserve">
+    <value>Skata lauka korekcija</value>
+  </data>
+  <data name="Page.FovCorrectionExplain" xml:space="preserve">
+    <value>Dažādiem ierīču modeļiem var būt dažādi redzes lauki. CrossCam palīdzēs jums to labot pēc pirmās uzņemšanas. Kadrējiet un tveriet kaut ko ar īpašiem punktiem kadra augšdaļā un apakšā, pārliecinoties, ka punkti ir redzami abās ierīcēs.</value>
+  </data>
+  <data name="Page.Technique.ParallelLink1" xml:space="preserve">
+    <value>Jauka teksta apmācība</value>
+  </data>
+  <data name="Page.Technique.ParallelLink2" xml:space="preserve">
+    <value>Vēl viena jauka teksta apmācība</value>
+  </data>
+  <data name="Page.Technique.ParallelLink3" xml:space="preserve">
+    <value>Vēl viena jauka teksta apmācība</value>
+  </data>
+  <data name="Page.Technique.ParallelLink4" xml:space="preserve">
+    <value>Burvju Frankfurter apmācība</value>
+  </data>
+  <data name="Page.Technique.ParallelLink5" xml:space="preserve">
+    <value>Jauks video par Magic Eye</value>
+  </data>
+  <data name="Page.Technique.Trouble" xml:space="preserve">
+    <value>Ja jums joprojām ir problēmas, mēģiniet nogādāt tālruni tumšā telpā, lai jūsu acis varētu labi redzēt un koncentrēties tikai uz attēlu.
+
+Vēl viena lieta, ko varat izmēģināt, ir izmantot tualetes papīra caurules vai rokas, lai to izveidotu, lai katra acs varētu redzēt tikai to attēla pusi, kas tai ir jāredz.
+ • Šķērsskatījumam: turiet vienu cauruli pret deguna tiltiņu (centrā starp acīm), vienlaikus pavēršot to sev priekšā esošā attēla centrā. Lēnām virziet cauruli ekrāna virzienā, mēģinot skatīties caurulē ar abām acīm. Kad ar cauruli sasniedzat pareizo pozīciju, attēlam ir jānofiksējas vietā. Tas var palīdzēt koncentrēties uz mēģinājumu aplūkot caurules tālākā gala iekšpusi. Ja nevarat atrast pareizo pozīciju, mēģiniet izmantot lielāku attēlu vai mazāku cauruli.
+ • Paralēlam skatam: turiet cauruli katras acs priekšā, bet pavērsiet abas uz sāniem, lai jūs gandrīz neko neredzētu. Vienlaicīgi lēnām pagrieziet caurules uz iekšu, lai jūs varētu sākt redzēt vairāk attēla. Brīdī, kad redzat lielāko attēla daļu (gandrīz pusi ar katru aci), mēģiniet atslābināt acis un apvienot puses. Tas var palīdzēt izmantot lielāku vai mazāku attēlu.
+
+Ir vienkāršs vingrinājums, ko varat veikt, lai trenētu saplūšanu ar krustenisko vai paralēlo skatīšanos. Paņemiet marķieri un uz katra sīktēla uzzīmējiet smaidošas sejiņas daļu (vai mēles spieķu pāri). Piemēram, vienā pusē uzzīmējiet vienu aci un muti, bet otrā pusē uzzīmējiet aci un degunu. Pēc tam varat turēt tos sev priekšā un vingrināties apvienot abus attēlus, lai izveidotu smaidošu seju.
+
+Es personīgi dodu priekšroku krustojumam, nevis paralēlam, jo ​​attēli var būt lielāki, taču darbojas abas metodes. Ja vēlaties eksperimentēt ar lielākiem paralēliem attēliem, varat kontrolēt izmēru lapā Iestatījumi.
+
+Dažreiz ir grūti sajust, vai jūs to darāt, izmantojot krusta vai paralēlo metodi. Varat lūgt kādam citam paskatīties uz jūsu acīm, kamēr jūs to darāt, vai arī varat pārbaudīt tālāk redzamo attēlu:</value>
+  </data>
+  <data name="SaveModes.Anaglyph" xml:space="preserve">
+    <value>Anaglifs</value>
+  </data>
+  <data name="SaveModes.Cardboard" xml:space="preserve">
+    <value>Kartons</value>
+  </data>
+  <data name="SaveModes.Cross" xml:space="preserve">
+    <value>Krusts</value>
+  </data>
+  <data name="SaveModes.GrayscaleAnaglyph" xml:space="preserve">
+    <value>Pelēktoņu anaglifs</value>
+  </data>
+  <data name="SaveModes.Parallel" xml:space="preserve">
+    <value>Paralēli</value>
+  </data>
+  <data name="SaveModes.Quad" xml:space="preserve">
+    <value>Quad</value>
+  </data>
+  <data name="SaveModes.Separate" xml:space="preserve">
+    <value>Atsevišķi</value>
+  </data>
+  <data name="SaveModes.Single" xml:space="preserve">
+    <value>Viens</value>
+  </data>
+  <data name="SaveModes.Triple" xml:space="preserve">
+    <value>Trīskāršs</value>
+  </data>
+  <data name="Page.Camera.FovExplain" xml:space="preserve">
+    <value>Lai labotu redzes lauka atšķirības, tuviniet un bīdiet attēlus, lai atšķirīgie punkti sakristu starp diviem fotoattēliem. Varat vilkt baltās līnijas, lai palīdzētu vizualizēt līdzinājumu. Šis labojums tiks piemērots turpmākajiem priekšskatījumiem. Tas tiks saglabāts, taču varat to atiestatīt iestatījumu lapā. Ja izmantojat identiskas ierīces, vienkārši saglabājiet, nepielāgojot.</value>
+  </data>
+  <data name="Page.Camera.FovTitle" xml:space="preserve">
+    <value>Skata lauka korekcija</value>
+  </data>
+  <data name="Page.Camera.KeyPoints" xml:space="preserve">
+    <value>Galvenie punkti</value>
+  </data>
+  <data name="Page.Camera.Warped" xml:space="preserve">
+    <value>Izlocīts</value>
+  </data>
+  <data name="Page.Camera.WelcomeExplain" xml:space="preserve">
+    <value>CrossCam tika izveidots, lai palīdzētu jums izveidot 3D fotoattēlus. Fotoattēli ir 3D, tāpat kā VR vai 3D filmas, taču jums nav nepieciešams īpašs aprīkojums vai brilles - tikai tālrunis (bet, ja jums ir sarkanas/ciānas 3D brilles vai Google Cardboard skatītājs, varat tos izmantot arī ar CrossCam). Lai apgūtu \"bezmaksas skatīšanās\" paņēmienu, kurā tiek izmantots tikai jūsu tālrunis un jūsu acis, ir nepieciešama zināma prakse. Pirms pastāstīšu, kā lietot CrossCam, vai vispirms vēlētos uzzināt vairāk par skatīšanās tehniku?</value>
+  </data>
+  <data name="Page.Camera.Welcome" xml:space="preserve">
+    <value>Laipni lūdzam CrossCam!</value>
+  </data>
+  <data name="Page.Camera.Directions" xml:space="preserve">
+    <value>Pāriet uz norādījumiem</value>
+  </data>
+  <data name="Page.Camera.Technique" xml:space="preserve">
+    <value>Skatīšanās tehnika</value>
+  </data>
+  <data name="Page.HowToUse.P1" xml:space="preserve">
+    <value>Ja vēlaties to redzēt vēlreiz, pieskarieties hamburgera (trīs rindiņas) ikonai kameras ekrāna augšējā kreisajā stūrī un pieskarieties “Palīdzība”.
+
+
+1) Kadrējiet un uzņemiet pirmo attēlu.</value>
+  </data>
+  <data name="Page.HowToUse.P2" xml:space="preserve">
+    <value>3) Turiet tālruni stabili sev priekšā un lēnām virzieties uz sāniem virzienā, ko jums norāda CrossCam. Nepārvietojieties pārāk tālu — collu vai mazāk par katru pēdu, kas atrodas jūsu mērķa attālumā. Tāpat negriezieties vispār, vienkārši slīdiet uz sāniem vai varbūt pat vienkārši noliecieties.
+
+4) Saskaņojiet pirmo attēlu ar otrā attēla priekšskatījumu un uzņemiet otro attēlu, kad jums patīk tas, ko redzat.
+
+5) CrossCam automātiski izlīdzinās jūsu attēlus pēc to uzņemšanas, taču tas nav ideāls, ja jums nepatīk, kā tie tika izlīdzināti, varat izslēgt automātisko izlīdzināšanu, pieskaroties mazā robota ikonai. CrossCam ir arī daudz manuālas rediģēšanas iespēju, kuras varat piekļūt, pieskaroties zīmuļa ikonai.
+
+6) Pieskarieties atzīmei, kad esat gatavs saglabāt.
+
+
+Citas lietas, ko varat darīt:
+ • Pieskarieties vienreiz, lai fokusētu punktu, pieskarieties divreiz, lai pārslēgtos atpakaļ uz nepārtrauktu automātisko fokusu.
+ • Pieskarieties zobrata ikonai kameras ekrāna augšējā labajā stūrī, lai atvērtu iestatījumu lapu. Tas ir pilns ar interesantām lietām.
+ • Ir jauka padomu lapa, kuru varat atvērt, pieskaroties hamburgera ikonai kameras ekrāna augšējā kreisajā stūrī, kas var palīdzēt padarīt attēlus lieliskus.
+ • Ja vēlaties, lai otrajam kadram pārvietotos citā virzienā, vai arī vēlaties apmainīt malas, vienkārši pavelciet.
+ • Pieskarieties mazajai mapes ikonai apakšā, lai ielādētu attēlu kā sānu vai pilnu stereo attēlu.</value>
+  </data>
+  <data name="Page.Faq.Alignment" xml:space="preserve">
+    <value>Kā darbojas automātiskā izlīdzināšana?</value>
+  </data>
+  <data name="Page.Faq.Alignment.Body" xml:space="preserve">
+    <value>Automātiskā izlīdzināšana mēģina pēc iespējas labāk līdzināt attēlu pārus, taču tā nav perfekta. Datorredze dažās lietās ir labāka nekā cilvēka acis, bet arī daudz sliktāka citās lietās. Pasaule, ko tā redz, ļoti atšķiras no tās, ko mēs redzam, taču tā var arī redzēt dažādos veidos. Divi galvenie veidi, kā tas redzams programmā CrossCam, ir uzlabotās korelācijas koeficients (ECC) un galveno punktu izmantošana.
+
+ECC izlīdzināšana būtībā darbojas, mēģinot nodrošināt, ka gaišie plankumi pārklājas ar gaišiem plankumiem un tumši plankumi pārklājas ar tumšiem plankumiem, kad abas puses ir pārklātas viena virs otras. ECC pielīdzināšanai ir uzticamības rādītājs, kas ir paredzēts, lai palīdzētu izlemt, vai izlīdzināšana bija efektīva. CrossCam ir iestatīts, lai noraidītu veikto izlīdzināšanu, ja ticamība ir pārāk zema, taču iestatījumu lapā varat konfigurēt uzticamības izturēšanas/neatteices slieksni.
+
+Galveno punktu līdzināšana meklē interesējošos punktus, piemēram, stūrus, malas, punktus un augstu kontrastu, un mēģina tos saskaņot starp abām pusēm. Kad punkti ir saskaņoti, CrossCam var izmantot dažādus algoritmus, lai mēģinātu deformēt malas tā, lai galvenie punkti no vienas puses būtu pēc iespējas tuvāk tiem atbilstošajiem galvenajiem punktiem otrā pusē.
+
+CrossCam ir ieprogrammēts tā, lai vispirms izmantotu atslēgas punktu izlīdzināšanu, bet tas atgriezīsies pie ECC izlīdzināšanas, ja atslēgas punkta izlīdzināšana neizdodas vai kad tveršana tiek veikta, izmantojot viena kadra spoguļa dalīšanas metodi. Varat arī konfigurēt automātisko izlīdzināšanu, lai vienmēr izmantotu galveno punktu izlīdzināšanu vai vienmēr izmantotu ECC līdzinājumu lapā Iestatījumi.
+
+CrossCam parādīs izlīdzināšanas rezultātu kameras ekrānā zem mazā robota ikonas. Ja tika izmantota ECC izlīdzināšana, tiks parādīts uzticamības procents. Ja tas izmantoja galveno punktu izlīdzināšanu, tas parādīs "KP". Ja abas izlīdzināšanas metodes neizdevās, tiks parādīts "F". Ja jums nepatīk izlīdzināšanas rezultāts, varat pieskarties mazā robota ikonai, lai noņemtu izlīdzinājumu.</value>
+  </data>
+  <data name="Page.Faq.Bad" xml:space="preserve">
+    <value>Vai tas ir slikti manām acīm?</value>
+  </data>
+  <data name="Page.Faq.Bad.Body1" xml:space="preserve">
+    <value>Es nezinu, bet es tā nedomāju. Tomēr, ja jūtaties slikti, vienkārši paņemiet pārtraukumu. Ar praksi diskomforts parasti mazinās. Jebkura skatīšanās metode var radīt diskomfortu efekta dēļ, ko sauc par verģences un izmitināšanas konfliktu. Lūk</value>
+  </data>
+  <data name="Page.Faq.Bad.Body2" xml:space="preserve">
+    <value>Wikipedia saite par verģences un izmitināšanas konfliktu.</value>
+  </data>
+  <data name="Page.Faq.Bad.Body3" xml:space="preserve">
+    <value>Ja izmantojat krustveida acu metodi, sajūta var būt saistīta arī ar to, ka jūsu acis nav pieradušas rādīt tā, it kā tās tik ilgu laiku skatītos uz kaut ko tik tuvu. Skatoties šķērsām, jūsu acis saplūst aptuveni pusceļā starp acīm un ekrānu. Ja jums ir diskomforts, ja skatāties uz kaut ko, kas ir tuvu ilgu laiku, mums ir savs izskaidrojums.
+
+Mans viedoklis par to ir tāds, ka jūsu acis nedara neko ārpus savām ikdienas iespējām, bet jūs apvienojat divas dažādas spējas, kas parasti netiek izmantotas šādā veidā. Jūs fokusējat lēcas uz kaut ko vienā vietā, uz kuru parasti ir ērti fokusēties, un vēršat acis kaut kur, kur parasti ir ērti rādīt, bet uz vietu, kur fokusējas jūsu lēcas un kur jūsu acis saplūst. vienkārši nav viens un tas pats punkts. Es nesaprotu, kā tas varētu kaitēt jums, kamēr jūsu redze vēl neattīstās.</value>
+  </data>
+  <data name="Page.Faq.Cardboard" xml:space="preserve">
+    <value>Kā lietot CrossCam ar Google Cardboard?</value>
+  </data>
+  <data name="Page.Faq.Cardboard.Body" xml:space="preserve">
+    <value>Ja jūsu skatītājam ir poga, kas nospiež ekrāna centru, varat to izmantot, lai uzņemtu, izmantojot Cardboard. Skatītājam ir jābūt arī caurumam tālruņa kamerai, lai to varētu redzēt.
+
+Lai uzņemtu fotoattēlus, izmantojot Cardboard, pārslēdziet priekšskatījuma skatīšanās metodi (lapā Iestatījumi) uz Cardboard, pēc tam atgriezieties kameras lapā un ievietojiet tālruni skatītājā. Nospiediet pogu, lai uzņemtu, un, kad abas puses ir uzņemtas, vēlreiz nospiediet pogu, lai saglabātu. Saglabāšana Cardboard režīmā ir paredzēta tikai tam, lai jūs varētu ielādēt attēlus atpakaļ programmā CrossCam, lai tos skatītu vēlāk, nevis lai skatītu tos fotoattēlu lietotnē, izmantojot skatītāju.
+
+Varat arī uzņemt, izmantojot jebkuru citu vēlamo metodi, pēc tam pārslēdziet priekšskatījuma skatīšanās metodi uz Cardboard un ievietojiet tālruni skatītājā.
+
+Ir daudz dažādu skatītāju ar dažādām īpašībām. Iespējams, jums būs jāmaina Cardboard atdalīšanas attālums (lapā Iestatījumi), lai padarītu jūsu pieredzi ērtāku. Jums, iespējams, būs arī jāpārliecinās, vai esat labi spējīgs uzņemt augstas kvalitātes stereogrammas, pirms tās padarīsit iespaidīgas un iespaidīgas.</value>
+  </data>
+  <data name="Page.Faq.How" xml:space="preserve">
+    <value>Kā tas darbojas?</value>
+  </data>
+  <data name="Page.Faq.How.Body1" xml:space="preserve">
+    <value>3D efekts, ko izmanto CrossCam, ir labi izpētīta disciplīna, kas pazīstama kā stereoskopija, un metodi, kurā jūs sakrustojat acis (vai atslābināt tās), lai skatītu abas puses, sauc par brīvo skatīšanos. Kad mēs skatāmies apkārt pasaulei, katra mūsu acs redz no citas perspektīvas. Stereoskopijā mēs darām tikai vienu (mākslīgu) perspektīvu katrai acij, un mūsu smadzenes tikai dara pārējo. Ir daudz dažādu veidu, kā likt katrai acij redzēt atšķirīgu attēlu. Lūk</value>
+  </data>
+  <data name="Page.Faq.How.Body2" xml:space="preserve">
+    <value>Wikipedia saite par stereoskopiju</value>
+  </data>
+  <data name="Page.Faq.How.Body3" xml:space="preserve">
+    <value>3D attēlus, ko veidojat ar CrossCam, sauc par stereogrammām. Magic Eye™ grāmatas satur tā sauktās autostereogrammas.</value>
+  </data>
+  <data name="Page.Faq.Into" xml:space="preserve">
+    <value>Kā jūs nonācāt stereoskopijā?</value>
+  </data>
+  <data name="Page.Faq.Into.Body1" xml:space="preserve">
+    <value>Kamēr es ieguvu fizikas grādu, man bija iespēja eksperimentēt, veidojot savas hologrammas, izmantojot lāzerus. Hologrammas, kuras veidoju, bija 3D, jo tajās tika izmantots difrakcijas režģis, lai radītu destruktīvus traucējumus gaismā, kas atstarojas no stikla plāksnes virsmas, kā rezultātā atstarotā attēla izskats dažādās vietās atšķiras. Kad katra no mūsu acīm redz attēlu, kas izskatās tā, it kā tas būtu no citas perspektīvas (ja tie nav pārāk atšķirīgi), mūsu smadzenes to uztver kā dziļumu.</value>
+  </data>
+  <data name="Page.Faq.Into.Body2" xml:space="preserve">
+    <value>Šo stereoskopiskās uztveres principu es zināju jau ilgu laiku, taču tajā dzīves posmā es mācījos arī dažas programmēšanas nodarbības, tāpēc nolēmu, ka vēlos mēģināt izveidot vienkāršu datorprogrammu stereoskopiskai 3D zīmēšanai. Šie centieni kļuva par StereoSketcher. Sākotnējā versija tika uzrakstīta Java, bet es to pārrakstīju ar Javascript un SVG, un tagad tā darbojas tīmeklī</value>
+  </data>
+  <data name="Page.Faq.Into.Body3" xml:space="preserve">
+    <value>šajā saitē.</value>
+  </data>
+  <data name="Page.Faq.Into.Body4" xml:space="preserve">
+    <value>Tas nekādā ziņā nav populārs, un to var nebūt viegli izmantot nevienam, izņemot mani, bet tas darbojas. Strādājot pie StereoSketcher, man izdevās eksperimentēt ar stereoskopijas principiem, un es aizrāvos ar veidu, kā var radīt tik iespaidīgu un pārliecinošu pieredzi, izmantojot dažus vienkāršus noteikumus.</value>
+  </data>
+  <data name="Page.Faq.Inverted" xml:space="preserve">
+    <value>Kāpēc 3D neizskatās pareizi VAI kāpēc 3D izskatās apgriezts?</value>
+  </data>
+  <data name="Page.Faq.Inverted.Body1" xml:space="preserve">
+    <value>Skatoties brīvi, izmantojot krusta vai paralēlo metodi, ir svarīgi skatīt attēlus, izmantojot to pašu metodi, kas tika izmantota to veidošanai. Pretējā gadījumā jūsu labā acs skatīsies uz perspektīvu, kas paredzēta kreisajai acij, un otrādi. Tas padara attēla dziļumu apgrieztu, jo paralakses virziens ir nomainīts.
+
+Parallakse nozīmē, ka no labās acs perspektīvas, kad objekti atrodas tālāk, šķiet, ka tie atrodas tālāk labajā pusē nekā tuvāki objekti, skatoties no kreisās acs. Tas ir mulsinoši, ja to apraksta teikuma formātā, bet ļoti intuitīvi, kad to demonstrē.
+
+Lai demonstrētu, turiet vienu pirkstu sev priekšā apmēram rokas garumā, pēc tam ar otru roku turiet otru pirkstu apmēram pusceļā starp pirmo pirkstu un seju. Ja pārmaiņus aizverat katru aci un pievērsiet uzmanību tam, kur atrodas jūsu pirksti, jūs redzēsiet, ka katra acs tos redz dažādās vietās. Tātad dabiski, ja katra acs redz šo kustību pretējā virzienā, nekā paredzēts, dziļums tiks apgriezts otrādi.
+
+Ir ļoti viegli nejauši izmantot nepareizu skatīšanās metodi, jo izrādās, ka lielākajai daļai cilvēku ir ļoti grūti noteikt, vai viņi sakrusto vai atslābina acis, tikai sajūtot vai skatoties uz mulsinošo dubulto pasaules attēlu, kas rodas. Tā vietā labāk ir likt kādam citam paskatīties, ko dara jūsu acis, vai arī izmēģināt šo testera attēlu:</value>
+  </data>
+  <data name="Page.Faq.Inverted.Body2" xml:space="preserve">
+    <value>Daudzi cilvēki ir kļuvuši diezgan ērti, skatoties Magic Eye™ grāmatas, kuras paredzēts skatīt, izmantojot paralēlā skata metodi. Ja skatāt tos šķērsām, tad robustie 3D objekti, kuriem vajadzētu izlēkt no lapas, izskatās kā caurumi. Abas metodes ļauj redzēt *kaut ko*, taču, ja nevarējāt noteikt, kas tas bija, iespējams, jūs tās skatāties krusteniski.</value>
+  </data>
+  <data name="Page.Faq.Mirror" xml:space="preserve">
+    <value>Kā izmantot "vienreizēja spoguļa" metodi?</value>
+  </data>
+  <data name="Page.Faq.Mirror.Body1" xml:space="preserve">
+    <value>Uzņemot ar spoguļa metodi, rāmis tiek sadalīts uz pusēm un tiek veikta nepieciešamā transformācija, lai jūs varētu uzņemt abas puses vienā un tajā pašā brīdī, izmantojot vienu tālruni un parastu rokas spoguli. Lai fotografēšanas laikā izmantotu spoguļa metodi, lapā Iestatījumi ieslēdziet spoguļa režīma slēdzi (lai tur nokļūtu, pieskarieties zobrata ikonai). Pēc spoguļa režīma ieslēgšanas CrossCam pateiks, kurā pusē turēt spoguli. Turiet spoguli tajā pusē un satraucieties ar tālruņa un spoguļa un objekta izlīdzināšanu. Ar zināmu pacietību jūs varēsiet tos visus sakārtot tā, lai spogulis parādītu pareizo perspektīvu vienai no pusēm. Tā kā, izmantojot spoguļa metodi, attēls tiek sadalīts uz pusēm vertikāli, parasti vislabāk ir tvert ainavā, izmantojot spoguļa metodi.
+
+Šī metode darbosies arī ar atspīdumiem lielos, tīros logos, kā arī uz nekustīgiem ezeriem vai peļķēm (kad tālrunis ir fiksēts portretā un pagriezts uz sāniem).</value>
+  </data>
+  <data name="Page.Faq.Mirror.Body2" xml:space="preserve">
+    <value>Lai izmantotu spoguļa metodi, ir jāveic daži kompromisi/labojumi. Tos visus var izdarīt manuāli programmā CrossCam, taču automātiskā izlīdzināšana arī mēģinās to izdarīt jūsu vietā:
+ • Tā kā atstarotais skats pārvietojas lielākā attālumā nekā parastais skats, spoguļattēlā būs nedaudz jāpietuvina.
+ • Visticamāk, ka, izmantojot spoguļa metodi, jūs galu galā tiksiet uz iekšu, nevis saglabāsiet perspektīvas paralēlas — tas var izraisīt saīsināšanu, kas izskatās kā slikta vertikālā izlīdzināšana. Lai to atsauktu, var veikt trapeces korekciju, kas nozīmē vertikāli samazināt katra attēla vienu pusi.
+ • Iekāpjot, stereo logs tiks pārvietots uz jums. Varat to atsaukt un novietot vēlamajā vietā, apgriežot malas.
+ • Spogulis, iespējams, pilnībā neaizsegs skatu no vienas puses, tāpēc, iespējams, vajadzēs veikt nelielu apgriešanu, lai noņemtu neatspoguļotos gabaliņus.
+
+Labākajiem spoguļiem šim nolūkam ir plāns stikls. Pirmkārt, tie ir viegli, tāpēc tos ir vieglāk turēt rokās ilgu laiku. Otra svarīga lieta ir tāda, ka, izmantojot spoguli, jūs, iespējams, vērsīsit spoguli uz sāniem, nevis skatīsities tajā tieši, jo parasti tiek izmantoti spoguļi. Šādi orientējoties, spoguļiem ar biezu stiklu var būt neliels izplūdums. Jo plānāks ir stikls, jo mazāk pamanāma šī izplūšana. Šāda veida spoguļi var būt nekvalitatīvi arī citos aspektos, tāpēc ir svarīgi atrast labu līdzsvaru.
+
+Izmantojot spoguļattēlu, ir jāpieņem daži citi kompromisi, kurus nevar novērst CrossCam labojumos:
+ • Tā kā skats uz abām pusēm virzās nedaudz dažādos attālumos, katrai pusei nepieciešamais fokuss būs nedaudz atšķirīgs, tāpēc viena puse vienmēr būs nedaudz izplūdusi. Šis efekts būs vairāk vai mazāk pamanāms atkarībā no attāluma līdz objektam un objektīva lauka dziļuma.
+ • Neviens spogulis nav patiesi 100% efektīvs, tāpēc puse, kurā tiek izmantots spogulis, var būt nedaudz tumšāka. Tas mainīsies atkarībā no spoguļa kvalitātes.</value>
+  </data>
+  <data name="Page.Faq.Moving" xml:space="preserve">
+    <value>Mans objekts pārvietojas. Kā es varu uzņemt to 3D attēlus?</value>
+  </data>
+  <data name="Page.Faq.Moving.Body" xml:space="preserve">
+    <value>CrossCam piedāvā divas metodes, lai vienlaikus tvertu abas perspektīvas. Viena metode izmanto divus tālruņus, bet viena metode izmanto spoguli.
+
+Lai izmantotu abu tālruņu iestatījumus, skatiet lapu Savienošanas pārī iestatīšana, kuru varat atvērt iestatījumu lapā (pieskarieties zobrata ikonai).
+
+Lai izmantotu spoguļa metodi, skatiet citu FAQ jautājumu par to.</value>
+  </data>
+  <data name="Page.Faq.Test" xml:space="preserve">
+    <value>Kā es varu pārbaudīt CrossCam pirmsizlaides versijas?</value>
+  </data>
+  <data name="Page.Faq.Test.Body" xml:space="preserve">
+    <value>Apskatiet šo Reddit ziņu</value>
+  </data>
+  <data name="Page.Faq.Why" xml:space="preserve">
+    <value>Kāpēc jūs izveidojāt CrossCam?</value>
+  </data>
+  <data name="Page.Faq.Why.Body" xml:space="preserve">
+    <value>Tā kā es sāku interesēties par stereoskopiju, es gadījos doties ceļojumā uz Jeloustonu. Kamēr biju tur, es sapratu, ka varētu būt jautri mēģināt izmantot 3D kameras mobilo lietotni, lai tvertu lietas 3D formātā. Es biju ļoti vīlusies par esošajām iespējām. Es atklāju, ka viņi visi prasīja, lai jūs veiktu divus attēlus un pēc tam uzzinātu, vai tie ir labi. Bieži vien tie nebija, jo man vairākkārt nācās izteikt pilnīgus minējumus par savu atdalīšanas attālumu, kā arī par objekta kvalitāti.
+
+Dažu nākamo nedēļu laikā mana virmojošā neapmierinātība lika man iedomāties, ka līdzās pirmajai filmēšanai vienkārši tiek nodrošināts tiešraides priekšskatījums. Man jau bija pieredze mobilo sakaru izstrādē, tāpēc atlika tikai veltīt laiku. CrossCam ir bijis lieliski piemērots, lai to izmantotu tikai sev, lai saglabātu atmiņas, un es priecājos dalīties tajā arī ar jums.</value>
+  </data>
+  <data name="Page.Faq.Wiggle" xml:space="preserve">
+    <value>Kas ir wigglegrams?</value>
+  </data>
+  <data name="Page.Faq.Wiggle.Body" xml:space="preserve">
+    <value>Wigglegrams ir veids, kā skatīt stereogrammas, kas nav atkarīgas no binokulārās redzes. Parasti tie ir GIF attēli, kas tiek pārslēgti uz priekšu un atpakaļ starp abām perspektīvām, rādot katru vienā un tajā pašā vietā kopumā. CrossCam šobrīd neatbalsta to izgatavošanu, taču nosūtiet man e-pastu, ja jūs tie patiešām interesē, un es to izdarīšu.</value>
+  </data>
+  <data name="Page.Tips.AlignAfter" xml:space="preserve">
+    <value>Ņemiet vērā horizontālās līnijas, taču varat arī izlīdzināt pēc tam.</value>
+  </data>
+  <data name="Page.Tips.AlignAfter.Body" xml:space="preserve">
+    <value>Ja konstatējat, ka, uzņemot attēlus, nav iespējams vienlaikus savietot augšējo un apakšējo vadošo līniju, iespējams, esat pārvietojies kādā citā virzienā, nevis tikai uz sāniem. Mēģiniet to izlabot pirms attēlu uzņemšanas, taču līdzināšana pēc fakta var ļoti palīdzēt.</value>
+  </data>
+  <data name="Page.Tips.Alignment" xml:space="preserve">
+    <value>Varat izslēgt automātisko izlīdzināšanu.</value>
+  </data>
+  <data name="Page.Tips.Alignment.Body" xml:space="preserve">
+    <value>Ja jums nepatīk automātiskās izlīdzināšanas rezultāti, vienkārši izslēdziet to iestatījumu lapā vai pieskaroties mazā robota ikonai, un jūsu sākotnējie uzņemtie attēli tiks atjaunoti.</value>
+  </data>
+  <data name="Page.Tips.Donut" xml:space="preserve">
+    <value>Donut rokasgrāmata var palīdzēt jūsu logam.</value>
+  </data>
+  <data name="Page.Tips.Donut.Body" xml:space="preserve">
+    <value>Lapā Iestatījumi ir eksperimentāls ceļvedis, kuru varat ieslēgt un kas var palīdzēt saglabāt stereo logu, vienlaikus maksimāli palielinot izmantojamo platumu. Pagriežot pa kreisi un pa labi, virtuļa dziļums mainīsies attiecībā pret pārējo ainu — iestatiet virtuļa dziļumu tā, lai tas atrastos vai nu uz jūsu ainas attālākā punkta, vai aiz tā. Esiet piesardzīgs, jo, izmantojot to mazākās sižetos, lietas var kļūt sāpīgas (skatiet iepriekš minēto stūrakmens padomu).</value>
+  </data>
+  <data name="Page.Tips.Keystone" xml:space="preserve">
+    <value>Keystone korekcija ir nepieciešama, ja jūs toe-in.</value>
+  </data>
+  <data name="Page.Tips.Keystone.Body1" xml:space="preserve">
+    <value>Ja ar katru šāvienu pagriežaties uz iekšu, ir ļoti noderīgi veikt trapeces korekcijas. Parasti jūs vēlaties samazināt fotoattēlu iekšējās malas un pēc tam apgriezt dažas no augšas un apakšas, lai tās izlīdzinātu. Keystone rediģēšanas izvēlnē tiek atvērta, pieskaroties pogai, kas izskatās šādi:</value>
+  </data>
+  <data name="Page.Tips.Keystone.Body2" xml:space="preserve">
+    <value>Pagriešanos uz iekšu sauc par toe-in. Tas var izraisīt saīsināšanas efektu, kas apgrūtina attēla stūru sapludināšanu. Saīsināšanas efekts reālajā dzīvē pastāv vienmēr, jo šķiet, ka paralēlas līnijas saplūst, virzoties tālumā no jums, taču mākslīgās perspektīvas var padarīt to dīvainu.</value>
+  </data>
+  <data name="Page.Tips.Lean" xml:space="preserve">
+    <value>Jūs varat vienkārši noliekties.</value>
+  </data>
+  <data name="Page.Tips.Lean.Body" xml:space="preserve">
+    <value>Dažkārt tā vietā, lai pilnībā pārvietotu kājas pa kreisi vai pa labi, lai uzņemtu attēlus, var būt vieglāk vienkārši stāvēt ar kājām un noliekties katrā virzienā, taču uzmanieties, lai tālrunis būtu vienā līmenī un vienā augstumā. Tikai noliekšanās, nevis pārvietošanās, var palīdzēt jums nepārvietoties pārāk tālu un var atvieglot mērķa noturēšanu taisni.</value>
+  </data>
+  <data name="Page.Tips.Lines" xml:space="preserve">
+    <value>Izlīdzināšanas līnijas var pārvietoties.</value>
+  </data>
+  <data name="Page.Tips.Lines.Body" xml:space="preserve">
+    <value>Ja vēlaties, varat vilkt līdzinājuma līnijas. Tas ir īpaši noderīgi, izlīdzinot attēlus rediģēšanas laikā.</value>
+  </data>
+  <data name="Page.Tips.Old" xml:space="preserve">
+    <value>Vecos fotoattēlus varat atvērt programmā CrossCam.</value>
+  </data>
+  <data name="Page.Tips.Old.Body" xml:space="preserve">
+    <value>Varat ielādēt iepriekš uzņemtos attēlus, pieskaroties mapes ikonai kameras lapas apakšā, taču, ja strādājat ar lielu fotoattēlu partiju, varat arī kopīgot tos pakalpojumā CrossCam tieši no savas fotoattēlu lietotnes, kas var sekot līdzi labāk ievietot savās fotogrāfijās.</value>
+  </data>
+  <data name="Page.Tips.Quick" xml:space="preserve">
+    <value>Ieslēdziet ātro režīmu, kad esat kopā ar citiem.</value>
+  </data>
+  <data name="Page.Tips.Quick.Body" xml:space="preserve">
+    <value>Ja veicat izpēti kopā ar citiem cilvēkiem, ieteicams pāriet uz ātro režīmu, izslēdzot automātisko izlīdzināšanu un un apmales un vienkārši saglabājot, kad esat uzņēmis, neveicot nekādu rediģēšanu. Jūs vienmēr varat ielādēt, automātiski līdzināt un rediģēt attēlus vēlāk. Tādā veidā jūsu kompanjoniem nav jāgaida, kamēr jūs pilnveidosit savus attēlus uz vietas, bet jūs joprojām varat būt pārliecināti, ka vēlamais dziļums patiešām ir tur. Tikai uzmanieties, lai pirms pirmās saglabāšanas neveiciet pārsteidzīgus labojumus! Varat arī ieslēgt atsevišķu sānu saglabāšanu, kas ignorēs visas jūsu veiktās rediģēšanas.</value>
+  </data>
+  <data name="Page.Tips.Sick" xml:space="preserve">
+    <value>Ja kustība padara jūs slimu, turiet mieru.</value>
+  </data>
+  <data name="Page.Tips.Sick.Body" xml:space="preserve">
+    <value>Ja visas kustības padara jūs slimu vai apgrūtina to skatīšanu 3D formātā, nesāciet mēģināt to redzēt 3D formātā, kamēr neesat nedaudz pārvietojies. Pēc tam salīdziniet attēlus savā starpā un izlīdziniet attēlus, izmantojot horizontālās līnijas bez 3D skatīšanās, un pēc tam sāciet 3D skatīšanu, kad tie ir izlīdzināti un nekustīgi turiet.</value>
+  </data>
+  <data name="Page.Tips.Space" xml:space="preserve">
+    <value>Šie attēli var aizņemt daudz vietas — jūs varat tos samazināt.</value>
+  </data>
+  <data name="Page.Tips.Space.Body" xml:space="preserve">
+    <value>Lapā Iestatījumi ir iespēja proporcionāli samazināt gala attēla izšķirtspēju — tas var palīdzēt, ja vēlaties ietaupīt vietu. Ja jūsu fotoattēls netiek apgriezts, gala rezultāts ir divi pilnas izšķirtspējas attēli, kas tiek savienoti, lai izveidotu vienu ar dubultu izšķirtspēju, kas nozīmē, ka bieži vien varat izvairīties no ievērojamas izšķirtspējas samazinājuma, būtiski neietekmējot kvalitāti.</value>
+  </data>
+  <data name="Page.Tips.Turn" xml:space="preserve">
+    <value>Negriezies.</value>
+  </data>
+  <data name="Page.Tips.Turn.Body" xml:space="preserve">
+    <value>Kad pārvietojaties, mēģiniet negriezt tālruni nevienā virzienā, ieskaitot dabisko tendenci pagriezties pret objektu, pārvietojoties uz sāniem. Zināma rotācija būs nepieciešama (dažreiz), bet mēģiniet to samazināt. Iedomājieties, ka tālrunis ir uzstādīts uz taisnas horizontālas sliedes un var tikai slīdēt. Pagriežot uz iekšu, var rasties saīsināšanas efekts, kas padara stūrus grūti savienojamus.</value>
+  </data>
+  <data name="Page.Tips.Window" xml:space="preserve">
+    <value>Pievienojiet apmali un apgrieziet, lai izveidotu spēcīgu stereo logu.</value>
+  </data>
+  <data name="Page.Tips.Window.Body" xml:space="preserve">
+    <value>Interesantu stereo loga efektu var izveidot, veicot divas darbības: 1) ieslēdziet apmali (lapā Iestatījumi) un 2) lai skatītos šķērsām, apgrieziet attēlu iekšējās malas, līdz pati ārējā mala attēlā kļūst 3D (apgriezt ĀRĒJĀS malas, ja skatāties paralēli). Galvenais ir apgriezt kreisā attēla labo malu nedaudz pāri tam, ko parāda labā attēla labā mala, un otrādi. Apmales pievienošana tiek pārslēgta lapā Iestatījumi. Ja tas ir mulsinoši, vienkārši nogrieziet ķekaru no iekšējām malām, un tas sāks būt skaidrs. Apgriešanas poga iekšējām malām izskatās šādi:</value>
+  </data>
+  <data name="Button.Code" xml:space="preserve">
+    <value>Skatiet kodu</value>
+  </data>
+  <data name="Button.Developer" xml:space="preserve">
+    <value>Par izstrādātāju</value>
+  </data>
+  <data name="Button.EmailMe" xml:space="preserve">
+    <value>Atsūti man ziņu e-pastā</value>
+  </data>
+  <data name="Button.GitHub" xml:space="preserve">
+    <value>Pievienojiet problēmu GitHub</value>
+  </data>
+  <data name="Button.Press" xml:space="preserve">
+    <value>Atgriezieties kameras ekrānā abās ierīcēs un pieskarieties savienošanas pogai apakšējā stūrī</value>
+  </data>
+  <data name="Button.Primary" xml:space="preserve">
+    <value>Pieskarieties ŠEIT GALVENĀ</value>
+  </data>
+  <data name="Button.Privacy" xml:space="preserve">
+    <value>Privātuma politika</value>
+  </data>
+  <data name="Button.Secondary" xml:space="preserve">
+    <value>Pieskarieties ŠEIT sekundārajam</value>
+  </data>
+  <data name="Button.Test" xml:space="preserve">
+    <value>Pārbaudīt pirmsizlaides versijas</value>
+  </data>
+  <data name="Button.Wi-Fi" xml:space="preserve">
+    <value>Pārliecinieties, vai Wi-Fi ir iespējots abās ierīcēs (taču tam nav jābūt savienotam ar neko).</value>
+  </data>
+  <data name="Page.Pairing.1" xml:space="preserve">
+    <value>Ja jums ir divas ierīces ar instalētu CrossCam, varat tās savienot, lai vienlaikus uzņemtu fotoattēlus no divām perspektīvām. Uzņemot divus fotoattēlus vienā brīdī, tiek iegūtas vislabākās iespējamās stereogrammas.
+
+Lūdzu, ņemiet vērā, ka šī funkcija joprojām ir eksperimentāla un var radīt problēmas. Tas var nedarboties visu laiku perfekti un var iztērēt akumulatoru. Tāpat, lūdzu, ņemiet vērā, ka pašlaik ierīcēm ir jābūt vienai platformai, lai izveidotu savienojumu (gan Android, gan abām iOS).
+
+Viens no veidiem, kā iegūt *perfektu* sinhronizāciju, izmantojot tikai vienu ierīci un CrossCam, ir izmantot "vienreizēja spoguļa" metodi. Varat to ieslēgt iestatījumu lapā, un par to varat lasīt FAQ lapā.
+
+Pirms divas ierīces var izmantot kopā, tām ir jāpiešķir lomas. PRIMĀRĀ ierīce ir tā, kas rādīs abus priekšskatījumus, aktivizēs tveršanu un aizturēs/saglabās pēdējos tverus. Lai piešķirtu lomas, pārejiet uz šo lapu abās ierīcēs un pēc tam veiciet tālāk norādītās darbības.</value>
+  </data>
+  <data name="Page.Pairing.2" xml:space="preserve">
+    <value>Ja rodas problēmas, LŪDZU, ŅEMIET VĒRĀ:
+ • Pēc savienošanas pārī procesa sākšanas jebkurā laikā var vēlreiz pieskarties savienošanas pogai, lai to apturētu vai atvienotu.
+ • Var palīdzēt pārtraukt savienošanu pārī abās ierīcēs un vienlaikus to restartēt.
+ • Tas var palīdzēt atvienoties no Wi-Fi vai datu tīkliem, ja tie nedarbojas.
+ • Katra kamera ir atšķirīga. Šīs atšķirības var ietvert leņķisko redzes lauku, fokusu, ekspozīciju un baltā balansa darbību, laiku un daudz ko citu. Pat divi viena un tā paša modeļa tālruņi izturēsies nedaudz atšķirīgi. Es labprātāk izmantoju identisku veco tālruņu pāri (manā gadījumā iPhone 6 pāri).
+ • CrossCam ir programmatūra, nevis aparatūra, tāpēc fotoattēlu uzņemšana var būt nedaudz nesinhronizēta atkarībā no tā, ko vēl procesori un atmiņa dara precīzā uzņemšanas aktivizēšanas brīdī. Tā rezultātā sinhronizācija dažkārt var nebūt ideāla, taču parasti tai vajadzētu būt ļoti tuvu.</value>
+  </data>
+  <data name="Page.Pairing.Again" xml:space="preserve">
+    <value>Lai vēlāk izveidotu savienojumu, pārliecinieties, vai ir iespējots Wi-Fi, un pēc tam vienkārši pieskarieties savienojuma pogai abās ierīcēs sākuma ekrānā.</value>
+  </data>
+  <data name="Page.Pairing.LocalNetworkAccess" xml:space="preserve">
+    <value>CrossCam nepieciešama vietējā tīkla piekļuves atļauja. CrossCam faktiski neizmanto vietējo tīklu, taču iOS pieprasa, lai CrossCam saņemtu šo atļauju, lai izmantotu Wi-Fi antenu ierīču skenēšanai. CrossCam lūgs šo atļauju vienreiz — ja atļauja tiek liegta, jums pašam būs jāpārslēdz slēdzis lietotnē Iestatījumi.</value>
+  </data>
+  <data name="Page.Pairing.Location" xml:space="preserve">
+    <value>CrossCam pieprasīs atļaujas un ieslēgs komponentus, ja nepieciešams, lai savienotu jūsu ierīces. Lūdzu, ņemiet vērā: lai izveidotu savienojumu ar sekundāro ierīci, CrossCam ir nepieciešama atrašanās vietas atļauja un atrašanās vietas pakalpojumi ir jāieslēdz primārajā ierīcē. Tā vienkārši ir Android prasība, un tā ir pilnībā ārpus manas kontroles. CrossCam faktiski nekādā veidā NEIZMANTO jūsu atrašanās vietu, taču, tā kā tuvumā esošo ierīču meklēšana (un atrašana) teorētiski var tikt izmantota, lai aptuveni jūs atrastu, CrossCam ir nepieciešama atļauja piekļūt jūsu atrašanās vietai.</value>
+  </data>
+  <data name="Page.Pairing.Permissions" xml:space="preserve">
+    <value>Piezīme par atļaujām:</value>
+  </data>
+  <data name="Page.Pairing.Title" xml:space="preserve">
+    <value>Savienošana pārī</value>
+  </data>
+  <data name="Button.Back" xml:space="preserve">
+    <value>&lt; Atpakaļ</value>
+  </data>
+  <data name="Page.MorePictures.CrossViewSubreddit" xml:space="preserve">
+    <value>CrossView Subreddit</value>
+  </data>
+  <data name="Page.MorePictures.FacebookGroup" xml:space="preserve">
+    <value>Stereoskopiskā 3D Facebook grupa</value>
+  </data>
+  <data name="Page.MorePictures.GoogleDoc" xml:space="preserve">
+    <value>Google Doc of Great Stuff</value>
+  </data>
+  <data name="Page.MorePictures.Instagram" xml:space="preserve">
+    <value>Instagram stereoskopiskā atzīme</value>
+  </data>
+  <data name="Page.MorePictures.Mine" xml:space="preserve">
+    <value>Skatiet manis uzņemtos attēlus</value>
+  </data>
+  <data name="Page.MorePictures.ParallelViewSubreddit" xml:space="preserve">
+    <value>ParallelView Subreddit</value>
+  </data>
+  <data name="Page.Settings.Alignment" xml:space="preserve">
+    <value>Automātiskā izlīdzināšana</value>
+  </data>
+  <data name="Page.Settings.Analytics" xml:space="preserve">
+    <value>Kopīgojiet anonīmus lietojuma un kļūdu datus, lai palīdzētu uzlabot CrossCam</value>
+  </data>
+  <data name="Page.Settings.Border" xml:space="preserve">
+    <value>Robeža</value>
+  </data>
+  <data name="Page.Settings.Camera" xml:space="preserve">
+    <value>Kamera</value>
+  </data>
+  <data name="Page.Settings.Defaults" xml:space="preserve">
+    <value>Atiestatīt uz noklusējuma iestatījumiem</value>
+  </data>
+  <data name="Page.Settings.Editing" xml:space="preserve">
+    <value>Rediģēšana</value>
+  </data>
+  <data name="Page.Settings.ErrorEmail" xml:space="preserve">
+    <value>Aicina nosūtīt e-pastu, ja rodas kļūdas</value>
+  </data>
+  <data name="Page.Settings.Guides" xml:space="preserve">
+    <value>Uzņemšanas ceļveži</value>
+  </data>
+  <data name="Page.Settings.Pairing" xml:space="preserve">
+    <value>Savienošana pārī</value>
+  </data>
+  <data name="Page.Settings.Preview" xml:space="preserve">
+    <value>Priekšskatījuma skatīšanās metode</value>
+  </data>
+  <data name="Page.Settings.Saving" xml:space="preserve">
+    <value>Saglabāšana</value>
+  </data>
+  <data name="Page.TipMe.1" xml:space="preserve">
+    <value>CrossCam ir brīvi lietojams, bez reklāmām, atvērtā pirmkoda, neievāc no jums personisko informāciju un nodrošina pilnīgu piekļuvi visām funkcijām. Man patīk strādāt ar CrossCam, taču tas prasa daudz laika un pūļu. Es vispār nepelnu no CrossCam, izņemot padomus, ko cilvēki varētu man nosūtīt.</value>
+  </data>
+  <data name="Page.TipMe.2" xml:space="preserve">
+    <value>Ja jums patīk CrossCam un varat to darīt, lūdzu, apsveriet iespēju nosūtīt man padomu.</value>
+  </data>
+  <data name="Page.TipMe.Ko-fi" xml:space="preserve">
+    <value>Ko-fi</value>
+  </data>
+  <data name="Page.TipMe.Patreon" xml:space="preserve">
+    <value>Patreons</value>
+  </data>
+  <data name="Page.TipMe.PayPal" xml:space="preserve">
+    <value>PayPal</value>
+  </data>
+  <data name="Page.TipMe.Tipped" xml:space="preserve">
+    <value>Esmu saņēmis dzeramnaudu</value>
+  </data>
+  <data name="Page.TipMe.TippedTimes" xml:space="preserve">
+    <value>reizes, summējot</value>
+  </data>
+  <data name="Page.TipMe.Venmo" xml:space="preserve">
+    <value>Venmo</value>
+  </data>
+  <data name="Title.MorePictures" xml:space="preserve">
+    <value>Skatīt vairāk attēlu</value>
+  </data>
+  <data name="Title.Settings" xml:space="preserve">
+    <value>Iestatījumi</value>
+  </data>
+  <data name="Title.TipMe" xml:space="preserve">
+    <value>Padomi tiek novērtēti!</value>
+  </data>
+  <data name="Settings.Alignment.Advanced" xml:space="preserve">
+    <value>Rādīt papildu līdzinājuma iestatījumus</value>
+  </data>
+  <data name="Settings.Alignment.Ecc" xml:space="preserve">
+    <value>Vispirms vienmēr mēģiniet izmantot ECC izlīdzināšanu</value>
+  </data>
+  <data name="Settings.Alignment.Keypoints" xml:space="preserve">
+    <value>Vispirms vienmēr mēģiniet izmantot atslēgas punktu izlīdzināšanu</value>
+  </data>
+  <data name="Settings.Alignment.On" xml:space="preserve">
+    <value>Automātiski izlīdzināt pēc uzņemšanas</value>
+  </data>
+  <data name="Settings.Border.Color" xml:space="preserve">
+    <value>Apmales krāsa</value>
+  </data>
+  <data name="Settings.Border.FuseGuide" xml:space="preserve">
+    <value>Pievienojiet drošinātāja vadotni augšpusē (punkts virs katrā pusē)</value>
+  </data>
+  <data name="Settings.Border.On" xml:space="preserve">
+    <value>Pievienojiet apmali</value>
+  </data>
+  <data name="Settings.Border.Prompt" xml:space="preserve">
+    <value>Ielādēšanas laikā tiek parādīta uzvedne nogriezt apmali</value>
+  </data>
+  <data name="Settings.Border.Thickness" xml:space="preserve">
+    <value>Apmales biezums (platuma procentuālās desmitdaļas)</value>
+  </data>
+  <data name="Settings.Camera.Camera1" xml:space="preserve">
+    <value>Piespiedu kameras 1 API (var noderēt, ja rodas dīvainības, taču funkcionalitāte būs ierobežota; lai stātos spēkā, nepieciešama piespiedu aizvēršana/restartēšana)</value>
+  </data>
+  <data name="Settings.Camera.Camera2" xml:space="preserve">
+    <value>Piespiedu kameras 2 API (jābūt operētājsistēmai Android 6 vai jaunākai versijai, var būt noderīga, ja rodas kļūdas, bet var rasties vairāk, lai stātos spēkā, ir nepieciešama piespiedu aizvēršana/restartēšana)</value>
+  </data>
+  <data name="Settings.Camera.LandscapeCaptureHorizontal" xml:space="preserve">
+    <value>Ainavas uzņemšanas pogas horizontāls izvietojums</value>
+  </data>
+  <data name="Settings.Camera.LandscapeCaptureVertical" xml:space="preserve">
+    <value>Ainavas uztveršanas pogas vertikālais izvietojums</value>
+  </data>
+  <data name="Settings.Camera.Lock" xml:space="preserve">
+    <value>Bloķējiet fokusu un ekspozīciju otrajam attēlam, lai fokusētu un ekspozīciju no pirmā attēla</value>
+  </data>
+  <data name="Settings.Camera.Pair" xml:space="preserve">
+    <value>Savienot pārī pogas horizontālo izvietojumu (ja uzņemšanas poga ir centrā)</value>
+  </data>
+  <data name="Settings.Camera.PointFocus" xml:space="preserve">
+    <value>Pieskarieties, lai fokusētu, veiciet dubultskārienu, lai pārslēgtos atpakaļ uz nepārtrauktu fokusu (vai saglabātu vai notīrītu)</value>
+  </data>
+  <data name="Settings.Camera.PortraitCapture" xml:space="preserve">
+    <value>Portreta uzņemšanas pogas izvietojums</value>
+  </data>
+  <data name="Settings.Editing.Align" xml:space="preserve">
+    <value>Maksimālā vertikālā līdzinājuma proporcija</value>
+  </data>
+  <data name="Settings.Editing.Keystone" xml:space="preserve">
+    <value>Maksimālais atslēgas akmens</value>
+  </data>
+  <data name="Settings.Editing.Rotation" xml:space="preserve">
+    <value>Maksimālie griešanās grādi</value>
+  </data>
+  <data name="Settings.Editing.SideCrop" xml:space="preserve">
+    <value>Maksimālā sānu apgriešanas proporcija</value>
+  </data>
+  <data name="Settings.Editing.TopCrop" xml:space="preserve">
+    <value>Maksimālā augšējā/apakšējā apgriešanas proporcija</value>
+  </data>
+  <data name="Settings.Editing.Zoom" xml:space="preserve">
+    <value>Maksimālā tālummaiņas proporcija</value>
+  </data>
+  <data name="Settings.Guides.Donut" xml:space="preserve">
+    <value>Rādīt virtuļu ceļvedi (izraisīs sadursmi, tāpēc var būt nepieciešama trapeces akmens rediģēšana)</value>
+  </data>
+  <data name="Settings.Guides.Fuse" xml:space="preserve">
+    <value>Rādīt drošinātāju vadotni (punkts virs katrā pusē)</value>
+  </data>
+  <data name="Settings.Guides.LineColor" xml:space="preserve">
+    <value>Dažādas krāsas līnijas</value>
+  </data>
+  <data name="Settings.Guides.Lines" xml:space="preserve">
+    <value>Redzamās līnijas</value>
+  </data>
+  <data name="Settings.Guides.Roll" xml:space="preserve">
+    <value>Redzama ruļļa vadotne</value>
+  </data>
+  <data name="Settings.Pair.CaptureDelay" xml:space="preserve">
+    <value>Tveršanas momenta papildu aizkave (ms) (tikai šajā ierīcē pievieno papildu aizkavi mērķa tveršanas brīdim)</value>
+  </data>
+  <data name="Settings.Pair.Countdown" xml:space="preserve">
+    <value>Uzņemt atpakaļskaitīšanas ilgumu (taimeris)</value>
+  </data>
+  <data name="Settings.Pair.Fov" xml:space="preserve">
+    <value>Skata lauka korekcija</value>
+  </data>
+  <data name="Settings.Pair.FovNotSet" xml:space="preserve">
+    <value>FOV korekcija nav iestatīta (veiciet tveršanu ar pārī savienotām ierīcēm, lai veiktu iestatīšanu).</value>
+  </data>
+  <data name="Settings.Pair.FovReset" xml:space="preserve">
+    <value>Atiestatīt</value>
+  </data>
+  <data name="Settings.Pair.Go" xml:space="preserve">
+    <value>Dodieties uz sapārošanas iestatīšanas lapu</value>
+  </data>
+  <data name="Settings.Pair.NoRole" xml:space="preserve">
+    <value>Loma nav atlasīta</value>
+  </data>
+  <data name="Settings.Pair.PreviewDelay" xml:space="preserve">
+    <value>Priekšskatījuma kadra aizkave (lielāks skaits samazinās kadru ātrumu, bet ietaupīs akumulatoru)</value>
+  </data>
+  <data name="Settings.Pair.Primary" xml:space="preserve">
+    <value>Primārs:</value>
+  </data>
+  <data name="Settings.Pair.PrimaryRole" xml:space="preserve">
+    <value>Loma: primārā</value>
+  </data>
+  <data name="Settings.Pair.Sample" xml:space="preserve">
+    <value>Pulksteņa paraugu skaits (mazāks skaitlis samazinās sākotnējai sinhronizācijai nepieciešamo laiku, taču var samazināties sinhronizācijas precizitāte)</value>
+  </data>
+  <data name="Settings.Pair.Secondary" xml:space="preserve">
+    <value>Sekundārā:</value>
+  </data>
+  <data name="Settings.Pair.SecondaryRole" xml:space="preserve">
+    <value>Loma: sekundāra</value>
+  </data>
+  <data name="Settings.Pair.Timeout" xml:space="preserve">
+    <value>Savienojuma taimauts (sekundēs) (0 nozīmē, ka taimauta nav)</value>
+  </data>
+  <data name="Settings.Preview.Barrel" xml:space="preserve">
+    <value>Pievienojiet objektīva korekciju/stobra kropļojumu (var samazināt kadru ātrumu)</value>
+  </data>
+  <data name="Settings.Preview.BarrelFinal" xml:space="preserve">
+    <value>Pievienojiet objektīva korekciju/stobra kropļojumu tikai galīgajiem attēliem (var palēnināt galīgo displeju, bet paātrināt uzņemšanu)</value>
+  </data>
+  <data name="Settings.Preview.CardboardDistance" xml:space="preserve">
+    <value>Kartona atdalīšanas attālums</value>
+  </data>
+  <data name="Settings.Preview.Downsize" xml:space="preserve">
+    <value>Samazināt attēla izmēru (var palielināt kadru ātrumu)</value>
+  </data>
+  <data name="Settings.Preview.DownsizePercent" xml:space="preserve">
+    <value>Samaziniet attēla izmēru procentos</value>
+  </data>
+  <data name="Settings.Preview.Immersive" xml:space="preserve">
+    <value>Iespaidīga pēdējā apskate</value>
+  </data>
+  <data name="Settings.Preview.LensStrength" xml:space="preserve">
+    <value>Lēcas korekcijas stiprums</value>
+  </data>
+  <data name="Settings.Preview.Mirror" xml:space="preserve">
+    <value>Uzņemiet, izmantojot viena kadra spoguļa dalīšanas metodi</value>
+  </data>
+  <data name="Settings.Preview.Width" xml:space="preserve">
+    <value>Maksimālais paralēlā skata attēla platums (punkti)</value>
+  </data>
+  <data name="Settings.Reset" xml:space="preserve">
+    <value>Atiestatīt uz noklusējuma iestatījumiem</value>
+  </data>
+  <data name="Settings.Saving.Alone" xml:space="preserve">
+    <value>Saglabājiet tikai pirmo pusi (bez rediģējumiem vai apmales) (lai ērti kopīgotu plakanu fotoattēlu ar plakana skata cilvēkiem)</value>
+  </data>
+  <data name="Settings.Saving.Anaglyph" xml:space="preserve">
+    <value>Saglabāt sarkanā/ciāna anaglifa versiju (ar labojumiem, bet bez apmales)</value>
+  </data>
+  <data name="Settings.Saving.Browse" xml:space="preserve">
+    <value>Pārlūkot...</value>
+  </data>
+  <data name="Settings.Saving.Cardboard" xml:space="preserve">
+    <value>Saglabāt Cardboard (ar labojumiem, bez apmales, bez atstarpēm, pilnā platumā, lai vēlāk ielādētu atpakaļ programmā CrossCam)</value>
+  </data>
+  <data name="Settings.Saving.Clear" xml:space="preserve">
+    <value>Pēc saglabāšanas automātiski notīriet attēlus</value>
+  </data>
+  <data name="Settings.Saving.Cross" xml:space="preserve">
+    <value>Saglabāt pievienoto šķērsskata versiju (ar labojumiem un apmali)</value>
+  </data>
+  <data name="Settings.Saving.ExternalDirectory" xml:space="preserve">
+    <value>Saglabāt ārējā CrossCam direktorijā:</value>
+  </data>
+  <data name="Settings.Saving.ExternalWarning" xml:space="preserve">
+    <value>(brīdinājums: attēli tiks dzēsti, ja CrossCam tiks atinstalēts)</value>
+  </data>
+  <data name="Settings.Saving.Folder" xml:space="preserve">
+    <value>Saglabājiet īpašā "CrossCam" apakšmapē/albumā</value>
+  </data>
+  <data name="Settings.Saving.Grayscale" xml:space="preserve">
+    <value>Saglabāt pelēktoņu sarkanā/ciāna anglifa versiju (ar labojumiem, bet bez apmales)</value>
+  </data>
+  <data name="Settings.Saving.Order" xml:space="preserve">
+    <value>(Saglabāšana notiks secībā no augšas uz leju)</value>
+  </data>
+  <data name="Settings.Saving.Parallel" xml:space="preserve">
+    <value>Saglabāt pievienoto paralēlā skata versiju (ar labojumiem un apmali)</value>
+  </data>
+  <data name="Settings.Saving.Quad" xml:space="preserve">
+    <value>Saglabāt četrkāršu kombināciju (ar labojumiem un apmali)</value>
+  </data>
+  <data name="Settings.Saving.Reset" xml:space="preserve">
+    <value>Atiestatīt</value>
+  </data>
+  <data name="Settings.Saving.Resolution" xml:space="preserve">
+    <value>Izšķirtspējas proporcija</value>
+  </data>
+  <data name="Settings.Saving.SaveTo" xml:space="preserve">
+    <value>Saglabāt:</value>
+  </data>
+  <data name="Settings.Saving.Separate" xml:space="preserve">
+    <value>Saglabājiet katru pusi atsevišķi (bez labojumiem vai apmales, lai pēcapstrāde būtu ērtāka, vispirms tiek saglabāta kreisā puse)</value>
+  </data>
+  <data name="Settings.Saving.Subfolder" xml:space="preserve">
+    <value>Saglabājiet īpašās "CrossCam_{ViewMethod}" apakšmapēs/albumos</value>
+  </data>
+  <data name="Settings.Saving.Triple" xml:space="preserve">
+    <value>Saglabāt trīskāršu kombināciju (ar labojumiem un apmali)</value>
+  </data>
+  <data name="Button.Pair.Accept" xml:space="preserve">
+    <value>Pieņemt</value>
+  </data>
+  <data name="Button.Pair.Cancel" xml:space="preserve">
+    <value>Atcelt</value>
+  </data>
+  <data name="Page.Camera.AcceptConnection" xml:space="preserve">
+    <value>Pieņemt savienojumu ar</value>
+  </data>
+  <data name="Page.Camera.Confirm" xml:space="preserve">
+    <value>Apstipriniet koda atbilstību abās ierīcēs:</value>
+  </data>
+  <data name="Page.Footer.CouldntOpen" xml:space="preserve">
+    <value>Nevarēja atvērt saiti</value>
+  </data>
+  <data name="Page.Footer.OpenError" xml:space="preserve">
+    <value>Mailto saiti nevarēja atvērt. Tas var būt tāpēc, ka jūsu e-pasta klients nav iestatīts, vai kāds cits iemesls.</value>
+  </data>
+  <data name="Page.Pair.Errors.Denied" xml:space="preserve">
+    <value>Nepieciešamās atļaujas savienošanai pārī netika piešķirtas. Izņēmums:</value>
+  </data>
+  <data name="Page.Pair.Errors.FailedBluetooth" xml:space="preserve">
+    <value>Ierīci neizdevās ieslēgt Bluetooth. Izņēmums:</value>
+  </data>
+  <data name="Page.Pair.Errors.FailedSearch" xml:space="preserve">
+    <value>Ierīcei neizdevās meklēt ierīces. Izņēmums:</value>
+  </data>
+  <data name="Page.Pair.Errors.LocationOff" xml:space="preserve">
+    <value>Atrašanās vietas pakalpojumi nav aktivizēti. Nevar skenēt ierīces. Plašāku informāciju skatiet pārī savienošanas lapā.</value>
+  </data>
+  <data name="Page.Pair.Errors.LocationScan" xml:space="preserve">
+    <value>Atrašanās vietas atļauja nav piešķirta. Nevar skenēt ierīces. Plašāku informāciju skatiet pārī savienošanas lapā.</value>
+  </data>
+  <data name="Page.Pair.Errors.NotSupported" xml:space="preserve">
+    <value>Savienošana pārī šajā ierīcē netiek atbalstīta. Izņēmums:</value>
+  </data>
+  <data name="Page.Pair.Errors.Title" xml:space="preserve">
+    <value>Kļūda</value>
+  </data>
+  <data name="Page.Pair.Errors.WifiOff" xml:space="preserve">
+    <value>Wi-Fi ir izslēgts. Lūdzu, ieslēdziet Wi-Fi.</value>
+  </data>
+  <data name="Page.Pair.PrimaryExplanation" xml:space="preserve">
+    <value>Šī ierīce tagad ir iestatīta kā galvenā.</value>
+  </data>
+  <data name="Page.Pair.PrimarySelected" xml:space="preserve">
+    <value>Atlasīta galvenā loma</value>
+  </data>
+  <data name="Page.Pair.SecondaryExplanation" xml:space="preserve">
+    <value>Šī ierīce tagad ir iestatīta kā sekundārā ierīce.</value>
+  </data>
+  <data name="Page.Pair.SecondarySelected" xml:space="preserve">
+    <value>Atlasīta sekundārā loma</value>
+  </data>
+  <data name="Page.Technique.Mode" xml:space="preserve">
+    <value>režīmā.</value>
+  </data>
+  <data name="Page.Technique.SetMode" xml:space="preserve">
+    <value>CrossCam tagad ir pieejams</value>
+  </data>
+</root>

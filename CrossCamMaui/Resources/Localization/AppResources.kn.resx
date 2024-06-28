@@ -1,0 +1,1156 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="Button.GoogleDoc" xml:space="preserve">
+    <value>Google ಡಾಕ್ ಆಫ್ ಗ್ರೇಟ್ ಸ್ಟಫ್</value>
+  </data>
+  <data name="Button.LearnCross" xml:space="preserve">
+    <value>ಕ್ರಾಸ್ ಕಲಿಯಿರಿ</value>
+  </data>
+  <data name="Button.LearnParallel" xml:space="preserve">
+    <value>ಸಮಾನಾಂತರ ಕಲಿಯಿರಿ</value>
+  </data>
+  <data name="Button.MorePictures" xml:space="preserve">
+    <value>ಇನ್ನಷ್ಟು ಚಿತ್ರಗಳನ್ನು ನೋಡಿ</value>
+  </data>
+  <data name="Button.Review" xml:space="preserve">
+    <value>ವಿಮರ್ಶೆಯನ್ನು ಬರೆ</value>
+  </data>
+  <data name="Button.Share" xml:space="preserve">
+    <value>CrossCam ಅನ್ನು ಹಂಚಿಕೊಳ್ಳಿ</value>
+  </data>
+  <data name="Button.Support" xml:space="preserve">
+    <value>ಡೆವಲಪರ್ ಅನ್ನು ಬೆಂಬಲಿಸಿ</value>
+  </data>
+  <data name="Button.TapCross" xml:space="preserve">
+    <value>ಕ್ರಾಸ್ ಅನ್ನು ಆಯ್ಕೆ ಮಾಡಲು ಇಲ್ಲಿ ಟ್ಯಾಪ್ ಮಾಡಿ</value>
+  </data>
+  <data name="Button.TapParallel" xml:space="preserve">
+    <value>ಸಮಾನಾಂತರವನ್ನು ಆಯ್ಕೆ ಮಾಡಲು ಇಲ್ಲಿ ಟ್ಯಾಪ್ ಮಾಡಿ</value>
+  </data>
+  <data name="Footer.Span1" xml:space="preserve">
+    <value>ದೋಷ ಕಂಡುಬಂದಿದೆಯೇ? ಪ್ರಶ್ನೆ ಇದೆಯೇ? ಕೇವಲ ಇಮೇಲ್</value>
+  </data>
+  <data name="Footer.Span3" xml:space="preserve">
+    <value>! ನಾನು ಬಳಕೆದಾರರೊಂದಿಗೆ ಮಾತನಾಡಲು ಇಷ್ಟಪಡುತ್ತೇನೆ ಮತ್ತು ನನ್ನೊಂದಿಗೆ ಸಂವಹನ ನಡೆಸಲು ಇದು ಅತ್ಯಂತ ವೇಗವಾದ ಮಾರ್ಗವಾಗಿದೆ.</value>
+  </data>
+  <data name="Page.HowToUse.2anaglyph" xml:space="preserve">
+    <value>2) ಮೊದಲ ಚಿತ್ರವನ್ನು ಅದರ ಮುಂದೆ ಗೋಚರಿಸುವ ಪೂರ್ವವೀಕ್ಷಣೆಯೊಂದಿಗೆ ಅನಾಗ್ಲಿಫ್ ವೀಕ್ಷಿಸಲು ಪ್ರಾರಂಭಿಸಿ.</value>
+  </data>
+  <data name="Page.HowToUse.2cardboard" xml:space="preserve">
+    <value>2) ಮೊದಲ ಚಿತ್ರವನ್ನು ಅದರ ಮುಂದೆ ಗೋಚರಿಸುವ ಪೂರ್ವವೀಕ್ಷಣೆಯೊಂದಿಗೆ ಕಾರ್ಡ್ಬೋರ್ಡ್ ವೀಕ್ಷಿಸಲು ಪ್ರಾರಂಭಿಸಿ.</value>
+  </data>
+  <data name="Page.HowToUse.2cross" xml:space="preserve">
+    <value>2) ಮೊದಲ ಚಿತ್ರವನ್ನು ಅದರ ಮುಂದೆ ಗೋಚರಿಸುವ ಪೂರ್ವವೀಕ್ಷಣೆಯೊಂದಿಗೆ ಅಡ್ಡ ವೀಕ್ಷಣೆಯನ್ನು ಪ್ರಾರಂಭಿಸಿ.</value>
+  </data>
+  <data name="Page.HowToUse.2parallel" xml:space="preserve">
+    <value>2) ಮೊದಲ ಚಿತ್ರವನ್ನು ಅದರ ಮುಂದೆ ಗೋಚರಿಸುವ ಪೂರ್ವವೀಕ್ಷಣೆಯೊಂದಿಗೆ ಸಮಾನಾಂತರವಾಗಿ ವೀಕ್ಷಿಸಲು ಪ್ರಾರಂಭಿಸಿ.</value>
+  </data>
+  <data name="Page.Technique.AdditionalTutorials" xml:space="preserve">
+    <value>ಹೆಚ್ಚುವರಿ ಟ್ಯುಟೋರಿಯಲ್‌ಗಳು:</value>
+  </data>
+  <data name="Page.Technique.Cross1" xml:space="preserve">
+    <value>ಮೇಲಿನ ಜೋಡಿ ಚಿತ್ರಗಳನ್ನು ನೋಡುವಾಗ ನಿಮ್ಮ ಕಣ್ಣುಗಳನ್ನು ಎಚ್ಚರಿಕೆಯಿಂದ ದಾಟಿಸಿ. ನೀವು ನಿಮ್ಮ ಕಣ್ಣುಗಳನ್ನು ದಾಟಿದಾಗ, ವಿಷಯಗಳು ಮಸುಕಾಗುತ್ತವೆ ಮತ್ತು ಗೋಚರವಾಗುತ್ತವೆ ಮತ್ತು ನೀವು 2 (2 ಜೋಡಿ) ಬದಲಿಗೆ 4 ಚಿತ್ರಗಳನ್ನು ನೋಡಲು ಪ್ರಾರಂಭಿಸುತ್ತೀರಿ. ನಿಮ್ಮ ಕಣ್ಣುಗಳನ್ನು ನೀವು ಗಟ್ಟಿಯಾಗಿ ದಾಟಿದರೆ, ಜೋಡಿ ಚಿತ್ರಗಳು ಮತ್ತಷ್ಟು ದೂರ ಹೋಗುತ್ತವೆ - ಇದು ಸ್ವಲ್ಪಮಟ್ಟಿಗೆ ಈ ರೀತಿ ಕಾಣುತ್ತದೆ:</value>
+  </data>
+  <data name="Page.Technique.Cross2" xml:space="preserve">
+    <value>ನಿಮ್ಮ ಕಣ್ಣುಗಳನ್ನು ಎಚ್ಚರಿಕೆಯಿಂದ ಅನ್ಕ್ರಾಸ್ ಮಾಡಿ, ಇದರಿಂದ ಪ್ರತಿ ಜೋಡಿಯ ಒಳಭಾಗದಲ್ಲಿರುವ ಚಿತ್ರಗಳು ಅತಿಕ್ರಮಿಸಲು ಪ್ರಾರಂಭಿಸುತ್ತವೆ. ಇದು 4 ರ ಬದಲಿಗೆ ಕೇವಲ 3 ಚಿತ್ರಗಳಂತೆ ಕಾಣಲು ಪ್ರಾರಂಭಿಸುತ್ತದೆ. ಇದು ಇನ್ನೂ ಮಸುಕಾಗಿರುತ್ತದೆ ಮತ್ತು ಪಾರದರ್ಶಕವಾಗಿರುತ್ತದೆ ಮತ್ತು ಈ ರೀತಿ ಕಾಣುತ್ತದೆ:</value>
+  </data>
+  <data name="Page.Technique.Cross3" xml:space="preserve">
+    <value>ಒಮ್ಮೆ ನೀವು ಮಧ್ಯದ ಅತಿಕ್ರಮಣವನ್ನು ಹೊಂದಿರುವಾಗ ನೀವು ನಿಮ್ಮ ಕಣ್ಣುಗಳನ್ನು ವಿಶ್ರಾಂತಿ ಮಾಡಬೇಕು ಮತ್ತು ಚಿತ್ರವನ್ನು ಕೇಂದ್ರೀಕರಿಸಲು ಅನುಮತಿಸಬೇಕು. ಆ ಸಮಯದಲ್ಲಿ ನೀವು ಮಧ್ಯದಲ್ಲಿ ಒಂದು ತೀಕ್ಷ್ಣವಾದ 3D ಚಿತ್ರವನ್ನು ಹೊಂದಿರುತ್ತೀರಿ ಮತ್ತು ಪ್ರತಿ ಬದಿಯಲ್ಲಿ ತೇಲುತ್ತಿರುವ ಪಾರದರ್ಶಕ ಚಿತ್ರವು ಈ ರೀತಿ ಕಾಣುತ್ತದೆ (ಮಧ್ಯವು 3D ಆಗಿರುತ್ತದೆ ಹೊರತುಪಡಿಸಿ):</value>
+  </data>
+  <data name="Page.Technique.Cross4" xml:space="preserve">
+    <value>ನಿಮ್ಮ ಕಣ್ಣುಗಳನ್ನು ದಾಟಲು ನಿಮಗೆ ತೊಂದರೆಯಾಗಿದ್ದರೆ, ನಿಮ್ಮ ಕಣ್ಣುಗಳು ಮತ್ತು ಪರದೆಯ ನಡುವೆ ಅರ್ಧದಾರಿಯಲ್ಲೇ ನಿಮ್ಮ ಬೆರಳನ್ನು ಹಿಡಿದಿಟ್ಟುಕೊಳ್ಳಲು ಸಹ ನೀವು ಪ್ರಯತ್ನಿಸಬಹುದು. ನಿಮ್ಮ ಬೆರಳಿನ ಹಿಂದೆ ಚಿತ್ರಗಳು ಬೇರ್ಪಡಿಸಲು ಮತ್ತು ಅತಿಕ್ರಮಿಸಲು ಪ್ರಾರಂಭಿಸುವುದನ್ನು ನೀವು ನೋಡಬೇಕು.</value>
+  </data>
+  <data name="Page.Technique.CrossViewing" xml:space="preserve">
+    <value>ಕ್ರಾಸ್ ವೀಕ್ಷಣೆ</value>
+  </data>
+  <data name="Page.Technique.P1" xml:space="preserve">
+    <value>ನೀವು ಇದನ್ನು ಮತ್ತೊಮ್ಮೆ ನೋಡಲು ಬಯಸಿದರೆ, ಕ್ಯಾಮರಾ ಪರದೆಯ ಮೇಲಿನ ಎಡಭಾಗದಲ್ಲಿರುವ ಹ್ಯಾಂಬರ್ಗರ್ (ಮೂರು ಸಾಲುಗಳು) ಐಕಾನ್ ಅನ್ನು ಟ್ಯಾಪ್ ಮಾಡಿ ಮತ್ತು "ಸಹಾಯ" ಟ್ಯಾಪ್ ಮಾಡಿ.
+
+CrossCam ನಲ್ಲಿ 3D ಅನ್ನು ನೋಡಲು ("ಸ್ಟೀರಿಯೊಗ್ರಾಮ್‌ಗಳು" ಎಂದು ಕರೆಯಲಾಗುತ್ತದೆ) ನೀವು ಕೆಂಪು/ಸಯಾನ್ 3D ಗ್ಲಾಸ್‌ಗಳನ್ನು ಬಳಸಬಹುದು, Google ಕಾರ್ಡ್‌ಬೋರ್ಡ್ ವೀಕ್ಷಕ, ಅಥವಾ ನಿಮ್ಮ ಕಣ್ಣುಗಳು ಮತ್ತು ನಿಮ್ಮ ಪರದೆಯನ್ನು ಬಳಸಿಕೊಂಡು ನೀವು "ಉಚಿತ ವೀಕ್ಷಣೆ" ಮಾಡಬಹುದು. ಉಚಿತ ವೀಕ್ಷಣೆಗೆ ಎರಡು ಮಾರ್ಗಗಳಿವೆ, ಮತ್ತು CrossCam ಇವೆರಡನ್ನೂ ಕಲಿಯಲು ನಿಮಗೆ ಸಹಾಯ ಮಾಡುತ್ತದೆ. ನೀವು ಚಿತ್ರಗಳನ್ನು ಹೇಗೆ ವೀಕ್ಷಿಸಲಿದ್ದೀರಿ ಎಂಬುದನ್ನು ನೀವು CrossCam ಗೆ ತಿಳಿಸಬೇಕು ಅಥವಾ ಅದು ಸರಿಯಾಗಿ ಕೆಲಸ ಮಾಡುವುದಿಲ್ಲ. ಚಿಂತಿಸಬೇಡಿ, ನೀವು ಇದನ್ನು ಯಾವಾಗ ಬೇಕಾದರೂ ಸೆಟ್ಟಿಂಗ್‌ಗಳಲ್ಲಿ ಬದಲಾಯಿಸಬಹುದು.
+
+ನೀವು ಆರಾಮವಾಗಿ ನಿಮ್ಮ ಕಣ್ಣುಗಳನ್ನು ದಾಟಲು ಸಾಧ್ಯವಾದರೆ, ನೀವು ಮೊದಲು ಅಡ್ಡ ವಿಧಾನವನ್ನು ಪ್ರಯತ್ನಿಸಬೇಕು, ಇಲ್ಲದಿದ್ದರೆ ನೀವು ಸಮಾನಾಂತರ ವಿಧಾನವನ್ನು ಪ್ರಯತ್ನಿಸಬೇಕು. ನೀವು ಮ್ಯಾಜಿಕ್ ಐ™ ಪುಸ್ತಕಗಳನ್ನು ಬಳಸುತ್ತಿದ್ದರೆ, ನೀವು ಬಹುಶಃ ಈಗಾಗಲೇ ಸಮಾನಾಂತರ ವಿಧಾನವನ್ನು ಮಾಡಲು ಸಾಧ್ಯವಾಗುತ್ತದೆ, ಆದರೆ ನೀವು ಅಡ್ಡ ವಿಧಾನವನ್ನು ಸಹ ಮಾಡಲು ಸಾಧ್ಯವಾಗುತ್ತದೆ. ಅದನ್ನು ಕಲಿಯಲು ಕೆಳಗಿನ ವಿಧಾನವನ್ನು ಟ್ಯಾಪ್ ಮಾಡಿ ಮತ್ತು ಅನುಗುಣವಾದ CHOOSE ಬಟನ್ ಅನ್ನು ಒತ್ತುವ ಮೂಲಕ CrossCam ಗೆ ಯಾವುದು ಕೆಲಸ ಮಾಡುತ್ತದೆ ಎಂದು ಹೇಳುವುದನ್ನು ಖಚಿತಪಡಿಸಿಕೊಳ್ಳಿ.
+
+ನೀವು 3D ಕನ್ನಡಕ ಅಥವಾ ಕಾರ್ಡ್‌ಬೋರ್ಡ್ ವೀಕ್ಷಕವನ್ನು ಬಳಸಲು ಬಯಸಿದರೆ, ಸೆಟ್ಟಿಂಗ್‌ಗಳ ಪುಟದಲ್ಲಿ ಬಳಸಲು CrossCam ಅನ್ನು ಹೊಂದಿಸಬಹುದು.</value>
+  </data>
+  <data name="Page.Technique.CrossLink1" xml:space="preserve">
+    <value>ಉತ್ತಮ ಪಠ್ಯ ಟ್ಯುಟೋರಿಯಲ್</value>
+  </data>
+  <data name="Page.Technique.CrossLink2" xml:space="preserve">
+    <value>ಮತ್ತೊಂದು ಉತ್ತಮ ಪಠ್ಯ ಟ್ಯುಟೋರಿಯಲ್</value>
+  </data>
+  <data name="Page.Technique.CrossLink3" xml:space="preserve">
+    <value>ಒಂದು ಚಿಕ್ಕ YouTube ಟ್ಯುಟೋರಿಯಲ್</value>
+  </data>
+  <data name="Page.Technique.CrossLink4" xml:space="preserve">
+    <value>ದೀರ್ಘ, ಬೆಸ, ಆದರೆ ಉಪಯುಕ್ತ YouTube ಟ್ಯುಟೋರಿಯಲ್</value>
+  </data>
+  <data name="Page.Technique.CrossLink5" xml:space="preserve">
+    <value>ಮತ್ತೊಂದು YouTube ಟ್ಯುಟೋರಿಯಲ್</value>
+  </data>
+  <data name="Page.Technique.CrossLink6" xml:space="preserve">
+    <value>ಟ್ಯುಟೋರಿಯಲ್ ಜೊತೆಗೆ ಡ್ಯುಯಲ್ ಕ್ಯಾಮೆರಾ ಪ್ರಾಜೆಕ್ಟ್</value>
+  </data>
+  <data name="Page.Technique.Parallel1" xml:space="preserve">
+    <value>ಮೇಲಿನ ಚಿತ್ರವು ನಿಮ್ಮ ಪರದೆಯ ಮೇಲೆ ಹೊಂದಿಕೆಯಾಗದಿದ್ದರೆ, ನಿಮ್ಮ ಫೋನ್ ಅನ್ನು ಲ್ಯಾಂಡ್‌ಸ್ಕೇಪ್‌ಗೆ ತಿರುಗಿಸಿ - ಇದಕ್ಕಾಗಿ CrossCam ಜೋಡಿ ಚಿತ್ರಗಳನ್ನು ಸುಲಭ ಗಾತ್ರದಲ್ಲಿ ಮಾಡಲು ಪ್ರಯತ್ನಿಸುತ್ತಿದೆ. ನೀವು ಯಾವಾಗಲೂ ಭೂದೃಶ್ಯದಲ್ಲಿ CrossCam ಅನ್ನು ಬಳಸಬೇಕಾಗಿಲ್ಲ, ಆದರೆ ಪರಿಪೂರ್ಣ ಗಾತ್ರದ ಚಿತ್ರವು ತಂತ್ರವನ್ನು ಕಲಿಯುವುದನ್ನು ಸುಲಭಗೊಳಿಸುತ್ತದೆ.</value>
+  </data>
+  <data name="Page.Technique.Parallel2" xml:space="preserve">
+    <value>ನಿಮ್ಮ ಕಣ್ಣುಗಳನ್ನು ವಿಶ್ರಾಂತಿ ಮಾಡಿ ಮತ್ತು ಮೇಲಿನ ಜೋಡಿ ಚಿತ್ರಗಳನ್ನು "ಮೂಲಕ" ನೋಡಿ, ನೀವು ಚಿತ್ರಗಳತ್ತ ನಿಮ್ಮ ಕಣ್ಣುಗಳನ್ನು ತೋರಿಸುತ್ತಿರುವಂತೆ ವಲಯವನ್ನು ಮಾಡುತ್ತೀರಿ. ನೀವು ಮಧ್ಯದಲ್ಲಿ 3D ಚಿತ್ರದೊಂದಿಗೆ 3 ಚಿತ್ರಗಳನ್ನು ನೋಡಲು ಪ್ರಾರಂಭಿಸಬೇಕು, ಸ್ವಲ್ಪಮಟ್ಟಿಗೆ ಈ ರೀತಿ:</value>
+  </data>
+  <data name="Page.Technique.Parallel3" xml:space="preserve">
+    <value>ನೀವು 4 ಚಿತ್ರಗಳನ್ನು ನೋಡಲು ಪ್ರಾರಂಭಿಸಿದರೆ, ನೀವು ತುಂಬಾ ದೂರ ಹೋಗಿದ್ದೀರಿ. ನೀವು ಮತ್ತೆ ಆ ಹಂತದಲ್ಲಿ ನಿಮ್ಮನ್ನು ಕಂಡುಕೊಂಡರೆ ನಿಮ್ಮ ಕಣ್ಣುಗಳನ್ನು ಸ್ವಲ್ಪಮಟ್ಟಿಗೆ ಸರಿಸಲು ಪ್ರಯತ್ನಿಸಿ. ತುಂಬಾ ವಿಶ್ರಾಂತಿ ಈ ರೀತಿ ಕಾಣುತ್ತದೆ:</value>
+  </data>
+  <data name="Page.Technique.Parallel4" xml:space="preserve">
+    <value>ನೀವು ಸಮಸ್ಯೆಯನ್ನು ಎದುರಿಸುತ್ತಿದ್ದರೆ, ನಿಮ್ಮ ಕಣ್ಣುಗಳ ಮುಂದೆ ಜೋಡಿ ಚಿತ್ರಗಳ ಜೊತೆಗೆ ನಿಮ್ಮ ಪರದೆಯನ್ನು ನಿಮ್ಮ ಮುಖಕ್ಕೆ ನೇರವಾಗಿ ತರಲು ಪ್ರಯತ್ನಿಸಿ. ವಿಶ್ರಾಂತಿ ಪಡೆಯಿರಿ ಮತ್ತು ಪರದೆಯ "ಮೂಲಕ" ನೋಡಿ ಮತ್ತು ನಂತರ ನಿಮ್ಮ ಕಣ್ಣುಗಳನ್ನು ಆರಾಮವಾಗಿರಿಸಿಕೊಂಡು ನಿಮ್ಮ ಪರದೆಯನ್ನು ನಿಮ್ಮ ಮುಖದಿಂದ ನಿಧಾನವಾಗಿ ಎಳೆಯಿರಿ. ಅಂತಿಮವಾಗಿ ಚಿತ್ರವು ಫೋಕಸ್ ಆಗಿ "ಕ್ಲಿಕ್" ಮಾಡಬೇಕು.</value>
+  </data>
+  <data name="Page.Technique.Parallel5" xml:space="preserve">
+    <value>ನೀವು ಇನ್ನೂ ನಾಲ್ಕು ಚಿತ್ರಗಳನ್ನು ನೋಡುತ್ತಿದ್ದರೆ, ಸೆಟ್ಟಿಂಗ್‌ಗಳ ಪುಟದಲ್ಲಿ "ಗರಿಷ್ಠ ಸಮಾನಾಂತರ ವೀಕ್ಷಣೆ ಇಮೇಜ್ ಅಗಲ" ಅನ್ನು ಹೆಚ್ಚಿಸಿ.</value>
+  </data>
+  <data name="Page.Technique.ParallelViewing" xml:space="preserve">
+    <value>ಸಮಾನಾಂತರ ವೀಕ್ಷಣೆ</value>
+  </data>
+  <data name="Page.Technique.Practice" xml:space="preserve">
+    <value>ನೀವು ಅಭ್ಯಾಸ ಮಾಡಬಹುದಾದ ಚಿತ್ರಗಳನ್ನು ನಾನು ಮಾಡಿದ್ದೇನೆ</value>
+  </data>
+  <data name="Title.Contact" xml:space="preserve">
+    <value>ಸಂಪರ್ಕಿಸಿ</value>
+  </data>
+  <data name="Title.Faq" xml:space="preserve">
+    <value>FAQ</value>
+  </data>
+  <data name="Title.Help" xml:space="preserve">
+    <value>ಸಹಾಯ</value>
+  </data>
+  <data name="Title.HowToUse" xml:space="preserve">
+    <value>ಕ್ರಾಸ್‌ಕ್ಯಾಮ್ ಅನ್ನು ಹೇಗೆ ಬಳಸುವುದು</value>
+  </data>
+  <data name="Title.Technique" xml:space="preserve">
+    <value>3D ವೀಕ್ಷಣೆ ತಂತ್ರ</value>
+  </data>
+  <data name="Title.Tips" xml:space="preserve">
+    <value>ಸಲಹೆಗಳು</value>
+  </data>
+  <data name="Button.DoNotEmailMe" xml:space="preserve">
+    <value>ಈಗ ನನಗೆ ಇಮೇಲ್ ಮಾಡಬೇಡಿ</value>
+  </data>
+  <data name="Button.EmailMeNow" xml:space="preserve">
+    <value>ಈಗ ನನಗೆ ಇಮೇಲ್ ಮಾಡಿ</value>
+  </data>
+  <data name="Button.No" xml:space="preserve">
+    <value>ಸಂ</value>
+  </data>
+  <data name="Button.OK" xml:space="preserve">
+    <value>ಸರಿ</value>
+  </data>
+  <data name="Button.YesClear" xml:space="preserve">
+    <value>ಹೌದು, ಸ್ಪಷ್ಟ</value>
+  </data>
+  <data name="Page.Camera.Aligning" xml:space="preserve">
+    <value>ಜೋಡಿಸಲಾಗುತ್ತಿದೆ...</value>
+  </data>
+  <data name="Page.Camera.AlignmentBroken" xml:space="preserve">
+    <value>ಸಾಧನದಲ್ಲಿ ಸ್ವಯಂಚಾಲಿತ ಜೋಡಣೆಯನ್ನು ಬೆಂಬಲಿಸುವುದಿಲ್ಲ - ಸೆಟ್ಟಿಂಗ್‌ಗಳಲ್ಲಿ ಆಫ್ ಮಾಡಿ.</value>
+  </data>
+  <data name="Page.Camera.AlignmentFailed" xml:space="preserve">
+    <value>ಜೋಡಣೆ ವಿಫಲವಾಗಿದೆ.</value>
+  </data>
+  <data name="Page.Camera.BorderAsk" xml:space="preserve">
+    <value>ಗಡಿ ಪತ್ತೆಯಾಗಿದೆ. ಗಡಿಯನ್ನು ತೆಗೆದುಹಾಕುವುದೇ?</value>
+  </data>
+  <data name="Page.Camera.BorderDetected" xml:space="preserve">
+    <value>ಗಡಿ ಪತ್ತೆಯಾಗಿದೆ</value>
+  </data>
+  <data name="Page.Camera.Cancel" xml:space="preserve">
+    <value>ರದ್ದುಮಾಡಿ</value>
+  </data>
+  <data name="Page.Camera.ChooseAction" xml:space="preserve">
+    <value>ಕ್ರಿಯೆಯನ್ನು ಆಯ್ಕೆಮಾಡಿ:</value>
+  </data>
+  <data name="Page.Camera.DirectoryNotFound" xml:space="preserve">
+    <value>ಡೈರೆಕ್ಟರಿ ಕಂಡುಬಂದಿಲ್ಲ</value>
+  </data>
+  <data name="Page.Camera.DirectoryNotFoundExplain" xml:space="preserve">
+    <value>ಉಳಿಸುವ ಗಮ್ಯಸ್ಥಾನವನ್ನು ಕಂಡುಹಿಡಿಯಲಾಗಲಿಲ್ಲ. ದಯವಿಟ್ಟು ಸೆಟ್ಟಿಂಗ್‌ಗಳ ಪುಟದಲ್ಲಿ ಇನ್ನೊಂದನ್ನು ಆಯ್ಕೆಮಾಡಿ.</value>
+  </data>
+  <data name="Page.Camera.ErrorEmailBody" xml:space="preserve">
+    <value>ದೋಷ ಸಂಭವಿಸುವ ಮೊದಲು ನೀವು ಏನು ಮಾಡಿದ್ದೀರಿ? ದಯವಿಟ್ಟು ಸಣ್ಣ ವಿಷಯಗಳನ್ನೂ ವಿವರಿಸಿ.\n\n\n\n\n\nದೋಷದ ನಂತರವೂ ಕ್ರಾಸ್‌ಕ್ಯಾಮ್ ಕೆಲಸ ಮಾಡಿದೆಯೇ? ಇಲ್ಲದಿದ್ದರೆ, ಅದು ಹೇಗೆ ಮುರಿದುಹೋಗುತ್ತದೆ?\n\n\n\n\n\nಇದು ಪದೇ ಪದೇ ಸಂಭವಿಸುತ್ತದೆಯೇ?\n\n\n\n\n\nನೀವು ಆಜ್ಞೆಯ ಮೇಲೆ ದೋಷ ಸಂಭವಿಸುವಂತೆ ಒತ್ತಾಯಿಸಬಹುದೇ? ಹಾಗಿದ್ದಲ್ಲಿ, ಹೇಗೆ?\n\n\n\n\n\n</value>
+  </data>
+  <data name="Page.Camera.FlipForCardboard" xml:space="preserve">
+    <value>ಕಾರ್ಡ್‌ಬೋರ್ಡ್ ಮೋಡ್‌ನಲ್ಲಿರುವಾಗ ಲ್ಯಾಂಡ್‌ಸ್ಕೇಪ್‌ಗೆ ಫ್ಲಿಪ್ ಮಾಡಿ.</value>
+  </data>
+  <data name="Page.Camera.FlipLarger" xml:space="preserve">
+    <value>(ದೊಡ್ಡ ವೀಕ್ಷಣೆಗಾಗಿ ಭೂದೃಶ್ಯಕ್ಕೆ ಫ್ಲಿಪ್ ಮಾಡಿ)</value>
+  </data>
+  <data name="Page.Camera.ForAnaglyph" xml:space="preserve">
+    <value>ಅನಾಗ್ಲಿಫ್ಗಾಗಿ</value>
+  </data>
+  <data name="Page.Camera.ForCardboard" xml:space="preserve">
+    <value>ಕಾರ್ಡ್ಬೋರ್ಡ್ಗಾಗಿ</value>
+  </data>
+  <data name="Page.Camera.ForCross" xml:space="preserve">
+    <value>ಅಡ್ಡಗಾಗಿ</value>
+  </data>
+  <data name="Page.Camera.ForParallel" xml:space="preserve">
+    <value>ಸಮಾನಾಂತರವಾಗಿ</value>
+  </data>
+  <data name="Page.Camera.GoPickRole" xml:space="preserve">
+    <value>ದಯವಿಟ್ಟು ಜೋಡಿಸುವ ಪುಟಕ್ಕೆ (ಸೆಟ್ಟಿಂಗ್‌ಗಳ ಪುಟದ ಮೂಲಕ) ಹೋಗಿ ಮತ್ತು ಜೋಡಿಸಲು ಪ್ರಯತ್ನಿಸುವ ಮೊದಲು ಈ ಸಾಧನಕ್ಕಾಗಿ ಜೋಡಿಸುವ ಪಾತ್ರವನ್ನು ಆಯ್ಕೆಮಾಡಿ.</value>
+  </data>
+  <data name="Page.Camera.InvalidImage" xml:space="preserve">
+    <value>ಅಮಾನ್ಯ ಚಿತ್ರ</value>
+  </data>
+  <data name="Button.Camera.Keep" xml:space="preserve">
+    <value>ಇರಿಸಿಕೊಳ್ಳಿ</value>
+  </data>
+  <data name="Page.Camera.LoadFullImage" xml:space="preserve">
+    <value>ಪೂರ್ಣ ಸ್ಟಿರಿಯೊ ಚಿತ್ರವನ್ನು ಲೋಡ್ ಮಾಡಿ</value>
+  </data>
+  <data name="Page.Camera.Loading" xml:space="preserve">
+    <value>ಲೋಡ್ ಆಗುತ್ತಿದೆ...</value>
+  </data>
+  <data name="Page.Camera.LoadSingleSide" xml:space="preserve">
+    <value>ಒಂದೇ ಕಡೆ ಲೋಡ್ ಮಾಡಿ</value>
+  </data>
+  <data name="Page.Camera.ManualCorrections" xml:space="preserve">
+    <value>ದಯವಿಟ್ಟು ಹಸ್ತಚಾಲಿತ ತಿದ್ದುಪಡಿಗಳನ್ನೂ ಪರಿಗಣಿಸಿ.</value>
+  </data>
+  <data name="Page.Camera.MirrorOnLeft" xml:space="preserve">
+    <value>ಎಡಭಾಗದಲ್ಲಿ ಕನ್ನಡಿ</value>
+  </data>
+  <data name="Page.Camera.MirrorOnRight" xml:space="preserve">
+    <value>ಬಲಕ್ಕೆ ಕನ್ನಡಿ</value>
+  </data>
+  <data name="Page.Camera.MoveLeft" xml:space="preserve">
+    <value>ಎಡಕ್ಕೆ ಸರಿಸಿ</value>
+  </data>
+  <data name="Page.Camera.MoveRight" xml:space="preserve">
+    <value>ಬಲಕ್ಕೆ ಹೋಗು</value>
+  </data>
+  <data name="Page.Camera.NoSaveModes" xml:space="preserve">
+    <value>ಯಾವುದೇ ಸೇವ್ ಮೋಡ್‌ಗಳು ಸಕ್ರಿಯವಾಗಿಲ್ಲ</value>
+  </data>
+  <data name="Page.Camera.NoSaveModesExplain" xml:space="preserve">
+    <value>ಯಾವುದೇ ಸೇವ್ ಮೋಡ್‌ಗಳನ್ನು ಪ್ರಸ್ತುತ ಆನ್ ಮಾಡಲಾಗಿಲ್ಲ. ಸೆಟ್ಟಿಂಗ್‌ಗಳ ಪುಟದಲ್ಲಿ ಸೇವ್ ಮೋಡ್ ಅನ್ನು ಆನ್ ಮಾಡಿ.</value>
+  </data>
+  <data name="Page.Camera.Oops" xml:space="preserve">
+    <value>ಅಯ್ಯೋ</value>
+  </data>
+  <data name="Page.Camera.OrRotate" xml:space="preserve">
+    <value>(ಅಥವಾ ತಿರುಗಿಸಿ)</value>
+  </data>
+  <data name="Page.Camera.OrSwipe" xml:space="preserve">
+    <value>(ಅಥವಾ ಸ್ವೈಪ್)</value>
+  </data>
+  <data name="Page.Camera.PairRoleNotSelected" xml:space="preserve">
+    <value>ಜೋಡಿ ಪಾತ್ರವನ್ನು ಆಯ್ಕೆ ಮಾಡಲಾಗಿಲ್ಲ</value>
+  </data>
+  <data name="Page.Camera.PinchOrDrag" xml:space="preserve">
+    <value>ಅನ್ವೇಷಿಸಲು ಪಿಂಚ್ ಮಾಡಿ ಅಥವಾ ಎಳೆಯಿರಿ!</value>
+  </data>
+  <data name="Page.Camera.PleaseSelectValid" xml:space="preserve">
+    <value>ದಯವಿಟ್ಟು Jpeg, Png, ಅಥವಾ Webp ಚಿತ್ರವನ್ನು ಆಯ್ಕೆಮಾಡಿ. ನೀವು ಆಯ್ಕೆ ಮಾಡಿದ ಚಿತ್ರ</value>
+  </data>
+  <data name="Page.Camera.ReallyClear" xml:space="preserve">
+    <value>ನಿಜವಾಗಿಯೂ ಸ್ಪಷ್ಟವಾಗಿದೆಯೇ?</value>
+  </data>
+  <data name="Button.Camera.Remove" xml:space="preserve">
+    <value>ತೆಗೆದುಹಾಕಿ</value>
+  </data>
+  <data name="Page.Camera.SavedToCustomFolder" xml:space="preserve">
+    <value>ಕಸ್ಟಮ್ ಫೋಲ್ಡರ್‌ಗೆ ಉಳಿಸಲಾಗಿದೆ</value>
+  </data>
+  <data name="Page.Camera.SavedToExternal" xml:space="preserve">
+    <value>ಬಾಹ್ಯಕ್ಕೆ ಉಳಿಸಲಾಗಿದೆ</value>
+  </data>
+  <data name="Page.Camera.SavedToPhotos" xml:space="preserve">
+    <value>ಫೋಟೋಗಳಿಗೆ ಉಳಿಸಲಾಗಿದೆ</value>
+  </data>
+  <data name="Page.Camera.SaveFailed" xml:space="preserve">
+    <value>ಉಳಿತಾಯ ವಿಫಲವಾಗಿದೆ. :(</value>
+  </data>
+  <data name="Page.Camera.Saving" xml:space="preserve">
+    <value>ಉಳಿಸಲಾಗುತ್ತಿದೆ...</value>
+  </data>
+  <data name="Page.Camera.SecondaryOnLeft" xml:space="preserve">
+    <value>ಎಡಭಾಗದಲ್ಲಿ ಸೆಕೆಂಡರಿ</value>
+  </data>
+  <data name="Page.Camera.SecondaryOnRight" xml:space="preserve">
+    <value>ಬಲಕ್ಕೆ ಮಾಧ್ಯಮಿಕ</value>
+  </data>
+  <data name="Page.Camera.SelectedInvalid" xml:space="preserve">
+    <value>ಆಯ್ಕೆಮಾಡಿದ ಚಿತ್ರವು ಅಮಾನ್ಯವಾಗಿದೆ.</value>
+  </data>
+  <data name="Page.Camera.SorryError" xml:space="preserve">
+    <value>ಕ್ಷಮಿಸಿ, CrossCam ದೋಷವನ್ನು ಮಾಡಿದೆ. ದೋಷ ವರದಿಯನ್ನು ಸ್ವಯಂಚಾಲಿತವಾಗಿ ಕಳುಹಿಸಲಾಗಿದೆ. ನೀವು ಯಾವುದೇ ತಪ್ಪನ್ನು ಗಮನಿಸದೇ ಇರಬಹುದು, ಆದರೆ ನೀವು ಮಾಡಿದರೆ, ಅಪ್ಲಿಕೇಶನ್ ಅನ್ನು ಮರುಪ್ರಾರಂಭಿಸಲು ಪ್ರಯತ್ನಿಸಿ. ಇದು ನಿರಂತರವಾಗಿ ನಡೆಯುತ್ತಿದ್ದರೆ, ದಯವಿಟ್ಟು ನನಗೆ ಇಮೇಲ್ ಮಾಡಿ ಮತ್ತು ಅದರ ಬಗ್ಗೆ ನನಗೆ ತಿಳಿಸಿ. (ಈ ಪಾಪ್‌ಅಪ್‌ಗಳನ್ನು ನಿಲ್ಲಿಸಲು ಸೆಟ್ಟಿಂಗ್‌ಗಳ ಪುಟಕ್ಕೆ ಹೋಗಿ.)</value>
+  </data>
+  <data name="Page.Camera.Steady" xml:space="preserve">
+    <value>ಸ್ಥಿರ...</value>
+  </data>
+  <data name="Page.Camera.SureClear" xml:space="preserve">
+    <value>ನಿಮ್ಮ ಚಿತ್ರಗಳನ್ನು ತೆರವುಗೊಳಿಸಲು ಮತ್ತು ಪ್ರಾರಂಭಿಸಲು ನೀವು ಖಚಿತವಾಗಿ ಬಯಸುವಿರಾ?</value>
+  </data>
+  <data name="Page.Camera.Syncing" xml:space="preserve">
+    <value>ಸಿಂಕ್ ಮಾಡಲಾಗುತ್ತಿದೆ...</value>
+  </data>
+  <data name="Page.Camera.Transmitting" xml:space="preserve">
+    <value>ರವಾನಿಸಲಾಗುತ್ತಿದೆ...
+(ಸಾಧನವನ್ನು ಅನ್‌ಲಾಕ್ ಮಾಡಿರಿ)</value>
+  </data>
+  <data name="Page.Camera.VR" xml:space="preserve">
+    <value>ವಿಆರ್</value>
+  </data>
+  <data name="Page.FovCorrection" xml:space="preserve">
+    <value>ವೀಕ್ಷಣೆಯ ಕ್ಷೇತ್ರ</value>
+  </data>
+  <data name="Page.FovCorrectionExplain" xml:space="preserve">
+    <value>ವಿಭಿನ್ನ ಸಾಧನ ಮಾದರಿಗಳು ವಿಭಿನ್ನ ಕ್ಷೇತ್ರಗಳ ವೀಕ್ಷಣೆಯನ್ನು ಹೊಂದಬಹುದು. ನಿಮ್ಮ ಮೊದಲ ಕ್ಯಾಪ್ಚರ್ ಮಾಡಿದ ನಂತರ ಇದನ್ನು ಸರಿಪಡಿಸಲು CrossCam ನಿಮಗೆ ಸಹಾಯ ಮಾಡುತ್ತದೆ. ಫ್ರೇಮ್‌ನ ಮೇಲ್ಭಾಗ ಮತ್ತು ಕೆಳಭಾಗದ ಬಳಿ ಇರುವ ವಿಶಿಷ್ಟವಾದ ಬಿಂದುಗಳೊಂದಿಗೆ ಏನನ್ನಾದರೂ ಫ್ರೇಮ್ ಮಾಡಿ ಮತ್ತು ಸೆರೆಹಿಡಿಯಿರಿ, ಎರಡೂ ಸಾಧನಗಳಲ್ಲಿ ಪಾಯಿಂಟ್‌ಗಳು ಗೋಚರಿಸುತ್ತವೆ ಎಂದು ಖಚಿತಪಡಿಸಿಕೊಳ್ಳಿ.</value>
+  </data>
+  <data name="Page.Technique.ParallelLink1" xml:space="preserve">
+    <value>ಉತ್ತಮ ಪಠ್ಯ ಟ್ಯುಟೋರಿಯಲ್</value>
+  </data>
+  <data name="Page.Technique.ParallelLink2" xml:space="preserve">
+    <value>ಮತ್ತೊಂದು ಉತ್ತಮ ಪಠ್ಯ ಟ್ಯುಟೋರಿಯಲ್</value>
+  </data>
+  <data name="Page.Technique.ParallelLink3" xml:space="preserve">
+    <value>ಇನ್ನೂ ಮತ್ತೊಂದು ಉತ್ತಮ ಪಠ್ಯ ಟ್ಯುಟೋರಿಯಲ್</value>
+  </data>
+  <data name="Page.Technique.ParallelLink4" xml:space="preserve">
+    <value>ಮ್ಯಾಜಿಕ್ ಫ್ರಾಂಕ್‌ಫರ್ಟರ್ ಟ್ಯುಟೋರಿಯಲ್</value>
+  </data>
+  <data name="Page.Technique.ParallelLink5" xml:space="preserve">
+    <value>ಮ್ಯಾಜಿಕ್ ಐ ಬಗ್ಗೆ ಉತ್ತಮ ವೀಡಿಯೊ</value>
+  </data>
+  <data name="Page.Technique.Trouble" xml:space="preserve">
+    <value>ನೀವು ಇನ್ನೂ ಸಮಸ್ಯೆಯನ್ನು ಎದುರಿಸುತ್ತಿದ್ದರೆ, ನಿಮ್ಮ ಫೋನ್ ಅನ್ನು ಡಾರ್ಕ್ ರೂಮ್‌ಗೆ ತರಲು ಪ್ರಯತ್ನಿಸಿ ಇದರಿಂದ ನಿಮ್ಮ ಕಣ್ಣುಗಳು ಚೆನ್ನಾಗಿ ನೋಡಬಹುದು ಮತ್ತು ಚಿತ್ರದ ಮೇಲೆ ಕೇಂದ್ರೀಕರಿಸಬಹುದು.
+
+ನೀವು ಪ್ರಯತ್ನಿಸಬಹುದಾದ ಇನ್ನೊಂದು ವಿಷಯವೆಂದರೆ ಟಾಯ್ಲೆಟ್ ಪೇಪರ್ ಟ್ಯೂಬ್‌ಗಳು ಅಥವಾ ಅದನ್ನು ಮಾಡಲು ನಿಮ್ಮ ಕೈಗಳನ್ನು ಬಳಸುವುದು, ಆದ್ದರಿಂದ ಪ್ರತಿ ಕಣ್ಣು ಅದು ನೋಡಬೇಕಾದ ಚಿತ್ರದ ಬದಿಯನ್ನು ಮಾತ್ರ ನೋಡುತ್ತದೆ.
+ • ಅಡ್ಡ ವೀಕ್ಷಣೆಗಾಗಿ: ನಿಮ್ಮ ಮೂಗಿನ ಸೇತುವೆಯ ವಿರುದ್ಧ ಒಂದೇ ಟ್ಯೂಬ್ ಅನ್ನು ಹಿಡಿದುಕೊಳ್ಳಿ (ನಿಮ್ಮ ಕಣ್ಣುಗಳ ನಡುವೆ ಕೇಂದ್ರಿಕೃತವಾಗಿದೆ) ಅದನ್ನು ನಿಮ್ಮ ಮುಂದೆ ಚಿತ್ರದ ಮಧ್ಯಭಾಗದಲ್ಲಿ ತೋರಿಸುವುದು. ಎರಡೂ ಕಣ್ಣುಗಳಿಂದ ಟ್ಯೂಬ್ ಅನ್ನು ಕೆಳಗೆ ನೋಡಲು ಪ್ರಯತ್ನಿಸುವಾಗ ನಿಧಾನವಾಗಿ ಟ್ಯೂಬ್ ಅನ್ನು ಪರದೆಯ ಕಡೆಗೆ ಸರಿಸಿ. ನೀವು ಟ್ಯೂಬ್ನೊಂದಿಗೆ ಸರಿಯಾದ ಸ್ಥಾನವನ್ನು ತಲುಪಿದಾಗ ಚಿತ್ರವು ಸ್ಥಳದಲ್ಲಿ ಸ್ನ್ಯಾಪ್ ಆಗಬೇಕು. ಟ್ಯೂಬ್‌ನ ದೂರದ ತುದಿಯ ಒಳಭಾಗವನ್ನು ನೋಡಲು ಪ್ರಯತ್ನಿಸುವುದರ ಮೇಲೆ ಕೇಂದ್ರೀಕರಿಸಲು ಇದು ಸಹಾಯ ಮಾಡಬಹುದು. ನೀವು ಸರಿಯಾದ ಸ್ಥಾನವನ್ನು ಕಂಡುಹಿಡಿಯಲಾಗದಿದ್ದರೆ, ದೊಡ್ಡ ಇಮೇಜ್ ಅಥವಾ ಚಿಕ್ಕ ಟ್ಯೂಬ್ ಅನ್ನು ಬಳಸಲು ಪ್ರಯತ್ನಿಸಿ.
+ • ಸಮಾನಾಂತರ ವೀಕ್ಷಣೆಗಾಗಿ: ಪ್ರತಿ ಕಣ್ಣಿನ ಮುಂದೆ ಒಂದು ಟ್ಯೂಬ್ ಅನ್ನು ಹಿಡಿದುಕೊಳ್ಳಿ, ಆದರೆ ಎರಡೂ ಪಕ್ಕಕ್ಕೆ ತೋರಿಸಿ, ಆದ್ದರಿಂದ ನೀವು ಏನನ್ನೂ ನೋಡಲಾಗುವುದಿಲ್ಲ. ಅದೇ ಸಮಯದಲ್ಲಿ ನಿಧಾನವಾಗಿ ಟ್ಯೂಬ್‌ಗಳನ್ನು ಒಳಮುಖವಾಗಿ ತಿರುಗಿಸಿ ಇದರಿಂದ ನೀವು ಹೆಚ್ಚಿನ ಚಿತ್ರವನ್ನು ನೋಡಲು ಪ್ರಾರಂಭಿಸಬಹುದು. ನೀವು ಚಿತ್ರದ ಹೆಚ್ಚಿನ ಭಾಗವನ್ನು ನೋಡುವ ಕ್ಷಣ (ಪ್ರತಿ ಕಣ್ಣಿನಲ್ಲಿ ಅರ್ಧದಷ್ಟು), ನಿಮ್ಮ ಕಣ್ಣುಗಳನ್ನು ವಿಶ್ರಾಂತಿ ಮಾಡಲು ಮತ್ತು ಅರ್ಧಭಾಗಗಳನ್ನು ಒಟ್ಟಿಗೆ ತರಲು ಪ್ರಯತ್ನಿಸಿ. ದೊಡ್ಡ ಅಥವಾ ಚಿಕ್ಕ ಚಿತ್ರವನ್ನು ಬಳಸಲು ಇದು ಸಹಾಯ ಮಾಡಬಹುದು.
+
+ಅಡ್ಡ ಅಥವಾ ಸಮಾನಾಂತರ ವೀಕ್ಷಣೆಯೊಂದಿಗೆ ಬೆಸೆಯುವಿಕೆಯನ್ನು ಅಭ್ಯಾಸ ಮಾಡಲು ನೀವು ಮಾಡಬಹುದಾದ ಸುಲಭವಾದ ವ್ಯಾಯಾಮವಿದೆ. ಮಾರ್ಕರ್ ಅನ್ನು ತೆಗೆದುಕೊಳ್ಳಿ ಮತ್ತು ನಿಮ್ಮ ಪ್ರತಿಯೊಂದು ಥಂಬ್‌ನೇಲ್‌ನಲ್ಲಿ (ಅಥವಾ ಒಂದು ಜೋಡಿ ಪಾಪ್ಸಿಕಲ್ ಸ್ಟಿಕ್‌ಗಳು ಅಥವಾ ಟಂಗ್ ಡಿಪ್ರೆಸರ್‌ಗಳು) ನಗು ಮುಖದ ಭಾಗವನ್ನು ಎಳೆಯಿರಿ. ಉದಾಹರಣೆಗೆ, ಒಂದು ಕಡೆ ಒಂದು ಕಣ್ಣು ಮತ್ತು ಬಾಯಿಯನ್ನು ಎಳೆಯಿರಿ, ಮತ್ತು ಇನ್ನೊಂದು ಬದಿಯಲ್ಲಿ ಕಣ್ಣು ಮತ್ತು ಮೂಗು ಎಳೆಯಿರಿ. ನಂತರ ನೀವು ಅವುಗಳನ್ನು ನಿಮ್ಮ ಮುಂದೆ ಹಿಡಿದಿಟ್ಟುಕೊಳ್ಳಬಹುದು ಮತ್ತು ನಗು ಮುಖವನ್ನು ಪೂರ್ಣಗೊಳಿಸಲು ಎರಡು ಚಿತ್ರಗಳನ್ನು ಒಟ್ಟಿಗೆ ಬೆಸೆಯುವುದನ್ನು ಅಭ್ಯಾಸ ಮಾಡಬಹುದು.
+
+ನಾನು ವೈಯಕ್ತಿಕವಾಗಿ ಕ್ರಾಸ್ ಓವರ್ ಪ್ಯಾರಲಲ್ ಅನ್ನು ಇಷ್ಟಪಡುತ್ತೇನೆ ಏಕೆಂದರೆ ಚಿತ್ರಗಳು ದೊಡ್ಡದಾಗಿರಬಹುದು, ಆದರೆ ಎರಡೂ ವಿಧಾನಗಳು ಕಾರ್ಯನಿರ್ವಹಿಸುತ್ತವೆ. ನೀವು ದೊಡ್ಡ ಸಮಾನಾಂತರ ಚಿತ್ರಗಳನ್ನು ಪ್ರಯೋಗಿಸಲು ಬಯಸಿದರೆ, ನೀವು ಸೆಟ್ಟಿಂಗ್‌ಗಳ ಪುಟದಲ್ಲಿ ಗಾತ್ರವನ್ನು ನಿಯಂತ್ರಿಸಬಹುದು.
+
+ಕೆಲವೊಮ್ಮೆ ನೀವು ಅದನ್ನು ಮಾಡುತ್ತಿರುವಾಗ ಅಡ್ಡ ಅಥವಾ ಸಮಾನಾಂತರ ವಿಧಾನವನ್ನು ಮಾಡುತ್ತಿದ್ದೀರಾ ಎಂದು ಅನುಭವಿಸಲು ಕಷ್ಟವಾಗುತ್ತದೆ. ನೀವು ಅದನ್ನು ಮಾಡುವಾಗ ನಿಮ್ಮ ಕಣ್ಣುಗಳನ್ನು ವೀಕ್ಷಿಸಲು ಬೇರೆಯವರಿಗೆ ನೀವು ಕೇಳಬಹುದು ಅಥವಾ ಕೆಳಗಿನ ಚಿತ್ರವನ್ನು ಪರೀಕ್ಷೆಯಾಗಿ ನೋಡಬಹುದು:</value>
+  </data>
+  <data name="SaveModes.Anaglyph" xml:space="preserve">
+    <value>ಅನಾಗ್ಲಿಫ್</value>
+  </data>
+  <data name="SaveModes.Cardboard" xml:space="preserve">
+    <value>ಕಾರ್ಡ್ಬೋರ್ಡ್</value>
+  </data>
+  <data name="SaveModes.Cross" xml:space="preserve">
+    <value>ಅಡ್ಡ</value>
+  </data>
+  <data name="SaveModes.GrayscaleAnaglyph" xml:space="preserve">
+    <value>ಗ್ರೇಸ್ಕೇಲ್ ಅನಾಗ್ಲಿಫ್</value>
+  </data>
+  <data name="SaveModes.Parallel" xml:space="preserve">
+    <value>ಸಮಾನಾಂತರ</value>
+  </data>
+  <data name="SaveModes.Quad" xml:space="preserve">
+    <value>ಕ್ವಾಡ್</value>
+  </data>
+  <data name="SaveModes.Separate" xml:space="preserve">
+    <value>ಪ್ರತ್ಯೇಕಿಸಿ</value>
+  </data>
+  <data name="SaveModes.Single" xml:space="preserve">
+    <value>ಏಕ</value>
+  </data>
+  <data name="SaveModes.Triple" xml:space="preserve">
+    <value>ಟ್ರಿಪಲ್</value>
+  </data>
+  <data name="Page.Camera.FovExplain" xml:space="preserve">
+    <value>ವೀಕ್ಷಣಾ ಕ್ಷೇತ್ರದ ವ್ಯತ್ಯಾಸಗಳನ್ನು ಸರಿಪಡಿಸಲು, ಚಿತ್ರಗಳನ್ನು ಜೂಮ್ ಮಾಡಿ ಮತ್ತು ಸ್ಲೈಡ್ ಮಾಡಿ ಇದರಿಂದ ಎರಡು ಫೋಟೋಗಳ ನಡುವೆ ವಿಶಿಷ್ಟ ಬಿಂದುಗಳು ಸಾಲಿನಲ್ಲಿರುತ್ತವೆ. ಜೋಡಣೆಯನ್ನು ದೃಶ್ಯೀಕರಿಸಲು ನಿಮಗೆ ಸಹಾಯ ಮಾಡಲು ನೀವು ಬಿಳಿ ಗೆರೆಗಳನ್ನು ಎಳೆಯಬಹುದು. ಈ ತಿದ್ದುಪಡಿಯನ್ನು ಭವಿಷ್ಯದ ಪೂರ್ವವೀಕ್ಷಣೆಗಳಿಗೆ ಅನ್ವಯಿಸಲಾಗುತ್ತದೆ. ಇದನ್ನು ಉಳಿಸಲಾಗುತ್ತದೆ ಆದರೆ ನೀವು ಅದನ್ನು ಸೆಟ್ಟಿಂಗ್‌ಗಳ ಪುಟದಲ್ಲಿ ಮರುಹೊಂದಿಸಬಹುದು. ನೀವು ಒಂದೇ ರೀತಿಯ ಸಾಧನಗಳನ್ನು ಬಳಸುತ್ತಿದ್ದರೆ ಸರಿಹೊಂದಿಸದೆ ಉಳಿಸಿ.</value>
+  </data>
+  <data name="Page.Camera.FovTitle" xml:space="preserve">
+    <value>ವೀಕ್ಷಣೆಯ ಕ್ಷೇತ್ರ</value>
+  </data>
+  <data name="Page.Camera.KeyPoints" xml:space="preserve">
+    <value>ಮುಖ್ಯ ಅಂಶಗಳು</value>
+  </data>
+  <data name="Page.Camera.Warped" xml:space="preserve">
+    <value>ವಕ್ರವಾದ</value>
+  </data>
+  <data name="Page.Camera.WelcomeExplain" xml:space="preserve">
+    <value>3D ಫೋಟೋಗಳನ್ನು ಮಾಡಲು ನಿಮಗೆ ಸಹಾಯ ಮಾಡಲು CrossCam ಅನ್ನು ಮಾಡಲಾಗಿದೆ. ಫೋಟೋಗಳು VR ಅಥವಾ 3D ಚಲನಚಿತ್ರಗಳಂತೆಯೇ 3D ಆಗಿರುತ್ತವೆ, ಆದರೆ ನಿಮಗೆ ಯಾವುದೇ ವಿಶೇಷ ಉಪಕರಣಗಳು ಅಥವಾ ಕನ್ನಡಕಗಳ ಅಗತ್ಯವಿಲ್ಲ - ಕೇವಲ ನಿಮ್ಮ ಫೋನ್ (ಆದರೆ ನೀವು ಒಂದು ಜೋಡಿ ಕೆಂಪು/ಸಯಾನ್ 3D ಕನ್ನಡಕವನ್ನು ಹೊಂದಿದ್ದರೆ ಅಥವಾ Google ಕಾರ್ಡ್‌ಬೋರ್ಡ್ ವೀಕ್ಷಕವನ್ನು ಹೊಂದಿದ್ದರೆ, ನೀವು ಅವುಗಳನ್ನು ಬಳಸಬಹುದು CrossCam ಜೊತೆಗೆ). ನಿಮ್ಮ ಫೋನ್ ಮತ್ತು ನಿಮ್ಮ ಕಣ್ಣುಗಳನ್ನು ಬಳಸುವ \"ಉಚಿತ ವೀಕ್ಷಣೆ\" ತಂತ್ರವು ಕಲಿಯಲು ಸ್ವಲ್ಪ ಅಭ್ಯಾಸವನ್ನು ತೆಗೆದುಕೊಳ್ಳುತ್ತದೆ. CrossCam ಅನ್ನು ಹೇಗೆ ಬಳಸುವುದು ಎಂದು ನಾನು ನಿಮಗೆ ಹೇಳುವ ಮೊದಲು, ನೀವು ಮೊದಲು ನೋಡುವ ತಂತ್ರದ ಬಗ್ಗೆ ಇನ್ನಷ್ಟು ತಿಳಿದುಕೊಳ್ಳಲು ಬಯಸುವಿರಾ?</value>
+  </data>
+  <data name="Page.Camera.Welcome" xml:space="preserve">
+    <value>CrossCam ಗೆ ಸುಸ್ವಾಗತ!</value>
+  </data>
+  <data name="Page.Camera.Directions" xml:space="preserve">
+    <value>ದಿಕ್ಕುಗಳಿಗೆ ತೆರಳಿ</value>
+  </data>
+  <data name="Page.Camera.Technique" xml:space="preserve">
+    <value>ವೀಕ್ಷಣಾ ತಂತ್ರ</value>
+  </data>
+  <data name="Page.HowToUse.P1" xml:space="preserve">
+    <value>ನೀವು ಇದನ್ನು ಮತ್ತೊಮ್ಮೆ ನೋಡಲು ಬಯಸಿದರೆ, ಕ್ಯಾಮರಾ ಪರದೆಯ ಮೇಲಿನ ಎಡಭಾಗದಲ್ಲಿರುವ ಹ್ಯಾಂಬರ್ಗರ್ (ಮೂರು ಸಾಲುಗಳು) ಐಕಾನ್ ಅನ್ನು ಟ್ಯಾಪ್ ಮಾಡಿ ಮತ್ತು "ಸಹಾಯ" ಟ್ಯಾಪ್ ಮಾಡಿ.
+
+
+1) ಫ್ರೇಮ್ ಅಪ್ ಮಾಡಿ ಮತ್ತು ಮೊದಲ ಚಿತ್ರವನ್ನು ತೆಗೆದುಕೊಳ್ಳಿ.</value>
+  </data>
+  <data name="Page.HowToUse.P2" xml:space="preserve">
+    <value>3) ನಿಮ್ಮ ಫೋನ್ ಅನ್ನು ನಿಮ್ಮ ಮುಂದೆ ಸ್ಥಿರವಾಗಿ ಇರಿಸಿ ಮತ್ತು ಕ್ರಾಸ್‌ಕ್ಯಾಮ್ ನಿಮಗೆ ಹೇಳುವ ದಿಕ್ಕಿನಲ್ಲಿ ನಿಧಾನವಾಗಿ ಪಕ್ಕಕ್ಕೆ ಸರಿಸಿ. ತುಂಬಾ ದೂರ ಸರಿಯಬೇಡಿ - ನಿಮ್ಮ ಗುರಿಯಿರುವ ಪ್ರತಿ ಪಾದಕ್ಕೆ ಒಂದು ಇಂಚು ಅಥವಾ ಕಡಿಮೆ. ಅಲ್ಲದೆ, ತಿರುಗಬೇಡಿ, ಕೇವಲ ಪಕ್ಕಕ್ಕೆ ಸ್ಲೈಡ್ ಮಾಡಿ, ಅಥವಾ ಬಹುಶಃ ಒಲವು.
+
+4) ಮೊದಲ ಚಿತ್ರವನ್ನು ಎರಡನೇ ಚಿತ್ರದ ಪೂರ್ವವೀಕ್ಷಣೆಯೊಂದಿಗೆ ಹೊಂದಿಸಿ ಮತ್ತು ನೀವು ನೋಡುವುದನ್ನು ನೀವು ಇಷ್ಟಪಟ್ಟಾಗ ಎರಡನೇ ಚಿತ್ರವನ್ನು ತೆಗೆದುಕೊಳ್ಳಿ.
+
+5) ನೀವು ಅವುಗಳನ್ನು ಸೆರೆಹಿಡಿದ ನಂತರ CrossCam ಸ್ವಯಂಚಾಲಿತವಾಗಿ ನಿಮ್ಮ ಚಿತ್ರಗಳನ್ನು ಒಟ್ಟುಗೂಡಿಸುತ್ತದೆ, ಆದರೆ ಅದು ಪರಿಪೂರ್ಣವಾಗಿಲ್ಲ, ಅವುಗಳನ್ನು ಹೇಗೆ ಜೋಡಿಸಲಾಗಿದೆ ಎಂಬುದು ನಿಮಗೆ ಇಷ್ಟವಾಗದಿದ್ದರೆ, ಚಿಕ್ಕ ರೋಬೋಟ್ ಐಕಾನ್ ಅನ್ನು ಟ್ಯಾಪ್ ಮಾಡುವ ಮೂಲಕ ನೀವು ಸ್ವಯಂಚಾಲಿತ ಜೋಡಣೆಯನ್ನು ಆಫ್ ಮಾಡಬಹುದು. ಪೆನ್ಸಿಲ್ ಐಕಾನ್ ಅನ್ನು ಟ್ಯಾಪ್ ಮಾಡುವ ಮೂಲಕ ನೀವು ಪಡೆಯಬಹುದಾದ ಸಾಕಷ್ಟು ಹಸ್ತಚಾಲಿತ ಸಂಪಾದನೆ ಆಯ್ಕೆಗಳನ್ನು CrossCam ಹೊಂದಿದೆ.
+
+6) ನೀವು ಉಳಿಸಲು ಸಿದ್ಧರಾದಾಗ ಚೆಕ್ ಗುರುತು ಟ್ಯಾಪ್ ಮಾಡಿ.
+
+
+ನೀವು ಮಾಡಬಹುದಾದ ಇತರ ವಿಷಯಗಳು:
+ • ಪಾಯಿಂಟ್ ಮೇಲೆ ಕೇಂದ್ರೀಕರಿಸಲು ಒಮ್ಮೆ ಟ್ಯಾಪ್ ಮಾಡಿ, ನಿರಂತರ ಸ್ವಯಂ ಫೋಕಸ್‌ಗೆ ಹಿಂತಿರುಗಲು ಎರಡು ಬಾರಿ ಟ್ಯಾಪ್ ಮಾಡಿ.
+ • ಸೆಟ್ಟಿಂಗ್‌ಗಳ ಪುಟವನ್ನು ತೆರೆಯಲು ಕ್ಯಾಮರಾ ಪರದೆಯ ಮೇಲಿನ ಬಲಭಾಗದಲ್ಲಿರುವ ಗೇರ್ ಐಕಾನ್ ಅನ್ನು ಟ್ಯಾಪ್ ಮಾಡಿ. ಇದು ಆಸಕ್ತಿದಾಯಕ ಸಂಗತಿಗಳಿಂದ ತುಂಬಿದೆ.
+ • ಕ್ಯಾಮರಾ ಪರದೆಯ ಮೇಲಿನ ಎಡಭಾಗದಲ್ಲಿರುವ ಹ್ಯಾಂಬರ್ಗರ್ ಐಕಾನ್ ಅನ್ನು ಟ್ಯಾಪ್ ಮಾಡುವ ಮೂಲಕ ನೀವು ಉತ್ತಮ ಸಲಹೆಗಳ ಪುಟವನ್ನು ಪಡೆಯಬಹುದು ಅದು ನಿಮ್ಮ ಚಿತ್ರಗಳನ್ನು ಉತ್ತಮಗೊಳಿಸಲು ಸಹಾಯ ಮಾಡುತ್ತದೆ.
+ • ನಿಮ್ಮ ಎರಡನೇ ಶಾಟ್‌ಗಾಗಿ ನೀವು ಇನ್ನೊಂದು ದಿಕ್ಕನ್ನು ಸರಿಸಲು ಬಯಸಿದರೆ ಅಥವಾ ಬದಿಗಳನ್ನು ಬದಲಾಯಿಸಲು ಬಯಸಿದರೆ ಸ್ವೈಪ್ ಮಾಡಿ.
+ • ಚಿತ್ರವನ್ನು ಬದಿಯಲ್ಲಿ ಲೋಡ್ ಮಾಡಲು ಅಥವಾ ಪೂರ್ಣ ಸ್ಟಿರಿಯೊ ಚಿತ್ರವನ್ನು ಲೋಡ್ ಮಾಡಲು ಕೆಳಭಾಗದಲ್ಲಿರುವ ಚಿಕ್ಕ ಫೋಲ್ಡರ್ ಐಕಾನ್ ಅನ್ನು ಟ್ಯಾಪ್ ಮಾಡಿ.</value>
+  </data>
+  <data name="Page.Faq.Alignment" xml:space="preserve">
+    <value>ಸ್ವಯಂ-ಜೋಡಣೆ ಹೇಗೆ ಕೆಲಸ ಮಾಡುತ್ತದೆ?</value>
+  </data>
+  <data name="Page.Faq.Alignment.Body" xml:space="preserve">
+    <value>ಸ್ವಯಂ-ಜೋಡಣೆಯು ಚಿತ್ರದ ಜೋಡಿಗಳನ್ನು ಸಾಧ್ಯವಾದಷ್ಟು ಜೋಡಿಸಲು ಪ್ರಯತ್ನಿಸುತ್ತದೆ, ಆದರೆ ಅದು ಪರಿಪೂರ್ಣವಾಗಿಲ್ಲ. ಕಂಪ್ಯೂಟರ್ ದೃಷ್ಟಿ ಮಾನವನ ಕಣ್ಣುಗಳಿಗಿಂತ ಕೆಲವು ವಿಷಯಗಳಲ್ಲಿ ಉತ್ತಮವಾಗಿದೆ, ಆದರೆ ಇತರ ವಿಷಯಗಳಲ್ಲಿ ತುಂಬಾ ಕೆಟ್ಟದಾಗಿದೆ. ಅದು ನೋಡುವ ಪ್ರಪಂಚವು ನಾವು ಮಾಡುವ ಪ್ರಪಂಚಕ್ಕಿಂತ ವಿಭಿನ್ನವಾಗಿದೆ, ಆದರೆ ಅದು ಕೆಲವು ವಿಭಿನ್ನ ರೀತಿಯಲ್ಲಿ ನೋಡಬಹುದು. ಕ್ರಾಸ್‌ಕ್ಯಾಮ್‌ನಲ್ಲಿ ಅದು ನೋಡುವ ಎರಡು ಪ್ರಮುಖ ಮಾರ್ಗಗಳೆಂದರೆ ವರ್ಧಿತ ಪರಸ್ಪರ ಸಂಬಂಧ ಗುಣಾಂಕ (ಇಸಿಸಿ) ಮತ್ತು ಪ್ರಮುಖ ಅಂಶಗಳನ್ನು ಬಳಸುವುದು.
+
+ECC ಜೋಡಣೆಯು ಮೂಲಭೂತವಾಗಿ ಬೆಳಕಿನ ತೇಪೆಗಳೊಂದಿಗೆ ಬೆಳಕಿನ ತೇಪೆಗಳೊಂದಿಗೆ ಅತಿಕ್ರಮಿಸುವುದನ್ನು ಖಚಿತಪಡಿಸಿಕೊಳ್ಳಲು ಪ್ರಯತ್ನಿಸುವ ಮೂಲಕ ಕಾರ್ಯನಿರ್ವಹಿಸುತ್ತದೆ ಮತ್ತು ಎರಡು ಬದಿಗಳು ಒಂದರ ಮೇಲೊಂದು ಅತಿಕ್ರಮಿಸಿದಾಗ ಡಾರ್ಕ್ ಪ್ಯಾಚ್‌ಗಳು ಡಾರ್ಕ್ ಪ್ಯಾಚ್‌ಗಳೊಂದಿಗೆ ಅತಿಕ್ರಮಿಸುತ್ತವೆ. ECC ಜೋಡಣೆಯು ವಿಶ್ವಾಸಾರ್ಹ ಸ್ಕೋರ್‌ನೊಂದಿಗೆ ಬರುತ್ತದೆ, ಇದು ಜೋಡಣೆಯು ಪರಿಣಾಮಕಾರಿಯಾಗಿದೆಯೇ ಎಂದು ನಿರ್ಧರಿಸಲು ಸಹಾಯ ಮಾಡುತ್ತದೆ. ವಿಶ್ವಾಸಾರ್ಹತೆ ತುಂಬಾ ಕಡಿಮೆಯಿದ್ದರೆ ಉತ್ಪತ್ತಿಯಾಗುವ ಜೋಡಣೆಯನ್ನು ತಿರಸ್ಕರಿಸಲು CrossCam ಅನ್ನು ಹೊಂದಿಸಲಾಗಿದೆ, ಆದರೆ ನೀವು ಸೆಟ್ಟಿಂಗ್‌ಗಳ ಪುಟದಲ್ಲಿ ವಿಶ್ವಾಸಾರ್ಹ ಪಾಸ್/ಫೇಲ್ ಥ್ರೆಶೋಲ್ಡ್ ಅನ್ನು ಕಾನ್ಫಿಗರ್ ಮಾಡಬಹುದು.
+
+ಕೀ ಪಾಯಿಂಟ್ ಜೋಡಣೆಯು ಮೂಲೆಗಳು, ಅಂಚುಗಳು, ಚುಕ್ಕೆಗಳು ಮತ್ತು ಹೆಚ್ಚಿನ ಕಾಂಟ್ರಾಸ್ಟ್‌ನಂತಹ ಆಸಕ್ತಿಯ ಬಿಂದುಗಳನ್ನು ಹುಡುಕುತ್ತದೆ ಮತ್ತು ಅವುಗಳನ್ನು ಎರಡು ಬದಿಗಳ ನಡುವೆ ಹೊಂದಿಸಲು ಪ್ರಯತ್ನಿಸುತ್ತದೆ. ಒಮ್ಮೆ ಅಂಕಗಳನ್ನು ಹೊಂದಿಕೆಯಾದ ನಂತರ, ಕ್ರಾಸ್‌ಕ್ಯಾಮ್ ವಿವಿಧ ಅಲ್ಗಾರಿದಮ್‌ಗಳನ್ನು ಬಳಸಿ ಬದಿಗಳನ್ನು ವಾರ್ಪ್ ಮಾಡಲು ಪ್ರಯತ್ನಿಸಬಹುದು ಇದರಿಂದ ಒಂದು ಬದಿಯ ಪ್ರಮುಖ ಬಿಂದುಗಳು ಇನ್ನೊಂದು ಬದಿಯಲ್ಲಿರುವ ಅವುಗಳ ಅನುಗುಣವಾದ ಪ್ರಮುಖ ಅಂಶಗಳಿಗೆ ಸಾಧ್ಯವಾದಷ್ಟು ಹತ್ತಿರದಲ್ಲಿವೆ.
+
+ಕ್ರಾಸ್‌ಕ್ಯಾಮ್ ಅನ್ನು ಮೊದಲು ಕೀಪಾಯಿಂಟ್ ಜೋಡಣೆಯನ್ನು ಬಳಸಲು ಪ್ರೋಗ್ರಾಮ್ ಮಾಡಲಾಗಿದೆ, ಆದರೆ ಕೀಪಾಯಿಂಟ್ ಜೋಡಣೆ ವಿಫಲವಾದಾಗ ಅಥವಾ ಸಿಂಗಲ್ ಶಾಟ್ ಮಿರರ್-ಡಿವಿಜನ್ ವಿಧಾನದೊಂದಿಗೆ ಕ್ಯಾಪ್ಚರ್ ಮಾಡುವಾಗ ಅದು ECC ಜೋಡಣೆಗೆ ಹಿಂತಿರುಗುತ್ತದೆ. ನೀವು ಯಾವಾಗಲೂ ಕೀ ಪಾಯಿಂಟ್ ಜೋಡಣೆಯನ್ನು ಬಳಸಲು ಸ್ವಯಂ-ಜೋಡಣೆಯನ್ನು ಕಾನ್ಫಿಗರ್ ಮಾಡಬಹುದು ಅಥವಾ ಯಾವಾಗಲೂ ಸೆಟ್ಟಿಂಗ್‌ಗಳ ಪುಟದಲ್ಲಿ ಇಸಿಸಿ ಜೋಡಣೆಯನ್ನು ಬಳಸಬಹುದು.
+
+ಕ್ರಾಸ್‌ಕ್ಯಾಮ್ ಸಣ್ಣ ರೋಬೋಟ್ ಐಕಾನ್‌ನ ಕೆಳಗಿರುವ ಕ್ಯಾಮರಾ ಪರದೆಯಲ್ಲಿ ಜೋಡಣೆಯ ಫಲಿತಾಂಶವನ್ನು ಪ್ರದರ್ಶಿಸುತ್ತದೆ. ಇದು ECC ಜೋಡಣೆಯನ್ನು ಬಳಸಿದರೆ ಅದು ವಿಶ್ವಾಸಾರ್ಹ ಶೇಕಡಾವನ್ನು ಪ್ರದರ್ಶಿಸುತ್ತದೆ. ಇದು ಕೀ ಪಾಯಿಂಟ್ ಜೋಡಣೆಯನ್ನು ಬಳಸಿದರೆ ಅದು "KP" ಅನ್ನು ಪ್ರದರ್ಶಿಸುತ್ತದೆ. ಎರಡೂ ಜೋಡಣೆ ವಿಧಾನಗಳು ವಿಫಲವಾದರೆ ಅದು "F" ಅನ್ನು ಪ್ರದರ್ಶಿಸುತ್ತದೆ. ಜೋಡಣೆಯ ಫಲಿತಾಂಶ ನಿಮಗೆ ಇಷ್ಟವಾಗದಿದ್ದರೆ, ಜೋಡಣೆಯನ್ನು ತೆಗೆದುಹಾಕಲು ನೀವು ಚಿಕ್ಕ ರೋಬೋಟ್ ಐಕಾನ್ ಮೇಲೆ ಟ್ಯಾಪ್ ಮಾಡಬಹುದು.</value>
+  </data>
+  <data name="Page.Faq.Bad" xml:space="preserve">
+    <value>ಇದು ನನ್ನ ಕಣ್ಣುಗಳಿಗೆ ಕೆಟ್ಟದ್ದೇ?</value>
+  </data>
+  <data name="Page.Faq.Bad.Body1" xml:space="preserve">
+    <value>ನನಗೆ ಗೊತ್ತಿಲ್ಲ, ಆದರೆ ನಾನು ಹಾಗೆ ಯೋಚಿಸುವುದಿಲ್ಲ. ಹೇಗಾದರೂ, ಅದು ಕೆಟ್ಟದಾಗಿದೆ ಎಂದು ಭಾವಿಸಿದರೆ ಸ್ವಲ್ಪ ವಿರಾಮ ತೆಗೆದುಕೊಳ್ಳಿ. ಅಭ್ಯಾಸದೊಂದಿಗೆ, ಅಸ್ವಸ್ಥತೆ ಸಾಮಾನ್ಯವಾಗಿ ಕಡಿಮೆಯಾಗುತ್ತದೆ. ಯಾವುದೇ ವೀಕ್ಷಣಾ ವಿಧಾನವು ವರ್ಜೆನ್ಸ್-ವಸತಿ ಸಂಘರ್ಷ ಎಂಬ ಪರಿಣಾಮದಿಂದಾಗಿ ಅಸ್ವಸ್ಥತೆಯನ್ನು ಉಂಟುಮಾಡಬಹುದು. ಇಲ್ಲಿದೆ</value>
+  </data>
+  <data name="Page.Faq.Bad.Body2" xml:space="preserve">
+    <value>ವರ್ಜೆನ್ಸ್-ವಸತಿ ಸಂಘರ್ಷದ ವಿಕಿಪೀಡಿಯ ಲಿಂಕ್.</value>
+  </data>
+  <data name="Page.Faq.Bad.Body3" xml:space="preserve">
+    <value>ನೀವು ಕ್ರಾಸ್-ಐಡ್ ವಿಧಾನವನ್ನು ಬಳಸುತ್ತಿದ್ದರೆ, ಭಾವನೆಯು ನಿಮ್ಮ ಕಣ್ಣುಗಳು ತುಂಬಾ ಹತ್ತಿರದಿಂದ ಏನನ್ನಾದರೂ ನೋಡುತ್ತಿರುವಂತೆ ತೋರಿಸಲು ಬಳಸದಿರುವ ಕಾರಣದಿಂದಾಗಿರಬಹುದು. ಅಡ್ಡ ನೋಡುವಾಗ, ನಿಮ್ಮ ಕಣ್ಣುಗಳು ಮತ್ತು ಪರದೆಯ ನಡುವಿನ ಅರ್ಧದಷ್ಟು ಬಿಂದುವಿನ ಮೇಲೆ ನಿಮ್ಮ ಕಣ್ಣುಗಳು ಒಮ್ಮುಖವಾಗುತ್ತವೆ. ದೀರ್ಘಕಾಲದವರೆಗೆ ಮುಚ್ಚಿರುವ ಯಾವುದನ್ನಾದರೂ ನೋಡುವುದು ನಿಮಗೆ ಅಸ್ವಸ್ಥತೆಯನ್ನು ಉಂಟುಮಾಡಿದರೆ, ನಮ್ಮ ವಿವರಣೆಯನ್ನು ನಾವು ಹೊಂದಿದ್ದೇವೆ.
+
+ನಿಮ್ಮ ಕಣ್ಣುಗಳು ತಮ್ಮ ದೈನಂದಿನ ಸಾಮರ್ಥ್ಯಗಳ ಹೊರಗೆ ಏನನ್ನೂ ಮಾಡುತ್ತಿಲ್ಲ ಎಂಬುದು ನನ್ನ ಅಭಿಪ್ರಾಯ, ಆದರೆ ನೀವು ಸಾಮಾನ್ಯವಾಗಿ ಆ ರೀತಿಯಲ್ಲಿ ಬಳಸದ ಎರಡು ವಿಭಿನ್ನ ಸಾಮರ್ಥ್ಯಗಳನ್ನು ಸಂಯೋಜಿಸುತ್ತಿದ್ದೀರಿ. ನಿಮ್ಮ ಮಸೂರಗಳನ್ನು ಕೇಂದ್ರೀಕರಿಸಲು ಸಾಮಾನ್ಯವಾಗಿ ಆರಾಮದಾಯಕವಾದ ಒಂದು ಸ್ಥಳದಲ್ಲಿ ನೀವು ನಿಮ್ಮ ಮಸೂರಗಳನ್ನು ಕೇಂದ್ರೀಕರಿಸುತ್ತಿದ್ದೀರಿ ಮತ್ತು ನಿಮ್ಮ ಕಣ್ಣುಗಳನ್ನು ಎಲ್ಲಿಯಾದರೂ ತೋರಿಸಲು ಅನುಕೂಲಕರವಾಗಿರುವ ಸ್ಥಳದಲ್ಲಿ ನೀವು ತೋರಿಸುತ್ತಿದ್ದೀರಿ, ಆದರೆ ನಿಮ್ಮ ಮಸೂರಗಳು ಕೇಂದ್ರೀಕರಿಸುವ ಮತ್ತು ನಿಮ್ಮ ಕಣ್ಣುಗಳು ಒಮ್ಮುಖವಾಗುತ್ತಿರುವ ಸ್ಥಳ ಒಂದೇ ಪಾಯಿಂಟ್ ಅಲ್ಲ. ನಿಮ್ಮ ದೃಷ್ಟಿ ಇನ್ನೂ ಅಭಿವೃದ್ಧಿಯಾಗದಿರುವವರೆಗೆ ಅದು ನಿಮಗೆ ಹೇಗೆ ಕೆಟ್ಟದ್ದಾಗಿರಬಹುದು ಎಂದು ನನಗೆ ಕಾಣುತ್ತಿಲ್ಲ.</value>
+  </data>
+  <data name="Page.Faq.Cardboard" xml:space="preserve">
+    <value>Google ಕಾರ್ಡ್‌ಬೋರ್ಡ್‌ನೊಂದಿಗೆ ನಾನು CrossCam ಅನ್ನು ಹೇಗೆ ಬಳಸುವುದು?</value>
+  </data>
+  <data name="Page.Faq.Cardboard.Body" xml:space="preserve">
+    <value>ನಿಮ್ಮ ವೀಕ್ಷಕರು ಪರದೆಯ ಮಧ್ಯಭಾಗವನ್ನು ಒತ್ತುವ ಬಟನ್ ಹೊಂದಿದ್ದರೆ, ನೀವು ಅದನ್ನು ಕಾರ್ಡ್‌ಬೋರ್ಡ್ ಬಳಸಿ ಸೆರೆಹಿಡಿಯಲು ಬಳಸಬಹುದು. ನಿಮ್ಮ ವೀಕ್ಷಕರು ನಿಮ್ಮ ಫೋನ್‌ನ ಕ್ಯಾಮರಾವನ್ನು ನೋಡಲು ರಂಧ್ರವನ್ನು ಹೊಂದಿರಬೇಕು.
+
+ಕಾರ್ಡ್‌ಬೋರ್ಡ್ ಬಳಸಿ ಫೋಟೋಗಳನ್ನು ಸೆರೆಹಿಡಿಯಲು, ನಿಮ್ಮ ಪೂರ್ವವೀಕ್ಷಣೆ ವೀಕ್ಷಣೆ ವಿಧಾನವನ್ನು (ಸೆಟ್ಟಿಂಗ್‌ಗಳ ಪುಟದಲ್ಲಿ) ಕಾರ್ಡ್‌ಬೋರ್ಡ್‌ಗೆ ಬದಲಾಯಿಸಿ, ನಂತರ ಕ್ಯಾಮರಾ ಪುಟಕ್ಕೆ ಹಿಂತಿರುಗಿ ಮತ್ತು ವೀಕ್ಷಕದಲ್ಲಿ ನಿಮ್ಮ ಫೋನ್ ಅನ್ನು ಅಂಟಿಸಿ. ಸೆರೆಹಿಡಿಯಲು ಬಟನ್ ಅನ್ನು ಒತ್ತಿರಿ ಮತ್ತು ಎರಡೂ ಬದಿಗಳನ್ನು ಸೆರೆಹಿಡಿದಾಗ, ಉಳಿಸಲು ಮತ್ತೊಮ್ಮೆ ಬಟನ್ ಒತ್ತಿರಿ. ಕಾರ್ಡ್‌ಬೋರ್ಡ್ ಮೋಡ್‌ನಲ್ಲಿ ಉಳಿಸುವುದು ಚಿತ್ರಗಳನ್ನು ನಂತರ ವೀಕ್ಷಿಸಲು ಕ್ರಾಸ್‌ಕ್ಯಾಮ್‌ಗೆ ಮರಳಿ ಲೋಡ್ ಮಾಡಲು ಅನುಮತಿಸುತ್ತದೆ, ನಿಮ್ಮ ವೀಕ್ಷಕರ ಮೂಲಕ ನಿಮ್ಮ ಫೋಟೋಗಳ ಅಪ್ಲಿಕೇಶನ್‌ನಲ್ಲಿ ಅವುಗಳನ್ನು ವೀಕ್ಷಿಸಲು ಅಲ್ಲ.
+
+ನಿಮಗೆ ಬೇಕಾದ ಯಾವುದೇ ವಿಧಾನವನ್ನು ಬಳಸಿಕೊಂಡು ನೀವು ಸೆರೆಹಿಡಿಯಬಹುದು, ನಂತರ ನಿಮ್ಮ ಪೂರ್ವವೀಕ್ಷಣೆ ವೀಕ್ಷಣಾ ವಿಧಾನವನ್ನು ಕಾರ್ಡ್‌ಬೋರ್ಡ್‌ಗೆ ಬದಲಾಯಿಸಿ ಮತ್ತು ನಿಮ್ಮ ಫೋನ್ ಅನ್ನು ವೀಕ್ಷಕದಲ್ಲಿ ಇರಿಸಿ.
+
+ವಿಭಿನ್ನ ಗುಣಲಕ್ಷಣಗಳೊಂದಿಗೆ ಅಲ್ಲಿ ಹಲವಾರು ವಿಭಿನ್ನ ವೀಕ್ಷಕರು ಇದ್ದಾರೆ. ನಿಮ್ಮ ಅನುಭವವನ್ನು ಹೆಚ್ಚು ಆರಾಮದಾಯಕವಾಗಿಸಲು ನೀವು ಕಾರ್ಡ್‌ಬೋರ್ಡ್ ಬೇರ್ಪಡಿಕೆ ದೂರವನ್ನು (ಸೆಟ್ಟಿಂಗ್‌ಗಳ ಪುಟದಲ್ಲಿ) ಬದಲಾಯಿಸಬೇಕಾಗಬಹುದು. ನೀವು ಉತ್ತಮ ಗುಣಮಟ್ಟದ ಸ್ಟೀರಿಯೋಗ್ರಾಮ್‌ಗಳನ್ನು ಸೆರೆಹಿಡಿಯುವಲ್ಲಿ ಉತ್ತಮವಾಗಿದ್ದೀರಿ ಎಂಬುದನ್ನು ನೀವು ಮೊದಲು ಖಚಿತಪಡಿಸಿಕೊಳ್ಳಬೇಕಾಗಬಹುದು.</value>
+  </data>
+  <data name="Page.Faq.How" xml:space="preserve">
+    <value>ಇದು ಹೇಗೆ ಕಾರ್ಯ ನಿರ್ವಹಿಸುತ್ತದೆ?</value>
+  </data>
+  <data name="Page.Faq.How.Body1" xml:space="preserve">
+    <value>3D ಪರಿಣಾಮ ಕ್ರಾಸ್‌ಕ್ಯಾಮ್ ಅನ್ನು ಸ್ಟೀರಿಯೋಸ್ಕೋಪಿ ಎಂದು ಕರೆಯಲಾಗುತ್ತದೆ ಮತ್ತು ಎರಡು ಬದಿಗಳನ್ನು ವೀಕ್ಷಿಸಲು ನಿಮ್ಮ ಕಣ್ಣುಗಳನ್ನು ದಾಟುವ (ಅಥವಾ ಅವುಗಳನ್ನು ವಿಶ್ರಾಂತಿ) ಮಾಡುವ ವಿಧಾನವನ್ನು ಉಚಿತ ವೀಕ್ಷಣೆ ಎಂದು ಕರೆಯಲಾಗುತ್ತದೆ. ನಾವು ಪ್ರಪಂಚದ ಸುತ್ತಲೂ ನೋಡಿದಾಗ, ನಮ್ಮ ಪ್ರತಿಯೊಂದು ಕಣ್ಣುಗಳು ವಿಭಿನ್ನ ದೃಷ್ಟಿಕೋನದಿಂದ ನೋಡುತ್ತವೆ. ಸ್ಟೀರಿಯೋಸ್ಕೋಪಿಯಲ್ಲಿ ನಾವು ಮಾಡುವುದೆಲ್ಲವೂ ಪ್ರತಿ ಕಣ್ಣಿಗೆ ಒಂದು (ಕೃತಕ) ದೃಷ್ಟಿಕೋನವನ್ನು ಪ್ರಸ್ತುತಪಡಿಸುತ್ತದೆ ಮತ್ತು ನಮ್ಮ ಮಿದುಳುಗಳು ಉಳಿದವುಗಳನ್ನು ಮಾಡುತ್ತವೆ. ಪ್ರತಿ ಕಣ್ಣುಗಳು ವಿಭಿನ್ನ ಚಿತ್ರವನ್ನು ನೋಡುವಂತೆ ಮಾಡಲು ಹಲವು ವಿಭಿನ್ನ ಮಾರ್ಗಗಳಿವೆ. ಇಲ್ಲಿದೆ</value>
+  </data>
+  <data name="Page.Faq.How.Body2" xml:space="preserve">
+    <value>ಸ್ಟೀರಿಯೋಸ್ಕೋಪಿಯಲ್ಲಿ ವಿಕಿಪೀಡಿಯ ಲಿಂಕ್</value>
+  </data>
+  <data name="Page.Faq.How.Body3" xml:space="preserve">
+    <value>ನೀವು ಕ್ರಾಸ್‌ಕ್ಯಾಮ್‌ನೊಂದಿಗೆ ಮಾಡುವ 3D ಚಿತ್ರಗಳನ್ನು ಸ್ಟೀರಿಯೋಗ್ರಾಮ್‌ಗಳು ಎಂದು ಕರೆಯಲಾಗುತ್ತದೆ. ಮ್ಯಾಜಿಕ್ ಐ™ ಪುಸ್ತಕಗಳು ಆಟೋಸ್ಟೀರಿಯೋಗ್ರಾಮ್ಸ್ ಎಂದು ಕರೆಯಲ್ಪಡುವದನ್ನು ಒಳಗೊಂಡಿರುತ್ತವೆ.</value>
+  </data>
+  <data name="Page.Faq.Into" xml:space="preserve">
+    <value>ನೀವು ಸ್ಟೀರಿಯೋಸ್ಕೋಪಿಗೆ ಹೇಗೆ ಬಂದಿದ್ದೀರಿ?</value>
+  </data>
+  <data name="Page.Faq.Into.Body1" xml:space="preserve">
+    <value>ನಾನು ನನ್ನ ಭೌತಶಾಸ್ತ್ರ ಪದವಿಯನ್ನು ಪಡೆಯುತ್ತಿದ್ದಾಗ, ಲೇಸರ್‌ಗಳನ್ನು ಬಳಸಿಕೊಂಡು ನನ್ನ ಸ್ವಂತ ಹೊಲೊಗ್ರಾಮ್‌ಗಳನ್ನು ರಚಿಸುವ ಪ್ರಯೋಗವನ್ನು ಮಾಡಲು ನನಗೆ ಅವಕಾಶವಿತ್ತು. ನಾನು ತಯಾರಿಸುತ್ತಿದ್ದ ಹೊಲೊಗ್ರಾಮ್‌ಗಳ ಪ್ರಕಾರವು 3D ಆಗಿದ್ದು, ಏಕೆಂದರೆ ಅವುಗಳು ಗಾಜಿನ ತಟ್ಟೆಯ ಮೇಲ್ಮೈಯಿಂದ ಪ್ರತಿಫಲಿಸುವ ಬೆಳಕಿನಲ್ಲಿ ವಿನಾಶಕಾರಿ ಹಸ್ತಕ್ಷೇಪವನ್ನು ಉಂಟುಮಾಡಲು ಡಿಫ್ರಾಕ್ಷನ್ ಗ್ರ್ಯಾಟಿಂಗ್ ಅನ್ನು ಬಳಸಿದವು, ಇದು ಪ್ರತಿಫಲಿತ ಚಿತ್ರವು ವಿಭಿನ್ನ ಸ್ಥಳಗಳಿಂದ ವಿಭಿನ್ನವಾಗಿ ಕಾಣುವಂತೆ ಮಾಡುತ್ತದೆ. ನಮ್ಮ ಪ್ರತಿಯೊಂದು ಕಣ್ಣುಗಳು ವಿಭಿನ್ನ ದೃಷ್ಟಿಕೋನದಿಂದ ಕಾಣುವ ಚಿತ್ರವನ್ನು ನೋಡಿದಾಗ (ಅವು ತುಂಬಾ ವಿಭಿನ್ನವಾಗಿಲ್ಲದಿದ್ದರೆ), ನಮ್ಮ ಮೆದುಳು ಅದನ್ನು ಆಳವೆಂದು ಗ್ರಹಿಸುತ್ತದೆ.</value>
+  </data>
+  <data name="Page.Faq.Into.Body2" xml:space="preserve">
+    <value>ನಾನು ಸ್ಟೀರಿಯೋಸ್ಕೋಪಿಕ್ ಗ್ರಹಿಕೆಯ ತತ್ವವನ್ನು ದೀರ್ಘಕಾಲದವರೆಗೆ ತಿಳಿದಿದ್ದೆ, ಆದರೆ ನನ್ನ ಜೀವನದಲ್ಲಿ ಆ ಸಮಯದಲ್ಲಿ ನಾನು ಕೆಲವು ಪ್ರೋಗ್ರಾಮಿಂಗ್ ತರಗತಿಗಳನ್ನು ತೆಗೆದುಕೊಳ್ಳುತ್ತಿದ್ದೆ, ಆದ್ದರಿಂದ ನಾನು ಸ್ಟೀರಿಯೋಸ್ಕೋಪಿಕ್ 3D ಡ್ರಾಯಿಂಗ್ಗಾಗಿ ಸರಳ ಕಂಪ್ಯೂಟರ್ ಪ್ರೋಗ್ರಾಂ ಮಾಡಲು ಪ್ರಯತ್ನಿಸಲು ನಿರ್ಧರಿಸಿದೆ. ಆ ಪ್ರಯತ್ನವೇ ಸ್ಟೀರಿಯೋಸ್ಕೆಚರ್ ಆಯಿತು. ಮೂಲ ಆವೃತ್ತಿಯನ್ನು ಜಾವಾದಲ್ಲಿ ಬರೆಯಲಾಗಿದೆ, ಆದರೆ ನಾನು ಅದನ್ನು ಜಾವಾಸ್ಕ್ರಿಪ್ಟ್ ಮತ್ತು ಎಸ್‌ವಿಜಿಯೊಂದಿಗೆ ಪುನಃ ಬರೆದಿದ್ದೇನೆ ಮತ್ತು ಈಗ ಅದು ವೆಬ್‌ನಲ್ಲಿ ವಾಸಿಸುತ್ತಿದೆ</value>
+  </data>
+  <data name="Page.Faq.Into.Body3" xml:space="preserve">
+    <value>ಈ ಲಿಂಕ್‌ನಲ್ಲಿ.</value>
+  </data>
+  <data name="Page.Faq.Into.Body4" xml:space="preserve">
+    <value>ಇದು ಯಾವುದೇ ವಿಧಾನದಿಂದ ಜನಪ್ರಿಯವಾಗಿಲ್ಲ, ಮತ್ತು ನಾನು ಹೊರತುಪಡಿಸಿ ಬೇರೆ ಯಾರಿಗೂ ಬಳಸಲು ಸುಲಭವಾಗದಿರಬಹುದು, ಆದರೆ ಇದು ಕಾರ್ಯನಿರ್ವಹಿಸುತ್ತದೆ. ಸ್ಟಿರಿಯೊಸ್ಕೆಚರ್‌ನಲ್ಲಿ ಕೆಲಸ ಮಾಡುವಾಗ ನಾನು ಸ್ಟೀರಿಯೊಸ್ಕೋಪಿಯ ತತ್ವಗಳೊಂದಿಗೆ ಪ್ರಯೋಗವನ್ನು ಮಾಡಿದ್ದೇನೆ ಮತ್ತು ಕೆಲವು ಸರಳ ನಿಯಮಗಳನ್ನು ಬಳಸಿಕೊಂಡು ಅಂತಹ ತಲ್ಲೀನಗೊಳಿಸುವ ಮತ್ತು ಬಲವಾದ ಅನುಭವವನ್ನು ಉತ್ಪಾದಿಸುವ ವಿಧಾನದಿಂದ ನಾನು ಆಕರ್ಷಿತನಾದೆ.</value>
+  </data>
+  <data name="Page.Faq.Inverted" xml:space="preserve">
+    <value>3D ಏಕೆ ಸರಿಯಾಗಿ ಕಾಣುತ್ತಿಲ್ಲ ಅಥವಾ 3D ಏಕೆ ತಲೆಕೆಳಗಾಗಿ ಕಾಣುತ್ತದೆ?</value>
+  </data>
+  <data name="Page.Faq.Inverted.Body1" xml:space="preserve">
+    <value>ಅಡ್ಡ ಅಥವಾ ಸಮಾನಾಂತರ ವಿಧಾನದೊಂದಿಗೆ ಉಚಿತ ವೀಕ್ಷಣೆ ಮಾಡುವಾಗ, ಅವುಗಳನ್ನು ರಚಿಸಲು ಬಳಸಿದ ಅದೇ ವಿಧಾನವನ್ನು ಬಳಸಿಕೊಂಡು ಚಿತ್ರಗಳನ್ನು ನೋಡುವುದು ಮುಖ್ಯವಾಗಿದೆ. ಇಲ್ಲದಿದ್ದರೆ, ನಿಮ್ಮ ಬಲಗಣ್ಣು ಎಡಗಣ್ಣಿಗೆ ಉದ್ದೇಶಿಸಿರುವ ದೃಷ್ಟಿಕೋನವನ್ನು ನೋಡುತ್ತದೆ ಮತ್ತು ಪ್ರತಿಯಾಗಿ. ಇದು ಚಿತ್ರದ ಆಳವನ್ನು ತಲೆಕೆಳಗು ಮಾಡುತ್ತದೆ, ಏಕೆಂದರೆ ಭ್ರಂಶದ ದಿಕ್ಕನ್ನು ಬದಲಾಯಿಸಲಾಗಿದೆ.
+
+ಭ್ರಂಶ ಎಂದರೆ ನಿಮ್ಮ ಬಲಗಣ್ಣಿನ ದೃಷ್ಟಿಕೋನದಿಂದ, ವಸ್ತುಗಳು ಹೆಚ್ಚು ದೂರದಲ್ಲಿರುವಾಗ ಅವು ನಿಮ್ಮ ಎಡಗಣ್ಣಿನಿಂದ ನೋಡಿದಾಗ ಹತ್ತಿರವಿರುವ ವಸ್ತುಗಳಿಗಿಂತ ಹೆಚ್ಚು ಬಲಕ್ಕೆ ತೋರುತ್ತವೆ. ವಾಕ್ಯದ ರೂಪದಲ್ಲಿ ವಿವರಿಸಿದಾಗ ಇದು ಗೊಂದಲಮಯವಾಗಿದೆ, ಆದರೆ ಪ್ರದರ್ಶಿಸಿದಾಗ ಬಹಳ ಅರ್ಥಗರ್ಭಿತವಾಗಿದೆ.
+
+ಪ್ರದರ್ಶಿಸಲು, ನಿಮ್ಮ ಮುಂದೆ ಒಂದು ಬೆರಳನ್ನು ತೋಳಿನ ಉದ್ದದಲ್ಲಿ ಹಿಡಿದುಕೊಳ್ಳಿ, ನಂತರ ನಿಮ್ಮ ಇನ್ನೊಂದು ಕೈಯಿಂದ ಮೊದಲ ಬೆರಳು ಮತ್ತು ನಿಮ್ಮ ಮುಖದ ನಡುವೆ ಅರ್ಧದಷ್ಟು ಹಿಡಿದುಕೊಳ್ಳಿ. ನೀವು ಪ್ರತಿ ಕಣ್ಣನ್ನು ಪರ್ಯಾಯವಾಗಿ ಮುಚ್ಚಿದರೆ ಮತ್ತು ನಿಮ್ಮ ಬೆರಳುಗಳು ಎಲ್ಲಿವೆ ಎಂಬುದನ್ನು ಗಮನದಲ್ಲಿರಿಸಿದರೆ, ಪ್ರತಿ ಕಣ್ಣುಗಳು ಅವುಗಳನ್ನು ವಿವಿಧ ಸ್ಥಳಗಳಲ್ಲಿ ನೋಡುವುದನ್ನು ನೀವು ನೋಡುತ್ತೀರಿ. ಆದ್ದರಿಂದ ಸ್ವಾಭಾವಿಕವಾಗಿ, ಪ್ರತಿ ಕಣ್ಣು ಆ ಚಲನೆಯನ್ನು ಅದು ಭಾವಿಸಲಾದ ವಿರುದ್ಧವಾಗಿ ನೋಡಿದರೆ, ಆಳವು ತಲೆಕೆಳಗಾದಂತಾಗುತ್ತದೆ.
+
+ಆಕಸ್ಮಿಕವಾಗಿ ತಪ್ಪಾದ ವೀಕ್ಷಣಾ ವಿಧಾನವನ್ನು ಬಳಸುವುದು ತುಂಬಾ ಸುಲಭ ಏಕೆಂದರೆ ಹೆಚ್ಚಿನ ಜನರು ತಮ್ಮ ಕಣ್ಣುಗಳನ್ನು ದಾಟುತ್ತಿದ್ದಾರೆಯೇ ಅಥವಾ ವಿಶ್ರಾಂತಿ ಪಡೆಯುತ್ತಿದ್ದಾರೆಯೇ ಎಂದು ಹೇಳಲು ಅಥವಾ ಪ್ರಪಂಚದ ಗೊಂದಲಮಯ ಎರಡು ಚಿತ್ರವನ್ನು ನೋಡುವ ಮೂಲಕ ಹೇಳಲು ಇದು ತುಂಬಾ ಕಷ್ಟಕರವಾಗಿದೆ. ಬದಲಾಗಿ, ನಿಮ್ಮ ಕಣ್ಣುಗಳು ಏನು ಮಾಡುತ್ತಿವೆ ಎಂಬುದನ್ನು ಬೇರೊಬ್ಬರು ನೋಡುವಂತೆ ಮಾಡುವುದು ಉತ್ತಮವಾಗಿದೆ ಅಥವಾ ಈ ಪರೀಕ್ಷಕ ಚಿತ್ರವನ್ನು ಪ್ರಯತ್ನಿಸಿ:</value>
+  </data>
+  <data name="Page.Faq.Inverted.Body2" xml:space="preserve">
+    <value>ಸಮಾನಾಂತರ ವೀಕ್ಷಣೆ ವಿಧಾನವನ್ನು ಬಳಸಿಕೊಂಡು ವೀಕ್ಷಿಸಲು ಉದ್ದೇಶಿಸಿರುವ ಮ್ಯಾಜಿಕ್ ಐ™ ಪುಸ್ತಕಗಳನ್ನು ವೀಕ್ಷಿಸಲು ಅನೇಕ ಜನರು ಸಾಕಷ್ಟು ಆರಾಮದಾಯಕವಾಗಿದ್ದಾರೆ. ನೀವು ಅವುಗಳನ್ನು ವೀಕ್ಷಿಸಿದರೆ, ಪುಟದಿಂದ ಪಾಪ್ ಆಫ್ ಆಗಬೇಕಾದ ದೃಢವಾದ 3D ವಸ್ತುಗಳು ರಂಧ್ರಗಳಂತೆ ಕಾಣುತ್ತವೆ. ಎರಡೂ ವಿಧಾನಗಳು ನಿಮಗೆ *ಏನನ್ನಾದರೂ* ನೋಡಲು ಅನುಮತಿಸುತ್ತದೆ ಆದರೆ ಅದು ಏನೆಂದು ನಿಮಗೆ ಹೇಳಲು ಸಾಧ್ಯವಾಗದಿದ್ದರೆ, ನೀವು ಬಹುಶಃ ಅವುಗಳನ್ನು ವೀಕ್ಷಿಸುತ್ತಿರುವಿರಿ.</value>
+  </data>
+  <data name="Page.Faq.Mirror" xml:space="preserve">
+    <value>"ಸಿಂಗಲ್-ಶಾಟ್ ಮಿರರ್" ವಿಧಾನವನ್ನು ನಾನು ಹೇಗೆ ಮಾಡುವುದು?</value>
+  </data>
+  <data name="Page.Faq.Mirror.Body1" xml:space="preserve">
+    <value>ಕನ್ನಡಿ ವಿಧಾನದೊಂದಿಗೆ ಸೆರೆಹಿಡಿಯುವುದು ಫ್ರೇಮ್ ಅನ್ನು ಅರ್ಧದಷ್ಟು ಭಾಗಿಸುತ್ತದೆ ಮತ್ತು ಅಗತ್ಯವಿರುವ ರೂಪಾಂತರವನ್ನು ಮಾಡುತ್ತದೆ ಆದ್ದರಿಂದ ನೀವು ಒಂದೇ ಫೋನ್ ಮತ್ತು ಸಾಮಾನ್ಯ ಹ್ಯಾಂಡ್ಹೆಲ್ಡ್ ಮಿರರ್ ಅನ್ನು ಬಳಸಿಕೊಂಡು ಒಂದೇ ಕ್ಷಣದಲ್ಲಿ ಎರಡೂ ಬದಿಗಳನ್ನು ಸೆರೆಹಿಡಿಯಬಹುದು. ಕ್ಯಾಪ್ಚರ್ ಮಾಡುವಾಗ ಮಿರರ್ ವಿಧಾನವನ್ನು ಬಳಸಲು, ಸೆಟ್ಟಿಂಗ್‌ಗಳ ಪುಟದಲ್ಲಿ ಮಿರರ್ ಮೋಡ್‌ಗಾಗಿ ಸ್ವಿಚ್ ಆನ್ ಮಾಡಿ (ಅಲ್ಲಿಗೆ ಹೋಗಲು ಗೇರ್ ಐಕಾನ್ ಟ್ಯಾಪ್ ಮಾಡಿ). ನೀವು ಮಿರರ್ ಮೋಡ್ ಅನ್ನು ಆನ್ ಮಾಡಿದ ನಂತರ, ನಿಮ್ಮ ಕನ್ನಡಿಯನ್ನು ಯಾವ ಭಾಗದಲ್ಲಿ ಹಿಡಿದಿಟ್ಟುಕೊಳ್ಳಬೇಕೆಂದು CrossCam ನಿಮಗೆ ತಿಳಿಸುತ್ತದೆ. ಆ ಬದಿಯಲ್ಲಿ ನಿಮ್ಮ ಕನ್ನಡಿಯನ್ನು ಹಿಡಿದುಕೊಳ್ಳಿ ಮತ್ತು ನಿಮ್ಮ ಫೋನ್ ಮತ್ತು ಕನ್ನಡಿ ಮತ್ತು ನಿಮ್ಮ ವಿಷಯದ ನಡುವಿನ ಜೋಡಣೆಯೊಂದಿಗೆ ಗಡಿಬಿಡಿ. ಸ್ವಲ್ಪ ತಾಳ್ಮೆಯಿಂದ, ನೀವು ಎಲ್ಲವನ್ನೂ ಜೋಡಿಸಲು ಸಾಧ್ಯವಾಗುತ್ತದೆ ಇದರಿಂದ ಕನ್ನಡಿಯು ಒಂದು ಬದಿಗೆ ಸರಿಯಾದ ದೃಷ್ಟಿಕೋನವನ್ನು ತೋರಿಸುತ್ತದೆ. ಏಕೆಂದರೆ ಮಿರರ್ ವಿಧಾನವನ್ನು ಬಳಸುವುದರಿಂದ ನಿಮ್ಮ ಚಿತ್ರವನ್ನು ಅರ್ಧದಷ್ಟು ಲಂಬವಾಗಿ ವಿಭಜಿಸುತ್ತದೆ, ಸಾಮಾನ್ಯವಾಗಿ ಕನ್ನಡಿ ವಿಧಾನದೊಂದಿಗೆ ಭೂದೃಶ್ಯದಲ್ಲಿ ಸೆರೆಹಿಡಿಯುವುದು ಉತ್ತಮವಾಗಿದೆ.
+
+ಈ ವಿಧಾನವು ದೊಡ್ಡದಾದ, ಸ್ವಚ್ಛವಾದ ಕಿಟಕಿಗಳಲ್ಲಿ ಮತ್ತು ಇನ್ನೂ ಸರೋವರಗಳು ಅಥವಾ ಕೊಚ್ಚೆ ಗುಂಡಿಗಳಲ್ಲಿ ಪ್ರತಿಫಲನಗಳೊಂದಿಗೆ ಕಾರ್ಯನಿರ್ವಹಿಸುತ್ತದೆ (ಫೋನ್ ಅನ್ನು ಭಾವಚಿತ್ರದಲ್ಲಿ ಲಾಕ್ ಮಾಡಿದಾಗ ಮತ್ತು ಪಕ್ಕಕ್ಕೆ ತಿರುಗಿಸಿದಾಗ).</value>
+  </data>
+  <data name="Page.Faq.Mirror.Body2" xml:space="preserve">
+    <value>ಕನ್ನಡಿ ವಿಧಾನವನ್ನು ಬಳಸಲು ಕೆಲವು ಹೊಂದಾಣಿಕೆಗಳು/ಸಂಪಾದನೆಗಳನ್ನು ಮಾಡಬೇಕಾಗಿದೆ. ಇವೆಲ್ಲವನ್ನೂ CrossCam ನಲ್ಲಿ ಹಸ್ತಚಾಲಿತವಾಗಿ ಮಾಡಬಹುದು, ಆದರೆ ಸ್ವಯಂಚಾಲಿತ ಜೋಡಣೆಯು ಅವುಗಳನ್ನು ನಿಮಗಾಗಿ ಮಾಡಲು ಪ್ರಯತ್ನಿಸುತ್ತದೆ:
+ • ಪ್ರತಿಬಿಂಬಿತ ನೋಟವು ಸಾಮಾನ್ಯ ನೋಟಕ್ಕಿಂತ ಹೆಚ್ಚು ದೂರದಲ್ಲಿ ಚಲಿಸುವ ಕಾರಣ, ಪ್ರತಿಬಿಂಬಿಸಿದ ಭಾಗವನ್ನು ಸ್ವಲ್ಪ ಝೂಮ್ ಮಾಡಬೇಕಾಗುತ್ತದೆ.
+ • ಕನ್ನಡಿ ವಿಧಾನವನ್ನು ಬಳಸುವಾಗ ನೀವು ದೃಷ್ಟಿಕೋನಗಳನ್ನು ಸಮಾನಾಂತರವಾಗಿ ಇಟ್ಟುಕೊಳ್ಳುವುದಕ್ಕಿಂತ ಹೆಚ್ಚಾಗಿ ಕಾಲ್ಬೆರಳುಗಳನ್ನು ಹಾಕುವ ಸಾಧ್ಯತೆಯಿದೆ - ಇದು ಕೆಟ್ಟ ಲಂಬವಾದ ಜೋಡಣೆಯಂತೆ ಕಾಣುವಂತೆ ಮುನ್ಸೂಚಿಸುವಿಕೆಗೆ ಕಾರಣವಾಗಬಹುದು. ಅದನ್ನು ರದ್ದುಗೊಳಿಸಲು, ಕೀಸ್ಟೋನ್ ತಿದ್ದುಪಡಿಯನ್ನು ಮಾಡಬಹುದು, ಅಂದರೆ ಪ್ರತಿ ಚಿತ್ರಗಳ ಒಂದು ಬದಿಯನ್ನು ಲಂಬವಾಗಿ ಕುಗ್ಗಿಸುವುದು.
+ • ಟೋಯಿಂಗ್-ಇನ್ ಸ್ಟಿರಿಯೊ ವಿಂಡೋವನ್ನು ನಿಮ್ಮ ಕಡೆಗೆ ಚಲಿಸುವಂತೆ ಮಾಡುತ್ತದೆ. ನೀವು ಅದನ್ನು ರದ್ದುಗೊಳಿಸಬಹುದು ಮತ್ತು ಬದಿಗಳನ್ನು ಕ್ರಾಪ್ ಮಾಡುವ ಮೂಲಕ ನಿಮಗೆ ಬೇಕಾದ ಸ್ಥಳದಲ್ಲಿ ಇರಿಸಬಹುದು.
+ • ಕನ್ನಡಿಯು ಬಹುಶಃ ಒಂದು ಬದಿಯ ನೋಟವನ್ನು ಸಂಪೂರ್ಣವಾಗಿ ಆವರಿಸುವುದಿಲ್ಲ, ಆದ್ದರಿಂದ ಪ್ರತಿಫಲಿಸದ ಬಿಟ್‌ಗಳನ್ನು ತೆಗೆದುಹಾಕಲು ಕೆಲವು ಕ್ರಾಪಿಂಗ್ ಮಾಡಬೇಕಾಗಬಹುದು.
+
+ಇದಕ್ಕಾಗಿ ಉತ್ತಮ ಕನ್ನಡಿಗಳು ತೆಳುವಾದ ಗಾಜಿನನ್ನು ಹೊಂದಿರುತ್ತವೆ. ಒಂದು ವಿಷಯವೆಂದರೆ ಅವು ಹಗುರವಾಗಿರುತ್ತವೆ, ಆದ್ದರಿಂದ ಅವುಗಳನ್ನು ದೀರ್ಘಕಾಲದವರೆಗೆ ಹಿಡಿದಿಡಲು ಸುಲಭವಾಗಿದೆ. ಇತರ ಪ್ರಮುಖ ವಿಷಯವೆಂದರೆ ಕನ್ನಡಿಯನ್ನು ಬಳಸುವಾಗ ನೀವು ಕನ್ನಡಿಗಳನ್ನು ಸಾಮಾನ್ಯವಾಗಿ ಬಳಸುವುದರಿಂದ ನೇರವಾಗಿ ನೋಡುವುದಕ್ಕಿಂತ ಹೆಚ್ಚಾಗಿ ಕನ್ನಡಿಯನ್ನು ಪಕ್ಕಕ್ಕೆ ಗುರಿಪಡಿಸುತ್ತೀರಿ. ಹಾಗೆ ಆಧಾರಿತವಾಗಿದ್ದಾಗ, ದಪ್ಪ ಗಾಜಿನ ಕನ್ನಡಿಗಳು ಕೆಲವು ಅಸ್ಪಷ್ಟತೆಯನ್ನು ಹೊಂದಿರಬಹುದು. ಗಾಜು ತೆಳ್ಳಗಿದ್ದಷ್ಟೂ ಈ ಅಸ್ಪಷ್ಟತೆ ಕಡಿಮೆ ಸ್ಪಷ್ಟವಾಗುತ್ತದೆ. ಈ ರೀತಿಯ ಕನ್ನಡಿಗಳು ಇತರ ವಿಷಯಗಳಲ್ಲಿ ಕಡಿಮೆ-ಗುಣಮಟ್ಟದ ಆಗಿರಬಹುದು, ಆದ್ದರಿಂದ ಉತ್ತಮ ಸಮತೋಲನವನ್ನು ಕಂಡುಹಿಡಿಯುವುದು ಮುಖ್ಯವಾಗಿದೆ.
+
+ಕ್ರಾಸ್‌ಕ್ಯಾಮ್‌ನ ಸಂಪಾದನೆಗಳಲ್ಲಿ ಸರಿಪಡಿಸಲಾಗದ ಕನ್ನಡಿ ಸೆರೆಹಿಡಿಯುವಿಕೆಯನ್ನು ಬಳಸುವಾಗ ಒಪ್ಪಿಕೊಳ್ಳಬೇಕಾದ ಒಂದೆರಡು ಇತರ ಹೊಂದಾಣಿಕೆಗಳಿವೆ:
+ • ಎರಡು ಬದಿಗಳ ನೋಟವು ಸ್ವಲ್ಪ ವಿಭಿನ್ನ ದೂರದಲ್ಲಿ ಚಲಿಸುವುದರಿಂದ, ಪ್ರತಿ ಬದಿಗೆ ಅಗತ್ಯವಿರುವ ಗಮನವು ಸ್ವಲ್ಪ ವಿಭಿನ್ನವಾಗಿರುತ್ತದೆ, ಆದ್ದರಿಂದ ಒಂದು ಬದಿಯು ಯಾವಾಗಲೂ ಸ್ವಲ್ಪ ಮಸುಕಾಗಿರುತ್ತದೆ. ವಿಷಯದ ದೂರ ಮತ್ತು ಮಸೂರದ ಕ್ಷೇತ್ರದ ಆಳವನ್ನು ಅವಲಂಬಿಸಿ ಈ ಪರಿಣಾಮವು ಹೆಚ್ಚು ಅಥವಾ ಕಡಿಮೆ ಗಮನಾರ್ಹವಾಗಿರುತ್ತದೆ.
+ • ಯಾವುದೇ ಕನ್ನಡಿಯು ನಿಜವಾಗಿಯೂ 100% ಪರಿಣಾಮಕಾರಿಯಾಗಿರುವುದಿಲ್ಲ, ಆದ್ದರಿಂದ ಕನ್ನಡಿಯನ್ನು ಬಳಸುವ ಬದಿಯು ಸ್ವಲ್ಪ ಗಾಢವಾಗಿರಬಹುದು. ಇದು ಕನ್ನಡಿಯ ಗುಣಮಟ್ಟವನ್ನು ಅವಲಂಬಿಸಿ ಬದಲಾಗುತ್ತದೆ.</value>
+  </data>
+  <data name="Page.Faq.Moving" xml:space="preserve">
+    <value>ನನ್ನ ವಿಷಯವು ಚಲಿಸುತ್ತಿದೆ, ನಾನು ಅದರ 3D ಚಿತ್ರಗಳನ್ನು ಹೇಗೆ ತೆಗೆದುಕೊಳ್ಳುವುದು?</value>
+  </data>
+  <data name="Page.Faq.Moving.Body" xml:space="preserve">
+    <value>ಒಂದೇ ಕ್ಷಣದಲ್ಲಿ ಎರಡೂ ದೃಷ್ಟಿಕೋನಗಳನ್ನು ಸೆರೆಹಿಡಿಯಲು CrossCam ನಿಮಗೆ ಎರಡು ವಿಧಾನಗಳನ್ನು ಅನುಮತಿಸುತ್ತದೆ. ಒಂದು ವಿಧಾನವು ಎರಡು ಫೋನ್‌ಗಳನ್ನು ಬಳಸುತ್ತದೆ ಮತ್ತು ಒಂದು ವಿಧಾನವು ಕನ್ನಡಿಯನ್ನು ಬಳಸುತ್ತದೆ.
+
+ಎರಡು ಫೋನ್ ಸೆಟಪ್ ಅನ್ನು ಬಳಸಲು, ಪೇರಿಂಗ್ ಸೆಟಪ್ ಪುಟವನ್ನು ಪರಿಶೀಲಿಸಿ, ಅದನ್ನು ನೀವು ಸೆಟ್ಟಿಂಗ್‌ಗಳ ಪುಟದಿಂದ ಪಡೆಯಬಹುದು (ಗೇರ್ ಐಕಾನ್ ಟ್ಯಾಪ್ ಮಾಡಿ).
+
+ಕನ್ನಡಿ ವಿಧಾನವನ್ನು ಬಳಸಲು, ಅದರ ಬಗ್ಗೆ ಇತರ FAQ ಪ್ರಶ್ನೆಯನ್ನು ಪರಿಶೀಲಿಸಿ.</value>
+  </data>
+  <data name="Page.Faq.Test" xml:space="preserve">
+    <value>CrossCam ನ ಪೂರ್ವ-ಬಿಡುಗಡೆ ಆವೃತ್ತಿಗಳನ್ನು ನಾನು ಹೇಗೆ ಪರೀಕ್ಷಿಸಬಹುದು?</value>
+  </data>
+  <data name="Page.Faq.Test.Body" xml:space="preserve">
+    <value>ಈ ರೆಡ್ಡಿಟ್ ಪೋಸ್ಟ್ ಅನ್ನು ಪರಿಶೀಲಿಸಿ</value>
+  </data>
+  <data name="Page.Faq.Why" xml:space="preserve">
+    <value>ನೀವು ಕ್ರಾಸ್‌ಕ್ಯಾಮ್ ಅನ್ನು ಏಕೆ ಮಾಡಿದ್ದೀರಿ?</value>
+  </data>
+  <data name="Page.Faq.Why.Body" xml:space="preserve">
+    <value>ನಾನು ಸ್ಟಿರಿಯೊಸ್ಕೋಪಿಯಲ್ಲಿ ಆಸಕ್ತಿಯನ್ನು ಹೊಂದಲು ಪ್ರಾರಂಭಿಸಿದಾಗ ನಾನು ಯೆಲ್ಲೊಸ್ಟೋನ್‌ಗೆ ಪ್ರವಾಸವನ್ನು ಕೈಗೊಳ್ಳುತ್ತೇನೆ. ನಾನು ಅಲ್ಲಿರುವಾಗ, 3D ಕ್ಯಾಮರಾ ಮೊಬೈಲ್ ಅಪ್ಲಿಕೇಶನ್ ಅನ್ನು 3D ಯಲ್ಲಿ ಸೆರೆಹಿಡಿಯಲು ಪ್ರಯತ್ನಿಸುವುದು ವಿನೋದಮಯವಾಗಿರಬಹುದು ಎಂದು ನಾನು ಅರಿತುಕೊಂಡೆ. ಅಸ್ತಿತ್ವದಲ್ಲಿರುವ ಆಯ್ಕೆಗಳಿಂದ ನಾನು ತುಂಬಾ ನಿರಾಶೆಗೊಂಡಿದ್ದೇನೆ. ಅವರೆಲ್ಲರಿಗೂ ನೀವು ಎರಡು ಸೆರೆಹಿಡಿಯುವ ಅಗತ್ಯವಿದೆ ಎಂದು ನಾನು ಕಂಡುಕೊಂಡಿದ್ದೇನೆ ಮತ್ತು ನಂತರ ಅವು ಯಾವುದಾದರೂ ಉತ್ತಮವಾಗಿವೆಯೇ ಎಂದು ಕಂಡುಹಿಡಿಯಿರಿ. ನನ್ನ ಪ್ರತ್ಯೇಕತೆಯ ಅಂತರ ಮತ್ತು ವಿಷಯದ ಗುಣಮಟ್ಟದ ಬಗ್ಗೆ ನಾನು ಪದೇ ಪದೇ ಸಂಪೂರ್ಣ ಊಹೆಗಳನ್ನು ಮಾಡಬೇಕಾಗಿರುವುದರಿಂದ ಅವುಗಳು ಹೆಚ್ಚಾಗಿ ಇರಲಿಲ್ಲ.
+
+ಮುಂದಿನ ಕೆಲವು ವಾರಗಳಲ್ಲಿ ನನ್ನ ಕುದಿಯುತ್ತಿರುವ ಹತಾಶೆಯು ಮೊದಲನೆಯದರೊಂದಿಗೆ ಎರಡನೇ ಕ್ಯಾಪ್ಚರ್‌ನ ಲೈವ್ ಪೂರ್ವವೀಕ್ಷಣೆಯನ್ನು ಸರಳವಾಗಿ ಒದಗಿಸುವುದನ್ನು ಕಲ್ಪಿಸಿಕೊಳ್ಳಲು ಕಾರಣವಾಯಿತು. ನಾನು ಈಗಾಗಲೇ ಮೊಬೈಲ್ ಅಭಿವೃದ್ಧಿಯಲ್ಲಿ ಹಿನ್ನೆಲೆ ಹೊಂದಿದ್ದೇನೆ, ಆದ್ದರಿಂದ ಅದು ಸಮಯವನ್ನು ಹಾಕುವ ವಿಷಯವಾಗಿತ್ತು. ಕ್ರಾಸ್‌ಕ್ಯಾಮ್ ನೆನಪುಗಳನ್ನು ಉಳಿಸಲು ನನಗಾಗಿ ಬಳಸಲು ನನಗೆ ಅದ್ಭುತವಾಗಿದೆ ಮತ್ತು ಅದನ್ನು ನಿಮ್ಮೊಂದಿಗೆ ಹಂಚಿಕೊಳ್ಳಲು ನನಗೆ ಸಂತೋಷವಾಗಿದೆ.</value>
+  </data>
+  <data name="Page.Faq.Wiggle" xml:space="preserve">
+    <value>ವಿಗ್ಲೆಗ್ರಾಮ್‌ಗಳು ಯಾವುವು?</value>
+  </data>
+  <data name="Page.Faq.Wiggle.Body" xml:space="preserve">
+    <value>ಬೈನಾಕ್ಯುಲರ್ ದೃಷ್ಟಿಯ ಮೇಲೆ ಅವಲಂಬಿತವಾಗಿಲ್ಲದ ಸ್ಟೀರಿಯೋಗ್ರಾಮ್‌ಗಳನ್ನು ವೀಕ್ಷಿಸಲು Wigglegrams ಒಂದು ಮಾರ್ಗವಾಗಿದೆ. ಅವುಗಳು ಸಾಮಾನ್ಯವಾಗಿ ಎರಡು ದೃಷ್ಟಿಕೋನಗಳ ನಡುವೆ ಹಿಂದಕ್ಕೆ ಮತ್ತು ಮುಂದಕ್ಕೆ ತಿರುಗುವ gif ಆಗಿರುತ್ತವೆ, ಪ್ರತಿಯೊಂದನ್ನು ಒಂದೇ ಸ್ಥಳದಲ್ಲಿ ಸಂಪೂರ್ಣವಾಗಿ ತೋರಿಸುತ್ತವೆ. CrossCam ಇದೀಗ ಅವುಗಳನ್ನು ಮಾಡಲು ಬೆಂಬಲಿಸುವುದಿಲ್ಲ, ಆದರೆ ನೀವು ನಿಜವಾಗಿಯೂ ಅವುಗಳಲ್ಲಿ ಆಸಕ್ತಿ ಹೊಂದಿದ್ದರೆ ನನಗೆ ಇಮೇಲ್ ಮಾಡಿ ಮತ್ತು ನಾನು ಅದನ್ನು ಮಾಡುತ್ತೇನೆ.</value>
+  </data>
+  <data name="Page.Tips.AlignAfter" xml:space="preserve">
+    <value>ಸಮತಲವಾಗಿರುವ ರೇಖೆಗಳನ್ನು ಗಮನದಲ್ಲಿಟ್ಟುಕೊಳ್ಳಿ, ಆದರೆ ನೀವು ನಂತರ ಕೂಡ ಜೋಡಿಸಬಹುದು.</value>
+  </data>
+  <data name="Page.Tips.AlignAfter.Body" xml:space="preserve">
+    <value>ಚಿತ್ರಗಳನ್ನು ತೆಗೆಯುವಾಗ ಮೇಲಿನ ಮತ್ತು ಕೆಳಗಿನ ಮಾರ್ಗದರ್ಶಿ ಸಾಲುಗಳನ್ನು ಒಂದೇ ಸಮಯದಲ್ಲಿ ಜೋಡಿಸುವುದು ಅಸಾಧ್ಯವೆಂದು ನೀವು ಕಂಡುಕೊಂಡರೆ, ನೀವು ಬಹುಶಃ ಬದಿಗೆ ಹೊರತುಪಡಿಸಿ ಬೇರೆ ದಿಕ್ಕಿನಲ್ಲಿ ಚಲಿಸಬಹುದು. ಚಿತ್ರಗಳನ್ನು ತೆಗೆದುಕೊಳ್ಳುವ ಮೊದಲು ಇದನ್ನು ಸರಿಪಡಿಸಲು ಪ್ರಯತ್ನಿಸಿ, ಆದರೆ ವಾಸ್ತವವಾಗಿ ನಂತರ ಜೋಡಿಸುವುದು ಇದಕ್ಕೆ ಬಹಳಷ್ಟು ಸಹಾಯ ಮಾಡುತ್ತದೆ.</value>
+  </data>
+  <data name="Page.Tips.Alignment" xml:space="preserve">
+    <value>ನೀವು ಸ್ವಯಂ ಜೋಡಣೆಯನ್ನು ಆಫ್ ಮಾಡಬಹುದು.</value>
+  </data>
+  <data name="Page.Tips.Alignment.Body" xml:space="preserve">
+    <value>ಸ್ವಯಂಚಾಲಿತ ಜೋಡಣೆಯ ಫಲಿತಾಂಶಗಳು ನಿಮಗೆ ಇಷ್ಟವಾಗದಿದ್ದರೆ, ಸೆಟ್ಟಿಂಗ್‌ಗಳ ಪುಟದಲ್ಲಿ ಅಥವಾ ಚಿಕ್ಕ ರೋಬೋಟ್ ಐಕಾನ್ ಮೇಲೆ ಟ್ಯಾಪ್ ಮಾಡುವ ಮೂಲಕ ಅದನ್ನು ಆಫ್ ಮಾಡಿ ಮತ್ತು ನಿಮ್ಮ ಮೂಲ ಸೆರೆಹಿಡಿಯಲಾದ ಚಿತ್ರಗಳನ್ನು ಮರುಸ್ಥಾಪಿಸಲಾಗುತ್ತದೆ.</value>
+  </data>
+  <data name="Page.Tips.Donut" xml:space="preserve">
+    <value>ಡೋನಟ್ ಮಾರ್ಗದರ್ಶಿ ನಿಮ್ಮ ವಿಂಡೋಗೆ ಸಹಾಯ ಮಾಡಬಹುದು.</value>
+  </data>
+  <data name="Page.Tips.Donut.Body" xml:space="preserve">
+    <value>ನೀವು ಸೆಟ್ಟಿಂಗ್‌ಗಳ ಪುಟದಲ್ಲಿ ಪ್ರಾಯೋಗಿಕ ಮಾರ್ಗದರ್ಶಿ ಡೋನಟ್ ಅನ್ನು ಆನ್ ಮಾಡಬಹುದು, ಇದು ಬಳಸಬಹುದಾದ ಅಗಲವನ್ನು ಹೆಚ್ಚಿಸುವಾಗ ನಿಮ್ಮ ಸ್ಟೀರಿಯೋ ವಿಂಡೋವನ್ನು ಸಂರಕ್ಷಿಸಲು ಸಹಾಯ ಮಾಡುತ್ತದೆ. ಎಡಕ್ಕೆ ಮತ್ತು ಬಲಕ್ಕೆ ತಿರುಗುವ ಮೂಲಕ ಡೋನಟ್‌ನ ಆಳವು ಉಳಿದ ದೃಶ್ಯಕ್ಕೆ ಹೋಲಿಸಿದರೆ ಬದಲಾಗುತ್ತದೆ - ಡೋನಟ್‌ನ ಆಳವನ್ನು ಹೊಂದಿಸಿ ಆದ್ದರಿಂದ ಅದು ನಿಮ್ಮ ದೃಶ್ಯದಲ್ಲಿನ ಅತ್ಯಂತ ದೂರದ ಬಿಂದುವಿನ ಮೇಲೆ ಅಥವಾ ಹಿಂದೆ ಇರುತ್ತದೆ. ಜಾಗರೂಕರಾಗಿರಿ, ಚಿಕ್ಕ ದೃಶ್ಯಗಳಲ್ಲಿ ಇದನ್ನು ಬಳಸುವುದರಿಂದ ವಿಷಯಗಳನ್ನು ನೋಯಿಸಬಹುದು (ಮೇಲಿನ ಕೀಸ್ಟೋನ್ ಸಲಹೆಯನ್ನು ನೋಡಿ).</value>
+  </data>
+  <data name="Page.Tips.Keystone" xml:space="preserve">
+    <value>ನೀವು ಟೋ-ಇನ್ ಮಾಡಿದರೆ ಕೀಸ್ಟೋನ್ ತಿದ್ದುಪಡಿ ಅಗತ್ಯವಿದೆ.</value>
+  </data>
+  <data name="Page.Tips.Keystone.Body1" xml:space="preserve">
+    <value>ಪ್ರತಿ ಶಾಟ್‌ನೊಂದಿಗೆ ನೀವು ಒಳಮುಖವಾಗಿ ತಿರುಗಿದರೆ ಕೀಸ್ಟೋನ್ ತಿದ್ದುಪಡಿಗಳನ್ನು ಮಾಡಲು ಇದು ತುಂಬಾ ಸಹಾಯಕವಾಗಿದೆ. ವಿಶಿಷ್ಟವಾಗಿ ನೀವು ಫೋಟೋಗಳ ಒಳಗಿನ ಅಂಚುಗಳನ್ನು ಕುಗ್ಗಿಸಲು ಬಯಸುತ್ತೀರಿ ಮತ್ತು ನಂತರ ಅವುಗಳನ್ನು ನೆಲಸಮಗೊಳಿಸಲು ಮೇಲ್ಭಾಗ ಮತ್ತು ಕೆಳಭಾಗದಲ್ಲಿ ಕೆಲವು ಕ್ರಾಪ್ ಮಾಡಿ. ಈ ರೀತಿ ಕಾಣುವ ಬಟನ್ ಅನ್ನು ಟ್ಯಾಪ್ ಮಾಡುವ ಮೂಲಕ ನೀವು ಕೀಸ್ಟೋನ್ ಎಡಿಟಿಂಗ್ ಮೆನುವನ್ನು ಪಡೆಯುತ್ತೀರಿ:</value>
+  </data>
+  <data name="Page.Tips.Keystone.Body2" xml:space="preserve">
+    <value>ಒಳಮುಖವಾಗಿ ತಿರುಗುವುದನ್ನು ಟೋ-ಇನ್ ಎಂದು ಕರೆಯಲಾಗುತ್ತದೆ. ಇದು ಚಿತ್ರದ ಮೂಲೆಗಳನ್ನು ಬೆಸೆಯಲು ಕಷ್ಟಕರವಾಗಿಸುವ ಮುನ್ಸೂಚನೆಯ ಪರಿಣಾಮವನ್ನು ಉಂಟುಮಾಡಬಹುದು. ಮುನ್ಸೂಚಕ ಪರಿಣಾಮವು ನಿಜ ಜೀವನದಲ್ಲಿ ಎಲ್ಲಾ ಸಮಯದಲ್ಲೂ ಇರುತ್ತದೆ, ಏಕೆಂದರೆ ಸಮಾನಾಂತರ ರೇಖೆಗಳು ನಿಮ್ಮಿಂದ ದೂರಕ್ಕೆ ಹೋಗುವಾಗ ಒಮ್ಮುಖವಾಗುತ್ತವೆ, ಆದರೆ ಕೃತಕ ದೃಷ್ಟಿಕೋನಗಳು ಅದನ್ನು ವಿಲಕ್ಷಣಗೊಳಿಸಬಹುದು.</value>
+  </data>
+  <data name="Page.Tips.Lean" xml:space="preserve">
+    <value>ನೀವು ಕೇವಲ ಒಲವು ಮಾಡಬಹುದು.</value>
+  </data>
+  <data name="Page.Tips.Lean.Body" xml:space="preserve">
+    <value>ಕೆಲವೊಮ್ಮೆ ಚಿತ್ರಗಳನ್ನು ತೆಗೆದುಕೊಳ್ಳಲು ನಿಮ್ಮ ಪಾದಗಳನ್ನು ಸಂಪೂರ್ಣವಾಗಿ ಎಡಕ್ಕೆ ಅಥವಾ ಬಲಕ್ಕೆ ಚಲಿಸುವ ಬದಲು, ನಿಮ್ಮ ಪಾದಗಳನ್ನು ಹೊರತುಪಡಿಸಿ ನಿಂತುಕೊಂಡು ಪ್ರತಿ ದಿಕ್ಕಿನಲ್ಲಿ ಒಲವು ತೋರುವುದು ಸುಲಭವಾಗಬಹುದು, ಆದರೆ ಫೋನ್ ಮಟ್ಟದಲ್ಲಿ ಮತ್ತು ಅದೇ ಎತ್ತರದಲ್ಲಿ ಇರಿಸಿಕೊಳ್ಳಲು ಜಾಗರೂಕರಾಗಿರಿ. ಚಲಿಸುವ ಬದಲು ಕೇವಲ ಒಲವು ನಿಮಗೆ ತುಂಬಾ ದೂರ ಚಲಿಸದಂತೆ ಸಹಾಯ ಮಾಡುತ್ತದೆ ಮತ್ತು ನಿಮ್ಮ ಗುರಿಯನ್ನು ನೇರವಾಗಿ ಇರಿಸಿಕೊಳ್ಳಲು ಸುಲಭವಾಗುತ್ತದೆ.</value>
+  </data>
+  <data name="Page.Tips.Lines" xml:space="preserve">
+    <value>ಜೋಡಣೆ ರೇಖೆಗಳು ಚಲಿಸಬಹುದು.</value>
+  </data>
+  <data name="Page.Tips.Lines.Body" xml:space="preserve">
+    <value>ನೀವು ಬಯಸಿದಲ್ಲಿ ನೀವು ಜೋಡಣೆ ರೇಖೆಗಳನ್ನು ಎಳೆಯಬಹುದು. ಸಂಪಾದನೆಯ ಸಮಯದಲ್ಲಿ ಚಿತ್ರಗಳನ್ನು ಜೋಡಿಸುವಾಗ ಇದು ವಿಶೇಷವಾಗಿ ಸಹಾಯಕವಾಗಿದೆ.</value>
+  </data>
+  <data name="Page.Tips.Old" xml:space="preserve">
+    <value>ನೀವು CrossCam ನಲ್ಲಿ ಹಳೆಯ ಫೋಟೋಗಳನ್ನು ತೆರೆಯಬಹುದು.</value>
+  </data>
+  <data name="Page.Tips.Old.Body" xml:space="preserve">
+    <value>ಕ್ಯಾಮರಾ ಪುಟದ ಕೆಳಭಾಗದಲ್ಲಿರುವ ಫೋಲ್ಡರ್ ಐಕಾನ್ ಅನ್ನು ಟ್ಯಾಪ್ ಮಾಡುವ ಮೂಲಕ ನೀವು ಈ ಹಿಂದೆ ತೆಗೆದ ಚಿತ್ರಗಳನ್ನು ಲೋಡ್ ಮಾಡಬಹುದು, ಆದರೆ ನೀವು ದೊಡ್ಡ ಬ್ಯಾಚ್ ಫೋಟೋಗಳೊಂದಿಗೆ ಕೆಲಸ ಮಾಡುತ್ತಿದ್ದರೆ ನೀವು ಅವುಗಳನ್ನು ನಿಮ್ಮ ಫೋಟೋಗಳ ಅಪ್ಲಿಕೇಶನ್‌ನಿಂದ ನೇರವಾಗಿ CrossCam ಗೆ ಹಂಚಿಕೊಳ್ಳಬಹುದು, ಅದು ನಿಮ್ಮ ಟ್ರ್ಯಾಕ್ ಅನ್ನು ಇರಿಸಬಹುದು ನಿಮ್ಮ ಫೋಟೋಗಳಲ್ಲಿ ಉತ್ತಮವಾಗಿ ಇರಿಸಿ.</value>
+  </data>
+  <data name="Page.Tips.Quick" xml:space="preserve">
+    <value>ನೀವು ಇತರರೊಂದಿಗೆ ಇರುವಾಗ ತ್ವರಿತ ಮೋಡ್ ಅನ್ನು ಆನ್ ಮಾಡಿ.</value>
+  </data>
+  <data name="Page.Tips.Quick.Body" xml:space="preserve">
+    <value>ನೀವು ಇತರ ಜನರೊಂದಿಗೆ ಎಕ್ಸ್‌ಪ್ಲೋರ್ ಮಾಡುತ್ತಿದ್ದರೆ, ಸ್ವಯಂ ಜೋಡಣೆ ಮತ್ತು ಗಡಿಗಳನ್ನು ಆಫ್ ಮಾಡುವ ಮೂಲಕ ವೇಗದ ಮೋಡ್‌ಗೆ ಹೋಗುವುದು ಒಳ್ಳೆಯದು ಮತ್ತು ಯಾವುದೇ ಸಂಪಾದನೆ ಮಾಡದೆಯೇ ನೀವು ಸೆರೆಹಿಡಿದ ನಂತರ ಉಳಿಸಿ. ನೀವು ಯಾವಾಗ ಬೇಕಾದರೂ ಲೋಡ್ ಮಾಡಬಹುದು, ಸ್ವಯಂ ಒಗ್ಗೂಡಿಸಬಹುದು ಮತ್ತು ನಂತರ ಚಿತ್ರಗಳನ್ನು ಸಂಪಾದಿಸಬಹುದು. ಆ ರೀತಿಯಲ್ಲಿ ನಿಮ್ಮ ಚಿತ್ರಗಳನ್ನು ಸ್ಥಳದಲ್ಲೇ ಪರಿಪೂರ್ಣಗೊಳಿಸಲು ನಿಮ್ಮ ಸಹಚರರು ಕಾಯಬೇಕಾಗಿಲ್ಲ, ಆದರೆ ನೀವು ಬಯಸಿದ ಆಳವು ನಿಜವಾಗಿಯೂ ಇದೆ ಎಂದು ನೀವು ಇನ್ನೂ ವಿಶ್ವಾಸ ಹೊಂದಬಹುದು. ಮೊದಲ ಉಳಿತಾಯದ ಮೊದಲು ಯಾವುದೇ ಆತುರದ ಸಂಪಾದನೆಯನ್ನು ಮಾಡದಂತೆ ಎಚ್ಚರಿಕೆಯಿಂದಿರಿ! ನೀವು ಮಾಡುವ ಯಾವುದೇ ಸಂಪಾದನೆಯನ್ನು ನಿರ್ಲಕ್ಷಿಸುವ ಪ್ರತ್ಯೇಕ ಸೈಡ್ ಸೇವಿಂಗ್ ಅನ್ನು ಸಹ ನೀವು ಆನ್ ಮಾಡಬಹುದು.</value>
+  </data>
+  <data name="Page.Tips.Sick" xml:space="preserve">
+    <value>ಚಲನೆಯು ನಿಮಗೆ ಅನಾರೋಗ್ಯವನ್ನುಂಟುಮಾಡಿದರೆ, ಇನ್ನೂ ಹಿಡಿದುಕೊಳ್ಳಿ.</value>
+  </data>
+  <data name="Page.Tips.Sick.Body" xml:space="preserve">
+    <value>ಎಲ್ಲಾ ಚಲನೆಗಳು ನಿಮ್ಮನ್ನು ಅಸ್ವಸ್ಥರನ್ನಾಗಿಸಿದರೆ ಅಥವಾ 3D ಯಲ್ಲಿ ವೀಕ್ಷಿಸಲು ತುಂಬಾ ಕಷ್ಟಕರವಾಗಿದ್ದರೆ, ನೀವು ಸ್ವಲ್ಪಮಟ್ಟಿಗೆ ಚಲಿಸಿದ ನಂತರ ಅದನ್ನು 3D ನಲ್ಲಿ ನೋಡಲು ಪ್ರಯತ್ನಿಸಬೇಡಿ. ನಂತರ ಚಿತ್ರಗಳನ್ನು ಒಂದಕ್ಕೊಂದು ಹೋಲಿಕೆ ಮಾಡಿ ಮತ್ತು 3D ವೀಕ್ಷಣೆಯಿಲ್ಲದೆ ಅಡ್ಡ ರೇಖೆಗಳನ್ನು ಬಳಸಿಕೊಂಡು ಚಿತ್ರಗಳನ್ನು ಜೋಡಿಸಿ ಮತ್ತು ನಂತರ 3D ವೀಕ್ಷಣೆಯನ್ನು ಒಮ್ಮೆ ಜೋಡಿಸಿ ಮತ್ತು ಹಿಡಿದಿಟ್ಟುಕೊಳ್ಳುವುದನ್ನು ಪ್ರಾರಂಭಿಸಿ.</value>
+  </data>
+  <data name="Page.Tips.Space" xml:space="preserve">
+    <value>ಈ ಚಿತ್ರಗಳು ಸಾಕಷ್ಟು ಸಂಗ್ರಹಣೆಯನ್ನು ತೆಗೆದುಕೊಳ್ಳಬಹುದು - ನೀವು ಅವುಗಳನ್ನು ಕುಗ್ಗಿಸಬಹುದು.</value>
+  </data>
+  <data name="Page.Tips.Space.Body" xml:space="preserve">
+    <value>ಸೆಟ್ಟಿಂಗ್‌ಗಳ ಪುಟವು ಅಂತಿಮ ಚಿತ್ರದ ರೆಸಲ್ಯೂಶನ್ ಅನ್ನು ಪ್ರಮಾಣಾನುಗುಣವಾಗಿ ಕಡಿಮೆ ಮಾಡುವ ಆಯ್ಕೆಯನ್ನು ಹೊಂದಿದೆ - ನೀವು ಜಾಗವನ್ನು ಉಳಿಸಲು ಬಯಸಿದರೆ ಇದು ಸಹಾಯ ಮಾಡುತ್ತದೆ. ನಿಮ್ಮ ಫೋಟೋವನ್ನು ಕ್ರಾಪ್ ಮಾಡದಿದ್ದಲ್ಲಿ ಅಂತಿಮ ಫಲಿತಾಂಶವು ಎರಡು ಪೂರ್ಣ-ರೆಸಲ್ಯೂಶನ್ ಚಿತ್ರಗಳನ್ನು ಒಟ್ಟಿಗೆ ಸೇರಿಸಿ ಡಬಲ್ ರೆಸಲ್ಯೂಶನ್ ಮಾಡಲು, ಅಂದರೆ ಗುಣಮಟ್ಟವನ್ನು ಗಮನಾರ್ಹವಾಗಿ ಪರಿಣಾಮ ಬೀರದೆ ನೀವು ರೆಸಲ್ಯೂಶನ್‌ನಲ್ಲಿ ದೊಡ್ಡ ಕಡಿತದಿಂದ ತಪ್ಪಿಸಿಕೊಳ್ಳಬಹುದು.</value>
+  </data>
+  <data name="Page.Tips.Turn" xml:space="preserve">
+    <value>ತಿರುಗಬೇಡ.</value>
+  </data>
+  <data name="Page.Tips.Turn.Body" xml:space="preserve">
+    <value>ನೀವು ಚಲಿಸುವಾಗ, ನಿಮ್ಮ ಫೋನ್ ಅನ್ನು ಯಾವುದೇ ದಿಕ್ಕಿನಲ್ಲಿ ತಿರುಗಿಸದಿರಲು ಪ್ರಯತ್ನಿಸಿ, ನೀವು ಬದಿಗೆ ಚಲಿಸುವಾಗ ವಿಷಯದ ಕಡೆಗೆ ತಿರುಗುವ ನೈಸರ್ಗಿಕ ಪ್ರವೃತ್ತಿ ಸೇರಿದಂತೆ. ಕೆಲವು ತಿರುಗುವಿಕೆ ಅಗತ್ಯ (ಕೆಲವೊಮ್ಮೆ), ಆದರೆ ಅದನ್ನು ಕಡಿಮೆ ಮಾಡಲು ಪ್ರಯತ್ನಿಸಿ. ಫೋನ್ ಅನ್ನು ನೇರವಾದ ಸಮತಲವಾದ ರೈಲಿನಲ್ಲಿ ಜೋಡಿಸಲಾಗಿದೆ ಮತ್ತು ಕೇವಲ ಸ್ಲೈಡ್ ಮಾಡಬಹುದು ಎಂದು ಕಲ್ಪಿಸಿಕೊಳ್ಳಿ. ಒಳಮುಖವಾಗಿ ತಿರುಗುವಿಕೆಯು ಮುನ್ಸೂಚಕ ಪರಿಣಾಮವನ್ನು ಉಂಟುಮಾಡಬಹುದು, ಅದು ಮೂಲೆಗಳನ್ನು ಬೆಸೆಯಲು ಕಷ್ಟವಾಗುತ್ತದೆ.</value>
+  </data>
+  <data name="Page.Tips.Window" xml:space="preserve">
+    <value>ಬಲವಾದ ಸ್ಟಿರಿಯೊ ವಿಂಡೋವನ್ನು ಮಾಡಲು ಬಾರ್ಡರ್ ಮತ್ತು ಕ್ರಾಪ್ ಸೇರಿಸಿ.</value>
+  </data>
+  <data name="Page.Tips.Window.Body" xml:space="preserve">
+    <value>ಎರಡು ಕೆಲಸಗಳನ್ನು ಮಾಡುವ ಮೂಲಕ ಆಸಕ್ತಿದಾಯಕ ಸ್ಟಿರಿಯೊ ವಿಂಡೋ ಪರಿಣಾಮವನ್ನು ರಚಿಸಬಹುದು: 1) ಗಡಿಯನ್ನು ಆನ್ ಮಾಡಿ (ಸೆಟ್ಟಿಂಗ್‌ಗಳ ಪುಟದಲ್ಲಿ) ಮತ್ತು 2) ಅಡ್ಡ ವೀಕ್ಷಣೆಗಾಗಿ, ಚಿತ್ರದಲ್ಲಿ ಹೊರಗಿನ ಅಂಚು 3D ಆಗುವವರೆಗೆ ಚಿತ್ರಗಳ ಒಳ ಅಂಚುಗಳನ್ನು ಕ್ರಾಪ್ ಮಾಡಿ (ಕ್ರಾಪ್ ನೀವು ಸಮಾನಾಂತರವಾಗಿ ವೀಕ್ಷಿಸುತ್ತಿದ್ದರೆ ಹೊರಗಿನ ಅಂಚುಗಳು). ಪ್ರಮುಖವಾಗಿ ಎಡ ಚಿತ್ರದ ಬಲ ಅಂಚನ್ನು ಸ್ವಲ್ಪ ಹಿಂದೆ ಕ್ರಾಪ್ ಮಾಡುವುದು ಬಲ ಚಿತ್ರದ ಬಲ ತುದಿಯು ದೃಶ್ಯವನ್ನು ತೋರಿಸುತ್ತದೆ ಮತ್ತು ಪ್ರತಿಯಾಗಿ. ಗಡಿಯನ್ನು ಸೇರಿಸುವುದನ್ನು ಸೆಟ್ಟಿಂಗ್‌ಗಳ ಪುಟದಲ್ಲಿ ಟಾಗಲ್ ಮಾಡಲಾಗಿದೆ. ಇದು ಗೊಂದಲಮಯವಾಗಿದ್ದರೆ, ಒಳಗಿನ ಅಂಚುಗಳಿಂದ ಒಂದು ಗುಂಪನ್ನು ಕ್ರಾಪ್ ಮಾಡಿ ಮತ್ತು ಅದು ಸ್ಪಷ್ಟವಾಗಲು ಪ್ರಾರಂಭವಾಗುತ್ತದೆ. ಒಳಗಿನ ಅಂಚುಗಳ ಕ್ರಾಪ್ ಬಟನ್ ಈ ರೀತಿ ಕಾಣುತ್ತದೆ:</value>
+  </data>
+  <data name="Button.Code" xml:space="preserve">
+    <value>ಕೋಡ್ ನೋಡಿ</value>
+  </data>
+  <data name="Button.Developer" xml:space="preserve">
+    <value>ಡೆವಲಪರ್ ಬಗ್ಗೆ</value>
+  </data>
+  <data name="Button.EmailMe" xml:space="preserve">
+    <value>ನನಗೆ ಇಮೇಲ್ ಮಾಡಿ</value>
+  </data>
+  <data name="Button.GitHub" xml:space="preserve">
+    <value>GitHub ನಲ್ಲಿ ಸಮಸ್ಯೆಯನ್ನು ಸೇರಿಸಿ</value>
+  </data>
+  <data name="Button.Press" xml:space="preserve">
+    <value>ಎರಡೂ ಸಾಧನಗಳಲ್ಲಿ ಕ್ಯಾಮರಾ ಪರದೆಗೆ ಹಿಂತಿರುಗಿ ಮತ್ತು ಕೆಳಗಿನ ಮೂಲೆಯಲ್ಲಿರುವ ಜೋಡಿ ಬಟನ್ ಅನ್ನು ಟ್ಯಾಪ್ ಮಾಡಿ</value>
+  </data>
+  <data name="Button.Primary" xml:space="preserve">
+    <value>ಪ್ರೈಮರಿಯಲ್ಲಿ ಇಲ್ಲಿ ಟ್ಯಾಪ್ ಮಾಡಿ</value>
+  </data>
+  <data name="Button.Privacy" xml:space="preserve">
+    <value>ಗೌಪ್ಯತಾ ನೀತಿ</value>
+  </data>
+  <data name="Button.Secondary" xml:space="preserve">
+    <value>ಸೆಕೆಂಡರಿಯಲ್ಲಿ ಇಲ್ಲಿ ಟ್ಯಾಪ್ ಮಾಡಿ</value>
+  </data>
+  <data name="Button.Test" xml:space="preserve">
+    <value>ಪರೀಕ್ಷಾ ಪೂರ್ವ ಬಿಡುಗಡೆ ಆವೃತ್ತಿಗಳು</value>
+  </data>
+  <data name="Button.Wi-Fi" xml:space="preserve">
+    <value>ಎರಡೂ ಸಾಧನಗಳಲ್ಲಿ Wi-Fi ಸಕ್ರಿಯಗೊಳಿಸಲಾಗಿದೆಯೇ ಎಂಬುದನ್ನು ಖಚಿತಪಡಿಸಿಕೊಳ್ಳಿ (ಆದರೆ ಅದನ್ನು ಯಾವುದಕ್ಕೂ ಸಂಪರ್ಕಿಸುವ ಅಗತ್ಯವಿಲ್ಲ)</value>
+  </data>
+  <data name="Page.Pairing.1" xml:space="preserve">
+    <value>ನೀವು CrossCam ಅನ್ನು ಸ್ಥಾಪಿಸಿದ ಎರಡು ಸಾಧನಗಳನ್ನು ಹೊಂದಿದ್ದರೆ, ಎರಡು ದೃಷ್ಟಿಕೋನಗಳಿಂದ ಏಕಕಾಲದಲ್ಲಿ ಫೋಟೋಗಳನ್ನು ತೆಗೆದುಕೊಳ್ಳಲು ನೀವು ಅವುಗಳನ್ನು ಸಂಪರ್ಕಿಸಬಹುದು. ಒಂದೇ ಕ್ಷಣದಲ್ಲಿ ಎರಡು ಫೋಟೋಗಳನ್ನು ತೆಗೆದುಕೊಳ್ಳುವುದು ಅತ್ಯುತ್ತಮ ಸ್ಟೀರಿಯೋಗ್ರಾಮ್‌ಗಳನ್ನು ಸಾಧ್ಯವಾಗಿಸುತ್ತದೆ.
+
+ಈ ವೈಶಿಷ್ಟ್ಯವು ಇನ್ನೂ ಪ್ರಾಯೋಗಿಕವಾಗಿದೆ ಮತ್ತು ಸಮಸ್ಯೆಗಳನ್ನು ಹೊಂದಿರಬಹುದು ಎಂಬುದನ್ನು ದಯವಿಟ್ಟು ಗಮನಿಸಿ. ಇದು ಎಲ್ಲಾ ಸಮಯದಲ್ಲೂ ಸಂಪೂರ್ಣವಾಗಿ ಕೆಲಸ ಮಾಡದಿರಬಹುದು ಮತ್ತು ಅದು ನಿಮ್ಮ ಬ್ಯಾಟರಿಯನ್ನು ತಿನ್ನಬಹುದು. ಈ ಸಮಯದಲ್ಲಿ ಸಂಪರ್ಕಿಸಲು ಸಾಧನಗಳು ಒಂದೇ ವೇದಿಕೆಯಾಗಿರಬೇಕು (Android ಅಥವಾ ಎರಡೂ iOS ಎರಡೂ) ಎಂಬುದನ್ನು ದಯವಿಟ್ಟು ಗಮನಿಸಿ.
+
+ಒಂದೇ ಸಾಧನ ಮತ್ತು ಕ್ರಾಸ್‌ಕ್ಯಾಮ್ ಅನ್ನು ಬಳಸಿಕೊಂಡು *ಪರಿಪೂರ್ಣ* ಸಿಂಕ್ರೊನೈಸೇಶನ್ ಪಡೆಯಲು ಒಂದು ಮಾರ್ಗವೆಂದರೆ "ಸಿಂಗಲ್-ಶಾಟ್ ಮಿರರ್" ವಿಧಾನವನ್ನು ಬಳಸುವುದು. ನೀವು ಅದನ್ನು ಸೆಟ್ಟಿಂಗ್‌ಗಳ ಪುಟದಲ್ಲಿ ಆನ್ ಮಾಡಬಹುದು ಮತ್ತು ನೀವು FAQ ಪುಟದಲ್ಲಿ ಅದರ ಬಗ್ಗೆ ಓದಬಹುದು.
+
+ಎರಡು ಸಾಧನಗಳನ್ನು ಒಟ್ಟಿಗೆ ಬಳಸುವ ಮೊದಲು ಅವುಗಳ ಪಾತ್ರಗಳನ್ನು ನಿಯೋಜಿಸಬೇಕು. ಪ್ರಾಥಮಿಕ ಸಾಧನವು ಎರಡೂ ಪೂರ್ವವೀಕ್ಷಣೆಗಳನ್ನು ತೋರಿಸುತ್ತದೆ, ಕ್ಯಾಪ್ಚರ್ ಅನ್ನು ಪ್ರಚೋದಿಸುತ್ತದೆ ಮತ್ತು ಅಂತಿಮ ಕ್ಯಾಪ್ಚರ್‌ಗಳನ್ನು ಹಿಡಿದಿಟ್ಟುಕೊಳ್ಳುತ್ತದೆ/ಉಳಿಸುತ್ತದೆ. ಪಾತ್ರಗಳನ್ನು ನಿಯೋಜಿಸಲು, ಎರಡೂ ಸಾಧನಗಳನ್ನು ಈ ಪುಟಕ್ಕೆ ನ್ಯಾವಿಗೇಟ್ ಮಾಡಿ ಮತ್ತು ನಂತರ ಕೆಳಗಿನ ಹಂತಗಳನ್ನು ಅನುಸರಿಸಿ:</value>
+  </data>
+  <data name="Page.Pairing.2" xml:space="preserve">
+    <value>ನಿಮಗೆ ತೊಂದರೆ ಇದ್ದರೆ, ದಯವಿಟ್ಟು ಗಮನಿಸಿ:
+ • ಜೋಡಿಸುವ ಪ್ರಕ್ರಿಯೆಯನ್ನು ಪ್ರಾರಂಭಿಸಿದ ನಂತರ, ಜೋಡಿಸುವ ಬಟನ್ ಅನ್ನು ನಿಲ್ಲಿಸಲು ಅಥವಾ ಸಂಪರ್ಕ ಕಡಿತಗೊಳಿಸಲು ಯಾವುದೇ ಸಮಯದಲ್ಲಿ ಮತ್ತೆ ಟ್ಯಾಪ್ ಮಾಡಬಹುದು.
+ • ಇದು ಎರಡೂ ಸಾಧನಗಳಲ್ಲಿ ಜೋಡಿಸುವುದನ್ನು ನಿಲ್ಲಿಸಲು ಮತ್ತು ಅದೇ ಸಮಯದಲ್ಲಿ ಅದನ್ನು ಮರುಪ್ರಾರಂಭಿಸಲು ಸಹಾಯ ಮಾಡಬಹುದು.
+ • ನಿಮ್ಮ ವೈ-ಫೈ ಅಥವಾ ಡೇಟಾ ನೆಟ್‌ವರ್ಕ್‌ಗಳು ಕಾರ್ಯನಿರ್ವಹಿಸುತ್ತಿದ್ದರೆ ಅವುಗಳಿಂದ ಸಂಪರ್ಕ ಕಡಿತಗೊಳಿಸಲು ಇದು ಸಹಾಯ ಮಾಡಬಹುದು.
+ • ಪ್ರತಿ ಕ್ಯಾಮರಾ ವಿಭಿನ್ನವಾಗಿದೆ. ಈ ವ್ಯತ್ಯಾಸಗಳು ಕೋನೀಯ ದೃಷ್ಟಿಕೋನ, ಗಮನ, ಮಾನ್ಯತೆ ಮತ್ತು ಬಿಳಿ ಸಮತೋಲನದ ನಡವಳಿಕೆ, ಸಮಯ ಮತ್ತು ಹೆಚ್ಚಿನದನ್ನು ಒಳಗೊಂಡಿರಬಹುದು. ಒಂದೇ ಮಾದರಿಯ ಎರಡು ಫೋನ್ ಕೂಡ ಸ್ವಲ್ಪ ವಿಭಿನ್ನವಾಗಿ ವರ್ತಿಸುತ್ತದೆ. ನಾನು ಒಂದೇ ರೀತಿಯ ಹಳೆಯ ಫೋನ್‌ಗಳ ಜೋಡಿಯನ್ನು ಬಳಸಲು ಬಯಸುತ್ತೇನೆ (ನನ್ನ ಸಂದರ್ಭದಲ್ಲಿ, ಒಂದು ಜೋಡಿ iPhone 6).
+ • ಕ್ರಾಸ್‌ಕ್ಯಾಮ್ ಸಾಫ್ಟ್‌ವೇರ್ ಆಗಿದೆ, ಹಾರ್ಡ್‌ವೇರ್ ಅಲ್ಲ, ಆದ್ದರಿಂದ ಫೋಟೋಗಳನ್ನು ಸೆರೆಹಿಡಿಯುವುದು ಸ್ವಲ್ಪಮಟ್ಟಿಗೆ ಸಿಂಕ್ ಆಗದಿರಬಹುದು, ಇದು ಸೆರೆಹಿಡಿಯುವಿಕೆಯನ್ನು ಪ್ರಚೋದಿಸಿದ ನಿಖರವಾದ ಕ್ಷಣದಲ್ಲಿ ಪ್ರೊಸೆಸರ್‌ಗಳು ಮತ್ತು ಮೆಮೊರಿಯು ಬೇರೆ ಏನು ಮಾಡುತ್ತಿದೆ ಎಂಬುದನ್ನು ಅವಲಂಬಿಸಿರುತ್ತದೆ. ಪರಿಣಾಮವಾಗಿ, ಸಿಂಕ್ರೊನೈಸೇಶನ್ ಕೆಲವೊಮ್ಮೆ ಪರಿಪೂರ್ಣವಾಗಿಲ್ಲದಿರಬಹುದು, ಆದರೆ ಇದು ಸಾಮಾನ್ಯವಾಗಿ ತುಂಬಾ ಹತ್ತಿರವಾಗಿರಬೇಕು.</value>
+  </data>
+  <data name="Page.Pairing.Again" xml:space="preserve">
+    <value>ನಂತರ ಮತ್ತೆ ಸಂಪರ್ಕಿಸಲು, ನೀವು ವೈ-ಫೈ ಸಕ್ರಿಯಗೊಳಿಸಿರುವುದನ್ನು ಖಚಿತಪಡಿಸಿಕೊಳ್ಳಿ ಮತ್ತು ನಂತರ ಎರಡೂ ಸಾಧನಗಳಲ್ಲಿ ಹೋಮ್ ಸ್ಕ್ರೀನ್‌ನಲ್ಲಿರುವ ಸಂಪರ್ಕ ಬಟನ್ ಅನ್ನು ಟ್ಯಾಪ್ ಮಾಡಿ.</value>
+  </data>
+  <data name="Page.Pairing.LocalNetworkAccess" xml:space="preserve">
+    <value>CrossCam ಗೆ ಸ್ಥಳೀಯ ನೆಟ್‌ವರ್ಕ್ ಪ್ರವೇಶ ಅನುಮತಿಯ ಅಗತ್ಯವಿದೆ. CrossCam ವಾಸ್ತವವಾಗಿ ಸ್ಥಳೀಯ ನೆಟ್‌ವರ್ಕ್ ಅನ್ನು ಬಳಸುವುದಿಲ್ಲ, ಆದರೆ ಸಾಧನಗಳನ್ನು ಸ್ಕ್ಯಾನ್ ಮಾಡಲು Wi-Fi ಆಂಟೆನಾವನ್ನು ಬಳಸಲು iOS ಗೆ CrossCam ಈ ಅನುಮತಿಯನ್ನು ಪಡೆಯುವುದು ಅಗತ್ಯವಾಗಿದೆ. CrossCam ಒಮ್ಮೆ ಈ ಅನುಮತಿಯನ್ನು ಕೇಳುತ್ತದೆ - ಅನುಮತಿಯನ್ನು ನಿರಾಕರಿಸಿದರೆ ನೀವೇ ಹೋಗಿ ಸೆಟ್ಟಿಂಗ್‌ಗಳ ಅಪ್ಲಿಕೇಶನ್‌ನಲ್ಲಿ ಸ್ವಿಚ್ ಅನ್ನು ಫ್ಲಿಪ್ ಮಾಡಬೇಕಾಗುತ್ತದೆ.</value>
+  </data>
+  <data name="Page.Pairing.Location" xml:space="preserve">
+    <value>ನಿಮ್ಮ ಸಾಧನಗಳನ್ನು ಸಂಪರ್ಕಿಸಲು CrossCam ಅನುಮತಿಗಳನ್ನು ಮತ್ತು ಕಾಂಪೊನೆಂಟ್‌ಗಳ ಮೇಲೆ ಪವರ್ ಅನ್ನು ವಿನಂತಿಸುತ್ತದೆ. ದಯವಿಟ್ಟು ಗಮನಿಸಿ: CrossCam ಗೆ ಸ್ಥಳ ಅನುಮತಿಯ ಅಗತ್ಯವಿದೆ ಮತ್ತು ದ್ವಿತೀಯ ಸಾಧನಕ್ಕೆ ಸಂಪರ್ಕಿಸಲು ಪ್ರಾಥಮಿಕ ಸಾಧನದಲ್ಲಿ ಸ್ಥಳ ಸೇವೆಗಳನ್ನು ಆನ್ ಮಾಡಬೇಕು. ಇದು ಕೇವಲ Android ಅವಶ್ಯಕತೆಯಾಗಿದೆ ಮತ್ತು ಸಂಪೂರ್ಣವಾಗಿ ನನ್ನ ನಿಯಂತ್ರಣದಿಂದ ಹೊರಗಿದೆ. CrossCam ವಾಸ್ತವವಾಗಿ ನಿಮ್ಮ ಸ್ಥಳವನ್ನು ಯಾವುದೇ ರೀತಿಯಲ್ಲಿ ಬಳಸುವುದಿಲ್ಲ, ಆದರೆ ಹತ್ತಿರದ ಸಾಧನಗಳನ್ನು ಹುಡುಕುವ (ಮತ್ತು ಕಂಡುಹಿಡಿಯುವ) ಕ್ರಿಯೆಯನ್ನು ಸೈದ್ಧಾಂತಿಕವಾಗಿ ಸ್ಥೂಲವಾಗಿ ನಿಮ್ಮನ್ನು ಪತ್ತೆಹಚ್ಚಲು ಬಳಸಬಹುದಾಗಿರುವುದರಿಂದ, ನಿಮ್ಮ ಸ್ಥಳವನ್ನು ಪ್ರವೇಶಿಸಲು CrossCam ಗೆ ಅನುಮತಿಯ ಅಗತ್ಯವಿದೆ.</value>
+  </data>
+  <data name="Page.Pairing.Permissions" xml:space="preserve">
+    <value>ಅನುಮತಿಗಳ ಬಗ್ಗೆ ಟಿಪ್ಪಣಿ:</value>
+  </data>
+  <data name="Page.Pairing.Title" xml:space="preserve">
+    <value>ಜೋಡಿಸುವುದು</value>
+  </data>
+  <data name="Button.Back" xml:space="preserve">
+    <value>&lt; ಹಿಂದೆ</value>
+  </data>
+  <data name="Page.MorePictures.CrossViewSubreddit" xml:space="preserve">
+    <value>ಕ್ರಾಸ್ ವ್ಯೂ ಸಬ್ರೆಡಿಟ್</value>
+  </data>
+  <data name="Page.MorePictures.FacebookGroup" xml:space="preserve">
+    <value>ಸ್ಟೀರಿಯೋಸ್ಕೋಪಿಕ್ 3D ಫೇಸ್ಬುಕ್ ಗುಂಪು</value>
+  </data>
+  <data name="Page.MorePictures.GoogleDoc" xml:space="preserve">
+    <value>Google ಡಾಕ್ ಆಫ್ ಗ್ರೇಟ್ ಸ್ಟಫ್</value>
+  </data>
+  <data name="Page.MorePictures.Instagram" xml:space="preserve">
+    <value>Instagram ಸ್ಟೀರಿಯೋಸ್ಕೋಪಿಕ್ ಟ್ಯಾಗ್</value>
+  </data>
+  <data name="Page.MorePictures.Mine" xml:space="preserve">
+    <value>ನಾನು ತೆಗೆದ ಚಿತ್ರಗಳನ್ನು ನೋಡಿ</value>
+  </data>
+  <data name="Page.MorePictures.ParallelViewSubreddit" xml:space="preserve">
+    <value>ಸಮಾನಾಂತರ ವೀಕ್ಷಣೆ ಸಬ್ರೆಡಿಟ್</value>
+  </data>
+  <data name="Page.Settings.Alignment" xml:space="preserve">
+    <value>ಸ್ವಯಂಚಾಲಿತ ಜೋಡಣೆ</value>
+  </data>
+  <data name="Page.Settings.Analytics" xml:space="preserve">
+    <value>CrossCam ಸುಧಾರಿಸಲು ಸಹಾಯ ಮಾಡಲು ಅನಾಮಧೇಯ ಬಳಕೆ ಮತ್ತು ದೋಷ ಡೇಟಾವನ್ನು ಹಂಚಿಕೊಳ್ಳಿ</value>
+  </data>
+  <data name="Page.Settings.Border" xml:space="preserve">
+    <value>ಗಡಿ</value>
+  </data>
+  <data name="Page.Settings.Camera" xml:space="preserve">
+    <value>ಕ್ಯಾಮೆರಾ</value>
+  </data>
+  <data name="Page.Settings.Defaults" xml:space="preserve">
+    <value>ಡೀಫಾಲ್ಟ್‌ಗಳಿಗೆ ಮರುಹೊಂದಿಸಿ</value>
+  </data>
+  <data name="Page.Settings.Editing" xml:space="preserve">
+    <value>ಸಂಪಾದನೆ</value>
+  </data>
+  <data name="Page.Settings.ErrorEmail" xml:space="preserve">
+    <value>ದೋಷಗಳು ಸಂಭವಿಸಿದಾಗ ಇಮೇಲ್ ಕಳುಹಿಸಲು ಪ್ರಾಂಪ್ಟ್ ಮಾಡಿ</value>
+  </data>
+  <data name="Page.Settings.Guides" xml:space="preserve">
+    <value>ಮಾರ್ಗದರ್ಶಿಗಳನ್ನು ಸೆರೆಹಿಡಿಯಿರಿ</value>
+  </data>
+  <data name="Page.Settings.Pairing" xml:space="preserve">
+    <value>ಜೋಡಿಸುವುದು</value>
+  </data>
+  <data name="Page.Settings.Preview" xml:space="preserve">
+    <value>ಪೂರ್ವವೀಕ್ಷಣೆ ವೀಕ್ಷಣಾ ವಿಧಾನ</value>
+  </data>
+  <data name="Page.Settings.Saving" xml:space="preserve">
+    <value>ಉಳಿಸಲಾಗುತ್ತಿದೆ</value>
+  </data>
+  <data name="Page.TipMe.1" xml:space="preserve">
+    <value>CrossCam ಬಳಸಲು ಉಚಿತವಾಗಿದೆ, ಜಾಹೀರಾತು-ಮುಕ್ತ, ಮುಕ್ತ ಮೂಲವಾಗಿದೆ, ನಿಮ್ಮಿಂದ ಯಾವುದೇ ವೈಯಕ್ತಿಕ ಮಾಹಿತಿಯನ್ನು ಸಂಗ್ರಹಿಸುವುದಿಲ್ಲ ಮತ್ತು ಪ್ರತಿಯೊಂದು ವೈಶಿಷ್ಟ್ಯಕ್ಕೂ ನಿಮಗೆ ಸಂಪೂರ್ಣ ಪ್ರವೇಶವನ್ನು ನೀಡುತ್ತದೆ. ನಾನು ಕ್ರಾಸ್‌ಕ್ಯಾಮ್‌ನಲ್ಲಿ ಕೆಲಸ ಮಾಡಲು ಇಷ್ಟಪಡುತ್ತೇನೆ ಆದರೆ ಇದು ಸಾಕಷ್ಟು ಸಮಯ ಮತ್ತು ಶ್ರಮವನ್ನು ತೆಗೆದುಕೊಳ್ಳುತ್ತದೆ. ಜನರು ನನಗೆ ಕಳುಹಿಸಲು ನಿರ್ಧರಿಸಬಹುದಾದ ಸಲಹೆಗಳನ್ನು ಹೊರತುಪಡಿಸಿ ನಾನು ಕ್ರಾಸ್‌ಕ್ಯಾಮ್‌ನಿಂದ ಯಾವುದೇ ಹಣವನ್ನು ಗಳಿಸುವುದಿಲ್ಲ.</value>
+  </data>
+  <data name="Page.TipMe.2" xml:space="preserve">
+    <value>ನೀವು ಕ್ರಾಸ್‌ಕ್ಯಾಮ್ ಅನ್ನು ಇಷ್ಟಪಟ್ಟರೆ ಮತ್ತು ಸಮರ್ಥರಾಗಿದ್ದರೆ, ದಯವಿಟ್ಟು ನನಗೆ ಸಲಹೆಯನ್ನು ಕಳುಹಿಸಲು ಪರಿಗಣಿಸಿ.</value>
+  </data>
+  <data name="Page.TipMe.Ko-fi" xml:space="preserve">
+    <value>ಕೋ-ಫೈ</value>
+  </data>
+  <data name="Page.TipMe.Patreon" xml:space="preserve">
+    <value>ಪ್ಯಾಟ್ರಿಯಾನ್</value>
+  </data>
+  <data name="Page.TipMe.PayPal" xml:space="preserve">
+    <value>ಪೇಪಾಲ್</value>
+  </data>
+  <data name="Page.TipMe.Tipped" xml:space="preserve">
+    <value>ನನಗೆ ಸುಳಿವು ನೀಡಲಾಗಿದೆ</value>
+  </data>
+  <data name="Page.TipMe.TippedTimes" xml:space="preserve">
+    <value>ಬಾರಿ, ಒಟ್ಟು</value>
+  </data>
+  <data name="Page.TipMe.Venmo" xml:space="preserve">
+    <value>ವೆನ್ಮೋ</value>
+  </data>
+  <data name="Title.MorePictures" xml:space="preserve">
+    <value>ಇನ್ನಷ್ಟು ಚಿತ್ರಗಳನ್ನು ನೋಡಿ</value>
+  </data>
+  <data name="Title.Settings" xml:space="preserve">
+    <value>ಸಂಯೋಜನೆಗಳು</value>
+  </data>
+  <data name="Title.TipMe" xml:space="preserve">
+    <value>ಸಲಹೆಗಳು ಮೆಚ್ಚುಗೆ ಪಡೆದಿವೆ!</value>
+  </data>
+  <data name="Settings.Alignment.Advanced" xml:space="preserve">
+    <value>ಸುಧಾರಿತ ಜೋಡಣೆ ಸೆಟ್ಟಿಂಗ್‌ಗಳನ್ನು ತೋರಿಸಿ</value>
+  </data>
+  <data name="Settings.Alignment.Ecc" xml:space="preserve">
+    <value>ಮೊದಲು ಯಾವಾಗಲೂ ECC ಜೋಡಣೆಯನ್ನು ಬಳಸಲು ಪ್ರಯತ್ನಿಸಿ</value>
+  </data>
+  <data name="Settings.Alignment.Keypoints" xml:space="preserve">
+    <value>ಯಾವಾಗಲೂ ಕೀಪಾಯಿಂಟ್ ಜೋಡಣೆಯನ್ನು ಮೊದಲು ಬಳಸಲು ಪ್ರಯತ್ನಿಸಿ</value>
+  </data>
+  <data name="Settings.Alignment.On" xml:space="preserve">
+    <value>ಸೆರೆಹಿಡಿದ ನಂತರ ಸ್ವಯಂಚಾಲಿತವಾಗಿ ಜೋಡಿಸಿ</value>
+  </data>
+  <data name="Settings.Border.Color" xml:space="preserve">
+    <value>ಗಡಿ ಬಣ್ಣ</value>
+  </data>
+  <data name="Settings.Border.FuseGuide" xml:space="preserve">
+    <value>ಮೇಲೆ ಫ್ಯೂಸ್ ಗೈಡ್ ಸೇರಿಸಿ (ಪ್ರತಿ ಬದಿಯ ಮೇಲೆ ಒಂದು ಚುಕ್ಕೆ)</value>
+  </data>
+  <data name="Settings.Border.On" xml:space="preserve">
+    <value>ಗಡಿ ಸೇರಿಸಿ</value>
+  </data>
+  <data name="Settings.Border.Prompt" xml:space="preserve">
+    <value>ಲೋಡಿಂಗ್ ಸಮಯದಲ್ಲಿ ಪತ್ತೆಯಾದಾಗ ಕ್ಲಿಪ್ ಬಾರ್ಡರ್ ಆಫ್ ಮಾಡಲು ಪ್ರಾಂಪ್ಟ್ ಮಾಡಿ</value>
+  </data>
+  <data name="Settings.Border.Thickness" xml:space="preserve">
+    <value>ಗಡಿ ದಪ್ಪ (ಅಗಲದ ಶೇಕಡಾ ಹತ್ತನೇ ಭಾಗ)</value>
+  </data>
+  <data name="Settings.Camera.Camera1" xml:space="preserve">
+    <value>ಬಲವಂತ ಕ್ಯಾಮರಾ1 API (ನೀವು ವಿಲಕ್ಷಣತೆಯನ್ನು ಅನುಭವಿಸುತ್ತಿದ್ದರೆ ಸಹಾಯಕವಾಗಬಹುದು ಆದರೆ ಸೀಮಿತ ಕಾರ್ಯನಿರ್ವಹಣೆಗೆ ಕಾರಣವಾಗುತ್ತದೆ, ಪರಿಣಾಮ ಬೀರಲು ಬಲದಿಂದ ನಿರ್ಗಮಿಸುವ/ಮರುಪ್ರಾರಂಭಿಸುವ ಅಗತ್ಯವಿದೆ)</value>
+  </data>
+  <data name="Settings.Camera.Camera2" xml:space="preserve">
+    <value>ಬಲವಂತ ಕ್ಯಾಮರಾ2 API (Android 6 ಅಥವಾ ಅದಕ್ಕಿಂತ ಹೆಚ್ಚಿನದಾಗಿರಬೇಕು, ನೀವು ದೋಷಗಳನ್ನು ಅನುಭವಿಸುತ್ತಿದ್ದರೆ ಸಹಾಯಕವಾಗಬಹುದು ಆದರೆ ಹೆಚ್ಚಿನದನ್ನು ಮಾಡಬಹುದು, ಪರಿಣಾಮ ಬೀರಲು ಬಲದಿಂದ ನಿರ್ಗಮಿಸುವ/ಮರುಪ್ರಾರಂಭಿಸುವ ಅಗತ್ಯವಿದೆ)</value>
+  </data>
+  <data name="Settings.Camera.LandscapeCaptureHorizontal" xml:space="preserve">
+    <value>ಲ್ಯಾಂಡ್‌ಸ್ಕೇಪ್ ಕ್ಯಾಪ್ಚರ್ ಬಟನ್ ಸಮತಲ ನಿಯೋಜನೆ</value>
+  </data>
+  <data name="Settings.Camera.LandscapeCaptureVertical" xml:space="preserve">
+    <value>ಲ್ಯಾಂಡ್‌ಸ್ಕೇಪ್ ಕ್ಯಾಪ್ಚರ್ ಬಟನ್ ಲಂಬ ನಿಯೋಜನೆ</value>
+  </data>
+  <data name="Settings.Camera.Lock" xml:space="preserve">
+    <value>ಮೊದಲ ಚಿತ್ರದಿಂದ ಫೋಕಸ್ ಮಾಡಲು ಮತ್ತು ಎಕ್ಸ್‌ಪೋಸರ್ ಮಾಡಲು ಎರಡನೇ ಚಿತ್ರಕ್ಕೆ ಫೋಕಸ್ ಮತ್ತು ಎಕ್ಸ್‌ಪೋಸರ್ ಅನ್ನು ಲಾಕ್ ಮಾಡಿ</value>
+  </data>
+  <data name="Settings.Camera.Pair" xml:space="preserve">
+    <value>ಜೋಡಿ ಬಟನ್ ಸಮತಲ ನಿಯೋಜನೆ (ಕ್ಯಾಪ್ಚರ್ ಬಟನ್ ಕೇಂದ್ರೀಕೃತವಾಗಿರುವಾಗ)</value>
+  </data>
+  <data name="Settings.Camera.PointFocus" xml:space="preserve">
+    <value>ಫೋಕಸ್ ಮಾಡಲು ಟ್ಯಾಪ್ ಮಾಡಿ, ನಿರಂತರ ಫೋಕಸ್‌ಗೆ ಹಿಂತಿರುಗಲು ಡಬಲ್ ಟ್ಯಾಪ್ ಮಾಡಿ (ಅಥವಾ ಉಳಿಸಿ ಅಥವಾ ತೆರವುಗೊಳಿಸಿ)</value>
+  </data>
+  <data name="Settings.Camera.PortraitCapture" xml:space="preserve">
+    <value>ಪೋರ್ಟ್ರೇಟ್ ಕ್ಯಾಪ್ಚರ್ ಬಟನ್ ಪ್ಲೇಸ್‌ಮೆಂಟ್</value>
+  </data>
+  <data name="Settings.Editing.Align" xml:space="preserve">
+    <value>ಗರಿಷ್ಠ ಲಂಬ ಜೋಡಣೆಯ ಪ್ರಮಾಣ</value>
+  </data>
+  <data name="Settings.Editing.Keystone" xml:space="preserve">
+    <value>ಗರಿಷ್ಠ ಕೀಸ್ಟೋನ್</value>
+  </data>
+  <data name="Settings.Editing.Rotation" xml:space="preserve">
+    <value>ಗರಿಷ್ಠ ತಿರುಗುವಿಕೆಯ ಡಿಗ್ರಿಗಳು</value>
+  </data>
+  <data name="Settings.Editing.SideCrop" xml:space="preserve">
+    <value>ಗರಿಷ್ಟ ಅಡ್ಡ ಬೆಳೆ ಪ್ರಮಾಣ</value>
+  </data>
+  <data name="Settings.Editing.TopCrop" xml:space="preserve">
+    <value>ಗರಿಷ್ಠ ಮೇಲಿನ/ಕೆಳಗಿನ ಬೆಳೆ ಪ್ರಮಾಣ</value>
+  </data>
+  <data name="Settings.Editing.Zoom" xml:space="preserve">
+    <value>ಗರಿಷ್ಠ ಜೂಮ್ ಪ್ರಮಾಣ</value>
+  </data>
+  <data name="Settings.Guides.Donut" xml:space="preserve">
+    <value>ಡೋನಟ್ ಮಾರ್ಗದರ್ಶಿಯನ್ನು ತೋರಿಸಿ (ಟೋ-ಇನ್‌ಗೆ ಕಾರಣವಾಗುತ್ತದೆ, ಆದ್ದರಿಂದ ಕೀಸ್ಟೋನ್ ಎಡಿಟಿಂಗ್ ಅಗತ್ಯವಿರಬಹುದು)</value>
+  </data>
+  <data name="Settings.Guides.Fuse" xml:space="preserve">
+    <value>ಫ್ಯೂಸ್ ಗೈಡ್ ತೋರಿಸಿ (ಪ್ರತಿ ಬದಿಯ ಮೇಲಿರುವ ಚುಕ್ಕೆ)</value>
+  </data>
+  <data name="Settings.Guides.LineColor" xml:space="preserve">
+    <value>ವಿವಿಧ ಬಣ್ಣದ ಗೆರೆಗಳು</value>
+  </data>
+  <data name="Settings.Guides.Lines" xml:space="preserve">
+    <value>ರೇಖೆಗಳು ಗೋಚರಿಸುತ್ತವೆ</value>
+  </data>
+  <data name="Settings.Guides.Roll" xml:space="preserve">
+    <value>ರೋಲ್ ಮಾರ್ಗದರ್ಶಿ ಗೋಚರಿಸುತ್ತದೆ</value>
+  </data>
+  <data name="Settings.Pair.CaptureDelay" xml:space="preserve">
+    <value>ಕ್ಯಾಪ್ಚರ್ ಕ್ಷಣ ಹೆಚ್ಚುವರಿ ವಿಳಂಬ (ಮಿಸೆ) (ಈ ಸಾಧನದಲ್ಲಿ ಮಾತ್ರ ಗುರಿ ಕ್ಯಾಪ್ಚರ್ ಕ್ಷಣಕ್ಕೆ ಹೆಚ್ಚುವರಿ ವಿಳಂಬವನ್ನು ಸೇರಿಸುತ್ತದೆ)</value>
+  </data>
+  <data name="Settings.Pair.Countdown" xml:space="preserve">
+    <value>ಕ್ಯಾಪ್ಚರ್ ಕೌಂಟ್ಡೌನ್ ಉದ್ದ (ಟೈಮರ್)</value>
+  </data>
+  <data name="Settings.Pair.Fov" xml:space="preserve">
+    <value>ವೀಕ್ಷಣೆಯ ಕ್ಷೇತ್ರ ತಿದ್ದುಪಡಿ</value>
+  </data>
+  <data name="Settings.Pair.FovNotSet" xml:space="preserve">
+    <value>FOV ತಿದ್ದುಪಡಿಯನ್ನು ಹೊಂದಿಸಲಾಗಿಲ್ಲ (ಸೆಟಪ್ ಮೂಲಕ ನಡೆಯಲು ಜೋಡಿಯಾಗಿರುವ ಸಾಧನಗಳೊಂದಿಗೆ ಕ್ಯಾಪ್ಚರ್ ಮಾಡಿ).</value>
+  </data>
+  <data name="Settings.Pair.FovReset" xml:space="preserve">
+    <value>ಮರುಹೊಂದಿಸಿ</value>
+  </data>
+  <data name="Settings.Pair.Go" xml:space="preserve">
+    <value>ಪೇರಿಂಗ್ ಸೆಟಪ್ ಪುಟಕ್ಕೆ ಹೋಗಿ</value>
+  </data>
+  <data name="Settings.Pair.NoRole" xml:space="preserve">
+    <value>ಪಾತ್ರವನ್ನು ಆಯ್ಕೆ ಮಾಡಲಾಗಿಲ್ಲ</value>
+  </data>
+  <data name="Settings.Pair.PreviewDelay" xml:space="preserve">
+    <value>ಪೂರ್ವವೀಕ್ಷಣೆ ಫ್ರೇಮ್ ವಿಳಂಬ (ಹೆಚ್ಚಿನ ಸಂಖ್ಯೆಯು ಫ್ರೇಮ್ ದರವನ್ನು ಕಡಿಮೆ ಮಾಡುತ್ತದೆ ಆದರೆ ಬ್ಯಾಟರಿಯನ್ನು ಉಳಿಸುತ್ತದೆ)</value>
+  </data>
+  <data name="Settings.Pair.Primary" xml:space="preserve">
+    <value>ಪ್ರಾಥಮಿಕ:</value>
+  </data>
+  <data name="Settings.Pair.PrimaryRole" xml:space="preserve">
+    <value>ಪಾತ್ರ: ಪ್ರಾಥಮಿಕ</value>
+  </data>
+  <data name="Settings.Pair.Sample" xml:space="preserve">
+    <value>ಗಡಿಯಾರ ಮಾದರಿ ಎಣಿಕೆ (ಕಡಿಮೆ ಸಂಖ್ಯೆಯು ಆರಂಭಿಕ ಸಿಂಕ್‌ಗೆ ಅಗತ್ಯವಿರುವ ಸಮಯವನ್ನು ಕಡಿಮೆ ಮಾಡುತ್ತದೆ ಆದರೆ ಸಿಂಕ್ ನಿಖರತೆಯನ್ನು ಕಡಿಮೆ ಮಾಡಬಹುದು)</value>
+  </data>
+  <data name="Settings.Pair.Secondary" xml:space="preserve">
+    <value>ದ್ವಿತೀಯ:</value>
+  </data>
+  <data name="Settings.Pair.SecondaryRole" xml:space="preserve">
+    <value>ಪಾತ್ರ: ದ್ವಿತೀಯ</value>
+  </data>
+  <data name="Settings.Pair.Timeout" xml:space="preserve">
+    <value>ಸಂಪರ್ಕದ ಅವಧಿ ಮೀರಿದೆ (ಸೆಕೆಂಡ್‌ಗಳು) (0 ಎಂದರೆ ಸಮಯ ಮೀರುವುದಿಲ್ಲ)</value>
+  </data>
+  <data name="Settings.Preview.Barrel" xml:space="preserve">
+    <value>ಲೆನ್ಸ್ ತಿದ್ದುಪಡಿ/ಬ್ಯಾರೆಲ್ ಅಸ್ಪಷ್ಟತೆಯನ್ನು ಸೇರಿಸಿ (ಫ್ರೇಮ್ ದರವನ್ನು ಕಡಿಮೆ ಮಾಡಬಹುದು)</value>
+  </data>
+  <data name="Settings.Preview.BarrelFinal" xml:space="preserve">
+    <value>ಅಂತಿಮ ಚಿತ್ರಗಳಿಗೆ ಮಾತ್ರ ಲೆನ್ಸ್ ತಿದ್ದುಪಡಿ/ಬ್ಯಾರೆಲ್ ಅಸ್ಪಷ್ಟತೆಯನ್ನು ಸೇರಿಸಿ (ಅಂತಿಮ ಪ್ರದರ್ಶನವನ್ನು ನಿಧಾನಗೊಳಿಸಬಹುದು ಆದರೆ ಸೆರೆಹಿಡಿಯುವಿಕೆಯನ್ನು ವೇಗಗೊಳಿಸುತ್ತದೆ)</value>
+  </data>
+  <data name="Settings.Preview.CardboardDistance" xml:space="preserve">
+    <value>ಕಾರ್ಡ್ಬೋರ್ಡ್ ಬೇರ್ಪಡಿಕೆ ದೂರ</value>
+  </data>
+  <data name="Settings.Preview.Downsize" xml:space="preserve">
+    <value>ಚಿತ್ರವನ್ನು ಕಡಿಮೆಗೊಳಿಸಿ (ಫ್ರೇಮ್ ದರವನ್ನು ಹೆಚ್ಚಿಸಬಹುದು)</value>
+  </data>
+  <data name="Settings.Preview.DownsizePercent" xml:space="preserve">
+    <value>ಚಿತ್ರದ ಶೇಕಡಾವಾರು ಪ್ರಮಾಣವನ್ನು ಕಡಿಮೆ ಮಾಡಿ</value>
+  </data>
+  <data name="Settings.Preview.Immersive" xml:space="preserve">
+    <value>ತಲ್ಲೀನಗೊಳಿಸುವ ಅಂತಿಮ ವೀಕ್ಷಣೆ</value>
+  </data>
+  <data name="Settings.Preview.LensStrength" xml:space="preserve">
+    <value>ಲೆನ್ಸ್ ತಿದ್ದುಪಡಿ ಸಾಮರ್ಥ್ಯ</value>
+  </data>
+  <data name="Settings.Preview.Mirror" xml:space="preserve">
+    <value>ಸಿಂಗಲ್-ಶಾಟ್ ಮಿರರ್ ಡಿವಿಷನ್ ವಿಧಾನವನ್ನು ಬಳಸಿಕೊಂಡು ಸೆರೆಹಿಡಿಯಿರಿ</value>
+  </data>
+  <data name="Settings.Preview.Width" xml:space="preserve">
+    <value>ಗರಿಷ್ಠ ಸಮಾನಾಂತರ ವೀಕ್ಷಣೆ ಚಿತ್ರದ ಅಗಲ (ಪಾಯಿಂಟ್‌ಗಳು)</value>
+  </data>
+  <data name="Settings.Reset" xml:space="preserve">
+    <value>ಡೀಫಾಲ್ಟ್‌ಗಳಿಗೆ ಮರುಹೊಂದಿಸಿ</value>
+  </data>
+  <data name="Settings.Saving.Alone" xml:space="preserve">
+    <value>ಮೊದಲ ಭಾಗವನ್ನು ಮಾತ್ರ ಉಳಿಸಿ (ಯಾವುದೇ ಸಂಪಾದನೆಗಳು ಅಥವಾ ಗಡಿ ಇಲ್ಲದೆ) (ಫ್ಲಾಟ್ ವ್ಯೂ ಜನರೊಂದಿಗೆ ಫ್ಲಾಟ್ ಫೋಟೋವನ್ನು ಸುಲಭವಾಗಿ ಹಂಚಿಕೊಳ್ಳಲು)</value>
+  </data>
+  <data name="Settings.Saving.Anaglyph" xml:space="preserve">
+    <value>ಕೆಂಪು/ಸಯಾನ್ ಅನಾಗ್ಲಿಫ್ ಆವೃತ್ತಿಯನ್ನು ಉಳಿಸಿ (ಸಂಪಾದನೆಗಳೊಂದಿಗೆ ಆದರೆ ಗಡಿಯಿಲ್ಲ)</value>
+  </data>
+  <data name="Settings.Saving.Browse" xml:space="preserve">
+    <value>ಬ್ರೌಸ್...</value>
+  </data>
+  <data name="Settings.Saving.Cardboard" xml:space="preserve">
+    <value>ಕಾರ್ಡ್‌ಬೋರ್ಡ್‌ಗಾಗಿ ಉಳಿಸಿ (ಸಂಪಾದನೆಗಳೊಂದಿಗೆ, ಗಡಿಯಿಲ್ಲ, ಅಂತರವಿಲ್ಲ, ಪೂರ್ಣ ಅಗಲ, ನಂತರ ಕ್ರಾಸ್‌ಕ್ಯಾಮ್‌ಗೆ ಹಿಂತಿರುಗಿಸಲು)</value>
+  </data>
+  <data name="Settings.Saving.Clear" xml:space="preserve">
+    <value>ಉಳಿಸಿದ ನಂತರ ಕ್ಯಾಪ್ಚರ್‌ಗಳನ್ನು ಸ್ವಯಂಚಾಲಿತವಾಗಿ ತೆರವುಗೊಳಿಸಿ</value>
+  </data>
+  <data name="Settings.Saving.Cross" xml:space="preserve">
+    <value>ಸೇರಿಕೊಂಡ ಕ್ರಾಸ್ ವ್ಯೂ ಆವೃತ್ತಿಯನ್ನು ಉಳಿಸಿ (ಸಂಪಾದನೆಗಳು ಮತ್ತು ಗಡಿಯೊಂದಿಗೆ)</value>
+  </data>
+  <data name="Settings.Saving.ExternalDirectory" xml:space="preserve">
+    <value>ಬಾಹ್ಯ CrossCam ಡೈರೆಕ್ಟರಿಗೆ ಉಳಿಸಿ:</value>
+  </data>
+  <data name="Settings.Saving.ExternalWarning" xml:space="preserve">
+    <value>(ಎಚ್ಚರಿಕೆ: CrossCam ಅನ್ನು ಅನ್‌ಇನ್‌ಸ್ಟಾಲ್ ಮಾಡಿದರೆ ಅಲ್ಲಿನ ಚಿತ್ರಗಳನ್ನು ಅಳಿಸಲಾಗುತ್ತದೆ)</value>
+  </data>
+  <data name="Settings.Saving.Folder" xml:space="preserve">
+    <value>ಮೀಸಲಾದ "ಕ್ರಾಸ್‌ಕ್ಯಾಮ್" ಉಪಫೋಲ್ಡರ್/ಆಲ್ಬಮ್‌ನಲ್ಲಿ ಉಳಿಸಿ</value>
+  </data>
+  <data name="Settings.Saving.Grayscale" xml:space="preserve">
+    <value>ಗ್ರೇಸ್ಕೇಲ್ ಕೆಂಪು/ಸಯಾನ್ ಅನಾಗ್ಲಿಫ್ ಆವೃತ್ತಿಯನ್ನು ಉಳಿಸಿ (ಸಂಪಾದನೆಗಳೊಂದಿಗೆ ಆದರೆ ಯಾವುದೇ ಗಡಿಯಿಲ್ಲ)</value>
+  </data>
+  <data name="Settings.Saving.Order" xml:space="preserve">
+    <value>(ಉಳಿಸುವಿಕೆಯು ಮೇಲಿನಿಂದ ಕೆಳಕ್ಕೆ ಕ್ರಮವಾಗಿ ನಡೆಯುತ್ತದೆ)</value>
+  </data>
+  <data name="Settings.Saving.Parallel" xml:space="preserve">
+    <value>ಸೇರಿಕೊಂಡ ಸಮಾನಾಂತರ ವೀಕ್ಷಣೆ ಆವೃತ್ತಿಯನ್ನು ಉಳಿಸಿ (ಸಂಪಾದನೆಗಳು ಮತ್ತು ಗಡಿಯೊಂದಿಗೆ)</value>
+  </data>
+  <data name="Settings.Saving.Quad" xml:space="preserve">
+    <value>ಕ್ವಾಡ್ ಸಂಯೋಜನೆಯನ್ನು ಉಳಿಸಿ (ಸಂಪಾದನೆಗಳು ಮತ್ತು ಗಡಿಯೊಂದಿಗೆ)</value>
+  </data>
+  <data name="Settings.Saving.Reset" xml:space="preserve">
+    <value>ಮರುಹೊಂದಿಸಿ</value>
+  </data>
+  <data name="Settings.Saving.Resolution" xml:space="preserve">
+    <value>ರೆಸಲ್ಯೂಶನ್ ಅನುಪಾತ</value>
+  </data>
+  <data name="Settings.Saving.SaveTo" xml:space="preserve">
+    <value>ಇದಕ್ಕೆ ಉಳಿಸಿ:</value>
+  </data>
+  <data name="Settings.Saving.Separate" xml:space="preserve">
+    <value>ಪ್ರತಿ ಬದಿಯನ್ನು ಪ್ರತ್ಯೇಕವಾಗಿ ಉಳಿಸಿ (ಸುಲಭವಾದ ಪೋಸ್ಟ್ ಪ್ರಕ್ರಿಯೆಗಾಗಿ ಯಾವುದೇ ಸಂಪಾದನೆಗಳು ಅಥವಾ ಅಂಚುಗಳಿಲ್ಲದೆ, ಎಡಭಾಗವು ಮೊದಲು ಉಳಿಸುತ್ತದೆ)</value>
+  </data>
+  <data name="Settings.Saving.Subfolder" xml:space="preserve">
+    <value>ಮೀಸಲಾದ "CrossCam_{ViewMethod}" ಉಪ ಫೋಲ್ಡರ್‌ಗಳು/ಆಲ್ಬಮ್‌ಗಳಲ್ಲಿ ಉಳಿಸಿ</value>
+  </data>
+  <data name="Settings.Saving.Triple" xml:space="preserve">
+    <value>ಟ್ರಿಪಲ್ ಸಂಯೋಜನೆಯನ್ನು ಉಳಿಸಿ (ಸಂಪಾದನೆಗಳು ಮತ್ತು ಅಂಚುಗಳೊಂದಿಗೆ)</value>
+  </data>
+  <data name="Button.Pair.Accept" xml:space="preserve">
+    <value>ಒಪ್ಪಿಕೊಳ್ಳಿ</value>
+  </data>
+  <data name="Button.Pair.Cancel" xml:space="preserve">
+    <value>ರದ್ದುಮಾಡಿ</value>
+  </data>
+  <data name="Page.Camera.AcceptConnection" xml:space="preserve">
+    <value>ಗೆ ಸಂಪರ್ಕವನ್ನು ಸ್ವೀಕರಿಸಿ</value>
+  </data>
+  <data name="Page.Camera.Confirm" xml:space="preserve">
+    <value>ಎರಡೂ ಸಾಧನಗಳಲ್ಲಿ ಕೋಡ್ ಹೊಂದಾಣಿಕೆಗಳನ್ನು ದೃಢೀಕರಿಸಿ:</value>
+  </data>
+  <data name="Page.Footer.CouldntOpen" xml:space="preserve">
+    <value>ಲಿಂಕ್ ತೆರೆಯಲು ಸಾಧ್ಯವಾಗಲಿಲ್ಲ</value>
+  </data>
+  <data name="Page.Footer.OpenError" xml:space="preserve">
+    <value>mailto ಲಿಂಕ್ ತೆರೆಯಲಾಗಲಿಲ್ಲ. ನಿಮ್ಮ ಇಮೇಲ್ ಕ್ಲೈಂಟ್ ಅನ್ನು ಹೊಂದಿಸದೇ ಇರುವ ಕಾರಣ ಅಥವಾ ಬೇರೆ ಕಾರಣವಿರಬಹುದು.</value>
+  </data>
+  <data name="Page.Pair.Errors.Denied" xml:space="preserve">
+    <value>ಜೋಡಿಸಲು ಅಗತ್ಯ ಅನುಮತಿಗಳನ್ನು ನೀಡಲಾಗಿಲ್ಲ. ವಿನಾಯಿತಿ:</value>
+  </data>
+  <data name="Page.Pair.Errors.FailedBluetooth" xml:space="preserve">
+    <value>ಸಾಧನವು ಬ್ಲೂಟೂತ್‌ನಲ್ಲಿ ಪವರ್ ಮಾಡಲು ವಿಫಲವಾಗಿದೆ. ವಿನಾಯಿತಿ:</value>
+  </data>
+  <data name="Page.Pair.Errors.FailedSearch" xml:space="preserve">
+    <value>ಸಾಧನವನ್ನು ಹುಡುಕಲು ಸಾಧನ ವಿಫಲವಾಗಿದೆ. ವಿನಾಯಿತಿ:</value>
+  </data>
+  <data name="Page.Pair.Errors.LocationOff" xml:space="preserve">
+    <value>ಸ್ಥಳ ಸೇವೆಗಳನ್ನು ಸಕ್ರಿಯಗೊಳಿಸಲಾಗಿಲ್ಲ. ಸಾಧನಗಳಿಗಾಗಿ ಸ್ಕ್ಯಾನ್ ಮಾಡಲು ಸಾಧ್ಯವಿಲ್ಲ. ಹೆಚ್ಚಿನ ವಿವರಗಳಿಗಾಗಿ ಜೋಡಣೆ ಪುಟವನ್ನು ನೋಡಿ.</value>
+  </data>
+  <data name="Page.Pair.Errors.LocationScan" xml:space="preserve">
+    <value>ಸ್ಥಳ ಅನುಮತಿ ನೀಡಲಾಗಿಲ್ಲ. ಸಾಧನಗಳಿಗಾಗಿ ಸ್ಕ್ಯಾನ್ ಮಾಡಲು ಸಾಧ್ಯವಿಲ್ಲ. ಹೆಚ್ಚಿನ ವಿವರಗಳಿಗಾಗಿ ಜೋಡಣೆ ಪುಟವನ್ನು ನೋಡಿ.</value>
+  </data>
+  <data name="Page.Pair.Errors.NotSupported" xml:space="preserve">
+    <value>ಈ ಸಾಧನದಲ್ಲಿ ಜೋಡಿಸುವಿಕೆಯನ್ನು ಬೆಂಬಲಿಸುವುದಿಲ್ಲ. ವಿನಾಯಿತಿ:</value>
+  </data>
+  <data name="Page.Pair.Errors.Title" xml:space="preserve">
+    <value>ದೋಷ</value>
+  </data>
+  <data name="Page.Pair.Errors.WifiOff" xml:space="preserve">
+    <value>ವೈ-ಫೈ ಆಫ್ ಆಗಿದೆ. ದಯವಿಟ್ಟು ವೈ-ಫೈ ಆನ್ ಮಾಡಿ.</value>
+  </data>
+  <data name="Page.Pair.PrimaryExplanation" xml:space="preserve">
+    <value>ಈ ಸಾಧನವನ್ನು ಈಗ ಪ್ರಾಥಮಿಕವಾಗಿ ಹೊಂದಿಸಲಾಗಿದೆ.</value>
+  </data>
+  <data name="Page.Pair.PrimarySelected" xml:space="preserve">
+    <value>ಪ್ರಾಥಮಿಕ ಪಾತ್ರವನ್ನು ಆಯ್ಕೆ ಮಾಡಲಾಗಿದೆ</value>
+  </data>
+  <data name="Page.Pair.SecondaryExplanation" xml:space="preserve">
+    <value>ಈ ಸಾಧನವನ್ನು ಈಗ ದ್ವಿತೀಯಕವಾಗಿ ಹೊಂದಿಸಲಾಗಿದೆ.</value>
+  </data>
+  <data name="Page.Pair.SecondarySelected" xml:space="preserve">
+    <value>ದ್ವಿತೀಯ ಪಾತ್ರವನ್ನು ಆಯ್ಕೆ ಮಾಡಲಾಗಿದೆ</value>
+  </data>
+  <data name="Page.Technique.Mode" xml:space="preserve">
+    <value>ಮೋಡ್.</value>
+  </data>
+  <data name="Page.Technique.SetMode" xml:space="preserve">
+    <value>CrossCam ಈಗ ಲಭ್ಯವಿದೆ</value>
+  </data>
+</root>

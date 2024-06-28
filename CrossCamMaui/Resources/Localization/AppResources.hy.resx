@@ -1,0 +1,1156 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="Button.GoogleDoc" xml:space="preserve">
+    <value>Google Doc of Great Stuff</value>
+  </data>
+  <data name="Button.LearnCross" xml:space="preserve">
+    <value>ՍՈՎՈՐԵԼ ԽԱՉ</value>
+  </data>
+  <data name="Button.LearnParallel" xml:space="preserve">
+    <value>ՍՈՎՈՐԵՔ ԶՈՒԳԱՀԵՌ</value>
+  </data>
+  <data name="Button.MorePictures" xml:space="preserve">
+    <value>Տես ավելի շատ նկարներ</value>
+  </data>
+  <data name="Button.Review" xml:space="preserve">
+    <value>Գրել Կարծիք</value>
+  </data>
+  <data name="Button.Share" xml:space="preserve">
+    <value>Կիսվեք CrossCam-ով</value>
+  </data>
+  <data name="Button.Support" xml:space="preserve">
+    <value>Աջակցեք Մշակողին</value>
+  </data>
+  <data name="Button.TapCross" xml:space="preserve">
+    <value>ՀԵՏԵՔ ԱՅՍՏԵՂ ԽԱՉԸ ԸՆՏՐԵԼՈՒ ՀԱՄԱՐ</value>
+  </data>
+  <data name="Button.TapParallel" xml:space="preserve">
+    <value>ՀԵՏԵՔ ԱՅՍՏԵՂ ԶՈՒԳԱՀԵՂԸ ԸՆՏՐԵԼՈՒ ՀԱՄԱՐ</value>
+  </data>
+  <data name="Footer.Span1" xml:space="preserve">
+    <value>Գտե՞լ եք վրիպակ: Հարց ունե՞ք։ Պարզապես էլ</value>
+  </data>
+  <data name="Footer.Span3" xml:space="preserve">
+    <value>! Ես սիրում եմ զրուցել օգտատերերի հետ, և դա ինձ հետ շփվելու ամենաարագ միջոցն է:</value>
+  </data>
+  <data name="Page.HowToUse.2anaglyph" xml:space="preserve">
+    <value>2) Սկսեք անագլիֆով դիտել առաջին նկարը դրա կողքին երևացող նախադիտմամբ:</value>
+  </data>
+  <data name="Page.HowToUse.2cardboard" xml:space="preserve">
+    <value>2) Սկսեք ստվարաթուղթը դիտել առաջին նկարը դրա կողքին երևացող նախադիտմամբ:</value>
+  </data>
+  <data name="Page.HowToUse.2cross" xml:space="preserve">
+    <value>2) Սկսեք խաչաձև դիտել առաջին նկարը դրա կողքին երևացող նախադիտմամբ:</value>
+  </data>
+  <data name="Page.HowToUse.2parallel" xml:space="preserve">
+    <value>2) Սկսեք զուգահեռ դիտել առաջին նկարը դրա կողքին երևացող նախադիտմամբ:</value>
+  </data>
+  <data name="Page.Technique.AdditionalTutorials" xml:space="preserve">
+    <value>Լրացուցիչ ձեռնարկներ.</value>
+  </data>
+  <data name="Page.Technique.Cross1" xml:space="preserve">
+    <value>Զգուշորեն խաչեք ձեր աչքերը վերևում գտնվող զույգ նկարները դիտելիս: Երբ դուք խաչեք ձեր աչքերը, ամեն ինչ կդառնա մշուշոտ և թափանցիկ, և դուք կսկսեք տեսնել 4 նկար 2-ի փոխարեն (2 զույգ): Որքան ավելի կոշտ խաչեք ձեր աչքերը, այնքան նկարների զույգերը միմյանցից հեռու կշարժվեն. մի փոքր այսպիսի տեսք կունենա.</value>
+  </data>
+  <data name="Page.Technique.Cross2" xml:space="preserve">
+    <value>Զգուշորեն բացեք ձեր աչքերը, որպեսզի յուրաքանչյուր զույգի ներսի նկարները սկսեն համընկնել: Այն կսկսի թվալ, թե 4-ի փոխարեն կա ընդամենը 3 նկար: Այն դեռ մշուշոտ և թափանցիկ կլինի և նման կլինի հետևյալին.</value>
+  </data>
+  <data name="Page.Technique.Cross3" xml:space="preserve">
+    <value>Միջին համընկնումը աշխատելուց հետո պարզապես պետք է հանգստացնել ձեր աչքերը և թույլ տալ նրանց կենտրոնացնել նկարը: Այդ պահին դուք կունենաք մեկ սուր 3D նկար մեջտեղում, որի յուրաքանչյուր կողմում լողում է թափանցիկ նկար, որը նման կլինի (բացառությամբ, որ միջինը կլինի 3D).</value>
+  </data>
+  <data name="Page.Technique.Cross4" xml:space="preserve">
+    <value>Եթե ​​դուք դժվարանում եք խաչել ձեր աչքերը, կարող եք նաև փորձել նայել ձեր մատին, մինչ այն պահում եք ձեր աչքերի և էկրանի միջև: Դուք պետք է տեսնեք, որ նկարները սկսում են առանձնանալ և համընկնել ձեր մատի հետևում:</value>
+  </data>
+  <data name="Page.Technique.CrossViewing" xml:space="preserve">
+    <value>ԽԱՉԻ ԴԻՏՈՒՄ</value>
+  </data>
+  <data name="Page.Technique.P1" xml:space="preserve">
+    <value>Եթե ​​ցանկանում եք սա նորից տեսնել, կտտացրեք տեսախցիկի էկրանի վերևի ձախ կողմում գտնվող համբուրգերի (երեք տող) պատկերակին և սեղմեք «Օգնություն»:
+
+CrossCam-ում 3D-ը (որը կոչվում է «ստերեոգրամա») տեսնելու համար կարող եք օգտագործել կարմիր/կանաչ 3D ակնոցներ, Google Cardboard դիտիչ կամ կարող եք «անվճար դիտում» անել՝ օգտագործելով միայն ձեր աչքերը և ձեր էկրանը: Ազատ դիտելու երկու եղանակ կա, և CrossCam-ը կարող է օգնել ձեզ սովորել երկուսն էլ: Դուք պետք է CrossCam-ին ասեք, թե ինչպես եք դիտելու նկարները, հակառակ դեպքում այն ​​ճիշտ չի աշխատի: Մի անհանգստացեք, դուք միշտ կարող եք փոխել սա նորից Կարգավորումներում:
+
+Եթե ​​դուք կարողանում եք հարմարավետորեն խաչել ձեր աչքերը, ապա նախ պետք է փորձեք խաչաձեւ մեթոդը, հակառակ դեպքում պետք է փորձեք զուգահեռ մեթոդը: Եթե ​​դուք սովոր եք Magic Eye™ գրքերին, հավանաբար արդեն կկարողանաք կատարել զուգահեռ մեթոդը, բայց կարող եք նաև կատարել խաչաձեւ մեթոդը: Հպեք ստորև ներկայացված մեթոդին՝ այն սովորելու համար, և համոզվեք, որ ասեք CrossCam-ին, թե որն է ձեզ համար՝ սեղմելով համապատասխան CHOOSE կոճակը:
+
+Եթե ​​նախընտրում եք օգտագործել 3D ակնոցներ կամ Cardboard դիտող, կարող եք կարգավորել CrossCam-ը, որպեսզի դրանք օգտագործի Կարգավորումների էջում:</value>
+  </data>
+  <data name="Page.Technique.CrossLink1" xml:space="preserve">
+    <value>Գեղեցիկ տեքստային ձեռնարկ</value>
+  </data>
+  <data name="Page.Technique.CrossLink2" xml:space="preserve">
+    <value>Եվս մեկ գեղեցիկ տեքստային ձեռնարկ</value>
+  </data>
+  <data name="Page.Technique.CrossLink3" xml:space="preserve">
+    <value>YouTube-ի կարճ ձեռնարկ</value>
+  </data>
+  <data name="Page.Technique.CrossLink4" xml:space="preserve">
+    <value>Երկար, տարօրինակ, բայց օգտակար YouTube ձեռնարկ</value>
+  </data>
+  <data name="Page.Technique.CrossLink5" xml:space="preserve">
+    <value>Մեկ այլ YouTube ձեռնարկ</value>
+  </data>
+  <data name="Page.Technique.CrossLink6" xml:space="preserve">
+    <value>Կրկնակի տեսախցիկի նախագիծ՝ ուսուցումով</value>
+  </data>
+  <data name="Page.Technique.Parallel1" xml:space="preserve">
+    <value>Եթե ​​վերը նշված պատկերը չի տեղավորվում ձեր էկրանին, ապա ձեր հեռախոսը դարձրեք լանդշաֆտային տարբերակ. CrossCam-ը փորձում է այս զույգ պատկերները դարձնել ամենահեշտ չափից բարձր: Միշտ չէ, որ պետք է օգտագործել CrossCam-ը լանդշաֆտում, սակայն կատարյալ չափի պատկերը հեշտացնում է տեխնիկան սովորելը:</value>
+  </data>
+  <data name="Page.Technique.Parallel2" xml:space="preserve">
+    <value>Հանգստացեք ձեր աչքերը և նայեք վերևում գտնվող զույգ նկարների միջով, կարծես գոտիավորում եք՝ ձեր աչքերը ուղղված նկարներին: Դուք պետք է սկսեք տեսնել 3 նկար՝ մեջտեղում 3D նկարով, մի փոքր նման.</value>
+  </data>
+  <data name="Page.Technique.Parallel3" xml:space="preserve">
+    <value>Եթե ​​դուք սկսում եք տեսնել 4 նկար, ապա շատ հեռուն եք գնացել: Փորձեք մի փոքր շարժել ձեր աչքերը, եթե նորից հայտնվեք այդ կետում: Շատ հեռու հանգստանալը մի փոքր այսպիսի տեսք կունենա.</value>
+  </data>
+  <data name="Page.Technique.Parallel4" xml:space="preserve">
+    <value>Եթե ​​դժվարություններ ունեք, փորձեք ձեր էկրանը մոտեցնել ձեր դեմքին՝ զույգ նկարները հենց ձեր աչքի առաջ: Հանգստացեք և նայեք էկրանին «միջոցով», այնուհետև դանդաղ քաշեք էկրանը ձեր դեմքից՝ միաժամանակ հանգիստ պահելով ձեր աչքերը: Ի վերջո, պատկերը պետք է «սեղմվի» ուշադրության կենտրոնում:</value>
+  </data>
+  <data name="Page.Technique.Parallel5" xml:space="preserve">
+    <value>Եթե ​​դուք դեռ շարունակում եք տեսնել չորս պատկեր, ապա Կարգավորումների էջում ավելացրեք «Զուգահեռ դիտման պատկերի առավելագույն լայնությունը»:</value>
+  </data>
+  <data name="Page.Technique.ParallelViewing" xml:space="preserve">
+    <value>ԶՈՒԳԱՀԵՌ ԴԻՏՈՒՄ</value>
+  </data>
+  <data name="Page.Technique.Practice" xml:space="preserve">
+    <value>Իմ պատրաստած պատկերները, որոնց վրա կարող եք զբաղվել</value>
+  </data>
+  <data name="Title.Contact" xml:space="preserve">
+    <value>Կապ</value>
+  </data>
+  <data name="Title.Faq" xml:space="preserve">
+    <value>ՀՏՀ</value>
+  </data>
+  <data name="Title.Help" xml:space="preserve">
+    <value>Օգնություն</value>
+  </data>
+  <data name="Title.HowToUse" xml:space="preserve">
+    <value>Ինչպես օգտվել CrossCam-ից</value>
+  </data>
+  <data name="Title.Technique" xml:space="preserve">
+    <value>3D դիտման տեխնիկա</value>
+  </data>
+  <data name="Title.Tips" xml:space="preserve">
+    <value>Խորհուրդներ</value>
+  </data>
+  <data name="Button.DoNotEmailMe" xml:space="preserve">
+    <value>Ինձ հիմա էլփոստ մի ուղարկիր</value>
+  </data>
+  <data name="Button.EmailMeNow" xml:space="preserve">
+    <value>Էլփոստով ուղարկեք ինձ հիմա</value>
+  </data>
+  <data name="Button.No" xml:space="preserve">
+    <value>Ոչ</value>
+  </data>
+  <data name="Button.OK" xml:space="preserve">
+    <value>լավ</value>
+  </data>
+  <data name="Button.YesClear" xml:space="preserve">
+    <value>Այո, պարզ</value>
+  </data>
+  <data name="Page.Camera.Aligning" xml:space="preserve">
+    <value>Հավասարեցում...</value>
+  </data>
+  <data name="Page.Camera.AlignmentBroken" xml:space="preserve">
+    <value>Ավտոմատ հավասարեցումը սարքում չի աջակցվում. անջատեք Կարգավորումներում:</value>
+  </data>
+  <data name="Page.Camera.AlignmentFailed" xml:space="preserve">
+    <value>Հավասարեցումը ձախողվեց:</value>
+  </data>
+  <data name="Page.Camera.BorderAsk" xml:space="preserve">
+    <value>Հայտնաբերվել է սահման. Հեռացնե՞լ սահմանը:</value>
+  </data>
+  <data name="Page.Camera.BorderDetected" xml:space="preserve">
+    <value>Սահմանը հայտնաբերվեց</value>
+  </data>
+  <data name="Page.Camera.Cancel" xml:space="preserve">
+    <value>Չեղարկել</value>
+  </data>
+  <data name="Page.Camera.ChooseAction" xml:space="preserve">
+    <value>Ընտրեք գործողություն.</value>
+  </data>
+  <data name="Page.Camera.DirectoryNotFound" xml:space="preserve">
+    <value>Տեղեկատուն չի գտնվել</value>
+  </data>
+  <data name="Page.Camera.DirectoryNotFoundExplain" xml:space="preserve">
+    <value>Պահպանման նպատակակետը չհաջողվեց գտնել: Խնդրում ենք ընտրել մեկ այլ կարգավորումների էջում:</value>
+  </data>
+  <data name="Page.Camera.ErrorEmailBody" xml:space="preserve">
+    <value>Ի՞նչ արեցիք սխալի առաջանալուց անմիջապես առաջ: Խնդրում եմ նկարագրեք նույնիսկ փոքր բաները:\n\n\n\n\n\nԱրդյո՞ք CrossCam-ը դեռ աշխատում էր սխալից հետո: Եթե ​​ոչ, ինչպե՞ս է այն կոտրվել:\n\n\n\n\n\nԱրդյո՞ք դա կրկնվում է:\n\n\n\n\n\nԿարո՞ղ եք ստիպել, որ սխալը տեղի ունենա հրամանով: Եթե ​​այո, ապա ինչպե՞ս:\n\n\n\n\n\n</value>
+  </data>
+  <data name="Page.Camera.FlipForCardboard" xml:space="preserve">
+    <value>Շրջեք դեպի լանդշաֆտ, երբ ստվարաթղթե ռեժիմում եք:</value>
+  </data>
+  <data name="Page.Camera.FlipLarger" xml:space="preserve">
+    <value>(շրջել դեպի լանդշաֆտ՝ ավելի մեծ տեսք ունենալու համար)</value>
+  </data>
+  <data name="Page.Camera.ForAnaglyph" xml:space="preserve">
+    <value>անագլիֆի համար</value>
+  </data>
+  <data name="Page.Camera.ForCardboard" xml:space="preserve">
+    <value>ստվարաթղթի համար</value>
+  </data>
+  <data name="Page.Camera.ForCross" xml:space="preserve">
+    <value>խաչի համար</value>
+  </data>
+  <data name="Page.Camera.ForParallel" xml:space="preserve">
+    <value>զուգահեռի համար</value>
+  </data>
+  <data name="Page.Camera.GoPickRole" xml:space="preserve">
+    <value>Խնդրում ենք գնալ Զուգակցման էջ (Կարգավորումների էջի միջոցով) և ընտրել զուգակցման դեր այս սարքի համար՝ նախքան զուգակցելը:</value>
+  </data>
+  <data name="Page.Camera.InvalidImage" xml:space="preserve">
+    <value>Անվավեր պատկեր</value>
+  </data>
+  <data name="Button.Camera.Keep" xml:space="preserve">
+    <value>Պահել</value>
+  </data>
+  <data name="Page.Camera.LoadFullImage" xml:space="preserve">
+    <value>Բեռնել ամբողջական ստերեո պատկերը</value>
+  </data>
+  <data name="Page.Camera.Loading" xml:space="preserve">
+    <value>Բեռնվում է...</value>
+  </data>
+  <data name="Page.Camera.LoadSingleSide" xml:space="preserve">
+    <value>Բեռնել միայնակ կողմը</value>
+  </data>
+  <data name="Page.Camera.ManualCorrections" xml:space="preserve">
+    <value>Խնդրում ենք հաշվի առնել նաև ձեռքով ուղղումները:</value>
+  </data>
+  <data name="Page.Camera.MirrorOnLeft" xml:space="preserve">
+    <value>ՀԱՅԵԼԻՆ ՁԱԽ</value>
+  </data>
+  <data name="Page.Camera.MirrorOnRight" xml:space="preserve">
+    <value>ՀԱՅԵԼԻՆ ԱՋ</value>
+  </data>
+  <data name="Page.Camera.MoveLeft" xml:space="preserve">
+    <value>ՇԱՐԺՎԻՐ ՁԱԽ</value>
+  </data>
+  <data name="Page.Camera.MoveRight" xml:space="preserve">
+    <value>ՇԱՐԺՎԵԼ ԱՋ</value>
+  </data>
+  <data name="Page.Camera.NoSaveModes" xml:space="preserve">
+    <value>Պահպանման ռեժիմները ակտիվ չեն</value>
+  </data>
+  <data name="Page.Camera.NoSaveModesExplain" xml:space="preserve">
+    <value>Պահպանման ռեժիմներ ներկայումս միացված չեն: Միացրեք պահպանման ռեժիմը Կարգավորումների էջում:</value>
+  </data>
+  <data name="Page.Camera.Oops" xml:space="preserve">
+    <value>Վա՜յ</value>
+  </data>
+  <data name="Page.Camera.OrRotate" xml:space="preserve">
+    <value>(կամ պտտել)</value>
+  </data>
+  <data name="Page.Camera.OrSwipe" xml:space="preserve">
+    <value>(կամ սահեցրեք)</value>
+  </data>
+  <data name="Page.Camera.PairRoleNotSelected" xml:space="preserve">
+    <value>Զույգի դերը ընտրված չէ</value>
+  </data>
+  <data name="Page.Camera.PinchOrDrag" xml:space="preserve">
+    <value>Կտտացրեք կամ քաշեք՝ ուսումնասիրելու համար:</value>
+  </data>
+  <data name="Page.Camera.PleaseSelectValid" xml:space="preserve">
+    <value>Խնդրում ենք ընտրել Jpeg, Png կամ Webp պատկեր: Ձեր ընտրած պատկերն է</value>
+  </data>
+  <data name="Page.Camera.ReallyClear" xml:space="preserve">
+    <value>Իսկապե՞ս պարզ է:</value>
+  </data>
+  <data name="Button.Camera.Remove" xml:space="preserve">
+    <value>Հեռացնել</value>
+  </data>
+  <data name="Page.Camera.SavedToCustomFolder" xml:space="preserve">
+    <value>Պահված է հատուկ պանակում</value>
+  </data>
+  <data name="Page.Camera.SavedToExternal" xml:space="preserve">
+    <value>Պահված է արտաքին</value>
+  </data>
+  <data name="Page.Camera.SavedToPhotos" xml:space="preserve">
+    <value>Պահված է Լուսանկարներում</value>
+  </data>
+  <data name="Page.Camera.SaveFailed" xml:space="preserve">
+    <value>Պահպանումը Չհաջողվեց: :(</value>
+  </data>
+  <data name="Page.Camera.Saving" xml:space="preserve">
+    <value>Պահվում է...</value>
+  </data>
+  <data name="Page.Camera.SecondaryOnLeft" xml:space="preserve">
+    <value>Ձախ կողմում երկրորդականը</value>
+  </data>
+  <data name="Page.Camera.SecondaryOnRight" xml:space="preserve">
+    <value>ԵՐԿՐՈՐԴԱԿԱՆ ԱՋՈՒՄ</value>
+  </data>
+  <data name="Page.Camera.SelectedInvalid" xml:space="preserve">
+    <value>Ընտրված պատկերն անվավեր է:</value>
+  </data>
+  <data name="Page.Camera.SorryError" xml:space="preserve">
+    <value>Ներողություն, CrossCam-ը սխալ է թույլ տվել: Սխալի մասին հաշվետվությունն ավտոմատ կերպով ուղարկվել է: Հնարավոր է, որ ընդհանրապես սխալ բան չնկատեք, բայց եթե նկատել եք, փորձեք վերագործարկել հավելվածը: Եթե ​​դա շարունակվի, խնդրում եմ ինձ էլփոստով ուղարկել և պատմել ինձ այդ մասին: (Գնացեք Կարգավորումների էջ՝ այս թռուցիկները դադարեցնելու համար:)</value>
+  </data>
+  <data name="Page.Camera.Steady" xml:space="preserve">
+    <value>Կայուն...</value>
+  </data>
+  <data name="Page.Camera.SureClear" xml:space="preserve">
+    <value>Իսկապե՞ս ուզում եք մաքրել ձեր նկարները և սկսել նորից:</value>
+  </data>
+  <data name="Page.Camera.Syncing" xml:space="preserve">
+    <value>Համաժամեցվում է...</value>
+  </data>
+  <data name="Page.Camera.Transmitting" xml:space="preserve">
+    <value>Փոխանցում...
+(սարքը ապակողպված պահեք)</value>
+  </data>
+  <data name="Page.Camera.VR" xml:space="preserve">
+    <value>VR</value>
+  </data>
+  <data name="Page.FovCorrection" xml:space="preserve">
+    <value>Տեսադաշտի ուղղում</value>
+  </data>
+  <data name="Page.FovCorrectionExplain" xml:space="preserve">
+    <value>Սարքերի տարբեր մոդելներ կարող են ունենալ տարբեր տեսադաշտեր: CrossCam-ը կօգնի ձեզ շտկել դա ձեր առաջին լուսանկարումն անելուց հետո: Շրջանակավորեք և նկարեք ինչ-որ բան կադրի վերևի և ներքևի մասում գտնվող տարբեր կետերով, համոզվեք, որ կետերը տեսանելի են երկու սարքերում էլ:</value>
+  </data>
+  <data name="Page.Technique.ParallelLink1" xml:space="preserve">
+    <value>Գեղեցիկ տեքստային ձեռնարկ</value>
+  </data>
+  <data name="Page.Technique.ParallelLink2" xml:space="preserve">
+    <value>Մեկ այլ գեղեցիկ տեքստային ձեռնարկ</value>
+  </data>
+  <data name="Page.Technique.ParallelLink3" xml:space="preserve">
+    <value>Եվս մեկ գեղեցիկ տեքստային ձեռնարկ</value>
+  </data>
+  <data name="Page.Technique.ParallelLink4" xml:space="preserve">
+    <value>Magic Frankfurter Tutorial</value>
+  </data>
+  <data name="Page.Technique.ParallelLink5" xml:space="preserve">
+    <value>Հաճելի տեսանյութ Magic Eye-ի մասին</value>
+  </data>
+  <data name="Page.Technique.Trouble" xml:space="preserve">
+    <value>Եթե ​​դեռ դժվարություններ ունեք, փորձեք ձեր հեռախոսը բերել մութ սենյակ, որպեսզի ձեր աչքերը կարողանան լավ տեսնել և կենտրոնանալ միայն պատկերի վրա:
+
+Մեկ այլ բան, որ դուք կարող եք փորձել, օգտագործել զուգարանի թղթի խողովակները կամ ձեր ձեռքերը այն դարձնելու համար, որպեսզի յուրաքանչյուր աչք կարողանա տեսնել միայն պատկերի այն կողմը, որը պետք է տեսնի:
+ • Խաչաձև դիտման համար. մեկ խողովակ պահեք ձեր քթի կամրջին (կենտրոնում ձեր աչքերի միջև), մինչդեռ այն ուղղեք ձեր առջև գտնվող պատկերի կենտրոնում: Դանդաղ տեղափոխեք խողովակը դեպի էկրանը՝ փորձելով երկու աչքերով նայել խողովակը ներքև: Երբ դուք հասնում եք խողովակի հետ ճիշտ դիրքին, պատկերը պետք է հայտնվի իր տեղում: Դա կարող է օգնել կենտրոնանալ խողովակի ծայրամասի ներքին կողմը նայելու վրա: Եթե ​​չեք կարողանում ճիշտ դիրք գտնել, փորձեք օգտագործել ավելի մեծ պատկեր կամ փոքր խողովակ:
+ • Զուգահեռ դիտման համար. յուրաքանչյուր աչքի առաջ մի խողովակ պահեք, բայց երկուսն էլ դեպի կողք, այնպես որ դժվար թե որևէ բան տեսնեք: Դանդաղ շրջեք խողովակները միևնույն ժամանակ դեպի ներս, որպեսզի կարողանաք ավելի շատ պատկեր տեսնել: Այն պահին, երբ դուք կարող եք տեսնել պատկերի մեծ մասը (յուրաքանչյուր աչքով գրեթե կեսը), փորձեք թուլացնել ձեր աչքերը և կողքի կեսերը: Դա կարող է օգնել օգտագործել ավելի մեծ կամ փոքր պատկեր:
+
+Կա մի հեշտ վարժություն, որը դուք կարող եք անել՝ միաձուլումը կամ խաչաձև կամ զուգահեռ դիտմամբ զբաղվելու համար: Վերցրեք մարկեր և ձեր յուրաքանչյուր մանրապատկերի վրա նկարեք ժպտացող դեմքի մի հատված (կամ մի զույգ ձողիկներ կամ լեզուն ճնշող միջոցներ): Օրինակ, մի կողմում նկարեք մեկ աչք և բերան, իսկ մյուս կողմից նկարեք աչք և քիթ: Այնուհետև դուք կարող եք դրանք պահել ձեր առջև և փորձեք միացնել երկու պատկերները՝ ժպտացող դեմքը ավարտելու համար:
+
+Ես անձամբ նախընտրում եմ խաչաձևը զուգահեռ, քանի որ պատկերները կարող են ավելի մեծ լինել, բայց երկու մեթոդներն էլ աշխատում են: Եթե ​​ցանկանում եք փորձարկել ավելի մեծ զուգահեռ պատկերներով, կարող եք վերահսկել չափը Կարգավորումների էջում:
+
+Երբեմն դժվար է զգալ, թե արդյոք դա անում եք խաչաձև կամ զուգահեռ մեթոդով: Դուք կարող եք խնդրել մեկ ուրիշին դիտել ձեր աչքերը մինչ դուք դա անում եք, կամ կարող եք դիտել ստորև ներկայացված նկարը որպես թեստ:</value>
+  </data>
+  <data name="SaveModes.Anaglyph" xml:space="preserve">
+    <value>Անագլիֆ</value>
+  </data>
+  <data name="SaveModes.Cardboard" xml:space="preserve">
+    <value>Ստվարաթուղթ</value>
+  </data>
+  <data name="SaveModes.Cross" xml:space="preserve">
+    <value>Խաչ</value>
+  </data>
+  <data name="SaveModes.GrayscaleAnaglyph" xml:space="preserve">
+    <value>Մոխրագույն մասշտաբի անագլիֆ</value>
+  </data>
+  <data name="SaveModes.Parallel" xml:space="preserve">
+    <value>Զուգահեռ</value>
+  </data>
+  <data name="SaveModes.Quad" xml:space="preserve">
+    <value>Քառյակ</value>
+  </data>
+  <data name="SaveModes.Separate" xml:space="preserve">
+    <value>Առանձին</value>
+  </data>
+  <data name="SaveModes.Single" xml:space="preserve">
+    <value>Միայնակ</value>
+  </data>
+  <data name="SaveModes.Triple" xml:space="preserve">
+    <value>Եռակի</value>
+  </data>
+  <data name="Page.Camera.FovExplain" xml:space="preserve">
+    <value>Տեսադաշտի տարբերությունները շտկելու համար մեծացրեք և սահեցրեք նկարները, որպեսզի տարբերվող կետերը համընկնեն երկու լուսանկարների միջև: Դուք կարող եք քաշել սպիտակ գծերը շուրջը, որպեսզի օգնի ձեզ պատկերացնել հավասարեցումը: Այս ուղղումը կկիրառվի ապագա նախադիտումների համար: Այն կպահվի, բայց դուք կարող եք վերականգնել այն Կարգավորումների էջում: Եթե ​​դուք օգտագործում եք միանման սարքեր, պարզապես խնայեք առանց կարգավորելու:</value>
+  </data>
+  <data name="Page.Camera.FovTitle" xml:space="preserve">
+    <value>Տեսադաշտի ուղղում</value>
+  </data>
+  <data name="Page.Camera.KeyPoints" xml:space="preserve">
+    <value>Հիմնական կետեր</value>
+  </data>
+  <data name="Page.Camera.Warped" xml:space="preserve">
+    <value>Շեղված</value>
+  </data>
+  <data name="Page.Camera.WelcomeExplain" xml:space="preserve">
+    <value>CrossCam-ը ստեղծվել է օգնելու ձեզ 3D լուսանկարներ անել: Լուսանկարները 3D են, ճիշտ այնպես, ինչպես VR կամ 3D ֆիլմերը, բայց ձեզ հարկավոր չէ որևէ հատուկ սարքավորում կամ ակնոց, այլ միայն ձեր հեռախոսը (բայց եթե ունեք մի զույգ կարմիր/կանաչ 3D ակնոց կամ Google Cardboard դիտող, կարող եք օգտագործել դրանք։ CrossCam-ի հետ նույնպես): «Անվճար դիտման» տեխնիկան, որն օգտագործում է միայն ձեր հեռախոսը և ձեր աչքերը, սովորելու համար որոշակի պրակտիկա է պահանջում: Մինչ ես ձեզ կասեմ, թե ինչպես օգտագործել CrossCam-ը, նախ կցանկանայի՞ք ավելին իմանալ դիտման տեխնիկայի մասին:</value>
+  </data>
+  <data name="Page.Camera.Welcome" xml:space="preserve">
+    <value>Բարի գալուստ CrossCam:</value>
+  </data>
+  <data name="Page.Camera.Directions" xml:space="preserve">
+    <value>Բաց թողնել դեպի ուղղություններ</value>
+  </data>
+  <data name="Page.Camera.Technique" xml:space="preserve">
+    <value>Դիտման տեխնիկա</value>
+  </data>
+  <data name="Page.HowToUse.P1" xml:space="preserve">
+    <value>Եթե ​​ցանկանում եք սա նորից տեսնել, կտտացրեք տեսախցիկի էկրանի վերևի ձախ կողմում գտնվող համբուրգերի (երեք տող) պատկերակին և սեղմեք «Օգնություն»:
+
+
+1) Շրջանակավորեք և վերցրեք առաջին նկարը:</value>
+  </data>
+  <data name="Page.HowToUse.P2" xml:space="preserve">
+    <value>3) Ձեր հեռախոսը անշարժ պահեք ձեր առջև և դանդաղ շարժվեք դեպի այն ուղղությամբ, որը ձեզ ասում է CrossCam-ը: Շատ հեռու մի շարժվեք՝ ձեր թիրախից մեկ մատնաչափ կամ ավելի քիչ հեռավորության վրա: Բացի այդ, ընդհանրապես մի շրջվեք, պարզապես սահեցրեք մի կողմ, կամ գուցե նույնիսկ պարզապես թեքեք:
+
+4) Առաջին նկարը հավասարեցրեք երկրորդ նկարի նախադիտմանը և նկարեք երկրորդ նկարը, երբ հավանեք այն, ինչ տեսնում եք:
+
+5) CrossCam-ը ավտոմատ կերպով կհավասարեցնի ձեր նկարները նկարելուց հետո, բայց դա կատարյալ չէ, եթե ձեզ դուր չի գալիս, թե ինչպես են դրանք հավասարեցվել, կարող եք անջատել ավտոմատ հավասարեցումը` հպելով փոքրիկ ռոբոտի պատկերակին: CrossCam-ն ունի նաև ձեռքով խմբագրման բազմաթիվ տարբերակներ, որոնց կարող եք հասնել՝ հպելով մատիտի պատկերակին:
+
+6) Հպեք ստուգման նշանին, երբ պատրաստ եք պահպանել:
+
+
+Այլ բաներ, որոնք կարող եք անել.
+ • Մեկ անգամ հպեք՝ կետի վրա կենտրոնանալու համար, երկու անգամ հպեք՝ շարունակական ավտոմատ ֆոկուսին վերադառնալու համար:
+ • Հպեք տեսախցիկի էկրանի վերևի աջ կողմում գտնվող հանդերձի պատկերակին՝ Կարգավորումների էջը բացելու համար: Այն լի է հետաքրքիր բաներով:
+ • Գոյություն ունի «Խորհուրդներ» էջ, որտեղ կարող եք մուտք գործել՝ հպելով խցիկի էկրանի վերևի ձախ մասում գտնվող համբուրգերի պատկերակին, որը կարող է օգնել ձեզ հիանալի դարձնել ձեր նկարները:
+ • Եթե նախընտրում եք շարժվել մյուս ուղղությամբ ձեր երկրորդ կրակոցի համար կամ ցանկանում եք փոխել կողքերը, պարզապես սահեցրեք:
+ • Հպեք ներքևում գտնվող փոքրիկ թղթապանակի պատկերակին` պատկերը որպես կողք կամ ամբողջական ստերեո պատկեր բեռնելու համար:</value>
+  </data>
+  <data name="Page.Faq.Alignment" xml:space="preserve">
+    <value>Ինչպե՞ս է աշխատում ավտոմատ հավասարեցումը:</value>
+  </data>
+  <data name="Page.Faq.Alignment.Body" xml:space="preserve">
+    <value>Ավտոմատ հավասարեցումը փորձում է հնարավորինս լավ հավասարեցնել պատկերների զույգերը, բայց դա կատարյալ չէ: Համակարգչային տեսողությունը որոշ բաներում ավելի լավ է, քան մարդու աչքերը, բայց նաև շատ ավելի վատ է այլ բաներում: Աշխարհը, որը նա տեսնում է, շատ տարբեր է, քան մենք, բայց այն կարող է նաև տեսնել մի քանի տարբեր ձևերով: Երկու հիմնական ուղիները, որոնք այն տեսնում է CrossCam-ում, ընդլայնված հարաբերակցության գործակիցն են (ECC) և հիմնական կետերի օգտագործումը:
+
+ECC հավասարեցումը հիմնականում աշխատում է՝ փորձելով համոզվել, որ թեթև բծերը համընկնում են թեթև բծերի հետ, և մուգ բծերը համընկնում են մուգ բծերի հետ, երբ երկու կողմերը ծածկված են միմյանց վրա: ECC հավասարեցումը գալիս է վստահության միավորով, որը կոչված է օգնելու որոշել, թե արդյոք հավասարեցումն արդյունավետ էր: CrossCam-ը ստեղծվել է այնպես, որ մերժի արտադրված հավասարեցումը, եթե վստահությունը շատ ցածր է, բայց դուք կարող եք կարգավորել վստահության անցման/անհաջողության շեմը Կարգավորումների էջում:
+
+Հիմնական կետերի հավասարեցումը փնտրում է հետաքրքիր կետեր, ինչպիսիք են անկյունները, եզրերը, կետերը և բարձր հակադրությունը և փորձում է դրանք համապատասխանեցնել երկու կողմերի միջև: Երբ կետերը համընկնում են, CrossCam-ը կարող է օգտագործել մի շարք ալգորիթմներ՝ փորձելով շեղել կողմերը, որպեսզի մի կողմից հիմնական կետերը հնարավորինս մոտ լինեն մյուս կողմից իրենց համապատասխան հիմնական կետերին:
+
+CrossCam-ը ծրագրված է սկզբում օգտագործել առանցքային կետերի հավասարեցում, բայց այն կվերադառնա ECC հավասարեցում, երբ առանցքային կետերի հավասարեցումը ձախողվի կամ երբ լուսանկարումն արվում է մեկ կրակոցի հայելային բաժանման մեթոդով: Կարող եք նաև կարգավորել ավտոմատ հավասարեցումը, որպեսզի միշտ օգտագործի հիմնական կետերի հավասարեցումը կամ միշտ օգտագործեք ECC հավասարեցումը Կարգավորումների էջում:
+
+CrossCam-ը կցուցադրի հավասարեցման արդյունքը տեսախցիկի էկրանին փոքրիկ ռոբոտի պատկերակի տակ: Եթե ​​այն օգտագործել է ECC հավասարեցում, այն կցուցադրի վստահության տոկոսը: Եթե ​​այն օգտագործել է առանցքային կետերի հավասարեցում, այն կցուցադրի «KP»: Եթե ​​հավասարեցման երկու մեթոդներն էլ ձախողվեցին, այն կցուցադրի «F»: Եթե ​​ձեզ դուր չի գալիս հավասարեցման արդյունքը, կարող եք հպել փոքրիկ ռոբոտի պատկերակին՝ հավասարեցումը հեռացնելու համար:</value>
+  </data>
+  <data name="Page.Faq.Bad" xml:space="preserve">
+    <value>Արդյո՞ք սա վատ է իմ աչքերի համար:</value>
+  </data>
+  <data name="Page.Faq.Bad.Body1" xml:space="preserve">
+    <value>Չգիտեմ, բայց չեմ կարծում։ Այնուամենայնիվ, եթե դա վատ է զգում, պարզապես ընդմիջեք: Պրակտիկայի ընթացքում անհանգստությունը սովորաբար նվազում է: Դիտման ցանկացած մեթոդ կարող է անհարմարություն առաջացնել մի էֆեկտի պատճառով, որը կոչվում է վեգետացիա-հարմարեցում հակամարտություն: Ահա</value>
+  </data>
+  <data name="Page.Faq.Bad.Body2" xml:space="preserve">
+    <value>Wikipedia-ի հղումը վեգետացիա-հարմարեցում հակամարտության մասին:</value>
+  </data>
+  <data name="Page.Faq.Bad.Body3" xml:space="preserve">
+    <value>Եթե ​​դուք օգտագործում եք խաչաձև աչքերով մեթոդը, ապա այդ զգացումը կարող է պայմանավորված լինել նաև այն պատճառով, որ ձեր աչքերը սովոր չեն մատնացույց անել, կարծես այդքան մոտ ինչ-որ բան են նայում այդքան երկար ժամանակ: Խաչաձև դիտման ժամանակ ձեր աչքերը միանում են ձեր աչքերի և էկրանի միջև ընկած հատվածի կեսին: Եթե ​​երկար ժամանակ փակվող բանին նայելը նույնպես ձեզ անհանգստություն կառաջացներ, մենք ունենք մեր բացատրությունը։
+
+Իմ կարծիքն այն է, որ ձեր աչքերը ոչինչ չեն անում իրենց ամենօրյա հնարավորություններից դուրս, բայց դուք համատեղում եք երկու տարբեր կարողություններ, որոնք սովորաբար այդպես չեն օգտագործվում: Դուք ձեր ոսպնյակները կենտրոնացնում եք ինչ-որ բանի վրա, որի վրա սովորաբար հարմար է կենտրոնանալ, և ձեր աչքերն ուղղում եք մի տեղ, որտեղ սովորաբար հարմար է ցույց տալ, բայց այն վայրում, որտեղ ձեր ոսպնյակները կենտրոնանում են և որտեղ ձեր աչքերը միանում են: պարզապես նույն կետը չէ: Ես չեմ հասկանում, թե դա ինչպես կարող է վատ լինել ձեզ համար, քանի դեռ ձեր տեսողությունը դեռ չի զարգանում:</value>
+  </data>
+  <data name="Page.Faq.Cardboard" xml:space="preserve">
+    <value>Ինչպե՞ս կարող եմ օգտագործել CrossCam-ը Google Cardboard-ի հետ:</value>
+  </data>
+  <data name="Page.Faq.Cardboard.Body" xml:space="preserve">
+    <value>Եթե ​​ձեր հեռուստադիտողն ունի կոճակ, որը սեղմում է էկրանի կենտրոնը, կարող եք այն օգտագործել Cardboard-ի միջոցով լուսանկարելու համար: Ձեր հեռուստադիտողը նույնպես պետք է անցք ունենա, որպեսզի ձեր հեռախոսի տեսախցիկը տեսնի:
+
+Cardboard-ի միջոցով լուսանկարներ անելու համար նախադիտման դիտման եղանակը (Կարգավորումների էջում) փոխեք Cardboard-ի, այնուհետև վերադարձեք տեսախցիկի էջ և կպցրեք ձեր հեռախոսը դիտողի մեջ: Սեղմեք կոճակը՝ նկարելու համար, և երբ երկու կողմերն էլ նկարվեն, նորից սեղմեք կոճակը՝ պահպանելու համար: Cardboard ռեժիմում պահելը նախատեսված է միայն այն բանի համար, որ թույլ տա ձեզ կրկին բեռնել պատկերները CrossCam՝ ավելի ուշ դիտելու համար, այլ ոչ թե դրանք դիտելու ձեր լուսանկարների հավելվածում դիտելու համար:
+
+Կարող եք նաև լուսանկարել՝ օգտագործելով ցանկացած այլ եղանակ, որը ցանկանում եք, այնուհետև փոխեք ձեր Նախադիտման դիտման մեթոդը Cardboard-ի և ձեր հեռախոսը տեղադրեք դիտողի մեջ:
+
+Կան շատ տարբեր դիտողներ այնտեղ տարբեր հատկություններով: Հնարավոր է, որ ձեզ անհրաժեշտ լինի փոխել Cardboard-ի բաժանման հեռավորությունը (Կարգավորումների էջում)՝ ձեր փորձն ավելի հարմարավետ դարձնելու համար: Հնարավոր է նաև, որ անհրաժեշտ լինի նախ համոզվել, որ լավ եք նկարում բարձրորակ ստերեոգրամներ, նախքան դրանք հսկայական և սուզվող դարձնելը:</value>
+  </data>
+  <data name="Page.Faq.How" xml:space="preserve">
+    <value>Ինչպե՞ս է սա աշխատում:</value>
+  </data>
+  <data name="Page.Faq.How.Body1" xml:space="preserve">
+    <value>3D էֆեկտը, որն օգտագործում է CrossCam-ը, լավ ուսումնասիրված դիսցիպլին է, որը հայտնի է որպես ստերեոսկոպիա, և այն մեթոդը, երբ դուք խաչում եք ձեր աչքերը (կամ հանգստացնում դրանք) երկու կողմերը դիտելու համար, կոչվում է անվճար դիտում: Երբ մենք նայում ենք աշխարհին, մեր յուրաքանչյուր աչք տեսնում է տարբեր տեսանկյունից: Ստերեոսկոպիայի ժամանակ մենք ընդամենը մեկ (արհեստական) տեսանկյուն ներկայացնում ենք յուրաքանչյուր աչքին, իսկ մեր ուղեղն անում է մնացածը: Կան բազմաթիվ տարբեր եղանակներ՝ ստիպելու յուրաքանչյուր աչք տեսնել տարբեր պատկեր: Ահա</value>
+  </data>
+  <data name="Page.Faq.How.Body2" xml:space="preserve">
+    <value>Վիքիպեդիայի հղում ստերեոսկոպիայի վերաբերյալ</value>
+  </data>
+  <data name="Page.Faq.How.Body3" xml:space="preserve">
+    <value>3D նկարները, որոնք դուք անում եք CrossCam-ով, կոչվում են ստերեոգրամներ: Magic Eye™ գրքերը պարունակում են այն, ինչ կոչվում է autostereograms:</value>
+  </data>
+  <data name="Page.Faq.Into" xml:space="preserve">
+    <value>Ինչպե՞ս մտաք ստերեոսկոպիայի մեջ:</value>
+  </data>
+  <data name="Page.Faq.Into.Body1" xml:space="preserve">
+    <value>Մինչ ես ստանում էի իմ ֆիզիկայի աստիճանը, ես հնարավորություն ունեցա փորձեր կատարել՝ ստեղծելով իմ սեփական հոլոգրամները՝ օգտագործելով լազերներ: Իմ պատրաստած հոլոգրամների տեսակը 3D էր, քանի որ դրանք օգտագործում էին դիֆրակցիոն ցանց՝ ապակե ափսեի մակերևույթից արտացոլվող լույսի կործանարար միջամտություն առաջացնելու համար, ինչը հանգեցնում է արտացոլված պատկերի տարբեր տեսքի տարբեր վայրերից: Երբ մեր աչքերից յուրաքանչյուրը տեսնում է պատկեր, որը կարծես այլ տեսանկյունից է (եթե դրանք շատ տարբեր չեն), մեր ուղեղը դա ընկալում է որպես խորություն:</value>
+  </data>
+  <data name="Page.Faq.Into.Body2" xml:space="preserve">
+    <value>Ես երկար ժամանակ տեղյակ էի ստերեոսկոպիկ ընկալման այդ սկզբունքին, բայց կյանքիս այդ պահին նաև ծրագրավորման դասերի էի հաճախում, ուստի որոշեցի փորձել ստեղծել ստերեոսկոպիկ 3D նկարչության համար պարզ համակարգչային ծրագիր: Այդ ջանքերը դարձան StereoSketcher: Բնօրինակ տարբերակը գրված էր Java-ով, բայց ես այն վերագրեցի Javascript-ով և SVG-ով և այժմ այն ​​ապրում է համացանցում</value>
+  </data>
+  <data name="Page.Faq.Into.Body3" xml:space="preserve">
+    <value>այս հղումով։</value>
+  </data>
+  <data name="Page.Faq.Into.Body4" xml:space="preserve">
+    <value>Այն ոչ մի կերպ հայտնի չէ, և ինձնից բացի որևէ մեկի համար հեշտ չէ օգտագործել, բայց այն աշխատում է: StereoSketcher-ի վրա աշխատելիս ես փորձարկեցի ստերեոսկոպիայի սկզբունքները, և ես հիացա այն բանով, թե ինչպես կարելի է ստեղծել մի քանի պարզ կանոնների կիրառմամբ նման սուզվող և գրավիչ փորձ:</value>
+  </data>
+  <data name="Page.Faq.Inverted" xml:space="preserve">
+    <value>Ինչու՞ 3D-ը ճիշտ չի թվում ԿԱՄ ինչու է 3D-ն շրջված տեսք ունի:</value>
+  </data>
+  <data name="Page.Faq.Inverted.Body1" xml:space="preserve">
+    <value>Խաչաձև կամ զուգահեռ մեթոդով անվճար դիտելիս կարևոր է նկարները դիտել նույն մեթոդով, որն օգտագործվել է դրանք ստեղծելու համար: Հակառակ դեպքում, ձեր աջ աչքը կնայի ձախ աչքի համար նախատեսված հեռանկարին և հակառակը։ Սա ստիպում է պատկերի խորությունը շրջվել, քանի որ պարալաքսի ուղղությունը փոխվել է:
+
+Parallax-ը նշանակում է, որ ձեր աջ աչքի տեսանկյունից, երբ առարկաները ավելի հեռու են, թվում է, որ դրանք ավելի աջ են, քան ավելի մոտ առարկաները, երբ դիտվում են ձեր ձախ աչքով: Դա շփոթեցնող է, երբ նկարագրվում է նախադասության ձևաչափով, բայց շատ ինտուիտիվ, երբ ցուցադրվում է:
+
+Ցուցադրելու համար մի մատը մոտդ ձեռքի երկարությամբ բարձրացրու քո առջև, այնուհետև մյուս ձեռքով մյուս մատը պահիր առաջին մատի և դեմքի միջով: Եթե ​​հերթափոխով փակեք յուրաքանչյուր աչք և ուշադրություն դարձնեք, թե որտեղ են գտնվում ձեր մատները, կտեսնեք, որ յուրաքանչյուր աչք դրանք տեսնում է տարբեր տեղերում: Այսպիսով, բնականաբար, եթե յուրաքանչյուր աչք տեսնի այդ շարժումը հակառակ ուղղությամբ, որը ենթադրվում է, ապա խորությունը կշրջվի:
+
+Շատ հեշտ է պատահաբար օգտագործել սխալ դիտման մեթոդը, քանի որ պարզվում է, որ մարդկանց մեծամասնության համար շատ դժվար է հասկանալ, թե արդյոք նրանք խաչակնքում են, թե հանգստացնում են իրենց աչքերը պարզապես զգալով կամ նայելով աշխարհի շփոթեցնող կրկնակի պատկերին, որը ստացվում է: Փոխարենը, ավելի լավ է կամ մեկ ուրիշին նայեք, թե ինչ են անում ձեր աչքերը, կամ փորձեք փորձարկողի այս պատկերը.</value>
+  </data>
+  <data name="Page.Faq.Inverted.Body2" xml:space="preserve">
+    <value>Շատերը բավական հարմար են դիտել Magic Eye™ գրքերը, որոնք նախատեսված են զուգահեռ դիտման մեթոդով դիտելու համար: Եթե ​​դրանք խաչաձև դիտեք, ապա ամուր 3D առարկաները, որոնք պետք է դուրս գան էջից, փոխարենը նման են անցքերի: Երկու մեթոդներն էլ թույլ են տալիս տեսնել *ինչ-որ բան*, բայց եթե չկարողացաք ասել, թե դա ինչ է, հավանաբար խաչաձև եք դիտում դրանք:</value>
+  </data>
+  <data name="Page.Faq.Mirror" xml:space="preserve">
+    <value>Ինչպե՞ս անել «մեկ կրակոց հայելու» մեթոդը:</value>
+  </data>
+  <data name="Page.Faq.Mirror.Body1" xml:space="preserve">
+    <value>Հայելու մեթոդով նկարելը կիսում է շրջանակը և կատարում է անհրաժեշտ փոխակերպումը, որպեսզի կարողանաք միաժամանակ երկու կողմերն էլ նկարել՝ օգտագործելով մեկ հեռախոս և սովորական ձեռքի հայելի: Լուսանկարելիս հայելային մեթոդն օգտագործելու համար միացրեք անջատիչը «Կարգավորումներ» էջում հայելային ռեժիմի համար (հպեք փոխանցման պատկերակին՝ այնտեղ հասնելու համար): Հայելու ռեժիմը միացնելուց հետո CrossCam-ը ձեզ կասի, թե որ կողմում պետք է պահել ձեր հայելին: Պահեք ձեր հայելին այդ կողմում և զբաղվեք հեռախոսի և հայելու և առարկայի միջև հավասարեցմամբ: Որոշակի համբերությամբ դուք կկարողանաք դրանք շարել այնպես, որ հայելին ցույց տա կողմերից մեկի ճիշտ հեռանկարը: Քանի որ հայելու մեթոդի կիրառումը ձեր պատկերը կիսում է ուղղահայաց, սովորաբար ավելի լավ է լանդշաֆտով նկարել հայելային մեթոդով:
+
+Այս մեթոդը կաշխատի նաև մեծ, մաքուր պատուհանների արտացոլանքների դեպքում, ինչպես նաև անշարժ լճերի կամ ջրափոսերի վրա (երբ հեռախոսը կողպված է դիմանկարով և շրջվում է մի կողմ):</value>
+  </data>
+  <data name="Page.Faq.Mirror.Body2" xml:space="preserve">
+    <value>Կան որոշ փոխզիջումներ/փոփոխումներ, որոնք պետք է արվեն հայելու մեթոդը կիրառելու համար: Այս ամենը կարելի է ձեռքով անել CrossCam-ում, բայց ավտոմատ հավասարեցումը նույնպես կփորձի դրանք անել ձեզ համար.
+ • Քանի որ արտացոլված տեսքը անցնում է ավելի երկար հեռավորության վրա, քան սովորական տեսքը, հայելային կողմը պետք է մի փոքր մեծացվի:
+ • Հավանական է, որ հայելու մեթոդն օգտագործելիս դուք կվերցնեք ոտքի մատները, այլ ոչ թե հեռանկարները զուգահեռ պահելու, դա կարող է հանգեցնել կարճատև տեսքի վատ ուղղահայաց դասավորության: Դա չեղարկելու համար կարելի է կատարել keystone-ի ուղղում, ինչը նշանակում է ուղղահայաց փոքրացնել յուրաքանչյուր պատկերի մի կողմը:
+ • Ոտքով ներս մտնելը նաև հակված կլինի ստերեո պատուհանը դեպի ձեզ տեղափոխել: Դուք կարող եք հետարկել դա և տեղադրել այնտեղ, որտեղ ցանկանում եք՝ կտրելով կողքերը:
+ • Հայելին, հավանաբար, ամբողջությամբ չի ծածկի մի կողմի տեսարանը, ուստի կարող է անհրաժեշտ լինել որոշակի կտրում անել՝ չարտացոլված բիտերը հեռացնելու համար:
+
+Դրա համար լավագույն հայելիներն ունեն բարակ ապակի: Առաջին հերթին դրանք թեթև են, ուստի ավելի հեշտ է երկար ժամանակ պահել: Մյուս կարևոր բանն այն է, որ հայելին օգտագործելիս, ամենայն հավանականությամբ, հայելին կողք կուղղեք, քան ուղիղ նայեք դրա մեջ, քանի որ սովորաբար օգտագործվում են հայելիներ: Այդպես կողմնորոշվելու դեպքում հաստ ապակիներով հայելիները կարող են որոշակի պղտորություն ունենալ: Որքան բարակ լինի ապակին, այնքան ավելի քիչ ակնհայտ կլինի այս պղտորումը: Այս տեսակի հայելիները կարող են նաև անորակ լինել այլ առումներով, ուստի կարևոր է լավ հավասարակշռություն գտնել:
+
+Կան մի քանի այլ փոխզիջումներ, որոնք պետք է ընդունվեն հայելային նկարահանում օգտագործելիս, որոնք չեն կարող ուղղվել CrossCam-ի խմբագրումների ժամանակ.
+ • Քանի որ երկու կողմերի տեսարանն անցնում է մի փոքր տարբեր հեռավորություններ, յուրաքանչյուր կողմի համար անհրաժեշտ ֆոկուսը մի փոքր տարբեր կլինի, ուստի մի կողմը միշտ մի փոքր մշուշոտ կլինի: Այս էֆեկտը քիչ թե շատ նկատելի կլինի՝ կախված առարկայի հեռավորությունից և ոսպնյակի դաշտի խորությունից:
+ • Ոչ մի հայելի իսկապես 100% արդյունավետ չէ, ուստի այն կողմը, որն օգտագործում է հայելին, կարող է մի փոքր ավելի մուգ լինել: Սա կախված կլինի հայելու որակից:</value>
+  </data>
+  <data name="Page.Faq.Moving" xml:space="preserve">
+    <value>Իմ առարկան շարժվում է, ինչպե՞ս կարող եմ նրան 3D նկարներ անել:</value>
+  </data>
+  <data name="Page.Faq.Moving.Body" xml:space="preserve">
+    <value>CrossCam-ը թույլ է տալիս միաժամանակ երկու տեսանկյունները գրավելու երկու եղանակ: Մեկ մեթոդը օգտագործում է երկու հեռախոս, իսկ մեկ մեթոդը օգտագործում է հայելի:
+
+Երկու հեռախոսի կարգավորումն օգտագործելու համար ստուգեք Զուգակցման կարգավորումների էջը, որը կարող եք մուտք գործել Կարգավորումների էջից (հպեք հանդերձի պատկերակին):
+
+Հայելային մեթոդն օգտագործելու համար ստուգեք դրա վերաբերյալ ՀՏՀ մյուս հարցը:</value>
+  </data>
+  <data name="Page.Faq.Test" xml:space="preserve">
+    <value>Ինչպե՞ս կարող եմ փորձարկել CrossCam-ի նախնական թողարկման տարբերակները:</value>
+  </data>
+  <data name="Page.Faq.Test.Body" xml:space="preserve">
+    <value>Դիտեք Reddit-ի այս գրառումը</value>
+  </data>
+  <data name="Page.Faq.Why" xml:space="preserve">
+    <value>Ինչու՞ ստեղծեցիք CrossCam-ը:</value>
+  </data>
+  <data name="Page.Faq.Why.Body" xml:space="preserve">
+    <value>Երբ ես սկսեցի հետաքրքրվել ստերեոսկոպիայով, ես պատահաբար մեկնեցի Յելոուսթոուն: Մինչ ես այնտեղ էի, ես հասկացա, որ կարող է զվարճալի լինել փորձել օգտագործել 3D տեսախցիկի բջջային հավելվածը՝ այնտեղ իրերը 3D ձևով նկարելու համար: Ես շատ հիասթափված էի առկա տարբերակներից։ Ես գտա, որ նրանք բոլորն էլ ձեզանից պահանջում էին երկու գրավում անել, իսկ հետո պարզել, թե արդյոք դրանք լավն են: Նրանք հաճախ չէին լինում, քանի որ ես ստիպված էի բազմիցս ամբողջական գուշակություններ անել իմ բաժանման հեռավորության, ինչպես նաև թեմայի որակի վերաբերյալ:
+
+Հաջորդ մի քանի շաբաթվա ընթացքում իմ եռացող հիասթափությունը ստիպեց ինձ պատկերացնել, որ ուղղակի առաջինի հետ մեկտեղ երկրորդ նկարի ուղիղ նախադիտում եմ տալիս: Ես արդեն ունեի բջջային զարգացման նախապատմություն, ուստի այն ժամանակ պարզապես ժամանակ դնելու խնդիր էր: CrossCam-ը ինձ համար հիանալի էր օգտագործել միայն ինձ համար՝ հիշողությունները պահպանելու համար, և ես ուրախ եմ այն ​​կիսել նաև ձեզ հետ:</value>
+  </data>
+  <data name="Page.Faq.Wiggle" xml:space="preserve">
+    <value>Ինչ են wigglegrams- ը:</value>
+  </data>
+  <data name="Page.Faq.Wiggle.Body" xml:space="preserve">
+    <value>Wigglegrams-ը ստերեոգրամներ դիտելու միջոց է, որը չի հիմնվում երկդիտակ տեսողության վրա: Դրանք սովորաբար գիֆ են, որը շրջվում է ետ ու առաջ երկու տեսանկյունների միջև՝ յուրաքանչյուրն ամբողջությամբ ցուցադրելով նույն տեղում: CrossCam-ը չի աջակցում դրանց պատրաստմանը հենց հիմա, բայց եթե դուք իսկապես հետաքրքրված եք դրանք, և ես կկատարեմ դա:</value>
+  </data>
+  <data name="Page.Tips.AlignAfter" xml:space="preserve">
+    <value>Ուշադրություն դարձրեք հորիզոնական գծերին, բայց կարող եք նաև հավասարեցնել հետո:</value>
+  </data>
+  <data name="Page.Tips.AlignAfter.Body" xml:space="preserve">
+    <value>Եթե ​​դուք գտնում եք, որ լուսանկարելիս անհնար է այնպես անել, որ վերին և ստորին ուղեցույցի գծերը միաժամանակ շարվեն, դուք հավանաբար շարժվել եք այլ ուղղությամբ, քան պարզապես կողքից: Փորձեք շտկել դա նախքան նկարները նկարելը, բայց փաստից հետո հավասարեցումը կարող է շատ օգնել դրան:</value>
+  </data>
+  <data name="Page.Tips.Alignment" xml:space="preserve">
+    <value>Դուք կարող եք անջատել ավտոմատ հավասարեցումը:</value>
+  </data>
+  <data name="Page.Tips.Alignment.Body" xml:space="preserve">
+    <value>Եթե ​​ձեզ դուր չեն գալիս ավտոմատ հավասարեցման արդյունքները, պարզապես անջատեք այն Կարգավորումների էջում կամ հպելով փոքրիկ ռոբոտի պատկերակին, և ձեր բնօրինակ նկարած նկարները կվերականգնվեն:</value>
+  </data>
+  <data name="Page.Tips.Donut" xml:space="preserve">
+    <value>Դոնաթի ուղեցույցը կարող է օգնել ձեր պատուհանին:</value>
+  </data>
+  <data name="Page.Tips.Donut.Body" xml:space="preserve">
+    <value>Կարգավորումների էջում կա փորձարարական ուղեցույց, որը կարող եք միացնել, որը կարող է օգնել ձեզ պահպանել ձեր ստերեո պատուհանը՝ առավելագույնի հասցնելով օգտագործելի լայնությունը: Ձախ և աջ թեքվելով բլիթների խորությունը կփոխվի տեսարանի մնացած հատվածի համեմատ. դրեք բլիթների խորությունը այնպես, որ այն լինի ձեր տեսարանի ամենահեռավոր կետի վրա կամ ետևում: Զգույշ եղեք, այն օգտագործելը փոքր տեսարաններում կարող է ցավ պատճառել (տե՛ս վերևում գտնվող հիմնական հուշումը):</value>
+  </data>
+  <data name="Page.Tips.Keystone" xml:space="preserve">
+    <value>Keystone-ի ուղղումը անհրաժեշտ է, եթե դուք ոտք եք դնում:</value>
+  </data>
+  <data name="Page.Tips.Keystone.Body1" xml:space="preserve">
+    <value>Եթե ​​յուրաքանչյուր կրակոցի հետ շրջվում եք դեպի ներս, շատ օգտակար է առանցքային ուղղումներ կատարելը: Սովորաբար դուք կցանկանայիք փոքրացնել լուսանկարների ներսի եզրերը, այնուհետև մի մասը կտրել վերևից և ներքևից՝ դրանք հարթեցնելու համար: Դուք ստանում եք keystone խմբագրման ընտրացանկ՝ սեղմելով կոճակը, որն ունի հետևյալ տեսքը.</value>
+  </data>
+  <data name="Page.Tips.Keystone.Body2" xml:space="preserve">
+    <value>Ներս շրջվելը կոչվում է ոտքի մեջ: Այն կարող է առաջացնել կրճատող էֆեկտ, որը դժվարացնում է պատկերի անկյունների միաձուլումը: Կարճացնող էֆեկտն առկա է բոլոր ժամանակներում իրական կյանքում, քանի որ զուգահեռ գծերը կարծես թե միանում են, երբ նրանք հեռանում են ձեզանից հեռու, բայց արհեստական ​​հեռանկարները կարող են դա տարօրինակ դարձնել:</value>
+  </data>
+  <data name="Page.Tips.Lean" xml:space="preserve">
+    <value>Դուք կարող եք պարզապես հենվել:</value>
+  </data>
+  <data name="Page.Tips.Lean.Body" xml:space="preserve">
+    <value>Երբեմն նկարելու համար ոտքերը ամբողջությամբ ձախ կամ աջ շարժելու փոխարեն, ավելի հեշտ է կանգնել ոտքերը բացած և թեքվել յուրաքանչյուր ուղղությամբ, բայց զգույշ եղեք, որ հեռախոսը պահեք նույն բարձրության վրա: Շարժվելու փոխարեն պարզապես թեքվելը կարող է օգնել ձեզ շատ հեռու շարժվելուց և կարող է հեշտացնել ձեր նպատակը ուղիղ պահելը:</value>
+  </data>
+  <data name="Page.Tips.Lines" xml:space="preserve">
+    <value>Հարթեցման գծերը կարող են շարժվել:</value>
+  </data>
+  <data name="Page.Tips.Lines.Body" xml:space="preserve">
+    <value>Եթե ​​ցանկանում եք, կարող եք քաշել հավասարեցման գծերը: Սա հատկապես օգտակար է խմբագրման ընթացքում նկարները հավասարեցնելիս:</value>
+  </data>
+  <data name="Page.Tips.Old" xml:space="preserve">
+    <value>Դուք կարող եք բացել հին լուսանկարները CrossCam-ում:</value>
+  </data>
+  <data name="Page.Tips.Old.Body" xml:space="preserve">
+    <value>Դուք կարող եք բեռնել նախկինում արված նկարները՝ հպելով տեսախցիկի էջի ներքևի մասում գտնվող թղթապանակի պատկերակին, բայց եթե աշխատում եք լուսանկարների մեծ խմբաքանակի հետ, կարող եք նաև դրանք կիսել CrossCam-ին անմիջապես ձեր լուսանկարների հավելվածից, որը կարող է հետևել ձեր լուսանկարներին։ ավելի լավ տեղավորեք ձեր լուսանկարներում:</value>
+  </data>
+  <data name="Page.Tips.Quick" xml:space="preserve">
+    <value>Միացրեք արագ ռեժիմը, երբ ուրիշների հետ եք:</value>
+  </data>
+  <data name="Page.Tips.Quick.Body" xml:space="preserve">
+    <value>Եթե ​​ուսումնասիրում եք այլ մարդկանց հետ, լավ գաղափար է անցնել արագ ռեժիմի` անջատելով ավտոմատ հավասարեցումը և և եզրագծերը և պարզապես պահպանելով այն, երբ նկարել եք առանց որևէ խմբագրման: Դուք միշտ կարող եք բեռնել, ավտոմատ հարթեցնել և խմբագրել նկարները ավելի ուշ: Այսպիսով, ձեր ուղեկիցները ստիպված չեն լինի սպասել, որ դուք տեղում կատարեք ձեր նկարները, բայց դուք դեռ կարող եք վստահ լինել, որ ձեր ուզած խորությունն իսկապես կա: Պարզապես զգույշ եղեք, որ չանեք որևէ հապճեպ խմբագրում մինչև առաջին պահումը: Կարող եք նաև միացնել առանձին կողային պահպանումը, որն անտեսելու է ձեր կատարած ցանկացած խմբագրում:</value>
+  </data>
+  <data name="Page.Tips.Sick" xml:space="preserve">
+    <value>Եթե ​​շարժումը ձեզ հիվանդացնում է, հանգիստ պահեք:</value>
+  </data>
+  <data name="Page.Tips.Sick.Body" xml:space="preserve">
+    <value>Եթե ​​բոլոր շարժումները ձեզ հիվանդացնում են կամ չափազանց դժվարացնում են 3D-ով դիտելը, մի սկսեք այն տեսնել 3D-ով, մինչև մի փոքր առաջ շարժվեք: Այնուհետև համեմատեք նկարները միմյանց հետ և հարթեցրեք նկարները՝ օգտագործելով հորիզոնական գծերը՝ առանց 3D դիտման, այնուհետև սկսեք 3D դիտումը, երբ հավասարեցված եք և անշարժ պահեք:</value>
+  </data>
+  <data name="Page.Tips.Space" xml:space="preserve">
+    <value>Այս նկարները կարող են շատ պահեստավորել. դուք կարող եք դրանք փոքրացնել:</value>
+  </data>
+  <data name="Page.Tips.Space.Body" xml:space="preserve">
+    <value>Կարգավորումների էջն ունի վերջնական նկարի լուծաչափը համամասնորեն նվազեցնելու տարբերակ. սա կարող է օգնել, եթե ցանկանում եք տարածք խնայել: Եթե ​​ձեր լուսանկարը կտրված չէ, վերջնական արդյունքը երկու ամբողջական լուծաչափով նկար է, որոնք միավորված են՝ կրկնակի լուծաչափով նկարներ ստեղծելու համար, ինչը նշանակում է, որ դուք հաճախ կարող եք խուսափել լուծաչափի մեծ կրճատումից՝ առանց նկատելիորեն ազդելու որակի վրա:</value>
+  </data>
+  <data name="Page.Tips.Turn" xml:space="preserve">
+    <value>Մի՛ շրջիր։</value>
+  </data>
+  <data name="Page.Tips.Turn.Body" xml:space="preserve">
+    <value>Երբ շարժվում եք, աշխատեք հեռախոսն ընդհանրապես չպտտել որևէ ուղղությամբ, ներառյալ այն բնական հակումը, որը շրջվում է դեպի առարկան, երբ շարժվում եք դեպի կողմը: Որոշակի ռոտացիա անհրաժեշտ կլինի (երբեմն), բայց փորձեք նվազագույնի հասցնել այն: Պատկերացրեք, որ հեռախոսը տեղադրված է ուղիղ հորիզոնական ռելսի վրա և կարող է միայն սահել: Ներս շրջվելը կարող է առաջացնել կարճացնող ազդեցություն, ինչը դժվարացնում է անկյունների միաձուլումը:</value>
+  </data>
+  <data name="Page.Tips.Window" xml:space="preserve">
+    <value>Ավելացրեք եզրագիծ և կտրեք՝ ուժեղ ստերեո պատուհան ստեղծելու համար:</value>
+  </data>
+  <data name="Page.Tips.Window.Body" xml:space="preserve">
+    <value>Հետաքրքիր ստերեո պատուհանի էֆեկտ կարելի է ստեղծել երկու բան անելով՝ 1) միացնել եզրագիծը (Կարգավորումներ էջում) և 2) խաչաձև դիտման համար, կտրել պատկերների ներսի եզրերը, մինչև որ արտաքին եզրն ինքնին դառնա նկարում 3D (կտրել): ԴՐՍԻ եզրերը, եթե զուգահեռ եք դիտում): Հիմնական բանը ձախ նկարի աջ եզրը մի փոքր կտրելն է, քան աջ նկարի աջ եզրը ցույց է տալիս տեսարանը և հակառակը: Եզրագծի ավելացումը փոխարկվում է Կարգավորումների էջում: Եթե ​​սա շփոթեցնող է, պարզապես մի փունջ կտրեք ներսի եզրերից, և այն կսկսի պարզ լինել: Ներքին եզրերի կտրման կոճակը հետևյալն է.</value>
+  </data>
+  <data name="Button.Code" xml:space="preserve">
+    <value>Տես օրենսգիրքը</value>
+  </data>
+  <data name="Button.Developer" xml:space="preserve">
+    <value>Մշակողի մասին</value>
+  </data>
+  <data name="Button.EmailMe" xml:space="preserve">
+    <value>Ուղարկել ինձ էլ</value>
+  </data>
+  <data name="Button.GitHub" xml:space="preserve">
+    <value>Ավելացնել խնդիր GitHub-ում</value>
+  </data>
+  <data name="Button.Press" xml:space="preserve">
+    <value>Վերադարձեք երկու սարքերի տեսախցիկի էկրանին և սեղմեք ներքևի անկյունում գտնվող զույգ կոճակը</value>
+  </data>
+  <data name="Button.Primary" xml:space="preserve">
+    <value>ՀԵՏԵՔ ԱՅՍՏԵՂ ՀԻՄՆԱԿԱՆ ՄԱՍԻՆ</value>
+  </data>
+  <data name="Button.Privacy" xml:space="preserve">
+    <value>Գաղտնիության քաղաքականություն</value>
+  </data>
+  <data name="Button.Secondary" xml:space="preserve">
+    <value>ՀԵՏԵՔ ԱՅՍՏԵՂ երկրորդականի վրա</value>
+  </data>
+  <data name="Button.Test" xml:space="preserve">
+    <value>Փորձարկել նախնական թողարկման տարբերակները</value>
+  </data>
+  <data name="Button.Wi-Fi" xml:space="preserve">
+    <value>Համոզվեք, որ Wi-Fi-ը երկու սարքերում էլ միացված է (սակայն այն որևէ բանի միանալու կարիք չունի)</value>
+  </data>
+  <data name="Page.Pairing.1" xml:space="preserve">
+    <value>Եթե ​​ունեք տեղադրված CrossCam-ով երկու սարք, կարող եք դրանք միացնել՝ միաժամանակ երկու տեսանկյունից լուսանկարելու համար: Միևնույն պահին երկու լուսանկար անելը հնարավոր է դարձնում լավագույն ստերեոգրամները:
+
+Խնդրում ենք նկատի ունենալ, որ այս գործառույթը դեռ փորձնական է և կարող է խնդիրներ ունենալ: Այն կարող է անընդհատ անթերի չաշխատել և կարող է սպառել ձեր մարտկոցը: Խնդրում ենք նաև տեղյակ լինել, որ այս պահին սարքերը պետք է լինեն նույն հարթակը միանալու համար (և Android, թե երկուսն էլ iOS):
+
+Միայն մեկ սարքի և CrossCam-ի միջոցով *կատարյալ* համաժամացում ստանալու եղանակներից մեկը «մեկ կրակոցով հայելու» մեթոդի օգտագործումն է: Դուք կարող եք այն միացնել Կարգավորումների էջում, իսկ դրա մասին կարող եք կարդալ ՀՏՀ էջում:
+
+Նախքան երկու սարքերը միասին օգտագործելը, նրանց դերերը պետք է նշանակվեն: ՀԻՄՆԱԿԱՆ սարքն այն է, որը ցույց կտա երկու նախադիտումները, կգործարկի լուսանկարումը և կպահի/պահի վերջնական նկարները: Դերեր նշանակելու համար երկու սարքերը նավարկեք այս էջ և այնուհետև հետևեք ստորև նշված քայլերին.</value>
+  </data>
+  <data name="Page.Pairing.2" xml:space="preserve">
+    <value>Եթե ​​խնդիրներ ունեք, ՆՇԵՔ.
+ • Զուգակցման գործընթացը սկսելուց հետո զուգակցման կոճակը ցանկացած պահի կարող է կրկին սեղմվել այն դադարեցնելու կամ անջատելու համար:
+ • Դա կարող է օգնել դադարեցնել զուգավորումը երկու սարքերում և վերագործարկել այն միաժամանակ:
+ • Դա կարող է օգնել անջատվել ձեր Wi-Fi-ից կամ տվյալների ցանցերից, եթե դրանք ակտիվանան:
+ • Յուրաքանչյուր տեսախցիկ տարբեր է: Այս տարբերությունները կարող են ներառել տեսադաշտի անկյունային դաշտը, ֆոկուսը, բացահայտումը և սպիտակ հավասարակշռության վարքը, ժամանակացույցը և այլն: Նույնիսկ նույն մոդելի հեռախոսներից երկուսը մի փոքր այլ կերպ կվարվեն: Ես նախընտրում եմ օգտագործել մի զույգ նույնական հին հեռախոսներ (իմ դեպքում՝ մի զույգ iPhone 6):
+ • CrossCam-ը ծրագրային ապահովում է, այլ ոչ թե ապարատային, ուստի լուսանկարները լուսանկարելը կարող է փոքր-ինչ համաժամանակյա լինել՝ կախված նրանից, թե ինչ են անում պրոցեսորներն ու հիշողությունը հենց լուսանկարման գործարկման պահին: Արդյունքում, համաժամացումը երբեմն կարող է կատարյալ չլինել, բայց ընդհանուր առմամբ այն պետք է շատ մոտ լինի:</value>
+  </data>
+  <data name="Page.Pairing.Again" xml:space="preserve">
+    <value>Ավելի ուշ նորից միանալու համար համոզվեք, որ միացված եք Wi-Fi-ը, այնուհետև երկու սարքերի հիմնական էկրանին պարզապես հպեք միացման կոճակին:</value>
+  </data>
+  <data name="Page.Pairing.LocalNetworkAccess" xml:space="preserve">
+    <value>CrossCam-ը պահանջում է Տեղական ցանցի մուտքի թույլտվություն: CrossCam-ը իրականում չի օգտագործում տեղական ցանցը, սակայն iOS-ը պահանջում է, որ CrossCam-ը ստանա այս թույլտվությունը, որպեսզի օգտագործի Wi-Fi ալեհավաքը՝ սարքեր փնտրելու համար: CrossCam-ը մեկ անգամ կխնդրի այս թույլտվությունը. եթե թույլտվությունը մերժվի, դուք պետք է գնաք և շրջեք անջատիչը Կարգավորումներ հավելվածում:</value>
+  </data>
+  <data name="Page.Pairing.Location" xml:space="preserve">
+    <value>CrossCam-ը կպահանջի թույլտվություններ և միացնել բաղադրիչները, ըստ անհրաժեշտության՝ ձեր սարքերը միացնելու համար: Խնդրում ենք նկատի ունենալ. CrossCam-ը պահանջում է տեղորոշման թույլտվություն և տեղորոշման ծառայությունները հիմնական սարքի վրա միացնելու համար՝ երկրորդական սարքին միանալու համար: Սա պարզապես Android-ի պահանջ է և լիովին դուրս է իմ վերահսկողությունից: CrossCam-ը իրականում ոչ մի կերպ չի օգտագործում ձեր գտնվելու վայրը, բայց քանի որ մոտակայքում գտնվող սարքերի որոնման (և գտնելու) գործողությունը տեսականորեն կարող է օգտագործվել ձեզ մոտավոր կերպով գտնելու համար, CrossCam-ը թույլտվություն է պահանջում ձեր գտնվելու վայր մուտք գործելու համար:</value>
+  </data>
+  <data name="Page.Pairing.Permissions" xml:space="preserve">
+    <value>Նշում թույլտվությունների մասին.</value>
+  </data>
+  <data name="Page.Pairing.Title" xml:space="preserve">
+    <value>Զուգավորում</value>
+  </data>
+  <data name="Button.Back" xml:space="preserve">
+    <value>&lt; Հետ</value>
+  </data>
+  <data name="Page.MorePictures.CrossViewSubreddit" xml:space="preserve">
+    <value>CrossView Subreddit</value>
+  </data>
+  <data name="Page.MorePictures.FacebookGroup" xml:space="preserve">
+    <value>Ստերեոսկոպիկ 3D ֆեյսբուքյան խումբ</value>
+  </data>
+  <data name="Page.MorePictures.GoogleDoc" xml:space="preserve">
+    <value>Google Doc of Great Stuff</value>
+  </data>
+  <data name="Page.MorePictures.Instagram" xml:space="preserve">
+    <value>Instagram-ի ստերեոսկոպիկ պիտակ</value>
+  </data>
+  <data name="Page.MorePictures.Mine" xml:space="preserve">
+    <value>Տես նկարներ, որոնք ես արել եմ</value>
+  </data>
+  <data name="Page.MorePictures.ParallelViewSubreddit" xml:space="preserve">
+    <value>ParallelView Subreddit</value>
+  </data>
+  <data name="Page.Settings.Alignment" xml:space="preserve">
+    <value>Ավտոմատ հավասարեցում</value>
+  </data>
+  <data name="Page.Settings.Analytics" xml:space="preserve">
+    <value>Կիսեք անանուն օգտագործման և սխալի տվյալները՝ օգնելու բարելավել CrossCam-ը</value>
+  </data>
+  <data name="Page.Settings.Border" xml:space="preserve">
+    <value>Սահման</value>
+  </data>
+  <data name="Page.Settings.Camera" xml:space="preserve">
+    <value>Տեսախցիկ</value>
+  </data>
+  <data name="Page.Settings.Defaults" xml:space="preserve">
+    <value>Վերականգնել լռելյայն</value>
+  </data>
+  <data name="Page.Settings.Editing" xml:space="preserve">
+    <value>Խմբագրում</value>
+  </data>
+  <data name="Page.Settings.ErrorEmail" xml:space="preserve">
+    <value>Սխալների դեպքում նամակ ուղարկել</value>
+  </data>
+  <data name="Page.Settings.Guides" xml:space="preserve">
+    <value>Գրավման ուղեցույցներ</value>
+  </data>
+  <data name="Page.Settings.Pairing" xml:space="preserve">
+    <value>Զուգավորում</value>
+  </data>
+  <data name="Page.Settings.Preview" xml:space="preserve">
+    <value>Նախադիտման դիտման մեթոդ</value>
+  </data>
+  <data name="Page.Settings.Saving" xml:space="preserve">
+    <value>Խնայողություն</value>
+  </data>
+  <data name="Page.TipMe.1" xml:space="preserve">
+    <value>CrossCam-ն անվճար է օգտագործման համար, առանց գովազդի, բաց կոդով, չի հավաքում ձեզանից անձնական տեղեկատվություն և հնարավորություն է տալիս Ձեզ լիարժեք օգտվել յուրաքանչյուր հատկանիշից: Ես սիրում եմ աշխատել CrossCam-ի վրա, բայց դա շատ ժամանակ և ջանք է պահանջում: Ես ընդհանրապես գումար չեմ աշխատում CrossCam-ից, բացառությամբ այն հուշումների, որոնք մարդիկ կարող են որոշել ուղարկել ինձ:</value>
+  </data>
+  <data name="Page.TipMe.2" xml:space="preserve">
+    <value>Եթե ​​Ձեզ դուր է գալիս CrossCam-ը և կարող եք, խնդրում եմ ինձ հուշում ուղարկել:</value>
+  </data>
+  <data name="Page.TipMe.Ko-fi" xml:space="preserve">
+    <value>Կո-ֆի</value>
+  </data>
+  <data name="Page.TipMe.Patreon" xml:space="preserve">
+    <value>Պատրեոն</value>
+  </data>
+  <data name="Page.TipMe.PayPal" xml:space="preserve">
+    <value>PayPal</value>
+  </data>
+  <data name="Page.TipMe.Tipped" xml:space="preserve">
+    <value>Ինձ հուշել են</value>
+  </data>
+  <data name="Page.TipMe.TippedTimes" xml:space="preserve">
+    <value>անգամ, ընդհանուր</value>
+  </data>
+  <data name="Page.TipMe.Venmo" xml:space="preserve">
+    <value>Վենմո</value>
+  </data>
+  <data name="Title.MorePictures" xml:space="preserve">
+    <value>Տես ավելի շատ նկարներ</value>
+  </data>
+  <data name="Title.Settings" xml:space="preserve">
+    <value>Կարգավորումներ</value>
+  </data>
+  <data name="Title.TipMe" xml:space="preserve">
+    <value>Խորհուրդները գնահատվում են:</value>
+  </data>
+  <data name="Settings.Alignment.Advanced" xml:space="preserve">
+    <value>Ցույց տալ ընդլայնված հավասարեցման կարգավորումները</value>
+  </data>
+  <data name="Settings.Alignment.Ecc" xml:space="preserve">
+    <value>Փորձեք միշտ օգտագործել ECC հավասարեցումը</value>
+  </data>
+  <data name="Settings.Alignment.Keypoints" xml:space="preserve">
+    <value>Փորձեք միշտ օգտագործել հիմնական կետերի հավասարեցումը</value>
+  </data>
+  <data name="Settings.Alignment.On" xml:space="preserve">
+    <value>Նկարահանումից հետո ավտոմատ հավասարեցում</value>
+  </data>
+  <data name="Settings.Border.Color" xml:space="preserve">
+    <value>Սահմանի գույնը</value>
+  </data>
+  <data name="Settings.Border.FuseGuide" xml:space="preserve">
+    <value>Վերևում ավելացրեք ապահովիչների ուղեցույցը (յուրաքանչյուր կողմից մի կետ վերևում)</value>
+  </data>
+  <data name="Settings.Border.On" xml:space="preserve">
+    <value>Ավելացնել եզրագիծ</value>
+  </data>
+  <data name="Settings.Border.Prompt" xml:space="preserve">
+    <value>Խնդրում է անջատել եզրագիծը, երբ հայտնաբերվի բեռնման ժամանակ</value>
+  </data>
+  <data name="Settings.Border.Thickness" xml:space="preserve">
+    <value>Եզրագծի հաստությունը (լայնության տոկոսի տասներորդականները)</value>
+  </data>
+  <data name="Settings.Camera.Camera1" xml:space="preserve">
+    <value>Force camera1 API (կարող է օգտակար լինել, եթե դուք տարօրինակություններ եք զգում, բայց կհանգեցնի սահմանափակ ֆունկցիոնալության, ուժի մեջ մտնելու համար պահանջվում է ուժային դադարեցում/վերագործարկում)</value>
+  </data>
+  <data name="Settings.Camera.Camera2" xml:space="preserve">
+    <value>Force camera2 API (պետք է լինի Android 6 կամ ավելի նոր տարբերակով, կարող է օգտակար լինել, եթե սխալներ եք հանդիպում, բայց կարող է ավելին անել, ուժի մեջ մտնելու համար պահանջվում է ուժի դադարեցում/վերագործարկում)</value>
+  </data>
+  <data name="Settings.Camera.LandscapeCaptureHorizontal" xml:space="preserve">
+    <value>Լանդշաֆտի նկարահանման կոճակի հորիզոնական տեղադրում</value>
+  </data>
+  <data name="Settings.Camera.LandscapeCaptureVertical" xml:space="preserve">
+    <value>Լանդշաֆտի նկարահանման կոճակի ուղղահայաց տեղադրություն</value>
+  </data>
+  <data name="Settings.Camera.Lock" xml:space="preserve">
+    <value>Կողպեք ֆոկուսը և լուսարձակումը, որպեսզի երկրորդ նկարը կենտրոնանա և բացահայտվի առաջին նկարից</value>
+  </data>
+  <data name="Settings.Camera.Pair" xml:space="preserve">
+    <value>Զույգ կոճակի հորիզոնական տեղադրում (երբ լուսանկարման կոճակը կենտրոնացած է)</value>
+  </data>
+  <data name="Settings.Camera.PointFocus" xml:space="preserve">
+    <value>Հպեք՝ կենտրոնացնելու համար, կրկնակի հպեք՝ շարունակական ֆոկուսին անցնելու համար (կամ պահպանել կամ ջնջել)</value>
+  </data>
+  <data name="Settings.Camera.PortraitCapture" xml:space="preserve">
+    <value>Դիմանկարի նկարահանման կոճակի տեղադրում</value>
+  </data>
+  <data name="Settings.Editing.Align" xml:space="preserve">
+    <value>Ուղղահայաց հավասարեցման առավելագույն համամասնությունը</value>
+  </data>
+  <data name="Settings.Editing.Keystone" xml:space="preserve">
+    <value>Առավելագույն առանցքաքար</value>
+  </data>
+  <data name="Settings.Editing.Rotation" xml:space="preserve">
+    <value>Առավելագույն ռոտացիայի աստիճաններ</value>
+  </data>
+  <data name="Settings.Editing.SideCrop" xml:space="preserve">
+    <value>Կողմնակի բերքի առավելագույն հարաբերակցությունը</value>
+  </data>
+  <data name="Settings.Editing.TopCrop" xml:space="preserve">
+    <value>Վերև/ներքևի բերքի առավելագույն հարաբերակցությունը</value>
+  </data>
+  <data name="Settings.Editing.Zoom" xml:space="preserve">
+    <value>Խոշորացման առավելագույն հարաբերակցությունը</value>
+  </data>
+  <data name="Settings.Guides.Donut" xml:space="preserve">
+    <value>Ցույց տալ բլիթների ուղեցույցը (կհանգեցնի մատների ներթափանցման, ուստի կարող է պահանջվել հիմնական խմբագրում)</value>
+  </data>
+  <data name="Settings.Guides.Fuse" xml:space="preserve">
+    <value>Ցույց տալ ապահովիչների ուղեցույցը (յուրաքանչյուր կողմից մի կետ վերևում)</value>
+  </data>
+  <data name="Settings.Guides.LineColor" xml:space="preserve">
+    <value>Տարբեր գունավոր գծեր</value>
+  </data>
+  <data name="Settings.Guides.Lines" xml:space="preserve">
+    <value>Տեսանելի գծեր</value>
+  </data>
+  <data name="Settings.Guides.Roll" xml:space="preserve">
+    <value>Roll ուղեցույցը տեսանելի է</value>
+  </data>
+  <data name="Settings.Pair.CaptureDelay" xml:space="preserve">
+    <value>Նկարահանման պահի լրացուցիչ ուշացում (ms) (ավելացնում է լրացուցիչ ուշացում միայն այս սարքի վրա թիրախային նկարահանման պահին)</value>
+  </data>
+  <data name="Settings.Pair.Countdown" xml:space="preserve">
+    <value>Նկարել հետհաշվարկի երկարությունը (ժմչփ)</value>
+  </data>
+  <data name="Settings.Pair.Fov" xml:space="preserve">
+    <value>Տեսադաշտի ուղղում</value>
+  </data>
+  <data name="Settings.Pair.FovNotSet" xml:space="preserve">
+    <value>FOV-ի ուղղումը կարգավորված չէ (կատարեք նկարում զուգակցված սարքերի միջոցով՝ կարգավորելու համար):</value>
+  </data>
+  <data name="Settings.Pair.FovReset" xml:space="preserve">
+    <value>Վերականգնել</value>
+  </data>
+  <data name="Settings.Pair.Go" xml:space="preserve">
+    <value>Գնացեք զուգակցման կարգավորումների էջ</value>
+  </data>
+  <data name="Settings.Pair.NoRole" xml:space="preserve">
+    <value>Դերը ընտրված չէ</value>
+  </data>
+  <data name="Settings.Pair.PreviewDelay" xml:space="preserve">
+    <value>Նախադիտեք կադրի ուշացումը (ավելի մեծ թիվը կնվազեցնի կադրերի արագությունը, բայց կխնայի մարտկոցը)</value>
+  </data>
+  <data name="Settings.Pair.Primary" xml:space="preserve">
+    <value>Առաջնային:</value>
+  </data>
+  <data name="Settings.Pair.PrimaryRole" xml:space="preserve">
+    <value>Դերը՝ առաջնային</value>
+  </data>
+  <data name="Settings.Pair.Sample" xml:space="preserve">
+    <value>Ժամացույցի նմուշների քանակը (ավելի ցածր թիվը կնվազեցնի սկզբնական համաժամացման համար պահանջվող ժամանակը, բայց կարող է նվազեցնել համաժամացման ճշգրտությունը)</value>
+  </data>
+  <data name="Settings.Pair.Secondary" xml:space="preserve">
+    <value>Երկրորդական:</value>
+  </data>
+  <data name="Settings.Pair.SecondaryRole" xml:space="preserve">
+    <value>Դերը՝ երկրորդական</value>
+  </data>
+  <data name="Settings.Pair.Timeout" xml:space="preserve">
+    <value>Միացման ժամկետը (վայրկյան) (0-ը նշանակում է, որ ժամանակ չկա)</value>
+  </data>
+  <data name="Settings.Preview.Barrel" xml:space="preserve">
+    <value>Ավելացրեք ոսպնյակի ուղղում/տողանի աղավաղում (կարող է նվազեցնել կադրերի արագությունը)</value>
+  </data>
+  <data name="Settings.Preview.BarrelFinal" xml:space="preserve">
+    <value>Ավելացրեք ոսպնյակի ուղղում/փողոցի աղավաղում միայն վերջնական պատկերներին (կարող է դանդաղեցնել վերջնական ցուցադրումը, բայց արագացնել նկարումը)</value>
+  </data>
+  <data name="Settings.Preview.CardboardDistance" xml:space="preserve">
+    <value>Ստվարաթղթի բաժանման հեռավորությունը</value>
+  </data>
+  <data name="Settings.Preview.Downsize" xml:space="preserve">
+    <value>Փոքրացնել պատկերը (կարող է մեծացնել կադրերի արագությունը)</value>
+  </data>
+  <data name="Settings.Preview.DownsizePercent" xml:space="preserve">
+    <value>Փոքրացնել պատկերի տոկոսը</value>
+  </data>
+  <data name="Settings.Preview.Immersive" xml:space="preserve">
+    <value>Ընկղմվող վերջնական դիտում</value>
+  </data>
+  <data name="Settings.Preview.LensStrength" xml:space="preserve">
+    <value>Ոսպնյակների ուղղման ուժը</value>
+  </data>
+  <data name="Settings.Preview.Mirror" xml:space="preserve">
+    <value>Լուսանկարել՝ օգտագործելով միանգամյա հայելային բաժանման մեթոդը</value>
+  </data>
+  <data name="Settings.Preview.Width" xml:space="preserve">
+    <value>Զուգահեռ դիտման առավելագույն լայնությունը (կետեր)</value>
+  </data>
+  <data name="Settings.Reset" xml:space="preserve">
+    <value>Վերականգնել լռելյայն</value>
+  </data>
+  <data name="Settings.Saving.Alone" xml:space="preserve">
+    <value>Պահպանեք առաջին կողմը մենակ (առանց խմբագրումների կամ եզրագծերի) (հարթ լուսանկարը հարթ տեսարանով մարդկանց հետ հեշտ կիսվելու համար)</value>
+  </data>
+  <data name="Settings.Saving.Anaglyph" xml:space="preserve">
+    <value>Պահպանել կարմիր/կանաչ անագլիֆի տարբերակը (փոփոխություններով, բայց առանց եզրագծերի)</value>
+  </data>
+  <data name="Settings.Saving.Browse" xml:space="preserve">
+    <value>Թերթիր...</value>
+  </data>
+  <data name="Settings.Saving.Cardboard" xml:space="preserve">
+    <value>Պահպանել Cardboard-ի համար (փոփոխություններով, առանց եզրագծերի, առանց տարածության, ամբողջ լայնությամբ, ավելի ուշ CrossCam-ում նորից բեռնելու համար)</value>
+  </data>
+  <data name="Settings.Saving.Clear" xml:space="preserve">
+    <value>Պահելուց հետո ինքնաբերաբար մաքրել նկարները</value>
+  </data>
+  <data name="Settings.Saving.Cross" xml:space="preserve">
+    <value>Պահպանեք միացած խաչաձեւ դիտման տարբերակը (փոփոխումներով և եզրագծերով)</value>
+  </data>
+  <data name="Settings.Saving.ExternalDirectory" xml:space="preserve">
+    <value>Պահպանեք արտաքին CrossCam գրացուցակում հետևյալ հասցեով.</value>
+  </data>
+  <data name="Settings.Saving.ExternalWarning" xml:space="preserve">
+    <value>(Զգուշացում. այնտեղ նկարները կջնջվեն, եթե CrossCam-ը հեռացվի)</value>
+  </data>
+  <data name="Settings.Saving.Folder" xml:space="preserve">
+    <value>Պահպանեք հատուկ «CrossCam» ենթաթղթապանակում/ալբոմում</value>
+  </data>
+  <data name="Settings.Saving.Grayscale" xml:space="preserve">
+    <value>Պահպանեք մոխրագույն գույնի կարմիր/կանաչ անագլիֆի տարբերակը (փոփոխություններով, բայց առանց եզրագծերի)</value>
+  </data>
+  <data name="Settings.Saving.Order" xml:space="preserve">
+    <value>(Պահպանումը տեղի կունենա վերևից ներքև հերթականությամբ)</value>
+  </data>
+  <data name="Settings.Saving.Parallel" xml:space="preserve">
+    <value>Պահպանել միացված զուգահեռ դիտման տարբերակը (խմբագրումներով և եզրագծերով)</value>
+  </data>
+  <data name="Settings.Saving.Quad" xml:space="preserve">
+    <value>Պահպանել քառակուսի համակցությունը (խմբագրումներով և եզրագծերով)</value>
+  </data>
+  <data name="Settings.Saving.Reset" xml:space="preserve">
+    <value>Վերականգնել</value>
+  </data>
+  <data name="Settings.Saving.Resolution" xml:space="preserve">
+    <value>Բանաձևի համամասնությունը</value>
+  </data>
+  <data name="Settings.Saving.SaveTo" xml:space="preserve">
+    <value>Պահել՝</value>
+  </data>
+  <data name="Settings.Saving.Separate" xml:space="preserve">
+    <value>Պահպանեք յուրաքանչյուր կողմն առանձին (առանց խմբագրումների կամ եզրագծերի՝ գրառումների ավելի հեշտ մշակման համար, առաջինը պահվում է ձախ կողմը)</value>
+  </data>
+  <data name="Settings.Saving.Subfolder" xml:space="preserve">
+    <value>Պահել հատուկ «CrossCam_{ViewMethod}» ենթաթղթապանակներում/ալբոմներում</value>
+  </data>
+  <data name="Settings.Saving.Triple" xml:space="preserve">
+    <value>Պահպանեք եռակի համադրություն (խմբագրումներով և եզրագծերով)</value>
+  </data>
+  <data name="Button.Pair.Accept" xml:space="preserve">
+    <value>Ընդունել</value>
+  </data>
+  <data name="Button.Pair.Cancel" xml:space="preserve">
+    <value>Չեղարկել</value>
+  </data>
+  <data name="Page.Camera.AcceptConnection" xml:space="preserve">
+    <value>Ընդունել կապը</value>
+  </data>
+  <data name="Page.Camera.Confirm" xml:space="preserve">
+    <value>Հաստատեք, որ կոդը համընկնում է երկու սարքերում.</value>
+  </data>
+  <data name="Page.Footer.CouldntOpen" xml:space="preserve">
+    <value>Չհաջողվեց բացել հղումը</value>
+  </data>
+  <data name="Page.Footer.OpenError" xml:space="preserve">
+    <value>Փոստի հղումը չհաջողվեց բացել: Դա կարող է լինել այն պատճառով, որ ձեր էլփոստի հաճախորդը կարգավորված չէ կամ այլ պատճառ:</value>
+  </data>
+  <data name="Page.Pair.Errors.Denied" xml:space="preserve">
+    <value>Զուգավորման համար անհրաժեշտ թույլտվությունները չեն տրվել: Բացառություն.</value>
+  </data>
+  <data name="Page.Pair.Errors.FailedBluetooth" xml:space="preserve">
+    <value>Սարքը չհաջողվեց միացնել Bluetooth-ը: Բացառություն.</value>
+  </data>
+  <data name="Page.Pair.Errors.FailedSearch" xml:space="preserve">
+    <value>Սարքը չհաջողվեց որոնել սարքեր: Բացառություն.</value>
+  </data>
+  <data name="Page.Pair.Errors.LocationOff" xml:space="preserve">
+    <value>Տեղադրության ծառայություններն ակտիվացված չեն: Հնարավոր չէ սկանավորել սարքերը: Լրացուցիչ մանրամասների համար տես զուգավորման էջը:</value>
+  </data>
+  <data name="Page.Pair.Errors.LocationScan" xml:space="preserve">
+    <value>Տեղադրության թույլտվությունը չի տրվել: Հնարավոր չէ սկանավորել սարքերը: Լրացուցիչ մանրամասների համար տես զուգավորման էջը:</value>
+  </data>
+  <data name="Page.Pair.Errors.NotSupported" xml:space="preserve">
+    <value>Զուգավորումն այս սարքում չի աջակցվում: Բացառություն.</value>
+  </data>
+  <data name="Page.Pair.Errors.Title" xml:space="preserve">
+    <value>Սխալ</value>
+  </data>
+  <data name="Page.Pair.Errors.WifiOff" xml:space="preserve">
+    <value>Wi-Fi-ն անջատված է։ Խնդրում ենք միացնել Wi-Fi-ը:</value>
+  </data>
+  <data name="Page.Pair.PrimaryExplanation" xml:space="preserve">
+    <value>Այս սարքն այժմ դրված է որպես հիմնական:</value>
+  </data>
+  <data name="Page.Pair.PrimarySelected" xml:space="preserve">
+    <value>Ընտրված է առաջնային դերը</value>
+  </data>
+  <data name="Page.Pair.SecondaryExplanation" xml:space="preserve">
+    <value>Այս սարքն այժմ սահմանվել է որպես երկրորդական:</value>
+  </data>
+  <data name="Page.Pair.SecondarySelected" xml:space="preserve">
+    <value>Ընտրված է երկրորդական դերը</value>
+  </data>
+  <data name="Page.Technique.Mode" xml:space="preserve">
+    <value>ռեժիմ.</value>
+  </data>
+  <data name="Page.Technique.SetMode" xml:space="preserve">
+    <value>CrossCam-ն այժմ գործում է</value>
+  </data>
+</root>
